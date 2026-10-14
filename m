@@ -1,143 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A1654F30E3;
-	Wed, 14 Oct 2026 15:18:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9C1353162A;
+	Wed, 14 Oct 2026 15:18:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791991087; cv=none; b=ao9ZidxXaDuhaSF91Z9u1WCSCXawhMN6eTMttdoQHNL2e2eZdtsz8dW3BbzikjhHQunCgPu467k/YzRqGzZ5iTwMm8pZtpCTT1URXNvVZJ4z1x54ev8mGdZGbDp1AuDpzE8lpZ9dTYSw3iognMAD19QPlVRb/B0zp7pITpPs3tk=
+	t=1791991126; cv=none; b=I24IIaaQc17RY+EjNmgM5hdCByvC2KCFHE2wy2zZwh+g47MDXtlpZsVYV+eYjrBd2ma6WbvurpQ8CvDmxoAna+JXc4c/2s8nRZMVROKrymySaU5t2euoVp3TreBPXuc4xL8dhEE6ZJ73X9E8rSNgSvitzmYf0Mt0MV+VIOUjKQw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791991087; c=relaxed/simple;
-	bh=K3ZQhjpkDCd10uGgn9bM3pWcndLwacUwSXCjp5I8Pho=;
+	s=arc-20240116; t=1791991126; c=relaxed/simple;
+	bh=wZdjWgb2NT+vzgnTlPr7fPSSVUJ3ymSYaIFCWHLM2ZU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=u+yFuufH6yi3dXL9HkzNfU+GTvoJ+VAy6xJwvobKMleJ+/zSpwS0Xwdpk60nWOozeylhMG6Z8D6QsKwcWRme4peiw0yyRwDtm5CXz1E5SHfk1eYuOQM4fXt1YrsELXrnJ9LEaacpuZyRvL+jq2y4FhbJAIMdMa5i8SMY1/VKxBI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UXnrRgUC; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=UcjFoBZPrPKQ5dvkqOq8Ks8mCXl5Kcz0CrOn0VdEvremhKm09QXzpqVGcy1XJJ7X3tW+Iwn0xgAzCYLI+hxBIvMXG8EFa9WqcjX0mjm1nQWJUoPE1H2JLRoCNQfAjphBBFASwQDma+hgTSJgYV1DDfmJmO/zAT6rg33Z6wfGF3w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=gqP11io2; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=kdapR0i2; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UXnrRgUC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E09871F000C4;
-	Wed, 14 Oct 2026 15:18:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791991085;
-	bh=7HzxTtSFTMkskMPYJB8U6e4H9U6jOaxLAn1OyG6O1Zg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UXnrRgUCTuPoHFO1bsOIfq4XndwdFqNnP22yKTw5vnDn2nnIu4quNFs3szuaXq30d
-	 TOLHRjuheGvmZ7PqutAVnrwAyJ74j9qCXCuB5vOLGyyaAXKxh9hERam2EMvsuc95iO
-	 TEfNx5NX6GNoZ5oBWzBRc5FOWTN9q6uLOer4AUDorFku1IgFkSCcuK5MLpeFP0p++J
-	 Q2cWFtUjE3ozoOqKKnGO4npD8tNdskeKLcT2T3Z0NcANSkdCrS6xkN5gFbNojt0GBN
-	 hN31lqi5Et44orjniC3pSAPWXEkR2JeBWaUR+u5j2lSXmzpMUc6zHR0y/zCohgTV6m
-	 GbCzfdLiimwpw==
-Date: Wed, 14 Oct 2026 16:18:00 +0100
-From: Lee Jones <lee@kernel.org>
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Cc: vkoul@kernel.org, yung-chuan.liao@linux.intel.com,
-	pierre-louis.bossart@linux.dev, linux-sound@vger.kernel.org,
-	patches@opensource.cirrus.com, mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 RESEND 2/2] mfd: cs42l43: Move to core detach helper
-Message-ID: <20261014151800.GA1182143@google.com>
-References: <20260924120520.2511081-1-ckeepax@opensource.cirrus.com>
- <20260924120520.2511081-3-ckeepax@opensource.cirrus.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="gqP11io2";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="kdapR0i2"
+Date: Wed, 14 Oct 2026 17:18:38 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1791991119;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3VSLCeFmF65RLXMr+lpZPrtUt8NDrMnmjDiLSUsI+rQ=;
+	b=gqP11io2/qEsXWgDGZBxYdXuca8xI8ITMl/bW+oV2F+hzQ348BDGiwjT/SvcsqTJ8vveZL
+	4KgXM6m4nTYukmO9uU5cS9JkvPS3z59qGa60iot5Ss3os/M7wagIaC3CmIjXBDQ0ulvMg8
+	fK7qWdLtVDZ2bWFQZOh1Q2LfEVkG1+LkapexfuMufvZRmsnwiARcpmBao5KbTn5OjrVFgG
+	wmlyX1dieCHSSlvbFAmy0yozlkz3voAHB3NeRmgh/wUR6Jt9ii/FMg72eDbrnPipYq6rgH
+	VIPNcPezgDL+XIIRk9gSMZ+5pyfe/iOdLbI6+d/QRHjrZifjXjE66ppQc41Frw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1791991119;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3VSLCeFmF65RLXMr+lpZPrtUt8NDrMnmjDiLSUsI+rQ=;
+	b=kdapR0i2102at6jWmEphHIl/0nk8fmGunszsqpl9TsVv+k61KxT7nF5tJPm4bRMTE6zyo7
+	NyeYbz3rgnJo3AAA==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Xin Xie <xiexinet@gmail.com>
+Cc: liuhangbin@gmail.com, Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	andrew+netdev@lunn.ch, shuah@kernel.org, kees@kernel.org,
+	petr.wozniak@gmail.com, qingfang.deng@linux.dev, fmaurer@redhat.com,
+	luka.gejak@linux.dev, xiaoliang.yang_1@nxp.com, skhawaja@google.com,
+	stable@vger.kernel.org, sdf.kernel@gmail.com,
+	syzbot+fbf74291c3b7e753b481@syzkaller.appspotmail.com
+Subject: Re: [PATCH net v7 2/4] net: hsr: preserve submission order without a
+ forwarding lock
+Message-ID: <20261014151838.6RyMIRVM@linutronix.de>
+References: <20261009201324.17-1-xiexinet@gmail.com>
+ <20261009201324.17-3-xiexinet@gmail.com>
+ <20261014134718.YGcKmfB9@linutronix.de>
+ <003d3e2a-3568-44f6-a9cc-3202de60da58@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260924120520.2511081-3-ckeepax@opensource.cirrus.com>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <003d3e2a-3568-44f6-a9cc-3202de60da58@gmail.com>
 
-On Thu, 24 Sep 2026, Charles Keepax wrote:
+On 2026-10-14 16:48:55 [+0200], Xin Xie wrote:
+> > What are stacked HSR devices? Looking from the setup in the referenced
+> > report this is a bridge device attached to a HSR ring.
+> > An announce frame is sent and this goes to hsr_dev_xmit(). This does not
+> > look like a normal setup. Is this something you use or is this something
+> > the bot came up with?
+> It is the setup from the syzbot report, not something we use. In that
+> report the slave port of one HSR device is a bridge, and one bridge
+> port is a second HSR device. The announce frame of the first device
+> holds its seqnr_lock, goes through the bridge, and ends in
+> hsr_dev_xmit() of the second device, which takes its own seqnr_lock.
+> Lockdep sees the same lock class twice and reports it. With two
+> devices this is not a real deadlock. It only becomes one when the
+> transmit path comes back to the same device.
 
-> Now the core has a helper to signal a device will detach from
-> the SoundWire bus, there is no need for the cs42l43 driver code
-> to separately track that. Switch to using the new core helper.
-> 
-> Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-> Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-> ---
->  drivers/mfd/cs42l43-sdw.c   |  2 --
->  drivers/mfd/cs42l43.c       | 15 +--------------
->  include/linux/mfd/cs42l43.h |  1 -
->  3 files changed, 1 insertion(+), 17 deletions(-)
+Okay. In that case, could you please teach HSR to reject bridge ports at
+the very least?
 
-Does this need to go in as a set?
+Given that HSR is a ring and PRP faces two networks, I don't think a
+bridge setup would make sense here. So rejecting this should be any easy
+fix.
 
-> diff --git a/drivers/mfd/cs42l43-sdw.c b/drivers/mfd/cs42l43-sdw.c
-> index 0a6999453f325..f0825d6bf7b38 100644
-> --- a/drivers/mfd/cs42l43-sdw.c
-> +++ b/drivers/mfd/cs42l43-sdw.c
-> @@ -102,8 +102,6 @@ static int cs42l43_sdw_update_status(struct sdw_slave *sdw, enum sdw_slave_statu
->  		break;
->  	case SDW_SLAVE_UNATTACHED:
->  		dev_dbg(cs42l43->dev, "Device detach\n");
-> -
-> -		complete(&cs42l43->device_detach);
->  		break;
->  	default:
->  		break;
-> diff --git a/drivers/mfd/cs42l43.c b/drivers/mfd/cs42l43.c
-> index 4212ebcca60b5..f08ee598366d9 100644
-> --- a/drivers/mfd/cs42l43.c
-> +++ b/drivers/mfd/cs42l43.c
-> @@ -30,7 +30,6 @@
->  #define CS42L43_RESET_DELAY_MS			20
->  
->  #define CS42L43_SDW_ATTACH_TIMEOUT_MS		5000
-> -#define CS42L43_SDW_DETACH_TIMEOUT_MS		100
->  
->  #define CS42L43_MCU_BOOT_STAGE1			1
->  #define CS42L43_MCU_BOOT_STAGE2			2
-> @@ -555,7 +554,7 @@ static int cs42l43_soft_reset(struct cs42l43 *cs42l43)
->  		{ CS42L43_SFT_RESET, CS42L43_SFT_RESET_VAL },
->  	};
->  
-> -	reinit_completion(&cs42l43->device_detach);
-> +	sdw_slave_signal_unattach(cs42l43->sdw);
->  
->  	/*
->  	 * Apply cache only because the soft reset will cause the device to
-> @@ -566,17 +565,6 @@ static int cs42l43_soft_reset(struct cs42l43 *cs42l43)
->  
->  	msleep(CS42L43_RESET_DELAY_MS);
->  
-> -	if (cs42l43->sdw) {
-> -		unsigned long timeout = msecs_to_jiffies(CS42L43_SDW_DETACH_TIMEOUT_MS);
-> -		unsigned long time;
-> -
-> -		time = wait_for_completion_timeout(&cs42l43->device_detach, timeout);
-> -		if (!time) {
-> -			dev_err(cs42l43->dev, "Timed out waiting for device detach\n");
-> -			return -ETIMEDOUT;
-> -		}
-> -	}
-> -
->  	return -EAGAIN;
->  }
->  
-> @@ -1115,7 +1103,6 @@ int cs42l43_dev_probe(struct cs42l43 *cs42l43)
->  	dev_set_drvdata(cs42l43->dev, cs42l43);
->  
->  	mutex_init(&cs42l43->pll_lock);
-> -	init_completion(&cs42l43->device_detach);
->  	init_completion(&cs42l43->firmware_download);
->  	INIT_WORK(&cs42l43->boot_work, cs42l43_boot_work);
->  
-> diff --git a/include/linux/mfd/cs42l43.h b/include/linux/mfd/cs42l43.h
-> index 8e993fb535e68..798dc55149662 100644
-> --- a/include/linux/mfd/cs42l43.h
-> +++ b/include/linux/mfd/cs42l43.h
-> @@ -86,7 +86,6 @@ struct cs42l43 {
->  	struct regmap_irq_chip_data *irq_data;
->  
->  	struct work_struct boot_work;
-> -	struct completion device_detach;
->  	struct completion firmware_download;
->  	int firmware_error;
->  
-> -- 
-> 2.47.3
-> 
+=E2=80=A6
+> So for v8 I see two simple options:
+> (a) Keep seqnr_lock across the submission like today and only break
+>     the re-entry: a frame that enters HSR transmit while this CPU is
+>     already inside HSR forwarding is dropped and counted. Ordering is
+>     kept, but all forwarding of one device stays serialized.
+> (b) Narrow the lock to the counter update, as in v6 and in Hangbin's
+>     patch [1]. Several CPUs can forward in parallel. A receiver without
+>     the bitmap discard can drop a reordered frame, so the patch would
+>     carry "Cc: <stable@vger.kernel.org> # aae9d6b616b5: ..." as Simon
+>     suggested there, and the TX statistics move to per-CPU counters.
+>=20
+> I would prefer (b) because of the parallel forwarding, if the old
+> receiver limitation is acceptable to you. Otherwise (a).=20
+>=20
+> Hangbin, Simon, your view is welcome too.
+>=20
+> Patch 3 works with both: it segments before the lock, and each
+> segment is numbered and submitted under the lock.
 
--- 
-Lee Jones
+Or (c) tell HSR to reject bridge ports. This should avoid the case and
+the problem.
+
+Sebastian
