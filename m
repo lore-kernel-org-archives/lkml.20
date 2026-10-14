@@ -1,169 +1,166 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE5855349B9
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:00:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E5BF538D8C;
+	Wed, 14 Oct 2026 14:00:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791986428; cv=none; b=FLSN4uuyf7sVxsFZ5ThDF6cjOnZp7SzaWAqKA9g5AAQRQRK2vZ5s5z8Hjz/AXG1QIaMPu7w46IYrSYJRfcAR5g79+k1t+c6Bv1zlX7+7TQYyImh3cIG8At7irUrJk8FBNGh2IxwKfwYIOMvxkqaJnPOg8kvmJurT7v/pfKOLy5Y=
+	t=1791986448; cv=none; b=BrAQrVxoWjy0/4Gbvoe65DIF2ZzDvkGrMMpcmRFkYBf4ba2LD81/lRBVc/+SU7Dsd0HLW8gZ74mrYyifTOUchG9y8sLIzt7rJ1iv35mCP2gPGp6485TCYituuOcAgbsgaQSlDQfFTSoLrnHUGsx5h6MKc54Py+ipyqPHJ1noCAc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791986428; c=relaxed/simple;
-	bh=Pxet30TRJQtNsCxEqkZUTERC6HZaIwRxrkW5u9k6X6A=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=KkDgEr9tn8Vc59nCNvLhK4bU5fbmeEfTWeDa2m7mXr5bowElyNACgVVZ/Pw32vVop6EO5y+8WaLwtIJGUlvDf3FeKkpARLvLXVMDG4BMlmlCKXZ5RcyuispRRDA+YfS6KqNzHfxxdmX+PNrN4bc0AIiy2acFZBK/NHxzGj1eqqc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TM88gY/S; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CDXbxrKM; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791986448; c=relaxed/simple;
+	bh=eC8NLukDIpBtuA2KwQr+tWlDW1EMq1FNkuG5GY3Niqo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IOWmwisEDgdgwGN+BdptQhREAeWRMvPCnLMIwjIe6JSzeipSQzjL/zzb0VLpRFU5yh/hYRE2myXbf5ATFO7zh6io3xPC5rsysDcTP8vRnj9AWLE0hm5Bg+Y5c4i+ki9Ky/dRyWYnOPlotglkLQesz7LE5Nsgym/ngnAbttGKbp8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gmm388tk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TM88gY/S";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CDXbxrKM"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EBSNTK3365345
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:00:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	M45fNMyP5YyLBZ5igr+FxKq6/r20bqTD6HB21/sx/vg=; b=TM88gY/SAkuivGf5
-	+yFWFP4405hUK4+veo6xqA8dkTVtPOBN96tlIMpYl66yC4OPDWEYnoW3ostFzXvP
-	/QxUnuWc0oekyclc2OdhCRsz5NQpn2pHquNClmYxC8hHJI53iRycdoczS1lXAgZI
-	8cRopjdlyX11Dhc+gxJTAmnlJTHA6Cp3dhZGg3sFugbI8Bejo2l7JRCnRlhG7hqS
-	9RwcaRNDYCak+N0+yJF/bsoqIDwaXOAOkS1j44CS8KXp7UpUAFQdwmw5tRig80oR
-	UJTomABLqeBTPY0zH4J+6r43Lbga/EYLgEjqPjknpgEBuU59+4pW3FR+37AKi2Bi
-	l2Re3Q==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ha4621wcd-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:00:19 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93ea8067974so1007297085a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:00:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791986418; x=1792591218; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=M45fNMyP5YyLBZ5igr+FxKq6/r20bqTD6HB21/sx/vg=;
-        b=CDXbxrKMNIAdXZ03dLl+KTIi/Y254jbAGd42kPLuII6veiB/By9Vn/UkLtAChuPlfX
-         Y94DXCIUe9JjBjEDugbjUd83Y/t9f4L2dnfiOkUVHkiB0pXQd1FInOQu7oU+cn8Mgt07
-         adJOZSoKY2VKdfLowtb2Zr+FjzmPpmVv53pR4VBsyDJmYVKEf3N8BzJ1oz6+z5jvuJbz
-         E/8TUljvVT042Eq6OD3OBz7Xvxhica7JcYjexxXetCV/IdxtOhpTrYuqOvAHrCup7AVT
-         o2XhsyAgJBl1ANr8LR6Je8LLJpR+nBZjAZQYjsWXfxEV5Pc4HNTQrJHEtIlLsy3b6Ivd
-         GGXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791986418; x=1792591218;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=M45fNMyP5YyLBZ5igr+FxKq6/r20bqTD6HB21/sx/vg=;
-        b=V+aHwBfR5ItZTHA2r4YdyetlJWtulFP1XJQO6luqZd++CB/nw1obcuRbEP744/2Mqo
-         At4+lud396Pd8R9pcTVNVyMNxcS/y7PrnZL6U2D8vJ9xEQnonuIV9nMIy1IgtHi1dvDq
-         QOmiU2Ru+SWl0ZkCBZwIt59K1Pf9akrDnt5JiQGwezZI8K+wSzVCxqol7As60bNUyhbR
-         OZA6voMiucvtzQUE+54d0CCHDbNQFPRkxPOrLM3yL90oLaZJaVWVDJeSc+cD8qrWSnnI
-         42UXJJJO+awHBW+r/m1GsZL9ZiQvUESf0JJoQF7SJQ2NlGFoTBEEnF7+HqwHxkE4eOBv
-         WS6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxTD6KCHZ3eGv01UaFIEOHCqaJdWTqIeb8EdvTPGSASNpL4BJHl8lkcy0jTEcPXx4r9nVQ4f6G9oWi99js=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL23/5QI+3bZRc+ieGLEg1PAQyJejma8fZQonufASrmgz9HIEok
-	C2M7NiwGum6bZ0hz4PAa+YUKzo0MYM1T1X4TqfPUwUoDfdo3iNRiIMMkgCBVdbXYDHF3+8mspHD
-	0YQOg+Ey/FjpIRmgB0fDzeTrTXjd/pruU6p9heQQY1n9KFp8oSYhNG/dVaMiDWsMwyJ0=
-X-Gm-Gg: AYBFou0MElsZvkh891Fq5XimOsK2i89Zrtk/R4LoWUulaleAVWqH5IW6qsK6JWsiUzg
-	jz791AjM/1iGGZlejOOyuH8HtdU3HtClpaO1LdfWanVN5iQ7lNKAJnR0G/WEH4HFOC4MjBHeYf3
-	a8M3CxcVXI2M6zIZJOCp9GUakgBah63sVf7scsjaIyCfBRRh7O1Wl9VUH3GNlgTEsJAm0U1L4uc
-	lpcJrrETBOPpYXGdfGvbS8DfuxFpOKQ2Lxibg6ntDuigNkYkMDe7sg5LkC2lwxd1JqIJQ4euG2A
-	H5A1iWOTYpn2kkL3VAUGMTBPw8ng8yGoGpNLCvxb2ME0gsIze1q725w59LeRUonFdMhmc/tKRLH
-	L9qhQXb2okr9KEpastBESWUWEhaSwlCY3o7A71yELC+F+GddcRbpfZJOCJFQKmG1Pof36iCqJwD
-	Z1agk04mLU00lXEJRafPvVxd+KruJs+i8ZwAsKcrVbP1Mo2WX2GhbwQpRs8vnUezD4/w==
-X-Received: by 2002:a05:620a:460d:b0:93e:4ede:8976 with SMTP id af79cd13be357-93ebd224c25mr2846062785a.26.1791986417288;
-        Wed, 14 Oct 2026 07:00:17 -0700 (PDT)
-X-Received: by 2002:a05:620a:460d:b0:93e:4ede:8976 with SMTP id af79cd13be357-93ebd224c25mr2846046985a.26.1791986416149;
-        Wed, 14 Oct 2026 07:00:16 -0700 (PDT)
-Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec? (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl. [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3b3836547bsm73203366b.13.2026.10.14.07.00.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 07:00:15 -0700 (PDT)
-Message-ID: <a8d28d1a-5bc4-49a2-8437-18d1ae9d4f51@oss.qualcomm.com>
-Date: Wed, 14 Oct 2026 16:00:14 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gmm388tk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5E041F00A2F;
+	Wed, 14 Oct 2026 14:00:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791986441;
+	bh=fshOZWlu5/9cxLtz9RzAY3nl628bQD8gTsbdb522wOY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gmm388tk2yJYC+Js/eI2tlGqToe2qgh0bdGayGpszE3Z4TpWzsmbsUWP+vNnv2z1w
+	 PZpDWZXp5xdKMHkpXOPtHsjMBLDKIPvVrNcCNTs4uNRm5EcYsxUo3/XwLq9vCbCzkp
+	 A6CWiinPVtP33DiOuocr2ETRsVodtNVKdH9i3+OGIA3WpwqhVBlN9v89QnMrEK5rk3
+	 YMuu8MI4VMzxuiFK7+s2B6WLVz3EgigC6lwjHeXWh032teHlkeGmiSP/9vG85+iOmb
+	 3aaGAA8kWHiiGB6WYC/KEo9W6RaWhPig4UOy/3fOWWPSC/F3qYwn0XWiiU2suG0Y+B
+	 WkNmLLO+iooQw==
+Date: Wed, 14 Oct 2026 15:00:37 +0100
+From: Lee Jones <lee@kernel.org>
+To: Pengpeng Hou <hppiscas@163.com>
+Cc: mfd@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Aaron Kling <webgeek1234@gmail.com>
+Subject: Re: [PATCH v2] mfd: max77620: publish module aliases with variant
+ match data
+Message-ID: <179198324452.839288.10919510385745503720@kernel.org>
+References: <20261014032139.10971-1-hppiscas@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: johannes.goede@oss.qualcomm.com
-Subject: Re: [PATCH] ACPI: battery: Re-read battery information in the
- complete callback
-To: =?UTF-8?Q?Ali_Ahmet_Memi=C5=9F?= <aliamemis@disroot.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
-        Armin Wolf <W_Armin@gmx.de>, Charis Stratakis <c.stratakis@proton.me>,
-        linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org,
-        regressions@lists.linux.dev, Mark Pearson <mpearson-lenovo@squebb.ca>,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <37N_jFulf7n-Z55NfKfE71C_wVPxYvZ0xD_iRUg2fXu7TypDiF5PStQ6siSfVBih6fThg5WoPes8U5ZQpfVm_teMFcUGXFxz2DdMbfSWuws=@proton.me>
- <20261012225141.13683-1-aliamemis@disroot.org>
- <fb993dd3-ee56-4e3d-aa16-573f011518f1@oss.qualcomm.com>
- <CAJZ5v0gS4agVUkCO6M=VW4Wi2y1-s+k23bpzmX9aAZ0Rsv4z9Q@mail.gmail.com>
- <044e9df4-1399-4ceb-80f8-f7cfe031d04f@oss.qualcomm.com>
- <CAJZ5v0isCM3K3U6HSdDnvXzBX41AgQMFYxqLx3KvMA0W_91-ew@mail.gmail.com>
- <20261013210609.8117-1-aliamemis@disroot.org>
- <ab5c5ae1-1bfd-4fe4-adef-fb64b5b3dfbb@oss.qualcomm.com>
- <20261014133218.94357-1-aliamemis@disroot.org>
-Content-Language: en-US, nl
-In-Reply-To: <20261014133218.94357-1-aliamemis@disroot.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: S__vpIa5NOQ9AjQO6mTKNaojl7ToZS1Z
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA1NSBTYWx0ZWRfX1YhK3MxNadYp
- XolwS3eAYzRgnY4x5Waf+gHqhh9Va5y8TZ5L9y69Q4kxlKoBJbYOfQx/d2/j0ujgb0Cm+jsJ6Qk
- OMx0NchNZgkTCGcNliNXZx2oVjK98LRZLFty7f14eCopzy4qwTmgTfSaCba9QGjX/6zywbWeYF4
- OiOH63nK4i0ZUdjSXLzhdnoDAI7o7lXHzPd3SYBj8Ykn7b6PRnbZR5QuSFm5u8eylD0OKF4qWYg
- niBkA05GXAePOPhmIHx1czL2poctYNxdXaJyb1g9ook+GHR3BZMQmNM4yQhr2jnAC7nyPb1/xck
- HHDhJ+hIkJ+8Mpx9U/tKGHKfg8FtA9sZ5fmkYeT5CcyJ/wu2XeA13Mkneq6Mm1X2x+tOdVez1iw
- wifMf8n7hGCku3diDd3cZhss6JQxwfpsUSlTPNhd7LfThRGp5to204ZtpQZuxjCqNBILHWBCWY7
- 7epOrnNCS9JISJD4+PQ==
-X-Authority-Analysis: v=2.4 cv=ErZHPicA c=1 sm=1 tr=0 ts=6acf8af3 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8
- a=LpNgXrTXAAAA:8 a=EUspDBNiAAAA:8 a=uisTf_hR4FytVPXRX4QA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22 a=LqOpv0_-CX5VL_7kjZO3:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA1NSBTYWx0ZWRfX/39wFM6QZHA3
- hpykcMWITnnfgUNgVyUzYm5frJCuQuq7RvP6jw6WTRCLSiw/3RyPk7zsw3wLJaZZjDnam2eTCUf
- ETebqOQ92DCVGtQibHGkhHBGpoYXjcM=
-X-Proofpoint-GUID: S__vpIa5NOQ9AjQO6mTKNaojl7ToZS1Z
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 malwarescore=0 bulkscore=0 impostorscore=0 adultscore=0
- suspectscore=0 clxscore=1015 lowpriorityscore=0 priorityscore=1501
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610140055
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014032139.10971-1-hppiscas@163.com>
+X-AI-Review-Draft: <20261014032139.10971-1-hppiscas@163.com>
 
-Hi,
+On Wed, 14 Oct 2026, Pengpeng Hou wrote:
 
-On 14-Oct-26 15:32, Ali Ahmet Memiş wrote:
-> On Wed, Oct 14, 2026 at 12:01:55PM +0200, johannes.goede@oss.qualcomm.com wrote:
->> Can you post a patch series for the code you've for this now ?
-> 
-> Posted: https://lore.kernel.org/all/20261014132703.93355-1-aliamemis@disroot.org/
-> 
->> Note I guess you're using LLM to help you with this, that is fine,
->> but can you please manually shorten the commit messages of the patches
->> a bit if they were written by LLM?
-> 
-> No LLM used here, I just thought the race needed some explanation.  
+Please review, explain or fix the Sashiko review(s).
 
-That is fair, sometimes it can be hard to find the balance between
-including enough information and keeping things short and sweet.
+> MAX77620 can be built as a module, but its I2C ID table is not exported
+> and it has no OF match table to provide OF aliases.
+>
+> Publish both tables and obtain the chip variant through
+> i2c_get_match_data(). Adding OF matching alone is insufficient: a fallback
+> compatible can match the OF table while client->name has no corresponding
+> I2C ID. Dereferencing i2c_client_get_device_id() would then be invalid.
+>
+> Use pointers to chip IDs in both tables. This also keeps MAX77620, whose
+> enum value is zero, distinguishable from missing match data. Leave the
+> variant-specific regmap configuration and child devices unchanged.
+>
+> The issue was found by our static-analysis tool and manually reviewed.
+>
+> Fixes: 0d084ee9ba87 ("mfd: max77620: Allow building as a module")
+> Assisted-by: gpt 5
+> Signed-off-by: Pengpeng Hou <hppiscas@163.com>
+> ---
+> Changes since v1:
+> - use the author's real name
+> - address the matching-path issue Lee asked to review: populate OF data
+>   and migrate probe to i2c_get_match_data() with a missing-data check
+> - use non-NULL pointers for all variants, including enum value zero
+>
+> Previous version:
+> https://lore.kernel.org/all/20260905134051.66545-1-hppiscas@163.com/
+>
+>  drivers/mfd/max77620.c |   29 ++++++++++++++++++++++++-----
+>  1 file changed, 24 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/mfd/max77620.c b/drivers/mfd/max77620.c
+> index c4f89a9681f34792d24c5b75c4b88df84b3c2c66..4947ee96cc62cdeae37a15f65497d7f1013dbf11 100644
+> --- a/drivers/mfd/max77620.c
+> +++ b/drivers/mfd/max77620.c
+> @@ -496,7 +496,7 @@ static int max77620_pm_power_off(struct sys_off_data *data)
+>
+>  static int max77620_probe(struct i2c_client *client)
+>  {
+> -	const struct i2c_device_id *id = i2c_client_get_device_id(client);
+> +	const enum max77620_chip_id *id = i2c_get_match_data(client);
+>  	const struct regmap_config *rmap_config;
+>  	struct max77620_chip *chip;
+>  	struct regmap_irq_chip *chip_desc;
+> @@ -504,6 +504,9 @@ static int max77620_probe(struct i2c_client *client)
+>  	int n_mfd_cells;
+>  	int ret;
+>
+> +	if (!id)
+> +		return -ENODEV;
+> +
+>  	chip = devm_kzalloc(&client->dev, sizeof(*chip), GFP_KERNEL);
+>  	if (!chip)
+>  		return -ENOMEM;
+> @@ -519,7 +522,7 @@ static int max77620_probe(struct i2c_client *client)
+>
+>  	chip->dev = &client->dev;
+>  	chip->chip_irq = client->irq;
+> -	chip->chip_id = (enum max77620_chip_id)id->driver_data;
+> +	chip->chip_id = *id;
+>
+>  	switch (chip->chip_id) {
+>  	case MAX77620:
+> @@ -693,12 +696,27 @@ out:
+>  	return 0;
+>  }
+>
+> +static const enum max77620_chip_id max77620_chip_ids[] = {
+> +	[MAX77620] = MAX77620,
+> +	[MAX20024] = MAX20024,
+> +	[MAX77663] = MAX77663,
+> +};
 
-> I kept the series short.
+What on earth is happening here?  Where have you seen this before?
 
-Much appreciated, thx.
+Please don't create an array of enums just to take the address of its
+elements.  Either ensure the enum in 'include/linux/mfd/max77620.h' does
+not start at 0, or cast directly via '(const void *)MAX77620' and
+'(uintptr_t)i2c_get_match_data(client)'.
 
-Regards,
+>  static const struct i2c_device_id max77620_id[] = {
+> -	{"max77620", MAX77620},
+> -	{"max20024", MAX20024},
+> -	{"max77663", MAX77663},
+> +	{"max77620", (kernel_ulong_t)&max77620_chip_ids[MAX77620]},
+> +	{"max20024", (kernel_ulong_t)&max77620_chip_ids[MAX20024]},
+> +	{"max77663", (kernel_ulong_t)&max77620_chip_ids[MAX77663]},
+>  	{},
+>  };
+> +MODULE_DEVICE_TABLE(i2c, max77620_id);
+> +
+> +static const struct of_device_id max77620_of_match[] = {
+> +	{ .compatible = "maxim,max77620", .data = &max77620_chip_ids[MAX77620] },
+> +	{ .compatible = "maxim,max20024", .data = &max77620_chip_ids[MAX20024] },
+> +	{ .compatible = "maxim,max77663", .data = &max77620_chip_ids[MAX77663] },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, max77620_of_match);
+>
+>  static DEFINE_SIMPLE_DEV_PM_OPS(max77620_pm_ops,
+>  				max77620_i2c_suspend, max77620_i2c_resume);
+> @@ -706,6 +724,7 @@ static DEFINE_SIMPLE_DEV_PM_OPS(max77620_pm_ops,
+>  static struct i2c_driver max77620_driver = {
+>  	.driver = {
+>  		.name = "max77620",
+> +		.of_match_table = max77620_of_match,
+>  		.pm = pm_sleep_ptr(&max77620_pm_ops),
+>  	},
+>  	.probe = max77620_probe,
+>
+> base-commit: 319633b06ff2bfc2a7a60d2cfcab2e681a343b27
+>
 
-Hans
-
-
-
+-- 
+Lee Jones
