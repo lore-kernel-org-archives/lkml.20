@@ -1,155 +1,206 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013046.outbound.protection.outlook.com [40.93.196.46])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 540563E763E
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:52:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791960744; cv=fail; b=cF9AJeNrsMQDBdtDUJm3mDjXuf763rFdaindqIfWF+fD/xHhbbVWLCTRV7nChObPngBVC0WFW3dqdKfeZJfWLOiScZnSHWBkJaRg4QadRmAXAooP6VXG4Ohh2RYHFe947Ic0QhZ4qmpvxwFQ5IwweULcr8tynzNk64P/tYEaUrs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791960744; c=relaxed/simple;
-	bh=jc0V/n8GskHfuKlBsRT+IKP3qgOkhpwRTitNpNfaP8s=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=soJGuY55aqUOkECACod8Tnjf9yPhNztLgwT8CsJ1yMvFUo39zjkmCjRkX4MS9WI0linzt8dUz8KeI1xRVrpeDLUqxKipCK+tDH3AKTM0uz6/7LtzcwGYJ1gontBWF67GjFVXG+4AJ3I9GhbsX0/6GmLKg1uhtJPi1afaaSZ1498=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=aa8l+2MO; arc=fail smtp.client-ip=40.93.196.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4369F361960;
+	Wed, 14 Oct 2026 06:52:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791960781; cv=none; b=g7NjNNbELr/Bp6OL/OZOzOC3mVMO7wHHu7C7cyIsXDN/RqGsOoeLz6D1ZLiDUgpJ2mobm8Q/STbhbEfqlLYWUT4M21JI1TOO64S5/9vS+IHbBmSfUDxYieyBh1V3ed0v9MJm5gR9FndE3BvUshQ1OXGN1rMnC9yOGH+4l2Hqd6c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791960781; c=relaxed/simple;
+	bh=kvjDjhwBqEIHq59YMfhEgAZVWWGxX4WxE1hAwWgLpfI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=K+8h72rpdOJbFs6FJat32WKHU1UfzA5aaAECgUWmRaG3LsvLO3hJGLkNluDjGxQ+2h657CCtBuGYvhe2GYaJZLmA4MBAmbmN0eK0JZ0KUC6I2mL9zUrXLIxWRKQY045Mum1qqAa4QcUBUxjLVT1Jo25BQRuIQo2kJAzf8iCGUNw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Waj8/XzH; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="aa8l+2MO"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=b7yut+b49BN5moFI0qal5Pe74XsoJHYFw6BIudAYZWMftWK7cnsfMuuNII5RZ29RTy7UMdYq1cNzfvgwEG0dU/dsQ2ZwIfTRtKkJ9SL13dgXCalYjnF4WC+oMw6dUY9w/N3Cs5wApXfWIbvUiRb/OXENU4TsqnEeS0YKklOnARXWXeqLgmSao6IAPziq2oiostI+2p7lKbWWf50vjCuLOnKMng9MhskgctdrXVAO0WRwX9EUsuE8gXEOUpQYuxaCmdiUM9hc3n31Tbne7bxeYw9sbEyEdboM+V2R3e4X96PUUuI82sFR0JzJhW+06PemMwYeN4xh7PKRlW4GcY0pyg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IDPlK7KJNjqc/RTKUoRPt67DLEC1hdtQ23nBHSNDc8U=;
- b=UP2TJPGkskOXHecsawExjFcPu09c5nqpUAVaZ+pKHT6w6irpFQVW1c/pL1ERlYsYpUxK6GrWKy975AY9tNoWR6mlGsFxqGaO7oVOObPXwDi0Lt9HNKHsRH0QcDZ2mWVnMEBkFBH9s5pPNAsKrlL6rwcOc29gZmBMV1/OFJG82426pltxF3zJgiicmb9KrhyQ6tVFyzNBNhK64TjGuVIDtaQdaILBXeD6WcTTSHwRo1gU2xTzhJlBnzHAz1k7atuavvNdKF1zwbfzsyTr0yHz/FWnWU12U5tpoItzACY8swUDeYfXcn0pvDKQI+uoq47pkNyDFr7Y2F6ex9w9QFAlPw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IDPlK7KJNjqc/RTKUoRPt67DLEC1hdtQ23nBHSNDc8U=;
- b=aa8l+2MO77SigGN+Bh3JMBIvTlbfr7Wgu3UF+EwfMyck1bMKbj7hmFxjYq/0bKFqerYIA/iKaD3d97znyQN9fpcpO3+V1YoFhu5BZ9WSzn562hxoNEx9WWpXnvqLWdUrzqmhtCRmMRyrBfp/85is/K6e4HBTMXVXXXZIqdsB9wk=
-Received: from CH5P222CA0013.NAMP222.PROD.OUTLOOK.COM (2603:10b6:610:1ee::14)
- by DS0PR12MB9400.namprd12.prod.outlook.com (2603:10b6:8:1b6::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Wed, 14 Oct
- 2026 06:52:16 +0000
-Received: from BN2PEPF000044A7.namprd04.prod.outlook.com
- (2603:10b6:610:1ee:cafe::ae) by CH5P222CA0013.outlook.office365.com
- (2603:10b6:610:1ee::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Wed,
- 14 Oct 2026 06:52:16 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF000044A7.mail.protection.outlook.com (10.167.243.101) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Wed, 14 Oct 2026 06:52:16 +0000
-Received: from honglei-remote.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 14 Oct
- 2026 01:52:01 -0500
-From: Honglei Huang <honghuan@amd.com>
-To: Matthew Brost <matthew.brost@intel.com>,
-	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	"Himal Prasad Ghimiray" <himal.prasad.ghimiray@intel.com>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>
-CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
-	"Honglei Huang" <honghuan@amd.com>
-Subject: [PATCH] drm/gpusvm: use literal blocks for the indented code examples
-Date: Wed, 14 Oct 2026 14:51:53 +0800
-Message-ID: <20261014065153.1562717-1-honghuan@amd.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Waj8/XzH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=TnNnbmu9YS7sz+a4d+0CADyh+jpQYkGZAne9eMQmnk4=;
+	b=Waj8/XzHQxCH9EQsDAWp/c31srgUtnbnD764g/uY6O+wrR0ijoUq/NL2PAlOPa
+	MqBoemKPiDALPlGR7UXEcc0h2DJqyGPrJVt0S7pSMDAcjFevzWrJYhy0IqL9+OJ8
+	Sq+o9gPzEbCrZP6479Vc6K2H1dAPue9JznjzFd0Li7nKc=
+Message-ID: <40c740d4-d316-41af-a878-837615947380@163.com>
+Date: Wed, 14 Oct 2026 14:52:37 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000044A7:EE_|DS0PR12MB9400:EE_
-X-MS-Office365-Filtering-Correlation-Id: b8ad3446-ba60-4049-57c4-08df29bfaefd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|7416014|1800799024|376014|36860700016|23010399003|10067099003|56012099006|11063799006|18002099003|13003099007|261009223027099003|261009221227099003;
-X-Microsoft-Antispam-Message-Info:
-	I6k08FRUn6L4BiRjdu3Qus94hpyNnjBxmY/4aexfyxkCvRKAY+rY6TXQj6FLVzbX/v+BwIPMpF5J9yAfPNgghF860cPvB7Sd1wNWPCkvJSmnUh4/CS3Z4ihdKpBEkYK5X23R6M6/om8pbP4Ud5FrWWU8slj2MqCAk1jkwXjmBu1JQmnDKWjcebSG8syoeauiQzM9QcNkmno1exo4mjerh+Eq/smRiDkDDC46k9kLqOwexO5fWAfTD2JlNnsqQzlgErfTIFqBLKj2w3IJcBgR7R8Kr+v4vklWsvLN+ND/WKGWaS8fFNm2rqq9DcWYl2WQQvBZArD6sk5V4ogSdXG0VsCdWrfyPTYopiYNh96/qNjZUs9Ik6QuaEvquwEI0Kk2YMhooAqvEIWa+GsfsfkwjgqFXZcyzeJmmoi++VyeUaxvzSusMV1Ee8LFMtTB6K6a8oUC+EkILNESph5NabcJxyQPc4C061Vb5ghWmB7auslIPGv8KYJ1M1m+JInQUuZJsRW3PURAqm99O4UHnO5nUJmG2lRtPJx6JWij+CwQH0+Ualf48CusQLAyB2ClRG4pKCIF6hdCiwBcI60BKzUUsJj6NjS79dgHEJH6//F6VBrOsXOdddr0pgjQPa2iRVRR5Es71O0zOQ2IEw3kZa9wassBfNVEuliqMCznTQDmadM=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(7416014)(1800799024)(376014)(36860700016)(23010399003)(10067099003)(56012099006)(11063799006)(18002099003)(13003099007)(261009223027099003)(261009221227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	SCVCeKUzXrYTDciU9sMPpT4dYULBEAfoH8TasLXOTOGdb5wAuQzTk6TjuShQcniLdG8y2NKdutpW7c+TfQuRxcl7UBwk3H3L+VwkCcS+rUgGkFXjyrqX7A3XV/yMlDVWXA8/uxIsHDCzBIXGnOgjNrisFwvJ22Hy/cKoLdofRuVsOi0uWsFi8KOWDZBzpPkib+yX3OHbGOQlslh4Ww3hMoAU7UD056omWh82fa8ICx7JB/Gfc3SHVmQPvgLEEjYsgW3HJB42GqLLJEsXpl0o1jiBSXdNI6mrCSXpvxYzDsGLWqD/2eCUr/oJFNbpG353ADE+TsIsst6zuDaSYzVqIzPzJ7XHiumpDhZRnazHkW+RGgzTQij3HW67l92EUzLBkzb6DWuhiLnK311tTO7FTu9JGfnpCPxELzNSdapS6B5uquUEEAD2qQ8xwSXu5mVY
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 06:52:16.0807
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b8ad3446-ba60-4049-57c4-08df29bfaefd
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF000044A7.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] PCI: dwc: Describe DWC PCIe fields with full masks and
+ FIELD_PREP()
+To: bhelgaas@google.com, lpieralisi@kernel.org, kwilczynski@kernel.org,
+ mani@kernel.org, jingoohan1@gmail.com
+Cc: robh@kernel.org, a-garg7@ti.com, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260930013842.82476-1-18255117159@163.com>
+Content-Language: en-US
+From: Hans Zhang <18255117159@163.com>
+In-Reply-To: <20260930013842.82476-1-18255117159@163.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:PygvCgDX32G1Js9qKCEUEg--.36534S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3Jr15Wr4rZFyUGF1ruw1fCrg_yoWxKw13p3
+	W3JaySya1UtFsxuw1Ik3Z5G3W3XrnrArWDX3yv9w1xKFs3Zrn7WF409a95trs7ZFWIqF1U
+	Kr4qy34xWFW5AwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U53kNUUUUU=
+X-CM-SenderInfo: rpryjkyvrrlimvzbiqqrwthudrp/xtbC7BZF6GrPJrZ3dAAA3h
 
-kernel-doc only recognises ".. code-block::" at column 0 of the comment.
-The two examples under "- Pages:" are indented inside a list item, so
-kernel-doc treated them as prose and rewrote "&drange->inline_pages",
-"&range->notifier" and "&ctx" into :c:type: cross references. The
-injected backticks then make Sphinx fail to lex the block as C.
+Hello Mani,
 
-Use a plain "::" literal block, which kernel-doc accepts at any
-indentation. Syntax colouring is lost, but keeping ".. code-block:: c"
-would mean lifting both examples out of the list item.
+Could you please handle this patch for me? It was suggested by Bjorn 
+last time.
 
-Fixes: cc2a6cbd6823 ("drm/gpusvm: let drm_gpusvm_get_pages() map an array of pages")
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202610100125.d4Kk60aL-lkp@intel.com/
-Signed-off-by: Honglei Huang <honghuan@amd.com>
----
- drivers/gpu/drm/drm_gpusvm.c | 8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
+Best regards,
+Hans
 
-diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
-index b6c9d3a07dc..7b166bcb0d1 100644
---- a/drivers/gpu/drm/drm_gpusvm.c
-+++ b/drivers/gpu/drm/drm_gpusvm.c
-@@ -67,9 +67,7 @@
-  *	sit in contiguous memory so a single drm_gpusvm_range_set_unmapped()
-  *	can mark them all. A driver can keep one instance inline for the single
-  *	device case and switch to a heap array only when more devices join,
-- *	e.g.:
-- *
-- *	.. code-block:: c
-+ *	e.g.::
-  *
-  *		struct driver_range {
-  *			struct drm_gpusvm_range base;
-@@ -99,9 +97,7 @@
-  *	The 1:1 examples below pass @num_pages == 1 and &drange->pages. In the
-  *	N:1 case the driver instead passes the whole array and its count, so a
-  *	single call faults the CPU range once and DMA maps it for every owning
-- *	drm_device, e.g.:
-- *
-- *	.. code-block:: c
-+ *	drm_device, e.g.::
-  *
-  *		// GPU fault handler: one fault, one DMA mapping per device
-  *		err = drm_gpusvm_get_pages(gpusvm, driver_pages(drange),
 
-base-commit: 34081b8bbbbfb9adbe04f764f718de04df23a84a
--- 
-2.34.1
+On 9/30/26 09:38, Hans Zhang wrote:
+> Several DWC PCIe register fields are described with a shift macro next
+> to their mask, or with only a shift and the field width implied by the
+> value written.  Document the field position and width in a single full
+> mask and use FIELD_PREP() to encode it.
+> 
+> No functional change intended.
+> 
+> Signed-off-by: Hans Zhang <18255117159@163.com>
+> ---
+> - Based on the controller/dwc branch.
+> ---
+>   .../pci/controller/dwc/pcie-designware-ep.c   |  2 +-
+>   drivers/pci/controller/dwc/pcie-designware.h  | 12 ++++------
+>   drivers/pci/controller/dwc/pcie-tegra194.c    | 22 +++++++++----------
+>   3 files changed, 16 insertions(+), 20 deletions(-)
+> 
+> diff --git a/drivers/pci/controller/dwc/pcie-designware-ep.c b/drivers/pci/controller/dwc/pcie-designware-ep.c
+> index 0262d85ed390..198823f105c5 100644
+> --- a/drivers/pci/controller/dwc/pcie-designware-ep.c
+> +++ b/drivers/pci/controller/dwc/pcie-designware-ep.c
+> @@ -1077,7 +1077,7 @@ int dw_pcie_ep_raise_msix_irq_doorbell(struct dw_pcie_ep *ep, u8 func_no,
+>   	if (!ep_func || !ep_func->msix_cap)
+>   		return -EINVAL;
+>   
+> -	msg_data = (func_no << MSIX_DOORBELL_PF_SHIFT) |
+> +	msg_data = FIELD_PREP(MSIX_DOORBELL_PF_MASK, func_no) |
+>   		   (interrupt_num - 1);
+>   
+>   	dw_pcie_writel_dbi(pci, MSIX_DOORBELL, msg_data);
+> diff --git a/drivers/pci/controller/dwc/pcie-designware.h b/drivers/pci/controller/dwc/pcie-designware.h
+> index aea474ad803c..1ff6ed1f9f0b 100644
+> --- a/drivers/pci/controller/dwc/pcie-designware.h
+> +++ b/drivers/pci/controller/dwc/pcie-designware.h
+> @@ -85,9 +85,7 @@
+>   /* Common Clock N_FTS */
+>   #define  PORT_AFAC_CC_N_FTS(n)		FIELD_PREP(PORT_AFAC_CC_N_FTS_MASK, n)
+>   #define  PORT_AFAC_ENTER_ASPM		BIT(30)		/* ASPM L1 Entry Control */
+> -#define  PORT_AFAC_L0S_ELS		24		/* L0s Entrance Latency shift */
+>   #define  PORT_AFAC_L0S_ELM		GENMASK(26, 24)	/* L0s Entrance Latency mask */
+> -#define  PORT_AFAC_L1_ELS		27		/* L1 Entrance Latency shift */
+>   #define  PORT_AFAC_L1_ELM		GENMASK(29, 27)	/* L1 Entrance Latency mask */
+>   
+>   #define PORT_LINK_CTRL			0x710		/* Port Link Control Register */
+> @@ -161,7 +159,6 @@
+>   #define  GEN3_CTRL_EQ_PHASE_2_3		BIT(9)		/* Equalization Phase 2 and Phase 3 */
+>   #define  GEN3_CTRL_RXEQ_RGRDLESS_RXTS	BIT(13)
+>   #define  GEN3_CTRL_GEN3_EQ_DISABLE	BIT(16)		/* Equalization Disable */
+> -#define  GEN3_CTRL_RATE_SHADOW_SEL_SHIFT 24		/* Rate Shadow Select shift */
+>   #define  GEN3_CTRL_RATE_SHADOW_SEL_MASK	GENMASK(25, 24)	/* Rate Shadow Select mask */
+>   
+>   #define GEN3_EQ_CTRL			0x8A8		/* Gen3 EQ Control */
+> @@ -230,7 +227,7 @@
+>   #define ATU_UPPER_LIMIT			0x020
+>   
+>   #define MSIX_DOORBELL			0x948
+> -#define  MSIX_DOORBELL_PF_SHIFT		24
+> +#define  MSIX_DOORBELL_PF_MASK		GENMASK(28, 24)
+>   
+>   /*
+>    * eDMA CSRs. DW PCIe IP-core v4.70a and older had the eDMA registers accessible
+> @@ -278,15 +275,14 @@
+>   #define RAS_DES_EVENT_COUNTER_CONTROL	0x8
+>   #define EVENT_COUNTER_ALL_CLEAR		0x3
+>   #define EVENT_COUNTER_ENABLE_ALL	0x7
+> -#define EVENT_COUNTER_ENABLE_SHIFT	2
+> -#define EVENT_COUNTER_EVENT_SEL_MASK	GENMASK(7, 0)
+> -#define EVENT_COUNTER_EVENT_SEL_SHIFT	16
+> +#define EVENT_COUNTER_ENABLE_MASK	GENMASK(4, 2)
+> +#define EVENT_COUNTER_EVENT_SEL_MASK	GENMASK(23, 16)
+> +#define EVENT_COUNTER_GROUP_SEL_MASK	GENMASK(27, 24)
+>   #define EVENT_COUNTER_EVENT_Tx_L0S	0x2
+>   #define EVENT_COUNTER_EVENT_Rx_L0S	0x3
+>   #define EVENT_COUNTER_EVENT_L1		0x5
+>   #define EVENT_COUNTER_EVENT_L1_1	0x7
+>   #define EVENT_COUNTER_EVENT_L1_2	0x8
+> -#define EVENT_COUNTER_GROUP_SEL_SHIFT	24
+>   #define EVENT_COUNTER_GROUP_5		0x5
+>   
+>   #define RAS_DES_EVENT_COUNTER_DATA	0xc
+> diff --git a/drivers/pci/controller/dwc/pcie-tegra194.c b/drivers/pci/controller/dwc/pcie-tegra194.c
+> index 8c610212a180..285a38178da8 100644
+> --- a/drivers/pci/controller/dwc/pcie-tegra194.c
+> +++ b/drivers/pci/controller/dwc/pcie-tegra194.c
+> @@ -622,10 +622,10 @@ static inline u32 event_counter_prog(struct tegra_pcie_dw *pcie, u32 event)
+>   
+>   	val = dw_pcie_readl_dbi(&pcie->pci, pcie->ras_des_cap +
+>   				RAS_DES_EVENT_COUNTER_CONTROL);
+> -	val &= ~(EVENT_COUNTER_EVENT_SEL_MASK << EVENT_COUNTER_EVENT_SEL_SHIFT);
+> -	val |= EVENT_COUNTER_GROUP_5 << EVENT_COUNTER_GROUP_SEL_SHIFT;
+> -	val |= event << EVENT_COUNTER_EVENT_SEL_SHIFT;
+> -	val |= EVENT_COUNTER_ENABLE_ALL << EVENT_COUNTER_ENABLE_SHIFT;
+> +	val &= ~EVENT_COUNTER_EVENT_SEL_MASK;
+> +	val |= FIELD_PREP(EVENT_COUNTER_GROUP_SEL_MASK, EVENT_COUNTER_GROUP_5);
+> +	val |= FIELD_PREP(EVENT_COUNTER_EVENT_SEL_MASK, event);
+> +	val |= FIELD_PREP(EVENT_COUNTER_ENABLE_MASK, EVENT_COUNTER_ENABLE_ALL);
+>   	dw_pcie_writel_dbi(&pcie->pci, pcie->ras_des_cap +
+>   			   RAS_DES_EVENT_COUNTER_CONTROL, val);
+>   	val = dw_pcie_readl_dbi(&pcie->pci, pcie->ras_des_cap +
+> @@ -661,8 +661,8 @@ static int aspm_state_cnt(struct seq_file *s, void *data)
+>   			   EVENT_COUNTER_ALL_CLEAR);
+>   
+>   	/* Re-enable counting */
+> -	val = EVENT_COUNTER_ENABLE_ALL << EVENT_COUNTER_ENABLE_SHIFT;
+> -	val |= EVENT_COUNTER_GROUP_5 << EVENT_COUNTER_GROUP_SEL_SHIFT;
+> +	val = FIELD_PREP(EVENT_COUNTER_ENABLE_MASK, EVENT_COUNTER_ENABLE_ALL);
+> +	val |= FIELD_PREP(EVENT_COUNTER_GROUP_SEL_MASK, EVENT_COUNTER_GROUP_5);
+>   	dw_pcie_writel_dbi(&pcie->pci, pcie->ras_des_cap +
+>   			   RAS_DES_EVENT_COUNTER_CONTROL, val);
+>   
+> @@ -680,8 +680,8 @@ static void init_host_aspm(struct tegra_pcie_dw *pcie)
+>   							PCI_EXT_CAP_ID_VNDR);
+>   
+>   	/* Enable ASPM counters */
+> -	val = EVENT_COUNTER_ENABLE_ALL << EVENT_COUNTER_ENABLE_SHIFT;
+> -	val |= EVENT_COUNTER_GROUP_5 << EVENT_COUNTER_GROUP_SEL_SHIFT;
+> +	val = FIELD_PREP(EVENT_COUNTER_ENABLE_MASK, EVENT_COUNTER_ENABLE_ALL);
+> +	val |= FIELD_PREP(EVENT_COUNTER_GROUP_SEL_MASK, EVENT_COUNTER_GROUP_5);
+>   	dw_pcie_writel_dbi(pci, pcie->ras_des_cap +
+>   			   RAS_DES_EVENT_COUNTER_CONTROL, val);
+>   
+> @@ -715,9 +715,9 @@ static void init_host_aspm(struct tegra_pcie_dw *pcie)
+>   	/* Program L0s and L1 entrance latencies */
+>   	val = dw_pcie_readl_dbi(pci, PORT_AFAC);
+>   	val &= ~PORT_AFAC_L0S_ELM;
+> -	val |= (pcie->aspm_l0s_enter_lat << PORT_AFAC_L0S_ELS);
+> +	val |= FIELD_PREP(PORT_AFAC_L0S_ELM, pcie->aspm_l0s_enter_lat);
+>   	val &= ~PORT_AFAC_L1_ELM;
+> -	val |= (pcie->aspm_l1_enter_lat << PORT_AFAC_L1_ELS);
+> +	val |= FIELD_PREP(PORT_AFAC_L1_ELM, pcie->aspm_l1_enter_lat);
+>   	val |= PORT_AFAC_ENTER_ASPM;
+>   	dw_pcie_writel_dbi(pci, PORT_AFAC, val);
+>   }
+> @@ -881,7 +881,7 @@ static void config_gen3_gen4_eq_presets(struct tegra_pcie_dw *pcie)
+>   
+>   	val = dw_pcie_readl_dbi(pci, GEN3_CTRL);
+>   	val &= ~GEN3_CTRL_RATE_SHADOW_SEL_MASK;
+> -	val |= (0x1 << GEN3_CTRL_RATE_SHADOW_SEL_SHIFT);
+> +	val |= FIELD_PREP(GEN3_CTRL_RATE_SHADOW_SEL_MASK, 0x1);
+>   	dw_pcie_writel_dbi(pci, GEN3_CTRL, val);
+>   
+>   	val = dw_pcie_readl_dbi(pci, GEN3_EQ_CTRL);
+> 
+> base-commit: 4996364a46e738cc455f5fa9b8b09f2f3348bcc9
 
