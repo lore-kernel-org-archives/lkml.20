@@ -1,167 +1,203 @@
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1A73288D0
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 01:17:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.172
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791940680; cv=pass; b=tVwzIr2GK0pvFXhyc6FB/F97/ZykehGxYYLeSoEj2mNGoN5+4Fne0X4DAX0E/jyJntUOBdnZzJjGOyQG9gkk2c+hyNvPVtMZ3A96FNLmo4JDWxVPqNZ/aRO5FdFh7FbptWn+T/dKw1IT+h+xpmLk38aV5jH0cTEL/mBGQ6ojYww=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791940680; c=relaxed/simple;
-	bh=Mx8pOrR7NuAhI6a7ZnAXwffRXaDHMNA286y6u6ETCWQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=dMVT9uIILB7HHZmSfZPqea00eVOsBT6R7yAYPrYw7QgOiEgc7MMZJM64nt1wFBk3CI3JYgZgyYMqx021wkF2lKLJPSe+H8vD+pNkk5KvcCi7IbZ+seGxIlob2fO0/1mGNvn8xqL8ZyIo5MndKpkUbHJ0Tn4FX9u6RgKNeMfqPLs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NnazHBUh; arc=pass smtp.client-ip=209.85.215.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE29F1A9FA8
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 01:18:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791940705; cv=none; b=KKnuU6lNbNlFRZJf1lgR4IcQCHATCfkC1slOMo6xQfD+GshtqifTH9lnER4xzPvf86y1o4b7KEvgpl7zZg3lImiQjmJnqJYaPQNVgAkyuBw/hYtMFIiIdiKTb9WyiDjuoRLYbZJ5Lz+YZ9bkdLbHHNcYMUyEWb+zsqiNtzQ1ATk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791940705; c=relaxed/simple;
+	bh=JNttwEjgy5z4n6HzQBDVYpWxW1uUfRClvv2Tgp2w09o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qeuK3DPDzNWb/KS+lNiN+1PgM3XGvdBa40ZSg/2ZQdX0+9o7nO6T4YRLGNDqO+N9I77Ejlw+xHNWOL+kocjGKmfUVDnjCVWP94DcZkwpe3+tFUcadv130SdeeFzo2aL8uyK7Y+Ap4Qsbq/Rj/W7eZT/H3m/1OcSOncqWCWyH18Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=VszaL9K1; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NnazHBUh"
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc4aa0246b7so1586439a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:17:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791940678; cv=none;
-        d=google.com; s=arc-20260327;
-        b=q9Pr/ChRgQpZ08B6CyoqtHnWWXo/jhtyPE3y/+yzg3+BRvMT+VXl8YQTDHIWfSj5aB
-         o8VmZa66SWM+UqMPRCVm+/Lbz0Zo93uwDBj9iTkQ2B6V9nyYEMvMEypGADQoScKiyedU
-         rpuFJLochnBqa9m+9oKQtuy5yeDGqZGuzojeEOIzQWBL+hLCcgjme53p3MRiAbDhxIRJ
-         c+1nayIMbqtFf0TAMGu5gw8Yn4Fipt8gT3cmDQ6FULQLpm62YOOY1cUMH+B7yh/vcYnu
-         1cDKCPhawqtL7nPhW4mA37oT+h6M9TWigjnS6J74nHD4v3bn/klNUs4/5UbvTNusqAyy
-         8ovA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=jDmST7kAhWIJHCguqYIGPuaIfAHg6uPk1l3Ttc4Z6Hk=;
-        fh=8zOefxsg0wnnz11LDbLMf1Xo0j85KJS62qRr1zXu2oQ=;
-        b=sjyB4+EeoBPpJiuteiMHsjoUYWVx7MeEQQ3snaF3sNZA4/84WirX6BjLEAWO6eDFmK
-         8ESUZoKoEjC4wHcNZOU8sZcSpiL5UX68RsCNly5x7d52tYGboOBr+/gQzjmV5ZP0m35m
-         HoZFN+RGsPPc/QnboWY8znfSjgVvIrM5n/UKzGw59lrvye7Bqo+1CpC9m5rOeEIuvh67
-         knCFanAM8bVpokxPDROGoR+GZiWB1ZTHLa5Sk54www59vw8FYIw5MX3u3ma0MAbHhcl0
-         OHwEtgu6QvcqE6CV1vVN0pqhoAF4NIunjQjydV3nfSgrUBnXgHUYW2OAEw0s4Qc2sCIq
-         FF+g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="VszaL9K1"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3ab3260b35dso2233636a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:18:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791940678; x=1792545478; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jDmST7kAhWIJHCguqYIGPuaIfAHg6uPk1l3Ttc4Z6Hk=;
-        b=NnazHBUhnMzRroXrKKL1OXMaxJT0nO7epnxwNXNtDY5cHhqa6D5MAzjytzbXbl2K1i
-         cK927cmnp/GEDNgm/UC/buVpScS7JxEOVEbG+nOBN60VJXR7FUsb4w22GCpgtyW3JKLG
-         P36Veqmd3W6mEzjLWu/E6ChFTJEh0W5ErOGGVt1/rbsqsW1kRXy/kpDw/r7+PQCYINqw
-         3sw7Knd8QYFurjEkFLuPoCQAcjRoxOMKSQYij0GYGgPGVDlx6kH+byx1DM0mIQc3XTLK
-         u2MYomsZia04C3cbGIWUtAkNAknQWvJGZOz5pu7Td4hwwyVMUcwrkJs3WK4kTOfgFlEx
-         uMSw==
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791940703; x=1792545503; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7Z2WQcUySBwN042YBIoxAnN3IuR9gqDhYBmuGU28Wu4=;
+        b=VszaL9K1yE1I7Tf9zapShSrVWjOIn6C9gXSLGeHmpRIBeB8ButH2Ne/yCb32UwsPJp
+         lVssBuWPl0XcM25e8ZXrCpO70O8lOP43wdwVnkB1pnpUA4a+f+SfXmMYBlGRXKMlYhzg
+         UGrvA9WOjCUxipkvFdXamkRAcaukV9i7rZNY7U523v143szfaaTHkE1GEu9V63zugerU
+         bzsmQed7jafODZrGNI1Y3MKIkmfIUUn0lde7HzKjJO37mOQztf5+6wyTEpwXkbHojrm4
+         ugUP8dEV+7jAJ534VOU326WUGgzQpTvnJE1gABK1vXGpSL3dXInoXEUZ6tGOTJZkMMUg
+         yNJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791940678; x=1792545478;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=jDmST7kAhWIJHCguqYIGPuaIfAHg6uPk1l3Ttc4Z6Hk=;
-        b=EXhIPJUIZQ43H+4dx921qgG2u+xKBXSy542LM2SRGbUy+FbdPu1yT6NbyGUsk+2jrZ
-         cwM3lBqYxp0dZR4x5iN1r4qDYM/n4f3XUk7pVpFOljoJ3G84hPNQzsf03uaw/vnr3YWl
-         kI7rHGjQrkelYSelF+rS2rJwREnZmsdT2KH34Yvx3pcl2FGV8QNd4v58t+OHwRfdwWPE
-         OA405Im5RkeH8ioW7CPltDI+zm353jisnwW9LeU9FsXzsimaCATYUd6s36tUQgvgFvZK
-         U2tk1hP1h8LEquWQ2Hcgp81V1MCOKsC+Qa4AJppNygoiYNaBbxZbV1KMYcHWlWhDFyW8
-         yQMQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy2B+tLvBHec4Tyh2OQkxHMD9Kuq5DeZeu3/qAh4XXxeWXA8HcCuw1ErNybhg4jdgJZWZEkZUWHVgh8jb4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJUt7PqHJ85HyiIfQJTDnGZIpxQAVQFBhEy5wuUeDicUZTmFvcN
-	C0LlKxaOtbSrjTSjmK9KVCI8YjdhE6pHFWoqXd4zL0JFmIEtnulkGkPWmDrSXpREO8CX1YsQiQq
-	BavfCtW9tdZYm8yEPRzLSQ3tTnNwb8vg=
-X-Gm-Gg: AYBFou0AN005qTa+NmbLOjKOgZmfjVnS68Uu6RxO3FVTupiBp2LZ+kH7N1+DCfZq06b
-	RTzYKfUvrItN7RJt121ZA/lv1O4tCuIX+hLeYh1V90+/4uhh0BUyXfMd1rHbtq/WicfLB/pasoG
-	k7BG3+2CnJ0hcNDjrHJVu8dSrTsMkIahaISyx2aPyvXdvHm4vDCrnNPQbYcgFCiOF4mBttLQQAE
-	EcuYznlDUUGVuHVqaB1HLBiaq8/lKE+Wjnp7XNhLQTcpNemQNEIjHVN/n3dlKe2+INFhdiP1pW3
-	AKPMZKjPEdgeFO4QPIppb9NxCnd0ZpoUmQa6oTe3+EDgxRFDl9V98nPK9S++m2FyU3g1Y5p310o
-	hjM6CWXedMLYSb4Yy7XdT9+vflEvaOC2A695qaw==
-X-Received: by 2002:a17:90b:518f:b0:3a4:b0a1:c7ed with SMTP id
- 98e67ed59e1d1-3ab3a90e667mr11772541a91.13.1791940678077; Tue, 13 Oct 2026
- 18:17:58 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791940703; x=1792545503;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7Z2WQcUySBwN042YBIoxAnN3IuR9gqDhYBmuGU28Wu4=;
+        b=OZVssbj280SP004AimZxTsQHCfcinSdM72rZdHo6ah0VFhvkTk//P1dZjd0ZjlgggL
+         gVuBDyjIanm1pL9uGak5tUmtg4tsClj0msDRE/Yr/uQ2inQBCOCtqfMqAHvqnbSo7Xyb
+         eTHmPGwCA3Y8toN7ABz4fg7BZVM5VtYMxCvfOXu3IzYx08bWmqWxJpTt0ct00yPvDRDG
+         SuF6+30uPEdriPZ/I30yh2gV9cshSlNPB7vm/UvYdirX0ASquAPjBpzb7dshy9fracBT
+         8EGaho5ALv/6XkfXOVlM1BcuRxFtktieXe1ApTSDuWl7y4NuglBdfyXk+2KoD3cvifP2
+         tBVw==
+X-Forwarded-Encrypted: i=1; AKwUvByvVBK1K0AJAkM06C7Ml1g21RG/zEh3n63VrnUeodpguMpsHPVloKjhMcWZMOMq/5MHcQPpYQfCGPc2KYE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKPfWhxKCAeXQ7lyLUPV2LH3UZATVsmFHAfOHcUEoBzcL9C1OaI
+	HTQrRU9OylvyN8CIc/hSjMtfCVkjrZgYHqBYAcFyuHYBDMG6bSEFSeGkFW7j3XxBz9I=
+X-Gm-Gg: AYBFou3WlS/4/qAV/pUk+iPcfr0tEWJZYdpqNSomAOzoKGilDIMf8aMKei/8WFpy1C9
+	sVA7cSEYgWUBDJHkmyUv07FulkHddQgEpu6WcFofyIQP4YeC9yhYy9Z/HQs4fSxQuTkewhndXnH
+	qSDcaV9dLCTZixX5/LqBI+P755+l25YjAftHe8JQwhhcIybp6JMTkLmVTnfkEQfB52x47QP/GZu
+	fVfcJGO0coRT2BW3uDQNWIqQhCMrV7Dr93+DvruezMjT+vU+9QMVkSWh70euLaec1WCDuB9otn8
+	j3vqn8CIPBabpy1ClSrJeA5qmgnRAu6YRHlKivKTcAHnfSCPvA4LXxh3ya7G/ySeLa0ff6NsrsZ
+	Fk416JRxJH8+qJ+imhZQpTVaWigBXsfJ3aUSzl5y9Yw4dfOQWCSyMTIVdU2fNRY8HEgO5GA2niC
+	/jhvNhAV/6pj6XObiVkjCcMPI+TWv6Vc+XWtl0xQcnm5e5Vt+R1C7PEgFTn6qGGOvI6k/gWsG8s
+	isWk/XY6ocrLu2uJVya
+X-Received: by 2002:a17:90b:3c04:b0:3ab:39e5:6268 with SMTP id 98e67ed59e1d1-3ab3a92f39fmr12335751a91.53.1791940703089;
+        Tue, 13 Oct 2026 18:18:23 -0700 (PDT)
+Received: from localhost.localdomain ([2406:5900:1044:110c:c51c:be8a:c517:276])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac684c7cb3sm532763a91.3.2026.10.13.18.18.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 18:18:22 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: "Martin K . Petersen" <mkp@kernel.org>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH v2] scsi: mvumi: reject handshake sizes that overflow the list allocations
+Date: Wed, 14 Oct 2026 10:18:08 +0900
+Message-ID: <20261014011808.3479480-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261013220421.1588051-1-bhelgaas@google.com> <20261013220421.1588051-3-bhelgaas@google.com>
-In-Reply-To: <20261013220421.1588051-3-bhelgaas@google.com>
-From: Semih Baskan <strst.gs@gmail.com>
-Date: Wed, 14 Oct 2026 04:17:46 +0300
-X-Gm-Features: AclHuK_e12mFZYv6Pnb8WSqKFNBAW2cZiwmazllPkVxW3EceBwkTGRAJSzPTr38
-Message-ID: <CAAsRjRng=D-kP3pakPA=M5k-znYbTj3gz-RGiajnxhS3ymz8sg@mail.gmail.com>
-Subject: Re: [PATCH v4 2/2] PCI: iproc: Use the EROM outbound window on BCMA
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Manivannan Sadhasivam <mani@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Ray Jui <rjui@broadcom.com>, 
-	Scott Branden <sbranden@broadcom.com>, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>, 
-	=?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, Arnd Bergmann <arnd@arndb.de>, 
-	Rosen Penev <rosenp@gmail.com>, Rani Hod <rani.hod@gmail.com>, 
-	bcm-kernel-feedback-list@broadcom.com, linux-pci@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Bjorn Helgaas <bhelgaas@google.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 13, 2026 at 05:04:21PM -0500, Bjorn Helgaas wrote:
-> The PCIe outbound window base on Northstar depends on the PCIe Gen2 core
-> revision. Revision 0x01 uses 0x08000000, 0x40000000 and 0x48000000 for
-[...]
+mvumi_hs_process_page() takes max_io, the two command entry sizes and the
+list depth from the firmware handshake page.  The entry sizes are u8 fields
+used as shift counts, and 1 is an int, so a count of 29 or more makes the
+<< 2 applied to the shift overflow an int; a count of 32 or more is
+undefined outright.  max_io is a u16, and the sizes derived from the shifts
+are multiplied by it in mvumi_init_data() to size three unsigned int
+allocations, so a large entry size wraps the product and the loops that
+follow then walk and write past the short allocation.  The list depth is
+used as a shift count too, but only when the firmware sets
+HS_CAPABILITY_NEW_PAGE_IO_DEPTH_DEF; a count of 32 or more is undefined
+there as well.  The depth also sets how many entries the inbound and
+outbound rings hold, and the per-command slot index wraps on that count
+while the rings are allocated for max_io entries, so a depth yielding more
+entries than max_io -- or none -- walks the index past them.
 
-Thanks for combining them.
+Reject an entry size above 29, which keeps 1U << n and the shift that
+follows it inside an unsigned int.  Then compute the worst-case allocation
+size in u64 at the top of mvumi_init_data() and reject it if it does not
+fit an unsigned int.  That total bounds all three allocations: the inbound
+list total, the outbound data pool and the tag arrays, whose sizes are the
+same products plus smaller terms.  Reject a list depth of 32 or more on the
+shifted path so the shift stays defined, and reject a resulting entry count
+that is zero or above max_io so the slot index cannot walk past the rings.
+The shifts also use 1U now so that a legal count cannot overflow an int.
 
-Signed-off-by: Semih Baskan <strst.gs@gmail.com>
-Tested-by: Semih Baskan <strst.gs@gmail.com>
+No realistic controller is rejected: a controller reporting 4096 commands
+with 64 KiB entries and a depth of 12 needs 513 MiB and passes unchanged.
 
-Tested on an Asus RT-N18U (BCM47081, PCIe core rev 0x01) with both
-patches on OpenWrt's 6.18.55, which carries 767012397976 as a backport,
-driver built in. bcma0:7 enumerates the BCM4360 with the same window,
-BARs and IRQ as OpenWrt's current image (an earlier version of this
-patch), and bcma0:8/9 print the two expected warnings (DT 0x20000000
-and 0x28000000 against EROM 0x40000000 and 0x48000000). I did not
-build it as a module.
+Fixes: f0c568a478f0 ("[SCSI] mvumi: Add Marvell UMI driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+v2:
+- compute the allocation total in u64 so the check also holds on 32-bit
+  (Sashiko).
+- reject a handshake list depth whose entry count exceeds max_io, which
+  would walk the per-command ring past its allocation (Sashiko).
+ drivers/scsi/mvumi.c | 43 +++++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 39 insertions(+), 4 deletions(-)
 
-For the commit log, here is a version that describes the bcma and
-platform side, in case it helps:
+diff --git a/drivers/scsi/mvumi.c b/drivers/scsi/mvumi.c
+index e70d336b4ab39..e9ba072220331 100644
+--- a/drivers/scsi/mvumi.c
++++ b/drivers/scsi/mvumi.c
+@@ -912,10 +912,23 @@ static int mvumi_init_data(struct mvumi_hba *mhba)
+ 	unsigned int tmp_size, offset, i;
+ 	void *virmem, *v;
+ 	dma_addr_t p;
++	u64 total;
+ 
+ 	if (mhba->fw_flag & MVUMI_FW_ALLOC)
+ 		return 0;
+ 
++	/* These are firmware-supplied and size the allocations below. */
++	total = (u64)mhba->ib_max_size * mhba->max_io +
++		(u64)mhba->ob_max_size * mhba->max_io +
++		sizeof(struct mvumi_dyn_list_entry) * (u64)mhba->max_io +
++		160;
++	if (total > UINT_MAX) {
++		dev_err(&mhba->pdev->dev,
++			"handshake sizes too large: io %u, in %u, out %u\n",
++			mhba->max_io, mhba->ib_max_size, mhba->ob_max_size);
++		return -1;
++	}
++
+ 	tmp_size = mhba->ib_max_size * mhba->max_io;
+ 	if (mhba->hba_capability & HS_CAPABILITY_SUPPORT_DYN_SRC)
+ 		tmp_size += sizeof(struct mvumi_dyn_list_entry) * mhba->max_io;
+@@ -1051,16 +1064,24 @@ static int mvumi_hs_process_page(struct mvumi_hba *mhba,
+ 	case HS_PAGE_FIRM_CAP:
+ 		hs_page1 = (struct mvumi_hs_page1 *) hs_header;
+ 
++		/* Firmware-supplied shift counts: (1U << n) << 2 must fit. */
++		if (hs_page1->cl_in_max_entry_size > 29 ||
++		    hs_page1->cl_out_max_entry_size > 29) {
++			dev_err(&mhba->pdev->dev,
++				"invalid handshake entry size\n");
++			return -1;
++		}
++
+ 		mhba->max_io = hs_page1->max_io_support;
+ 		mhba->list_num_io = hs_page1->cl_inout_list_depth;
+ 		mhba->max_transfer_size = hs_page1->max_transfer_size;
+ 		mhba->max_target_id = hs_page1->max_devices_support;
+ 		mhba->hba_capability = hs_page1->capability;
+ 		mhba->ib_max_size_setting = hs_page1->cl_in_max_entry_size;
+-		mhba->ib_max_size = (1 << hs_page1->cl_in_max_entry_size) << 2;
++		mhba->ib_max_size = (1U << hs_page1->cl_in_max_entry_size) << 2;
+ 
+ 		mhba->ob_max_size_setting = hs_page1->cl_out_max_entry_size;
+-		mhba->ob_max_size = (1 << hs_page1->cl_out_max_entry_size) << 2;
++		mhba->ob_max_size = (1U << hs_page1->cl_out_max_entry_size) << 2;
+ 
+ 		dev_dbg(&mhba->pdev->dev, "FW version:%d\n",
+ 						hs_page1->fw_ver.ver_build);
+@@ -1069,8 +1090,22 @@ static int mvumi_hs_process_page(struct mvumi_hba *mhba,
+ 			mhba->eot_flag = 22;
+ 		else
+ 			mhba->eot_flag = 27;
+-		if (mhba->hba_capability & HS_CAPABILITY_NEW_PAGE_IO_DEPTH_DEF)
+-			mhba->list_num_io = 1 << hs_page1->cl_inout_list_depth;
++		if (mhba->hba_capability & HS_CAPABILITY_NEW_PAGE_IO_DEPTH_DEF) {
++			if (hs_page1->cl_inout_list_depth >= 32) {
++				dev_err(&mhba->pdev->dev,
++					"invalid handshake list depth\n");
++				return -1;
++			}
++			mhba->list_num_io = 1U << hs_page1->cl_inout_list_depth;
++		}
++		/* The rings hold max_io entries but the index wraps on list_num_io. */
++		if (mhba->list_num_io == 0 ||
++		    mhba->list_num_io > mhba->max_io) {
++			dev_err(&mhba->pdev->dev,
++				"invalid handshake list depth: %u entries for %u commands\n",
++				mhba->list_num_io, mhba->max_io);
++			return -1;
++		}
+ 		break;
+ 	default:
+ 		dev_err(&mhba->pdev->dev, "handshake: page code error\n");
 
-    PCI: iproc: Use the EROM outbound window on BCMA
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+-- 
+2.43.0
 
-    The PCIe outbound window base on Northstar depends on the PCIe Gen2
-    core revision. Revision 0x01 uses 0x08000000, 0x40000000 and
-    0x48000000 for controllers 0 to 2, revision 0x07 (NS-B0) uses
-    0x08000000, 0x20000000 and 0x28000000. Broadcom's own driver branches
-    on the core revision for this reason. The enumeration ROM reports the
-    base for the revision present, and bcma provides it as addr_s[0].
-
-    Commit 767012397976 ("ARM: dts: BCM5301X: Describe PCIe controllers
-    fully"), in v7.1, gave the controllers in bcm-ns.dtsi a ranges
-    property with the revision 0x07 values. bcm-ns.dtsi is shared by
-    every Northstar SoC. The DT ranges cause two problems for this
-    driver:
-
-      1) devm_pci_alloc_host_bridge() parses and requests the DT ranges,
-         then the driver adds the EROM window and requests the list a
-         second time, so every controller fails to probe with -EBUSY.
-
-      2) The DT window itself is only correct on revision 0x07. On
-         revision 0x01, controllers 1 and 2 get an address the hardware
-         does not decode, and the first MMIO access to a BAR takes an
-         imprecise external abort.
-
-    The window comes from the EROM and the interrupt from bcma. Allocate
-    the bridge with pci_alloc_host_bridge() and free it through a devm
-    action, so the PCI core no longer parses and requests the DT ranges,
-    and request only the EROM window. The driver still reads the DT
-    ranges for one check: if the DT describes a memory window that
-    differs from the EROM one, it prints a warning, so a wrong dts shows
-    up instead of being ignored. The driver works whether or not the DT
-    describes a window.
-
-    The same commit also added compatible = "brcm,iproc-pcie", so these
-    nodes now match pcie-iproc-platform. With CONFIG_PCIE_IPROC_PLATFORM
-    enabled, the default on ARCH_BCM_IPROC, that driver binds them first.
-    It takes the DT window as it is, so that path needs a separate fix
-    either way. This patch fixes configurations with PCIE_IPROC_PLATFORM
-    disabled, such as OpenWrt's.
-
-    Fixes: 767012397976 ("ARM: dts: BCM5301X: Describe PCIe controllers fully")
-    Cc: stable@vger.kernel.org
