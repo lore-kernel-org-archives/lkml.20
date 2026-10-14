@@ -1,149 +1,103 @@
 Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EDED3D5246
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:00:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB2EB3F8ECA
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:01:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791997205; cv=none; b=hArOZUsZX1KEYGes3ToE4vlQ5MWdmUw6OJtRecWozZrIU4TEl6JXqD64Ry6huXE5YK8px8AulzPijVBw4yOSM5hT38q0M+VOfeLg6lkfjdHVcIPAAd96PNVLEs7HrqEc4yYSKzVakgH8mEa3aLyNfhGXguIfKGHc83Hw9BbNb08=
+	t=1791997290; cv=none; b=exsxpCPQdkr4P7eAPoe2+l9lgc8l/3e+x6X9zMSrCjOy8iZM5bMBZlnfiqBPVSewm9UX3U9R8oI57ABO6pvlLtIvBwtuwEu/GlvVhy55ZbDr9hetQngS8z7vZD/qnXFhtJUgXI4qk5TJEaQyDVG+r2iimnaXhi8xzuE7R7sE0JU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791997205; c=relaxed/simple;
-	bh=t7rn/xMzKIsrLaNS2xHgKqX+l7m1C+f5u4M2lUXhfIs=;
+	s=arc-20240116; t=1791997290; c=relaxed/simple;
+	bh=Kdc6yC4xRjvpZvivtkFQl4egG4a2TmHEsEe5UY+hyoo=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VDRY1o5OObhueZV6Qjo9NwzPvikrGDCiqDlpYFzVUIQwbiOjcPu7kmOvamUP3vaAI91ziCqa5q2a/03jLGYtew2PDibuudO0XeaYNViQ6AYhi/OSd5f45ujlYkB6y1zvs6mUl8z9DQPxDKMVaNTOPM9IwLEZc7bMbmunWvvlrf0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=ME5lA6vp; arc=none smtp.client-ip=209.85.218.42
+	 To:Cc:Content-Type; b=cx0zjG/hFPUdeJVXf8FP1oZ1WZjzzMyCAjXYmQtHbRxut3XzNul0AL4jpTBJ0Vubryg+jf2KN/QwWQsiPKmDBvT4O+CcuCVphfaOvG1L0DZNBMULLkneqK53MVLouSOcWbE7Wk2T1PHRh5Wvici6MfYjzJ/C2VoYJsT4hIj8/2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=fW1nLXln; arc=none smtp.client-ip=209.85.218.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="ME5lA6vp"
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c2e5e801487so663752966b.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:00:02 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="fW1nLXln"
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c2e8e738ae0so774756366b.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:01:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1791997200; x=1792602000; darn=vger.kernel.org;
+        d=linux-foundation.org; s=google; t=1791997287; x=1792602087; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=OkE0Z2/i0i7EFZjNtTFKeqi6fbMm7UzE8UbD0jLuu9c=;
-        b=ME5lA6vpue9KF3xjJZCjgBcn5WOaTRvMqdh74d0zLxKUPcA8N/V5+opxViFRb5BFJw
-         61nS9wMIrV4umkGWahrjFwE3atnqO5jVxYTBRy+Wt8kNu2TKNxHtAYVYT+1mWGStepxf
-         n/ZKaqE1M8XBwYg/KMR33eT8NgdHZhUxsFA7U=
+        bh=u/J2ax6te+1JRzLcB5oiAyce7s6PHnNfpG49L6qJGy4=;
+        b=fW1nLXlnBECQ7oS+J9+xtNkZCJNTaK5lZ83ZE4EKSy3392VigHevDm7I6HvQqQpGpE
+         k3ylNKRB8jxQQSDU6hrr3lSUQvTeB2W0gsnOIZnWqct5g1lHQojb2A/3JOtfjexg5d4B
+         /QlGbe6TA4qDx85pw1VqoXBEBbFkqTmz3fW84=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791997200; x=1792602000;
+        d=1e100.net; s=20260707; t=1791997287; x=1792602087;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=OkE0Z2/i0i7EFZjNtTFKeqi6fbMm7UzE8UbD0jLuu9c=;
-        b=KvnWJrg4IxAXYmfT2yGvWi38NBojsBi0iQTjMKXRIDlcBUbcYdONK5r1qLWWTgAQsf
-         LS8Wb9LG8lBwuzON0MYxdNR58xMfGPpq9Zk00S59MSBnwCvCdcEnqJ4Twpu5gxOvCyLF
-         CIVmKigRdBLMpsxZzR/3SQpMsRs38/8TOrOzPCYqOUEEgbsnKGJIYyL2LpaLGs9PizT7
-         K58R51JOZytTwEPR5SrpbDqmnXJOf6weaBH0I0EtOMOpft8MAWpmcwhcwhoD5jj5+HyG
-         4JgFpv17iLHzY/LUsaR3wKXswz8BD//JdHTduGHeQO3hytkrpOWtylXzuo3h0ExABabY
-         pmDw==
-X-Forwarded-Encrypted: i=1; AKwUvBycAkoGcxfpzVyeFyCr06nSy8dNsI7Z2XL2O8RbfapLO11RfGjt8JuGSwTjWXyyni8kCKyQdWK8vOLAikk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKYCVgukEAzUUNeYMLJ/0f4zmO70rMY21Xsbh7Vn5dHIMCzOBdB
-	DZa0irEnlL8nVfe4/suSNA2ACmMtrqASPDGJpt49msLVuVxuuSQYI7opn8Xv6GSvaUwnUVVFo4/
-	1ma5hWp0=
-X-Gm-Gg: AYBFou1rAsfv1bsiQYnm8gkjANbs94wg8P62MxRQbh44eu+Ky8n9vOkC3qm43DTu8sh
-	dC5onEbOgmpXRNKemLlQ9VymOXi2YuEhgc8Z0Qz67PC55yEYrVcec7bv2r/JQOgSJASR2q1gJAn
-	+LOExF5VHxRNIaq52ZS9u9nV5W2uNriEg24/VS4h9djMjpCfLVlAMFssBKCjL3KT08yL04/w5mp
-	nKY/m7YD0rsQcctEdIvIAaKEODfMVraXJVe2NAIjh2yk6W6xw809/Zp1iapvgdgghjnGbe9Ewln
-	zb7e2CBod9vo/3WEmITSgkDIkIw5HK0LMAqKQTxfDenV4oVLksjn/iI0/dVnxhS3RjzjCh5eRK0
-	OMd0D5n/2PJrunkKD5TLfAHyVpPL4mo2VGzyAgBmH2cUofhkl8dYq7stV6mIxKECCHAPXIetSwm
-	Yh0KT+sy+LaybCVnC+WbyhnyYhCh7L1KehYp231X6MGAsWCI1g6qvAD13mLm05JvwhNDXTsMN0+
-	iYWTnOYMu8hDZJyEK1Sb0ybHTHTGoMJkpxvy1b5v94VUlqm
-X-Received: by 2002:a17:906:c106:b0:c2d:bf61:24d1 with SMTP id a640c23a62f3a-c31a9a2919bmr1457743666b.1.1791997200464;
-        Wed, 14 Oct 2026 10:00:00 -0700 (PDT)
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com. [209.85.218.46])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3ed9b3db62sm6487766b.36.2026.10.14.09.59.59
+        bh=u/J2ax6te+1JRzLcB5oiAyce7s6PHnNfpG49L6qJGy4=;
+        b=WQjLhTxfYhOO5X4R8DcLGWEGi3yHDAfcOz5Pzqfwn3xR/It/GuFpxfPevpfv7pxL53
+         /OAK0Mx9VeJkPxh5Wa6lnxY2GAZzjF/7WSPwkCMha2lI2eXoyq39Gf0/Zk8eyQ+HWBgY
+         l/v56LrzJtgrrBdItUIfs/Usig6YbZGWetyvbGR2x2m/1UPG+xlU+eSlFkGI5uVaM8my
+         Cl91jIB5+G3NB1H4DvvwsDhN4BjSPF6Iez9go/y1BPUP/Buyw23LScf2xYC4rLpSZHBx
+         AGLmV7+RmXx7sXCqdbxaER/PQswX7Dfq3yiqM+iG287VEgDM2jcsFrdJOMz9Ch0YDA4l
+         cd9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzOEFQRw/GfG3ZKK/+blm+aprCfirOgjFXU4QvdKzXGudyUMbDrjrHpgk1qCRn5UcOXocECPGAX7vC/fdQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK0ch0ImxYKXNa3IeLhZbxmuuPDOAVZPl4sZy66CwH/F6VRRz7n
+	EiD57uBpBSap0HzzNSL8bXiJfhP3fNi690wPqz0iEXeLxjSV8NQFQValgtqCtxwYnM505MZaGJx
+	HDldvmxA=
+X-Gm-Gg: AYBFou0fZEEqbqj8pLsPSZFjpevPHhP3sCvR3WYr1+WOiIA7yFDVnaCMmQpRwldeh/p
+	GgX113jMNbGG1ysoeDQc6b1vXyzOWaMk6XgRczrDVzA8w1d5aAnHmqGVNkRl5p1FsNDpj+52jV3
+	VMQ7FaIW7w2DWzJSnRMPqIpX8aneXxrIabD5frFcdvIkiL7qB0fr1J2SrpqO2XRz6XDoIJjpAUT
+	SyAvZDZ/9Nwk2/9e5s3XzVD3TU3tBj1Zb/grm+sXLXnJcLwkxTQin4ko4VB5ShXH7v5qCquvsHq
+	6sASK0Su+12cRo8521HcSjB0xFGsfSdx+pQLGkkekSCiXV8/kKxdjBP2/G3VN9YUXuLBDWY5EcY
+	h3Fshb9BWP1Q7VU+XvSNm/uEsCyr9GjxFYdWaWUKxvgYXsxIzzoYSivfPqI+i6C5hhQLMbsw5cC
+	u0OjT2Ijp1o6mR/StLd6PP5TXWRtvtmsLQv1iGW2PUJgfP2y26TjJnviNhXgV8k+MPZKbGhyNE3
+	GMPKaqmw02OWxVj1HTfTDvItEUKMHbxTdkXSre5T0bAr9lK
+X-Received: by 2002:a17:907:9801:b0:c29:4fcb:2886 with SMTP id a640c23a62f3a-c31a9fd831emr1537567766b.39.1791997286998;
+        Wed, 14 Oct 2026 10:01:26 -0700 (PDT)
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com. [209.85.218.51])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3ed6beaf65sm7613766b.3.2026.10.14.10.01.26
         for <linux-kernel@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 10:00:00 -0700 (PDT)
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c350db5a761so567966666b.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:59:59 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz6y+lLuRdEu215KZuRP2GyolGwKhMRkskcqgeHagZP8ab9iIcp/UGfOUe4l3sm/2YFmPqnIJpjDJoLYyQ=@vger.kernel.org
-X-Received: by 2002:a17:907:c0b:b0:c29:5215:b2d2 with SMTP id
- a640c23a62f3a-c31aa016eb5mr1683734266b.23.1791997199620; Wed, 14 Oct 2026
- 09:59:59 -0700 (PDT)
+        Wed, 14 Oct 2026 10:01:26 -0700 (PDT)
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c2e8c710847so544437466b.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:01:26 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwwtnKpg7uxQs/QeTYufWs/9QzJvpx4OotY2dBnytPPlJO8bf2Fm3WQfGARtL7wrlcpBIL/V3tnaBgUVXU=@vger.kernel.org
+X-Received: by 2002:a17:907:968f:b0:c31:8c48:e18b with SMTP id
+ a640c23a62f3a-c31a9afb3b6mr1614699966b.14.1791997286294; Wed, 14 Oct 2026
+ 10:01:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAHk-=wjLjgfwgSZ1RDk4YdNFcV0ntosMO5AmBoHD76Zb3HFY7Q@mail.gmail.com>
- <as690Xcu7FxIDYjf@thinkpad> <CAHk-=wiak+h+d2tZ5W_MwRzatUP=hJKn7cpGjDxArG-gwgHLXg@mail.gmail.com>
- <as9-2cIuGuXwE2Oa@pedro-suse.tail5790ac.ts.net> <CAHk-=wgkoAuxNXga29nQ8w7GxdqR+4vPAUhPsbfp+gzKrb9EgA@mail.gmail.com>
-In-Reply-To: <CAHk-=wgkoAuxNXga29nQ8w7GxdqR+4vPAUhPsbfp+gzKrb9EgA@mail.gmail.com>
+References: <20261014160144.1835860-1-jarkko@kernel.org> <20261014163550.GA327771@quark>
+In-Reply-To: <20261014163550.GA327771@quark>
 From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Wed, 14 Oct 2026 09:59:42 -0700
-X-Gmail-Original-Message-ID: <CAHk-=whzkNzkBmCspHYd80D1Z=krDc4SgVC32=pJ5PtEgqSDrw@mail.gmail.com>
-X-Gm-Features: AclHuK8rFSm3cd3995TX4NGfeXZ5GusuWKoXTlnl6-nGHAqR468IMtyKx0G31Q8
-Message-ID: <CAHk-=whzkNzkBmCspHYd80D1Z=krDc4SgVC32=pJ5PtEgqSDrw@mail.gmail.com>
-Subject: Re: Improve page refcount scalability
-To: Pedro Falcato <pfalcato@suse.de>
-Cc: Kiryl Shutsemau <kirill@shutemov.name>, Harry Yoo <harry@kernel.org>, 
-	David Hildenbrand <david@kernel.org>, Ilya Gladyshev <ilya.gladyshev@linux.dev>, 
-	Matthew Wilcox <willy@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Luis Chamberlain <mcgrof@kernel.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Linux-MM <linux-mm@kvack.org>, 
-	"Paul E. McKenney" <paulmck@kernel.org>
+Date: Wed, 14 Oct 2026 10:01:10 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wi7cq3pdpGV4mnErRqxTmUm2UA87+v4N-nni2tQNw6Bkg@mail.gmail.com>
+X-Gm-Features: AclHuK9QDUgl4J1rJvqvCYjnkQ4RS2QijjPUkASw7HMcAk5l4Pr5JiIIEojmQ2Q
+Message-ID: <CAHk-=wi7cq3pdpGV4mnErRqxTmUm2UA87+v4N-nni2tQNw6Bkg@mail.gmail.com>
+Subject: Re: [PATCH] lib/tests: kunit for associative array
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: Jarkko Sakkinen <jarkko@kernel.org>, keyrings@vger.kernel.org, 
+	Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, 
+	Andrew Morton <akpm@linux-foundation.org>, Rae Moar <raemoar63@gmail.com>, 
+	Ryota Sakamoto <sakamo.ryota@gmail.com>, Kuan-Wei Chiu <visitorckw@gmail.com>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, Kir Chou <note351@hotmail.com>, 
+	Petr Mladek <pmladek@suse.com>, Dmitry Antipov <dmantipov@yandex.ru>, 
+	Guan-Chun Wu <409411716@gms.tku.edu.tw>, open list <linux-kernel@vger.kernel.org>, 
+	"open list:KERNEL UNIT TESTING FRAMEWORK (KUnit)" <linux-kselftest@vger.kernel.org>, 
+	"open list:KERNEL UNIT TESTING FRAMEWORK (KUnit)" <kunit-dev@googlegroups.com>
 Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 14 Oct 2026 at 09:25, Linus Torvalds
-<torvalds@linux-foundation.org> wrote:
+On Wed, 14 Oct 2026 at 09:36, Eric Biggers <ebiggers@kernel.org> wrote:
 >
-> > How many pages (as a %) are you seeing as marked PG_rcu_free across a boot/
-> > realistic workload?
->
-> I haven't actually checked outside of "a normal boot doesn't cause
-> even a single accelerated RCU period". But I'll go reboot into a clean
-> kernel and see what a kernel compile does.
+> Would this effort (and Linus's effort) be better spent on converting
+> keyrings to use an rhashtable?
 
-So for me, after a boot into a full desktop environment and starting
-google-chrome with my usual setup (18 tabs open), I have
+I agree that it would be lovely to just get rid of assoc_array, since
+this is the only use for it, and no other use has grown in the (many)
+years it's been around.
 
-  nr_free_rcu 0
-  pgfree_rcu 73
-  pgfree_rcu_done 70
-  pgfree_rcu_mark 34038
-  pgfree_rcu_kick 0
-  pgfree_rcu_drain 0
-
-IOW, I have 135MB marked for PG_rcu_free - sounds reasonable - but
-zero actual expedited RCU events.
-
-And then, after having done a full kernel allmodconfig build ("git
-clean -dqfx" + "make allmodconfig" + "make -j60"), the numbers grow,
-but:
-
-  nr_free_rcu 0
-  pgfree_rcu 32107
-  pgfree_rcu_done 32107
-  pgfree_rcu_mark 1395272
-  pgfree_rcu_kick 0
-  pgfree_rcu_drain 0
-
-so a fair amount of activity, but this machine has obviously never
-been under any memory pressure.
-
-What do these numbers tell me? Not a lot. That pgfree_rcu_mark number
-is cumulative and keeps growing forever - it's just the count of pages
-that have ever been marked. And the best way to grow the
-pgfree_rcu_done numbers is actually to then do a "git clean -dqfx",
-because that will delete all the generated files - and that was a lot
-of the RCU marked data, so now it will be free'd.
-
-That actually makes me think I should go back and clear PG_rcu_free on
-unlink - at that point the folio can no longer be read. I used to
-treat unlink differently from truncate/hole punch because of this, but
-that was in my first version where I marked the pages for freeing when
-removing them from the address space. Now that I mark them at read
-time when they are 'hot', unlink() is still going to pointlessly
-rcu-delay their freeing.
-
-Let me look at that.
-
-But the short of it is: normal loads without any real memory pressure
-simply don't cause a lot of actual RCU events at all.
-
-          Linus
+                Linus
