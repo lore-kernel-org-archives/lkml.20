@@ -1,166 +1,253 @@
-Received: from mail-wr2-f10.google.com (mail-wr2-f10.google.com [74.125.225.74])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010068.outbound.protection.outlook.com [52.101.61.68])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22A0551DE03
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:21:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.74
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791984083; cv=none; b=Vgr9SebRDXsiDPMjQ8QmF56Sj3SET170DJ1feajbuLbcP+zJpxEPUzgaQutcLlpZPFHqBzEnA8GKyqTQvuioCjjEPJG1hI6e+h4wBe9ahDUItPwhuK+3AJZ6ZoOcav5LSAFzYDS7Sv54AdbBBs5Jniruy4mqEITQo3UW9GIK1RU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791984083; c=relaxed/simple;
-	bh=+2DksuN0PXimCBlfhp3flMUyobqYYJ1LAz/bP03IRBA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZcKYQnHhU4IncLMW6JIOuwIVVQAswvNxRujkMf/cKIxBtuGJePRkV4ZJHIFoNf/dRoQv/HFLbuPd5jF+/3sui/vU7uu9ikscAak2r+iXMsLUKDshQHZjlx6cxLfyXvATLUbQY27f616sB79Dz4pn9nxG9HT+wsX3jfgkr03g/hs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OmAnp/a5; arc=none smtp.client-ip=74.125.225.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B0E15012B7;
+	Wed, 14 Oct 2026 13:21:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.68
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791984084; cv=fail; b=E57qWrZf2rl5xzucVEKD+0epaNBexr5IHw4LI/P1LkzkQqzmT6m54tpHrJIPfpENqZSInJND/fPdTeS+MFQL5VTSfIucgr4pAciACU8+vUvC9o4nPA4EV3Ppc7l7gL8oeiW//hp/c3Q0BFnEh67fFajpN/rFyseOwzQgWEl+0gk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791984084; c=relaxed/simple;
+	bh=HzGKqNjIqNLLjHG60Bzh7kvTX3kgVJxh8lAMbp3C0TA=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=UBBeaepWD1Pp1KWTXTVj6nL/LFGlcFLvQ+Syg+vnl5OJqQnKssFbie5eXIpDgeysru6qd+TRmyr03GJnSiECAWFDJwHnQXqCX6cDBpuxbhYeYiIZSI09/VFz3PrKS81wASLxQzYrJez/fPCNQZwgaGxGEVvUx50yOkkSD1tPMx4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=JwotqQk1; arc=fail smtp.client-ip=52.101.61.68
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OmAnp/a5"
-Received: by mail-wr2-f10.google.com with SMTP id ffacd0b85a97d-48df0245ce6so78572f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:21:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791984080; x=1792588880; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mH8cYaV01On54VD3MX65wnE47n38Aav2xpeeuVOOg0E=;
-        b=OmAnp/a5nchU9X8AGD7+9AAixdrpKHiXM+OI6wmg1gzkdeRfGrbozSYH3qbSbT+UeO
-         1FWQ0HHX4QOjOQJw9R30lf+wVA/1k/fAuEWMw2vJGX3QW2AQ4MLHkMNZpKS5dHScSfZ8
-         8Vg9baZfIrwODThd0P/sUhUI/pxV34Ym0qNTZjTiiIGk6UTvgmg54eIEbg/aLW3q+JnU
-         l9/cKRn487hD+0yafcBCl7tnVqnLQcfwJq/2fhcYwCgvofTw8vNlvVoE4nbfZgv+MHW/
-         TT88EQXkF3zWxZkjoT0Xy9aOS4VMn1X9Vw8Hr8sJwpX7tIA3yQJM7ty1aOMoTxKfcwFR
-         gNfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791984080; x=1792588880;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mH8cYaV01On54VD3MX65wnE47n38Aav2xpeeuVOOg0E=;
-        b=aQbzWTqCgwzYfP5zL1Cfm4njLkbr1oQSAPhd/7tEVmXMNjO4sRV8NdGA9axPQZyRjL
-         md743Bqc63vIbs3VT6yL7ILe5wUTPYjNtdmKCiMwg6BsWwgtF5ttegUngFpjd/q8QiTc
-         FvJNVaCN0XpZuQn/eby1Yt1DLB7Y6iz7UAcQDPZrSVcVyKtBJO69UJT02d4QmRUfjLKZ
-         Jr97BJh+ZZTXucImanrLi6TJnAPiB+sgQ7HbYJpWI06EHE3JFsm6TssgPrnqBj0s1qmC
-         Tr3hKRBCftzYUK5cfiK3zpYEBdHDmHj9mfjxIlAsre3YFSMWaK/ujPvNj1Uil70IUA57
-         2JGQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy0TyIp4or8hZBEx9h1Dytdad77uA7G1ZEJYIA/mTsCDmRcZLLK+OG7LLcdWkycnUoGVwqtuqBT86kEY3I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLDV5pzZUMIw2qbEeymqAgaZhVPI0iNAR5g1/0m5TocOd27BiSB
-	BxdphRRId3RBphZIBBHcBhxdHX4DGmmg8gAtb8K8apPPwUVs+sk3OfSF
-X-Gm-Gg: AYBFou0H8KYP7eWM26SFKhDtKAtG6XebBVxt84QH/1qT1aJYrRUtELnBM4R2HBLB1pN
-	EiapThs22lYoU2QWb/NVOoTYFu30/NkS8uMJxKUi2vFKSksi4AZ4n/OPpohndjxj9Tbvf9NQ3ko
-	64HMkii4lFHA+ZOrB1N8vdY39PsuJ5E7hF9VHsEfpxgT+LX25j7bGG51zc7aJGmVNN/KWXmMMkb
-	x4I0tt5SP8tmo7rl7dHyEP0ourZ1SuHhqrvH85D02Q29+eINMX78NBQ6IQaC1UH3U5HH++l1Q5J
-	bNEZBXzQyEtZgYwGnCrAVs+iZAjBaF37nmeFR06DP0QoyW6b63Tfl02ZM/3TvgeWlWcQlhAU3ZQ
-	JQdXy3TNKvTxXU3k2Zv0k34Q2VNGrauyv90kNF8WxsghboT7czswSjOIBe0eAfinWeyttmg2mNl
-	N2NHzNS9w0fnfJxkHN8xCxxZ9jRLDIm/1o4fQbLrBYk5cuhbYo/6uAYdbPihOX2TQoY+iF7A==
-X-Received: by 2002:a05:600c:524a:b0:49b:9202:6f80 with SMTP id 5b1f17b1804b1-4a18e4a4f2amr317315465e9.6.1791984079883;
-        Wed, 14 Oct 2026 06:21:19 -0700 (PDT)
-Received: from fedora41 ([37.168.54.225])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bcf2537fsm1250895e9.8.2026.10.14.06.21.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 06:21:19 -0700 (PDT)
-From: Timo Joannin <timo.joannin@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	guojy.bj@gmail.com,
-	error27@gmail.com,
-	Timo Joannin <timo.joannin@gmail.com>
-Subject: [PATCH v6] staging: rtl8723bs: remove unused phy_stat struct and dead prototype
-Date: Wed, 14 Oct 2026 15:21:07 +0200
-Message-ID: <20261014132107.171964-1-timo.joannin@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="JwotqQk1"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pb1kG0ULYyfcCtK9nEdkYcDM27246GLYhR/IcJNcCmlVcB4Dz9Mc7bIU8F87FELo7hSjh2B95ebavLIOuaoClY7ojjxgmXXgc+vYSUbQnjeU3W3YoHFZfzjs7yFVR9/6EPmXG6dseNB5bIhdEtBVkHdOcB97Z8Uz8kHc3KpKpLUnRAI6Ybd7xF1KKcBmmYg7a6qqNfS1Rkg6plNgAYiN6PYQzU+g2QQVk5ERCzZHOlFyAIU/zBGQsS+TwUHq6obR2ZGu5zldp9KStpj5RHUUsz6hKhk+2TfmAV5Z7ZpZQsawIIUKMIQPmF6gtOk8tEcPpvpwxvuY6CFZxINBs9ceJg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6/+JYZDjTDWi8ZlEsbZGbQB5QPGTXV+U1DzJEZsVuJI=;
+ b=XJBA23eYp1L+KHA77WL65rsb+x1ZLEyGu3BQO24EptuX5Vj5NkU7ChjWVVWxCYqRUUfJXBAUs7FEIqOtkm/3fXosfP4uWCTvYkHpgHLif9w/jA/8kcoJ4+UABiyTmgNaxOiRCzc/mSPsrrC7x9Q8ZY0Rkye0GVvj1lTjSCSFYh0oIWzSQpOGMDgR+aobGvbjLI3h3B0Szaf6e2t8oLxJL8dSeLf9Mhpo7fq1LGDoqXe2inMQQ+dZ/nVKjAkMFAqqlc4cd8+Rf0iuzQ61eJBxwRvwT/eKRimWqvXRoSZEsk57ZxWkQj8JPH74XudD/Kz90c6TCwVNJIGYmo9tnJvKdA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6/+JYZDjTDWi8ZlEsbZGbQB5QPGTXV+U1DzJEZsVuJI=;
+ b=JwotqQk1ofutbDwYjMnMkkifGNFygH16UIaVy7wizmif4SlNyFC3lP+pygNpOp8wW8cOpvnQEGc58AN32/Sn7koWkcdfh5a0Z2gFxgkoFj8ISH0UFpJ8KfuLE//Rkqd8QLkLPYkOOsOU6+8mrhxqGnXDVDRFaXYUTMo0OAfb+IA=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SN7PR12MB8131.namprd12.prod.outlook.com (2603:10b6:806:32d::12)
+ by SN7PR12MB6813.namprd12.prod.outlook.com (2603:10b6:806:267::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Wed, 14 Oct
+ 2026 13:21:11 +0000
+Received: from SN7PR12MB8131.namprd12.prod.outlook.com
+ ([fe80::c2dd:62c5:67fe:aa46]) by SN7PR12MB8131.namprd12.prod.outlook.com
+ ([fe80::c2dd:62c5:67fe:aa46%6]) with mapi id 15.21.0496.021; Wed, 14 Oct 2026
+ 13:21:10 +0000
+Message-ID: <54671419-f2de-404b-bc91-00cc6cb2db6c@amd.com>
+Date: Wed, 14 Oct 2026 08:21:06 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] x86/sev: Clear RMPOPT when segmented RMP is disabled
+ by firmware
+To: Ashish Kalra <Ashish.Kalra@amd.com>, tglx@kernel.org, mingo@redhat.com,
+ bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
+ seanjc@google.com, peterz@infradead.org, herbert@gondor.apana.org.au,
+ davem@davemloft.net, ardb@kernel.org
+Cc: pbonzini@redhat.com, aik@amd.com, Michael.Roth@amd.com,
+ KPrateek.Nayak@amd.com, Tycho.Andersen@amd.com, Nathan.Fontenot@amd.com,
+ ackerleytng@google.com, jackyli@google.com, pgonda@google.com,
+ rientjes@google.com, jacobhxu@google.com, xin@zytor.com,
+ pawan.kumar.gupta@linux.intel.com, babu.moger@amd.com, dyoung@redhat.com,
+ nikunj@amd.com, darwi@linutronix.de, linux-kernel@vger.kernel.org,
+ linux-crypto@vger.kernel.org, kvm@vger.kernel.org, linux-coco@lists.linux.dev
+References: <cover.1791905953.git.ashish.kalra@amd.com>
+ <24ec806222fb8cda660269d3360780687403d150.1791905953.git.ashish.kalra@amd.com>
+Content-Language: en-US
+From: Tom Lendacky <thomas.lendacky@amd.com>
+Autocrypt: addr=thomas.lendacky@amd.com; keydata=
+ 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
+ WiyqywZI5g==
+In-Reply-To: <24ec806222fb8cda660269d3360780687403d150.1791905953.git.ashish.kalra@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: CH0PR03CA0281.namprd03.prod.outlook.com
+ (2603:10b6:610:e6::16) To SN7PR12MB8131.namprd12.prod.outlook.com
+ (2603:10b6:806:32d::12)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN7PR12MB8131:EE_|SN7PR12MB6813:EE_
+X-MS-Office365-Filtering-Correlation-Id: 809e8cca-b798-4673-e480-08df29f60347
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|7416014|6133799003|10067099003|22082099003|18002099003|3023799007|921020|11063799006|4143699003|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	Ev83yAWwfmFmOTBAvNWfaeYTNAOxDrDl0ivO8+ptpe5bm8RadfxXkcHF4uQ9CCIh1G8Wu9zmZ36NxuCyrjR5xi1wWamca5aBcSYiUsZkhoffMiEoXNN3gfFekjJJW683/QsFxYdDJc+7UU9jaD12TuIYvlQtDDBriHIKmEFnMXIuMQX5VkypACV9NgogDnJck3b/c9Nx8iNVCPUwy6oB65A0jWKLeUJSZheuiXZUuDick88cpZm/o6NcwhvcGwmHZmXGBO/F/z6kPjtbozLu9ojQfDKlpTfYbmaWmDdNCotoeaU9n4eHfQ87VTMhLYbNxrS1kTaVvUIFkQik/iWvfOa59I5w8Tr+sJRAPfI0+KbcmHRrcQ7Klgs9xQ7LxWKaoj+XieqwmkHz0rLV5eKQ9ZHtgCy9SgxfiF6yhblfCYLV/3PJVpO1HYfvY0LSA6lUZtaoMJOrT1TO4C+R6sUHPM1C4TwRTfMzXfKNWOlZvxnAn+uY8TkU++6hkScjKy7G5MoC31oceKLST5EvLOyRDYPzIxAVcNmq79ntWfO1PQQEQKxqjKCj8X+H7O3SDg7URWncKSG9dR3HxwzrSTvEF0z/t4TjCxr8ACV7o0DqQ4aBg/mSgJc5VIFidIScaSwzQ3fSWdewmAiC0c6Ftm9p4ze6fhy63XlN6Z/vgbjxYcuU4xXFIlqmwDV3bPGdqA622SEBl2/c8aoQnEkn1W4CsA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN7PR12MB8131.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(6133799003)(10067099003)(22082099003)(18002099003)(3023799007)(921020)(11063799006)(4143699003)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ejVGOGN3a2JwaUVlQ2FlUTlQM0JXcjNzblN4eVBXTHd2WDZoN1c5RmF6Uktv?=
+ =?utf-8?B?ZDBIelpiVkUrOW5ybEpTK0pZeWgvY3pVSUZmR0E0bUYxc2R4QkltMVZDYWox?=
+ =?utf-8?B?elJwZW5lQTZ1V3dLVytFWGJBbjZyYk14andDOE00dWM0THAwd29nS1BnaDVw?=
+ =?utf-8?B?RWxCMmIzaVJ6bXk3K2JkSFRpVTVZa2hYeVQzd0hpR21RWWZLbnlPSE1FbHlZ?=
+ =?utf-8?B?U3VHVXg1R1RXYXpGbWlzc0pLRGNjcWsvRmlvbGNsUFN5YWRiMG9nOVFCL1dR?=
+ =?utf-8?B?NUlCeUF2WkpFTFBTMUdzQ2k5SVFNVy9VR1hDcUtvMldYbjRQUVZQdkJTUm01?=
+ =?utf-8?B?am0rQ1VlZ245emo5SG8rM1NrVEJmalhZOGErdkRzS3llbG8vY1pVZHljR3dx?=
+ =?utf-8?B?Wmw1UjBzQlV6MkFRaGtWbmo0ZGU0RGtka3Z5aTRIbFV3dWR4TGJCeXhMM2hM?=
+ =?utf-8?B?bkZ5QnhSVEpmcStkVjJKS05rUHhaUGlRNGhNeGQ1YW9jV0Z5YkYwdFRtMGZk?=
+ =?utf-8?B?dS9SdWVUVHdpMmtuMjVna2NJdkhNRm1XWVQ1NEtrS1lNd09DNmRrR0NuZks2?=
+ =?utf-8?B?WUl2Z1orQWZsV2dlQzA5ZDljWmlxSUtscTFvc1pUMVhQV0ZJYUNQOWlRdk9K?=
+ =?utf-8?B?YTFOKzVwdUZuNVAxZUc0NC9waXRpYzVmV3pER0pMcHNJSFhGUFVmZWM4ZlNR?=
+ =?utf-8?B?VTFDVU5McDhkVHlTMTZDV05JRmphNS9MRkdMNStPNEFtTmZCOGJtRGpVMm51?=
+ =?utf-8?B?blQ0YVN5YVY5ZEVtTW4zM1NqK2xTOGVGYmgySk1YaVN2dU5lcEtteUc1NytF?=
+ =?utf-8?B?dUhOQ3BtemRGWTArenpwcWV0SndkcllicnJycDJ5OUxLYXZNZTJtdGIyWU9Y?=
+ =?utf-8?B?WlhHakJ4YUcrVjM3Q0ErMFlDU1N6UndLZ0lLSlRLRkE2Z2xKRFR5ZUUvcmUw?=
+ =?utf-8?B?ZS9LVnFDUUl3MDc2eFVLcjFkNE0vSVIzSklGUkhqeDRheGhQazJ5TTVYVjZ4?=
+ =?utf-8?B?YUZGRnNzTzJqK1pUenRsQWFDdnBSWGxIM1ZNd05IaExFS1BYZDNtSFJRUWht?=
+ =?utf-8?B?ZWVib2tnVWV1MkVOS21ZT0x2OHhZVnhpR2hLZ3ZqVEZxLzQ1aTUxS2Z6Z05u?=
+ =?utf-8?B?d0ZxL2ZQUmRva08rL1duOVJvT0gwNGlOM0pPQk0yQmhXZkVFVzBuTW5tYTVj?=
+ =?utf-8?B?eFFuanVjcGlsaU1TUytpcERUaWlyRnQwYmN2R0EzVG1KMStZbHVIQms5cklv?=
+ =?utf-8?B?ckVVZHBIT3dyd3F4bDNJMFNHWHp1bzNsVTFrcUNqUEk0Zjg3WHZZU3pYRS9I?=
+ =?utf-8?B?NFhiaDBxTWR1L0FFSEExWG9MZEJWQUFscWFFVEl5LzgxZmFyYTkwcmdtb3NK?=
+ =?utf-8?B?MVBxR0xZWlhoWTNxZlBaSTNKVHJicUZ6aXkyN3ZBaXV3azkvckQyZEdHVnZs?=
+ =?utf-8?B?N0h4Smtja2RQSCtzR3QzYloxeTFqNFFpWFNpdy9iMUljZEdGZjJ1OG11YTcr?=
+ =?utf-8?B?VWVCcGdtcFluaFRkNFpNRXB6dVN0MElDV3JLQmI2RHFCYytNdkVpWW9VWFpB?=
+ =?utf-8?B?MzZqU0gxZC9RMGFTRmFuK2tIaHdNV3JrT1Z2RHNzbHpmVEkwVXlEZ1VGUjZY?=
+ =?utf-8?B?bWRqSy9pRjA5dXR3c012OTdqWkRsQW1BZG04RmhLTHYxTFlxNGsvL0RKUE1Z?=
+ =?utf-8?B?dUpmbFNGL2I5NE9MZFhNR3BNTm9JRGQ2S3VnaXRFeHRHNVdsUm5wVWM5TzFO?=
+ =?utf-8?B?RTE1WFpoOGdOZ21JNDUzWEFmNm04ZTJqbUhVVVB2MXNRWXBraWgyYkxyYVRT?=
+ =?utf-8?B?UE1lVTRvS2REb2dOYk5VK2xXcFM4dHFtM3ZjUGlobmk2QnZNSWZwQk4rMCtj?=
+ =?utf-8?B?Z1A2TW5DSzY5ang3QndSMDdrdlBYREl1V0xBdjNHd1FKYXpXMnhqcHc4eVdi?=
+ =?utf-8?B?R25qSXlkNmN5YVpLRHFlZHBKMGZoSUtWWS9GdGs3eTZKbjZJZUlJZUFFUmxL?=
+ =?utf-8?B?TExlaks0ZEk3T0w0RUpmVFR2d09hNTVYMjZwZ3crRmlkUkp5ZWltVmVVM1hM?=
+ =?utf-8?B?Z0ZZQmZmSlNNd2FSSUQrSnpqYWJVU09kYk93TXVmSGtGWHZSNEVwdmlIMU5S?=
+ =?utf-8?B?TjNHdGsyR0NtWmV3VGxRbDB0V20vNHY0MHBBRkNxQmxscDFSVWJ5TkRJVzJv?=
+ =?utf-8?B?ZWJSRWo4aC9JYjlBRWY3ODFUK0h3NjcvV1NZKzFLTWEvOHJPNkdUUFlXNlhN?=
+ =?utf-8?B?WVpFT2QwN21paWt1RnhxRHIwb0F1ME1FdCtHUWQ3UDNveUU2U1U5WFo3WDdG?=
+ =?utf-8?Q?dxnhRf8BYPo0no9l05?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 809e8cca-b798-4673-e480-08df29f60347
+X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB8131.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 13:21:10.6541
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: rcVrASBK/q1I3GaHgH16ZRmoNHCkU29moRbFkXduP6KGzJNp8n7alDl/BU6OXPT4LzNTQxiTNQ6329qWUM09Fw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6813
 
-Commit d355fbb22519 ("staging: rtl8723bs: rename phy_status_rpt_8192cd_t
-to rtl8723bs_phy_status_rpt.") renamed struct phy_status_rpt_8192cd_t
-and propagated its type through the call chain.
+On 10/13/26 10:44, Ashish Kalra wrote:
+> From: Ashish Kalra <ashish.kalra@amd.com>
+> 
+> snp_probe_rmptable_info() only clears X86_FEATURE_RMPOPT when the platform
+> does not advertise X86_FEATURE_SEGMENTED_RMP, or when the segmented RMP
+> table probe fails.  It misses the case where the platform advertises
+> segmented RMP but the firmware has it disabled (MSR_AMD64_RMP_CFG's
+> SEG_RMP_ENABLED bit is clear), so the system runs with a contiguous RMP:
+> that path falls through to the contiguous probe with X86_FEATURE_RMPOPT
+> still set.
+> 
+> X86_FEATURE_RMPOPT is a CPUID bit advertised independently of whether
+> segmented RMP is enabled, but RMPOPT requires an enabled segmented RMP.
+> With the capability left set, the RMPOPT initcall programs RMPOPT_BASE and
+> issues the RMPOPT instruction, both of which #GP on a contiguous RMP:
+> 
+>   unchecked MSR access error: WRMSR to 0xc0010139 ...
+>   general protection fault ... snp_enable_rmpopt
+> 
+> Clear X86_FEATURE_RMPOPT on the common contiguous fall-through so it covers
+> both "segmented RMP not supported" and "segmented RMP supported but
+> disabled by firmware".  The clear runs at BSP init before alternatives, so
 
-Remove the remaining unused phy_stat struct in rtl8192c_recv.h along
-with the dead function prototype rtl8723b_query_rx_phy_status() in
-rtl8723b_recv.h which referenced it.
+The clearing of the RMPOPT feature runs at BSP initialization, before
+alternatives patching, so the ...
 
-Signed-off-by: Timo Joannin <timo.joannin@gmail.com>
----
-Note: While rebasing onto staging-testing as requested in v4, I noticed
-that the struct rename and u8 * cast cleanup from v2/v3 were already
-applied to staging-testing in commit d355fbb22519 ("staging: rtl8723bs:
-rename phy_status_rpt_8192cd_t to rtl8723bs_phy_status_rpt.").
-This v6 patch contains only the remaining change from v4/v5: removing
-the unused phy_stat struct and dead prototype.
+(Not sure this last line is even really needed, though)
 
-Changes in v6:
-- Fixed build failure in v5 caused by leftover rebase conflict markers
-  in odm_HWConfig.c.
-- Dropped patch 1/2 and the cast cleanup from patch 2/2 as they are
-  already in staging-testing.
-- Updated subject and commit message to reflect only the remaining
-  phy_stat struct and dead prototype removal.
+> the subsequent cpu_feature_enabled(X86_FEATURE_RMPOPT) checks observe it.
+> 
+> Fixes: 15d974be0a3b ("x86/sev: Initialize RMPOPT configuration MSRs")
+> Signed-off-by: Ashish Kalra <ashish.kalra@amd.com>
 
-Changes in v5:
-- Rebased against the latest staging/staging-testing branch.
-- Resolved minor merge conflicts in odm_HWConfig.c.
+Reviewed-by: Tom Lendacky <thomas.lendacky@amd.com>
 
-Changes in v4:
-- Split monolithic patch into 2-part series.
-- Removed dead struct phy_stat and unused prototype
-  rtl8723b_query_rx_phy_status().
-
-Changes in v3:
-- Included patch version changelog (missed in v2, sorry).
-
-Changes in v2:
-- Propagated the real struct type through
-  the call chain to remove u8 * casting.
-
- .../staging/rtl8723bs/include/rtl8192c_recv.h  | 18 ------------------
- .../staging/rtl8723bs/include/rtl8723b_recv.h  |  1 -
- 2 files changed, 19 deletions(-)
-
-diff --git a/drivers/staging/rtl8723bs/include/rtl8192c_recv.h b/drivers/staging/rtl8723bs/include/rtl8192c_recv.h
-index b63625ab4e45..072e2b5f6129 100644
---- a/drivers/staging/rtl8723bs/include/rtl8192c_recv.h
-+++ b/drivers/staging/rtl8723bs/include/rtl8192c_recv.h
-@@ -9,24 +9,6 @@
- 
- #define MAX_RECVBUF_SZ (10240)
- 
--struct phy_stat {
--	unsigned int phydw0;
--
--	unsigned int phydw1;
--
--	unsigned int phydw2;
--
--	unsigned int phydw3;
--
--	unsigned int phydw4;
--
--	unsigned int phydw5;
--
--	unsigned int phydw6;
--
--	unsigned int phydw7;
--};
--
- /*  Rx smooth factor */
- #define	Rx_Smooth_Factor (20)
- 
-diff --git a/drivers/staging/rtl8723bs/include/rtl8723b_recv.h b/drivers/staging/rtl8723bs/include/rtl8723b_recv.h
-index e9ebecb224a6..2f230e2d27a4 100644
---- a/drivers/staging/rtl8723bs/include/rtl8723b_recv.h
-+++ b/drivers/staging/rtl8723bs/include/rtl8723b_recv.h
-@@ -84,7 +84,6 @@ struct rxreport_8723b {
- s32 rtl8723bs_init_recv_priv(struct adapter *padapter);
- void rtl8723bs_free_recv_priv(struct adapter *padapter);
- 
--void rtl8723b_query_rx_phy_status(union recv_frame *prframe, struct phy_stat *pphy_stat);
- void rtl8723b_process_phy_info(struct adapter *padapter, void *prframe);
- 
- void rtl8723b_read_chip_version(struct adapter *padapter);
--- 
-2.56.0
+> ---
+> 
+> Note: this restores the snp_probe_rmptable_info() structure from the
+> posted series (v16 3/5), where a single setup_clear_cpu_cap() on the
+> common contiguous fall-through covered the "SEGMENTED_RMP advertised but
+> disabled by firmware" case (called out in the v16 cover letter).  When
+> applied, 15d974be0a3b narrowed that clear into an else branch and dropped
+> that case.
+>  arch/x86/virt/svm/sev.c | 10 ++++++++--
+>  1 file changed, 8 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/x86/virt/svm/sev.c b/arch/x86/virt/svm/sev.c
+> index bd70c4d0b774..43e4945e6cdf 100644
+> --- a/arch/x86/virt/svm/sev.c
+> +++ b/arch/x86/virt/svm/sev.c
+> @@ -827,10 +827,16 @@ bool snp_probe_rmptable_info(void)
+>  			setup_clear_cpu_cap(X86_FEATURE_RMPOPT);
+>  			return false;
+>  		}
+> -	} else {
+> -		setup_clear_cpu_cap(X86_FEATURE_RMPOPT);
+>  	}
+>  
+> +	/*
+> +	 * Segmented RMP is either not supported on the platform or is
+> +	 * disabled by the firmware.  RMPOPT is not supported without
+> +	 * segmented RMP, so drop the capability before it reaches the
+> +	 * initcall and faults programming RMPOPT_BASE / issuing RMPOPT.
+> +	 */
+> +	setup_clear_cpu_cap(X86_FEATURE_RMPOPT);
+> +
+>  	return probe_contiguous_rmptable_info();
+>  }
+>  
 
