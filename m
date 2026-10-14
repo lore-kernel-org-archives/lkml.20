@@ -1,172 +1,195 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D090041D23D
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:20:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791976834; cv=none; b=tbSrVvuPemZqflIEvUaSbuT62RRg93edjC0ZAFbNz8ApxlDVJU1VlfJFF5l509CndMWfeRfaYEv03kE3mvBJD4U6rpQjIlVo+HTCsk6Rf1Ziw2Bo6VclXDYtjYaoQP8uVaX2XXrq58n16b4DuAWbn7ghHUQAjK7U/NhatDuar+8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791976834; c=relaxed/simple;
-	bh=rzS9vmx15fJ4T2makE3vbQnf8L/sVJo1y8k+j/gnwY8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Op4SlZKJonZoJRIwWc4HrtEd+2zz4tyjPakLp1HltVgkwDtU3PDxGSgvEFdKe6I8PM2q8QjuCx1RSwEhuvdW3p4hYuWM6HKrVI6dc1lNUF/iCIAOFt6mTZcwFfoNa6yNcbcidtOG0Fl7ba/Qk9M5B+/oeXnMCFl0hC9lbxbfjH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aJJN1dOa; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Dx5qsGny; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1BD64F6484
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:20:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791976847; cv=pass; b=f1R/NhG0r/q0q+bktuSl5wLZVrhHuLYEa4BLsig1inQtsPdSDK017N5yxH6559VM7pbflN1DhSyeq7uCaiywMgbkbHPZ6FieqvTivnv5MVW2L0Ke0DqFXRe8ZGcr3B0CriA+K8duLmZMso0xDXFx5HfcXOqUYbCK7u2/XJQKad0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791976847; c=relaxed/simple;
+	bh=Dm1smR04ZivAMkU8QgbMvCQPxO0lGpCaWtgIm5vurN0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Osb3UzNWgEDYs7BARuDVoBBYcuitlInIL4Z0t+JOMs8yHtGviU/UKZ/hMhInijGfLUCTA4cTIl8gsnHZS8O4vGDAD2ePeTGCLHvwS4LaIdQjg4gfXrYKyjEHobVOVogRn3n/AVvJPXm5jpnBTwAJeaEnaHzat096cFA+n40aCCE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iCp4paHr; arc=pass smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aJJN1dOa";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Dx5qsGny"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69E9Kdhd2222165
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:20:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=MASKzKLwGnsoqQoHSDALtQYa
-	IWeFXubP9J79KlMYkjI=; b=aJJN1dOa+/bJS5zSy3vQCjVG9l6+1xy9ZGVtH6d4
-	U9mX9Wnjn2TXlJ8oG0I3odzWVx7pFUItNyiXnwKw/WFyufmKlzY+LfLnxyZlGRq1
-	Fqloo5JyiqSopTCGjpfrAbfvGcpZljOcjWa90qdpu8xK/26Qn7mdn1aRS9pj5JV0
-	uXwbifh69QOSulms5FJkqtBKLaOrXqyfQ8LmQpPMotSQy1qMjsoVLeJRWwp7W1ew
-	Tb/HJAu6aILiCIA9zeeseIUPG8tIhtQ1LMzxMUYLnmmUuh01H3lnxelJw2ZrBqho
-	qrIC2MTVoOYWZyJXc/8FP4fwNu7DaAUEWsrjRkg30acYVA==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9txsbbbh-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:20:32 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2e93f67358eso5405515ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:20:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iCp4paHr"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a01933b584so34951185e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:20:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791976844; cv=none;
+        d=google.com; s=arc-20260327;
+        b=I90+IxqIh6aWz12JG2s4PB06zOhCKFEuyfWPjQPaR3jX+tLNk5D4bYzgZWsTsBqKG/
+         dZsjwrHvS1/dd2Rb0Lyo+y1Zri2pSb3EOOZhnCBq9rVzJDKPfCWp9gUHEnIaLzxhfCfn
+         gHJjRm7m663eaiFr5g3a+Vx0MQbEZr9lp1iG4gzmGYPIhlIPJvp99jPXMRrPaidEZrtZ
+         hCxw3OzDNez69W8JMtKgw89xIJnYNZcMOeQE70TKmrJZrUCHz2ahKWG6Rnlc2PQ5iA4e
+         +YBrzeQ7GRRGzqfV3PXhV9r4aegn676cQuUU7zKzqh+3Xaw4LMoJBrkz7W9FM8L8PTTv
+         tq/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=bO5/h39EF/Oj8X3PFjOOqCZcmmbplUnPDUCoN8XUO3Q=;
+        fh=13WHpdli3d11ivXoqPIunuw13eZzSmq9HCwmw5j2/H8=;
+        b=iIQUjpxChkw8SeBGxP88y6UsSIl441AwckJzQSGMBGvo4m76T/G5ZEO/4h6GoME/GP
+         RZjtSynrHwsNPDx2y73upf/wvVN63lvQoG9bOBhRXkZx/5JuSKwj1WsgAJ2j82wio7m9
+         nqN4RVDRgmbXM8OvRy/vhsyCzqpVmK9AEnmzlpI7m4g5bW9fQZekmvqJtPK1ugyTTOY+
+         ilgaqP0l2WAc+tWw4V5cG1S4/AJKClrKU0PKFNdldKIANi/8ZHXQ6q9dqDyuB3zHzf+c
+         pPixN890CkQbvHRIM7cU/bNXPuwjXVe+HrpYo3Pb/+iTiGLcRB9Mq6GGf+Wg2IQBs75x
+         ONfg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791976832; x=1792581632; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1791976844; x=1792581644; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=MASKzKLwGnsoqQoHSDALtQYaIWeFXubP9J79KlMYkjI=;
-        b=Dx5qsGny4zdi+D8LxuDbmSePJOatvWDNVAcZ7jTsuLwALbmTJ+7E+2f3h3nVk5fIPH
-         e1raT0byG9NxTfDr201QyG7pvd7LCeg1ugI/HaMy+tQhR47O3/JdfCuJxyGDV+0WvSg+
-         JTF7/1q5pUuD8xtJfH+SCvWnxAPq107EaK0J/wCsJY4BhdCVI2lEnpj1Oci476S/ivU8
-         qnK9axaQyRky1wzziGI0wr81NDK7ntoQJL/PHEs9TiaXSwI5d5Uh9NrU6EbYOI/CrVsr
-         FrdXdMFa9ro6nsZ8VnFfcRh42P9v8kg5QqDbGVMp0wKzdUVSmJeVcOh/1IsM9cswvk2M
-         vdvA==
+        bh=bO5/h39EF/Oj8X3PFjOOqCZcmmbplUnPDUCoN8XUO3Q=;
+        b=iCp4paHrczB97BfRM2s9Ejtsf1TkEplvFt/4up8zH8BGspsqNcbsc8Gs/mLEhTgYj1
+         sGm9CCM/komsQ9lr4+99Re+Ecjnzvps5UpmidI7SVbnMi3dATbEfhxdcftQg+UqM7Y+n
+         m+tZ+c49dRFnc7yGaR08maSAmdg3qlMfZmXGRL8El4Zqo4AynX5J6oOxh7Y0IjW0bPu2
+         62/B8Iaa5vOSBlTmTeGLZ/NJquY7xWH9OSIRywvO8skLVM4lrYrr+LDfZW153CABGMsj
+         nqado3o3DM4ldUL4D6VxAOSTzOSl2GCjXxKzXnuVYbSGyAr/SAPxJw7uXbBt7utwCSst
+         mhiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791976832; x=1792581632;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1791976844; x=1792581644;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=MASKzKLwGnsoqQoHSDALtQYaIWeFXubP9J79KlMYkjI=;
-        b=NeJZJOu123sg/5v0lL1ITrKrTn5yx4fQGv1mmPebGoEv42nnIpmWN8/9QsDdEkdEtg
-         UFuSTh5lU8hO5ZldOGE2DT7lvAPC9YMYYv6nplMJRnG7DKTwAx3G0+l5GHkH8cVHIsIX
-         CNhoTQALFSHEWwWmV1QffQGGm8iGkYoMgHiQa1AlpRqfNFR91V3dd1iZ5qq0IY5oEsml
-         3JjUInEJ/BcDANQgy0eg/G5PDDTvEj/pQpJNeKXq/D4AYWNwTevwtULcPUzRt51UKogS
-         4JcRla2WaRZ7M3/jVa54NOrVb5TiC5TpU3G1ecwFUlPI1SdPkOyGPQHwo1XsIwmAqEWb
-         Od0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzqZ3lHRwtjdBFrsWHS5qIjaDqwAvmZ2i/pXY3k6lf+6IDgyK8jZvujJKyIJ4a7/0ig6Mto01wuAtNQ6fQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKGBxiXjK9mP2tMbf+t5hkR5gCkAxPxgzgwXl2ob2jEZCQRTRA4
-	94bx2Ul4q8ynnZO3N56D9dCvcUTWuodkuMa1obE1NO6DISRupua3wLqXDz3LPHESu8K7PNRpW1G
-	tLCe4r/antnKWzZUArTBQ1atI2Asvx78TnHqcsI1MKKuC9QPLuLUF4JCorQcopkj4AKc=
-X-Gm-Gg: AYBFou3bRwk3rK6GuUYlW2WOiV0hiztkUzvtMVe/DlGdt915I19MbsbbVwaeXAM8UwT
-	61TGqwKi947269tmGZ+QgvGNLV6RBItoP4ccsMkS3sBjxqm01bmYkTk6+HuXKBHkTR4kdq+zmpL
-	KJ9lqpVunnCVCPnYAqLsOf25/wFL5ACrbrWf1N+4AxQGchx7inC2nI76P5hs2vNwH399Kmur+5Z
-	mYup+Pa8u2ktvo+n0aEj5xrsjEImHwBtjJOgmLUacI6UKEe1gyQM57ps+3sXLLii5bXwyt7Jp+Y
-	LNofwP+crvGQmLqpx0UI2ON6L2EM3Mu3ZdrIchKkt4q9Rkz/lPQXWo6Rc/D4athCHZVKGzLFTOC
-	47wMXxk5srOPSftKC71nlgPOAiDkyJXA+Pnvx
-X-Received: by 2002:a17:903:37c3:b0:2e4:9fbe:f72 with SMTP id d9443c01a7336-2e842cf91bfmr132144275ad.44.1791976832256;
-        Wed, 14 Oct 2026 04:20:32 -0700 (PDT)
-X-Received: by 2002:a17:903:37c3:b0:2e4:9fbe:f72 with SMTP id d9443c01a7336-2e842cf91bfmr132143945ad.44.1791976831754;
-        Wed, 14 Oct 2026 04:20:31 -0700 (PDT)
-Received: from hu-arakshit-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422b8202sm65198165ad.51.2026.10.14.04.20.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 04:20:30 -0700 (PDT)
-Date: Wed, 14 Oct 2026 16:50:22 +0530
-From: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
-To: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-        "Martin K. Petersen" <martin.petersen@oracle.com>,
-        Adrian Hunter <adrian.hunter@intel.com>, Ulf Hansson <ulfh@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Neeraj Soni <neeraj.soni@oss.qualcomm.com>,
-        Harshal Dev <harshal.dev@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-scsi@vger.kernel.org, linux-mmc@vger.kernel.org,
-        devicetree@vger.kernel.org
-Subject: Re: [PATCH v12 1/6] soc: qcom: ice: Add OPP-based clock scaling
- support for ICE
-Message-ID: <as9ldk6a/44u4IB3@hu-arakshit-hyd.qualcomm.com>
-References: <20260824-enable-ice-clock-scaling-v12-0-09271f583dc6@oss.qualcomm.com>
- <20260824-enable-ice-clock-scaling-v12-1-09271f583dc6@oss.qualcomm.com>
- <d8304387-ecff-42d5-8cc6-d3b4526fb294@oss.qualcomm.com>
- <apCoDfzaQBGgJu4K@hu-arakshit-hyd.qualcomm.com>
+        bh=bO5/h39EF/Oj8X3PFjOOqCZcmmbplUnPDUCoN8XUO3Q=;
+        b=lYhBCwc0LS3q1cB2mrRiNmSt7Gw3717415VbZ1aRAozGqCJCUEEOYQVIehKjxQNw1w
+         1MISYOe6NjpN+kn3UXbNiuuzcTN1D+vwX1gLe0fxN6hwAq/+RSuyXVC+ffWZLVAmP9hu
+         mSRpi2jYCcfygTB7lnkkTFhL7spMamPNif0/Hbxn2gJrXIBDc2AMo4goIq7kvA1YgAU5
+         00JPhMTC9Ry1eTgf75H9VMcC+E1whUxMrXhN7k5R7Jhoe5Nt+sTCdpuzRRTaZov2w5CX
+         WmH68Vc96fsUL9RpQuiNlyOtAV1o7y/o2+5T0D6yyV6gpjmIYApvHHupH/ZxdriL8gsV
+         gWyQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx+dD10V84BOZK5uGh0viFrIuP82ZHSflFCum3fKloL7mYejNg0KzU759VBSvRfIAz2PxXwRyLw4iMSqC0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIA1Ge0vv056eQaJ3AwHLdqYk/mpWja/HGaSt4EOc4HL+/VmCtX
+	AsdsuMkBkDq4u4+zcxFRx2z2CAT94SN0XF+etUmKvqU0affzjVNM6BsBQ0Z2emEQ5oTSCZWdm8F
+	7tDdBY/3gBAA9XHznetOmOe6KZ4E9Kqk=
+X-Gm-Gg: AYBFou09UnqCuu2gvO2lqt69xL70r/cSY+kzzH1Hu5IljY1jvQ0BOwSKSDv2ldd8h3J
+	aqnzjlJa68xMUtEADNAOO5c1RkitFn58QmN8cJcm78DnXCDmFb0684+vRoiv3s2Z11kd6hq6yIs
+	HFwCTDto41KdrxWYuahXnAqFvc41tx/9GFPLJUe/h+8ARm4jsdVuiotK14+quV4QMuHTPCOvDBD
+	zq41JZsjW8WAD7BA2oYAY6cDy3xmfGBFwqEuxWwCDa/Qt1Sx+HDG/7QC48aCXtd/dQUBdvBugQj
+	tVJStjG4RATzVRcaDI8efv7jaAC5051xHoc3zjjMxFdQNjo/fYVGV62SBhJpz5UMgjLNxxpZo5y
+	anFJ+m8/9VFxVlRfIuTOWT7sHTWoWZ277d1jgLb3EWInxaWn1psdR9/pEQUX8S9WXu1ibYbwkIl
+	lZdJx0nJACHw==
+X-Received: by 2002:a05:600c:6384:b0:4a1:7741:ec43 with SMTP id
+ 5b1f17b1804b1-4a18e4b8966mr285168845e9.26.1791976844095; Wed, 14 Oct 2026
+ 04:20:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apCoDfzaQBGgJu4K@hu-arakshit-hyd.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA0NSBTYWx0ZWRfXwQE9wdQAicqj
- O4eT2QT1N7GJcF7XEKVFRjjGVu9mdTd/szyX8IHCPvdnuHPi+u7XoC9WUWQsvul8HDY0B1IMEH0
- OlJ7/bqNeGU85Ov6AkZA4c5guOEe0/rdlYTWBs/Sjaec2eyf7LJDOOZg9I4RNfQDsYwltF2vYJt
- UAuoEMYdIF8ZG/GbApr44mxunUtK4k0NRY6BLnSEzpPC1tRJcZhxgQoujZUZeeODbIYj+UZFc7z
- wAGuTr0WEqw6yClh9oVEp72taVGwrn/pxLDdFV3JpWhqsh346ekQJBRua02f8YwxfeOy4aIjsVF
- Sx3nGH6bXWI+k0CRTX/UP4uLkKNpk8vcqBDt+JYYGaRzVcKAxTkUAHNGlH1nm2ycFlnhllKTFgD
- GuHzeERCPJrfnL6ra66M0Z7hFDdjDVNT4Rzeqf5PxEMBdjb8W2dYuid3jP8meHE0w3tLGzWeVvV
- l3Nt9Ck00jtIi/y5EjQ==
-X-Authority-Analysis: v=2.4 cv=LPPz05W9 c=1 sm=1 tr=0 ts=6acf6580 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=2_FpPSLQlo5LL2co86MA:9 a=CjuIK1q_8ugA:10
- a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA0NSBTYWx0ZWRfX6EczFY6cLmOA
- w3aqjKQce6ZhXLkOkPH4wtOvlHTrHdJSr8iW20tjLnAmv2ykkDTDiIhRpSP0BZdBQQWAkjHe0bV
- XowT2v2vG3JDPDVqQke1A5Tub5IyN58=
-X-Proofpoint-ORIG-GUID: _0CUSBThHu9M_7pb75LZL8DrGsG_uzff
-X-Proofpoint-GUID: _0CUSBThHu9M_7pb75LZL8DrGsG_uzff
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 clxscore=1015 adultscore=0 malwarescore=0
- phishscore=0 lowpriorityscore=0 spamscore=0 suspectscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140045
+References: <20261006-miic-validate-dtb-v3-v3-0-68617b3dca5c@reliablecontrols.com>
+ <20261006-miic-validate-dtb-v3-v3-2-68617b3dca5c@reliablecontrols.com>
+In-Reply-To: <20261006-miic-validate-dtb-v3-v3-2-68617b3dca5c@reliablecontrols.com>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Wed, 14 Oct 2026 12:20:17 +0100
+X-Gm-Features: AclHuK9lTkcKfev6iJ1zocn1hec2LLI_EBu29VRkVnV_MFGRgCWPxR3baUck-N0
+Message-ID: <CA+V-a8vZmCia0aRyx_KU+_3Wz4JJNOMG=-GC-QXcEL8RaE3-qg@mail.gmail.com>
+Subject: Re: [PATCH net-next v3 2/2] net: pcs: rzn1-miic: Validate dtb
+ configuration values
+To: khendry@reliablecontrols.com
+Cc: =?UTF-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@bootlin.com>, 
+	Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
+	Russell King <linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, linux-renesas-soc@vger.kernel.org, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Aug 28, 2026 at 02:41:50AM +0530, Abhinaba Rakshit wrote:
-> On Thu, Aug 27, 2026 at 12:17:02PM +0530, Kuldeep Singh wrote:
-> > On 24-08-2026 01:17, Abhinaba Rakshit wrote:
-> > > Register optional operation-points-v2 table for ICE device
-> > > during device probe. Attach the OPP-table with only the ICE
-> > > core clock. Since, dtbinding is on a transition phase to include
-> > > iface clock and clock-names, attaching the opp-table to core clock
-> > > remains optional such that it does not cause probe failures.
-> > 
-> > iface clock and corresponding dtbindings are merged for v7.3 and your
-> > change will land post that.
-> > We can drop this from commit message?
-> > 
-> > I think we should scale only core clock and for iface clock should rely
-> > on ufs/eMMC controller maitained frequency.
-> > 
-> 
-> The idea here is to scale only the core clock and I am achieving it by using
-> dev_pm_opp_set_clkname() API. However, for that clock-names needs to be as
-> required property under DT bindings for qcom ICE.
-> 
-> As the comment mentioned here: https://lore.kernel.org/all/b32c7091-b2c4-443d-b58e-759b471f67db@oss.qualcomm.com/,
-> the current dtbindings supports backward compatibility with iface being optional,
-> hence it is expected that driver should be backward compatible as well.
-> Once, we plan to break this backward compatibility and make iface clock and
-> clock-names property as required, we can say its out of transitional phase.
+On Tue, Oct 6, 2026 at 5:48=E2=80=AFPM Kyle Hendry via B4 Relay
+<devnull+khendry.reliablecontrols.com@kernel.org> wrote:
+>
+> From: Kyle Hendry <khendry@reliablecontrols.com>
+>
+> Bad configuration values from the dtb could result in out of bounds array
+> access. Verify parsed values are within range for the SoC and fail the
+> probe if invalid.
+>
+> Signed-off-by: Kyle Hendry <khendry@reliablecontrols.com>
+> ---
+>  drivers/net/pcs/pcs-rzn1-miic.c | 29 +++++++++++++++++++++++++++--
+>  1 file changed, 27 insertions(+), 2 deletions(-)
+>
+Reviewed-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Kuldeep, I hope this answers your query.
-Can you please let me know, if anything pending in this patch?
+Cheers,
+Prabhakar
 
-Abhinaba Rakshit
+> diff --git a/drivers/net/pcs/pcs-rzn1-miic.c b/drivers/net/pcs/pcs-rzn1-m=
+iic.c
+> index 31716241b58f..10622eb654d2 100644
+> --- a/drivers/net/pcs/pcs-rzn1-miic.c
+> +++ b/drivers/net/pcs/pcs-rzn1-miic.c
+> @@ -693,16 +693,40 @@ static int miic_parse_dt(struct miic *miic, u32 *mo=
+de_cfg)
+>         memset(dt_val, MIIC_MODCTRL_CONF_NONE,
+>                sizeof(*dt_val) * miic->of_data->conf_conv_count);
+>
+> -       if (of_property_read_u32(np, "renesas,miic-switch-portin", &conf)=
+ =3D=3D 0)
+> -               dt_val[0] =3D conf;
+> +       if (of_property_read_u32(np, "renesas,miic-switch-portin", &conf)=
+ =3D=3D 0) {
+> +               if (conf >=3D miic->of_data->conf_to_string_count) {
+> +                       dev_err(miic->dev, "Port input configuration out =
+of range: %d\n",
+> +                               conf);
+> +                       ret =3D -EINVAL;
+> +                       goto err;
+> +               } else {
+> +                       dt_val[0] =3D conf;
+> +               }
+> +       }
+>
+>         for_each_available_child_of_node(np, conv) {
+>                 if (of_property_read_u32(conv, "reg", &port))
+>                         continue;
+>
+> +               if (port < miic->of_data->miic_port_start ||
+> +                   port > miic->of_data->miic_port_last) {
+> +                       dev_err(miic->dev, "Port number out of range: %d\=
+n", port);
+> +                       of_node_put(conv);
+> +                       ret =3D -EINVAL;
+> +                       goto err;
+> +               }
+> +
+>                 if (of_property_read_u32(conv, "renesas,miic-input", &con=
+f))
+>                         continue;
+>
+> +               if (conf >=3D miic->of_data->conf_to_string_count) {
+> +                       dev_err(miic->dev, "Port %d configuration out of =
+range: %d\n",
+> +                               port, conf);
+> +                       of_node_put(conv);
+> +                       ret =3D -EINVAL;
+> +                       goto err;
+> +               }
+> +
+>                 /* Adjust for 0 based index */
+>                 dt_val[port + !miic->of_data->miic_port_start] =3D conf;
+>
+> @@ -712,6 +736,7 @@ static int miic_parse_dt(struct miic *miic, u32 *mode=
+_cfg)
+>         }
+>
+>         ret =3D miic_match_dt_conf(miic, dt_val, mode_cfg);
+> +err:
+>         kfree(dt_val);
+>
+>         return ret;
+>
+> --
+> 2.43.0
+>
+>
+>
