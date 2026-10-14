@@ -1,172 +1,137 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 801DE483BCD
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:24:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC2A141A91E
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:25:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791962697; cv=none; b=C2YCztOPmd5+3hiVt9Cx3yREN2AlGnYIN1qeQIwm9Pm3jeD1lQBjN3DY8P670EIOZzjU1N200kDrZR61LHcUMsxLn7Zc6g5utjqtHJGRdVmW4TaJGHWYrgBrPUEXefjGH52fTzXlZYApUELKm8mubi3gl+01wtH9K4Cb8LGb/x4=
+	t=1791962758; cv=none; b=qEfzEbD9N83E7KT8QayNz5275BAPyPXO8FLevq+zvgppn/IlQjlnHQBYym+JlEWnMd/lyp7LRoKPnpbDz+ShxPiF1HMcJX8b14gLI0P/6xUCIKxoR0MuMa3Wbc9hY+pEsz4ryTkfGsf3CDhRfohSgyaQBL8beEDLVUuyrkJALSQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791962697; c=relaxed/simple;
-	bh=dDa3T4LL5IpxJg+Jw1O52rvh+4TrC2ENbVfqwgR4Dg4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gKkDNOuf3Cm5YLNYgtNnBj74fGo7KoDbMXoy/ftRPbuqllEpJZ8dsrx37KkOoHmFGLZdNdtRNZo8U6eBG4nfNm1WmOkjp9bODkVllio8TMGBGZJVgOd95XDIpKhS+tu3+S1llM6AiMC27Ho+arFIjnPtoVBqlO86PKQ/9A7Qrm8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Lw3AI7Gh; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZNaMikDq; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791962758; c=relaxed/simple;
+	bh=l4SPsE6hUZzdH+Qt8qaHUjdFoBe0vV50Kvu0KI2diGg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=t7PhvueI6geg8VJvn6fNEyHKkkhNUXC2HsxzUexEctjjx8DeWeSX3k5mISfqSv1PxOtTCp/kTkb5WodkXlx/4X50GAmZAGIcBYJoW2/hjOGgvDEpzSvNqjVlx1KpP2tecj/TZvcgw3oIo9gqR4cLzoGw1JSmbdJgyJThU8OE3xo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iI/OzBJX; arc=none smtp.client-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Lw3AI7Gh";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZNaMikDq"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69E20LLJ1592103
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:24:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	trNalYmEySgSEmIVqxKOUHAXgXHiZO1fSqcMnYiYX/I=; b=Lw3AI7GhYfbiJz9T
-	YarnYw3hvSt6xmcYyMD4WfuKKBloP2wu71X9p5TB3p7W4Ipkm8AMjKSVdWo7PkcB
-	+dKkYQH4cSN/vGMgBmYRMnpNVJkXSyYIynXEOw82hMGHjQ2OFvHsd70wbodA5VbO
-	kAvasZ2rLpGHxTHHkcIDJkESPu4831Slv2Z20Vl6LZ/8d5AENt6GBy+0VYbGVSMa
-	EmeIXJTIwZ9euHuFYau8tDv6NBcLEe+BpzFLdm6tRaYKgqsjYNgbjcnJVPeCHUfs
-	82xRsMr8n4Am2PV4QUd2wI1pfacvMja0ni3QxwWup4+O72sRbfwbuCwZK8Kayr3S
-	JdIYGw==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9s1tjy16-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:24:54 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-9106bb33cdfso10697976d6.2
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 00:24:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iI/OzBJX"
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-16079d54c17so4803813c88.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 00:25:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791962693; x=1792567493; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=trNalYmEySgSEmIVqxKOUHAXgXHiZO1fSqcMnYiYX/I=;
-        b=ZNaMikDqOjfdFXw1bAwF/uSp+K3wWO3mOegH721AUZjykBo1NfmTbTZoLHH6tlW8ND
-         bmrUHMIMtDno4tLXntBLANWd3enhSSx19CN6NUqU1PdHmDx3fLMtFIPTmmtz3cQMGsx0
-         Lnjis0VRWp3dZhMWIXpin1pzyCrqYdTxAWwIihbKbRkp3BES5br3uQ59NSeDjOtNP3xr
-         hlvckGrOb5hPAG/guV7N4qRNstr9dY+gKILyBYCCOqsjaNQZQA5Tyyw7rfMOcG8G9W0t
-         /ho3cKXHEfqzm9OrZDpuEHgUTcFZpR4ar0wTTUPImZUu6qsoMXKgKB8i946KlKv9RSKN
-         Wy/w==
+        d=gmail.com; s=20251104; t=1791962756; x=1792567556; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Etm6ClrcBWm5fy49QND/rngwEsT/VESg8/v5EOMf2FQ=;
+        b=iI/OzBJXVcavSV/zWUVW3/C/IDY3buP0Zj45+aRbnOhZBv5eAIC2ZdOAb/WapgdXRB
+         motrNKy22C7nIt3GhM0EZMfyuNrihkuW0y5jEHsDkUnTqHC/pHYsCqM+NR6DDtZSSNiq
+         VcYBMNFDBf0iUTHf7SH73aIjn9MoKVBEupIStonZFTPPSBBo6+fc+I6C3Js6HfxFqTxL
+         YE1Cv8plDUo+EvTv9jiak98uHpn6QN/8Dj5jVztuqNGdDyVV3BNYO6zYbn5GMl9jR68J
+         9wbf5vwWmYqbfort5+AgHTe1JDvj7OSlVYKeHVmDBpSa4L/Wkowyh4/NozC6TwnxTqpX
+         1KMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791962693; x=1792567493;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1791962756; x=1792567556;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=trNalYmEySgSEmIVqxKOUHAXgXHiZO1fSqcMnYiYX/I=;
-        b=dG3zPMVGEQI80pC4pU0pdMt3NHNDAyjttTGPdhSSJrn4JndzzHTIdqBF77Ov/I7B1X
-         ehe2HJ35UOE8IfsATk1SjCYOTM1QHMhEGxsj/EZSVrbtaunKFI4j6XVb4vfl/CDyKNm1
-         8XJ6g/HV9g1K+Vm8hokA/IBumKiszsQZNQ7DIN9fN3A1io0cOEh3GgY2CcPxtl7jCJEO
-         s+6YzVEsBLsj8phOGycz33rvF6XmCYIVOiTn++PGoqVGSaoFLxUIMijSqFhX+eZd7BQv
-         IG54uUWlDjpBdPi4Ci+AEWbrm5wAS2FDFH7SNtI2yWZvfvtGyywrCG/6huncvtyNzRY8
-         VHDQ==
-X-Forwarded-Encrypted: i=1; AKwUvByaaocJ4gUyRYdOFw/ECqKMKf3sTIk0GrgufisaqZ7eDh6dy578rakq+j5gF3Ab+jFqq5iNg7zlK6rZDM4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKU+HkpmPECJm/XdJcuXnK+e4XrCX3Dso73YFdEUQRsjhR0txMO
-	c+AdrNw3J5fg9VtnRlcGoTfCi+EKPIyHMMZNrKR3jqWOmqeabHuZq54o1aCfLeT9oscJETFxM2d
-	UQgavrX3HThdtuN4NVKZ1fLS7iUIBCprutTrwXtmECVosDbSMtUvD2iv/ax86UaZ3KQ3k6KInyC
-	Q=
-X-Gm-Gg: AYBFou0dHiGPtugQ7a25b5x5I5XRVaVwByp7tmCuqIfHvQLhuscAGlLZkv08nlVnfU0
-	+F4EL8xDHWjSFlr7OJKZ2ltELjoKe3/Pcplx08kX277dLQQDT9Xa1RAFWksNtrNPJ6krkqhFiK3
-	3Kf09VRoYqqq6U/I0PxGgB7vw610V5ezW6X/KLrJ/ldNiCWnM4VXGWGMbKsilMUAbEN0Wx4Mn1Y
-	4vX7QMl9Heu3zVUi8xDBIBo8t3ptLpWZrcCiLQCtyW2dNg73DonQPDSo0Fa6WQIfUQU1nKV7lHR
-	4cqzWRhr989xVFalGV6KhthEr+mMdrCVuQEzjHxArax+oohOtVU8F/l74ruQW9VEY5s2AuxhGNm
-	PFpLPWYq53/+QckbdNrldxQ==
-X-Received: by 2002:a05:620a:458f:b0:93c:61e0:81ff with SMTP id af79cd13be357-93ebd0a3722mr2969001385a.1.1791962693563;
-        Wed, 14 Oct 2026 00:24:53 -0700 (PDT)
-X-Received: by 2002:a05:620a:458f:b0:93c:61e0:81ff with SMTP id af79cd13be357-93ebd0a3722mr2968999985a.1.1791962692965;
-        Wed, 14 Oct 2026 00:24:52 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9ae4a94sm690977366b.82.2026.10.14.00.24.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 00:24:51 -0700 (PDT)
-Message-ID: <bb87b142-075d-48b6-a737-f13170d76d5e@oss.qualcomm.com>
-Date: Wed, 14 Oct 2026 09:24:49 +0200
+        bh=Etm6ClrcBWm5fy49QND/rngwEsT/VESg8/v5EOMf2FQ=;
+        b=KcrpeG7/C8t4LPk+aRAOb7GCO8Aux2rfTQIrVSQZw+DNqOcgXiR6/e1S2cWDl9NnjD
+         pqku4ZMQIujNMJC2YuaL4z0/wyfYezo1jwRtV0nURiKn5j7vR+wYpxxdtLMAjIqYLxGV
+         5waOGhvQ4QghJzDojDxh4WVmpLAZZHcMzB48+fMYbc9okv8/5od9wHZVe/X2HwSyHfCq
+         imxIJ+lV5RCt85hrvHqcXCeWLwsqXxwpwToQYzYry3wiPOoFDRu6igGwBR3vae8o3j8+
+         9vCY6QaRj/B2kqnNbKpKzr6GOETxnQdeLNnIKiqnUW1inm4BuTg/998acdEoDxFqDs3I
+         QLtQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzOdR6+kqY5KsC4AjirkJZjwgADVZvDxBfyHNpV9puA7HfWiEAdmmvOGhdAIM3g64u7lmo2kcWqIDqu/Fk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIzoE52+78TLGBnVttE2QlPwZCEq8vDIJrUAN83lNK8UjgleV+f
+	OAf3tB9gIpcYXK80P9gEGOxsiSEXkTZTCG6aZ4BfbqdsbBK8ucq90CyM/dae1g==
+X-Gm-Gg: AYBFou2vlCzcRYdfE+aMyreq/e8oB3EuyD9+AGCq3s7/S0dslbZMmKQMZkjsy8NfF6U
+	5dyVtCh/UiEwcTHHttIrnJ8eWPKNrHFL3l0gvCBm3zRNBjlHWSn3uYbNQGlJeoBIkZHuHnue6kb
+	FDx/GLdMPspIXrvZn6Fn/FOgdIidsL8kx4u5Dq30oaFZM0CmYsWjDZ6CM5XUu5r8ZtedzjP53EQ
+	qLSXBZq7mqEEsnGJ6Wku+MlXT3poabvTLUAgCqDwqIuBPO2dJ+1SB6AImG09GMY68hsEgG4c6lB
+	CnvJUij12pY6Yuv3dgf+aCuk69nZd0lMidpFu8vOkQ3dkjvcf3RYXQPXk7aHMAQOq7iJEilOGdt
+	kViidjN5GM2+IBi8UzaexaNPeeD0Gvz13yndmYJTZ99fcTkE1KvQlagY22pI6nIU7XAmnSp5DVg
+	2OX+yKg47sXvtlWqVwoV1rLE35hO506KE0g7fXazM3TayaUyaqfoCbYn65K6WzIEI=
+X-Received: by 2002:a05:7022:290:b0:151:2e62:fe5b with SMTP id a92af1059eb24-16a5dbfd567mr23448651c88.22.1791962755498;
+        Wed, 14 Oct 2026 00:25:55 -0700 (PDT)
+Received: from linmach ([182.156.30.23])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a42407e7sm44461526c88.15.2026.10.14.00.25.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 00:25:55 -0700 (PDT)
+From: Aayush Kumar <aayushkmx@gmail.com>
+To: perex@perex.cz,
+	tiwai@suse.com
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Aayush Kumar <aayushkmx@gmail.com>
+Subject: [PATCH v2] ALSA: hda/realtek: Fix speaker and mic mute LEDs on IdeaPad Pro 5 14IAH10
+Date: Wed, 14 Oct 2026 12:55:05 +0530
+Message-ID: <20261014072505.60358-1-aayushkmx@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] soc: qcom: cmd-db: bound database walks to the mapped
- region
-To: Oleksandr Suvorov <cryosay@gmail.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261013091611.2592612-1-cryosay@gmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261013091611.2592612-1-cryosay@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=IpOL47/g c=1 sm=1 tr=0 ts=6acf2e46 cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=pGLkceISAAAA:8 a=rRUGPTwFRYfZxENE-AIA:9 a=QEXdDO2ut3YA:10
- a=iYH6xdkBrDN1Jqds4HTS:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDAyOSBTYWx0ZWRfXwRGsppjNXNqQ
- KMZza0SOxJc07GiXCNLwabm98jv7AXplxXguEbxT/V/39AWP45vJmPYYb8HC64iBy8QzGTsjADN
- /USmn1vK6MlxlYP0TPMxMROUgB/v8MIAIYEEilz9v3wM3xGsgLRs19vKUPc/t+hAlic57SB0Lsk
- C2IDRspHE+/EB1XLtYtviUV3mXMhEQl8PGjY0SummJJAJnkfEo6XT02zZb3BnRE/z9HkUE0yFK/
- W0GnThVv6X3Hp57B6KWRRwbdD9cdQdRK7/zfaYGWw8ik/9+fj9/Tkesnn1gOvrWd039NmPm/xfY
- Q5Mutf98d5OWuYaqoGFfxniJHuL0lyZX8wwqCXReGnArQSe4jnKCEkYXwNbe8hn/NkE+jrDZ0Se
- tGpCBt7GQgM/cUE9J5+ScAI2PlMNVzZHZIrw8NajCYfjGMWES5dp9wAtgBHoOcrP1KFttjsqDm+
- +xuP1xTX2fzIPCMDPPA==
-X-Proofpoint-ORIG-GUID: 9aeXqXgpkMbHDyHzekZnSy7qMQxZHw7r
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDAyOSBTYWx0ZWRfX+o8fpdXvAm0C
- k2b1Z/eAqfeqyjueDgYd8QySQazTKIyrck9zTK20RGxUHjrIR4Mzmvf6nKdAbI/Yg6EUwNuOWBv
- 9MLmgZKsqUY5ykj6QtBuOTiTPAVIOxI=
-X-Proofpoint-GUID: 9aeXqXgpkMbHDyHzekZnSy7qMQxZHw7r
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1015 malwarescore=0 spamscore=0 lowpriorityscore=0
- suspectscore=0 priorityscore=1501 adultscore=0 bulkscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140029
+Content-Transfer-Encoding: 8bit
 
-On 10/13/26 11:16 AM, Oleksandr Suvorov wrote:
-> The command DB is read from a reserved memory region mapped with the
-> size given in the device tree. The per-slave entry count and header
-> offset, and each entry's data offset and length, are taken from the
-> blob and used without checking them against the size of that mapping.
-> 
-> cmd_db_get_header() walks rsc_hdr->cnt entries for every slave when an
-> ID is not found, and cmd_db_read_aux_data() and the debugfs dump return
-> or print len bytes at a blob-supplied offset. A count or offset that
-> reaches beyond the mapping makes these read outside it.
-> 
-> Keep the mapped size from probe and add cmd_db_in_bounds() to check a
-> range against it. Skip a slave whose entry array is out of range,
-> return -EINVAL from cmd_db_read_aux_data() for out-of-range data, and
-> mark such entries in the debugfs dump. Warn once for the first two.
-> 
-> Also set the size before cmd_db_header becomes visible to callers, so
-> a lookup never sees a header with a zero size.
-> 
-> Signed-off-by: Oleksandr Suvorov <cryosay@gmail.com>
-> 
-> ---
+The speaker and microphone mute LEDs on the IdeaPad Pro 5 14IAH10
+do not follow the ALSA mute state. This machine has an ALC287 codec
+with SSID 17aa:3914, but shares PCI SSID 17aa:3843 with the Yoga
+Book 9i and currently gets its fixup.
 
-GPT also suggests this additional diff to block a smaller-than-the-header
-cmd-db region:
+Add a codec SSID quirk that runs the IdeaPad ACPI LED fixup. Chain
+the existing bass speaker amp fixup so the audio setup is retained.
 
- 	rmem = of_reserved_mem_lookup(pdev->dev.of_node);
- 	if (!rmem) {
- 		dev_err(&pdev->dev, "failed to acquire memory region\n");
- 		return -EINVAL;
- 	}
+Tested on the IdeaPad Pro 5 14IAH10: muting and unmuting the
+headphone sink toggled the physical speaker mute LED. Muting both
+microphone controls changed the ALSA mic LED state from 0 to 1.
 
-+	if (rmem->size < offsetof(struct cmd_db_header, data)) {
-+		dev_err(&pdev->dev, "Command DB region is too small\n");
-+		return -EINVAL;
-+	}
-+
- 	header = devm_memremap(&pdev->dev, rmem->base, rmem->size, MEMREMAP_WC);
+Signed-off-by: Aayush Kumar <aayushkmx@gmail.com>
+---
+Changes in v2:
+- Add a comment about the conflicting PCI SSID.
+- Rebase onto sound.git for-next.
 
-Konrad
+ sound/hda/codecs/realtek/alc269.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+index 542245156..aff1a1e40 100644
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -4386,6 +4386,7 @@ enum {
+ 	ALC295_FIXUP_HP_OMEN,
+ 	ALC285_FIXUP_HP_SPECTRE_X360,
+ 	ALC287_FIXUP_IDEAPAD_BASS_SPK_AMP,
++	ALC287_FIXUP_IDEAPAD_BASS_SPK_AMP_LED,
+ 	ALC623_FIXUP_LENOVO_THINKSTATION_P340,
+ 	ALC255_FIXUP_ACER_HEADPHONE_AND_MIC,
+ 	ALC236_FIXUP_HP_LIMIT_INT_MIC_BOOST,
+@@ -6611,6 +6612,12 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.chained = true,
+ 		.chain_id = ALC285_FIXUP_THINKPAD_HEADSET_JACK,
+ 	},
++	[ALC287_FIXUP_IDEAPAD_BASS_SPK_AMP_LED] = {
++		.type = HDA_FIXUP_FUNC,
++		.v.func = alc_fixup_ideapad_acpi,
++		.chained = true,
++		.chain_id = ALC287_FIXUP_IDEAPAD_BASS_SPK_AMP,
++	},
+ 	[ALC287_FIXUP_LENOVO_YOGA_PRO7] = {
+ 		.type = HDA_FIXUP_FUNC,
+ 		.v.func = alc_fixup_yoga_pro7_audio,
+@@ -8427,6 +8434,11 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x17aa, 0x3834, "Lenovo IdeaPad Slim 9i 14ITL5", ALC287_FIXUP_YOGA7_14ITL_SPEAKERS),
+ 	SND_PCI_QUIRK(0x17aa, 0x383d, "Legion Y9000X 2019", ALC285_FIXUP_LEGION_Y9000X_SPEAKERS),
+ 	SND_PCI_QUIRK(0x17aa, 0x3842, "ThinkBook X G2 IAH", ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_4_THINKPAD),
++	/* IdeaPad Pro 5 14IAH10 shares PCI SSID 17aa:3843 with Yoga Book 9i;
++	 * use codec SSID to distinguish them
++	 */
++	HDA_CODEC_QUIRK(0x17aa, 0x3914, "Lenovo IdeaPad Pro 5 14IAH10",
++			ALC287_FIXUP_IDEAPAD_BASS_SPK_AMP_LED),
+ 	SND_PCI_QUIRK(0x17aa, 0x3843, "Lenovo Yoga 9i / Yoga Book 9i", ALC287_FIXUP_LENOVO_YOGA_BOOK_9I),
+ 	/* Yoga Pro 7 14IMH9 shares PCI SSID 17aa:3847 with Legion 7 16ACHG6;
+ 	 * use codec SSID to distinguish them
+-- 
+2.56.0
+
