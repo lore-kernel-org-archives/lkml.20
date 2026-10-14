@@ -1,300 +1,163 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1562037BE81;
-	Wed, 14 Oct 2026 07:19:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34988435AAB
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:20:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791962385; cv=none; b=SipcL+0znBhFjvWSQHemjtuFw/Py0ka+2l8kGue04gE8NCy4aKWuCwWk01yGpkMZsslAyEndCfCl5e9D/8jMgTvovUfJstuexMR9J5tqIoYDeMFVnNC00wCoV59iVtangdwE2SxNpW4cEO7+9FEsqCcUIJZ7almfGPFOu1ybQFI=
+	t=1791962440; cv=none; b=COvYmsjTE5hhBl+yNBHqz59RZ4YQ6yLBi5EJi/t7DJcY4FbXUWr/s4My4APbF0x8NRyxCSIwstVIZx+AkuAnV7iSUVVRq7KcsemZnr+Vl16Iwm8OO6DLCqPEdUHsSXhOJKL0VPDYoMQIUZgSZ0rti//kkNLtdS92AJXUqOOu4Ic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791962385; c=relaxed/simple;
-	bh=OLWvxHlK/pIvDgLktYglhtdP6v0ZNV6ImIyFRtLN7WE=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jOQOSEAGhTvwpwedl343eGXsyr6Qq55bvW3Tb2fEOf2x8gF0A+vF96vAPeu3qc5e8D4usHK/Wllvv0F4lAt82BqOp2NAI1E3s0Ym/KgZAp7oTFjRDZtsn2XYgkx8yduM2PXDUDMQE6T4fT+3Rmbn9hifZZUcwcdd1gGc9mOGvRo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=nWkiHJm0; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=dR9RVHVu; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Z/RmM4wJ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=t6dMdoFW; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1791962440; c=relaxed/simple;
+	bh=g6hFtLVrE/UjzzVSQQOzbX4cj/oiFJZYtfo2+FNowfA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=r97hv5iDKXaEgL6dMjdu0QtjM9xMyQz6UCXo63ygtDRSF53MQwNe5jiJA0Id8FMSgFS1vO9vNnNweDuVGO3yFWtcewtie/s7a0lmoJDH49xz5VWYPZ6hO3PjAcqFtE5pDnPXb3F1XlABrqXp/zesmrG163lSeA/XwtnAL/xOfTE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eLGofGV2; arc=none smtp.client-ip=74.125.82.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="nWkiHJm0";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="dR9RVHVu";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Z/RmM4wJ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="t6dMdoFW"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id CF0D922175;
-	Wed, 14 Oct 2026 07:19:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791962382; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DRYVxI++fS0QZo2yXcnUnT/97oDV2nUc02sQ2k41UyY=;
-	b=nWkiHJm0xPKV/dtM/EB4I1Gizy/eZCNnL8noke2Wyq/YF0XSC078MdQPi/DWQ9bRsidHOv
-	+r7demFyuhsDVB9Y388IqITUmzzuWHi0miEat3a9RWySJfSQZpAbV707lzk8vsOCzjrNQI
-	1K6YJtWUTx9PSOLDhUo42bDd5j6jPVU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791962382;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DRYVxI++fS0QZo2yXcnUnT/97oDV2nUc02sQ2k41UyY=;
-	b=dR9RVHVuszag0VH85goZLUwzGHV6Dd65BvMutQZjQN4IG7sUiPRq5TshTdQSwBqV6eBWGs
-	iUQvbOKtSZeYvmAQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791962381; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DRYVxI++fS0QZo2yXcnUnT/97oDV2nUc02sQ2k41UyY=;
-	b=Z/RmM4wJzxxGIsBo1r+JyHks/3zPPDiQI9IC4qy9LBkDBVdLFuD+bESv/XCa1VUB0ZrtA4
-	g5hFXqxjroMF5W5nFI1AlFffnaVT3rRMPrkcudxxLzx4LEbr5apaqDa6Qr57ei4LlDIbIv
-	Qq3YjZJFwzD3KAblP3HrG8gzCAE+CPE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791962381;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DRYVxI++fS0QZo2yXcnUnT/97oDV2nUc02sQ2k41UyY=;
-	b=t6dMdoFWtDQImGNHeFZV/68MDUWR7gA3LB/c5KTMcRhwgnxv8QOFiBENfP5Xv9jgjHUAdO
-	Zfntefw5jXUxraBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3672F13726;
-	Wed, 14 Oct 2026 07:19:41 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id IlQvAw0tz2oRcAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 14 Oct 2026 07:19:41 +0000
-Date: Wed, 14 Oct 2026 09:19:40 +0200
-Message-ID: <877bjkg35f.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Cen Zhang <zzzccc427@gmail.com>
-Cc: perex@perex.cz,
-	tiwai@suse.com,
-	sammiee5311@gmail.com,
-	phucduc.bui@gmail.com,
-	kees@kernel.org,
-	thomas.weissschuh@linutronix.de,
-	tglx@kernel.org,
-	linux-sound@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eLGofGV2"
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-1517bda04a0so2370819c88.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 00:20:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791962438; x=1792567238; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=r9mA2qoZtggQ/j/8me9B77LmzqnDxoGP/VtqAIm/t1U=;
+        b=eLGofGV22lAh7Oeak/ixXc9UNnueFHsqx74u4y3/lNauJF/lklVShsVb7Wnv8rrJOf
+         NTJoD6iSFpflVhPyMXJW7ugQZiSyFbUvtEJQGVCT38hpyVnxJwFYNDd29Ih+CgFU1j/S
+         mKIyQK2cNiESYEl+DjsBWazAHQVGgrjfS9e5L1qtfvhgA4bqa4uGTBwcPxZbPEJ90GL0
+         FPyhOigURW0TqsIhtJ52gzsjXL7gisdb4CCGksU4lfHYT82Pt7t5vf6cuevHA8mnUFb2
+         uioSroVQogYfzno6hR+CN0YbKBENPtRvNu9IJ4l1li7vgk6ICAQry/E/lJ8APFQLU1v0
+         ICRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791962438; x=1792567238;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=r9mA2qoZtggQ/j/8me9B77LmzqnDxoGP/VtqAIm/t1U=;
+        b=q33md9CxsB4PZ1BrK+8tcro1kO/zz+ghNosA3/cc8M4OYge0kfemAtP+qtLBciE17N
+         gBzFQkD2Z1k88oIGni4D3ByBt+hQuqs+RefRtpe898KPSFb4YUc/8070Hq/nnX4P+i7e
+         j3zbH0ZJBd6PPNEKqsZs26KSDjI7ZKccBJXuTjv/YxfZkRD9xFvMFPiTOXBZW3ePb6Mx
+         BWulbcQ7jjc938byr7rdV1/EZ5M5BPxbIXS888ExCWuOniyhuqiYzzy4QXPdwUH5zQA1
+         Xp+lnhAE+zqX+Rfovvp0BMX1IJ0RfJS31USct0lAtvNQiebkd72sWr61CDUc0NQ5R0Ci
+         hm/A==
+X-Forwarded-Encrypted: i=1; AKwUvBztgomZzoF1636I7uqQs9S0MwcI9nrkGDGf2fTFFkA/tHwdjEcI0wPncszAjmbkU1E/wK2Amv4UYHl67t4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIx54LW+6UFPVnb7JzQFnQkL65Pna9j6mheZrXHHeAdloSv84fc
+	fHBgP6Lfobn66DpLZT6xUu+oRofZkOLAcPrbAcOdsvN+LwepNF82bnRg
+X-Gm-Gg: AYBFou1WRJmgdc2L0bCOqMz0XHh99wkmqOQS4pclMJux6gtjvepVFaqwbHVBZJxIu91
+	CVOR9Ov2sdsSnAs1FJ5PvK5ei/HA4IDqgkEy9MlCa+OwkzsTCmePHvQsid2QR70XBE2V2pKSuZz
+	xzlquA/eSD1FE6trMPztIkCxTafyJJqwKpm/9SGorj7pqs4Eg1KsVxn7NZvy1pOxSaGqK2S6VEn
+	F6Aka4u71VONrxhRPu8yQA7D6rAMWBh4x4yWfO6T3Xxys7fcCg9FY+0qowK00gi99IPEJ4MiZqp
+	CrU1TBZp2F5nsbtinBfFSIeRgAT1NCEUDza7/yJd0Ao+74aDvU87OtHwZM6+lKEJ64NFePtBC6/
+	Lnvet6VaYG4ch49sfPZ9aQn/U0FLOU+ktiSvLoqaibh6YV9xjxjW6g1u1NDMusBGL1Prbm9t2EO
+	fpu8k+jU2K/xVvo3IuImsCOT4qVGU7M6wOsDZYnMRQKwGf9p1irAdPOVRMowElfJitczEn00rwt
+	DGI36BzzkZfspVTF4ms3WveF8LZm6llY/rQY72KZFGk/6Wk1ha2A7a4XQ==
+X-Received: by 2002:a05:701b:280a:b0:14d:c7ae:85df with SMTP id a92af1059eb24-16a5adfc08emr22045113c88.12.1791962437979;
+        Wed, 14 Oct 2026 00:20:37 -0700 (PDT)
+Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan ([183.242.161.82])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a32eb7ebsm52219852c88.12.2026.10.14.00.20.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 00:20:33 -0700 (PDT)
+From: Chaosheng Qu <chaosheng.qu.linux@gmail.com>
+To: rostedt@goodmis.org,
+	mhiramat@kernel.org
+Cc: mathieu.desnoyers@efficios.com,
+	linux-trace-kernel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com
-Subject: Re: [PATCH] ALSA: dummy: Defer hrtimer data freeing until runtime detach
-In-Reply-To: <pm-pmb-9c80f858ccc13b3de84d-v6-d4059ea2910fe5430f5f@gmail.com>
-References: <pm-pmb-9c80f858ccc13b3de84d-v6-d4059ea2910fe5430f5f@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	stable@vger.kernel.org,
+	Chaosheng Qu <chaosheng.qu.linux@gmail.com>
+Subject: [PATCH] tracing/osnoise: Don't start a kthread in timerlat user-space mode
+Date: Wed, 14 Oct 2026 15:20:19 +0800
+Message-ID: <20261014072019.276178-1-chaosheng.qu.linux@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-1.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_TLS_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[perex.cz,suse.com,gmail.com,kernel.org,linutronix.de,vger.kernel.org];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -1.80
-X-Spam-Level: 
-X-Spam-Flag: NO
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Wed, 14 Oct 2026 07:25:31 +0200,
-Cen Zhang wrote:
-> 
-> The hrtimer record must remain alive while a linked PCM action can
-> visit its substream. dummy_pcm_close() frees that record before
-> pcm_release_private() unlinks the substream. runtime->private_data still
-> points to the freed allocation.
-> 
-> With two configured dummy capture substreams linked and the hrtimer
-> backend selected, final close drops the group to SETUP. A surviving
-> peer can then issue PREPARE before the closing substream is unlinked:
-> 
->   Target close                       Peer PREPARE
->   snd_pcm_drop(): group -> SETUP
->   do_hw_free()
->   dummy_pcm_close(): kfree(dpcm)
->                                      snd_pcm_action_nonatomic()
->                                        read-lock snd_pcm_link_rwsem
->                                      dummy_pcm_prepare()
->                                        read dpcm->timer_ops
->   pcm_release_private()
->     snd_pcm_unlink(): write-lock
-> 
-> PREPARE holds the link read semaphore and the members' buffer mutexes,
-> but driver close holds neither across the free. Unlink's write lock
-> comes too late to protect the record. The ops-pointer read can use freed
-> memory and dispatch through an invalid function pointer. If PREPARE
-> already obtained the record before close, dummy_hrtimer_prepare() can
-> instead write period_time after it has been freed. The report below
-> shows the dispatch-time read and the ensuing fault; it does not show
-> the later write.
-> 
-> Defer freeing the hrtimer record to runtime->private_free. Runtime
-> detach follows unlink, which waits for existing linked PREPARE actions
-> and prevents new ones from visiting the target. Cancel the embedded
-> timer in the destructor before releasing its storage. Register the
-> destructor from the backend free callback so the open error path also
-> releases the record through runtime detach.
-> 
-> KASAN report as below:
-> 
->     BUG: KASAN: slab-use-after-free in dummy_pcm_prepare+0xb7/0xc0
->     Read of size 8 at addr ffff888106b35f00 by task alsa_pcm_fixtur/491
-> 
->     Call Trace:
->      <TASK>
->      dump_stack_lvl+0x93/0xd0
->      print_report+0xce/0x630
->      ? dummy_pcm_prepare+0xb7/0xc0
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __virt_addr_valid+0x20d/0x410
->      ? dummy_pcm_prepare+0xb7/0xc0
->      kasan_report+0xe0/0x110
->      ? dummy_pcm_prepare+0xb7/0xc0
->      dummy_pcm_prepare+0xb7/0xc0
->      snd_pcm_do_prepare+0x71/0xb0
->      snd_pcm_action_group+0x505/0xb30
->      snd_pcm_action_nonatomic+0xab/0x150
->      snd_pcm_common_ioctl+0x1bf5/0x3a50
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? do_vfs_ioctl+0x1f5/0x1280
->      ? __pfx_do_vfs_ioctl+0x10/0x10
->      ? ioctl_has_perm.constprop.0.isra.0+0x34f/0x500
->      ? __pfx_snd_pcm_common_ioctl+0x10/0x10
->      ? __fput+0x5ba/0xa60
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      snd_pcm_ioctl+0x76/0xb0
->      ? __pfx_snd_pcm_ioctl+0x10/0x10
->      __x64_sys_ioctl+0x163/0x1d0
->      do_syscall_64+0x115/0x6a0
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
->     RIP: 0033:0x41ee8d
->     Code: 04 25 28 00 00 00 48 89 45 c8 31 c0 48 8d 45 10 c7 45 b0 10 00 00 00 48 89 45 b8 48 8d 45 d0 48 89 45 c0 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1a 48 8b 45 c8 64 48 2b 04 25 28 00 00 00
->     RSP: 002b:00007ffcfa72fb60 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
->     RAX: ffffffffffffffda RBX: 0000000000000004 RCX: 000000000041ee8d
->     RDX: 0000000000000000 RSI: 0000000000004140 RDI: 0000000000000004
->     RBP: 00007ffcfa72fbb0 R08: 00007ffcfa72fb98 R09: 0000000000000110
->     R10: 0000000000000001 R11: 0000000000000246 R12: 00007ffcfa72fcd8
->     R13: 00007ffcfa72fcf0 R14: 00000000004a8f28 R15: 0000000000000001
->      </TASK>
-> 
->     Allocated by task 488:
->      kasan_save_stack+0x33/0x60
->      kasan_save_track+0x14/0x30
->      __kasan_kmalloc+0xaa/0xb0
->      __kmalloc_cache_noprof+0x251/0x610
->      dummy_hrtimer_create+0x4a/0x170
->      dummy_pcm_open+0xe7/0x730
->      snd_pcm_open_substream+0x926/0x1580
->      snd_pcm_open+0x28d/0x6d0
->      snd_pcm_capture_open+0x82/0xe0
->      snd_open+0x1ec/0x3e0
->      chrdev_open+0x21f/0x660
->      do_dentry_open+0x5c8/0x1300
->      vfs_open+0x87/0x390
->      path_openat+0x2460/0x3cd0
->      do_file_open+0x21e/0x470
->      do_sys_openat2+0xf4/0x1b0
->      __x64_sys_openat+0x136/0x1e0
->      do_syscall_64+0x115/0x6a0
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> 
->     Freed by task 490:
->      kasan_save_stack+0x33/0x60
->      kasan_save_track+0x14/0x30
->      kasan_save_free_info+0x3b/0x60
->      __kasan_slab_free+0x5f/0x80
->      kfree+0x307/0x580
->      dummy_hrtimer_free+0x72/0xe0
->      dummy_pcm_close+0x9f/0xd0
->      snd_pcm_release_substream.part.0+0x104/0x310
->      snd_pcm_release+0x106/0x240
->      __fput+0x39f/0xa60
->      fput_close_sync+0xff/0x200
->      __x64_sys_close+0x8c/0xf0
->      do_syscall_64+0x115/0x6a0
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
->     ==================================================================
-> 
-> Fixes: c631d03c6873 ("ALSA: dummy - Support high-res timer mode")
-> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-> 
-> ---
-> 
-> diff --git a/sound/drivers/dummy.c b/sound/drivers/dummy.c
-> index 6b0a06e5c87638264e5d22deda1fe4bc028febe7..ae7cef9d74819a68dcf951a21768dccf38c7c4ad 100644
-> --- a/sound/drivers/dummy.c
-> +++ b/sound/drivers/dummy.c
-> @@ -476,13 +476,20 @@ static int dummy_hrtimer_create(struct snd_pcm_substream *substream)
->  	return 0;
->  }
->  
-> -static void dummy_hrtimer_free(struct snd_pcm_substream *substream)
-> +static void dummy_hrtimer_runtime_free(struct snd_pcm_runtime *runtime)
->  {
-> -	struct dummy_hrtimer_pcm *dpcm = substream->runtime->private_data;
-> +	struct dummy_hrtimer_pcm *dpcm = runtime->private_data;
->  
-> +	hrtimer_cancel(&dpcm->timer);
->  	kfree(dpcm);
->  }
->  
-> +static void dummy_hrtimer_free(struct snd_pcm_substream *substream)
-> +{
-> +	/* Linked PREPARE can still use the data until unlink. */
-> +	substream->runtime->private_free = dummy_hrtimer_runtime_free;
-> +}
-> +
->  static const struct dummy_timer_ops dummy_hrtimer_ops = {
->  	.create =	dummy_hrtimer_create,
->  	.free =		dummy_hrtimer_free,
+In timerlat user-space mode (NO_OSNOISE_WORKLOAD) the workload is a user
+task reading timerlat_fd, so there is no per-CPU kernel thread to run.
+start_kthread() only checks for that in the osnoise branch:
 
-Hmm, it's not clear how this happens.  It looks like a typical
-obscuration by AI reports...
+	if (timerlat_enabled()) {
+		snprintf(comm, 24, "timerlat/%d", cpu);
+		main = timerlat_main;
+	} else {
+		/* if no workload, just return */
+		if (!test_bit(OSN_WORKLOAD, &osnoise_options)) {
+			...
+			return 0;
+		}
+		...
+	}
 
-Basically dummy_hrtimer_sync_stop should handled the hrtimer cancel,
-but maybe the problem is rather its lack at releasing?  If so, the
-patch below should cover instead.
+start_per_cpu_kthreads() guards against this mode itself, but
+osnoise_hotplug_workfn() calls start_kthread() directly. Bringing a CPU
+online in user-space mode therefore starts a timerlat/N thread and sets
+its bit in kthread_cpumask while OSN_WORKLOAD is clear.
 
+stop_kthread() uses that bit to decide what the recorded task is:
 
-thanks,
+	if (cpumask_test_and_clear_cpu(cpu, &kthread_cpumask) &&
+	    !WARN_ON(!test_bit(OSN_WORKLOAD, &osnoise_options))) {
+		kthread_stop(kthread);
+	} else if (!WARN_ON(test_bit(OSN_WORKLOAD, &osnoise_options))) {
+		kill_pid(kthread->thread_pid, SIGKILL, 1);
+		put_task_struct(kthread);
+	}
 
-Takashi
+The bit is set but OSN_WORKLOAD is not, so the first WARN_ON() fires and
+the && short-circuits into the user-task branch. A running kernel thread
+is SIGKILLed and its task_struct is put without ever being stopped, so it
+keeps executing until it is freed underneath itself.
 
--- 8< --
---- a/sound/core/pcm_native.c
-+++ b/sound/core/pcm_native.c
-@@ -2301,6 +2301,8 @@ static int snd_pcm_drop(struct snd_pcm_substream *substream)
- 	result = snd_pcm_stop(substream, SNDRV_PCM_STATE_SETUP);
- 	/* runtime->control->appl_ptr = runtime->status->hw_ptr; */
+Any write to osnoise/options reaches this: osnoise_options_write() stops
+the per-CPU threads before applying the new value, so stop_kthread()
+still sees OSN_WORKLOAD clear. Re-writing the value that is already set
+triggers it just as well as changing it.
+
+  echo NO_OSNOISE_WORKLOAD > osnoise/options
+  echo timerlat > current_tracer
+  echo 0 > /sys/devices/system/cpu/cpu1/online
+  echo 1 > /sys/devices/system/cpu/cpu1/online
+  echo NO_OSNOISE_WORKLOAD > osnoise/options
+
+The offline/online pair is required, otherwise no kthread is recorded and
+no bit is set. Running this on 7.3-rc7 with KASAN gives a WARNING in
+stop_kthread() followed by a slab-use-after-free in update_se(); leaving
+out the hotplug step produces neither.
+
+Keep the check in start_kthread(), where the related hotplug bug was
+fixed in 0bb0a5c12ecf, instead of adding another copy to the callback.
+
+Fixes: e88ed227f639 ("tracing/timerlat: Add user-space interface")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chaosheng Qu <chaosheng.qu.linux@gmail.com>
+---
+ kernel/trace/trace_osnoise.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/kernel/trace/trace_osnoise.c b/kernel/trace/trace_osnoise.c
+index 0e1265acd..9715462ee 100644
+--- a/kernel/trace/trace_osnoise.c
++++ b/kernel/trace/trace_osnoise.c
+@@ -2038,6 +2038,14 @@ static int start_kthread(unsigned int cpu)
+ 		return 0;
  
-+	snd_pcm_sync_stop(substream, true);
-+
- 	return result;
- }
- 
+ 	if (timerlat_enabled()) {
++		/*
++		 * In timerlat user-space mode the workload is the user task
++		 * reading timerlat_fd, so there is no kernel thread to start.
++		 * One started here would set its kthread_cpumask bit, which
++		 * stop_kthread() reads as "osnoise workload kthread".
++		 */
++		if (!test_bit(OSN_WORKLOAD, &osnoise_options))
++			return 0;
+ 		snprintf(comm, 24, "timerlat/%d", cpu);
+ 		main = timerlat_main;
+ 	} else {
+-- 
+2.43.0
+
