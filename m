@@ -1,77 +1,92 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DB874A498E
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:12:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EEAF3BBFB2;
+	Wed, 14 Oct 2026 09:12:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791969140; cv=none; b=oBy09wGmMEi/4AlKL8FkmCgwp5JFMwMQf7e6jKmp91b5T0Q9rO+4wF8gveAFXXLJSPpWtnEX6YPGqzTSXnidkuj2z4AgUv9ah/pPaJM1luRkFAlS8/F2YM2C73+BNAFEQcLVlWiVhRaPO+Flz4Z2kMuPZFa2HoDC6UM3bO/554E=
+	t=1791969157; cv=none; b=Ipq4Lc8ecNrJUfSQHyMGYkoWTS28nxNmoEwKVUMycnoNIlPM/1CbePytOCQf0bMBwbD55dY5lpC6QSr8H4L8sHtds6ec2U81jTuNmgZXZD1Bz9NxtomhSO9zSuRaWJv9kpLjljnENDavHjyDiWIcWW7SQ/tE16KQhXve7gGWV2o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791969140; c=relaxed/simple;
-	bh=lRP4bJl5SdVNOJG+y1WwkVlB28FaMO41Z/f5pWVsxLM=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=c9z0E5K1fM5Yj3KQYEVne70PQxQpULQVnx8UWg9rn0KUohakpeeHZpN7NFw/WIJ3xQScaU8daCFddjvj7P7jpJHuuihT/FJaidgOkJBgxgWfkw7A15rFfEBpVmNA7MQbF2kzUwUkT/FfWcHcJzhJVUKa3bWcamH21VKwrd/avDs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=E79CjDLi; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="E79CjDLi"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id C4BBA4E4120C;
-	Wed, 14 Oct 2026 09:12:15 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 9906560368;
-	Wed, 14 Oct 2026 09:12:15 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 95C041032898A;
-	Wed, 14 Oct 2026 11:12:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791969134; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=lRP4bJl5SdVNOJG+y1WwkVlB28FaMO41Z/f5pWVsxLM=;
-	b=E79CjDLifyM+hr0VPaPwWud3S3QF+ZaBXPZha/6kMq+3dU2x6jTvJWDPM+hKYK7d+2f6lP
-	MsZHFh3ofjvAvKLVyTn1IRLygxgpskwSzD8IHFyPq4te/UJkRmjYze6d9ks+jU8W9j4N0s
-	l8o046kHUf2i0kDliC44D81GUez9tGv5uGimbmVPHl+RwqQSPNWVGmEtgFXtD4NJaeV5vB
-	QCn9ZU23hLlRfY+zgOqJVxb/Kk0lt20Fpai9yxzgDSUOckEL4v6JGDuOQoIlqBiF3KRBCk
-	m67Hz6G2Sp0GcNEPjYuhbfwk58PAkj2bimGpXfz6PowOlZ+DVjKQ1ynTrZ/EQg==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Pratyush Yadav <pratyush@kernel.org>
-Cc: Michael Walle <mwalle@kernel.org>,  Takahiro Kuwano
- <takahiro.kuwano@infineon.com>,  Richard Weinberger <richard@nod.at>,
-  Vignesh Raghavendra <vigneshr@ti.com>,  Thomas Petazzoni
- <thomas.petazzoni@bootlin.com>,  Steam Lin <STLin2@winbond.com>,
-  linux-mtd@lists.infradead.org,  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 00/17] mtd: spi-nor: winbond: Add support for the
- W35TxxNW family
-In-Reply-To: <20261013-winbond-master-spi-nor-w35t-v3-0-6dde1d513df8@bootlin.com>
-	(Miquel Raynal's message of "Tue, 13 Oct 2026 18:33:50 +0200")
-References: <20261013-winbond-master-spi-nor-w35t-v3-0-6dde1d513df8@bootlin.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Wed, 14 Oct 2026 11:12:11 +0200
-Message-ID: <87y0c0y7bo.fsf@bootlin.com>
+	s=arc-20240116; t=1791969157; c=relaxed/simple;
+	bh=hK91owu3CIMmiIzqFkzkSTbAGhIDGulLKvYuiZCJAGw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XVuwRItZK9rIbzHJM/tvludlOrAcGiArK+XForrU/QPdqMYbqIYZwUMqR0xT0s7GzJqDBxPtu2ebEnz2ykyTxlafkoZ5aODHAcLROTafoLBYFMiauwVUv/bd4IVqYSgUKXBrz4ZbrsLIMAgAD8yUiM+ajgfZ39gUw411H7KHZjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.204.34.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
+X-QQ-mid: zesmtpip3t1791969119tcb4ea60d
+X-QQ-Originating-IP: SB5iD+s/jtIVlg3nPPo2Q5OGSv0OnUuvZDMVUw85Kwo=
+Received: from [127.0.0.1] ( [localhost])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 14 Oct 2026 17:11:57 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 4673881643528853335
+EX-QQ-RecipientCnt: 10
+Message-ID: <C40ED949A0A7F842+faa4a30f-d228-44de-977a-fa73723045f9@radxa.com>
+Date: Wed, 14 Oct 2026 17:11:54 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Reply-To: sophon@radxa.com
+Subject: Re: [PATCH] arm64: dts: qcom: sc8280xp: Fix GPU SMMU context fault
+ interrupts
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dragon@radxa.com
+References: <20261013-sc8280xp-gpu-smmu-fix-v1-1-8a781e3f1554@radxa.com>
+ <bf865b13-4773-45d6-a93b-4db4f77b1feb@oss.qualcomm.com>
+From: Xilin Wu <sophon@radxa.com>
+Organization: Radxa Computer (Shenzhen) Co., Ltd
+In-Reply-To: <bf865b13-4773-45d6-a93b-4db4f77b1feb@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: NhdiEwnVOUqE1gnLn6MZhwXs/7z7gAOsdYqoSGcOf0NvG7JgRzLE7NUx
+	PsID5qYDIHuhtUaPEdxpUzD1Q4O+0hSBf9ovxDIsVOrtwXo9HgxxwFhYZ8N09BxgjYDqSfq
+	62doNaHQXgL/oZQBRAx4Tle20EF1P+8lmXRLs0NHvY/MImn6fvXiE/qoGocVOXawgoaRfUC
+	fww55LQrtpHUOeA+XPVDccCzvUlmRqUY7wprYuyOnw+mRDGsQ3iWvNJ7Y7GD6f8ZUnSE4Zy
+	QwLO70KXt8bruyz+94UzpjpaSmPDnlw+T+vtdVhHGkGlzGuGbTbs+n1SQXuPIZKeHo2BD7O
+	9d+oFFbcGJaZKOHnxNOPO2GDzG/Bxli/gn4ItHlG7wiuk1VKiN08X4qTZLkpszKTEvvRyEK
+	AUX6HUuPACIjHqgMeVdTRvPb4PVqODu2OtTEvc9CV8AAu0ezO3oYJRQoKhsXYxGloTyWCpC
+	MjMR5fzEKdOrwK1lH5NqqUrpAcZux/m111T5Qo6eG4cgjQJbMA1lye1O1Foshn8OsULrYZv
+	aiwHUy1eijyHitmWx9SWEIldYsWMqcIL1GSikBnsm/IErseqY9RkHgNlwCkRarcqAgEGPbp
+	wWyQY9oSuUt6i9KLJ897vkG6da8uR5MnFxnPpijt4AfJIIy8EttGFzXnKGTkGI/CvMuNNXB
+	wNIE3/gonhbZRk+Tk58IWQaJfsrP+sC/Z9z/WbFfz/TV+HDtGWWG3Njw/Iho3uLLk+zy3D6
+	xMU6L7urcyBqXwufh8H0JT5a5cf+MS7d5SX5s+PPxHSHvpj2H9ixJNbag0F4rMAV1pbs4pI
+	zsSaF23bb4OTxLigmADddixTYIysDIl7cW2/JXGZGFPTxAMsgwHw0io9ed2C8fyFcnpxqde
+	bCh6O8a/4SqRtOa2kE06L/ibcNBv8UfyJgNsRdQHA/3LHN0fZ2+neDe+fun2iuN2JtDGQxG
+	ea6pLH7J/i2yOCSFGmR9g/dfxPdSDmk6u1GF9+XCzFCV9N8YQ82l2vldA0YpgSJxUyKckye
+	mvhNvEusGi3v1dHq5jAksadIUK9X8X1Z8tp137cA==
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-RECHKSPAM: 0
 
-Hi Michael,
+On 10/14/2026 4:59 PM, Konrad Dybcio wrote:
+> On 10/13/26 11:59 AM, Xilin Wu wrote:
+>> The GPU SMMU interrupt list includes PMU interrupts as the first two
+>> context fault interrupts. This makes the driver register the fault
+>> handlers for context banks 0 and 1 on SPIs 678 and 679 instead of 680
+>> and 681. Translation faults are consequently left unhandled, which
+>> can stall the GPU and prevent recovery.
+> 
+> the context interrupts are 680-688 and 703
+> 
+> Konrad
 
-> First patches are misc fixes.
->
-> Then there are core enhancements to support ODTR chips.
->
-> Last set of patches is Winbond specific, where I add the bulk of the
-> changes for supporting the new Winbond Octal-DTR SPI NOR chips in the
-> winbond manufacturer driver, and then sparkle the ID table with the new
-> IDs and their respective testing logs.
+Thanks for the clarification. I limited the list to seven because IDR1 
+reports NUMCB=7 on my board. However, DT should describe the full 
+hardware interrupt list, and arm-smmu already ignores entries beyond the 
+reported context-bank count. In EL2, IDR1 does report NUMCB=10. I'll 
+include SPIs 680–688 and 703 in v2.
 
-Just to let you know that I considered the reviews from Sashiko on
-this version, but I discarded them both. I'll let you do your own review
--no hurry-, let me know if you disagree or require more details.
-
-Cheers,
-Miqu=C3=A8l
+-- 
+Best regards,
+Xilin Wu <sophon@radxa.com>
