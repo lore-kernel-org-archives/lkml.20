@@ -1,318 +1,145 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B67F4E8DE6
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:37:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1B0B4A3D25;
+	Wed, 14 Oct 2026 12:37:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791981446; cv=none; b=pOsTu6o2mWkToTJ0QU3QqggkjLoSvywls5BXeivFsGM1j3JldoF80seFC3ZH5QElTNwait4olLb8oP2BA53BxJ/hu9DYbjPIWm7BcYnNVQDAvQgsl8R1KweZD2u6yd7IjWnU3ex1/jEE2I0RysXYV3wYiSKW2Dmth8c9RNGjg9M=
+	t=1791981449; cv=none; b=j4mRaiU+rQzZ1ChboucJYXvLcTst/CVFD7/FH6UVUbwmUTq2Z/QaJprRYA4G99SLjum/ZFVnURFReElpwj9jc3TPJQfOJxYh04ZeBg0M3087W/ByscJ/tD1p8xgzrZGoGIEtNiQRfIGNoUIVuTHjTvCIQ7jJU5YwExkPDLQtE6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791981446; c=relaxed/simple;
-	bh=NZAxb9MK43O2wa2aiDj23ZEiKR9RAVihBgD6wcTqioI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=pjsspK9i4oDgWeTgK4aZc86x7KP3lNR+lNH6FogSk8shYLg+IHtmWlYZLUDK0XRrlHnum7KE8I5sSqiWmHxHu4PJPcUMBl55nelDvgUx3IyckWO58C0PeqvRS60mtUmwS+qGjeIq9k0Q55bSClpP3i1LDIfYAh7df27ybw4P4i4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=F9VnAWmw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dlXUBCoU; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791981449; c=relaxed/simple;
+	bh=r2T4MyL9bj7r9EDWOkfGcyk2HYxyhxDzQwHLOatpYwI=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=I/Noo7vkfGmaJAXbDTeHOt8UQ8h5tLD5Bllc0G1QwNx8NP1lNncUJrmypFow5EfqCh/xre3uSgaPqiOYwNAODldKKLbsIB/dqZaTlrMv3kPlRcsl5G1vxQ0J4YNr9Y+m7KJItXrmUThPBFunM58LjmnAutSBB6nRJ3LGu7P+Zpk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=tS3ooci0; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Q58MftYO; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=tS3ooci0; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Q58MftYO; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="F9VnAWmw";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dlXUBCoU"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EAxP073951538
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:37:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	tAzjDYNamaa3ACvOjRHKRLOW7XP98fJpPmxyMJ5R2h0=; b=F9VnAWmw8teizddj
-	LBAi8AsK8KJ7BDjdxWhBl1pm3d8+Juj4G/nena0MJzCGOZI42WquGV9G0vkIyJSA
-	fvo7YLszSs6NRo5sXjGJl3Sn1ZVK4sFdgThAwS6zwwwnrbXuxmqW9SZ37aypQ3/Q
-	0OkHPJmKvzeR3yMDYbdnkjWuS/sGh6xymvZo7HOyZ2eVLoLZrIuCUjE8YQqvp4fm
-	wBdmFpDcRqVMrT1ZwEPaVkIQJ3ZggJMXHp8dvf/4a9nkMt/FPxkfLHGLkgeXzWkH
-	61v2zw6kmk47ZL4ojU4sVph1100a8Th68LkmoFthQWMzGkMozHdbePY5jDl15xdr
-	zHyccw==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ha42p1kuq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:37:22 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-91bb074ed1aso13264596d6.2
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 05:37:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791981442; x=1792586242; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tAzjDYNamaa3ACvOjRHKRLOW7XP98fJpPmxyMJ5R2h0=;
-        b=dlXUBCoUO8u2YsWVO+DPgf6YSvoQ++lpQSnOPFRoonkyG6bDLlXucoKgLylXZSeBR7
-         3Rq1GBHHJmI/w38PAWjqCDixq14ew898hD5+q/gNFzgi7otU2MoINQn45CJZtNwPqmAY
-         BkKmlo6EaJ15VBvzalp/KvlR6HvccZ5degbAfa1U0tLgk83WMqH2kmVGDDCM842r1uiU
-         Y7+6/nNVjNLVUCFuAE4RQS2YOtyjbnwkv/77ZPtVy/cFcVsKUczIydDuoy6oio46/mYL
-         3LzNLiP7xEa0m6x04btjFj1UOkx6uyzB/Msadv3uea4vCuxm56tMxaIDGKUo0clsl+Bp
-         gosQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791981442; x=1792586242;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tAzjDYNamaa3ACvOjRHKRLOW7XP98fJpPmxyMJ5R2h0=;
-        b=ymRmu5zHftMm/HJWw/KwoN4AzR7cef1j0PJv61BBr77gBN3ukRRALdhKe13rbSz2/G
-         ocHvPC93+jLhGxvWibzUXzumZeX8vpeN6xFQPk75HvNQeYjWcQmJVxaJVITwtbVuZM1D
-         ifui2/x1GK+0IQUhQGPzz7cD9wL+iLMCt+cRwrR/86be6F2cP9YW3hqZ1RGBeD9aDpLp
-         J+hT436nsux3QRv7JrRqGa2yBP/AFJ4z0fdF8XQvTKc2Zj1nBN1UBJVFIlad8f25TuIa
-         IjcCfPZgWqJARWZJcpD8wTNeBoOo6TGk2DMm5bK9sq90JEY0NbkZl1plT+/rniPOMyX6
-         gjXQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxU3vjdmTHaQf5BQfmTRVl6hXlSn5d6cHhcrsa9c+PIWZoyMeeucHc2Pff/i7e0sQJUx9Luc7KRI2xbq3M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIXmoomUaKvpxg3u6RqCRgB5WzwYS96uytnao8HOCdkHhuHLI5C
-	wSDt7Z6/flBUNZ/ejcOk3NWzGMl6CbSxsv3PjDr4m1SxXcS9cqFY6OVPbJgQc6sLghqU0V2O/Bh
-	0HJ0dRk3jYu56ACdMlvxDx0fzRkpt9fC4pJoWiF2NKwT69ALBAjkQco2KSJM1HaFnmwg=
-X-Gm-Gg: AYBFou28e8tjs8oWnxkE0iufASKxTd/fJxq1UlWLZqzugXk9mJm8v0md9IGiVMLSUaO
-	KclfRwuKVcgw82S0GcSXSRShlRGKWaE+1Ye49Lpya+bZaHw/Ns/NnXV5LfVwA/Ba6On8kwCuJbC
-	Dw1iUGe4G2WY51nVEqAbo4E5ZMhAFc7LubJPVMJ+O1Q5/Td3VbCFQYp73HAo4Jv6Qgh3MalE+QS
-	28MNiVf4QiYDWcPOCthqTFj35IWISa5BPE5xELlD7CPF9ZjDH3Z+hNbpTPNVL3kmwE4gCnzTewH
-	oMfJ4GW++Js0dFvLFd5dpY83TxME6WliWaKGEn+fHhmw88y0RgFxIR+6EXOJSWihoxwdC90rDkA
-	MkxFFpSZYvVB/SHy5mUa6NywmxjCZ
-X-Received: by 2002:a05:620a:a0d2:20b0:93e:c12c:fbc3 with SMTP id af79cd13be357-93ec12d08b4mr1718227685a.80.1791981442164;
-        Wed, 14 Oct 2026 05:37:22 -0700 (PDT)
-X-Received: by 2002:a05:620a:a0d2:20b0:93e:c12c:fbc3 with SMTP id af79cd13be357-93ec12d08b4mr1718223885a.80.1791981441505;
-        Wed, 14 Oct 2026 05:37:21 -0700 (PDT)
-Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a19f318c31sm206122615e9.3.2026.10.14.05.37.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 05:37:20 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Wed, 14 Oct 2026 14:36:44 +0200
-Subject: [PATCH net-next v16 5/7] net: stmmac: qcom-ethqos: reuse the
- address of ethqos_emac_driver_data
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="tS3ooci0";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Q58MftYO";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="tS3ooci0";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Q58MftYO"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id AB11722230;
+	Wed, 14 Oct 2026 12:37:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791981445; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bzaDsYNENJ+osjllAdsjiwG+Ur2RGTNFJvPQF9EMgrk=;
+	b=tS3ooci0YdS3g5Lm/UdksKbNggVEyIdRod1P/792tPB/WhuSqjdHNGcv7onc+WoxWMf0QI
+	uQ1oB0w+YC19rabhtvyqgpNHVMCKxC0AhkKGhlInEBml3LUfcmUqZZp9fowzNY3zmjF9iV
+	bTST/xHZw2tnM4P5v6+q5eTM5ldlg80=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791981445;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bzaDsYNENJ+osjllAdsjiwG+Ur2RGTNFJvPQF9EMgrk=;
+	b=Q58MftYO/OBgTKeo3EVaExEM6KzMfCD5j8sL24kscG3cV7ZR+ij5sFI0MGNi6jopOzUVl7
+	IQE93qp/bIPzwkDA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=tS3ooci0;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Q58MftYO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791981445; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bzaDsYNENJ+osjllAdsjiwG+Ur2RGTNFJvPQF9EMgrk=;
+	b=tS3ooci0YdS3g5Lm/UdksKbNggVEyIdRod1P/792tPB/WhuSqjdHNGcv7onc+WoxWMf0QI
+	uQ1oB0w+YC19rabhtvyqgpNHVMCKxC0AhkKGhlInEBml3LUfcmUqZZp9fowzNY3zmjF9iV
+	bTST/xHZw2tnM4P5v6+q5eTM5ldlg80=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791981445;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bzaDsYNENJ+osjllAdsjiwG+Ur2RGTNFJvPQF9EMgrk=;
+	b=Q58MftYO/OBgTKeo3EVaExEM6KzMfCD5j8sL24kscG3cV7ZR+ij5sFI0MGNi6jopOzUVl7
+	IQE93qp/bIPzwkDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 34E551373D;
+	Wed, 14 Oct 2026 12:37:20 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id vQKuCnJ3z2pEBAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 14 Oct 2026 12:37:20 +0000
+Date: Wed, 14 Oct 2026 14:36:51 +0200
+Message-ID: <877bjke9wc.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Aayush Kumar <aayushkmx@gmail.com>
+Cc: perex@perex.cz,
+	tiwai@suse.com,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] ALSA: hda/realtek: Fix speaker and mic mute LEDs on IdeaPad Pro 5 14IAH10
+In-Reply-To: <20261014072505.60358-1-aayushkmx@gmail.com>
+References: <20261014072505.60358-1-aayushkmx@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-qcom-sa8255p-emac-v16-5-0266c2ead980@oss.qualcomm.com>
-References: <20261014-qcom-sa8255p-emac-v16-0-0266c2ead980@oss.qualcomm.com>
-In-Reply-To: <20261014-qcom-sa8255p-emac-v16-0-0266c2ead980@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S. Miller" <davem@davemloft.net>,
-        Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-        Alexandre Torgue <alexandre.torgue@foss.st.com>,
-        Vinod Koul <vkoul@kernel.org>,
-        Giuseppe Cavallaro <peppe.cavallaro@st.com>,
-        Chen-Yu Tsai <wens@kernel.org>,
-        Jernej Skrabec <jernej.skrabec@gmail.com>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Kevin Hilman <khilman@baylibre.com>,
-        Jerome Brunet <jbrunet@baylibre.com>, Shawn Guo <shawnguo@kernel.org>,
-        Fabio Estevam <festevam@gmail.com>,
-        Jan Petrous <jan.petrous@oss.nxp.com>, s32@nxp.com,
-        Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
-        Romain Gantois <romain.gantois@bootlin.com>,
-        Geert Uytterhoeven <geert+renesas@glider.be>,
-        Magnus Damm <magnus.damm@gmail.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Christophe Roullier <christophe.roullier@foss.st.com>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Eric Dumazet <edumazet@kernel.org>, Radu Rendec <radu@rendec.net>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-        linux-stm32@st-md-mailman.stormreply.com,
-        linux-arm-kernel@lists.infradead.org,
-        Drew Fustini <dfustini@tenstorrent.com>, linux-sunxi@lists.linux.dev,
-        linux-amlogic@lists.infradead.org, linux-mips@vger.kernel.org,
-        imx@lists.linux.dev, linux-renesas-soc@vger.kernel.org,
-        linux-rockchip@lists.infradead.org, sophgo@lists.linux.dev,
-        linux-riscv@lists.infradead.org, brgl@kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5580;
- i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=NZAxb9MK43O2wa2aiDj23ZEiKR9RAVihBgD6wcTqioI=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqz3dq0Zvsjdv0r+UH1RTZk+xo3PmAYIDeAPN2E
- TDZo6tkzHOJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCas93agAKCRAFnS7L/zaE
- w4IyD/9DJPXkhz5MqqgMDev686ljyN6tBlY8ZWbnZuVhfixY62045lCO1EZ3f5jvhFWv6O1/wtC
- wvRP1Grbg9Jy9VS2elo3KN2kTRlldUnvIXU+nGDWE+FT39yTXp08BUXPVH2Iqcn7spnoIubr8rJ
- m6WN815GME9Z1m6OTuGFhBScp2oE79onUyuVtXcXp4Yrbm61wEVt6M+XV8LBmIwS71xOvkG+xjV
- Ok7Hl3ceVOft9xjqH4aP3mYHSHIDwhk35CYLsP1PhK0zsBWya6s9+CJBIrhPU0cA73aYSf6G2Na
- m7SxrQyY/kTjnd51aa4uOiYRxjgELXdtuqO51++CcGODiyVUJWeLCVkVCCoW2ZxhO01yUZMGgDl
- XNHuL8WQKOm089W9rFbE/P+zomV7KsnKVGaBuWE4EbmE7VoG9Xk2uk721EIK6V4GncGeFpDe8Pm
- AVaX+itiLOoWIl0JmcTZAaHES3cxogTpHa5CgJdKg+4ZoolwSr4EEGkQu7wsYmmFC0EPyoxdCCQ
- qflgS/tw+2p9C3/2BY1TKlfodcFroOGtgfvEvpzlvbSeK3keUmnntRKU3F1TX5QtSDhvS5IgzXc
- swJpVWtUA72bb/dUu81L7pxkqNi5tHxL6HgO46f7ap40p/+CpSHCbzScNeSNwFUQvWCQMb/bE4k
- ZdcW1bOynzELXyA==
-X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
- fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA1MCBTYWx0ZWRfX4pA5yFbIz3Xw
- LSzQtCI8qcmBoINWWedC6buqjtAWuYh1Z1yyksvRja9FWgQ/OFk/ctXY/C5gYVpTXqITlo57XW4
- e1dmi4Gy9PnBOjw+NVSMOugdFfbzx7g=
-X-Proofpoint-ORIG-GUID: pu3oxsmu_qMESLzXywhDfYHfCyJU50Hr
-X-Authority-Analysis: v=2.4 cv=aeb0Dhot c=1 sm=1 tr=0 ts=6acf7782 cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
- a=fhsz3KazkzAS9s_vSxIA:9 a=QEXdDO2ut3YA:10 a=1HOtulTD9v-eNWfpl4qZ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA1MCBTYWx0ZWRfXwBmE1lerJhCx
- C5zWHL0X70XcBAGEMUFuxyZ1GvFcvT15eE/Vf1OACeMEO0y/vJQMyAjnMaOBvitse/EVawmqvrW
- 9ygM175MKY9mWj9A7Vvtl57VQkBUxpVAf92Vutome7ZcHizvnRJF5hRymjw2dSgBMJm/nHQ89EC
- SqRk84cHk7H1ucFZ5Afjef2El1xlGaptC/gAn9kcQv3m2LbjNqS5xkzx8sssmwgKiYi3q9YdPx6
- XqJGMsluWKAPQqEUAlObAUJvv62Q9h+BGzoZlgs1NfKfcltLGY1NdQG8kZSuJ4JISmEQ38P+YWm
- 8O8M3iwsZgsffdZOkkOpC/PAs1T6Kf7mddoo3zwY21Sh//os9nWy3mp28flSaBiVcAUrc/cnVX9
- RMJy8eKX5RdyiU/m91J47A4JrmV8BLLYbBoXLydCHle2VJbdT/krohQ44NorQtFhKIwAU0qwSRt
- oFoaJXIvxNSSkRBI4Aw==
-X-Proofpoint-GUID: pu3oxsmu_qMESLzXywhDfYHfCyJU50Hr
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
- spamscore=0 priorityscore=1501 malwarescore=0 clxscore=1015 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140050
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: AB11722230
+X-Rspamd-Action: no action
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
+X-Spam-Score: -3.51
 
-Instead of needlessly copying the fields of ethqos_emac_driver_data into
-struct qcom_ethqos, just use the address of the former as a reference.
-It's .rodata after all. This is done in order to avoid having either two
-calls to of_device_get_match_data() or having to extend the latter with
-another field when adding support for SCMI.
+On Wed, 14 Oct 2026 09:25:05 +0200,
+Aayush Kumar wrote:
+> 
+> The speaker and microphone mute LEDs on the IdeaPad Pro 5 14IAH10
+> do not follow the ALSA mute state. This machine has an ALC287 codec
+> with SSID 17aa:3914, but shares PCI SSID 17aa:3843 with the Yoga
+> Book 9i and currently gets its fixup.
+> 
+> Add a codec SSID quirk that runs the IdeaPad ACPI LED fixup. Chain
+> the existing bass speaker amp fixup so the audio setup is retained.
+> 
+> Tested on the IdeaPad Pro 5 14IAH10: muting and unmuting the
+> headphone sink toggled the physical speaker mute LED. Muting both
+> microphone controls changed the ALSA mic LED state from 0 to 1.
+> 
+> Signed-off-by: Aayush Kumar <aayushkmx@gmail.com>
 
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
----
- .../ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c    | 37 ++++++++--------------
- 1 file changed, 14 insertions(+), 23 deletions(-)
+Applied to for-next branch now.  Thanks.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-index f7cc46d86591a220a183529a8f89456f9153385d..f840ba4c02df616410759f49af8dc8fa0635987d 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-@@ -103,12 +103,7 @@ struct qcom_ethqos {
- 	struct clk *link_clk;
- 	struct phy *serdes_phy;
- 	phy_interface_t phy_mode;
--
--	const struct ethqos_emac_por *rgmii_por;
--	unsigned int num_rgmii_por;
--	bool rgmii_config_loopback_en;
--	bool has_emac_ge_3;
--	bool needs_sgmii_loopback;
-+	const struct ethqos_emac_driver_data *data;
- };
- 
- static u32 rgmii_readl(struct qcom_ethqos *ethqos, unsigned int offset)
-@@ -189,7 +184,7 @@ static int ethqos_set_clk_tx_rate(void *bsp_priv, struct clk *clk_tx_i,
- static void
- qcom_ethqos_set_sgmii_loopback(struct qcom_ethqos *ethqos, bool enable)
- {
--	if (!ethqos->needs_sgmii_loopback ||
-+	if (!ethqos->data->needs_sgmii_loopback ||
- 	    (ethqos->phy_mode != PHY_INTERFACE_MODE_2500BASEX &&
- 	     ethqos->phy_mode != PHY_INTERFACE_MODE_SGMII))
- 		return;
-@@ -323,7 +318,7 @@ static int ethqos_dll_configure(struct qcom_ethqos *ethqos)
- 	/* Set DLL_EN */
- 	rgmii_setmask(ethqos, SDCC_DLL_CONFIG_DLL_EN, SDCC_HC_REG_DLL_CONFIG);
- 
--	if (!ethqos->has_emac_ge_3) {
-+	if (!ethqos->data->has_emac_ge_3) {
- 		rgmii_clrmask(ethqos, SDCC_DLL_MCLK_GATING_EN,
- 			      SDCC_HC_REG_DLL_CONFIG);
- 
-@@ -353,7 +348,7 @@ static int ethqos_dll_configure(struct qcom_ethqos *ethqos)
- 	rgmii_setmask(ethqos, SDCC_DLL_CONFIG2_DDR_CAL_EN,
- 		      SDCC_HC_REG_DLL_CONFIG2);
- 
--	if (!ethqos->has_emac_ge_3) {
-+	if (!ethqos->data->has_emac_ge_3) {
- 		rgmii_clrmask(ethqos, SDCC_DLL_CONFIG2_DLL_CLOCK_DIS,
- 			      SDCC_HC_REG_DLL_CONFIG2);
- 
-@@ -433,7 +428,7 @@ static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos, int speed)
- 	rgmii_clrmask(ethqos, RGMII_CONFIG2_RSVD_CONFIG15,
- 		      RGMII_IO_MACRO_CONFIG2);
- 
--	if (speed == SPEED_1000 || ethqos->has_emac_ge_3)
-+	if (speed == SPEED_1000 || ethqos->data->has_emac_ge_3)
- 		rgmii_setmask(ethqos, RGMII_CONFIG2_RX_PROG_SWAP,
- 			      RGMII_IO_MACRO_CONFIG2);
- 	else
-@@ -457,7 +452,7 @@ static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos, int speed)
- 		 * in practice this becomes PRG_RCLK_DLY = 52 * 4 /
- 		 *  (2 * RX delay ns)
- 		 */
--		if (ethqos->has_emac_ge_3) {
-+		if (ethqos->data->has_emac_ge_3) {
- 			/* 0.9 ns */
- 			prg_rclk_dly = 115;
- 		} else {
-@@ -473,7 +468,7 @@ static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos, int speed)
- 			      SDCC_HC_REG_DDR_CONFIG);
- 	}
- 
--	if (ethqos->rgmii_config_loopback_en)
-+	if (ethqos->data->rgmii_config_loopback_en)
- 		loopback = RGMII_CONFIG_LOOPBACK_EN;
- 	else
- 		loopback = 0;
-@@ -496,9 +491,9 @@ static void ethqos_fix_mac_speed_rgmii(void *bsp_priv,
- 	dev = &ethqos->pdev->dev;
- 
- 	/* Reset to POR values and enable clk */
--	for (i = 0; i < ethqos->num_rgmii_por; i++)
--		rgmii_writel(ethqos, ethqos->rgmii_por[i].value,
--			     ethqos->rgmii_por[i].offset);
-+	for (i = 0; i < ethqos->data->num_rgmii_por; i++)
-+		rgmii_writel(ethqos, ethqos->data->rgmii_por[i].value,
-+			     ethqos->data->rgmii_por[i].offset);
- 
- 	ethqos_set_func_clk_en(ethqos);
- 
-@@ -512,7 +507,7 @@ static void ethqos_fix_mac_speed_rgmii(void *bsp_priv,
- 	rgmii_setmask(ethqos, SDCC_DLL_CONFIG_PDN,
- 		      SDCC_HC_REG_DLL_CONFIG);
- 
--	if (ethqos->has_emac_ge_3) {
-+	if (ethqos->data->has_emac_ge_3) {
- 		if (speed == SPEED_1000) {
- 			rgmii_writel(ethqos, 0x1800000, SDCC_TEST_CTL);
- 			rgmii_writel(ethqos, 0x2C010800, SDCC_USR_CTL);
-@@ -539,7 +534,7 @@ static void ethqos_fix_mac_speed_rgmii(void *bsp_priv,
- 			      SDCC_HC_REG_DLL_CONFIG);
- 
- 		/* Set USR_CTL bit 26 with mask of 3 bits */
--		if (!ethqos->has_emac_ge_3)
-+		if (!ethqos->data->has_emac_ge_3)
- 			rgmii_updatel(ethqos, GENMASK(26, 24), BIT(26),
- 				      SDCC_USR_CTL);
- 
-@@ -753,11 +748,7 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
- 				     "Failed to map rgmii resource\n");
- 
- 	data = of_device_get_match_data(dev);
--	ethqos->rgmii_por = data->rgmii_por;
--	ethqos->num_rgmii_por = data->num_rgmii_por;
--	ethqos->rgmii_config_loopback_en = data->rgmii_config_loopback_en;
--	ethqos->has_emac_ge_3 = data->has_emac_ge_3;
--	ethqos->needs_sgmii_loopback = data->needs_sgmii_loopback;
-+	ethqos->data = data;
- 
- 	ethqos->link_clk = devm_clk_get(dev, data->link_clk_name ?: "rgmii");
- 	if (IS_ERR(ethqos->link_clk))
-@@ -794,7 +785,7 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
- 	plat_dat->dump_debug_regs = rgmii_dump;
- 	plat_dat->ptp_clk_freq_config = ethqos_ptp_clk_freq_config;
- 	plat_dat->core_type = DWMAC_CORE_GMAC4;
--	if (ethqos->has_emac_ge_3)
-+	if (data->has_emac_ge_3)
- 		plat_dat->dwmac4_addrs = &data->dwmac4_addrs;
- 	plat_dat->pmt = true;
- 	if (of_property_read_bool(np, "snps,tso"))
 
--- 
-2.47.3
-
+Takashi
