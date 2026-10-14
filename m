@@ -1,95 +1,103 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A41624B1468;
-	Wed, 14 Oct 2026 12:41:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99A3A4E432E;
+	Wed, 14 Oct 2026 12:43:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791981666; cv=none; b=qxC0kEP+0QkKzQVYA8AYex+jfoh1dgNcFng4X40NBHjGBMog/DPDypVQE4+89/95uXfIPkTsQg1XWlMvWStw2k7VCANpTMdrGDmeMaGZqx9yErCnFmfah8QcZKjYjmhBGBBQe6F+4QTeaIatEAluiMkWdossiiph6Zy+cTTiyUY=
+	t=1791981787; cv=none; b=C2nkEr+1ayz2PtRMn92Cdjx2W5dzn1yxR1UkRCOkPLpT77b44TVVWrHQvQpujLp+Kf431wNdydA67x+E59nxR1RBD2kT135FIqM3pDOwM/RytPhyI2IyNOiDVwadrLDCFS555yRcgvOuWnWxY3kag2g0hOwZ7lfPJgKaFhoU1kQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791981666; c=relaxed/simple;
-	bh=DsC4q+4yg6eLHkPxNVJf1vPqliSRaUMAYV//mcmB3hs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mepoXH8cWoPbQNH4P2te78b1XqAJ7wTKkrID4hUS9J5eagESjRuqGGyoMY71TLbfQeyPgjlabC4JVD/HubxEqUyShx7BzuKB5wRpTejbdzTI0l7Kva3Jfx3aB+fAVA1AeHXVGiI0hV+UNkPgzqBxB3Fl/oz2VxAj5h2/DF8VSdA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ROgEgrXY; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791981787; c=relaxed/simple;
+	bh=Y2lM4EzlaIXPpK6qwuX98QxB3nPWBH/nrRzl7ZOwpXM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OPQSNAGf1sH6pf5e5mzPYZ4LxkC6DuINNCpcS1T2zGKK1fphRDegy9cVU3bIqaKrAm2lWVegvF3SeRM3nGs8NEhfw8rd1HxeCNwkWASyOR9zAI+1/2HM2YoXoNVXtfXGKWoVk823DVYh0PcuDdE/d0Z61HLZStzwgX1OQV2Or2k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WIy55xAo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ROgEgrXY"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 55DFF153B;
-	Wed, 14 Oct 2026 05:41:00 -0700 (PDT)
-Received: from [10.57.9.28] (unknown [10.57.9.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6BA443FA32;
-	Wed, 14 Oct 2026 05:41:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791981663; bh=DsC4q+4yg6eLHkPxNVJf1vPqliSRaUMAYV//mcmB3hs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ROgEgrXYixPVhlypL/B3nQZg0NGcVidZSj5LI1vGmvHnBWnkZBR3nmYvDZqFGSXoa
-	 rdsP3QHD0SE3MVRl57iZU0wCiBlAPMEVTuQ9oaL6PFoH/0DWlnAFhwODlogUaspq8p
-	 27yz/Hkuy71iI+sCFzo3yKRvT8q61TcwFRVNFsX8=
-Message-ID: <d943b66a-c779-4b85-a7c6-d73ef9941dd9@arm.com>
-Date: Wed, 14 Oct 2026 13:40:58 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WIy55xAo"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 99F4E1F000FF;
+	Wed, 14 Oct 2026 12:43:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791981786;
+	bh=iPLrY9eK2rtIIWdHd/Lavg1paupKO3LVGrSIRGRjJks=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WIy55xAogAIrYMZV4L1gLKJcgW+uwnuoHronQ8f5XFz++GmV8pXNo+eie37oeBrrP
+	 i6L6JIhAtP0g6MOU/r9gD51UeQNJgPcFDbCykKDpQ1ri6s85QGZ0hLafBVRUnc4Gwh
+	 2KU7VxDKixgm4kcCTFJNctInGC8AsN1wG8dUPD5Er+rH1k4jrdJYzflLaLqE+nKjRu
+	 2uGRsG1P1/5p4cnSLIO5bKWnjIT4wRCOjmvWCb4xSI9ezmbSCMO/0yQaf9TMlnvI9C
+	 WPLylTlpmgeNjlhPS3BjOwnWY/4MltydW9wMouIfv7njzVSyIetGVqQJsyVWrzMxH/
+	 pPpdmGZ5RwYvw==
+Date: Wed, 14 Oct 2026 15:43:02 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Kyle Zeng <kylebot@openai.com>
+Cc: keyrings@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-security-module@vger.kernel.org, dhowells@redhat.com
+Subject: Re: [PATCH v2] keys: make keyring indexes independent of kernel
+ addresses
+Message-ID: <as941m0HXNruztLc@kernel.org>
+References: <20261013231251.56170-1-kylebot@openai.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v22 02/10] firmware: arm_rmm: Check for RMI support at
- init
-Content-Language: en-GB
-To: Sudeep Holla <sudeep.holla@kernel.org>, Gavin Shan <gshan@redhat.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
- will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
- aneesh.kumar@kernel.org, oupton@kernel.org, joey.gouly@arm.com,
- tabba@google.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev,
- gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com,
- alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com,
- lpieralisi@kernel.org, enju.kohei@fujitsu.com,
- jonathan.cameron@oss.qualcomm.com
-References: <20261002061507.1600269-1-suzuki.poulose@arm.com>
- <20261002061507.1600269-3-suzuki.poulose@arm.com>
- <2586e689-c27d-4e4c-8c69-03e24259cb96@redhat.com>
- <8be050e3-8af1-4f04-902f-9bc01b209dd0@arm.com>
- <3fbd4739-a4eb-4428-95ae-ead22e7cf9f2@redhat.com>
- <799fb810-c33e-4d0e-9a70-7092c0a681ff@arm.com>
- <0ceda99f-0352-474b-a30a-c5e79b817c2d@redhat.com>
- <ade8dd16-4f09-47d0-a821-636ca4c62565@arm.com>
- <20261014-victorious-prompt-kelpie-cf3a87@sudeepholla>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <20261014-victorious-prompt-kelpie-cf3a87@sudeepholla>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013231251.56170-1-kylebot@openai.com>
 
-On 14/10/2026 13:05, Sudeep Holla wrote:
-> On Wed, Oct 14, 2026 at 12:06:54PM +0100, Suzuki K Poulose wrote:
+On Tue, Oct 13, 2026 at 04:12:51PM -0700, Kyle Zeng wrote:
+> KEYCTL_READ returns the serial numbers in a keyring in associative-array
+> traversal order.  The first word of the index is a public, deterministic
+> hash of the type pointer, domain pointer and description.  An unprivileged
+> user can therefore insert keys with known descriptions, predict their
+> order for each possible KASLR slide, and recover the kernel image address.
+> On an x86-64 build with 16 MiB alignment, 45 user keys suffice to
+> distinguish the candidate slides.
 > 
-> [...]
+> Remove the addresses from the whole index, not just its first hash word.
+> Assign each key type and domain a nonzero 64-bit ID and hash those IDs and
+> the description with a once-initialized SipHash key.  Use the full IDs in
+> the later index chunks as well.  Truncating or hashing the IDs there would
+> lose the guarantee that distinct type/domain/description tuples have a
+> differing index bit.
 > 
->>
->> Then it is RMM's problem if it doesn't check that the right level of
->> SMCCC version is not implemented by the EL3. Also, where do we stop
->> the checks ? e.g., We need SMCCC >= v1.3, when SVE is supported.
->> And >= v1.4 if SME is supported. Shouldn't we leave this to the RMM
->> to verify on init and fail the init ? I can raise this with the
->> tf-RMM team.
+> Allocate IDs lazily since private key types need not be registered.  Cache
+> them in the index key so tree walks and copies of an existing index do not
+> need to dereference a type descriptor that may have been unregistered.
+> Keep the 32-bit chunk layout and diff_objects() bit offsets consistent,
+> and retain the separate root slot for keyrings used by recursive search.
+> The key comparison, permissions and userspace data format are unchanged;
+> only the address-dependent in-memory ordering is replaced.
 > 
-> Fair enough for v1.3+/SME/SVE checks, but RMI interface relying on more
-> that 8 input registers for one or more of it's interfaces (e.g.
-> RSI_ATTESTATION_TOKEN_INIT, RSI_MEASUREMENT_EXTEND, ...etc) indicate
-> it can't work with SMCCC v1.1 or below
+> Fixes: b2a4df200d57 ("KEYS: Expand the capacity of a keyring")
+> Assisted-by: Codex:gpt-6-astra
+> Signed-off-by: Kyle Zeng <kylebot@openai.com>
 
-Fyi, those are RSI interfaces (Realm Guest facing) and we could add the
-checks there. This series is the Host facing interface. That said I
-will send a fixup to add the check for v1.2 for RMI too.
 
-Thanks for the feedback, both!
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
 
-Cheers
-Suzuki
+I'll apply this.
 
-> .
-> So IMO check for v1.2+ is completely justified here.
-> 
+And thanks for addressing that and sorry for nitpicking. Looks good to
+me and thanks for addressing the bug. This is kind of AI assisted commit
+to works for me; and I believe that checks are balances are in place.
 
+Not everyone gets this, and the problem is that they also in effect
+reduce the number of point of failures from two to one due
+ignorance-by-a-choice.
+
+A person submitting an AI-assisted patch is also a reviewer, and
+ignoring this increases the probability of bad getting into mainline
+quite literally.
+
+I think some people might not really understand this at all but is
+just that it is much less likely that two people get a patch wrong
+and at the same time, than just one. That's it ;-)
+
+This is not an AI/LLM problem. It is a misconduct by people quite
+well scoped really...
+
+Sorry for the rant just wanted to write this down and get this out
+of my chest. Absolutely nothing to do with this patch.
+
+Br, Jarkko
