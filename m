@@ -1,99 +1,98 @@
-Received: from mail-43103.protonmail.ch (mail-43103.protonmail.ch [185.70.43.103])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A6E31684B0
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 05:23:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.103
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C5643451AB;
+	Wed, 14 Oct 2026 05:23:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791955395; cv=none; b=qRQvBD9OpWP81iFLY7gE+shXSJz8Ph5jFphy2c/VuL08WD391iDFqO3CV463UnoOpZgbqG6v9X3z3BoND1iChkBopoBm9RowPuONrDplBt++SQjgb/rtcOBjW1LzatWxQDkh29Xs6OrGn0iyKyeCFx6FzGUeea3ErQyH7fEJzk4=
+	t=1791955426; cv=none; b=B6Wp3As8Jt7mymrjG5Sr1EntrAof3kwGHxAIU9isaY6PfJJUqjXOzXOkVzcAKlareM9hpXmqrvc9RG/L8SAIwJ8e4L9B//rsaE6PFsBhMgInn9thM6vPggI7gPHtTfjpcQcgw/A6vllLkuHlnQMQTZEBuw7CV8REu+Ckg9S1pjg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791955395; c=relaxed/simple;
-	bh=9ZcuQxhf8efgf6EBDA4WRKi21U1OXSfxwz+kGTqjfJA=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=WjtjbSb5xapw5zsyg/zGCbVVetjYRI55c0bO8K1TFBFBV3OQFU8Iqr87qOXbtNN7BCk+bo1b3gOILi/r0D8T3sGV1Cb1UvfoHYDwazPQow1++y28XZs7f/uXk0V0jg5XUI7VuOyL31lcxwBvaJA9/wTZ9XGfNQSMmfjwNLD6KGs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=jwtvE2+E; arc=none smtp.client-ip=185.70.43.103
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1791955426; c=relaxed/simple;
+	bh=FiVZUxotLv/zfGLKYRPLznaaXPZGHAbqigwRAF3TMZc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XVWqaIrag+oOIHW3f95u6YTN0UgpLOFirUz7wfLNTKV5ap43eV+pv+Z7E9S9aRDuUQqnfP6eBZoPmffcXHSUa6Ir2jn6hwWxd8nU9NWV0wMZZ7wZRAsP9KYfoJoKKq5SSo4CHw9qfm0aVZSbWEQgJ2t8jXWVI/VCsdcc8y2y634=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HzpPgRZW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="jwtvE2+E"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1791955383; x=1792214583;
-	bh=Zq9sMICpVCiWyLkwpxHeqDMbAAaX7+gF6NfiADYu6Bs=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=jwtvE2+E344UCWuZ1kL4YG3DLZvbQ9+oeAjKO+DhhMFZ+XvUFxD3S/y636jZM8trN
-	 zPx1YYzb+cfXdlE2xjSMxiuPTGxEJtwXaprhQ+N7fVXniq/rWmErtEwyLbPnrXsdYy
-	 tsClc4xHyZJOsZA7d2lmPHJwX6Lc5VXH8heYWHv2ROCC2pU9E8JplBoOeYA1uXemLn
-	 uUrT2l4uOGVmNnaoCAjK9oNu/lNNae/bOR8nzf/Cd9twSZXv3Rpn0tGQ49q2lign51
-	 JDUfonIyDCoeDhS4OUd9qDgIr5GFqgq5XZHMdZw2HrF4ge/SHnLDY3wWV1dyTK+0wc
-	 DBxveMsSrSLzA==
-Date: Wed, 14 Oct 2026 05:22:58 +0000
-To: linux-bluetooth@vger.kernel.org
-From: Kyle Pepper <cochcoder@proton.me>
-Cc: Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, linux-kernel@vger.kernel.org
-Subject: [PATCH] Bluetooth: hci: Represent advertising report payloads as bytes
-Message-ID: <20261014052244.416087-1-cochcoder@proton.me>
-Feedback-ID: 97716137:user:proton
-X-Pm-Message-ID: a29679195086d43955a75f0ff2f2d25f8f70278c
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HzpPgRZW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A40BB1F000FF;
+	Wed, 14 Oct 2026 05:23:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791955424;
+	bh=SdSYpehsphW4ohcRgZ6kkg4WkXWb7YZZ4YKMZgeJFUc=;
+	h=From:To:Cc:Subject:Date;
+	b=HzpPgRZW7EyAIbsLd5GKX0VblZsKb+zJCeaRAKypkv55Evn8jSkn5B8p8tvMMPCm2
+	 xijzFZB2nYUOGatSBxl83G3DFQTgROkz4XPHhlcd53XCnLhOPoQSe3lsMl3UIHGqRH
+	 2ZvJZeV68clhF4aR3d8Bf+jQjTHmh/QyjoUXBhUoj5Vi3SQq9O6JWQBWA05/qcz5bH
+	 UEYeQpJ498tvF8RNUuwUyPFuynOakjljBwcHxWBE8XxkC7jaZdHqWlgEDFW5Y6kAWF
+	 96LbKMxnTjB2444qTiNG/IP3UVAw3pIGY19tFhb/pY6yKMkjHByQ7heIdqK6dPpiZZ
+	 Jm5+7g/w98v7w==
+From: Kees Cook <kees@kernel.org>
+To: Vlastimil Babka <vbabka@kernel.org>
+Cc: Kees Cook <kees@kernel.org>,
+	Harry Yoo <harry@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Hao Li <hao.li@linux.dev>,
+	Christoph Lameter <cl@gentwo.org>,
+	David Rientjes <rientjes@google.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Christian Brauner <brauner@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	linux-mm@kvack.org,
+	cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org
+Subject: [PATCH v7 0/2] mm/slab, ipc: kmem_buckets kernel-doc and msg_msg accounting fixes
+Date: Tue, 13 Oct 2026 22:23:41 -0700
+Message-ID: <20261014052338.nothing.279-kees@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1208; i=kees@kernel.org; h=from:subject:message-id; bh=FiVZUxotLv/zfGLKYRPLznaaXPZGHAbqigwRAF3TMZc=; b=owGbwMvMwCVmps19z/KJym7G02pJDFnnBe/t3nuKReGOt/wEt9naXak37qq3HI+ODmi7oReuV aiRdlSqo5SFQYyLQVZMkSXIzj3OxeNte7j7XEWYOaxMIEMYuDgFYCLzyhkZ3t612Gb3y0vhvGLA 1/iXB8P7TM30HgSt8Rc/dmXnGsbrvgz//dzn6TWkHb2UE33h4A7N65/m50X8+XztvE6mTl1ZUv4 XFgA=
+X-Developer-Key: i=kees@kernel.org; a=openpgp; fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
+Content-Transfer-Encoding: 8bit
 
-Advertising records have variable-length data and cannot form a C
-array of flexible structures. Describe the report payloads as bytes
-to avoid Sparse warnings without changing their wire layout.
+Hi!
 
-Assisted-by: OpenCode:gpt-6.1-sol sparse
-Signed-off-by: Kyle Pepper <cochcoder@proton.me>
----
-Separate cleanup of warnings inherited from upstream, not a v2 of the
-UB500 shared-buffer RFC. The same two "array of flexible structures"
-warnings reproduce on that RFC's parent and exact submitted commit.
-The public bot report only contains the matching include-file note;
-its complete Sparse output was not available.
+As Vlastimil suggested[1], these are the first two patches of v6, split
+out for 7.4. The rest of the skb buckets series will come back for 7.5.
 
-Testing:
-- GCC W=3D1 C=3D2: hci_event.o and btusb_main.o, no diagnostics after clean=
-up.
-- Exact submitted UB500 commit plus this cleanup: same clean checks.
-- Strict GCC/Clang layout checks and LLVM/32-bit hci_event.o builds pass.
-- GCC hci_event .text section is byte-identical before/after cleanup.
-- A guest carrying the cleanup passes pairing and both HoG variants
-  on baseline BlueZ and each of four independent ASHA topics: 15/15.
+2/2 now keeps SLAB_ACCOUNT on the msg_msg bucket caches and allocates
+with GFP_KERNEL_ACCOUNT as well, so a msg_msg is charged with
+CONFIG_SLAB_BUCKETS either way.
 
-This does not change the UB500 quirk or certify an unseen complete
-remote Sparse report. No full architecture/configuration build matrix
-or physical hearing-aid regression test is claimed.
+Thanks!
 
- include/net/bluetooth/hci.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+-Kees
 
-diff --git a/include/net/bluetooth/hci.h b/include/net/bluetooth/hci.h
-index 1641d879d..e873ffc15 100644
---- a/include/net/bluetooth/hci.h
-+++ b/include/net/bluetooth/hci.h
-@@ -2972,7 +2972,7 @@ struct hci_ev_le_advertising_info {
-=20
- struct hci_ev_le_advertising_report {
- =09__u8    num;
--=09struct hci_ev_le_advertising_info info[];
-+=09__u8    data[];
- } __packed;
-=20
- #define HCI_EV_LE_CONN_UPDATE_COMPLETE=090x03
-@@ -3058,7 +3058,7 @@ struct hci_ev_le_ext_adv_info {
-=20
- struct hci_ev_le_ext_adv_report {
- =09__u8     num;
--=09struct hci_ev_le_ext_adv_info info[];
-+=09__u8     data[];
- } __packed;
-=20
- #define HCI_EV_LE_PA_SYNC_ESTABLISHED=090x0e
+ v7:
+ - split v6's 1/8 and 2/8 out for 7.4; 3/8 to 8/8 will return for 7.5
+   (Vlastimil)
+ - 2/2: keep SLAB_ACCOUNT in kmem_buckets_create(), and add Cc: stable
+   (Vlastimil, Andrew, Harry)
+ v6: https://lore.kernel.org/all/20261006092030.got.500-kees@kernel.org/
+ v5: https://lore.kernel.org/all/20261002231120.late.500-kees@kernel.org/
+ v4: https://lore.kernel.org/all/20260921075811.too.775-kees@kernel.org/
+ v3: https://lore.kernel.org/all/20260702170728.168755-1-pfalcato@suse.de/
 
-base-commit: 609a23989d637e2f90522a37c62e65c8c9b8b0ff
+[1] https://lore.kernel.org/all/be34b92e-e82c-4f69-ac9d-b045081ea418@kernel.org/
+
+Kees Cook (2):
+  mm/slab: Mark the kmem_buckets_create() context as a Context: section
+  ipc, msg: Account msg_msg allocations with GFP_KERNEL_ACCOUNT again
+
+ ipc/msgutil.c    | 3 ++-
+ mm/slab_common.c | 4 ++--
+ 2 files changed, 4 insertions(+), 3 deletions(-)
+
+-- 
+2.55.0
 
