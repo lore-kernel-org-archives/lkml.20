@@ -1,206 +1,196 @@
-Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011055.outbound.protection.outlook.com [52.101.125.55])
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010071.outbound.protection.outlook.com [52.101.46.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1286A4A6CF2;
-	Wed, 14 Oct 2026 10:08:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC727418A5B;
+	Wed, 14 Oct 2026 10:10:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.71
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791972540; cv=fail; b=WnNBfTGfg2K8O3ylYAH0YYhn+28eaNGT4lsCkHM05HdiQpQSUqPHpbXCJTgCXC6Nqo3vgN4AnVk42pOBAd96Kj64/R4lUSFV/qWHkQSd6rvELuKNOtlET11dVcPmuHMvY79By4ABXf6RP7v4pnQyPvDNn2gdT9jAXm/l+yA+nTc=
+	t=1791972610; cv=fail; b=kccVEEwORyJFkzy8hlJdAD1J+7wXHP2EKBT3sk/g680ScqpuKf7SQ+dZ3JuiKNSFBqIXqZ4SWEDvs9X6k8ABNqmkdRM6VlAlh+MKeWwWL2cgKn1/OChcHqTFUR7atW8CD/nu5jlMLTWZlLill+vhjrlDG8gokToFS/8mQdNtCOI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791972540; c=relaxed/simple;
-	bh=nOTOZF5cIdVSN+CimDfBjEJU0L8Jx5vFuZmlvCx7vvY=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=HHvOUQwzUcLr+UONZ10zX9canPWgDEtCYplPhsXbXw1HbRmA+ar1coeFlv/nIHcJABUJoMbQ5sWEJ6sIeVZBkAz7iPcFbWToutTWMyt5BXDntmneyrRowNHbMbQLH0OR/8iU+Y94RA/C4iqQphoBip2K01TgbpNwHaFCfBdZJnw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=jUx5KEw7; arc=fail smtp.client-ip=52.101.125.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	s=arc-20240116; t=1791972610; c=relaxed/simple;
+	bh=N8/qLIT9pUcIeidsDH1vXjG1txF+hsH3Yim4Z/qsrng=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=dbV0tgcwfHDxfslYjpRqK8UgIK/ZjS3orbwWoIg7+2iaVxvhsZkqnD5xeDWni4Tj8Tc+2c/PGOSXeor8GXZSkGb5w09JgeGlGE7KUcRCcqFPlKqWDe86vEadC6d/9Wj+67lifeNGTZZJaX0jJksGxeCCG5i5bgEZoYJ/50AltRY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=dj0Ut2Ng; arc=fail smtp.client-ip=52.101.46.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="jUx5KEw7"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="dj0Ut2Ng"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=axGLDq4xetc7ncLb5oOnzJ3QNsaq2yLyj+wBLK3tajMZY0j1N5YuGXH8cWg4IYmCj0138s3DjZ8efXBcpxWpKe/MTc4WVROIvezEVOfp7vMB/9idE7drBMOZamE3LxH5vEe4AtSQHdq2uBP0VhOdweQPD/o3RBcON6CbgAPrJrDGPL/HFwAzD31uNKK3ly0BzQL02Bngxv57lU+K8aUvwyJfIQsc4qjwrwJ2wwPRrVla9+LRME0eA2wGW1ekeqada6uIO2jsAkcuXO5sbVOn9RZUTVk7Hy7PBHQaT7lPMAdxsb2xeHxWuaCsv88UPDXWD9Nr8vefNlup1UNlbtOGgw==
+ b=ez7r/GS7NnTvA9Ri4jsHIwqHx9hfMH7KsTYdR2U8vJu7U7Jy5iylOujMZLjgF6LBwRBmBtLDujGNuPsGnEOfFK9MyEnozSXUEvUDF1Itgw3PjYHXCfZJFKLS3pxF95aZxflGnmRL9vPqJFUNFsNZA0LsF2zbvBvC+6VjPwioUHjPt7u4W85DWdY/qoDFOTeBrlpELla4UmU4awQ5Hs/ge4QYt7ZMu6xhu7F2kFJInVklg1FRXbBwyMu/Mmhq2bqaVjGVjgGneKyLie55ElXmve7Jm6W3UoOpzBpEIZF+uEVsqd6z4MT5Cg72bqTnxvNyqWC/0OlR4xuaMG/AaaznkA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=w5hdg3dFTihw1DnBAllAQMLXhgH6s+12Psf+rVwP+nY=;
- b=t2LwobpANHcyWFzjga+cMlNFU8FU8BX/k4na45tDbmav1RXMqXLH6Wx/M3WkFtu+h620r5RONVqclYtVlT7VHiNt+s2bTxXAzxwxpiEKAdZlYUJEpWVP4oaPjgOIua0gJMdhNj3HVZZSbpMzR8Rd44Gb5QuclzV9xsy5pr6tGycJglwwwiNhW0ueFL+FWTtC4QdIwVxZPVOP7pSjK4SN2IeGUYGFZbBCh1NeItdYAXABKtyGHjy3L0D8Em9NZVtfBUR8Ygd9JCiLF5ITb7yBwe2RqQBghggo9C40OTIzaLDQ2b+74Dv6j3l7dXDcwcjakm9zXmVpN55H+80kPSH51A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
+ bh=rxR6TT3XuoJcJSL0T1aZxIv/O3lGjOIDnUdhadeSWvk=;
+ b=UovAYwcWTq7Si/c0XmXAsMJ2pEzlYyXJZmDbLbHE2tyNtLEOp56hOqwDbU+9Jp+gCrkext/O0IoKMeBdp7SQXNzGtAMxZOw9jOFj49wIC31cl5BMhU6CxzIGuR0CtW9d/7o4c0lZZ5+F6Zjvk/YY+IA4efOwPuKFo3ME5ci35e34iX2HW40lriwKIGKsxe+1ZLg7T/MNxjjUTPtu4BUav/UQcIqfK4QeRkjBau8QIerQ6QJPoqlQr3OQwgFJlmXZ1mrw1kXAaGk/c0PfinD5OlFBaDn8/qos02NZBBvshIHEh+HIkBtK2tDcmdOzwo2TP91v4tQByUy2Tmy1sm659Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=w5hdg3dFTihw1DnBAllAQMLXhgH6s+12Psf+rVwP+nY=;
- b=jUx5KEw7wX8TKNokqpIGu4AiYdTPtJ5gaWNG8IgrU58Rr4JMDTbqEV7Zwu5A9WRy+0DjihBaPsH8kNrOUDN35u6En9IamxQE/HMFyq7CEN34L2kx3fUmMQtxzVYC40iohcB5YPGa+eEvP0+caRPMqhiHj+xpbDZj47ci2hhOgWc=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by OSCPR01MB14951.jpnprd01.prod.outlook.com (2603:1096:604:3aa::13) with
+ bh=rxR6TT3XuoJcJSL0T1aZxIv/O3lGjOIDnUdhadeSWvk=;
+ b=dj0Ut2NgM04TT7zbvR/pvTgCu0mUkigl+LzcPvyI3gLNAMrhlkdYHddj5xhK+bmRzR5F9jYEuYhLeW/dfLlULVUcsY9uRmubTJznzcPC265bkQdg8OZ6cmsDtIsnbHhnW6JbbFDxGxlinAoY0HVLXRIsMHCUZKxzWq/cR9fOP+I=
+Received: from BL1PR13CA0382.namprd13.prod.outlook.com (2603:10b6:208:2c0::27)
+ by PH8PR12MB6985.namprd12.prod.outlook.com (2603:10b6:510:1bc::20) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Wed, 14 Oct
- 2026 10:08:54 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de%6]) with mapi id 15.21.0496.021; Wed, 14 Oct 2026
- 10:08:54 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, Tommaso Merciai
-	<tomm.merciai@gmail.com>, Prabhakar Mahadev Lad
-	<prabhakar.mahadev-lad.rj@bp.renesas.com>
-CC: "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	Au Dang <au.dang.jx@renesas.com>, Thomas Gleixner <tglx@kernel.org>, Radu
- Rendec <radu@rendec.net>, Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: RE: [PATCH] irqchip/renesas-rzv2h: Preserve TIEN state in
- rzv2h_tint_set_type()
-Thread-Topic: [PATCH] irqchip/renesas-rzv2h: Preserve TIEN state in
- rzv2h_tint_set_type()
-Thread-Index: AQHdW8LS9jwUABy5uEu9aunZjt/+TLb8z24w
-Date: Wed, 14 Oct 2026 10:08:54 +0000
-Message-ID:
- <TY3PR01MB11346E75A9CF528A328CBB7CC869D2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <20261014095927.635132-1-tommaso.merciai.xr@bp.renesas.com>
-In-Reply-To: <20261014095927.635132-1-tommaso.merciai.xr@bp.renesas.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|OSCPR01MB14951:EE_
-x-ms-office365-filtering-correlation-id: 1869ef28-4b89-4745-a2c0-08df29db272b
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|18002099003|10067099003|22082099003|261009223027099003|38070700021|11063799006|56012099006;
-x-microsoft-antispam-message-info:
- Q4viHZWEq9vn/aSoaYFgX/ZlLf2Sk8Tg9eZDAdvXz4wufW8nHqGVGCLFUtsKemL++MIopLMQgJbE6wkp0R/Gf/7UNVteFctjDp6D5fh1gJbnO7hLDBpTzVzLhlpF/BSY8UJo7fj8AuiwQ1iMcboy70gmsp+9sNyVuBcxjtxN4eVE5Q5n9Wtq+/+S5rED9e3C7wsNiHZm6+7wvGFR1ZzqWBlzjMA3fmUMC3tfECMi/OTudPfCvBWlKUVrCnwtbL+9GIIWMHQH5Nnb4LISifiX6iJW1IdIWSyp27g0n4Vqk3KhPw00AYQscw1WeYUOd8nlITafjiZV75ZylGcdS09NJtErYQTxdOwtQwnz8llSpOKpXRHC4w4+eNAxbI+LPgkPqPp1az5zhy+NalfoyCt/P6xMK0eM5Cdnut1IF8/yMvhsZB1px9R2RjOWdmytUIcl7rL4ZXl/ZkaUANwSTh9midDUyb8YWPtKJilHFiEnsdnZdJY55AtB7fgm2oLelRBaS04nTKV6vCOOIuUpAt7ZPkFx+y+DqicG/NHrlssT/f92nkp6O728lgRNuy2UQ/Hfr3BcpP1FvmR2lG3NYuh6f+AmyBMLjodej9AVQjhTdofxWdFWACF5cKGcZrS9hq6sqoUW/wCJIGHlJZkhgK6BfprFgV6qRYKLxvYLyUBQn7QWR4+1onWOwaqYpLSMxFUxSc+esDhhAMsr1yaOXkblP3zPyKy/DNbTTa9nMYF8tMY=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(18002099003)(10067099003)(22082099003)(261009223027099003)(38070700021)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?Lz2Z7bKivmmDcZ0JFvB9LYhDSfQh9q6234Pvtxvm0J9azwj06QG8w/eonrpH?=
- =?us-ascii?Q?kCoiJNHpdGYZqUGKGWxoVF6G8YTwe7hjWXmttShB0hBK6ll4lk54RxJ9LGkW?=
- =?us-ascii?Q?jo6IADQTGy8xKxLPp5oaLXihpRo99JmCpoCjHPioVvAHpLUrPLRgSWAgu02j?=
- =?us-ascii?Q?Cu0Gy3fx4Me5l6Qhw0AxKkOXdzpfvBMTa9uHyVRLNq1bY6J9kRy/1rSA0m5/?=
- =?us-ascii?Q?pQTy+4d/DUdALImRpb/ixBVtUsqZ/37fnQS2TgYr2a1twXYellrBaAXNGA/9?=
- =?us-ascii?Q?GPDqtdufBOrSBwxbsWCcwhRU3R2c++CtWyXc7Yu38cQLq44C10TdE2Dho1Ot?=
- =?us-ascii?Q?IOTcCSfQK+EVNWdwoYRPIuH+JQhtSKB6WLqYdNB6vfS1w5FZcqJp3quOzfkf?=
- =?us-ascii?Q?OvCMkqgFqostRCE+Bnu7DhwfHgSiAqW9McnbbxoRCaufqkZBundmCUo++o/P?=
- =?us-ascii?Q?UnrQgXRHf91Bw11zejOUq4SXVcXom9xpCCO6HfLDEhCGRcsBAlIPNpERChNy?=
- =?us-ascii?Q?UpN63TUnYyFvgf0bqqUoTDkvEFaWDyALyC47DK8aSwI1vuSZCnLE3TFRXk89?=
- =?us-ascii?Q?HcDnrUjGkbo9aHwcT90sLGwmBt46rKyFJdQ8zBB6FmZfi0z7iSxYmqmiqy1P?=
- =?us-ascii?Q?HZDIQipxRSs3l/d/6TjfpDpjdRMYANFWKjmm2/4mQbddbNaSPO4toyzPHO8I?=
- =?us-ascii?Q?/v+KypqJ45HoHQ7Nsw7ia1IAu4bUDKXo9EsIXKb3gNUIcA4ywaMu+5RHJMyp?=
- =?us-ascii?Q?pIq/bnaU4z2XKydBFoqI1PdqW94/2oxRAokBMs88jXzuW236jgHBLyYchPfK?=
- =?us-ascii?Q?Pier8cphF1GXI2dgGatZ1PqNDYBCf9tu/cifE/dEyV8jrTp7jG31EaHXmLAX?=
- =?us-ascii?Q?tlApRG2Op2JTq2DbM2Q+TP9qtcaGiYOh31eLnektDOStZM1qZEnVvymMMtDP?=
- =?us-ascii?Q?bMNLX3qkXgvDhKxssL3UQOhJITmU8Ru4pxV58KWZuWXgk0klGBrnQdk6suOo?=
- =?us-ascii?Q?jWYGvyF3S7HSdK/GhvjaV58w5zZ2LbIBvRSQdB8RATB6LTMBMwSpzMMSsxHt?=
- =?us-ascii?Q?zpl4gAOimQGGc3UkBdvXfq1WFGX+R1modXB4Z1qiOxrwqmuttewgdubtN1zS?=
- =?us-ascii?Q?hZclPnW8RNko1U2ETZE7WM+0yndqvay1+9p97vACD0aS3vPgTicRnQd1TlwU?=
- =?us-ascii?Q?rBeD/RerFGwzUjt5mH/YKhzZTSe0srhEBHduIXr0zzrBn0IJGixD8bzzrAdQ?=
- =?us-ascii?Q?83qQ1Pj7ufaTaPKCK+ZHn4IffxOh5vSVlPX1Fo+FH/V7hNwSbcqmsgcsrZiM?=
- =?us-ascii?Q?wfTL/DZeishRULXDCFdRScmxBedM7xm5PZwGeB6Dn/9HljJBZDd/xbJ7/byV?=
- =?us-ascii?Q?B+aXu2JQzcQKl4ycMoIvKmCBLxxOhNzk86J8SUq3vMQ/SNfF7fiUDetg+YP9?=
- =?us-ascii?Q?XrI1BV53O0a3Lo4Jt8xt5XmmjuB4kgkwtdIPgKIiBATNFjPT6/kvG0zhYyp1?=
- =?us-ascii?Q?Kh+Qg0UWerKngDRKiGuR5UMLOoTWrQqQAe9EML57RloH/TvzFoxqijoheM5e?=
- =?us-ascii?Q?MFqxweh9ClJZvruD5tXD1NEnMl0wS5AKIrkX2G6KoML6hiS0QDiv2jTvoiLF?=
- =?us-ascii?Q?4Ip0eiGgxUInbODDspzGERC5GbeQ0pSaa9uivDVmxBPQQU7WAs/VEDlqvZvU?=
- =?us-ascii?Q?yU7GDf5XsZlopPHc+tWo62mewhC1QMWnINeeY9o+zZKV6cAC3er3GryvgkpW?=
- =?us-ascii?Q?VwomNKxjpw=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.27; Wed, 14 Oct
+ 2026 10:10:02 +0000
+Received: from BN3PEPF00022BBE.namprd04.prod.outlook.com
+ (2603:10b6:208:2c0:cafe::7d) by BL1PR13CA0382.outlook.office365.com
+ (2603:10b6:208:2c0::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.10 via Frontend Transport; Wed,
+ 14 Oct 2026 10:10:02 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN3PEPF00022BBE.mail.protection.outlook.com (10.167.248.119) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Wed, 14 Oct 2026 10:10:01 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 14 Oct
+ 2026 05:09:55 -0500
+Received: from amd-System-Product-Name.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53
+ via Frontend Transport; Wed, 14 Oct 2026 05:09:51 -0500
+From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+To: <broonie@kernel.org>
+CC: <alsa-devel@alsa-project.org>, <lgirdwood@gmail.com>, <perex@perex.cz>,
+	<tiwai@suse.com>, <yung-chuan.liao@linux.intel.com>,
+	<Basavaraj.Hiregoudar@amd.com>, <Sunil-kumar.Dommati@amd.com>,
+	<venkataprasad.potturu@amd.com>, <Syed.SabaKareem@amd.com>,
+	<Mario.Limonciello@amd.com>, <Richard.Gong@amd.com>,
+	<Vijendar.Mukunda@amd.com>, <Poojitha.N@amd.com>,
+	<linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<sound-open-firmware@alsa-project.org>
+Subject: [PATCH v2 00/10] ASoC: SOF/amd: ACP7.B support and ASP carveout firmware loading
+Date: Wed, 14 Oct 2026 15:29:08 +0530
+Message-ID: <20261014100902.1215212-1-Vijendar.Mukunda@amd.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1869ef28-4b89-4745-a2c0-08df29db272b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Oct 2026 10:08:54.1089
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BBE:EE_|PH8PR12MB6985:EE_
+X-MS-Office365-Filtering-Correlation-Id: 42780639-b306-47ad-6e54-08df29db4f95
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|36860700016|376014|23010399003|56012099006|10067099003|261009223027099003|18002099003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	eofDJWQi4crOTiSw0qTRNS13E3J/glp4TWdNLWHWToHZKQbRaxy5IPtKa/mbAjFf/7n0u55qExL+pswKg3MdjfIxrUL6vUYg0gLwtqtYbkGLjv6qN9T7URq+nrh6ilhZQfdUxSdduAKtxELuVxvnCdZRMnll7n8/x62n644k7lPcCVlVlXL6uQErSzXWXoTfiaHX7Lozt1/DIOdR4PvL3iP9LYupJMUc/jDF+zbNfhsF8N8vjYaA+ZtnBGJ+Bgy40gO7hIZW5kxl5z4htHJx6EbCHpoYhq1pWBpWfjXEJbQTes4wDbpOX6hYnU430wZt/QF//jnxafgnPu+qEMwQtvplQkpi8yvR2E6ORJXu+3DT1SKawUKHxmcnTQkJBOomq1FKRP7PK/O/heO1oL6V1fLu2wn7AoB/Ha48AVzCqdvZolQgUpIZtqNxmDSl0wC7Q+S3GYGUG8uvMEuhi9k+K3JuhQxiiJM0knLW7FEIwMQQQCSGsNLpae1DxyNrq8TK9aaEr2BA6NLqOibln6e5H7/aO6qqrgfQQfj9ecna3vOTIpzYdYiDuUg4loWgx192lvX5w0ofMuHvZ8GR8mm7fDk5vcKrGWnX8rkFI5XD3PNk2nlAZHETkxEBco3Jnj9YpI/8K6NZgI9WQW319myIbRcGwy+rFkgqXh//r1Uo/LscPAwnTNHXF/rM/ox5hzTQm1w6xkCwhxhEOAnAHODl0w==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700016)(376014)(23010399003)(56012099006)(10067099003)(261009223027099003)(18002099003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	7xUMgd0C6mPWqxkj694HfK5cGRuPy4MIRhv7jHt36Vy+Tvmp8/syLmSozztGi/vjiYBfvrcsf1v0C9xyJ123pJNnu7rqTVc310gmfT0horUzrZIbhgw8Hs81K0JUEpJZonK0ar4XWQ9HlD+GmIltxFAcLnkr3u0KwV4FuiBXor8AEta/iP/ME3W3j34BppQMoi+/rMs8/GFzd/KnLF/I1QJyPJx3AuVVQRte/OkbWWoP+iAUydIVQRBTKGRPFR4Ik50sHWUAwZJidQk2gtsPp9NfpZB47C9mepWk8CUigqO/AUF2eWm/j+anK4HieQ8vXkNHS6RYN8aOkxlvuUCIPsrNNpXm12RO4W/MleygnCqZ1aArH6Fnn+0g/RDnutwKK/K00hySs+Mo+uVJ59MZtdqc/jJM1PQNuB+9WVlvebES/eUWMInOPEnqcsxoMnSk
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 10:10:01.9282
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: VvY3o0lMmfgCVk1hmu0lHmU0FMoPkQX724HPjlSFfNKQzyQ4mJOOgxxEOShkeer0GgZ4kekdEPvFk0UTIkg3sFaN/0f4q26Iz42wRMHQjHY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSCPR01MB14951
+X-MS-Exchange-CrossTenant-Network-Message-Id: 42780639-b306-47ad-6e54-08df29db4f95
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF00022BBE.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6985
 
-Hi Tommaso,
+This series adds ACP7.B platform support to the AMD SOF driver stack
+and implements the ASP-authenticated firmware load path required by
+both ACP7.B and ACP7.F.
 
-Thanks for the patch.
+Patches 1-2 are preparatory renames and restructuring. The existing
+acp7x machine table and chip descriptor are renamed to acp7f to
+accurately reflect the hardware they target (ACP7.F). The probe
+callback is restructured to select the per-revision descriptor via a
+dedicated static pci_device_id entry rather than encoding it in
+driver_data of the shared ID table.
 
-> -----Original Message-----
-> From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> Sent: 14 October 2026 10:59
-> Subject: [PATCH] irqchip/renesas-rzv2h: Preserve TIEN state in rzv2h_tint=
-_set_type()
->=20
-> From: Au Dang <au.dang.jx@renesas.com>
->=20
-> rzv2h_tint_set_type() clears TIEN while switching the TINT source and the=
-n unconditionally sets it again,
-> enabling the interrupt even if it was disabled before the call.
->=20
-> Restore the previous TIEN state instead of forcing it on.
->=20
-> Cc: stable@vger.kernel.org
-> Fixes: 0d7605e75ac2 ("irqchip: Add RZ/V2H(P) Interrupt Control Unit (ICU)=
- driver")
-> Signed-off-by: Au Dang <au.dang.jx@renesas.com>
-> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Patches 3-4 add ACP7.B hardware support. Patch 3 adds the ACP7.B I2S
+machine table with its driver name, firmware image, and topology file.
+Patch 4 adds the acp7b chip descriptor and extends acp7x_pci_probe()
+to select it for ACP7B_PCI_ID revisions alongside the existing
+acp7f_desc path.
 
-Reviewed-by: Biju Das <biju.das.jz@bp.renesas.com>
+Patch 5 propagates the PCI subsystem Vendor and Device IDs from the
+AMD SOF machine driver into mach_params, enabling downstream SDW
+machine drivers to use them as an SSID.
 
-Cheers,
-Biju
+Patch 6 is a cleanup: register variable declarations in the ACP7.x
+SDW wake and PME handlers are consolidated to u32.
 
-> ---
->  drivers/irqchip/irq-renesas-rzv2h.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/irqchip/irq-renesas-rzv2h.c b/drivers/irqchip/irq-re=
-nesas-rzv2h.c
-> index 1a4703a353e9..485c3eea7632 100644
-> --- a/drivers/irqchip/irq-renesas-rzv2h.c
-> +++ b/drivers/irqchip/irq-renesas-rzv2h.c
-> @@ -420,9 +420,9 @@ static void rzv2h_clear_tint_int(struct rzv2h_icu_pri=
-v *priv, unsigned int hwirq
-> static int rzv2h_tint_set_type(struct irq_data *d, unsigned int type)  {
->  	u32 titsr, titsr_k, titsel_n, tien;
-> +	u32 titsr_cur, tssr_cur, tien_cur;
->  	struct rzv2h_icu_priv *priv;
->  	u32 tssr, tssr_k, tssel_n;
-> -	u32 titsr_cur, tssr_cur;
->  	unsigned int hwirq;
->  	u32 tint, sense;
->  	int tint_nr;
-> @@ -477,6 +477,8 @@ static int rzv2h_tint_set_type(struct irq_data *d, un=
-signed int type)
->  		if (tssr_cur =3D=3D tint && titsr_cur =3D=3D sense)
->  			goto set_parent_type;
->=20
-> +		tien_cur =3D tssr & tien;
-> +
->  		tssr &=3D ~(ICU_TSSR_TSSEL_MASK(tssel_n, priv->info->field_width) | ti=
-en);
->  		tssr |=3D ICU_TSSR_TSSEL_PREP(tint, tssel_n, priv->info->field_width);
->=20
-> @@ -489,7 +491,7 @@ static int rzv2h_tint_set_type(struct irq_data *d, un=
-signed int type)
->=20
->  		rzv2h_clear_tint_int(priv, hwirq);
->=20
-> -		writel_relaxed(tssr | tien, priv->base + priv->info->t_offs + ICU_TSSR=
-(tssr_k));
-> +		writel_relaxed(tssr | tien_cur, priv->base + priv->info->t_offs +
-> +ICU_TSSR(tssr_k));
->  	}
->  set_parent_type:
->  	return irq_chip_set_type_parent(d, IRQ_TYPE_LEVEL_HIGH);
-> --
-> 2.54.0
+Patches 7-9 address PDM controller selection for ACP7.B/7.F. Patch 7
+introduces acp-mach-common.h as a minimal shared header for types used
+across all AMD ACP machine driver variants (I2S, SoundWire, and SOF),
+and moves struct amd_pdm_pdata there from the SoundWire-specific
+soc_amd_sdw_common.h. Patch 8 moves the ACP7X_PDM_DMIC0/1 constants
+to acp-mach-common.h so there is a single shared location for all PDM
+types and values, removing the duplicate definition from
+sound/soc/sof/amd/acp.h. Patch 9 fixes a gap in the SDW machine select
+path where pdm_sel was not propagated to the machine driver, preventing
+acp-sdw-sof-mach.c from configuring the correct DMIC DAI link on
+ACP7.B/7.F platforms.
 
+Patch 10 implements the two-stage ASP carveout firmware load path for
+ACP7.B and ACP7.F. At probe time the driver queries ASP for the
+physical base address and ATU group of a pre-allocated 32 MB MALL
+carveout region; probe fails immediately if ASP does not support
+carveout. At load time the signed firmware image is sent to ASP via
+the MPASP mailbox VALIDATE_IMAGE command. ASP authenticates the image
+and deposits the raw binary into the carveout; the driver then
+SHA-DMAs from the carveout into DSP IRAM. On D3->D0 resume the
+carveout content is preserved, so the ASP authentication step is
+skipped and the driver restores directly from the saved carveout
+address.
+
+Changes in v2:
+  - Add patch 8: move ACP7X_PDM_DMIC0/1 to acp-mach-common.h as the
+    canonical single definition, removing the duplicate from
+    sound/soc/sof/amd/acp.h
+  - Fix patch 10 (v1 patch 9): remove trailing blank line at EOF in
+    sound/soc/sof/amd/acp_asp_mailbox.c
+
+Vijendar Mukunda (10):
+  ASoC: SOF: amd: rename acp7x machine table and descriptor to acp7f
+  ASoC: SOF: amd: select descriptor per PCI revision in acp7x probe
+  ASoC: amd: add I2S machine table for ACP7.B
+  ASoC: SOF: amd: add ACP7.B chip descriptor and wire per-revision probe
+  ASoC: SOF: amd: Propagate PCI subsystem Vendor and Device IDs
+  ASoC: SOF: amd: consolidate local variable declarations
+  ASoC: amd: acp: add acp-mach-common.h for shared machine driver types
+  ASoC: amd: acp: move ACP7X_PDM_DMIC0/1 to acp-mach-common.h
+  ASoC: SOF: amd: propagate pdm_sel to SDW machine driver via
+    mach->pdata
+  ASoC: SOF: amd: add ASP carveout firmware loading for ACP7.B/7.F
+
+ sound/soc/amd/acp-config.c             |  22 +-
+ sound/soc/amd/acp/acp-mach-common.h    |  29 ++
+ sound/soc/amd/acp/soc_amd_sdw_common.h |  14 +-
+ sound/soc/amd/mach-config.h            |   3 +-
+ sound/soc/sof/amd/Makefile             |   2 +-
+ sound/soc/sof/amd/acp-common.c         |  17 +
+ sound/soc/sof/amd/acp-dsp-offset.h     |  58 +++
+ sound/soc/sof/amd/acp-loader.c         |  64 +++
+ sound/soc/sof/amd/acp-stream.c         |   9 -
+ sound/soc/sof/amd/acp.c                |  91 +++-
+ sound/soc/sof/amd/acp.h                | 110 ++++-
+ sound/soc/sof/amd/acp7x.c              |  11 +-
+ sound/soc/sof/amd/acp_asp_mailbox.c    | 558 +++++++++++++++++++++++++
+ sound/soc/sof/amd/pci-acp7x.c          |  80 +++-
+ 14 files changed, 1008 insertions(+), 60 deletions(-)
+ create mode 100644 sound/soc/amd/acp/acp-mach-common.h
+ create mode 100644 sound/soc/sof/amd/acp_asp_mailbox.c
+
+-- 
+2.48.1
