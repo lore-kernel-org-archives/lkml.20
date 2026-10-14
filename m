@@ -1,46 +1,55 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCE5943CEF8;
-	Wed, 14 Oct 2026 12:05:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E10DC4CEE53;
+	Wed, 14 Oct 2026 12:05:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791979528; cv=none; b=Hy40HUUcj6J+PfFLFbd9jZTnJMPPkjrO1Yd7LYRMyzIVc3eQ/BTnOdwMBUDunIO7pO7bX+cIVkhbQvDc7eeebx7pgXLKWnu8pitHhyHnnHRR/Kso6MG6aLO4T9AyJQ+WeiBFD7Blap9KFrXZKGj7ctbnBTii8W+BeXMFzP8EeuA=
+	t=1791979532; cv=none; b=qUGJLs7nj1Pcf7t/GS0PsecTqhoWzBYy0hc6GIVPqHmx7fizo5oN5azwTMTmsHhsnYjaSurgtt3HuxxhoAda256uup/eyEPhPHiEpE5IQ7X7Y2Ri2d0j9T9LSqVBxmDFRaXUELNm+ip/kYtcpzlruYqPPdTymgR9W2n3XXzv1Q0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791979528; c=relaxed/simple;
-	bh=NZlN31h/+P5/LOsgK0O0KLDjy+TdbxOi/nBuQ6rHObI=;
+	s=arc-20240116; t=1791979532; c=relaxed/simple;
+	bh=EwLyOUmKTq+Pgq4Fgui+4muIQaVAEfUm1kjOFtEVhZo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=l6dc7tilCMXYpU3mWkxptoANKzom87wQ2xuashgkwMz3KEeRAmhQNm8GDu+sG/u2ch1TUil4URf6i4RfPsfivICjfzd03M5N/k6SSwGZyuzrTZXrtNwojccpXOCohsAoAbCx2vBPBlZABT05MyqZk5ImpSltGMGVTtl1KG+se9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=2krYKwq8; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=lEFW3h9YAQLpmf0kiEPSkJoXP4B+MH3gy8ZBdx36SHXhwr31pBO/V6KkR/j9BwQSydCN/GkExg+My7mFYgF1Ww0+DuNs4yqLDqSgHZOQSyl+lyzGvC9C/1JniuAY3pd7am1GXBuygx45/FSfKJPcry86Ib7QuTDJT+04GcxN3FY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=INvyDbEa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="2krYKwq8"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=cN0vCH3Rd8wcPVWll8aOa9Voucmcj5s4Ox2vF2HQU10=; b=2krYKwq8VxSSV4Olo35uAMh/4Z
-	OPmi/jjNPIonn3HmpKqdgIAINxlRuumNcblTMvCruAFps6W213teiiEBoFNG8x75jkFyCetNuA5HP
-	Yc94z2nkLpOn+SXxjdZEooF6hxoGqD/kbE+fTpxVNrgWNRJA0JaVl4DHBevSKsU7STXg=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xGxjR-00AiyX-19; Wed, 14 Oct 2026 14:05:17 +0200
-Date: Wed, 14 Oct 2026 14:05:16 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Wei Fang <wei.fang@nxp.com>, Clark Wang <xiaoning.wang@nxp.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] net: phy: realtek: restore RTL8211F RGMII delays on
- resume
-Message-ID: <f9deecf0-0bb6-4fc9-a8e1-f15c57896195@lunn.ch>
-References: <20261014033659.95196-1-kmehltretter@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="INvyDbEa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A42C91F000FF;
+	Wed, 14 Oct 2026 12:05:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791979531;
+	bh=l3CyP6bumUd+D8iOczfm5+884GmGnnwhG0Qdoxeuly4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=INvyDbEa9+m4JQN5I3onIIUR1JZdRzUwHnkegHqxYhI7XoO+yiOFOD63um0yVj00T
+	 +nhEsQg4JWQ1Sb3NgMhBZRmRlBGILXERpnuj0WXPRgz+TRCSGiq4Zsig7iWxjNYgEZ
+	 F/blt2tWfCQqhltr12FM4lq3VEe+1cTd4yD5cNhp3Irinkkf1ocY2uV7z/WnLFBNtZ
+	 HQH7ZqekWIoMHsdTRETNLmJZNBzeIPhQNPWVujn3QN+f8jmRJTwBm8FgmXEU1DPVNm
+	 FwA3m26nDE9MPQlwUBOknpv2XyzL4inWVuvtGevWs4riCXNcetjHbTsdVXVYTOAZVm
+	 g3BJ3Y291x8pA==
+Date: Wed, 14 Oct 2026 13:05:25 +0100
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: Gavin Shan <gshan@redhat.com>, kvm@vger.kernel.org,
+	Sudeep Holla <sudeep.holla@kernel.org>, kvmarm@lists.linux.dev,
+	maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
+	joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+	linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+	sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+	WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
+	jonathan.cameron@oss.qualcomm.com
+Subject: Re: [PATCH v22 02/10] firmware: arm_rmm: Check for RMI support at
+ init
+Message-ID: <20261014-victorious-prompt-kelpie-cf3a87@sudeepholla>
+References: <20261002061507.1600269-1-suzuki.poulose@arm.com>
+ <20261002061507.1600269-3-suzuki.poulose@arm.com>
+ <2586e689-c27d-4e4c-8c69-03e24259cb96@redhat.com>
+ <8be050e3-8af1-4f04-902f-9bc01b209dd0@arm.com>
+ <3fbd4739-a4eb-4428-95ae-ead22e7cf9f2@redhat.com>
+ <799fb810-c33e-4d0e-9a70-7092c0a681ff@arm.com>
+ <0ceda99f-0352-474b-a30a-c5e79b817c2d@redhat.com>
+ <ade8dd16-4f09-47d0-a821-636ca4c62565@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,27 +58,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261014033659.95196-1-kmehltretter@gmail.com>
+In-Reply-To: <ade8dd16-4f09-47d0-a821-636ca4c62565@arm.com>
 
-On Wed, Oct 14, 2026 at 05:36:59AM +0200, Karl Mehltretter wrote:
-> The RTL8211F-VD loses the RGMII TX and RX delay enable bits across a
-> software power-down. rtl8211f_config_init() programs these bits from the
-> PHY interface mode, but rtl821x_resume() only clears BMCR_PDOWN and waits
-> for the receive clock to stabilize.
+On Wed, Oct 14, 2026 at 12:06:54PM +0100, Suzuki K Poulose wrote:
+
+[...]
+
 > 
-> On a BeagleV Ahead configured for rgmii-id, carrier and the negotiated
-> speed return after an interface close/open, but the receive path does not
-> work. At 100 Mbit/s no frames were received. At 1000 Mbit/s all 11
-> observed frames had CRC errors.
-> 
-> Program the delays again after the existing resume delay. rtl821x_resume()
-> handles RTL8211F and RTL8211F-VD, both of which use
-> rtl8211f_config_rgmii_delay() during initialization.
+> Then it is RMM's problem if it doesn't check that the right level of
+> SMCCC version is not implemented by the EL3. Also, where do we stop
+> the checks ? e.g., We need SMCCC >= v1.3, when SVE is supported.
+> And >= v1.4 if SME is supported. Shouldn't we leave this to the RMM
+> to verify on init and fail the init ? I can raise this with the
+> tf-RMM team.
 
-This bit is important, so i would of put it earlier. In practice, it
-should not matter that the RTL8211F gains the extra RGMII register
-rights.
+Fair enough for v1.3+/SME/SVE checks, but RMI interface relying on more
+that 8 input registers for one or more of it's interfaces (e.g.
+RSI_ATTESTATION_TOKEN_INIT, RSI_MEASUREMENT_EXTEND, ...etc) indicate
+it can't work with SMCCC v1.1 or below
+.
+So IMO check for v1.2+ is completely justified here.
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-
-    Andrew
+-- 
+Regards,
+Sudeep
