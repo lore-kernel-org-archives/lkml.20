@@ -1,113 +1,254 @@
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D6754E9C1F
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:54:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791982480; cv=pass; b=P8TBv5boecPe/0eC4S56XjWyUOQwXyn7ExBnn2fRpj1hIqwjf1SaNySUAjMRTmuzSYvPTZtYKPrnn4lFuAU7MawFBVcQS3VGNw1gaanAMPVxgj+d9oROkCIB446f6xfteKQruW7FIsfgNiYZSHBoG+i2n5fYKlNgH428Rs1MKXU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791982480; c=relaxed/simple;
-	bh=KYS/c54vQeVbWBTD+IBBHhIs4+bHOZYRw7A3ClKDlRY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qT/j1cEz66fTTkLHGrUv4Ee+wVPlrQTXr8nNWLbltcRc5ArR+bORK425hM7y3H7Oy/NzRG9yx3NyA4GsYuCdYWYbTckJXX7A+Nkb63Yixp3vJHI5KwH1XC6uvYViWPavCf/F6Y8IC0Tw2FUNJBlne+BMSycN9J2a4Did7xuU/MQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=GhGkwpJT; arc=pass smtp.client-ip=209.85.208.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 112DC4E9C14;
+	Wed, 14 Oct 2026 12:54:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791982507; cv=none; b=Vblt5AxXO2FyqYD/vkSR5AYxtwA25OCZ2JwjTjON7CudM4KSGAFKNc7H+Xm5uDvmN7mufruqQHPVKJmaipLXOOafggLcLQ43/vDzzcQ8FbSozpPA9ceC/OiH0U/SstxK+WdQmWU9fYi11c602THWP0fqqzVBRfT0XuILLHo1rzQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791982507; c=relaxed/simple;
+	bh=kAGnx0x2hcPL30CMjfJi5ddEiWH8zRIYbQn3Txe0m50=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qiWWkQnBarT2PBM6czReakvrB2zuKdU7oA4rdiAEjnB4LAni0vZCrxzaxNsKgeZygB95aV+fv3AMB4v0Sh9omGS1vbseZVMvbACn5+ginAzs04n+YgoJaz+PUXi1HqkprXDNRniSJsUGTEdnAtLUZKfRcANaWWlwHB8mdbzUYKA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=WIzXecvx; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=K1aGpqRC; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=WIzXecvx; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=K1aGpqRC; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="GhGkwpJT"
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b1aa36fc0eso38188a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 05:54:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791982470; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Lh0HuNojdPDfb9Q0rnJ1HrUd10qsOTdUW8y1s65lKuMlrze+BrOMtr+C0/ZfUr2e9f
-         5T88DLyebY5HDkAbhG98pANaewY1F3jlUxHeC/InoWmo+9spX8PkXpKtzm/TH+jqtcUX
-         dAyENFjvvVFBEwJlD2f2qmxZOiJ+F3kuB3SQLCFrnUikkwiyqxNerdXmvJRi+FHRSGku
-         rjImZ69VFWX2nKuy4LdrijUK6Z3l1WUy1TF/SoAMj+GCw4U+dvuE67p/05vMSYMxKgDH
-         43/RkNCKojYcrmmqTtheNGV0PyUJVy9T2P3xGJs8v+cSjvDKTdQ4d3p9aSribrXUHJ+q
-         rm4w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=KYS/c54vQeVbWBTD+IBBHhIs4+bHOZYRw7A3ClKDlRY=;
-        fh=9TTo0gh/vunJ1euJccuLOEg2qTg7c6qpdaau7vVJEYQ=;
-        b=B/PIT4kCFUjhBVxRpxXPTwdzzGGA9YnqH7q1Q8vSl7b1gEYhU8BIMhd8F5WGGTYBjj
-         2xWXi1lPJVoLXSNetfe1EGUnCh1s5WLvZ4N1iAVVNjK9Lf5Y9MAPMmNWm1W0vi+LgMlz
-         nznkXksAKjwF8pTxX6AGo7siTxGNtQfqy7bl+Uj+H2+MbXHBQwe/NKuq3uSURdp8I7o0
-         wG2esWVQ/N7BTFqeAlAiEAFReM0KDil5p7l0jcRGuytFxspQ3tmVgSQ7gpngk/RVwqJP
-         KwX192W9qUIIOlffxwj5iZGGUt7cpKK89yP44stZJc2nsLtCqdozIKI6ljn7GP+K67vW
-         0dsg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791982470; x=1792587270; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KYS/c54vQeVbWBTD+IBBHhIs4+bHOZYRw7A3ClKDlRY=;
-        b=GhGkwpJTT6fXiF9yrbpcPpLZFt8cagCklO27tAT0GOlKOZd10Pt5nn2X1ARx/ukQ/0
-         5MGj8JFAUPzR/X6RJDy0A7B9xmrxOP7FNsGVL950MyNWwmqTQKvmH2bilzrC4KPSFWQh
-         +/8p25SEMCixJ9FCt3tfk50NMJPhfsf2m5ezWVA39gXJPC9GgHm3Vs0U+ZLVX5ZB+IJ7
-         aUrmRaRnNhG41Dq8PlivhI0WZ0WR4Szgy9m5XpYbsKeetYowEMLxy/JkCC65WublRiTm
-         LQXjmw+pZIuW64Onl2Zos796QocP86vo7CFhe5oCbBXxaE46ksmfhod6kC5xzBKUPqYu
-         HuJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791982470; x=1792587270;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KYS/c54vQeVbWBTD+IBBHhIs4+bHOZYRw7A3ClKDlRY=;
-        b=X0vwYpaZ0XJL7HAahkgg3UNpceen2NxsLtLiAiFOmzNZs/ZTCAxD5WNB6OnOgjxaTS
-         j3uYeKpm8tX64ju3Q6ph/aKN0m92RCHvDyA4LuIu0rUan1ir7nNg9m8iBI/i8Ro/DCgl
-         Dn/K3eMYwtDKK9xXpuL6oX4FbSyRa9ZN4gOkoUCr1YjKGFF8p8fBClqsKqK8PgZ+7JUZ
-         82s1LLtWcoLTKXuha7wqTba8jSj+o/WMSNKB4cWjLTd/IZieoWf8MlTFlyoo2CrnWe4W
-         wKykgRsTXi1eIm6CAZzkRuCaQyHVgGsjZG0PDzCBqVIUOfc0AMRe/dUDIIpDk4kESaF0
-         I48A==
-X-Forwarded-Encrypted: i=1; AKwUvBzT70sF7U6pCJFGhX2hv1R/cHs1rQuHjz9mRwptFALyUfurOziJAVNnMpgvwL1J4rWIbqhLUgm+cv9w6Bc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLha1F2lDu6qJtrGwMA9e+PqTBaavudnfiUb+GTftxMVR4hrm8M
-	hKHpJAsNq8FmrDFnxlOmlff4kPtYR0Pp31GR+xAGSdQexP36nuGhZzN8WdTz92K7mU5mfRQJMWu
-	RpIbxkffnhdplUBIG1ZB2nrm4dXfe05BpA1uVIknw
-X-Gm-Gg: AYBFou0GUMA9vXWMa+CfKdkH87es5gfhIbv0femag/Yxvzplbf5SBsN2sw8+y0LWSsH
-	YjFB5LHZRNp61LFjQ4vBfCO20jWawUIaUOf3zuum28obFtKHxFzQQQzfNqMwi5SI/JX2VHUOU/f
-	SAw5jabZl+a1KczYFeytNyqv6+nubB+kOAQq5/6isNXfED3XaJ0RLVzJshUvHeQAAt4Eu6L5Ybv
-	oyLB4gXB/ttKSXTvNcu4W6ig9StLjYyri9QqS1sbg0zFYO26N8DROZjT6hOSIBTXEJuFF4zh0L6
-	0B7WFbmSpGAG8Ap0C/OlGDXA6G9JBLGty48YmeO3MdE36FrJJ/mjkB0=
-X-Received: by 2002:a05:6402:c548:20b0:6ae:1503:5a27 with SMTP id
- 4fb4d7f45d1cf-6b20aae063bmr28860a12.8.1791982469402; Wed, 14 Oct 2026
- 05:54:29 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="WIzXecvx";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="K1aGpqRC";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="WIzXecvx";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="K1aGpqRC"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id AB3961FB60;
+	Wed, 14 Oct 2026 12:54:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791982490; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=os3Da2QH2l1gaTIXvXtjZKd6x88bLq7SC0LzecHRAAI=;
+	b=WIzXecvxBiQFwiBLRmQbCYyML9gtRQZ5NUKGC3YRhllUhSh6iLIhsab5n8rstAL6YWBkeX
+	sENP40D1wQ8V1fHSbx+S860qHEOBkGPsJywPDg97/CiM5HhE8MIDECIaYYv0e496aceZsz
+	gF3HtXmr+WkGn0354t2GsyqHNf7BaRo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791982490;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=os3Da2QH2l1gaTIXvXtjZKd6x88bLq7SC0LzecHRAAI=;
+	b=K1aGpqRCOxS0LLLcjcQC7YK6ku43UFoj+hGMmXjKTuVcv1+x2+6TKuIVX8S6ED13BNXVRY
+	WAEaSNRn4VufS1Dw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791982490; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=os3Da2QH2l1gaTIXvXtjZKd6x88bLq7SC0LzecHRAAI=;
+	b=WIzXecvxBiQFwiBLRmQbCYyML9gtRQZ5NUKGC3YRhllUhSh6iLIhsab5n8rstAL6YWBkeX
+	sENP40D1wQ8V1fHSbx+S860qHEOBkGPsJywPDg97/CiM5HhE8MIDECIaYYv0e496aceZsz
+	gF3HtXmr+WkGn0354t2GsyqHNf7BaRo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791982490;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=os3Da2QH2l1gaTIXvXtjZKd6x88bLq7SC0LzecHRAAI=;
+	b=K1aGpqRCOxS0LLLcjcQC7YK6ku43UFoj+hGMmXjKTuVcv1+x2+6TKuIVX8S6ED13BNXVRY
+	WAEaSNRn4VufS1Dw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2030C1368E;
+	Wed, 14 Oct 2026 12:54:50 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id r7zvOZl7z2r9FgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 14 Oct 2026 12:54:50 +0000
+Date: Wed, 14 Oct 2026 14:54:49 +0200
+Message-ID: <87zewgcuhy.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: perex@perex.cz,
+	tiwai@suse.com,
+	phucduc.bui@gmail.com,
+	cezary.rojewski@intel.com,
+	cassiogabrielcontato@gmail.com,
+	kees+treewide@kernel.org,
+	yilinzhang@moonshot.ai,
+	sammiee5311@gmail.com,
+	kees@kernel.org,
+	thomas.weissschuh@linutronix.de,
+	tglx@kernel.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	tiwai@suse.de
+Subject: Re: [PATCH v2] ALSA: pcm: Unlink substreams before releasing them
+In-Reply-To: <pm-pmb-9c80f858ccc13b3de84d-v7-fcd8c7aa0e837bf0b036@gmail.com>
+References: <pm-pmb-9c80f858ccc13b3de84d-v7-fcd8c7aa0e837bf0b036@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20261013231728.883001-1-yosry@kernel.org> <20261013231728.883001-3-yosry@kernel.org>
-In-Reply-To: <20261013231728.883001-3-yosry@kernel.org>
-From: Jim Mattson <jmattson@google.com>
-Date: Wed, 14 Oct 2026 05:54:17 -0700
-X-Gm-Features: AclHuK9rxlY9ryi2n9m2aAdyaSNARNmcvyrOyG0s9ziCGiHhPOebsZRxyO6FDgo
-Message-ID: <CALMp9eR-CPo2n_7uN7paJQZvmPXA6=7Fpo0xJePeadXwuD600A@mail.gmail.com>
-Subject: Re: [PATCH 2/4] KVM: x86/mmu: Drop for_each_shadow_entry_using_root()
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-1.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[17];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	TAGGED_RCPT(0.00)[treewide];
+	ARC_NA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[perex.cz,suse.com,gmail.com,intel.com,kernel.org,moonshot.ai,linutronix.de,vger.kernel.org,suse.de];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -1.80
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-On Tue, Oct 13, 2026 at 4:17=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrot=
-e:
->
-> Drop for_each_shadow_entry_using_root() and open code the walk in
-> __kvm_mmu_invalidate_addr(), the macro's only user, in preparation for
-> handling failure to initialize the walk, e.g. if a cached root was create=
-d
-> for a different MMU context and so can't be walked.
->
-> No functional change intended.
->
-> Suggested-by: Sean Christopherson <seanjc@google.com>
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Yosry Ahmed <yosry@kernel.org>
-Reviewed-by: Jim Mattson <jmattson@google.com>
+On Wed, 14 Oct 2026 12:52:15 +0200,
+Cen Zhang wrote:
+> 
+> A closing PCM substream can remain in its linked group after the
+> driver close callback has freed its private data. With two configured
+> dummy capture substreams on the same PCM device, linked with LINK,
+> PREPARE on the surviving substream can still visit the closing member:
+> 
+>   Final close of A                   PREPARE on linked B
+>   ----------------                   -------------------
+>   snd_pcm_drop(): group -> SETUP
+>   do_hw_free(A)
+>   dummy_pcm_close(A): free dpcm
+>                                      Take snd_pcm_link_rwsem for reading
+>                                      Walk the group, including A
+>                                      dummy_pcm_prepare(A)
+>                                        Read freed timer_ops
+>   pcm_release_private(A)
+>     snd_pcm_unlink(A)
+> 
+> Unlink at the start of final substream release, before dropping the
+> stream or releasing driver resources. The link write lock waits for
+> an existing group PREPARE, and unlink removes the closing member from
+> later group actions. Keep the existing stop synchronization in
+> do_hw_free() before the driver resources are freed.
+> 
+> Make unlink independent of the pcm_release callback so OSS substreams
+> are covered too. Remove the native-only unlink callback and its
+> registration, while retaining the callback hook for OSS cleanup.
+> 
+> The existing KASAN report below records the freed timer_ops read in
+> dummy_pcm_prepare().
+> 
+> KASAN report as below:
+> 
+>     BUG: KASAN: slab-use-after-free in dummy_pcm_prepare+0xb7/0xc0
+>     Read of size 8 at addr ffff888106b35f00 by task alsa_pcm_fixtur/491
+> 
+>     Call Trace:
+>      <TASK>
+>      dump_stack_lvl+0x93/0xd0
+>      print_report+0xce/0x630
+>      ? dummy_pcm_prepare+0xb7/0xc0
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __virt_addr_valid+0x20d/0x410
+>      ? dummy_pcm_prepare+0xb7/0xc0
+>      kasan_report+0xe0/0x110
+>      ? dummy_pcm_prepare+0xb7/0xc0
+>      dummy_pcm_prepare+0xb7/0xc0
+>      snd_pcm_do_prepare+0x71/0xb0
+>      snd_pcm_action_group+0x505/0xb30
+>      snd_pcm_action_nonatomic+0xab/0x150
+>      snd_pcm_common_ioctl+0x1bf5/0x3a50
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? do_vfs_ioctl+0x1f5/0x1280
+>      ? __pfx_do_vfs_ioctl+0x10/0x10
+>      ? ioctl_has_perm.constprop.0.isra.0+0x34f/0x500
+>      ? __pfx_snd_pcm_common_ioctl+0x10/0x10
+>      ? __fput+0x5ba/0xa60
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      snd_pcm_ioctl+0x76/0xb0
+>      ? __pfx_snd_pcm_ioctl+0x10/0x10
+>      __x64_sys_ioctl+0x163/0x1d0
+>      do_syscall_64+0x115/0x6a0
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>     RIP: 0033:0x41ee8d
+>     Code: 04 25 28 00 00 00 48 89 45 c8 31 c0 48 8d 45 10 c7 45 b0 10 00 00 00 48 89 45 b8 48 8d 45 d0 48 89 45 c0 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1a 48 8b 45 c8 64 48 2b 04 25 28 00 00 00
+>     RSP: 002b:00007ffcfa72fb60 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+>     RAX: ffffffffffffffda RBX: 0000000000000004 RCX: 000000000041ee8d
+>     RDX: 0000000000000000 RSI: 0000000000004140 RDI: 0000000000000004
+>     RBP: 00007ffcfa72fbb0 R08: 00007ffcfa72fb98 R09: 0000000000000110
+>     R10: 0000000000000001 R11: 0000000000000246 R12: 00007ffcfa72fcd8
+>     R13: 00007ffcfa72fcf0 R14: 00000000004a8f28 R15: 0000000000000001
+>      </TASK>
+> 
+>     Allocated by task 488:
+>      kasan_save_stack+0x33/0x60
+>      kasan_save_track+0x14/0x30
+>      __kasan_kmalloc+0xaa/0xb0
+>      __kmalloc_cache_noprof+0x251/0x610
+>      dummy_hrtimer_create+0x4a/0x170
+>      dummy_pcm_open+0xe7/0x730
+>      snd_pcm_open_substream+0x926/0x1580
+>      snd_pcm_open+0x28d/0x6d0
+>      snd_pcm_capture_open+0x82/0xe0
+>      snd_open+0x1ec/0x3e0
+>      chrdev_open+0x21f/0x660
+>      do_dentry_open+0x5c8/0x1300
+>      vfs_open+0x87/0x390
+>      path_openat+0x2460/0x3cd0
+>      do_file_open+0x21e/0x470
+>      do_sys_openat2+0xf4/0x1b0
+>      __x64_sys_openat+0x136/0x1e0
+>      do_syscall_64+0x115/0x6a0
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+>     Freed by task 490:
+>      kasan_save_stack+0x33/0x60
+>      kasan_save_track+0x14/0x30
+>      kasan_save_free_info+0x3b/0x60
+>      __kasan_slab_free+0x5f/0x80
+>      kfree+0x307/0x580
+>      dummy_hrtimer_free+0x72/0xe0
+>      dummy_pcm_close+0x9f/0xd0
+>      snd_pcm_release_substream.part.0+0x104/0x310
+>      snd_pcm_release+0x106/0x240
+>      __fput+0x39f/0xa60
+>      fput_close_sync+0xff/0x200
+>      __x64_sys_close+0x8c/0xf0
+>      do_syscall_64+0x115/0x6a0
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>     ==================================================================
+> 
+> Fixes: 1576274d3028 ("[ALSA] Fix Oops of PCM OSS emulation")
+> Suggested-by: Takashi Iwai <tiwai@suse.de>
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+
+Applied to for-next branch now.
+
+A problem with racy link removal Sashiko suggested is an interesting
+case to be revisited, but it's no regression and can be triggered
+independently from this change.
+
+
+Takashi
