@@ -1,63 +1,63 @@
-Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
+Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 586724AB1AC
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:25:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ED1F4AD7C3
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:25:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792016707; cv=none; b=lbkcVAD8rhIQKTJMe3ty6+D6gg7zhZ5C/bxGw1tFU3AnNuFV5g8ceEMouXRi72c2jsJIYV9ygmQUQgVbeMLiR5OrCCFQTX4Cch+tgJTK+K8OjpJlh0ASu6vz61sNP7KwFpI3B09s6PujZh7m8NzJLlYWUjjOk17KQITpi2SUDUI=
+	t=1792016708; cv=none; b=grmjlX9bq+94Wc+Vr1YfY0UHBUhlzbjHm6dyEhwrMS8UxObLInfNx82Z+20C+sIbZQgKK8GujyPProbUaMdx+32gW1Ec6ee5XhfKngK/qykouc3E2fcDkuzSiibgof31ZdOjiUcDZzqepeRo8WrhmUc69Qu4DoCs08Z2qO2VD40=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792016707; c=relaxed/simple;
-	bh=O8dVvcYZ3JjruR9AA73DXMnZbADwOxkFaLPB3KQhiSo=;
+	s=arc-20240116; t=1792016708; c=relaxed/simple;
+	bh=hfvB5WHRTQozrNyoakBODE3S1Lb68W/sTFfmK2qbwAQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=c9zOhvcIcdTKeEApwaKP2glIDxAf/oDZPlaaQ4mohMUhfD6dMm0eO4ZucIo+xQUD5ckxraLtZHYnADdT2z9KtYsgMgrHCFbA/X2KnT+cXrNoQYT29b+dE4HiB9pV/AlSzDL4SATioQ9HcrTVjbrehePzqSTUvNeJowTGW5MYA5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=tMmxzYyn; arc=none smtp.client-ip=209.85.160.170
+	 MIME-Version; b=OLF9O4CZyejuaRttytmvwevNDXugoZ1h/Pt7mq3Q63ApbpFUZc7T2fl3SUo/LDkPpaSl9VLSTNq1/whpR1uccTBVebGUJ4/veZHEpKqP9rDIpPUMHoQmwy/0q+bQ/+SPCO36L+F0SGxK3I2qv4IHZ9MBdaCoUmJrM6lpn5falLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=OVuqGwNi; arc=none smtp.client-ip=209.85.160.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="tMmxzYyn"
-Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-53606d2351aso9454961cf.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:25:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="OVuqGwNi"
+Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-5339199d8c3so44729741cf.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:25:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1792016704; x=1792621504; darn=vger.kernel.org;
+        d=gourry.net; s=google; t=1792016705; x=1792621505; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=te98JzwkVTzNC8wlHAwz+oxIJRYlTan8LuvBBWzhlSc=;
-        b=tMmxzYynTlaf9mtZl31RoTePpkD5WNKKdFiLeZNqB2ZYGF9l6rRVMIm+ZkTtKDAR8o
-         I7ahXW4cre4unYvqhHTKD80FhQRiMsQ1Rq6fYIZVXThSofzsuDuqh0GtEVwpjPlLogWB
-         cSDnUhz3B/adw0YkpT7ZriZ23+UZa4rtsOAa60qNX/AlpdqpStpJhuaafhEgRZM6jnKX
-         hlfZm8yn77UDR9xf4H3EOIww2BrMukPvjp6+q1SX/l6Tq3Kyo1KkKd7g/ytx7lSZ71OH
-         HrL+CUumcble30eSAkwtGhA6lEs4DxyY7kVNCGS+gMeIE+7I2zfcvYxC+6SwoZ2/aI2G
-         4YBg==
+        bh=pX7eJVw8NKbWVjClJVlyeDcXYqLdmF7XB6xKTvch9pw=;
+        b=OVuqGwNi4olBPQQ7eVfJm/3nIHV83c2rvUSx4MtDBlFar9mCtEx+XaDLxE/J90jjLC
+         gBzi+GoN8QStnsG0H0V51vL77no2K/Ogw5SfkVYbPQAS0ghOL7vWyLpfPY03HvofowQr
+         th1ngCnOazhTMNgMeT6v1iDa7+OFZDZCAaNbKVcfJ5bZrdGYzJyK2V6sDJNz1Kmyc6Hf
+         /xrHw2Qkr5cdipNimW9BEG8xIBfgL78ZgUcQLmtlEgFSf1CnWaHu8OSBjN/3HhIMni7u
+         zmUyUvSSwBl+g2NgUyiuq3arMKREaYE0py4C2ri/hlJ8I0llFYqna6ifW2b5f8qeA5Rf
+         qijQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792016704; x=1792621504;
+        d=1e100.net; s=20260707; t=1792016705; x=1792621505;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=te98JzwkVTzNC8wlHAwz+oxIJRYlTan8LuvBBWzhlSc=;
-        b=XBcXdUnq6xhQDpO5hoOqnCSO9uXx7BJOZ1GUezx/mAlRKcUIfKZQ8D9dseVoFbwxou
-         OfMqmvy9T8eRN5jjkkH4xa+V/ePghrg/YLDWcFBSzWVXEVZJvSqfTmlampRPDFZatPpz
-         orGd/JdXHHRFlR9e12FBfyE30gdALpQVYimqNSW2pOQvMTZmBCBmYPcchpNhZpdF98VF
-         uZyq7T0ScJCGX9HuJi4tYSNF6sdZiaT/1Dtu6CPPB0lbXbn1cAOyb4W7gSlfVG5O52xQ
-         1iZV/+t7wItXuPwlbar8M9oEa7WkGqr/K93nvn1jkmIRsSxyUZxOdtvYH5sJlborIPzc
-         BYcg==
-X-Gm-Message-State: AFq9FYIiyPtWktdyeJOoCdWrOM+Zt+UKEtxJ50/WonG2oWgxng7gB2/U
-	hnGr8vsTrRi5URpH87t248HGGNsCCEv38Rjd0xlRYKp/MKbPKYENead9/lTQo+P1jHk=
-X-Gm-Gg: AYBFou2oUbgKkImgUuh/iML5n9WNK6HtFEHDOHPb9+OlBBzwy4m3Qt8qxyQ4AHVQZ3f
-	jrU61qZH5NxpwuAit1qWS8FYOgkccZY2pdiENCDTivjXHo5zGNGSvK5xHBdUZNx3O7NQMIymoUY
-	hPT44724NRWB7MFTJlawcRBi1vcpGhLWpOKEJImURBu9LhBX/+W3jgIxhRKHqu4smaSZuVD3OO/
-	vRf9ApI1zwYHCwiNsGU4ATEqmNcy/54jn3p3h2DKA8M3ZBLEWprTLs5+f6aDClk8v9RCup2NW3l
-	EpsJtVrcziv2Zx1pBXnrLDGTZFQwaG5pCTlEaU/G5UntbcCIWwLMV9M75t3idLOK2dPsxIMDUPf
-	lfhjnM8U+09x91snA3Anpyaf0nreB4RT0y7X3V4LkZ6Qg2cIMxpeJRZAKsKTxj+u9/unNtHmQwg
-	eFneQ+8Wip/Vj3hxRWkoqs24wDSZXP9QLRXEDwvDa0Er3RE3muYNkxyDyueRJEYzoioCGveFaJ9
-	0uOyDC6PdamweIwlubqa3JI/9BLk0iXU2HRfxE1+181OGJaqoSsOQFmc33Tmg==
-X-Received: by 2002:a05:622a:1ba0:b0:535:36d:dd8a with SMTP id d75a77b69052e-5359fb5bfe9mr296527481cf.36.1792016703841;
-        Wed, 14 Oct 2026 15:25:03 -0700 (PDT)
+        bh=pX7eJVw8NKbWVjClJVlyeDcXYqLdmF7XB6xKTvch9pw=;
+        b=CapGm74yiiDosP7iDhKaO77BizuzoW9Z0zLn0T1Qm1DsrFf/CcxPs9m3AxuLKq5+xC
+         v1mb2mIXLKM90QUqI1kmdgV4N72veguUqW9eqDtsNNqqRciPiXNkXepoYyR37zt9obxO
+         yy6qO36922+iKplVcDaTPvprowjARCiQN65CHawm0gJhHpGLalQ1bJivCL/gB7VD2AxN
+         LsTVtP+BCnRPU3s7yxO2Dd7BAq1cRPcIf9bTjC17C7tKqvxTsMqzjBhx+QtfcM84rQbW
+         ugf5CNF74dsU5I8TEIBbYi+uGr2gnk6xvwMC9WYVyDUL/NjhKctI1Ts6RRZQPpLIYShx
+         4x9g==
+X-Gm-Message-State: AFq9FYJFl/wogQarvgrQw/gjAGQxIuQQm4KDG7Xdl2JmXAhctmsIgE/6
+	yQ8DQZ2dpeXoEfJqRYNSlaPudKdNIMG87wYnPM4N74XJD0FKMfNDrgbsClgigkI3azw=
+X-Gm-Gg: AYBFou1qTsiStesumWJ2fHV50plErvZf+dXB6sypayxxSUnjA1pRtgcyNtu1cROzxGj
+	7MlNKCUPyx4ImIH/TZocKseLvXRufQSydrr/GkfU8sFh5xR0PiajigXXE9sMQSFUDvhMXf6DsYo
+	4AfAq7uDvSSTgRPgo4b28h4867retHhiUnIxsECehyBboqBmgfOAkKbh3hFqrzD6pj6PH+Is78y
+	r8F/WXtLSpFF35iBN8w+i+sRfD8venkGXgqHJIyl8TH6HNHRPoyHYXRXxv8bX0qtWRSGf+OZ3BT
+	EbY/MJWmHgvBmSWwYgCbX7wtGWLOJMMhJEPqgPw8WMV7ssMF0TqUnkZw0UarQ1DAXYL6QSoNHrX
+	hezM4Zpf53zBLu0+ry24emDLYBEndtbtBL1FcbM2ObpJsJ3nDPxhfyUN9tei5QP85NdBmwH3u7W
+	rWc9ezozdahjE1RD0w93zYtDf7HRY0VV/IG2he8On49nAZ+kS7+bVxZu8mRJBL0eHHkg5qb2sfS
+	uZBAqklVbkMjdvA8DMTVyzcQOw3Fju/pFSD7G59upLuae9bYoq+fobQTWh6
+X-Received: by 2002:a05:622a:13ca:b0:535:25db:17ae with SMTP id d75a77b69052e-5359f48cabdmr289086201cf.11.1792016705227;
+        Wed, 14 Oct 2026 15:25:05 -0700 (PDT)
 Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-536128418b2sm8652601cf.30.2026.10.14.15.25.02
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-536128418b2sm8652601cf.30.2026.10.14.15.25.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 15:25:02 -0700 (PDT)
+        Wed, 14 Oct 2026 15:25:04 -0700 (PDT)
 From: "Gregory Price (Meta)" <gourry@gourry.net>
 To: linux-mm@kvack.org,
 	cgroups@vger.kernel.org
@@ -76,9 +76,9 @@ Cc: linux-kernel@vger.kernel.org,
 	ziy@nvidia.com,
 	david@kernel.org,
 	mgorman@techsingularity.net
-Subject: [PATCH 1/2] mm/page_alloc: detect zonelist rebuilds from memory hot-add
-Date: Wed, 14 Oct 2026 18:24:55 -0400
-Message-ID: <20261014222456.2318284-2-gourry@gourry.net>
+Subject: [PATCH 2/2] cgroup/cpuset: use mems_allowed_seq when checking a policy nodemask
+Date: Wed, 14 Oct 2026 18:24:56 -0400
+Message-ID: <20261014222456.2318284-3-gourry@gourry.net>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261014222456.2318284-1-gourry@gourry.net>
 References: <20261014222456.2318284-1-gourry@gourry.net>
@@ -90,55 +90,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The zonelist_update_seq retry was limited to CONFIG_MEMORY_HOTREMOVE,
-presumably because only hot-remove takes zones out of a zonelist.
+A cpuset update changes the task's mems_allowed and rebinds its
+mempolicy in separate steps under mems_allowed_seq, but the check
+reads both without it.  This can cause a spurious numa placement
+miss under some cpuset/mempolicy combinations.
 
-However, build_zonerefs_node() rewrites the zonelists in place, so
-onlining the first block of a zone shifts the entries that follow it
-in every zonelist containing that zone.  This can cause a spurious
-allocation failure for a __GFP_THISNODE caller.
+A reader that loads one mask before the update and the other after
+it can see a spurious empty intersection and drop the nodemask.
 
-For a node with only ZONE_NORMAL, onlining its first ZONE_MOVABLE block
-rewrites the node's ZONELIST_NOFALLBACK list as:
+For example, a task with cpuset.mems={0} and MPOL_BIND={0}.  If the 
+cpuset moves to mems={1,2}, the policy is rebound to {1}.
 
-  [NORMAL, NULL] -> [MOVABLE, NULL] -> [MOVABLE, NORMAL, NULL]
+The allocator can race and compare the old mems_allowed {0} against
+the new policy {1} - which will result in a dropped nodemask and a
+misplaced allocation on node 2.
 
-A concurrent GFP_KERNEL | __GFP_THISNODE allocation can observe the
-intermediate list, skip ZONE_MOVABLE, and find no eligible zone. With
-CONFIG_MEMORY_HOTREMOVE=n, check_retry_zonelist() returns 0 and the
-allocation fails even though the node has free ZONE_NORMAL memory.
+Simply retry the intersection until mems_allowed_seq is stable.
 
-Gate the sequence checks on CONFIG_MEMORY_HOTPLUG, which covers every
-configuration that rebuilds zonelists after boot.
+This covers the task policy, which is rebound under mems_allowed_seq.
+VMA policies are rebound afterwards by mpol_rebind_mm(), outside
+mems_allowed_seq, and are not covered by this change.
 
-Fixes: 3d36424b3b58 ("mm/page_alloc: fix race condition between build_all_zonelists and page allocation")
+Fixes: cc9a6c877661 ("cpuset: mm: reduce large amounts of memory barrier related damage v3")
 Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 ---
- mm/page_alloc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ kernel/cgroup/cpuset.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 7682aecc2c075..81db19f2ab551 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -4425,7 +4425,7 @@ static DEFINE_SEQLOCK(zonelist_update_seq);
- 
- static unsigned int zonelist_iter_begin(void)
+diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+index 3f52717c19654..8ee239d5c6b48 100644
+--- a/kernel/cgroup/cpuset.c
++++ b/kernel/cgroup/cpuset.c
+@@ -4354,10 +4354,21 @@ nodemask_t cpuset_mems_allowed(struct task_struct *tsk)
+  * @nodemask: the nodemask to be checked
+  *
+  * Are any of the nodes in the nodemask allowed in current->mems_allowed?
++ *
++ * A cpuset update rebinds the task's mempolicy and changes mems_allowed in
++ * separate steps, so retry if an update raced with the check.
+  */
+ int cpuset_nodemask_valid_mems_allowed(const nodemask_t *nodemask)
  {
--	if (IS_ENABLED(CONFIG_MEMORY_HOTREMOVE))
-+	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
- 		return read_seqbegin(&zonelist_update_seq);
+-	return nodes_intersects(*nodemask, current->mems_allowed);
++	unsigned int seq;
++	int ret;
++
++	do {
++		seq = read_mems_allowed_begin();
++		ret = nodes_intersects(*nodemask, current->mems_allowed);
++	} while (read_mems_allowed_retry(seq));
++
++	return ret;
+ }
  
- 	return 0;
-@@ -4433,7 +4433,7 @@ static unsigned int zonelist_iter_begin(void)
- 
- static unsigned int check_retry_zonelist(unsigned int seq)
- {
--	if (IS_ENABLED(CONFIG_MEMORY_HOTREMOVE))
-+	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
- 		return read_seqretry(&zonelist_update_seq, seq);
- 
- 	return seq;
+ /*
 -- 
 2.53.0-Meta
 
