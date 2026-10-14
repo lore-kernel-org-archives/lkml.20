@@ -1,139 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFC8D1DDC38
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:33:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791970436; cv=none; b=LbAYt9vY4uWsfMpKJkwJiiMFkxSgQXHn0YU1CzYHIT62re5QGt8tqi/nBCEKcB+M1Obfgjt4n33EYpFtsSWV1yG2Q2OEDF65kRZXGBPXHjDyHzmfKtchzYUMG+T+6Skz63fQjiySk7CPoChVFxaxdFw2cIuJR3THSDZkJA7i/sc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791970436; c=relaxed/simple;
-	bh=reQKcEIvQM0dCEMWSzjP4wdn7mPpUb0mpn7KCEZj1HU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XyOrICEXzaYzF5Fjvhw8pPTa/kjhEq65RkGAqLr9PYpl4mtDionLt9RJRoCLH6z+Rc7QZrYUms3pD+5PQsgLrG5sp7vbRZwHMMY4pWNsqsaNLKYOSjbuIuANYuEIJ/IRRvhmxjL9btRsd/QRu4yaxUaDlvsJkDsIxWolHjcJ9Ts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cN7adbFr; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E13F6379EE7
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:34:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791970449; cv=pass; b=joNn3VCyesy2cNyT3laTqXXA1hxlg9InmZDXJUn5r3I6fza40YWk9gIU9CbDq1gHBWL+TdWiIzH8ZMNR/cNLkPZn/OdgkWIb6yM/8hdrqHf3fTq97HvNBpg3iv69PPIaQTfpXVO1IdBPJIRw6zhw0vUUtr12wlUuEBMkZsXFBHs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791970449; c=relaxed/simple;
+	bh=ymaPUYargcs8FQDr+6bZ3PYP5DTi+WnlwiWAqpq10bU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nCEclKgFTVknlWaYjoX0zj0HeR2/AOewp2/L6/fV5L6D/nxsKHK0sm6wafRoVvVBQ/Nld+LRg3uXAbrvHV8lPpacmxYF9IU35QhojuOAW5lgbadrO7/bjW4O9vtQeSH5dd/rVDdGPoJzzN4t8IXQzEoAA7Oc0wghjzpZr2d6DOA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VjHJJDK4; arc=pass smtp.client-ip=74.125.224.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cN7adbFr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C97A11F000FF;
-	Wed, 14 Oct 2026 09:33:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791970435;
-	bh=aTAovwM5NakhSZ8t6853G2LPiZdnb4fTpPRL9gDgslc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=cN7adbFrZTGK/JSRVznn+2URCCBEUXKpo4f5MMrQd41o3lm5B4MGv3/Gq1h3B7su/
-	 vpEOO0oMzfzlHiOK18skOOcFj7A0MS853y2x87PT3hms35iPZpks2zXEfNUdZkZhKm
-	 D+D7BoGZh2NAKDPuna7GnGGAAiQlBHXKoEL76SH/tDa9T0OhxSZ3oq9UA9k+1B4kyx
-	 yeBx0hJSPHGN9b3aELI4VFMA3YyLgMaGdoNC7whpq5H1R2HG69RtzMPI04+Gp3DAKJ
-	 25w68Iiebni7Ou0LZBGqQTsFVFx0y893Kc+J4xwEXIQAV+LHUowdxmwpyXqTUKkV90
-	 gvtO3EBDfewkw==
-Message-ID: <3bd88620-c245-4fab-abb7-9091d9a1b649@kernel.org>
-Date: Wed, 14 Oct 2026 11:33:46 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VjHJJDK4"
+Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-67989a98f8bso378831d50.2
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 02:34:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791970447; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GSrgYbe0XmAO5A1/FAmOZY5vsE6OH3aa+HF+KSNt36tfwYJhHdW4eFMZwL79b2pbCI
+         7JSNkeeBwx8nMQxtKeqD6DRHOqcDqevig2q+XyOTdlm/hJrnDmr6MkbmmzSwhQ+A2DIY
+         3TZ3nJIiLQ6Ms7dyVs59vX4UlQe3HS1d+dHTMsbfa4059pdeLseSxFaduOvQRa9ubv9j
+         Y0DfykYWLnO1MbPiRrrNwNboqQn81XJoEezyg/S8IXVoBugJKG4vX200hsq1zUOk2wIi
+         FI+T3PmS1roMjJTYW8/uHQTW+XlelYsC0svGkJbMe5U0rWVoEEF7lAiM0pH1mApnebxF
+         BWxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=p1yUYx/ZNgf5tuSLit2Tisfqpid+gK/d62ApUZjCpxE=;
+        fh=i2b1fAuEsxalwp5gJjOXndx4alGip7pwhJ98yHWmZwg=;
+        b=p5JSAJkQ57lYUnpUdQtivybqeu+gQVMwHRlNbpKsa0ei40VElwVFH3lnE33yASxhIs
+         6CFsqjjWglBeKKoMAooYlRMLpFllUW1Q6kRdxl3lDeNAob/dP+L+d1fLnBNd3Xn+RyE0
+         w5EGs9UcoCSv7JprwOAGlRX7xBlz9UqnKoVQblierYIUXhrOYrMAwozXDSFnBqNHxxRt
+         oJYLC4+qBsiJpv9neDFIDn3sZD6LIJA9RQLNwwDNuUWk5UgeEOxoLe/jSFJupCjXsUFs
+         D/QiNLOhpx33Bf5iETT/bwP3x5N8iGt5bBzM4ybJmJUTPnso3VpZmd8UqYJ3nMXe+FsS
+         Fh/w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791970447; x=1792575247; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=p1yUYx/ZNgf5tuSLit2Tisfqpid+gK/d62ApUZjCpxE=;
+        b=VjHJJDK45MKZ5+03GjiWbH1xZXLmn/uA43iEAiffMB4MokS6JCCpc/a5HBK3m9Ya5V
+         W+cbD9SthUre7wSaWaBUb3e71c/T4xYKSbjtBGuQyLr4LTzpvZnMtiS/sMQN2OToHuAp
+         LUefL4Hgc748ODlAL83L/ZQC36Y15t9a4ZRSKk3jyBppKDopwUA/MEex7EWwABsYqokn
+         QWXbwZ11Xgxs6LYjvUlXz4yCxC1hJktKUlo4MHqjUm/F2Rx71z2CNLqTn8hmaPR/zio5
+         t2A3cepPX0lfN8Qz6oTwkuqHzesjmn3MvHWFmrCBJtB4ysFW3wQ2glAtCMpJkZPbvFAu
+         CWqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791970447; x=1792575247;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=p1yUYx/ZNgf5tuSLit2Tisfqpid+gK/d62ApUZjCpxE=;
+        b=BQUhfMQXYwSfpQVMSuv4VVGsQiO11RIoQVOubDlCqMooUn9FKYbCTcSmvWyihI+eaa
+         aTfI2IQUkeVmbWRZ6eIWM7nLMvmVQp9hqAb0Uum9YrCYtLjYZi1HpBdgcxmSWLXIGc+D
+         dnGx6043H5k3hPWlMkNcy0M9l0rQ+MfcqFxcRIUZGhdqOswPWJZiSdqpV91RScAguNzT
+         wQvCpM+ReWxgZNMW9PF7bIn8Qbu29vk3cqG1gTF/6PpmpkfzTDCm6BzF3DYyRmEa2gd1
+         tZvdmg2fTjIIWsoxIvBT/eKgON8JW2Tg3e+9/+S1o9qWhuQ3RkI4mrWAj7VuMsAzGDRi
+         dgiQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxZvjPTGx4gz+KnHSCAbGSc9QYtXTj/fsTGFAPAhtnZ9x+QhsadD/liR+n67x7UhlARcxVYvGjLIGjwnhA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIhIVOtXAjjj/V0mUk2q+w9UnM//h91nO7aDyfmmhJfGdVrk3Jv
+	fruRXbcx6FraEK6z5Kc/WY1dYR6yRDc36nWZh4cSRG9h0uWR//WRlYDBNEcVtNh6fZ+M19LW1kT
+	xUgLZZqfWbX0vj4w4FW3psZ1NMmvCd8g=
+X-Gm-Gg: AYBFou0ktqH+vYTNynD+VuqFxtjbJACImzQ9j/KyoaVYbAu+3UoG8QNWtvaUhUhqJ4X
+	BiKq9bwFEYbE0B5LuivwtK7rjsnjNQY0WmAJCexdn0Ydugwe162BA5zIDkAVTMU9v5z5j4QKnFA
+	svxEv/nijpnfae95f37sCFVw4BywBlQZrYroHfsTvdb3ZxB7XMSkh3R9C5zVWQ6Iin/BWAkaac5
+	TQYQOKhBU5urZMEMPokjurEszkrPWPsI35EQcyw7IjWJNq6XAYfe174foGE3ptYlTJL/koY3MXe
+	P3n74HOygRDqyDS3b2ZhBzZE+fj+3FJa0yDYS5S9byh/qcDLygh4cGH6Ng==
+X-Received: by 2002:a05:690e:1698:b0:677:c014:29c9 with SMTP id
+ 956f58d0204a3-67936951bffmr6532230d50.19.1791970446793; Wed, 14 Oct 2026
+ 02:34:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 10/13] mm/collapse: open-code collapse_single_pmd() in
- its two callers
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Kiryl Shutsemau <kirill@shutemov.name>, Lorenzo Stoakes <ljs@kernel.org>,
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
- Jann Horn <jannh@google.com>
-References: <20260928100630.21870-1-kirill@shutemov.name>
- <20260928100630.21870-11-kirill@shutemov.name>
- <b2133cff-ce69-4a45-bf33-c44b774dee7b@kernel.org>
- <ar-nKHZ5hlbsXeFP@thinkstation>
- <dfbb4bac-0def-4e1b-87a7-91c9cd91349e@kernel.org>
- <20261013143839.832f1a4db51f801a2b95f850@linux-foundation.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
- dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
- QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
- XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
- Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
- PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
- WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
- UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
- jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
- B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
- ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
- AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
- 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
- g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
- ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
- 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
- /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
- jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
- DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
- HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
- 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
- LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
- 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
- VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
- /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
- iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
- 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
- zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
- azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
- FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
- sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
- 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
- EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
- IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
- 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
- Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
- sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
- yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
- 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
- r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
- 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
- CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
- qIws/H2t
-In-Reply-To: <20261013143839.832f1a4db51f801a2b95f850@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <pm-pmb-9c80f858ccc13b3de84d-v6-d4059ea2910fe5430f5f@gmail.com>
+ <877bjkg35f.wl-tiwai@suse.de> <CAFRLqsUH-ehHgXsqFGANE2h0-3WBkeNh7-AOvf5ymWAOH5r5Mw@mail.gmail.com>
+ <87v774ejkp.wl-tiwai@suse.de>
+In-Reply-To: <87v774ejkp.wl-tiwai@suse.de>
+From: Cen Zhang <zzzccc427@gmail.com>
+Date: Wed, 14 Oct 2026 17:33:54 +0800
+X-Gm-Features: AclHuK_eIxhsMAtoY_UEpTCFiq6s9vgosDrs_MSEfEF8fkwQ6lGWgNyJKs8bRgQ
+Message-ID: <CAFRLqsX8rqZrJfLPBOhBmuwXHq_wnxiwfxDGevfQ3wMFo2thgg@mail.gmail.com>
+Subject: Re: [PATCH] ALSA: dummy: Defer hrtimer data freeing until runtime detach
+To: Takashi Iwai <tiwai@suse.de>
+Cc: perex@perex.cz, tiwai@suse.com, sammiee5311@gmail.com, 
+	phucduc.bui@gmail.com, kees@kernel.org, thomas.weissschuh@linutronix.de, 
+	tglx@kernel.org, linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	baijiaju1990@gmail.com, jjzuming@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 10/13/26 23:38, Andrew Morton wrote:
-> On Tue, 13 Oct 2026 22:25:21 +0200 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
-> 
->>>
->>> I see the appeal of the single entry point for the collapse engine. I do.
->>>
->>> But it costs us on both the locking picture and the scan rate. That
->>> does not work for me.
->>
->> So this is in mm-unstable and I want at least the first 9 patches to go to
->> mm-stable rather sooner than later.
->>
->> As raised in person, I don't like the open-coding here; it just results in weird
->> API. I wonder whether we can come up with a better interface, while keeping the
->> locking as per your requirement cheap (scan performance).
->>
->> While we figure that out, does it make sense to send out revised patch 1..9 to
->> move them to mm-stable while we figure out the remainder of the new API?
-> 
-> I've suggested to Kyril that we park this series until the next -rc
-> cycle.
-> 
-> But I can bring it back - we have a couple of weeks, three if we get a
-> 3-week merge window.
+Hi Takashi,
 
-I'd say we move forward with the uncontroversial parts, and keep discussing the
-controversial bits. Either these make it still in this cycle or we'll simply
-have them for the next cycle.
+>
+> That's not what I didn't understand: do both A and B use the same
+> device?  The release shouldn't happen until all detached, so the
+> prepare and the release can't happen concurrently for the same device.
+>
+> If A and B are for different devices, they don't interfere with each
+> other in the case of dummy driver.
+>
 
-But at least some patches that should be good to go in would be off our plate.
+Yes, A and B use the same PCM device. The test opens
+/dev/snd/pcmC0D0c twice, and SNDRV_PCM_IOCTL_INFO reports:
 
--- 
-Cheers,
+  A: card=0, device=0, subdevice=0, capture
+  B: card=0, device=0, subdevice=1, capture
 
-David
+They are separate substreams with separate runtimes. With the hrtimer
+backend selected, dummy_hrtimer_create() allocates a separate dpcm for
+each runtime. The test configures both with HW_PARAMS and explicitly
+links them with SNDRV_PCM_IOCTL_LINK.
+
+Sorry, I should have been clearer about what is being released. The
+PCM device remains alive throughout. The object being freed is A's
+runtime->private_data, from A's driver close callback.
+
+snd_pcm_release_substream() checks A's own ref_count. When A's last
+file reference is closed, it calls A's driver close before unlinking
+A, even while B is still open:
+
+  Final close of A                  PREPARE ioctl on B
+  ----------------                  ------------------
+  snd_pcm_drop(): group -> SETUP
+  do_hw_free(A)
+  dummy_pcm_close(A)
+    kfree(A's dpcm)
+                                    snd_pcm_action_nonatomic(B)
+                                      Take link read lock
+                                      Walk group: B and A
+                                      snd_pcm_do_prepare(A)
+                                        dummy_pcm_prepare(A)
+                                          Read freed timer_ops
+  pcm_release_private(A)
+    snd_pcm_unlink(A)
+  snd_pcm_detach_substream(A)
+
+B reaches A through the PCM core's linked-group iteration:
+snd_pcm_action_group() invokes the prepare action for each member.
+A is still linked and in SETUP at that point, which the prepare state
+check accepts. The two dummy runtimes do not share their private data;
+the group action explicitly invokes A's callback with A's substream.
+
+The final close holds pcm->open_mutex, but the PREPARE path does not
+take that mutex. PREPARE holds snd_pcm_link_rwsem for reading and the
+members' buffer mutexes; driver close does not hold those locks across
+the free. The link write lock is taken at the later unlink.
+
+That is the overlap I meant: A's own backend data can be freed while
+A is still reachable by a PREPARE action issued through B.
+
+Best regards,
+Cen Zhang
