@@ -1,252 +1,526 @@
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011017.outbound.protection.outlook.com [40.93.194.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F55D55C31A
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:18:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4DEC515961;
+	Wed, 14 Oct 2026 17:17:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.17
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791998284; cv=pass; b=sUJdXJy7XV2Wbpta+sk+/7VaAQe8psj9oOoo/ywjoc90k42vc4dphmZZLcRdE22Rgvm+FRqGCLZyxFxi2c3QsJYupLzAOk35qP+y+k3ZFj9cklMyVJMu5ppX6mUA+/C4vjXYOXWRu0BbAgffT2abUQAM31OMO4DfaKAsAtL2WTE=
+	t=1791998284; cv=fail; b=BiP/XhWfUtvhnDz4p5OIK+4N7KtB4NkQeRz8jDG4Xf++B9N8V6UbxOG0zG75gy7HNx43OLIk1VpaDFxRXMyXS/1gacmlyw22oT4ISnqe5LvXTjraVKA2ojvpiCHGW1jSPz1M0rg4VT+LJCh6+zlEwhuzJup19XWnmqPtlRWwhQU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791998284; c=relaxed/simple;
-	bh=6AlnkTkjE6lopU0pv/Z4Z7ogvXCpr+/YMU8OabuGy9c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sxHtYcujch162NpGGIMHN6OZMcRqoqyWhoefXb52qGC24Upv3tDRxJP+eEVtGC/HjXf1Cd0NyOhnRYf4IjhJM269tOn07TpvvxtwPwlaz6V5aaKM+Z2cpx8Kb3SQ4dbSHckGAkFulZ/ADIj2C+0j8+ue/DGhYhNK/I5rjflkxq0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KPCaC9P3; arc=pass smtp.client-ip=209.85.218.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=xLDHvMmIm7qiYI6L9QQklTI4q8/ux+EG2nNMoGA/i6k=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=KVZ/cMl+1d3mmKA1jcHL2OS0tRFpPp3pUIOlj5RN8kgmFL0pGooJTs7QQnV5ukQfPpadY79msXlJEQdBx3XMUQrWAPWTefDh5A7O8vzZ7JV2YrgQQFsTxLR1FJcPeSbvJNR3Qp51VG7VjC1LW3x/4KZBGtetxJJoPwPjhYZhEms=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=MOujR+5J; arc=fail smtp.client-ip=40.93.194.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KPCaC9P3"
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c33bb2f3e6cso229807066b.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:18:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791998279; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Dw0zBTpDcik14s1XeGhVKXGzMyPh1vuVqyawT3io+Prs70qvqOPYC5/vhH/KZO+ERd
-         2wVesXKCkBFaFnDHOt3oRpMdl7Pbg5ePZxaVD0MQ/xMUY7KdS7UId7Oz+79/mVpfe2kW
-         tj7Tf01ZVKB3zSG6lhjFJ/Jn9Zmy0mquFunWByt8K+287XbeQK182N7Ln73wMB2m47IU
-         2EMnqNpHpJaZecL2bkQYLjroYjCp6ZB21MG0fUJLNE0QX4MERFoAF5rqiA/qiLay10+P
-         inYTY4zR3QtMILQxteaoRLFe+HvqsLnUjqNUCubWfSmFxcYgFGKPBnmepzpTTVIDQdzb
-         CwKQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=6AlnkTkjE6lopU0pv/Z4Z7ogvXCpr+/YMU8OabuGy9c=;
-        fh=SS0iu5fvYLsFUJIrkdvEvcG3r0929UBxaUDDF8TD2+M=;
-        b=Wy37Nnuf+XuSD3H5Lv7rrfajCSp9LMek4R1TuqFL8GpJgh7XNzQNUWC5BRO+bocm0l
-         7oOqQKPA5h0LwtRtSwWWSMpCzDlywSyJ9dMDNnkdITe0ia49kdVMTRG/J4AG78wJsHYF
-         8zSa37qZlgam/+wgrJ4gpaYJLPC/IlSNuXeumQmRj6VunQpUtB7ubP6ET9U7p7iIRDup
-         cOlFhYrOtOroykiRD7uJo2xxcaHdUPjLzc609n3RiucS+p4hthGGKxszAN1V/1I3HuwI
-         mOBZojCfeIfwg7VcY4+RWGdpFZqzowTO9Em/HnwuRjHKoo64jiuFbAr5uX08aA/cQKm0
-         LN7g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791998279; x=1792603079; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6AlnkTkjE6lopU0pv/Z4Z7ogvXCpr+/YMU8OabuGy9c=;
-        b=KPCaC9P3P2y22bkAyLvjKraTjwh1N1vVQTL/iB8fya8NDHdqPNv5ygDFxb4KSATgLD
-         LqDIozf4DkloJ218mEYbMFEOzRA2TNIimODtRoVXZiEvwuHV6TIrkaYCvOJwgtBRFrxb
-         eRLz+s5pLotbiuiZM83Rr/cUOgGe77W0Wt+r7ft5jQ1jTuqj59RW6+74wtMv6BmpqrqV
-         kyk6dnVBiouO1hwbxEXgZ6t5FHHKnsG+kGLzs6mr1UAHLYO4WIjckYsHolsNnBmziipT
-         yx5Y2mRB8rYocFaAhPXe5JDM8yNl9qoSCTkZ8OBJuzZVInR2bTbPcbD7UIluF5RoVQI8
-         54Og==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791998279; x=1792603079;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6AlnkTkjE6lopU0pv/Z4Z7ogvXCpr+/YMU8OabuGy9c=;
-        b=xjx80TklFh7xq0oAlN0M2/UfrHHXrLeliGm8AYG1K59OGvRfiec3ZV3rVGOam5Zus/
-         q55yTi20ZsLoXGUq24sx/+Je5Z/c4O2flBQwdrExHACQLYsBOa/iKIDNfraXHXn00/MM
-         U0BvxnT5UHwKmJ1QjKYvODZHG6QbAKf6spWRb8c8CkqKCtuJ6LfUWu0WtT7+ejh+yBJs
-         9rXrJM51wkT/g04KOqNbBFzZi+lGjxD/CBlsJMn29U718JPoBz5/+8TovUN8U5rNgz14
-         4EurgzX2IY1BdpHHOZZLQVyd3oB2Fn5Es7vcigSvj43LHWprYXR2CQlzV4E7u8NrvdlY
-         HOsA==
-X-Forwarded-Encrypted: i=1; AKwUvBzzwx4gaGvquhs0xJk42TUTwT+u/YxQxRfVqfX+FML1zIHKkXfw6a4VKfNxEAs0v/eVj4iubdxmThSlRxc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIQJ/nZ1sTy9fGoheB+wh2lgkImByh6eQRbquveWy4a0KGKLAPJ
-	ItrHgyvtD7nhG58MgRS8eziJ7n7G0Wero0gcdsW3ykquqQQRrV78vhaULi1lPu0O5jYKtSgErO1
-	foWIVgqDoN08iIwG3OPCaJ9dTfV6UIPA=
-X-Gm-Gg: AYBFou1fspTlugznNQq6MNVkWR92zwV2Iu1nQALv3WBUOitKIdlV3IbUyacKpHKHwm0
-	kvVbHzNqHpV7WcpdKXQ/O+PhSLs+tRVpbW0zCM8k7Cy3xlfQcpL9E2k/1CZulkTN/KfwUy/iX81
-	qsZDU+EDwamuPcpy6a4ipW1DaJRSFFvPY2gF2//S737pOTgir9bQEyHQRmVgbBIe9rDGzD6Nu2E
-	2d1JHxdYu5XX3F2lMDHj2jRdo9w6cEP3IPkceg1KHUd+aY6/qythAROqdhLp9VSyA8S6ivSXvgh
-	MvC7o9JCtMvUpwfgCYHIxsTplOxWilr/3joBcSWNOpMAWlKVEmH3t2Xb8T4iqO2pS7/aMwM/7g2
-	lEPhHKiUuCPSBgKuz4rI63NM=
-X-Received: by 2002:a17:907:9449:b0:c29:3821:ae6c with SMTP id
- a640c23a62f3a-c31aa09a358mr1693259966b.37.1791998279045; Wed, 14 Oct 2026
- 10:17:59 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="MOujR+5J"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZTXuE5OGFAGbKB7enZDyfhFmy+hq3Uy3vbL6gY/MHQK9rti3dQwP0uUlQKI69JW7RP875dKhiWn8zdG0DSus4pvMDrwX60guiZ8TJ9XlNF0eal1h9TBGKxQAWXvkeKPS2XQnxYurEeT2rpE0to2CdWdQzYrQx0vng1qldHo41c7J+sTjN+8FLGn/yQ/6mk4mQgeTbnGMXReKqRR/J5FK8RExE9qF8q8fA1Zc3csqZHaA8xMT/tVgvD+qjQXRQFhl8E7XmlL3kTI/ua/iNbKBZqZVtNfAPBmjnvGAl6G4ZH7RX0hxrZnXuYbbElfIoSmZ0mbuT4Cf0pP7CDJOWPudRA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Qo1f0VaOAczZtS0ZybqMu+dt1db/SZzbtjLJW4am3p4=;
+ b=j2SwaggVgPhzLuKgiOhkejLGv4cienDwZqK7cnpDJtx2tv3VB3EYRKX7/6yfnbso+h/XK8KlcrkLuVUImE9hea5I8P9d0V+Xc4iGQMopE2GrtRxNQ/lNcVYeh367+L4NZsnoKVRRCVUvZkJGU35GJhs+z8o3OEQoD2Y4alRSS/J63CEdg6cFaw6Bpb0TMc5EgI/R2dVma9nXIelJfX8mFJbpi7kVmSv7NF7cY54J+qhKr+0L7Q1rTsBhv/UhVjCs5NPoyRRMHMWd5tIu2WtTNPd3zsYTAXITWZPTs9mlGEhRkHMBDBqn+Rw3xNMZbnfjItj578mBQMeQq6+kayGuqg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Qo1f0VaOAczZtS0ZybqMu+dt1db/SZzbtjLJW4am3p4=;
+ b=MOujR+5J52jzziLGMSArYYJV19luTC/3614COmVHiNxlAxG5sPPZwUHqrlVrlNbkoiRD3awsJ0vlCMAkxCt0q+n++W5WnHnzsRXLrp3P8uaqGZ9z4PgPmJEMG7XPWOtC6ZdTPpzpY6epaUVa6RksgFTXyU0ZYG93ND8tc3R+1LM=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB6254.namprd12.prod.outlook.com (2603:10b6:8:a5::17) by
+ CH3PR12MB8186.namprd12.prod.outlook.com (2603:10b6:610:129::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.24; Wed, 14 Oct
+ 2026 17:17:55 +0000
+Received: from DM4PR12MB6254.namprd12.prod.outlook.com
+ ([fe80::8211:9b5a:99d2:ffa1]) by DM4PR12MB6254.namprd12.prod.outlook.com
+ ([fe80::8211:9b5a:99d2:ffa1%4]) with mapi id 15.21.0522.012; Wed, 14 Oct 2026
+ 17:17:55 +0000
+Message-ID: <fb16beb4-5816-45ed-ad74-3338ee698791@amd.com>
+Date: Wed, 14 Oct 2026 18:17:44 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 1/3] cxl/mem: Separate provider registration from
+ region attachment
+To: Richard Cheng <icheng@nvidia.com>, jic23@kernel.org, dave@stgolabs.net,
+ dave.jiang@intel.com, alison.schofield@intel.com, vishal.l.verma@intel.com,
+ iweiny@kernel.org, ming.li@zohomail.com
+Cc: kaihengf@nvidia.com, kobak@nvidia.com, newtonl@nvidia.com,
+ kristinc@nvidia.com, linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261007090540.43817-1-icheng@nvidia.com>
+ <20261007090540.43817-2-icheng@nvidia.com>
+Content-Language: en-GB
+From: "Lucero Palau, Alejandro" <alejandro.lucero-palau@amd.com>
+In-Reply-To: <20261007090540.43817-2-icheng@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO4P123CA0302.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:196::19) To DM4PR12MB6254.namprd12.prod.outlook.com
+ (2603:10b6:8:a5::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
- <5fdb3777-95a2-48f9-bb38-aa4ba3c96a81@kernel.org> <CAKEwX=MuW6q354nB3tyFTM8d3ox7LRaqcSfUxeATR=Sop5mZPw@mail.gmail.com>
- <5ca344de-bc34-4a9b-ab85-f553811a1d9c@kernel.org> <CAKEwX=N05iOC4hmiyTt5OxjAsOfU7_V8xGfmK_RgUyrKtuyUTA@mail.gmail.com>
- <CAMgjq7DJwGCHCAchcfi2Kcu+XHx2YnKXDj53e0t2kpG_GSejkQ@mail.gmail.com>
- <aqgMCIOFi0dKx_6L@fedora> <CACePvbVMFA9N0nQers=sOnSXGbNhtNE0ewq47AJEH5Cr8imQXA@mail.gmail.com>
- <CAKEwX=OMYhUs3tt7jUzEzxsOW3yA2JmzpwwxVBP2eZuHOFu=vw@mail.gmail.com>
- <CACePvbUMjRgK=dQzLjECgBXaUtQSPdAnBXL1Y4=Kh5d15swYvQ@mail.gmail.com>
- <5c8a2b7b-b76d-4bba-92e1-ec3d66794273@kernel.org> <CACePvbVTnCOh51jvEpkDJ32idvCubgN1eHBps6vESjhVC8E_aQ@mail.gmail.com>
-In-Reply-To: <CACePvbVTnCOh51jvEpkDJ32idvCubgN1eHBps6vESjhVC8E_aQ@mail.gmail.com>
-From: Kairui Song <ryncsn@gmail.com>
-Date: Thu, 15 Oct 2026 01:17:21 +0800
-X-Gm-Features: AclHuK-maXeDqE6RBGOs7KQg41zXWuvLhO_tf3Hmyu48dJ37MpyAz42TW_3WsI8
-Message-ID: <CAMgjq7D_=_4ZsCWJYywpZhPtg+YeH8o=ymRrV3sQ_58G6rs0sg@mail.gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-To: Chris Li <chrisl@kernel.org>, "David Hildenbrand (Arm)" <david@kernel.org>, 
-	Baoquan He <baoquan.he@linux.dev>, Nhat Pham <nphamcs@gmail.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Yosry Ahmed <yosry@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
-	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Rik van Riel <riel@surriel.com>, 
-	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
-	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
-	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6254:EE_|CH3PR12MB8186:EE_
+X-MS-Office365-Filtering-Correlation-Id: 140a2e80-1ad2-422a-1503-08df2a1715af
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|7416014|4143699003|56012099006|11063799006|261009223027099003|22082099003|10067099003|18002099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	aximHsJOAFjbvkj8JdCJOvnhXvCvTk9P9psd/lMsfBeu/Sewu/df8eBwiSWLkY1rdRh5xQ43gG347MQr5i+3SLKVrRlRN+kQqyijpLCh570wMd+tmgdW842IapJadnaMOtOKVWqICCW7c6SxXAaphsms9n6KJfQUG+p7A86ksCZ902YW2p4vSU5KYptPMSiOEkxosXHc68efXTfLpJAYbJteIrLIkodkpPfgXAbZY6ZAx5Lpl+h5qJcfGrTnEwiEhxltHDVv2Uz4Ae93Hgbl7TQ9IGB6JIU8SpQFXNfTTeuVhoyWRfpLHjB1c57LVPOIoKRJqyL7YDXt5iqWe8YhUduomOwD0dpH6WsbTOfrfr8BhKxsD6ZQvRqvXwa9vXKBMfdVEOg5fYUFM9Ga6XCg02gommKVbIULfQcI3d5CFY0xgpXeg6aQymIpXL71+cK7fT0bvbUkk13qJ4wpaM73nWUQ7QNzFwVNPmY57Ca9bYh9beJjpJB3PZVoIkZny7ZLr2+RD9v7OI4ekqUHX25rt7gAjcepNUoxa4BYMx4KZGMChwr4kDR5y6sOW2xUAHvhwxsUcx2iV2FdR2U8P2VUXLfBG9JUqjCDIMGHuqTXBjjxg2mWD7s+UKrxkUGL2uuwaNJ4GsB/nOHrmpJgVUNwLpVJ3/noXfdWEr2pLgvLupg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB6254.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(4143699003)(56012099006)(11063799006)(261009223027099003)(22082099003)(10067099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dTVvNS80OXZoQlQ2b29JVkNlemx1U1FoaHhnQjluSFR4TCtvVDY5bVFLNDRS?=
+ =?utf-8?B?d1daeWV2V0F3MUNhdTlzOFZpbmRMQ1dpOU1QTHFKQ3FjK3AwZWV6djBKOXo4?=
+ =?utf-8?B?cngxVzBhS1F6eXJWN09RdlVrVmxMMkZKUElUdndyc2dRMUh6S2VxOHlBUitM?=
+ =?utf-8?B?QUpiQ0k5UWR6RFdWeXhpcUtvbUZNY0ppTjJVT1UxOXp2Qk9vU2gzbkhySlFV?=
+ =?utf-8?B?YUdCMGFsbFVjdXdQWjNhbkQ4NExSNnNyS3JmSEg2Q3BpczE3UjVKaE8rNjBo?=
+ =?utf-8?B?ZWgvZTRjSjZZSkd5L1hpV0JsOVBkRmVkdzZObVVCSHFxY2V6cHR3a2xZYkJJ?=
+ =?utf-8?B?M21DRmlwazRNN3l0bGtIZXBCWEh3VXNhNS9XVGtBZkh6WTVKOGZJTzBTWDYz?=
+ =?utf-8?B?TTVEUVdwN3lLaU91N2xjWEU4MEkvVzVDazlrY3A3d1FlRmNSeVBPU3FQQWxi?=
+ =?utf-8?B?L1d0ek5CTDk3RVIva0NxendrZVRTMFJkcmdZalB5OFRCcHY5VUVPeU5iYTlz?=
+ =?utf-8?B?NmxrU3dJWUNoZ0JLVWR5eXVNVUNZeWV2M3UxSGNTL2JDRDIzMG1PRW5XcHFn?=
+ =?utf-8?B?WktCZjdBUWxvWnMwZjNYdVIrdmtnNFppajhkYmVBclJtVzZqUHZUSWhINzJ5?=
+ =?utf-8?B?L0dWcWRGcUdtOXBRdDk3T1VJYnFIZUFEQjZxelRxU1MwSGxSYzl5V2hSUlNz?=
+ =?utf-8?B?WHZyMmhrSG5zZSt4WXlrREd4RFh4WGtjNFVmc2twU3BmNGlrVGQ5eXkvR2FE?=
+ =?utf-8?B?NEhscXJZNTZTMmNmU3hCYmtpUkJ1clpNbWtORW1tSjJlcnRvamtQekF5UnRx?=
+ =?utf-8?B?U29GakxtZnRsRWx0T2M3ZVpxZjBWbUtXVVFBNHhXaWVFOVVhcElxa285Rm50?=
+ =?utf-8?B?TVNvQUhjamcvYzArY0UvSEFTa0V3Nkt4eDVnUGtiL3VxMkpzLzlxUDFUYnEx?=
+ =?utf-8?B?MXJ3TUxxazExMXd5dHBVWGtEaVZLcFF1ZkIwL3NCZ1R0WURSNmc3a0pla2ti?=
+ =?utf-8?B?bUMrT0RydGJqNy83U2I1eGJYMTBCVnMyNmJubWFjbHIrM2ZwY29iUVhNS1hK?=
+ =?utf-8?B?Ull5ZkRYSlVXT3M3ajgyejBzZHpDUitGWkRncnJ4WDRBaGtZVS9sS01jUDNn?=
+ =?utf-8?B?d0Roa3F5NDVKZUk5UUpxUGZ3R3I3cC80Zlp3SThuOHIwK1Q2WERBdkZxZlNZ?=
+ =?utf-8?B?b2pQbUdjbGZtWWVCeTIvNDhYTjMxNG93Qnp1MUxyUG04YzlUcXFoM0lWcUw2?=
+ =?utf-8?B?dEs2VnFrNDk2dENTREdQTnNWcUI4am8vZ2RGdFlSckY3QlpiSzNUV1ZkWGcz?=
+ =?utf-8?B?MTczSEc0SlcvNVVSTjFydUVSTFMxRFRKUWE5M2xnSXg0emtibFJEd3V3aS9X?=
+ =?utf-8?B?a3VZTEpLS3BFei9oWTJ6K3BiZVp1dVU3K3pzNTh6WlJGVHBCd3lLMEppKzI3?=
+ =?utf-8?B?ODNNaVBoNEFSUjcyOWU0UFJsb3dCV3JZNERZc0JWWUJYNy9XeEI5cUVDWkxH?=
+ =?utf-8?B?ZklHZm5WKzdhRCt6MGU4NXgxYXl4UitkUzgrakJzREQxQmlxZk45SEF1dUww?=
+ =?utf-8?B?dDhYbmpKbHlPeitJTFIzQlRpK25xcDdqd3JES2N3dW9mV2FIRUxMK0h0OURL?=
+ =?utf-8?B?KytjenZNSC9jL0tEd0pBYVRMZTJjRUxqNk1qZFlCOFU0dGpKbHBkMXZUUE1i?=
+ =?utf-8?B?aGVoUGt5djNhRDRLWngyRWdXemMrZTJGV3NjSVg4V1IvamQ2UUxQSGM0SnJF?=
+ =?utf-8?B?Qzd4QWdzUE5MamROQ25BaEJlMElrQTZkYkp3bkw5YjNvTFFWaGh1ak5sOWxo?=
+ =?utf-8?B?bkQ1MEthQkdILzNyMkhKZUFUNGFVZDAyeUFiVUVXYXpjd2RKZ3hWcHpnNmJy?=
+ =?utf-8?B?YWM2VVYvdjhHdDBtek9ScXhHUlF3dDg3SWwwNnVHTFhSOU5mNDFzT2psMWh6?=
+ =?utf-8?B?NnBmNzhIWjlmVVNmSEdHM1dseEZZV2NvbktvR1lrL2hJZHUxOEpJSksyUHFW?=
+ =?utf-8?B?TUNuYzJuSUpELytKaEd1Ulo2Y2QvK0pkUVBZTkQzejFkdWZYMmpzTFI3K0Q0?=
+ =?utf-8?B?ZXBBMnp5azVUbFVkd0c2ekM2ZVovNUp4K0E5akhwc3ZlenYvb2d0WmJaQ0F3?=
+ =?utf-8?B?emZ1ZkZGbkhqOE9qSW1TNWtPL2VZZU93N282SFl0MVgzNnVTNndKWFgvQXZz?=
+ =?utf-8?B?NTRRdjFrUkZoN2EydWdXSWk5S0dsZ2hGdlRyYjU5TUhmdXlscFBGMmNsaGp2?=
+ =?utf-8?B?ZklYbDZBcHN4YWVRUWY0alkyQmhETzNNVExFUzZSUm00eUd6a2J3bndEQVZy?=
+ =?utf-8?B?MkQwZGt0MDlpdmk3YUwwQ2dqOEszVi93R1RmYWE2TVVhR3Zvd2FPdz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 140a2e80-1ad2-422a-1503-08df2a1715af
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6254.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 17:17:54.8978
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: rz+HR1CmcN8YK42aPvdHAARI2jo1mcB9r6LLW2+IqwYrNG/K9hHFoSNDMUA4O1/ruU+VRMVs2dN9q+OeoRMWlA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8186
 
-On Tue, Oct 13, 2026 at 1:27=E2=80=AFPM Chris Li <chrisl@kernel.org> wrote:
+Hi Richard,
+
+
+I think this is good stuff. Just some comments below.
+
+Thanks!
+
+
+On 07/10/2026 10:05, Richard Cheng wrote:
+> devm_cxl_probe_mem() requires a committed region when registering a
+> provider-owned memdev. If FW has not created a region
+
+
+This is mixing kernel parlance with BIOS potential actions like setting 
+HDM decoders.
+
+
+> , registration
+> fails before the provider can use the endpoint topology to provision
+> one.
 >
-> On Mon, Oct 5, 2026 at 5:19=E2=80=AFAM David Hildenbrand (Arm) <david@ker=
-nel.org> wrote:
-> >
-> > On 9/22/26 15:38, Chris Li wrote:
-> > > On Mon, Sep 21, 2026 at 8:56=E2=80=AFAM Nhat Pham <nphamcs@gmail.com>=
- wrote:
-> > >>
-> > >> On Fri, Sep 18, 2026 at 11:50=E2=80=AFPM Chris Li <chrisl@kernel.org=
-> wrote:
-> > >>> No that time slot is too late for Asia developers. I don't think we
-> > >>> should use that time slot for swap alignment.
-> > >>>
-> > >>> We should find a time slot more friendly to Asia.
-> > >>
-> > >> Any time slot would have that kind of problem. We're spread out acro=
-ss
-> > >> the globe.
-> > >>
-> > >> Let's just use a standardized time slot we have for MM alignment ses=
-sions.
-> > >
-> > > There are more swap maintainers in Asia than in the US + Europe, at
-> > > least based on the maintainer file. Please be more inclusive. If the
-> > > alignment is done without key stakeholders, it miss the point.
-> > >
-> > > Sigh, we can't even align on a time slot.
-> > >
-> > > In that case, let's keep discussing on the mailing list. At least it
-> > > is accessible to every one.
-> >
-> > Looking at the mailing list, that approach doesn't seem to work.
-> >
-> > Finding a time slot that makes US, Europe and Asia happy is ... tricky.
-> >
-> > 1 AM is certainly unpleasant.
-> >
-> > US vs. Asia is also tricky, but doable.
-> >
-> > China 8AM vs. US West Coast 5PM?
-> >
-> > China 9AM vs. US West Coast 6PM?
+> Make the attachment probe callback optional while retaining a non-NULL
+> descriptor to preserve provider ownership and handling of CXL link loss.
+> Install endpoint cleanup for FW-discovered provider regions even when
+> the provider never requests attachment.
 >
-> Hi David,
+> This establishes the registration and attachment APIs needed for
+> explicit region provisioning without introducing region creation or
+> allocation policy.
 >
-> Thanks for organizing this. Time slot that works for Baoquan and
-> Kairui should also work for me.
-
-Let's see Baoquan and other's suggestion, both slot are fine to me as well.
-
+> Signed-off-by: Richard Cheng <icheng@nvidia.com>
+> ---
+> Changelog:
 >
-> Hi Kairui,
+> v1 -> v2:
+> - Rework the patch into a registration/attachment refactor, following
+>    Alejandro's request to separate region provisioning from memdev
+> registration.
+> - Add devm_cxl_register_mem() to establish a provider-owned memdev and
+>    its endpoint without requiring a comitted region.
+> - Add devm_cxl_attach_mem_region() to obtain the HPA range of an
+>    existing committed, single-target region after registration.
+> - Make the region probe callback optional while preserving provider
+>    ownership, synchronous endpoint setup, and hdling of CXL link loss.
+> ---
+>   drivers/cxl/core/region.c | 146 ++++++++++++++++++++++++++------------
+>   drivers/cxl/cxlmem.h      |  22 ++++--
+>   drivers/cxl/mem.c         |  69 +++++++++++++++++-
+>   include/cxl/cxl.h         |   2 +
+>   4 files changed, 188 insertions(+), 51 deletions(-)
 >
-> I understand that you have some face-to-face discussions at the
-> conference. Do we have a list of what has been aligned and what is
-> pending to discuss? We should have an agenda to avoid repeating
-> already aligned items.
+> diff --git a/drivers/cxl/core/region.c b/drivers/cxl/core/region.c
+> index 5ef0ca0694ff..7a64a730587d 100644
+> --- a/drivers/cxl/core/region.c
+> +++ b/drivers/cxl/core/region.c
+> @@ -4111,67 +4111,123 @@ static int first_mapped_decoder(struct device *dev, const void *data)
+>   	return 0;
+>   }
+>   
+> -/*
+> - * Runs in cxl_mem_probe context after successful endpoint probe, assumes the
+> - * simple case of single mapped decoder per memdev.
+> - */
+> -int cxl_memdev_attach_region(struct cxl_memdev *cxlmd)
+> +static int unregister_memdev_region(struct device *dev, void *data)
+>   {
+> -	struct cxl_attach_region *attach =
+> -		container_of(cxlmd->attach, typeof(*attach), attach);
+> -	struct cxl_port *endpoint = cxlmd->endpoint;
+>   	struct cxl_endpoint_decoder *cxled;
+>   	struct cxl_region *cxlr;
+> -	int rc;
+>   
+> -	/* hold endpoint lock to setup autoremove of the region */
+> +	if (!is_endpoint_decoder(dev))
+> +		return 0;
+> +
+> +	cxled = to_cxl_endpoint_decoder(dev);
+> +	scoped_guard(rwsem_read, &cxl_rwsem.region) {
+> +		cxlr = cxled->cxld.region;
+> +		if (!cxlr)
+> +			return 0;
+> +		get_device(&cxlr->dev);
+> +	}
+> +
+> +	/* Unregistration needs the region write lock. */
+> +	endpoint_unregister_region(cxlr);
+> +	return 0;
+> +}
+> +
+> +static void endpoint_unregister_regions(void *data)
+> +{
+> +	struct cxl_port *endpoint = data;
+> +
+> +	device_for_each_child(&endpoint->dev, NULL, unregister_memdev_region);
+> +}
+> +
+> +int cxl_memdev_setup_region_cleanup(struct cxl_memdev *cxlmd)
+> +{
+> +	struct cxl_port *endpoint = cxlmd->endpoint;
+> +
+> +	device_lock_assert(&cxlmd->dev);
+> +	if (IS_ERR_OR_NULL(endpoint))
+> +		return -ENXIO;
+> +
+>   	guard(device)(&endpoint->dev);
+> -	if (!endpoint->dev.driver)
+> +	if (!endpoint->dev.driver || endpoint->dead)
+>   		return -ENXIO;
+> -	guard(rwsem_read)(&cxl_rwsem.region);
+> -	guard(rwsem_read)(&cxl_rwsem.dpa);
+>   
+>   	/*
+> -	 * TODO auto-instantiate a region, for now assume this will find an
+> -	 * auto-region
+> +	 * Endpoint probe may discover provider-owned firmware regions even if
+> +	 * the provider never requests their HPA range. Run before decoder
+> +	 * teardown so those regions are unregistered, not just detached.
+>   	 */
 
-Right, from my perspective, here are the following key points we can
-discuss further in the incoming meeting (most of them are not fully
-concluded yet):
 
-1. A limitation for the logical size: from my side, there are real
-usages for a global non-memcg limitation of the non-physical swap
-space: e.g. thin VMs as containers/pods with no cgroup limitations
-inside but which need in-VM memory compression and a proper limitation
-to avoid thrashing; or low-end devices/desktops that want global
-(root) limitations. And also, Android have a limitation on the ZRAM
-size (well for this one I'm not from Android team though so that's
-just my personal development experience with Android, enlarging the
-ZRAM size on several Phone swill cause serious junky of Apps due to
-over compression).
+I would put this as a description for the function instead of a comment 
+here.
 
-Nhat is concerned that exposing the sizing allows users to tune it and
-potentially misconfigure the system. However, I think a user with root
-permission should be fully aware of what they are doing or they can
-easily mess up the system in many ways and swap limitation is a very
-minor concern to me.
 
-I think the requirement for a logical non-cgroup limitation is strong,
-but the discussion hasn't concluded on the implementation method.
-Perhaps something like a Kconfig combined with an interface or command
-line? More ideas are welcome.
+> -	struct device *dev __free(put_device) =
+> -		device_find_child(&endpoint->dev, NULL, first_mapped_decoder);
+> -
+> -	if (!dev) {
+> -		dev_dbg(cxlmd->cxlds->dev, "no region found for memdev %s\n",
+> -			dev_name(&cxlmd->dev));
+> -		return -ENXIO;
+> -	}
+> +	return devm_add_action_or_reset(&endpoint->dev,
+> +				      endpoint_unregister_regions, endpoint);
+> +}
+> +EXPORT_SYMBOL_FOR_MODULES(cxl_memdev_setup_region_cleanup, "cxl_mem");
+>   
+> -	cxled = to_cxl_endpoint_decoder(dev);
+> -	cxlr = cxled->cxld.region;
+> +/* Caller holds the memdev lock; attach to a single mapped decoder. */
+> +int cxl_memdev_attach_region(struct cxl_memdev *cxlmd, struct range *hpa_range)
+> +{
+> +	struct cxl_port *endpoint = cxlmd->endpoint;
+> +	struct cxl_endpoint_decoder *cxled;
+> +	struct cxl_region *cxlr;
+> +	int rc;
+>   
+> -	if (cxlr->params.state < CXL_CONFIG_COMMIT) {
+> -		dev_dbg(cxlmd->cxlds->dev,
+> -			"region %s not committed for memdev %s\n",
+> -			dev_name(&cxlr->dev), dev_name(&cxlmd->dev));
+> +	device_lock_assert(&cxlmd->dev);
+> +	if (IS_ERR_OR_NULL(endpoint))
+>   		return -ENXIO;
+> -	}
+>   
+> -	if (cxlr->params.nr_targets > 1) {
+> -		dev_dbg(cxlmd->cxlds->dev,
+> -			"Only attach to local non-interleaved region\n");
+> +	/* hold endpoint lock to setup autoremove of the region */
+> +	guard(device)(&endpoint->dev);
+> +	if (!endpoint->dev.driver || endpoint->dead)
+>   		return -ENXIO;
+> -	}
+>   
+> -	/* Only teardown regions that pass validation, ignore the rest */
+> -	get_device(&cxlr->dev);
+> -	rc = devm_add_action_or_reset(&endpoint->dev,
+> -				      endpoint_unregister_region, cxlr);
+> -	if (rc)
+> -		return rc;
+> +	scoped_guard(rwsem_read, &cxl_rwsem.region) {
+> +		guard(rwsem_read)(&cxl_rwsem.dpa);
+>   
+> -	attach->hpa_range = (struct range) {
+> -		.start = cxlr->params.res->start,
+> -		.end = cxlr->params.res->end,
+> -	};
+> -	return 0;
+> +		struct device *dev __free(put_device) =
+> +			device_find_child(&endpoint->dev, NULL,
+> +					  first_mapped_decoder);
+> +		if (!dev) {
+> +			dev_dbg(cxlmd->cxlds->dev,
+> +				"no region found for memdev %s\n",
+> +				dev_name(&cxlmd->dev));
+> +			return -ENXIO;
+> +		}
+> +
+> +		cxled = to_cxl_endpoint_decoder(dev);
+> +		cxlr = cxled->cxld.region;
+> +		if (cxlr->params.state < CXL_CONFIG_COMMIT) {
+> +			dev_dbg(cxlmd->cxlds->dev,
+> +				"region %s not committed for memdev %s\n",
+> +				dev_name(&cxlr->dev), dev_name(&cxlmd->dev));
+> +			return -ENXIO;
+> +		}
+> +
+> +		if (cxlr->params.nr_targets > 1) {
+> +			dev_dbg(cxlmd->cxlds->dev,
+> +				"Only attach to local non-interleaved region\n");
+> +			return -ENXIO;
+> +		}
+> +		if (!cxlr->params.res)
+> +			return -ENXIO;
+> +
+> +		/* Only teardown regions that pass validation, ignore the rest. */
+> +		if (!devm_is_action_added(&endpoint->dev,
+> +					  endpoint_unregister_region, cxlr)) {
+> +			get_device(&cxlr->dev);
+> +			rc = devm_add_action(&endpoint->dev,
+> +					     endpoint_unregister_region, cxlr);
+> +			if (rc)
+> +				break;
+> +		}
+> +
+> +		*hpa_range = (struct range) {
+> +			.start = cxlr->params.res->start,
+> +			.end = cxlr->params.res->end,
+> +		};
+> +		return 0;
+> +	}
+> +
+> +	/* devm_add_action() failed; teardown needs the region write lock. */
+> +	endpoint_unregister_region(cxlr);
+> +	return rc;
+>   }
+>   EXPORT_SYMBOL_FOR_MODULES(cxl_memdev_attach_region, "cxl_mem");
+>   
+> diff --git a/drivers/cxl/cxlmem.h b/drivers/cxl/cxlmem.h
+> index c401e3a1af06..8c050bc308bd 100644
+> --- a/drivers/cxl/cxlmem.h
+> +++ b/drivers/cxl/cxlmem.h
+> @@ -97,6 +97,13 @@ static inline bool is_cxl_endpoint(struct cxl_port *port)
+>   	return is_cxl_memdev(port->uport_dev);
+>   }
+>   
+> +/**
+> + * struct cxl_memdev_attach - provider ownership and CXL link requirements
+> + * @probe: optional region probe callback, called with the memdev locked
+> + *
+> + * A non-NULL descriptor requires successful synchronous endpoint setup and
+> + * preserves provider ownership even when no region probe is requested.
+> + */
+>   struct cxl_memdev_attach {
+>   	int (*probe)(struct cxl_memdev *cxlmd);
+>   };
+> @@ -107,8 +114,8 @@ struct cxl_memdev_attach {
+>    * @hpa_range: physical address range of the region
+>    *
+>    * For the common simple case of a CXL device with private (non-general purpose
+> - * / "accelerator") memory, enumerate firmware instantiated region, or
+> - * instantiate a region for the device's capacity. Destroy the region on detach.
+> + * / "accelerator") memory, enumerate a firmware-instantiated region and
+> + * report its range. Destroy the region on detach.
+>    */
+>   struct cxl_attach_region {
+>   	struct cxl_memdev_attach attach;
+> @@ -116,12 +123,19 @@ struct cxl_attach_region {
+>   };
+>   
+>   #ifdef CONFIG_CXL_REGION
+> -int cxl_memdev_attach_region(struct cxl_memdev *cxlmd);
+> +int cxl_memdev_attach_region(struct cxl_memdev *cxlmd, struct range *hpa_range);
+> +int cxl_memdev_setup_region_cleanup(struct cxl_memdev *cxlmd);
+>   #else
+> -static inline int cxl_memdev_attach_region(struct cxl_memdev *cxlmd)
+> +static inline int cxl_memdev_attach_region(struct cxl_memdev *cxlmd,
+> +					   struct range *hpa_range)
+>   {
+>   	return -EOPNOTSUPP;
+>   }
+> +
+> +static inline int cxl_memdev_setup_region_cleanup(struct cxl_memdev *cxlmd)
+> +{
+> +	return 0;
+> +}
+>   #endif
+>   
+>   struct cxl_memdev *devm_cxl_add_classdev(struct cxl_dev_state *cxlds);
+> diff --git a/drivers/cxl/mem.c b/drivers/cxl/mem.c
+> index 3959ec963026..aa08d88ab104 100644
+> --- a/drivers/cxl/mem.c
+> +++ b/drivers/cxl/mem.c
+> @@ -172,7 +172,10 @@ static int cxl_mem_probe(struct device *dev)
+>   	}
+>   
+>   	if (cxlmd->attach) {
+> -		rc = cxlmd->attach->probe(cxlmd);
+> +		if (cxlmd->attach->probe)
+> +			rc = cxlmd->attach->probe(cxlmd);
+> +		else
+> +			rc = cxl_memdev_setup_region_cleanup(cxlmd);
+>   		if (rc)
+>   			return rc;
+>   	}
+> @@ -215,6 +218,68 @@ struct cxl_memdev *devm_cxl_add_classdev(struct cxl_dev_state *cxlds)
+>   }
+>   EXPORT_SYMBOL_NS_GPL(devm_cxl_add_classdev, "CXL");
+>   
+> +/**
+> + * devm_cxl_register_mem - Register a provider-owned CXL memory device
+> + * @cxlds: CXL device state to associate with the memdev
+> + *
+> + * Establish the CXL port topology and endpoint synchronously, without requiring
+> + * a committed region. The provider retains ownership of its memory, including
+> + * any firmware-discovered regions, and must detach if the CXL link is lost.
+> + *
+> + * The parent of the resulting device and the devm context for allocations is
+> + * @cxlds->dev. Returns the registered memdev or an ERR_PTR() on failure.
+> + */
+> +struct cxl_memdev *devm_cxl_register_mem(struct cxl_dev_state *cxlds)
+> +{
+> +	struct cxl_memdev_attach *attach;
+> +
+> +	attach = devm_kzalloc(cxlds->dev, sizeof(*attach), GFP_KERNEL);
+> +	if (!attach)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	return __devm_cxl_add_memdev(cxlds, attach);
+> +}
+> +EXPORT_SYMBOL_NS_GPL(devm_cxl_register_mem, "CXL");
+> +
+> +/**
+> + * devm_cxl_attach_mem_region - Attach a registered memdev to its region
+> + * @cxlmd: provider-owned memdev returned by devm_cxl_register_mem()
+> + * @hpa_range: CXL.mem physical address range result
+> + *
+> + * Attach to an existing committed, single-target region. This does not create
+> + * or program a region. Repeated attachment to the same region returns the same
+> + * range without adding another cleanup action. Failure leaves the memdev
+> + * registered so that the provider can decide how to proceed.
+> + *
+> + * The region is removed when the endpoint detaches. Returns zero on success or
+> + * a negative errno; @hpa_range is empty on failure.
+> + */
+> +int devm_cxl_attach_mem_region(struct cxl_memdev *cxlmd,
 
-2. Charging: If you consider memory.swap is physical only then indeed
-we should not charge it, however, user are already doing that for
-years so this is a behavior change and we are also pushing memsw into
-memcgv2 as a interface to limit the logical memory usage of a
-container. So charging of the logical space is useful, how to handle
-that is tricky though.
 
-From our usage, this should at least not block adding memsw or
-anything similar for memcgv2, even if you want more customized cgroup
-accounting, we need to charge it into some counter (a page counter,
-not just a statistic) in some way.
+is this devm prefix required here?
 
-3. Swapoff: This was discussed again too, as vswap was trying to
-remove it. I think the concern is mostly about maintenance,
-performance, and practicality. From my perspective it's a critical
-component both for preventing minor or major faults before predictable
-high traffic arrives, or for operations/debugging, and for releasing
-the swap metadata to rule out any potential swap / page fault effect.
-There are concerns about maintenance or suggestions to use MADV, while
-I'll be happy to explore and improve the current in-kernel
-implementation of swapoff later if needed but removing it is a really
-bad idea in my view.
 
-4. Writeback: No doubt we all agree that we definitely should have
-writeback support, Nhat's concern is that we should handle the case
-where some cgroup doesn't need zswap/compression and ensure that works
-well.
-
-5. Interface: Given the issues above, what should the interface look
-like (swapfile, sysfs, /proc, etc.) and how should multiple
-(non-physical) swapfiles be used? Nothing much is discussed about this
-part though. I've heard users mention the use case of multiple
-compression swap spaces, but I don't have a use case for that myself,
-so I don't have many comments.
-
-6. The one part that I think we can and should agree on it shat the
-implement approach: at this point I think VM_SPARSE is the right
-direction, Nhat is concerned about the testing on it, and I think we
-can have more data for that, and collabration is highly encouraged. I
-previously conducted many tests on everything posted from both sides,
-will try to post more on this too.
-
-That's a lot of problems already. I think we can discuss these points
-further in the meeting.
+> +			       struct range *hpa_range)
+> +{
+> +	if (!hpa_range)
+> +		return -EINVAL;
+> +	*hpa_range = DEFINE_RANGE(0, -1);
+> +
+> +	if (!cxlmd->attach)
+> +		return -EINVAL;
+> +
+> +	guard(device)(&cxlmd->dev);
+> +	if (!cxlmd->dev.driver || !cxlmd->cxlds)
+> +		return -ENXIO;
+> +
+> +	return cxl_memdev_attach_region(cxlmd, hpa_range);
+> +}
+> +EXPORT_SYMBOL_NS_GPL(devm_cxl_attach_mem_region, "CXL");
+> +
+> +static int cxl_probe_mem_region(struct cxl_memdev *cxlmd)
+> +{
+> +	struct cxl_attach_region *attach =
+> +		container_of(cxlmd->attach, typeof(*attach), attach);
+> +
+> +	return cxl_memdev_attach_region(cxlmd, &attach->hpa_range);
+> +}
+> +
+>   /**
+>    * devm_cxl_probe_mem - Add a CXL memory device and probe its region
+>    * @cxlds: CXL device state to associate with the memdev
+> @@ -242,7 +307,7 @@ struct cxl_memdev *devm_cxl_probe_mem(struct cxl_dev_state *cxlds,
+>   
+>   	*attach = (struct cxl_attach_region) {
+>   		.attach = {
+> -			   .probe = cxl_memdev_attach_region,
+> +			   .probe = cxl_probe_mem_region,
+>   		},
+>   		.hpa_range = { 0, -1 },
+>   	};
+> diff --git a/include/cxl/cxl.h b/include/cxl/cxl.h
+> index 802b143de83d..3019e3ea5f09 100644
+> --- a/include/cxl/cxl.h
+> +++ b/include/cxl/cxl.h
+> @@ -224,6 +224,8 @@ struct cxl_dev_state *_devm_cxl_dev_state_create(struct device *dev,
+>   						      sizeof(drv_struct), mbox);	\
+>   	})
+>   
+> +struct cxl_memdev *devm_cxl_register_mem(struct cxl_dev_state *cxlds);
+> +int devm_cxl_attach_mem_region(struct cxl_memdev *cxlmd, struct range *hpa_range);
+>   struct cxl_memdev *devm_cxl_probe_mem(struct cxl_dev_state *cxlds,
+>   				      struct range *range);
+>   
