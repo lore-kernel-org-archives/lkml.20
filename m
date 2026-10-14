@@ -1,173 +1,114 @@
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFC4B36BCED
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 21:04:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792011846; cv=pass; b=XJDQnweImPrVxQYl1F/I1d4+OKKzhNQlNZ6ChU3NggGNoq61oZO6xqOu/VZtDRqmqlmNHm4x10ckFnGaMvWxu1s76XAuTjdIgVDCBpyonA6tnpJ+rtUtWwLG7asqAgYvieUB6/BiP8pgJEkZJMO9iNpYmgZk1y5bU0Gzrf7X/Pk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792011846; c=relaxed/simple;
-	bh=hQ+3ixWZSWCaB7DIMnxiLTYYC/EatAKsu6DQudQfNPk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GsRFnY1c27eBS7fyLItPjPpLJx/JM98guW3sIlUxzZ2/S1IUkrTu7QyZ/vnmRJzfDA8g90T82nGGcbJ7RltBQ7qjP0F3eCLN60fg8MPl47RXkonF9cMX85Jh66ieVtaQPyY40LXIHuyCo/y2JPb6QE6ekzWqetZX+SzqE8g2yIM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=P9HcgNrw; arc=pass smtp.client-ip=165.173.180.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C0CD47F76B;
+	Wed, 14 Oct 2026 21:06:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792011988; cv=none; b=k9Wdr0v45JQrPA6Zxgx+9HPQCyVRgX1TvoGLjq75EG2N4lwJEP9RnD2Yn57aaG2pF3nO2Hjw2IpojbxCBOIP07DPinBTRefj9W3gS0aMjqlo2uaV1RYhWi4vmedIa5pYb6GHnysjvBPvMharLKEQ76ZJVgWsozZBrSiIxwM8tGQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792011988; c=relaxed/simple;
+	bh=9YvjMi+IGukXYciHtarb7mrA0Mlg1FhHJ0GUS9WSqtU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Lc8OcHmBXWHPCeHmjOnSfV+4vGkxj5ukjk6bPAm84e7D3Q5zifP3G+3OuQDfzCjHoiuxjzhJ7tl8tDAAAkWzV+oZ09jWecdrLOaPY8OD3tf6PPYaT4Kgv93/UoqTsky2MSYt+AEJBHxjtme9t9mGFzHGmMQDTvpigKmI0z9DQCo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ry8b4mdY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="P9HcgNrw"
-ARC-Seal: i=1; a=rsa-sha256; t=1792011819; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=DS24hgiAZTMXMuMA77Epom4iA6pRdEZtBw2kY2Lg8ejFdx1x15KQbXu3UneKDX5GiUMIdhuw36iidKOrihDT1A6688TZ4lq38fY5kB6fNaSxd+W+AfqdycNCmYfNCndqKf9TgwXTDBqC4Ksw8qnS168jSKlzLhJDUwuOZodmkTc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1792011819; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=TO/lIMPRy42IA1901iUdgP3yZWKR6dl0nOUutKb0wR0=; 
-	b=hX/dfSJOhNxAzG7C52j8ZEDkZYiP2n1eDOAUzMukHHAOfA74lc1p3Dk1Y+P8wdRUBwLckObH8zw8EZIbuZGSSUi62Vr/xQTihA5h0JL4eSOUNMkx9afhpAlAhYIbhvrokv6mLW3Leha7Oy9CfNDDqo0ARH2C0Gd7vlO7Tphw/j4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
-	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792011819;
-	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=TO/lIMPRy42IA1901iUdgP3yZWKR6dl0nOUutKb0wR0=;
-	b=P9HcgNrwgmif3VkXwO9nQRNUfoaIjEFHmlKeEj5rYoKCVFNn1siEuiStzfE1XwX9
-	CSlYj3XCDJQtKKGrD4CBFFS1KnBfxkYEx+PVVEXFOH3PxVsI5583uPhRv6sA8si0/5o
-	rn4LLvQdMXSbYLz7sNYZuChb5eO2pC5Afyd0IqIE=
-Received: by smtp.zohomail.com with SMTPS id 1792011817897320.64940566528196;
-	Wed, 14 Oct 2026 14:03:37 -0700 (PDT)
-Message-ID: <8e193dd9-4ceb-4bd0-a28f-f4af084b73e8@collabora.com>
-Date: Thu, 15 Oct 2026 00:03:32 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ry8b4mdY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB3BF1F000C4;
+	Wed, 14 Oct 2026 21:06:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792011986;
+	bh=9khNzu4tgqIL3/vt10n8GH15saWvLf36F2PkdZ1w4jM=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=Ry8b4mdYuy6sLN+HSRlfSngSxuWsO6QcIPTGoObRzwUWYVrcn60OXeX5W61vreGZN
+	 bQ/hbIXgDeoqhdm4Dx1KlwBwRDYCTKYiTBKfiTifXKHZT2i4fZzi/tRg7gIAdQRkpY
+	 9muzABGW7aK37/sPx/XV8fyC09BuZ71pqYJg9K7rompgrWFlHBPpb6pZQ4tx6LUlj6
+	 qIPomxMtjCx+tthoa4n5Y1XyYkY+aaG5hDJZfaMUoloX0Yfj9UjJgTfSSIGL108+g1
+	 7tdofCH22BT1Q6Exj4cCALFIqgD8gyqvoZhvxG8QZ7uG3E8TKp6VeIrB5Qj8N609yz
+	 AQTdjgjOOk+2A==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 99529CE0C55; Wed, 14 Oct 2026 14:06:26 -0700 (PDT)
+Date: Wed, 14 Oct 2026 14:06:26 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: linux-kernel@vger.kernel.org, Boqun Feng <boqun@kernel.org>,
+	Bradley Morgan <brads@mainlining.org>, Gary Guo <gary@garyguo.net>,
+	rcu@vger.kernel.org, lkmm@lists.linux.dev,
+	Lian Wang <lianux.mm@gmail.com>, Kunwu Chan <kunwu.chan@gmail.com>
+Subject: Re: [PATCH hazptr v3 0/4] Hazard pointer updates
+Message-ID: <2cf703a6-7828-4735-98af-1a6fe93abd3f@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20261011194902.97364-1-mathieu.desnoyers@efficios.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/virtio: Destroy obj_restore_lock on the final
- drm_dev_put()
-To: Abhin Parekadan Jose <abhinjoses@gmail.com>
-Cc: Gerd Hoffmann <kraxel@redhat.com>, David Airlie <airlied@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Simona Vetter <simona@ffwll.ch>, Dongwon Kim <dongwon.kim@intel.com>,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org,
- syzbot+3590d97d8a586fa955c2@syzkaller.appspotmail.com
-References: <20260929070714.169412-1-abhinjoses@gmail.com>
- <asxz0Xvv5jO9gAol@home-desktop>
- <537679fc-8aea-472f-a7af-b15bd3cf27fd@collabora.com>
- <as_drl4kYXmgOfRn@home-desktop>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <as_drl4kYXmgOfRn@home-desktop>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261011194902.97364-1-mathieu.desnoyers@efficios.com>
 
-On 10/14/26 22:53, Abhin Parekadan Jose wrote:
-> On Wed, Oct 14, 2026 at 01:16:57AM +0300, Dmitry Osipenko wrote:
->> On 10/12/26 08:44, Abhin Parekadan Jose wrote:
->>> Gentle ping on this fix for the syzbot report.
->>>
->>> Dmitry, Gerd, do you have a preference between moving mutex_destroy()
->>> to virtio_gpu_release() (this patch) and using drmm_mutex_init()? I can
->>> send a v2 with the other option if you prefer it.
->>>
->>> Thanks,
->>> Abhin
->>>
->>> On Tue, Sep 29, 2026 at 07:07:14AM +0000, Abhin Parekadan Jose wrote:
->>>> virtio_gpu_deinit() calls mutex_destroy() on obj_restore_lock, but
->>>> deinit runs from virtio_gpu_remove() at unbind or PCI remove, and GEM
->>>> objects can outlive that. An open /dev/fb0 keeps the fbdev buffer
->>>> alive, and the fbdev DRM client holds a drm_device reference. When the
->>>> fd is finally closed, the buffer is freed and takes the destroyed lock:
->>>>
->>>>   fb_release()
->>>>     drm_fbdev_shmem_fb_destroy()
->>>>       drm_client_buffer_delete()
->>>>         virtio_gpu_free_object()
->>>>           virtio_gpu_remove_from_restore_list()
->>>>             mutex_lock(&vgdev->obj_restore_lock)
->>>>
->>>>   DEBUG_LOCKS_WARN_ON(lock->magic != lock)
->>>>   WARNING: kernel/locking/mutex.c:625 at __mutex_lock+0xf2c/0x12ec
->>>>
->>>> virtio_gpu_deinit() should only do hardware teardown in this case
->>>> related virtio, its queues and others. Software state that GEM callbacks
->>>> still use belongs in virtio_gpu_release(), which runs on the final
->>>> drm_dev_put().
->>>>
->>>> There are two equivalent ways to tie the mutex lifetime to the
->>>> drm_device:
->>>>
->>>>  1) Move mutex_destroy() from virtio_gpu_deinit() to the end of
->>>>     virtio_gpu_release(). This is what this patch does. It is the
->>>>     smallest change and keeps the teardown next to the rest of the
->>>>     final-put software cleanup.
->>>>
->>>>  2) Initialise the lock with drmm_mutex_init() (checking its return
->>>>     value) and drop mutex_destroy() from virtio_gpu_deinit(), so DRM's
->>>>     managed release destroys it. This also covers the virtio_gpu_init()
->>>>     error path, where release returns early because dev_private is
->>>>     NULL. Skipping mutex_destroy() there is harmless, since it only
->>>>     matters for mutex debugging.
->>>>
->>>> Either fix removes the WARN. Option 1 is sent as the smaller change,
->>>> and option 2 can be done instead if preferred.
->>>>
->>>> Reproduced on arm64 QEMU (-device virtio-gpu-pci) with DEBUG_MUTEXES
->>>> and PROVE_LOCKING: open /dev/fb0, write 1 to
->>>> /sys/bus/pci/devices/0000:00:01.0/remove, then close the fd. With this
->>>> patch the WARN is gone, and rebinding brings back /dev/fb0 and
->>>> /dev/dri/card0.
->>>>
->>>> Fixes: 54a970048296 ("drm/virtio: Add support for saving and restoring virtio_gpu_objects")
->>>> Reported-by: syzbot+3590d97d8a586fa955c2@syzkaller.appspotmail.com
->>>> Closes: https://syzkaller.appspot.com/bug?extid=3590d97d8a586fa955c2
->>>> Assisted-by: LLM
->>>> Signed-off-by: Abhin Parekadan Jose <abhinjoses@gmail.com>
->>>> ---
->>>>  drivers/gpu/drm/virtio/virtgpu_kms.c | 3 ++-
->>>>  1 file changed, 2 insertions(+), 1 deletion(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virtio/virtgpu_kms.c
->>>> index 1d4d3bf46a20..0ec755c35050 100644
->>>> --- a/drivers/gpu/drm/virtio/virtgpu_kms.c
->>>> +++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
->>>> @@ -354,7 +354,6 @@ void virtio_gpu_deinit(struct drm_device *dev)
->>>>  	virtio_reset_device(vgdev->vdev);
->>>>  	virtio_gpu_reclaim_vbufs(vgdev);
->>>>  	vgdev->vdev->config->del_vqs(vgdev->vdev);
->>>> -	mutex_destroy(&vgdev->obj_restore_lock);
->>>>  }
->>>>  
->>>>  void virtio_gpu_release(struct drm_device *dev)
->>>> @@ -370,6 +369,8 @@ void virtio_gpu_release(struct drm_device *dev)
->>>>  
->>>>  	if (vgdev->has_host_visible)
->>>>  		drm_mm_takedown(&vgdev->host_visible_mm);
->>>> +
->>>> +	mutex_destroy(&vgdev->obj_restore_lock);
->>>>  }
->>>>  
->>>>  int virtio_gpu_driver_open(struct drm_device *dev, struct drm_file *file)
->> Calling virtio_gpu_deinit() from virtio_gpu_release() might be a better
->> option
+On Sun, Oct 11, 2026 at 03:48:46PM -0400, Mathieu Desnoyers wrote:
+> Hi Paul,
 > 
-> Wouldn't that end up freeing the virtqueues twice, or using them after
-> they are freed? virtio_gpu_deinit() would then run from both the
-> virtio_gpu_remove() path and the virtio_gpu_release() path.
-> or do you mean removing it from virtio_gpu_remove() and calling it only
-> from virtio_gpu_release()?
-> This is only from a high-level look so far. I'll look into it more
-> closely and get back to you.
+> This series applies on top of "hazptr: handle NULL address in
+> hazptr_detach" you have in your rcu dev tree.
+> 
+> This first patch addresses a race identified by Boqun Feng in the
+> two-phase wildcard scheme. (no change since the last series)
+> 
+> Patches 2-3 are prerequisites for using ptr_eq() in the 4th patch.
+> Those were discussed at length in a prior version of hazard pointer
+> patches.
+> 
+> Since the last series, I have renamed ptreq.h to ptr_eq.h, addressing
+> the feedback received from Boqun and Gary.
+> 
+> Patch 4 introduces a "try acquire" helper to allow the fast path
+> to not rely on wildcards, while keeping the wildcard forward
+> progress guarantees in the acquire slow path, used on fast path
+> failure.
 
-Remove from virtio_gpu_remove() and call only from virtio_gpu_release().
+I have pulled this in for additional review and testing, thank you!
+(With Bradley's Reviewed-by on 4/4.)  Still subject to rebase, which means
+that I can easily replace it with an updated series from you, if you wish.
 
--- 
-Best regards,
-Dmitry
+But in the meantime, some additional testing.  ;-)
+
+							Thanx, Paul
+
+> Thanks,
+> 
+> Mathieu
+> 
+> Mathieu Desnoyers (4):
+>   hazptr: Fix two-phase hazptr_synchronize race with detach
+>   ptr_eq.h: Introduce ptr_eq() to preserve address dependency
+>   Documentation: RCU: Refer to ptr_eq()
+>   hazptr: Introduce "try acquire" fast path, fallback to overflow list
+> 
+> Cc: Paul E. McKenney <paulmck@kernel.org>
+> Cc: Boqun Feng <boqun@kernel.org>
+> Cc: Bradley Morgan <brads@mainlining.org>
+> Cc: Gary Guo <gary@garyguo.net>
+> Cc: <rcu@vger.kernel.org>
+> Cc: <lkmm@lists.linux.dev>
+> Cc: Lian Wang <lianux.mm@gmail.com>
+> Cc: Kunwu Chan <kunwu.chan@gmail.com>
+> 
+>  Documentation/RCU/rcu_dereference.rst |  38 +++++++-
+>  arch/x86/include/asm/ptr_eq.h         |  16 +++
+>  include/asm-generic/Kbuild            |   1 +
+>  include/asm-generic/ptr_eq.h          |  16 +++
+>  include/linux/hazptr.h                |  48 +++++----
+>  include/linux/ptr_eq.h                |  63 ++++++++++++
+>  kernel/hazptr.c                       | 135 +++++++++++++++-----------
+>  7 files changed, 237 insertions(+), 80 deletions(-)
+>  create mode 100644 arch/x86/include/asm/ptr_eq.h
+>  create mode 100644 include/asm-generic/ptr_eq.h
+>  create mode 100644 include/linux/ptr_eq.h
+> 
+> -- 
+> 2.43.0
+> 
