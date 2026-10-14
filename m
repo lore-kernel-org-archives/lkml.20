@@ -1,199 +1,180 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CEEA466B77;
-	Wed, 14 Oct 2026 19:12:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57112456DED
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:12:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792005164; cv=none; b=oVhwMpMHvnZB6eHgD3e5Cy8bo1fr1CaWqXXKAlvcLjXeE97pVu3NXGtH0aqHb0jvjVe+3DIWIGGp+Oa3SxuOPlnw5ifZ6BX85FExRdEF7ACC/AgnsuoWwmR5aarFwB1xQr27N83Pzzo9FiySY2UKnPQXUVWs6YY0Gs2aGm/m5Ws=
+	t=1792005169; cv=none; b=dPDRmvWbj9JFewpygyTT6pWZMEzAgoL8kw2caWX2ZBJhmPOFoocoX8FARtyXDwT2ZYEpatumwhNICFG/8jDQ3Tc/O2sIdvGlTcTFc2Lt7HKZqhMNwXbf1WPMzqphg/F8Ou61lthaPD3PwTB7Vcrjeuki9ax1WW+xXuDuTMfnzIs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792005164; c=relaxed/simple;
-	bh=uOw76DHvX5PKnEX4zQ3KFX7xGReoTZ7N6GvqbXLz9Qo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=c5N3wqxEMF78UKJBmnEf9o94tseD2FYGx4a9nmqV4o2uUJ7MxqVinLfoFl7B2jH0wFPM4kpAXWgQ6vPtXhcqC55VjAt2meDXn/wiHAiVhXpVqDIXq4AJVvd1QC2x/itd19dMsSF/zEcInIJgAan9mWyBvBDcp+lXDDo/Ufa2lXI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mfWszqZ2; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1792005169; c=relaxed/simple;
+	bh=xIq3t6dChknsEnIOTV74XW7S7ach0NV56IdvrMJxXGU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jCpWragXG//mGjsCnRXCOMBroMRN185VlFtqFrkFDXtboX+mdZ1nVbcXFXm2RUSXRb7qoYMqd1SH0PAS367ClPSOwLndpyXO3EtA7OQ3sBRUUG2hN651kt/eSisuzat0kgFi/maKBpfbI3wFJVnXG4VpNBNYS3Ojt2XyKA5//J8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=YvuStzba; arc=none smtp.client-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mfWszqZ2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792005160; x=1823541160;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=uOw76DHvX5PKnEX4zQ3KFX7xGReoTZ7N6GvqbXLz9Qo=;
-  b=mfWszqZ2TCxSVbcpEvAvjo7yJbv9C0PlZvuif5XwkH5snvvlTmIHRX+/
-   CTWl4KGrAmkcbrx1kjDFBHpSPWkB/1ktPeluLcnxdDHJ1FaVZsSn9E/Ga
-   x1RPORKghfSHchEmRJFiCiJ+6lkK/8u964Sd+cDDqU3ra+VQJFuHBdSYo
-   jJYn6oMYRHlgMTA6t/PwWqMYoxl9cF/4xrnhaJLpHq5C1WIe+QGvlcFcz
-   TCWPoOHNw5GTAg6Dst+52JBs3Y/4Uhy6lL99QHK1b1/GlUPDGReTk5/Qu
-   pBMIYKZZIXZjmrQeKm3ruEI5LHpqvQL7rzMVqxg9/fCld0iwM22EwbOaj
-   w==;
-X-CSE-ConnectionGUID: IJi+BuWeTvevTd7tcTR3fA==
-X-CSE-MsgGUID: LlbqizpNR9y0cUL5cjUmHg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="662923"
-X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
-   d="scan'208";a="662923"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 12:12:39 -0700
-X-CSE-ConnectionGUID: epMBbctzSIOaYFCJzGPtKA==
-X-CSE-MsgGUID: 1yDTyJ/iQoSi2oqeauhA4Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
-   d="scan'208";a="1609634"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa002.fm.intel.com with ESMTP; 14 Oct 2026 12:12:37 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xH4Ov-00000000F5r-3jiq;
-	Wed, 14 Oct 2026 19:12:33 +0000
-Date: Thu, 15 Oct 2026 03:11:54 +0800
-From: kernel test robot <lkp@intel.com>
-To: Cen Zhang <zzzccc427@gmail.com>, marcel@holtmann.org,
-	luiz.dentz@gmail.com, padovan@profusion.mobi,
-	johan.hedberg@nokia.com
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com, jjzuming@gmail.com, zzzccc427@gmail.com
-Subject: Re: [PATCH] Bluetooth: MGMT: Serialize power-on with power-off
- completion
-Message-ID: <202610150313.1x2NMEsK-lkp@intel.com>
-References: <pm-bluetooth-objects-candidate-0063-v7-35a6680c94a332fea155@gmail.com>
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="YvuStzba"
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so2086031eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:12:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1792005163; x=1792609963; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CrhnOyCnuFrl0jSp2QdE1/m0irIgtCD+WhnhWodFpc4=;
+        b=YvuStzba+iB0SB8lhAE/rqO16PB8rBnF9dYmh1SZ6IfWmPI8l+9zI+NDhqhOzDsY1V
+         5ZfnOfbPLKNZwn30vgfaAWXGTJDoSRLpBuTVecfFaF2+hyyLxoTdBQysoiATfTNHSdtj
+         Vb74+tD8fBDQ/nhum5+CQFgdHS/JewpPzVO6on9pXxHZQe7XE9PvTjuu7QM3w8h5GrHS
+         yLUCX/U3Ax6mTtUIbezBk7mWg6vys21s28AHU6OlYPkfpoHj100Pmm0Z0/4xHHBVt6Er
+         upYVmkMwKr6u+uJsVgXK8h0Kfg0PI7KKp6Q+4EFStDO346MPFPSRinEVmHhiwc98fV3c
+         KyxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792005163; x=1792609963;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CrhnOyCnuFrl0jSp2QdE1/m0irIgtCD+WhnhWodFpc4=;
+        b=FKR8c42tMqWVc+6qPeCdLFoSMq8Dakp/qcX7Pr3phOdJHjDBdIReNjX9U9TKtzfpFE
+         6E8IV9u7o1Yl05RYPrDEgbh8Ci9ma3kqbH+bMKge2yhKa3LmjAUCsUK+3heIZWB/bv4o
+         hGB2cctdlDJ5zSor8pfGr1yC/V8Z5YrefqUNfGrIBVJ80A316X/yCHHNcjhiqYyor5+x
+         aDX6d6LKEwRAebEkDghpSSQTACdOoWIuuxNb9Lil6SYGxwi1UJWqF9t5WlPiE8PpIxh7
+         xeY2WboqxWcDhgljmVgpiRxU5hMN9H3SFx49L+3t+s+/7Vsmoeq09/Z/xRAcU1Zru/8I
+         GLWg==
+X-Forwarded-Encrypted: i=1; AKwUvBw9pAsjHEH3/iJndYdKxEbooCxJr7AK9PUNIOiCSRCPIUsjh89P8w8LZ5mcLGiABKhSLhSmOrYjYaqZBkQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLjP4vx0jGVLpC0NaXXOxyP853U370lqbaIl5dA7CJklqalM4xp
+	UNbyNEdE8pAAZ8q8dcQX9e4cppHeYDS/piK+fAOLycv3t+LmCujLOBoh8mXFpTDxADg=
+X-Gm-Gg: AYBFou26Xker8zztSyGLcDtNc/FLMjy0wgE9pePOOeleF2jJAT1XXWGRn+b3EqyWaPC
+	P6Q8KG343HETVUxSQIh/wf2OIKMQyeG94xoz9/fd7rdoblQWswYPJOWd+RluVZ6zKHfVG8LGIAV
+	wRYbBJzs7chFT7AxGhpj7PBSp+AXMg/Fms4s8TpWVrRw9XpTJpJZjmZVzT3Mg2sBCUpVzyhPZIL
+	km3aXFJTlv3rYnFDWLy+lW1huUKh1D3s/ulaL2+CesW9xgMhT0qWXRYBgAqDnzix1F1mxfqAbGM
+	ZD1C1GY7YEAqQggQTzmJrJ1zzVxERBhkFbCmhRyPtCElQ87lYshkcYtvsDKdr5WjHhiXuKo8u2y
+	9QpXHrC6RnHjR/VdUSPvbIG2VuIOH1GeCfZlPbV12sBz78mDyCA40C07gr+c6fTOc3UsxjuNJ8S
+	JJ0z3KMo1XUeI71TmmlQ06fQn/V+q3zzUop9HJKX8TMDqEXR/aejHkARzAQsfp0ql5xLWw5CrAL
+	9s0Amb5YvBTj+DSs4UBtMDDc7dzS3BUQZKfTl4kZdGeBgt69E62hB39ADKFmFMk8gBf6z8=
+X-Received: by 2002:a05:7301:182a:b0:34d:7ae5:8d78 with SMTP id 5a478bee46e88-3537e034fecmr22587390eec.31.1792005163180;
+        Wed, 14 Oct 2026 12:12:43 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:39d1:d8de:aae7:23dd])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb2fd33sm54329888eec.28.2026.10.14.12.12.41
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 14 Oct 2026 12:12:41 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: cel@kernel.org,
+	linux-kernel@vger.kernel.org,
+	neil@brown.name
+Subject: [PATCH 6.6.y 1/2] llist: add interface to check if a node is on a list.
+Date: Wed, 14 Oct 2026 15:12:35 -0400
+Message-ID: <20261014191236.23696-2-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261014191236.23696-1-artem@trailofbits.com>
+References: <20261014191236.23696-1-artem@trailofbits.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <pm-bluetooth-objects-candidate-0063-v7-35a6680c94a332fea155@gmail.com>
 
-Hi Cen,
+From: NeilBrown <neilb@suse.de>
 
-kernel test robot noticed the following build warnings:
+[ Upstream commit d6b3358a2813bb14791259a2227d9af1e7019ca0 ]
 
-[auto build test WARNING on bluetooth/master]
-[also build test WARNING on bluetooth-next/master linus/master v7.3-rc7 next-20261012]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+With list.h lists, it is easy to test if a node is on a list, providing
+it was initialised and that it is removed with list_del_init().
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Cen-Zhang/Bluetooth-MGMT-Serialize-power-on-with-power-off-completion/20261014-002814
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/bluetooth/bluetooth.git master
-patch link:    https://lore.kernel.org/r/pm-bluetooth-objects-candidate-0063-v7-35a6680c94a332fea155%40gmail.com
-patch subject: [PATCH] Bluetooth: MGMT: Serialize power-on with power-off completion
-config: arm64-randconfig-1000-20261014 (https://download.01.org/0day-ci/archive/20261015/202610150313.1x2NMEsK-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 6719b9e31d6a93099612c474eec76d9f41d0275a)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261015/202610150313.1x2NMEsK-lkp@intel.com/reproduce)
+This patch provides similar functionality for llist.h lists.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610150313.1x2NMEsK-lkp@intel.com/
+ init_llist_node()
+marks a node as being not-on-any-list be setting the ->next pointer to
+the node itself.
+ llist_on_list()
+tests if the node is on any list.
+ llist_del_first_init()
+remove the first element from a llist, and marks it as being off-list.
 
-All warnings (new ones prefixed by >>):
+Signed-off-by: NeilBrown <neilb@suse.de>
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+Assisted-by: LLM
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+---
+Hi,
 
->> net/bluetooth/mgmt.c:1415:2: warning: mutex 'hdev->req_lock' is not held on every path through here [-Wthread-safety-analysis]
-    1415 |         hci_dev_lock(hdev);
-         |         ^
-   include/net/bluetooth/hci_core.h:1752:26: note: expanded from macro 'hci_dev_lock'
-    1752 | #define hci_dev_lock(d)         mutex_lock(&d->lock)
-         |                                 ^
-   include/linux/mutex.h:193:26: note: expanded from macro 'mutex_lock'
-     193 | #define mutex_lock(lock) mutex_lock_nested(lock, 0)
-         |                          ^
-   net/bluetooth/mgmt.c:1413:3: note: mutex acquired here
-    1413 |                 hci_req_sync_lock(hdev);
-         |                 ^
-   include/net/bluetooth/hci_sync.h:15:35: note: expanded from macro 'hci_req_sync_lock'
-      15 | #define hci_req_sync_lock(hdev)   mutex_lock(&hdev->req_lock)
-         |                                   ^
-   include/linux/mutex.h:193:26: note: expanded from macro 'mutex_lock'
-     193 | #define mutex_lock(lock) mutex_lock_nested(lock, 0)
-         |                          ^
->> net/bluetooth/mgmt.c:1459:3: warning: releasing mutex 'hdev->req_lock' that was not held [-Wthread-safety-analysis]
-    1459 |                 hci_req_sync_unlock(hdev);
-         |                 ^
-   include/net/bluetooth/hci_sync.h:16:35: note: expanded from macro 'hci_req_sync_unlock'
-      16 | #define hci_req_sync_unlock(hdev) mutex_unlock(&hdev->req_lock)
-         |                                   ^
-   2 warnings generated.
+Please consider this backport of the prerequisite for CVE-2025-38264 to
+6.6.y.
 
+The code changes are identical to upstream.
 
-vim +1415 net/bluetooth/mgmt.c
+The complete fix is already present in 6.12.y, 6.18.y and 7.2.y.
 
-8b064a3ad377c01 Johan Hedberg          2014-02-24  1394  
-bdb6d97154b7b7e Johan Hedberg          2012-02-28  1395  static int set_powered(struct sock *sk, struct hci_dev *hdev, void *data,
-bdb6d97154b7b7e Johan Hedberg          2012-02-28  1396  		       u16 len)
-eec8d2bcc841ae4 Johan Hedberg          2010-12-16  1397  {
-650f726d16a3f25 Vinicius Costa Gomes   2012-02-02  1398  	struct mgmt_mode *cp = data;
-3b0602cd01a5711 Johan Hedberg          2015-03-06  1399  	struct mgmt_pending_cmd *cmd;
-4b34ee782164fba Johan Hedberg          2012-02-21  1400  	int err;
-eec8d2bcc841ae4 Johan Hedberg          2010-12-16  1401  
-181d695352305cc Marcel Holtmann        2020-05-06  1402  	bt_dev_dbg(hdev, "sock %p", sk);
-eec8d2bcc841ae4 Johan Hedberg          2010-12-16  1403  
-a7e80f25ae2296d Johan Hedberg          2013-01-09  1404  	if (cp->val != 0x00 && cp->val != 0x01)
-a69e8375a134eb7 Johan Hedberg          2015-03-06  1405  		return mgmt_cmd_status(sk, hdev->id, MGMT_OP_SET_POWERED,
-a7e80f25ae2296d Johan Hedberg          2013-01-09  1406  				       MGMT_STATUS_INVALID_PARAMS);
-a7e80f25ae2296d Johan Hedberg          2013-01-09  1407  
-0ec18e0eaccffd5 Cen Zhang              2026-10-14  1408  	/*
-0ec18e0eaccffd5 Cen Zhang              2026-10-14  1409  	 * Wait for the previous power-off completion before publishing a
-0ec18e0eaccffd5 Cen Zhang              2026-10-14  1410  	 * new command that could reuse its freed pending-command address.
-0ec18e0eaccffd5 Cen Zhang              2026-10-14  1411  	 */
-0ec18e0eaccffd5 Cen Zhang              2026-10-14  1412  	if (cp->val)
-0ec18e0eaccffd5 Cen Zhang              2026-10-14  1413  		hci_req_sync_lock(hdev);
-0ec18e0eaccffd5 Cen Zhang              2026-10-14  1414  
-09fd0de5bd8f8ef Gustavo Padovan        2011-06-17 @1415  	hci_dev_lock(hdev);
-eec8d2bcc841ae4 Johan Hedberg          2010-12-16  1416  
-b14202aff5acba3 Jonas Dreßler          2024-01-07  1417  	if (!cp->val) {
-b14202aff5acba3 Jonas Dreßler          2024-01-07  1418  		if (hci_dev_test_flag(hdev, HCI_POWERING_DOWN)) {
-b14202aff5acba3 Jonas Dreßler          2024-01-07  1419  			err = mgmt_cmd_status(sk, hdev->id, MGMT_OP_SET_POWERED,
-b14202aff5acba3 Jonas Dreßler          2024-01-07  1420  					      MGMT_STATUS_BUSY);
-b14202aff5acba3 Jonas Dreßler          2024-01-07  1421  			goto failed;
-b14202aff5acba3 Jonas Dreßler          2024-01-07  1422  		}
-b14202aff5acba3 Jonas Dreßler          2024-01-07  1423  	}
-b14202aff5acba3 Jonas Dreßler          2024-01-07  1424  
-333ae95d054519f Johan Hedberg          2015-03-17  1425  	if (pending_find(MGMT_OP_SET_POWERED, hdev)) {
-a69e8375a134eb7 Johan Hedberg          2015-03-06  1426  		err = mgmt_cmd_status(sk, hdev->id, MGMT_OP_SET_POWERED,
-87b95ba64efcfcf Johan Hedberg          2013-09-25  1427  				      MGMT_STATUS_BUSY);
-87b95ba64efcfcf Johan Hedberg          2013-09-25  1428  		goto failed;
-87b95ba64efcfcf Johan Hedberg          2013-09-25  1429  	}
-87b95ba64efcfcf Johan Hedberg          2013-09-25  1430  
-4b34ee782164fba Johan Hedberg          2012-02-21  1431  	if (!!cp->val == hdev_is_powered(hdev)) {
-69ab39ea5da03e6 Johan Hedberg          2011-12-15  1432  		err = send_settings_rsp(sk, MGMT_OP_SET_POWERED, hdev);
-eec8d2bcc841ae4 Johan Hedberg          2010-12-16  1433  		goto failed;
-eec8d2bcc841ae4 Johan Hedberg          2010-12-16  1434  	}
-eec8d2bcc841ae4 Johan Hedberg          2010-12-16  1435  
-275f3f64870245b Brian Gix              2022-03-01  1436  	cmd = mgmt_pending_add(sk, MGMT_OP_SET_POWERED, hdev, data, len);
-366a033698266c3 Johan Hedberg          2011-02-19  1437  	if (!cmd) {
-366a033698266c3 Johan Hedberg          2011-02-19  1438  		err = -ENOMEM;
-eec8d2bcc841ae4 Johan Hedberg          2010-12-16  1439  		goto failed;
-366a033698266c3 Johan Hedberg          2011-02-19  1440  	}
-eec8d2bcc841ae4 Johan Hedberg          2010-12-16  1441  
-f419863588217f7 Archie Pusaka          2023-04-20  1442  	/* Cancel potentially blocking sync operation before power off */
-d883a4669a1def6 Luiz Augusto von Dentz 2023-04-21  1443  	if (cp->val == 0x00) {
-63298d6e752fc0e Luiz Augusto von Dentz 2024-01-09  1444  		hci_cmd_sync_cancel_sync(hdev, -EHOSTDOWN);
-cf75ad8b41d2aa0 Luiz Augusto von Dentz 2021-10-27  1445  		err = hci_cmd_sync_queue(hdev, set_powered_sync, cmd,
-cf75ad8b41d2aa0 Luiz Augusto von Dentz 2021-10-27  1446  					 mgmt_set_powered_complete);
-d883a4669a1def6 Luiz Augusto von Dentz 2023-04-21  1447  	} else {
-d883a4669a1def6 Luiz Augusto von Dentz 2023-04-21  1448  		/* Use hci_cmd_sync_submit since hdev might not be running */
-d883a4669a1def6 Luiz Augusto von Dentz 2023-04-21  1449  		err = hci_cmd_sync_submit(hdev, set_powered_sync, cmd,
-d883a4669a1def6 Luiz Augusto von Dentz 2023-04-21  1450  					  mgmt_set_powered_complete);
-d883a4669a1def6 Luiz Augusto von Dentz 2023-04-21  1451  	}
-eec8d2bcc841ae4 Johan Hedberg          2010-12-16  1452  
-275f3f64870245b Brian Gix              2022-03-01  1453  	if (err < 0)
-275f3f64870245b Brian Gix              2022-03-01  1454  		mgmt_pending_remove(cmd);
-275f3f64870245b Brian Gix              2022-03-01  1455  
-eec8d2bcc841ae4 Johan Hedberg          2010-12-16  1456  failed:
-09fd0de5bd8f8ef Gustavo Padovan        2011-06-17  1457  	hci_dev_unlock(hdev);
-0ec18e0eaccffd5 Cen Zhang              2026-10-14  1458  	if (cp->val)
-0ec18e0eaccffd5 Cen Zhang              2026-10-14 @1459  		hci_req_sync_unlock(hdev);
-366a033698266c3 Johan Hedberg          2011-02-19  1460  	return err;
-eec8d2bcc841ae4 Johan Hedberg          2010-12-16  1461  }
-eec8d2bcc841ae4 Johan Hedberg          2010-12-16  1462  
+Build-tested only as part of a cumulative 6.6.y series: x86_64 objects
+(allmodconfig, CONFIG_WERROR=y); no runtime testing.
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Thanks,
+Artem Dinaburg
+
+ include/linux/llist.h |   42 ++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 42 insertions(+)
+
+diff --git a/include/linux/llist.h b/include/linux/llist.h
+index 85bda2d02d65be05f9fad9c52f60b49ec483d2a7..dcb91e3bac1ccce7c8327cbeb42462f5eaeb79be 100644
+--- a/include/linux/llist.h
++++ b/include/linux/llist.h
+@@ -73,6 +73,33 @@ static inline void init_llist_head(struct llist_head *list)
+ 	list->first = NULL;
+ }
+ 
++/**
++ * init_llist_node - initialize lock-less list node
++ * @node:	the node to be initialised
++ *
++ * In cases where there is a need to test if a node is on
++ * a list or not, this initialises the node to clearly
++ * not be on any list.
++ */
++static inline void init_llist_node(struct llist_node *node)
++{
++	node->next = node;
++}
++
++/**
++ * llist_on_list - test if a lock-list list node is on a list
++ * @node:	the node to test
++ *
++ * When a node is on a list the ->next pointer will be NULL or
++ * some other node.  It can never point to itself.  We use that
++ * in init_llist_node() to record that a node is not on any list,
++ * and here to test whether it is on any list.
++ */
++static inline bool llist_on_list(const struct llist_node *node)
++{
++	return node->next != node;
++}
++
+ /**
+  * llist_entry - get the struct of this entry
+  * @ptr:	the &struct llist_node pointer.
+@@ -249,6 +276,21 @@ static inline struct llist_node *__llist_del_all(struct llist_head *head)
+ 
+ extern struct llist_node *llist_del_first(struct llist_head *head);
+ 
++/**
++ * llist_del_first_init - delete first entry from lock-list and mark is as being off-list
++ * @head:	the head of lock-less list to delete from.
++ *
++ * This behave the same as llist_del_first() except that llist_init_node() is called
++ * on the returned node so that llist_on_list() will report false for the node.
++ */
++static inline struct llist_node *llist_del_first_init(struct llist_head *head)
++{
++	struct llist_node *n = llist_del_first(head);
++
++	if (n)
++		init_llist_node(n);
++	return n;
++}
+ struct llist_node *llist_reverse_order(struct llist_node *head);
+ 
+ #endif /* LLIST_H */
