@@ -1,88 +1,59 @@
-Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E84B471416
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:46:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A59A4749F6
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:46:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791960372; cv=none; b=raAw6+vwCA7yu69Nexdk1sOU3C00sYANd1aVnJGS1vBxYK8Dc9ZddXwH2oZHaN6mlYHEs2mN82EWDCGFDM6bQa8GjTWPGG6um5wxlomABAtVt3hyrjwAbkv/mIUqllBGz7Wmfy+hOa1WKLpKKQfKD9QhNEYpAMq16mnGRaAcAv4=
+	t=1791960373; cv=none; b=AGdU6QkWvAkvpeDwBuHZMMzNP7Re+bDfqbgKh8Jr9dLqkbRZcl4OXhMsn/dJn117Iix5ABB3FDLMypNTxnVHCfUrdD9bYrdelrcxtURXvxfVuc9/+QGewhX9arryoQcXmiF1Ui3u5U+zy/JOMD29L0ZBYYo1Pub4oyPRq0DOoi0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791960372; c=relaxed/simple;
-	bh=h6qSAty50ZjhpdBlyxDqW2A8q4uhT9WJLCFnEegZgYo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QhHy6cBdFqQ0BuSys43+RbQ/EAJDcs5993x8SuSgOYoUDK0N5chyKgfYsgFNhBGR+8/7vDWvk8vsxiq/ZfqoNDJ+ZeG88BHlZNFvW0xLcD/THMl7SQ2zQ80LU3HDviVRlrvYBQS7Zzyz2JNq3b408GrVovHVSiyc6GXlQO6U/2I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z8CbDjlO; arc=none smtp.client-ip=74.125.227.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791960373; c=relaxed/simple;
+	bh=Rvxc0ctCvKCcwUtqu+Shc59yyoETx391dL9BNPBy2oM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=p36oUwXpdEZFoGnXSa/ISqIc+gaHaee9W1dAgZl7pYzlqP+YA5Sfcg42ebvDYytEMLPVyxkOjPAV4UgqX7f6EiivUDlHmrb4UUZvrfAd+gNWgS8o36dYrmTTWHf1fZRJdrdtMpmQ0TZBNnb49F+gxPv1z3XYCC7waweckVu3av8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fDyqzTJm; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z8CbDjlO"
-Received: by mail-pj2-f10.google.com with SMTP id 98e67ed59e1d1-3abe4fb64d2so1652994a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:46:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791960368; x=1792565168; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BSqO/zhHgRFW/+OIlp26uOSe1RZSVmBUuUAxntrjdec=;
-        b=Z8CbDjlOwTwReShzvFQYyEPB+zngezsnfxkDgNLA/SIaFEnXwMzQWKCogM3llsCum6
-         hZ6IzhrdT3cbHrskfzQA/chzkiNzvzPJk+e2qNR/nwWQ2ESOUwqsUo3FAAWGU3B4XkdK
-         IRYAGUKaJPIBtvUonviJDazDD6f1O80Hl3YNEz5kVi5NMq4RFefghsJgcPNRe30WNPU5
-         eYFFNjWk8dW+ts5h0vVJsmaigvpyksWiNrHLlPXmWW/wmDITCp1zdJPi1S3uGsz4orXN
-         794NK98+LrGBIKP2XEUPVSOCzj8Z1/JeaVSUH7AyB16UaT0f9c78RV0jTRGqcJ4qP5h/
-         8SaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791960368; x=1792565168;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BSqO/zhHgRFW/+OIlp26uOSe1RZSVmBUuUAxntrjdec=;
-        b=dnKLECp4RPTtIZiviMi4uXiRghh/64bWJq2ziRNk0MZkPSb+JPgQ0GP2Py/UFTJLa3
-         s18ucIcYmWupGVDwZU5vp0x5pWufmzEhMH64+q65VE1h8UBz38w4dJHJJNgN+41WvZSJ
-         MDWWHFhzp7TC3buiWcFN8m3bofpZaDN2iaigumGnGiNJuXHZJW2vLEy7/BKg4KEgbUVX
-         I0pS3KCuSdS3PNsWwlAAmrWEl3pYAtonyOH2u7VtIlgjUkt66pDN5B6ef+JCUiTpaD2x
-         pIg3o888rxGPR03NKoV/fefYQBSGPZ6geAXEC+sviLIyM2/72PGSGYz541q72Ib4Zfd7
-         9yTA==
-X-Forwarded-Encrypted: i=1; AKwUvBwIE8u+tM5UgPJAYco0Sm0HB+mnhxJm8ERoOX5ninyqA7nxx7EuiNK9MsK7RbPOHvUrA66oNDOKDdV7/fM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLgGoddEsG5tjhUgB9XY+o0r6Z7km27/64bJQslrOQN00yL5gW6
-	LGEW2A8YeVYH8ggOmV/vVhH7DHN6Zx6X7dZHSCZcmE8Tmr7k6Drnpw8S
-X-Gm-Gg: AYBFou2A/CPIE63K9AjIs0tf6WCiLTQZhfAJj34mjwRHeN1C1gprEzb6dfUK1eZaWee
-	iV2yyOYRlj6e83Y2S6aL53KohYE/cW6Ja8cV+sceF8pRrPX2I6DQswAMlLoGScj/qNouDLi7b7V
-	F8Ciwa8Cnh3t4gYcZq9Y59V74LM2s4nehD1EnMswMUst8yWgMNp59pMDe0C/0SPt6mKnU6z5NbS
-	vmZPr1QmhhH9O2JqxhkofhRLU2Y8sdoRFZE2S2+KK4XOUcKT1Wb7ACdInrM7smLV16zRO39+hwz
-	tBUaNYCTNpSaBG54YG60P2pPXX/K9Pb5VUpCyvVo+FrGQtRtCkkToe9zn9ptkhrJL42jjd0zFbo
-	k4kr6ewCpcjw0JQxjv5+i1ohxyq7iNQUsBMnn0SkLOoK6TqZ3Etrozhv0WaC863Bjyj0tXsHzaz
-	lJy5/EPNAHnnp8PIfCpP2r0VaqIzCorc+6UTbWADg4t5qoBRj9Ntm8mjtV7gG99E0dojnesQqPl
-	qyVpEE6vzEqiuzO0Tk4YB6uBx7ZMgs9UaQQ
-X-Received: by 2002:a17:90a:c10:b0:3ac:7556:8eda with SMTP id 98e67ed59e1d1-3ac7556a3ffmr429550a91.26.1791960367573;
-        Tue, 13 Oct 2026 23:46:07 -0700 (PDT)
-Received: from nzzhao-ThinkCentre-M760t.mioffice.cn ([43.224.245.179])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac5f04e324sm3236371a91.2.2026.10.13.23.46.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 23:46:07 -0700 (PDT)
-From: Nanzhe Zhao <nzzhao.sigma@gmail.com>
-X-Google-Original-From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
-To: linux-f2fs-devel@lists.sourceforge.net,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Chao Yu <chao@kernel.org>
-Cc: Barry Song <baohua@kernel.org>,
-	Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
-	Juan Yescas <jyescas@google.com>,
-	Daeho Jeong <daehojeong@google.com>,
-	Dev Jain <Dev.Jain@arm.com>,
-	David Hildenbrand <David.Hildenbrand@arm.com>,
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fDyqzTJm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791960366;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=JTJK3K2HtRoklixNqbatLqReJpESRo1O6orCv2sRVKY=;
+	b=fDyqzTJmzS8s3AWMy1JXnbcHKdqpfydG0CAq9Hg43GxFjRMbBFiRbX1fdgPf5nOKeLm6+P
+	zAsXqWQ+8o/723fLHKgajioqkCFLuKP8lybIeauCsjK1MBs/ikcmpCbTwEkg2cq6CQZI2x
+	m2ikMVDfUl8j5/0TogKN3OeaVNSeoCc=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-244-MxfC6BBbP0ycHaM8okxLuA-1; Wed,
+ 14 Oct 2026 06:45:58 +0000
+X-MC-Unique: MxfC6BBbP0ycHaM8okxLuA-1
+X-Mimecast-MFC-AGG-ID: MxfC6BBbP0ycHaM8okxLuA_1791960356
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 07728180034E;
+	Wed, 14 Oct 2026 06:45:55 +0000 (UTC)
+Received: from snishika-thinkpadp16vgen1.tokyo.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DC69C1800345;
+	Wed, 14 Oct 2026 06:45:50 +0000 (UTC)
+From: Seiji Nishikawa <snishika@redhat.com>
+To: Keith Busch <kbusch@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>
+Cc: Hannes Reinecke <hare@kernel.org>,
+	Chris Leech <cleech@redhat.com>,
+	linux-nvme@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Bo Zhang <zhangbo56@xiaomi.com>,
-	Kalesh Singh <kaleshsingh@google.com>,
-	Nanzhe Zhao <nzzhao@126.com>,
-	Pengfei Li <lipengfei28@xiaomi.com>,
-	Ryan Roberts <Ryan.Roberts@arm.com>,
-	kernel test robot <yi1.lai@intel.com>
-Subject: [PATCH v5 12/16] f2fs: wait for folio writeback before ffs_detach_free
-Date: Wed, 14 Oct 2026 14:44:41 +0800
-Message-ID: <20261014064445.2835813-13-zhaonanzhe@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261014064445.2835813-1-zhaonanzhe@xiaomi.com>
-References: <20261014064445.2835813-1-zhaonanzhe@xiaomi.com>
+	Seiji Nishikawa <snishika@redhat.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] nvme-tcp: fix io_work priority inversion when send_mutex is held
+Date: Wed, 14 Oct 2026 15:45:24 +0900
+Message-ID: <20261014064524.4015025-1-snishika@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,63 +61,98 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-truncate_inode_pages_range() can invalidate a large folio that is still
-under writeback, which can result in the following use-after-free:
+Commit f42d4796ee10 ("nvme-tcp: fix I/O stalls on congested sockets")
+added a check in nvme_tcp_io_work() that sets pending to true when the
+queue has pending requests and the socket is writeable. The check is
+placed after the mutex_trylock() block, so it also runs when
+mutex_trylock(&queue->send_mutex) failed and io_work did not send
+anything.
 
- CPU0 (writeback)             CPU1 (truncate)
- ----                         ----
-f2fs_write_cache_folios()
-folio_start_writeback(folio)
-/* submit bios */
+When .queue_rq sends a request directly from its own context, it holds
+send_mutex and can give up the CPU in lock_sock_nested() when another
+task needs the CPU, for example the io_work kworker of the same queue,
+which runs on the same CPU. Then io_work cannot take send_mutex, but
+the requests are still on req_list and the socket is writeable, so
+pending is set to true. io_work loops until the deadline and queues
+itself again on io_cpu, without sleeping.
 
-retry_out:
-folio_unlock(folio)
-/* all bios submitted; folio lock released */
+This is a priority inversion. io_work runs on the high priority
+nvme_tcp_wq and cannot make progress until send_mutex is released, but
+it keeps running. The task holding send_mutex runs at normal priority
+and needs the CPU to release it. The scheduler keeps giving the CPU to
+io_work, so the task holding send_mutex may not run again, and the
+requests on the queue are not sent and time out.
 
-                              truncate_inode_pages_range()
-                              find_lock_entries() /* locks the folio */
-                              truncate_cleanup_folio(folio)
-                              folio_invalidate(folio, 0, folio_size(folio))
-                              -> f2fs_invalidate_folio(folio, 0,
-                                                        folio_size(folio))
+This is the same problem that commit 70f437fb4395 ("nvme-tcp: fix
+io_work priority inversion") fixed. That commit removed
+"pending = !llist_empty(&queue->req_list)" from the path where
+mutex_trylock() fails, and let the task holding send_mutex queue
+io_work again in nvme_tcp_queue_request() after it releases the mutex.
+The new check brings back the same behavior in a different form.
 
-f2fs_write_end_bio(bio)
-ffs = folio->private          ffs_detach_free(folio)
-                              folio_detach_private(folio)
-                              kfree(ffs)
-atomic_sub_and_test(nr_pages,
-    &ffs->write_pages_pending) <-- use-after-free
+Two things make this easier to hit. nvme_tcp_queue_request() sends
+directly only when it runs on io_cpu, so the task that takes send_mutex
+is on the same CPU as the io_work kworker of that queue when it takes
+the mutex. Also, when the tasks are in a cgroup with the cpu controller
+enabled, the whole group competes with the nice -20 kworker as one
+entity, so each task in the group gets even less CPU time.
 
-Wait for folio writeback in invalidate_folio, then we can free the
-folio state without any other remaining user.
+We hit this on a 6 CPU VM running a database on nvme-tcp storage. In
+the vmcore, 2 tasks held send_mutex of 2 queues and were runnable in
+lock_sock_nested() for 103 seconds, while the kworkers for those queues
+kept running io_work on their CPUs. All database tasks were in one
+cgroup, which got only about 0.3% of the CPU against the nice -20
+kworker. Requests timed out, and blk_mq_timeout_work() waited in
+synchronize_srcu() for the tasks still in .queue_rq.
 
-Reported-by: kernel test robot <yi1.lai@intel.com>
-Closes: https://lore.kernel.org/oe-lkp/202610081027.b13dcf10-lkp@intel.com
-Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+Only do the pending check if io_work could take send_mutex. If it could
+not, the task holding send_mutex sends what it can in
+nvme_tcp_send_all(), and queues io_work again after it releases the
+mutex if requests are still pending, so no request is left behind.
+
+Fixes: f42d4796ee10 ("nvme-tcp: fix I/O stalls on congested sockets")
+Cc: stable@vger.kernel.org # v6.16+
+Signed-off-by: Seiji Nishikawa <snishika@redhat.com>
 ---
- fs/f2fs/data.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/nvme/host/tcp.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 4228c26bee0d..9cd1c34fe6c8 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -5470,6 +5470,14 @@ void f2fs_invalidate_folio(struct folio *folio, size_t offset, size_t length)
- 	}
+diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
+index 7eec983c0ead..4b775e22d3cc 100644
+--- a/drivers/nvme/host/tcp.c
++++ b/drivers/nvme/host/tcp.c
+@@ -1433,9 +1433,11 @@ static void nvme_tcp_io_work(struct work_struct *w)
  
- 	if (f2fs_folio_has_ffs(folio)) {
+ 	do {
+ 		bool pending = false;
++		bool got_send_mutex = false;
+ 		int result;
+ 
+ 		if (mutex_trylock(&queue->send_mutex)) {
++			got_send_mutex = true;
+ 			result = nvme_tcp_try_send(queue);
+ 			mutex_unlock(&queue->send_mutex);
+ 			if (result > 0)
+@@ -1450,8 +1452,13 @@ static void nvme_tcp_io_work(struct work_struct *w)
+ 		else if (unlikely(result < 0))
+ 			return;
+ 
+-		/* did we get some space after spending time in recv? */
+-		if (nvme_tcp_queue_has_pending(queue) &&
 +		/*
-+		 * The folio may still be under writeback with bios in
-+		 * completion that need to access f2fs_folio_state.  Wait
-+		 * for the writeback to complete before freeing the state,
-+		 * otherwise it will result in use-after-free.
++		 * did we get some space after spending time in recv?
++		 * Only check this if we could take send_mutex. Otherwise
++		 * the task holding it sends the requests and queues io_work
++		 * again after it releases the mutex.
 +		 */
-+		folio_wait_writeback(folio);
-+
- 		f2fs_ffs_clear_subrange_dirty_and_test(folio, 0,
- 							folio_size(folio));
- 	} else if (folio_test_dirty(folio)) {
++		if (got_send_mutex && nvme_tcp_queue_has_pending(queue) &&
+ 		    sk_stream_is_writeable(queue->sock->sk))
+ 			pending = true;
+ 
+
+base-commit: 5755f1bd0217ffe3c5cf85467bf6b0680f398265
 -- 
-2.43.0
+2.55.0
 
