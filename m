@@ -1,163 +1,287 @@
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34988435AAB
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:20:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.51
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791962440; cv=none; b=COvYmsjTE5hhBl+yNBHqz59RZ4YQ6yLBi5EJi/t7DJcY4FbXUWr/s4My4APbF0x8NRyxCSIwstVIZx+AkuAnV7iSUVVRq7KcsemZnr+Vl16Iwm8OO6DLCqPEdUHsSXhOJKL0VPDYoMQIUZgSZ0rti//kkNLtdS92AJXUqOOu4Ic=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791962440; c=relaxed/simple;
-	bh=g6hFtLVrE/UjzzVSQQOzbX4cj/oiFJZYtfo2+FNowfA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=r97hv5iDKXaEgL6dMjdu0QtjM9xMyQz6UCXo63ygtDRSF53MQwNe5jiJA0Id8FMSgFS1vO9vNnNweDuVGO3yFWtcewtie/s7a0lmoJDH49xz5VWYPZ6hO3PjAcqFtE5pDnPXb3F1XlABrqXp/zesmrG163lSeA/XwtnAL/xOfTE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eLGofGV2; arc=none smtp.client-ip=74.125.82.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2661B41A91E
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:20:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.180
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791962456; cv=pass; b=Dkg4r7v3BH6hIZVP+7MskMUUYeZUxnDPj0j3SEIYUk20RUO0Q2uGHUKVCHSfVvh9hFTuJQc8uG472HQ/MaG15U1WmnbWaiBosL8g/LOEw6zqLmpmF2Wrj235WrDixtra46KqGfceYjoCm58sZqlmxw6DYMNm/URsEJSNKA5gBO4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791962456; c=relaxed/simple;
+	bh=ZSFyhZX8e3oYp0Y9peUXElWgxKBbVXnXhuO2gHmZ6uY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qw9sN7iJN9feRQWUC+eB1B8EFAil3FgCJ+nshKv8tAzuzwz8sN4IBNdWqLdMDg4WBpTpCv3eCOcXeg7LcKKx/pxTg1wQBEjVndORqrkvp9l79Yp7Gxiu+GvU0Xykk9v9KmEwdFw4/ujGfWcL2e6TnoeIRVUnwm64lCyazz05ybY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RuRs2VJv; arc=pass smtp.client-ip=74.125.82.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eLGofGV2"
-Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-1517bda04a0so2370819c88.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 00:20:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RuRs2VJv"
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-353804b591eso6670014eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 00:20:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791962454; cv=none;
+        d=google.com; s=arc-20260327;
+        b=q8ZEIq34Dwu5Hri9tBTVNwzh1pF4b4ftq99vEET5jovQ3u1jqSN9QtX/feq2yf3ffJ
+         p8Q9E+y9o6dvyIyp0QC3jf7D0dZKiT5QYRkdVyv5DVfvpzBuU7K7fDYvsdaN8ywxkZmx
+         NPvqAKkJV7SDbKGi0XxWDbw4BQdkzzzxmK9WjzZwq64vozSmeeiUABFL9kmTh1a/ggPy
+         BELO7DmDtqjn+jqIjEzhzYBBiEHXTchpKza088evcoDH8VvK+KIxmdEC788b/gGFRIsT
+         kDyFLEjUetmUGiL/s8Bh5fvB6Mwr+3/ugE2pecd9KuPfso8xsZS9Yd1eFIsSGCYul53T
+         Hoeg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=lOqIiE4c6ssXVSy50LPJhAKLmMDJn1HolGWfMJ3me+U=;
+        fh=fxqbQ/3XPyAsSBGPmK6aGFupLUTSvnziGT7djGDGhXs=;
+        b=hKcGrTjQFfwPkbP6yRCw11ZbwIzub5Y8ZBN6wRdrPFTLqZwpWViZmKNkuKsHyg3ABg
+         UOyviu/PN5G8dsjExkTpyxYG+pfAUK74e08+xnSV3fBxkMYzbdrLsV7yJ0GMU2Jq5zFg
+         oGKfezcrZyP4rYy6d9oWYzWAc17ghi0abI9VQxsgg7uI9Gcgu0RbByVg3Ll1ZTVKyeGA
+         mlRoSuZ04wM+ZQMf53CZwuOLxxb6e3K+rF7At/ZvsJ3MTrKporPLNPcyus62B4bIzVs1
+         SOcrrMkEFCoLisjN/nR+aZM9YvmRz4G1QHI0rUmAbfQ4rknEzB9DNVD4FRe33YtqFb7Y
+         ZCoA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791962438; x=1792567238; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=r9mA2qoZtggQ/j/8me9B77LmzqnDxoGP/VtqAIm/t1U=;
-        b=eLGofGV22lAh7Oeak/ixXc9UNnueFHsqx74u4y3/lNauJF/lklVShsVb7Wnv8rrJOf
-         NTJoD6iSFpflVhPyMXJW7ugQZiSyFbUvtEJQGVCT38hpyVnxJwFYNDd29Ih+CgFU1j/S
-         mKIyQK2cNiESYEl+DjsBWazAHQVGgrjfS9e5L1qtfvhgA4bqa4uGTBwcPxZbPEJ90GL0
-         FPyhOigURW0TqsIhtJ52gzsjXL7gisdb4CCGksU4lfHYT82Pt7t5vf6cuevHA8mnUFb2
-         uioSroVQogYfzno6hR+CN0YbKBENPtRvNu9IJ4l1li7vgk6ICAQry/E/lJ8APFQLU1v0
-         ICRA==
+        d=gmail.com; s=20251104; t=1791962454; x=1792567254; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lOqIiE4c6ssXVSy50LPJhAKLmMDJn1HolGWfMJ3me+U=;
+        b=RuRs2VJvZxLANh/ORmvB/5NxzkYwHUWHmnaWpJt1gQkIuO9qnGIpwSDcPMknCFYiyo
+         RTBFlVT8cCsT5Vt8ZFKVs7qNQJ+D82q9dyAybLjQxUA0d+kU4SpZgV16px+2Lu26Lj++
+         AZ2KI+ojrUrzppln35OCEgoiA04nyt9yqhWrvyM4LHRsRkREOG3v+VfZtu7nbDk6DEPo
+         iyEkszwNBSv0pGqjjfI0nQBexXLVweQuD7MdMpKWz8/I8zLzCwlLtL/NWl0Wa0x1zG97
+         gINvICN32xCsiZqJBdTddmD4NmmkW1HaJquvyWEHLbOtIKD3FaR5hZxO/8yvpVOkCzRo
+         eFmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791962438; x=1792567238;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=r9mA2qoZtggQ/j/8me9B77LmzqnDxoGP/VtqAIm/t1U=;
-        b=q33md9CxsB4PZ1BrK+8tcro1kO/zz+ghNosA3/cc8M4OYge0kfemAtP+qtLBciE17N
-         gBzFQkD2Z1k88oIGni4D3ByBt+hQuqs+RefRtpe898KPSFb4YUc/8070Hq/nnX4P+i7e
-         j3zbH0ZJBd6PPNEKqsZs26KSDjI7ZKccBJXuTjv/YxfZkRD9xFvMFPiTOXBZW3ePb6Mx
-         BWulbcQ7jjc938byr7rdV1/EZ5M5BPxbIXS888ExCWuOniyhuqiYzzy4QXPdwUH5zQA1
-         Xp+lnhAE+zqX+Rfovvp0BMX1IJ0RfJS31USct0lAtvNQiebkd72sWr61CDUc0NQ5R0Ci
-         hm/A==
-X-Forwarded-Encrypted: i=1; AKwUvBztgomZzoF1636I7uqQs9S0MwcI9nrkGDGf2fTFFkA/tHwdjEcI0wPncszAjmbkU1E/wK2Amv4UYHl67t4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIx54LW+6UFPVnb7JzQFnQkL65Pna9j6mheZrXHHeAdloSv84fc
-	fHBgP6Lfobn66DpLZT6xUu+oRofZkOLAcPrbAcOdsvN+LwepNF82bnRg
-X-Gm-Gg: AYBFou1WRJmgdc2L0bCOqMz0XHh99wkmqOQS4pclMJux6gtjvepVFaqwbHVBZJxIu91
-	CVOR9Ov2sdsSnAs1FJ5PvK5ei/HA4IDqgkEy9MlCa+OwkzsTCmePHvQsid2QR70XBE2V2pKSuZz
-	xzlquA/eSD1FE6trMPztIkCxTafyJJqwKpm/9SGorj7pqs4Eg1KsVxn7NZvy1pOxSaGqK2S6VEn
-	F6Aka4u71VONrxhRPu8yQA7D6rAMWBh4x4yWfO6T3Xxys7fcCg9FY+0qowK00gi99IPEJ4MiZqp
-	CrU1TBZp2F5nsbtinBfFSIeRgAT1NCEUDza7/yJd0Ao+74aDvU87OtHwZM6+lKEJ64NFePtBC6/
-	Lnvet6VaYG4ch49sfPZ9aQn/U0FLOU+ktiSvLoqaibh6YV9xjxjW6g1u1NDMusBGL1Prbm9t2EO
-	fpu8k+jU2K/xVvo3IuImsCOT4qVGU7M6wOsDZYnMRQKwGf9p1irAdPOVRMowElfJitczEn00rwt
-	DGI36BzzkZfspVTF4ms3WveF8LZm6llY/rQY72KZFGk/6Wk1ha2A7a4XQ==
-X-Received: by 2002:a05:701b:280a:b0:14d:c7ae:85df with SMTP id a92af1059eb24-16a5adfc08emr22045113c88.12.1791962437979;
-        Wed, 14 Oct 2026 00:20:37 -0700 (PDT)
-Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan ([183.242.161.82])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a32eb7ebsm52219852c88.12.2026.10.14.00.20.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 00:20:33 -0700 (PDT)
-From: Chaosheng Qu <chaosheng.qu.linux@gmail.com>
-To: rostedt@goodmis.org,
-	mhiramat@kernel.org
-Cc: mathieu.desnoyers@efficios.com,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Chaosheng Qu <chaosheng.qu.linux@gmail.com>
-Subject: [PATCH] tracing/osnoise: Don't start a kthread in timerlat user-space mode
-Date: Wed, 14 Oct 2026 15:20:19 +0800
-Message-ID: <20261014072019.276178-1-chaosheng.qu.linux@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1791962454; x=1792567254;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lOqIiE4c6ssXVSy50LPJhAKLmMDJn1HolGWfMJ3me+U=;
+        b=KOispmZm3GBzg5fAzJKZgFnLWnZ0d3n5ZSD/svVcerv7+J09oBFXV8CY4+eEKrxaMD
+         PZQTH5Knk6saSYWfyP6Xh8zpo48J7dp6u1g92wAVhlcXKTPsAaUvSn+MkcE8oBriusge
+         In04BJPQlMtbkMlXRDmtgD1/f4pq8AgCQMo/2OGdkBVhc1iFeMj1rjNRKZaYIshtuNGG
+         WRrfYw+qa0/iyGmHd4fbu2AMPgUrorw5v0TS/AjtFsaRDuEjewx/3U9RpNwXa9VVmK97
+         KyUPlv1D33eS/X5uDATseFdjfOIyohapSbVHUFkeLIOdXGvtYHIqi7MHeSoU/BtUUowR
+         Svyw==
+X-Forwarded-Encrypted: i=1; AKwUvBw6gN9OnxsipdlbrEkC2dVu+UW+phDKBpQVaS0fPemZOECoxbL6x36We6coKmshuWYVDbryqZdo89ROS3o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIPlnhQZMukFEjU8dZYGPDJpBj/RI1Jfo+MZ9atuy6z50gD9mU+
+	BYPmegREMHdKcwvkSN7NkpRuU+Xa2MI/54HPr+UyVZwknol7kKoIEVhmKJng+ygqAb5pbIrl1AH
+	jKmH117U08nIxg+ioPwt21Mr7BVvhVsE=
+X-Gm-Gg: AYBFou16eDcTaEnhzp+WVxvwPtVUN8Avoq4mu+DiUFmcxoShxztcfvIs9Pq95GFeOVg
+	/S5ruccdYpjcASkL10V7qUlPGcUjmK4dZ6yMOba+EYNJZW+nw1DDFDT0+2d4Et4WGBfQlYuuOIo
+	TmBfRBIuoN2hQsmnHS8yDJzkdcx8CvbA4AvpwXWdVSKw9N4vFHkFLvJx7HxjTi+lRU0vupBSHWX
+	QPx2oHKVsrDy4nLbWZtaZhlKiiS9nnlu+BF8EXGHenOjV7YmTOpTUOWwfUI0vMzGXWxnAGbyfhu
+	r2wRaRtH1KHwfVnatynLA8BukFCTPny5dkMk2VwJ8Tnq8+ypayCQBVV8Sqvb93kejpwOD3PdwGd
+	oB12uRMjK/6dOVvZQJTI+Z5I++QmIeCUQIcBgXgSdw24xJWw3I33sTxYrv7FfHax+uvBG8PGkfs
+	Gjj7CqGgOj8cbIgeACHr+SuA==
+X-Received: by 2002:a05:7300:7f21:b0:34e:f5f1:2f46 with SMTP id
+ 5a478bee46e88-3537e03ef03mr21519176eec.6.1791962454025; Wed, 14 Oct 2026
+ 00:20:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260930-chid-v9-0-0d6cca376cff@nvidia.com> <20260930-chid-v9-8-0d6cca376cff@nvidia.com>
+ <aryYkkB9j14xnWo3@yury> <DLTA93JE6VF2.37UGB3SWU6ID6@nvidia.com>
+ <ase7IBtZjQsPVWSN@yury> <DM0D75ZTTQXJ.2XADVI38UGH7C@nvidia.com>
+ <CABwQupMVzUOsqP_fTZQdwUU+xEO1k2Q4=RQQuq2qd5HCYY0ZUg@mail.gmail.com> <DM46Y905AJVV.1K0F8AK1ZP4IO@nvidia.com>
+In-Reply-To: <DM46Y905AJVV.1K0F8AK1ZP4IO@nvidia.com>
+From: Burak Emir <burak.emir@gmail.com>
+Date: Wed, 14 Oct 2026 09:20:41 +0200
+X-Gm-Features: AclHuK9j0P8UdZSidrrjx2Ojz1IkBJh5CagOtrg90NI1i0FixMsvpGr1DSVhkR4
+Message-ID: <CABwQupOYBBev5WkQry3oOoX5tGCs-ggDE4L_nK8BBYvrO=81bA@mail.gmail.com>
+Subject: Re: [PATCH v9 8/9] rust: id_pool: do not round capacity up to BitmapVec::MAX_INLINE_LEN
+To: Alexandre Courbot <acourbot@nvidia.com>
+Cc: Yury Norov <ynorov@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>, 
+	Alice Ryhl <aliceryhl@google.com>, Yury Norov <yury.norov@gmail.com>, 
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, John Hubbard <jhubbard@nvidia.com>, 
+	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-In timerlat user-space mode (NO_OSNOISE_WORKLOAD) the workload is a user
-task reading timerlat_fd, so there is no per-CPU kernel thread to run.
-start_kthread() only checks for that in the osnoise branch:
+HI Alexandre!
 
-	if (timerlat_enabled()) {
-		snprintf(comm, 24, "timerlat/%d", cpu);
-		main = timerlat_main;
-	} else {
-		/* if no workload, just return */
-		if (!test_bit(OSN_WORKLOAD, &osnoise_options)) {
-			...
-			return 0;
-		}
-		...
-	}
+On Wed, Oct 14, 2026 at 4:04=E2=80=AFAM Alexandre Courbot <acourbot@nvidia.=
+com> wrote:
+>
+> Hi Burak,
+>
+> On Sat Oct 10, 2026 at 3:48 AM JST, Burak Emir wrote:
+> > On Fri, Oct 9, 2026 at 4:07=E2=80=AFPM Alexandre Courbot <acourbot@nvid=
+ia.com> wrote:
+> >>
+> >> On Fri Oct 9, 2026 at 12:47 AM JST, Yury Norov wrote:
+> >
+> >> > If you still think that you need 0-length bitmaps in Rust, can you p=
+lease
+> >> > give the clear and thorough explanation why rust needs those 0-lengt=
+h
+> >> > bitmaps. Are there any in-kernel examples? Any language concepts req=
+uiring
+> >> > it? If not, it's still a NAK.
+> >>
+> >> I don't know of an in-kernel example, but please look at the
+> >> `bitmap_vec_new` test which has been here since the API was initially
+> >> merged last year: the first thing it does is create a zero-sized bitma=
+p.
+> >
+> > Well, yeah: I wanted the behavior that the implementation rounds up
+> > documented so it can be recognized as intentional.
+> > Later, the `new_inline` method was added, which is a clearer way to
+> > get the largest non-allocating BitmapVec.
+> >
+> > I think the problem in this discussion is that we want to treat
+> > capacity like length, which is maybe suggested by the BitmapVec name
+> > and its len method.
+> >
+> > With the minimum capacity behavior documented, it is as if we have a
+> > specification right now that no IdPool instances can ever have less
+> > capacity than BitmapVec::MAX_INLINE_LEN bits. This patch here proposes
+> > to change that.
+> >
+> > It is not clear though why client code would be happy about *less capac=
+ity*?
+> >
+> > In other words, why should the client of the IdPool have the right to
+> > control the *exact* initial capacity, even if it is below documented,
+> > free-of-charge minimum capacity?
+>
+> The ID pool is used in Nova to track the number of hardware channels, of
+> which we have an exact, fixed number. For this use-case rounding up is
+> not "free-of-charge", it just allows to allocate IDs that are invalid as
+> there is no hardware resource to back them up.
 
-start_per_cpu_kthreads() guards against this mode itself, but
-osnoise_hotplug_workfn() calls start_kthread() directly. Bringing a CPU
-online in user-space mode therefore starts a timerlat/N thread and sets
-its bit in kthread_cpumask while OSN_WORKLOAD is clear.
+This makes sense, and I'm glad you can reuse the code.
+The origin of the bitmap IdPool to isolate the Binder-specific
+spin-lock-compatible resizing functionality.
+In the Binder use cases, an "allocated ID" corresponds to a bit that
+is set to 1.
 
-stop_kthread() uses that bit to decide what the recorded task is:
+> >
+> > The IdPool, despite being backed by a BitmapVec, is not meant to be
+> > used like a vector: it does not grow by itself but client code calls
+> > grow and shrink explicitly, and client code has no control over how
+> > much that growing and shrinking happens.
+> >
+> > Like, you cannot grow to 65 and expect to get a capacity 65. So why
+> > insist on exact small sizes?
+>
+> Actually with the current code you can call `IdPool::with_capacity(65)`
+> and you will get exactly 65 IDs. And if you call grow the new capacity
+> will be `65 * 2`.
 
-	if (cpumask_test_and_clear_cpu(cpu, &kthread_cpumask) &&
-	    !WARN_ON(!test_bit(OSN_WORKLOAD, &osnoise_options))) {
-		kthread_stop(kthread);
-	} else if (!WARN_ON(test_bit(OSN_WORKLOAD, &osnoise_options))) {
-		kill_pid(kthread->thread_pid, SIGKILL, 1);
-		put_task_struct(kthread);
-	}
+Touche, I was too anchored in my "IdPool is just for resizing" thinking.
+I meant, when starting from a no-allocation size that one only gets
+multiples of word length.
 
-The bit is set but OSN_WORKLOAD is not, so the first WARN_ON() fires and
-the && short-circuits into the user-task branch. A running kernel thread
-is SIGKILLed and its task_struct is put without ever being stopped, so it
-keeps executing until it is freed underneath itself.
+However, I do understand that you would like IdPool to track for sizes
+below 64, so ChannelIdPool does not have to.
 
-Any write to osnoise/options reaches this: osnoise_options_write() stops
-the per-CPU threads before applying the new value, so stop_kthread()
-still sees OSN_WORKLOAD clear. Re-writing the value that is already set
-triggers it just as well as changing it.
+> The point being that in the current code the initial capacity is exact
+> for every value *except* those below `MAX_INLINE_LEN`, which doesn't
+> come across as consistent. All this patch does is remove that exception
+> for which I don't see a justification.
+> I think we are conflating capacity with length to some degree. Actually
+> the code does exactly that:
+>
+>   impl IdPool {
+>       pub fn capacity(&self) -> usize {
+>           self.map.len()
+>       }
+>   }
+>
 
-  echo NO_OSNOISE_WORKLOAD > osnoise/options
-  echo timerlat > current_tracer
-  echo 0 > /sys/devices/system/cpu/cpu1/online
-  echo 1 > /sys/devices/system/cpu/cpu1/online
-  echo NO_OSNOISE_WORKLOAD > osnoise/options
+Yes, the original IdPool is "conflated by design", since for Binder ID
+allocation means something different.
+- "length" for BitmapVec is length of the underlying bitmap in bits.
+- "capacity" in (binder-specific...) IdPool means "we can allocate
+this many IDs in total without resizing.
 
-The offline/online pair is required, otherwise no kthread is recorded and
-no bit is set. Running this on 7.3-rc7 with KASAN gives a WARNING in
-stop_kthread() followed by a slab-use-after-free in update_se(); leaving
-out the hotplug step produces neither.
+> >
+> >> It is also easy to imagine a user starting with an empty pool and
+> >> growing it on-demand. Having the ability to create a zero-sized pool i=
+s
+> >> convenient to avoid special-casing user code, and in this case I'd say
+> >> expected, just like you can create a zero-sized vector. Again a size o=
+f
+> >> zero does not trigger anything that a larger capacity cannot trigger, =
+so
+> >> I don't see a reason to forbid it.
+> >
+> > With an initial capacity of minimum MAX_INLINE_LEN capacity, it is not
+> > about forbidding, it is that the added capacity already comes for
+> > free.
+> > You could say "not enabling" instead of "forbidding", but pretending
+> > that the capacity is somehow not there does not seem to buy us
+> > anything.
+>
+> The capacity is not necessarily there when allocating IDs for finite
+> resources. I suspect that's where the misunderstanding stems from, as
+> Nova is using the ID pool for a new use-case. But I think we can agree
+> that this use-case is not particularly specific and matches what one can
+> expect from an ID allocator, so it makes sense to support it, especially
+> as it doesn't affect other users (`with_capacity` has no caller in the
+> tree at the moment).
 
-Keep the check in start_kthread(), where the related hotplug bug was
-fixed in 0bb0a5c12ecf, instead of adding another copy to the callback.
+It makes complete sense to support it.
+IMO it is less of a misunderstanding, but a design decision to juggle
+the requirements.
+This IdPool thing was not meant as a general-purpose ID allocator.
+But I do see the appeal to generality.
 
-Fixes: e88ed227f639 ("tracing/timerlat: Add user-space interface")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chaosheng Qu <chaosheng.qu.linux@gmail.com>
----
- kernel/trace/trace_osnoise.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+> >
+> > Do the other patches in this series need this, or can we just drop this=
+ patch?
+> > If they do, maybe a demonstration of how significant the special-case
+> > handling is that can be avoided with the exact small capacity could be
+> > part of the commit message?
+>
+> The next patch in this series needs this to implement `ChannelIdPool`.
+> The alternative would be to track the actual length of the pool and
+> return an error if `IdPool` returns an ID after that value, which is
+> what v5 [1] was doing (see `num_chids` in the v5 code).
+>
+> That's the special-case handling that this patch is designed to avoid,
+> and I hope we can agree that it isn't a satisfying workaround,
+> especially when the backing `BitmapVec` *does* support exact sizes and
+> that artificial limitation is introduced by `IdPool` itself.
+>
+> [1] https://lore.kernel.org/all/20260812-chid-v5-5-6c767770b3f4@nvidia.co=
+m/
 
-diff --git a/kernel/trace/trace_osnoise.c b/kernel/trace/trace_osnoise.c
-index 0e1265acd..9715462ee 100644
---- a/kernel/trace/trace_osnoise.c
-+++ b/kernel/trace/trace_osnoise.c
-@@ -2038,6 +2038,14 @@ static int start_kthread(unsigned int cpu)
- 		return 0;
- 
- 	if (timerlat_enabled()) {
-+		/*
-+		 * In timerlat user-space mode the workload is the user task
-+		 * reading timerlat_fd, so there is no kernel thread to start.
-+		 * One started here would set its kthread_cpumask bit, which
-+		 * stop_kthread() reads as "osnoise workload kthread".
-+		 */
-+		if (!test_bit(OSN_WORKLOAD, &osnoise_options))
-+			return 0;
- 		snprintf(comm, 24, "timerlat/%d", cpu);
- 		main = timerlat_main;
- 	} else {
--- 
-2.43.0
+Thanks for the link.
+To me, having IdPool support exact size seems nice-to-have.
 
+We are changing the design in light of different requirements, it is a
+defensible but not critical generalization.
+I was worried that we may need to have proper separate length and
+capacity fields (which contradicts the binder use case), but that is
+not the case.
+
+I checked the grow_request and grow dance now, it seems that even with
+exact small sizes we avoid allocating a bitmap.
+So I am not opposed. Like Yury, I find the 0 case slightly odd, but
+unlike Yury, I find that tolerable.
+
+The phrasing as "dropping an artificial limitation" does not
+adequately reflect that IdPool was done for a specific use case where
+the design made sense and is not actually a limitation.
+
+I wanted to highlight this perspective, because notwithstanding the
+name, IdPool was not meant to join the set of kernel's dedicated
+supported ID allocation mechanisms.
+
+cheers,
+Burak
