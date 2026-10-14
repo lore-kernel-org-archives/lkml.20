@@ -1,129 +1,138 @@
-Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com [209.85.210.48])
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3949353E313
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:04:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.48
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792001064; cv=none; b=Ndi1Tkv5yqOJFsz2uTf98U35hw/OHms98JpfNmxZR5x2NL8ovgiA/qZap6TVGF+VyFM+LJYVPRFpwe1T7toRZSb6hRT3OiasRzDmTGIV5eInEgAoHlHd+yG4WCFDoHeAGfyJFic/2LutHi8Xq2v93ku935LahgNOKOaC6uQzZ1I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792001064; c=relaxed/simple;
-	bh=4ZfibqtjyVHs6vICgBrtNWhVZNaukgTijrvi4R5y9Ew=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bGH7albGYPzFmbJBguV4lhkrBu+Gj1M5PGf//c75E6EZxA3hHyFWlyOPCWMCIxPwAdruP5mvF44S3kstv9KNWbze6lYiT4Xd1VtpUJEnLVa8ZOo7MKjD8Ebz1h/V6Iy3YTnwGYltaONJjlLAmQcX2PceUVWukhQ365GZf2aBa4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=dqSna4Ob; arc=none smtp.client-ip=209.85.210.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4877D545DA8
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:04:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792001066; cv=pass; b=on5cpYEdZTXwpe+5UZ7DE3czUuMQQhegcvUBF6BoNbC44/QGf/Ndj9KBl76YHJVc+POa/C6qqT+KZstsjxR0mxs+B1LDJx20TiHToow1HORLQY+5wQQ4pCBZN3EDHK6pqee6Zo4WxrPnB7b7z2CnLzknbL0NTS/tMZ8UZA5/+Fk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792001066; c=relaxed/simple;
+	bh=J+h7YdXElMiQCzhKnhtIRfCdNxjHv6XhdIMjoVUG7O8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Td9GdZAe0+vbvz0qEHt7S4L22l2JKMbZvwPeGK76QzFaKeJcgUaikn/vdJksKo5JWocWTKZJt3s+aK+W+ZkyeC0hzwr2xN7VoyB+1U5xXfXvMs29SNFrjFHiqTK4MapVhosga0qPyp26+3JGSZ5I4tqyla1ahTuuIlLvHIY2DNg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=io6KRGbR; arc=pass smtp.client-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="dqSna4Ob"
-Received: by mail-ot1-f48.google.com with SMTP id 46e09a7af769-8266c388b67so3757466a34.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:04:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="io6KRGbR"
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c3404ded81dso49001666b.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:04:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792001063; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HgmJaxW2oN/S3hfJDj6f4m0VoCwEc4S3i75TbGUGBVW4AT/neXpoP9urzLF3n4naSU
+         NSl5vMZMel6Fl2W9d0jw7f8S/TDprmwSSPorSbL8S1DGDvXgfghzKhE5bB2z7Froy22B
+         D+MjnxSKLDRmxfN0T7GJIPFyrStvxY17/R2WW5MF59qo6NSmIVv65t4x7/Y1tBJXL8W0
+         7qIM3ULaldgXWEUDXKJdNgzQHApssXElI6tJtS8WKgymCbJoqguUvbyME7jmn0zwC7GR
+         VtS9wHdnDx17wYr0y8L9VzW5qhyLXdv90fdHUhIxVh/xXfjZWIP1uEhQ89ctbKNjEjrC
+         m+8Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=fEJjmdOa9f9AfG0wvokXtnQ9GBV6EH86X//DmL/plOI=;
+        fh=5v1aA4U55sp4JMxiUwQZGq6Oss9OYWTSabY40EC1Yu4=;
+        b=dxtsW19OR1xfdPJy/zkEwraGk2NN5TMpkpPOdSJixNmsMgeBAvnlvZQTAEXFmDDxoA
+         2DWA1dmW9lTELtvZFeXPkjFYx3Of02hCr8TrI7I5VqNLssjwypgSODOaYNBHPngSU/EY
+         bNyEuOdiU7OIiU486wgR2jsi4DgHNR+H8O2eT73EjFggqBP5/3zEZ5hS/ZgCzsXwk18Y
+         X0LmYpMEJ8oUQJIXcniCEc8MRF5njVlAaTMefX9K66mTUC8gdtvLj1y6jXIwHje3MTj2
+         3H6VOyNgYridiAn9gE9h6V/y0pCIwHvo6615XA5Z8nkPJqkO5lYTPHVbzY/tjZ29Xrn9
+         Izig==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1792001062; x=1792605862; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1792001063; x=1792605863; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Sre2Q8d9osDFJ2pO/rFODA9M0mfR2oBhyc/Yo4XzZZQ=;
-        b=dqSna4ObfE0OweD5yMSvF8FNwmzD6BnXgPiC+qXK8tHB9iOj693tqHvbFgHkD5PxFT
-         GZ7LIZqs7P6en2S9uj3AbEmPqBArTLy2MXulzqPojQpm34B08r8cQx9e9DjBSeJY6xvu
-         UsH3rUgiti9aCTfHRbUpi7woAKyOoe00OaVio=
+        bh=fEJjmdOa9f9AfG0wvokXtnQ9GBV6EH86X//DmL/plOI=;
+        b=io6KRGbRqryTPXxUULFruYi3qjlA3Yh1FG+eCsD4nJwwGXDLL+Zc20XvdOXT2AyQV5
+         E+irR1wuMn5uZ3OzEBxwMSHVFe6mo3kyhj0gqSCu0Q7OW7J3VH2w03AKei1N61mMihB4
+         BisMGU//2Rf1SmpxFo38/aKQf89ekpE4VBL0Cor4qG7igucLNSDfuOL5bZLLfw5wXrho
+         U0nU1r5/bbSFLYaqT+r36/qsRmDm5YF3e6vhDDgYNlBdL5/pZdWdnvvqMGOsTMuEfnXP
+         HQVqk34YudBmKF0YSw8rL5yXYeHjtkx+LXZMxLK3zlqmKsBFe4hkmMVzqeN9c7DXh7lx
+         /onQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792001062; x=1792605862;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1792001063; x=1792605863;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Sre2Q8d9osDFJ2pO/rFODA9M0mfR2oBhyc/Yo4XzZZQ=;
-        b=KqAL1ZXj1dJtnTmiTX9gt7ijNZu29HlZf9cBDOM03E/5EwUvoTMjRDPqcH+EzbIMt8
-         U2xrwZwM3yQEUog3QMADdXbY3n3KrsSGoPq929oyMSqOiwKWbXQp3sOKlzo1Qp5fxmVW
-         gxwQhxKPdbwHj/yBPOmMiC7c4EoLhf0l8pRhMD5bBFdkr52wN4SO3riHdO5ys8zKOK76
-         Aa3a3B7QBRHRvt+BgRhluFNBkfZiHTmyrOCTxupCzRfjVvD9OHa0q3c62vKXa+Pypjss
-         8itcpFzm37lpaQ9Lc7swxXOdZm/ZbTvSu+iyDEtV25oMQdMDCAvkymaKNjQBfrcSFbTn
-         OQ4g==
-X-Forwarded-Encrypted: i=1; AKwUvBxQ5GCpMwRlSzxLnhFsL7FDRRQeD8wFVc7OBnvxMh9S8GoJwOHWvbABxfz7k15oDaZtm1x1Quw+BE8Z3U8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKpJxZcvy8HDS4cm9wr4ujDP7sfA+IhD50IgFUx66phm7XObdXL
-	lws6xnQDWZX7ovaVmO7rHiN13/RnnadI17HlFyYFr6AJleTSRcemgDzGTqi6qbQVBvw=
-X-Gm-Gg: AYBFou38zzoqLvff6xR2/jEaW/Vk6CrmxO3z+W90BXX9c+u0PrnJuWcMUw3bFhAs5u9
-	JbukH7rMVCEB7nG+TQNFKq+ZkpbHXNmIyc9DCvD/9uI9FpwxkG5xgkCgJHWJFRwSXNpttEJGKru
-	/OR9frQbEoj16Uq4l0O0Au5VT3B1rE73SJTh/x+hOVjCaiBWznQmH3rQUqTN9fZfEq/gAxTqtMI
-	i5JbDwfLEdm/taddCRSCFDQvgQRPXVp1KcD/OTbaN3vBVxZVO07NBJZ8x0Y9hQUEK79ADKESJBq
-	lFOLvIsahcpj8fyLClfo+OtwETspFjgalEUPrgBmbGG5/GUgs534hTr6I+6LAYcLg4IAyNWTgS8
-	kH/l3CRx7T/NlRN585PqlpnNI3DZfNy2u/obebAzxFsl2OSHQhzYcoUaq6NVcr4zsYdPXG3a9dP
-	LLThrH8xuuHG+esZu9HIlSZdnWhBENCu2kheJxntIx5pxxcPU8c8YU8FfdX3HwCZ5m/1P9kfD/j
-	OQH1OMnnStaiMGWgTphockikSmrn4o9UHZs7Hg/0KV4mudFxANQrQ==
-X-Received: by 2002:a05:6830:6f8f:b0:821:8e71:1bb5 with SMTP id 46e09a7af769-830963f4818mr16941700a34.14.1792001062029;
-        Wed, 14 Oct 2026 11:04:22 -0700 (PDT)
-Received: from com-75606 ([199.47.143.7])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-83039076dc3sm17027951a34.14.2026.10.14.11.04.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 11:04:21 -0700 (PDT)
-Date: Wed, 14 Oct 2026 11:04:17 -0700
-From: Kyle Zeng <kylebot@openai.com>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Oscar Salvador <osalvador@suse.de>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>,
-	Miaohe Lin <linmiaohe@huawei.com>,
-	Lokesh Gidra <lokeshgidra@google.com>,
-	"Liam R. Howlett" <liam@infradead.org>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/userfaultfd: only allocate anon_vma in CoW mappings
-Message-ID: <as_EIRMinCdl1zOx@com-75606>
-References: <20261014-copy_hugetlb_page_range-v1-1-5b68e03fe7fe@kernel.org>
- <as99gyi-NUprRK6e@gremlin>
+        bh=fEJjmdOa9f9AfG0wvokXtnQ9GBV6EH86X//DmL/plOI=;
+        b=x4SSm4bClHaJeUqX6V7nqS/8ecwlO5o6l/A46KRCjMR1iMay9ruxVOGy8mQh5kFMCI
+         wT5FkvWEJwVrojKNGSJiKFfrdPf06PwOZBdoh9BndW1adM5fKTeB1W7cXm9g62IUy9We
+         X9jBxLga5yRIN+pAW4y/QajkfapwR1IgbpomoE5GC7Foa58VZtYxDphw1j9uveHW0e7k
+         MpXum7QQGlwxvoEMoktQ3BrKbq9JUfWtns7buQHgzIHLY6yHusXC5xqRf2X3TOlqBjpC
+         v/tJv10SCi6Z8YIN+QXdH7/LRZLiARjSu2iPUWH4R0qgNBfwvKyGkMMoVFBRUItb3LTN
+         51KA==
+X-Forwarded-Encrypted: i=1; AKwUvBz/MqbALpyP5aEGz5dgxhCBlGV3lvmkYc++vMFACWGxByKmKuQ1mqZkfVjMMlJvvYnyUbFskVG7jwMHGTo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIbgUXBlvihi3jmblhwLzrxWpYg3JfJw+3hzvI0aIr+mmaMKOJJ
+	mOuu5T3mNDGmVX2SogvPUZOtLyVXxz+DLSFN3TemrWLbWvtlvh1b154fm5i/oBjHDymp+5qb6rX
+	nX2wIzl4W+9xSJLTtaxxKe7QI4yVSk/E=
+X-Gm-Gg: AYBFou2Nwm/Mt1V58uSv/mFOjHtTeZZwPXAfi8eCagNkbCP7jjjCZjaOvcXWzFumDfb
+	vqQm7RQIyb0Y3JYzX4papIbula5s9UZsiO4F76U3xt4hjdvlbsSIJzI1Qs3UaB9nDgOf9WmjNAD
+	G1q9j3/jb7/vmREir3U3qXtQOruCz7CYBLxd4J22GJ0sp5hpRUZ7XioxqJV5EX+7cbzgvb50cYU
+	tVdbQLwq0Jv96N0cJh1EZGOVeJJkPx3A97Manswq+qyFdfHpOY9iJGjNPeRPM5diR3hWOhda4BG
+	DMlhYeb9hNJy8ETqn4iAjiwFUNo2EFE+QKo3tcFIhmX+wTQc8YkgGYjUIhCSnkQGAFyym5hul0Q
+	v1aC4KwDsrnBS36a2VJU=
+X-Received: by 2002:a17:907:9720:b0:c2e:e3c:ddf3 with SMTP id
+ a640c23a62f3a-c31a9a2d73dmr1892027666b.1.1792001063289; Wed, 14 Oct 2026
+ 11:04:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <as99gyi-NUprRK6e@gremlin>
+References: <20261013084056.1070923-1-nicoyip.dev@gmail.com>
+ <20261013090358.1178367-2-nicoyip.dev@gmail.com> <as9pUYoOmLI2l5oB@kernel.org>
+ <as9rFtolVVn0NVD1@kernel.org>
+In-Reply-To: <as9rFtolVVn0NVD1@kernel.org>
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+Date: Thu, 15 Oct 2026 02:04:12 +0800
+X-Gm-Features: AclHuK-SQplAHNwQy93oHnQprXs6MEsIoHX8-ERaJcQyBiXLt0uOAaw9EhmmAzA
+Message-ID: <CAAo+4rVHykh4cvw=wvcZ+6MqehsOi-Foq6f+DjN536pbjj_P0g@mail.gmail.com>
+Subject: Re: [PATCH v4 2/2] keys: Serialize ownership transfers with key accounting
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: David Howells <dhowells@redhat.com>, Paul Moore <paul@paul-moore.com>, 
+	James Morris <jmorris@namei.org>, "Serge E . Hallyn" <serge@hallyn.com>, keyrings@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 14, 2026 at 03:51:22PM +0100, Lorenzo Stoakes (ARM) wrote:
-> On Wed, Oct 14, 2026 at 01:53:11PM +0200, David Hildenbrand (Arm) wrote:
-> > As uffd_lock_vma() is part of the same lookup machinery and
-> > also contains a misleading VM_SHARED check, change that one as well
-> > directly for consistency.
-> 
-> OK, I think that one isn't _strictly necessary_, but while we're there,
-> worth doing too, clearly.
-> 
-> We should also go through and convert the remaining !VM_SHARED checks ->
-> vma_is_cow_mapping() too if possible, but that's a follow up, obviously!
-> 
+On Wed, Oct 14, 2026 at 7:44=E2=80=AFPM Jarkko Sakkinen <jarkko@kernel.org>=
+ wrote:
+>
+> On Wed, Oct 14, 2026 at 02:36:53PM +0300, Jarkko Sakkinen wrote:
+> > On Tue, Oct 13, 2026 at 05:03:58PM +0800, Chengfeng Ye wrote:
+> > > Protecting individual accesses to key->user does not make ownership
+> > > transfers atomic with accounting updates. keyctl_chown_key() holds
+> > > key->sem, but instantiation is serialized by key_construction_mutex a=
+nd
+> > > need not hold that semaphore. KEY_LOOKUP_PARTIAL also permits chown o=
+f
+> > > an uninstantiated key.
+> > >
+> > > The instantiated-key count can therefore be charged to the wrong owne=
+r:
+> > >
+> > >   instantiate                       keyctl_chown_key()
+> > >   increment old->nikeys
+> > >                                     observe KEY_IS_UNINSTANTIATED
+> > >                                     skip the nikeys transfer
+> > >                                     replace key->user
+> > >   mark key instantiated
 > >
-> > A follow-up cleanup will stop taking the hugetlb_vma_lock_read(src_vma)
-> > lock in copy_hugetlb_page_range() entirely. Further, the usage of
-> 
-> Hmm really? Is it possible to do that without the hugetlb lock?
-> 
-> It'd be good in general if we could get rid of that lock as a whole :) but maybe
-> dreaming.
-> 
-> > VM_SHARED in userfaultfd code should be cleaned up later to focus on
-> > CoW vs. non-CoW mappings.
-> 
-> I think also anywhere else in the kernel where this is done. An audit on that in
-> general would be useful!
-> 
 > >
-> > Reported-by: Kyle Zeng <kylebot@openai.com>
-> > Fixes: 867a43a34ff8a ("userfaultfd: use per-vma locks in userfaultfd operations")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> 
-> This LGTM, thanks for handling this!
-> 
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> 
-> --
-> Cheers, Lorenzo
+> > Same here there's another below.
+>
+> This was also asked last time. Actually last time (since I missed the
+> spurious comment), this was the only thing that wask from you.
+>
+> Br, Jarkko
 
-I ran the patch through my system and did not find any issues with this
-patch. Thanks for addressing this!
+I'll also try to address the same changelog clarity problem in 2/2 (so
+as the spurious comment). Apologies again for the messy changelog.
 
-Reviewed-by: Kyle Zeng <kylebot@openai.com>
+Best regards,
+Chengfeng
