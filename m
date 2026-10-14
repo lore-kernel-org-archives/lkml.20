@@ -1,64 +1,63 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63E1D4E9C03
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:40:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 531E14E56E3
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:40:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791981617; cv=none; b=ETYtEpbtEeea/mbScwcA7uGvMDNAfwAIvvv2FPEytvnLWStuYpYYEQLWJ3z6JsTSjQbCOeHx1Nhj/77e/lGc3DaVAm7PoXEj8AgLTWT8Vrf7b1iY+qd6fpwrvn2Bd0UPAlwkLNvEYVldp9eXAG2Us7fkEpBlRbkra1z/f4fr184=
+	t=1791981620; cv=none; b=S2Z1k7B5V8q7LPy90ibGKMTopCW2DXVFfGFxzrMO8E+Xml2dgAQEt4f96T49fRofAsoe9ZxRT1Eb/+9MKJ/xjhDa4500gJGcjqjn5mlxbRwlSopptMj5izgL2tcAPVR2DQlPFD9urHI86eOQYrnhvA9HfO/XW7oLpLVyLbOkcW4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791981617; c=relaxed/simple;
-	bh=xBZsWg657O0Kzvpg78Nn4idAJHQmNUGX/Dguk5wqE5I=;
+	s=arc-20240116; t=1791981620; c=relaxed/simple;
+	bh=y0KNGeCtSjD1ACxF+bydrIxkgyBwc9qs4SPLuP098Z4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OaSV/P3P2qswc08AXNH5ScBiqVeb5bGYFxRcRPnaS/l8zMjXJsvLw+xNrzUUMdYVwHHyqYlVq+2BOFsSzmRz055t7V9XalD0KNJf5IlUHv+F5wwCYOjKmSqXUbxggiv6TU1ynfn4u7f8UZDUC2rahVsdbyiTyk+9Zz6F2LvMDlM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oTWTwB/P; arc=none smtp.client-ip=209.85.128.44
+	 MIME-Version; b=oDV+LTHQYG842jHuh1zLVvynkDQENRy4pCD+UTvsmGyobiRZwkSZgUAFTiEQPRJmSrfXxx98PJNSjRelOtjs4tR/jlMblxXNJDEa2hBxEfj+zv3tbnUyRCLH+BwJJwGdCASAc/nSbRvYxdGDFlKflrxgwgsPNUIG44xUql/3fCw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kMMAlKze; arc=none smtp.client-ip=209.85.128.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oTWTwB/P"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a022fee0caso38102885e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 05:40:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kMMAlKze"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a0286c981dso8412515e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 05:40:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791981607; x=1792586407; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791981613; x=1792586413; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=7j8lPCn9h1uuA3yPP/goaFyMU1vXNQ0kqv5qfig57c8=;
-        b=oTWTwB/PphcFSQeYz+4CjijfFO7mTevKds5hwY9pTUDls4MIk87n2a4mlOfvwnmfQ1
-         sHbqjFnPptVawAXk72tUJBxucGi7IMOO5VRdHR/ufnDbdp5Nm+5sZwXxLi/x68Tecj5s
-         2F/yGvPIxStwasiwwrHSngiqIU/DRr+jCeQPEtv03hS9FjPIQ5eqJtfem6W7fiaOi6L9
-         jmuLlxSHYWUzQ24gBMUtc/tUyqPOEDOHEee3XMouFys2xPAyQezbX8muTxK+agijp+71
-         hZEUag6ofcFuXkwOwBXf49BcnRpz//p/cfmz/YOyxcijTKF7PAl5bZtGhsRFnUXTY2gc
-         WRIw==
+        bh=N7kWYfk+xokLUPXcyOfskQM732fHT0KCZAHVmHMKllY=;
+        b=kMMAlKzedoP//1K31JmHhwQnoyUZKrUZ9xUVRA4Sbnpkfp/9nsSsHcWscfI4NLyilB
+         f1Dh496j99g+zxFUC8uVq0X5ffe2/NnIxCb3hKNCg2morgcsshG0QYXXqs/kOWPrIRZZ
+         YmSQ5Zy2obu8+xoL44vAcBew1a9kAega7q56EETIUVnp97giqH46gxEgWcm7tDNolU+x
+         PVv7bZZq4pSf5tS5f4QNITBhi7hM391ZeP0eAys3iHloxG0aY3pG+hIkANckM5iclClw
+         AaJOoskq5SRo42dEBj3F3Z5tDdCoqLjmRhS49IFDz622qbzUwrZDL513llEY74GTPQst
+         LYcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791981607; x=1792586407;
+        d=1e100.net; s=20260707; t=1791981613; x=1792586413;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7j8lPCn9h1uuA3yPP/goaFyMU1vXNQ0kqv5qfig57c8=;
-        b=ANQ4AIVAlfNMWpb4Yy/zLu9jKBNcxZudDF0Aon5CSAI/1EL9X1V0q+WAdoDoMo1EK0
-         RzVKYpLqyQ9jP1SiWf/wCsWFhesudxAEXKccj1yYBi7Fv8gEbzifj19AdR2Mo5ucqH/9
-         LbvyTgK9W8586/HfjrLCPcuu1WrVc3BibZCHLJMqf9/Wys84/qCtsmikfomZC+ytqeJg
-         lOiU8PE6gMQI/Mvhm9ydSnl1vYhoZU7N2XDE1lcjHypZSIlMER/XucU2sz2OW7qbnsLH
-         HtJ9mSDwY/rhlwb1NUccdsLYR/+Q9/W5DKY/guSwn4sadSKLnj1rB6HCcdQPGd72oGnw
-         FwtA==
-X-Forwarded-Encrypted: i=1; AKwUvBzYBJ+oNkR3GbmcnzE3MlhsWtcDxRP8uJsYDXEAXJY8d+S8CxnwOC1CIy4e3+YwQZO4Z5xNoV0Ew13o/LI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJRX0Nf8kPD1oIONWRiCMWgA1TJegyJm2wL2X6ziHCwD9K/dPsJ
-	86ULqCTmGtXQFRgPI7BNGjG1iMNi3OYbYaCQ56JhqmZcnrIaAdFr4FR2
-X-Gm-Gg: AYBFou1mbqNa1Id4Jo4y7sNA6xS7cqulX9UIzl0tEL+hwdrt7GDpaKNjJIIeddSsY9e
-	P2+KQBHz560gyhdAqs1eIYH1Z0ZohUgVTT0J0YdcXEpZPNoE8tD7OoKcC/O7bKmbucHYx/+bMbr
-	CLWuZSM7jhfDsCLhoH9G235I1aUXRW3Sm8zm7jDtQPKjE+G4sl7xS8zEtPdMZil/HD8FX13SVY2
-	QNCgqT1etRW9zX3t2nj+ITc+7bRXO3fGD1O9urBcbE90STtYl+0G7jzifx2T9Lc/OlLtpBT69jb
-	KumjMMLk4aFPcma+Tq4EJLH6O0gTuV0nB65tfoO75TV0F8X67+jzK95Kped6KhptmnCUkrCwpnD
-	W6sWSOEw8XKNAECU5SiBdJEZU5MhvQru68pUEtS3xE3rYDR126zNJpKa0A1RumSsrQDX1STMFnf
-	7lrV7+p3v/JXZfZrela74/nxxEdwG2xxzkbPiTfSPj0xdWBBDSE95RgBQVls1XS602OwfBGPfbA
-	w==
-X-Received: by 2002:a05:600c:5493:b0:4a1:78da:d271 with SMTP id 5b1f17b1804b1-4a18e4ee976mr343394145e9.30.1791981607167;
-        Wed, 14 Oct 2026 05:40:07 -0700 (PDT)
+        bh=N7kWYfk+xokLUPXcyOfskQM732fHT0KCZAHVmHMKllY=;
+        b=H35YS/Mx3mYf7sMw9HmTRq24yRJSV/oMDaiOYC8wfm32PRieYugWEHYpEXelxpiQ1j
+         v/mvHKYaFyFx86PDVJyWsjTVGsvvWE5cQeN3O0h0jBTATUQy8OUPehAVod8quQ2QBioR
+         eAhCGIBkNWJ7cMA5jtiouAmZzHxOo4wpWitUytcbF2Q19qQKBduOTjT8bq6u/ellMipC
+         r1PQ7tkAUZj+G+gBLfMDgXsh1lAPjQ9J10lSJaYIsS8zMOC7zA24kRTY1k1SFCoeDvTp
+         uRdvcH0zvaTGL1DRikTCMmQOM9IS/SPRu3ur5YNgHG4aQJSrl3Qr8wbD8gmmzQ32vd/W
+         OHOw==
+X-Forwarded-Encrypted: i=1; AKwUvBw6PYduNWvtufjEQ0apPPv7f4lpnAuXh+ywUMOajsA8DmT7zLPqI+K6fMREMz0b11TZpZ7jcdKi3C+8owM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJmPiJS13T/8hWTzJvpzbLZdkfU+ZysvRqyyTSnv/Vfzf8qG+0h
+	2K+n6u4HQkkrzsWveInEkykJECv8BkewOnXbnSSMR2+kwzyZKEhrY57T
+X-Gm-Gg: AYBFou2jUcyi1bY+a0mrg52frdlk+uSdVgfdbVXaFo2lGQVN7E1pffyYkq5iIBElqk0
+	d33BxBMS89NZ9OujFBCKfRW6+gkVwJ4A1JgBMReTaLG/oS3xl8yQ7WMgwUU4eARsocjU3aRtiCT
+	S5VWtiau3IIdmMHTOJBVHBdX2/Nj417tIGHcScrZ2dHl/3VUA5/qySyTXUNkNNgTw5E/K7zfNew
+	HB702WJmVIsTeIXAa4JnEIpgonliNYLDoVEanIg6lLgxWLzExAFy+WfUYIk3Adynt5uqy9jg9A6
+	STXx9Bg6WYeglJb0se1fc2UOpR2KTYkn8gDuuHUEsdQyVauJCkKNvTxKBiMPFzK+Mv1Whqxlj/X
+	3oxR0PrQk9En7Rndn4mh95qMFT+x6XFLXcGzNI0eA0ZgXE0bc3fFfgCOhKBApC/sbyHmcvZpuNK
+	tFgHLLEg1hK4THjl6nuoG2Dk1f12c37rEPtrSB9tpdmRY4HT2VOGppn80LmvzIBq4=
+X-Received: by 2002:a05:600c:8105:b0:4a1:83f0:7c8a with SMTP id 5b1f17b1804b1-4a18e4433d6mr310145795e9.1.1791981613429;
+        Wed, 14 Oct 2026 05:40:13 -0700 (PDT)
 Received: from kali ([169.224.126.44])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1b2ec47fcsm54163165e9.1.2026.10.14.05.40.04
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1b2ec47fcsm54163165e9.1.2026.10.14.05.40.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 05:40:06 -0700 (PDT)
+        Wed, 14 Oct 2026 05:40:12 -0700 (PDT)
 From: Ali Firas <alishmery18@gmail.com>
 To: netdev@vger.kernel.org,
 	idosch@nvidia.com
@@ -74,9 +73,9 @@ Cc: kuba@kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Ali Firas <alishmery18@gmail.com>
-Subject: [PATCH net-next v4 4/7] vxlan: vnifilter: bound the number of VNIs one request may touch
-Date: Wed, 14 Oct 2026 15:38:11 +0300
-Message-ID: <20261014123814.388557-5-alishmery18@gmail.com>
+Subject: [PATCH net-next v4 6/7] vxlan: vnifilter: account the default FDB entry to memcg
+Date: Wed, 14 Oct 2026 15:38:13 +0300
+Message-ID: <20261014123814.388557-7-alishmery18@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261014123814.388557-1-alishmery18@gmail.com>
 References: <20261014123814.388557-1-alishmery18@gmail.com>
@@ -88,159 +87,351 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A single RTM_NEWTUNNEL or RTM_DELTUNNEL message can ask for the whole
-24-bit space in one range. vxlan_vni_add_del() then walks it one VNI at
-a time under rtnl_lock, holding the lock for the length of the walk.
-That walk is the cost being bounded, not the memory: an add allocates a
-VNI node and a per-CPU stats block per VNI, a delete creates neither,
-but both walk the same span and hold rtnl the same way, so both are
-bounded.
+A VNI added through the vnifilter interface with a group or remote
+installs a default FDB entry for that VNI: vxlan_vni_update_group()
+calls vxlan_update_default_fdb_entry(), which calls vxlan_fdb_update()
+and vxlan_fdb_create(). The entry allocates a struct vxlan_fdb and, per
+remote, a struct vxlan_rdst plus its per-CPU dst cache, all with
+GFP_ATOMIC and none charged to a memory cgroup.
 
-The span of one VXLAN_VNIFILTER_ENTRY is not the quantity to bound. An
-entry carrying just START and END is 20 bytes on the wire and a message
-may carry many of them, vxlan_process_vni_filter() being called once per
-entry, so bounding each entry alone would still let one message ask for
-thousands of times the limit. Sum the spans of every entry and reject
-the message as a whole in vxlan_vnifilter_check_msg(), before the
-dispatch loop: entries are applied and notified one at a time, so a
-limit enforced during dispatch would return an error only after every
-preceding entry had been acted on. The range extraction is factored
-into vxlan_vni_filter_entry_range() so the count and the range later
-acted on cannot drift.
+The previous patch accounts the per-VNI node and its stats; these FDB
+objects are the rest of what one vnifilter request allocates per VNI.
+Charge them to the caller, as commit c948f51c1654 ("memcg: enable
+accounting for net_device and Tx/Rx queues") and commit e2c8d550a973
+("netfilter: ebtables: account ebt_table_info to kmemcg") do: the
+lifetime of this memory is the net namespace, not the allocating task,
+so the OOM killer cannot reclaim it and it must be charged to the cgroup
+of the task whose request allocates it.
 
-The limit, VXLAN_VNI_FILTER_MSG_MAX (4096), is the one the preceding
-patch introduced for the dump; it follows the usable VLAN ID space,
-since vnifilter is mainly used on bridged devices where the VNI is
-derived from the VLAN. It bounds one request, not how many VNIs a
-device may hold: the whole space can still be installed in more than
-one request, and a
-device holding it is still torn down in one step by
-vxlan_vnigroup_uninit(), which is device teardown, not a netlink
-message, and is not subject to this cap.
+Thread a gfp argument through vxlan_fdb_update() to
+vxlan_fdb_alloc()/vxlan_fdb_append() on both paths it can take -- the
+create path (vxlan_fdb_update_create() -> vxlan_fdb_create()) and the
+path that changes an existing entry's remote
+(vxlan_fdb_update_existing()) -- and a second gfp through
+vxlan_update_default_fdb_entry(), so each caller chooses it. Every
+non-vnifilter caller of vxlan_fdb_update() -- vxlan_fdb_add(),
+vxlan_snoop(), vxlan_dev_create(), vxlan_changelink() and the switchdev
+vxlan_fdb_external_learn_add() -- keeps plain GFP_ATOMIC, so the data
+path and unrelated callers are unchanged. dst_cache_init() already takes
+a gfp argument, so no change outside the driver is needed.
 
-This is a policy narrowing of what a single message may ask for, not a
-fix for a crash or corruption, and is not a backport candidate.
+A per-request add or change of a VNI's remote (RTM_NEWTUNNEL, via
+vxlan_vni_update_group()) passes GFP_NOWAIT | __GFP_ACCOUNT. These
+allocations run under the hash spinlock and cannot sleep, but a
+configuration path does not need the atomic reserves GFP_ATOMIC grants,
+and GFP_NOWAIT makes the memcg charge hard-bounded rather than
+force-charged: a cgroup at its limit fails the add or change there with
+-ENOMEM instead of pushing memory.current past memory.max. The failure
+is clean -- the new entry is allocated before the old is freed, so an
+add that fails leaves the existing entry intact and returns the error;
+no established FDB state is destroyed and no false success is returned.
+Creating a VNI is gated the same way by the previous patch's node and
+stats (GFP_KERNEL_ACCOUNT, hard-bounded). Measured on production builds
+at 2 and 8 vCPU in an 8 MiB cgroup: over-limit adds and changes return
+-ENOMEM and memory.current does not exceed memory.max.
 
-Suggested-by: Ido Schimmel <idosch@nvidia.com>
+The device-wide default-remote change (RTM_NEWLINK, via
+vxlan_vnilist_update_group()) keeps GFP_ATOMIC | __GFP_ACCOUNT. That
+walk touches every VNI inheriting the device default in one message,
+outside the per-request cap, and its existing error unwind re-installs
+entries; hard-bounding it would turn a cgroup limit into a mid-walk
+failure that the unwind cannot cleanly reverse. Bounding and unwinding
+that pre-existing walk is left to a separate change; here it stays
+force-charged, as before this series, and is charged to the task
+issuing the RTM_NEWLINK.
+
+This adds no new failure path on the data or learning paths: their
+allocations already existed and keep GFP_ATOMIC; only the vnifilter
+configuration path gains an -ENOMEM return, which its callers already
+propagate.
+
 Assisted-by: LLM
 Signed-off-by: Ali Firas <alishmery18@gmail.com>
 ---
-v4: use the constant the dump patch introduces; rebased.
+v4: new patch.
 
- drivers/net/vxlan/vxlan_vnifilter.c | 80 ++++++++++++++++++++++++++---
- 1 file changed, 72 insertions(+), 8 deletions(-)
+ drivers/net/vxlan/vxlan_core.c      | 47 ++++++++++++++++-------------
+ drivers/net/vxlan/vxlan_private.h   |  7 +++--
+ drivers/net/vxlan/vxlan_vnifilter.c | 14 ++++++---
+ 3 files changed, 39 insertions(+), 29 deletions(-)
 
-diff --git a/drivers/net/vxlan/vxlan_vnifilter.c b/drivers/net/vxlan/vxlan_vnifilter.c
-index 5beec29eb84a..2999dd536625 100644
---- a/drivers/net/vxlan/vxlan_vnifilter.c
-+++ b/drivers/net/vxlan/vxlan_vnifilter.c
-@@ -971,13 +971,79 @@ static int vxlan_vni_add_del(struct vxlan_dev *vxlan, __u32 start_vni,
- 	return err;
+diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
+index 278d41f58d89..7991b544af5a 100644
+--- a/drivers/net/vxlan/vxlan_core.c
++++ b/drivers/net/vxlan/vxlan_core.c
+@@ -577,7 +577,7 @@ static int vxlan_fdb_replace(struct vxlan_fdb *f,
+ /* Add/update destinations for multicast */
+ static int vxlan_fdb_append(struct vxlan_fdb *f,
+ 			    union vxlan_addr *ip, __be16 port, __be32 vni,
+-			    __u32 ifindex, struct vxlan_rdst **rdp)
++			    __u32 ifindex, struct vxlan_rdst **rdp, gfp_t gfp)
+ {
+ 	struct vxlan_rdst *rd;
+ 
+@@ -585,14 +585,14 @@ static int vxlan_fdb_append(struct vxlan_fdb *f,
+ 	if (rd)
+ 		return 0;
+ 
+-	rd = kmalloc_obj(*rd, GFP_ATOMIC);
++	rd = kmalloc_obj(*rd, gfp);
+ 	if (rd == NULL)
+ 		return -ENOMEM;
+ 
+ 	/* The driver can work correctly without a dst cache, so do not treat
+ 	 * dst cache initialization errors as fatal.
+ 	 */
+-	dst_cache_init(&rd->dst_cache, GFP_ATOMIC | __GFP_NOWARN);
++	dst_cache_init(&rd->dst_cache, gfp | __GFP_NOWARN);
+ 
+ 	rd->remote_ip = *ip;
+ 	rd->remote_port = port;
+@@ -779,11 +779,11 @@ static int vxlan_gpe_gro_complete(struct sock *sk, struct sk_buff *skb, int nhof
+ 
+ static struct vxlan_fdb *vxlan_fdb_alloc(struct vxlan_dev *vxlan, const u8 *mac,
+ 					 __u16 state, __be32 src_vni,
+-					 __u16 ndm_flags)
++					 __u16 ndm_flags, gfp_t gfp)
+ {
+ 	struct vxlan_fdb *f;
+ 
+-	f = kmalloc_obj(*f, GFP_ATOMIC);
++	f = kmalloc_obj(*f, gfp);
+ 	if (!f)
+ 		return NULL;
+ 	memset(&f->key, 0, sizeof(f->key));
+@@ -869,7 +869,7 @@ int vxlan_fdb_create(struct vxlan_dev *vxlan,
+ 		     __u16 state, __be16 port, __be32 src_vni,
+ 		     __be32 vni, __u32 ifindex, __u16 ndm_flags,
+ 		     u32 nhid, struct vxlan_fdb **fdb,
+-		     struct netlink_ext_ack *extack)
++		     struct netlink_ext_ack *extack, gfp_t gfp)
+ {
+ 	const struct vxlan_config *cfg = rcu_dereference_rtnl(vxlan->cfg);
+ 	struct vxlan_rdst *rd = NULL;
+@@ -881,14 +881,14 @@ int vxlan_fdb_create(struct vxlan_dev *vxlan,
+ 		return -ENOSPC;
+ 
+ 	netdev_dbg(vxlan->dev, "add %pM -> %pIS\n", mac, ip);
+-	f = vxlan_fdb_alloc(vxlan, mac, state, src_vni, ndm_flags);
++	f = vxlan_fdb_alloc(vxlan, mac, state, src_vni, ndm_flags, gfp);
+ 	if (!f)
+ 		return -ENOMEM;
+ 
+ 	if (nhid)
+ 		rc = vxlan_fdb_nh_update(vxlan, f, nhid, extack);
+ 	else
+-		rc = vxlan_fdb_append(f, ip, port, vni, ifindex, &rd);
++		rc = vxlan_fdb_append(f, ip, port, vni, ifindex, &rd, gfp);
+ 	if (rc < 0)
+ 		goto errout;
+ 
+@@ -984,7 +984,7 @@ static int vxlan_fdb_update_existing(struct vxlan_dev *vxlan,
+ 				     __u32 ifindex, __u16 ndm_flags,
+ 				     struct vxlan_fdb *f, u32 nhid,
+ 				     bool swdev_notify,
+-				     struct netlink_ext_ack *extack)
++				     struct netlink_ext_ack *extack, gfp_t gfp)
+ {
+ 	__u16 fdb_flags = (ndm_flags & ~NTF_USE);
+ 	struct vxlan_rdst *rd = NULL;
+@@ -1047,7 +1047,8 @@ static int vxlan_fdb_update_existing(struct vxlan_dev *vxlan,
+ 	if ((flags & NLM_F_APPEND) &&
+ 	    (is_multicast_ether_addr(f->key.eth_addr) ||
+ 	     is_zero_ether_addr(f->key.eth_addr))) {
+-		rc = vxlan_fdb_append(f, ip, port, vni, ifindex, &rd);
++		rc = vxlan_fdb_append(f, ip, port, vni, ifindex, &rd,
++				      gfp);
+ 
+ 		if (rc < 0)
+ 			return rc;
+@@ -1088,7 +1089,7 @@ static int vxlan_fdb_update_create(struct vxlan_dev *vxlan,
+ 				   __be16 port, __be32 src_vni, __be32 vni,
+ 				   __u32 ifindex, __u16 ndm_flags, u32 nhid,
+ 				   bool swdev_notify,
+-				   struct netlink_ext_ack *extack)
++				   struct netlink_ext_ack *extack, gfp_t gfp)
+ {
+ 	__u16 fdb_flags = (ndm_flags & ~NTF_USE);
+ 	struct vxlan_fdb *f;
+@@ -1101,7 +1102,7 @@ static int vxlan_fdb_update_create(struct vxlan_dev *vxlan,
+ 
+ 	netdev_dbg(vxlan->dev, "add %pM -> %pIS\n", mac, ip);
+ 	rc = vxlan_fdb_create(vxlan, mac, ip, state, port, src_vni,
+-			      vni, ifindex, fdb_flags, nhid, &f, extack);
++			      vni, ifindex, fdb_flags, nhid, &f, extack, gfp);
+ 	if (rc < 0)
+ 		return rc;
+ 
+@@ -1124,7 +1125,7 @@ int vxlan_fdb_update(struct vxlan_dev *vxlan,
+ 		     __be16 port, __be32 src_vni, __be32 vni,
+ 		     __u32 ifindex, __u16 ndm_flags, u32 nhid,
+ 		     bool swdev_notify,
+-		     struct netlink_ext_ack *extack)
++		     struct netlink_ext_ack *extack, gfp_t gfp)
+ {
+ 	struct vxlan_fdb *f;
+ 
+@@ -1138,7 +1139,8 @@ int vxlan_fdb_update(struct vxlan_dev *vxlan,
+ 
+ 		return vxlan_fdb_update_existing(vxlan, ip, state, flags, port,
+ 						 vni, ifindex, ndm_flags, f,
+-						 nhid, swdev_notify, extack);
++						 nhid, swdev_notify, extack,
++						 gfp);
+ 	} else {
+ 		if (!(flags & NLM_F_CREATE))
+ 			return -ENOENT;
+@@ -1146,7 +1148,7 @@ int vxlan_fdb_update(struct vxlan_dev *vxlan,
+ 		return vxlan_fdb_update_create(vxlan, mac, ip, state, flags,
+ 					       port, src_vni, vni, ifindex,
+ 					       ndm_flags, nhid, swdev_notify,
+-					       extack);
++					       extack, gfp);
+ 	}
  }
  
-+/* Derive the VNI range one VXLAN_VNIFILTER_ENTRY selects. Shared so that the
-+ * count taken by vxlan_vnifilter_check_msg() cannot drift from the range
-+ * vxlan_process_vni_filter() then acts on.
-+ */
-+static void vxlan_vni_filter_entry_range(struct nlattr **vattrs, u32 *vni_start,
-+					 u32 *vni_end)
-+{
-+	*vni_start = 0;
-+	*vni_end = 0;
-+
-+	if (vattrs[VXLAN_VNIFILTER_ENTRY_START]) {
-+		*vni_start = nla_get_u32(vattrs[VXLAN_VNIFILTER_ENTRY_START]);
-+		*vni_end = *vni_start;
-+	}
-+
-+	if (vattrs[VXLAN_VNIFILTER_ENTRY_END])
-+		*vni_end = nla_get_u32(vattrs[VXLAN_VNIFILTER_ENTRY_END]);
-+}
-+
-+/* Reject a request touching more than VXLAN_VNI_FILTER_MSG_MAX VNIs before any
-+ * of its entries is acted on. Both add and delete walk the span one VNI at a
-+ * time under rtnl_lock, so both are bounded. Entries are applied one at a time
-+ * and each one notifies as it goes, so a limit checked inside the dispatch loop
-+ * would leave the entries ahead of the offending one already applied.
-+ */
-+static int vxlan_vnifilter_check_msg(const struct nlmsghdr *nlh,
-+				     struct netlink_ext_ack *extack)
-+{
-+	struct nlattr *vattrs[VXLAN_VNIFILTER_ENTRY_MAX + 1];
-+	struct nlattr *attr;
-+	u32 vnis = 0;
-+	int err, rem;
-+
-+	nlmsg_for_each_attr_type(attr, VXLAN_VNIFILTER_ENTRY, nlh,
-+				 sizeof(struct tunnel_msg), rem) {
-+		u32 vni_start, vni_end;
-+
-+		err = nla_parse_nested(vattrs, VXLAN_VNIFILTER_ENTRY_MAX, attr,
-+				       vni_filter_entry_policy, extack);
-+		if (err)
-+			return err;
-+
-+		vxlan_vni_filter_entry_range(vattrs, &vni_start, &vni_end);
-+
-+		/* A start above the end selects no VNI and costs nothing;
-+		 * leave it behaving as it does today.
-+		 */
-+		if (vni_end < vni_start)
-+			continue;
-+
-+		/* vni_filter_entry_policy has already bounded both endpoints
-+		 * below VXLAN_N_VID, so one entry adds at most VXLAN_N_VID and
-+		 * vnis cannot wrap before the test below rejects it.
-+		 */
-+		vnis += vni_end - vni_start + 1;
-+		if (vnis > VXLAN_VNI_FILTER_MSG_MAX) {
-+			NL_SET_ERR_MSG_ATTR_FMT(extack, attr,
-+						"Request asks for more than %u VNIs",
-+						VXLAN_VNI_FILTER_MSG_MAX);
-+			return -EINVAL;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
- static int vxlan_process_vni_filter(struct vxlan_dev *vxlan,
- 				    struct nlattr *nlvnifilter,
- 				    int cmd, struct netlink_ext_ack *extack)
+@@ -1287,7 +1289,7 @@ static int vxlan_fdb_add(struct ndmsg *ndm, struct nlattr *tb[],
+ 	err = vxlan_fdb_update(vxlan, addr, &ip, ndm->ndm_state, flags,
+ 			       port, src_vni, vni, ifindex,
+ 			       ndm->ndm_flags | NTF_VXLAN_ADDED_BY_USER,
+-			       nhid, true, extack);
++			       nhid, true, extack, GFP_ATOMIC);
+ 	spin_unlock_bh(&vxlan->hash_lock);
+ 
+ 	if (!err)
+@@ -1507,7 +1509,8 @@ static enum skb_drop_reason vxlan_snoop(struct net_device *dev,
+ 					 cfg->dst_port,
+ 					 vni,
+ 					 cfg->vni,
+-					 ifindex, NTF_SELF, 0, true, NULL);
++					 ifindex, NTF_SELF, 0, true, NULL,
++					 GFP_ATOMIC);
+ 		spin_unlock(&vxlan->hash_lock);
+ 	}
+ 
+@@ -4154,7 +4157,7 @@ static int vxlan_dev_create(struct net *net, struct net_device *dev,
+ 				       cfg->vni,
+ 				       cfg->vni,
+ 				       cfg->remote_ifindex,
+-				       NTF_SELF, 0, true, extack);
++				       NTF_SELF, 0, true, extack, GFP_ATOMIC);
+ 		spin_unlock_bh(&vxlan->hash_lock);
+ 		if (err)
+ 			goto unlink;
+@@ -4617,7 +4620,8 @@ static int vxlan_changelink(struct net_device *dev, struct nlattr *tb[],
+ 					       cfg->dst_port,
+ 					       conf.vni, conf.vni,
+ 					       conf.remote_ifindex,
+-					       NTF_SELF, 0, true, extack);
++					       NTF_SELF, 0, true, extack,
++					       GFP_ATOMIC);
+ 			if (err) {
+ 				spin_unlock_bh(&vxlan->hash_lock);
+ 				if (lowerdev_changed)
+@@ -4652,7 +4656,8 @@ static int vxlan_changelink(struct net_device *dev, struct nlattr *tb[],
+ 							       &cfg->remote_ip,
+ 							       conf.remote_ifindex,
+ 							       cfg->remote_ifindex,
+-							       NULL);
++							       NULL,
++							       GFP_ATOMIC | __GFP_ACCOUNT);
+ 				if (lowerdev_changed)
+ 					netdev_adjacent_change_abort(vxlan->lowerdev,
+ 								     lowerdev, dev);
+@@ -4972,7 +4977,7 @@ vxlan_fdb_external_learn_add(struct net_device *dev,
+ 			       fdb_info->remote_vni,
+ 			       fdb_info->remote_ifindex,
+ 			       NTF_USE | NTF_SELF | NTF_EXT_LEARNED,
+-			       0, false, extack);
++			       0, false, extack, GFP_ATOMIC);
+ 	spin_unlock_bh(&vxlan->hash_lock);
+ 
+ 	return err;
+diff --git a/drivers/net/vxlan/vxlan_private.h b/drivers/net/vxlan/vxlan_private.h
+index f0ee85f83732..b5a80ed3eff2 100644
+--- a/drivers/net/vxlan/vxlan_private.h
++++ b/drivers/net/vxlan/vxlan_private.h
+@@ -192,7 +192,7 @@ int vxlan_fdb_create(struct vxlan_dev *vxlan,
+ 		     __u16 state, __be16 port, __be32 src_vni,
+ 		     __be32 vni, __u32 ifindex, __u16 ndm_flags,
+ 		     u32 nhid, struct vxlan_fdb **fdb,
+-		     struct netlink_ext_ack *extack);
++		     struct netlink_ext_ack *extack, gfp_t gfp);
+ int __vxlan_fdb_delete(struct vxlan_dev *vxlan,
+ 		       const unsigned char *addr, union vxlan_addr ip,
+ 		       __be16 port, __be32 src_vni, __be32 vni,
+@@ -202,7 +202,8 @@ int vxlan_fdb_update(struct vxlan_dev *vxlan,
+ 		     __u16 state, __u16 flags,
+ 		     __be16 port, __be32 src_vni, __be32 vni,
+ 		     __u32 ifindex, __u16 ndm_flags, u32 nhid,
+-		     bool swdev_notify, struct netlink_ext_ack *extack);
++		     bool swdev_notify, struct netlink_ext_ack *extack,
++		     gfp_t gfp);
+ void vxlan_xmit_one(struct sk_buff *skb, struct net_device *dev,
+ 		    const struct vxlan_config *cfg,
+ 		    __be32 default_vni, struct vxlan_rdst *rdst, bool did_rsc);
+@@ -229,7 +230,7 @@ int vxlan_update_default_fdb_entry(struct vxlan_dev *vxlan, __be32 vni,
+ 				   const union vxlan_addr *old_remote_ip,
+ 				   const union vxlan_addr *remote_ip,
+ 				   u32 old_ifindex, u32 new_ifindex,
+-				   struct netlink_ext_ack *extack);
++				   struct netlink_ext_ack *extack, gfp_t gfp);
+ int vxlan_vnilist_update_group(struct vxlan_dev *vxlan,
+ 			       const union vxlan_addr *old_remote_ip,
+ 			       const union vxlan_addr *new_remote_ip,
+diff --git a/drivers/net/vxlan/vxlan_vnifilter.c b/drivers/net/vxlan/vxlan_vnifilter.c
+index 4a631fcdf23a..4b43674cceff 100644
+--- a/drivers/net/vxlan/vxlan_vnifilter.c
++++ b/drivers/net/vxlan/vxlan_vnifilter.c
+@@ -553,7 +553,7 @@ int vxlan_update_default_fdb_entry(struct vxlan_dev *vxlan, __be32 vni,
+ 				   const union vxlan_addr *old_remote_ip,
+ 				   const union vxlan_addr *remote_ip,
+ 				   u32 old_ifindex, u32 new_ifindex,
+-				   struct netlink_ext_ack *extack)
++				   struct netlink_ext_ack *extack, gfp_t gfp)
  {
- 	struct nlattr *vattrs[VXLAN_VNIFILTER_ENTRY_MAX + 1];
- 	const struct vxlan_config *cfg;
--	u32 vni_start = 0, vni_end = 0;
-+	u32 vni_start, vni_end;
- 	union vxlan_addr group;
- 	int err;
+ 	const struct vxlan_config *cfg = rtnl_dereference(vxlan->cfg);
+ 	int err = 0;
+@@ -575,7 +575,8 @@ int vxlan_update_default_fdb_entry(struct vxlan_dev *vxlan, __be32 vni,
+ 				       vni,
+ 				       vni,
+ 				       new_ifindex,
+-				       NTF_SELF, 0, true, extack);
++				       NTF_SELF, 0, true, extack,
++				       gfp);
+ 		if (err && extack) {
+ 			spin_unlock_bh(&vxlan->hash_lock);
+ 			return err;
+@@ -636,7 +637,8 @@ static int vxlan_vni_update_group(struct vxlan_dev *vxlan,
+ 					     oldrip, newrip,
+ 					     cfg->remote_ifindex,
+ 					     cfg->remote_ifindex,
+-					     extack);
++					     extack,
++					     GFP_NOWAIT | __GFP_ACCOUNT);
+ 	if (ret)
+ 		goto out;
  
-@@ -988,13 +1054,7 @@ static int vxlan_process_vni_filter(struct vxlan_dev *vxlan,
- 	if (err)
- 		return err;
- 
--	if (vattrs[VXLAN_VNIFILTER_ENTRY_START]) {
--		vni_start = nla_get_u32(vattrs[VXLAN_VNIFILTER_ENTRY_START]);
--		vni_end = vni_start;
--	}
--
--	if (vattrs[VXLAN_VNIFILTER_ENTRY_END])
--		vni_end = nla_get_u32(vattrs[VXLAN_VNIFILTER_ENTRY_END]);
-+	vxlan_vni_filter_entry_range(vattrs, &vni_start, &vni_end);
- 
- 	if (!vni_start && !vni_end) {
- 		NL_SET_ERR_MSG_ATTR(extack, nlvnifilter,
-@@ -1104,6 +1164,10 @@ static int vxlan_vnifilter_process(struct sk_buff *skb, struct nlmsghdr *nlh,
- 	if (!(cfg->flags & VXLAN_F_VNIFILTER))
- 		return -EOPNOTSUPP;
- 
-+	err = vxlan_vnifilter_check_msg(nlh, extack);
-+	if (err)
-+		return err;
-+
- 	nlmsg_for_each_attr_type(attr, VXLAN_VNIFILTER_ENTRY, nlh,
- 				 sizeof(*tmsg), rem) {
- 		err = vxlan_process_vni_filter(vxlan, attr, nlh->nlmsg_type,
+@@ -707,7 +709,8 @@ int vxlan_vnilist_update_group(struct vxlan_dev *vxlan,
+ 		ret = vxlan_update_default_fdb_entry(vxlan, vent->vni,
+ 						     oldrip, newrip,
+ 						     old_ifindex, new_ifindex,
+-						     extack);
++						     extack,
++						     GFP_ATOMIC | __GFP_ACCOUNT);
+ 		if (ret)
+ 			goto err_unwind;
+ 	}
+@@ -729,7 +732,8 @@ int vxlan_vnilist_update_group(struct vxlan_dev *vxlan,
+ 		vxlan_update_default_fdb_entry(vxlan, vent->vni,
+ 					       newrip, oldrip,
+ 					       new_ifindex, old_ifindex,
+-					       NULL);
++					       NULL,
++					       GFP_ATOMIC | __GFP_ACCOUNT);
+ 	}
+ 	return ret;
+ }
 -- 
 2.53.0
 
