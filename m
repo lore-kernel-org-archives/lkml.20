@@ -1,352 +1,166 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AB532F3C07;
-	Wed, 14 Oct 2026 06:56:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8221541D135;
+	Wed, 14 Oct 2026 06:56:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.39.247.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791960962; cv=none; b=OCscNuytjcnQj+W/vaV50JEAccXSx6lacI6l8Lq0ZSKdENYRzW3sl3zdPnUcJmKvSbaauzpJjVATWnnOZ9+9V4Dqrmy9mT3yC0D64wp7k2U8WVg7Y9gGfq+qC7Q/SqACfmQ4bAzT5h6bwfBjkkAScFuIFX4p73PcyzBdgd0IlQg=
+	t=1791960985; cv=none; b=kfbYSly1xmLaohLYWrVwLvv8QnXpWpvh3NSXOufUMSMDX+rXACE1at8K/adPii60ebYvZIe2W8pPgf4loheiK62fOmxaTVh1aY2N+MFJdZSczZXndeI966Zx1gKGzEZqL5vKLn07LI4yMcDhi371aIcboOfiecGNg3O6hZi8dWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791960962; c=relaxed/simple;
-	bh=elXshJHzqsP6151olGaqdu31VHh+iR3X8AhTxNdpilk=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=s95RzmFfyArMyVMHmSCy0PoY2FjOszqur0UQBS2OknC7wfYtRUruyJ3MmjA7OUQvCS3VvmrF/43TUcP4p8dxdhfevvZjGBlKaMx5ebxnSF7xJUN/9ZhjmNuxvfXbtOUGMq1Okq/XLOwLkSB/fhrf2FyuS+SqDY/paVQ2Pp3k+ls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=qpK06rBJ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=L7scxcJI; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=qpK06rBJ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=L7scxcJI; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1791960985; c=relaxed/simple;
+	bh=pchHXEt1J4aJR0AWs0OX96hBjb602vhBljsRc6MgM7g=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=YhrvC1PWwsPKRfqgudG0/tXl6dD3RDZTv4RjMwro4O0FCA6anXz6vD+NY3HRj8J8s99+13zBGaic1vHDSM/bihF8jzMTF3D07/LdxEYBGI5WYc6KtV2blYdVONwcsLTYfBqNK6cdCl7Sseh1AJC4QNkLvrKTXhuPyDsWqLnnyto=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev; spf=pass smtp.mailfrom=cyberchaos.dev; dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b=cCZPlIQc; arc=none smtp.client-ip=195.39.247.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="qpK06rBJ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="L7scxcJI";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="qpK06rBJ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="L7scxcJI"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 3539421F93;
-	Wed, 14 Oct 2026 06:55:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791960958; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rwgxG29qaEu+nWnUkrNZt2bNiBXHtnEqVNMN6Ghlspw=;
-	b=qpK06rBJOSPtov5B8wTwXmCIcmcGPhiF/kPVpvIh3K3BNYzEH6w2cCcSfMxCGPWUbE6hwj
-	8su44endfaEk+X8hqh/j4CEhwxTvRPqWKbnWsxIHFGW8FpjYExKrr0XdPExQwePiEATccv
-	cxaUQBZnYKpI13qLJs6nl8Ub8dMYONE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791960958;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rwgxG29qaEu+nWnUkrNZt2bNiBXHtnEqVNMN6Ghlspw=;
-	b=L7scxcJIVxBeqnxrMbT7za+WEYNoi08IDJC+JsCFD/NcuMOrur/IzLmdQebQr8qRKJSyNm
-	5ewwUEHOhjibAEAA==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=qpK06rBJ;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=L7scxcJI
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791960958; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rwgxG29qaEu+nWnUkrNZt2bNiBXHtnEqVNMN6Ghlspw=;
-	b=qpK06rBJOSPtov5B8wTwXmCIcmcGPhiF/kPVpvIh3K3BNYzEH6w2cCcSfMxCGPWUbE6hwj
-	8su44endfaEk+X8hqh/j4CEhwxTvRPqWKbnWsxIHFGW8FpjYExKrr0XdPExQwePiEATccv
-	cxaUQBZnYKpI13qLJs6nl8Ub8dMYONE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791960958;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rwgxG29qaEu+nWnUkrNZt2bNiBXHtnEqVNMN6Ghlspw=;
-	b=L7scxcJIVxBeqnxrMbT7za+WEYNoi08IDJC+JsCFD/NcuMOrur/IzLmdQebQr8qRKJSyNm
-	5ewwUEHOhjibAEAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1B3B513726;
-	Wed, 14 Oct 2026 06:55:57 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id FMJULXwnz2ohVAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 14 Oct 2026 06:55:57 +0000
-Date: Wed, 14 Oct 2026 08:55:56 +0200
-Message-ID: <878q40g48z.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Cen Zhang <zzzccc427@gmail.com>
-Cc: perex@perex.cz,
-	tiwai@suse.com,
-	kees@kernel.org,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com
-Subject: Re: [PATCH] ALSA: seq: oss: Prevent duplicate MIDI device teardown
-In-Reply-To: <pm-pmb-7c5128efe2110a87b872-v2-c718183fd693e73d8e95@gmail.com>
-References: <pm-pmb-7c5128efe2110a87b872-v2-c718183fd693e73d8e95@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b="cCZPlIQc"
+From: Yureka Lilian <yureka@cyberchaos.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
+	s=mail; t=1791960975;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=RFRhkU5N0xkY+h+ZZaHcxaa1ZMJtDptcbJ0QND+y2ZU=;
+	b=cCZPlIQcPSnjvO680NjrZGy0BG6CEKO524p5wCykGaevyWasCNuGYmGtaMmcEvn9oM89hq
+	b8zrbS8P0V+Gu2GfoUfdPbZV/YOqmP1DnY9rsCE4gp0zQ9NFmjghU0lItKy3GPrFV/OXmc
+	+utiL/vJPVDjsmPooYSCUJ3YEf4Nl1k=
+Subject: [PATCH v2 00/10] Initial Apple Silicon M4 Pro/Max device trees and
+ dt-bindings
+Date: Wed, 14 Oct 2026 08:56:07 +0200
+Message-Id: <20261014-apple-m4-pro-max-initial-devicetrees-v2-0-961edd8d661b@cyberchaos.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Action: no action
-X-Spam-Score: -3.51
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-3.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[perex.cz,suse.com,kernel.org,vger.kernel.org,gmail.com];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim]
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 3539421F93
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42PTQ6CMBCFr0K6dkxbDD+uvIdhUcpUxiBt2kogh
+ Ltb0AO4/JJv3nuzsoCeMLBrtjKPEwWyYwJ5ypju1fhAoC4xk1wWgvMalHMDwusCzlt4qRlopEh
+ qgC5da4weMYDOW5kbVaqqQpainEdD81Fzb74c3u0Tddyzd6OnEK1fjh2T2L1fpeD/VU4COJSVM
+ G1uZFeb4qaXFn16woZzElmzbdsHS+3j9u8AAAA=
+X-Change-ID: 20261009-apple-m4-pro-max-initial-devicetrees-c3b23fa7a88e
+To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+ Neal Gompa <neal@gompa.dev>, Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Radu Rendec <radu@rendec.net>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ Hector Martin <marcan@marcan.st>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Sasha Finkelstein <k@chaosmail.tech>, Linus Walleij <linusw@kernel.org>, 
+ Mark Kettenis <kettenis@openbsd.org>, Andi Shyti <andi.shyti@kernel.org>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org, 
+ Yureka Lilian <yureka@cyberchaos.dev>, Florian Klink <flokli@flokli.de>
 
-On Wed, 14 Oct 2026 06:06:52 +0200,
-Cen Zhang wrote:
-> 
-> Each OSS MIDI alias and its coder must have one final-release owner.
-> find_slot() pins the alias under register_lock, but
-> snd_seq_oss_midi_check_exit_port() clears its slot in a separate critical
-> section without checking whether another callback already removed it.
-> The use counter protects active users, but draining it does not elect a
-> single remover.
-> 
-> This requires overlapping raw kernel-client port controls for the same
-> client. snd_seq_kernel_client_ctl() does not take ioctl_mutex, and
-> snd_seq_delete_port() releases ports_mutex before returning to the
-> DELETE_PORT handler's PORT_EXIT broadcast. If the old deletion is delayed
-> before that broadcast, a new port can reuse the vacant address. Its
-> PORT_START finds and keeps the old alias. Deleting the replacement then
-> produces a second PORT_EXIT for the same address. Non-atomic subscriber
-> delivery holds a read rwsem, so the two receive_announce() callbacks can
-> run concurrently:
-> 
->   Old-port deletion                 Replacement-port controls
->   -----------------                 -------------------------
->   Unlink and drain old port
->   Delay before PORT_EXIT            Create port at the same address
->                                     PORT_START keeps existing alias
->                                     Delete port; PORT_EXIT pins mdev
->   PORT_EXIT pins the same mdev
->   Clear slot; drop pin              Clear slot; drop pin
->   Wait for users to drain           Wait for users to drain
->                                     Free coder; pause before kfree(mdev)
->   Free coder again: read
->   freed coder->buf
-> 
-> Both callbacks can select the same alias before either clears its slot.
-> After both drop their pins, both waits can return. The second call to
-> snd_midi_event_free() can then read the freed coder's buffer pointer,
-> as in the report below, and attempt to release the same objects twice.
-> 
-> Check that the pinned alias still occupies its slot under register_lock
-> before clearing it. A callback that finds it already removed drops its
-> pin and returns. Only the callback that removes the alias drains users
-> and frees the coder and record. The pin keeps the record alive through
-> this check, and the wait remains outside the spinlock.
-> 
-> KASAN report as below:
-> 
->     ==================================================================
->     BUG: KASAN: slab-use-after-free in snd_midi_event_free+0x53/0x60
->     Read of size 8 at addr ffff888107074518 by task alsa-seq-fixtur/492
-> 
->     CPU: 3 UID: 0 PID: 492 Comm: alsa-seq-fixtur Not tainted 7.2.0-rc6-pmb-bt-functional-v1+ #1 PREEMPT(lazy)
->     Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
->     Call Trace:
->      <TASK>
->      dump_stack_lvl+0x93/0xd0
->      print_report+0xce/0x630
->      ? snd_midi_event_free+0x53/0x60
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __virt_addr_valid+0x20d/0x410
->      ? snd_midi_event_free+0x53/0x60
->      kasan_report+0xe0/0x110
->      ? snd_midi_event_free+0x53/0x60
->      snd_midi_event_free+0x53/0x60
->      snd_seq_oss_midi_check_exit_port+0x1d8/0x370
->      receive_announce+0x1b8/0x370
->      ? __pfx_receive_announce+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __lock_acquire+0x466/0x2260
->      ? snd_seq_port_use_ptr+0x40/0x170
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? find_held_lock+0x2b/0x80
->      ? snd_seq_port_use_ptr+0x10c/0x170
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? lock_release+0xc8/0x280
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __pfx_receive_announce+0x10/0x10
->      __snd_seq_deliver_single_event+0x105/0x1a0
->      ? snd_seq_port_use_ptr+0x111/0x170
->      snd_seq_deliver_single_event+0x2fc/0x770
->      ? __pfx_snd_seq_deliver_single_event+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __pfx_down_read_nested+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? do_raw_read_unlock+0x49/0xe0
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? _raw_read_unlock+0x23/0x40
->      snd_seq_deliver_event+0x351/0x760
->      ? __pfx_snd_seq_deliver_event+0x10/0x10
->      ? _raw_spin_unlock_irqrestore+0x44/0x60
->      ? trace_hardirqs_on+0x18/0x160
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? _raw_spin_unlock_irqrestore+0x44/0x60
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      snd_seq_kernel_client_dispatch+0x13f/0x170
->      snd_seq_system_broadcast+0x100/0x150
->      ? __pfx_snd_seq_system_broadcast+0x10/0x10
->      ? mark_held_locks+0x40/0x70
->      ? _raw_spin_unlock_irqrestore+0x44/0x60
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? lockdep_hardirqs_on_prepare+0xea/0x1a0
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      snd_seq_ioctl_delete_port+0x179/0x4b0
->      call_seq_client_ctl+0x90/0x110
->      snd_seq_kernel_client_ctl+0x8a/0x100
->      pmbd_case_delete_port+0xa6/0xf0
->      ? __pfx_pmbd_case_delete_port+0x10/0x10
->      ? __might_fault+0xdd/0x190
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __might_fault+0x14e/0x190
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? strim+0x19c/0x200
->      pmbd_case_control_write+0x2c5/0x470
->      ? __pfx_pmbd_case_control_write+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __debugfs_file_get+0x1bd/0x7f0
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? lock_acquire+0x17b/0x2f0
->      ? ksys_write+0x111/0x200
->      full_proxy_write+0x11f/0x180
->      vfs_write+0x25a/0x1010
->      ? __pfx_full_proxy_write+0x10/0x10
->      ? __pfx___mutex_lock+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? lock_acquire+0x17b/0x2f0
->      ? __pfx_vfs_write+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __fget_files+0x1e1/0x370
->      ksys_write+0x111/0x200
->      ? __pfx_ksys_write+0x10/0x10
->      ? rseq_register.isra.0+0x1f3/0x2e0
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? exit_to_user_mode_loop+0x3a5/0x570
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      do_syscall_64+0x115/0x6a0
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
->     RIP: 0033:0x7f3532e4e9ee
->     Code: 08 0f 85 f5 4b ff ff 49 89 fb 48 89 f0 48 89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24 08 0f 05 <c3> 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 80 00 00 00 00 48 83 ec 08
->     RSP: 002b:00007f3532dafe08 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
->     RAX: ffffffffffffffda RBX: 00007f3532db06c0 RCX: 00007f3532e4e9ee
->     RDX: 000000000000000a RSI: 000055efbd747156 RDI: 0000000000000003
->     RBP: 000055efbd747156 R08: 0000000000000000 R09: 0000000000000000
->     R10: 0000000000000000 R11: 0000000000000246 R12: 000000000000000a
->     R13: 0000000000000000 R14: 00007ffe7894e7f0 R15: 00007f35325b0000
->      </TASK>
-> 
->     Allocated by task 490:
->      kasan_save_stack+0x33/0x60
->      kasan_save_track+0x14/0x30
->      __kasan_kmalloc+0xaa/0xb0
->      __kmalloc_cache_noprof+0x251/0x610
->      snd_midi_event_new+0x74/0x210
->      snd_seq_oss_midi_check_new_port+0x329/0x610
->      receive_announce+0x277/0x370
->      __snd_seq_deliver_single_event+0x105/0x1a0
->      snd_seq_deliver_single_event+0x2fc/0x770
->      snd_seq_deliver_event+0x351/0x760
->      snd_seq_kernel_client_dispatch+0x13f/0x170
->      snd_seq_system_broadcast+0x100/0x150
->      snd_seq_ioctl_create_port+0x39a/0x9d0
->      call_seq_client_ctl+0x90/0x110
->      snd_seq_kernel_client_ctl+0x8a/0x100
->      pmbd_case_create_port+0xcc/0x160
->      pmbd_case_control_write+0x21d/0x470
->      full_proxy_write+0x11f/0x180
->      vfs_write+0x25a/0x1010
->      ksys_write+0x111/0x200
->      do_syscall_64+0x115/0x6a0
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> 
->     Freed by task 493:
->      kasan_save_stack+0x33/0x60
->      kasan_save_track+0x14/0x30
->      kasan_save_free_info+0x3b/0x60
->      __kasan_slab_free+0x5f/0x80
->      kfree+0x307/0x580
->      snd_midi_event_free+0x48/0x60
->      snd_seq_oss_midi_check_exit_port+0x1d8/0x370
->      receive_announce+0x1b8/0x370
->      __snd_seq_deliver_single_event+0x105/0x1a0
->      snd_seq_deliver_single_event+0x2fc/0x770
->      snd_seq_deliver_event+0x351/0x760
->      snd_seq_kernel_client_dispatch+0x13f/0x170
->      snd_seq_system_broadcast+0x100/0x150
->      snd_seq_ioctl_delete_port+0x179/0x4b0
->      call_seq_client_ctl+0x90/0x110
->      snd_seq_kernel_client_ctl+0x8a/0x100
->      pmbd_case_delete_port+0xa6/0xf0
->      pmbd_case_control_write+0x398/0x470
->      full_proxy_write+0x11f/0x180
->      vfs_write+0x25a/0x1010
->      ksys_write+0x111/0x200
->      do_syscall_64+0x115/0x6a0
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> 
->     The buggy address belongs to the object at ffff888107074500
->      which belongs to the cache kmalloc-96 of size 96
->     The buggy address is located 24 bytes inside of
->      freed 96-byte region [ffff888107074500, ffff888107074560)
-> 
->     The buggy address belongs to the physical page:
->     page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x107074
->     flags: 0x200000000000000(node=0|zone=2)
->     page_type: f5(slab)
->     raw: 0200000000000000 ffff888100042280 dead000000000122 0000000000000000
->     raw: 0000000000000000 0000000000200020 00000000f5000000 0000000000000000
->     page dumped because: kasan: bad access detected
-> 
->     Memory state around the buggy address:
->      ffff888107074400: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
->      ffff888107074480: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
->     >ffff888107074500: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
->                                 ^
->      ffff888107074580: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
->      ffff888107074600: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
->     ==================================================================
-> 
-> Assisted-by: LLM
-> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+Hi,
 
-Applied to for-next branch now.  Thanks.
+This series adds initial device trees and dt-bindings for the Apple
+Silicon devices using the M4 Pro/Max (t6040/t6041) SoCs.
 
+This series covers only a minimal amount of hardware, which is useful
+as a basis for future developments. The hardware added here has remained
+largely unchanged between the M3 and M4 generations.
 
-Takashi
+The dt-bindings changes should be mostly boring (in a good way!). The
+device trees themselves are roughly organized into the MacBook Pro
+models on one side (t604x-j614-j616) and the Mac mini and Mac Studio on
+the other side (t604x-j575-j773). I'm hoping to re-use these dtsi files
+for the M5 Pro/Max versions of these machines in the future.
+I applied some version of dt-check-style formatting to all new files
+with the exception of the generated pmgr nodes.
+
+Merge strategy:
+Since there are no actual driver changes, we'd prefer to merge the
+dt-bindings changes through the apple-soc tree once Acked by the
+respective maintainers.
+
+Thanks,
+
+Yureka
+
+Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
+---
+Changes in v2:
+- Remove accidental t6050 hunk from "dt-bindings: interrupt-controller:
+- Remove accidental Acked-By & Reviewed-By from "dt-bindings: interrupt-controller: 
+- Fix missing "0x" hexadecimal prefix in cpu cache sizes
+- Use _fe power domains instead of their disabled _cpu counterparts in
+  Mac mini and Mac Studio framebuffer nodes
+- Link to v1: https://patch.msgid.link/20261010-apple-m4-pro-max-initial-devicetrees-v1-0-781fb3f2d9f6@cyberchaos.dev
+
+To: Sven Peter <sven@kernel.org>
+To: Janne Grunau <j@jannau.net>
+To: Neal Gompa <neal@gompa.dev>
+To: Wim Van Sebroeck <wim@linux-watchdog.org>
+To: Guenter Roeck <linux@roeck-us.net>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Thomas Gleixner <tglx@kernel.org>
+To: Radu Rendec <radu@rendec.net>
+To: Lorenzo Pieralisi <lpieralisi@kernel.org>
+To: Hector Martin <marcan@marcan.st>
+To: Uwe Kleine-König <ukleinek@kernel.org>
+To: Sasha Finkelstein <k@chaosmail.tech>
+To: Linus Walleij <linusw@kernel.org>
+To: Mark Kettenis <kettenis@openbsd.org>
+To: Andi Shyti <andi.shyti@kernel.org>
+Cc: asahi@lists.linux.dev
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-watchdog@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-pwm@vger.kernel.org
+Cc: linux-gpio@vger.kernel.org
+Cc: linux-i2c@vger.kernel.org
+apple,aic2: Add t6041 compatible"
+
+---
+Yureka Lilian (10):
+      dt-bindings: watchdog: apple,wdt: Add t6041 compatible
+      dt-bindings: interrupt-controller: apple,aic2: Add t6041 compatible
+      dt-bindings: arm: cpus: Add Apple M4 Pro/Max CPU core compatibles
+      dt-bindings: arm: power: apple,pmgr-pwrstate: Add t6041 compatible
+      dt-bindings: arm: apple: apple,pmgr: Add t6041 compatible
+      dt-bindings: pwm: apple,s5l-fpwm: Add t6041 compatible
+      dt-bindings: pinctrl: apple,pinctrl: Add t6041 compatible
+      dt-bindings: i2c: apple,i2c: Add t6041 compatible
+      dt-bindings: arm: apple: Add M4 Pro/Max based devices
+      arm64: dts: apple: Add minimal t604x (M4 Pro/Max) device trees
+
+ Documentation/devicetree/bindings/arm/apple.yaml   |   27 +
+ .../devicetree/bindings/arm/apple/apple,pmgr.yaml  |    1 +
+ Documentation/devicetree/bindings/arm/cpus.yaml    |    2 +
+ .../devicetree/bindings/i2c/apple,i2c.yaml         |    1 +
+ .../bindings/interrupt-controller/apple,aic2.yaml  |    2 +
+ .../devicetree/bindings/pinctrl/apple,pinctrl.yaml |    1 +
+ .../bindings/power/apple,pmgr-pwrstate.yaml        |    1 +
+ .../devicetree/bindings/pwm/apple,s5l-fpwm.yaml    |    1 +
+ .../devicetree/bindings/watchdog/apple,wdt.yaml    |    1 +
+ arch/arm64/boot/dts/apple/Makefile                 |    6 +
+ arch/arm64/boot/dts/apple/t6040-j614s.dts          |   24 +
+ arch/arm64/boot/dts/apple/t6040-j616s.dts          |   24 +
+ arch/arm64/boot/dts/apple/t6040-j773s.dts          |   28 +
+ arch/arm64/boot/dts/apple/t6040.dtsi               |   65 +
+ arch/arm64/boot/dts/apple/t6041-j575c.dts          |   22 +
+ arch/arm64/boot/dts/apple/t6041-j614c.dts          |   18 +
+ arch/arm64/boot/dts/apple/t6041-j616c.dts          |   18 +
+ arch/arm64/boot/dts/apple/t6041-pmgr.dtsi          | 2297 ++++++++++++++++++++
+ arch/arm64/boot/dts/apple/t6041.dtsi               |  713 ++++++
+ arch/arm64/boot/dts/apple/t604x-j575-j773.dtsi     |   47 +
+ arch/arm64/boot/dts/apple/t604x-j614-j616.dtsi     |   65 +
+ 21 files changed, 3364 insertions(+)
+---
+base-commit: a8ac6027e82415f431bbba49ab535c44f2edaf4d
+change-id: 20261009-apple-m4-pro-max-initial-devicetrees-c3b23fa7a88e
+
+Best regards,
+--  
+Yureka Lilian <yureka@cyberchaos.dev>
+
