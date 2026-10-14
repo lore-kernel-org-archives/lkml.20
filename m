@@ -1,70 +1,67 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE69148E0D3
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 20:19:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89C8148B37B;
+	Wed, 14 Oct 2026 20:19:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792009190; cv=none; b=uI4SEsxpl+7K+U05e8lI/TL5FBywGgq9O+F8tkG3ki6F0z+q+EW6SnKib+T1jpJmgklZ+T5aNdEUPn/R5n4Xqij/16ey5C3CK6RN8zr8KpDma5Z5+VWw6jb4bu1RUACl6G5YJIMNMtifLBLV+9fjpaaGQkoGbpC9dHlXv22jpWk=
+	t=1792009192; cv=none; b=WA0NswVGXpkUWjETiWUW16dE3g59DDoDri4sFloKodwo/pVXpyM/JSI/IwtIJptcXfYvaRWHdnAHunRLMEfDi2uro1dUhTOzaCEQpSulPvOQJ9vHOlgGej8VtE1m+MJSdrRlDBwm0fNkhesAW0OdnaakszqD21ZJ9Z6NRUZ2CeE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792009190; c=relaxed/simple;
-	bh=1JanGc8z8XRSLzMWj6La+OzYOvaT0VgU2qv4MPBJwVo=;
+	s=arc-20240116; t=1792009192; c=relaxed/simple;
+	bh=P0WBF/wz9WotxVezDgWS5cfXyWEipNWeQpFa9vHQgso=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=a4Y0z4rpJJMFIBKzWwbtRzDI+Dcy4wXMtNwRIhP/Tv58sHoQNAU7LNGzmvLFm3oPqheJhCtVEC95m3RwvKbCQTfOS1AAqXh4ebJJhPkFZuUYPIWC9wE1HLzh3K5UknkN8+NvIhVrcGm7eil6rXvmNETsBqsrhIn9sA7kFPnTHe8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aKnsNCdl; arc=none smtp.client-ip=198.175.65.10
+	 Content-Type:Content-Disposition:In-Reply-To; b=ArnWYJZkKZE5pW+ovamf7UV57zi+7NEOtCB716i1bmfWedaLhwGbynlzHNbZ1tL3IN9TSAegH8MEAf0DxPN6pUNI/MLSlXA09Wqz8tgNkVXmX1d3DiTlgaRF3NS6qy7rNj2eqOgHDY1OiZ6VbAs0hvHHFzPnp2AHlzV9HAvMc/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GGyil6e3; arc=none smtp.client-ip=192.198.163.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aKnsNCdl"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GGyil6e3"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792009189; x=1823545189;
+  t=1792009188; x=1823545188;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=1JanGc8z8XRSLzMWj6La+OzYOvaT0VgU2qv4MPBJwVo=;
-  b=aKnsNCdlK38J+ki5Asz+FZQjH5eOernAHOXSpocBYsU09ih0uoLwSpnT
-   toq+DPZOABKirRYDttJSb0w8UIKLp5XIxUVnn67uxJhaaWC4qFF3ktvku
-   ItZamDCsrkGnSMOZUvwcPmHqRGwnCn///bmZjEcdrOSB7YisoIdH28sIj
-   pzrtBYaAAnAP3rofP5utYDFYsYto3j3L54YxwHSIC5mqMhilYiGVt4p5W
-   bzGQZD4ndhnHl8uPSdRk8DIsS1maS6qM51WiSbrAJOTVq5tL93bkkurjw
-   azbFxKD2ySUepMV8EadAkjV7VARN9GOGjxa77gR5gsOXXhx0A05TOnLCX
-   A==;
-X-CSE-ConnectionGUID: KUnzd9raTWuF2RBUOApWLA==
-X-CSE-MsgGUID: SRTRcEpTTsaTivtfSFXZxg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="657742"
+  bh=P0WBF/wz9WotxVezDgWS5cfXyWEipNWeQpFa9vHQgso=;
+  b=GGyil6e3wIGD2o+FvAoBn08k8L7d8eIeKgFN9Br+0ZlaeNSKGCSi0DcB
+   /5LrFixiaWXRdy22WuSVaTqGUV5mKQJKAA4tCagdSjeEO1fqJxbZ9+b7s
+   wbY1FldJbavMPbwa8eNUV5UOD/S49WR28OJDk4HRc7unHNFHj52/qAnhx
+   MtBzH80PojrmEo8NYFXhLQX/V09RTL69ls36lNpMeyzVxCjhWSTCi5YSG
+   73S080uHDG30QaWS4bsXkiWjIYz+11KhKhvXHzI8rBrhoWC3qeT7DajZn
+   IiM7ZUQrJabSZYEJuSx6Pb9+62NvBuusrtihGyImj6i2GKLwmrRzvrkjX
+   Q==;
+X-CSE-ConnectionGUID: 6P22c+GHQZymWXKDelua8Q==
+X-CSE-MsgGUID: j0vLWFTqR16lq4dvgb82Hw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="667726"
 X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
-   d="scan'208";a="657742"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 13:19:49 -0700
-X-CSE-ConnectionGUID: TJkY2rBlRbOMRD9H9WtxqQ==
-X-CSE-MsgGUID: nA9VK41wT4uagIMXmcl5Yg==
+   d="scan'208";a="667726"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 13:19:48 -0700
+X-CSE-ConnectionGUID: ZrDByyW5QbWg2CSQyYO0mA==
+X-CSE-MsgGUID: BInblgMUQQqssqBcMnc3Jw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
-   d="scan'208";a="1421822"
+   d="scan'208";a="1483915"
 Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa005.jf.intel.com with ESMTP; 14 Oct 2026 13:19:45 -0700
+  by orviesa001.jf.intel.com with ESMTP; 14 Oct 2026 13:19:45 -0700
 Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
 	(envelope-from <lkp@intel.com>)
-	id 1xH5Ru-00000000FAH-2yxg;
+	id 1xH5Ru-00000000FAF-2qQ2;
 	Wed, 14 Oct 2026 20:19:42 +0000
-Date: Thu, 15 Oct 2026 04:19:23 +0800
+Date: Thu, 15 Oct 2026 04:19:22 +0800
 From: kernel test robot <lkp@intel.com>
-To: Ketil Johnsen <ketil.johnsen@arm.com>,
-	Boris Brezillon <bbrezillon@kernel.org>,
-	Steven Price <steven.price@arm.com>,
-	Liviu Dudau <liviu.dudau@arm.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Alice Ryhl <aliceryhl@google.com>
-Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org, Ketil Johnsen <ketil.johnsen@arm.com>
-Subject: Re: [PATCH v4 03/12] drm/panthor: Pass drm_file instead of
- panthor_file
-Message-ID: <202610150630.tAfOKlx3-lkp@intel.com>
-References: <20261012125940.3291951-4-ketil.johnsen@arm.com>
+To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>, linux-usb@vger.kernel.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Xu Qianhui <xiaqinghuan@mail.ustc.edu.cn>
+Subject: Re: [PATCH 3/3] usb: dwc3: support two connectors sharing one HS
+ data bus
+Message-ID: <202610150418.XE8EkA7P-lkp@intel.com>
+References: <20261013102927.1141696-4-xiaqinghuan@mail.ustc.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -73,51 +70,194 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261012125940.3291951-4-ketil.johnsen@arm.com>
+In-Reply-To: <20261013102927.1141696-4-xiaqinghuan@mail.ustc.edu.cn>
 
-Hi Ketil,
+Hi Qianhui,
 
 kernel test robot noticed the following build warnings:
 
-[auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on next-20261012]
-[cannot apply to linus/master v7.3-rc7]
+[auto build test WARNING on usb/usb-testing]
+[also build test WARNING on usb/usb-next usb/usb-linus linus/master v7.3-rc7 next-20261012]
 [If your patch is applied to the wrong git tree, kindly drop us a note.
 And when submitting patch, we suggest to use '--base' as documented in
 https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Ketil-Johnsen/drm-panthor-De-duplicate-FW-memory-section-sync/20261012-145929
-base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/20261012125940.3291951-4-ketil.johnsen%40arm.com
-patch subject: [PATCH v4 03/12] drm/panthor: Pass drm_file instead of panthor_file
-config: arm64-defconfig (https://download.01.org/0day-ci/archive/20261015/202610150630.tAfOKlx3-lkp@intel.com/config)
-compiler: aarch64-linux-gcc (GCC) 16.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261015/202610150630.tAfOKlx3-lkp@intel.com/reproduce)
+url:    https://github.com/intel-lab-lkp/linux/commits/Qianhui-Xu/dt-bindings-usb-snps-dwc3-document-usb-psy-name/20261013-182925
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git usb-testing
+patch link:    https://lore.kernel.org/r/20261013102927.1141696-4-xiaqinghuan%40mail.ustc.edu.cn
+patch subject: [PATCH 3/3] usb: dwc3: support two connectors sharing one HS data bus
+config: arm-defconfig (https://download.01.org/0day-ci/archive/20261015/202610150418.XE8EkA7P-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 6719b9e31d6a93099612c474eec76d9f41d0275a)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261015/202610150418.XE8EkA7P-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610150630.tAfOKlx3-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610150418.XE8EkA7P-lkp@intel.com/
 
 All warnings (new ones prefixed by >>):
 
->> Warning: drivers/gpu/drm/panthor/panthor_mmu.c:1695 function parameter 'file' not described in 'panthor_vm_pool_destroy'
->> Warning: drivers/gpu/drm/panthor/panthor_mmu.c:1695 Excess function parameter 'pfile' description in 'panthor_vm_pool_destroy' (did you mean one of: 'file')
->> Warning: drivers/gpu/drm/panthor/panthor_mmu.c:1719 function parameter 'file' not described in 'panthor_vm_pool_create'
->> Warning: drivers/gpu/drm/panthor/panthor_mmu.c:1719 Excess function parameter 'pfile' description in 'panthor_vm_pool_create' (did you mean one of: 'file')
->> Warning: drivers/gpu/drm/panthor/panthor_mmu.c:2162 function parameter 'file' not described in 'panthor_vm_heaps_sizes'
->> Warning: drivers/gpu/drm/panthor/panthor_mmu.c:2162 Excess function parameter 'pfile' description in 'panthor_vm_heaps_sizes' (did you mean one of: 'file')
->> Warning: drivers/gpu/drm/panthor/panthor_mmu.c:1695 function parameter 'file' not described in 'panthor_vm_pool_destroy'
->> Warning: drivers/gpu/drm/panthor/panthor_mmu.c:1695 Excess function parameter 'pfile' description in 'panthor_vm_pool_destroy' (did you mean one of: 'file')
->> Warning: drivers/gpu/drm/panthor/panthor_mmu.c:1719 function parameter 'file' not described in 'panthor_vm_pool_create'
->> Warning: drivers/gpu/drm/panthor/panthor_mmu.c:1719 Excess function parameter 'pfile' description in 'panthor_vm_pool_create' (did you mean one of: 'file')
->> Warning: drivers/gpu/drm/panthor/panthor_mmu.c:2162 function parameter 'file' not described in 'panthor_vm_heaps_sizes'
->> Warning: drivers/gpu/drm/panthor/panthor_mmu.c:2162 Excess function parameter 'pfile' description in 'panthor_vm_heaps_sizes' (did you mean one of: 'file')
---
->> Warning: drivers/gpu/drm/panthor/panthor_sched.c:3929 function parameter 'file' not described in 'panthor_fdinfo_gather_group_mem_info'
->> Warning: drivers/gpu/drm/panthor/panthor_sched.c:3929 Excess function parameter 'pfile' description in 'panthor_fdinfo_gather_group_mem_info' (did you mean one of: 'file')
->> Warning: drivers/gpu/drm/panthor/panthor_sched.c:3929 function parameter 'file' not described in 'panthor_fdinfo_gather_group_mem_info'
->> Warning: drivers/gpu/drm/panthor/panthor_sched.c:3929 Excess function parameter 'pfile' description in 'panthor_fdinfo_gather_group_mem_info' (did you mean one of: 'file')
+>> drivers/usb/dwc3/core.c:171:16: warning: variable 'mux_role' set but not used [-Wunused-but-set-variable]
+     171 |         enum usb_role mux_role = USB_ROLE_NONE;
+         |                       ^
+   1 warning generated.
+
+
+vim +/mux_role +171 drivers/usb/dwc3/core.c
+
+   165	
+   166	static void __dwc3_set_mode(struct work_struct *work)
+   167	{
+   168		struct dwc3 *dwc = work_to_dwc(work);
+   169		unsigned long flags;
+   170		struct dwc3_role_mux *mux = dwc->role_mux;
+ > 171		enum usb_role mux_role = USB_ROLE_NONE;
+   172		int mux_port = 0;
+   173		int ret;
+   174		u32 reg;
+   175		u32 desired_dr_role;
+   176		int i;
+   177	
+   178		mutex_lock(&dwc->mutex);
+   179		spin_lock_irqsave(&dwc->lock, flags);
+   180		desired_dr_role = dwc->desired_dr_role;
+   181		if (mux) {
+   182			mux_port = mux->desired_port;
+   183			mux_role = mux->desired_role;
+   184		}
+   185		spin_unlock_irqrestore(&dwc->lock, flags);
+   186	
+   187		if (mux && READ_ONCE(mux->error))
+   188			goto out;
+   189	
+   190		pm_runtime_get_sync(dwc->dev);
+   191	
+   192		if (dwc->current_dr_role == DWC3_GCTL_PRTCAP_OTG)
+   193			dwc3_otg_update(dwc, 0);
+   194	
+   195		if (!desired_dr_role)
+   196			goto out;
+   197	
+   198		if (desired_dr_role == dwc->current_dr_role &&
+   199		    (!mux || mux_port == mux->active_port))
+   200			goto out;
+   201	
+   202		if (desired_dr_role == DWC3_GCTL_PRTCAP_OTG && dwc->edev)
+   203			goto out;
+   204	
+   205		switch (dwc->current_dr_role) {
+   206		case DWC3_GCTL_PRTCAP_HOST:
+   207			dwc3_host_exit(dwc);
+   208			break;
+   209		case DWC3_GCTL_PRTCAP_DEVICE:
+   210			dwc3_gadget_exit(dwc);
+   211			dwc3_event_buffers_cleanup(dwc);
+   212			break;
+   213		case DWC3_GCTL_PRTCAP_OTG:
+   214			dwc3_otg_exit(dwc);
+   215			spin_lock_irqsave(&dwc->lock, flags);
+   216			dwc->desired_otg_role = DWC3_OTG_ROLE_IDLE;
+   217			spin_unlock_irqrestore(&dwc->lock, flags);
+   218			dwc3_otg_update(dwc, 1);
+   219			break;
+   220		default:
+   221			break;
+   222		}
+   223	
+   224		/*
+   225		 * When current_dr_role is not set, there's no role switching.
+   226		 * Only perform GCTL.CoreSoftReset when there's DRD role switching.
+   227		 */
+   228		if (dwc->current_dr_role && ((DWC3_IP_IS(DWC3) ||
+   229				DWC3_VER_IS_PRIOR(DWC31, 190A)) &&
+   230				desired_dr_role != DWC3_GCTL_PRTCAP_OTG)) {
+   231			reg = dwc3_readl(dwc, DWC3_GCTL);
+   232			reg |= DWC3_GCTL_CORESOFTRESET;
+   233			dwc3_writel(dwc, DWC3_GCTL, reg);
+   234	
+   235			/*
+   236			 * Wait for internal clocks to synchronized. DWC_usb31 and
+   237			 * DWC_usb32 may need at least 50ms (less for DWC_usb3). To
+   238			 * keep it consistent across different IPs, let's wait up to
+   239			 * 100ms before clearing GCTL.CORESOFTRESET.
+   240			 */
+   241			msleep(100);
+   242	
+   243			reg = dwc3_readl(dwc, DWC3_GCTL);
+   244			reg &= ~DWC3_GCTL_CORESOFTRESET;
+   245			dwc3_writel(dwc, DWC3_GCTL, reg);
+   246		}
+   247	
+   248		/*
+   249		 * The previous host/gadget has been torn down above, so it is safe to
+   250		 * move the shared HS data path to the requesting connector.
+   251		 */
+   252		if (mux && mux_port != mux->active_port) {
+   253			ret = gpiod_direction_output(mux->select, mux_port);
+   254			if (ret) {
+   255				WRITE_ONCE(mux->error, ret);
+   256				goto out;
+   257			}
+   258	
+   259			spin_lock_irqsave(&dwc->lock, flags);
+   260			mux->active_port = mux_port;
+   261			spin_unlock_irqrestore(&dwc->lock, flags);
+   262		}
+   263	
+   264		spin_lock_irqsave(&dwc->lock, flags);
+   265	
+   266		dwc3_set_prtcap(dwc, desired_dr_role, false);
+   267	
+   268		spin_unlock_irqrestore(&dwc->lock, flags);
+   269	
+   270		switch (desired_dr_role) {
+   271		case DWC3_GCTL_PRTCAP_HOST:
+   272			ret = dwc3_host_init(dwc);
+   273			if (ret) {
+   274				dev_err(dwc->dev, "failed to initialize host\n");
+   275			} else {
+   276				if (dwc->usb2_phy)
+   277					otg_set_vbus(dwc->usb2_phy->otg, true);
+   278	
+   279				for (i = 0; i < dwc->num_usb2_ports; i++)
+   280					phy_set_mode(dwc->usb2_generic_phy[i], PHY_MODE_USB_HOST);
+   281				for (i = 0; i < dwc->num_usb3_ports; i++)
+   282					phy_set_mode(dwc->usb3_generic_phy[i], PHY_MODE_USB_HOST);
+   283	
+   284				if (dwc->dis_split_quirk) {
+   285					reg = dwc3_readl(dwc, DWC3_GUCTL3);
+   286					reg |= DWC3_GUCTL3_SPLITDISABLE;
+   287					dwc3_writel(dwc, DWC3_GUCTL3, reg);
+   288				}
+   289			}
+   290			break;
+   291		case DWC3_GCTL_PRTCAP_DEVICE:
+   292			dwc3_core_soft_reset(dwc);
+   293	
+   294			dwc3_event_buffers_setup(dwc);
+   295	
+   296			if (dwc->usb2_phy)
+   297				otg_set_vbus(dwc->usb2_phy->otg, false);
+   298			phy_set_mode(dwc->usb2_generic_phy[0], PHY_MODE_USB_DEVICE);
+   299			phy_set_mode(dwc->usb3_generic_phy[0], PHY_MODE_USB_DEVICE);
+   300	
+   301			ret = dwc3_gadget_init(dwc);
+   302			if (ret)
+   303				dev_err(dwc->dev, "failed to initialize peripheral\n");
+   304			break;
+   305		case DWC3_GCTL_PRTCAP_OTG:
+   306			dwc3_otg_init(dwc);
+   307			dwc3_otg_update(dwc, 0);
+   308			break;
+   309		default:
+   310			break;
+   311		}
+   312	
+   313	out:
+   314		pm_runtime_put_autosuspend(dwc->dev);
+   315		mutex_unlock(&dwc->mutex);
+   316	}
+   317	
 
 --
 0-DAY CI Kernel Test Service
