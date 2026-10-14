@@ -1,42 +1,42 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07C6434D382
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 01:03:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2B73305674
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 01:03:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791939816; cv=none; b=k7HSUoIo4a24P6Q0Yis8OaDv94QFO/COuhQd5g2UcEhT7106ZEx7IYeC+zvADAa+JROZS1bMM1zJ/tCfMkqq/XMbUYxwYpyWQxpE05IdwGO2uSPdWshB1lgUC61T1/y7CWSqbyoV0c0cYFAifMD6pIL7ki1ZUWoxR1cNvYRG68Q=
+	t=1791939817; cv=none; b=Icmbz9lA5g+HISH8gP8AYuE8a3vLacIMgDi5hlMzq00EZqarokiBl3EdMlQ+bz+SRmn6B7Tj3urYdLf/CtsaciE2aTfYAbF+Hc2IFAuh89cVjcxyhlAGspon2GlSC1oEC73XWURjy/ruTrglHqUqLiT7WfX0piwnGREW4m6e6Ow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791939816; c=relaxed/simple;
-	bh=MckGun2gtejT560FK9QmGTltX7GCFvSkoYjqkh14MG8=;
+	s=arc-20240116; t=1791939817; c=relaxed/simple;
+	bh=T+SNMPmeWRlsuFf7ZP5o5uvYb87cW44vhQfQYpyHRFA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=EWGa+3GNGERYRCqqLuOgaD1ki9pRuMu7aaSh5oI+z+piMO6+xUJJKeDb+6hdT9oNCjeyArsJB1pmLvq5n2hVjy3bgTX5TMzUWgaIhZKtdJ/vm+PkJo+kTR1n4gjQYS8ih/BcOSH8D/3gm3ooN+Ycr/0mhkWQU+GFiwYj7FqoTO8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=mObrdfij; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=ttiDaIO8w7krNIok9gsteUACxVUu3L/WgHxuSdEr9FUfE6gDHtU5EGE9iuOIRLj79p5KytOmJS8NLdOzq/m/H5+Stak/Z5OahV3p4cLsoGC+cr7A4L01M3/RfGE+K7hOw5HV8Ls7Dl43IUPAydOFa/CDsNfwJN0CpcIr8gk2J+U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=OhSLv8p5; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="mObrdfij"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="OhSLv8p5"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1791939813;
-	bh=MckGun2gtejT560FK9QmGTltX7GCFvSkoYjqkh14MG8=;
+	s=mail; t=1791939814;
+	bh=T+SNMPmeWRlsuFf7ZP5o5uvYb87cW44vhQfQYpyHRFA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=mObrdfijFmViOyGYT9/2LsSylhyCXZJa6mmBSF/27GuhyH6futliqAHEQSGj0+ZQ4
-	 xAqEXn/0sCqZx8tR6kgCvE10um473Bdv+ms552qmC7sYX4nv3RZ1CWVKNElVtG0FKp
-	 HeSaogRmk8cpvssnMieDbh7/iRyeSnSsAik0Dbk/aSPlX3IEZMU70ap0jtNWVHrTE4
-	 wBoIsYprlCimRFIMsMxX97A4YFcr7lR1q9f7pgF/7Sexkg3UR/JWnV84fcZEQljG/b
-	 LJaETlUEkcT2PBloe5A9lgOPUQlHd/NvpiSDNHnc3mXcG3V9FLQ99IXYBAJFbaduUG
-	 I7K6qEPUbPP8A==
+	b=OhSLv8p56t7fXcv6aiSeyBfeYyqcprrg7f36+pU6cT5jBU2RS5FyQdNH1mXfchzfN
+	 ulaZtgX4BLXRYR9VjOrHU0GSlLykEX9xT5qafcRnFeZ1IB93U5SX8tGMqsSaePSemJ
+	 iFxtY2rVn2upQ5o7/0VOENt85V/PWv3fAUogCSYUc2Ed8sK3WF58Hu74w4t4kk2GXU
+	 D8U6MX6DXmIkjfUX58WeDg+m76qQRaeuO+uHtHCDQf5NqP9ygRt/YAIOv8ajOkGrqb
+	 JtKyEjna0DHbgsEvLDS20dCy+pw0eedl01f0ZGNmlDSQKgkOVKH99ut7dOqUIkM+k8
+	 71rLOKjYKOKAQ==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 44A0717E0EA9;
-	Wed, 14 Oct 2026 03:03:33 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 0F68617E0EB0;
+	Wed, 14 Oct 2026 03:03:34 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Wed, 14 Oct 2026 04:03:14 +0300
-Subject: [PATCH v3 7/9] drm/vc4: hdmi: Clamp CEC clock divider to its
- register field width
+Date: Wed, 14 Oct 2026 04:03:15 +0300
+Subject: [PATCH v3 8/9] drm/vc4: hdmi: Bump BCM2835 max pixel clock to 165
+ MHz
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-vc4-common-scramb-v3-7-c68d58d959a2@collabora.com>
+Message-Id: <20261014-vc4-common-scramb-v3-8-c68d58d959a2@collabora.com>
 References: <20261014-vc4-common-scramb-v3-0-c68d58d959a2@collabora.com>
 In-Reply-To: <20261014-vc4-common-scramb-v3-0-c68d58d959a2@collabora.com>
 To: Maxime Ripard <mripard@kernel.org>, 
@@ -56,53 +56,48 @@ To: Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+ linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
 
-The CEC clock divider computed in vc4_hdmi_cec_update_clk_div() is
-written unmasked into the 12-bit DIV_CLK_CNT field of the CEC_CNTRL_1
-register.  On BCM2835, the CEC clock is obtained by dividing the HSM
-clock, which in turn is scaled to 101% of the pixel clock.  For HSM
-clock rates above 163.8 MHz, the divider exceeds the field limit (4095),
-corrupting the adjacent CEC_ADDR field and truncating the effective
-divider, which breaks CEC entirely.
+Historically, the HSM clock for BCM2835 was fixed at 163.7 MHz.  Since
+the pixel clock had to be at least 1% below the HSM clock, it was capped
+at 162 MHz.
 
-The BCM2835 maximum pixel clock of 162 MHz yields an HSM clock of 163.62
-MHz, so the overflow cannot currently be triggered.
+Since commit cd4cb49dc5bb ("drm/vc4: hdmi: Adjust HSM clock rate
+depending on pixel rate"), the HSM clock rate is set to pixel clock *
+101 / 100.  For a 165 MHz pixel clock, this gives an HSM rate of 166.65
+MHz, which, per Dave Stevenson, the hardware can handle without issues.
 
-Clamp the divider to the field maximum.  This is a prerequisite for
-raising the BCM2835 maximum pixel clock to 165 MHz, which pushes the HSM
-clock up to 166.65 MHz.  The CEC bit clock will then run up to ~1.75%
-faster than the nominal 40 kHz, i.e. ~40.7 kHz, which is still within
-the CEC bit-timing tolerances.
+Increase the max pixel clock to 165 MHz, which matches the maximum TMDS
+character rate of HDMI 1.0 through 1.2.
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/sashiko-outbox-168686@kernel.org/
+Suggested-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/vc4/vc4_hdmi.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/vc4/vc4_hdmi.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
-index 2451ff85e759..0a95e14792e8 100644
+index 0a95e14792e8..5b7dedd7a9a1 100644
 --- a/drivers/gpu/drm/vc4/vc4_hdmi.c
 +++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-@@ -231,9 +231,14 @@ static void vc4_hdmi_cec_update_clk_div(struct vc4_hdmi *vc4_hdmi)
- 
- 	/*
- 	 * Set the clock divider: the hsm_clock rate and this divider
--	 * setting will give a 40 kHz CEC clock.
-+	 * setting will give a 40 kHz CEC clock. Clamp the divider to
-+	 * its 12-bit field to avoid corrupting CEC_ADDR; for HSM rates
-+	 * above 163.8 MHz, the CEC clock runs marginally faster, but
-+	 * still within CEC timing tolerances.
- 	 */
--	clk_cnt = cec_rate / CEC_CLOCK_FREQ;
-+	clk_cnt = min_t(unsigned long, cec_rate / CEC_CLOCK_FREQ,
-+			VC4_HDMI_CEC_DIV_CLK_CNT_MASK >>
-+			VC4_HDMI_CEC_DIV_CLK_CNT_SHIFT);
- 	value |= clk_cnt << VC4_HDMI_CEC_DIV_CLK_CNT_SHIFT;
- 	HDMI_WRITE(HDMI_CEC_CNTRL_1, value);
+@@ -1319,7 +1319,7 @@ static void vc4_hdmi_encoder_pre_crtc_configure(struct drm_encoder *encoder,
+ 	 * users are able to use pixel clocks closer to HSM's, namely for
+ 	 * 1920x1200@60Hz. So it was decided to have leave a 1% margin between
+ 	 * both clocks. Which, for RPi0-3 implies a maximum pixel clock of
+-	 * 162MHz.
++	 * 165MHz.
+ 	 *
+ 	 * Additionally, the AXI clock needs to be at least 25% of
+ 	 * pixel clock, but HSM ends up being the limiting factor.
+@@ -3190,7 +3190,7 @@ static const struct vc4_hdmi_variant bcm2835_variant = {
+ 	.encoder_type		= VC4_ENCODER_TYPE_HDMI0,
+ 	.debugfs_name		= "hdmi_regs",
+ 	.card_name		= "vc4-hdmi",
+-	.max_pixel_clock	= 162000000,
++	.max_pixel_clock	= HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ,
+ 	.registers		= vc4_hdmi_fields,
+ 	.num_registers		= ARRAY_SIZE(vc4_hdmi_fields),
  
 
 -- 
