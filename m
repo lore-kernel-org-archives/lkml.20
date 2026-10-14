@@ -1,142 +1,203 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4161144C51A;
-	Wed, 14 Oct 2026 15:52:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 73D9733E36A
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:53:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791993165; cv=none; b=WY7x0wJaGhf2Zr4I4WVOPjMGaNdhbgaRJQ/tP9Vg9JrlrB1Gyb3Bk8myg1+wBWpUCkAHwZsPJUYp7n9VEJcQX7cbKH1pCiS8hIakNC06Dhvc4oXVApMs9dFUPp3qe4kJz2wJ9WdY0c1a670QI1A/tXdSu7fNHY7uEZszjf54uZo=
+	t=1791993229; cv=none; b=M8rN2MN6MEjufMpRcvQKEVfO42WzRgX9CIrOJ/+4qhgIt9E9+m1GkfjwiGI61aD4k9n+xyFAcmD+bo6OOISarZADqFyoCyC4oEB+uLdBB0AguU3u3hzjfAn9pI56H5gO7zGuIs5DxMpmxn0zD4/Y2Xd2CaJirBqqBdaF/+wSSIk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791993165; c=relaxed/simple;
-	bh=ckNoJGl3xDUfZQnMlt3azT1A2n31xtGj7/bOFOW13AI=;
+	s=arc-20240116; t=1791993229; c=relaxed/simple;
+	bh=oTNlLLlqfCE/nGahQOGiufEufWWunqDFKR0IG333ynw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mGPF6u6m/jlgRl2dKgc9bTmgDPMp9ZGUADqgXDnGnLvBvSGpb9Br1ctAs3epBDqHjuyUNTICTEmIM+/kg7YHivP3WPt9gst+WrEVaPt7C35D9ZWwvgc/SNX3UUfVQNtsck8hcW5juJ8DU5HAmkXA032gyMY+tL3pGVhLwhcXWNA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Do/xabHX; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=H9fT+AbegSDqtXgqLic+xNfaTDt9x7S/ZiVkZ0XI4ivSu7tSqDUbajAd19dGYln9cpyeVyrOYJNoxgSmquV5rA3oSiv7W5u7VKNQmCNyimKv8Va+seLibODIt/H/uIMFxx4+WUwwH0NkEslqVjdG9fHCvYiCsmLpWSevAUcWUm0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=T84WoMd/; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Do/xabHX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4C841F000C4;
-	Wed, 14 Oct 2026 15:52:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791993163;
-	bh=QHI+w+N2GnlKF/Y0LmPEX4vAnVi2TAOaiB63zxcpERE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Do/xabHXc7f5BZaH7h+q/6l/XzRDz6s05kzMAlDdEaZTIXCGCW8h6gMxv/dNsbkF5
-	 G3adps4AKFzm+kepgwbuh4gFzcZdyoGaxQBMeeKFerGurLIOmpnr//BLGIeljHq7Yk
-	 W5ZirdyDpoenPp1UGELi1bYup7PvBwKdDl4RtL3SOmmi8tsoDswlK7piunKXOeAGV1
-	 Xv45MaRSpmR1AEaod4a4qhrprddFULmZArepbU1Hx5mvfDMATs9yDxnj0+nwpnWDep
-	 1GBynugv6djm05AMIzRjoHDgrJCX4ua9EfjFXAHxhPA4teJttaUeLj7Cd44idhMlKU
-	 epX8ZaknHI6Fg==
-Date: Wed, 14 Oct 2026 16:52:39 +0100
-From: Lee Jones <lee@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Jacek Anaszewski <jacek.anaszewski@gmail.com>,
-	Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 2/3] dt-bindings: leds: skyworks,aat1290: Document
- FLINH pin
-Message-ID: <20261014155239.GC1182143@google.com>
-References: <20261007085457.98762-1-clamor95@gmail.com>
- <20261007085457.98762-3-clamor95@gmail.com>
- <6a69d4aa-d04c-4bb2-912f-1584abd31e0e@gmail.com>
- <CAPVz0n0FiT93626L3MnMCto1X0_FmWp_zzQpQ=yRBXn+ir6OPg@mail.gmail.com>
- <4abc72fd-c645-4410-9387-3f03c751fd3c@gmail.com>
- <CAPVz0n1YKV84J6eG9juM_V5kLCy63WY0hmicUmyEXZp2eEHKyw@mail.gmail.com>
- <f7475c9d-8dda-4dd7-9d11-4b981de1b7f8@gmail.com>
- <20261014091732.GH199624@google.com>
- <CAPVz0n3-=xn0Hy3BgPintGoONVO2NKyENYDQ_jSnM_Awxowjhw@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="T84WoMd/"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9362914BF;
+	Wed, 14 Oct 2026 08:53:43 -0700 (PDT)
+Received: from e143914.arm.com (e143914.arm.com [10.2.213.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9EA503F7B4;
+	Wed, 14 Oct 2026 08:53:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791993226; bh=oTNlLLlqfCE/nGahQOGiufEufWWunqDFKR0IG333ynw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=T84WoMd/nQO7R7Kcz933Nitr5SK/e9SVgSOymw8pyeekOocW9n6B/U4AFGTlnxq3j
+	 bZeZ7xYlxQg7qptUIDzHvVoo9obOyQ/ZwDuSFpx+2f014ad63RqgBr7zdTilBNxGQd
+	 POThAJ9HD1/1nWzzG6r7ra26IVrkl6ZxCieDxJU0=
+Date: Wed, 14 Oct 2026 16:53:39 +0100
+From: Joey Gouly <joey.gouly@arm.com>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	Quentin Perret <qperret@google.com>, Fuad Tabba <tabba@google.com>,
+	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] KVM: arm64: Ensure TLBs and I-cache are private to
+ each vCPU in pKVM
+Message-ID: <as-lgxiD5wFBWEOc@e143914.arm.com>
+References: <20261014125510.2928306-1-fuad.tabba@linux.dev>
+ <20261014125510.2928306-3-fuad.tabba@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAPVz0n3-=xn0Hy3BgPintGoONVO2NKyENYDQ_jSnM_Awxowjhw@mail.gmail.com>
+In-Reply-To: <20261014125510.2928306-3-fuad.tabba@linux.dev>
 
-On Wed, 14 Oct 2026, Svyatoslav Ryhel wrote:
+Hi!
 
-> ср, 14 жовт. 2026 р. о 12:17 Lee Jones <lee@kernel.org> пише:
-> >
-> > On Tue, 13 Oct 2026, Jacek Anaszewski wrote:
-> >
-> > > On 10/12/26 9:25 AM, Svyatoslav Ryhel wrote:
-> > > > нд, 11 жовт. 2026 р. о 20:35 Jacek Anaszewski <jacek.anaszewski@gmail.com> пише:
-> > > > >
-> > > > > On 10/11/26 3:55 PM, Svyatoslav Ryhel wrote:
-> > > > > > нд, 11 жовт. 2026 р. о 16:28 Jacek Anaszewski <jacek.anaszewski@gmail.com> пише:
-> > > > > > >
-> > > > > > > Hi Svyatoslav,
-> > > > > > >
-> > > > > > > On 10/7/26 10:54 AM, Svyatoslav Ryhel wrote:
-> > > > > > > > Both the AAT1270 and AAT1290 feature a FLINH pin used for mandatory Flash
-> > > > > > > > inhibition.
-> > > > > > > >
-> > > > > > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > > > > > ---
-> > > > > > > >     Documentation/devicetree/bindings/leds/skyworks,aat1290.yaml | 4 ++++
-> > > > > > > >     1 file changed, 4 insertions(+)
-> > > > > > > >
-> > > > > > > > diff --git a/Documentation/devicetree/bindings/leds/skyworks,aat1290.yaml b/Documentation/devicetree/bindings/leds/skyworks,aat1290.yaml
-> > > > > > > > index a65d92522c9cf..596b5e284f44a 100644
-> > > > > > > > --- a/Documentation/devicetree/bindings/leds/skyworks,aat1290.yaml
-> > > > > > > > +++ b/Documentation/devicetree/bindings/leds/skyworks,aat1290.yaml
-> > > > > > > > @@ -31,6 +31,10 @@ properties:
-> > > > > > > >         maxItems: 1
-> > > > > > > >         description: FL_EN pin
-> > > > > > > >
-> > > > > > > > +  flinh-gpios:
-> > > > > > > > +    maxItems: 1
-> > > > > > > > +    description: FLINH pin
-> > > > > > > > +
-> > > > > > >
-> > > > > > > You don't seem to make use of it in your patch.
-> > > > > > >
-> > > > > >
-> > > > > > I don't have to use it in my patch. This change completes and improves
-> > > > > > hardware description of the AAT1290/1270.
-> > > > >
-> > > > > Still, If we don't have the use case I'd avoid adding it to not confuse
-> > > > > people looking for its use in the driver.
-> > > > >
-> > > >
-> > > > https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/Documentation/devicetree/bindings/writing-bindings.rst?h=next-20261009#n17
-> > > >
-> > > > - DO attempt to make bindings complete even if a driver doesn't
-> > > > support some features. For example, if a device has an interrupt, then
-> > > > include the 'interrupts' property even if the driver is only polled
-> > > > mode.
-> > > >
-> > > > - DON'T refer to Linux or "device driver" in bindings. Bindings should
-> > > > be based on what the hardware has, not what an OS and driver currently
-> > > > support.
-> > >
-> > > I'll leave it to the maintainer.
-> >
-> > DT should be OS agnostic and driver orthogonal.  So long as it
-> > accurately and indisputably describes the H/W, then I think it's fair
-> > game.
-> >
-> > Is `flinh` a datasheet term or did we make this up?
-> >
+On Wed, Oct 14, 2026 at 01:55:10PM +0100, Fuad Tabba wrote:
+> All vCPUs of a VM share its VMID, so KVM flushes a physical CPU's TLBs
+> and I-cache for the VM whenever a different vCPU of that VM is loaded
+> there (vcpu_prepare_mmu()). Commit fce886a602073 ("KVM: arm64: Plumb the
+> pKVM MMU in KVM") moved pKVM guests, protected or not, onto the
+> hypervisor's stage-2 and VMID, and the host stopped flushing for them.
+> Nothing at EL2 flushes instead, so a vCPU can hit TLB and I-cache
+> entries that another vCPU of the same VM left on that CPU.
 > 
-> You can check yourself if you don't believe me. Both AAT1270 and
-> AAT1290 can be found freely.
-
-I'd rather just ask you and trust the answer.
-
-> FLINH pin #10
+> Track the last vCPU loaded on each physical CPU in the hyp VM, and flush
+> at EL2 in __pkvm_vcpu_load() when it changes.
 > 
-> Flash inhibit pin. FLINH is an active HIGH control input with an
-> internal 200kΩ resistor to AGND. A low-to-high transition on the FLINH
-> pin reduces FL sink current to the maximum (default) movie-mode
-> current level for the duration of FLINH. Strobing the FLINH pin low to
-> high does not reset the flash timer.
+> Fixes: fce886a602073 ("KVM: arm64: Plumb the pKVM MMU in KVM")
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> ---
+>  arch/arm64/kvm/hyp/include/nvhe/pkvm.h |  3 +++
+>  arch/arm64/kvm/hyp/nvhe/hyp-main.c     |  8 ++++++++
+>  arch/arm64/kvm/hyp/nvhe/pkvm.c         | 21 ++++++++++++++++++---
+>  3 files changed, 29 insertions(+), 3 deletions(-)
+> 
+> diff --git a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
+> index 9abfe6b7e942b..02c8fc7a10904 100644
+> --- a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
+> +++ b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
+> @@ -54,6 +54,9 @@ struct pkvm_hyp_vm {
+>  	unsigned short refcount;
+>  	hyp_spinlock_t lock;
+>  
+> +	/* Per physical CPU, the vcpu_idx of the last vCPU of this VM loaded there. */
+> +	int *last_vcpu_ran;
 
-Okay, thanks.
+Trying to think of a better way to reword this, it's an array indexed by
+pCPU, not per cpu in the normal linux way. Unlike `mmu->last_vcpu_ran`
+which really is per_cpu. Maybe I'm just being nitpicky, and it's fine as
+is!
 
--- 
-Lee Jones
+> +
+>  	/*
+>  	 * The vCPU initialised RUNNABLE: claimed under vm_table_lock,
+>  	 * released only if its own init fails.
+> diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+> index d715aa942577e..f0b77236c871e 100644
+> --- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+> +++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+> @@ -827,11 +827,19 @@ DEFINE_KVM_HOST_HCALL(void, __pkvm_vcpu_load,
+>  	pkvm_handle_t, handle, unsigned int, vcpu_idx, u64, hcr_el2)
+>  {
+>  	struct pkvm_hyp_vcpu *hyp_vcpu;
+> +	int *last_ran;
+>  
+>  	hyp_vcpu = pkvm_load_hyp_vcpu(handle, vcpu_idx);
+>  	if (!hyp_vcpu)
+>  		return;
+>  
+> +	/* TLBs and I-cache are private to each vCPU, see vcpu_prepare_mmu(). */
+> +	last_ran = &pkvm_hyp_vcpu_to_hyp_vm(hyp_vcpu)->last_vcpu_ran[hyp_smp_processor_id()];
+> +	if (*last_ran != vcpu_idx) {
+> +		__kvm_flush_cpu_context(hyp_vcpu->vcpu.arch.hw_mmu);
+> +		*last_ran = vcpu_idx;
+> +	}
+> +
+>  	if (pkvm_hyp_vcpu_is_protected(hyp_vcpu)) {
+>  		u64 dfr0 = read_sysreg(id_aa64dfr0_el1);
+>  
+> diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+> index ac020d0501d2e..f18fa762746c9 100644
+> --- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
+> +++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+> @@ -489,10 +489,11 @@ static void unpin_host_vcpus(struct pkvm_hyp_vcpu *hyp_vcpus[],
+>  }
+>  
+>  static void init_pkvm_hyp_vm(struct kvm *host_kvm, struct pkvm_hyp_vm *hyp_vm,
+> -			     unsigned int nr_vcpus, pkvm_handle_t handle)
+> +			     int *last_vcpu_ran, unsigned int nr_vcpus, pkvm_handle_t handle)
+>  {
+>  	struct kvm_s2_mmu *mmu = &hyp_vm->kvm.arch.mmu;
+>  	int idx = vm_handle_to_idx(handle);
+> +	unsigned long cpu;
+>  
+>  	hyp_vm->kvm.arch.pkvm.handle = handle;
+>  
+> @@ -512,6 +513,10 @@ static void init_pkvm_hyp_vm(struct kvm *host_kvm, struct pkvm_hyp_vm *hyp_vm,
+>  	mmu->vtcr = host_mmu.arch.mmu.vtcr;
+>  	mmu->arch = &hyp_vm->kvm.arch;
+>  	mmu->pgt = &hyp_vm->pgt;
+> +
+> +	for (cpu = 0; cpu < hyp_nr_cpus; cpu++)
+> +		last_vcpu_ran[cpu] = -1;
+> +	hyp_vm->last_vcpu_ran = last_vcpu_ran;
+>  }
+>  
+>  static int pkvm_vcpu_init_sve(struct pkvm_hyp_vcpu *hyp_vcpu, struct kvm_vcpu *host_vcpu)
+> @@ -887,6 +892,7 @@ int __pkvm_init_vm(struct kvm *host_kvm, void __kern *pgd_hva)
+>  	size_t vm_size, pgd_size;
+>  	unsigned int nr_vcpus;
+>  	pkvm_handle_t handle;
+> +	int *last_vcpu_ran;
+>  	void *pgd = NULL;
+>  	int ret;
+>  
+> @@ -915,13 +921,19 @@ int __pkvm_init_vm(struct kvm *host_kvm, void __kern *pgd_hva)
+>  		goto err_unpin_kvm;
+>  	}
+>  
+> +	last_vcpu_ran = hyp_alloc(array_size(hyp_nr_cpus, sizeof(*last_vcpu_ran)));
+> +	if (!last_vcpu_ran) {
+> +		ret = hyp_alloc_errno();
+> +		goto err_free_hyp_vm;
+> +	}
+> +
+>  	ret = -ENOMEM;
+>  
+>  	pgd = map_donated_memory_noclear(pgd_hva, pgd_size);
+>  	if (!pgd)
+> -		goto err_free_hyp_vm;
+> +		goto err_free_last_ran;
+>  
+> -	init_pkvm_hyp_vm(host_kvm, hyp_vm, nr_vcpus, handle);
+> +	init_pkvm_hyp_vm(host_kvm, hyp_vm, last_vcpu_ran, nr_vcpus, handle);
+>  
+>  	ret = kvm_guest_prepare_stage2(hyp_vm, pgd);
+>  	if (ret)
+> @@ -938,6 +950,8 @@ int __pkvm_init_vm(struct kvm *host_kvm, void __kern *pgd_hva)
+>  	kvm_guest_destroy_stage2(hyp_vm);
+>  err_remove_mappings:
+>  	unmap_donated_memory(pgd, pgd_size);
+> +err_free_last_ran:
+> +	hyp_free(last_vcpu_ran);
+>  err_free_hyp_vm:
+>  	hyp_free(hyp_vm);
+>  err_unpin_kvm:
+> @@ -1112,6 +1126,7 @@ int __pkvm_finalize_teardown_vm(pkvm_handle_t handle)
+>  		hyp_free(hyp_vcpu);
+>  	}
+>  
+> +	hyp_free(hyp_vm->last_vcpu_ran);
+>  	hyp_free(hyp_vm);
+>  	hyp_unpin_shared_mem(host_kvm, host_kvm + 1);
+>  	return 0;
+
+For the series:
+Reviewed-by: Joey Gouly <joey.gouly@arm.com>
+
+Thanks,
+Joey
