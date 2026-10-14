@@ -1,84 +1,78 @@
-Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F32F151597E
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:16:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BABF4EBAFE;
+	Wed, 14 Oct 2026 13:16:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791983787; cv=none; b=GuO0q+4rbgcEHfZu2eurz+XgGhQxQIdka/A3i/H0UYrLvO4YABMoAZJ9t96tKkATS52FDh7bUVi1yKSUVwCYXM9nzkQhznPTyKWL0MR2m5vp0Wrk1MhQ5Sr0co9T6piaN7KNIJBeIRR8oInVq5aL1Iva9GhmAJpGrDivRmD6d2s=
+	t=1791983788; cv=none; b=kBpP3DlGtgJCgJFacjnChET8U45QbQUojGhE+4g7foa7pG+qbyFOkb7kw7HzoVfEt5zOt3IWnpQ7ZNzwdGv01K7TgzJpGxoKFh3wdRmvZUFOjDLlAY3hiW1hAvgLUncKeqq2ZU2RKfvb7UJzU+uTMptrK2H4HUymUQAo2k+LqRc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791983787; c=relaxed/simple;
-	bh=837DeabTMy1BiT1h3uWhZuK3yIfYwfrEzbEU/rR9yro=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KdkwBbnvwg4FMfl1+lvngegozt6SIB9GiybhlS0HBtrCuOPDLA6omK0pZccPsiwMAhOCTtkOV36U5miDM275r22sSMYgyyT/3MOICbyubu6wSSAvLMy+UI92UkLnVTSo7ZGZbJ3mV+GqlHTN+hF9qYuRXldhw4Yz1ODyrQjDFIA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=hTr61KtT; arc=none smtp.client-ip=216.40.44.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1791983788; c=relaxed/simple;
+	bh=ibCuS2Gf6sgha0eLrUBR7Zyprs38RioaCxnk8Wma81w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kpKZQf3wnkClF1gsj9W1SepL4G/YT+1c1w7Me0UncvCDczZRMKNEu5b/dlcbeyV3tSrPyPYN/Cpk2JiAHBrzwx6QVo1bAB5eDngz3qXsdoI18ibd96zsIqnTH74aweKbAJOlGowiz7aet9rHrcTX3798t5k/WEU1ES6gJ6Qq1zo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BBho0QDF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="hTr61KtT"
-Received: from omf09.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay06.hostedemail.com (Postfix) with ESMTP id 995B5A7C0F;
-	Wed, 14 Oct 2026 13:16:18 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf09.hostedemail.com (Postfix) with ESMTPA id AAB2C20025;
-	Wed, 14 Oct 2026 13:16:16 +0000 (UTC)
-Date: Wed, 14 Oct 2026 09:16:18 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Petr Mladek <pmladek@suse.com>
-Cc: John Ogness <john.ogness@linutronix.de>, Sergey Senozhatsky
- <senozhatsky@chromium.org>, Chris Down <chris@chrisdown.name>, Andy
- Shevchenko <andriy.shevchenko@linux.intel.com>, Rasmus Villemoes
- <linux@rasmusvillemoes.dk>, Andrew Morton <akpm@linux-foundation.org>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] MAINTAINERS: Make John PRINTK co-maintainer
-Message-ID: <20261014091618.673d6e67@gandalf.local.home>
-In-Reply-To: <20261014115029.203908-1-pmladek@suse.com>
-References: <20261014115029.203908-1-pmladek@suse.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BBho0QDF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D6051F000FF;
+	Wed, 14 Oct 2026 13:16:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791983786;
+	bh=hrpo4cN83jrj+e2I5RQ50g0XlOIzeJ58mg+PewPmR3I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BBho0QDF8uf5LQYJduMCtXsQHoR7qkt/9uXjiXsow2im7mQgSGD14LO/UIlh0jYpA
+	 bRtbtrnXDJz05sPV/9eEiBlxQwp5PSiN9BkMDJ3he8d/9Icjqj+a/4YdKVXK287e6W
+	 MCTrvva80BsCMHIESG2+JqR70b8iJS6KUjxt1B19GBlhZXupMbqsCrXFK6ww8U0XKz
+	 B4GygYXRmfEBE1qeQUmtkOgW2WDrJXm5Q1/VXhoWCnQU9rpE4vB8OnKHGHST7n0DXT
+	 Qr9KNgC0S1fgR2/eBzpe/4Xq57L6fT8DJKxBJ4IMY+Ojd8Jd3lx9rev/yVUTZDajsE
+	 +dkHNMmbi+qpQ==
+Date: Wed, 14 Oct 2026 14:16:24 +0100
+From: Harry Yoo <harry@kernel.org>
+To: Kees Cook <kees@kernel.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>, 
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+	Andrew Morton <akpm@linux-foundation.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, cgroups@vger.kernel.org, 
+	linux-mm@kvack.org, Pedro Falcato <pfalcato@suse.de>, 
+	Kuniyuki Iwashima <kuniyu@google.com>, linux-hardening@vger.kernel.org, stable@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 2/2] ipc, msg: Account msg_msg allocations with
+ GFP_KERNEL_ACCOUNT again
+Message-ID: <as-AWdUncVtquHdv@thinkstation>
+References: <20261014052338.nothing.279-kees@kernel.org>
+ <20261014052344.384723-2-kees@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout07
-X-Rspamd-Queue-Id: AAB2C20025
-X-Stat-Signature: cggnqm8q6ke6rjcc5bn54doqzx43iewz
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18CFtSJ5uLuzwXqjpQbsY98gaLyBlmoMtQ=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=n3tseCm6BrrubIa4j/8SMIkstlYQK4yQQAERvsCyQ+M=; b=hTr61KtTRZFh3Mmm2L7HqOqNkujdas5N+iQl4ZzZQzUCy/rj4XHU54dF7hnTT3rozumzoEyjAf9Pfikcm+VwZarXaBodRUcAkY9U3MDZYSOB/8yWbLiLbcYAKKHQduLFQMjiXil6h6VxVHcycyczdOPgoNpKbuCSPMNVg730d2c=
-X-HE-Tag: 1791983776-362513
-X-HE-Meta: U2FsdGVkX1/sIrFueXWnWyOO0gRWzF0dl4SRxsiWte1WHDYZRA+iDoJO50VtdMKzwsmMlBnyWUhbk/18sF23H9n7Kxq0tCY8uBf9mQ9EHGU8VvECupX3hJnvq/wmP5y3eFVuVgRS+QihxboZmAwapwiE6dMbcieTpIlSRD2xQBZ1ibVR33jHb43SJbBU6MgPR/bN9A7bB1DSH1HBp7P1X/ASDH6p1O+sdC0FF6u/F7Yel7Gfwfad/5X8xBKfTgt0EyXkL+eZtUWF8SN/syu9FlrxVmKN4TBfaP6hhLfEyEauF7pUlGMcCBAxf6RMQIbgAa6F0qqSTAgAC9Y9JCR8CT0XdLHqgIJfDdkIM5A1OQ7ycfk+/fdd1OoBrnp2llRcNhacMkMeGeb6oMALR3HsZ2uM8XEtETjLp7FsuFfKBM54H5eMZIFBTQkZq/0j2uEA0gRGtruvV61qVRe3RfZgEldd2HrvtDzi+hvNGtFwu1c=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014052344.384723-2-kees@kernel.org>
 
-On Wed, 14 Oct 2026 13:50:29 +0200
-Petr Mladek <pmladek@suse.com> wrote:
-
-> John is author of the huge rework of the printk subsystem. He has a deep
-> understanding of the code and great awareness of the various user
-> expectations. He is willing to step into the maintainer role which
-> will be a great help.
+On Tue, Oct 13, 2026 at 10:23:43PM -0700, Kees Cook wrote:
+> Since commit 734bbc1c97ea7 ("ipc, msg: Use dedicated slab buckets for
+> alloc_msg()"), alloc_msg() allocates with GFP_KERNEL, and a msg_msg is
+> accounted only through SLAB_ACCOUNT on its bucket caches. With
+> CONFIG_SLAB_BUCKETS=n, kmem_buckets_create() creates no caches and
+> kmem_buckets_alloc() is a GFP_KERNEL kmalloc() from the general caches,
+> which do not account it; the same happens when kmem_buckets_create()
+> fails. Either way, the allocation is not charged to the sender's memory
+> cgroup.
 > 
-> Signed-off-by: Petr Mladek <pmladek@suse.com>
-> ---
->  MAINTAINERS | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> Allocate with GFP_KERNEL_ACCOUNT again, as before that commit, so the
+> allocation is charged whichever cache serves it.
 > 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index f53047aa8d3c..5dec288729ba 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -21848,8 +21848,8 @@ F:	scripts/Makefile.propeller
->  
->  PRINTK
->  M:	Petr Mladek <pmladek@suse.com>
-> +M:	John Ogness <john.ogness@linutronix.de>
->  R:	Steven Rostedt <rostedt@goodmis.org>
-> -R:	John Ogness <john.ogness@linutronix.de>
->  R:	Sergey Senozhatsky <senozhatsky@chromium.org>
->  S:	Maintained
->  T:	git git://git.kernel.org/pub/scm/linux/kernel/git/printk/linux.git
+> Build tested ARCH=x86_64 defconfig with GCC 16.2.0, with
+> CONFIG_SLAB_BUCKETS as y and n.
+> 
+> Fixes: 734bbc1c97ea7 ("ipc, msg: Use dedicated slab buckets for alloc_msg()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Kees Cook <kees@kernel.org>
 
-Reviewed-by: Steven Rostedt <rostedt@goodmis.org>
+Looks good to me,
+Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
 
--- Steve
+Thanks!
