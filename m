@@ -1,212 +1,168 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75305427F85;
-	Wed, 14 Oct 2026 11:36:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA0DE427F85;
+	Wed, 14 Oct 2026 11:37:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791977814; cv=none; b=n9kE9WUc0+XR1aAPJeVo5hyMQHpJsBo/IFMgfa5v/cEvWl2N45VuSh7VzHfF1/CNGlBIRG05ox2PT0Beo4WiY6dBdSYYbQ3/WFMfNqJwAPManj/FvW5IZzVGofP3Jgj5wXkKVNxFRoL8QuNLrRKKseVXKdQueufBus6+NAAJpfg=
+	t=1791977824; cv=none; b=n4GaijNekKZyq0+MHRj4XSgTkDcMmDdy70zTtCHDQj1WH21Y3tukMIj8qxFsbs9J+oltO35Rhtuwkg4brcjO7dgf3K4MxvRXptf/piC2eu/jsOmipp70NNEozd7YSUf+Qs7CD2XopzZ348/N0ZxszErU2mbr2XVvDGqDZdFB36A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791977814; c=relaxed/simple;
-	bh=XcyS99+Kbv5rn9cWJrGOJUyPFuI4EC7WqUd2AK9hx/k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=t/BDEOVsdIpiGLko+6nhYM3zfliy8qM7fQaCr2YVR3yIoCVDwEySyh1MsbfU6AxY5AxP6Bm8D1JFHDkRFurJbNpS5YJEWa8QLjo1I3PYGHaa9RUgmzBS+zrzi+NbIfkEQNCKwKyaE7H/lKMRiFZ2Lajuo+hjIWrCSBveKlol9lw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A9jDLkQC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791977824; c=relaxed/simple;
+	bh=cb5RXwy2JdsG8blil/34oe7gGzFgLLLfv23hCi6LDsU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sHwmns3zvGtUZ6e4U3PH+FNb7NywSRkZHRWD7ScKERQBCRb5MVZhWxjJAp/zYT0qydGoGsyprg/K1EY06eeOfr4sg5TdAb1g9ZrAWIeWnuunXfOXYRppoQ3zeuQsC2lEmBpteAQDn1U03Qotz28HTHGg1bfV6Clm6uDygx/tfgI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=KN3wh9U2; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A9jDLkQC"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 7160D1F000FF;
-	Wed, 14 Oct 2026 11:36:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791977813;
-	bh=2chnn8IPO4J98ng+B05x9dDd9D8YofuIAg9VutH4Fuk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=A9jDLkQCmqWxePoe+Sh8KP209V3rLJeloSjICkwXd1AdJEpCH2mZDYRD9YuKioRmi
-	 8xDiOGRYB+gwiKdcd66G+GB1ZhfYhTGuIgbFRQK4Q3GSegbkUkJlONP5CJy7HkImx5
-	 FxAAVy/4zVPSogfqZsRUosc+xPi7x5FUIarlq9Li2Ghcfb+Xf2+OKqJ53OegGd3QrY
-	 JRXzzeK/bzCbSxNoQ2ij/GVk4kJBb8xKq9UoTpjxhMhFrc5pmMQYWcgwFbvmy+hR+B
-	 Tt02c3vAnJo9MB9WbugP6qMPCbwEQrG3QenaKaGBSmwYeb3LlsYMzfysZ4efkLrqN9
-	 3Nri54iqqTdnw==
-Date: Wed, 14 Oct 2026 14:36:49 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Chengfeng Ye <nicoyip.dev@gmail.com>
-Cc: David Howells <dhowells@redhat.com>, Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E . Hallyn" <serge@hallyn.com>, keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] keys: Serialize ownership transfers with key
- accounting
-Message-ID: <as9pUYoOmLI2l5oB@kernel.org>
-References: <20261013084056.1070923-1-nicoyip.dev@gmail.com>
- <20261013090358.1178367-2-nicoyip.dev@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="KN3wh9U2"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id DA5881A120D;
+	Wed, 14 Oct 2026 11:36:59 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9CEF760368;
+	Wed, 14 Oct 2026 11:36:59 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8C15210328B69;
+	Wed, 14 Oct 2026 13:36:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791977813; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=RWr4W8qcelLOSOObSDeK6oL03Nao8/tZn3JtOigt+lk=;
+	b=KN3wh9U25CaGmHoqLk8+9jWhf9PKPQE9q+5fQmZN+j+BygbA0yHlbpjADBoWObUtdlgFlu
+	sZ+ehrjmIVmL7o1Hu82ecjFGJFa9ZjseEtw+FE0lB9CNB16860mAjGTqQ+TWByoJfxT2g2
+	FZSLCYtoATRwETUg845nqSu/+JgsDvvRhcnEpXv4CQrE5jeZYGYot+z/meNrbGz16Qdj3z
+	faCrCVK/hsndMY0TkEXkv3QgD0fiSr9mXycJiOaRv7c3bNo/+21tZh9N+cJr725kH2u/bv
+	7DDMI01UkD4f6Ff/+qLerGkjT3JLVqCLMI3YjSvuuxPcuMZ74qDziorSrZBB7A==
+Message-ID: <70b0cca1-1a59-4a86-9416-976912421bf5@bootlin.com>
+Date: Wed, 14 Oct 2026 13:36:42 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261013090358.1178367-2-nicoyip.dev@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net 1/3] net: stmmac: handle partially allocated DMA
+ queues
+To: Karl Mehltretter <kmehltretter@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, netdev@vger.kernel.org
+Cc: "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>,
+ Stanislav Fomichev <sdf@fomichev.me>, Joao Pinto <Joao.Pinto@synopsys.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Srinivas Kandagatla <srini@kernel.org>,
+ Ong Boon Leong <boon.leong.ong@intel.com>, bpf@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <cover.1791958735.git.kmehltretter@gmail.com>
+ <3537f9a4f3e875291812486982b907b3b02bec15.1791958735.git.kmehltretter@gmail.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <3537f9a4f3e875291812486982b907b3b02bec15.1791958735.git.kmehltretter@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, Oct 13, 2026 at 05:03:58PM +0800, Chengfeng Ye wrote:
-> Protecting individual accesses to key->user does not make ownership
-> transfers atomic with accounting updates. keyctl_chown_key() holds
-> key->sem, but instantiation is serialized by key_construction_mutex and
-> need not hold that semaphore. KEY_LOOKUP_PARTIAL also permits chown of
-> an uninstantiated key.
+Hi,
+
+On 10/14/26 08:26, Karl Mehltretter wrote:
+> DMA allocation failure unwinds every configured queue, including the
+> failed queue and queues not yet allocated. The cleanup helpers then
+> dereference buffer arrays that may not exist.
 > 
-> The instantiated-key count can therefore be charged to the wrong owner:
+> Only traverse allocated buffer arrays. Clear freed pointers because the
+> queue structures persist and XDP reconfiguration can reuse them.
 > 
->   instantiate                       keyctl_chown_key()
->   increment old->nikeys
->                                     observe KEY_IS_UNINSTANTIATED
->                                     skip the nikeys transfer
->                                     replace key->user
->   mark key instantiated
+> Found by inspection. On a BeagleV Ahead (TH1520), fault injection at
+> the RX buffer metadata and TX DMA metadata allocations reached these
+> invalid cleanup paths before a test guard stopped them. With this
+> change, cleanup completed without the guard.
+> 
+> Fixes: 54139cf3bb33 ("net: stmmac: adding multiple buffers for rx")
+> Fixes: ce736788e8a9 ("net: stmmac: adding multiple buffers for TX")
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+
+Please look at https://lore.kernel.org/netdev/20261012142458.2845385-1-dinghui1111@163.com/ .
+
+LLMs keep finding the same bugs again and again, make sure you ask
+it if there isn't already an in-flight patch for it before sending it :)
+
+Maxime
 
 
-Same here there's another below.
-
-> 
-> The key becomes instantiated under the new owner while the increment
-> remains with the old owner. Negative instantiation has the same race.
-> 
-> Quota reservation can likewise run between charging the new owner and
-> replacing key->user. It then adjusts the old owner's quota and changes
-> key->quotalen while chown is transferring that quota burden.
-> key_payload_reserve() can run during instantiation without key->sem,
-> so it needs the same exclusion against chown.
-> 
-> Hold key_user_lock in keyctl_chown_key() across the quota and key-count
-> transfers, state check, and owner replacement; locking only the pointer
-> store leaves the preceding accounting exposed. In
-> __key_instantiate_and_link() and key_reject_and_link(), hold it across
-> the instantiated-key count increment and state update, so chown observes
-> both together. Atomic counter operations alone do not stabilize the
-> owner or couple the increment with state publication.
-> 
-> Hold the same lock in key_payload_reserve() from owner selection through
-> updating qnbytes and key->quotalen. The per-user quota lock cannot
-> stabilize key->user during a transfer. Retain the existing per-user locks
-> to serialize quota changes against other keys owned by the same user.
-> 
-> Keep allocations, notifications and reference release outside
-> key_user_lock, and release it on the quota-overrun path.
-> 
-> Normal updates through key_update() and __key_update() already hold
-> key->sem and exclude chown. key_alloc() charges a referenced owner before
-> publishing the key. Final key_put() and key_gc_unused_keys() cannot race
-> with chown, which requires a key reference. Their existing per-user locks
-> and atomic counters still protect totals shared with other keys.
-> key_user_lookup()/key_user_put() already protect owner creation and final
-> removal with key_user_lock. These sites need no new ownership lock.
-> 
-> This accounting race was identified by source inspection.
-> 
-> Fixes: 5801649d8b83 ("[PATCH] keys: let keyctl_chown() change a key's owner")
-> Cc: stable@vger.kernel.org
-> Assisted-by: GPT-6-Astra
-> Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
 > ---
-> Changes in v4:
-> - Include the reservation and instantiation scopes formerly in v3 1/2;
->   retain the same combined lock coverage while making this fix complete.
-> - Keep accounting serialization as patch 2/2, matching v3. Include the
->   full lock/count/state/unlock scope at both instantiation sites.
-> - Include quota reservation and the entire chown accounting transaction;
->   this patch can be applied without the namespace-reader fix.
+>  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 22 ++++++++++++++-----
+>  1 file changed, 17 insertions(+), 5 deletions(-)
 > 
-> v3: https://lore.kernel.org/r/20260927162528.943886-3-nicoyip.dev@gmail.com/
-> v3 1/2: https://lore.kernel.org/r/20260927162528.943886-2-nicoyip.dev@gmail.com/
-> v2: https://lore.kernel.org/r/20260904080940.575882-1-nicoyip.dev@gmail.com/
-> 
->  security/keys/key.c    | 15 +++++++++++++--
->  security/keys/keyctl.c |  4 ++++
->  2 files changed, 17 insertions(+), 2 deletions(-)
-> 
-> diff --git a/security/keys/key.c b/security/keys/key.c
-> index a438c4508595d..61dd991cee543 100644
-> --- a/security/keys/key.c
-> +++ b/security/keys/key.c
-> @@ -21,6 +21,9 @@ struct rb_root		key_serial_tree; /* tree of keys indexed by serial */
->  DEFINE_SPINLOCK(key_serial_lock);
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index b837e8e27..495ff7aef 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -2144,10 +2144,12 @@ static void __free_dma_rx_desc_resources(struct stmmac_priv *priv,
+>  	void *addr;
 >  
->  struct rb_root	key_user_tree; /* tree of quota records indexed by UID */
-> +/*
-> + * Protects key_user_tree and serializes ownership changes with key accounting.
-> + */
+>  	/* Release the DMA RX socket buffers */
+> -	if (rx_q->xsk_pool)
+> -		dma_free_rx_xskbufs(priv, dma_conf, queue);
+> -	else
+> -		dma_free_rx_skbufs(priv, dma_conf, queue);
+> +	if (rx_q->buf_pool) {
+> +		if (rx_q->xsk_pool)
+> +			dma_free_rx_xskbufs(priv, dma_conf, queue);
+> +		else
+> +			dma_free_rx_skbufs(priv, dma_conf, queue);
+> +	}
+>  
+>  	rx_q->buf_alloc_num = 0;
+>  	rx_q->xsk_pool = NULL;
+> @@ -2161,13 +2163,17 @@ static void __free_dma_rx_desc_resources(struct stmmac_priv *priv,
+>  	size = stmmac_get_rx_desc_size(priv) * dma_conf->dma_rx_size;
+>  
+>  	dma_free_coherent(priv->device, size, addr, rx_q->dma_rx_phy);
+> +	rx_q->dma_erx = NULL;
+> +	rx_q->dma_rx = NULL;
+>  
+>  	if (xdp_rxq_info_is_reg(&rx_q->xdp_rxq))
+>  		xdp_rxq_info_unreg(&rx_q->xdp_rxq);
+>  
+>  	kfree(rx_q->buf_pool);
+> +	rx_q->buf_pool = NULL;
+>  	if (rx_q->page_pool)
+>  		page_pool_destroy(rx_q->page_pool);
+> +	rx_q->page_pool = NULL;
+>  }
+>  
+>  static void free_dma_rx_desc_resources(struct stmmac_priv *priv,
+> @@ -2196,7 +2202,8 @@ static void __free_dma_tx_desc_resources(struct stmmac_priv *priv,
+>  	void *addr;
+>  
+>  	/* Release the DMA TX socket buffers */
+> -	dma_free_tx_skbufs(priv, dma_conf, queue);
+> +	if (tx_q->tx_skbuff_dma && tx_q->tx_skbuff)
+> +		dma_free_tx_skbufs(priv, dma_conf, queue);
+>  
+>  	if (priv->extend_desc) {
+>  		addr = tx_q->dma_etx;
+> @@ -2209,9 +2216,14 @@ static void __free_dma_tx_desc_resources(struct stmmac_priv *priv,
+>  	size = stmmac_get_tx_desc_size(priv, tx_q) * dma_conf->dma_tx_size;
+>  
+>  	dma_free_coherent(priv->device, size, addr, tx_q->dma_tx_phy);
+> +	tx_q->dma_etx = NULL;
+> +	tx_q->dma_entx = NULL;
+> +	tx_q->dma_tx = NULL;
+>  
+>  	kfree(tx_q->tx_skbuff_dma);
+> +	tx_q->tx_skbuff_dma = NULL;
+>  	kfree(tx_q->tx_skbuff);
+> +	tx_q->tx_skbuff = NULL;
+>  }
+>  
+>  static void free_dma_tx_desc_resources(struct stmmac_priv *priv,
 
-Umh, why do you see this addition necessary in order to address bug? You
-have to remove it because it is a spurious change.
-
->  DEFINE_SPINLOCK(key_user_lock);
->  
->  unsigned int key_quota_root_maxkeys = 1000000;	/* root's key count quota */
-> @@ -380,9 +383,12 @@ int key_payload_reserve(struct key *key, size_t datalen)
->  
->  	/* contemplate the quota adjustment */
->  	if (delta != 0 && test_bit(KEY_FLAG_IN_QUOTA, &key->flags)) {
-> -		unsigned maxbytes = uid_eq(key->user->uid, GLOBAL_ROOT_UID) ?
-> -			key_quota_root_maxbytes : key_quota_maxbytes;
->  		unsigned long flags;
-> +		unsigned int maxbytes;
-> +
-> +		spin_lock(&key_user_lock);
-> +		maxbytes = uid_eq(key->user->uid, GLOBAL_ROOT_UID) ?
-> +			key_quota_root_maxbytes : key_quota_maxbytes;
->  
->  		spin_lock_irqsave(&key->user->lock, flags);
->  
-> @@ -396,6 +402,7 @@ int key_payload_reserve(struct key *key, size_t datalen)
->  			key->quotalen += delta;
->  		}
->  		spin_unlock_irqrestore(&key->user->lock, flags);
-> +		spin_unlock(&key_user_lock);
->  	}
->  
->  	/* change the recorded data length if that didn't generate an error */
-> @@ -447,8 +454,10 @@ static int __key_instantiate_and_link(struct key *key,
->  
->  		if (ret == 0) {
->  			/* mark the key as being instantiated */
-> +			spin_lock(&key_user_lock);
->  			atomic_inc(&key->user->nikeys);
->  			mark_key_instantiated(key, 0);
-> +			spin_unlock(&key_user_lock);
->  			notify_key(key, NOTIFY_KEY_INSTANTIATED, 0);
->  
->  			if (test_and_clear_bit(KEY_FLAG_USER_CONSTRUCT, &key->flags))
-> @@ -604,8 +613,10 @@ int key_reject_and_link(struct key *key,
->  	/* can't instantiate twice */
->  	if (key->state == KEY_IS_UNINSTANTIATED) {
->  		/* mark the key as being negatively instantiated */
-> +		spin_lock(&key_user_lock);
->  		atomic_inc(&key->user->nikeys);
->  		mark_key_instantiated(key, -error);
-> +		spin_unlock(&key_user_lock);
->  		notify_key(key, NOTIFY_KEY_INSTANTIATED, -error);
->  		key_set_expiry(key, ktime_get_real_seconds() + timeout);
->  
-> diff --git a/security/keys/keyctl.c b/security/keys/keyctl.c
-> index c89a4d6efed40..e74fa0076ee0b 100644
-> --- a/security/keys/keyctl.c
-> +++ b/security/keys/keyctl.c
-> @@ -1006,2 +1006,4 @@ long keyctl_chown_key(key_serial_t id, uid_t user, gid_t group)
->  
-> +		spin_lock(&key_user_lock);
-> +
->  		/* transfer the quota burden to the new user */
-> @@ -1041,2 +1043,3 @@ long keyctl_chown_key(key_serial_t id, uid_t user, gid_t group)
->  		key->uid = uid;
-> +		spin_unlock(&key_user_lock);
->  	}
-> @@ -1060,2 +1063,3 @@ long keyctl_chown_key(key_serial_t id, uid_t user, gid_t group)
->  	spin_unlock_irqrestore(&newowner->lock, flags);
-> +	spin_unlock(&key_user_lock);
->  	zapowner = newowner;
-> -- 
-> 2.43.0
-> 
-
-Br, Jarkko
