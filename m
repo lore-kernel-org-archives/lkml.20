@@ -1,314 +1,247 @@
-Received: from mail-dl2-f6.google.com (mail-dl2-f6.google.com [74.125.229.134])
+Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90904190462
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 20:23:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.134
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47EA648E0D3
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 20:24:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792009432; cv=none; b=AQyrP8X0XiW5cjRQF3rUF1b1Tldgu2RKBuOIAssosLSrFUF15pC7CwFe/g6omNWM8xzGODj55RtUbjkFmN81As5rZrGy2Wyt5P0h5dHe0SkgS63WtkdI23DyzC4dwphVQiu1g0DFRtNW3C8vfr/Y1HLapl4BcUUQ92rPrW4GQFE=
+	t=1792009486; cv=none; b=myNguJEbMA8ahvRxfhjO6hkzRyOaFc5QqxqDLYSiEqMFfyEmkSB8TcFNFHfzfSbLb9VVCDQ4UUwvmytN64shYAcWNHnHNLn4DPB2mCPv/PXYQTlB1cb0+g32G5Tq0bRZBplXRRriw2+HAnnhXpgfPhappFVX+38tNh6yNhJ+oDo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792009432; c=relaxed/simple;
-	bh=x2YynQf5QeIZRrkedxv+2yvurxy27yAStNz06FpWNSU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=G/eo6GOpVcADJXIHuwuvHdh3X1vQmb5fIR2N11NQGu0l2D1YGw++nWsX9Xb26SPckIP5x4CJ9thEXKREQXb5EtkRJjR8v9S9d6hSObtcfSBBMD7sUkdT1/zKK1sjhHCGelyK+9RCJ8CondBllrXPvParLgQ3om5kdf5b4/+vG4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jqluv.com; spf=none smtp.mailfrom=jqluv.com; dkim=pass (2048-bit key) header.d=jqluv-com.20251104.gappssmtp.com header.i=@jqluv-com.20251104.gappssmtp.com header.b=scIwhXGz; arc=none smtp.client-ip=74.125.229.134
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jqluv.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=jqluv.com
+	s=arc-20240116; t=1792009486; c=relaxed/simple;
+	bh=8Y0NdDCiXwsCqs84YEB0iN+ue6zlIreIYv69VZZdj6o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=j54gV0EHseILtcXc0Rxzy25tp7dNu+qKxrdfQf+JCQDMdPkB2WP0gePJ8Ejkcm0D0pzHPYqEBAOf6nbSPpWdMxf8yNU5r3PcZSQUcU7htVWoewajot4M7VSfr/89eLIqkyX7Fl8zbfDizdIySVGqqHdUzlawXOvpzGmnm6HCv9E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=dy5hDiey; arc=none smtp.client-ip=209.85.222.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jqluv-com.20251104.gappssmtp.com header.i=@jqluv-com.20251104.gappssmtp.com header.b="scIwhXGz"
-Received: by mail-dl2-f6.google.com with SMTP id a92af1059eb24-14b4e009173so129000c88.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:23:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="dy5hDiey"
+Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-93ece7a73b9so575831885a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:24:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jqluv-com.20251104.gappssmtp.com; s=20251104; t=1792009428; x=1792614228; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2meKWCIBZF0eGori/8ZapaGbLe2/nGQXAdZcA61CD7Q=;
-        b=scIwhXGz9cCFa5oP6Pdg1cz7vKKn8NWyc6aOo8XaU8Y9O8+26LVu1/Ta0apHhCAByz
-         RZJmyISmwY6H4+nh5cuS1qOLPiy6wJ0Ro3fV3NPrSigDaFDLITcBiiDcB7uLZUSYj5MV
-         XJ5hGd3uXAfOs9SJuGcIIX5M4Rh2jMaaJDox8CgGk7a9zgIKMa77qwpYN5jaZjb7Q8vr
-         kfNM1hWHui/8p4USgR2/xEHAIIEgeRtpF/GA8VOGbUJKFqYixqBgvnzxFWWy8QBrBcTe
-         Z2fa/NJHRHI4FV+fxHBOIRQWRbc2YYJtCOoy4C+MGL2NO/4kJsuhMD5hL2wD/pDp6POe
-         Cw3g==
+        d=cmpxchg.org; s=google; t=1792009483; x=1792614283; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AZpHrF8jH8WXu6WIXCauYQ4g5rjWW4oCNhs7abbw/eA=;
+        b=dy5hDiey5/zTUojPi7BecClRfz26cM2FqMI5Bblc/wSv+JRfQVgFcj4bkJwTo4nRru
+         jEGGoReOmP6c4GJIc+e3ls4jear0+m5DTxPP2ksf4bmjIoyvbAesiEXL07dut1J4gPvT
+         JXCnNoSs0F9ogr4XCXZ0Aif6hc97gU9BCxvTRxU75F6U5w/kLXlSPMZPepCBha/OvlvO
+         zjp4+21LAIBRmKv+DYMav9DiOS/o5Cp+yPskrwCSpbPWRqAysFIDTcHFhxeARLpCXaIO
+         8FpDrDz9ot4EeBwRyFMh5nfH0oJVozobnDOp0vaVsZixf4T7Kh8pr5sOmRwEkplYFYOg
+         HiXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792009428; x=1792614228;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2meKWCIBZF0eGori/8ZapaGbLe2/nGQXAdZcA61CD7Q=;
-        b=G/XCgcJnUIbUCc8gfdJrQUoSPqkW4YeNQ3CfQQrMkdAPouOW6YIP7MirDQ2GqCWbIv
-         NNVgCK6NiQFCaZKXehW4cEy5vK3E/sTSV3kNcsts0ytOgW8/bAVPJHPHg4/C3y8gfoa9
-         GDraChfXGAsykWiTkI+ozexDKQSL0DkREhuHS0V4wbteXL9qUzNPBeqJNB9UUJZQvrqV
-         cCRTAeH1ZcP+ygoU4TnO5wPJamPpqOa9T8SfEeQyijk+zwFVmrOx7pTQQzEijvrb7SpY
-         0uZHj0I0St5Kp5lHuSDFC4Bth2mEJDbIU/Zm1PIWZLuOXuVf0atQXfrjPeeza/zVf2nQ
-         8IBg==
-X-Forwarded-Encrypted: i=1; AKwUvBwBd8JfjmLfwdSDqawnLlRM8WUI5dan1uvd2Kw5N6XRRmEkQbhHB3w7hgyfF9QO6vSBuW2QGsjmmIGJoWU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKmSI6LXjpaop9rv085kjKFRFlj47GM3QetkrRpm9odKDZB+iBs
-	v9ILTy9BfRc140CV+bDGY/z7ZrIufecXVJFY3DxrsSawqtu1AFUrCNQ7Usb3EmLNE3g=
-X-Gm-Gg: AYBFou3M8cFTwev0PD9m3hj8vLH2lP32xbecv/nYt2HefpnGzB3OexrINRXrzwPSl4m
-	E7dH74M0jbvaiqgItF1Vj2QWTcc/KHoESqoOMzfF3xb870dZ6uWzKdJihlIQuri9AkJ7GKXXLah
-	UUaN50bZ3oWQ3kdwzvbpzVZvaoDJBc1zeLHRsM0r0mo602wL7Pv7RfHsM+0moBk/E5Ppndb6xac
-	7qoUH6yBCZaAYcwz2wVqD7tbfGbF4ldEyqG0O0c+tqQsVBhs0JA4OjVJWLNj9JBtWj8Dp0+8z67
-	/fP8a2dhuV1AD52evX38DQBR2RxR8X746svaKw+a/EiiHrPh7WuoZiXY3sYHZAFsgvuKmw5Ngcj
-	HMkOIWUkMOFVdmCSENTkl7ctflWDVwQJ6DJjiYfCWkww0FGrfMyruM26RL1ZWPbFp8ipIPnF9cf
-	SRg1oYAOV0++kKoAm8tZc3bxcBNfOwk02yNv1AHwXCnDJz3jpAZ04pmO5EdGnbE9fg7AekeEbBO
-	LXQipiegF503BgyV9VQIpBzWG/a74rrZUtJrvQA5EnKmkS3nxrYzj5Hl3+S9YKjXowU
-X-Received: by 2002:a05:7022:ed06:b0:14a:a6dc:9cbf with SMTP id a92af1059eb24-16a5ac102d3mr20692656c88.4.1792009428065;
-        Wed, 14 Oct 2026 13:23:48 -0700 (PDT)
-Received: from ?IPV6:2600:1700:1782:ba0:9133:6daf:392a:d146? ([2600:1700:1782:ba0:9133:6daf:392a:d146])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a1becb11sm46444041c88.4.2026.10.14.13.23.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 13:23:47 -0700 (PDT)
-Message-ID: <e3b179b4-ce8e-4158-8bdd-8cd8de8c6aaa@jqluv.com>
-Date: Wed, 14 Oct 2026 13:23:45 -0700
+        d=1e100.net; s=20260707; t=1792009483; x=1792614283;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=AZpHrF8jH8WXu6WIXCauYQ4g5rjWW4oCNhs7abbw/eA=;
+        b=oZ0k9AEaFpvPzF4hzLqiXpYHp8rIF7r3EXhhJhaB2hbOt7AmFrCEH4VyT7tPWiupNS
+         qxsjtaSVzTEXiI4xVGZXJQ6EGJgu2treaoEs0xZKvK1FzbN5zZfLRX3JpTF8aNmJ+x4N
+         au+W81jxA/zUpGsX/KvYV3UIpi/QPEZkYo+/Th75QfbT5Ct4o9g/XoNiWju5WrtWky3J
+         vMAyPhtol2YrKADAVGPFt8TlcMoGrecOH2w2Bqm+KDKPVSSa6IDs51gUhwevCC3B7f6/
+         hAGj86UQvxDyHvgUUpHfEEhdLxSFnYQlvz0XMqnAeE7zHRzPcSyZjs4h1KDksDmH09tl
+         p86w==
+X-Forwarded-Encrypted: i=1; AKwUvBzIl+67SstIcGVZD0HW4kuhRJjWTYu7Qr7gg8jwasZbeamq34z6yXEYgk/4MYmSxzUuYKEtcOjWUQAxr7U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKbjVRAbZj2JcMRZjm5sjmF+ISoD/rteuhVL8enE8S0rHa4Dg/S
+	ImlAAV7uN1mbyTCWV9anlzN4yhe0qEpgaac0KeXr2WLedApKaEvD/viw2s84mN9qq4E=
+X-Gm-Gg: AYBFou0Wb8LECgbQ4Z2477I1tBH3Ou5Wq6lTIj7RyfwvmIhMRHeVxneicEBQZF0UXct
+	5jev6b7X9ZCfRXpc0DAUuHJQD0nt2dVCJPrOSa+4Ez7SYx1MSyfP/caM19DAQLZL5NrHnaT7nnt
+	h6i2rh267lXjhMPlZXtVjByka6gTxywfWCt2Yi7yjEp/G+EUqo+2pPZYmdnqy0L9QHJhtfGIZ89
+	P2gydePkUAW2p9Lzmdr7QwUAsk/K6LsF9PCRNmmWJI+zlpe6H89+964VSlh/aG7dx4PEpXFnSZh
+	OBY2qUnlZrwtZK66iW1hL5wsJAVZxYn96oI8mYdC1zgcM8FvNivT7hXlFpvB7MKwb5DPGaM3K4D
+	zabE4oclx9XGDAx+0MjHWQQg93d6G5q5CuuZz0D7E+7zx/YDLcxvqv0197YRarKY5VitGwOjDD7
+	GVLbbow5a5dqG1mSHD8umpsdO6+svE2c3u0UkrFBIJOVKP9vGZZr5Jaj/9TqUMWTH12WV8
+X-Received: by 2002:a05:620a:a0cd:20b0:93e:c12c:f149 with SMTP id af79cd13be357-93ec12d0893mr1925202885a.83.1792009482638;
+        Wed, 14 Oct 2026 13:24:42 -0700 (PDT)
+Received: from localhost ([2603:7001:f100:5081:9526:3c0:45cc:5ac6])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef4f49861sm582813585a.4.2026.10.14.13.24.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 13:24:40 -0700 (PDT)
+Date: Wed, 14 Oct 2026 22:24:35 +0200
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Kairui Song <ryncsn@gmail.com>
+Cc: Chris Li <chrisl@kernel.org>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Baoquan He <baoquan.he@linux.dev>, Nhat Pham <nphamcs@gmail.com>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Yosry Ahmed <yosry@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Barry Song <baohua@kernel.org>,
+	YoungJun Park <youngjun.park@lge.com>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+	Rik van Riel <riel@surriel.com>, Gregory Price <gourry@gourry.net>,
+	Wenchao Hao <haowenchao22@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Tejun Heo <tj@kernel.org>,
+	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Kunwu Chan <kunwu.chan@linux.dev>,
+	Meta kernel team <kernel-team@meta.com>,
+	Linux Memory Management List <linux-mm@kvack.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	linux-doc@vger.kernel.org,
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+Message-ID: <20261014202435.GB371161@cmpxchg.org>
+References: <5ca344de-bc34-4a9b-ab85-f553811a1d9c@kernel.org>
+ <CAKEwX=N05iOC4hmiyTt5OxjAsOfU7_V8xGfmK_RgUyrKtuyUTA@mail.gmail.com>
+ <CAMgjq7DJwGCHCAchcfi2Kcu+XHx2YnKXDj53e0t2kpG_GSejkQ@mail.gmail.com>
+ <aqgMCIOFi0dKx_6L@fedora>
+ <CACePvbVMFA9N0nQers=sOnSXGbNhtNE0ewq47AJEH5Cr8imQXA@mail.gmail.com>
+ <CAKEwX=OMYhUs3tt7jUzEzxsOW3yA2JmzpwwxVBP2eZuHOFu=vw@mail.gmail.com>
+ <CACePvbUMjRgK=dQzLjECgBXaUtQSPdAnBXL1Y4=Kh5d15swYvQ@mail.gmail.com>
+ <5c8a2b7b-b76d-4bba-92e1-ec3d66794273@kernel.org>
+ <CACePvbVTnCOh51jvEpkDJ32idvCubgN1eHBps6vESjhVC8E_aQ@mail.gmail.com>
+ <CAMgjq7D_=_4ZsCWJYywpZhPtg+YeH8o=ymRrV3sQ_58G6rs0sg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 8/8] PCI/quirks: Avoid certain address on Genoa systems
-To: Andy Shevchenko <andriy.shevchenko@intel.com>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Hans de Goede <hansg@kernel.org>, Bjorn Helgaas <helgaas@kernel.org>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Maciej Grochowski <Maciej.Grochowski@sony.com>,
- Nikolas Joshua Britton <nbritton@exabit.io>, Eric Auger <eauger@redhat.com>,
- Alexey Fomenko <alexey.fomenko@intel.com>,
- Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, Rob Herring
- <robh@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kw@linux.com>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
- LKML <linux-kernel@vger.kernel.org>, Bradley Morgan <brads@mainlining.org>,
- Kai-Heng Feng <kaihengf@nvidia.com>, linux-acpi@vger.kernel.org
-References: <20261013224010.GA1589480@bhelgaas>
- <f823d264-8b9d-422e-bfaf-388957fbc2fa@kernel.org>
- <as9eqFRuiMgG-fhG@ashevche-desk.local>
- <92d10658-15af-c9b0-5e4a-69992920fd1b@linux.intel.com>
- <as-EghzVdmmbMGPI@ashevche-desk.local>
-Content-Language: en-US
-From: Geramy Loveless <gloveless@jqluv.com>
-In-Reply-To: <as-EghzVdmmbMGPI@ashevche-desk.local>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAMgjq7D_=_4ZsCWJYywpZhPtg+YeH8o=ymRrV3sQ_58G6rs0sg@mail.gmail.com>
 
-As I recall, on Windows, when I tried to pass through a GPU, it read the PCIe Extended Configuration Space during boot, unlike on Linux. I can provide QEMU pcie analyzer logs if anyone is interested. You can essentially debug the pcie protocol this way and find the difference in how the two boot from a reverse engineering perspective. (sorry for the resubmit html kept getting included)
+Suren, if you've not been following this, there is a question you
+might be best equipped to answer below.
 
-On 10/14/26 6:32 AM, Andy Shevchenko wrote:
-> On Wed, Oct 14, 2026 at 02:17:36PM +0300, Ilpo Järvinen wrote:
->> On Wed, 14 Oct 2026, Andy Shevchenko wrote:
->>> On Wed, Oct 14, 2026 at 11:34:44AM +0200, Hans de Goede wrote:
->>>> On 14-Oct-26 00:40, Bjorn Helgaas wrote:
->>>>> On Tue, Oct 13, 2026 at 01:59:23PM -0500, Mario Limonciello wrote:
->>>>>> On 10/13/26 12:26, Ilpo Järvinen wrote:
->>>>>>> On Tue, 13 Oct 2026, Mario Limonciello wrote:
->>>>>>>> On 10/13/26 12:00, Mario Limonciello wrote:
->>>>>>>>> On 10/13/26 08:09, Ilpo Järvinen wrote:
->>>>>>>>>> While testing the resource placement changes, tests hit a case where
->>>>>>>>>> igb fails to probe when BAR 0 is placed at 0x9c000000:
->>>>>>>>>>
->>>>>>>>>>      90000000-9cffffff : PCI Bus 0000:a0
->>>>>>>>>>     -  90000000-902fffff : PCI Bus 0000:a1
->>>>>>>>>>     -    90000000-900fffff : 0000:a1:00.0
->>>>>>>>>>     -      90000000-900fffff : igb
->>>>>>>>>>     -    90100000-901fffff : 0000:a1:00.0
->>>>>>>>>>     -    90200000-90203fff : 0000:a1:00.0
->>>>>>>>>>     -      90200000-90203fff : igb
->>>>>>>>>>     +  9be00000-9c0fffff : PCI Bus 0000:a1
->>>>>>>>>>     +    9be00000-9befffff : 0000:a1:00.0
->>>>>>>>>>     +    9bf00000-9bf03fff : 0000:a1:00.0
->>>>>>>>>>     +    9c000000-9c0fffff : 0000:a1:00.0
->>>>>>>>>>        9c100000-9c17ffff : amd_iommu
->>>>>>>>>>        9c180000-9c1803ff : IOAPIC 8
->>>>>>>>>>
->>>>>>>>>>     -       Region 0: Memory at 90000000 (32-bit, non-prefetchable)
->>>>>>>>>> [size=1M]
->>>>>>>>>>     -       Region 3: Memory at 90200000 (32-bit, non-prefetchable)
->>>>>>>>>> [size=16K]
->>>>>>>>>>     -       Expansion ROM at 90100000 [disabled] [size=1M]
->>>>>>>>>>     +       Region 0: Memory at 9c000000 (32-bit, non-prefetchable)
->>>>>>>>>> [size=1M]
->>>>>>>>>>     +       Region 3: Memory at 9bf00000 (32-bit, non-prefetchable)
->>>>>>>>>> [size=16K]
->>>>>>>>>>     +       Expansion ROM at 9be00000 [disabled] [size=1M]
->>>>>>>>>>
->>>>>>>>>> igb 0000:a1:00.0 0000:a1:00.0 (uninitialized): PCIe link lost
->>>>>>>>>> ------------[ cut here ]------------
->>>>>>>>>> igb: Failed to read reg 0x18!
->>>>>>>>>> WARNING: drivers/net/ethernet/intel/igb/igb_main.c:724 at
->>>>>>>>>> igb_rd32.cold+0x3c/0x4f [igb], CPU#32: kworker/32:1/706
->>>>>>>>>> ...
->>>>>>>>>>    igb_get_invariants_82575+0xff/0xf00 [igb]
->>>>>>>>>>    igb_probe+0x3c8/0x1190 [igb]
->>>>>>>>>>    local_pci_probe+0x3b/0x80
->>>>>>>>>>
->>>>>>>>>> It turns out there is a 64kB iomem black hole at 9c000000 that returns
->>>>>>>>>> ~0 and this is where igb's BAR 0 resides. If another BAR of the same
->>>>>>>>>> card is placed into that address, it is similarly black holed.
->>>>>>>>>>
->>>>>>>>>> Mark the problematic 64kB range reserved using a quirk bound to the
->>>>>>>>>> bridge found in the problematic system.
->>>>>>>>>>
->>>>>>>>>> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=222074
->>>>>>>>>> Suggested-by: Mario Limonciello <mario.limonciello@amd.com>
->>>>>>>>>> Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
->>>>>>>>>> ---
->>>>>>>>>> Cc: Borislav Petkov <bp@alien8.de>
->>>>>>>>>>
->>>>>>>>>> As an alternative to this, I've also tested reverting the commit
->>>>>>>>>> 07eab0901ede ("efi/x86: Remove EfiMemoryMappedIO from E820 map") and
->>>>>>>>>> that also resolves the issue by retaining "9c000000-9cffffff : Reserved"
->>>>>>>>>> entry in the resource tree.
->>>>>>>>>>
->>>>>>>>>> ---
->>>>>>>>>>    arch/x86/pci/fixup.c | 36 ++++++++++++++++++++++++++++++++++++
->>>>>>>>>>    1 file changed, 36 insertions(+)
->>>>>>>>>>
->>>>>>>>>> diff --git a/arch/x86/pci/fixup.c b/arch/x86/pci/fixup.c
->>>>>>>>>> index b301c6c8df75..cc463bf492b6 100644
->>>>>>>>>> --- a/arch/x86/pci/fixup.c
->>>>>>>>>> +++ b/arch/x86/pci/fixup.c
->>>>>>>>>> @@ -822,6 +822,42 @@ DECLARE_PCI_FIXUP_RESUME(PCI_VENDOR_ID_AMD, 0x1571,
->>>>>>>>>> pci_amd_enable_64bit_bar);
->>>>>>>>>>    DECLARE_PCI_FIXUP_RESUME(PCI_VENDOR_ID_AMD, 0x15b1,
->>>>>>>>>> pci_amd_enable_64bit_bar);
->>>>>>>>>>    DECLARE_PCI_FIXUP_RESUME(PCI_VENDOR_ID_AMD, 0x1601,
->>>>>>>>>> pci_amd_enable_64bit_bar);
->>>>>>>>>> +/*
->>>>>>>>>> + * TODO: Remove when/if root cause is found.
->>>>>>>>>> + *
->>>>>>>>>> + * Genoa appears to have a 64kB iomem black hole starting at 0x9c000000
->>>>>>>>>> + * address for which all reads return ~0 blocking an overlapping BAR from
->>>>>>>>>> + * working.
->>>>>>>>>> + *
->>>>>>>>>> + * Work around the problem by reserving the space prior to making any
->>>>>>>>>> iomem
->>>>>>>>>> + * allocations that could overlap with the black hole.
->>>>>>>>>> + */
->>>>>>>>>> +static struct resource genoa_black_hole =
->>>>>>>>>> DEFINE_RES_MEM_NAMED(0x9c000000,
->>>>>>>>>> +                                   SZ_64K,
->>>>>>>>>> +                                   "reserved");
->>>>>>>>>> +
->>>>>>>>>> +static void genoa_iomem_black_hole(struct pci_dev *dev)
->>>>>>>>>> +{
->>>>>>>>>> +    struct resource *r;
->>>>>>>>>> +
->>>>>>>>>> +    pci_bus_for_each_resource(dev->bus, r) {
->>>>>>>>>> +        if (!r || !r->flags || !resource_assigned(r))
->>>>>>>>>> +            continue;
->>>>>>>>>> +
->>>>>>>>>> +        if (!__resource_contains_unbound(r, &genoa_black_hole))
->>>>>>>>>> +            continue;
->>>>>>>>>> +
->>>>>>>>>> +        if (resource_assigned(&genoa_black_hole))
->>>>>>>>>> +            pci_dbg(dev, "iomem black hole workaround already
->>>>>>>>>> applied\n");
->>>>>>>>>> +        else if (!insert_resource(r, &genoa_black_hole))
->>>>>>>>>> +            pci_info(dev, "iomem black hole workaround enabled\n");
->>>>>>>>>> +        else
->>>>>>>>>> +            pci_dbg(dev, "iomem black hole workaround add failed\n");
->>>>>>>>>> +        return;
->>>>>>>>>> +    }
->>>>>>>>>> +}
->>>>>>>>>> +DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_AMD, 0x14ab,
->>>>>>>>>> genoa_iomem_black_hole);
->>>>>>>>>> +
->>>>>>>>>>    #define RS690_LOWER_TOP_OF_DRAM2    0x30
->>>>>>>>>>    #define RS690_LOWER_TOP_OF_DRAM2_VALID    0x1
->>>>>>>>>>    #define RS690_UPPER_TOP_OF_DRAM2    0x31
->>>>>>>>>
->>>>>>>>> I guess it's good we know the root cause is 07eab0901ede. If we're going
->>>>>>>>> down the path of making holes in that we may well put the hole in
->>>>>>>>> efi_remove_e820_mmio() like this (attached).
->>>>>>>>
->>>>>>>> I don't really like that though.  If Genoa is affected I would expect plenty
->>>>>>>> of other machines are too they just haven't been found yet.
->>>>>>>
->>>>>>> That's what I'm worried as well. My own testing can only cover very little
->>>>>>> ground here.
->>>>>>>
->>>>>>>> Can we roll back 07eab0901ede and add quirks for the busted machines instead?
->>>>>>
->>>>>> I had an agent dig through all the reports linked in 07eab0901ede and
->>>>>> drafted up what should be the remaining quirks for a revert.
->>>>>>
->>>>>> https://git.kernel.org/pub/scm/linux/kernel/git/superm1/linux.git/log/?h=superm1/genoa-mess
->>>>>>
->>>>>> Bjorn, thoughts on this?  I'll send it out if that's the way we want
->>>>>> to go (or Ilpo feel free to subsume into your series as it's only
->>>>>> really exposed by your series at the moment)
->>>>>
->>>>> I would LOVE it if we can use those patches because it's way less
->>>>> magic than 07eab0901ede is.
->>>>>
->>>>> But I'm frankly terrified to touch it because I'm skeptical that two
->>>>> more quirks are enough.  I just expect that whatever strategy BIOS
->>>>> uses to build these maps is likely to be used on many models.  I do
->>>>> hate 07eab0901ede though, so I would love to see it gone.
->>>>
->>>> It has been about 4 years since we came up with 07eab0901ede IIRC we
->>>> had a huge email thread with a whole bunch of attempts at fixing
->>>> the issue in a generic manner.
->>>>
->>>> IIRC some of those attempts tried to identify the exact problematic
->>>> issue the quirks try to fix where there is an EFI MMIO reservation
->>>> covering the entire bridge window.
->>>>
->>>> Maybe we can dig through the old thread and see if with the knowledge
->>>> we have now one of the previous attempts of fixing it from the thread
->>>> is better?
->>>>
->>>> I agree that needing to go back to quirks is likely going to be painful
->>>> and break a whole bunch of other systems. IIRC 07eab0901ede fixed
->>>> a whole bunch of laptops having issues around the time not just
->>>> the Clevo NL4XLU and Lenovo Yoga C940. But this info might be spread
->>>> over various bugzilla entries, etc. + some models where likely never
->>>> reported but just fixed in time for users to not report things.
->>>>
->>>> I also wonder if given we only have this magic black-hole on geneo/zen4
->>>> if it would not be better to go with Mario's original approach here ?
->>>> Esp. since Mario's quirk is chipset based where as the other problems
->>>> seem to be model/product based so that is 1 quirk vs many quirks.
->>>
->>> Can we simply change the algo of allocating resources to follow what Windows
->>> does?
->>
->> I've no idea what it does.
->>
->> You seem to simplify things to just being about direction of allocation 
->> but there are other constraints, most importantly alignment ones.
->>
->> There are many cases where there simply isn't any extra room to play with
->> so the algorithm must produce as tight packing as possible.
->>
->> The assignment step is greedy that could easily lead us into dead ends 
->> where not all resources can be assigned because something was placed such 
->> that it is on the way. This series of mine tries to make placement such 
->> that it maximizes success possibility of subsequent assignments (leaving 
->> the best free space candidate for future assignments). Side-effect of 
->> these changes is that more allocations do happen at the tail (to maximize 
->> the alignment order of the free space, that is usually larger at the left 
->> edge/start of the window). So maybe you actually end up getting what you
->> wish in many cases.
->>
->> Retrying anything in controlled manner is also challenging. This might be 
->> fixable on medium term by holding some setup structure across algorithm 
->> "tries" but currently we hold nothing else than what's in the struct 
->> resource and in/not-in-resource-tree information.
->>
->> Changing anything in this area hasn't been easy at all because almost 
->> everything seems to break something (in part it's my own bugs but there 
->> are also many cases I just could not foresee nor encounter in my tests).
->>
->> So I'm sorry don't think any large scale rewrite would be viable.
+On Thu, Oct 15, 2026 at 01:17:21AM +0800, Kairui Song wrote:
+> On Tue, Oct 13, 2026 at 1:27 PM Chris Li <chrisl@kernel.org> wrote:
+> > I understand that you have some face-to-face discussions at the
+> > conference. Do we have a list of what has been aligned and what is
+> > pending to discuss? We should have an agenda to avoid repeating
+> > already aligned items.
 > 
-> I understand. Thanks for providing the explanation for the reason behind
-> your series.
+> Right, from my perspective, here are the following key points we can
+> discuss further in the incoming meeting (most of them are not fully
+> concluded yet):
 > 
+> 1. A limitation for the logical size: from my side, there are real
+> usages for a global non-memcg limitation of the non-physical swap
+> space: e.g. thin VMs as containers/pods with no cgroup limitations
+> inside but which need in-VM memory compression and a proper limitation
+> to avoid thrashing; or low-end devices/desktops that want global
+> (root) limitations. And also, Android have a limitation on the ZRAM
+> size (well for this one I'm not from Android team though so that's
+> just my personal development experience with Android, enlarging the
+> ZRAM size on several Phone swill cause serious junky of Apps due to
+> over compression).
 
+Android monitors psi to kill on excessive pressure. This should
+capture thrashing from over compression.
+
+Suren is CC'd, we should get his opinion.
+
+> Nhat is concerned that exposing the sizing allows users to tune it and
+> potentially misconfigure the system. However, I think a user with root
+> permission should be fully aware of what they are doing or they can
+> easily mess up the system in many ways and swap limitation is a very
+> minor concern to me.
+> 
+> I think the requirement for a logical non-cgroup limitation is strong,
+> but the discussion hasn't concluded on the implementation method.
+> Perhaps something like a Kconfig combined with an interface or command
+> line? More ideas are welcome.
+
+I agree that overcommit control can be useful. But there are setups
+that implement pressure-based policies and do utilization monitoring
+just fine from userspace; they have no need for logical overcommit
+bounds inside the kernel itself. *Defaulting* to a static limit and/or
+making a choice mandatory seems like a mistake to me. It would make
+more sense to treat this as a related but separate problem.
+
+I'm happy to brainstorm solutions. But we should be open to discussing
+this from scratch - userspace monitoring; an extension of
+/proc/sys/vm/overcommit_* etc.
+
+> 2. Charging: If you consider memory.swap is physical only then indeed
+> we should not charge it, however, user are already doing that for
+> years so this is a behavior change and we are also pushing memsw into
+> memcgv2 as a interface to limit the logical memory usage of a
+> container. So charging of the logical space is useful, how to handle
+> that is tricky though.
+> 
+> From our usage, this should at least not block adding memsw or
+> anything similar for memcgv2, even if you want more customized cgroup
+> accounting, we need to charge it into some counter (a page counter,
+> not just a statistic) in some way.
+
+A path for memsw in cgroup2 is generally unlikely, actually. It was
+intentionally split into separate memory and swap counters and not
+forward-ported as a combined control.
+
+Like I said, we should discuss overcommit control from scratch as an
+orthogonal issue. I'm happy to do this and help find a solution. But I
+want to get out of repeating that this is not compatible with cgroup2.
+
+> 3. Swapoff: This was discussed again too, as vswap was trying to
+> remove it. I think the concern is mostly about maintenance,
+> performance, and practicality. From my perspective it's a critical
+> component both for preventing minor or major faults before predictable
+> high traffic arrives, or for operations/debugging, and for releasing
+> the swap metadata to rule out any potential swap / page fault effect.
+> There are concerns about maintenance or suggestions to use MADV, while
+> I'll be happy to explore and improve the current in-kernel
+> implementation of swapoff later if needed but removing it is a really
+> bad idea in my view.
+
+Here too I think we should be open about discussing the problem and
+what a solution could look like.
+
+"Swapoff" seems to presume the virtual space in the shape of a
+manageable swapfile through standard interfaces.
+
+A separate knob to clear out the vswap space would accomplish the same
+functionality without pulling in the entire swapfile interface e.g.
+
+> 4. Writeback: No doubt we all agree that we definitely should have
+> writeback support, Nhat's concern is that we should handle the case
+> where some cgroup doesn't need zswap/compression and ensure that works
+> well.
+
++1
+
+> 5. Interface: Given the issues above, what should the interface look
+> like (swapfile, sysfs, /proc, etc.) and how should multiple
+> (non-physical) swapfiles be used? Nothing much is discussed about this
+> part though. I've heard users mention the use case of multiple
+> compression swap spaces, but I don't have a use case for that myself,
+> so I don't have many comments.
+
++1
+
+It would be good to collect usecases first. Interfaces are forever and
+we shouldn't add them on speculation.
+
+> 6. The one part that I think we can and should agree on it shat the
+> implement approach: at this point I think VM_SPARSE is the right
+> direction, Nhat is concerned about the testing on it, and I think we
+> can have more data for that, and collabration is highly encouraged. I
+> previously conducted many tests on everything posted from both sides,
+> will try to post more on this too.
+
+Here I think we're actually least aligned.
+
+The VM_SPARSE implementation requires a static size, and prior
+discussion has made it clear that we actually have no consensus on how
+to pick reasonable values - be it in the kernel or in userspace.
+
+The xarray proposal requires none of these choices or interfaces, and
+nobody has been able to show that it's actually a performance concern.
