@@ -1,109 +1,108 @@
-Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D48F3282F1D
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:37:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5D581FDA61;
+	Wed, 14 Oct 2026 10:38:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791974280; cv=none; b=XdfrH3SIr6tVa5A4vLetas6pNekH+qShbHT6W6iV1lyzY81pqEOUq0vb727c4WIgRhwYQG+ydOIWDz3nmPLVgdU08fbeYNReRBPT1gKU9hpNKXx6KNhjOc1WYmesAHQitziJjmT7zOgf43x+FhbPRXKzHKQDpfjQzLMHYL7iVLM=
+	t=1791974338; cv=none; b=SXkWPCiCTVhBzBKdBEh4i8DLX2J2RsUzthj7/o5xAgKJxv9E7zgR0QcWbpZsZwKsi/Amj+LUTb6JGiqnAIMqkC32KIntNBwbXbzzDZm6v9y03C7kdEeeS8PBj07CQ6m3fzcq9EZJ/nScWy9g4RForFqUWmRuLIwQUUPSDY3kzh4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791974280; c=relaxed/simple;
-	bh=Oi1iJJy/wZFo6YtPMtG25HC0jZZG39GT5ePp6+VE8X8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=UoKJdg7bFBRtmZWOCQdTp/COwDK7MgmIA7klDWzTc5UplXN56btKf6izo6H/3bItBtHOnE/Joj/5igjAJFcB7MDyuPOrlnTNNgbVs8axEYhCcnJlGQUz85F2ZtHp9QYYMgq7QyMXZmKD88UA6rTptmwntv+UeLWRKSAFXjNeHfM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=eH2YmlMy; arc=none smtp.client-ip=203.254.224.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1791974338; c=relaxed/simple;
+	bh=Vg2PxUQ8bGcoL3oeVt9mjPu5Gp2Bd6S6AuX8Qp1dhCM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dtFgcEFpuKqIWG3fZ/rPT85ZgpVpGPmHAbCmBcgP/+Uy3sI5iP7flcXhOq1PT/HEsIirj1IyKrRM28I/cvTnh3J+Giv6tGpfW1kXRMsvtVfhXRSZSuhgSfKgI7aYeqUZ9WrBDHvVawmrFtQ8+/qlazIyKAtUUbYuT7jmB7tVdug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lJaRTNQt; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="eH2YmlMy"
-Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
-	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261014103755epoutp02200165738213d26a460940b13e710a42~eXxvpT8612993729937epoutp02C
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:37:55 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261014103755epoutp02200165738213d26a460940b13e710a42~eXxvpT8612993729937epoutp02C
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1791974275;
-	bh=Oi1iJJy/wZFo6YtPMtG25HC0jZZG39GT5ePp6+VE8X8=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=eH2YmlMyp8sTioqvvoSDnAA5h6FZ7V41ySvOKzLCI3Yo/5PzPAZbHkPZW+f41WLa4
-	 gnWpKgwTiV7YDq6I9ZD92QkrEYAyow0Hi/uV6OQoiAMjxLd6C83QPiBn4JEhWWI6YW
-	 cpP7vi7pudXwRM41LS5KmqDZHLpndEeD3SuS0y24=
-Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
-	epcas5p1.samsung.com (KnoxPortal) with ESMTPS id
-	20261014103754epcas5p17759f988e65b8fb98c5d3dabe4b36b05~eXxvIxKti0931609316epcas5p1C;
-	Wed, 14 Oct 2026 10:37:54 +0000 (GMT)
-Received: from epcas5p4.samsung.com (unknown [182.195.38.92]) by
-	epsnrtp03.localdomain (Postfix) with ESMTP id 4j4SMj6tSSz3hhT3; Wed, 14 Oct
-	2026 10:37:53 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas5p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261014103753epcas5p29ae76c8fbf4f9486878d98f380630b2e~eXxt6CkAq2032420324epcas5p2r;
-	Wed, 14 Oct 2026 10:37:53 +0000 (GMT)
-Received: from [107.122.5.126] (unknown [107.122.5.126]) by
-	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261014103751epsmtip227ffdc939b21bbb6ff6f8bc054260cea~eXxrv1Pev0552405524epsmtip2N;
-	Wed, 14 Oct 2026 10:37:50 +0000 (GMT)
-Message-ID: <01675986-ace4-4392-a3ed-ff1d7bdac535@samsung.com>
-Date: Wed, 14 Oct 2026 16:07:49 +0530
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lJaRTNQt"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791974337; x=1823510337;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Vg2PxUQ8bGcoL3oeVt9mjPu5Gp2Bd6S6AuX8Qp1dhCM=;
+  b=lJaRTNQtTaNsujk3DMZMeuFmbpvOrwWu3HZGpFw7Gtqfkgu3aiIYDIOI
+   +T4vZFSV+3dr963n1f1L1o7HJA3jz9i3zh3m0IvoMPE+36LoCZinhR8le
+   /GLD2vzW38L88EDoilSo809IYCL+jl9ij/ovxh9ZX+/XsnbZjCSkbsTer
+   6MW1ofkfJR4daAbvFR/9BJobeCXemj6RK6frgm1d3RMVfBylkXgFMOREF
+   dPMZ0P+MIJ/RLt8jVKZ87JUsQYi5WGe8AZfcyhPwl+1zmZ7C4V6mquF85
+   nzhSjG3ZorYtTsFuMEk/NSSi4o8tsQgloDNtyIiEfE2zOEOp7IhPfjDwC
+   g==;
+X-CSE-ConnectionGUID: sCFjVO6eRu+XHD23CaWKDA==
+X-CSE-MsgGUID: SRF1hchQQWujKu4/1Y+pMA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="618829"
+X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
+   d="scan'208";a="618829"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 03:38:55 -0700
+X-CSE-ConnectionGUID: mVhHvavDQUWiKKT3r6iSSQ==
+X-CSE-MsgGUID: n1UQME/0TDuENCinSMORpw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
+   d="scan'208";a="3161230"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.236])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 03:38:52 -0700
+Date: Wed, 14 Oct 2026 13:38:49 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Chang Yu <marcus.yu.56@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	Shi Hao <i.shihao.999@gmail.com>,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 2/2] iio: light: add AS7343 multi-spectral sensor
+ driver
+Message-ID: <as9bueoY_elkSPdB@ashevche-desk.local>
+References: <20261013115639.167433-1-marcus.yu.56@gmail.com>
+ <20261013115639.167433-3-marcus.yu.56@gmail.com>
+ <as5b_jzx5CG_UoZS@ashevche-desk.local>
+ <as70Y0biw0XMjwL6@zephyrus-g14.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] usb: dwc3: gadget: Prevent EP resource conflicts
- during StartTransfer
-To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Cc: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
-	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"jh0801.jung@samsung.com" <jh0801.jung@samsung.com>, "dh10.jung@samsung.com"
-	<dh10.jung@samsung.com>, "akash.m5@samsung.com" <akash.m5@samsung.com>,
-	"hongpooh.kim@samsung.com" <hongpooh.kim@samsung.com>,
-	"eomji.oh@samsung.com" <eomji.oh@samsung.com>, "h10.kim@samsung.com"
-	<h10.kim@samsung.com>, "shijie.cai@samsung.com" <shijie.cai@samsung.com>,
-	"alim.akhtar@samsung.com" <alim.akhtar@samsung.com>,
-	"muhammed.ali@samsung.com" <muhammed.ali@samsung.com>,
-	"thiagu.r@samsung.com" <thiagu.r@samsung.com>, "pritam.sutar@samsung.com"
-	<pritam.sutar@samsung.com>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>
-Content-Language: en-US
-From: Selvarasu Ganesan <selvarasu.g@samsung.com>
-In-Reply-To: <as7ZHFpqLz623QQt@vbox>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261014103753epcas5p29ae76c8fbf4f9486878d98f380630b2e
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-542,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261007020654epcas5p1d6f8d2d6f5215abcec7d6c6f90b8b8c6
-References: <CGME20261007020654epcas5p1d6f8d2d6f5215abcec7d6c6f90b8b8c6@epcas5p1.samsung.com>
-	<asWmW1jmzedIV5SP@vbox> <ff5d6900-374b-44d8-967f-0af16ae53437@samsung.com>
-	<98f16da0-5e24-4dd1-8f9f-79a1a5e7656c@samsung.com> <asbJfaj5OIhHBunD@vbox>
-	<bc43e3f5-ba0c-4f91-b765-ee35021bf089@samsung.com> <asglyrMYkopr3EOz@vbox>
-	<0a2bc277-3977-46cd-9759-ba273b5c2c4d@samsung.com> <as2N1JlPnpKBYcsb@vbox>
-	<a8021139-a675-4875-b437-7e837d5433b1@samsung.com> <as7ZHFpqLz623QQt@vbox>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <as70Y0biw0XMjwL6@zephyrus-g14.localdomain>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
+
+On Wed, Oct 14, 2026 at 11:17:55AM +0800, Chang Yu wrote:
+> On Tue, Oct 13, 2026 at 07:27:42PM +0300, Andy Shevchenko wrote:
+> > On Tue, Oct 13, 2026 at 07:56:39PM +0800, Chang Yu wrote:
+
+...
+
+> > > +/*
+> > > + * Integration time is calculated as (ATIME + 1) * ((ASTEP + 1) * 2.78us).
+> > > + * ATIME must be between 0 and 255, inclusive
+> > > + * ASTEP must be between 0 and 65534, inclusive
+> > 
+> > Haven't noticed before, but is it indeed 65534 and not 65535 here (or 255 and
+> > not 254 above)? Haven't checked datasheet, please double check.
+> > 
+> Per the datasheet 0 <= ASTEP <= 65534 (65535 was explicitly marked as "do not
+> use"), and since ASTEP = n - 1, we have 1 <= n <= 65535. Similary
+> 0 <= ATIME <= 255, ATIME = step - 1, so 1 <= step <= 256.
+> 
+> So I think the numbers here are correct.
+
+Thanks for checking! In case you need a new version, just add that into the
+above comment, like
+
+ * Per datasheet, do not use 65535 for ASTEP.
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-On 10/14/2026 6:57 AM, Thinh Nguyen wrote:
-> On Tue, Oct 13, 2026, Selvarasu Ganesan wrote:
->> I mean 'not recover here' is the failure to clear the
->> DWC3_EP_END_TRANSFER_PENDING flag upon cable reconnection, caused by a
->> missing command completion from the prior connection.
-> Right. Resetting the endpoint flags on controller restart will cover
-> that.
->
->> Sure we can use dwc3_schedule_err_recovery(), and thanks for the suggestion.
->>
-> I can prepare the fix patches based on our discussion. It would be great
-> if you can test them.
-
-Sure, Thanks for your support.
-
-
-Thanks,
-Selva
->
-> Thanks,
-> Thinh
