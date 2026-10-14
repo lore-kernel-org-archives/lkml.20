@@ -1,189 +1,110 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5232D5592E6;
-	Wed, 14 Oct 2026 15:33:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E14A551998;
+	Wed, 14 Oct 2026 15:33:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791991995; cv=none; b=dBHbGcVIctV2ZBOJpQVFqtA/LV42HD+ILZk5jv+3Q6ZzDscz/jwM5tB571S4mjMhVOELueqImWj6xGksZS3YV0pL9o32DS71TqyBYsZzKlCaFcdAxFNA5VE9dze4IUotGwIYAqHSq4oNFQhWqA+nYWrfiZiNA/Uvv1kyZ2A46uA=
+	t=1791992022; cv=none; b=Fly+rCVwn4KpLEaNkUZ/ZqQ8QSpFPceTKSnXPI/sqt2mDtnD+Y5Bif52w7KrvXhcCmcOjyfzXWDaQ+EqBiScp8Xa0h9E/7qUC38VzAO8jhPGYxe6ywUPvoiUU7FbneBtyfwLOqTLUM0xUsezkEvrYaPS8URNUl1YoH+jPtzL/8c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791991995; c=relaxed/simple;
-	bh=kYaPOCIL9ADmcpsPRjVGOOiHuV4wp+rfb/QDDMdU8/g=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VSERQe9VrDHO+IN8XUzqa3pPKGj66awQglNbvegyoo/1DWS8d/qwWMaX74L4A8qm9kjJBPmbAi4TjLzPxxQJixJUI1pxnNaXRer8b+uSxpVewq+0NrJI93CFHs8+M/36N9iCAUfM/UbwokEKeigEsv704oucXUe0fiXvI/yGZe4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=VxG78seI; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=+Rm9xkbd; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=VxG78seI; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=+Rm9xkbd; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1791992022; c=relaxed/simple;
+	bh=mK7HAM4nMy4eEc0HHmNewb99Ljc1vlTbcL9mEAk0cf8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Yy8cvZxWBVZTF3AGmKEUQNET+eiHqtvkF+ZSl2p9FlXTkuvZWqF3nOhj/F1PkazcJjDFE3+iW75nO59AhztZS2J7yBTTN0R/hw2PJbwnTKzFG35q8rgcBg+CIxkStWmU9GXzEMwAUrM4tLg4WM2tY5wKlWK4wAyaoTIAP5Wqa4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X/KqMZTE; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="VxG78seI";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="+Rm9xkbd";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="VxG78seI";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="+Rm9xkbd"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 212CA1F38E;
-	Wed, 14 Oct 2026 15:33:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791991992; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nO/000/GJTg0U+Ozr0pF5LvrmdtR2TYrURkpJ2lA/2Y=;
-	b=VxG78seIMXfzUwSyZIL2isWwCTCQUg+i7q/Z4KMLsuoPwV2K8ir0zf8pW8sw3JsVyp0Sot
-	EzknGoAjoDtPawLM8QSltgsMhCLbgA+VnZJvuv9fTBQGc3xZp0t3WFziKy1lAbGZgErVPI
-	rkRzX+rSCVePYkyeU8sMx3q6vY1+jyw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791991992;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nO/000/GJTg0U+Ozr0pF5LvrmdtR2TYrURkpJ2lA/2Y=;
-	b=+Rm9xkbdc4tgzNwLbQuBzFOPgHFyY+W0b3IB+KEZJ6FkbKCI9R3P2vm0NwOW05X4EdPudh
-	UeSEcWPrW9Nzt9Cg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791991992; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nO/000/GJTg0U+Ozr0pF5LvrmdtR2TYrURkpJ2lA/2Y=;
-	b=VxG78seIMXfzUwSyZIL2isWwCTCQUg+i7q/Z4KMLsuoPwV2K8ir0zf8pW8sw3JsVyp0Sot
-	EzknGoAjoDtPawLM8QSltgsMhCLbgA+VnZJvuv9fTBQGc3xZp0t3WFziKy1lAbGZgErVPI
-	rkRzX+rSCVePYkyeU8sMx3q6vY1+jyw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791991992;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nO/000/GJTg0U+Ozr0pF5LvrmdtR2TYrURkpJ2lA/2Y=;
-	b=+Rm9xkbdc4tgzNwLbQuBzFOPgHFyY+W0b3IB+KEZJ6FkbKCI9R3P2vm0NwOW05X4EdPudh
-	UeSEcWPrW9Nzt9Cg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C0A0C133F1;
-	Wed, 14 Oct 2026 15:33:11 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id VNTjJbegz2otSwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 14 Oct 2026 15:33:11 +0000
-Date: Wed, 14 Oct 2026 17:33:11 +0200
-Message-ID: <87jynkcn60.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Joonho Lee <mynameisjune111@gmail.com>
-Cc: Takashi Iwai <tiwai@suse.de>,
-	Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-api@vger.kernel.org
-Subject: Re: [RFC PATCH 2/2] ALSA: pcm: refresh capture pointers before drain
-In-Reply-To: <core-drain-linked-lock-reply.cf2e307fcac34b6a@gmail.com>
-References: <rfc-core-capture-drain-0.112c40f0e9284eaa@gmail.com>
-	<rfc-core-capture-drain-2.112c40f0e9284eaa@gmail.com>
-	<8733u8g0kh.wl-tiwai@suse.de>
-	<87y0c0el29.wl-tiwai@suse.de>
-	<core-drain-linked-lock-reply.cf2e307fcac34b6a@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X/KqMZTE"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8E906C2BCF7;
+	Wed, 14 Oct 2026 15:33:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791992021;
+	bh=mK7HAM4nMy4eEc0HHmNewb99Ljc1vlTbcL9mEAk0cf8=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=X/KqMZTE8v6giUeHvOPGuTfBy0B8Dmnx0UiAzPpAbkQNO5e5zyZGt0ZvRt6+OAy9H
+	 zidE8Kh/VWeoFjbgVk1PYIj++QWm2HJQW/O4E1ysGGGC03Oc9RGvFQAxTN2nhESqYh
+	 /Y0X7XqmI/iBj5LKtVzF39wp5NJdMMMIvtHUbAVlABk1XYfwQQeL9f5LtrX3TozvIz
+	 1059mfX7QDdQRe/lXj5I235bNDPmwcsMEkK2TTtECaBwtet3n7/oiMeY4s937YhxIE
+	 kWT0aXIcFDtYHqZoN1ycQl9nU08regIYzF7Js184P38buKOut70OdStlBjt9d0+w8e
+	 OApv3dzXHR+1g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 64AFDCC6B1A;
+	Wed, 14 Oct 2026 15:33:41 +0000 (UTC)
+From: Kyle Hendry via B4 Relay <devnull+khendry.reliablecontrols.com@kernel.org>
+Subject: [PATCH net-next v4 0/2] net: pcs: rzn1-miic: Validate dtb
+ configuration values
+Date: Wed, 14 Oct 2026 08:32:36 -0700
+Message-Id: <20261014-miic-validate-dtb-v3-v4-0-b7da71b3a106@reliablecontrols.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Flag: NO
-X-Spam-Score: -3.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJSgz2oC/22NywrCMBREf6XctZG0sbG68j+kizxu7YU0kSSES
+ um/G4pLYTaHYc5skDASJrg3G0QslCj4CpdTA2ZW/oWMbGXoeCdbznu2EBlWlCOrMjKbNSuCmUm
+ 0Q8eNbvEGdfqOONF6aJ/gMTOPa4axNjOlHOLn+Cvi6H9q+V9dw5kcZHvVwhrVm0dER0o7NMHnG
+ Fw6m7DAuO/7F8fWy9XNAAAA
+To: =?utf-8?q?Cl=C3=A9ment_L=C3=A9ger?= <clement.leger@bootlin.com>, 
+ Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
+ Russell King <linux@armlinux.org.uk>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>, 
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Cc: linux-renesas-soc@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Kyle Hendry <khendry@reliablecontrols.com>, 
+ Simon Horman <horms@kernel.org>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791992021; l=1495;
+ i=khendry@reliablecontrols.com; s=20260813; h=from:subject:message-id;
+ bh=mK7HAM4nMy4eEc0HHmNewb99Ljc1vlTbcL9mEAk0cf8=;
+ b=iQkkI44ZNIWO2ba6mqSz9/slYIXSk9aYbVZBhy9HGZyz/1OfIshgOsbZG7CieLxdkoQN2coYy
+ IgVCN2TP9zUCtQh6vccqZ25NReIH+WqzHB9rCh5473buUPLgBj2H+5r
+X-Developer-Key: i=khendry@reliablecontrols.com; a=ed25519;
+ pk=gbK6oghz3qBlBiaGCsEzALLOtj5VklmsuolHQNhDV5M=
+X-Endpoint-Received: by B4 Relay for khendry@reliablecontrols.com/20260813
+ with auth_id=946
+X-Original-From: Kyle Hendry <khendry@reliablecontrols.com>
+Reply-To: khendry@reliablecontrols.com
 
-On Wed, 14 Oct 2026 17:20:55 +0200,
-Joonho Lee wrote:
-> 
-> Hi Takashi,
-> 
-> Thanks for the suggestion and thoughts. I tried the smaller change and hit a
-> recursive locking issue with linked capture streams.
-> 
-> I used a test driver with two linked capture substreams and made the
-> later member's pointer callback return SNDRV_PCM_POS_XRUN during
-> drain. This led to the function calls as follows! :
-> 
->   snd_pcm_do_drain_init()
->     snd_pcm_update_hw_ptr()
->       snd_pcm_update_hw_ptr0()
->         __snd_pcm_xrun()
->           snd_pcm_stop()
->             snd_pcm_action()
->               snd_pcm_stream_group_ref()
-> 
-> The outer drain action already holds the group locks here. Lockdep
-> reported the recursive acquisition of group->lock for atomic streams and
-> group->mutex for nonatomic streams. Both tests remained stuck until
-> the 45-second timeout. Removing the link let both tests complete.
+This series addresses issues found when reviewing another fix:
+https://lore.kernel.org/netdev/20260915-rzn1-miic-fix-array-v5-1-b7173fd5b97d@reliablecontrols.com/
 
-OK, so my previous assumption was wrong, obviously...
+Invalid values from the dtb could cause out of bounds array access. Checking
+the values as they're parsed should prevent this.
 
-> I went back to the notify=false approach from your first sketch, which is keeping the pointer update inside snd_pcm_do_drain_init(). I also
-> added the guard to the early SNDRV_PCM_POS_XRUN branch, since that
-> path still called __snd_pcm_xrun(). Drain init then handles the stop,
-> while ordinary pointer updates keep their existing behavior.
-> 
-> With this change, all 24 linked test cases passed across both locking
-> modes, including pointer errors, tail reads and reopen/recovery.
-> KASAN and lockdep stayed quiet. This was tested with a synthetic
-> driver under ARM64 QEMU; physical-device testing is still pending.
-> 
-> One thing I wanted to check before sending a revision is, how should
-> drain report a pointer error?
-> 
-> The current change puts the failing member in SETUP and allows a
-> healthy linked member to keep its tail in DRAINING. A blocking
-> capture-only drain returns 0 if the rest of the action succeeds,
-> and reading the failed member afterwards returns -EBADFD.
-> 
-> Would you prefer that behavior, or should we remember the error,
-> finish stopping all members, and return -EPIPE from drain? My v2 proposal
-> returned -EPIPE and moved the linked group to XRUN, so this changes
-> what userspace sees.
+Changes in v4:
+- Remove unnecessary else
+- Link to v3: https://lore.kernel.org/r/20261006-miic-validate-dtb-v3-v3-0-68617b3dca5c@reliablecontrols.com
 
-Honestly speaking, I'm no longer sure whether my suggestion is better
-for now.  It's certainly clearer if we can call the update_hwptr stuff
-inside drain_init call, but this looks like a hard way, and the
-conditional call at each PCM operation sounds fragile, too.
+Changes in v3:
+- Squash patches changing miic_port_max
+- Change name of miic_port_max to miic_port_last
+- Remove fixes tags
+- Add another check for configuration value of miic-switch-portin
+- Link to v2: https://lore.kernel.org/r/20260928-miic-validate-dtb-v2-0-1ee3d33748e9@reliablecontrols.com/
 
-Maybe we can go back to your way as v2, but slightly differently.
-Namely, factor out the snd_pcm_link_rwsem and update hwptr loop into a
-helper function, and just call it in snd_pcm_drain().  The already
-existing calls of snd_pcm_pause() and snd_pcm_action() with
-snd_pcm_action_drain_init can be kept as-is; they need no protection
-of snd_pcm_link_rwsem.
+Changes in v2:
+- Simplify fixes by making miic_port_max the last documented port number
+- Add fixes tags
+- Link to v1: https://lore.kernel.org/r/20260925-miic-validate-dtb-v1-0-3a6db9bb75ec@reliablecontrols.com
 
-Also, I think it's fine to call snd_pcm_update_hw_ptr() no matter
-whether it's playback or capture stream.
+Signed-off-by: Kyle Hendry <khendry@reliablecontrols.com>
+---
+Kyle Hendry (2):
+      net: pcs: rzn1-miic: Update port numbering for RZ/T2H
+      net: pcs: rzn1-miic: Validate dtb configuration values
+
+ drivers/net/pcs/pcs-rzn1-miic.c | 42 ++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 35 insertions(+), 7 deletions(-)
+---
+base-commit: 05b5019b01fb9443b09ae4ed34af1135a80a84c8
+change-id: 20261005-miic-validate-dtb-v3-cf31820cb1e9
+
+Best regards,
+-- 
+Kyle Hendry <khendry@reliablecontrols.com>
 
 
-thanks,
-
-Takashi
