@@ -1,317 +1,316 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [185.244.194.184])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AF78361DBF;
-	Wed, 14 Oct 2026 04:06:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.244.194.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E55FC39D3D0
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:06:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791950772; cv=none; b=CtZ4s562ddH5f6M8AE62q9EAYA7T+DHEMdZDlmD8cZ+xcP7vPJFx6v0hLmfuhPYGKsxkUV0ydCOMCltmqZ+Xhowu7NRdZju1/8W14v+FqyIhoAc3XsEowDKUr98zz/p63mkxM72aBycUuat8ZC37+6WNtafwxryyohpXBaM+u08=
+	t=1791950822; cv=none; b=EyFYiudV+0eRLkIE719s3rn3/GppJK5MdERIVBX2lKRqkbKpUyRpJYGdyqy4gipxL1JDaNUYUC79iCwcK1cQ3o0sHncUsyWNqJO5BM5gego7YF0p3CMB0V1PybhQtLDhL8D+gNA2bF+GMmaozyZbDnWs7HNi9AY0wone6xnMvwQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791950772; c=relaxed/simple;
-	bh=LH2w2e58s0hMh/1Ujw4HzDq1xyZUpLVa95o5G0UmSU8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uhcJ6bfrXMvgDc6kbc5dBtWPT9UXOuwfsfyXOG/BTHxvV+14ZP21fS9CrryLXdJUkGLHIlhJ2yXPGX14ni872AWOZ1R6jirD9k9w+Y1tMKtW2t14mWqblBpBa4DclC1B1fxKkSLIGxO22FqWEN6cW1KGbqMxAHGgp6JCXKGIfvs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=Ad1cpx1U; arc=none smtp.client-ip=185.244.194.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	s=arc-20240116; t=1791950822; c=relaxed/simple;
+	bh=1KtpDOY+h7GnZkqwCxm3kdRRjz+Hk65mq56qgc6Fflg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=DBHl6ArjsrwWlS+UidIf9A/dLbqkt7H1hrvUBlvJ1LNvX90SLVM1vTQm5IHa/ZgGO1haNeTAkkhgKahwHte5MxAtpnECd11J1tgftHU1SujUE8UiGFl0cdStSJu5IERhJ1gbpPC7kGJSiqlU3Pye4gx5iS1rvC7bIFGMr24RXBg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lTKu+WIq; arc=none smtp.client-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="Ad1cpx1U"
-Received: from relay01-mors.netcup.net (localhost [127.0.0.1])
-	by relay01-mors.netcup.net (Postfix) with ESMTPS id 4j4HfQ2T6zz9DPn;
-	Wed, 14 Oct 2026 06:05:02 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1791950702;
-	bh=LH2w2e58s0hMh/1Ujw4HzDq1xyZUpLVa95o5G0UmSU8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Ad1cpx1U6z8j2+N6hb7YzJmrIzkAqvtdWE7PFP4Orlbs1VO9gIHMFvZXLPOx3yvRc
-	 pD4mo2j2Pd2KmYWs10BoYKiJHPrOUCVG2CynwgIMbtambWOmiA4or2/D/q/76VJywz
-	 Ju5yxWXpye8e/6asQeUius1lFi2wVTIaBuX1qAHuDKCkNLgtbOXHWxw5JPrJ59gjoa
-	 g6aJJv98vL2FTTb0Fv0fqIhjnSEdluh5F5hDjWzcUc5ir1KyEnGZi7/GR1AmXvKirM
-	 PMKHes+GxgOWITnGutH9ZTIXXBD/HrwZCcxH7dp+VWe/AtDzhyYB2jnNlJFisdB+xa
-	 wMd5wa+DZdymw==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
-	by relay01-mors.netcup.net (Postfix) with ESMTPS id 4j4HfQ1msjz7x0H;
-	Wed, 14 Oct 2026 06:05:02 +0200 (CEST)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4j4HfP2HLSz8svC;
-	Wed, 14 Oct 2026 06:05:01 +0200 (CEST)
-Received: from [192.168.44.19] (unknown [185.238.219.103])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 0491C5FAB2;
-	Wed, 14 Oct 2026 06:04:53 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 185.238.219.103) smtp.mailfrom=linux@leemhuis.info smtp.helo=[192.168.44.19]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <1dcf2ee8-02f7-41af-b1f4-bff3a16a2c90@leemhuis.info>
-Date: Wed, 14 Oct 2026 06:04:52 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lTKu+WIq"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-398b3c37877so1806578a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 21:06:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791950818; x=1792555618; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fI+aIdg5Eg5PyjED5uc03DU2xv7jEMp47g/G9P6kJ88=;
+        b=lTKu+WIq3TRNWuh5SkHS/bVHvf2oKt8b4JNSkAb9BuLZymssKqN6n38p2QoNxvyfRE
+         X8krfMORniVCj7493DYmR+dHlJubngRFmTgSHBZFasCgBNArQ69HxSplYiuuMyZmdviq
+         oM2G8T5yVpBCjGVylUAWhV5Sx1Z/rHlEfaK6CDc6fgYNaDx/7/cfzO7p4LEwbdM/e/5/
+         MPerlnMzhbHGeaJPTDIH0jkyOzhSEQ4wV9oxjkl0gdPe3/3AVGhMhvGPd4ebYMpWdLR0
+         G/0ZBZN7c1TylXQujHXP12EAnRtPR2m0vc9eWzU+tYJwNMXaPWyE1OGzjUjdW586zvJQ
+         oP3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791950818; x=1792555618;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=fI+aIdg5Eg5PyjED5uc03DU2xv7jEMp47g/G9P6kJ88=;
+        b=O9uUHscymzkpkxJ8sHHNmg6ivzhSmLZXDk7EXFAB5kAB/GSjZY/DKwNgW5m04KQQPU
+         Kqr3FZaBFwDrjnmo4XtfKg4DToG/V4J/uEqLWrRNwQHM6enUXkp866oT0xpXUjcumtrm
+         /oLzWwMm4zEERXFzQHiAjo6dy14fM4hAcwprzs42f2051KvuUxI2RQkv5rO9vSGPFHMq
+         CtrWvILin59TVJ1P43U823iniEFuOFYGVSqEWTm4l0ctAr/6/C90gnn2UbqpMH5/lOem
+         allIOguaLIP9t62JQNZMDhUdapqqx1ommDFwdTjO6EbWlt8QypyxQL8g7vHBnIWEasNq
+         yleA==
+X-Forwarded-Encrypted: i=1; AKwUvBwVyDXbLMau9m4ZBWgHO3YRkkN4Lb9ZUtW+7Jn5+SC8y1Nh55iKxHetZzabNI5fR/ZfgqVETTjH7WjuSB0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ1zZBU8VqvDX1IHW7UVBsnq6zWDCdvJPAoIhD51RpxW+80ExzQ
+	m7FO2+JZE0hBLPMPocSDd2IX6WRSTbbH7wzE+Og7PYgmYGqJook97GMT
+X-Gm-Gg: AYBFou1THULEoNUr69QSiAH0tWrvYNJFYEmrPh2TpFQnknWhkg0hOFVJMt7k+ja57KC
+	RPJ1CFfqaWQRqKohNoBrIqONcwY78Q4V0EmM+OM+yRq44fBqqtQ5act1yi11E82H4fyt0R4Ltv5
+	WC2JLVF8aotIWGBfxv7iYFluAbXXTfSNS4dZfs40L2Ym6i+hCwPgiGaV2qHFifuMplOlH3qpj62
+	+UtNADsRZkdVYMG0niA2+E7SUuOj6Ja4OU7CxA4rp2U8n6HxmEKishGvDTI30SSQQrfbfKpMz5U
+	ZrzpzLMA7XaUlzFmSjETrnA1Pnveyztd/Gruuc/sBSU1Fuk1LoxOhNA/hQ6LC0C4qIHrjcPZ+1q
+	MoW29R2igNRqcps2d3/7QtPcwXH9hGpC8jKz2dh5V1afkMpuTHw9pAZdFpZexF1yVlvFGXdxW9z
+	IZdU31fCYeRX+CCdbdm7gT4q2p3TpMAtzuiWIhLNvlyt69TZU6j7CXPch4ifYgxYXL7/8mupJim
+	/c6
+X-Received: by 2002:a17:90a:d44b:b0:3ab:365f:ebdd with SMTP id 98e67ed59e1d1-3ab3ad2029bmr11757991a91.37.1791950817907;
+        Tue, 13 Oct 2026 21:06:57 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac760fc92csm544113a91.14.2026.10.13.21.06.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 21:06:57 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: perex@perex.cz,
+	tiwai@suse.com,
+	kees@kernel.org
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH] ALSA: seq: oss: Prevent duplicate MIDI device teardown
+Date: Wed, 14 Oct 2026 12:06:52 +0800
+Message-Id: <pm-pmb-7c5128efe2110a87b872-v2-c718183fd693e73d8e95@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] tools/bootconfig: Consolidate xbc_init() to error
- message wrapper
-To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- Sang-Heon Jeon <ekffu200098@gmail.com>,
- Linux Next Mailing List <linux-next@vger.kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Mark Brown <broonie@kernel.org>,
- Linux kernel regressions list <regressions@lists.linux.dev>
-References: <178913597653.248794.1237187523153227751.stgit@devnote2>
- <178913599508.248794.10388592925402087434.stgit@devnote2>
-From: Thorsten Leemhuis <linux@leemhuis.info>
-Content-Language: de-DE, en-US
-Autocrypt: addr=linux@leemhuis.info; keydata=
- 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 MEK4
-In-Reply-To: <178913599508.248794.10388592925402087434.stgit@devnote2>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: 
- <179195069455.2974564.12429534590425620214@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: 0491C5FAB2
-X-NC-CID: w5HpWYNoY9cxHDgAmgfF+y8E30IDI+j8dB0WDZ/1Wi62gDjJixg=
 
-On 9/11/26 16:13, Masami Hiramatsu (Google) wrote:
-> From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> 
-> Use init_xbc_with_error() for all bootconfig initialization in the
-> bootconfig tool instead of showing errors in different way.
-> 
-> This simplifies the code logic and make it easy to maintain.
-> 
-> Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Each OSS MIDI alias and its coder must have one final-release owner.
+find_slot() pins the alias under register_lock, but
+snd_seq_oss_midi_check_exit_port() clears its slot in a separate critical
+section without checking whether another callback already removed it.
+The use counter protects active users, but draining it does not elect a
+single remover.
 
-Masami, Andrew, this patch is now twice in -next:
+This requires overlapping raw kernel-client port controls for the same
+client. snd_seq_kernel_client_ctl() does not take ioctl_mutex, and
+snd_seq_delete_port() releases ports_mutex before returning to the
+DELETE_PORT handler's PORT_EXIT broadcast. If the old deletion is delayed
+before that broadcast, a new port can reuse the vacant address. Its
+PORT_START finds and keeps the old alias. Deleting the replacement then
+produces a second PORT_EXIT for the same address. Non-atomic subscriber
+delivery holds a read rwsem, so the two receive_announce() callbacks can
+run concurrently:
 
-e732d7c18d4d6a ("tools/bootconfig: consolidate xbc_init() to error
-message wrapper") [merged via: "9eae8e94e61f20 ("Merge branch
-'mm-nonmm-stable' of
-https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm")"; next-20261012]
+  Old-port deletion                 Replacement-port controls
+  -----------------                 -------------------------
+  Unlink and drain old port
+  Delay before PORT_EXIT            Create port at the same address
+                                    PORT_START keeps existing alias
+                                    Delete port; PORT_EXIT pins mdev
+  PORT_EXIT pins the same mdev
+  Clear slot; drop pin              Clear slot; drop pin
+  Wait for users to drain           Wait for users to drain
+                                    Free coder; pause before kfree(mdev)
+  Free coder again: read
+  freed coder->buf
 
-78715511921cc8 ("tools/bootconfig: Consolidate xbc_init() to error
-message wrapper") [merged via: "71ee85976d09e8 ("Merge branch 'for-next'
-of
-https://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git")";
-next-20261013]
+Both callbacks can select the same alias before either clears its slot.
+After both drop their pins, both waits can return. The second call to
+snd_midi_event_free() can then read the freed coder's buffer pointer,
+as in the report below, and attempt to release the same objects twice.
 
-Which I guess it what caused this build error for me:
-""">> main.c:53:13: error: redefinition of ‘show_xbc_error’
->>    53 | static void show_xbc_error(const char *data, const char *msg, int pos)
->>       |             ^~~~~~~~~~~~~~
->> main.c:20:13: note: previous definition of ‘show_xbc_error’ with type ‘void(const char *, const char *, int)’
->>    20 | static void show_xbc_error(const char *data, const char *msg, int pos)
->>       |             ^~~~~~~~~~~~~~
->> main.c:74:12: error: redefinition of ‘init_xbc_with_error’
->>    74 | static int init_xbc_with_error(char *buf, int len)
->>       |            ^~~~~~~~~~~~~~~~~~~
->> main.c:41:12: note: previous definition of ‘init_xbc_with_error’ with type ‘int(char *, int)’
->>    41 | static int init_xbc_with_error(char *buf, int len)
->>       |            ^~~~~~~~~~~~~~~~~~~
->> main.c:41:12: warning: ‘init_xbc_with_error’ defined but not used [-Wunused-function]
->> make: *** [Makefile:21: bootconfig] Error 1
-"""
-Ciao, Thorsten
+Check that the pinned alias still occupies its slot under register_lock
+before clearing it. A callback that finds it already removed drops its
+pin and returns. Only the callback that removes the alias drains users
+and frees the coder and record. The pin keeps the record alive through
+this check, and the wait remains outside the spinlock.
 
-> ---
-> Changes in v2:
->  - Remove redundant buffer copy in init_xbc_with_error().
-> ---
->  tools/bootconfig/main.c |  100 ++++++++++++++++++++---------------------------
->  1 file changed, 43 insertions(+), 57 deletions(-)
-> 
-> diff --git a/tools/bootconfig/main.c b/tools/bootconfig/main.c
-> index aff169ba75b8..652e491b9c33 100644
-> --- a/tools/bootconfig/main.c
-> +++ b/tools/bootconfig/main.c
-> @@ -21,6 +21,39 @@
->  #define BOOTCONFIG_FOOTER_SIZE	\
->  	(sizeof(uint32_t) * 2 + BOOTCONFIG_MAGIC_LEN)
->  
-> +static void show_xbc_error(const char *data, const char *msg, int pos)
-> +{
-> +	int lin = 1, col, i;
-> +
-> +	if (pos < 0) {
-> +		pr_err("Error: %s.\n", msg);
-> +		return;
-> +	}
-> +
-> +	/* Note that pos starts from 0 but lin and col should start from 1. */
-> +	col = pos + 1;
-> +	for (i = 0; i < pos; i++) {
-> +		if (data[i] == '\n') {
-> +			lin++;
-> +			col = pos - i;
-> +		}
-> +	}
-> +	pr_err("Parse Error: %s at %d:%d\n", msg, lin, col);
-> +
-> +}
-> +
-> +static int init_xbc_with_error(char *buf, int len)
-> +{
-> +	const char *msg;
-> +	int ret, pos;
-> +
-> +	ret = xbc_init(buf, len, &msg, &pos);
-> +	if (ret < 0)
-> +		show_xbc_error(buf, msg, pos);
-> +
-> +	return ret;
-> +}
-> +
->  static int xbc_show_value(struct xbc_node *node, bool semicolon)
->  {
->  	const char *val, *eol;
-> @@ -197,7 +230,6 @@ static int load_xbc_from_initrd(int fd, char **buf)
->  	int ret;
->  	uint32_t size = 0, csum = 0, rcsum;
->  	char magic[BOOTCONFIG_MAGIC_LEN];
-> -	const char *msg;
->  
->  	ret = fstat(fd, &stat);
->  	if (ret < 0)
-> @@ -249,52 +281,9 @@ static int load_xbc_from_initrd(int fd, char **buf)
->  		return -EINVAL;
->  	}
->  
-> -	ret = xbc_init(*buf, size, &msg, NULL);
-> -	/* Wrong data */
-> -	if (ret < 0) {
-> -		pr_err("parse error: %s.\n", msg);
-> -		return ret;
-> -	}
-> -
-> -	return size;
-> -}
-> -
-> -static void show_xbc_error(const char *data, const char *msg, int pos)
-> -{
-> -	int lin = 1, col, i;
-> -
-> -	if (pos < 0) {
-> -		pr_err("Error: %s.\n", msg);
-> -		return;
-> -	}
-> -
-> -	/* Note that pos starts from 0 but lin and col should start from 1. */
-> -	col = pos + 1;
-> -	for (i = 0; i < pos; i++) {
-> -		if (data[i] == '\n') {
-> -			lin++;
-> -			col = pos - i;
-> -		}
-> -	}
-> -	pr_err("Parse Error: %s at %d:%d\n", msg, lin, col);
-> +	ret = init_xbc_with_error(*buf, size);
->  
-> -}
-> -
-> -static int init_xbc_with_error(char *buf, int len)
-> -{
-> -	char *copy = strdup(buf);
-> -	const char *msg;
-> -	int ret, pos;
-> -
-> -	if (!copy)
-> -		return -ENOMEM;
-> -
-> -	ret = xbc_init(buf, len, &msg, &pos);
-> -	if (ret < 0)
-> -		show_xbc_error(copy, msg, pos);
-> -	free(copy);
-> -
-> -	return ret;
-> +	return ret < 0 ? ret : size;
->  }
->  
->  static int show_xbc_kernel_cmdline(void)
-> @@ -423,9 +412,8 @@ static int apply_xbc(const char *path, const char *xbc_path)
->  	char *buf, *data;
->  	size_t total_size;
->  	struct stat stat;
-> -	const char *msg;
->  	uint32_t size, csum;
-> -	int pos, pad;
-> +	int pad;
->  	int ret, fd;
->  
->  	ret = load_xbc_file(xbc_path, &buf);
-> @@ -438,6 +426,13 @@ static int apply_xbc(const char *path, const char *xbc_path)
->  		size++;
->  	csum = xbc_calc_checksum(buf, size);
->  
-> +	/* Verify the data format */
-> +	ret = init_xbc_with_error(buf, size);
-> +	if (ret < 0) {
-> +		free(buf);
-> +		return ret;
-> +	}
-> +
->  	/* Backup the bootconfig data */
->  	data = calloc(size + BOOTCONFIG_ALIGN + BOOTCONFIG_FOOTER_SIZE, 1);
->  	if (!data) {
-> @@ -446,15 +441,6 @@ static int apply_xbc(const char *path, const char *xbc_path)
->  	}
->  	memcpy(data, buf, size);
->  
-> -	/* Check the data format */
-> -	ret = xbc_init(buf, size, &msg, &pos);
-> -	if (ret < 0) {
-> -		show_xbc_error(data, msg, pos);
-> -		free(data);
-> -		free(buf);
-> -
-> -		return ret;
-> -	}
->  	printf("Apply %s to %s\n", xbc_path, path);
->  	xbc_get_info(&ret, NULL);
->  	printf("\tNumber of nodes: %d\n", ret);
+KASAN report as below:
 
+    ==================================================================
+    BUG: KASAN: slab-use-after-free in snd_midi_event_free+0x53/0x60
+    Read of size 8 at addr ffff888107074518 by task alsa-seq-fixtur/492
+
+    CPU: 3 UID: 0 PID: 492 Comm: alsa-seq-fixtur Not tainted 7.2.0-rc6-pmb-bt-functional-v1+ #1 PREEMPT(lazy)
+    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+    Call Trace:
+     <TASK>
+     dump_stack_lvl+0x93/0xd0
+     print_report+0xce/0x630
+     ? snd_midi_event_free+0x53/0x60
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __virt_addr_valid+0x20d/0x410
+     ? snd_midi_event_free+0x53/0x60
+     kasan_report+0xe0/0x110
+     ? snd_midi_event_free+0x53/0x60
+     snd_midi_event_free+0x53/0x60
+     snd_seq_oss_midi_check_exit_port+0x1d8/0x370
+     receive_announce+0x1b8/0x370
+     ? __pfx_receive_announce+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __lock_acquire+0x466/0x2260
+     ? snd_seq_port_use_ptr+0x40/0x170
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? find_held_lock+0x2b/0x80
+     ? snd_seq_port_use_ptr+0x10c/0x170
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_release+0xc8/0x280
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_receive_announce+0x10/0x10
+     __snd_seq_deliver_single_event+0x105/0x1a0
+     ? snd_seq_port_use_ptr+0x111/0x170
+     snd_seq_deliver_single_event+0x2fc/0x770
+     ? __pfx_snd_seq_deliver_single_event+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_down_read_nested+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? do_raw_read_unlock+0x49/0xe0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? _raw_read_unlock+0x23/0x40
+     snd_seq_deliver_event+0x351/0x760
+     ? __pfx_snd_seq_deliver_event+0x10/0x10
+     ? _raw_spin_unlock_irqrestore+0x44/0x60
+     ? trace_hardirqs_on+0x18/0x160
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? _raw_spin_unlock_irqrestore+0x44/0x60
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     snd_seq_kernel_client_dispatch+0x13f/0x170
+     snd_seq_system_broadcast+0x100/0x150
+     ? __pfx_snd_seq_system_broadcast+0x10/0x10
+     ? mark_held_locks+0x40/0x70
+     ? _raw_spin_unlock_irqrestore+0x44/0x60
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lockdep_hardirqs_on_prepare+0xea/0x1a0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     snd_seq_ioctl_delete_port+0x179/0x4b0
+     call_seq_client_ctl+0x90/0x110
+     snd_seq_kernel_client_ctl+0x8a/0x100
+     pmbd_case_delete_port+0xa6/0xf0
+     ? __pfx_pmbd_case_delete_port+0x10/0x10
+     ? __might_fault+0xdd/0x190
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __might_fault+0x14e/0x190
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? strim+0x19c/0x200
+     pmbd_case_control_write+0x2c5/0x470
+     ? __pfx_pmbd_case_control_write+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __debugfs_file_get+0x1bd/0x7f0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_acquire+0x17b/0x2f0
+     ? ksys_write+0x111/0x200
+     full_proxy_write+0x11f/0x180
+     vfs_write+0x25a/0x1010
+     ? __pfx_full_proxy_write+0x10/0x10
+     ? __pfx___mutex_lock+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_acquire+0x17b/0x2f0
+     ? __pfx_vfs_write+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __fget_files+0x1e1/0x370
+     ksys_write+0x111/0x200
+     ? __pfx_ksys_write+0x10/0x10
+     ? rseq_register.isra.0+0x1f3/0x2e0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? exit_to_user_mode_loop+0x3a5/0x570
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     do_syscall_64+0x115/0x6a0
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+    RIP: 0033:0x7f3532e4e9ee
+    Code: 08 0f 85 f5 4b ff ff 49 89 fb 48 89 f0 48 89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24 08 0f 05 <c3> 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 80 00 00 00 00 48 83 ec 08
+    RSP: 002b:00007f3532dafe08 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+    RAX: ffffffffffffffda RBX: 00007f3532db06c0 RCX: 00007f3532e4e9ee
+    RDX: 000000000000000a RSI: 000055efbd747156 RDI: 0000000000000003
+    RBP: 000055efbd747156 R08: 0000000000000000 R09: 0000000000000000
+    R10: 0000000000000000 R11: 0000000000000246 R12: 000000000000000a
+    R13: 0000000000000000 R14: 00007ffe7894e7f0 R15: 00007f35325b0000
+     </TASK>
+
+    Allocated by task 490:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     __kasan_kmalloc+0xaa/0xb0
+     __kmalloc_cache_noprof+0x251/0x610
+     snd_midi_event_new+0x74/0x210
+     snd_seq_oss_midi_check_new_port+0x329/0x610
+     receive_announce+0x277/0x370
+     __snd_seq_deliver_single_event+0x105/0x1a0
+     snd_seq_deliver_single_event+0x2fc/0x770
+     snd_seq_deliver_event+0x351/0x760
+     snd_seq_kernel_client_dispatch+0x13f/0x170
+     snd_seq_system_broadcast+0x100/0x150
+     snd_seq_ioctl_create_port+0x39a/0x9d0
+     call_seq_client_ctl+0x90/0x110
+     snd_seq_kernel_client_ctl+0x8a/0x100
+     pmbd_case_create_port+0xcc/0x160
+     pmbd_case_control_write+0x21d/0x470
+     full_proxy_write+0x11f/0x180
+     vfs_write+0x25a/0x1010
+     ksys_write+0x111/0x200
+     do_syscall_64+0x115/0x6a0
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+    Freed by task 493:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     kasan_save_free_info+0x3b/0x60
+     __kasan_slab_free+0x5f/0x80
+     kfree+0x307/0x580
+     snd_midi_event_free+0x48/0x60
+     snd_seq_oss_midi_check_exit_port+0x1d8/0x370
+     receive_announce+0x1b8/0x370
+     __snd_seq_deliver_single_event+0x105/0x1a0
+     snd_seq_deliver_single_event+0x2fc/0x770
+     snd_seq_deliver_event+0x351/0x760
+     snd_seq_kernel_client_dispatch+0x13f/0x170
+     snd_seq_system_broadcast+0x100/0x150
+     snd_seq_ioctl_delete_port+0x179/0x4b0
+     call_seq_client_ctl+0x90/0x110
+     snd_seq_kernel_client_ctl+0x8a/0x100
+     pmbd_case_delete_port+0xa6/0xf0
+     pmbd_case_control_write+0x398/0x470
+     full_proxy_write+0x11f/0x180
+     vfs_write+0x25a/0x1010
+     ksys_write+0x111/0x200
+     do_syscall_64+0x115/0x6a0
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+    The buggy address belongs to the object at ffff888107074500
+     which belongs to the cache kmalloc-96 of size 96
+    The buggy address is located 24 bytes inside of
+     freed 96-byte region [ffff888107074500, ffff888107074560)
+
+    The buggy address belongs to the physical page:
+    page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x107074
+    flags: 0x200000000000000(node=0|zone=2)
+    page_type: f5(slab)
+    raw: 0200000000000000 ffff888100042280 dead000000000122 0000000000000000
+    raw: 0000000000000000 0000000000200020 00000000f5000000 0000000000000000
+    page dumped because: kasan: bad access detected
+
+    Memory state around the buggy address:
+     ffff888107074400: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+     ffff888107074480: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+    >ffff888107074500: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
+                                ^
+     ffff888107074580: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
+     ffff888107074600: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
+    ==================================================================
+
+Assisted-by: LLM
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+---
+
+diff --git a/sound/core/seq/oss/seq_oss_midi.c b/sound/core/seq/oss/seq_oss_midi.c
+index 70f94df651446e68af238e3a62180851a037ef76..b456bd37d87bc3d7363b5665fb65ab80c7a9aa36 100644
+--- a/sound/core/seq/oss/seq_oss_midi.c
++++ b/sound/core/seq/oss/seq_oss_midi.c
+@@ -211,6 +211,11 @@ snd_seq_oss_midi_check_exit_port(int client, int port)
+ 	mdev = find_slot(client, port);
+ 	if (mdev) {
+ 		scoped_guard(spinlock_irqsave, &register_lock) {
++			/* Only one callback may release the device. */
++			if (midi_devs[mdev->seq_device] != mdev) {
++				snd_use_lock_free(&mdev->use_lock);
++				return 0;
++			}
+ 			midi_devs[mdev->seq_device] = NULL;
+ 		}
+ 		snd_use_lock_free(&mdev->use_lock);
