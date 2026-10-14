@@ -1,84 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E10DC4CEE53;
-	Wed, 14 Oct 2026 12:05:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11FF640DB59;
+	Wed, 14 Oct 2026 12:05:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791979532; cv=none; b=qUGJLs7nj1Pcf7t/GS0PsecTqhoWzBYy0hc6GIVPqHmx7fizo5oN5azwTMTmsHhsnYjaSurgtt3HuxxhoAda256uup/eyEPhPHiEpE5IQ7X7Y2Ri2d0j9T9LSqVBxmDFRaXUELNm+ip/kYtcpzlruYqPPdTymgR9W2n3XXzv1Q0=
+	t=1791979543; cv=none; b=nlxB7HIlGaBuPljSL4jc2frKIkDk8i4kcrehThYOfo36rUwkRtDYlrFZp+OI7mmNvNiSUIVmWbn/ZaUGBKLqk5RitkGsXK7VmY+vOyxdhMqHLWtw/nCU0ToxQAlx2YGItf2iB1hP/gtfm3LVrDpw/I4FjPgOJumJR43UmxCHruI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791979532; c=relaxed/simple;
-	bh=EwLyOUmKTq+Pgq4Fgui+4muIQaVAEfUm1kjOFtEVhZo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lEFW3h9YAQLpmf0kiEPSkJoXP4B+MH3gy8ZBdx36SHXhwr31pBO/V6KkR/j9BwQSydCN/GkExg+My7mFYgF1Ww0+DuNs4yqLDqSgHZOQSyl+lyzGvC9C/1JniuAY3pd7am1GXBuygx45/FSfKJPcry86Ib7QuTDJT+04GcxN3FY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=INvyDbEa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791979543; c=relaxed/simple;
+	bh=fUVCnSYnvxi/5JLTXYWpn5RyhFC6X8/gX3b8ItAgdiU=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=b2TuMLlCaYmXt6xnU7qS0HfP6thFSdcwB/7n95XAXHqNll4Etan11c8kQNhK/ivwWN2K8Usaf3Q9xXpKqlTNotaTl7gtVerIdIFmW7ZJCSzD3dGn+40DwVczJsz5gte8cpgsfEE+I2yFEN4zpeJ+gtJl9Wt9UauSA98t5YqA49A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L9DYpwfg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="INvyDbEa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A42C91F000FF;
-	Wed, 14 Oct 2026 12:05:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L9DYpwfg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1B431F00898;
+	Wed, 14 Oct 2026 12:05:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791979531;
-	bh=l3CyP6bumUd+D8iOczfm5+884GmGnnwhG0Qdoxeuly4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=INvyDbEa9+m4JQN5I3onIIUR1JZdRzUwHnkegHqxYhI7XoO+yiOFOD63um0yVj00T
-	 +nhEsQg4JWQ1Sb3NgMhBZRmRlBGILXERpnuj0WXPRgz+TRCSGiq4Zsig7iWxjNYgEZ
-	 F/blt2tWfCQqhltr12FM4lq3VEe+1cTd4yD5cNhp3Irinkkf1ocY2uV7z/WnLFBNtZ
-	 HQH7ZqekWIoMHsdTRETNLmJZNBzeIPhQNPWVujn3QN+f8jmRJTwBm8FgmXEU1DPVNm
-	 FwA3m26nDE9MPQlwUBOknpv2XyzL4inWVuvtGevWs4riCXNcetjHbTsdVXVYTOAZVm
-	 g3BJ3Y291x8pA==
-Date: Wed, 14 Oct 2026 13:05:25 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: Gavin Shan <gshan@redhat.com>, kvm@vger.kernel.org,
-	Sudeep Holla <sudeep.holla@kernel.org>, kvmarm@lists.linux.dev,
-	maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
-	joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
-	linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
-	sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
-	WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
-	jonathan.cameron@oss.qualcomm.com
-Subject: Re: [PATCH v22 02/10] firmware: arm_rmm: Check for RMI support at
- init
-Message-ID: <20261014-victorious-prompt-kelpie-cf3a87@sudeepholla>
-References: <20261002061507.1600269-1-suzuki.poulose@arm.com>
- <20261002061507.1600269-3-suzuki.poulose@arm.com>
- <2586e689-c27d-4e4c-8c69-03e24259cb96@redhat.com>
- <8be050e3-8af1-4f04-902f-9bc01b209dd0@arm.com>
- <3fbd4739-a4eb-4428-95ae-ead22e7cf9f2@redhat.com>
- <799fb810-c33e-4d0e-9a70-7092c0a681ff@arm.com>
- <0ceda99f-0352-474b-a30a-c5e79b817c2d@redhat.com>
- <ade8dd16-4f09-47d0-a821-636ca4c62565@arm.com>
+	s=k20260515; t=1791979541;
+	bh=UbWv/sKW2lmc17bvY7lmU1JjT4iCo+CxyyunhN+cEbE=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=L9DYpwfgbq7A1hlSgGa4kKkf0hl6Smqwskhwsu5z+DMN9dKe1ORJgPJTRYNFZm7++
+	 Gb1tQkmcgxUSOnPYajj+OeiFD6WOI6vfKX4iRGiol2OR5XnWtAAak66zNgBPvSJhCp
+	 cB2rKk8t7RvStbddBaRD388k0zUZ25dERKumkjnbKWcqZzbCtrBjVFxhTSM35IW0VU
+	 PwfxNc0LiM0HUV7A+3MIsjO1wFo5nPohOBRRwvq8yUBM/+4MeRffjCh3eI0T9L9yai
+	 Q++241eGKFMY/AvzVDLfjtt9vsV8VQgFJo9Verk25TzvOt/FH0M9GWL3s80uO9annR
+	 ddDV3jxbtyayA==
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: linux-pci@vger.kernel.org, Nicolas Saenz Julienne <nsaenz@kernel.org>, 
+ Bjorn Helgaas <bhelgaas@google.com>, bcm-kernel-feedback-list@broadcom.com, 
+ jim2101024@gmail.com, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ Jim Quinlan <james.quinlan@broadcom.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-rpi-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>
+In-Reply-To: <20260911233541.1650895-1-james.quinlan@broadcom.com>
+References: <20260911233541.1650895-1-james.quinlan@broadcom.com>
+Subject: Re: [PATCH 00/13] PCI: brcmstb: Stop using chip numbers for
+ conditions
+Message-Id: <179197952602.38040.4438252459530233972.b4-ty@b4>
+Date: Wed, 14 Oct 2026 17:35:26 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ade8dd16-4f09-47d0-a821-636ca4c62565@arm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1988;
+ i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
+ bh=CRzzNPaNH9skV8gEC8csK/YI4PQjB9eAcSu5FdE1Hlo=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBqz3AMrN7UJ7vHZBhFsbIGNRwnoOkDmgY8rUVP6
+ q/+oXcWx1WJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCas9wDAAKCRBVnxHm/pHO
+ 9XlqB/9tGmBzMnCMnPGBUcutfz9p5JM2flP91QVH5egfoOyZpvXooGJTJ4C/sv45shkUFtIHPSh
+ qCeSqFu1DEaFaFx+TqHjDm/DyBYVnhU4YbsdizJur864f4RzogtmLyAd3Zzjy+wfRTmBi0U/EXl
+ ICqUXuxrUYYGty0HZOhUZlR0rH1p3wIYsLRE+T/xzhKjhAKpdD1X2q3VN4Tcch/Zh6GaqMhF3eF
+ ER96d72vGJQBRVK2oq2jgfENaK0uxZXPSELptNT69COnqfDn2t8L/fEryAY+YdK4EXs++HVp0QP
+ mNJLvXE4cbB9WFICfV2Ilv9DRdnv3uFE7o1qpURn/xwBJ7w+
+X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-On Wed, Oct 14, 2026 at 12:06:54PM +0100, Suzuki K Poulose wrote:
 
-[...]
-
+On Fri, 11 Sep 2026 19:35:25 -0400, Jim Quinlan wrote:
+> PCI: brcmstb: Stop using chip numbers for conditions
 > 
-> Then it is RMM's problem if it doesn't check that the right level of
-> SMCCC version is not implemented by the EL3. Also, where do we stop
-> the checks ? e.g., We need SMCCC >= v1.3, when SVE is supported.
-> And >= v1.4 if SME is supported. Shouldn't we leave this to the RMM
-> to verify on init and fail the init ? I can raise this with the
-> tf-RMM team.
+> Much of the brcmstb PCIe driver code does (essentially) this:
+> 
+>         if (pcie->chip == 0x1234 || pcie->chip == 0x5678) {
+>                 /* ... */
+>         }
+> 
+> [...]
 
-Fair enough for v1.3+/SME/SVE checks, but RMI interface relying on more
-that 8 input registers for one or more of it's interfaces (e.g.
-RSI_ATTESTATION_TOKEN_INIT, RSI_MEASUREMENT_EXTEND, ...etc) indicate
-it can't work with SMCCC v1.1 or below
-.
-So IMO check for v1.2+ is completely justified here.
+Applied, thanks!
 
+[01/13] PCI: brcmstb: Remove redundant const specifier for struct fields
+        commit: 46edf058e1531ceac70c59b0e69c3ff35b22e3f1
+[02/13] PCI: brcmstb: Use flags u32 instead of bools
+        commit: 17bf3521be9674ecdea6354af3ea2a38ca979ffa
+[03/13] PCI: brcmstb: Add Broadcom quirks macro
+        commit: ac87f644cec7f86681f56e2e07fb5124e622d26d
+[04/13] PCI: brcmstb: Declare and assign quirk OB_WIN_32BIT_ADDR
+        commit: 8f3d8492346ef55e20099eda7d170befcb2ad97d
+[05/13] PCI: brcmstb: Declare and assign quirk OB_WIN_MAXSZ_128MB
+        commit: 3c34e04a5ceb9f25453b51943127f3e242318a81
+[06/13] PCI: brcmstb: Declare and assign flag IS_BMIPS
+        commit: 19db283e770e9efbba6fcab0786210e4d870d7c0
+[07/13] PCI: brcmstb: Declare and assign quirk 32BIT_PCI_OPS
+        commit: 11c1752f24e643d7a3281f1add22f6a99d56a64a
+[08/13] PCI: brcmstb: Declare and assign quirk NO_RGR1_TIMER
+        commit: d3e27c1f1c1a3df58495f3cb51ce5ff0e6551256
+[09/13] PCI: brcmstb: Declare and assign quirk EARLY_PERST_ASSERT
+        commit: 644c94d347f644acf48801cd8841cea55e730bd9
+[10/13] PCI: brcmstb: Declare and assign quirk PERST_PCIE_REV_CUTOFF
+        commit: 1e840300326d6977cce6211e62e94022d569ac73
+[11/13] PCI: brcmstb: Put max_burst_size setting in cfg_data
+        commit: db776dbcfd25fc8e354aa4b3c16bdc4a7c59d99e
+[12/13] PCI: brcmstb: Use order-0 indexing for inbound BAR window array
+        commit: f22f415f21daaeb6d0e6b1537460513d3421d166
+[13/13] PCI: brcmstb: Split up complicated function into two variants
+        commit: f22895a0c371adaa8345dd76616462b868a8f38f
+
+Best regards,
 -- 
-Regards,
-Sudeep
+மணிவண்ணன் சதாசிவம்
+
+
