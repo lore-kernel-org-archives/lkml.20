@@ -1,231 +1,127 @@
-Received: from mta1.migadu.com (out-87.mta1.migadu.com [95.215.58.87])
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2A91409136
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 05:10:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.87
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB5BB314A98
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 05:13:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791954654; cv=none; b=LIBI6Sw7/YLBE86MsFxMw2lgBUDEeNOmxN1PC5XylPmfFFE8HLQN0h241laTawvdtp/vMwxC4jww8ib3r2qQ+DF3VyfLzbbLjSxjp5fdDZkfgVww9XFQQuwAGVnQhmOOy+nXN0b8dIdwRiGrJUiKY3F1U1n4UdL3ACAraapiSXM=
+	t=1791954813; cv=none; b=SBBoTMTo/k7Zb8k9mjNPtcV0QgslAwLrKFBneRACgPRcHToWFdT+hH5ChlCTiwpfQY880rmqR/DeWSDY2yJp6WBcm631blxmCwkOnQC/2HnE84IJhJ2dR5hidhic1Sf7GEpbUwej4dYIH53/jCjc98YdufiuVX405J+9VEUlNP4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791954654; c=relaxed/simple;
-	bh=RtuI7Dj4/PXHxX8N0ZDL2kdIdG3sQ4Wlhpl0DMBjxlU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fVyiQmzIJUGYP0XUjhoeWcv3Gtvbcf2/AnVjI6uJ9Ce2pX+1+DQO4C5Ur5DqAvV+TDe+/At9ODgyPxfQJ7gdpysUjZA+aWLWcRQL2WU7rQM6VvR5/xzxZ4i6c+1oe9/HDvkERXnaEWdLk6n9JvBRYXHKq53+9ny+8hcHa/+7C4E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=GFVLLvhT; arc=none smtp.client-ip=95.215.58.87
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791954813; c=relaxed/simple;
+	bh=9L5+pPNFxNcJItTifh5cuhYQBN+IPdNZ/AlJN1nZVIk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jbPx/lS3+uYYT6aB0xTu8lQ8Wv2id/qk6hsJRfhXeCczqTjNRo6WF5jXmZ0zaHoEfCnv9B84gxhclYJN0Mi8Vk6pifOY51wAvnpvy/vQID0n/6nFf8oPqHE7uqQzKsasLPH6ncOaUelSy9OmPcaDcYjVhRBOKGB38z0l50alY28=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p8lRRtCc; arc=none smtp.client-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="GFVLLvhT"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=RtuI7Dj4/PXHxX8N0ZDL2kdIdG3sQ4Wlhpl0DMBjxlU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791954648; v=1; x=1792559448;
- b=GFVLLvhTXlRLPtYUpXhx8WhVXbYVShZRm73Wq3td5qywqB6HWFXiSG0pIeNgFVvOWkn2qzv9
- u04aZdtSvjAGSvZKxUfM/fpTrJ+tkzXWR0zHa8s80fygMpZ66RPrQlQ5v2ySfEGTaT+i9xr4mbL
- VmGBZdWe7xaomkEea9lFiPUc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 2e0bdaf4ec1a1ef7;
-	Wed, 14 Oct 2026 05:10:48 +0000
-X-Mizu-Trace-ID: 2e0bdaf4ec1a1ef7
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <d01c6c89-69db-4ed1-b520-52b61d83da02@linux.dev>
-Date: Wed, 14 Oct 2026 13:10:38 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p8lRRtCc"
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-15ea896ddc8so848978c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 22:13:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791954812; x=1792559612; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=o96Wr4ulgCtQjy9azqIV/+wX469kS4vlmKygYY/jVsM=;
+        b=p8lRRtCcTSh1zh+t2rD3UabIvxVvyl5BxSq+vzZsYOywAW4lJ3z8fjt42MQzxCx4kF
+         n98YcG0mgnnmdJ1hMN1rEwE2AcSShG0xQgvzWoVJvmu/J1gbgEt64+emHisupx1Wa/Px
+         XK3CFAQzw9ywEjriPH8BbgMJKf93iCME2GRAfiP6OM2SwKDWGsNbfxrbT2yPLJhXZTYU
+         NhXiAxXpS6QR3IAKaAVjU7k79Mdw3fZMMnvn6D29d0/YqmYDRGAH7Ekm4CcEmspbVLvw
+         RTjA1nF87fByfeXPb9l5m5jDpDLCaMPKsyEc3CNBZ/yLQ/+tDOk2eaQL6DLiovPZQoNJ
+         CVPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791954812; x=1792559612;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=o96Wr4ulgCtQjy9azqIV/+wX469kS4vlmKygYY/jVsM=;
+        b=Dim9Txc1kZZ4hlA29QiPVL26jjM7dwLJH8yXO9wPpdG8xZp3K4MG8gXqbgyJKfi7qY
+         1S+EFn/PnsnHSdvUfLH4WU29Gnv6/ncu/sfq9ImQ2PaENR35nqdaVhO/UgLQtNycu3hP
+         SdJW1WLy+q1xiuJNn+Az4Pr185qxp0ronYJTHI3Nh/Fgwl5PMLpESFuSLiPPbz+8Nnap
+         qZPoFxVzGDiNvMfnmwQj9sDrALHh7fS0dAeRhClkJyrCe1eJCJQlwcQbcRPTHXWttWXE
+         OIwKeHRyLVQA5/PAkAdUy3t+wLuz56IBxJ/Lt29qeujDEDyVQ1m7RlUmCIu6HPt8Rprw
+         ivyg==
+X-Forwarded-Encrypted: i=1; AKwUvBwOOD0q7I8aCU0VHsrljxzBakctcerLHvYEgnY62wsb3ZCl3la8i43yZAi91CzyZH4Efy6pCP5hGN2yj7w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJarJb2hkD7in6nmYn995tUFClLJpC9iazPzD3QV6lsQdZS2BCq
+	WQDFghn022yx+nOYB9YmISZjnqJo2ubU/BMiOcryPVG2iN0vr00lwLRP
+X-Gm-Gg: AYBFou19RNfqlwJMDGJUxDKv7ER6WKMg8gajU18DnzB7CNrYRFJgpFDSCcFzpZpUfOo
+	RNnIntU38UUNB/hTj4v1ji5VqKpklxWBzIEafVvm4FfppfacA5rjzAkniD3H3n6P+75/iVwMVYN
+	24JYfA+7Se8EwQop8aLBLFcCzBDoYEYKvXPr5/l5cwYS8q+jiiXe3qR/4Zf8zM3PasBB+5roYPh
+	R7LdZ9qOj8Sj8iWS8nRvjX+6qujyd2Sv19m02X76rGEpc/SiLEC7TZGV2P1xSSk1kCgqJWWC4rj
+	m4InNjwH+Z0HcYvPeGm6/bORzhMmkbEEY98jBOGdIPPkKk4bL7/FfHSvhNI02Z2awOeOY354i6P
+	i/tClzMkJuUpPWyYoqIWmzo9EPJZsMx+wrKoAuo10c3CKN2lYWhEjuJux7/8137Oo+Kx4/zNbwe
+	2UCRlGgvgkAoHJ5oIJUu1ODm71Gz40EbnxByeXZLGqPUNEYf+sXj1C9ZOkh2HlQn3oJW/qek6Pc
+	qOAhrrQm0T11gzOVPIRJtSB0UBylj1Qyn/zo4pV/e/Xpz31cuaoNwj4gYK4JuFHrHPMu0T7tQ==
+X-Received: by 2002:a05:7022:295:20b0:151:6e80:baa9 with SMTP id a92af1059eb24-16a5e49fdaemr18617461c88.12.1791954811647;
+        Tue, 13 Oct 2026 22:13:31 -0700 (PDT)
+Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:875a:117f:b9ea:5a08])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cacb61asm51629125eec.21.2026.10.13.22.13.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 22:13:30 -0700 (PDT)
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Michael Zaidman <michael.zaidman@gmail.com>,
+	Rishi Gupta <gupt21@gmail.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	David Barksdale <dbarksdale@uplogix.com>,
+	Andrej Shadura <andrew@shadura.me>,
+	Johannes Roith <johannes@gnu-linux.rocks>,
+	linux-input@vger.kernel.org,
+	linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/5] HID: hidraw: Encapsulate struct hidraw and make hidraw.h private
+Date: Tue, 13 Oct 2026 22:13:20 -0700
+Message-ID: <20261014051326.3784498-1-dmitry.torokhov@gmail.com>
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] LoongArch: KVM: Reject repeated PCH-PIC CTRL_INIT
-To: Huacai Chen <chenhuacai@kernel.org>, Bibo Mao <maobibo@loongson.cn>
-Cc: gaosong@loongson.cn, zhaotianrui@loongson.cn, loongarch@lists.linux.dev,
- kvm@vger.kernel.org, linux-kernel@vger.kernel.org, kernel@xen0n.name,
- nagachaithanya9911@gmail.com, Tao Cui <cuitao@kylinos.cn>
-References: <20260929102821.36112-1-cui.tao@linux.dev>
- <20260929102821.36112-5-cui.tao@linux.dev>
- <CAAhV-H5GNKZSjB_MN2Vi7uhbf1q9nqqvsfwqF+THpkwk3dEhGQ@mail.gmail.com>
- <9a59af62-3e8a-12f5-4e6c-38c1953adb37@loongson.cn>
- <CAAhV-H6cgiMQn=1oct6KHaLADwWQJ7Ow3iT14_Gj5BQxMW22Sg@mail.gmail.com>
- <be33489e-fec4-ba52-45d9-6323b14da593@loongson.cn>
- <CAAhV-H5yXR8vN0NdiHWRTbGOsrqrVxZFd9g9QdaZGhdLR=BA7A@mail.gmail.com>
- <3aada818-e1e1-a802-2547-b8e41618df32@loongson.cn>
- <CAAhV-H4YrpPmQw=qsp1GqdD5tyG6k+-tBe4g1Y-HO5kgEyu4dA@mail.gmail.com>
-From: Tao Cui <cui.tao@linux.dev>
-In-Reply-To: <CAAhV-H4YrpPmQw=qsp1GqdD5tyG6k+-tBe4g1Y-HO5kgEyu4dA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi, Huacai
+This series cleans up internal HID core and hidraw header boundaries.
 
-在 2026/10/12 14:37, Huacai Chen 写道:
-> On Wed, Sep 30, 2026 at 5:03 PM Bibo Mao <maobibo@loongson.cn> wrote:
->>
->>
->>
->> On 2026/9/30 下午4:52, Huacai Chen wrote:
->>> On Wed, Sep 30, 2026 at 10:33 AM Bibo Mao <maobibo@loongson.cn> wrote:
->>>>
->>>>
->>>>
->>>> On 2026/9/30 上午10:24, Huacai Chen wrote:
->>>>> On Wed, Sep 30, 2026 at 9:53 AM Bibo Mao <maobibo@loongson.cn> wrote:
->>>>>>
->>>>>>
->>>>>>
->>>>>> On 2026/9/29 下午8:43, Huacai Chen wrote:
->>>>>>> Hi, Tao,
->>>>>>>
->>>>>>> On Tue, Sep 29, 2026 at 6:29 PM Tao Cui <cui.tao@linux.dev> wrote:
->>>>>>>>
->>>>>>>> From: Tao Cui <cuitao@kylinos.cn>
->>>>>>>>
->>>>>>>> KVM_DEV_LOONGARCH_PCH_PIC_CTRL_INIT has no guard against repeated
->>>>>>>> invocation: every call overwrites pch_pic_base and registers the same
->>>>>>>> kvm_io_device on the MMIO bus at the new address, while
->>>>>>>> kvm_pch_pic_destroy() unregisters only one bus range.  After a repeated
->>>>>>>> init, MMIO to the stale ranges computes its register offset against the
->>>>>>>> new base and silently reads 0 / drops writes, and the leftover bus
->>>>>>>> entries persist until the VM is destroyed.
->>>>>>>>
->>>>>>>> Reject repeated initialization with -EEXIST, tracking the state with
->>>>>>>> a has_init flag so the check and the MMIO base update are atomic
->>>>>>>> under slots_lock.  The base is only committed after a successful bus
->>>>>>>> registration, and the real registration error is propagated instead
->>>>>>>> of being replaced with -EFAULT.
->>>>>>>>
->>>>>>>> Fixes: d206d9514873 ("LoongArch: KVM: Add PCHPIC user mode read and write functions")
->>>>>>>> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
->>>>>>>> ---
->>>>>>>>     arch/loongarch/include/asm/kvm_pch_pic.h |  1 +
->>>>>>>>     arch/loongarch/kvm/intc/pch_pic.c        | 12 ++++++++++--
->>>>>>>>     2 files changed, 11 insertions(+), 2 deletions(-)
->>>>>>>>
->>>>>>>> diff --git a/arch/loongarch/include/asm/kvm_pch_pic.h b/arch/loongarch/include/asm/kvm_pch_pic.h
->>>>>>>> index 887b0431fd20..679132d840e6 100644
->>>>>>>> --- a/arch/loongarch/include/asm/kvm_pch_pic.h
->>>>>>>> +++ b/arch/loongarch/include/asm/kvm_pch_pic.h
->>>>>>>> @@ -53,6 +53,7 @@ struct loongarch_pch_pic {
->>>>>>>>            spinlock_t lock;
->>>>>>>>            struct kvm *kvm;
->>>>>>>>            struct kvm_io_device device;
->>>>>>>> +       bool has_init;
->>>>>>>>            union pch_pic_id id;
->>>>>>>>            uint64_t mask; /* 1:disable irq, 0:enable irq */
->>>>>>>>            uint64_t htmsi_en; /* 1:msi */
->>>>>>>> diff --git a/arch/loongarch/kvm/intc/pch_pic.c b/arch/loongarch/kvm/intc/pch_pic.c
->>>>>>>> index 7a704f18880d..a884a043feef 100644
->>>>>>>> --- a/arch/loongarch/kvm/intc/pch_pic.c
->>>>>>>> +++ b/arch/loongarch/kvm/intc/pch_pic.c
->>>>>>>> @@ -282,16 +282,24 @@ static int kvm_pch_pic_init(struct kvm_device *dev, u64 addr)
->>>>>>>>            struct kvm_io_device *device;
->>>>>>>>            struct loongarch_pch_pic *s = dev->kvm->arch.pch_pic;
->>>>>>> Why so complicated? The below is enough, no?
->>>>>>>
->>>>>>> diff --git a/arch/loongarch/kvm/intc/pch_pic.c
->>>>>>> b/arch/loongarch/kvm/intc/pch_pic.c
->>>>>>> index 2b63b0c2c7ce..7855d78304b7 100644
->>>>>>> --- a/arch/loongarch/kvm/intc/pch_pic.c
->>>>>>> +++ b/arch/loongarch/kvm/intc/pch_pic.c
->>>>>>> @@ -281,6 +281,9 @@ static int kvm_pch_pic_init(struct kvm_device
->>>>>>> *dev, u64 addr)
->>>>>>>            struct kvm_io_device *device;
->>>>>>>            struct loongarch_pch_pic *s = dev->kvm->arch.pch_pic;
->>>>>>>
->>>>>>> +       if (s->device->ops)
->>>>>>> +               return -EEXIST;
->>>>>> This can work, however I think that it is not a good idea to access
->>>>>> internal structure field about kvm_io_device. If so, there is no use
->>>>>> about API kvm_iodevice_init(), just s->device->ops = &kvm_pch_pic_ops is ok.
->>>>> I'm a little not agree. :)
->>>>>
->>>>> I think kvm_iodevice_init() is designed to do more work rather than
->>>>> just set the ops (though it just set the ops now), otherwise its name
->>>>> should be kvm_iodevice_set_ops().
->>>>>
->>>>> In addition, even if kvm_iodevice_init() is really a setter, there is
->>>>> no getter for the ops, so when we need to access ops, we can only
->>>>> open-code it.
->>>> if so, you can try to add kvm_iodevice_get_ops API and check the
->>>> response of KVM community.
->>> There is not a setter, so I don't think a getter is necessary.
->> why setter is necessary, getter is not necessary.
->>>
->>> Moreover, you said "no other architectures directly access ops", but
->>> in fact, __vgic_doorbell_to_its() from arch/arm64/kvm/vgic/vgic-its.c
->>> directly accesses ops.
->> If it is used by others, I have no objection any more. But for me I
->> never write such code.
-> OK, Tao, please update your code, drop the 2nd patch and simplify the
-> 4th one. Thanks.
-> 
+First, internal HID core declarations and unused symbol exports are
+moved out of include/linux/hid.h into a private drivers/hid/hid-core.h
+header. Next, a hidraw_instance() accessor is introduced in
+include/linux/hidraw.h so HID drivers that only need the hidraw minor
+number for naming or debug logging no longer dereference struct hidraw
+directly. After converting the drivers and dropping unused
+linux/hidraw.h includes, hidraw.h is moved to drivers/hid/hidraw.h and
+struct hidraw along with its internal buffer and list structures are
+made private to drivers/hid/hidraw.c.
 
-I'll send v3 shortly.  It drops the dmsintc single-load patch, and the
-CTRL_INIT patch now checks s->device.ops for repeated initialization
-instead of the separate has_init flag.  pch_pic_base is still updated
-only after successful bus registration, and the original registration
-error is returned instead of -EFAULT.
+Dmitry Torokhov (5):
+  HID: core: Move internal declarations and drop unused exports
+  HID: hidraw: Introduce hidraw_instance() helper
+  HID: Use hidraw_instance() in drivers
+  HID: Drop unused linux/hidraw.h includes
+  HID: hidraw: Make hidraw.h private to HID subsystem
 
-Thanks for the review.
-Tao
+ drivers/hid/Kconfig                     |  3 ++
+ drivers/hid/hid-core.c                  |  7 ++--
+ drivers/hid/hid-core.h                  | 20 +++++++++++
+ drivers/hid/hid-cp2112.c                | 15 ++++----
+ drivers/hid/hid-ft260.c                 |  2 +-
+ drivers/hid/hid-input.c                 |  4 +--
+ drivers/hid/hid-led.c                   | 10 ++++--
+ drivers/hid/hid-mcp2200.c               |  1 -
+ drivers/hid/hid-mcp2221.c               |  1 -
+ drivers/hid/hid-quirks.c                |  1 +
+ drivers/hid/hid-u2fzero.c               | 10 ++++--
+ drivers/hid/hid-winwing.c               |  1 -
+ drivers/hid/hidraw.c                    | 48 ++++++++++++++++++++++---
+ {include/linux => drivers/hid}/hidraw.h | 32 +++--------------
+ drivers/hid/usbhid/hid-core.c           |  1 -
+ include/linux/hid.h                     |  8 -----
+ net/bluetooth/hidp/core.c               |  1 -
+ 17 files changed, 100 insertions(+), 65 deletions(-)
+ create mode 100644 drivers/hid/hid-core.h
+ rename {include/linux => drivers/hid}/hidraw.h (58%)
 
-> Huacai
-> 
->>
->>>
->>>
->>> Huacai
->>>
->>>>
->>>> Regards
->>>> Bibo Mao
->>>>>
->>>>>
->>>>> Huacai
->>>>>
->>>>>>
->>>>>> If adding has_init is redundant, maybe we can set s->pch_pic_base with
->>>>>> INVALID_GPA in kvm_pch_pic_create() or some other methods. However I
->>>>>> think directly accessing kvm_io_device::ops is not a good method, no
->>>>>> other architectures do in such way.
->>>>>>
->>>>>> Regards
->>>>>> Bibo Mao
->>>>>>> +
->>>>>>>            s->pch_pic_base = addr;
->>>>>>>            device = &s->device;
->>>>>>>            /* init device by pch pic writing and reading ops */
->>>>>>>
->>>>>>>>
->>>>>>>> -       s->pch_pic_base = addr;
->>>>>>>>            device = &s->device;
->>>>>>>>            /* init device by pch pic writing and reading ops */
->>>>>>>>            kvm_iodevice_init(device, &kvm_pch_pic_ops);
->>>>>>>>            mutex_lock(&kvm->slots_lock);
->>>>>>>> +       if (s->has_init) {
->>>>>>>> +               ret = -EEXIST;
->>>>>>>> +               goto out;
->>>>>>>> +       }
->>>>>>>>            /* register pch pic device */
->>>>>>>>            ret = kvm_io_bus_register_dev(kvm, KVM_MMIO_BUS, addr, PCH_PIC_SIZE, device);
->>>>>>>> +       if (!ret) {
->>>>>>>> +               s->pch_pic_base = addr;
->>>>>>>> +               s->has_init = true;
->>>>>>>> +       }
->>>>>>>> +out:
->>>>>>>>            mutex_unlock(&kvm->slots_lock);
->>>>>>>>
->>>>>>>> -       return (ret < 0) ? -EFAULT : 0;
->>>>>>>> +       return ret;
->>>>>>>>     }
->>>>>>>>
->>>>>>>>     /* used by user space to get or set pch pic registers */
->>>>>>>> --
->>>>>>>> 2.43.0
->>>>>>>>
->>>>>>
->>>>
->>>>
->>
-
+-- 
+2.56.0.385.gd3acb90ef8-goog
