@@ -1,64 +1,64 @@
-Received: from mail-pj2-f6.google.com (mail-pj2-f6.google.com [74.125.227.134])
+Received: from mail-pj2-f2.google.com (mail-pj2-f2.google.com [74.125.227.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46EE64772BF
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:45:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.134
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE0783EFFA6
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:46:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791960364; cv=none; b=Npq1IQSYZhjeUQcXSUVYcwVffHzwnhyWemtHyfsMWjp9nuIAq3ckMOPU35URgC+abf/eqZA498NclA9gGLwgyWXKKr/TzAyRcBJXmvCDSayvwUageKg6PP352R7YO3IwmFSyeoC4MRQMBGzcEWSBsyUqFAhJsAuY1PWaAssvu6c=
+	t=1791960368; cv=none; b=G0kIxKfLCuZy8tsxW/AWrf9hNNyBJQsGDhSH+rxhW94OPFIIcW0oZ7PR+2GbniDIZQRb4zDCGz2oTV/6s+Y8TVsp0hJ4EeF9+7BycHb96s5zKgpBJF95W3pXRaVvU39H/XlqEbN93Q2vxdNgiAmrWjPK0PFx+/Orcpu7quhJYzs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791960364; c=relaxed/simple;
-	bh=2bF14uGL6J6dsqGsCLrd3CB04bP7WJNkK+VjpG+Pp4M=;
+	s=arc-20240116; t=1791960368; c=relaxed/simple;
+	bh=bBT7ZsVLTPiCejve9YUaVioZn4iPc6ef7MPyWAEiiOE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pHqpmmfevpgY0IERP4U5SxpBKONAdbhetAbqQg+N0Tt2Y5pp5p6HMaz5hBCN6LDPra1MFbKOLmATG4VaXi4zkJHudBAmmOb4M7zeewHOoRmaE8I1MlrQCGZHoTkcPI20uEOIGrkog+MF8SyxFaiYTrevPG42jkLQpH6/9pWxQb4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dHBfqJG4; arc=none smtp.client-ip=74.125.227.134
+	 MIME-Version; b=md/95tkCbeIyJdlDV7mRYmeaNzxnZPffeeGyIU4Qjlv29bC9Ot/MmW7J1NSvPkK1YsM81CZ5sdx6snS02UTwOgoa+apuzf29hSXUhzF3tsyUYaBAesTPhFBm3DLAOaKZuEm7GupHtjK7F90neykKQmK37nZsPh+iZniIpGkwO/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xh+jWs0h; arc=none smtp.client-ip=74.125.227.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dHBfqJG4"
-Received: by mail-pj2-f6.google.com with SMTP id 98e67ed59e1d1-3964e7720afso1847001a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:45:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xh+jWs0h"
+Received: by mail-pj2-f2.google.com with SMTP id 98e67ed59e1d1-3a8c118e711so2122475a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:46:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791960359; x=1792565159; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791960363; x=1792565163; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SHO71UYjeP5xAAFO6D76VUy+VSDBc+W35bKfH/3Qvbs=;
-        b=dHBfqJG4K+MZaDsZ0tH6hbmiHK+GZb4+Uf7FHXNnZ0j8DXiUJf7MUxA7PZSkXtmFJt
-         IgNnxikCqn4NOAJmYVdoWsyyZ3KBzUBSZdwalbh97v3NLEWilD1rrpN9HspzJe+RymZ2
-         xjPxxbpN2wsaawiXvTDBvtPN2iHdSyJJ/yX4JedBDB7tezeeDcbIezcN4FRHrEUBBnw0
-         W/GqiulvUZA4REm4qpMoiRbrPc917eq+ub2qXfp6+2hWm3aBMEW54TXR12Br/Hl2TUxz
-         7Xz29zt0oSb+hpY24UmwRiRjUyCBCsYI/7TBin7x9er2xgHnqdRBs3Dp/La3a+J6M4LR
-         aAww==
+        bh=zxVvhouO+69qAuqiJO0qt6uWBvP+OPPrVLEtUsWLTS4=;
+        b=Xh+jWs0hckIzFfDabqbzKP51nik+GG28CCdeJp4nR6fInJX5jmqpS7+je9ylilrN2Y
+         sNo5cvUfDLgIPNrSa/EOQOgXi9SIeHtjstbM0ZayW8EpaF70htNlRbqFtm+5y2kQoNJ3
+         XRzd1fHBpdcrxjc/IHQr8Z9D94WlPsumMZ5xbZpVTtYxsJi3sLcdiVfCQBCBkAnxyC2L
+         iPyT5p4DIMsumMdlXyGtfOMuuPhqsA8aOoQFhZHdxhuoo/vvI4ps05AqP/tmbALo4MJ3
+         pAQAODjEoG6lRn+ohyBcuIgeg8HfDdENdrajkvV79mQPSg1/OmzSmUfCrYXB4qFZgD/K
+         X1dQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791960359; x=1792565159;
+        d=1e100.net; s=20260707; t=1791960363; x=1792565163;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SHO71UYjeP5xAAFO6D76VUy+VSDBc+W35bKfH/3Qvbs=;
-        b=kRsfikF3qyNAg0NFU0vvFmSYN32mb7bPeECKDFpBWKbQkwGQyLBrq/T+e+LqhogZx8
-         klDFMMskfyOf3Y3emzKIDTliz9Cf4NkI42AMUHsUSFkhznk0ExdGRBF6o1kYjxBR+MzY
-         0Fhp5z0zbgB9gHjqTUuSPnzVCq9uDEAdm+Q3InWScfJJSnybBP/7sLAJwkyvN+m7q3D0
-         C8Xu69wJclwLc8wdjelz8ZxuvL/9pKwdaXu2eeK/JR+GMXS9sRSq7pu87R/1RdX9eVPX
-         kcIdmunlTTNMxFJrH4GCG2EjfWXA/jx1mNctmMWbA6+tdCZ7D9qM9uc8a2pk0sHYRrRH
-         Vshg==
-X-Forwarded-Encrypted: i=1; AKwUvBzRIHv9ZiVtflKqaTZ9Oo33gHSGVYUKTc5dZVwVRklcPSWuE/JMcmLowNV0DyWnE+juVrw8TTAaqTpPks0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJVQCXgD9+xIKUk3Y/3U1j7/Q3AvZZFKB5lBiXUOWTFwNTFTlyy
-	MOQsmNxJj+p80Uf4Y/re05W05QxHaYiUCpm2BeZFWDnJmuAPlN2NBC+3
-X-Gm-Gg: AYBFou0TOPK6VvCCklM75939Trk7OSNYy5n4dcsySEDZnTlZl6MaJJO2LFPZ8Lz4bVV
-	z3/xnXIxgdc+VxJUwn4V9pFM7v9nokPIdd6SErkLuOFA7Gt0tDTHNILC0bGlP/Am/0pOsPAwqBy
-	kT7hmGLuaQyTKH/oPPAoRLrb4H8b2twhcxxoCVkXn6UbZ3x2hI3H7j9Vlsjc7KW0BG9MHO1W9sG
-	ug85AjXieGLyO0HCF9tQuSDZjYH9U+oKBN8I9f26c/V5eYPdqsJMR4z/PeEVzetLcptaUdrZY2q
-	J2i2RXLlkNRwGLt71P6+j5vwVWvD1JxbPt9NqvduJCAPgR93Rw7n2I3dH1pXQv1BhJ8akAT8p/O
-	yn0mFESDpnzolB496ZL69VH7ixzJj+LFUhyFCYdMW/6XSqAJ9KZgZMk7t9iYWnfMUu6TVSG92To
-	sCfkLhjQDEkarUyiV7/A+Y33LyUl5j01lJBVzyN3IvcEN1pBji8GuhMPI6/kgpYKBCir/vNPr9h
-	Ri+REnjhCbMZ2FUv00rD0gMWRJw09nNJh5iLA==
-X-Received: by 2002:a17:90a:d007:b0:3ac:3588:b548 with SMTP id 98e67ed59e1d1-3ac3588b5edmr4808888a91.13.1791960358294;
-        Tue, 13 Oct 2026 23:45:58 -0700 (PDT)
+        bh=zxVvhouO+69qAuqiJO0qt6uWBvP+OPPrVLEtUsWLTS4=;
+        b=V4iO2cE5CfMn4X4uHwPYtXp+PqW4XZKFp7GlBDshSzqH6wqLqPa3oxS3kdnZHnD1d/
+         12zMDG3Ac1oYXX4UrINs9c31TqLqVw4IlGuiGxLAtX65Dfm5H7XQKEdOzE5uyNCt6d/m
+         k5HvB1UL0N0mLh0jukaTkK+e0pt/nvMDd41uJ7m6eg2lRNN7AKs3HzcHQXMGsNO0qt97
+         WJxDoGXC+YuomoJWtCfwYJUF4RFoK3raJ2RhG+P+5BFxY2v7rbnr9K+5FVOWWRe90S7w
+         0vM+eMWzevQUKfK4x/CXrXQ6Ct5GbZFdtlTeLeLjhfHpwYmqvBW3Ec+UneW80VK+X7j4
+         BvgQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzvf43hhOpMjLy5HMhm046Xo7JC5K80ZLHyl57qggFPz3F2Z4XdZ6rDE10utCWMsm9d5l0nM0OApnXDZec=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLTlhgEGNCiAW/suiTZhKU19EQrH6CNbWnwNyb7WRr31oyJMgTh
+	lEXl0c+upJzlhwPvk0IAsqAImpXcUJS6cL0qgaJ3jIGuM9FDEQP7aLjG
+X-Gm-Gg: AYBFou1/4W7bILa4moe/IGcVgp6vNg9b3oQsEbeKqFOrGyxlSmK6pW7neg1sOhDhWMX
+	7aUUe0vzoeZwwhJCvZbZu95Kf2J8l/KPNTwCxacS7sVD46HrnowRwQDoWCDrWZxc0QmVGbKPSX8
+	wyiMDyHmz3AEBsEWMqtJ23RRrigJIfpqBX9Y6KKOgYp6pO7wlXGdwlErTOu6dnilbR2+L9FIIdC
+	3QeCn4G93pZiq5baw9aNxbAHKmHcU3MhVnFcJJ5LDFfIc0mTpNUg69IJphpatzh7zSMX16J0eBD
+	trm8S5XBDYboiAEZaJfjgPwmjcwFCpsbHZDNGz4bkZxD/DwSQ0Sxy+qzRIiJkI0ei8S2ubcXkqq
+	ET3WBlCQl1H+NdPjfZu3CGNB1UUaoorQQPM985KNbVt2rwsZgxMo0nA72E/kuFXB7g3bTvG4bHF
+	DXtn/4FZZnN2QgMV2dNPkNC1F36/7gaYgJSfz1+Te0HCglvIAejdAHUj87CLv5hXk5WlpkOmWty
+	ocboXvkMIJLvpAwpbSXvgFlXeypA64A1Hmi
+X-Received: by 2002:a17:90b:1dc1:b0:3aa:f4af:1e14 with SMTP id 98e67ed59e1d1-3ab3ac7eeb8mr13207845a91.51.1791960362956;
+        Tue, 13 Oct 2026 23:46:02 -0700 (PDT)
 Received: from nzzhao-ThinkCentre-M760t.mioffice.cn ([43.224.245.179])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac5f04e324sm3236371a91.2.2026.10.13.23.45.54
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac5f04e324sm3236371a91.2.2026.10.13.23.45.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 23:45:57 -0700 (PDT)
+        Tue, 13 Oct 2026 23:46:02 -0700 (PDT)
 From: Nanzhe Zhao <nzzhao.sigma@gmail.com>
 X-Google-Original-From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
 To: linux-f2fs-devel@lists.sourceforge.net,
@@ -76,9 +76,9 @@ Cc: Barry Song <baohua@kernel.org>,
 	Nanzhe Zhao <nzzhao@126.com>,
 	Pengfei Li <lipengfei28@xiaomi.com>,
 	Ryan Roberts <Ryan.Roberts@arm.com>
-Subject: [PATCH v5 10/16] f2fs: support partial uptodate large folio read
-Date: Wed, 14 Oct 2026 14:44:39 +0800
-Message-ID: <20261014064445.2835813-11-zhaonanzhe@xiaomi.com>
+Subject: [PATCH v5 11/16] f2fs: handle partial truncate of large folio dirty subpages
+Date: Wed, 14 Oct 2026 14:44:40 +0800
+Message-ID: <20261014064445.2835813-12-zhaonanzhe@xiaomi.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261014064445.2835813-1-zhaonanzhe@xiaomi.com>
 References: <20261014064445.2835813-1-zhaonanzhe@xiaomi.com>
@@ -90,158 +90,215 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Buffered write can have write bytes smaller than folio
-size for cases when folio minimum order is not zero.
-This can left partially uptodate folio in page cache.
-So we skip uptodate subpage read in read_data_large_folio.
-Also mark hole subpage uptodate in uptodate bitmap.
+A large folio can be partial truncated and stays in folio mapping, we
+need to clear the subrange dirty bits and uptodate bits that the partial
+truncate covers. If this partial truncate happens to clear the last
+subrange dirty bits, then cancel the whole folio dirty state.
+
+Also add a guard in f2fs_write_folio_dirty_range() so a large folio
+subpage whose disk block was already truncated (NULL_ADDR) is skipped
 
 Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
 ---
- fs/f2fs/data.c | 88 +++++++++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 87 insertions(+), 1 deletion(-)
+ fs/f2fs/data.c | 129 ++++++++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 122 insertions(+), 7 deletions(-)
 
 diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 59346b61615b..b9f2054f514f 100644
+index b9f2054f514f..4228c26bee0d 100644
 --- a/fs/f2fs/data.c
 +++ b/fs/f2fs/data.c
-@@ -148,6 +148,7 @@ static void f2fs_finish_read_bio(struct bio *bio, bool in_task)
- 		struct folio *folio = fi.folio;
- 		unsigned nr_pages = fi.length >> PAGE_SHIFT;
- 		bool finished = true;
-+		bool uptodate = bio->bi_status == BLK_STS_OK;
- 
- 		if (!folio_test_large(folio) &&
- 		    f2fs_is_compressed_page(folio)) {
-@@ -163,6 +164,9 @@ static void f2fs_finish_read_bio(struct bio *bio, bool in_task)
- 				(struct f2fs_folio_state *)folio->private;
- 
- 			spin_lock_irqsave(&ffs->state_lock, flags);
-+			if (bio->bi_status == BLK_STS_OK)
-+				uptodate = __ffs_mark_subrange_uptodate(folio, ffs,
-+						fi.offset, fi.length);
- 			ffs->read_pages_pending -= nr_pages;
- 			finished = !ffs->read_pages_pending;
- 			spin_unlock_irqrestore(&ffs->state_lock, flags);
-@@ -172,7 +176,7 @@ static void f2fs_finish_read_bio(struct bio *bio, bool in_task)
- 			dec_cache_count(F2FS_F_SB(folio), F2FS_RD_DATA);
- 
- 		if (finished)
--			folio_end_read(folio, bio->bi_status == BLK_STS_OK);
-+			folio_end_read(folio, uptodate);
- 	}
- 
- 	if (ctx)
-@@ -3095,6 +3099,70 @@ static bool find_next_valid_block(const struct folio *folio,
- 	return false;
+@@ -362,6 +362,27 @@ static void f2fs_cache_write_end_bio(struct bio *bio)
+ 	bio_put(bio);
  }
  
-+static unsigned int ffs_next_uptodate_subpage(struct f2fs_folio_state *ffs,
-+			unsigned int start, unsigned int end)
-+{
-+	return find_next_bit(ffs->state, end + 1, start);
-+}
-+
-+static unsigned int ffs_next_nonuptodate_subpage(struct f2fs_folio_state *ffs,
-+			unsigned int start, unsigned int end)
-+{
-+	return find_next_zero_bit(ffs->state, end + 1, start);
-+}
-+
-+static void f2fs_skip_fully_uptodate_front(struct folio *folio,
-+			pgoff_t *index, pgoff_t *offset, unsigned int *nrpages,
-+			unsigned int *max_nr_pages)
++static bool f2fs_ffs_has_dirty_subpage(struct folio *folio)
 +{
 +	struct f2fs_folio_state *ffs;
-+	unsigned int next, skipped;
++	unsigned long flags;
++	unsigned int nr_subpages;
++	bool dirty;
 +
-+	if (!f2fs_folio_has_ffs(folio) || !*nrpages)
++	if (!f2fs_folio_has_ffs(folio))
++		return false;
++
++	ffs = (struct f2fs_folio_state *)folio->private;
++	nr_subpages = folio_nr_pages(folio);
++
++	spin_lock_irqsave(&ffs->state_lock, flags);
++	dirty = find_next_bit(ffs->state, 2 * nr_subpages,
++				nr_subpages) < 2 * nr_subpages;
++	spin_unlock_irqrestore(&ffs->state_lock, flags);
++
++	return dirty;
++}
++
+ static void f2fs_write_end_bio(struct bio *bio)
+ {
+ 	struct f2fs_sb_info *sbi = bio->bi_private;
+@@ -418,7 +439,8 @@ static void f2fs_write_end_bio(struct bio *bio)
+ 			wake_up(&sbi->cp_wait);
+ 
+ 		if (finished) {
+-			folio_clear_f2fs_gcing(folio);
++			if (!f2fs_ffs_has_dirty_subpage(folio))
++				folio_clear_f2fs_gcing(folio);
+ 			folio_end_writeback(folio);
+ 		}
+ 	}
+@@ -2909,6 +2931,40 @@ static void f2fs_ffs_mark_subrange_uptodate(struct folio *folio, size_t offset,
+ 		folio_mark_uptodate(folio);
+ }
+ 
++static void ffs_clear_subrange_uptodate(struct folio *folio,
++					size_t offset, size_t len)
++{
++	struct f2fs_folio_state *ffs;
++	unsigned int nr_subpages, start, end;
++	unsigned long flags;
++
++	f2fs_bug_on(F2FS_F_SB(folio), offset + len > folio_size(folio));
++
++	if (!f2fs_folio_has_ffs(folio))
 +		return;
 +
 +	ffs = (struct f2fs_folio_state *)folio->private;
-+	next = ffs_next_nonuptodate_subpage(ffs, *offset,
-+					    *offset + *nrpages - 1);
-+	skipped = next - *offset;
-+	if (!skipped)
-+		return;
++	nr_subpages = folio_nr_pages(folio);
++	start = offset >> PAGE_SHIFT;
++	end = (offset + len + PAGE_SIZE - 1) >> PAGE_SHIFT;
++	end = min(end, nr_subpages);
 +
-+	*index += skipped;
-+	*offset += skipped;
-+	*nrpages -= skipped;
-+	*max_nr_pages -= skipped;
++	spin_lock_irqsave(&ffs->state_lock, flags);
++	bitmap_clear(ffs->state, start, end - start);
++	spin_unlock_irqrestore(&ffs->state_lock, flags);
 +}
 +
-+static void f2fs_truncate_read_extent(struct inode *inode, struct folio *folio,
-+				      pgoff_t offset, block_t block_nr,
-+				      unsigned int *len_blks)
++static void f2fs_clear_truncated_page_state(struct folio *folio, pgoff_t i)
 +{
-+	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
-+	struct f2fs_folio_state *ffs;
-+	unsigned int next, end;
-+
-+	if (!f2fs_folio_has_ffs(folio) || *len_blks <= 1)
-+		return;
-+
-+	if (f2fs_is_multi_device(sbi)) {
-+		int bidx = f2fs_target_device_index(sbi, block_nr);
-+
-+		*len_blks = min_t(unsigned int, *len_blks,
-+				  FDEV(bidx).end_blk + 1 - block_nr);
++	if (f2fs_folio_has_ffs(folio)) {
++		ffs_clear_subrange_uptodate(folio,
++				(loff_t)i << PAGE_SHIFT, PAGE_SIZE);
++	} else {
++		folio_clear_uptodate(folio);
++		folio_clear_f2fs_gcing(folio);
 +	}
-+	*len_blks = min_t(unsigned int, *len_blks,
-+			  (unsigned int)fscrypt_limit_io_blocks(inode,
-+							folio->index + offset,
-+							*len_blks));
-+
-+	ffs = (struct f2fs_folio_state *)folio->private;
-+	end = offset + *len_blks - 1;
-+	next = ffs_next_uptodate_subpage(ffs, offset + 1, end);
-+	if (next <= end)
-+		*len_blks = next - offset;
 +}
 +
- static int f2fs_read_data_large_folio(struct inode *inode,
- 		struct fsverity_info *vi,
- 		struct readahead_control *rac, struct folio *folio)
-@@ -3139,6 +3207,11 @@ static int f2fs_read_data_large_folio(struct inode *inode,
- 
- 		len_blks = 1;
- 
-+		f2fs_skip_fully_uptodate_front(folio, &index, &offset,
-+					       &nrpages, &max_nr_pages);
-+		if (!nrpages)
-+			break;
-+
- 		/*
- 		 * Map blocks using the previous result first.
- 		 */
-@@ -3171,6 +3244,8 @@ static int f2fs_read_data_large_folio(struct inode *inode,
- 			len_blks = min_t(unsigned int, nrpages, max_nr_pages);
- 			len_blks = min_t(unsigned int, len_blks,
- 					(unsigned int)(map.m_lblk + map.m_len - index));
-+			f2fs_truncate_read_extent(inode, folio, offset,
-+						  block_nr, &len_blks);
- 
- 			for (i = 0; i < len_blks; i++) {
- 				if (!f2fs_is_valid_blkaddr(F2FS_I_SB(inode),
-@@ -3189,6 +3264,17 @@ static int f2fs_read_data_large_folio(struct inode *inode,
- 				ret = -EIO;
- 				goto err_out;
- 			}
-+			if (folio_test_large(folio)) {
-+				ffs = f2fs_ffs_find_or_alloc(folio);
-+				if (!ffs) {
-+					ret = -ENOMEM;
-+					goto err_out;
-+				}
-+				spin_lock_irq(&ffs->state_lock);
-+				__ffs_mark_subrange_uptodate(folio, ffs,
-+						page_offset, PAGE_SIZE);
-+				spin_unlock_irq(&ffs->state_lock);
-+			}
- 			continue;
+ bool f2fs_ffs_test_blk_dirty(const struct folio *folio, pgoff_t index)
+ {
+ 	struct f2fs_folio_state *ffs;
+@@ -3811,12 +3867,31 @@ static int f2fs_write_folio_dirty_range(struct folio *folio, int *submitted,
  		}
  
+ 		err = f2fs_get_dnode_of_data(&dn, data_idx, LOOKUP_NODE);
+-		if (err)
++		/*
++		 * If a subpage of folio for a cow file is dirtied but not
++		 * reserve a cow block, fallback to original inode to lookup
++		 * block address
++		 */
++		if (atomic_commit && (err == -ENOENT ||
++		    (!err && dn.data_blkaddr == NULL_ADDR))) {
++			f2fs_put_dnode(&dn);
++			set_new_dnode(&dn, inode, NULL, NULL, 0);
++			err = f2fs_get_dnode_of_data(&dn, data_idx,
++						     LOOKUP_NODE);
++		}
++		if (err && err != -ENOENT)
+ 			goto block_done;
+ 		dn_held = true;
+ 
+ 		fio.old_blkaddr = dn.data_blkaddr;
+ 
++		/* This page is already truncated */
++		if (err == -ENOENT || fio.old_blkaddr == NULL_ADDR) {
++			f2fs_clear_truncated_page_state(folio, i);
++			err = 0;
++			goto block_done;
++		}
++
+ got_it:
+ 		if (__is_valid_data_blkaddr(fio.old_blkaddr) &&
+ 		    !f2fs_is_valid_blkaddr(sbi, fio.old_blkaddr,
+@@ -4366,6 +4441,7 @@ static int f2fs_write_cache_folios(struct address_space *mapping,
+ 		bool verity_in_progress;
+ 		int folio_submitted = 0;
+ 		bool bias_added = false;
++		bool dirty;
+ 
+ 		submitted = 0;
+ 		retry = false;
+@@ -4514,9 +4590,9 @@ static int f2fs_write_cache_folios(struct address_space *mapping,
+ 		 * Redirty the folio if dirty subranges remain in a large
+ 		 * folio, or if order-0 writeback fails due to an error.
+ 		 */
+-		if (f2fs_ffs_clear_subrange_dirty_and_test(folio, 0,
+-					(err ? pos : end_pos) - folio_pos(folio)) ||
+-					err)
++		dirty = f2fs_ffs_clear_subrange_dirty_and_test(folio, 0,
++					(err ? pos : end_pos) - folio_pos(folio));
++		if (dirty || err)
+ 			folio_redirty_for_writepage(wbc, folio);
+ 		else if (!f2fs_folio_has_ffs(folio))
+ 			inode_dec_dirty_block(inode);
+@@ -4527,6 +4603,14 @@ static int f2fs_write_cache_folios(struct address_space *mapping,
+ 		 */
+ 		if (bias_added &&
+ 		    atomic_dec_and_test(&ffs->write_pages_pending)) {
++			/*
++			 * For a large folio we clear PAGE_PRIVATE_GCING only
++			 * when the last dirty bit is cleared, otherwise the
++			 * remaining subpages are no longer written back as
++			 * checkpoint-guaranteed data (f2fs_is_cp_guaranteed()).
++			 */
++			if (!dirty)
++				folio_clear_f2fs_gcing(folio);
+ 			folio_end_writeback(folio);
+ 		} else if (!folio_submitted && folio_test_writeback(folio)) {
+ 			/*
+@@ -5354,10 +5438,41 @@ void f2fs_invalidate_folio(struct folio *folio, size_t offset, size_t length)
+ 	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
+ 
+ 	if (inode->i_ino >= F2FS_ROOT_INO(sbi) &&
+-				(offset || length != folio_size(folio)))
++				(offset || length != folio_size(folio))) {
++		size_t clear_start = round_up(offset, PAGE_SIZE);
++		size_t clear_end = round_down(offset + length, PAGE_SIZE);
++		size_t clear_length;
++		bool dirty;
++
++		/*
++		 * If the truncated range falls within a single subpage, no
++		 * subpage state needs to be cleared.
++		 */
++		if (clear_start >= clear_end || !f2fs_folio_has_ffs(folio))
++			return;
++
++		clear_length = clear_end - clear_start;
++		dirty = f2fs_ffs_clear_subrange_dirty_and_test(folio,
++						clear_start, clear_length);
++		ffs_clear_subrange_uptodate(folio, clear_start, clear_length);
++		folio_clear_uptodate(folio);
++
++		/*
++		 * If the truncated subrange happens to clear the remaining
++		 * dirty bitmap of the whole folio, cancel the folio-level
++		 * dirty state.
++		 */
++		if (!dirty && folio_test_dirty(folio))
++			folio_cancel_dirty(folio);
++		if (!dirty && !folio_test_writeback(folio))
++			folio_clear_f2fs_gcing(folio);
+ 		return;
++	}
+ 
+-	if (folio_test_dirty(folio)) {
++	if (f2fs_folio_has_ffs(folio)) {
++		f2fs_ffs_clear_subrange_dirty_and_test(folio, 0,
++							folio_size(folio));
++	} else if (folio_test_dirty(folio)) {
+ 		inode_dec_dirty_block(inode);
+ 		f2fs_remove_dirty_inode(inode);
+ 	}
 -- 
 2.43.0
 
