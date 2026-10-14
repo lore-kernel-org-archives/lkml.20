@@ -1,214 +1,171 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mail-244121.protonmail.ch (mail-244121.protonmail.ch [109.224.244.121])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 663C4485CC1
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:08:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F08974AF16C
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:08:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.121
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791983287; cv=none; b=axWSk8cbKatOtUoDzTdOs2qf/kT5ryYIz55lfaAelnnt0YLKNSDUTObGgLJGM5sGwuUEsZ8zpE4ouz2mUJZN8+5b/rFiS1OQ4NZ4odTSuUEW+ES0a/MUqQiVNC5AJCvFvCU8SzsNI2KRNGTQ8NUAZfQPX/VyrAyZs8aUuH2vhSU=
+	t=1791983297; cv=none; b=FIhHGACGLOqFzzznnkpmrookGZ9gHN1La6OytkqNTVp+a3Esiof2wl0Qq8rYMZEwUlwkymJaxw6Vhefh2dxf4+UAjjmHfBb/p1LFtIUsCkVkSEDNTufQQ7LiL9+inT99VD2pibEnRA8BoTIVbOyaEbPF/DAn4C1hFEIKXU4K1M4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791983287; c=relaxed/simple;
-	bh=mFAeI1Kbat1wqbu2WyXO8Jw3D1ixAbjDqGG0r/VkSMU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZPr7DPYB+qS3DPdADAtXAFdb0CTwW2iqiaCYrI6h9hA854nweOmEW9qooRHy7BDA+zcExftoTv/MtSsl+7j5K0XKDVccZUqB7hTyNuJ+kNI10izKvFY37R0A1vc8tphRrj0Kr3/hg00ykahMErqRaeWiBJRTkrLSkcU+1x8xgy8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZmM7Z+9l; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Hr3ghffr; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791983297; c=relaxed/simple;
+	bh=LDyTaQRpiNCLGifw3ysSkRAP6gDTaE4urTYu/9BPkSg=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=Aom1GO/s4qDIh3+ThlXJ4w+3pN9EIGHyo1h/YWgKP6upd837gCyecYAtoZ2n8dkjFnRtiTeVuTK2BN/SDpZnND+rGTLNuXcoGXm/1WbFhlR7peWvztwNhJxr3J5glYGPV26q985SGeRK4aydu5zYIs3LeGAcOKz9Pe0MZfH7AUY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=WwvsDZf+; arc=none smtp.client-ip=109.224.244.121
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZmM7Z+9l";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Hr3ghffr"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69E9iNk72222175
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:08:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	2BzdfN9MeKD+vw8vNIfy4bpFCE2wbRiJT5GCxWv5jxo=; b=ZmM7Z+9l2TnQ7NFT
-	jtVKnbUfei6VSgGmBY2io8fVrlg3QWdOutVkBEu5mb5fP1VTYuBjGxKmi0M3O8DQ
-	lbMySfC517SUF6p+dJN8bnmniTZc5e53YdEG46KrQfKsksaePtf2vg1BZH7KCqZ0
-	TLhHg/qw8zbbuE2HVs4JUPbDrNqR+vYNDZRv7KHq0cjH+6taKmUP3qDKMIKqAw3z
-	NoAgPKX4BH9Q+wMUFwH1oYjLBaOEtCwDXc7y5MEhAl8gEbKCQ3KKRobY+g2qXjv2
-	fFZZjjMMA8bbtDtL0zXcf95uzoVGZdm/TZOWFHLF5dgTYU7j7puBE5MXIHoJE0zp
-	5IAu3w==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9txsbra1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:08:05 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93ea8a9cfe6so63009785a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:08:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791983284; x=1792588084; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2BzdfN9MeKD+vw8vNIfy4bpFCE2wbRiJT5GCxWv5jxo=;
-        b=Hr3ghffrIuGBXLI8Lgm1vC0poEYmZKgUV9P0ylqWc+kn8UF5fLHDApZWXSQm4+16Tc
-         eqZ/VL38j/Q+jvbPky0wiHoHDQmrlgcriTxceXGQc9zi5zEWu46iuAImecqkAKqtA13G
-         u/Yga5GKsSfNo+IX+rjIo59Yn6W+v+oZ4LmDDtz75Qdcda4J1cHk8AeG4cKFkw0lKQzY
-         fBBywclpGgIZdSrJ4Ve9FcD8jtO9hMkTqWYOOz2UJnsSIsA3WGlKAY7flK0ZLqDVVdfU
-         BSpphwYR+imyLvLz8YYdebrqTeWlcAAP90xf64J7JyO8nKRsVCFPOr5KKBL6cD61JpUT
-         ZlWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791983284; x=1792588084;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2BzdfN9MeKD+vw8vNIfy4bpFCE2wbRiJT5GCxWv5jxo=;
-        b=MNqd3Qr35CTsLf5tK/JXfiFQ7J/IBJ4+dWezJ97XhCrF85wfL868XXa+820dt/CUzX
-         t7Jh/UvCDTHKdmkraHYr1sG2O/F7TSVA3lt8VSkO5/68WRCPaqYyr6WTksd2BFVBqVra
-         5N8btfZN3r1W1vl+gwwIO/5rT83vuI0ccb9+xdZ82GlZRqN9804ET6bS7n7Ro8W+SQwa
-         QnYBKAwGDt5jNPTPiamwatl1dA1TGtw3QZyLAxkONCqoLdXKJPL9TqmlOZ1uVa2+jSbX
-         VdepmHiArQBvtYSl/bxnw8TsJDE8jtryouOR4KdjQ7b7JocZiAXX52VPwgAZA9/Npl+h
-         PQWw==
-X-Forwarded-Encrypted: i=1; AKwUvBylHMaPZc4FbgJZXcgA1rjhTlXZS1li35A2m+Xz7y8xsubbptjVLruX9zaErYOH9xuP11eYAG1hw0BDhxk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ0qhRdGroXcqI7BQJ4f0XHlGmuL+zCcoosMbmQL2ggWJAfajPp
-	gv7pVI8Bwrtqza9TseniyHjo24rob9ab9dgCbZLnKKjTejL2szhO5Capj52Q0/qUO1VZV98FXBt
-	Sso1d6Vv6U9baxSXxrs/Zwvb+GLWU47zGPTg1zfbUIVhQZEUnkYoMwDE/Ls2OXovLejk=
-X-Gm-Gg: AYBFou1Yw3f+at+qDNcFDFM+iFFgNVTB1dQLOEjvYRXyOtWHCbVSntmKktbfKeRQcTd
-	e1axMohjK5skzd4cnCoYl2KaxPjO4emLNXDGipr/5a/ClqUYsdl9JuzUCD1F26tHsSspeLXw1We
-	9q00T6LLQsrWexMnRu6j+cP6HI7IcHH2NYx/+5zGcZ+8gFTFJkNspXv8Sr4tP+PsCxEA0YbCCer
-	efNR8T3CvroLd65J8IGwaw7vnm+VItP2umFYfGMvzWnAJsJyrs87fovdAToNehRUjwkaxSQaXWH
-	Se6xruAruHTfXGNJeILQQYhc58/JfFd3BHbG1oAFY3z7TdNfU4oZrXjRMmalindzFad5PppPIYW
-	wnqIaqPCp1nfeCYV1I0gD3g==
-X-Received: by 2002:a05:620a:8084:b0:93e:571e:94f0 with SMTP id af79cd13be357-93ebd1eabeamr2865609785a.3.1791983284119;
-        Wed, 14 Oct 2026 06:08:04 -0700 (PDT)
-X-Received: by 2002:a05:620a:8084:b0:93e:571e:94f0 with SMTP id af79cd13be357-93ebd1eabeamr2865600085a.3.1791983283581;
-        Wed, 14 Oct 2026 06:08:03 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5be33d90ce5sm640484e87.59.2026.10.14.06.07.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 06:08:02 -0700 (PDT)
-Message-ID: <1807728b-2cf5-4594-b353-267f09d35548@oss.qualcomm.com>
-Date: Wed, 14 Oct 2026 15:07:57 +0200
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="WwvsDZf+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1791983292; x=1792242492;
+	bh=BqTh6n19golqx7qGe+8OlPh2PcFhJmLhCol8IvkKblk=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=WwvsDZf+plyKGVPEtOr/ntTl/1wnRRNjTmQhXR6/STMP5nd4dWrmrF/IWiVCEOrd2
+	 uqLTzHcKh8ZJBMUW8VHfsiTwNWpWDbTOMTgR7K1NW2P/E8Zuz+COCrLyBkQ5D1rfBo
+	 GUxACnInCDUkjhgUtrTy4k7gGpXK9ibaay4VliDQbIN/QtorcI/X4TLbC8CgfCLxvl
+	 S7V4LsKxMyTmkUH1yiER8Np3hYuezkSXGr8TsM6zCt5gV464hVsz06Fcl0dtPN2ljp
+	 82nktkD13JReeR+G8j62/Xrhn+PW86YnHU/KU5ujSU3jHVgCdhNevSis6aTeXs0sPi
+	 Tv2LueLC3zVpg==
+Date: Wed, 14 Oct 2026 13:08:08 +0000
+To: Andi Shyti <andi.shyti@kernel.org>, Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>, Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
+From: Birk Skyum <birk.skyum@pm.me>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Thorsten Leemhuis <regressions@leemhuis.info>, Daniel J Blueman <daniel@quora.org>, Sasha Levin <sashal@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Manikanta Mylavarapu <quic_mmanikan@quicinc.com>, linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, regressions@lists.linux.dev
+Subject: [PATCH] Revert "i2c: qcom-geni: Fix hardcoded clock index in SE_GENI_CLK_SEL"
+Message-ID: <20261014130805.48840-1-birk.skyum@pm.me>
+Feedback-ID: 21326998:user:proton
+X-Pm-Message-ID: 3fdfce3c61c9a6a7f540e0c76ae0eecadf5d47a2
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 0/3] power: sequencing: qcom-wcn: support SW_CTRL wake
- IRQ
-To: Linghui Wu <linghui.wu@oss.qualcomm.com>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Bjorn Andersson
- <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Miaoqing Pan <miaoqing.pan@oss.qualcomm.com>,
-        Hangtian Zhu <hangtian.zhu@oss.qualcomm.com>, linux-pm@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261014121910.1509541-1-linghui.wu@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261014121910.1509541-1-linghui.wu@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA1MiBTYWx0ZWRfXz41U5Mkk4gfP
- bmfEEkb7Div2qRVQYAMAgeoZIbC/MU7bx40g9BlZZQeS9Z0Ab+WH6SNUQMNoeRRpBoyr6xDkwh7
- FGJ3+NgPXwOtEGyQNWuzItgRTL3lyOYDKcyUE6bDyFA8MyPyyUNJjZRuSLGiXnxSZb0GkZxOnvM
- uPgkf99PohNUbAjHkRiW/dLrTYvNmeeCnDIrWk3sZ+OZja9PbJxXMgfjRPZgbQlwqsGuSu9gYJW
- yGoM/+qMXsa5AJdaefhSVQ7AnyB0K1MLRgG0FMnE5cMnmPw4dPv2RioO6GURyY/+f2vKiAHnKua
- OfAj/dvqFswtDKw58YgVX3UIO+eB5kcvHyqysZcvkJIw+vp29T6KSaisyY9d1vnGLivnto+rS4Z
- dWbJX+0DQ9s8Civ6YoC0zRthQuZ3wChtjZPdGOrx/+r/o8RW9oHETkeew6qQkIRPt1Ki4M4lT2i
- z1010WyNC+lr/WQ0rJQ==
-X-Authority-Analysis: v=2.4 cv=LPPz05W9 c=1 sm=1 tr=0 ts=6acf7eb5 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=4stbDPrVBKr3fIij-fIA:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA1MiBTYWx0ZWRfX4WUvrXUybgeV
- 6tAvx11+1vjqDzA5fxm9wfl8Gl2QvHY71TNd6g0nWWoquGhlCtMf3kDWLaTwBc1NLFL/EXt9IG8
- GqtQ7CNxkdIyw1Wo5jojsPkyom8EtVM=
-X-Proofpoint-ORIG-GUID: orazJyFyWSx8nabKWgu3rX7HMphhS761
-X-Proofpoint-GUID: orazJyFyWSx8nabKWgu3rX7HMphhS761
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 clxscore=1015 adultscore=0 malwarescore=0
- phishscore=0 lowpriorityscore=0 spamscore=0 suspectscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140052
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 10/14/26 2:19 PM, Linghui Wu wrote:
-> Some WCN3990-family designs connect the SW_CTRL output to a GPIO on the
-> application processor. On Shikra, the WCN3988 SW_CTRL signal is connected
-> to GPIO88 and is used through the MGPI/AOSS hardware path to request the
-> required RF clocks.
-> 
-> Qualcomm downstream kernels configure this path through
-> msm_gpio_mpm_wake_set(), but upstream does not provide an equivalent API.
+This reverts commit cb97bf3d4f91453b881acaf8e9f0cc47bb40b604.
 
-This information is not useful to the reader who doesn't follow the
-Qualcomm downstream kernels.
+With that commit the keyboard and touchpad of the Lenovo Yoga Slim 7x
+(x1e80100) are dead, also at the disk passphrase prompt, on 7.2.9 and on
+v7.3-rc7. The first transfer on their bus fails.
 
-> This series models SW_CTRL as a dedicated wake IRQ. Requesting the GPIO IRQ
-> resource enables POWER_SAVE_WAKEUP_ENABLE in Qualcomm TLMM when
-> WAKEUP_PRESENT is advertised, while the PM core keeps the IRQ disabled
-> during normal operation and arms it for system suspend.
+  geni_i2c b80000.i2c: Bus proto err, noisy/unexpected start/stop
+  i2c_hid_of 1-003a: failed to fetch HID descriptor: -5
 
-This starts off good, but zooms in too much on the specifics, instead
-of the functional outcome.
+With the commit the I2C serial engine clocks read 32 MHz, without it
+19.2 MHz. A fix for the 32 MHz fast-mode timing is still being
+discussed, so go back to the previous behaviour for 7.3. This brings
+back the hardcoded index 0 in SE_GENI_CLK_SEL.
 
-> This is an RFC because the intended hardware and software model still
-> needs confirmation. In particular, please advise whether SW_CTRL should
-> be represented as an AP wake source using dev_pm_set_dedicated_wake_irq(),
-> or whether Linux only needs an interface to explicitly configure the
-> TLMM/MGPI power-save path.
+On v7.3-rc7 with only i2c-qcom-geni.ko swapped, the keyboard is dead
+without this revert and works with it.
 
-You threw a lot of Qualcomm TLAs at potentially non-Qualcomm reviewers,
-so it's not really possible for them to give you this advice.
+Fixes: cb97bf3d4f91 ("i2c: qcom-geni: Fix hardcoded clock index in SE_GENI_=
+CLK_SEL")
+Reported-by: Birk Skyum <birk.skyum@pm.me>
+Closes: https://lore.kernel.org/r/179173732257.29426.7905170638383807320@pm=
+.me
+Link: https://lore.kernel.org/r/ae03e7a3-75f1-42df-b0e6-0e64358be647@oss.qu=
+alcomm.com
+Cc: stable@vger.kernel.org
+Signed-off-by: Birk Skyum <birk.skyum@pm.me>
+---
+ drivers/i2c/busses/i2c-qcom-geni.c | 38 ++++--------------------------
+ 1 file changed, 5 insertions(+), 33 deletions(-)
 
-> The series documents the named wakeup interrupt for the WCN PMU binding,
-> implements dedicated wake IRQ handling in the Qualcomm WCN power
-> sequencer, and enables it on the Shikra CQM, CQS and IQS EVKs. On this
-> base, CQM and CQS share shikra-cqm-som.dtsi, while IQS uses
-> shikra-iqs-som.dtsi.
+diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qc=
+om-geni.c
+index ed6495e..3a3c871 100644
+--- a/drivers/i2c/busses/i2c-qcom-geni.c
++++ b/drivers/i2c/busses/i2c-qcom-geni.c
+@@ -82,9 +82,6 @@ enum geni_i2c_err_code {
+ #define XFER_TIMEOUT=09=09HZ
+ #define RST_TIMEOUT=09=09HZ
+=20
+-#define GENI_SE_CLK_32MHZ=09(32 * HZ_PER_MHZ)
+-#define GENI_SE_CLK_19P2MHZ=0919200000UL
+-
+ struct geni_i2c_desc {
+ =09bool no_dma_support;
+ =09unsigned int tx_fifo_depth;
+@@ -130,7 +127,6 @@ struct geni_i2c_dev {
+ =09spinlock_t lock;
+ =09u32 clk_freq_out;
+ =09const struct geni_i2c_clk_fld *clk_fld;
+-=09u32 clk_idx;
+ =09void *dma_buf;
+ =09size_t xfer_len;
+ =09dma_addr_t dma_addr;
+@@ -201,44 +197,19 @@ static const struct geni_i2c_clk_fld geni_i2c_clk_map=
+_32mhz[] =3D {
+ static int geni_i2c_clk_map_idx(struct geni_i2c_dev *gi2c)
+ {
+ =09const struct geni_i2c_clk_fld *itr;
+-=09unsigned long res_freq;
+=20
+-=09/*
+-=09 * Frequency counter tables are calibrated for a specific source
+-=09 * clock frequency and are not valid for any multiple of it
+-=09 * (e.g. 64 MHz, 128 MHz).
+-=09 * Use exact=3Dtrue and verify res_freq matches req_freq literally
+-=09 * to reject harmonics: a 64 MHz clock that divides evenly to
+-=09 * 32 MHz would pass exact matching but produce double the intended
+-=09 * I2C frequency with these counter values.
+-=09 */
+-=09if (!geni_se_clk_freq_match(&gi2c->se, GENI_SE_CLK_32MHZ,
+-=09=09=09=09    &gi2c->clk_idx, &res_freq, true) &&
+-=09    res_freq =3D=3D GENI_SE_CLK_32MHZ) {
++=09if (clk_get_rate(gi2c->se.clk) =3D=3D 32 * HZ_PER_MHZ)
+ =09=09itr =3D geni_i2c_clk_map_32mhz;
+-=09} else if (!geni_se_clk_freq_match(&gi2c->se, GENI_SE_CLK_19P2MHZ,
+-=09=09=09=09=09   &gi2c->clk_idx, &res_freq, true) &&
+-=09=09   res_freq =3D=3D GENI_SE_CLK_19P2MHZ) {
++=09else
+ =09=09itr =3D geni_i2c_clk_map_19p2mhz;
+-=09} else {
+-=09=09dev_err(gi2c->se.dev,
+-=09=09=09"Unsupported SE source clock: must be exactly 32 MHz or 19.2 MHz\=
+n");
+-=09=09return -EINVAL;
+-=09}
+=20
+ =09while (itr->clk_freq_out !=3D 0) {
+ =09=09if (itr->clk_freq_out =3D=3D gi2c->clk_freq_out) {
+ =09=09=09gi2c->clk_fld =3D itr;
+-=09=09=09dev_dbg(gi2c->se.dev,
+-=09=09=09=09"I2C clk selected: freq: %u Hz, clk_idx: %u\n",
+-=09=09=09=09gi2c->clk_freq_out, gi2c->clk_idx);
+ =09=09=09return 0;
+ =09=09}
+ =09=09itr++;
+ =09}
+-
+-=09dev_err(gi2c->se.dev, "Unsupported I2C output frequency %u Hz\n", gi2c-=
+>clk_freq_out);
+-
+ =09return -EINVAL;
+ }
+=20
+@@ -248,7 +219,7 @@ static int qcom_geni_i2c_conf(struct geni_se *se, unsig=
+ned long freq)
+ =09const struct geni_i2c_clk_fld *itr =3D gi2c->clk_fld;
+ =09u32 val;
+=20
+-=09writel_relaxed(gi2c->clk_idx, gi2c->se.base + SE_GENI_CLK_SEL);
++=09writel_relaxed(0, gi2c->se.base + SE_GENI_CLK_SEL);
+=20
+ =09val =3D (itr->clk_div << CLK_DIV_SHFT) | SER_CLK_EN;
+ =09writel_relaxed(val, gi2c->se.base + GENI_SER_M_CLK_CFG);
+@@ -1141,7 +1112,8 @@ static int geni_i2c_resources_init(struct geni_se *se=
+)
+=20
+ =09ret =3D geni_i2c_clk_map_idx(gi2c);
+ =09if (ret)
+-=09=09return ret;
++=09=09return dev_err_probe(gi2c->se.dev, ret, "Invalid clk frequency %d Hz=
+\n",
++=09=09=09=09     gi2c->clk_freq_out);
+=20
+ =09return geni_icc_set_bw_ab(&gi2c->se, GENI_DEFAULT_BW, GENI_DEFAULT_BW,
+ =09=09=09=09  Bps_to_icc(gi2c->clk_freq_out));
 
-The second sentence brings no value.
-
-> Testing:
-> - scripts/checkpatch.pl --strict: passed
-> - dt-binding-check: passed
-> - dtb-check: passed
-> - sparse-check: passed
-> - Shikra CQM, CQS and IQS DTB builds: passed
-
-The above cases are implicitly expected and shouldn't be listed out.
-> - QIPL validation of the equivalent qcom-6.18.y implementation: passed
-
-This is a useless test on a year-old kernel with a million patches on top
-that doesn't reflect whether the change works on the target tree (which
-is approximately linux-next/master). You must test your changes on the
-base that you intend the patch to be applied to.
-
-> An earlier experiment confirmed that requesting GPIO88 as an IRQ changes
-> TLMM_GPIO_INTR_CFG88 from 0x942 to 0x9c2, setting
-> POWER_SAVE_WAKEUP_ENABLE.
-> 
-> Linghui Wu (3):
->   dt-bindings: power: sequencing: qcom-wcn: document wakeup-source
->   power: sequencing: qcom-wcn: support SW_CTRL wake IRQ
->   arm64: dts: qcom: shikra: enable WCN SW_CTRL wakeup
-> 
->  .../bindings/regulator/qcom,wcn3990-pmu.yaml  | 22 ++++++++++++++
->  arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi  |  4 +++
->  arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi  |  4 +++
->  drivers/power/sequencing/pwrseq-qcom-wcn.c    | 30 +++++++++++++++++++
->  4 files changed, 60 insertions(+)
-> 
-> 
-> base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
-
-You must base your changes on linux-next, otherwise your base is
-effectively 3 months behind the current developments.
-
-Konrad
