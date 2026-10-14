@@ -1,78 +1,77 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC5DE3859EB
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:15:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2736949E5DE
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:15:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791965745; cv=none; b=EqFAAQihs3PthRvbLdhJJ6gUIk8RxfwUzQiYl8mbfUHNOHI9a0T+G08Byd5rj/PGGDzeMB/fCWzrNAOW8WRxKLTTPI4Tb1zN/nILgq3ff9IvtIyJo6hAal7Pw1KrPkD3BB+ai6QpUtDu0xES3JmrlZRc44PTRqcBdrt8T7VZUno=
+	t=1791965748; cv=none; b=W+nxLT0B4DtsvauKsk6DP2Sr9N8cYrNzKcI4BFiDxshDrfDK32hHGXEesBAUzi5I2mRUVICeuOiLJffanSdneAfs26ysJfezrMXLZa5pER4dEODdaAMPztUPhIVGr+xvnf/5vbSzmzMWaQ6NfOC6jk4vFOMQX0HYXL4sdiU3mQA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791965745; c=relaxed/simple;
-	bh=OFqdtS1oJTHFvjngsO4Nq8qXONJKrjQgc65t4eunTXQ=;
+	s=arc-20240116; t=1791965748; c=relaxed/simple;
+	bh=NfRbfyqv4MISWvfFB6YrL+5/YWMuOqeIK2SxP9SAFo4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZVqy/ZysIN3Wom/WxYK7T6pJQA7rGLQI0ImeANxvanYWIbZ8rYOqGdavRFpwWvOU86w+Y6C3iy+PhiyW1RB2ALnipGCykizDqSOvek2PPVUAkBqm6jki1+hjmcOw7maBmURufzeRhIrpIpOdK49h18i4FmBhBCt7itDn/zAqpqk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qnLALEoB; arc=none smtp.client-ip=209.85.214.170
+	 MIME-Version:Content-Type; b=r/qq0XkuB5F22ppX9CIB3tEVwK2fKWhtg+8FmsGHB6CMFE45d30RqQwWsfrzvjiLgUeBDfhxJfqLpL1VKhfmfmukjYqMH02Ee4nmaLoBtCLp6ddfK7dQjhh3wYO5Ojj58NW++KUMcQ/7icAyOTBDuRCIZA/Hog6NV/S/ohBzqk8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RmkAmbBm; arc=none smtp.client-ip=209.85.210.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qnLALEoB"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2e86dce4510so19262015ad.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 01:15:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RmkAmbBm"
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-891d19d00ceso1205878b3a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 01:15:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791965738; x=1792570538; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791965743; x=1792570543; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=THGvSriruXU51ZqrJHmjnjtWkdka3P5vgj19t9/O78M=;
-        b=qnLALEoBE9FCIEmoFxOEEq6XrTm2jpAZwAOj3TRAMXzST6bWep2h75nUE7hjoPz1qX
-         Ecd4k5m5HpqCVPN+zPaDPKreTaINIEKAbxhKz24aHxEQdDADvApbgwhtNrrS2ONGloDe
-         2gge24KT6Fg2EO4eCZX/lx5aQ67t3SA0GzEGKW0MbvCcPJBXXPUtyCXh9yQis/aSRnuW
-         wI1FLir2dYPGJRphvoX5jXh+dzPdXxKL/3GbCW7PchcAQ7HdpoewfN1i8AprqLrNfp0w
-         1qN3wLviIVrJuKoKL3S2jWMwtvBNmScWPJ9ncTQRHJ1biSOawVS3hZ6pBYc3Of3j1GGg
-         wxoQ==
+        bh=CCQEOhtmFz7cT7CBUEXeFEMa04vdTqpWMOvtYLUe+QE=;
+        b=RmkAmbBm+kVYQAOBQyaXZDz1KvffjwKtbU7Y/k/HBcLTPyXeTQGnWjUOZZ+D0KPTox
+         rrQTUFVqmK567FTiWa2VSnqtRmLFh7yfrliT1Oqi8gCZxor76IfxAFB3DskrIyEv2kFB
+         bTdA75knQDC88/v5MG/qosdyag/ork1wtWE2JvMKgTLDFX7I6Gbw+7Oh5O2wUsxDPSwQ
+         wY/5qrVUsVT5O5r5xIy/pD7seXf5/ud5iIhC606MfA28wixUDkXv45553z1E1tMSxieU
+         6T20QWRm29YLgNrBUF3FkQyQ8tUvYRjf5NWAZDDj0dmoEokZZsp9bsbZzxyq50Fx5bTw
+         X+Rw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791965738; x=1792570538;
+        d=1e100.net; s=20260707; t=1791965743; x=1792570543;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=THGvSriruXU51ZqrJHmjnjtWkdka3P5vgj19t9/O78M=;
-        b=PJDlk/olAm+YSck24By2qefPXWPKLPhZa+Nxp3yPRfnrnk5wamQsSs6CkxACOD3Sez
-         K9XaFZ2iQrJ1n3Dp4pL90s76XaWNNmigl5bdJglPVtHTYZ8Z+z+UKMYy6HLU/njOYpvC
-         bHst/cyp09usIfwv4Q4/r7DPkNMEFslBIINLPzBJGwp18R8IogVxucZMgyDur8tIMVhP
-         zWEh/vPRwQI3/T4vTO4+cEfRv1F02cg5L7dVjwf8tWFzKyLj5lAhhfNlOXhHmO/v2rDe
-         EGoFCvrHkrcy0wknRmB9w8mfARygpcl7eMrRa9uygBzRASuBDwRfV5slXZv0IhWwDGUf
-         LXuA==
-X-Forwarded-Encrypted: i=1; AKwUvBx7MI0N6UOVdWU7pic5DwJzfPURdUIiO1gHicTABZJakWesleIYICEYBa9pU6WYD0J1xFW0BpP5ex3hHQ8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKZ4tNsyMzFe1BTkV11df5W2y1sPeiva2HZO5bDE/ncOrsoH5CW
-	X655ybSAzmUuIZyQ76E5acjAHVUtPcel7FwKf/3yH4eyVBH3+iimzMbN
-X-Gm-Gg: AYBFou3VJ+bhJkavcHfnGVnGA2J7cVa8sY9lQzNRRPvQYxnH+g84AWTl5ryRQ5B1Dlq
-	LrI/mJ2pQijqvY5tGYq/FMmFMR/uuRvA76pLKdSv7MNzyhMID9nAeFtv9zgmQiGHRKO8zU3ggH1
-	INQg2HlhwOaP5nsvkwbBfMDGsSSPxXSE+wSOMrgHS4GT2EvRlPCMCdML7DPdYoJ/t6Mp9jn4IB2
-	YUnUqfJv2hp1ezvsxV+/7gU9sS5lsAP4dkU/H80pNqKpDOyFDAd76CFNvq7NwvGsYM3IQ9/EbMi
-	cAdrPMEU1K/LaqZ8rniOypPano/Em2MNTVZLCYCRm8zOhnBUlffLjuIsIQALWXana78OFA/iQjJ
-	2io4k5/7Hepug2u152yF8cZAIuEZokmGEb5aZ/qQhZ0LvOVliLR5a7ttV97GLgLL4L3/Sg1/QeL
-	gCi9Dr9AmuRu04Kq6JkzxxENUSVqwrOvL4jO6bOZJ4nUTTeIblfWqeZ4XDrwAuvID0bR1oZirUz
-	WGH6QU3FRyPtXmCK1G8cXyvN0jmkONnGOLBEAFregFZ+TJLkPYEWnkCQ4IIAxzY5dnazXihjDxH
-	H26D/DFOm3YrIelh
-X-Received: by 2002:a17:902:f550:b0:2e8:4bb0:21ff with SMTP id d9443c01a7336-2e84bb02397mr126394125ad.68.1791965737876;
-        Wed, 14 Oct 2026 01:15:37 -0700 (PDT)
+        bh=CCQEOhtmFz7cT7CBUEXeFEMa04vdTqpWMOvtYLUe+QE=;
+        b=2gLUYxvUw+WQ1PNg8fD3rCGrMrZ9IcwwJHcQ9KbGlDp2awUxQppEN0XQr7h9vhH7PK
+         j2SLtlFOWU3+o4AVLZRrEvsSIVTWzhdYgyEBnQGZH5sswuNYPsaAFxQ3L9Pe6Bfep3c7
+         j1Hd1hbTCpK9WCFIWHlcG/vj18x+aMqcx/zFaHGgpZIXmgeJqhCeDzNYel69An8O/LXP
+         /4LYx8XfK1caBACp0PlcBYkFE4e5i5lo/5RNHvOYXo1Nors1xa9c9ZYNe9vg4FYJwdHK
+         U9pgQeDkyh2NOTCYjIxiVS+8ubNXVhA02CPsf6PVu4KrAvX5zsqtYhZw1Q3faLN3yJhm
+         T/dw==
+X-Forwarded-Encrypted: i=1; AKwUvBxISYQUgjExHZL337nOlud/JAPR/MJIsD5prwK6AaTwqTxMK7rFBmww51vEKHV/SeHVB/VUR4bdeXGyjjc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLFDIAntG3e9+O/B/D504VqMgsXtoKhmYTOQ6v7bEyodNHNOKFN
+	pA01xta0hej8KrHofn05dSyc7v6DJYaXyEvk5sN0eDqyP/TEwL14UGKmSfIR9Q==
+X-Gm-Gg: AYBFou2lRRpHZs5b2UcaAuzId77mxHjo8y7HXL0jGCWDyIpdqcnv8YgOwTUZsX5yxVr
+	BA5yP+qBYd+sUs3W8nOrcSuhh0i8uhJgczkx/uBYohJklH7s+na7uDABwAydR2MTC1Ty1d6yfHk
+	0IRYjjORbcBuf9AjD8LuPpXf3rDAZBHpIXHmsXhjs1eooR/1nPYZ+IrFv4j155CmnhAFvf018ae
+	AQVVTklG5Sd39dzfPI5Fk9CyOpdYPRqAlIWyLxxHjeyW1XQJsavI5Q7btepm/jkT9GfqNsbOxFH
+	YVkhnobPfWs2uulbeD3H/xjI1jJP4SRk3hqVLfNCzqzbMjFYaGjiOBgPTiYULAbp15EcI5JVvMc
+	JV+S+KBkosm5NmShnOyguTyX1ZJEdzl1ENwo/y56WWSK6ZdTK+tpVne+NHoroxwrrdlDs/Y0mvy
+	M+2qGy+MTU0XU19nZO3FOnY2nWdL1hyoLH085wdkWECdT7PUHQckvIqbMKcufyEFwdhOzI7gNWn
+	8yXZewafSni77V/3VgKlBQ2plyGujhGZaNzVwdM9YK07bwswNP8MM/u0+948nKrktm+6qTbzELb
+	UlHq23xSV1sb9ReYsKKnZVGVhA==
+X-Received: by 2002:a05:6a21:a345:b0:3dd:a197:cf31 with SMTP id adf61e73a8af0-3e16bf67ae8mr11898673637.85.1791965743197;
+        Wed, 14 Oct 2026 01:15:43 -0700 (PDT)
 Received: from localhost.localdomain ([121.137.86.182])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e841a0002csm67533115ad.3.2026.10.14.01.15.35
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3d9d4fc36sm6523770a12.1.2026.10.14.01.15.41
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 14 Oct 2026 01:15:37 -0700 (PDT)
+        Wed, 14 Oct 2026 01:15:42 -0700 (PDT)
 From: Joonho Lee <mynameisjune111@gmail.com>
 To: Takashi Iwai <tiwai@suse.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	linux-sound@vger.kernel.org,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH v2 1/1] ALSA: virtio: wait through signals for PCM teardown
-Date: Wed, 14 Oct 2026 17:15:32 +0900
-Message-ID: <rfc-v2-generic-control-wait-1.2eddd58a796e497f@gmail.com>
-In-Reply-To: <rfc-v2-generic-control-wait-0.2eddd58a796e497f@gmail.com>
-References: <rfc-v2-generic-control-wait-0.2eddd58a796e497f@gmail.com>
+	Jaroslav Kysela <perex@perex.cz>
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-api@vger.kernel.org
+Subject: [RFC PATCH v2 0/2] ALSA: pcm: preserve capture tail during drain
+Date: Wed, 14 Oct 2026 17:15:38 +0900
+Message-ID: <rfc-v2-core-capture-drain-0.2eddd58a796e497f@gmail.com>
+In-Reply-To: <rfc-core-capture-drain-0.112c40f0e9284eaa@gmail.com>
+References: <rfc-core-capture-drain-0.112c40f0e9284eaa@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,58 +81,133 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-A signal can end the interruptible wait while a STOP or RELEASE request is
-still pending. A later teardown may then submit another RELEASE before the
-first request completes.
+Changes since RFC v1
 
-Keep both waits non-interruptible and use the existing message timeout.
-Other control requests remain interruptible. Device reset still cancels the
-pending request and wakes the waiter.
+Patch 1 is unchanged. Patch 2 replaces scoped guards with explicit lock
+and unlock pairs because include/linux/cleanup.h prohibits mixing cleanup
+helpers and goto within one function. This addresses the Sashiko review.
+We did not establish an existing double unlock or skipped unlock: the old
+gotos were outside the scoped blocks. The link-lock scope, per-member
+pointer refresh, error path and playback wait loop are preserved.
+The build and regression results below are from the revised candidate.
 
-Assisted-by: LLM
-Signed-off-by: Joonho Lee <mynameisjune111@gmail.com>
----
- sound/virtio/virtio_ctl_msg.c | 15 ++++++++++++++-
- sound/virtio/virtio_ctl_msg.h |  3 +++
- 2 files changed, 17 insertions(+), 1 deletion(-)
+The public base and ordered prerequisite patch IDs appear below. The local
+v3 tip d58a3ac9b1719fdf8ce9d286be606128aeebf1aa is reconstructed by applying
+the five v3 patches to that public base; it is not an upstream commit.
 
-diff --git a/sound/virtio/virtio_ctl_msg.c b/sound/virtio/virtio_ctl_msg.c
-index 2e0ff15e729d..e50e6c7f3b8d 100644
---- a/sound/virtio/virtio_ctl_msg.c
-+++ b/sound/virtio/virtio_ctl_msg.c
-@@ -314,7 +314,20 @@ int virtsnd_ctl_msg_send(struct virtio_snd *snd, struct virtio_snd_msg *msg,
- 		 */
- 		virtsnd_ctl_msg_unref(msg);
- 	} else if (!nowait) {
--		rc = wait_for_completion_interruptible_timeout(&msg->notify, js);
-+		/*
-+		 * Teardown must observe completion even with a pending signal.
-+		 * Otherwise a subsequent open can retry RELEASE while the device
-+		 * is still processing the previous teardown request.
-+		 */
-+		switch (le32_to_cpu(request->code)) {
-+		case VIRTIO_SND_R_PCM_STOP:
-+		case VIRTIO_SND_R_PCM_RELEASE:
-+			rc = wait_for_completion_timeout(&msg->notify, js);
-+			break;
-+		default:
-+			rc = wait_for_completion_interruptible_timeout(&msg->notify, js);
-+			break;
-+		}
- 		if (!rc) {
- 			dev_err(&vdev->dev,
- 				"control message (0x%08x) timeout\n",
-diff --git a/sound/virtio/virtio_ctl_msg.h b/sound/virtio/virtio_ctl_msg.h
-index f867b9b9233d..d84f0740fcb0 100644
---- a/sound/virtio/virtio_ctl_msg.h
-+++ b/sound/virtio/virtio_ctl_msg.h
-@@ -47,6 +47,9 @@ int virtsnd_ctl_msg_send(struct virtio_snd *snd, struct virtio_snd_msg *msg,
-  * The msg_timeout_ms module parameter defines the message completion timeout.
-  * If the message is not completed within this time, the function will return an
-  * error.
-+ * PCM STOP and RELEASE wait through pending signals within this timeout.
-+ * Other requests remain interruptible. Device reset cancels and wakes either
-+ * kind of waiter.
-  *
-  * Context: Any context that permits to sleep.
-  * Return: 0 on success, -errno on failure.
+This is v2 of this follow-up RFC, not v4 of the five-patch virtio-snd
+lifetime series. The v3 prerequisite thread is:
+https://lore.kernel.org/all/cover.1791881787.git.mynameisjune111@gmail.com/
+The submitted v3 fixes ACK error propagation, failed START recovery, and
+message/buffer lifetime through completion and reset. It does not add the
+VZ capture profile or the ALSA core drain handling in these companion RFCs.
+
+This series proposes two changes to capture drain handling:
+
+1. Permit capture transfer calls while the runtime is DRAINING, so buffered
+   tail frames remain readable instead of returning -EBADFD at the state
+   check. Playback access rules remain unchanged.
+2. Refresh active capture hardware pointers before the linked group enters
+   DRAINING, so a final subperiod tail is accounted. Hold the link read lock
+   across the initial operation and take each member's stream lock for its
+   pointer refresh. Propagate pointer errors before the drain transition.
+
+These are ALSA core changes, not VZ quirks. They apply with all VZ options
+disabled and can affect other capture drivers, including linked-stream drain
+ordering. No new ioctl is added, but applications can observe buffered data
+where the previous state check rejected a read. The appropriate core drain
+semantics and locking scope need review independently of VZ support.
+
+Dependencies
+
+Apply these two patches in order on v3. They do not depend on the companion
+STOP/RELEASE wait patch. The VZ capture RFC requires all three prerequisites.
+The base is pinned for reproducibility; this is not a claim that the core
+changes are inherently dependent on virtio-snd lifetime fixes.
+
+Validation and limits
+
+The complete local candidate (v3 plus all four RFC patches, including the
+revised core locking) was freshly built on 2026-10-14 as an ARM64 Image and
+full module set with W=1, KASAN, PROVE_LOCKING, LOCKDEP and
+DEBUG_ATOMIC_SLEEP, release 7.3.0-rc6-snd-rfc-cleanup-lockdep.
+There were no build errors or warnings in the changed sound paths; 517
+-Woverride-init warnings remain in two unchanged ARM64 base files.
+This is a rebuild of the pinned candidate, not a rebase to a newer upstream
+or sound maintainer tree.
+
+With this kernel under ordinary TCG, no-query short-tail drain returns
+1023 frames (FNV-1a64 20d61b4edef6d535) and 2047 frames
+(af2de207e4d27535); drop returns zero. Each run also passes a following
+capture with fatal-overrun checking, playback drain guard and teardown.
+The linked-stream fixture was also rebuilt against this kernel's config
+and Module.symvers. Normal unlinked/linked drain passed. An injected
+pointer XRUN in the later member visited both pointers and returned EPIPE
+with both streams in XRUN. Unlink/prepare, close/reopen, capture/playback
+recovery and teardown passed with lockdep enabled. This is a synthetic
+ALSA fixture, not a physical-device test.
+
+The QEMU 11.1.2 fixture includes backend reset cleanup changes as well as
+fault injection. These are integrated candidate results, not standalone
+v3 or isolated-patch proof, and not stock-QEMU, VZ or hardware acceptance.
+Earlier runs failed follow-on capture with ring saturation and overruns;
+those logs remain retained. Final passes do not establish a permanent fix
+for load or clock/scheduling sensitivity.
+
+Physical ALSA devices and the full range of linked capture/playback groups
+remain untested. Historical AirPods capture does not isolate core drain
+semantics. Playback access rules remain unchanged, but the shared drain
+entry locking/order changes also need review for playback-led groups.
+
+All ten ordinary-TCG regression scenarios passed with the fresh candidate,
+as did the additional linked-stream error/recovery fixture and 24 Python
+harness tests. Successful runtime logs contained no KASAN, lockdep, WARNING,
+BUG, Oops or panic diagnostics. Initial harness/CPU-configuration failures
+are retained as invalid attempts, not counted as kernel passes.
+No new real-microphone or VZ runtime test was performed for this revision.
+
+Reproducer
+
+The previously published source package remains at this pinned commit:
+https://github.com/whatisyourname0/virtio-snd-reproducer/tree/7a9876738bdc70ce669f02ec31fe8968eb0ee4fc/rfc/vz-capture-20261014
+It contains the original RFC snapshots, kernel builder, QEMU fixture and
+ten runtime commands. It does not contain the revised core locking or the
+newly rebuilt linked-stream fixture. Do not treat it as the exact source
+of the new results above. Existing v3 patches in it are build prerequisites,
+not patches being resubmitted.
+
+The revised source stack, four signed implementation patches, exact kernel
+config and portable linked-stream fixture are published at this commit:
+https://github.com/whatisyourname0/virtio-snd-reproducer/tree/64fa85f3260b45e7dbb85c4eee68a5b4a8b064e1/rfc/vz-capture-20261014/sashiko-followup
+The public source recipe reconstructs all eight changed files byte-for-byte
+against the tested candidate. The packaged linked fixture also passed with
+freshly compiled probes, a new Alpine rootfs and a rebuilt test module on
+the same KASAN/lockdep kernel. The public archive was downloaded and checked
+against the local source package. See README.md and RESULTS.txt at that URL.
+This supplements the earlier bundle; use its corrected core 2/2 patch
+rather than the earlier core 2/2 snapshot.
+
+Questions for review
+
+- Is reading buffered capture data in DRAINING the intended ALSA contract,
+  or should the driver expose that tail through a different transition?
+- Is drain entry the correct place to refresh capture pointers, including
+  when draining a paused stream or a linked capture/playback group?
+- Is the proposed link-lock/member-lock scope appropriate when a pointer
+  error can stop the group? Which other driver or linked-stream cases
+  should be required before treating this as a general core fix?
+
+Joonho Lee (2):
+  ALSA: pcm: allow capture reads while draining
+  ALSA: pcm: refresh capture pointers before drain
+
+ sound/core/pcm_lib.c    | 10 +++++++---
+ sound/core/pcm_native.c | 26 ++++++++++++++++++++++----
+ 2 files changed, 29 insertions(+), 7 deletions(-)
+
+base-commit: 8d70e364e866bdfca81eee24d0688fac9472cfb9
+prerequisite-patch-id: 39fb327a004c966ab90f66a34a64bbdbb3ffb475
+prerequisite-patch-id: 7c6bc344656fd839ae0d697ba18d66ac0b47827a
+prerequisite-patch-id: 9dd290ac3147fa7b49a475d7df8a6172778f2860
+prerequisite-patch-id: f4c24a5e441343a690f4ac2437f181c815bc23d0
+prerequisite-patch-id: ab4a5b770247a65272ab7af18a75a147daf81287
