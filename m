@@ -1,134 +1,159 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FDBA2DC32E
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 01:06:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 466B22F30
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 01:08:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791939977; cv=none; b=sBCIz2AqjR+G2gEPnfF3XzTU/ejaFVLcHT6jcQaxn5Hc0P5VhJCqtqTPH0H5Cd3+LE0Pw0rvj1huEebamESun/LqNQbhyiYtQEkuhN+KoSpJpjaLecnvuCuDh/0vb9IsnWwbjtmsifaYxj95dwFsR4LQscOGRqEUy0j7kY6bREk=
+	t=1791940118; cv=none; b=eIbJjHkbCviNAZ8yNqrc5oKskMAzjAEO4CPhh/a7SMkXBZefVf1PsMAJgP1qdQJf4p4zroRSh+8QaN5Xn6xC8pBPBSLB1glaCEFVi7MzBgz0o1A4MJZWpVUehl2HuPoWKqzNQyioy/tHD/PTw+WJP2KDQO9gxenVsaDDT0D2mSE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791939977; c=relaxed/simple;
-	bh=71/PvvAb7WSmpjfyFsK5RUK37uILXm+z52T/Z/Dn6Dc=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=pB6bBduzjwVGlpZiCB4bE6WB7PTzsswY9EFLe1llAUzoUcWfEhmtryxV/mPXJKrRkqnp055WWkHO18o8wQF0UYle/ajPQ/NqEjRyiEXP3zjBh/byBC5tjj/+tTo1I9dKWTHilzRqbjjmKO30ldyvGwn84PWyJJMELthKloz+/vY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YnTSesYZ; arc=none smtp.client-ip=209.85.215.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791940118; c=relaxed/simple;
+	bh=F3lpSamUBvOQ+ZfrxrFSyFSAsgz5DPWK1zXhfgBv2UY=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=uCm34ln32gqiV/5PM08XJHAfukFxfFUqpHj6wIZ6131tV3Wnqr27M0ClLCyVTEcTbqAtofzlnka2BBbRxGGSRvsGnmaVB46kOBtVk0e6X9486dc/qyLtzq/MZEatCjj/cw36AAJIhwnw/pO/3p20grIQV3KWQcuBPqRvJ5NQMdo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QtGwtLtv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YnTSesYZ"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cd5c9e52398so1523391a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:06:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791939975; x=1792544775; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=a017O8OGvPiZ3PtcPvdafG3s+KiqjGCu5jaYmz2r3MI=;
-        b=YnTSesYZmUPxDL3ZOX7iQEscaZgAns5xYVIi6KODVK3mDQmXAAZNCeot9rcy5jlQNy
-         CG5JDtBbAGwzKqIdraaQ6a1yAG4JTNQ2EDqxo7cBOvUdlvDPtvQZoPe8P7TzjNBjs3qA
-         TWglIuNKC0aEXYerTn2Lu9ixmjiUXjWwIsRGF58tEbAX5Na/aBALqsdcWX/Xabm93JbK
-         xjEn/h5kxbuAUJ1bS8J+ey40o5KJ+BgrHDtmTd1W0OOo35JcZOWGkl2WYw/D0735g4Ho
-         mziLdmtVML8klkHigrOAa1Q+OC4umQGXf8qysFzVG2zBHQvrsklmapZbVNizW/lKpldL
-         jtrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791939975; x=1792544775;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=a017O8OGvPiZ3PtcPvdafG3s+KiqjGCu5jaYmz2r3MI=;
-        b=pTo9k64x3a82TFoSOZbk210UIwiYagBnrgJZfacoyGPtk/QQFLqAF0Incjvdx4SD7d
-         a7ix7Lx4N5dwLBy/Sr1V7tPsETmm8yizyteq2EZChStwIK2Xc5ePKTFTs5ErWWvy5+BD
-         yTSHIp9OdAooNVUY6PxkULwBGPuMZW56cxLeWj64wkwbIhcWmJG1feJnDyTsysu5shnB
-         xcnT51n0YzetlmTUmWl9QrYrasXb/NFPiHRYi/11oB50tK8+Kv4wUD5LvCoaP4jbaFPz
-         4cVUU4iarX4eAF5sadGafNab8zHi9nqoj84KRqHZk94pn7c/CCyRUSXJ6RMHmD5/uMoF
-         QLOg==
-X-Forwarded-Encrypted: i=1; AKwUvBxsJ0EROwo5ayIHKymQYqH7zY6C0g1b1p3lW9m1shbf1K4NRYCRKDmmqwLMDvFfBHqvayFSIcsuD8eZCCw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJYJtIRL4NU6GcwXTLs2dZWWQJ0pEpRu+rZNOMY19xV3h5qogzw
-	oBBmf29HbcIZCfbukQIlXBQNvZ8OYOWu2oispxoRAKqPMdMMUvwqc5Rq
-X-Gm-Gg: AYBFou3H4vi6niSwDd6CVVe5FWFkIzjUQhc7c7ZDTr1lGyzMmi9tJcyBRyFPRmorUWr
-	qtz3L7R+iBKVLdk2KvcMbCYhFOq3BKswPYL+J22zurp3LVGBNO9U1Nnu9adJAtRhYWleLKlDdfc
-	YNF6lzt701QciFViCkUdIEgsgKwkhL5vfopGa2oce4+OCqmr4uiO6bXiovnVoZf44bSMPKU/OMH
-	Akiz5TpxUWaCshoYkValhbRK1ecS9aVX+DJU0BvqdKImWg/A+zN8MuDNRF9piSio6sUVkqpeGSc
-	0SiFCAsl1GbRe00d136zxVSOzSC0Nnu3a7rZrojvpqvzjopUsD6gBGdaW2YvQR9X8n+AcdOwRpX
-	REzS/2iTJJ818h+BpmpkvIbjRh5JiXkby+U+B+ChYpoHqhcgR1mfhpTzpi7DFmSdifMgSIyZY02
-	WBC0BCGm8zL2Q36DNoTPrLrXbiM0ljH64FdAD79seUOBVAiYw5XVRNDE3k3r23wKR15WJL5Tfet
-	Ezd0niHVA0JGW7klOAfh+4Fmw==
-X-Received: by 2002:a17:90b:1d4f:b0:3a4:a592:4cfa with SMTP id 98e67ed59e1d1-3ab3a79d9f8mr11670070a91.45.1791939975320;
-        Tue, 13 Oct 2026 18:06:15 -0700 (PDT)
-Received: from [192.168.0.13] ([38.34.87.7])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac60e83ccdsm1867436a91.15.2026.10.13.18.06.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 18:06:14 -0700 (PDT)
-Message-ID: <e55e3220b1dc438bf3ba3363730bb1d927c2a27a.camel@gmail.com>
-Subject: Re: [PATCH bpf 1/2] bpf: Fix state pruning regression in bpf_loop()
- callbacks
-From: Eduard Zingerman <eddyz87@gmail.com>
-To: David Windsor <dwindsor@gmail.com>, bpf@vger.kernel.org
-Cc: ast@kernel.org, daniel@iogearbox.net, john.fastabend@gmail.com, 
-	andrii@kernel.org, martin.lau@linux.dev, song@kernel.org,
- yonghong.song@linux.dev, 	kpsingh@kernel.org, sdf@fomichev.me,
- haoluo@google.com, jolsa@kernel.org, 	shuah@kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	yunwei356@gmail.com
-Date: Tue, 13 Oct 2026 18:06:12 -0700
-In-Reply-To: <20261008233623.4011127-1-dwindsor@gmail.com>
-References: <20261008233623.4011127-1-dwindsor@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-10+b1 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QtGwtLtv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 327071F000FF;
+	Wed, 14 Oct 2026 01:08:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791940116;
+	bh=AGld8ni3JsEFit3fOK2IFMpCl2X2M6ZHt2aF33boT+o=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=QtGwtLtvqK+Eb0KzQEIvCr2G8AqwIJdDGm3SKShUgkkEXslkki6lUbEsZliIxPiQd
+	 dYRqx2azvQJG0EHSASaJ8NPcQS0wZ84O4eBe+6yVDXUhNp4uVo/SdARdMAe6eaEw66
+	 irqwTDckH4BjfeabFvszgpFthr7zoHVx65L9kMfrS3wiVJLNkvNyGg7gixXVxO8z0g
+	 KEviJJn9squLKtnkrLM/LVEDaWtCMQR4R+U0rRCdqYpaM+/I3T6W+nqFdGBrmojuDC
+	 D9+jvNsekgKYmteXVpMwOWmYA3YNhb+FhzS3HO0ez+DvE1nzuxIjmdOLHxcaox6sjQ
+	 tRxMjKV56Qkew==
+Message-ID: <0392781c-0ef7-4cd8-b48c-cde83e09abb4@kernel.org>
+Date: Wed, 14 Oct 2026 09:08:32 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ Barry Song <baohua@kernel.org>, Juan Yescas <jyescas@google.com>,
+ Daeho Jeong <daehojeong@google.com>, Pengfei Li <lipengfei28@xiaomi.com>,
+ Dev Jain <Dev.Jain@arm.com>, David Hildenbrand <David.Hildenbrand@arm.com>,
+ linux-kernel@vger.kernel.org, Bo Zhang <zhangbo56@xiaomi.com>,
+ Kalesh Singh <kaleshsingh@google.com>, Nanzhe Zhao <nzzhao@126.com>,
+ Nanzhe Zhao <zhaonanzhe@xiaomi.com>, Ryan Roberts <Ryan.Roberts@arm.com>
+Subject: Re: [f2fs-dev] [PATCH v4 00/18] f2fs: support & optimize large folios
+ for writable files
+To: Jaegeuk Kim <jaegeuk@kernel.org>, Nanzhe Zhao <nzzhao.sigma@gmail.com>
+References: <20261013115621.968742-1-nzzhao.sigma@gmail.com>
+ <as58gCX6mzaExhxs@google.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <as58gCX6mzaExhxs@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, 2026-10-08 at 19:36 -0400, David Windsor wrote:
-> Commit f597664454bd ("bpf: bpf_scc_visit instance and backedges
-> accumulation for bpf_loop()") left dead stack slots in cached callback
-> states while SCC backedges were pending, defeating state pruning and
-> causing previously valid programs to hit the verifier instruction limit. =
-On
-> affected kernels, ActPlane fails to load with -E2BIG.
->=20
-> Removing the incomplete_read_marks() check from clean_live_states() is
-> safe because zero-branch states have already had their stack read/write
-> effects propagated into the liveness masks consumed by
-> clean_verifier_state(). Pending SCC backedges only defer verifier-state
-> precision propagation and cannot add stack-liveness requirements after
-> cleanup.
+Hi Jaegeuk,
 
-The patch does not apply, clean_live_states() no longer exists.
-Also, before submitting v2, please re-read the series [1] in order to
-understand the motivation for the change. States w/o branches can
-still contribute their precision marks to their parent states,
-in case if these states form a loop on a state graph.
-The loops are formed on e.g. iterator or callback-based loops convergence.
+On 10/14/26 02:46, Jaegeuk Kim wrote:
+> Hi Nanzhe,
+> 
+> Could you please rebase your patches on top of dev-test?
 
-[1] https://lore.kernel.org/bpf/20251229-scc-for-callbacks-v1-0-ceadfe67990=
-0@gmail.com/
+Nanzhe rebased the patchset to linux-next, so sashiko can apply & review
+the patchset as expected.
 
-pw-bot: cr.
+The gap here is two missing cleanup patches from Zi Yan, please apply them
+into dev-test before applying Nanzhe's one, since it's dev-test, it won't
+cause any conflict w/ linux-next.
 
->=20
-> Fixes: f597664454bd ("bpf: bpf_scc_visit instance and backedges accumulat=
-ion for bpf_loop()")
->=20
-> Signed-off-by: David Windsor <dwindsor@gmail.com>
->=20
-> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-> index e3814152b52f8139a5565b2e4ac1b80d82d1ea65..1e300ca71a8a833eb4c2a340b=
-4f94342f54af5f2 100644
-> --- a/kernel/bpf/verifier.c
-> +++ b/kernel/bpf/verifier.c
-> @@ -19791,8 +19791,6 @@ static void clean_live_states(struct bpf_verifier=
-_env *env, int insn,
-> =C2=A0		if (sl->state.cleaned)
-> =C2=A0			/* all regs in this state in all frames were already marked */
-> =C2=A0			continue;
-> -		if (incomplete_read_marks(env, &sl->state))
-> -			continue;
-> =C2=A0		clean_verifier_state(env, &sl->state);
-> =C2=A0	}
-> =C2=A0}
+"f2fs: stop using PG_private"
+"f2fs: reject device aliasing without a multi-device configuration"
+
+See https://git.kernel.org/pub/scm/linux/kernel/git/chao/linux.git/log/?h=feature/large_folio
+
+Thanks,
+
+> 
+> https://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs.git/log/?h=dev-test
+> 
+> Note, I applied [0] and [1] already.
+> 
+> On 10/13, Nanzhe Zhao wrote:
+>> From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+>>
+>> This series supports large folios for most readable/writable files
+>> in buffered I/O paths, including normal files, block-layer encrypted
+>> files, and atomic files except for inline-data files, compressed files,
+>> and quota files.
+>>
+>> It also extends f2fs_folio_state to coexist with f2fs page-private
+>> flags and to handle large folio write path and partial truncate of
+>> large folios correctly.
+>>
+>> Benchmark details can be found in the RFC v2 cover letter [1].
+>>
+>> Changes in v4:
+>> - Rebased onto linux-next next-20261012 (4eb2586bd40d); its f2fs part
+>>   is the f2fs dev branch.
+>> - Added "f2fs: read i_size once in f2fs_vm_page_mkwrite" as a
+>>   prerequisite (also sent separately).
+>> - "f2fs: remove mappedtodisk flag usage in mmap write path" is kept as
+>>   a prerequisite.
+>> - Link to v3: [2]
+>>
+>> Patches 1 and 2 are prerequisites for the large folio work. They are
+>> also posted independently as bug fixes, and are kept in this series to
+>> make it self-contained for the sashiko review.
+>>
+>> Many thanks to Chao and Daeho for your extensive reviews and valuable
+>> suggestions!
+>>
+>> [1] https://lore.kernel.org/r/20260622160830.324455-1-zhaonanzhe@xiaomi.com
+>> [2] https://lore.kernel.org/linux-f2fs-devel/20261009161224.4163796-1-zhaonanzhe@xiaomi.com/
+>>
+>> Nanzhe Zhao (18):
+>>   f2fs: read i_size once in f2fs_vm_page_mkwrite
+>>   f2fs: remove mappedtodisk flag usage in mmap write path
+>>   f2fs: extend folio state for large folio write path
+>>   f2fs: carry subpage offset and count in write IO
+>>   f2fs: support regular file buffered writes on large folios
+>>   f2fs: support atomic file large folios buffered write
+>>   f2fs: support large folio writeback
+>>   f2fs: account large folio dirty data at block granularity
+>>   f2fs: prepare mmap write faults for large folios
+>>   f2fs: make GC migration large-folio aware
+>>   f2fs: optimize small block size large folio read
+>>   f2fs: support partial uptodate large folio read
+>>   f2fs: handle partial truncate of large folio dirty subpages
+>>   f2fs: wait for folio writeback before ffs_detach_free
+>>   f2fs: fix zeroing paths for large folios
+>>   f2fs: handle block cloning within the same large folio
+>>   f2fs: allow large folio support to writeable files
+>>   f2fs: make compressed files compatible with large folio
+>>
+>>  Documentation/filesystems/f2fs.rst |   10 +
+>>  fs/f2fs/checkpoint.c               |   40 +-
+>>  fs/f2fs/compress.c                 |    7 +-
+>>  fs/f2fs/data.c                     | 1425 +++++++++++++++++++++++++---
+>>  fs/f2fs/dir.c                      |    2 +-
+>>  fs/f2fs/f2fs.h                     |  173 +++-
+>>  fs/f2fs/file.c                     |  252 +++--
+>>  fs/f2fs/gc.c                       |   38 +-
+>>  fs/f2fs/inline.c                   |    9 +-
+>>  fs/f2fs/inode.c                    |    4 +-
+>>  fs/f2fs/namei.c                    |    1 +
+>>  fs/f2fs/node.c                     |    2 +-
+>>  fs/f2fs/segment.c                  |    3 +-
+>>  13 files changed, 1706 insertions(+), 260 deletions(-)
+>>
+>> -- 
+>> 2.43.0
+>>
+>>
+>>
+>> _______________________________________________
+>> Linux-f2fs-devel mailing list
+>> Linux-f2fs-devel@lists.sourceforge.net
+>> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
+
