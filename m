@@ -1,77 +1,80 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A2C2D5408;
-	Wed, 14 Oct 2026 12:23:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEEA34DD6DB
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:27:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791980634; cv=none; b=cET7gQNQf5GwsrHb/Y27B/wyDCyAuUCOZgSVzMjF5xUGMdqMiHuJiaTIlo/Fw5hODLOd75XelOnlMeKhWb/CPGpQT0RPgL8ilfpsDMJqRYmGnaaTYov/JvqJYktIGSCXBw4V9YxBvu0gG2OUE10D5vNqj2DOypsyz84+UcK45kk=
+	t=1791980861; cv=none; b=iemcEdDQlXCqbL4g7UIkH830LFeMERWCtGXZQdd6VCe83ran129mOxPoGmQEhi+tS/qx8OxBDezuTbcl18jn36UT0GYfZB2hYqfn9mVLu/21eJOJ4uo/iufsbcyou6afh+/9DG1JP34WUPUFcNbId7ZwDDdOzoK98TZNUqMwdw8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791980634; c=relaxed/simple;
-	bh=fWWWl9GFsKVb/WhJpZ1G8nhPsaAr1YtFHAJ1glTSLcc=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=PPGP0QqgDTaeoRFSJUyUjkiNoegVqoxtBlAxrIiL9HSBokUKu1V3AfCi6g780Uf05xDskY7hr5qq0oCbnU/0PMIfTAn8qWrFivPExnlPUk7uLyzynNPyZ12T3mLqfEmNjCVR1AX15+B0Orve5K/vtx5bgcDzp95wsuZkb1k2a28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=F+pkQ7Yk; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=GKvSmFgU; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=ROuytJdE; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=p69yRgF9; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1791980861; c=relaxed/simple;
+	bh=t+tXOJgINuHz5ua6C+34HLQge1ta50pjf8UE+NV3Ad8=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=HRPURdzqOeyqdXw9NWx/n5Dy7hN3ugNNzuZD+DOghrEE5aeEJj1gt77XlsAukuYjdPF6Ga4Uux+LgARZo7yEN9sfYeLURA+AR05LocKc1OPisH7vaahIhRqwLWwYuIePqtzNMhxdusX19GUqQFz+dY/N1/PyKbpb6IgpYBm/1pY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QKaI3MWJ; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="F+pkQ7Yk";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="GKvSmFgU";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="ROuytJdE";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="p69yRgF9"
-Received: from pobox.suse.cz (unknown [10.128.32.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 0DB9C2204A;
-	Wed, 14 Oct 2026 12:23:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791980631; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JX3WUeuPvBjFgfcR029LBr9vD/jVzdyphvy8NIseFJc=;
-	b=F+pkQ7Yk7E30VT0xzJM/HgzpyE6Lw7mIJYDI0cgtggefBb30Ho2d/5nhOqL43RCV10r7vg
-	zLgHRd2+hUJnPRGf/5twJRS8rwCjRo99NJKbA5WTms3hL5JoXbpE3qYEXHzl355bf6x80E
-	7Q+ebU6nNHHjJKPlIb2DxGfNrjpOCso=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791980631;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JX3WUeuPvBjFgfcR029LBr9vD/jVzdyphvy8NIseFJc=;
-	b=GKvSmFgUnwTMbKW0WqARkWdt56oPISCDE+JBa2gVWetLOf9jVKpRF15BwI7gOc7IHwaIa+
-	KBqE5WAsIjztYkDA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791980630; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JX3WUeuPvBjFgfcR029LBr9vD/jVzdyphvy8NIseFJc=;
-	b=ROuytJdEld7hyu6Ud7hrSeqX3+n+wjn9XgzfM2LAcrXWE9lOqBI97xUF4gspRfDv3e0vp+
-	3I60Jc7GJvP0vMjGdVz/6K2J/OBubtGgOneC69E5s6HF2eOT0RdRvTW1JtzwPzOo5oGiyg
-	WsgkAe8HJB/6J1ilQid7DEHoa3/8ggo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791980630;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JX3WUeuPvBjFgfcR029LBr9vD/jVzdyphvy8NIseFJc=;
-	b=p69yRgF9+HewfuOvee6IODsPWStzQB84EsWkle20i5iG+DY3q3ZOnQVVgoS3tSCaE4xL3X
-	+EyGjnq8+eRhViCA==
-Date: Wed, 14 Oct 2026 14:23:50 +0200 (CEST)
-From: Miroslav Benes <mbenes@suse.cz>
-To: Andrea Parri <parri.andrea@gmail.com>
-cc: Josh Poimboeuf <jpoimboe@kernel.org>, Jiri Kosina <jikos@kernel.org>, 
-    Petr Mladek <pmladek@suse.com>, Joe Lawrence <joe.lawrence@redhat.com>, 
-    Song Liu <song@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
-    live-patching@vger.kernel.org, linux-kernel@vger.kernel.org, 
-    stable@vger.kernel.org, petr.pavlu@suse.com
-Subject: Re: [PATCH] livepatch: Fix races between stack check and module
- load/unload
-In-Reply-To: <20261012140546.154730-1-parri.andrea@gmail.com>
-Message-ID: <alpine.LSU.2.21.2610141410370.16733@pobox.suse.cz>
-References: <20261012140546.154730-1-parri.andrea@gmail.com>
-User-Agent: Alpine 2.21 (LSU 202 2017-01-01)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QKaI3MWJ"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48df0fa43c5so55071f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 05:27:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791980858; x=1792585658; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bU5WoXEdNTnz+BAlcIBVqmgTpCbqy4PVyKMuyqbaZGE=;
+        b=QKaI3MWJ0JVmVSc1vGOVIC/GF97hRyT3l0VbMBfDtGdJck/2HBAOSMI/EpAmt6oiXL
+         Y6yzlzIqiy974y1UWonOY1sjE1KH+nSdpUsA3+0pvq18XIk7eGmEEeGiop56ke+uaCAb
+         ho3DjA0gXqIi/8TfhsI8VFrcCbq9xKAS4tqB7Gg5PPuCYFUjmzjX0Otg4AZ5CixfyP0k
+         +zbsPtMWLGjZ9DZSq2t16T7hoTZN2xWMWvk8eHx9bYxvm/IRzX4+HIllQmW9z9Yrd0g1
+         mdo1IqIEo+U3JOdwdR58vy9/iK4ZgZtQQWJeOzEc5JCyyr/1wW1APWmMtWufefDkg+wl
+         hvFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791980858; x=1792585658;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bU5WoXEdNTnz+BAlcIBVqmgTpCbqy4PVyKMuyqbaZGE=;
+        b=KY3nEVzmufGZyYp56mmMQa9oii3KZEbb7ql16UG1tYk6st+908Q/UOJLQVmxnyokHe
+         WwqrDKp7zJPW9MIoZLzyZaSXHnNwDpWm2EA9Oygw4wbcXiZM/Qm25Pv4aHmuglkGtUSy
+         4aKuqpjMe9czVM6vaOczmCcgcs5v4OZWFQYRZf9jUEze85Of2q3QJEvfDxh99AVADz+P
+         MMGU/n7/LX61RwyxmWemAXi30RgM25vQHvYlGcpmkhYXLmdyhZAvQJejwPjFtruas61S
+         D8tOyy5NRFo2En+3uDKv6jAN31A5wNRIbA9FPwBI/beeTlXQgJeq1SW+1OgwyZKe8IFl
+         vGtA==
+X-Forwarded-Encrypted: i=1; AKwUvBxpogONqXQMNOq5nNMYzDxoB3EkR59mkBW6x8d45dEB06SfuepwpdlBchVpS42U7hfUt1l7B0k0dyJi4Gs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL/z288p97jeGZDnBAKfcZjyWwdpuKq4HMFFwvr99gKgqTj52Jo
+	9+3xNGaWYIlXP1f9NPdfK5jZdchuTkLdg/daCBqqz8xZjhTEm6LeqAdnedDxW7YL
+X-Gm-Gg: AYBFou19PcFSvNG0vVK4v/jwOPILqqpEjEcV0ZQZBYavqUrOkZelrPj5THHPgdNFlnd
+	nnk9pBbFi/BuWpWpvkw2bJdJ1idLdXQ6NwxKD9J+2ki4boB9iaDC3VOO25a2Y1XmozSOh2cgkzn
+	IjMfcGKX5DqioskjniYZpx3ulh5aZ7qqvtQqLb5lRVEmoyKj9c9bJpVD6IfKW/cP+uRhu3NDUuV
+	fTI2zHMZuq60kXfvX5eoL3ygG79/UFUL1IKt/2K98431T7FHpy59leTQJyWd7avuxDJIASPmYC7
+	uqYehuDesNC48tYPZffMQ2HpVZrLiroyDRYYlHqDMojFjwoKtz9HsEvbcXqt+q1Ae7ThtVFE5yQ
+	BMeuOrVBL18kyBjLX+r9/UreW+dWBfSE7YRZxDILaLRHc9Ebl3A/ZTSYu2o6sxHka63lwZVOPlo
+	5kI9WJ5LeGVkJFaA33YMUJkdpaIwR8FkVg0KcaukSJ/9bOhTs3IC1eo6kYh4NgGga4oV7PUTebd
+	+0SBK6lbjAS3cnx3cQTbFgqKwkrgG5GGSE=
+X-Received: by 2002:a05:6000:200f:b0:48c:5669:747b with SMTP id ffacd0b85a97d-48db9465ffdmr35843535f8f.8.1791980858010;
+        Wed, 14 Oct 2026 05:27:38 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0aaaad1sm11373355f8f.17.2026.10.14.05.27.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 05:27:37 -0700 (PDT)
+Date: Wed, 14 Oct 2026 13:27:36 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Alexander Gordeev <agordeev@linux.ibm.com>
+Cc: Heiko Carstens <hca@linux.ibm.com>, Ilya Leoshkevich
+ <iii@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik
+ <gor@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>,
+ linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+Subject: Re: [PATCH 2/4] s390/percpu: Drop unused output register from
+ arch_this_cpu_add()
+Message-ID: <20261014132736.10a32cfe@pumpkin>
+In-Reply-To: <4907dbfd-3c5c-483b-be25-b0df83af2d20-agordeev@linux.ibm.com>
+References: <20261012114249.2898572-1-hca@linux.ibm.com>
+	<20261012114249.2898572-3-hca@linux.ibm.com>
+	<4907dbfd-3c5c-483b-be25-b0df83af2d20-agordeev@linux.ibm.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,89 +82,24 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	TAGGED_RCPT(0.00)[];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_COUNT_ZERO(0.00)[0];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	FROM_EQ_ENVFROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[pobox.suse.cz:helo]
-X-Spam-Score: -2.80
-X-Spam-Level: 
-X-Spam-Flag: NO
+Content-Transfer-Encoding: 7bit
 
-Hi Andrea,
+On Mon, 12 Oct 2026 15:24:20 +0200
+Alexander Gordeev <agordeev@linux.ibm.com> wrote:
 
-Cc+ Petr Pavlu (you can find the whole thread at 
-https://lore.kernel.org/live-patching/20261012150758.207983-1-parri.andrea@gmail.com/T/#t)
-
-On Mon, 12 Oct 2026, Andrea Parri wrote:
-
-> Unloading a patched module while a livepatch transition is in progress
-> can crash the kernel in klp_find_ops(), called from the scheduler.
-> KCSAN reports
+> On Mon, Oct 12, 2026 at 01:42:47PM +0200, Heiko Carstens wrote:
+> > The laa/laag instructions return the old memory content, but
+> > arch_this_cpu_add() does not need it. Instead of allocating a dedicated
+> > output register old__ just to discard the returned value, change the
+> > val__ constraint from "d" to "+&d" so it is used as input/output
+> > register.
+> > 
+> > This reduces register pressure.  
 > 
->   BUG: KCSAN: data-race in klp_find_ops / klp_unpatch_func
-> 
->   write (marked) to 0xffff9094c09ece10 of 8 bytes by task 381 on cpu 2:
->    klp_unpatch_func+0x1bd/0x280
->    klp_unpatch_object+0x6a/0x90
->    klp_cleanup_module_patches_limited.cold+0x4a/0xd4
->    klp_module_going+0x54/0x80
->    __do_sys_delete_module+0x247/0x380
->    __x64_sys_delete_module+0x39/0x50
->    ...
-> 
->   read to 0xffff9094c09ece10 of 8 bytes by task 146 on cpu 1:
->    klp_find_ops+0x55/0x90
->    klp_check_and_switch_task+0x228/0x320
->    klp_try_switch_task+0xb4/0xc0
->    __klp_sched_try_switch+0x9a/0xb0
->    __schedule+0x60a/0x1450
->    schedule+0x3b/0x100
->    schedule_timeout+0xc0/0x160
->    ra_target_a_loop+0x97/0xa0 [klp_race_target_a]
->    ...
-> 
-> followed by
-> 
->   Oops: general protection fault, probably for non-canonical address
->   0xdead000000000110: 0000 [#2] SMP NOPTI
->   RIP: 0010:klp_find_ops+0x55/0x90
->    ...
->    klp_check_and_switch_task+0x228/0x320
->    klp_try_switch_task+0xb4/0xc0
->    __klp_sched_try_switch+0x9a/0xb0
->    __schedule+0x60a/0x1450
+> Do you know whether the compiler is may be smart enough to select the
+> same register for old and val himself?
 
-Interesting. So to sum it up... you load a live patch which contains a fix 
-for a module and while the transition is on, you remove the module and it 
-crashes (btw, I do not think that those traces are necessary here. More 
-btw, it would be nice to have a human readable changelog instead of what 
-looks like AI generated description of the patch itself).
+Given gcc tends to allocate a new register for x++ I doubt it
+(and then has to do a reg-reg move to put it back).
 
-How did you find the issue? Is it a real problem in production?
-
-I wonder whether we could just decline delete_module() in this case and 
-return -EBUSY. It should be a rare operation anyway. Alternatively we 
-could increase refcounts of all patched modules during a transition and 
-decrease them after. Petr P., what do you think?
-
-I am not saying we should not do the RCU protection but it feels like a 
-can of worms a bit so if there is an easier way...
-
-Regards
-Miroslav
+David
