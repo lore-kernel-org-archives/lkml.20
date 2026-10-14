@@ -1,210 +1,251 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24509391E5B;
-	Wed, 14 Oct 2026 03:43:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CC243F0744
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 03:43:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791949391; cv=none; b=plFHHoC0skbraOi7MYu0gC+E/hwRN+h+zY1ogGDnKAj627p7XD8li4P8kYlSMaCJAJzOp3HaueDsTWg4BpGVb8Crr3mwAm+HPpIk/BHSptIWHIH5tUpWSUQf7wIoQpZo16mlfCk7z4ECmyc+0TRK5W+zJFxrw/ACcqIYbQSbB10=
+	t=1791949432; cv=none; b=f5zqSi2ZLJiwGg7zwKZQnV+s4duPhLWqXhU0drSQ1xwHtybeCkMR3zm3LEoQcd+6Wb9xxqYhOqrcjfD89iJbn8i/gT56Mpnu7+8wAKb5PVW5ZHhfkyF0parB/w5xEcj2gA9nTB7AmwYX3AB3ZHgCDgdyBMq9lCWVUdivDeOgnjU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791949391; c=relaxed/simple;
-	bh=7jaEf+DSc3ZErWV7GdzaWAdh1OASwLxdqWsXrm+gVDE=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=tOUQZmjW9bWoJm/l298L8fX88MMgJdOqYKu7zHBdCDDCH0IlgX7OSDScdfI6MAfIAr3Fk4KE/BZ/c+zqKoXFnhektuiI16bfhvuuAZrJFPRF2XYTG4zo655RTXUFTAp+W5wEINwZuBNVpTOUzrVXd0rrMYr/SsxZxKlzR0T26AA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i0k0P4VC; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791949432; c=relaxed/simple;
+	bh=uAIPZvQ99EKhl4bzVyWX50RMipQcVv95QeJ6Gk6Fjr0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=nhQQHY8FZFSPgu/rCcGqcJ+L5ssuVLMm+U6jSSD5hHgQHdWG5uesN3C2i5ieVfcwfZPOxO/oSNEteQD3Xoj7UANBhd00a0ikeEjJTq/6VYfwrdQOgo/LzQAZE2hzM/k+P4I3RCUZ3Z8ilewDJlZX25Dh0COvfg5BDFpd9ZP7gt8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ajyxnyIQ; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i0k0P4VC"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A225FC2BCF5;
-	Wed, 14 Oct 2026 03:43:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791949390;
-	bh=7jaEf+DSc3ZErWV7GdzaWAdh1OASwLxdqWsXrm+gVDE=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=i0k0P4VCB7g40OdBO9ifahjBuxaoytYGw6AL/F5gDhcVt7VA8hmfFsCbzgSOJJg9D
-	 6ez0hEUWT1W27yoCUAlXL313IlHbuMNWu8Rr4CGfT2ysvToLPN60hQl/4e4wUZ86S4
-	 785kmCSosCnlPUytcwtk458q9XgGlsw58mUzIBlTne8yP5eXrW+CMyqlCJJbStZDdJ
-	 of8F4G2RHgzRALlCaG4Oh/m7PDMSiKpLQRaYD4r8lYz9nit9/ML7DQ/3fpEL8jLRsX
-	 WMTaW4s2hqtYrPC0BmFxLV/e1vUcfv90lwyVu6MJddgGINM0C7bEhlzH6VQHs1v4vp
-	 MZK0Xak1kUuJg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8C8EDCC6B1C;
-	Wed, 14 Oct 2026 03:43:10 +0000 (UTC)
-From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
-Subject: [PATCH v2 0/2] xfs: make pNFS LAYOUTCOMMIT stable the way
- fdatasync does
-Date: Wed, 14 Oct 2026 12:43:09 +0900
-Message-Id: <20261014-xfs-pnfs-commit-datasync-v2-0-c11341a189b5@samsung.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ajyxnyIQ"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e86dce4510so18318815ad.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 20:43:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791949427; x=1792554227; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cPZ6CMVllg1ExTGuLIWcOTSOQLgRxBXxWD+/IcCpGYk=;
+        b=ajyxnyIQuUKkRnnZk+t9MpWRQs5UIkfyW3Y0u3A3BAqgvSWXMQZWJFr8D51Nodf5Cc
+         VvRNaMpQ/wo5afNdjCN+NUoGwt/yJPPhi/YgaOTevbzMXENDPV5lh77GzuIiPpepoIvr
+         ZUd8LM9Sq1rFDTYIl0zbDqquHeskklerY6sA7FCjCZ1337zPfEwsoSuzq4UM7iTA40mW
+         N4tp31vG25/qQDIhM+j9aGMPdK2Pp+NqSXxvhSAQRUoEZQGU5A2/URiWWqRTz1tDwD6w
+         W034RP0LiFM/HvroWET0z3v/JDWIEmd92RWBh0BAD+piDEyzQdpmVxJCpR+ESDkRHrFh
+         adlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791949427; x=1792554227;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cPZ6CMVllg1ExTGuLIWcOTSOQLgRxBXxWD+/IcCpGYk=;
+        b=JjSGIzuw3X7+Q/kvGJxiqwb1CngnmQdrFm4mhFToI1xtmVQcdSrBC6YK3n2VN2E7db
+         OSvtN+bUoXKHz6Ujn4AFNSwE24mYJOUVnh4UvMzrCi3z9Y4nCCIuxslv3uqRji+3Kd1u
+         xVTJnfa+enJB2I1cEPzX3all4egTVzPLLT/S9K/isKxpwaThOA8+RkI9RdkwUqEayMm3
+         BwK+KH01GrJNgAPAK7FyQJYgGg+2H8QslTKkuck+wNmQc0iF21owjK/dZVyGilPDmX+j
+         oxDk6CgMTSsPauP10WzhII2hNbrfHiW+ITMPykiF8VwFHvC8+XVD8Qgjw3Iea1QHHyXH
+         5JMg==
+X-Forwarded-Encrypted: i=1; AKwUvBwCME0hKPlebs2Ze8Vv4gKvlBYvFJRNLyQMQmXsUbh46AuWKjxN6QfSg56PAhNr9D0zmiQZa/nXMurX0TQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYITxpyvm6z0z6rm24SmeR4URJF1Vzw+GI1Rizcj+0OcFrpkiK2s
+	pszoaG+xLrjTjnXTl/p7dPPyBY+8cI758IWlcCjttTmMlRaSCaPbEhYs
+X-Gm-Gg: AYBFou2arPCIY5aFKomgDNdruVYxz4m7Gz8D0/r0FPFiS+DEX4of0jiXOzlL9ysnSyP
+	cRnZpifDfK8+vE7gtIWPcxQGhuICvCCMgX26PlV9LD0ue5JbfFYS5zQRbnki0sQFaqw7sVTJyBO
+	xUVtIwX5FiaW6Fc6GHS54unIbWiAfE5gm6QzEetTMSSsycEnbQjjOQ4JgHCgyWnquF9zDGkUDBQ
+	ukMX8dWsvNvb7wAJ4W4pW/FoYxU5WPVdsMEgyt1jMjbgFHor9LDWw25rxLOSOXJEyYUaF+AX3nH
+	QVqWE3ExKLXaQrjOIwkxB3nk2vQDqb19cA88cR0yECHSum6MFzVi4WFGtCCqR1lMxL3ei9j7f+G
+	1F0E7d3mBqpsAHo91fUCJajEcxQyYHx0ytTQGMkfx1gnfaWkm2h7yYzMVaQ8ziGu1vOL84tOgGF
+	RbDk0to5Sdrbaske3bA1CiVhrJMYxM5RrxmLg+m1w7/uwJ5ioZoVo+aD/Ar/7EtXWW1w==
+X-Received: by 2002:a17:902:cec2:b0:2dd:ad73:c98b with SMTP id d9443c01a7336-2e842bcda99mr120161875ad.35.1791949427055;
+        Tue, 13 Oct 2026 20:43:47 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422e4ebfsm65092695ad.78.2026.10.13.20.43.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 20:43:46 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: mark@fasheh.com,
+	jlbec@evilplan.org,
+	joseph.qi@linux.alibaba.com,
+	heming.zhao@suse.com,
+	chao@kernel.org,
+	jack@suse.cz
+Cc: ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH] ocfs2: Cancel quota sync work before freeing quota info
+Date: Wed, 14 Oct 2026 11:43:40 +0800
+Message-Id: <pm-ocfs2-objects-candidate-0052-v3-b4904bd6c85daf033adf@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAE36zmoC/42NTQ6CQAyFr0K6toZWI+KKexgWk6FAFwxkigRCu
- LsjJ3Dzku/l/exgElUMXtkOURY1HUMCvmTgexc6QW0SA+f8oJxuuLaGU0jix2HQGRs3O9uCx9w
- XfOeiIHEMqT5FaXU9p9914l5tHuN2Pi30c/8YXQgJ2RFL+yzFN2VlbrBP6K4pCfVxHF+cqERMw
- gAAAA==
-To: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org
-Cc: Christoph Hellwig <hch@lst.de>, "Darrick J. Wong" <djwong@kernel.org>, 
- Dave Chinner <dgc@kernel.org>, Chuck Lever <cel@kernel.org>, 
- Jeff Layton <jlayton@kernel.org>, Dai Ngo <Dai.Ngo@oracle.com>, 
- Sergey Bashirov <sergeybashirov@gmail.com>, linux-nfs@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Daejun Park <daejun7.park@samsung.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791949389; l=8008;
- i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
- bh=7jaEf+DSc3ZErWV7GdzaWAdh1OASwLxdqWsXrm+gVDE=;
- b=er4d8e0QmqyM1euukGiZzo2JIqFIpYmRUmmQb/OUAyL5f0Iu86Bwf25A0OlKJQcVzFWEdbG20
- 4qIpSgCtZuCCbh936jya1oHFEWueDYvLYUv+LFmp3ZMJHhRAQVHxVE0
-X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
- pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
-X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
- auth_id=1122
-X-Original-From: Daejun Park <daejun7.park@samsung.com>
-Reply-To: daejun7.park@samsung.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Patch 2 stops forcing the log for a LAYOUTCOMMIT that converts nothing
-and keeps the size, and flushes the data device cache instead, the way
-fdatasync does. Patch 1 moves the log force helper of fsync next to
-xfs_log_force_inode() so that xfs_pnfs.c can use it.
+OCFS2 quota info owns dqi_sync_work and must outlive both its timer
+and qsync_work_fn(). ocfs2_local_free_info() frees that owner without
+cancelling the work, relying on the quota suspend/disable wrappers.
 
-Changes in v2:
-- New patch 1: move xfs_fsync_flush_log() next to
-  xfs_log_force_inode() in xfs_inode.c as __xfs_log_force_inode(),
-  and make xfs_log_force_inode() a wrapper around it (Christoph). It
-  stays in xfs_inode.c rather than xfs_log.c because
-  xfs_log_force_inode() is already there and xfs_log.c does not deal
-  with inode log items.
-- Patch 2 calls __xfs_log_force_inode() instead of exporting
-  xfs_fsync_flush_log() from xfs_file.c, and is otherwise unchanged.
-- Do not factor the end of xfs_file_fsync() into a shared helper, as
-  offered in v1 (Christoph: overkill for two function calls).
-- Link to v1: https://lore.kernel.org/r/20261013-xfs-pnfs-commit-datasync-v1-1-2a12ef89ecd9@samsung.com
+Loading quotas on a read-only to read-write remount can successfully
+queue the work in ocfs2_global_read_info() and then fail while attaching
+a dquot to an existing inode in add_dquot_ref(). The quota core unwinds
+that failure directly through dquot_disable(), bypassing the OCFS2
+wrapper:
 
-With patch 2, the timestamps of a LAYOUTCOMMIT that converts nothing
-and keeps the size, and the change attribute that nfsd derives from
-i_version and the ctime, are not made stable before the reply goes
-out. After a server crash, a
-client that cached the file before the LAYOUTCOMMIT could see the old
-change attribute again and keep its stale cache until the file changes.
-A WRITE with DATA_SYNC4 already leaves the timestamps that way ("persist
-data only" in nfsd_vfs_write(), nfsd4_iocb_flags() in nfsd-testing),
-although there the client asks for it, and the comment above
-nfsd4_change_attribute() assumes a stable change attribute only for
-directories.
+  Remount task (s_umount write)        Timer/workqueue
+  ocfs2_global_read_info()
+    schedules dqi_sync_work
+  add_dquot_ref() returns an error
+  dquot_disable()
+    ocfs2_local_free_info()
+      frees oinfo
+                                     delayed-work timer expires
+                                     qsync_work_fn() reads oinfo
 
-On a sync export, nfsd makes most metadata operations stable before it
-replies: commit_metadata() after SETATTR, ALLOCATE, DEALLOCATE, create,
-link, rename and unlink, and a full fsync for CLONE and, as RFC 8881
-section 18.3.4 asks, for COMMIT. With this patch, a LAYOUTCOMMIT on a
-sync export replies before its timestamps are stable, unlike those.
-LAYOUTCOMMIT is not that COMMIT: section 12.5.4 says "The data should be
-written and committed to the appropriate storage devices before the
-LAYOUTCOMMIT occurs", and of durability it says only that for block
-layouts LAYOUTCOMMIT may require committing the block list to stable
-storage, which this patch keeps. If nfsd wants LAYOUTCOMMIT to follow
-the sync export option anyway, ->commit_blocks can take a datasync
-argument as ->fsync does, but sync is the default, so the gain would
-then be limited to async exports.
+The timer core can then write to the freed embedded timer, or
+qsync_work_fn() can read oinfo->dqi_gqinode before its s_umount trylock.
+The outer ocfs2_disable_quotas() cleanup skips the failed type because
+dquot_disable() has already cleared its loaded state.
 
-Tested on nfsd-testing d918c664efd5 with the same changes, in QEMU
-guests: nfsd on XFS (mkfs.xfs defaults, internal log, sync export), the
-block layout on an NVMe/TCP namespace exported by nvmet from another
-guest, and the Linux NFSv4.2 client. The series applies to XFS for-next
-0be6da616ab5 as is. The measurements below were taken with v1; v2 only
-moves the log force helper, and the v2 runs listed after them show the
-same behaviour.
+Cancel dqi_sync_work synchronously at the start of
+ocfs2_local_free_info(), before dropping the global inode or freeing any
+owner state. The work is initialized whenever read_file_info() succeeds.
+dquot_disable() holds s_umount for write, so the callback skips its quota
+scan via down_read_trylock() and can finish without waiting for teardown.
+The synchronous cancel also handles its self-rearm.
 
-nfsd-testing does not have commit e3c682dd1130 ("xfs: map pNFS layouts
-to the end of the extent again"), which only changes LAYOUTGET, nor the
-for-next changes to the log cache flushes (xlog_flush_data_caches() and
-XLOG_ICL_NEED_FLUSH_LOG), which only matter with an external log or an
-rt device.
+KASAN report as below:
 
- - Overwrites of written files, each write followed by fsync, KASAN
-   and lockdep off. The namespace was backed by a partition of a
-   Samsung 990 PRO (volatile write cache), given to the nvmet guest as
-   virtio-blk with cache=none. virtio-blk has no FUA, so REQ_FUA became
-   a write plus a cache flush there. Medians of 5 runs, with the
-   kernels without and with the patch alternating; "ms each" is the
-   time in xfs_fs_commit_blocks() per LAYOUTCOMMIT:
+    BUG: KASAN: slab-use-after-free in __run_timers+0x9e9/0xa10
+    Write of size 8 at addr ffff888111b0aad0 by task swapper/3/0
 
-     threads  file    write   without    with  commits  ms each
-     1        16 MiB  64 KiB   800 ms  473 ms   256   2.4 -> 1.1
-     4        16 MiB  64 KiB  1083 ms 1011 ms  1024   2.6 -> 2.5
-     1         4 MiB   4 KiB  3101 ms 1841 ms  1024   2.6 -> 1.5
+    Call Trace:
+     <IRQ>
+     dump_stack_lvl+0x93/0xd0
+     print_report+0xce/0x630
+     ? __run_timers+0x9e9/0xa10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __virt_addr_valid+0x20e/0x420
+     ? __run_timers+0x9e9/0xa10
+     kasan_report+0xe0/0x110
+     ? __run_timers+0x9e9/0xa10
+     __run_timers+0x9e9/0xa10
+     ? __pfx___run_timers+0x10/0x10
+     ? __lock_acquire+0x5a3/0x2140
+     ? __pfx_do_raw_spin_lock+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     timer_expire_remote+0xfa/0x160
+     ? __pfx_timer_expire_remote+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? trace_hardirqs_on+0x18/0x160
+     tmigr_handle_remote_up+0x4ba/0x9d0
+     ? __pfx_tmigr_handle_remote_up+0x10/0x10
+     ? tmigr_handle_remote+0x21a/0x340
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_release+0xc8/0x290
+     ? __pfx_tmigr_handle_remote_up+0x10/0x10
+     __walk_groups_from+0x5a/0x160
+     tmigr_handle_remote+0x24f/0x340
+     ? __pfx_tmigr_handle_remote+0x10/0x10
+     ? lock_acquire+0x190/0x300
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_release+0xc8/0x290
+     run_timer_softirq+0x222/0x270
+     ? __pfx_run_timer_softirq+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lockdep_hardirqs_on_prepare+0xb8/0x1a0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     handle_softirqs+0x1fa/0x8d0
+     ? __pfx_handle_softirqs+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? _raw_spin_unlock+0x23/0x40
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __hrtimer_rearm_deferred+0x1fb/0x5d0
+     __irq_exit_rcu+0x113/0x1e0
+     irq_exit_rcu+0xe/0x20
+     sysvec_apic_timer_interrupt+0x6c/0x80
+     </IRQ>
+     <TASK>
+     asm_sysvec_apic_timer_interrupt+0x1a/0x20
+     ? ct_kernel_exit.constprop.0+0xc5/0xf0
+     ? do_idle+0x3ae/0x650
+     default_idle+0x9/0x10
+     default_idle_call+0x6c/0xb0
+     do_idle+0x3ae/0x650
+     ? cpuhp_online_idle+0x9c/0xb0
+     ? __pfx_do_idle+0x10/0x10
+     ? __entry_text_end+0x1020f6/0x1020f9
+     ? lockdep_hardirqs_on_prepare+0xeb/0x1a0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? trace_hardirqs_on+0x18/0x160
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     cpu_startup_entry+0x54/0x60
+     start_secondary+0x223/0x2d0
+     ? __pfx_start_secondary+0x10/0x10
+     common_startup_64+0x13e/0x158
+     </TASK>
 
-   With the patch no LAYOUTCOMMIT forced the log, and the log was
-   written at most once per run. With 4 writers the gain is smaller:
-   without the patch their log forces are partly shared, and with it
-   their cache flushes queue up. Overwrites of 64 MiB files in 4 MiB
-   writes by 4 threads took 1150 ms instead of 1328 ms, medians of 3
-   runs that overlap (1114 to 1214 ms against 1181 to 1424 ms) and did
-   not alternate.
- - New files, 4 threads writing 64 MiB each in 4 MiB writes, each
-   write followed by fsync: every LAYOUTCOMMIT still forced the log, as
-   before.
- - A crash right after a LAYOUTCOMMIT of an extent that the server had
-   just converted with a direct write, before that conversion was
-   written to the log: the server preallocated 4 MiB and wrote it with
-   O_DIRECT, the client overwrote it through the layout and called
-   fsync, and the server VM was killed. After mount, the extent was
-   written and held the client's data, with and without the patch (2
-   runs each). A prototype that only flushed the cache when the range
-   was written in memory and the size did not change lost the data in
-   both runs: the extent came back unwritten.
- - The same crash after the client wrote a new 4 MiB file through the
-   layout and called fsync (allocation, conversion and a new size):
-   size, extent and data were all there, with and without the patch
-   (2 runs each).
- - With a KASAN and lockdep kernel, and no warnings from either: pynfs
-   block and blockextent, same as without the patch (BLOCK3 fails
-   either way, on a bug in the test); fstests generic/075, 091 and 263
-   over the block layout, where 075 fails with an fsx size error as it
-   does without the patch, and none of the 10337 LAYOUTCOMMITs failed.
-   The pynfs tests also passed the same way on an XFS_DEBUG kernel with
-   XFS_ASSERT_FATAL.
- - v2, both patches: the overwrite of a 16 MiB file in 64 KiB writes,
-   each followed by fsync, made 256 LAYOUTCOMMITs with no log write
-   and one cache flush each, as with v1 (2 runs each, host file
-   backing). The two crash cases gave the same results as above (2
-   runs each). pynfs block and blockextent gave the same results on
-   KASAN and lockdep, XFS_DEBUG, and patch 1 alone, with no warnings.
-   In fstests generic/075, 091 and 263 over the block layout on the
-   KASAN and lockdep kernel, 075 failed with an fsx size error as
-   before, none of the 10373 LAYOUTCOMMITs failed, and there were no
-   warnings.
- - v2, fsync and fdatasync on the server's own XFS, counted from
-   /proc/fs/xfs/stat over 5 calls each: an overwrite followed by
-   fdatasync forced the log 0 times, an overwrite followed by fsync 5
-   times, and an extending write followed by fdatasync 5 times. That
-   is the same as with v1, and the same with patch 1 alone.
- - fstests -g quick on a local XFS (mkfs.xfs defaults from xfsprogs
-   6.6.0, 10 GiB TEST and SCRATCH devices, KASAN and lockdep off),
-   with and without the series: 1017 tests ran, and the same 5 failed
-   either way (generic/453, 454, 563, 794 and xfs/261). Also the same
-   with v2 of "xfs: refuse pNFS LAYOUTCOMMITs of ranges without
-   blocks", sent at the same time, applied as well.
- - W=1 builds of the changed files after each patch, on XFS for-next
-   0be6da616ab5 and on nfsd-testing: no warnings.
+    Allocated by task 523:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     __kasan_kmalloc+0xaa/0xb0
+     __kmalloc_cache_noprof+0x28d/0x610
+     ocfs2_local_read_info+0x181/0x1580
+     dquot_load_quota_sb+0x69e/0x11c0
+     dquot_load_quota_inode+0x227/0x3e0
+     ocfs2_enable_quotas+0x27c/0x520
+     ocfs2_reconfigure+0x964/0xd00
+     reconfigure_super+0x3ca/0xa70
+     path_mount+0x141e/0x1e80
+     __x64_sys_mount+0x24b/0x2d0
+     do_syscall_64+0x114/0x620
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+    Freed by task 523:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     kasan_save_free_info+0x3b/0x60
+     __kasan_slab_free+0x5f/0x80
+     kfree+0x308/0x580
+     ocfs2_local_free_info+0x47b/0x800
+     dquot_disable+0x5d9/0x17a0
+     dquot_load_quota_sb+0xd3c/0x11c0
+     dquot_load_quota_inode+0x227/0x3e0
+     ocfs2_enable_quotas+0x27c/0x520
+     ocfs2_reconfigure+0x964/0xd00
+     reconfigure_super+0x3ca/0xa70
+     path_mount+0x141e/0x1e80
+     __x64_sys_mount+0x24b/0x2d0
+     do_syscall_64+0x114/0x620
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+    The buggy address belongs to the object at ffff888111b0a800
+     which belongs to the cache kmalloc-1k of size 1024
+    The buggy address is located 720 bytes inside of
+     freed 1024-byte region [ffff888111b0a800, ffff888111b0ac00)
+
+Host details, register and page dumps omitted.
+
+Fixes: 1a6152d36dee ("quota: propagate error from __dquot_initialize")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+Assisted-by: LLM
 
 ---
-Daejun Park (2):
-      xfs: move xfs_fsync_flush_log() next to xfs_log_force_inode()
-      xfs: make pNFS LAYOUTCOMMIT stable the way fdatasync does
-
- fs/xfs/xfs_file.c  | 44 +-------------------------------------------
- fs/xfs/xfs_inode.c | 42 +++++++++++++++++++++++++++++++++++++-----
- fs/xfs/xfs_inode.h |  2 ++
- fs/xfs/xfs_pnfs.c  | 21 +++++++++++++++------
- 4 files changed, 55 insertions(+), 54 deletions(-)
----
-base-commit: 0be6da616ab5031ea6419dc4fe0bf0e378fb6757
-change-id: 20261013-xfs-pnfs-commit-datasync-0c7242771ea2
-
-Best regards,
--- 
-Daejun Park <daejun7.park@samsung.com>
-
-
+diff --git a/fs/ocfs2/quota_local.c b/fs/ocfs2/quota_local.c
+index 76e7dd5aecc8..a2ce25a33607 100644
+--- a/fs/ocfs2/quota_local.c
++++ b/fs/ocfs2/quota_local.c
+@@ -840,6 +840,9 @@ static int ocfs2_local_free_info(struct super_block *sb, int type)
+ 	int mark_clean = 1, len;
+ 	int status = 0;
+ 
++	/* Quota-core error paths can bypass ocfs2_disable_quotas(). */
++	cancel_delayed_work_sync(&oinfo->dqi_sync_work);
++
+ 	iput(oinfo->dqi_gqinode);
+ 	ocfs2_simple_drop_lockres(OCFS2_SB(sb), &oinfo->dqi_gqlock);
+ 	ocfs2_lock_res_free(&oinfo->dqi_gqlock);
