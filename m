@@ -1,71 +1,67 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47C60485511
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:01:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEF13499F06;
+	Wed, 14 Oct 2026 09:01:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791968507; cv=none; b=O2uCXlqxqfhmv22YLfkY1PY/5HkV5/CC/tOo5et1bNFVrRjrDzjc1Xt8f+M93Sh0DP4VJ7FW5LR8HHa9Lz1mgtwrCDof2us3L54g+dkPRXcCYwucKlIrsyyacNJH4iYYRvrua04OgvksUMYGajfbmmggiGEaa/BdcxyxZ8AjIKM=
+	t=1791968510; cv=none; b=UL5KpH0uRKpSls8Cir3pY9QbOSLAKE4ZmscBqRMttwNSt0Ztmv9pXhbX+iKHj1xHTkgT49HqxmB946+FHSwusYJ1tS5v2HgEPlbkHy5ROEzDJYx5yw0E59nYNuYPEZ2TKuk/SSrbBbX0l7/BzQwE8teAVlr/RMlBfYOFew9xgGI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791968507; c=relaxed/simple;
-	bh=aZ70Bda2wR4tgUkkfG3mO3arhPKAoD3lBwt1ddMtEwQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XHFtYFolKLgv4wbkUhzMntkRCZ2/Ccf5LwyKAaOB8zKP7X51R8iMOkAGc+55QhjfCKZGkpPXYeoPlx6XZ51LFpaQ/3sUwBzrKxcmzOmxzTASQ+lVU/2ji1P7GeB88pKEGALMiXcaHwZGXxJkMuMc5OHYklOCEqyx+U8tWj+B0ic=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Q+kttkgp; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791968510; c=relaxed/simple;
+	bh=fK4EBgbsh8y/ygyHTRLW2d0pik1a4U3geawr9D0Cotw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XJ3D8LaCSV/okzl6y2eilwKUMtfjizkNW6Rv3ekEJ6SidQqkxcZRFHgelv7R3ikKvuUhdoCcJMxwuQ8YOY8FB68XPJwxpc/xjiDGsM0uDN9N6+RUqKTzrH6VebmIdIf0r2rGPyQBQNw0Lw+4/lCEIoRVT8B5iNxS8rdK7ZVYCQc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Y1f7c/Z1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Q+kttkgp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version:
-	Content-Type; bh=aZ70Bda2wR4tgUkkfG3mO3arhPKAoD3lBwt1ddMtEwQ=;
-	b=Q+kttkgpQ0e2i8bIbagMwx/ukwEk2zKJGpJPqJmS2q7WUBuGsbhK/Q7zIBc3Ku
-	x/bhbvkxuBr2ADoU4t6XEsRfnO9fUseTOrJSaT0fD0+eG4YsNXeEFIjViZKJ70r8
-	cEhXiRpgj/jA42Aoo4IYoRyVK2lODSaePqn4odiWwls2I=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wBnBm+LRM9qglnrEQ--.9660S2;
-	Wed, 14 Oct 2026 16:59:56 +0800 (CST)
-From: Pengpeng Hou <hppiscas@163.com>
-To: anup@brainfault.org,
-	tglx@kernel.org
-Cc: alex@ghiti.fr,
-	andrew.jones@oss.qualcomm.com,
-	aou@eecs.berkeley.edu,
-	bjorn@kernel.org,
-	palmer@dabbelt.com,
-	pjw@kernel.org,
-	radu@rendec.net,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	hppiscas@163.com
-Subject: Re: [PATCH v2] irqchip/riscv-imsic: Reject overlapping group index fields
-Date: Wed, 14 Oct 2026 16:59:53 +0800
-Message-ID: <caplitmus-rv.reply.20261014.imsic-status.85740c15051c433f9f475e9a23d95636@163.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <caplitmus-rv.v2.imsic.f2c0e5bdc627451c83deb0cf7eb8834a@163.com>
-References: <caplitmus-rv.v2.imsic.f2c0e5bdc627451c83deb0cf7eb8834a@163.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Y1f7c/Z1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A81EB1F000FF;
+	Wed, 14 Oct 2026 09:01:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791968508;
+	bh=d+7qA8mWix34k0BGyINGvUZ3WOquU0CkExvHwCQqckA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Y1f7c/Z1xVNfz7w+aWA4/TrYcE5cspE0wpsRMWXzOqMHpzWtkcqC5hyx2xJbrURxs
+	 owCy6n/murUxKR4gmnmz/8eGz9Myh/MKV+NWrtY24aGMwDykiiF2/jAGfCuePR6oDi
+	 zVu2WqCjnhX3PXW8OibGWSC2JYoTFQYyXmfpfrXQ=
+Date: Wed, 14 Oct 2026 11:01:52 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Brett A C Sheffield <bacs@librecast.net>
+Cc: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org,
+	patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+	torvalds@linux-foundation.org, akpm@linux-foundation.org,
+	linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+	lkft-triage@lists.linaro.org, pavel@nabladev.com,
+	jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.18 000/621] 6.18.57-rc1 review
+Message-ID: <2026101445-announcer-unreached-bd03@gregkh>
+References: <as4kGIjqjrKzu0O0@auntie.librecast.net>
+ <2026-10-13-1-daily-reply-0014-6-18-rc1-krb5-link-failure@kernel.org>
+ <as8_EiojooHC5H-v@karahi.librecast.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wBnBm+LRM9qglnrEQ--.9660S2
-X-Coremail-Antispam: 1Uf129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjTR_rcTUUUUU
-X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbC7QzCi2rPRIweLQAA32
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <as8_EiojooHC5H-v@karahi.librecast.net>
 
-Hi Anup, Thomas,
+On Wed, Oct 14, 2026 at 10:36:34AM +0200, Brett A C Sheffield wrote:
+> On 2026-10-13 21:27, Sasha Levin wrote:
+> > > Build failing on amd64:
+> > >
+> > > /usr/x86_64-pc-linux-gnu/binutils-bin/2.47/ld: vmlinux.o: in function `gss_krb5_get_mic_v2':
+> > > (.text+0xfc2762): undefined reference to `crypto_krb5_get_mic'
+> > 
+> > Thanks for the report. The krb5 patches in the queue need a select of
+> > CRYPTO_KRB5 that was missing. Queued for 6.18.
+> 
+> Thanks.
+> 
+> Will there be an RC2?
 
-Following up on the standalone v2, which received Anup's Reviewed-by.
-It is limited to the lower-bound overlap check for a nonzero group
-index field.
-
-Could you please let me know whether it is queued or if anything else
-is needed?
-
-Thanks,
-Pengpeng
-
+Yes, let me work on that today...
