@@ -1,138 +1,137 @@
-Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 169ED4A9D62
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 20:54:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBB432264DB;
+	Wed, 14 Oct 2026 20:54:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792011277; cv=none; b=k9o9IV2Dvo3JLbkR/LyEyM9XaVsBm70wxx2xww+5nfr7h05ewk+HxROZlFBFk2CQWNgh4dAGI782FHCOQ/OoQY7d5HmNOnPqbOPSNdmyxQmjkJGs053Vw+2+cyfprrtRTcWU4VmKjsO/j2MvChTTMteiVua1BzXReIWGpeOj0/A=
+	t=1792011284; cv=none; b=VkBbdx1gV0IWrahQY7UuubKOu/qHmVCMiPtRItAyH4LuvGRf+X1lW7GFZPcuZwCg8TJJI0Cl9qUvX2JV3LHz44WKPtjkZNHWkqO7E+1CAjEi4EqiGR10KcuKgWrV6G8AbhFSyBcoFDNd3iC/7ep7Cjf0InvkxE6b6xURp0LGK1Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792011277; c=relaxed/simple;
-	bh=4KW72QuKC9gmv1jraMYGyizq1JNJIfjBAssCJEpMUQE=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=UhmbyVlh4EeH1CRwuOUWJWN9JOYSIKckMHUCMTnfBX8+ryYAk9R/8x7Wz/sIWly+EG0CdWiXfI9K0bwgoVXq1pM97+3IKPjcnHVVG7c7KQH+mHTxJTPek4LuCfT7LZBOv9OMDxvjt+CeKqmKe0O3W/n/aqzk1AegLo+UyrVMjZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=mlsfcTY3; arc=none smtp.client-ip=96.67.55.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
+	s=arc-20240116; t=1792011284; c=relaxed/simple;
+	bh=9e0mQsG/wEc0Zpu2eLdaADpGRem0UDrhmVItnw7pkx4=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=nr65JuiuWctu2/mllVoPvHpXdpnlwdw2eNtm671Ro9O9ZaBpQx0AtuYSheygthq8NRpi6dchvJA4bcolfSR/pwMz38jM9t11e4P+7VTEZjxsxd+8dUzg40ntuwe4W5eQCW1nilxG5GQjMjGAxxi2II0I4J0oAFfxqjJ+WZlF5Qg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dj1b+9y8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="mlsfcTY3"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
-	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID; bh=nDxZe5zkbk1pmGSLhA7tLfIExZwUZ0obZcnML/ZunGs=; b=mlsfcT
-	Y3ePSJP/O8uZJ3sGdAzB8HRGmMsa9DMIwYZe3Wb0uhIyu7BGynAAxMkvzlc8osprofyVObT62geNO
-	cUXorem5pPYeNg9q2h4j1ICTEsVU0njVVYiBiD6zwL2SOfcrLoL6YJKtxaW6Umev9EmqrgyAcXS77
-	zmOl2Uddms80l5ls6TL6MHAxKEAMCvzQWOWZ9FsRhwXRxfOINABGo2u46O7vhuaz7j5862ZCoKZLR
-	C5sHmwxKC2e8W6Ah6EYE1Ggige664IwgZYqVLZhiqHnRAmZ/kq620sT8nnOrJs8CuBGWX4rptQLLS
-	xI7iTlkELzdyByW9w9WCkXvJh1bw==;
-Received: from [2601:18c:8100:a0e0:2541:b86e:2586:d219]
-	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <riel@surriel.com>)
-	id 1xH5z6-00000007lrR-3Dab;
-	Wed, 14 Oct 2026 20:54:00 +0000
-Message-ID: <5234543d2c1b44706501d2e079b41e95a6a1d200.camel@surriel.com>
-Subject: Re: [RFC PATCH 3/5] mm/page_alloc: convert any movable pageblock on
- a non-movable allocation
-From: Rik van Riel <riel@surriel.com>
-To: Johannes Weiner <hannes@cmpxchg.org>
-Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
-  Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan
- <surenb@google.com>, Michal Hocko <mhocko@suse.com>,  Brendan Jackman
- <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>, Kairui Song
- <kasong@tencent.com>, Qi Zheng	 <qi.zheng@linux.dev>, Shakeel Butt
- <shakeel.butt@linux.dev>, Barry Song	 <baohua@kernel.org>, Axel Rasmussen
- <axelrasmussen@google.com>, Yuanchu Xie	 <yuanchu@google.com>, Wei Xu
- <weixugc@google.com>, Baoquan He	 <baoquan.he@linux.dev>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, David Hildenbrand <david@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Mike Rapoport <rppt@kernel.org>, linux-mm@kvack.org
-Date: Wed, 14 Oct 2026 16:53:59 -0400
-In-Reply-To: <20261014204836.GI371161@cmpxchg.org>
-References: <20261007021250.1665929-1-riel@surriel.com>
-	 <20261007021250.1665929-4-riel@surriel.com>
-	 <20261014204836.GI371161@cmpxchg.org>
-Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
- keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
- eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
- Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
- lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
- dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
- mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
- gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
- r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
- WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
- 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
- Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
- +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
- g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
- KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
- fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
- 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
- G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
- okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
- TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
- cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
- omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
- QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
- c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
-Content-Type: text/plain; charset="UTF-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dj1b+9y8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EE831F000C4;
+	Wed, 14 Oct 2026 20:54:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792011283;
+	bh=hOKvf2BuGgn2g83SjppeWyUUE9tZVIPioO/Q2LehBQI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=dj1b+9y8gSkJXfHZbS0gLpY44j944eUT8bjhVQSuY5FMOdt9ukLVCJ1E30ey/pUcU
+	 T1GBXfnzHoZw9/8SP2jU2csSqekxiAu3E7C39kW4lfyA3lwMVywD/I2ialEKpBQ1Nj
+	 G116zhrF27F9GgiWz4lREA4C4n5YI5qdt8KwsjU3jZf4LSpcVEtiYKwKDyYkq9DKsF
+	 vVU5+yDlmlZKKaH6Fcf7PxIK1Cz7trUgrQzOMPQZJgsrooKi/Q+Os9kbaFVm+tO8rs
+	 a8NFDPghqBNX3ISLETO7Tv2xFIRDvhdhq3jAElWiSo3mtyIfK47XGdJ1rwPXnFlQkP
+	 dF2wtvG8YS2JA==
+Message-ID: <sashiko-outbox-171911@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net v3] net: do not let defer_count outlive an empty
+ defer_list
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Joseph Kain" <jkain@nuro.ai>
+Cc: linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+In-Reply-To: <20261013205416.3417296-1-jkain@nuro.ai>
+References: <20261013205416.3417296-1-jkain@nuro.ai>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+Date: Wed, 14 Oct 2026 20:54:42 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
 
-On Wed, 2026-10-14 at 22:48 +0200, Johannes Weiner wrote:
-> On Tue, Oct 06, 2026 at 10:12:48PM -0400, Rik van Riel wrote:
-> > try_to_claim_block() converts a movable pageblock for a non-movable
-> > allocation only when half its pages are free or compatible.
-> > Otherwise the steal path takes pages without converting, and
-> > non-movable content sits in a block still typed movable.
-> >=20
-> > Convert a movable block on any non-movable claim, however few of
-> > its pages are free, so the block's type matches the allocation it
-> > serves.
-> >=20
-> > When other pages in the block are freed later, they end up on the
-> > non-movable free lists, directing more non-movable allocations to
-> > the already non-movable page blocks.
-> >=20
-> > Converting a non-movable pageblock to movable is made stricter:
-> > a movable claim takes a non-movable block only when every page
-> > is free or movable.
-> >=20
-> > Blocks straddling a zone edge are never claimed;
-> > zone_spans_pageblock() tests for a block wholly inside its zone.
-> >=20
-> > Assisted-by: LLM
-> > Signed-off-by: Rik van Riel <riel@surriel.com>
->=20
-> I like this in theory, but wonder how this behaves in practice.
->=20
-> The block is claimed, but the movable constituents aren't proactively
-> kicked out.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] net: skb_attempt_defer_free() counter underflow permanently disabl=
+es deferral
+--
 
-I have code for that, too, but it seems like
-it's a lot easier to get things reviewed in
-small portions.
+commit df0f58555dfa5a46b25a9ac548d9384905fe6da3
+Author: Joseph Kain <jkain@nuro.ai>
 
-If you want I can resend this as a larger
-series, with:
-1) the pageblock claiming
-2) per migrate type free lists
-3) evacuation of movable pages from unmovable=C2=A0
-   pageblocks, when the kernel free lists fall=C2=A0
-   below a watermark
+net: do not let defer_count outlive an empty defer_list
 
-That would be the full extent of the 2MB granularity
-fragmentation avoidance stuff I have here.
+This commit addresses an issue where the skb deferral counter could outlive
+the items in the defer_list. It undoes the increment on the reject path
+and reorders the clear and drain operations during a flush to prevent
+transient over-counts.
 
-Just let me know your preference.
+> diff --git a/net/core/dev.c b/net/core/dev.c
+> index e76762e29360e..a5912b728ddd7 100644
+> --- a/net/core/dev.c
+> +++ b/net/core/dev.c
+
+[ ... ]
+
+> @@ -6940,8 +6940,11 @@ static void __skb_defer_free_flush(struct skb_defe=
+r_node *sdn, int budget)
+> =20
+>  	if (llist_empty(&sdn->defer_list))
+>  		return;
+> -	atomic_long_set(&sdn->defer_count, 0);
+>  	free_list =3D llist_del_all(&sdn->defer_list);
+> +	/* Racy on purpose, as in __dev_xmit_skb(): a producer landing between
+> +	 * the del_all and this store stays queued but uncounted.
+> +	 */
+> +	atomic_long_set(&sdn->defer_count, 0);
+
+[Severity: High]
+Could this unconditional zeroing wipe out the increments of producers that=
+=20
+are currently delayed on the reject path?
+
+> =20
+>  	llist_for_each_entry_safe(skb, next, free_list, ll_node) {
+>  		prefetch(next);
+
+[ ... ]
+
+> diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+> index 41beaf625421a..e45e15506283b 100644
+> --- a/net/core/skbuff.c
+> +++ b/net/core/skbuff.c
+
+[ ... ]
+
+> @@ -7392,8 +7392,13 @@ nodefer:	kfree_skb_napi_cache(skb);
+>  	defer_max =3D READ_ONCE(net_hotdata.sysctl_skb_defer_max);
+>  	defer_count =3D atomic_long_inc_return(&sdn->defer_count);
+> =20
+> -	if (defer_count >=3D defer_max)
+> +	if (defer_count >=3D defer_max) {
+> +		/* Undo, or the count outlives the skbs it was counting: the
+> +		 * reject path never reaches kick_defer_list_purge() below.
+> +		 */
+> +		atomic_long_dec(&sdn->defer_count);
+>  		goto nodefer;
+> +	}
+
+[Severity: High]
+Can this decrement race with the flush and permanently disable deferral due=
+=20
+to a counter underflow?
+
+If multiple producers concurrently increment the counter past the maximum,=
+=20
+they will all prepare to decrement. If a flush operation then runs on the=20
+target CPU, empties the list, and unconditionally sets the counter to zero=
+=20
+in __skb_defer_free_flush(), the delayed producers will then execute this=20
+decrement.
+
+Because the counter is an unsigned long, this drops the value below zero=20
+and wraps it to a very large number. The next time a producer attempts to=20
+defer an SKB, the incremented count will still be above the maximum, so it=
+=20
+will be rejected without queuing. Since no SKBs are ever queued again, the=
+=20
+empty list check in __skb_defer_free_flush() remains true, causing future=20
+flushes to return early and never recover the wrapped counter.
 
 --=20
-All Rights Reversed.
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013205416.3417=
+296-1-jkain@nuro.ai?part=3D1
