@@ -1,437 +1,186 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1E084B827E;
-	Wed, 14 Oct 2026 12:09:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B8634E3234
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:09:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791979795; cv=none; b=nx7bK0sYwpO2fH90enjRn/kwKWyRp9DtW7cNWDC95IW2sJHPSGg9HC+Vt/6BKZQto1UApaqDS1jmed8BO6mRmfRL8EC7Y7xYXRirt1RZRI+aflYYKFFyP+s4xxwp2JtI1KBoSbm6ROY8smZQ01cV3ZCCVAB8VWKMTRGCLUNODZ8=
+	t=1791979797; cv=none; b=QD+cforeEPHCuRaKojUQTuFJaBu6WrNuVramr3WV5q9a9M6M/48dSSAHcbvb3zFYPV399nYMYxsoSiXqRs/FRAMJcj77dsehkLiiOHTi8gktM4W0R0HPziQpZtQ/r8FMyDhOcntAGuO14TJUAQO4iI5GZvZsXamrFOQ7dR93xu4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791979795; c=relaxed/simple;
-	bh=4rjJqh+qlFIt1PkHdtoFfAxPFK/z/MI8sNURdjErsvs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nzVskcu4iWEUNsYXoLDiHgRBrNNgfloyWxvyIH8+EADANJqACnWCFuTtx3Dwe4fMrBe6jr5OCHmQ2gD5q/iLry4TiyZTytWJpTR4OaUPWlRB1NPEMz+lcMdCSRTcIzZ1jgaML9KY+3R+5oQDmQRhpiFxUVqsNkOoFslCV9HyS+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=e6QYeMly; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=Tyzs/yEa; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=2dF0wrT0; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=jdy6FgGG; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1791979797; c=relaxed/simple;
+	bh=XqXYi6i5weM3CECcTlhKwAMVjyjTUzcxZkU/xTOwNdU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Mut2vlbAJsctpwK2gicz9BOuDieUe4mDjpBsJRMZehI28IwG4f59pr4PkR4pW/YLz4s+/B5TXa4AhhswBnpcs/T4J6unh9zRg8d9dTMm6uFRq+h2aowQmT/DarV9ipMbujhG9SRQiFJ8DyEvNAYCajNJz4boSedU4N2cAezkOJE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KrZIx90i; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NRcnBAwU; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="e6QYeMly";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="Tyzs/yEa";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="2dF0wrT0";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="jdy6FgGG"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 9A8DB1FB16;
-	Wed, 14 Oct 2026 12:09:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791979791; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8FG5Tah1XFpijIMiq2vBWdaYOek2OfSTBQJQ4IjqohI=;
-	b=e6QYeMlyErvroqgWWLsoabOGbYpqE+ml/27X9Kb9Mx9eG8XpJrXdMZSHyPipaqvWdOwRix
-	LUswbPM38pCqmHj0DkJscpjwHFhfdF07hEejDWBj8lm/SJW/ccLY+WXJmd/Zuj4jLocsbL
-	pPdjU66DcMqcN39pH2fPU7kBBEyvUf0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791979791;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8FG5Tah1XFpijIMiq2vBWdaYOek2OfSTBQJQ4IjqohI=;
-	b=Tyzs/yEa2Hir3/5hezH+6xh/1fOZDkKAeK2HeZpFtSX9jWSxlmMuTIpChWYhzUD5YhH2Jv
-	hzup+InVPVEe5pAg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=2dF0wrT0;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=jdy6FgGG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791979790; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8FG5Tah1XFpijIMiq2vBWdaYOek2OfSTBQJQ4IjqohI=;
-	b=2dF0wrT0CdwJsq2qHRGWGrNOtSEkCs3DDIt/hsDiPnp+7NYniZ4gAzZwwQx+OD+0K/1mLY
-	vhpuEyOl5lypxdjYGL4VFZGairFBw2xdHvbfh2TRzmY1Q18NGazkBwZ6mWdCqZq0DEqk1e
-	BAD+POMnezJphMyAbIAtS8AXw5i4uBE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791979790;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8FG5Tah1XFpijIMiq2vBWdaYOek2OfSTBQJQ4IjqohI=;
-	b=jdy6FgGGAz2LbRNEV9BtK6Js0l2B1fA0/8UbgHr8DE/LKAESVh8KRy9UgbgEt4i480KyQp
-	wX6Q4Rn0F79NW3CQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 42CCD1373B;
-	Wed, 14 Oct 2026 12:09:50 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id PgImBw5xz2rcYgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Wed, 14 Oct 2026 12:09:50 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 10904A1410; Wed, 14 Oct 2026 09:50:11 +0200 (CEST)
-Date: Wed, 14 Oct 2026 09:50:11 +0200
-From: Jan Kara <jack@suse.cz>
-To: Liz Fong-Jones <lizf@honeycomb.io>
-Cc: Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
-	Tejun Heo <tj@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Jens Axboe <axboe@kernel.dk>, Andrew Morton <akpm@linux-foundation.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Xin Yin <yinxin.x@bytedance.com>, linux-fsdevel@vger.kernel.org, 
-	linux-mm@kvack.org, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	ian@honeycomb.io
-Subject: Re: [PATCH v6 2/3] writeback: let foreign flushes reach dying cgwbs
-Message-ID: <t62ngd3bfuqgu4542jcsqp5mtahopcyd4dmkjk6c5kzepqvs4d@spdimb7v5iah>
-References: <20261002-wb-dying-cgwb-flush-v6-0-1991b4e2dcff@honeycomb.io>
- <20261002-wb-dying-cgwb-flush-v6-2-1991b4e2dcff@honeycomb.io>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KrZIx90i";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NRcnBAwU"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69E7BXcT2874361
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:09:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	cKe/cXeBwiU+47rxyqBvKFaQLQS2FC5SS1uRMC3gpUA=; b=KrZIx90is89wzscO
+	37l80+9vWDnpqO29ftNSCGN4L3wg3L1iIQn9kjlwfhYSbK4zh9SUW9+bHLaN/9qN
+	YQB77GhruIq5Z3+4OHxuA7VHQjArdhHAXYe3UcX6wQEdaFntzEEtU+UsUqFstAfr
+	XbZrkM0fYcyUuswfU1YBBlEGFWMEvQk9YaMCfvlMs2XY5CFQRBnzMoyApNjj9Vq2
+	c0HZ3gTwTuzdqxJjLsAQRG+F1V2rDRL9nlu/2v4jv7nSU3jvun+DRrbyvWiYRzki
+	ppJOFYtPSu9MJ+XZXZdhJ/v7bYJxFC9Su+7GtwREdZYVh+Ey0EAqz+a4FidPESZE
+	Z3KGbQ==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9yphjeg4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:09:55 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2cfc52ddc55so9963935ad.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 05:09:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791979794; x=1792584594; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cKe/cXeBwiU+47rxyqBvKFaQLQS2FC5SS1uRMC3gpUA=;
+        b=NRcnBAwUOit5VZu6RQMYjX82uA+ouINbVB+Qv7TSZwGqbw9W9hDUcszgklvtk+eFOT
+         0lKXV5yYzpskx6LYSqiJPSidv8h6W/pTQFyjnUk2cj4HkTv/N7EQGZbyNfBnU9TgFs0A
+         zwUmZ/xqfg4D2N7WrAuygFVw0IyO4DfxsyDhKcnxPcekHm6/Xkw7Pmx1Gq/iJ2JRQRcX
+         9rZ5DYsgxZHJuu5ADL1LVKgd6KiD1WUwDCezq+EAAyPa5BDgnNNvagjDY8W8Hhkd7PPO
+         UV/fS1vvRcwR5Ig/x6bNIVp2FVs43UjX8HNrdkbHr52Di3bNJw8EicPPRP3h53yXp1SL
+         jkGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791979794; x=1792584594;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cKe/cXeBwiU+47rxyqBvKFaQLQS2FC5SS1uRMC3gpUA=;
+        b=Jb7UkSI1FFnTu92YsSkTIPHdY8hRtuSRVHKHvcWp0IQkIP9qz6p07u0e6ecRLeRHSR
+         BVaUBErkvZSktFaV05PL8zjnpxnO9477x7hNL+1Oj8E26MiFCJ7+oXsO0e1wlLGe7144
+         hD7NNhlOsnPElZy6VnGGsGfoJEOWJ5RDxKPmHhRr7srQw9D/uEKBwDc+f0eQvLdW4R0l
+         +KMxspresUOzE7FBh0YQNqTNbXEPjPp7q5LvUE+bnbjSB2RLdag9KWXGMF23JedZHA6j
+         Ub2CX5jYeWF2XxXhjS26EpTh4jcBkWGm2Sb4nlBTzoZCLHfUmTHL7VcQswvZB1S80M4m
+         xPLQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx0wy9q/nsFtmzj6NRPV5ME8HFwaJqbNvRR4ha4dHXVCAweCLGvW+BoYGAx02uXT7SNX6qpuN9CjSm2370=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJUAxsNLZU8pXRUE1F6i26b1hekAykWNIxM/eaiSlLMfllKyUVr
+	pSpJYuCkMEbmtjg+3mXfWnGECq5Nq6EyrEozGPmFt9R+mNAkqDnEX3+x/wK7V/yKu0JC6tqe/Uo
+	riWO/s2Qj4go/FKcCJPLMK6OTbZUaUgrqInlstG55knsmVZtlIdvtpm+3Uk2TyXiHYmk=
+X-Gm-Gg: AYBFou1jDmG5ge5CoQz6U6No57Gmc/EjAZ0tyogMuNDE/R+zohHU4lPpyhH++HqAh4i
+	sz6cutMKpSDb9kO/TQfGmRONa1siGpZVSdZmse16Uddwkay7QpQ/IW05aI0whRMbU350ORU9bhz
+	qvqPTR8OelIh/F8LjinuA3NsWeXYW6oYscK6h4XBtCp70m0/g6ddMobvS/BYJWdo/WG+cjAUY9H
+	C77ZKeCX3tjabnOQ82YIvHod+l6lA/KjrGkPY8H6Y9OIFr9nxfcWYgogiS5d7wZ4CMWlEwM9Scq
+	7k0FsAndqHBj0QS8J0B2JZbZ0wjCX0QDUM969O4Zi3PovP6z/6Em3hvViEA3HFg1Eeyf9QsSYSY
+	jGErdocheIbO4Vd0pwBar0uSPvTMDxwZtBPwf
+X-Received: by 2002:a17:903:b0d:b0:2e8:9820:80cf with SMTP id d9443c01a7336-2e898208342mr98953175ad.58.1791979794020;
+        Wed, 14 Oct 2026 05:09:54 -0700 (PDT)
+X-Received: by 2002:a17:903:b0d:b0:2e8:9820:80cf with SMTP id d9443c01a7336-2e898208342mr98952775ad.58.1791979793537;
+        Wed, 14 Oct 2026 05:09:53 -0700 (PDT)
+Received: from [10.217.240.130] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e841a02f85sm68385425ad.10.2026.10.14.05.09.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 14 Oct 2026 05:09:53 -0700 (PDT)
+Message-ID: <a121c425-7046-4a08-b746-908d5a3ef3d7@oss.qualcomm.com>
+Date: Wed, 14 Oct 2026 17:39:47 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261002-wb-dying-cgwb-flush-v6-2-1991b4e2dcff@honeycomb.io>
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 9A8DB1FB16
-X-Rspamd-Action: no action
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_TWELVE(0.00)[16];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.cz:email,suse.cz:dkim,suse.com:email,honeycomb.io:email];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+]
-X-Spam-Flag: NO
-X-Spam-Score: -4.01
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] dt-bindings: arm: qcom: Add Talos Lyra EVK board
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>,
+        Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
+References: <20261012-talos-lyra-evk-v2-v2-0-dcc9316ebb59@oss.qualcomm.com>
+ <20261012-talos-lyra-evk-v2-v2-1-dcc9316ebb59@oss.qualcomm.com>
+ <1cb252eb-a7d9-4eac-8d28-8d7781ea430d@kernel.org>
+ <2c93f85d-a6f0-420a-9b7d-cd72a7963ab8@oss.qualcomm.com>
+ <ca132d7b-a0d5-44f2-8b98-24570a88c9ce@kernel.org>
+Content-Language: en-US
+From: Ruchira Revdekar <ruchira.revdekar@oss.qualcomm.com>
+In-Reply-To: <ca132d7b-a0d5-44f2-8b98-24570a88c9ce@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: iOktbSF1FI6HWQM2rMatmQxhZF1Kd349
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA0OCBTYWx0ZWRfX2rDkaDQ6tfq7
+ khSwNtpgwkZ/8z8E9Xw3tS0KVM7PLKrfs5K37OMY2wI5vTN0Z4iuDQW1ZOyGloEE8wYQNcXeELu
+ jOsgyNyvIUiHQe1AJ9rKrXzS5Oo0JQ4=
+X-Proofpoint-ORIG-GUID: iOktbSF1FI6HWQM2rMatmQxhZF1Kd349
+X-Authority-Analysis: v=2.4 cv=Uv72pOwB c=1 sm=1 tr=0 ts=6acf7113 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=-yIWcSpDq7JthD1KhtsA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA0OCBTYWx0ZWRfX7jyaBvKvkjFU
+ cRQiIW06kfaqKdhl0R/j0DCeeVLCg4mvS5s5VZ5fmKyyPSWdqYAXpigROextDZQoQyJ43UAWdhn
+ 1DZUDiMm6/PHWDG6QDsXumvSBYXc0xorvIizN4fg1rMTKK8vBQvg6yC9+4T0d9ykOydkjLawYV1
+ y/5Bg4J76wr0lAXpCqJO5pk7CM3VUPMplfUgSMLKlToy5lnba1SUK4haVa4tJiO/yOMj6L3Bjs/
+ uVBK85txMuU2bTo0z47bBO9nVOCDdONuWWvvH9Kfz6Cb94qbBXuCmuuUad2rbuXh6Znuk/OT29A
+ XyI8J0ZCh8yeYncPAiC+avCtFIFVtIhzCixESeuy/je1dAIuTISMUcFbh9bbGj4Q2HIQhF7+m/r
+ KzNPIv9TiXFOe2D7UIv98PZnJBI5JOlAb+7xyZMmNy8RGQGKAep/pK8B+CV4HPuLj1KeABHhjtd
+ rul0ge1rS1Ny/23gFbg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 clxscore=1015 priorityscore=1501
+ suspectscore=0 malwarescore=0 spamscore=0 adultscore=0 bulkscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610140048
 
-On Fri 02-10-26 21:40:46, Liz Fong-Jones wrote:
-> When a container is replaced and the new one keeps appending to files
-> the old one left dirty, the new one can stall in balance_dirty_pages()
-> for seconds to minutes, with little CPU use and its write lag growing
-> linearly before it recovers. This matches a 30-60s stall after each
-> deploy of a container at Honeycomb that reads from Kafka and writes
-> columnar files to a host volume.
-> 
-> Trigger: a cgroup dirties files and is removed while they are still
-> dirty, and a sibling keeps appending to the same files under a parent
-> memory limit. cgwb_kill() takes the removed memcg's wbs out of
-> bdi->cgwb_tree, but the inodes stay attached to them, so the sibling's
-> foreign flushes fail with -ENOENT in wb_get_lookup().
-> 
-> Keep killed wbs in bdi->cgwb_tree until they are released, so that
-> cgroup_writeback_by_id() finds them through the regular lookup. The
-> creation paths skip dying wbs, and a new wb takes over the slot of a
-> dying one when the memcg's blkcg association changes; release only
-> removes a wb that still owns its slot. The blkcg association check moves
-> from wb_get_lookup() to the creation side: once a memcg with io enabled
-> is removed, cgroup_get_e_css() returns an ancestor's io css and its
-> dying wb would not match.
-> 
-> With commit 168a8c13159c ("writeback: size foreign flushes by target
-> wb dirty pages"), the flush is then sized from the wb's own dirty
-> pages and writes out what the replacement dirtied.
-> 
-> Test, on top of that commit: a cgroup appends to 1000 files at
-> 250MiB/s and is removed, then a second cgroup keeps appending to the
-> same files under a 4G parent limit. Worst lag of the second writer
-> behind schedule over 120s, in three runs:
-> 
->   without this patch   85.3s  46.9s  52.1s
->   with this patch       1.0s   1.2s   1.2s
-> 
-> Suggested-by: Tejun Heo <tj@kernel.org>
-> Assisted-by: Claude:claude-opus-5-5 checkpatch sparse
-> Assisted-by: Claude:claude-fable-5-1
-> Acked-by: Tejun Heo <tj@kernel.org>
-> Signed-off-by: Liz Fong-Jones <lizf@honeycomb.io>
+Hi Krzysztof,
 
-Looks good. Feel free to add:
-
-Reviewed-by: Jan Kara <jack@suse.cz>
-
-								Honza
-
-> ---
->  include/linux/backing-dev-defs.h | 22 ++++++++--
->  include/linux/backing-dev.h      |  2 +-
->  mm/backing-dev.c                 | 90 ++++++++++++++++++++++++++++++----------
->  3 files changed, 86 insertions(+), 28 deletions(-)
+On 13-10-2026 15:04, Krzysztof Kozlowski wrote:
+> On 13/10/2026 11:32, Ruchira Revdekar wrote:
+>> Hi Krzysztof,
+>>
+>> On 12-10-2026 16:54, Krzysztof Kozlowski wrote:
+>>> On 12/10/2026 08:16, Ruchira Revdekar wrote:
+>>>> From: Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>
+>>>>
+>>>> Add the qcom,talos-lyra-evk compatible string for the Talos Lyra EVK
+>>>> board, which pairs the Talos Lyra EVK SoM with a common carrier board.
+>>>>
+>>>> Tested-by: Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
+>>>
+>>> No, this did not happen.
+>>>
+>>> Please do not add inapplicable/fake tags.
+>>>
+>>>
+>>> Best regards,
+>>> Krzysztof
+>>
+>> Apologies. The tag was added based on internal validation but Nirmesh
+>> had not yet formally posted it to the mailing list at the time of
+>> submission. That was a mistake on our part.
+>>
+>> Nirmesh has since replied to this thread with his formal Tested-by:
+>>
+>> Tested-by: Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
+>>
+>> will include it correctly in v3. The same applies to the identical
+>> tag in patch 2.
 > 
-> diff --git a/include/linux/backing-dev-defs.h b/include/linux/backing-dev-defs.h
-> index 4f1084937315..33e06b1b1e1c 100644
-> --- a/include/linux/backing-dev-defs.h
-> +++ b/include/linux/backing-dev-defs.h
-> @@ -100,8 +100,10 @@ struct wb_completion {
->   * refcounted with the number of inodes attached to it, and pins the memcg
->   * and the corresponding blkcg.  As the corresponding blkcg for a memcg may
->   * change as blkcg is disabled and enabled higher up in the hierarchy, a wb
-> - * is tested for blkcg after lookup and removed from index on mismatch so
-> - * that a new wb for the combination can be created.
-> + * is tested for blkcg after lookup and killed on mismatch so that a new wb
-> + * for the combination can be created.  A killed wb stays in the index until
-> + * it is released or a new wb takes over its slot, so that foreign flushes
-> + * can still reach it.
->   *
->   * Each bdi_writeback that is not embedded into the backing_dev_info must hold
->   * a reference to the parent backing_dev_info.  See cgwb_create() for details.
-> @@ -196,7 +198,7 @@ struct backing_dev_info {
->  	struct bdi_writeback wb;  /* the root writeback info for this bdi */
->  	struct list_head wb_list; /* list of all wbs */
->  #ifdef CONFIG_CGROUP_WRITEBACK
-> -	struct radix_tree_root cgwb_tree; /* radix tree of active cgroup wbs */
-> +	struct radix_tree_root cgwb_tree; /* radix tree of cgroup wbs, incl. killed */
->  	struct mutex cgwb_release_mutex;  /* protect shutdown of wb structs */
->  	struct rw_semaphore wb_switch_rwsem; /* no cgwb switch while syncing */
->  #endif
-> @@ -229,6 +231,17 @@ static inline bool wb_tryget(struct bdi_writeback *wb)
->  	return true;
->  }
->  
-> +/**
-> + * wb_tryget_live - try to increment a wb's refcount if it hasn't been killed
-> + * @wb: bdi_writeback to get
-> + */
-> +static inline bool wb_tryget_live(struct bdi_writeback *wb)
-> +{
-> +	if (wb != &wb->bdi->wb)
-> +		return percpu_ref_tryget_live(&wb->refcnt);
-> +	return true;
-> +}
-> +
->  /**
->   * wb_get - increment a wb's refcount
->   * @wb: bdi_writeback to get
-> @@ -271,7 +284,8 @@ static inline void wb_put(struct bdi_writeback *wb)
->   * wb_dying - is a wb dying?
->   * @wb: bdi_writeback of interest
->   *
-> - * Returns whether @wb is unlinked and being drained.
-> + * Returns whether @wb has been killed and is being drained.  A dying wb may
-> + * still be in bdi->cgwb_tree, see cgwb_kill().
->   */
->  static inline bool wb_dying(struct bdi_writeback *wb)
->  {
-> diff --git a/include/linux/backing-dev.h b/include/linux/backing-dev.h
-> index c2284466e7aa..f7ef5895625a 100644
-> --- a/include/linux/backing-dev.h
-> +++ b/include/linux/backing-dev.h
-> @@ -222,7 +222,7 @@ wb_get_create_current(struct backing_dev_info *bdi, gfp_t gfp)
->  
->  	rcu_read_lock();
->  	wb = wb_find_current(bdi);
-> -	if (wb && unlikely(!wb_tryget(wb)))
-> +	if (wb && unlikely(!wb_tryget_live(wb)))
->  		wb = NULL;
->  	rcu_read_unlock();
->  
-> diff --git a/mm/backing-dev.c b/mm/backing-dev.c
-> index cecbcf9060a6..85b2c95a920c 100644
-> --- a/mm/backing-dev.c
-> +++ b/mm/backing-dev.c
-> @@ -614,6 +614,12 @@ static void cgwb_release_workfn(struct work_struct *work)
->  						release_work);
->  	struct backing_dev_info *bdi = wb->bdi;
->  
-> +	scoped_guard(spinlock_irq, &cgwb_lock) {
-> +		/* a newer wb may have taken the slot, see cgwb_create() */
-> +		radix_tree_delete_item(&bdi->cgwb_tree, wb->memcg_css->id, wb);
-> +		list_del(&wb->offline_node);
-> +	}
-> +
->  	mutex_lock(&wb->bdi->cgwb_release_mutex);
->  	wb_shutdown(wb);
->  
-> @@ -627,10 +633,6 @@ static void cgwb_release_workfn(struct work_struct *work)
->  
->  	fprop_local_destroy_percpu(&wb->memcg_completions);
->  
-> -	spin_lock_irq(&cgwb_lock);
-> -	list_del(&wb->offline_node);
-> -	spin_unlock_irq(&cgwb_lock);
-> -
->  	wb_exit(wb);
->  	bdi_put(bdi);
->  	WARN_ON_ONCE(!list_empty(&wb->b_attached));
-> @@ -645,11 +647,16 @@ static void cgwb_release(struct percpu_ref *refcnt)
->  	queue_work(cgwb_release_wq, &wb->release_work);
->  }
->  
-> +/*
-> + * A killed wb stays in bdi->cgwb_tree until it is released or replaced in
-> + * cgwb_create(), so that foreign flushes can still find it through
-> + * wb_get_lookup().  Inodes attached to it can keep collecting dirty pages
-> + * from other memcgs until they are written back and switched away.
-> + */
->  static void cgwb_kill(struct bdi_writeback *wb)
->  {
->  	lockdep_assert_held(&cgwb_lock);
->  
-> -	WARN_ON(!radix_tree_delete(&wb->bdi->cgwb_tree, wb->memcg_css->id));
->  	list_del(&wb->memcg_node);
->  	list_del(&wb->blkcg_node);
->  	list_add(&wb->offline_node, &offline_cgwbs);
-> @@ -669,7 +676,8 @@ static int cgwb_create(struct backing_dev_info *bdi,
->  	struct mem_cgroup *memcg;
->  	struct cgroup_subsys_state *blkcg_css;
->  	struct list_head *memcg_cgwb_list, *blkcg_cgwb_list;
-> -	struct bdi_writeback *wb;
-> +	struct bdi_writeback *wb, *old_wb;
-> +	void __rcu **slot;
->  	unsigned long flags;
->  	int ret = 0;
->  
-> @@ -681,6 +689,8 @@ static int cgwb_create(struct backing_dev_info *bdi,
->  	/* look up again under lock and discard on blkcg mismatch */
->  	spin_lock_irqsave(&cgwb_lock, flags);
->  	wb = radix_tree_lookup(&bdi->cgwb_tree, memcg_css->id);
-> +	if (wb && wb_dying(wb))
-> +		wb = NULL;
->  	if (wb && wb->blkcg_css != blkcg_css) {
->  		cgwb_kill(wb);
->  		wb = NULL;
-> @@ -727,8 +737,22 @@ static int cgwb_create(struct backing_dev_info *bdi,
->  	spin_lock_irqsave(&cgwb_lock, flags);
->  	if (test_bit(WB_registered, &bdi->wb.state) &&
->  	    blkcg_cgwb_list->next && memcg_cgwb_list->next) {
-> -		/* we might have raced another instance of this function */
-> -		ret = radix_tree_insert(&bdi->cgwb_tree, memcg_css->id, wb);
-> +		/*
-> +		 * We might have raced another instance of this function.  A
-> +		 * dying wb keeps its slot until released; take it over.
-> +		 */
-> +		slot = radix_tree_lookup_slot(&bdi->cgwb_tree, memcg_css->id);
-> +		if (!slot) {
-> +			ret = radix_tree_insert(&bdi->cgwb_tree, memcg_css->id, wb);
-> +		} else {
-> +			old_wb = radix_tree_deref_slot_protected(slot, &cgwb_lock);
-> +			if (wb_dying(old_wb)) {
-> +				radix_tree_replace_slot(&bdi->cgwb_tree, slot, wb);
-> +				ret = 0;
-> +			} else {
-> +				ret = -EEXIST;
-> +			}
-> +		}
->  		if (!ret) {
->  			list_add_tail_rcu(&wb->bdi_node, &bdi->wb_list);
->  			list_add(&wb->memcg_node, memcg_cgwb_list);
-> @@ -765,13 +789,27 @@ static int cgwb_create(struct backing_dev_info *bdi,
->   * @bdi: target bdi
->   * @memcg_css: cgroup_subsys_state of the target memcg (must have positive ref)
->   *
-> - * Try to get the wb for @memcg_css on @bdi.  The returned wb has its
-> - * refcount incremented.
-> - *
-> - * This function uses css_get() on @memcg_css and thus expects its refcnt
-> - * to be positive on invocation.  IOW, rcu_read_lock() protection on
-> - * @memcg_css isn't enough.  try_get it before calling this function.
-> - *
-> + * Try to get the wb in @memcg_css's slot on @bdi, killed or not.  The
-> + * returned wb has its refcount incremented.
-> + */
-> +struct bdi_writeback *wb_get_lookup(struct backing_dev_info *bdi,
-> +				    struct cgroup_subsys_state *memcg_css)
-> +{
-> +	struct bdi_writeback *wb;
-> +
-> +	if (!memcg_css->parent)
-> +		return &bdi->wb;
-> +
-> +	rcu_read_lock();
-> +	wb = radix_tree_lookup(&bdi->cgwb_tree, memcg_css->id);
-> +	if (wb && !wb_tryget(wb))
-> +		wb = NULL;
-> +	rcu_read_unlock();
-> +
-> +	return wb;
-> +}
-> +
-> +/*
->   * A wb is keyed by its associated memcg.  As blkcg implicitly enables
->   * memcg on the default hierarchy, memcg association is guaranteed to be
->   * more specific (equal or descendant to the associated blkcg) and thus can
-> @@ -783,8 +821,8 @@ static int cgwb_create(struct backing_dev_info *bdi,
->   * each lookup.  On mismatch, the existing wb is discarded and a new one is
->   * created.
->   */
-> -struct bdi_writeback *wb_get_lookup(struct backing_dev_info *bdi,
-> -				    struct cgroup_subsys_state *memcg_css)
-> +static struct bdi_writeback *cgwb_get_live(struct backing_dev_info *bdi,
-> +					   struct cgroup_subsys_state *memcg_css)
->  {
->  	struct bdi_writeback *wb;
->  
-> @@ -798,7 +836,7 @@ struct bdi_writeback *wb_get_lookup(struct backing_dev_info *bdi,
->  
->  		/* see whether the blkcg association has changed */
->  		blkcg_css = cgroup_get_e_css(memcg_css->cgroup, &io_cgrp_subsys);
-> -		if (unlikely(wb->blkcg_css != blkcg_css || !wb_tryget(wb)))
-> +		if (unlikely(wb->blkcg_css != blkcg_css || !wb_tryget_live(wb)))
->  			wb = NULL;
->  		css_put(blkcg_css);
->  	}
-> @@ -813,8 +851,12 @@ struct bdi_writeback *wb_get_lookup(struct backing_dev_info *bdi,
->   * @memcg_css: cgroup_subsys_state of the target memcg (must have positive ref)
->   * @gfp: allocation mask to use
->   *
-> - * Try to get the wb for @memcg_css on @bdi.  If it doesn't exist, try to
-> - * create one.  See wb_get_lookup() for more details.
-> + * Try to get the live wb for @memcg_css on @bdi.  If it doesn't exist, try
-> + * to create one.  See cgwb_get_live() for more details.
-> + *
-> + * This function uses css_get() on @memcg_css and thus expects its refcnt
-> + * to be positive on invocation.  IOW, rcu_read_lock() protection on
-> + * @memcg_css isn't enough.  try_get it before calling this function.
->   */
->  struct bdi_writeback *wb_get_create(struct backing_dev_info *bdi,
->  				    struct cgroup_subsys_state *memcg_css,
-> @@ -825,7 +867,7 @@ struct bdi_writeback *wb_get_create(struct backing_dev_info *bdi,
->  	might_alloc(gfp);
->  
->  	do {
-> -		wb = wb_get_lookup(bdi, memcg_css);
-> +		wb = cgwb_get_live(bdi, memcg_css);
->  	} while (!wb && !cgwb_create(bdi, memcg_css, gfp));
->  
->  	return wb;
-> @@ -858,8 +900,10 @@ static void cgwb_bdi_unregister(struct backing_dev_info *bdi)
->  	WARN_ON(test_bit(WB_registered, &bdi->wb.state));
->  
->  	spin_lock_irq(&cgwb_lock);
-> -	radix_tree_for_each_slot(slot, &bdi->cgwb_tree, &iter, 0)
-> -		cgwb_kill(*slot);
-> +	radix_tree_for_each_slot(slot, &bdi->cgwb_tree, &iter, 0) {
-> +		if (!wb_dying(*slot))
-> +			cgwb_kill(*slot);
-> +	}
->  	spin_unlock_irq(&cgwb_lock);
->  
->  	mutex_lock(&bdi->cgwb_release_mutex);
+> Again, this did not happen, otherwise explain me how did you execute
+> this code on the device during your "formal validation".
 > 
-> -- 
-> 2.53.0
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+
+You are right — a YAML schema change cannot be executed on hardware. I will
+ drop the Tested-by from the dt-bindings patch in v3.
+
+Thanks for the review.
+
+Best regards,
+Ruchira
