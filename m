@@ -1,125 +1,223 @@
-Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com [209.85.222.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp-out.kfki.hu (smtp-out.kfki.hu [148.6.0.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 395B150EBEB
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:56:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A78D4E8E15;
+	Wed, 14 Oct 2026 12:56:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.6.0.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791982609; cv=none; b=Rkbm9bzBLHrDbR/AjJE1F0SbMdN5tM8v1YEDvL/yEt4eooy9OubQHW74E5F3EuR9xsowpCpZiOQM3gkcJX2gp7C0c+L1xeV+AXN/d36FRUmp0kocam/Q1Z968DUjJEwxtbLthXmiSF3mOsHL8loHcpzVaxvK4HJ8N7XVBOeiVxQ=
+	t=1791982626; cv=none; b=Q1gO+C09nsiIpqoELH0Fl0cLjogSWsZICbvVR7bczXwWHLFiJx1jY9ywwa/oLMVFasyZ0H/UJzmQo5lFJTfTimr9OUQlC5FsgjSBxCo839sfSqCUwmWB49cmU8tRg0hdaHcCWp4Atj8Hmw6/7GTv2QzdDAvrA1BwzUlxPHRpCWY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791982609; c=relaxed/simple;
-	bh=hKbNvtCuW20zPS24qwqeFSP88QzdSVSwhIRmtaAANe8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=M35f2pbPihX1aKkvCMObSWXLrZ3xCqi4pO/fDNTIS3D0JBPHoRbypN61+yErGtcPTI59q+DQCksjTKFhabr+hXRocYA42p9pzkUEqBD1BM7GmH7RoPeLhCFMNXmC3xphTXVg5Xli8C3jm0iyFuxdbPZPI4rnJo4IyHyiJFHWP18=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=LdF9YJ2y; arc=none smtp.client-ip=209.85.222.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1791982626; c=relaxed/simple;
+	bh=ZlqUrwnlMOYpNHBfdwldXhW+FC3EtFNfIIu/l6ZnSiE=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=pk7cNenxdwlZ7QCYY5ceZS2QDWOPqJVLw1YJmjDEVcOZMtF+Jybx2ggKuYzxwOOHYO2YURB2GPAI9c+CiuXGJKbtWLX2ar/wUj/eczWoF4ae3r3Se5Q+mZVtvM2UiMVs4JNCCjS3j/aBIFuhMnUp4Qu20poUUlkKK0G48at35lM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=blackhole.kfki.hu; spf=pass smtp.mailfrom=blackhole.kfki.hu; dkim=pass (1024-bit key) header.d=blackhole.kfki.hu header.i=@blackhole.kfki.hu header.b=SJSBUiLq; arc=none smtp.client-ip=148.6.0.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=blackhole.kfki.hu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=blackhole.kfki.hu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="LdF9YJ2y"
-Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-93e6f83f0bbso376285985a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 05:56:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1791982591; x=1792587391; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CfEQYJS10SzxUn0KjnMduakisOWn0z9unME6AqbuJxQ=;
-        b=LdF9YJ2yd01aFOGce9ZvuUKha6pYbgfm1ZOiAlTq6dejfzy0sdx//tuhX65A6duRjm
-         D63EoaxAf1JE00dXXFNYQh6xt8qBajTic0qJ6OO8lTXQv1d4Y7s9kTTVwXBs33n27RF1
-         T7MFwUd0U4JE9eBiagzwh4kQ3WGJVpnf8s6hOxEhTZNeJAQO/alVj7IsFbXBg5vRH8Qd
-         E5d5n4CVMs4F7Y8anfgwP1+trhyoV0x/XE9skvR0Xd/iYglZymzTmlNDZU9tV8w/fW5j
-         FT+jFQyZe5SZobVZJgNUYN0Njbc1gHHbMo93h6rtWrQUX7oRnCPqUccts6AxR1MvPYZZ
-         Ad+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791982591; x=1792587391;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CfEQYJS10SzxUn0KjnMduakisOWn0z9unME6AqbuJxQ=;
-        b=K5uvCsLmqHjbscPy0hWSOklgOYTkocT79/dXNV63h5RiGQpaybTLj6kOjeisz1qx9d
-         3d7cP2cLjqUioz8JG0puDDLKrhmrnpQAQ5YwYIbqkv6mDnrAGFtAXhONuEHYFWIyAu42
-         9LQj0Uf/FyrSpc0yd1ezk3hSa4RtlppoLoa3qkpoweJK6Hoy/qTO70QhW3hG2xvw0MND
-         ywXa6uDjWfd7ES6KvFUZvCM04YfFy6IKOx37dMQbWYoxOoNGR/ftnS+wEuNOLL8D3ihK
-         deaAW/Z38LOQXpWWTNVvZcrSkplrPGom/1rts44AEHDGduNKPA3iiBqGk0iypkW4GG58
-         vtpA==
-X-Forwarded-Encrypted: i=1; AKwUvByhBbkncGnHUkDx5ivDpuP8+4uinJ340QC5/HubzXsXrelNN+pwbT5DPmh4QmtqP+tlyj9C5LQTzcT3inw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIjTFfQjt861qU8YYld50xQYnFDxGZfzKC8pk0RgGWSjswnZh3e
-	n+QWwej2bE0QfMM4e1RpT07zyiHDToQzEwmAPbijqguU/YnpjB0FmALqUhDqISxeXjE=
-X-Gm-Gg: AYBFou2BgPbAHUBFajl/rrMEmrOUeUgAnbWU4fE2G7ruK1tYngY8YpAr6KJf8C1j0uk
-	LBsnnqYIBUROyoJPptuYhzX2VAy2UQf3ssOnYeoiwM+kLrh6jBh+wervziASA7wKpaJLyUWSkgq
-	Vc3LWzRn9rkV+BclG2D2ltiaNVjDCUG9833Puh6nEgLU4Hibm7Rn3C4zaKA2wJblPCHAJ6Z1R0E
-	6qGwKEeNIlLKAK3pGutKVYJJoLUKcmCD06Z3j79ELBgv10rVAqCSg5Xpo/u7TgpZITs+Gqg2bd4
-	GIPtfMzQrOXMr60zgsDvQXd8TnJUyjPkYsOhPxI5A2sREpjnQQxGPszPJbjmzLk7RhMIHobZhFk
-	hAYVRdlJgQht6rIFeKjV5s00M77RQ6ZnuE2vhJXUnRw/NVTYA/Il+KTiYUpcOVPdEhQiGukyxDm
-	r7+5Jvm7DK+m0jyt35XkeQumpGtCykGaOULT0x6sUlM4HWX6Pp0c7IzZeAyxZy6EDJtqNRZPVOh
-	mlhzVREBlhaY0YUNGdlDzaSb46uU7ih4btYDJBztHHbMFaS4TpqKuw=
-X-Received: by 2002:a05:620a:601b:b0:939:a45b:76ee with SMTP id af79cd13be357-93ebd1dc726mr2616142685a.23.1791982590639;
-        Wed, 14 Oct 2026 05:56:30 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef50080b7sm483166685a.8.2026.10.14.05.56.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 05:56:30 -0700 (PDT)
-Date: Wed, 14 Oct 2026 08:56:28 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Li Zhe <lizhe.67@bytedance.com>
-Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, 
-	joshua.hahnjy@gmail.com, ziy@nvidia.com, mingo@redhat.com, peterz@infradead.org, 
-	mgorman@suse.de, riel@redhat.com, juri.lelli@redhat.com, 
-	vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org, 
-	bsegall@google.com, vschneid@redhat.com, kprateek.nayak@amd.com, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH 2/6] sched/numa: fix scan-period ratio denominator checks
-Message-ID: <as97rD5uxYva4ayg@gourry-fedora-PF4VCD3F>
-References: <20261014094347.99157-1-lizhe.67@bytedance.com>
- <20261014094347.99157-3-lizhe.67@bytedance.com>
+	dkim=pass (1024-bit key) header.d=blackhole.kfki.hu header.i=@blackhole.kfki.hu header.b="SJSBUiLq"
+Received: from localhost (localhost [127.0.0.1])
+	by smtp1.kfki.hu (Postfix) with ESMTP id 4j4WJk3jjNzGFDCt;
+	Wed, 14 Oct 2026 14:50:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	blackhole.kfki.hu; h=mime-version:references:message-id
+	:in-reply-to:from:from:date:date:received:received:received
+	:received; s=20151130; t=1791982228; x=1793796629; bh=Bka3a+5gc9
+	LmGmyiRJ/S4p4dH9HwrSoei/gNKkl35rg=; b=SJSBUiLqCAiAd44FhldgqaTgQs
+	5nLBHqrKVlG+9xvB5nkfyxG+t2V/ATGt1LstYYCa1uFRjxA4aTABZRp0KkHhmL1f
+	QC3RgdYRrl/Ewy4MdblvRY7GHzW7ATl0dlvfI4y9mQCUlseOaf7BUyVlzayo97kn
+	kIO/IVd4jwP2IDDdE=
+X-Virus-Scanned: Debian amavis at smtp1.kfki.hu
+Received: from smtp1.kfki.hu ([127.0.0.1])
+ by localhost (smtp1.kfki.hu [127.0.0.1]) (amavis, port 10026) with ESMTP
+ id N5TZgdhswmsj; Wed, 14 Oct 2026 14:50:28 +0200 (CEST)
+Received: from blackhole.kfki.hu (blackhole.szhk.kfki.hu [148.6.240.2])
+	by smtp1.kfki.hu (Postfix) with ESMTP id 4j4WJg4sNSzGFDCf;
+	Wed, 14 Oct 2026 14:50:27 +0200 (CEST)
+Received: by blackhole.kfki.hu (Postfix, from userid 1000)
+	id 9857F340D0D; Wed, 14 Oct 2026 14:50:27 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+	by blackhole.kfki.hu (Postfix) with ESMTP id 967EB340CFB;
+	Wed, 14 Oct 2026 14:50:27 +0200 (CEST)
+Date: Wed, 14 Oct 2026 14:50:27 +0200 (CEST)
+From: Jozsef Kadlecsik <kadlec@blackhole.kfki.hu>
+To: Xue Boyang <fuchen.dust@gmail.com>
+cc: Jozsef Kadlecsik <kadlec@netfilter.org>, 
+    Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>, 
+    netfilter-devel@vger.kernel.org, coreteam@netfilter.org, 
+    netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+    Phil Sutter <phil@nwl.cc>
+Subject: Re: [PATCH nf] netfilter: ipset: fix double free on kernel-side
+ delete during resize
+In-Reply-To: <20261012163353.4093-1-fuchen.dust@gmail.com>
+Message-ID: <8b1c4c41-d371-1901-0f85-f3d0a1dfd033@blackhole.kfki.hu>
+References: <20261012163353.4093-1-fuchen.dust@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261014094347.99157-3-lizhe.67@bytedance.com>
+Content-Type: text/plain; charset=US-ASCII; format=flowed
 
-On Wed, Oct 14, 2026 at 05:43:43PM +0800, Li Zhe wrote:
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index 1053437933ee..76532b8202dc 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -3698,6 +3698,8 @@ static void update_task_scan_period(struct task_struct *p,
->  
->  	unsigned long remote = p->numa_faults_locality[0];
->  	unsigned long local = p->numa_faults_locality[1];
-> +	unsigned long locality_faults = local + remote;
-> +	unsigned long type_faults = private + shared;
->  
->  	/*
->  	 * If there were no record hinting faults then either the task is
-> @@ -3706,7 +3708,7 @@ static void update_task_scan_period(struct task_struct *p,
->  	 * migration then it implies we are migrating too quickly or the local
->  	 * node is overloaded. In either case, scan slower
->  	 */
-> -	if (local + shared == 0 || p->numa_faults_locality[2]) {
-> +	if (!locality_faults || !type_faults || p->numa_faults_locality[2]) {
->  		p->numa_scan_period = min(p->numa_scan_period_max,
->  			p->numa_scan_period << 1);
-> 
+Hi,
 
-This does more than just change the div/o below, it changes the behavior
-of the function overall.  It's not clear to me this change is correct.
+On Mon, 12 Oct 2026, Xue Boyang wrote:
 
-> @@ -3723,8 +3725,8 @@ static void update_task_scan_period(struct task_struct *p,
->  	 *	 >= NUMA_PERIOD_THRESHOLD scan period increases (scan slower)
->  	 */
->  	period_slot = DIV_ROUND_UP(p->numa_scan_period, NUMA_PERIOD_SLOTS);
-> -	lr_ratio = (local * NUMA_PERIOD_SLOTS) / (local + remote);
-> -	ps_ratio = (private * NUMA_PERIOD_SLOTS) / (private + shared);
-> +	lr_ratio = (local * NUMA_PERIOD_SLOTS) / locality_faults;
-> +	ps_ratio = (private * NUMA_PERIOD_SLOTS) / type_faults;
->  
+> A kernel-side delete, i.e. a delete triggered by the SET target while
+> the set is being resized, is applied to the current table and saved in
+> the resize backlog, to be replayed against the new table when the
+> resize finished. Both tables share the element extensions: the resize
+> copies the element to the new table, keeping the pointer to the
+> extension data, e.g. to the comment. Deleting the element in the
+> current table calls ip_set_ext_destroy() and releases the shared
+> extension. The replay then deletes the copy from the new table and
+> releases the same extension again, i.e. the same rcu_head is queued
+> twice. With CONFIG_DEBUG_OBJECTS_RCU_HEAD (and slub_debug=F, which
+> keeps kfree_rcu() off the sheaf fast path):
+>
+>  ODEBUG: activate active (active state 1) object type: rcu_head
+>  WARNING: lib/debugobjects.c:629 at debug_print_object+0x7b/0x100
+>  kvfree_call_rcu(): Double-freed call. rcu_head ffff88810474ce40
+>  WARNING: mm/slab_common.c:2041 at kvfree_call_rcu+0x10b/0x140
+>  Call Trace:
+>   <TASK>
+>   debug_object_activate (lib/debugobjects.c:905)
+>   kvfree_call_rcu (mm/slab_common.c:2039)
+>   hash_ip4_del (net/netfilter/ipset/ip_set_hash_gen.h:1226)
+>   hash_ip4_kadt (net/netfilter/ipset/ip_set_hash_ip.c:96)
+>   ip_set_del (net/netfilter/ipset/ip_set_core.c:820)
+>   set_target_v3 (net/netfilter/xt_set.c:411)
+>   ipt_do_table (net/ipv4/netfilter/ip_tables.c:345)
+>   nf_hook_slow (net/netfilter/core.c:619)
+>   raw_sendmsg (net/ipv4/raw.c:652)
+>   __sys_sendto (net/socket.c:2281)
+>
+> The double free is reachable from an unprivileged user namespace and
+> permits local privilege escalation.
+>
+> Fix this by deferring the delete when a resize is in progress: the
+> element is not deleted in the current table, only saved in the backlog,
+> like it is done for kernel-side adds. The resize copies the element
+> including its extension pointers, and the replayed delete releases the
+> extension exactly once. This also avoids updating the cidr counters
+> twice for the same element.
+>
+> Deferred deletes of a failed resize are replayed against the original
+> table, which stays the live table, instead of being dropped.
 
-This otherwise looks fine.
+Thank you for your patch! Could you address the issues sashiko raised at 
+https://sashiko.dev/#/patchset/20261012163353.4093-1-fuchen.dust%40gmail.com 
+about it?
 
-~Gregory
+Best regards,
+Jozsef
+
+> Fixes: f66ee0410b1c ("netfilter: ipset: Fix "INFO: rcu detected stall in hash_xxx" reports")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Xue Boyang <fuchen.dust@gmail.com>
+> Assisted-by: LLM DeepSeek-V4.1-Flash
+> ---
+>
+> The reproducer (SET --del-set rule plus a userspace add triggering the
+> resize) was run against v7.3-rc5 (mainline tree at 6d25ffca055a):
+> before the patch the double free shows up as the warning quoted in the
+> commit message and as duplicate objects in the SLUB RCU sheaves; with
+> the patch applied it no longer reproduces in repeated runs. The
+> reproducer is not attached; it is available and can be shared privately
+> upon request. Note: the replay of deferred deletes on a resize abort
+> (allocation failure in the copy loop) is covered by review only.
+>
+> Found with AI assistance (DeepSeek V4.1 Flash, see Assisted-by); the
+> patch was reviewed, reproduced and tested by hand.
+>
+> net/netfilter/ipset/ip_set_hash_gen.h | 48 +++++++++++++++++----------
+> 1 file changed, 31 insertions(+), 17 deletions(-)
+>
+> diff --git a/net/netfilter/ipset/ip_set_hash_gen.h b/net/netfilter/ipset/ip_set_hash_gen.h
+> index 80ca523f304b..d94db604ed6b 100644
+> --- a/net/netfilter/ipset/ip_set_hash_gen.h
+> +++ b/net/netfilter/ipset/ip_set_hash_gen.h
+> @@ -764,6 +764,7 @@ mtype_resize(struct ip_set *set, bool retried)
+> 	struct hbucket *n, *m;
+> 	struct list_head *l, *lt;
+> 	struct mtype_resize_ad *x;
+> +	LIST_HEAD(backlog);
+> 	u32 i, j, r, nr, key;
+> 	int ret;
+>
+> @@ -934,13 +935,21 @@ mtype_resize(struct ip_set *set, bool retried)
+> 	if (ret == -EAGAIN)
+> 		goto retry;
+>
+> -	/* Cleanup the backlog of ADD/DEL elements */
+> +	/* Cleanup the backlog of ADD/DEL elements: kernel-side adds were
+> +	 * applied to the original table, which is still the live table,
+> +	 * so they are simply dropped. Kernel-side deletes were deferred,
+> +	 * replay them against the original table.
+> +	 */
+> 	spin_lock_bh(&set->lock);
+> -	list_for_each_safe(l, lt, &orig->ad) {
+> +	list_splice_init(&orig->ad, &backlog);
+> +	spin_unlock_bh(&set->lock);
+> +	list_for_each_safe(l, lt, &backlog) {
+> +		x = list_entry(l, struct mtype_resize_ad, list);
+> 		list_del(l);
+> -		kfree(l);
+> +		if (x->ad == IPSET_DEL)
+> +			mtype_del(set, &x->d, NULL, NULL, 0);
+> +		kfree(x);
+> 	}
+> -	spin_unlock_bh(&set->lock);
+> 	goto out;
+>
+> hbwarn:
+> @@ -1217,6 +1226,24 @@ mtype_del(struct ip_set *set, void *value, const struct ip_set_ext *ext,
+> 			goto out;
+>
+> 		ret = 0;
+> +		if (t->resizing && ext && ext->target) {
+> +			/* Resize is in process and kernel side del: do not
+> +			 * delete the element and free its extensions here,
+> +			 * the extensions may be shared with the copy in
+> +			 * the new table. Save the values, the resize replays
+> +			 * the delete against the new table.
+> +			 */
+> +			x = kzalloc_obj(struct mtype_resize_ad, GFP_ATOMIC);
+> +			if (!x)
+> +				/* Don't bother, deleting the element here
+> +				 * could free the shared extensions twice.
+> +				 */
+> +				goto out;
+> +			x->ad = IPSET_DEL;
+> +			memcpy(&x->d, value, sizeof(struct mtype_elem));
+> +			x->flags = flags;
+> +			goto out;
+> +		}
+> 		clear_bit(i, n->used);
+> 		smp_mb__after_atomic();
+> 		if (i + 1 == pos)
+> @@ -1224,19 +1251,6 @@ mtype_del(struct ip_set *set, void *value, const struct ip_set_ext *ext,
+> 		t->hregion[r].elements--;
+> 		mtype_del_cidr_all(set, h, d);
+> 		ip_set_ext_destroy(set, data);
+> -
+> -		if (t->resizing && ext && ext->target) {
+> -			/* Resize is in process and kernel side del,
+> -			 * save values
+> -			 */
+> -			x = kzalloc_obj(struct mtype_resize_ad, GFP_ATOMIC);
+> -			if (x) {
+> -				x->ad = IPSET_DEL;
+> -				memcpy(&x->d, value,
+> -				       sizeof(struct mtype_elem));
+> -				x->flags = flags;
+> -			}
+> -		}
+> 		for (; i < pos; i++) {
+> 			if (!test_bit(i, n->used))
+> 				k++;
+> -- 
+> 2.53.0
+>
+>
