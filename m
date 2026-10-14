@@ -1,65 +1,57 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 137B036B906;
-	Wed, 14 Oct 2026 22:29:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C36748F82B
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:30:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792016981; cv=none; b=QYxOHzdeK/nyyRqYW81w+YLwUr611RkmVS0Z7WvY+PZ814I/kxGVcd8RxYLzqhh5kQPOljB9jyHwdfsVYjqYsmO9Q5Qrtm4ehmJmW3S8QFh+57qA8n7C1OCR4OK9cyxSZQN+Fb4/4t73NiRtolHjbNS6foC9Zv6LNk+Od7TKp60=
+	t=1792017052; cv=none; b=MR98CFY37iU2iPHkQFkav8U0C86T2Ee1H9+5ZWoIf4aGrhpzUebE0T+Dra9xS0tpVnzGJkc44GNvC1r9PielAIG6LXufhZvN1bH6OjyziGGgnZZC+6NQU2ettig4mG82vVi1b5Sk8cpBHhN6RJlwmZra8BezhMozzoFOS2IYMHk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792016981; c=relaxed/simple;
-	bh=FxLV6rUlmjvJvnrWA0n5KJ+3RmJVCCWsy0acd9a4MSo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Rm17GQZfjCPeDC08cX9nkQuJEHmQ9K/RsTGSvkredLcoQX2qSJLzdDrjMKocl2m6vjorjIZFEJc0JlI8+0ODGs3Smn9Vxsgv5hTp/A6zm+dSoenOP6w8DcLsxJ8Bnh9q7l9bgNrYwQjckgSUw9QKA+pvjFm2cJbOqeEVg1xmFZU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=tebmoSyI; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1792017052; c=relaxed/simple;
+	bh=OFfnsDyem1S4/6vMlr5NhjpWDZQim4Dh966wmx9ACeo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ZKzc9zSL/5KzM0cm/WfPx6IDY5AyngUK2QCVFf3qTr+TxJdgt9MmVF5YLvmhh5BiqA6QvqXN/LHECBVIu1tTb1CXs9dZi/vBMyn9Aj7BL2bbaB9j7GTzf1ziBs9L/1P3gcahKUpmkdhGOuGeGS7yTmjGoq9rvavaSllS20qqmbU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hsal.es; spf=pass smtp.mailfrom=hsal.es; dkim=pass (2048-bit key) header.d=hsal.es header.i=@hsal.es header.b=m8V6J7tu; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hsal.es
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hsal.es
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="tebmoSyI"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EEiFY32426973;
-	Wed, 14 Oct 2026 22:29:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=HpWxKj1YqGTJj9+efyCX/WEHUibAqCUtGScsPxzLj
-	O8=; b=tebmoSyI70I/Ybz/r44bsFhy75fnoDagDkUcDH32JgjIzZ61lUVjVOsGY
-	yNjCW+kjt0xvY2QLStCnnWqqe11MHsoxd8c3Ck/1Gkf2aRVqogPNfi7Gd5XgzB89
-	DbUA3vvcbiwIcRPo3yDmx0IwzL0FZ6/CqQgcU5XqZDjr4/xahL/usNaPuskwC14B
-	eI6PwRsu2M/WVXLvX+232C28RSSG+geI99MAOhcu171OoayXV0VH8pKXUldZdxY+
-	fNdwUZR/WAajTN3RLj/Oq6X45qiXiZSylt8XYbTd3KBw+sGGar2wRl2n7s93eWW8
-	rXGNZUAVFtA3tO7EnU1Vf0UHHZRNg==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dv3py56-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 14 Oct 2026 22:29:37 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69EIcKxk660263;
-	Wed, 14 Oct 2026 22:29:37 GMT
-Received: from smtprelay06.wdc07v.mail.ibm.com ([172.16.1.73])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h9pb3q56c-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 14 Oct 2026 22:29:37 +0000 (GMT)
-Received: from smtpav02.dal12v.mail.ibm.com (smtpav02.dal12v.mail.ibm.com [10.241.53.101])
-	by smtprelay06.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69EMTZix25297514
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 14 Oct 2026 22:29:35 GMT
-Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 4A79B5805E;
-	Wed, 14 Oct 2026 22:29:35 +0000 (GMT)
-Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E0CFE5805A;
-	Wed, 14 Oct 2026 22:29:34 +0000 (GMT)
-Received: from ltcrain119-lp4.ltc.tadn.ibm.com (unknown [9.5.7.39])
-	by smtpav02.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 14 Oct 2026 22:29:34 +0000 (GMT)
-From: wenxiong@linux.ibm.com
-To: mathias.nyman@intel.com, gregkh@linuxfoundation.org
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org, wenxiong@us.ibm.com,
-        Wen Xiong <wenxiong@linux.ibm.com>
-Subject: [PATCH V2] xhci: Reset TI usb controller on xhci shutdown
-Date: Wed, 14 Oct 2026 18:28:55 -0400
-Message-ID: <20261014222855.13698-1-wenxiong@linux.ibm.com>
-X-Mailer: git-send-email 2.52.0
+	dkim=pass (2048-bit key) header.d=hsal.es header.i=@hsal.es header.b="m8V6J7tu"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4j4mBG6Jw6zMlDm;
+	Thu, 15 Oct 2026 00:30:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
+	t=1792017046;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iH6VgiGj5KrB23VvD5r/W6aj7P6EbpDpdOeMlYANEW8=;
+	b=m8V6J7tuZz+jCiDBwrq1wUb0NwR+l7hMxFKi5VUDHJ52vz+ZKV6WhvFDdlqnShja/l0M0h
+	gghMMqza4Nbs/S5NE8FwCvfMSRsOSyaALAOfjf5CVfBDoIq61343ltIbO3eKOf7rrV4hhB
+	LeDJBFamz18VvmtQFTjOmwyWI8hYkFAIx+A7ympaL1kmMqDsDA7o5u3GGh1v3UiYT1G4C+
+	QBqT/kQE6JPgOPXwie8BGbfD6b1ofEpcvoTvCvUnbnoD/j+cTfbED4WAPFmzPuo1N8+sU8
+	PWqKYUJSg6/jWSfON9N+Vg+RiA/RFmnbB3xAKMn2Bf1z4/jHDuA6SmSxabdTGg==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=hugo@hsal.es
+From: Hugo Sales <hugo@hsal.es>
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	harry.wentland@amd.com,
+	sunpeng.li@amd.com,
+	siqueira@igalia.com,
+	alexander.deucher@amd.com,
+	Hugo Sales <hugo@hsal.es>
+Subject: [PATCH 2/2] drm/amd/display: Add KUnit tests for the eDP/LVDS native mode fallback
+Date: Wed, 14 Oct 2026 23:30:41 +0100
+Message-ID: <20261014223041.171317-3-hugo@hsal.es>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261014223041.171317-1-hugo@hsal.es>
+References: <20261014223041.171317-1-hugo@hsal.es>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -67,87 +59,150 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: q2x-2qzdaSDhLcHkSffdyXDqjvThEjmx
-X-Proofpoint-ORIG-GUID: q2x-2qzdaSDhLcHkSffdyXDqjvThEjmx
-X-Authority-Analysis: v=2.4 cv=aqInmiZV c=1 sm=1 tr=0 ts=6ad00252 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8 a=yB8LFx1ia55OOJaLE-QA:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA4OCBTYWx0ZWRfX5Sg1y1oXlVAd
- TTpKWDRfj8E3QsgsBxsgTWSr0FTYFX89+qd7mSg7bH4pzvK77puDul3R2CZbo9DmLyzqwmwQcAW
- anNjZ4w6KglRjzgbHPYem7nKYtfaSUY=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA4OCBTYWx0ZWRfX5rx5DrcOcIZB
- PJ3DWcF9yKjO/Y5ksJy5kqHvl6WkDs0WgaL++PJvv8Jj3Iyfojtz3TRN48x5+haob58sPmUTFfz
- /ZQ+cFe/vUlR4VsKB0BLIrCBT7RrXzJ0tJpeNMiXlFxoPDUCSAlXwmsGZIKCkx/P0Leei9cW9tg
- gCAmUsDNsdyd9hp/pGPhTRlIiPpw7lNC3HoK0Tul+1ltwObccqmdz+8Uayupb0SWx4dj4XSWB4L
- ueCdRo/WAG/7GYVNuo8xFsarH/jQY2+IhJ/EXgJr1Q7UUtBhB+IVmkNlXENDKMURCjHqzumBYh0
- htDfqgNCjdQriLiDvjDI7x0xxACk3/ysx6B7DhTMDhuwcdJYxM6MIHcTWdnZEUGD2XJ9B0T0Nmj
- Qm5MtSn/+VhlgRhj8eQK5DF+b0aWFutDv0U3hSu8tiPHHrSlK4OivCM4GC2tYHi+MlRG/0zSwGK
- kMR6/kL+8S3KcKEOVwg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 spamscore=0 malwarescore=0 suspectscore=0
- bulkscore=0 adultscore=0 impostorscore=0 priorityscore=1501
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610140088
+X-Rspamd-Queue-Id: 4j4mBG6Jw6zMlDm
 
-From: Wen Xiong <wenxiong@linux.ibm.com>
+Leave only a scaled mode in connector->modes and put the larger native
+mode in the encoder, as a size-limited probe does. On eDP and LVDS,
+create_stream_for_sink() must build a stream with the native timing and
+the scaled mode as its source size. On HDMI it must keep the first mode
+in the list as the timing
 
-Fixes kexec boot. Without a hard reset, TI pci usb chips will fail to
-initialize in a kexec booted kernel.
-
-Signed-off-by: Wen Xixong <wenxiong@linux.ibm.com>
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Hugo Sales <hugo@hsal.es>
 ---
- drivers/usb/host/xhci-pci.c | 11 ++++++++++-
- drivers/usb/host/xhci.h     |  1 +
- 2 files changed, 11 insertions(+), 1 deletion(-)
+ .../tests/amdgpu_dm_connector_test.c          | 112 ++++++++++++++++++
+ 1 file changed, 112 insertions(+)
 
-diff --git a/drivers/usb/host/xhci-pci.c b/drivers/usb/host/xhci-pci.c
-index a8889081ae82..36191639bf43 100644
---- a/drivers/usb/host/xhci-pci.c
-+++ b/drivers/usb/host/xhci-pci.c
-@@ -479,8 +479,10 @@ static void xhci_pci_quirks(struct device *dev, struct xhci_hcd *xhci)
- 	    pdev->device == PCI_DEVICE_ID_ASMEDIA_3042_XHCI)
- 		xhci->quirks |= XHCI_RESET_ON_RESUME;
- 
--	if (pdev->vendor == PCI_VENDOR_ID_TI && pdev->device == 0x8241)
-+	if (pdev->vendor == PCI_VENDOR_ID_TI && pdev->device == 0x8241) {
- 		xhci->quirks |= XHCI_LIMIT_ENDPOINT_INTERVAL_7;
-+		xhci->quirks |= XHCI_RESET_ON_SHUTDOWN;
-+	}
- 
- 	if ((pdev->vendor == PCI_VENDOR_ID_BROADCOM ||
- 	     pdev->vendor == PCI_VENDOR_ID_CAVIUM) &&
-@@ -950,6 +952,13 @@ static void xhci_pci_shutdown(struct usb_hcd *hcd)
- 	/* Yet another workaround for spurious wakeups at shutdown with HSW */
- 	if (xhci->quirks & XHCI_SPURIOUS_WAKEUP)
- 		pci_set_power_state(pdev, PCI_D3hot);
-+
-+	/* 
-+	* TI xHCI controllers fail to initialize in a kexec 
-+	* kernel without a PCI function reset
-+	*/
-+	if (xhci->quirks & XHCI_RESET_ON_SHUTDOWN)
-+		pci_reset_function_locked(pdev);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+index 56fd133bc..55e2c3849 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+@@ -4547,6 +4547,115 @@ static void dm_test_create_stream_hdmi_vsif(struct kunit *test)
+ 	dc_sink_release(sink);
  }
  
- /*-------------------------------------------------------------------------*/
-diff --git a/drivers/usb/host/xhci.h b/drivers/usb/host/xhci.h
-index c7bfa7f028d3..e94a38e5f4ac 100644
---- a/drivers/usb/host/xhci.h
-+++ b/drivers/usb/host/xhci.h
-@@ -1647,6 +1647,7 @@ struct xhci_hcd {
- #define XHCI_CDNS_SCTX_QUIRK	BIT_ULL(48)
- #define XHCI_ETRON_HOST	BIT_ULL(49)
- #define XHCI_LIMIT_ENDPOINT_INTERVAL_9 BIT_ULL(50)
-+#define XHCI_RESET_ON_SHUTDOWN	BIT_ULL(51)
++/*
++ * Build a stream after a probe with size limits below the native mode, such as
++ * fbdev emulation's. That probe leaves only a 1920x1200 scaled mode in the
++ * connector's mode list, while the encoder keeps the 3840x2400 native mode
++ */
++static struct dc_stream_state *
++dm_test_native_mode_pruned_stream(struct kunit *test, int connector_type)
++{
++	static const u8 edid[EDID_LENGTH];
++	struct dm_test_stream_ctx *ctx = dm_test_stream_ctx_alloc(test);
++	struct amdgpu_encoder *aenc;
++	struct dc_stream_state *stream;
++	struct drm_display_mode *native;
++
++	ctx->aconnector->base.connector_type = connector_type;
++
++	aenc = drmm_kzalloc(ctx->drm, sizeof(*aenc), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, aenc);
++	KUNIT_ASSERT_EQ(test, drmm_encoder_init(ctx->drm, &aenc->base, NULL,
++						DRM_MODE_ENCODER_TMDS, NULL), 0);
++	KUNIT_ASSERT_EQ(test, drm_connector_attach_encoder(&ctx->aconnector->base, &aenc->base), 0);
++
++	native = &aenc->native_mode;
++	native->clock = 592500;
++	native->hdisplay = 3840;
++	native->hsync_start = 3888;
++	native->hsync_end = 3920;
++	native->htotal = 4000;
++	native->vdisplay = 2400;
++	native->vsync_start = 2403;
++	native->vsync_end = 2409;
++	native->vtotal = 2469;
++	/* Cached by the first, unlimited probe */
++	drm_mode_copy(&ctx->aconnector->freesync_vid_base, native);
++
++	drm_mode_copy(ctx->mode, native);
++	ctx->mode->hdisplay = 1920;
++	ctx->mode->vdisplay = 1200;
++	drm_mode_set_crtcinfo(ctx->mode, CRTC_INTERLACE_HALVE_V);
++	dm_test_stream_add_mode(test, ctx, 0);
++	ctx->dm_state->scaling = RMX_FULL;
++
++	ctx->aconnector->drm_edid = drm_edid_alloc(edid, sizeof(edid));
++	KUNIT_ASSERT_NOT_NULL(test, ctx->aconnector->drm_edid);
++
++	stream = create_stream_for_sink(&ctx->aconnector->base, ctx->mode,
++					ctx->dm_state, NULL, 8,
++					PIXEL_ENCODING_RGB, false);
++
++	drm_edid_free(ctx->aconnector->drm_edid);
++	KUNIT_ASSERT_NOT_NULL(test, stream);
++
++	return stream;
++}
++
++/**
++ * dm_test_create_stream_native_mode_pruned_edp - Test eDP gets native timing
++ * @test: The KUnit test context
++ *
++ * The scaled mode must still be driven with the panel's native timing, kept in
++ * the encoder
++ */
++static void dm_test_create_stream_native_mode_pruned_edp(struct kunit *test)
++{
++	struct dc_stream_state *stream =
++		dm_test_native_mode_pruned_stream(test, DRM_MODE_CONNECTOR_eDP);
++
++	KUNIT_EXPECT_EQ(test, (int)stream->timing.h_addressable, 3840);
++	KUNIT_EXPECT_EQ(test, (int)stream->timing.v_addressable, 2400);
++	KUNIT_EXPECT_EQ(test, (int)stream->src.width, 1920);
++	KUNIT_EXPECT_EQ(test, (int)stream->src.height, 1200);
++	dc_stream_release(stream);
++}
++
++/**
++ * dm_test_create_stream_native_mode_pruned_lvds - Test LVDS gets native timing
++ * @test: The KUnit test context
++ */
++static void dm_test_create_stream_native_mode_pruned_lvds(struct kunit *test)
++{
++	struct dc_stream_state *stream =
++		dm_test_native_mode_pruned_stream(test, DRM_MODE_CONNECTOR_LVDS);
++
++	KUNIT_EXPECT_EQ(test, (int)stream->timing.h_addressable, 3840);
++	KUNIT_EXPECT_EQ(test, (int)stream->timing.v_addressable, 2400);
++	KUNIT_EXPECT_EQ(test, (int)stream->src.width, 1920);
++	KUNIT_EXPECT_EQ(test, (int)stream->src.height, 1200);
++	dc_stream_release(stream);
++}
++
++/**
++ * dm_test_create_stream_native_mode_pruned_hdmi - Test HDMI uses the first mode
++ * @test: The KUnit test context
++ *
++ * On a connector that is not a panel, mode_valid may have dropped the native
++ * mode, so the first mode left in the list must drive the timing
++ */
++static void dm_test_create_stream_native_mode_pruned_hdmi(struct kunit *test)
++{
++	struct dc_stream_state *stream =
++		dm_test_native_mode_pruned_stream(test, DRM_MODE_CONNECTOR_HDMIA);
++
++	KUNIT_EXPECT_EQ(test, (int)stream->timing.h_addressable, 1920);
++	KUNIT_EXPECT_EQ(test, (int)stream->timing.v_addressable, 1200);
++	KUNIT_EXPECT_EQ(test, (int)stream->src.width, 1920);
++	KUNIT_EXPECT_EQ(test, (int)stream->src.height, 1200);
++	dc_stream_release(stream);
++}
++
+ /* Tests for amdgpu_dm_connector_detect() */
  
- 	unsigned int		num_active_eps;
- 	unsigned int		limit_active_eps;
+ /*
+@@ -10246,6 +10355,9 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
+ 	KUNIT_CASE(dm_test_create_stream_dp_vsc_colorimetry),
+ 	KUNIT_CASE(dm_test_create_stream_dp_colorimetry_quirk),
+ 	KUNIT_CASE(dm_test_create_stream_hdmi_vsif),
++	KUNIT_CASE(dm_test_create_stream_native_mode_pruned_edp),
++	KUNIT_CASE(dm_test_create_stream_native_mode_pruned_lvds),
++	KUNIT_CASE(dm_test_create_stream_native_mode_pruned_hdmi),
+ 	/* amdgpu_dm_connector_detect */
+ 	KUNIT_CASE(dm_test_detect_force_on),
+ 	KUNIT_CASE(dm_test_detect_force_on_digital),
 -- 
-2.52.0
+2.55.0
 
