@@ -1,161 +1,115 @@
-Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E13F6379EE7
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:34:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791970449; cv=pass; b=joNn3VCyesy2cNyT3laTqXXA1hxlg9InmZDXJUn5r3I6fza40YWk9gIU9CbDq1gHBWL+TdWiIzH8ZMNR/cNLkPZn/OdgkWIb6yM/8hdrqHf3fTq97HvNBpg3iv69PPIaQTfpXVO1IdBPJIRw6zhw0vUUtr12wlUuEBMkZsXFBHs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791970449; c=relaxed/simple;
-	bh=ymaPUYargcs8FQDr+6bZ3PYP5DTi+WnlwiWAqpq10bU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nCEclKgFTVknlWaYjoX0zj0HeR2/AOewp2/L6/fV5L6D/nxsKHK0sm6wafRoVvVBQ/Nld+LRg3uXAbrvHV8lPpacmxYF9IU35QhojuOAW5lgbadrO7/bjW4O9vtQeSH5dd/rVDdGPoJzzN4t8IXQzEoAA7Oc0wghjzpZr2d6DOA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VjHJJDK4; arc=pass smtp.client-ip=74.125.224.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE87D30B517
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:34:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791970491; cv=none; b=nxyhGo7am6cQ8q/a88qtkcL0KbnIumhTval4FEy5Ki8WJPx5K1iwjA8+Msd3CAiMsR+MpuxKwqDMjOhhy1zOetF1yvKPAsnDwtIct1ZBlfGYW9rNVZzVVcC2rMSQ9XnvBTjh7CHopsFULcwNmfMtqRxiOPp7lUbSfVa6rZwQ01c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791970491; c=relaxed/simple;
+	bh=TV7JX2n5Idrq3SpvZlmZfMYa3lPEpCROHfKqL8FffIc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WXfZN2AK+0cwu8Hs8gpM4Ddotv2SHuwEymZnsVQho6mCIaNwB5Cv+6wud8E3QESzE0i/wrQI0JYdeX+gLON50FUzGZvDGxTqH86pjzaDzebXOgHW+nUM3o9btnVIgyJxLbENmo8IAQNKV0Gc0JLxsLBGx7Nh6I9MXUXvTtM+6GM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=eatnyml9; arc=none smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VjHJJDK4"
-Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-67989a98f8bso378831d50.2
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 02:34:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791970447; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GSrgYbe0XmAO5A1/FAmOZY5vsE6OH3aa+HF+KSNt36tfwYJhHdW4eFMZwL79b2pbCI
-         7JSNkeeBwx8nMQxtKeqD6DRHOqcDqevig2q+XyOTdlm/hJrnDmr6MkbmmzSwhQ+A2DIY
-         3TZ3nJIiLQ6Ms7dyVs59vX4UlQe3HS1d+dHTMsbfa4059pdeLseSxFaduOvQRa9ubv9j
-         Y0DfykYWLnO1MbPiRrrNwNboqQn81XJoEezyg/S8IXVoBugJKG4vX200hsq1zUOk2wIi
-         FI+T3PmS1roMjJTYW8/uHQTW+XlelYsC0svGkJbMe5U0rWVoEEF7lAiM0pH1mApnebxF
-         BWxw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=p1yUYx/ZNgf5tuSLit2Tisfqpid+gK/d62ApUZjCpxE=;
-        fh=i2b1fAuEsxalwp5gJjOXndx4alGip7pwhJ98yHWmZwg=;
-        b=p5JSAJkQ57lYUnpUdQtivybqeu+gQVMwHRlNbpKsa0ei40VElwVFH3lnE33yASxhIs
-         6CFsqjjWglBeKKoMAooYlRMLpFllUW1Q6kRdxl3lDeNAob/dP+L+d1fLnBNd3Xn+RyE0
-         w5EGs9UcoCSv7JprwOAGlRX7xBlz9UqnKoVQblierYIUXhrOYrMAwozXDSFnBqNHxxRt
-         oJYLC4+qBsiJpv9neDFIDn3sZD6LIJA9RQLNwwDNuUWk5UgeEOxoLe/jSFJupCjXsUFs
-         D/QiNLOhpx33Bf5iETT/bwP3x5N8iGt5bBzM4ybJmJUTPnso3VpZmd8UqYJ3nMXe+FsS
-         Fh/w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="eatnyml9"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48de6a62a4cso1053684f8f.2
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 02:34:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791970447; x=1792575247; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=p1yUYx/ZNgf5tuSLit2Tisfqpid+gK/d62ApUZjCpxE=;
-        b=VjHJJDK45MKZ5+03GjiWbH1xZXLmn/uA43iEAiffMB4MokS6JCCpc/a5HBK3m9Ya5V
-         W+cbD9SthUre7wSaWaBUb3e71c/T4xYKSbjtBGuQyLr4LTzpvZnMtiS/sMQN2OToHuAp
-         LUefL4Hgc748ODlAL83L/ZQC36Y15t9a4ZRSKk3jyBppKDopwUA/MEex7EWwABsYqokn
-         QWXbwZ11Xgxs6LYjvUlXz4yCxC1hJktKUlo4MHqjUm/F2Rx71z2CNLqTn8hmaPR/zio5
-         t2A3cepPX0lfN8Qz6oTwkuqHzesjmn3MvHWFmrCBJtB4ysFW3wQ2glAtCMpJkZPbvFAu
-         CWqQ==
+        d=suse.com; s=google; t=1791970488; x=1792575288; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9pY4KLtlrbSAhzhD8CHnP37WDwF8VZOjA0J8k3iIcIM=;
+        b=eatnyml9Mv0e51Xd+17dxXuLy7EHrrljftGcaOnI7+LP/6r//FDUNXpWc29YA3+AW8
+         f/s5IPthfUUpaWz9WKy/nFabJCChYNUQ9xZqfGbzAMH3irNj+748CTpHgYqszWJ0Eq7/
+         aYIDZzkJnBqwfiKI3tj6oyHojRKc+YPHt733Sbm3PXC/gH1B+2kNuDGfYRc9id/A/R0O
+         NUGzsrTwpSP+Ex1Wk74h7UDUpGUJwR9fo3qlRYE4u9JBmuyQdm0RIOrscGYWdreSgyxr
+         7eWZGAVgbZFweKG6rMkrlFU237YMmnlcrOB6KwOuzk9OJLcio2+b+E9/tDvm5YKFpWMx
+         IbZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791970447; x=1792575247;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=p1yUYx/ZNgf5tuSLit2Tisfqpid+gK/d62ApUZjCpxE=;
-        b=BQUhfMQXYwSfpQVMSuv4VVGsQiO11RIoQVOubDlCqMooUn9FKYbCTcSmvWyihI+eaa
-         aTfI2IQUkeVmbWRZ6eIWM7nLMvmVQp9hqAb0Uum9YrCYtLjYZi1HpBdgcxmSWLXIGc+D
-         dnGx6043H5k3hPWlMkNcy0M9l0rQ+MfcqFxcRIUZGhdqOswPWJZiSdqpV91RScAguNzT
-         wQvCpM+ReWxgZNMW9PF7bIn8Qbu29vk3cqG1gTF/6PpmpkfzTDCm6BzF3DYyRmEa2gd1
-         tZvdmg2fTjIIWsoxIvBT/eKgON8JW2Tg3e+9/+S1o9qWhuQ3RkI4mrWAj7VuMsAzGDRi
-         dgiQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxZvjPTGx4gz+KnHSCAbGSc9QYtXTj/fsTGFAPAhtnZ9x+QhsadD/liR+n67x7UhlARcxVYvGjLIGjwnhA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIhIVOtXAjjj/V0mUk2q+w9UnM//h91nO7aDyfmmhJfGdVrk3Jv
-	fruRXbcx6FraEK6z5Kc/WY1dYR6yRDc36nWZh4cSRG9h0uWR//WRlYDBNEcVtNh6fZ+M19LW1kT
-	xUgLZZqfWbX0vj4w4FW3psZ1NMmvCd8g=
-X-Gm-Gg: AYBFou0ktqH+vYTNynD+VuqFxtjbJACImzQ9j/KyoaVYbAu+3UoG8QNWtvaUhUhqJ4X
-	BiKq9bwFEYbE0B5LuivwtK7rjsnjNQY0WmAJCexdn0Ydugwe162BA5zIDkAVTMU9v5z5j4QKnFA
-	svxEv/nijpnfae95f37sCFVw4BywBlQZrYroHfsTvdb3ZxB7XMSkh3R9C5zVWQ6Iin/BWAkaac5
-	TQYQOKhBU5urZMEMPokjurEszkrPWPsI35EQcyw7IjWJNq6XAYfe174foGE3ptYlTJL/koY3MXe
-	P3n74HOygRDqyDS3b2ZhBzZE+fj+3FJa0yDYS5S9byh/qcDLygh4cGH6Ng==
-X-Received: by 2002:a05:690e:1698:b0:677:c014:29c9 with SMTP id
- 956f58d0204a3-67936951bffmr6532230d50.19.1791970446793; Wed, 14 Oct 2026
- 02:34:06 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791970488; x=1792575288;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=9pY4KLtlrbSAhzhD8CHnP37WDwF8VZOjA0J8k3iIcIM=;
+        b=iZ7jZ9CQI91tpfd8y7WnMoL2zSYniX4Z9proXTymEkBpKx0fVSK4DR1i19mI6fqK2q
+         msu8BjBm2OWfonCi026PnzhExOJ6pe99D2NKzQUIiURvLbeBAZNiFw4Wx6HpPXZndpYa
+         Jle69EpxhZTv3KkhhdJXYamjqxN2CB/mGwfuTzXvwiqfsIudmNqEL7kGr0YPGTzto2YK
+         5sRdvV3pPtqOUyqIa+89IZGlhSGc/y/U+OGshEjhzLQElh57AmjoKSf+mbMaD6i9Wtic
+         wrQjB0n5gdq3cqDaeOhh1asVlTANJjpX+1fAA7s7oUj0/PLVfEnkE/S3cpJjZgX6jhUR
+         GdSw==
+X-Forwarded-Encrypted: i=1; AKwUvBxJ2GBJTIangBNLSxJ1DUKLqvyOqGoRbH5GTaQfl9MeG4kD26vfmvQRtK79eeo/2PTgq8DK73hLyEjdMVw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIXyweLmJzOqv434DUITVY6hH/IOCeQ/o8rVj2ecX5cLFrG+eYd
+	q7AxaAiDDWUpkoWa6erdL5bwAn1R032KyLcraykSuMFiHR++1VV9fTVlH9eb6JMgNNY=
+X-Gm-Gg: AYBFou2Nh6sP3IGm3DQ8aGuy3CWee+ylOYp1S7ojkNB9lXIt4Hgg90C2eySAKKVu3WM
+	WRme6cI35+oE8X8P8SYOsg3R2NH1RiAfsfDGlqMzp7aSL4n0OsMx49C/wfkQlq0eJWZboCu9iX8
+	vGN0tUnamYvsWs/kyVAdOtbvZGNYTp6fcz90GWCf/kNaWdt8UcrDuGqx2XrOMShK16cso1lu86/
+	T+1TH2IbGplZmG8H21iPzrLQcFxshGkWryzaV0y0MVHdDkhtYSUoNQA6xSeHnzeXBhmCYm6T3sG
+	IrSOaJkpvi8xyQJYBEDJ15ImTDRNexmBAdsqtrjKjlgBO74b1ViNhoH+hLHbm9Cja9Kl4sAVDFt
+	8Sy+lV6rqH294t1DZ9pRu89BnMrGajwzH4uumYozLNWp3MCN265xa5HB7q6/XZRRWBPzgiVFFym
+	RgQlthqoOf57/et805QCbafVKyuOyBPOAy9lufw0fEctDTWnhS5y1yoIlX68Mvx4oOJrHwAx2e
+X-Received: by 2002:a5d:5f8f:0:b0:48b:42c:8b44 with SMTP id ffacd0b85a97d-48dbaaee9bcmr30612939f8f.32.1791970488122;
+        Wed, 14 Oct 2026 02:34:48 -0700 (PDT)
+Received: from pathway.suse.cz ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48deeadc0b5sm1282874f8f.6.2026.10.14.02.34.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 02:34:47 -0700 (PDT)
+Date: Wed, 14 Oct 2026 11:34:45 +0200
+From: Petr Mladek <pmladek@suse.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Tamir Duberstein <tamird@kernel.org>, linux-kernel@vger.kernel.org,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: Re: [PATCH v1 1/1] lib/vsprintf: Use EXPORT_SYMBOL_IF_KUNIT() to
+ export symbols
+Message-ID: <as9MtfUWfFqHp1YB@pathway.suse.cz>
+References: <20260714122143.743227-1-andriy.shevchenko@linux.intel.com>
+ <CAJ-ks9ky8BxXmmZQ5aayyXtzQsWF-Bpxxs_+-=pUM2uT4shAyQ@mail.gmail.com>
+ <as6XcMDhDGoCHYP0@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <pm-pmb-9c80f858ccc13b3de84d-v6-d4059ea2910fe5430f5f@gmail.com>
- <877bjkg35f.wl-tiwai@suse.de> <CAFRLqsUH-ehHgXsqFGANE2h0-3WBkeNh7-AOvf5ymWAOH5r5Mw@mail.gmail.com>
- <87v774ejkp.wl-tiwai@suse.de>
-In-Reply-To: <87v774ejkp.wl-tiwai@suse.de>
-From: Cen Zhang <zzzccc427@gmail.com>
-Date: Wed, 14 Oct 2026 17:33:54 +0800
-X-Gm-Features: AclHuK_eIxhsMAtoY_UEpTCFiq6s9vgosDrs_MSEfEF8fkwQ6lGWgNyJKs8bRgQ
-Message-ID: <CAFRLqsX8rqZrJfLPBOhBmuwXHq_wnxiwfxDGevfQ3wMFo2thgg@mail.gmail.com>
-Subject: Re: [PATCH] ALSA: dummy: Defer hrtimer data freeing until runtime detach
-To: Takashi Iwai <tiwai@suse.de>
-Cc: perex@perex.cz, tiwai@suse.com, sammiee5311@gmail.com, 
-	phucduc.bui@gmail.com, kees@kernel.org, thomas.weissschuh@linutronix.de, 
-	tglx@kernel.org, linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	baijiaju1990@gmail.com, jjzuming@gmail.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <as6XcMDhDGoCHYP0@ashevche-desk.local>
 
-Hi Takashi,
+On Tue 2026-10-13 23:41:20, Andy Shevchenko wrote:
+> On Tue, Jul 14, 2026 at 03:39:23PM +0100, Tamir Duberstein wrote:
+> > On Tue, Jul 14, 2026 at 5:21 AM Andy Shevchenko
+> > <andriy.shevchenko@linux.intel.com> wrote:
+> > >
+> > > Replace EXPORT_SYMBOL_FOR_MODULES() with EXPORT_SYMBOL_IF_KUNIT()
+> > > to mark the symbols as visible only if CONFIG_KUNIT is enabled.
+> > >
+> > > Kunit test should import the namespace EXPORTED_FOR_KUNIT_TESTING to
+> > > use these marked symbols. This is the standard way for all KUnit
+> > > tests.
+> > >
+> > > Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> > 
+> > Acked-by: Tamir Duberstein <tamird@kernel.org>
+> 
+> Thanks!
+> 
+> Petr, does this fall in cracks? Can it be applied or do you have any comments
+> on this? Or may be I missed something?
 
->
-> That's not what I didn't understand: do both A and B use the same
-> device?  The release shouldn't happen until all detached, so the
-> prepare and the release can't happen concurrently for the same device.
->
-> If A and B are for different devices, they don't interfere with each
-> other in the case of dummy driver.
->
+Yeah, this has fallen through the cracks. /o\
 
-Yes, A and B use the same PCM device. The test opens
-/dev/snd/pcmC0D0c twice, and SNDRV_PCM_IOCTL_INFO reports:
+I have just committed it into printk/linux.git, branch for-7.4.
 
-  A: card=0, device=0, subdevice=0, capture
-  B: card=0, device=0, subdevice=1, capture
+Thanks a lot for reminder.
 
-They are separate substreams with separate runtimes. With the hrtimer
-backend selected, dummy_hrtimer_create() allocates a separate dpcm for
-each runtime. The test configures both with HW_PARAMS and explicitly
-links them with SNDRV_PCM_IOCTL_LINK.
-
-Sorry, I should have been clearer about what is being released. The
-PCM device remains alive throughout. The object being freed is A's
-runtime->private_data, from A's driver close callback.
-
-snd_pcm_release_substream() checks A's own ref_count. When A's last
-file reference is closed, it calls A's driver close before unlinking
-A, even while B is still open:
-
-  Final close of A                  PREPARE ioctl on B
-  ----------------                  ------------------
-  snd_pcm_drop(): group -> SETUP
-  do_hw_free(A)
-  dummy_pcm_close(A)
-    kfree(A's dpcm)
-                                    snd_pcm_action_nonatomic(B)
-                                      Take link read lock
-                                      Walk group: B and A
-                                      snd_pcm_do_prepare(A)
-                                        dummy_pcm_prepare(A)
-                                          Read freed timer_ops
-  pcm_release_private(A)
-    snd_pcm_unlink(A)
-  snd_pcm_detach_substream(A)
-
-B reaches A through the PCM core's linked-group iteration:
-snd_pcm_action_group() invokes the prepare action for each member.
-A is still linked and in SETUP at that point, which the prepare state
-check accepts. The two dummy runtimes do not share their private data;
-the group action explicitly invokes A's callback with A's substream.
-
-The final close holds pcm->open_mutex, but the PREPARE path does not
-take that mutex. PREPARE holds snd_pcm_link_rwsem for reading and the
-members' buffer mutexes; driver close does not hold those locks across
-the free. The link write lock is taken at the later unlink.
-
-That is the overlap I meant: A's own backend data can be freed while
-A is still reachable by a PREPARE action issued through B.
-
-Best regards,
-Cen Zhang
+Best Regards,
+Petr
