@@ -1,133 +1,219 @@
-Received: from esa10.hc1455-7.c3s2.iphmx.com (esa10.hc1455-7.c3s2.iphmx.com [139.138.36.225])
+Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 503181684B0
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 02:16:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.138.36.225
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F8422116F4;
+	Wed, 14 Oct 2026 02:18:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791944195; cv=none; b=YpU0kd/EqUZXksE9El+EHjjjTMeUUXyFUK0UwaaS4gAl3cimT1NfDbaA6JMHyabiOimtFd/vK6EHg4CN9ReO2FTxMryMp3uMpVUbnlKpgz94X4FPz6WAGYti0Q33Kf7FKFtzSpyOpe7p+pCeQhbVMwCZd9LekwsdvgGKdQarCuA=
+	t=1791944291; cv=none; b=QBDzkJXZ9a97mYyphCoC9CDY8XvNNgvXbqieW8A1YKA2dng1ELRHJGssw+lg5UK6pvdbjx3nndKngJ0H1Wtv6s7NWRRz9BadVRhqjFnYIczvPsLxzLCx5MEc3uQh+Q3ngK58tCA231Dz+5cxkB1GiMVDsdRB7MVm3pibSrgHgJ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791944195; c=relaxed/simple;
-	bh=ValUy6NcJ7XWvyFZxFe0+oYX+hzVPfARyjSGuOAeXz0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bg02SKPn6yFd2VY5Qa49n1YorgQwfP1wBiMR4GmbQN/2/hG1N5kuic+DDKokamICRzPYMsIlN7eDbYbV6X0qBQgu//ELOrRyTCSRHbU7MqCtY3KpLUCv3Vuu5YTavzBIcO2Vo2a+2RBDWmygaR9fbUiozyj6x1XVrLe9rBKNwX0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com; spf=pass smtp.mailfrom=fujitsu.com; dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b=VSwdPvqW; arc=none smtp.client-ip=139.138.36.225
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
+	s=arc-20240116; t=1791944291; c=relaxed/simple;
+	bh=8y7kbFSPmEfWBdmvwES7r3eW+SXkBysWlXDi0fzAs9s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=vDcwZYY+mUenxF3a0VTRAs9LFIGV8iGNf2+Go5PG3+j/MCecbef5yhzh3vi3OCotbLX/VRtwZ33SMuTxDrXXZMz7G1fJsFRo1k9X78a1MPstZABzc8MDvPD51Ewl6dn0fcrteLMiStYXriOnvGCIxJVlkjhUqnWDeX3OV4T1lF8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=eF/pr/5L; arc=none smtp.client-ip=115.124.30.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b="VSwdPvqW"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
-  t=1791944194; x=1823480194;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ValUy6NcJ7XWvyFZxFe0+oYX+hzVPfARyjSGuOAeXz0=;
-  b=VSwdPvqWMMLxUh+PZ4xb/EN7pXBv15PbnV0DFvseSeoQaAOBEeJA4jvS
-   iuU5pCsS05R9bc0eNYS71c8aB7YXP/Xc9dFYd/1Kc6UNZ3iPYgDSi6wtg
-   JXt/fEMg3YsjO2sHqQpGDfxeWlBrBPUrU/HzzFHyTBdFBnOB5ZNpGjv+X
-   pQHi8jvcj4dkO2UiWzBJAkf3VV39yliH9TY7TXSseJVSgM7NXM0EVmeb0
-   E/kUcebYDR1njwaDPGTRH0bkjnA4/ofeYX2/AzNhVwbPFom19tqubGoCz
-   1Zb8s9WGD59LDr5UqhlkjIJQRGoUX387qMWKiQJzEUzBDzBWAxCt7f2Q8
-   w==;
-X-CSE-ConnectionGUID: RlR3m1LNRNWK/Ckofh+hVg==
-X-CSE-MsgGUID: AtoyDCtfQaaGPxnWVP2UcQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="244307947"
-X-IronPort-AV: E=Sophos;i="6.27,156,1786978800"; 
-   d="scan'208";a="244307947"
-Received: from gmgwnl01.global.fujitsu.com ([52.143.17.124])
-  by esa10.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 11:16:26 +0900
-Received: from az2nlsmgm3.fujitsu.com (unknown [10.150.26.205])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by gmgwnl01.global.fujitsu.com (Postfix) with ESMTPS id DC5191C000EB
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 02:16:26 +0000 (UTC)
-Received: from az2nlsmom2.o.css.fujitsu.com (unknown [10.150.26.200])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by az2nlsmgm3.fujitsu.com (Postfix) with ESMTPS id 8A68D1801EAA
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 02:16:26 +0000 (UTC)
-Received: from FCCLS0092175.localdomain (unknown [10.8.5.209])
-	by az2nlsmom2.o.css.fujitsu.com (Postfix) with SMTP id 4848F180059D;
-	Wed, 14 Oct 2026 02:16:21 +0000 (UTC)
-Date: Wed, 14 Oct 2026 11:16:19 +0900
-From: Kohei Enju <enju.kohei@fujitsu.com>
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>, Sami Mujawar <sami.mujawar@arm.com>, 
-	Steven Price <steven.price@arm.com>, "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
-Subject: Re: [PATCH] arm64: rsi: Correct type of realm_config::hash_algo
-Message-ID: <as7jnnH0hAvYa0UM@FCCLS0092175.localdomain>
-References: <20260929-cca-b4-rsi-fix-hash_algo-type-rebase-v1-1-6932cf0aa605@fujitsu.com>
- <as5ljILkGNxH0TTd@arm.com>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="eF/pr/5L"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1791944279; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=XuQDjmn6Lnuo5HOpYgjYT2P+oYUujNQVUriwXbnoduA=;
+	b=eF/pr/5LIQ++3TUki7kDCfFTESPh7/MT1+ib7UHuN8o2e7UfSkiLNesfI1MFAWMCfX/EiV4h9BEIkG5L2lGK5BFf/z07OaMj42YL3TZTEiVhsskHSwifuTgiYcKa1NWs+iZ74heQVPp1iM6rxv8EoKCmYjjzRarmAiXwIVg71bo=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=12;SR=0;TI=SMTPD_---0XCnclMF_1791944278;
+Received: from 30.221.146.92(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XCnclMF_1791944278 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 14 Oct 2026 10:17:58 +0800
+Message-ID: <ff8d866d-f318-4722-a1ab-88db7a3fde63@linux.alibaba.com>
+Date: Wed, 14 Oct 2026 10:17:57 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <as5ljILkGNxH0TTd@arm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] ocfs2/cluster: unlink socket containers before
+ releasing resources
+To: Cen Zhang <zzzccc427@gmail.com>, akpm@linux-foundation.org
+Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com,
+ kees@kernel.org, kuba@kernel.org, ocfs2-devel@lists.linux.dev,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ baijiaju1990@gmail.com, jjzuming@gmail.com
+References: <pm-ocfs2-objects-candidate-0065-v6-3090153fd7cacb810214@gmail.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <pm-ocfs2-objects-candidate-0065-v6-3090153fd7cacb810214@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 10/13 18:08, Catalin Marinas wrote:
-> On Tue, Sep 29, 2026 at 08:36:00PM +0900, Kohei Enju wrote:
-> > The RMM specification defines RsiHashAlgorithm as an 8-bit type, but
-> > realm_config::hash_algo is currently declared as unsigned long.
-> > 
-> > There are currently no upstream users of this field, so the mismatch
-> > does not cause an observable issue today. However, a proposed series
-> > adding support for Realm measurement registers uses this field and
-> > exposes a bug caused by the incorrect type.
-> > 
-> > Change hash_algo to u8 to match the RMM specification while preserving
-> > the size and layout of struct realm_config.
+
+
+On 10/13/26 11:34 PM, Cen Zhang wrote:
+> A socket container's node and socket must remain alive while the
+> container is on sock_containers. The debugfs formatter reads sc_node
+> and sc_sock under o2net_debug_lock without taking their references, but
+> sc_kref_release() releases both before taking that lock to unlink the
+> container.
 > 
-> Doesn't the RMM spec say that the unused bits must be zero? B5.5.19.
+> With CONFIG_DEBUG_FS enabled, a synchronous sender can retain its last
+> socket-container reference after o2net_disconnect_node() has detached
+> the connection and flushed o2net_wq. The caller runs outside that
+> workqueue. After the sender removes its configfs dependency, node
+> removal can proceed without waiting for the sender's final sc_put():
+> 
+>   Sender (final sc_put)    Configfs rmdir        Debugfs reader
+>   --------------------    --------------        --------------
+>   o2nm_undepend_item()
+>                           Drop node item refs
+>   o2nm_node_put()
+>     [node can be freed]
+>                                                sc_seq_show()
+>                                                  Lock debug lock
+>                                                  Read sc_node->nd_name
+>                                                  Unlock debug lock
+>   sc_node = NULL
+>   o2net_debug_del_sc()
+> 
+> The earlier socket release has a similar window. The container is
+> still selectable while its socket has been released and sc_sock has
+> not yet been cleared:
+> 
+>   Sender (final sc_put)                       Debugfs reader
+>   --------------------                       --------------
+>   sock_release(sc->sc_sock)
+>     [socket can be freed]
+>                                              sc_seq_show()
+>                                                Lock debug lock
+>                                                Read sc_sock->sk fields
+>                                                Unlock debug lock
+>   sc_sock = NULL
+>   ...
+>   o2net_debug_del_sc()
+> 
+> Move o2net_debug_del_sc() before releasing either resource. Unlinking
+> under the existing debug lock waits for an active formatter to finish
+> and prevents later readers from selecting the container. This covers
+> both socket fields and node fields, including nd_num in the stats
+> formatter. Release the debug lock before the existing resource cleanup.
 
-You're right. The RMM must zero the unused bits, but TF-RMM does not
-appear to do so. I agree that this should be fixed in TF-RMM as well.
+sc_kref_release() never holds o2net_debug_lock, the lock is taken and
+dropped inside the helper o2net_debug_del_sc().
 
-> That said, I'm ok with the explicit u8 here.
+So better to:
 
-Thanks.
+s/ Release the debug lock before the existing resource cleanup.//
 
 > 
-> > Link: https://lore.kernel.org/all/20260413084957.327661-4-sami.mujawar@arm.com/
-> > Signed-off-by: Kohei Enju <enju.kohei@fujitsu.com>
-> > ---
-> >  include/linux/arm-smccc-rsi.h | 5 ++++-
-> >  1 file changed, 4 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/include/linux/arm-smccc-rsi.h b/include/linux/arm-smccc-rsi.h
-> > index fddb77986f70..2fb6ec5e0298 100644
-> > --- a/include/linux/arm-smccc-rsi.h
-> > +++ b/include/linux/arm-smccc-rsi.h
-> > @@ -128,7 +128,10 @@ struct realm_config {
-> >  	union {
-> >  		struct {
-> >  			unsigned long ipa_bits; /* Width of IPA in bits */
-> > -			unsigned long hash_algo; /* Hash algorithm */
-> > +			union {
-> > +				u8 hash_algo; /* Hash algorithm */
-> > +				u8 pad_hash_algo[8];
-> > +			};
+> KASAN report as below:
 > 
-> I would skip the padding for now, we have one already. If we later add
-> the next fields, I have a slight preference for a u8 reserved[7] field
-> than another union.
-
-Ack. I'll drop the inner union in v2.
-
-Thanks,
-Kohei
-
+>     BUG: KASAN: slab-use-after-free in string+0x42b/0x470
+>     Read of size 1 at addr ffff88810f56fc90 by task python3/506
 > 
-> >  		};
-> >  		u8 pad[0x200];
-> >  	};
+>     CPU: 0 UID: 0 PID: 506 Comm: python3 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy)
+>     Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+>     Call Trace:
+>      <TASK>
+>      dump_stack_lvl+0x93/0xd0
+>      print_report+0xce/0x630
+>      kasan_report+0xe0/0x110
+>      string+0x42b/0x470
+>      vsnprintf+0x330/0x1110
+>      seq_printf+0x1a8/0x260
+>      sc_seq_show+0x604/0x9f0
+>      seq_read_iter+0x480/0x1110
+>      seq_read+0x362/0x5a0
+>      full_proxy_read+0x11f/0x180
+>      vfs_read+0x1a0/0xc20
+>      ksys_read+0x111/0x200
+>      do_syscall_64+0x114/0x620
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
 > 
-> -- 
-> Catalin
+> (User register dump omitted.)
+> 
+>      </TASK>
+> 
+>     Allocated by task 497:
+>      kasan_save_stack+0x33/0x60
+>      kasan_save_track+0x14/0x30
+>      __kasan_kmalloc+0xaa/0xb0
+>      __kmalloc_cache_noprof+0x28d/0x610
+>      o2nm_node_group_make_item+0xea/0x1a0
+>      configfs_mkdir+0x762/0xca0
+>      vfs_mkdir+0x399/0x7e0
+>      filename_mkdirat+0x129/0x450
+>      __x64_sys_mkdir+0x70/0xa0
+>      do_syscall_64+0x114/0x620
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+>     Freed by task 505:
+>      kasan_save_stack+0x33/0x60
+>      kasan_save_track+0x14/0x30
+>      kasan_save_free_info+0x3b/0x60
+>      __kasan_slab_free+0x5f/0x80
+>      kfree+0x308/0x580
+>      config_item_cleanup+0x14b/0x230
+>      config_item_put+0x79/0x90
+>      sc_put+0x454/0x6e0
+>      o2net_send_message_vec+0x63d/0x1560
+>      o2net_send_message+0xa6/0xe0
+>      validation_send_write+0x17f/0x1d0
+>      full_proxy_write+0x11f/0x180
+>      vfs_write+0x25a/0x1010
+>      ksys_write+0x111/0x200
+>      do_syscall_64+0x114/0x620
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+>     The buggy address belongs to the object at ffff88810f56fc00
+>      which belongs to the cache kmalloc-512 of size 512
+>     The buggy address is located 144 bytes inside of
+>      freed 512-byte region [ffff88810f56fc00, ffff88810f56fe00)
+> 
+> (Page and shadow-memory dumps omitted.)
+> 
+> Fixes: 2309e9e040fe ("ocfs2/net: Add debug interface to o2net")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+
+The change looks good.
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+
+> Assisted-by: LLM
+> 
+> ---
+> Changes in v2:
+> - Move o2net_debug_del_sc() before socket and node cleanup, as Joseph
+>   suggested.
+> - Use the ocfs2/cluster title prefix and describe the races with sequence
+>   diagrams.
+> - Add Cc: stable@vger.kernel.org.
+> 
+> Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0065-v4-f45e5cef38dd587b2cfd@gmail.com
+> 
+>  fs/ocfs2/cluster/tcp.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/fs/ocfs2/cluster/tcp.c b/fs/ocfs2/cluster/tcp.c
+> index 8b3830b601ba6e5fe964bec970581b8e4ddbb5dd..0eaf2c4a6989ecad00f7a88a66a782b334647f21 100644
+> --- a/fs/ocfs2/cluster/tcp.c
+> +++ b/fs/ocfs2/cluster/tcp.c
+> @@ -393,6 +393,9 @@ static void sc_kref_release(struct kref *kref)
+>  
+>  	sclog(sc, "releasing\n");
+>  
+> +	/* Unlink before freeing anything the debugfs readers dereference. */
+> +	o2net_debug_del_sc(sc);
+> +
+>  	if (sc->sc_sock) {
+>  		sock_release(sc->sc_sock);
+>  		sc->sc_sock = NULL;
+> @@ -402,8 +405,6 @@ static void sc_kref_release(struct kref *kref)
+>  	o2nm_node_put(sc->sc_node);
+>  	sc->sc_node = NULL;
+>  
+> -	o2net_debug_del_sc(sc);
+> -
+>  	if (sc->sc_page)
+>  		__free_page(sc->sc_page);
+>  	kfree(sc);
+
