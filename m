@@ -1,200 +1,203 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FB2D54528C;
-	Wed, 14 Oct 2026 14:22:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23D30545DB2
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:23:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791987781; cv=none; b=MIlYVdK/ViOAIKUe51ZGEcSdf1GuLpMRRmF/chhfDIaonHngQUcfVJlOWu19wbt9EYkYTao/zJplSZkf8fbMW9iOXM4uNauCJnOAf262k0/ZX76qerDNdOwReuEUy7V3jG8QNTyabvB4hbe5LD6HqypjPOPSy8zYkNupl+tr46I=
+	t=1791987799; cv=none; b=Wk+pzYyrcPb4SfpwwWWv9984OCUJKTGPjjum+QxcH87iOU894eXdNtp/OAVta8VYuXMcXE4J1llVYn1d7twp/69UjQ/pTLFUuAzjtkZ04EPrDQJzSKuIdknwOh1Z/acAr3EHm7dnR1iRmr9ygsGapkmlHfup7j2uMRnI6CWbAbk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791987781; c=relaxed/simple;
-	bh=C1NGfgrv1E5ASxsQwAznI/T8oQm41TP2gZwE+h0mmig=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=i3hB3jC9FvK/kfh3T1ujOBcxcBx/gQm9NhdRgsas1jDhzd357Hp2Yllu2m6OD4LoOcSmpTW1mjp4jXS3ulXZt1+uyG3fBC/tV6f4k09Lx5X1Kw2IBscpwLI/FJyycZZMPF0m/xPB7PaEWAGchVJsadp2z8HTjbVlrhiN+mz4avE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ee80/v85; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791987799; c=relaxed/simple;
+	bh=tx9Xx/2ujSCsRzYR5b6KO0ZDOUNlLvzT/wn4ry5q0iI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eb29FGyAMCwC9scSMaBhd69WQP2WdGgHN6Zd0o7fsuQCbySR09uINkpgSq3kerQRs07kDNdXrJUpckCn1VYEPSidqazsXKkAfkvl93s+YMNc0AXglfMu5yShkNXSAkp5YdCX9xcou7o2Lu9eZPx4SVrMFt2ZWVkBhDmrabHGfjM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TF1S2lnZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cbrfGAH9; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ee80/v85"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08F001F000C4;
-	Wed, 14 Oct 2026 14:22:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791987779;
-	bh=Uu0P8kyflDZVf/mBGOCfDqo7epBS82w1BcqWgsceJh8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ee80/v85iVdOzFnlzkhUNS6zeauvYcctg1O8l8ATTt1LmuyRY/y2Jf14Hnj/KiFXG
-	 65D5y+2pGHsofCQT+51x3Wp02kjgL5B6YwJ5PIyXRTRi+d2bTrJFTei0Q1fxb3Yp9G
-	 kpePOWdzSYFJUFc1uVgLVVR4cimgOeOk05x3w7FyGJi5KZbMcjU3cmg2v527iKaYbq
-	 KTXeKX1oiAKbyn+E4f+W0/Qk4ZcS1UIwdv0KR1ucnxMJuCUdPwgq7afEjMXRQlwGrE
-	 semSmL0qweM6Cf3uWjL+L+Jrk12XZuwvGE4qJ7UavPHtOeIfMdX6MEfPtdGNKx4IZD
-	 ZcT6tsgv7nQGw==
-Subject: Re: [PATCH net-next v5 8/8] net: bcmgenet: reassemble jumbo frames
- from status block fragments
-From: netdev-bot+sashiko@kernel.org
-To: nb@tipi-net.de
-Cc: opendmb@gmail.com, florian.fainelli@broadcom.com,
- bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- dave.stevenson@raspberrypi.com, justin.chen@broadcom.com,
- pierremarinleclercq88@gmail.com, f.fainelli@gmail.com
-Date: Wed, 14 Oct 2026 14:22:58 +0000
-Message-ID: <179198777861.434549.7442931129502036522@kernel.org>
-In-Reply-To: <20261013-nb-genet-mtu-nn-v2-v5-8-076b6fc240be@tipi-net.de>
-References: <20261013-nb-genet-mtu-nn-v2-v5-8-076b6fc240be@tipi-net.de>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TF1S2lnZ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cbrfGAH9"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EBIGtG3365999
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:23:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=HxggoZsyGw+wkrlt+cBfpByq
+	ki1BnMRvzaCfqLVXJus=; b=TF1S2lnZJFZuQXXKI6RIdo8aRvTUHZAqHZILAp7A
+	vJ2B+fI4gARqwq99r+lwNgFGXtMxa93KXML3ETomP5IZuOH5YyJ9gK7/E1fLWQfJ
+	Njhz16GL+biCZhSaOBXoGBLhL/5bfaybergcrzyRv0NuEbQRcBAyLPlMXzkhD/DG
+	9OycF3LNTiwJaIjlAshxM4dJR6atyZd1AJ9HkeApFQ/JRp7tv4t0zxna/RLE6b8H
+	L1HIlqLhhbwbNUZI7Torh5L0QRMvwdjVCChlet1V6h33K1KSTGSJPKmj075LpKce
+	AQ7Ywkq6UzDQ7KkM0qmBsK5Fr8fsk5lRYjA4ryHoSkvteQ==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ha46220f4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:23:16 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-91b875639ceso52582816d6.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:23:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791987796; x=1792592596; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HxggoZsyGw+wkrlt+cBfpByqki1BnMRvzaCfqLVXJus=;
+        b=cbrfGAH9rzmDWPAfL+lmDcKfacrnNCoWypgH1FU2GuKz0mnHjb6qsuOLP7OYO74nLJ
+         ak++vNBXyFpSTSgpzFMSu3597qjTVRvC4owTHKejF/K5U0JaCSxHN64VFO+smXLsYJXE
+         eJ+Ee2equMknJhsj8tXnE+SXbWjFLQfV4fDE7LSY1IkVxGQ8oL6kSgAzrUeheHwQve7O
+         oyNxVTbljz0iIMMRPlAttPHLlzig9xM71ChArIo3N7Y2EaHfk7M+YzVhGzjPPShM0iLL
+         lZdd8OFtYx3V0VWEmgvR5XnjDDRn8GI9VGSuahsgvsMqLIZtPYQIB/7xhwkBQRiT+LGq
+         +9tw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791987796; x=1792592596;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HxggoZsyGw+wkrlt+cBfpByqki1BnMRvzaCfqLVXJus=;
+        b=KQ8Qf4L9ExcETzF14e55y6b7O+M1p8FC+EjSFKjt+WzyKxUlVSwvXIJ0vrBcFIeZiB
+         hQlQeYBRk8ZJFvxikoQt2JYRoHzcN4hSbUMcN8zEd40Hrgl5DqTxfpq4NYRUpCVW1zsd
+         T8W4SmfSAHJdkHcyKj04jxoXRLJxDQVrRUq0AYWwZ4MBip1ug4da7cfUW37E+u5NciNl
+         0NjofOXnMQ0H7sqJLV9r7fI7rExQCzqQ8JnRJnbNji3HNWq3OSxhdalUzigdEnl8Y6cW
+         QS9Y/yTAZH5LtqTxediP0WqFVpsWr68k8fFR4oob4RRe/YsfHbHiASiuTMQkjzOe59vk
+         N8kA==
+X-Forwarded-Encrypted: i=1; AKwUvByIXywXu7XaVdNGLj+oyLalj7aKxmjA0oFWzdYwalgKm8PnehPdqMLg2nwrLc2DOJqnwBky67bSwP17GLI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIH3nh4v7yO1h2cfia1nyvpqt7z/LLjeqsAE+ZSaVOBCRqRVDZr
+	y5PiWaiVKlZZNetU7i13zw4vnTu5zKOuqUUSW/2kEsP2ko7w0hqTJctojqd4mS91FTRI4T0y5Qa
+	bg8Wt4csHeGrxREOV7GzPMXum+E6cBTGv62ddvEIwIk82kdxPSQWxNUHylyRqEIoXPYo=
+X-Gm-Gg: AYBFou3BpsVJuPI8oGLPtwd1OTkcg+w9QdIpdQETDYeWXsBsN91iImc5wIphS4UrtrM
+	C4NjnST4xz+7beZYogLYq8Q3wQgR4oLLJ52g+uSZDwpEoKLHaX1vEKOuU286o1lDJdeYiG02fOw
+	cUeM8ZG49oEH621/zzebMHMCXk3iwjjIDbrD6Bg3eCenaCUgxhM/E+NF638pisxCLMOtC1FY5/W
+	Z1+NLkotbV3np5TZBRIR+BnBpzvoCvnhouUzA+qhZPBp1XVlivGNDddgmV8co8hZ0ym6UoJ2kWN
+	/TBLZ3ffNJc4fjCIFuvMqOKiY4FcSKcgq3iCMrZ1yPZ9YNZEGxbgEvsLGwUj4o0OBG6TOmdRuZU
+	N59OeaNkhvOg+mEYmFud8abzimORVwCcXXuSIrYg0b4KEP1Jb+Ytu3sk5lcvUoIIf7xnk/xX25p
+	TXlK3om/Rsqn1h
+X-Received: by 2002:a05:620a:270d:b0:93b:d79a:c462 with SMTP id af79cd13be357-93ebd26b606mr2563170485a.58.1791987796080;
+        Wed, 14 Oct 2026 07:23:16 -0700 (PDT)
+X-Received: by 2002:a05:620a:270d:b0:93b:d79a:c462 with SMTP id af79cd13be357-93ebd26b606mr2563163585a.58.1791987795429;
+        Wed, 14 Oct 2026 07:23:15 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a9dcdf4545sm28180021fa.25.2026.10.14.07.23.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 07:23:14 -0700 (PDT)
+Date: Wed, 14 Oct 2026 17:23:12 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
+        Ulf Hansson <ulfh@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Mike Tipton <mike.tipton@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+        driver-core@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH DNM RFC 15/16] arm64: dts: qcom: sm8650: Drop
+ required-opps
+Message-ID: <r5dc5p4dozb5lkz4yaiv3epp2nskxmgcjjhf7fgoy34vcsspc6@27wzsgsvgspm>
+References: <20261014-topic-qc_clk_dvfs-v1-0-3041b788e9f7@oss.qualcomm.com>
+ <20261014-topic-qc_clk_dvfs-v1-15-3041b788e9f7@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014-topic-qc_clk_dvfs-v1-15-3041b788e9f7@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: 6eqfRbnabcJn1_9HC36nCWfY2IjF7jGt
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA1NyBTYWx0ZWRfX6Xr9JR+vEXSC
+ nhmVuJov9I5amXPaw1F1yPg5+WjHKFZjUL7KXokAZUOm5pxOyRfjzKmnJuMdtpk6ShGmiawKBal
+ S0C4Uu/LnQvD8WHyrkG/E+ZTtM8L7Jp82o4i70mhgBdm3xvBS0or5ji0a2a3FIXvk9OcHRnv2eB
+ Ipk0KtsvaCfa3QTf63/HiSWw6fqcU128Gu6b6/qLC6QNR/xZNIrzcXrs9rO5sjoDH59niwi4VPs
+ MAk+lJ1B3PZKFfoOerELLrxUK5tmymXqIxbUdA97uILaPc5t9bLk0sNbMmh5ynq0HiMOUdKKMmx
+ wxtWdPRK/RMT0gaSBRyJ+H1x3Hv9G3HiMeHe8e0ScAG8J/2fdAbFD63VB1VTf1DodAg+AMIxWMV
+ 9loyuotHEPaLKqskyUax19wdHXZfL0rH28ChwGJpO3wVqb4X7x95Ef4HYRkDs+4BXrY+txFynKe
+ vSiknaTTW1un/t/yeMg==
+X-Authority-Analysis: v=2.4 cv=ErZHPicA c=1 sm=1 tr=0 ts=6acf9054 cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
+ a=ycGoBvuFAn3-dblq1t0A:9 a=CjuIK1q_8ugA:10 a=OIgjcC2v60KrkQgK7BGD:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA1NyBTYWx0ZWRfXzZX3WlajrSx5
+ BEvagP7GKe8tASSxapGVX6+bG9sa9oz6Gb6Kp3rxWoLSESmDMyYAGgY74JRtXq9P2+eBkvAlo2s
+ 56kR4hwamNmGp8aAh0q8wvo8/D95Ico=
+X-Proofpoint-GUID: 6eqfRbnabcJn1_9HC36nCWfY2IjF7jGt
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 malwarescore=0 bulkscore=0 impostorscore=0 adultscore=0
+ suspectscore=0 clxscore=1015 lowpriorityscore=0 priorityscore=1501
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610140057
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
-
-Low priority / nit picks for your consideration:
-
-- [Low] This patch rewrote the comment above the TX checksum fallback in
-  bcmgenet_xmit() to say: "The MAC holds a frame to insert its checksum,…
-- [Low] This patch updated the comment on bcmgenet_pkt_rdy_thld() to say
-  the threshold covers the frame "up to the register maximum".
-
-Pre-existing issues:
-- [Medium] This problem wasn't introduced by this patch, but adaptive RX
-  coalescing gets per-poll counts where it expects cumulative counters.
-
---
-
-net: bcmgenet: reassemble jumbo frames from status block fragments
-
-The hardware can split a frame across several RX descriptors and write a
-status block at the start of each one. With this commit,
-bcmgenet_desc_rx() strips those status blocks and joins the pieces into
-one skb. The commit also raises max_mtu to the limit of the 14-bit
-UMAC_MAX_FRAME_LEN, and TX frames longer than the threshold now fall back
-to a software checksum.
-
-> diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-> index 9f28006957d4d..323839adebbae 100644
-> --- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-> +++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-
-[ ... ]
-
-> @@ -2200,8 +2197,8 @@ static netdev_tx_t bcmgenet_xmit(struct sk_buff *skb, struct net_device *dev)
->  		}
->  	}
+On Wed, Oct 14, 2026 at 02:19:15PM +0200, Konrad Dybcio wrote:
+> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> 
+> Now that the clock controllers take care of their power requirements,
+> drop the required-opps that were only there because they previously
+> hadn't.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> ---
+> DFS clocks (for QUPs) are left out for now, as they need some more
+> code changes.
+> ---
+>  arch/arm64/boot/dts/qcom/sm8650.dtsi | 46 ------------------------------------
+>  1 file changed, 46 deletions(-)
+> 
+> @@ -5057,22 +5039,18 @@ sdhc2_opp_table: opp-table {
 >  
-> -	/* The MAC only inserts a checksum into a frame it holds in full, and
-> -	 * silently drops a longer one, so fall back to software.
-> +	/* The MAC holds a frame to insert its checksum, but only as much as
-> +	 * its FIFO takes. Longer frames are dropped silently.
->  	 */
->  	if (unlikely(skb->len > priv->tx_thld_len) &&
->  	    skb->ip_summed == CHECKSUM_PARTIAL) {
-
-[Severity: Low]
-This isn't a bug, but does the new comment in bcmgenet_xmit() describe the
-limit the code checks?
-
-The condition under the comment compares skb->len with
-priv->tx_thld_len. That is the programmable packet ready threshold that
-bcmgenet_tx_pkt_rdy_thld() picks from the MTU, somewhere between
-ENET_THLD_DEFAULT and ENET_THLD_MAX units. It is not a fixed FIFO size.
-The commit message also says "anything longer than the threshold falls
-back to software".
-
-The new wording also drops "so fall back to software". The comment no
-longer says that these frames go through skb_checksum_help() rather than
-being dropped.
-
-Could the comment name the threshold and mention the software fallback?
-
-[ ... ]
-
-> @@ -2552,7 +2637,8 @@ static unsigned int bcmgenet_desc_rx(struct bcmgenet_rx_ring *ring,
->  	}
+>  				opp-19200000 {
+>  					opp-hz = /bits/ 64 <19200000>;
+> -					required-opps = <&rpmhpd_opp_min_svs>;
+>  				};
 >  
->  	ring->dim.bytes = bytes_processed;
-> -	ring->dim.packets = rxpktprocessed;
-> +	/* A long frame spans several descriptors but is one packet */
-> +	ring->dim.packets = rxframes;
+>  				opp-50000000 {
+>  					opp-hz = /bits/ 64 <50000000>;
+> -					required-opps = <&rpmhpd_opp_low_svs>;
+>  				};
 >  
->  	return rxpktprocessed;
->  }
-
-[Severity: Medium]
-This is a pre-existing issue, not one introduced by this patch, but this
-hunk touches the DIM accounting. Should ring->dim.packets and
-ring->dim.bytes be cumulative counters?
-
-Each poll overwrites them with that poll's counts. bcmgenet_rx_poll() then
-passes them to DIM as a sample:
-
-drivers/net/ethernet/broadcom/genet/bcmgenet.c:bcmgenet_rx_poll() {
-    ...
-	if (ring->dim.use_dim) {
-		dim_update_sample(ring->dim.event_ctr, ring->dim.packets,
-				  ring->dim.bytes, &dim_sample);
-		net_dim(&ring->dim.dim, &dim_sample);
-	}
-    ...
-}
-
-dim_calc_stats() treats both values as counters that only go up and takes
-a wrap-aware difference:
-
-lib/dim/dim.c:dim_calc_stats() {
-    ...
-	u32 npkts = BIT_GAP(BITS_PER_TYPE(u32), end->pkt_ctr, start->pkt_ctr);
-	u32 nbytes = BIT_GAP(BITS_PER_TYPE(u32), end->byte_ctr,
-			     start->byte_ctr);
-    ...
-}
-
-Two polls of the same size give a difference of zero, even under steady
-traffic. A smaller poll after a larger one wraps to about 4 billion.
-
-With adaptive-rx turned on through ethtool -C, would the ppms and bpms
-values that net_dim_stats_compare() uses to pick coalescing profiles be
-meaningless?
-
-The baseline assigned rxpktprocessed per poll in the same way.
-
-[ ... ]
-
-> @@ -2696,7 +2784,8 @@ static void bcmgenet_link_intr_enable(struct bcmgenet_priv *priv)
->  }
+>  				opp-100000000 {
+>  					opp-hz = /bits/ 64 <100000000>;
+> -					required-opps = <&rpmhpd_opp_svs>;
+>  				};
 >  
->  /* Receive threshold in register units. Covers the alignment bytes and the
-> - * frame, but not the status block, which the hardware adds on top.
-> + * frame up to the register maximum, but not the status block, which the
-> + * hardware adds on top. A longer frame arrives in several descriptors.
->   */
->  static unsigned int bcmgenet_pkt_rdy_thld(unsigned int mtu)
->  {
+>  				opp-202000000 {
+>  					opp-hz = /bits/ 64 <202000000>;
+> -					required-opps = <&rpmhpd_opp_svs_l1>;
+>  				};
+>  			};
+>  		};
 
-[Severity: Low]
-This isn't a bug, but is "up to the register maximum" accurate for
-bcmgenet_pkt_rdy_thld()?
 
-The function clamps to ENET_THLD_MAX_LEN / ENET_THLD_UNIT, and
-ENET_THLD_MAX_LEN takes the smaller of the register limit and the page
-limit:
+Can we then drop these OPP tables, which only have a HZ entry?
 
-#define ENET_THLD_MAX_LEN	min_t(unsigned int, \
-				      ENET_THLD_MAX * ENET_THLD_UNIT, \
-				      ENET_THLD_PAGE_LEN)
+> @@ -5200,7 +5178,6 @@ &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
+>  			iommus = <&apps_smmu 0x40 0>;
+>  
+>  			power-domains = <&gcc USB30_PRIM_GDSC>;
+> -			required-opps = <&rpmhpd_opp_nom>;
 
-The comment above ENET_THLD_PAGE_LEN says "on 4K pages the page bounds
-the threshold before the register does". On 64-bit with 4K pages,
-ENET_THLD_PAGE_LEN works out to 3584, below the register limit of 3840.
-That value is also where jumbo frames get split across descriptors.
+How do we ensure that we can access device registers? Is there a clock
+(?) which now casts a vote, letting us access USB regs?
 
-Could the comment refer to the page or ENET_THLD_MAX_LEN limit rather than
-the register maximum?
+>  
+>  			snps,hird-threshold = /bits/ 8 <0x0>;
+>  			snps,usb2-gadget-lpm-disable;
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261013-nb-genet-mtu-nn-v2-v5-0-076b6fc240be%40tipi-net.de
+With best wishes
+Dmitry
