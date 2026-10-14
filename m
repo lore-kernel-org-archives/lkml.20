@@ -1,138 +1,167 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+Received: from mail-pz2-f6.google.com (mail-pz2-f6.google.com [74.125.228.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4877D545DA8
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:04:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792001066; cv=pass; b=on5cpYEdZTXwpe+5UZ7DE3czUuMQQhegcvUBF6BoNbC44/QGf/Ndj9KBl76YHJVc+POa/C6qqT+KZstsjxR0mxs+B1LDJx20TiHToow1HORLQY+5wQQ4pCBZN3EDHK6pqee6Zo4WxrPnB7b7z2CnLzknbL0NTS/tMZ8UZA5/+Fk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792001066; c=relaxed/simple;
-	bh=J+h7YdXElMiQCzhKnhtIRfCdNxjHv6XhdIMjoVUG7O8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Td9GdZAe0+vbvz0qEHt7S4L22l2JKMbZvwPeGK76QzFaKeJcgUaikn/vdJksKo5JWocWTKZJt3s+aK+W+ZkyeC0hzwr2xN7VoyB+1U5xXfXvMs29SNFrjFHiqTK4MapVhosga0qPyp26+3JGSZ5I4tqyla1ahTuuIlLvHIY2DNg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=io6KRGbR; arc=pass smtp.client-ip=209.85.218.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B2415616D1
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:04:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.6
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792001078; cv=none; b=Krb/c4r+2HIG6DdMSF0xgKe1kvMEp0cVi2l/VHjolbmyv6M4FJG8CRgLUSo8EPDbRpgy5ucQBqxJ7pDIvN7+8Qr4Qaw1Kj5M/C+0TtwIcJMMcTifyxdGKwNb3K4CMHR318U9Ru3ddImrRdPAOcmJxuqteYEhS1gzEQsxv+DHo4Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792001078; c=relaxed/simple;
+	bh=byT7Oi0cLhQwYSkFtKGiGpgd82T4uT9+1PBWVi3fXck=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=c+LtLGyJrSJ49rQeHc8E5C5MQDLqGffxpA40898ws0zkF6mueMx0r0c5VvQ6xV+M5ZVfZGrFLoJiWEVtYtx4y5vDh/i9G/6QSX/h+LHSmLCWKES2Yy+5E4jp4Rzu8DAKv1oshidY2YNcWDC/hT1PknueiEXFItSUzilP1muP664=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nnd/SA38; arc=none smtp.client-ip=74.125.228.6
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="io6KRGbR"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c3404ded81dso49001666b.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:04:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792001063; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HgmJaxW2oN/S3hfJDj6f4m0VoCwEc4S3i75TbGUGBVW4AT/neXpoP9urzLF3n4naSU
-         NSl5vMZMel6Fl2W9d0jw7f8S/TDprmwSSPorSbL8S1DGDvXgfghzKhE5bB2z7Froy22B
-         D+MjnxSKLDRmxfN0T7GJIPFyrStvxY17/R2WW5MF59qo6NSmIVv65t4x7/Y1tBJXL8W0
-         7qIM3ULaldgXWEUDXKJdNgzQHApssXElI6tJtS8WKgymCbJoqguUvbyME7jmn0zwC7GR
-         VtS9wHdnDx17wYr0y8L9VzW5qhyLXdv90fdHUhIxVh/xXfjZWIP1uEhQ89ctbKNjEjrC
-         m+8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=fEJjmdOa9f9AfG0wvokXtnQ9GBV6EH86X//DmL/plOI=;
-        fh=5v1aA4U55sp4JMxiUwQZGq6Oss9OYWTSabY40EC1Yu4=;
-        b=dxtsW19OR1xfdPJy/zkEwraGk2NN5TMpkpPOdSJixNmsMgeBAvnlvZQTAEXFmDDxoA
-         2DWA1dmW9lTELtvZFeXPkjFYx3Of02hCr8TrI7I5VqNLssjwypgSODOaYNBHPngSU/EY
-         bNyEuOdiU7OIiU486wgR2jsi4DgHNR+H8O2eT73EjFggqBP5/3zEZ5hS/ZgCzsXwk18Y
-         X0LmYpMEJ8oUQJIXcniCEc8MRF5njVlAaTMefX9K66mTUC8gdtvLj1y6jXIwHje3MTj2
-         3H6VOyNgYridiAn9gE9h6V/y0pCIwHvo6615XA5Z8nkPJqkO5lYTPHVbzY/tjZ29Xrn9
-         Izig==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nnd/SA38"
+Received: by mail-pz2-f6.google.com with SMTP id 41be03b00d2f7-cd616db42fcso875478a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:04:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792001063; x=1792605863; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1792001076; x=1792605876; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=fEJjmdOa9f9AfG0wvokXtnQ9GBV6EH86X//DmL/plOI=;
-        b=io6KRGbRqryTPXxUULFruYi3qjlA3Yh1FG+eCsD4nJwwGXDLL+Zc20XvdOXT2AyQV5
-         E+irR1wuMn5uZ3OzEBxwMSHVFe6mo3kyhj0gqSCu0Q7OW7J3VH2w03AKei1N61mMihB4
-         BisMGU//2Rf1SmpxFo38/aKQf89ekpE4VBL0Cor4qG7igucLNSDfuOL5bZLLfw5wXrho
-         U0nU1r5/bbSFLYaqT+r36/qsRmDm5YF3e6vhDDgYNlBdL5/pZdWdnvvqMGOsTMuEfnXP
-         HQVqk34YudBmKF0YSw8rL5yXYeHjtkx+LXZMxLK3zlqmKsBFe4hkmMVzqeN9c7DXh7lx
-         /onQ==
+        bh=Wq8CsgNnCjhuDOhxvAaqmUytJ+XS+cCMriLGrdCHHLo=;
+        b=nnd/SA38bm89Ivzv0ASOgGzzkdq+hLveZgclJ3DEmPRvXo1Wg/D1YxOmPVL3wXVBVJ
+         egdZCD6DBy6RA95gnqJQP/JbeAwGIsEhqJJVUW/FaG4RAoOHBgIZmw8CgZ6Ga3dvPDB/
+         T/1FNGlC6N1EIXCIY9h9oCc94t9BADftyB0PJZTNkbpjIJCwjCFtSZWqW159VIUo3IkP
+         c2Yxr+UZohi7TaUpsFE9OgCktLRbk2m6i33/mFyyatpfc6MAVGLUn1xusutvGE6zBL3r
+         wtZhfo6B9eK0gx9AH8kJF1D7IQXvzxM+iEvnKgTAAQAShLXzSeyY7sH3VJ2hyGOUub61
+         PKRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792001063; x=1792605863;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1792001076; x=1792605876;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=fEJjmdOa9f9AfG0wvokXtnQ9GBV6EH86X//DmL/plOI=;
-        b=x4SSm4bClHaJeUqX6V7nqS/8ecwlO5o6l/A46KRCjMR1iMay9ruxVOGy8mQh5kFMCI
-         wT5FkvWEJwVrojKNGSJiKFfrdPf06PwOZBdoh9BndW1adM5fKTeB1W7cXm9g62IUy9We
-         X9jBxLga5yRIN+pAW4y/QajkfapwR1IgbpomoE5GC7Foa58VZtYxDphw1j9uveHW0e7k
-         MpXum7QQGlwxvoEMoktQ3BrKbq9JUfWtns7buQHgzIHLY6yHusXC5xqRf2X3TOlqBjpC
-         v/tJv10SCi6Z8YIN+QXdH7/LRZLiARjSu2iPUWH4R0qgNBfwvKyGkMMoVFBRUItb3LTN
-         51KA==
-X-Forwarded-Encrypted: i=1; AKwUvBz/MqbALpyP5aEGz5dgxhCBlGV3lvmkYc++vMFACWGxByKmKuQ1mqZkfVjMMlJvvYnyUbFskVG7jwMHGTo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIbgUXBlvihi3jmblhwLzrxWpYg3JfJw+3hzvI0aIr+mmaMKOJJ
-	mOuu5T3mNDGmVX2SogvPUZOtLyVXxz+DLSFN3TemrWLbWvtlvh1b154fm5i/oBjHDymp+5qb6rX
-	nX2wIzl4W+9xSJLTtaxxKe7QI4yVSk/E=
-X-Gm-Gg: AYBFou2Nwm/Mt1V58uSv/mFOjHtTeZZwPXAfi8eCagNkbCP7jjjCZjaOvcXWzFumDfb
-	vqQm7RQIyb0Y3JYzX4papIbula5s9UZsiO4F76U3xt4hjdvlbsSIJzI1Qs3UaB9nDgOf9WmjNAD
-	G1q9j3/jb7/vmREir3U3qXtQOruCz7CYBLxd4J22GJ0sp5hpRUZ7XioxqJV5EX+7cbzgvb50cYU
-	tVdbQLwq0Jv96N0cJh1EZGOVeJJkPx3A97Manswq+qyFdfHpOY9iJGjNPeRPM5diR3hWOhda4BG
-	DMlhYeb9hNJy8ETqn4iAjiwFUNo2EFE+QKo3tcFIhmX+wTQc8YkgGYjUIhCSnkQGAFyym5hul0Q
-	v1aC4KwDsrnBS36a2VJU=
-X-Received: by 2002:a17:907:9720:b0:c2e:e3c:ddf3 with SMTP id
- a640c23a62f3a-c31a9a2d73dmr1892027666b.1.1792001063289; Wed, 14 Oct 2026
- 11:04:23 -0700 (PDT)
+        bh=Wq8CsgNnCjhuDOhxvAaqmUytJ+XS+cCMriLGrdCHHLo=;
+        b=mM2L5mEKNn7KCfHIg7Eux8TnJ8oqDN+YGrX1oy2bmFswyEluLeFGDUkhNlGiYZeR3/
+         lsMXTLOH/0LgDzYYD8GLUC5EPV5lrRj7KjV5A639cWsm7WR64bOC6j65d2kximzdekVq
+         3FrCYW2OypQH3u8fesMQnw8qEhSoGAVQ/HvJ8XCab8eBIFiLhEPDs/6cB7BYh2r+fijA
+         9unM+/a0jHfS653jI9n+khwt+eqbW0eoSghJKJIE1jkrbM5PpbZXdNKtywgHQY4er931
+         zTTp6ZTJvwpNtwOdUHYl8cd8QigJqqbqsnjAQzWTj2BbUev3mUygYMg95aHlhymxJiuQ
+         mRww==
+X-Forwarded-Encrypted: i=1; AKwUvByS0NiYK3i6FgLRcVkr7h4SfIZkg9dsGWpTqPMXOp8YxvAZg+ElLPWsfR+XP6713Oo2DOcvhUZnalmFNW8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLOYITI0bqFTY6URhqOf6COIXHoviaacbmr96HU7cvKewR6NYPh
+	lzVeFfowLGnfQmcWygGSDkIXpvTwZQ2PzKJ1DrnHbZOezT5AAYJeubm7
+X-Gm-Gg: AYBFou3eCBKfba/1cJgQtXsvxP9jM2AhIVIdrcTsc5LaqblV3gfwftCgYW+rZJOqe68
+	XFm8CrhpvYgxl/7l27qtUS6hDYi+ecurxez8VfQeiaod3742LlYVmeGu6mlpkJ3xomNkVqADdtq
+	j4kwF00j/RV8yR6DKMGeLIN5/NDqEjjeizn+hoKjnocIQHZMNSCNWG+BZQzGCY8lQEtDYpGMnpg
+	xJVkwGZkRzv6p8JNWtllLnOng6EHWxpaoTuzfnvSiJrvrrJsvOMR6MJRrqFf7hnvXiLsE/Rpv41
+	WZRpMNJyzdVlJlXQ4EY0DL9RPn6TEhI2oDEaO0pckc8Z5O5y5Hi93AfC8LEXZrBmTXktOidmc3X
+	FSgH/EhSlQ5tFKKzZEAkeTaox/60UJ+JUBPXWOPdTTeLsLYmkLy8AdA9Ch+JphHPAZwNGL3jTp4
+	lzkF1rAcq3EF4EgTy+Y4qe86+WPpHuJXQr9e7Q1Ge4S1l1TyotFarSMXgx4MTZbGBI
+X-Received: by 2002:a05:6a00:3385:b0:886:c8d1:632f with SMTP id d2e1a72fcca58-897c82b072amr13779945b3a.42.1792001076265;
+        Wed, 14 Oct 2026 11:04:36 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:56::])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89d804e391dsm1439578b3a.39.2026.10.14.11.04.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 11:04:35 -0700 (PDT)
+Date: Wed, 14 Oct 2026 11:04:24 -0700
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+To: Breno Leitao <leitao@debian.org>
+Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
+	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, 
+	Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, 
+	Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, 
+	Ihor Solodrai <ihor.solodrai@linux.dev>, John Fastabend <john.fastabend@gmail.com>, 
+	Stanislav Fomichev <sdf@fomichev.me>, Shuah Khan <shuah@kernel.org>, 
+	Eric Dumazet <edumazet@kernel.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, david.laight.linux@gmail.com, 
+	kernel-team@meta.com
+Subject: Re: [PATCH net-next v2 0/7] ipv4,ipv6: convert the getsockopt
+ switches to sockopt_t
+Message-ID: <as_EIAJpsA1nWKU4@devvm7509.cco0.facebook.com>
+References: <20261009-sockopt_expand_out_v2-v2-0-8ac08c469ecb@debian.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261013084056.1070923-1-nicoyip.dev@gmail.com>
- <20261013090358.1178367-2-nicoyip.dev@gmail.com> <as9pUYoOmLI2l5oB@kernel.org>
- <as9rFtolVVn0NVD1@kernel.org>
-In-Reply-To: <as9rFtolVVn0NVD1@kernel.org>
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-Date: Thu, 15 Oct 2026 02:04:12 +0800
-X-Gm-Features: AclHuK-SQplAHNwQy93oHnQprXs6MEsIoHX8-ERaJcQyBiXLt0uOAaw9EhmmAzA
-Message-ID: <CAAo+4rVHykh4cvw=wvcZ+6MqehsOi-Foq6f+DjN536pbjj_P0g@mail.gmail.com>
-Subject: Re: [PATCH v4 2/2] keys: Serialize ownership transfers with key accounting
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: David Howells <dhowells@redhat.com>, Paul Moore <paul@paul-moore.com>, 
-	James Morris <jmorris@namei.org>, "Serge E . Hallyn" <serge@hallyn.com>, keyrings@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261009-sockopt_expand_out_v2-v2-0-8ac08c469ecb@debian.org>
 
-On Wed, Oct 14, 2026 at 7:44=E2=80=AFPM Jarkko Sakkinen <jarkko@kernel.org>=
- wrote:
->
-> On Wed, Oct 14, 2026 at 02:36:53PM +0300, Jarkko Sakkinen wrote:
-> > On Tue, Oct 13, 2026 at 05:03:58PM +0800, Chengfeng Ye wrote:
-> > > Protecting individual accesses to key->user does not make ownership
-> > > transfers atomic with accounting updates. keyctl_chown_key() holds
-> > > key->sem, but instantiation is serialized by key_construction_mutex a=
-nd
-> > > need not hold that semaphore. KEY_LOOKUP_PARTIAL also permits chown o=
-f
-> > > an uninstantiated key.
-> > >
-> > > The instantiated-key count can therefore be charged to the wrong owne=
-r:
-> > >
-> > >   instantiate                       keyctl_chown_key()
-> > >   increment old->nikeys
-> > >                                     observe KEY_IS_UNINSTANTIATED
-> > >                                     skip the nikeys transfer
-> > >                                     replace key->user
-> > >   mark key instantiated
-> >
-> >
-> > Same here there's another below.
->
-> This was also asked last time. Actually last time (since I missed the
-> spurious comment), this was the only thing that wask from you.
->
-> Br, Jarkko
+On 10/09, Breno Leitao wrote:
+> This series continues the migration to sockopt_t, as described in [1].
+> do_ip_getsockopt() and do_ipv6_getsockopt() are the last two switches
+> still taking a sockptr_t pair, and everything they forward to now takes
+> a sockopt_t, so convert them both.
+> 
+> Patch 1 settles what a negative optlen means on SOL_IPV6 before the
+> conversion makes it matter. do_ip_getsockopt() rejects it, but
+> do_ipv6_getsockopt() never has, and the int options answer it as 4.
+> Treat it as 4, as David Laight suggested, instead of failing callers
+> that rely on it.
+> 
+> Patch 2 fixes a latent bug in sockopt_expand_out() [2] itself: it caps
+> the expansion at INT_MAX, but iov_iter_revert() refuses to unroll past
+> the smaller MAX_RW_COUNT.
+> 
+> MCAST_MSFILTER has to move before the switches above it. It is the last
+> option with the quirk sockopt_expand_out() was added for [2]: optlen only
+> covers the fixed part, and the real reply size comes from the gf_numsrc
+> field inside it. Patches 3 and 4 convert it on both families, and store
+> the reply length only after the final copy succeeds, so a copy failure
+> can't report a changed optlen.
+> 
+> Patches 5 and 6 convert the switches themselves. Each wrapper keeps its
+> __user prototype and builds the sockopt_t, so the proto layer is
+> untouched. ipv6_getsockopt() cannot use sockopt_init_user(), which
+> rejects a negative optlen, so patch 6 moves the clamp of patch 1 up
+> there and builds the sockopt_t after it.
+> 
+> Patch 7 grows the selftest with an ip and an ipv6 fixture, pinning the
+> returned length, errno and reply bytes.
+> 
+> The temporary sockptr_t-to-sockopt_t glue can go away once the higher
+> level callers take sockopt_t too. For now, the series keeps the proto
+> callbacks unchanged and converts only the leaf helpers.
+> 
+> Link: https://lore.kernel.org/all/20260401-getsockopt-v2-0-611df6771aff@debian.org/ [1]
+> Link: https://lore.kernel.org/all/20260914-getsockopt_phase6-v2-0-e48befc9602e@debian.org/ [2]
+> 
+> To: David Ahern <dsahern@kernel.org>
+> To: Ido Schimmel <idosch@nvidia.com>
+> To: David S. Miller <davem@davemloft.net>
+> To: Eric Dumazet <edumazet@google.com>
+> To: Jakub Kicinski <kuba@kernel.org>
+> To: Paolo Abeni <pabeni@redhat.com>
+> To: Simon Horman <horms@kernel.org>
+> To: Alexei Starovoitov <ast@kernel.org>
+> To: Daniel Borkmann <daniel@iogearbox.net>
+> To: Andrii Nakryiko <andrii@kernel.org>
+> To: Eduard Zingerman <eddyz87@gmail.com>
+> To: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+> To: Martin KaFai Lau <martin.lau@linux.dev>
+> To: Song Liu <song@kernel.org>
+> To: Yonghong Song <yonghong.song@linux.dev>
+> To: Jiri Olsa <jolsa@kernel.org>
+> To: Emil Tsalapatis <emil@etsalapatis.com>
+> To: Ihor Solodrai <ihor.solodrai@linux.dev>
+> To: John Fastabend <john.fastabend@gmail.com>
+> To: Stanislav Fomichev <sdf@fomichev.me>
+> To: Shuah Khan <shuah@kernel.org>
+> Cc: linux-kernel@vger.kernel.org
+> Cc: netdev@vger.kernel.org
+> Cc: bpf@vger.kernel.org
+> Cc: linux-kselftest@vger.kernel.org
+> To: Stanislav Fomichev <sdf@fomichev.me>
+> Cc: david.laight.linux@gmail.com
+> 
+> Signed-off-by: Breno Leitao <leitao@debian.org>
+> ---
+> Changes in v2:
+> - Treat a negative optlen as 4 instead of rejecting it with
+>   -EINVAL as v1 did, per David Laight and Stanislav Fomichev. 
+> - Fix sashiko findings
+> - Link to v1: https://patch.msgid.link/20260925-sockopt_expand_out_v2-v1-0-c3ef2e3bb5c0@debian.org
 
-I'll also try to address the same changelog clarity problem in 2/2 (so
-as the spurious comment). Apologies again for the messy changelog.
-
-Best regards,
-Chengfeng
+Acked-by: Stanislav Fomichev <sdf@fomichev.me>
