@@ -1,221 +1,145 @@
-Received: from va-1-115.ptr.blmpb.com (va-1-115.ptr.blmpb.com [209.127.230.115])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012018.outbound.protection.outlook.com [52.101.48.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC8D73D75A0
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:17:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.115
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791958628; cv=none; b=SEgHGyFtQijA61K9RG9rfwwcH1wAgGUcwUjVfWD3QNlJ7lkFogHu351z9P7N3U11WIyRxaCuusaw2u5HUgtwg+z1EnR1v/kCnO1Q6R/vAjCTLFqbDSj/ylIoCazCtj58oDmxg2pqJGxJesOzcavzd83ywyBkamju3dcxhRJRPiw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791958628; c=relaxed/simple;
-	bh=2wkkvCwsLPYNSBI1dLhT02mZ9ZH6l0gecfapIU7q4Z8=;
-	h=From:To:Date:Message-Id:Content-Type:Cc:Mime-Version:References:
-	 Subject:In-Reply-To; b=t/O4PhqaST7d0qb2xIkQEfq3rQU5ueGKpC3kSt5bmkt9M3MUY0wPkaR+EDfif8lts7AJZCMNGlP2aiU3V+BmbapnFpGzvy5ki/6qodRVcYyhOKjVrYM6gqWsHN7pvMyPVuPOSzPLG4D/SO1wmP5eRjImliz5/3KBvv7au7hG+EE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=EU2qgfXX; arc=none smtp.client-ip=209.127.230.115
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED36F2F6577;
+	Wed, 14 Oct 2026 06:17:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.18
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791958679; cv=fail; b=sy2K63fdsBvomKVeBnPtr2m06mYpsdhoF3WUIskh7xMdOXhI7NhHW1fzzujuu1G5/FOUKKYItnnCHLEi90XMUmE1Czn+Ajc+ohxgmRgvX64yopo/HJFZ20EgAv/PdhSzb1BSTkTlQka76qvQ/7dbmPgKywcElc6k/XxifO15HIE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791958679; c=relaxed/simple;
+	bh=zNUfU87BDN0K8qz/vGfNpkOpDShGW1dFfHTpKzvZe1Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=nTr/A0AYZpNVmAfEU7meZQyttQI5Qgm1JNzGFabZISRhI/P0F0tBUiZi1Uzb+J4O6x1UgKqT1fsLP6cVhcHw8OTT4uvRIESO8T1O1IvxJ7Urv/C8C2i2o87RhcHhsW46lImq+nTV7v8ztxipCpRgVKwpGDNPgmzzB7PgiHWY/VY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=ayWrHAAh; arc=fail smtp.client-ip=52.101.48.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="EU2qgfXX"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1791958621; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=XUTyn0Rq67njZaj55ehmyaxuhFuRO8R3sEs8oQB0l2k=;
- b=EU2qgfXX0wf5f0pu4zP9tupA6E/sHVifia7MxsYY11jEgYynNYMGwko+u4trx7ByIZnSOP
- pVhtc5weRGd7ZAKIoOgC/hCeYGDEUFmT4Sv/rkszmEL9yvlNODPTLqUg4MCNUAw69nDBn5
- OpMnhK1wVxHhcS33UV0oMjlZ5igBt0TNefEEoPm+M8FnaJ1aT6KFKEeN8Uv/64Lny9yCId
- +qqcWbx8aiCFlDddTMyjf2o+swqecx2rr2zUSY7JiyhCqZcpjydJZkLoskWh1QYpveS3z7
- qxCHkWYe08w3xPcBkGdpqFG/wq54bD97so2gZrMPa5y27YK40iqaoyuvbuH2SA==
-From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
-X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
-To: "Dev Jain" <dev.jain@arm.com>, <catalin.marinas@arm.com>, 
-	<will@kernel.org>
-Date: Wed, 14 Oct 2026 14:16:33 +0800
-Message-Id: <24f01ac6-4935-4702-b6e8-52beff5feea0@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-Cc: <ryan.roberts@arm.com>, <baolin.wang@linux.alibaba.com>, 
-	<lance.yang@linux.dev>, <mark.rutland@arm.com>, 
-	<akpm@linux-foundation.org>, <david@kernel.org>, <ljs@kernel.org>, 
-	<liam@infradead.org>, <vbabka@kernel.org>, <rppt@kernel.org>, 
-	<surenb@google.com>, <mhocko@suse.com>, 
-	<linux-arm-kernel@lists.infradead.org>, <linux-mm@kvack.org>, 
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="ayWrHAAh"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NiDQvgmzfAHaOGoiGvodURHwJOIfjBwpdu9Kdzxb2qxRmQDGsfziEpyVE8WN4714npiHkrvcMQO2c7FV7H39TmDN8idKPbW3ivXyYeWlDCD0YbHTNUJtI8MUEnub8jypL/PG9IZqbEm5UN+fsWANjoWSproTZw40m/mb73SYxjnaoROmvzvJvEIj9fi5x80oTMVk4z6sIs3Vddb6lMePjQlRLI2Dy+uQOTR7X0LCJV05SlCeiuKiUDrU+lrV8IMYO7YiZsFbAEX7K8lggDAhTtw/XgZDaXa5pr/XWwf+F4pdioJxCZ0xqb8fK3+fwrlWrfaozJkRzRuNyOGL3Kmi6Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zNUfU87BDN0K8qz/vGfNpkOpDShGW1dFfHTpKzvZe1Q=;
+ b=VjvK+YvNFvnpVJCa6rUh+9gVVweso2bbTDLDK5RG0efG4COLTHB3I4j3k0BkDN0nGLdUOLWMVucKJW/UiFtiz/NM//vOfvSFB8X95xZcoqGYHsuFVlDFnXtwTqvek3jvFdAjcMLxrOBpwiERfKs01SOE4WG+H26TIGivsksqvwa0Eixq4clu20WLFrVDEYIYca5CuHY6Cc7qhqOCwDG5r0HbXdiB0XnWJeaUw6kBGZHlTkALWG0Y5VkED2LCfTBbqTSSC/RukFB3np5BAtUyMFP4ZpX4O2t9xNUmq/PuB2OgGJWMc/7vblTokiCt8c940vRr4+UwNhmjVS0EIQ27Mw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zNUfU87BDN0K8qz/vGfNpkOpDShGW1dFfHTpKzvZe1Q=;
+ b=ayWrHAAhJtMWInQGZHtzN7UE4eUkwSB4C/I+QURVs8u5DXkRBn2cZfEkNcVC9+vvTnMa+yBuNI9Vu8Uly0o4w8+o79ZP5zoEq8rPNiHXAHKZlYX2vyndpdqmE9JSMUqz6pzuF7m10IFwOvNAmKQf396PUHKzips8IYkgcLT1n2VJv6vtuZPyuNEKsSEHb6E1bw4ZW/6lDoZrGvF1d8hQtVtULju1UvSJ1u56LNpCV1fwDiNEi8aLpcRonUVlSn4X8ZUJAAF/0vMgvRO9vIO8fa33aiht0uEM7VFPSIQNGwPeDZsTM5los+E8nahl8bWIBMebfTVMznQ1FmuVDsJIyA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHXPR12MB999244.namprd12.prod.outlook.com
+ (2603:10b6:610:2fc::17) by SA3PR12MB7832.namprd12.prod.outlook.com
+ (2603:10b6:806:31f::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Wed, 14 Oct
+ 2026 06:17:50 +0000
+Received: from CHXPR12MB999244.namprd12.prod.outlook.com
+ ([fe80::168f:599c:f74d:7688]) by CHXPR12MB999244.namprd12.prod.outlook.com
+ ([fe80::168f:599c:f74d:7688%4]) with mapi id 15.21.0522.011; Wed, 14 Oct 2026
+ 06:17:50 +0000
+From: Koba Ko <kobak@nvidia.com>
+To: Will Deacon <will@kernel.org>
+Cc: catalin.marinas@arm.com,
+	robh@kernel.org,
+	leitao@debian.org,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	fenghuay@nvidia.com,
+	tdave@nvidia.com,
+	kaihengf@nvidia.com,
+	rupakr@nvidia.com,
+	mohammedk@nvidia.com
+Subject: Re: [RFC PATCH v2 1/3] arm64: add CPU prefetch and cache modulation sysfs interface
+Date: Wed, 14 Oct 2026 14:17:45 +0800
+Message-ID: <20261014061745.40032-1-kobak@nvidia.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <aru9Rf7BzW3-vcm0@willie-the-truck>
+References: <20260825181701.3-1-kobak@nvidia.com> <20260825181701.3-2-kobak@nvidia.com> <aru9Rf7BzW3-vcm0@willie-the-truck>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+X-ClientProxiedBy: TP0P295CA0026.TWNP295.PROD.OUTLOOK.COM (2603:1096:910:5::7)
+ To CHXPR12MB999244.namprd12.prod.outlook.com (2603:10b6:610:2fc::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261013093600.54995-1-zhaogongyi@bytedance.com> <6a10b61f-5c4f-4d04-9742-97a358147c39@arm.com>
-Subject: Re: [PATCH] arm64/mm: restrict transparent contpte mappings to valid PTEs
-Content-Transfer-Encoding: 7bit
-X-Lms-Return-Path: <lba+26acf1e5b+4fb24c+vger.kernel.org+zhaogongyi@bytedance.com>
-In-Reply-To: <6a10b61f-5c4f-4d04-9742-97a358147c39@arm.com>
-User-Agent: Mozilla Thunderbird
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHXPR12MB999244:EE_|SA3PR12MB7832:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3b6c79c4-7733-42b6-d9c2-08df29badf8d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|7416014|366016|10067099003|18002099003|22082099003|11063799006|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	E5Araus8nE+rEtrcvPvl/eOGUl2/gyd4FN4L1m5z4L3HZ4Lyx991PH4hAYhHVUmgvL9DQr8nZx45NxrwuZ1n6WidSIUZ2lTs24rYLkMoEU8GJMQqj9I6NVi2xLuXdbg9J9EOu3yAIDaDdJbVt8J5VGpXK7isIhf267UFYHaklCqXBChPJ9A+WfMBRT6IQnvQpkU435qmA2aLdwmRoCePvr3B7N1c83avjpB0tOuZF8vqV/I3pdT1cm7LN5NQgu+d+niNXmbSZsluvlRSq0ZHYUSzuWUJLAnAzyfWre5+jppPXQRZ4dqfOQcPNqgNhip03t+P3nppGmqqpY9MzsbGSXSLVX2luaDLqLkPIZbDnbhXwhhA1CBq/zdrQdfz73Ss5xEhoWcDe1eBqBmJd4hR8WM0JpBTAWIlrjQpMSKAVc8hIzSH+xZqjq6/C5dVGJpfUTi90YKgS0olafe8ifi//1+DJRmdIEijDX2rxYLG1mIJ7HgN4V6GEyZ6FrkQpSoOEbdce3tTF5zKJSRPLvvcQ5pTHuXdq5Vq2Epiy3QdUeKz2fJLtyP31YI2TJDUKzrN3kjx8jTJGDQleqfTl5Ddl+Vc5l8pF18SXBxTIeMuMf6A35fkUKGcvXvfO5DgwBDP8/9IwmV9jh9Qjkgm1b67ihCIEA2iXanX66ofA5E3Acc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHXPR12MB999244.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(7416014)(366016)(10067099003)(18002099003)(22082099003)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?iD6jvjpJIKumX2kyiAdRxzQT58pV3E2LPnx0Oiw0jlHA1cUiXswDWTfDjr6L?=
+ =?us-ascii?Q?l+PuVUcvc/514G8ZD5Zzq7adhiiJRzNqAxkHY3jeyjygxfI4X27HoP5jraZ/?=
+ =?us-ascii?Q?SnFEzMLTiY/W3iw5STfgfTYTrjZ+r5evZQY6o9c0oYoxtL0mwxVd8WH1P1ro?=
+ =?us-ascii?Q?ZZS98tZVT+G0Dm+VNle6Qza6jK7TkytT+NTW1N+tBWi0u31VBxgaOiZYLwYx?=
+ =?us-ascii?Q?nLWb1FMLObhL47Y7tCAmr64yhIatklPcyN6ur7hsrdT6x2jI8TPIaqekx5Oj?=
+ =?us-ascii?Q?XZEUd44mRjXSBtNt9aDHsKduYSv2FWjPC6uF6LaZdQBtTePjyIiVGGDZ9Nug?=
+ =?us-ascii?Q?GRmUapw4YuYY44E41POJk5AUI4QA5bWv7o+2q1+dhkQr1XGbzcJu3QhMMPcu?=
+ =?us-ascii?Q?o5yolQjS4rxPl/gOtdIeiIM1l/o8++OOmRz7GshcDXWZb/5dgK0fvqa5RJUN?=
+ =?us-ascii?Q?cbURbEntm91hRECsCjX6AQrjle+tQ6jJumItEJ+Har4GdJkZeolEKQC0xip+?=
+ =?us-ascii?Q?zyGAZB1WLFmGXMm7PzyZl3L9XojQqpUnamtp42bYrPMHT1wtTPvogV/dzmLs?=
+ =?us-ascii?Q?nuvfzhpgW4D/MSF5gaFnHajdDQYuvaoGnuWrlTPzMjbd8+ABlh+v2Z5qUIIG?=
+ =?us-ascii?Q?XN/WhkArkS+7ZRZbIzsqFnsZg3qy042LELPibQG+z2xq600lbQ2CuyZBb523?=
+ =?us-ascii?Q?bNo2a79NueCk764lzGiqxD8BNqh6Phivmfw3z/eaqE5vWfVF8B9WE+wCqPSt?=
+ =?us-ascii?Q?NCSHpAUnY+7GADj1xdh5XyAn2eeKT1rgD3VlxJ9jUq5S1ZVJ/vdoDXu/OHOw?=
+ =?us-ascii?Q?vPzyLK0vhGt7ATWJfVLbXb5GGKjwt6/UtKFPXmKueQAYTzPgRhg/LRNAIIln?=
+ =?us-ascii?Q?hpV9cDFRQXEm8HpGNMcDr3SAAPtwxS6cwKaVOwsgDCMtrkfdwypxdALs7Ipl?=
+ =?us-ascii?Q?xDPX7NZiVDjd5UHlheeCgeoG+TmZH3CR5uanZ/akHQavnebUnyHg5CQvDrzR?=
+ =?us-ascii?Q?utc+MbgVzjJHGMImeH3xV6PmaS63A3XgQDaR7xUAGGJxch8KfU0HGgZThtKe?=
+ =?us-ascii?Q?G+upRN6J7iUPjO3/ne/wQCrWrvoTek0oSbUa6RmIcUysWnEmmt0hvZ06CiT8?=
+ =?us-ascii?Q?rT0yeZtjUooixNwr3HsWHyeMGDURJA5nXxNTI3gzjRHza2L7WQZ75c6zrIWS?=
+ =?us-ascii?Q?TgJgfz6PbjqBLpbCLtoySbtHLIhGh6bzuGMKQbzsTcKcDleIJ7RXEQMUtR5c?=
+ =?us-ascii?Q?IzfNfd/c60oP5QVkBxkdsgdcSSV658hAf58GB52uBIl6Qaic/Bfo2qbbdaa0?=
+ =?us-ascii?Q?qKuZdex214vxfjS5pF08iVpGzdcBLxMZet/qZwl4geLowcKI8kHhtqnLz3dw?=
+ =?us-ascii?Q?jaEO1oTPQnUv42FhQl8Qr5hhs5BnEG/fZ7ttVzGNaIBZ6vaaCEDXxthszAu3?=
+ =?us-ascii?Q?rIAnyJ0QkC/dYWGuLTevUptaSP+sdwXa2cDVuglyYzhur+ZY49Uzp21CmrxZ?=
+ =?us-ascii?Q?5hhWmanSgqsvBkyeRm7PP6A2ZbU2QvneDxRNgc6ZE1JfAbgPeKh0DGRpfsYV?=
+ =?us-ascii?Q?8Wy2Lf1ZMA6bEEEwPZBowQbU5LDLI6qT0uhPM/G6MHtNmcUCbj+3+In0eHEs?=
+ =?us-ascii?Q?NTelEHv4q+oQOv72RQuCooO2Lpi/89PpXn6MbGAamcU2qdMmL1iYzWSnjiEA?=
+ =?us-ascii?Q?GIqMLcYMqOL58+szYkk7asPCWyXc7SlOm34zWRXePf3NFsgP84VcRmNAxmo5?=
+ =?us-ascii?Q?S8kVe8tdhw=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3b6c79c4-7733-42b6-d9c2-08df29badf8d
+X-MS-Exchange-CrossTenant-AuthSource: CHXPR12MB999244.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 06:17:50.2107
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RlpkX5kPp2Kq/DsiOcsAfxnFy9xQlKQdeI9uF9zr3EUc1xBlM8nYpN1LHGmmhkviG5Xr9d9M17Q9M2Izpp4TLQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7832
 
-On 2026/10/13 18:13, Dev Jain wrote:
-> 
-> 
-> Thanks, could you please give the code of the reproducer. That will
-> save us some time.
-> 
-> 
-
-Hi Dev,
-
-Sure, sorry for not including it in the first mail.
-
-The standalone reproducer I used is below. It assumes an arm64 kernel 
-with CONFIG_ARM64_CONTPTE=y and a CONT_PTE_SIZE anonymous mTHP order 
-available. When run as root, it tries to enable THP and the matching 
-mTHP order through sysfs. These sysfs writes are best-effort; if the 
-matching order is not available or cannot be enabled, the reproducer
-may not hit the issue.
-
-On a 4K-page kernel, CONT_PTE_SIZE is 64KB.
-
-Compile and run:
-
-       gcc -O2 -Wall contpte_guard_repro.c -o contpte_guard_repro
-       ./contpte_guard_repro 100
-
-On my unfixed KASAN kernel with panic_on_warn=1, the first iteration hit
-the bad swap entry / swap_put_entries_direct() warning. With this patch,
-100 iterations completed without warnings.
-
-Here is the reproducer:
-
-   #define _GNU_SOURCE
-   #include <errno.h>
-   #include <fcntl.h>
-   #include <stdio.h>
-   #include <stdlib.h>
-   #include <string.h>
-   #include <sys/mman.h>
-   #include <unistd.h>
-
-   #ifndef MADV_HUGEPAGE
-   #define MADV_HUGEPAGE 14
-   #endif
-   #ifndef MADV_POPULATE_WRITE
-   #define MADV_POPULATE_WRITE 23
-   #endif
-   #ifndef MADV_GUARD_INSTALL
-   #define MADV_GUARD_INSTALL 102
-   #endif
-   #ifndef MADV_GUARD_REMOVE
-   #define MADV_GUARD_REMOVE 103
-   #endif
-
-   static void write_file(const char *path, const char *val)
-   {
-       int fd = open(path, O_WRONLY | O_CLOEXEC);
-
-       if (fd < 0)
-           return;
-       (void)write(fd, val, strlen(val));
-       close(fd);
-   }
-
-   static void write_clear_refs(void)
-   {
-       int fd = open("/proc/self/clear_refs", O_WRONLY | O_CLOEXEC);
-
-       if (fd < 0) {
-           perror("open clear_refs");
-           exit(1);
-       }
-       if (write(fd, "1", 1) != 1) {
-           perror("write clear_refs");
-           exit(1);
-       }
-       close(fd);
-   }
-
-   static unsigned long contpte_size(unsigned long page_size)
-   {
-       if (page_size == 4096)
-           return 64 * 1024;
-       if (page_size == 16384 || page_size == 65536)
-           return 2 * 1024 * 1024;
-
-       fprintf(stderr, "unsupported page size %lu\n", page_size);
-       exit(1);
-   }
-
-   static void enable_mthp(unsigned long size)
-   {
-       char path[256];
-
-       write_file("/sys/kernel/mm/transparent_hugepage/enabled", 
-"always\n");
-       write_file("/sys/kernel/mm/transparent_hugepage/defrag", "always\n");
-
-       snprintf(path, sizeof(path),
-            "/sys/kernel/mm/transparent_hugepage/hugepages-%lukB/enabled",
-            size / 1024);
-       write_file(path, "always\n");
-   }
-
-   static void touch_range(char *p, unsigned long len, unsigned long 
-page_size)
-   {
-       for (unsigned long off = 0; off < len; off += page_size)
-           p[off] = (char)off;
-   }
-
-   int main(int argc, char **argv)
-   {
-       const int loops = argc > 1 ? atoi(argv[1]) : 1;
-       const unsigned long page_size = sysconf(_SC_PAGESIZE);
-       const unsigned long csize = contpte_size(page_size);
-       const unsigned long nr_pages = 2 * csize / page_size;
-       const unsigned long len = nr_pages * page_size;
-       const unsigned long map_len = len + csize;
-       const unsigned long guard_idx = csize / page_size - 3;
-
-       enable_mthp(csize);
-
-       for (int i = 0; i < loops; i++) {
-           char *map, *p;
-
-           map = mmap(NULL, map_len, PROT_READ | PROT_WRITE,
-                  MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-           if (map == MAP_FAILED) {
-               perror("mmap");
-               return 1;
-           }
-
-           p = (char *)(((unsigned long)map + csize - 1) & ~(csize - 1));
-
-           if (madvise(p, len, MADV_HUGEPAGE))
-               perror("madvise MADV_HUGEPAGE");
-           if (madvise(p, len, MADV_POPULATE_WRITE))
-               perror("madvise MADV_POPULATE_WRITE");
-
-           touch_range(p, len, page_size);
-
-           if (mprotect(p, len, PROT_NONE)) {
-               perror("mprotect PROT_NONE");
-               return 1;
-           }
-           if (madvise(p + guard_idx * page_size, page_size,
-                   MADV_GUARD_INSTALL)) {
-               perror("madvise MADV_GUARD_INSTALL");
-               return 1;
-           }
-
-           write_clear_refs();
-
-           if (munmap(map, map_len)) {
-               perror("munmap");
-               return 1;
-           }
-       }
-
-       return 0;
-   }
-
-
-Thanks,
-Zhao
+Hi Will,=0D
+=0D
+Thanks for the feedback. I understand that your concern is about exposing=
+=0D
+implementation-defined registers to userspace, not simply choosing sysfs=0D
+versus debugfs. I'm not planning to submit v3.=0D
+=0D
+For controlled performance characterization, is there an existing kernel=0D
+mechanism or a different design you would recommend? Or do you think these=
+=0D
+experimental controls are better kept out of tree?=0D
+=0D
+Thanks,=0D
+Koba=0D
