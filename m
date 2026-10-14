@@ -1,71 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA9A72F6918;
-	Wed, 14 Oct 2026 01:40:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C69E630D3FE
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 01:40:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791942014; cv=none; b=dmX53U1LWqroYA4kI7Ak4NpA6yTjEoCpI2P47BHviZ2wpy1bIl3mUcC2pOkPuqH1hmRf9CU35z+ZT1BxNSU4JYuWALB5MDJ1rEXN/+0Gsmbj2if1XpB+vPpvxKYzcUzylUOZeIRmO9xR3htpQ+XKAEk+zq/804cpwlWEhIDWP0g=
+	t=1791942022; cv=none; b=n0+FPFLkPvwcfZ6MZTCac5qzQv05dWP7AZctszVHRVi1hJ+4AXxAB5J7vbUes7lGaD77IfNfdxjgIamotm+gHYGZ171pr+UCwByWyosegJ3xdS1L7JTqkfnevmcDID/NfGa+HoWHYzIevZMBGDZwyYkpmSl6tIYwQo7DG5YU71M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791942014; c=relaxed/simple;
-	bh=gp7PRv3WjAiMJrp0DvXpRvTv3mwC8R3NiezXzUE7FxE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=XqoXXUPdlt6gZonvjG5b00p2tWMp1Q/LdOIfClDG04fA7iYIqUdXGTxu0OJm41N/S4RAfnx1D8PYLKOl8mzmW1Wwxip4PXta8B8xd0jL32uy5i5+bfoldsSnt9hKKppOPqlJ6MG8RszREEPrfqs8RL4KcTGnXZIxOWM0BHgrVPA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y+W62/Ld; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791942022; c=relaxed/simple;
+	bh=YoN78TWBlmpx0A6DZIRcttrESlXSOSTvIOjKF9tTnoE=;
+	h=Mime-Version:Subject:From:To:CC:In-Reply-To:Message-ID:Date:
+	 Content-Type:References; b=h2l2FMsWYv8U2EiYcE/b/RxkUQGs2Q3oOeeIohy3k6pSyjO5nNO0U16X+gr8r7Q7oCB6i5FPDdd/eNi+/a7mwBmbggfg93oJ4E/2RBebTgx/TdLXOaWdF6Mn8MDzYuFf8OemGAe/KGa0PHTZJwcMRaQi2DwKN6xWuCr2gqd9af4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=iBiXfFju; arc=none smtp.client-ip=203.254.224.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y+W62/Ld"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E22C1F000FF;
-	Wed, 14 Oct 2026 01:40:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791942012;
-	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Y+W62/LdnsswkNjlkyQ7I8GGLCKM5DC53f3rZev2bJYa7nmNflLssYNZwQv1MFP1i
-	 FH4nsEl1e4dS2gSmwIh0FbBhVsmoflchIs3IWxqzb9XviYcfdlTSDefrdWs6z7b/AY
-	 HZ1ToF8IfvJNOVqnuSufu4wjwbtvOjj5DwrubyCIg884w4Ep04edn1NKNUnkKQsIRI
-	 46j6Z6HESpHx1ovGbdxoFZvb6oMtegFxXxcRbgdp41xmAw6pwtU30Z+pYkAHN+p7JK
-	 OsRme/p407PPnlwNfD6csY52dWSg1lj077dbYH/tis67xxHj5qNVQJ722ECe0XN16s
-	 TjM1hGKn9UCxA==
-From: netdev-bot+sinfo@kernel.org
-To: lirongqing <lirongqing@baidu.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: 
- Re: [PATCH net] veth: decide peer queue count from the peer's own attributes
-Date: Wed, 14 Oct 2026 01:40:11 +0000
-Message-ID: <179194201171.160550.1001715704134094403@kernel.org>
-In-Reply-To: <20261014013620.2497-1-lirongqing@baidu.com>
-References: <20261014013620.2497-1-lirongqing@baidu.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="iBiXfFju"
+Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261014014018epoutp0293994d8dd1ad14606d63737048b04aa3~eQcWXQDOU1349913499epoutp02B
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 01:40:18 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261014014018epoutp0293994d8dd1ad14606d63737048b04aa3~eQcWXQDOU1349913499epoutp02B
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1791942018;
+	bh=1d+d0jVHgB0EadQMkTGvrSCW+JV5YjB/dJMefH+YkxU=;
+	h=Subject:Reply-To:From:To:CC:In-Reply-To:Date:References:From;
+	b=iBiXfFjuvp/91UceZp/C0Ow1sIBAEGzLqydF9emm/GvnYF2JeNMEywCjIomPbgqE8
+	 kc3gZ8THLPH17D/01CW1kccTR5PFyF7pGBWSTdk88Uy8DzpxAyrGw7ncCXySaFKLK8
+	 BCKlUdb4DUSqhknqrg5/2+GQ2hLKmHwA8AmiMIGQ=
+Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
+	epcas2p2.samsung.com (KnoxPortal) with ESMTPS id
+	20261014014017epcas2p24aaeaae47c415e988a530ec528956580~eQcVs79Zi3261832618epcas2p2D;
+	Wed, 14 Oct 2026 01:40:17 +0000 (GMT)
+Received: from epcas2p4.samsung.com (unknown [182.195.38.211]) by
+	epsnrtp03.localdomain (Postfix) with ESMTP id 4j4DRP4mnxz3hhT4; Wed, 14 Oct
+	2026 01:40:17 +0000 (GMT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+Subject: RE:(2) [PATCH] xfs: refuse a pNFS LAYOUTCOMMIT of a range without
+ blocks
+Reply-To: daejun7.park@samsung.com
+Sender: Daejun Park <daejun7.park@samsung.com>
+From: Daejun Park <daejun7.park@samsung.com>
+To: Christoph Hellwig <hch@lst.de>
+CC: Carlos Maiolino <cem@kernel.org>, "linux-xfs@vger.kernel.org"
+	<linux-xfs@vger.kernel.org>, "Darrick J. Wong" <djwong@kernel.org>, Dave
+	Chinner <dgc@kernel.org>, Chuck Lever <cel@kernel.org>, Jeff Layton
+	<jlayton@kernel.org>, Dai Ngo <Dai.Ngo@oracle.com>, Sergey Bashirov
+	<sergeybashirov@gmail.com>, "linux-nfs@vger.kernel.org"
+	<linux-nfs@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>, Daejun Park <daejun7.park@samsung.com>
+X-Priority: 3
+X-Content-Kind-Code: NORMAL
+In-Reply-To: <20261013120359.GB2944@lst.de>
+X-CPGS-Detection: blocking_info_exchange
+X-Drm-Type: N,general
+X-Msg-Generator: Mail
+X-Msg-Type: PERSONAL
+X-Reply-Demand: N
+Message-ID: <20261014014017epcms2p7ab0ff4f1356d695c55514bd7ccaebadf@epcms2p7>
+Date: Wed, 14 Oct 2026 10:40:17 +0900
+X-CMS-MailID: 20261014014017epcms2p7ab0ff4f1356d695c55514bd7ccaebadf
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-223,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261013120408epcas2p19974f8ffd4afa0b0cc5a4f19e9218004
+References: <20261013120359.GB2944@lst.de>
+	<20261013-xfs-pnfs-commit-hole-v1-1-740912db9102@samsung.com>
+	<CGME20261013120408epcas2p19974f8ffd4afa0b0cc5a4f19e9218004@epcms2p7>
 
-Hi!
+On Tue, Oct 13, 2026 at 02:03:59PM +0200, Christoph Hellwig wrote:
+> blockgc really should not free them due to the prealloc inode flag.
+> Do you still see that with your prefix flag setting fix?  If so we
+> have a deeper problem.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+I don't see it with "xfs: mark the inode preallocated for pNFS write
+layouts past EOF" applied: in the same test, blockgc keeps the blocks
+and the LAYOUTCOMMIT succeeds with the client's data in place. The
+sentence was about trees without that patch, so I'll drop it in v2 and
+keep the reclaim case and the range that was never laid out.
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+> It would be great to get these included in pynfs.
+>
+> Also a little doc on your setup to run pynfs in client mode against
+> nfsd with block/scsilayout would probably useful.
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+Sure, I'll send them to pynfs with a short README section on the setup,
+on top of the block layout test I posted earlier:
+https://lore.kernel.org/r/20261006002622epcms2p38e492aef17fdf79e48b05c9aada2918d@epcms2p3
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+> As soon as we drop the lock, the result might be stale.  So I suspect
+> we want a CONVERT_ONLY flag to xfs_bmapi_write that makes it refuse
+> to allocate blocks instead in one atomic operation.
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+The IOLOCK held across both keeps truncate, fallocate and blockgc out
+today, but the flag doesn't depend on that, so v2 does it that way:
+xfs_bmapi_write() takes a new XFS_BMAPI_CONVERT_ONLY flag that fails for
+a hole or a delalloc extent instead of allocating, and
+xfs_fs_commit_blocks() passes it through xfs_iomap_write_unwritten().
+
+One difference from v1: a LAYOUTCOMMIT with a laid-out range followed by
+a hole now converts the laid-out range before it fails.
+xfs_fs_commit_blocks() already left earlier extents converted when a
+later one failed, and the Linux client resends all of its extents after
+a failed LAYOUTCOMMIT, so I don't think that matters.
