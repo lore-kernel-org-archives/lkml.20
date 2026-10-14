@@ -1,107 +1,190 @@
-Received: from mta0.migadu.com (out-84.mta0.migadu.com [91.218.175.84])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ED3D340DA6
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:01:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.84
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9D17D38E8A1
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:01:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791968469; cv=none; b=j3TAX5he/dmn7nabl/yRxZ/aTbtNlUmwFWu23l2r9bwIQrwCixyEc2urCOqxCKDGonT6C7UaGcINPh1zNnD6i3EjuYx1rAfz6mpokk5KYJknGmT500+dr4Ggn9w1TZXwfQocB6m67/BnT0LJtuQ1fqBG2O8wy6i+Zk9jBEXNz/Y=
+	t=1791968475; cv=none; b=C7c3Wiq7YFSQEWt4FilJT8m3PZdGpZXAI8Qss4eBz6rJoF4noMLfIXcDeUW3WnY8Y/lbWYcxVEYoUypzGEL32GJ0W3DNpvK8aEYQgXlgVCfKhcOnDTsqr8EaLfB8slA7oMVGewWrm4r42eVF/rhYP7IvtTUN/mBOyqpAEZ3vQWA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791968469; c=relaxed/simple;
-	bh=ZQ4kJhYF+3X/w38Sl/rvW6wcqURly93fU44FB0RP9cI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Yw/g1NDzSEKfyPSJChDaztzUOd8WYEhSZ6IgF1ICxsD2zzUIsvvOAXqLHop56xtuzCvsgoT/s2+M2GHGrcPD09RqGS2I66C4kNv7jnUQ9eJtGRWiYpNwcLDdUo4vhYiBy8LQNLG6jcD0BKD+Wu0GQe1iUMp+Z+sfCJ4kICtl6Xg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mfp6boUk; arc=none smtp.client-ip=91.218.175.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791968475; c=relaxed/simple;
+	bh=rara4mkQth8pYyWlFJvWmDaJu5z0cXsBOp7HoWDPrJE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EKO58VU0YOueszbkYMTVzexT6zfwxZ1qhlVAoi5oLLA43QcEesf9cePZf42XtRYZDRew5c9XOGaXOAf2WqPR0WCuHcCvn/xdBx9yocLQ72Ot4ifhCNlE+YE3V7kUx/BE/NDJhY2yJa2YHLdj0rPxaqQGn01ist2GUGERwzJef5g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=pQFtufiM; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mfp6boUk"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ZQ4kJhYF+3X/w38Sl/rvW6wcqURly93fU44FB0RP9cI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791968464; v=1; x=1792573264;
- b=mfp6boUkpxxfdJoGuf6WbU6ZReeuaG95Hf8t9xd9mYpsTHUVhZYr5crCarNi43QAu/9HWDcq
- 6lx3ZHii3rpQrLp1MO4sgDk26nU+70NKIT6u0YixTz+h2M9dAc/1iQoCwmwFFjBA6tHwkXla7P2
- F9Ed6rlAg8D3WD7noJv/AGOc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id abacb56748857724;
-	Wed, 14 Oct 2026 09:01:03 +0000
-X-Mizu-Trace-ID: abacb56748857724
-X-Migadu-Flow: FLOW_OUT
-From: Hui Zhu <hui.zhu@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Kairui Song <kasong@tencent.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	David Hildenbrand <david@kernel.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Cc: Hui Zhu <zhuhui@kylinos.cn>
-Subject: [PATCH v6 1/2] mm/vmscan: fix missing NR_ISOLATED counter update in MGLRU reclaim path
-Date: Wed, 14 Oct 2026 17:00:23 +0800
-Message-ID: <141901355a7d9e4bbca5c4840ae32ea5c65fe3b6.1791968227.git.zhuhui@kylinos.cn>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1791968227.git.zhuhui@kylinos.cn>
-References: <cover.1791968227.git.zhuhui@kylinos.cn>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="pQFtufiM"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 865661596;
+	Wed, 14 Oct 2026 02:01:07 -0700 (PDT)
+Received: from [10.164.19.62] (unknown [10.164.19.62])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E9B7A3F7B4;
+	Wed, 14 Oct 2026 02:01:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791968470; bh=rara4mkQth8pYyWlFJvWmDaJu5z0cXsBOp7HoWDPrJE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=pQFtufiMGehtJM9AcAsnwXLGqTJECDqjyuBHqaMUB/gJ0L3WUOI5EUTEsk2dHjdsf
+	 R99tb64LVgVWafMjWaPf3mdnd4dVDS58qabNcRdPk/FvmuqeNwUiGSRcWLC3RtnKhS
+	 UFcMMAZVO7L2zOSVKereOgmlQX/zL1pbdiQBv3Ng=
+Message-ID: <e0354457-8ca4-474d-b8cc-0ba843be8897@arm.com>
+Date: Wed, 14 Oct 2026 14:31:02 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 01/10] arm64/mm: add pte_set_huge() and
+ pte_clear_huge()
+To: Wen Jiang <jiangwenxiaomi@gmail.com>
+Cc: akpm@linux-foundation.org, catalin.marinas@arm.com, linux-mm@kvack.org,
+ urezki@gmail.com, will@kernel.org, Xueyuan.chen21@gmail.com,
+ ajd@linux.ibm.com, anshuman.khandual@arm.com, baohua@kernel.org,
+ chleroy@kernel.org, david@kernel.org, jiangwen6@xiaomi.com, leo.yan@arm.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, maddy@linux.ibm.com, mpe@ellerman.id.au,
+ npiggin@gmail.com, rppt@kernel.org, ryan.roberts@arm.com
+References: <20261002090947.869220-1-jiangwen6@xiaomi.com>
+ <20261002090947.869220-2-jiangwen6@xiaomi.com>
+ <7b3c3a39-4cf3-430d-9fd3-ba83e5175e72@arm.com>
+ <CAHKocdFOoDhjcuWXJatQ-AbSXyXuV+Q=sA1-iGiGrp7vhHZMBQ@mail.gmail.com>
+Content-Language: en-US
+From: Dev Jain <dev.jain@arm.com>
+In-Reply-To: <CAHKocdFOoDhjcuWXJatQ-AbSXyXuV+Q=sA1-iGiGrp7vhHZMBQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Hui Zhu <zhuhui@kylinos.cn>
 
-MGLRU evict_folios() isolates folios from the LRU without updating
-the NR_ISOLATED_ANON/FILE counters, unlike the legacy
-shrink_inactive_list() path. This causes compaction's
-too_many_isolated() check to under-count isolated pages when MGLRU
-reclaim is active.
 
-Add NR_ISOLATED counter updates in evict_folios(): increment after
-isolate_folios() and decrement after all retry passes complete, using
-the existing nr_isolated which holds the original isolated count.
+On 14/10/26 2:16 pm, Wen Jiang wrote:
+> On Wed, 14 Oct 2026 at 14:03, Dev Jain <dev.jain@arm.com> wrote:
+>>
+>>
+>>
+>> On 02/10/26 2:39 pm, Wen Jiang wrote:
+>>> vmap installs PTE-level block mappings (PTE_CONT on arm64) by reusing
+>>> set_huge_pte_at() and huge_ptep_get_and_clear(), which are HugeTLB
+>>> helpers gated by CONFIG_HUGETLB_PAGE. This makes the feature silently
+>>> unavailable on CONFIG_HUGETLB_PAGE=n kernels and couples mm/vmalloc.c to
+>>> HugeTLB internals it does not otherwise need.
+>>>
+>>> Add pte_set_huge()/pte_clear_huge() to arm64, joining the existing
+>>> pmd_set_huge()/pud_set_huge() family in mm/mmu.c. They build on
+>>> __set_ptes() and __get_and_clear_full_ptes() directly, so they do not
+>>> depend on CONFIG_HUGETLB_PAGE.
+>>>
+>>> There is no caller yet: mm/vmalloc.c is converted later in this series,
+>>> once the generic fallbacks are in place.
+>>>
+>>> Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
+>>> Reviewed-by: Barry Song <baohua@kernel.org>
+>>> ---
+>>>  arch/arm64/include/asm/pgtable.h |  6 ++++++
+>>>  arch/arm64/mm/mmu.c              | 23 +++++++++++++++++++++++
+>>>  2 files changed, 29 insertions(+)
+>>>
+>>> diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
+>>> index 6000905a2e865..9b762eb68cff0 100644
+>>> --- a/arch/arm64/include/asm/pgtable.h
+>>> +++ b/arch/arm64/include/asm/pgtable.h
+>>> @@ -1978,6 +1978,12 @@ static inline void clear_young_dirty_ptes(struct vm_area_struct *vma,
+>>>
+>>>  #endif /* CONFIG_ARM64_CONTPTE */
+>>>
+>>> +#define __HAVE_ARCH_PTE_SET_HUGE
+>>> +void pte_set_huge(pte_t *ptep, unsigned long addr, phys_addr_t phys,
+>>> +               pgprot_t prot, unsigned long size);
+>>> +#define __HAVE_ARCH_PTE_CLEAR_HUGE
+>>> +pte_t pte_clear_huge(pte_t *ptep, unsigned long addr, unsigned long size);
+>>> +
+>>>  #endif /* !__ASSEMBLER__ */
+>>>
+>>>  #endif /* __ASM_PGTABLE_H */
+>>> diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
+>>> index 79d90226fd5dc..ae2f15618c97d 100644
+>>> --- a/arch/arm64/mm/mmu.c
+>>> +++ b/arch/arm64/mm/mmu.c
+>>> @@ -1912,6 +1912,29 @@ int pmd_clear_huge(pmd_t *pmdp)
+>>>       return 1;
+>>>  }
+>>>
+>>> +void pte_set_huge(pte_t *ptep, unsigned long addr, phys_addr_t phys,
+>>> +               pgprot_t prot, unsigned long size)
+>>> +{
+>>> +     unsigned long pfn = __phys_to_pfn(phys);
+>>> +     pte_t pte = pte_mkcont(pfn_pte(pfn, prot));
+>>> +     unsigned int nr = size >> PAGE_SHIFT;
+>>> +
+>>> +     VM_WARN_ON(!IS_ALIGNED(size, CONT_PTE_SIZE));
+>>> +     VM_WARN_ON(!IS_ALIGNED(addr, CONT_PTE_SIZE));
+>>> +     VM_WARN_ON(!IS_ALIGNED(pfn, CONT_PTES));
+>>> +
+>>> +     /* For vmap, there is no valid -> valid transition */
+>>> +     VM_WARN_ON(pte_valid(__ptep_get(ptep)));
+>>> +
+>>> +     __set_ptes(&init_mm, addr, ptep, pte, nr);
+>>> +}
+>>> +
+>>> +pte_t pte_clear_huge(pte_t *ptep, unsigned long addr, unsigned long size)
+>>> +{
+>>> +     return __get_and_clear_full_ptes(&init_mm, addr, ptep,
+>>> +                                      size >> PAGE_SHIFT, 0);
+>>> +}
+>>
+>> I think we should have the same VM_WARN_ON() checks here, as for
+>> pte_clear_huge(), in addition to also warning for
+>> current->mm != &init_mm.
+>>
+>> We should make it clear that pte_clear_huge() gets called only for
+>> kernel mappings, and the range we operate on is definitely an aligned
+>> CONT range - which is why we do not go through get_and_clear_full_ptes ->
+>> contpte_get_and_clear_full_ptes, and possibly contpte_try_unfold(), but
+>> directly use __get_and_clear_full_ptes.
+>>
+> 
+> Hi Dev,
+> 
+> I'll add the alignment VM_WARN_ON() checks to pte_clear_huge() to
+> match pte_set_huge().
+> 
+> Regarding the current->mm != &init_mm check: these functions don't take
+> an mm parameter -- &init_mm is hardcoded in the function body.
+> current->mm would never equal &init_mm in practice: for user processes it
+> points to the process's own mm, and for kernel threads it is NULL.
+> So VM_WARN_ON(current->mm != &init_mm) would always fire.
 
-Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Reviewed-by: Barry Song <baohua@kernel.org>
----
- mm/vmscan.c | 5 +++++
- 1 file changed, 5 insertions(+)
+Right.
 
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 245f68c75b28..3bd604204ec7 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -4982,6 +4982,9 @@ static int evict_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
- 	scanned = isolate_folios(nr_to_scan, lruvec, sc, swappiness,
- 				 &list, &isolated, &type, &type_scanned);
- 	nr_isolated = isolated;
-+	if (nr_isolated)
-+		__mod_node_page_state(pgdat, NR_ISOLATED_ANON + type,
-+				      nr_isolated);
- 
- 	/* Scanning may have emptied the oldest gen, flush it */
- 	if (scanned)
-@@ -5044,6 +5047,8 @@ static int evict_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
- 		goto retry;
- 	}
- 
-+	mod_node_page_state(pgdat, NR_ISOLATED_ANON + type, -nr_isolated);
-+
- 	if (nr_isolated > total_reclaimed)
- 		mod_lruvec_state(lruvec, PGROTATE_ANON + type,
- 				 nr_isolated - total_reclaimed);
--- 
-2.43.0
+
+> 
+> The existing hugetlb helpers that vmalloc used before this decoupling
+> (huge_ptep_get_and_clear -> get_clear_contig) also take mm as a
+> parameter
+> and don't check current->mm either -- the caller simply passes &init_mm.
+> 
+> How about adding a comment to make the "kernel mapping only" intent
+> more explicit?
+> Something like:
+
+I think then we should just call the functions vmap_pte_set_huge and
+vmap_pte_clear_huge. In arm64 we have init_pte() which sets the cont bit
+at init time for kernel mappings. So to differentiate I think we should
+prefix the function name by vmap.
+
+
+> 
+>  pte_t pte_clear_huge(pte_t *ptep, unsigned long addr, unsigned long size)
+>  {
+> +       /* Kernel mappings only */
+> +
+> +       VM_WARN_ON(!IS_ALIGNED(size, CONT_PTE_SIZE));
+> +       VM_WARN_ON(!IS_ALIGNED(addr, CONT_PTE_SIZE));
+> +
+>         return __get_and_clear_full_ptes(&init_mm, addr, ptep,
+>                                          size >> PAGE_SHIFT, 0);
+>  }
+> 
+> Thanks,
+> Wen
 
