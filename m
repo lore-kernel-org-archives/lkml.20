@@ -1,63 +1,64 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 898C341E6DC
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:32:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D15F41B8F6
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:32:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791959572; cv=none; b=GPtkBmnqHApjQ40/049Azj8mKyKVKf5X8+XARE5uPm3N7LdPnMqu4zGDXxuk1WFmVxuGkMXLHC3LtMECXgs/uq71BYAx2ohh/5SRnp3B1X0TL+gthmilBDwnPA7MBa5+gsLUQ3xKbFZlI6Xu2nypoWdd7/yGATbfr8D7j6h8Cdc=
+	t=1791959578; cv=none; b=XYj9Xr6Iq3ArNvkswIFxkGs9n0EtSun/EJ/SqJG7BOMuCtc+ciUZMzDQRJz4WWwZyUnlLoq/yc8n1XL8vHXiJNtvqcyyRmpZNaDtoLTxu8mVkDrzXcYr9qGWaFnOtufgPPvGyjhQmfR+0OoXUGdsQas65wlRr7dMzA3UxQZF8Qc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791959572; c=relaxed/simple;
-	bh=ZbHKo6p6vHoGYZ7aFY/8EMx5pvZqBn9CREyLa80JF0M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OwRJW4F48SHBw3cj8orPzeLX3w09pL+Dgk5MiuSjOC646HNdsOLO0PlHRB7k8/GjuTb01zS6G5zHZpWMGZDMIMZ78l0wDr29cT/iumc4Y1ALQU2kynGYuXNR4TVKk5quZ0euBz0n0/B4WG7shPL/sScTPrFPmbdlUkwoKUyRx24=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MJrfSQo8; arc=none smtp.client-ip=209.85.216.41
+	s=arc-20240116; t=1791959578; c=relaxed/simple;
+	bh=vEN/UMx1zrNjObbZCoyXanSLOqnUY3l8miD5NqL+GXA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=icq654QK4e2iHZB1hE/1MnQ3nB6w53In4JvmfYDF029TKcyLcZfizPiTPjGFfzt4luuXo2fKaQlVZZby8+knF249sUc2t9Imhr6vzs3hwwTFFl6czoffxFQrTPoPa3Bq5XHoQAFeJV4dy39p5xV3MLVpqf4i2i3NnjrgsV518VQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z+tG6Ntb; arc=none smtp.client-ip=209.85.216.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MJrfSQo8"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-38759bcd877so2304157a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:32:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z+tG6Ntb"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3ac397836fbso1272572a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:32:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791959565; x=1792564365; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ysKN40C6ry6pqGOkJN7oQoGDbadfMse/W21xEe5fzHU=;
-        b=MJrfSQo8SYPr9aEO8pUL4EOOf9jZFwHIordcIijqOmc13RmEoJaCimyK1zsiYS0Rb0
-         PueXwgsQz2GPFw3G++56zo6kvoyEPtIus2ZndNtFlrP7B1Nx8Q7AJSM5wkBZSh/ksE0J
-         4aC70Vc5PiHyjUKlNC8QgHRXAYgVPBV+oz0SRONcp4b2mQJoRIbaJY1zMGDgqvCznylB
-         pXSa+I3zm827FZzt1f2yVnBQnVshIjJUm7rJI23F2STOHStuUOE1rfhXeRNkjQqCj6Uu
-         ZJwC7COIhCedKTKT7Mrm0PxJpLOkT8/ywyWai/wmTqiBzhQR0qzzDL1iGRi/VoEduyAM
-         4ehw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791959565; x=1792564365;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791959569; x=1792564369; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ysKN40C6ry6pqGOkJN7oQoGDbadfMse/W21xEe5fzHU=;
-        b=Ll9QkMDUyY51H5MQvfJs/kl+JmyjRvLuG9p7gTIejAEWPVrUXECMmoCoDQcgry/0Ps
-         njd298XKclsSsQ8FcNVH/nrDhD7CB8psudCWKpEdxDD39N4VYWslzDqzWvwt5dZtB6VZ
-         VodoVTigskLSqTfC5hjuZsc6PL7/SeW6pEGLUbbbMHXymTc2oa09aJx9xeJFhqcCcKle
-         fxAbPLi82Mppmmv06qULQWq5fTrRgV5iLLUFgvl1xV0YtMeVj6ZCXNdg+DKaY45su3aX
-         IUH9ZC+U0EvezYiPdniebOkDJC6lITxHoWYDJ+iH2RP6UlnrR0HH4NmRn2LAbpz/qDL3
-         2uMA==
-X-Forwarded-Encrypted: i=1; AKwUvBwm2s7LsFY3/Sb5siEf0q0NoU94ovM0HuQuPoD4X4j3F41uFh4LV8e+vrUyVFvV2NX14tTYlArS9Gj/Z6g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLVN9gMiOKPaFOYf1PUQ1P0eOl6/sPrmkzJaQEUECfYz/jR31ce
-	nY9M169Vg63voxpyxWcb7nsW0E4Zt5ZA9ansjahb/jDSdMGb3Dw8XcZ7
-X-Gm-Gg: AYBFou341bgQrshjC+AM8W2jiz7B0VbSFqBUCgFboMZY1wWVui5g+hqnIgEiUSO0EoN
-	A4rIs8bh4mHN/58UG25aaqo5IgxAuvZX6QRwWmo/11r5mcRz2EHawM++/5iHWKo2S0mMTjpfUS0
-	hPSt6d6IMOVcErJrJRxHNrJER65f8aCLnRUQmsHJDRVZPQntkBjqTyWI3rilHhZJHoJOeSDY8nq
-	i9TlIB0aTrSBiHid65VD4R31Tn/VjHFqmdz9oz5ckwiZHjIGf/h/CD4+JkVqTEClH1bawRiWLrd
-	txAlqW27UsEc3As3tX+cdKtNiw9G82QFIaY1K9HRpYO8wZ8hvKRxVNSlJLna1giBNFSuiMBriQj
-	LrMKuUvrblsBQcgXQ5n0U9vLjQlbk7UTgbrHeB+CCi1Odm8vNF3AfINXQYIz3WJIzjICvjkv4tP
-	/nxYkXPsqQlbaFAi/i4FnDmb2Pw4p2ihEnZfoKyTSW7hI2fVFu+1pHhnyc1tN0E711wN3e3Vfb1
-	dfnGcWIrXBtXjyYmXVwd1j47FU7Pb7zU0OiSGpqoxBGfJn4UkR+5zMqyqXqIi1rDG3wTsa/YYZO
-	FYLKZruNdQ==
-X-Received: by 2002:a17:90b:1dc1:b0:39e:4c7f:7304 with SMTP id 98e67ed59e1d1-3ab3ac9f622mr10629302a91.27.1791959564784;
-        Tue, 13 Oct 2026 23:32:44 -0700 (PDT)
+        bh=trefKx5Yq0uo+Qdmy9TW5HcZPt2sVHZtYHhu/AZ7XXE=;
+        b=Z+tG6NtbFv720808LKrj+zmPHf1yEndI7wBv1asTJCpCQSqAZkL8Aj7TTaRNAhGzhC
+         ZaDTFGLt7WUrOHo5WCN4izH4Cyy9HX97W9VZ7ECbz2M9EWb0sWvUIfdl8r+PKX4k0PeB
+         Y+wR+kEVH4eu8bQMrZyjcTxuPXriwZUdpkSFaOjmwxpcDVFo4/gQmBtOGAufIugpsa6l
+         OzoAVwW8AkqzswvtgOE/DrsjbTExktvsGXIsiYRtmaVvHjnezAMG3/hJe4A2n3x+DQHf
+         jUjdlUa70i89H9WF/OO3sNHeGZWZG7mPhLv//UwefljHEfT7uUks11xH7fgIw6JHNDBp
+         OILw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791959569; x=1792564369;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=trefKx5Yq0uo+Qdmy9TW5HcZPt2sVHZtYHhu/AZ7XXE=;
+        b=pVMQxjRajPs+h9oomVNgDXs5XTFaypa4QJhP5us1Wee1qj17JZWTpBmQoQ5Bj+f+T1
+         548ESDcIWTd0hJB5JMzh/YRbhZd0miTrP1pf63tdjdKNEIgqj43jKS+9tyk2oA+vb1xA
+         jecP6hAMDNYKgEIUE1Y+Vovc3bxH8OTHBC08vo0iAUjElh587n0hALLARUwSVggpddhe
+         oQ5PPIPBCPXpRcc1rSS5B/pO5zCSHi3EAhQ481+utjD5xR/cJgold/9qG5PApN3oiExt
+         XZqJErekqtFvDYw+FwV9BGVYWUSFF8rkTRZGYAaITj7Qaeek6bwuD4pOQFEmyWz/il+v
+         N1bg==
+X-Forwarded-Encrypted: i=1; AKwUvBxhtriGE7rz9cHoOdC2WmD2ifY1nk14jc7cpHTbDSWOy8hjtYJsVHc8vw3+Jcod1GUJKLA2kxc3wGX/gPE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIJA+nz8f7ae8Owdjum9t3PIHREMPzWyGarXSBfGq4Fqw1jiXrL
+	yTCrummLyhz9YmJnRKiH//GfC1u0JDiFJOzEz9FhXi5OJ89RYEjYX8xI
+X-Gm-Gg: AYBFou03fZlVxorBEgiXDYtiSS2LOGg02CiRuEPL+fpEaqEhx898D3Bf8QTsBshIyMl
+	IwGjy3FaOUWUJCo+cQPhZvZ0+z6uMNVNS1SVAiCk2D1zviD2PHIW8rpQnb/Soza6J7gyc6KuUbH
+	dT7JXTG28A+YWeoF2MRKBQfAyPYZMd5H9ssdoWIpC9FZAIR3nnND4rOSLr1UU6fySlyivTI77vS
+	8v1Kyy4/1hTFSjfktKu71QLHGSax1vMfwwPrybVHPbGxFXjZoUuuZCb9vKzYt0pMZlqkmOWIH3T
+	QKVzHrbLSRRyDhCLaL3YFUxYxSdPb7p2jZ7Q0nfQSRtkC3Yd28zrwWkQLGVUNJK0ivf3VEumPfB
+	d8yulEuJbmH6/RSuCLcXKfuoJ6mKWxs9qczgMa2V9XKGyiGNfKqFbDqMZBIWcWV1tBS+sPVt22l
+	uh+CFbEMyulR2enoIeC2SK5a7uUum0rfOhlYPHoMxGFCwBF8IxUisuoBiwvlfVz0AMTDgQpUgQG
+	CpkZOboOketpia6xEtCQkbApHjaIuZy9hhEYtq0F8UJAhoIXecbhJL1A2SjNIm5aEAo1RVAxrM=
+X-Received: by 2002:a17:90b:2d86:b0:3a7:d2b5:2e99 with SMTP id 98e67ed59e1d1-3ab3a60d1eamr11437513a91.20.1791959568855;
+        Tue, 13 Oct 2026 23:32:48 -0700 (PDT)
 Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac600a0619sm3384495a91.7.2026.10.13.23.32.42
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac600a0619sm3384495a91.7.2026.10.13.23.32.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 23:32:44 -0700 (PDT)
+        Tue, 13 Oct 2026 23:32:48 -0700 (PDT)
 From: HyeongJun An <sammiee5311@gmail.com>
 To: broonie@kernel.org
 Cc: lgirdwood@gmail.com,
@@ -65,10 +66,12 @@ Cc: lgirdwood@gmail.com,
 	patches@opensource.cirrus.com,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 00/13] ASoC: codecs: Fix Wolfson control definitions that write another control's bits
-Date: Wed, 14 Oct 2026 15:32:27 +0900
-Message-ID: <cover.1791959026.git.sammiee5311@gmail.com>
+Subject: [PATCH 01/13] ASoC: codecs: wm8990: Fix definition of right input PGA controls
+Date: Wed, 14 Oct 2026 15:32:28 +0900
+Message-ID: <818cf8d7ae81fa46c67cd5b4d01291a63f44c9a1.1791959026.git.sammiee5311@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1791959026.git.sammiee5311@gmail.com>
+References: <cover.1791959026.git.sammiee5311@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,45 +80,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-These are more fixes found by the overlap scan from the first series
-[1]. In each driver a control writes bits that belong to another
-control, or writes the left channel bits for a right channel control.
+The right input PGA boost (R12MNBST, R34MNBST) and routing (R12MNB,
+R34MNB) bits are in Input Mixer4 (R42), not in Input Mixer3 (R41),
+where these controls write the left channel bits.
 
-[1] https://lore.kernel.org/all/20261008130953.2446692-1-sammiee5311@gmail.com/
+Fixes: f10485e79882 ("[ALSA] ASoC: Add WM8990 driver")
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+---
+ sound/soc/codecs/wm8990.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-
-HyeongJun An (13):
-  ASoC: codecs: wm8990: Fix definition of right input PGA controls
-  ASoC: codecs: wm8990: Fix definition of LOMIX AINLMUX Bypass Volume
-    control
-  ASoC: codecs: wm8991: Fix definition of right input PGA controls
-  ASoC: codecs: wm8991: Fix definition of LOMIX AINLMUX Bypass Volume
-    control
-  ASoC: codecs: wm8983: Fix definition of ADC 128x Oversampling control
-  ASoC: codecs: wm8985: Fix definition of ADC 128x Oversampling control
-  ASoC: codecs: wm8994: Fix definition of WM8958 noise gate hold time
-    controls
-  ASoC: codecs: wm8955: Fix definition of Treble Cutoff control
-  ASoC: codecs: wm_hubs: Fix definition of MIXINR to MIXOUTR volume
-    control
-  ASoC: codecs: wm8737: Fix definition of zero cross switches
-  ASoC: codecs: wm5100: Fix definition of EQ3 Band 1 Volume control
-  ASoC: codecs: wm8750: Fix definition of ALC Capture NG Type control
-  ASoC: codecs: wm8510: Fix definition of ADC Inversion Switch control
-
- sound/soc/codecs/wm5100.c  |  2 +-
- sound/soc/codecs/wm8510.c  |  2 +-
- sound/soc/codecs/wm8737.c  |  8 ++++----
- sound/soc/codecs/wm8750.c  |  2 +-
- sound/soc/codecs/wm8955.c  |  2 +-
- sound/soc/codecs/wm8983.c  |  2 +-
- sound/soc/codecs/wm8985.c  |  2 +-
- sound/soc/codecs/wm8990.c  | 10 +++++-----
- sound/soc/codecs/wm8991.c  | 10 +++++-----
- sound/soc/codecs/wm8994.c  |  6 +++---
- sound/soc/codecs/wm_hubs.c |  2 +-
- 11 files changed, 24 insertions(+), 24 deletions(-)
-
+diff --git a/sound/soc/codecs/wm8990.c b/sound/soc/codecs/wm8990.c
+index 11dfbbbdcd92..a3843094866b 100644
+--- a/sound/soc/codecs/wm8990.c
++++ b/sound/soc/codecs/wm8990.c
+@@ -97,8 +97,8 @@ static const struct snd_kcontrol_new wm8990_snd_controls[] = {
+ SOC_SINGLE("LIN12 PGA Boost", WM8990_INPUT_MIXER3, WM8990_L12MNBST_BIT, 1, 0),
+ SOC_SINGLE("LIN34 PGA Boost", WM8990_INPUT_MIXER3, WM8990_L34MNBST_BIT, 1, 0),
+ /* INMIXR */
+-SOC_SINGLE("RIN12 PGA Boost", WM8990_INPUT_MIXER3, WM8990_R12MNBST_BIT, 1, 0),
+-SOC_SINGLE("RIN34 PGA Boost", WM8990_INPUT_MIXER3, WM8990_R34MNBST_BIT, 1, 0),
++SOC_SINGLE("RIN12 PGA Boost", WM8990_INPUT_MIXER4, WM8990_R12MNBST_BIT, 1, 0),
++SOC_SINGLE("RIN34 PGA Boost", WM8990_INPUT_MIXER4, WM8990_R34MNBST_BIT, 1, 0),
+ 
+ /* LOMIX */
+ SOC_SINGLE_TLV("LOMIX LIN3 Bypass Volume", WM8990_OUTPUT_MIXER3,
+@@ -377,9 +377,9 @@ SOC_DAPM_SINGLE_TLV("Record Right Volume", WM8990_INPUT_MIXER4,
+ 	WM8990_RDBVOL_SHIFT, WM8990_RDBVOL_MASK, 0, in_mix_tlv),
+ SOC_DAPM_SINGLE_TLV("RIN2 Volume", WM8990_INPUT_MIXER6, WM8990_RI2BVOL_SHIFT,
+ 	7, 0, in_mix_tlv),
+-SOC_DAPM_SINGLE("RINPGA12 Switch", WM8990_INPUT_MIXER3, WM8990_L12MNB_BIT,
++SOC_DAPM_SINGLE("RINPGA12 Switch", WM8990_INPUT_MIXER4, WM8990_R12MNB_BIT,
+ 	1, 0),
+-SOC_DAPM_SINGLE("RINPGA34 Switch", WM8990_INPUT_MIXER3, WM8990_L34MNB_BIT,
++SOC_DAPM_SINGLE("RINPGA34 Switch", WM8990_INPUT_MIXER4, WM8990_R34MNB_BIT,
+ 	1, 0),
+ };
+ 
 -- 
 2.43.0
 
