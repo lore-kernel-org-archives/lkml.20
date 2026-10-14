@@ -1,68 +1,67 @@
-Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazhn15013061.outbound.protection.outlook.com [52.102.174.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E53655D86C
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:57:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.50
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791997032; cv=none; b=kzCeYx62dKf5MqN8TrVN8urDOZOdU9xoFok13hoFu2pRVfo9XKf6bO99WLu/TBb/UPDRLtdEGH9MEPDZkpn91zc7CRmlDfior8I9Cc1xfs9Ip1tuytRvUTt+1k4SduIXVf1PXcBGnFt47y/9WxhxEHi9v/W2aFtuCxA8N9h8jiI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791997032; c=relaxed/simple;
-	bh=nRmxIe3nekvo3LsmeCDFBt3HhYTvzYYTtP4ISLeLSHw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=p0AM62NYDZhl5EFTmvTrhLigOXp3sJfgbVKviNMD3Dom/0W12sTYWt5VThRpJZhwfwOqVzocC/CaBGaAwZvj5erB48iTpQTu5PeZypKeLtONqqUCHboQrtxK6WkD+CJKv82U0sHkMpyxyy27oiPra5rW8m1yU9DqQcrfez/mKSc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=oAxiewNt; arc=none smtp.client-ip=209.85.219.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 827EC55D889;
+	Wed, 14 Oct 2026 16:57:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.102.174.61
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791997073; cv=fail; b=Cr5KtxvS+CUgEmW+4P1C15om019e2DCK7cjvcBB3lLFT9QVOp6Ba15nwye9LZqOd2VOapO/tNH0IUFW3xbd+ENdqgQ64j5PjD9IGpoQvh+7cy/u18TJJfzYtSQEbfMSwHfq7av0kFWUgKQz8mhByPF+eSkT4FbYmakimetr4pfM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791997073; c=relaxed/simple;
+	bh=BtK2KWd83RkQeq+o/NzCuH66JhM3qSh8y8iO4+v3+To=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=ggugD9FaUSt2ebgsnzND8cQR0r1SdcIZNnOFIGtzfSk9L8ei20bHrhpnSvgArbgJviNpLwe/dh/7UTeGlkGMxSSzqQiXy4z02sXcQTqsmAMi8fTrEb2Z2i72nzvIwaXMrrppsNWQ+tmNRgLPBNn/i0sIzFQ+fvizZI67IwA0dqY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=bFAbFt30; arc=fail smtp.client-ip=52.102.174.61
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="oAxiewNt"
-Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-91ba8fcc684so14638796d6.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:57:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1791997030; x=1792601830; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xqICNawrxpnV+J/cqg3H34juTALn0ZUgodfLDyK948I=;
-        b=oAxiewNtYa9j7vGWiahciu8kcCFNknM3vBEqyW7YvMIHH/w2QkpbpwY06UriCKhbvR
-         1XJ1Qxu3pHMK0quF++Ut+FKhXJz9KF9spQ8Dyfqjeu7tpgjCA+/VoFwDEOnkVrXRHPDI
-         uz2d9saI6C2umBKOA6UyIveItBMT91kcz/bCkLJ3esTHyqwU+VfJhrAOBd+b1sKq/eTa
-         A5H0qsCqJNUnsddGc4UmrlWm3I+d5jKUiwWIoY1jqVoUXgJdQD8pbmD3eqsEMvKeNSD9
-         LdAOlRppmM/KGnHnN7/VzLmtwqkvS2ZMZPoGvdTJWNf34ayIGeQHsVeRDYGTmLeQkJGo
-         tMuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791997030; x=1792601830;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xqICNawrxpnV+J/cqg3H34juTALn0ZUgodfLDyK948I=;
-        b=YN/OeH6PUwKfcZpixhc8m20SoRvtLnnOQ1PIvEoVi1FfDw6y3nDq/o+dNIGNCosxMf
-         YWhx32vxL1QVIfEUyufiCcGDFcVdJS7FnhZ7Wc3F8O+sTjw1KcrGJWXtxLMONbjUMLiX
-         Y5Bw1j69mhhWkm0j7D5+aLsIXRVd2P03igXnwIvjqhAvxXUm3c6Jmmv+DEre7pQXo2Rh
-         xH37gP82tWyLIbgPEkNOiphCNT2KNZ9bBcBkxDXbgfLnNCcLW0fyV/OPtdmcXFZCmB1F
-         pNBcCLcA1cgCsJawbqzwVwNElCRUsd3/hH4xhkraVewDOizoHKJb1z5tR7KtED6w0EHd
-         qR+A==
-X-Forwarded-Encrypted: i=1; AKwUvBzHTJuyH+nSqOe4BEeMijEXYXdM4BQUKjX95wcD7D7bsqMYVuRTPssBHj3LhV8jJZ5L2scn2j6yucD9xx8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYItuEPdG/chut4Cgj3rQCERptlumb+Sr5OXxuYeKB4HpJ1UP5WN
-	CWm2gVJyeebku12NFhr0Lzy6FIHVcJYd/uZSalR6c4QP6YQnz6t4+XzHVL49l9bRjnI=
-X-Gm-Gg: AYBFou00H5U/lQctOEPIuJXWMl4bfkeXDR+ILwfJxaJhTOV03CwqbdiIt1XWuEQRKcG
-	RX2Nrw3FI47fyezf60Lm9nPFc3lCqwSO6/Vtrlp8kU1q+VGmiPTQ0/f6ugBIcbE4VOb0mICXNhb
-	rxy+gcU6nrQDzSHduhZg6/2AwXRXj70Hrh1LKlCiTglXBWIsWJkk/KM7CGm1pG04Ilf5HmuC3t/
-	ZQyPQPKj79yiMFc1wkM3EpJmPB+KEgIVG3lFjrDKD774Tz2xRlDxIt4ESwFTk5g5a0LFZa3NIzb
-	yscZHtiBnpmuRsyJgFGbmyuCWZv78e057ptDZtfZe+A4U26cWj7oJmIRn13U/J/e7hgo8izBHf7
-	484y94H4zLbElGlFJNFVUNmz9s/HL4H4ge7an59yDrPZEwQPnp6d5QgNHQXdSjE2h/w6C/sfWyo
-	3TZ2TWeanDwChuINFS4FHq308fo7zQZwC62iQ/+UKHV6TBZ+a36pAX+9+zov8Jp3iUDT/3cxCzu
-	GOQ8MgLbQ==
-X-Received: by 2002:a05:6214:c4b:b0:919:51e9:8f16 with SMTP id 6a1803df08f44-91b55806079mr321358506d6.32.1791997030041;
-        Wed, 14 Oct 2026 09:57:10 -0700 (PDT)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97b35e23sm57382956d6.17.2026.10.14.09.57.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 09:57:09 -0700 (PDT)
-Message-ID: <af5ce6ac-244c-4fc4-bbc1-8875eec8508a@riscstar.com>
-Date: Wed, 14 Oct 2026 11:57:08 -0500
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="bFAbFt30"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=n+m3C1VF4RZJFdqFkcEvz5HBrPagEjYfHqkJDd14S8hNNRZsECtV9b+TNuhZ9/dcXUGlDfc7Uc32lodCO/bCHo2p3zdFrXh6qjCFchCWk5udyEMgr1okrSP6pJxgreB+TVIXmTtORWqc55GOeGepBCV84rJzQjF2sP6gzAxi7P6sHdR65M8uhqSwZ4/4clPC+lho3M4/KP/k/77Iuev2BDjXx7gi1K9o0yFBXQ9yVyBHnhKoHS5q6cSjXqEZqmfDVchSscaDKACrigIaZL7Z4MJ1mRVEvEN1icZHFKzp59ONYhEpsv1SJO30DqbAupgygjI59R3DkSG3F9U75pdtKQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fFIQspE78173JERdSzX9t1NRuY8+2KrnZKd62sGFYCg=;
+ b=ozOGo6Bnh3PgLjflAVSNLvMowhtQYP+181FNk+vgRqpv2HVP2MJAST7wrUBy/ojWTbAIxV+Onzv1uZN/gRAK0mi464z8JdIwi4LSAbYx+Myc8ZBL7CYKYMB7a3t56JWk7Z16iScMUY0/0c7h52TtFn0nmELe00452CpnBVobVymMC145VY/oUvgaxji7W27UAMDdHYHZKrHI0U03b2646Dl0Bm6PlflxL3e1JmhLcA17GLBKSeMqtbEQMFULskp4k8szXDZ39+NIs97fhMzg6ywTjdHSu9HYcLhzYlWkSDpXBvt0uD2KGhjUNRiA+MOl01z/I8swXivMnNLtruzymg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=intel.com smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fFIQspE78173JERdSzX9t1NRuY8+2KrnZKd62sGFYCg=;
+ b=bFAbFt30DdTswDWEMMnXa6u6wTBOkJ1AKnS9/9kdk6m4wvZAn+CPF959/KYpGmADPwjjFIOTucEfRYC9UuS+qcyO1SLN2iakOGt9C80+WvCcooSidl2w/r1ej0PtqL1Dm5ClRVxI5dzFdTyQOpRZh9AXPVFqRtA3PSBtVDyJ3ZfGq5iURXOlCG4YeaKsn4CYjg1qZ3+N4EEalbHJ/pimSnJwbBs/7NYVq+/jBXgpz1Q2hZnfPgc9B4/KHhSVXGJtvvobYiZSMlsJxowyNK+lpQQKnUyqv8EVAl+1obtxKWLJhc5YpC/C/LZi5Xd8uHfe/ywHjcLvcBfvnBJmW7ANcQ==
+Received: from PAZP264CA0008.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:21::13)
+ by DU4PR10MB8999.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:55c::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Wed, 14 Oct
+ 2026 16:57:46 +0000
+Received: from MI3PEPF00008491.eurprd03.prod.outlook.com
+ (2603:10a6:102:21:cafe::11) by PAZP264CA0008.outlook.office365.com
+ (2603:10a6:102:21::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Wed, 14
+ Oct 2026 16:57:46 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ MI3PEPF00008491.mail.protection.outlook.com (10.167.240.152) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Wed, 14 Oct 2026 16:57:45 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 14 Oct
+ 2026 18:58:12 +0200
+Received: from [10.252.12.121] (10.252.12.121) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 14 Oct
+ 2026 18:57:44 +0200
+Message-ID: <0cf0f3ca-bcb5-47d2-a4c7-9a3ab03d7293@foss.st.com>
+Date: Wed, 14 Oct 2026 18:57:42 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,120 +69,88 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: interrupt-controller: introduce
- toshiba,tc9564-msigen.yaml
-To: Conor Dooley <conor@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, tglx@kernel.org, radu@rendec.net,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- p.zabel@pengutronix.de, mohd.anwar@oss.qualcomm.com,
- lorenzo.bianconi@oss.qualcomm.com, danielt@kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Daniel Thompson <daniel@riscstar.com>
-References: <20261012190245.3988619-1-elder@riscstar.com>
- <20261012190245.3988619-2-elder@riscstar.com>
- <20261013-coexist-sixtyfold-cc6614086d3a@spud>
- <20261014-eminent-normal-lynx-3ebba3@quoll>
- <c5af1a40-e498-4855-8797-2663db83b9e6@kernel.org>
- <b8a8ca4f-c575-448a-baea-4b9f82f15e39@riscstar.com>
- <20261014-getting-bronze-d8ab7598d9ee@spud>
+Subject: Re: [PATCH 2/3] iio: adc: add stm32 mdf support
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+CC: Jonathan Cameron <jic23@kernel.org>, David Lechner
+	<dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy
+ Shevchenko" <andy@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Philipp Zabel
+	<p.zabel@pengutronix.de>, Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+	<linux-kernel@vger.kernel.org>, <linux-iio@vger.kernel.org>,
+	<linux-stm32@st-md-mailman.stormreply.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-media@vger.kernel.org>,
+	<dri-devel@lists.freedesktop.org>, <linaro-mm-sig@lists.linaro.org>
+References: <20261001145702.2628429-1-olivier.moysan@foss.st.com>
+ <20261001145702.2628429-3-olivier.moysan@foss.st.com>
+ <ar6wypoRS-5j9iM7@ashevche-desk.local>
 Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <20261014-getting-bronze-d8ab7598d9ee@spud>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Olivier MOYSAN <olivier.moysan@foss.st.com>
+In-Reply-To: <ar6wypoRS-5j9iM7@ashevche-desk.local>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PEPF00008491:EE_|DU4PR10MB8999:EE_
+X-MS-Office365-Filtering-Correlation-Id: 176e283a-aa03-45a3-a395-08df2a144522
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|34020700016|82310400026|23010399003|36860700016|7416014|376014|4143699003|56012099006|11063799006|10067099003|261009221227099003|261009223027099003|22082099003|18002099003|6133799003|12100799066;
+X-Microsoft-Antispam-Message-Info:
+	ehFrLC5tsuaw3UcBhV4KMCcjdjFm3Xaxg9MbKLnppFd8IHpHv6CW6rGzpoH1OoD2ytc037izurA1jpEZYEIWj8b/VdzNN2hkiwT0WPQA0coCWZyuA1+DOB3Ahfhw/jTihRh5DFRFsDVvKumoPHTRhG2xjR0eYpkiCe7PxWvx1g9dmU5sv1xBSMojuRk80Ssf9q+If6FJJUZKRPwNWDont51O4AxW6beQltXw0d+tU2itwRdNyNaLnhOYCgQmmC7ir1UBq/z56ae7axb4IhDSgCC5AHXnApRQJekm3HJ9POR3xYTHLNvoGMJJCAtlnwRoDR3/eBxvck9dfV9IxOyj/lGFjRFi60oRFrbCaRFTA88Xv0KSZfBfylrAy1H7nl3AuA3+/E5eR3cRT4uFJEYV2iYWOLsf8/zgCBTtdJV3C2ixf+hwUs0F2WnP8xUmPLynyIjBIWvHkWWoxzs/j2x3h5XLnSUzJ6LyXVE5zwIEQhO6AzP/g2upqkOV9p9qrO1QyHI3H6tZCupFFpAuGptrx9BqfYHPS36AmYAs0HEdyOXIYR5JVl6lxk0xHBgtdFRj/vO05kevH3gcCzApKTggL8XKvaLYGhboXBwE22W/aOBhSfynKaBOMCuIC1VhA0i2IMsLoJwTdzBT52doDzpMo9+AubWPDXVnZnMY2c0Sl4z9RWkFJIhVnBdrv6B0Nd6tQGBFv3QckLnh2Hh8jqmvnQ==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(34020700016)(82310400026)(23010399003)(36860700016)(7416014)(376014)(4143699003)(56012099006)(11063799006)(10067099003)(261009221227099003)(261009223027099003)(22082099003)(18002099003)(6133799003)(12100799066);DIR:OUT;SFP:1501;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	5cZJCHhw/6cOM0KYgDWB2RtGzXCJ6toa5McRJS2Mj33g8g622eQqFBH794aqUHj0rakygtWCUem8o+C+yfsxLBhHdRRg8Wktih298E7w4KCF2RkqxfEKt8TW1ssQtL6ke58gMIcctbhz5O3mU6PDUIuQuCiiaalIxY5IwY+E9r1z/R68YfTuYyg/1sAhmSG9Zh/hsVdGBriU/4E/zpgea0sY/EF1IkowodyZdIjsiBcbLuYo+5oOwkT8ObdLo9tA4vi52dccqi4JpjhS0kskWzIn2UFEVGVkpCHNjdV+FNnpJ9oLyZFysAmlPok85XrJLS5NarlGDWAPMcp6uQSpjo1gXibFMsGc30qjAp61TgU2oizMYjiOFf0ME74OFFkxZ5bZGA5qCrnhAsg/F6OkGFNKG7hxadvnP5r+Vk0w1+8gUBmCseO84doPVnNRuUk1
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 16:57:45.7078
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 176e283a-aa03-45a3-a395-08df2a144522
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MI3PEPF00008491.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR10MB8999
 
-On 10/14/26 11:41 AM, Conor Dooley wrote:
-> On Wed, Oct 14, 2026 at 09:55:03AM -0500, Alex Elder wrote:
->> On 10/14/26 5:22 AM, Krzysztof Kozlowski wrote:
->>>> I still do not understand why do we need to describe the inner wirings
->>>> of the tc9564 device. So far I found no posting of DTS showing proper
->>>> usage of it on the host. Without proper usage, what is the point exactly
->>>> to describe the inner specifics of tc9564?
->>> And as shown here:
->>> https://lore.kernel.org/all/20261012152408.3729237-5-elder@riscstar.com/
->>>
->>> there is no single user of any of this (this=reset, clock, irqchip
->>> probably and more) in upstreamed patches.
->>>
->>> I am getting tired to keep discussing it, so next time instead of words,
->>> please post CODE which is the argument - who uses any of these devices
->>> you keep adding.
+Hi Andy,
+
+On 10/1/26 21:13, Andy Shevchenko wrote:
+> On Thu, Oct 01, 2026 at 04:56:46PM +0200, Olivier Moysan wrote:
+>> Add the STM32 Multi-function Digital Filter (MDF) core, serial interface
+>> and digital filter drivers. The MDF converts bitstreams from sigma-delta
+>> modulators or digital microphones into samples exposed through IIO.
 >>
->> I'll take a break from my in-order responses to messages, and will
->> respond to this first.
+>> Audio: capture PDM microphones via cyclic DMA for an ASoC consumer.
+>> Support CIC scaling and filtering, synchronized and interleaving modes.
+>> Audio use case requires a DMIC filter, and a separate ASoC DAI.
+>>
+>> Analog: expose sigma-delta modulators as IIO voltage channels with
+>> direct reads or DMA buffering mode. STM32 timer triggers can be used as
+>> clock source.
+>> Analog use case requires an IIO backend for the SD modulator.
+>>
+>> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+>> ---
+>>   drivers/iio/adc/Kconfig               |   27 +
+>>   drivers/iio/adc/Makefile              |    3 +
+>>   drivers/iio/adc/stm32-mdf-adc.c       | 2078 +++++++++++++++++++++++++
+>>   drivers/iio/adc/stm32-mdf-core.c      |  857 ++++++++++
+>>   drivers/iio/adc/stm32-mdf-serial.c    |  309 ++++
+>>   drivers/iio/adc/stm32-mdf.h           |  312 ++++
+>>   include/linux/iio/adc/stm32-mdf-adc.h |   19 +
+>>   7 files changed, 3605 insertions(+)
 > 
-> Not really replying to any of this, but figured it was worth
-> mentioning that I am reviewing with the assumption that it's similar
-> to the microchip lan9xxx devices that can either be a standalone SoC
-> or connected as PCI endpoint.
+> Unreviewable. Make sure the single patch is ~750 lines.
+> 
+> 
 
-Yes, that was one of two things that this was modeled upon.
+Ok. I am preparing a v2 series to reduce the size of the patches.
 
-The other is the Raspberry Pi RP1, which is probably a more
-similar example.
-
-> You keep calling it an SoC, which I took to mean that this had
-> linux-capable CPU cores on it. Is that not actually the case?
-
-Well it is an SoC, in that it has numerous interacting
-components that are aggregated into a single chip.
-
-It does, in fact, have an embedded CPU that uses SRAM, but
-it's just an Arm Cortex M3 and is not Linux capable.
-
-So no, it is not a Linux-capable SoC the way the LAN966x is.
-
-					-Alex
-
->> Our ultimate goal is to support the two DWMAC interfaces attached
->> to PCIe functions within the TC9564.  This is a complex SoC which
->> interfaces with the host via an upstream PCIe switch port, and
->> incorporates an embedded PCIe endpoint with two functions.
->>
->> Based on your request, I will plan to send *all* of the code that's
->> required for DWMAC support for review later today and tomorrow.  I
->> have been pacing myself (in part not to inundate the lists with
->> patches).
->>
->>
->> A block diagram representing the TC9564 SoC is included in this
->> devicetree binding:
->>
->> https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc.git/commit/?h=char-misc-next&id=ed0a1c1eaa376e11cf8c97d898f2811b8ded322f
->>
->> That explains (and attempts to show) that devices (including clock
->> and reset functionality) use PCI endpoint BARs for access to their
->> registers.  Other IP blocks shown are an address translation unit,
->> a block of SRAM, two XGMAC interfaces, and an MSI generator for
->> each of the two embedded PCI functions.
->>
->>
->> To show the final DTS file, I have squashed the working code I have
->> and refer you here, starting at line 994:
->>
->> https://github.com/riscstar/linux/blob/18d7146c807a6264388c919391b77a795612e342/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts#L994
->>
->>
->> Note that this exposes many internal details of the SoC, which
->> Krzysztof objected to here:
->> https://lore.kernel.org/lkml/fbeac5ba-a28d-4d34-8d23-4946aef515ea@kernel.org/
->>
->> I responded, explaining some history on this code and asking
->> for clarification on criteria for when it's acceptable to
->> describe chip internals in devicetree, but received no answer.
->>
->>
->> The PCI endpoint bus enables a PCI endpoint to be treated as
->> a *bus* that provides access to multiple peripherals, rather
->> than as a simple single-peripheral device.  This goes well
->> beyond the capability of the PCI enumeration process to
->> discover the nature of the hardware, leveraging devicetree as
->> a hardware description language to describe the organization
->> within a complex chip.
->>
->> I understand the desire to consider the PCI endpoint (function)
->> as the boundary for devicetree descriptions.  But I also see
->> great benefit from viewing the SoC as a subsystem in itself,
->> whose IP blocks and connections between them are described
->> using devicetree.
-
+Best Regards
+olivier
