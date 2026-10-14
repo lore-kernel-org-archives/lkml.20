@@ -1,151 +1,367 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010001.outbound.protection.outlook.com [52.101.201.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 884D83F4DF3;
-	Wed, 14 Oct 2026 03:59:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.1
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791950343; cv=fail; b=YsG9Zt7NWHxh2NeT1rdBuiiM+StkNLm+t7KRhiitv4YhZ4LSe4ygnCdihxwgzPip58/Gp2T9f7O4EMyU4sjnwgYeEb03f/Jzbd1HUBZBsFfOROyc41luXNYE07YARz/hKPESst3BOmyr2gpDpwWnbSIvEvvbIBIa6eyUvLXsxA8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791950343; c=relaxed/simple;
-	bh=Pfyw94ZAdQGw40R+dkGblS+m44vZSmVooQlohlbLGA4=;
-	h=Content-Type:Date:Message-Id:From:To:Cc:Subject:References:
-	 In-Reply-To:MIME-Version; b=KADtXU0qbnrV+Abl5DENhHkzwp80DrA0LCg1cYtYEZB5lKR4nWOoZCjx762inyulLOq6EuwuFf/myncmhIbJ7aJxIhsqJKdAAy+6DdmLc0JseKSaaczCH6/8ldRVNwxNjZ1mM81hjABWSeyg3a8Vr+nJ+hu4gfi+A1OxNQx9efw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=B+DSMIo6; arc=fail smtp.client-ip=52.101.201.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B267240801E
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 03:59:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.178
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791950356; cv=none; b=NTzJKXZ+TtA0MmSbknYQNnZtEaBgVwOooR+6w+u0MEZiYxiVkKiM1RZ4t7PCxBEEaF0Uzd12BhBviskvH2VROtuY9/Pmkv9ZoNpRApKnDfGdKgPlwppOmFC/p9c6YGVyONrtDCWVP2UzNdjVwXJWYhraSFFu+Y+982IsmLtimpo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791950356; c=relaxed/simple;
+	bh=UHe31DZB0nVpQKek8RtayuPW7SrG61Ae4OAKhFVXocs=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=W0elHvkVPrbrsVd+FLvYmZ1qSEXj64Zt21FHH9eCa4fSPST1Tp/mxQJ+sE4oWP+RBO7b7d0OLk3L8g75a0m6jaT7gmlPCbVXpUJOGcPpfr0ivRNG7JqpZzQIi3wN4g3+MS6Cko1GsI/Art4LAEVd2gKTsgQgJwJEqFCeBHW8s68=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ISy/JFHa; arc=none smtp.client-ip=209.85.128.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="B+DSMIo6"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mx+RHwTq76701hqavMFGfwz2WB2yT70yOt1mz8s5cdXWjMfQNOKICAQMeUXQZmL91TR2UeAQgdzYXjRnSDbHCrvNduC33JnkxF45n5CsqfXfGTwbh/UpPhgeqJp87QadURLe6DlYIqD7ttNqoDrbLtOy6Wk6E47zAJDLx/APYOFaKde9KSy3D2GVZEYaod2sC9pRg0YFwDN1jUXELIa2XzLNfycgnrcZroo5nYrw+o5DXhFv1dQYo/6hRmgrRsmN8DoGsyHQzocIiUAxkZddLjKdDSMf2+a80fTLvzLmAyLsS03TIoJi39r2TZ0cVnetCDWcpPJM9NGZnv3Mi8Bhog==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Pfyw94ZAdQGw40R+dkGblS+m44vZSmVooQlohlbLGA4=;
- b=hyWsvP11RBdk6dELtr4ZQVuFOdfl80DGPteEAImAzv/ayJrnVj/3XryTdrsn+VEjI1BuD2KQGBddbydpOgmVaqWHqHHDgxheb9oR0dEUAh5oAOFv4JKBcosZFHUXeB5PVDJL7DkAsJAVRIoJuAg904hPuc65lkYyB2a11DnzWWdDdf3/CIAjPsNqvvZyFuR+REbkVXa2wugIw8iQTNjP98AavDrXDDI2+tW8MSVb5sfeYSW8XwaZP1rjin8OkwFUTWncYQQcCJcGHOzWrcCz83mBL1L72tZIBH/2HW8gLIkDcd39Ol1i98A6nQVDCVt7x3Ai/CNI4Oc9kj3LGB3Bng==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Pfyw94ZAdQGw40R+dkGblS+m44vZSmVooQlohlbLGA4=;
- b=B+DSMIo6344kArZuZtC6n+IcrJOkEWkkRq5DVeA4VMyvl+mh45dIoLz73ZCcldDSCWbPnxSrnWZC/dD8sKfThPvk7kSZA2vDaq94tTqjcEMzMiJs4G8Q97dtA6AL3GDX6gfmBeseTJYlWjZSsHZNhtG+KoNUUgt4VK+PZL4if8kiIIFaEVM0d8ZXO6nUK6iiC0PnX5aexcpiUuaKLJvjC6emYnn3ZsJ1iP7tyhQF5RHceCWOYzRmlzRhJjQiUlUGQHL1SwvKSKrrj1oqTlmOlkDT6lwKK3WEdRt7NuxqOrSwjeIbqGvN7/fdhkdbYgGaamUg0aSf8I8om+L4nk6yTg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- CY8PR12MB7561.namprd12.prod.outlook.com (2603:10b6:930:94::22) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.13; Wed, 14 Oct 2026 03:58:59 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0496.021; Wed, 14 Oct 2026
- 03:58:59 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 14 Oct 2026 12:58:54 +0900
-Message-Id: <DM49DNAJFYZT.3SWL8YOY00ITB@nvidia.com>
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "John Hubbard"
- <jhubbard@nvidia.com>, "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Benno Lossin" <lossin@kernel.org>, "Gary Guo"
- <gary@garyguo.net>
-Cc: "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
- "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
- "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [PATCH v4 10/10] gpu: nova-core: gsp: add `rpc` to RPC message
- send/receive methods
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261009-cmdq-rpc-v4-0-c9ab8de1d3f2@nvidia.com>
- <20261009-cmdq-rpc-v4-10-c9ab8de1d3f2@nvidia.com>
-In-Reply-To: <20261009-cmdq-rpc-v4-10-c9ab8de1d3f2@nvidia.com>
-X-ClientProxiedBy: TYWP286CA0033.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:262::18) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ISy/JFHa"
+Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-8565d77c277so26105767b3.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 20:59:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791950353; x=1792555153; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=WkMUe/NsYTM0ez+xe3tw/2n8+K1FB1iD4W4PefzB3ik=;
+        b=ISy/JFHabc3VHYlQWREj9rlzFSTwum64aJK5yMDNgPbQc3PNbTPWy32+G9zhKEkcGb
+         CLFsBMYuj4YF6g+XKBkFFfDngibR3YTG7VcN9w/KaQ7Xnk4QUYn1dRm/HRVnaLPwbD/s
+         i8awDCpRuMY0dMym4PDMB2xBTrwyaRs+rpUgY5u2iKPsjCIayIIonZiSIT516jp6b9vr
+         /sdbakXLLN8kkCHcKec+v438t1NTByGx66m6yXjFnA9is1wY9eNJ2Nk6gDP4IKIjCKTD
+         5qFvR1KMkpfjJVtu1wUv5TvITYy99ABsGyEZPJYZ/EZrH06qoEnrBJnNDYZ0INJ6ncc3
+         qfmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791950353; x=1792555153;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WkMUe/NsYTM0ez+xe3tw/2n8+K1FB1iD4W4PefzB3ik=;
+        b=ZJKWaRz7r3QxN/Btxh3XLuhBWM+FJPKFibOYaP3afZnUDAi2A2IpPsCKMsSM1izGx2
+         ANM02A9PtRIJPgz1fogvc9iC3wjs3YQRKR5RnkoSDGzqrFhJGsEHQgJGDeETpHkm7LCJ
+         03bPu+tkZkZ8Su5W2YkhSlRt3rbKGq3uYUhyE3eP9rudnbGHPdDvxxxpKvTZo0422NEW
+         6hUmg4wQd0t69towHj2FFJDFfG6qvjD5yblcZSoO/8NdgQ/8lnrqDhG+biUd2V3Fzkd/
+         rmJd8IxEHFFuZDLKdFs7GFZ7gqqNLWYYvA21rJcNeaQVcfeiN4eZhFVzNCDkHZW4LsNZ
+         VAog==
+X-Forwarded-Encrypted: i=1; AKwUvByAM7o5U8DM9Y67PSmlnDXfrxU3au4eu82sbDOPChi87LB8y+CaGpg4qcRrEiStgarlJGpRGKrMgIL93Xw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI7s2CRBxsBh4JlAqn6WfDozo1a6iL/rhRfgaeQdIlWjERPxHTb
+	7s5XhBDSdbErkjanBvMvx9PLFDJA40kaciQ67I3aTikz4W0AI3yB5Qvf
+X-Gm-Gg: AYBFou3T16gjYwptY43gSONjiI7XOxEzM1cHcUZXf0ereGVn8qSUnfVoC52IF59gfxq
+	3iWNfc4cijnn9OKxTaFUqIeFYePLA4Z/ICWO8ferA9iSgo5GbhDzLvLenD8m5EMo0sdCBMYnFHD
+	IS+MYsZjsiBSTghrKWA6LqERzJWTJ3d2RRS5nTEiw0z1xvDeX6828BtrbZ+nIZ5TL6MA+wZzUQI
+	zky633ILPAyYHSBhDwgxotOSTvR8YNN7sFeAjAe/Z57S/5WRo+VBlMNWBNYWEmC4USVEwH4Jias
+	ItzJi4wzHwNel0sd5a1Tl3RjORO+EfxQLJy/X7jUkxufUxmWPtzxb14SUQu2pLSglGecfOrL+zL
+	V4OrODFsBY3OV8KrjNgh6O7nF0+gv6TeSyQG4px/IezKTqSckhcHtOgER/vI0/nmLVMTolzYRnW
+	0lvXwjN2KmcUfIQNvaoCu6QyMFocHdAsg1Nz+btIUohIsjCKk77K1KlKGUqRzGzTF94CAik7TF2
+	YzzV417qBogDSmBpzZiYP/gHQYyo2urQFqz2UEWiGM2eio5grn+z/nnOiGcUW1wmvvOyCjwRxK/
+	iBCz0nY8IztRApQr5cGPouziHd0cuNw3DlrBiw==
+X-Received: by 2002:a05:690c:854:b0:8ab:44a4:6362 with SMTP id 00721157ae682-8b07ebf6791mr32329597b3.4.1791950352647;
+        Tue, 13 Oct 2026 20:59:12 -0700 (PDT)
+Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b0a9d8e52csm23584347b3.11.2026.10.13.20.59.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 20:59:11 -0700 (PDT)
+Date: Tue, 13 Oct 2026 23:59:10 -0400
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: netdev-bot+sashiko@kernel.org, 
+ harshit.m.mogalapalli@oracle.com
+Cc: maheshb@google.com, 
+ willemdebruijn.kernel@gmail.com, 
+ jasowangio@gmail.com, 
+ andrew+netdev@lunn.ch, 
+ davem@davemloft.net, 
+ edumazet@google.com, 
+ kuba@kernel.org, 
+ pabeni@redhat.com, 
+ peterpenkov96@gmail.com, 
+ netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ kernel-janitors@vger.kernel.org, 
+ error27@gmail.com, 
+ stable@vger.kernel.org
+Message-ID: <willemdebruijn.kernel.3587ccd7685e2@gmail.com>
+In-Reply-To: <179152553052.434549.7841966987517379353@kernel.org>
+References: <20261005054224.4154727-1-harshit.m.mogalapalli@oracle.com>
+ <179152553052.434549.7841966987517379353@kernel.org>
+Subject: Re: [PATCH] tun: fix skb length underflow in NAPI frags path
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|CY8PR12MB7561:EE_
-X-MS-Office365-Filtering-Correlation-Id: edf58fb1-ff31-41f5-2859-08df29a779f0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|10070799003|1800799024|7416014|366016|23010399003|56012099006|11063799006|4143699003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	yfyjTRm0xohROjvwZ/eEKBdv2VmwQffw41ttQ0DF1ME++J7kMsu7OJrq2asrVxrYZ5pzqACpoya8Q4rEzO5e2a4lXezSsIjZl72We34wTXR5c/wuu7M1FDDG4F4JkDPP5yUL0oMUdS/sed73IO9f8U3m9lXnedSTx9PV+uCxvwM10SW54iIkssbBkCKqc1dnNxkjMfMeJqAUCX8adpkgqEI0JnEILXqMC70qYZjpOrcgsZmulpkUP0DS0hpBz+j6qaOVTcsl7UPbsJhWkeRp9TWvbxkUHSAqbAcd/XCBj9KXnLVWFwFVLjSIkWH2ijwoS/q9d2wA7zmCcjSuJsge5L/Foj0K8fOSiGm64MIy1+XZ4Uihf6kSndhi6Goj6f/VrjwLuzFnD0777tqLYpUHuSCtqxA28BhodRLA34Nx5pj23LvXCFfx9rntqkCyAZJ7qUmPvYFHwG/3a47+qmSRg2UvtNCtfeA5lgQey1wOm2cNAqfAJbPpugeG31dN413nBkTbpNDTtZJBTJHkVjRDL85Itr+Pm3m+AAtSt3QL0XKDYOKOl2FAaDpQV9Cj45uZKylQMx7MWLQDkKmoNnS1feMc7woBl2awR4+oMVhTp2NWjaFl5pRR65h6D6hLbfYNRLPbhiFs/I72h87Z4XVp9auOTVGBgvjSqXUIiMWKTuA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(10070799003)(1800799024)(7416014)(366016)(23010399003)(56012099006)(11063799006)(4143699003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?N2NlRC9SN3dqWkFCaVlhbzIydzk3d0x6ZENjNS9mcUxtYm5GcVRZRlNXczFt?=
- =?utf-8?B?ckd6ZDFta1kyeW5DcDBnWnk0cW81UWlaUUxRc2xzdTdTb3pxVGlqbHNjRmRY?=
- =?utf-8?B?RHgrbURuY3hzL0pzbVpGV0wyUWxJKzQ4SnhOczNIMmtXdjJXb2MwbkRBaUF5?=
- =?utf-8?B?UWJCbXZFYWdHb3RxRWQ3VGcrNi9NWjR0Y3RZR3Y5d3dLWWhjcjVhSWZ5RVRp?=
- =?utf-8?B?bllTa3JmeFBXbzBJVkZMQVRwdzEwOVRsdm1HWWhpVEFzV3doREozRWxSVGx3?=
- =?utf-8?B?RmQxZ1UrYTdxMkE3OVRyR3kvaEE5OW1JQTFzVVF4WE9ZMHNZZU1OVzdHdWJN?=
- =?utf-8?B?c283VS9UaDltVW11TWFjV1NCS1ZQa3ZCV3Z6R2l5dFkrZXU2dTQ1UDdTSWZT?=
- =?utf-8?B?TFRwTEx1S1RXbVpIZE9MaGk5S01JdDRrSTdoVjVLQnZYSEJzcml3bTcyWWJ6?=
- =?utf-8?B?dTJKSDFuUnNPcWNPcW1xVk5NeXR2Rnd5ZnIxRktuaUtqQlMrbGozczdJK09H?=
- =?utf-8?B?MEViVDZsdUIrTENiOFYxK2gzN3JBTEgxL202UWlDSG1ES2Z0N1BmTUhuemRy?=
- =?utf-8?B?L1diSlRSTVVzT01Udm1uV0FBYXl2dEszSGtCSnVhRTdJNHlWUElsRk16Nnlp?=
- =?utf-8?B?Z2N1TEJ1cjJES0w5WkYwNTVzZnk2RzlpUU45UGVwMTU1aGRveWhuQ2p2Ni9p?=
- =?utf-8?B?MEtoRjNoM2JFU0RrUFdJNndMM2R0V0xNSkZQQWRWdkJlS0l5cWN1RERMV3hZ?=
- =?utf-8?B?RFA2QzBKa1M2TGhxK1VqTWZSSmVkc1hHYkIzVFZxMHZvVEJQQWJzNCtydUdV?=
- =?utf-8?B?c2JVejRoODAvRXVtYkVhSzl5Z1krbDRmWTJsU21HVksrOURoVkZsY08rZ0ZS?=
- =?utf-8?B?dm9mcmdhcmVqY0Fza0dnY05nRE9xUG5IUUs5aEVCMG5PRXc2UG1HaFN1bHhm?=
- =?utf-8?B?cGlJdStxZ0JkTnZJOXFlZU5ibE92d3ZwamVqd1ljOTJvOHpjdy9jcDVIRUlx?=
- =?utf-8?B?N3RjMXZXQkpvZytmYys2L1loV09nUTBrSWhqUUdqUXJDMVlYTGR3VmdnR3c2?=
- =?utf-8?B?L0FGM1RUaEZTdWJQdiswbUhWeUYyV3crKzBjdCszbTVRTzN3SlNIaFJIUVh3?=
- =?utf-8?B?M1lCcktiV1lrWVBNbGgwdXd1a3ptMjhROHpIT3htMkwxV0dNamNoNEx1VGFx?=
- =?utf-8?B?T1pzTUl6KzB0K0N3WHdpTmdIdGxQTTNzTGN0bE1tSjhPc0c3T3RkaUdhVGNP?=
- =?utf-8?B?MmZ4c2RueTZiaUlWeUUxUk5nbW5NZEs0Y0laVTdZalZidkhGWi8vRVpobGox?=
- =?utf-8?B?T1dYNEgxMVJZUXYzVGYyUVFSUWN0eWI0bUVMRzJDUjRnYW9LY0RhUk4rK2F2?=
- =?utf-8?B?VHB0Zmo0bFg0ZmhiSDFqUDl2cUZIeWtaQmM4OGoxTWlnMlJCaVBMV0NIa0Jn?=
- =?utf-8?B?b3ZuTnJsaVlQbjdUY3hUZDczTW1tTEhkMHd5T0pZL3RkREpFNnAwNXNiZVFt?=
- =?utf-8?B?V1kzZ3FzbFFsdjNGbWJuZnpGNzNBVmgrbnRxN1BROXlVdXYzWCtPQVZsSkh3?=
- =?utf-8?B?a0kya3pDZHBKblJhajVlcEpRYm1sRUVMNW52eS9OcTZvZjVYRzdlYXpkMXZa?=
- =?utf-8?B?YzNFNUxaSHE3N2Z3WDA2OFpCa2NhVHkxR29rK205YUlpMmFseDdqUkZvV2o1?=
- =?utf-8?B?ZzJDelY3SXVHeDdpR3FsQ01RZzJPWHZBNHJMYlBPNWN6azRZQmY4L2V3VU91?=
- =?utf-8?B?dWZpVE1VMEoya056NVZoZWZwUGRQRXRRNmY3OHVqTUEwZEphOWtYa24xMFNl?=
- =?utf-8?B?eVVrSytZdkRjQUZ4UTRMNUI2WGZabjRrUFdBaTNLZmxNMCtaeHRrby81b3pR?=
- =?utf-8?B?d2Jad21uZXhpT2x4VDlvOWd6dkFGREZRM3BtVWhmK3RhMCtXWWdoNmc2WVg5?=
- =?utf-8?B?Qk9JTlczUWJ5MlN3aTJublp1STZjb3FzcVpEcGU4dDU4V0RGRGZiZmhOVnlG?=
- =?utf-8?B?U3ZUMDFjQ2VKQktoVWZxK3FheDZZVHNXVWRWNFB5cjFXRFlVZjd5aE1BTXZk?=
- =?utf-8?B?eThvK1ZxZFVENXhYT3ZDUEk0UFhGREpURGxjSk9PM1pJOHBwK2VXRjBnZE5w?=
- =?utf-8?B?UWI2U1BQK0t4ck9wdUh5M0hPK0gySUl3TG5DTExIZUFEZlNKemlVTUJaS1dG?=
- =?utf-8?B?UDc0dHp6NGQwZ25EUXNXSmxiSjRXSHE3WE9kblFpS0lXLzJuWnVLc1QvdUJs?=
- =?utf-8?B?UEhSNkhuSTRERHY3bldZZXNGdFJtdkQwQzVCNGxNSWIzYXVZUFJxWkdiZEQ5?=
- =?utf-8?B?QnhvcTNLckJXcFBCanorclNuVUtUWUlhMjJxb0RCd2M2R1l3S2Q5RFRIaGI2?=
- =?utf-8?Q?AT4D9BabmupcGdQQET2QLVvgu/VfA/fUJGL3Z3nlLOZdy?=
-X-MS-Exchange-AntiSpam-MessageData-1: iSpSFu4Bt63kbQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: edf58fb1-ff31-41f5-2859-08df29a779f0
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 03:58:59.3355
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XQGI6aczaeIV0yD5uXGu5Esir8Rrw29Y//DLG8c0ffmEzscHZYtw7NHjvQShordh7uniZdagfTK510+x39Xbqw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7561
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Fri Oct 9, 2026 at 8:54 PM JST, Alexandre Courbot wrote:
-> Since we are going to introduce a second type of message, add `rpc` to
-> the names of the relevant command queue methods so we can distinguish
-> between the two.
->
-> No functional change intended.
->
-> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
-> Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
-> ---
+netdev-bot+sashiko@ wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
+> =
 
-nit: should also rename await_msg to await_rpc_msg?
+> Critical: 0 =C2=B7 High: 1 (1) =C2=B7 Medium: 0 =C2=B7 Low: 0 (1)
+> =
+
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchw=
+ork
+> know by including "pw-bot: cr" as a separate line at the end of your re=
+ply
+> (one such reply per series is enough).
+> =
+
+> - [High] This fix is incomplete.
+> =
+
+> Pre-existing issues:
+> - [High] tun_napi_alloc_frags() builds fragments from `iter_iov(it) + i=
+`
+>   and the raw `iov->iov_len` (drivers/net/tun.c:1505-1506).
+> - [Low] In tun_get_user(), the `if (msg_control)` block
+>   (drivers/net/tun.c:1837-1849) still computes copylen/linear and walks=
+=E2=80=A6
+> =
+
+> --
+> =
+
+> tun: fix skb length underflow in NAPI frags path
+> =
+
+> This patch moves the clearing of zerocopy for the IFF_NAPI_FRAGS path i=
+n
+> tun_get_user() so it happens before copylen is computed. The NAPI frags=
+
+> allocation is then sized for the complete iterator instead of the zeroc=
+opy
+> linear prefix. This avoids a skb->data_len underflow and a BUG() in
+> __skb_pull().
+> =
+
+> > diff --git a/drivers/net/tun.c b/drivers/net/tun.c
+> > index 5a302709a68aa..1124b8b33664e 100644
+> > --- a/drivers/net/tun.c
+> > +++ b/drivers/net/tun.c
+> > @@ -1848,6 +1848,10 @@ static ssize_t tun_get_user(struct tun_struct =
+*tun, struct tun_file *tfile,
+> >  			zerocopy =3D true;
+> >  	}
+> >  =
+
+> > +	/* The NAPI frags path copies the complete iterator. */
+> > +	if (frags)
+> > +		zerocopy =3D false;
+> > +
+> =
+
+> [Severity: Low]
+> This isn't a bug introduced by this patch, but with this override in
+> place, the msg_control block just above in tun_get_user() has no useful=
+
+> effect when frags is set:
+> =
+
+> drivers/net/tun.c:tun_get_user() {
+>     ...
+> 	if (msg_control) {
+> 		struct iov_iter i =3D *from;
+> =
+
+> 		/* There are 256 bytes to be copied in skb, so there is
+> 		 * enough room for skb expand head in case it is used.
+> 		 * The rest of the buffer is mapped from userspace.
+> 		 */
+> 		copylen =3D min(hdr_len ? hdr_len : GOODCOPY_LEN, good_linear);
+> 		linear =3D copylen;
+> 		iov_iter_advance(&i, copylen);
+> 		if (iov_iter_npages(&i, INT_MAX) <=3D MAX_SKB_FRAGS)
+> 			zerocopy =3D true;
+> 	}
+>     ...
+> }
+> =
+
+> For frags, the !zerocopy branch overwrites copylen and linear, and the
+> result of the iov_iter_npages() walk is discarded.
+> =
+
+> The comment doesn't describe the frags path either. It also says 256
+> bytes, but GOODCOPY_LEN is defined as 128.
+> =
+
+> Would gating the block with msg_control && !frags make the code and the=
+
+> comment agree, and also skip the extra iov_iter_npages() walk?
+
+This is nice suggestion.
+
+> =
+
+> >  	if (!frags && tun_can_build_skb(tun, tfile, len, noblock, zerocopy)=
+) {
+> >  		/* For the packet that is not easy to be processed
+> >  		 * (e.g gso or jumbo packet), we will do it at after
+> > @@ -1868,11 +1872,6 @@ static ssize_t tun_get_user(struct tun_struct =
+*tun, struct tun_file *tfile,
+> >  		if (frags) {
+> >  			mutex_lock(&tfile->napi_mutex);
+> >  			skb =3D tun_napi_alloc_frags(tfile, copylen, from);
+> =
+
+> [Severity: High]
+> Does this fully close the underflow described in the commit message?
+> =
+
+> copylen is an int, but len is a size_t taken from iov_iter_count(). The=
+
+> frags path now always goes through this assignment:
+> =
+
+> drivers/net/tun.c:tun_get_user() {
+>     ...
+> 		if (!zerocopy) {
+> 			copylen =3D len;
+> 			linear =3D min(hdr_len, good_linear);
+> 		}
+>     ...
+> }
+> =
+
+> tun_napi_alloc_frags() checks the truncated value against ETH_MAX_MTU. =
+It
+> then takes linear from the first segment, which is not truncated:
+> =
+
+> drivers/net/tun.c:tun_napi_alloc_frags() {
+>     ...
+> 	linear =3D iov_iter_single_seg_count(it);
+> 	err =3D __skb_grow(skb, linear);
+> 	if (err)
+> 		goto free;
+> =
+
+> 	skb->len =3D len;
+> 	skb->data_len =3D len - linear;
+>     ...
+> }
+> =
+
+> So when len is over 4 GiB, the first segment can still be larger than t=
+he
+
+This is not a normal length. Not sure whether it is feasible (quite
+plausible), but would warrant a separate patch, not included here.
+
+> allocation length.
+> =
+
+> vhost-net appears able to deliver such an iterator to an IFF_NAPI_FRAGS=
+
+> TAP backend. init_iov_iter() adds the guest descriptor lengths into a
+> size_t, and get_tx_bufs() only rejects a length of 0. The default copy
+> mode then calls handle_tx_copy()->tun_sendmsg()->tun_get_user() with
+> msg_control =3D NULL.
+> =
+
+> For example, this needs a guest memslot of at least 4 GiB. The guest
+> builds a chain whose first iovec is about 0xfffffff3 bytes after the
+> vnet header, followed by a 272 byte iovec. That gives len =3D 0x1000001=
+03
+> and copylen =3D 259:
+> =
+
+> - __skb_grow() with diff =3D 0xfffffff3 passes a negative ntail to
+>   pskb_expand_head(), so it makes a small allocation instead of failing=
+
+> - skb->len =3D 259 and skb->data_len =3D 272
+> - skb_copy_datagram_from_iter() and pskb_may_pull(ETH_HLEN) both succee=
+d
+> - eth_type_trans()->__skb_pull() sees skb->len < skb->data_len and
+>   calls BUG()
+> =
+
+> Copy mode already reached copylen =3D len before this patch. With this
+> change, the msg_control case reaches it too.
+> =
+
+> Would it make sense to pass the size_t len directly to
+> tun_napi_alloc_frags(), or to reject lengths that don't fit in an int
+> before narrowing?
+> =
+
+> [Severity: High]
+> This is a pre-existing issue, but tun_napi_alloc_frags(), which this fi=
+x
+> relies on, assumes the iterator is ITER_IOVEC. It also doesn't clamp th=
+e
+> last fragment to the remaining count:
+> =
+
+> drivers/net/tun.c:tun_napi_alloc_frags() {
+>     ...
+> 	for (i =3D 1; i < it->nr_segs; i++) {
+> 		const struct iovec *iov =3D iter_iov(it) + i;
+> 		size_t fragsz =3D iov->iov_len;
+>     ...
+> }
+> =
+
+> io_uring IORING_OP_WRITE_FIXED on a tun fd reaches tun_get_user() throu=
+gh
+
+If this is a bug only reachable by io_uring x napi_frags, we should
+just disable the combination of these two.
+
+napi_frags was added as a way to test insertion of packets with
+specific segment layout. No need to be able to do that from io_uring.
+
+> tun_chr_write_iter() with an ITER_BVEC iterator. io_import_fixed() sets=
+
+> the count to len, but the last bvec keeps its full bv_len:
+> =
+
+> io_uring/rsrc.c:io_import_fixed() {
+>     ...
+> 	nr_segs =3D (offset + len + bvec->bv_offset + folio_mask) >> imu->foli=
+o_shift;
+> 	iov_iter_bvec(iter, ddir, bvec, nr_segs, len);
+>     ...
+> }
+> =
+
+> In this case iter_iov() returns the bio_vec array cast to struct iovec.=
+
+> On 64-bit little-endian, iov_len reads as bv_len | (u64)bv_offset << 32=
+.
+> For page-aligned bvecs that is just bv_len.
+> =
+
+> Take a 5000 byte write from a page-aligned registered buffer. linear is=
+
+> about 4084 and data_len is about 904, but the second fragment is given =
+a
+> size of 4096. skb_copy_datagram_from_iter() writes only 904 bytes into =
+it.
+> =
+
+> Can this leave about 3192 bytes of uninitialized netdev_alloc_frag()
+> memory inside the fragment? The fragment sizes would then add up to mor=
+e
+> than skb->data_len.
+> =
+
+> If so, anything that later walks the frags by skb_frag_size() could exp=
+ose
+> that memory.
+> =
+
+> [ ... ]
+> =
+
+> -- =
+
+> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/pat=
+chset/20261005054224.4154727-1-harshit.m.mogalapalli%40oracle.com
+
+
