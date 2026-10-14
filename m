@@ -1,245 +1,319 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013050.outbound.protection.outlook.com [52.101.83.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 319423890F3
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:15:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791965717; cv=fail; b=GweHZQ9DLw56Yz3gjdpc/Ze3da3NLeSbo2e2UJU+CYvQrQfsljrqMfPfTyyxjZwnD9STMHUWjYF8Nnmz3YwSqtcEFtso5v12U87YQf0M//Xi0r0jdpO+eZD65JFnMjHjwOcy+g9drzcp9+rQpQmmmiMbJQ5kQwkDd9hbqaGAog8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791965717; c=relaxed/simple;
-	bh=bntkQ44wbycSU21UDcOj/5RabQy5QMxawxPRjtxccRs=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=szpUBbspgpcb7clyFp0bSvJyCBVcL+33hE3WybOmoWJQ60ITXQTYqg9JUjWp91AZrykGowp6yN0hyGrMBqV0wzSPyJITcympf1jaqaNnSdW1xmia0rRoH+7ItrVujBHrZ7yMhFWi9oWhQX6+EbSjx0LKguZ8tyK+Avo52FejODM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com; spf=pass smtp.mailfrom=mobileye.com; dkim=pass (1024-bit key) header.d=mobileye.com header.i=@mobileye.com header.b=RVMaAfPH; arc=fail smtp.client-ip=52.101.83.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mobileye.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 279004A207B;
+	Wed, 14 Oct 2026 08:15:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791965737; cv=none; b=G5rYebwBUdW+crszd0tzBpFwTH627rlNCiyIwSba5P7ozQ1E4L3zKXNN/m7zyJs9Q25dAJ5KaXuXSW+0mKTaP2+w8jJWXEeI1OpSkydqVZ0eImRNUBfjz7EI2fMkdjhkt5NnAy3FSem2G1HqP8a6O6NkpEqg8sNN433KYymKbpg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791965737; c=relaxed/simple;
+	bh=RNcC7loXwQAbS2fy2cUOJMcPavpqddm35TtWbLZ2Dv0=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=DXlTDZQJfsQIhB9zSNWLneiWR+10RHMzmPZlaMdo7p3ftrPiOvNNr19LTkP4BdDW0miHI3iQzy3u5mUwZ4AroAeZZyyCQcBjTOgPxsRyaTnxzSf4U8zXVvQhYYPB0rYLlngf1pkPLgVmOY6Gk9GL3SEjowaUqkIYTSJ4Zn5lOEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=kiv4Aib/; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=74Z2j57f; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=kiv4Aib/; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=74Z2j57f; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mobileye.com header.i=@mobileye.com header.b="RVMaAfPH"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=L8VbHqS9fYn+EhKvrg6isJaXvUb6WPG3O5AYjzop1IPhv2tBhme7NqpK75PJk3MQk/Z/7+X0WCyFVfYvxVqZzQZMOWJBmDdYQk4a8sN/HjytrgdN2XNbgm/zOFXIxsdWThM3oxDTN6b7mFe91nopPbNCZK5lLRRuWTPBk8SiJYTfoiyz+XwTvbjckP+VwBGQ49ZcVt5H9CsCB6/3je5VBSkcq0xxgTK7igEvf1cqaZ7QdquZRAbnryHw+ZTZExXtMr/W6r2jMn2XHMSAYQbxrPX4H5meL6OfBREcmq00rj7jLPcum7f1ttvK9gngd1E6wzCFb89fQFBgkMgl9lF2sg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jqLEHsuzZkGwLtAQn9mMWftrpfK3AEwE2EFN79zo4vU=;
- b=e42brZcFwuEMpL91hurUvdMY0qqjSCuot6uqyxqEXIgAtwYW+V0vS5wGfSCIUlbQ/1IymXIwE+VOliQ5hvBVIFc26QkG3379J5GS71JA7TgDFDTlMGyIaY3VOCX/sfUFf+WWYnMk8XKiTItEs546gMLKQ6gmO+jI0LkG6LJrbi3kKKJbpRdxcIbyx81Wqxr/KNgVKsFk2/Bbi0BszIVmJmSDKStoMW0UaMeL1BDIKBylpFm+nBJu/5DNJNiWgCmCl1DGu1Ac5kkmZt2zR8PqAdtBGVEcarwL3z3D+DbsXj0J8FZEmfOv50G8BGhPYWLSBYR044UVizwIcA7x1F77QQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mobileye.com; dmarc=pass action=none header.from=mobileye.com;
- dkim=pass header.d=mobileye.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mobileye.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jqLEHsuzZkGwLtAQn9mMWftrpfK3AEwE2EFN79zo4vU=;
- b=RVMaAfPH0KJA2jtWZOZ8KY7pgZBVUePO88AAM7z1BwgVelWYK0n3u6koDremq+27khLYm1LidB/wBYhotjOv5NVd7K9hPfUvOx8uueQ6LY962lGT95vN3KqgEaVS58LKCJOmctJk0bgif3zUnVRX/fvu7WCMYR+T+Bmk5Z0TDw8=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mobileye.com;
-Received: from MI9PR09MB924131.eurprd09.prod.outlook.com (2603:10a6:290:86::5)
- by DB9PR09MB6644.eurprd09.prod.outlook.com (2603:10a6:10:4f0::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Wed, 14 Oct
- 2026 08:15:08 +0000
-Received: from MI9PR09MB924131.eurprd09.prod.outlook.com
- ([fe80::fdde:8804:8594:8394]) by MI9PR09MB924131.eurprd09.prod.outlook.com
- ([fe80::fdde:8804:8594:8394%5]) with mapi id 15.21.0496.021; Wed, 14 Oct 2026
- 08:15:07 +0000
-Message-ID: <5a8048ef-a241-4486-adc1-440721d3606a@mobileye.com>
-Date: Wed, 14 Oct 2026 11:15:05 +0300
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] irqchip/riscv-aplic: fix asynchronous probing
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: Anup Patel <anup@brainfault.org>, Thomas Gleixner <tglx@kernel.org>,
- Radu Rendec <radu@rendec.net>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, Clark Williams <clrkwllms@kernel.org>,
- Steven Rostedt <rostedt@goodmis.org>, Jessica Liu <liu.xuemei1@zte.com.cn>,
- linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-rt-devel@lists.linux.dev
-References: <20261012-aplic-async-probe-v3-1-5cf52dc28690@mobileye.com>
- <20261013152727.2cUDX3l0@linutronix.de>
-Content-Language: en-US
-From: Vladimir Kondratiev <Vladimir.Kondratiev@mobileye.com>
-In-Reply-To: <20261013152727.2cUDX3l0@linutronix.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TL2P290CA0020.ISRP290.PROD.OUTLOOK.COM (2603:1096:950:3::9)
- To MI9PR09MB924131.eurprd09.prod.outlook.com (2603:10a6:290:86::5)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="kiv4Aib/";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="74Z2j57f";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="kiv4Aib/";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="74Z2j57f"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id BF9091F7C5;
+	Wed, 14 Oct 2026 08:15:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791965727; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Fo0GdmgfeO4+EkZHg2pz27AKahy6RCBiDvsUFo84pMI=;
+	b=kiv4Aib/vjXZIzZWX6rVaXuX5JmZiC2rj3pjSaZpz5gHg44Ry9eLVvy0kpGw13Y/oPVXL6
+	+ztgxbMO3zclgdffBa5UjSyFhxR9PrEz1EUeqkL8iVYkbPfT7EK2fCrZpGTg3VZxunteYk
+	7G/8CJFRPRn2UcL8p2ZmtVIQf2z+Tgk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791965727;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Fo0GdmgfeO4+EkZHg2pz27AKahy6RCBiDvsUFo84pMI=;
+	b=74Z2j57fJaz/eMUq797K1Xcqr/CHchW2lVqcH/w6MPCn1oXHehCkiRJdNgYdC+2lWeok56
+	8no736kz/HnD0tAQ==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="kiv4Aib/";
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=74Z2j57f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791965727; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Fo0GdmgfeO4+EkZHg2pz27AKahy6RCBiDvsUFo84pMI=;
+	b=kiv4Aib/vjXZIzZWX6rVaXuX5JmZiC2rj3pjSaZpz5gHg44Ry9eLVvy0kpGw13Y/oPVXL6
+	+ztgxbMO3zclgdffBa5UjSyFhxR9PrEz1EUeqkL8iVYkbPfT7EK2fCrZpGTg3VZxunteYk
+	7G/8CJFRPRn2UcL8p2ZmtVIQf2z+Tgk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791965727;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Fo0GdmgfeO4+EkZHg2pz27AKahy6RCBiDvsUFo84pMI=;
+	b=74Z2j57fJaz/eMUq797K1Xcqr/CHchW2lVqcH/w6MPCn1oXHehCkiRJdNgYdC+2lWeok56
+	8no736kz/HnD0tAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0C2141368E;
+	Wed, 14 Oct 2026 08:15:27 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id sNHRHh46z2r4WQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 14 Oct 2026 08:15:27 +0000
+Date: Wed, 14 Oct 2026 10:15:26 +0200
+Message-ID: <8733u8g0kh.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Joonho Lee <mynameisjune111@gmail.com>
+Cc: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-api@vger.kernel.org
+Subject: Re: [RFC PATCH 2/2] ALSA: pcm: refresh capture pointers before drain
+In-Reply-To: <rfc-core-capture-drain-2.112c40f0e9284eaa@gmail.com>
+References: <rfc-core-capture-drain-0.112c40f0e9284eaa@gmail.com>
+	<rfc-core-capture-drain-2.112c40f0e9284eaa@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI9PR09MB924131:EE_|DB9PR09MB6644:EE_
-X-MS-Office365-Filtering-Correlation-Id: a9ca538e-0e8c-43e6-d486-08df29cb425c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|376014|7416014|1800799024|6133799003|22082099003|18002099003|10067099003|3023799007|11063799006|4143699003|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	zmcfMGR7K226LKyccNJ8gbVAaftHF90VdTiq92k59Uwj8b0SISKy9PsM8BSeqyJ5CVyXP0Y44bvtMRFBYej25oAUVWk6k0D7KQCMCwNw3Q5xruFY4KCDT9+Pm3q+chbS7AZ1neXYow6JN2KEgo2WAORiUjlkngMXxeCFdWo1ZtL2CgUNprrjZDqu6+J8jrlSewn+FzsLxBfzxHrm5J4pCI8F+Pc40jSWiKIEgg5I3L5RZmAl8oqml8UehLWNE7GGCFuw/1qF1YO1Md4Q6D1IILceC8oWPSxbr1UH1XsFmLE/iHo1UcGUSgoD/yvJP+0bBljGup95j4hW39uPMurvDMDkQtlVDa+8qwHaSCAspKxygWj9xztAYA41O/qwSRy/Mm8yGPc2EQHT38gNt6UYUQRlfXEtOHo2mAYac8YwTHsHzy1GKytqDp0P2sE+9y/6ePM6kV1f0weCi8aNu/1WD7LK0ICh7E62GfmxmwfxB+Y2/DqeQjhm0/j7DdL7YIUlZR57yiuJObG0c5l4DK4oFN9vtdGHeLlOaIRgf8tqwtaEf2raVgAvfh8/IHGx0OKMrEwVwZkbRtI44Lj3EsfUkQBFoxNkBuSfyNl2Gku3DzvcIc1Jt52blsF8D0Vy8hX9
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI9PR09MB924131.eurprd09.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(7416014)(1800799024)(6133799003)(22082099003)(18002099003)(10067099003)(3023799007)(11063799006)(4143699003)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QjA5SWxHZlR1TEN1R3NYSG9WTTNaVFRORVc4V2NoYlVWSlA4QS9QMlJDRVFr?=
- =?utf-8?B?YklOclBkcTc5NEpTZGpXc24yMmlSMC9McEVWOUVJbEtQVkhLNlhYdXYzVnVr?=
- =?utf-8?B?SFBBVWV5eWN6SDF4VkdQQktHZHk1OXEwQktQTFN3N1lSeGR1dFh4NG82cDFV?=
- =?utf-8?B?c1piRDI5WnVmSXh5MGhSYlYzc21aZXVGY2ZjQ2w2d3puZEhmbVBuU1hSZEJE?=
- =?utf-8?B?QkRWS2pvbjhEQ1BZay8xWmloZk1HQnEzd0JVNGVYTTErV0cwWGluWEFtQVln?=
- =?utf-8?B?dU9BWG1MRUdmZEk2aTJxWThITFpDdExCb0pXWnN4SkZaaER5RXdWMEl4TW81?=
- =?utf-8?B?M3ZJUXdzek01bEtuRGRNdDkvNUY2UXJTSW1mWHhwZG8xK01rMVMvd0huTnBS?=
- =?utf-8?B?RHRrc0ZNTEQ3MXdQd0dWNSt0RVpjL0VCUktNcjE2SEo1V1h4QjlWZDMyWklO?=
- =?utf-8?B?Y0JJOGY5TFFQa2ZjZ3VXRE53ZEUvNDFMeU5naUtZWjNUc3JGSHlhNUp0dkNa?=
- =?utf-8?B?bC8rOHIya3ZINlF0QnVTd3krYXhLRjhqWTZUVHVXQzBkYVVyL3JUZGRXTkU3?=
- =?utf-8?B?aTlkWmJONnI2SlNSSUtHUkc3eUhJbXZCYXFSNk81ZjFRQjRpQ28wZU9DWTRp?=
- =?utf-8?B?cjBUZ3krVmc1TUl1QXo0eGxkb0hGdzc4cVpUZGU5ZS9SczJvdW50clNERldD?=
- =?utf-8?B?d0Q0VVRncmI0MWJTT3NTZnFtTVRTVmZsQjZ2eWFHL0dPN2hGcEx4UWkyTW1p?=
- =?utf-8?B?WDV1ZC9FWTcvRmp3ZTZGbzN4a2labmttUlEvaklkdFZQenAzdzRWTi90TWhZ?=
- =?utf-8?B?MlpYeUJ0TlhZNFJMUnFEUVZPajNjRU0zejRCeitHNzhYUUk0a1k4c2tXS01M?=
- =?utf-8?B?bWF6MmVmQU5wT0tiOHdkUFdlN2tiZkFrTGt4YWwveVhvM29pZDgyeGI2M2lu?=
- =?utf-8?B?QjBJV1FaYXdIeXZkU2dsU1VjRkNUTGg2YzhobVFHTTBZM2JiT0g1ekRtaTRn?=
- =?utf-8?B?bThCOWZaSk0wQzFoOFJKR0JyZmdydkFwSkFjZkx3ZVpQNzRMODhSb0xwdjJV?=
- =?utf-8?B?QTlVUkVKSFlmOVI1WE91Y3l6VGNLWGxZcXg0VXdKdnJTRXhab0Q2TTVEblFW?=
- =?utf-8?B?cks1VzZRK3Eyb1V3QzU5QmtBN0xZVWMxQ05CV01DVE95cE5HeXRyOEhra2Z4?=
- =?utf-8?B?cFhXMzF3T1dZQXJEVHIxd096cVRhOXNiR2kvMnpFRlA1Z0VYdjRBZE9BMVFC?=
- =?utf-8?B?WUMzNkhHaXFqMnFmOWxzMWZ4YmYyOWVjRTZKVkZLeUVBYkpQelJySTVrUTdo?=
- =?utf-8?B?aVVLUEcyNlNRc0M2ekpVcDRCWFRCUkJTOTJJMmZYaFZCaEdrZG5VOGFNVDlR?=
- =?utf-8?B?bHVZZ2NYTUpkSktpVTNVY0hBbVlvY2pTd3VBb3E1Z2ZNc21tcFpOeWpwV2p5?=
- =?utf-8?B?K2JPaExLcExBRFIzUjg5YU9naTVnNjhqTVViLzVDV01vQXErVEkzcjRBOXkw?=
- =?utf-8?B?eWgyenNha0Q3VjVUc2t4cml6NWthU1Jqcm4vNGlnTkRGSFJSWFNRMHZ6elFt?=
- =?utf-8?B?RUlsVWtiQnNtaGhDQXVZMEhHcjcvVWtBVnV4VlJZYm5nQU1xTitsR2NuVXN0?=
- =?utf-8?B?OUQ5ZjBlZHFONkp5eWZ1MytZWXdCaExZdGtpMjNmazdPcG1YY3NSVnE0Wjh0?=
- =?utf-8?B?eWc3VndxWHJ3ZXJlRVc4NE9EYm5SQldGbUNIc25kSS9qTFFNdFlwaWdwVlhm?=
- =?utf-8?B?VEhHcVJkRGlvQ2t4ZVpjbHlVcUJ0RVJhbHc0VUJXcXBUOTVjTE56K1hpTzR3?=
- =?utf-8?B?WU0yYjFLOEUzQVR5ZnpUMXF1ekkrSGZFT3d1a3lrQVRHcXVvNVU1M1N1dDFk?=
- =?utf-8?B?U0hlalJKV3lXbmxSRDNuaStLVkZ2TW1SUTRkK3BJUUNzQ2NlYTdSckFwbTY0?=
- =?utf-8?B?dldxQzhLR3ZieUFKK0tLTlpYMDB5aTBnaExNc1o1ZHM5VXovbDhGWXZPK2Fy?=
- =?utf-8?B?UUVGYm91NVM5QWtzRFlrS0o3S082SjlybUI4Q1U3VDZtTVdabUpEWjVMVmRZ?=
- =?utf-8?B?UDcxcGxKeit4eE56Zi9LbnJrSHFjUGlaQVU2bjl1RmloMGhBZ0VyaUM0RnQ5?=
- =?utf-8?B?YTRsUzFmenhITzNrQlNZaGJqTFl2c2RlNlJvVitQSGx0T0JzMGM1a3FVSUdq?=
- =?utf-8?B?djF0STdULytwcHNGcmhPUURjcnl1ekt0bGFNNWN3QjgvYWNuUk1iSTF4Ulcz?=
- =?utf-8?B?ODZ3M3prbWh2a0hrNi83NThINHdQY29CVzFUb2JHUXNIdGpQbThmYkt3TTJ4?=
- =?utf-8?B?MXYyakRmKzJsTkx2TGtlOHZNcFFvZ05LRWl3OTF0YWh5Um5VaWlWQT09?=
-X-OriginatorOrg: mobileye.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a9ca538e-0e8c-43e6-d486-08df29cb425c
-X-MS-Exchange-CrossTenant-AuthSource: MI9PR09MB924131.eurprd09.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 08:15:07.9161
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4f85ba13-6953-46a6-9c5b-7599fd80e9aa
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 861R/l1IYtTJ1e+xexBQwovxhDy9SuJ1z/vG4fiXeKpKCWAfZQUMbRae4w6RHb6CeW8AE3gwpxsZbHXbHVc9OQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR09MB6644
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Action: no action
+X-Spam-Score: -3.51
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	ARC_NA(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Level: 
+X-Rspamd-Queue-Id: BF9091F7C5
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 
-On 10/13/26 18:27, Sebastian Andrzej Siewior wrote:
-> EXTERNAL EMAIL: Do not click any links or open any attachments unless you trust the sender and know the content is safe.
+On Wed, 14 Oct 2026 05:30:57 +0200,
+Joonho Lee wrote:
 > 
-> On 2026-10-12 12:12:59 [+0300], Vladimir Kondratiev wrote:
->> boolean flag don't protect from race when probing several instances
->> asynchronously. On system with multiple APLICs, if probed asynchronously,
->> warning triggered as below.
+> Refresh active capture pointers before the drain transition so the final
+> captured tail is accounted before reads finish.
 > 
-> Why is this async? Doesn't __platform_driver_probe() set it to sync?
+> Assisted-by: LLM
+> Signed-off-by: Joonho Lee <mynameisjune111@gmail.com>
+> ---
+>  sound/core/pcm_native.c | 32 +++++++++++++++++++++++++-------
+>  1 file changed, 25 insertions(+), 7 deletions(-)
+> 
+> diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+> index defbb2977efe..622ae7be2d04 100644
+> --- a/sound/core/pcm_native.c
+> +++ b/sound/core/pcm_native.c
+> @@ -2176,14 +2176,32 @@ static int snd_pcm_drain(struct snd_pcm_substream *substream,
+>  	} else if (substream->f_flags & O_NONBLOCK)
+>  		nonblock = 1;
+>  
+> -	snd_pcm_stream_lock_irq(substream);
+> -	/* resume pause */
+> -	if (runtime->state == SNDRV_PCM_STATE_PAUSED)
+> -		snd_pcm_pause(substream, false);
+> +	/* Keep linked runtimes alive until the initial drain action completes. */
+> +	scoped_guard(rwsem_read, &snd_pcm_link_rwsem) {
+> +		snd_pcm_stream_lock_irq(substream);
+> +		/* Resume before refreshing capture positions. */
+> +		if (runtime->state == SNDRV_PCM_STATE_PAUSED)
+> +			snd_pcm_pause(substream, false);
+> +		snd_pcm_stream_unlock_irq(substream);
+> +
+> +		/* A pointer error may stop the group: hold only this member's lock. */
+> +		snd_pcm_group_for_each_entry(s, substream) {
+> +			if (s->stream != SNDRV_PCM_STREAM_CAPTURE)
+> +				continue;
+> +			scoped_guard(pcm_stream_lock_irq, s) {
+> +				if (s->runtime->state == SNDRV_PCM_STATE_RUNNING)
+> +					result = snd_pcm_update_hw_ptr(s);
+> +			}
+> +			if (result < 0)
+> +				break;
+> +		}
+>  
+> -	/* pre-start/stop - all running streams are changed to DRAINING state */
+> -	result = snd_pcm_action(&snd_pcm_action_drain_init, substream,
+> -				ACTION_ARG_IGNORE);
+> +		snd_pcm_stream_lock_irq(substream);
+> +		/* Change the stable group to DRAINING only after all refreshes. */
+> +		if (result >= 0)
+> +			result = snd_pcm_action(&snd_pcm_action_drain_init,
+> +						substream, ACTION_ARG_IGNORE);
+> +	}
+>  	if (result < 0)
+>  		goto unlock;
+>  	/* in non-blocking, we don't wait in ioctl but let caller poll */
 
-Yes it does but aplic driver uses
+IIUC, basically what here we do is to just call
+snd_pcm_update_hw_ptr() for capture at drain init phase, so calling it
+inside snd_pcm_do_drain_init() would make more sense, I suppose.
 
-builtin_platform_driver(aplic_driver);
+But, the problem is that snd_pcm_update_hw_ptr() itself takes an
+action to stop the stream for XRUN.  So we'd need to fiddle along with 
+it, too, as something like below.  (Maybe we need more brush-ups.)
 
-that takes different route. Easy way to directly proof it: I boot with
 
-driver_async_probe=* dyndbg=\"func __driver_attach +p\"
+thanks,
 
-to request asynchronous probe and debug prints in the __driver_attach
-shows:
-[    0.236483] platform 48760000.interrupt-controller: probing driver riscv-aplic asynchronously
-[    0.236513] platform 674e0000.interrupt-controller: probing driver riscv-aplic asynchronously
-[    0.236539] platform 67560000.interrupt-controller: probing driver riscv-aplic asynchronously
+Takashi
+
+-- 8< --
+diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
+index 4d665b4148d7..a1b19d558234 100644
+--- a/sound/core/pcm_lib.c
++++ b/sound/core/pcm_lib.c
+@@ -206,8 +206,9 @@ void __snd_pcm_xrun(struct snd_pcm_substream *substream)
  
-> Would you mind providing a coherent description of the problem and
-> implemented solution instead of slapping console output?
-
-Sorry if it was not clear; shall I explain in details why pattern
-
-if (!done) {
-	do_something();
-	done = true;
-}
-
-is not SMP safe? Add detailed explanation to commit message and shorten console output?
-
-Reason for asynchronous probing is simple - to reduce boot time, it is critical for embedded
-systems. Think of system managing car rear camera and proximity sensors, it should be ready when you
-start driving, this lefts very short time for the kernel to boot.
-
->> ---
->> Changes in v3:
->> - drop __ro_after_init attribute due to write to read-only page concern
-> 
-> What concern? That __ro_after_init can stay. It is built-in only.
-See comment to v2 by sachiko-bot$kernel.org here
-https://lore.kernel.org/all/sashiko-outbox-167856@kernel.org/
-quote:
----cut---
-[Severity: High]
-
-Will this trigger a fatal page fault if the probe is deferred?
-
-
-
-The aplic_syscore_registered variable retains the __ro_after_init attribute,
-
-which places it in a memory section that becomes strictly read-only after
-
-the kernel initialization phase completes.
-
-
-
-Platform driver probes can be deferred (for instance, waiting for an MSI
-
-domain) and run in a workqueue after the init phase is done.
-
-
-
-If a late probe calls aplic_syscore_init(), atomic_cmpxchg() will attempt
-
-to write 1 to this read-only memory page, which causes a store fault (or
-
-AMO fault on RISC-V).
-
-
-
-Does the __ro_after_init attribute need to be removed here to safely
-
-support late and deferred probing?
-
----cut---
-
-and indeed, aplic_msi_setup() can return -EPROBE_DEFER so concern is valid and
-existed in original code, it is not related to asynchronous probing
-
-> 
->> diff --git a/drivers/irqchip/irq-riscv-aplic-main.c b/drivers/irqchip/irq-riscv-aplic-main.c
->> index d9afb6ae98cf56d6fd9f858c31a3d23546c3b450..54e1d5602f15a04127e900c0a4983022d49da553 100644
->> --- a/drivers/irqchip/irq-riscv-aplic-main.c
->> +++ b/drivers/irqchip/irq-riscv-aplic-main.c
->> @@ -116,14 +116,12 @@ static struct syscore aplic_syscore = {
->>  	.ops = &aplic_syscore_ops,
->>  };
->>  
->> -static bool aplic_syscore_registered __ro_after_init;
->> +static atomic_t aplic_syscore_registered = ATOMIC_INIT(0);
->>  
->>  static void aplic_syscore_init(void)
->>  {
->> -	if (!aplic_syscore_registered) {
->> +	if (!atomic_cmpxchg(&aplic_syscore_registered, 0, 1))
->>  		register_syscore(&aplic_syscore);
->> -		aplic_syscore_registered = true;
->> -	}
->>  }
->>  
->>  static int aplic_pm_notifier(struct notifier_block *nb, unsigned long action, void *data)
->>Thanks, Vladimir
-
+ #endif
+ 
+-int snd_pcm_update_state(struct snd_pcm_substream *substream,
+-			 struct snd_pcm_runtime *runtime)
++static int do_pcm_update_state(struct snd_pcm_substream *substream,
++			       struct snd_pcm_runtime *runtime,
++			       bool notify)
+ {
+ 	snd_pcm_uframes_t avail;
+ 
+@@ -216,12 +217,14 @@ int snd_pcm_update_state(struct snd_pcm_substream *substream,
+ 		runtime->avail_max = avail;
+ 	if (runtime->state == SNDRV_PCM_STATE_DRAINING) {
+ 		if (avail >= runtime->buffer_size) {
+-			snd_pcm_drain_done(substream);
++			if (notify)
++				snd_pcm_drain_done(substream);
+ 			return -EPIPE;
+ 		}
+ 	} else {
+ 		if (avail >= runtime->stop_threshold) {
+-			__snd_pcm_xrun(substream);
++			if (notify)
++				__snd_pcm_xrun(substream);
+ 			return -EPIPE;
+ 		}
+ 	}
+@@ -233,6 +236,12 @@ int snd_pcm_update_state(struct snd_pcm_substream *substream,
+ 	return 0;
+ }
+ 
++int snd_pcm_update_state(struct snd_pcm_substream *substream,
++			 struct snd_pcm_runtime *runtime)
++{
++	return do_pcm_update_state(substream, runtime, true);
++}
++
+ static void update_audio_tstamp(struct snd_pcm_substream *substream,
+ 				struct timespec64 *curr_tstamp,
+ 				struct timespec64 *audio_tstamp)
+@@ -283,8 +292,8 @@ static void update_audio_tstamp(struct snd_pcm_substream *substream,
+ 	runtime->driver_tstamp = driver_tstamp;
+ }
+ 
+-static int snd_pcm_update_hw_ptr0(struct snd_pcm_substream *substream,
+-				  unsigned int in_interrupt)
++int snd_pcm_update_hw_ptr0(struct snd_pcm_substream *substream,
++			   bool in_interrupt, bool notify)
+ {
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	snd_pcm_uframes_t pos;
+@@ -490,13 +499,13 @@ static int snd_pcm_update_hw_ptr0(struct snd_pcm_substream *substream,
+ 
+ 	update_audio_tstamp(substream, &curr_tstamp, &audio_tstamp);
+ 
+-	return snd_pcm_update_state(substream, runtime);
++	return do_pcm_update_state(substream, runtime, notify);
+ }
+ 
+ /* CAUTION: call it with irq disabled */
+ int snd_pcm_update_hw_ptr(struct snd_pcm_substream *substream)
+ {
+-	return snd_pcm_update_hw_ptr0(substream, 0);
++	return snd_pcm_update_hw_ptr0(substream, false, true);
+ }
+ 
+ /**
+@@ -1906,7 +1915,7 @@ void snd_pcm_period_elapsed_under_stream_lock(struct snd_pcm_substream *substrea
+ 	runtime = substream->runtime;
+ 
+ 	if (!snd_pcm_running(substream) ||
+-	    snd_pcm_update_hw_ptr0(substream, 1) < 0)
++	    snd_pcm_update_hw_ptr0(substream, true, true) < 0)
+ 		goto _end;
+ 
+ #ifdef CONFIG_SND_PCM_TIMER
+diff --git a/sound/core/pcm_local.h b/sound/core/pcm_local.h
+index ecb21697ae3a..12bb6e75329a 100644
+--- a/sound/core/pcm_local.h
++++ b/sound/core/pcm_local.h
+@@ -28,6 +28,8 @@ int pcm_lib_apply_appl_ptr(struct snd_pcm_substream *substream,
+ int snd_pcm_update_state(struct snd_pcm_substream *substream,
+ 			 struct snd_pcm_runtime *runtime);
+ int snd_pcm_update_hw_ptr(struct snd_pcm_substream *substream);
++int snd_pcm_update_hw_ptr0(struct snd_pcm_substream *substream,
++			   bool in_interrupt, bool notify);
+ 
+ void snd_pcm_playback_silence(struct snd_pcm_substream *substream,
+ 			      snd_pcm_uframes_t new_hw_ptr);
+diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+index a845f242a163..76983e5f4d4e 100644
+--- a/sound/core/pcm_native.c
++++ b/sound/core/pcm_native.c
+@@ -2094,6 +2094,8 @@ static int snd_pcm_do_drain_init(struct snd_pcm_substream *substream,
+ 				 snd_pcm_state_t state)
+ {
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
++	int err;
++
+ 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
+ 		switch (runtime->state) {
+ 		case SNDRV_PCM_STATE_PREPARED:
+@@ -2119,8 +2121,12 @@ static int snd_pcm_do_drain_init(struct snd_pcm_substream *substream,
+ 		if (runtime->state == SNDRV_PCM_STATE_RUNNING) {
+ 			snd_pcm_state_t new_state;
+ 
+-			new_state = snd_pcm_capture_avail(runtime) > 0 ?
+-				SNDRV_PCM_STATE_DRAINING : SNDRV_PCM_STATE_SETUP;
++			err = snd_pcm_update_hw_ptr0(substream, false, false);
++			if (err < 0)
++				new_state = SNDRV_PCM_STATE_SETUP;
++			else
++				new_state = snd_pcm_capture_avail(runtime) > 0 ?
++					SNDRV_PCM_STATE_DRAINING : SNDRV_PCM_STATE_SETUP;
+ 			snd_pcm_do_stop(substream, new_state);
+ 			snd_pcm_post_stop(substream, new_state);
+ 		}
