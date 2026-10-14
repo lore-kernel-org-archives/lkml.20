@@ -1,215 +1,128 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 256BC52F288
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:20:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB08A4E8E06
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:21:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791991222; cv=none; b=mp8AFbBvoxisR591E20JbqqvtS7t33xDKxcXoBap5EIFhT/pXqO4+8LNkbWYpuf+oCfCAVMRXvYw3b5ks/2mjxA1keGvWv+ChenlqJcPA+P7uqVcRvCfBnZ1pQYEawGUPtm5a7iq+CCywuQX1eCBQQJV+nPO1McKllypeYXesLE=
+	t=1791991262; cv=none; b=aRmbzAGRqDS6wn3eCkDJq3Jl6cQhPutBv4BkKfds+CBaQIDW+em5F7M4JRzsW3GVyTwoykS67KOaC2nabe2+3Suz/LgjIsU9X4eCdf6H5mjliRo2cuxPRfsNTfZlTSDsYeYfeAti9Kh3+YNOevEMG/fD/AtcVHvBodnzUiJzqGk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791991222; c=relaxed/simple;
-	bh=SbceqxxFvvqYVvHWplukOj4U+7uWu1BHBRtp5k7Q0w4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WME7CH+FGICFm1VKeKgrolIYtBIOub4jtKiLVC8wV4QnwV477SqfIXPmfNyo83obEDfE4PndHC9kMEQUk3WN3z56S5FAG+WRV/3PQCN6SLhgVuplf/kgnLPR6wb4UKdjK9H39/EyLMPZtV/73dycmH8z41rg7a8SpxY+DqO+9cU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=h0cwflFi; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791991262; c=relaxed/simple;
+	bh=PLxWEdHDhUnvBH7lu4lQL4zExhtrF9sPTVq/XJm2+IA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=HaRreFnbubH5nBiv2R7dl/A89jwJyfXjrP7LfqCf84BodVTOZwOthg6SmYt+z6NrTVsjUPUuRGcjOkRQIkt6kMShGRrWjC/uxIQxVf5lrdXH38rRt/lldQZtbHEZ84rNJxNwmJwxH35AxqCA23J0Y9Zwxqf5UcrzRnGea38PoG8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=alPPItRP; arc=none smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="h0cwflFi"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D41FC1570;
-	Wed, 14 Oct 2026 08:20:15 -0700 (PDT)
-Received: from [10.57.88.29] (unknown [10.57.88.29])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BC87B3F7B4;
-	Wed, 14 Oct 2026 08:20:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791991219; bh=SbceqxxFvvqYVvHWplukOj4U+7uWu1BHBRtp5k7Q0w4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=h0cwflFi0Z8nB5N3GxAkIhPuc8OTHsyP6jIbU3s/LLTUbUgpW57vZjeMHqPmp04kl
-	 Khaa2m/3yNgjzLcUPbHy7MS+ByT4mj6y4IyfwnsRvdF9y4pYY49NhYEMDi7XHHMJed
-	 Js7la6B5ACKgLJHw38zNyAc9Q+xCWcGJ7Wt/pEYA=
-Message-ID: <fab66e31-7c7e-4a81-be59-1a4c1458ff43@arm.com>
-Date: Wed, 14 Oct 2026 16:20:14 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="alPPItRP"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3ab4178ee33so2393795a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:21:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791991261; x=1792596061; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QDbRSJPPHMuwciSupVJvu82u31irQ6MMv35QtuADKcs=;
+        b=alPPItRPF8yc8eiY6JmEh45qZHMXQxIZaJ30SARxKon0nA91/af+KWuvjur79NnkVP
+         sDNZyrv01g6KGmYG2xEfqXLpzcuI3Rcv1eLGyQTh9do+BVWitdkosO1wgRUA2EJTzM9a
+         NDzrmWPE+/93JIRZYYd0iwud0abDlD9wb7hpjpkiHOTHFN6b6VVcxPcyB4BluYWHucAs
+         tbduEiQYPTzgL5q/nzoGjrMWqooG+7nM7FTXPKGMok0QkeTazGmFVD9Lza2AZRHM6HAH
+         DxWQryr6Cn8uMmY7TJNWcpi6ElEsjSwoVJzlXHrFQYqBxlJ4wqE5sh3OOJmPz9Yr7Uu5
+         ui5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791991261; x=1792596061;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QDbRSJPPHMuwciSupVJvu82u31irQ6MMv35QtuADKcs=;
+        b=dkdcx5WVXzo1ataK7CYmZ8ZBQMFBz7LCof04AnS7aC+6w70heW7IQRgd1L7JPAZQgr
+         2lIql3sB9TWrwVkgVwTGVXfMyLiUGFMg5n5WuGyvqZJwDYUBg3MIqsBcWx/TwOtZgOXK
+         a/7pHpbHYcIm+JFCiW+ylmsqjuzd11yE+QMYp2B+ygqHkeWRM6P8nSM2wnAV1EYoy8c4
+         ATjGk6YTMXswA6MRfAYB/LTzHaCRGpLdqN9E9Q7PBRYozEdgGZRGkz0906QFmhlyOwPQ
+         FOgUw4qtj05DK8eHyXkuzsHHxTWE3zI9M3yk0NDzQG44oaHMN556i1pCp6g76KSng6fA
+         +Elw==
+X-Forwarded-Encrypted: i=1; AKwUvBxvMLTYwCO1+4tRW/KLWgSuFXFyVOSuQCMZeyQkbbr7JdZ5LGG+Mx24raW+YOgIXw9eT5zdVQznN5kLrhk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL34aRrHvehJYlpcrYxKs18h+8COK2XJMIObdaPrPLQlRphWo+6
+	EusLXQ90WqDvf5MdGsQMIJJzjQOjnBHwZ3/JNHZTxrhsOSIuAP+mmK3Gd9TkmzaM
+X-Gm-Gg: AYBFou0KcMZwfrfHs5dE3J+3U6gYjVWq7OiwF+Xdv4Pdd8RZTY1tjS/g7WGdfDRK9lL
+	RVQD73OSHrTHsPx2WJTCLsRNbhX0jhp8FbYnDzOz3TgYOo6YjDl40V1zsPCKCcp6cWFwZ5+8aDb
+	gxmOhDrCsHTDbVmEHJ9rfRAKGviPTvBOL3f8cU1XVcRAzjz28cRo9T9Vnh350oRRmi4sc/8gH28
+	EeYNXIzmLlMiIQAaALk6t+pukUfSMs9l+FBKysmNNj2VARR9fdOjpTCmHLZ2gnxinBhomfnVfGE
+	/jyQEKOAkPXHI5SHsJDzchG7/SbqDi2r7YtCSk14GNYQTHcSmNvKVQHHy+jAIGjRF+AVe2OY0MZ
+	tG4tVOnTIYOHy1nD9s5hwDOn67mRHnjYmTv+wKtKkgOAY4UI2XpTCwKEVt1E5xSg8VvBZt/wudU
+	x0ytXOWOsNSVZWwSRwNpzc/ueCPDRIPJvMh3cPPUrJYIf9QisTvbXB/35PO+RffRbYSFEXnbVp3
+	2Ij5y0137f1i568j9Nz9zVIn8iXchC2/RKD85AJgM3wfA7IEP5xyTFcPfDkjcwolpb+W/31J/iu
+	adhVZoF9A9qx1e4=
+X-Received: by 2002:a17:90b:568b:b0:3ac:17c:6e89 with SMTP id 98e67ed59e1d1-3ac017c701bmr6727013a91.19.1791991261023;
+        Wed, 14 Oct 2026 08:21:01 -0700 (PDT)
+Received: from localhost.localdomain ([180.182.24.11])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac92a43d98sm91997a91.0.2026.10.14.08.20.58
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 14 Oct 2026 08:21:00 -0700 (PDT)
+From: Joonho Lee <mynameisjune111@gmail.com>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-api@vger.kernel.org
+Subject: Re: [RFC PATCH 2/2] ALSA: pcm: refresh capture pointers before drain
+Date: Thu, 15 Oct 2026 00:20:55 +0900
+Message-ID: <core-drain-linked-lock-reply.cf2e307fcac34b6a@gmail.com>
+In-Reply-To: <87y0c0el29.wl-tiwai@suse.de>
+References: <rfc-core-capture-drain-0.112c40f0e9284eaa@gmail.com> <rfc-core-capture-drain-2.112c40f0e9284eaa@gmail.com> <8733u8g0kh.wl-tiwai@suse.de> <87y0c0el29.wl-tiwai@suse.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] delayacct: Account blkio start on the correct task
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>
-Cc: Balbir Singh <bsingharora@gmail.com>, Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Valentin Schneider <vschneid@redhat.com>, Josh Snyder <joshs@netflix.com>,
- linux-kernel@vger.kernel.org, Zhan Xusheng <zhanxusheng@xiaomi.com>
-References: <20261014081731.1068794-1-zhanxusheng@xiaomi.com>
-Content-Language: en-US
-From: Christian Loehle <christian.loehle@arm.com>
-In-Reply-To: <20261014081731.1068794-1-zhanxusheng@xiaomi.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/14/26 09:17, Zhan Xusheng wrote:
-> __block_task(rq, p) tests p->in_iowait and bumps rq->nr_iowait, but the
-> third statement in that block takes neither argument:
-> 
-> 	if (p->in_iowait) {
-> 		atomic_inc(&rq->nr_iowait);
-> 		delayacct_blkio_start();
-> 	}
-> 
-> delayacct_blkio_start() stamps current->delays->blkio_start.
-> 
-> That was fine when commit e8901061ca0c ("sched: Split DEQUEUE_SLEEP from
-> deactivate_task()") introduced __block_task(), because its only caller
-> was block_task() out of __schedule(), where prev == current.  Commit
-> 152e11f6df29 ("sched/fair: Implement delayed dequeue") added a second
-> call, at the point the delayed entity is finally dequeued:
-> 
-> 	/*
-> 	 * Fix-up what block_task() skipped.
-> 	 *
-> 	 * Must be last, @p might not be valid after this.
-> 	 */
-> 	__block_task(rq, p);
-> 
-> The paths that reach it do not run as @p:
-> 
->   - pick_next_entity() -> __dequeue_task(DEQUEUE_DELAYED), inside the
->     __schedule() of whatever task is prev on that CPU
->   - wait_task_inactive(), in the task doing the waiting
->   - switching_from_fair(), via sched_setscheduler() or rt_mutex_setprio(),
->     which may or may not be @p itself
-> 
-> So the stamp lands on an unrelated task, and @p keeps whatever
-> blkio_start it had.  When the I/O completes, delayacct_blkio_end(p)
-> computes local_clock() - p->delays->blkio_start and adds that to @p's
-> blkio_delay and blkio_count, and may overwrite blkio_delay_max and
-> blkio_delay_max_ts.  The error is however long it has been since @p's
-> blkio_start was last written, so it is unbounded.  ->delays is
-> kmem_cache_zalloc()'d, so if it was never written the delta is the time
-> since boot.
-> 
-> Measured on an 8-vCPU guest, 2.5 GB file on f2fs over virtio, one task
-> alternating a 1 MiB O_DIRECT read with two seconds of pure CPU work,
-> pinned to CPU 0 against three CPU hogs so that the reader gets
-> delay-dequeued.  Reading delayacct_blkio_ticks from /proc/self/stat
-> around the second read:
-> 
->   DELAY_DEQUEUE    18 runs, 4 wrong: 206, 20316, 20729, 21968 ticks
->                    reported for reads that took 25-50 ms
->   NO_DELAY_DEQUEUE 12 runs, 0 wrong, all 1-3 ticks
-> 
-> The 206 case is the two seconds of CPU work swept in; the 20000+ cases
-> are blkio_start still at zero.  In a separate run under the same
-> conditions, a kprobe on __delayacct_blkio_start() caught it being called
-> with current == "sh" and current == "kworker/0:2", neither of which
-> issues any I/O.
-> 
-> Consumers are delayacct_blkio_ticks in /proc/pid/stat, taskstats
-> (getdelays, iotop, delaytop) and the per-task blkio_delay_max peak.  The
-> error also goes the other way: a task woken while still delayed goes
-> through ttwu_runnable() and has that sleep dropped entirely.
-> 
-> Pass the task to delayacct_blkio_start(), the same way commit
-> c96f5471ce7d ("delayacct: Account blkio completion on the correct task")
-> did for the end side when commit e33a9bba85a8 ("sched/core: move IO
-> scheduling accounting from io_schedule_timeout() into scheduler") moved
-> that call into ttwu().
-> 
-> Note this only makes blkio_start agree with the existing deferral: both
-> the stamp and rq->nr_iowait are still taken at __block_task() time, so
-> the interval a task spends delayed is counted by neither.  Whether that
-> interval should count as iowait is a separate question.
-> 
-> Fixes: 152e11f6df29 ("sched/fair: Implement delayed dequeue")
-> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+Hi Takashi,
 
-2 iowait patches in one day? Wow
-For the task-pointer fix:
-Reviewed-by: Christian Loehle <christian.loehle@arm.com>
+Thanks for the suggestion and thoughts. I tried the smaller change and hit a
+recursive locking issue with linked capture streams.
 
-BUT FWIW I don't think this is correct in the first place, why would delayacct_blkio
-only start after delayed dequeue? This means a task waking up within
-delayed dequeue is invisible to the accounting (as you note).
-Let me try to move this to the actual block/wakeup...
+I used a test driver with two linked capture substreams and made the
+later member's pointer callback return SNDRV_PCM_POS_XRUN during
+drain. This led to the function calls as follows! :
 
+  snd_pcm_do_drain_init()
+    snd_pcm_update_hw_ptr()
+      snd_pcm_update_hw_ptr0()
+        __snd_pcm_xrun()
+          snd_pcm_stop()
+            snd_pcm_action()
+              snd_pcm_stream_group_ref()
 
-> ---
->  include/linux/delayacct.h | 10 +++++-----
->  kernel/delayacct.c        |  4 ++--
->  kernel/sched/sched.h      |  2 +-
->  3 files changed, 8 insertions(+), 8 deletions(-)
-> 
-> diff --git a/include/linux/delayacct.h b/include/linux/delayacct.h
-> index ecb06f16d22c5..e595d51699377 100644
-> --- a/include/linux/delayacct.h
-> +++ b/include/linux/delayacct.h
-> @@ -92,7 +92,7 @@ extern void delayacct_init(void);
->  
->  extern void __delayacct_tsk_init(struct task_struct *);
->  extern void __delayacct_tsk_exit(struct task_struct *);
-> -extern void __delayacct_blkio_start(void);
-> +extern void __delayacct_blkio_start(struct task_struct *p);
->  extern void __delayacct_blkio_end(struct task_struct *);
->  extern int delayacct_add_tsk(struct taskstats *, struct task_struct *);
->  extern __u64 __delayacct_blkio_ticks(struct task_struct *);
-> @@ -126,13 +126,13 @@ static inline void delayacct_tsk_free(struct task_struct *tsk)
->  	tsk->delays = NULL;
->  }
->  
-> -static inline void delayacct_blkio_start(void)
-> +static inline void delayacct_blkio_start(struct task_struct *p)
->  {
->  	if (!static_branch_unlikely(&delayacct_key))
->  		return;
->  
-> -	if (current->delays)
-> -		__delayacct_blkio_start();
-> +	if (p->delays)
-> +		__delayacct_blkio_start(p);
->  }
->  
->  static inline void delayacct_blkio_end(struct task_struct *p)
-> @@ -257,7 +257,7 @@ static inline void delayacct_tsk_init(struct task_struct *tsk)
->  {}
->  static inline void delayacct_tsk_free(struct task_struct *tsk)
->  {}
-> -static inline void delayacct_blkio_start(void)
-> +static inline void delayacct_blkio_start(struct task_struct *p)
->  {}
->  static inline void delayacct_blkio_end(struct task_struct *p)
->  {}
-> diff --git a/kernel/delayacct.c b/kernel/delayacct.c
-> index 479e860aff705..d6158ecbe0be5 100644
-> --- a/kernel/delayacct.c
-> +++ b/kernel/delayacct.c
-> @@ -126,9 +126,9 @@ static void delayacct_end(raw_spinlock_t *lock, u64 *start, u64 *total, u32 *cou
->  	}
->  }
->  
-> -void __delayacct_blkio_start(void)
-> +void __delayacct_blkio_start(struct task_struct *p)
->  {
-> -	current->delays->blkio_start = local_clock();
-> +	p->delays->blkio_start = local_clock();
->  }
->  
->  /*
-> diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-> index 7d2ec527b8a25..5bba703160e58 100644
-> --- a/kernel/sched/sched.h
-> +++ b/kernel/sched/sched.h
-> @@ -3106,7 +3106,7 @@ static inline void __block_task(struct rq *rq, struct task_struct *p)
->  
->  	if (p->in_iowait) {
->  		atomic_inc(&rq->nr_iowait);
-> -		delayacct_blkio_start();
-> +		delayacct_blkio_start(p);
->  	}
->  
->  	ASSERT_EXCLUSIVE_WRITER(p->on_rq);
-> 
-> base-commit: 4a3b51aab6e25244d97936aa65e6d5425adf98e1
+The outer drain action already holds the group locks here. Lockdep
+reported the recursive acquisition of group->lock for atomic streams and
+group->mutex for nonatomic streams. Both tests remained stuck until
+the 45-second timeout. Removing the link let both tests complete.
 
+I went back to the notify=false approach from your first sketch, which is keeping the pointer update inside snd_pcm_do_drain_init(). I also
+added the guard to the early SNDRV_PCM_POS_XRUN branch, since that
+path still called __snd_pcm_xrun(). Drain init then handles the stop,
+while ordinary pointer updates keep their existing behavior.
+
+With this change, all 24 linked test cases passed across both locking
+modes, including pointer errors, tail reads and reopen/recovery.
+KASAN and lockdep stayed quiet. This was tested with a synthetic
+driver under ARM64 QEMU; physical-device testing is still pending.
+
+One thing I wanted to check before sending a revision is, how should
+drain report a pointer error?
+
+The current change puts the failing member in SETUP and allows a
+healthy linked member to keep its tail in DRAINING. A blocking
+capture-only drain returns 0 if the rest of the action succeeds,
+and reading the failed member afterwards returns -EBADFD.
+
+Would you prefer that behavior, or should we remember the error,
+finish stopping all members, and return -EPIPE from drain? My v2 proposal
+returned -EPIPE and moved the linked group to XRUN, so this changes
+what userspace sees.
