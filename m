@@ -1,132 +1,116 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68DDA565105
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:44:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C76A33630BF;
+	Wed, 14 Oct 2026 17:44:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791999873; cv=none; b=Jwo3xCYWTqzV5nufPRCjGmO0ucpSsifInNT3jknlUeNu9WSOktoHVOj4WaAOLrsn6P90gppmT/zKust+VXD//t5vbv5Sx/uO+vqMM4cNfvA1D8/iU7+SW1REf+iU+dLvW1EbPF1mP3YQHDUuSVdmyCckV664LBkNttZIVmkBsek=
+	t=1791999898; cv=none; b=Dc1TYLYG+fNLL87FnhtG13ALZqiONB0+tF1fWo03zLBNGw9n5iEsQkEq8gfnXVCVc+S7sDEijtkIsCilXPcYK8GokYEWTRd90+dN2tsduVkrIHitGHEqqW9ut27DVAgVNncqJGgdIVKwY8lcMnl5sxhzmURR7cviu7Dq80Vl0S8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791999873; c=relaxed/simple;
-	bh=2oZYonurprwc6muwlObjEA8seBjbe0bRboulPYlqu/8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=PG/OkTFpIGVgvRO9b/MtslMCbWUHpz9HIyt97MKegIgT6+6YrHLHAAj2DE4Az3FYX8Zz15M0plGQryObAMVuUi/uxl9/2wwFJfHItrlZcXE5UJ2OcatuzRT9NWNHG7CGB48JjsafPzIphqA2ZWbx03bXU1YjpBCPCHeWv2oGUnE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=hN5A65t+; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1791999898; c=relaxed/simple;
+	bh=4AbmuGaQmg8yTQKRE3P7KnMLvr6mh8Ei2C0jhRF37cs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fFyM7PKc95k5I4lS7+DWzH7JUT+y8I9oppGvPmdAcjTcKUOlkozhPLghs6o3ajntIJS29Ae5HyIN0fMSOw0uDGNyuccBThGaMTxJ/XLBkEy0A3TjftpIMiwLG9x3+svr71Q+esWlnsfqAOsZcOZaEs604gIbpcptj4VkR4MLm+g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Y/JbqQJU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="hN5A65t+"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso11429475e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:44:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791999867; x=1792604667; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=95d33N1meM14gVljkWNmVajc6Ur/SmP+/ev0dbA/4bw=;
-        b=hN5A65t+SRG6JU+GKFqo2l1KHOgv2T7vYZzDe8NO5klHady/gOAq/g3xxOWMTX8WtZ
-         jVmSKxBX221Oo49Wh++sPvVDPUUxRN3ZTYi100k7Zfc/hJbiOZTxoDHRDMGsVm84DCDN
-         +SPaXcvHt1Gm4H6BI88DqsblcVEdENx/hsBBHUAcCjkUZSe1mble1XnqdTm/T/ei56Nj
-         9zd+ZdJ7DeZWZqQSZwSR0WnwV1HgngQQl1wbI3h3zlDzfNNAN6DyPyCvILkbGd02jQYv
-         3clebL9srOaOlfJqpoItq8SPIDpDToIooHRCmQmDtRwesdY0MLSLDxU4kmXOO1dXk6pp
-         Gr9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791999867; x=1792604667;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=95d33N1meM14gVljkWNmVajc6Ur/SmP+/ev0dbA/4bw=;
-        b=tSXO8seN0AfglPs6zLoiA85l5NZyQyNYICc6FI8vjCyuMcZ6RyiCnPVDW/HX5WWa8+
-         yAz0cJTJkCPXm9MOQLvACBwo2JhH7k003YDqB+rwlr5o/TT2VbfBy7D0coIWRyBmwvgP
-         ewlxMi5CwFC2tRUlSBQjbMUn9iRPSpgKBbj/r90c9RE9G95aRo9QEtKefn0U7RWS6hT3
-         k8QxLADmPcukW6zBfIvM7dPlzfequ/Rr7IRb83wLZX7YHY84vXQtlL0xNTzULYNA4VUi
-         3qJS/Q+kKraQNAGrlaQRXT+gJrxe/Fb0+qjaH+HzZmgnxbScPkN/eX9gjY2hY/J6eRWz
-         qS4Q==
-X-Forwarded-Encrypted: i=1; AKwUvByfbLC7j+ZzC203jUhvMI/v6LhAnl/eg/tt7j4kbT3UmBShmUn96AW2bQ8p5bDR5ITxHxNqZ+ems7FT5f0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLXUv4MYplOCLZGdSIqvv1J8f9AKnNbCbfuCdI4Qxar06h129Cw
-	W7p2ywwnj0RPGE/dOL5gHWOpUUi1TQtATY1qf57k3pVJE1fgmeOOksMwJE/wUVt/KIsg7iQXKKc
-	mkfdC+6M=
-X-Gm-Gg: AYBFou0DPOnCqg0s3P5zIbcaiV1/5Eb9HKU1lhc7x9pIeQu+mGD7ldfpw5il0Aeo0uP
-	fs95I916dDtzIBT0IN015fTvXrrql9aAnSiTioNtItHkB05Ilp0Z7jO27PltpsZk5ZYYSOCK8FS
-	rKwKhyxYGvauI7I7YS7fyTD2w/nKDd3NKIOpAmeIjSsloTVqB5V/sjyTHeBVwzhIo4mm65nA+xj
-	kPF1ocwS0XWYAqu3Kv8Kk4aV4LpoFWQ55UZr2xiG2WySqPRMwmlsfm4WPw2uVqwO0Y42Cau0khT
-	w7wr20w8tHursLl5pIsE806OGHn6u1yhOfIWKolrBX6Sp5DM4s1JQFnMab+oxQdxBF/MncJja2W
-	gC4G93ujCwxUiHBr29/shJ/aXB+gB0u+of3Lo1P/hV/TFfXLM/O1I6qNrAnlIBZ4HJe9hJYSlKj
-	qW2YENqT+AYSsnCfZMRDCmk3YII4b6GTdTcGMM+p7jaE39RHNUQ9sHov9am1wnVNw7FtlzJpQ5I
-	M6abPD0m4ymqJSTVhmiaSGsNzpujPeO0VEm8+o59HgnfYKznlCBzBgZhBFUcc9Ndz2pMok=
-X-Received: by 2002:a05:600c:8b65:b0:4a1:742e:3 with SMTP id 5b1f17b1804b1-4a18e4ca244mr307651825e9.27.1791999867377;
-        Wed, 14 Oct 2026 10:44:27 -0700 (PDT)
-Received: from z13-ek5.local ([151.41.28.233])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd9b8b5fsm6878175e9.9.2026.10.14.10.44.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 10:44:27 -0700 (PDT)
-From: Ettore Chimenti <ettore.chimenti@linaro.org>
-Date: Wed, 14 Oct 2026 19:38:10 +0200
-Subject: [PATCH] mmc: omap_hsmmc: Do not log error on probe defer
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Y/JbqQJU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 330F01F000C4;
+	Wed, 14 Oct 2026 17:44:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791999896;
+	bh=sTxxFIiD6mgFs2UdEY1I8MyQnekZZiyPvhQw7RuhHrg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Y/JbqQJUIEWFLFscjenxW9GCe5wNUa4lKG/qtufKEMdVe8I7JjwbgDqX5hbrhnbnk
+	 g11pdaabApMfzBMkfpM3w5n1u6n4ty6P15W2DYuVy6e5rpnrYB4vdZc0i3KcsTyQQY
+	 TKLv1ClTGNe42312p3oiyQs34X3dYVxDiKaB2oxQ=
+Date: Wed, 14 Oct 2026 19:45:00 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Cc: Kees Cook <kees@kernel.org>, Ian Rogers <irogers@google.com>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Nayna Jain <nayna@linux.ibm.com>,
+	Yoshinori Sato <ysato@users.sourceforge.jp>,
+	Rich Felker <dalias@libc.org>,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	David Teigland <teigland@redhat.com>,
+	Alexander Aring <aahringo@redhat.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Richard Weinberger <richard@nod.at>,
+	Zhihao Cheng <chengzhihao1@huawei.com>,
+	Felix Kuehling <Felix.Kuehling@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	driver-core@lists.linux.dev, llvm@lists.linux.dev,
+	linux-hardening@vger.kernel.org, linux-doc@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org,
+	linux-pm@vger.kernel.org, linux-acpi@vger.kernel.org,
+	gfs2@lists.linux.dev, xen-devel@lists.xenproject.org,
+	linux-s390@vger.kernel.org, linux-mtd@lists.infradead.org,
+	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 00/11] kobject: Require explicit initialization of struct
+ kobj_type::release
+Message-ID: <2026101434-scam-padding-87a5@gregkh>
+References: <20261013223946.1836757-1-irogers@google.com>
+ <2026101425-why-boring-4f2d@gregkh>
+ <202610140932.5F9CFCE5@keescook>
+ <CANiq72=4WQ1B1oCSW=69u_Z=FFLE56hYCqDwWr+poQdzSTS31A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-patch-ektor5-dm8168-mmc-v1-1-2d148ca0f948@linaro.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBCF4avIrDvgaJW0Vyku4jjWaYlKEqUg3
- t1Ulx+8928QxKsEeGYbeFk16DQm0C0DHuz4FtQuGYq8qCmnO8428oDyjZOvsHOGaoPOMVJp+GH
- bsk8jSO/ZS6+/s/xqLoel/QjHfw72/QBl3KtkewAAAA==
-X-Change-ID: 20261014-patch-ektor5-dm8168-mmc-138c9ab3f014
-To: Ulf Hansson <ulfh@kernel.org>, andrew.goodbody@linaro.org, 
- rouven.czerwinski@linaro.org
-Cc: linux-mmc@vger.kernel.org, linux-omap@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Ettore Chimenti <ettore.chimenti@linaro.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791999866; l=1397;
- i=ettore.chimenti@linaro.org; s=20261014; h=from:subject:message-id;
- bh=yE8QaLHiQFvOinPAzWnIH4J4gbNmnrzgxRBtfUhPuFU=;
- b=4tpQVRTBiUVmSFWGQ7EK/UCtNNM/h2EK0HJMdtFyRXGA88W+khHRr9T1QxUUTfp+y6NLHaTEv
- KBzcmcjSm45BhEFBjJXlxtcdIkY3IV64VijCih2gg8d/qvisLNWzCUU
-X-Developer-Key: i=ettore.chimenti@linaro.org; a=ed25519;
- pk=wCaUblFVaqhuBTQt/hAtysafsAaEsqj/yOD9SPlz6NM=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CANiq72=4WQ1B1oCSW=69u_Z=FFLE56hYCqDwWr+poQdzSTS31A@mail.gmail.com>
 
-From: Andrew Goodbody <andrew.goodbody@linaro.org>
+On Wed, Oct 14, 2026 at 06:44:18PM +0200, Miguel Ojeda wrote:
+> On Wed, Oct 14, 2026 at 6:37 PM Kees Cook <kees@kernel.org> wrote:
+> >
+> > I'd really like to have the attribute available, and I've got at least
+> > one user I can apply today that don't require fix-ups (seq_file), so
+> > if Miguel is okay with it, I'd like to snag patch 1 and send it with
+> > my seq_file "first user" for this coming merge window so it's available
+> > starting with v7.4-rc1, and we don't end up needing to wait 10 weeks for
+> > other subsystems to be able to use it. And the kobj fixups can continue
+> > in parallel. Does that sounds okay?
+> 
+> Of course, please feel free to pick it up (with the small tweak I
+> requested) if you have a user.
+> 
+> And if you don't pick the user, I could still pick the first patch up
+> through the compiler attributes tree if you and other folks want to
+> use it after -rc1.
+> 
+> Greg: adding the attribute itself should be safe and would unblock
+> others that may want to "protect" themselves, without having to wait
+> for every potential user to get fixed (but of course I agree they
+> should get fixed -- we should not forget about them, if that is your
+> concern).
 
-Do not print an error message to the log if the return code is
-EPROBE_DEFER by using dev_err_probe instead of dev_err.
+I agree, not a problem to add the attribute now as long as it doesn't
+break the build.
 
-Signed-off-by: Andrew Goodbody <andrew.goodbody@linaro.org>
-Signed-off-by: Ettore Chimenti <ettore.chimenti@linaro.org>
----
- drivers/mmc/host/omap_hsmmc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+thanks,
 
-diff --git a/drivers/mmc/host/omap_hsmmc.c b/drivers/mmc/host/omap_hsmmc.c
-index de5a3b70107d..ed52adb38fd5 100644
---- a/drivers/mmc/host/omap_hsmmc.c
-+++ b/drivers/mmc/host/omap_hsmmc.c
-@@ -1892,15 +1892,15 @@ static int omap_hsmmc_probe(struct platform_device *pdev)
- 
- 	host->rx_chan = dma_request_chan(&pdev->dev, "rx");
- 	if (IS_ERR(host->rx_chan)) {
--		dev_err(mmc_dev(host->mmc), "RX DMA channel request failed\n");
- 		ret = PTR_ERR(host->rx_chan);
-+		dev_err_probe(mmc_dev(host->mmc), ret, "RX DMA channel request failed\n");
- 		goto err_irq;
- 	}
- 
- 	host->tx_chan = dma_request_chan(&pdev->dev, "tx");
- 	if (IS_ERR(host->tx_chan)) {
--		dev_err(mmc_dev(host->mmc), "TX DMA channel request failed\n");
- 		ret = PTR_ERR(host->tx_chan);
-+		dev_err_probe(mmc_dev(host->mmc), ret, "TX DMA channel request failed\n");
- 		goto err_irq;
- 	}
- 
-
----
-base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
-change-id: 20261014-patch-ektor5-dm8168-mmc-138c9ab3f014
-
-Best regards,
---  
-Ettore Chimenti <ettore.chimenti@linaro.org>
-
+greg k-h
