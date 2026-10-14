@@ -1,140 +1,211 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E4924EC65A;
-	Wed, 14 Oct 2026 23:53:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58CA94ED190
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 23:54:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.51
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792022033; cv=pass; b=jrsr9u8IgiJyzzyAY7rpFdsiaUZzglm7SZHG6r/GnASVDbNeKaHUgs2JSjiIutsJzdfxyG1FjHkBDaVut7NAWUiKojDB7TNS+dgU2E+F+NDVzI05Kk94A1hJiSjLwx9ijH2xpY1Bnd1C1vl9LFAthUoAKwNF8t/i7wa/ENgIdtI=
+	t=1792022055; cv=pass; b=U5Vl4bi31USbI1c40FIg4DKKBS5zOjQXPq6VeJYT4yj0X5sG7MDIM4cMAzA0P+CpGu527pIogCmj3gjqDoOzs72Xe4UP37WHF//pwvSNlqBtWyTEtoJKEa16agMAr48eGy6kIhGQxtEKQRv9TXEYYxp4kwA1Pi9xMECGc3NExLA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792022033; c=relaxed/simple;
-	bh=K7spC93yJPVuKc70Lmxf16pLFaMTb6PQF11kAN4MVxg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hqHcRqoHkwUlosuJpEsfGHp1UppxfQcx3sTRX35eIMiGFUkcpVcbBsoe0kvROSHQ4pR2N5c6nEw99U3MmaISvK8OerIus0MUA9RCU97nfoEypM9JKkJx6R2UaOQdNEm8MOiEbBtxxFQHOvu6heBViZOUdeHdZL6VsX0TDgZ4ClE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=UiKR7Xzw; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	s=arc-20240116; t=1792022055; c=relaxed/simple;
+	bh=4H0Bgva3Ydel0kL3mvgFhxMi1gLUgRSwy7ED0ZLa5xA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=T51ZYrh7qTBgkyQsLSBPe9A7ucifXm4EZYPJ6CbCb/53Uksir185WEctLVbfTPgKkMwI3i/+8b2FACjghl3jz53VkO2cZRSwP+Bx3B9tqEv6k01+OFpyh/bly1X0uLz6O7l9zV8IAS3kqmrMUBVnhghdXC7hCdn/ALQhqYvXdV0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=X/mNh6m9; arc=pass smtp.client-ip=209.85.208.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="UiKR7Xzw"
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 55742200467;
-	Thu, 15 Oct 2026 01:53:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792022024;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xbQ2tmFekSANRJTrBJ0BwongNv+WUIZenWQDBJ6VEl4=;
-	b=UiKR7Xzwd1vo7B+naXmhwmpkzxWIV80UD9WETNeR+H4kD5dehz0PXHmtcRrDXDYaBX7ye9
-	7MbMrpysMa2GIj6RzJ+fcZ+bDroJ5B5L1ZK0hwW8DhsEh4q8KfLe/qcXbvbMqK0WNUssCa
-	iYL9w6nGJtnuAy6TmhvgRTHO9w1WzX+X9xunpGe0UjCUnvYjWGD6JxhgZ2/vOlup2wL2RE
-	wzNL5AOHIgWhxLEvlOtL2qcVeN+bOb4EHxQvRPf7UOUwTQ7AaBXa3BNtwlji1+GiTbyOPK
-	2L4wS8x8nVDbKSM1hnpk+h+ClsoA/6Y/kaDHUECBoHSQLAygZVnZdCsTWXD+6A==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792022024; a=rsa-sha256;
-	cv=none;
-	b=O1936JxKRAcF1ctiuLWa477aBzkCLIkGTmu2/II4jcjj7pQ7OPa/E0ETYLLh0MgH1wXQ7e
-	eimNQjfHXsQ5Az/QEcfNf4Jb0uHfQUAkghCh11ySUNcLCzlOzKpdaKfi1d8uCSYwpBa+Tl
-	LCnainI6+50utA286cy1cotw1Ghwu0V+zXbVCZvt8lBP5pdXcENxBtUIc8LYvShSl0T5GZ
-	5S9300/Xf9RH7gE3FeRrmqAj8sB/H9ZeF5oYxd2/sLJ7cISTQlRHPE8GJiYChcxSCbIuZq
-	xAchZUtlcUH/8WpJzPrn80WepUtKbRbYuRfojFeduAisFc2AL4sepp69IfzVAg==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792022024;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xbQ2tmFekSANRJTrBJ0BwongNv+WUIZenWQDBJ6VEl4=;
-	b=GCUIqWfrgnu9oSlwiU6/Cvi9OoN/uEaTcYrlA57GBT7o16Nsc0vBg1kWA7W+HrpKz3hVZK
-	JEJlxTodz60Hh8j8WEpVdYjX/behcXo3oNVmtDhOCkYOEZ9GY+Zf0yO1RNZ1T+6FmumdhN
-	9yIFVVebhtVVuHr3rHM+bi2eEltHzZgKddvTWWa/hMyUoFhzrgiEHp/g+PG8uAUyC2r24b
-	FHqMlSa/q3KTuzOMxM/zY/gZrPTrQ26mWAosBau9uyIVoGJ/7qq0nML1OKzjuR5q5kK1Jm
-	Zu8p22W38vzf1yiwCYbYcppULE2exnJGIyU1uKrIHUOUbJ3gYuBCW7SbraR8xQ==
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1xH8n2-005w1I-0e;
-	Thu, 15 Oct 2026 01:53:44 +0200
-Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id DCC165C4643;
-	Wed, 14 Oct 2026 23:53:43 +0000 (UTC)
-Date: Thu, 15 Oct 2026 01:53:43 +0200
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: netdev-bot+sashiko@kernel.org
-Cc: yogeshgaur.83@gmail.com, mailhol@kernel.org, linux-can@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, syzbot+937a3a1fbfbc99d6fcaf@syzkaller.appspotmail.com, 
-	kuba@kernel.org
-Subject: Re: [PATCH] can: vcan: use per-CPU device stats
-Message-ID: <20261014-splendid-faithful-gharial-52564e-mkl@pengutronix.de>
-References: <20261007113611.2082-1-yogeshgaur.83@gmail.com>
- <179150583668.1406898.16297101260619649490@kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="X/mNh6m9"
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6b1aa36fc0eso1328a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:54:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792022051; cv=none;
+        d=google.com; s=arc-20260327;
+        b=V9ZNfLeG9P9kqKNX/wQfKKPY6TDhe3X+gkqEUUT/6isNNxOVBNN/X01fZOfFRA6RYR
+         6X6JfA2xPhy/gcpms/5D92JcP7d71SK+prWWqkVYfituh02esXrLEzGLal3xwTO9y7BZ
+         q4B6enDQiYvz6kX9DkHnVfDTrYGWGokiU9Qd4MOfF8B+h1nX6h/9kwykadWoDLu5ZpkR
+         HJGNG/EshnyS73jbTgt4fhLOWmOaN4jWxFE+vbxUNt0yXtnJBBQohXqL+Ni/EJVQpih6
+         NfGuUFDmnOuoKMCucBKsVVp7tlRbs9hOuxnXu8K31u6FJpwOfXmUysDuTBpk7vcKMxd6
+         jRtA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=03x45p4Sm/ofaAJEtxKDi9izKZVyf4Piq/s/1arfqh8=;
+        fh=3uC6jAtQh3N8JCJDW/WXNEK/RfwrAaoI60gBWFNIfTU=;
+        b=dqUXewLu622HfAZsAAGeR1Ba/2NXfHxpsIAp9/wLcyDv2E+ZE/807u8BZwsmqeaMnz
+         +YDExwPnN8bhj33DDOJQRJZ0cf0sn221vstf74Eg4bGEV6bTFre5z5SMyQeQhTbVT73y
+         E1Zbjoon4fDHrTci+Gl5GAcDADKtng0P/J716a9x+atHrY7deiZVfWXJB65xj0EXjdqd
+         U06us0ekFPs5Br3hSfznbjP46uTHyd0J80YdjdpIQW8dJkhr6wbTiPF3On2Tm/o+fn2q
+         9LrxcNHdYL4JTbTGUEjuXSzLDl24SyDTkGpHr2gvWHqWT+wxXuI++DEc5wSDagscb5+6
+         wn4w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792022051; x=1792626851; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=03x45p4Sm/ofaAJEtxKDi9izKZVyf4Piq/s/1arfqh8=;
+        b=X/mNh6m9o1A4Kg52ztKPG2Q0b1vwmhmjFPabBoSig0SbT0EqnwmAPEJxc4/XbO7RWN
+         nMuZ+Q+Og/cj74I/qlxdPXyxVfarmKf5BLy0eZhHYsINwMcfVtuIGxdaVuA/vpsLFpNO
+         CObGolVO8+ixXs7zTVUX5Bfc7MSFgjg+7FLCOe2cvrzkcZjAYOJVNfJcfnlMoJrj4bUC
+         HHwprheWCMTPXKpU4yv4FkefxubG+RXouA0ddlE10vXgTZmsuveb8ehtmLorZAIpqqNR
+         SNa5DDAj7u+TM9wODSsd5ZUKvg7WyrHc+LLlViaPjqgsdwqkmdD5Ec5gGN/Sz7QKPZr8
+         JVKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792022051; x=1792626851;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=03x45p4Sm/ofaAJEtxKDi9izKZVyf4Piq/s/1arfqh8=;
+        b=zmyigeL/RYVupDQvCJv0SiH9IiyAtWWGZ0Q+XwFy1p6XjRF6sgH/FU+ffbV48cxC/2
+         KGgmQSZ0BErj6pyMGEKZvurV+XAiRq6482w57UuIPmAdmm6Y1K/Ygu630l0FxHGgqcMw
+         BGq9NUDkBCRi2qKxcBT2wa0s3gb2PnZ3sSgcXtD5yf1S86TudfFzOulfdgwHMUtIrUfe
+         RUR9TTYMVVriVcVKD3/Nq3LUIMFTzadcE7RC+BQHm3fluq0XD61cMuYdnjTkxycgPFyl
+         YSk1ZdSqRd/KDPGsXnTM4uDqbVT8UBkxT+OXD5i0ztQePxtsz7QXDRVaBU2K4VGs73Ci
+         UERw==
+X-Forwarded-Encrypted: i=1; AKwUvBywt2GJ9USv+46F3JZ98PY5MwdJZd30Ux62S/LvBqZ3GHzUO7YEK4BuO05YfoyG5DClkTZR23j7+rihX54=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKY3uN98PtM+dUrhk9SD3qSKCZTdf2QtjTrlzuYdq49VmrP/SNj
+	EYiZlVG9tqLNsph2OVOXT/B2FGdbNgbh+MdF1Uw14W8a4ILNbsVLZemK8Kc9clHZHI3luB4lqGe
+	Sc3pTMJM/aZYk/2J6Xbk0KXSsx/PcUwpFJGj/vPle
+X-Gm-Gg: AYBFou0POvOeRf+x/pDJpwAyf2JhKvLSYnakTx3ISXKbPDEsx+Z21/pSPxht3Ri21HC
+	aRCzxoqNtDiuUSMBcygYmHINaRAZxEHcwnnuF8VX0aTba+X1Xy/ug/kOtnmVDZVphWUYgQLDjOT
+	Un9tZQwz5MD+cKssc9N3pWEPaBEDDHrTGS9mqgyysuqCTCGxyTR0rR36k873NmlyqGjg8EnQDnc
+	BtTtZRmg4cN8UnEfK8GQOpJApWFUSds1UhuNyK2TbAKcYKkj7sghD3r7js1lla8viY9Lwfrqvsm
+	TuypIMvi0FodH1KnaUJi6JcVG9ordTzQP4DpCD2ZoKbQQgm5JbaEQ8I=
+X-Received: by 2002:a05:6402:a2c9:10b0:6ac:bd5c:9e2e with SMTP id
+ 4fb4d7f45d1cf-6b33387e2eemr4330a12.6.1792022051078; Wed, 14 Oct 2026 16:54:11
+ -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="mtyba5ntcu76odir"
-Content-Disposition: inline
-In-Reply-To: <179150583668.1406898.16297101260619649490@kernel.org>
-
-
---mtyba5ntcu76odir
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+References: <20261008001425.2458927-1-yosry@kernel.org> <20261008001425.2458927-11-yosry@kernel.org>
+In-Reply-To: <20261008001425.2458927-11-yosry@kernel.org>
+From: Jim Mattson <jmattson@google.com>
+Date: Wed, 14 Oct 2026 16:53:58 -0700
+X-Gm-Features: AclHuK8iHkRx3rLAQYnS_QgUQR8LswtkxfUo75oQKZHQFZ5tImcdhWen3PD54ok
+Message-ID: <CALMp9eTE4DB7Ek4BiHheD-Jr_GjwhiFpcQNHco4uYKQvMbBvWQ@mail.gmail.com>
+Subject: Re: [PATCH v2 10/29] KVM: SVM: Use a static ASID per vCPU
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] can: vcan: use per-CPU device stats
-MIME-Version: 1.0
 
-On 09.10.2026 00:30:36, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential
-> issue(s) to consider.
+On Wed, Oct 7, 2026 at 5:14=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrote=
+:
 >
-> Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 0 (1) =C2=B7 Low: 2
+> Switch from dynamic ASID allocation to a static per-vCPU ASID.  The
+> dynamic ASID allocation logic is now only effectively used when running
+> out of ASIDs on a CPU (uncommon on modern hardware), or switching CPUs.
 >
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
+> The per-VMCB ASID generation is initialized to 0, which never matches the
+> per-CPU ASID generation (bumped every time a CPU is enabled for
+> virtualization). This leads to a TLB flush of the ASID on the first VMRUN=
+,
+> allocating a new ASID, and bumping the per-VMCB generation to match the
+> per-CPU generation. The ASID remains static until one of the following:
 >
-> - [High] The fix is incomplete.
-> - [Low] The commit message gets the cause wrong: 'vcan does not implement
->   get_num_tx_queues(), so rtnl_create_link() honours IFLA_NUM_TX_QUEUES'.
-> - [Low] The patch fixes a syzbot-reported data race (it has Reported-by:
->   syzbot+937a3a1fbfbc99d6fcaf and a Closes: link) that loses tx/rx=E2=80=
-=A6
+> - The vCPU runs on a new CPU, in which case KVM resets the generation of
+>   both VMCBs to allocate a new ASID on the new CPU.
 >
-> Pre-existing issues:
-> - [Medium] This problem wasn't introduced by this patch, but the sibling
->   driver vxcan (drivers/net/can/vxcan.c) has the same multi-queue stats=
-=E2=80=A6
+> - KVM hits the maximum ASID on a CPU and increments the per-CPU ASID
+>   generation, at which point all vCPUs on this CPU will allocate a new
+>   ASID.
+>
+> - The CPU is re-enabled for virtualization (e.g. after CPU hotplug), at
+>   which point the per-CPU generation is bumped and all vCPUs that
+>   previously ran on it will allocate a new ASID.
+>
+> Drop the complexity and make the ASID static for each vCPU.  This makes
+> SVM's handling of ASIDs closer to VMX's handling of VPIDs, and
+> simplifies the code. It also completely avoids full TLB flushes (i.e.
+> TLB_CONTROL_FLUSH_ALL_ASID) on systems with FlushByAsid.  Full flushes
+> previously happened when updating the generation, so not so common, but
+> should generally be avoided as they cause a VMRUN to invalidate the TLB
+> entries for other VMs as well as the host.
+>
+> When a vCPU is migrated to a new physical CPU, flush the (now static)
+> ASID instead of allocating a new one. This might cause extra TLB flushes
+> when switching CPUs (compared to just using a new ASID), but odds are
+> that the TLB is cold on the new CPU anyway.
+>
+> Static ASIDs also make the following fixes to the dynamic ASID
+> allocation scheme unnecessary, so drop them:
+>
+> - Bumping the per-CPU generation when enabling virtualization on a CPU,
+>   added by commit 25f744ffa0c8 ("KVM: SVM: Bump asid_generation on CPU
+>   online to avoid ASID collision after hotplug").  A vCPU can no longer
+>   run with an ASID that is (re)assigned to another vCPU.
+>
+> - Resetting the generation of both VMCBs on a CPU switch, added by
+>   commit bf260dc9e7b8 ("KVM: SVM: Trigger new ASID allocation in both
+>   VMCBs on pCPU switch").  An ASID is now owned by the same vCPU on all
+>   CPUs, so a VMCB that misses a CPU switch can no longer end up using an
+>   ASID owned by another vCPU on that CPU.
+>
+> - Tracking a pending full flush per-CPU (i.e. flush_all_asids), added by
+>   commit 60d93c27859f ("KVM: SVM: Preserve TLB control (i.e. pending TLB
+>   flush) on failed VMRUN").  The full flush on generation wraparound was
+>   needed on behalf of all vCPUs on the CPU, as their ASIDs were about to
+>   be recycled, so it had to be tracked per-CPU instead of in the VMCB of
+>   the vCPU that happened to trigger the wraparound.  With static ASIDs,
+>   TLB flushes are only needed for the vCPU's own ASID, so tracking them i=
+n
+>   the VMCB is sufficient, and a pending flush in the VMCB is still
+>   preserved on a failed VMRUN.
+>
+> As using ASIDs cannot be disabled like VPIDs, allocate a fallback ASID
+> to be shared by all vCPUs after running out of ASIDs (and flushed on
+> every vCPU run, for now).  If a fallback ASID cannot be allocated, fail
+> vCPU creation (for non-SEV guests), but do not fail SVM initialization,
+> to allow for allocating all ASIDs for SEV (if at all possible).
+>
+> For SEV, the same ASID continues to be used by all vCPUs in a VM. Move
+> svm->asid initialization from SEV-specific VMCB initialization to vCPU
+> creation, such that svm->asid is always initialized on vCPU creation for
+> both SEV and non-SEV vCPUs. This makes the logic simpler to follow, and
+> makes it easier to hide it in allocate_asid() and free_asid() helpers.
+> Decide whether to free an ASID based on the ASID range rather than the
+> VM type, as an SEV VM's vCPUs may stop being SEV vCPUs (or vice versa)
+> as a result of SEV VM migration.
+>
+> Keep the ASID initialization in sev_init_vmcb(), even though it's
+> already done in init_vmcb(), to handle SEV VM migration.  svm->asid is
+> already reinitialized on destination SEV VMs during migration before
+> VMCB initialization, so the ASID ends up correctly in the VMCB.
+> Additionally, free any existing non-SEV ASID on the destination vCPU
+> before overwriting it, to avoid leaking ASIDs when creating vCPUs then
+> migrating an SEV VM onto them.
+>
+> Note: A nice side-effect is reading the min/max ASIDs once during
+> initialization, instead of once per-CPU.
+>
+> Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+> ---
+>  arch/x86/kvm/svm/nested.c |  4 +-
+>  arch/x86/kvm/svm/sev.c    |  7 +++-
+>  arch/x86/kvm/svm/svm.c    | 79 +++++++++++++++------------------------
+>  arch/x86/kvm/svm/svm.h    | 25 +++++++++----
+>  4 files changed, 55 insertions(+), 60 deletions(-)
+>
 
-pw-bot: cr
+[ ... ]
 
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+> @@ -1375,6 +1370,12 @@ static int svm_vcpu_create(struct kvm_vcpu *vcpu)
+>                 goto error_free_avic;
+>         }
+>
+> +       svm->asid =3D allocate_asid(vcpu);
+> +       if (!svm->asid) {
+> +               err =3D -EINVAL;
 
---mtyba5ntcu76odir
-Content-Type: application/pgp-signature; name="signature.asc"
+It seems like -ENOSPC is more appropriate, and would make triaging
+this failure easier.
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCatAWBQAKCRDMOmT6rpmt
-0rmCAP0SGabOcVBtJWjv1MVIvMbEjQFqRGJx/Twvf/R6JQ6lggEArtQWMe+FHlx+
-C5y/7ziOiNZMwgF6AOrRZBuNxan7Dws=
-=G/K9
------END PGP SIGNATURE-----
-
---mtyba5ntcu76odir--
+> +               goto error_free_msrpm;
+> +       }
