@@ -1,147 +1,184 @@
-Received: from mta0.migadu.com (out-184.mta0.migadu.com [91.218.175.184])
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A40655C31E
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:20:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A682560AB6
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:21:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791994858; cv=none; b=g/8X4uIz+J6iIRmb0oGFcBa/194ycBItXxmgoYbo6rPkySWQKGMS4AppaZRyxHD6G7WGkTMWo0kbD5Kx1GS5tg4Cby0R4xktIyAbS63iy+gCqqh6vXx/ReJxG2S2SpR/QKn+O/eiltCjU0qd/TAgMDEhHvAzm6iCf5cvx8/d4+c=
+	t=1791994868; cv=none; b=AgidOwgPylg0yb364PHoEHQTfhMRExSQWYqaMFNRrJlS8zhFUGgTLUZ/ohBW6jjCM5uDie7bUYa7tBETNtfgyRZz3UhY1Uu7wR37ww8JG2b1VWWOaDGqJSAqx+/hgJyEck4gjHr2f0fB9ua5ZmgFuWVI7OhZFusFpLDotxJTnb8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791994858; c=relaxed/simple;
-	bh=rKvGD/uQgvEu1y9QYyQ3BOrlGUecI24T5itI4gKAr8A=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=jdMa71DlAHtGizoJ7uXXnPx6o4SRvZxvv4TJkIkrn8kmfX8X5zb05iIX7nTP13e8elMl7W7Wq9TTkIiZAMrKiYmNuRazucWiFge8gC2UFJxRgwy/HWODV6Cd+w31oXYoicAGiYE2k3iTN4A/qv/rfGzMje4xBiGsXXM4m0TKnsY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ih/ZlP0B; arc=none smtp.client-ip=91.218.175.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791994868; c=relaxed/simple;
+	bh=P3+kOL1y2nv1UhzDI3hBIeFZ+qnuxfwB9W3emUPgCGE=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=C77nrS2bxW7uXKfDLlvhXy7LbZLX/Ur0x5cuV6IiJ2ZpAGgvzkMPDQjQ0cbUY0VVjkFVAVWo42kVgpfxAXulQoptqqvnehW1qTviyzLc5tn7hd1uCgvHQLPoB4GFNjmpbDH4ezwbajOBd6YY3dlPDzqM/K/GmGlFxi4qt3l1auI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PAZnYwE+; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ih/ZlP0B"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=rKvGD/uQgvEu1y9QYyQ3BOrlGUecI24T5itI4gKAr8A=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791994853; v=1; x=1792599653;
- b=ih/ZlP0BMkDZDRlvf+S1KeZwWaUhrpp2qQQb8IROHURJ8N76LQjAtPEQ/a/HZmpvdxss1rAJ
- VuVmcOCfj/MUP2pvlQCJFaVmfdEJ9PD8IXLVbcnTVahF1MRnWS32eWawNXNjn35ggp0bNRy+HtX
- rmOOiTX4Fh3/IvGRraBCinPs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1e510aac7886c557;
-	Wed, 14 Oct 2026 16:20:53 +0000
-X-Mizu-Trace-ID: 1e510aac7886c557
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <b6ca5327e6263cc3b6c0e381d502ce8b5570d413.camel@linux.dev>
-Subject: Re: [PATCH bpf-next v2 7/7] selftests/bpf: Skip compare_text
- subtest when stdout is not saved
-From: KaFai Wan <kafai.wan@linux.dev>
-To: bot+bpf-ci@kernel.org, ast@kernel.org, daniel@iogearbox.net, 
- john.fastabend@gmail.com, andrii@kernel.org, eddyz87@gmail.com,
- memxor@gmail.com,  martin.lau@linux.dev, song@kernel.org,
- yonghong.song@linux.dev, jolsa@kernel.org,  emil@etsalapatis.com,
- ihor.solodrai@linux.dev, shuah@kernel.org, nathan@kernel.org, 
- ndesaulniers@google.com, morbo@google.com, justinstitt@google.com, 
- donggeunyoo.kernel@gmail.com, leon.hwang@linux.dev,
- menglong8.dong@gmail.com,  yatsenko@meta.com, jiangfeng@kylinos.cn,
- bjorn@kernel.org, puranjay@kernel.org,  vineet.gupta@linux.dev,
- mykolal@fb.com, bpf@vger.kernel.org,  linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org,  llvm@lists.linux.dev
-Cc: martin.lau@kernel.org, mason@kernel.org
-Date: Thu, 15 Oct 2026 00:20:30 +0800
-In-Reply-To: <b66b343a0a91711a6a520e11b284941771cbb23ad8c8f1bd5f831594b567b5fa@mail.kernel.org>
-References: <20261014113043.640435-8-kafai.wan@linux.dev>
-	 <b66b343a0a91711a6a520e11b284941771cbb23ad8c8f1bd5f831594b567b5fa@mail.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PAZnYwE+"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2db3728f0c4so3960085ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:21:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791994865; x=1792599665; darn=vger.kernel.org;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=P3+kOL1y2nv1UhzDI3hBIeFZ+qnuxfwB9W3emUPgCGE=;
+        b=PAZnYwE+Dstuux6bB4LXq6Uldd2Te10BQgI1YZL3P2o+AbWwKVs526yGHFXALkDRLk
+         lUR2So0bMZnVLOTquUQfSfi3RoixIWXlpPii/G8nbg4H+jxFliaE4429mkVpBGMZCaQU
+         C9zlT2GD8elQBy6VVTM/GYGfJG54gmyXEvIhQU8Uv7/1QwYQpiwTWojGG6ZcSWkZga8r
+         qNR1xvEzP/DIEgQPnIGc9ZEllvPyD+NSNHZHmpu4a248FuFrxryNHY/aUPYh7PFBJUEW
+         v+qKuZHLSlIRLcjOuoE0Idn/nP4gAdThfsELhtBka0FPUBD7mx0WodhaHt6WHF4XNnxh
+         Y6jQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791994865; x=1792599665;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=P3+kOL1y2nv1UhzDI3hBIeFZ+qnuxfwB9W3emUPgCGE=;
+        b=vktIKMdjmSrX6Uh0+Wyl7OuxgnL+YpaAKJ8TOlaQJMDsPL0ufwkyXKUhkGyBgk0I/B
+         n4lfpRJfXBG3+sEQ77bDD+GO7ZM3MWYzF15KPWLdphUhYfQH7IGlxaFyfV7Mftia2lNz
+         NF7jf8IqXyePlGxgq1GQ8Spi1wsh5ic5qNqXz7Wn21avZj/ovvnNADaBPm0bnol7LSz7
+         dTFHOI07TZ85bcq8xkTMa8x3RH9dy5p9Az98nv6uCPb8GBWd5UWzYim66cFeDcFH2oPl
+         9idD9gBwYfNooArX3R9lEb9ly3HzvPli1E3yICVkKDDcbAis1ZlwwtvcQJhwX0UR+k1e
+         atjA==
+X-Forwarded-Encrypted: i=1; AKwUvByGSQOyRmyz6V8M06sMO7BAWF7iW/lUaZ9eEPOOo9DM7bG9HDm/5rAwKo3IW/zXJTra5JtoGCUhN4cTvz8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL3DJ6AEwmtxBRGf85YMh4O5kyasYcIeCWWt2lDQBf5JlLzMRbt
+	k2EO/2v/Yf1XERfi5A80s6yMs5/1wmy/CzAvrMTOtSSV/34a/F4fHPel
+X-Gm-Gg: AYBFou2WqGMok3X9firw0uq3A5eXcdoRhZ4MwfA+MKZ+fQhB+Yw7Nd2kTh0mTrPPWxh
+	RBxiJyslI0n7QI/gR2HEs1EqkKlwbTO48Z3STmZIe6A93P/rQZuF3UboBfe9/7bSgkv6EWA+NOz
+	yvimuV0Hj4bFJB16Sgq5WPyy6XIAE3x+mZQi9dnbLxPh/VavbC+9kK49B5lRn7YcvcnJDvKHPU0
+	goq9OTDG+GAV1JkxNXx2uNZMCbVRNWv6V98oFqUc9x87aR+QdAmhqee12Q5+EU/4OtYhouErhLK
+	1AVC2qzKgbtmjqdUA13QkBLrUBLQrTnIt3ehiBYbStaLfAYxXfEccT+EXEvWHdLn8eUtEyFBie6
+	cIPjbyPuvbPYyzTcIcaNBnyyXVwigLrSUuTV6qhSlfcIaiKMOCpPxq8qNGve3k4MABgN9XOn4X5
+	BN3b20yUc8C7Fr1rgojmQC43QucVk7VpPAyPcPjN+UDchV7cN9TK99jWIGoAjL2rNvGryIEUWix
+	Ec6AorG419nZ5okIQQAv9YPBu8zsFc=
+X-Received: by 2002:a17:90a:d44d:b0:3a4:9d98:f980 with SMTP id 98e67ed59e1d1-3ab3a3b0c61mr24024340a91.1.1791994865254;
+        Wed, 14 Oct 2026 09:21:05 -0700 (PDT)
+Received: from smtpclient.apple ([23.247.139.92])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac92a1f906sm335949a91.0.2026.10.14.09.21.02
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 14 Oct 2026 09:21:04 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
+Subject: Re: [PATCH RFC v2 0/4] gpio: loongson-64bit: add interrupt support
+ for more models
+From: Miao Wang <shankerwangmiao@gmail.com>
+In-Reply-To: <CAMRc=MeW2nR8W3_4266N05p3Oa1WPNJhA92+T3miXQ0k5CsyJg@mail.gmail.com>
+Date: Thu, 15 Oct 2026 00:20:49 +0800
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Miao Wang via B4 Relay <devnull+shankerwangmiao.gmail.com@kernel.org>,
+ Jiaxun Yang <jiaxun.yang@flygoat.com>,
+ linux-gpio@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Yinbo Zhu <zhuyinbo@loongson.cn>,
+ Linus Walleij <linusw@kernel.org>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <317E251E-9135-4376-B813-74B8A748FD72@gmail.com>
+References: <20261002-loongsongpio-v2-0-6e3eb150a4ef@gmail.com>
+ <CAMRc=McnDBO6OZx6p9HGHn=Yyt8ydD=8Z=zYZvYvuy-_DUq6tQ@mail.gmail.com>
+ <7D6EB1C6-0CCB-44F1-B698-89B0479EEDA2@gmail.com>
+ <CAMRc=MeW2nR8W3_4266N05p3Oa1WPNJhA92+T3miXQ0k5CsyJg@mail.gmail.com>
+To: Bartosz Golaszewski <brgl@kernel.org>
+X-Mailer: Apple Mail (2.3826.700.81.1.8)
 
-On Wed, 2026-10-14 at 12:08 +0000, bot+bpf-ci@kernel.org wrote:
-> > selftests/bpf: Skip compare_text subtest when stdout is not saved
+Hi,
+
+> 2026=E5=B9=B410=E6=9C=8814=E6=97=A5 23:33=EF=BC=8CBartosz Golaszewski =
+<brgl@kernel.org> =E5=86=99=E9=81=93=EF=BC=9A
 >=20
-> TL;DR: Nit only: the new test__skip() in the compare_text_mismatch subtes=
-t
-> gives no reason for skipping; a short comment or stderr message might hel=
-p.
-> The skip logic itself looks correct.
->=20
-> > diff --git a/tools/testing/selftests/bpf/prog_tests/prog_tests_framewor=
-k.c
-> > b/tools/testing/selftests/bpf/prog_tests/prog_tests_framework.c
-> > index b4cd7c7ff439..ddb6cdc1579f 100644
-> > --- a/tools/testing/selftests/bpf/prog_tests/prog_tests_framework.c
-> > +++ b/tools/testing/selftests/bpf/prog_tests/prog_tests_framework.c
->=20
-> [ ... ]
->=20
-> > @@ -203,14 +203,18 @@ void test_prog_tests_framework_compare_text(void)
-> > =C2=A0	}
-> >=20
-> > =C2=A0	if (test__start_subtest("compare_text_mismatch")) {
-> > -		err =3D compare_text_to_expected("line two\n", "line one\n");
-> > -		fflush(stdout);
-> > +		if (!env.subtest_state->stdout_saved) {
-> > +			test__skip();
-> > +		} else {
-> > +			err =3D compare_text_to_expected("line two\n", "line one\n");
-> > +			fflush(stdout);
-> >=20
-> > -		ASSERT_EQ(err, -1, "mismatch_rc");
-> > -		ASSERT_HAS_SUBSTR(env.subtest_state->log_buf, "-line one",
-> > -				=C2=A0 "diff_has_expected");
-> > -		ASSERT_HAS_SUBSTR(env.subtest_state->log_buf, "+line two",
-> > -				=C2=A0 "diff_has_actual");
-> > +			ASSERT_EQ(err, -1, "mismatch_rc");
-> > +			ASSERT_HAS_SUBSTR(env.subtest_state->log_buf, "-line one",
-> > +					=C2=A0 "diff_has_expected");
-> > +			ASSERT_HAS_SUBSTR(env.subtest_state->log_buf, "+line two",
-> > +					=C2=A0 "diff_has_actual");
-> > +		}
-> > =C2=A0		test__end_subtest();
-> > =C2=A0	}
-> > =C2=A0}
->=20
-> This isn't a bug, but could the skip in the compare_text_mismatch subtest
-> carry an explanation?
->=20
-> 	if (!env.subtest_state->stdout_saved) {
-> 		test__skip();
-> 	}
->=20
-> A subsystem guideline flags selftests that skip silently with no message,
-> and test__skip() here prints nothing about why the subtest was skipped.
-> The same condition covers -v in non-parallel mode, a libc without
-> open_memstream() support, and an open_memstream() failure, so the reason =
+> On Thu, 8 Oct 2026 12:21:43 +0200, Miao Wang =
+<shankerwangmiao@gmail.com> said:
+>> Hi,
+>>=20
+>>> 2026=E5=B9=B410=E6=9C=888=E6=97=A5 18:04=EF=BC=8CBartosz Golaszewski =
+<brgl@kernel.org> =E5=86=99=E9=81=93=EF=BC=9A
+>>>=20
+>>> On Thu, 1 Oct 2026 20:13:18 +0200, Miao Wang via B4 Relay
+>>> <devnull+shankerwangmiao.gmail.com@kernel.org> said:
+>>>> This patch series aims to correctly add interrupt support for GPIO
+>>>> controllers found on more Loongson CPUs. The GPIO controllers in =
+such
+>>>> models do not have a complete intgrated interrupt controller, but =
+choose
+>>>> to delegate interrupt handling to their parent interrupt =
+controller.
+>>>> This sounds like a heirarchical interrupt setup, but what makes it
+>>>> more complex is that multiple GPIO lines in these controllers may =
+share
+>>>> one interrupt line on the parent interrupt controller. The details =
 is
-> not obvious from the test output alone.
+>>>> described in the third patch.
+>>>>=20
+>>>> Signed-off-by: Miao Wang <shankerwangmiao@gmail.com>
+>>>> ---
+>>>=20
+>>> The series looks pretty good. Who is the RFC addressed at in this =
+case? I can't
+>>> really answer the questions from patch 3/4 as I don't know this =
+platform nor am
+>>> I well versed in ACPI. Maybe Cc the GPIO ACPI maintainers for =
+review?
+>>=20
+>> Thanks for your review. The RFC contains two questions, the first is =
+about
+>> the firmware interface, including FDT and ACPI; the second is about =
+the
+>> way handling the delegated IRQs.
+>>=20
+>> Regarding the firmware interface, it is to be decided how to declare
+>> platform irq numbers for the GPIO controller. Such a GPIO controller
+>> may have N gpio lines with M parent interrupt lines (M < N). The
+>> firmware should a) list M irq numbers corresponding to the M parent
+>> interrupt lines or b) list N irq numbers (which might be duplicated)
+>> orresponding to the N gpio lines. Previously b) was chosen by the
+>> kernel driver. However actual ACPI tables found in the published
+>> firmware chose a). The discussion about it happened in [1].
+>>=20
 >=20
-> For context, the skip itself looks correct: env.subtest_state is non-NULL
-> inside the subtest, test__skip() sets subtest_state->skipped, and
-> test__end_subtest() handles a NULL stdout_saved.
->=20
-> The other skips in this file are also bare test__skip() calls, and
-> test__skip() takes no reason argument, so the guideline may not map clean=
-ly
-> onto test_progs.=C2=A0 If a reason is wanted, would a short comment above=
- the
-> test__skip() call, or a separate message printed to env.stderr_saved, be
-> appropriate?
->=20
-just one line for this, we can print why the test skipped. and short commen=
-t for patch#6
->=20
-> ---
-> AI reviewed your patch. Please fix the bug or email reply why it's not a =
-bug.
-> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/READM=
-E.md
->=20
-> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/385595=
-67568
+> Unless it impacts DT systems, I'll let Andy handle the ACPI part. =
+Please Cc him
+> next time as I pointed out under the RFC.
 
---=20
-Thanks,
-KaFai
+Will add him on the Cc list in further revisions.
+
+>> Regarding to the interrupt handling delegation, since there is no
+>> complete interrupt controller integrated with the GPIO controller,
+>> the interrupt handling, including detecting edge triggered interrupts
+>> and masking/unmasking, should be delegated to the parent IRQ =
+controller.
+>> I want to check if my implementation approach is acceptable and not
+>> violating any implicit rules on the interrupt subsystem side.
+>>=20
+>=20
+> I'd suggest to run your implementation by Thomas Gleixner because =
+directly
+> accessing the internals of the parent's irq data looks fishy. For =
+instance:
+> you call irq_set_type() directly without going through __setup_irq() =
+->
+> __irq_set_trigger() which does some additional bookkeeping.
+
+I would originally tend to avoid directly calling into ->irq_set_type() =
+and
+other handlers like this. However, the IRQ subsystem does not seem to =
+provide
+APIs to mask, unmask or set type of a given IRQ. Furthermore, =
+__setup_irq()
+is for registering irq_handler for an irq, while in chained irq chip, =
+however,
+irq_flow_handler is needed and should be registered via =
+__irq_do_set_handler().
+
+Cheers,
+
+Miao Wang
+
+
