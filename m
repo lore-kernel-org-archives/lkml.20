@@ -1,161 +1,508 @@
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com [209.85.219.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97DE24EC671
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:48:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7529530FC26
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:49:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.44
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791982130; cv=pass; b=H9h0IpOaMTL49+eyv+IbJsiDk914+FgFr/m3POBtdnM/cD/wZxIBP+I4Z4tqKXGA8oWr04UU4NUMdyTLDfMBJ1cZ7FWozE7JxbhIAgi+UgrPr4eXXSIH8Jt4Ovl+wt1zklJSov6RKMTlQ4yjD6Z+5Z9Lcl3B+UEOQIxfVW0D77Y=
+	t=1791982195; cv=pass; b=E0+SqtAtWSEXEydyxKgUg8MuMwos2ClgBrRCnO2cpfkxDYNmBfle9qT9ZwUAAl9CicrWAq8ontsZaGKzmKTWH5h0G4kD83r1Q94UWslU5C+yXLjG9SjAR/THL0p82r1RBIlvvHkAJOmYWqCtJePVCFNeNQw+eJe+/xjYM1rtHYU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791982130; c=relaxed/simple;
-	bh=PErefbjRur8+lAPuSaGWtGt6QpUAIajC81LrxVlpFMs=;
+	s=arc-20240116; t=1791982195; c=relaxed/simple;
+	bh=IZ9udLZ8mKwkA9hOW2ysBBLxwdxCnM2/zSGJI/8e7aM=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=EZZcVXcheQsoxIy1vehH8C56kXkwMyctU4mtIoeoQH3J/8k3/0Hw1P+1mGERnb/mGQKRFteLXdOVJy9rVyA+W6eawl93rpVPq8H5JLv1ujoEygPglNAxKciuJQjM0MYtbjp3Fxu/0BTi0SyV0Z558Af4mTVaEL6BwGj3fjO+TGg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ArcUYW7P; arc=pass smtp.client-ip=209.85.208.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	 To:Cc:Content-Type; b=FYJcRbfAciXdLUrXg7NY4aUQ6ualO2WkkNU8eumiHhxKuyGqURkg9CBvBz5J2eoFi2dRvFHZFq86ivjW4c44ZH1vC8YkYk4uIxaOr4hF8jXsk8L8Vvgv96+pSFoiSSumPUuIVW4gG/tlDzvw6tYQGNDYL9GT4guCtDPfNHGLIpI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UMvGZzS9; arc=pass smtp.client-ip=209.85.219.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ArcUYW7P"
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b1b12de661so39328a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 05:48:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791982117; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UMvGZzS9"
+Received: by mail-qv1-f44.google.com with SMTP id 6a1803df08f44-918f75a68f0so66492156d6.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 05:49:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791982166; cv=none;
         d=google.com; s=arc-20260327;
-        b=B/JqlQIVQ3rSiC4wQrCtwf0Up/QjhCOlubFNRP66ltyM5RzNeWndnh3TDrl2j5lfkR
-         Ufdw+eDjUboOKa8js3x4aWEt71ExYZbnb987yeitEFlmX9AY+xCB8BOkj7Sny1Rjl0FW
-         3rFIsAcya5nwpuZlHgYFaw9X5PhEhHbZFJNBuruuEZ7yi8roB7fxIsxx0u9raFDeL76I
-         51bi2duq8nyYJb7sv/zNPHuXiLeXt/aRf/b3cjJE5eDOUFyINfBkMleD0N3qveERfLyS
-         B9YNEwS+OhXGn0o5r5veC5DJCRX48enDGgxcfdaDcYUmK65StPtujiZdJaJWM1DfuW/h
-         ccYw==
+        b=cDi4rJWqm6J7MaDEQn+EhB1WJXlWKlO4CLKVQlSwIRzvEncRw1qB/J/PtPbgqbBXcX
+         hyL5eURKGMBKHZz2HM/zGp4/YHplrTNYarwMnvwVfbcRTjL4twCVk4wXo+RdeZxp7+1A
+         aUjC/a4zugk2Ql8wmeK1foW2ZAiSgcHOUmcDzfm7PV6j764eMXIBOpC+sbaugtBevQ/E
+         svVYZM0n9cN17hDB+fI7COklU3peIKB/cXA/jqIBW678ZtZHJWHdXcUQOD9xwblY+TZt
+         10SaR3F3vEh6l7K8v4MtEr5yyBooBwXoc/WIH5kl2T+RftuDCozYfSOoeVyaoxuBPIL5
+         Rd2g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=ZQL2xas4nG18KleQ+fT63AHqIIDtA2su0UrfgqIbaUY=;
-        fh=zhoGh4kb6eL6sxeUEjV3RDjbT97Q0KqzS0b1EpEYA9A=;
-        b=plky1BjhXWzegS0ucvQmnS+nlPw86e5++U/W/OsITZ5S6UfxBi3+0APgvsLefE7tMm
-         FyILLhYvfQJODe9PUllbQOFwxub/IsAwuhSYdHFW/lV5b0/3HRF+6oQzuU0FXeTzDmd5
-         EqdazvismolTHl6doylfHdr3ND8QpdhLQ3qa3IjuJyHjEt9Jd8Dpz/axYerhIFzanWl2
-         kzocNxHIqlrCFIbjhPWXDOEqOgEk0A39BVzuDfS9pJXWidIFBsZmej5K+ZaP5i0LZ8IY
-         Im5U4rxEpbyiDp9CUNxMCbT2XV3hY7EVtiVWLpenTNRCyDlfdub06grK/geErMT1NTfG
-         6V1g==;
+        bh=tPbZXRRAUxUX9o7GeMQdJWsdAmSHTI7hSTaU+xQ7YBQ=;
+        fh=m7nJG3NeRx6rfP/z+MkzpRzbLiwVAuzEzZu+FjqAqFM=;
+        b=I3V/fejlS+hQypff+YnBYcQMgAVQOM9PHJ5KRh/WdYp4qBH7OjwVthc9HOxuhYFjAk
+         5y2ymZFyL/IN3RgLEUZe7F/SqC2c0enfa8Il+zvOh/MiWubuDPPI0yFzpuHrVnnxP3NT
+         H7snreRIgst4UKXZgfFNXn2uidR9SU60XiU329epBxu8zrc2ZDS6rrpbwA1v3WK81hph
+         IKOXJQDn4hWEOrTtC/ymdPfSOjWXSuy+5dHEtYWMb3Nyjgh8YvnzdpwJKOF2LjF6gtA2
+         I/OOCI0ouxdS80c110EWwg0feFeTxkWgyFysWMxfHwgqxsWsUbjb+/ONZphbvENnqvRM
+         dieA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791982117; x=1792586917; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791982166; x=1792586966; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ZQL2xas4nG18KleQ+fT63AHqIIDtA2su0UrfgqIbaUY=;
-        b=ArcUYW7PlGRQMppwNESL5NfTwEdvl54Oot4YOC2WoKwUCaoA7NsFTGNXVw7tfUthDd
-         6KABLnr7CEb3SUwCV1D1LVst2kJbBZZH0GB7u6PXSNGLHs9fp7yGwXPHlb0yQw6MXRfn
-         1FHe+2wZ52Y2NR0bru9BeMi+OvJMMEMMYe/AbVL/5MGckfBa3T5KdzzEH+UQLtG7MkEj
-         He3bPtJQD5QNx3SNrkcctMBlwB9MF9gbOAtm1PNvrbegs+z1oj0rDIrD3e0Fg8bV1X7H
-         X0TaJU6JUh6crWo7To8GvDW3bzJiMY4WmRAsLZ0+EP7TicXpkhu//e3heGs59NwUkdij
-         iNBA==
+        bh=tPbZXRRAUxUX9o7GeMQdJWsdAmSHTI7hSTaU+xQ7YBQ=;
+        b=UMvGZzS9mkwo7NWflQjblzQ2DrO5lExg8pVK95w+lOZkVOa0atVv+P8qDxl6CfNVw5
+         mMmmz3pPXtWSS2O5HAvv+GgOt+iu0WbRNzELVr5rtpq7mPUeVmIYjvlt8gorv/27ma7m
+         UYk8qLKB9dy7eE4GqAEhml0ebhwxlTrflZqSJ+X5DcEXM1R3/Uquf+QgKtVk8ANt9M+E
+         AOA77FTC8asHQuv92MOgqsX63F1f79nYaZxMWp3Uovzf7f+/qavpm694HN+FqGaWyN7t
+         JzsQxSHPmyeOZJulpMSd0FW5ibBI9YmGjz0l19ZGbDB82/dWBTFtTMP7bHCq+mhyLbPY
+         1x+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791982117; x=1792586917;
+        d=1e100.net; s=20260707; t=1791982166; x=1792586966;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZQL2xas4nG18KleQ+fT63AHqIIDtA2su0UrfgqIbaUY=;
-        b=rsGDSNuuRFYv+R4AKitQzJG2LwcGVSge1q3IF09bOt6w6JN9jED76YruRP9X7W1iEA
-         kA2JBNOW6QEFocVWHlrYiAZa/xFUYz18kadx/DrsK1bpsIjJIta4vJ8OYV4pYcg3lqVd
-         BrQI/M3uK3vW78SdHKXdd+4bJua/gyuzF9CoG/6nXaau/QlPHrZTT2hS+wA95ObHz+Hh
-         ekHtEgGFu0+0ujPHHyrvGtd/dXP9aQtBxzQ3ofMZEFykreXSFZfRYoOeQTsMlKSKS3eK
-         irHtZDURuNsSvIz2Cw3I2z4KyuWRvxsFlCfbZQgbpKhEaz5qjdc1rfuysOQR4PbFnGvi
-         2T7w==
-X-Forwarded-Encrypted: i=1; AKwUvBzojRki2ACA8Tml42YbU7A1clPc0lTSgKvh7jmZ8FN1XAsqKbuu8hHRsQp87ptwU7tVm1lUQyB6ZL1aaQs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLFuZyQGTM0fIGWHCIQoqKcrR8LRF7UkBg4iBKQvpuvtuugZcJD
-	68sU4GtEi2eqCvobzNOQ0zELbbZt349SI6FDGiIaX60X+Rd4+XStQlXIhyAmZdLfU/g25NZOBMX
-	x601lN66XgqTRCxWsKGNjIn5c78EmVruY1PR0JbMO
-X-Gm-Gg: AYBFou0LrE5O89R/oRMI/43HtZ5ZSWcrRM1BA8PjpQd6KEK7o/IEXPeNQqLX3dzyPQK
-	zg1Z8mMILYh7SwTvZW+iamkPFw16handcWCZGpdexoXANBA/QeGLUxgqQsTbqTnZYZ5vGR71at5
-	RUnf+IG9upU9XzfsF9H44Rml6+ur6AIQoPVM8ChqS0TvUqAkZxiUYECap2dpndITinXqWxhIgnL
-	zdyvEDJxYjIbU64WW2SZAeDKma6qhK+7hwohXc+UAdX/oXhTk2RDACEiSDD/M+dKX4M4osHAhfV
-	4M8fFwwZ8UfhiA9Db2mxtryrx1MJexxQPaoGit1+VqkIsm01pgGKMnU=
-X-Received: by 2002:a05:6402:424c:20b0:6ae:188e:e119 with SMTP id
- 4fb4d7f45d1cf-6b20aad471fmr31158a12.9.1791982116138; Wed, 14 Oct 2026
- 05:48:36 -0700 (PDT)
+        bh=tPbZXRRAUxUX9o7GeMQdJWsdAmSHTI7hSTaU+xQ7YBQ=;
+        b=2ju3iOqARWcXebhl9sHE0611afivXULE448xz0Bow0hrL/Umj/z/Lj5EJ7omgOur6q
+         bcXjtMALXiqaM9k7WiT7yF2SgxhO+x0hVZ2PrDeDU9tdPyNM0b34B6zRtXNWcrFiEfRc
+         HuFitElBvUlbXlpfaXUkjLwrHyGPqZz+ho9mqDBSKbZfEtDsY9mCVgr9nur5W/3Xwpze
+         f2+rIc4HBv4oGXPoRmLrjlfkIHYUxjVDayfXEZNsVs16oZRurwAt8LNWEkl6GfGx+8WQ
+         uGZiaJY6u8xKVNhKNFgK8EslLVeNXH2JPy39oPo2NhPAoGDBuMTwk3Z/9/jBvWwuDlg9
+         j7Bg==
+X-Forwarded-Encrypted: i=1; AKwUvBy++CtNnSBxZihrx04VOD5BVZ+6I8odHdZfWMiAm2Xk2Kxx9wrGOR4Nh0wWIncoEh8hTUnkE8cRa/RA+bw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK243BnbumcV2FQ2HtaZcU4E9GRu+IBvlDp9wzD6owlb4OZMz/5
+	4/bD+a+K7aMSmws5D4EHDlDXZUVcGnn4nUt2xjPUgaU4ivXSFK6de8CQBW/14DeJvMrGwkcopxE
+	sYQyOER1uKoEgb0p3PJHNc+zCWLCJ2D4=
+X-Gm-Gg: AYBFou3UMai2miFS3mU9RHbsX+r0MvUkEr6VEmRbDsKZcWkPbNNnTPaoGY7Pc4k1kwA
+	WCB5EvdOZQTNxhFpG59bnR9eSuxsCVv/a7uhiZGVC47PFQQ3aiJf2L5+bawKi8YT5Xh463oTuiC
+	3HUda3PrS73ALAX5N+RqHx66koKG/ZKEwlYv6uoYHo3330aisPIM5xBf4YFTYKyeRHMjPP4eXdu
+	Z19aLZHRYUG0Ah6brH1RAw+tSYMUBOxBLa1G5elBS+dITw/uqujfUhv/YJk5dEs1vhy3BNeePYi
+	vwAoScXnJgqQiI4Ua1bVKAOZ2YRZmuivxI/p6Cpxo2DNyMqHhMYjZsY=
+X-Received: by 2002:a05:6214:410a:b0:91b:50f2:19 with SMTP id
+ 6a1803df08f44-91b55500fafmr253190856d6.27.1791982165875; Wed, 14 Oct 2026
+ 05:49:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261013231728.883001-1-yosry@kernel.org> <20261013231728.883001-2-yosry@kernel.org>
-In-Reply-To: <20261013231728.883001-2-yosry@kernel.org>
-From: Jim Mattson <jmattson@google.com>
-Date: Wed, 14 Oct 2026 05:48:23 -0700
-X-Gm-Features: AclHuK_eUHrZ3upceONbVQEejfpEzwYMGcSk3TlD294BOAEgQl9aP_4IrxL6XqQ
-Message-ID: <CALMp9eQ3mz_EiV4AcmMC2CQZ47s_uf7XCbhnn7pfvVjHwsXdTA@mail.gmail.com>
-Subject: Re: [PATCH 1/4] KVM: x86/mmu: WARN, don't BUG, when walking a cached
- root with a PAE MMU
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261013033207.1684328-4-zxyan0222@gmail.com> <179195062971.434549.3907170504821168391@kernel.org>
+In-Reply-To: <179195062971.434549.3907170504821168391@kernel.org>
+From: zhu xin <zxyan0222@gmail.com>
+Date: Wed, 14 Oct 2026 20:49:14 +0800
+X-Gm-Features: AclHuK8qhpcxlM73roMHGevYw3SXsYzC0julmGtC_jghy21jeFP5jd9UKD2s614
+Message-ID: <CAP7veTK6NQtrweDVXsYyiMuru_Svtir5XvY_ATM8a6GWO=cqKw@mail.gmail.com>
+Subject: Re: [PATCH net-next v8 3/3] net: stmmac: dwxgmac2: add XGMAC
+ timestamp interrupt support
+To: netdev-bot+sashiko@kernel.org
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, 
+	kuba@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com, 
+	mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com, 
+	richardcochran@gmail.com, muhammad.nazim.amirul.nazle.asmade@altera.com, 
+	rohan.g.thomas@altera.com, netdev@vger.kernel.org, 
+	linux-stm32@st-md-mailman.stormreply.com, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 13, 2026 at 4:17=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrot=
-e:
->
-> Replace the BUG_ON() in shadow_walk_init_using_root() that guards against
-> walking a cached (previous) root while the MMU is configured for PAE
-> paging with a WARN_ON_ONCE(), and terminate the walk if the WARN fires.
-> Walking a cached root with a PAE MMU is a KVM bug, as PAE roots are never
-> cached, but there's no need to bring down the host, as KVM can simply
-> bail from the walk.
->
-> Note, the BUG_ON() is currently reachable by a guest if TDP is disabled,
-> as KVM walks cached roots even if they were created for a different MMU
-> context, e.g. if L2 executes INVLPG while using PAE paging, L1 doesn't
-> intercept INVLPG, and L1's 64-bit root is cached.
->
-> Add a common error label for terminating the walk, and use it for the
-> existing invalid/dummy root check as well.
->
-> Fixes: 7eb77e9f5fcf ("kvm: x86: Add a root_hpa parameter to kvm_mmu->invl=
-pg()")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Yosry Ahmed <yosry@kernel.org>
-> ---
->  arch/x86/kvm/mmu/mmu.c | 13 ++++++++-----
->  1 file changed, 8 insertions(+), 5 deletions(-)
->
-> diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-> index aadd5bdc2c97a..126faef5a6476 100644
-> --- a/arch/x86/kvm/mmu/mmu.c
-> +++ b/arch/x86/kvm/mmu/mmu.c
-> @@ -2558,10 +2558,8 @@ static void shadow_walk_init_using_root(struct kvm=
-_shadow_walk_iterator *iterato
->         iterator->addr =3D addr;
->         iterator->shadow_addr =3D root;
->
-> -       if (WARN_ON_ONCE(!VALID_PAGE(root)) || kvm_mmu_is_dummy_root(root=
-)) {
-> -               iterator->level =3D 0;
-> -               return;
-> -       }
-> +       if (WARN_ON_ONCE(!VALID_PAGE(root)) || kvm_mmu_is_dummy_root(root=
-))
-> +               goto error;
->
->         iterator->level =3D vcpu->arch.mmu->root_role.level;
->
-> @@ -2575,7 +2573,8 @@ static void shadow_walk_init_using_root(struct kvm_=
-shadow_walk_iterator *iterato
->                  * prev_root is currently only used for 64-bit hosts. So =
-only
->                  * the active root_hpa is valid here.
->                  */
+Hi,
 
-Can you please rewrite this poorly worded comment that now explains
-your code below? What do 64-bit *hosts* have to do with this
-bug/warning? I assume that should be 64-bit *guests*. But, even that's
-imprecise. Aren't prev_roots tied to 4- or 5- level paging (i.e. long mode)=
-?
+Thanks for the review.
 
-> -               BUG_ON(root !=3D vcpu->arch.mmu->root.hpa);
-> +               if (WARN_ON_ONCE(root !=3D vcpu->arch.mmu->root.hpa))
-> +                       goto error;
+On Wed, Oct 14, 2026 at 12:03=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wr=
+ote:
+>
+> Thank you for your contribution! Sashiko AI review found 5 potential
+> issue(s) to consider.
+>
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 5 =C2=B7 Low: 0
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>
+> - [Medium] The commit message says dwxgmac2_timestamp_interrupt() cannot
+>   race a FIFO flush because "PTP_ACR_ATSFC is only ever set while=E2=80=
+=A6
+
+Valid and will be fixed in the respin.
+
+> - [Medium] In stmmac_enable(PTP_CLK_REQ_EXTTS), the 'already enabled'
+>   -EBUSY check is dead.
+
+Valid and will be fixed in the respin.
+
+> - [Medium] smtg_crosststamp() (dwmac-socfpga) tests
+>   STMMAC_FLAG_EXT_SNAPSHOT_EN before mutex_lock(&priv->aux_ts_lock), and=
+=E2=80=A6
+
+Valid and will be fixed in the respin.
+
+> - [Medium] Two handler instances can drain the auxiliary timestamp FIFO
+>   at the same time.
+
+we would like to keep this as-is, for three reasons.
+
+First, the hardware does not have two parallel lines for the
+timestamp events: per the DWC_xgmac databook the timestamp
+interrupt (TSIS) is only asserted on the common sbd_intr_o /
+mci_intr_o line, while the separate pmt_intr_o output exists for
+power-down mode, so the application clock can be stopped while
+the MAC stays wakeable; its clear even crosses clock domains.
+The concurrent-drain window therefore only arises from a
+platform integration choice: wiring pmt_intr_o to its own GIC
+line and describing it as "eth_wake_irq".
+
+Second, the in-tree XGMAC platforms make that choice nowhere:
+the dwxgmac users (Agilex5 etc.) list only "macirq" and the
+per-queue lines, so the driver's fallback in
+stmmac_platform.c assigns wol_irq =3D dev->irq, the second
+request_irq() is skipped, and the handler is registered exactly
+once.  The platforms that do wire a separate eth_wake_irq
+(imx8mp, renesas r9a09, stm32mp13 ...) are GMAC4/EQOS designs
+where the existing dwmac4 timestamp handler has the same
+exposure and has never been serialized; this is a pre-existing
+driver-wide property, not something this series introduces.
+
+Third, fixing it properly (a single serviced line or an
+in-handler lock for the timestamp path) affects every stmmac
+handler and would be a series of its own; we would rather not
+grow this one with it.
+
+> - [Medium] The commit message says TSIS is a read-to-clear bit that the
+>   TX timestamp completion path clears.
+
+Correct and the consequence is a delay, not a lost event: reading
+XGMAC_TIMESTAMP_STATUS does not affect the ATSNS count or the
+FIFO contents, so the snapshots stay queued and are reported by
+the next handler entry on any MAC interrupt (in single-IRQ mode
+any DMA interrupt reaches it as well).  The handler deliberately
+does not gate on TSIS for exactly this reason: TSIS is an
+aggregate, read-to-clear bit that the TX timestamp completion
+path (which polls the same register for TXTSC from NAPI) clears
+before the handler can observe it.  A dwmac4-style TSIS gate
+would turn this delay into a silent event drop, which is why
+the commit message documents the trade-off.  The one-shot
+"delayed indefinitely" scenario needs a completely quiet MAC
+(no TX completion, no LPI, no PMT, no error interrupts) while an
+EXTTS edge arrives; and if more events keep arriving the FIFO
+level is reported by ATSNS, so nothing is overwritten silently.
+We consider the residual delay acceptable for a one-shot input
+relative to the alternative of dropping events.
+
+>
+> --
+>
+> net: stmmac: dwxgmac2: add XGMAC timestamp interrupt support
+>
+> This adds a DWXGMAC2 timestamp interrupt handler that drains the
+> auxiliary snapshot FIFO and reports the entries as PTP_CLOCK_EXTTS
+> events. XGMAC_TSIE is armed on demand from the EXTTS enable path through
+> a new timestamp_interrupt_cfg() callback. The suspend/resume,
+> unregister and socfpga cross-timestamp paths are updated to coordinate
+> FIFO ownership under aux_ts_lock.
+>
+> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c b/driv=
+ers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+> > index ee79b74bf21b6..93c1092237fc6 100644
+> > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+> > @@ -311,6 +311,18 @@ static int smtg_crosststamp(ktime_t *device, struc=
+t system_counterval_t *system,
+> >               return -EBUSY;
+> >
+> >       mutex_lock(&priv->aux_ts_lock);
+> > +     /* Refuse to arm once the clock has been invalidated by
+> > +      * unregister.
+> > +      */
+> > +     if (!priv->ptp_clock) {
+> > +             mutex_unlock(&priv->aux_ts_lock);
+> > +             return -ENODEV;
+> > +     }
+> > +     priv->plat->flags |=3D STMMAC_FLAG_INT_SNAPSHOT_EN;
+>
+> [Severity: Medium]
+> The STMMAC_FLAG_EXT_SNAPSHOT_EN test that guards smtg_crosststamp() still
+> runs before aux_ts_lock is taken. Under the lock, only ptp_clock is
+> rechecked:
+>
+>     if (priv->plat->flags & STMMAC_FLAG_EXT_SNAPSHOT_EN)
+>         return -EBUSY;
+>
+>     mutex_lock(&priv->aux_ts_lock);
+>
+> getcrosststamp doesn't take pincfg_mux. Can a concurrent
+> PTP_EXTTS_REQUEST run its whole locked section inside that window?
+>
+> CPU1 (PTP_SYS_OFFSET_PRECISE)    CPU2 (PTP_EXTTS_REQUEST, on=3D1)
+> smtg_crosststamp()
+>   EXT_SNAPSHOT_EN not set
+>                                  stmmac_enable()
+>                                    sets EXT_SNAPSHOT_EN
+>                                    writes ATSEN(index) | ATSFC
+>                                    arms XGMAC_TSIE
+>   mutex_lock(&priv->aux_ts_lock)
+>   acr_value &=3D ~PTP_ACR_MASK;
+>   sets ATSEN(int_snapshot_num)
+>   ...
+>   flags &=3D ~STMMAC_FLAG_INT_SNAPSHOT_EN
+>
+> Would that leave EXT_SNAPSHOT_EN set, TSIE armed and ext_snapshot_num
+> naming the user's channel, while PTP_ACR enables only the internal
+> snapshot channel?
+>
+> If so, the user's EXTTS channel would produce no more events, and every
+> later smtg_crosststamp() would return -EBUSY. dwxgmac2_timestamp_interrup=
+t()
+> takes the reported index from the live PTP_ACR, so any events delivered
+> in that state would carry the internal channel index. On resume,
+> stmmac_rearm_timestamp_irq() would also program ext_snapshot_num, which
+> no longer matches the hardware state.
+>
+> Could the EXT_SNAPSHOT_EN check move under aux_ts_lock, next to the new
+> ptp_clock check?
+>
+> [ ... ]
+>
+> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/driv=
+ers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+> > index 1a88cbaed70ca..3b98cd82ec2d7 100644
+> > --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+>
+> [ ... ]
+>
+> > @@ -1154,6 +1160,59 @@ static int dwxgmac2_get_mac_tx_timestamp(struct =
+mac_device_info *hw, u64 *ts)
+> >       return 0;
+> >  }
+> >
+> > +void dwxgmac2_timestamp_interrupt(struct stmmac_priv *priv)
+> > +{
+>
+> [ ... ]
+>
+> > +     /* Reading XGMAC_TIMESTAMP_STATUS clears TSIS, so use the ATSNS
+> > +      * count to see the pending snapshots.
+> > +      */
+> > +     ts_status =3D readl(priv->ioaddr + XGMAC_TIMESTAMP_STATUS);
+>
+> [Severity: Medium]
+> The commit message says TSIS is read-to-clear and that the TX timestamp
+> completion path clears it. On XGMAC that path runs for every TX
+> timestamp. dwxgmac2_get_tx_timestamp_status() always returns 0, so
+> stmmac_get_tx_hwtstamp() always falls back to
+> dwxgmac2_get_mac_tx_timestamp(), which polls the same register from
+> NAPI:
+>
+>     if (readl_poll_timeout_atomic(ioaddr + XGMAC_TIMESTAMP_STATUS,
+>                                   value, value & XGMAC_TXTSC, 100, 10000)=
+)
+>
+> Suppose that read lands after an auxiliary snapshot sets TSIS (with
+> TSIE armed) but before the CPU takes the MAC interrupt. Can a
+> level-triggered MAC IRQ then be deasserted, so the handler never runs
+> for that snapshot?
+>
+> dwxgmac2_timestamp_interrupt() is the only consumer of the aux FIFO, and
+> its only caller is stmmac_common_interrupt(). Skipping the TSIS gate
+> only helps once the handler is already running.
+>
+> Would the snapshot then stay in the FIFO until an unrelated MAC
+> interrupt arrives, or in single-IRQ mode the next DMA interrupt? In
+> multi-MSI mode only MAC interrupts reach this handler. For a one-shot
+> input the event could then be delayed indefinitely, or lost to FIFO
+> overflow.
+>
+> > +
+> > +     if (!(priv->plat->flags & STMMAC_FLAG_EXT_SNAPSHOT_EN) || !priv->=
+ptp_clock)
+> > +             return;
+> > +
+> > +     pending_snapshots =3D FIELD_GET(XGMAC_TIMESTAMP_ATSNS_MASK, ts_st=
+atus);
+> > +     if (!pending_snapshots)
+> > +             return;
+> > +
+> > +     acr_value =3D readl(priv->ptpaddr + PTP_ACR);
+> > +     /* Entries observed while the FIFO is being flushed are stale. */
+> > +     if (acr_value & PTP_ACR_ATSFC)
+> > +             return;
+> > +     channel =3D FIELD_GET(PTP_ACR_MASK, acr_value);
+> > +     if (!channel)
+> > +             return;
+> > +     channel =3D ilog2(channel);
+> > +
+> > +     for (i =3D 0; i < pending_snapshots; i++) {
+> > +             read_lock_irqsave(&priv->ptp_lock, flags);
+> > +             stmmac_get_ptptime(priv, priv->ptpaddr, &ptp_time);
+> > +             read_unlock_irqrestore(&priv->ptp_lock, flags);
+>
+> [Severity: Medium]
+> Can two instances of this loop drain the FIFO at the same time?
+> stmmac_request_irq_single() registers stmmac_interrupt() on dev->irq and
+> also on a separate wake line:
+>
+>     if (priv->wol_irq > 0 && priv->wol_irq !=3D dev->irq) {
+>         ret =3D request_irq(priv->wol_irq, stmmac_interrupt,
+>                           IRQF_SHARED, dev->name, dev);
+>
+> Both lines reach this handler through stmmac_common_interrupt(). The
+> handler deliberately doesn't gate on TSIS, so two CPUs servicing the two
+> lines could both read the same ATSNS=3DN and both loop N times.
+>
+> read_lock_irqsave() on ptp_lock admits both readers at once. Also,
+> get_ptptime() consumes each entry with two separate reads:
+>
+>     ns =3D readl(ptpaddr + PTP_ATNR);
+>     ns +=3D (u64)readl(ptpaddr + PTP_ATSR) * NSEC_PER_SEC;
+>
+> Would that pop 2N entries for N snapshots? Could one reported EXTTS
+> timestamp combine the nanosecond and second halves of different entries?
+>
+> > +
+> > +             event.type =3D PTP_CLOCK_EXTTS;
+> > +             event.index =3D channel;
+> > +             event.timestamp =3D ptp_time;
+> > +             ptp_clock_event(priv->ptp_clock, &event);
+> > +     }
+> > +}
+>
+> [ ... ]
+>
+> > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c b/drivers=
+/net/ethernet/stmicro/stmmac/stmmac_ptp.c
+> > index 3bfcc9760dce7..f41988f5927ad 100644
+> > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
+> > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
+>
+> [ ... ]
+>
+> > @@ -239,22 +246,49 @@ static int stmmac_enable(struct ptp_clock_info *p=
+tp,
+> >                               return -EBUSY;
+> >                       }
+> >
+> > +                     if (rq->extts.index >=3D PTP_ACR_ATSEN_NUM) {
+> > +                             mutex_unlock(&priv->aux_ts_lock);
+> > +                             return -EINVAL;
+> > +                     }
+> > +
+> >                       priv->plat->flags |=3D STMMAC_FLAG_EXT_SNAPSHOT_E=
+N;
+> > +                     priv->plat->ext_snapshot_num =3D rq->extts.index;
+> >
+> >                       /* Enable External snapshot trigger */
+> >                       acr_value |=3D PTP_ACR_ATSEN(rq->extts.index);
+> >                       acr_value |=3D PTP_ACR_ATSFC;
+> >               } else {
+> >                       priv->plat->flags &=3D ~STMMAC_FLAG_EXT_SNAPSHOT_=
+EN;
+> > +                     priv->plat->ext_snapshot_num =3D -1;
+> >               }
+>
+> [Severity: Medium]
+> The "already enabled" check just above this hunk can never fire, because
+> the mask is cleared before it is tested:
+>
+>     acr_value =3D readl(ptpaddr + PTP_ACR);
+>     channel =3D ilog2(FIELD_GET(PTP_ACR_MASK, acr_value));
+>     acr_value &=3D ~PTP_ACR_MASK;
+>
+>     if (on) {
+>         if (FIELD_GET(PTP_ACR_MASK, acr_value)) {
+>             ...
+>             return -EBUSY;
+>         }
+>
+> Before calling ops->enable(), ptp_extts_request() only checks
+> req.extts.index >=3D ops->n_ext_ts. With the new single-slot
+> ext_snapshot_num, what happens for the sequence enable(A), enable(B),
+> disable(A)?
+>
+> enable(B) would clear ATSEN(A), set ATSEN(B) and overwrite
+> ext_snapshot_num.
+>
+> disable(A) doesn't look at rq->extts.index. It clears EXT_SNAPSHOT_EN,
+> sets ext_snapshot_num to -1, writes an empty ACR mask and disarms
+> XGMAC_TSIE. That stops channel B while userspace still thinks it is
+> enabled.
+>
+> The dead check predates this patch. However, the new ext_snapshot_num
+> tracking, the resume rearm and the ATSFC/TSIE invariant in the commit
+> message all assume only one channel is ever active.
+>
+> Should the busy test happen before the mask is cleared? And should the
+> disable path check that rq->extts.index matches ext_snapshot_num?
+>
+> >               netdev_dbg(priv->dev, "Auxiliary Snapshot %d %s.\n",
+> >                          rq->extts.index, on ? "enabled" : "disabled");
+> >               writel(acr_value, ptpaddr + PTP_ACR);
+> > -             mutex_unlock(&priv->aux_ts_lock);
+> > -             /* wait for auxts fifo clear to finish */
+> > +             /* Keep the lock across the FIFO clear so the arm below
+> > +              * cannot interleave with a suspend.
+> > +              */
+> >               ret =3D readl_poll_timeout(ptpaddr + PTP_ACR, acr_value,
+> >                                        !(acr_value & PTP_ACR_ATSFC),
+> >                                        10, 10000);
+>
+> [ ... ]
+>
+> > +             /* Arm the timestamp interrupt only after the FIFO clear,
+> > +              * so the handler cannot see a snapshot that is about to =
+be
+> > +              * discarded.
+> > +              */
+> > +             stmmac_mac_timestamp_interrupt_cfg(priv, on && !ret);
+> > +             /* Drain an in-flight handler before the channel is freed=
+. */
+> > +             if (!on)
+> > +                     stmmac_sync_timestamp_irq(priv);
+> > +             mutex_unlock(&priv->aux_ts_lock);
+>
+> [Severity: Medium]
+> The commit message says:
+>
+>   "PTP_ACR_ATSFC is only ever set while XGMAC_TSIE is disabled, so this
+>   both keeps it off the FIFO on unrelated interrupts and stops it racing
+>   a FIFO flush."
+>
+> Does that hold when a second PTP_CLK_REQ_EXTTS enable arrives while a
+> channel is already enabled? This can come from the ioctl or from the
+> extts_enable sysfs attribute.
+>
+> Because of the dead -EBUSY check above, the request gets through. The
+> writel() above then sets ATSEN(new) | PTP_ACR_ATSFC while XGMAC_TSIE is
+> still armed from the first enable. TSIE is not disarmed and
+> stmmac_sync_timestamp_irq() is not called before the flush; the sync
+> only happens for !on.
+>
+> dwxgmac2_timestamp_interrupt() runs on any MAC interrupt, or in
+> single-IRQ mode any DMA interrupt. It shares no lock with this path, and
+> it samples the FIFO level and the flush state at different times:
+>
+>     ts_status =3D readl(priv->ioaddr + XGMAC_TIMESTAMP_STATUS);
+>     ...
+>     acr_value =3D readl(priv->ptpaddr + PTP_ACR);
+>     if (acr_value & PTP_ACR_ATSFC)
+>         return;
+>     ...
+>     for (i =3D 0; i < pending_snapshots; i++) {
+>         ...
+>         stmmac_get_ptptime(priv, priv->ptpaddr, &ptp_time);
+>
+> If that PTP_ACR read happens before the ATSFC write, or after the
+> self-clearing flush completes, ATSFC reads as 0.
+>
+> Could the handler then pop N entries from a FIFO that is being flushed
+> or is already empty? It would report N stale or bogus PTP_CLOCK_EXTTS
+> events, tagged with either the old or the new channel index.
+>
+> [ ... ]
+>
+> --
+> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
+set/20261013033207.1684328-1-zxyan0222%40gmail.com
+
+pw-bot: cr
