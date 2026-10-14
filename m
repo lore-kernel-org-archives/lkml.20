@@ -1,104 +1,143 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8BF84756D3
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 23:02:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3849C309EEB;
+	Wed, 14 Oct 2026 23:03:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792018958; cv=none; b=u3BkPz3llpfJi2d1uwSq/Orc/IMe90furcscLvEyzCBe+t3L+cffUmwtaym4pvX2dWAs0AVMJLOFFKpiwZ7AnLzIegDNWQ7u/PA4FDjufmbwBa7fsJvOzChozSSU7BQTI2ZrDcea92wggMUzZGDjcxS2qxSChcHUTj4ncnk83g8=
+	t=1792019011; cv=none; b=XdzAtsVp9/4emm+C8tjhVPSvYQbhqHIzEPtZpaDLjhM+joN57rYR7uvH+MFAXoDspfIZ3zX+sDuWMA4QUQK5WJTtOQqd9hJHGZn/sZ5zmrolLXMIwNEA3QIPUreAjyUyia0HZ1n8ZHgAEV5+RDtO7MEtxe/RJhQnE9X1O9U9onQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792018958; c=relaxed/simple;
-	bh=8kbYCTiOht8YURF6bw64YoNIjxFOJTgiJvXG2CbwKEU=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=bO3IWThOtWL5BSFD0dSu8qq8yM7IHRlo5IiqkkJrFDcvDWUBaDGoGXaDmtZ29g3Mh1W1aNJl2P0TJD7kJaE865Av/x7jZ+FsPbX2vNuxXQuqLO5CxKIfRBFmTsU45D3eqlRnoYjPlBP9xH+66QjcukeBTS3Bpxe25+Rrm0J/S9g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=LnrpcqLe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792019011; c=relaxed/simple;
+	bh=pNN7bs+HIFLG/tBJ3Lt1YhOWWAw03qYL46p4fKQYYWI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nVOM0vk/0fRyXHDYQS9GzUsXRL02TiEp0QO4Jxk+x8qwK1ejuUXGCM2IgrQmHzJaB60YyDDRRurpnJEP7MXmT54AIpRyR/ECruGAgdjDoLaH3ZjBrpCnEpq7kHOb6XOJX+Dyc1EI8EtWhJZBC6tHdOzWWBhO2qqK7wl9nzOI/yY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i74D6Dy6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="LnrpcqLe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 056E61F000C4;
-	Wed, 14 Oct 2026 23:02:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792018956;
-	bh=VTYVPdLowER/NQgZmE9HNR8wYFSGQx166uFE24iaws0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=LnrpcqLeaK0nM1SbvKYcBzXTJ+TDkRmuP6vCDXSWYXn//ALtRIgR3sE8MbveW3f4j
-	 6Ah4qakD/AvwXZYVvE1fcVzU5UWkG078qXZG8c30VJpfMe/OC38Vq5uIvFhMbSRjDZ
-	 ou7Bf0ZR+acfkST/qWTa27TOurrsOE5dNhmRwYq0=
-Date: Wed, 14 Oct 2026 16:02:35 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Jiayuan Chen <jiayuan.chen@linux.dev>
-Cc: linux-mm@kvack.org, Jiayuan Chen <jiayuan.chen@shopee.com>, Chris Li
- <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Kemeng Shi
- <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He
- <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, Youngjun Park
- <youngjun.park@lge.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH mm-next] mm/swap: free swap cache folios the zap path
- gave up on
-Message-Id: <20261014160235.29a39f19ccd19aec47b63008@linux-foundation.org>
-In-Reply-To: <20261014090821.227366-1-jiayuan.chen@linux.dev>
-References: <20261014090821.227366-1-jiayuan.chen@linux.dev>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i74D6Dy6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB06D1F000C4;
+	Wed, 14 Oct 2026 23:03:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792019009;
+	bh=rFQ+xXBVw2G3dOM+1QoqfL3CKXPuv2twnZR0oxUkiFc=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=i74D6Dy6+ybz9t6qaA2NuhDDS0COBDnrGSk9g3B9Ch+vhqXXXYUyrwB/rXjAh+vGv
+	 sE+Q/+a8+fMVDo1+cuDGl6gYzOy+yBpzI0Zq1ZcuwiNVFgyfsaUsL/BB49lu2ysOKv
+	 2CkBh+OocWzHK5j6FctBg83yrd7xqarWmqkTOiR0agNEWrwuBkiP1Wj3WPbL8b7AJR
+	 Ybbviarn0d+DbOZvvdcBmCTCmuoZovw4gnjllxTg6MOa8Xckqzf2J9rWoZ7htlP3vd
+	 VINfT1Y/1jYak2IozXpvTOuEf0HVFrBICn6AVZkywkl/6KmVkFYmOxGdnxO0lsyJni
+	 F7PuAvzHT3sxw==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 76B0DCE0C55; Wed, 14 Oct 2026 16:03:29 -0700 (PDT)
+Date: Wed, 14 Oct 2026 16:03:29 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: =?iso-8859-1?Q?Sebasti=E1n?= Peyrott <speyrott@gmail.com>
+Cc: Guenter Roeck <linux@roeck-us.net>, Mark Brown <broonie@kernel.org>,
+	linux-hwmon@vger.kernel.org, linux-next@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] hwmon: (minisforum-um780xtx) Fix clamp() build failure
+ with GCC 11
+Message-ID: <be58a022-4f57-4666-b573-81881de4d779@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <fda0e59f-20e1-4a94-a714-288940dcdd37@paulmck-laptop>
+ <20261014214522.243253-1-speyrott@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261014214522.243253-1-speyrott@gmail.com>
 
-On Wed, 14 Oct 2026 17:08:19 +0800 Jiayuan Chen <jiayuan.chen@linux.dev> wrote:
-
-> From: Jiayuan Chen <jiayuan.chen@shopee.com>
+On Wed, Oct 14, 2026 at 06:45:22PM -0300, Sebastián Peyrott wrote:
+> GCC 11 fails to build the driver:
 > 
-> On our production hosts we saw swap cache only pages keep growing for days:
-> on a box with a 500 GiB swap partition, 250 GiB of RAM and 250 GiB of
-> swap slots were held by folios that no process mapped any more, charged
-> to cgroups whose workloads had long exited. The only way to get them
-> back was swapoff, and with other services actively swapping on the
-> same host that is not an option.
+>   error: call to '__compiletime_assert_727' declared with attribute error:
+>   clamp() low limit 0 greater than high limit points[1] - 1
 > 
-> Such a slot has swap count 0 and an unmapped folio pinned in the swap
-> cache, left there after a process exited or did MADV_DONTNEED. No page
-> table holds its swap entry any more, so nothing comes back for the
-> slot; LRU reclaim drops it eventually, and the allocator only reclaims
-> such slots once swap is half full. The growth stopped exactly there:
-> at 50% of the device, where vm_swap_full() becomes true.
-
-That's a pretty nasty problem - thanks for working on it.
-
-> Options considered:
+> The store function returns -EIO unless points[0] < points[1], so
+> points[1] - 1 cannot be negative when the clamp is reached. GCC 11 jump
+> threading, however, duplicates the clamp() limit check and does not prune
+> the copy in which points[1] is zero, so the compile-time check in clamp()
+> fires on an unreachable path. GCC 8 to 10 and 12 to 16 accept the code.
 > 
-> 1. Fix it on the readahead side: after the read, check the swap count
->    and free the slot. Covers the lock, not writeback, and the
->    asynchronous read path unlocks in the bio completion where the slot
->    cannot be freed. Two places to patch, neither clean.
-> 2. swapoff/swapon clears it, as does memory.reclaim on the right cgroup.
->    That is a workaround, not a fix.
-> 3. Have the side that gives up come back later. This patch.
+> Select both limits first and use a single clamp_val(). This does not
+> change behavior.
 > 
-> The zap runs under the PTL and the fault path takes the folio lock
-> before the PTL, so waiting there is out; a worker has to do it. On a
-> lost trylock or a writeback refusal under TTRS_UNMAPPED,
-> __try_to_reclaim_swap() schedules si->sweep_work. The worker walks the
-> in-use clusters and, for every slot with swap count 0 whose folio is
-> unmapped, calls __try_to_reclaim_swap() with TTRS_WAIT, which takes the
-> folio lock and waits for writeback instead of giving up.
-> free_swap_cache() now calls __try_to_reclaim_swap() as well, so both
-> paths give up, and wake the worker, in the same place.
+> Fixes: 9d980da93bbc ("hwmon: Add Minisforum UM780 XTX EC monitoring and fan control")
+> Reported-by: Paul E. McKenney <paulmck@kernel.org>
+> Closes: https://lore.kernel.org/r/fda0e59f-20e1-4a94-a714-288940dcdd37@paulmck-laptop
+> Assisted-by: LLM
+> Signed-off-by: Sebastián Peyrott <speyrott@gmail.com>
+
+Thank you!!!
+
+Tested-by: Paul E. McKenney <paulmck@kernel.org>
+
+Though it would be *way* better to fold this back into the original
+commit to avoid breaking bisection.
+
+							Thanx, Paul
+
+> ---
+> Reproduced on next-20261014 (x86_64) with GCC 11.5.0, both with
+> allmodconfig and with defconfig plus this driver; GCC 8.5, 9.5, 10.5,
+> 12.4, 13.4, 14.4, 15.3 and 16.1 build the unmodified driver. With this
+> change, the driver builds without warnings with W=1 using GCC 11, 13, 14,
+> 15 and 16 (x86_64 allmodconfig) and GCC 16 (i386 allmodconfig). A small
+> standalone reproducer of the clamp() pattern fails only with GCC 11, and
+> the patched form builds with GCC 8 through 16.
 > 
-> For now the worker scans every in-use cluster of the device; marking
-> the clusters that need it can reduce that later.
-
-It's a substantial patch.  There's no quick-n-dirty fixup we can
-prepare for backporting into older kernels?
-
->  include/linux/swap.h |   1 +
->  mm/swap.h            |   1 +
->  mm/swap_state.c      |   9 ++--
->  mm/swapfile.c        | 101 ++++++++++++++++++++++++++++++++++++++++++-
->  4 files changed, 104 insertions(+), 8 deletions(-)
-
-Sashiko had a few things to say:
-	https://sashiko.dev/#/patchset/20261014090821.227366-1-jiayuan.chen@linux.dev
-	
-
+> Tested on the UM780 XTX: the installed driver and this version produce
+> identical rounding and clamping results for both system fan thresholds,
+> with every value verified against the EC registers and the original
+> thresholds restored afterwards. Module load and unload are also clean.
+> 
+> An LLM-based coding assistant helped reproduce and analyse the failure
+> and prepare this patch. I reviewed the change and the test results.
+> 
+>  drivers/hwmon/minisforum-um780xtx.c | 16 +++++++++-------
+>  1 file changed, 9 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/hwmon/minisforum-um780xtx.c b/drivers/hwmon/minisforum-um780xtx.c
+> index f5d6e18cb651..962ebf41ffb7 100644
+> --- a/drivers/hwmon/minisforum-um780xtx.c
+> +++ b/drivers/hwmon/minisforum-um780xtx.c
+> @@ -180,7 +180,7 @@ static ssize_t um780xtx_sys_point_temp_store(struct device *dev,
+>  	struct sensor_device_attribute *sattr = to_sensor_dev_attr(attr);
+>  	u8 points[2];
+>  	u8 readback;
+> -	long value;
+> +	long value, lo, hi;
+>  	int ret;
+>  
+>  	ret = kstrtol(buf, 10, &value);
+> @@ -198,13 +198,15 @@ static ssize_t um780xtx_sys_point_temp_store(struct device *dev,
+>  	if (points[0] >= points[1] || points[1] >= data->sys_point3)
+>  		return -EIO;
+>  
+> +	if (!sattr->index) {
+> +		lo = 0;
+> +		hi = points[1] - 1;
+> +	} else {
+> +		lo = points[0] + 1;
+> +		hi = data->sys_point3 - 1;
+> +	}
+>  	value = DIV_ROUND_CLOSEST(value, 1000);
+> -	if (!sattr->index)
+> -		value = clamp_val(value, 0, points[1] - 1);
+> -	else
+> -		value = clamp_val(value, points[0] + 1,
+> -				  data->sys_point3 - 1);
+> -	points[sattr->index] = value;
+> +	points[sattr->index] = clamp_val(value, lo, hi);
+>  
+>  	ret = ec_write(um780xtx_sys_point_offsets[sattr->index],
+>  		       points[sattr->index]);
+> 
+> base-commit: 4781ca52761e666cf18b591e6bb0478396c90320
+> -- 
+> 2.54.0
+> 
