@@ -1,160 +1,139 @@
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com [67.231.149.25])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 036DE37882B;
-	Wed, 14 Oct 2026 09:33:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.149.25
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791970385; cv=fail; b=AoqOierNUsebfzF1GYpGRhBfu14C2l5jmZqzAUPAEOZ5+E84ooKFd/FBps33tH9yL5qK+IcG/0TfNTVNnWBRa1Ab7A4riWSnIcXi1g6kVM4oRlf7KfblyNTOtky3s05K4/1txLOT6WmbRDbag139ysZ6riXiWf3JmqpmdE1RxpY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791970385; c=relaxed/simple;
-	bh=GzR3gctOBabEoS8NfRPQGFNqiHW0DQR2lva4L0fxwlI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uYJepWlB1mHwEU6awRvJmHBYYTIcHip1pe3oWQ4YPfaCnj9rwCx1uuIZqveE6xuuON0Q5fyNwo1hftIhAiqR7T/DezfClLPpo+5RPhtl23y99G+tVK7PuUdbbBsd5vQFTkFfDwgRmsdEJQv2jgy7b2K62OVlVvFCq/xS3J1uCB4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=FRjBh/1n; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=fo2HrRBE; arc=fail smtp.client-ip=67.231.149.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFC8D1DDC38
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:33:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791970436; cv=none; b=LbAYt9vY4uWsfMpKJkwJiiMFkxSgQXHn0YU1CzYHIT62re5QGt8tqi/nBCEKcB+M1Obfgjt4n33EYpFtsSWV1yG2Q2OEDF65kRZXGBPXHjDyHzmfKtchzYUMG+T+6Skz63fQjiySk7CPoChVFxaxdFw2cIuJR3THSDZkJA7i/sc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791970436; c=relaxed/simple;
+	bh=reQKcEIvQM0dCEMWSzjP4wdn7mPpUb0mpn7KCEZj1HU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XyOrICEXzaYzF5Fjvhw8pPTa/kjhEq65RkGAqLr9PYpl4mtDionLt9RJRoCLH6z+Rc7QZrYUms3pD+5PQsgLrG5sp7vbRZwHMMY4pWNsqsaNLKYOSjbuIuANYuEIJ/IRRvhmxjL9btRsd/QRu4yaxUaDlvsJkDsIxWolHjcJ9Ts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cN7adbFr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="FRjBh/1n";
-	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="fo2HrRBE"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69E9H3eG334589;
-	Wed, 14 Oct 2026 04:33:00 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=PODMain02222019; bh=fJcnPDfzwe8fBun+Jf
-	YEgSEkagRHbNxV4cuc/hgvj0w=; b=FRjBh/1n3fpNx8chq6w4SWzBejX854d7HK
-	LGGqP/2RTT3u43XBiItNrK3Wb3IGcDpwvVc2CTPO6eUGO0mBTg7Ut0mmK9PxoWQr
-	QUcXygcO8cmLjRF/ppaGWopURZbmDl3sFCrhRkR7TK5dAH/hCs/QWna9db+y8yQ/
-	qMrYojZxyAaZSGtGh6sLqhxx0Y2Kf11O76jzGb9HbOqx9uZNdPfXfoOGsNKOJJBU
-	irGIq6aqrJ23hwAQJIy61W43Zofvze2QBMOOMjwBEGjbUTkJdLQ7cC0GTI1+2fmZ
-	TzZzioBiPNBg2JsRgqW+uACaciGlSEbzrhmmVYR6gj4EMeFIzzCQ==
-Received: from sn4pr2101cu001.outbound.protection.outlook.com (mail-southcentralusazon11022096.outbound.protection.outlook.com [40.93.195.96])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 4h7jrxdc3x-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 14 Oct 2026 04:33:00 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Os/v8zg6nuuKHjZiq9GFZOBqKe8k3boSsZjzBpZWWfA5kfrqJmokB7v35+wt5coXY6K0P9MNTFCYOeEXdNWHzChoiSdveHEhgrrCGEyHbbNHFgGg7viNvFQ57h25yU6Fq+JDAv28aUCCqtQyU15jUPvRhp2IfpepoHPDt1lzdXi7aGMP+oaMakwuQg42omMv9dsYsZ9V9/rPJhT7Gor4snipcjO3TSQz++9UnkijWBbZmgRXvIZdscSEPFjuHJHgQdBEJhLNMF7rDGJTIMmoStMZW/RDV2JV6JdMbDdWWXtYSUHBS8+8ELy0oJ80MYIxHZhETEMKSlJckKYuibG8GQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fJcnPDfzwe8fBun+JfYEgSEkagRHbNxV4cuc/hgvj0w=;
- b=QZ7nS4S25kUVjqMNp28n4GzxqeYT9UCpNUBBWF2aMT7I564XJpfC5tZzFQHBxP9J2itSpytGg5TMVTw+cJpgiHIWaxzQW4N4E5ahNSrG96u8DhyhFEXcZ0L94pvCTMIIQd2ZdxTBGNxKIk9rX7Zmma2/iTmLng9i+QoxUPFe5um0NNPMmMb9mJVbhpZ+18T9nxTIkSGu2tsQ4tcddao74LPG9H5iLqjCb/1GN/Pe0DNt92VdnJ7R/zog368XB+eRgYXYdSCU242swiYdyKQbAt1yRLLYzoGywmGnCcTOa6A6b2RJGvjJV4Gx1RR0ac5TTaT0UgOwKQyZgrnpqbAt/g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 84.19.233.75) smtp.rcpttodomain=cirrus.com
- smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
- action=oreject header.from=opensource.cirrus.com; dkim=none (message not
- signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fJcnPDfzwe8fBun+JfYEgSEkagRHbNxV4cuc/hgvj0w=;
- b=fo2HrRBE3wvDYknCI8diYIkLtDcvVyo6vAn6pt7SkeMr80OY1ZoeFcuGBgosRug7hgwwBzVO5fyd04Xlqs2sca6Yd6GyOtmUlC/fZ9pbVMeomMkS2Zz0KWpr40RLuA/EiMZiXjleJdP42VAGF3dDjv5nVporfx9NxLQRldU54KU=
-Received: from BN0PR04CA0110.namprd04.prod.outlook.com (2603:10b6:408:ec::25)
- by IA1PR19MB7687.namprd19.prod.outlook.com (2603:10b6:208:3fa::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.19; Wed, 14 Oct
- 2026 09:32:53 +0000
-Received: from MN7PEPF0000014A.namprd04.prod.outlook.com
- (2603:10b6:408:ec:cafe::80) by BN0PR04CA0110.outlook.office365.com
- (2603:10b6:408:ec::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Wed, 14
- Oct 2026 09:32:53 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
- IP is 84.19.233.75) smtp.mailfrom=opensource.cirrus.com; dkim=none (message
- not signed) header.d=none;dmarc=fail action=oreject
- header.from=opensource.cirrus.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
-Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
- MN7PEPF0000014A.mail.protection.outlook.com (10.167.254.36) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.6
- via Frontend Transport; Wed, 14 Oct 2026 09:32:52 +0000
-Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 41DF8406540;
-	Wed, 14 Oct 2026 09:32:51 +0000 (UTC)
-Received: from opensource.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 320E7822551;
-	Wed, 14 Oct 2026 09:32:51 +0000 (UTC)
-Date: Wed, 14 Oct 2026 10:32:50 +0100
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: HyeongJun An <sammiee5311@gmail.com>
-Cc: broonie@kernel.org, lgirdwood@gmail.com, patches@opensource.cirrus.com,
-        linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 02/13] ASoC: codecs: wm8990: Fix definition of LOMIX
- AINLMUX Bypass Volume control
-Message-ID: <as9MQtj+keLEu49L@opensource.cirrus.com>
-References: <cover.1791959026.git.sammiee5311@gmail.com>
- <87b3bfa7711b61d89c21044d02fb3242dd934385.1791959026.git.sammiee5311@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cN7adbFr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C97A11F000FF;
+	Wed, 14 Oct 2026 09:33:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791970435;
+	bh=aTAovwM5NakhSZ8t6853G2LPiZdnb4fTpPRL9gDgslc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=cN7adbFrZTGK/JSRVznn+2URCCBEUXKpo4f5MMrQd41o3lm5B4MGv3/Gq1h3B7su/
+	 vpEOO0oMzfzlHiOK18skOOcFj7A0MS853y2x87PT3hms35iPZpks2zXEfNUdZkZhKm
+	 D+D7BoGZh2NAKDPuna7GnGGAAiQlBHXKoEL76SH/tDa9T0OhxSZ3oq9UA9k+1B4kyx
+	 yeBx0hJSPHGN9b3aELI4VFMA3YyLgMaGdoNC7whpq5H1R2HG69RtzMPI04+Gp3DAKJ
+	 25w68Iiebni7Ou0LZBGqQTsFVFx0y893Kc+J4xwEXIQAV+LHUowdxmwpyXqTUKkV90
+	 gvtO3EBDfewkw==
+Message-ID: <3bd88620-c245-4fab-abb7-9091d9a1b649@kernel.org>
+Date: Wed, 14 Oct 2026 11:33:46 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87b3bfa7711b61d89c21044d02fb3242dd934385.1791959026.git.sammiee5311@gmail.com>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN7PEPF0000014A:EE_|IA1PR19MB7687:EE_
-X-MS-Office365-Filtering-Correlation-Id: 03a83a5b-4117-4152-a670-08df29d61e98
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|61400799027|376014|82310400026|11063799006|56012099006|4143699003|16102099003|10067099003|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	u2huBccw4yGdP4qM+9HqFeloS/pY9pGOi/SeDnIhuhbfjVGp6NP8hP2xC2QP5kV+gC2TmDDZ9XDzuWsjAhaPMxTZXDU9apX47oViPcVPtpCbChonW8Yrgbgzo5ByxZ0vErhzBQ3ORozKIoDLIhdNdporA1zTENJEbRrW3XumRsn22UPGcFEjZ0EF770ZABNlOBXTAB+DWirv1BB3wlmegsqT4k/oU1kDN9bLOMIBUmRmDHaSb7PpHpaYn6NJycdUda7l9exZrLqvTapJmCUssDgbhvNI/RjheUR/oYUltGiWJJC1U5fJR8Avydw8gOTAYULjbjbIWO6349Q1pSV3OHE53okn6amWsFZ0yd7x+wZoyur5whN2SZ4cy2Pu8gK4DKEJhe2UMipaWOsnSIaj6WtMu94Wri+EyAdihFbePDSZWZ1NuSSBuPEz+/IVHdVlQjCkoPKzoUFqFahFXrdG7lbeRxDtmuw4W6foc48aNBXSnQV1kQbrsnwnTxopBf36oiVNokG6sTJMJnI0tRlL16ArIaNQh3Ei0qAutbDchZVX9lWeWuOLj3oNmptW06wN7Oa0gKv8KWGtp/IJEoz4cU3koKeG5uiRedqsKsIb71Jam3Oy1Tkqm1C9uuOjQXRvo8+eZBhmt2EifwAhe5Kagib096OrXosJbssQXncsZQNM/4SoDPJ1Xv3npMOu8QQzQIpEyL1YmVz1c5whohAlxQ==
-X-Forefront-Antispam-Report:
-	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(61400799027)(376014)(82310400026)(11063799006)(56012099006)(4143699003)(16102099003)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	W4ZJypTU2jK7576QwDsNqDgneLsl79reN3ROpZBewFg8rHSiu3JiRspxyBw0VBOUD6W4KipZ8oXv1bJ/NeNRdY2p8CQ9JhVzsT6dKFkLVF2FzEBSpA/Llcg5BZ1r5oB3xEdQMEh/r711mUOmTSITK/rU1oDRM04rn8ZkYOSXHgn5GSh2Oq9XeyrJYKC373ybMmljWAtDG6NXQpg/iXFmM5SgfxaawqvXxddVXaLAAD7SLgcYsUcgBOqtzNmQu5VtO0C2SLTP3cxlIRAqbjqArdhYz0eY1OUn8SQmJca6Y9ZDr6M39vUfO5OKKqVDjWvmQdkj01mK2ccbOydrF60o6Ep0T00Gm/g1Vmud8b1onbLxAedzRXwoKhT30sKvOB5Ym9DuNmnGLXEBsm2y3fbcKoGDeNcNILJiBCACkakJGDvdiVCGOlNupE3DUEi15M8z
-X-Exchange-RoutingPolicyChecked:
-	oILl2onaFVnNo2NKmmmiYxWqylUeTzTdKGsZNPr18d+gRtaZCCyGNa+x111104ZsttrQEKuDyWCWZ+SUSpeKrS+nJG3Jd15Tz7EApgq/OA0U9ZzKHF5APlqEXwShxha8f6mvNxpR/yTxMfVQtREtfYSps3dR08ozk+FZPc8rKtT1NiYESTYTAcCxsJLuH+IWFbpKVDzEADYkzo4rgwx6njAzu2NsU6cKpgmxVSnX89P51dIIxjg4HxhCkt1+RpA4DNV279v1J8o6VEh4Xkw/TrCFkLRAoW+81orG+kYD1W5Vvrr/79LT0UzCFvLMDO/wSyA/9xgOYBRhpUbt105zHA==
-X-OriginatorOrg: opensource.cirrus.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 09:32:52.0888
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 03a83a5b-4117-4152-a670-08df29d61e98
-X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-MN7PEPF0000014A.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR19MB7687
-X-Authority-Analysis: v=2.4 cv=A/n5rKWG c=1 sm=1 tr=0 ts=6acf4c4c cx=c_pps
- a=DKZP5JzZ8AWO9Vvd/xN3Jg==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=Dj2-6B8FqX4mGL0U3gbX:22
- a=pGLkceISAAAA:8 a=w1d2syhTAAAA:8 a=5BaI5pJLSwOFNK2hHz0A:9 a=CjuIK1q_8ugA:10
- a=ZXulRonScM0A:10
-X-Proofpoint-GUID: 4KvSNKs1wTsX-mXrCWT0PglTmNGYt-Qo
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDAzNyBTYWx0ZWRfX1wfbZT2eg2DA
- UqnON3ylilqtywHhhJyD8dacjCyjpHAAQEZJuysBRA0mnHygWxKH0IIFoA1ERQ3dk7U3c1b+vNz
- 9Ch05QcQXxOg1VQVaiba2mcWnNvCbRc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDAzNyBTYWx0ZWRfXw+XHRWopQquX
- B2lnZnaqSecglJNm3MtdqjV5/BwNi03P6MZHgKBwgDzGqyzsE0N5D82LCGKSeUQNApBrzKcDF4g
- zM9zyWrj9+MWH4Jl8CHRbLiTSfZFUDIOGysmZNBcNF+/VBTBnikjQhIWtR+uLlbQ4rW19Jz4Rg2
- ATgWQvOhZyKoRHZt31isqmP+o1j4Orj0IACd1/17I42CcvJQyaMZlmLS6b8o1SO0vq1oPLg6QLx
- 0J6WejiYwW6CVY9qDzYHym4jY0zWfjgI7boDpkSVtnTZD1mtmS3vfdIbBCERsciikkCIfgvIZQM
- hAnvZCCdldxvOXt8DT4uOn4YSBWAD+biey8/TJ6t4u6QIqhUVJvEVRCsQNxAxIvje6smOPrwLox
- nEieOtGHEab+ejjlfJVVgvROo1EiJvQFOCX1JKOd2yfFLR20STnGn340g48lScH4v31Hy3FkGwp
- 7ypsE+MAdedzBgjJu4A==
-X-Proofpoint-ORIG-GUID: 4KvSNKs1wTsX-mXrCWT0PglTmNGYt-Qo
-X-Proofpoint-Spam-Reason: safe
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 10/13] mm/collapse: open-code collapse_single_pmd() in
+ its two callers
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Kiryl Shutsemau <kirill@shutemov.name>, Lorenzo Stoakes <ljs@kernel.org>,
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>
+References: <20260928100630.21870-1-kirill@shutemov.name>
+ <20260928100630.21870-11-kirill@shutemov.name>
+ <b2133cff-ce69-4a45-bf33-c44b774dee7b@kernel.org>
+ <ar-nKHZ5hlbsXeFP@thinkstation>
+ <dfbb4bac-0def-4e1b-87a7-91c9cd91349e@kernel.org>
+ <20261013143839.832f1a4db51f801a2b95f850@linux-foundation.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261013143839.832f1a4db51f801a2b95f850@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 14, 2026 at 03:32:29PM +0900, HyeongJun An wrote:
-> The LOMIX AINLMUX bypass volume (LLBLOVOL) is at bits 2:0 of Output
-> Mixer5, not at bits 5:3, which hold the AINRMUX bypass volume
-> (LRBLOVOL).
+On 10/13/26 23:38, Andrew Morton wrote:
+> On Tue, 13 Oct 2026 22:25:21 +0200 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
 > 
-> Fixes: f10485e79882 ("[ALSA] ASoC: Add WM8990 driver")
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
-> ---
+>>>
+>>> I see the appeal of the single entry point for the collapse engine. I do.
+>>>
+>>> But it costs us on both the locking picture and the scan rate. That
+>>> does not work for me.
+>>
+>> So this is in mm-unstable and I want at least the first 9 patches to go to
+>> mm-stable rather sooner than later.
+>>
+>> As raised in person, I don't like the open-coding here; it just results in weird
+>> API. I wonder whether we can come up with a better interface, while keeping the
+>> locking as per your requirement cheap (scan performance).
+>>
+>> While we figure that out, does it make sense to send out revised patch 1..9 to
+>> move them to mm-stable while we figure out the remainder of the new API?
+> 
+> I've suggested to Kyril that we park this series until the next -rc
+> cycle.
+> 
+> But I can bring it back - we have a couple of weeks, three if we get a
+> 3-week merge window.
 
-Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+I'd say we move forward with the uncontroversial parts, and keep discussing the
+controversial bits. Either these make it still in this cycle or we'll simply
+have them for the next cycle.
 
-Thanks,
-Charles
+But at least some patches that should be good to go in would be off our plate.
+
+-- 
+Cheers,
+
+David
