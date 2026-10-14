@@ -1,104 +1,139 @@
-Received: from out28-99.mail.aliyun.com (out28-99.mail.aliyun.com [115.124.28.99])
+Received: from www262.sakura.ne.jp (www262.sakura.ne.jp [202.181.97.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4A5C5226B4;
-	Wed, 14 Oct 2026 14:12:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7951649F137
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:13:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.181.97.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791987172; cv=none; b=KCSyzQWvRA1uzfSVXe3wYlJN9yqhTWh/tPNCIXxFjYGFvijLIUwjD0IjH+YZ362mlC3W+Iix+GLjN+o1FP0peW/vdObZQRqn8MjVL3FB8xEjBP3N1r02V8YxnqJwcq/SNTWqMK0yCc5uLQNqy1hY8ORPMVhHkEdI6XGPCRyTql0=
+	t=1791987185; cv=none; b=BjcATDCuUn7iv4/n5yZA7KGMLqqkpG8da35LHEmAAgAXAh2F7E7g3TR1qnogHnIU8R64bXBWi+VLpUVXsTcHT5eTWys8CGZwfPgiFmkLS6GhGunNsjPVq5Y1B9/s68kHdmVXdtzeLx9wT6NqShrdP2thaQ0vDpIgKtx5T10B3n4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791987172; c=relaxed/simple;
-	bh=GpTQHn014kHtDu9Cy1gih2Gb2pgk5YYmJNst75WE+B8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=e3S4++Go6RUm+xMxQdPzxUTzeBk3Ht67BM/czeC7ffyW/TtddQQWLS7ygs9jsL9m2LkcdnFKVU3XiYYGLjoE830zfvi0S/Qs/qR8dMbm4q2QwO0ziQddVXtemh5q2nNUoDbKpXRaJ0XJ+c0QAXWyCY1UhpM16py1tNzjF7Gg2Bg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=A8K0Oxfy; arc=none smtp.client-ip=115.124.28.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="A8K0Oxfy"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1791987159; h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To;
-	bh=0k0CCSxZ3VQVXJcesjA69DqyGFy5bOLaWZHNcm970DM=;
-	b=A8K0OxfyB8TqPJhAKrkAMESMEp7bJ9EWur3zW07fAIsZRlAOqxq8qLy7DvC4FQ+QvS2OHHWBIzEuDDnpg6KUOMKg3ZQbfl1T38+QcBfsHdrxHdsLHHnGQaEzT4Htr/GH8m8BYqDpqii+9WMQXd3PNGKDKFuLirHpL32tHzmncKY=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436963|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00535965-0.00100108-0.993639;FP=11520330393198407248|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033023018039;MF=liuwb@xiaopeng.com;NM=1;PH=DS;RN=8;RT=8;SR=0;TI=SMTPD_---.jdGYq.v_1791987157;
-Received: from 127.0.0.1(mailfrom:liuwb@xiaopeng.com fp:SMTPD_---.jdGYq.v_1791987157 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Wed, 14 Oct 2026 22:12:38 +0800
-From: Weibin Liu <liuwb@xiaopeng.com>
-Date: Wed, 14 Oct 2026 22:12:38 +0800
-Subject: [PATCH] spi: topcliff-pch: clamp DMA bpw_len by bytes not words
+	s=arc-20240116; t=1791987185; c=relaxed/simple;
+	bh=2R+j7PKxywR0zLgzJambMUNH/kA2nPdoA9MoEyXX3Uw=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
+	 In-Reply-To:Content-Type; b=bkRFDZobzSll6rub/TGI00VASPYJ9UvGS6Zr2DFtBV6xvuly1VSqNNkBUQCAZwYgaM5pb2eDPQlzUu50Yg8vPnPzOez+dM+uBozT4AIj3OBOPsQUk860PDQvL+61twPiOwWWUccLUbqIymZAm3G94nMSYh/reLMNhMwwebNhVZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp; arc=none smtp.client-ip=202.181.97.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp
+Received: from www262.sakura.ne.jp (localhost [127.0.0.1])
+	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id 69EED0Nb089247
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 23:13:00 +0900 (JST)
+	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
+Received: from [192.168.1.6] (M106072072000.v4.enabler.ne.jp [106.72.72.0])
+	(authenticated bits=0)
+	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id 69EECkdf089205
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NO)
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 23:13:00 +0900 (JST)
+	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
+Message-ID: <450c6828-9187-487e-a219-f64e56d34fe7@I-love.SAKURA.ne.jp>
+Date: Wed, 14 Oct 2026 23:12:45 +0900
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: [PATCH v3] block: avoid long sync_blockdev() under disk->open_mutex
+ during parallel close
+From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+To: LKML <linux-kernel@vger.kernel.org>
+References: <17fb5b42-4f54-41db-8bcb-2c13e05c6137@I-love.SAKURA.ne.jp>
+ <d52496da-fb19-4b60-91bc-76402822c6b7@I-love.SAKURA.ne.jp>
+Content-Language: en-US
+In-Reply-To: <d52496da-fb19-4b60-91bc-76402822c6b7@I-love.SAKURA.ne.jp>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-spi-pch-bpw-clamp-v1-1-3e04b3ac5106@xiaopeng.com>
-X-B4-Tracking: v=1; b=H4sIANWNz2oC/x3MSwqAMAwA0atI1gbaUBW8irioNWrAT2hBBfHuF
- pdvMfNA4iicoC0eiHxKkmPPsGUBYfH7zChjNpCh2hrrMKmghgUHvTCsflNsArnBU9UY8pA7jTz
- J/T+7/n0/kS/V1mMAAAA=
-X-Change-ID: 20261014-spi-pch-bpw-clamp-7c24ba25702a
-To: broonie@kernel.org, linux-spi@vger.kernel.org
-Cc: grant.likely@secretlab.ca, linux-kernel@vger.kernel.org, 
- tomoya.rohm@gmail.com, Liu Chao <liuc63@xiaopeng.com>, 
- stable@vger.kernel.org, Weibin Liu <liuwb@xiaopeng.com>
-X-Mailer: b4 0.14.3
+X-Virus-Status: clean
+X-Anti-Virus-Server: fsav211.rs.sakura.ne.jp
 
-pch_spi_handle_dma() computes data->bpw_len as a word count
-(cur_trans->len / (bpw / 8)) and then clamps it to PCH_BUF_SIZE.
-The DMA coherent buffers tx_buf_virt/rx_buf_virt are allocated by
-pch_alloc_dma_buf() with dma_alloc_coherent(..., PCH_BUF_SIZE, ...),
-i.e. PCH_BUF_SIZE bytes.
+Commit b849dd84b6cc ("bdev: Reduce time holding bd_mutex in sync in
+blkdev_close()") introduced a sync_blockdev() call immediately before
+holding disk->open_mutex. But this check was racy and best-effort basis.
 
-With bits_per_word = 16 the copy loops handle bpw_len u16 elements,
-so up to PCH_BUF_SIZE * 2 bytes are written into the PCH_BUF_SIZE
-byte tx_buf_virt and read back from rx_buf_virt, overflowing the
-coherent allocations by up to PCH_BUF_SIZE bytes.
+If more than one process concurrently called bdev_release() and saw
+atomic_read(&bdev->bd_openers) > 1, the process which actually hit
+the atomic_dec_and_test(&bdev->bd_openers) condition will call
+sync_blockdev() from blkdev_flush_mapping() (which could take several
+minutes) with disk->open_mutex held.
 
-Clamp bpw_len to PCH_BUF_SIZE / (bpw / 8) words and subtract the
-corresponding byte count from cur_trans->len so the remaining
-transfer length stays consistent.
+Kill this race window and make sync_blockdev() always be called before
+holding disk->open_mutex, by using a marker that checks whether lockless
+sync_blockdev() has raced.
 
-Reproduced with a user-space replica of the length arithmetic: with
-bits_per_word = 16 and len = 8192, bpw_len = 4096 words pass the
-existing clamp and the copy loop addresses 8192 bytes of the
-4096-byte buffer; with the clamp it addresses exactly 4096. No EG20T
-platform hardware was available.
-
-Reviewed-by: Liu Chao <liuc63@xiaopeng.com>
-Fixes: 7d05b3e868ee0f ("spi-topcliff-pch: Fix issue for transmitting over 4KByte")
-Cc: stable@vger.kernel.org # 3.4+
-Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
+Assisted-by: Gemini-Pro
+Signed-off-by: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
 ---
- drivers/spi/spi-topcliff-pch.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ block/bdev.c              | 35 +++++++++++++++++++++++++++++++++--
+ include/linux/blk_types.h |  1 +
+ 2 files changed, 34 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/spi/spi-topcliff-pch.c b/drivers/spi/spi-topcliff-pch.c
-index 98723042c16f..1603a5f1e00b 100644
---- a/drivers/spi/spi-topcliff-pch.c
-+++ b/drivers/spi/spi-topcliff-pch.c
-@@ -934,9 +934,10 @@ static void pch_spi_handle_dma(struct pch_spi_data *data, int *bpw)
- 	}
- 	data->bpw_len = data->cur_trans->len / (*bpw / 8);
+diff --git a/block/bdev.c b/block/bdev.c
+index cd8323083740..c71dacd0c2b1 100644
+--- a/block/bdev.c
++++ b/block/bdev.c
+@@ -1155,6 +1155,7 @@ void bdev_release(struct file *bdev_file)
+ 	struct block_device *bdev = file_bdev(bdev_file);
+ 	void *holder = bdev_file->private_data;
+ 	struct gendisk *disk = bdev->bd_disk;
++	struct block_device *whole;
  
--	if (data->bpw_len > PCH_BUF_SIZE) {
--		data->bpw_len = PCH_BUF_SIZE;
--		data->cur_trans->len -= PCH_BUF_SIZE;
-+	/* DMA buffers are PCH_BUF_SIZE bytes, bpw_len is in words */
-+	if (data->bpw_len > PCH_BUF_SIZE / (*bpw / 8)) {
-+		data->bpw_len = PCH_BUF_SIZE / (*bpw / 8);
-+		data->cur_trans->len -= data->bpw_len * (*bpw / 8);
- 	}
+ 	/* We failed to open that block device. */
+ 	if (IS_ERR(holder))
+@@ -1167,10 +1168,40 @@ void bdev_release(struct file *bdev_file)
+ 	 * of the world and we want to avoid long (could be several minute)
+ 	 * syncs while holding the mutex.
+ 	 */
+-	if (atomic_read(&bdev->bd_openers) == 1)
++	mutex_lock(&disk->open_mutex);
++	whole = bdev_is_partition(bdev) ? bdev_whole(bdev) : NULL;
++ retry:
++	if ((whole && atomic_read(&whole->bd_openers) == 1) ||
++	    atomic_read(&bdev->bd_openers) == 1) {
++		bdev->bdev_syncer = current;
++		if (whole)
++			whole->bdev_syncer = current;
++		mutex_unlock(&disk->open_mutex);
+ 		sync_blockdev(bdev);
++		if (whole)
++			sync_blockdev(whole);
++		mutex_lock(&disk->open_mutex);
++		if (bdev->bdev_syncer != current ||
++		    (whole && whole->bdev_syncer != current))
++			goto retry;
++	} else {
++		/*
++		 * Mark sync_blockdev() being possibly raced.
++		 *
++		 * Theoretically, it is possible for a malicious thread to
++		 * trap a victim thread in an infinite "goto retry;" loop
++		 * by repeatedly calling open() and close(). In practice,
++		 * however, trapping a victim thread in such a loop is
++		 * extremely difficult. This is because the bd_opener count
++		 * remains elevated between open() and close() calls,
++		 * meaning the victim thread will observe bd_opener > 1
++		 * and skip synchronization within just a few retries.
++		 */
++		bdev->bdev_syncer = NULL;
++		if (whole)
++			whole->bdev_syncer = NULL;
++	}
  
- 	/* copy Tx Data */
-
----
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
-change-id: 20261014-spi-pch-bpw-clamp-7c24ba25702a
-
-Best regards,
+-	mutex_lock(&disk->open_mutex);
+ 	bdev_yield_write_access(bdev_file);
+ 
+ 	if (holder)
+diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
+index 98e21b4cbf32..d79bb4b6100f 100644
+--- a/include/linux/blk_types.h
++++ b/include/linux/blk_types.h
+@@ -74,6 +74,7 @@ struct block_device {
+ #ifdef CONFIG_SECURITY
+ 	void			*bd_security;
+ #endif
++	struct task_struct	*bdev_syncer; /* Not refcounted. */
+ 	/*
+ 	 * keep this out-of-line as it's both big and not needed in the fast
+ 	 * path
 -- 
-Weibin Liu <liuwb@xiaopeng.com>
+2.56.0
 
