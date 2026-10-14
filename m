@@ -1,208 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C96BE47533F;
-	Wed, 14 Oct 2026 08:31:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA6C747D464
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:31:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791966704; cv=none; b=b4VTCHN707zq54EEXi0m7aNPG6xh+/s6770xNEAI6XDILi3hQ1hQhXlStqSF17tHIYMxoJhggcWRtRa7n58ATWU3f0df9p/lzTutNV6x7Sw7zOM3TaBJUvJRKjg5ZUOlGLngQDJYOTSrK9o88CTc1uYpiguOeedcuj2vZAbEEfA=
+	t=1791966704; cv=none; b=c89PMuJjlHbgoYTAgkIUd6g6u39lm8Tl2fTU6OpT3tCE//+dKSeUebBj14ewYHTt9+pkPcpuFkOx303zFxnABVSVor23JGrD3DyTlIb24IaBynF9WURzp04IcaEOk1M34UsovHDXHJxzss0xO4h5XCb1tEHtvIwka2jlsifztDo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791966704; c=relaxed/simple;
-	bh=C8W9JgVIYssovpPEU0zGJaK4UFyFY6BOZNGPv8+7rHA=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=eEHxMGCq4zRKDL59W2je1b4HdvaLJlzByV1Cs3K+E5Eib16NX7DnYu8ktqMP64n9SaoZp515KPespKgxscSuDGqNSJTfAxfixuZ/EPgj1rU08e6Qz1FQPrGahwo+cKH6/bxMVE7wFdxovAsLfYp8gEGi/uihJIR32u5i37d2tGI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h0gcTCzY; arc=none smtp.client-ip=100.103.45.18
+	bh=v4qNB4gBxrVDyEyoMhbAek1SACXeb4y8XYsThT2ksjM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jmZ+qniXzXSAZRCb0aVzac/549U+OdKEdf8MJ7IFerpICOoyTkKRRfgab5kMHMmZrxqUX9+JxlY06cUh3bK4Rj4+4vTXY7ciwqFu2AhqfNOKps1ZNZL0hE4AuitMdwktoJg6uqrbPBURvSrrIzIXhKzVrKvutnvk47yFqRtjq5s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GFazlCiP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hdl2XFNv; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h0gcTCzY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF3221F000FF;
-	Wed, 14 Oct 2026 08:31:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791966702;
-	bh=nP5271TdDq5mtSWPhA6h1o7lRTe2O9XyNw7JqWW1dGA=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=h0gcTCzYZ/zfuU0RH/BpssNUvTwHnnutT7XZrodgJOy7CRSU5ddaaoVdO8mM+SD2k
-	 E0qmta3BF8qawVSOlwa3U3la4tLXkZStoifLpi8B5dZwdB9rxFBvVn2yEled+knD5z
-	 Didc8MU7tygKYAm38Y1xnOdpJ4UjkpoO9FVO7sw3DBGpa2BlEdr1G9H+5XgQcYa9Dr
-	 SC5Tbl5jjeMYh7IJFaWDxTQXKCkpNqY8VnKJsbKgbR4oHZTx+wyo1/aO+IU+VBYdXI
-	 xqdC1XuKQ/dhp3QU0JhAuqkffZ5YtH7h1mOmvRWdk9v8FlXFOI5qyq08N39HqINLvm
-	 EtOAFb9cGYf1A==
-Subject:
- Re: [PATCH net v5] net: pin protocol module before inet socket allocation
-From: netdev-bot+sashiko@kernel.org
-To: nicoyip.dev@gmail.com
-Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, kuniyu@google.com, horms@kernel.org, fmancera@suse.de,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Wed, 14 Oct 2026 08:31:41 +0000
-Message-ID: <179196670122.434549.312785395247126647@kernel.org>
-In-Reply-To: <20261013075604.868273-1-nicoyip.dev@gmail.com>
-References: <20261013075604.868273-1-nicoyip.dev@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GFazlCiP";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hdl2XFNv"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69E2RY5L3000901
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:31:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=dT7P391hZ9mUKzWVuhWqjH/q
+	Y+4mRg2DolVij0B5VH0=; b=GFazlCiPkIEo/hOYm50ghZbFhjttvY3jFwAKp0pX
+	HHIiOCshSZY/gOr2jJDZ0Vc4b3h7BK7Eq4AdzExOduBSPlDSecZfRmqiU19QDD69
+	hwgSC448fUQkk+848ggwXK39yKdlBaFIP+sy2icgHfajCZuXm1NhsrH2ffjJCA5p
+	j7anZOAR5n/LPO0sberWpeynTGuF8+VwNSvVGdMPH/PrRvqeB63mwYP1H+Wmsg9z
+	MJehOnhsmq/yM+JctHu6MGHXcP0t5/dIjNyKFAVJH/M851EX40o3WrKOvrffqfpC
+	EDuZl5FK+CxZHOz5SMHnlNacSESn7P0rOP73iyYAVQs38Q==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9sbeu0pr-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:31:42 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93cc7a6e4e1so1195141885a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 01:31:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791966701; x=1792571501; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dT7P391hZ9mUKzWVuhWqjH/qY+4mRg2DolVij0B5VH0=;
+        b=hdl2XFNvtE/J0+LzaAqgnW2PgiJnPkPm7WYTOoH0vS85b/CinlSEvJ/0NL2l4kSYFD
+         ZkAUz9WYgktKHVbAS5hD2c7X9VYqtIERVRdHxExTdt3xJjF8oVjKUOrCLnsyxUGoQ8ev
+         ueuuLdGuG39Zq50ThfEcttALAKMBtWZS7Lb5zdPOW0jXPkcZGe4tvliTOQKxFrfw8Rnw
+         BcJwpESGm8yAmWZr7Ldg9E4ZQHq6oFK9xD6SzYG/oR1tu5hdNOLC/d7m6TAkBTFXOWPG
+         HKAQuNrGHvGg8EM0Xtyspd808mtvO7E+u3lI/uEw6ho9ZR9SNT5pEdNei4Iaek0F1zNN
+         qLeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791966701; x=1792571501;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dT7P391hZ9mUKzWVuhWqjH/qY+4mRg2DolVij0B5VH0=;
+        b=b8kvOzLR2KhsnzNTZ2fbTuJJV8AtK7fSz8ZTmOLR2ytotycsPOFZlfqb0SX5vXeEHK
+         bUw1v1M3A66Iz8pG5j0KETZRDQQ7Kxx3rJz7DWmdEvQtrvXrfaTqyMf0vPc4cdl4W91m
+         8FyjdNriW8IFYqm+YXX+OvrOdyHTgJ/ZwaEW9yFn86EYo5wJE6yvTz6y9k7aTFE0xwau
+         CjiAsRkJyklJcsb3N93tax/Jto3d71rdXwaZ7eoU0jh/LqvvE81tNmLukHmgVhxrS5e+
+         A/0gcO3/157YhI3jGomdQEU+TSb/nY6X2JN2c2jJFlKfnsROSgu+wZfgrSHcn4XzIvjb
+         pTWg==
+X-Forwarded-Encrypted: i=1; AKwUvBzaPfLdrc0vX3LCIw4DoSCa49EiBViiUWg89uyjSRMi6LBBHw0nU4PLd7qkgvjlZqboUGlIq3hsIaCc9lA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJwto/VG85SMGbLJcSLsJOwd+1WLP5SNctR5l4/5mZ82QA/tDz8
+	07Fr2W/JCoiZfSoV2lAHP6OpIN8opULZgbEg4mFAM/CwYJf8iGOcRiohu9TmwDYkQ6tp8X6t7G/
+	MjDS7n9Fz/toXYpEqmJFGRlQdzu8pxGyq2DKR2gHKDXIcvulmcCOLnI3a8FqYR0MjCZ5XcjOT08
+	Y=
+X-Gm-Gg: AYBFou0QqMR98Iti95Hr0ApZoJnx1pgmp+rukqbOEJjf8qi3b75ZpmVQmNwTscvYe78
+	HLqY+Xs8Et6IsdomrN9EhpYjV1EzRBbQgDBO+//+85JnRu1Tkhm7gDmi53bA0eHTjhlwykQ7nvn
+	YQLI9aN0cIU8znlNHT6ySS28S8q/v4PkAz+qemIpmipwrovDHnEnEs8xhMiuu1eY+ojccCNrF6r
+	paGp7xAAff/+U4mrKT4BP8CVSiUzqU83pKFaA3UDY5S06PHmlGruNdg5lI9XjYkUj5gYFPE0RFH
+	7+m/dOFDTsHF4CctGmbgBiFo5peRumtsPIOch02nlgaXMmnlr/qzaOjtrQFw8icCFHRAXIyl3XB
+	2GGHzAqLOvQJ5fOzr
+X-Received: by 2002:a05:620a:1711:b0:93f:6f8:9d74 with SMTP id af79cd13be357-93f06f8a025mr81597185a.77.1791966700800;
+        Wed, 14 Oct 2026 01:31:40 -0700 (PDT)
+X-Received: by 2002:a05:620a:1711:b0:93f:6f8:9d74 with SMTP id af79cd13be357-93f06f8a025mr81594085a.77.1791966700159;
+        Wed, 14 Oct 2026 01:31:40 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.215])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48ded3874c6sm1682892f8f.18.2026.10.14.01.31.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 01:31:39 -0700 (PDT)
+Date: Wed, 14 Oct 2026 11:31:38 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Subject: Re: [PATCH v1 1/1] soc: qcom: cmd-db: Use %*pEhp specifier to add
+ some sanity
+Message-ID: <s2vow4fvhwczwj7hldtqntg6vmoqvxuub4dc6elvypi4cahv3c@kgu6lgndcu77>
+References: <20261002103209.875124-1-andriy.shevchenko@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261002103209.875124-1-andriy.shevchenko@linux.intel.com>
+X-Proofpoint-ORIG-GUID: tucxk72zUbholMNEpZIwnzY7I_tRSIK2
+X-Proofpoint-GUID: tucxk72zUbholMNEpZIwnzY7I_tRSIK2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDAzMyBTYWx0ZWRfX1qXiVofrZfSE
+ aPPWcNrTiuH11mNN2lHnTaZ9RLUP+fXNI/JP/P+LIgHmS6EZC6zVp0iS3rQ58vwZr6uB2N9dvqf
+ fnPRJR2nYUXLwbK4kqUh44Fyd20k6yR77bzqJmmIWl4ozIa8UTjJtGhoS7cFMl9JMihFvigXlvz
+ UUXysriPCCe1EJVzlEX4wAa3Iklo7F/Aydj5irRYFpJ0D4YHbYza1UWzRDL5TRgDHKuhUGXJMNa
+ hdEPCx5yHjgI63PggNFqU8yds92C9B9NbzNuN4d39/BVJXD0dp0Lxx4NVtQSfepV9LKYfEEy3po
+ /8cj0M3u6iWoWTKRaT9/YAqr0hE8/hTmiY8481ml8l/EdpOq8fz0Z7rxacaFb7QUIcrqkWZH3v/
+ dC07nDwy8xKrspp5/Ks+FFVdZ86pkegrZX7YFcoaJzgwvoaAGULgELMIgratrXPEIepftUIc5fY
+ RU85zY9YpsBt4T0XrFQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDAzMyBTYWx0ZWRfX6t5jBRpJ5bwr
+ KgWUi67564pQQfj4i1FsXyTxOhz/C+KBlCg4TuAUGC46ujoXfOla9rE/iAikzrdI0vYxODYdQXA
+ Zd48OWYO6NKzJMaIyaPmVbWg21XMXaQ=
+X-Authority-Analysis: v=2.4 cv=U7AHnuru c=1 sm=1 tr=0 ts=6acf3dee cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=Rt3kCFFBWhWisHNmluDamg==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=VwQbUJbxAAAA:8 a=QyXUC8HyAAAA:8 a=EUspDBNiAAAA:8 a=LSfqNlErfjkisOAvbMwA:9
+ a=CjuIK1q_8ugA:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 malwarescore=0 lowpriorityscore=0
+ adultscore=0 impostorscore=0 bulkscore=0 phishscore=0 suspectscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610140033
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On 26-10-02 12:30:46, Andy Shevchenko wrote:
+> As Sashiko pointed out in [1] the %*pEp makes the whole thing
+> like "no escape". To add some sanity to this the used specifier
+> also includes ESCAPE_HEX.
+> 
+> Link: https://lore.kernel.org/r/179089728102.434549.12368098081790653201@kernel.org [1]
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-Critical: 0 · High: 1 · Medium: 1 · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The patch closes the failed-module-init lifetime race only for
-  userspace sockets.
-- [Medium] A userspace socket() call can now fail with -EPROTONOSUPPORT
-  even though the protocol module is loading successfully.
-
---
-
-net: pin protocol module before inet socket allocation
-
-This patch takes a temporary module reference on the protocol owner in
-inet_create() and inet6_create() before dropping RCU, so a concurrent
-module unload cannot destroy the proto slab before sk_alloc() uses it. It
-also rejects userspace socket creation while the owner module is still
-MODULE_STATE_COMING, and exempts kernel sockets from that check.
-
-> diff --git a/net/ipv4/af_inet.c b/net/ipv4/af_inet.c
-> index 14ce01092fda6..5c02022c6c182 100644
-> --- a/net/ipv4/af_inet.c
-> +++ b/net/ipv4/af_inet.c
-
-[ ... ]
-
-> @@ -322,9 +323,15 @@ static int inet_create(struct net *net, struct socket *sock, int protocol,
->  	    !ns_capable(net->user_ns, CAP_NET_RAW))
->  		goto out_rcu_unlock;
->  
-> -	sock->ops = answer->ops;
->  	answer_prot = answer->prot;
-> +	answer_owner = answer_prot->owner;
->  	answer_flags = answer->flags;
-> +	if ((!kern && answer_owner && module_is_coming(answer_owner)) ||
-> +	    !try_module_get(answer_owner)) {
-> +		err = -EPROTONOSUPPORT;
-> +		goto out_rcu_unlock;
-> +	}
-
-[Severity: Medium]
-Can a userspace socket() call now fail with -EPROTONOSUPPORT while the
-protocol module is loading and will finish successfully?
-
-do_init_module() sets MODULE_STATE_LIVE only after mod->init() returns.
-Anything published from inside init is therefore seen as COMING until
-then.
-
-Before this patch, the only check was try_module_get(prot->owner) in
-sk_prot_alloc(). module_is_live() only rejects MODULE_STATE_GOING, so that
-check succeeds for COMING modules and the socket was created.
-
-For SCTP, sctp_init() publishes the protosw early and does more work after
-that:
-
-net/sctp/protocol.c:sctp_init() {
-    ...
-	status = sctp_v4_protosw_init();
-    ...
-	status = sctp_v6_protosw_init();
-    ...
-	status = register_pernet_subsys(&sctp_ctrlsock_ops);
-    ...
-}
-
-register_pernet_subsys() creates a control socket in every netns.
-sctp_v4_add_protocol(), sctp_v6_add_protocol() and sctp_offload_init()
-come after it. So the window gets longer as the number of network
-namespaces grows.
-
-Suppose a daemon calls socket(AF_INET, SOCK_STREAM, IPPROTO_SCTP) while
-modules-load.d, or another socket() autoload, is loading sctp. It would
-now get EPROTONOSUPPORT, and applications usually read that as "protocol
-not supported" and do not retry.
-
-A second concurrent autoloader can hit this too. If its request_module()
-returns while the module is still COMING, the retried lookup finds the
-protosw and this check then fails the call.
-
-Would it work to drop RCU, wait on module_wq until the owner leaves
-MODULE_STATE_COMING, and then retry the lookup, instead of returning an
-error straight away? inet6_create() in net/ipv6/af_inet6.c has the same
-check.
-
-[Severity: High]
-Does the !kern short-circuit leave the failed-init case open for kernel
-sockets created by other subsystems?
-
-The commit message justifies the exemption with SCTP's own per-netns
-control sockets. Those are destroyed by sctp_init()'s unwind through
-unregister_pernet_subsys(&sctp_ctrlsock_ops). However, every kern caller
-skips the COMING check, and try_module_get() succeeds on a COMING module.
-
-DLM, for example, creates SCTP sockets with kern set:
-
-fs/dlm/lowcomms.c:dlm_connect() {
-    ...
-	result = sock_create_kern(&init_net, dlm_local_addr[0].ss_family,
-				  SOCK_STREAM, dlm_proto_ops->proto, &sock);
-    ...
-}
-
-The DLM listen path does the same.
-
-Consider this sequence:
-
-1. sctp is COMING, and sctp_v4_protosw_init() has already published
-   sctp_stream_protosw.
-
-2. DLM's sock_create_kern() reaches inet_create() with kern=1 and skips
-   the COMING check. try_module_get() succeeds, and sk_alloc() allocates
-   from sctp_prot.slab.
-
-3. A later step in sctp_init() fails, for example ENOMEM in
-   register_pernet_subsys(&sctp_ctrlsock_ops), or a failure in
-   sctp_v4_add_protocol() or sctp_v6_add_protocol(). The unwind runs:
-
-	err_register_ctrlsock:
-		sctp_v6_protosw_exit();
-	err_v6_protosw_init:
-		sctp_v4_protosw_exit();
-
-   This reaches proto_unregister(&sctp_prot), which calls
-   kmem_cache_destroy(prot->slab) while the DLM socket is still allocated
-   in that cache.
-
-4. The failure path in do_init_module() sets MODULE_STATE_GOING and calls
-   synchronize_rcu() and module_put(). It then calls free_module()
-   regardless of the remaining refcount.
-
-After that, does the DLM socket's sk->sk_prot point into freed module
-memory? If so, the next sendmsg, close or release on it would be a
-use-after-free.
-
-Neither the temporary reference added here nor the one taken in
-sk_prot_alloc() stops free_module() on that failure path.
-
-The underlying race is older than this patch. But the commit message
-lists failed module initialization as a case this patch handles, and the
-kern exemption keeps it reachable. Should the COMING rejection also apply
-to kern sockets that the owning module did not create itself? The same
-question applies to inet6_create().
-
-> +	sock->ops = answer->ops;
->  	rcu_read_unlock();
->  
->  	WARN_ON(!answer_prot->slab);
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261013075604.868273-1-nicoyip.dev%40gmail.com
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
