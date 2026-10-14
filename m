@@ -1,151 +1,126 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC34338B14B
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:29:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38EE547F3CE
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:30:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792006162; cv=none; b=WRVjEDXXQeZgnLlQc+QcssMl73nFwuEw5omPSdnB153gh0hinmsSVfk7TXbQ+EmZkQto/OWmtzMU9k3O6miA6myyVD+GGQ47T6JX6qxys0e/x0mMhgzUtfWWwuoA04EGMpZbMA9sgKlOEG/4Z6I2fgNgki+Oz+hMPD/lN7tXZOY=
+	t=1792006218; cv=none; b=BHLXDKAljElBYZ3aAuGMMnJQB+kGSQkU+lZNkArVD947Gt+ywZ9AsOOG+Xx/KRAYHX6p1Kx1P9yQHkCqtntKSrvUVu7jgAmyhZHYBFY4eKhIhp+30KNUC9c9pAANfilKpipNlFyLznP/sbQBaLxx7omc8e9uGVP9CrD+gTVJdZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792006162; c=relaxed/simple;
-	bh=IgHGxOxht8wBH37DC0EBY6hUp6ZbsnA9xBE5J8dasCU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OMmGMheCeeXZth22ItsZCI7jRqVBWB5EnDrtfNzD66WlNNIxnYP6ZUNqPZbUsT8XDd7nUYoj2cvKTZfDj/3ybwpxt64iUkOTP1/1ayXCnoE0yP8Ht0aIvlm+GoBB1bOdZa32BXe3I5qauUXgIe2dfypS+zow20Cq2qKZlxLNxMs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Lo5vJkfO; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792006218; c=relaxed/simple;
+	bh=Vo+C+VaDz8rRmsZiOg83Zd7zWAVcln5wCz63bpyC8tc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OBoixA4sqbFJrQY3SOV0l7VT8irK6KFwCI+CT/8QU1Mrt/AYvgF3ech/XzMG5ECH3iMaEuCcISOyRdA5MNjdA5hAlz9MICjuKfZEjXknAxDUABHCCPgLbJ++2e9xLwg5wkF8swzuUuS5u98rkri22cJFkE/Skq1V5GDOYrrDCbs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=PWIma+7y; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Lo5vJkfO"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a17baef589so12285615e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:29:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="PWIma+7y"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48dd33a7bd4so1208201f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:30:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792006159; x=1792610959; darn=vger.kernel.org;
-        h=content-type:mime-version:references:in-reply-to:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cGRgdcL3hYpLvnGFyKUFvjXygNKkl24WYKGarG/Ntdo=;
-        b=Lo5vJkfOP29LD/R/QfkTkv6takfwZNlgmhEP8Tu9gnYnmdv11WSWUkQ80hPBlbIgnp
-         9oBG2k6urJf0c2GoRxwEKGv4f265G0WIQnLIJNvWi6zz14owafOynsG+2PNXa/IQlCpp
-         QcqNAGK/KsAMHjTt9XTxhZXBSalpW0+tlNnbwW5lUi+NQq8s4tH3kaPDIbkHTk6q/iej
-         ciixRzbXHZ7+OaWSW+k1NmJQKHDx1meeyahyd+9tRxrNbmL/sLq11Z5MTMSlhdOqLpg7
-         vAFn2d9IBqpQeUT636FIoKTe8Q0/8CgyNG2mhL24VmQ5VzHFE/S1suVKwHXQOq+WYCab
-         H+tQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792006159; x=1792610959;
-        h=content-type:mime-version:references:in-reply-to:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=suse.com; s=google; t=1792006215; x=1792611015; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=cGRgdcL3hYpLvnGFyKUFvjXygNKkl24WYKGarG/Ntdo=;
-        b=J5fpFR+nPqe4NMpI22hphlONhDJiqRT31Oe40+Rje+5/Cd62z75BhEfzqUcAqzI9H3
-         Z3YAq1PZW4ykdeNC5gLAmB1aCIMevcdS9uwqvhdHL1gexsoicYfyGd1wyuf+DhOSA1Bc
-         L0OH8AMXGyKUDWYuBie8BJSRTiYbVhnqloEDbMFjioeElK/SMiEPWVLRa/AFNAiTlftR
-         /+DVYL0d/EoJ4uMBq5yJaGWpAPIYqnvwpcxjMFlCcMXk7UFw3q67hF6T30B3kBIKeXRR
-         vhiFsnBCSQOhj6+UDJ2UA0dI7yURncbRCn1R5wFb/f0gxxI7pughmX4kSE54h0vqOxOA
-         hNcA==
-X-Forwarded-Encrypted: i=1; AKwUvByboYvuCqxjIXUm8f1zVr3ArATRCqGYVPEss3V+uDzI48K9xA6CCedPVM+q5z1AjG7Lz0cXwBVM5OOVF4E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLkzHX6R7sXslOmtchiYq+ots7qacg0GwopiF8xH5vY4Gj/jClB
-	Je77wVK4vWfp+lKOZm60PX63m7j5gzFOK0lAASaEcc1nkiqIW/uC2K37
-X-Gm-Gg: AYBFou3zSKwQ8omw1APs6OLpWLwoPZoRJPnscxqGlq7oTnhNNJCrntNHfVLCVK91Nt+
-	QsCnMuBaZ0Gxt55Od76yEMQrJXwhjKmiZx5X6nY0Ft1VV+pVK5MYri29I/dSCPgP9f//vtQgftE
-	hF+H4tMd3XWVK6c/WDryY9LH3aVOiEKJNkM9TOy/n5jN0BSwX0dXqtu7bi+gS/DvgQGGVBGP5xu
-	WHmfqtWfK4XehxD6f8AO+z+llywODMJEp6Qbz691xtPtb2eaTMK83Pe4ITo0AAM3/Yfg0lZujYu
-	BJYOIsqd//5yDCodId6d9z5cz9SyFvH6N2BIn9GmzsVjIpD9FXdMTRdjySo+CUzMeYcheW0ztoE
-	3gK8FhAbl8HjvCU9IjToCTnjS0upx4/eCUD8hxCxc/rRKxeBEY92LUnYUUQ46tVPtbJVQQurcNP
-	5ZC0FIAi9Ii1zWEuyNq5H/BWQpkkWu0UAvUen68uB70WBvIEk+nCOKxyXdwTLl61v9iGHdC/G28
-	pmYkBXIJEf6HYQdcUjNVgKH91XNjCbnkaOs7VYm+vkRdt6woQY=
-X-Received: by 2002:a05:600c:524c:b0:4a1:825a:5726 with SMTP id 5b1f17b1804b1-4a18e4aeaffmr324226295e9.31.1792006158806;
-        Wed, 14 Oct 2026 12:29:18 -0700 (PDT)
-Received: from silicon.doe.home (91.141.74.240.wireless.dyn.drei.com. [91.141.74.240])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd6428b3sm15366385e9.1.2026.10.14.12.29.16
+        bh=2CNBamaaMCHB2WF9+SfyKf4vOVrbkIcaY3A7Ac/PFC0=;
+        b=PWIma+7y7+iKQfABmWoPx7Y0KZ0c3ZfM28yXHKWD9Hlgq6p8ZqT0qE88YotUMptdVc
+         9kA+xl/5j/gAP7p1CJ55GQa9eVLakLBmeqJ1THTW/B/VTSGG6NAyoMLeJoyqhe0w90mc
+         oD3DPK4fYSx5SKddkxGPKWIP/FPZoi52xoM0N8OvoHH2AgLL/aET0zPYhDL8Y8P0U+CX
+         8WwzWAn4ItrYfQ5ijmWGYyxZRi0NBakJQoUqzU3xbiiWNlOYgVTyML4PRwlyjEzdtbLp
+         yT3L0VP6+7k4oRACaiPHP1qU8cUrN7XOeLXh2b7/TZD+njMOpuMC54jQdYKHIniZeje4
+         iw+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792006215; x=1792611015;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2CNBamaaMCHB2WF9+SfyKf4vOVrbkIcaY3A7Ac/PFC0=;
+        b=Un4LbcXgP6DrtLKxbgAQELVVbL/+SGV+LZ5yUuJwZGCw8/kuyzkytYCoAcCnIb1S7g
+         I/+jHPH/Z50GJEkzn4aXrIr1e2BaihM1qP3NBCZ8vzrgYvja98uw0MgP748N6og0Vdst
+         whN2pN8wrJ7HYMDOfb+fQhD9B7HJUEld24W+vOC8CPaNsRcPiZVnxFgfxpfw6nitsFxC
+         ReVw6eYkLidQaGuf+4LVXKMyQC853VbjA/FrWF6YqZgH9sfSf+AMQoOZMk1gMHxgLxZO
+         JYBmb4rQwGkGD2Dn0pYLcvJGTBW9RMXs7S8LvvgjLCCz69k6sgqORItfkCg5qsfYqx3G
+         l5HQ==
+X-Forwarded-Encrypted: i=1; AKwUvByoXdbpUTLb6+De9lkQAV8mhDDAbjcxho6M2jZmOJ09Vwx2XpgQzMRhBugOCRl8z6aL6u8j2SebNX232K8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLk0AP2/Er0T2JmreWYMNy4qUJIG1W0ALoXIJhLTJ58vkruh8YE
+	EAPugXSFtMoAOOqc1Wh06zRHpFP7XCcs2o/nBQUjqAyhBK+caFIQDOmf4tBL0Zr9JbI=
+X-Gm-Gg: AYBFou3Y1Roe4IyvzBfcTPQnR0DbT+Jf5A8aShqp8Zn3E3pRAlERcxlKPlObioivGuI
+	erkKDepyZLfs3oCnA/3dFetYH1KFk9lwao6P3WTutS06+KMnrPfO9mrC7Uxd4kNZz2vmOgzNBq6
+	6KCAoZ7zsO15Z2g3PQKmeyPG9tk/yAVk+qHLP9QrMuSwG3DoyWjmRQLj2WrB8tzD6A1fMNHuDd/
+	cqn25T0gipb7Z0cMqmfBN1Jibkzk1Ra9KyllpzMW9oIIXefhqA9mkWb0rCUavX8Ch+y6lmi8QUm
+	jogoc2G6sXBIBOHQGCu/EuSYQcL/PjU4L2N4AKShfyG23ZsDCI47MKf+G5PC3p8qaDUi/h3JPmj
+	JC966YmJmQPK3yy0p84PCXhY1rwoLAlZeaOwHvcXZYhLGvFr05rqpEppY1gioGksmo8MD/7CGXv
+	pANMiO9n3z6S0R221BcIpIiPAgQ97By9cNuoxJrpW6VoZH+4U6vMeeWQNnmsBm5s95I9EZrXRBq
+	4rH1AvApFQ4
+X-Received: by 2002:a5d:58dc:0:b0:48c:77aa:2f78 with SMTP id ffacd0b85a97d-48dbacecfd8mr24520206f8f.56.1792006215459;
+        Wed, 14 Oct 2026 12:30:15 -0700 (PDT)
+Received: from localhost (109-81-25-183.rct.o2.cz. [109.81.25.183])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ab4f34sm14183540f8f.28.2026.10.14.12.30.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 12:29:17 -0700 (PDT)
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-To: linux-arm-kernel@lists.infradead.org,
- Navid Ghahremani <ghahramani.navid@gmail.com>
-Cc: arnd@arndb.de, krzk@kernel.org,
- Navid Ghahremani <ghahramani.navid@gmail.com>,
- Mark Brown <broonie@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org
-Subject:
- Re: [PATCH v2 20/24] spi: zx: Add ZTE ZX family SPI flash controller driver
-Date: Wed, 14 Oct 2026 21:28:05 +0200
-Message-ID: <bE7m-smAQceC5FbpqYFgPw@gmail.com>
-In-Reply-To: <20261014072109.1759502-21-ghahramani.navid@gmail.com>
-References:
- <20261014072109.1759502-1-ghahramani.navid@gmail.com>
- <20261014072109.1759502-21-ghahramani.navid@gmail.com>
+        Wed, 14 Oct 2026 12:30:15 -0700 (PDT)
+Date: Wed, 14 Oct 2026 21:30:14 +0200
+From: Michal Hocko <mhocko@suse.com>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>, Tejun Heo <tj@kernel.org>,
+	Meta kernel team <kernel-team@meta.com>, cgroups@vger.kernel.org,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH for-7.5 5/5] memcg: simplify high limit handling after a
+ charge
+Message-ID: <as_YRh2qflANGs5F@tiehlicka>
+References: <20261010210957.1350874-1-shakeel.butt@linux.dev>
+ <20261010210957.1350874-6-shakeel.butt@linux.dev>
+ <as9rj8KoF1oKO8rE@tiehlicka>
+ <as-sE3hZqFA_Wb5B@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPartn0EpJE-9SfSFuAAbPf508w";
- micalg="pgp-sha256"; protocol="application/pgp-signature"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <as-sE3hZqFA_Wb5B@linux.dev>
 
---nextPartn0EpJE-9SfSFuAAbPf508w
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-Date: Wed, 14 Oct 2026 21:28:05 +0200
-Message-ID: <bE7m-smAQceC5FbpqYFgPw@gmail.com>
-In-Reply-To: <20261014072109.1759502-21-ghahramani.navid@gmail.com>
-MIME-Version: 1.0
+On Wed 14-10-26 10:43:33, Shakeel Butt wrote:
+> On Wed, Oct 14, 2026 at 01:46:23PM +0200, Michal Hocko wrote:
+> > On Sat 10-10-26 14:09:57, Shakeel Butt wrote:
+> > [...]
+> > > -	/* Interrupts, kernel threads, and remote chargers stop here. */
+> > > -	if (use_worker)
+> > > +	/*
+> > > +	 * Use a worker for interrupts, kernel threads, and tasks whose mm
+> > > +	 * does not match the charged hierarchy.
+> > > +	 */
+> > > +	if (use_high_work) {
+> > > +		if (!iter)
+> > > +			return;
+> > > +		if (allow_spinning)
+> > > +			schedule_work(&iter->high_work);
+> > > +		else
+> > > +			irq_work_queue(&iter->high_irq_work);
+> > >  		return;
+> > > +	}
+> > > +
+> > > +	if (iter) {
+> > 
+> > Would it be much simpler to bail out on iter==NULL (i.e. nothing over
+> > high limit) right after the loop?
+> > 
+> 
+> I want this patch to not change any behavior. If we return here when iter is
+> NULL, we will skip a potential call to __mem_cgroup_handle_over_high() when
+> current->memcg_nr_pages_over_high > MEMCG_CHARGE_BATCH. Though I agree that is
+> very subtle and most probably unexpected. If we decide to remove it, we should
+> do it in a separate patch.
 
-Am Mittwoch, 14. Oktober 2026, 09:21:00 Mitteleurop=C3=A4ische Sommerzeit s=
-chrieb=20
-Navid Ghahremani:
-> Add support for the SPI flash controller found on ZTE ZX family SoCs
-> (ZX297520V3, ZX279128S). Implement tuned PIO to avoid redundant FIFO
-> depth reads, dynamic CCF clock scaling, 4KB operation chunking, and
-> optional DMA support.
+OK, makes sense.
 
-I'll diff this to the version in my tree and see what I can grab. I don't k=
-now=20
-if I'll find the time before November though.
-
-Thanks to Navid for testing the driver on different hardware. I'm happy it =
-just=20
-worked :-)
-
-> +MODULE_AUTHOR("Stefan D=C3=B6singer <stefandoesinger@gmail.com>");
-> +MODULE_DESCRIPTION("ZTE zx29 quad spi driver");
-> +MODULE_LICENSE("GPL");
-
-I plan to submit this myself eventually. Right now I don't think the state =
-of=20
-zx297520v3 support is ready for SPI (no pinmux yet), and the code itself ha=
-s a=20
-pile of todos.
-
-If zx27 gets to the point where it has the prerequisites  are upstream firs=
-t I=20
-can speed this up of course :-)
-
---nextPartn0EpJE-9SfSFuAAbPf508w
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmrP18UbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMywyAAoJED0TvMhUTxoiYhMP/3T4GABMIAqaQToNO4bW
-5MxJeHgXF4/Y9WgnyJpEShP1rbz33EBc9GonZUdR4gXd5G2lBmdHxOJFfyGr4BZ2
-x9peuvHNo/sPJyGKah5Vzuc7u8xZNr8btz5Ii84aQtIZVlaSpeR1S9cJBEmIlGZ5
-85/3Cj1IzgkVH+JcNEQtKzGzktNBoUBCnENMmwwH8ipgaaCcoIPgNAdRJpRFGzWp
-e2rxRXAy+myHu2LYVxxrO0oKjb282Zww4QOqfdlg87NALZPYwHwNO4c7pVgWILb/
-9jg/IXAuSj4ZL0/FmYT643GPLeqpIgkdD5wdY4o3tpJoi9CxTazQqp/8sZtQb4Oq
-w/TnwFEKasPUKrgJnsOjYBwAeSuRPeg5ru5+P25cZPiB9oEGB/HpZvlHHVW9LC8A
-Ife9JcUXnRYmOzyGIjhRT7QOX1BGxjiHKrN773QZetafZCvjMh2QnfTdb/1ENB9E
-qWDOEBNUdXjhbsT/d4pWn5pjdufUni20OcHlhBaOFMZFabF/nWdUFN+/wXKVP0BR
-twBNS/vtYkhD8LU/40uBOKzqHXOUVsnQn5R/hc5/LbvhV7mPnShsqf3Q2aMjfFHk
-pb5hJgqiBHD4iFUx/6Rh5tfnyT920sdUj1vB5gGOj6JZJ1pCGr5XJSAoZSBmy8Mq
-l+U83RloZSQSKjTwRix7tXWx
-=cqfH
------END PGP SIGNATURE-----
-
---nextPartn0EpJE-9SfSFuAAbPf508w--
-
-
-
+Acked-by: Michal Hocko <mhocko@suse.com>
+-- 
+Michal Hocko
+SUSE Labs
