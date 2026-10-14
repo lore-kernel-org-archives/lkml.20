@@ -1,167 +1,92 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A956052122F
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:23:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 20A725304BC;
+	Wed, 14 Oct 2026 15:23:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791991394; cv=none; b=Ct7oPvvkf8CEpAR8UfXR+tQBBLkKcsTk5BByHrFTKQhvmhThNJ8sKYCL1uHcrC6M1c6zpMVEAjJXmeiZMx8WbrGHgAO9chKm0gWYmdrQlda/gzdfgXa15mzjI+/zdge2mBGkjBZQ+wyM1XI+8fG2XFrrMZGvboEa8UMlyRXxlPg=
+	t=1791991408; cv=none; b=AK6IMgLSj1jYya+g41D6shXH+CpRdnVUg3rDKzNryQcgUy/uXP7zFhlQi3FOvLJVyW5p6JnedxSG9SVdbzpCnT6YdvOC7jH20+gTwlZGuOTNyxR1qXqZSq74R2jwX+uJZ6yCyiBg66S136pYDBA1rxg+Ti7dPB3TDlRAGWW9TKc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791991394; c=relaxed/simple;
-	bh=gKFZyYRMaW+yGT+qZVr6vtv3tDPMrkptapq2/kB3icE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lv0HJ7RiuL0IUmZN0QxQL+sYxevIlZncTJA6VnjAupCDZYtqoiVWGtuFFW/V3gi6Omh+Uo5eWr1bueiEsq8NOSLlwN6n8bsb4c8EUxTLqtsJXDZ2hIQLWZew0aGLesMpz/0lrh7W2CMWGIDQAVQH+X92eVm5yG0beQME0njF3bg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KFbK1YyA; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JdRiNJNt; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791991408; c=relaxed/simple;
+	bh=1DLWRMbZyOAA0rVioqQfDUzvKGaVa837pvjO2TrdaZE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mcSfQgzxsLW1PSZnjoH0/kWxsj3Qt97LTXL9FgNd9H35WNX1srb+Clm+PqkzWUEJMwzRq5A/6tbtmaw58da1Oweo7Eio1SobBDkR7APJCNJN9bRLzWQzV6kABiCLTc13rh0wvBu2QWDvxBIjpXwszVQQ/6/7fPQww2jfyQUoArQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=BiwEjp9u; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KFbK1YyA";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JdRiNJNt"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EFMi2b1682652
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:23:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	gKFZyYRMaW+yGT+qZVr6vtv3tDPMrkptapq2/kB3icE=; b=KFbK1YyAk2uiYjsb
-	uu4AAULQUxgDXyWgiaNDvbRph6/UlWZrH3ApI8eVIJgX9xdOnjfXfQksAuHcT+M5
-	SVrCo2qhRrqADx29GQV37tgKSQaKNT2/6ixn+eRerddPtJhuBqsM38p/gyJZicai
-	KbV98rVTA9AKoew+5fNnl6oeurINPpvoiGUy/NBw9LVv3lZYEG+5UuG6DcqchanZ
-	WIKAH8hRtD0vKSSKgmKy0hGLT9FlPFdF9Bz2z/eFFCYGw2VqzfE6fF4DHRRRWRR/
-	11wRy+AQEBf8gG1VofG7d+UpFSFFqMA+v2Q0HZT/IXT392so24+3NZO1vt4pZxX3
-	eHx8Ag==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hacb0002r-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:23:11 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-934a8cd3a8bso62692885a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:23:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791991391; x=1792596191; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gKFZyYRMaW+yGT+qZVr6vtv3tDPMrkptapq2/kB3icE=;
-        b=JdRiNJNtH/3ziQ8EvrwFXXvJdnyxUpTMzwsyunyiEa0jpjZo0h75MGxzBhl4FSR5+q
-         7dnjW5o8UoQS5nuWkHzrBqZBP09scQpXeEffNV+ZGG3EgDgkG5EbLTZl2XURUHSyOJns
-         pxODgoy5y9TdvokvmELW/jte8qpGtxE3jd7Q7cXBmda2yoOvnaL8Sf+2rY8Ds5nO+WeB
-         hDyd4PaYaTmnJFj677L+16iEeg7neZToLzqydFy3C02zfT3wv1+Ky50h4ma5kOUE7uaG
-         6R8raONwT8OWxa5t8GO6hOv/XoVQVabPc3Bt8rvykd25DVemXZPJoTGYs/IUqS2bbDW6
-         3oYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791991391; x=1792596191;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gKFZyYRMaW+yGT+qZVr6vtv3tDPMrkptapq2/kB3icE=;
-        b=A7mGLDav0CKkmjpCWstHSxG/LalwSC0WbSQfBUZ0DWZ37Usq7rUqM3RrVr5Ln0LutL
-         JGhBpMHOCsq/1pZw3SCSUBcX5c83xi2p/jR34WStWj2HLaS0K0lGWAcSA3s1KwRgprcx
-         dc4doUrLor03Ad1JZC+7iQmtQOkexuLDi9DZZHzCBPGV6gP5AwqtxksZl8elSP7OoCRN
-         bRGGIoWW85HOl26/Rh9wgDXFUOFNJxBYIFf4Wb+osKziiywWi7RsOj2CY60RJlJSLXKq
-         VbLxTAUi7UXtSp/oC5XVoLD5YwXoRuUUUrOr2w0SwOuRZ9uMfiGqbFZPKZABjfiSxv2Q
-         11FA==
-X-Forwarded-Encrypted: i=1; AKwUvBwq6lvrJpr4nqQ3I41c9kAYZdVFyHtcRwwBIa4c2dw89dLL55UuB4kz2QfYZLk+NE4GQwtfgvdhuWz7zpA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKNkoyNIc3Y1lrl/AEtIXj2Wn8BAVYhbhlCoMYvioXUHOq+VxnX
-	mwopvl4w1WrJ0ZbgCeAYIpksFYggIG/g+vjHaQM1RliczRfOlILXV0vX/R9QVfLb16BtxABhF1l
-	0/r413iUZjm/zdjiH6fIeQc6Ui9wagyEglpyLuWGc57x8xglFiwML68Qmavtk8t0TnkI=
-X-Gm-Gg: AYBFou2QXJ+q9Bj+s2yxVzsc28cXpiSIBKu9JXacUI5CfMTaY9b+NCkzydgFDTQ6od2
-	HKEMQqfjx+qXmrfLNnCV5N6Ac6dbrkO6CkMvx5XU2facKV5C0tDSin7MTd+2c3ThIBmOfSsVHJV
-	ADBSuv869KyRbyj/f6N9huElvPcIYgFrpKhQbVASLvKG9bIwm0umeZ/nKuOYTyN4kIY6p4joRVr
-	ub4ghlm9BBhWRnvtNuf8dZhi1akk0EUU3YJ0vmxezHUb7o63r0eIhcVaZPbEXrYJ41pLM/+nroY
-	+3O+hLvR3Ent+2kAMWFdH/AqqCWSrFLleBpHNCAnN6TEloQDRSQqP78WYAM0nRvRtXrl8Xcf+Gc
-	gr6+VgMc3U4QBuIAOpghoLA==
-X-Received: by 2002:a05:620a:6506:b0:936:2f59:dfe4 with SMTP id af79cd13be357-93ebcd2b830mr2689951185a.0.1791991390443;
-        Wed, 14 Oct 2026 08:23:10 -0700 (PDT)
-X-Received: by 2002:a05:620a:6506:b0:936:2f59:dfe4 with SMTP id af79cd13be357-93ebcd2b830mr2689944585a.0.1791991389881;
-        Wed, 14 Oct 2026 08:23:09 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b20383a22dsm1269905a12.6.2026.10.14.08.23.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 08:23:08 -0700 (PDT)
-Message-ID: <f5062eed-f619-41f1-9e7c-71a7405e34ac@oss.qualcomm.com>
-Date: Wed, 14 Oct 2026 17:23:04 +0200
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="BiwEjp9u"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DF9B61570;
+	Wed, 14 Oct 2026 08:23:21 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 32C683F7B4;
+	Wed, 14 Oct 2026 08:23:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791991405; bh=1DLWRMbZyOAA0rVioqQfDUzvKGaVa837pvjO2TrdaZE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=BiwEjp9uaNUxIi5ciO5EDAG5qEO3ENWk/lYMARr7Uggqz/ut2q3CTw8kTspOFi1zo
+	 lHQZGmwZP0ZENsvMT+FmZV5rbyvIcKrLhkmCA8C0J04SvgcNDM5XXlrPenFvd6Mrkj
+	 BUk3lDOPxmpqk7uJw7yqDFTdYVgi5JOvXJrteTiw=
+Date: Wed, 14 Oct 2026 16:23:20 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: "Christoph Lameter (Ampere)" <cl@gentwo.org>,
+	Ankur Arora <ankur.a.arora@oracle.com>,
+	Haris Okanovic <harisokn@amazon.com>, linux-kernel@vger.kernel.org,
+	linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-pm@vger.kernel.org, bpf@vger.kernel.org, arnd@arndb.de,
+	will@kernel.org, akpm@linux-foundation.org, mark.rutland@arm.com,
+	ast@kernel.org, rafael@kernel.org, daniel.lezcano@linaro.org,
+	memxor@gmail.com, zhenglifeng1@huawei.com,
+	xueshuai@linux.alibaba.com, rdunlap@infradead.org,
+	david.laight.linux@gmail.com, broonie@kernel.org,
+	joao.m.martins@oracle.com, boris.ostrovsky@oracle.com,
+	konrad.wilk@oracle.com, ashok.bhat@arm.com
+Subject: Re: [PATCH v15 12/16] cpuidle/poll_state: Wait for need-resched via
+ tif_need_resched_relaxed_wait()
+Message-ID: <as-eaNfjOAUnfvVF@arm.com>
+References: <20260831202251.305046-1-ankur.a.arora@oracle.com>
+ <20260831202251.305046-13-ankur.a.arora@oracle.com>
+ <178908146776.2725577.2613699832033292946.b4-review@b4>
+ <878q58z2ej.fsf@oracle.com>
+ <3e8bda45-0aa7-d0be-8aad-dab95902dcde@gentwo.org>
+ <as9EospGcR2e1mpO@arm.com>
+ <20261014130306.GK2009045@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH DNM RFC 13/16] arm64: dts: qcom: sm8650: Describe clock
- controller power rails
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-        Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
-        Ulf Hansson <ulfh@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Mike Tipton <mike.tipton@oss.qualcomm.com>,
-        Taniya Das <taniya.das@oss.qualcomm.com>, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-        driver-core@lists.linux.dev, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org
-References: <20261014-topic-qc_clk_dvfs-v1-0-3041b788e9f7@oss.qualcomm.com>
- <20261014-topic-qc_clk_dvfs-v1-13-3041b788e9f7@oss.qualcomm.com>
- <su6pmts36qj4hogxfthkrvjr2aod2r2u33onxifqanbarxk3tc@36qoces4rwor>
- <2ce49c83-b861-4a0d-8412-e8b3ff33bdd5@oss.qualcomm.com>
- <lyeiklz7kcjhotj43wir7xutru5wmjbrwfwauwbyzx5jcgpito@uyryg2sbmsf6>
- <924134e4-946d-40e0-8d93-2951aafda4f9@oss.qualcomm.com>
- <555cch3ceqlonpp5xgfrtxesppxolhuedabmw3twjjfspyoj6y@in4qkpalmuwr>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <555cch3ceqlonpp5xgfrtxesppxolhuedabmw3twjjfspyoj6y@in4qkpalmuwr>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=VKpIDNPX c=1 sm=1 tr=0 ts=6acf9e5f cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=Y8Q4aqK4LaMswZtuF5kA:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA2MSBTYWx0ZWRfX3f5NjI1+egJX
- JUjrVXU9B5UhAClb609d+bMaOwNN+NEf4nrcuv7CLByypWnc6ANfVkaLL4HHBm7A5b9gXy99SCY
- PNZSe8Pe9GNfIDYWh26IhgqExi/J+gQ=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA2MSBTYWx0ZWRfX/GYT6EAqXn+S
- wmy5E6+eHT+3ul7ZOe/OTwjg9ucUy4jihTl7gyySI7Ua23MG5vr9AwXXyDiQL5S6EdltjIG+Ekh
- C3Xa/vpeJJ/ortvT5lG+5ACDe83Rpf8wtAbS/FwU+hcR/ep29uCuUsk+gS2hPxkaqsqG6LD0cMF
- T89i9wJhJBqZT316ZcHdhFBmI/0uNok5ehwZ1dc+7h1SvGF67J+uHQCWmp600HdQfwLeJV85AT3
- MO+AM3Ms2OlJOKvOhmsTDNY4pyFB0/pr6ss8NtcwqYn0wTfXMrPpW39TyL+t9dU7If9RCpYRYN9
- CaleOgGOBj5VL63h9h/AZVnLPCNXrsFpP+ewvNEB3OdsnALlZb2oaLkd76tXoklBc6gQrkmJW3Q
- l+9QdxbrQpspPzajOidK1qiCp5YFfCAd6qjfspm7o8IQr9xNeODTF+MYECNvlcSaM4gQaeYIqDr
- P/HwMEdgO+8xOxHZ5Hg==
-X-Proofpoint-ORIG-GUID: zPZFZ67laLCcQTSOv0hzYFAjB4dDWMiA
-X-Proofpoint-GUID: zPZFZ67laLCcQTSOv0hzYFAjB4dDWMiA
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
- malwarescore=0 phishscore=0 spamscore=0 clxscore=1015 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140061
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014130306.GK2009045@noisy.programming.kicks-ass.net>
 
-On 10/14/26 5:01 PM, Dmitry Baryshkov wrote:
-> On Wed, Oct 14, 2026 at 04:36:11PM +0200, Konrad Dybcio wrote:
->> On 10/14/26 4:33 PM, Dmitry Baryshkov wrote:
->>> On Wed, Oct 14, 2026 at 04:20:08PM +0200, Konrad Dybcio wrote:
->>>> On 10/14/26 4:19 PM, Dmitry Baryshkov wrote:
->>>>> On Wed, Oct 14, 2026 at 02:19:13PM +0200, Konrad Dybcio wrote:
+On Wed, Oct 14, 2026 at 03:03:06PM +0200, Peter Zijlstra wrote:
+> On Wed, Oct 14, 2026 at 10:00:18AM +0100, Catalin Marinas wrote:
+> > It
+> > would also be nice to get some acks from the atomic infrastructure
+> > maintainers.
+> 
+> That'd be Mark and me I suppose. I don't see anything substantial
+> happening, just plumbing the new function.
 
-[...]
+Thanks!
 
-> Ack, I missed it. The price of doing OE instead of kernel for several
-> months :-D
+> Now, I really rather dislike timeout based schemes, but given we have
+> users, I suppose this does improve things. We should however be weary of
+> new ones I suppose.
 
-We really need you back!
+There's some arm64 precedent in commit ebababcd0372 ("rqspinlock:
+Hardcode cond_acquire loops for arm64"). This one went in without any of
+the arm64 maintainers' ack and we've since been trying to come up with a
+generic interface instead of reverting it. It was fixing a bug where
+arm64 smp_cond_load_acquire() does not evaluate cond_expr unless the
+pointer is also written by another CPU. Arguably the bug was in the
+rqspinlock code for not using a plain cpu_relax() loop.
 
-Konrad
+Anyway, we had several incarnations of this series, some with a default
+timeout but others objected to it (Arnd and Rafael IIRC), hence the
+proposal here that pleased most people (not all though ;)).
+
+-- 
+Catalin
