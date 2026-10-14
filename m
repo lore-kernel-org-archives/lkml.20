@@ -1,159 +1,112 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 728C04A5EB7
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:34:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A9764A5EB7;
+	Wed, 14 Oct 2026 22:35:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792017288; cv=none; b=eRDQReo9Yt85WqqJaafEjX/+ika7gqSNlYqGq3LmPJbb9a2opMyjdKmk1iNvJ5exCCRdVNfynxgHLKrBZukoh8YC5YG2iCGJaflAERvyjQ49QnhmV9ua/xXob73fYAGgaeO48UNSCy2Pfn4OyIC95bLTXgbhYDBWuwuc/U3TLeU=
+	t=1792017309; cv=none; b=qV/ejrM0ZQKJ4ZTr5fBNo2IyrrnJiWYGYD54EG7AXnXl55nQho1El86M+8PwKi/N+KkztI8CR1r+OMcS6dPoE8xZQzPQPZCNevcl6kBXMsk+uWip7ojwtTjILZ1dBRlsTlcui1qUE7c3euLX3mgtVmYT30LxNbaWEykcK65Xqs0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792017288; c=relaxed/simple;
-	bh=jvKieiN/MIDL0uMKt1BBJ3kYZRkWcRytAyOG613frss=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rDVSZE4YQlRCMlXfSB41b9ywRW4/yjHf8CjuNX28Y9Mli3SaxF8H2mwl+WVRJwA56gqY0zpJBlnJHGOOA0l0IYvDcYmNmYalX9oqZJwa/nfJzE/KTNuQZKFf0iT9DOtsq9gS/+vnJciI3MOckq/HSFcH48skH2no9BqftX3U090=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F6U+usxO; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792017309; c=relaxed/simple;
+	bh=AmDME+Tz+w9UcXrraGYGQuY678RxPXZRS4l65fAAWE4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AAdbi3QiMxY2Dwo+CtdiSNLQNF6botrRDM/Ve6kEyI3Qw8HNKmxgxYTMIQ75FEbG/pnXiI3r2oeMSsDqCDttGAeYE1YzMSQXD2nqe1JdWT+zIrVDczx7CwfhcME8ATBpHi43sH4ywBzvDtrroE5wmUhgtpvAaFHeojTZYG0EzsQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WqQWwC29; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F6U+usxO"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a17ce1dc00so9566765e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:34:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792017285; x=1792622085; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SmSt0lwwYpzoU3Z3FsPgmpJmsS1rTW6phAJMbyBSMEU=;
-        b=F6U+usxOSc8VA472o1QG4dbRVlIH/2J0kkMZHH6/tWlae5DaCaN+6hiAL3PQ+Bszm/
-         ecBXnUrH529WTZKiKh4ijr+6GE5IWxKHy0g70t4V0zkK+MQxNg23VDT3Pec8jw1EnF3i
-         VZZ1gD1J27d5+a9t++tQoGxb2Gno7KP7Y/zl/dBvD8vxCyy1Gz+aTmFZX3Vu0ZmaMSVj
-         t/eqhXGOyqUG6mG6dI0j5V2j4RK+LNtApPj4TfMDkfYZhBKZ4fxcn2NvRHF73+LtlqSm
-         lqHVXxZlQpaMVt0ISSzLbl2XpcUKAhUXJ3rJrqK7y0MQOc8XUwNUHH/bUzok+3ChFzF9
-         M14w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792017285; x=1792622085;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SmSt0lwwYpzoU3Z3FsPgmpJmsS1rTW6phAJMbyBSMEU=;
-        b=aynIllJp0R58kHq90Re7g/n+A1xzU/+iSh1bpVUOxqpj+GJGXr/MYo2QDZVTFOYZJc
-         eR3TaN777xk5TBLg12Cnft/mq0D0nlkRzTx4XRptdKyTB1vKsojRK7Zi8SZlg3NbdN4F
-         wUed0rN0IIJX1Kva+WmZfFs8Sj4NhYmpzASxznpP5AXzV4DpFDuFcmuxilmbSedLjbXo
-         exzCGpLBUMYko1HapmbFjH+1UOSlxJjC21BijV4h0AePNYwWyZnIs23QHqUCj0K9veye
-         4Y+RXC93fj+RVwHmvVaY8gICjxab/yBX+9Y0YnQ1MMeD8EuOhHJb/T7+Xj3LjntYVGNl
-         VAxg==
-X-Forwarded-Encrypted: i=1; AKwUvBzNHG1HBRG3GC11wlnr9+4EcGYGg5NZW9nKnmbAThBhLUMO0hzxMbq3y+kQ/HxouxQgfh/6d/riEqfA44c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ3gHn8fYopYPlSXO/0bRSt0S7TJh+wG1kmWnKuzRNDhk0UcdmB
-	cL7htt2p6qdiDZnYIwQDYHczNFTa6lHOr6IizwOasKNXXrmses8ylrUW
-X-Gm-Gg: AYBFou3MHrX/O6d6wTVZk58xE+IpQQvgLfpN1PqMq0APOH1KzQSNMnsDFX+3HfHBCpM
-	GhGn5xjxnmcKvn6TdrvNkf9PiXrEqlbAEoxfXinAy08K4p30u9Qv6kZnJjD7SNbR0TsLZoxy4Dv
-	nVAQwcZ9Yq07FMyxhJEcyBIzhetvU56SUKr9XX3Wz1iDLtGdhVOFpK0kRotzQq/jh5Ow/dj+Krt
-	hS5y2+7VtL2BjaUDpIOi8PzS9NC7UpSaPoNu3Il7yLOCZtV+N0TbtN1xrDGdV/bFjhpLqX7GyCP
-	iBrEvXFQkKaAruJwoomsGRoNch+re9Li4TUjOPogmOXO/Oya4qJ/oay901J9lMr8ihifyT6oE0s
-	qMBZPUYVOVzXZklftn/KFClHkEaVBFsnMnqrJrxIbH8cGhOMZ69xLwo58Pd1wTgVXqZEOX4pOM/
-	HQ+1cdIqdYeN6xc2RfCDcr2D8n1HNU7+5HejhNlB6D95f0ddRDVGu/wKaCb3/EHotiY0/cV1KTP
-	1cE6gNIGhxw+E1llbr8aIUzrHvsy2UiH3ZoDbg1
-X-Received: by 2002:a05:600c:1912:b0:4a0:1e9f:64f6 with SMTP id 5b1f17b1804b1-4a18e3ef211mr319239075e9.0.1792017285347;
-        Wed, 14 Oct 2026 15:34:45 -0700 (PDT)
-Received: from Nuel20.localdomain ([105.118.9.157])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1c1eb3907sm1071785e9.7.2026.10.14.15.34.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 15:34:44 -0700 (PDT)
-From: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
-To: linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	mchehab@kernel.org,
-	paulmck@kernel.org,
-	linusw@kernel.org,
-	Julia.Lawall@inria.fr,
-	gary@garyguo.net,
-	emmaonana18@gmail.com,
-	hemanth.selam@gmail.com
-Subject: [PATCH v2] docs: kdoc: strip DOMAIN_NS() wrapper in function prototypes
-Date: Wed, 14 Oct 2026 23:34:37 +0100
-Message-ID: <20261014223437.16164-1-emmaonana18@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WqQWwC29"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792017307; x=1823553307;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=AmDME+Tz+w9UcXrraGYGQuY678RxPXZRS4l65fAAWE4=;
+  b=WqQWwC29a0eycMorQZ5sdJlvUtFok/tl0tVp6mUaNv0G1eRmUynVlDgt
+   c325wffqCzpUsvDZEf2+IHsQk4M39iIkB4cHRIQSnCAqWMWYA3gE6VkHp
+   mr/k+CuTdF+Jep0ljDvqmoDnN7Nl6qIKLv+GOeXwF0ph6r76prMgF3LKq
+   T/9M0ziwxJ7Hu3IISkF5J3WvjbH84+MvvWE2Hv0Ca6m3irL2rmEVusiW5
+   xcZfwT+C4E1kwAdYhXlQ5BwEeSUJSjXnjsWgDyG38ABQlXh2TdIzQjoOz
+   wnONp35urJwqSHnKuURR/i63eob97EriGlaceMWiKhjNrrL+NWE3Hafe8
+   w==;
+X-CSE-ConnectionGUID: gZ5HcQ3oTkeBIFi5LFdHFw==
+X-CSE-MsgGUID: r3vQQzGCT6Gv0zFNHcgZaw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="659032"
+X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
+   d="scan'208";a="659032"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 15:35:06 -0700
+X-CSE-ConnectionGUID: DOunOLk8RbaLId/zN2tjMw==
+X-CSE-MsgGUID: +xMdiST+S3SP7XR59Me36g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
+   d="scan'208";a="1453123"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa008.jf.intel.com with ESMTP; 14 Oct 2026 15:35:03 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xH7Yp-00000000FGw-34Xe;
+	Wed, 14 Oct 2026 22:34:59 +0000
+Date: Thu, 15 Oct 2026 06:34:39 +0800
+From: kernel test robot <lkp@intel.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+	Sebastian Reichel <sre@kernel.org>, Ion Agorria <ion@agorria.com>,
+	=?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
+	Florian Krischer <florian.krischer@fkr.dev>
+Cc: oe-kbuild-all@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-input@vger.kernel.org,
+	mfd@lists.linux.dev, linux-leds@vger.kernel.org,
+	linux-pm@vger.kernel.org
+Subject: Re: [PATCH v11 2/7] mfd: Add driver for ASUS Transformer embedded
+ controller
+Message-ID: <202610150612.syb967F8-lkp@intel.com>
+References: <20261013173504.451391-3-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013173504.451391-3-clamor95@gmail.com>
 
-kernel-doc fails to parse functions whose names are wrapped in the
-DOMAIN_NS() namespace macro, e.g. in
-drivers/iommu/generic_pt/iommu_pt.h:217:
+Hi Svyatoslav,
 
-  ... expecting prototype for iova_to_phys(). Prototype was for
-  DOMAIN_NS() instead
+kernel test robot noticed the following build warnings:
 
-function_xforms is the designated place for unwrapping function-name
-macros, but it has no entry for DOMAIN_NS(), so the macro name is kept
-as the prototype and the real name leaks into the parameter list.
+[auto build test WARNING on dtor-input/next]
+[also build test WARNING on dtor-input/for-linus sre-power-supply/for-next robh/for-next linus/master v7.3-rc7 next-20261012]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Add a transform expanding DOMAIN_NS(op) to op, following the existing
-DEFINE_IDTENTRY_IRQ precedent.
+url:    https://github.com/intel-lab-lkp/linux/commits/Svyatoslav-Ryhel/dt-bindings-embedded-controller-document-ASUS-Transformer-EC/20261013-203457
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/dtor/input.git next
+patch link:    https://lore.kernel.org/r/20261013173504.451391-3-clamor95%40gmail.com
+patch subject: [PATCH v11 2/7] mfd: Add driver for ASUS Transformer embedded controller
+config: csky-randconfig-1001-20261015 (https://download.01.org/0day-ci/archive/20261015/202610150612.syb967F8-lkp@intel.com/config)
+compiler: csky-linux-gcc (GCC) 16.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261015/202610150612.syb967F8-lkp@intel.com/reproduce)
 
-Add a regression test for the wrapped iova_to_phys() declaration.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610150612.syb967F8-lkp@intel.com/
 
-Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
----
- tools/lib/python/kdoc/xforms_lists.py |  6 ++++++
- tools/unittests/test_kdoc_parser.py   | 22 ++++++++++++++++++++++
- 2 files changed, 28 insertions(+)
+All warnings (new ones prefixed by >>):
 
-diff --git a/tools/lib/python/kdoc/xforms_lists.py b/tools/lib/python/kdoc/xforms_lists.py
-index 15f6f21c7a9e..c9ce9bddebba 100644
---- a/tools/lib/python/kdoc/xforms_lists.py
-+++ b/tools/lib/python/kdoc/xforms_lists.py
-@@ -92,6 +92,12 @@ class CTransforms:
-         (CMatch("__diagnose_as"), ""),
-         (CMatch("DECL_BUCKET_PARAMS"), r"\1, \2"),
-         (CMatch("DEFINE_IDTENTRY_IRQ"), r"static void \1(struct pt_regs *regs, u32 vector)"),
-+        #
-+        # DOMAIN_NS() wraps a function name with a namespace prefix
-+        # (see drivers/iommu/generic_pt/iommu_pt.h). Unwrap it so the
-+        # real function name is parsed.
-+        #
-+        (CMatch("DOMAIN_NS"), r"\1"),
-         (CMatch("__cond_acquires"), ""),
-         (CMatch("__cond_releases"), ""),
-         (CMatch("__acquires"), ""),
-diff --git a/tools/unittests/test_kdoc_parser.py b/tools/unittests/test_kdoc_parser.py
-index 4baa78ca02b3..768a5f01231b 100755
---- a/tools/unittests/test_kdoc_parser.py
-+++ b/tools/unittests/test_kdoc_parser.py
-@@ -444,6 +444,28 @@ class TestContextLockStruct(GenerateKdocItem):
-         self.assertEqual(entries[0].name, "debugfs_cancellation")
-         self.assertEqual(entries[0].warnings, [])
- 
-+class TestDomainNs(GenerateKdocItem):
-+    def test_domain_ns_wrapped_function(self):
-+        source = """
-+            /**
-+             * iova_to_phys() - Return the output address for the given IOVA
-+             * @domain: Table to query
-+             * @iova: IO virtual address to query
-+             */
-+            phys_addr_t DOMAIN_NS(iova_to_phys)(struct iommu_domain *domain,
-+                                                dma_addr_t iova);
-+        """
-+
-+        kernel_doc = KernelDoc(self.config, "test.c", self.xforms)
-+        patcher = patch('builtins.open', new_callable=mock_open,
-+                        read_data=dedent(source))
-+        with patcher:
-+            _, entries = kernel_doc.parse_kdoc()
-+
-+        self.assertEqual(len(entries), 1)
-+        self.assertEqual(entries[0].name, "iova_to_phys")
-+        self.assertEqual(entries[0].warnings, [])
-+
- #
- # Class and logic to create dynamic tests from YAML
- #
--- 
-2.43.0
+>> Warning: drivers/mfd/asus-transformer-ec.c:59 struct member 'fmode' not described in 'asus_ec_chip_info'
+   Warning: drivers/mfd/asus-transformer-ec.c:59 Excess struct member 'mode' description in 'asus_ec_chip_info'
+>> Warning: drivers/mfd/asus-transformer-ec.c:79 Excess struct member 'logging_disabled' description in 'asus_ec_data'
+>> Warning: drivers/mfd/asus-transformer-ec.c:59 struct member 'fmode' not described in 'asus_ec_chip_info'
+   Warning: drivers/mfd/asus-transformer-ec.c:59 Excess struct member 'mode' description in 'asus_ec_chip_info'
+>> Warning: drivers/mfd/asus-transformer-ec.c:79 Excess struct member 'logging_disabled' description in 'asus_ec_data'
 
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
