@@ -1,139 +1,217 @@
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C66BD3C456B
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 20:37:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5E6B1E8826
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 20:38:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792010258; cv=none; b=JXqmx05ao4LU5WErHTaT4mhE6mwPe73V4q/rwJSRe+5k0dOTYYaBKlMAtyiJHld81xQMJ2iHNGXvgs6j++++HLEHJpm5Kq+DatFPg6QE7WmV8rOB9My+GF804CpnjxlDKOTOe4Vr2D+wPIHc2hWFsK9QL/BJbKCHz/zn4RW5Zrs=
+	t=1792010317; cv=none; b=aX6zUY312hHoUdA7dwWBENXnHZQ8JPn6s6d/aq7iMXlY6oUaKAGzYA+J+XAHDFei1XwL4iBKimSgRJ/RA5MeGUPjET+oRh9BOsYfTJ8oo/o7q6AN/evx/30lh6fmdx86Chb9MTvkpqUSRWffZoi82Sku8kdV6o8voNLdxLB0ouY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792010258; c=relaxed/simple;
-	bh=blewOPL1WdzK1u7y222FjCGpK1+bj18fRPdMFtJmPcs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=coKwDa299l2T6SBAuTfgBULGKqMRvm03SKQhrMCjOP+xrRCc/oH7lhBYDe08Pt8fxiQTJ6iCuelxPDrZ3kOYMsIRPGo5MhTiKtJbGCXeneWqe19CBYahP/zjNWJYlVk93z9YH/y4Ph7vwL4rHXP90jfXBeF9vcwBk6zZcr/CQ4E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=qSI7O4Ri; arc=none smtp.client-ip=209.85.222.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	s=arc-20240116; t=1792010317; c=relaxed/simple;
+	bh=JoGPBXpoXq4TjNGJ7QeisPE4tusEKomuol6GAkp99TQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rMl+TZMet0DInUqNaM80qstzPwossZTvdjS1o4VdKzn/saLKRicrAEye5rOm/uCws3y90NEk4o/pzx3mKD5FVWGfxCDtNWT1vFm9YSDR44rNl+ZWoWZIoQ/s/CZvj5L3eKnW8MnAYKdxv5DvJ6iNIdza1cJQNJv3Ylid/nLp/eo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dbiUJrEm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="qSI7O4Ri"
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-930c0f9c1b1so479966985a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:37:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1792010254; x=1792615054; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8jmkZ2iZY8eFbnVPoRrHfgWIjC40ttpxwtqJ35UT++4=;
-        b=qSI7O4RipAsTLh3r89x9I+EEDIwhkIS4gCd6e6ks/W7gjMsK/OtxuphTOHHVmttbXC
-         TcXgZdOhY15q28Y/dnf49NZRYzBRJQ1eZVVDx93Nr/y4DhdCsu/qxutd75c1TCssnImu
-         gG/6OybINTmp/qBKDx/aafgi5anr/rqo3EnlUqKinO2Q1fXrSFpazHjZRDtyPHuYPLXH
-         NnYhZj0CEVW/a566eaRyQLIq4pnZFt5gqv+X/ptUiUTW5bzAxa7/45X2UFN/J/9dO8Cn
-         DZluzhj2ij5HTf8VSeDRAWwFdwOhuWFXBHQKT3GPI2hspsyHpueKLbjuwsKeulmRdkOh
-         CR+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792010254; x=1792615054;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8jmkZ2iZY8eFbnVPoRrHfgWIjC40ttpxwtqJ35UT++4=;
-        b=wuRjFMHJSF3+QItvEdRkjyABYiNDIyjqaWLXYAIzMjVIdZCs1IJDLq0bWxApDPle9Q
-         XJYhHOrLxIYpeKmSZzH5WjNuCUGfG0rPKitqjY6Zw750UBCu1GY2/O3hXN32VN/E1owO
-         XN2bLi/sMIPxtXFySwQvnzAbekTrC4z4kQcPWjp1Ry3TImLzvSgQcQvH+rcHbhPPUBmD
-         N5hNyTdXh938BG8J0acTyIK7wfGnATa0ZcVgUgejddKosM2ZtA97OXQWwl8rRFN4BwLt
-         PtaltCwMiar0HyvUN5AW8/VJJpL5/F3yK2G5n2WtaMoxZJzhsLm1ERTk0zlW/rwWE4ii
-         x2zg==
-X-Gm-Message-State: AFq9FYIzHuLdqTo37XEgldz/CJ7sdHMs1BlQODMEIdey16elinvDHmyP
-	Zse0zNY+5cTetlhtGUkFOerrNgV7+5F4pb+XIdvwnyJzCzMbfR5G+OsF8y+aMcD7NeQ=
-X-Gm-Gg: AYBFou0w2lca+Kcj+nGk0o5FHIcXzu9wF43KqsMx5KmbISWg0cnEnB2jWBDirSvlel6
-	cLt1Lfi7lpa16wCQ+hJF4vLUvnUkaK70JV+MiXF17tn4zKE7oH1HzFxK+F4Vi3914rqDtOPC7TO
-	tOCqL1NUWctmN7v5LXUCoIIIBf+peUgB6Hg6glVRhKeTkxI95z8PH21TijcP2Wnq5ypCmjlxm1E
-	msg08LASSEqPnSnGfCkNSr9SPAcqetCCb1FfQpaKmGk41SseIrMrOu6sgV8C7d+NXsoZ9sTjSnk
-	p50kxyc3RNe6n+M/XllnR7ad14rmtbWHxB51J1e+scWH5yQ62F2OPm0G2ZBErgQSTBlyLXYVKi7
-	KLzdHDPpoZcI7gXD27HCbM1eWwtVaDL60T7Kb779Yv9qpoF3mQzofsCyf28qUFYEPo5gd2AeWo2
-	oF6vfJgKvFRrvtz8wtIoPtHZY5CtEZewmzyoDOC7Acyolkp4ZNi4fFWdIXU0QUaGI+o/bj
-X-Received: by 2002:a05:620a:3188:b0:93c:7fab:c44e with SMTP id af79cd13be357-93ebd272a0dmr2741779785a.63.1792010254517;
-        Wed, 14 Oct 2026 13:37:34 -0700 (PDT)
-Received: from localhost ([2603:7001:f100:5081:9526:3c0:45cc:5ac6])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef505463esm576153585a.32.2026.10.14.13.37.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 13:37:33 -0700 (PDT)
-Date: Wed, 14 Oct 2026 22:37:32 +0200
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Rik van Riel <riel@surriel.com>
-Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Zi Yan <ziy@nvidia.com>, Kairui Song <kasong@tencent.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Mike Rapoport <rppt@kernel.org>, linux-mm@kvack.org,
-	stable@vger.kernel.org
-Subject: Re: [RFC PATCH 1/5] mm/page_alloc: count guard pages as free again
- when their buddy merges
-Message-ID: <20261014203732.GG371161@cmpxchg.org>
-References: <20261007021250.1665929-1-riel@surriel.com>
- <20261007021250.1665929-2-riel@surriel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dbiUJrEm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 412A01F000C9
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 20:38:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792010315;
+	bh=Sjzadb3/6SBUHyGfg8P51zJVcvSPD9TaqG+ALWUyrhw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=dbiUJrEmvgzaxNpGr0yD75XVvvB/mUdHBeMB2fxkgpvD99Jn4RDLbFWakDnipnavG
+	 H5OkqoxHjlFdL7UjTDpmBJbT2cp7I1JvZCvJDBaaFkuhU5+O/D9Trz+mnh3H9RWNfj
+	 3MezFhbu3mlxR8zaRga20/bMd/tmjQjareU1TRiuBfnPDev+sz1ZnqCz5eXLHwsj+z
+	 1UgOFh/jgllgHvNw+RgqDROYeAbDclVnD4y0bz5OYOJFUvR6nG8gnIgO8WxgGP/sLx
+	 ZyfLvyXffCcEqY8DVUf0raQsmh6W/lPICu/0+cMztwRDYbfYfNvqvCF4YwGIu02zZA
+	 UXjHDLZbn8AwQ==
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c2e3846d1caso738030966b.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:38:35 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx0ir2v0c8amQ8vm6TOkbKHoJvru3mE1Sdjhc3AzdkYmKkZC47koGr5jcvWh/ppxocu6sLlZRavVIxf5rE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIXuOXe1H7cwFTCQYVSGPjRzNVUPaynQpdw4ToCg++YBWyYN/w+
+	jTs7Fn9WQb8yiguFYc3IQjk19E1/asaEQLBd2/uIc2UIe+nTKm/BSgz0E/WooTS+Btg/cjsiVnm
+	/niVI8Az6Hf5L8B6LYLg6UFEJQ6ftLLg=
+X-Received: by 2002:a17:907:3f20:b0:c3e:e726:9548 with SMTP id
+ a640c23a62f3a-c3ee7269fcdmr47818566b.14.1792010314132; Wed, 14 Oct 2026
+ 13:38:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261007021250.1665929-2-riel@surriel.com>
+References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-4-yosry@kernel.org>
+ <CALMp9eT9xOFKSFnOg5OeXgmXV0pr-4-yJdBFFMORPx22BgHnHw@mail.gmail.com>
+In-Reply-To: <CALMp9eT9xOFKSFnOg5OeXgmXV0pr-4-yJdBFFMORPx22BgHnHw@mail.gmail.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Wed, 14 Oct 2026 13:38:22 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zMtrxJYN83_ht1wLfNrRvc_suLm7LyDhxZABQTBt-fN-w@mail.gmail.com>
+X-Gm-Features: AclHuK_q9B9H0vjnxDInI4iEfaZY2mbRtIbinfw9U-aINMewKYSX43KqJ568UFM
+Message-ID: <CAO9r8zMtrxJYN83_ht1wLfNrRvc_suLm7LyDhxZABQTBt-fN-w@mail.gmail.com>
+Subject: Re: [PATCH v3 03/27] KVM: VMX: Generalize VPID allocation to be vendor-neutral
+To: Jim Mattson <jmattson@google.com>
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 06, 2026 at 10:12:46PM -0400, Rik van Riel wrote:
-> With debug_guardpage_minorder set, expand() turns the unused halves of a
-> split into guard pages, which page_del_and_expand() leaves out of the free
-> counts. Freeing the allocated half credits only that half, and
-> __free_one_page() then merges the guard buddy with clear_page_guard(),
-> which no longer touches the counters.
-> 
-> The merged block goes on a free list with the guard pages never counted,
-> so NR_FREE_PAGES falls behind the free lists by every guard that merges.
-> Before commit e0932b6c1f94 ("mm: page_alloc: consolidate free page
-> accounting"), __set_page_guard() and __clear_page_guard() adjusted the
-> counts themselves; that commit dropped both adjustments but kept the
-> subtraction implicit in expand().
-> 
-> Count the guard pages under the merged block's migratetype when the
-> buddy is cleared. account_freepages() skips an isolated block as it does
-> for every other free page, and moving the block off the isolated list
-> counts it then.
-> 
-> Booting a 16GB VM with debug_pagealloc=on debug_guardpage_minorder=1,
-> check the difference in free pages reported between /proc/vmstat
-> and /proc/buddyinfo.
-> 
-> At three points (idle, after a read and file-creation load, after
-> a second load), check the difference between nr_free_pages and the
-> buddyinfo numbers in the normal zone, as a number of pages:
-> 
->                 idle   after load   after second load
->     unpatched   -130        79205               99121
->     patched      -16           45                   0
-> 
-> The small remaining difference seems to be due to the numbers
-> not being read at exactly the same time, and is also seen
-> without guard pages.
-> 
-> Fixes: e0932b6c1f94 ("mm: page_alloc: consolidate free page accounting")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Rik van Riel <riel@surriel.com>
+On Wed, Oct 14, 2026 at 11:23=E2=80=AFAM Jim Mattson <jmattson@google.com> =
+wrote:
+>
+> On Mon, Oct 12, 2026 at 4:36=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wr=
+ote:
+> >
+> > In preparation for sharing with SVM, generalize the VMX VPID allocation
+> > code and move it to common code as a TLB tags allocator. Parameterize
+> > the TLB tags allocator by the number of tags, and allocate the bitmap
+> > dynamically. Opportunisitcally use guards to acquire the lock instead o=
+f
+>
+> s/Opportunisitcally/Opportunistically/
+>
+> > spin_{lock/unlock}().
+> >
+> > Keep the number of allowed tags capped at VMX's hardware cap, to avoid
+> > allocating a huge bitmap if L0 advertises a huge number of ASIDs to an
+> > L1 KVM. Realistically, the number of actual hardware ASIDs wouldn't be
+> > that large so there is no benefit.
+> >
+> > Initialize the TLB tags allocator during hardware setup/unsetup, and
+> > reserve tag=3D0 during initialziation, similar to how VPID=3D0 is curre=
+ntly
+>
+> s/initialziation/initialization/
+>
+> > reserved in the VMX-specific bitmap during hardware setup.
+> >
+> > Allow nr=3D0 to allow allocating all ASIDs to SEV on AMD without failin=
+g
+> > hardware setup, if at all possible, in which case any tag allocation
+> > fails (SEV won't use the tag allocator).  The number of tags includes
+> > tag=3D0, which is not usable. The interface is a little confusing in th=
+at
+> > regard, but this will be changed soon when reserved tags are explicitly
+> > introduced.
+> >
+> > Keep allocate_vpid() and free_vpid() as wrapper that check enable_vpid
+> > to avoid checking at all callsites, and add init_vpids() and
+> > destroy_vpids() to wrap init/destroy calls as well.
+> >
+> > No functional change intended.
+>
+> I don't think that's really true. If it is, then you failed. For
+> example, the new -ENOMEM when the bitmap can't be dynamically
+> allocated.
 
-Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
+Point taken, will remove the claim.
 
-This should probably be not RFC?
+>
+> > Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+> > ---
+> >  arch/x86/kvm/mmu.h     |  8 +++++
+> >  arch/x86/kvm/mmu/mmu.c | 78 ++++++++++++++++++++++++++++++++++++++++++
+> >  arch/x86/kvm/vmx/vmx.c | 40 +++++-----------------
+> >  arch/x86/kvm/vmx/vmx.h | 28 ++++++++++++---
+> >  4 files changed, 119 insertions(+), 35 deletions(-)
+> >
+> > diff --git a/arch/x86/kvm/mmu.h b/arch/x86/kvm/mmu.h
+> > index 2ae7f9ed4cf86..de79e002edf8f 100644
+> > --- a/arch/x86/kvm/mmu.h
+> > +++ b/arch/x86/kvm/mmu.h
+> > @@ -410,4 +410,12 @@ static inline bool kvm_is_gfn_alias(struct kvm *kv=
+m, gfn_t gfn)
+> >  {
+> >         return gfn & kvm_gfn_direct_bits(kvm);
+> >  }
+> > +
+> > +typedef unsigned int kvm_tlb_tag_t;
+> > +
+> > +int kvm_init_tlb_tags(unsigned int nr);
+> > +void kvm_destroy_tlb_tags(void);
+> > +kvm_tlb_tag_t kvm_alloc_tlb_tag(void);
+> > +void kvm_free_tlb_tag(kvm_tlb_tag_t tag);
+> > +
+> >  #endif
+> > diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+> > index aadd5bdc2c97a..97d49247d9d82 100644
+> > --- a/arch/x86/kvm/mmu/mmu.c
+> > +++ b/arch/x86/kvm/mmu/mmu.c
+> > @@ -8178,6 +8178,84 @@ void kvm_mmu_pre_destroy_vm(struct kvm *kvm)
+> >                 vhost_task_stop(kvm->arch.nx_huge_page_recovery_thread)=
+;
+> >  }
+> >
+> > +static struct {
+> > +       spinlock_t      lock;
+> > +       unsigned long   *bitmap;
+> > +       unsigned int    nr;
+> > +} tlb_tags;
+>
+> Can we statically initialize this to avoid the call to spin_lock_init()?
+>
+> ... tlb_tags =3D {
+>         .lock =3D __SPIN_LOCK_UNLOCKED(tlb_tags.lock),
+> };
+
+The call to spin_lock_init() is less code, but I can make the change.
+I don't have a preference.
+
+>
+> > +
+> > +int kvm_init_tlb_tags(unsigned int nr)
+> > +{
+> > +       /*
+> > +        * Limit the number of TLB tags to VMX's hardcoded maximum of 0=
+x10000
+> > +        * to avoid wasting memory for the bitmap in the unlikely scena=
+rio the
+> > +        * CPU supports an inordinate number of ASIDs (on AMD).  If use=
+rspace
+> > +        * wants to concurrently run tens of thousands of vCPUs, they'l=
+l likely
+> > +        * need a solution that works for both Intel and AMD.
+> > +        */
+> > +       const unsigned int MAX_NR_TLB_TAGS =3D VMX_NR_VPIDS;
+> > +
+> > +       if (!nr)
+> > +               return 0;
+> > +
+> > +       if (nr > MAX_NR_TLB_TAGS) {
+> > +               pr_warn_once("Number of TLB tags capped (%u instead of =
+%u)\n",
+> > +                            MAX_NR_TLB_TAGS, nr);
+> > +               nr =3D MAX_NR_TLB_TAGS;
+> > +       }
+> > +
+> > +       tlb_tags.bitmap =3D bitmap_zalloc(nr, GFP_KERNEL);
+> > +       if (!tlb_tags.bitmap)
+> > +               return -ENOMEM;
+> > +
+> > +       /*
+> > +        * 0 is the host's TLB tag for both VMX's VPID and SVM's ASID, =
+and is
+> > +        * returned on failed allocations (e.g. no more tags left).
+> > +        */
+> > +       __set_bit(0, tlb_tags.bitmap);
+> > +
+> > +       tlb_tags.nr =3D nr;
+> > +       spin_lock_init(&tlb_tags.lock);
+> > +       return 0;
+> > +}
+> > +EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_init_tlb_tags);
+> > +
+> > +void kvm_destroy_tlb_tags(void)
+> > +{
+> > +       bitmap_free(tlb_tags.bitmap);
+> > +       tlb_tags.bitmap =3D NULL;
+>
+> For consistency and future-proofing, it might be wise to clear tlb_tags.n=
+r here.
+
+Can do.
+
+>
+> > +}
+> > +EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_destroy_tlb_tags);
