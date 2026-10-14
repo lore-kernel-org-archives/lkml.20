@@ -1,106 +1,77 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 18D5047206C
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:03:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D37C229C328;
+	Wed, 14 Oct 2026 09:05:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791968642; cv=none; b=pSN+uN7I2NlI+7fYex0bj9s9o8ne6AOEnQp+KAJ2GwsWYikWwDW4LQlOz1jRDRf9lSbev6XHxKktnKY1D+2bYd+J6mDZmNf5IduqWWKgzXwiCwsQrCwTxs86ei9QoDTG0YD4qDsIvF54Y1WJfF6q5bsT55T/rgS7x9YUb1XmEO0=
+	t=1791968736; cv=none; b=tFVtDJ/BJ8QMOb2QocIVDztQnlihmblY0/4NMoFUa9DSlKcC8ut3LDILT6xzyMuOimeVSyXjj3o8PPkeMz4wmlUObQehiXkRrx6tKLQWMNBroxlkIErnl9HQCSPBOY00S4mnLE/DCjVqlDB6Mxisdj5cb9aXhw2VEXhDUadZaC8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791968642; c=relaxed/simple;
-	bh=hCdDlst7bj1m0LOdOKYBlBTkqQdM2UjFhwxu9lQemtI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WWD9+ff/ZDz3gUVmTqHUQ884+B/oxNi/PmJzIocofy+cdp5zsbpoA4QDDbOzddHLwVqNM2d5zkvK9VzidktDSEhppwV/Pncb3fGvY5eF0Ty/F/pfDfzwc8J1LM6OeN1dAC7qbY6+TWlJWFhy6ugqca+JovPgHrNCCV7UDvzStzs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ijVPr1gs; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791968736; c=relaxed/simple;
+	bh=DxOA3K04TdGKgV9RBzwq7NMB042SfZvdvrNpiga7nYU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=qssvLI4u4+BcnaUf/GBQCZ2KKsx8DQtQudvYg+fiTsfk4UGIu/EPrZidMY0A3TrU1fSIrOkYsGCEfnZ909dE4bljnwTGRgoxEIkJ0XYUb7dBAAeqjmr8JDR8kOs7y0RpgeuUGbEmBFfTqSMdHbV+75HL39kQzEfJy9lkFGAQIBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GLeJJPjC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ijVPr1gs"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5276C1596;
-	Wed, 14 Oct 2026 02:03:55 -0700 (PDT)
-Received: from [10.57.9.28] (unknown [10.57.9.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C5E273F7B4;
-	Wed, 14 Oct 2026 02:03:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791968638; bh=hCdDlst7bj1m0LOdOKYBlBTkqQdM2UjFhwxu9lQemtI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ijVPr1gskGK9HqirlaUq87YsLpFcaxA4i/EGXPaCKbl9LjDy7uu+ifwdQVGlFeD+9
-	 Y2p6nkbHGsvQZt2dvb6riWzfilwHBhBwP4eRJ+gzMS5alvMK4sPXfd17yo3loVrSse
-	 pYMoURvmQ0LrEhinDltBP44DkzenKF4KytnDpRV4=
-Message-ID: <bd9c0add-8317-4aa9-bb8b-479efbf3164f@arm.com>
-Date: Wed, 14 Oct 2026 10:03:55 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GLeJJPjC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E20141F000FF;
+	Wed, 14 Oct 2026 09:05:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791968735;
+	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=GLeJJPjCN1mieb5PFqMRcBoDVwPdZebHp5rYC++YCFisHjDRXc9/nimDzAcK/ncVL
+	 bDhdxL7wUq0yXyMdShKNPjWIIbQc64i/EiugE0UoI+0kXa2cOLSTCdxIoTTl1YliGV
+	 vlgkp1nNLZ4Axr9u7eDuRL2OjbV9F29t2qTOwxxJcZBatlYBiq6QdgLd/RpdXSXVBz
+	 gIkvGTrLYwPhfiRU0iWgTvl8Uqzf/DJ2he8/Z5CPmyqxjArZL2fIhbx+oV2qdH6dOT
+	 StyQ9IUqoCJDNts+YqYYR0UKFj9KpMD0kIpe2CMZ/wNZ2mAJyA9Xle+29REFr5S03Q
+	 v/kEf7tFLYRyg==
+From: netdev-bot+sinfo@kernel.org
+To: Thomas Fourier <fourier.thomas@gmail.com>
+Cc: Iyappan Subramanian <iyappan@os.amperecomputing.com>,
+ Keyur Chudgar <keyur@os.amperecomputing.com>,
+ Quan Nguyen <quan@os.amperecomputing.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next] drivers: net: xgene: Fix dma_unmap_single() size
+Date: Wed, 14 Oct 2026 09:05:34 +0000
+Message-ID: <179196873447.320699.13617341073721247406@kernel.org>
+In-Reply-To: <20261014084817.41805-2-fourier.thomas@gmail.com>
+References: <20261014084817.41805-2-fourier.thomas@gmail.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] KVM: arm64: Don't WARN on SMCCC filter reserved range
- allocation failure
-Content-Language: en-GB
-To: Fuad Tabba <fuad.tabba@linux.dev>, Marc Zyngier <maz@kernel.org>,
- Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
-Cc: Joey Gouly <joey.gouly@arm.com>, Zenghui Yu <yuzenghui@huawei.com>,
- Steffen Eiden <seiden@linux.ibm.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Fuad Tabba <tabba@google.com>,
- linux-kernel@vger.kernel.org
-References: <20261013164334.1492070-1-fuad.tabba@linux.dev>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <20261013164334.1492070-1-fuad.tabba@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 13/10/2026 17:43, Fuad Tabba wrote:
-> The first time userspace sets an SMCCC filter, kvm_smccc_set_filter()
-> inserts the reserved architecture ranges into the maple tree and WARNs
-> if that fails. The insertion allocates with GFP_KERNEL_ACCOUNT, so a
-> tight memory cgroup limit is enough for userspace to hit the WARN, even
-> though the -ENOMEM is also returned to it. The WARN dates back to when
-> the ranges were inserted at VM creation.
-> 
-> Leave -ENOMEM out of the WARN and keep it for every other error. The
-> two reserved ranges are fixed and disjoint and go into an empty tree
-> under config_lock, so any other error is a KVM bug.
-> 
-> Fixes: fb88707dd39bd ("KVM: arm64: Use a maple tree to represent the SMCCC filter")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/all/20260829055809.29AD31F000E9@smtp.kernel.org/
-> Suggested-by: Oliver Upton <oupton@kernel.org>
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+Hi!
 
-Reviewed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-> ---
-> Changes since v1 [1]:
->    - Keep the WARN for any error other than -ENOMEM. (Oliver)
->    - Split out of v1 as its own patch. (Marc)
-> 
-> Based on Linux 7.3-rc3 (fd73f4a665989).
-> 
-> [1] https://lore.kernel.org/all/20260928152507.2116110-2-fuad.tabba@linux.dev/
-> 
->   arch/arm64/kvm/hypercalls.c | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/kvm/hypercalls.c b/arch/arm64/kvm/hypercalls.c
-> index b11b8821c9fbc..c9d488c586e5f 100644
-> --- a/arch/arm64/kvm/hypercalls.c
-> +++ b/arch/arm64/kvm/hypercalls.c
-> @@ -197,8 +197,10 @@ static int kvm_smccc_set_filter(struct kvm *kvm, struct kvm_smccc_filter __user
->   
->   	if (!kvm_smccc_filter_configured(kvm)) {
->   		r = kvm_smccc_filter_insert_reserved(kvm);
-> -		if (WARN_ON_ONCE(r))
-> +		if (r) {
-> +			WARN_ON_ONCE(r != -ENOMEM);
->   			goto out_unlock;
-> +		}
->   	}
->   
->   	r = mtree_insert_range(&kvm->arch.smccc_filter, start, end,
-> 
-> base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
+
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
