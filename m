@@ -1,46 +1,75 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3C7C4AB1B6;
-	Wed, 14 Oct 2026 20:44:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 992F04A99B7
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 20:45:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792010689; cv=none; b=iyHfVdYUrUcAe0sIEzf24jA1Z/tPBATCunCtdSvGjAcVhPe+egFxbtt9HucdE83/TiRnkk5xlggIUK7KGR+zUA4tuJK9L+MNjNXj6oWm9C9+3yOPQ5p+lKwZxxV6ydk5taFy8p6444aG7oMTgxvjzY9zbN6W1HLVf0beM+e0PLs=
+	t=1792010750; cv=none; b=ESKsGAiNEbzfzR64BUptSLArQN7p0xSuOi8Zi7OVdeQtLuDp1pdnSgbGQSIQxKSsw5U4yZMjFEAFVdwnjihwWslzK5edCwqXPwv1YkQ9pJ/KfpAHQxG+joUqKvHSKxKj9cV3RnbhCTesXYv1Jp+nuSxNpm3D4lhpB9NsAf+JzW8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792010689; c=relaxed/simple;
-	bh=UW/3zrYFbtIu0VcfYb3Sgb6+OXktoZpWQtxZCH5rIJU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GjE6TkVvh8EcX6MZR3JIZrnjwNhaEqSxaewdSBrIhYBUbWoReAiRkfc6bMr8VTCqg9vpXj+bBOqw2qFXrEP4Lsd2IdrXBfuQaxhrNhh5eqD9uEUZkwxtCRkHJn1vdWUHIjzOAGt/JaphtBQiKJmmxupyksq1K51rbS+1h3BHtQo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=lowRUyAq; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1792010750; c=relaxed/simple;
+	bh=6t1NbTe7Rxkbmhyic1T1cl3e0qURPytIKl63sDRVLjs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=PpTFPEgdOnxtK7QqsV+1XccYGKhSAueSoDQ2oOqzt5GbKnBUG2RfR4ztLBEhnvKRjoqAcgpZ1ew9A0nSS0rgTIp0N4rUWl/jgXgVxy8a1YJbMT9Q2sN4ql94xU9SWEDAUkJOtdE9NKMEIUskMmmSmC1GFGVqgFfP78aNAO6ujHs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s2lAqvXV; arc=none smtp.client-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="lowRUyAq"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
-	Cc:To:From:From:Reply-To; bh=4ELn44YOIFwwaRlmuuTP6v9ebpA77IBSIet2VdSId0Q=; b=
-	lowRUyAqYVVWTZXACHFjn3Kz7ijUa1UIHM+Cst2dKHs9yWWrdu7NtXQ9BQP3UxJGq50LqS+C3sMHY
-	rpCPwszrY4trKhlM38nMWQjfQKQhI+Pv8BalKRKvhJ/daV4Pj4bmD2H4s77QqhWV87Fe8FYMAl7GV
-	Y874w5BmjIGZhxFka/s/IxAXmdBtlCXlX74w2xgXCsu9vTlcqBagxhp9xnNcBH/N8hg71W4bY0C7a
-	yXMBf/0+Q5nclS1Qs3lwx+Flfy2OxpaO8wcnizFxro2gGC7Fi9/HA4mvhkNUecZTXArD7aNy/HUay
-	j5iZRnRXL8n9cS+Ud0TU2ABiJryDmrCafw==;
-Received: from ip-86-49-238-151.bb.vodafone.cz ([86.49.238.151] helo=uajain)
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1xH5pr-000Dyf-ES; Wed, 14 Oct 2026 22:44:27 +0200
-From: Umang Jain <uajain@igalia.com>
-To: "Rafael J . Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>
-Cc: linux-acpi@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s2lAqvXV"
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-3282db206d3so3921077eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:45:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792010749; x=1792615549; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=w+VXnodruUJPl19jPfHLhxfJZGqvtsAgNI1YLQhK2Rc=;
+        b=s2lAqvXVGaxHRoVoHOG2frUYVzGr+9fU9EONXKvUC2B9+qqBwQpbocWlkAmnoRH7hI
+         3+yBNWHZuAI9xYsac5GEckGFpDj6l5MuCyplwYsw+w3beIQ1p9Msiw8sBLkZadSBW3db
+         TScLah9nQ21VWjhz+jgFC/4mba5JEoU2PdY/AOcnZ/ZgG3DMYcUI5VzjyM2KFawzz0qD
+         CnfxjnSywTArlQ1hshDW7r54zMD14NXQP3eOI9mEW5meWFpmECmj169P7pR9r5H2Q/xC
+         RdVrh+gnMowTkpAw0XI+BMFbX1nu+1IiQA/M0qO981ALUIVyYRogNU+U7WH1RGiUoH7V
+         WkDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792010749; x=1792615549;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=w+VXnodruUJPl19jPfHLhxfJZGqvtsAgNI1YLQhK2Rc=;
+        b=cCEL4nhwKnxgrgxnnKU5eNqWzH+KAcmU6lKz2yopwpObrZ4PgX+zstzk40UVPYjfwp
+         wyInHT2fii7FXkKixRyhz5ZoM+24e9UzF/CZYBgph3C/jvTpQDIJnktZaD5W6+LA5aho
+         /MNs2x96tMdQKHZLsqiX40KvD8Fo0XcL4nPcq9pv0P4AgefJ1719oKMYVPIEbo5uFa8+
+         iiU7qYsV8il1GaSB5uUrpYQK1jXiTrsL+Sl5lWC5FEJ9KOlP2RZ4pW7ly21BsIqPmcBt
+         4knCtUSWSxvN48K+iVhK0kcLWZt+4EY5J0gte9ZGq8uk1nWfukwsePfe0eOP8/6/d9ow
+         YEjQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw9NCQsa/BTrGr24W4Lyw51qEA65LbYyWx+WJCL2bOS109tNoSj83Ao3IKHRLxzEr92yaV6g9XdTc/YfAU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYItqxo14RCRdxqEQ84q9Cu50C0+O1srYgLwHZy2VvBZEAXXX2+l
+	bXSu3f330nTS3t5giycNsx0Qo0bW2gALRJ54LzJhbWGUDFEVxCwwptCh
+X-Gm-Gg: AYBFou3TggVqfMO2J+0i7LwVuBh6iuHFiCZCY1n8d4GUfFKW88KIny0fwmj5BA7NwS1
+	+sE8EVZaZInN2tInYmAVMMzxJmuyZoO2KldNJVIMToJXPEilV0qag4yI0s0eHtYye1vxnbfJ0N1
+	c3aYNYQOMbgSkaBf14EI97wuKwX8qHcLBh9aXgW02+QkoSTN7qBXNPGkTcI+yz9sPFAdVJ1pLSp
+	J+69MGLGU5h8FUoOaUDoq1K3kbS0qVgdvWz2MOaQFhqMReLzqlmsNyFKQNYxlMvSttiLMaky4rp
+	RqwrLN3Sy0AP9xd7HESEm8ILCvdd7Fyvxz/TKcQQqcyghETkHREnVyDqA3vqLKqyAW6v03hM7jZ
+	vOTpvBTClPtVcJ3X3yjFYoKI8mJUXhKCe0frRHO1eBLu1T9WBCyEiLcuVoBl5mPyc8ceWzF9aME
+	ASw+0/II8H6PTKQCqBVTWvDj4EpOZQ6IJpqIsGi1M5mtXgbC69hWgNDP4SCE8Qa8c0qN3ppqWZx
+	dFbLeaeq92aagIUU5B6wRUXblcF
+X-Received: by 2002:a05:693c:821a:b0:35c:813a:1c81 with SMTP id 5a478bee46e88-35c813a23b6mr8461466eec.18.1792010748588;
+        Wed, 14 Oct 2026 13:45:48 -0700 (PDT)
+Received: from hp-OMEN-Laptop-15-en0xxx.. ([122.172.84.6])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-353810403e9sm57109957eec.2.2026.10.14.13.44.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 13:45:48 -0700 (PDT)
+From: Jayaraj Devaraj <jayarajdmit@gmail.com>
+To: Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>
+Cc: Vladimir Zapolskiy <vz@mleia.com>,
+	Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
+	linux-gpio@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	kernel-dev@igalia.com,
-	Umang Jain <uajain@igalia.com>
-Subject: [PATCH v3 2/2] acpi: battery: Read Battery charge time for Steamdeck devices
-Date: Wed, 14 Oct 2026 22:45:58 +0200
-Message-ID: <20261014204558.466130-3-uajain@igalia.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261014204558.466130-1-uajain@igalia.com>
-References: <20261014204558.466130-1-uajain@igalia.com>
+	Jayaraj Devaraj <jayarajdmit@gmail.com>
+Subject: [PATCH] gpio: lpc32xx: check devm_gpiochip_add_data() return value
+Date: Thu, 15 Oct 2026 02:13:31 +0530
+Message-Id: <20261014204331.15383-1-jayarajdmit@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,68 +78,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Valve steamdeck devices can report battery status as
-charging, even when low-powered power supply is connected
-to the device. The battery status is reported as charging
-through sysfs, even though in reality, it is discharging.
+lpc32xx_gpio_probe() registers each gpio chip with
+devm_gpiochip_add_data() but ignores the return value. If registering
+a chip fails, probe still returns 0, so the driver binds with a chip
+missing and no error is reported.
 
-To handle this case, read out Battery charge time ("_BCT")
-as it is reported accurately on these devices, hence use that
-information for report charging vs discharging status.
-Battery charge time ("_BCT") with an eligible power supply unit
-will have valid values whereas with a low-powered supply unit,
-it shall report ACPI_BATTERY_VALUE_UNKNOWN. Use this as a
-differentiator to determine, whether the battery of steamdeck
-devices is really charging or not.
+Check the return value, print an error naming the failing chip and
+return the error code. Chips registered earlier in the loop are devm
+managed and are removed automatically on failure.
 
-Signed-off-by: Umang Jain <uajain@igalia.com>
+Signed-off-by: Jayaraj Devaraj <jayarajdmit@gmail.com>
 ---
- drivers/acpi/battery.c | 25 ++++++++++++++++++++++++-
- 1 file changed, 24 insertions(+), 1 deletion(-)
+ drivers/gpio/gpio-lpc32xx.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/acpi/battery.c b/drivers/acpi/battery.c
-index fa20900bea0e..b7818695b6cb 100644
---- a/drivers/acpi/battery.c
-+++ b/drivers/acpi/battery.c
-@@ -242,7 +242,7 @@ static int acpi_battery_get_property(struct power_supply *psy,
- 					: POWER_SUPPLY_STATUS_DISCHARGING;
- 				return 0;
- 			}
--		else if (battery->state & ACPI_BATTERY_STATE_CHARGING)
-+		else if (battery->state & ACPI_BATTERY_STATE_CHARGING) {
- 			/* Check the rate and capacity to validate the status. */
- 			if (!acpi_battery_is_full(battery) ||
- 			    (battery->rate_now != ACPI_BATTERY_VALUE_UNKNOWN &&
-@@ -252,6 +252,29 @@ static int acpi_battery_get_property(struct power_supply *psy,
- 				/* Full and zero rate. */
- 				val->intval = POWER_SUPPLY_STATUS_NOT_CHARGING;
- 			}
-+
-+			/*
-+			 * For Valve Steamdeck devices, evaluate _BCT to determine
-+			 * if we are really charging.
-+			 */
-+			if (test_bit(ACPI_BATTERY_QUIRK_VALVE_STEAMDECK, &battery->flags) &&
-+			    acpi_has_method(battery->device->handle, "_BCT")) {
-+				unsigned long long bct;
-+				acpi_status status;
-+				union acpi_object arg0 = { ACPI_TYPE_INTEGER };
-+				struct acpi_object_list args = { 1, &arg0 };
-+
-+				arg0.integer.value = 100;
-+				status = acpi_evaluate_integer(battery->device->handle, "_BCT",
-+							       &args, &bct);
-+				if (ACPI_FAILURE(status) || bct > ACPI_UINT32_MAX)
-+					acpi_handle_info(battery->device->handle,
-+							 "_BCT evaluation failed: %s",
-+							 acpi_format_exception(status));
-+				else if (bct == ACPI_BATTERY_VALUE_UNKNOWN)
-+					val->intval = POWER_SUPPLY_STATUS_DISCHARGING;
-+			}
+diff --git a/drivers/gpio/gpio-lpc32xx.c b/drivers/gpio/gpio-lpc32xx.c
+index 37fc54fc7385..014eb8bc70da 100644
+--- a/drivers/gpio/gpio-lpc32xx.c
++++ b/drivers/gpio/gpio-lpc32xx.c
+@@ -510,7 +510,7 @@ static int lpc32xx_of_xlate(struct gpio_chip *gc,
+ 
+ static int lpc32xx_gpio_probe(struct platform_device *pdev)
+ {
+-	int i;
++	int i, ret;
+ 	void __iomem *reg_base;
+ 
+ 	reg_base = devm_platform_ioremap_resource(pdev, 0);
+@@ -524,8 +524,12 @@ static int lpc32xx_gpio_probe(struct platform_device *pdev)
+ 			lpc32xx_gpiochip[i].chip.of_gpio_n_cells = 3;
+ 			lpc32xx_gpiochip[i].reg_base = reg_base;
+ 		}
+-		devm_gpiochip_add_data(&pdev->dev, &lpc32xx_gpiochip[i].chip,
+-				  &lpc32xx_gpiochip[i]);
++		ret = devm_gpiochip_add_data(&pdev->dev, &lpc32xx_gpiochip[i].chip,
++					     &lpc32xx_gpiochip[i]);
++		if (ret) {
++			dev_err(&pdev->dev, "failed to register gpio chip %d: %d\n", i, ret);
++			return ret;
 +		}
- 		else if (battery->state & ACPI_BATTERY_STATE_CHARGE_LIMITING)
- 			val->intval = POWER_SUPPLY_STATUS_NOT_CHARGING;
- 		else if (acpi_battery_is_charged(battery))
+ 	}
+ 
+ 	return 0;
 -- 
-2.55.0
+2.34.1
 
