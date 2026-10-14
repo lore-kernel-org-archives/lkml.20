@@ -1,185 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEA444582E6;
-	Wed, 14 Oct 2026 14:32:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A47E84CC632
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:32:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791988347; cv=none; b=asK54+fN1Y5YcEK3WaNf1Jv8/RBocM7N7x21f4vcGXWAyNqob8qHIwSFskwEOg0uvHGQsW6bRQZCEFtbiSarmLarSprrS/0Xj0q0DCz80xNHJ2aryLK/tMvemtzeqpBV5Hd3DiCUDdQ2RM/BdHkTjl5iEGCIVEHJ2u35467wrsQ=
+	t=1791988354; cv=none; b=svUfGcWPNNcntuF2EJcGl2+W1eczQNe1Nb+3q8H9/9ajT/T4X6CBLyIv3PJq0F+rYbK439DNZwoEYsMMmYKTBCJEtGGzj8NRvlNFYy8cqogVVYucskiolRHt3fvrCs6TJXEjsUj1Bg1hU9mmeVELxxoDIdonstb1YycrFYDGlCI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791988347; c=relaxed/simple;
-	bh=rj4lErnJHXIRIvroMbe0dJX309uvoO0iMQDmNA553Vo=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=SGHu3HMe7zyP7+lXB1OgUkxyke9Pjix3+8tqEXRaYbNjTSSKtgJ5/eCLcuAmhakHxZeUkKQsG2tuHzNJGahskVIpkUNCEt8XUj+Gq72maAw7Aj1EjIWHMAN0i2G9E3IEyV/UHwGv7GrN16rHuHpz23SniwFk6gb9cMPkNnIFsW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e/KWiWcc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791988354; c=relaxed/simple;
+	bh=CkNFkih/PHsQwbdBVQI6aDqUXadsyoT0wO68CIPND7c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PWP6+uKkSe+2MF2L3K3W5AxALEh4Tyrrh/VObhgnhw0dc6K/J6MfaObqqWZ2RIF+9Nj7YuV1Jc/rHMos0gKbTeUcN6dqzNBi0gC8P4Dm50mNX6txAKqA5yVdL28j18B6AKPfhlP/SBEN3hako5HAwcPPb/qTzBLYsgn9aTOJM0U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cIXxfPp+; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e/KWiWcc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 548321F000C4;
-	Wed, 14 Oct 2026 14:32:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791988346;
-	bh=nukyvaoE+wwPX/0XUeM7v+OP9T1JnMHkgJf8D7qR3AY=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=e/KWiWcc+nZT7+U9WYB8P4t1HgHnH1KGLHE3y6BuWDP57l5zlNamthA77oB1zoFdu
-	 jXmru81ln6ZkgBoLfbtbzd0I0iQFwTpjxMxvfEGZQgVnh5/ddA3aSpWqGZRZ0SMkTp
-	 C3cj9dfLwhNG5U6pZJ4OsE/rOm01I/WV+36nr5hZOxvSXRl3ZPxjEijHZygdwDfeHb
-	 daBRBR/WLP0hPxowDvx1ZrJxI8+WFwQd0A7ZiaZpEiymnEF8KvPGyfb3ppNWaBpB1I
-	 nOqf8FcFJstJ2+7TWscERtNTSCcRDjcuWwMfCBn8Qw/W1bLPLT+5ui+1FSPiKFHTCa
-	 4zzhUYcFuFLCg==
-Subject: Re: [PATCH net 1/4] mptcp: reset msk state on early connect failure
-From: netdev-bot+sashiko@kernel.org
-To: matttbe@kernel.org
-Cc: martineau@kernel.org, geliang@kernel.org, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- netdev@vger.kernel.org, mptcp@lists.linux.dev, linux-kernel@vger.kernel.org,
- caoruide123@gmail.com, stable@vger.kernel.org, vega@nebusec.ai,
- sashiko-bot@kernel.org, weir@nebusec.ai, kuniyu@google.com,
- daniel@iogearbox.net, kafai@fb.com
-Date: Wed, 14 Oct 2026 14:32:24 +0000
-Message-ID: <179198834484.434549.4616694240552704738@kernel.org>
-In-Reply-To:
- <20261013-net-mptcp-misc-fixes-7-3-rc8-v1-1-932c9b182fc7@kernel.org>
-References:
- <20261013-net-mptcp-misc-fixes-7-3-rc8-v1-1-932c9b182fc7@kernel.org>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cIXxfPp+"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso9690985e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:32:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791988351; x=1792593151; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3Vp4nT657Y1gmkh1GAO3l2MeIxGaDsbtKCzwsk3mzmE=;
+        b=cIXxfPp+frOgZ6pDRisB28qTaQTTSuPpxmVO/+W6ZSdGfmbcG4pJzx8nnPCJuVNfsi
+         tSiWfcv5tYBbR2TkHuB81E2qnz77ktP6FV5OfNW0YO3GBTmQh6QtXMvNfLYEajv2gZid
+         MKLlCYYt6imYjIVINqmgBW/tFGA02Yp4hNSBbg3yPEnwbedzYCOvBndXSTa0Sd/s6ANN
+         VX42cY/MUn+gmrRQjOnetSQWD9JkhZF9amiJTvz7ekRl1ys41xru+ynTTnMHRnSVJAzG
+         kniRtNlo/38Tik+I8BOGXHy2Kt2yMnqVnp4v4Bcthyuwz08ejIAODlXE0jPr1tT0qWH8
+         nxfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791988351; x=1792593151;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3Vp4nT657Y1gmkh1GAO3l2MeIxGaDsbtKCzwsk3mzmE=;
+        b=z9tGmdHBKMYciyuety5K5fnUAXR94FBPsDFicNF5miR3XvGUmRJ3l6OQSsJjUmaKWH
+         K0aORYOpnT8e+m95i2w+opE6x8wsHimpT4uyL4Z+NJb44OL8Kf5iJjtjE5eNsTnb1IKQ
+         8V9NPKi71/cYpNngZ/NO/2dxy5Y4YJhu9acQ/2sQhSbVxKG/ux//bbUduRixPLTaBh9G
+         y1hN/H5C191QUHhfmr5K/yk9A/rkenDv6eGruIGOyKh9IZ0Mjjt56/BCmwlyLXZxKzyG
+         xQJJNNATh1oR6+jLJIG6c/PNRrJ/m8AMRrJuDMNOb5hIHuivqRbBAa//HMLzCj+wmPpx
+         8Wjw==
+X-Forwarded-Encrypted: i=1; AKwUvByRE20TibRAHSBU0nmmNuOHvsKwTieFdzTa4xDb0akbczZ4mA70aV306mFUZSOjTUj8vkErBlCweiMw2C0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ5lH7r1vsliYK6mO3YLyTQSkq27hkoqnZg+PB5UWPOvQC2J0IF
+	8cARc4fiXzYGTEo/PCetH69L+Rq/p0AOdgo/Rh6fU/xtnlbL1YxDQrKm
+X-Gm-Gg: AYBFou26mcBVHU+zmn6hBlOs/bzKYqyFBoKoCMRqJEE03axc8Gbcvac8IjtJ9L1VhF9
+	SIFQOCYAo8uOQbHKT20O8vcCuxr5RkxkpBS1PTqBavDGrU/ZtK/FHMjtb/EakzBwtwHBT5Mjzvl
+	6kKk7Q+3+Q+ltWui580g7qzd83A94d9PoZDF2c1WBPcGmzcWq3GPjreIzGPTVPu5N/nmolw2uP/
+	aZo9/i40Rfihl4q+0D/2p4MIsP2swfhK4ryRsgx8rNI69Z6gQ2F8fISq1AS1qJ6Xui9Hjgr+ofC
+	5ggxIdfos8Q9pR3APT+Nvn5im/2ksxZhr3V13KNti9c/oION40VYjklntm3h4NCyc/aJhDibNZ1
+	KRGR//Z4MScaZ1znBoqT9XOWaNAfsi+xdE0j+C0k/mJmbxdCs7WHTuyZ3OPmFGBKdB8B2AfOQHN
+	+/G11UBKi+zyBSrYhpvX/8bDwQJFZGk/WbpxCXizat1EEFFXmShndsg/m7aZmU7m9XF5+cFvgUD
+	lxp9M1e+4z5dhl3nq5wwWuPTtsgiDrqkHjJpKN3EnR6tEnGH7niO14sCk+4elbT+9qe/pbawSqB
+	YmwNl3vUnGtkL0I936igmmWn6k3CGnWSl0bM1KN/xH9+eFYIjtczpLlMiP3xtXJ6
+X-Received: by 2002:a05:600c:8105:b0:4a1:83f0:7c8a with SMTP id 5b1f17b1804b1-4a18e4433d6mr318840825e9.1.1791988350580;
+        Wed, 14 Oct 2026 07:32:30 -0700 (PDT)
+Received: from zitrone ([2a02:810d:a1:6000:62d3:e68c:3175:a538])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd068126sm3411345e9.11.2026.10.14.07.32.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 07:32:28 -0700 (PDT)
+From: Andreas Wendleder <gonsolo@gmail.com>
+To: linux-wireless@vger.kernel.org
+Cc: Johannes Berg <johannes@sipsolutions.net>,
+	b43-dev@lists.infradead.org,
+	Michael Buesch <m@bues.ch>,
+	Alessio Ferri <alessio.ferri@mythread.it>,
+	kvalo@kernel.org,
+	julian.calaby@gmail.com,
+	jpeisach@ubuntu.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH wireless-next 0/2] wifi: b43: MAC filter and 64-bit DMA fixes for the BCM4360
+Date: Wed, 14 Oct 2026 16:32:23 +0200
+Message-ID: <20261014143225.82149-1-gonsolo@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Two fixes found while bringing up a BCM4360 (MacBookAir6,1). Neither
+depends on the AC PHY.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+ 1. After an interface restart nothing was received until some other
+    change touched the filter: b43_op_start() zeroes wl->filter_flags,
+    but mac80211 computes the change against its own cached flags.
+ 2. The 64-bit DMA engines of the BCM4352/BCM4360 cores use bus addresses
+    in the index and status registers. They are detected by probe, as
+    brcmsmac does; engines that keep offsets are untouched.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+The rest of the BCM4360 support will follow once these land.
 
-- [Medium] The new error path in mptcp_connect()
-  (net/mptcp/protocol.c:4224) calls…
+Tested on a MacBookAir6,1 (BCM4360, core revision 42) with the whole
+BCM4360 support applied.
 
---
+Andreas Wendleder (2):
+  wifi: b43: reprogram the MAC filter after an interface restart
+  wifi: b43: handle 64-bit DMA engines whose index registers hold bus
+    addresses
 
-mptcp: reset msk state on early connect failure
+ drivers/net/wireless/broadcom/b43/b43.h  |  1 +
+ drivers/net/wireless/broadcom/b43/dma.c  | 52 +++++++++++++++++++-----
+ drivers/net/wireless/broadcom/b43/dma.h  |  3 ++
+ drivers/net/wireless/broadcom/b43/main.c |  8 ++++++++
+ 4 files changed, 53 insertions(+), 11 deletions(-)
 
-This commit changes the mptcp_connect() error path. It now clears the
-fallback state (MPTCP_FALLBACK_DONE, allow_subflows,
-allow_infinite_fallback) and resets the first subflow context. The goal
-is that a later connect() on the same fd can use MPTCP again after an
-early fallback followed by an immediate connect failure.
-
-Closes: https://github.com/multipath-tcp/mptcp_net-next/issues/633
-
-> diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
-> index e89a69ab927c9..e6f73a5ee630a 100644
-> --- a/net/mptcp/protocol.c
-> +++ b/net/mptcp/protocol.c
-> @@ -4212,9 +4212,16 @@ static int mptcp_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
->  	 * subflow_finish_connect()
->  	 */
->  	if (unlikely(err)) {
-> -		/* avoid leaving a dangling token in an unconnected socket */
->  		mptcp_token_destroy(msk);
->  		mptcp_set_state(sk, TCP_CLOSE);
-> +
-> +		spin_lock_bh(&msk->fallback_lock);
-> +		msk->allow_subflows = true;
-> +		msk->allow_infinite_fallback = true;
-> +		clear_bit(MPTCP_FALLBACK_DONE, &msk->flags);
-> +		spin_unlock_bh(&msk->fallback_lock);
-> +
-> +		mptcp_subflow_ctx_reset(mptcp_subflow_ctx(ssk));
-
-[Severity: Medium]
-Is mptcp_subflow_ctx_reset() resetting more than this path needs? It
-clears the whole reset group and then sets local_id to -1:
-
-net/mptcp/protocol.h:mptcp_subflow_ctx_reset() {
-	memset(&subflow->reset, 0, sizeof(subflow->reset));
-	subflow->request_mptcp = 1;
-	WRITE_ONCE(subflow->local_id, -1);
-}
-
-This also wipes two values that are set only once, when msk->first is
-created:
-
-net/mptcp/protocol.c:__mptcp_socket_create() {
-    ...
-	subflow->subflow_id = msk->subflow_id++;
-
-	/* This is the first subflow, always with id 0 */
-	WRITE_ONCE(subflow->local_id, 0);
-    ...
-}
-
-A second connect() gets the same msk->first back from __mptcp_nmpc_sk(),
-so this setup does not run again. The reset also runs on every immediate
-failure (ENETUNREACH, EAFNOSUPPORT, BPF pre_connect, ...), not only after
-an early fallback.
-
-On the retry, local_id is -1, so the connect goes through:
-
-tcp_connect()
-  subflow_rebuild_header()
-    subflow_chk_local_id()
-      mptcp_pm_get_local_id()
-
-mptcp_pm_get_local_id() returns 0 only when the msk local address matches
-the subflow's address:
-
-	mptcp_local_address((struct sock_common *)msk, &msk_local);
-	mptcp_local_address((struct sock_common *)skc, &skc_local.addr);
-	if (mptcp_addresses_equal(&msk_local, &skc_local.addr, false))
-		return 0;
-
-mptcp_copy_inaddrs() runs only after a successful connect. For an unbound
-msk, the msk address is therefore still zero at this point.
-
-Wouldn't the kernel PM then give the MPC subflow a non-zero ID, either
-from a matching endpoint or by adding an IMPLICIT endpoint to the netns
-endp_list?
-
-If the endpoint table is full, mptcp_pm_nl_get_local_id() returns -ERANGE.
-tcp_connect() would then fail the retry with -EHOSTUNREACH, even though a
-valid route exists.
-
-A non-zero local_id on the initial subflow also seems to break endpoint
-removal. When that endpoint is deleted,
-mptcp_nl_remove_subflow_and_signal_addr() gets the ID from
-mptcp_endp_get_local_id(), which returns rm_id 0 for the MPC endpoint.
-mptcp_pm_rm_addr_or_subflow() then skips the initial subflow because
-id != rm_id, so the initial subflow is never closed.
-
-The reset also zeroes subflow_id, while msk->subflow_id has already
-advanced to 2. After a successful retry, mptcp_get_full_info() would
-report the first subflow with id 0:
-
-	sfinfo.id = subflow->subflow_id;
-
-But tools/testing/selftests/net/mptcp/mptcp_sockopt.c expects:
-
-	assert(sfinfo[0].id == 1);
-
-mptcp_disconnect() already behaves this way for subflow_id. The local_id
-part looks new, though: on the disconnect path, the msk still holds the
-addresses from the earlier successful connect.
-
-The commit message mentions only MPTCP_FALLBACK_DONE, allow_subflows and
-request_mptcp. Would it work to reset only request_mptcp here (plus the
-token and key fields if needed)? Another option would be to restore
-local_id to 0 and keep the original subflow_id for msk->first after
-mptcp_subflow_ctx_reset().
-
->  		return err;
->  	}
->
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261013-net-mptcp-misc-fixes-7-3-rc8-v1-0-932c9b182fc7%40kernel.org
