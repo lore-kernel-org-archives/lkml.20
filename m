@@ -1,68 +1,30 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 788812EEE90
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:32:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 249BE368D47;
+	Wed, 14 Oct 2026 06:32:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791959533; cv=none; b=WYu6KHmFDoG549CzRllqdeqPhtsP5e5Br2iawlIfUCNwbwymhmP1WdUUwZnGWm55JIyAGUmmSNy/lS5hhka8ZF2fzIk7lzr/r1/kaqlCMaIC/8IKfX9007dcrmxx6jXP0jx4c1H9p00JgOIlDkHwXim1+MG2gn99nKRcylbQY3c=
+	t=1791959534; cv=none; b=rF2Dx8Hn+oIsYS53tUHMHZqllbBiWGdAIECyPf6TfjMb0Hq404Qx1UJ6bivwe9oXNV3+tHAPaR/Z7k5gTBe1BkCJaRQa80ZGmFeeOsEf1ZJLpwLo3iXrTP43UofAztpUM64zL4pJT8of1Oi6oHbKiA6xh2/9DXZJ3G8SF5FaIzk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791959533; c=relaxed/simple;
-	bh=oQ3FpNfn9xeObVL8FMjjs394GlbWXXbUtCNpJzPWfeE=;
+	s=arc-20240116; t=1791959534; c=relaxed/simple;
+	bh=M0CbVGu27IF62hJR158NCT+iCcmlZWlvdsXmCFU9ZBg=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LC3owa8x6ZWojv7YosJQrtbZLKv8kkX2ZfddljpjympLAH6G0W/T23M0vUGcoqW3+hphq5FeyU9dR0VGu/TrOzVp73Jnnsx7JXhMsBK9dOlKUdy4jHjuJCBTfkjHDLVrcK8S58SXQDNzlWIZLKd8ZZO0+rWw6HisUJxODaP7QgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Oh+9zNwX; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Oh+9zNwX"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a1af482519so10731715e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:32:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1791959529; x=1792564329; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
-         :content-language:from:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=1SKNAlUg9TrD1fwVGl6kQ8Emen5GvKQjxZqh6aLHjF8=;
-        b=Oh+9zNwX9ZCcXJelKnUvI33fl5TgRhuWVGyzsjSGmknW+T4bbuFxoa9zGJquPfStnQ
-         cYYpvP3EXPvYsv1IFibzlvMxx3hWNrCMW+drgkRdElslv58grbS5NuXfNNX0ReSJ/7rL
-         60p+b518rdXMd1i+8aHD5qYwIfcChkcDHCOQPCMwhFqyZGbgZA2IHgUBQml/OyvlckWd
-         sx/PKjChghOnXxHxydjKfF9E+mkdgDctU6Iao1l+c6PLHUZWJiUeWPx88rkZ+6qUbkoU
-         WEqgMS6kOqflmCKr2jdGKuPxxB4QhMD61nZbkKQK4kaXrLhVK3W73sHDaKaGIU2SUht4
-         J9bw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791959529; x=1792564329;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
-         :content-language:from:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=1SKNAlUg9TrD1fwVGl6kQ8Emen5GvKQjxZqh6aLHjF8=;
-        b=kJ5WwPaZxfiJNN/un/jddoRl6NECIjdkRdunOkBrE8Ilm+WcGfM+IrSninhJeOR8bS
-         3qQmHWC6/DdF8oD2wF1u/V0pUCyP2GGKschHl9nKSPxMfX2oQVUt+8ojF82qLG4X5Yc4
-         GITtmAmQIgQrDDDf9Xgfx0dFeGYzCdSUabmjzzyTJvHDtMzfd4D97Ac4JAmUPKH5DTy3
-         qT/iEvGlOufawVl+JK8ZSpKh8UrTcMYoFq5l10ksuXM0XNq5MI2t0BYxsncwCRsDKDqK
-         q4J6l9lWJvZgY28Jq98iOlIFccsR7D28cN/D7lfzbzHW7dcO5A/W+u3sRfjmafZ+v/fN
-         EFsg==
-X-Forwarded-Encrypted: i=1; AKwUvBzxhairhKGeIda8wpYW89Lku2LcZR8/RC4ZWFeiBJfn+ixA+R534ZhZOPxb7TfD0Dub3iG+qsAe7T/e3pw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI+HoftNXoWyzlSZmsGb5QxE6rPUAu5eS3NPvAXbCChbOajO2m8
-	DO0D4ru/Haq1H2Gt2PzwqY6QIWyKIO5moNSsfLi4vX6goY/IAV9i7GFY2OGWfkcz1EM=
-X-Gm-Gg: AYBFou0rpn0RDrYNmntXJZMob7CXozx0sSnse8HU9lAGq7iPYt3RiaMCbzOj6OR378H
-	ospj4VxQpSuEWGJcRg8o2QMi69L2lZ6Nv/N2qsRPA8aRZOtLSMuOApX9L1WEG9jZyAhHPTt40Bl
-	VkPfqyz7uFNbH2doMrtLkESIIsR2+iYJPnwkA5456witgV8KxAmHBSaP7BiNX38QenB/Ybea2uc
-	EaiFKjHubsro0EXTCUQm1FcVf3I8o2ILRKF9pXoVTXWT4nA/3kQPQzA4CPiM9++CHBcNdpVg1hl
-	iutJN4UuVNKXinoCmkg5VxcMES5WH1m46VOPhRGlYIf8EqcEAVd/RFf37iOYl1J+wsoLUKiw1Pf
-	RocEpCsXsPxoAwCHvi98vwdfrjF2VkMyithcHryKOB16i1fnuOO4GXsinqv6Mhp1BKLQsQ/Pwme
-	KElhdDBVm3Vahjop4VHPhReydvjG8r641vMRf1SuXj3plz52yjIu3UeFHtTWtzNpC8dT5iVJ55a
-	IyS/WiFXEB5Fo7uyzKe7NY=
-X-Received: by 2002:a05:600c:58d3:b0:4a1:9388:7f40 with SMTP id 5b1f17b1804b1-4a193888295mr178393265e9.4.1791959528597;
-        Tue, 13 Oct 2026 23:32:08 -0700 (PDT)
-Received: from [192.168.0.20] (nborisov.ddns.nbis.net. [185.218.66.243])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de7773d02sm4224045f8f.13.2026.10.13.23.32.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 23:32:07 -0700 (PDT)
-Message-ID: <2b73666e-d923-4042-b719-b9bdeca783c8@suse.com>
-Date: Wed, 14 Oct 2026 09:32:06 +0300
+	 In-Reply-To:Content-Type; b=bXSsGJflSlFJ9X0TYKb7a+C/uzB5ACazzIM9faCNQoBLKbysxXP8LNO78dpkU/8tuLcMGP6iPpupkoKPYbcyVV77+1ukyfVYEV01+sHDXNvLKI8UgMmjeJsSLLLaY4VQJ+BLl44gDJIpLtonU8sv8EuVYpfqFtdFdnsksX1EuqU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.170])
+	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4j4Lv63sBhzYQtvr;
+	Wed, 14 Oct 2026 14:31:14 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.128])
+	by mail.maildlp.com (Postfix) with ESMTP id 11C9A40561;
+	Wed, 14 Oct 2026 14:32:07 +0800 (CST)
+Received: from [10.174.178.164] (unknown [10.174.178.164])
+	by APP4 (Coremail) with UTF8SMTPSA id gCh0CgB3tfTgIc9qqn2JAQ--.25361S3;
+	Wed, 14 Oct 2026 14:32:02 +0800 (CST)
+Message-ID: <b7fd32d5-ae6f-4eb4-b02f-ba27db86ab5d@huaweicloud.com>
+Date: Wed, 14 Oct 2026 14:31:58 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,171 +32,198 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 06/15] virt: tdx-guest: Support TDI bind and unbind
- operations
-To: "Duan, Zhenzhong" <zhenzhong.duan@intel.com>,
- "x86@kernel.org" <x86@kernel.org>,
- "linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Cc: "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
- "tglx@kernel.org" <tglx@kernel.org>, "mingo@redhat.com" <mingo@redhat.com>,
- "bp@alien8.de" <bp@alien8.de>, "hpa@zytor.com" <hpa@zytor.com>,
- "Hansen, Dave" <dave.hansen@intel.com>, "kas@kernel.org" <kas@kernel.org>,
- "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
- "jgg@nvidia.com" <jgg@nvidia.com>, "nicolinc@nvidia.com"
- <nicolinc@nvidia.com>, "aik@amd.com" <aik@amd.com>,
- "aneesh.kumar@kernel.org" <aneesh.kumar@kernel.org>,
- "seanjc@google.com" <seanjc@google.com>,
- "pbonzini@redhat.com" <pbonzini@redhat.com>,
- "yilun.xu@linux.intel.com" <yilun.xu@linux.intel.com>,
- "Gao, Chao" <chao.gao@intel.com>, "Verma, Vishal L"
- <vishal.l.verma@intel.com>, "Li, Xiaoyao" <xiaoyao.li@intel.com>,
- "Tian, Kevin" <kevin.tian@intel.com>, "Peng, Chao P" <chao.p.peng@intel.com>
-References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
- <20260924041032.1096569-7-zhenzhong.duan@intel.com>
- <00a4b474-eb13-4caa-90c6-b9cabb1ec621@suse.com>
- <IA3PR11MB9136F32FBA9D830C48EBA968929D2@IA3PR11MB9136.namprd11.prod.outlook.com>
-From: Nikolay Borisov <nik.borisov@suse.com>
-Content-Language: en-US
-Autocrypt: addr=nik.borisov@suse.com; keydata=
- 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
-In-Reply-To: <IA3PR11MB9136F32FBA9D830C48EBA968929D2@IA3PR11MB9136.namprd11.prod.outlook.com>
+Subject: Re: [PATCH] md/raid0: don't BUG() on a bio that lands off the end of
+ the array
+To: yukuai@fygo.io, Palla Raghunath <raghunathpalla.0209@gmail.com>,
+ linux-kernel@vger.kernel.org
+Cc: Shuah Khan <shuah@kernel.org>, Brigham Campbell <me@brighamcampbell.com>,
+ linux-kernel-mentees@lists.linux.dev,
+ syzbot+422b372cabfbaa528725@syzkaller.appspotmail.com,
+ Song Liu <song@kernel.org>, Li Nan <magiclinan@didiglobal.com>,
+ Xiao Ni <xiao@kernel.org>, NeilBrown <neil@brown.name>,
+ "Trela, Maciej" <Maciej.Trela@intel.com>, linux-raid@vger.kernel.org,
+ "chengzhihao1@huawei.com" <chengzhihao1@huawei.com>,
+ yangerkun <yangerkun@huawei.com>
+References: <20260923161729.122240-1-raghunathpalla.0209@gmail.com>
+ <7f55f471-867b-47a9-8f02-f65adaf6cd29@fygo.io>
+From: Zizhi Wo <wozizhi@huaweicloud.com>
+In-Reply-To: <7f55f471-867b-47a9-8f02-f65adaf6cd29@fygo.io>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:gCh0CgB3tfTgIc9qqn2JAQ--.25361S3
+X-Coremail-Antispam: 1UD129KBjvJXoW3JFyUCw43Xr4rCFy5ury8Xwb_yoWxCF4Up3
+	y8Kaya9rWkGFWfZ3ZFva47Ga4rtryftrWUCF93J34rC3Z8Crn7tFyUKryYgFyUCryrCFyU
+	t3WDWF9rCF98KrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUv0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7Cj
+	xVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x
+	0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG
+	6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFV
+	Cjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS
+	14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
+	8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8
+	ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x
+	0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
+	Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU1
+	7KsUUUUUU==
+X-CM-SenderInfo: pzr2x6tkl6x35dzhxuhorxvhhfrp/
 
 
 
-On 14.10.26 г. 6:06 ч., Duan, Zhenzhong wrote:
+在 2026/10/6 1:22, yu kuai 写道:
+> Hi,
 > 
-> 
->> -----Original Message-----
->> From: Nikolay Borisov <nik.borisov@suse.com>
->> Subject: Re: [RFC PATCH 06/15] virt: tdx-guest: Support TDI bind and unbind
->> operations
+> 在 2026/9/24 0:17, Palla Raghunath 写道:
+>> find_zone() looks for the strip zone holding a given sector and BUG()s if
+>> it can't find one.  That is only a safe assumption while the capacity the
+>> array advertises matches what the zones actually cover, and a personality
+>> takeover can break exactly that.
 >>
+>> level_store() lets you switch a live array to a different personality.
+>> The new ->run() recalculates mddev->array_sectors, but level_store() never
+>> tells the gendisk about it - it is the one place in md that changes the
+>> array size without a set_capacity_and_notify(), which do_md_run(),
+>> array_size_store(), update_size(), md_reap_sync_thread() and linear_add()
+>> all do.  So when a takeover makes the array smaller, the block device goes
+>> on advertising the old size and I/O sails off the end of the new mapping.
 >>
+>> syzbot got there with a raid1 that had no metadata.  Such a member comes in
+>> through md_import_device(dev, -1, -1), which never sets rdev->sectors, and
+>> the check in bind_rdev_to_array() that keeps mddev->dev_sectors inside the
+>> member is skipped precisely when rdev->sectors is 0:
 >>
->> On 24.09.26 г. 7:10 ч., Zhenzhong Duan wrote:
->>> Introduce support for binding and unbinding the Trust Device Interface
->>> (TDI) using the TDCM_OP_BIND and TDCM_OP_UNBIND commands.
->>>
->>> Executing TDCM_OP_BIND transitions the TDI state to a locked state
->>> (TDI_STATE_CONFIG_LOCKED). Add a sanity check following the bind operation
->>> to verify this state transition succeeded before finalizing device locking.
->>>
->>> Signed-off-by: Zhenzhong Duan <zhenzhong.duan@intel.com>
+>> 	if (!test_bit(Journal, &rdev->flags) &&
+>> 	    rdev->sectors &&
+>> 	    (mddev->dev_sectors == 0 || rdev->sectors < mddev->dev_sectors)) {
 >>
->> <snip>
->>
->>>    	struct tdx_devsec *tdevsec __free(kfree) = kzalloc(sizeof(*tdevsec),
->> GFP_KERNEL);
->>> @@ -174,6 +233,19 @@ static struct pci_tsm *tdx_devsec_lock(struct tsm_dev
->> *tsm_dev, struct pci_dev *
->>>    	if (!tdx_is_dev_teeio_support(tdevsec))
->>>    		return ERR_PTR(-EOPNOTSUPP);
->>>
->>> +	struct tdx_devsec *tdevsec_bind __free(tdx_tdi_unbind_dev) =
->> tdx_tdi_bind_dev(tdevsec);
->>> +	if (IS_ERR(tdevsec_bind))
->>> +		return ERR_CAST(tdevsec_bind);
->>> +
->>> +	ret = tdx_tdi_read_state(tdevsec, &state);
->>> +	if (ret)
->>> +		return ERR_PTR(ret);
->>> +
->>> +	if (state != TDI_STATE_CONFIG_LOCKED)
->>> +		return ERR_PTR(-EIO);
->>
->> While this does seem correct, it's not really following the spec or I'm being too
->> rigid, namely:
->>
->> Since TDI can change the state any time, TD can't fully rely on the Known RUN
->> state in any scenario. However, TD can rely on the Known
->> RUN state after TDG.TDI.START as a confirmation of the Interface Start.
+>> md/component_size had set dev_sectors to 2048, so raid1 came up with
+>> array_sectors = 2048 and the disk got a 2048 sector capacity.  Writing
+>> "raid0" to md/level then took the array over: create_strip_zones() rounded
+>> rdev->sectors (0) down to a chunk multiple, so the single strip zone ended
+>> at 0 and raid0_size() returned 0.  The capacity stayed at 2048, so the
+>> partition scan on the next open of /dev/md0 read sector 0 and fell over:
 > 
-> About TDI changing state any time, do you mean host changes TDI state,
-> e.g., through TDH.TDI.STOP? Or you mean TDI device goes into TDISP error state
-> due to hw error? Can't they happen even after TDG.TDI.START?
-
-I've taken this verbatim from the latest TDX connect spec, I'd assume 
-what it refers to is the TDI/device getting into error state because the 
-DSM deemed so because of whatever reason. I believe there is an inherent 
-TOCTOU race here, because you can at best get a momentary snapshot of 
-the state but the DSM, which is inherently an independent entry could 
-for whatever reason decide to enter in error state (highly unlikely, but 
-still possible!)
-
+> This takeover looks like real problem in the first place, a takeover on live array
+> can't shrink or mess up the user data, which means if there is a file system mounted
+> on the array, the file system should still be consistent after take over.
 > 
->>
->> But here we still haven't done a START, just a BIND, no ?
-> 
-> Yes
+> I'll suggest rejecting such takeover to fix this problem.
 > 
 
-<snip>
+Hi Palla,
 
-> 
-> I understand this as a best-effort sanity check, not a guarantee that
-> the interface will remain in this state.
-> 
-> For example, suppose the host creates the TDI but incorrectly reports
-> BIND complete without completing TDH.TDI.BIND. In the module
-> implementation I’m looking at, TDG.TDI.RD(INTERFACE_STATE) returns the
-> stored TDISP state without requiring the internal TDI state to be BOUND.
-> A successful read could therefore return CONFIG_UNLOCKED.
-> 
-> At this point we have bound the interface but have not started it, so
-> CONFIG_LOCKED is the state we expect. Checking it catches that
-> inconsistency; checking only the TDCALL return code would not. This is
-> still a snapshot, not proof against a subsequent state change.
+We've recently hit the same takeover issue on our side, so this is
+definitely a real problem that still needs fixing.
 
-Makes sense, IIUC it states the same thing I stated above i.e a 
-snapshot, so perhaps this check could be carved in a different patch 
-with the changelog containing this reasoning?
+I noticed the thread has been quiet for a while. If you haven't had the
+bandwidth to follow up, I'd be happy to pick this up and send a patch
+along the lines Yu Kuai suggested.
 
-> 
-> BRs,
-> Zhenzhong
+Please let me know if that works for you, or if someone is already
+working on it so we don't duplicate effort.
+
+Thanks,
+Zizhi Wo
+
+>>
+>>     kernel BUG at drivers/md/raid0.c:318!
+>>     RIP: 0010:find_zone drivers/md/raid0.c:318 [inline]
+>>     RIP: 0010:raid0_map_submit_bio drivers/md/raid0.c:568 [inline]
+>>     RIP: 0010:raid0_make_request+0xf17/0x10b0 drivers/md/raid0.c:626
+>>     Call Trace:
+>>      <TASK>
+>>      md_handle_request+0xb0a/0xe60 drivers/md/md.c:417
+>>      __submit_bio+0x27f/0x340 block/blk-core.c:681
+>>      submit_bio_noacct_nocheck+0x4e8/0xa40 block/blk-core.c:792
+>>      block_read_full_folio+0x7a6/0x810 fs/buffer.c:2373
+>>      read_part_sector+0xb6/0x2b0 block/partitions/core.c:724
+>>      adfspart_check_ICS+0xb1/0x960 block/partitions/acorn.c:357
+>>      bdev_disk_changed+0x851/0x17a0 block/partitions/core.c:695
+>>      blkdev_get_whole+0x372/0x510 block/bdev.c:793
+>>      bdev_open+0x324/0xd70 block/bdev.c:1002
+>>      blkdev_open+0x461/0x600 block/fops.c:674
+>>      __x64_sys_openat+0x138/0x170 fs/open.c:1434
+>>
+>> Just refreshing the capacity in level_store() is not enough on its own.
+>> If the size is managed externally - md/array_size written while the array
+>> was stopped, which slips past array_size_store()'s -E2BIG check -
+>> md_set_array_sectors() does nothing, array_sectors keeps the larger value
+>> and we BUG() all the same.  level_store() cannot turn the takeover away
+>> the way do_md_run() does either, because ->takeover() has already run and
+>> the old personality has already been freed.
+>>
+>> md-linear has always just failed a sector outside its mapping instead of
+>> asserting, so do the same here: let find_zone() return NULL and have its
+>> two callers report the bio and end it with an I/O error.
+>>
+>> Tested both ways into this state - a takeover that leaves the array
+>> zero-length, and one where md/array_size pins array_sectors at 2048.
+>> Before, each panics in find_zone(); after, the read just fails:
+>>
+>>     md/raid0:md0: sector 0 out of bounds, array size 0
+>>     md/raid0:md0: sector 0 out of bounds, array size 2048
+>>
+>> Reported-by: syzbot+422b372cabfbaa528725@syzkaller.appspotmail.com
+>> Closes: https://syzkaller.appspot.com/bug?extid=422b372cabfbaa528725
+>> Fixes: 9af204cf720c ("md: Add support for Raid5->Raid0 and Raid10->Raid0 takeover")
+>> Signed-off-by: Palla Raghunath <raghunathpalla.0209@gmail.com>
+>> ---
+>>    drivers/md/raid0.c | 21 ++++++++++++++++++++-
+>>    1 file changed, 20 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/md/raid0.c b/drivers/md/raid0.c
+>> index 35e103f0c2c3..04c022d74fae 100644
+>> --- a/drivers/md/raid0.c
+>> +++ b/drivers/md/raid0.c
+>> @@ -301,6 +301,7 @@ static int create_strip_zones(struct mddev *mddev, struct r0conf **private_conf)
+>>    
+>>    /* Find the zone which holds a particular offset
+>>     * Update *sectorp to be an offset in that zone
+>> + * Returns NULL if the sector is off the end of the array.
+>>     */
+>>    static struct strip_zone *find_zone(struct r0conf *conf,
+>>    				    sector_t *sectorp)
+>> @@ -315,7 +316,16 @@ static struct strip_zone *find_zone(struct r0conf *conf,
+>>    				*sectorp = sector - z[i-1].zone_end;
+>>    			return z + i;
+>>    		}
+>> -	BUG();
+>> +	return NULL;
+>> +}
+>> +
+>> +static void raid0_out_of_bounds(struct mddev *mddev, struct bio *bio)
+>> +{
+>> +	pr_err_ratelimited("md/raid0:%s: sector %llu out of bounds, array size %llu\n",
+>> +			   mdname(mddev),
+>> +			   (unsigned long long)bio->bi_iter.bi_sector,
+>> +			   (unsigned long long)mddev->array_sectors);
+>> +	bio_io_error(bio);
+>>    }
+>>    
+>>    /*
+>> @@ -471,6 +481,10 @@ static void raid0_handle_discard(struct mddev *mddev, struct bio *bio)
+>>    
+>>    	orig_start = start;
+>>    	zone = find_zone(conf, &start);
+>> +	if (!zone) {
+>> +		raid0_out_of_bounds(mddev, bio);
+>> +		return;
+>> +	}
+>>    
+>>    	if (bio_end_sector(bio) > zone->zone_end) {
+>>    		bio = bio_submit_split_bioset(bio,
+>> @@ -566,6 +580,11 @@ static void raid0_map_submit_bio(struct mddev *mddev, struct bio *bio)
+>>    	md_account_bio(mddev, &bio);
+>>    
+>>    	zone = find_zone(mddev->private, &sector);
+>> +	if (!zone) {
+>> +		raid0_out_of_bounds(mddev, bio);
+>> +		return;
+>> +	}
+>> +
+>>    	switch (conf->layout) {
+>>    	case RAID0_ORIG_LAYOUT:
+>>    		tmp_dev = map_sector(mddev, zone, bio_sector, &sector);
 > 
 
