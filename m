@@ -1,130 +1,153 @@
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com [209.85.208.175])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A439B370D49
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:25:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.175
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792005949; cv=pass; b=B+9S+qptxAH1Wa47yN1WqRxG0CGVhV8F3GAkhFlM324/3g5BfbaOxQwPUBn5n/Pqt5VBRKXhDE/xzK7WPKg9qNydhttb6MQ5ZrL0lzBTAcg0kLmAH9pi3x9e2T7Jq9zCZpSjXByx3Vgqxe8WUH4pNQFUQ4NIWATP9zMlBf9FuiE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792005949; c=relaxed/simple;
-	bh=582l4UN9d8ZpIIQBKyvfoe2ud1OuHObN9VtOBwz13Bg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=n2z+7DYCXKmvgLeSUnhuOEOiqx8Y+xKt5yR6cEJgAzuPOIQ+dkOVx6e4Qf5+tIBkgB6HqqDqzAR/60+jsIn9vXV+N5SM9e1Y0SheEdJqb6/uBIYITu4EB+rbg9u1mJbKovG14LqE0Fn4EWOIw2af/TIlXozzWy/GcIimWSlVUQk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Lf/veVDZ; arc=pass smtp.client-ip=209.85.208.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7A7130EF8F
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:28:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792006082; cv=none; b=UblTuvmpgNCRLSryLY0X8aR6c5eT4wnPwhrxHAWkkAl9z3V9NDntnyHs1mFFffP+W0EADif2SPiCxui4FIv6axc8y9+zAzAqSVQvldTDYmWmoy+2xhbUDCX+ZNXkfldlZpY/l8scdmEJYhQ9Ex5xju11tapgKizWBQSbUGLyaWA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792006082; c=relaxed/simple;
+	bh=U+T8zcNui896RuKy/9PmUhVVMHFkbK+hoFwjEBuIhlw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=b86qZhUrfq56aeTc+pfNlZxbrPE3FtlFK0STpKIa145M5AluHNOBWZbbbu67qNNFOcRpdy408mZ6kWxIphS8C2hmuCxkIUIoG39aqreC6jrWFOD99XsZlHw8vO4IAAO1CI6XtZnw9LbeX+HcCSTyKIRsOTJkAVqfFGNRYne7uYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=e5mc20eq; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Lf/veVDZ"
-Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-3a9787a15bdso37342811fa.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:25:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792005945; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sO9waqR/a0l5LiPXCBToCodfTg62/9Yq5kV6zvhgFH45mFnElq0jjyL5yp56rXkt3V
-         EWQWGBS77zZsuVV9GKk7e+5VwC/I1S25giadOGOBsdLVy5Ns07qiUJVvYzNzSU9KSpfc
-         6uo1cNI5DJydHmxOeGRQncloiHra+SARX+5XNvh0MKVSbIgGT8SW1FwbaP+WE757N9hh
-         mxc0qGd4AruhblMMHa/WD7lawWebsugGXElWCqsEW3WdVO9+b5XhCAlgXHnZPhZT1yEL
-         M5hHLIhxTZ9jNmM21d4sDX/kV6kfTFhqM4PrJlhdqpXu3zHaRlqoKyYZGYbHklZ/SPwe
-         pLnw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=582l4UN9d8ZpIIQBKyvfoe2ud1OuHObN9VtOBwz13Bg=;
-        fh=PBDzqp+6bojrbIACtSB8SiEWPjEA1J251aKogi3MX/8=;
-        b=Fix/f6T0ASPn6p2y7cmRYcVUVAcch4nZ3jzTmZHmTms3+G7KKVqwDx69fBBu4Yg9Jm
-         mtBt0sgIB0xUHZ4CB3FrR1Z91/I7vbFtmV8BfnNNW3cTuQV2PLUCLpwcl+pNZkpOmeBb
-         9rNRQyY7YtBO1njVGQN91mm8mO/Zus4az/n8L82sPJM6jpAwcjFNJd0kR7CA+hYprzIL
-         1G3LZ5Fkt96pqQ6g7tiZ1dqM6GOsUMGy2cfkjqqIZY3PeROfLLC0PVJX86gifDFpeSlP
-         VVAJvdnnlwo5Kkviyv32oxsdG1V/55++Kw7nPpZiQyDujYNH78vT07Wz+wtmFq2I0zFm
-         owvQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="e5mc20eq"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a0e1b0681bso32791965e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:28:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792005945; x=1792610745; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=582l4UN9d8ZpIIQBKyvfoe2ud1OuHObN9VtOBwz13Bg=;
-        b=Lf/veVDZ41zt9JtV37fHQydGMiRhfhYhcI+4p8Rigg1OHh+2WV5OVGC8zMKAJE4exE
-         veWcjZwjS24jxWX+M/WWdCjinLxnvs8IMmasa8t0DLaEhjfo7QvP3D735kuPhA+AZ6D5
-         suHVZjTUiM3QKhmSjdjP702nqkVLYPXB0OtsoQ9FFNmqjCYlfwuIRwhuUmMZ6U4b/645
-         etQGQfscMkcV2x4V7Oow3fO0a40kuCLa5AZyTrHUVPjYht8j8iNrBYvy1rGaZ+ymQkSH
-         TH7dne5GfJUOY7BBKN2bqJ0dyvQsFL4uXI9IQdC2d/Lhs7AQUyGCCM2O1mAFaC+zSer3
-         Z2GA==
+        d=suse.com; s=google; t=1792006079; x=1792610879; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=79ZQLVF6/awVfagux6X340wRycgEHKIlZJR5+alEZXw=;
+        b=e5mc20eqsiJhW1Nig3xUs4wAUeT20jkdeEW8NQn/lP5yHP8v+zBP9WX9cHjaztYOjZ
+         xN8xODAVg8a5MAs/anBJ/zbrwMc1jkJilScp5nsCPD/mKpvL9+qJGZrxTfz7bfd3g7NK
+         GbqyVH0bomc+ZgmKOMkH8RSxpP6BC88e9XdghXDGU8sJZbq7hjaqnoN6IWwCtSw3QkD6
+         cOQ8EqzjN+zZJPwngyGfUBhoX5PV9qLQ7fkLRA9/k9AAXlYQ8sXx6ddkyZBrV9yZASnl
+         BRFc+pxMDjftdi5AJX7rhjb67fDplfbGhBI/ux9FOg4ZVzIeehEVIorQwk3DFao0qAuE
+         +/mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792005945; x=1792610745;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=582l4UN9d8ZpIIQBKyvfoe2ud1OuHObN9VtOBwz13Bg=;
-        b=1eY8c1gHLpWQEJSUJpTEFTTuGYq2eRq4be3kTjuhYOVynB8omdcoGVLkCwcd0jFQqU
-         eyUhvluZBNcE1WQ+flUhP6SYFVA3k9CAaz2C23z++4JXwYyAcbLEgwXHDnnLUjRyJWLK
-         WKnJX8fzhhIUJ9niAIEZ+cdO7YWagGSaW15p2tzvwVZcLgs7QiWAti2m1BoYLZmW6Lnz
-         K0ciBM3zrDs2+52BImAB+hJhpChGyoKIrbzzWA/8Q74gF+QzHDdzb0BXRDr2mjFF/SxF
-         fIsaQpjWhcSRakw/K6kOluI14HMNiOj/fY1swZrHKwhY8nPFBu1b/jbvbMdtBvUdP1Lm
-         unaQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzYzo5k1DH1yEWymdSRJdFFZYWORsT8swW4tC8CQsUzClDavHDZ0D60A66D54AA62cc/yvvatwqo7AEnBU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKp9KTD+TSUj9d5EWHhAf4TGI/D3QB+jDnkGOedz92lMFwJR5F3
-	XKXtjcyQsQKQ8xYlC3QMfTDQZGmhP3AKHfPemVyRdoA/uyi46SHjNQE8F+JJqe8rPpxT2uFqD9M
-	Cap2BtZ3+XPDh3VghItoDo3YN9iN52CA=
-X-Gm-Gg: AYBFou1Jy+Y1IJIRdG35pkzveT2J9713o4B+j2OBCO4nkrmUdlVBQrVu0y4JWyqcWJM
-	K+TrPifuqvtEOJ4QXZUdmFWntrU/Nj7DRmPZUH3mzhH1I/NeIorl4EAwBCW/ZDEkgu7Dmm27SjY
-	b6zPFOJlJClbtkE2VZFDtcXVscXMh+NgC71gK0To8Shf3aPZk51vxkvpGAnPBwrm/Vhz28bvFdw
-	sKbR52LM0pRhssbrKS5I6RiwyohIseC5fCMJxqiFC6CaYhUFUv9Q8I4tmsGMJhXPotIZ1nCduxT
-	fUv3sRPPo/kmDEYhxH4bpDXYYVSwMtj0MAPQVCEf1H2JuGH7BEP10Tkk
-X-Received: by 2002:a05:651c:b28:b0:3a9:9b0b:e0e9 with SMTP id
- 38308e7fff4ca-3a9c539ad00mr43922551fa.6.1792005945250; Wed, 14 Oct 2026
- 12:25:45 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792006079; x=1792610879;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=79ZQLVF6/awVfagux6X340wRycgEHKIlZJR5+alEZXw=;
+        b=Y2h9A4GrIH3xlpZKInYQKEZcvKR0AaVvHMVuAJd6fIbajA2OqUmMPQqSw/bGgFYlFw
+         cv0I1B1leEZ9QvLb1ldoU5pT065hz9vi/3OSaDFSzztvD/gny/jO4kLrPyQPQqgLfiCH
+         LYgZnA1M1z+SOPy4oBOfmicGKyXls0+YFnZRVu8anYGzNvK5B7Bif5eqAlaqCTEQghX0
+         IFj9PAVdPdDXQu5y1yWi7yD3lMZAKkcO1VKrRFaLLmd/KssIgQR3vz7ruwlFg8hkM10r
+         Se+RWI0euPxTPmBz/E5lTXvPG98Y9i+v++F7A5/YLpFHaUH4hmQItj9yIhTo/vMheK8h
+         zAaw==
+X-Forwarded-Encrypted: i=1; AKwUvByh9IrnKuyR9otl6ZgLXSSolEZD1+prf3HZtFS7wVP7L5C5wSX4r3qjdl9TALjFvFv2fO8YWxIaGBwr+Nc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIHyc0S1yaYvch5Ds2sVWf8WIVDo9/WxKY3A95MCDt+cO1feoyA
+	3/vCbuTqDlJ+eNA1ofYGZIa2gAcX4u2GPMomowm12Q6UvzAdfwFBRFyfgrgIdgz0f0M=
+X-Gm-Gg: AYBFou3ETpht3D9NjHGS18l7yPSuaKHbswZ4fzTF4bZCk7A1uEtmlsED1kW61Pk8Bme
+	dYFiXdWPOR3GYOryIg0RJ4bup11IQN06jiR3FAsbX5iH/dmbsMYuByQsW0JdT56G60FVxfD6oK2
+	B6TApmBv+jjJN7JNLg47Z4nRIFYRmvICgpB6hNOpq9MdmUgjA/owuMU6XfWmKPx9v0Xc520Oxu8
+	/HaUGOhanf0b3vyeqjLPhOUzUxWDaL9TU0fzaVWwcMjrNGjhMTuKoCWXhM5vLEK/AuSoGy6TCZx
+	/ooJFjCL4E/73aJhkC0jegWzMHI6mzDjAeykbXggjJhiz3Titq3dUQ5BJwlJsfsS/htyFlJ4UiE
+	QYWvWVuYUENQlkgQfEcHxmB/JuCE1PlFC8Qeu2ZxK4ZYvKyxHwCSq+j3dzbUb4R/qFnFGOsQHJM
+	38Bh6NumrBEViYy5odeZsvO7KlVdcqTIrZT7ZcPdtE6HQJDSdll4bEQHCXSzJWdi+6WUvryDEB1
+	odt3Ce//x1g
+X-Received: by 2002:a05:600c:8b78:b0:4a1:813f:2a60 with SMTP id 5b1f17b1804b1-4a18e47acf5mr381505505e9.11.1792006079203;
+        Wed, 14 Oct 2026 12:27:59 -0700 (PDT)
+Received: from localhost (109-81-25-183.rct.o2.cz. [109.81.25.183])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd972affsm12468825e9.2.2026.10.14.12.27.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 12:27:58 -0700 (PDT)
+Date: Wed, 14 Oct 2026 21:27:57 +0200
+From: Michal Hocko <mhocko@suse.com>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>, Tejun Heo <tj@kernel.org>,
+	Meta kernel team <kernel-team@meta.com>, cgroups@vger.kernel.org,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH for-7.5 4/5] memcg: avoid queuing high_work from reclaim
+Message-ID: <as_XvRZzV6vR9dCo@tiehlicka>
+References: <20261010210957.1350874-1-shakeel.butt@linux.dev>
+ <20261010210957.1350874-5-shakeel.butt@linux.dev>
+ <as9p2uFqCQprwdnI@tiehlicka>
+ <as97Nzob4XuzO9Ss@linux.dev>
+ <as-08j9_1C2F_N8s@tiehlicka>
+ <as_AxtUlV8K2fkNu@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261004212403.208681-1-oss.patchbox@gmail.com>
- <asm4DV84UitLCbve@dell-wzy> <CAGG=RgApzG=MeZ9xbpeBzqE0i0Q6RCPXtnyS-30JfEDPDKNN0Q@mail.gmail.com>
- <as4fKufR2O21NWk5@dell-wzy>
-In-Reply-To: <as4fKufR2O21NWk5@dell-wzy>
-From: Yuho Choi <oss.patchbox@gmail.com>
-Date: Wed, 14 Oct 2026 15:25:33 -0400
-X-Gm-Features: AclHuK8bWEAIT_jes9eLRLNmTdyx38C_iJwbW3y3L5STgV7Y6fOZaRlXyp6RKPU
-Message-ID: <CAGG=RgDVsPHjLMTEgoqjh17hfnBUg3WUeca93VrDS7NTshHsOg@mail.gmail.com>
-Subject: Re: [PATCH v1] drm/i915/gvt: Don't replace a DMA mapping that is
- still in use
-To: Zhenyu Wang <zhenyuw.linux@gmail.com>
-Cc: Zhi Wang <zhi.wang.linux@gmail.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
-	Tvrtko Ursulin <tursulin@ursulin.net>, Xiaolin Zhang <xiaolin.zhang@intel.com>, 
-	intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, zhiw@nvidia.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <as_AxtUlV8K2fkNu@linux.dev>
 
-On Tue, 13 Oct 2026 at 08:08, Zhenyu Wang <zhenyuw.linux@gmail.com> wrote:
->
-> > You know this code much better than I do, and I can't test it without
-> > GVT-g hardware, so I may well be missing something.
->
-> I can understand that but I think for any non-trivial change or
-> for sensitive part, testing is a must...
+On Wed 14-10-26 10:55:21, Shakeel Butt wrote:
+> On Wed, Oct 14, 2026 at 06:59:30PM +0200, Michal Hocko wrote:
+> > On Wed 14-10-26 09:06:00, Shakeel Butt wrote:
+> > > On Wed, Oct 14, 2026 at 01:39:06PM +0200, Michal Hocko wrote:
+> > > > On Sat 10-10-26 14:09:56, Shakeel Butt wrote:
+> > > > > Kernel threads and remote chargers use high_work when memory.high is
+> > > > > exceeded. Their allocations during reclaim can also charge memory,
+> > > > > for example when zswap stores a page.
+> > > > > 
+> > > > > Without a check, the high_work worker can queue itself from its own
+> > > > > reclaim. The pending bit is cleared before high_work runs, so each run
+> > > > > can queue another run.
+> > > > 
+> > > > What does that mean really? Does this delays the actual run?
+> > > 
+> > > It will not delay the actual charge request. This mainly means that we keep
+> > > enqueing the high reclaim work even from high reclaim context and can
+> > > potentially keep wasting CPU if high reclaim is not very successful.
+> > 
+> > Hmm, so is there any practical problem if we do that? What exactly do you
+> > mean by "keep wasting CPU"?
+> 
+> More specifically if high_work kworker keeps enqueing high_work, most probably
+> the memcg does not have reclaimable memory and keep retrying it wastes CPU.
 
-Understood. I'll hold this patch until I can test it on GVT-g hardware.
+Yes but this is not specific to PF_MEMALLOC context, or do I miss
+something?
+ 
+> > > > > Skip memory.high enforcement for charges from task context with
+> > > > > PF_MEMALLOC set when they would use high_work. This covers kernel
+> > > > > threads and remote charges. The memory is still charged. Interrupt
+> > > > > charges keep their current path.
+> > > > > 
+> > > > > In a VM with incompressible zswap data, the worker queued itself 163 times
+> > > > > without this check.
+> > > > > 
+> > > > > Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+> > > > 
+> > > > The patch itself looks OK. I am wondering whether we can unify the check
+> > > > with the existing one which forces the allocation through in main
+> > > > charging path.
+> > > 
+> > > The force charge (and ENOMEM) paths bypass the memory.high enforcement
+> > > altogether.
+> > 
+> > Exactly. Isn't that exactl what we want to achieve here as well?
+> > 
+> > > Only successful charges (done_restock label) goes through
+> > > memory.high enforcement. So, even if we move this check in try_charge_memcg, it
+> > > will still be a separate check before calling high enforcement function. I think
+> > > this check is very high_work specific and better to be in the high enforcement
+> > > function.
+> > 
+> > I meant something like the following
+> 
+> Oh ok this makes sense. Do you want to send a patch or should I add this in this
+> series replacing the 4th patch?
 
-> > The case I had in mind is the guest mapping the same page at both sizes
-> > and keeping both, e.g. 2M in the PPGTT of one context and 4K in the GGTT
-> > or in another context's PPGTT. If the second request replaces the entry,
-> > the first shadow entry seems to keep the old DMA address, as
-> > shadow_ppgtt_mm() reuses a PPGTT that is already shadowed. Is that ruled
-> > out somewhere? Please let me know if so.
->
-> Shadow ppgtt is created by a PV interface, so each context would have
-> separate shadow ppgtt or shadow mm. GVT handles guest page's dma
-> mapping per-vgpu as for per-VM. But GVT handles context submission in
-> order, shadow ppgtt is populated for each submission. I think even in
-> your example that possible one page mapped in different context as 4K
-> or 2M, it would be remapped as size doesn't match for each submission,
-> so no invalide dma address access.
->
-> I doubt if i915 could possibly have such case in reality..
+Feel free to take it. I haven't even tried to compile this. Just wanted
+to show what I have in mind.
 
-It does seem to happen: 7366aeb77cd8 was written after the same gfn was
-requested at both 4K and 2M during an OpenCL conformance test.
+-- 
+Michal Hocko
+SUSE Labs
