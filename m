@@ -1,167 +1,141 @@
-Received: from relay.hostedemail.com (smtprelay0012.hostedemail.com [216.40.44.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2901F481AB3;
-	Wed, 14 Oct 2026 21:28:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.12
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792013314; cv=none; b=FApNQVRh2qkKGC6aAtapESWP4is5PPd63UlB+GdABe2A09aPe+8iCRLXgP9qc/hlcA07vD5wMLtyPqVveRUH/4dMTnAxegdTBFkWbcCpMomC4pFaGeRrGix8NIzjiWB8VoVhLqjXLJ1EfBht5Emq5SGN1JJEAfWMTsJh4sWkC/M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792013314; c=relaxed/simple;
-	bh=LpA+uJyhB8EEGLA/EzeAiOtgtEBsNeUt70KXBYbelLc=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kjS2IXkBqGyDQePceEdiKYhChWjZEZ7aHPaAoTTImIIBnB8hG2kGURmuE7vGjTffGVzlHfDNqmsChHaYd5+NQ+HdBzIJBVLp6Y/VLfeXi3G5ZmXCWzR5oJ2TJBRQ3TiVjmII9cwKnHtpJBLGsjUZKAwyjF/1K8gB2HJsnXksKbs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=2n5lE5gT; arc=none smtp.client-ip=216.40.44.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 592983FF8A5
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 21:29:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792013379; cv=pass; b=fRL7ynZ2F9JvutjnFPA18O6LrnCcIm2Co6hhVfinr8AKs1wFFfZ0n/0JJwpIxn6fqN0LCVyPwjHIv+7J+MilChgMp8mI9uYhyywHrN86gPUpps76ZG1VvQ2aI28TLz0v1UjLdYAP5TxtF53RD4ZbAa37QO/5AKnSdBJGGR1pi48=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792013379; c=relaxed/simple;
+	bh=iefBJmYupKVJayKOqvQ87buV4ppZMJex7WihUR0osRE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DPS22GYFnt1i+O7SjeSSz8uWvuo5okTL4g2yQ/0JN7ea7tC24YfoFz/AjhTPUosZMHC1qOTxi4ANkVIMS7/G+2cF1AOr5BM0a93NPyQW+dDMjLWdH/l88HN8Jcgmn8mqupPuXeavKDOcaQjfFg8OD4nxrO9qpwK69ES1QHSpL54=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JYiMvfnz; arc=pass smtp.client-ip=209.85.160.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="2n5lE5gT"
-Received: from omf08.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay03.hostedemail.com (Postfix) with ESMTP id 85626A04FC;
-	Wed, 14 Oct 2026 21:28:24 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf08.hostedemail.com (Postfix) with ESMTPA id C985020027;
-	Wed, 14 Oct 2026 21:28:22 +0000 (UTC)
-Date: Wed, 14 Oct 2026 17:28:21 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Andrea Parri <parri.andrea@gmail.com>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH] ftrace: Fix lost recursion records in
- ftrace_record_recursion()
-Message-ID: <20261014172821.2b1fde91@gandalf.local.home>
-In-Reply-To: <20260917090217.6738-1-parri.andrea@gmail.com>
-References: <20260917090217.6738-1-parri.andrea@gmail.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JYiMvfnz"
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-5350c1b9e0dso9240431cf.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:29:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792013377; cv=none;
+        d=google.com; s=arc-20260327;
+        b=P5949qacjwycRx6l0hsexAKgBJ3oR8lnnMoU0CQiN5heh4ReK0c6ZgrEQ/gPlfK3hQ
+         BYAjXFTIml/kG2PV9ASIZCIE2KvBbu5VI2X5U6LVVXQJOf5QaC7Ss85/zE5u4tfKP97U
+         warGu88ZpT81rg5eyDYEihdSDuiIaS/qS2JUXLxKbD7Re001GAGcSiDys7M9ZJ5WttIj
+         hN9NntMOZ+0QgCJSFTXqoWn+bYbLM8TNRC8gySv/l0wDxKISExkMb5ZIiwcouuelzmQo
+         4a1XsDzOeTpiPoL2fq4To7t49yZXGXzal/vaPm+j5pZB0QQM3NN5KLPpzPlOvEiePabY
+         RRtQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=YwgxusmBTG3+SD3/g0+kXEe8xsc6kMCtJNV8dtSIErM=;
+        fh=AmGoO4KM02zK1oFhfmfh469eFerTjHYg7nHS5rmkgQY=;
+        b=RMf/9Rb+p1ogZru/6bYY25ytRU8Pt91tsfQjCURzzV4o2Vg6rFAuy7JAcVzOwe53yJ
+         0xsxRpvUrddOvEhE0h6L3xQTZdAjqP6W1LZl/sqHq5gjz5FohKrbD46fyWhvVQ8Rc/lM
+         ZWm3QDQ2x5F1oTUJsEVoD9NGNU6YT5ULqntP3inuXsdd0U916SNnZU4lhvRoaN0rbKvG
+         GdoimelzBFC5Z7CbPadZkKsgBmBvkaUERaKL3c+J3vvy/pK55JbFTcsuucX9URQeD9kC
+         CEqxtgRzueCs1WmWr1j6RKcM4vJJHHaGEJ31oNc4BfUsEEU8NBph96SMl1wKP83DnrXh
+         qQ7w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792013377; x=1792618177; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YwgxusmBTG3+SD3/g0+kXEe8xsc6kMCtJNV8dtSIErM=;
+        b=JYiMvfnzBMm0PJBMQgYJaKN3PNndQknU5uRJyxJxp770e5ALcIgfqyJmcKb4LDj7O2
+         xqO0ueqKLijwjemP1KfuvVOZo0e6GLsR4+bn1NvmZqeYCC35k7D9tdltzZjT9bDLs2tC
+         kQvkziF4biyejaVfJeB4oZ4bbjeuVDTKD449ebaf4jnrV1dA31PdJRTDgVfUx6hB3MHZ
+         crLvxKt7ae+GUuz23nF9rFTTB9ht00EtJQTmMZ6fox25eDclrvMy6sqG9/Rm6svapNye
+         xqJpIMoyGblHKjEPYeKkCX4d5JiWndzgAmXe6yURqcaqukAp6KfaVEhS5hlluwo0a5Ni
+         qqLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792013377; x=1792618177;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YwgxusmBTG3+SD3/g0+kXEe8xsc6kMCtJNV8dtSIErM=;
+        b=nGzxe302ji1rIFM4Z4ofWCnM717D5G6MHX5m1ksv5kkcpU1vFEZUBdLBeRsVkNLtrb
+         6OI++QNhptDwuiBiJZNUd9UjmNzp4dFzDdk03dOBHc/lV7TZA6PBqnuo2eWw/dQrLe8X
+         ypAZ9a5arh6SSxNr4fm64nGzESLAa/lDVRAyGw+asgJeuWxdfzwUPCm71Fz3DvNYsx1/
+         0lCcpoO9gX0cpchzkENnB7xldZ3GJ9+qOcLr7Pbowk1z26XPywELIeD8YExnffferUyg
+         o1tvbEmSA02srGs2L2WPdN3SXP80aRY3ny/XbzDTSj/U4PhpEa+ek3sO+P2jfxEqzA23
+         boKA==
+X-Forwarded-Encrypted: i=1; AKwUvBzNCXNTd6VKaT07SckkQR6Q2BzFgFytmQ53/9CCo9ryd7u236LNG4++lF4iD0dRlErYLvXamsRyDjRzJYQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLBcseiod5We8auQsBjzP6680OHIxMgGWzZLOW8+6XdZcPv2JNN
+	Af99SvUwWbyIYWvxMUTM8LK2dYv8BCkkJWsI5wAvJW2eUlXZQrpD2bxLGpd1LMDExh0jUztClwm
+	wJ3LmGw/x2q3q/zfcbL8mOKoLQsyR/c0=
+X-Gm-Gg: AYBFou1YutJ4E9T7+NOUX5I4oMb/zWQGwaHTI1r6A1yM8IsSFfMYi2zZDktXTkY/QFZ
+	XSGXUDIDWhGbmKDBUnEsLRGCpiFEKbpZAdt1tSepUbrYYN0tTbT+Ak5CO8IzjkAvx+CWMuWn5Iy
+	76OTdBQBa3fSthkWprQeJ4tDwoR8K8irmofRKIsnr2EedwnXMoqEjTXO0JAXM8R51TmlpFyUJFu
+	lnRqYBDyN72SXX9hyfDSVEImiVxwoD1VuKS+MHQcBc4LW2ZK0Oji434wN+KdA0Qwvsj57zeUseD
+	zg+fE85gVuNcBCLhAKcX1Jhxzh0A5skBkur7dtG/z0wghKaCP/rKt6s=
+X-Received: by 2002:a05:622a:598c:b0:535:84e3:ceef with SMTP id
+ d75a77b69052e-5359fb86e08mr292010171cf.45.1792013376625; Wed, 14 Oct 2026
+ 14:29:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout07
-X-Rspamd-Queue-Id: C985020027
-X-Stat-Signature: drctf8sc869jumqk859ukfc9mpq7zkrz
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1+eLNP5VhHoeWSdhwdUGvCEUjjZxRn7iwo=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=NbU69m8BL/3/ePbzU92HaN4diDbYa6HHrjwHCIZGzuw=; b=2n5lE5gTAHJLkU2QP6er9B1ou6S2Sg6YdJFMtaeKFARIjmoNFBR3hQh2uRld8CEqgwINUZE7P80r6UylCFShFFUHdc5NXubZznZnxIgeUXTeZZFR/8hxltsJsbPNqneg0s8ay+CQiCNdwIjR4O2fZyFUhos68Ddtagu/Hnh19bM=
-X-HE-Tag: 1792013302-700209
-X-HE-Meta: U2FsdGVkX1/VvuSB3H8ol/0Mycl3ICwPaj6Ch4qbMbD4JhBVitsMMDPeY5HGzhnuMM3hFhqzDa5u1ma7p5bFmHCNMhXKMCyhzKkP9uPyxtQkBxB73Yv8pePaQbnaucRYzfpThoxP3wTJa1t7JpDLoGKakcZods8V3q+QsCK4vvW7yXqpVENFqmGH6GPalcqeBPtr9ELnOfGFMW4w1HBNkXdQayzyAUXh+hDYT6yvnhqvMLgotuaJxir2gUyXydf/PcYQ/mvLu9/9IbCg8SDGgzuIeRk/sMiArUJ0pQk/h+aVYpusnwckPtFZRWTXls7nzFgS6+aHLJRY5mwWxeEBQVxpwTVA745V
+References: <20260924020936.17612-1-matheus.aalmeida@inf.ufrgs.br> <1e4cd74d1d4598dcb22198724323cf00@inf.ufrgs.br>
+In-Reply-To: <1e4cd74d1d4598dcb22198724323cf00@inf.ufrgs.br>
+From: Jason Gerecke <killertofu@gmail.com>
+Date: Wed, 14 Oct 2026 14:29:25 -0700
+X-Gm-Features: AclHuK_EW-cvvhCm33wG1LwURzuAIYspTU3DOos0A_N6byRXCMb2FNUeb1-g6hI
+Message-ID: <CANRwn3QfxSxVqGUjOuMhoEhuOHRz0ODdFqUU5wZQKuPNp7kG-Q@mail.gmail.com>
+Subject: Re: [PATCH] HID: wacom: fix wacom_intuos_irq NULL pen_input deref
+To: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+Cc: Ping Cheng <ping.cheng@wacom.com>, Jason Gerecke <jason.gerecke@wacom.com>, 
+	Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	syzbot+b5a7cd83622c747977de@syzkaller.appspotmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 17 Sep 2026 11:02:17 +0200
-Andrea Parri <parri.andrea@gmail.com> wrote:
+On Wed, Oct 7, 2026 at 8:35=E2=80=AFPM Matheus Alves de Almeida
+<matheus.aalmeida@inf.ufrgs.br> wrote:
+>
+> Em 2026-09-23 23:09, Matheus Alves de Almeida escreveu:
+> > Currently, wacom_intuos_irq() passes the parent of wacom_wac's
+> > pen_input to the dev_dbg() in the unknown report path. However,
+> > pen_input can be NULL on interfaces without a pen, causing a
+> > NULL pointer dereference.
+> >
+> > Get the HID device from the enclosing struct wacom and use hid_dbg()
+> > instead.
+> >
+> > Fixes: eb71d1bb270e ("Input: wacom - use dev_xxx() instead of naked
+> > printk()s
+> > and dbg()s")
+> > Reported-by: syzbot+b5a7cd83622c747977de@syzkaller.appspotmail.com
+> > Closes: https://syzkaller.appspot.com/bug?extid=3Db5a7cd83622c747977de
+> > Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+>
+> Hi,
+>
+> Gentle ping on this. Has anyone been able to take a look at it yet?
+>
+> Matheus
+>
 
-> cached_function is set to the current ip before the cmpxchg() that
-> claims a slot in recursed_functions[]. When that cmpxchg() loses a
-> race for the same slot, the code bumps index and retries via "goto
-> again", but the retry immediately matches its own cached_function
-> write and returns without ever reaching the bumped-index cmpxchg().
-> 
-> Concretely, for two writers racing on the same index:
-> 
->   CPU 0 (ip = A)                    CPU 1 (ip = B)
->   --------------                    --------------
->                                      cmpxchg(&recursed_functions[index].ip,
->                                              0, B);      // succeeds
->   cached_function = A;
->   cmpxchg(&recursed_functions[index].ip,
->           0, A);
->     // fails, old == B
->   index++;
->   goto again;
->   if (A == cached_function)         // true: matches A's own store
->           return;                   // A is dropped, not retried
-> 
-> Once dropped this way, cached_function stays set to A, so every later
-> recursion of A also hits the fast path and returns before reaching the
-> retry, until some unrelated ip overwrites the cache.
-> 
-> Only set cached_function once the record is confirmed present, either
-> because a concurrent writer already added it or because this writer
-> just claimed the slot. The retry path leaves it untouched, so it no
-> longer matches against a value it just wrote for itself.
-> 
+Apologies for the delay... I've reviewed the patch and it looks good.
+It does make me wonder about similar patterns elsewhere in the code
+though (calling `dev_dbg(input->dev.parent, ...)` isn't unique to this
+function). I'm happy to take this as a standalone fix for an observed
+crash, but an audit of other log statements is still probably
+reasonable.
 
-Good catch!
+Reviewed-by: Jason Gerecke <jason.gerecke@wacom.com>
 
-> Fixes: 773c16705058e ("ftrace: Add recording of functions that caused recursion")
-> Assisted-by: LLM
-> Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
-> ---
-> Can't claim to fully understand the logic behind ftrace_record_recursion().
-> Notably, its smp_mb__after_atomic() calls and the lack of barrier comments
-> both look suspicious to my LKMM-trained eyes.  ;)  Hence the RFC.
-
-Well, the nr_records is updated via a cmpxchg() which itself is a full
-memory barrier. The smp_mb__after_atomic() calls are to make sure the value
-read is in sync with other CPUs before doing the compares. It also syncs
-with the clearing function that is disabling and the writes, clears it, and
-enables it (the -1 updates).
-
-Otherwise, IIUC, the atomic_read() itself doesn't guarantee that what you
-read is what is in memory without explicitly using the smp_mb__after_atomic().
-
-
-> ---
->  kernel/trace/trace_recursion_record.c | 19 +++++++++++--------
->  1 file changed, 11 insertions(+), 8 deletions(-)
-> 
-> diff --git a/kernel/trace/trace_recursion_record.c b/kernel/trace/trace_recursion_record.c
-> index bac4bc844ccd8..f42089c30f53c 100644
-> --- a/kernel/trace/trace_recursion_record.c
-> +++ b/kernel/trace/trace_recursion_record.c
-> @@ -17,8 +17,8 @@ static struct recursed_functions recursed_functions[CONFIG_FTRACE_RECORD_RECURSI
->  static atomic_t nr_records;
->  
->  /*
-> - * Cache the last found function. Yes, updates to this is racey, but
-> - * so is memory cache ;-)
-> + * Cache the last function confirmed present in recursed_functions[].
-> + * Updates to this are racy, but this is only a best-effort cache.
->   */
->  static unsigned long cached_function;
->  
-> @@ -67,24 +67,27 @@ void ftrace_record_recursion(unsigned long ip, unsigned long parent_ip)
->  		}
->  	}
->  
-> -	cached_function = ip;
-> -
->  	/*
->  	 * We only want to add a function if it hasn't been added before.
-> -	 * Add to the current location before incrementing the count.
-> -	 * If it fails to add, then increment the index (save in i)
-> -	 * and try again.
-> +	 * Claim the current slot before incrementing the count. If the slot
-> +	 * is occupied by another function, advance to the next slot and retry.
-> +	 *
-> +	 * Do not update cached_function until ip is known to be present;
-> +	 * otherwise the retry would match its own cache update.
->  	 */
->  	old = cmpxchg(&recursed_functions[index].ip, 0, ip);
->  	if (old != 0) {
->  		/* Did something else already added this for us? */
-> -		if (old == ip)
-> +		if (old == ip) {
-> +			cached_function = ip;
->  			return;
-> +		}
-
-I think we do not need the above. If old == ip, then whatever set it before
-should have updated the cached_function.
-
--- Steve
-
-
->  		/* Try the next location (use i for the next index) */
->  		index++;
->  		goto again;
->  	}
->  
-> +	cached_function = ip;
->  	recursed_functions[index].parent_ip = parent_ip;
->  
->  	/*
-
+Jason (she/they)
+---
+Now instead of four in the eights place /
+you=E2=80=99ve got three, =E2=80=98Cause you added one  /
+(That is to say, eight) to the two,     /
+But you can=E2=80=99t take seven from three,    /
+So you look at the sixty-fours....
