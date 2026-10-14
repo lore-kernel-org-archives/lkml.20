@@ -1,166 +1,112 @@
-Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEA9147F3D9
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:06:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D55DF472F8E
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:07:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791961571; cv=none; b=q+4wWXNmFYqyuhMCJBrjadmHWl6LGNXbg+AdhjX0Y+c8cNXHOwsV04OTX3VbfkRTtStRzklR4EWvFOzeRx80p9krg6Pig735Q0bvoXmozEkAJuLI6ngzFFhV+UbL6mszbtNmDljwWcUSbCYCx3Fhu+NzQBeKxoq+L0BuRRB23xM=
+	t=1791961681; cv=none; b=qVb0pcoyBse8GdoerP65zCrAzZ06mAgW/AcgJ9RLfy9IzxmjJzU42TKfOyq4NnaGW5HyK6AxVDcyq+G2GA/KWnBgLbOy3z/OIrgoOzwMRjegDsb97fQ3kjb9pREjTowICh8P4TmDdJCOxe1bL6XWBDDRT4wOTNjfJfXCb1/RcEI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791961571; c=relaxed/simple;
-	bh=VQrXm4GB+8ax5cOdddpF4esrQmNaanITzlIWjk0oXAE=;
-	h=To:Mime-Version:Content-Type:References:Cc:Subject:From:
-	 Message-Id:In-Reply-To:Date; b=U3dHING2/Yqa6M6gtQdwW2JpiKrsq4SJp5QA8UUrDa8K73BoTKafA0Gq+vq77YPZVMJcs33y8IS1qQOaGej589bWmBQLk7eViA8ILIb289fcOCTwlMusbI3BzHT0CTyEgrb5keHLpNDYuFpz0IrH3EDc1Me10k3Sd9Yvl08c0ss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=l1MQQ70U; arc=none smtp.client-ip=209.127.230.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1791961681; c=relaxed/simple;
+	bh=jAN4FpmhkZCQSFafqmfkyYYv61rQJ5Lp2ji2EOpAz1M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=okJANSyyBYjjvvqJvY6riM4o9I15/GZ6vZzKZhXUYq/F0YROdBUXuUB27u7wwe7EgJayBapM2XhLH5JJeCrBLkRsKLuk4rhP05Fqhpc4wAjY8rgSsurlvYjk4ShpQliEksdK8EJ9s6f16Y19le70r+RdLr9i/a1+mskl2JtTZYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ozuFOzFe; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="l1MQQ70U"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1791961562; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=AmY4dPyqQykotqM+kN48z0R7XzUceAJIO537k4Ko2W8=;
- b=l1MQQ70UOnvW1MObWFpTiOz4M3Lq5XFwDHQ+7RnObj4PO66jSwYIc6kNI+3bMiABi126Dm
- gYUjpPHE8K8QMGKgaA0Uz4qVI+PRpYSLNBQhXC0Bm16Z3f9kbeY0RxTm7q0UpReAQCf/Sq
- SxNivQY9IFHPdnLxt1Ux5PfG3Q9asuwPYTKZRg2CA4HCWmolJPxy+M/ZovbTXNUn1kfFDk
- RzLX5qCmIlkULjg69gHYb8ctHNFAtRs4x+/4axQD/fQQutoMdHUIcreJkQSr05YxqwEzVa
- x9dgSV8eBVx7R6q1BTgJDvyjFGnbKi7/CdNVmdvG1ZIjSK4IN3nO7xlAtBB8aA==
-To: "Chen Yu" <yu.c.chen@intel.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ozuFOzFe"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=cN52U4M/akNKSi2TPwUFS588/SgQwjQ7WAsKS9tCPEc=;
+	b=ozuFOzFeYTGg1HfHwli+qm2pMBl7yU5XD9tH9Lo2RVN5LTAR+JwUgY61ElK8+j
+	XbnsMiTuRNxJ8tZaL/u7KUypXqQSPIEr4RoATahJxnwFLj1Fc1W6/CcsxXSrV8tZ
+	ibmg1PnIBL+tj6HQiNp41Tas2Vgcnaga2FJRY1/37Tq9A=
+Message-ID: <17da8380-6087-4cf3-8850-336dcf76f919@163.com>
+Date: Wed, 14 Oct 2026 15:07:13 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Type: text/plain; charset=UTF-8
-References: <20260908122446.56708-1-lizhe.67@bytedance.com> <as3gQ8jfa_6eBf15@chenyu-dev>
-Cc: <mingo@redhat.com>, <peterz@infradead.org>, <juri.lelli@redhat.com>, 
-	<vincent.guittot@linaro.org>, <dietmar.eggemann@arm.com>, 
-	<rostedt@goodmis.org>, <bsegall@google.com>, <mgorman@suse.de>, 
-	<vschneid@redhat.com>, <kprateek.nayak@amd.com>, 
-	<linux-kernel@vger.kernel.org>, <linux-fsdevel@vger.kernel.org>, 
-	<linux-doc@vger.kernel.org>, <laoar.shao@gmail.com>, 
-	<tim.c.chen@intel.com>, <mkoutny@suse.com>, <david@kernel.org>, 
-	<tj@kernel.org>
-Subject: Re: [PATCH 0/4] sched/numa: Add per-process automatic NUMA balancing control
-X-Original-From: Li Zhe <lizhe.67@bytedance.com>
-X-Lms-Return-Path: <lba+26acf29d8+c6e990+vger.kernel.org+lizhe.67@bytedance.com>
-From: "Li Zhe" <lizhe.67@bytedance.com>
-Message-Id: <53b6cafb-ed85-410b-b7df-10897205630c@bytedance.com>
-In-Reply-To: <as3gQ8jfa_6eBf15@chenyu-dev>
-Date: Wed, 14 Oct 2026 15:05:30 +0800
+Subject: Re: [PATCH v2 3/7] exfat: validate cached iomaps during buffered
+ writes
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: exfat@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Yuezhang.Mo@sony.com, dxdt@dev.snart.me, sj1557.seo@samsung.com,
+ Chi Zhiling <chizhiling@kylinos.cn>
+References: <20261013033837.2748258-1-chizhiling@163.com>
+ <20261013033837.2748258-4-chizhiling@163.com>
+ <CAKYAXd-NdwvD9OO+_5UC5yVLp1OYf3KUFvPe_LRUkNjd9vuxvQ@mail.gmail.com>
+From: Chi Zhiling <chizhiling@163.com>
+In-Reply-To: <CAKYAXd-NdwvD9OO+_5UC5yVLp1OYf3KUFvPe_LRUkNjd9vuxvQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:_____wDX36UhKs9q1K_mEA--.42514S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7CF1rtr1xKr17Kr1xGry3Arb_yoW8Cr4UpF
+	W3KwsxGrWkKw17ur18Jry5ZFyY9rZagr4xGas8G3s8Arnava18KF17Ga4a9FyrJw1q9w10
+	vw4vyrs5WryDJ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U3-BiUUUUU=
+X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC3AQiv2rPKiS81wAA3F
 
-On 10/13/26 3:39 PM, Chen Yu wrote:
-> On Tue, Sep 08, 2026 at 08:24:42PM +0800, Li Zhe wrote:
->> Automatic NUMA balancing is controlled globally through the
->> kernel.numa_balancing sysctl and can be influenced indirectly through
->> memory policy. That works well as a system default, but it is too coarse
->> for workloads where a launcher wants most processes to use the default
->> policy while a selected process opts out because it already manages NUMA
->> placement or cannot afford the sampling overhead.
->>
->> A recent per-cgroup proposal tried to address this by adding a
->> cgroup-local enable knob plus a NUMA_BALANCING_CGROUP mode where
->> balancing was disabled by default and then enabled for selected cgroups
->> [1]. The discussion also noted that automatic NUMA balancing already
->> operates at task/process granularity, that the knob is not a resource
->> control attribute, and that task/process controls such as sched_setattr()
->> or prctl() may be a better fit while cgroups and cpusets continue to
->> describe workload grouping and placement domains.
->>
->> There is also prior art from 2023 prctl() proposals [2][3]. Those
->> versions used a per-mm mode with disabled/enabled/default states, added
->> NumaB_mode to /proc/<pid>/status, and changed the global static key
->> handling so a per-process enable could override the global sysctl.
->>
->> This series takes a more conservative variant to preserve existing
->> administrator and workload expectations. Keeping the global sysctl as a
->> hard off switch means an administrator can still disable all automatic
->> NUMA balancing activity with one knob. Using a weak two-state
->> per-process opt-out/allow ABI avoids exposing a "default" state whose
->> meaning depends on global policy and is therefore easy to misinterpret.
->> Storing the configured mode in signal_struct gives the control explicit
->> thread-group semantics and avoids making unrelated non-thread CLONE_VM
->> users share the policy merely because they share an mm.
->>
->> The series implements a per-process interface: a thread group may use
->> prctl() to set or get its configured automatic NUMA balancing mode. A
->> process can opt out of new periodic NUMA scan scheduling and NUMA
->> scheduler accounting, or opt back in. Existing hinting faults and queued
->> work are allowed to drain naturally as the disabled state takes effect.
->> When kernel.numa_balancing is 0, a process-local enable request does not
->> override it.
->>
->> A separate task_struct scheduler snapshot is used by enqueue/dequeue
->> accounting so the scheduler can consistently account the state that was
->> in effect when a task entered the runqueue. This avoids changing
->> historical task accounting while still allowing a process mode change to
->> take effect through the normal dequeue/update/enqueue path.
->>
->> The series also exposes the process NUMA balancing mode in
->> /proc/<pid>/status and documents the new prctl() ABI and its interaction
->> with the global sysctl.
->>
-> Can the global key be extended to tri-state, like the THP settings?
-> To keep it backward-compatible, echoing 0 and 1 remains the same effect.
-> The user can also echo always, advise, or never to it.
-> We have a similar proposal here for cache-aware scheduling[1]
-> In this way, the user does not have to disable NUMA balancing one by one
-> across the whole system.
->
-> Yafang Shao has a bpf-cgroup based NUMA balancing proposal[2].
-> Overall I support fine-grained control of NUMA balancing, and I'm curious
-> what the possible setting would be in the production environment, would
-> something like Kubernetes be responsible for setting the NUMA
-> balancing attribute via prctl, or as Yafang proposed, leverage cgroup
-> interface?
->
-> [1] https://lore.kernel.org/lkml/fd341106e7e6cbd2f047656650f43ee87c6633c1.1787955777.git.tim.c.chen@linux.intel.com/
-> [2] https://lore.kernel.org/lkml/20261012120438.52849-1-laoar.shao@gmail.com/
+On 10/14/2026 9:19 AM, Namjae Jeon wrote:
+>> +static bool exfat_iomap_valid(struct inode *inode, const struct iomap *iomap)
+>> +{
+>> +       struct folio *folio = iomap->private;
+>> +       loff_t old_valid_size = iomap->validity_cookie;
+>> +       loff_t valid_size = exfat_get_valid_size(EXFAT_I(inode));
+>> +
+>> +       if (valid_size == old_valid_size)
+> exfat_write_iomap_begin() reads valid_size before
+> __exfat_iomap_begin() records the validity cookie. concurrent mmap
+> fault can advance valid_size between those reads, allowing the stale
+> value to zero mmap data before iomap_valid() is called:
+> 
+> buffered write [0,128)                       mmap fault
+> Reads valid_size = 256
+>                                                Raises valid_size to 4096
+>                                                Stores 'X' at offset 400
+> Records cookie = 4096
+> Zeroes [256,512), erasing 'X'
+> iomap_valid() sees cookie = 4096 and accepts
+> 
+> The validation runs too late to prevent this data loss. Could we
+> recheck or serialize valid_size before zeroing?
 
+Sorry, I forgot to address this issue, even though I had it in mind:
 
-Thanks for taking a look and sharing the information.
+https://lore.kernel.org/exfat/7250425f-8626-4e8d-ab5a-32d9d4588ba9@163.com/
 
-A tri-state global knob sounds possible to me.
+This is because the valid_size read in exfat_write_iomap_begin() can 
+become stale.
 
-For our use case, Kubernetes or the container runtime would set the NUMA
-balancing attribute via prctl(). Yafang's per-cgroup approach would also
-work for us. If maintainers prefer per-cgroup control, I am happy to help
-review Yafang's series.
+I spent quite a while looking into this today and realized that I had 
+oversimplified the problem. Moving the zeroing logic from 
+exfat_write_iomap_begin() to ->put_folio won't solve it, because the 
+folio has already been marked uptodate before ->put_folio is called.
 
-Thanks,
-Zhe
+I'll fix this in the next version, and hopefully the fix won't require 
+more extensive changes.
 
->
-> thanks,
-> Chenyu
->
->> [1]: https://lore.kernel.org/all/20250625102337.3128193-1-yu.c.chen@intel.com/
->> [2]: https://lore.kernel.org/all/20230412140701.58337-1-ligang.bdlg@bytedance.com/
->> [3]: https://lore.kernel.org/all/20230412141127.59741-1-ligang.bdlg@bytedance.com/
->>
->> Li Zhe (4):
->>    sched/numa: Track per-process automatic NUMA balancing mode
->>    sched/numa: Add prctl controls for process mode
->>    proc: Report process NUMA balancing mode
->>    Documentation: Describe per-process NUMA balancing control
->>
->>   Documentation/admin-guide/sysctl/kernel.rst | 16 ++++++++
->>   Documentation/filesystems/proc.rst          |  6 +++
->>   fs/proc/array.c                             | 16 ++++++++
->>   include/linux/sched.h                       |  6 +++
->>   include/linux/sched/numa_balancing.h        | 42 +++++++++++++++++++++
->>   include/linux/sched/signal.h                |  8 ++++
->>   include/uapi/linux/prctl.h                  |  6 +++
->>   init/init_task.c                            |  4 ++
->>   kernel/fork.c                               |  8 ++++
->>   kernel/sched/core.c                         | 39 +++++++++++++++++++
->>   kernel/sched/fair.c                         | 36 ++++++++++++++++--
->>   kernel/sys.c                                | 18 +++++++++
->>   12 files changed, 201 insertions(+), 4 deletions(-)
->>
->> -- 
->> 2.20.1
+Thanks!
+
+> 
+> 
+>> +               return true;
+>> +
+>> +       if (!folio)
+>> +               return false;
+>> +
+>> +       /* Still valid for this folio. */
+>> +       if (old_valid_size >= folio_next_pos(folio))
+>> +               return true;
+>> +
+>> +       if (valid_size <= folio_pos(folio))
+>> +               return true;
+>> +
+>> +       return false;
+>> +}
+>> +
+
