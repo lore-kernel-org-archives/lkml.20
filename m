@@ -1,94 +1,131 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 721074AD4C0
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:55:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DE694D37B1
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:55:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791968108; cv=none; b=ONLkvuZ8rc8a99y2HvEVyvLusEPLwAJw0kyFAaVQEms3mTm//JdnRB2CGlkFKrIWUDyeZeSgRW4Gz/UvoijIswGW/yBYlWxI9JFRXmaVqrvBvujf1IYTN50lABzrSkGt3q1RoKXypYMBF+LhgzYETZxm14JaOFgRAuuSNLSe7yI=
+	t=1791968152; cv=none; b=cRfzug2o0iPvFIxdmOJFBB7ED8LntTWSDAWE7dw9OYlNMrJV+JGDhlG0Fpa7RWJ/7y6m3fBvQUrTv5PkANHvD0j5xlyIq6I+4Y5TnIq8vtP4V3RPDEUK0a7c0dNzLGuEBOrcKg8UauMZPAY4bqD774PZy57E+LrEPc5FYcps0y4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791968108; c=relaxed/simple;
-	bh=p1ESfnGJs632WJQwDweeEKBejwXJXmPDIvvHT8ekolo=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=kGrIFJ0fOfoE8raFYW0hN76tRTFREON7/FyPCZn3C2ZN6dpTbq1wFDpCOLX2nYhpY+EVwc1GCk8dl4hB4gYnUYNic+aBoKZHXDukDP8irVyEkJUGJDFWZRzyjSf/DgFj8mhIG1VDxbYZGVI9X1iyCEQKgNEnNS4NxhX4wvOZWsQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=qoM3nBbU; arc=none smtp.client-ip=185.246.84.56
+	s=arc-20240116; t=1791968152; c=relaxed/simple;
+	bh=lm+iu5n5093iTPvAm4b/0xhVRpxk5O455f+QlfZJK5A=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:From:To:
+	 References:In-Reply-To; b=lJSImzSvdWsNqjPIIKl1gCFTSW3kgC2jMNgadQtJlD/iC4bS8AexsHDHtOYOXCkiIxDavmaILBGAW8I6uYCxwE2b8IBt6Akk1fCmEPKGcxuR3HuPniw6F0wtf5MITDNdO+ScNjJzNNU4k9zAKMdrlvOZUX6MuHZOeFeLiCtGdLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=lYtlYW6n; arc=none smtp.client-ip=185.171.202.116
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="qoM3nBbU"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="lYtlYW6n"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id C97B91A1225;
-	Wed, 14 Oct 2026 08:55:05 +0000 (UTC)
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 5E1DDC63440;
+	Wed, 14 Oct 2026 08:56:42 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 907C660368;
-	Wed, 14 Oct 2026 08:55:05 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A5E78103286A7;
-	Wed, 14 Oct 2026 10:54:58 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 74C7C60368;
+	Wed, 14 Oct 2026 08:55:46 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B33A2103286A7;
+	Wed, 14 Oct 2026 10:55:41 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791968104; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1791968145; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=p1ESfnGJs632WJQwDweeEKBejwXJXmPDIvvHT8ekolo=;
-	b=qoM3nBbU7T4hs5LrPD56Yg1Uidle/RVUP5cbW/a7PJaA/jWSyc/z7YKUWKWt3fQOv3ylNJ
-	auQl7PxshL80uMOhPny71WP06UzMVP7OQcgCSTwD1yU+n9Fi27Z5ZgLoeXdn7VqTF5vk2+
-	FygxKKNluMWd3wOEYeb6lhQFt9vaVgzNtPKhHVY1AMPdnjoeVqExQ+MflejRCiSEB6WRoI
-	kUpWs9RNjd2F/eMl+xgDJ2s4rpfZmhpnW1npRj1zRO0VvOmuppfpf7Gjyz0aLkz12mGnSb
-	q6udCSuHkCKUPy3B/meWQxZcLSCu8cO5dspyR1wT5MAJRz7i4k6ZM42eDD0+Xg==
-Message-ID: <74b2030cb64f8c25f95d51894d3296f180a34e01.camel@bootlin.com>
-Subject: Re: [PATCH 1/5] spi: spi-mem: Add support for panic mem writes
-From: Paul Cercueil <paul.cercueil@bootlin.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>,
-  Takahiro Kuwano <takahiro.kuwano@infineon.com>, Miquel Raynal
- <miquel.raynal@bootlin.com>, Richard Weinberger	 <richard@nod.at>, Vignesh
- Raghavendra <vigneshr@ti.com>, Thomas Petazzoni	
- <thomas.petazzoni@bootlin.com>, Kees Cook <kees@kernel.org>, Tony Luck	
- <tony.luck@intel.com>, "Guilherme G . Piccoli" <gpiccoli@igalia.com>, 
-	linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-spi@vger.kernel.org, Tanmay Jagdale <tanmay@marvell.com>
-Date: Wed, 14 Oct 2026 10:54:56 +0200
-In-Reply-To: <629a4f32-2efe-4212-ac1f-f64c487caa63@sirena.org.uk>
-References: <20261005081141.33688-1-paul.cercueil@bootlin.com>
-	 <20261005081141.33688-2-paul.cercueil@bootlin.com>
-	 <asdVM883VTQy7WvH@sirena.co.uk>
-	 <5c94b88bf7123e5a32d5c4bd77217e6a40683c83.camel@bootlin.com>
-	 <eb16cf0a-6b7e-4ea3-89c5-61ba0729492d@sirena.org.uk>
-	 <0d2f1d4149cd136ace8c1f08dc48ea7f25c5975c.camel@bootlin.com>
-	 <629a4f32-2efe-4212-ac1f-f64c487caa63@sirena.org.uk>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	bh=Fr2cUfVwHpS0gQAAl2BplVTlMggZNGW5Syq9UOyYYuE=;
+	b=lYtlYW6nORzpeaJOtJht7lLWf43BPtnqtMLzsgVNyfMHTq9m+bIgkUzR6OZeiBVEA8KlxQ
+	LiL2EIB/WOTrDWmeU7IYhX8RpwMZnd+ZhjTBG4SJFWBV7porEQiBKbh96pTI/ab8J+5a45
+	Gnl9A3I7/SZGYV52CFkwdIUG3HV1eAQFL5ZEDquFaDGmdPh5diiwGnnoK2zoQGewvbOVMj
+	KoaKHp5F1xijoWOX0grGfWVojZ0yspqKBSJZVxN35qF9uDXKnzmlZR8GuRFBKsZUATdrlN
+	5jxYvnVESKhByR9tzm+w+qGICFxLveCsGd+xVFqpFzppzoXO6dvjIgUn9sMXTQ==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 14 Oct 2026 10:55:40 +0200
+Message-Id: <DM4FOVA9PW2E.1WIY5HRJWA1QP@bootlin.com>
+Subject: Re: [PATCH bpf-next] selftests/bpf: Run tc_edt serially
+Cc: <bpf@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+From: =?utf-8?q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>
+To: "Qiliang Yuan" <odys.yuan@gmail.com>, "Alexei Starovoitov"
+ <ast@kernel.org>, "Daniel Borkmann" <daniel@iogearbox.net>, "Andrii
+ Nakryiko" <andrii@kernel.org>, "Eduard Zingerman" <eddyz87@gmail.com>,
+ "Kumar Kartikeya Dwivedi" <memxor@gmail.com>, "Martin KaFai Lau"
+ <martin.lau@linux.dev>, "Song Liu" <song@kernel.org>, "Yonghong Song"
+ <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>, "Emil
+ Tsalapatis" <emil@etsalapatis.com>, "Ihor Solodrai"
+ <ihor.solodrai@linux.dev>, "Shuah Khan" <shuah@kernel.org>,
+ =?utf-8?b?QWxleGlzIExvdGhvcsOpIChlQlBGIEZvdW5kYXRpb24p?=
+ <alexis.lothore@bootlin.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261009-selftests-bpf-tc-edt-serial-v1-1-f72e045f2465@gmail.com>
+In-Reply-To: <20261009-selftests-bpf-tc-edt-serial-v1-1-f72e045f2465@gmail.com>
 X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Mark,
+Hi Qiliang,
 
-Le mardi 13 octobre 2026 =C3=A0 17:00 +0100, Mark Brown a =C3=A9crit=C2=A0:
-> On Tue, Oct 13, 2026 at 01:00:50PM +0200, Paul Cercueil wrote:
-> > Le mardi 13 octobre 2026 =C3=A0 11:42 +0100, Mark Brown a =C3=A9crit=C2=
-=A0:
->=20
-> > > Do the other CPUs know they're panicing yet, and what state is the
-> > > hardware in?=C2=A0 I'm a bit nervous about assuming panic got things =
-into a
-> > > good state.
->=20
-> > The other CPUs are stopped, yes. At that point there's no SMP, no
-> > preemption, no
-> > IRQs, no time accounting.
->=20
-> My worry is what happens if we didn't actually manage to stop the other
-> CPUs - in theory we've shut everything down, but I've been burned by the
-> bug being IPIs breaking.=C2=A0 Perhaps it's just not worth worrying about=
-.
+On Fri Oct 9, 2026 at 3:50 AM CEST, Qiliang Yuan wrote:
+> tc_edt shapes the traffic of a TCP connection between two netns to
+> 5Mbps with a BPF program, and checks that the rate it measures from the
+> userspace sender and receiver is within 2% of the target.
+>
+> The measured time includes the time the sender and the receiver take to
+> run. When test_progs runs other tests in parallel, the sender and the
+> receiver compete with those for the CPUs, the transfer takes longer,
+> and the measured rate falls outside of the 2% margin.
+>
+> Make tc_edt a serial test.
+>
+> Fixes: b0f82e7ab6fb ("selftests/bpf: integrate test_tc_edt into test_prog=
+s")
+> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
 
-My understanding is that the panic handlers are written with the assumption=
- that
-everything is stopped, it's up to the calling code to ensure that it is tru=
-e.
+I don't know how to feel about the proposed fix. As a test involving
+bandwith measurement, I get that such things could happen, but:
+- I did not see this failure in the recent CI runs (but I could have
+  missed it)
+- if you see it in your setup, how sure are we that it is due to high
+  CPU usage ? I guess it is very likely, but worth asking
+- any idea about how much we are missing the 2% margin ? If this is only
+  by a little, I would rather increase the margin and keep the tests
+  parallel, there's not much point being too restrictive on the target
+  bandwith, if we get something close enough, this is a good proof that
+  the BPF rate limiter is triggered and running correctly
 
--Paul
+Thanks,
+
+Alexis
+> ---
+>  tools/testing/selftests/bpf/prog_tests/test_tc_edt.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/tools/testing/selftests/bpf/prog_tests/test_tc_edt.c b/tools=
+/testing/selftests/bpf/prog_tests/test_tc_edt.c
+> index 462512fb191f1..1e82d88c987a7 100644
+> --- a/tools/testing/selftests/bpf/prog_tests/test_tc_edt.c
+> +++ b/tools/testing/selftests/bpf/prog_tests/test_tc_edt.c
+> @@ -127,7 +127,7 @@ static void run_test(void)
+>  		  "rate error is lower than threshold");
+>  }
+> =20
+> -void test_tc_edt(void)
+> +void serial_test_tc_edt(void)
+>  {
+>  	struct test_tc_edt *skel;
+> =20
+>
+> ---
+> base-commit: e1d84a37cba984388988d2f1ddc84561413f0db2
+> change-id: 20261009-selftests-bpf-tc-edt-serial-9c65af71f845
+>
+> Best regards,
+
+
+
+
+
+--=20
+Alexis Lothor=C3=A9, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
