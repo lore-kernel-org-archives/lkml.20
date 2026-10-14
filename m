@@ -1,380 +1,163 @@
-Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
+Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93B844D9F89
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:53:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792007621; cv=pass; b=SF9YFzdogtkonDqO6lMwlGAIQVi4OtHkAS1caAdX4UIrJ8+qKVHzC/SJQEhcKvrD7MoAspeNviJt1kD9p8c2O3CljYU7Ny8tcvM7ylU2NOIqEJkgmtkjm9X7zFJhWhoNn0oghsQEkhiBggwCdUdHaWpRvH6GKWRZTLFmrVduOyM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792007621; c=relaxed/simple;
-	bh=b3ueYwo9fjE03GJnGTWoxYYbVKoqoGXBaT55QOht5OU=;
-	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VTv2JbWlYTstSUHz8Zo84GuTGPt8HCB/K+PWoIOt1XT7SKWCg/Dht04chsr5+qVozBM3SUKXHdJIm4LjKRhaY1R36hfzOKHjl/W7yr35JMM9S+N+dD5X5gJPvdZnyJlH+XrpqKeruQ9yDTJaQ47PkcGm2CxjEuSiKZVdCbgFYe0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=gIYYsG6K; arc=pass smtp.client-ip=209.85.222.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 316AC3A9612
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:53:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792007640; cv=none; b=C4mM5GWTGstLZU6lYfDbCfm3WAbRm3rN7vmjljf7K9OeYIPuEbogcl38H1MNlajrzNrYpYTPPE50Vs1+T28doAL1q6aWvu1Jk8lf9nM5AH6l6S/SsOhl9rO7cEEm89ccvVkgFMpZR7+aVjryARVIhaYyaA0wqAAiWLb3c9n9IBA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792007640; c=relaxed/simple;
+	bh=RdwdCAhipRogxhULLdA9JBiW4ojsjgGbdRDQN/qzzv4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PxePdvCBSod3jce48EYLtFfohQYCuqypSJpQVAJZFx+pmIpc2ZjEKcu5zsx8aiF2SRUemhvYP8tHQAwzGCriJUejHV+5vQIZqKh/anBgspFv4uEl/rQeS9yUCXeNBaVwyQ4LLqkxj079M1I0nw4cSTa4ss19CMJYwGQpsj1ZdzM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=QVTJ78Y9; arc=none smtp.client-ip=209.85.219.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="gIYYsG6K"
-Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-93e762768f3so503042185a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:53:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792007618; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lumgYiNaRIEemqFoQ2Pznl2V8KDbPHf9GDQZM5nA+JVHRUFxg4iQurDaHzEbWebOQE
-         vp3ZaT1ZfIkM7G35/jcV8cpsYmZNDd1oUKiX1kpP/1cb9LKz0Z92QkBd5H2/yqG912Sw
-         yZyKQ8bCHXrFTnb8BSTbSy/iBA4H83BV2yHb3iBBHeQI6tDJL36FyGBwEym9Nn1PDcF1
-         YTi7seKLmu7G8eUvfgf5MhCZBneABn51PKfgVWVkzE6pL3Qt5N53M7NNpiRUULlD8Pco
-         0wWuwzP7auV+4lFuHLwr0ZFjcx/HmSQdVJ8RMzT2oiJXEKY2bgEod0dpEscgql+7FBw6
-         Ogsw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
-         :from:dkim-signature;
-        bh=b3ueYwo9fjE03GJnGTWoxYYbVKoqoGXBaT55QOht5OU=;
-        fh=vWxkcsMdNZa9dOZ8UpAOMcEpcxHKCAyIcMCeHUGZoQE=;
-        b=M0ZmpQmzKRgurD4m+Fz5MxwPtGrcfZ0LHUOR4TZak04+BijauYP4oKykjgH7ZLzAjc
-         RaXbdUF19X2JCH8xY7125Fk3567xKca0gFRgHzSyR6RtDeNU3fBbs/xPvT2Jlc1lO9gX
-         DbpN4DreOWZWNYY63Jg09gY10TuVfTRERujThRawSYwwYtLjlR7CmrHM8U6lmBTuokE7
-         oczpqXJlwh2VIiFiQ7j4+9TUcRrhqxEe1XPXNa06z3IVpWdKSLzMJk+lRBYkmfRBaBtj
-         rbHo8+bSzigY+pqb70N3AbvJoG/mGI9Q4emBuh6XTrcj/01Z+sl767Yhqlo8IZMiL19D
-         KIxQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="QVTJ78Y9"
+Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-91986c5cb75so8221486d6.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:53:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792007618; x=1792612418; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=b3ueYwo9fjE03GJnGTWoxYYbVKoqoGXBaT55QOht5OU=;
-        b=gIYYsG6KaVFfYqi6ByCZxTvb+JwjEspEngc/IkKcl2tjGYqMtGxOMZydZsy1pSgEMW
-         yB7l6t8QmS6ODDi3xu5y7fViMz8dWg1Z+MKsT81ArrqfIkQXB4yzGjsl6xpAwVoQ4uFG
-         uFSkc2G4s+LcL2/hpIXdX0handMjVUW14h8IhLzKnQV6tF/V86GsFxv40Jgo2M2rL8Zg
-         Uo820sJ16b6zDTEAWj4lTezaDhOb46cVDc/Nfp1jA7m6Q5xDI2YEwatu3OwM1TDqZ0qT
-         rGSE3AOeR/a1qcTFp8LIXy7h8H287aLyqd135LEZbbZpS2Dhv9X+79igz5s2zBZlrAXQ
-         M3AQ==
+        d=cmpxchg.org; s=google; t=1792007637; x=1792612437; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RjniCqND0NC3kKHSl3wLORt8DVjtH0W0kWfnOSpM6P4=;
+        b=QVTJ78Y9m0OLXKqMrhTp/4hM5OmxBqe7nZ/8JVvRK4wjP/bAsvJQzxAURfhQ5MH/t1
+         0t/qL35MJavlsQI2gd+So2+Z1Y49lBbXdo8j2XLRfEKMHycfk4v0dSto2jmRuwoOCAcp
+         MxjPs2l1M+Sr7FhCmz8HPAitzypsU7Jxk7HbbRuzMlMKY6SBN7YM3ngtys8KZfTXUP8j
+         YeHzl34+Yz6fm2JfiodMX7Zw6IOlwv/H0dwL/pIA5V7bE1fex95RNCMSei3rcZd0vF9K
+         Y2UQSWFcNay8CM2kUNEghmhOe5akTPss6f+bVrHfXDMcgs8HmYBsicYtQz4S3oy4eBfS
+         iZEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792007618; x=1792612418;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=b3ueYwo9fjE03GJnGTWoxYYbVKoqoGXBaT55QOht5OU=;
-        b=c5QSkiG1Z7GI8WvN0Karw6fJAAEPGeA25W/hbzDpDSwWfJzrcT0lqO2teVQda+fMo9
-         p4p/H0cHIfoavnDEIQSjB7ChVw4LzwtP2fEdpkLh7anfDVErsm37ea3ndiM3aHIthgwm
-         Y4INjiMP8yFgkRTo4ewDKcLs6t2IhayRbL+0P26WXFbf3f1x+jiGzoSKDa+EkNztaXsR
-         CW205JNmtCmzbyZ+0pGlcw24OLdUZTTl+jNk2KGSLXLYM79d4hVK9/hDUHLg4BomSIVK
-         nbXpUH0HyYynPEAQPMavOpTS4D9jFa//vkHsAWA/irQGpwZ1MIybF+k6XlYgOsUB6OCG
-         qxzg==
-X-Forwarded-Encrypted: i=1; AKwUvBxjxhPZ87pzHcoVVTIPZeC3QjyEFeBHywKxZODOesNEANzsxwAtpHs7QKHVHonviehMjnKNVVEVZ3zsXDc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL0r7sWqnlhvE6Rm3co2rLPSgirINXQDIN7yHARhpsAVRIW8TdP
-	mTdLj8nDT8DyVXsMPnArIbLQdLgadGpoHMGnD8yq6c4XYbg4bB0uL5rQs5IruAM9rQg07RDNg7j
-	bGHmM+q03t6c9VJtxe9f8HzjsqEEtH3yhiR61neoM
-X-Gm-Gg: AYBFou3541BO8TuZBXirWqKHnHGUpCRDO9v0bYTpQQQ2iMds5BB7QUbIHsYVKKv3bDW
-	Z0K9CDPIkYHcIvubUlFbYu3d4l6rCr6+vQuX7F3WuW1cmTxYW4QETJYCF5FpZrI62E2VCDGukBv
-	EZCDHIdWdScD2RwyNo+Wg7J5+8sEOiHq+PNkc+9IfqFv6UortB3UEgE0esT5kDBHpv9vkPETLXz
-	BwtcJvQYD7v9p4Tk2gjWE1MBDArp0/xX3mBYMVUyrD/ywL6DbkCaamvKRLt5vq5POAeVOGnMy9p
-	VAleEqr1e4ESv2rTfu2lY2bQnr/IS4V1vP3ixtGMf5Oh82rxs24wKwpuD6rz8rvO2GYG/g9YwiZ
-	+kKLMldYFGLIti8aFflJHDcxZxW0f6ndK6x0l3Wo+wEc=
-X-Received: by 2002:a05:620a:a2cf:10b0:93e:c12c:f142 with SMTP id
- af79cd13be357-93ec12d0865mr1898747285a.76.1792007617714; Wed, 14 Oct 2026
- 12:53:37 -0700 (PDT)
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 14 Oct 2026 12:53:36 -0700
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 14 Oct 2026 12:53:36 -0700
-From: Ackerley Tng <ackerleytng@google.com>
-In-Reply-To: <yq5a7bjky8wj.fsf@kernel.org>
-References: <20261010072504.536230-1-aneesh.kumar@kernel.org>
- <CAEvNRgFC6U4er0QhcwVOqWyz657WWWtidkNu0hKS5go4A3cP4g@mail.gmail.com> <yq5a7bjky8wj.fsf@kernel.org>
+        d=1e100.net; s=20260707; t=1792007637; x=1792612437;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=RjniCqND0NC3kKHSl3wLORt8DVjtH0W0kWfnOSpM6P4=;
+        b=fam9IN6fqImitl01h4ulG0wXIq9JJ+PajfrRyg2gzdc6uOO1raTF69jWF5I21eL+UD
+         CrCe5nc+e19bdmf+HFXilBvnJiPIpVD/BU4gUNK86eeQxsGrP1fFp4hym7ajX138Ve6q
+         VaQ2ZYSxZzsA+7bg4ShdZI+Oq0o5zkFm6jLfqzOT65A7yPv6OKQRRjhgj8v/zPfTWyko
+         6DxDEgFFjS86LuRqut0b6k64wbjRSrQSTqA6f1pXUPCmOYOTX/lNdaRWLSHBjQOM7fXg
+         XdemGPpVBTvGJpiMQ+S7Ivt1inZvpgMr5H7Admsp8azUwiNmOXDYuXuMwS3Ih+MStJcB
+         r5nA==
+X-Forwarded-Encrypted: i=1; AKwUvBxguFCldR2FLzok7Fp+9Q+htzunakpAKXcu3HiuBSbfkg+tZkVry0nZonNLzUZlpixn87dSQYkeA5tP9Wg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKg9kStM7VbKu0/r4+MQmIIomb/CpxS2LQOveXh8n0QKehUALhP
+	0fIbQIz9Sj5PHjK6u8IQJP/WHSUyfSYNnDa3Xkb4lc2wtGwlc8oA10AOgMBNybNsQYE=
+X-Gm-Gg: AYBFou03hO22vo11H4KJg1/FnkA7m+E9Wyz0srBnHt1eKxTDFoP8/tImhXAhbL3jjqu
+	QZx82ObH7pvoNwWABnPiEGkdj7IGrufTdiCYLAUrsvLxTQd2J1bCu/WCVEy/2WgrolYVGtigr/4
+	hWKdYfFemzf9r6oh6r8kofBLx/cFZJRsJ7CAmD5Ev8PRuF+TMarfK5naQAjYiz/E73wHYdycTAr
+	5VcV9KQb688YqDPBhIbA33woX65r/jxAKx/GFxRJPKGIoy2IM09AMztqpahPFs8jg3VKRcDfH1r
+	VOCyA/i2qWLjuItDN2N8ksJuvDuLB5C75goWiu16a5t1bUPmQICVWNkbN6typf12nyEXu1kxUvC
+	bxEIOfmq1prs0/WEv8lZ+vofYIWMMoUd4iLKWHQE6f2yeBKNSQ1XOyx53DPxdrk7OTLbmUb0QmF
+	O+30iZHPgVpJiSAHKx1QYpd2QTuRQY5iKbz6QgLpeShs+jcY3iynPRkLiBAmU3+JcpNItZozf/g
+	Bq7cG4=
+X-Received: by 2002:a05:620a:270d:b0:93c:2c15:e508 with SMTP id af79cd13be357-93ebd20e626mr2844276585a.45.1792007636645;
+        Wed, 14 Oct 2026 12:53:56 -0700 (PDT)
+Received: from localhost ([2603:7001:f100:5081:9526:3c0:45cc:5ac6])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef50080b7sm567630985a.8.2026.10.14.12.53.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 12:53:55 -0700 (PDT)
+Date: Wed, 14 Oct 2026 21:53:54 +0200
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Chris Li <chrisl@kernel.org>, Nhat Pham <nphamcs@gmail.com>,
+	Baoquan He <baoquan.he@linux.dev>, Kairui Song <ryncsn@gmail.com>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Yosry Ahmed <yosry@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Barry Song <baohua@kernel.org>,
+	YoungJun Park <youngjun.park@lge.com>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+	Rik van Riel <riel@surriel.com>, Gregory Price <gourry@gourry.net>,
+	Wenchao Hao <haowenchao22@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Tejun Heo <tj@kernel.org>,
+	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Kunwu Chan <kunwu.chan@linux.dev>,
+	Meta kernel team <kernel-team@meta.com>,
+	Linux Memory Management List <linux-mm@kvack.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	linux-doc@vger.kernel.org,
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+Message-ID: <20261014195354.GA371161@cmpxchg.org>
+References: <5fdb3777-95a2-48f9-bb38-aa4ba3c96a81@kernel.org>
+ <CAKEwX=MuW6q354nB3tyFTM8d3ox7LRaqcSfUxeATR=Sop5mZPw@mail.gmail.com>
+ <5ca344de-bc34-4a9b-ab85-f553811a1d9c@kernel.org>
+ <CAKEwX=N05iOC4hmiyTt5OxjAsOfU7_V8xGfmK_RgUyrKtuyUTA@mail.gmail.com>
+ <CAMgjq7DJwGCHCAchcfi2Kcu+XHx2YnKXDj53e0t2kpG_GSejkQ@mail.gmail.com>
+ <aqgMCIOFi0dKx_6L@fedora>
+ <CACePvbVMFA9N0nQers=sOnSXGbNhtNE0ewq47AJEH5Cr8imQXA@mail.gmail.com>
+ <CAKEwX=OMYhUs3tt7jUzEzxsOW3yA2JmzpwwxVBP2eZuHOFu=vw@mail.gmail.com>
+ <CACePvbUMjRgK=dQzLjECgBXaUtQSPdAnBXL1Y4=Kh5d15swYvQ@mail.gmail.com>
+ <5c8a2b7b-b76d-4bba-92e1-ec3d66794273@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 14 Oct 2026 12:53:36 -0700
-X-Gm-Features: AclHuK-WbMkUylbHFNMeinh59E-dHthPA1VhGiwdfTYkoCCF9XbdzoNbemMEawg
-Message-ID: <CAEvNRgGfjHhVCxHhew8AMKhXrX6XDrbrw5zpQM9LaODhJHRYYg@mail.gmail.com>
-Subject: Re: [RFC PATCH v1 0/6] KVM/VFIO: guest_memfd support for device MMIO resources
-To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, linux-coco@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Cc: Alex Williamson <alex@shazbot.org>, David Woodhouse <dwmw2@infradead.org>, 
-	David Hildenbrand <david@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
-	Kevin Tian <kevin.tian@intel.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Robin Murphy <robin.murphy@arm.com>, Sean Christopherson <seanjc@google.com>, Will Deacon <will@kernel.org>, 
-	Alexey Kardashevskiy <aik@amd.com>, Xu Yilun <yilun.xu@linux.intel.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Steven Price <steven.price@arm.com>, Fred Griffoul <griffoul@gmail.com>, iommu@lists.linux.dev, 
-	kvm@vger.kernel.org, john.starks@microsoft.com, jacob.pan@linux.microsoft.com, 
-	gourry@gourry.net, vannapurve@google.com, fvdl@google.com, tabba@google.com, 
-	dave.jiang@intel.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <5c8a2b7b-b76d-4bba-92e1-ec3d66794273@kernel.org>
 
-Aneesh Kumar K.V <aneesh.kumar@kernel.org> writes:
+On Mon, Oct 05, 2026 at 01:06:28PM +0200, David Hildenbrand (Arm) wrote:
+> On 9/22/26 15:38, Chris Li wrote:
+> > On Mon, Sep 21, 2026 at 8:56 AM Nhat Pham <nphamcs@gmail.com> wrote:
+> >>
+> >> On Fri, Sep 18, 2026 at 11:50 PM Chris Li <chrisl@kernel.org> wrote:
+> >>> No that time slot is too late for Asia developers. I don't think we
+> >>> should use that time slot for swap alignment.
+> >>>
+> >>> We should find a time slot more friendly to Asia.
+> >>
+> >> Any time slot would have that kind of problem. We're spread out across
+> >> the globe.
+> >>
+> >> Let's just use a standardized time slot we have for MM alignment sessions.
+> > 
+> > There are more swap maintainers in Asia than in the US + Europe, at
+> > least based on the maintainer file. Please be more inclusive. If the
+> > alignment is done without key stakeholders, it miss the point.
+> > 
+> > Sigh, we can't even align on a time slot.
+> > 
+> > In that case, let's keep discussing on the mailing list. At least it
+> > is accessible to every one.
+> 
+> Looking at the mailing list, that approach doesn't seem to work.
+> 
+> Finding a time slot that makes US, Europe and Asia happy is ... tricky.
+> 
+> 1 AM is certainly unpleasant.
+> 
+> US vs. Asia is also tricky, but doable.
+> 
+> China 8AM vs. US West Coast 5PM?
+> 
+> China 9AM vs. US West Coast 6PM?
+> 
+> (Europe is 2AM vs. 3AM, who besides me from Europe would join?)
 
-> Ackerley Tng <ackerleytng@google.com> writes:
->
->> "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org> writes:
->>
->>> This series adds a guest_memfd device-resource framework for exposing PCI
->>> BAR memory to guests. The intended use is confidential device assignment,
->>> where KVM needs to coordinate private device mappings with shared access
->>> through VFIO. The Arm CCA backend is provided separately; these patches
->>> contain the guest_memfd, VFIO and IOMMUFD interfaces it uses.
->>>
->>
->> Thank you Aneesh!
->>
->> I definitely like this since it builds upon [1], the model where
->> guest_memfd coordinates zapping during conversions for the
->> provider. Please see comparison with the alternative at [2].
->>
->>>
->>> [...snip...]
->>>
->>
->> I have questions:
->>
->>> Userspace creates a device-backed guest_memfd using the ordinary VFIO
->>> device fd as resource_fd, with GUEST_MEMFD_FLAG_USE_RESOURCE,
->>> GUEST_MEMFD_FLAG_DEVICE
->>
->> With the model described at [1][2][3], I was thinking that the VFIO fd
->> would be the resource fd. I'm hoping that there wouldn't be a need for
->> GUEST_MEMFD_FLAG_DEVICE.
->>
->> The plan [3] was for resource fd to represent just the resource but not
->> provide any way to access the underlying resource, so that after
->> .attach(), guest_memfd's fd should be the way userspace would access the
->> underlying resource.
->>
->> For tmpfs, the example in [1], fsmount() returns an fd that has no
->> .mmap/.read/.write ops, which fits the plan above perfectly. It tells
->> guest_memfd about the resource, but does not give userspace access to
->> the resource.
->>
->> In VFIO's case, vfio_device_fops does implement .mmap()/.read/.write,
->> and I don't think there's a better existing fd that represents a single
->> device.
->>
->
-> With VFIO, after attachment we can reject new mmap() calls by checking
-> the attachment status in vfio_pci_core_mmap(). During attachment, we can
-> reject the operation if the VFIO fd already has an mmap. But I guess
-> read(), write(), and VFIO_DEVICE_IOEVENTFD should still operate through
-> the VFIO fd, or are you suggesting that all of them operate through
-> guest_memfd?
->
-> I am not sure we want to move the ioeventfd ioctl out of VFIO. If it
-> remains there, userspace needs write access to shared BAR regions via
-> vfio fd, so it would make sense to continue allowing read() and write()
-> as well. If we allow read() and write(), should we also allow mmap()?
->
-> I agree that keeping userspace mappings(mmap) under guest_memfd rather
-> than VFIO simplifies conversion. The conversion then becomes:
->
-> unmap_mapping_pages(inode->i_mapping, start, nr_pages, true); //unmap user mapping
-> kvm_gmem_invalidate_start(inode, start, start + nr_pages, KVM_FILTER_SHARED); // stage2 unmap
->
->
-> Both are now under guest_memfd control, so no VFIO callback is needed.
->
+Either slot works for me. 8pm/9pm on US Eastern.
 
-+1, yes!
-
->>
->>> and GUEST_MEMFD_FLAG_INIT_SHARED. Eligible BAR
->>> intervals are registered as guest_memfd memslots. File offsets use the
->>> existing VFIO region-offset namespace, allowing one guest_memfd to cover
->>> multiple BAR intervals. Device-backed guest_memfd rejects mmap and
->>> fallocate; shared guest faults obtain bare BAR PFNs from the provider
->>> instead of resolving the memslot HVA or allocating folios.
->>>
->>
->> The model I have in mind is kind of opposite from above. Instead of the
->> guest_memfd rejecting mmap(), I'm thinking that the VFIO fd should be
->> the one that rejects mmap(), read() and write() once guest_memfd
->> attaches to it.
->>
->> If userspace needed to mmap() the VFIO fd, it should instead mmap() the
->> guest_memfd fd. guest_memfd doesn't support read() and write() now, but
->> support can be added. The read/write for guest_memfd just forwards to
->> vfio if the offset range is shared and blocks if the range is
->> private.
->>
->> For mmap(), for regular memory, mmap() is always allowed, but faulting
->> dependsd on shared/private status. It would be nice if the same logic
->> could apply to guest_memfds that wrap VFIO.
->>
->> I prefer the userspace accesses to go through guest_memfd to VFIO so
->> that the shared/private-ness can be enforced from guest_memfd.
->>
->
-> Sure, I can implement this. I guess read(), write(), and ioeventfd will
-> continue to go through the VFIO fd?
->
-
-If you agree to having mmap() go through guest_memfd, then read() and
-write() should also go through guest_memfd imo. I think it makes sense
-since guest_memfd gates accesses based on shared/private status.
-
-guest_memfd already had plans to support write() [4], so I think
-supporting read() should be fine too.
-
-[4] https://lore.kernel.org/all/20251020161352.69257-1-kalyazin@amazon.com/
-
-
-I'm not super familiar with ioeventfd, let me know if this makes sense:
-ioeventfd is a kind of config, like mmap() is a config, but faulting is
-where the actual access can happen.
-
-guest_memfd always allows mmap(), but only allows faults on shared
-offset ranges.
-
-If userspace sets up some link between a private range and some eventfd,
-I think that's ok, since it's not actually doing accesses. When the
-signalling actually happens, then guest_memfd needs to gate that.
-
-Going by that, I think if the ioeventfd ioctls are just setting up
-links/mapping, then it can go through the VFIO fd.
-
-Between going via the VFIO fd and guest_memfd, I think if "everything is
-wrapped by guest_memfd" a simpler mental model to go with, then maybe we
-could just go with swapping the entire f_ops with guest_memfd's
-intercepted version?
-
-
-IIUC during the LPC discussion some people were suggesting creating a
-brand-new only-for-guest-memfd resource fd and not relying on existing
-mount fds or VFIO fds. What do you think of that? Instead of using the
-existing VFIO fd, would it be better to create a new for-gmem-to-wrap
-VFIO fd? I didn't like the idea of needing to create a new kind of fd
-for every resource guest_memfd needs to wrap.
-
->>
->>
->> Is GUEST_MEMFD_FLAG_DEVICE there because GUEST_MEMFD_FLAG_USE_RESOURCE
->> tells guest_memfd to look up
->> resource_inode->i_sb->s_op->gmem_provider_ops but for VFIO,
->> gmem_provider_ops can't be stored in super_operations? If that's the
->> only reason, that's a very good reason to store gmem_provider_ops in
->> file_operations for gmem_provider_ops to serve different kinds resources
->> and include VFIO.
->>
->
-> I can use the same approach for VFIO. I kept the current implementation
-> simpler by using a registration framework on the VFIO side.
->
-> I can switch to gmem_provider_ops if we are comfortable adding the
-> device-specific callbacks to guest_memfd_provider_operations. Since the
-
-Yes please, gmem_provider_ops in my RFC was just a minimal set, we can
-expand that as providers require.
-
-Imo we should have either gmem_provider_ops in some ops
-(super_operations or file_operations or elsewhere), or a registration
-model for all of gmem_provider_ops, but not a mixture of global vs
-registration.
-
-> VFIO core supports multiple backend drivers, such as vfio-pci, the
-> superblock operations would essentially forward the calls to the
-> appropriate backend driver. That is a VFIO-specific detail that
-> guest_memfd can ignore.
->
->>
->> I also noticed the need to guest_memfd_register_device_fops, so that
->> guest_memfd knows the device supports being attached to?
->>
->> What do you think of this: we have a common attach function for all VFIO
->> fds in file_operations that would look up the struct vfio_device to
->> determine if guest_memfd can attach to the vfio device? Actually, which
->> devices would not support attaching? Wouldn't all devices support
->> attaching? I'm thinking that using a device that is all-shared via
->> guest_memfd should be no different from using the device directly. All
->> operations should flow through to the device.
->>
->
->>
->> Regarding conversions, I would like to check: with Confidential IO, are
->> conversions at runtime actually necessary?
->>
->
-> They occur at runtime after the guest starts, but are infrequent. The
-> entire region starts shared. The guest validates the interface report and
-> requests that the BAR regions be mapped private. They remain private until
-> the host converts them back to shared during the TDISP unlock operation.
->
-
-I see, so infrequent == once ever? Could the guest want to, at runtime,
-switch some BARs between shared/private? I wonder if the spec supports
-runtime conversions.
-
->>
->> Is the only "conversion" the one when the guest accepts a device? If so,
->> maybe that "conversion" can be implemented by replacing memslots.
->>
->> Pre-accept, mmap() the vfio fd directly, set it up in memslots.
->>
->> Post-accept, remove the old memslot, wrap the vfio fd with guest_memfd,
->> set up the guest_memfd statically with shared/private ranges as the TDI
->> report requested and never allow conversions, replace the pre-accept
->> memslot.
->>
->
-> Is there a reason to use two different flows here? Why can't we always
-> use guest_memfd?
-
-I was hoping blocking conversion could make the implementation simpler
-if we never need to convert at runtime. It might be easier to merge if
-we trim the features. :) It's also nice to have consistency with regular
-guest RAM though.
-
-> We could attach the device at startup and use
-> guest_memfd before acceptance, while the BAR is mapped shared. We would
-> not need mmap() unless userspace requires it for another reason; the VM
-> fault handler could fault in those PFNs.
->
-
-Did you mean to just block mmap() access completely from userspace on a
-gmem-wrapped-vfio-fd?
-
-If the CoCo guest and device allows some BAR to be shared, I was
-assuming that's because the host might need to take some action on those
-ranges. If so, then mmap() would be one way to access those ranges (in
-addition to read()/write()). I think we should still support faulting
-into userspace page tables for shared ranges from a
-gmem-wrapped-vfio-fd, and ideally follow the same model as regular
-guest_memfd where mmap() is always allowed, but not faulting for
-CoCo-private offset ranges.
-
-> During device acceptance, we convert those BARs to private. On CCA, we
-> also create the stage2 mappings at that point, since private BAR regions
-> do not support fault handling.
->
-
-I see, thanks for explaining! This is one thing different private BARs,
-that private BARs cannot be faulted into stage 2 at runtime.
-
-With Confidential IO, private BARs don't support fault handling, do
-shared BARs support fault handling?
-
->>
->>> IOMMUFD resolves and pins the device's existing vDEVICE for the VM and
->>> serializes MMIO conversion through its MMIO mutex. VFIO supplies BAR PFNs,
->>> checks eligible ranges and excludes independent dma-buf exports while a
-
-Thanks for excluding dma-buf exports, this is important, we can't let
-dma-buf exports be a backdoor to access guest-private memory.
-
->>> guest_memfd provider is attached. VFIO host mmap faults, read/write and
->>> ioeventfd accesses check the requested range's guest_memfd attributes.
->>> Conversion revokes cached host mappings and shared guest mappings before
->>> installing private mappings. Other shared intervals remain accessible.
->>>
->>>
->>> [...snip...]
->>>
->>
->> [1] https://lore.kernel.org/all/20260925-gmem-tmpfs-backend-v1-0-d36159822d18@google.com/
->> [2] https://lore.kernel.org/all/CAEvNRgEseLO+LbkwXrEit0H2LH5Wx-srSvHEMpt0=upPL3tF=g@mail.gmail.com/
->> [3] https://lpc.events/event/20/contributions/2551/attachments/2047/4693/lpc-2026-gmem-other-backends.pdf
->
-> -aneesh
+Apologize as well for the late response. Travel week followed by
+post-travel sick week...
