@@ -1,123 +1,193 @@
-Received: from buffalo.tulip.relay.mailchannels.net (buffalo.tulip.relay.mailchannels.net [23.83.218.24])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 749C1283CB5;
-	Wed, 14 Oct 2026 01:31:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.83.218.24
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCCC8175A5;
+	Wed, 14 Oct 2026 01:33:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791941478; cv=none; b=r7X6Zf6WdgYXcjj4vUydXchNXSxP0qA5VM2B/KYxOCXRRjcaBngS48eaBhUU6SvKavdcSSLxRV8WjTVSBdfvY4CDHvGQT8lbqVzXiSDsasHedF92vBbDQdwC/zlFNr8qtSCz3t3RoOAxqOQpypECwchV+sAhvMwbIqC8J7ay54M=
+	t=1791941596; cv=none; b=sig1/04a3UUD69kXRRvn3B2C2WBkhpe8NGepqv4bjp8ai36vkk6rnaN0YQvbICy2hbX5Xlj3Q8ahhLoKapzaU3H+NSsL/pUyttCGyfeFfg89fdV/LzlFFQihr/n6rvyCJTJcuY8vwOcCtgSLBvJtpbjlYf90QEPzec+zk5a+8Xk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791941478; c=relaxed/simple;
-	bh=65aaMEZ4l4SG+3yai4f3Vmrgy6drxbo3TYpumAF8H+U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HVIoU/1eE0J1P3W3WgKlK/hSLmT1lyuTrltH2y+N4i2+/J1C1HDFzcTHbZlj41+AaS9TaTyRlxy84p4Y49ktkq2q8pc2mvLQwwBJFrXuzU3EMs+NuemyZNtaOX6S5cCPyl2kBwrFR9DiozjnUNf4uUaQTwbrxF3xuUNQUXY5BQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net; spf=fail smtp.mailfrom=stgolabs.net; dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b=gJ81NAJF; arc=none smtp.client-ip=23.83.218.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=stgolabs.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b="gJ81NAJF"
-X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
-	by relay.mailchannels.net (Postfix) with ESMTP id EC40E382008;
-	Wed, 14 Oct 2026 01:13:20 +0000 (UTC)
-Received: from pdx1-sub0-mail-a233.dreamhost.com (100-100-76-207.trex-nlb.outbound.svc.cluster.local [100.100.76.207])
-	(Authenticated sender: dreamhost)
-	by relay.mailchannels.net (Postfix) with ESMTPA id A0DEE380D84;
-	Wed, 14 Oct 2026 01:13:20 +0000 (UTC)
-X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
-X-MC-Relay: Neutral
-X-MailChannels-SenderId: dreamhost|x-authsender|dave@stgolabs.net
-X-MailChannels-Auth-Id: dreamhost
-X-Lettuce-Minister: 55915af466baebd0_1791940400793_1852143453
-X-MC-Loop-Signature: 1791940400793:282171953
-X-MC-Ingress-Time: 1791940400793
-Received: from pdx1-sub0-mail-a233.dreamhost.com (pop.dreamhost.com
- [64.90.62.162])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
-	by 100.100.76.207 (trex/8.0.2);
-	Wed, 14 Oct 2026 01:13:20 +0000
-Received: from offworld (unknown [76.167.199.67])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: dave@stgolabs.net)
-	by pdx1-sub0-mail-a233.dreamhost.com (Postfix) with ESMTPSA id 4j4CrH4zBzz103w;
-	Tue, 13 Oct 2026 18:13:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stgolabs.net;
-	s=dreamhost; t=1791940400;
-	bh=U0C+J4dqdPlm7JgNbcBpdmGMl5igpDbobE/kdwVvjIk=;
-	h=Date:From:To:Cc:Subject:Content-Type;
-	b=gJ81NAJF81cUEMhu9SEOe8DvnVbn7lIFtLHIodYzRe6oOBRC2mB6QDqfaAvLnI1a6
-	 FgOHNiiukirx7LQsG3Bygcjh1WlgqTeBB07C/UWe6BIi3Pjx+iFn9QnORdlgk2WNW4
-	 tS5g/dUmIQsuXES+Nt7FCDMP0CygwJ/dG06xXERH0+U5wqJKCY3Aft3Zy08kCOOSuC
-	 uusa7DS2isF4cOge2YPMbhdGnETTDgGtZjDOePQ3ohnbeHaRUw+hukhckLq1CtMlx1
-	 ws4eRk+BAE1kA+LRqYCuuiDwfRrCRXp3gmebTmUIOo6Sb7Ggu1t9iSrUwsH9AjOd6Y
-	 JUdXdQfGlI6KA==
-Date: Tue, 13 Oct 2026 18:13:16 -0700
-From: Davidlohr Bueso <dave@stgolabs.net>
-To: Richard Cheng <icheng@nvidia.com>
-Cc: jic23@kernel.org, dave.jiang@intel.com, alison.schofield@intel.com,
-	vishal.l.verma@intel.com, iweiny@kernel.org, ming.li@zohomail.com,
-	kaihengf@nvidia.com, kobak@nvidia.com, newtonl@nvidia.com,
-	kristinc@nvidia.com, linux-cxl@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: Re: [PATCH v8 4/4] cxl/memdev: Don't overwrite the error from an
- earlier partition poison query
-Message-ID: <20261014011316.pm3ctf74lzbsogob@offworld>
-References: <20260922101129.52794-1-icheng@nvidia.com>
- <20260922101129.52794-5-icheng@nvidia.com>
+	s=arc-20240116; t=1791941596; c=relaxed/simple;
+	bh=NWnE0cMzkmnyUbateolzE8wHOGvvE7dxDjnvCLoOV/0=;
+	h=From:Subject:To:Cc:Date:Message-ID:MIME-Version:Content-Type; b=RqJ3CNf1l/0yWU3geBjSmEu0R/7qRP7XsNFxMQ3ilF/Zqiuea05Yu0ghRwxuvABmnRvZblHm+4kIiBnMnl5UrRhS/TJB0RT9yqc55/NcpaQt3I4vlqSXDuiPHa+QX62yzbYQjYebhEK+y5LV36XxlK9c5iniJ0ZXglWbEUg+VsQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 34d838a4c76f11f19a56ed5b684f684d-20261014
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:d7038ee9-ac65-4eaa-b156-a47cc7d832b6,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:-25
+X-CID-META: VersionHash:7db8b62,CLOUDID:ab31c7ee28aad40c3eb20528a3f911a8,BulkI
+	D:nil,BulkQuantity:0,SF:83|102|136|865|898,TC:0,Content:0|14|51|99|100|101
+	|102|116|156,EDM:40|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:
+	nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: 20453CB31B369A67E398D48F3899EA1A
+X-UUID: 34d838a4c76f11f19a56ed5b684f684d-20261014
+Received: from node2 [(10.44.16.64)] by mailgw.kylinos.cn
+	(envelope-from <liujinlong@kylinos.cn>)
+	(Generic MTA)
+	with ESMTP id 1885641984; Wed, 14 Oct 2026 09:33:06 +0800
+Received: from node2 (localhost [127.0.0.1])
+	by node2 (NSMail) with SMTP id 8CE9F6C03960D;
+	Wed, 14 Oct 2026 09:33:06 +0800 (CST)
+Received: by node2 (NSMail, from userid 10001)
+	id AA3796C039606; Wed, 14 Oct 2026 09:31:53 +0800 (CST)
+From: =?UTF-8?B?5YiY6YeR6b6Z?= <liujinlong@kylinos.cn>
+Subject: =?UTF-8?B?5Zue5aSNOiBSZTogW1BBVENIXSBBQ1BJOiBidXR0b246IFN1cHBvcnQgc2VwYXJhdGUgcHJlc3MgYW5kIHJlbGVhc2UgZXZlbnRz?=
+To: =?UTF-8?B?UmFmYWVsIEouIFd5c29ja2kgKEludGVsKQ==?= <rafael@kernel.org>
+Cc: =?UTF-8?B?TGVuIEJyb3du?= <lenb@kernel.org>,
+	=?UTF-8?B?bGludXgtYWNwaQ==?= <linux-acpi@vger.kernel.org>,
+	=?UTF-8?B?bGludXgta2VybmVs?= <linux-kernel@vger.kernel.org>,
+	=?UTF-8?B?bGl1amlubG9uZw==?= <liujinlong@kylinos.cn>
+Date: Wed, 14 Oct 2026 09:31:53 +0800
+X-Mailer: NSMAIL 8.2
+Message-ID: <4oondq2thaaj-4oot1wdkden0@nsmail8.2--kylin--1>
+X-Israising: 0
+X-Seclevel-1: 0
+X-Seclevel: 0
+X-Delaysendtime: Wed, 14 Oct 2026 09:31:53 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20260922101129.52794-5-icheng@nvidia.com>
-User-Agent: NeoMutt/20220429
+Content-Type: multipart/mixed; boundary=nsmail-4twksxfnka5a-4twoparjjv4v
+X-ns-mid: webmail-6acedb89-4pip83it
+X-ope-from: <liujinlong@kylinos.cn>
+X-receipt: 0
 
-On Tue, 22 Sep 2026, Richard Cheng wrote:
+This message is in MIME format.
 
->cxl_get_poison_by_memdev() queries Get Poison List per partition but
->never checks the result inside the loop, so a later partition's success
->overwrites an earlier partition's failure and the whole scan reports
->success while that partition's poison went unlisted. Before the loop
->conversion the PMEM query returned early on error. Stop the loop on any
->error not already tolerated as a RAM -EFAULT.
->
->Fixes: be5cbd084027 ("cxl: Kill enum cxl_decoder_mode")
->Reviewed-by: Dave Jiang <dave.jiang@intel.com>
->Reviewed-by: Alison Schofield <alison.schofield@intel.com>
->Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
->Closes: https://sashiko.dev/#/patchset/20260708074228.43654-1-icheng@nvidia.com?part=5
->Signed-off-by: Richard Cheng <icheng@nvidia.com>
+--nsmail-4twksxfnka5a-4twoparjjv4v
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: base64
 
-Reviewed-by: Davidlohr Bueso <dave@stgolabs.net>
+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6TWljcm9zb2Z0IFlhSGVpO2ZvbnQt
+c2l6ZToxNHB4O2NvbG9yOiMwMDAwMDA7IiBjbGFzcz0ibF9ub2RlX2hhc19j
+b2xvciI+PGRpdj5PbiBXZWQsIE9jdCAxNCwgMjAyNiBhdCAxOjMxIEFNIFJh
+ZmFlbCBKLiBXeXNvY2tpICZsdDtyYWZhZWxAa2VybmVsLm9yZyZndDsgd3Jv
+dGU6PC9kaXY+CjxkaXY+Jmd0OzwvZGl2Pgo8ZGl2PiZndDsgWW91J2QgbmVl
+ZCB0byB1cGRhdGUgdGhlIEFDUEkgc3BlY2lmaWNhdGlvbiBmaXJzdCBhcyB0
+aGF0J3Mgd2hlcmUgdGhlPC9kaXY+CjxkaXY+Jmd0OyBub3RpZmljYXRpb24g
+dmFsdWVzIGFyZSBkZWZpbmVkLjwvZGl2Pgo8ZGl2PiZuYnNwOzwvZGl2Pgo8
+ZGl2PlRoYW5rIHlvdSBmb3IgdGhlIHJldmlldywgUmFmYWVsLjwvZGl2Pgo8
+ZGl2PiZuYnNwOzwvZGl2Pgo8ZGl2PllvdSdyZSByaWdodC4mbmJzcDsgSSds
+bCBkcm9wIHRoZSBuZXcgbm90aWZ5IHZhbHVlcyBhbmQgdGFrZSBhIGRpZmZl
+cmVudDwvZGl2Pgo8ZGl2PmFwcHJvYWNoIGluIHYyOiBldmFsdWF0ZSBhIF9Q
+U0IgY29udHJvbCBtZXRob2Qgd2hlbiB0aGUgZXhpc3RpbmcgMHg4MDwvZGl2
+Pgo8ZGl2Pm5vdGlmaWNhdGlvbiBpcyByZWNlaXZlZCB0byBkZXRlcm1pbmUg
+dGhlIHJlYWwgYnV0dG9uIHN0YXRlLiZuYnNwOyBObyBBQ1BJPC9kaXY+Cjxk
+aXY+c3BlY2lmaWNhdGlvbiBjaGFuZ2UgaXMgbmVlZGVkLCBhbmQgaWYgX1BT
+QiBpcyBhYnNlbnQgdGhlIGN1cnJlbnQ8L2Rpdj4KPGRpdj5wcmVzcytyZWxl
+YXNlIGJlaGF2aW9yIGlzIHByZXNlcnZlZC48L2Rpdj4KPGRpdj4mbmJzcDs8
+L2Rpdj4KPGRpdj5JJ2xsIHNlbmQgdjIgc2hvcnRseS48L2Rpdj4KPHA+Jm5i
+c3A7PC9wPgo8ZGl2IGlkPSJzaWduYXR1cmVUb3AiPjwvZGl2Pgo8ZGl2IGlk
+PSJjczJjX3JlIiBzdHlsZT0ibWFyZ2luLWxlZnQ6IDAuNWVtOyBwYWRkaW5n
+LWxlZnQ6IDAuNWVtOyBib3JkZXItbGVmdDogMXB4IHNvbGlkICNjYWNhY2E7
+IC13ZWJraXQtdXNlci1tb2RpZnk6IHJlYWQtb25seTsgLW1vei11c2VyLW1v
+ZGlmeTogcmVhZC1vbmx5OyAtbXMtdXNlci1tb2RpZnk6IHJlYWQtb25seTsg
+LW8tdXNlci1tb2RpZnk6IHJlYWQtb25seTsiPjxicj48YnI+PGJyPgo8ZGl2
+IHN0eWxlPSJiYWNrZ3JvdW5kLWNvbG9yOiAjZjhmOGY4OyBwYWRkaW5nOiA4
+cHggMTBweDsgZm9udC1mYW1pbHk6IE1pY3Jvc29mdCBZYUhlaTsgZm9udC1z
+aXplOiAxNHB4OyBjb2xvcjogIzAwMDsiPjxzdHJvbmc+5Li7Jm5ic3A7Jm5i
+c3A7Jm5ic3A76aKY77yaPC9zdHJvbmc+PHNwYW4gaWQ9ImNzMmNfc3ViamVj
+dCI+UmU6IFtQQVRDSF0gQUNQSTogYnV0dG9uOiBTdXBwb3J0IHNlcGFyYXRl
+IHByZXNzIGFuZCByZWxlYXNlIGV2ZW50czwvc3Bhbj4gPGJyPjxzdHJvbmc+
+5pelJm5ic3A7Jm5ic3A7Jm5ic3A75pyf77yaPC9zdHJvbmc+PHNwYW4gaWQ9
+ImNzMmNfZGF0ZSI+MjAyNuW5tDEw5pyIMTTml6UwMTozMTwvc3Bhbj4gPGJy
+PjxzdHJvbmc+5Y+R5Lu25Lq677yaPC9zdHJvbmc+PHNwYW4gaWQ9ImNzMmNf
+ZnJvbSI+UmFmYWVsIEouIFd5c29ja2kgKEludGVsKTwvc3Bhbj4gPGJyPjxz
+dHJvbmc+5pS25Lu25Lq677yaPC9zdHJvbmc+PHNwYW4gaWQ9ImNzMmNfdG8i
+IHN0eWxlPSJ3b3JkLWJyZWFrOiBicmVhay1hbGw7Ij5saXVqaW5sb25nMTc2
+LFJhZmFlbCBKLiBXeXNvY2tpIChJbnRlbCk8L3NwYW4+IDxicj48c3Ryb25n
+PuaKhOmAgeS6uu+8mjwvc3Ryb25nPjxzcGFuIGlkPSJjczJjX3RvIiBzdHls
+ZT0id29yZC1icmVhazogYnJlYWstYWxsOyI+UmFmYWVsIEogLiBXeXNvY2tp
+LExlbiBCcm93bixsaW51eC1hY3BpLGxpbnV4LWtlcm5lbDwvc3Bhbj48L2Rp
+dj4KPGJyPgo8ZGl2IGlkPSJjczJjX2NvbnRlbnQiPk9uIFR1ZSwgT2N0IDEz
+LCAyMDI2IGF0IDg6MznigK9BTSAmbHQ7bGl1amlubG9uZzE3NkAxNjMuY29t
+Jmd0OyB3cm90ZTogJmd0OyAmZ3Q7IEZyb206IGxpdWppbmxvbmcgJmx0O2xp
+dWppbmxvbmdAa3lsaW5vcy5jbiZndDsgJmd0OyAmZ3Q7IFRoZSBBQ1BJIGJ1
+dHRvbiBkcml2ZXIgb25seSByZWNvZ25pemVzIG5vdGlmeSB2YWx1ZSAweDgw
+IGFuZCAmZ3Q7IGFsd2F5cyBzeW50aGVzaXplcyBhIHByZXNzIGZvbGxvd2Vk
+IGJ5IGFuIGltbWVkaWF0ZSByZWxlYXNlLiAmZ3Q7IFRoaXMgbWFrZXMgaXQg
+aW1wb3NzaWJsZSBmb3IgdXNlcnNwYWNlIHRvIGRldGVybWluZSB0aGUgYWN0
+dWFsICZndDsgZHVyYXRpb24gb2YgYSBwb3dlciBidXR0b24gcHJlc3MuICZn
+dDsgJmd0OyBBZGQgdHdvIG5ldyBub3RpZnkgdmFsdWVzLCAweDgxIGFuZCAw
+eDgyLCB0aGF0IGZpcm13YXJlIGNhbiB1c2UgJmd0OyB0byByZXBvcnQgdGhl
+IHByZXNzIGFuZCB0aGUgcmVsZWFzZSBzZXBhcmF0ZWx5LiBUaGUgMHg4MCBw
+YXRoICZndDsgaXMgdW5jaGFuZ2VkIGZvciBjb21wYXRpYmlsaXR5IHdpdGgg
+ZXhpc3RpbmcgZmlybXdhcmUuIFlvdSdkIG5lZWQgdG8gdXBkYXRlIHRoZSBB
+Q1BJIHNwZWNpZmljYXRpb24gZmlyc3QgYXMgdGhhdCdzIHdoZXJlIHRoZSBu
+b3RpZmljYXRpb24gdmFsdWVzIGFyZSBkZWZpbmVkLiAmZ3Q7IE1vdmUgdGhl
+IG5vdGlmeSB2YWx1ZSBkZWZpbml0aW9ucyB0byBpbmNsdWRlL2FjcGkvYnV0
+dG9uLmggc28gJmd0OyB0aGV5IGNhbiBiZSBzaGFyZWQgYmV0d2VlbiB0aGUg
+ZHJpdmVyIGFuZCBvdGhlciB1c2Vycy4gJmd0OyAmZ3Q7IFNpZ25lZC1vZmYt
+Ynk6IGxpdWppbmxvbmcgJmx0O2xpdWppbmxvbmdAa3lsaW5vcy5jbiZndDsg
+Jmd0OyAtLS0gJmd0OyBkcml2ZXJzL2FjcGkvYnV0dG9uLmMgfCAyNCArKysr
+KysrKysrKysrKysrKystLS0tLS0gJmd0OyBpbmNsdWRlL2FjcGkvYnV0dG9u
+LmggfCA0ICsrKysgJmd0OyAyIGZpbGVzIGNoYW5nZWQsIDIyIGluc2VydGlv
+bnMoKyksIDYgZGVsZXRpb25zKC0pICZndDsgJmd0OyBkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9hY3BpL2J1dHRvbi5jIGIvZHJpdmVycy9hY3BpL2J1dHRvbi5j
+ICZndDsgaW5kZXggY2RiYjEwMjNhOGVlLi5iNzJlZDlmYzQyOWQgMTAwNjQ0
+ICZndDsgLS0tIGEvZHJpdmVycy9hY3BpL2J1dHRvbi5jICZndDsgKysrIGIv
+ZHJpdmVycy9hY3BpL2J1dHRvbi5jICZndDsgQEAgLTI2LDcgKzI2LDYgQEAg
+Jmd0OyAjZGVmaW5lIEFDUElfQlVUVE9OX0ZJTEVfU1RBVEUgInN0YXRlIiAm
+Z3Q7ICNkZWZpbmUgQUNQSV9CVVRUT05fVFlQRV9VTktOT1dOIDB4MDAgJmd0
+OyAjZGVmaW5lIEFDUElfQlVUVE9OX05PVElGWV9XQUtFIDB4MDIgJmd0OyAt
+I2RlZmluZSBBQ1BJX0JVVFRPTl9OT1RJRllfU1RBVFVTIDB4ODAgJmd0OyAm
+Z3Q7ICNkZWZpbmUgQUNQSV9CVVRUT05fQ0xBU1NfUE9XRVIgImJ1dHRvbi9w
+b3dlciIgJmd0OyAjZGVmaW5lIEFDUElfQlVUVE9OX0RFVklDRV9OQU1FX1BP
+V0VSICJQb3dlciBCdXR0b24iICZndDsgQEAgLTQ2NSw3ICs0NjQsOCBAQCBz
+dGF0aWMgdm9pZCBhY3BpX2J1dHRvbl9ub3RpZnkoYWNwaV9oYW5kbGUgaGFu
+ZGxlLCB1MzIgZXZlbnQsIHZvaWQgKmRhdGEpICZndDsgJmd0OyBzd2l0Y2gg
+KGV2ZW50KSB7ICZndDsgY2FzZSBBQ1BJX0JVVFRPTl9OT1RJRllfU1RBVFVT
+OiAmZ3Q7IC0gYnJlYWs7ICZndDsgKyBjYXNlIEFDUElfQlVUVE9OX05PVElG
+WV9QUkVTUzogJmd0OyArIGNhc2UgQUNQSV9CVVRUT05fTk9USUZZX1JFTEVB
+U0U6ICZndDsgY2FzZSBBQ1BJX0JVVFRPTl9OT1RJRllfV0FLRTogJmd0OyBi
+cmVhazsgJmd0OyBkZWZhdWx0OiAmZ3Q7IEBAIC00ODIsMTAgKzQ4MiwyMiBA
+QCBzdGF0aWMgdm9pZCBhY3BpX2J1dHRvbl9ub3RpZnkoYWNwaV9oYW5kbGUg
+aGFuZGxlLCB1MzIgZXZlbnQsIHZvaWQgKmRhdGEpICZndDsgaW5wdXQgPSBi
+dXR0b24tJmd0O2lucHV0OyAmZ3Q7IGtleWNvZGUgPSB0ZXN0X2JpdChLRVlf
+U0xFRVAsIGlucHV0LSZndDtrZXliaXQpID8gS0VZX1NMRUVQIDogS0VZX1BP
+V0VSOyAmZ3Q7ICZndDsgLSBpbnB1dF9yZXBvcnRfa2V5KGlucHV0LCBrZXlj
+b2RlLCAxKTsgJmd0OyAtIGlucHV0X3N5bmMoaW5wdXQpOyAmZ3Q7IC0gaW5w
+dXRfcmVwb3J0X2tleShpbnB1dCwga2V5Y29kZSwgMCk7ICZndDsgLSBpbnB1
+dF9zeW5jKGlucHV0KTsgJmd0OyArIHN3aXRjaCAoZXZlbnQpIHsgJmd0OyAr
+IGNhc2UgQUNQSV9CVVRUT05fTk9USUZZX1NUQVRVUzogJmd0OyArIGlucHV0
+X3JlcG9ydF9rZXkoaW5wdXQsIGtleWNvZGUsIDEpOyAmZ3Q7ICsgaW5wdXRf
+c3luYyhpbnB1dCk7ICZndDsgKyBpbnB1dF9yZXBvcnRfa2V5KGlucHV0LCBr
+ZXljb2RlLCAwKTsgJmd0OyArIGlucHV0X3N5bmMoaW5wdXQpOyAmZ3Q7ICsg
+YnJlYWs7ICZndDsgKyBjYXNlIEFDUElfQlVUVE9OX05PVElGWV9QUkVTUzog
+Jmd0OyArIGlucHV0X3JlcG9ydF9rZXkoaW5wdXQsIGtleWNvZGUsIDEpOyAm
+Z3Q7ICsgaW5wdXRfc3luYyhpbnB1dCk7ICZndDsgKyBicmVhazsgJmd0OyAr
+IGNhc2UgQUNQSV9CVVRUT05fTk9USUZZX1JFTEVBU0U6ICZndDsgKyBpbnB1
+dF9yZXBvcnRfa2V5KGlucHV0LCBrZXljb2RlLCAwKTsgJmd0OyArIGlucHV0
+X3N5bmMoaW5wdXQpOyAmZ3Q7ICsgYnJlYWs7ICZndDsgKyB9ICZndDsgJmd0
+OyBhY3BpX2J1c19nZW5lcmF0ZV9uZXRsaW5rX2V2ZW50KGJ1dHRvbi0mZ3Q7
+Y2xhc3MsIGRldl9uYW1lKCZhbXA7ZGV2aWNlLSZndDtkZXYpLCAmZ3Q7IGV2
+ZW50LCArK2J1dHRvbi0mZ3Q7cHVzaGVkKTsgJmd0OyBkaWZmIC0tZ2l0IGEv
+aW5jbHVkZS9hY3BpL2J1dHRvbi5oIGIvaW5jbHVkZS9hY3BpL2J1dHRvbi5o
+ICZndDsgaW5kZXggYWYyZmNlNWQyZWUzLi44MzJmMWEzMDg4MjggMTAwNjQ0
+ICZndDsgLS0tIGEvaW5jbHVkZS9hY3BpL2J1dHRvbi5oICZndDsgKysrIGIv
+aW5jbHVkZS9hY3BpL2J1dHRvbi5oICZndDsgQEAgLTYsNiArNiwxMCBAQCAm
+Z3Q7ICNkZWZpbmUgQUNQSV9CVVRUT05fSElEX0xJRCAiUE5QMEMwRCIgJmd0
+OyAjZGVmaW5lIEFDUElfQlVUVE9OX0hJRF9TTEVFUCAiUE5QMEMwRSIgJmd0
+OyAmZ3Q7ICsjZGVmaW5lIEFDUElfQlVUVE9OX05PVElGWV9TVEFUVVMgMHg4
+MCAmZ3Q7ICsjZGVmaW5lIEFDUElfQlVUVE9OX05PVElGWV9QUkVTUyAweDgx
+ICZndDsgKyNkZWZpbmUgQUNQSV9CVVRUT05fTk9USUZZX1JFTEVBU0UgMHg4
+MiAmZ3Q7ICsgJmd0OyAjaWYgSVNfRU5BQkxFRChDT05GSUdfQUNQSV9CVVRU
+T04pICZndDsgZXh0ZXJuIGludCBhY3BpX2xpZF9vcGVuKHZvaWQpOyAmZ3Q7
+ICNlbHNlICZndDsgLS0gJmd0OyAyLjI1LjEgJmd0OyAmZ3Q7ICZndDsgTm8g
+dmlydXMgZm91bmQgJmd0OyBDaGVja2VkIGJ5IEhpbGxzdG9uZSBOZXR3b3Jr
+IEFudGlWaXJ1cyAmZ3Q7ICZsdDsvbGl1amlubG9uZ0BreWxpbm9zLmNuJmd0
+OyZsdDsvbGl1amlubG9uZ0BreWxpbm9zLmNuJmd0OyZsdDsvbGl1amlubG9u
+ZzE3NkAxNjMuY29tJmd0OzwvZGl2Pgo8L2Rpdj4KPHA+Jm5ic3A7PC9wPgo8
+cD4mbmJzcDs8L3A+CjxkaXYgaWQ9InNpZ25hdHVyZUJvbSI+PC9kaXY+PC9k
+aXY+
 
-... with a nit below.
-
->---
-> drivers/cxl/core/memdev.c | 2 ++
-> 1 file changed, 2 insertions(+)
->
->diff --git a/drivers/cxl/core/memdev.c b/drivers/cxl/core/memdev.c
->index b3419df586b9..e39b3d13fd56 100644
->--- a/drivers/cxl/core/memdev.c
->+++ b/drivers/cxl/core/memdev.c
->@@ -231,6 +231,8 @@ static int cxl_get_poison_by_memdev(struct cxl_memdev *cxlmd)
-> 		 */
-> 		if (rc == -EFAULT && cxlds->part[i].mode == CXL_PARTMODE_RAM)
-
-This wants poison_efault_forgiven() - maybe move out of region.c into core.h?
-
-> 			rc = 0;
->+		if (rc)
->+			break;
-> 	}
-> 	return rc;
-> }
->-- 
->2.43.0
->
+--nsmail-4twksxfnka5a-4twoparjjv4v--
