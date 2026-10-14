@@ -1,103 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99A3A4E432E;
-	Wed, 14 Oct 2026 12:43:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AF0543304D;
+	Wed, 14 Oct 2026 12:44:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791981787; cv=none; b=C2nkEr+1ayz2PtRMn92Cdjx2W5dzn1yxR1UkRCOkPLpT77b44TVVWrHQvQpujLp+Kf431wNdydA67x+E59nxR1RBD2kT135FIqM3pDOwM/RytPhyI2IyNOiDVwadrLDCFS555yRcgvOuWnWxY3kag2g0hOwZ7lfPJgKaFhoU1kQ=
+	t=1791981845; cv=none; b=nksVPUamGar7NhLE0VYHOMRKgUZ4XR2fyh2JdTEjBEqVmKL13P0T4iPD0IusgEq8zwisiKXFXf5rp29Z6bVtgcJbPqQLbH7XQ6tu+48mNTvIFd/O+4QweVrA6Fqd2OUByUxNYLW6QjEPuM1inE8CjL7tTMopYYaEXFR3wkhGQvo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791981787; c=relaxed/simple;
-	bh=Y2lM4EzlaIXPpK6qwuX98QxB3nPWBH/nrRzl7ZOwpXM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OPQSNAGf1sH6pf5e5mzPYZ4LxkC6DuINNCpcS1T2zGKK1fphRDegy9cVU3bIqaKrAm2lWVegvF3SeRM3nGs8NEhfw8rd1HxeCNwkWASyOR9zAI+1/2HM2YoXoNVXtfXGKWoVk823DVYh0PcuDdE/d0Z61HLZStzwgX1OQV2Or2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WIy55xAo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791981845; c=relaxed/simple;
+	bh=C+4m1lh9z426f2AOlWGrtkGhBX1dSUecUAxUP0YO7Qw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=iVlvMzupbuerMBQrMURn1nnGisOlrTm1Yz+4yfNi8toLiIeX71eUUDZd0pZhyu6uma2wpJPJ2/5I8VbbdHUilJz5o0GF+wzWG2oQdkJFYba10WW+ZbCWOw2GyCpxJO5Mdv71PqXtC+j4qMPJGDZT2/nlH/AQ1PMGohtMFIMRqB0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SNrcHXk+; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WIy55xAo"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 99F4E1F000FF;
-	Wed, 14 Oct 2026 12:43:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791981786;
-	bh=iPLrY9eK2rtIIWdHd/Lavg1paupKO3LVGrSIRGRjJks=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WIy55xAogAIrYMZV4L1gLKJcgW+uwnuoHronQ8f5XFz++GmV8pXNo+eie37oeBrrP
-	 i6L6JIhAtP0g6MOU/r9gD51UeQNJgPcFDbCykKDpQ1ri6s85QGZ0hLafBVRUnc4Gwh
-	 2KU7VxDKixgm4kcCTFJNctInGC8AsN1wG8dUPD5Er+rH1k4jrdJYzflLaLqE+nKjRu
-	 2uGRsG1P1/5p4cnSLIO5bKWnjIT4wRCOjmvWCb4xSI9ezmbSCMO/0yQaf9TMlnvI9C
-	 WPLylTlpmgeNjlhPS3BjOwnWY/4MltydW9wMouIfv7njzVSyIetGVqQJsyVWrzMxH/
-	 pPpdmGZ5RwYvw==
-Date: Wed, 14 Oct 2026 15:43:02 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Kyle Zeng <kylebot@openai.com>
-Cc: keyrings@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-security-module@vger.kernel.org, dhowells@redhat.com
-Subject: Re: [PATCH v2] keys: make keyring indexes independent of kernel
- addresses
-Message-ID: <as941m0HXNruztLc@kernel.org>
-References: <20261013231251.56170-1-kylebot@openai.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SNrcHXk+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791981843; x=1823517843;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=C+4m1lh9z426f2AOlWGrtkGhBX1dSUecUAxUP0YO7Qw=;
+  b=SNrcHXk+pkurUpfeCs2wnYWk/CXNzfduDQoHv74MIQT4SG5djpZKVh8r
+   7jd9wffje3cjk1WJp4i0KY0gGVl3a0Bmjkg53IldOLvYYTpXhU93tUQsj
+   yFYRvKTkRxpBBq7kXNEJflJ/xlFm6OI7xp/947qpAwqLuZijLtU/ISGJo
+   Iv11DdcZmgeUtQfCYJ2JMxoqmTlAxRSgfPSAmDo5oBlOC3xht4ThkQCEM
+   c/hLbKF97C4QG4I3//GiMZoC26wVrIgd9Iq5fWBK/BM7qxcJXSytLAfLo
+   s5zNVII3qtdfwovp36fyZICaYNi2dy/nIfS1ZHAzWdD1VO3LMsBIx40VL
+   w==;
+X-CSE-ConnectionGUID: jXOTGH1WQ0SwpDAPbqFcPA==
+X-CSE-MsgGUID: m0l2yOM9S12ym1cc8O71zA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="736360"
+X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
+   d="scan'208";a="736360"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 05:44:02 -0700
+X-CSE-ConnectionGUID: Dx4RydmJTwiKSfhFgLSIUg==
+X-CSE-MsgGUID: VO/xskiQS+uWPUxxKb8dOg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
+   d="scan'208";a="1394465"
+Received: from ygaur-x299-aorus-gaming-3-pro.iind.intel.com ([10.223.75.72])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 05:44:00 -0700
+From: Yogesh Gaur <yogesh.gaur@intel.com>
+To: miriam.rachel.korenblit@intel.com,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: johannes.berg@intel.com,
+	emmanuel.grumbach@intel.com,
+	luciano.coelho@intel.com,
+	yogesh.gaur@intel.com
+Subject: [PATCH iwlwifi-next] wifi: iwlwifi: pcie: return a real errno from read_config32()
+Date: Wed, 14 Oct 2026 18:13:57 +0530
+Message-Id: <20261014124357.2569535-1-yogesh.gaur@intel.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261013231251.56170-1-kylebot@openai.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 13, 2026 at 04:12:51PM -0700, Kyle Zeng wrote:
-> KEYCTL_READ returns the serial numbers in a keyring in associative-array
-> traversal order.  The first word of the index is a public, deterministic
-> hash of the type pointer, domain pointer and description.  An unprivileged
-> user can therefore insert keys with known descriptions, predict their
-> order for each possible KASLR slide, and recover the kernel image address.
-> On an x86-64 build with 16 MiB alignment, 45 user keys suffice to
-> distinguish the candidate slides.
-> 
-> Remove the addresses from the whole index, not just its first hash word.
-> Assign each key type and domain a nonzero 64-bit ID and hash those IDs and
-> the description with a once-initialized SipHash key.  Use the full IDs in
-> the later index chunks as well.  Truncating or hashing the IDs there would
-> lose the guarantee that distinct type/domain/description tuples have a
-> differing index bit.
-> 
-> Allocate IDs lazily since private key types need not be registered.  Cache
-> them in the index key so tree walks and copies of an existing index do not
-> need to dereference a type descriptor that may have been unregistered.
-> Keep the 32-bit chunk layout and diff_objects() bit offsets consistent,
-> and retain the separate root slot for keyrings used by recursive search.
-> The key comparison, permissions and userspace data format are unchanged;
-> only the address-dependent in-memory ordering is replaced.
-> 
-> Fixes: b2a4df200d57 ("KEYS: Expand the capacity of a keyring")
-> Assisted-by: Codex:gpt-6-astra
-> Signed-off-by: Kyle Zeng <kylebot@openai.com>
+pci_read_config_dword() can also return a positive PCIBIOS_* error code
+(e.g. PCIBIOS_DEVICE_NOT_FOUND for a disconnected device), but
+iwl_trans_pcie_read_config32() passes it through unchanged and
+iwl_dump_ini_config_iter() only checks for ret < 0. The error is missed,
+so the loop keeps reading and stores 0xffffffff in the dump.
 
+Convert the return value with pcibios_err_to_errno().
 
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+Fixes: f696a7ee254f ("iwlwifi: yoyo: add PCI config space region type")
+Signed-off-by: Yogesh Gaur <yogesh.gaur@intel.com>
+---
+ drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-I'll apply this.
+diff --git a/drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c b/drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c
+index 28b276c65952..cfaadddfe06a 100644
+--- a/drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c
++++ b/drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c
+@@ -2562,8 +2562,12 @@ int iwl_trans_pcie_read_mem_no_grab(struct iwl_trans *trans, u32 addr,
+ int iwl_trans_pcie_read_config32(struct iwl_trans *trans, u32 ofs,
+ 				 u32 *val)
+ {
+-	return pci_read_config_dword(IWL_TRANS_GET_PCIE_TRANS(trans)->pci_dev,
+-				     ofs, val);
++	int ret;
++
++	ret = pci_read_config_dword(IWL_TRANS_GET_PCIE_TRANS(trans)->pci_dev,
++				    ofs, val);
++
++	return pcibios_err_to_errno(ret);
+ }
+ 
+ #define IWL_FLUSH_WAIT_MS	2000
+-- 
+2.34.1
 
-And thanks for addressing that and sorry for nitpicking. Looks good to
-me and thanks for addressing the bug. This is kind of AI assisted commit
-to works for me; and I believe that checks are balances are in place.
-
-Not everyone gets this, and the problem is that they also in effect
-reduce the number of point of failures from two to one due
-ignorance-by-a-choice.
-
-A person submitting an AI-assisted patch is also a reviewer, and
-ignoring this increases the probability of bad getting into mainline
-quite literally.
-
-I think some people might not really understand this at all but is
-just that it is much less likely that two people get a patch wrong
-and at the same time, than just one. That's it ;-)
-
-This is not an AI/LLM problem. It is a misconduct by people quite
-well scoped really...
-
-Sorry for the rant just wanted to write this down and get this out
-of my chest. Absolutely nothing to do with this patch.
-
-Br, Jarkko
