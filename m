@@ -1,242 +1,164 @@
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 386A74C14F1
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:05:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792015518; cv=pass; b=AHP51MAgZlb2h7FP5E3dtj6T4CtsSErfVnhyI8pmhQB5Pcv5NGhxIns6xajMAypgbKXgb+2YQbbWTTueO1X/jlZVxTpTNA8kDZRYfnZE1MALNYXN6w9taO556QOxhv+JzVF8oaMZCj+yMY7gg7iihlzfdcuIoWkaDBv4vLk4k3c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792015518; c=relaxed/simple;
-	bh=QZdOOfmt8Jm5RLQIZramMvHmus/nQmnbFJOBNJAfNVQ=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F83B4756A3
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:08:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792015689; cv=none; b=ZO474z6GsMApeXbWFf2zO8rh0sGzaMFwyOgr9JzF+ZNBwYqxU57b8j0SUCdeeEgvcDcb49o2e+bCXHFpmejyo9W0R+eUxPHIox4dbTeiD7QfXKisj/R89RIWhBhQIlDo34O4zGZrhSyq7xkl/2e3OgEhXTm8XeLoz/8VtGJ1c5Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792015689; c=relaxed/simple;
+	bh=W7YcGSKMlsONALoV83j6UEkvfWlb5AmoxbPzjc26wLM=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=d24m7PYLN1uFXl365LIZCFl0FlkzxYzQDKZf/aQemsKcsKLf92EHHB0Np4nxXHdvbZzbk+YipRxc/mV2z6CpFTNBMFsqULSfvtEgJj2jZoTCCsPY/OMudM0JeiDgucfqdUs5ZQxyBdf76IgBJQcG1vfJeBadjg2Qfce3KmwgCpU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=OQtAfgFu; arc=pass smtp.client-ip=209.85.208.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	 To:Cc:Content-Type; b=d516PEKTXoIj6kP3Wl/C4wq2NPAim5J3/2INmy5K72agic92lUkfrHkHaahtTJQAK2iwI6FnZEjKqFD2KNX2ncz7R0WbAuu6/FRalz+efTFRfs9zlQjy64cPW3SXNBo56P0rgPp7rxju523HzGMiL48G35FWGBK45v6N3oLTTbs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I4LqGTRR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="OQtAfgFu"
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6ae14cdc63aso398a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:05:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792015514; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ahPA33IPqHdUI28WT6C/SsiafYVXAMQHtR09kArRdSJUwg0wMIGMUiKMajITfvJBOK
-         q6VINNynfo2FjVsnukZ3T/mfxLL12tCugmzcKEucbJqigesArZwvMRqZuZaipXoAxbeh
-         ZsUQwh8xv/iaXnTU4ye11YEctZfwfXbP07nVQkZ/L0P4xhykkEG8TYC1qIUVlaqf3q2C
-         rxqEJXwnhRmn+EnrpAz2AoHFXDPvM3/kV139q6it+XP5aS7brnc4QhyA5vteV0kcwD6x
-         saUQx1YhjM52twOEoOV98y5LUyQK9vfF7zSFE13nDxVeW7RHPohHR14cx41CY5H5a49X
-         5M6g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=zqIxtdg7oikaNaEElNQna4r57IwoPY41P2qZQ85S8yE=;
-        fh=6l8D3M4V9Wy0k7dmbIykj2YrlVVcfisU1O9bFn8pR6U=;
-        b=eVE5ca40xOXiuTAiro2XPn3Fz1vp7YgqbwsVg+wSfkkmQF30DouA0VJ5DyHY0LrPMY
-         +9BFDzUzpSLeBOleDmfySS7ogQVdqIB1EOJ3MU+gRgU+wogNlcQiSx7WAx7NP5qgkY9x
-         WxBEwy1IzpMPlZBlr9uEsqHNx03AA+lt8OcWVHWmaw8MVgXyLq3A+JluiG1PrXzBGYe1
-         aehdoj+jJBez2ULTjifIoQeU5nqy5S/1OmMkWhd2C9JJmveX6CNojUwPJWw7THjRspW9
-         FmwaioA0NHEF1kC5wzQJ2lSfFDacXikhfxpI4KJbn+vaefG30UhTPujXCZc2HR8ffd9g
-         4jiQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792015514; x=1792620314; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zqIxtdg7oikaNaEElNQna4r57IwoPY41P2qZQ85S8yE=;
-        b=OQtAfgFuI+aksZ26HjL7EshBs6MTo3digml8NK5k0ktcP2F2Z7bdmOveJXQwX3MS12
-         N7K8yKWa2lAdm9OgkkvtTc0qLTaKQTokxtRBQ+rV3wShdqK0Ym2o8N4XIBXcSLU2DVUh
-         seoUsXSR9IiRhL3VlsSLiC8yPL+sc9g1n5CsJF0U/oHbTadk80T/7Aq65Pv1nd7MOZHN
-         yCzioHbXOPo5/3v/5wfUDTV0f/nCArg4/WF7tDW+DAvdvx0tGknmCMJUSoI5YSPXMueF
-         smYcQJ+MaFMg9c0xxcuLVwNDsK7SdBXwEouF41mCLqD19hCjNvULw9+ymqY2BbRtZ53x
-         nCKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792015514; x=1792620314;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zqIxtdg7oikaNaEElNQna4r57IwoPY41P2qZQ85S8yE=;
-        b=UwsRiDpJQG0yFXvb+VGZw+0qHqqGqYn5DwS+FANLZVlXMF4ZV1BdTQlXhvZ6CFHzpp
-         FwSP3M5AyvannS/gMRlpm7w7SjKzm/BX9glUKosOiKYSnfoTmDu60eelpLowI9JF+NTf
-         1Hy0pYaeLkWHYz0V2nRLVeUn7y8OHTvsk8XoKVi16G2NpPSZGc9826zfeGw3j+UnyqKU
-         XbbWq5UUVcnlhiFQSCqiCAU3FN7ANV6Jt03PVmEVe/jmZwtx1eADbhPQn0YG/8yhCkJM
-         evQuSC8PpeqYwQFsQSf6ff/wg2hKTfp7ZzwK2t1L2mQyO2buGPP9p1tlbR4bCxmxF/M/
-         GhFw==
-X-Forwarded-Encrypted: i=1; AKwUvBxw3GRWXwg4pgsQb3vRWsl25YeusmCpZgMpCKHh7e9zFFJRZdJdAdcdPwsDlzGJh2JErvGUDZx3Gqek4rc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKzhlJ7o3k/upr5QZadtDOXTMh5qS7fp68J8Hl7qMuqAKRXGOIL
-	8m+vbsVLfG1qk2OcN1wQ9GM8qlqTeiZlMcQEUCx3kf5qaofyZi3weD17uB/t8PkqL/jRToOwKCl
-	5X8f/04xgFaZ57025+aoXG0S4f0ndzK8cmF6AyzYA
-X-Gm-Gg: AYBFou1aFLN6M6eFHqTnvAyvDFTzV5a7qwtVDxwtLaaqiZShjDK9BL/2r8jSepizg0L
-	fixEipH0HGXmstAPmPPybPSZNKRpekn9mxmY+TPuX0DCsNwqr8S9Inao1svcCjnChdzuQBHoQlf
-	dvfXOK/+nHt1VlVl1jdeFc964yWEuMgVnzB7aXgoZpHhi2tgGf4OYStd1E3RrLmv3HCL0oDGvnr
-	nOmwz7qxWVbFiNXrOZCd90WD8pQu4YqxLLD3RFosiFq86f4DkCrUZ+aiBJwwl3eYmYdvv3XVcXF
-	j95lFUwokYapEWmf5moGVjUQwNgElSFWUWTj1mYS9orCveH8Yo17KQ==
-X-Received: by 2002:a05:6402:22dc:b0:6aa:128c:36ad with SMTP id
- 4fb4d7f45d1cf-6b20aae61dcmr66690a12.10.1792015513640; Wed, 14 Oct 2026
- 15:05:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I4LqGTRR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35B9F1F000C9
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:08:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792015688;
+	bh=zTE6DUFagBPa5gdr6mBV97huCIFJv592aB6rqYNnqqU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=I4LqGTRRbaUoUT9SFAh2xZZJIsrqsBeF+eztkdizJB/7kiWnA5g2N2IiUAfud17m3
+	 gRTNDeYFTf3JU0XKgdAevNDskF7g9rLZdcjovta9dM5NMnJXTJBwBP+/fQznKsnRtK
+	 YK/lFNSxYppKxtfDtrgJGCdtUF9gQ+A+wstPWjl4GJYpNbc8V8Yn+PHJjucLKm6N4a
+	 yOe8atuW92GO7F3BeDL3Br8HVM7iO+0c6B1Ee4WJgWsMvjZzwwiXYWLBkKzZHqFne2
+	 h4HZg7r5MUMSI5nj/UdvSrB8fxUihYXoaxjLpKjlJ+SYfXOjmU62n43wyQ+vWT28gB
+	 POAf3BdPGXtXA==
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c38ac26cc5dso276308566b.2
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:08:08 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByUzrfejr85U1IzGKzJQ0ybPHFWL/7MJ8hJzoZAhlptPFxuOkb06qcJur/ABOGN+b3MktZftCgO5IKePyU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJzggUryESGjB/sTQuJMpFqzY3+HnhO8ZEkzBTeiGXnoZPnzpXV
+	Dhj3TW+pipMigdgCTpsEb9ASAEKj8DBgJ5ytFIByg8w6yPL773De2mks8wpd27iyHEirM4SiZFC
+	POYI4t7FQabbaFvH1RxUrsKDQUZ6jhrc=
+X-Received: by 2002:a17:907:eccc:b0:c25:4f7c:8ec5 with SMTP id
+ a640c23a62f3a-c31aa0291acmr1560206066b.23.1792015687089; Wed, 14 Oct 2026
+ 15:08:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261014173945.373295-1-almasrymina@google.com>
- <20261014173945.373295-4-almasrymina@google.com> <as_yg4hCCfpkukZB@devvm7509.cco0.facebook.com>
-In-Reply-To: <as_yg4hCCfpkukZB@devvm7509.cco0.facebook.com>
-From: Mina Almasry <almasrymina@google.com>
-Date: Wed, 14 Oct 2026 15:05:01 -0700
-X-Gm-Features: AclHuK-FIIYIfRHu7yhPBoI9CQSDVknHHqcppKY8ZRAq6RJPc2uOk0RIcUIsbQU
-Message-ID: <CAHS8izPDAjfRFCM2LrC7tzVQRkGCcn6zsghEvHJ9FJ1ET9odYg@mail.gmail.com>
-Subject: Re: [PATCH net-next v3 3/6] net: skbuff: replace skb_page_unref() and
- __skb_frag_unref() with skb_netmem_unref()
-To: Stanislav Fomichev <sdf.kernel@gmail.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-rdma@vger.kernel.org, bpf@vger.kernel.org, 
-	Ayush Sawal <ayush.sawal@chelsio.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Tariq Toukan <tariqt@nvidia.com>, 
-	Simon Horman <horms@kernel.org>, Steffen Klassert <steffen.klassert@secunet.com>, 
-	Herbert Xu <herbert@gondor.apana.org.au>, Neal Cardwell <ncardwell@google.com>, 
-	Kuniyuki Iwashima <kuniyu@google.com>, John Fastabend <john.fastabend@gmail.com>, 
-	Sabrina Dubroca <sd@queasysnail.net>, Eric Biggers <ebiggers@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Aleksandr Loktionov <aleksandr.loktionov@intel.com>, Petr Machata <petrm@nvidia.com>, 
-	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>, 
-	Jakub Raczynski <j.raczynski@samsung.com>, Wang Zhan <wang.zhan@smartx.com>, 
-	Willem de Bruijn <willemb@google.com>
+References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-5-yosry@kernel.org>
+ <CALMp9eQEEKVQT33t=UNDdGLotZWiUpznoM6Jxdc4u0W4vfcv1g@mail.gmail.com>
+In-Reply-To: <CALMp9eQEEKVQT33t=UNDdGLotZWiUpznoM6Jxdc4u0W4vfcv1g@mail.gmail.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Wed, 14 Oct 2026 15:07:55 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zPbwG+f+Df5bBtiBKv2hbjy6gXbV8biOQ7mzJkjWffWuA@mail.gmail.com>
+X-Gm-Features: AclHuK-CAnvKOlKrWVsaR1s3p9qPydodr_9JLTrc46hJNTGEMgbHhC0o5f54zvE
+Message-ID: <CAO9r8zPbwG+f+Df5bBtiBKv2hbjy6gXbV8biOQ7mzJkjWffWuA@mail.gmail.com>
+Subject: Re: [PATCH v3 04/27] KVM: x86/mmu: Support specifying reserved TLB tags
+To: Jim Mattson <jmattson@google.com>
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 14, 2026 at 2:25=E2=80=AFPM Stanislav Fomichev <sdf.kernel@gmai=
-l.com> wrote:
+On Wed, Oct 14, 2026 at 2:50=E2=80=AFPM Jim Mattson <jmattson@google.com> w=
+rote:
 >
-> On 10/14, Mina Almasry wrote:
-> > Unreferencing a page_pool fragment with recycle=3Dfalse decrements the
-> > non-pp backing refcount instead of pp_ref_count, underflowing the page
-> > refcount when the fragment was owned via page_pool (as on mlx4's RX
-> > error path). Having both skb_page_unref() and __skb_frag_unref(frag,
-> > recycle) made it easy for callers to pass hardcoded recycle=3Dfalse on
-> > SKB-owned fragments.
+> On Mon, Oct 12, 2026 at 4:36=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wr=
+ote:
 > >
-> > Replace skb_page_unref() and __skb_frag_unref() with
-> > skb_netmem_unref(netmem, recycle), which dispatches to
-> > napi_pp_put_page() when recycle is true and put_netmem() otherwise:
+> > In preparation for using the TLB tags allocator for SVM, which has a
+> > range of ASIDs allocated for SEV/SNP, pass in the number of reserved TL=
+B
+> > tags when initializing the TLB tags allocator. The bitmap is
+> > conceptually shifted such that bit=3D0 corresponds to tag=3Dnr_reserved=
+.
 > >
-> > - Use skb_frag_unref(skb, ...) on SKB-owned fragments in mlx4, sky2,
-> >   tls_strp, and skb_shift() so unrefs always match skb->pp_recycle.
-> > - Use put_netmem() directly in tls_device's destroy_record(), which
-> >   releases raw non-pp page references outside an SKB.
+> > Specifying the minimum value during initialization also makes the API
+> > clearer, as tag=3D0 is now explicitly reserved by the caller.
 > >
-> > Found by code inspection and confirmed with the KUnit tests added later
-> > in this series; not observed in production. The mlx4, sky2, and TLS
-> > call-site changes are compile-tested only.
+> > No functional change intended for VMX as VPID=3D0 was already implicitl=
+y
+> > reserved.
 > >
-> > Assisted-by: LLM
-> > Signed-off-by: Mina Almasry <almasrymina@google.com>
+> > Signed-off-by: Yosry Ahmed <yosry@kernel.org>
 > > ---
-> > v2:
-> > - Note how the issue was found and how the change was tested.
-> > - Link to v1: https://lore.kernel.org/netdev/20261010083935.3274178-4-a=
-lmasrymina@google.com/
-> > ---
-> >  drivers/net/ethernet/marvell/sky2.c        |  2 +-
-> >  drivers/net/ethernet/mellanox/mlx4/en_rx.c |  2 +-
-> >  include/linux/skbuff_ref.h                 | 34 +++++++++++-----------
-> >  net/core/skbuff.c                          |  7 +++--
-> >  net/ipv4/esp4.c                            |  4 +--
-> >  net/ipv6/esp6.c                            |  4 +--
-> >  net/tls/tls_device.c                       |  2 +-
-> >  net/tls/tls_strp.c                         |  2 +-
-> >  8 files changed, 29 insertions(+), 28 deletions(-)
+> >  arch/x86/kvm/mmu.h     |  2 +-
+> >  arch/x86/kvm/mmu/mmu.c | 42 ++++++++++++++++++++++++++++--------------
+> >  arch/x86/kvm/vmx/vmx.h |  2 +-
+> >  3 files changed, 30 insertions(+), 16 deletions(-)
 > >
-> > diff --git a/drivers/net/ethernet/marvell/sky2.c b/drivers/net/ethernet=
-/marvell/sky2.c
-> > index 30facdece3e29..1d42a82db8f2b 100644
->
-> [..]
->
-> > --- a/drivers/net/ethernet/marvell/sky2.c
-> > +++ b/drivers/net/ethernet/marvell/sky2.c
-> > @@ -2501,7 +2501,7 @@ static void skb_put_frags(struct sk_buff *skb, un=
-signed int hdr_space,
+> > diff --git a/arch/x86/kvm/mmu.h b/arch/x86/kvm/mmu.h
+> > index de79e002edf8f..b443a5083bfb0 100644
+> > --- a/arch/x86/kvm/mmu.h
+> > +++ b/arch/x86/kvm/mmu.h
+> > @@ -413,7 +413,7 @@ static inline bool kvm_is_gfn_alias(struct kvm *kvm=
+, gfn_t gfn)
 > >
-> >               if (length =3D=3D 0) {
-> >                       /* don't need this page */
-> > -                     __skb_frag_unref(frag, false);
-> > +                     skb_frag_unref(skb, i);
-> >                       --skb_shinfo(skb)->nr_frags;
-> >               } else {
-> >                       size =3D min(length, (unsigned) PAGE_SIZE);
-> > diff --git a/drivers/net/ethernet/mellanox/mlx4/en_rx.c b/drivers/net/e=
-thernet/mellanox/mlx4/en_rx.c
-> > index 96f97fa0f5489..fe18606c2ab55 100644
-> > --- a/drivers/net/ethernet/mellanox/mlx4/en_rx.c
-> > +++ b/drivers/net/ethernet/mellanox/mlx4/en_rx.c
-> > @@ -497,7 +497,7 @@ static int mlx4_en_complete_rx_desc(struct mlx4_en_=
-priv *priv,
-> >  fail:
-> >       while (nr > 0) {
-> >               nr--;
-> > -             __skb_frag_unref(skb_shinfo(skb)->frags + nr, false);
-> > +             skb_frag_unref(skb, nr);
-> >       }
-> >       return 0;
-> >  }
->
-> These do not support qops and don't advertise devmem tx, so they are not
-> going to deal with netmems anytime soon, why touch these?
->
-
-They're still using page-backed netmems that have 2 refcounts, and
-frag ref/unref needs to pick the right one. Before they were
-hardcoding false for the pp-recycle bit, so if a skb->pp_recycle=3D=3Dtrue
-here for any reason, this code would hit a ref imbalance. Now after
-this series both skb_frag_ref and skb_frag_unref do the right thing by
-checking skb->pp_recycle.
-
-This has nothing to do with net-iovs or devmem.
-
-[...]
-> > diff --git a/net/tls/tls_device.c b/net/tls/tls_device.c
-> > index f11d0528fc431..b333a9a72cdae 100644
-> > --- a/net/tls/tls_device.c
-> > +++ b/net/tls/tls_device.c
-> > @@ -143,7 +143,7 @@ static void destroy_record(struct tls_record_info *=
-record)
-> >       int i;
+> >  typedef unsigned int kvm_tlb_tag_t;
 > >
-> >       for (i =3D 0; i < record->num_frags; i++)
-> > -             __skb_frag_unref(&record->frags[i], false);
-> > +             put_netmem(skb_frag_netmem(&record->frags[i]));
-> >       kfree(record);
-> >  }
+> > -int kvm_init_tlb_tags(unsigned int nr);
+> > +int kvm_init_tlb_tags(unsigned int nr_total, unsigned int nr_reserved)=
+;
+> >  void kvm_destroy_tlb_tags(void);
+> >  kvm_tlb_tag_t kvm_alloc_tlb_tag(void);
+> >  void kvm_free_tlb_tag(kvm_tlb_tag_t tag);
+> > diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+> > index 97d49247d9d82..c096c1a2b4684 100644
+> > --- a/arch/x86/kvm/mmu/mmu.c
+> > +++ b/arch/x86/kvm/mmu/mmu.c
+> > @@ -8182,9 +8182,17 @@ static struct {
+> >         spinlock_t      lock;
+> >         unsigned long   *bitmap;
+> >         unsigned int    nr;
+> > +       kvm_tlb_tag_t   start;
+> >  } tlb_tags;
 > >
-> > diff --git a/net/tls/tls_strp.c b/net/tls/tls_strp.c
-> > index 6cc222008d95c..53d3256d0114a 100644
-> > --- a/net/tls/tls_strp.c
-> > +++ b/net/tls/tls_strp.c
-> > @@ -197,7 +197,7 @@ static void tls_strp_flush_anchor_copy(struct tls_s=
-trparser *strp)
-> >       DEBUG_NET_WARN_ON_ONCE(atomic_read(&shinfo->dataref) !=3D 1);
-> >
-> >       for (i =3D 0; i < shinfo->nr_frags; i++)
-> > -             __skb_frag_unref(&shinfo->frags[i], false);
-> > +             skb_frag_unref(strp->anchor, i);
-> >       shinfo->nr_frags =3D 0;
-> >       if (strp->copy_mode) {
-> >               kfree_skb_list(shinfo->frag_list);
+> > -int kvm_init_tlb_tags(unsigned int nr)
+> > +/*
+> > + * Initialize @nr_total TLB tags, where @nr_reserved of those tags are=
+ reserved.
+> > + * Reserved tags start at 0 and are contiguous. Hence, usable tags are
+> > + * [nr_reserved, nr_total). At least one reserved tag is required, as =
+0 is the
+> > + * host TLB tag on both VMX and AMD, and is the value returned on a fa=
+iled tag
 >
-> Idk this part, seems harmless.. But are you sure we can even reach xfrm
-> (supposedly that's how we get to esp4) with netmems?
+> Nit: VMX and SVM -or- Intel and AMD
 
-Same, this is still using page-backed netmems, and hard-coding fales
-for the skb->pp_recycle bit. If anchor->pp_recycle=3D=3Dtrue ever here,
-this code would run into a ref imbalance and potentially crash. Now
-skb_frag_ref and skb_frag_unref are mirrors of each other and we don't
-have to prove beyond a doubt that dropping a non-pp ref is always the
-right thing to do here.
+LOL, how did I end up with that.
 
---=20
-Thanks,
-Mina
+>
+> > + * allocation.
+> > + */
+> > +int kvm_init_tlb_tags(unsigned int nr_total, unsigned int nr_reserved)
+> >  {
+> >         /*
+> >          * Limit the number of TLB tags to VMX's hardcoded maximum of 0=
+x10000
+> > @@ -8194,7 +8202,12 @@ int kvm_init_tlb_tags(unsigned int nr)
+> >          * need a solution that works for both Intel and AMD.
+> >          */
+> >         const unsigned int MAX_NR_TLB_TAGS =3D VMX_NR_VPIDS;
+> > +       unsigned int nr;
+> >
+> > +       if (WARN_ON_ONCE(!nr_reserved || nr_reserved > nr_total))
+> > +               return -EINVAL;
+> > +
+> > +       nr =3D nr_total - nr_reserved;
+> >         if (!nr)
+> >                 return 0;
+> >
+> > @@ -8208,13 +8221,8 @@ int kvm_init_tlb_tags(unsigned int nr)
+> >         if (!tlb_tags.bitmap)
+> >                 return -ENOMEM;
+> >
+> > -       /*
+> > -        * 0 is the host's TLB tag for both VMX's VPID and SVM's ASID, =
+and is
+> > -        * returned on failed allocations (e.g. no more tags left).
+> > -        */
+> > -       __set_bit(0, tlb_tags.bitmap);
+> > -
+> >         tlb_tags.nr =3D nr;
+> > +       tlb_tags.start =3D nr_reserved;
+>
+> Can you also clear tlb_tags.start in kvm_destroy_tlb_tags()?
+
+Can do.
