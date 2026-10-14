@@ -1,66 +1,45 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B9D030BB8A;
-	Wed, 14 Oct 2026 10:54:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E35C43BA237;
+	Wed, 14 Oct 2026 10:55:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791975300; cv=none; b=Dc676oFVU18T56HQJmbu8chz9EbDl13Y7G08a1QuWfpNkKWcw8QcvZms+jEh6o32pCIapRVA4BNdLRlq0VR0KHle5Js3qAC8c7/zdHTEvhtDhw2LkZtAiSUP8xj5dKU8qYFHd1LVeRU68UmZLIqyAZOBIFMASwWaFtE7YTtd8ZA=
+	t=1791975321; cv=none; b=UR7JzhYuN8C7SM6wAos8I4wroM9pdPVZB/+/KCIdQfXMMJE+ETZ14lifzGr75zL22HXG5Iz5QpvAXSRsWetnDovWq0W6ZwFh5MQgjHRODCIH2tA3YzX8slpQVaguElwRHoBG2/7HUjUWY8kglDV+inaJ8fhHrkzbUFtb96on5FI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791975300; c=relaxed/simple;
-	bh=FoIjLTf6iP8mCaZFW3kpxiuQ7q6N0spieMkXEJDD09I=;
+	s=arc-20240116; t=1791975321; c=relaxed/simple;
+	bh=crz34n0TJ3MvmDEmWUt93ljg6zzV4R8+X01ZJK1wtds=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SMjJ3V3ICStsyBynU5iNANpbBw2rjeVSUeRTz2B6aFA+fBcjq69xymIbx6DmfnjXrKNdW120PzuinIo9l8nQGJMijHIBYUBohJ9/EbldiSwP420UFk28lOcXRcn60fKYk6BQYaLIJW9HvkbXZ+BcrijnV2A9/DftgTXBr8rKkGk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=J4C1x370; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=lQCMjutD9isHHP5I5MUZbgRkun64S5eniHySJZnFZeCeVOs4R0CFnbJv0IqOtt8uXTiBIL6Y89StJm/bIsWKXmfHUAbOFredUZa6omG6MjtNuy1N31WI95f3mFEEMvv4NAsRrQ9ZwNSkhyJcpTw7Qtb57uDxxlBNjwr1sMWxkFQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L0QxsvaJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="J4C1x370"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791975299; x=1823511299;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=FoIjLTf6iP8mCaZFW3kpxiuQ7q6N0spieMkXEJDD09I=;
-  b=J4C1x370d5ogFr3MGF3BDN/w5+Wavza7UC2ThLY5FjUs/5Pcms4yUCCs
-   6D/U1NmTayJ2WzzjTwiMdBG3T6LA8XL5xECuopbhNMPwdcyjL2DF/9AfF
-   DYM6ifkyHJAGksYrdyFCY9BfuxZdrE6bXkV4nDM5ODRLTGF5acIRhD2kW
-   Ie8jpljOWVblpU3ou1lBV3r0H8PwBqW4wvIKLAjLXLHODfR6xYl3xf2jp
-   APWie0nA/onb3PsiSN5tPw0Sb5jS1zcH+ZT+kAWPsDMs8PSWGrKsjbi5n
-   Zuyf0AtuFB13RuXVqJImdWAhI1PMGa3WFQPHK8CBrh1ekI49aJlQxEHnD
-   A==;
-X-CSE-ConnectionGUID: UGV2RLQiRJuHXe7MxkCVzg==
-X-CSE-MsgGUID: iaDon5lxSbSQ9LI7+se9IA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="597013"
-X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="597013"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 03:54:59 -0700
-X-CSE-ConnectionGUID: e5LVkfHGS6Kjk+AEkjuc/A==
-X-CSE-MsgGUID: ho1tCA3ESJ2x+WHVK8lMnQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="1767613"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.236])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 03:54:55 -0700
-Date: Wed, 14 Oct 2026 13:54:53 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Paulius Zaleckas <paulius.zaleckas@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org,
-	Eddie James <eajames@linux.ibm.com>, Joel Stanley <joel@jms.id.au>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Rupesh Majhi <zoone.rupert@gmail.com>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 6/6] iio: pressure: dps310: add Zilltek ZTS8032 support
-Message-ID: <as9ffTy6UMqW3PNA@ashevche-desk.local>
-References: <20261013112124.1878296-1-paulius.zaleckas@gmail.com>
- <20261013112124.1878296-7-paulius.zaleckas@gmail.com>
- <as5jYcTlEuOzD6go@ashevche-desk.local>
- <CAPiS6wBzomvTOm3axxO7sWCxoJg0ijZOXpj_F+NNT7Woz4Loww@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L0QxsvaJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37A0C1F000FF;
+	Wed, 14 Oct 2026 10:55:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791975320;
+	bh=vswIt4pH1ZzQKTGqBpC4xgzVGE1sxni+SHS3dcFA0tM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=L0QxsvaJ+/IDbpOuRVIXMbDoDCIkzEsvhOVU54IbZ/AyqfGHO8kIuKkfPeIHXAiVN
+	 mKBWMbZ6GnFahByOUbNrL4MF5dIwkpnDYI082j756cxTur6wADj3lY7jI/rNyX64oS
+	 1CgMDTIsxF5KQi3ZcsYIzN+qZWOdcgQx7Y9zaNM8pjVIlhrro6aQLpfKAI6Gu8LnoG
+	 Icn20sgTS8moX73R3Q3kJXfBEqXWPZA2roB3MBklSYngLa5/bBzHX01TZXR27GoQ6J
+	 oQtxWRjs2VJ6LgnQdflNar3NWhlpBgZfuivAd/oO9c5/ZmAIl3G9ZaxlE3lewOGq1x
+	 xTEHLnNZCjocw==
+Date: Wed, 14 Oct 2026 12:55:16 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+Cc: Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Konrad Dybcio <konradybcio@kernel.org>, linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-pm@vger.kernel.org, devicetree@vger.kernel.org, linux-clk@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] dt-bindings: interconnect: Add Qualcomm ipq5210
+ support
+Message-ID: <20261014-quantum-artificial-stallion-aa6be4@quoll>
+References: <20261013-icc-v2-0-196b219e25c1@oss.qualcomm.com>
+ <20261013-icc-v2-1-196b219e25c1@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,31 +48,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAPiS6wBzomvTOm3axxO7sWCxoJg0ijZOXpj_F+NNT7Woz4Loww@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261013-icc-v2-1-196b219e25c1@oss.qualcomm.com>
 
-On Wed, Oct 14, 2026 at 12:56:03PM +0300, Paulius Zaleckas wrote:
-> On Tue, Oct 13, 2026 at 7:59 PM Andy Shevchenko
-> <andriy.shevchenko@intel.com> wrote:
-> > >   * https://www.infineon.com/dgdl/?fileId=5546d462576f34750157750826c42242
-> > >   *
-> > > + * The Zilltek ZTS8032 is register compatible, with two more pressure
-> > > + * calibration coefficients (c31, c40) and temperature calibrated against
-> > > + * the internal sensor.
-> >
-> > Any datasheet link?
+On Tue, Oct 13, 2026 at 12:39:43PM +0530, Varadarajan Narayanan wrote:
+> Add master/slave ids for Qualcomm ipq5210 Network-On-Chip
+> interfaces. This will be used by the gcc-ipq5210 driver
+> for providing interconnect services using the icc-clk framework.
 > 
-> Sorry, AFAIK there is no public datasheet.
-> If you need, maybe I can make some screenshot of relevant info from it
-> just for you.
+> Acked-by: Georgi Djakov <djakov@kernel.org>
+> Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+> ---
+>  include/dt-bindings/interconnect/qcom,ipq5210.h | 16 ++++++++++++++++
+>  1 file changed, 16 insertions(+)
 
-No, I meant some public or at most 'sign for get' type of the link, if there
-are none like this, it's unfortunate.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
--- 
-With Best Regards,
-Andy Shevchenko
-
+Best regards,
+Krzysztof
 
