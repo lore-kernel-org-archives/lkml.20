@@ -1,88 +1,87 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C00E1F4634
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:58:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E4F34F4743
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:58:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791975491; cv=none; b=fXDaiQtYFag+bzF6xVRinokY7Icg9dnOk63mZT+b7nzvIa/QuuwHmaU9s42wNPYAy7R7kd4mFsEufZwppCw0pUICwQtj0NFW9vuCZG3QpNU9zUEHGmlRhRfXYDk6DfZqZz9e5chbIBiOANLXAxwD6OXomwNDO/RUSEHg39ydfbw=
+	t=1791975495; cv=none; b=d8h361oXSuQvUiaDpVqpAZnnc2rb1onFH3uwn8gZ9ZMbhhF2rAdQlV97AtPlMGOtlDalNgLTD6PRm9lqz6x2e0jrnaONDFke58zGXKNhLZcNu3R9nREf3m9b7uO4pgSaBIohBZwPOpbQBGs27x+5ERNiqPzR9xGl3k00F+XaIC4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791975491; c=relaxed/simple;
-	bh=Ro6vP9b5Zfl6m+gMzTrefw+2aiw5GBcRhau1dla888c=;
+	s=arc-20240116; t=1791975495; c=relaxed/simple;
+	bh=oMdJQ4OULZXyBz3Ko0nv7l3azl/UbkYzjQDSpcXpAiM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dQnwDykuVGMif89yjEXhH655BwEPwAWI9IGQhzLBjgaWbBC7x0uif+GW0v4MaYn17rWX4hiK9fJIAsxSlmq+ZPozHtncLnwNRlQQPOENrUocVw9yEEahDn7lnxp3Qx+qMXibO+Gfug1xG7JsJ6r0uT85eb1EPLdbrZCwlgGNkeA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lSXcN+pR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YRQWHTxA; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=obsfRGuS7V/mnOaaNC4io3gU/ftA3fi4v1TcdpK5TFtmjMibYeGvhiE/1IZJqu+or5aj11f3c8VvdLk+Jyx+yYAKNMSiOu67PjjNR4vyn+UP0bnDZw/w1xTlwL8Itx1ZTpy6pcZSVYuF+7Dq0NIYpvzqza4s7fGjJnuarvAL5d8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Ft5vQYAs; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=tsZFKvrD; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lSXcN+pR";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YRQWHTxA"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EAR47P466270
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:58:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	OXYycA9KFBxtGqBSvEjEWNQP/UL9PkfzXKCERqjtGfU=; b=lSXcN+pRQDAjEB3p
-	Tb2pbdbuKNudbTwe5xhXUYoSVOuIj9VgBLN2EVKXCPLxzwoQUyzcZX5K8xHG7EPs
-	NkTMhtiEWgGaitvoOPHDWLMr2Tmh0uIrNLI6IkBsmQLw65gBZ2uVwVnoFv50qTW1
-	W8LOBgt6iZfWjtbcr/dko9+SjQtyJ/ct7xOq2mxnWMqvOs1kqjXKui+UXofSDVbA
-	XBtjm/cag4L5WfLu+CXiStyzyRNpPIlJuVkBg8Bw+0iQya3IL1U4WRfBe+zOY2lG
-	dxjvU0tZ6a+V2nELGffEcoNbWJ8+JB9qmVIQplZ+Qcknk97gUbUp0dc/MYDNA9v0
-	GlvASA==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ha80cr3j9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:58:09 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2df8484f12cso48115605ad.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 03:58:09 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Ft5vQYAs";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="tsZFKvrD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791975493;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jH1ufsQ5g3r1H3aslg+X8qJ0wMgxmZRuam6ChKawEQw=;
+	b=Ft5vQYAsmmGrRvVXqCt1HYeHZ/Ss5dxr+fW7NY2k/4aJRERtUVy/lcCqrKuHmbsHW1mIvF
+	lwm0g58dzj8uO5BdKbbyl88Cy96OXK2D0xq5nPhbHx1TXTSahG42t6QArrLKLHX60mPBvZ
+	NUjCa1cCI43Ezz/SggMR+G19hiElMBU=
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
+ [209.85.216.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-333-sTBVsbq0Nz-ypl-rAfFYhQ-1; Wed, 14 Oct 2026 10:58:11 +0000
+X-MC-Unique: sTBVsbq0Nz-ypl-rAfFYhQ-1
+X-Mimecast-MFC-AGG-ID: sTBVsbq0Nz-ypl-rAfFYhQ_1791975491
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3a813204f87so257374a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 03:58:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791975488; x=1792580288; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1791975491; x=1792580291; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=OXYycA9KFBxtGqBSvEjEWNQP/UL9PkfzXKCERqjtGfU=;
-        b=YRQWHTxAG/oVSa7NoRBPelCI2zfGwQK1fEPkdJhou28WAHq57GAWTNM/sNfolgD55x
-         Iezb8lqN7oXwn6XPGFH7/89rzH6S46NqqWcIYq0DT8XbAkd5GEqszI8CvxcvnLHJYXH4
-         4sF9HQcK/xAbaUIx+eZGjPs2koUKEXoFI6YO4UfU9woRpND4Fa7vK7MNHDsDwFAJtyq5
-         Y1V8U+cjnfJzt8ogQI4DJz1dKO8wg6eqBnTQclnLb30+AyuyBtaiwzjlHcX08xlSZLqu
-         6wRBChVjq+HgGYTFXtRQDK0TgDj/2nfAGtpHr2B3UiJWpGikFOfRNrjUeB9g6LemAP73
-         Hj7w==
+        bh=jH1ufsQ5g3r1H3aslg+X8qJ0wMgxmZRuam6ChKawEQw=;
+        b=tsZFKvrDJdx0xmEGXFDrwEUj6NFztX1lFZcLELxDCe8JkICwkQrgex07wF5qaXKRtI
+         nVcjGshA+pAgOfyOJAJBIHgXQ1qGPw4xPK+igxTmxRy6Wmp3BdbRpb+LlC14CggA3+QR
+         gTEKWRerJgr32RdzSITDcUPayUqQJQyZ5fbMyoryb1IWY5K8HfOHeqxKJaT6P2P8ZI6F
+         SzMHNXewgLJGLhusb88n1YmzU3bybx1t5XW3ZsXVDXoizidq54LN8JiRu9EkRSGm0/lr
+         zu2MAhEMIPrjCRyuVYYRENudlCgmcmBTHcdaPNVup7TrUqKRG6sWnR6rpZoKveOR2SRg
+         vzbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791975488; x=1792580288;
+        d=1e100.net; s=20260707; t=1791975491; x=1792580291;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=OXYycA9KFBxtGqBSvEjEWNQP/UL9PkfzXKCERqjtGfU=;
-        b=szCsUhlvrAs7CPG/6VBGJZobauJgdMU2nB0rzyKLIzKEythOiJy5flxUUp+erT6SOI
-         ct9Efm5oCY63BfVAy6WUhFtibw2aLOK7AnPLn6mKH4GllXitQHxLvTAc7xTLH7QmqMtL
-         h2BXHGGefhndm97xZGHIK8NHtpeEsm3ES3OGiRVaslz8VT/agQmG9pR3BcZhwrJ4osBS
-         ryMD0CCPWhgBfc/BD3s+tXh/vztZtlFkIcdvq9oUD9QfHMuyIntzFKMyX4uSdjZ1qpp4
-         kdB4NBIZq3JSb1NOS616SdHCw3cypz7ZvHpjX+U7ywkMCOOz8PA6ZYJXYvR5E83inFQl
-         OoBQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw2nZP/tc1iw9y71IEAGd88VyvLVbfIrSWJlFaUbPDJNqjugXRb+pCytD8G752N2JpeIfM+yeEgW2f9h4c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKCi8axPCz0G6fS9HGoIzLd3b5lRXq7miIaBOHg61weCHWBaAN9
-	ZL/Z3rdK3Kre8hNS1a9SiyDHUkky7Z+NkmS9+J//Lfs5YmUfaiY7szbXgENmeJ4Ib76Eu9uksDJ
-	QJ/dm0PgXuaA8FfsFSf0s0oKHvo1yuzm8+knMBTIBE8ABqjX/4RYNXMyI9LOEVrPam8ohJS8vXQ
-	4=
-X-Gm-Gg: AYBFou1EG73OPJVOrngj4mLFLn0MvABhK1KoYnHR1r/wIkPOk3lpifnWykVG7kUIeoB
-	ddqJLjP/NG7a8fSxsyqw3sOvnhbIFmyJn016TpExtfPHtec5WStMiMaLFgEiWhWWefvhVxovPlx
-	1AGsdktWs66JU6dpGx854W9r9FnTiV7EnpmBdg9T3ALR6R4CWRuMlyy3HbmASlHG7oJEohkTCag
-	Ku1gLs0BbqNznsmhNfEie6iN7SunMOCoSdkbAiw6qBiqM4XXY+Es30oeVdfUwwkkIvrKFp6i6aH
-	M14ypF1nWl3JWcdaMbY1GOoXDHSv1O08MJ7fgTMRc17bYBy8CLceRMoJuvTmAERNOMZLosdLSd6
-	rETz7w9HHFDUzAWXaCZgUQqabxFxRizq1JeA1r5d53BfUITkx5ClS3f+K0VXEwlxA
-X-Received: by 2002:a17:903:41c1:b0:2dd:c053:82f3 with SMTP id d9443c01a7336-2e842ce20a2mr127278965ad.42.1791975488132;
-        Wed, 14 Oct 2026 03:58:08 -0700 (PDT)
-X-Received: by 2002:a17:903:41c1:b0:2dd:c053:82f3 with SMTP id d9443c01a7336-2e842ce20a2mr127278825ad.42.1791975487529;
-        Wed, 14 Oct 2026 03:58:07 -0700 (PDT)
-Received: from [10.218.1.199] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8421af46asm68478685ad.39.2026.10.14.03.58.03
+        bh=jH1ufsQ5g3r1H3aslg+X8qJ0wMgxmZRuam6ChKawEQw=;
+        b=DbWiry1ETA1ULWfmr7AGXUfAY3/X5i0eqw3URHuwCCoZqoHXolnWiaTz+edW2I2snW
+         rum8n5wx5Vhv4IcsmCeEp+5Hx/6oKD73B2rjW1rCr1O5O/lMDaf3amCSJywsnRGLVmb0
+         /hii4/+hjzN1+mkZs09Ql2d8sRQB91v7gYiSrSI4+7JUlaQB8TXo+gmEChaZt9NuEh6L
+         Q2pP+4j8E1NQ3ucJcxDNNYedRYUE3kqNjHG2IUApns8muDQMU7uLtZbDzUCLpbtr7Udl
+         +akyHiLhgUno1SLkeBl8o8c29YP2SM3gKUNiyjh3TXsJQYzxpUO1PgGr4jXOKwdxadvP
+         pAcg==
+X-Forwarded-Encrypted: i=1; AKwUvBxxRE9pRFqZnqgsgy1GYCUQwtnexU4ObXN3s7DZWctV9weG2QsA6jK1EnubdPUP6w3zrStwMpMURvZpMpk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJor+ZZI9wBV5MTyTtaFHw8k1wZkE2MiMA1/QdQSltRKl17eZdT
+	eqQYmE5Bpc4kaTJ3WmEEn0ALke6UaJLocjhRHZroHDrZYnqxK5JGhvdXnl5fEuAsJkXkExp+kDQ
+	N8VGbvUrA7T1TY89HsbT/N6nA+Q4t1b1PebW8Phd31M1o/o/kHcdyESLfmy08PSUlVHiKjSjHUA
+	==
+X-Gm-Gg: AYBFou3ZrSY1JaM56o7vQDdTcvOTJ700jmsemGAYgpuPfN8jT6XWr5+ZckzdD3HyKOd
+	7tC0aqeRSbucLNkdafm4W9Z3vLR9KMC8sLfHWZZhe/UUCYZKv6HyARjQTom+jvVU3YUfWFpNVct
+	DmGDB/K8nGjvSGoSA/2UD6IdApSDF+AqxJzxxkoR92ip8NZHtQRTinET/xGS+cHLQDzqA2Ompyt
+	DQsK6lJrx3QA78dXSq7EuewqoGpO17ZLTJ55oDXVKcYjr6+vaWCly9fLsAMQ14xqq1nhYrdfXgV
+	8o+DScFbZigINV5XY2VkZ2mQ8P6TosIZtx+5/qwqNJyjuam57pvYoLXiY03RPpeHAa4J0HMsJAN
+	LOCqnk4Yb2T2j6wBUFksjqjrmfemnMTmCXfX9EkXgKg==
+X-Received: by 2002:a17:90a:51a7:b0:3ab:4262:1a3a with SMTP id 98e67ed59e1d1-3ab42621c33mr8647751a91.61.1791975490675;
+        Wed, 14 Oct 2026 03:58:10 -0700 (PDT)
+X-Received: by 2002:a17:90a:51a7:b0:3ab:4262:1a3a with SMTP id 98e67ed59e1d1-3ab42621c33mr8647724a91.61.1791975490063;
+        Wed, 14 Oct 2026 03:58:10 -0700 (PDT)
+Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac5f05083fsm4391258a91.1.2026.10.14.03.58.02
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 03:58:06 -0700 (PDT)
-Message-ID: <94c4056d-7f7e-46ef-97cd-dd12621260bd@oss.qualcomm.com>
-Date: Wed, 14 Oct 2026 16:28:02 +0530
+        Wed, 14 Oct 2026 03:58:09 -0700 (PDT)
+Message-ID: <0ceda99f-0352-474b-a30a-c5e79b817c2d@redhat.com>
+Date: Wed, 14 Oct 2026 20:58:00 +1000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,161 +89,203 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] usb: dwc3: core: Fix RAM interface getting stuck
- during enumeration
-To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Cc: "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-References: <20260929-ram-interface-stuck-v3-v3-1-0d1a54db233c@oss.qualcomm.com>
- <d45f758a-8d00-4f76-aef9-7364156f4ce3@oss.qualcomm.com>
- <as7c1LHrOsqAA4Nx@vbox>
+Subject: Re: [PATCH v22 02/10] firmware: arm_rmm: Check for RMI support at
+ init
+To: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
+ kvmarm@lists.linux.dev
+Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
+ sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
+References: <20261002061507.1600269-1-suzuki.poulose@arm.com>
+ <20261002061507.1600269-3-suzuki.poulose@arm.com>
+ <2586e689-c27d-4e4c-8c69-03e24259cb96@redhat.com>
+ <8be050e3-8af1-4f04-902f-9bc01b209dd0@arm.com>
+ <3fbd4739-a4eb-4428-95ae-ead22e7cf9f2@redhat.com>
+ <799fb810-c33e-4d0e-9a70-7092c0a681ff@arm.com>
 Content-Language: en-US
-From: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-In-Reply-To: <as7c1LHrOsqAA4Nx@vbox>
+From: Gavin Shan <gshan@redhat.com>
+In-Reply-To: <799fb810-c33e-4d0e-9a70-7092c0a681ff@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA0MyBTYWx0ZWRfX/vjjtkOflpNY
- tnJ9LnQUXmpWDHMX5FSBqA++JUQBp1+3NCBdmZ/TqFO5QsvlByUkLG4cBu3H1hrPekx6UjEOe6P
- U/Y9YhJgXbcg1sm9DAFOlj4XhKZTbx0=
-X-Proofpoint-GUID: KTMsfqsngi9MTJTMBEw4qNX2OZzNpLGm
-X-Proofpoint-ORIG-GUID: KTMsfqsngi9MTJTMBEw4qNX2OZzNpLGm
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA0MyBTYWx0ZWRfX9JdSrCXuYllO
- 3ZZqpaZ3MqaVXgVbGwhf1V+fR884kMOTakZuPUMtgI3/VZr6LR4fYaO/ems9dmEA/r2IAhy8vZW
- 07gAy64++ZIT/taknHv8kmI5FaxNhZxjgxNBZp5U+U53AXzw57hp/q7FuraPjMtYgiyvNBGd60B
- XwVLJkq1tfH4VmA8SUp0do7dn+fAYZzSHGRSgboL7WMJZTN7IaLotVWiZm6HzE4r7MTyMndh37B
- 1cn6fOAChfX3XBl5AjWZuUA7MjjhML22SGyekFpjAAUeqQFBl6SoGstOfPsZprCcsXxC2IZfanM
- olJoWoCMBUhzdbqslncdppNcN4lS+jdSyZro1+C2ocEcWG5zLkaU4f4KA2jg0ImC5GxS5cJy9IL
- 3Smf6IcHOopwj5T0smSu+vPnByx/KVH4YGywHsptjmX3EOAelQwaFI5e709hP330wk5xOp5PlfG
- C+x7e8ftwLRNUwUl2ZQ==
-X-Authority-Analysis: v=2.4 cv=JegpPkKV c=1 sm=1 tr=0 ts=6acf6041 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=VwQbUJbxAAAA:8 a=jIQo8A4GAAAA:8 a=EUspDBNiAAAA:8 a=JKohlkezLAjgD4mUqSAA:9
- a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 phishscore=0 suspectscore=0 priorityscore=1501
- bulkscore=0 lowpriorityscore=0 impostorscore=0 spamscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140043
+Content-Transfer-Encoding: 8bit
 
-
-
-On 10/14/2026 7:14 AM, Thinh Nguyen wrote:
-> On Tue, Oct 13, 2026, Krishna Kurapati wrote:
+On 10/14/26 7:19 PM, Suzuki K Poulose wrote:
+> On 14/10/2026 08:26, Gavin Shan wrote:
+>> On 10/13/26 7:58 PM, Suzuki K Poulose wrote:
+>>> On 13/10/2026 04:53, Gavin Shan wrote:
+>>>> Hi Suzuki,
+>>>>
+>>>> On 10/2/26 4:14 PM, Suzuki K Poulose wrote:
+>>>>> From: Steven Price <steven.price@arm.com>
+>>>>>
+>>>>> Query the RMI version number and check if it is a compatible version.
+>>>>> All RMM feature registers are read and exposed for future code to
+>>>>> use. Also restrict the support to SMC conduit.
+>>>>>
+>>>>> We only support this for Little Endian kernels, the Big Endian kernel
+>>>>> support is anyway marked BROKEN and is being removed.
+>>>>>
+>>>>> Cc: Marc Zyngier <maz@kernel.org>
+>>>>> Cc: Oliver Upton <oupton@kernel.org>
+>>>>> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+>>>>> Reviewed-by: Gavin Shan <gshan@redhat.com>
+>>>>> Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+>>>>> Tested-by: Gavin Shan <gshan@redhat.com>
+>>>>> Signed-off-by: Steven Price <steven.price@arm.com>
+>>>>> Co-developed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+>>>>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+>>>>> ---
+>>>>
+>>>> [...]
+>>>>
+>>>>> ---
+>>>>>   MAINTAINERS                       |   2 +
+>>>>>   arch/arm64/Kconfig                |   1 +
+>>>>>   arch/arm64/kernel/cpufeature.c    |   1 +
+>>>>>   arch/arm64/kvm/sys_regs.c         |   2 +
+>>>>>   drivers/firmware/Kconfig          |   1 +
+>>>>>   drivers/firmware/Makefile         |   1 +
+>>>>>   drivers/firmware/arm_rmm/Kconfig  |  25 +++++++
+>>>>>   drivers/firmware/arm_rmm/Makefile |   1 +
+>>>>>   drivers/firmware/arm_rmm/rmi.c    | 112 ++++++++++++++++++++++++++ ++++
+>>>>>   include/linux/arm-rmi-cmds.h      |  48 +++++++++++++
+>>>>>   10 files changed, 194 insertions(+)
+>>>>>   create mode 100644 drivers/firmware/arm_rmm/Kconfig
+>>>>>   create mode 100644 drivers/firmware/arm_rmm/Makefile
+>>>>>   create mode 100644 drivers/firmware/arm_rmm/rmi.c
+>>>>>   create mode 100644 include/linux/arm-rmi-cmds.h
+>>>>>
+>>>>
+>>>> [...]
+>>>>
+>>>>> diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/ arm_rmm/rmi.c
+>>>>> new file mode 100644
+>>>>> index 0000000000000..06f5392c982d2
+>>>>> --- /dev/null
+>>>>> +++ b/drivers/firmware/arm_rmm/rmi.c
+>>>>> @@ -0,0 +1,112 @@
+>>>>> +// SPDX-License-Identifier: GPL-2.0
+>>>>> +/*
+>>>>> + * Copyright (C) 2023-2026 ARM Ltd.
+>>>>> + */
+>>>>> +
+>>>>> +#include <linux/arm-rmi-cmds.h>
+>>>>> +#include <linux/cpufeature.h>
+>>>>> +#include <linux/memblock.h>
+>>>>> +#include <linux/slab.h>
+>>>>> +
+>>>>> +#include <asm/memory.h>
+>>>>> +#include <asm/pgtable-hwdef.h>
+>>>>> +
+>>>>> +/* RMM v2.0 defines RmiFeatureRegister0 to RmiFeatureRegister4. */
+>>>>> +static unsigned long rmi_feat_reg_cache[5] __ro_after_init;
+>>>>> +
+>>>>> +static int rmi_check_version(void)
+>>>>> +{
+>>>>> +    unsigned short version_major, version_minor;
+>>>>> +    unsigned long host_version = RMI_ABI_VERSION(RMI_ABI_MAJOR_VERSION,
+>>>>> +                             RMI_ABI_MINOR_VERSION);
+>>>>> +    unsigned long aa64pfr0 = read_sanitised_ftr_reg(SYS_ID_AA64PFR0_EL1);
+>>>>> +    struct arm_smccc_1_2_regs res = {
+>>>>> +        SMC_RMI_VERSION, host_version,
+>>>>> +    };
+>>>>> +
+>>>>> +    /* If RME isn't supported, then RMI can't be */
+>>>>> +    if (cpuid_feature_extract_unsigned_field(aa64pfr0, ID_AA64PFR0_EL1_RME_SHIFT) == 0)
+>>>>> +        return -ENXIO;
+>>>>> +
+>>>>> +    if (arm_smccc_1_1_get_conduit() != SMCCC_CONDUIT_SMC)
+>>>>> +        return -ENXIO;
+>>>>
+>>>> I think we need to ensure SMCCC version is v1.2 or a newer one here? arm_smccc_1_2_smc()
+>>>> is immediately called by rmi_smccc_invoke() after this check.
+>>>>
+>>>>      if (arm_smccc_1_1_get_conduit() != SMCCC_CONDUIT_SMC ||
+>>>>              arm_smccc_get_version() < ARM_SMCCC_VERSION_1_2)
+>>>
+>>> We could. But I am wondering if that adds any value ? If the RMM
+>>> exists and responds to the RMI_ABI_VERSION, it must be so on a
+>>> platform with v1.2 or greater ? The extra check doesn't hurt.
+>>>
 >>
->>
->> On 9/29/2026 10:49 AM, Krishna Kurapati wrote:
->>> During plug-in/plug-out test cases, it is sometimes seen that no events
->>> are generated by the controller and all CSR register reads give "0" and
->>> CSR_Timeout bit gets set indicating that CSR reads/writes are timing out
->>> or timed out.
->>>
->>> The issue comes up on different instnaces of enumeration on different
->>> platforms. On SM8550, the debug log is as follows:
->>>
->>> Prepared a TRB on ep0out and did start transfer to get set
->>> address request from host:
->>>
->>> <...>-7191    [000] D..1.    66.421006: dwc3_gadget_ep_cmd: ep0out:
->>> cmd 'Start Transfer' [406] params 00000000 efffa000 00000000 -->
->>> status: Successful
->>>
->>> <...>-7191    [000] D..1.    66.421196: dwc3_event: event (0000c040):
->>> ep0out: Transfer Complete (sIL) [Setup Phase]
->>>
->>> <...>-7191    [000] D..1.    66.421197: dwc3_ctrl_req: Set
->>> Address(Addr = 01)
->>>
->>> An XFER NRDY is received on ep0in for zero length status phase and
->>> a Start Transfer was done on ep0in with 0-length packet in 2 Stage
->>> status phase:
->>>
->>> <...>-7191    [000] D..1.    66.421249: dwc3_event: event (000020c2):
->>> ep0in: Transfer Not Ready [00000000] (Not Active) [Status Phase]
->>>
->>> <...>-7191    [000] D..1.    66.421266: dwc3_prepare_trb: ep0in: trb
->>> ffffffc00fcfd000 (E0:D0) buf 00000000efffa000 size 0 ctrl 00000c33
->>> sofn 00000000 (HLcs:SC:status2)
->>>
->>> <...>-7191    [000] D..1.    66.421387: dwc3_gadget_ep_cmd: ep0in: cmd
->>> 'Start Transfer' [406] params 00000000 efffa000 00000000 -->status:
->>> Successful
->>>
->>> A bus reset was then received directly after 500 msec. Software never
->>> got the cmd complete for the start transfer done in status phase. Here
->>> the RAM interface is stuck. So host issues a bus reset as link is
->>> idle for 500 msec:
->>>
->>> <...>-7191    [000] D..1.    66.935603: dwc3_event: event (00000101):
->>> Reset [U0]
->>>
->>> Then software sees that it is in status phase and we issue an ENDXFER
->>> on ep0in and it gets timedout waiting for the CMDACT to go '0':
->>>
->>> <...>-7191    [000] D..1.    66.958249: dwc3_gadget_ep_cmd: ep0in: cmd
->>> 'End Transfer' [10508] params 00000000 00000000 00000000 --> status:
->>> Timed Out
->>>
->>> Upon debug with Synopsys, the root cause is as follows:
->>>
->>> During any transfer, if the data is not successfully transmitted,
->>> then a Done (with failure) handshake is returned, so that the BMU
->>> can re-attempt the same data again by rewinding its data pointers.
->>>
->>> But, if the USB IN is a 0-length payload (which is what is happening
->>> in this case - 2 stage status phase of set_address), then there is no
->>> need to rewind the pointers and the Done (with failure) handshake is
->>> not returned for failure case. This keeps the Request-Done interface
->>> busy till the next Done handshake. The MAC sends the 0-length payload
->>> again when the host requests. If the transmission is successful this
->>> time, the Done (with success) handshake is provided back. Otherwise,
->>> it repeats the same steps again.
->>>
->>> If the cable is disconnected or if the Host aborts the transfer on 3
->>> consecutive failed attempts, the Request-Done handshake is not
->>> complete. This keeps the interface busy.
->>>
->>> The subsequent RAM access cannot proceed until the above pending
->>> transfer is complete. This results in failure of any access to RAM
->>> address locations. Many of the EndPoint commands need to access the
->>> RAM and they would fail to complete successfully.
->>>
->>> Furthermore when cable removal happens, this would not generate a
->>> disconnect event and the "connected" flag remains true always blockin
->>> suspend.
->>>
->>> Synopsys confirmed that the issue is present on all USB3 devices and
->>> as a workaround, suggested to re-initialize device mode.
->>>
->>> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
->>
->>
->> Thinh, Can you help provide your review on this patch.
->>
+>> It's required as documented in section "B1.1 overview" of RMM-spec-v2.0- bet3.
+>> In the same section, there are more requirements regarding the SMCCC version
+>> when SVE/SME are supported. I don't see a practical problem if the check is
+>> missed since the combination of TF-A and TF-RMM are the only RMM-spec- v2.0-bet3
+>> implementation (as I knew) where the SMCCC version has been set to v1.5 in the
+>> 'master' branch.
 > 
-> Hi Krishna,
+> Reading the RMM spec again, DFNMZ lists how one can detect if the RMM
+> ABI is present. That specifies that the user checks for SMCCC
+> version >= 1.1, which we do by using arm_smccc_1_1_get_conduit().
 > 
-> If the CSR_Timeout bit is set, why not check GSTS.CSRTimeout directly
-> instead of indirectly checking DEPCMD type mismatch?
+> Then checking the R{M,S}I_VERSION call is sufficient. So, I think
+> we are good here. Do you agree ?
 > 
 
-As per discussion on [1], implemented this checking of DEPCMD registers. 
-Let me know if reading GSTS is a better option here. Will send v4 
-accordingly.
+arm_smccc_1_1_get_conduit() ensures SMCCC version >= v1.1, but we need
+SMCCC version >= v1.2. We will have problem if the firmware only supports
+SMCCC v1.1 and R{M,S}I_VERSION is coincidentally supported. In this
+rare (even impossible) case, it's not sufficient to check R{M,S}I_VERSION
+as I understand.
 
-> Also, shouldn't we return an error code instead of success if need to
-> schedule recovery?
+As far as TF-A+TF-RMM is concerned, I agree there is no issue. However,
+the extra check doesn't hurt and make the code following the spec a bit
+more strictly? :-)
+
+Thanks,
+Gavin
+
+> Suzuki
 > 
-I think that is done while queueing recovery work:
-dwc->err_state = DWC3_ERR_RECOVERY;
+>>
+>> Thanks,
+>> Gavin
+>>
+>>> Suzuki
+>>>
+>>>>          return -ENXIO;
+>>>>
+>>>> Thanks,
+>>>> Gavin
+>>>>
+>>>>> +
+>>>>> +    rmi_smccc_invoke(&res);
+>>>>> +    if (res.a0 == SMCCC_RET_NOT_SUPPORTED)
+>>>>> +        return -ENXIO;
+>>>>> +
+>>>>> +    version_major = RMI_ABI_VERSION_GET_MAJOR(res.a1);
+>>>>> +    version_minor = RMI_ABI_VERSION_GET_MINOR(res.a1);
+>>>>> +
+>>>>> +    if (res.a0 != RMI_SUCCESS) {
+>>>>> +        unsigned short high_version_major, high_version_minor;
+>>>>> +
+>>>>> +        high_version_major = RMI_ABI_VERSION_GET_MAJOR(res.a2);
+>>>>> +        high_version_minor = RMI_ABI_VERSION_GET_MINOR(res.a2);
+>>>>> +
+>>>>> +        pr_err("Unsupported RMI ABI (v%d.%d - v%d.%d) we want v%d. %d\n",
+>>>>> +               version_major, version_minor,
+>>>>> +               high_version_major, high_version_minor,
+>>>>> +               RMI_ABI_MAJOR_VERSION,
+>>>>> +               RMI_ABI_MINOR_VERSION);
+>>>>> +        return -ENXIO;
+>>>>> +    }
+>>>>> +
+>>>>> +    pr_info("RMI ABI version %d.%d\n", version_major, version_minor);
+>>>>> +
+>>>>> +    return 0;
+>>>>> +}
+>>>>> +
+>>>>
+>>>> [...]
+>>>>
+>>>>
+>>>>
+>>>
+>>
+> 
 
-[1]: 
-https://lore.kernel.org/all/20231020225349.ocvyxt5opw4y5bl6@synopsys.com/
-
-Regards,
-Krishna,
