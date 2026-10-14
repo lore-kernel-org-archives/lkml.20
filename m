@@ -1,70 +1,68 @@
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37BFE4E77FB
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 23:17:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0490E3446B0
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 23:17:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792019859; cv=none; b=NE1LwlFcGf+AWjqLAcQyUqahi0/YUQBV3mBl62soJCo4qnM4tAINNbZ23g+KJsnW+y1i0AFul2MHU7tpvuCZjRugl34vS5k0YthshDLUOKcM6ONr1RxkTFMAPk/RmQuz2E2wSZFFQ8tZ+Ii/rBFuSFZN6lYudzNozO13XQOBkq8=
+	t=1792019856; cv=none; b=SxZ0EJ6/3bqzFE0L1F0RuYJrFlGKwCpuIyO6r7sD4f1/7YzofgRBztVYro2jgiEgEBwUIgHxN7KGAUAshA/a62GJ5EFeenieiy2hBY3riAsn35W00lG8GYTwnUHQwxc3c6fGg18FvYsyrb/DNnHFEcbIehUGG57xkXMhox7Yq4M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792019859; c=relaxed/simple;
-	bh=St1gZ90pzOpfqNw14C5SvWMC9IiurpLZKUBjI/E3gDE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=SOQeM2zs7+qbaG5nfCavymu9KrMp2ONqRdtT4GhKSfW9fdLXUv8AkC6RVAnuuwZ8eLif6ogVVF6EXC0nSFb1AqHmlrGAPodJMyPt2gspmDOgyuQ41ylSK/ecSto4X5Nu+FUF3DRt0mVp2GFnVccqDqVo92TQBsnQEmTOU6s857Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=SK+ttYET; arc=none smtp.client-ip=74.125.82.178
+	s=arc-20240116; t=1792019856; c=relaxed/simple;
+	bh=c12wIwk/C3wHu8/O7yU4CEDRicKycLEt6UQPlyqww/c=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=U7VIcwokxAfMlMwrJiKu1VlnHJBFolPaKCnsNjHrJq98HJcPD5kdhbtUuqnllSqcY4RrSpXhfQg+NRZh31fKTblXJQgt6tyT0smKNH+AGkEyUT66aA0YyjcpsJju0eIwiXa6VACBlmGlFQHSVn99fD+KLanH1wf6NV4Eo2yX+zk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=haj1PCtz; arc=none smtp.client-ip=74.125.82.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="SK+ttYET"
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-35d7fa491deso1109085eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:17:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="haj1PCtz"
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-353804b591eso8249806eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:17:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nexthop.ai; s=google; t=1792019857; x=1792624657; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=B2sW8vI4+bR675XoSRFOVOmwfcwxpE5GLV3E+V8eF34=;
-        b=SK+ttYETphAB/ojmw3XWPifcEq/v59HO1yd7EhX52xBdN0S8OPTjIz5FDiXl32Bc33
-         O+yWvxALu+mtaqrJ/U7q7Yx8A3U7mctlyJeRnwNoUVljR/lqLArEAxgUI/3BDNLMmF3K
-         GhdF/XYjSxjnCxtySF1wD1EGcMy4ERjtVljqjgZVT+nmfxRw6rXP9rfuFjR1rYExqZ8a
-         Ik+smg7ZgrS1g43hfl5BX6H+rvh4fUup0t9BxTBNkaFkzjvod9gcQm4cnB7j2IGLzHaF
-         vvkVbqqSQdUAfZ5pHs4lCMQLQZFS1IvxxYSgLa/u2+cYB0fCuZRNsc25UMLqLHj1J4sa
-         yaPA==
+        d=nexthop.ai; s=google; t=1792019853; x=1792624653; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=sZRElHlPz+C9l3/ysCsL/fuTzkfONFnOP7GgQCgBRB8=;
+        b=haj1PCtzbh77EhME8piDZAWX+qeLLBLd7Zat6whji83wWw+tjGOkUwr5e+c0X+rV/H
+         FpV8E4uaTku8YrmhCIQaxTfo8o5Qrtux3KglHfe61hGYiDkthDmUJYOyNqSF0n9GYbJZ
+         O+rYQb+4Xoe9Y7/iuEcfdWoFFqDJ5+aAq1L4MexRFmNNaX2Py+OQlzn9HpRlCEUCZIwk
+         AHYnV42kAD0TxfVN8YqsqIfOig6G5WJ/e2RpYiDKlD5ASY/gcXg9kCc3Z+GtxbpyGb9r
+         OTiWv5IS7esCMNGhyvHgrSKrixXc9tAiUcLhkxgo4+giUQsiZ0GJk8JL9CQOuQaQhPlJ
+         Id8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792019857; x=1792624657;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=B2sW8vI4+bR675XoSRFOVOmwfcwxpE5GLV3E+V8eF34=;
-        b=VpsiKZKUOqdfuUWSP12qsYfO6cX7Z14FNp1DiQi2KpqMAb1uCXM88/z4Wmf2NGlJta
-         ex8xA5VKYhCnrCNef9RDcCN/zNNiwsu8TmTG4kSdmMF3yxkGUbx6r2Xiwu30XazjmQHL
-         jS84ES+Vvd2Qze0v//9D26CDni1mcynHjH0JJTWsqDSR2jB3otWFi19dee4F1SwsCQIJ
-         xS4cwveNFovnIDQssSzz7HpkafNdPgh76gi+XIK5qvIJVMvM7zlk3QXPlpXIwTTHQlE5
-         jk4uroGhMHjUCCJ7x3NTSiZftH28p688+0Cmoo7XfDFmYIW/gue2aZXEKXasQ50Jyiz5
-         u73A==
-X-Forwarded-Encrypted: i=1; AKwUvBxIiuOHpsRMdakaPEa/LdtPWKMvYeiyMqPvbbZHnq6kkDgRrZQFIAdfrJcpLQCgP8VJeRvpDv0Lmtm+RvE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLXG50PF0gxm1ldNjD0nuvnYtttj0M1VYtO6oDZ3QoeIhv5XKc8
-	SsSYTMgctSFlI+gAsSPVPyW2FJfiA4SVTAdJIB9qo7vLvvbCiBG7F6rJOt2er422UlA3UGYr3uJ
-	ECrv2CoY=
-X-Gm-Gg: AYBFou0Fb86KVcbvR1NmX1ZZ2AUndPzEmJkVuw2FwJt+pxCWyUZXPjHQCMibriSOE4e
-	BV9nCFQpcbvs+n/7w2H3Elk0+oicq4Fjlt7vUfFSjN7dGbZsMcdx2b01xy8/8CNMqSI7dkv/0Me
-	stK8RXyXjSKnTv5PQTixOiFY2C5oGUkfjq4j6KgYbN83N6x52V2R8TfZ53plvWduP33Q+dmXk8K
-	t4Lntqmo6ZIcFV3UxgGRbRjD1C575jQ5MlXAJ5i//jQ7lMPD4Jj3IAkgroRakfJSq88TJ3ahSnq
-	3qK9mK8iR4MjSUHIYX8i6N4zF0kQ12Geol1fOFVNsZJ49JZzfrrbTRXuZqNMdT642myOANcZtjm
-	MuoSt122cOGWuXN4N3BUzq+CuFO53PHbuKbDTt4MleuO9z8uuONBMlzNZg21e6/SsENVW9JVYvu
-	9SwEUDoh2YvnYOuS9e9vgtSaK6Ab1c9OYCB7PQ76g3+ZgMVBKXS+ZOGfWNz/k17+MONNt9HiDnN
-	GpN/V8agViQHA==
-X-Received: by 2002:a05:7301:2127:b0:359:27e6:b684 with SMTP id 5a478bee46e88-35927e6b814mr16811879eec.3.1792019856896;
-        Wed, 14 Oct 2026 16:17:36 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792019853; x=1792624653;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=sZRElHlPz+C9l3/ysCsL/fuTzkfONFnOP7GgQCgBRB8=;
+        b=QEcbJ//7RADIKmrGVMAYpXixcbtj2QdprsCD3gbQga/wVoYqjimIuGdMj3RXzFn3Yk
+         bydHwL8GBaMlBqjchUK9NjMUaX22IPg4fLTCsps1gMlS0nzkqmNyzji5Gf/xmO6kWErB
+         3wqAYvmevpZNAlXDMEtGSaJf8gQCQd630/qgzs5e7jtmofJ/tAQ3hbOnrve/xy3oHYeR
+         Y5JbprMqolNnzLh21vAFtXpJooOXLWcYc2p9rXq0OsXlyUN/FPwCZvNmpCP+HKtCg+kl
+         SjXRy8DRQXE7sPjSMHGz2d8iV2SCbIiz7ONKj6SdkLfPETKyTYY6D2qEChXA6J20AVz5
+         cFAg==
+X-Forwarded-Encrypted: i=1; AKwUvByflHJ0EWLgpfEHK6L4EXxqclzTpBTZAgtknTe/CbNUWRAareuRqVdQfmTwEBqnYbksWtGCva1vzZde2pw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJSFApeTyTffTuLf6rYBlx0OplhUsOFSXz/JUxUgeSfuZg6PPKo
+	FztCqKm1q4fuNWP8cN56XxaAb7dV9LGrDrEtwbRUpAvl/Duwsw+BMXUuhf+umP3hdJXiHAMzUgg
+	nyDMIAnA=
+X-Gm-Gg: AYBFou3OWlXNTeHUV2MNIgAZNSErablZdX+nLwlPY+3d+RBEbh9l5wPPFnegZcTfcBJ
+	uCE2MsspmWN+2bBf+kjXSdKEAS7QcIsmRez5IXTteXiSyFK5aPES1SpPEVzL75fYXRfxwK0TFhG
+	c0XGz2IGIxxM+mYpm5regyZvzizDlHIOwux9d4PQ5rlNsXKPgmSR5bjjREiZSqjqTC1DymUlkTd
+	vGNJdmCOZGtfvdSIfp8UjQsBpvdhnJgUaWih8l3zaJWR7mmw9WEd4gPjJFC7bQ+CN69MxKfSPVt
+	Ct4GyxA9ryudUBxNoemUUt4gl/A8Nk5+/m0nOLoZaYsZyINE+Re9aMOGG4hCgQololkit63hTBW
+	hJDenKWWQP94Z+QfKWkdesVArczpPDLsMq8C5/cg6G43ff6AZ3D1QMU7IVo16kSiPh1Y3UJyEHk
+	N/OWWzg5oqoCQD/745o7AIJEPXnrofnJJzD3E+xt2DGUt/vs/O4BQPdoFAefVMdp4H4tt2A3jSv
+	w==
+X-Received: by 2002:a05:7300:3398:b0:35c:ef18:6a78 with SMTP id 5a478bee46e88-35cef186bbdmr7669527eec.2.1792019852404;
+        Wed, 14 Oct 2026 16:17:32 -0700 (PDT)
 Received: from [127.0.0.2] ([50.145.100.174])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35de709d928sm10678679eec.25.2026.10.14.16.17.34
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35de709d928sm10678679eec.25.2026.10.14.16.17.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 16:17:36 -0700 (PDT)
+        Wed, 14 Oct 2026 16:17:30 -0700 (PDT)
 From: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Date: Wed, 14 Oct 2026 16:17:28 -0700
-Subject: [PATCH v8 3/6] of: hold a reference on of_aliases during alias
- path resolution
+Subject: [PATCH v8 0/6] of: teach overlay code to keep /aliases in sync
+Date: Wed, 14 Oct 2026 16:17:25 -0700
+Message-Id: <20261014-nh-of-alias-overlay-v8-0-0f74f05ac762@nexthop.ai>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,10 +70,13 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-nh-of-alias-overlay-v8-3-0f74f05ac762@nexthop.ai>
-References: <20261014-nh-of-alias-overlay-v8-0-0f74f05ac762@nexthop.ai>
-In-Reply-To: <20261014-nh-of-alias-overlay-v8-0-0f74f05ac762@nexthop.ai>
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43Q3UrEMBAF4FdZcm1kMs1fvfI9xIukmdjI0i5NL
+ bssfXeTVXClFbw8MPMdZq4s05Qos6fDlU20pJzGoQT7cGBd74Y34imUzBBQgxEtH3o+Ru6OyWU
+ +LjQd3YVrUgRBaRToWdk8TRTT+aa+vH7l/OHfqZsrVSf6lOdxutxqF1HnvhsQdhsWwYGjCU5ba
+ UOw8nmg89yPp0eXWK1YmntE7CNNQQyAALSRMKoNIu8R3EdkQWLXaichoNFig6h/IKqe4zyh920
+ XfLdB9A9iQe0jup4jI4ogJVjRbhBzhzR//MQUBNAoqUGWJvcLWdf1E0ErbJMiAgAA
+X-Change-ID: 20260719-nh-of-alias-overlay-6e5e0d56212b
 To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
  Frank Rowand <frowand.list@gmail.com>, 
  "David S. Miller" <davem@davemloft.net>, Shawn Guo <shawnguo@kernel.org>, 
@@ -88,108 +89,595 @@ To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Abdurrahman Hussain <abdurrahman@nexthop.ai>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792019849; l=3588;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792019849; l=28417;
  i=abdurrahman@nexthop.ai; s=20260510; h=from:subject:message-id;
- bh=St1gZ90pzOpfqNw14C5SvWMC9IiurpLZKUBjI/E3gDE=;
- b=+NRsYFjU2wZMrGLeK30g6ROiusguMHMMIRbn7seED1Paso6e4V31RXIt2EM8m90PQ/9ajL1P1
- zyrYVYZ2OpkDr4Q659v6WjR/I5dHSbY/SyzZomAlSa1CA1/r5PbWDC8
+ bh=c12wIwk/C3wHu8/O7yU4CEDRicKycLEt6UQPlyqww/c=;
+ b=MQW4p3k9QqbTDLx9HBHc19pBt12kuiAfZmxkI0GmGLmrFzU2dtKIopbYlRSQnFhHRnfV2IPiM
+ MbCryXKa0PaC/pKm//MFU/f6e33ThjXB+1m6jcpOIO0RpCvULYni3/c
 X-Developer-Key: i=abdurrahman@nexthop.ai; a=ed25519;
  pk=omTm9cCAbO0ZhS32aKfJDKue0W3sQGpG9ub5eYHif8I=
 
-of_find_node_opts_by_path() walks the property list of of_aliases
-without taking a reference on the node and passes pp->value straight
-to of_find_node_by_path().
+/aliases entries added by a device-tree overlay are stored in the live
+tree but never enter the global aliases_lookup list that of_alias_scan()
+builds at boot. As a result, of_alias_get_id() returns -ENODEV for
+aliases declared inside overlays, and any driver that relies on
+alias-based numbering (i2c-xiic, spi, tty, mmc, ...) silently loses its
+pinned id and falls back to auto-assignment.
 
-Take a reference across the walk. The walk itself stays lock-free
-like every other property iteration: it can race property surgery and
-see a stale view (a removed property's ->next is repointed at the
-deadprops list), but nothing it can reach is freed while the node
-reference is held. The pointer load itself needs no locking:
-of_aliases always holds a reference on the node it points to, so a
-reader that observes a non-NULL pointer observes a live node. A later
-patch in this series clears of_aliases and drops that reference when
-the node is detached at runtime; the detach path holds its own
-references across the transition.
+The gap has been public since 2015 [1] and reproduces trivially: apply
+an overlay that declares e.g. `i2c99 = &foo;`, ask
+of_alias_get_id(foo, "i2c") -> -ENODEV.
 
-Validate the value before resolving it. of_alias_value_ok() requires
-a non-empty, NUL-terminated, absolute path:
+v7 patches 4-7 are applied (robh/dt/linus), so this reroll is the six
+that remain, fixes first as you asked: patches 1 and 2 fix pre-existing
+bugs on paths the series exercises, patch 4 is the core change (a
+reconfig notifier mirroring /aliases property changes into
+aliases_lookup), patch 3 prepares the alias path lookup for /aliases
+becoming dynamic, patch 5 makes the overlay's alias values resolvable
+in the live tree, and patch 6 adds a unittest.
 
-  - an empty property has a NULL value and crashes in strchr()
-  - a value without a NUL inside the property is read past its end
-  - a relative value naming another alias (loop = "loop") recurses
-    through of_find_node_by_path() until the stack is exhausted
+Prior art
+---------
 
-All three are reachable with a malformed boot FDT today.
+Geert Uytterhoeven posted a 3-patch RFC in June 2015 [1] with the same
+alias-tracking design shape. Grant Likely reviewed positively; merge
+was gated on missing unittests and an object-lifetime concern the
+author self-flagged, and the series was never reposted as non-RFC. Ten
+years later, drivers/of/overlay.c still contains zero references to
+aliases, of_alias_scan, or aliases_lookup.
 
-The name comparison loses its redundant strlen() pass while here.
+Series contents
+---------------
 
-Fixes: c22e650e66b8 ("of: Make of_find_node_by_path() handle /aliases")
+Patch 1 fixes find_target() so an overlay applied with a non-NULL
+target base can still reach the DT root via target-path="/foo". The
+current code unconditionally concatenates base + target-path via
+"%pOF%s", so target-path="/aliases" resolves to "<base>/aliases" and
+target-path="/" produces "<base>/" (never a valid node). After this
+patch, an empty target-path continues to mean "the target base
+itself" -- preserving the shape used by drivers/misc/lan966x_pci.c,
+the only in-tree caller of of_overlay_fdt_apply() that passes a
+non-NULL base -- while any non-empty target-path is looked up
+absolutely.
+
+Patch 2 converts dup_and_fixup_symbol_prop() to return ERR_PTR so
+callers can tell malformed values, not-overlay-internal paths, and
+allocation failures apart -- /__symbols__ errors stop being reported
+as -ENOMEM regardless of cause -- and makes it verify the value
+actually descends through the matched fragment's __overlay__ node
+before slicing, instead of cutting at an assumed prefix length.
+
+Patch 3 makes of_find_node_opts_by_path() hold a reference on
+of_aliases across the alias walk (the walk itself stays lock-free, as
+does the pointer load: of_aliases always holds a reference on the
+node it points to) and validates alias values before dereferencing
+them.
+
+Patch 4 adds a reconfig notifier that mirrors /aliases property
+changes into aliases_lookup. It also refactors of_alias_scan()'s
+per-property body into a helper of_alias_create() shared by the
+boot-time scan and the runtime notifier. A one-bit `owned` flag on
+struct alias_prop distinguishes kmalloc'd (overlay-time) entries
+(kstrdup'd alias name, of_node_get'd target) from memblock-backed
+(boot-time) ones so the remove path can't kfree the wrong storage.
+The notifier keys off structural properties of the target node
+(name + root-parent) rather than the of_aliases global, so overlays
+that create /aliases from scratch on a system without a boot-time
+aliases node are covered too. All aliases_lookup readers and writers
+serialize on a dedicated aliases_mutex. It also documents the
+resulting behaviour in overlay-notes.rst (see below).
+
+Patch 5 rewrites /aliases property values from the overlay's internal
+fragment path ("/<fragment>/__overlay__/...") to the live-tree path
+that the node will occupy after apply. The overlay code already does
+this for /__symbols__ via dup_and_fixup_symbol_prop(); /aliases uses
+the same textual convention and can reuse the same helper. Without
+this, patch 4's notifier receives paths that never resolve in the
+live tree, so of_alias_get_id() still returns -ENODEV. Values that
+don't resolve inside the overlay (legacy string aliases, malformed
+junk) are copied verbatim and stay inert -- consumers validate before
+dereferencing -- so no overlay that applied before this series stops
+applying.
+
+Patch 6 adds a unittest -- overlay_alias.dtso plus
+of_unittest_overlay_alias() -- that applies an overlay with a
+non-NULL target_base, declaring a labeled node under the base and an
+`testcase-alias99 = &that-label` entry in DT-root /aliases, then
+asserts of_alias_get_id() on the grafted node returns 99 after the
+apply and of_alias_get_highest_id() reports the stem gone after the
+revert. Missing any one of the three functional patches (notifier /
+absolute-target-paths / alias path rewrite) causes the assertion to
+fail.
+
+Overlay aliases colliding with dynamic ids
+------------------------------------------
+
+On v7 you raised the question from the 2024 repost of Geert's series
+[2]: an overlay alias can name an id a subsystem has already handed
+out dynamically, because subsystems may pick any number that has no
+alias. I went through what the of_alias_get_id() users do in that
+case, and in every one of them the collision is a loud registration
+failure, never two devices on one number:
+
+  i2c      i2c_allocate_adapter_id() does idr_alloc(nr, nr + 1), so a
+           taken index gives -EBUSY plus pr_err("adapter '%s': failed
+           to allocate id") and the adapter is not registered.
+  spi      spi_controller_id_alloc(bus_num, bus_num + 1) likewise:
+           WARN() and -EBUSY, controller not registered.
+  serial   serial_port.c sets port->line from the alias;
+           serial_core_add_one_port() returns -EINVAL if that line is
+           already occupied.
+
+What this series changes is the failure mode for an overlay asking
+for an index a dynamic allocation already took: today the alias is
+ignored and the device quietly gets some other number, which is the
+bug being fixed, since the pinned number was the point of the alias.
+After it, the probe fails and says why. That seems the right
+contract -- an alias is a request for one specific number, and
+refusing it is more useful than pretending it was honored. It is also
+what already happens in the base DT when two aliases name the same
+index, or when a driver calls i2c_add_numbered_adapter() with a taken
+number.
+
+Of the two alternatives you suggested: non-overlapping ranges is
+something the subsystems already approximate (i2c computes
+__i2c_first_dynamic_bus_num from of_alias_get_highest_id("i2c") at
+init, spi re-reads the highest id at each dynamic registration), but
+what they cannot do is reserve numbers for an overlay not yet loaded;
+the OF core could refuse an overlay alias at or below a subsystem's
+dynamic floor, but it does not know that floor and would need a
+per-stem hook from every subsystem. Honoring only alias names absent
+from the base DT addresses a different case -- an overlay redefining
+an existing alias -- which the notifier already handles via
+OF_RECONFIG_UPDATE_PROPERTY, and it does not help with the dynamic-id
+case, where the colliding number was never an alias at all.
+
+Since no option here is free, patch 4 documents the behaviour in
+overlay-notes.rst rather than adding a mechanism. Happy to go further
+if you would rather have the check.
+
+Changes in v7
+-------------
+Addresses Rob's review of v6 and an automated-review finding
+acknowledged on the list. Patch numbers below are v7's; v6's patch 1
+(the stem-parser out-of-bounds fix) is applied and dropped, so
+former patches 2-6 shift down by one.
+
+Dropped former patch 1:
+  - Applied to Rob's dt/linus as commit 5bb01c657ff9. The series is
+    rebased onto it, since patch 2 moves the fixed parser loop into
+    of_alias_create().
+
+Patch 1 (was 2, Rob):
+  - The of_aliases pointer load is a plain of_node_get() again;
+    devtree_lock added nothing since of_aliases always holds a
+    reference on the node it points to.
+
+Patch 2 (was 3):
+  - Consequently, the reconfig notifier no longer takes devtree_lock
+    around the of_aliases updates either; writers were already
+    serialized by aliases_mutex.
+
+New patch 6:
+  - Fix a pre-existing reference leak in init_overlay_changeset()'s
+    error path, found by Sashiko AI review on v6.
+
+Tags:
+  - Patch 1 gains Fixes: c22e650e66b8 ("of: Make
+    of_find_node_by_path() handle /aliases") for its validation half.
+  - Patch 4 gains Fixes: f96278810150 ("of: overlay: set node fields
+    from properties when add new overlay node") and Cc: stable, in
+    line with the other pre-existing-bug fixes in the series.
+
+Cover letter:
+  - Dropped the reference to Bootlin's ELCE 2025 PCI-overlay talk: it
+    described a separate fw_devlink consumer/supplier issue, not the
+    aliases gap this series fixes (Hervé Codina).
+
+Link to v6: https://patch.msgid.link/20260805-nh-of-alias-overlay-v6-0-74f21d440819@nexthop.ai
+
+Changes in v6
+-------------
+Addresses Geert's review of v5 and two automated-review findings the
+list replies already acknowledged:
+
+New patch 1 (Geert):
+  - The out-of-bounds read fix in the stem parser is split out of the
+    notifier patch as a standalone, backportable fix.
+
+Patch 2:
+  - Corrected the lock-free-walk description: a racing walk can see a
+    stale view (a removed property's ->next points into deadprops);
+    what the node reference guarantees is that nothing reachable is
+    freed. The code is unchanged.
+
+Patch 6 (Geert):
+  - The guard moved into free_overlay_changeset(): only a
+    strict-positive id is treated as registered, replacing the
+    ovcs->id reset at the error site. (A plain "goto out_unlock"
+    would leak the ovcs allocation; free_overlay_changeset() is safe
+    to call on a partially initialized ovcs.)
+
+Patch 7 (was patch 6):
+  - Keep the "/" target path when the rewritten value names the
+    fragment root itself; dropping it unconditionally produced an
+    empty string for that case.
+
+Link to v5: https://patch.msgid.link/20260722-nh-of-alias-overlay-v5-0-2abe2bb9cdbc@nexthop.ai
+
+Changes in v5
+-------------
+
+Numbering note: the 7-patch series posted on 2026-07-22 went out
+mislabeled as a second v4 (a tooling mistake on my side). This
+posting supersedes both v4 threads.
+
+Addresses Krzysztof's review of the first v4 posting and the
+automated review of the second:
+
+Patch 1 (Krzysztof):
+  - The property walk is lock-free again; devtree_lock covers only
+    the of_aliases pointer load and of_node_get(). Removed properties
+    stay on deadprops with ->next intact, so the node reference is
+    what a walker needs — the loop never needed the lock. Retitled
+    accordingly.
+  - The commit message no longer refers to overlay-writable /aliases
+    in the present tense at a point in the series where it isn't.
+
+All patches (Krzysztof):
+  - Commit messages rewritten and shortened.
+
+New patch 5:
+  - Fix a pre-existing NULL dereference in of_overlay_fdt_apply():
+    a failed idr_alloc() left a negative id in ovcs->id, so
+    free_overlay_changeset() ran idr_remove() with a negative id and
+    list_del() on an uninitialized list head.
+
+New patch 6:
+  - Fix pre-existing "//" paths from dup_and_fixup_symbol_prop()
+    when a fragment targets the root node; the malformed path made
+    symbols (and now aliases) in such fragments unresolvable.
+
+Link to the mislabeled second v4: https://patch.msgid.link/20260722-nh-of-alias-overlay-v4-0-fc96a40d2761@nexthop.ai
+
+Changes in the second v4 posting (2026-07-22, 7 patches)
+--------------------------------------------------------
+Addresses the automated review of the first v4 posting (its patches
+2, 3, and 6 drew no findings).
+
+Patch 1:
+  - of_alias_value_ok() additionally requires the value to be an
+    absolute path (per the DT spec). A relative value naming another
+    alias — including itself — sent of_find_node_by_path() into
+    unbounded mutual recursion with alias resolution and exhausted
+    the kernel stack; the shared helper closes it for the path
+    lookup and of_alias_create() alike.
+
+New patch 4:
+  - Fix the pre-existing double-free in add_changeset_property():
+    a property freed on the of_changeset_add_property() error path
+    stayed linked in the target node's deadprops list and was freed
+    again by of_node_release(). The property now goes onto deadprops
+    only after the changeset entry is recorded, so the error path
+    frees an unreferenced property. Flagged on every revision of
+    this series; fixing it beats re-deferring it.
+
+Patch 5 (was patch 4):
+  - dup_and_fixup_symbol_prop() now verifies the value textually
+    descends through the matched fragment's __overlay__ node before
+    slicing. Previously only the first path component was resolved,
+    so an absolute live-tree alias sharing its first component with
+    a hand-named fragment (or a bogus /__symbols__ value) was sliced
+    mid-string and rewritten to garbage. Prefix mismatch and
+    too-short values are -ENODEV (not overlay-internal), no longer
+    -EINVAL.
+
+Link to v4: https://patch.msgid.link/20260721-nh-of-alias-overlay-v4-0-8ad097e31e36@nexthop.ai
+
+Changes in v4
+-------------
+Addresses the automated review of v3, plus findings from a local
+adversarial review pass over the v4 candidate.
+
+New patch 1:
+  - of_find_node_opts_by_path() walked of_aliases' property list with
+    no lock and no node reference. Racy against devtree_lock-protected
+    property surgery since the walk was introduced, but only reachable
+    in practice once overlays can create and destroy /aliases.
+    Prerequisite for the DETACH change below.
+  - The reader also validates the value's shape (of_alias_value_ok())
+    before dereferencing it as a C string — raw of_add_property()
+    producers are not validated anywhere — and no longer passes the
+    NULL value of an empty alias property to of_find_node_by_path().
+
+Patch 2 (was patch 1):
+  - DETACH_NODE now drops the reference taken at ATTACH_NODE after
+    clearing the of_aliases pointer under devtree_lock. v3 kept the
+    reference to protect lockless readers, but a kept reference
+    violates the changeset-destroy contract —
+    __of_changeset_entry_destroy() expects refcount 1 — so every
+    apply/revert cycle of an /aliases-creating overlay logged
+    "ERROR: memory leak" and permanently leaked the node. With the
+    reader from patch 1 taking its own reference under devtree_lock,
+    the put is safe.
+  - The aliases_lookup sweep now runs only when the detached node is
+    the tracked of_aliases, so a stray duplicate root node named
+    "aliases" can no longer wipe entries backed by the real node; the
+    node match is an exact-name compare (of_node_is_aliases()) since
+    of_node_name_eq() would also match "aliases@1".
+  - The notifier machinery is compiled only for CONFIG_OF_DYNAMIC;
+    the of_reconfig_notifier_register() stub returns -EINVAL, so the
+    unconditional core_initcall_sync failed on every non-dynamic DT
+    kernel.
+  - Per-entry teardown factored into __of_alias_del(); shared
+    of_node_is_aliases()/of_alias_value_ok() helpers in of_private.h
+    replace open-coded copies in base.c and overlay.c.
+
+New patch 4:
+  - dup_and_fixup_symbol_prop() returns ERR_PTR, distinguishing
+    malformed values (-EINVAL), not-overlay-internal paths (-ENODEV),
+    and allocation failure (-ENOMEM) — the discrimination v3's
+    "/fragment@" prefix heuristic approximated, and the reason a
+    structural failure was previously misreported as -ENOMEM.
+
+Patch 5 (was patch 3):
+  - Drop the "/fragment@" prefix heuristic: init_overlay_changeset()
+    accepts fragments with any node name, so a hand-named fragment's
+    alias would silently stay unrewritten (the bug this series fixes),
+    and a live-tree path starting with "/fragment@" would fail apply.
+    Discrimination now comes from where the value actually resolves
+    (patch 4).
+  - Malformed alias values no longer fail the overlay apply with
+    -EINVAL; they are admitted verbatim with a warning and stay inert
+    (consumers validate before dereferencing). An overlay that applied
+    cleanly before this series keeps applying.
+  - Exempt pseudo-properties from the /aliases handling: the
+    is_pseudo_property() skip at the top of add_changeset_property()
+    is gated on target->in_livetree, so a phandle (a raw cell, not a
+    C string) of a newly created /aliases node could fail the string
+    checks and abort a valid overlay.
+
+Patch 6 (was patch 4):
+  - Drop the grafted-node reference before of_overlay_remove();
+    holding it across the revert trips the same changeset-destroy
+    refcount check (kernel ERROR + leaked node).
+  - Assert alias removal via of_alias_get_highest_id() — keyed by
+    stem, needs no node reference — with a matching precondition
+    check before the apply.
+  - Wrap the apply in EXPECT_BEGIN/END for the standard "memory leak
+    will occur" warning printed for properties added to a node the
+    overlay didn't create.
+
+Patch 3:
+  - Document the empty-vs-absolute target-path contract in the
+    kernel-doc for @base/@target_base and find_target(); the old text
+    predated the semantic change.
+
+Link to v3: https://patch.msgid.link/20260721-nh-of-alias-overlay-v3-0-7001028fe2f5@nexthop.ai
+
+Changes in v3
+-------------
+Addresses the automated review of v2.
+
+Patch 1:
+  - of_device_uevent() in drivers/of/device.c now walks aliases_lookup
+    under aliases_mutex; the previous of_mutex path could race with
+    the reconfig notifier that mutates under aliases_mutex.
+  - Drop the defensive ATTACH_NODE property scan. Overlay attach
+    queues each property as a separate ADD_PROPERTY changeset entry,
+    so per-property notifications cover the case that matters;
+    walking rd->dn->properties without devtree_lock could race with
+    concurrent DT mutations. A direct of_attach_node() caller that
+    pre-populates /aliases loses tracking for those entries, matching
+    pre-series behavior.
+  - Replace DETACH_NODE's per-property forget with a single scan of
+    aliases_lookup itself (same rationale). Boot-time entries are
+    unlinked; memblock-backed struct + alias name are not freed.
+  - of_alias_destroy() now of_node_puts() the target for every
+    matching entry, closing a leak of the reference
+    of_find_node_by_path() took at of_alias_scan() time for boot-time
+    entries.
+
+Patch 3:
+  - Enforce non-empty + null-terminated-within-pp->length up-front
+    for every /aliases property value. Values that don't match
+    "/fragment@" now flow through __of_prop_dup() only after that
+    validation, closing a pre-existing hole where a malformed alias
+    value could reach the live tree.
+
+Patch 4:
+  - Hold a reference on the grafted target node across the revert
+    so the post-remove assertion queries the right np, not the
+    base. of_alias_get_id(base, ...) would trivially return -ENODEV
+    regardless of whether removal actually cleaned up the alias.
+  - On of_overlay_fdt_apply() failure, reclaim the (possibly
+    partially-populated) ovcs_id via of_overlay_remove() to avoid
+    leaking the unflattened FDT and partially-applied nodes.
+
+Additional fixes from local review of the v3 candidate:
+
+All patches:
+  - Trim inline comments to the constraint being enforced; rationale
+    and use-case narrative moved to the commit messages.
+
+Patch 1:
+  - of_alias_create() releases the target-node reference on every
+    error path, not only for owned entries — restoring the original
+    of_alias_scan() error behavior for boot-time entries.
+  - Correct the struct alias_prop @owned kernel-doc: every entry holds
+    a reference on @np (removal drops it regardless of @owned); the
+    flag only selects whether the struct and alias name are kfree()d.
+  - Correct the notifier-registration comment and commit message:
+    of_alias_scan() runs pre-initcall from unflatten_device_tree() /
+    of_pdt_build_devicetree(), not from of_core_init().
+  - DETACH_NODE clears the of_aliases pointer but keeps the reference
+    taken at ATTACH_NODE: of_find_node_opts_by_path() reads of_aliases
+    and walks its properties locklessly, so the node must outlive any
+    concurrent reader.
+  - Call out (in the commit message) the pre-existing one-byte OOB
+    read in the stem parser that the refactor fixes: isdigit() was
+    tested before the end > start bound.
+
+Patch 3:
+  - Correct the commit-message claim that a NULL return from
+    dup_and_fixup_symbol_prop() can only mean -ENOMEM; unresolvable
+    fragment paths also return NULL and are reported as -ENOMEM,
+    matching the existing /__symbols__ handling.
+
+Patch 4:
+  - Fix the .dtso label: dtc labels cannot contain hyphens, so
+    testcase-target failed to compile. Now testcase_target.
+  - Do not add overlay_alias.dtbo to the fdtoverlay static build
+    test: fdtoverlay cannot resolve the empty (base-relative)
+    target-path, so static_test_1.dtb would fail to build.
+  - Drop the unnecessary #address-cells/#size-cells from the grafted
+    node (dtc W=1 avoid_unnecessary_addr_size).
+
+Changes in v2
+-------------
+
+Addressed the automated review of the RFC posting.
+
+Patch 1:
+  - Guard rd->old_prop before dereferencing in the UPDATE_PROPERTY
+    handler; some notifier producers pass NULL.
+  - Handle OF_RECONFIG_ATTACH_NODE and OF_RECONFIG_DETACH_NODE for
+    /aliases nodes attached or detached with pre-populated properties.
+    (v3 pared this back — see above.)
+  - Serialize aliases_lookup with a dedicated aliases_mutex; readers
+    (of_alias_get_id, of_alias_get_highest_id) and the reconfig
+    notifier both hold it. Boot-time of_alias_scan() stays lockless
+    (single-threaded during init).
+  - Destroy path unlinks matching entries irrespective of ownership
+    (freeing storage only for owned ones), so an overlay UPDATE
+    against a boot-time alias no longer leaves duplicate stem+id
+    entries in aliases_lookup.
+  - Owned entries kstrdup the alias name and hold an of_node_get()
+    reference on the target — released in the destroy path — so a
+    property freed by overlay revert can't dangle into aliases_lookup.
+  - of_aliases is refcounted lazily on ATTACH/DETACH.
+  - Validate pp->value is non-empty and null-terminated within
+    pp->length before feeding it to of_find_node_by_path() — prevents
+    a stray malformed alias entry from causing an OOB read.
+
+Patch 3:
+  - Only route /aliases properties through dup_and_fixup_symbol_prop()
+    when the value looks like a fragment-internal path. Other alias
+    values pass through the raw duplicator unchanged. This removes
+    the previous unconditional fallback that would silently propagate
+    a raw dup on ENOMEM.
+
+Patch 4:
+  - Rewrite the .dtso to actually exercise all three functional
+    patches: a labeled node under a fragment with target-path="" plus
+    an /aliases fragment with target-path="/aliases" (absolute) and
+    a value referencing the label via `&`. The RFC test bypassed
+    patches 2 and 3.
+  - Rewrite the runner to call of_overlay_fdt_apply() directly with a
+    non-NULL target_base and assert against the grafted node's np.
+
+Link to v1: https://patch.msgid.link/20260720-nh-of-alias-overlay-v1-0-27da6848dd84@nexthop.ai
+
+Open items
+----------
+
+None outstanding. Pre-existing issues surfaced by the automated review
+are unrelated to this series and are being tracked separately:
+  - node duplicated by __of_node_dup() leaked in add_changeset_node()
+    when of_changeset_attach_node() fails,
+  - of_node_put() under devtree_lock (raw spinlock) reaching
+    fwnode_links_purge(),
+  - of_overlay_fdt_apply() callers (lan966x_pci_probe(),
+    tilcdc_panel_legacy_probe()) not reclaiming a populated ovcs_id
+    on failure.
+
+Verification
+------------
+
+Apart from the new overlay-notes.rst paragraph in patch 4, v8 is
+code-identical to the six v7 patches it rerolls, so the v7 results
+below still describe it.
+
+The OF unittest was run under QEMU (x86_64, OF_UNITTEST=y, v7.2-rc3
+plus this series): of_unittest_overlay_alias() passes and the full
+run reports 415 passed, 0 failed, with no unexpected "OF: ERROR:"
+lines or changeset-destroy refcount complaints in the log. base.c
+also builds with CONFIG_OF=y and CONFIG_OF_DYNAMIC=n (the notifier
+machinery compiles out).
+
+The series was also backported onto a 7.1-based image and boot-tested
+on an x86 Nexthop switch with two PCI-attached Xilinx FPGAs whose
+i2c-xiic controllers come from driver-embedded DT overlays applied
+with a non-NULL target base. Before this series, i2c bus numbers
+auto-assigned regardless of what /aliases said and shifted across
+boots depending on which FPGA won the probe race. After: 95 i2c
+adapters with /dev/i2c-N numbering matching the overlay aliases
+exactly and stable across reboots, sensors reading live telemetry
+through mux channels, and dmesg free of WARN/BUG/Oops and unexpected
+OF errors. Runtime overlay revert via driver unbind was exercised on
+the same hardware: the changeset revert removed all 153 of the
+overlay's /aliases entries through the reconfig notifier with no
+refcount or of_node_put errors, leaving the other overlay's 12
+entries intact. (The revert then hangs in device teardown, in a
+pre-existing i2c-xiic i2c_del_adapter() issue unrelated to this
+series; the complete apply/revert cycle is covered by the unittest
+under QEMU.)
+
+[1] https://lore.kernel.org/lkml/1435675876-2159-1-git-send-email-geert+renesas@glider.be/
+    Geert Uytterhoeven, "[PATCH/RFC 0/3] of/overlay: Update aliases
+    when added or removed", 2015-06-30.
+
+[2] https://lore.kernel.org/all/CAL_Jsq+72Q6LyOj1va_qcyCVkSRwqGNvBFfB9NNOgYXasAFYJQ@mail.gmail.com/
+    Rob Herring on the 2024 repost of [1], raising the collision
+    between overlay alias ids and dynamically allocated ids.
+
 Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
 ---
- drivers/of/base.c       | 17 ++++++++++++-----
- drivers/of/of_private.h |  8 ++++++++
- 2 files changed, 20 insertions(+), 5 deletions(-)
+Changes in v8:
+- Rebased onto dt/linus. v7 patches 4-7 are applied there and are
+  dropped from the series; six patches remain.
+- Reordered so the fixes come first, as requested: former patches 3
+  and 8 are now 1 and 2, ahead of the /aliases work.
+- Patch 4 documents in overlay-notes.rst what happens when an overlay
+  alias names an id that is already in use.
+- Cover letter answers the dynamic-id collision question from v7 (see
+  "Overlay aliases colliding with dynamic ids").
+- No functional changes to the six patches themselves.
+- Link to v7: https://patch.msgid.link/20260831-nh-of-alias-overlay-v7-0-02754604805a@nexthop.ai
 
-diff --git a/drivers/of/base.c b/drivers/of/base.c
-index 57313055d9ed..6a6d9f8439dd 100644
---- a/drivers/of/base.c
-+++ b/drivers/of/base.c
-@@ -1003,6 +1003,8 @@ struct device_node *of_find_node_opts_by_path(const char *path, const char **opt
- 
- 	/* The path could begin with an alias */
- 	if (*path != '/') {
-+		struct device_node *aliases;
-+		const char *value = NULL;
- 		int len;
- 		const char *p = strchrnul(path, '/');
- 
-@@ -1010,16 +1012,21 @@ struct device_node *of_find_node_opts_by_path(const char *path, const char **opt
- 			p = separator;
- 		len = p - path;
- 
--		/* of_aliases must not be NULL */
--		if (!of_aliases)
-+		aliases = of_node_get(of_aliases);
-+		if (!aliases)
- 			return NULL;
- 
--		for_each_property_of_node(of_aliases, pp) {
--			if (strlen(pp->name) == len && !strncmp(pp->name, path, len)) {
--				np = of_find_node_by_path(pp->value);
-+		for_each_property_of_node(aliases, pp) {
-+			if (!strncmp(pp->name, path, len) && !pp->name[len]) {
-+				if (of_alias_value_ok(pp))
-+					value = pp->value;
- 				break;
- 			}
- 		}
-+		/* the reference on @aliases keeps @value alive */
-+		if (value)
-+			np = of_find_node_by_path(value);
-+		of_node_put(aliases);
- 		if (!np)
- 			return NULL;
- 		path = p;
-diff --git a/drivers/of/of_private.h b/drivers/of/of_private.h
-index 0ae16da066e2..9bba999f0bf8 100644
---- a/drivers/of/of_private.h
-+++ b/drivers/of/of_private.h
-@@ -215,6 +215,14 @@ static inline bool is_pseudo_property(const char *prop_name)
- 		!of_prop_cmp(prop_name, "linux,phandle");
- }
- 
-+/* alias values must be absolute paths NUL-terminated within length */
-+static inline bool of_alias_value_ok(const struct property *pp)
-+{
-+	return pp->value && pp->length >= 2 &&
-+	       *(const char *)pp->value == '/' &&
-+	       strnlen(pp->value, pp->length) < pp->length;
-+}
-+
- #if IS_ENABLED(CONFIG_KUNIT)
- int __of_address_resource_bounds(struct resource *r, u64 start, u64 size);
- #endif
+To: Rob Herring <robh@kernel.org>
+To: Saravana Kannan <saravanak@kernel.org>
+To: Pantelis Antoniou <pantelis.antoniou@konsulko.com>
+To: Grant Likely <grant.likely@linaro.org>
+To: David Daney <david.daney@cavium.com>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
 
--- 
-2.54.0
+---
+Abdurrahman Hussain (6):
+      of/overlay: look up absolute target-paths absolutely
+      of/overlay: return ERR_PTR from dup_and_fixup_symbol_prop()
+      of: hold a reference on of_aliases during alias path resolution
+      of: update /aliases lookup on reconfig notifications
+      of/overlay: rewrite /aliases path values to live-tree paths
+      of: unittest: cover /aliases updates from overlay apply/revert
+
+ Documentation/devicetree/overlay-notes.rst  |  16 +++
+ drivers/of/base.c                           | 216 ++++++++++++++++++++++------
+ drivers/of/device.c                         |   4 +-
+ drivers/of/of_private.h                     |  22 +++
+ drivers/of/overlay.c                        |  86 +++++++----
+ drivers/of/unittest-data/Makefile           |   5 +
+ drivers/of/unittest-data/overlay_alias.dtso |  25 ++++
+ drivers/of/unittest.c                       |  73 ++++++++++
+ 8 files changed, 371 insertions(+), 76 deletions(-)
+---
+base-commit: 30724547b221e0e670ddfef140fc7d816b2aaec6
+change-id: 20260719-nh-of-alias-overlay-6e5e0d56212b
+
+Best regards,
+--  
+Abdurrahman Hussain <abdurrahman@nexthop.ai>
 
