@@ -1,157 +1,142 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A490C4734FC
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:50:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CEDB49DBBE
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:50:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792018212; cv=none; b=RzD2VlPbNJvFh9cM2Gd5EDhVMCT+uMsCkjCRkf3VvdbmRj4UhIXY6eh3kCVFsbSAmIqAOTMEM9vV3RZk1jl0USGIblUWNO+cNfAaO+gfuj/1mfp0Ch5nkV9opdt7F0Yk15Yhb51tVU82SDmETgI7jUCZ2n48Ksr1gczDn9AlqIk=
+	t=1792018248; cv=none; b=iCKb6lmSCpewaRw50dS0WJojy0evM6+474jnRg455K38wlQecFgxI5SRh/FIbA1+l4dG9+d8+EXulgXECRbEG+neq9oQx6UevP2j/cFH262setAwfUMWIyv5ZrfuhZIJCXypqv8OeMrWussp16II4uWHk37LTxuqHW7X86G8xjY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792018212; c=relaxed/simple;
-	bh=n+pWVEaEz1G9hLasrMChZGdCwbGdJlHaGRy8PhjyNtE=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=CuEQgShJocdtYnoPkzl0M9Ep/8HJu7LzWG8lHlxbWvdMt3y5rAJy6wrpfXpX9t6JMkHM+4AbQ0aNqGwSDHI+3nnsdJO8H6tx7E/KYmIyQUimgtI87O1qxL9d9LTRkNmsgJ8I65Jgn9XgBSDcPR/9Zad6qo4XDgd2V/dUGR3DxTs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JyDhJYHK; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1792018248; c=relaxed/simple;
+	bh=sNWSUNEWYSzFTQdPXzbXHnNs2hssQisZGMz94U2GI+Q=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UyOU80HptGtxxr8J55rs75wIlh8xk9vUoPAc2VQcYo6C1uYtbSAfhToYzCsZOvhJF/D+V1mp+oGAaqC4Rrk5TATuUNLUCJV+Pp+OYGumscOM+mBehvrCvler7Nvil4mfJ/vr9akw1DPi251AUahkiSOqtK3RqBp6JtdK10aohNQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K5/qUqNg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JyDhJYHK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792018211; x=1823554211;
-  h=date:from:to:cc:subject:message-id;
-  bh=n+pWVEaEz1G9hLasrMChZGdCwbGdJlHaGRy8PhjyNtE=;
-  b=JyDhJYHKTWQFCNsOLJyJC7BIgDbpBQOoEEmMWYameY2xUxhhpb3daGuL
-   M3BfXEny1oQbA4VrqDnVY4V6Ou+Q3I2EbP+y0PbXuOFtA6SSYkXaRQlQn
-   QpQqud23oX8Kwyt0FB9/ROHBtaowZFV0IeHqX/N1c/LmLTZtZxy0S/VMB
-   Wfj7o5K8w0Vl8RXlF4kFjEEI+xUeFe5lxsQOI8Jd19z5oONT1CD8hybHP
-   zyrbuqlHygb7IXnSl5VtEU9PmFWPz5BpWnUxTl+qkvNUHCVFOLeKh4YSj
-   T8rNRG9Bq9jdPLHBWI8GBwvEYJygTeBbs/Tua/PmH59cHi8SfWntxzvNj
-   Q==;
-X-CSE-ConnectionGUID: Sdu+hfKFTg2l4OEejyEwBg==
-X-CSE-MsgGUID: ifJn/m9zTGagj2enQmcW6g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="655746"
-X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
-   d="scan'208";a="655746"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 15:50:10 -0700
-X-CSE-ConnectionGUID: K8L7SaRDQrWfg0Iii7Dv9A==
-X-CSE-MsgGUID: nSqefY6wRyW38gGVhw3cLA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
-   d="scan'208";a="1611178"
-Received: from igk-lkp-server01.igk.intel.com (HELO d0de6c2a75a7) ([10.211.93.152])
-  by orviesa006.jf.intel.com with ESMTP; 14 Oct 2026 15:50:08 -0700
-Received: from kbuild by d0de6c2a75a7 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xH7nS-00000000BLT-0XNY;
-	Wed, 14 Oct 2026 22:50:06 +0000
-Date: Thu, 15 Oct 2026 00:49:15 +0200
-From: kernel test robot <lkp@intel.com>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: kernel/trace/trace_snapshot.c:51:3: error: call to
- undeclared function 'trace_array_puts'; ISO C99 and later do not support
- implicit function declarations
-Message-ID: <202610150045.WoETcMQu-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K5/qUqNg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2050D1F000CA
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:50:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792018247;
+	bh=NA3GZ/iqfIKKTOb5FvBosFUvqe1ZDVXt95Ijm3QAFvE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=K5/qUqNgRX/6VowgTl20vWBdzIU3UV4i1FYwjthelA7Ut6efIQ2AbELqGz3W//OUx
+	 rRPylqMw++n5iw18g4K9f32ISVM1zFQ/yyLAimK+kZUSCXZlHU+/unSbU1A7LpwJYQ
+	 lW4e4oD2sjlGpoEjg0LDCbzR17AoDOPnWouCy5fUE7gzQYk8bdMCjr/WSHyhi3b1qD
+	 ZupnkOvwYMOtubpU7H1brI0a9bf2phHy293C3v4dWHDdh5H6sRlq6YY9SSi/htn6qr
+	 I1wFU+ryZzu+QXLbUcroXQg2oqcp1eVWdXVZcBbBHbRmqax92E9z/VZPxJULPGJdXY
+	 bfkGMV3XHGOLA==
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c262f1186f0so619360066b.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:50:47 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwIy3YjK/+B0g42xbGNTuLV4QhZFXsisB9o5grh7KjXcxm3CdSrbPWo9/cr+DB0XQJ9g8AI7z4leGwKzKQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLh9vUaxeZUeAMRKD1Cy/YAXZnk68dbFwaiRs8I/7wTjZbl3zYH
+	unrK69Ufm18HA7vZVxgQN4wFrr039P+ECdFjXHJHEZb8UDsHF/VTVuib4uhmuU/sfeQCdTCFT1D
+	x6LOx0Skf6BnKXuDZruFwP0PjFQz0DZw=
+X-Received: by 2002:a17:907:cf93:b0:c2a:8d00:f8d0 with SMTP id
+ a640c23a62f3a-c31a9a052c1mr1531899766b.4.1792018246026; Wed, 14 Oct 2026
+ 15:50:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-7-yosry@kernel.org>
+ <CALMp9eSZoXs8vAswymwdiX-0ge-EOef8TR2nZw814wa63LpR-A@mail.gmail.com>
+In-Reply-To: <CALMp9eSZoXs8vAswymwdiX-0ge-EOef8TR2nZw814wa63LpR-A@mail.gmail.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Wed, 14 Oct 2026 15:50:34 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zM8S=VFjpbA5c7vLdzkQPJPM=YBFJ4Or9QKrOd37xTWGg@mail.gmail.com>
+X-Gm-Features: AclHuK9omT0WScgNU6Co1HwqzEYPp0R6Qqcj779KshUYlOLBUoupZVq5-IxVYC8
+Message-ID: <CAO9r8zM8S=VFjpbA5c7vLdzkQPJPM=YBFJ4Or9QKrOd37xTWGg@mail.gmail.com>
+Subject: Re: [PATCH v3 06/27] KVM: SVM: Fallback to flush everything if
+ FLUSHBYASID is not available
+To: Jim Mattson <jmattson@google.com>
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   0fcb05b72344f40806cbe810de8872f1698bf053
-commit: bade44fe546212e142befb69ba22f34944030a99 tracing: Move snapshot code out of trace.c and into trace_snapshot.c
-date:   7 months ago
-config: hexagon-randconfig-r2110-20261014 (https://download.01.org/0day-ci/archive/20261015/202610150045.WoETcMQu-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project e1354f31346666c78d758cee13692ea3b1fe3ec2)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261015/202610150045.WoETcMQu-lkp@intel.com/reproduce)
+On Wed, Oct 14, 2026 at 3:45=E2=80=AFPM Jim Mattson <jmattson@google.com> w=
+rote:
+>
+> On Mon, Oct 12, 2026 at 4:36=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wr=
+ote:
+> >
+> > Currently, if FLUSHBYASID is not available when performing a TLB flush,
+> > the fallback is decrementing the ASID generation to trigger allocating =
+a
+> > new ASID. In preparation for using a static ASID per vCPU (like VMX),
+> > just fallback to flushing everything if FLUSHBYASID is not available.
+> > This is probably worse from a performance perspective, but FLUSHBYASID
+> > has been around for ~15 years and it's not worth carrying the
+> > complexity.
+> >
+> > Move the fallback logic into vmcb_set_flush_asid(), as more callers wil=
+l
+> > be added and will need the fallback as well. The only other current
+> > caller is from SEV code, and no CPUs support SEV but not FLUSHBYASID (a=
+t
+> > least according to AI).
+>
+> A more compelling argument is that sev_hardware_setup() requires FLUSHBYA=
+SID.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: bade44fe5462 ("tracing: Move snapshot code out of trace.c and into trace_snapshot.c")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610150045.WoETcMQu-lkp@intel.com/
+Huh, I didn't realize this.
 
-All errors (new ones prefixed by >>):
+>
+> > Suggested-by: Sean Christopherson <seanjc@google.com>
+> > Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+> > ---
+> >  arch/x86/kvm/svm/svm.c | 5 +----
+> >  arch/x86/kvm/svm/svm.h | 5 ++++-
+> >  2 files changed, 5 insertions(+), 5 deletions(-)
+> >
+> > diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+> > index ad4f172f170d9..0c3befd9bc850 100644
+> > --- a/arch/x86/kvm/svm/svm.c
+> > +++ b/arch/x86/kvm/svm/svm.c
+> > @@ -4326,10 +4326,7 @@ static void svm_flush_tlb_asid(struct kvm_vcpu *=
+vcpu)
+> >          * unconditionally does a TLB flush on both nested VM-Enter and=
+ nested
+> >          * VM-Exit (via kvm_mmu_reset_context()).
+> >          */
+> > -       if (cpu_feature_enabled(X86_FEATURE_FLUSHBYASID))
+> > -               vmcb_set_flush_asid(svm->vmcb);
+> > -       else
+> > -               svm->current_vmcb->asid_generation--;
+> > +       vmcb_set_flush_asid(svm->vmcb);
+> >  }
+> >
+> >  static void svm_flush_tlb_current(struct kvm_vcpu *vcpu)
+> > diff --git a/arch/x86/kvm/svm/svm.h b/arch/x86/kvm/svm/svm.h
+> > index ba5077b9838c0..3b59561d6cc2c 100644
+> > --- a/arch/x86/kvm/svm/svm.h
+> > +++ b/arch/x86/kvm/svm/svm.h
+> > @@ -482,7 +482,10 @@ static inline void vmcb_set_gpat(struct vmcb *vmcb=
+, u64 data)
+> >
+> >  static inline void vmcb_set_flush_asid(struct vmcb *vmcb)
+> >  {
+> > -       vmcb->control.tlb_ctl =3D TLB_CONTROL_FLUSH_ASID;
+> > +       if (cpu_feature_enabled(X86_FEATURE_FLUSHBYASID))
+> > +               vmcb->control.tlb_ctl =3D TLB_CONTROL_FLUSH_ASID;
+> > +       else
+> > +               vmcb->control.tlb_ctl =3D TLB_CONTROL_FLUSH_ALL_ASID;
+>
+> This is unnecessary. Hardware that doesn't have FLUSHBYASID only looks
+> at tlb_ctl bit 0 to decide whether or not to flush the entire TLB.
+> The other bits are ignored.
 
->> kernel/trace/trace_snapshot.c:51:3: error: call to undeclared function 'trace_array_puts'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-      51 |                 trace_array_puts(tr, "*** SNAPSHOT CALLED FROM NMI CONTEXT ***\n");
-         |                 ^
-   kernel/trace/trace_snapshot.c:51:3: note: did you mean 'trace_array_put'?
-   include/linux/trace.h:84:20: note: 'trace_array_put' declared here
-      84 | static inline void trace_array_put(struct trace_array *tr)
-         |                    ^
-   kernel/trace/trace_snapshot.c:57:3: error: call to undeclared function 'trace_array_puts'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-      57 |                 trace_array_puts(tr, "*** SNAPSHOT NOT ALLOCATED ***\n");
-         |                 ^
-   kernel/trace/trace_snapshot.c:64:3: error: call to undeclared function 'trace_array_puts'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-      64 |                 trace_array_puts(tr, "*** BUFFER MEMORY MAPPED ***\n");
-         |                 ^
-   kernel/trace/trace_snapshot.c:71:3: error: call to undeclared function 'trace_array_puts'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-      71 |                 trace_array_puts(tr, "*** LATENCY TRACER ACTIVE ***\n");
-         |                 ^
->> kernel/trace/trace_snapshot.c:251:6: error: redefinition of 'tracing_snapshot_alloc'
-     251 | void tracing_snapshot_alloc(void)
-         |      ^
-   include/linux/trace_printk.h:188:20: note: previous definition is here
-     188 | static inline void tracing_snapshot_alloc(void) { }
-         |                    ^
-   kernel/trace/trace_snapshot.c:1065:3: error: call to undeclared function 'trace_array_puts'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-    1065 |                 trace_array_puts(tr, "** Boot snapshot taken **\n");
-         |                 ^
-   6 errors generated.
+I think it's clearer to do the fallback since the APM doesn't
+specifically call this out, or maybe it does but I can't find it.
 
-
-vim +/trace_array_puts +51 kernel/trace/trace_snapshot.c
-
-    36	
-    37	
-    38	static int __init boot_snapshot(char *str)
-    39	{
-    40		snapshot_at_boot = true;
-    41		boot_alloc_snapshot(str);
-    42		return 1;
-    43	}
-    44	__setup("ftrace_boot_snapshot", boot_snapshot);
-    45	static void tracing_snapshot_instance_cond(struct trace_array *tr,
-    46						   void *cond_data)
-    47	{
-    48		unsigned long flags;
-    49	
-    50		if (in_nmi()) {
-  > 51			trace_array_puts(tr, "*** SNAPSHOT CALLED FROM NMI CONTEXT ***\n");
-    52			trace_array_puts(tr, "*** snapshot is being ignored        ***\n");
-    53			return;
-    54		}
-    55	
-    56		if (!tr->allocated_snapshot) {
-    57			trace_array_puts(tr, "*** SNAPSHOT NOT ALLOCATED ***\n");
-    58			trace_array_puts(tr, "*** stopping trace here!   ***\n");
-    59			tracer_tracing_off(tr);
-    60			return;
-    61		}
-    62	
-    63		if (tr->mapped) {
-    64			trace_array_puts(tr, "*** BUFFER MEMORY MAPPED ***\n");
-    65			trace_array_puts(tr, "*** Can not use snapshot (sorry) ***\n");
-    66			return;
-    67		}
-    68	
-    69		/* Note, snapshot can not be used when the tracer uses it */
-    70		if (tracer_uses_snapshot(tr->current_trace)) {
-    71			trace_array_puts(tr, "*** LATENCY TRACER ACTIVE ***\n");
-    72			trace_array_puts(tr, "*** Can not use snapshot (sorry) ***\n");
-    73			return;
-    74		}
-    75	
-    76		local_irq_save(flags);
-    77		update_max_tr(tr, current, smp_processor_id(), cond_data);
-    78		local_irq_restore(flags);
-    79	}
-    80	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+>
+> >  }
+> >
+> >  static inline void vmcb_clr_flush_asid(struct vmcb *vmcb)
+> > --
+> > 2.56.0.385.gd3acb90ef8-goog
+> >
