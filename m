@@ -1,125 +1,137 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F7FA47D47A
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:32:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DA83485505
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:32:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791963140; cv=none; b=AZM7B6bYH+uI+Zmq2eOi0CL8qESOpQ15TsnAd1nPbNqBwZ0igmSyZo9eXA5T7rTea1zcIRiVgCV7utyS+wiuVGV3ktfzouxzOWyWrROzlHjAS4ZRlZoY8Ez3XvgqCcD4ugKDu2UY9IwcTmGWEkYebHa0cIam25cwlqnkVrlKOPU=
+	t=1791963158; cv=none; b=DbqHoiQa5sb8tNw4zZfEPGLdeMg30vf6P+y8dVqWzz4TZK6kfITIQ5xmp6beHcfO8KVNWGBZCiVxnrhIP7QfzZLTf3UCGecJRuyhv38YiEyWED5WxULKOjg3u2Q5uKT1EoZhYPWTqp/Bq8bYPOHVOxeU8cu3xxBY9hKvols5fUw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791963140; c=relaxed/simple;
-	bh=iYZ4jzh22uG6KvaEvKojNg5qszwvRLO63ZvYsKbifdM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XO0mNU3lw0rAB9id0TqtqTUdTRoSCYDiuZuf6ZC9gFBdl/9ZAjlup1n0JSD//FdMGns5EqDiNrLJe2gXDjxmV9kqLt36sOEP6wMJp2Eh0ImekzkYdCTF9rNZ/UZ0HLKzx0b8JvGlfK5TS3F8iBW2yTvZP2WlVlgOR9SL7R3HI9k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=AaptHzDP; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1791963158; c=relaxed/simple;
+	bh=gXTUPaPaUbRcRDR4kgF7IjQcPRSCFGK5KrDp39kJqnI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iVYqRDVcUddjvGjvhc81TTjEyMMXoj2bHPvRhUrAORstyOeB0MXJK7ScB9Np4+ieEpsTPNw6vZRmf6X4zQziXC/FjnKDuTjzEqHHhiv5TAqK+tEQv8o11VN+Zvi/k5HXQlA+r9fJUzc2Q4EorqLwU8DBp/q5PB/2naa9C1yeze0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qCRCI14h; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="AaptHzDP"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69DLTmRE1890530;
-	Wed, 14 Oct 2026 07:32:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=6ssQU9tcZgqqK8UDDocvoF+gguiEeH
-	DG3OnM1utzXEA=; b=AaptHzDPk9q3QnurSioZWZHY8WCloILf+kBfn93Nf+lUqS
-	kEVbGoqwHHjbR4stEJjwxsA+G3wbcIHJRuHIKIROfXRfyMqpRVUctI0yk/G1mZbo
-	u2uK8QR5B9vI6HawKDoC6B8RixyUIlR0QCmNFPy4e3nQxrg0F4dGnnPdHC002iwI
-	d6Pf7AR3eifMbsnQrG52R4xVJwjZDkXnbNUVQ1ajfnndboBT5yirK5di2CFZz5zB
-	ebNDvnR+BPM2Kp9xVlY1H/lr7I48n0VIgxb9U5j+pNBqpA23KZ9/EWkmKxwSKain
-	bF8t0qOoClh6vu2pRnqbVH4As2IYqPAjHwsNNzmw==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dv3k1e4-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 14 Oct 2026 07:32:05 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69E6KdvA3211854;
-	Wed, 14 Oct 2026 07:32:04 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h9q2ykrne-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 14 Oct 2026 07:32:04 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
-	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69E7W0U739977312
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 14 Oct 2026 07:32:00 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C4B0D20043;
-	Wed, 14 Oct 2026 07:32:00 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6907020040;
-	Wed, 14 Oct 2026 07:32:00 +0000 (GMT)
-Received: from localhost (unknown [9.43.85.119])
-	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 14 Oct 2026 07:32:00 +0000 (GMT)
-Date: Wed, 14 Oct 2026 13:01:59 +0530
-From: "Nysal Jan K.A." <nysal@linux.ibm.com>
-To: Srikar Dronamraju <srikar@linux.ibm.com>,
-        linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-Cc: Samir Mulani <samir@linux.ibm.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] pseries/hotplug: Add CPU-to-node mappings for all
- present CPUs
-Message-ID: <as8sWxTnsmk9rc3k@li-398ad3cc-28e7-11b2-a85c-e030a5b10d54.ibm.com>
-References: <20261012155549.557256-2-srikar@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qCRCI14h"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48deeadb3fdso86380f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 00:32:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791963153; x=1792567953; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dQ9Vi8ze8lwdPqHYidKfxChexwTLWFdZyXa9tkQZSpQ=;
+        b=qCRCI14hHIqMeDgp2NvcNbqKcoIn/KWRNvGWLH+nbRRA1Y6ACO/7f0FcvvxKo+fcEC
+         vvOxkE6W0W0BZhv6U3D4knfif2iAHkySu7QGqkEoSqn7WsScK9pFGTPN8QxIxMYl+EHA
+         pp7DBF8FigwPxC7Lx0zos7kdRft/XuBVavaxml8ClzSW3zxwCwSnLkVr8ZhUNXMwmcTr
+         TsbnFV0D7CIXYefZ81u2Bv0fie0t9HTEN+AUkdRl5fmSv/KxwoGp4EqcdZzZzjfsfx/V
+         lOR95I7zziIAvuJNLy80dQaGpFnjRGCIpTbzLsZbBxWfz/b8Cd3lThFJysdYTV2rUrrt
+         5dUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791963153; x=1792567953;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dQ9Vi8ze8lwdPqHYidKfxChexwTLWFdZyXa9tkQZSpQ=;
+        b=zzL3tGBVRF0KQbQxh/RZFXV1yBXrx8bT3yuw9ay8uqupoPkjtrUzpVSGgKucodovwJ
+         W9VRM8b53dxCRcpXzqtB0JcM8bxUhUQt1Fi59iefPbPAuNXYBgfEpUjm8V59YLKpYCbk
+         nachVUpLU66EzL48c9jzqF/UJnMY39lNUpODPypHQCZL93NwxxXCkOeHFjEU0288b+gG
+         8bpqskIyOTtCpOs/8kQU+2TdAY+W0PJu4R/CfRTAr60NIsNQkPfaHB3uXwhQMsY8HIXD
+         YT6VAu+K2FkTDSR5KcTQS7BjgTy3FqAONXRpU2VxSlTqNSLc5QTzaeOQaiO+KoPipdAX
+         Cyiw==
+X-Forwarded-Encrypted: i=1; AKwUvBxiPQW/UjjVkQxs+FXzSxGGL1VjTy7TV6kKtvSEmdKc1k0EX/vWIIsLE9fraDqfWc1xZdFY8DG7L+CkaKc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYICz4+5VeX1jJR69opF5OYZd4OZ4Hw672M4TOIrfM4CKYrziyOW
+	aqB2+B3DtjhTTMLkkM0487RiLpmOIkAxf/ZYTUTnM0ZKOH3mPFojEhol
+X-Gm-Gg: AYBFou0yEZAuw0YcLORPEB7hwOjSUbs3HDMhtuhLihrJ8UqSI5p5/pnH5ePrdJlGbGs
+	jGbF9pMriFsEPI/wz5jvCO4MLhJdJUji3FukIhLaWL49K1jPDBQ1kvdJLdrbPAgbWkqv4iTwd6/
+	v/TeEgnGciSlKXIBf3w6PLe0AXxkxotJlwbNG/s4rwIIOkA/tPA1SwPSk3YCUIuXRY10UHQiknf
+	64t5qqg4CZ5xR2pEbzXtakfx7kf8Tb7t+o8kNZ6Cn2WTg7VM5OXx8ssXlafKWa0+0FcKL2726ef
+	yZeWvk4ge9ecxob468pHnyh0wirCa6bEk6+1X/ez3QlvxkOjeJHo6Jg/w1DjUEWR6Up2gwjyKsC
+	SjBtVME5HQlyQPKiZqfWO0J0cU4EeC5U3uhIudwRgWddCnseDQAn+kU5XVkW7yvykM3YQbqW2au
+	YBzwc4+ZLh3WuZBtzw5TJGIf/WfvLNZY+8LOYv1qq/FeyicMOFs6JVUwaScct34X4vmJ4ESMzGn
+	vRc40ty8+WALA==
+X-Received: by 2002:a05:6000:2906:b0:48b:226:839 with SMTP id ffacd0b85a97d-48dbaaed220mr27241742f8f.14.1791963153131;
+        Wed, 14 Oct 2026 00:32:33 -0700 (PDT)
+Received: from localhost.localdomain ([2a06:c701:4778:c500:9cb0:7d9f:2fd:3903])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0967bf5sm9622415f8f.5.2026.10.14.00.32.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 00:32:32 -0700 (PDT)
+From: Avi Weiss <thnkslprpt@gmail.com>
+To: Kenneth Feng <kenneth.feng@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Lijo Lazar <lijo.lazar@amd.com>,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Avi Weiss <thnkslprpt@gmail.com>
+Subject: [PATCH] drm/amd/pm: propagate errors when forcing SMU11 clock levels
+Date: Wed, 14 Oct 2026 10:32:28 +0300
+Message-ID: <20261014073228.2095339-1-thnkslprpt@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012155549.557256-2-srikar@linux.ibm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: N6Rc_U2Z5jtpBdyoOcb6cEbLHRIYmRzY
-X-Proofpoint-ORIG-GUID: d0c8A-9cvIwHxq8fNUBl-1hO3kW1ECr7
-X-Authority-Analysis: v=2.4 cv=aqInmiZV c=1 sm=1 tr=0 ts=6acf2ff6 cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=Bv3w2hTe2OTDbRRUDo0A:9
- a=CjuIK1q_8ugA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDAyOCBTYWx0ZWRfX+EWBNuCWySJI
- woI/uZLlcZq0YJ3KUY7NHneOJYT42n/pFDM6O5iSMU3Wkhin6uWbJKQybUtmcjWwU6iN1ovHs9u
- bdE9kukABoT37WXmKA5fnwIw/Mi5EmE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDAyOCBTYWx0ZWRfXxO43yNKbxHV8
- fI6bWcvVmiMobkqU4aXXWNj1cFvi3O+w6tnEMk6pRcBFlfzv7TjBTNWFa30eefC9X5bUoLFLdhS
- LZEPWebQsuvCpZy8JrwM1K/37KdCd19Y7FSoQefsszsALJVaolVX9rOC1BPQxdVwehLPuy3Qb2d
- KKwAwoKKZ1OOf6fV7msEeZEuQXqdfZZo6sT1qhUL0TnCLyZirmXc5N/vQLj6pTklw9ibWfAOnv9
- v4zB1pfeH+4Y05Ikz5WYxrHFWwxJgt4soqJSGIKoYBcHMna+C0kmD+8jt7DnVkb3fCuknEYQ6uI
- 4VVtRphVo7WmpvRzLKTmgFmKO4H8PsNHeLm7t24RTGn7oy0JDXMKIOhatLbBwE3Ww0wpYTmsCdO
- MGNToWejZL/+UlK4vYNsAM94WD+n5XbU3pC3kWYI80a5ZDni8dvakybt6ft7q2zCMVgn4NvC3RZ
- 4UH/eaivJB/MERUW3KA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1011 spamscore=0 malwarescore=0 suspectscore=0
- bulkscore=0 adultscore=0 impostorscore=0 priorityscore=1501
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610140028
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 12, 2026 at 09:25:49PM +0530, Srikar Dronamraju wrote:
-> diff --git a/arch/powerpc/platforms/pseries/hotplug-cpu.c b/arch/powerpc/platforms/pseries/hotplug-cpu.c
-> index bc6926dbf148..b5dc942eec63 100644
-> --- a/arch/powerpc/platforms/pseries/hotplug-cpu.c
-> +++ b/arch/powerpc/platforms/pseries/hotplug-cpu.c
-> @@ -402,6 +402,7 @@ static int dlpar_online_cpu(struct device_node *dn)
->  			if (get_hard_smp_processor_id(cpu) != thread)
->  				continue;
->  
-> +			find_and_update_cpu_nid(cpu);
->  			if (!topology_is_primary_thread(cpu)) {
->  				if (cpu_smt_control != CPU_SMT_ENABLED)
->  					break;
+navi10_force_clk_levels() and sienna_cichlid_force_clk_levels()
+return success when a DPM frequency lookup or soft frequency range
+update fails. smu_force_smuclk_levels() then records the requested
+clock mask even though the operation failed.
 
-The fix looks correct to me. As an improvement, would limiting only the primary
-thread to making the H_HOME_NODE_ASSOCIATIVITY hcall perhaps be quicker?
-The primary thread can then update the nid of its sibling threads?
+Return the helper error from both callbacks instead to improve
+observability. No obvious reason to clobber the return values here.
 
---Nysal
+Fixes: db439ca21b81f ("drm/amd/powerplay: add function force_clk_levels for navi10")
+Fixes: b455159c05313 ("drm/amdgpu/powerplay: add initial swSMU support for sienna_cichlid (v2)")
+Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c         | 6 +++---
+ drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c | 2 +-
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+index f8ca5eb9adc6..2d05088619f6 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+@@ -1439,15 +1439,15 @@ static int navi10_force_clk_levels(struct smu_context *smu,
+ 
+ 		ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, soft_min_level, &min_freq);
+ 		if (ret)
+-			return 0;
++			return ret;
+ 
+ 		ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, soft_max_level, &max_freq);
+ 		if (ret)
+-			return 0;
++			return ret;
+ 
+ 		ret = smu_v11_0_set_soft_freq_limited_range(smu, clk_type, min_freq, max_freq, false);
+ 		if (ret)
+-			return 0;
++			return ret;
+ 		break;
+ 	case SMU_DCEFCLK:
+ 		dev_info(smu->adev->dev, "Setting DCEFCLK min/max dpm level is not supported!\n");
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+index b42897e7c066..4ef3863fae1a 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+@@ -1460,7 +1460,7 @@ static int sienna_cichlid_force_clk_levels(struct smu_context *smu,
+ 	}
+ 
+ forec_level_out:
+-	return 0;
++	return ret;
+ }
+ 
+ static int sienna_cichlid_populate_umd_state_clk(struct smu_context *smu)
+
+base-commit: 4056b3c9d3c92ea45955641dbafeb9b960e146ef
+-- 
+2.43.0
+
