@@ -1,32 +1,62 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1BC14F4024
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:21:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30CC93E4C75;
+	Wed, 14 Oct 2026 10:21:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.230.196.243
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791973276; cv=none; b=l3zeA6gw2JX88u+S/2TMv/dgnQ/D0yLkKm63lvv/ExHaxOsccwTHBguJWIlyQjOUNkCvHOZwxwAn+r7fWLAHjrhEdFRwJDae3O+zJp1m0biqOMkIt2swTGR+mFDwTUJk2r6pSWJbX6COWf84sjQSA8JtISKoiyrJXv/aoMMS9Ww=
+	t=1791973321; cv=none; b=FjaVo6y+y1XwWHhVK357wQV8LIz6LVhUKlvIVtUpQwofUoypx2lEt5N2pCDD9asZTFVhtt3vvSyE3/0spNMBlxIBFYFHuGxpxroKaveuODcJEjkrR3XgT1+vlC4ayDHKj3Is7F4fi5Du394spOFoRXsfsrCSh76QSbYGV0ehT9E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791973276; c=relaxed/simple;
-	bh=njg6+XaQlIpCc1rNMJ/54owvIq4wJWwJqANTmyyPYvY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WtCKeYqU8FxqskXjfjV0VLPfrMtBUTf4Vz8QcoYzKE+1glf1fo7DXYbtIq3gGucnGWdrPdCqJU/ho/kyQH4ze+t4G38aai+DRragJZ9ektGPBisIVRKjoAleTBfTttwPZVxEr7gFhrYuQUKWuASy6XsTrOw0tTTfjQ6eYuR/Pl0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 431141F000FF;
-	Wed, 14 Oct 2026 10:21:11 +0000 (UTC)
-From: Geert Uytterhoeven <geert+renesas@glider.be>
-To: Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Jisheng Zhang <jszhang@kernel.org>,
-	Conor Dooley <conor.dooley@microchip.com>
-Cc: linux-riscv@lists.infradead.org,
+	s=arc-20240116; t=1791973321; c=relaxed/simple;
+	bh=6PhHbGJyneBOewtMI3bjV7aMDnFRJJreKrCh2fxs4bQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DPiyZVBXQs2IVQXoyVF6+GpPZqOXHG75flnt1RNNQLZgYUhlRDLNx9ThTmirkl2zJMi3Y5Jf+g7lKb6I+VVfNlu/uzCYscVRb9AsyxhIiaa1c42QuiKSv+17+7azqq51qOaDDvQcR5o4kv5eXjQWAmgTLuWefXnpi3E8Qk7VtfU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru; spf=pass smtp.mailfrom=astralinux.ru; dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b=L9633jGp; arc=none smtp.client-ip=37.230.196.243
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b="L9633jGp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
+	s=mail; t=1791973309;
+	bh=6PhHbGJyneBOewtMI3bjV7aMDnFRJJreKrCh2fxs4bQ=;
+	h=From:To:Cc:Subject:Date:From;
+	b=L9633jGpUrk8dtf/mexqpQnx6IQM6gonmO9MjX1BG0BieJWWyzJhAmbJP6he9LwOI
+	 4Mzql6nwvcKXlnALLLyzXUTl+dQnGoQMUA8Na9Jcx3YN0X2UW5lqMTLmKWArX8Qj2F
+	 jSCQmSi/LOn9omVshJhhF3zhFoEItGbl8nKwKdmabyMFF7FeMzjSltXExY6oG+5Q6J
+	 QwzrKWla2VwZn0Twe8rEcqBvop+Z8LwailI5jCSrZSUvRROHstBZfCm8FtiYlFvLRZ
+	 uHTBKgJXOcTHO3Ofy3BfAsdgvkiChLEk1C/4Hada2JWdKU0kDxY1kCGYbM3pQ3yWip
+	 QYN55YxkV+23g==
+Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
+	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 2EE2F25849;
+	Wed, 14 Oct 2026 13:21:49 +0300 (MSK)
+Received: from new-mail.astralinux.ru (unknown [10.205.207.8])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
+	Wed, 14 Oct 2026 13:21:48 +0300 (MSK)
+Received: from DESKTOP-D46TNHI (unknown [10.198.48.143])
+	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4j4S175jJHzDqd;
+	Wed, 14 Oct 2026 13:21:47 +0300 (MSK)
+From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
+	Sasha Levin <sashal@kernel.org>,
+	Muhammad Bilal <meatuni001@gmail.com>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	Sangho Lee <kudo3228@gmail.com>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Johan Hedberg <johan.hedberg@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	linux-bluetooth@vger.kernel.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Geert Uytterhoeven <geert+renesas@glider.be>
-Subject: [PATCH] riscv: RISCV_ISA_SV48 and RISCV_ISA_SV57 should depend on MMU
-Date: Wed, 14 Oct 2026 12:20:39 +0200
-Message-ID: <1b1ca4208d725ae0bb834a61636e48728d79cf80.1791973171.git.geert+renesas@glider.be>
-X-Mailer: git-send-email 2.43.0
+	lvc-project@linuxtesting.org
+Subject: [PATCH 5.10] Bluetooth: HIDP: fix missing length checks in hidp_input_report()
+Date: Wed, 14 Oct 2026 13:20:14 +0300
+Message-ID: <20261014102016.1807-1-mdmitrichenko@astralinux.ru>
+X-Mailer: git-send-email 2.54.0.windows.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -34,37 +64,100 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-KSMG-AntiPhishing: NotDetected
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
+X-KSMG-AntiSpam-Info: LuaCore: 127 0.3.127 0884f7b061fa529b810563f359267cd65d2ec05c, {Tracking_from_domain_doesnt_match_to}, new-mail.astralinux.ru:7.1.1;127.0.0.199:7.1.2;astralinux.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1, FromAlignment: s
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiSpam-Lua-Profiles: 206666 [Oct 14 2026]
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Version: 6.1.1.27
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/14 09:13:00 #28683309
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-LinksScanning: NotDetected
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 1
 
-These options are irreleant for nommu systems.
+From: Muhammad Bilal <meatuni001@gmail.com>
 
-Fixes: 36de74049ec8cb1a ("riscv: introduce RISCV_ISA_SV48 and RISCV_ISA_SV57")
-Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+commit 2a3ac9ee11dbb9845f3947cef4a79dba658cf6f6 upstream.
+
+hidp_input_report() reads keyboard and mouse payload data from an skb
+without first verifying that skb->len contains enough data.
+
+hidp_recv_intr_frame() pulls the 1-byte HIDP header before dispatching
+to hidp_input_report(). If a paired device sends a truncated packet,
+the handler reads beyond the valid skb data, resulting in an
+out-of-bounds read of skb data. The OOB bytes may be interpreted as
+phantom key presses or spurious mouse movement.
+
+Replace the open-coded length tracking and pointer arithmetic with
+skb_pull_data() calls. skb_pull_data() returns NULL if the requested
+bytes are not present, eliminating the need for a manual size variable
+and the separate skb->len guard.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
 ---
- arch/riscv/Kconfig | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Backport fix for CVE-2026-63947
+ net/bluetooth/hidp/core.c | 23 ++++++++++++++++++-----
+ 1 file changed, 18 insertions(+), 5 deletions(-)
 
-diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
-index 15f6e67c60410a87..15beeb4690aebcc4 100644
---- a/arch/riscv/Kconfig
-+++ b/arch/riscv/Kconfig
-@@ -605,7 +605,7 @@ config RISCV_ISA_SSQOSID
+diff --git a/net/bluetooth/hidp/core.c b/net/bluetooth/hidp/core.c
+index 153cda4ed820..299d59838a3b 100644
+--- a/net/bluetooth/hidp/core.c
++++ b/net/bluetooth/hidp/core.c
+@@ -179,12 +179,21 @@ static void hidp_input_report(struct hidp_session *session, struct sk_buff *skb)
+ {
+ 	struct input_dev *dev = session->input;
+ 	unsigned char *keys = session->keys;
+-	unsigned char *udata = skb->data + 1;
+-	signed char *sdata = skb->data + 1;
+-	int i, size = skb->len - 1;
++	unsigned char *udata;
++	signed char *sdata;
++	u8 *hdr;
++	int i;
++
++	hdr = skb_pull_data(skb, 1);
++	if (!hdr)
++		return;
  
- config RISCV_ISA_SV48
- 	bool "Page-Based 48-bit Virtual-Memory System"
--	depends on 64BIT
-+	depends on 64BIT && MMU
- 	default y
- 	help
- 	  Add support for the Page-Based 48-bit Virtual-Memory System.
-@@ -617,7 +617,7 @@ config RISCV_ISA_SV48
+-	switch (skb->data[0]) {
++	switch (*hdr) {
+ 	case 0x01:	/* Keyboard report */
++		udata = skb_pull_data(skb, 8);
++		if (!udata)
++			break;
++
+ 		for (i = 0; i < 8; i++)
+ 			input_report_key(dev, hidp_keycode[i + 224], (udata[0] >> i) & 1);
  
- config RISCV_ISA_SV57
- 	bool "Page-Based 57-bit Virtual-Memory System"
--	depends on 64BIT
-+	depends on 64BIT && MMU
- 	default y
- 	help
- 	  Add support for the Page-Based 57-bit Virtual-Memory System.
+@@ -213,6 +222,10 @@ static void hidp_input_report(struct hidp_session *session, struct sk_buff *skb)
+ 		break;
+ 
+ 	case 0x02:	/* Mouse report */
++		sdata = skb_pull_data(skb, 3);
++		if (!sdata)
++			break;
++
+ 		input_report_key(dev, BTN_LEFT,   sdata[0] & 0x01);
+ 		input_report_key(dev, BTN_RIGHT,  sdata[0] & 0x02);
+ 		input_report_key(dev, BTN_MIDDLE, sdata[0] & 0x04);
+@@ -222,7 +235,7 @@ static void hidp_input_report(struct hidp_session *session, struct sk_buff *skb)
+ 		input_report_rel(dev, REL_X, sdata[1]);
+ 		input_report_rel(dev, REL_Y, sdata[2]);
+ 
+-		if (size > 3)
++		if (skb->len > 0)
+ 			input_report_rel(dev, REL_WHEEL, sdata[3]);
+ 		break;
+ 	}
 -- 
 2.43.0
 
