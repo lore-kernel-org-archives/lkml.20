@@ -1,225 +1,149 @@
-Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013032.outbound.protection.outlook.com [40.93.196.32])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBD1013C9C4
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 00:57:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A043A61FCE;
+	Wed, 14 Oct 2026 01:00:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.32
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791939456; cv=pass; b=KzCbWEQs3V76rj8b1OjHub6KD3j7ZmklKyXYstvR/yv8qHn5uZWDCrCzV+x+8Dtqdcszi0GPWcmJ0U1czCfUGxqMczMW6v648J6vzXwfs/zYjAqHzJ5Ukb+gc2WGcxzd/p1eTEVi/66PDiaR8/rRq5Zr+EJgo1VB0NaMIdmrNm4=
+	t=1791939627; cv=fail; b=OabazXqk6R+Kt2blFHkOGziXW5Cdza9yugmfkOHCKRtEfOhuIdqMATINgpfCn4TEWg0s2hOP3ICzjSvS6mqAhPJsxPevynYwmgvFoRm2b9GFfXD8yTSMaFdBfS9yRPZRCJbdA9BbPhE67flie9v7LjIPqlRQR+8uPXTEGsfdAMg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791939456; c=relaxed/simple;
-	bh=7AJW+pkKJiIaZiVjk3cd+e7+JDtIZRXHEpkbTXm/BVg=;
-	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AZ+55IgCj2LRXimVKLz9/qTnYt+/JFAXt3cXLPS4mIaRPOjHN/4aFfyAEN180APOrhqKsJrqY51g49N8oNAQLgbNO79IafDLJxlzjn1hK/oiWsJKdaxUTA8wcc1BpqsbLU5nhWw+6b+veiU/Oyp7Jv3X2BRnUlaQMKxlRZf/ynI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=pYADnTgt; arc=pass smtp.client-ip=209.85.160.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1791939627; c=relaxed/simple;
+	bh=CNdRuNd3tqxkuhBr8GZMs7d5vGORbSmUvGEwMq29WdI=;
+	h=Content-Type:Date:Message-Id:To:Cc:Subject:From:References:
+	 In-Reply-To:MIME-Version; b=VEEMOO8qoOXwwH5sN1UoMce22J183hQRM+cNDCG815xdRpg198YyrY66uCtS8LBrEmDhXVro++F1d/sstWK/EuHsXvdsaRGrt8mfQAtHXWeY4h+dDZ0h7lkLth1Hh4C5YW1uzCzgsrHOoX94T5Y+mLrL75JmfKiYNpKqZ8s3Mco=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=VBvK9FbC; arc=fail smtp.client-ip=40.93.196.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="pYADnTgt"
-Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-533930955a4so33201841cf.3
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:57:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791939454; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Sz+jCtnBu7M0oMROTDOAxH9JCsk/9xlY3Ct9eXVSur96Uvm4oJO+WVi9ouc69sqxdm
-         jKgTd2W36rLZfj2tU87d0/59rXnK4PAU+3dGvrooYOtx2vNpwoBi1/+RiIv7EeWrRQlR
-         /x7/IXcsVoVLXQeUbVFhmu2+Nz9hVLH7COCsBgWSHbvB+tYnpvYdresjj7COzQbtOscP
-         FPrn7BI+GH58R0G6sRhoChhgcl5sRvDYN8MEu475hZ1ZM+XBBikXfHhJONs1A8OtvIrV
-         1cg/DmTmJwa3rHjVJ6gWk1yGpxff5+zbc8d4GUYa59rRtyhf7TZgr2Nlh1T8LZ0D2Tht
-         XIsA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
-         :from:dkim-signature;
-        bh=7AJW+pkKJiIaZiVjk3cd+e7+JDtIZRXHEpkbTXm/BVg=;
-        fh=ETxZCJYfUh7Uh4m3p4auFts/sPLqFJC6J/td2l62q7I=;
-        b=QXiwCv0dwFOTEfvqVuJ8VwEPpUN1KaLArXEalluJAxs6WGcHk9i0SelHTsdbdv6Ch8
-         gVKGq6X/itE/NtL1oYJWMPxLyJu4Ir17o+Abh2t07rpbXF8M6FlafzVGju9bQnzFPckc
-         y5IEQF3+HHsDemfh/4NrwG+2oKU9fSDWylTbwRd576sPJF8Zg4BrkUbq+dah434G4CqK
-         Ex4VQCCEnXXe+zdE7a5dBSDDT2VJ3q2+QLQJpxaJPvB7EuBN1N6OkZ2Qly24MGuFLGyv
-         IbWLbd36kasFuneuz5IjtdYM62HSqfj7eOvo1nHi8j0yZVTnKFKpWmI1lszjVA5+Q4IB
-         wBhg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791939454; x=1792544254; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7AJW+pkKJiIaZiVjk3cd+e7+JDtIZRXHEpkbTXm/BVg=;
-        b=pYADnTgtO/MBIpKX0GcPbGnt/HW/kCMpYmqE+FhDazUFZhcCG4AB5cnyaUIpuXJ1tX
-         F5WfQET5xyNVW9pa9QycMrtgPVBzBgjPLKbyyaI50WH1FBjmDsofoC3Bqn5hBt0Z7nbX
-         xF1Wg72lHB5pyO8uRIJfCL4bHIeTySskUXdIUsqVI+xhm+JhPcGoIkyS9NQFj7Kc+o4o
-         0DWMpsvWGS5zGOklDGCkGtf/z+djgqlh6tjQeBhzOT7wric3r0mj9vaosCZ9e9jNGmpK
-         WZfpLsw2EDHoFf2Lf2+yNFzyyQ0nJ6WUy9W3MwgDTwKN1lfRh2Pc7hl9SbfvHBcPzAg3
-         fUIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791939454; x=1792544254;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7AJW+pkKJiIaZiVjk3cd+e7+JDtIZRXHEpkbTXm/BVg=;
-        b=HIdb1iwyhghAlNc/yTTk5hJ5aegaKGkZ6UYbd6Hlr9gvPwCbHrEnYxsoqasvG1rQS+
-         VP4gbUfe9NK2i1wKDD3qibKKiWU6j5RveFrH/w7Ao7gd5PtLNFV+4WzJd03K4hOfn++P
-         uB9JjUc3/JVAOHaYAVlpTO/2kXm8sQTl21czMKiOE5aEynhv4Pispvt9bdFio5+ePG+O
-         FE8Rz0luBvTsz1O13vDIJWJTf+DJZ9NuY68CkBAedfJtj7LOtNYhOWkcE3UsQIFmagFh
-         bzlt8Ak9wkKf/Xsp4ny+5GEWHb6yQit3DCQDOFcdaE5N9eC1VkGdgYhDGotMsmi+99dh
-         2+0w==
-X-Forwarded-Encrypted: i=1; AKwUvBxQ/aVPvQ4IcCdZHas+7ihZs15bl0rQ38SHdcAEqBA1Csxe9qf54MsC17vEAKsr1FqW7AKIyvmfXLK98G0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLOHLPfOUNhTRt/tFmdIqMQbMmcWYm1hxZDTnWs63cfgUuBFe8j
-	TgBaNiD8kph74GYnaYXvxnRBCFlGZ5v8+r8yhaEcd2yiOnmeFyw+9WEfpArjxtJzViFO3cZ9odq
-	0/Joyii+HkP5mlURxts2HLSK5Qd+o1GIb1yE5MLU5
-X-Gm-Gg: AYBFou278L7qR44oye401Mw/DdGZHp2sR047h9vJRkp/8+RJPjnpp/lglsG1YQTGz7M
-	yISn4Xfgg66/gaCNcZK2eFz6JfLaxOuqoOfVpT7uz5v2wceOKfOA4HyVLa/Mlc6Gvfd7KR5byZN
-	TRqAqz+H0FQATEaLGmqP5xbcgAe95bDpiXmkOiRaFJ7rzg3T9gfgQtZOI5Ak8Pbv+uVYOHxJy7Q
-	LvAUDpTEyHVSN3gSnbJL42Sr6HWnTWE1EZX+PBa6gcdD9BDWcOQRoFoenG3g6ESzHvhI5FE81bB
-	h97rXuWU6TKVGrGrGPIu2CEWeOeAQw4LU/XbwfAtUjvmIzb7PAlL85tsKFNNiBGK2lXzbY9egrn
-	DG4UPW0os+Q==
-X-Received: by 2002:a05:622a:1b89:b0:535:a5fb:644b with SMTP id
- d75a77b69052e-535a5fb697dmr226430261cf.69.1791939451986; Tue, 13 Oct 2026
- 17:57:31 -0700 (PDT)
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 13 Oct 2026 17:57:30 -0700
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 13 Oct 2026 17:57:30 -0700
-From: Ackerley Tng <ackerleytng@google.com>
-In-Reply-To: <20261010072504.536230-1-aneesh.kumar@kernel.org>
-References: <20261010072504.536230-1-aneesh.kumar@kernel.org>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="VBvK9FbC"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uo+jJnCHJtnLHrFsXvGSNgfDbSukYvQQRUVxWigIGhLnLEL3j81fGXfefHix2meyUF0LUwV+u5k4bX8Y3pKLFmtoGL5PHClG95JVAyUFDmQYuZJmLy5xvR5Oq8Lpv3EjkFPvNdodtIerv3A8qzTQqowQBDDvNds56nCuc18SrXMjLJzH3R+ZpfpPVEo1BpLezwxVgEcw1h2FM0NfHp6RPJ9i2jArQRO0eZ01lmDs+eSmoNK2jCVFyqtvoRL69SH7hKf3n0zvR1hjksqwBV2PDcF4v6aAPX7nOWzOea54LCfEMBDAe2gzFYiZf9s/YpfGjeD8K9ooT9PMWYKDVk/ueQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CNdRuNd3tqxkuhBr8GZMs7d5vGORbSmUvGEwMq29WdI=;
+ b=IGNZltVbYhr9k58ON4G8X/q5urbdj3s4eKLZ3fNIrp3A/ayoCr27F88U6wsxB6dU5dTw5NqaXI4BOFO2+pvsq/xJ38+/ClN6oRqZtPmiPNlsQKGviU/SvZtRtlWLEqieI6GVTtQRBWVk+ag4cYOGZDXZM7f19uJmIbP/a/epZ5WF2LYV3OhswA+ps6xIRYMFUoMVtMf4mVc504GZjvP7cMOnm6KmEnwTjH0VkVDMRCgMShgtUyKJnjso60B2R8itJFthrisoqLZ3WxGUvncuzb4qfYTtVmdg2k0icN+nSf/uULWe6v7nbKhF6AalhvNg9gCg/3LyeabhtnMP+7PhXw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CNdRuNd3tqxkuhBr8GZMs7d5vGORbSmUvGEwMq29WdI=;
+ b=VBvK9FbC8evOGcyLJzckEuxq2a8QifRrXkR8iDQo3SW81BQNdRnX5wJH7DkF5OfGaY524ydt7LhxTN/ftbU2X00+GTJYj2+GaltFIGjil0TcV/v6Zj3ZSpYcgasEy5X/hwBBG8MkYWWA2FG8xGY+ma2V23LQhRRYPrmXvqPG7ul8QnND8gw9WxDCzaDHcprc3cHv4aKWXAiaNY7KiSWK06il5fu2Yorg7rcXCwKGaaWKrTR0i//gIyQWOeE/5hdJVTxzRbbuKQv/By1tYFQKmGE0z+RAfda/QAsRkopTxBEh8fB20MGgc1nsD+MDVdwPyk6H2G1I/tPAAGj3w1BsRg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ SJ0PR12MB6926.namprd12.prod.outlook.com (2603:10b6:a03:485::8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.496.23; Wed, 14 Oct 2026 01:00:19 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0496.021; Wed, 14 Oct 2026
+ 01:00:19 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 14 Oct 2026 10:00:15 +0900
+Message-Id: <DM45KUU32XJY.3SEO01811QCUP@nvidia.com>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Benno Lossin" <lossin@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>
+Cc: "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+ "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v4 06/10] gpu: nova-core: gsp: cmdq: move RPC message
+ logging to RpcMessage
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261009-cmdq-rpc-v4-0-c9ab8de1d3f2@nvidia.com>
+ <20261009-cmdq-rpc-v4-6-c9ab8de1d3f2@nvidia.com>
+In-Reply-To: <20261009-cmdq-rpc-v4-6-c9ab8de1d3f2@nvidia.com>
+X-ClientProxiedBy: TYCP286CA0122.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:2b6::8) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 13 Oct 2026 17:57:30 -0700
-X-Gm-Features: AclHuK8IpfUaX1YzXwxxGXLTDx_2ZBXI8B7jbHF2vFIgFQSAyamwlt7EhEC2s9U
-Message-ID: <CAEvNRgFC6U4er0QhcwVOqWyz657WWWtidkNu0hKS5go4A3cP4g@mail.gmail.com>
-Subject: Re: [RFC PATCH v1 0/6] KVM/VFIO: guest_memfd support for device MMIO resources
-To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>, linux-coco@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Cc: Alex Williamson <alex@shazbot.org>, David Woodhouse <dwmw2@infradead.org>, 
-	David Hildenbrand <david@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
-	Kevin Tian <kevin.tian@intel.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Robin Murphy <robin.murphy@arm.com>, Sean Christopherson <seanjc@google.com>, Will Deacon <will@kernel.org>, 
-	Alexey Kardashevskiy <aik@amd.com>, Xu Yilun <yilun.xu@linux.intel.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Steven Price <steven.price@arm.com>, Fred Griffoul <griffoul@gmail.com>, iommu@lists.linux.dev, 
-	kvm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|SJ0PR12MB6926:EE_
+X-MS-Office365-Filtering-Correlation-Id: c3d5989c-ffae-46da-e566-08df298e8423
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|366016|1800799024|10070799003|23010399003|56012099006|4143699003|11063799006|22082099003|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	k8dlGE20726L0zT5Ubin2268XHzT/l9g1QD2y7pDQMKXOyaXO+s2reBS6vVfBw+vH2U39cxkEF4ha2PUlUS2YFJmsWgFx/nPb944aq+cukvDwGesSxnlQnXVmkPErtQ5mmumx5Q63Eow9c5uxfBG9fOBuYyy/deI2sUfaRkgYRTc4392RgZ+uzL4jJp8OZ5iSNny46el6dw7rjG3njN8bv/UjoepRYCZ2GI6RhH9o9V8fm9U+Uls3j/h4yLeT+ZYMhp2O8nWEFvFf0J56h0mLv2It0kCyLn7Fojy6+E63HzSi4qM6zWclQUWc8lC4Kq7ylxFY3MpQUzUfJKHZkHhILvLYWIhaeSXjctipVoowG9MAb6/BTvvmhqCLRQblFUImp7uLHccRH4rjH8886iIS4yynxbCID3zQ0YJ1huLWSVijoYsUQUpVWrFuJ8rht3T8of13xXFxVDC1pUtZGZg1BQOSqlLzqYKdKVnVkvInDUZzsT24ZUkcVyK9KIjNeSXmE68RPO21ln3mkO669ttn5hw0Njb3HxtDwfOuQGO0qLu4frAcyGVoexBf08pLc3zFC+m0peHZRzD9Tpwf72YsdtJvu1Bomp+n6iaZ3zew9yMCgWJQSyuRcxJ5vOY0Y+5UT+/4oh9fry99nRuQmspMLPrB30ywBoBukiLyhSdNFA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(10070799003)(23010399003)(56012099006)(4143699003)(11063799006)(22082099003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?T1prTlNZN0UzN1hBZzhtUnE0MVgyd2cxTUVZaFdsTVJJQkZadHB6RXAwZWtt?=
+ =?utf-8?B?Z3ZPTXlMYmFYc3JMb3UxeXdRZ0NpeEZNWExsNjBiTFRlOUx2TTdoVVZvdEtP?=
+ =?utf-8?B?OXlYQzRpdzlMbFZjZTZFRW9ZQUlwNk1SSm1GQWI0TXlxL2wrcy8xQXF4QnlU?=
+ =?utf-8?B?RXpZNUwwc05ESFRXd05RdVVGeExGMWxQaFBWY3AxYUY5dnNwTGdFcHhYbHMv?=
+ =?utf-8?B?cStjNFc3WktyTXJWN2RFeGtUQ0hYVmJZWG02VUI1Z2I4TWhHZHFkdHBXL0xD?=
+ =?utf-8?B?MlRZcExUQnF5MXZIRHpETGFOWVU3Vk9veHlXcjgxekNOaW9kamFqVDZuLzFl?=
+ =?utf-8?B?U0FaaHhLS0lzZHpCeEZmNDBiQTB6dTlzb0dTejdUNC8xc0w2bVF5N3JSczJh?=
+ =?utf-8?B?bFh2VkhUZTBGbUswSllLdGo2bDV5b0xGYzRtYkdQbHBWbVllR2thK0l2aE54?=
+ =?utf-8?B?U2F3OGtRQWdiR2ZmUnVkK0ZNZ1paK2NWaEkvdG00eU1LdTg5cWJNUFFCTklO?=
+ =?utf-8?B?alczYmhENTlaR1hsYTVxaEhjbnlwcHAyS2JKUmExNkxRQ0FnTTFnaENDNDBl?=
+ =?utf-8?B?MWdINUtXa2NKblQ1ZnZrMTBnY1gxaUY2NzEzOUdVV2hrTkpBYUlvUWYxRHEx?=
+ =?utf-8?B?ZUE5NlNYakh0c2VrOStLeWlSTlpDNWFVQzJ6TllmVTF6Z1dDUU4vTzVkMEI0?=
+ =?utf-8?B?S3lkUG5MU3lMOFFQUU9oTGlvMC9DWUQ5djVGL204UkQ3dU1MMDlSVlg2K2g3?=
+ =?utf-8?B?QU5sOG45RlhSRTdhQjREM1JzMEQ0V0VKRVNPQzJjNkZpZVBCUmFyK0tXQUto?=
+ =?utf-8?B?VVVHbUtwbFcxTFgwUXp0ZDZ3dGlXYXJkOXhlYllEczNwVVIwajg1amlockRm?=
+ =?utf-8?B?NWpJT3NsclZzaEpBNDZqM2cxdHJRbDFCalVmMkVJQTF2TkxmQ1ZxWjUyNUJp?=
+ =?utf-8?B?K1h0TmhYbUhUWUUvckFnVWRCbEJmTWZZQUd5c3RjT0FiM2lVR0hnZ3djZmhi?=
+ =?utf-8?B?R2ZMMDM4UEQxRm5POVUyZk53R2VKcTNtbG1IVkYxb0IyWjBmcHJFRkpnYWZL?=
+ =?utf-8?B?UlBhRGtjeTRId3d2dG1HZ0s1S0hlcnNVcDRwcUFmMm5qcmMzME1DMytBM1Jr?=
+ =?utf-8?B?TDJtTDl1OXNwcHZuWEp2WS9nRXphc2Zpb3JURlo5ekVpK0ZBUmZrZFBhaThO?=
+ =?utf-8?B?YXJ4ZERVSGcwTDJjZitRL1hJeW01dkYyZ29lTmprby92U3RLRFVZN0JwSXFz?=
+ =?utf-8?B?NnFuWGt4WkdDaWlSNDBhSkhScWp6QXZQdzIwbFY3SDROTVBLRnlyUDNkR1lM?=
+ =?utf-8?B?MmVkQVFIeEdaN1hDd1o1ak5PMmxKSDFiRXV5Nk5WWXJweVRCM0t1M3QxZ2NM?=
+ =?utf-8?B?Q1U2N08ydXhvYVFyVHpQekhvYVViWjVuODZiTHA0RzJxU3VseXV3SVFCcjZY?=
+ =?utf-8?B?a24yOEZnOWhhaVBrSGozN3NYRlgyR1hLSnBQdEVXdXhWbGQ4T3lOQkRuQ29y?=
+ =?utf-8?B?M25PUlJ0QTBTd0pXRVlqZHhsZnZRWGh1V2ZPRjhNR0hQbU1FV0RwL2ZpL0JP?=
+ =?utf-8?B?ZktQNmZxaGRxdFBNZkhQQWRMWjErSWFIWXpQRUs2OFNIVFVBRk1DVEFJc05D?=
+ =?utf-8?B?MFMzcnVMRkJSQm84ejI2NjFPM2x2U1VnYXl6MXFmUmdWZUNSUXlBNEJkZFdS?=
+ =?utf-8?B?K0FaTC90anR6cUxrRjdUY0h2YzdXMDZDR1ZYa0JnVCtyMEkwcDRBYmZrUE5k?=
+ =?utf-8?B?VmFWeGdOS1Z4YlZiMDJ2VDVUQmNlMm5Pa1FMZ1kyb1paQ21wajR1MXM4aUhO?=
+ =?utf-8?B?anlDNmkwMWNqTEtSYlhGODdFT2ErelhBQTdkemVjOC9Ld2hKYkRxRFRzM0FI?=
+ =?utf-8?B?R2labktxSjdlVXhTNHg0M2RNK1FRaW4zaW5VTVdoTWJvMTBmb3ppYmpIRks5?=
+ =?utf-8?B?S0ZraXpMSVkrYUszbUVkQkZ4OWpia1BJbFBtajBxOW9qK1diWHVwQWlXakZT?=
+ =?utf-8?B?eGFzMXBiQTFqL3M1SnYvTkRkUm5xL1BvdXdQcFQvUXNkWjNHTW5TdzdqZFg5?=
+ =?utf-8?B?Yk5jU3ZIK2FCbTZIOWVJTmNGcFd1eXlZRDRtWVZFb0dQaGlGcWNZQlRjWU1N?=
+ =?utf-8?B?bVN3Y0RNYU0rTCs5a3BiUU1SaWpUcVc5NWxJTGdweXZDbU5la2lPSytOTG5M?=
+ =?utf-8?B?NS9XalBacUU3Y09iYThsY2UwN1Nsdi81TDJGWlA4c2J3OTY3MWtTL0pBRHly?=
+ =?utf-8?B?RWJNT0d4dWtDdkpYU0h0eHFkTmRpZFBvQVY1RGlIbEZUZ1RFd1dwclJjcmxP?=
+ =?utf-8?B?aFdHdTN3c1JGWkw4UC8xZlVqZkNXVEJERjZOZW4vdHdPTzZqTEdoSDFRVTdG?=
+ =?utf-8?Q?Q787mEC6jZmE57wWfqD05BKbhliBFk6axSgVelTt+ZmKj?=
+X-MS-Exchange-AntiSpam-MessageData-1: k9MeAd2FCCUpFg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c3d5989c-ffae-46da-e566-08df298e8423
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 01:00:19.0992
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: H+mwZ7CXOpQp7/Qah7xBYnF5Wd31Ky0+OTQKdTYybDc4Z2uT4YtskPNYHfIjcxNoXOaXms/SoS/1TYS1tUxoTA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6926
 
-"Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org> writes:
-
-> This series adds a guest_memfd device-resource framework for exposing PCI
-> BAR memory to guests. The intended use is confidential device assignment,
-> where KVM needs to coordinate private device mappings with shared access
-> through VFIO. The Arm CCA backend is provided separately; these patches
-> contain the guest_memfd, VFIO and IOMMUFD interfaces it uses.
+On Fri Oct 9, 2026 at 8:54 PM JST, Alexandre Courbot wrote:
+> The `RpcMessage` type is the right container for the `log_event` method,
+> since it contains all the data we passed to it. Move it there so callers
+> don't need to extract the required data themselves.
 >
+> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+> ---
 
-Thank you Aneesh!
+Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
 
-I definitely like this since it builds upon [1], the model where
-guest_memfd coordinates zapping during conversions for the
-provider. Please see comparison with the alternative at [2].
-
->
-> [...snip...]
->
-
-I have questions:
-
-> Userspace creates a device-backed guest_memfd using the ordinary VFIO
-> device fd as resource_fd, with GUEST_MEMFD_FLAG_USE_RESOURCE,
-> GUEST_MEMFD_FLAG_DEVICE
-
-With the model described at [1][2][3], I was thinking that the VFIO fd
-would be the resource fd. I'm hoping that there wouldn't be a need for
-GUEST_MEMFD_FLAG_DEVICE.
-
-The plan [3] was for resource fd to represent just the resource but not
-provide any way to access the underlying resource, so that after
-.attach(), guest_memfd's fd should be the way userspace would access the
-underlying resource.
-
-For tmpfs, the example in [1], fsmount() returns an fd that has no
-.mmap/.read/.write ops, which fits the plan above perfectly. It tells
-guest_memfd about the resource, but does not give userspace access to
-the resource.
-
-In VFIO's case, vfio_device_fops does implement .mmap()/.read/.write,
-and I don't think there's a better existing fd that represents a single
-device.
-
-> and GUEST_MEMFD_FLAG_INIT_SHARED. Eligible BAR
-> intervals are registered as guest_memfd memslots. File offsets use the
-> existing VFIO region-offset namespace, allowing one guest_memfd to cover
-> multiple BAR intervals. Device-backed guest_memfd rejects mmap and
-> fallocate; shared guest faults obtain bare BAR PFNs from the provider
-> instead of resolving the memslot HVA or allocating folios.
->
-
-The model I have in mind is kind of opposite from above. Instead of the
-guest_memfd rejecting mmap(), I'm thinking that the VFIO fd should be
-the one that rejects mmap(), read() and write() once guest_memfd
-attaches to it.
-
-If userspace needed to mmap() the VFIO fd, it should instead mmap() the
-guest_memfd fd. guest_memfd doesn't support read() and write() now, but
-support can be added. The read/write for guest_memfd just forwards to
-vfio if the offset range is shared and blocks if the range is
-private.
-
-For mmap(), for regular memory, mmap() is always allowed, but faulting
-dependsd on shared/private status. It would be nice if the same logic
-could apply to guest_memfds that wrap VFIO.
-
-I prefer the userspace accesses to go through guest_memfd to VFIO so
-that the shared/private-ness can be enforced from guest_memfd.
-
-
-Is GUEST_MEMFD_FLAG_DEVICE there because GUEST_MEMFD_FLAG_USE_RESOURCE
-tells guest_memfd to look up
-resource_inode->i_sb->s_op->gmem_provider_ops but for VFIO,
-gmem_provider_ops can't be stored in super_operations? If that's the
-only reason, that's a very good reason to store gmem_provider_ops in
-file_operations for gmem_provider_ops to serve different kinds resources
-and include VFIO.
-
-I also noticed the need to guest_memfd_register_device_fops, so that
-guest_memfd knows the device supports being attached to?
-
-What do you think of this: we have a common attach function for all VFIO
-fds in file_operations that would look up the struct vfio_device to
-determine if guest_memfd can attach to the vfio device? Actually, which
-devices would not support attaching? Wouldn't all devices support
-attaching? I'm thinking that using a device that is all-shared via
-guest_memfd should be no different from using the device directly. All
-operations should flow through to the device.
-
-
-Regarding conversions, I would like to check: with Confidential IO, are
-conversions at runtime actually necessary?
-
-Is the only "conversion" the one when the guest accepts a device? If so,
-maybe that "conversion" can be implemented by replacing memslots.
-
-Pre-accept, mmap() the vfio fd directly, set it up in memslots.
-
-Post-accept, remove the old memslot, wrap the vfio fd with guest_memfd,
-set up the guest_memfd statically with shared/private ranges as the TDI
-report requested and never allow conversions, replace the pre-accept
-memslot.
-
-> IOMMUFD resolves and pins the device's existing vDEVICE for the VM and
-> serializes MMIO conversion through its MMIO mutex. VFIO supplies BAR PFNs,
-> checks eligible ranges and excludes independent dma-buf exports while a
-> guest_memfd provider is attached. VFIO host mmap faults, read/write and
-> ioeventfd accesses check the requested range's guest_memfd attributes.
-> Conversion revokes cached host mappings and shared guest mappings before
-> installing private mappings. Other shared intervals remain accessible.
->
->
-> [...snip...]
->
-
-[1] https://lore.kernel.org/all/20260925-gmem-tmpfs-backend-v1-0-d36159822d18@google.com/
-[2] https://lore.kernel.org/all/CAEvNRgEseLO+LbkwXrEit0H2LH5Wx-srSvHEMpt0=upPL3tF=g@mail.gmail.com/
-[3] https://lpc.events/event/20/contributions/2551/attachments/2047/4693/lpc-2026-gmem-other-backends.pdf
