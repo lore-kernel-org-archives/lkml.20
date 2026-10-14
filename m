@@ -1,181 +1,334 @@
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+Received: from mta0.migadu.com (out-57.mta0.migadu.com [91.218.175.57])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8EAF4349A2
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:08:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0197C48381D
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:08:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.57
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791968887; cv=none; b=UM+9WAdUYhG+MDiEXpgc1fhyvR+iGonSuzNqH91p8dKeZ3Gr2kyZtxxskujpbNG1kMds+aZ++2AZT/LnYY3PBOoMYEl9/gYASelHiaT0/anzTUFnEkcyTAwybMZKM8TIAlYSj7ZNrJek+FWioTgzvkN0bp5BgQPsm1vqcyPiOA8=
+	t=1791968925; cv=none; b=DWyRZGcfuInSgHcaaaGjnvCt3zm8S4dFZPukGObIg3dNT9hPJqD05AmObQUbpZjSy+VjY6XPubr3IFqGaayg7k6JSKrtiHXHt5JKEXMid9jbq1tbpRJF7lbdRa6IEfE0D9Y83clXTo6vBA/vD8L0EygAxLyWB+al26ibrjz9sGY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791968887; c=relaxed/simple;
-	bh=lKiPfEj4GiFsESIXSMABmEWrbzmHHHXncq9jkZ21n/U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=s+A9GfmvVDhoVZO5wvf40HgqA/UBkDktmNS4WGdTpuYb/5qtaazY7A+ULj8gwpbVtbOLTY9l8Brc/MUeDcMNQ3BLf/UMW1J1N5ubbi7iOOtYY5E9kZeDynBdO5vFmmyyV6ejQYCy1ZrHevh211MzO/7qO+NbqAGmkSin3UbiveI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nxIIv81S; arc=none smtp.client-ip=209.85.218.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791968925; c=relaxed/simple;
+	bh=Yi2o4E6jvrlhNUvXO1iyMzGGl83qdBuhWx+mVWs45IU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=P/U7vLsYYz8djVTYkEUZy+7iXH8F9mvB+T/v7i/FKK+SMN3rZjFZjuqGstZJLTveKAAUe+fYSuSAWl8SFCFE3rEIdZg3gd0qojveQP8Tl99PM91GXWAymLLNsTFUQHDok/50VPVpABkd00EObrHQB4lbysZCENrSN452bEhp4ZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=c0eqYvp1; arc=none smtp.client-ip=91.218.175.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nxIIv81S"
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c2055573c8cso468728566b.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 02:08:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791968884; x=1792573684; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=X6jLRvEdFUZOs356gfPWUV5PoYZmQs3hOKeg53YuPxY=;
-        b=nxIIv81SyOUgNpr+UQvGbuCSoGYUXLwmsdeoSLIaqys3RpkLZeGHhHt2Amhli+1Ifz
-         nQDK3nd1B/ZtW98dn57o6x7oA5LnZv975rHuDm9EyVxRfHyQBKty6jsQrIO46YSPURw7
-         yD1CvR9skpiiIFR3k54lELHAez5LGmmstKwHM4zW73xlzf3IE30eiEXBERnvEPfHynlk
-         Uog0x62Wkb4g7tozgkrtd3/ZjOhEBnW2AIN3UhbpamRXP5AFyEae2j3hm+F++g2mOj6L
-         +gpULllYbrIJQToqseJDzoINy8/DTxv2pc4VQV0TNgFcJZUcanCAZMVGOV4pM20aZq4M
-         XoHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791968884; x=1792573684;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=X6jLRvEdFUZOs356gfPWUV5PoYZmQs3hOKeg53YuPxY=;
-        b=sK6Oe/OYWpEvg8IMhyRTq28znIuv2OKWjdxNh0zRK6VYBPXWBUNtOaBVTutEEVlNjN
-         9Bz7qtH44lFL1CkjwcukT0hMa21q/3mcH01flZzoxlpG9PsDfwKiYsvBvtrdzNZneVGM
-         1Vqyk5ftiQmLaAkMmVvrUT1F9KSjkVoE0jHGTZ1MS3Lip8EKwFFCKDCFEzMVzk9fG99b
-         ZxHXChnsn7CiUgt+JIOVwJzSsuT28W3eKZXnrYlw0JZooZuHJAILnmvmlSGY0a1QHvam
-         fpDY0Mouo+erpQ3rHlYvJ7eIkvBp5xxQocVCLZZrqkUeRauXfiBw0mh3keEUgl0FjG9i
-         GOXg==
-X-Forwarded-Encrypted: i=1; AKwUvByCCXVJSKu4b3+r6TV1JvJWe4Iqn+KuJYB/XL419zZh6kmh1B/ZUYXKt2jO5kkAB91IN061PApg+0oJXXk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLRFF4G1lHuWfhHPJBeYPe63XQuJgNVDuOvQ/4j7qwcH6bmjlJp
-	H12sMhlsaKFf/T+4ECIdo/s8JvLIfbB4sAzPtZungxL8bLgeZYgDVn5Y
-X-Gm-Gg: AYBFou27m0MZRRB2QXCQrgRIP5ZS7iwQC/BtWyZb9oFi2LTEybW0TgNWdkXy9q+qxCN
-	93tPt0+VkVxRxO2B55DyLttWh+DBpu9G1O6TSJIBf8pbBcfAR+TTghU+ZLb55pMGmTowBwlTWmN
-	3tax+nrwUUwV1RMZG5wR33lkulW/32INY7ZBKUpl/qDsm+tIYHdHxk3/n3JJKIFkFBG+hn1JQnM
-	oVjfFAYX2Xo2kD/J78yDKiZ6ouf9GYtzvfP0VYx7RJ0W+r0l1f0JoRFoqtNoulP07a1yokFxE0h
-	bxBwZcFzcldO7mlmuKtq00ExNXNMegIPviQYPK6YtLe3mxR9qYLXxi5DzqogZj7PmBbsb+cxFM5
-	EzBKjIi3AFzJ57wHmG2f0a5naHSbSZUJ9+Gp5UOjXMv121Dc8RcnUPmF7C0lvOCtaKbNwYR9a2X
-	z8Ue2Jyv7BARA6bFt6paLaPeLmrr7fELjzsIOP20iKQYIGdAdAus50pt/QDwArB0xL39zWMgHj7
-	DjTD9f7TNA1fHaXBPqzygW2nNKNg40OKdxzWVaJi6xBzPv5voU0WYC5Qqr1jyWA8Dqg5+JnM0zB
-	lSnon6DPK2IHPe28MQUV/9Vqm40ItBe5XTTH8glN7AKe6qJqDuV6FbHrR2pWJaLGXMNICvZ55wz
-	doNpRm+00pVHCII70K9DcrGzYYn+wcilh9Q==
-X-Received: by 2002:a17:907:a310:b0:c2e:4e08:19ab with SMTP id a640c23a62f3a-c31a9afb4b9mr1447672966b.16.1791968883457;
-        Wed, 14 Oct 2026 02:08:03 -0700 (PDT)
-Received: from [192.168.100.100] (87-205-15-91.static.ip.netia.com.pl. [87.205.15.91])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3b7ee45694sm25010166b.34.2026.10.14.02.08.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 02:08:03 -0700 (PDT)
-Message-ID: <ab4a8b2c-0274-4423-8d10-04e7efb6c120@gmail.com>
-Date: Wed, 14 Oct 2026 11:08:02 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="c0eqYvp1"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Yi2o4E6jvrlhNUvXO1iyMzGGl83qdBuhWx+mVWs45IU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791968920; v=1; x=1792573720;
+ b=c0eqYvp1Z/KQaH7DLM//9cbrSu69qeSoHnoAOk1lnuepMgE3PMfzsWRwnYpiAXHkgNtpIXYa
+ dAwYrRD9HxAOkFInn5XIKq/nXPtBwGr9ngvjWWSxdvobQSAC3ShVOFeLOPHInLtUKbqW2unKyUB
+ MGPahkDasJFZ2SW17bFLw/sc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ee47123ca44ef893;
+	Wed, 14 Oct 2026 09:08:38 +0000
+X-Mizu-Trace-ID: ee47123ca44ef893
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: linux-mm@kvack.org
+Cc: Jiayuan Chen <jiayuan.chen@shopee.com>,
+	Jiayuan Chen <jiayuan.chen@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Chris Li <chrisl@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Youngjun Park <youngjun.park@lge.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH mm-next] mm/swap: free swap cache folios the zap path gave up on
+Date: Wed, 14 Oct 2026 17:08:19 +0800
+Message-ID: <20261014090821.227366-1-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2 2/2] net/sched: taprio: do not replay missed
- entries in advance_sched()
-To: Vinicius Costa Gomes <vinicius.gomes@intel.com>,
- Jamal Hadi Salim <jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>, Vladimir Oltean
- <vladimir.oltean@nxp.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- syzbot+e044a9b6370ed8ca9737@syzkaller.appspotmail.com
-References: <20261009123309.284193-1-krystianmkaniewski@gmail.com>
- <20261009123309.284193-3-krystianmkaniewski@gmail.com>
- <87ik36lee9.fsf@intel.com>
-Content-Language: en-US
-From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
-In-Reply-To: <87ik36lee9.fsf@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/13/26 00:53, Vinicius Costa Gomes wrote:
+From: Jiayuan Chen <jiayuan.chen@shopee.com>
 
-Hi Vinicius,
+On our production hosts we saw swap cache only pages keep growing for days:
+on a box with a 500 GiB swap partition, 250 GiB of RAM and 250 GiB of
+swap slots were held by folios that no process mapped any more, charged
+to cgroups whose workloads had long exited. The only way to get them
+back was swapoff, and with other services actively swapping on the
+same host that is not an option.
 
-Thanks for the review, and for the Ack on patch 1.
+Such a slot has swap count 0 and an unmapped folio pinned in the swap
+cache, left there after a process exited or did MADV_DONTNEED. No page
+table holds its swap entry any more, so nothing comes back for the
+slot; LRU reclaim drops it eventually, and the allocator only reclaims
+such slots once swap is half full. The growth stopped exactly there:
+at 50% of the device, where vm_swap_full() becomes true.
 
->>  struct taprio_sched {
->> @@ -902,8 +909,19 @@ static bool should_change_schedules(const struct sched_gate_list *admin,
->>  	 * plus the amount that can be extended would fall after the
->>  	 * next schedule base_time, we can extend the current schedule
->>  	 * for that amount.
->> +	 *
->> +	 * cycle_time_extension is an unbounded signed value from netlink, so
->> +	 * clamp the sum instead of letting it wrap. A wrap would make this
->> +	 * test non-monotonic in end_time, and advance_sched() relies on it
->> +	 * being monotonic to check it once after catching up instead of once
->> +	 * per skipped entry.
->>  	 */
->> -	extension_time = ktime_add_ns(end_time, oper->cycle_time_extension);
->> +	if (oper->cycle_time_extension > 0 &&
->> +	    end_time > KTIME_MAX - oper->cycle_time_extension)
->> +		extension_time = KTIME_MAX;
->> +	else
->> +		extension_time = ktime_add_ns(end_time,
->> +					      oper->cycle_time_extension);
->>
-> 
-> This one I could argue that it could be in a separate patch. As the
-> wrapping could cause issues even before these changes, no?
-> 
+The race is readahead against a zap in a neighbouring thread. Readahead
+works on virtual addresses, so a fault at the end of thread A's range
+pulls in the entries at the start of thread B's range:
 
-Yes. With an extension larger than KTIME_MAX minus the end time, the sum
-becomes negative and should_change_schedules() ignores the extension.
-That is independent of the stall. I can move the clamp to a separate 
-patch with a Fixes tag for c25031e99344 ("taprio: Add support
-for cycle-time-extension"), before the advance_sched() change which
-relies on it.
+  thread A                               thread B
+  do_swap_page()
+    swap_vma_readahead()
+      swap_cache_read_folio(B's entry)
+        folio locked, added to cache
+        swap_read_folio()                MADV_DONTNEED
+          zswap_load() / bio in flight     zap_nonpresent_ptes()
+          .                                  swap_put_entries_cluster()
+          .                                    swap count 1 -> 0
+          .                                    __try_to_reclaim_swap()
+          .                                      folio_trylock() fails
+          .                                      gives up
+          folio_unlock()
+      folio_put()
+  -> slot: swap count 0, folio in swap cache, not mapped, never freed
 
-get_interval_end_time() has the same addition on the txtime-assist path.
-I can cover that path in the same  patch as well. Would you like me to
-do it? 
->> +	struct sched_entry *entry, *found = NULL;
->> +	ktime_t cycle_start = sched->start_time;
->> +	s64 offset, entry_end = 0, elapsed = 0;
->> +
->> +	if (ktime_after(now, cycle_start)) {
->> +		s64 periods = div64_s64(ktime_sub(now, cycle_start),
->> +					sched->period);
->> +
->> +		cycle_start = ktime_add_ns(cycle_start,
->> +					   periods * sched->period);
->> +	}
->> +	offset = ktime_sub(now, cycle_start);
->> +
->> +	/* The offset is less than one period, so an entry which ends after
->> +	 * @now is found at the latest at the entry which reaches the end of
->> +	 * the cycle, or at the last entry. A schedule has at least one entry,
->> +	 * so the loop always sets found.
->> +	 */
->> +	list_for_each_entry(entry, &sched->entries, list) {
->> +		entry_end = min_t(s64, elapsed + entry->interval,
->> +				  sched->cycle_time);
->> +		if (offset < entry_end ||
->> +		    list_is_last(&entry->list, &sched->entries)) {
->> +			found = entry;
->> +			break;
->> +		}
->> +		elapsed = entry_end;
->> +	}
->> +
->> +	*start = ktime_add_ns(cycle_start, elapsed);
->> +	*end = ktime_add_ns(cycle_start, entry_end);
->> +	sched->cycle_end_time = ktime_add_ns(cycle_start,
->> sched->cycle_time);
-> 
-> Having this side effect here was unexpected. I think this would make
-> more sense outside this function.
-> 
+The lock is one reason it gives up. The other is writeback: with a block
+device as backing store, B's own PAGEOUT leaves the folio in the swap
+cache under writeback, and when the DONTNEED comes __try_to_reclaim_swap()
+gets the lock but folio_swapcache_freeable() refuses. The write
+completes, nobody frees the slot. The present-PTE side has the same two
+outcomes through free_swap_cache().
 
-Agreed. I can make taprio_entry_at() return the cycle end through an
-extra output argument and have advance_sched() store it explicitly in
-oper->cycle_end_time. The helper could then take the schedule as const.
+Options considered:
 
-I can wait for the rest of your review of this patch before sending v3
+1. Fix it on the readahead side: after the read, check the swap count
+   and free the slot. Covers the lock, not writeback, and the
+   asynchronous read path unlocks in the bio completion where the slot
+   cannot be freed. Two places to patch, neither clean.
+2. swapoff/swapon clears it, as does memory.reclaim on the right cgroup.
+   That is a workaround, not a fix.
+3. Have the side that gives up come back later. This patch.
 
+The zap runs under the PTL and the fault path takes the folio lock
+before the PTL, so waiting there is out; a worker has to do it. On a
+lost trylock or a writeback refusal under TTRS_UNMAPPED,
+__try_to_reclaim_swap() schedules si->sweep_work. The worker walks the
+in-use clusters and, for every slot with swap count 0 whose folio is
+unmapped, calls __try_to_reclaim_swap() with TTRS_WAIT, which takes the
+folio lock and waits for writeback instead of giving up.
+free_swap_cache() now calls __try_to_reclaim_swap() as well, so both
+paths give up, and wake the worker, in the same place.
+
+For now the worker scans every in-use cluster of the device; marking
+the clusters that need it can reduce that later.
+
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>
+Signed-off-by: Jiayuan Chen <jiayuan.chen@shopee.com>
+---
+ include/linux/swap.h |   1 +
+ mm/swap.h            |   1 +
+ mm/swap_state.c      |   9 ++--
+ mm/swapfile.c        | 101 ++++++++++++++++++++++++++++++++++++++++++-
+ 4 files changed, 104 insertions(+), 8 deletions(-)
+
+diff --git a/include/linux/swap.h b/include/linux/swap.h
+index 4f686709d71f..5777f10e9aa4 100644
+--- a/include/linux/swap.h
++++ b/include/linux/swap.h
+@@ -267,6 +267,7 @@ struct swap_info_struct {
+ 					 */
+ 	struct work_struct discard_work; /* discard worker */
+ 	struct work_struct reclaim_work; /* reclaim worker */
++	struct work_struct sweep_work;	/* frees swap cache only slots a zap gave up on */
+ 	struct list_head discard_clusters; /* discard clusters list */
+ 	struct plist_node avail_list;   /* entry in swap_avail_head */
+ 	const struct swap_ops *ops;
+diff --git a/mm/swap.h b/mm/swap.h
+index d5bf21f517dc..f62f36c0ce5c 100644
+--- a/mm/swap.h
++++ b/mm/swap.h
+@@ -309,6 +309,7 @@ static inline bool folio_matches_swap_entry(const struct folio *folio,
+  * - See the comment of get_swap_device() for more complex usage.
+  */
+ bool swap_cache_has_folio(swp_entry_t entry);
++void swap_reclaim_entry(swp_entry_t entry);
+ struct folio *swap_cache_get_folio(swp_entry_t entry);
+ void *swap_cache_get_shadow(swp_entry_t entry);
+ void swap_cache_del_folio(struct folio *folio);
+diff --git a/mm/swap_state.c b/mm/swap_state.c
+index ebef568cd62e..99708f149b25 100644
+--- a/mm/swap_state.c
++++ b/mm/swap_state.c
+@@ -598,16 +598,13 @@ void swap_writeback_dropbehind_folio(struct folio *folio)
+  *
+  * Its ok to check the swapcache flag without the folio lock
+  * here because we are going to recheck again inside
+- * folio_free_swap() _with_ the lock.
++ * __try_to_reclaim_swap() _with_ the lock.
+  * 					- Marcelo
+  */
+ void free_swap_cache(struct folio *folio)
+ {
+-	if (folio_test_swapcache(folio) && !folio_mapped(folio) &&
+-	    folio_trylock(folio)) {
+-		folio_free_swap(folio);
+-		folio_unlock(folio);
+-	}
++	if (folio_test_swapcache(folio) && !folio_mapped(folio))
++		swap_reclaim_entry(folio->swap);
+ }
+ 
+ /*
+diff --git a/mm/swapfile.c b/mm/swapfile.c
+index c3288910b3e3..ee29085152fe 100644
+--- a/mm/swapfile.c
++++ b/mm/swapfile.c
+@@ -172,6 +172,8 @@ static long swap_usage_in_pages(struct swap_info_struct *si)
+ #define TTRS_UNMAPPED		0x2
+ /* Reclaim the swap entry if swap is getting full */
+ #define TTRS_FULL		0x4
++/* May sleep: wait for the folio lock and for writeback instead of giving up */
++#define TTRS_WAIT		0x8
+ 
+ static bool swap_only_has_cache(struct swap_cluster_info *ci,
+ 				unsigned long offset, int nr_pages)
+@@ -217,9 +219,19 @@ static int __try_to_reclaim_swap(struct swap_info_struct *si,
+ 	 * avoiding deadlock. This is a special case and you should
+ 	 * use folio_free_swap() with explicit folio_lock() in usual
+ 	 * operations.
++	 *
++	 * The zap path (TTRS_UNMAPPED) is the one caller for which giving
++	 * up means the slot is never looked at again: it stays allocated
++	 * with count 0 and an unmapped folio pinned in the swap cache. Let
++	 * the sweep worker, which can wait, come back for it.
+ 	 */
+-	if (!folio_trylock(folio))
++	if (flags & TTRS_WAIT) {
++		folio_lock(folio);
++	} else if (!folio_trylock(folio)) {
++		if (flags & TTRS_UNMAPPED)
++			schedule_work(&si->sweep_work);
+ 		goto out;
++	}
+ 
+ 	/*
+ 	 * Offset could point to the middle of a large folio, or folio
+@@ -232,11 +244,20 @@ static int __try_to_reclaim_swap(struct swap_info_struct *si,
+ 	}
+ 	offset = swp_offset(folio->swap);
+ 
++	if (flags & TTRS_WAIT)
++		folio_wait_writeback(folio);
++
+ 	need_reclaim = ((flags & TTRS_ANYWAY) ||
+ 			((flags & TTRS_UNMAPPED) && !folio_mapped(folio)) ||
+ 			((flags & TTRS_FULL) && mem_cgroup_swap_full(folio)));
+-	if (!need_reclaim || !folio_swapcache_freeable(folio))
++	if (!need_reclaim)
++		goto out_unlock;
++	if (!folio_swapcache_freeable(folio)) {
++		/* Same for a folio the zap caught under writeback. */
++		if ((flags & TTRS_UNMAPPED) && folio_test_writeback(folio))
++			schedule_work(&si->sweep_work);
+ 		goto out_unlock;
++	}
+ 
+ 	/*
+ 	 * It's safe to delete the folio from swap cache only if the folio
+@@ -1099,6 +1120,80 @@ static void swap_reclaim_work(struct work_struct *work)
+ 	swap_reclaim_full_clusters(si, true);
+ }
+ 
++/*
++ * Free the slots a zap could not take back: swap cache only, count 0, folio
++ * not mapped. The zap runs under the PTL, so when the folio was locked (a
++ * readahead or an asynchronous swap-in still reading into it) or under
++ * writeback, __try_to_reclaim_swap() had to give up and scheduled us. Such
++ * a slot is reachable by nobody but LRU reclaim: no page table holds its
++ * entry, and the allocator skips it until swap is half full. Here we can
++ * wait for the lock and the writeback.
++ */
++static void swap_sweep_work(struct work_struct *work)
++{
++	struct swap_info_struct *si;
++	struct swap_cluster_info *ci;
++	unsigned long offset, end, swp_tb;
++	unsigned long nr_clusters;
++	int nr_reclaim;
++
++	si = container_of(work, struct swap_info_struct, sweep_work);
++	nr_clusters = DIV_ROUND_UP(si->max, SWAPFILE_CLUSTER);
++
++	for (unsigned long i = 0; i < nr_clusters; i++) {
++		ci = si->cluster_info + i;
++		offset = i * SWAPFILE_CLUSTER;
++		end = min(si->max, offset + SWAPFILE_CLUSTER);
++
++		spin_lock(&ci->lock);
++		if (!ci->count) {
++			spin_unlock(&ci->lock);
++			continue;
++		}
++		while (offset < end) {
++			swp_tb = swap_table_get(ci, offset % SWAPFILE_CLUSTER);
++			/*
++			 * A mapped folio with count 0 is a page swapped in and
++			 * kept in the swap cache: useful, and not ours. The
++			 * folio cannot leave the cache while we hold ci->lock,
++			 * so peeking at it is safe; the real check is done
++			 * under the folio lock in __try_to_reclaim_swap().
++			 */
++			if (swp_tb_is_folio(swp_tb) && !__swp_tb_get_count(swp_tb) &&
++			    !folio_mapped(swp_tb_to_folio(swp_tb))) {
++				spin_unlock(&ci->lock);
++				nr_reclaim = __try_to_reclaim_swap(si, offset,
++								   TTRS_UNMAPPED | TTRS_WAIT);
++				spin_lock(&ci->lock);
++				if (nr_reclaim) {
++					offset += abs(nr_reclaim);
++					continue;
++				}
++			}
++			offset++;
++		}
++		spin_unlock(&ci->lock);
++		cond_resched();
++	}
++}
++
++/*
++ * The present-PTE zap path drops a folio that was mapped from the swap
++ * cache. Same rules as the swap-entry zap: free the slot if the folio is
++ * unmapped and unused, let the worker handle it if that is not possible
++ * right now. @entry may already be stale, get_swap_device() sorts that out.
++ */
++void swap_reclaim_entry(swp_entry_t entry)
++{
++	struct swap_info_struct *si;
++
++	si = get_swap_device(entry);
++	if (IS_ERR_OR_NULL(si))
++		return;
++	__try_to_reclaim_swap(si, swp_offset(entry), TTRS_UNMAPPED);
++	put_swap_device(si);
++}
++
+ /*
+  * Try to allocate swap entries with specified order and try set a new
+  * cluster for current CPU too.
+@@ -3264,6 +3359,7 @@ SYSCALL_DEFINE1(swapoff, const char __user *, specialfile)
+ 
+ 	flush_work(&p->discard_work);
+ 	flush_work(&p->reclaim_work);
++	flush_work(&p->sweep_work);
+ 	flush_percpu_swap_cluster(p);
+ 
+ 	destroy_swap_extents(p, p->swap_file);
+@@ -3744,6 +3840,7 @@ SYSCALL_DEFINE2(swapon, const char __user *, specialfile, int, swap_flags)
+ 
+ 	INIT_WORK(&si->discard_work, swap_discard_work);
+ 	INIT_WORK(&si->reclaim_work, swap_reclaim_work);
++	INIT_WORK(&si->sweep_work, swap_sweep_work);
+ 
+ 	CLASS(filename, name)(specialfile);
+ 	swap_file = file_open_name(name, O_RDWR | O_LARGEFILE | O_EXCL, 0);
 -- 
-Krystian Kaniewski
+2.43.0
+
