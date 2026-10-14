@@ -1,348 +1,482 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17D201684B0
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:43:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C09E3EFFA6
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:43:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791952982; cv=none; b=Ea+XTfT5yjCPQ3hWO4NM3QFr9FGqhTWHopluOLWKG78B/eBORUh+OShR3cV8RgLOv2PbPOqY27bfAO6m6/J8y0QBqp0JR/WPL2WmwNj1lF2ub3I/zkehUWe21nxNgFdBGp7dChvAeXX43ZszwXMnfPDa6zb4saRq3Uz/P/sedjs=
+	t=1791952997; cv=none; b=HMtNbD6d31LQWDCJVsQmtIc7JPokxEAvmFpZolj16SiAM+C4rkkiyZMJ/mnhjHuxMuzVMe6EWTkfMfK1ev5RsHyO6tdb65Mix7zFJSnQC+2fTUYM8oHkIoEkGR4Lm3M3PpMLjmGZ5UvyxLf1jQrQwXSF/UHjqezhMWmafSFWuGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791952982; c=relaxed/simple;
-	bh=0bAuze9MEnEDD51YN5CdjOk1cbTBU+MbTZLtgTU04zo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AxpgSJ6VjPneiWDfw8YwkuMPsPoO29w8Mxrj8E5aMi3wcDFhxWXymDBfg3ePKL5XJFu4wP7P3CCzG5B/jueGJWKsVorIkqqmeoswn1xtqMzt01JZCqY5OtenYJ1JH2J+IaU06c1eFeu+1OsyKhh2FLzFJEyXRTua5xQT6aq50RE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=iMtg+E71; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QqWR0Fgh; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791952997; c=relaxed/simple;
+	bh=2u2iZ4MnE1LUkH1mDWgsFFovKkL7ZSCXFFxCM2tzvzw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nc+XZACsJQrSZLqEKmOi0biEM0HtAqvRQSAgca8pXiiJzN7PMtpLxHcW46jTaNN9XGVv7n9OOpGQojf+UBIaxdiiLzl26GVcskdG9oVN2wf0BHH6ROJ5Gwts5SEr1aaaI3KsE3sS+/rDe7DRFcFJ8P68t2oNtVWRmrJjkGq7Eak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y0EL/UOx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="iMtg+E71";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QqWR0Fgh"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69DNCjVX2088027
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:43:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	9K3cbdb7dFzpqCr6C1BNZjsMaePAgKuPmBno8+Ephi4=; b=iMtg+E714UVPUI52
-	b1D/C3M/dbkGmWbv/g2rz5tue+k4RIOEG4lnLOIo/RzQlcHI6z3w3PVxThYerX5C
-	MGpyNWnocd4jHJ8vpou2RA0U2CwRNIaOOdf9CAZKWqZ8N1rjEQbqvnoj7yTds8Qv
-	aPDC+efYvYZc69IbEvvExDPnAT6dOq8JZvrhPNLcdhXqR0WPM3MnqAJtbOnQUblS
-	Wp2BDuF/jjIYCpAaVK3PnuWI4wUhrREGP54l+eNHQUwtVTGocT/dxLvsZ7MZbt04
-	ym/JnljrtuLHyQ/gRV4l+Km7tdrU49p7/SZagv7baw1VAcdPjlelTZI0188hvJFT
-	RcmCzA==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9x49h08r-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:43:00 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-35a04491c56so657478eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 21:43:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791952979; x=1792557779; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9K3cbdb7dFzpqCr6C1BNZjsMaePAgKuPmBno8+Ephi4=;
-        b=QqWR0Fgh0LH+W3RCfrZwCFjFCaKsGZxR8ZlzLxAEO8qDiANKTvjP0XNUDV+d+OYYdH
-         ZzAgDYrlfCHQ5UT1g5bR+BA7l7bw8Jlto/RO3BKYkngNENGvmFiHg+4YsLOe/2sktiDI
-         a17RSMFhurQCQBraBmQgtFq1MPH1ByYA31ilV50tRciaRVkNFOC/wxIglbVOrCYLxieG
-         Zx9Y4kPAVCdx1mvvqDhiSPFFM2MleEyQfwHqOz0gjw4eyqyDsOQM8QuHcHQuaGyj635U
-         ili4HTy9cCggTgl2KmQtwIxl4r6ioojdRl3EQ4HBjNW6+icBAKwCDad51x9uvcA++CXO
-         +UDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791952979; x=1792557779;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9K3cbdb7dFzpqCr6C1BNZjsMaePAgKuPmBno8+Ephi4=;
-        b=WL5krlKYtN4y4nEkOvFtUYIKJhlMol7LyFoAFyUtYowPVptIVSomf8Hc8Z9gVldhED
-         5AxQew7RxLWsK0LPpPX59Kd9sDvrH3XxT3CcPan0E9UG+kJDH2AIRUXhP1/eTxt3DtGt
-         Hqjb8fdTw4EktmRTLd6mfqQGMBI7oQeuMhIL1+Ld8h1rTt/gL/e7Y+hN+MeEKqBVXwGJ
-         N3+Bj/f3bTpoaH4IWZj0mAbp1e9kRfWGFHaPX49necF27/6q+r6TjWahN+Nj3XiwD5KZ
-         iBvKwTo5SPIiVbEw9Y/U3mJ8qvWEhi4TtaiS9ZR7e7iGA8pmtnA9t3t7XNjlUiUKTC2+
-         4fdA==
-X-Forwarded-Encrypted: i=1; AKwUvBw3mMyHji/4VBnqvts69PACrPFJJAd1MADMwjlpM2R6NckxyfU4fbXPsd4tnoSm683WxPGLt2qmiaHpBFo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKztkamPXatrcmeG0R4KyFOukXaNbM3fSPi1LM1qM0q6oXIUvQ0
-	JV6qQ2eAcLax9//5rokj7ymQMkBMVsQzn04T5WHxMSTXDyGxBrD5kk/N0xPcODzROzLLPxnPkC2
-	Vqfuyg7IaxPqXAfwJZL4YHHYG99GQ2eWrS4vKxpsWjpXlb6EAbupSxCa/GpMOcftxKu8=
-X-Gm-Gg: AYBFou0Vbt6k95Wea8CFXlsX8mHxwu8QM67SXVUyXBWU/ilWxssinJ4Ex2RxvUXTABR
-	pFGNw6Kw0IlPo5/+raSuzHV42qahPylatvJlZEXdTs1Ki4hOhOSwUBXZjn7Y1bUblH8ltR5LZ0j
-	sSOSWw9rQ4CswYkGZj9GGDLn+pTfzvHWv105D4ng7rY5URMDcfOfcha8Grf2rRO5gjeEjIO0/Uc
-	63fk3vXvbVau1HYt3Hj5mHa6dOwCrZyOFS+tMlZ5c12A5h3SgeXCgBQyfdy1DPdOcJ6J/1UU1DJ
-	Z/WWKYlTIQA9psFv1EBXV4y9d8ZzHbFkbM3MCHOgui4DRWZpPZgCrFqMiSkd0TirdNZfFO7yZPH
-	sHw914L8yHIHtb+Z8+j2dZq3ECjeb
-X-Received: by 2002:a05:7300:c87:b0:33e:61ab:8309 with SMTP id 5a478bee46e88-3537b291a93mr28294698eec.23.1791952979163;
-        Tue, 13 Oct 2026 21:42:59 -0700 (PDT)
-X-Received: by 2002:a05:7300:c87:b0:33e:61ab:8309 with SMTP id 5a478bee46e88-3537b291a93mr28294648eec.23.1791952978467;
-        Tue, 13 Oct 2026 21:42:58 -0700 (PDT)
-Received: from [10.219.56.188] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35c89429484sm11541995eec.23.2026.10.13.21.42.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 21:42:58 -0700 (PDT)
-Message-ID: <6e4d0fc2-3fe6-4dff-bdc1-b6051f3becef@oss.qualcomm.com>
-Date: Wed, 14 Oct 2026 10:12:53 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y0EL/UOx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 878C51F00898
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:43:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791952994;
+	bh=xyCAu3yIERK3txZTlYhn3dJhKZRhnA6JrIdpDgW3i8s=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Y0EL/UOx7cUvv8ljXyjTtgrbbMn2DTQ0t7u/lAbVsvSlT3QXApEZpSVkUmonPkpx/
+	 tHODap2NRCuxoLgLbpsKxc1VnUiwVe12aZeymrf8KAJziZ5YyRtTzr5zc+8ahK4eac
+	 6sdTzmjSFCIB72+JeG1YtnW7q9wCuhsxUztM5pmvoGkDdNtsEnoHCf/BzZldXPzEz8
+	 OiPl1TGljrTjNzZcRMc8PWMkHnDv0LIRl6iqW4sDwR8AeOeRp++NhRa3G5+9VCPr48
+	 nCBfR60lRBN3mUNwF30dPJYIrdzgNp7fQk0k77PtLMpaLhUetp3lxMuGbpyYi0PNZN
+	 thx13ZGhRE1YQ==
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6a642495d81so4825183a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 21:43:14 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw9Wx2nOrxoj7ebBeida2QT+Qb2HxuNU9EGhh0QtSqVNYnruFnLBhR2jm6vzPEcDz+/MuS+2pR5SYbX3F8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIoaMcfWSEnb+tHWsa36mT+GKfsSVBUGukTE2zt+Y+U/09wKX8b
+	cPeQFqgEZg7eIjrR6nBSBexlN0DNcnmVccyH40bVyFECxOldlqlL1s7GsfiS/uogX3FzcAuUpo1
+	J0oJubGk7440Myvuzq+eF7UUXUjKl4AA=
+X-Received: by 2002:a05:6402:241f:b0:6b1:e034:7e61 with SMTP id
+ 4fb4d7f45d1cf-6b1e0348143mr4264640a12.4.1791952993076; Tue, 13 Oct 2026
+ 21:43:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] misc: fastrpc: Add cache maintenance for non-coherent
- platforms
-To: Abhinav Parihar <abhinav.parihar@oss.qualcomm.com>,
-        srinivas.kandagatla@linaro.org, linux-arm-msm@vger.kernel.org
-Cc: gregkh@linuxfoundation.org, quic_bkumar@quicinc.com,
-        linux-kernel@vger.kernel.org, quic_chennak@quicinc.com,
-        dri-devel@lists.freedesktop.org, arnd@arndb.de
-References: <20260916185850.3686010-1-abhinav.parihar@oss.qualcomm.com>
-Content-Language: en-US
-From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-In-Reply-To: <20260916185850.3686010-1-abhinav.parihar@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=YJcKWhGx c=1 sm=1 tr=0 ts=6acf0854 cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=J77KH-JWTt9_r89aEeUA:9 a=QEXdDO2ut3YA:10
- a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDAxOCBTYWx0ZWRfX3rA4MxXSXHpV
- Ua/rFqR5k+mXgT2fDoSPEMFLC4arUD7wLvFWN/3unhlcThUfGE1MYl65dFr8wHE5TjXKs4hGLhe
- rXy+VksmITiJz2eA/2OaOwMWlB2DPDpCRGGwSWWVUrNINPLwTTH7zFTVll9QYVZ8CERv9dAm0+j
- cnMhd9K/GGLi+CGSzeK5hnwqYYfZ+1zoZlhA56IETK6XMhZi5NfNQ7jIslMmTl6g7aajUb1rB7p
- WPlB9bVxQvldYfSAuXBWkNJG7MXuK8IXVPmRtmNeBSIxhGWmCgo9Z8qjKQqnpUzVm46tP2dP5sN
- Zl9kjDGRZIA38nmmInN6AZqMM1QmcS/HzstYnxz9lWnUJbTE51686dTwXJgTKS7Ap26V5rHv6Ag
- ur2BrCfXCv0ZBZP2OWpkcLMPgAP+YYvxp0YlpY/n5yBDTedWI8M08YsRKXuXKuEt4PcAzSpEwkO
- W6e0LmJWwl3jayOMGDw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDAxOCBTYWx0ZWRfX0sBnL72DvaKI
- umbkZE8nN8p2GnYPsknXIZCuIJEV8EQK7+X8r5aJBandHuxlY3wK9hndJAUgVPwLpuSspJ3DQ7+
- C1j1efjYZu8dbMR2o2m50hSJNCmh9z4=
-X-Proofpoint-GUID: IYF2w3ZNKwbU4teivPlt2jgO592Vb9IX
-X-Proofpoint-ORIG-GUID: IYF2w3ZNKwbU4teivPlt2jgO592Vb9IX
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 clxscore=1015 impostorscore=0 malwarescore=0
- spamscore=0 suspectscore=0 adultscore=0 lowpriorityscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140018
+References: <20261012080448.134274-1-haoran.jiang@linux.dev>
+In-Reply-To: <20261012080448.134274-1-haoran.jiang@linux.dev>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Wed, 14 Oct 2026 12:43:03 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H5jO2HYT+64usWxCuDYu3oVLV__vkBL3J8MpOKEGKL_XQ@mail.gmail.com>
+X-Gm-Features: AclHuK_mcmv0mdbAZXqUlB2YfDbnHtLN0YcSvTwZGaFIyTiJrG3lDEVhBN2tX40
+Message-ID: <CAAhV-H5jO2HYT+64usWxCuDYu3oVLV__vkBL3J8MpOKEGKL_XQ@mail.gmail.com>
+Subject: Re: [PATCH] LoongArch: add KASAN_VMALLOC support
+To: haoran.jiang@linux.dev
+Cc: loongarch@lists.linux.dev, kasan-dev@googlegroups.com, 
+	linux-kernel@vger.kernel.org, kernel@xen0n.name, 
+	Haoran Jiang <jianghaoran@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 17-09-2026 00:28, Abhinav Parihar wrote:
-> Some platforms using fastrpc do not support DMA coherency on
-> HLOS. On such systems, explicit cache maintenance is
-> required to ensure data consistency for RPC argument buffers.
-> 
-> Add cache maintenance for argument buffers when operating on
-> non-coherent platforms:
-> - Flush input buffers before invoking RPC to ensure CPU writes are
->   visible to the DSP
-> - Invalidate output buffers after RPC completion to ensure DSP
->   writes are visible to the CPU
-> 
-> Introduce helper functions fastrpc_flush_args() and
-> fastrpc_inv_args() to perform the required dma-buf cache
-> operations. These are invoked only when the device is not marked
-> as DMA coherent.
-> 
-> The coherency capability is determined using the "dma-coherent"
-> device tree property and stored per session context.
-> 
-> This ensures correct data synchronization on platforms lacking
-> DMA coherency, while avoiding unnecessary overhead on coherent
-> systems.
-> 
-> Signed-off-by: Abhinav Parihar <abhinav.parihar@oss.qualcomm.com>
+Hi, Haoran,
+
+On Mon, Oct 12, 2026 at 4:05=E2=80=AFPM <haoran.jiang@linux.dev> wrote:
+>
+> From: Haoran Jiang <jianghaoran@kylinos.cn>
+>
+> For the page table of the VMALLOC shadow region,
+> only a partial page table needs to be established,
+> allowing the complete page table entries to be
+> populated on demand during use.
+>
 > ---
-> 
->  Patch [v1]: https://lore.kernel.org/all/20260604194811.2437567-1-abhinav.parihar@oss.qualcomm.com/
-> 
->  Changes in v2:
->   - Fix buffer overlap handling to ensure cache maintenance is performed
->     when input and output buffers overlap and the overlap calculation
->     suppresses the buffer's mstart/mend range.
->   - Add a do_cmo flag to track buffers that require cache maintenance
->     even when their overlap range is clipped.
->   - Invalidate output buffers before sending the RPC request, preventing
->     stale CPU cache lines from being written back while the DSP updates
->     the buffers.
->   - Use DMA_FROM_DEVICE consistently for both begin_cpu_access() and
->     end_cpu_access() when invalidating output buffers.
-> 
->  drivers/misc/fastrpc.c | 77 +++++++++++++++++++++++++++++++++++++++++-
->  1 file changed, 76 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index d4fac2caca86..83d04b9d2ea0 100644
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
-> @@ -217,6 +217,7 @@ struct fastrpc_buf_overlap {
->  	u64 mstart;
->  	u64 mend;
->  	u64 offset;
-> +	bool do_cmo;
->  };
->  
->  struct fastrpc_buf {
-> @@ -292,6 +293,7 @@ struct fastrpc_session_ctx {
->  	int sid;
->  	bool used;
->  	bool valid;
-> +	bool coherent;
->  };
->  
->  struct fastrpc_soc_data {
-> @@ -655,7 +657,9 @@ static int olaps_cmp(const void *a, const void *b)
->  static void fastrpc_get_buff_overlaps(struct fastrpc_invoke_ctx *ctx)
->  {
->  	u64 max_end = 0;
-> +	int max_raix = -1;
->  	int i;
-> +	int inbufs = REMOTE_SCALARS_INBUFS(ctx->sc);
->  
->  	for (i = 0; i < ctx->nbufs; ++i) {
->  		ctx->olaps[i].start = ctx->args[i].ptr;
-> @@ -675,6 +679,9 @@ static void fastrpc_get_buff_overlaps(struct fastrpc_invoke_ctx *ctx)
->  			if (ctx->olaps[i].end > max_end) {
->  				max_end = ctx->olaps[i].end;
-should you update max_raix here also?>  			} else {
-> +				if ((max_raix < inbufs && ctx->olaps[i].raix + 1 > inbufs) ||
-> +					(ctx->olaps[i].raix < inbufs && max_raix + 1 > inbufs))
-if ((max_raix < inbufs) != (ctx->olaps[i].raix < inbufs))
-> +					ctx->olaps[i].do_cmo = true;
->  				ctx->olaps[i].mend = 0;
->  				ctx->olaps[i].mstart = 0;
->  			}
-> @@ -684,6 +691,7 @@ static void fastrpc_get_buff_overlaps(struct fastrpc_invoke_ctx *ctx)
->  			ctx->olaps[i].mstart = ctx->olaps[i].start;
->  			ctx->olaps[i].offset = 0;
->  			max_end = ctx->olaps[i].end;
-> +			max_raix = ctx->olaps[i].raix;
->  		}
->  	}
->  }
-> @@ -703,6 +711,7 @@ static struct fastrpc_invoke_ctx *fastrpc_context_alloc(
->  
->  	INIT_LIST_HEAD(&ctx->node);
->  	ctx->fl = user;
-> +	ctx->sc = sc;
->  	ctx->nscalars = REMOTE_SCALARS_LENGTH(sc);
->  	ctx->nbufs = REMOTE_SCALARS_INBUFS(sc) +
->  		     REMOTE_SCALARS_OUTBUFS(sc);
-> @@ -728,7 +737,6 @@ static struct fastrpc_invoke_ctx *fastrpc_context_alloc(
->  	/* Take a reference to user, released in fastrpc_context_free() */
->  	fastrpc_user_get(user);
->  
-> -	ctx->sc = sc;
->  	ctx->retval = -1;
->  	ctx->pid = current->pid;
->  	ctx->client_id = user->client_id;
-> @@ -1067,6 +1075,64 @@ static int fastrpc_create_maps(struct fastrpc_invoke_ctx *ctx)
->  	return 0;
->  }
->  
-> +static void fastrpc_flush_args(struct fastrpc_invoke_ctx *ctx)
-> +{
-> +	union fastrpc_remote_arg *rpra = ctx->rpra;
-> +	int i, inbufs, outbufs;
-> +
-> +	inbufs = REMOTE_SCALARS_INBUFS(ctx->sc);
-> +	outbufs = REMOTE_SCALARS_OUTBUFS(ctx->sc);
-> +
-> +	for (i = 0; i < inbufs + outbufs; ++i) {
-ctx->nbufs instead of inbufs + outbufs
-> +		int raix = ctx->olaps[i].raix;
-> +		struct fastrpc_map *map = ctx->maps[raix];
-> +
-> +		if (raix + 1 > inbufs)
-> +			continue;
-> +		if (!map || !map->buf)
-> +			continue;
-> +
-> +		if (rpra[raix].buf.len && (ctx->olaps[i].mstart || ctx->olaps[i].do_cmo)) {
-> +			dma_buf_begin_cpu_access(map->buf, DMA_TO_DEVICE);
-> +			dma_buf_end_cpu_access(map->buf, DMA_TO_DEVICE);
-> +		}
-> +	}
-> +}
-> +
-> +static void fastrpc_inv_args(struct fastrpc_invoke_ctx *ctx)
-> +{
-> +	union fastrpc_remote_arg *rpra = ctx->rpra;
-> +	int i, inbufs, outbufs;
-> +
-> +	inbufs = REMOTE_SCALARS_INBUFS(ctx->sc);
-> +	outbufs = REMOTE_SCALARS_OUTBUFS(ctx->sc);
-> +
-> +	for (i = 0; i < inbufs + outbufs; ++i) {
-ctx->nbufs> +		int raix = ctx->olaps[i].raix;
-> +		struct fastrpc_map *map = ctx->maps[raix];
-> +
-> +		if (raix + 1 <= inbufs)
-> +			continue;
-> +		if (!rpra[raix].buf.len)
-> +			continue;
-> +		if (!map || !map->buf)
-> +			continue;
-> +
-> +		/*
-> +		 * Skip invalidation if the argument overlaps with the
-> +		 * RPC control header page.
-> +		 */
-> +		if (((uintptr_t)rpra & PAGE_MASK) ==
-> +			((uintptr_t)rpra[raix].buf.pv & PAGE_MASK))
-is this possible? for fd buffers, buf.pv is going to be a userspace VA
-and rpta addr is going to be a kernel VA, those cannot be equal.> +		
-continue;
-> +
-> +		if (ctx->olaps[i].mstart || ctx->olaps[i].do_cmo) {
-> +			dma_buf_begin_cpu_access(map->buf, DMA_FROM_DEVICE);
-> +			dma_buf_end_cpu_access(map->buf, DMA_FROM_DEVICE);
-> +		}
-> +	}
-> +}
-> +
->  static struct fastrpc_invoke_buf *fastrpc_invoke_buf_start(union fastrpc_remote_arg *pra, int len)
->  {
->  	return (struct fastrpc_invoke_buf *)(&pra[len]);
-> @@ -1191,6 +1257,9 @@ static int fastrpc_get_args(u32 kernel, struct fastrpc_invoke_ctx *ctx)
->  		}
->  	}
->  
-> +	if (!ctx->fl->sctx->coherent)
-> +		fastrpc_flush_args(ctx);
-> +
->  	for (i = ctx->nbufs; i < ctx->nscalars; ++i) {
->  		list[i].num = ctx->args[i].length ? 1 : 0;
->  		list[i].pgidx = i;
-> @@ -1376,6 +1445,8 @@ static int fastrpc_internal_invoke(struct fastrpc_user *fl,  u32 kernel,
->  	if (err)
->  		goto bail;
->  
-> +	if (!fl->sctx->coherent)
-> +		fastrpc_inv_args(ctx);
->  	/* make sure that all CPU memory writes are seen by DSP */
->  	dma_wmb();
->  	/* Send invoke buffer to remote dsp */
-> @@ -1396,6 +1467,9 @@ static int fastrpc_internal_invoke(struct fastrpc_user *fl,  u32 kernel,
->  
->  	/* make sure that all memory writes by DSP are seen by CPU */
->  	dma_rmb();
-> +	if (!fl->sctx->coherent)
-> +		fastrpc_inv_args(ctx);
-> +
->  	/* populate all the output buffers with results */
->  	err = fastrpc_put_args(ctx, kernel);
->  	if (err)
-> @@ -2393,6 +2467,7 @@ static int fastrpc_cb_probe(struct platform_device *pdev)
->  	sess->used = false;
->  	sess->valid = true;
->  	sess->dev = dev;
-> +	sess->coherent = of_property_read_bool(dev->of_node, "dma-coherent");
-see if you can use of_dma_is_coherent() instead.>  	dev_set_drvdata(dev,
-sess);
->  	sess->sid = sid;
->  
+> 1,Through the kasan_shallow_populate_pgd/p4d/pud/pmd/pte functions,
+> page tables are established for the modules and vmalloc regions,
+> but the page tables are not fully populated; the complete page
+> tables are established automatically when vmalloc is used.
+Why also change modules together with vmalloc regions? Because they
+can both alloc/free dynamically, and the current approch can only
+handle "one time" for modules?
 
+> If the address is pgd-aligned, the page table is established
+> down to the pgd level; if it is pud-aligned, it is established
+> down to the pud level, and so on. While establishing the
+> /pgd/pud/pmd levels, the page table entries must be initialized
+> to none. For example, a pmd entry of none is an invalid_pte_table.
+> Only in this way can the correct page tables be established at
+> use time. At the same time, boundary issues must be considered
+> when the address is not aligned. For example, mem_to_shadow(MALLOC_END)
+> and mem_to_shadow(vmemmap) are in the same pmd, and the region
+> [mem_to_shadow(vmemmap), mem_to_shadow(VMEMMAP_END)] needs to be
+> mapped to page 0. To avoid affecting the mem_to_shadow(vmemmap) region,
+> only the pmd entries for [mem_to_shadow(MALLOC_END) & PMD_MASK, mem_to_sh=
+adow(MALLOC_END)]
+> need to be initialized to invalid_pte_table. The remaining pmd entries ar=
+e left as they are.
+kasan_pgd_populate(early) populate the page table to early shadow
+page, kasan_pgd_populate(!early) populate the page table to normal
+shadow page, and kasan_shallow_populate() populate the page table to
+invalid_{pud,pmd,pte}_table?
+
+It seems you are do similar work as RISCV, and RISCV use three APIs
+for this purpose: kasan_{,early,shallow}_populate_pgd(). But LoongArch
+use the same API for the 1st and 2nd purpose, can we add a "shallow"
+parameter to kasan_pgd_populate() so we can also handle the 3th
+purpose?
+
+>
+> 2,The removal of kasan_populate_early_shadow(mem_to_shadow((void *)VMALLO=
+C_START),
+> mem_to_shadow((void *)KFENCE_AREA_END)) achieves the same effect as
+> kasan_pgd_populate(KASAN_SHADOW_START, KASAN_SHADOW_END, NUMA_NO_NODE, tr=
+ue);
+>  both map this region to a shared zero page. (KASAN_SHADOW_START, KASAN_S=
+HADOW_END)
+> already covers (mem_to_shadow((void *)VMALLOC_START), mem_to_shadow((void=
+ *)KFENCE_AREA_END)).
+> Other architectures such as arm64/riscv need kasan_populate_early_shadow
+> because clear_shadow(KASAN_SHADOW_START, KASAN_SHADOW_END) is performed b=
+efore
+>  kasan_populate_early_shadow, so the reserved region must be mapped to th=
+e zero
+> page again. On LoongArch, however, the entire shadow space is first mappe=
+d to
+> page 0 via kasan_pgd_populate, and then page tables are established for t=
+he
+> required regions, which is simpler and clearer.
+>
+> 3,pgd_none/p4d_none/pmd_none/pte_none were added to the definitions of
+> __pgd_none/__p4d_none/__pud_none/__pmd_none/__pte_none respectively
+> because kasan_populate_early_vm_area_shadow requires them.
+> kasan_populate_early_vm_area_shadow establishes complete KASAN shadow
+> page table mappings for the early vmalloc regions before vmalloc_init.
+> At this point, complete page tables need to be established, but
+> kasan_populate_early_vm_area_shadow is called after step 1, at which time
+I'm a little confusing here. What is "step 1" here?
+
+> only incomplete page tables have been established for the vmalloc region.
+> The condition for a page table entry to be none requires the
+> pgd_none/p4d_none/pmd_none/pte_none checks. Only by correctly determining
+> whether an entry is none can the complete page tables be established prop=
+erly.
+>
+> Test=EF=BC=9A
+>
+> https://git.kernel.org/pub/scm/linux/kernel/git/chenhuacai/linux-loongson=
+.git
+>
+> CONFIG_KUNIT=3Dy
+>
+> CONFIG_KASAN_KUNIT_TEST=3Dm
+>
+> Add `kunit.enable=3D1 kasan_multi_shot` to the cmdline.
+>
+> Test with 3-level 16K pages and 4-level 4K pages respectively.
+>
+> before this patch:
+>
+> ...
+>
+> [  502.760009]     ok 68 vmalloc_oob # SKIP Test requires CONFIG_KASAN_VM=
+ALLOC=3Dy
+>
+> ...
+>
+> [  504.016000] # kasan: pass:49 fail:0 skip:26 total:75
+> [  504.016092] # Totals: pass:49 fail:0 skip:26 total:75
+> [  504.016171] ok 1 kasan
+>
+> after this patch:
+>
+> ...
+>
+> [  531.630760]     ok 68 vmalloc_oob
+>
+> ...
+>
+> [  532.891057] # kasan: pass:50 fail:0 skip:25 total:75
+> [  532.891142] # Totals: pass:50 fail:0 skip:25 total:75
+> [  532.891219] ok 1 kasan
+>
+> Signed-off-by: Haoran Jiang <jianghaoran@kylinos.cn>
+>
+> ---
+>  arch/loongarch/Kconfig         |   2 +
+>  arch/loongarch/mm/kasan_init.c | 173 ++++++++++++++++++++++++++++++---
+>  2 files changed, 164 insertions(+), 11 deletions(-)
+>
+> diff --git a/arch/loongarch/Kconfig b/arch/loongarch/Kconfig
+> index 2067d1f2ad7a..c95c6fd8a138 100644
+> --- a/arch/loongarch/Kconfig
+> +++ b/arch/loongarch/Kconfig
+> @@ -119,6 +119,7 @@ config LOONGARCH
+>         select HAVE_ARCH_JUMP_LABEL
+>         select HAVE_ARCH_JUMP_LABEL_RELATIVE
+>         select HAVE_ARCH_KASAN if 64BIT
+> +       select HAVE_ARCH_KASAN_VMALLOC
+I think this should be limited by 64BIT.
+
+
+Huacai
+
+>         select HAVE_ARCH_KFENCE if 64BIT
+>         select HAVE_ARCH_KGDB if PERF_EVENTS
+>         select HAVE_ARCH_KSTACK_ERASE
+> @@ -187,6 +188,7 @@ config LOONGARCH
+>         select HOTPLUG_SMT if HOTPLUG_CPU
+>         select IRQ_FORCED_THREADING
+>         select IRQ_LOONGARCH_CPU
+> +       select KASAN_VMALLOC if KASAN
+>         select LOCK_MM_AND_FIND_VMA
+>         select MMU_GATHER_MERGE_VMAS if MMU
+>         select MMU_GATHER_RCU_TABLE_FREE
+> diff --git a/arch/loongarch/mm/kasan_init.c b/arch/loongarch/mm/kasan_ini=
+t.c
+> index 92ca0ba86406..962c37316200 100644
+> --- a/arch/loongarch/mm/kasan_init.c
+> +++ b/arch/loongarch/mm/kasan_init.c
+> @@ -17,28 +17,28 @@ static pgd_t kasan_pg_dir[PTRS_PER_PGD] __initdata __=
+aligned(PAGE_SIZE);
+>  #define __pgd_none(early, pgd) (0)
+>  #else
+>  #define __pgd_none(early, pgd) (early ? (pgd_val(pgd) =3D=3D 0) : \
+> -(__pa(pgd_val(pgd)) =3D=3D (unsigned long)__pa(kasan_early_shadow_p4d)))
+> +((__pa(pgd_val(pgd)) =3D=3D (unsigned long)__pa(kasan_early_shadow_p4d))=
+ || pgd_none(pgd)))
+>  #endif
+>
+>  #ifdef __PAGETABLE_PUD_FOLDED
+>  #define __p4d_none(early, p4d) (0)
+>  #else
+>  #define __p4d_none(early, p4d) (early ? (p4d_val(p4d) =3D=3D 0) : \
+> -(__pa(p4d_val(p4d)) =3D=3D (unsigned long)__pa(kasan_early_shadow_pud)))
+> +((__pa(p4d_val(p4d)) =3D=3D (unsigned long)__pa(kasan_early_shadow_pud))=
+ || p4d_none(p4d)))
+>  #endif
+>
+>  #ifdef __PAGETABLE_PMD_FOLDED
+>  #define __pud_none(early, pud) (0)
+>  #else
+>  #define __pud_none(early, pud) (early ? (pud_val(pud) =3D=3D 0) : \
+> -(__pa(pud_val(pud)) =3D=3D (unsigned long)__pa(kasan_early_shadow_pmd)))
+> +((__pa(pud_val(pud)) =3D=3D (unsigned long)__pa(kasan_early_shadow_pmd))=
+ || pud_none(pud)))
+>  #endif
+>
+>  #define __pmd_none(early, pmd) (early ? (pmd_val(pmd) =3D=3D 0) : \
+> -(__pa(pmd_val(pmd)) =3D=3D (unsigned long)__pa(kasan_early_shadow_pte)))
+> +((__pa(pmd_val(pmd)) =3D=3D (unsigned long)__pa(kasan_early_shadow_pte))=
+ || pmd_none(pmd)))
+>
+>  #define __pte_none(early, pte) (early ? pte_none(pte) : \
+> -((pte_val(pte) & _PFN_MASK) =3D=3D (unsigned long)__pa(kasan_early_shado=
+w_page)))
+> +(((pte_val(pte) & _PFN_MASK) =3D=3D (unsigned long)__pa(kasan_early_shad=
+ow_page)) || pte_none(pte)))
+>
+>  static void *mem_to_shadow(const void *addr)
+>  {
+> @@ -242,6 +242,160 @@ static void __init kasan_map_populate(unsigned long=
+ start, unsigned long end,
+>         kasan_pgd_populate(start & PAGE_MASK, PAGE_ALIGN(end), node, fals=
+e);
+>  }
+>
+> +static void __init kasan_shallow_populate_pte(pmd_t *pmdp, unsigned long=
+ addr,
+> +                                       unsigned long end, int node)
+> +{
+> +       unsigned long next;
+> +       pte_t *ptep =3D pte_offset_kernel(pmdp, addr);
+> +
+> +       do {
+> +               next =3D addr + PAGE_SIZE;
+> +               if (__pte_none(false, ptep_get(ptep)))
+> +                       pte_clear(&init_mm, addr, ptep);
+> +       } while (ptep++, addr =3D next, addr !=3D end);
+> +}
+> +
+> +static void __init kasan_shallow_populate_pmd(pud_t *pudp, unsigned long=
+ addr,
+> +                                       unsigned long end, int node)
+> +{
+> +       unsigned long next;
+> +       pmd_t *pmdp =3D pmd_offset(pudp, addr);
+> +
+> +       do {
+> +               next =3D pmd_addr_end(addr, end);
+> +
+> +               if (__pmd_none(false, pmdp_get(pmdp))) {
+> +                       phys_addr_t pte_phys =3D kasan_alloc_zeroed_page(=
+node);
+> +
+> +                       if (IS_ALIGNED(addr, PMD_SIZE) && end - addr >=3D=
+ PMD_SIZE) {
+> +                               kernel_pte_init(__va(pte_phys));
+> +                               pmd_populate_kernel(NULL, pmdp, (pte_t *)=
+__va(pte_phys));
+> +                               continue;
+> +                       } else {
+> +                               memcpy(__va(pte_phys), kasan_early_shadow=
+_pte,
+> +                                               sizeof(kasan_early_shadow=
+_pte));
+> +                               pmd_populate_kernel(NULL, pmdp, (pte_t *)=
+__va(pte_phys));
+> +                       }
+> +               }
+> +               kasan_shallow_populate_pte(pmdp, addr, next, node);
+> +       } while (pmdp++, addr =3D next, addr !=3D end);
+> +}
+> +
+> +static void __init kasan_shallow_populate_pud(p4d_t *p4dp, unsigned long=
+ addr,
+> +                                       unsigned long end, int node)
+> +{
+> +       unsigned long next;
+> +       pud_t *pudp =3D pud_offset(p4dp, addr);
+> +
+> +       do {
+> +               next =3D pud_addr_end(addr, end);
+> +
+> +               if (__pud_none(false, pudp_get(pudp))) {
+> +
+> +                       phys_addr_t pmd_phys =3D kasan_alloc_zeroed_page(=
+node);
+> +
+> +                       if (IS_ALIGNED(addr, PUD_SIZE) && end - addr >=3D=
+ PUD_SIZE) {
+> +#ifndef __PAGETABLE_PMD_FOLDED
+> +                               pmd_init(__va(pmd_phys));
+> +#endif
+> +                               pud_populate(&init_mm, pudp, (pmd_t *)__v=
+a(pmd_phys));
+> +                               continue;
+> +                       } else {
+> +                               memcpy(__va(pmd_phys), kasan_early_shadow=
+_pmd,
+> +                                               sizeof(kasan_early_shadow=
+_pmd));
+> +                               pud_populate(&init_mm, pudp, (pmd_t *)__v=
+a(pmd_phys));
+> +
+> +                       }
+> +               }
+> +
+> +               kasan_shallow_populate_pmd(pudp, addr, next, node);
+> +       } while (pudp++, addr =3D next, addr !=3D end);
+> +}
+> +
+> +static void __init kasan_shallow_populate_p4d(pgd_t *pgdp, unsigned long=
+ addr,
+> +                                       unsigned long end, int node)
+> +{
+> +       unsigned long next;
+> +       p4d_t *p4dp =3D p4d_offset(pgdp, addr);
+> +
+> +       do {
+> +               next =3D p4d_addr_end(addr, end);
+> +
+> +               if (__p4d_none(false, p4dp_get(p4dp))) {
+> +
+> +                       phys_addr_t pud_phys =3D kasan_alloc_zeroed_page(=
+node);
+> +
+> +                       if (IS_ALIGNED(addr, P4D_SIZE) && end - addr >=3D=
+ P4D_SIZE) {
+> +#ifndef __PAGETABLE_PUD_FOLDED
+> +                               pud_init(__va(pud_phys));
+> +#endif
+> +                               p4d_populate(&init_mm, p4dp, (pud_t *)__v=
+a(pud_phys));
+> +                               continue;
+> +                       } else {
+> +                               memcpy(__va(pud_phys), kasan_early_shadow=
+_pud,
+> +                                               sizeof(kasan_early_shadow=
+_pud));
+> +                               p4d_populate(&init_mm, p4dp, (pud_t *)__v=
+a(pud_phys));
+> +                       }
+> +               }
+> +               kasan_shallow_populate_pud(p4dp, addr, next, node);
+> +       } while (p4dp++, addr =3D next, addr !=3D end);
+> +}
+> +
+> +static void __init kasan_shallow_populate_pgd(unsigned long addr,
+> +                                       unsigned long end, int node)
+> +{
+> +       unsigned long next;
+> +       pgd_t *pgdp;
+> +
+> +       pgdp =3D pgd_offset_k(addr);
+> +
+> +       do {
+> +               next =3D pgd_addr_end(addr, end);
+> +
+> +               if (__pgd_none(false, pgdp_get(pgdp))) {
+> +
+> +                       phys_addr_t p4d_phys =3D kasan_alloc_zeroed_page(=
+node);
+> +
+> +                       if (IS_ALIGNED(addr, PGDIR_SIZE) && end - addr >=
+=3D PGDIR_SIZE) {
+> +                               pgd_init(__va(p4d_phys));
+> +                               pgd_populate(&init_mm, pgdp, (p4d_t *)__v=
+a(p4d_phys));
+> +                               continue;
+> +                       } else {
+> +                               memcpy(__va(p4d_phys), kasan_early_shadow=
+_p4d,
+> +                                               sizeof(kasan_early_shadow=
+_p4d));
+> +                               pgd_populate(&init_mm, pgdp, (p4d_t *)__v=
+a(p4d_phys));
+> +                       }
+> +               }
+> +
+> +               kasan_shallow_populate_p4d(pgdp, addr, next, node);
+> +       } while (pgdp++, addr =3D next, addr !=3D end);
+> +}
+> +
+> +static void __init kasan_shallow_populate(unsigned long start, unsigned =
+long end, int node)
+> +{
+> +       unsigned long vaddr =3D (unsigned long)start & PAGE_MASK;
+> +       unsigned long vend =3D PAGE_ALIGN((unsigned long)end);
+> +
+> +       kasan_shallow_populate_pgd(vaddr, vend, node);
+> +}
+> +
+> +#ifdef CONFIG_KASAN_VMALLOC
+> +void __init kasan_populate_early_vm_area_shadow(void *start, unsigned lo=
+ng size)
+> +{
+> +       unsigned long shadow_start, shadow_end;
+> +
+> +       if (!is_vmalloc_or_module_addr(start))
+> +               return;
+> +
+> +       shadow_start =3D (unsigned long)mem_to_shadow(start);
+> +       shadow_start =3D ALIGN_DOWN(shadow_start, PAGE_SIZE);
+> +       shadow_end =3D (unsigned long)mem_to_shadow(start + size);
+> +       shadow_end =3D ALIGN(shadow_end, PAGE_SIZE);
+> +
+> +       kasan_map_populate(shadow_start, shadow_end, NUMA_NO_NODE);
+> +}
+> +#endif
+> +
+>  asmlinkage void __init kasan_early_init(void)
+>  {
+>         BUILD_BUG_ON(!IS_ALIGNED(KASAN_SHADOW_START, PGDIR_SIZE));
+> @@ -297,9 +451,6 @@ void __init kasan_init(void)
+>         /* Maps everything to a single page of zeroes */
+>         kasan_pgd_populate(KASAN_SHADOW_START, KASAN_SHADOW_END, NUMA_NO_=
+NODE, true);
+>
+> -       kasan_populate_early_shadow(mem_to_shadow((void *)VMALLOC_START),
+> -                                       mem_to_shadow((void *)KFENCE_AREA=
+_END));
+> -
+>         /* Populate the linear mapping */
+>         for_each_mem_range(i, &pa_start, &pa_end) {
+>                 void *start =3D (void *)phys_to_virt(pa_start);
+> @@ -309,9 +460,9 @@ void __init kasan_init(void)
+>                         (unsigned long)mem_to_shadow(end), NUMA_NO_NODE);
+>         }
+>
+> -       /* Populate modules mapping */
+> -       kasan_map_populate((unsigned long)mem_to_shadow((void *)MODULES_V=
+ADDR),
+> -               (unsigned long)mem_to_shadow((void *)MODULES_END), NUMA_N=
+O_NODE);
+> +       kasan_shallow_populate((unsigned long)mem_to_shadow((void *)MODUL=
+ES_VADDR),
+> +                       (unsigned long)mem_to_shadow((void *)VMALLOC_END)=
+, NUMA_NO_NODE);
+> +
+>         /*
+>          * KAsan may reuse the contents of kasan_early_shadow_pte directl=
+y, so we
+>          * should make sure that it maps the zero page read-only.
+> --
+> 2.43.0
+>
