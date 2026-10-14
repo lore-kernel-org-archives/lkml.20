@@ -1,135 +1,113 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8F897485CD8;
-	Wed, 14 Oct 2026 21:25:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0744931E84F
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 21:26:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792013158; cv=none; b=HmnxN7Ovap6I/TpKmN/0ySC/xFeffv/KEW+7x80w0ZkgJfCFvzqUms9xRUIAkXk9S7/11D9UXShVjvRwO2uXuTkO6vvd4Qw+kzDaFBfdn8NRJBJwOIAMI3mz9wQVtt8U/tvtSTOZ0uXQT6jQvWGNXI1Tla6a+NJAYbSFOhCo2RQ=
+	t=1792013203; cv=none; b=oNHjaIj+bxTn9IGZhs8I33uKW9y7VBm3n8YvzPWxQ835sRVfD4KjEIAzEoaLq9Dpm+YUy01G1wR42GkwFwm7KICiA2GBYWKMuTyamPVytT3a2Ldwy2idyMg4XHIsbIG1dfCqBFmBZsX6NwX0YBBMI9KFVpHkPMDfNCbAnZmcdjg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792013158; c=relaxed/simple;
-	bh=Nvuk9EjMLe5/SNvSmLnt66/rQZrM0GPcXSYJQyOxEDA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TEuuKDUPc6nxkDgEvIcmW0U6BMojHCaokM+126NRC6pTvUzCgHOMEulsjrQd6LqBPAsHYlNPprbNCZ/7lhGnC3YTq3EmfsNl5PhE7LkTJbGzmxMFABHp2efUl5Nx6mVVwBV7OF9DPOriUoYlrETRgUKvdRiqNycbbzdX1Pux0MM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=KSJ1YVXA; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1792013203; c=relaxed/simple;
+	bh=+tmS02gDA463BcaTtTeQCviX6MTFBVXJ76TXlGdnOMs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hhFgY/xZvoH5JuTFij3XPDcIXJ8X/F7/PjzyPTGLn7MJ5ar6zGwm5evvc/2NeNymGkuOf9xwTh6cQRPFxdZ++UEplZP0nn4B6tTjW7G6OfciLMd0AkTRcm4rw561krJ3UNdusoksATe0qAJz4TkWjQtSdX0j8mvjF1omwvwF0eM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=eDUVeyO3; arc=none smtp.client-ip=209.85.219.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="KSJ1YVXA"
-Received: from vm-dev.d0aziqou4eyuzblxqhi51nu2sc.xx.internal.cloudapp.net (unknown [4.246.87.102])
-	by linux.microsoft.com (Postfix) with ESMTPSA id F307620B7166;
-	Wed, 14 Oct 2026 14:25:52 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com F307620B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1792013153;
-	bh=OjykXisj4W9F6eAYp7KDPTuL1E2khyA+Exd/P94ZDhg=;
-	h=From:To:Cc:Subject:Date:From;
-	b=KSJ1YVXAIEEmw1Rhlw/qaqFIdfPaR2+vZLkTE+3f9c+5Gv1kIyW8uffPWiDiAxZCI
-	 h5/duSBZBGNhSGbcx3yusxPxThT+IABXrP8Y3ob7pqWtM2CVM/2ljCCv3HtD6C5xnb
-	 DcfayFv3FUSpyCX1rSK08kQVzUBnUgPdEhLfPHWQ=
-From: Tahera Fahimi <taherafahimi@linux.microsoft.com>
-To: stable@vger.kernel.org
-Cc: steffen.klassert@secunet.com,
-	herbert@gondor.apana.org.au,
-	raminwo0202@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	apais@linux.microsoft.com
-Subject: [PATCH 6.1.y] xfrm: prevent policy_hthresh.work from racing with netns teardown
-Date: Wed, 14 Oct 2026 14:25:40 -0700
-Message-ID: <20261014212540.1437936-1-taherafahimi@linux.microsoft.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="eDUVeyO3"
+Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-91b834592afso35578556d6.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:26:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1792013201; x=1792618001; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SgefoZU/7a8w/FLm1udAZKNsvens6D/F+qkIP8OB5hQ=;
+        b=eDUVeyO3s9Qc5qzmBBBtDyb7LXpY4L5s0xbNXEnMuoyEIcbTp+Eqs6shtp6K/sOngZ
+         jUdEXS449bMwREPxD8bsNOYRUaDOoFXX6WPoVNgkPRwZ5JYgyeDSDYUOuwsMsu1uIdSM
+         my/UgugHixpUY8vKsG+R4bYmmKw6OHOYOylYD8NfajpuaMNHLwb3wC/8fsBWyuxz1lgD
+         0tY1IeCnMn3aMEEWuhwlO7HaiEnJODENfo9yE+Ihm5c25y0KtT0FoYoTV0BQiHj+Q5JJ
+         4yRNxI3ff22Bdm+tG6rXyT6nJnuqzG7n3SnLmbaJTOnHpQAusvasrB1ZauQjT+E0u0VI
+         QrgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792013201; x=1792618001;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SgefoZU/7a8w/FLm1udAZKNsvens6D/F+qkIP8OB5hQ=;
+        b=vh4fCWBn1RI7Z/puJZR4kIPW+Tq5vSB6jvgT+ByRqHWgI1Y+S/fCiwujic1HMDwXCk
+         6X27tl4WXT+JbEY8cHODFsTaT/wE7n9m33mwG5enUbDOtJXKNPIJ8bLizomUqjETe17k
+         8YoIQXe/GjYDYEJCYoJVNknF10V4HOSU7WDiDxrq8Xa6apaWOT0bEaoMGqnUCR7zqQLy
+         6J1WQs2l50uYLOeSKLl98qBC0lgBRqjH/CdYExKjxr797AaSAgAfaLNtZSinlRSxKEZK
+         q1VhT7/4FD/NX2p8c9zJQCj6Me13qaH+ONc+ALdK2tc3Kr/8JF1mgSGi3gjDAV3Czkzt
+         VFFw==
+X-Gm-Message-State: AFq9FYJ9L76GpJVQayTAOymbTayBGBsa+qxrpt6p5Ph58kq1JqsjZTiq
+	R8HSHNglAdEQbuhdeCMH2Fqmh6jjHnm1iptGTRsOMucHQfY1y0oUTT2yCfJVjENcOP5wJ5ZVlCU
+	Y/ni92VQ=
+X-Gm-Gg: AYBFou0Sung3xApJKt9VVXDuojU6KhmShiP8LBekA3YNNiudXT0JV2hLRzQp3lphNIb
+	+bCpUuKxdwHPHz8u7vQxHwHXScDjrHHRiXFP9lGQZeargcEFdTBNx4JYqiuXQLrxoEbsxt5Rves
+	NJW1jiJeYooKU26ENtPFJK1YuEb13Wf2kRgLcDEt6ryGlQpvnEVByj8vzVSndaO9sBw3jy8EdCl
+	VJdtRmlrcUcYglqMrqX8HxpImXl02M50RdTJWtVYRzItxsxkTPngoXH/CRhNDXwQ02R16FZ/aGN
+	KhzBGAoz0yGChoNwerBu95iyimk7lmwhW6edS79UUxKs4xNS9oLpBCcOK6Tnm1tYZFZ/cFYu4hT
+	rs2mWOMXQSSsGLrXg0Nu2s/0XFtNuM+b62zZnywx74x92uyD+IwUiD57b5vjy1Tuwcq2bY/UrUh
+	kOMW0UiRX0LBXV/0ExIcm4sdRiwm2ouV54+rAwb7dH4c8JG0JVCv1OzC+QTZcgYoxpebnGjPeFS
+	FKQD3m63OS3cW0GDoNDh/91VsfDvKWN0jNuVHU4utw9cpE0Q4Ls2Ik=
+X-Received: by 2002:a05:620a:40d2:b0:93e:4d07:14db with SMTP id af79cd13be357-93ebd1e0133mr2853002885a.24.1792013200873;
+        Wed, 14 Oct 2026 14:26:40 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97b95847sm62808216d6.32.2026.10.14.14.26.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 14:26:40 -0700 (PDT)
+Date: Wed, 14 Oct 2026 17:26:38 -0400
+From: Gregory Price <gourry@gourry.net>
+To: linux-kselftest@vger.kernel.org, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+	akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, liam@infradead.org, 
+	vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com, 
+	shuah@kernel.org
+Subject: Re: [PATCH 8/8] selftests/mm: check that unauthorized MADV_PAGEOUT
+ skips large file folios
+Message-ID: <as_yViNexNHzdD7l@gourry-fedora-PF4VCD3F>
+References: <20261014175756.2035176-1-gourry@gourry.net>
+ <20261014175756.2035176-9-gourry@gourry.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014175756.2035176-9-gourry@gourry.net>
 
-An XFRM_MSG_NEWSPDINFO request can queue the per-net work item
-policy_hthresh.work onto the system workqueue. xfrm_hash_rebuild()
-retrieves the enclosing struct net from the work item, so the callback
-can dereference freed memory if it runs after net namespace teardown.
+On Wed, Oct 14, 2026 at 01:57:56PM -0400, Gregory Price (Meta) wrote:
+> A caller that neither owns nor may write a file may page out the COW pages
+> of a private mapping of it, but not its file pages. When the advised range
+> only partly covers a large file folio, the folio must be filtered out
+> before it is split or reclaimed, on separate paths for PMD- and PTE-mapped
+> folios.
+> 
+> Check that partial MADV_PAGEOUT by such a caller leaves every page of a
+> PMD-sized shmem folio resident, both when a PMD maps it and when a mapping
+> of half of it maps it with PTEs.
+>
+... snip ...
+> +	ASSERT_EQ(madvise(mapping, pmd_size / 2, MADV_PAGEOUT), 0);
+> +	for (offset = 0; offset < pmd_size; offset += page_size)
+> +		ASSERT_TRUE(page_is_present(self->pagemap_fd,
+> +					    mapping + offset));
+> +	assert_filled(_metadata, mapping, pmd_size);
 
-Mainline commit 29fe3a61bcdc ("xfrm: prevent policy_hthresh.work
-from racing with netns teardown") fixes this issue using
-disable_work_sync(). That API is not available in Linux 6.1, so the
-mainline change cannot be directly backported.
+Sashiko reported:
 
-Provide the same guarantee with an XFRM-local work_disabled flag. Protect
-the flag and schedule_work() with the existing policy_hthresh seqlock so
-teardown can atomically stop new queueing attempts. Then use
-cancel_work_sync() to synchronize work that was queued before the flag was
-set. This ensures policy_hthresh.work cannot outlive its struct net.
+  The commit message states that the folio must be filtered out before it is
+  split or reclaimed. Since page_is_present() only confirms the pages were not
+  reclaimed, should this test also verify that the underlying folio was not
+  split by the partial-range madvise?
 
-Fixes: 880a6fab8f6b ("xfrm: configure policy hash table thresholds by netlink")
-Assisted-by: GitHub-Copilot:GPT-5.6 Sol
-Signed-off-by: Tahera Fahimi <taherafahimi@linux.microsoft.com>
-Reviewed-by: Allen Pais <apais@linux.microsoft.com>
----
+I'm fairly sure this is a false-positive. Splitting a file folio unmaps it
+entirely, so the page_is_present assert would fail.
 
- include/net/netns/xfrm.h |  1 +
- net/xfrm/xfrm_policy.c   | 19 ++++++++++++++++++-
- 2 files changed, 19 insertions(+), 1 deletion(-)
-
-diff --git a/include/net/netns/xfrm.h b/include/net/netns/xfrm.h
-index 423b52eca908d..99eb5c2ff888b 100644
---- a/include/net/netns/xfrm.h
-+++ b/include/net/netns/xfrm.h
-@@ -23,6 +23,7 @@ struct xfrm_policy_hash {
- struct xfrm_policy_hthresh {
- 	struct work_struct	work;
- 	seqlock_t		lock;
-+	bool			work_disabled;
- 	u8			lbits4;
- 	u8			rbits4;
- 	u8			lbits6;
-diff --git a/net/xfrm/xfrm_policy.c b/net/xfrm/xfrm_policy.c
-index 00d9693c13ae7..cc8f4d4b70875 100644
---- a/net/xfrm/xfrm_policy.c
-+++ b/net/xfrm/xfrm_policy.c
-@@ -1384,7 +1384,10 @@ static void xfrm_hash_rebuild(struct work_struct *work)
- 
- void xfrm_policy_hash_rebuild(struct net *net)
- {
--	schedule_work(&net->xfrm.policy_hthresh.work);
-+	write_seqlock(&net->xfrm.policy_hthresh.lock);
-+	if (!net->xfrm.policy_hthresh.work_disabled)
-+		schedule_work(&net->xfrm.policy_hthresh.work);
-+	write_sequnlock(&net->xfrm.policy_hthresh.lock);
- }
- EXPORT_SYMBOL(xfrm_policy_hash_rebuild);
- 
-@@ -4181,6 +4184,7 @@ static int __net_init xfrm_policy_init(struct net *net)
- 	net->xfrm.policy_hthresh.rbits6 = 128;
- 
- 	seqlock_init(&net->xfrm.policy_hthresh.lock);
-+	net->xfrm.policy_hthresh.work_disabled = false;
- 
- 	INIT_LIST_HEAD(&net->xfrm.policy_all);
- 	INIT_LIST_HEAD(&net->xfrm.inexact_bins);
-@@ -4206,6 +4210,19 @@ static void xfrm_policy_fini(struct net *net)
- 	unsigned int sz;
- 	int dir;
- 
-+	/* Prevent new policy hash rebuilds before draining the work item.
-+	 *
-+	 * The upstream fix uses disable_work_sync(), which is unavailable
-+	 * in v6.6. Protecting work_disabled and schedule_work() with the
-+	 * same seqlock closes the check-to-queue race, while the subsequent
-+	 * cancel_work_sync() drains work that was queued or running before
-+	 * teardown disabled it.
-+	 */
-+	write_seqlock(&net->xfrm.policy_hthresh.lock);
-+	net->xfrm.policy_hthresh.work_disabled = true;
-+	write_sequnlock(&net->xfrm.policy_hthresh.lock);
-+	cancel_work_sync(&net->xfrm.policy_hthresh.work);
-+
- 	flush_work(&net->xfrm.policy_hash_work);
- #ifdef CONFIG_XFRM_SUB_POLICY
- 	xfrm_policy_flush(net, XFRM_POLICY_TYPE_SUB, false);
--- 
-2.43.0
-
+~Gregory
