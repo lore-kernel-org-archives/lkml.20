@@ -1,109 +1,152 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D632D41A55C
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:32:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 309142EEE90;
+	Wed, 14 Oct 2026 06:33:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791959586; cv=none; b=EQOTU1xjmEq9bHT912AxyTcKccea88Wr6oARqg8gF8WyRLibTZBGQ16xeOel5eRkDitYB/jReJoARTtgp33rFXsTAvKuY/G7KaTAwa/hc6Nrw6WKOnSTRoMn3HeO5OLnXUu85Wnk2n50CHRoHazszRtfKPuaPTpgk9WedDvePv8=
+	t=1791959588; cv=none; b=VvaDQMFeRq2YUmzLLCcVhqcnNo7MobI61wYt3ROXWcb3cdWt2RoipgA1mVTM530kfB7Epm/zrC+iCLrVTccReVNidBQpTqP8J5PGjpbp83NGFmqtpb3kStTxcwYeDMMBcBpNDu78VxtlVFYpkNKCNYyY1QeALrMT73OJba4x6tY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791959586; c=relaxed/simple;
-	bh=xxVW7N8Ua3Mc+UaVlqa96Hyoh5+xLewb+9Uj7IaPfzI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JnAo31bCQFIbivGR3xKL9EsIn0b9sU3UGCgkN1TsWq6zHWZwpn1QeovU0GgrvydMCjs+IEtevENkUMlC2+N3sLJ9OqbMdC38iyvvijz/EZceskQ5nX5t6OyQf62oOUxyMYqp0K4xof8w3jwzv7jnYOs6XsEDDlsqg07/AaSMaSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=artyRKt3; arc=none smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791959588; c=relaxed/simple;
+	bh=hZnXdS8AanEZIIEST8OIJ05dTsAd0Sx5h8VsoTQYJy8=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=G1PvfL/93JB/Wet2CutIE+c8TQqcxZ3Z8hGIv6kYk1KDvuM126x+F+chxytYDk4KbYIttYKwSPzzzJ6/iZbsTIRl+4SGT07DiBMY8locxV61/TRCk9P4hltqSDcBK4+6mFGZu97RT2Kt5CpCBmNxIV1mqWDXCUxrUlYBuQqJFNA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SAdv62mk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="artyRKt3"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-38ec1402b05so29301a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:32:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791959577; x=1792564377; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LWRCVZZ720VVLLC7FnNB4vKZ7B0W9tQEirvbm+Acavk=;
-        b=artyRKt3QbLQaZwX5i9I3uoyQ3AAiPeFiOUEM4gzrl/rxPWdu6HIFpYCvM1/kbSlob
-         w0KrSYEaM4BXkSgTXEcafAhwv0+GGG1YpkdpKdXcMLHEtscfR0wYzDrV2rptBnyY9Vr6
-         Gk1+WQZBRHvXti4j/E7gpp56zYBWCNl/5C8xjl6PxGTscCGm6nstfBwQKtp9jlfF3Pzv
-         xvDcR0SEuNBvpAHDu1/EeFYzrnR78ajjJMDi0rV0+Ij/M8KYzyTYUv/xZO4GPbVcCo/+
-         N2Y0eMQUoo2RqcmaOHx1bjHst9Ad0aV3cWorhXJfiDaZ9WK1VCr3b/NIhOmheDLKMd0e
-         lo7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791959577; x=1792564377;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LWRCVZZ720VVLLC7FnNB4vKZ7B0W9tQEirvbm+Acavk=;
-        b=zX8nppUPdBgoiZMh8Rm/XrTUyJMp/KAPARccZxxC3NamjOpgmpcyh1Qu7vPVYlWQFA
-         v2zKhISprfPlRVQSUb8Dz5Yr78K2pylyhfl9GpCeHhMRBSxvWb6hAsXUWmd5Ieh535so
-         VvxugQHWOdL0Fy+AHuIuMOBDfBDWGBlK6rHn/wWhNstc2E3dy2hVZDecq0nZf6t8wo2A
-         FUAMyas/XtPrIjrSf1QDlUFcU0nUZTWJYbbrv1Q3igRlmtGH6u88EKNE/lxYWIlNUC0f
-         //sh2olUQxN9xLT4ehsZ5LTb5r7pJjYRdDJ3T3ofl81T5YTmxs+IHppO/eLL+l34rsaf
-         jbXg==
-X-Forwarded-Encrypted: i=1; AKwUvBwYmyiTIKYavFwiY4MX6g327A9WxGkgc5SoIZ0m32DOMomCntBrDmeswUGaimGGwxDTzAnYFJIEqrpSiGQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJe2wMJ5C+5PCy1k8wK9c2QLWfP02drFdndolYxP7ZHa0i6Bf+6
-	WOuaXP7/0fc+lxHmSuQV87qHMr4AwJyI5d5LAS+uz1k9dm3hP1frw/XY
-X-Gm-Gg: AYBFou1L3gSUKEvTSS5fX25AO9dkNOfCHBp/+MoslQTRBEwmExf+RgVbEsasnjTh5rN
-	g0hjfJpiR5RAHP5cyw9rBn7RXzQRfFoGxDNwoD7pkR6tDP//Xr7tB4EYVRgGYW4lXGHpmbhVFmw
-	GN52rGN+kVBj+FkbJS7vaMVppcGd+CDWjYfEw15cNqp4658fcEh4AhgHrKsUT5FAsPQtID+gJuB
-	V6YMPq6QMZ/1a3TS8j8WUgHLJGVuDQ3dwDeeQAxMYvJ7uiNGH/cdc27RjoyB3VzBux9mX0isFh9
-	952YTECp8GIyNEE1kvI6wNDmDNcIVygp4s/AG+kvo8i6C5OBP7BMhuF6jputoln+Qi/f7cXJoPn
-	+1mmJIJ0C3yKb2Bt6zaYNxAB1AOT4E6Ppl+uO7U4izQOXAnPn1KXOvYbrx0vQLZQiirkXKKLuyr
-	YHUU0QvZH5t+8DinOJ3QMeJllzuz/hd5xsg/8lkf0K1NHBiPHa3vDxfmLHJhz7LvJLjhFw5M+j1
-	V7JAsFcgfq4R5INpAnNv9P9uHlNeOJ1u/obKBx88ozn+sY35Vv2VdtG7PgOaKksdxdN0xAk9Ug=
-X-Received: by 2002:a17:90b:2681:b0:3aa:ff61:9504 with SMTP id 98e67ed59e1d1-3ab3a9127f1mr11592708a91.20.1791959576587;
-        Tue, 13 Oct 2026 23:32:56 -0700 (PDT)
-Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac600a0619sm3384495a91.7.2026.10.13.23.32.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 23:32:56 -0700 (PDT)
-From: HyeongJun An <sammiee5311@gmail.com>
-To: broonie@kernel.org
-Cc: lgirdwood@gmail.com,
-	ckeepax@opensource.cirrus.com,
-	patches@opensource.cirrus.com,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 04/13] ASoC: codecs: wm8991: Fix definition of LOMIX AINLMUX Bypass Volume control
-Date: Wed, 14 Oct 2026 15:32:31 +0900
-Message-ID: <c6e230b0e7d7e3db2136cc751e0b563030dbc16d.1791959026.git.sammiee5311@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1791959026.git.sammiee5311@gmail.com>
-References: <cover.1791959026.git.sammiee5311@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SAdv62mk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A051F1F000FF;
+	Wed, 14 Oct 2026 06:33:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791959581;
+	bh=bz7UsijxJT419pdB7TAHe5DRpQqHR9oPLis11GxsW8A=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=SAdv62mk3hJ0WgjjHtxTuAcC5tvg06ypH1BURi+MjJZw8A6JV4dCdRfdmhMY8sL/f
+	 lxF8TgAbAqwrb4psqcRkaq7y45KlGzNthUwyYTuMcIUFpDvufRDikUPYV3nad/tqrg
+	 bM1fvLp4aPKRWx+PzdJAZWe5oalGqNC2T7BzHAg2HMGFoQXTOoPOcxaqbQq8LaLf77
+	 j0qsCcj4J2tpGBqbkJk+nKSXLcHYWnKD0/aQpKlBfbGdwSLm+hTvmHZYEor9IGQFFA
+	 dSBWE9xwK0vBt1hjvvcCz9sCr9cngfNIRmjxINZDQMJJKW/Q2TPRMSSsppDRGeuBTt
+	 lrGHLnEPQa//Q==
+Subject: Re: [PATCH net-next v3 2/4] vsock/virtio: amortize RX socket locking
+ for stream packets
+From: netdev-bot+sashiko@kernel.org
+To: physicalmtea@gmail.com
+Cc: stefanha@redhat.com, sgarzare@redhat.com, mst@redhat.com,
+ jasowangio@gmail.com, eperezma@redhat.com, xuanzhuo@linux.alibaba.com,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, virtualization@lists.linux.dev, kvm@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Wed, 14 Oct 2026 06:33:00 +0000
+Message-ID: <179195958017.434549.14764784523092696104@kernel.org>
+In-Reply-To: <20261013063112.168321-3-physicalmtea@gmail.com>
+References: <20261013063112.168321-3-physicalmtea@gmail.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The LOMIX AINLMUX bypass volume (LLBLOVOL) is at bits 2:0 of Output
-Mixer5, not at bits 5:3, which hold the AINRMUX bypass volume
-(LRBLOVOL).
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Fixes: 203db220718c ("ASoC: WM8991: Add initial WM8991 driver")
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
----
- sound/soc/codecs/wm8991.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Low priority / nit picks for your consideration:
 
-diff --git a/sound/soc/codecs/wm8991.c b/sound/soc/codecs/wm8991.c
-index 157b48f02451..471310257123 100644
---- a/sound/soc/codecs/wm8991.c
-+++ b/sound/soc/codecs/wm8991.c
-@@ -184,7 +184,7 @@ static const struct snd_kcontrol_new wm8991_snd_controls[] = {
- 	SOC_SINGLE_TLV("LOMIX AINRMUX Bypass Volume", WM8991_OUTPUT_MIXER5,
- 		WM8991_LRBLOVOL_SHIFT, WM8991_LRBLOVOL_MASK, 1, out_mix_tlv),
- 	SOC_SINGLE_TLV("LOMIX AINLMUX Bypass Volume", WM8991_OUTPUT_MIXER5,
--		WM8991_LRBLOVOL_SHIFT, WM8991_LRBLOVOL_MASK, 1, out_mix_tlv),
-+		WM8991_LLBLOVOL_SHIFT, WM8991_LLBLOVOL_MASK, 1, out_mix_tlv),
- 
- 	/* ROMIX */
- 	SOC_SINGLE_TLV("ROMIX RIN3 Bypass Volume", WM8991_OUTPUT_MIXER4,
+- [Low] The patch is presented as a pure performance optimization
+  ("amortize RX socket locking for stream packets").
+
+--
+
+vsock/virtio: amortize RX socket locking for stream packets
+
+The virtio-vsock RX worker now keeps the socket lock and the lookup
+reference held across a bounded run of STREAM/RW packets for one socket.
+A batch is capped at 64 packets or 64KB of payload. It ends on control
+packets, a flow change, or a change in socket state or protocol. Two new
+exported functions are added, virtio_transport_recv_pkt_batch() and
+virtio_transport_rx_batch_finish().
+
+> diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
+> index 8a930bc42fdc3..bfe40ecf0b2f0 100644
+> --- a/net/vmw_vsock/virtio_transport_common.c
+> +++ b/net/vmw_vsock/virtio_transport_common.c
+
+[ ... ]
+
+> @@ -1909,6 +1945,128 @@ void virtio_transport_recv_pkt(struct virtio_transport *t,
+
+[ ... ]
+
+> +	if (batch->sk) {
+> +		vsk = vsock_sk(batch->sk);
+> +		if (vsock_addr_equals_addr(&src, &vsk->remote_addr) &&
+> +		    dst.svm_port == vsk->local_addr.svm_port &&
+> +		    vsock_net_check_mode(sock_net(batch->sk), net) &&
+> +		    virtio_transport_recv_pkt_batchable(t, batch->sk)) {
+
+[ ... ]
+
+> +		}
+> +
+> +		virtio_transport_rx_batch_finish(batch);
+> +	}
+> +
+> +	sk = virtio_transport_find_socket(skb, &src, &dst, net);
+
+[ ... ]
+
+> +	lock_sock(sk);
+> +	/*
+> +	 * Sockmap removal restores the native protocol under sk_callback_lock.
+> +	 * Serialize this initial eligibility check with that update.
+> +	 */
+> +	read_lock_bh(&sk->sk_callback_lock);
+> +	start_batch = virtio_transport_recv_pkt_batchable(t, sk);
+> +	read_unlock_bh(&sk->sk_callback_lock);
+> +
+> +	free_pkt = virtio_transport_recv_pkt_locked(t, skb, sk, &src, &dst,
+> +						    net,
+> +						    start_batch ? &batchable : NULL);
+> +	if (start_batch && batchable) {
+> +		/* Keep the lookup reference until the batch is released. */
+> +		batch->sk = sk;
+> +		return;
+> +	}
+
+[Severity: Low]
+Is there data showing this is a net win? The subject says it will
+"amortize RX socket locking for stream packets". The commit message
+gives no throughput, latency or CPU-cost numbers.
+
+Take interleaved RW traffic from two or more stream flows (A, B, A, B,
+...). The cached-flow check above fails on every packet, so each packet
+goes through:
+
+virtio_transport_recv_pkt_batch()
+    virtio_transport_rx_batch_finish()   /* release_sock + sock_put */
+    virtio_transport_find_socket()
+    lock_sock()
+    read_lock_bh(&sk->sk_callback_lock)
+    virtio_transport_recv_pkt_batchable()
+    read_unlock_bh(&sk->sk_callback_lock)
+    virtio_transport_recv_pkt_locked()
+        virtio_transport_recv_pkt_batchable()
+
+Every step of the old per-packet path is still done. On top of that,
+each packet pays for the read_lock_bh()/read_unlock_bh() pair, two
+predicate checks, and the batch bookkeeping in
+virtio_transport_rx_work(). No batch ever grows past one packet.
+
+The socket lock from the previous flow also stays held while
+virtio_transport_rx_work() runs virtqueue_get_buf(), tap delivery and
+header parsing for the next packet.
+
+The added cost is small next to lock_sock() and the socket lookup. Could
+the commit message include measurements, and mention this
+interleaved-flow trade-off?
+
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261013063112.168321-1-physicalmtea%40gmail.com
