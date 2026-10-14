@@ -1,137 +1,161 @@
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+Received: from mta0.migadu.com (out-99.mta0.migadu.com [91.218.175.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC2A141A91E
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:25:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10340476CD6
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:26:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791962758; cv=none; b=qEfzEbD9N83E7KT8QayNz5275BAPyPXO8FLevq+zvgppn/IlQjlnHQBYym+JlEWnMd/lyp7LRoKPnpbDz+ShxPiF1HMcJX8b14gLI0P/6xUCIKxoR0MuMa3Wbc9hY+pEsz4ryTkfGsf3CDhRfohSgyaQBL8beEDLVUuyrkJALSQ=
+	t=1791962772; cv=none; b=BmOsjtJ9ny8t6wnRzoCvN6GyDde1PA/JGqtCrO7CBAIDHX9xYGcP62xspHGejtrmSwanls4kXByIvSScWYVSDMoj0xhg8HKpSIYqfoEd+SxZNkNP60mqyH2uzx7r9EFLkRYDIpXM/vcLHQVZz2dPPKOlzx8sXij3AnRjg/L5Q60=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791962758; c=relaxed/simple;
-	bh=l4SPsE6hUZzdH+Qt8qaHUjdFoBe0vV50Kvu0KI2diGg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=t7PhvueI6geg8VJvn6fNEyHKkkhNUXC2HsxzUexEctjjx8DeWeSX3k5mISfqSv1PxOtTCp/kTkb5WodkXlx/4X50GAmZAGIcBYJoW2/hjOGgvDEpzSvNqjVlx1KpP2tecj/TZvcgw3oIo9gqR4cLzoGw1JSmbdJgyJThU8OE3xo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iI/OzBJX; arc=none smtp.client-ip=74.125.82.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791962772; c=relaxed/simple;
+	bh=hHZJT6a9AHSI0FRADan7O9ikGQ54SPVMGHXSCUhyLoM=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=eHygHrjsTAaImS0TTQikq+kALNgotE71y1wfUv3G/q1MCLHTAsOlSyPvIgEBvJ6u1LEG/JG4fVPi/vkZ8FPu6brmoJP8WQ/18nJesJH68AglJBp7kagxJWizy6KXykac7ip9rqVK/YJsiYXCQTjjsyJjC5EY0Ij5yT+1SHrIyTw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=oB3DKXHk; arc=none smtp.client-ip=91.218.175.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iI/OzBJX"
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-16079d54c17so4803813c88.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 00:25:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791962756; x=1792567556; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Etm6ClrcBWm5fy49QND/rngwEsT/VESg8/v5EOMf2FQ=;
-        b=iI/OzBJXVcavSV/zWUVW3/C/IDY3buP0Zj45+aRbnOhZBv5eAIC2ZdOAb/WapgdXRB
-         motrNKy22C7nIt3GhM0EZMfyuNrihkuW0y5jEHsDkUnTqHC/pHYsCqM+NR6DDtZSSNiq
-         VcYBMNFDBf0iUTHf7SH73aIjn9MoKVBEupIStonZFTPPSBBo6+fc+I6C3Js6HfxFqTxL
-         YE1Cv8plDUo+EvTv9jiak98uHpn6QN/8Dj5jVztuqNGdDyVV3BNYO6zYbn5GMl9jR68J
-         9wbf5vwWmYqbfort5+AgHTe1JDvj7OSlVYKeHVmDBpSa4L/Wkowyh4/NozC6TwnxTqpX
-         1KMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791962756; x=1792567556;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Etm6ClrcBWm5fy49QND/rngwEsT/VESg8/v5EOMf2FQ=;
-        b=KcrpeG7/C8t4LPk+aRAOb7GCO8Aux2rfTQIrVSQZw+DNqOcgXiR6/e1S2cWDl9NnjD
-         pqku4ZMQIujNMJC2YuaL4z0/wyfYezo1jwRtV0nURiKn5j7vR+wYpxxdtLMAjIqYLxGV
-         5waOGhvQ4QghJzDojDxh4WVmpLAZZHcMzB48+fMYbc9okv8/5od9wHZVe/X2HwSyHfCq
-         imxIJ+lV5RCt85hrvHqcXCeWLwsqXxwpwToQYzYry3wiPOoFDRu6igGwBR3vae8o3j8+
-         9vCY6QaRj/B2kqnNbKpKzr6GOETxnQdeLNnIKiqnUW1inm4BuTg/998acdEoDxFqDs3I
-         QLtQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzOdR6+kqY5KsC4AjirkJZjwgADVZvDxBfyHNpV9puA7HfWiEAdmmvOGhdAIM3g64u7lmo2kcWqIDqu/Fk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIzoE52+78TLGBnVttE2QlPwZCEq8vDIJrUAN83lNK8UjgleV+f
-	OAf3tB9gIpcYXK80P9gEGOxsiSEXkTZTCG6aZ4BfbqdsbBK8ucq90CyM/dae1g==
-X-Gm-Gg: AYBFou2vlCzcRYdfE+aMyreq/e8oB3EuyD9+AGCq3s7/S0dslbZMmKQMZkjsy8NfF6U
-	5dyVtCh/UiEwcTHHttIrnJ8eWPKNrHFL3l0gvCBm3zRNBjlHWSn3uYbNQGlJeoBIkZHuHnue6kb
-	FDx/GLdMPspIXrvZn6Fn/FOgdIidsL8kx4u5Dq30oaFZM0CmYsWjDZ6CM5XUu5r8ZtedzjP53EQ
-	qLSXBZq7mqEEsnGJ6Wku+MlXT3poabvTLUAgCqDwqIuBPO2dJ+1SB6AImG09GMY68hsEgG4c6lB
-	CnvJUij12pY6Yuv3dgf+aCuk69nZd0lMidpFu8vOkQ3dkjvcf3RYXQPXk7aHMAQOq7iJEilOGdt
-	kViidjN5GM2+IBi8UzaexaNPeeD0Gvz13yndmYJTZ99fcTkE1KvQlagY22pI6nIU7XAmnSp5DVg
-	2OX+yKg47sXvtlWqVwoV1rLE35hO506KE0g7fXazM3TayaUyaqfoCbYn65K6WzIEI=
-X-Received: by 2002:a05:7022:290:b0:151:2e62:fe5b with SMTP id a92af1059eb24-16a5dbfd567mr23448651c88.22.1791962755498;
-        Wed, 14 Oct 2026 00:25:55 -0700 (PDT)
-Received: from linmach ([182.156.30.23])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a42407e7sm44461526c88.15.2026.10.14.00.25.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 00:25:55 -0700 (PDT)
-From: Aayush Kumar <aayushkmx@gmail.com>
-To: perex@perex.cz,
-	tiwai@suse.com
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Aayush Kumar <aayushkmx@gmail.com>
-Subject: [PATCH v2] ALSA: hda/realtek: Fix speaker and mic mute LEDs on IdeaPad Pro 5 14IAH10
-Date: Wed, 14 Oct 2026 12:55:05 +0530
-Message-ID: <20261014072505.60358-1-aayushkmx@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="oB3DKXHk"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=hHZJT6a9AHSI0FRADan7O9ikGQ54SPVMGHXSCUhyLoM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791962767; v=1; x=1792567567;
+ b=oB3DKXHkMuhLvG9POYZFUaxnUIrPLTFBXzWFIn7i+qwncHnSESILKnwBf0eY2QHtv4VdAPQX
+ eOPeR2YThCubdiBSSNnDWVm+XFybWno5cchASX0YmDALhwBuTF9KjMYwb+yOm1e24tmShft22NU
+ anA3U4oay4hVeTOQykwNz/GI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 5a2aabe76301d61e;
+	Wed, 14 Oct 2026 07:26:07 +0000
+X-Mizu-Trace-ID: 5a2aabe76301d61e
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH] ipc/shm: fix RSS accounting for hugetlb shared memory
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20261014062705.1997201-1-tongweilin@linux.alibaba.com>
+Date: Wed, 14 Oct 2026 15:25:49 +0800
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Oscar Salvador <osalvador@suse.de>,
+ David Hildenbrand <david@kernel.org>,
+ Sidhartha Kumar <sidhartha.kumar@oracle.com>,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ Dan Carpenter <error27@gmail.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <0B5B2CA9-8FA9-4DEE-BF78-8E280F337362@linux.dev>
+References: <20261014062705.1997201-1-tongweilin@linux.alibaba.com>
+To: Weilin Tong <tongweilin@linux.alibaba.com>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-The speaker and microphone mute LEDs on the IdeaPad Pro 5 14IAH10
-do not follow the ALSA mute state. This machine has an ALC287 codec
-with SSID 17aa:3914, but shares PCI SSID 17aa:3843 with the Yoga
-Book 9i and currently gets its fixup.
 
-Add a codec SSID quirk that runs the IdeaPad ACPI LED fixup. Chain
-the existing bass speaker amp fixup so the audio setup is retained.
 
-Tested on the IdeaPad Pro 5 14IAH10: muting and unmuting the
-headphone sink toggled the physical speaker mute LED. Muting both
-microphone controls changed the ALSA mic LED state from 0 to 1.
+> On Oct 14, 2026, at 14:27, Weilin Tong <tongweilin@linux.alibaba.com> =
+wrote:
+>=20
+> Commit a08c7193e4f1 ("mm/filemap: remove hugetlb special casing in
+> filemap.c") changed mapping->nrpages to count base pages for hugetlb
+> folios. However, shm_add_rss_swap() still multiplies it by
+> pages_per_huge_page(), overcounting RSS in both SHM_INFO and
+> /proc/sysvipc/shm.
+>=20
+> Use mapping->nrpages directly and remove the unused hstate variable.
+>=20
+> Fixes: a08c7193e4f1 ("mm/filemap: remove hugetlb special casing in =
+filemap.c")
+> Signed-off-by: Weilin Tong <tongweilin@linux.alibaba.com>
+>=20
+> ---
+> ipc/shm.c | 3 +--
+> 1 file changed, 1 insertion(+), 2 deletions(-)
+>=20
+> diff --git a/ipc/shm.c b/ipc/shm.c
+> index 25190965c9a50..5ed2beef0f1d2 100644
+> --- a/ipc/shm.c
+> +++ b/ipc/shm.c
+> @@ -943,8 +943,7 @@ static void shm_add_rss_swap(struct shmid_kernel =
+*shp,
+>=20
+> 	if (is_file_hugepages(shp->shm_file)) {
+> 		struct address_space *mapping =3D inode->i_mapping;
+> - 		struct hstate *h =3D hstate_file(shp->shm_file);
+> - 		*rss_add +=3D pages_per_huge_page(h) * mapping->nrpages;
+> + 		*rss_add +=3D mapping->nrpages;
 
-Signed-off-by: Aayush Kumar <aayushkmx@gmail.com>
----
-Changes in v2:
-- Add a comment about the conflicting PCI SSID.
-- Rebase onto sound.git for-next.
+Hi Weilin,
 
- sound/hda/codecs/realtek/alc269.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+Thanks for fixing this. Using mapping->nrpages directly for hugetlb
+folios is correct.
 
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index 542245156..aff1a1e40 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -4386,6 +4386,7 @@ enum {
- 	ALC295_FIXUP_HP_OMEN,
- 	ALC285_FIXUP_HP_SPECTRE_X360,
- 	ALC287_FIXUP_IDEAPAD_BASS_SPK_AMP,
-+	ALC287_FIXUP_IDEAPAD_BASS_SPK_AMP_LED,
- 	ALC623_FIXUP_LENOVO_THINKSTATION_P340,
- 	ALC255_FIXUP_ACER_HEADPHONE_AND_MIC,
- 	ALC236_FIXUP_HP_LIMIT_INT_MIC_BOOST,
-@@ -6611,6 +6612,12 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.chained = true,
- 		.chain_id = ALC285_FIXUP_THINKPAD_HEADSET_JACK,
- 	},
-+	[ALC287_FIXUP_IDEAPAD_BASS_SPK_AMP_LED] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc_fixup_ideapad_acpi,
-+		.chained = true,
-+		.chain_id = ALC287_FIXUP_IDEAPAD_BASS_SPK_AMP,
-+	},
- 	[ALC287_FIXUP_LENOVO_YOGA_PRO7] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = alc_fixup_yoga_pro7_audio,
-@@ -8427,6 +8434,11 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x17aa, 0x3834, "Lenovo IdeaPad Slim 9i 14ITL5", ALC287_FIXUP_YOGA7_14ITL_SPEAKERS),
- 	SND_PCI_QUIRK(0x17aa, 0x383d, "Legion Y9000X 2019", ALC285_FIXUP_LEGION_Y9000X_SPEAKERS),
- 	SND_PCI_QUIRK(0x17aa, 0x3842, "ThinkBook X G2 IAH", ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_4_THINKPAD),
-+	/* IdeaPad Pro 5 14IAH10 shares PCI SSID 17aa:3843 with Yoga Book 9i;
-+	 * use codec SSID to distinguish them
-+	 */
-+	HDA_CODEC_QUIRK(0x17aa, 0x3914, "Lenovo IdeaPad Pro 5 14IAH10",
-+			ALC287_FIXUP_IDEAPAD_BASS_SPK_AMP_LED),
- 	SND_PCI_QUIRK(0x17aa, 0x3843, "Lenovo Yoga 9i / Yoga Book 9i", ALC287_FIXUP_LENOVO_YOGA_BOOK_9I),
- 	/* Yoga Pro 7 14IMH9 shares PCI SSID 17aa:3847 with Legion 7 16ACHG6;
- 	 * use codec SSID to distinguish them
--- 
-2.56.0
+Could you please simplify shm_add_rss_swap() further as shown below?
+
+The info->lock taken here only serializes the read of info->swapped. It
+does not protect mapping->nrpages, which is updated under the page-cache
+XArray lock. Therefore, taking info->lock cannot provide a consistent
+snapshot of nrpages and swapped.
+
+These statistics are inherently best-effort, so READ_ONCE() should be
+sufficient for both fields. This is also consistent with
+shmem_swap_usage(), which reads info->swapped using READ_ONCE() without
+taking info->lock.
+
+With that, the nrpages accounting can be shared by all backing types,
+and only the swapped accounting needs to remain conditional on
+CONFIG_SHMEM and non-hugetlb files.
+
+Please also mention the lockless snapshot change in the commit message.
+
+Thanks,
+Muchun
+
+diff --git a/ipc/shm.c b/ipc/shm.c
+index bb1a721a3e74..6862f681373f 100644
+--- a/ipc/shm.c
++++ b/ipc/shm.c
+@@ -936,26 +936,11 @@ static inline unsigned long =
+copy_shminfo_to_user(void __user
+*buf, struct shminf
+static void shm_add_rss_swap(struct shmid_kernel *shp,
+     unsigned long *rss_add, unsigned long *swp_add)
+{
+-     struct inode *inode;
++     struct inode *inode =3D file_inode(shp->shm_file);
+
+-     inode =3D file_inode(shp->shm_file);
+-
+-     if (is_file_hugepages(shp->shm_file)) {
+-             struct address_space *mapping =3D inode->i_mapping;
+-             struct hstate *h =3D hstate_file(shp->shm_file);
+-             *rss_add +=3D pages_per_huge_page(h) * mapping->nrpages;
+-     } else {
+-#ifdef CONFIG_SHMEM
+-             struct shmem_inode_info *info =3D SHMEM_I(inode);
+-
+-             spin_lock_irq(&info->lock);
+-             *rss_add +=3D inode->i_mapping->nrpages;
+-             *swp_add +=3D info->swapped;
+-             spin_unlock_irq(&info->lock);
+-#else
+-             *rss_add +=3D inode->i_mapping->nrpages;
+-#endif
+-     }
++     *rss_add +=3D READ_ONCE(inode->i_mapping->nrpages);
++     if (IS_ENABLED(CONFIG_SHMEM) && !is_file_hugepages(shp->shm_file))
++             *swp_add +=3D READ_ONCE(SHMEM_I(inode)->swapped);
+}
+
+> 	} else {
+> #ifdef CONFIG_SHMEM
+> 		struct shmem_inode_info *info =3D SHMEM_I(inode);
+> --=20
+> 2.43.5
+>=20
 
