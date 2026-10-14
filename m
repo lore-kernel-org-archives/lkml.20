@@ -1,112 +1,183 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A9764A5EB7;
-	Wed, 14 Oct 2026 22:35:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AC5242BC23
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:39:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792017309; cv=none; b=qV/ejrM0ZQKJ4ZTr5fBNo2IyrrnJiWYGYD54EG7AXnXl55nQho1El86M+8PwKi/N+KkztI8CR1r+OMcS6dPoE8xZQzPQPZCNevcl6kBXMsk+uWip7ojwtTjILZ1dBRlsTlcui1qUE7c3euLX3mgtVmYT30LxNbaWEykcK65Xqs0=
+	t=1792017598; cv=none; b=rRfL5CyzIl1T0d15TEmtPu268P0dsdQJ9qXiDjTuZxIT1nD9poW9SyfT5uwLy0KNyxHsEOzqbWCFadoW/eDVWTqTj2LxZ5Lp9dzLJNfkrVlxNCTru2eCEndB60O/9MAJZAh4FmolyXGYcsg7gK2Mxr4vNNOe4nj1kgd9Yj10LZ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792017309; c=relaxed/simple;
-	bh=AmDME+Tz+w9UcXrraGYGQuY678RxPXZRS4l65fAAWE4=;
+	s=arc-20240116; t=1792017598; c=relaxed/simple;
+	bh=F0/PSnK0UYXRQwLpNd8hP6ZKOte9su8aiS8d81Stb/A=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AAdbi3QiMxY2Dwo+CtdiSNLQNF6botrRDM/Ve6kEyI3Qw8HNKmxgxYTMIQ75FEbG/pnXiI3r2oeMSsDqCDttGAeYE1YzMSQXD2nqe1JdWT+zIrVDczx7CwfhcME8ATBpHi43sH4ywBzvDtrroE5wmUhgtpvAaFHeojTZYG0EzsQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WqQWwC29; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=KqVONtdZQQZAnsbHVJ662WyhfxEKU/GeATJTa8iUIwnkrPOLRcYkKvvqb2cGZ+QVbcfvKx8VMgvegRJyQC+7CadG+L8PJVhFMC+C+KIrTFF5Bx0E/XVJ0IAJZMplLeICigay3g5HqoTJVTbmGHGDjbS+NF5+5PrDNZqPBqidp3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NkhdQU4B; arc=none smtp.client-ip=74.125.227.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WqQWwC29"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792017307; x=1823553307;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=AmDME+Tz+w9UcXrraGYGQuY678RxPXZRS4l65fAAWE4=;
-  b=WqQWwC29a0eycMorQZ5sdJlvUtFok/tl0tVp6mUaNv0G1eRmUynVlDgt
-   c325wffqCzpUsvDZEf2+IHsQk4M39iIkB4cHRIQSnCAqWMWYA3gE6VkHp
-   mr/k+CuTdF+Jep0ljDvqmoDnN7Nl6qIKLv+GOeXwF0ph6r76prMgF3LKq
-   T/9M0ziwxJ7Hu3IISkF5J3WvjbH84+MvvWE2Hv0Ca6m3irL2rmEVusiW5
-   xcZfwT+C4E1kwAdYhXlQ5BwEeSUJSjXnjsWgDyG38ABQlXh2TdIzQjoOz
-   wnONp35urJwqSHnKuURR/i63eob97EriGlaceMWiKhjNrrL+NWE3Hafe8
-   w==;
-X-CSE-ConnectionGUID: gZ5HcQ3oTkeBIFi5LFdHFw==
-X-CSE-MsgGUID: r3vQQzGCT6Gv0zFNHcgZaw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="659032"
-X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
-   d="scan'208";a="659032"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 15:35:06 -0700
-X-CSE-ConnectionGUID: DOunOLk8RbaLId/zN2tjMw==
-X-CSE-MsgGUID: +xMdiST+S3SP7XR59Me36g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
-   d="scan'208";a="1453123"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa008.jf.intel.com with ESMTP; 14 Oct 2026 15:35:03 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xH7Yp-00000000FGw-34Xe;
-	Wed, 14 Oct 2026 22:34:59 +0000
-Date: Thu, 15 Oct 2026 06:34:39 +0800
-From: kernel test robot <lkp@intel.com>
-To: Svyatoslav Ryhel <clamor95@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
-	Sebastian Reichel <sre@kernel.org>, Ion Agorria <ion@agorria.com>,
-	=?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
-	Florian Krischer <florian.krischer@fkr.dev>
-Cc: oe-kbuild-all@lists.linux.dev, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-input@vger.kernel.org,
-	mfd@lists.linux.dev, linux-leds@vger.kernel.org,
-	linux-pm@vger.kernel.org
-Subject: Re: [PATCH v11 2/7] mfd: Add driver for ASUS Transformer embedded
- controller
-Message-ID: <202610150612.syb967F8-lkp@intel.com>
-References: <20261013173504.451391-3-clamor95@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NkhdQU4B"
+Received: by mail-pj2-f8.google.com with SMTP id d9443c01a7336-2e93d9c7973so1906295ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:39:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792017596; x=1792622396; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8UyEnW2lOZvazx37QD4Yu1Cl+1Ebx+89Hh4Lc5xhOSk=;
+        b=NkhdQU4BSUgrd2KnOU1fSeIT0KDZl28mboXqjG1uBLY1r1/+3yH48RMQtFwfO3ccOu
+         kj3/AqdjT5QjGvsRjfIbBomr8UxWGwGz1NA6TTeyYwvaXZ5gKS4TIS6/Ww793+AEYSZ/
+         YFKQ6a5nHBfZJNJsbyHDOWm6xRkUkMQk4nS/mGqf/qvzS2oFKnEH9lHtzEqoOv5emqVb
+         5pOP98lBwbxUcRZqjr1Bsxw9xiCn4ce5nP0OCv2QQRrtXgu32aEiMV0jlCuYfG+YTddN
+         arVRRi1wBLb5/4CcJhyIs2pHBu5S8vGcxrigYhpr2IygHIo3B/Sw2AdrXIaAGFg27kbh
+         QYgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792017596; x=1792622396;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=8UyEnW2lOZvazx37QD4Yu1Cl+1Ebx+89Hh4Lc5xhOSk=;
+        b=qrF6i4yhXMWv6sCDT37drFLiW8aMO9fL9Z86o/P3qlAX99UX6VYn38UOmgetkMDVJl
+         Z6BmX0aKM/6nu/ttFQka9G89olSB0PP0xPoTrnv5pJ+yQEOy8jfxTn+xN0ceEYgJp/0N
+         F4hkAXGxNNlXbZIg9o4din8Vbi6BH9iBbgDYsw+sYYrJxdHoRWxAgVVHA+5ptaYC5Roo
+         XkUfJ5qn+DDycIiaCsXi8Mc1yketgv2oe8rXTQb4LssPBE4RN++MDb87jsfK+HUzH5Hy
+         GfyWMMKaj0sPMe8jPzEDuRWnSjo3YcGhwdCw9gg8vAIB/RfaZjXNgtMLVg8EsIt5Kzja
+         qTDg==
+X-Forwarded-Encrypted: i=1; AKwUvBxBgGzXNtMP+rBcN0j+GxcwqBbjDXBuwW9G/uhkqUl2qUWOKvyzxJXHKTIr+zR90vn9qZQByKxH7UUQzpo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKuIz9VHxvmUru13BbiLd2PE8qJUsHIMZxeVMOt0clsMgZ672er
+	QGYB0Zip8Mg9L5b0phfVdopc88GlwQ1tM33Ocm5kCJ6ZBcgrCX7ETxlZ
+X-Gm-Gg: AYBFou1WXtU5qtLD2Sc7b+wKcfv4JONbX1/Iw2eX3K/DLWxAJp2k5wk8WpvtuE7DyLD
+	f7Ii8CVKaEEY9oDgM+NvDO05CLdicQiEQKjLcfN94L6Bz6XR74H36x0Mjy34xBtySCaZJC6abJu
+	AgJR7YDzFxPC+bfcwcxeqw0baUlfO7cPBUIycRinpggh3ok6VlQX9BQFcJ3TG/d0TILSmBPCdVR
+	1XYjdBLiJ81j2dNejz+Kk6W0nzxxJ90jGswjMh8G+HVgOWctvl9vEQNDmkd32/6RgUH4/IjSBe2
+	vq7jlSxEvJmGIDF3NSYIsBfBMbtnDRagVi+NsGYubhbtTEXVMQPTf5I4kXvvJJwcCcVh0hYHj7t
+	QKV8OK0TPnnYLn4u9TOnY0oFL48wpK0FhjgBf+sLDMIEIk0SAffpbcyV/E29EkcHVzRAFT3CCxS
+	f70R4Gwymp46kQpFP6hMktQ5hmAWDz6w3KsbmCoyPybeTBWnKZK9+qCWFi0ZEW+HGM
+X-Received: by 2002:a17:903:1b0c:b0:2e9:3dd0:c8d with SMTP id d9443c01a7336-2e93dd01892mr28961315ad.14.1792017595732;
+        Wed, 14 Oct 2026 15:39:55 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:58::])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8483c3dfcsm72333795ad.24.2026.10.14.15.39.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 15:39:55 -0700 (PDT)
+Date: Wed, 14 Oct 2026 15:39:47 -0700
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+To: Mina Almasry <almasrymina@google.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-rdma@vger.kernel.org, bpf@vger.kernel.org, Ayush Sawal <ayush.sawal@chelsio.com>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Tariq Toukan <tariqt@nvidia.com>, 
+	Simon Horman <horms@kernel.org>, Steffen Klassert <steffen.klassert@secunet.com>, 
+	Herbert Xu <herbert@gondor.apana.org.au>, Neal Cardwell <ncardwell@google.com>, 
+	Kuniyuki Iwashima <kuniyu@google.com>, John Fastabend <john.fastabend@gmail.com>, 
+	Sabrina Dubroca <sd@queasysnail.net>, Eric Biggers <ebiggers@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Aleksandr Loktionov <aleksandr.loktionov@intel.com>, Petr Machata <petrm@nvidia.com>, 
+	Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>, Jakub Raczynski <j.raczynski@samsung.com>, 
+	Wang Zhan <wang.zhan@smartx.com>, Willem de Bruijn <willemb@google.com>
+Subject: Re: [PATCH net-next v3 3/6] net: skbuff: replace skb_page_unref()
+ and __skb_frag_unref() with skb_netmem_unref()
+Message-ID: <atAEVu_Hife2dWUz@devvm7509.cco0.facebook.com>
+References: <20261014173945.373295-1-almasrymina@google.com>
+ <20261014173945.373295-4-almasrymina@google.com>
+ <as_yg4hCCfpkukZB@devvm7509.cco0.facebook.com>
+ <CAHS8izPDAjfRFCM2LrC7tzVQRkGCcn6zsghEvHJ9FJ1ET9odYg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261013173504.451391-3-clamor95@gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAHS8izPDAjfRFCM2LrC7tzVQRkGCcn6zsghEvHJ9FJ1ET9odYg@mail.gmail.com>
 
-Hi Svyatoslav,
+On 10/14, Mina Almasry wrote:
+> On Wed, Oct 14, 2026 at 2:25 PM Stanislav Fomichev <sdf.kernel@gmail.com> wrote:
+> >
+> > On 10/14, Mina Almasry wrote:
+> > > Unreferencing a page_pool fragment with recycle=false decrements the
+> > > non-pp backing refcount instead of pp_ref_count, underflowing the page
+> > > refcount when the fragment was owned via page_pool (as on mlx4's RX
+> > > error path). Having both skb_page_unref() and __skb_frag_unref(frag,
+> > > recycle) made it easy for callers to pass hardcoded recycle=false on
+> > > SKB-owned fragments.
+> > >
+> > > Replace skb_page_unref() and __skb_frag_unref() with
+> > > skb_netmem_unref(netmem, recycle), which dispatches to
+> > > napi_pp_put_page() when recycle is true and put_netmem() otherwise:
+> > >
+> > > - Use skb_frag_unref(skb, ...) on SKB-owned fragments in mlx4, sky2,
+> > >   tls_strp, and skb_shift() so unrefs always match skb->pp_recycle.
+> > > - Use put_netmem() directly in tls_device's destroy_record(), which
+> > >   releases raw non-pp page references outside an SKB.
+> > >
+> > > Found by code inspection and confirmed with the KUnit tests added later
+> > > in this series; not observed in production. The mlx4, sky2, and TLS
+> > > call-site changes are compile-tested only.
+> > >
+> > > Assisted-by: LLM
+> > > Signed-off-by: Mina Almasry <almasrymina@google.com>
+> > > ---
+> > > v2:
+> > > - Note how the issue was found and how the change was tested.
+> > > - Link to v1: https://lore.kernel.org/netdev/20261010083935.3274178-4-almasrymina@google.com/
+> > > ---
+> > >  drivers/net/ethernet/marvell/sky2.c        |  2 +-
+> > >  drivers/net/ethernet/mellanox/mlx4/en_rx.c |  2 +-
+> > >  include/linux/skbuff_ref.h                 | 34 +++++++++++-----------
+> > >  net/core/skbuff.c                          |  7 +++--
+> > >  net/ipv4/esp4.c                            |  4 +--
+> > >  net/ipv6/esp6.c                            |  4 +--
+> > >  net/tls/tls_device.c                       |  2 +-
+> > >  net/tls/tls_strp.c                         |  2 +-
+> > >  8 files changed, 29 insertions(+), 28 deletions(-)
+> > >
+> > > diff --git a/drivers/net/ethernet/marvell/sky2.c b/drivers/net/ethernet/marvell/sky2.c
+> > > index 30facdece3e29..1d42a82db8f2b 100644
+> >
+> > [..]
+> >
+> > > --- a/drivers/net/ethernet/marvell/sky2.c
+> > > +++ b/drivers/net/ethernet/marvell/sky2.c
+> > > @@ -2501,7 +2501,7 @@ static void skb_put_frags(struct sk_buff *skb, unsigned int hdr_space,
+> > >
+> > >               if (length == 0) {
+> > >                       /* don't need this page */
+> > > -                     __skb_frag_unref(frag, false);
+> > > +                     skb_frag_unref(skb, i);
+> > >                       --skb_shinfo(skb)->nr_frags;
+> > >               } else {
+> > >                       size = min(length, (unsigned) PAGE_SIZE);
+> > > diff --git a/drivers/net/ethernet/mellanox/mlx4/en_rx.c b/drivers/net/ethernet/mellanox/mlx4/en_rx.c
+> > > index 96f97fa0f5489..fe18606c2ab55 100644
+> > > --- a/drivers/net/ethernet/mellanox/mlx4/en_rx.c
+> > > +++ b/drivers/net/ethernet/mellanox/mlx4/en_rx.c
+> > > @@ -497,7 +497,7 @@ static int mlx4_en_complete_rx_desc(struct mlx4_en_priv *priv,
+> > >  fail:
+> > >       while (nr > 0) {
+> > >               nr--;
+> > > -             __skb_frag_unref(skb_shinfo(skb)->frags + nr, false);
+> > > +             skb_frag_unref(skb, nr);
+> > >       }
+> > >       return 0;
+> > >  }
+> >
+> > These do not support qops and don't advertise devmem tx, so they are not
+> > going to deal with netmems anytime soon, why touch these?
+> >
+> 
+> They're still using page-backed netmems that have 2 refcounts, and
+> frag ref/unref needs to pick the right one. Before they were
+> hardcoding false for the pp-recycle bit, so if a skb->pp_recycle==true
+> here for any reason, this code would hit a ref imbalance. Now after
+> this series both skb_frag_ref and skb_frag_unref do the right thing by
+> checking skb->pp_recycle.
+> 
+> This has nothing to do with net-iovs or devmem.
 
-kernel test robot noticed the following build warnings:
-
-[auto build test WARNING on dtor-input/next]
-[also build test WARNING on dtor-input/for-linus sre-power-supply/for-next robh/for-next linus/master v7.3-rc7 next-20261012]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Svyatoslav-Ryhel/dt-bindings-embedded-controller-document-ASUS-Transformer-EC/20261013-203457
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/dtor/input.git next
-patch link:    https://lore.kernel.org/r/20261013173504.451391-3-clamor95%40gmail.com
-patch subject: [PATCH v11 2/7] mfd: Add driver for ASUS Transformer embedded controller
-config: csky-randconfig-1001-20261015 (https://download.01.org/0day-ci/archive/20261015/202610150612.syb967F8-lkp@intel.com/config)
-compiler: csky-linux-gcc (GCC) 16.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261015/202610150612.syb967F8-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610150612.syb967F8-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> Warning: drivers/mfd/asus-transformer-ec.c:59 struct member 'fmode' not described in 'asus_ec_chip_info'
-   Warning: drivers/mfd/asus-transformer-ec.c:59 Excess struct member 'mode' description in 'asus_ec_chip_info'
->> Warning: drivers/mfd/asus-transformer-ec.c:79 Excess struct member 'logging_disabled' description in 'asus_ec_data'
->> Warning: drivers/mfd/asus-transformer-ec.c:59 struct member 'fmode' not described in 'asus_ec_chip_info'
-   Warning: drivers/mfd/asus-transformer-ec.c:59 Excess struct member 'mode' description in 'asus_ec_chip_info'
->> Warning: drivers/mfd/asus-transformer-ec.c:79 Excess struct member 'logging_disabled' description in 'asus_ec_data'
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Ack, I was a bit confused because I was assuming that these are not
+using pp at all, but looks like mlx4 does :-/ And I see you drop
+__skb_frag_unref so these have to be converted anyway...
+And I guess the same for __skb_frag_unref below.. Let me go through the
+rest of the patches and see if anything else catches my eye, thanks!
