@@ -1,144 +1,152 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D91CC2DF12F
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:03:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 318691D9A66;
+	Wed, 14 Oct 2026 06:04:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.30.148.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791957840; cv=none; b=gBDi8IjCeyqwxuxP0B5pVmf0+TBkmWfktMr3Tg8rTjXmuDTw2KfH+F4zo3dC0eZHk4iUrFOUOHMQeUYlAeY7mIHCiO3sEFN2d51WL/atSiN6+FV8DQKUZLZHn4NSWorF0n4YbRseoY3pdLJIJTljWcteNu3V7pqJLGSSFa3caN4=
+	t=1791957883; cv=none; b=Bl7yfei1/EFmLw7/D5hALAMdlUsBH4N7Js+ccVHOV21qCFQbI5AOabEBXR9jBVPULLmzYxDbC0A1CObLbxs+fNCDs838mnWbflkj+e2NpJBI3sDgtbhQxyuNQpc8ZiLz8Gjb2g7wiOYkmZ0Sx2v2C6g3vm2mz6O+vO60mKk11h0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791957840; c=relaxed/simple;
-	bh=a+ePuoScWznFCdZL7kuuIwctTxuRzsdaAnI868FjqvY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hsKAmdBdL3QfnulPy6t7G9c87aiCvgK+TSEOhk/7lFfAyb5ngveaqcr1bP5V8jVfSYIiAR3egtfACV/guOervAeepEWH6XCLEglKBuEioQwbNbMhUw7nt4CsvrQa7DHJRCLGe2mWnMv237jRReR+4f8MgmjPn6MH0SkH5GkShf4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=NGFOsBqQ; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="NGFOsBqQ"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 98CEA15A1;
-	Tue, 13 Oct 2026 23:03:52 -0700 (PDT)
-Received: from [10.164.19.62] (unknown [10.164.19.62])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6D3F03F7B4;
-	Tue, 13 Oct 2026 23:03:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791957835; bh=a+ePuoScWznFCdZL7kuuIwctTxuRzsdaAnI868FjqvY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=NGFOsBqQlkYzYRc6c9oeI62OwONXctPXAWs1X+w9O0ZGSX08mzBFLCRloqvuXoEcs
-	 l+RKSocjuhfxG9ajTVLYRvJo74qsxS3Fa4vk2551oznUYNciNmnhrtaKCzGd4OvWLE
-	 xxJq6dznjLsg4ngtYlAUgjw44+L1Kvxk1pfNNxrY=
-Message-ID: <7b3c3a39-4cf3-430d-9fd3-ba83e5175e72@arm.com>
-Date: Wed, 14 Oct 2026 11:33:47 +0530
+	s=arc-20240116; t=1791957883; c=relaxed/simple;
+	bh=CWocyKd0KcfyoIDxuwCFFDOae8Flhfzy+TOJNvb4svo=;
+	h=Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
+	 Subject:Content-Type; b=GI61luKc4rTTxkJKKagOgibrXB44WkBq0biTqfQcONBhdGaoWVb0SsWga9WXoW0f/HFwbpSX2f5wlRsDme2MP7YC5kGQLol+rvIpnSD1YWsIH2DFckiWgqvh82NpusmyFi8dvgkPiOl9YYFgwO011iqUJXNPg8wajHBfDuSGeo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=160.30.148.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4j4LJF2xX9z8Xrrj;
+	Wed, 14 Oct 2026 14:04:29 +0800 (CST)
+Received: from njb2app05.zte.com.cn ([10.55.22.121])
+	by mse-fl2.zte.com.cn with SMTP id 69E63uil094341;
+	Wed, 14 Oct 2026 14:04:22 +0800 (+08)
+	(envelope-from han.junyang@zte.com.cn)
+Received: from mapi (njb2app05[null])
+	by mapi (Zmail) with MAPI id mid204;
+	Wed, 14 Oct 2026 14:04:24 +0800 (CST)
+X-Zmail-TransId: 2afd6acf1b6816e-58a49
+X-Mailer: Zmail v1.0
+Message-ID: <202610141404241184u7jiwKOMwCRlD6_Dqpnu@zte.com.cn>
+In-Reply-To: <20261001130652.1038851-1-horms@kernel.org>
+References: 202609282024273579VUWteKdnnbvWlyjERLQ-@zte.com.cn,20261001130652.1038851-1-horms@kernel.org
+Date: Wed, 14 Oct 2026 14:04:24 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 01/10] arm64/mm: add pte_set_huge() and
- pte_clear_huge()
-To: Wen Jiang <jiangwenxiaomi@gmail.com>, akpm@linux-foundation.org,
- catalin.marinas@arm.com, linux-mm@kvack.org, urezki@gmail.com,
- will@kernel.org
-Cc: Xueyuan.chen21@gmail.com, ajd@linux.ibm.com, anshuman.khandual@arm.com,
- baohua@kernel.org, chleroy@kernel.org, david@kernel.org,
- jiangwen6@xiaomi.com, leo.yan@arm.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, rppt@kernel.org,
- ryan.roberts@arm.com
-References: <20261002090947.869220-1-jiangwen6@xiaomi.com>
- <20261002090947.869220-2-jiangwen6@xiaomi.com>
-Content-Language: en-US
-From: Dev Jain <dev.jain@arm.com>
-In-Reply-To: <20261002090947.869220-2-jiangwen6@xiaomi.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+From: <han.junyang@zte.com.cn>
+To: <horms@kernel.org>
+Cc: <horms@kernel.org>, <andrew+netdev@lunn.ch>, <davem@davemloft.net>,
+        <edumazet@google.com>, <kuba@kernel.org>, <pabeni@redhat.com>,
+        <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
+        <ran.ming@zte.com.cn>, <han.chengfei@zte.com.cn>,
+        <zhang.yanze@zte.com.cn>
+Subject: =?UTF-8?B?UmU6IFtQQVRDSCBuZXQtbmV4dCB2NCAxLzNdIGRpbmdoYWk6IGFkZCBmaXJtd2FyZSB2ZXJzaW9uIGNoZWNrIGFuZCBSSVNDLVYgcmVhZGluZXNzIHBvbGxpbmc=?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl2.zte.com.cn 69E63uil094341
+X-TLS: YES
+X-ENVELOPE-SENDER: han.junyang@zte.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Wed, 14 Oct 2026 14:04:29 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6ACF1B6D.000/4j4LJF2xX9z8Xrrj
 
+Hi Simon,
+thanks for the reviews.
 
-
-On 02/10/26 2:39 pm, Wen Jiang wrote:
-> vmap installs PTE-level block mappings (PTE_CONT on arm64) by reusing
-> set_huge_pte_at() and huge_ptep_get_and_clear(), which are HugeTLB
-> helpers gated by CONFIG_HUGETLB_PAGE. This makes the feature silently
-> unavailable on CONFIG_HUGETLB_PAGE=n kernels and couples mm/vmalloc.c to
-> HugeTLB internals it does not otherwise need.
+Replying to the AI review :
+> [Severity: High]
+> Does this code verify the BAR length before calculating offsets into BAR 0?
 > 
-> Add pte_set_huge()/pte_clear_huge() to arm64, joining the existing
-> pmd_set_huge()/pud_set_huge() family in mm/mmu.c. They build on
-> __set_ptes() and __get_and_clear_full_ptes() directly, so they do not
-> depend on CONFIG_HUGETLB_PAGE.
+> The driver computes fixed offsets into BAR 0 (ZXDH_FW_COMPAT_OFFSET at 0x5400,
+> and later ZXDH_RISCV_HB_OFFSET at 0x5300) without validating that the reported
+> BAR length is large enough.
 > 
-> There is no caller yet: mm/vmalloc.c is converted later in this series,
-> once the generic fallbacks are in place.
+> If a malformed PCI device, emulated device, or corrupt PCI configuration space
+> presents a BAR smaller than 0x5400 plus the size of the structure, can this lead
+> to an out-of-bounds MMIO read and page fault during probe?
+
+These offsets are part of the device interface, not something
+negotiated at runtime: BAR 0 is mapped in full at probe time
+(zxdh_pf_pci_init() ioremaps pci_resource_len(pdev, 0)), and
+ZXDH_FW_COMPAT_OFFSET / ZXDH_RISCV_HB_OFFSET are fixed regions
+of the hardware spec that our own firmware implements. A BAR
+too small for them can only come from a device misimplementing
+its own spec, which is not a condition this driver defends
+against.
+
+> [Severity: High]
+> Is there a performance regression here where this loop forces an unconditional
+> 20-second delay on legacy firmware?
 > 
-> Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
-> Reviewed-by: Barry Song <baohua@kernel.org>
-> ---
->  arch/arm64/include/asm/pgtable.h |  6 ++++++
->  arch/arm64/mm/mmu.c              | 23 +++++++++++++++++++++++
->  2 files changed, 29 insertions(+)
+> If the driver probes legacy hardware that predates the compatibility region,
+> the region permanently contains the erased pattern (0xFF). Since legacy
+> firmware never writes to this region, zxdh_pf_fw_compat_ready() will not see
+> the fields lose their 0xFF values, meaning the loop waits for the entire
+> timeout before proceeding.
 > 
-> diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
-> index 6000905a2e865..9b762eb68cff0 100644
-> --- a/arch/arm64/include/asm/pgtable.h
-> +++ b/arch/arm64/include/asm/pgtable.h
-> @@ -1978,6 +1978,12 @@ static inline void clear_young_dirty_ptes(struct vm_area_struct *vma,
->  
->  #endif /* CONFIG_ARM64_CONTPTE */
->  
-> +#define __HAVE_ARCH_PTE_SET_HUGE
-> +void pte_set_huge(pte_t *ptep, unsigned long addr, phys_addr_t phys,
-> +		  pgprot_t prot, unsigned long size);
-> +#define __HAVE_ARCH_PTE_CLEAR_HUGE
-> +pte_t pte_clear_huge(pte_t *ptep, unsigned long addr, unsigned long size);
-> +
->  #endif /* !__ASSEMBLER__ */
->  
->  #endif /* __ASM_PGTABLE_H */
-> diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
-> index 79d90226fd5dc..ae2f15618c97d 100644
-> --- a/arch/arm64/mm/mmu.c
-> +++ b/arch/arm64/mm/mmu.c
-> @@ -1912,6 +1912,29 @@ int pmd_clear_huge(pmd_t *pmdp)
->  	return 1;
->  }
->  
-> +void pte_set_huge(pte_t *ptep, unsigned long addr, phys_addr_t phys,
-> +		  pgprot_t prot, unsigned long size)
-> +{
-> +	unsigned long pfn = __phys_to_pfn(phys);
-> +	pte_t pte = pte_mkcont(pfn_pte(pfn, prot));
-> +	unsigned int nr = size >> PAGE_SHIFT;
-> +
-> +	VM_WARN_ON(!IS_ALIGNED(size, CONT_PTE_SIZE));
-> +	VM_WARN_ON(!IS_ALIGNED(addr, CONT_PTE_SIZE));
-> +	VM_WARN_ON(!IS_ALIGNED(pfn, CONT_PTES));
-> +
-> +	/* For vmap, there is no valid -> valid transition */
-> +	VM_WARN_ON(pte_valid(__ptep_get(ptep)));
-> +
-> +	__set_ptes(&init_mm, addr, ptep, pte, nr);
-> +}
-> +
-> +pte_t pte_clear_huge(pte_t *ptep, unsigned long addr, unsigned long size)
-> +{
-> +	return __get_and_clear_full_ptes(&init_mm, addr, ptep,
-> +					 size >> PAGE_SHIFT, 0);
-> +}
+> Could this delay severely degrade system boot or module load times?
 
-I think we should have the same VM_WARN_ON() checks here, as for
-pte_clear_huge(), in addition to also warning for
-current->mm != &init_mm.
+This wait is the legacy-firmware detection itself, not a
+regression: legacy firmware keeps the erased pattern in the
+region, which is indistinguishable from slow firmware until the
+timeout expires. The assumption is logged with dev_info(), and
+the 20 s stay well within the udev settle timeout.
 
-We should make it clear that pte_clear_huge() gets called only for
-kernel mappings, and the range we operate on is definitely an aligned
-CONT range - which is why we do not go through get_and_clear_full_ptes ->
-contpte_get_and_clear_full_ptes, and possibly contpte_try_unfold(), but
-directly use __get_and_clear_full_ptes.
+> [Severity: Low]
+> Are we passing 1,000,000 microseconds to usleep_range() in this macro?
+> 
+> The readx_poll_timeout macro expands to use usleep_range() for its sleep
+> intervals. Passing USEC_PER_SEC exceeds the recommended 20ms maximum for
+> usleep_range(), exhausting hrtimers unnecessarily.
+> 
+> Would it be better to use a smaller polling interval (e.g., 20ms) or a macro
+> that utilizes msleep() to avoid this timer regression?
 
+The quoted 20 ms cap comes from the removed timers-howto.rst;
+neither its replacement nor the current usleep_range() docs
+state such a limit. readx_poll_timeout() documents sleep_us as
+the maximum interval between reads and sleeps
+(sleep_us >> 2) + 1 .. sleep_us, so each iteration here sleeps
+250 ms..1 s — matching the seconds-scale nature of the wait.
+Same for the riscv_power_on wait below.
 
-> +
->  int pmd_free_pte_page(pmd_t *pmdp, unsigned long addr)
->  {
->  	pte_t *table;
+> [Severity: Medium]
+> Could this logic incorrectly return success for a dead or physically removed
+> PCI device?
+> 
+> If a PCI device experiences a bus error or is disconnected, reading its MMIO
+> registers typically returns an all-ones value (0xFF). Here, an all-ones read
+> causes module_id to equal 255.
+> 
+> Since the driver treats this as legacy firmware, it skips the compatibility
+> check. Later, in zxdh_pf_wait_riscv_ready(), a health_version of 255 is also
+> allowed to skip synchronization, leading to a successful probe.
+> 
+> Does the driver need a check to distinguish between actual legacy firmware and
+> a broken PCIe link?
 
+It does not get that far. With the link down, configuration
+space reads also return 0xff, so the vendor-capability scan in
+zxdh_pf_modern_cfg_init() — which runs before
+zxdh_pf_fw_compat_check() — finds no common config and probe
+exits with -ENODEV ("missing capabilities, leaving for legacy
+driver"). If the device dies later in probe instead, the
+all-0xff reads are treated as legacy firmware as described, and
+the next real hardware interaction — pci_alloc_irq_vectors() in
+zxdh_pf_irq_table_init() — fails, unwinding through the normal
+error paths with the dev_info() above in the log. So probe does
+not succeed against a dead device.
+
+> [Severity: Low]
+> This is another instance of passing 1,000,000 microseconds to usleep_range()
+> via readx_poll_timeout. Should this use a smaller sleep interval or an
+> msleep()-backed polling macro?
+
+Answered above.
