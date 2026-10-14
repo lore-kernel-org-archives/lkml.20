@@ -1,126 +1,182 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011067.outbound.protection.outlook.com [52.101.52.67])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3758A4EDCB9;
-	Wed, 14 Oct 2026 10:10:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791972638; cv=none; b=aOj4tiCV9/6AY1hQ7Rhsi+NoFYIaBHKJWbizdmrTsxCMZK4c5HKSNKxZeLq+Yo0sHWby1Mdw+0w1YNIjA3l5DyArkCY5oAxt59fI4caPvfIWYwrh6mwX/ml3Uo4VAhg10bXVIDYRLCbn3p2Q37KOtMCiFH3MoTVZwySbX4YzgzU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791972638; c=relaxed/simple;
-	bh=yuGWrqvzNmN3yhigttSdJ0b/S9YKdnQt/hArXMWhVKM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X6mAXEbNCuok7kP/myCK9CbCgdyuuAek453rd2Vc/ryAiLMm+8euVycLn6DKXugG9zNEfREzTBOf+JDZm637XImes/yiVnDPXdHGI7zYb5+BH+9RZM0p4MBY3fvK8U8kuL0OmLJWiumWrs83u7v4FeBA2rh4BjYOTOsUjVyKviA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZQ2TZCZh; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DDF44EC656;
+	Wed, 14 Oct 2026 10:10:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.67
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791972637; cv=fail; b=Im+1dw9AuaUzl9cKyZA9myQhzEyPplSwwrserE3j+5a8GnmcJVr+dOflEmXWtiliVe9nPdfkMZpFKIlsroimyumZp2TSKoWgWFrMhVaT8USfsTTOynU3Ke14VoFV24QWuRRYwmhunDnmlLW3cjeN9Zvoc6IkVBdf5euNPaNsEFs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791972637; c=relaxed/simple;
+	bh=UGPSODMEqvMHjVe8T9rHEXyn8efUIfQVQtVbB9lQ7A0=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=OU5LVGXuwMnOM5Tx5MJFSCDyKwvC9JET7e34CpF1wHLXH8mqb0/ObplU2TzUGzRJAVVzjwqxoHv+pBVcUe4eD16jfAqJlr0uQ/sMnFs9oLjq/0u+ygBPxo0gmb1Ro7ve11SSL2F1ACgHGtWyy4ft9vexF5TnUYY5o6L8HeEMfJU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=ySg2df78; arc=fail smtp.client-ip=52.101.52.67
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZQ2TZCZh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 005B01F000FF;
-	Wed, 14 Oct 2026 10:10:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791972629;
-	bh=ktsMdkR+NlEi7tmxfG6KqIwZFdoUQsHLRPY8vg2h60Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZQ2TZCZhVe94KLLtnzQ3yR3ogHvFzoxgQoc3R1jER79UgA78VXRr8iDg3KdFK2ODP
-	 YyS7jdT9/qbWHEHVD1tZ0sznhtXz0CLfu/G2ciKfdx2B86Rt8LLvukWQdSWM2alydl
-	 17pZ2hpDxVrw6eJwdF+f2XcE7JE0OtxM/4eHtYNPCKG4lvUpVvi4AIBrjGyKN5aj2z
-	 hOYmRjD3vg6CojY4avQVdA569Pd+vN61WS/tEq8+7080n1V95JqaEPQ5ewUUGtc5cH
-	 ajYXuidjwKPwswshX59bvhBz0Wu8cAFzVvQbWg7EgmAS+4JmNAco4fSfzkm6n5bh//
-	 lk5YJkqCAE56Q==
-Date: Wed, 14 Oct 2026 03:10:27 -0700
-From: "Peter Chen (Qualcomm)" <peter.chen@kernel.org>
-To: liuc63 <liuc63@xiaopeng.com>
-Cc: rogerq@kernel.org, pawell@cadence.com, gregkh@linuxfoundation.org,
-	stable@vger.kernel.org, liuwb@xiaopeng.com,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] usb: cdns3: validate endpoint index from setup packet
-Message-ID: <as9VE0CJtUBxgds9@hu-petche-lv.qualcomm.com>
-References: <20261012110107.2458022-1-liuc63@xiaopeng.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="ySg2df78"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oyO/7cfbXhwaYlbiNyd6rllS9lNxFtP8Tf3eUbt28PZS4k0TGRvwVyQBFGjUYVRNIGj8SHgxcB5js07ga96ZNbwtUoJWypDW7agHqhmJvNzlUrsWa4Anq29TSIzB1jYdb+v/aVscr3c/75jcXJ6MHoNxFV16IDKtlfUfGEvTfwWAz0kOkXc0fUPkIVUbuhoBy6XcXF6AIPUrP1LlQ9KEVU5/WlA6Qld+jRNKGRK2S4IK/0AEjVipv+ccuopmTE6tEJHtlN3EMjVpiWKYzC6Swv2AawzGy+ccPMic5KKWwmPx/Qv6dUYOOJaQoKtCDhkoJXZNuUVTcBIgstwa54075g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=11FRGgznJc3+c3Z+wuqaU2nTfXf9Tkn3ciKswfRY0xQ=;
+ b=yQheVuveCimX3tqW3/7CIYbnoXTTfaZ51pX07FIfJTM5Bb6jGQKUEvFcNb3MpdCsTzklNTDyS0Br7fP4k9CC3qqUVr77sq67i130TyNGtj0cntLqht6C7F4JxRzqaNnl4u1oAhvzxLLmoI9u2T0MnCW0z1R10PrEeYMrhxQl8ZQ8MgzxgfoUImIjXXDaHLC4Bnnk/ST9iyYSpthbBZf2BKmJ3pu9dweo/D4ywhd81a1jCkWVgLTBGYZy/ixSGuobUjXg+/0YTYfoT9+Kg4ohSqwUJivbed2NDncRhcxEIcFe524Iczxohjcs6khGPCoK4jzSd4nrH8PqQ/c8KpH9KA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=11FRGgznJc3+c3Z+wuqaU2nTfXf9Tkn3ciKswfRY0xQ=;
+ b=ySg2df78V0eO1lNFkoZ4Mvjr8SrXh1usbjQFivbs9BMf3bkifmwQliJDI+dh7yBJFU++ddIZi6Gm2h6YoA6IvnqI+y/ASnncQ53vsJ63t+0BLMSxCqJUMCg70gNrc7YdHZus0mSPk3gy8GEUyWvbIXFkuTwGo49Iy/QMk3NkesM=
+Received: from CH2PR14CA0052.namprd14.prod.outlook.com (2603:10b6:610:56::32)
+ by PH7PR12MB6787.namprd12.prod.outlook.com (2603:10b6:510:1ad::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Wed, 14 Oct
+ 2026 10:10:27 +0000
+Received: from CH3PEPF0000000D.namprd04.prod.outlook.com
+ (2603:10b6:610:56:cafe::ac) by CH2PR14CA0052.outlook.office365.com
+ (2603:10b6:610:56::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Wed, 14
+ Oct 2026 10:10:27 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CH3PEPF0000000D.mail.protection.outlook.com (10.167.244.43) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Wed, 14 Oct 2026 10:10:27 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 14 Oct
+ 2026 05:10:18 -0500
+Received: from amd-System-Product-Name.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53
+ via Frontend Transport; Wed, 14 Oct 2026 05:10:14 -0500
+From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+To: <broonie@kernel.org>
+CC: <alsa-devel@alsa-project.org>, <lgirdwood@gmail.com>, <perex@perex.cz>,
+	<tiwai@suse.com>, <yung-chuan.liao@linux.intel.com>,
+	<Basavaraj.Hiregoudar@amd.com>, <Sunil-kumar.Dommati@amd.com>,
+	<venkataprasad.potturu@amd.com>, <Syed.SabaKareem@amd.com>,
+	<Mario.Limonciello@amd.com>, <Richard.Gong@amd.com>,
+	<Vijendar.Mukunda@amd.com>, <Poojitha.N@amd.com>,
+	<linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<sound-open-firmware@alsa-project.org>
+Subject: [PATCH v2 05/10] ASoC: SOF: amd: Propagate PCI subsystem Vendor and Device IDs
+Date: Wed, 14 Oct 2026 15:29:13 +0530
+Message-ID: <20261014100902.1215212-6-Vijendar.Mukunda@amd.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20261014100902.1215212-1-Vijendar.Mukunda@amd.com>
+References: <20261014100902.1215212-1-Vijendar.Mukunda@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012110107.2458022-1-liuc63@xiaopeng.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF0000000D:EE_|PH7PR12MB6787:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7092b208-ebf6-42d0-486a-08df29db5ee8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|82310400026|376014|36860700016|56012099006|11063799006|261009223027099003|18002099003|10067099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	CN/UEuWTkNKQw16dXEv1U7DFKbD1/Me5eaupNu3l8oFYyz3EXXXHYNeRX8ZZILKC1I3Gzyr69yEndROwmXDQGDvIiWq8ILOaAF6Q6d8oHkgBa6cOFhV09/7kPClYLqZ36kof1l8o3hAw0G6seKzWqiPbwpqnws7LN2ulM/AIaqS4FEDTFoGwLeGqAk2rk4cRztPR3pPe4UwX4aYg+vcjssqT/pW4MohQd6CRtBg6qpwxrvdleaKpfEVzYnBFeEpR673GKmL+5OoJPnc1oZ+ti2f3kUl0cGQOvdg53XZH6ewY8Sehy/Ujml6GrnD9buqc6ox5M3t3W6Kb8+wT/Mh1dqAL8U5R3BclHByBzQt0ODf2GS6YbBjpxcfhcUoGsAvhMxjLmQua0QeolLVZwZr3LXDM5fnYY36V69BqjM2ar+AxcvtshxnjrcqW0l++w9gJgPFNtlyWa+FPsUXhO6wF06GeunSC3Kw5QmvVv8FnH670pU0CXFx68n/uCc0XAnAH7kpnBbmi+sdEjbgx0qTVihFeI+/UbmZ2PSV+G5av7TpgOD+9lfPh0T4UPPaXWIoGTTMzJbJNSWcAJPFrU6kIEkg+JhNAtUJF2JVCs7s0R+nEv7IIowipvAtdut6qIkRgWR1ndlkyxwTN/6HWXiv/2vGyS9+LUbv74KIfvsWCvpvgTMnxi2xcxR4PDMNuxRcDNs7zv5p5cM4+DBJjVbJTAw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(82310400026)(376014)(36860700016)(56012099006)(11063799006)(261009223027099003)(18002099003)(10067099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	aVao9trvyyDoxJ+/YCr7BC+Xk/WQbPbjicEVboF5uiR5DwWqoK0CG155Ku57ulsGTb7t1SBVUR9CoxC93E+5PNfXMIzCJPe50HnYegx4q2M/1vkuddqFf1S1wHCcghaKF1yI/MgKrWxDA9fiaPQTqERLm7oON1zDhO7MC2MAxPWtxvvxTuP56KZWiGr1+/WV5CAGgkyMV4V2tmrfBludH3o0c9kTQjPhPATSpXElaMl06KmFD26yRKKa520XegBwa+TRmEGcg0odgri4wEfaJHzNJoCFGHie4fLXQePEgHf8zaxqf4SeVpmjMH+u1tT15kKEiBljf5Fhlzay0dAgW5SjcFH1Evv7YK3pg18rDBKut/9op2ZFJD3DqjA5e0hGC8L2t3+mGATRftLEU7x3KnzYtkX62tCdfbYjAL4BBIX9WeJhXCYy24rs/ALA+ntv
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 10:10:27.6195
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7092b208-ebf6-42d0-486a-08df29db5ee8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH3PEPF0000000D.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6787
 
-On 26-10-12 19:01:07, liuc63 wrote:
-> From: Liu Chao <liuc63@xiaopeng.com>
-> 
-> cdns3_ep_addr_to_index() computes (ep_addr & 0x7F) + 16 for IN
-> endpoints.  wIndex is supplied by the USB host, so ep_addr & 0x7F can
-> be up to 127, giving an index up to 143.  The eps[] array has only
-> CDNS3_ENDPOINTS_MAX_COUNT (32) entries.
-> 
-> Both cdns3_req_ep0_get_status() (GET_STATUS) and
-> cdns3_ep0_feature_handle_endpoint() (SET/CLEAR_FEATURE) pass the
-> unvalidated index straight into priv_dev->eps[index] and then
-> dereference the result.
-> 
-> Besides the out-of-bounds index, eps[index] may also be NULL for
-> endpoints that are not enabled, as cdns3_init_eps() only populates
-> entries for endpoints enabled in USB_CAP3.
-> 
-> Add a bounds check against CDNS3_ENDPOINTS_MAX_COUNT together with a
-> NULL check in both functions, matching the fix already applied to
-> aspeed_udc in commit ee0d382feb44 ("usb: gadget: aspeed_udc: validate
-> endpoint index for ast udc").
-> 
-> Fixes: 7733f6c32e36 ("usb: cdns3: Add Cadence USB3 DRD Driver")
-> Cc: <stable@vger.kernel.org>
-> Reviewed-by: Weibin Liu <liuwb@xiaopeng.com>
-> Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
-> ---
-> Changes in v2:
->  - Also check priv_dev->eps[index] for NULL, as endpoints not enabled
->    in USB_CAP3 are left NULL by cdns3_init_eps() (Peter Chen)
->  - Correct the reference: the same-class fix ee0d382feb44 is for
->    aspeed_udc, not renesas_usb3; cite it with the commit title and
->    drop the CVE mention (Peter Chen)
->  - Fix the function name cdns3_ep0_handle_status() ->
->    cdns3_req_ep0_get_status() in the commit message
-> 
-> v1: https://lore.kernel.org/linux-usb/20260917103145.3047850-1-liuc63@xiaopeng.com/
-> ---
->  drivers/usb/cdns3/cdns3-ep0.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/drivers/usb/cdns3/cdns3-ep0.c b/drivers/usb/cdns3/cdns3-ep0.c
-> index e29989d57..d26fa89b6 100644
-> --- a/drivers/usb/cdns3/cdns3-ep0.c
-> +++ b/drivers/usb/cdns3/cdns3-ep0.c
-> @@ -251,6 +251,9 @@ static int cdns3_req_ep0_get_status(struct cdns3_device *priv_dev,
->  		return cdns3_ep0_delegate_req(priv_dev, ctrl);
->  	case USB_RECIP_ENDPOINT:
->  		index = cdns3_ep_addr_to_index(le16_to_cpu(ctrl->wIndex));
-> +		if (index >= CDNS3_ENDPOINTS_MAX_COUNT ||
-> +		    !priv_dev->eps[index])
-> +			return -EINVAL;
+Extend the AMD SOF machine driver to propagate the PCI subsystem
+Vendor and Device IDs so that they may be subsequently used as an
+SSID. Store the subsystem IDs in acp_dev_data during probe (both
+amd_sof_acp_probe and amd_sof_acp7x_probe), and propagate them
+to mach_params in the SoundWire machine select path.
 
-Oh, I have seen sashiko AI comments. You may use USB_ENDPOINT_NUMBER_MASK to get
-a valid EP number, then get 'index' according to its direction (IN or OUT), at last,
-judge if priv_dev->eps[index] is NULL.
+Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+---
+ sound/soc/sof/amd/acp-common.c | 6 ++++++
+ sound/soc/sof/amd/acp.c        | 4 ++++
+ sound/soc/sof/amd/acp.h        | 2 ++
+ 3 files changed, 12 insertions(+)
 
-Peter
-
->  		priv_ep = priv_dev->eps[index];
->  
->  		/* check if endpoint is stalled or stall is pending */
-> @@ -368,6 +371,8 @@ static int cdns3_ep0_feature_handle_endpoint(struct cdns3_device *priv_dev,
->  		return 0;
->  
->  	index = cdns3_ep_addr_to_index(le16_to_cpu(ctrl->wIndex));
-> +	if (index >= CDNS3_ENDPOINTS_MAX_COUNT || !priv_dev->eps[index])
-> +		return -EINVAL;
->  	priv_ep = priv_dev->eps[index];
->  
->  	cdns3_select_ep(priv_dev, le16_to_cpu(ctrl->wIndex));
-> -- 
-> 2.50.1
-> 
-
+diff --git a/sound/soc/sof/amd/acp-common.c b/sound/soc/sof/amd/acp-common.c
+index 33540f7c421b1..60e5c851c8743 100644
+--- a/sound/soc/sof/amd/acp-common.c
++++ b/sound/soc/sof/amd/acp-common.c
+@@ -155,9 +155,15 @@ static struct snd_soc_acpi_mach *amd_sof_sdw_machine_select(struct snd_sof_dev *
+ 		}
+ 		if (mach && mach->link_mask) {
+ 			mach->mach_params.subsystem_rev = acp_data->pci_rev;
++			mach->mach_params.subsystem_vendor = acp_data->subsystem_vendor;
++			mach->mach_params.subsystem_device = acp_data->subsystem_device;
++			mach->mach_params.subsystem_id_set = true;
+ 			mach->mach_params.links = mach->links;
+ 			mach->mach_params.link_mask = mach->link_mask;
+ 			mach->mach_params.platform = dev_name(sdev->dev);
++
++			dev_dbg(sdev->dev, "SSID %x%04x\n", mach->mach_params.subsystem_vendor,
++				mach->mach_params.subsystem_device);
+ 			return mach;
+ 		}
+ 	}
+diff --git a/sound/soc/sof/amd/acp.c b/sound/soc/sof/amd/acp.c
+index b059039c9e0d1..71c39eb36194e 100644
+--- a/sound/soc/sof/amd/acp.c
++++ b/sound/soc/sof/amd/acp.c
+@@ -1198,6 +1198,8 @@ int amd_sof_acp_probe(struct snd_sof_dev *sdev)
+ 	adata->addr = addr;
+ 	adata->reg_range = chip->reg_end_addr - chip->reg_start_addr;
+ 	adata->pci_rev = pci->revision;
++	adata->subsystem_vendor = pci->subsystem_vendor;
++	adata->subsystem_device = pci->subsystem_device;
+ 	mutex_init(&adata->acp_lock);
+ 	sdev->pdata->hw_pdata = adata;
+ 
+@@ -1335,6 +1337,8 @@ int amd_sof_acp7x_probe(struct snd_sof_dev *sdev)
+ 	adata->addr = addr;
+ 	adata->reg_range = chip->reg_end_addr - chip->reg_start_addr;
+ 	adata->pci_rev = pci->revision;
++	adata->subsystem_vendor = pci->subsystem_vendor;
++	adata->subsystem_device = pci->subsystem_device;
+ 	mutex_init(&adata->acp_lock);
+ 	sdev->pdata->hw_pdata = adata;
+ 
+diff --git a/sound/soc/sof/amd/acp.h b/sound/soc/sof/amd/acp.h
+index 1bc6b572448d8..929251772526a 100644
+--- a/sound/soc/sof/amd/acp.h
++++ b/sound/soc/sof/amd/acp.h
+@@ -296,6 +296,8 @@ struct acp_dev_data {
+ 	unsigned int pdm_sel;
+ 	bool is_sdw_dev;
+ 	unsigned int pci_rev;
++	u32 subsystem_vendor;
++	u32 subsystem_device;
+ 	int acp_sof_signed_firmware_image;
+ };
+ 
 -- 
+2.48.1
 
-Thanks,
-Peter Chen
