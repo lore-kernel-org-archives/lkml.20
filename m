@@ -1,111 +1,75 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C36B5218BB
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:34:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FF2B5218BB
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:35:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791988464; cv=none; b=W6fSrQgSu+jghUT/4YiJU13u84a/XOkvUOhxUjaXHZQjeSssUrwfApHnHDTBYJk4lle+OjWMNMvHuXwTjgqDZQ7u2J8HnvSguipGYw0gBeh5/V0CGklqrwMcM5H4ctz7VVfNtQzTTHD1PaSBYZQKBwYIxr7kkCbeKjypf6z6Vng=
+	t=1791988537; cv=none; b=jlOlFybk95TRBm5x9dtyxXS+44m2VMu/ywT2ra/A2qRCpJQE44+EL+uKm0Hx8N9BOIDV3Ho5laZWiM1U/XL0kVRsKy0cxsM66aGYsKKejcandlG9w9EybqD3+iUYlpLXFTOlrNDYTuQ3yeMftJf3Fj1x8khhw4+LzuTfVV/sh4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791988464; c=relaxed/simple;
-	bh=AhzWaDvUIwAHQ+BlQRnKWnDdRRuOjnRQTjl4pNt2kSA=;
+	s=arc-20240116; t=1791988537; c=relaxed/simple;
+	bh=iEb6Wyf8v6HCQ2gtxiwtWl90BNNFvcDXJo2VBnw7bOw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Qk6tV/yfGZaOocfcB2ODoWOhFCHQ/Cil2yaLyW0sK6wJxqLnB/VBdwn27jWTm9wuHGy7AxACpTO3O7qHHmuTxY9xS1uSVHQ1nVANbWRYcxnLnjK6cPePOZ2MC7VSRZIrl0zmpdo+hw5VHXHsTqnFLUz03LVYGhgUkXXariY0Kjo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dM22UACt; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=g/LFWZJa; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=kHi6I6ox8En1ix75Brspc+IKNFloCVQkHw11W0lp/D7e3cp/UhvzbDzEEZM4GxUQ8OadVCmuQr7WMIpPWAGBqbz7LEfNQUyXo3Y1gGD8itc2GzV8TlOERFO/O1Gue5Fi84S6fd0kv9ydTv8uOs8wh6R3E5l8bsym4H42FoIFH+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Axd63uZ+; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dM22UACt";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="g/LFWZJa"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EAxPIE3951538
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:34:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=pkVhPqBAgtTYGz/vDCDa9cYD
-	J9dul80zJVTym9S6bp0=; b=dM22UACtsytu8da0dYk/ABEptDNJRsY6iclP1dD/
-	vPYr02ts2qr8AcnqvUA6HoDcrjKdZ0ZkDEXd2kXf1U79emwtqXCTH5m7bIj4x42Z
-	gF6deDRHExI1jMAfWwMW0vVRzs1e5hLPWPJjMaC1dF17BUtfgBUZnMWP43FmsXah
-	AUHCHp3yX/YHMkJMN+G3hLIUj6uC5wKHy3dZ8vcBS9wNyfrl/672a/eRc/NXnog7
-	S5Rod+/JLt0ULJxCW8/lnS1eEzSTWpK5XTjFwETz0AFNBF8shmQ5ngUyKRL8A8en
-	sMAncAbPlhYbEdSt3JEnBb5pF/PvK8Mar6oFE9ene6XTKA==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ha42p22u3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:34:21 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93cb6391e89so905358885a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:34:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Axd63uZ+"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49d04e4a943so3514485e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:35:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791988461; x=1792593261; darn=vger.kernel.org;
+        d=suse.com; s=google; t=1791988534; x=1792593334; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=pkVhPqBAgtTYGz/vDCDa9cYDJ9dul80zJVTym9S6bp0=;
-        b=g/LFWZJanf/PJ7OSazNqQtZPs7ajF3Pt8rA2iFHw0JbMzLpZv1V8EUOCUJwi9gI/Fk
-         ryqX4FH9ZAgECAqKsoFaoU3EnHXI4V1oCUewGg1HMk/9wl4AYj1floTjUfh77uZrOJcn
-         ZqaagYBKyRC6pi8HqgBEv4wkGf8P307dG+xVFsxkxlogT9zx51QlHLeG61sRdLGg/yD2
-         4N8C+Bg1DLQa3i3iCTW+tc29extg54wVqEv8TKxEJNmbEfcd2KOKDI0ecADva3QXTiDN
-         +KjRQcaa6plfZIp0GdkWMiuoFZVRue2jVLdpiRefkqncTHllatWIdqjLIHtKpblRp5hG
-         uriQ==
+        bh=DbezI2uGy3QvoWseZWOGIcO/b3+YK9kmK9c/cECVLuE=;
+        b=Axd63uZ+Z0Gj5mlZpgSMc7bTzCX7O1OIaef/Q+YpOQLwOZ882uKqDJ9yKWm2jK6QoD
+         CaAJWZYuCVyOJuk/xBwpU9wm3s4i051TyL9yUxLbNOb0g83RWlYQIguof85+nZW2pt3l
+         s0x9KA9+/nuqLtP04wC3UoX7IenLuCTQXqY73iKQ+2MzFV+Rp10qCJ8Bjp0o5pDsCn2I
+         t/Z+xiLtLbQLUPXTJjkueOvocHYKyWddWyxcP7LIr70YjMuGt/EbJotamVETNNZXgfx9
+         3uHxfKDuoct79YPHTK417nA3zVVGtYqfRFb5d6/4HayjdKPQZiTsUnJ/sbSiK9D+XyqK
+         4OPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791988461; x=1792593261;
+        d=1e100.net; s=20260707; t=1791988534; x=1792593334;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=pkVhPqBAgtTYGz/vDCDa9cYDJ9dul80zJVTym9S6bp0=;
-        b=h243VLJsq3yFmIfPMf9qJj3rirbjJ2ZfQn5TQdv3AiKgM12RnOz/NCUWXgcbkXuuId
-         BdLTW8UDZD/78NYyR11XiKgI6yNIqAqQMyU/pXwddDySzebpLHkumtsCAe1Za40TGbK4
-         y+xATDyEJ6SD2eKu+7xA3iBk0s2KGCpB+fGllVj4FFb//6g7gro7UukUBNvTwTfvWGlG
-         iTRyjjf4mjEiwK65cFFI7ehMHv0LENpumptXq11WPr1QuFWSDB3kT1pd+hC+oAD0yXFf
-         n9SKrdzZXVNwWp6UfezioSdKZGn7ODvuwsyEcYgtSZrW08/yVE/Enw8Tn4VD9U9r/kzL
-         /ldQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzJn/RYYanaP8lqKiEIOizehSDeeGZ0f4umIfa/hgqBhlnv8bqZFKv5jwAb6/9G1nkPaY1ZtGBp7ZOmrVw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJAdLIJH93qQ0j/ypZbQR9Flpz6aIzVbSxF5qwHmCaNB37H/FZt
-	huiE+O88dusFnlRXaS3rcMeHMjZQq7Qxc0qh3GThnSzURI0cWFRFKlJjIf6q6mKYbNUuxRneOD3
-	n6u53B3h9f/xT6cRgXbcjVyfzBx44IkKJwRDOC2TyEsdbS6Zva7FQlah3NWINmcleORs=
-X-Gm-Gg: AYBFou2SbYDKrNtBP1C32WMQcmNKR4zVVA892Z3Xo1MjVNwLypfToLxhW1ZkVc9yIs7
-	4TlhoRYipGCF7tYPNfeUkIR8kgk73EplS3dzMpZ/U4Uvk79I7uiqdOOfvoovBvyAUGfTlZWPyw1
-	Y9x95fZgJFvO2lrG0t/HrFU+/l5xZNNc/imdVMDYV9Xov63YUWHk2pkFp826MeldKDDBErv1heJ
-	WWW0baQhtOmccCC8k0DTkPFbM8iyVwv/+985wn67lgxRBozhDjfla4yqdovF45hl0f8QVh1LuKD
-	p5nTPgumxdrwsopHyPkaBowiDO4Z7NUo9HXTdH8qdi+NSPi3V6jZpixstSSZS/jjomSAvdCrvQW
-	ViZzZjMABwgqgWcYtxz1zAGdWNIwyClBvh6Az9nGRUW1lYUdnLMe6CqcPcBWkAA+odLGeJBKjr1
-	DZj9PqrvZop6lP
-X-Received: by 2002:a05:620a:601b:b0:939:a45b:76ee with SMTP id af79cd13be357-93ebd1dc726mr2667922985a.23.1791988461171;
-        Wed, 14 Oct 2026 07:34:21 -0700 (PDT)
-X-Received: by 2002:a05:620a:601b:b0:939:a45b:76ee with SMTP id af79cd13be357-93ebd1dc726mr2667915185a.23.1791988460587;
-        Wed, 14 Oct 2026 07:34:20 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5be33d88252sm712070e87.52.2026.10.14.07.34.18
+        bh=DbezI2uGy3QvoWseZWOGIcO/b3+YK9kmK9c/cECVLuE=;
+        b=I+9aPwv0l5nJ1knO57YZ6ZcoFH/6Y5a6EjhsafwyA+LNEPMwawNEtkohuh8rxehMjG
+         CbQqdNgUh13RsQkfqaYTcYbg09Dx9JmmtyDKNpY1rbwnsJ7hsRxW8VsbYNecRLZOz2fn
+         vkAKbj55AKi6qMtdPY4jtX6c/ltYjDjTC/tl1+Gp9EA7gBBZd/C3PODXup7lhjfP06O8
+         tO52AmPXt0MPbtTJSLi0L6RnvpjJC1kbOgz2AtuUq8yH9/czvROu2RZGrZ0uTb5KujRG
+         29bPHTkRjuDrtCcF+Oe3DgkJwE5S18fCPtlzDigDn3ak22fL4GzbbwWyV3HKIHRV8b/q
+         3/sQ==
+X-Forwarded-Encrypted: i=1; AKwUvByLmj7mUWpKzvxaTUfukSGqtVtBuGeic4DxGROPGvFyGAZ7/DuNktmfNtIBqZ+dsciQwa0zbLYr1LsJ8f8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJDwV0MNWP14rjmBnZ2c752CNuimiLFA3xTDYZAvukGVNawF8wP
+	2ZV8S4m3oWPLmq7eX9sijQ9kmq0jMinhjJqAYz//60U8LQdslNqLSN0PrO7tfBvQThqqbgjSVrX
+	WsyI/iKo=
+X-Gm-Gg: AYBFou3rh7Jb8vuA+e3ouJwtbT1PcOgib9wmvaAscbDCA0QxJoEiVuXhaMGwdOlvaY4
+	n9EdblOSW76hdOs56ahu6FmATnYaogZuj2+LGW3r/NiWHoTJlyqbJTNUrRthIMjVitqkgiKcYJG
+	c7VMo7T76vMssGIl3XIOyi4M6IuBj3c2aRlzkUHk44VkjtVCWwXEsK2/MhBs4QZ5JvTqAiXSPuJ
+	Gg2e3TEGMa3v62F+kVrcaw199UMTGTpQVux00ToCyONzsUQCF5TyHHz/0NUsMpUYA+QH1rH+xi+
+	Gu17H1q+xizviVAlxPY5CA2tZlbI3ZvHXxmFT7i9Sl/Rtkc7ZUUGxzXcUik9h6QiXno7dxwZLxY
+	4f3F+fMtxxaKVsjETkZeKwfeRotqBzbOMImX6y/TL/yu1id9ORSEOIe8SLogjIfuQLw+EYnVaY3
+	rn8mnnEqaSKMHHdwJ50waG1hVjI3BWLXnah3g4WkEgBhnWNVSTFlsEC/L5qO3MqA3aaO5t
+X-Received: by 2002:a05:600c:4ecc:b0:4a1:7dcf:be1f with SMTP id 5b1f17b1804b1-4a18e476022mr342666045e9.1.1791988533816;
+        Wed, 14 Oct 2026 07:35:33 -0700 (PDT)
+Received: from localhost ([202.127.77.110])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e84219e525sm71732095ad.16.2026.10.14.07.35.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 07:34:19 -0700 (PDT)
-Date: Wed, 14 Oct 2026 17:34:17 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-        Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
-        Ulf Hansson <ulfh@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Mike Tipton <mike.tipton@oss.qualcomm.com>,
-        Taniya Das <taniya.das@oss.qualcomm.com>, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-        driver-core@lists.linux.dev, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org
-Subject: Re: [PATCH RFC 11/16] clk: qcom: gdsc: Make GDSC parenting optional
-Message-ID: <543k7ybncixqqdzyxhb3mnal4k5ethrsmutrho5yo4vcgxiddt@a5hisvaogznj>
-References: <20261014-topic-qc_clk_dvfs-v1-0-3041b788e9f7@oss.qualcomm.com>
- <20261014-topic-qc_clk_dvfs-v1-11-3041b788e9f7@oss.qualcomm.com>
- <lx5jywz6pnwfcoczp4z6k55qeol3ruqkyfsutngmg6n3xqnynq@6jgoutrnav2f>
- <d82177b4-8e93-4818-bd4d-b4f696396373@oss.qualcomm.com>
+        Wed, 14 Oct 2026 07:35:32 -0700 (PDT)
+Date: Wed, 14 Oct 2026 22:35:29 +0800
+From: Heming Zhao <heming.zhao@suse.com>
+To: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>, ocfs2-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ocfs2: validate the xattr tree root of an indexed xattr
+ block
+Message-ID: <as-SUraepqsded7n@p15>
+References: <20261014105856.2909777-1-joseph.qi@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -114,56 +78,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <d82177b4-8e93-4818-bd4d-b4f696396373@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA1NyBTYWx0ZWRfX4eu6P7dXE6fa
- WYeXS3gsXxAmYfi1XjyhJ4RE6CL6Ldnb8nK4ZkPN7NA4hj7LhqCBdelM3k9aycO2uIf/SMxhPuf
- uNKGsM2XznExo2+tS79ajbRPo+6RYBg=
-X-Proofpoint-ORIG-GUID: Rj2FaFuw-Q409DEfzeZE0pPhxZMHd_9Y
-X-Authority-Analysis: v=2.4 cv=aeb0Dhot c=1 sm=1 tr=0 ts=6acf92ed cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
- a=pb3S4GdlrFqZhq7q5XgA:9 a=CjuIK1q_8ugA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA1NyBTYWx0ZWRfXwc6rUKoJYYg7
- bKy4wUHGR/L8laaSMgWIr/CsqHHBlIqSJacaKlE8MDUOUhtX3KdIcLlj1ZKQncH5uuipUnElEUA
- GG1YB3o9BIPqSLU/kFrO2u6HJgGn7ugmqJCFqz48KRutLGvYzaxMYrg1cOE3q6Cqk5Gm6QH5TGR
- 0+qUErGm4ql1JiHEusXIn3AT/gJP2h8fHoz2khtkRqkOMVvFTjplS7f9WUWFUoJkvm3fIbIXESd
- bUvBaa9ubO5Dg/ag2j/3POzoCEfdxExtGr7BlMvWtrR4qAjvkFAD79dEQ0tripY7sLFw7YqesiD
- 3wO/+dJN10xvy/FFtlhcs4TfaeVwxuG5syl2ZTI+ruJD4RPeK5NwfxWYd575WveY7IiUZSO1wZr
- O4mrXE5fwCyiuKuDlU03vSPjV+fmZAr6Z1khX1hp2zSAD+FGNvnnJK4HtpMmyNls8FRgaM+9QN4
- 6EQMUCrLH9AFXN457WA==
-X-Proofpoint-GUID: Rj2FaFuw-Q409DEfzeZE0pPhxZMHd_9Y
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
- spamscore=0 priorityscore=1501 malwarescore=0 clxscore=1015 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140057
+In-Reply-To: <20261014105856.2909777-1-joseph.qi@linux.alibaba.com>
 
-On Wed, Oct 14, 2026 at 04:20:54PM +0200, Konrad Dybcio wrote:
-> On 10/14/26 4:17 PM, Dmitry Baryshkov wrote:
-> > On Wed, Oct 14, 2026 at 02:19:11PM +0200, Konrad Dybcio wrote:
-> >> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> >>
-> >> Clock controller power-domain attachments currently become parents of all
-> >> top-level GDSCs exported by that controller. This conflates resources
-> >> needed to access or operate the controller with actual power-collapse
-> >> hierarchy.
-> >>
-> >> Allow callers of gdsc_register() to suppress parents inferred from the
-> >> controller device and its attached domain list.
-> > 
-> > I think, each GDSC has a parent (in the hardware). If we don't represent
-> > it in practice, we likely need to fix that.
+On Wed, Oct 14, 2026 at 06:58:56PM +0800, Joseph Qi wrote:
+> ocfs2_validate_xattr_block() checks an xattr block's signature, blkno,
+> generation and suballocator fields, and for a non-indexed block the entry
+> array it carries.  An indexed block is passed straight through, so the
+> extent list in its xattr tree root is never looked at.
 > 
-> The next patch allows setting a precise set of parents instead. Perhaps
-> this commit message could be improved.
+> Both fields that describe the list are bounded.  The two places that
+> create a root set l_count from ocfs2_xattr_recs_per_xb() and nothing
+> rewrites it, and the insert path asserts in ocfs2_rotate_leaf() that
+> l_next_free_rec stays within l_count.  Check both when the block is
+> first read, so a root that disagrees with the block size, or claims more
+> records than it has room for, is caught before anything indexes into
+> l_recs[].
+> 
+> An empty root is deliberately not rejected.  Emptying the tree leaves it
+> that way: ocfs2_rm_xattr_cluster() removes one extent per transaction,
+> and the last one ends in ocfs2_truncate_rec(), whose closing
+> ocfs2_rotate_tree_left() reaches ocfs2_remove_empty_extent() on the
+> depth-zero root and takes l_next_free_rec to zero.  That transaction
+> commits before ocfs2_xattr_free_block() frees the block, and before
+> ocfs2_xattr_remove() clears i_xattr_loc, in two later transactions, so a
+> crash in between leaves an orphan inode pointing at an xattr block whose
+> root has no extents.  Both readers already cope with it:
+> __ocfs2_xattr_index_block_find() answers -ENODATA, and
+> ocfs2_iterate_xattr_index_block() returns without iterating.
+> 
+> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 
-Or the commits needs to be squashed / reverted. I really don't think
-that we should have a parent-less GDSC.
-
--- 
-With best wishes
-Dmitry
+LGTM.
+Reviewed-by: Heming Zhao <heming.zhao@suse.com>
+> ---
+>  fs/ocfs2/xattr.c | 25 +++++++++++++++++++++++++
+>  1 file changed, 25 insertions(+)
+> 
+> diff --git a/fs/ocfs2/xattr.c b/fs/ocfs2/xattr.c
+> index 18d920b30602..b2bd06083a14 100644
+> --- a/fs/ocfs2/xattr.c
+> +++ b/fs/ocfs2/xattr.c
+> @@ -491,6 +491,7 @@ static int ocfs2_validate_xattr_block(struct super_block *sb,
+>  				      struct buffer_head *bh)
+>  {
+>  	int rc;
+> +	struct ocfs2_extent_list *el;
+>  	struct ocfs2_xattr_block *xb =
+>  		(struct ocfs2_xattr_block *)bh->b_data;
+>  
+> @@ -573,6 +574,30 @@ static int ocfs2_validate_xattr_block(struct super_block *sb,
+>  							 region_offset);
+>  	}
+>  
+> +	/*
+> +	 * An indexed xattr block carries the root of the xattr tree.  Its
+> +	 * record count is fixed by the block size and l_next_free_rec never
+> +	 * exceeds it.  A zero l_next_free_rec is valid: emptying the tree on
+> +	 * the inode deletion path leaves the root with no extents.
+> +	 */
+> +	el = &xb->xb_attrs.xb_root.xt_list;
+> +
+> +	if (le16_to_cpu(el->l_count) != ocfs2_xattr_recs_per_xb(sb)) {
+> +		return ocfs2_error(sb,
+> +				   "Xattr tree root #%llu has invalid l_count %u (expected %u)\n",
+> +				   (unsigned long long)bh->b_blocknr,
+> +				   le16_to_cpu(el->l_count),
+> +				   ocfs2_xattr_recs_per_xb(sb));
+> +	}
+> +
+> +	if (le16_to_cpu(el->l_next_free_rec) > le16_to_cpu(el->l_count)) {
+> +		return ocfs2_error(sb,
+> +				   "Xattr tree root #%llu has l_next_free_rec %u past the end of its list (l_count %u)\n",
+> +				   (unsigned long long)bh->b_blocknr,
+> +				   le16_to_cpu(el->l_next_free_rec),
+> +				   le16_to_cpu(el->l_count));
+> +	}
+> +
+>  	return 0;
+>  }
+>  
+> -- 
+> 2.39.3
+> 
