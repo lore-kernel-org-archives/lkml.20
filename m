@@ -1,59 +1,49 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEF214EE867
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:04:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAEF429BD9A;
+	Wed, 14 Oct 2026 13:04:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791983060; cv=none; b=AZxetWyPN/tuKpTf6TpIpJd29X82KZZYCHvGHzsZSO6vlEGcT79Rz332UFVsATnVRPrZlv4etqM14tqrg+T96I1Dg0gqCCvLPZDYMIXazOxYMK+D5ZaDq8LgC6EigI0qhArF8lFVadhNnnM1gIZf9emgEUadxcFr607OLKgI7Nk=
+	t=1791983062; cv=none; b=ulFX9ZP8IoxCtEiAtjRYoNG0AE08mCDCYeqRFneAZ3WpBANwljWgD/LGwLV9WU63Jvka9nuWqylloV2f37GRkRg50pYMnjj2JF5Nd2vtpg6w8mJRLs/KRIPRLPSVNpFsIPOIg0nx1fCcz0kPlCRskCyrnGSpnwfcLz8NKUQj+nM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791983060; c=relaxed/simple;
-	bh=EgFi49r7gxfzkxMoWf7LhQFYjxHc9Hj0j2eSgaDANdo=;
+	s=arc-20240116; t=1791983062; c=relaxed/simple;
+	bh=ptLnCE7zOBxkxahejBJE/p797FO+YNScPSLPSPJvccw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ux09cOqY74tUo1KAQZxxA1Ea2nHUB7nDGaSs3NC+yWDZhYxBgbayMP3AWJJO5diK3V9wNIJ8t3P/2zacRbOM8KVR5bbf3g/KLqGS8qBYNzfJUDE04exKjQZmQFeGSamkdhlidvA67eXvJNhPWwbYjWr2heLmvHQn9z7unV/Zo0o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=e4u4K/nk; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=Hm/KEd9zAeWD+xML6zaVY+RJMc2yWlggqCfyYuBJOaXw1ZhAG0nYMq7mQa+MmYmrgw5yfbfGfCVLGOnnTVZBLSF5yk+9JpDHcn10A30hAmpXljQ2K7lGaI7GwnURujnYOTYLwK9B2Fdt55uVQZD6ZklhtdyBTuAArxPfyNeRExw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dW7D++mx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="e4u4K/nk"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=h7KCGIIJyHUTbAqy6ZeCQb4TTOrAvtIZ+c2NzCIyooA=; b=e4u4K/nkfSdta/ZcCzlPmkRoSh
-	lamC+2RvWUieK5VxJiyHpRLEDnfsdXoOwxu4Se8pv5KyW7BAmX9T2FsASfqDWkCZYwTZGqvHEDp6M
-	OT9Jd+zUqL/34GhyyId7IxNCCS/yKdciG3LGIETpVwe1k4YVVqhlPfNu3FpD0TIkCxtbe/ahDGtyB
-	JKwnbsB3Wfvw/Wc+a+KFxsL8KG3JWjPfoMn8A+IvjAihZ6aelWSyoBymoGR73RueDtheyMwgUSUf8
-	XifPejiutrjoo3iq8ggxrFOAO+Jx+ZDVb0jniTec+CO2GaGI3tP03FF8fV0Bwg9iRunXH10FgrP3W
-	RAKaFoxA==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xGyeF-0000000Gmxr-15d8;
-	Wed, 14 Oct 2026 13:03:59 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 19B53300890; Wed, 14 Oct 2026 15:03:58 +0200 (CEST)
-Date: Wed, 14 Oct 2026 15:03:58 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: "Paul E. McKenney" <paulmck@kernel.org>
-Cc: K Prateek Nayak <kprateek.nayak@amd.com>,
-	Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	linux-kernel@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH] sched/core: Call wakeup_preempt() for queued tasks
- during class change
-Message-ID: <20261014130358.GL2009045@noisy.programming.kicks-ass.net>
-References: <8fa7f795-518c-4507-b684-60b0c1cac2c5@paulmck-laptop>
- <20261013152455.9039-1-kprateek.nayak@amd.com>
- <786f52b9-adef-4246-b83c-fc0081bbabba@paulmck-laptop>
- <44e3b645-b8d3-4812-930b-0112c05a9132@paulmck-laptop>
- <af6eb571-791d-475a-8413-18d2125328f4@paulmck-laptop>
- <c334b382-a13c-4222-99bb-798340ff0d68@paulmck-laptop>
- <4abd0c29-efde-4e8b-a498-aea5a0fb788f@paulmck-laptop>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dW7D++mx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8B071F000FF;
+	Wed, 14 Oct 2026 13:04:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791983060;
+	bh=b6rZoCWrpJX5Mv+LHM4nf6Kjojq4EI7a7291JjA+f5Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dW7D++mxv3TtkcE+UnApDVfLyqZcFih9O1Dg/jaXxPi96f4WBUFJPKWuo15MpiViC
+	 zEzy885Yf0itUumKS/0qXahCpOdzZySIgxKHceTZrhs78cmbeWQAP8RDjLhRaJbUdF
+	 E04wIYPOh+yXasjry0/2Df6sTTlYmdiDK2DJb+3Y=
+Date: Wed, 14 Oct 2026 15:04:25 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Luka Gejak <luka.gejak@linux.dev>
+Cc: Ping-Ke Shih <pkshih@realtek.com>, linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Michael Straube <straube.linux@gmail.com>,
+	Peter Robinson <pbrobinson@gmail.com>,
+	Bitterblue Smith <rtl8821cerfe2@gmail.com>
+Subject: Re: [PATCH rtw-next v8 5/7] wifi: rtw88: 8723b: add the RTL8723B
+ chip driver
+Message-ID: <2026101452-chapter-friday-dada@gregkh>
+References: <20261006130701.120460-6-luka.gejak@linux.dev>
+ <3db085e6c3c14545ac9fd4221e0715ed@realtek.com>
+ <df4a73de51784e35c15a39e85e4dae9629ba1132@linux.dev>
+ <e983dedfeb9341ad9d8cf159656395c6@realtek.com>
+ <df8313a72bdef1dc8859a4ac018370b24b606766@linux.dev>
+ <d403e88ca53841fba87190764e2a45cc@realtek.com>
+ <2026100746-delicate-carless-a04c@gregkh>
+ <3028b229a6fbe02d2bcfa30c497b6a768ba8c928@linux.dev>
+ <2026101046-transport-unnerving-96de@gregkh>
+ <4464409846710dfa13134265f0f99523714cfa92@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,25 +52,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <4abd0c29-efde-4e8b-a498-aea5a0fb788f@paulmck-laptop>
+In-Reply-To: <4464409846710dfa13134265f0f99523714cfa92@linux.dev>
 
-On Wed, Oct 14, 2026 at 05:59:12AM -0700, Paul E. McKenney wrote:
-> On Tue, Oct 13, 2026 at 05:13:00PM -0700, Paul E. McKenney wrote:
-
-> > And the five hours of 200*TREE03 on x86 passed!  Started a 12-hour run.
+On Mon, Oct 12, 2026 at 11:31:57AM +0000, Luka Gejak wrote:
+> October 10, 2026 at 12:18 PM, "Greg KH" <gregkh@linuxfoundation.org> wrote:
+> 
+> 
 > > 
-> > So thus far, this patch has passed bit more than 1,000 hours on x86 and
-> > 18 hours on arm64.  (Something about having access to quite a few more
-> > x86 boxes than arm64 boxes.)
+> > On Wed, Oct 07, 2026 at 10:35:25AM +0000, Luka Gejak wrote:
 > > 
-> > If it is still alive in the morning, Pacific Time, it will have more
-> > than earned itself a Tested-by.  ;-)
+> > > 
+> [...]
+> > >  
+> > >  Hi Greg,
+> > >  
+> > >  I have sent the patch, and I think you are going to like this
+> > >  number: 66186 deletions
+> > > 
+> > Very happy :)
+> > 
+> > > 
+> > > Not sure what people are going to use to learn though. It seems to
+> > >  me everyone is repeating the same patches.
+> > > 
+> > Yeah, we need to dig up some more out-of-tree kernel code to add it for
+> > them to churn on. But really, this is a good thing, it's nice to see
+> > real support for this hardware finally.
 > 
-> Tested-by: Paul E. McKenney <paulmck@kernel.org>
+> Hi Greg,
 > 
-> Thank you all very much!!!
-> 
-> For those into statistics, these test results give 99.9% confidence that
-> this patch reduced the bug rate by more than two orders of magnitude.  ;-)
+> As both of you and I know there are not many young people in the
+> kernel community and the steep learning curve is a big reason for that.
 
-W00t, ok, let me go queue this stuff!
+Really?  We average about 200-250 new contributors every kernel release
+until recently when it's shot up to 600-700 if not more.  So we don't
+seem to have a lack of new contributors for some reason...
+
+> I was not sure whether you were joking or not about the comment
+> above so I decided to find that appropriate replacement for staging
+> rtl8723bs. After searching I found this interesting xradio driver,
+> which is a mac80211 based driver for some orange pies and other devices.
+> It is around 18,000 lines of code and upon check it out I fixed bunch
+> of security issues per se and lockups that caused kernel to hang and it
+> is decently stable. I'm not gonna claim some extreme stability but it
+> is at least usable and it has many coding standard issues. It is a good
+> candidate because newcomers would be learning the modern architecture
+> and on top of it there is a lot of janitor work so people can learn
+> the workflow and etc. Link is [1] so you can see for yourself and tell
+> me what you think about it.
+
+If you think it is worth adding, sure, but normally we need someone to
+actually care about it getting into the tree (i.e. real users
+somewhere).  Also look at the bottom of the readme, shouldn't the
+existing in-kernel driver just be tweaked for this hardware instead?
+
+thanks,
+
+greg k-h
