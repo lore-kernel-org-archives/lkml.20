@@ -1,47 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42F4747FB0E;
-	Wed, 14 Oct 2026 19:36:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 366B047ECD9;
+	Wed, 14 Oct 2026 19:37:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792006617; cv=none; b=BJdW+NW2P6AaL9p1mOwLlKyfnK6NUZA+eDroXmXk6FcZJ8AZkWKTKcrlCJ6tU0Uzt+UHokqLI4I4s8XsnXypB4muPI+rBoWbGFSd0xrn2APer8SGWXG6h19mu3Ii2rCHe0t9SpWfSMo+cSTWeUddSV/VnX7YLR63K85uCqBHS+A=
+	t=1792006666; cv=none; b=S+bd3KqCZvQXQsPRI5P0Vm5BhchEB7gDaCpnOw60cEv0hb4OSCkROjuWKTAF1lAtFWPvl1tTCyza1JNKSa7d8WoQPoXDDAZVyRE1hmIudVTR9oycU0lgPrs5xVMtSrVlNDi7Kv/nuyGqtTsX+Kh85UuUem+MVjhmxdHvmpRiP9o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792006617; c=relaxed/simple;
-	bh=1acUDNEMfrMnTEtQ+y38gOMUhY0Pjk+FMS3fFJIeuSM=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=XShLX4PhnNRy1aEXdP6sJQ3vN6YreFTjXRZPzK3PGyPEm9AOQXghCxMn2tWUWSY+u2JikRhtRqlXcM5GUzMkwN2//jYACckQigEP9uz0NZnYyiNjAHbtpaJz20zRjRgDkXTDlM0QGwItJGQijshEQEM0Gt5tmgFbv3VvpjIz39I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DVvcvc7U; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792006666; c=relaxed/simple;
+	bh=6vcGsFszctS9m9nsD0mOVzuEILOA7N26665fwBfdGY8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ovG8RI5oRJyM5olJgV6AzGxaEbEACIy82KADqb+78dGK/9Vd190k0+ThSeTy9PhMfsYV0oQV6SL1Tr2TlIwKVrKokeX/sRqnwdkAYQJImb7W+2ewpPK8PsVvvVhv0LguUsgGUIoggpgeU4DeOzwf7Rbq/M31IZVjFDl/uyFFJ+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AMN2SlCo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DVvcvc7U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 975291F000C4;
-	Wed, 14 Oct 2026 19:36:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AMN2SlCo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93E281F000C4;
+	Wed, 14 Oct 2026 19:37:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792006615;
-	bh=Nwo7fummJ1+6uAUT8/LcA06d2mBN1HNQjSCHgbIgjcU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=DVvcvc7UX80k12qRiHESe3D5qMFFVXrS38E48C9Buz1YyN3x0yyLjfN8PE2O8obfo
-	 z1EWyL8sTL4Zx59tmp6xOzDVuU7hCj2hbkXdM89M3tJdnXtlc9u49ZO+Lto+g3BsGu
-	 hsyH6xqZqSuHs9uSkr1db02NQdGYUUb5hKuZQNs6e0mShBs1+p9oLvNshC5gBtfnxU
-	 5ICHjv7tO8lQQurcDTA1KP612gBPLumtixcyZjH0oDoeejT+40FVxVkP9zTNGRb27e
-	 QFXad8keYB8IZ/hC1pkcJr6OqlI6NaCTwLEk0M52Cn+ZuieNdgR4uXGSCl8QqcT2Fo
-	 xOB+33S6zENxQ==
-Date: Wed, 14 Oct 2026 14:36:54 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: vjardin@free.fr
-Cc: Minghuan Lian <minghuan.Lian@nxp.com>, Mingkai Hu <mingkai.hu@nxp.com>,
-	Roy Zang <roy.zang@nxp.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	Ioana Ciornei <ioana.ciornei@nxp.com>,
-	Vladimir Oltean <vladimir.oltean@nxp.com>,
-	linuxppc-dev@lists.ozlabs.org, linux-pci@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
+	s=k20260515; t=1792006664;
+	bh=4rfIbNYBKKPaATYal5MTgIu4vhjjemHhAOt2kKu8E1Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AMN2SlCoIeaXXJKripQizdLkMzs3fQrZhGME6+qWNnVIDBQCIVRu9YKOV21I3XPDK
+	 ffUJSk1N0G/WHn+MOo0gX29pby+3Yow52x0JFkI+6mmgjcUZMgqglVu28VGGTBIkTT
+	 3cxElftJEiVrpBO/ROAMevWkJTbBjx2dyiGTZ7+h4D+TNcHD+AhzZwBl1X274XgjN9
+	 ZsSUF8rAQ43DX158VH1+4uNpcirWYR2mV6mImZXjmYEi20IPjIEbeBexs0mByU7+21
+	 1+oWiSDp1mB0AGxZ8+gaClthwFOzz59g28q8EpA6I9pStEN6eBU+Au0JXDqLcbJl+b
+	 u6k6OT+jOSohg==
+Date: Wed, 14 Oct 2026 09:37:43 -1000
+From: Tejun Heo <tj@kernel.org>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Peter Zijlstra <peterz@infradead.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Meta kernel team <kernel-team@meta.com>, cgroups@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] PCI: layerscape: async probe by default
-Message-ID: <20261014193654.GA1656473@bhelgaas>
+Subject: Re: [PATCH] sched/psi: Remove the RCU wait from trigger destruction
+Message-ID: <as_aB-eIeU16h_JN@slm.duckdns.org>
+References: <20261010191500.3895736-1-shakeel.butt@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,53 +52,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260928-for-upstream-pci-layerscape-async-probe-v1-1-76412d887baa@free.fr>
+In-Reply-To: <20261010191500.3895736-1-shakeel.butt@linux.dev>
 
-On Mon, Sep 28, 2026 at 03:48:09PM +0200, Vincent Jardin via B4 Relay wrote:
-> From: Vincent Jardin <vjardin@free.fr>
+On Sat, Oct 10, 2026 at 12:15:00PM -0700, Shakeel Butt wrote:
+> In the Meta fleet, we found PSI trigger destruction waiting for an RCU
+> grace period while holding kernfs node_mutex, blocking other users [1].
+> File close and node drain hold this mutex while calling the release
+> callback. Cgroup removal and disabling cgroup.pressure also hold
+> cgroup_mutex during the drain.
 > 
-> dw_pcie_wait_for_link() polls for up to
->   PCIE_LINK_WAIT_MAX_RETRIES x PCIE_LINK_WAIT_SLEEP_MS (10 x 90 ms)
-> per controller.
+> The wait was added by commit 0e94682b73bf ("psi: introduce psi monitor")
+> to protect worker and trigger lookups. Commit 461daba06bdc
+> ("psi: eliminate kthread_worker from psi trigger scheduling mechanism")
+> replaced the worker queue with a group timer. The scheduler now only
+> checks whether rtpoll_task is NULL; it uses neither the task nor the
+> trigger. Commit a06247c6804f ("psi: Fix uaf issue when psi trigger is
+> destroyed while being polled") removed trigger replacement and polling's
+> RCU lookup.
 > 
-> The controllers are probed one after the other, so, it leads to slow
-> boot time.
+> Trigger lists are protected by mutexes. Proc poll/select entries are
+> removed before their file references are dropped. eventpoll_release()
+> removes epoll entries before the file release callback.
+> Commit aff037078eca ("sched/psi: use kernfs polling functions for PSI
+> trigger polling") moved cgroup polling to a kernfs waitqueue whose
+> lifetime follows the file.
 > 
-> On an LX2160A board with 4 enabled controllers and no link on any
-> of them, ls_pcie_driver_init took almost 4s.
+> A late timer firing only wakes the group waitqueue. The system group is
+> static, and commit 5457025fa8ca ("sched/psi: Shut down rtpoll_timer in
+> psi_cgroup_free()") shuts down the cgroup timer before freeing the group.
+> Cgroup reclamation already waits for scheduler readers.
+> 
+> Remove synchronize_rcu() from psi_trigger_destroy() and use
+> rcu_access_pointer() for the worker NULL check. Keep kthread_stop()
+> outside the trigger mutex.
+> 
+> Tested trigger churn, notifications and cgroup removal in an 8-CPU VM
+> with KASAN, lockdep, and full and lazy preemption. No warnings were found.
+> 
+> Link: https://github.com/bpftrace/user-tools/tree/master/runnablelockmonitor [1]
+> Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
 
-"ls_pcie_driver_init" doesn't exist; I suppose this means
-dw_pcie_host_init()?
+Acked-by: Tejun Heo <tj@kernel.org>
 
-> Probing the 4 in parallel allows to have it down to 1s.
-> 
-> The controllers are independent, other DWC based drivers are already
-> using async probing such as qcom, imx6, s32g, rcar-gen4 or stm32.
-> 
-> Signed-off-by: Vincent Jardin <vjardin@free.fr>
-> ---
->  drivers/pci/controller/dwc/pci-layerscape.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/pci/controller/dwc/pci-layerscape.c b/drivers/pci/controller/dwc/pci-layerscape.c
-> index 14d6ac4fc53f..7f37a0537159 100644
-> --- a/drivers/pci/controller/dwc/pci-layerscape.c
-> +++ b/drivers/pci/controller/dwc/pci-layerscape.c
-> @@ -419,6 +419,7 @@ static struct platform_driver ls_pcie_driver = {
->  		.of_match_table = ls_pcie_of_match,
->  		.suppress_bind_attrs = true,
->  		.pm = &ls_pcie_pm_ops,
-> +		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
->  	},
->  };
->  module_platform_driver(ls_pcie_driver);
-> 
-> ---
-> base-commit: 94e8d4e94266bb9737a5963810a3f9365cb2f39d
-> change-id: 20260928-for-upstream-pci-layerscape-async-probe-084cae5d0907
-> 
-> Best regards,
-> -- 
-> Vincent Jardin <vjardin@free.fr>
-> 
-> 
+Thanks.
+
+-- 
+tejun
