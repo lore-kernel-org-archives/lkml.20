@@ -1,130 +1,182 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7E7C44E662;
-	Wed, 14 Oct 2026 11:47:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D1F64C651E
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:48:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791978446; cv=none; b=k6HLjg0XVsT3F+5HNX+g0UiD6xUI+3g5srACxs8PLG6uH/7+O3e3yVYpIEkCrFRA4oJJ/YGG24WRrcZK06E+3ry6LkHFof4isggFeYrt5yLRZYP78trsZMf3jW+U97nG9ZKRbTyTiWNQtqf9tvZMCDdpu1v9GZ2MpnpfjiPpZL8=
+	t=1791978521; cv=none; b=hSggl6EpKpzOlW1JXW915lKgyRxznCX/VyjYYKZ61/QcV3pQlIj3zQk9GGlnK4tjIoWdHrtbh0TcS1Izd/pm9oe9YCVTT0y9TonvR+lqtr5pMTcDbBB8vrlwE75ux+NU9rV+4UZgtC3bNFRX1YbCG7LvvOzDgxLt/iIhm4N3vOI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791978446; c=relaxed/simple;
-	bh=ILhBZJCEuct5sP2YsHKzlUh4iKWnRwYMXrZnAg4Ca1w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PQzy8F9teYgr3GH9JrHDMdGIk8vevTiXGnJCr6kBTYKfWrAg7ywjTRhyjRtRXg6sI9+uIwhzWmFbvWR8m8u47snh3weMmQhrJgzHnd9X8PlJjQRTrxoCTqExn7YVAqREYQMKvHqguRSptTwk+qDWM1KqH0t59+WYsgO/J7xaqd8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=sOeyWaaJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791978521; c=relaxed/simple;
+	bh=O3hUQ9wkN3PDzZXypiNJPFT+hkyn8LRRyRlW5Amtr+0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=sitEEoGa1f/Moh1id20lf/AvhXalIJSSfY263Fl7cBduaENo/1nLkLFTdk7GVZgUYnUBXytKFHmxZXZSaPhVUit/s17aMEBl4L/IkTy4NMbtN903+Xd+wYjL+MmcLRP2L0J25Xc55KTRlGSjVgFEFXGwnsIEffInR3ZWRsB+9m0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com; spf=pass smtp.mailfrom=ionos.com; dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b=SR1k0paz; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="sOeyWaaJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEE101F000FF;
-	Wed, 14 Oct 2026 11:47:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791978444;
-	bh=LLYhgszy6ZH9nQCkUTNqMMjfJeES0ElaWQzVBTD2Pko=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=sOeyWaaJULi3bsHFTFJYywzV+9QXJ6m9a2qTYJNGA+XZufZiw6pc4NTue1J1BnB6A
-	 35VKjVwvPdo9kB/UFAf3mBFNYqKBFB17cz7nbk0GGuDcVmvWPMKhaJrNWpbQELVR9U
-	 8NsfQeU1HaH0IU7TuowqgQswROEuIHnakrUxSPHc=
-Date: Wed, 14 Oct 2026 13:47:29 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Hongyu Xie <xiehongyu1@kylinos.cn>
-Cc: stern@rowland.harvard.edu, linux-usb@vger.kernel.org,
-	usb-storage@lists.one-eyed-alien.net, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] usb: storage: bound timeout=0 URB waits to 30s
-Message-ID: <2026101406-lair-impaired-172b@gregkh>
-References: <20261014093856.415812-1-xiehongyu1@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b="SR1k0paz"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-499dd4900dfso4444255e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:48:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ionos.com; s=google; t=1791978511; x=1792583311; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2pf/TLCcQJhqlTchdZFX67WuchZUIfnvCuciK1Vq26k=;
+        b=SR1k0pazlYMIbazA+YFZl8tHimlXCZpCNoQLdV8wwo14nT5QOF9gDKN7pwZ93jp6sO
+         4sR+a6AYX96Mjz/OQecUAcSzYGLoGIjyzegmST/DuEH3csq61NMAuQfl4yf0NNF9uGRs
+         mHbHj1kPuW5jBFYbfBhA77/i+M/XheBDNmxRrskGSCvuKsOoWUugUn1OU2czOox9u5A9
+         qudCINxrqQNj5aLMAwDFfBvPOU3SSuHozjPFbjegL3MSq4e2raStVs95jwAC87zCoQJI
+         zniyYDpgkiHgh78ea2R3nxKtaHYHL7ar/dc65PUpEQYIYQSxV1PxfI0H5xtO8PzntiI6
+         ooYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791978511; x=1792583311;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2pf/TLCcQJhqlTchdZFX67WuchZUIfnvCuciK1Vq26k=;
+        b=Ojn5pZirZuyHU/rjCbWbv6FTJ7BhqCuoKKcNsp8o+QL4Nzq0XRPLOLWbvl7nhKKyC1
+         f0vFDNWHEltZFpbhajqVOExZbCKiyCIpOQhFy4BV4INKwAHFGLedzDKoyhasfVQ4fZlQ
+         M7T4HJ6gz1ZBWLeozEUAc7ummG3C2GPBjrsjKljxg2nyAQ+hYiWoaDH2DknOzb1fHUVS
+         bvK+tA/gngP3o3J+URS1FxDv3NxYy9y574NXBXL+xwOj2HkIxeKBdi9SpEnaC7A0+R6q
+         0b/x6i0UrnuXtXIbq0AfWa58eCeM797yUvOgA0DfdmT6hmshvFwYWg5POSC54Ay5kefV
+         6OdQ==
+X-Forwarded-Encrypted: i=1; AKwUvByMTFvV4QIEvf83ajVHs8ahicEuJHvocBwUCLYGcD/mEagrEh7mUyEzZrouK53qUTeOLf49haVgGasM8p4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKItTxRbfjZA97JruJN9hF3OYvhlszEi5AOOuMBdkUbhM+plwhO
+	SAkUmlYLF9Yyl8SgRpSZZVaHO4d5nX8QFgKG243FFuvl7JVLRm0PJlMfH2Z5cqd2iT0=
+X-Gm-Gg: AYBFou0DtsTWtpct4gXJ69cxs53hYLn1IAV1jYnWrYTY+qh+gSJ9gTB3qkZ6FxLRU7F
+	K2vwk083gUKQpPnI0935cyno3D7c70FK8dLQfCkWj/lBvb3Qe8l0iuoXAgtZdz6+ocNn4nRgZSO
+	qsN61o5MvwL4NnhLfngRUyOPAKxAl34apqIls19PoMzqYtK4YIMJlu0Q6+Kz7uUqcS8pAIgnuxI
+	n1JtlBlBKlbSBfoL88UckUMx1y3V7dC4nxQRIp7GJVJEAoK4iI4Nme4j9Bmx9gnUXUAyHNx2as5
+	dHZjdqcXyNXsRAjUtlAT/5/VnjYTpmIxOYQZ6+3oBZrupBmR1KcivyiQtrkRtlc7edZtn6lcwDj
+	NJCmkRgvkm000yYQSZrxQU6AusVSxXvJ/uTz1FlteXyI7GbrKBb5xhOOmQe0to8IXfo4vnBMHy0
+	HmHLsL4KGYMCeYfmn7GMkLljxyi5XtrnRrB50r33iPCiWnX+yPJTZEauzTmxvotYfU11GEUXq+Z
+	3hO/6KBt6T20fDWa7pTVnAEaCMPm7LHrPPeVwxrTJE=
+X-Received: by 2002:a05:600c:a48d:b0:4a1:9a97:c67 with SMTP id 5b1f17b1804b1-4a19a971230mr156001285e9.1.1791978511353;
+        Wed, 14 Oct 2026 04:48:31 -0700 (PDT)
+Received: from jwang-ThinkPad-T14-Gen-6.fkb.profitbricks.net ([212.227.34.98])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1b4836858sm42925635e9.5.2026.10.14.04.48.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 04:48:31 -0700 (PDT)
+From: Jack Wang <jinpu.wang@ionos.com>
+To: Song Liu <song@kernel.org>,
+	Yu Kuai <yukuai@fygo.io>
+Cc: Li Nan <magiclinan@didiglobal.com>,
+	Xiao Ni <xiao@kernel.org>,
+	linux-raid@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jack Wang <jinpu.wang@cloud.ionos.com>,
+	Florian-Ewald Mueller <florian-ewald.mueller@ionos.com>
+Subject: [PATCH] md: allow growing logical_block_size on a running array
+Date: Wed, 14 Oct 2026 13:48:23 +0200
+Message-ID: <20261014114830.615589-1-jinpu.wang@ionos.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261014093856.415812-1-xiehongyu1@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 14, 2026 at 05:38:56PM +0800, Hongyu Xie wrote:
-> usb_stor_msg_common() is the common URB submission/wait helper for
-> usb-storage transfers.  Callers that pass a positive timeout get that
-> timeout, but the three internal transfer helpers (usb_stor_ctrl_transfer,
-> usb_stor_intr_transfer and usb_stor_bulk_transfer_buf) all pass 0,
-> which selects MAX_SCHEDULE_TIMEOUT: the control thread waits for the URB
-> forever.
-> 
-> A device that stops responding while such a transfer is pending hangs the
-> control thread permanently, and the hang propagates into the SCSI error
-> handler:
-> 
->     scsi command timeout -> eh_abort_handler -> command_abort()
->       -> usb_stor_stop_transport()  /* URB unlink issued, but the URB of
->                                       a device wedged mid-transition
->                                       never completes */
->       -> wait_for_completion(&us->notify)  /* no timeout */
-> 
-> The unbounded wait also closes a deadlock cycle observed on arm64 servers
-> running 5.4.x, where a Realtek USB WiFi dongle in CD-ROM mode (sr0)
-> wedges during usb_modeswitch's re-enumeration transition: the system
-> shutdown hook (mdadm --wait-clean --scan, which opens every block device)
-> blocks in disk_block_events() holding ev->block_mutex, waiting for the
-> disk events work whose TEST UNIT READY timed out into the
-> command_abort() wait above.  No timeout anywhere in the cycle means the
-> shutdown hangs forever -- hung_task warnings every 120s until power loss,
-> two production incidents with identical stacks.
-> 
-> Bound the fallback wait to 30s, matching the SCSI layer's default command
-> timeout for disk and CD-ROM LUs (SD_TIMEOUT / SR_TIMEOUT).  When the bound
-> fires, the URB is killed, the transport reports USB_STOR_XFER_ERROR, and
-> the command fails through the regular paths: the control thread
-> completes, notify is signalled, the abort returns, and the events work
-> (and with it the shutdown) can finish.
-> 
-> For disk and CD-ROM LUs this bound introduces no new policy: a transfer
-> that produced no URB completion for 30s has already exhausted the SCSI
-> layer's patience, and the error handler trying to abort it cannot make
-> progress while the control thread is stuck in the unbounded wait.
-> 
-> A blanket bound for this helper was suggested before [1] but dropped over
-> concern that legitimate SCSI commands (format, tape rewind) can exceed
-> 60 seconds.  Those commands are issued to tape LUs whose SCSI timeouts
-> are much longer than 30s; usb-storage-attached tapes holding back a CSW
-> for more than 30 seconds remain the residual false-positive window of
-> this change (modern tape bridges use UAS, which is unaffected).
-> 
-> The scatter-gather data path (usb_stor_bulk_transfer_sglist(), which
-> waits in usb_sg_wait()) is a separate unbounded wait and is not covered
-> by this change; a device that stalls mid data phase can still wedge the
-> control thread there.
-> 
-> Validation: on the affected production machine the hang occurred twice
-> across ~4800 hibernate cycles with identical stacks; with this bound in
-> place, 990+ hibernate cycles completed without a recurrence.
-> 
-> [1] https://lkml.rescloud.iu.edu/hypermail/linux/kernel/2207.0/05816.html
+From: Jack Wang <jinpu.wang@cloud.ionos.com>
 
-Please only use lore.kernel.org links.
+Growing logical_block_size on a running array required stopping it
+first. Handle it directly in lbs_store(), similar to
+mddev_set_closing_and_sync_blockdev(): under open_mutex, refuse with
+-EBUSY if the array is closing or has openers, otherwise apply the
+bigger LBS.
 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hongyu Xie <xiehongyu1@kylinos.cn>
-> ---
+mddev_lock() is not taken on this path, to avoid holding reconfig_mutex
+while blocking on the queue limits lock.
 
-No diffstat?  How did you generate this?
+md_release() drops openers without open_mutex, so a bio of a just-closed
+opener may not yet be accounted in active_io. Commit the limits with
+queue_limits_commit_update_frozen() to drain it. Also take open_mutex
+around the existing "enable LBS" branch so it cannot race with the grow
+path on mddev->logical_block_size.
 
-> --- a/drivers/usb/storage/transport.c
-> +++ b/drivers/usb/storage/transport.c
-> @@ -112,6 +112,15 @@
->   * command _must_ pass through this function (or something like it) for the
->   * abort mechanisms to work properly.
->   */
-> +
-> +/*
-> + * Bound for the URB wait when the caller passes timeout == 0: matches the
-> + * SCSI layer's default command timeout for disk and CD-ROM LUs (SD_TIMEOUT /
-> + * SR_TIMEOUT), so a wedged device surfaces as a regular command failure
-> + * instead of hanging the control thread forever.
+Suggested-by: Florian-Ewald Mueller <florian-ewald.mueller@ionos.com>
+Signed-off-by: Jack Wang <jinpu.wang@cloud.ionos.com>
+---
+ drivers/md/md.c | 40 +++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 35 insertions(+), 5 deletions(-)
 
-Please rewrite this from scratch and do not use a LLM for it, as this
-doesn't make much sense to me at all.
+diff --git a/drivers/md/md.c b/drivers/md/md.c
+index 03e35386a802..cd9c73f46786 100644
+--- a/drivers/md/md.c
++++ b/drivers/md/md.c
+@@ -6013,12 +6013,12 @@ static int mddev_set_logical_block_size(struct mddev *mddev,
+ 	lim.logical_block_size = lbs;
+ 	pr_info("%s: logical_block_size is changed, data may be lost\n",
+ 		mdname(mddev));
+-	err = queue_limits_commit_update(mddev->gendisk->queue, &lim);
++	err = queue_limits_commit_update_frozen(mddev->gendisk->queue, &lim);
+ 	if (err)
+ 		return err;
+ 
+ 	mddev->logical_block_size = lbs;
+-	/* New lbs will be written to superblock after array is running */
++	/* New lbs will be written to superblock on the next update */
+ 	set_bit(MD_SB_CHANGE_DEVS, &mddev->sb_flags);
+ 	return 0;
+ }
+@@ -6046,8 +6046,36 @@ lbs_store(struct mddev *mddev, const char *buf, size_t len)
+ 	if (mddev->pers) {
+ 		unsigned int curr_lbs;
+ 
+-		if (mddev->logical_block_size)
++		/*
++		 * open_mutex serialises both paths below on
++		 * mddev->logical_block_size and keeps new openers out.
++		 * MD_CLOSING means a stop is under way. mddev_lock() is not
++		 * taken, to avoid holding reconfig_mutex while blocking on
++		 * the queue limits lock.
++		 */
++		mutex_lock(&mddev->open_mutex);
++		curr_lbs = queue_logical_block_size(mddev->gendisk->queue);
++		if (lbs > curr_lbs) {
++			/*
++			 * A bigger LBS can be applied to a running array if
++			 * nobody has it open, as there is no I/O through the
++			 * MD gendisk queue without openers. The queue is
++			 * still frozen for the limits update to drain a bio
++			 * of an opener that has just closed.
++			 */
++			if (test_bit(MD_CLOSING, &mddev->flags) ||
++			    atomic_read(&mddev->openers) > 0)
++				err = -EBUSY;
++			else
++				err = mddev_set_logical_block_size(mddev, lbs);
++			mutex_unlock(&mddev->open_mutex);
++			return err ?: len;
++		}
++
++		if (mddev->logical_block_size) {
++			mutex_unlock(&mddev->open_mutex);
+ 			return -EBUSY;
++		}
+ 		/*
+ 		 * To fix forward compatibility issues, LBS is not
+ 		 * configured for arrays from old kernels (<=6.18) by default.
+@@ -6055,12 +6083,14 @@ lbs_store(struct mddev *mddev, const char *buf, size_t len)
+ 		 * enable LBS by writing current LBS — to prevent data
+ 		 * loss from LBS changes.
+ 		 */
+-		curr_lbs = queue_logical_block_size(mddev->gendisk->queue);
+-		if (lbs != curr_lbs)
++		if (lbs != curr_lbs) {
++			mutex_unlock(&mddev->open_mutex);
+ 			return -EINVAL;
++		}
+ 
+ 		mddev->logical_block_size = curr_lbs;
+ 		set_bit(MD_SB_CHANGE_DEVS, &mddev->sb_flags);
++		mutex_unlock(&mddev->open_mutex);
+ 		pr_info("%s: logical block size configured successfully, array will not be assembled in old kernels (<= 6.18)\n",
+ 			mdname(mddev));
+ 		return len;
+-- 
+2.43.0
 
-thanks,
-
-greg k-h
