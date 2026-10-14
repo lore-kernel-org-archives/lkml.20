@@ -1,116 +1,187 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2DCC47ACE7
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:43:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 135F13AD51C
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:44:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791971035; cv=none; b=QIl6RgF2ZfzeZhmy+5CRyTtx8ZI1Pm+P3yxIWt1oXu9qiETDhpvb3fCyULnl3bSMn4Nw6SeLJj6ekagUfH1CJyfE6aPAF7Eo4UdfEXGqIDt9KdIuF43TU40vS3DoWM8BZ+Ia9XCBeaTWJ6BmbIC7MKEP9AOl48kWFPmIk6xnZyk=
+	t=1791971056; cv=none; b=ktFLVZ/qcvBKfctJVeAsKO0c3A/MST2eXjqHH9gP7L4VzE4QfC2C92B82rhVeyk7alhY0YL+8OHkjjXsK51mvUSKDCRori6Zr7I+K+mLYm1VQhLclUeqGMPF50+O7YI0leDhtesQ0v4+uJZkxbbjOV7yh97NN84bJNAeCrejppE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791971035; c=relaxed/simple;
-	bh=p8bij+xPIuY1F2wzTxNxuEiDx2tLRjfxK2DOQb5YmqY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FDIoGkZusNbYdvHAJXYqZoZCFNYfJBt0qR5VggWESmz+gHZMR8QE3kPFjZvoL+X998i3ImsI08JIb7F4VdJqLRwPEHXyrSj1Sj8vEpXUl61XR3DWg/xQnvizKznDg36J3fDyNfsZ8rbVkI10aBwLy9guO6SX944PifwLmCKE8xU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=uOYw7f4O; arc=none smtp.client-ip=209.85.218.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1791971056; c=relaxed/simple;
+	bh=JQlpRiUaOXNfdMDy+o24+jWUaR5vlVHK5OhebwrY45w=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=jgU5M+s0iu9BBxyhJQB56rFBYdNjraW+r8pr9OT2pmJE67g0m9nYBbUYjivkgPr2wGDBWv5iFRNrV2OyTNsvf9I5/cgElCltk0S6UMfZFenWkXIZQfLUsxD6IYAKEX3P3+5PJT1M9r1GD7HnFj32RePxsasHiVcUrs8YPnfQ6bU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BT+OgzoG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="uOYw7f4O"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c31745ad205so960334666b.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 02:43:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791971032; x=1792575832; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tOCQwbGkL9XqwqZkq5Sc8MdH9xmRzvz/HA/PLReDL08=;
-        b=uOYw7f4OPvpwLDJBsDw0RiocCBQFaY7L6IVYwf251T6PDD/vlDPeINPkrEszp7xxIo
-         tMYI1dkwiYFQdtHXwQGsFlUNJ4uJ0SQS44kUbPEWNkUWv1Q9jdW1kBeAYxXb5KANJ2Y4
-         RFGHRPgeCRucwsmvJuUSu/C2l+aKDhToYAInFS9joJW/uXFa9aQzXkwAaB30tdikQUCG
-         j22Dkuet1XeZ6Lpk1ZX5Qa9jTLcXR7j7c4VIxP19NtPtgOIJBLb5GpVFh1taqWS0ZlGs
-         KLCOIPOhEozBod3CsqIF6OHYwDVKE+PHKh1svgXSSUWWG8F0RFuGODxfna50qSVRfp5Q
-         kZXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791971032; x=1792575832;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tOCQwbGkL9XqwqZkq5Sc8MdH9xmRzvz/HA/PLReDL08=;
-        b=mhnVUNb4JKF4neWOB06vpYjzR2MY3ntuif7VVxm5s6Mm6grA+47av1/8nn4PdHFcAg
-         kVK7Ae8grXihJEToGMceiHm0mdtu/8gFk4wJDCyvT86f3a3LQMKczNHAuEI1UPOysCzX
-         zKWFhNbBxayHc8a5WC3iBlWqXOYtR238rUvBjT6yibRZqxW7I4uSXUW7XeSiOxngres3
-         EtsAXQlTcyt6Wbf34FM342b9tIjXtfexasHSZL3Tkm9zZGJJDi0ohcs43dPl3Lx4L1o1
-         w5JEMGPciuzXXiCZBxw6IpulwOeVx2yDIiaa0VxtY+e5CPJ0hDFaQ7FbGr36Y/IhOFCX
-         zvZA==
-X-Forwarded-Encrypted: i=1; AKwUvBwneCO1r/ba2wgwOHXyiNDnCqrV0KrP06z/i9nuen7rSiEWcMhA3dVHGVAK9aGKhWwNVKSs6Knaw2Tbw2k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK+4ZszG7EmMjqVvEJphz79j5mtGgw0msPzfecrrdZK9d/Xr513
-	iMPcu/BW/Yfg0didMcZivOs5yAcRfKkDK1v0cl8OHZdB2/8PRumKblZsRydBe2Kfe0M=
-X-Gm-Gg: AYBFou2DquKoEF2X/FnZyw7znqXV4i+ghnNjekhJZj2spBrCcX8gW7UVTOR4trq7wL9
-	XPyA1Yc99Uj5bXZ+Y6XCX13tBOrx6Xsge0CiVmyHnSMJeNuSzWhUUtFQHcerCtLeJX533RGgjX6
-	/YWeKil1xjlbctHBnNH63kiEQLKk3fyF+wQ+e44QbBYcnQp9RfHhNcEbyzDS5DvpHHQowXnjsbl
-	b+VtjhLxEqeUN2/7vsXFfPl+zETVlfY4vcSL7jLYXJMbPKaABSy6X6Q04PXTEyNMPs1Zglt7kYg
-	F/87T4Y4OsyZz4q/PO+DQDA6A/Xp0NPmLeQPF99YWV027evcxcvo7m97vxgCkA0KBOFqkScrPd/
-	qYWSfRQMcL2zC8WIe9d7k/6W58DZkSnKyxJTfR7OSao3OD0qBrLKcWMJXuSkZ4L9iHTNfHibTpB
-	U+A6tmQJT49DbHj+MGnoW1D6kK8JV1TfyZQRsoIS2tYiaFzuljPntcNPOjIMEv8hpxtbRB+wK+H
-	7LVTrI3HdWu
-X-Received: by 2002:a17:907:6093:b0:c2d:d929:95e2 with SMTP id a640c23a62f3a-c31a7067739mr1466697066b.21.1791971031904;
-        Wed, 14 Oct 2026 02:43:51 -0700 (PDT)
-Received: from [192.168.0.167] ([109.76.126.202])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9ac702fsm690779866b.65.2026.10.14.02.43.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 02:43:51 -0700 (PDT)
-Message-ID: <4fe3f636-2352-4f3d-9634-637622b2cd40@linaro.org>
-Date: Wed, 14 Oct 2026 10:43:50 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BT+OgzoG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6175F1F0089F
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:44:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791971054;
+	bh=RibJr+lkK5w34aXVUZqBACmNuB3QmP95yMnwX8HmFKQ=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=BT+OgzoGfyq8uQEYFqZcC6K8t/Rjzu0eu1MklLKXCmRIOrGiWB25ETHSbC0+eSFqk
+	 80wfFOpQ+VuAZCGfoqeGQ0FMC+oYARK1dsSgOzkePlYk3C4uQMrX8eULLXa8D+pCHe
+	 /DVi4EX6LDMbyyfa/fmOUFylNJtXgbk5R+X3knOlC81p8QIcqRf0RFuAQ/mchIoKC3
+	 z+psg12xLMggnQXvmScMKersFpdgHbJmpSXD80CR07XzIQsBacJxk8/Lir05MH/LRE
+	 oP9998w9gEkdowPDK2JOjHnbOcdUYx/OA9/nqS15t9h8yaMdP3GxBi4+33Yo0Z6KrJ
+	 e/SgiXlmRV0Jg==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id D13AC198003A;
+	Wed, 14 Oct 2026 05:44:12 -0400 (EDT)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Wed, 14 Oct 2026 05:44:12 -0400
+X-ME-Sender: <xms:607PajM0wqOjIhGz2rAOrLL01EoYD--AXQqdku797tWpvWAMt0U98Q>
+    <xme:607PaozfKGksLOlCwjvVRPUtU6EmbS-pE8j7RQC3LX-PZrHM4Lc3fWi9UUWYxRPI5
+    KF_wqa3BqSvFEAPhuGfUcX_Qs6ONhyoZOqCL3b8tbWNT3IgYvQEbzcV>
+X-ME-Proxy-Cause: dmFkZTG4qDbjkd8V/yEC2ZTNDUkLSoqEFfjf9pDh5dVIvv11+jOBRwgedbQQEemplu4fac
+    tELNld/pjUFEZA5pcjb8qJY0hIS3+mWibWQ62OlvcuItA8q2et6DzUlBlF8oilXJjOpdL+
+    Fnbw6g8q9z7qEJuXNk09xt8HNPIYrmT8XGnkLX6VTuHzHG7cVSY2Dr4f/tCqbT9CKo7KCX
+    9MTx4b/rVG57gPjqAeJ67MR4FRtQ8acl4ma77/G/lJbbX5T7cQRZrk/lnQrtIBHauG7Ori
+    1EtMS6e2aXBFtheGtIEq6eJZjCNoh7CN6dR/ntqlcvwoWWkL7Pjyo/S+VEfajh/i42O0fL
+    +o7uxWP1nacV/q3oCK94mV+G93ejAiT6seLlFerjZDzvs8eTM9Luf38k7UkpOuu8BFFWUF
+    w24DwdylnGHhafWH75kAmolZcjZtahMcd8VHCHfiR8H2M00FHnyf1E0hfeI5wy3/nWLw86
+    4/jlCfublcbYf+OpZIXNMa9YYSF9SUY7GovUZ7ruJTaQ9tuZwyaVuog39cjTquaPcyICXL
+    Qwc1B9IqGnLGePRZposoyfEFujrsPQvfvtFlExcFU4kMitF5fU9St/qv3CTi9+gnPIJxP0
+    3rqU1iv7K4lh6DOluQjMqi1AVsojcUgj8HiGMG06NFeQn6DifxYTPvkCw6yQ
+X-ME-Proxy: <xmx:7E7Pai06VHF_LSDvcwDKuXk3Hmk4z2F6YkoECo4F3WT7tN6YE9temg>
+    <xmx:7E7Pai5BvW3dJMMh3xEJ6b1CqYg0TOQjstQ_QojhOK_zjcqLR7zDwg>
+    <xmx:7E7PalVKzWm1w3NsCD14GS_znULJcdXdXabU5q3AbzUnULUiqiV8mw>
+    <xmx:7E7PahBSIwg1yYw0mwb1EHRDADKcWKSe-jzk0PWTH_4aLIpyPoktkA>
+    <xmx:7E7Pak5kb0FG2fdSp8LqZnI1KiSw11LRO3cIt0FkId4ZubLY7fXQ3QSj>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 87AB6F8008E; Wed, 14 Oct 2026 05:44:11 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 6/8] media: qcom: camss: Add Hawi compatible camss
- driver
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>, Robert Foss
- <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-Cc: Suresh Vankadara <svankada@qti.qualcomm.com>,
- Vikram Sharma <vikram.sharma@oss.qualcomm.com>, linux-i2c@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org
-References: <20261013-hawi-maili-camss-v2-0-fc93222da89c@oss.qualcomm.com>
- <20261013-hawi-maili-camss-v2-6-fc93222da89c@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20261013-hawi-maili-camss-v2-6-fc93222da89c@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Date: Wed, 14 Oct 2026 11:43:51 +0200
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: "Melody Wang" <huibo.wang@amd.com>, x86@kernel.org
+Cc: LKML <linux-kernel@vger.kernel.org>,
+ "Tom Lendacky" <thomas.lendacky@amd.com>
+Message-Id: <81c6d97f-850e-4f51-919f-cb3a11f47962@app.fastmail.com>
+In-Reply-To: 
+ <5ae01ceb58a3fdf6ed9367e236d77b4a21a3363c.1791912902.git.huibo.wang@amd.com>
+References: <cover.1791912902.git.huibo.wang@amd.com>
+ <5ae01ceb58a3fdf6ed9367e236d77b4a21a3363c.1791912902.git.huibo.wang@amd.com>
+Subject: Re: [PATCH v4 5/7] x86/sev: Register the guest with the SVSM APIC protocol
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
 
-On 13/10/2026 12:02, Nihal Kumar Gupta wrote:
-> +static const struct camss_resources hawi_resources = {
-> +	.version = CAMSS_HAWI,
-> +	.pd_name = "top",
-> +	.csiphy_res = csiphy_res_kaanapali,
-> +	.tpg_res = tpg_res_x1e80100,
-> +	.icc_res = icc_res_hawi,
-> +	.icc_path_num = ARRAY_SIZE(icc_res_hawi),
-> +	.csiphy_num = ARRAY_SIZE(csiphy_res_kaanapali),
-> +	.tpg_num = ARRAY_SIZE(tpg_res_x1e80100),
+Hello Melody,
+
+On Tue, 13 Oct 2026, at 19:50, Melody Wang wrote:
+> The SVSM APIC protocol supports 5 calls. SVSM_APIC_CONFIGURE_EMULATION
+> (shortened to SVSM_APIC_CONFIG_EMULATION for brevity), call 1, provides
+> the controls whether the guest can make use of the SVSM APIC protocol.
+>
+> Implement this call, and register Alternate Injection for the guest by
+> default.
+>
+> Signed-off-by: Melody Wang <huibo.wang@amd.com>
+> ---
+>  arch/x86/boot/compressed/sev.h          |  2 --
+>  arch/x86/include/asm/sev.h              |  2 ++
+>  drivers/firmware/efi/libstub/efistub.h  | 11 ++++++++
+>  drivers/firmware/efi/libstub/x86-stub.c | 34 +++++++++++++++++++++++++
+>  include/linux/efi.h                     |  2 ++
+>  5 files changed, 49 insertions(+), 2 deletions(-)
+>
+> diff --git a/arch/x86/boot/compressed/sev.h b/arch/x86/boot/compressed/sev.h
+> index 22637b416b46..62e50c2e71ed 100644
+> --- a/arch/x86/boot/compressed/sev.h
+> +++ b/arch/x86/boot/compressed/sev.h
+> @@ -14,7 +14,6 @@
+> 
+>  void snp_accept_memory(phys_addr_t start, phys_addr_t end);
+>  u64 sev_get_status(void);
+> -bool early_is_sevsnp_guest(void);
+> 
+>  static inline u64 sev_es_rd_ghcb_msr(void)
+>  {
+> @@ -37,7 +36,6 @@ static inline void sev_es_wr_ghcb_msr(u64 val)
+> 
+>  static inline void snp_accept_memory(phys_addr_t start, phys_addr_t end) { }
+>  static inline u64 sev_get_status(void) { return 0; }
+> -static inline bool early_is_sevsnp_guest(void) { return false; }
+> 
+>  #endif
+> 
+> diff --git a/arch/x86/include/asm/sev.h b/arch/x86/include/asm/sev.h
+> index 93161b663d9b..13f2e8c009b4 100644
+> --- a/arch/x86/include/asm/sev.h
+> +++ b/arch/x86/include/asm/sev.h
+> @@ -471,6 +471,8 @@ static __always_inline void sev_es_nmi_complete(void)
+>  extern int __init sev_es_efi_map_ghcbs_cas(pgd_t *pgd);
+>  extern void sev_enable(struct boot_params *bp);
+> 
+> +bool early_is_sevsnp_guest(void);
+> +
+>  /*
+>   * RMPADJUST modifies the RMP permissions of a page of a lesser-
+>   * privileged (numerically higher) VMPL.
+> diff --git a/drivers/firmware/efi/libstub/efistub.h 
+> b/drivers/firmware/efi/libstub/efistub.h
+> index fd91fc15ec81..d65cdc8f2acd 100644
+> --- a/drivers/firmware/efi/libstub/efistub.h
+> +++ b/drivers/firmware/efi/libstub/efistub.h
+> @@ -177,6 +177,17 @@ void efi_set_u64_split(u64 data, u32 *lo, u32 *hi)
+>   */
+>  #define EFI_MMAP_NR_SLACK_SLOTS	32
+> 
+> +typedef union sev_alt_inj_register_protocol sev_alt_inj_register_protocol_t;
+> +union sev_alt_inj_register_protocol {
+> +	struct {
+> +		efi_status_t (__efiapi * sev_register_alt_inj)
+> +			(sev_alt_inj_register_protocol_t *);
+> +	};
+> +	struct {
+> +		u32 sev_register_alt_inj;
+> +	} mixed_mode;
 > +};
+> +
+>  typedef struct efi_generic_dev_path efi_device_path_protocol_t;
+> 
+>  union efi_device_path_to_text_protocol {
+> diff --git a/drivers/firmware/efi/libstub/x86-stub.c 
+> b/drivers/firmware/efi/libstub/x86-stub.c
+> index 2a1fa773d241..b6e58ade4162 100644
+> --- a/drivers/firmware/efi/libstub/x86-stub.c
+> +++ b/drivers/firmware/efi/libstub/x86-stub.c
+> @@ -783,6 +783,36 @@ static efi_status_t exit_boot(struct boot_params 
+> *boot_params, void *handle)
+>  	return EFI_SUCCESS;
+>  }
+> 
+> +/*
+> + * When the guest is running at VMPL2 with Alternate Injection enabled,
+> + * register Alternate Injection before ExitBootServices().
+> + */
+> +static int svsm_register_alt_inj(void)
+> +{
+> +	efi_guid_t alt_inj_proto = OVMF_SEV_ALT_INJ_REGISTER_PROTOCOL_GUID;
+> +	sev_alt_inj_register_protocol_t *proto;
+> +	efi_status_t status;
+> +
+> +	if (early_is_sevsnp_guest() && snp_vmpl) {
+> +		if (!(sev_get_status() & MSR_AMD64_SNP_ALTERNATE_INJ))
+> +			return 0;
+> +	}
+> +
 
-Wait a second - no IFE or CSID in this table, with both added in 
-follow-on patches.
+I'm struggling to follow the logic here: doesn't this attempt to locate
+the protocol on non-SEV/SNP systems as well?
 
-Lets just collapse the last three patches into one. I mean this can't 
-bisect in a meaningful way as three distinct patches really.
+Wouldn't it be sufficient to do
 
----
-bod
+if (!snp_vmpl ||
+   !(sev_get_status() & MSR_AMD64_SNP_ALTERNATE_INJ))
+       return 0;
+
+and leave the early_is_sevsnp_guest() check alone?
+
