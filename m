@@ -1,314 +1,224 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A27E432B102;
-	Wed, 14 Oct 2026 01:59:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2116230B529;
+	Wed, 14 Oct 2026 02:00:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791943174; cv=none; b=h1YnwV0rnzo2k9Xc9NuTTxBDEIbSHX1m+z6SC9bkz/VEWetqtwF5t+03mrXZ7/efl8hYQ4XOwAtDQKxS7f9xSBQVMs3l12SinNzhFzMpqesRMuDLHkbX3+q3swA6QfjCYoBbn+GQN+EkAzfqgFGOMSZRlqohCikChHcliXbR1yw=
+	t=1791943211; cv=none; b=q0x8Sl23vySxc2q8yADAPb8eLWyFm3rpKSNbaFBMZ8z5YnUygF80seTxeC6FgIL1Mry7PoAVBek/jWvoSc751iNFyYf1SJd0IDLuxtPMgruwB0jjkIhyBrpr13ybHCt3TPPAbjT2NeFKG2MgljPjjpnAArzltnduNFF+E0pSAf8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791943174; c=relaxed/simple;
-	bh=vbrzVzE3aNnrJoOCYB3Pwqg7ZGE3ZQBTgY30PTcEU24=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=LyUFdliTjJLI9yrSuPiP6ZDKSN6GJlVWJn7pk/B5HrzV1ADOTmuvKIJlVUda7mvT+E9jEQCvluvYXG3wJHZ/E/EowvUcJdvJW4j7BEP68jbI7lTJD/nNtbz8Qsyr3RPiMxPBOSpFUaHCfJJmR7HGRxD2YEDnvIKBA6VRnGkSuDY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B+PdYQj6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791943211; c=relaxed/simple;
+	bh=5U1YDhIstSb2u90nPExKtqvd4Bycp2giVa6FItnlVoM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=At7FD63ECNDgCAuUpRCGypoDwCjIZ1Kypu4oZIi6FKb2ONEnLFO9omMcusbd6sWFbE0MuAUfwl5k0jKbxl0Puc/I9VJ2wgTLKNbms8B/Zx4v94axrOxUGlefQh8cVtgqiTd7o7KBs6yhZOjz5xggWW36KNXz+0fcLR409qGHff0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pmicwg0A; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B+PdYQj6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71D431F00893;
-	Wed, 14 Oct 2026 01:59:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791943169;
-	bh=zFDf30rfu02U2sIfyJdv1QUqsJIm0erb/Pbz58veJ/Y=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=B+PdYQj6z7j6zob8KOugkgoIur/JE13cBK0gsS8ZVXOmETC+AdSMYLLJwAv61Qx3g
-	 46a+nY+4bScarWF1XHiGLPAhbIe55ud/ids+diElCtu1KsyTzC3JH2zStfDbCzeK8r
-	 1kfzNjMexxX88h5xUV6jnQmTpHVpFH5R4lg50WxxjgyVGSUOBDexP7xpNbwIK/BUJi
-	 QT9qEaqJjBzfPnmHC282G4OsB+6jIMcXZW/usGfyo4AiNfGHIS2sHMIrGVd3tyAJX0
-	 ViF2xPWVXd9ofBGII59NKEof090wMaLVB7x6vvBHcDX1ACDHO4fbkngNClxwH7cL22
-	 YQActuvTRa/cw==
-Subject: Re: [PATCH net-next v14 5/5] net: dsa: motorcomm: Add support for
- Motorcomm YT922x
-From: netdev-bot+sashiko@kernel.org
-To: kyle.switch@motor-comm.com
-Cc: andrew@lunn.ch, olteanv@gmail.com, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, mmyangfl@gmail.com,
- horms@kernel.org, linux@armlinux.org.uk, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, ming.xu@motor-comm.com,
- xiaolin.xu@motor-comm.com, jianmin.wang@motor-comm.com, wei.zhang@gl-inet.com,
- sijia.huang@gl-inet.com
-Date: Wed, 14 Oct 2026 01:59:28 +0000
-Message-ID: <179194316804.434549.2445810560010060057@kernel.org>
-In-Reply-To: <20261013011122.1889766-6-kyle.switch@motor-comm.com>
-References: <20261013011122.1889766-6-kyle.switch@motor-comm.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pmicwg0A"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 96652C2BCF4;
+	Wed, 14 Oct 2026 02:00:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791943210;
+	bh=5U1YDhIstSb2u90nPExKtqvd4Bycp2giVa6FItnlVoM=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=Pmicwg0A4MYuoXAAHximuSuthJ3GeRAQ2XBXmJy+JwuNaW0uK8aWecIO5F25KAT9z
+	 EEatbMjgV7VDOy+pPVDSxeQfwePNXDATFCuFI+jO+tX76XO/I2V1k4CVB5r/0xytEw
+	 uc4zg+c/Lha6iBNc6skzcGhYKVMvEGvLzyPyWROphEYOtb7zSt3KKGTp3RGiPt/oyu
+	 Lmo0C/YdCArbw/DQJouMz8Ytrqj+VmmENfh5/gU0w9PMP1+j2OPp0eUp3e4EN0AnCt
+	 harY10C9WUSzSqRqtC7dM82QSUFLlB1RYZ1KbN4otxU7ozmNEaYc6tSJn7Y9BwkHUv
+	 4mmewkk0b0URw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5E612CC6B1F;
+	Wed, 14 Oct 2026 02:00:10 +0000 (UTC)
+From: Nicholas Velten via B4 Relay <devnull+nicholasfvelten.gmail.com@kernel.org>
+Date: Tue, 13 Oct 2026 23:00:08 -0300
+Subject: [PATCH bpf-next] bpf: Annotate data races on bpf_lru_node type
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261013-fix-lru-node-type-kcsan-v1-1-0b743f5af2f3@gmail.com>
+X-B4-Tracking: v=1; b=H4sIACfizmoC/yWMQQ7CMAwEv1L5jKUkpYD4CuohSV0wIDeKU1RU9
+ e8EOI52Z1ZQykwK52aFTC9WnqSC3TUQb16uhDxUBmfcwRrb4sgLPvOMMg2E5Z0IH1G94N61XTS
+ nLhyDh2qnTPX6K18gpBGFlgL9f9E53CmWbxi27QO54VVRhQAAAA==
+X-Change-ID: 20261013-fix-lru-node-type-kcsan-4235c085b7ba
+To: Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+ Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>
+Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ syzbot+1ea4f564bf6f1f3d1dc4@syzkaller.appspotmail.com, 
+ Nicholas Velten <nicholasfvelten@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791943208; l=5845;
+ i=nicholasfvelten@gmail.com; s=20261014; h=from:subject:message-id;
+ bh=WM3jG1qGFgTy5qrm7atN2qIeOxz8lgQ0gTs8dQ4l6AA=;
+ b=bgMTrFCubT71XavVs+ksvwRRK7NsZFVbtOic7XxImNEoFWp1uJYCmUOnOIW/1StCjeileGEvT
+ wn3Z65qP5X9ASeyGonyR/LHliHmufb2EDmu3MRqTtyPqM5B4EDUSHHG
+X-Developer-Key: i=nicholasfvelten@gmail.com; a=ed25519;
+ pk=WVTZgm6yXQ+XrhULAObg4lwcHPhhxAXrAY+YY6svXzg=
+X-Endpoint-Received: by B4 Relay for nicholasfvelten@gmail.com/20261014
+ with auth_id=1173
+X-Original-From: Nicholas Velten <nicholasfvelten@gmail.com>
+Reply-To: nicholasfvelten@gmail.com
 
-Thank you for your contribution! Sashiko AI review found 5 potential
-issue(s) to consider.
+From: Nicholas Velten <nicholasfvelten@gmail.com>
 
-Critical: 0 · High: 1 · Medium: 3 · Low: 1
+KCSAN reports a data race on bpf_lru_node::type between the LRU list
+rotation and the free path of the common LRU:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+  BUG: KCSAN: data-race in __bpf_lru_list_rotate / bpf_lru_push_free
 
-- [High] net: dsa: motorcomm: port control register clobbered in
-  yt922x_port_up due to missing read
-- [Medium] The new "YT9228" entry in yt921x_infos can never be selected.
-- [Medium] The patch adds { .compatible = "motorcomm,yt9224" } to
-  yt921x_of_match, but the only binding for this driver,…
-- [Medium] yt922x_pcs_config() accepts neg_mode, advertising and
-  permit_pause_to_mac but uses none of them.
-- [Low] yt922x_port_down() and yt922x_port_up() each run several separate
-  register transactions: the PORTn_CTRL MAC/link bits, then FORCE_OP,…
+  write to 0xffff88811b758022 of 1 bytes by task 4756 on cpu 1:
+   __bpf_lru_node_move
+   __bpf_lru_list_rotate_active
+   __bpf_lru_list_rotate
+   bpf_lru_list_pop_free_to_local
+   bpf_common_lru_pop_free
+   bpf_lru_pop_free
+   htab_lru_map_update_elem
 
---
+  read to 0xffff88811b758022 of 1 bytes by task 4752 on cpu 0:
+   bpf_lru_list_push_free
+   bpf_common_lru_push_free
+   bpf_lru_push_free
+   htab_lru_push_free
+   htab_lru_map_update_elem
 
-net: dsa: motorcomm: Add support for Motorcomm YT922x
+  value changed: 0x00 -> 0x01
 
-This commit adds YT922x series support to the existing YT921x DSA driver.
-It adds a new series table entry, phylink MAC ops, a SerDes PCS
-implementation in pcs-922x.c and a "motorcomm,yt9224" compatible. The
-commit message says only the YT9224 variant is supported for now.
+node->type is written under the global l->lock when a node moves between
+the active, inactive and free lists, and under the per-CPU loc_l->lock
+when it moves to or from a local list. It is read in two places that do
+not hold the lock the writer holds:
 
-> diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
-> index ba988e121d68e..f0488fac90976 100644
-> --- a/drivers/net/dsa/motorcomm/chip.c
-> +++ b/drivers/net/dsa/motorcomm/chip.c
+ - bpf_lru_list_push_free() reads it for a WARN_ON_ONCE() sanity check
+   before taking l->lock.
+ - bpf_common_lru_push_free() re-checks it under loc_l->lock after the
+   lockless READ_ONCE() at function entry, while a concurrent rotation
+   may be changing it under l->lock.
 
-[ ... ]
+Both races are benign: the type is a single byte, the sanity check only
+feeds a warning, and the re-check exists precisely because the value can
+change concurrently (any change sends the node down the check_lru_list
+path, which revalidates under l->lock). Mark the two reads with
+READ_ONCE() and the runtime writers with WRITE_ONCE(), following
+commit 6df8fb83301d ("bpf_lru_list: Read double-checked variable once
+without lock") and commit ee9fd0ac3017 ("bpf: Address KCSAN report on
+bpf_lru_list"), which did the same for the entry read of node->type and
+for node->ref. The writers in the *_populate() functions run before the
+map is visible and are left alone.
 
-> @@ -76,6 +76,18 @@ static const struct yt921x_info yt921x_infos[] = {
->  		BIT(8) | BIT(9),
->  		BIT(8) | BIT(9),
->  	},
-> +	{
-> +		"YT9224", YT9224_MAJOR, 0, 0,
-> +		GENMASK_U16(7, 4),
-> +		0,
-> +		BIT(8) | BIT(0),
-> +	},
-> +	{
-> +		"YT9228", YT9224_MAJOR, 0, 0,
-> +		GENMASK_U16(7, 4),
-> +		0,
-> +		BIT(8) | GENMASK_U16(3, 0),
-> +	},
->  	{}
->  };
+Tested on bpf-next with CONFIG_KCSAN=y in a 4-vCPU virtme-ng guest,
+using a reproducer that runs 8 threads issuing BPF_MAP_UPDATE_BATCH
+on a 64-entry BPF_MAP_TYPE_LRU_HASH with overlapping keys: 110 KCSAN
+reports for this race per run before the change, 0 in two runs after.
+test_lru_map passes before and after.
 
-[ ... ]
+Fixes: 3a08c2fd7634 ("bpf: LRU List")
+Reported-by: syzbot+1ea4f564bf6f1f3d1dc4@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=1ea4f564bf6f1f3d1dc4
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Nicholas Velten <nicholasfvelten@gmail.com>
+---
+The reproducer used for testing is a small userspace program (8 threads
+issuing BPF_MAP_UPDATE_BATCH on a 64-entry BPF_MAP_TYPE_LRU_HASH with
+overlapping keys). I can post it, or turn it into a selftest, if that
+would be useful.
 
-> @@ -3631,6 +3648,14 @@ static int yt921x_chip_detect(struct yt921x_priv *priv)
->  		return -ENODEV;
->  	}
->  
-> +	if (!yt921x_needs_extmode_check(major)) {
-> +		dev_info(dev,
-> +			 "Motorcomm %s ethernet switch, chipid: 0x%x\n",
-> +			 info->name, chipid);
-> +		priv->info = info;
-> +		return 0;
-> +	}
+Not tested: architectures other than x86_64, sparse, and the full
+test_maps / test_progs suites (only test_lru_map was run).
+---
+ kernel/bpf/bpf_lru_list.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-[Severity: Medium]
-Can the YT9228 entry in yt921x_infos[] ever be selected?
+diff --git a/kernel/bpf/bpf_lru_list.c b/kernel/bpf/bpf_lru_list.c
+index 5ed7cb4b9..db8051193 100644
+--- a/kernel/bpf/bpf_lru_list.c
++++ b/kernel/bpf/bpf_lru_list.c
+@@ -56,7 +56,7 @@ static void __bpf_lru_node_move_to_free(struct bpf_lru_list *l,
+ 
+ 	bpf_lru_list_count_dec(l, node->type);
+ 
+-	node->type = tgt_free_type;
++	WRITE_ONCE(node->type, tgt_free_type);
+ 	WRITE_ONCE(node->pending_free, 0);
+ 	list_move(&node->list, free_list);
+ }
+@@ -71,7 +71,7 @@ static void __bpf_lru_node_move_in(struct bpf_lru_list *l,
+ 		return;
+ 
+ 	bpf_lru_list_count_inc(l, tgt_type);
+-	node->type = tgt_type;
++	WRITE_ONCE(node->type, tgt_type);
+ 	bpf_lru_node_clear_ref(node);
+ 	/* Reset pending_free only when moving to the free list */
+ 	if (tgt_type == BPF_LRU_LIST_T_FREE)
+@@ -94,7 +94,7 @@ static void __bpf_lru_node_move(struct bpf_lru_list *l,
+ 	if (node->type != tgt_type) {
+ 		bpf_lru_list_count_dec(l, node->type);
+ 		bpf_lru_list_count_inc(l, tgt_type);
+-		node->type = tgt_type;
++		WRITE_ONCE(node->type, tgt_type);
+ 	}
+ 	bpf_lru_node_clear_ref(node);
+ 
+@@ -298,7 +298,7 @@ static void bpf_lru_list_push_free(struct bpf_lru_list *l,
+ {
+ 	unsigned long flags;
+ 
+-	if (WARN_ON_ONCE(IS_LOCAL_LIST_TYPE(node->type)))
++	if (WARN_ON_ONCE(IS_LOCAL_LIST_TYPE(READ_ONCE(node->type))))
+ 		return;
+ 
+ 	if (raw_res_spin_lock_irqsave(&l->lock, flags)) {
+@@ -357,7 +357,7 @@ static void __local_list_add_pending(struct bpf_lru *lru,
+ {
+ 	*(u32 *)((void *)node + lru->hash_offset) = hash;
+ 	node->cpu = cpu;
+-	node->type = BPF_LRU_LOCAL_LIST_T_PENDING;
++	WRITE_ONCE(node->type, BPF_LRU_LOCAL_LIST_T_PENDING);
+ 	WRITE_ONCE(node->pending_free, 0);
+ 	bpf_lru_node_clear_ref(node);
+ 	list_add(&node->list, &loc_l->pending_list);
+@@ -502,7 +502,7 @@ static struct bpf_lru_node *bpf_common_lru_pop_free(struct bpf_lru *lru,
+ 		 * free_llist instead of orphaning it; the next pop_free on
+ 		 * this CPU will pick it up.
+ 		 */
+-		node->type = BPF_LRU_LOCAL_LIST_T_FREE;
++		WRITE_ONCE(node->type, BPF_LRU_LOCAL_LIST_T_FREE);
+ 		bpf_lru_node_clear_ref(node);
+ 		WRITE_ONCE(node->pending_free, 0);
+ 		llist_add(&node->llist, &loc_l->free_llist);
+@@ -542,13 +542,13 @@ static void bpf_common_lru_push_free(struct bpf_lru *lru,
+ 			return;
+ 		}
+ 
+-		if (unlikely(node->type != BPF_LRU_LOCAL_LIST_T_PENDING)) {
++		if (unlikely(READ_ONCE(node->type) != BPF_LRU_LOCAL_LIST_T_PENDING)) {
+ 			raw_res_spin_unlock_irqrestore(&loc_l->lock,
+ 						       flags);
+ 			goto check_lru_list;
+ 		}
+ 
+-		node->type = BPF_LRU_LOCAL_LIST_T_FREE;
++		WRITE_ONCE(node->type, BPF_LRU_LOCAL_LIST_T_FREE);
+ 		bpf_lru_node_clear_ref(node);
+ 		list_del(&node->list);
+ 
 
-Both new entries use YT9224_MAJOR with mode 0 and extmode 0. The lookup
-loop in yt921x_chip_detect() stops at the first entry whose major matches:
+---
+base-commit: 763187dbbf83764a57d5811168ef9de7b9a60e2d
+change-id: 20261013-fix-lru-node-type-kcsan-4235c085b7ba
 
-	for (info = yt921x_infos; info->name; info++)
-		if (info->major == major)
-			break;
+Best regards,
+--  
+Nicholas Velten <nicholasfvelten@gmail.com>
 
-For major 0x9004 that is always "YT9224". The new early return then uses
-that entry without checking mode or extmode, and the two entries have the
-same values for those anyway.
 
-The commit message says:
-
-    YT9228 is not supported yet.
-
-If a YT9228 reports this major, as the table says it does, wouldn't it
-bind instead of failing with -ENODEV? yt92xx_series_lookup() also sends
-every 0x9004 chip to the YT922x series, and the chip would be logged as
-"Motorcomm YT9224 ...".
-
-It would also get the YT9224 serdes_mask. In that case,
-yt922x_dsa_phylink_get_caps() and yt922x_pcs_setup() leave ports 1-3 with
-no supported interfaces and no PCS. phylink_create() would then fail for
-those ports, and DSA would quietly treat them as unused. Is that intended?
-
-[ ... ]
-
-> +static int
-> +yt922x_port_up(struct yt921x_priv *priv, int port, unsigned int mode,
-> +	       phy_interface_t interface, int speed, int duplex,
-> +	       bool tx_pause, bool rx_pause)
-> +{
-
-[ ... ]
-
-> +	res = yt921x_reg_write(priv, YT922X_PORTn_CTRL(port), ctrl);
-> +	if (res)
-> +		return res;
-> +
-> +	/* force op */
-> +	mask = YT922X_PORT_FORCE_OP;
-> +	res = yt921x_reg_set_bits(priv, YT922X_PORTn_CTRL(port), mask);
-> +	if (res)
-> +		return res;
-> +
-> +	/* enable en_phy */
-> +	res = yt921x_reg_set_bits(priv, YT922X_EN_PHY_VALUE, BIT(port));
-> +	if (res)
-> +		return res;
-> +	res = yt921x_reg_set_bits(priv, YT922X_EN_PHY_OVERWRITE, BIT(port));
-> +	if (res)
-> +		return res;
-> +
-> +	return 0;
-> +}
-
-[Severity: High]
-Is this meant to be a read-modify-write of YT922X_PORTn_CTRL?
-
-ctrl starts at 0. Only the speed, duplex, pause and MAC/CFG enable
-bits are ORed into it, so clearing YT922X_PORT_FC_AN and
-YT922X_PORT_LINK_AN afterwards does nothing. That clear only makes
-sense if ctrl was supposed to hold the current register contents
-first.
-
-As written, yt921x_reg_write() replaces the whole register on every
-link up. Any field not set here is forced to zero each time phylink
-calls yt922x_phylink_mac_link_up(). That includes
-YT922X_PORT_HALF_PAUSE and any reserved or vendor-default bits above
-YT922X_PORT_FORCE_OP. Is that safe on this hardware?
-
-If a full write is really intended, the dead clear could be dropped
-and the register layout documented. Otherwise, should this use
-yt921x_reg_update_bits() with a mask covering only the fields being
-programmed? That would mean speed, duplex, pause, the MAC/CFG enables
-and the AN bits, in the same way that yt922x_port_down() only touches
-the bits it cares about via yt921x_reg_clear_bits().
-
-[Severity: Low]
-This is minor, but what state is the port left in if the
-YT922X_EN_PHY_VALUE update fails after FORCE_OP has already applied the
-forced MAC link-up?
-
-The MAC would stay forced up while the PHY-enable override from the
-previous yt922x_port_down() stays forced low. yt922x_phylink_mac_link_up()
-only logs the error. yt922x_port_down() has the same structure, with no
-rollback of earlier steps.
-
-This copies the existing yt921x_port_up() and yt921x_port_down() pattern.
-It can only happen once SMI/MDIO access is already failing.
-
-[ ... ]
-
-> @@ -4220,6 +4655,7 @@ static int yt921x_mdio_probe(struct mdio_device *mdiodev)
->  
->  static const struct of_device_id yt921x_of_match[] = {
->  	{ .compatible = "motorcomm,yt9215" },
-> +	{ .compatible = "motorcomm,yt9224" },
->  	{}
->  };
-
-[Severity: Medium]
-Should this come with a binding update? The binding in
-Documentation/devicetree/bindings/net/dsa/motorcomm,yt921x.yaml still
-only has:
-
-  compatible:
-    const: motorcomm,yt9215
-
-With that binding, any DTS using "motorcomm,yt9224" would fail dt-schema
-validation, and checkpatch would report the compatible as undocumented.
-
-The binding text also covers YT921x port layouts only. Its mdio
-description says:
-
-      Internal MDIO bus for the internal GbE PHYs. PHY 0-7 are used for Port
-      0-7 respectively.
-
-The new info table gives YT9224 internal PHYs only on ports 4-7, and
-SerDes on ports 0 and 8.
-
-[ ... ]
-
-> diff --git a/drivers/net/dsa/motorcomm/pcs-922x.c b/drivers/net/dsa/motorcomm/pcs-922x.c
-> new file mode 100644
-> index 0000000000000..98d403d01ba3c
-> --- /dev/null
-> +++ b/drivers/net/dsa/motorcomm/pcs-922x.c
-
-[ ... ]
-
-> +static int yt922x_pcs_config(struct phylink_pcs *pcs, unsigned int neg_mode,
-> +			     phy_interface_t interface,
-> +			     const unsigned long *advertising,
-> +			     bool permit_pause_to_mac)
-> +{
-
-[ ... ]
-
-> +	res = yt921x_intif_ext_read(priv, addr, YT922X_PORT_SDSn, &data);
-> +	if (res)
-> +		goto err;
-> +	data &= ~YT922X_SERDES_MODE_M;
-> +	data |= ctrl;
-> +	res = yt921x_intif_ext_write(priv, addr, YT922X_PORT_SDSn, data);
-> +	if (res)
-> +		goto err;
-> +	mutex_unlock(&priv->reg_lock);
-> +
-> +	return res;
-
-[Severity: Medium]
-yt922x_pcs_config() never uses neg_mode, advertising or
-permit_pause_to_mac. Apart from the 0xd write to ext reg 0x4be, it only
-rewrites the SerDes mode field. Is that enough to meet the pcs_config
-contract?
-
-The pcs_config kernel-doc in include/linux/phylink.h says in-band should
-be enabled in MLO_AN_INBAND and disabled otherwise. It also says the
-1000BASE-X advertisement should be programmed into the PCS. pcs-921x.c
-does this with phylink_mii_c22_pcs_encode_advertisement() and
-BMCR_ANENABLE handling.
-
-Here, in-band-enabled and in-band-disabled requests produce the same
-register writes. Depending on the reset default, won't one of them leave
-the hardware AN state wrong? For example, a fixed-link 2500BASE-X CPU port
-could be left with AN enabled, or an in-band SGMII PHY link with AN
-disabled.
-
-phylink_change_inband_advert() also relies on pcs_config() to apply
-advertisement and pause changes:
-
-	ret = phylink_pcs_config(pl->pcs, pl->pcs_neg_mode, &pl->link_config,
-				 !!(pl->link_config.pause & MLO_PAUSE_AN));
-	if (ret < 0)
-		return ret;
-
-	if (ret > 0)
-		phylink_pcs_an_restart(pl);
-
-Since this always returns 0 and never writes MII_ADVERTISE, wouldn't
-ethtool advertisement or pause changes be silently dropped?
-
-yt922x_pcs_get_state() also decodes BMSR/LPA as if in-band AN had been
-configured. yt922x_pcs_an_restart() sets BMCR_ANRESTART even though AN was
-never configured.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261013011122.1889766-1-kyle.switch%40motor-comm.com
