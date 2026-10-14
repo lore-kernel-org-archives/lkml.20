@@ -1,293 +1,399 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC8F2330B07
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 03:47:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791949643; cv=none; b=sLyqcA9co0/3qJpWDBvwqH140nU5ZRgwmtdwNcCxWmVarEmCMUJSraqCPkWjTLXToxk5TYfHdFlywQlF+IALqBud9hqT1NZQWWfHbHEMgFwP3dgmFs4KMJSEAbHxXg0AxgbFIGKCIUDG6GVizAJDCAzFV2ZtykbzeDoFNqh+P38=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791949643; c=relaxed/simple;
-	bh=HS1wHWsDOr6aHX0hoYpK3rAOrYOi2Hl0QD71HWWO310=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=Pq90zl5Vqo25q0TTvD1luQflhQHd6ekbYIaEyj/i1ntfFOtXk7OAHDxJ1SY/Um3lpUQmN0uj/trtcBVf/G2wNsadc/pS8Ll1dDJwB0UVOv683klpYiwP3glyoF+bthvnIKoBq3D+cU+GYzb5krZTrwZ2O49/NEulytgukTv9Cu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X6DJaF9n; arc=none smtp.client-ip=209.85.215.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9687E2F30
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 03:52:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791949926; cv=pass; b=h8lhedNw5hXEXLBlP7USL9CjYZ/4lHzK7V6dJHhgJnpUr/JcjmzkPRtPO07fJyI27mn1jlwUP8DomXkXIRvQo4zK+RN6xAzFEw2ffrmzbOeD9H8xAGaDBC/zTY0LKw3CWSbPZWAk1rah0Pg2RrnhyF36F3LpOcXceuTxj5rwxVg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791949926; c=relaxed/simple;
+	bh=K4eV73nhExrMmVJJwg4JvXGOZWeE5bY1ZR0VT+YyaiM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=E6vpJG38DWOnro9JmHzAlnyFS6GTMaK/xYICm+weZoQCmP3dAxUNo1WPE0jNvtHFFEtRpVW/weDiZMMq8F8HcRVoHUoAcMgD5jr2Rh/EVMx3NU+TCAaUIm/5SRt55DLqxLWisXyGEkPB6OCw9kP3QhobOvhpssSfldaIXOKLIXs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fRREvpLH; arc=pass smtp.client-ip=209.85.216.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X6DJaF9n"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cd6028ff33fso1325580a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 20:47:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fRREvpLH"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3a80d1c98f5so348041a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 20:52:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791949924; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FdTEfljWU+vj1B+QLKRNF8cx2Iog3Tr4LsEBMOiO/UP46DnJNfeoZyH3/0Y0029Jwq
+         5Tcu2YpKvXfoxPGTWPrDvX4Eorr+8jeF6CcrPJNnTCcjVJIRCiYmwkYBXg7MysJ4qa/f
+         eEMC3WJF632ry4fZ4xwh0NrTWj+5uMR2Rzt0jQK0y3nUHWWwCdpyBf562IGL6ARCX/7n
+         19CP+MvPludbt0P9/F9VZ+1k6GbB6f5lcu1Q9u6r9JijDYv4ZvZhpiVVE+uNwt6tKZ2k
+         zo9UB+Qo+6zYFsijkxsJWV9wtZge1mifDIoP7y91BxqjexOkfIwJt7PuiRNha/ySJ2GO
+         fYyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=n4Gi0hXu1XV7WfEP9MnFSR4Oym8KhfEpdqdt31DK2+0=;
+        fh=2WG4Wm4bfwb4olH/viCmaATKdihVJ0C1w67NOWORItY=;
+        b=WvyzpWHW9Oqu/BqMVf5zf6wJqMiNYucMHpPBFIXdkg4EnyZK4Tu0J5pWw/pTU1EkmR
+         gm/CmVSFjvkJ4gMAHREJjGB6Cim19Md8Q+ktWdYUfJ8uqbPUd2/ZjhRDgW7NZ1g/FYE9
+         X7Y5rBHeDsjqh5/dquVjtR2ntXb+mnOKeoJv1RfVHv7Wby9mI50yoxYHgvuzeDrcLMpD
+         eAVqykc8T0ggJFuUDC7qEO8SnETuzd7T2uiGfTf1P8vOTwKWauW+1dakTxJH5IrNBrP2
+         8oK0VQGapTSk+fgYdcITLWId6GEBooOTVDsYL1wvy6oppxjM2kriwVadBJAtVVUqqYeC
+         VWhw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791949641; x=1792554441; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hg3Ib/3SZ5QgDJKkzlM/abstX2kfUMwhE6cPvMDLrDw=;
-        b=X6DJaF9nWEsn71527cRQxCyyjQH78bNPywvztZP9KnObx22NfvGFblmCv6lDLZEyUq
-         5as9hyZb8OTboiaW2YqGA7CLZTlZaij58ckPAA2FZhEpF4R9Q2LQYNKkGCqhB4iSbD69
-         wGMk16L37TwEH6ihrGSgQ1WrMWKwP/qVJpsHmVJYMZlVuOrqYiJZ3R5+hF4Nhn3xWAlP
-         3V0SMhCMbRhK636SD5FmlL0/mB3+etJBjaTX2t5o1YgoPLZkwTLIfwU/9RgGRzoO+72U
-         KIeclRceaKlgq6ZLu8526/KAna6GJulGBPA5Sr8S8o5tHYkeae4+v5fOYIyQaWlhWuUZ
-         71jw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791949641; x=1792554441;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1791949924; x=1792554724; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=hg3Ib/3SZ5QgDJKkzlM/abstX2kfUMwhE6cPvMDLrDw=;
-        b=h/g6/tQKGb94JeovVQyqzy3J1LO4PV2FUmd/sXs2JkeHKo/PNTId+w4YagFeK8r3J9
-         eY1tLmXF86eHpasA2KGhMccvxzaJNzFQNAHV9Ydv8tVI8wbt9Q011hGaeCoNJlTtV+Az
-         lHlUEYJuRbdUeRTmskM9WOvX9QBFzKPbt/jAVg3vxiAJQbuQtK/etBNhuPxPcYyqNCn8
-         USX/ndrmvBZtWc54JETYXpdaq8Y4Zq4hYhSQv0ea7q3tqnLAIWPIpo3JtlyOGcirdZ0j
-         EPU+mgdhmOdmJz2mzoXPJ7gYVvGfkK9I971afNVUDifXE/idt5u3ofnurABRrP05Er9k
-         dszA==
-X-Forwarded-Encrypted: i=1; AKwUvByGolF9zC0Pgzquv98Rz1oTK/QJh8dH+iWMeBexdn9UahG/dK5mpLOxndAh5Umapo8IuEewlb1cDhq3noA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIDhITE6cljYJwR05gXKQEfwZJE+cbbOLvp44CijXWn0DdJ9/Lp
-	jZCt2CZQjkXZ0fOO7KECGbi8tpE3QJsSejfvAC7FKm6pVC1hEw0gVOPr
-X-Gm-Gg: AYBFou2/HLvll158cm4i8uoJ3U6oWCJqvPdRiikD2YD41DFvjFAzFRy8YooGjLd5OiZ
-	1A89MCaOU4ZQ75IHcHWZzKe5xOENBig86GEp8mEL4bLxvByx0YWXoYZGYfnK5FbrOr2YaVEtE+/
-	DAc8/N+cMUxTBmJJZmglWFaeGT9ePp6HtsCl+Uk26tyvy47MShxL9tjU0KfEItdiv0CVLGfo1BM
-	+GWzYuO2u4sJM8B0M4vwkXEvsrX4CQBHWoyCdyhctHwtxs1tr7FK/5t1/hzHn/n4s53l72M3cVu
-	grtIe2EogugoHVccvMOJDQc/feNMvUz0VXWj3+XpxDiUmHBfUYBLCAMwYjk3uS+aw3/Wy3GfMyY
-	6NWZeNeOY9854vfVViLJCWrD3lR4iH9LMxyGKOr0LBnP3ESFQs9+LXnaWv7b9GhJbwmmc2IBRHB
-	8JuQSyh7FiBwa4Iwyl6V8A80KNjL8nZlBU3EHIUo0VFqBNGxPtSackRLKhxQNw39+nNQ==
-X-Received: by 2002:a17:90b:1e49:b0:3ab:e588:c29a with SMTP id 98e67ed59e1d1-3abe588faf0mr7144466a91.6.1791949641023;
-        Tue, 13 Oct 2026 20:47:21 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac5f24af99sm2423518a91.8.2026.10.13.20.47.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 20:47:20 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: mark@fasheh.com,
-	jlbec@evilplan.org,
-	joseph.qi@linux.alibaba.com,
-	heming.zhao@suse.com,
-	tao.ma@oracle.com
-Cc: ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH] ocfs2: Pin refcount trees before dropping the lookup lock
-Date: Wed, 14 Oct 2026 11:47:15 +0800
-Message-Id: <pm-ocfs2-objects-candidate-0037-v4-9f1a261dfbc341721689@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        bh=n4Gi0hXu1XV7WfEP9MnFSR4Oym8KhfEpdqdt31DK2+0=;
+        b=fRREvpLHgCCSws+4SJdQD1HAVJH9w6gpvAw5fbtx26p6JnV39hUHd6pDgflVk9A8cH
+         Mgc4HKGhl6Eo7Qm8o+ST4IHj0eLY+2XXKqvu9e2E/gw8ptOqwWewJI7k9eIjwsMzB3T3
+         LU8JwbsflSgwZLW3ghCdxmTSEDpOtYxaNX4h++lA/7js+D8aUCu4gRs1TdOMVfu+S3Qz
+         XvgWpPYjj2WyQb4SYtlYizwfC2rIsqJfPvX1jWR/XLFEwGnHsQLPPP49hWRUqd55Ev0T
+         jsMjQmHhHyJuIQOzIzM4jtpEAv9kk97/qSIcg3HQT/bQFtxyHq7MHmuvErduDPEJSEJD
+         gJGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791949924; x=1792554724;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=n4Gi0hXu1XV7WfEP9MnFSR4Oym8KhfEpdqdt31DK2+0=;
+        b=l3jywlcvoAuisgno10d7dj/9coIJs0AHuWr0jeZWMP5oTDB5/FavulWrdAzm4sQoHi
+         nDVnChntXsyeLgoC82xa29uBjrAs+W8e6rOujfFWyMdtrK9bzs+AaWsO91Qnw55uG5Fp
+         9x9+F+c17aaO/x7gk6JppYhOHAZjYF37BG389BTm03ketaDriK6r45kP2AfLz5BAuMM8
+         ArpwmryrVlBRxdsWOfAU/gPczXlkTnMpzoUMBpf58wST6i7Cyuq9HT62ES/SvwdrGg4C
+         bmLi9Owdj2qdWacvbAkiaZRwi1yKRPZDLcA37johLocT7ZRB7IsOc64bmY/2kzv59i3s
+         btpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwWUtL1koqMV09Nvvm07AI3tuLA+sHZ76tgpR5I9T/Und8Syz3LW+ZmXNrRFJjcokEcL2O3mvhkX0tarGw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIerJkVkghgTfut9bkCBSnO/UYmkJdAm1QEF75gFJfEsLpAG0Lz
+	ShQggMLwbXvUz3pwVJ4fdv40XXvXKT0MmzcGhYZhJotjeDylEGm6QxPGfGGhz7DVboeHuccmYN5
+	endfDoxjvn9dysKTMCCn8Qa37Z8nCG3U=
+X-Gm-Gg: AYBFou0RLWOPEr30W1QtwnonR38+TODdNzkqb/s9mMDVEjvSte3WjRg6yfYkRmyJO6T
+	e7msHQFK6ZDgHFcAcQZGP5dquFoRaWcip7N+7HceMMV5CCd8jyKKgKovcjzAY0QyvhwulVaWUAG
+	zyzTuoWM1UjDr5+hG1m/5/S82h1zeLLi2GGUyGfAsIdIrwOpljVG8h5cmcCy7ZebC2nlutNf3Dd
+	8QEP/HP6mz4U/VMVKFIAYwHKwfKHhfeWbQBH70wjZUxvH8QercWfXEJJbDMGeFLOc/24+IVo9l4
+	f9yV552zsPVUgJoaumbNB0adzV6ypb+o4D+pj5SqQ+hoIoAXpgWWGA==
+X-Received: by 2002:a17:90b:3d82:b0:3aa:fc22:8aad with SMTP id
+ 98e67ed59e1d1-3ab3ac8b5f3mr11797841a91.54.1791949923816; Tue, 13 Oct 2026
+ 20:52:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261012060152.2930-1-nashuiliang@gmail.com> <179187482010.434549.10175777615206996282@kernel.org>
+In-Reply-To: <179187482010.434549.10175777615206996282@kernel.org>
+From: chuang <nashuiliang@gmail.com>
+Date: Wed, 14 Oct 2026 11:51:52 +0800
+X-Gm-Features: AclHuK-QigaFQyr4oN-K-5Hzymz0M8K4GrOu_t49thFofV7F32nSKX735pog8Gk
+Message-ID: <CACueBy747kN0Lj+ZW7o43wTKCQJwj8Ycnbzz4HbxOUpH7+ZGvw@mail.gmail.com>
+Subject: Re: [PATCH net-next v11] net: reduce ARFS flow updates by checking
+ LLC affinity
+To: netdev-bot+sashiko@kernel.org
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org, 
+	pabeni@redhat.com, horms@kernel.org, kuniyu@google.com, sdf.kernel@gmail.com, 
+	liuhangbin@gmail.com, skhawaja@google.com, ncardwell@google.com, 
+	roman.gushchin@linux.dev, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-A refcount tree returned to ocfs2_lock_refcount_tree() must stay alive
-until that caller releases its operation reference. However,
-ocfs2_get_refcount_tree() returns the cached pointer after dropping
-osb_lock, and the caller only takes its kref afterwards. The registry
-reference does not protect this gap from concurrent removal.
+On Tue, Oct 13, 2026 at 3:00=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wro=
+te:
+>
+> Thank you for your contribution! Sashiko AI review found 5 potential
+> issue(s) to consider.
+>
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 4
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>
+> - [Medium] The new LLC skip in set_rps_cpu() (net/core/dev.c:5196-5199)
+>   assumes that `old_cpu` shows where the NIC currently delivers the flow.
+> - [Low] The new user-visible sysctl net.core.arfs_llc_affinity
+>   (net/core/sysctl_net_core.c:563-569) has no documentation.
+> - [Low] The config guards for the sysctl and its only user do not match.
+> - [Low] The commit message says the results "demonstrate that filtering
+>   updates by LLC affinity significantly reduces driver lock contention=E2=
+=80=A6
+> - [Low] In this tree, cpus_share_cache() (kernel/sched/core.c:4008-4014)
+>   returns `per_cpu(sd_llc_id, a) =3D=3D per_cpu(sd_llc_id, b)`.
+>
+> --
+>
+> net: reduce ARFS flow updates by checking LLC affinity
+>
+> This commit adds an opt-in sysctl, net.core.arfs_llc_affinity. When it is
+> set, set_rps_cpu() skips the ARFS hardware steering update
+> (ndo_rx_flow_steer) if the flow's previous RFS CPU and the new one share
+> an LLC. The rflow->cpu bookkeeping is still updated, so software RFS keep=
+s
+> steering packets to the CPU the application runs on.
+>
+> > These results demonstrate that filtering updates by LLC affinity
+> > significantly reduces driver lock contention and improves overall
+> > CPU efficiency under heavy network load.
+>
+> [Severity: Low]
+>
+> Does the data above support this claim? The only number given is the
+> mlx5e_rx_flow_steer() call rate, which drops from about 200k/s to about
+> 10/s. There are no throughput, latency, CPU utilisation or lock
+> contention numbers.
+>
+> The commit message also leaves out the trade-off. When the hardware
+> update is skipped, the flow stays on its old queue. get_rps_cpu() then
+> hands every packet to next_cpu with a remote enqueue_to_backlog() plus an
+> RPS IPI. After a completed ARFS steer, the packet would instead be
+> handled on the queue's own IRQ CPU.
+>
+> The phrase "subsequent packets take the fast path in get_rps_cpu()
+> (tcpu =3D=3D next_cpu)" could be read as local processing. The packets ar=
+e
+> still moved to a remote CPU.
+>
+> The opening paragraph names rps_record_sock_flow() as the motivation.
+> Since v10, though, the patch only changes set_rps_cpu() and get_rps_cpu()=
+.
+> Could that paragraph be reworded to match?
 
-This can happen when another node frees a refcount root and reuses its
-block with a different generation while this mount retains the old
-cached tree. Two local operations on different inodes sharing the new
-root, such as data CoW and an external xattr update, can then look up
-the same stale tree. Their inode locks are independent, and both the
-REFCOUNT DLM lock and rf_sem are acquired after the first operation
-reference.
+Ok, I will rewrite the commit message.
 
-The following ordering is possible, with no other operation references:
+The dominant cost in our brpc workload is the spinlock traffic inside
+ndo_rx_flow_steer(): with threads migrating constantly, the old path
+repeatedly paid a steering update and its arfs_lock acquisition, while
+the packets themselves still took the software RFS path with an IPI.
+For migrations within the same LLC, this change keeps only the IPI and
+no longer touches the driver lock.
 
-  Data CoW                         Xattr update
-  --------                         ------------
-  Look up the old tree under
-    osb_lock, then drop osb_lock
-                                   Look up the same tree and take a kref
-                                   Acquire the tree locks and read the
-                                     new on-disk generation
-                                   Erase the old tree under osb_lock
-                                   Unlock and drop the operation kref
-                                   Drop the registry kref, freeing tree
-  Take a kref through the
-    freed tree pointer
+> > diff --git a/net/core/dev.c b/net/core/dev.c
+> > index a6951ea08961e..434ad5499906d 100644
+> > --- a/net/core/dev.c
+> > +++ b/net/core/dev.c
+>
+> [ ... ]
+>
+> > @@ -5179,6 +5180,24 @@ set_rps_cpu(struct net_device *dev, struct sk_bu=
+ff *skb,
+> >               if (!skb_rx_queue_recorded(skb) || !dev->rx_cpu_rmap ||
+> >                   !(dev->features & NETIF_F_NTUPLE))
+> >                       goto out;
+> > +
+> > +             /*
+> > +              * ARFS LLC Affinity Feature:
+> > +              * Reduce ARFS flow updates by checking LLC affinity.
+> > +              *
+> > +              * Frequent flow table updates can trigger constant hardw=
+are steering
+> > +              * reconfigurations (e.g., ndo_rx_flow_steer), leading to=
+ significant
+> > +              * contention on driver internal locks (like mlx5's arfs_=
+lock).
+> > +              *
+> > +              * Skip the expensive hardware steering update if the flo=
+w's previous
+> > +              * target CPU and the new one share the last level cache:=
+ cache locality
+> > +              * for the application is preserved either way.
+> > +              */
+> > +             if (static_branch_unlikely(&arfs_llc_affinity) &&
+> > +                 old_cpu < nr_cpu_ids && cpu_online(old_cpu) &&
+> > +                     cpus_share_cache(old_cpu, next_cpu))
+> > +                     goto out;
+>
+> [Severity: Medium]
+>
+> Is old_cpu a reliable sign of where the NIC currently delivers this flow?
+>
+> get_rps_cpu() passes in tcpu =3D rflow->cpu. That value is read from the
+> hashed slot in the flow table of the queue the packet arrived on. It only
+> records the last software RFS target for that slot, and it may have no
+> hardware filter behind it. For example:
+>
+> - ndo_rx_flow_steer() returned rc < 0, but set_rps_cpu() still did
+>   WRITE_ONCE(rflow->cpu, next_cpu) on the arrival queue's slot.
+>   mlx5e_rx_flow_steer() can return -EPROTONOSUPPORT, -ENOMEM, or -EPERM
+>   while MLX5E_ARFS_STATE_ENABLED is clear.
+>
+> - The tmp_rflow collision check or the !q_tag_ptr check took goto out.
+>
+> - The slot still holds a CPU left by an earlier flow that hashed to the
+>   same rfs_slot(). store_rps_dev_flow_table_cnt() sets RPS_NO_CPU only
+>   when the table is allocated.
+>
+> - The driver flushed or re-created its filters.
+>
+> In each of these cases, if old_cpu and next_cpu share an LLC, the new
+> check skips ndo_rx_flow_steer() and then reaches:
+>
+>         WRITE_ONCE(rflow->cpu, next_cpu);
+>
+> On later packets tcpu =3D=3D next_cpu, so get_rps_cpu() never calls
+> set_rps_cpu() again. Hardware steering is not retried while the
+> application stays within that LLC. A new flow that lands on a stale slot
+> in the same LLC would never get an ARFS filter at all.
+>
+> Before this patch, every CPU change triggered a new steering attempt, so
+> a failed or missing filter recovered on its own.
+>
+> Without a filter, the flow stays on its RSS queue, which may be serviced
+> in another LLC or NUMA node. Every packet is then handed over by software
+> RFS. cpu_rmap_update() ranks queues by sibling, package and NUMA node,
+> not by LLC. Nothing guarantees an LLC relationship between the receiving
+> queue and old_cpu. Doesn't that contradict "cache locality for the
+> application is preserved either way"?
+>
+> Could the skip be limited to the case where this flow has a live
+> hardware filter, for example rflow->filter !=3D RPS_NO_FILTER &&
+> rflow->hash =3D=3D hash? Another option would be to compare next_cpu with
+> the CPU that actually services the receiving queue, rather than with
+> rflow->cpu.
 
-The final kref_get() accesses freed rf_getcnt storage, and subsequent
-accesses in ocfs2_lock_refcount_tree() also use the freed allocation.
+I understand the concern, but I would prefer not to add the
+rflow->filter/rflow->hash conditions to the skip, for these reasons:
 
-Take the operation reference in ocfs2_get_refcount_tree() before
-releasing osb_lock, including when an insertion loses to another lookup.
-Removal must acquire the same lock, so it cannot drop the registry
-reference before the lookup has pinned the tree. Keep the existing
-unlock and error path puts. The two callers that already hold the
-refcount tree lock keep their borrowed lookup behavior and do not
-acquire an extra reference.
+- old_cpu is snapshotted from rflow->cpu by get_rps_cpu() and passed
+  into set_rps_cpu() as a parameter.  set_rps_cpu() deliberately does
+  not re-read rflow->cpu: the slot is shared between flows hashing to
+  the same rfs_slot() and can be updated concurrently, so the
+  parameter carries exactly the value that made get_rps_cpu() decide
+  that this update was needed.
 
-KASAN report as below:
+- get_rps_cpu() has already validated the flow identity against the
+  global rps_sock_flow_table before entering this path (the
+  (ident ^ hash) & ~rps_cpu_mask check), so next_cpu is known to be
+  the CPU recorded for this flow.
 
-    BUG: KASAN: slab-use-after-free in ocfs2_lock_refcount_tree+0x94a/0x9b0
-    Read of size 4 at addr ffff888117212820 by task python3/497
+- The LLC comparison is intentionally a coarse-grained decision: does
+  this CPU change cross an LLC boundary or not.  The fine-grained
+  per-flow consistency is already handled further down in
+  set_rps_cpu() by the existing checks on the target queue's flow
+  entry:
 
-[Kernel and hardware identification omitted.]
+        if (READ_ONCE(tmp_rflow->filter) !=3D RPS_NO_FILTER) {
+                if (rps_flow_is_active(tmp_rflow,
+                                       rps_tag_to_log(q_tag_ptr),
+                                       tmp_cpu)) {
+                        if (hash !=3D READ_ONCE(tmp_rflow->hash) ||
+                            next_cpu =3D=3D tmp_cpu)
+                                goto out;
+                }
+        }
 
-    Call Trace:
-     <TASK>
-     dump_stack_lvl+0x93/0xd0
-     print_report+0xce/0x630
-     ? ocfs2_lock_refcount_tree+0x94a/0x9b0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __virt_addr_valid+0x20e/0x420
-     ? ocfs2_lock_refcount_tree+0x94a/0x9b0
-     kasan_report+0xe0/0x110
-     ? ocfs2_lock_refcount_tree+0x94a/0x9b0
-     ocfs2_lock_refcount_tree+0x94a/0x9b0
-     ? __pfx_ocfs2_lock_refcount_tree+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? ocfs2_refcount_cow+0x3b6/0xd90
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __kmalloc_cache_noprof+0x28d/0x610
-     ? ocfs2_refcount_cow+0x3b6/0xd90
-     ocfs2_refcount_cow+0x410/0xd90
-     ? __pfx_ocfs2_refcount_cow+0x10/0x10
-     ? __pfx___might_resched+0x10/0x10
-     ? down_write+0x11a/0x1f0
-     ? __pfx_down_write+0x10/0x10
-     ? ocfs2_inode_unlock+0x1a9/0x260
-     ? __pfx_ocfs2_inode_unlock+0x10/0x10
-     ? ocfs2_file_write_iter+0x1413/0x1d30
-     ocfs2_file_write_iter+0x157b/0x1d30
-     ? __pfx_ocfs2_file_write_iter+0x10/0x10
-     ? lock_acquire+0x190/0x300
-     ? __x64_sys_pwrite64+0x1b7/0x220
-     ? __pfx___might_resched+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? security_file_permission+0x26/0x80
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_is_held_type+0x8f/0x100
-     vfs_write+0x639/0x1010
-     ? __pfx_ocfs2_file_write_iter+0x10/0x10
-     ? lock_vma_under_rcu+0x154/0x4a0
-     ? __pfx_vfs_write+0x10/0x10
-     ? lock_release+0x121/0x290
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     __x64_sys_pwrite64+0x1b7/0x220
-     ? __pfx___x64_sys_pwrite64+0x10/0x10
-     ? irqentry_exit+0xbe/0x820
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? trace_hardirqs_on_prepare+0x11d/0x150
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     do_syscall_64+0x114/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+  which skips the steering when the target slot is owned by another
+  active flow, or already records next_cpu.
 
-[Register dump omitted.]
+- Adding two more conditions to this check makes the path more
+  complex.
 
-     </TASK>
+If this trade-off turns out to matter in practice, restricting the
+skip to flows with a live filter remains a small follow-up change.
 
-    Allocated by task 491:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     __kasan_kmalloc+0xaa/0xb0
-     __kmalloc_cache_noprof+0x28d/0x610
-     ocfs2_allocate_refcount_tree+0x49/0x1a0
-     ocfs2_create_refcount_tree+0x5d7/0x1630
-     ocfs2_attach_refcount_tree+0x57d/0x1100
-     __ocfs2_reflink.isra.0+0x1c4/0x1940
-     ocfs2_reflink+0x501/0x9b0
-     ocfs2_reflink_ioctl+0x6b2/0x920
-     ocfs2_ioctl+0x538/0x640
-     __x64_sys_ioctl+0x163/0x1d0
-     do_syscall_64+0x114/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> [Severity: Low]
+>
+> Can cpus_share_cache() return true here for CPUs in different LLCs? In
+> this tree it is:
+>
+> kernel/sched/core.c:cpus_share_cache() {
+>         if (this_cpu =3D=3D that_cpu)
+>                 return true;
+>
+>         return per_cpu(sd_llc_id, this_cpu) =3D=3D per_cpu(sd_llc_id, tha=
+t_cpu);
+> }
+>
+> sd_llc_id defaults to -1. It is assigned only in build_sched_domains()
+> and reset to -1 by __sched_domains_free_llc_id().
+>
+> sched_cpu_deactivate() calls sched_domains_free_llc_id(cpu) while the CPU
+> is still in cpu_online_mask. CPUs outside any sched domain, such as
+> isolcpus=3Ddomain CPUs, keep -1 permanently.
+>
+> The new check guards old_cpu only with cpu_online(), and next_cpu only
+> with nr_cpu_ids. If both CPUs carry the -1 sentinel, they compare as
+> sharing an LLC and ndo_rx_flow_steer() is skipped. That could happen when
+> an application migrates between two isolated CPUs in different LLCs, or
+> during a hotplug window.
+>
+> The sentinel handling belongs to the scheduler, but should this new
+> networking user guard against it?
 
-    Freed by task 498:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     kasan_save_free_info+0x3b/0x60
-     __kasan_slab_free+0x5f/0x80
-     kfree+0x308/0x580
-     ocfs2_lock_refcount_tree+0x672/0x9b0
-     ocfs2_xattr_set+0x72c/0x2530
-     ocfs2_xattr_user_set+0xaf/0xf0
-     __vfs_setxattr+0x143/0x1b0
-     __vfs_setxattr_noperm+0x112/0x5b0
-     __vfs_setxattr_locked+0xfe/0x2b0
-     vfs_setxattr+0x13c/0x370
-     do_setxattr+0x128/0x170
-     filename_setxattr+0x147/0x190
-     path_setxattrat+0x1ac/0x260
-     __x64_sys_setxattr+0xcb/0x140
-     do_syscall_64+0x114/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+The sentinel semantics belong to the scheduler.
 
-    The buggy address belongs to the object at ffff888117212800
-     which belongs to the cache kmalloc-1k of size 1024
-    The buggy address is located 32 bytes inside of
-     freed 1024-byte region [ffff888117212800, ffff888117212c00)
+> > +
+> >               rxq_index =3D cpu_rmap_lookup_index(dev->rx_cpu_rmap, nex=
+t_cpu);
+> >               if (rxq_index =3D=3D skb_get_rx_queue(skb))
+> >                       goto out;
+>
+> [ ... ]
+>
+> > diff --git a/net/core/sysctl_net_core.c b/net/core/sysctl_net_core.c
+> > index 473c162736d69..9ce0bbe454c83 100644
+> > --- a/net/core/sysctl_net_core.c
+> > +++ b/net/core/sysctl_net_core.c
+> > @@ -560,6 +560,13 @@ static struct ctl_table net_core_table[] =3D {
+> >               .mode           =3D 0644,
+> >               .proc_handler   =3D rps_sock_flow_sysctl
+> >       },
+> > +     {
+> > +             .procname       =3D "arfs_llc_affinity",
+> > +             .data           =3D &arfs_llc_affinity.key,
+> > +             .maxlen         =3D sizeof(arfs_llc_affinity.key),
+> > +             .mode           =3D 0644,
+> > +             .proc_handler   =3D proc_do_static_key
+> > +     },
+> >  #endif
+>
+> [Severity: Low]
+>
+> Should this entry, and the arfs_llc_affinity definition in
+> net/core/dev.c, be under CONFIG_RFS_ACCEL instead of CONFIG_RPS?
+>
+> The only reader, static_branch_unlikely(&arfs_llc_affinity) in
+> set_rps_cpu(), sits inside #ifdef CONFIG_RFS_ACCEL. RFS_ACCEL can be
+> turned off on its own ("depends on RPS" in net/Kconfig).
+>
+> On CONFIG_RPS=3Dy, CONFIG_RFS_ACCEL=3Dn kernels,
+> /proc/sys/net/core/arfs_llc_affinity is still registered and accepts
+> writes that flip the key, but nothing changes.
 
-[Page and memory dumps omitted.]
+Ok, I will move the sysctl entry under CONFIG_RFS_ACCEL so the knob
+matches its only user.
 
-Fixes: 374a263e790c ("ocfs2: Add refcount tree lock mechanism.")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-Assisted-by: LLM
+> [Severity: Low]
+>
+> This isn't a bug, but net.core.arfs_llc_affinity isn't documented in
+> Documentation/admin-guide/sysctl/net.rst. That file covers other
+> net.core knobs, such as rps_default_mask and high_order_alloc_disable.
+>
+> The Accelerated RFS section of Documentation/networking/scaling.rst also
+> still says:
+>
+>   The network stack automatically calls this function every time a flow
+>   entry in rps_dev_flow_table is updated.
+>
+> With the knob enabled, set_rps_cpu() now updates rflow->cpu and
+> rflow->last_qtail without calling ndo_rx_flow_steer() whenever the two
+> CPUs share an LLC.
+>
+> Could the documentation describe the new knob, its default (0) and
+> accepted values, and this exception in scaling.rst?
 
----
-diff --git a/fs/ocfs2/refcounttree.c b/fs/ocfs2/refcounttree.c
-index 3e9cccf06e48..4f13b5a6faa7 100644
---- a/fs/ocfs2/refcounttree.c
-+++ b/fs/ocfs2/refcounttree.c
-@@ -375,8 +375,10 @@ ocfs2_allocate_refcount_tree(struct ocfs2_super *osb, u64 rf_blkno)
- 	return new;
- }
- 
-+/* Callers without the refcount tree lock must request a reference. */
- static int ocfs2_get_refcount_tree(struct ocfs2_super *osb, u64 rf_blkno,
--				   struct ocfs2_refcount_tree **ret_tree)
-+				   struct ocfs2_refcount_tree **ret_tree,
-+				   bool get_ref)
- {
- 	int ret = 0;
- 	struct ocfs2_refcount_tree *tree, *new = NULL;
-@@ -433,6 +435,8 @@ static int ocfs2_get_refcount_tree(struct ocfs2_super *osb, u64 rf_blkno,
- 	new = NULL;
- 
- out:
-+	if (get_ref)
-+		ocfs2_refcount_tree_get(tree);
- 	*ret_tree = tree;
- 
- 	osb->osb_ref_tree_lru = tree;
-@@ -506,14 +510,12 @@ int ocfs2_lock_refcount_tree(struct ocfs2_super *osb,
- 	struct ocfs2_refcount_block *rb;
- 
- again:
--	ret = ocfs2_get_refcount_tree(osb, ref_blkno, &tree);
-+	ret = ocfs2_get_refcount_tree(osb, ref_blkno, &tree, true);
- 	if (ret) {
- 		mlog_errno(ret);
- 		return ret;
- 	}
- 
--	ocfs2_refcount_tree_get(tree);
--
- 	ret = __ocfs2_lock_refcount_tree(osb, tree, rw);
- 	if (ret) {
- 		mlog_errno(ret);
-@@ -2355,7 +2357,8 @@ int ocfs2_decrease_refcount(struct inode *inode,
- 		goto out;
- 	}
- 
--	ret = ocfs2_get_refcount_tree(OCFS2_SB(inode->i_sb), ref_blkno, &tree);
-+	ret = ocfs2_get_refcount_tree(OCFS2_SB(inode->i_sb), ref_blkno,
-+				      &tree, false);
- 	if (ret) {
- 		mlog_errno(ret);
- 		goto out;
-@@ -2590,7 +2593,7 @@ int ocfs2_prepare_refcount_change_for_del(struct inode *inode,
- 	BUG_ON(!ocfs2_is_refcount_inode(inode));
- 
- 	ret = ocfs2_get_refcount_tree(OCFS2_SB(inode->i_sb),
--				      refcount_loc, &tree);
-+				      refcount_loc, &tree, false);
- 	if (ret) {
- 		mlog_errno(ret);
- 		goto out;
+I'd like to wait for feedback from other reviewers on the knob itself
+before writing the documentation, in case the interface or naming
+changes as a result of the discussion.
+
+>
+> --
+> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
+set/20261012060152.2930-1-nashuiliang%40gmail.com
+--=20
+pw-bot: cr
