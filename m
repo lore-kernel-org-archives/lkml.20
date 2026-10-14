@@ -1,143 +1,178 @@
-Received: from mail-pz2-f6.google.com (mail-pz2-f6.google.com [74.125.228.6])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011033.outbound.protection.outlook.com [52.101.52.33])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B197D55C338
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:33:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.6
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791995640; cv=none; b=IrQcgQGaolsfT8GTcK91FGRwzOJKQu5E6T8N3WErW17rtj9bh79MDguYgJbGpL6XQuJbgcd1rm7jI+EqRXiObsuSokcmSu1hZo2tJIcAbARe+U0D27lLk35ETeWnUpBwLYOtRAor5Wdgv03KwoLmq8pzLu750K4sFZFyM7dOXSs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791995640; c=relaxed/simple;
-	bh=03prvWYuPM9S8kmgrWoC3fCmFozkGleIo9XhNkVgCtI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=od1ODIx2Z8pVyFApgiwLAFDmdx5sXeTluMBhoVlEUyF8JB+CfFp6EuG8cfq3QA/xeIFdZxp9KeBRyEDFkZnboEGMhVJiPQBHgqYo6i8g0/o1WY5OjjI7f8SFxy3HH1F9SqLSwQ69Y5zToU+U1fzGAvY3xMysVq36x6INOWs/KuQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pd7irBGa; arc=none smtp.client-ip=74.125.228.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F25155D89C;
+	Wed, 14 Oct 2026 16:35:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.33
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791995724; cv=fail; b=qWBH/F44lTBQ5bIqPqqtMqDitB+RiSzukyFyCIpQGa9MBAUn9WRJ1wjIDAQzyf6srtVPYDzYTHRI4zKpHSKmcaxtxoDkic/oS+kADX+tq1/rEktm6dvOhT84p5cBQCgBAlJhGE3Vj3bO7VYo5e2hTlKPycw5t8HFM6EykxZII6M=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791995724; c=relaxed/simple;
+	bh=2YpBBBl1JprqUy71IITcll37DLVH7JWPPW7P999PC5A=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=PeYBPd9iF/tF77gMYqWXbX1nliwloVgzBAR1Eaec+ZHjiSXQ4QX44ye60jVu9drMjoYR923qHnSU8cPqWoqGYA/Z76EMCPAW/0nnGpzT1A0KKtcZwd8zoGDr2IczI5Cj0ItpoVVbFWxtDVZYT2JSIzHmY2b+YnKUwPAbm5QTobU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=KZnx00XH; arc=fail smtp.client-ip=52.101.52.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pd7irBGa"
-Received: by mail-pz2-f6.google.com with SMTP id 41be03b00d2f7-cc790c60953so252204a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:33:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791995639; x=1792600439; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Gzw9aMKz/xODwzz6jPerfVV+ZDaTeiwtt+GIjli64uI=;
-        b=Pd7irBGaIfGk47A4W8byWcdXxiyBIqvKEbA9YhOh3SRQ6mJyIKIRRLuIPMYQAvnKMs
-         TiiQbQe1X9LW8PMlgREmTed2G73VpjPu9b/hQC6M7174NlPobQQvYC7JbWww84NvkGVc
-         jaPpkkunMPeYYbs7LRpYE1NB3orJeiitk5w+ztYeo5vRK1StrQIIlrqN8LPbbwn/q7pl
-         LyTa9PdacwnhwmfVzvAYeCHjMCxA/kI1BexjubiZ4KYMJIByLay2i2hNOuiNpYiGNnZr
-         oredyfHyKPao1I1MMDdfl/UgbblGTGEjrFSK49edHqKhn/nAtTq070F5HAFN7V6SOwU9
-         2M8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791995639; x=1792600439;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Gzw9aMKz/xODwzz6jPerfVV+ZDaTeiwtt+GIjli64uI=;
-        b=USUPRrmEFMKzurcp5ZSbsvq/1uutUuE6fmtywS1sPYtMrJd37xqokFv0sOeZlrDi6U
-         MZvw+trkiPaHJPGswb66aj49GFSci7wfmXdq+1lToahV/H9z7RLUGgM6WQqVl8aE0gVQ
-         5JIXZ18pJ6xjIwlACKsSKxriO2Tq/fP5Z0yg2QFy/bs8pbSACyumEBZf6+CzshaGG7D/
-         q9JNJF7HvvJX9JcvQpcgsHUb8JhZy4NT7bKQCReuERuu/eDrTqLBQcPZUXAmUOJFvCnz
-         KmU8Xm280DW66G0Vk2q3HriHAJA7o90pvRnL+/yC/STHo6Fi1vIY7eGul2gbS80PwLby
-         VjgQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxf7mOuux17w8z53/Ffg35Dx9+Pq/maX3OrMpQCVxVbMnkgLM/XA/rlLpu771y5nO7g8CcOnvQlSyz9jjM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLVRn+JQg5SkKTEesGHL+hLHTdcc/zGzBgkcyd0NQ6w5p7cga59
-	k9m6LLZi3pKFybzi/iHcPgK2CirXKjSxK0F+Epjt0gGMe8xr1r+GswC7
-X-Gm-Gg: AYBFou037Ii5OltJMosb/dkR3MJd/BenRZK9p+guYt1iHlTaHCJTVVBmv73ZUMziUyl
-	dSiQ/1K0ZjOlipaMzxlpQ9O+kbT2wBMKeI5P5fedEF2Euem3k06SPcgR6euTDuF2yYge2G/hpV0
-	48NHRNDisC4H9AJPccuRyTI0ZzqxGCx8ePzjLcurVQBEC/8eRTwHLmWPH4xI9jdSZa0wBBdo7xu
-	HwqN6u747BssogY+WzwH5NeQGYFOvT91ixtrd4tQCA0YPW5SbvXKow47oZHCVory8ja1fWCPLjr
-	9X9dOEX8+juwMZYYOWxyzCXf5unYdiPTQ4ZKu6mHpsaW+PZ1l0Cyml+TNQbGLwWYQdJ0fgc9W89
-	j8obp09cqbUvK85qfK3zH3fUrECRY+g8kEigBuTh+p2fmsOag4ukuBWjuYpmgSnDVpJyw8w5x55
-	YORvFLMsXqQLOv83G2jH53IM6eHpqA4+w1gq0cC7sVnhSszoCU/YIwOlOvBoaDAf0H
-X-Received: by 2002:a05:6a00:8c4:b0:891:a63c:df97 with SMTP id d2e1a72fcca58-897c6443681mr15560946b3a.15.1791995639007;
-        Wed, 14 Oct 2026 09:33:59 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:59::])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89d80511d47sm1291926b3a.54.2026.10.14.09.33.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 09:33:58 -0700 (PDT)
-Date: Wed, 14 Oct 2026 09:33:38 -0700
-From: Stanislav Fomichev <sdf.kernel@gmail.com>
-To: Mina Almasry <almasrymina@google.com>
-Cc: Jakub Kicinski <kuba@kernel.org>, David Wei <dw@davidwei.uk>, 
-	Pavel Begunkov <asml.silence@gmail.com>, Taehee Yoo <ap420073@gmail.com>, 
-	Stanislav Fomichev <sdf@fomichev.me>, Paolo Abeni <pabeni@redhat.com>, 
-	Kaiyuan Zhang <kaiyuanz@google.com>, Bobby Eshleman <bobbyeshleman@meta.com>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, linux-media@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
-	Nikolay Aleksandrov <razor@blackwall.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Tariq Toukan <tariqt@nvidia.com>, Kaifeng Wang <kaifengw@google.com>
-Subject: Re: [PATCH net v2 1/4] net: devmem: unmap dma_buf synchronously on
- queue uninstall
-Message-ID: <as-uBvRisS7HxLHJ@devvm7509.cco0.facebook.com>
-References: <20261012174300.2338784-1-almasrymina@google.com>
- <20261012174300.2338784-2-almasrymina@google.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="KZnx00XH"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UsVSIA79bwlLOh4xHOlGQ9++lW+0j6BZAkC7UZwJgEvH9ctpnRcRxNJB1WBSmUUvEGHbTCP8UxBSmIYTi700V+jJennPEd5yHpGSvb026ZbTiyD7/JTOrAqZ0UXDocg0hoLaBA8oipZesdNST1//k+qTIT+WpUTgoDurhpBUIliBIazhc4EA4a9hHwDfbXxH7LpKXvM3C7ltjvr2ANvARiIi0o36VPbiJjU9hi0gR/mGF0tzLMUbNcoa+zIdvY9qHQuAPfN7aqY6nmhl5+xBDQ50UYzAT7vJDkQ7g6dxmsVbezCPrnhxkBbA6FO0vyrtqMLoLIc6qVJbAx8xccfizg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xhf8PYseew6Zj/K5UPrOD9/T2K3z9MwEk3vurQe42AA=;
+ b=xwNhPujqbV94NvvNzZyzpaoJKJ6BRD6A56mOdSagscitE+ulgFlEw69TX43Ljq0VvntrnR5tx1uog62z7ltRoGGQpIf2w7YMZgd3puO556ETWLhXKQPbkjKhBzj78bwmT2Jdlit9u7U1bbWWzbEwB+O8CzwSmoUbhJDgb9T3Xw6oSUNj6U1pbyjWf5/f2lM0lLyBXWgFaCFuYbUWyoXtqU6xOBB27SnK5kz0faJ7K931a7+cPoJ1asJIwllh+r3iKbbo+Cbr73Aw+Bymn15Zk3JexxwJ3t27J9IKg/LdhvQodEX3utPB2mMSTzEmEhVos6dyuVMyaXtVyUne57Ulrg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xhf8PYseew6Zj/K5UPrOD9/T2K3z9MwEk3vurQe42AA=;
+ b=KZnx00XHBTlY6IIbcR1xFQ+JfOr9NP96Rh0Zihl0jGxlLJvYW51RKWMWAoYzlWw6uhQBu95tUVNjDtuQrkZ2ejlFdBzsy6Y6CoQLP4jMfihoT7wQJz7pbCGlv3Wh3+G+18ImRVuu/6vWOY7TFq8MjM4RXBKxhxvMtLhM3gpPco0=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB6254.namprd12.prod.outlook.com (2603:10b6:8:a5::17) by
+ DSVPR12MB999125.namprd12.prod.outlook.com (2603:10b6:8:38a::8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.13; Wed, 14 Oct 2026 16:35:14 +0000
+Received: from DM4PR12MB6254.namprd12.prod.outlook.com
+ ([fe80::8211:9b5a:99d2:ffa1]) by DM4PR12MB6254.namprd12.prod.outlook.com
+ ([fe80::8211:9b5a:99d2:ffa1%4]) with mapi id 15.21.0522.012; Wed, 14 Oct 2026
+ 16:35:14 +0000
+Message-ID: <9427af6f-e693-4cdc-8fc3-21c529888125@amd.com>
+Date: Wed, 14 Oct 2026 17:35:03 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 0/3] cxl: Provide explicit RAM region creation for
+ Type-2 providers
+To: Dave Jiang <dave.jiang@intel.com>, Richard Cheng <icheng@nvidia.com>,
+ jic23@kernel.org, dave@stgolabs.net, alison.schofield@intel.com,
+ vishal.l.verma@intel.com, iweiny@kernel.org, ming.li@zohomail.com
+Cc: kaihengf@nvidia.com, kobak@nvidia.com, newtonl@nvidia.com,
+ kristinc@nvidia.com, linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261007090540.43817-1-icheng@nvidia.com>
+ <1fd14fc6-de0d-4980-ac8b-8138dd5ef17c@amd.com>
+ <3466e889-82a0-41ac-9013-7d21020b5092@intel.com>
+Content-Language: en-GB
+From: "Lucero Palau, Alejandro" <alejandro.lucero-palau@amd.com>
+In-Reply-To: <3466e889-82a0-41ac-9013-7d21020b5092@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P123CA0434.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1a9::7) To DM4PR12MB6254.namprd12.prod.outlook.com
+ (2603:10b6:8:a5::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261012174300.2338784-2-almasrymina@google.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6254:EE_|DSVPR12MB999125:EE_
+X-MS-Office365-Filtering-Correlation-Id: 70fc2acb-c823-4f4a-d310-08df2a111fa5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|1800799024|366016|23010399003|56012099006|11063799006|4143699003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	HAdLIOr0d8IfDW++D8tQ3+TVKE/I7g+G8M2iODsuleeeFyQi5AbyiQivRol5uSNmIptERO8HOgjZJIkgZmx8yvZJP4AO7eIbxSSwR7BArPrwb9/SHc0fVqnNHTzXgk3eArhYubwvlXmRE16eTXco/rlGaerT+dfYiV6BtT1KVGSasO7RUJlruL9ZGsWhHusq7DDOL+V2Xts7CqCLiw3yI2xJHfWSY9HKb9ZiHLfTuWnKmTVwJgDpDU9OTMP/NTVKApKEWHsZn0VSwBrBazS0fKojR3B4T9JkiDKzYAZ/VuWYB6xouV2Ii9/+enhEj9UWGEvu2MYxK7Ra+rCdFfGqjzwYsaniKY3JRqATt+lGzEzq0eSYLBBzjLiCbNeALFtQgZ2oaszxQJQKZqTr59R2dr1f2+Azu2xD/cwvQyk/jKzyeD5gaHtCa6rc+cEMRqZjyfGGtYpATib20h7Tj0bswi3LKoORYrfoPXeen5pIAOwFLrXC5qdX9vOE/mqL3EaGGN/6WYFBv434wK0DK5qls2loKBvX+2sXQ+/uBb8pyTjWsNtUzhvJ/fbEJ/vqpcgUrATn7nDLUIdh16yPRk3Di6AFbzZwkjtDeiJ0Kab2VO9hOX3VZsV3W/ya2fAfX2jy1EqNaoSn4LxPQw/BgRDQjq3zaUfBcP1GkL/yPRN5ITI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB6254.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(56012099006)(11063799006)(4143699003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bWpHZ3FxWERQQ2dBbEovNDVBSHZIYWNlKzRMeUhXSHppWnVCVzlJNWJwTE9u?=
+ =?utf-8?B?UGJXbUJEcEVYMzNXVjFpNXdpTDVKSjU2eEg0MEJ5dVpqdXo4a1hCUDY1V3pC?=
+ =?utf-8?B?b3Mvakk0T2NxVWVxNmJUUXBkTWxSQ1VKdXVyM1ZQY25uMkt3eHovNlpqY1cy?=
+ =?utf-8?B?ZHQycTJhUVNUTzZkd25HcDZlblRtREM4bmdFaURSeDh4WTlvOHJjK0w5YjFM?=
+ =?utf-8?B?dU9zZXlLNTFQbzFtbUI0cVE1MXdiZ1I3c1BseEt2b2tQRnpCWWNOOTlhTWxy?=
+ =?utf-8?B?VUx3elpvR2x5clVMWWhCcGl2em44dFVnWnpNeUs4eHRTMHZRcU9uUUZTSDly?=
+ =?utf-8?B?OCtuOHdndlMwZ1Z4OS9tM1psemN5T0Q1UXpXU3pxaTNzZi9McndGSm15bXdL?=
+ =?utf-8?B?QVVKQ3FuMzVNS1pCMUxFcGFEd3o4cXRRK2F5YjdvbVVzb3ltaWdFb3RrT014?=
+ =?utf-8?B?S1BNMzlRdnU2MDBqMjlBbFFpUW1Fa3g3bklxYmJoeDlnMUJ0OVdpMEh0WlQ4?=
+ =?utf-8?B?TGJXSlVyenJvSzFUb2VFdmcrVFJxR0o2cTM0dGhXRXczVFNaYjJGWmhwZmtH?=
+ =?utf-8?B?TkdYcHoyK3RoVWtDZTNFNEJWQ21XSFp2dFVyazI0ZHhHVXpDcU5aamNGVDJu?=
+ =?utf-8?B?Q0ZKaURWMDM4MWNCR0JlVVlScmpndUZTdmFmZXkwVjZiTnI1RjA0R1FqN0My?=
+ =?utf-8?B?WExhY3AzUEp1UitxVDgvazhhSW53a2k0cnhobFQrMnZOdzhnbDNsUnJJMXJT?=
+ =?utf-8?B?alpkL3BFQm5NZTRsQ2RndTVkT1lCZnBKZHlJaUpmSmQzU3Y5ZlhacHJBVHQw?=
+ =?utf-8?B?NFBzU0FrSW94UVBYd2gvVm4reWg0Tkd2YURRQi93V2h5S2lEdS92MmFodjlT?=
+ =?utf-8?B?OU5CSXpIM0lLNjJTbG1EUEcvQ1lQNWtiaW9BQzFRMmdYQVlQUDhQcEJibWNS?=
+ =?utf-8?B?VzdWM2w5K0xNcjUySklNSDI5czR4QU9jRXdMY3FTNnlEbTloVktGZXAvNnI3?=
+ =?utf-8?B?UEZzbnBXNEVQdkhydlVoNlhDREV4R3FHNWsvZlJBSThNVW0vcFRrTHMxbnl0?=
+ =?utf-8?B?cElqcWlDL2xmWkNNdElGaEYwakhKa01oZmRRVjRFTkd4RnkwUEFsTXJiMWU5?=
+ =?utf-8?B?VUFra1ZjN2d2bW5ZckdwcS9kTGJCdEtyS2M3UG9XeTN3ZG9YRVVXRmtDVTdU?=
+ =?utf-8?B?VnVCLzdRbVlrbFFOVEt5dVF1VVgxY0JsMGUwRjN6aVZpbWh5QVFpL3huQTJN?=
+ =?utf-8?B?UmhqYTRRZDJ4N1gyUnZsUW5ZUWttMmV2VGE3L21kcHlGR0pyMXk2Q0tHY1hr?=
+ =?utf-8?B?bUhISzZ6SWFZSmh2V2lpWGpUNFdBdU1yd2pwNGJLNU16RDlyNlpSUU9VajNW?=
+ =?utf-8?B?VFc3NnozMDZoSDhxWjIwT0prRXBUYlFwVjQzN0R1ZGlGejRVUXRseEZVYm9U?=
+ =?utf-8?B?V0kvcWE1NjY3YXFaeW92QWFJT3hyT2VLZ205RjBMWWxsaTJ6RkJEdjN1K1Az?=
+ =?utf-8?B?dWFQTlRIVlc3SU40cTZSUERTNHVYcWRkVzJRWE9CVWpLZkUwRWJ0dWVMWDlw?=
+ =?utf-8?B?bzZQTXppZWFPSSs1dnZ3Y1hJMVJZQzZySWloN0oxNC94L3pwbGRycU4yVktS?=
+ =?utf-8?B?L3BsQzBXZGd5UFdEUDFFNUNqQW13emFLOEpuWnh5Yng3NVJ5dms5WFQwOUV5?=
+ =?utf-8?B?NWV4dGY4dDVVRXBQTHhJcXN2ajBOVDFPY0xKa2dibVVXRFIzcHlmb281eDBi?=
+ =?utf-8?B?anVyQzkwOVJLaEU1TE9HUmZDUEJzNDFGK3ZtaGZTWWRrcFQ4MVdMaE45Z1FP?=
+ =?utf-8?B?aHJDZ2w1NE1kUjhUczdmbkVtSmxQNGI0RmpTNmw5NVUxVEc1ZTgvVzFQd2R1?=
+ =?utf-8?B?MFA1bTFlNzF1YysrcFFLRlU3a09ob0ZyNlFKeCtxMm5CSVNRUUJHNUYyUi9h?=
+ =?utf-8?B?Z09hUjhWbk5sMmVEM3lVN1JJMUVpSWdmeFZlZDVDSFlWZkVpSEZMQlIrSk1G?=
+ =?utf-8?B?U0dTTjdQRlV2VC9sZmJBUi9LaVIxMWUwV3JHbFRMeTBXM2tSbUVJRk0wY2pI?=
+ =?utf-8?B?bUlxb3owc2pLem14QWRva2RSWGNoc0xPOFRyV2ppQ0ljMm1TUU95Rnk1aE9X?=
+ =?utf-8?B?NmQ5RSt3Y1pDZnZkVTlFY1BHVWU1OUdPNmNzWTJzaUYzQ05PQzJLK1hVYWZj?=
+ =?utf-8?B?VFhzTUZBalRHVmFkZWczMzNHUXBsdzNFbDNjYTVCUkRBejFqSDNPVlFHMDll?=
+ =?utf-8?B?S2dpcm1IaVQ4TUVQWDNrN1cvcFBjdE9UaWVPVEd6cVhKeXNzVWFqbGJUaXVm?=
+ =?utf-8?B?bnJDSTNLWDFCZHBkQjd6ZGxpVE5LK3FRMVNQRGYvYnZ6amNEK0xWQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 70fc2acb-c823-4f4a-d310-08df2a111fa5
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6254.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 16:35:14.5702
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: KhTkidXcqGLcZkDtgOyVkqZKsTKSZXMaRZJ5aDhL80c1dNdUrUHM9IhraoK//QZCT/uFVC1eq++X6S3cC74Xdg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB999125
 
-On 10/12, Mina Almasry wrote:
-> When a bound net_device is unregistered while userspace still holds a
-> netlink or TCP socket reference on a devmem binding,
-> mp_dmabuf_devmem_uninstall() clears binding->dev to NULL so
-> netdev_nl_sock_priv_destroy() will not touch the unregistered
-> net_device, but leaves the dma_buf attachment mapped until
-> __net_devmem_dmabuf_binding_free() runs later on socket close.
-> 
-> Because dma_buf_attach() does not take a reference on dma_dev, device
-> removal frees dma_dev while the attachment is still mapped. Closing the
-> netlink socket afterwards triggers a slab use-after-free in
-> dma_unmap_sg_attrs():
-> 
->   BUG: KASAN: slab-use-after-free in dma_unmap_sg_attrs+0x76/0x2b0
->   Read of size 8 at addr ffff88810fae64b0 by task kworker/3:1/53
->   Workqueue: events __net_devmem_dmabuf_binding_free
->   Call Trace:
->    dma_unmap_sg_attrs+0x76/0x2b0
->    unmap_udmabuf+0x8e/0x100
->    dma_buf_unmap_attachment+0x145/0x330
->    dma_buf_unmap_attachment_unlocked+0x96/0x130
->    __net_devmem_dmabuf_binding_free+0x156/0x2e0
->   Freed by task 9:
->    kfree+0x1b8/0x550
->    nsim_bus_dev_release+0xe/0x60
->    device_release+0xcf/0x250
-> 
-> Add net_devmem_dmabuf_binding_unmap() serialized under binding->lock
-> and null out binding->sgt and binding->attachment after unmapping so
-> unmapping is idempotent across queue uninstall and deferred binding
-> destruction. Call it synchronously when the last bound RX queue is
-> uninstalled in mp_dmabuf_devmem_uninstall(), except when a leased
-> queue is unleased: the physical device is still registered and, if
-> restarting its queue failed, may still be using the binding.
-> 
-> The same use-after-free happens when the netlink socket is closed
-> before the device is removed but RX tokens or the pending release work
-> keep the binding alive. Such bindings are no longer installed on any
-> queue and were already erased from net_devmem_dmabuf_bindings. Keep
-> bindings in net_devmem_dmabuf_bindings until they are freed, hide
-> unbound ones from TX lookups with an xarray mark, and on
-> NETDEV_UNREGISTER clear binding->dev of unbound RX bindings for the
-> device and unmap them, unless the device is a virtual device leasing
 
-[..]
+On 14/10/2026 17:23, Dave Jiang wrote:
+>
+> On 10/14/26 8:34 AM, Lucero Palau, Alejandro wrote:
+>> On 07/10/2026 10:05, Richard Cheng wrote:
+>>> A Type-2 provider uses devm_cxl_probe_mem() to register its memdev
+>>> and obtain an HPA range. This requires an existing committed region,
+>>> so registration fails when firmware has not configured one.
+>>>
+>>> Firmware may provide a suitable CFMWS window without programming a
+>>> region.
+>>
+>> Hi Richard,
+>>
+>>
+>> FWIW, I unsuccessfully  tried to explain this possibility to "BIOS people". The fact is, nowadays for AMD and I think for Intel as well, if there is no CXL device detected with CXL.mem enabled, the BIOS will neither set HDMs  nor there will be a CFMWS.
+>
+> Hmmmm....don't they have to reserve CFMWS for hotplug?
 
-> queues, for the same reason as above. net_devmem_lock serializes that
-> walk with the final free.
 
-Can you explain net_devmem_lock a bit more? In
-net_devmem_dev_unregister, why can you not net_devmem_lookup_dmabuf and
-then rely on the binding->lock? The rest looks good, but the
-new lock seems a bit excessive?
+I have to admit I'm a bit lost with hotplugging and CXL needs, and not 
+real experience with hot plug devices at all, but in my mind hotplugging 
+allows a great flexibility which is counterintuitive if you need to know 
+before hand which devices are going to be hot plugged ..., regarding 
+CXL, how a CFMWS can be created without having that information? Maybe 
+there is something in the specs about this and I did not pay attention.
+
+
+What do you think about my other concern below?
+
+
+> DJ
+>
+>>
+>>
+>>> Hot-added devices can have the same requirement. A provider
+>>> needs its endpoint topology established before deciding when to
+>>> create a region and how much memory to map.
+>>
+>> Another unsuccessfully discussion was to avoid BIOS setting HDMs at hotplug time as this could race with host dynamic regions creation.
+>>
+>>
+>> I'm commenting these two things here for maybe having a community/kernel discussion with the goal of defining what BIOSes should do and mostly what they should not do if they want to be compatible with kernel expectations.
+>>
+>>
