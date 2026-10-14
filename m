@@ -1,140 +1,114 @@
-Received: from mta1.migadu.com (out-200.mta1.migadu.com [95.215.58.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8113255409F
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:41:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DD6B550DC1;
+	Wed, 14 Oct 2026 15:42:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791992511; cv=none; b=eTeGmqMGbHkv2EPka9uCKcwP0WzLnbDjl/9g6kgmgHOc5kuSJmwuKcGv8bDK0ZvKqvwxIz+/19qE1PSIItiAc5m0U8Rj85DzSIpkgMaaXx/sTClHpC+1TwOJ+bxEtS3KyeUggfnQXHfL/O77GDUcTpiQOrovLubpi10CqW0EpK0=
+	t=1791992583; cv=none; b=ZS4T0x2dD7ovvLCT8hpnD9YXdCX2yQmt0M4UioHhG+kkeZdA9S5wZYABjxr+yLm4HiaThBx4g/z4InHZXTN2ptd5+fnqINgLJcWxzLenh1T+4+Dh2YbaVsoE+9OcRdVtJ9kJDOX5Pk6CJyNwUNbABdWrMeK+XEvHTLDKTJRX0u4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791992511; c=relaxed/simple;
-	bh=fxGczMJhHljOujxhYbdBhhKrQIgb8++In36E8MAL/N8=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=jdQBsfMUmMvDE3owTICJPJu/xO1ZAm0Z8q7xHmKzp2x+o9zsnhs/Mwhg2pHIsA0TfFfev5hsYkiYpyBQVmqZAqagDAYSOkUiWoPUBNzY+msmambYoIKHvOPeJHdgowCU+92H+5+QYj2AtoAmhD1kYjbbPv9wYJ/uoRR+x7jA6EQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=X2pa5/KI; arc=none smtp.client-ip=95.215.58.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791992583; c=relaxed/simple;
+	bh=y8CvCf0j720DBOOvGBswPWAtRcIxqm90FUdb7UEbwpc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aisk0TLYshOJnIEm1qJT3Xnv+rxxftfE57ULUlCdHOsY0WEFYS66HgsrL4YjK/216ROfbDMXwYj+bP4zlOv+xJNZvEEN3N+G0Kq5DMtpa8WhVXRzegBta01Nvd8XDPOlwMC920SCGcnf3PFZP1pS+dKKlBbHufL8NOVVf5Wqyg8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YrjPYeeo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="X2pa5/KI"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=fxGczMJhHljOujxhYbdBhhKrQIgb8++In36E8MAL/N8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791992507; v=1; x=1792597307;
- b=X2pa5/KI/ugN2Few4+7wXaVhnKlcX2IcutYKDSv6kN7R/jF+mtIZfiOvVq13/hYwdKnLqXXK
- aY8FDf4xJiziyEEe7i1Xb+BXz83eSg8ffOeg4MRNJZxA/Th2ER8YDmVbr86MBadJtL34gsBRihG
- C+HEo55a6HLOtv6U2T3+6Bgo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id face5b178b893870;
-	Wed, 14 Oct 2026 15:41:47 +0000
-X-Mizu-Trace-ID: face5b178b893870
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <0db65f50adf251e210b6fdda44b5706f641ef4fe.camel@linux.dev>
-Subject: Re: [PATCH bpf-next v2 6/7] selftests/bpf: Skip expected_msgs
- subtests when stdout is not saved
-From: KaFai Wan <kafai.wan@linux.dev>
-To: bot+bpf-ci@kernel.org, ast@kernel.org, daniel@iogearbox.net, 
- john.fastabend@gmail.com, andrii@kernel.org, eddyz87@gmail.com,
- memxor@gmail.com,  martin.lau@linux.dev, song@kernel.org,
- yonghong.song@linux.dev, jolsa@kernel.org,  emil@etsalapatis.com,
- ihor.solodrai@linux.dev, shuah@kernel.org, nathan@kernel.org, 
- ndesaulniers@google.com, morbo@google.com, justinstitt@google.com, 
- donggeunyoo.kernel@gmail.com, leon.hwang@linux.dev,
- menglong8.dong@gmail.com,  yatsenko@meta.com, jiangfeng@kylinos.cn,
- bjorn@kernel.org, puranjay@kernel.org,  vineet.gupta@linux.dev,
- mykolal@fb.com, bpf@vger.kernel.org,  linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org,  llvm@lists.linux.dev
-Cc: martin.lau@kernel.org, mason@kernel.org
-Date: Wed, 14 Oct 2026 23:41:30 +0800
-In-Reply-To: <7b00556c5b846e17d2f940c8b007b64b37dc24219d9c0a31ebbfbedb02f74ea3@mail.kernel.org>
-References: <20261014113043.640435-7-kafai.wan@linux.dev>
-	 <7b00556c5b846e17d2f940c8b007b64b37dc24219d9c0a31ebbfbedb02f74ea3@mail.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YrjPYeeo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 191461F000C4;
+	Wed, 14 Oct 2026 15:42:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791992579;
+	bh=x5flC3L20m+iLt4xEeRpaLTdVCyzEflv5E4h1ZeBXs4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YrjPYeeoYntaT08ARzU9b0Pbs4033S8tl+zqqJfkVR9SmHq6tep9wn/bN+e8dmId4
+	 j/Ub7bQiOEsOq1Vk4gYOQbq7Xdm14IoxOCxQAzKFGgHieHy2nKx1VjkWfjC6wS4u7+
+	 JrIm4p/VrMHAOPVk6VA8Ypz9nsbNWdPrVA8DjRUmKNrtubtDOfOmthw/QHlWnc9Jgk
+	 P/xclEupRT/t60X7JZasdjWrginJzHVLppkwQ4J7IMO2oh30MCgulPbOS3WK3+lBuy
+	 inE4EgVlTw5ebQJU/dAR0cCIGxpwceXM94z9C6nm4DfB8wuPbaaHkro0XHwNv8qsKQ
+	 zR4fp5qBo5bvA==
+Date: Wed, 14 Oct 2026 15:42:57 +0000
+From: Yosry Ahmed <yosry@kernel.org>
+To: "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
+Cc: hannes@cmpxchg.org, nphamcs@gmail.com, chengming.zhou@linux.dev, 
+	akpm@linux-foundation.org, linux-mm@kvack.org, herbert@gondor.apana.org.au, 
+	davem@davemloft.net, linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	rientjes@google.com, willy@infradead.org, senozhatsky@chromium.org
+Subject: Re: [PATCH v1 7/8] mm: zswap: Optimally place members of struct
+ zswap_pool, struct zswap_entry.
+Message-ID: <as-izeIj5bP01bna@google.com>
+References: <20261008182814.27450-1-kanchanapsridhar2026@gmail.com>
+ <20261008182814.27450-8-kanchanapsridhar2026@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261008182814.27450-8-kanchanapsridhar2026@gmail.com>
 
-On Wed, 2026-10-14 at 12:08 +0000, bot+bpf-ci@kernel.org wrote:
-> > selftests/bpf: Skip expected_msgs subtests when stdout is not saved
->=20
-> TL;DR: Nit only: the new test__skip() in the expected_msgs selftest is si=
-lent,
-> so -v output doesn't say why subtests were skipped; the review asks wheth=
-er to
-> print a short reason. The skip logic itself looks correct.
->=20
-> > diff --git a/tools/testing/selftests/bpf/prog_tests/prog_tests_framewor=
-k.c
-> > b/tools/testing/selftests/bpf/prog_tests/prog_tests_framework.c
-> > index 53347f379924..b4cd7c7ff439 100644
-> > --- a/tools/testing/selftests/bpf/prog_tests/prog_tests_framework.c
-> > +++ b/tools/testing/selftests/bpf/prog_tests/prog_tests_framework.c
->=20
-> [ ... ]
->=20
-> > @@ -169,6 +169,12 @@ void test_prog_tests_framework_expected_msgs(void)
-> >=20
-> > =C2=A0	for (i =3D 0; i < ARRAY_SIZE(cases); i++) {
-> > =C2=A0		if (test__start_subtest(cases[i].name)) {
-> > +			if (!env.subtest_state->stdout_saved) {
-> > +				test__skip();
-> > +				test__end_subtest();
-> > +				continue;
-> > +			}
-> > +
->=20
-> This isn't a bug, but a subsystem guideline flags a test__skip() that is
-> issued silently, with no message.
->=20
-> test__skip() here is called without any explanation, so a -v run only sho=
-ws
-> the generic "#N/M <subtest>:SKIP" line from test__end_subtest().=C2=A0 So=
-meone
-> reading that output has to look at the code or the commit message to lear=
-n
-> the subtests were skipped because stdout is not captured in non-parallel
-> verbose mode.
->=20
-> The skip itself looks correct, since stdio_hijack_init() returns early wh=
-en
-> verbose() && env.worker_id =3D=3D -1 and leaves subtest_state->stdout_sav=
-ed and
-> log_buf unset.=C2=A0 test__skip() takes no reason argument, and many othe=
-r
-> test__skip() callers in prog_tests are also bare.
->=20
-> Would it be worth printing a short reason before test__skip(), for exampl=
-e:
->=20
-> =C2=A0=C2=A0=C2=A0 fprintf(stderr, "SKIP: stdout is not saved in non-para=
-llel verbose mode\n");
-
-I don't think we need this. for two reasons:
-a) -v is mainly used for debugging, showing details; this is a test for the=
- framework, not the real
-bpf test, all tests should pass, no need to debug;
-b) this is a loop. if we keep adding this message, it could repeat for 9 li=
-nes.
->=20
-> > =C2=A0			error_cnt =3D env.subtest_state->error_cnt;
-> > =C2=A0			msgs.patterns =3D cases[i].pats;
-> > =C2=A0			msgs.cnt =3D 0;
->=20
->=20
+On Thu, Oct 08, 2026 at 11:28:13AM -0700, Kanchana P. Sridhar wrote:
+> Place and align the members of struct zswap_pool and struct zswap_entry
+> such that members used together in compress/decompress hot paths are
+> able to share the same cacheline. Minimize holes within these structs
+> while doing so.
+> 
+> Signed-off-by: Kanchana P. Sridhar <kanchanapsridhar2026@gmail.com>
 > ---
-> AI reviewed your patch. Please fix the bug or email reply why it's not a =
-bug.
-> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/READM=
-E.md
->=20
-> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/385595=
-67568
+>  mm/zswap.c | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
+> 
+> diff --git a/mm/zswap.c b/mm/zswap.c
+> index 8ae67fd10522..ade84ac4076e 100644
+> --- a/mm/zswap.c
+> +++ b/mm/zswap.c
+> @@ -160,11 +160,11 @@ struct crypto_acomp_ctx {
+>  struct zswap_pool {
+>  	struct zs_pool *zs_pool;
+>  	struct crypto_acomp_ctx __percpu *acomp_ctx;
+> -	u8 compr_batch_size;
+>  	struct percpu_ref ref;
+> -	struct rcu_work release_rwork;
+> -	struct hlist_node node;
+>  	u8 idx;
+> +	u8 compr_batch_size;
+> +	struct hlist_node node;
+> +	struct rcu_work release_rwork;
 
---=20
-Thanks,
-KaFai
+compr_batch_size is added by this series, why not just add it before idx
+to begin with?
+
+>  	char tfm_name[CRYPTO_MAX_ALG_NAME];
+>  };
+>  
+> @@ -202,10 +202,10 @@ static struct shrinker *zswap_shrinker;
+>   *              logic if referenced is unset. See comments in the shrinker
+>   *              section for context.
+>   * nid - NUMA node id of the page for which this is the zswap entry.
+> - * pool_idx - id of the zswap_pool that the entry's data is in.
+>   * handle - zsmalloc allocation handle that stores the compressed page data
+>   * objcg - the obj_cgroup that the compressed memory is charged to
+>   * lru - handle to the pool's lru used to evict pages.
+> + * pool_idx - id of the zswap_pool that the entry's data is in.
+>   */
+>  struct zswap_entry {
+>  	swp_entry_t swpentry;
+> @@ -214,10 +214,10 @@ struct zswap_entry {
+>  		bool referenced:1;
+>  	};
+>  	int nid;
+> -	u8 pool_idx;
+>  	unsigned long handle;
+>  	struct obj_cgroup *objcg;
+>  	struct list_head lru;
+> +	u8 pool_idx;
+
+As mentioned previously, this needs to be packed with the length.
+
+>  };
+>  
+>  /*
+> -- 
+> 2.39.5
+> 
