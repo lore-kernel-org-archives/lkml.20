@@ -1,129 +1,238 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FD2B4B0E3B
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:36:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F899559CA1
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:36:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791992172; cv=none; b=D7FwG+TQXdhPhV9RI+SEEa1lsHvTMJRJ38VaS4dVnzeZWhEg0xIAoEbzGEwsQA1ZrSvKwSTjQnxY7jz9xfTPS8AJKg1sIOi2UmXdUlkmM8X2FF8wZiJxDIrmvhM13VE3vvBOxnVew03IoSI7QVhCouqTg2Fn9S/i5zWW/hgCQiQ=
+	t=1791992172; cv=none; b=aRbjSiwaEjQVUzVW/qvtQEGffCY9jGWwTUcI3Fg2gaMfk790AUCa4HsnI5cT8qaybGpUdPStB/eONj7gAyswpj0MtKxXXkhJumdwxmWLoLl8XNAOeFqjxGyDUa14hZlXZ2/A6T8pQsRR6dgNWo0H37KsjbpDwaYQaT+6uEPKM4w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791992172; c=relaxed/simple;
-	bh=xTFOZoct61LdXRjebq1zWH+KojVjnjneTECr47l3v4o=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=K1XLyjfoyMEjWRVwB+0mUsBvVlpYbe89ko5WYFDNGZvCX/J5CTtRrnYXivegO0wSdoa06LIeUWrHpYXmLPoIw8z7Sh35yGA7pjtt6BNf1GOzlZRpg8AE75S/Qe6lPJd90zL+QyIKkRepzR9gpFskuj/hwJYIj1NAaEWeAO9ynD8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G3H5cKN8; arc=none smtp.client-ip=209.85.216.48
+	bh=PYDJwu5N8INu3IwpBcVDaWqMzao/rXbPSaTI4lABlIk=;
+	h=From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References; b=QfcFSqpeIjQa0U4fa4fOvhOB+Xdc2Ssri7L5Vr5orVjGjSXV7lklBfMSSP9ebQrf81HLs14AHtd7yLTwPHvDKnXGBf2p34oZYOch22BIEbb+G868dBmGkWyEXaoqyabNtdnMHbfyy7OD9QAcHZRLt0m8mvDJ1VKXzP5iuO9OODU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZzGCBKq0; arc=none smtp.client-ip=74.125.82.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G3H5cKN8"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3ab868eb9cfso260907a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:36:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZzGCBKq0"
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3550c917fd3so1544829eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:36:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791992169; x=1792596969; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dAMXxWVecBisExRUQtUNYk1sARRmcgk7oEoVaJAln/M=;
-        b=G3H5cKN8Ms7joShUMz/BusG+BrTCsULcOZ6wZtza7xIGekdO6fJFNnsEpB0zHlX0va
-         +SDOlFQYIOIZKkh5Yk6V7Gr8AjSLqmoVVDAjhs4JzxAQevqOmxu5LFmTWjP2Qmmd9GUK
-         TfBqtqjwqVzPHmK5gic8bM1LtctTl5Dqo1a68ocvMIldAYla4nuU+USfTvecXoTKyihh
-         6ROHD8OYbIOhhdsOj1Sgf5rPQ1dDUb4u+juDOf1lGLbabeMnTV0Wg+mul5OBPSaF++ql
-         /Z1gKS73lynHBU/+6zubQLsewFpAiJ19rcYnq4wlbruFXIULBc4GIcxlvWejV0Cl9Z31
-         emuA==
+        d=gmail.com; s=20251104; t=1791992168; x=1792596968; darn=vger.kernel.org;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=qA6YOwaVdkDe5WPMOWVzqY8zBl+ZRCOyb3XB7KK+18Y=;
+        b=ZzGCBKq0/9dWK9oVIpeCFK+54AUddga3xwAnNuUZKduNWQtn2fJ4opSpHo4JX+4s5U
+         ZWXZLvzpFTZUKwrQkAs4xGygG5WntDLddZXVQNHplBVm/6WYyhVz2bNxXfXXdXgfGyEt
+         9KweiO3cgB1+z2vw1+597htaonmJ+sHuprytgwEgxOeYjpShqXOkks/161+Dx3Z+6KxV
+         thvEoinnUdS0A8aw18aY4Z/cHnZQd6h5FQdt+bKoRDqj3INYNRVzqdLCNjCs9mhd9MAl
+         nBukhdcnWlCNMWZHNH8rpiM7KINIj/MIhPzdkf8XP1i020k4tM5gewAjSVyIbDf+sC4h
+         dK2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791992169; x=1792596969;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dAMXxWVecBisExRUQtUNYk1sARRmcgk7oEoVaJAln/M=;
-        b=krnqoN26Vor3tckwVVsGDh5K5Dz5ekxoLhRWM3trqlP2G9aFGkR1sgmpBG0f8qGBfc
-         HWF5axFxJu7dk0BvR3uR3P23mVExJ+uKWPrxPRzdYs/IjgaSMApLBH2eyPZr+SbbmRgH
-         Rjcoe4ZmFM2qil4L0D2d67DMEtB+tEnFiNhUmmxGfBXjimmiOFaNqBZob332poHYCm3g
-         eGOrwQLSi92KZ3Yg5BOHM+xc713udvUsTNFdnIA4TfP81B2zuWDi3O4R45Cx6krmbfFZ
-         2Zop+RFZ6HMcaretrukS6MGiFIND532pb+lNsJx9fqBlJ4pXQu93IVMRGvHsh6g44cmx
-         /C3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxS6GCN9Tikrdu81/ytgppOjL7A7DjAESG8M6OmdMg6IyBkptV+9MUXnE2uyKjK0yLdtf642kV8bzmm+9A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLkYE8yuIqFRf2OIUTl4LY1by/JeaG0i+hp/IDsBb0czJFIAcZC
-	fauCfKVTbaDdfKIVvjYd5L9fEVLmqfgqBGrp5MrtGBYZXfibeMXfiJA+
-X-Gm-Gg: AYBFou1gWSy/T0uMMORal526PjoChA+MMqcx36o7YJlOjo7O8g5w1wlErvw6xdbz/ZB
-	bDFfHxIARfFJDw3FZPUOYTL3fBo74bA+6f6u4jhHpnEfeQeIghe3PmG5T2AmOfnie/kl7LlMGmL
-	wbje0cK5+uE7uN/kZwANfgrknJAPJ53CsSb8yn7AaMFrXBSYanLLhYOjJmZ57N/tyoRoKS9312J
-	N4JT/9WvoRxcSDH5a9Obeo87f1SYyaZS4WZGWW8f9DR2yW9sT3uavz6iqjqYMdM7xiakgqv3GNE
-	KEc2hwx/k/u4oGlGqY+3dwf3nFJm4UkC7Q57KS28clTbOomQ7QXbdWwzt9LrxT/Jr7fSIn9HGMs
-	1gk/9meKn/W23Ry6Xa3MdQ7QQTD+pWcgTyZufLe+ZZZM4ej/kFFLjJxI50EzDrnQyyQO5ara3pV
-	LtuGUhGRzcuSxkUt9bhJfx7dwctLcp+rggpUy7e92EHm3mcokQKGRXUHAsFwGMQcd6ikaDTYwlR
-	TxCrHk1Z3HHLLnS
-X-Received: by 2002:a17:90b:224c:b0:3a7:9adb:2a0d with SMTP id 98e67ed59e1d1-3ab3a0218bfmr15319248a91.0.1791992169371;
-        Wed, 14 Oct 2026 08:36:09 -0700 (PDT)
-Received: from zhangbo56-PC.mioffice.cn ([43.224.245.235])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac5f2ba9efsm4715588a91.16.2026.10.14.08.36.06
+        d=1e100.net; s=20260707; t=1791992168; x=1792596968;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qA6YOwaVdkDe5WPMOWVzqY8zBl+ZRCOyb3XB7KK+18Y=;
+        b=o3oncRLeyev7HsFC7G9oqSkktLQ1OBYDcHk9XWDfcUsUU4dPA4qnRl/Pbw0O4b+q+k
+         fRdvs2/HkJxYl2yGZ8N7KzAbVK/6og50Gx2XsRVdtJXh+GmDFldbzxBJI6tOyxiEWlBo
+         iQ3faNbxQorHizrP+NrTSmxULaG9xm9dKFnq8CYj4metkOYqYRr0G2M0EtHQ2U3yVryU
+         v/hUb1/CZeBXV8r1YOhxFlytUIihKQYwrNZd1uY14D1Irr5mOAL5qbTsBO2bBD25zMmp
+         WudqVQUYzWDxi/c8/FEEni2AaFSv0/l5kIkTFBtUqg+vYCdODl0wxl2BwFumBW4cj1rm
+         7lfw==
+X-Forwarded-Encrypted: i=1; AKwUvBydg874i+6VynHKnkVaEgPhctawlHbN9YVOE/8pgPXdK6s+vLSVRjjqM6nZC3dQqz8xyGcPl02Ngtsfh30=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJQanT3kAfjUZMZiIcCerCIqVDZ+MQw9TLESDSWpz9dX+BxsESY
+	X5ZWtpm6bJBO96Ymj+7Yhy5YLGT/fUO6Sczf9uadaPBKIBDsDp3x3IWd
+X-Gm-Gg: AYBFou0G4xFESnIJpaoIhJW1nT8lVUVrY1czQzP9OqBJMXoQPfMCsBsUv8hKHwnoTrf
+	eZSj/OE1KjFDqb+kUd10D9YRdE9d2yDhT/9bF7PKKAo48D5VDJDFvL1U4HtLdVO3jVJhRn1EOBr
+	F9WJl/txC3u6VybBLYVk3WGevHZUwTxofiqWVoBDJL5d134XUz3aH58PFsjl/VUrR19aN2dWmCE
+	7EQkqwqlQlLzm38vGgsRhbs39w8N2gs5q9+j3GwNdgnfEIN45OgUp8bE63rWfrKWZArCKMQCu18
+	nAw/9bl3M8R+HNZMT4d79k7FwwQPwyJ0Pv1CUYYf+QZ8FkjU8fbxVxvJfvHRTRNc65Ng8P20j0h
+	cfWigAUzRLA/Qm+Aj/TnBEsf0e640b1jOJ1yX5dNJlIE5mcGAPiBVfpt5o2OPQm4U8IEditm2TB
+	OtdyJgdaFncLVCnWzJAAEwF2FeVMRDLEG59YV2rB8GibgWiwpR2fg4qi8lM9sw+asPMEkN
+X-Received: by 2002:a05:7300:e9d6:10b0:359:bdc8:c9d5 with SMTP id 5a478bee46e88-359bdd83104mr17479248eec.21.1791992167458;
+        Wed, 14 Oct 2026 08:36:07 -0700 (PDT)
+Received: from pve-server ([49.205.216.49])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca6d20dsm58172660eec.12.2026.10.14.08.35.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 08:36:08 -0700 (PDT)
-From: Bo Zhang <zhangbo0325@gmail.com>
-X-Google-Original-From: Bo Zhang <zhangbo56@xiaomi.com>
-To: senozhatsky@chromium.org
-Cc: akpm@linux-foundation.org,
-	bgeffon@google.com,
-	minchan@kernel.org,
-	richardycc@google.com,
-	baohua@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: Re: [PATCH v3 10/11] zram: use rw_semaphore for decompression streams
-Date: Wed, 14 Oct 2026 23:36:03 +0800
-Message-Id: <20261014153603.1365617-1-zhangbo56@xiaomi.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261013035201.2809924-11-senozhatsky@chromium.org>
-References: <20261013035201.2809924-11-senozhatsky@chromium.org>
+        Wed, 14 Oct 2026 08:36:06 -0700 (PDT)
+From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+To: Muchun Song <songmuchun@bytedance.com>, Madhavan Srinivasan <maddy@linux.ibm.com>, Mike Rapoport <rppt@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>
+Cc: Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>, Shrikanth Hegde <sshegde@linux.ibm.com>, Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Qi Zheng <qi.zheng@linux.dev>, Lance Yang <lance.yang@linux.dev>, linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, Muchun Song <songmuchun@bytedance.com>, muchun.song@linux.dev
+Subject: Re: [PATCH v4 0/6] mm: Unify device DAX and HugeTLB vmemmap population paths
+In-Reply-To: <20261010075755.83339-1-songmuchun@bytedance.com>
+Date: Wed, 14 Oct 2026 20:19:23 +0530
+Message-ID: <wlrkqqvg.ritesh.list@gmail.com>
+References: <20261010075755.83339-1-songmuchun@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Following up on the RFC thread [1]: Sergey pointed me at this series as
-the reworked version of the by-direction split I had tested, so I applied
-patches 9 and 10 and re-ran the same A/B. Big improvement.
+Muchun Song <songmuchun@bytedance.com> writes:
 
-[1] https://lore.kernel.org/lkml/20261012123328.1138059-1-zhangbo56@xiaomi.com
+> This v4 is based on mm-new commit d5207c6d152c, which contains v6 of
+> "mm: Switch device DAX to section-based vmemmap optimization" [1].
+>
 
-Setup as before: real Android device (MemTotal ~7.7GB, zram ~8GB), cycle
-20 apps through fg/bg to force swap-out/in, 8 rounds, reboot before each.
-Same trylock instrumentation on the stream locks across all builds. For
-patch 10, "read contended" = dpin_contended + dexcl_contended. Decompress
-("read") is the swap-in path, which is what matters for us.
+Hi Muchun,
 
-I use decompress acquire count (swapped-in pages) as the comparability anchor
-instead of swap volume, which stays within ~20% across builds.
+I was checking this patch series and seems like I am hitting an issue on
+mm-new, which most likely is due to this patch series.
+(Note that a similar issue was reported by Pavithra on PowerPC)
 
-                      baseline   preempt-disable   9 + 10
-  read contended      24,749     406               1,959
-  read wait_ns total  239.8 s    3.78 s            ~12 s
-  read wait_ns max    757 ms     51.7 ms           72-96 ms
-  read acquire        3,948,150  4,305,078         3,510,610
+Let me first give the call stack:
 
-Decompression on 9+10 splits into:
-  shared (stateless backend, single-page): 76.7% -> down_read never
-      blocked (dpin_contended = 0)
-  exclusive (cross-page object): 23.3% -> excl_lock, ~1,959 contended
+[   79.930815] page: refcount:0 mapcount:1 mapping:0000000000000000 index:0x0 pfn:0x140000
+[   79.930833] flags: 0x0(node=0|zone=0|lastcpupid=0x0)
+[   79.930838] raw: 0000000000000000 0000000000000000 0000000000000000 0000000000000000
+[   79.930840] raw: 0000000000000000 0000000000000000 0000000000000000 0000000000000000
+[   79.930841] page dumped because: VM_BUG_ON_PAGE(!zone_spans_pfn(page_zone(page), pfn))
+[   79.931043] ------------[ cut here ]------------
+[   79.931051] kernel BUG at mm/page_alloc.c:373!
+[   79.931109] Oops: invalid opcode: 0000 [#1] SMP DEBUG_PAGEALLOC PTI
+[   79.940576] CPU: 2 UID: 0 PID: 743 Comm: ndctl Tainted: G                 N  7.3.0-rc5-01065-g45f4c1453cbe #23 PREEMPT(full)
+[   79.942647] Tainted: [N]=TEST
+[   79.943190] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.16.3-0-ga6ed6b701f0a-prebuilt.qemu.org 04/01/2014
+[   79.945080] RIP: 0010:__set_pfnblock_flags_mask.constprop.0+0xef/0x110
+[   79.946231] Code: 48 8b 07 48 89 d1 48 f7 d1 48 89 c2 48 21 ca 48 09 f2 f0 48 0f b1 17 75 f0 c3 cc cc cc cc 48 c7 c6 b0 9b 5a 83 e8 91 be fa ff <0f> 0b ba 00 10 00 00 e9 7a ff ff ff 48 c7 c6 a8 b5 56 83 e8 79 be
+[   79.949296] RSP: 0018:ffffc90011ebf7b0 EFLAGS: 00010246
+[   79.950179] RAX: 000000000000004a RBX: 0000000000140000 RCX: 0000000000000000
+[   79.951366] RDX: 0000000000000000 RSI: 0000000000000001 RDI: ffffffffffffffff
+[   79.952562] RBP: 0000000000180000 R08: 0000000000000001 R09: 0000000000000000
+[   79.953759] R10: 0000000000000118 R11: 0000000000008000 R12: 0000000000000001
+[   79.954948] R13: 0000000000000000 R14: 0000000000180000 R15: 0000000000190000
+[   79.956151] FS:  00007ffff7e36d40(0000) GS:ffff8880f7f22000(0000) knlGS:0000000000000000
+[   79.957490] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[   79.958464] CR2: 000055555572ce90 CR3: 0000000031130003 CR4: 0000000000172ef0
+[   79.959657] Call Trace:
+[   79.960096]  <TASK>
+[   79.960487]  pageblock_migratetype_init_range.constprop.0+0x50/0x90
+[   79.961561]  memmap_init_zone_device+0x2fb/0x380
+[   79.962392]  pagemap_range+0x272/0x590
+[   79.963069]  memremap_pages+0x125/0x210
+[   79.963726]  ? lockdep_hardirqs_on+0x7d/0x100
+[   79.964488]  devm_memremap_pages+0x21/0x70
+[   79.965191]  dev_dax_probe+0x1db/0x300
+[   79.965870]  dax_bus_probe+0x6f/0xa0
+[   79.966495]  call_driver_probe+0x24/0xf0
+[   79.967190]  really_probe+0xb6/0x310
+[   79.967810]  ? __pfx___device_attach_driver+0x10/0x10
+[   79.968667]  __driver_probe_device+0x87/0x190
+[   79.969415]  ? __pfx___device_attach_driver+0x10/0x10
+[   79.970270]  driver_probe_device+0x1f/0x90
+[   79.970976]  __device_attach_driver+0x89/0x130
+[   79.971734]  bus_for_each_drv+0x86/0xe0
+[   79.972412]  __device_attach+0xb6/0x1d0
+[   79.973078]  device_initial_probe+0x40/0x60
+[   79.973791]  bus_probe_device+0x3d/0xa0
+[   79.974453]  device_add+0x4f0/0x6c0
+[   79.975068]  __devm_create_dev_dax+0x18b/0x3f0
+[   79.975830]  devm_create_dev_dax+0x21/0x40
+[   79.976530]  __dax_pmem_probe+0x1c3/0x200
+[   79.977244]  dax_pmem_probe+0xe/0x20
+[   79.977867]  nvdimm_bus_probe+0x89/0x250
+[   79.978566]  call_driver_probe+0x24/0xf0
+[   79.979242]  really_probe+0xb6/0x310
+[   79.979868]  __driver_probe_device+0x87/0x190
+[   79.980618]  device_driver_attach+0x47/0xb0
+[   79.981336]  bind_store+0x76/0xc0
+[   79.981922]  kernfs_fop_write_iter+0x152/0x200
+[   79.982715]  vfs_write+0x276/0x520
+[   79.983323]  ksys_write+0x6b/0xe0
+[   79.983900]  do_syscall_64+0xa6/0x470
+[   79.984543]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
 
-- 9+10: read contention -92%, total wait ~-95%, worst case 757ms -> ~90ms.
-  The rwsem does the heavy lifting: ~77% of swap-in decompressions now run
-  concurrently with zero pin contention - exactly the reader-vs-reader
-  queuing we were hitting. Clear win over the two-mutex split.
-- Residual contention is all on the exclusive path, mostly cross-page
-  objects (which need the ->local_copy bounce), not a specific backend -
-  lzo-rle single-page objects all go shared.
-- preempt-disable still shows the lowest read contention (406). It covers
-  the other half of the root cause (holder preempted/migrated while
-  holding the stream), so the two are complementary rather than
-  competing: 9+10 removes reader-vs-reader queuing structurally, and the
-  ~90ms tail that remains on 9+10 is the preempt/migrate effect.
 
-Happy to share scripts and raw numbers on request.
+also - 
 
-Thanks,
-Bo
+[    4.426995] BUG: kernel NULL pointer dereference, address: 0000000000000090
+[    4.428266] #PF: supervisor read access in kernel mode
+[    4.428266] #PF: error_code(0x0000) - not-present page
+[    4.428266] PGD 0 P4D 0
+[    4.428266] Oops: Oops: 0000 [#1] SMP DEBUG_PAGEALLOC PTI
+[    4.428266] CPU: 6 UID: 0 PID: 1 Comm: swapper/0 Not tainted 7.3.0-rc5-01065-g45f4c1453c
+[    4.428266] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.16.3-0-ga6ed6b701f04
+[    4.428266] RIP: 0010:__set_pfnblock_flags_mask.constprop.0+0x3d/0x110
+[    4.428266] Code: 84 e3 00 00 00 48 8b 17 48 89 d1 48 c1 ea 37 83 e2 07 48 c1 e9 3a 48 8d 14 52 40
+[    4.428266] RSP: 0000:ffffc9000001b770 EFLAGS: 00010246
+[    4.428266] RAX: 0000000000140000 RBX: 0000000000140000 RCX: 0000000000000020
+[    4.428266] RDX: 0000000000000000 RSI: 0000000000000001 RDI: ffffea0005000000
+[    4.428266] RBP: 0000000000180000 R08: ffff8880093e1600 R09: 0000000000000040
+[    4.428266] R10: 0000000000000001 R11: 0000000000000000 R12: 0000000000000001
+[    4.428266] R13: 0000000000000000 R14: 0000000000180000 R15: 0000000000190000
+[    4.428266] FS:  0000000000000000(0000) GS:ffff8880f8722000(0000) knlGS:0000000000000000
+[    4.428266] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    4.428266] CR2: 0000000000000090 CR3: 0000000003aac001 CR4: 0000000000172ef0
+[    4.428266] Call Trace:
+[    4.428266]  <TASK>
+[    4.428266]  pageblock_migratetype_init_range.constprop.0+0x50/0x90
+[    4.428266]  memmap_init_zone_device+0x2fb/0x380
+[    4.428266]  pagemap_range+0x272/0x590
+[    4.428266]  memremap_pages+0x125/0x210
+[    4.428266]  ? lockdep_hardirqs_on+0x7d/0x100
+[    4.428266]  devm_memremap_pages+0x21/0x70
+[    4.428266]  dev_dax_probe+0x1db/0x300
+[    4.428266]  dax_bus_probe+0x6f/0xa0
+[    4.428266]  call_driver_probe+0x24/0xf0
+[    4.428266]  really_probe+0xb6/0x310
+[    4.428266]  ? __pfx___device_attach_driver+0x10/0x10
+[    4.428266]  __driver_probe_device+0x87/0x190
+[    4.428266]  ? __pfx___device_attach_driver+0x10/0x10
+[    4.428266]  driver_probe_device+0x1f/0x90
+[    4.428266]  __device_attach_driver+0x89/0x130
+[    4.428266]  bus_for_each_drv+0x86/0xe0
+[    4.428266]  __device_attach+0xb6/0x1d0
+[    4.428266]  device_initial_probe+0x40/0x60
+[    4.428266]  bus_probe_device+0x3d/0xa0
+[    4.428266]  device_add+0x4f0/0x6c0
+[    4.428266]  __devm_create_dev_dax+0x18b/0x3f0
+[    4.428266]  devm_create_dev_dax+0x21/0x40
+[    4.428266]  __dax_pmem_probe+0x1c3/0x200
+[    4.428266]  dax_pmem_probe+0xe/0x20
+[    4.428266]  nvdimm_bus_probe+0x89/0x250
+[    4.428266]  call_driver_probe+0x24/0xf0
+[    4.428266]  really_probe+0xb6/0x310
+[    4.428266]  ? __pfx___driver_attach+0x10/0x10
+[    4.428266]  __driver_probe_device+0x87/0x190
+[    4.428266]  ? __pfx___driver_attach+0x10/0x10
+[    4.428266]  driver_probe_device+0x1f/0x90
+[    4.428266]  __driver_attach+0xd7/0x200
+[    4.428266]  bus_for_each_dev+0x79/0xc0
+[    4.428266]  bus_add_driver+0x127/0x250
+[    4.428266]  driver_register+0x59/0x100
+[    4.428266]  ? __pfx_dax_pmem_init+0x10/0x10
+[    4.428266]  do_one_initcall+0x59/0x3a0
+[    4.428266]  do_initcalls+0xdd/0x1b0
+[    4.428266]  kernel_init_freeable+0x16f/0x2b0
+[    4.428266]  ? __pfx_kernel_init+0x10/0x10
+[    4.428266]  kernel_init+0x1f/0x1d0
+[    4.428266]  ret_from_fork+0x244/0x280
+[    4.428266]  ? __pfx_kernel_init+0x10/0x10
+[    4.428266]  ret_from_fork_asm+0x1a/0x30
+[    4.428266]  </TASK>
+
+
+- I am hitting this issue on x86 kvm itself (and also on PowerPC)
+- I am able to hit the issue with the following extra qemu params:
+    -m 2G,slots=4,maxmem=16G
+    -object memory-backend-file,id=mem1,mem-path=/tmp/nvdimm.img,size=2560M,share=on -device nvdimm,id=nvdimm0,memdev=mem1,label-size=256M,addr=0x100000000
+
+    # then once the system comes up
+    ndctl disable-region region0
+    ndctl init-labels all
+    ndctl enable-region region0
+
+    ndctl create-namespace -r region0 -t pmem -m raw -s 256M
+    ndctl create-namespace -r region0 -t pmem -m devdax -M mem -a 1G -s 2G 
+
+I am still debugging this issue - but from the logs it looks like that
+some struct page was never initialized which caused the VM_BUG_ON().
+
+Can you take a look at this once?
+
+Thanks!
+-ritesh
+
+
