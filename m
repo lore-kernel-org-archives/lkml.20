@@ -1,237 +1,270 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F64B3CE0A0
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 03:07:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791947224; cv=fail; b=Z1Ds0JmzDAW5AT+nhYlXn1rFwmbcF3Omgbrvv7pWYytbHySbP3szA1bKE/PFAAaSGJOKBJc2bRxeDv7G4sEV/DpzNarJcTqMYifEczSMyvqWitLWZ2OshoX1n1kK8BcRnje8kkpMwaG/MZL1Ec2o9sxzIRHqbyxvgcc+b9VCiCs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791947224; c=relaxed/simple;
-	bh=Au11+2xCv69Ttj3KMTJd2seIano2fbE000ThQOx0uVs=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=QXYqlum4zy+I6iWhFrbBxaSeYVmy9KapfHOA769gUf+mAwU60+q6D1yGeupFi78ikuy/eKDyaOP53RRhJBqes6CT0L8RO4So2mz0mq8QK4oqSm7C8qJf6OUid/EgBy9lPI4IbNqY86LyVBNLUb+eAfHoXhGrjpxeXpcNckgQ2pw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ENF9n+N0; arc=fail smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4EE43B71BB
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 03:07:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791947268; cv=none; b=sPuFRxhRgIUbejho4Rw59LOCN8ruQ0sslKc0ncN4voVz38cIv1/GQM1YAV2MTiEvjNYV7D0W7e7jV1ethraxPfEFTjEyfgqGUVPbIILLAh71Qlv9zGktc/tl0/HQ3tno7Zaa/MXGpkZcR2s/zy1ctv9yNFTwO2Gx5eVGbsUsEVo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791947268; c=relaxed/simple;
+	bh=k36YUgdQP7P5sUNGR1OWPZK1ydfiDrMr2SflrBR3wSQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=OnIE4VOSS7EPk7bEW1wTDD7yqqMHV46x65DPX6k0b3Zsvc4X7MMIKNN6v0K/J4SLInh7cmT5pOgT+MEC7vF3v0DeCUPRmpAT78Rz3XiRKKu9NiS5Lsps5CjLGndWVv+lnPRRttuuQNci9VzJ2KspTGt1XJQmE7JQPqzn7hwReH0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FN9U2X9B; arc=none smtp.client-ip=192.198.163.17
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ENF9n+N0"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FN9U2X9B"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791947221; x=1823483221;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=Au11+2xCv69Ttj3KMTJd2seIano2fbE000ThQOx0uVs=;
-  b=ENF9n+N0QsXSUAVItuvNLTTrnDbX8E3Cadd3sZJRWiOwjNj1S3E5ZMyy
-   6ELKq2i1hA/SZ20mJ9M7ABXD71eJMeuKLANt7yWMjwhHcaCtjc8DOGRRS
-   z2or0pfwOECbZqYAyKarbF4dKrNICDl1eHpxCZ9xjd4i8LTPLMMYdLaiY
-   +1IYt17vrf8FTB1SfaIyoEdo54g9gNEFAYxXJj6xj2AdRygn2B+LkUMd1
-   6ZJnh+ENsp3i1I+kTIcop4MS3yIYLBuAkFu77iXVs9wpjXR44cfaeIlfz
-   z0+FEwsJXIhNej1ozRNoNHPMKVhvi+Fbcydj3olkdW1YvM1leNjRgt9A/
-   g==;
-X-CSE-ConnectionGUID: RHnMmDGFS32pqJNa/aaFxQ==
-X-CSE-MsgGUID: orZq4GVSTW269CUtWx/vjw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="585438"
+  t=1791947266; x=1823483266;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=k36YUgdQP7P5sUNGR1OWPZK1ydfiDrMr2SflrBR3wSQ=;
+  b=FN9U2X9B0oyJNNfPyCUpg1WBzQmIS8qz5aNVAo6iEfgc409eaXc7Vdx1
+   NIywsZxxSMygL96XXVhvA0ho9UHyWuHupg+tAjphD7AtbbIwEqu/StHwG
+   3fS+JzWLgFdtTBCBlloB1RM/voaKp+samGBTQyHqhT0mMeCw6WRRYF2ga
+   7TAqJfNYyXHo/OiHKHpMvrfriqKEihlxpyOYrdEQlCRhtRT0F75McmcnC
+   ODW//UD0jAy2IUKlnf7VaPPfoevbFr1fmqbu/msMaM0Kj9Q/bh97/8lLi
+   KcMqghKpIwA9s84LyhJC1NnZTJoZxO1Rjyuq03ofK+a2NYYVAoyb4uZum
+   A==;
+X-CSE-ConnectionGUID: jDAZb55/Qzmvw9gusApG+A==
+X-CSE-MsgGUID: XDxKLu1sQuKuaYTWPi0u6A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="692593"
 X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="585438"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 20:07:00 -0700
-X-CSE-ConnectionGUID: Bek5qWhYTu+xrNPZMxYz/A==
-X-CSE-MsgGUID: m5mIW6Q6TwyHMdys9VbVqQ==
+   d="scan'208";a="692593"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 20:07:32 -0700
+X-CSE-ConnectionGUID: SUSDyK4nQaydvrQ4oBQYJQ==
+X-CSE-MsgGUID: vE9lCSn7QOGh8E/MnhZY/g==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="1641565"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 20:06:59 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 13 Oct 2026 20:06:58 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Tue, 13 Oct 2026 20:06:58 -0700
-Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.62) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 13 Oct 2026 20:06:58 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ee4uagioPVbUDbC4ElUar6VxlKU62yBwBgXxC/BpubZWYFd1FG65TQU1IvEs+7RKs2xyahIX6HGlIWq0NF2egbXY6AA28MyYtOCbFFY35cckakd5I+BJOaN+1wfhAZ0Dag70aIjaLs4JUjrGCuketHq1wN8GoKg4hHtwgzIgkTPTW6RiYIC22nnL8xe+DhIusN4p76btlQ18pJk9ypn3LpZOMfW042toVYwG4PpiGyP9vvtsZ1u8IdlyGx8GgRt2/R3jfUr5WkLh0831UxG3NsdoNJIzfi7vKWADOxikH0657zcI13QiRrKOPUBoC9McOuHhnjvl4i2AvNO8HOeqIw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Au11+2xCv69Ttj3KMTJd2seIano2fbE000ThQOx0uVs=;
- b=TVPeNEmICcrSA8Af2m/OS5baXMGd844rx6KSdmTvG7GkFmb9O/rqfDsUB/ncMq+Gawwdmz9VBPLGmyStPlo9Nne6eMJNQ1vTtprMXcyS4XEQmSy2UIZNqeeo3sRTRrKIKmJhxfoQhmi41AdWHpFSaxe9OL9zlfclk3f7ts3fwAImbpNekeR712Xx9nBWyCY7jz1ZVN1cyK5j6Cp/WCYQQwLGgOzpPFzmU03oSeitbrJZeRrA0I4MudpICXuySrvNj4JqIFrT5j/hlLOYlCk8AY2VxaT8mj4fP9FGBhK/slkp7rdf7iQEfxaP8maj3+baYsBvSKI/16+GZSxuOpUhwQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from IA3PR11MB9136.namprd11.prod.outlook.com (2603:10b6:208:574::12)
- by PH7PR11MB6401.namprd11.prod.outlook.com (2603:10b6:510:1fb::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Wed, 14 Oct
- 2026 03:06:56 +0000
-Received: from IA3PR11MB9136.namprd11.prod.outlook.com
- ([fe80::37b4:37a9:4f3:518b]) by IA3PR11MB9136.namprd11.prod.outlook.com
- ([fe80::37b4:37a9:4f3:518b%5]) with mapi id 15.21.0522.011; Wed, 14 Oct 2026
- 03:06:56 +0000
-From: "Duan, Zhenzhong" <zhenzhong.duan@intel.com>
-To: Nikolay Borisov <nik.borisov@suse.com>, "x86@kernel.org" <x86@kernel.org>,
-	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-CC: "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
-	"tglx@kernel.org" <tglx@kernel.org>, "mingo@redhat.com" <mingo@redhat.com>,
-	"bp@alien8.de" <bp@alien8.de>, "hpa@zytor.com" <hpa@zytor.com>, "Hansen,
- Dave" <dave.hansen@intel.com>, "kas@kernel.org" <kas@kernel.org>, "Edgecombe,
- Rick P" <rick.p.edgecombe@intel.com>, "jgg@nvidia.com" <jgg@nvidia.com>,
-	"nicolinc@nvidia.com" <nicolinc@nvidia.com>, "aik@amd.com" <aik@amd.com>,
-	"aneesh.kumar@kernel.org" <aneesh.kumar@kernel.org>, "seanjc@google.com"
-	<seanjc@google.com>, "pbonzini@redhat.com" <pbonzini@redhat.com>,
-	"yilun.xu@linux.intel.com" <yilun.xu@linux.intel.com>, "Gao, Chao"
-	<chao.gao@intel.com>, "Verma, Vishal L" <vishal.l.verma@intel.com>, "Li,
- Xiaoyao" <xiaoyao.li@intel.com>, "Tian, Kevin" <kevin.tian@intel.com>, "Peng,
- Chao P" <chao.p.peng@intel.com>
-Subject: RE: [RFC PATCH 06/15] virt: tdx-guest: Support TDI bind and unbind
- operations
-Thread-Topic: [RFC PATCH 06/15] virt: tdx-guest: Support TDI bind and unbind
- operations
-Thread-Index: AQHdS9rFOalajx5+oUCDkC5Yzlha8rb7f+SAgADtsWA=
-Date: Wed, 14 Oct 2026 03:06:55 +0000
-Message-ID: <IA3PR11MB9136F32FBA9D830C48EBA968929D2@IA3PR11MB9136.namprd11.prod.outlook.com>
-References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
- <20260924041032.1096569-7-zhenzhong.duan@intel.com>
- <00a4b474-eb13-4caa-90c6-b9cabb1ec621@suse.com>
-In-Reply-To: <00a4b474-eb13-4caa-90c6-b9cabb1ec621@suse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA3PR11MB9136:EE_|PH7PR11MB6401:EE_
-x-ms-office365-filtering-correlation-id: 9096447d-2766-4ed4-d80e-08df29a03455
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|7416014|23010399003|366016|1800799024|38070700021|56012099006|11063799006|4143699003|261009223027099003|10067099003|22082099003|18002099003|3023799007;
-x-microsoft-antispam-message-info: EKfFdSqeKZFNkBGbat2HzRqZCsaPVwsrIxFqtpDyqH6RJSfWtY4Z+4O/1VDnbIRaYMUZTXTJTOlKwr6R/vbEG3ByBIfJRYag1c7I3gx+/W3ipIB9Q1207JVWeBw1toTCGAvIBSMW4wjqvrxwCZpndmKDjUHPX3o+vpdf4nq3qI6+7pZc8Bi4QsBNYAiAHN9+uNXH8LeFvn3iGnnEP5+VYCFA70BWTrpTPvjLsdFUKUVbeZMCx2PGm42v/rOyYOwiz6eYz7z/q2J5eobhBs+xPc3oEH+kB5xV9aZJjD5EL0KNZMutx6dQX2ouxVXimlO3nooREigcFVP+YPcnqGe3/4PpDH1ET00X431L7l2MkYipIHV7Aph+IXehIsThAWUCrPXac+xVuLBlm0UjTTSlQxraTFDJO+7cSObrXtKjvGrPVmsF7/Gp5YnILng53/DYmzN156+FGPnOt1iaOPEV+0ml2421uK2JEsJwUa4DXZsZuI2ThE6mkHgDzEzUHYr8fKhCkYiq15p3JEMAH6NDDsGRmbDxuilQnwq/Wl96CxNYbcSTmZ8Oj+/6OusA9QHmhWeUrdb6+Da3wp27gDwecuec+PrMSG4sxWXk850e4fTb9WKrpnlKucaXbbQL7RbDSk5RlhRUjtygf+nB8YvVLhnBJRppCH8fhZYdX1xxak+xPucgz5bAr/NLINcDEjMfFyd5JlZWjRLn4JDxPRyzoEoQKgVM6IoETYCwA7ktGcw=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB9136.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(38070700021)(56012099006)(11063799006)(4143699003)(261009223027099003)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?TkV2c0l1T3N2cUg2NEFrOW1FNlZ5ZG96dlhvZWFpMkF6ZmIzb25NVWp2M25T?=
- =?utf-8?B?dkRkbzF6bmJEamJFcjJ1NzFIdVNlaEd1SVV4UTdXd3Arb1pTY216L2J4RXNC?=
- =?utf-8?B?ckNKSW1iMkNDNklCTkZLb0tnUi9neEJydTJUT0RFa0x5NGcyRlNPU0ViOUFT?=
- =?utf-8?B?MW9KYVUxUExuUlM4TWM3cUhhK0xYM1dUcFV3OGpUck1hSldoSTBKWjVOamRG?=
- =?utf-8?B?K3RyS1A3alR0N1l3c3FYMk4wSXJtbWdOMzk0c1RCdU1LTnVBMWYzQUNOM09J?=
- =?utf-8?B?a2UxU3RMRXd0UU1aK1p5bGVITWdYWEdmRHQxYnFhTlo4eHE3ckowZkxLbE5y?=
- =?utf-8?B?V1FicEFXY1BWbzkyWmFSWmFkNElaNFNPa3lGTHJ1ZGVZamVJWmpWQTlYMXdv?=
- =?utf-8?B?ZDRUc3lOMUJsNHpiY01OQmp4anNLb0NpN1YxZCt1K1RpL3piZEIxR2p4ZHFD?=
- =?utf-8?B?QklhSnNJM1N5d0U3ZlB0SWFtelBKbnBQWVNqcEtmZTlrd2QvQjBwMnNIcW0v?=
- =?utf-8?B?aHR2THVxVDVsZFBJYTFBNHBEbGJJMFRBK0NieVFhTVlWSisvak9Ob1VBWWxI?=
- =?utf-8?B?MEQ4UVNQcDVuL0ZjMFlJblFEZERTVm5jNk53QVVOTnVCbkROanpJZUc4ZUZH?=
- =?utf-8?B?cUI4SElmb1FpUkV2UE5SYWk3RUQyemJ3aTJFeDFrMmthdnBYd1gzYkVlMmpP?=
- =?utf-8?B?ZG1hVHllVCtQVWxWVk1PK1U4dFB6SXNkS0VOMVE3ZWptc0xlL3QwV2RJSmYy?=
- =?utf-8?B?MDRFRG8zN3hmOWFrSnJwWG0xQUg5K1JKK2VkUlVVRWtDZ3RwUzV2OEs5QTFO?=
- =?utf-8?B?SE80ZnZVT1NucWJ5Z1lVVDJoeTdPMUdIaElDb3BJZktaVEdLV0QvbmdyZkNz?=
- =?utf-8?B?Nkx0dm42Sng2aVBmZUNYZnFTYUNjY0pKVGZsVVY3ZFBxRTVuY1FtUFlOS2RP?=
- =?utf-8?B?OHYyTVZOMlNSVVl3Nk9vWFdFemJteVJmNDRhYUtEQnN6U24xMlNSOXlUbk1U?=
- =?utf-8?B?U09Id3JGNmlEZEswa0NGaGxKRUZjblRxMWFEdkkwT1VrTjhwWURtUlZJUDEr?=
- =?utf-8?B?Y2QrdzFHeGdaUlJ2ZlExTzV4a1RPWjZ3UEs2RmZHc2d0TDF1Ulg3dVlrajJY?=
- =?utf-8?B?ZWozaTZ2L0tVWFBJTkptSkQzMkljRHVENE5OS05NbGdzVFVmaHFwckVkRXhB?=
- =?utf-8?B?S3UzREVtc3hCK1FHUHZmMENPUERUM1kvYlowYVdmNFNrUEwwY0ZsMVVPVFBT?=
- =?utf-8?B?MHVrZWI2cWJKMElJS0xKaUQrbFZKQ1lGWTVQVzFFeXBKVThDVFBFL2dRT3Fm?=
- =?utf-8?B?N1VrWkVxeTlXZG53TFVkOG1mQ2RhdFArWWs2M0c5bXRMQll3TTFmYWwzQkVX?=
- =?utf-8?B?aVpwSm04ZThZRkJxSENDVUZZMTMvVGRMYmJROXl0aWMxOVNwTXFTeDgwYVpM?=
- =?utf-8?B?Z3BDd1ZPN2tpcmdZVGhPbGtlSEtXeGhVdTM5K3ZJeHo5YkpJUUxrS2FjM1dX?=
- =?utf-8?B?V1oxNWMxM2d2RUNnclB2a0hDMUMvZWlxZEVIZlNVVm1Ua0dUQTZUUGVWZVp3?=
- =?utf-8?B?M0t0ZnZOc0dHaVh6amZUOWtQRjk0UXI0WWxOamQyWWVuckJvNW0rbWJxNmpU?=
- =?utf-8?B?aHArTHVQWjlIMDNUUW4rNUNkbURLSEJoYS9CNG45TjVqV3B0RUg4U28zZnc4?=
- =?utf-8?B?N2JHUnlMSEczL3VKSFFRQ0xhdUVqam9sNDE2K2tiTFVnQkRZekx3WlF5NHY1?=
- =?utf-8?B?MXYwdm5lOWRndFltdGtkcXpVM1NpMXdzNkFlZFZnUTNwZFpKeEVaUC9JTUdk?=
- =?utf-8?B?UFlRdlFDbDFUVjM5VUFPR1k1TG9tS0V2OXYrKzd6VFd4ejVXZzgySFNHbENy?=
- =?utf-8?B?Vk1PRmFIS3QwZmJ3ZVdCQnFOTlMvTmIvMGJIZDZqOHBPSmozN2hBVTBZbGQ1?=
- =?utf-8?B?c05yVnhUUWpJU0RDUzVqcXlseWQ1d1ZlOXBxR1kvZWg0NmlBRlI5RE92WVFN?=
- =?utf-8?B?RDRNMkVOK0Q4cXVzL1Y5Nll1OE0wZzQxNHFQVVdsQmxCcDFydk9heDYwL0tz?=
- =?utf-8?B?eEZhSHUwMmFUMFFxaTJGOHVWOUU1RHdOdUFpYTVUSGJuRWxBR0IzTWRJL2Rs?=
- =?utf-8?B?S003OERpd2RUZGhrUm13dW5ZdVpvamFGdHdRVlYzK3QxcUM5cldNcHhJWm5G?=
- =?utf-8?B?eG5VaEhNVG9oMzlNcmY3c3FCYmlqOXIxMGZ3MXJCaGswWkVUQmZjb2tSYy9w?=
- =?utf-8?B?aTBWbzFoTXU4WDMvWXNYL3JmRHBGNm5JWGs4SllZV2U3YWE2eGg3TVdrdFlm?=
- =?utf-8?B?aGxvSS9GampPajFSS0p5bnpXUWlzcHBIQlJwNHUxbE12WFYwOERzQT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+   d="scan'208";a="1395097"
+Received: from chenyu-dev.sh.intel.com ([10.239.62.107])
+  by fmviesa003.fm.intel.com with ESMTP; 13 Oct 2026 20:07:27 -0700
+From: Chen Yu <yu.c.chen@intel.com>
+To: tony.luck@intel.com,
+	reinette.chatre@intel.com
+Cc: tglx@kernel.org,
+	bp@alien8.de,
+	mingo@redhat.com,
+	dave.hansen@linux.intel.com,
+	hpa@zytor.com,
+	fenghuay@nvidia.com,
+	babu.moger@amd.com,
+	hongyu.ning@intel.com,
+	chen.yu@linux.dev,
+	x86@kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chen Yu <yu.c.chen@intel.com>
+Subject: [PATCH v9 00/12] Introduce MMIO-based CMT access for Enhanced RDT
+Date: Wed, 14 Oct 2026 10:56:57 +0800
+Message-Id: <cover.1791933001.git.yu.c.chen@intel.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: pZiAFuPCP08VMAQ7pu4vr+XbkanqoJCEXZ0D2fzJq4RYAU8P3qdH1n0fs+dRuvlSXTnkJLTeiU7XZolacO2hMmehSJQMrpFQeduH+bl700wYZHYeOtJq8lQHYPnGrWQp0GpTCK8j9NXwr8Lt7j6aM5bfeEDtu2nyHufYvlB8V0exp2E6i3WKGsVeFUGQXPqfH0qDw0LgTIVJXm1oYUdwNeiOzdS+ayFRr/pBu7Iygz/VZtlji77mWAc0kEGZ+EaUblb+hpOEZxib+CSYmL46uY7QxXLNY4u0ohCRtwIuXNK9xQCEqmZnQ9yHHzS6M55+vCe9Tr7ajnIuAiUl9u6nDA==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB9136.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9096447d-2766-4ed4-d80e-08df29a03455
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Oct 2026 03:06:55.8953
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: KihXSc4cx43tnWxOejV71XHcUKRfhPPmSzAbRCEUGZ1TxwX8ShnPjcMye3+xG44cnGfIFtrhpLrHXxerr26li0V60CE58iItYy82KUdwZQI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB6401
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 
-DQoNCj4tLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPkZyb206IE5pa29sYXkgQm9yaXNvdiA8
-bmlrLmJvcmlzb3ZAc3VzZS5jb20+DQo+U3ViamVjdDogUmU6IFtSRkMgUEFUQ0ggMDYvMTVdIHZp
-cnQ6IHRkeC1ndWVzdDogU3VwcG9ydCBUREkgYmluZCBhbmQgdW5iaW5kDQo+b3BlcmF0aW9ucw0K
-Pg0KPg0KPg0KPk9uIDI0LjA5LjI2INCzLiA3OjEwINGHLiwgWmhlbnpob25nIER1YW4gd3JvdGU6
-DQo+PiBJbnRyb2R1Y2Ugc3VwcG9ydCBmb3IgYmluZGluZyBhbmQgdW5iaW5kaW5nIHRoZSBUcnVz
-dCBEZXZpY2UgSW50ZXJmYWNlDQo+PiAoVERJKSB1c2luZyB0aGUgVERDTV9PUF9CSU5EIGFuZCBU
-RENNX09QX1VOQklORCBjb21tYW5kcy4NCj4+DQo+PiBFeGVjdXRpbmcgVERDTV9PUF9CSU5EIHRy
-YW5zaXRpb25zIHRoZSBUREkgc3RhdGUgdG8gYSBsb2NrZWQgc3RhdGUNCj4+IChURElfU1RBVEVf
-Q09ORklHX0xPQ0tFRCkuIEFkZCBhIHNhbml0eSBjaGVjayBmb2xsb3dpbmcgdGhlIGJpbmQgb3Bl
-cmF0aW9uDQo+PiB0byB2ZXJpZnkgdGhpcyBzdGF0ZSB0cmFuc2l0aW9uIHN1Y2NlZWRlZCBiZWZv
-cmUgZmluYWxpemluZyBkZXZpY2UgbG9ja2luZy4NCj4+DQo+PiBTaWduZWQtb2ZmLWJ5OiBaaGVu
-emhvbmcgRHVhbiA8emhlbnpob25nLmR1YW5AaW50ZWwuY29tPg0KPg0KPjxzbmlwPg0KPg0KPj4g
-ICAJc3RydWN0IHRkeF9kZXZzZWMgKnRkZXZzZWMgX19mcmVlKGtmcmVlKSA9IGt6YWxsb2Moc2l6
-ZW9mKCp0ZGV2c2VjKSwNCj5HRlBfS0VSTkVMKTsNCj4+IEBAIC0xNzQsNiArMjMzLDE5IEBAIHN0
-YXRpYyBzdHJ1Y3QgcGNpX3RzbSAqdGR4X2RldnNlY19sb2NrKHN0cnVjdCB0c21fZGV2DQo+KnRz
-bV9kZXYsIHN0cnVjdCBwY2lfZGV2ICoNCj4+ICAgCWlmICghdGR4X2lzX2Rldl90ZWVpb19zdXBw
-b3J0KHRkZXZzZWMpKQ0KPj4gICAJCXJldHVybiBFUlJfUFRSKC1FT1BOT1RTVVBQKTsNCj4+DQo+
-PiArCXN0cnVjdCB0ZHhfZGV2c2VjICp0ZGV2c2VjX2JpbmQgX19mcmVlKHRkeF90ZGlfdW5iaW5k
-X2RldikgPQ0KPnRkeF90ZGlfYmluZF9kZXYodGRldnNlYyk7DQo+PiArCWlmIChJU19FUlIodGRl
-dnNlY19iaW5kKSkNCj4+ICsJCXJldHVybiBFUlJfQ0FTVCh0ZGV2c2VjX2JpbmQpOw0KPj4gKw0K
-Pj4gKwlyZXQgPSB0ZHhfdGRpX3JlYWRfc3RhdGUodGRldnNlYywgJnN0YXRlKTsNCj4+ICsJaWYg
-KHJldCkNCj4+ICsJCXJldHVybiBFUlJfUFRSKHJldCk7DQo+PiArDQo+PiArCWlmIChzdGF0ZSAh
-PSBURElfU1RBVEVfQ09ORklHX0xPQ0tFRCkNCj4+ICsJCXJldHVybiBFUlJfUFRSKC1FSU8pOw0K
-Pg0KPldoaWxlIHRoaXMgZG9lcyBzZWVtIGNvcnJlY3QsIGl0J3Mgbm90IHJlYWxseSBmb2xsb3dp
-bmcgdGhlIHNwZWMgb3IgSSdtIGJlaW5nIHRvbw0KPnJpZ2lkLCBuYW1lbHk6DQo+DQo+U2luY2Ug
-VERJIGNhbiBjaGFuZ2UgdGhlIHN0YXRlIGFueSB0aW1lLCBURCBjYW4ndCBmdWxseSByZWx5IG9u
-IHRoZSBLbm93biBSVU4NCj5zdGF0ZSBpbiBhbnkgc2NlbmFyaW8uIEhvd2V2ZXIsIFREIGNhbiBy
-ZWx5IG9uIHRoZSBLbm93bg0KPlJVTiBzdGF0ZSBhZnRlciBUREcuVERJLlNUQVJUIGFzIGEgY29u
-ZmlybWF0aW9uIG9mIHRoZSBJbnRlcmZhY2UgU3RhcnQuDQoNCkFib3V0IFRESSBjaGFuZ2luZyBz
-dGF0ZSBhbnkgdGltZSwgZG8geW91IG1lYW4gaG9zdCBjaGFuZ2VzIFRESSBzdGF0ZSwNCmUuZy4s
-IHRocm91Z2ggVERILlRESS5TVE9QPyBPciB5b3UgbWVhbiBUREkgZGV2aWNlIGdvZXMgaW50byBU
-RElTUCBlcnJvciBzdGF0ZQ0KZHVlIHRvIGh3IGVycm9yPyBDYW4ndCB0aGV5IGhhcHBlbiBldmVu
-IGFmdGVyIFRERy5UREkuU1RBUlQ/DQoNCj4NCj5CdXQgaGVyZSB3ZSBzdGlsbCBoYXZlbid0IGRv
-bmUgYSBTVEFSVCwganVzdCBhIEJJTkQsIG5vID8NCg0KWWVzDQoNCj4NCj4gRnJvbSB0aGUgR3Vl
-c3QgcGVyc3BlY3RpdmUsIHF1ZXJ5aW5nIHRoZSBJTlRFUkZBQ0VfU1RBVEUgaXMgYSBjb3JyZWN0
-IHdheSBmb3INCj5URCB0byBxdWVyeSB0aGUgVERJIHN0YXR1cy4gSWYgdGhlIGNhbGwgc3RhdHVz
-DQo+aXMgVERYX1NVQ0NFU1MgdGhlbiB0aGUgVERJIGlzIEJPVU5ELiBPdGhlciBzdGF0dXNlcyBp
-bmRpY2F0ZSB0aGF0IHRoZSBUREkgaXMNCj5VTkJPVU5EOg0KPlREWF9URElNVF9OT1RfUFJFU0VO
-VCBvciBURFhfVERJX0lOVkFMSURfTUVUQURBVEEgbWVhbiB0aGUgVERJIGlzDQo+VU5CT1VORCBh
-bmQgdGhlIFRESSBjb250cm9sIHN0cnVjdHVyZQ0KPmhhcyBiZWVuIHJlbW92ZWQgb3IgcmVhc3Np
-Z25lZC4NCj5URFhfVERJX0lOVkFMSURfU1RBVEUgbWVhbnMgVERJIGlzIFVOQk9VTkQgb3IgaW4g
-dGhlIEVSUk9SIHN0YXRlIChUREkgaW4NCj5URElTUCBFUlJPUiBzdGF0ZSBpcyBjb25zaWRlcmVk
-DQo+VU5CT1VORCBmcm9tIFREJ3MgcGVyc3BlY3RpdmUpLg0KPg0KPklJVUMgaXQgc2hvdWxkIGJl
-IHN1ZmZpY2llbnQgdG8gY2hlY2sgd2hldGhlciB0ZHhfdGRpX3JlYWRfc3RhdGUgZGlkbid0IHJl
-dHVybiBhbg0KPmVycm9yIGFuZCB0aGF0IHdvdWxkIGltcGx5IHRoZSBpbnRlcmZhY2UgaXMgQk9V
-TkQ/DQpVcGRhdGVkIHRvZG8gbGlzdA0KDQpJIHVuZGVyc3RhbmQgdGhpcyBhcyBhIGJlc3QtZWZm
-b3J0IHNhbml0eSBjaGVjaywgbm90IGEgZ3VhcmFudGVlIHRoYXQNCnRoZSBpbnRlcmZhY2Ugd2ls
-bCByZW1haW4gaW4gdGhpcyBzdGF0ZS4NCg0KRm9yIGV4YW1wbGUsIHN1cHBvc2UgdGhlIGhvc3Qg
-Y3JlYXRlcyB0aGUgVERJIGJ1dCBpbmNvcnJlY3RseSByZXBvcnRzIA0KQklORCBjb21wbGV0ZSB3
-aXRob3V0IGNvbXBsZXRpbmcgVERILlRESS5CSU5ELiBJbiB0aGUgbW9kdWxlIA0KaW1wbGVtZW50
-YXRpb24gSeKAmW0gbG9va2luZyBhdCwgVERHLlRESS5SRChJTlRFUkZBQ0VfU1RBVEUpIHJldHVy
-bnMgdGhlIA0Kc3RvcmVkIFRESVNQIHN0YXRlIHdpdGhvdXQgcmVxdWlyaW5nIHRoZSBpbnRlcm5h
-bCBUREkgc3RhdGUgdG8gYmUgQk9VTkQuIA0KQSBzdWNjZXNzZnVsIHJlYWQgY291bGQgdGhlcmVm
-b3JlIHJldHVybiBDT05GSUdfVU5MT0NLRUQuDQoNCkF0IHRoaXMgcG9pbnQgd2UgaGF2ZSBib3Vu
-ZCB0aGUgaW50ZXJmYWNlIGJ1dCBoYXZlIG5vdCBzdGFydGVkIGl0LCBzbyANCkNPTkZJR19MT0NL
-RUQgaXMgdGhlIHN0YXRlIHdlIGV4cGVjdC4gQ2hlY2tpbmcgaXQgY2F0Y2hlcyB0aGF0IA0KaW5j
-b25zaXN0ZW5jeTsgY2hlY2tpbmcgb25seSB0aGUgVERDQUxMIHJldHVybiBjb2RlIHdvdWxkIG5v
-dC4gVGhpcyBpcyANCnN0aWxsIGEgc25hcHNob3QsIG5vdCBwcm9vZiBhZ2FpbnN0IGEgc3Vic2Vx
-dWVudCBzdGF0ZSBjaGFuZ2UuDQoNCkJScywNClpoZW56aG9uZw0KDQo=
+v8: https://lore.kernel.org/lkml/cover.1789705667.git.yu.c.chen@intel.com/
+v7: https://lore.kernel.org/lkml/cover.1787976868.git.yu.c.chen@intel.com/
+v6: https://lore.kernel.org/lkml/cover.1784968626.git.yu.c.chen@intel.com/
+v5: https://lore.kernel.org/lkml/cover.1782866200.git.yu.c.chen@intel.com/
+v4: https://lore.kernel.org/lkml/cover.1781332698.git.yu.c.chen@intel.com/
+v3: https://lore.kernel.org/lkml/cover.1780710620.git.yu.c.chen@intel.com/
+v2: https://lore.kernel.org/lkml/cover.1780587063.git.yu.c.chen@intel.com/
+v1: https://lore.kernel.org/lkml/cover.1779872016.git.yu.c.chen@intel.com/
+
+Intel Enhanced Resource Director Technology (ERDT) extends the existing
+RDT framework with two major capabilities:
+
+  1. MMIO-based access to monitoring and allocation registers, replacing
+     the legacy MSR-based interface.
+  2. Region-aware RDT for fine-grained control over different tiers of
+     memory (e.g., CXL.mem, DDR).
+
+This is described in the Intel RDT Architecture Specification:
+https://cdrdv2-public.intel.com/789566/356688-intel-rdt-arch-spec.pdf
+
+This patch set focuses on the first part: enabling MMIO-based access for
+Cache Monitoring Technology (CMT), while CAT/MBM/MBA are still using MSR.
+The platform advertises the MMIO register layout through the ACPI ERDT
+(Enhanced Resource Director Technology) table, which contains sub-tables
+describing per-domain register regions for monitoring and allocation.
+
+With ERDT, L3 cache occupancy counters are read via MMIO rather than
+MSR, allowing the reads to be performed from any CPU without requiring
+cross-CPU IPIs. This series parses the relevant ACPI sub-tables (RMDD,
+CMRC), prepares the resctrl monitor infrastructure for MMIO-based reads,
+and adds initial support for reading L3 occupancy via the CMRC interface.
+
+kselftest of CMT and L3_CAT has passed with minor adjustment at
+https://lore.kernel.org/lkml/20260523101715.3964456-1-yu.c.chen@intel.com/.
+
+Thanks Tony, Reinette, Thomas, Dave, Boris, Peter, Hongyu for your time to
+look at this patch set.
+
+V9 has gone through local sashiko review, with false positives left
+unaddressed. Also used AI to confirm each review feedback has been
+addressed by v9. The change history in the section "Changes since v8"
+in each patch is generated by AI.
+
+Major functional changes from V8 to V9:
+- Do not enable ERDT when Sub-NUMA Cluster (SNC) is enabled.
+  New patch [PATCH 04/12]. (Reinette Chatre, Tony Luck, sashiko)
+- CPUID remains the architectural enumeration mechanism: erdt_cpu_has()
+  now requires boot_cpu_has(flag) in addition to ERDT firmware support.
+  (Reinette Chatre, Tony Luck)
+- [bug fix] Attach the ERDT information to the L3 monitoring domain before the
+  domain is published on the RCU protected domain list.
+  (Reinette Chatre, sashiko)
+- Do not discard the whole ERDT table when a CACD x2APIC ID has no
+  logical CPU, e.g. (Reinette Chatre, sashiko)
+
+Changes from V7 to V8:
+- Rebased on latest x86/cache branch
+  git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git
+- git commit log revisement
+- pick Tony's x86_64 dependency patch from AET patch set and replaced
+  mine.
+- No other code logic changes
+
+Changes from V6 to V7:
+- Let get_rdt_resources() clean up its own state on failure and drop the
+  asymmetric __resctrl_arch_late_init() wrapper. (Reinette Chatre)
+- Make erdt_max_rmid and num_ids unsigned and use a plain min(), match
+  erdt_ioremap() argument types to ioremap(), and reset erdt_max_rmid in
+  erdt_exit(). (Reinette Chatre)
+- Run erdt_cpu_valid() once in resctrl_arch_online_cpu(), and match an
+  ERDT domain to a resctrl monitoring domain by domain id rather than by
+  cpumask. Warn on an invalid dom_id and on a duplicate ERDT-to-resctrl
+  domain mapping. (Reinette Chatre)
+- Fix the silent truncation of the 64-bit CMRC up_scale: reject an
+  out-of-range value with a FW_BUG warning and fail closed instead of
+  using max_t(int, ...). (Reinette Chatre, Tony Luck)
+- Keep the original resctrl_arch_rmid_read() parameter order (resource
+  first) and drop the unused closid/arch_priv arguments. (Reinette Chatre)
+- Keep a single erdt_cpu_has() declaration in asm/resctrl.h, required by
+  the inline resctrl_arch_round_mon_val(). (Reinette Chatre)
+- Use switch() in erdt_support(), clamp max_rmid with min_t() so MSR-based
+  MBM events are not handed the ERDT RMID, and divide the ERDT scale by
+  snc_nodes_per_l3_cache under SNC. (Reinette Chatre)
+
+Changes from V5 to V6:
+- Reorder the series so that the x86/topology change, which touches a
+  different subsystem, comes first. (Reinette Chatre)
+- Drop the v5 "x86/resctrl: Replace 'msr' in monitoring data identifiers"
+  patch. None of the renamed identifiers are used by the MMIO code.
+  (Reinette Chatre)
+- Split the domain setup into erdt_cpu_valid() and
+  erdt_l3_mon_domain_setup(). Validation now happens in
+  domain_add_cpu_mon() before the CPU is added to the domain cpumask,
+  and attaching ERDT data to a freshly created domain (Reinette Chatre)
+- Drop the SNC special case and the new resctrl_disable_mon_event().
+  (Reinette Chatre)
+- resctrl_arch_round_mon_val() now rounds to the ERDT scale instead of
+  returning the value unchanged (Reinette Chatre)
+- Make erdt_get_max_rmid() a global value instead of a per-CPU lookup.
+  (Reinette Chatre)
+- Use struct cpumask instead of cpumask_var_t, list_for_each_entry()
+  instead of open coded container_of(), and document every member of
+  struct erdt_domain_info. (Reinette Chatre)
+
+Changes from V4 to V5:
+There are some major changes since v4:
+- (biggest change) Eliminate the xarray for runtime lookups; embed
+  struct erdt_domain_info directly in rdt_hw_l3_mon_domain and assign
+  during l3_mon_domain_setup().
+- Separate CPUID and ACPI enumeration cleanly. Do not use CPUID feature
+  flags to gate MMIO-based monitoring. Use ACPI table presence (e.g., CMRC table)
+  to determine event enablement.
+- Use ACPI RMDD's own "Max RMID" field for MMIO access instead of relying
+  on CPUID's max RMID (which applies to MSR).
+- Enforce the SNC constraint in code rather than burying it behind a comment
+  WARN. Disable mon_capable in rdt_get_l3_mon_config() when ERDT is
+  enabled and snc_nodes_per_l3_cache > 1.
+- Split non-resctrl changes (topology.c, apic.h) into a separate preparatory
+  patch prefixed with x86/topology.
+- Move the "depends on X86" to "X86_64" adjustment to a separate patch with explicit
+  justification in its changelog.
+
+Changes from V3 to V4:
+- Remove the redundant table length check in subtbl_valid() (Thomas Gleixner)
+- Reuse subtbl_valid() for all the table iteration (Thomas Gleixner)
+- Refine the commit log of [PATCH 5/6] to state that this change is a
+  preparation for [PATCH 6/6] rather than fixing an existing issue
+  (Thomas Gleixner, Reinette Chatre, Tony Luck)
+- Fix if CACD lists all CPUs in the LLC domain (sashiko)
+- Deal with a corner case that if there is no valid RMDD tables,
+  the erdt_enabled_flag should remain false.(sashiko)
+- Add Thomas's Reviewed-by and Hongyu's Tested-by.
+
+Changes from V2 to V3:
+- Wrap __resctrl_arch_late_init() to avoid the goto logic. (Thomas Gleixner)
+- Make the variables in struct erdt_domain_info tabular format (Thomas Gleixner)
+- Remove tail comments (Thomas Gleixner)
+- Make the name of erdt_enabled() and variable in it consistent and
+  comprehensible. (Thomas Gleixner)
+- Use topo_lookup_cpuid() to search the CPU id according to the x2apic id
+  (Thomas Gleixner)
+- Fix kernel doc comment format (Thomas Gleixner)
+- Use brackets for multiple lines "if" case. (Thomas Gleixner)
+- Let the parameter for cacd_init() to fully utilize 100 characters.
+  (Thomas Gleixner)
+- Variables are reordered in reverse fir-tree.(Thomas Gleixner)
+- Added a named constant and use it in the rmdd->flags check.
+  (Thomas Gleixner)
+- Introduce helper functions to make the code readable when iterating
+  the RMDD tables. (Thomas Gleixner)
+- Make the macros tabular format. (Thomas Gleixner)
+
+Changes from V1 to V2:
+- Add #include <linux/cleanup.h> to follow the "include-what-you-use" best
+  practice (Tony Luck)
+- Fix 3 issues reported by:
+  https://sashiko.dev/#/patchset/cover.1779872016.git.yu.c.chen%40intel.com
+  Remove the variable of cacd in struct erdt_domain_info as it will
+  never be used after initialization.
+  Invoke erdt_exit() to avoid resource leak if rdt_alloc_capable and
+  rdt_mon_capable are both false.
+  Adjust the comments suggested by sashiko.
+
+Chen Yu (10):
+  x86/topology: Export topo_lookup_cpuid() for resctrl use
+  x86/resctrl: Parse ACPI ERDT table and save CACD cpumask per RMD
+  x86/resctrl: Do not enable ERDT when Sub-NUMA Cluster is enabled
+  x86/resctrl: Attach ACPI ERDT information to L3 mon domain on CPU
+    online
+  x86,fs/resctrl: Move resctrl_arch_round_mon_val() out of line
+  x86/resctrl: Add a global ERDT monitor scale
+  x86/resctrl: Parse ACPI CMRC table
+  x86/resctrl: Refactor the monitor read function
+  x86/resctrl: Introduce erdt_cpu_has() and erdt_support()
+  x86/resctrl: Add MMIO-based LLC occupancy monitoring support
+
+Tony Luck (2):
+  x86/resctrl: Require 64-bit x86 for resctrl support
+  fs/resctrl: Do not invoke smp_processor_id() in preemptible context
+
+ arch/x86/Kconfig                       |   4 +-
+ arch/x86/include/asm/apic.h            |   1 +
+ arch/x86/include/asm/resctrl.h         |   9 -
+ arch/x86/kernel/cpu/resctrl/Makefile   |   1 +
+ arch/x86/kernel/cpu/resctrl/core.c     |  45 ++-
+ arch/x86/kernel/cpu/resctrl/erdt.c     | 525 +++++++++++++++++++++++++
+ arch/x86/kernel/cpu/resctrl/internal.h |  45 +++
+ arch/x86/kernel/cpu/resctrl/monitor.c  |  60 ++-
+ arch/x86/kernel/cpu/topology.c         |   2 +-
+ drivers/resctrl/mpam_resctrl.c         |   5 +
+ fs/resctrl/monitor.c                   |  47 ++-
+ include/linux/arm_mpam.h               |   5 -
+ include/linux/resctrl.h                |   1 +
+ 13 files changed, 703 insertions(+), 47 deletions(-)
+ create mode 100644 arch/x86/kernel/cpu/resctrl/erdt.c
+
+-- 
+2.43.0
+
