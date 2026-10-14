@@ -1,56 +1,56 @@
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EA385437FB
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:39:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92739565105
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:39:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791999593; cv=none; b=J5wUabN182pznOObQwgC30libDYMg/N9cHicweuLrs8SlNEiQrYBD3oGgUKmjtYeSZIB5UZghelN/ktyP2CDcv90FUEMvHJaHnZWmssj1BjkZhJOpO6PtfOSMgmm6ZNa3MpN1T103CVVK86YwSOPa3/lrmBPV1R99s2BSgqJCII=
+	t=1791999593; cv=none; b=W8EpK9X7fL79BGZ3GbJI+P2S1NvzxMihXmB5z2ZX9qs2JMWPlpcQ/dlKr4e+YeRsSuMqTmuOzOoKpBvy2/lHVgrYFeSuWeyQNyiRxnrHY+SnLB1lOAer5Qs8zh7SPzWGFptbRD9fW0zbYN7poudE+Afe4LN0coX6uH/XoCMh5hw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791999593; c=relaxed/simple;
-	bh=fFD8oZtSK/knMuPdZN4DP0R67wo/lLsvLuNNvU+AmOQ=;
+	bh=hMv4iBxx6O92hM2zU/QK2E9aXxhMN43j6uu62715n2w=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=q49tNJQAGERqaXktMjPou6v4Xj6ItClFdCPxs9FH3Lmr0SInfVEtnfTGpULrtYPV6zyJzuD3rNF5Rf1SWQGib1MpZXFVjsHiK2T+SJQmimLP7CX98CWv1IheUCuEVg6VQEkdD3lu8Jo8q0SPUGplD9mOCBqeAAx5vfSqFbW23aw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=OB748H7d; arc=none smtp.client-ip=74.125.82.199
+	 To:Cc:Content-Type; b=ARSoR5ts0Z5tdV0wGZ/2zFhYMeOE+SFtvbGCLt5w+Nw4HOiUgYtvBKfr2S3RLre1cwAJcHyICNYxnS70qyksysqxEISyb3vwgcDMEl7vrPIu8B6KFxfcAlP+iEuvtHAs2f/9Ylus/lwFFnTDnGJqhBAtNE7YwfWQPTy5uIS0ghc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=OXIK1prm; arc=none smtp.client-ip=74.125.82.71
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="OB748H7d"
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-357e2bc3b1bso7109786eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:39:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="OXIK1prm"
+Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-14fed306427so3790943c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:39:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791999588; x=1792604388; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1791999587; x=1792604387; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=zX5Z3hRL45oldLQst4d/39m7wB0Hus3plFvx715Aac8=;
-        b=OB748H7d1PLBFq5zWSFtSdih0Y349Jxc52WViRdixelZWUdD535VlVNTdifv0uivq+
-         oOJ9lcnuuSzEGxgJRoOFqJ4iygeXGKSu8AK2aW0ZVV55Cc3om0mAmi88HxA7KKYlgNkL
-         ahi7FuImECjEI1eRd+QAYXdmfs6K7gRhz7hsDM6r7iB4cFBtOC3B2jkNsJzdjkq5ygzt
-         Ejz77cd4IeiLHHpKCTuI5YUE8z5jz9WrzIrHsf3IMN644l+O6TA6SmEPjfLoIhr5nYvr
-         ZAjy/htm3Gt3j8I4D6ZUkfYM4u38166w/yNWoDgsmcXyrwv/8zCpVkPXWNXHFWcXfmcj
-         R4QA==
+        bh=Vaok2tbucgl2o15VmieqJKPHfx1IFv9p7RTK/Waa/Yk=;
+        b=OXIK1prmxK7vgl1mwvSr1DnoC6m7Y4M05h1i8VlJsCGPzRq6dpRlDOue5Nhcay3UCm
+         jI4L/6VvO6V2oLYR8R8Qon3N/rB3iSk07IF2KknNQJJ+germB22r7svi8dwzjHRAQGZm
+         5O9ukzDQm00/1KuYisnGM6zX/r7Vd3/UH1h+rKSu1oVdLwyJCYv1kExo3CBh9hk5jZ6X
+         Kg82XDCvR8D9F+FFL+NXjdwyDNCno4Vl1CIoxbPRXBxt2E2Z8uh2WL3UrsqL51iM82go
+         VtwTKsVGUi5CMIeNtRsFSLNjYmE6RYZbaSOxHMXMpSQN4JkkXHcjX5HHEihMlHcg49Cq
+         aGJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791999588; x=1792604388;
+        d=1e100.net; s=20260707; t=1791999587; x=1792604387;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=zX5Z3hRL45oldLQst4d/39m7wB0Hus3plFvx715Aac8=;
-        b=DXVZaljP8HZdkd3odIjrPVH1PatRHDU1cUTcZw+iEWZTZvHNlB/jOKEDOtNcVN3jqo
-         IvQSJPbpB9CR/JUXMyiNn+9U4RiCUWya5tCgXtxDNYtOo+408ZApFef/7WLyTmU7eise
-         RURbGL+Sr3YPhatk0Mlm6KXdoqUuqdspltJDNoRgan/Ul9IF1Lx/1JFIPrBOKpatGZyY
-         cNkzNoG3ETm+F6XEGeiYjofIkxyXJXvwSwQW0CsWt0itpPj57ph++O0LdJ0CR2Aota1R
-         cX5rcG5vuy+X5JUvcuIjgvgs/2GHlpVdtPPkBHH8U1/oduNcjSz7TE8/f5CgBLMZfYON
-         UM3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzRPeSCITwnMSfhyPSJszw3EmFWh2/jkT1wcpWTrMoWNaCWvZSnYBG/vaNbYnnqOybQLzm6IktVfSyBicQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL0KtyGeEIu9exb3/NME8RZB4tMI/oB5sgsD8Hf4/SiaYAuBRIE
-	Jbsm0CiRzkDI7CrMY/5tiBgHXJHmYNGBVdf6Dl9wv0SFxnCKngFx22iphdDhyQDIVXBF7HkxZAT
-	5I18Ngw0wyTYsmb4pJ+Fyhp2lRQ==
-X-Received: from dygg27.prod.google.com ([2002:a05:693c:80db:b0:353:82df:8a9])
+        bh=Vaok2tbucgl2o15VmieqJKPHfx1IFv9p7RTK/Waa/Yk=;
+        b=WuTGxKyjrS554bUT3Laz0ivrPrnpWmkGPZs4qmIB9OxZs8VHM+hXN7yrLKd0Tz1QXz
+         tb2MZlIMMRYFSyCcJIQYXzXYtZguAfsxnwHmme82XP6nUXvLxROZMDgUfo+GAwwTOw41
+         AgbF992iXM0tZIlq0ImLL4MWDXb8HlZpwvPfLZftFTFenbQaHcaAnCXwCNhusELnWRaP
+         1uESQucbj7joUdPjImjmeSLqOO+d1BP1uAkKfa+VPqZ0fW4XrXjQlH5aGkXlafpCJYnJ
+         COYtZXnvDiVs+3T13QRfm6JNC0sCTEHMT5qavZrrIG2d6QhvkrjKjC8EaFxOttQh/xie
+         lmeQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxVoXbFuipPs6bqrGvddngGh/HstcCc4uCy0Upex/ji5NSD7R396drU0g7r8voQH8CKpr7OfhcdPwgbqX4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLHRTZrY0RyS6HVIcKqX1dRxbAUXZwu/QCT5QEjOgbMPpUMZVhg
+	5MIfmUEztnxxxjpdPLcOGtEWDRQPO2ySRBpZvuKzfpvHQsumpDmLThPNlWhISnJ1N+P9jkmUwmu
+	TpM325b6faGhJLB8Hx7Qoa1QnPQ==
+X-Received: from dldz19-n2.prod.google.com ([2002:a05:701b:4193:20b0:17e:6ff3:49a4])
  (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7301:fc08:b0:351:4d2d:af26 with SMTP id 5a478bee46e88-3537ddd6633mr21037508eec.2.1791999587876;
- Wed, 14 Oct 2026 10:39:47 -0700 (PDT)
-Date: Wed, 14 Oct 2026 17:37:16 +0000
+ 2002:a05:701b:2507:b0:16c:4eef:a526 with SMTP id a92af1059eb24-16c4eefb193mr22991853c88.15.1791999586939;
+ Wed, 14 Oct 2026 10:39:46 -0700 (PDT)
+Date: Wed, 14 Oct 2026 17:37:15 +0000
 In-Reply-To: <20261014173945.373295-1-almasrymina@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,9 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20261014173945.373295-1-almasrymina@google.com>
 X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
-Message-ID: <20261014173945.373295-3-almasrymina@google.com>
-Subject: [PATCH net-next v3 2/6] net: skbuff: add napi_pp_get_page() and use
- it in tcp_recvmsg_dmabuf()
+Message-ID: <20261014173945.373295-2-almasrymina@google.com>
+Subject: [PATCH net-next v3 1/6] netmem: rename __get/__put_netmem() to get/put_net_iov()
 From: Mina Almasry <almasrymina@google.com>
 To: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	linux-rdma@vger.kernel.org, bpf@vger.kernel.org
@@ -79,117 +78,122 @@ Cc: Mina Almasry <almasrymina@google.com>, Ayush Sawal <ayush.sawal@chelsio.com>
 	Wang Zhan <wang.zhan@smartx.com>, Willem de Bruijn <willemb@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-While napi_pp_put_page() releases a page_pool pp_ref_count reference on
-a netmem, no symmetric helper existed to acquire one, forcing callers
-like tcp_recvmsg_dmabuf() to open-code atomic_long_inc() on
-niov->desc.pp_ref_count.
+netmems carry both a non-pp backing refcount and a page_pool
+pp_ref_count. Make the non-pp layer explicit and symmetric across both
+netmem types: get/put_netmem() dispatches to get/put_page() for pages
+and get/put_net_iov() for net_iovs, always acquiring or releasing a
+non-pp reference regardless of page_pool membership.
 
-Add napi_pp_get_page() to pair symmetrically with napi_pp_put_page(),
-and use WARN_ON_ONCE(!napi_pp_get_page(netmem)) in tcp_recvmsg_dmabuf()
-to match WARN_ON_ONCE(!napi_pp_put_page(netmem)) in
-tcp_release_user_frags().
+Warn via DEBUG_NET_WARN_ON_ONCE() for net_iov types that do not support
+non-pp references.
 
 Assisted-by: LLM
 Signed-off-by: Mina Almasry <almasrymina@google.com>
 ---
- include/linux/skbuff_ref.h |  2 ++
- net/core/skbuff.c          | 31 +++++++++++++++++++++++++++++++
- net/ipv4/tcp.c             |  6 ++++--
- 3 files changed, 37 insertions(+), 2 deletions(-)
+ include/net/netmem.h | 24 ++++++++++++++++++++----
+ net/core/skbuff.c    | 36 ++++++++++++++++++++++++++----------
+ 2 files changed, 46 insertions(+), 14 deletions(-)
 
-diff --git a/include/linux/skbuff_ref.h b/include/linux/skbuff_ref.h
-index 05c8486bafac8..0441c220fdbdf 100644
---- a/include/linux/skbuff_ref.h
-+++ b/include/linux/skbuff_ref.h
-@@ -9,6 +9,8 @@
- 
- #include <linux/skbuff.h>
- 
-+bool napi_pp_get_page(netmem_ref netmem);
-+
- /**
-  * __skb_frag_ref - take an addition reference on a paged fragment.
-  * @frag: the paged fragment
-diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index 23a40e1ec2b15..76a42c60508d9 100644
---- a/net/core/skbuff.c
-+++ b/net/core/skbuff.c
-@@ -1026,6 +1026,15 @@ int skb_cow_data_for_xdp(struct page_pool *pool, struct sk_buff **pskb,
- EXPORT_SYMBOL(skb_cow_data_for_xdp);
- 
- #if IS_ENABLED(CONFIG_PAGE_POOL)
-+/**
-+ * napi_pp_put_page - release a page_pool reference on a netmem
-+ * @netmem: netmem to unreference
-+ *
-+ * Drops a page_pool reference (pp_ref_count) on @netmem if it belongs to a
-+ * page_pool. Counterpart to napi_pp_get_page().
-+ *
-+ * Return: true if @netmem belongs to a page_pool, false otherwise.
-+ */
- bool napi_pp_put_page(netmem_ref netmem)
- {
- 	netmem = netmem_compound_head(netmem);
-@@ -1038,6 +1047,28 @@ bool napi_pp_put_page(netmem_ref netmem)
- 	return true;
+diff --git a/include/net/netmem.h b/include/net/netmem.h
+index 0cc8572f62caf..697d50c51a5ee 100644
+--- a/include/net/netmem.h
++++ b/include/net/netmem.h
+@@ -399,21 +399,37 @@ static inline bool net_is_devmem_iov(const struct net_iov *niov)
  }
- EXPORT_SYMBOL(napi_pp_put_page);
-+
-+/**
-+ * napi_pp_get_page - acquire a page_pool reference on a netmem
-+ * @netmem: netmem to reference
-+ *
-+ * Acquires a page_pool reference (pp_ref_count) on @netmem if it belongs to a
-+ * page_pool. Counterpart to napi_pp_put_page().
-+ *
-+ * Return: true if @netmem belongs to a page_pool, false otherwise.
-+ */
-+bool napi_pp_get_page(netmem_ref netmem)
-+{
-+	netmem = netmem_compound_head(netmem);
-+
-+	if (unlikely(!netmem_is_pp(netmem)))
-+		return false;
-+
-+	page_pool_ref_netmem(netmem);
-+
-+	return true;
-+}
-+EXPORT_SYMBOL(napi_pp_get_page);
  #endif
  
- static bool skb_pp_recycle(struct sk_buff *skb, void *data)
-diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
-index f4c9101e5996a..99d7237a623d8 100644
---- a/net/ipv4/tcp.c
-+++ b/net/ipv4/tcp.c
-@@ -254,6 +254,7 @@
- #include <linux/init.h>
- #include <linux/fs.h>
- #include <linux/skbuff.h>
-+#include <linux/skbuff_ref.h>
- #include <linux/splice.h>
- #include <linux/net.h>
- #include <linux/socket.h>
-@@ -2559,6 +2560,7 @@ static int tcp_recvmsg_dmabuf(struct sock *sk, const struct sk_buff *skb,
- 		 */
- 		for (i = 0; i < skb_shinfo(skb)->nr_frags; i++) {
- 			skb_frag_t *frag = &skb_shinfo(skb)->frags[i];
-+			netmem_ref netmem = skb_frag_netmem(frag);
- 			struct net_iov *niov;
- 			u64 frag_offset;
- 			int end;
-@@ -2612,8 +2614,8 @@ static int tcp_recvmsg_dmabuf(struct sock *sk, const struct sk_buff *skb,
- 				if (err)
- 					goto out;
+-void __get_netmem(netmem_ref netmem);
+-void __put_netmem(netmem_ref netmem);
++void get_net_iov(struct net_iov *niov);
++void put_net_iov(struct net_iov *niov);
  
--				atomic_long_inc(&niov->desc.pp_ref_count);
--				tcp_xa_pool.netmems[tcp_xa_pool.idx++] = skb_frag_netmem(frag);
-+				WARN_ON_ONCE(!napi_pp_get_page(netmem));
-+				tcp_xa_pool.netmems[tcp_xa_pool.idx++] = netmem;
++/**
++ * get_netmem - acquire a non-page_pool reference on a netmem
++ * @netmem: netmem to reference
++ *
++ * Acquires a non-pp backing reference (page._refcount via get_page() or
++ * binding->ref via get_net_iov()) regardless of page_pool membership.
++ * Counterpart to put_netmem().
++ */
+ static __always_inline void get_netmem(netmem_ref netmem)
+ {
+ 	if (netmem_is_net_iov(netmem))
+-		__get_netmem(netmem);
++		get_net_iov(netmem_to_net_iov(netmem));
+ 	else
+ 		get_page(netmem_to_page(netmem));
+ }
  
- 				sent += copy;
++/**
++ * put_netmem - release a non-page_pool reference on a netmem
++ * @netmem: netmem to unreference
++ *
++ * Drops a non-pp backing reference (page._refcount via put_page() or
++ * binding->ref via put_net_iov()) regardless of page_pool membership.
++ * Counterpart to get_netmem().
++ */
+ static __always_inline void put_netmem(netmem_ref netmem)
+ {
+ 	if (netmem_is_net_iov(netmem))
+-		__put_netmem(netmem);
++		put_net_iov(netmem_to_net_iov(netmem));
+ 	else
+ 		put_page(netmem_to_page(netmem));
+ }
+diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+index b25d8e2c9aafe..23a40e1ec2b15 100644
+--- a/net/core/skbuff.c
++++ b/net/core/skbuff.c
+@@ -7555,23 +7555,39 @@ bool csum_and_copy_from_iter_full(void *addr, size_t bytes,
+ }
+ EXPORT_SYMBOL(csum_and_copy_from_iter_full);
  
+-void __get_netmem(netmem_ref netmem)
++/**
++ * get_net_iov - acquire a non-page_pool reference on a net_iov
++ * @niov: net_iov to reference
++ *
++ * Acquires a non-pp backing reference (binding->ref) on @niov regardless of
++ * page_pool membership, warning if @niov does not support non-pp references.
++ * Counterpart to put_net_iov().
++ */
++void get_net_iov(struct net_iov *niov)
+ {
+-	struct net_iov *niov = netmem_to_net_iov(netmem);
+-
+ 	if (net_is_devmem_iov(niov))
+-		net_devmem_get_net_iov(netmem_to_net_iov(netmem));
++		net_devmem_get_net_iov(niov);
++	else
++		DEBUG_NET_WARN_ON_ONCE(true);
+ }
+-EXPORT_SYMBOL(__get_netmem);
++EXPORT_SYMBOL(get_net_iov);
+ 
+-void __put_netmem(netmem_ref netmem)
++/**
++ * put_net_iov - release a non-page_pool reference on a net_iov
++ * @niov: net_iov to unreference
++ *
++ * Drops a non-pp backing reference (binding->ref) on @niov regardless of
++ * page_pool membership, warning if @niov does not support non-pp references.
++ * Counterpart to get_net_iov().
++ */
++void put_net_iov(struct net_iov *niov)
+ {
+-	struct net_iov *niov = netmem_to_net_iov(netmem);
+-
+ 	if (net_is_devmem_iov(niov))
+-		net_devmem_put_net_iov(netmem_to_net_iov(netmem));
++		net_devmem_put_net_iov(niov);
++	else
++		DEBUG_NET_WARN_ON_ONCE(true);
+ }
+-EXPORT_SYMBOL(__put_netmem);
++EXPORT_SYMBOL(put_net_iov);
+ 
+ struct vlan_type_depth __vlan_get_protocol_offset(const struct sk_buff *skb,
+ 						  __be16 type,
 -- 
 2.56.0.212.g129ede20d9-goog
 
