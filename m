@@ -1,94 +1,129 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 608964A4EE3
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:25:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 862414D9F6F;
+	Wed, 14 Oct 2026 14:25:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791987923; cv=none; b=Eu9KJ40W708PWNBhjbZuBnXSoDAo7MGHu0Wf3ZUDQVYcMYxZqKy1JymnYr4Pq0YntJjX/7S6Mcy+CKevPbgLzLi4AbO7VAV+z2vJhobCoNCPwJ19IrjwBylCmB+OKDrRagO9K1oPkduCnHf1MbG+6ft5XJxs80PyaUIU2xCvfpM=
+	t=1791987923; cv=none; b=WoSrwOg/MGTRCRKuNM0P8PSzKh6HVzQ/6KnWX7YonRYrvGUKAixkWw9udEHBATutQuAd1cGTVg9CwPLBMNFyDF5Xgyw9/8eoSWdiv4rV0E/9qmhoBfl8AuBBLZwY8yaF/QJeE7bkiBP6TnzsOb13PK5QEWD3Ysp0Qs7SAl0I5Lo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791987923; c=relaxed/simple;
-	bh=9BcOrCzR6gAXMvgmdiQwipkPuYztn5ZkvYaCNoX3tsw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=U+u6+sZpD6gCGRkYx6GEqv3+9Lzf/DNpXDdfiYy5yxqyim1IVIQB+dlSlZS6VZhCNoKBealL6lxbdXZa+Snk62v8Es/nBNrEtasGOhz4YuSLBl6mbj85eGXEiCBhjZIlkFrzST65p6Ob+sk8sKIa6HKrfyP52Kro0Yp8Gf9FkhA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UCw5FWmF; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=qHCBKJ3jo+4lzkQJ9pTARxCCZVLjr1FooGzhD15myrQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jhvUIn1coFEzENefefje1eIZh+IlyZrLkMW+Rp63KhDDyu8cMuNwhWyN8QrtEqYsxa1eq/d9o9GPFUbK92vwM/bljBvEIW6zm0KUoNQ9bhTabjWIjBypfnBwEcceo6nRqrQjzp8SdRkQ/VfH6aOR8ettrmt/phcMb6X3cD06btY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=YQBRy6GD; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=zqKq2jAg; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=YQBRy6GD; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=zqKq2jAg; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UCw5FWmF"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49ff680331aso12324765e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:25:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791987920; x=1792592720; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VQG5ncX3bdDAIOH4NS9CA+tA8TxC9eCZibMiRHEnU7Y=;
-        b=UCw5FWmFd3mV5kOv0SQ+C/YO7e7oUgrGO1mb20iO4u+QQm3avyE0+1sDJDTDpFYTm1
-         pS7j5+RGkyYWrqgbQFC4Dnz1JVRmNEyXkyy5+xu2edOTzDWBxnY48XFqk4HBtBNp8FqL
-         AeNTxkqmdgNCTGI7CW0GCMJPkQbKC2iazSKglX7GmirY6YSh+fM4MG5P8VOf7Y5M6YmY
-         MdoRuJsjrnE6aPRdFWWfDkX9XCUDWnj1SQlPrEEFU6fZI2wbhwVTwcBW8W/lkUMXGjFU
-         VU/ZImIAxikC/c+UT/tSYBTXFkWBnIUEEGzfrUZ805Gnco2Y2DEXBCee+Z3BRGvP8Rmo
-         MCFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791987920; x=1792592720;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=VQG5ncX3bdDAIOH4NS9CA+tA8TxC9eCZibMiRHEnU7Y=;
-        b=Gy/Rme3P0/QQ330gYEcEIWtVHcsCXtUKEQmi6qbbkoxaCrCZRYM0qJZu8oquq8vkR2
-         5leEGOv2/mTSQxfhsIMLzN2Qq4AsyRkwl5ZlZaz32J0Habke9Y/mpwQjtyjnCRbeQDvH
-         5nmb9kAQEm3XBcxbQKLnIm30HYjCMqk4H/2F/mKK2Vm/6dBFElYaEfGnwWeo6vChcz2+
-         I3+O1S4OdaIU2B5SpAzgg33AbVjF8jvQiKso5iV3OSxuHM8YcHnASYoiD3gMxuRA6mo9
-         rBWmwKT4qZ9gZDc71I3b2JEtQk4iCFyMPdru6yZuqdykpOZ0MfvLABv1xrhDAMhHmjnL
-         YBeQ==
-X-Gm-Message-State: AFq9FYISUTiam1/aFJi17EoiiPSzaSAbqg4+ExYRBqjjpBgPzVkg0Wsk
-	M2waCO+v6IxpM1hznSXLpSFy0A5XtstTS8l7V+ORFqhQmji8Z3VAz2f2
-X-Gm-Gg: AYBFou1Ak0d6YRlB/Ol4nxpEMVcVsblIQRraGkuBlMtxBaj2yNDirInW1AFqSM1Kans
-	8P0Uda349RTdJnC6sgDRtx2MCNaKC9yRyv3EceRefamltTOqwK2AM2CHByNxB6km9ZD6pvHwNUZ
-	4ByaQu+4tX2c9kBQDeU68cgOeH4VGFIKy1REyH/VjIuZUYBjzNnL108iVAvpgA6mLA4fYdF5pib
-	y63OhflvEzfRJh1MZivPfGpZrVLNnQf2xxmNGUZl0VpBOOYbRkGnrxSuL3HiWmtJyM6QwS1UzJw
-	G8tHYZjk53qLqJQWtjmeBFRNbb/Sfwz+mlvoHEINK+7P5j/ze08K1XOJFR8ytzspz4EqKYUYaYx
-	nEC5Zj2KxfoCWX/cWwfkEkhaXZf1ftVCVAjt7xMblWxo9MwLxKK4NUPWDUUNFKW7j2wJZecL0dc
-	TRI8OVH0NTgvj08NhL9/ziIIfFfB8g2lL5+eqO0e08UIfic3sWOJPZdgToDeCFrN67lWxI2dgoC
-	1beSoGlncmrB16JCeWnzSHWKSgKcoNzZVV4vxUGFfqodOpdfiZmZOrISHvnG5O0/w==
-X-Received: by 2002:a05:600c:e547:20b0:4a1:946c:953d with SMTP id 5b1f17b1804b1-4a1946c968cmr184860545e9.27.1791987920328;
-        Wed, 14 Oct 2026 07:25:20 -0700 (PDT)
-Received: from [192.168.1.28] (29.pool92-59-2.dynamic.orange.es. [92.59.2.29])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bcf0d60esm4678655e9.0.2026.10.14.07.25.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 07:25:19 -0700 (PDT)
-Sender: Julian Braha <julian.braha@gmail.com>
-Message-ID: <c1618f16-ca8c-4e18-8e8f-13f941898f09@gmail.com>
-Date: Wed, 14 Oct 2026 15:25:18 +0100
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="YQBRy6GD";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="zqKq2jAg";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="YQBRy6GD";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="zqKq2jAg"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 73E1022047;
+	Wed, 14 Oct 2026 14:25:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791987920; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=zRYFMQ+Fp1MksD/NvfSk3lfs/dVEV4G5R4KVYXNA35g=;
+	b=YQBRy6GDgxRlg1t1sHQeO2Fif63hw8Ynr1/9pU50cGh6OagKpDjXF1XzpIhlHKy0UlB0a1
+	GiQV2XDtTQXU1N1i+L3poiWUvOD9ASfEg9X91F4iaQQ5hvgDxvylZBvYzSUxRKW1fMQpEn
+	x6kzvzFTkSBeig4UVD8YTO6LoMJ8ESk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791987920;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=zRYFMQ+Fp1MksD/NvfSk3lfs/dVEV4G5R4KVYXNA35g=;
+	b=zqKq2jAg04TCf7nqYZwGR1Z5OIzPxJztHOCIci2t8h8j4G7UjjV6z/S8QUfOCuAgRelaoW
+	tWmR+ZBCGdJzk1Aw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791987920; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=zRYFMQ+Fp1MksD/NvfSk3lfs/dVEV4G5R4KVYXNA35g=;
+	b=YQBRy6GDgxRlg1t1sHQeO2Fif63hw8Ynr1/9pU50cGh6OagKpDjXF1XzpIhlHKy0UlB0a1
+	GiQV2XDtTQXU1N1i+L3poiWUvOD9ASfEg9X91F4iaQQ5hvgDxvylZBvYzSUxRKW1fMQpEn
+	x6kzvzFTkSBeig4UVD8YTO6LoMJ8ESk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791987920;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=zRYFMQ+Fp1MksD/NvfSk3lfs/dVEV4G5R4KVYXNA35g=;
+	b=zqKq2jAg04TCf7nqYZwGR1Z5OIzPxJztHOCIci2t8h8j4G7UjjV6z/S8QUfOCuAgRelaoW
+	tWmR+ZBCGdJzk1Aw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C539E1368E;
+	Wed, 14 Oct 2026 14:25:19 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id xkaAEM+Qz2ryewAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 14 Oct 2026 14:25:19 +0000
+From: Takashi Iwai <tiwai@suse.de>
+To: linux-sound@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH] ALSA: pcm: Apply sync-stop at SNDRV_PCM_IOCTL_DROP ioctl
+Date: Wed, 14 Oct 2026 16:24:52 +0200
+Message-ID: <20261014142454.320703-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] kconfig: show number of search results in search UI
-To: Zuo An <zuoan.penguin@gmail.com>, linux-kbuild@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, Randy Dunlap <rdunlap@infradead.org>,
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>
-References: <asvB7fchdB8lUkMc@gmail.com>
-Content-Language: en-US
-From: Julian Braha <julianbraha@gmail.com>
-In-Reply-To: <asvB7fchdB8lUkMc@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Spam-Score: -2.80
+X-Spam-Level: 
+X-Spamd-Result: default: False [-2.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	RCPT_COUNT_TWO(0.00)[2];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_NONE(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_TLS_ALL(0.00)[]
 
-On 10/11/26 18:05, Zuo An wrote:
-> When searching for config symbols, the search results popup
-> will now display a count of the results in the title bar,
-> e.g. "Search Results (42)". This helps the user to gauge the
-> number of matches quickly and refine their search if necessary,
-> instead of having to scroll down by an indefinite amount (especially
-> for nconfig's UI).
-> 
-> Signed-off-by: Zuo An <zuoan.penguin@gmail.com>
-Tested-by: Julian Braha <julianbraha@gmail.com>
-Reviewed-by: Julian Braha <julianbraha@gmail.com>
+When a PCM stream is stopped via SNDRV_PCM_IOCTL_DROP ioctl, it calls
+snd_pcm_stop() but sync-stop operation is missing.  Although this is
+usually no big issue, let's add snd_pcm_sync_stop() call, just to be
+sure.
+
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/core/pcm_native.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+index 6c379068b54c..7ffbf2c0ea92 100644
+--- a/sound/core/pcm_native.c
++++ b/sound/core/pcm_native.c
+@@ -2332,6 +2332,8 @@ static int snd_pcm_drop(struct snd_pcm_substream *substream)
+ 	result = snd_pcm_stop(substream, SNDRV_PCM_STATE_SETUP);
+ 	/* runtime->control->appl_ptr = runtime->status->hw_ptr; */
+ 
++	snd_pcm_sync_stop(substream, true);
++
+ 	return result;
+ }
+ 
+-- 
+2.55.0
+
