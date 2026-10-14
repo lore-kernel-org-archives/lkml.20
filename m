@@ -1,203 +1,121 @@
-Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
+Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com [209.85.221.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7553531327F
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:58:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792004328; cv=pass; b=A8ahIXIPqciPDUYy72BmmfzqRbzU1qcnkR84oOfKgbPNUiCNwuxU9lqSWfKZY9XY9qe7cr1uZoSZGUbjQKm8PqRdI2OmdsOio0SWrfpUNmA1DnTSYsYa8MzwuZGhANj7tZoLFEBr0ZK5k9NoKpU1qc2iAnzlFcwy54ruFyo88Mg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792004328; c=relaxed/simple;
-	bh=oQGi52Zv+Rg61x52cly5GAX57DRoOmDyMaccDzINtwA=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=TYpMftDDozC2UWvPpF3R6pIgQDmMu1+RCO1KT31EMw9OYDByC2QVj9zFMuCOpebVeU3XeU1DhwsRXzdYsRNBsLQ4fMpaEnBSzY4PzNL4VSpKkwsMQLhWQ6qvzcaUJJSUrzSFJSd6d5QSh2KeksxqO5nfXpkrJeVsa/s+dBqcKG4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S5tOa1Nf; arc=pass smtp.client-ip=209.85.161.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D25CC563FA7
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:59:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.179
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792004353; cv=none; b=XIiNwmhcSYcE0lKylOHGSeQefq1QVgsa5b8yraSmQ3ue/80y/TMLBAvJERPtpMC+6bfE/LsHYQwDZ081ChG/Y9Pgdemr/+efV93kU7MojzsIt4c0puU8Uv9C5YCUBWbC1yhA8gxHxtnaKkzTV+rr0UY7y6wBuY2KgjLwJxmHV9g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792004353; c=relaxed/simple;
+	bh=Rk54IAaE6VVUUw2LLHOVHkQVqBe3J7+3RvRWEEH/U2c=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=KvyHPV0iBGl78U0yV1pcEYVpLywLDGa61pybzAefRcW+Oq1VdEQjZdQ+0a5WUMtx/mjMbrLnehF3Za2gRPMFTCYPxdS8+44XEVZjFbKjOm5onKDdKXkli2iKbIGTzVjyOTLzDp5f97wcY7ab0alqUIz6lkpPo0FyaSClMt6sgqM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ACUdX9uh; arc=none smtp.client-ip=209.85.221.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S5tOa1Nf"
-Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-6f74f6b46abso1830265eaf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:58:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792004325; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qFWaP/g83xev3HwOTpzdeolJG9GOZ7LbOE4Bf/6zO8jJo5sC0OM6ShobRhahe2fW10
-         2Gd4quXZdmWHcB/B17JY15+H3xZqBZSg3kNkng8jQG9sMhgmDVnW8Lpp1RuWvtJqvZKX
-         eF74B8XAk6xP9394D8KaPYId3kHjR+3qk2h+0nFA0OSAuUfkxbDQ4kz9jD05WfGMxM3P
-         FSIyr4yW+X7Kv6wk8yb3blJlyh8XqxDY1rXUJetXn1221enfAC+4UJj6Erw9hoNQyrac
-         FbLZlv5YkXoBp8VvWLSZbqM0ANFNwQAFzGyqFt1bYTgx9hrWXgp8dZfPp/ZsYRNPbMx2
-         S69w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=qQYADrrRaAWJPqLNgvfLhamZdgRFbtqBg1GoIOOyW+8=;
-        fh=iZljdwEtkx1TrPaPi9mFGGZ6U7wLUb3nyfjJoGIsFcY=;
-        b=SRFUzqMOj9LLL+bs7961qhhytO5KpDJ/+NXVnenVVIqepwQoQEj7EHcpdXSQHxrvLS
-         koMZtBaKVDSrVJ5mZdMSCmR7iOy96WhuCfggPk/lxvHkjkfn8+bfNTRqDJX6c+wU3hp2
-         emywGVcaeuJpgY2gj0AVx7tMYGKtZaCBb52b3kR7RLqYUNeJjmrnjcTM1yBzJbH9Eyxn
-         nKeiUmgbnAwU5+QHReG/jn7JXuScyanSUUqBjlrtz3fb91XhixhFV0SOpZG1PwIEowf0
-         eENEmhgiLx3I0x8ny3hCBv3JsezgWt/bBWzg1hJWyuvTH604zOqWKDyJ16qNMHeod+pL
-         sHZw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ACUdX9uh"
+Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-5e9488480cfso1522291e0c.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:59:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792004325; x=1792609125; darn=vger.kernel.org;
-        h=content-type:to:subject:message-id:date:from:mime-version:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=qQYADrrRaAWJPqLNgvfLhamZdgRFbtqBg1GoIOOyW+8=;
-        b=S5tOa1NfsyS+t7Rj4sGa7biH/c3u15VBc65cvuVOWS5X7Ppxd4BvfDjpFLwf/KrG8/
-         buC53tci2bwbCKPEry/spa9L0T5SnBintGeFgL4mHSp+bbyW19kZWR7hZXBf1P0edOjY
-         o0aP563eShjsYyhNXkJNjC4NWNXSy/dEyt9/HUv4O83P2RDtYstRshmoPJ9JErVrGiav
-         I1RibEpePzicxycEncuYu8m3cTQDVnsgXlb04Fe1IeeaYZYUlI1IaIZtS296SL8FCYqj
-         70ZHpIj2Z8U4Y6/lpwbrKZQHEqIHi1o2dcf220PHWFuSPlZKa98cZEZ0893RfsZty4DF
-         IKcA==
+        d=gmail.com; s=20251104; t=1792004350; x=1792609150; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=LubmNDov+kRdJeSgDmNkTIoCyYOuN6AaFESo8XksX+A=;
+        b=ACUdX9uhrjCQKOJNqny++2sBR8t9Y6CrMAgUBfktaL/EF9F1nnfYH5IMEf/GDjjFGt
+         QA5VTDoOGMvg3vJybBlg56rMVFd5NkHgVijKVbD8i51daSkxfMwtLEjgQy0lpF5UBdmI
+         VMlVOXW8oEgddav0TP9GZT5Mr3ycKRToI9WhY7BOSbApSNCS10G+etk+v6HUFcau5Kqf
+         2nGjWFB/i6zxDoQGqUMD7BNaif120D1yDDUzvaV3PB40SglQZnkaMYWi6BTkEGxNSU6E
+         yIsb2stFBpB747PFuJRhoV3q60H20gP6xU1cMrAXEMbJ4vqMcX3+8UofL5iE4FiAiqtz
+         2uWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792004325; x=1792609125;
-        h=content-type:to:subject:message-id:date:from:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1792004350; x=1792609150;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=qQYADrrRaAWJPqLNgvfLhamZdgRFbtqBg1GoIOOyW+8=;
-        b=Iy3u2Y3pGAJUZo2YudxzyPCQd6w3YjSRZl8Jr2vDxbzCP7AOBtBV1JIK758pIbIt6e
-         bb0F5Kjok8GBHekYzHSpr0GtR9nE1H4YRRCPwPjVzu3qpDju1+EPz6pvLm8tyfiDVDq5
-         onSP0W4WQAG4cR+1nRLbviamZ+NNLpZ3iZqZhraNqEzbaT89qSlqGuBy+IKhEncWZUF5
-         V0qmzioMzqP92NwyEyy/Zv0949ojUzrUGDBiZPfnEeZMZLw7/F8u4hZMJ0yotPLHB7Um
-         0qKZEdeCqDjkHtMhLeVfC0ATQumxkI7t5eKQJzD9W+YRGB0Pj+bkc2dzpqM0J6BZw7Yu
-         vAmg==
-X-Forwarded-Encrypted: i=1; AKwUvBx1yEinIMQg4egFf+us/Fz1GxUGCEhNEfyFMLQ7HdFV1PiH1Us5ymtVGAF+qYQyYRqQLP0EKYPEz7vEa+k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL8af52vkCBAl743gtpF4XKnbDv/B0hPh4JUp3OzP1KFNn92nTu
-	E2vERloOpmRDdzGUS/I8y9Ehwl1+AP6empcchizgZICWcW/4XXLRt6e3U3tJdUJZFEfRBNKhILc
-	ud5+aWx2umckB1cwIGjdl0KmT0VW+H89h5aoZhVw=
-X-Gm-Gg: AYBFou2taOml8x57BeAvDmnILoQqHxqu86GCKAx4l4b5NhbEms+78oE6W8DTIOcuOyd
-	kwWv/14l+zx8AKrOqMw2vit4YEdT9ERR5fYNOMSeiRBBDczDjcT9XKoGl44Sc5mwOid7OmsYRvc
-	xi/OsWiu60LOCzSvs6LZuOUpl1srHMqfo7D3imKDMI6VRxNN+kuaUDJVn+QpmZ0JqF8Dpzf5t7T
-	l9OKp9t7dK71Tq4SLpUCJrsUFOKiNpsCg+jL0mzlblK8e3LRdc1kkBttiQ+nKKyi9MvEI7fLL5K
-	18GGrmCJA6gjvUmeJouANpD4Oem4oePuQ6vp6S/d4KyQyjAkLvQGtZQuxFiqGCSV0FRAQf9Z6C6
-	3uwT5LMnb9wI=
-X-Received: by 2002:a05:6820:198d:b0:6df:cd30:fe7a with SMTP id
- 006d021491bc7-6ef10e74d79mr12271268eaf.79.1792004325244; Wed, 14 Oct 2026
- 11:58:45 -0700 (PDT)
+        bh=LubmNDov+kRdJeSgDmNkTIoCyYOuN6AaFESo8XksX+A=;
+        b=oN+5pxKfNN6gHN1AiOufg/Ljk1lseavd1LBv5FKqclUWE2GbGHOfl6vGcUiwRgvdm0
+         2OBFvs6xYm4bQbQMLIEkPtCWrXAlUEECRvdk2rsH3x28TCgjHLFDQzmBTKxdjjZBNfOU
+         rCpzYWB9c1RzLcdsADUIfLKHdUkZsDVZxtsfgxX4HsyACZF9AzmLBKHwA56q4FBtBQJu
+         RE68r2hp+uhMmQgp/MSFPwnbvedBqMZwRm6tyhGo2R41SMeLToJeHWwxIVY2xpkHWtEK
+         TG14NrJpgnEOXVyLqpOFpnsPhNTnOmHOo5NbOcdyyqQsr3Lt4DuBiK7eNjilsZHBTqIm
+         /drw==
+X-Forwarded-Encrypted: i=1; AKwUvBwY2Kk/vKU9s7URs1UOJivoUlUA1DZWLbr2tcFwsS2GfBB0ejJOtqPwuVIqt0NNHW06mBu77GGcs8N5lo8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIIiZIUnyfYCOpD8hij4hLiidzs+310aTiKd5jQvh/QBemFs8ri
+	4eScugUBGDBQTpOtEX6FkJTCRm67W/IMzX6JYecLnlTw/BWW+UzCnXga
+X-Gm-Gg: AYBFou2sW4P2dCHsoZPw2rcT8Li8Njy7p/Ta16OXkamwLRXqptcIJq89eZ+SNCMVnu3
+	kL4Cpy64FKGpTmEs6k2jgSjfxu4N3dyirjuJC2hUXFv6//JcyLiKk6v+d/izedos5AmEm93YIpb
+	hmAtzZRgBtpl1HfRIe04f9NEttNlGdxXS/QjwocDhiPeO+xEGqxFGQ5/qTQPgKdjy/7BwcBTPzm
+	9F79ShRvVmmFXxkcYWNVXGbjprlpqpCUSu0BxS3d1o1d7aVJVfj+ikhwrr97y+0VFSgY1W6C/9p
+	8bVdWI5p483JXSsJIY5J9ESbbrCA3Jxve9F0A1GCdUss15L7+AaD7bf47KR831+zB6bXTcZrYd3
+	NDM6/Lx1vhayyjSvCUJ5PrdiRZqUTN8Dhx6YPKi5YkoCqeM5K1WKaG+jVL7Vcf/sO0nS9EVlCdx
+	mDorq+ufK5iY09YG7X6MQKtpTlg5bFF6fCEtZmhLsmq8fFgOsGk5XkS7eutZoS3hcTTVw6NX8gE
+	aJ+gb4bC9Zpyb8QKaDj5J8pRc1NlkRFr+rsNc9KXTDOtZpNocLdBZBjn+dGX5NKk7VU/dJiLVWa
+	rUiEHQmKMJ+vw7cLOw1LcOlFYYFgwjxUoa5j6w==
+X-Received: by 2002:a05:6122:4f9d:b0:5e1:c1c8:9ff9 with SMTP id 71dfb90a1353d-5e91f28cd89mr6035507e0c.2.1792004350298;
+        Wed, 14 Oct 2026 11:59:10 -0700 (PDT)
+Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5e91cc14668sm11985603e0c.16.2026.10.14.11.59.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 11:59:09 -0700 (PDT)
+Date: Wed, 14 Oct 2026 14:59:09 -0400
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
+ Josef Bacik <josef@toxicpanda.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, 
+ Kaiyuan Zhang <kaiyuanz@google.com>, 
+ Mina Almasry <almasrymina@google.com>, 
+ Willem de Bruijn <willemb@google.com>
+Cc: netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ bpf@vger.kernel.org, 
+ Josef Bacik <josef@toxicpanda.com>
+Message-ID: <willemdebruijn.kernel.1725d296e3ac6@gmail.com>
+In-Reply-To: <willemdebruijn.kernel.140f4eac91ab3@gmail.com>
+References: <20261006-b4-skbuff-bug-on-v1-0-1b4434c5357c@toxicpanda.com>
+ <willemdebruijn.kernel.140f4eac91ab3@gmail.com>
+Subject: Re: [PATCH net-next 0/9] net: skbuff: convert most BUG_ON()s to
+ WARN_ON_ONCE() and an error
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: David Kahurani <k.kahurani@gmail.com>
-Date: Wed, 14 Oct 2026 22:00:04 +0300
-X-Gm-Features: AclHuK9GZwR9je4XtXlIpYdRJKoe9w5rm5gI5FZiieQaa-ys70m4mpv8uYrxGKQ
-Message-ID: <CAAZOf26EfiOrr1Y5pnfCsP49+jLc4dRAW-CgrosUKh+g=5eG7Q@mail.gmail.com>
-Subject: Comments?
-To: Linus Torvalds <torvalds@linux-foundation.org>, linux-kernel@vger.kernel.org, 
-	paulmck@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-Yeah, comment available, from me. Thanks for asking!
+Willem de Bruijn wrote:
+> Josef Bacik wrote:
+> > I'm going through and reducing BUG_ON() usage in areas that have created
+> > the most problems for us.  89 commits in the tree quote "kernel BUG at
+> > net/core/skbuff.c", 31 of them since 2024, and some of those could be
+> > triggered from inside a user namespace.
+> > 
+> > The first patch is a fix: skb_copy_and_csum_bits() leaves stale bytes
+> > in a buffer headed for the wire when it hits unreadable frags.  The
+> > BUG_ON() conversion of the same function needs the same handling, so
+> > it's here rather than sent separately.
+> > 
+> > The rest of the series converts 17 of the 19 BUG_ON()s in skbuff.c.
+> > Each one becomes
+> > 
+> > 	if (WARN_ON_ONCE(cond))
+> > 		<error path>;
+> 
+> Good idea. I was thinking of doing exactly this sweep after addressing
+> one case recently in commit ee1972def665 ("net: downgrade BUG_ON
+> EIOCBQUEUED in sock_sendmsg_nosec")
+> 
+> Instead of WARN_ON_ONCE, which still triggers a panic on systems with
+> panic_on_warn, DEBUG_NET_WARN_ON_ONCE?
 
-"...So I've shown this series to people in private and talked about it at
-the kernel maintainer summit, so some of you have seen earlier
-versions of this already.
-
-This was triggered by several attempts at improving on the scalability
-of page ref handling over the last couple of years, particularly for
-the common case of normal [p]read() system calls. Willy reported real
-users having scalability issues in that area a couple of years ago in
-a discussion about buffereed IO scalability limits:
-
-  https://lore.kernel.org/all/Zds8T9O4AYAmdS9d@casper.infra...
-
-and I had a very rough first draft in that discussion:
-
-  https://lore.kernel.org/all/CAHk-=wjOogaW0yLoUqQ0WfQ=etPA...
-
-and it was broken but close enough to working that I kept using it
-locally in my own use for a year and a half:
-
-  https://lore.kernel.org/all/CAHk-=wj00-nGmXEkxY=-=Z_qP6ki...
-
-until people pointed out just how broken it was.
-
-Then Kiryl had a slightly fixed-up version of that approach almost
-exactly a year ago:
-
-  https://lore.kernel.org/all/20251017141536.577466-1-kiril...
-
-but that too had problems.
-
-After that, Ilya Gladyshev stepped into the ring with a very different
-approach to it, which is now up to version 6:
-
-  https://lore.kernel.org/all/cover.1789239015.git.ilya.gla...
-
-and still has some outstanding known fundamental issues.
-
-So for the kernel maintainer summit this year, where one of the big
-topics was going to be LLM use in kernel development, I decided that
-hey, I will try to actually *solve* this thing using an LLM to help
-with the issues these things have had.
-
-[ I also did another series for a problem with the assoc-array
-library. I'll post that separately - that was a lot more pedestrian
-"just clean up the code in order to fix a bug" kind of case - not at
-all as interesting, but a fallback in case this more interesting
-problem were to not pan out. ]
-
-Anyway, the end result is in my kernel tree in the 'rcu-free-v3'
-branch in my public git tree. My 'v2' never saw the light of day
-because I kept cleaning it up, but an earlier version with some more
-background is available under the name 'noref-filemap-read-with-llm'
-and has an empty commit with more commentary and background at the
-top. I didn't do that cover-letter for this v3 version, and it talks
-about some issues that already got resolved (and others that I don't
-think are actual real problems, but should be discussed).
-
-The fairly short series of ten patches basically enhances folio lookup
-by noticing when folios are hot, and setting a "delay relasing this
-folio until after a RCU period", and then using that RCU delay it does
-not just the folio lookup itself under RCU (which we've done forever),
-but also the actual folio data accesses themselves under RCU. No
-refcount taking needed for the fastpath where we can just read the
-data from the folio entirely in an RCU-protected region when the user
-copy doesn't cause page faults.
-
-Unlike my original approach - because it now actually delays the
-freeing of the underlying folio data - there's no need for any double
-buffering, and a lot of the original limitations of my original patch
-go away too. That improves performance quite a lot. And by "quite a
-lot"  I mean "I see a 23x performance increase on my Ryzen
-threadripper". Admittedly that is a very artificial case of reading
-the same small part of a page over and over in a threaded loop on all
-CPUs, so any real life impact will be much much less.
-
-Anyway, I wasn't planning on posting the individual patches, I think
-we all use git by now and probably find it easier than fetching
-patches from the list. So it's all at
-
-    git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux rcu-free-v3
-
-and the commit messages are a bit more verbose than I would have done
-it myself without tool use, but maybe it's better that way.
-
-The showcase number is in the "mm/filemap: read from the page cache
-without folio references" commit:
-
-                               reads/s     cycles    instructions
-                                          per read     per read
-   ...
-  64 threads,           before   13.3 M  19857-19939   1094-1101
-  64 threads,           after    304 M     735-736        959
-
-ie the number of reads per second had plateaued at 13.3M due to the
-cacheline contention on the folio reference count (and the cycles per
-read had ballooned up to 20k).
-
-And with that scalability limiter gone, it zooms up to 304M.
-
-And again - that's not a real number in the sense that no real load
-will ever see it, but the takeaway is that it basically scales
-perfectly with no writes to shared cachelines. And honestly, the
-patches don't look bad, and it's possible that other cases might find
-use for this RCU-delayed page freeing..."
-
-Comments?
-
-                Linus
-
-Can we mark everything as RFC until it's provably tested? Especially
-if it comes from AI / AI assisted?
+Just to understand: do you plan to resubmit with this change?
