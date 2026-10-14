@@ -1,90 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2B5239D3D0
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:46:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F39034041B;
+	Wed, 14 Oct 2026 04:47:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791953215; cv=none; b=ESPUTFsHJi3TDzbyZefoHuWjk8PCyQA+9HpaBKK93xc4CR56FXwIDgJmuSQ+nscVYyL0Vvu94lm+dVA3S4WW9S8wR8x1v3vtlOgQJjYyOD7bMt4GsU6RzWkvptyJ9cva4PfINoelV06vWNqlZ3G66NAAQA+lm/bZVQ4Ia1UovW8=
+	t=1791953278; cv=none; b=mQCz4PSL3amT8z+KIKBiWNbZY1fg9x+j2LaS8cXXU6/sQlEMtxzk19hNuey22ayr1laMEp/FF0s7BLM/GlBxwbVZ6lWNJkJZqHPRtO5b38Igdnl0f32DKDk01GEhfFI+CQgqCrhDYUKLyiIW8ZcQa+yINRq+Djack3GI/hgc12Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791953215; c=relaxed/simple;
-	bh=YdcDYQHnvG8d50ez60dcr6M46F9miUwHHwv/BLN639I=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=L2N8pN+iy90u6sWGhpCN/z1Y2MCUaRKzkFxefpHndS0S+T6pDKY8lSJFflKleKYDaFOzvKQdb7IExu1Ym/ydYYXZS18/B61G1i2oel4W8pqA4kfJ+3kU4Lsdt6dZi+ZVEW4RNckIo45X8Ng1Cg4imM3Gdj8eHLYVp9gxWrCeVZ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ynn2eBTU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791953278; c=relaxed/simple;
+	bh=3HxdIodxvqDy8zLP11Zt9JaYGoD0FvpuHddar5O6S2E=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=dZMEg3mw860tISlfZ1himcNNo8R6/R4RKx9HFQ2gMh8U/p2inCzdyEJQrY2S1JM6wVj5MVFRcETXSzKthTY68D6QWHnExigwR59z5OXTXf2/+DpXIMAMQhYBTUeoEYxXuSi4EQw4bAgzIkRUpc4e7K+/0Vsr58g+tC/gQsMZwH0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=TdVQgEiI; arc=none smtp.client-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ynn2eBTU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 400CA1F008A1
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:46:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791953214;
-	bh=GOBAAntqs+1udpw3fkkHGyAvF+q+wF+2NHy3MJ/XtcE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Ynn2eBTUc3w60hIV2e288f6OYMHEdO4qJI26rrf1lVAyKpxPGrnZc9kownP87KKEQ
-	 IKXLYw2lhm+Zz71F6eJlpA8jpO3TpRM0TOy2uPC0cbVt5CkQNuCG0p1g+BXPq2y69y
-	 n0ODVYMgK27HfizdR5eHGEpwpba/qsVKtsQPhsWVqr/jmjfssBYWqtCKElsXthRTqm
-	 /4GKAluI8u73xS2JfxrGL+x/rrHH7zE04N/qRwfxqlMY1Yw3xs6kDMX1MUk8opBGt/
-	 qvA7JKnLRpEoQ2BI7MwlYGVwy6Otke0zyYx4dv3UNgctuvPafrPLXnhjmC0VisP06z
-	 OXyI54Vx0BOaQ==
-Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-93cbc3ab2fdso167292185a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 21:46:54 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzPBJmvPH1A033EJKGr9voJ+VRekXgKi3EImsCZt9h9DtxiqjdGQt85LkIPFj6E8Ge0DvZk0Xfy5yny9zI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI09Nuza6ChQtCLxDfaRSxtGenjqcwjINemVSDkrrmIiN9mhNYs
-	fZtaEYwhngQV5KKNui2o5IduZJip0rxsEjho7Zc/o69iYzpJNSbpKIRe4K1SDcMSaari7QMemSx
-	nfrzil2M+wMmpUz5xiqepakxqsd5ZcNw=
-X-Received: by 2002:a05:620a:370c:b0:93e:7944:b874 with SMTP id
- af79cd13be357-93ebd244676mr2342724585a.33.1791953213386; Tue, 13 Oct 2026
- 21:46:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="TdVQgEiI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1791953275;
+	bh=F9WWTCKHYk7tgfb2e93KmQU8fxBtczyT7NWtjQ+eaG8=;
+	h=From:Subject:Date:To:Cc;
+	b=TdVQgEiIstrPi0mxbGr6kd2p2a/LlHjq6G4bEsawt2z3SGie1WOTRsLhqyu5WZCQR
+	 MKugGjy+geWs9swgxtrYdXtkagr2toa46Lwgj3GifbL05Pp8v4VHL+4n8SoIUuJAPx
+	 i/aF9ZdP1OStB2ZCP6QvIyENuxR8OO/Em4PKljVm22+0BuEjKAXcd4ySML2EVteo+c
+	 TmUzEyHQLcg/9qUISGp0aPEKOMX3tcDsQHTf5BOUsbuI4vdKv0rIQIZGgb/NT5AQl0
+	 3hRKoDCFpr9DQnKSUn8FsTFeW2y5DkQouW76rC98aTjIoDRw880ujHbE8HW1WYcTds
+	 789HD7uUkKjRw==
+Received: by codeconstruct.com.au (Postfix, from userid 10004)
+	id 01B2D6FD4E; Wed, 14 Oct 2026 12:47:54 +0800 (AWST)
+From: James Lee <james@codeconstruct.com.au>
+Subject: [PATCH net-next v3 0/7] net: mctp: usblib: Increase coverage of
+ kunit testing
+Date: Wed, 14 Oct 2026 12:47:30 +0800
+Message-Id: <20261014-dev-mctp-usb-lib-test-v3-0-ee5bc3ea1db1@codeconstruct.com.au>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261012205447.2717801-1-max.kellermann@ionos.com>
- <20261012205447.2717801-4-max.kellermann@ionos.com> <a64f6a98-de70-4004-aac0-312cb05aaf92@linux.dev>
- <CAKPOu+83bH2CRtiAio+1VTTQrYFF9th5XfG5wL45ujEavPS3Dg@mail.gmail.com>
-In-Reply-To: <CAKPOu+83bH2CRtiAio+1VTTQrYFF9th5XfG5wL45ujEavPS3Dg@mail.gmail.com>
-From: Barry Song <baohua@kernel.org>
-Date: Wed, 14 Oct 2026 12:46:42 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4y_c3TZb5=rNK-sQ5bJWozL42bGo_zgvAtY6hW5eoMcmQ@mail.gmail.com>
-X-Gm-Features: AclHuK_pOHHzKZZH_dTCG6g8kkCM2rEF8JtYxcMjCWMOy51d0raKwsKHCVbMgDI
-Message-ID: <CAGsJ_4y_c3TZb5=rNK-sQ5bJWozL42bGo_zgvAtY6hW5eoMcmQ@mail.gmail.com>
-Subject: Re: [PATCH 3/5] mm/mglru: cache the last memcg node, make tail
- insertion constant time
-To: Max Kellermann <max.kellermann@ionos.com>
-Cc: Ridong Chen <ridong.chen@linux.dev>, akpm@linux-foundation.org, kasong@tencent.com, 
-	qi.zheng@linux.dev, shakeel.butt@linux.dev, axelrasmussen@google.com, 
-	yuanchu@google.com, weixugc@google.com, baoquan.he@linux.dev, 
-	baolin.wang@linux.alibaba.com, david@kernel.org, ljs@kernel.org, 
-	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
-	mhocko@suse.com, hannes@cmpxchg.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, rcu@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGIJz2oC/3XNQQ7CIBQE0KsY1n7DBwvFlfcwLlr6qyQKBijRm
+ N5dwsZVl5PJvPmyRNFRYqfdl0UqLrnga5D7HbP3wd8I3FQzE1worlDDRAWeNr9gSSM83AiZUgb
+ sUIte6yOZjtXtK9Ls3s29ME8ZPL0zu9bm7lIO8dMOC7a+2b3EDbsgcNBGGTPOSg/Yn22YyAafc
+ lxsPtjwPAxLw4v4g4bLLVBUUKK0M3bEx05tgOu6/gDMfc0NIAEAAA==
+X-Change-ID: 20260617-dev-mctp-usb-lib-test-151728774e95
+To: Jeremy Kerr <jk@codeconstruct.com.au>, 
+ Matt Johnston <matt@codeconstruct.com.au>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-hardening@vger.kernel.org, James Lee <james@codeconstruct.com.au>
+X-Mailer: b4 0.14.2
 
-On Wed, Oct 14, 2026 at 11:58=E2=80=AFAM Max Kellermann
-<max.kellermann@ionos.com> wrote:
->
-> On Wed, Oct 14, 2026 at 5:31=E2=80=AFAM Ridong Chen <ridong.chen@linux.de=
-v> wrote:
-> > I've also submitted an RFC patch that addresses this issue.
->
-> Oh, interesting!  I did not know but your patch, but it looks very
-> similar to mine (but without the hlist_nulls refactoring so yours
-> comes with some code duplicating the hlist_nulls header).
->
-> Too bad your RFC went nowhere, that would have saved us from a
-> production incident...  Anyway, even if neither gets merged, I'll keep
-> my patches on our internal kernel fork, because they do help a lot
-> with our workload.
+Current usblib tests only check receipt of a limited combination of 
+packets lengths.
 
-Hi Max, Ridong,
+Added tests of receiving packets with invalid fields, and more complex
+packet spanning. Also created tests for transmitting packets, covering
+most code, except for mctp_usblib_tx_cancel() and allocation failures.
 
-Let me discuss this with you and Ridong, run some tests, and get back
-to you. I'd be very interested in getting this optimization upstream.
-I'm also happy to discuss it with Ridong privately, as that's easier
-for me.
+Signed-off-by: James Lee <james@codeconstruct.com.au>
+---
+Changes in v3:
+- Address concerens identified by Sashiko and Simon Horman
+- Link to v2: https://lore.kernel.org/r/20260903-dev-mctp-usb-lib-test-v2-0-313cf15e0b56@codeconstruct.com.au
 
-Best Regards
-Barry
+Changes in v2:
+- Address concerns identified by Sashiko
+- Add missing net-next prefix
+- Link to v1: https://lore.kernel.org/r/20260831-dev-mctp-usb-lib-test-v1-0-79699bf67a18@codeconstruct.com.au
+
+---
+James Lee (7):
+      net: mctp: usblib: Add to parameterized kunit tests.
+      net: mctp: usblib: Add test for splits inside headers
+      net: mctp: usblib: Add tests of invalid headers
+      net: mctp: usblib: Complete rx tests
+      net: mctp: usblib: Simplify allocation logic in mctp_usblib_test_rx_init
+      net: mctp: usblib: Add initial kunit tx tests
+      net: mctp: usblib: Add test for failing append
+
+ drivers/net/mctp/mctp-usblib-test.c | 543 +++++++++++++++++++++++++++++++++++-
+ 1 file changed, 532 insertions(+), 11 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260617-dev-mctp-usb-lib-test-151728774e95
+
+Best regards,
+-- 
+James Lee <james@codeconstruct.com.au>
+
