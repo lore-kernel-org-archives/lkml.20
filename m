@@ -1,133 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-172.mta0.migadu.com [91.218.175.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB9DF511194;
-	Wed, 14 Oct 2026 13:19:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC583515973
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:19:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791983997; cv=none; b=o5Yv8sSjAu/bVfAaSuNG9T88pLwMjI4jtQ7uXcyNDMkN3RphY+A7z2feWUNgfFvzQgHP/5K56aVJh6ghVZRUfYdg4SSmwDWtgrbhfqosQD+H+H0e828HZDQJf5mIBYz4RrvIxfjMX3/LNiHT+1draxe9ZOGReAeM9MQHO2F5Q0c=
+	t=1791983998; cv=none; b=G1YW9cFJ0qQ86YrAxWw+GILm+M4id/eQu88jHKHv4XrLfw+k+She6HaMIMUrqbReykkYbq3gJy4Y56i2+Xp5iayuaxaBnMLP0BzT15ym7bq9khMaNBsJsn61dmHnjLLlozxLc2VD319Z3hgUVAc75sREFdpjMgoQzRAWvjXjP4U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791983997; c=relaxed/simple;
-	bh=pytAkIVsLbHxQ7gQzGdJRcS6lpyfY0e0Nkh3L09jJeQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=PntGyjUeQlmOBUu+UvCFOJuReOLbJxaeXKVT2W/OfU3ybMy4BA7130iwlvQ9lpS9KxNkI9kvXVu+/Vi7IVW6SXed1ecbwMX+n6dXAyTAfKiUECY79bLhwaKa2888gVl1DHjEkEpoTFUxndLV1jR3H5zcdwntP1bqmzvluu1FWSo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dq2DkGy2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791983998; c=relaxed/simple;
+	bh=m7HcPUAMizid1DX3lRG9Tzw1zddlCTzU8zWnOAtnnRg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nNrC4UxvoDHKGBMZcY5b13kImnWRYDPeZypmiMZlM0ifo+Leg3bHItVAq9b9gT2V43Ixx9UIfGPPX4UXlHgQIzdd9zqdGzwnpdCC2iyKPEfZrjvityfeKUlFuaY/FlOumdEnoEGxsXyCplD63dgb2dd3Rxle0biHPlEoE1TFdNs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=kRRCaIoJ; arc=none smtp.client-ip=91.218.175.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dq2DkGy2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 076EE1F000FF;
-	Wed, 14 Oct 2026 13:19:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791983996;
-	bh=FEN0Cztw+BYN7XA5fORyPpV9q6g1u7RdRnzRwOfUVTM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=Dq2DkGy2908a1ZLNzPOanS6vCdxfdErYhJ56neCG59Qo7E/IEvAvIURBVoYE3o4FB
-	 LNic9MkoP6sv4UDKei69KFUglNeUN2kOaUC/OtyiEj5nuIeS2n/O1FyJCGDpXvkssd
-	 0Xr1+/oWlXOkKbloJJu7gks239NwXpaxsR2DjlZniWextIxlNdbMypZqQEQIrJcQQz
-	 AZMbPBM65ctwOgqz0GFB6HLmGk81hgBiXADnKDsoN2Q4A2y41/hOYaEnlx5JeoWYXj
-	 VrkGOhW8cy0VYBFXBxcy3jZlX2hgjeEgW0I3ePuDdt18mxFB6BQ7MpdadcdykyobL3
-	 1r7qKab3rBw9g==
-Date: Wed, 14 Oct 2026 08:19:54 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Navid Ghahremani <ghahramani.navid@gmail.com>
-Cc: linux-arm-kernel@lists.infradead.org, arnd@arndb.de,
-	stefandoesinger@gmail.com, krzk@kernel.org,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
-Subject: Re: [PATCH v2 13/24] PCI: dwc: Add ZTE ZX279128S host controller
- driver
-Message-ID: <20261014131954.GA1623979@bhelgaas>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="kRRCaIoJ"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=m7HcPUAMizid1DX3lRG9Tzw1zddlCTzU8zWnOAtnnRg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791983994; v=1; x=1792588794;
+ b=kRRCaIoJw0sJTJ/tOBQljz6AT/gufciBi0m1KrH8rJZGBnpa3mkxfjwGQPb+ELUw7hsBdCVU
+ mmxqIxcLYn0+K+Zux9JnBzXzRsy69peQpfNnW2jSJ4q0+GnbK8U14BbNpbbi8550m/0hof2d0ZT
+ ASh7FEPzd7j6QUveg7i6TzX0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b774b44408666da9;
+	Wed, 14 Oct 2026 13:19:54 +0000
+X-Mizu-Trace-ID: b774b44408666da9
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <58e8d79b-f7c3-4ded-9272-07c309917055@linux.dev>
+Date: Wed, 14 Oct 2026 21:19:42 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261014072109.1759502-14-ghahramani.navid@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/huge_memory: recheck a special PMD under the lock in
+ copy_huge_pmd()
+Content-Language: en-US
+To: Konstantin Khorenko <khorenko@virtuozzo.com>
+Cc: Alex Williamson <alex@shazbot.org>, David Hildenbrand <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Ryan Roberts <ryan.roberts@arm.com>, kvm@vger.kernel.org,
+ =?UTF-8?Q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>,
+ Nico Pache <nico.pache@linux.dev>, Zi Yan <ziy@nvidia.com>,
+ "Liam R. Howlett" <liam@infradead.org>, dri-devel@lists.freedesktop.org,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Usama Arif <usama.arif@linux.dev>, Barry Song <baohua@kernel.org>,
+ Dev Jain <dev.jain@arm.com>, linux-mm@kvack.org, Peter Xu
+ <peterx@redhat.com>, linux-kernel@vger.kernel.org,
+ Jason Gunthorpe <jgg@ziepe.ca>, stable@vger.kernel.org,
+ Kiryl Shutsemau <kas@kernel.org>
+References: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v1-1-d225c60bc316@virtuozzo.com>
+From: Lance Yang <lance.yang@linux.dev>
+In-Reply-To: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v1-1-d225c60bc316@virtuozzo.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 14, 2026 at 08:20:53AM +0100, Navid Ghahremani wrote:
-> Support the two Synopsys DesignWare PCIe host controllers of the
-> ZTE ZX279128S SoC. The driver manages the controller clocks via CCF,
-> asserts/deasserts resets via the Reset framework, and manages the
-> analog SerDes and PLL via the Generic PHY framework.
 
-Thanks for making the commit log complete.
 
-Suggest making the subject line:
+On 2026/10/14 19:57, Konstantin Khorenko wrote:
+[...]
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index 1e5d68acf62a5..fcea98f0d8865 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -1965,13 +1965,22 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+>   		src_ptl = pmd_lockptr(src_mm, src_pmd);
+>   		spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
+>   		/*
+> -		 * No need to recheck the pmd, it can't change with write
+> -		 * mmap lock held here.
+> -		 *
+> -		 * Meanwhile, making sure it's not a CoW VMA with writable
+> -		 * mapping, otherwise it means either the anon page wrongly
+> -		 * applied special bit, or we made the PRIVATE mapping be
+> -		 * able to wrongly write to the backend MMIO.
+> +		 * The mmap and VMA write locks of the source keep faults
+> +		 * out, but unmap_mapping_range() does not take the mmap
+> +		 * lock and may have cleared the pmd since the lockless
+> +		 * read. Let copy_pmd_range() skip it then.
+> +		 */
+> +		pmd = pmdp_get(src_pmd);
+> +		if (unlikely(!pmd_present(pmd) || !pmd_special(pmd))) {
 
-  PCI: zx: Add ...
+Why not just check pmd_none(pmd) here? We're holding the source mmap/VMA
+write locks, so the PMD either stays special or gets cleared, right?
 
-or whatever tag you plan to use for the family of hardware this driver
-will support over time.  Future changes to a driver typically don't
-include "dwc" because the name of the driver itself is more useful.
+Cheers, Lance
 
-I see "zx" used in the spi patch and "zte" used in the clk patch.
-"zte" might be too generic; there may be future hardware that requires
-a different driver.  "zx279128s" might be too specific; there will
-likely be more SoCs that share this driver.  Same consideration
-applies to filename, config symbol, struct and function names, etc.
-
-> Signed-off-by: Navid Ghahremani <ghahramani.navid@gmail.com>
-> ---
->  drivers/pci/controller/dwc/Kconfig          |  13 +
->  drivers/pci/controller/dwc/Makefile         |   1 +
->  drivers/pci/controller/dwc/pcie-zx279128s.c | 273 ++++++++++++++++++++
->  3 files changed, 287 insertions(+)
->  create mode 100644 drivers/pci/controller/dwc/pcie-zx279128s.c
+> +			spin_unlock(src_ptl);
+> +			spin_unlock(dst_ptl);
+> +			return -EAGAIN;
+> +		}
+> +		/*
+> +		 * Make sure it's not a CoW VMA with writable mapping,
+> +		 * otherwise it means either the anon page wrongly applied
+> +		 * special bit, or we made the PRIVATE mapping be able to
+> +		 * wrongly write to the backend MMIO.
+>   		 */
+>   		VM_WARN_ON_ONCE(vma_is_cow_mapping(src_vma) && pmd_write(pmd));
+>   		goto set_pmd;
 > 
-> diff --git a/drivers/pci/controller/dwc/Kconfig b/drivers/pci/controller/dwc/Kconfig
-> index dcfbe7e229..3a4008be84 100644
-> --- a/drivers/pci/controller/dwc/Kconfig
-> +++ b/drivers/pci/controller/dwc/Kconfig
-> @@ -577,4 +577,17 @@ config PCIE_ULTRARISC
->  	  By default, this symbol is enabled when ARCH_ULTRARISC is active,
->  	  requiring no further configuration on that platform.
->  
-> +config PCIE_ZX279128S
-> +	bool "ZTE zx279128s PCIe controller"
-> +	depends on ARCH_ZTE || COMPILE_TEST
-> +	depends on PCI_MSI
-> +	select GENERIC_PHY
-> +	select PCIE_DW_HOST
-> +	select RESET_CONTROLLER
-> +	help
-> +	  Say Y here to enable support for the two PCIe host controllers of
-> +	  the ZTE zx279128s SoC. They are based on the Synopsys DesignWare
-> +	  PCIe IP. On the ZTE ZXHN H3600 they connect the MT7915 Wi-Fi chip.
-> +	  The driver only supports legacy INTx interrupts.
+> ---
+> base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+> change-id: 20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-bdf7efb612c2
+> 
+> Best regards,
+> --
+> Konstantin Khorenko <khorenko@virtuozzo.com>
+> 
 
-Capitalization of "zx279128s" here (menu item, help text, comment
-below) should probably match the commit log and marketing materials
-for this SoC.
-
-The config symbol should use the same tag as the subject line.
-PCIE_ZX279128S might be too specific if more SoCs might share this
-driver.
-
->  endmenu
-> diff --git a/drivers/pci/controller/dwc/Makefile b/drivers/pci/controller/dwc/Makefile
-> index d4f88cfc62..379198ebd6 100644
-> --- a/drivers/pci/controller/dwc/Makefile
-> +++ b/drivers/pci/controller/dwc/Makefile
-> @@ -35,6 +35,7 @@ obj-$(CONFIG_PCIE_TEGRA194) += pcie-tegra194.o
->  obj-$(CONFIG_PCIE_UNIPHIER) += pcie-uniphier.o
->  obj-$(CONFIG_PCIE_UNIPHIER_EP) += pcie-uniphier-ep.o
->  obj-$(CONFIG_PCIE_VISCONTI_HOST) += pcie-visconti.o
-> +obj-$(CONFIG_PCIE_ZX279128S) += pcie-zx279128s.o
->  obj-$(CONFIG_PCIE_RCAR_GEN4) += pcie-rcar-gen4.o
->  obj-$(CONFIG_PCIE_SPACEMIT_K1) += pcie-spacemit-k1.o
->  obj-$(CONFIG_PCIE_STM32_HOST) += pcie-stm32.o
-> diff --git a/drivers/pci/controller/dwc/pcie-zx279128s.c b/drivers/pci/controller/dwc/pcie-zx279128s.c
-> new file mode 100644
-> index 0000000000..592a7f7c4e
-> --- /dev/null
-> +++ b/drivers/pci/controller/dwc/pcie-zx279128s.c
-> @@ -0,0 +1,273 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * ZTE zx279128s PCIe host controller
