@@ -1,64 +1,64 @@
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DD1541D207
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 05:13:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BD1B421226
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 05:13:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791954818; cv=none; b=BKkZmCkO12GG34r9T78/bqk/918h7rcHptsRuAftRl2PhxOqVC9zL+uJK1PFuC9Wmk9tCeB5r/QtwPYc84ATFcyKJxwENo/AS2jUqTrR78DJMEa7q+kM74yhjMY6yvx4uf/+cGhhmysAZf3soLgGe8QndeswHNNiBqJJ+c1bSvU=
+	t=1791954820; cv=none; b=AUWEzNSLvrV0WRX0Zohm+sBGhJaijxC/83WSzTcK5lL0dZ26KabF7IotCSKbeKruwDjOtfzUFHB80rISmVP8MUiaycgfhe3VQl82uWdkP840YvvU+3BoH6SbDsIciRmbMoSKI/jW3u7WcM6xTlMgSXchqwez8+hKUV7bmFOqJPI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791954818; c=relaxed/simple;
-	bh=MQqoQaB1FyoyMJ+K6yDem6WMrchPow1EhO4d1DLyKj4=;
+	s=arc-20240116; t=1791954820; c=relaxed/simple;
+	bh=PCxxcn6JaCpLIK8BQyFUvhMSkm+HMXkbPHY3uUK4fNM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=shPIgwg1c6L56kR1L8BNng88SqkGRqNhhWJ4mqon0XzpNyXDLsZexNBVxag5ssEuCUv4Z1dJienZNO/tdFQi3VNQ4ctl1lcRgBrMPm9Rbkfi7jSnOhc709uXasmd9vVWbOel8Ao9pxL16d79hsBui1I10cz15vcwJgZ2AYqvmvk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aznMqGAa; arc=none smtp.client-ip=74.125.82.180
+	 MIME-Version; b=Y/wWyyuSh43zzXvco3RFrinkEt0f3nyjuYun8uOa2IrK+7qpBgYw2ggHmld9USxzfR+Ryu8pXtL/gVZ/ZSFB2na5x8Zbgez7+bbgMdKvzLfRumPyGgO4W9v1qoJY3CvF68w2PPKMSrUapFITw9rbR6Q1YfMvJsyfLuh3SlWpTEM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C1qh8KF2; arc=none smtp.client-ip=74.125.82.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aznMqGAa"
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-35a31bb9fb6so4120729eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 22:13:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C1qh8KF2"
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-35b2c599f43so4166996eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 22:13:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791954816; x=1792559616; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791954818; x=1792559618; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=JDi1ZUpchAKrAeynCZ008rcYzeK/yq/xfHew59IB4Z8=;
-        b=aznMqGAabPfsZK8qdbwxW614EkmctvdX4zNWe1xKXsU5mpn8aBpnNi3k2ggtJ2w36U
-         OV9fkrbXv1E2ltrpbJlmHJ6lPX09Y5c2mIMFn56NVEIGKDaOeo3BbSs5ipkeXSkyFxm1
-         10djiTOzIVJiFBJp6FYrBTJC2zCJ1I+C/aNnzIpPmriDXyZe2QjTEx/T2fXu3VV904e0
-         R4HAyy3FE76AVNY/EAzVWck3ft8emOxtHR3HTesH/mdLVRAvnzK6qpk//GD+3jemT0VN
-         P06b8ogTrBJQWwIcG4f1iYegL0w7zi3NaEyfWYR/ZrrzntZl6XUTDTrnSuQtf0mRXNQH
-         vrtA==
+        bh=xrXU4zkPCMdeqO1j0v9Z1k0Agb/FJlpriDsHwaYaty0=;
+        b=C1qh8KF2bfAD6f17ndVdVD/s7SaWiTNybP+P7lzTrUMfJzt+H1oeG4j+AHn5GNKBZF
+         s0dkc3HLRCQoNvzezPdLeR2idU0ovM0zwaMNPq8JJrCP9MyFe8zo33JDxaxUhWF4wN7g
+         EeDSnkAtoZ4a8hIndVXXEoFJ9lgIeUs93i2F4qmSYovHxZQVITK67WbW3MpVN1PMSxNa
+         OTOAl/LYYIPixWbrzMBJq8ORuESRimPrrxl5tZQjG/ty2U6twRnY05uVv/ar8XMtdU7x
+         aK0jXDM+eo9mc/G/f1BckNGNKrOTjPBI8xLYVlGw1u6kIQGVh0ZL1MqMHAVWuJUk05Rh
+         93Xg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791954816; x=1792559616;
+        d=1e100.net; s=20260707; t=1791954818; x=1792559618;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JDi1ZUpchAKrAeynCZ008rcYzeK/yq/xfHew59IB4Z8=;
-        b=YrvQHxMQ0RuhXTwF75LbIm5vifX0/6jkilPgbeLMzTLx6TnkTzUburnV1sioLdYEpR
-         pFbaHzRbIaiSyhCOx2hGxSKJE/qhRxa5QK+z/1T0mUeqJLbytLYy7ed57iMVNWozZ41P
-         Xo/FI4pFgM2yXACxs+LQLBsg3hWD0YJ8jvDf3FnBZG6qbJLr1fhkRp8zD3/bObXlHPcg
-         /fjC8P6bjR8NOB3W8P3Pyct6QgYW9Ugtj0kQMl5TMWjyFoCfsYf7V6+gE+AVGTEr4QGv
-         cae+1JFKVbLp+aLblXJ0CZK4VEInuIrPXzKm+ODbn2oYecgJGjEx3TKBj+mP/suCihWj
-         IvmA==
-X-Forwarded-Encrypted: i=1; AKwUvBwYBFKQDZsZHwcdmLbMKQ3xvJs0FCJitnj1gnIZ4CfG1q2GDQKCl+H+k9jnxdqsmj+1llyDEmzgluxfdvw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKudRhHahC6AKpsFmbw5CrOgEOH5gfI6hHcEztQ60MD/6bGZUlP
-	a3ztdDZ70bnkiOjWTEASlf/d1ozkHIWE2yoqP+nRZZQ0WLb/v3LoLhJB
-X-Gm-Gg: AYBFou075FP4FEEQlQE6DOsm7gQvHbnRnnpz1nIyoL3VMw7vYrly0JNr8QuNBQVnTym
-	B/XaUr60QIa0mDzqmew2V0Eu/SCEMdow1ib7d0Kvg6R6Ky5uTYkqt/TLqL8UHZYahwwv+mlgp78
-	2qGumnViZP5QLnpuWQucuP+q4oncx5tUdZyUW3TuiW2L30Aiy4fYlmbrUuLSsuYljzDbBviqc+E
-	4xMMa+2r/FHxtGl0Yfh3Hr++K9PY1X2rjFhEs8eAZHLIp4S0CeI3PhEQZA+FglnjD29xyq2F7vI
-	+UfRIHHQssmo+QaMaycEsVuAzkjo9HsG0PfG/HX259RZs8O9e+ekIKwH67lsnMqlpfac/OxN96K
-	/mByCMD24dvh7D2uI4YJC65BnGX3XAjsfywhUK23gYDjv2t2Qceed2J3Y8WmcVvMA9LbV9di9dV
-	1Z4akSglZgXyAPBjeLQphPaDqPgh/+3YbTubKi3odBeF+8HFgqPCGwfrV1qTHR/m3OMkB1EhKFM
-	rp6D4XCyqR/T2CTatr9zvttPu3Wvnuu1PlqyESyeoyef4VAslCTifrUN8P8kOI=
-X-Received: by 2002:a05:7300:2216:b0:351:28d9:4908 with SMTP id 5a478bee46e88-3537db99e8amr27762456eec.0.1791954816356;
-        Tue, 13 Oct 2026 22:13:36 -0700 (PDT)
+        bh=xrXU4zkPCMdeqO1j0v9Z1k0Agb/FJlpriDsHwaYaty0=;
+        b=1lFeiUYzdxCCPuW9Ios8BjEZOPh0QPn15h5iMu1FS4No/zy0bT0yZQxDavPJNEC3XE
+         WXqFwkDNAsfgTDkLSe8dfyB2YH+PxIeHVCZuaTLwNpwKWQWXo3d266NYrvrHmNunOKJJ
+         K6aYDUACK3EAYEMz8JZjFLW/6j5ncP2IruQ3XZXT48DsTAxC/XISyrxmkjJ0Mf8CAT3+
+         lRR98uxABraXRLoJsyeokrbGFE65iBYi4zZiv+9J2ulMNHO7n2yh9jSE04bLR4GWIQD4
+         SoJ9iH6ZERMZ5EyWALe5G3g98UhJuHFXQIZFN+koAZnObU5H48XvDocHkF/l5OYY9O0F
+         83Zw==
+X-Forwarded-Encrypted: i=1; AKwUvBy5O0Tl5dFqM4Z2f2NheMpY+QVJ2l6ou7jWYgiqFhBS+UpQW1/jUKbv9pW0UEFSma+y1dGzVbANSERai/g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJqMae5gICyuU6LSeGGkUVU09xFbxfGFMd+wB7mVMV6YPZpiiTR
+	lbvj7r3vEi3LguLqMt+b3xoq9D3NcmrT372rC3QpE8+BoMaJSrBjFAet
+X-Gm-Gg: AYBFou2c9TRCLqlm4jumBcHORln0vK9qT1Q8pCOVo+oVXUP1f8lnzDnfGjg4JGgRDgI
+	jgzVWJj/U0MU+Z1awKKu0FqDrQF6GfnRB7V5J3xn5SbYwdmiZR3y2nWDaVUPCKpixFiBF80BluP
+	nT+7gRyhDhMxcCtJNv19SnpYabAqSmFD0TradnrBz0TD275NnjLs1nV5Vuie8oIrwCxCK6cVSyt
+	BDCKTk7VaEDl6usQwZ/YPAc5jFjYf0u5XMmd/4vUpJ38uCkCXv2E0R35uu8KCgiBK5Lr5cMAXt1
+	HDAkxLBYF+0XTakxWUnaGL0fVQkUGTBLc5Msr4WAntR5FtC3oyNj2pZLOOiQYu3vzwAe4vuNhPi
+	PRd1uCp2gG1M2dKT5qANzuEndCGM+AIRO4X6Vm8iR0XoJB2YbClkf7YFCPepOecol6iGbZfyjFC
+	VAjBW8Z3FXjWc4DTWAOx5dvm3NGPyYrQKjfSZ+hOA0AdhKojQsXRlQJaght95c5lTkAj3UdTh0+
+	Nhqjp38UNU7uWUVHpumUMFR+aWDZGUtvk/MvSPZlJNLh8lEx0NSAJ7Ut4WDKY3WfOc5k3+1/A==
+X-Received: by 2002:a05:7300:6822:b0:35b:bb89:231e with SMTP id 5a478bee46e88-35bbb892336mr8115364eec.29.1791954817958;
+        Tue, 13 Oct 2026 22:13:37 -0700 (PDT)
 Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:875a:117f:b9ea:5a08])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cacb61asm51629125eec.21.2026.10.13.22.13.34
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cacb61asm51629125eec.21.2026.10.13.22.13.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 22:13:35 -0700 (PDT)
+        Tue, 13 Oct 2026 22:13:37 -0700 (PDT)
 From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 To: Jiri Kosina <jikos@kernel.org>,
 	Benjamin Tissoires <bentiss@kernel.org>
@@ -73,9 +73,9 @@ Cc: Marcel Holtmann <marcel@holtmann.org>,
 	linux-input@vger.kernel.org,
 	linux-bluetooth@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/5] HID: Use hidraw_instance() in drivers
-Date: Tue, 13 Oct 2026 22:13:23 -0700
-Message-ID: <20261014051326.3784498-4-dmitry.torokhov@gmail.com>
+Subject: [PATCH 4/5] HID: Drop unused linux/hidraw.h includes
+Date: Tue, 13 Oct 2026 22:13:24 -0700
+Message-ID: <20261014051326.3784498-5-dmitry.torokhov@gmail.com>
 X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
 In-Reply-To: <20261014051326.3784498-1-dmitry.torokhov@gmail.com>
 References: <20261014051326.3784498-1-dmitry.torokhov@gmail.com>
@@ -87,137 +87,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Instead of directly dereferencing struct hidraw to inspect minor device
-numbers, use hidraw_instance(). This removes the dependency of these
-drivers on the internal struct hidraw layout.
+Several HID transport and sub-drivers include linux/hidraw.h without
+referencing any definitions from it. Drop these unnecessary includes.
 
-For hid-cp2112, fall back to dev_name() when hidraw is not available.
-For hid-led and hid-u2fzero, require CONFIG_HIDRAW and propagate errors
-if hidraw is unavailable.
+In hid-ft260, replace the hidraw.h include with linux/hid.h directly to
+preserve the declarations it previously relied on indirectly.
 
 Assisted-by: LLM
 Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 ---
- drivers/hid/Kconfig       |  3 +++
- drivers/hid/hid-cp2112.c  | 13 ++++++++-----
- drivers/hid/hid-led.c     |  8 ++++++--
- drivers/hid/hid-u2fzero.c |  8 ++++++--
- 4 files changed, 23 insertions(+), 9 deletions(-)
+ drivers/hid/hid-ft260.c       | 2 +-
+ drivers/hid/hid-mcp2200.c     | 1 -
+ drivers/hid/hid-mcp2221.c     | 1 -
+ drivers/hid/hid-winwing.c     | 1 -
+ drivers/hid/usbhid/hid-core.c | 1 -
+ net/bluetooth/hidp/core.c     | 1 -
+ 6 files changed, 1 insertion(+), 6 deletions(-)
 
-diff --git a/drivers/hid/Kconfig b/drivers/hid/Kconfig
-index f9bcaeb66385..1d2657edab27 100644
---- a/drivers/hid/Kconfig
-+++ b/drivers/hid/Kconfig
-@@ -587,6 +587,7 @@ config HID_LCPOWER
+diff --git a/drivers/hid/hid-ft260.c b/drivers/hid/hid-ft260.c
+index 70e2eedb465a..c4d13a6a575d 100644
+--- a/drivers/hid/hid-ft260.c
++++ b/drivers/hid/hid-ft260.c
+@@ -9,7 +9,7 @@
+  */
  
- config HID_LED
- 	tristate "Simple RGB LED support"
-+	depends on HIDRAW
- 	depends on LEDS_CLASS
- 	help
- 	Support for simple RGB LED devices. Currently supported are:
-@@ -1252,6 +1253,7 @@ config HID_TOPRE
+ #include "hid-ids.h"
+-#include <linux/hidraw.h>
++#include <linux/hid.h>
+ #include <linux/i2c.h>
+ #include <linux/module.h>
+ #include <linux/usb.h>
+diff --git a/drivers/hid/hid-mcp2200.c b/drivers/hid/hid-mcp2200.c
+index dafdd5b4a079..9c82de069b8b 100644
+--- a/drivers/hid/hid-mcp2200.c
++++ b/drivers/hid/hid-mcp2200.c
+@@ -12,7 +12,6 @@
+ #include <linux/err.h>
+ #include <linux/gpio/driver.h>
+ #include <linux/hid.h>
+-#include <linux/hidraw.h>
+ #include <linux/module.h>
+ #include <linux/mutex.h>
+ #include "hid-ids.h"
+diff --git a/drivers/hid/hid-mcp2221.c b/drivers/hid/hid-mcp2221.c
+index e4ddd8e9293b..bd6b92b5a09d 100644
+--- a/drivers/hid/hid-mcp2221.c
++++ b/drivers/hid/hid-mcp2221.c
+@@ -14,7 +14,6 @@
+ #include <linux/completion.h>
+ #include <linux/delay.h>
+ #include <linux/hid.h>
+-#include <linux/hidraw.h>
+ #include <linux/i2c.h>
+ #include <linux/gpio/driver.h>
+ #include <linux/iio/iio.h>
+diff --git a/drivers/hid/hid-winwing.c b/drivers/hid/hid-winwing.c
+index 9cd25a77999e..5223baf2d020 100644
+--- a/drivers/hid/hid-winwing.c
++++ b/drivers/hid/hid-winwing.c
+@@ -8,7 +8,6 @@
  
- config HID_THINGM
- 	tristate "ThingM blink(1) USB RGB LED"
-+	depends on HIDRAW
- 	depends on LEDS_CLASS
- 	select HID_LED
- 	help
-@@ -1285,6 +1287,7 @@ config HID_UDRAW_PS3
- config HID_U2FZERO
- 	tristate "U2F Zero LED and RNG support"
- 	depends on USB_HID
-+	depends on HIDRAW
- 	depends on LEDS_CLASS
- 	depends on HW_RANDOM
- 	help
-diff --git a/drivers/hid/hid-cp2112.c b/drivers/hid/hid-cp2112.c
-index 04379db93571..148946b04bff 100644
---- a/drivers/hid/hid-cp2112.c
-+++ b/drivers/hid/hid-cp2112.c
-@@ -1225,7 +1225,7 @@ static int cp2112_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 	struct gpio_irq_chip *girq;
- 	struct i2c_timings timings;
- 	u32 addr;
--	int ret;
-+	int ret, instance;
+ #include <linux/device.h>
+ #include <linux/hid.h>
+-#include <linux/hidraw.h>
+ #include <linux/kernel.h>
+ #include <linux/module.h>
+ #include <linux/mutex.h>
+diff --git a/drivers/hid/usbhid/hid-core.c b/drivers/hid/usbhid/hid-core.c
+index 96b0181cf819..e398afce73fc 100644
+--- a/drivers/hid/usbhid/hid-core.c
++++ b/drivers/hid/usbhid/hid-core.c
+@@ -34,7 +34,6 @@
+ #include <linux/hid.h>
+ #include <linux/hiddev.h>
+ #include <linux/hid-debug.h>
+-#include <linux/hidraw.h>
+ #include "usbhid.h"
+ #include "hid-pidff.h"
  
- 	dev = devm_kzalloc(&hdev->dev, sizeof(*dev), GFP_KERNEL);
- 	if (!dev)
-@@ -1330,9 +1330,13 @@ static int cp2112_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 	dev->adap.algo		= &smbus_algorithm;
- 	dev->adap.algo_data	= dev;
- 	dev->adap.dev.parent	= &hdev->dev;
--	snprintf(dev->adap.name, sizeof(dev->adap.name),
--		 "CP2112 SMBus Bridge on hidraw%d",
--		 ((struct hidraw *)hdev->hidraw)->minor);
-+	instance = hidraw_instance(hdev);
-+	if (instance >= 0)
-+		snprintf(dev->adap.name, sizeof(dev->adap.name),
-+			 "CP2112 SMBus Bridge on hidraw%d", instance);
-+	else
-+		snprintf(dev->adap.name, sizeof(dev->adap.name),
-+			 "CP2112 SMBus Bridge on %s", dev_name(&hdev->dev));
- 	dev->hwversion = buf[2];
- 	init_waitqueue_head(&dev->wait);
+diff --git a/net/bluetooth/hidp/core.c b/net/bluetooth/hidp/core.c
+index 0e24c5e2955e..bb408599a28b 100644
+--- a/net/bluetooth/hidp/core.c
++++ b/net/bluetooth/hidp/core.c
+@@ -22,7 +22,6 @@
+ #include <linux/module.h>
+ #include <linux/file.h>
+ #include <linux/kthread.h>
+-#include <linux/hidraw.h>
  
-@@ -1494,4 +1498,3 @@ module_hid_driver(cp2112_driver);
- MODULE_DESCRIPTION("Silicon Labs HID USB to SMBus master bridge");
- MODULE_AUTHOR("David Barksdale <dbarksdale@uplogix.com>");
- MODULE_LICENSE("GPL");
--
-diff --git a/drivers/hid/hid-led.c b/drivers/hid/hid-led.c
-index 7d82f8d426bb..63fd723d9e69 100644
---- a/drivers/hid/hid-led.c
-+++ b/drivers/hid/hid-led.c
-@@ -448,7 +448,7 @@ static int hidled_init_rgb(struct hidled_rgb *rgb, unsigned int minor)
- static int hidled_probe(struct hid_device *hdev, const struct hid_device_id *id)
- {
- 	struct hidled_device *ldev;
--	unsigned int minor;
-+	int minor;
- 	int ret, i;
- 
- 	ldev = devm_kzalloc(&hdev->dev, sizeof(*ldev), GFP_KERNEL);
-@@ -488,7 +488,11 @@ static int hidled_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 	if (ret)
- 		return ret;
- 
--	minor = ((struct hidraw *) hdev->hidraw)->minor;
-+	minor = hidraw_instance(hdev);
-+	if (minor < 0) {
-+		hid_hw_stop(hdev);
-+		return minor;
-+	}
- 
- 	for (i = 0; i < ldev->config->num_leds; i++) {
- 		ldev->rgb[i].ldev = ldev;
-diff --git a/drivers/hid/hid-u2fzero.c b/drivers/hid/hid-u2fzero.c
-index 82404b6e2d25..83e223c12cd6 100644
---- a/drivers/hid/hid-u2fzero.c
-+++ b/drivers/hid/hid-u2fzero.c
-@@ -307,7 +307,7 @@ static int u2fzero_probe(struct hid_device *hdev,
- 			 const struct hid_device_id *id)
- {
- 	struct u2fzero_device *dev;
--	unsigned int minor;
-+	int minor;
- 	int ret;
- 
- 	if (!hid_is_usb(hdev))
-@@ -347,7 +347,11 @@ static int u2fzero_probe(struct hid_device *hdev,
- 
- 	dev->present = true;
- 
--	minor = ((struct hidraw *) hdev->hidraw)->minor;
-+	minor = hidraw_instance(hdev);
-+	if (minor < 0) {
-+		ret = minor;
-+		goto err_free_urb;
-+	}
- 
- 	ret = u2fzero_init_led(dev, minor);
- 	if (ret)
+ #include <net/bluetooth/bluetooth.h>
+ #include <net/bluetooth/hci_core.h>
 -- 
 2.56.0.385.gd3acb90ef8-goog
