@@ -1,218 +1,82 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16CB0259C9C;
-	Wed, 14 Oct 2026 06:14:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEB1C259C9C
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:14:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791958451; cv=none; b=nfcD2RUEa1O9LyVBmkKZ9Dj4ZhLF+jYHAh2Ux21dsjWwPVs83lMYuvQ0KD4CNZBQGOjvTvFDAA0OUTgBoZSZAqnrqEEJTI2595NE7YsA6ujY4t6XOWoPf4LVvzgiLEBYXEN2EAhu8GbVwZI4t6j4fYzBTn1VJ/qDX0IgO4juk28=
+	t=1791958457; cv=none; b=SLgXES8Qqe56ZsBbG1m38j6ybCxR+D7dpOlWqTra8dZhkHbXb31pJPtUdIohQqJXfI2YxiS3LAKH/Zv50gPPl1JFv3WHRBgbAS6fzfFHv6HxHwlHcQ/tdXQLwQ97TmXK/EiXaP9w3UJAq6FKwAP2RwhhBG+g41/ftR5WbAykPkw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791958451; c=relaxed/simple;
-	bh=urBtA5a2tjF04zSo9wUwTrqqmMsbUCQNYm0f5HRuNqE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IYFMsl022eUvxrAEB1mFwC2ePhsVSi4bFdilfbKPqdpEh6yI6x2Pd05DUpZ+XllTonbqHybOGhyo2bEl5OHsE1zKOajSoX5XRMt6olxfvozn1aEd47nIk1TsivjQaaoXkIqAxfQItbkGSCQVVYo1lHfphJI6KGf1GkTAMgGSA4o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=j2L9GnmI; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=sy73aR6/; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=j2L9GnmI; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=sy73aR6/; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1791958457; c=relaxed/simple;
+	bh=7UHpGJFWQ1fdtESAHCBiLPjJ63+0bondFnQ4EU82Bhc=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=ofEB6bpFLrROMAwQza6JeMcY0/y5fRl+b1HseQk5NxLxDuCwPb/9z1DH2EJGCz1NCAtvoekjSCrQdSRkOeQvvHtq/wiN5OZsNVi47Pz/BAbf3QZmjXV6//XFSophMH8X1IsHUGB9bXXFBVN5tWpSq0UVax3tTj8GKAUcHJPMFz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oLtRGGhU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="j2L9GnmI";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="sy73aR6/";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="j2L9GnmI";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="sy73aR6/"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 00CCC1F7A9;
-	Wed, 14 Oct 2026 06:14:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791958448; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=bGrLsCj+Z0JeEGrY4m4rqBrROcX2ynNSBvCMaW8ZLus=;
-	b=j2L9GnmICr8CpAnyPkAS8UUZgSyaFwV1KPa6maleqc8zOX05O7TpsPciAoQ8sb0inFrZ4U
-	Dw5SpJD7aMy6jPRa4QIb5YJI3jwkPAfVe046gW6aGJtTOBNeaLfuSBVAeLlEANL6dd7DNd
-	wfNlH69fqwskW2XxTGS3QLgqYQHVxCI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791958448;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=bGrLsCj+Z0JeEGrY4m4rqBrROcX2ynNSBvCMaW8ZLus=;
-	b=sy73aR6/0CZ/nHKkxzDbxAJjXC3rQKChm5Rz+vUghzDdws6sYU+wUHMIN+4pXXvQXDmUA+
-	ZtHMdK8ihWnAAgAw==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=j2L9GnmI;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="sy73aR6/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791958448; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=bGrLsCj+Z0JeEGrY4m4rqBrROcX2ynNSBvCMaW8ZLus=;
-	b=j2L9GnmICr8CpAnyPkAS8UUZgSyaFwV1KPa6maleqc8zOX05O7TpsPciAoQ8sb0inFrZ4U
-	Dw5SpJD7aMy6jPRa4QIb5YJI3jwkPAfVe046gW6aGJtTOBNeaLfuSBVAeLlEANL6dd7DNd
-	wfNlH69fqwskW2XxTGS3QLgqYQHVxCI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791958448;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=bGrLsCj+Z0JeEGrY4m4rqBrROcX2ynNSBvCMaW8ZLus=;
-	b=sy73aR6/0CZ/nHKkxzDbxAJjXC3rQKChm5Rz+vUghzDdws6sYU+wUHMIN+4pXXvQXDmUA+
-	ZtHMdK8ihWnAAgAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B39CE1368E;
-	Wed, 14 Oct 2026 06:14:07 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id FA/EIq8dz2rTJgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 14 Oct 2026 06:14:07 +0000
-From: Takashi Iwai <tiwai@suse.de>
-To: linux-sound@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH v2] ALSA: usb-audio: Use fixed control index for us16x08 mixer elements
-Date: Wed, 14 Oct 2026 08:14:05 +0200
-Message-ID: <20261014061406.162938-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oLtRGGhU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8568D1F000FF;
+	Wed, 14 Oct 2026 06:14:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791958456;
+	bh=5aynIBdykWUyiJc5wo5/fTgc0Cz2299hKU/OS3JyPo4=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=oLtRGGhUG5Yh9pfLh+xYlDOuF2HGHqmem2ewJTR9Yo2nugNvCPpz5At20WX93MJux
+	 Z4XA/uJpk40qPtankMdCXYBVEWzG/jZq32GeQtZPAx5suTJAPXJguGgvbpVQ2PPZro
+	 RAYnVJnt0ffJivnvKndKFM1tB6WMEl92JEKiqoHpFt2QLK7NBv97n1UjdVImBzi/9n
+	 NCZysmm/nUZ9XPNtqJb5E28tfJu0LBSRHpb94oE3+QpEloIvLNrMQEtkRh89W+RHti
+	 h6KVbTI8hCcXsRKMXL2tBh5JO4mnOtxr+t/j6KwAOnKnRw6ld29xkwxNH8xYU6xZ3H
+	 2akFH01tY1RPA==
+Message-ID: <9efd2ca3-ae57-428c-97c7-bc2300ba9a42@kernel.org>
+Date: Wed, 14 Oct 2026 14:14:13 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Spam-Score: -3.01
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_TWO(0.00)[2];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
-	RCVD_TLS_ALL(0.00)[];
-	TO_DN_NONE(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 00CCC1F7A9
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] f2fs: bound the SIT/NAT bitmaps by the checkpoint pack
+To: Kaixuan Li <kaixuanli0131@gmail.com>, Jaegeuk Kim <jaegeuk@kernel.org>
+References: <20260919130925.1899994-1-kaixuanli0131@gmail.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20260919130925.1899994-1-kaixuanli0131@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The callbacks for us16x08 mixer elements assume that id.index points
-to the channel to be operated, and the assumption is correct for now.
-However, since the kctls are added via snd_usb_mixer_add_control() and
-it looks for the empty slot if the same control name is already
-present, in theory, the index can become more than the channel numbers
-(if a conflicting name really happens).
+On 9/19/26 21:09, Kaixuan Li wrote:
+> sit_ver_bitmap_bytesize and nat_ver_bitmap_bytesize are used as memcpy
+> lengths into and out of sbi->ckpt, which is sized from cp_payload alone,
+> and nothing compares either length against that allocation.
+> 
+> sanity_check_ckpt() has checked these two fields since c77ec61ca0a4, which
+> added them after a crafted image overran build_sit_info(). That check ties
+> each length to a segment count; it never compares either against the
+> allocation, which is the half this adds.
+> 
+> Mounting over-reads in build_sit_info() and build_node_manager(), and the
+> first checkpoint writes the same lengths back through the same pointers,
+> so the over-read's contents reach the on-disk checkpoint. An unmount is
+> enough; the filesystem does not have to be used.
+> 
+> Bound both ends the way __bitmap_ptr() lays them out. The three branches
+> differ, so a single sum of the two lengths would still admit a small
+> overflow when cp_payload is non-zero.
+> 
+> Fixes: c77ec61ca0a4 ("f2fs: fix to do sanity check with {sit,nat}_ver_bitmap_bytesize")
 
-Since the mixer code in us16x08 doesn't need the search for an empty
-slot but requires the fixed index, this patch changes slightly how to
-assign the kcontrols.  Now, a new argument is added to
-snd_usb_mixer_add_list() in order to disable the empty slot search,
-and use it in us16x08's add_new_ctl() helper function, instead.
+It looks the overflow issue exists since the beginning, w/o c77ec61ca0a4,
+{sit,nat}_ver_bitmap_bytesize was not checked at all, c77ec61ca0a4 just
+added partial check, so how about:
 
-Fixes: d2bb390a2081 ("ALSA: usb-audio: Tascam US-16x08 DSP mixer quirk")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/usb/mixer.c         | 13 +++++++++----
- sound/usb/mixer.h         |  5 +++--
- sound/usb/mixer_quirks.c  |  2 +-
- sound/usb/mixer_us16x08.c |  3 ++-
- 4 files changed, 15 insertions(+), 8 deletions(-)
+Fixes: 39a53e0ce0df ("f2fs: add superblock and major in-memory structure")
+Cc: stable@kernel.org
 
-diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
-index 49a8a26f1a96..a95f26a3cfa7 100644
---- a/sound/usb/mixer.c
-+++ b/sound/usb/mixer.c
-@@ -649,20 +649,25 @@ static int check_matrix_bitmap(unsigned char *bmap,
- 
- /*
-  * add an alsa control element
-- * search and increment the index until an empty slot is found.
-+ * when @look_for_empty is set, search and increment the index until an empty
-+ * slot is found.
-  *
-  * if failed, give up and free the control instance.
-  */
- 
- int snd_usb_mixer_add_list(struct usb_mixer_elem_list *list,
- 			   struct snd_kcontrol *kctl,
--			   bool is_std_info)
-+			   bool is_std_info,
-+			   bool look_for_empty)
- {
- 	struct usb_mixer_interface *mixer = list->mixer;
- 	int err;
- 
--	while (snd_ctl_find_id(mixer->chip->card, &kctl->id))
--		kctl->id.index++;
-+	if (look_for_empty) {
-+		while (snd_ctl_find_id(mixer->chip->card, &kctl->id))
-+			kctl->id.index++;
-+	}
-+
- 	err = snd_ctl_add(mixer->chip->card, kctl);
- 	if (err < 0) {
- 		usb_audio_dbg(mixer->chip, "cannot add control (err = %d)\n",
-diff --git a/sound/usb/mixer.h b/sound/usb/mixer.h
-index 0d0a8b343756..c40f832852be 100644
---- a/sound/usb/mixer.h
-+++ b/sound/usb/mixer.h
-@@ -113,10 +113,11 @@ int snd_usb_mixer_set_ctl_value(struct usb_mixer_elem_info *cval,
- 
- int snd_usb_mixer_add_list(struct usb_mixer_elem_list *list,
- 			   struct snd_kcontrol *kctl,
--			   bool is_std_info);
-+			   bool is_std_info,
-+			   bool look_for_empty);
- 
- #define snd_usb_mixer_add_control(list, kctl) \
--	snd_usb_mixer_add_list(list, kctl, true)
-+	snd_usb_mixer_add_list(list, kctl, true, true)
- 
- void snd_usb_mixer_elem_init_std(struct usb_mixer_elem_list *list,
- 				 struct usb_mixer_interface *mixer,
-diff --git a/sound/usb/mixer_quirks.c b/sound/usb/mixer_quirks.c
-index 1e266fdbbb8e..01210cc3fae7 100644
---- a/sound/usb/mixer_quirks.c
-+++ b/sound/usb/mixer_quirks.c
-@@ -167,7 +167,7 @@ static int add_single_ctl_with_resume(struct usb_mixer_interface *mixer,
- 	}
- 	kctl->private_free = snd_usb_mixer_elem_free;
- 	/* don't use snd_usb_mixer_add_control() here, this is a special list element */
--	return snd_usb_mixer_add_list(list, kctl, false);
-+	return snd_usb_mixer_add_list(list, kctl, false, true);
- }
- 
- /*
-diff --git a/sound/usb/mixer_us16x08.c b/sound/usb/mixer_us16x08.c
-index b447c4f7a161..18e8c2bd2678 100644
---- a/sound/usb/mixer_us16x08.c
-+++ b/sound/usb/mixer_us16x08.c
-@@ -1134,7 +1134,8 @@ static int add_new_ctl(struct usb_mixer_interface *mixer,
- 
- 	strscpy(kctl->id.name, name, sizeof(kctl->id.name));
- 
--	err = snd_usb_mixer_add_control(&elem->head, kctl);
-+	/* look_for_empty=false, as we want the fixed id.index as channel */
-+	err = snd_usb_mixer_add_list(&elem->head, kctl, true, false);
- 	if (err < 0)
- 		return err;
- 
--- 
-2.55.0
+> Signed-off-by: Kaixuan Li <kaixuanli0131@gmail.com>
+Otherwise, it looks good to me.
+
+Reviewed-by: Chao Yu <chao@kernel.org>
+
 
