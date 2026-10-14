@@ -1,250 +1,191 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BBD0363C46
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 21:50:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792014602; cv=none; b=iQRN/3fs9BbOCCP7Eu6gMl5o1ef000H/iBNQUzm9U0OPVkMod4VxLi/3kAN50fPwhGGgvFx2IWQWHDoSN3E8yD9puiH0CKDWi4KaFSOPa5GdC6jE7hVAfOlUHwx+MpLxipyldGd+HkJxE6kZxZifrJhooGfAAeM0wkQxPcmG8HY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792014602; c=relaxed/simple;
-	bh=5m8gmcJPfJEo+Xj/WVPQkBA6oxY16fLfxxTTJcTCHE4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MZxcy1Qgkbmd0D8I/GcULZuo0ri+b7UUDz5O81Bx7JE3txFtlTFlSDjJ7dlUNzEFRyJn3mvyDaD7O11jjR5Ky/HXBO0MTQIDj6n3Pikdr1MSrNQnBdMEBmfPnECXBZ+e2zXvVN+rPBmyKqM8RtCVwtO8gaMDtZ11LV/chMC4AwI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VxSFItDf; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58B7A4A6881
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 21:50:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792014608; cv=pass; b=SUI0Hs/s3UESqHk1rnM7Opxty8PDG3eM76mbBV4bZ3hfgVY7A1kb4FmDEml2BMithJOwzrAvDKg8jfvEbD5sAEV+9X7fT8otrVS2Gei8uhDRMd+JUEXgah2qlvFy/y68F3ScwQJQMM//oQX7QtuVpveFS1Gmqo+ALvTxRVk6vcA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792014608; c=relaxed/simple;
+	bh=Sb/58QriJWaMhTgvU3eln2zuouYG3sux3/AAyVRoQ2E=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VlxS3IDgQq9LpEMwsRxZKMdHcYrkKlHK4pzPvUYU6PFlg+D+urBIVN/vJfuSIU2JAGkN6Sn7iOPZINazm2izhvZaOtJuv49N4evW2bbHIINg3u0iZgSwQjr38uoxmTMqZ7NQ8vmDmSO4yVIQbcZef8ZcAOmXcC3dXx3888pZ+fQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=BoPayPDh; arc=pass smtp.client-ip=209.85.208.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VxSFItDf"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4956869750eso31361425e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:50:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="BoPayPDh"
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6ae14cdc63aso219a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:50:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792014604; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jcjVzj8rzxdP13FfieNhsHycs9jv3oFgiN1PExDbD3ZJzMS+GL7MnYVkvs8xPxB0ZM
+         WXkZalujjlef6b2hyM3J8BuLc2WN0g5eDsSRApb29FQaoXi/eejGhxIt8WOZsdKUZpRl
+         C6jLExyz9u1L3OC214BMe5z+/+nlDsEy6CQAq3Q9aMUxFnjrLArYoJNmKP8jsWqhBo7a
+         bRysp7xApkaY7U7HbuqLGRIq+GhrXfyrKqS1mORFSim9JbX+VxHGGxCyKPNr96ojDJ76
+         5WK5l6e1pGiZqDQGfxsaxc/sfK7s5vkU3keQ/WJOaOUvihqmPqJ42r0VSwGVcbgY9fON
+         ndgA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=cqDh6SSAdrnUIksW3iYI4C7alV8nfaKKDKs+g1eoZic=;
+        fh=i8x6YIq3CWPjjayC1WI4+55aCqIWhtbjh2jJ8n/54Kk=;
+        b=fO9wnU8Ls4ah/BF2dTe+6KaRmIaKMLcsRa9HEyWEaMfPU+fT1kHiiaX9wjCfZVZ46E
+         tsTcjPtpE5bM0W/DsJvDgWDC7tLet9IOIoUGpZgTNcn525eb2lDkaNgUrnADKo9mE6/p
+         51UiEbtoWBXk89KpkCAtM7CMeQW4fcyeelwe0ntCNVqbxRTncm+lz64wYVdO0lOXN8uY
+         x4MViskLFvR4lPqluR+vUJ2TmsevKrxQ654yXCTjlti83TnDoddXgW491Z8n4/1tEq+u
+         DBSCrlEpX+iuIRjxw4jNSjMoGdgjfixZ/DR+d4Y/zVGFqrlybywC9tD/vwo5JC1cLQ+h
+         d7Xg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792014599; x=1792619399; darn=vger.kernel.org;
-        h=content-type:mime-version:references:in-reply-to:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/JnSzh6uRY1DGm8qF/E1ET6S+smMFNdEHSczgKhtiNs=;
-        b=VxSFItDf+1NqR3NwOWw6ZGZRSLuvEUTYkGVJHA/AF7y9GPNjWzRCzYLRizAwRyPPbX
-         3XBxsiFNpxi5GE2Af039tLgWF2A8AI8Hpxy8RjnDsJwDq0d4g/OjF5CbmiL5i+z7WXbC
-         5dI8Ncs/z+REp5hnMafFL3MKPC6m5EogVEoA8NkIy/GkIkyc91u1jV3MFGjqOK2hqypw
-         3S1H5eOdV3rVJUrW+RbhzDWCx9ggqKIOeaU/4yCpY6l+CmZFB/POtwZnXmabTAHFHjoY
-         4Ot761/5DBHYlaSHdGgKNSv+kYnyk86YNby9VzjNDz7sk9L1FLeA5n531KvWvjJd6x1h
-         SrxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792014599; x=1792619399;
-        h=content-type:mime-version:references:in-reply-to:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=google.com; s=20251104; t=1792014604; x=1792619404; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=/JnSzh6uRY1DGm8qF/E1ET6S+smMFNdEHSczgKhtiNs=;
-        b=QWxpYAvNz1dPW8gNvrPlioCShnCJmZmE0vDcba9nWspiaC8jAbrZH4ryWlt/sg9G6m
-         NvwIi9v566QS1S5Iv/6FrWLmznheVW6NqnzmS/QxlO9TT/dQ4rxcLR1Z8aoTq0awSJ+p
-         QDRusjfYmqn/KzmaK6qhjTlhn4Mr5pEbLxd4TnkwD6gDNuM63JDw+iFgT80Pp+2/ryUN
-         n/nJKAKJWIL2fHGiGPOo2ybqJ5XwotUJ0zdaExNyx8fQ+QNTwlzg1g3rl4QZHARTHk6i
-         nhepWQEs7/Rlwcb+/FlqTdSq6Mb5c19TfSA5RNcrYyaLUn/sVTNWq7GQzx9lI3oETijG
-         YnqQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzlv28vbK647f5OntEToW8YGeq5N6rqfgO9IQVqyJZSBk8jIzas9cUpGYz2YCIPwZ/BAohoDVT8odqTbpI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKDDLDurSmPDAy3p/cdTTdiCPr2omSBPGqUkEnPuGRCdHDHbx9C
-	jgeQ4DUQG14hAFo75IFoyhFmV92Ez0z8zyaaa4pFRhq/ousQVoGoaX1O
-X-Gm-Gg: AYBFou3kger1ML07WZWyydjqv8qWG+MVIMLPITtNlvT6RRBQH+aXCq7u/XNYfW7O9sn
-	ZTf6FsRFwol1sHNBEuUwLC/CLAhJVrUB1/29PuXaQPuUCyuAKyFnbmfAbVkcvdP42udPYr25A98
-	0K1hyfWYlrmm4Mtbu39DVBqa1D0wUb/ESseSF5V7nss23GixPnTUe/5EmOa6Jfp2hfYx2fQmdQX
-	88dVwB+Y4rJA8AJu8/cI33RLNaFsiYyc3buT4RMzpUQ+Dyh5pZG25PjP7Qh2XvNQS3q/r9ixlYB
-	dYHNm58yyEZhDSs/sPzqPTiesHWDetUhePLOppnXsFve3RSzDm14s8LJrnNHM1HqAwhJIcznh/X
-	V4or1YRtzGaRNuTIAxsXUVJ1fTdwlhq6grn86RwBxOGSarYs3y8ZEUciQhznrkxmuPHA2KRZB6i
-	HH1zk57AP2o1pNzyZfgno1nXqFLpdMLzeBtBlEaXcnNqJMRaLY/sok2UeQvpTgwkRduRqhF3RIQ
-	wBiVBVu1+hjcKedAfQk4OLfdZbgY2+2pflF08fG1T3rw8WAT/k=
-X-Received: by 2002:a05:600c:6990:b0:4a1:80d8:aed5 with SMTP id 5b1f17b1804b1-4a18e49c43bmr343979005e9.6.1792014599154;
-        Wed, 14 Oct 2026 14:49:59 -0700 (PDT)
-Received: from silicon.doe.home (91.141.74.240.wireless.dyn.drei.com. [91.141.74.240])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bdbb4a30sm19614465e9.15.2026.10.14.14.49.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 14:49:58 -0700 (PDT)
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-To: linux-arm-kernel@lists.infradead.org,
- Navid Ghahremani <ghahramani.navid@gmail.com>
-Cc: arnd@arndb.de, krzk@kernel.org,
- Navid Ghahremani <ghahramani.navid@gmail.com>,
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject:
- Re: [PATCH v2 04/24] dt-bindings: clock: Add ZTE ZX279128S CRM clock bindings
-Date: Wed, 14 Oct 2026 23:48:32 +0200
-Message-ID: <P2sItgLkRqGZa4OOeZAnJw@gmail.com>
-In-Reply-To: <20261014072109.1759502-5-ghahramani.navid@gmail.com>
-References:
- <20261014072109.1759502-1-ghahramani.navid@gmail.com>
- <20261014072109.1759502-5-ghahramani.navid@gmail.com>
+        bh=cqDh6SSAdrnUIksW3iYI4C7alV8nfaKKDKs+g1eoZic=;
+        b=BoPayPDhQaQmsd5UCdguiouW6b7guO9FNW01cc84QQ4wWkZJHONvrzpSIiV6VPbBe1
+         NkP+Qt2145gDpkm2htpwatOWkXQs2dPW2/hyUHn9bP3Rg+eQiJARBgPyWNzfZ57YCcQw
+         RmAF2kS3jtSvf0bgkD/uu4Bw4pJHj154nbcwaI14dNo0apJN+a/aWgCheyCq7FjVXY/e
+         z5OjUxMSIk6gX8+kYaVwrXrdBbTg5AlPFSZTxWpq31QdcC5vUj5MFyCyMoS7akBWjPo3
+         PtWs2DZtCFd0ykbPPij17ehwCCVGf7sjQ4j0Xh5O2ithP1AJGQpBeG2jlCsHxkCzRoHL
+         mVIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792014604; x=1792619404;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cqDh6SSAdrnUIksW3iYI4C7alV8nfaKKDKs+g1eoZic=;
+        b=1G7Co7lu7ybXs8vmMdJgY1iNaYz2N/1YCEgI+UuiM18wtDCdSRkNqMdoJmAjwzkxnv
+         H+UQE+73sZ2t+Vbsg41w+3sONbXxKj7By+9DDCVnap2IB7VR3QW1Vb9GqsFZ38Wr2gOT
+         FwVUw0M3NrFNIPrfZPkB/Zlsda2E2o9Qa7Ei3KyWOeySQ+srtGXPZ9v4Ba2cDwKYTklZ
+         2CGsSRuGsg1qUwfhpq/SuCRtDY9qCE6GRIAlfY7xP2DlPaog1L3HsseY3qFQrJzZ8w8s
+         pUZzuI/HgxCNpyWreLjL7H2AGzufTtubceqLh54euwEYfQOab+Vk8JEt0S6HgkIgZGW0
+         KfOQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx0vEIhLtypUeDbnms5d0qTPE82SnO9L8nOY0ZX8P9P2A5DiS+x4uxnKLoQrrq9SjU4hRahrk3CatMGyOA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKpmsNgh2KPW4Z+KNeRJjGo8UFobNBMvnO/kIezlniyj4cDgF+C
+	0nARwjjn7KHlxP5ChGlg6eo7Hn8mhJ2vLVkOExYqJi+KXh4eKRZR9yqiw/YQV1IjponqjM6J4Ai
+	CO3GsKiP+TqHBI/qYUymrLGAQ7688qRVJ1ZoizM5k
+X-Gm-Gg: AYBFou0hkvE8f00FcBIKZaztFoNrqqNfMov1QDef91cd20SpK12tqo0I8ccXqTl3wgg
+	pBzy3MyV6lYaNmo6YSd8ccKQW5FcLPBJkxy5q17jGjqQPCUQFC7l70wQaBM98I8uogsUGFQ71ho
+	iQUImH6JWK7MNTT0ahYiPihPPYu/XDcfZ042kox8EMQKSnuX1LWMSDt55cnT/j3t5Fzlo4WE84K
+	IVV+4svLD+ONIWoOvw4uNDsCQEIcHlWwKA8v7+37uZTZYizFbIP254Sl69/MqC8FbUzt8vecqRs
+	GBgW+ZEZLeiP6KJLwSs5lzoUOIxsQ75trRDvbtKUxMvAZcxy9Z6pZCU=
+X-Received: by 2002:a05:6402:20c2:10b0:6af:b196:68bf with SMTP id
+ 4fb4d7f45d1cf-6b20aacf5c4mr61458a12.7.1792014604097; Wed, 14 Oct 2026
+ 14:50:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPartKiOmKHBbRlSSdhbtK6AHkQ";
- micalg="pgp-sha256"; protocol="application/pgp-signature"
-
---nextPartKiOmKHBbRlSSdhbtK6AHkQ
+References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-5-yosry@kernel.org>
+In-Reply-To: <20261012233638.2546339-5-yosry@kernel.org>
+From: Jim Mattson <jmattson@google.com>
+Date: Wed, 14 Oct 2026 14:49:50 -0700
+X-Gm-Features: AclHuK_GlqQIdJcNkjsjv88poiBSqZFim_xtLDMo54MUoTLrqyASHXUTHJYwihU
+Message-ID: <CALMp9eQEEKVQT33t=UNDdGLotZWiUpznoM6Jxdc4u0W4vfcv1g@mail.gmail.com>
+Subject: Re: [PATCH v3 04/27] KVM: x86/mmu: Support specifying reserved TLB tags
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-Date: Wed, 14 Oct 2026 23:48:32 +0200
-Message-ID: <P2sItgLkRqGZa4OOeZAnJw@gmail.com>
-In-Reply-To: <20261014072109.1759502-5-ghahramani.navid@gmail.com>
-MIME-Version: 1.0
 
-Am Mittwoch, 14. Oktober 2026, 09:20:44 Mitteleurop=C3=A4ische Sommerzeit s=
-chrieb=20
-Navid Ghahremani:
-> Add Device Tree binding schemas for the ZTE ZX279128S clock controllers:
-> topcrm, lspcrpm, and crm2. Define fixed clock lists and simple-mfd
-> for child nodes inside topcrm.
+On Mon, Oct 12, 2026 at 4:36=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrot=
+e:
+>
+> In preparation for using the TLB tags allocator for SVM, which has a
+> range of ASIDs allocated for SEV/SNP, pass in the number of reserved TLB
+> tags when initializing the TLB tags allocator. The bitmap is
+> conceptually shifted such that bit=3D0 corresponds to tag=3Dnr_reserved.
+>
+> Specifying the minimum value during initialization also makes the API
+> clearer, as tag=3D0 is now explicitly reserved by the caller.
+>
+> No functional change intended for VMX as VPID=3D0 was already implicitly
+> reserved.
+>
+> Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+> ---
+>  arch/x86/kvm/mmu.h     |  2 +-
+>  arch/x86/kvm/mmu/mmu.c | 42 ++++++++++++++++++++++++++++--------------
+>  arch/x86/kvm/vmx/vmx.h |  2 +-
+>  3 files changed, 30 insertions(+), 16 deletions(-)
+>
+> diff --git a/arch/x86/kvm/mmu.h b/arch/x86/kvm/mmu.h
+> index de79e002edf8f..b443a5083bfb0 100644
+> --- a/arch/x86/kvm/mmu.h
+> +++ b/arch/x86/kvm/mmu.h
+> @@ -413,7 +413,7 @@ static inline bool kvm_is_gfn_alias(struct kvm *kvm, =
+gfn_t gfn)
+>
+>  typedef unsigned int kvm_tlb_tag_t;
+>
+> -int kvm_init_tlb_tags(unsigned int nr);
+> +int kvm_init_tlb_tags(unsigned int nr_total, unsigned int nr_reserved);
+>  void kvm_destroy_tlb_tags(void);
+>  kvm_tlb_tag_t kvm_alloc_tlb_tag(void);
+>  void kvm_free_tlb_tag(kvm_tlb_tag_t tag);
+> diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+> index 97d49247d9d82..c096c1a2b4684 100644
+> --- a/arch/x86/kvm/mmu/mmu.c
+> +++ b/arch/x86/kvm/mmu/mmu.c
+> @@ -8182,9 +8182,17 @@ static struct {
+>         spinlock_t      lock;
+>         unsigned long   *bitmap;
+>         unsigned int    nr;
+> +       kvm_tlb_tag_t   start;
+>  } tlb_tags;
+>
+> -int kvm_init_tlb_tags(unsigned int nr)
+> +/*
+> + * Initialize @nr_total TLB tags, where @nr_reserved of those tags are r=
+eserved.
+> + * Reserved tags start at 0 and are contiguous. Hence, usable tags are
+> + * [nr_reserved, nr_total). At least one reserved tag is required, as 0 =
+is the
+> + * host TLB tag on both VMX and AMD, and is the value returned on a fail=
+ed tag
 
-This would be easier to review if it were split in 3 patches, one yaml per=
-=20
-patch. I'll try to comment on the details anyway.
+Nit: VMX and SVM -or- Intel and AMD
 
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - const: zte,zx279128s-crm2
-> +      - items:
-> +          - const: zte,zx279128s-crm2
-> +          - const: syscon
-
-Afaiu this makes "syscon" optional. Why do you need syscon? Why might you n=
-ot=20
-need syscon?
-
-The goal should be to avoid "syscon" as much as possible. The meaning of th=
-e=20
-syscon compatible is that a different driver will access these registers=20
-directly instead of going through a properly exported interface like #clock-
-cells. Is there anything in crm2 that is not a clock or reset?
-
-> a/Documentation/devicetree/bindings/clock/zte,zx279128s-lspcrpm.yaml
-> b/Documentation/devicetree/bindings/clock/zte,zx279128s-lspcrpm.yaml new
-
-> +maintainers:
-> +  - Stefan D=C3=B6singer <stefandoesinger@gmail.com>
-> +  - Navid Ghahremani <ghahramani.navid@gmail.com>
-
-I think you should be the maintainer alone here, I don't have the hardware =
-to=20
-do proper testing of patches.
-
-> +description: |
-> +  Each of the two groups of low speed peripherals (LSP) has a peripheral
-> clock +  module (LSP CRPM) of its own, fed by the top CRM.
+> + * allocation.
+> + */
+> +int kvm_init_tlb_tags(unsigned int nr_total, unsigned int nr_reserved)
+>  {
+>         /*
+>          * Limit the number of TLB tags to VMX's hardcoded maximum of 0x1=
+0000
+> @@ -8194,7 +8202,12 @@ int kvm_init_tlb_tags(unsigned int nr)
+>          * need a solution that works for both Intel and AMD.
+>          */
+>         const unsigned int MAX_NR_TLB_TAGS =3D VMX_NR_VPIDS;
+> +       unsigned int nr;
+>
+> +       if (WARN_ON_ONCE(!nr_reserved || nr_reserved > nr_total))
+> +               return -EINVAL;
 > +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - zte,zx279128s-lsp0crpm
-> +      - zte,zx279128s-lsp1crpm
+> +       nr =3D nr_total - nr_reserved;
+>         if (!nr)
+>                 return 0;
+>
+> @@ -8208,13 +8221,8 @@ int kvm_init_tlb_tags(unsigned int nr)
+>         if (!tlb_tags.bitmap)
+>                 return -ENOMEM;
+>
+> -       /*
+> -        * 0 is the host's TLB tag for both VMX's VPID and SVM's ASID, an=
+d is
+> -        * returned on failed allocations (e.g. no more tags left).
+> -        */
+> -       __set_bit(0, tlb_tags.bitmap);
+> -
+>         tlb_tags.nr =3D nr;
+> +       tlb_tags.start =3D nr_reserved;
 
-I think splitting those into different bindings is still a viable choice. Y=
-eah,=20
-ZTE gave them very similar names, but from what I can see the two controlle=
-rs=20
-have nothing in common.
-
-> +patternProperties:
-> +  "^phy@[01]$":
-> +    type: object
-> +    description: PCIe PHY child nodes
-
-You can drop the phy child node and just add "#phy-cells=3D1". See https://
-docs.kernel.org/devicetree/bindings/writing-bindings.html : "DON=E2=80=99T =
-create=20
-nodes just for the sake of instantiating drivers. Multi-function devices on=
-ly=20
-need child nodes when the child nodes have their own DT resources. A single=
-=20
-node can be multiple providers (e.g. clocks and resets)."
-
-In practical terms, putting a child node into the DT makes this a public AB=
-I=20
-contract. The alternative is to split the device with an MFD driver or usin=
-g=20
-the aux bus. In the latter case, what components a device consists of is a=
-=20
-driver implementation detail that can easily be changed later.
-
-The PHY subsystem has a quirk that devm_of_phy_provider_register wants the=
-=20
-device node to have a DT node, which is not the case if the device is an MF=
-D=20
-child. device_set_of_node_from_dev(dev, dev->parent); helps.
-
-The other purpose of having a DT child node is if a sub-component is likely=
- to=20
-be used in a different piece of hardware. syscon-reboot is a pretty generic=
-=20
-example of that.
-
-> --- /dev/null
-> +++ b/include/dt-bindings/clock/zte,zx279128s-crm.h
-
-I'd suggest to rename clock/zte,zx279128s-crm.h to clock/zte,zx279128s-clk.=
-h.=20
-"CRM" implies clock-reset-manager, but the -reset.h header has the reset=20
-handles, so the "crm.h" header won't have them.
-
-> +#define ZX279128S_TOP_PLL_A9		0
-> +#define ZX279128S_TOP_PLL_LSP		1
-> +#define ZX279128S_TOP_CPU		2
-
-Do they all need to be exported? You only need those that will be used for =
-a=20
-clock =3D <&topcrm ZX279128S_TOP_SOMETHING> handle. That could e.g. be the =
-CPU=20
-wclk and pclk, but the parent PLL itself can remain a driver detail. Most=20
-likely all your device clocks have a gate somewhere. In my zx29 case I only=
-=20
-export gates from the clock driver, with the exception of the Cortex M0 mux=
- -=20
-the Cortex M0 can't be turned off, so it has no gate.
-
-I realize that a lot of devices may be missing from the DTSI in patch 23.
-
-> +/* Low speed peripherals 0 */
-> +#define ZX279128S_LSP0_UART0_WCLK	0
-> +#define ZX279128S_LSP0_UART0_PCLK	1
-> +#define ZX279128S_LSP0_UART1_WCLK	2
-> +#define ZX279128S_LSP0_UART1_PCLK	3
-> +#define ZX279128S_LSP0_SPI_WCLK		4
-> +#define ZX279128S_LSP0_SPI_PCLK		5
-> +#define ZX279128S_LSP0_GPIO_PCLK	6
-
-E.g. exporting those intuitively makes sense.
-
---nextPartKiOmKHBbRlSSdhbtK6AHkQ
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmrP+LAbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMywyAAoJED0TvMhUTxoiZU8QAII3V/w/xVzGX/pRFfpS
-42pGLIJGE3EDmanSGuj8ztdc4DUNBzuzuPpXp+xCmgIyDIUokzxLyrj5PQhehLNp
-qaKehvOsvlckx/h5Z4ZFYW+rgjZtSLFD6/GmeeXzSdqUcfDUZr8BVKlxOcyIIeDe
-pt0C8+bupAw+hTZxnf0V+/aN3OhFlhBuyv13tHzIApsOWl0W78iSfk8AFo/hpfrS
-19VeqvlmLx9GuHDxHkkLZp2LcXANHQcW6/kuDBHY1D7N9CtJvaHS3d/uHwENVna+
-U/HoZvfGY91niTHjClR5zWazHFN3ZNOXQ1SjwECfKmaBPXSiiPAEkQbDVuwFkdP5
-Wcq+7vW8ERwBLyY0GtkuPIlrf09jXFodZE78h9Rz73dMEHLnhuSkCal8A7A0jWUe
-7F7cIsQQtj/H4jaf0EtJHUmEzluvA1U/hzGqamP16b9mdKidERu7jeqF5DznAjJR
-n1GFXS/4KXbGb0ae0VhlveMEEDOrE0vPc5pAbf0MbFvyEuB8c92LbEa+zcgE5RKL
-RjMWm/ZylriszvK1pRqguVFyLauoQMxbPxYBMUzR4oW/42PFCscCHeq70yXlnbow
-t3IZ2h9y6jIpnKti4YSwLe6vHqy1N57YVq1NxigFSGThA6wFfh/mnPts/8c/wHF0
-OsHPbBD97iWsYrs78pXxUsGr
-=Aaje
------END PGP SIGNATURE-----
-
---nextPartKiOmKHBbRlSSdhbtK6AHkQ--
-
-
-
+Can you also clear tlb_tags.start in kvm_destroy_tlb_tags()?
