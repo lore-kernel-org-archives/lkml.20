@@ -1,161 +1,318 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFB03192D8A;
-	Wed, 14 Oct 2026 19:02:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 961D0417BD2
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:02:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792004559; cv=none; b=mAOEqD0wDiPSSgGaVDYJP3KKNzBRxQBs5FndvRS0OyFeQEtXnj1oOx3GooMxmFuNIBeEhur23HOjCBOZTeX+zFEj0TS2Is8SEtMGnUoBNczresaawWw/3E9U6JZH3SrGk7dl+UaO0hRsuG89hIxhgLJ54edcp3A+cMZ16IrmdOs=
+	t=1792004562; cv=none; b=Cce8da4Vawes/7fKnMKq0+ZKF7Vy9Uw+CpsC7xFjdb152qNrUw1rt9CyyjqlwRwQR+2TVchiyDnUcbEsuU79AWI7uIPfblplBafr3NgGOJ2jHB6LkhGxuBLKz7y4forDpffmaeFiIjwwYmlr5Q+aRB6Rt2gA0pF4/nx/P56272U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792004559; c=relaxed/simple;
-	bh=8jSphzUJpNVp1momRb+tJn+p9MyDHLR+YV2cD1vViFY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tC+YlD1wc/gc9TShzmO+ocs4NEysKMVdMWHoGOOXo1U3uC7/doeeO6QOfKcbuuA8E2Yd5G0uKuZV7K+7R1NwRwOgHrKUOvhzbha4HvQXe+2h2LHEnlblmkjzIRtoh+rNgKrZpX6z1CZ8sLpAyzmKL0vc1Dgbt0lBUyfy/XSIxz4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=nFznBiE3; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
+	s=arc-20240116; t=1792004562; c=relaxed/simple;
+	bh=5nQ7Gb4Lv+YzkIA8MvsSkhr+WIiCiNF1zfmsSL1l/PM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=RznpV/Odsybzqo3LIVKMNPLlx8qn9+JDpa3BVo+0VVuCX+C9wXPi+9BkG4k+yRhH25VF0ETEpPHncYLRaRnPgS++XlgEzi3FDTalVfgcI0maRsIh/WhDlkvA8eQl5KSNWPAnjETqs14of5GiKO5KpgIDnjzAklvO+Ib+3W98tCI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B1quyXeU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="nFznBiE3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
-	s=201707; t=1792004554;
-	bh=IEhWX3oJhdOctCVYJ+rZtv9G5PSA/1wlFynVycJFo+o=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=nFznBiE3DFW9BFZfhppi+MB0WzWW8GAfglywzm/+/kv3m5Vr3+uy9OQNOCKZw85b3
-	 1u9Ig4F6Sw0HPsebXlpwp1pYexHi7qIFPlOf+IBNNdA4DtU87xrvHf0ZAzebAP4nGW
-	 HLuSRAPlJqR2ze+QmwVcc06Zy3Ep/xP/vl2O6kI6bo0fY+zAAheq5Y35iCxcWSw3EU
-	 vx5bVxEHfaNSr0XP1DA3tL731GBeSHUe667CyK90lCKwsvmbTrY9hz6OLdUi9+PlQa
-	 5gVWEDoWK8lH3a6+yS/ARQydgaybQGvMB0mZtPW/r0yJ41tbrOzp1/3OhCrWigjWk6
-	 4cB2gJ/DKDyKA==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(Client did not present a certificate)
-	by mail.ozlabs.org (Postfix) with ESMTPSA id 4j4gYt4cKyz4wCx;
-	Thu, 15 Oct 2026 06:02:26 +1100 (AEDT)
-Message-ID: <c07e1a42-a001-4ea7-980c-6cea2cc13fa6@ozlabs.org>
-Date: Wed, 14 Oct 2026 20:02:24 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B1quyXeU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 405501F000C7
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:02:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792004560;
+	bh=P4yHuE9oecKRchkhtoS+YYilxu5k7VBhUCJf+GQfY8Y=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=B1quyXeUINvPQnKradNXMVOE0EbuJOVUIQbdvFeO6us1v6G9cXnotvEnDT+NMIv+W
+	 e9SxzrJyuIh2YBpqq7lersYlsOlDAXxiCUTlguvWkUEzKZFHm/+rAxJlljDpkKT9ic
+	 2xBgJN137t6HzalIfMFzUiiSg3fS+w0twPdUUO53u3agSEN7R9+B4q+OI5vSb0kTgh
+	 mzBMBKJ+dutZ57O5hhgN1tnoJ/MuacglY9gIaNmpkNjisr+GK+bgvF4s3gSPW2odXF
+	 sFrdX15271cBVXJnhFYJO7GrKHe/7abcDgaLOTD228aLqP/YgjyDIYmNII43BGvf2k
+	 WmysQ0KW90xLA==
+Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5bcb1f1358aso3098977e87.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:02:40 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwEX9sUo9JYpo1AcLc3kYRS18VnB5qzXt0h+ySozaNn8qbJjlh6K5nbqK+Zh7sTFMqyiG8QlmwrlQgjMv0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJKD7R32M6G3dSH292UGWn05OwJrXEFdgMdYMDc3M7Gxfe7S05Z
+	c887TTVvCqqw0EzBgodLnicUfPfnxcLrl2FZKmformxyteF2s9qKncOOKy5Xf/UuegPBEZQRMwI
+	qk2Mg9fRSQyPkmHyzlXjTUudunwoGjJg=
+X-Received: by 2002:a05:6512:110a:b0:5b8:edeb:5c29 with SMTP id
+ 2adb3069b0e04-5bcde6caf7cmr5889762e87.43.1792004558562; Wed, 14 Oct 2026
+ 12:02:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 9/9] vfio/pci: Revoke a DMABUF on request from
- userspace
-Content-Language: en-GB
-To: Alex Williamson <alex@shazbot.org>
-Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Alex Mastro <amastro@fb.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Kevin Tian <kevin.tian@intel.com>,
- Pranjal Shrivastava <praan@google.com>, Longfang Liu
- <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
- David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
- <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org
-References: <20261006193643.76330-1-matt@ozlabs.org>
- <20261006193643.76330-10-matt@ozlabs.org>
- <20261013171343.2363e9e1@shazbot.org>
-From: Matt Evans <matt@ozlabs.org>
-In-Reply-To: <20261013171343.2363e9e1@shazbot.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261001155118.1750028-1-briannorris@chromium.org> <20261001085009.v4.1.I45a794e4452e3df22419acdd8f11e2b788b3413f@changeid>
+In-Reply-To: <20261001085009.v4.1.I45a794e4452e3df22419acdd8f11e2b788b3413f@changeid>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Wed, 14 Oct 2026 21:00:31 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0gWtAZq0S1KiGxQOEc-F+CuuzfuFrKuWFxVi96_9xeS6g@mail.gmail.com>
+X-Gm-Features: AclHuK8zQ9j5WuHNIYyFttdCRYP73O4C3zpqSyDn3-lMGkkWE_KYkNQJEov19HA
+Message-ID: <CAJZ5v0gWtAZq0S1KiGxQOEc-F+CuuzfuFrKuWFxVi96_9xeS6g@mail.gmail.com>
+Subject: Re: [PATCH v4 1/2] PM: runtime: Expand introduction with core
+ concepts and structure
+To: Brian Norris <briannorris@chromium.org>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Pavel Machek <pavel@kernel.org>, linux-doc@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Doug Anderson <dianders@chromium.org>, Len Brown <lenb@kernel.org>, Ulf Hansson <ulfh@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Alex,
+On Thu, Oct 1, 2026 at 5:51=E2=80=AFPM Brian Norris <briannorris@chromium.o=
+rg> wrote:
+>
+> I commonly see people have difficulty learning how runtime PM works
+> because of the following key points [*]:
+>
+>  1) there are several boolean concepts in runtime PM, with somewhat
+>     similar meanings:
+>
+>      enabled / disabled
+>      active / suspended
+>      allowed / forbidden
+>
+>  2) if these concepts are documented at all, they're scattered across
+>     the kerneldoc or Documentation/
+>
+>  3) the runtime_pm.rst docs don't make any attempt to ease a reader into
+>     understanding the concepts, and instead jump straight into how it's
+>     implemented (queues, 'struct device' fields, helpers).
+>
+> Let's try to remedy this a bit by discussing the core concepts and
+> highlights at the top of the introduction, and introduce a few
+> sub-headings, so it's easier to navigate different aspects of the
+> introduction.
+>
+> While shuffling the intro around, I also see that the existing text
+> largely mirrors the layout of the following sections (2, 3, and 4), but
+> does so out of order. Reorder those, and point to section numbers.
+>
+> [*] In addition to API complexity. I count 61 pm_*() helpers, 7 of which
+>     are variations of put() and 8 of which are variations of get().
+>
+> Signed-off-by: Brian Norris <briannorris@chromium.org>
+> ---
+>
+> Changes in v4:
+>  * Significantly overhaul introduction, based on Rafael's
+>    feedback/rewrite
+>  * Drop most implementation details (struct fields) and API names from
+>    intro
+>  * Expand the "in use" and dependencies concepts in the introduction
+>
+> Changes in v2:
+> Address review feedback around descriptions of "enabled" and "active". I
+> know not every point of discussion was settled, but I hope this updated
+> version resolves many of them and provides a better basis for further
+> improvement.
+>  * Avoid calling enabled and active "orthogonal"
+>  * Describe more of their inter-relationship
+>  * Prioritize talking about "enabled" first, since that's the first
+>    concept a reader should know about
+>  * Brief mentions of parent/child and supplier/consumer, and dependency
+>    handling
+>  * Other tweaks
+>
+>  Documentation/power/runtime_pm.rst | 114 ++++++++++++++++++++++++-----
+>  1 file changed, 95 insertions(+), 19 deletions(-)
+>
+> diff --git a/Documentation/power/runtime_pm.rst b/Documentation/power/run=
+time_pm.rst
+> index 68903d93a3e7..e4407b687f8b 100644
+> --- a/Documentation/power/runtime_pm.rst
+> +++ b/Documentation/power/runtime_pm.rst
+> @@ -13,31 +13,107 @@ Runtime Power Management Framework for I/O Devices
+>  1. Introduction
+>  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>
+> -Support for runtime power management (runtime PM) of I/O devices is prov=
+ided
+> -at the power management core (PM core) level by means of:
+> -
+> -* The power management workqueue pm_wq in which bus types and device dri=
+vers can
+> -  put their PM-related work items.  It is strongly recommended that pm_w=
+q be
+> -  used for queuing all work items related to runtime PM, because this al=
+lows
+> -  them to be synchronized with system-wide power transitions (suspend to=
+ RAM,
+> -  hibernation and resume from system sleep states).  pm_wq is declared i=
+n
+> -  include/linux/pm_runtime.h and defined in kernel/power/main.c.
+> -
+> -* A number of runtime PM fields in the 'power' member of 'struct device'=
+ (which
+> -  is of the type 'struct dev_pm_info', defined in include/linux/pm.h) th=
+at can
+> -  be used for synchronizing runtime PM operations with one another.
+> +Runtime power management (or runtime PM, sometimes also referred to as R=
+PM)
+> +allows individual I/O devices that are not in active use to be put into
+> +low-power states, in which they may not be operational or even accessibl=
+e, and
+> +go back to the fully operational state as needed.  Power can be reduced =
+this
+> +way without waiting for a transition into a system-wide sleep state.
+> +
+> +Core Concepts
+> +-------------
+> +
+> +Runtime PM operates around a few device-level concepts =E2=80=94 whether=
+ a device is
+> +**active** or **suspended**; whether runtime PM is **enabled** or **disa=
+bled**;
+> +whether runtime PM is **allowed** or **forbidden**; and whether a device=
+ is
+> +**in use**.
+> +
+> +* **Active**: Runtime PM tracks whether or not devices are in active use=
+, which
+> +  generally means that they are accessible and operational, and may be d=
+epended
+> +  on by something (for example, other devices or user space).  This is
+> +  represented by the **active** meta-state.  By contrast, the **suspende=
+d**
+> +  meta-state represents a promise that the given device will not be acce=
+ssed.
+> +  This covers devices in low-power states, but it also may include devic=
+es that
+> +  are not fully operational.  There are also two transient meta-states,
+> +  **suspending** and **resuming**, representing transitions between **ac=
+tive**
+> +  and **suspended** often referred to as *runtime suspend* and *runtime
+> +  resume*, or just *suspend* and *resume*, respectively.  Every device h=
+andled
+> +  by runtime PM is in one of these four meta-states at any time, and its
+> +  meta-state is expected to reflect its actual physical configuration (t=
+hat is,
+> +  for instance, if the device is not accessible, it must not be **active=
+**).
+> +  The term "runtime PM status" used in what follows refers to the meta-s=
+tates
+> +  described above.
+> +
+> +* **Enabled**: In order to track the runtime PM status and carry out
+> +  transitions between **active** and **suspended**, runtime PM needs to =
+be
+> +  **enabled** for the given device.  If it is **disabled**, runtime PM
+> +  generally leaves the device alone.  This means in particular that the =
+runtime
+> +  PM status of a device and its actual physical configuration may get ou=
+t of
+> +  sync after disabling runtime PM for it.  Additionally, the runtime PM =
+status
+> +  of a device may need to be explicitly adjusted to reflect its current
+> +  physical configuration before enabling runtime PM for it (e.g., during=
+ device
+> +  probe).  Once runtime PM is **enabled**, it begins managing PM status =
+=E2=80=94
+> +  performing *runtime suspend* and *runtime resume* transitions based on=
+ its
+> +  understanding of whether a device is in use.
+> +
+> +  As a rule, all devices are initialized with runtime PM **disabled**, t=
+hough
+> +  some bus types (such as PCI) manage some RPM initialization automatica=
+lly,
+> +  and therefore probe devices in an **enabled** state.  For other device=
+s,
+> +  drivers must enable runtime PM on their own to opt in.
+> +
+> +* **Allowed**: Runtime PM may be **forbidden** even though it has been e=
+nabled.
+> +  Doing so causes the given device to transition into the **active** met=
+a-state
+> +  and prevents it from being suspended.  In other words, a device with
+> +  forbidden runtime PM remains **active** at least until runtime PM is
+> +  **allowed** for it again.  This mechanism can be managed by in-kernel =
+APIs,
+> +  but more importantly, it is also available to user space via the
+> +  ``/sys/devices/.../power/control`` sysfs attribute of the given device=
+.
+> +  Namely, writing ``on`` to that attribute forbids runtime PM, and writi=
+ng
+> +  ``auto`` allows it.  User space may modify that attribute at any time,=
+ so the
+> +  ability to transition a device into the **suspended** meta-state via r=
+untime
+> +  PM must not be relied on for correctness.
+> +
+> +* **In use**: Runtime PM determines whether a device should be transitio=
+ned to
+> +  an **active** state by its understanding of whether a device is in use=
+.  The
+> +  first way a device is considered **in use** is by its own usage count =
+=E2=80=94 a
+> +  reference counter driven by a variety of get()/put() APIs.  Additional=
+ly, a
+> +  device may be considered **in use** by having active dependents =E2=80=
+=94 either
+> +  child devices, or device-linked consumers.  When a device is no longer=
+ in
+> +  use, runtime PM may choose to transition it to the **suspended** state=
+.
+> +
+> +  Thus, when a device moves from **suspended** to **active**, it may als=
+o cause
+> +  its dependencies to resume, unless they are **active** already.  Conve=
+rsely,
+> +  suspending a device may also cause its otherwise-unused dependencies t=
+o
+> +  suspend.
+> +
+> +* **Autosuspend**: Runtime PM also supports a feature called "autosuspen=
+d."
+> +  This is different than the ``control`` notion of "auto" (i.e., **allow=
+ed**).
+> +  Autosuspend is covered in `Section 9`_.
+> +
+> +Implementation Structure
+> +------------------------
+> +
+> +Support for runtime power management is provided at the power management=
+ core
+> +(PM core) level by means of:
+>
+>  * Three device runtime PM callbacks in 'struct dev_pm_ops' (defined in
+> -  include/linux/pm.h).
+> +  include/linux/pm.h). See `Section 2`_.
+> +
+> +* A number of runtime PM fields in the 'power' member of 'struct device'=
+ that
+> +  can be used for synchronizing runtime PM operations with one another. =
+These
+> +  are covered in `Section 3`_.
+>
+>  * A set of helper functions defined in drivers/base/power/runtime.c that=
+ can be
+>    used for carrying out runtime PM operations in such a way that the
+> -  synchronization between them is taken care of by the PM core.  Bus typ=
+es and
+> -  device drivers are encouraged to use these functions.
+> +  synchronization between them is taken care of by the PM core. Bus type=
+s and
+> +  device drivers are encouraged to use these functions. They are covered=
+ in
+> +  `Section 4`_.
+>
+> -The runtime PM callbacks present in 'struct dev_pm_ops', the device runt=
+ime PM
+> -fields of 'struct dev_pm_info' and the core helper functions provided fo=
+r
+> -runtime PM are described below.
+> +* The power management workqueue pm_wq in which bus types and device dri=
+vers can
+> +  put their PM-related work items. It is strongly recommended that pm_wq=
+ be
+> +  used for queuing all work items related to runtime PM, because this al=
+lows
+> +  them to be synchronized with system-wide power transitions (suspend to=
+ RAM,
+> +  hibernation and resume from system sleep states). pm_wq is declared in
+> +  include/linux/pm_runtime.h and defined in kernel/power/main.c.
+>
+>  .. _Section 2:
+>
+> --
 
-On 14/10/2026 00:13, Alex Williamson wrote:
-> On Tue,  6 Oct 2026 20:36:37 +0100
-> Matt Evans <matt@ozlabs.org> wrote:
->> +#ifdef CONFIG_VFIO_PCI_DMABUF
->> +int vfio_pci_core_feature_dma_buf_revoke(
->> +	struct vfio_pci_core_device *vdev, u32 flags,
->> +	struct vfio_device_feature_dma_buf_revoke __user *arg,
->> +	size_t argsz)
->> +{
->> +	struct vfio_device_feature_dma_buf_revoke db_revoke;
->> +	struct vfio_pci_dma_buf *priv;
->> +	struct dma_buf *dmabuf;
->> +	int ret;
->> +
->> +	if (!vdev->pci_ops || !vdev->pci_ops->get_dmabuf_phys)
->> +		return -EOPNOTSUPP;
->> +
->> +	ret = vfio_check_feature(flags, argsz,
->> +				 VFIO_DEVICE_FEATURE_SET,
->> +				 sizeof(db_revoke));
->> +	if (ret != 1)
->> +		return ret;
->> +
->> +	if (copy_from_user(&db_revoke, arg, sizeof(db_revoke)))
->> +		return -EFAULT;
->> +
->> +	dmabuf = dma_buf_get(db_revoke.dmabuf_fd);
->> +	if (IS_ERR(dmabuf))
->> +		return PTR_ERR(dmabuf);
->> +
->> +	priv = dmabuf->priv;
->> +	/*
->> +	 * Sanity-check the DMABUF is really a vfio_pci_dma_buf _and_
->> +	 * relates to the VFIO device it was provided with.
->> +	 *
->> +	 * If the DMABUF relates to this vdev then priv->vdev is
->> +	 * stable because this open fd prevents cleanup.
->> +	 *
->> +	 * If it relates to a different vdev, reading priv->vdev might
->> +	 * race with a concurrent cleanup on that device.  But if so,
->> +	 * it points to a non-matching vdev or NULL and is unusable
->> +	 * either way.
->> +	 */
->> +	if (dmabuf->ops != &vfio_pci_dmabuf_ops ||
->> +	    READ_ONCE(priv->vdev) != vdev) {
->> +		ret = -ENODEV;
->> +		goto out_put_buf;
->> +	}
->> +
->> +	/*
->> +	 * memory_lock(R) is taken to stop vfio_pci_dev_set_hot_reset()
->> +	 * from getting it and then blocking all devices in the dev_set behind
->> +	 * this revoke's drain.
->> +	 */
->> +	down_read(&vdev->memory_lock);
->> +	down_write(&vdev->dmabuf_lock);
->> +	if (priv->status == VFIO_PCI_DMABUF_DEAD) {
->> +		ret = -EBADFD;
-> 
-> Kind of ugly to special case the condition in the caller that's already
-> tested in the function.  Why not return an errno for this purpose?
-> Thanks,
-
-Sure, especially since that comparison's already there.
-
-(Rather than generating -EBADFD in the function (that error doesn't make 
-a lot of sense outside of this ioctl), it can return $anything and get 
-converted here.)
-
-Thanks,
-
-
-Matt
-
-> 
-> Alex
-> 
->> +	} else {
->> +		vfio_pci_dma_buf_set_status(priv, VFIO_PCI_DMABUF_DEAD);
->> +		ret = 0;
->> +	}
->> +	up_write(&vdev->dmabuf_lock);
->> +	up_read(&vdev->memory_lock);
->> +
->> +out_put_buf:
->> +	dma_buf_put(dmabuf);
->> +
->> +	return ret;
->> +}
->> +#endif /* CONFIG_VFIO_PCI_DMABUF */
-> 
-
+Applied as 7.4 material, thanks!
