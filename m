@@ -1,107 +1,135 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1E98360EC5;
-	Wed, 14 Oct 2026 23:28:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E2624E7807
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 23:30:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792020512; cv=none; b=CLnr8GdYWuJA5ZVvUcb1ChtCxRYzmcta2WyyqmICLGJUo6r/Ew21XIkU4MSd0EgGe0c3y9mIyO0uD660vZUomVbXO60A+EZM25nKrNwBZCfxC2gkrk/GipEUg5Jqb/2aD7Be4lapdyeylwYbgDYivoDkQIq5IT98XEYDXXZL23U=
+	t=1792020627; cv=none; b=MO17TYB4rHJLeoZSrGdtaFw73xZe3rB0gZOowBiqlAuu7OZ4YWFA1ceACoxVVtkTK1s2OWHAX+1cLYTdCRcrxuiHELI9/D6Zuuy/TtafRrZTFkaH7MCSfVwel9FUoHK0++dnXXwxdu9JyjY1sSUYyHG8dh23ZDJWIuJDHonsJGU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792020512; c=relaxed/simple;
-	bh=1PnPz/ssIDum+2czs9HoAetAo6DOsRhCTiiWFKOUTmw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oYdVGgwfSA0476ND26RrwA20au09mgefx1tjSEQtbFWK8iyqUD/rdfoe7vSYfQRuQ7hiV4+VI3z/I6wN9m7ooBgEoxME4h5gGflhOIlui7qzEHVGBKSTBVclMPiE0DRKjHviREIlUUzencVCBKX9U/WaTFpJAcBtbMSzhr86pi8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=JA3PvtPg; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1792020627; c=relaxed/simple;
+	bh=ooFfoXuxO7m582/nXtDkjaE2ul/5TklQZU1eox80nH4=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=QyTE578OnwGMMXhc7V5x5Riit8cAlBpIc+BkFZLqryX+ta89/PJu6gLZHwSTrOPiqgMHhqHsRkQr8iC2tPOn3vF/0efw7P/B4oA24vC5PH6sU4eZvbryyhb7lyxmqkv2XbvbNrcmECtvpzae/hNkuFlT7WWmQ56z1rnY8Uj2PEQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=fb9zkxgP; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="JA3PvtPg"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id A534240E02B0;
-	Wed, 14 Oct 2026 23:28:20 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id 6AdeqXv0RTNt; Wed, 14 Oct 2026 23:28:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1792020496; bh=dZu9GO3zcx5gvlghTdibBt7uX59ONko2vayhAFoneY4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=JA3PvtPgAEWmjeXMXheLOmV3iuQG5qEvPu5v8NaVvMDm6xXRgU4N1YBYdAS/xlAKk
-	 3kbBcp7JG5TsBPo/KCrO4uwtP5oCbrf0D5fcfqkuZD/yfJhWlyWYAPcW7mUascjSlQ
-	 0KzsHdt0sP9v+qCfnW2OPGb/4c2Mmo3YWrUSalBjKsVeU2ldEeRAsqyk/HxAsZ7P+Y
-	 hDedNwqAou+GAMEZitA5xv9ak9eCqvQJH4fSd2MKOdChmknN0qUEKsgs7N1IVgQYSo
-	 tRUs3UJQVcSvtOL6xUe+Tpk024cCCdTIVTcHPKOT8CPJLsQy1GDQ8zsS0wnGNAZjyC
-	 inhl6eXEaG050gDRjAqXoSV+pQ/WAigRPYKRqMVEx78hsOtRW4cJEdixzYfWDOKr08
-	 QJbm/VbXrHgNDy1fSLE3l6QYj+E2rwK4etHs43SRhB2da68bfIRSoSaTuxUsv21KNt
-	 CIKDTpIV6BOQ4AfCOyCOOaE3s33PpkCD2arXA3Mxl1gLJUPvtN8QHpOEWgGbSWgbMb
-	 o9gBLg9zFARfeX/C9QV0JtaDlEhNE6XNi9NcsjzFoLILnXwuuI1M2JxcCkMvlhaZMg
-	 sp23cW85ScZIFkEsB5pubejP1TJa/640VOHUvmAnF7iKeNN0gqoNV8f30JGIAJVRjf
-	 zca6vUZgA6xRuaLo7k+Fl0PA=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id DE16B40E048C;
-	Wed, 14 Oct 2026 23:27:43 +0000 (UTC)
-Date: Wed, 14 Oct 2026 16:27:40 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Ashish Kalra <Ashish.Kalra@amd.com>
-Cc: tglx@kernel.org, mingo@redhat.com, dave.hansen@linux.intel.com,
-	x86@kernel.org, hpa@zytor.com, seanjc@google.com,
-	peterz@infradead.org, thomas.lendacky@amd.com,
-	herbert@gondor.apana.org.au, davem@davemloft.net, ardb@kernel.org,
-	pbonzini@redhat.com, aik@amd.com, Michael.Roth@amd.com,
-	KPrateek.Nayak@amd.com, Tycho.Andersen@amd.com,
-	Nathan.Fontenot@amd.com, ackerleytng@google.com, jackyli@google.com,
-	pgonda@google.com, rientjes@google.com, jacobhxu@google.com,
-	xin@zytor.com, pawan.kumar.gupta@linux.intel.com,
-	babu.moger@amd.com, nikunj@amd.com, darwi@linutronix.de,
-	linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
-	kvm@vger.kernel.org, linux-coco@lists.linux.dev
-Subject: Re: [PATCH v3 0/2] x86/sev: Fix RMPOPT enablement on non-RMPOPT
- configs
-Message-ID: <20261014232740.GAatAP7B55b7VArwS9@fat_crate.local>
-References: <cover.1792018839.git.ashish.kalra@amd.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="fb9zkxgP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:From:To:
+	Content-Type; bh=U0eU2EDnQnBU/CSAxUC5m8k6ykkFO1pNn8qYzB+Mv6E=;
+	b=fb9zkxgPxb8q1Ko+oW/BGXiJ3htilo2BVBiSkikMcFCpNzU0XshOp6cjBOO4/v
+	DBx2TwYrGlbRJ/fcQWsgF4x7LToav1FJ66VtIvEfi4ogSPnkv6oIQgz86ZktIPut
+	ewcnwQ0l5CGfjrOfRtl+WFJkzk9Ny/vwdO8GheGibob8k=
+Message-ID: <ca6b0f0a-e872-489d-843d-a457faa8d8d4@163.com>
+Date: Thu, 15 Oct 2026 07:29:26 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <cover.1792018839.git.ashish.kalra@amd.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/7] exfat: drop i_rwsem from exfat_page_mkwrite
+From: Chi Zhiling <chizhiling@163.com>
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: exfat@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Yuezhang.Mo@sony.com, dxdt@dev.snart.me, sj1557.seo@samsung.com,
+ Chi Zhiling <chizhiling@kylinos.cn>
+References: <20261013033837.2748258-1-chizhiling@163.com>
+ <20261013033837.2748258-5-chizhiling@163.com>
+ <CAKYAXd-+whfZ9_Zrgi0awH2tPxuVLW2O7=6e-w5JcBNBMRrSbw@mail.gmail.com>
+ <07bfc007-145b-4ec5-a94e-c9f7bc3eedad@163.com>
+In-Reply-To: <07bfc007-145b-4ec5-a94e-c9f7bc3eedad@163.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wCX3YdXENBqVehpEQ--.56376S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCF1xKw18uw4fXw17tw1kZrb_yoW5XFyrpF
+	WYya4rKFZ8Jw12kFn29FsYya48Kw1SqrWxGF98W3y0vryqvF1UtFWxKrW8uFZ0vwn7X3W2
+	qF4qyr93X34DW3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U8pndUUUUU=
+X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC9xfnhWrQEFcjaQAA31
 
-On Wed, Oct 14, 2026 at 11:06:32PM +0000, Ashish Kalra wrote:
-> From: Ashish Kalra <ashish.kalra@amd.com>
+On 10/14/26 4:11 PM, Chi Zhiling wrote:
+> On 10/14/2026 9:19 AM, Namjae Jeon wrote:
+>>> @@ -969,8 +969,9 @@ static vm_fault_t exfat_page_mkwrite(struct 
+>>> vm_fault *vmf)
+>>>          loff_t new_valid_size, mmap_valid_size, fault_page_start;
+>>>          bool dirty = false;
+>>>
+>>> -       if (!inode_trylock(inode))
+>>> -               return VM_FAULT_RETRY;
+>> exfat_page_mkwrite() reads the file size before iomap_page_mkwrite()
+>> locks the page. Because inode_trylock was removed, another thread can
+>> grow the file in between. exfat_cont_expand() does not take
+>> invalidate_lock, so the shared lock does not stop it.
+>>
+>> mmap write fault                              ftruncate/fallocate
+>> Snapshot i_size = 1000
+>> new_valid_size = 1000
+>> dirty = false
+>>                                                Extend i_size to 3000
+>>                                                valid_size stays 1000
+>> iomap_page_mkwrite() locks folio
+>> Checks the current i_size (3000) and succeeds
+>> dirty is still false, so VDL is not advanced
+>>
+>> MM makes the page writable
+>> Store at offset 2000, no new page_mkwrite()
+>>
+>> The data at offset 2000 is beyond valid_size, so it can later be read
+>> as zero. Could you check and fix this race?
 > 
-> Two fixes for the RMPOPT series, both for configurations where the
-> RMPOPT CPUID bit is advertised but RMPOPT is not actually usable:
+> This is the issue Yuezhang mentioned earlier, and he has already 
+> submitted a fix:
+> 
+> https://lore.kernel.org/exfat/20261010101200.1211462-2- 
+> Yuezhang.Mo@sony.com/
 
-Those are clearly not settled yet.
+I misunderstood. This is a different issue. I’ll fix this bug as soon as 
+possible.
 
-But you don't have to rush them, take your time with, test them more and
-analyze better what you're fixing instead of piling more stuff ontop.
+Thanks!
 
-And avoid all that unnecessary commenting you're doing. The stuff you're
-saying belongs in the commit message - not spread around the code.
+> 
+>>
+>> +       sb_start_pagefault(inode->i_sb);
+>> +       file_update_time(vmf->vma->vm_file);
+>> +       filemap_invalidate_lock_shared(inode->i_mapping);
+>>
+>> With i_size = 12 KB and valid_size = 0, DIO write to [0, 4 KiB  can
+>> race with an mmap write fault at offset 8 KB. The fault zeroes and
+>> dirties the gap [0, 8 KiB), then advances valid_size.
+>>
+>> DIO write [0,4 KiB)                         mmap fault at 8 KiB
+>> Starts writing data
+>>                                               Reads the gap as zero
+>>                                               Dirties pages 0 and 1
+>>                                               Advances valid_size
+>> Completes
+>> Post-DIO invalidation cannot remove
+>> the dirty page
+>> Writeback can overwrite DIO data with zeros
+>>
+>> Removing  inode_trylock()  from exfat_page_mkwrite() can introduce
+>> several racy issues. Could you check that the affected paths are
+>> properly synchronized?
+> 
+> Concurrent DIO and mmap writes are undefined behavior, and other 
+> filesystems may have similar issues.
+> 
+> I've spent quite a while thinking about this, but I still don't have a 
+> good solution. So I added the following patch to the patch series:
+> 
+> "exfat: publish i_size and valid_size on direct I/O completion".
+> 
+> The purpose of this patch is to prevent stale on-disk data from being 
+> exposed when DIO and mmap writes happen concurrently. However, the 
+> trade-off is that concurrent DIO writes may have their data unexpectedly 
+> zeroed.
+> 
+> Do you have any thoughts on this?
+> 
+> Thanks!
 
-If the code needs more explanation, then perhaps it needs to be simplified
-and split properly.
-
-I'm not at all happy about how intertwined and inter-dependent and thus
-fragile our SNP init gunk is.
-
-So think about that too, perhaps it can be simplified even more.
-
-I'll take the final versions later, during the 7.4 stabilization phase.
-
-Thx.
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
