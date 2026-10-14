@@ -1,165 +1,205 @@
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C0B64A5EB7
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 21:03:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 859C1395D8B
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 21:03:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.174
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792011799; cv=pass; b=Gza3VNduTPrEHnjT0glPx3hgQ/8I1bq/Zhh9K//vPG7lfaXs4qj51rNSWtvJB0p6M3/4UewBd1BjY7weHEF7Got2WD4cVKRyeSWEUGrHGskbY3vpAVj8YVRIXNt8pm4vuFKDSKX76z872+KmcFnCBZncw8VOfalNVGWdGnQozZU=
+	t=1792011837; cv=pass; b=qimkwV/CUdB1LePvbWWiBIb4WAblmCtlPxtg3tvhtfB+iHl90IdW8tQp0Lp7xKyHxD6NaAish8hKgCJrFC6FSi6CXYAMuG8lGc/leeL906R/AeBw+QJE4v4J7/dz7WPu50rOONOc5FrP3WNBtXHRj48FrwU8bgXqLknlcOCwUYw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792011799; c=relaxed/simple;
-	bh=T4Qy6GFRO1ST1QLZrYR/490K2fdT74b4dRkAKQGKFgg=;
+	s=arc-20240116; t=1792011837; c=relaxed/simple;
+	bh=+N4TyOpk6OjtO3aVhfd+KaWfqvmnkMh9n+1ySaFToUM=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ugunzmiP71wc7Ot/ziYGsIPpwThk8R+Wjgdl5dMVRmjsS0tIPI5y4qOXToZT/Ii8gfRJEV0bGBCTXJBWu6INbL9+Qr9g6EPPo38Y4r00hBrsU2X1n08ZYIqFeZkIfZh1wWG2i6YLQcpP4aQ4UiyeoWl0ZgjY/do1NOAuo556tEE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p6rmrFuo; arc=pass smtp.client-ip=209.85.208.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=XUHlK5qsC1YqACK6+N4vTk5EQbmqK4CkDZ3WW6ATGyj3vmH/7J6GNdgR63xEHBqOLvM1ACTWK6lhsjaymXTzETFFaMV8pFrozZQyl6Pg8ck1xapwe9ElI/WYBtp+YmlU4YQRz9l6XPG2TVET6e1pUuYHqkO9r/vP/A6yuYIgnBg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=nJKTLy/I; arc=pass smtp.client-ip=209.85.160.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p6rmrFuo"
-Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3a980c01033so11491921fa.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:03:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792011795; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="nJKTLy/I"
+Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-535f598d126so691921cf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:03:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792011835; cv=none;
         d=google.com; s=arc-20260327;
-        b=HylO5UbrtnmpeYrB3CCnRLOvqJhUmRUANdTmC+NI3YHaByR86gKzi8OnZtMaKp2uNz
-         DfmSBdlTqC76q48LjZzvzNe/Dtz2nxctYnaiP61kK+KJFHFr/i1RYp6vf4VoGlUIwYU6
-         YJt/+/jbaa3ynfYaMok8wsmFesrc70PVw5i3akuOTBDIS3onK6ib2F/JfvLhLGI88jAr
-         sbGgyB7JDmMiVxfAdekVjBjUrNZalfZAeK8dZL2ihVXdqe78kwtkPqrRDVEgyaMJbFQZ
-         x9MvomWGMoDw0ifsg8GPWXvOO5Y339eXDjZPRItyoiqfYRf8ZYNxp0nW/vo5KZbhgG9b
-         nQog==
+        b=NZhANBeoy2tMqk1Q9rQar3gBeiNkbP+gxZW8d5K/pxUUGrqHhLfuLeUhLHy5dkDpyN
+         /abMLS/o8bME3P/IUWM9u9oGBkoXZfppqP1t1wNRJChciWl9+6fD0YAGHIvERf6z8HFE
+         FGbXjQMKnB1S9l5dJ0+4fZKixN7Tjse0hFNQEUYFmYP/9DXaLiXXelTljo+tyo1fuddm
+         O1BZetN1MFRYyuTYB2CzuEOXZXBePl3xmUNdil4Qt6VpF9VYv/Mb6LlXn2hNBajN0J8b
+         CJJecU0Z6ppnFdsIhgdmkadIN16y+5gwOdYRgeQURRwSs3ZtQGIECBIF5YRQX5MgpOAh
+         EPfw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=rlL07No56m0cxdKc4fCRf+IU8nDpAMVPkbecBDh9W4s=;
-        fh=S5sUhwmxG6b33jj5CebLRWRIr5R2rtiFmvmD+XG1Zs0=;
-        b=O6uzlZ0N2ubQbz6hVa9v1nZYpvkHkJJnoVeu+niLDs2L9TlpvkH7ma9PF9xfDc2hgh
-         fm8p6ErrO8VemAOd1KNtHOif78wnMjxgc5mm4ctdP85wN5GVHov7HBatBPrItEO3Ujp6
-         tXZnt3KbHBHNK8qS/FgreKeLHAk8rQWsZCmsXhUX2L2Lg8g2NyMo8ZGgEmqSSgeVCiLJ
-         3G66NNsyeEJyPNeUvd0UlAilb9Pt6Rga6VvPA+wfIWH03ul4FD7ixiaC+xvghgWVnUus
-         WQ/aGZDCqOIr56GUOdFBWl3FzU8cINyMizILtrtb4zljt9ceOn2wf8yxngAB+fet7Ej5
-         zLYA==;
+        bh=Mxyz86H6TMMGtX9yyjeKonm2O61SvjPIdjz2IY2AyDw=;
+        fh=d1oEhm+DTzYFLLFSzBzXRgqLh0AsTbPsDE51bFEofM4=;
+        b=qxOZovu1XzIpjt3l1joNqFKHxc30dedQkzoYJ25UvbvMyCakUc0EaCLMGcXL0456XM
+         LulYChgXdpkK5IP636XWHzmrGWsU9Pq0tdVxJ8eBIJnirl6nO60oVRaqcPuXdqS0eASA
+         IR+AjepIanu6DBsTF9Ox7w45OJ9j1KZgQi7APo5I6sZp+P0Cg1ntiIvJQEXAurJ6oK3M
+         jGnOCIqyfzUIq0fcVwTy75SHsPOWgGNJ1vUFDGhRUNKpqiKfDmnoEAvA2fvGPx4+Mlpo
+         N+U+QffebGJRFHIuh8M9JevTE6np8ZeehM5LY1w0W0VXj5TZgo/DTApf+7bmfFdnu31c
+         Xg/Q==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792011795; x=1792616595; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1792011835; x=1792616635; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=rlL07No56m0cxdKc4fCRf+IU8nDpAMVPkbecBDh9W4s=;
-        b=p6rmrFuook6XBkT1FyUVaG7PnGlClKjiGTvXYwuumOMSAiH4jafl3vEOJ61HeR1fxN
-         SNELFMoFThTXB4mZdndM/Odu1KsgcBNjYjW8AUVxaqbbWHA9Mpz8szL0F7H16JoGnF4o
-         iuVwBA3AOXhkJlLoWFfsslfengH2mXuBDVfVxeUyPVR7HxTQmQ+yLCoopXM6dqxXPEzq
-         oN+HmDJ729Bci836/K5EvPBtcohFR4lpV5pRuiTdHPomhqH25ohiDX1p6dzHREEfTv3E
-         YKJN+8QLk3WRe2tZtrmDoW3qXjXMinZDf2R+OzSsu/zrnG4tqG77ZUpxedV84JusdC1q
-         2hkQ==
+        bh=Mxyz86H6TMMGtX9yyjeKonm2O61SvjPIdjz2IY2AyDw=;
+        b=nJKTLy/IO1W81vnwPKRcqN01UYHzRS7FdTQ8qs/liOxXaerDOC6V6Je25CH2yZZyju
+         ArW4kun0R1C9szZLUGQvV708D6meT+y0DVzNgEnvu4U4Gz+rT4jhqx3fPDz2WkUHqutm
+         pDyIPh6+BsekaaCbqgITKTq+Y1ZlWPel6+Wyt6r/WGOLJtg2dQUyvcmySwnKulnhiycE
+         u7jbTWYDwqSFLGFpWna/0KH3pnZ2XKtmAPXBX5i9YmB9MDBl03VpabJcwOQMX/MTP3PY
+         p84P1TkzdrfbJYldr9TJWCab3HeKjpUyl1C14WddRhEtJscykY0wn2HjKec2F6n/o7F8
+         z8Eg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792011795; x=1792616595;
+        d=1e100.net; s=20260707; t=1792011835; x=1792616635;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=rlL07No56m0cxdKc4fCRf+IU8nDpAMVPkbecBDh9W4s=;
-        b=bmpLanIIEL7MvjRjTh05K5BfOASgPQbZa6Ee9Dd22NCy7CjuSvWf7WogEMaK07QmB1
-         dIRg79jKNFNrS6CtJroVLZP763uUMfmkthP567P6HsQpV36VGAHcgRou8v4wiJyYvdbN
-         4hiQFhfNWHYp/9Z/HAnfr7z69f+fbEKafGV8bkMc2i3rulX/QQn1whWvbuTonykCstES
-         SjLWmgKKdPOaVtHsDUzZHtz9JsMXtY5tYCor7q/mVgt+XsFc5ntYzDXIstLkIMpH7Yth
-         Nv9PrEIEtmZR2CLbbSPnsgz30J43yHJUeP5nkpQpGs96wN+ONUEO0jxIPB0BufunWSDH
-         bxew==
-X-Gm-Message-State: AFq9FYID2o9zHZsfth2Y2HMHlRbzAN/1su8O8q/1vVGn4dnoX/ZujD4U
-	bv6e3mHuaYdujiQayjceoVNZqMor3Vved3jPG37mvxWBD2su1jt6QXYmqp6y4mXXCQmKRh6u371
-	Njtb/7XBDtGyhmv8DIR9i1Iqkk5e4aAwPj4WWgcA=
-X-Gm-Gg: AYBFou1LoVnZ119suhaGoqoGzeyHKCebEqXwFe/WV3Uk/yyXWaI7y70Nig9ZPRS0maM
-	vcjU+7V8HtUdaL1C3kyRV0AoUDmiWH1V56m+DGfRuZBXWn0PR854G0/+lDYx2/zKTiWjMgrYY9C
-	vs+W9lSNuOnTA944tK3MiL4dNCJ0vsbonadUqcTfxCMMs8GDN6xMfLQ0XJZ6Q/lv8kIWn7vG9Mr
-	UbDC9FkVUlL/lMTiIci47/gaJuaIeUrUcfNsmd9YvIBkyVaA06JXIKbasO38VEL+u/nH4kJ15cM
-	WTRgZZ0Mqj0MTAZULP5pTx/u9FQK1MUYUd5yT8zchSet8m3ZEmj4Q5JljpO33PGKySUiGROmw4c
-	Eo5DZevq/jMyss+k/JsnojF4KLaBeHTRfAYrexiSiWpJe
-X-Received: by 2002:a05:651c:2221:b0:3a6:58f7:da9a with SMTP id
- 38308e7fff4ca-3a9c54acd7bmr39702171fa.27.1792011793698; Wed, 14 Oct 2026
- 14:03:13 -0700 (PDT)
+        bh=Mxyz86H6TMMGtX9yyjeKonm2O61SvjPIdjz2IY2AyDw=;
+        b=2DRdecaxWavl+I4qs0jwICo7MPO3r7ue7oNBBLwZB9OQbiqb7wtZX9AJGGXZ7W799t
+         dQDgWTVW0P/ajnkg9X+Sj1MH2s3hpsMwK120Wpyx8TpWolBwPSW4UHtAqADgpO5xGlAm
+         kunkFHkpIj5jwkS4+hlv1qX7REZgWT+knqbeH70vVHP/hld7CxIrfwDSNdBYTPTMFW9h
+         t5s1uTTJWDT7ubWOUTor/V+EdK+D8R7SbqLSlsBGnuaPGbOM8k9BzCOWx5kTNotShW+y
+         qUw52tpLRQ3idg5z0Kig8zA7CqS5leJD74PALRtzale8cZ0pUcDA+Nb4c0gYKtQoaJBa
+         xKbg==
+X-Forwarded-Encrypted: i=1; AKwUvBxMk52dZGOueD19AxewQPnjLlP2gS/rwGk37CBhOuOLesw7NnvenRH+aq6LWy92Xd9q9J+9NRBJepZ9ESQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLXLhlauNp7PdPa/vDOnkVdy9kQ50Ri9WvJ3CwtDEYZy+FcV1e6
+	sXvSi4eYJ4WtHA+keFsaC15tVl8Bh+xOfDicQnwfXhQZVxeTfgh3zj/OT39BJx1UD27D1O9UgLC
+	zy69BJfUuFqOULkO+8cep+I9UzPJVhIcfZepZdah/
+X-Gm-Gg: AYBFou2fr6C80Q+sfdB2sGTbY2LswatjHufAkHaKRB2lfjcSNnY2dM+oLSaYN9XNkVn
+	EsgeArsfQx7hAZgqmTl9MFjnZ228o8R+AVDUKmEh5HqJpRlOvURsuFVUHbIHrlz4Y9UySAWCwD8
+	X6tF8ze1lonXLLy7n5J4DskgYnw+ryBrFAwJWjIShBvXmnWas59VATt9TmxJSL85cpOHuacu+1A
+	0ih9Ec1M3rBJMM9e3rvdyWQCY6qZ9pRkaLaGcHPXz3OPRlkpPELGtku6PXjdEb8/6oboJwtA5nD
+	W99L2tICzHBGhX1autTY6H2PU3DWYgSgZFRFMLodNYDv0e/q4Ttk4cCopwehrWYTqd57WwG12We
+	BxmIj0CfUFw==
+X-Received: by 2002:a05:622a:4019:b0:530:e00f:7768 with SMTP id
+ d75a77b69052e-536161386camr525391cf.0.1792011833044; Wed, 14 Oct 2026
+ 14:03:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261014152138.138281-1-daeho43@gmail.com>
-In-Reply-To: <20261014152138.138281-1-daeho43@gmail.com>
-From: Daeho Jeong <daeho43@gmail.com>
-Date: Wed, 14 Oct 2026 14:03:01 -0700
-X-Gm-Features: AclHuK9ssELmbfFeOdtC11wQQOkFMUhWUeAu0fXdFEVJnCmum3r_7J3AOUUwHzg
-Message-ID: <CACOAw_yLf9MDqBdkvhY9rwe=pLjkrGkcrHtAmdsvhcOdU4Zt3Q@mail.gmail.com>
-Subject: Re: [PATCH] f2fs: expose resizable_tail feature via sysfs
-To: linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net, 
-	kernel-team@android.com
-Cc: Daeho Jeong <daehojeong@google.com>, stable@vger.kernel.org, 
-	Daniel Zheng <zhengdaniel@google.com>
+References: <20261014151326.4142140-1-thepacketgeek@gmail.com>
+In-Reply-To: <20261014151326.4142140-1-thepacketgeek@gmail.com>
+From: Ian Rogers <irogers@google.com>
+Date: Wed, 14 Oct 2026 14:03:40 -0700
+X-Gm-Features: AclHuK9gTJfGJVM2K8qZN8FxeTus_TXC4iuYsvQ-4FcRysqXiGbnxGrJtCFgToY
+Message-ID: <CAP-5=fXtuEX9zJ0U-a62REgfAXG2z05XCi1f6HB4hhUEfT969w@mail.gmail.com>
+Subject: Re: [PATCH v1] perf machine: Don't unwind the arm64 leaf frame caller
+ without symbols
+To: Matthew Wood <thepacketgeek@gmail.com>, James Clark <james.clark@linaro.org>, 
+	Leo Yan <leo.yan@arm.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Adrian Hunter <adrian.hunter@intel.com>, Puranjay Mohan <puranjay@kernel.org>, 
+	Breno Leitao <leitao@debian.org>, Arnaldo Carvalho de Melo <acme@redhat.com>, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-+ cc: zhengdaniel@google.com
-
-On Wed, Oct 14, 2026 at 8:21=E2=80=AFAM Daeho Jeong <daeho43@gmail.com> wro=
-te:
+On Wed, Oct 14, 2026 at 8:13=E2=80=AFAM Matthew Wood <thepacketgeek@gmail.c=
+om> wrote:
 >
-> From: Daeho Jeong <daehojeong@google.com>
+> On arm64, 'perf record --call-graph fp' also samples LR so that
+> thread__resolve_callchain_sample() can recover the leaf function's
+> caller, which is missing from the frame pointer chain. It does so via
+> get_leaf_frame_caller_aarch64(), which runs a DWARF unwind. The
+> unwinder looks up the symbol of every frame it visits, so the first
+> lookup in a DSO loads its full symbol table and demangles every symbol
+> in it.
 >
-> Userspace has no way to know whether the kernel supports the
-> resizable_tail_secno mount option before mounting. Passing it to a
-> kernel without the support fails the mount with -EINVAL, and checking
-> /sys/fs/f2fs/<disk>/pinned_area_max_secno requires an f2fs instance
-> to be mounted already.
+> Commit 02b2705017d2 ("perf callchain: Allow symbols to be optional when
+> resolving a callchain") added the symbols argument so that callers which
+> only need maps can avoid loading symbols, and passed it down to every
+> add_callchain_ip() call. The leaf frame unwind was missed and still runs
+> for symbols=3Dfalse, so 'perf inject' on arm64 has been loading symbols i=
+t
+> doesn't need ever since.
 >
-> Export /sys/fs/f2fs/features/resizable_tail so that userspace can check
-> the support before formatting or mounting a filesystem that relies on
-> resizable_tail_secno, e.g. a filesystem whose tail is going to be shrunk
-> online later.
+> Commit 29be60c93d2d ("perf build-id: Mark DSO in sample callchains")
+> compounded the issue: process_buildids() now walks the callchain of
+> every sample at the end of 'perf record' to mark DSOs hit. With -a, that
+> loads and demangles the symbol tables of every user binary sampled on
+> the system. This can send things into exponential time and memory
+> (over 1GB of heap growth in 5 seconds), so
 >
-> Fixes: c966d29e01bb ("f2fs: support resizable tail section and unify pinn=
-ed allocation")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Daeho Jeong <daehojeong@google.com>
+>   perf record -a -e cycles:u --call-graph fp -- sleep 2
+>
+> never finishes writing perf.data after the workload exits.
+>
+> Callers that pass symbols=3Dfalse only want the maps that callchain IPs
+> fall in, and add_callchain_ip() already honours that by using
+> thread__find_map() instead of thread__find_symbol(). Skip the leaf
+> frame unwind for them as well. The leaf frame caller is almost always
+> in the same DSO as the sampled IP or the next frame in the chain, so
+> build-id marking loses nothing in practice.
+>
+> Fixes: 02b2705017d2 ("perf callchain: Allow symbols to be optional when r=
+esolving a callchain")
+> Signed-off-by: Matthew Wood <thepacketgeek@gmail.com>
 > ---
->  Documentation/ABI/testing/sysfs-fs-f2fs | 2 +-
->  fs/f2fs/sysfs.c                         | 2 ++
->  2 files changed, 3 insertions(+), 1 deletion(-)
+>  tools/perf/util/machine.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
 >
-> diff --git a/Documentation/ABI/testing/sysfs-fs-f2fs b/Documentation/ABI/=
-testing/sysfs-fs-f2fs
-> index c4746c416ac..8df18b5d479 100644
-> --- a/Documentation/ABI/testing/sysfs-fs-f2fs
-> +++ b/Documentation/ABI/testing/sysfs-fs-f2fs
-> @@ -271,7 +271,7 @@ Description:        Shows all enabled kernel features=
-.
->                 inode_crtime, lost_found, verity, sb_checksum,
->                 casefold, readonly, compression, test_dummy_encryption_v2=
-,
->                 atomic_write, pin_file, encrypted_casefold, linear_lookup=
-,
-> -               fserror.
-> +               fserror, resizable_tail.
+> diff --git a/tools/perf/util/machine.c b/tools/perf/util/machine.c
+> index f86b3b7df742..51597cddd239 100644
+> --- a/tools/perf/util/machine.c
+> +++ b/tools/perf/util/machine.c
+> @@ -2989,7 +2989,13 @@ static int thread__resolve_callchain_sample(struct=
+ thread *thread,
 >
->  What:          /sys/fs/f2fs/<disk>/inject_rate
->  Date:          May 2016
-> diff --git a/fs/f2fs/sysfs.c b/fs/f2fs/sysfs.c
-> index 9749da70089..8b844a8b0bf 100644
-> --- a/fs/f2fs/sysfs.c
-> +++ b/fs/f2fs/sysfs.c
-> @@ -1421,6 +1421,7 @@ F2FS_FEATURE_RO_ATTR(linear_lookup);
->  #endif
->  F2FS_FEATURE_RO_ATTR(packed_ssa);
->  F2FS_FEATURE_RO_ATTR(fserror);
-> +F2FS_FEATURE_RO_ATTR(resizable_tail);
+>                 usr_idx =3D callchain_param.order =3D=3D ORDER_CALLEE ? j=
+-2 : j-1;
 >
->  #define ATTR_LIST(name) (&f2fs_attr_##name.attr)
->  static struct attribute *f2fs_attrs[] =3D {
-> @@ -1592,6 +1593,7 @@ static struct attribute *f2fs_feat_attrs[] =3D {
->  #endif
->         BASE_ATTR_LIST(packed_ssa),
->         BASE_ATTR_LIST(fserror),
-> +       BASE_ATTR_LIST(resizable_tail),
->         NULL,
->  };
->  ATTRIBUTE_GROUPS(f2fs_feat);
+> -               if (usr_idx >=3D 0 && chain->ips[usr_idx] =3D=3D PERF_CON=
+TEXT_USER) {
+> +               /*
+> +                * Finding the leaf frame caller needs a DWARF unwind, an=
+d the
+> +                * unwinder looks up the symbol of every frame it visits.=
+ Skip
+> +                * it when the caller asked for maps only, as for build-i=
+d
+> +                * marking, so that no symbol tables are loaded.
+> +                */
+> +               if (symbols && usr_idx >=3D 0 && chain->ips[usr_idx] =3D=
+=3D PERF_CONTEXT_USER) {
+
+Hi Matthew, I'm not sure if this is a serious patch or a bug report
+about the slowness of DSO marking. Broadly DSO marking is known to be
+slow and many perf tests run with -B and -N for this reason. I believe
+the intent behind DSO marking as a default is to ensure that perf
+provides the best profiling experience. This comes at a cost, but this
+fix looks like it will break things because IPs will be lost.
+
+Trying to look a little more at the ARM64 performance problem, I see
+that we're trying to unwind 2 frames:
+https://web.git.kernel.org/pub/scm/linux/kernel/git/perf/perf-tools-next.gi=
+t/tree/tools/perf/util/arm64-frame-pointer-unwind-support.c?h=3Dperf-tools-=
+next#n70
+but often just 1 is read. For libunwind the 1 frame case has a special case=
+:
+https://web.git.kernel.org/pub/scm/linux/kernel/git/perf/perf-tools-next.gi=
+t/tree/tools/perf/util/unwind-libunwind.c?h=3Dperf-tools-next#n671
+I wonder if we could replicate the 1 frame case with libdw to avoid
+processing the DSO, and update the caller to be:
+```
+ret =3D unwind__get_entries(add_entry, &entries, thread, sample,
+callchain_param.order =3D=3D ORDER_CALLER ? 1 : 2, true);
+```
+
+Thanks,
+Ian
+
+>
+>                         leaf_frame_caller =3D get_leaf_frame_caller(sampl=
+e, thread, usr_idx);
+>
 > --
-> 2.56.0.385.gd3acb90ef8-goog
->
+> 2.53.0-Meta
