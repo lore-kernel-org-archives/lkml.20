@@ -1,134 +1,101 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from mailrelay-egress5.pub.mailoutpod3-cph3.one.com (mailrelay-egress5.pub.mailoutpod3-cph3.one.com [46.30.211.244])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7CEA4B512D;
-	Wed, 14 Oct 2026 08:49:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81A8C1FC0
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:49:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.30.211.244
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791967762; cv=none; b=AszRzcncA4fN5YETxcis0849wLQKu4Q8IfUwCpyfYgEPkXdQ4g4J3VV7Tzqriw1IRTvrM7h4Z6l1vtqHR65q44ovnvoaORcGz87PF+YNNN8gvh/raDbL2xVgx0gKUyd9b7gdqSeNcj6wwm3ozVPbjS1UP6gEJn15UHHSqzWLbns=
+	t=1791967778; cv=none; b=npXU1rELS86Ye/5YKRjVDB3c61MFMEz2UsPCNkaPghdZwxAE6RBsCUVmQnHo2qe81BsbqWuhnHqyw4ZflHfycMevBJnQulaEmkdwxnuwMpoIMh+HWWhsXPuT/xMk7j6/0lnav7Zs/Obgdv1YeWYB+foqXhEReZUWS3oINrCflg0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791967762; c=relaxed/simple;
-	bh=di6/kM+4OGxTKyU/TWR57hK5xjPjpU5hkKpkkDx1goQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=VrDECaNDr1GIwKukb6Xnk9J9Jc16oAKsZSbCK2ZCmqXTbvnxkNDp8IkKBqJTmzHIopFRJzDQ8vpytVmcFZB7klzNNa9cqlUaqag/pgPXlw2L8t5wNuIWEd+STBNi7V4kud6bhHSySlbkRbAbntlOsv8Ipyx3tF0pr1qFgDgZ4cQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ojcZkb56; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791967778; c=relaxed/simple;
+	bh=MWCkujr8hLFgbZbKuvlWlIRSrlh/AtHwsryCdkhc2u0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=Qme608s/zqgUKvdA0rBThsk85lxjvSQam+qmOVay0Gox14lvGH0i82F+7oeYivVSs9NF2BMqfJCxils9++AC6n+1sdPzwpc76HVrn3erYO3FqrqeVD6ZTHUin21CaLSpgRcEaL8a5M+vmeQvrP4PvVtH8hpw98+J39TmiO2fhRk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=konsulko.se; spf=none smtp.mailfrom=konsulko.se; dkim=pass (2048-bit key) header.d=konsulko.se header.i=@konsulko.se header.b=LkEOXQud; dkim=permerror (0-bit key) header.d=konsulko.se header.i=@konsulko.se header.b=bIbav1bI; arc=none smtp.client-ip=46.30.211.244
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=konsulko.se
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=konsulko.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ojcZkb56"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=di6/kM+4OGxTKyU/TWR57hK5xjPjpU5hkKpkkDx1goQ=; b=o
-	jcZkb56yiehaUu5b+xIxn2bDjvz6O1F6hlP1IV9vifzs55el9eFZyZzam1AOI7at
-	HID5YM2PgOPPOS7Qh8jQeqf1yGwJ3GGtvNiLRGUP+4ZOe/MlS/RFOh39yNbK6rbt
-	kSsxJLjrMpS09ohf32G62fMVddHWcpI7bifIqegTCw=
-Date: Wed, 14 Oct 2026 16:47:55 +0800 (CST)
-From: taozj888  <taozj888@163.com>
-To: =?UTF-8?Q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-Cc: stable@vger.kernel.org, "Conor Dooley" <conor.dooley@microchip.com>,
-	"Andrew Lunn" <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	"Eric Dumazet" <edumazet@google.com>,
-	"Jakub Kicinski" <kuba@kernel.org>,
-	"Paolo Abeni" <pabeni@redhat.com>, "Jeff Garzik" <jeff@garzik.org>,
-	"Haavard Skinnemoen" <hskinnemoen@atmel.com>,
-	"open list:NETWORKING DRIVERS" <netdev@vger.kernel.org>,
-	"open list" <linux-kernel@vger.kernel.org>
-Subject: Re:Re: [PATCH net v4] net: macb: rate limit netdev error info print
- in the data path
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <DLZH4LPJ36YW.1CP7RL0J77DHN@bootlin.com>
-References: <20261007053211.572073-1-taozj888@163.com>
- <DLYI3O7PFN94.V7VH3HSLKEMD@bootlin.com>
- <63731290.3f0c.1a1198fe993.Coremail.taozj888@163.com>
- <DLZH4LPJ36YW.1CP7RL0J77DHN@bootlin.com>
-X-NTES-SC: AL_Qu2SA/WduE4s4yCaZekfk0cUj+c7WcCwvPkm3YRec84EpBzA9Co+c1lTPFfL3/uCEC61oB6paD9Aztp+RblCDkhiAmacYM9xj+7tGkyLPw==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (2048-bit key) header.d=konsulko.se header.i=@konsulko.se header.b="LkEOXQud";
+	dkim=permerror (0-bit key) header.d=konsulko.se header.i=@konsulko.se header.b="bIbav1bI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1791967769; x=1792572569;
+	d=konsulko.se; s=rsa2;
+	h=content-transfer-encoding:mime-version:references:in-reply-to:message-id:date:
+	 subject:cc:to:from:from;
+	bh=7DJ/UGFLzwkNS66PIQWaKVeCgpvTQiAHc2IYYxMeEEk=;
+	b=LkEOXQudpR7YBHQNagzX86LoHvGegnuJ1Gu5RxUEDhlcBxxo2s/sZP012YrJf82F33vj+vLXZLALU
+	 8sGt2U6V6Pgpx0gH1eypu34WzANOq/GTujeADsvXIdjkSl4iuWRRk4SZtX7oUvSKWUBNRE6CoELquI
+	 NxqJAMJ78sQgBL98jTCjE2lxLHua9lY+31HlbmWYl8Hk0h+b8IyrON2ultRuJGX56Xv93E8wKcpqHQ
+	 TsvAntC3wPRflAQdRRZY2DYttNCuRMGXLUGyYnunJnjHKB4sCMuRYbnIn/D11CI+TrlObmsWAZsYgL
+	 XTipH9IhT7K5IoafI6soKSSeXvkpsBw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1791967769; x=1792572569;
+	d=konsulko.se; s=ed2;
+	h=content-transfer-encoding:mime-version:references:in-reply-to:message-id:date:
+	 subject:cc:to:from:from;
+	bh=7DJ/UGFLzwkNS66PIQWaKVeCgpvTQiAHc2IYYxMeEEk=;
+	b=bIbav1bI0PGlwbDa+he/557iLLxhcswMt8jNeVjOCL17i2zBnInehWQq1n9276Fvc+U0QQy6NMPf8
+	 8bV1vlWCQ==
+X-HalOne-ID: 29a8c86c-c7ac-11f1-9ee7-310a91e02fd3
+Received: from localhost.localdomain (c213-102-77-204.bredband.tele2.se [213.102.77.204])
+	by mailrelay6.pub.mailoutpod3-cph3.one.com (Halon) with ESMTPSA
+	id 29a8c86c-c7ac-11f1-9ee7-310a91e02fd3;
+	Wed, 14 Oct 2026 08:49:29 +0000 (UTC)
+From: Vitaly Wool <vitaly.wool@konsulko.se>
+To: Harry Yoo <harry@kernel.org>
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	David Rientjes <rientjes@google.com>,
+	Christoph Lameter <cl@gentwo.org>,
+	Hao Li <hao.li@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	vitaly.vul@partner.samsung.com
+Subject: Re: Re: [PATCH] mempool: optimize mempool resizing
+Date: Wed, 14 Oct 2026 10:45:28 +0200
+Message-Id: <20261014084528.1280968-1-vitaly.wool@konsulko.se>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20261013091408.1231786-1-vitaly.wool@konsulko.se>
+References: <20261013091408.1231786-1-vitaly.wool@konsulko.se>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <7b5db407.7d53.1a13998c295.Coremail.taozj888@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:fygvCgD3XwG7Qc9qM31YAA--.819W
-X-CM-SenderInfo: hwdr6yqyyyqiywtou0bp/xtbC+RsN1GrPQbt63gAA3A
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Transfer-Encoding: 8bit
 
-CgpIaSBUaGVvOgoKClNvcnJ5IGZvciBoYXZpbmcgbWlzc2VkIGltcG9ydGFudCB0aGluZ3MuwqAK
-SSB3b3VsZCBsaWtlIHRvIGFwcGVuZCBzb21lIGV4cGxhbmF0aW9ucyBoZXJlLgpQbGVhc2Ugc2Vl
-IG15IGFuc3dlciBpbmxpbmUuCgoKVGhhbmtzLApaaWppbiBUYW8KCgpBdCAyMDI2LTEwLTE0IDAx
-OjU1OjAzLCAiVGjDqW8gTGVicnVuIiA8dGhlby5sZWJydW5AYm9vdGxpbi5jb20+IHdyb3RlOgo+
-SGVsbG8gWmlqaW4sCj4KPiAtIEknbGwgc3RvcCByZXBseWluZyBpbmxpbmUgYmVjYXVzZSB5b3Ug
-c2VlbSB0byBiZSBoYXZpbmcgaXNzdWVzIHdpdGgKPiAgIHlvdXIgbWFpbGVyLiBQbGVhc2UgZml4
-IGl0IHRvIGVhc2UgdGhlIGRpc2N1c3Npb24uCj4KPiAgIFNlZSBoZXJlIGhvdyB5b3VyIGVtYWls
-IGxvb2tzOgo+ICAgaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbmV0ZGV2LzYzNzMxMjkwLjNmMGMu
-MWExMTk4ZmU5OTMuQ29yZW1haWwudGFvemo4ODhAMTYzLmNvbS8KPgo+IC0gWW91ciBWNCBjb21t
-aXQgbWVzc2FnZSBzYXlzICJGaXhlczogODllNTc4NWZjOGE2IiBidXQgdGhhdCBpcyB3cm9uZwo+
-ICAgd2l0aCB0aGUgY3VycmVudCBwYXRjaCwgaXQgc2hvbGQgdXNlIDRkZjk1MTMxZWE4MC4gSSBk
-b24ndAo+ICAgdW5kZXJzdGFuZCB3aHkgeW91IGFyZSB0YWxraW5nIGFib3V0IHRoZSBjaGFuZ2Vs
-b2cgYXQgdGhlIHNhbWUgdGltZSwKPiAgIHRoaXMgaXMgdW5yZWxhdGVkLgo+CgoKWWVzLCBJIG1h
-ZGUgYSBtaXN0YWtlIGluIFY0IGNvbW1pdCBtZXNzYWdlIHdpdGggYW4gb3ZlcnNpZ2h0LCBpdCBz
-aG91bGQgdXNlIDRkZjk1MTMxZWE4MCwgc28KSSBqdXN0IHJldmlzZWQgaXQgdG8gNGRmOTUxMzFl
-YTgwIGluIHRoZSBWNSBwYXRjaCwgYW5kIEkgd2lsbCB1c2UgaXQgaW4gcG9zc2libGUgbGF0ZXIg
-cGF0Y2hlcy4KCgoKCj4gLSBZb3Ugc2tpcHBlZCBvdmVyIGV4cGxhaW5pbmcgd2h5IHlvdXIgZHJv
-cHBlZCB0aGUgc3RhcnRfeG1pdCBkaWZmLgo+Cj5JJ2xsIGhhdmUgdG8gc3RvcCByZXZpZXdpbmcg
-aWYgeW91IHNraXAgb3ZlciBwYXJ0cyBvZiB0aGUgbWVzc2FnZXMuCj5JIGdhdmUgeW91IGEgVExE
-UiBhbmQgeW91IHNraXBwZWQgb3ZlciB0aGUgZmlyc3QgYnVsbGV0cG9pbnQuCj4KCgpTb3JyeSwg
-SSBmb3Jnb3QgdG8gbWFrZSBhbiBleHBsYW5hdGlvbiBoZXJlLCBtYXliZSBkdWUgdG8gYW4gb21p
-c3Npb24uCk5vdyBJIHdvdWxkIGxpa2UgdG8gYW1lbmQgaXQ6CkFjdHVhbGx5IHdoZW4gSSBzdGFy
-dGVkIHRvIHJhdGUgbGltaXQgdGhlIGVycm9yIG1lc3NhZ2VzIGluIHRoZSBkYXRhIHBhdGgsIEkg
-c2F3wqAKdGhlIG5ldGRldl9lcnIgbWVzc2FnZSBwcmludCBpbiBib3RoIHRoZSBnZW1fcnhfcmVm
-aWxsIGFuZCBhdDkxZXRoZXJfc3RhcnRfeG1pdCwKYW5kIEkga25ldyB0aGV5IGFyZSBhbHNvIGlu
-IHRoZSBkYXRhIHBhdGguCkJ1dCBmb3IgdGhlIGZvbGxvd2luZyByZWFzb25zIEkganVzdCBvbWl0
-dGVkIGFkZGluZyByYXRlIGxpbWl0cyBmb3IgdGhlbToKMS4gRm9yIHRoZSBuZXRkZXZfZXJyIGlu
-IHRoZSBnZW1fcnhfcmVmaWxsLCB0aGVyZSBpcyBhICJ1bmxpa2VseSghc2tiKSIgdG8gY2hlY2sg
-aWYKdGhlIHNrYiBpcyBOVUxMIHdoaWNoIGlzIGEgcmFyZSBjYXNlLCAgc28gSSB0aGluayBpdCdz
-IG5vdCBzbyBuZWVkZWQgdG8gYWRkIGHCoApyYXRlIGxpbWl0IGhlcmU7CjIuIEZvciB0aGUgbmV0
-ZGV2X2VyciBpbiB0aGUgYXQ5MWV0aGVyX3N0YXJ0X3htaXQsIEkgdGhpbmsgaXQgYmVsb25ncyB0
-byBhbm90aGVyIHZlbmRvcgp3aGljaCBJIGFtIG5vdCBmYW1pbGlhciB3aXRoLCBhbmQgSSBkaWRu
-J3Qga25vdyBob3cgcG9wdWxhciBpdCB3YXMgdXNlZCwgZXZlbiBJIHdhcyBub3QgYXV0aG9yaXpl
-ZCB0b8KgCmNoYW5nZSBpdCB3aXRoIG15IHdpbGwgYWxzby4KCgpJZiB5b3UgdGhpbmsgaXQncyBi
-ZXR0ZXIgb3IgbmVlZGVkIHRvIGFkZCBhIHJhdGUgbGltaXQgZm9yIHRoZW0sIEkgd291bGQgbGlr
-ZSB0byBkbyBpdCBpbiBsYXRlciBwb3NzaWJsZQpwYXRjaGVzLsKgCldvdWxkIHlvdSBwbGVhc2Ug
-Z2l2ZSB5b3VyIG9waW5pb24gaGVyZT8KCgoKCj5UaGFua3MsCj4KPi0tCj5UaMOpbyBMZWJydW4s
-IEJvb3RsaW4KPkVtYmVkZGVkIExpbnV4IGFuZCBLZXJuZWwgZW5naW5lZXJpbmcKPmh0dHBzOi8v
-Ym9vdGxpbi5jb20KPgo+dGV4dDoKPk1pbWUtVmVyc2lvbjogMS4wCj5Db250ZW50LVRyYW5zZmVy
-LUVuY29kaW5nOiBxdW90ZWQtcHJpbnRhYmxlCj5Db250ZW50LVR5cGU6IHRleHQvcGxhaW47IGNo
-YXJzZXQ9VVRGLTgKPkRhdGU6IFRodSwgMDggT2N0IDIwMjYgMTQ6NTk6NTUgKzAyMDAKPk1lc3Nh
-Z2UtSWQ6IDxETFpINExQSjM2WVcuMUNQN1JMMEo3N0RITkBib290bGluLmNvbT4KPlN1YmplY3Q6
-IFJlOiBbUEFUQ0ggbmV0IHY0XSBuZXQ6IG1hY2I6IHJhdGUgbGltaXQgbmV0ZGV2IGVycm9yIGlu
-Zm8gcHJpbnQgaW4KPiB0aGUgZGF0YSBwYXRoCj5DYzogPHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+
-LCAiQ29ub3IgRG9vbGV5IiA8Y29ub3IuZG9vbGV5QG1pY3JvY2hpcC5jb20+LAo+ICJBbmRyZXcg
-THVubiIgPGFuZHJldytuZXRkZXZAbHVubi5jaD4sICJEYXZpZCBTLiBNaWxsZXIiCj4gPGRhdmVt
-QGRhdmVtbG9mdC5uZXQ+LCAiRXJpYyBEdW1hemV0IiA8ZWR1bWF6ZXRAZ29vZ2xlLmNvbT4sICJK
-YWt1Ygo+IEtpY2luc2tpIiA8a3ViYUBrZXJuZWwub3JnPiwgIlBhb2xvIEFiZW5pIiA8cGFiZW5p
-QHJlZGhhdC5jb20+LCAiSmVmZgo+IEdhcnppayIgPGplZmZAZ2FyemlrLm9yZz4sICJIYWF2YXJk
-IFNraW5uZW1vZW4iIDxoc2tpbm5lbW9lbkBhdG1lbC5jb20+LAo+ICJvcGVuIGxpc3Q6TkVUV09S
-S0lORyBEUklWRVJTIiA8bmV0ZGV2QHZnZXIua2VybmVsLm9yZz4sICJvcGVuIGxpc3QiCj4gPGxp
-bnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+Cj5UbzogInRhb3pqODg4IiA8dGFvemo4ODhAMTYz
-LmNvbT4KPkZyb206ID0/dXRmLTg/cT9UaMOpb19MZWJydW4/PSA8dGhlby5sZWJydW5AYm9vdGxp
-bi5jb20+Cj5YLU1haWxlcjogYWVyYyAwLjIyLjAtMC1nYzJmODZiN2FiZGUzCj5SZWZlcmVuY2Vz
-OiA8MjAyNjEwMDcwNTMyMTEuNTcyMDczLTEtdGFvemo4ODhAMTYzLmNvbT4KPiA8RExZSTNPN1BG
-Tjk0LlY3VkgzSFNMS0VNREBib290bGluLmNvbT4KPiA8NjM3MzEyOTAuM2YwYy4xYTExOThmZTk5
-My5Db3JlbWFpbC50YW96ajg4OEAxNjMuY29tPgo+SW4tUmVwbHktVG86IDw2MzczMTI5MC4zZjBj
-LjFhMTE5OGZlOTkzLkNvcmVtYWlsLnRhb3pqODg4QDE2My5jb20+Cj5YLVRVSUQ6IHRIa0NrT25k
-WGFRUQo+Cj5IZWxsbyBaaWppbiwKPgo+IC0gSSdsbCBzdG9wIHJlcGx5aW5nIGlubGluZSBiZWNh
-dXNlIHlvdSBzZWVtIHRvIGJlIGhhdmluZyBpc3N1ZXMgd2l0aAo+ICAgeW91ciBtYWlsZXIuIFBs
-ZWFzZSBmaXggaXQgdG8gZWFzZSB0aGUgZGlzY3Vzc2lvbi4KPgo+ICAgU2VlIGhlcmUgaG93IHlv
-dXIgZW1haWwgbG9va3M6Cj4gICBodHRwczovL2xvcmUua2VybmVsLm9yZy9uZXRkZXYvNjM3MzEy
-OTAuM2YwYy4xYTExOThmZTk5My5Db3JlbWFpbC50YW96ajg4OEAxNjMuY29tLwo+Cj4gLSBZb3Vy
-IFY0IGNvbW1pdCBtZXNzYWdlIHNheXMgIkZpeGVzOiA4OWU1Nzg1ZmM4YTYiIGJ1dCB0aGF0IGlz
-IHdyb25nCj4gICB3aXRoIHRoZSBjdXJyZW50IHBhdGNoLCBpdCBzaG9sZCB1c2UgNGRmOTUxMzFl
-YTgwLiBJIGRvbid0Cj4gICB1bmRlcnN0YW5kIHdoeSB5b3UgYXJlIHRhbGtpbmcgYWJvdXQgdGhl
-IGNoYW5nZWxvZyBhdCB0aGUgc2FtZSB0aW1lLAo+ICAgdGhpcyBpcyB1bnJlbGF0ZWQuCj4KPiAt
-IFlvdSBza2lwcGVkIG92ZXIgZXhwbGFpbmluZyB3aHkgeW91ciBkcm9wcGVkIHRoZSBzdGFydF94
-bWl0IGRpZmYuCj4KPkknbGwgaGF2ZSB0byBzdG9wIHJldmlld2luZyBpZiB5b3Ugc2tpcCBvdmVy
-IHBhcnRzIG9mIHRoZSBtZXNzYWdlcy4KPkkgZ2F2ZSB5b3UgYSBUTERSIGFuZCB5b3Ugc2tpcHBl
-ZCBvdmVyIHRoZSBmaXJzdCBidWxsZXRwb2ludC4KPgo+VGhhbmtzLAo+Cj4tLQo+VGjDqW8gTGVi
-cnVuLCBCb290bGluCj5FbWJlZGRlZCBMaW51eCBhbmQgS2VybmVsIGVuZ2luZWVyaW5nCj5odHRw
-czovL2Jvb3RsaW4uY29t
+> I think this has unresolved feedback from Christoph [1] and Damien [2],
+> so adding them to Cc list.
+
+> [1] https://lore.kernel.org/linux-mm/20260626042252.GA7997@lst.de
+> [2] https://lore.kernel.org/linux-mm/9104ac5d-ed2b-409d-8220-512dd4581966@kernel.org
+
+The first version of the patch was changing the API and the behavior, this one is a pure
+optimization that is transparent to all the mempool API users. Therefore, the feedback
+from [2] doesn't apply to this patch at all. [1] is answered below.
+
+> On Tue, Oct 13, 2026 at 11:14:08AM +0200, Vitaly Wool wrote:
+> > Resizing mempool to a bigger size currently requires a new allocation and
+> > a data copy to a new larger elements array which doesn't go well with the
+> > idea of having a fast and deadlock free memory allocations during exreme
+> > load.
+> 
+> Please elaborate the problematic scenario more in detail.
+> Have you obsesrved the problem in practice?
+
+We are using mempool to store a large set of preallocated rather big buffers. In case
+of memory pressure we'd call mempool_resize() (via shrinker callbacks) to reduce the
+amount of memory occupied by that set, and when the situation stabilizes, we'd go back
+to the original set again.
+
+Imagine you have a mempool with 10000 elements, and you have to reduce it to 3000. Then
+if you at some point want to go back to 10000, you'll end up reallocating the elements
+array and copying 3000 pointers, which is in fact totally unnecessary becase the array
+can still hold 10000 elements but the mempool implementation has no knowledge about it.
+
+Setting mempool to the max from the start a) doesn't help here b) is exhaustive with
+regard to the memory usage.
+
+~Vitaly
