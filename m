@@ -1,391 +1,424 @@
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78D772FE05C;
-	Wed, 14 Oct 2026 07:19:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.30.148.35
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791962372; cv=none; b=tqOHKzc2Vyj2DWldZdEbEICqaTVwR24hOviLim+2KXw0OC+4UY4+mOxQVXNDlPUVOSf4SwcmlM64fdpOMLWLvk8LMl9UBChxwCvyGloo3NFhAxn2GQSDWa+FxQXosyQl+G5W0NeQgKdhS6PxID32WqViuPRv1NUHP2gh37OG+hI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791962372; c=relaxed/simple;
-	bh=JsyIlL9Wt45Y/NVDMVZNWdKyX5v+5q83kZpTMiBHnSA=;
-	h=Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type; b=cNpGC3vzH9scnSQ8jJxP3dernP2dUZqbK9NJxKZ1IfcHC0qMYbb+HU9h0oUjr3vzDGxAU9gj1uigfHlMo1ZcVnWoKT65JKk4ZKK7XwUCedSL/bezVDxwXqsl8j4u/iTJnyv0zlgxlDGz54x+lN66dp2TWh4GXZxJWTAclGpSjR0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=160.30.148.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4j4Mym51Fwz8XrrJ;
-	Wed, 14 Oct 2026 15:19:28 +0800 (CST)
-Received: from njy2app01.zte.com.cn ([10.40.12.136])
-	by mse-fl1.zte.com.cn with SMTP id 69E7JErL019660;
-	Wed, 14 Oct 2026 15:19:14 +0800 (+08)
-	(envelope-from han.junyang@zte.com.cn)
-Received: from mapi (njy2app04[null])
-	by mapi (Zmail) with MAPI id mid204;
-	Wed, 14 Oct 2026 15:19:16 +0800 (CST)
-X-Zmail-TransId: 2afc6acf2cf4394-f4bd3
-X-Mailer: Zmail v1.0
-Message-ID: <20261014151916975NVBVLbtnVu8HzzOITdBnF@zte.com.cn>
-In-Reply-To: <20261014151200489685SCIlolykW0NGfL5EtQ@zte.com.cn>
-References: 20261014151200489685SCIlolykW0NGfL5EtQ@zte.com.cn
-Date: Wed, 14 Oct 2026 15:19:16 +0800 (CST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F2FF480DE8
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:19:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791962377; cv=pass; b=G4ITWH4vCge6Uot0RgvkWc/TsIAkz57kQ5OsDDpNtzW9hGYkDnXu2xsyotF6ll8Gw8E7855yPg5kqn1/l09Jb7RO73Fr9y1CPANh3m5UdTnVfhVUhm2JN24KwOdeUy/bw/bxV3UETSHJxyYDzIhNXAJ3W2u59NJ6Cz1iHyePLS0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791962377; c=relaxed/simple;
+	bh=+nKE0aerXq5zcerPMktiueb2dpi7N/wqcFUGs1sFppk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ujTXoYl4e2NblSChM616R4+s6OX3OVtT+hMxqNwfpjBMJ9eLSVleDYFQW1XPKTFnFSNLdEa2t1+tn9mjw3ntabmCaJB6QFkMhkq8dJ2ACRbpCuYRWAa796FAnegKTDoOXGOn7OmawYxHjE/pikZdXqbviOADQK1NkgrwYwPMv9Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=m7Sciar/; arc=pass smtp.client-ip=209.85.208.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="m7Sciar/"
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6b1ab2ad719so4599450a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 00:19:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791962374; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hLTjrTfNjS9qPOMpizkU5EUulqoFVW++V/IjttcTSsz4vktdyA0F2w9+HUDkq3odfI
+         HcwWB9FzzSabNPlGS7VZlJJlPX1kjvKVFTQr7lGV6WiZakUKqx7Ipny9Ulchz+ve1kpD
+         eIkWY7VnGuHfettEy1H4f/4V+VxNE4bBy8fW9zFe2clBkgNgpvnB1NU2rj7N5+Lr9A3r
+         7B3lVqJOibsRaDkGcwAS588ETLOPOjXTiz4m4hFMUiFo5jzVvn3ZYy+VgqiU6TcpFZ8P
+         VWpeRvJ/CldQgIsaOlfbcwCOG8iw3JBXAcFd3q8xri684nvZbm4JbEu3CeevX/oqUoYz
+         wBeQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=qbDfcVSYXH9BTPxOSJl5CrroWP8L6dvonpMNak5vQvA=;
+        fh=PsyFn35V2TTyoc3itB7f+2epOn5diKkkpsV/IJDtiFY=;
+        b=j8AvYCe2PHcAMMVVGHRBWIcquGYXHjQx5S3CG7THeS+3osgcIfq8zn8TXF5EJspHTi
+         OXPMoFLwalgxbHGOLOKg4SWsD/pvEf81c/w1mv1dSsBBQR8CL5WqBPKPq6PP15KpJBa6
+         +vcaHWa+jDFeNDZd+0f/Y2XbY96NFqKiHWbui0awa72O4VtrkE38XZMVon8dJtnACXc5
+         7UE0uDDsrMiKz5C6URtuHC7I+bW4R8s2m/rjxoS2NsDWYDSvtzTRBN7Ly1CeUYobv/cR
+         eU+HiUrMWmuQSB2CF8U0Y36gJnsUbe/3HgxbLTtLt7cbfalG327RmPCuz+V9fzIFgcyA
+         hBmg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1791962374; x=1792567174; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qbDfcVSYXH9BTPxOSJl5CrroWP8L6dvonpMNak5vQvA=;
+        b=m7Sciar/cWyTeS/n1S+loqRYRbKqCfFETScXUv3KhjhShHT1NtFVmkvV0x8oso9ysT
+         M+npVKiKLO5KkRXITmdQ/MMZxAAzc5cEuPlqeKMcCwOzJ+NNlAViMCjYPZZFrOJjR5KO
+         XS1dSK4yqOrjXy0LDoL1el0Xg9d56Z8OETmi9nbTRDWZ0vaaC/tSp+klfqmV27guQglx
+         SRHyHlrCrsZBwtt0BIEXoFDt3hvbLW4UT8XynB0gI6CyTHprqSwsWXLnDj3ElnJN4cdb
+         vrUSigBDcs9pKePEF7hgXV0rvKh2MeJmV+2QJrcz1mhjBN8qjb6n8eRyWvA8Yppw3gY2
+         3mJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791962374; x=1792567174;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=qbDfcVSYXH9BTPxOSJl5CrroWP8L6dvonpMNak5vQvA=;
+        b=j9Ijvmptmi+LJceijeObvS/2PasjQNhdIswWWqwKIgDTU0EuNPF2f/jzU4c4438G7l
+         JQRIbB1iC3TB34kbr7o9VlMHidkhpgN9krycZo5FQYm+9VAAzmaTXg2g6mV+qNh/XNob
+         6CV3Fxu3I5U0w//QLJdG+La8ILilBXtktdX6ftbOVPC/pIeAwcJBeG1ceWqGu2tao63G
+         LJZ/Ri8JAaXfQhVHmu0St8X896W+fM+sVlKGDJ3PE49sno/HejokqI2WYUzVo//jWtOj
+         p5LbJ9Uv3Mkde+8ygJodOIRjHX4k6iApp/l5iyDfVs74FYMqHvtNq0HyOrs0p8CkQhDh
+         TLzg==
+X-Forwarded-Encrypted: i=1; AKwUvBxo3QsIphuD4+qsZp1ufXX0RTyk3tZu9lT7HoHEK+Hz7lSHEZOMEIHb4rxzLjNi/UJmdJJV2PDNOo12zC4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI9wUGi3fWZu/wXayjP5L8Cbj9jLg9XLYzBVOPYKlPgsYjGc4Gf
+	InV11cYG+79YJQ3ZtGFf14FuRbw+T7beDQ0qGa7IXVS5cgS28M2z1R5HzTd81HBSbDs88jYHs4e
+	K/dcuwsuZ4rOsZBMH7f5IZu/Aw9rsp7/3XgqW5eDe0g==
+X-Gm-Gg: AYBFou1EGvyOy6IDo8yH9xENmachkodP+8caELMoUeb+vaCT87XpPMpCTg/oef/Nk8E
+	nXIHAgbYiWAD2rWR5Uu4OppObbnqBGe2CZZ5zHMx73ATOlVSQETyxVVUDQqhtxHZpPG95Ce1apT
+	+VB9S+fzTC68UoJZ5SxQ/QNn8hfZLWGXwqWo//wdnZxnshlC+c0PeXhCqEdJZxoc8LTeC3iIvPl
+	s91PHYEk3kjXpJ4Xf0xPUQfDf23i2H0vUfpdO0O/VHZWLLfQcMj4VgeplMuuhdz5eMNh7T51JVS
+	+AnWBXAoul80w6kgg9RmX6R/kspSbfxHuM80Hoqq9gPTCXPIo3V9Hgs+b1vwzXgbuKs9d9IAN09
+	awtmKoAf6CJo=
+X-Received: by 2002:a17:907:6095:b0:c34:c5e8:1dc5 with SMTP id
+ a640c23a62f3a-c34c5e82123mr828929666b.20.1791962373480; Wed, 14 Oct 2026
+ 00:19:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-From: <han.junyang@zte.com.cn>
-To: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
-        <kuba@kernel.org>, <pabeni@redhat.com>, <horms@kernel.org>
-Cc: <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
-        <han.junyang@zte.com.cn>, <ran.ming@zte.com.cn>,
-        <han.chengfei@zte.com.cn>, <zhang.yanze@zte.com.cn>
-Subject: =?UTF-8?B?W1BBVENIIG5ldC1uZXh0IHY1IDMvM10gZGluZ2hhaTogYWRkIGFzeW5jIGV2ZW50IHF1ZXVlIGZvciBmaXJtd2FyZQogbm90aWZpY2F0aW9ucw==?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 69E7JErL019660
-X-TLS: YES
-X-ENVELOPE-SENDER: han.junyang@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Wed, 14 Oct 2026 15:19:28 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6ACF2D00.000/4j4Mym51Fwz8XrrJ
+MIME-Version: 1.0
+References: <20261002154415.2270586-1-vincent.guittot@linaro.org>
+ <20261002154415.2270586-8-vincent.guittot@linaro.org> <a18e6fe1-e14e-46be-9779-3704ab8625a0@linux.ibm.com>
+In-Reply-To: <a18e6fe1-e14e-46be-9779-3704ab8625a0@linux.ibm.com>
+From: Vincent Guittot <vincent.guittot@linaro.org>
+Date: Wed, 14 Oct 2026 09:19:21 +0200
+X-Gm-Features: AclHuK8o97-tByDZxo3ZbCUEwmJUGSdqAopCL1P-qHwY8E-185Z3bC_zZwQQAnI
+Message-ID: <CAKfTPtCh1ZSWudmniet1UoGDAS3cQJYkLTuH-QuubGc8-rxOCw@mail.gmail.com>
+Subject: Re: [PATCH 07/18] sched/fair: Add push task mechanism for fair
+To: Shrikanth Hegde <sshegde@linux.ibm.com>
+Cc: qyousef@layalina.io, christian.loehle@arm.com, pierre.gondois@arm.com, 
+	mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com, 
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, 
+	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, 
+	linux-kernel@vger.kernel.org, lukasz.luba@arm.com, rafael@kernel.org, 
+	linux-pm@vger.kernel.org, tj@kernel.org, void@manifault.com, 
+	arighi@nvidia.com, changwoo@igalia.com, sched-ext@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-From: Junyang Han <han.junyang@zte.com.cn>
+On Mon, 12 Oct 2026 at 16:07, Shrikanth Hegde <sshegde@linux.ibm.com> wrote:
+>
+> Hi Vincent,
+>
+> Disclaimer:
+> I haven't read the full series yet. I will try to do. Sorry in case i read
+> it wrong.
+> Thought of quickly checking the push path since i had recently worked on it.
+>
+> On 10/2/26 9:14 PM, Vincent Guittot wrote:
+> > EAS is based on wakeup events to efficiently place tasks on the system, but
+> > there are cases where a task doesn't have wakeup events anymore or at a far
+> > too low pace. For such situation, we can take advantage of the task being
+> > put back in the enqueued list to check if it should be pushed on another
+> > CPU.
+> >
+> > Add a push task mechanism that enables fair scheduler to push runnable
+> > tasks. EAS will be one user but other feature like filling idle CPUs or
+> > short slice tasks can also take advantage of it.
+> >
+> > Signed-off-by: Vincent Guittot <vincent.guittot@linaro.org>
+> > ---
+> >   kernel/sched/core.c  |   4 +-
+> >   kernel/sched/fair.c  | 163 +++++++++++++++++++++++++++++++++++++++++++
+> >   kernel/sched/sched.h |   7 ++
+> >   3 files changed, 172 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> > index 837dc74c9a8d..18692b752814 100644
+> > --- a/kernel/sched/core.c
+> > +++ b/kernel/sched/core.c
+> > @@ -2553,8 +2553,8 @@ static inline bool is_cpu_allowed(struct task_struct *p, int cpu)
+> >    *
+> >    * Returns (locked) new rq. Old rq's lock is released.
+> >    */
+> > -static struct rq *move_queued_task(struct rq *rq, struct rq_flags *rf,
+> > -                                struct task_struct *p, int new_cpu)
+> > +struct rq *move_queued_task(struct rq *rq, struct rq_flags *rf,
+> > +                         struct task_struct *p, int new_cpu)
+> >       __must_hold(__rq_lockp(rq))
+> >   {
+> >       lockdep_assert_rq_held(rq);
+> > diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> > index f12678850ce2..00078ac7fada 100644
+> > --- a/kernel/sched/fair.c
+> > +++ b/kernel/sched/fair.c
+> > @@ -8179,6 +8179,8 @@ static void dequeue_hierarchy(struct task_struct *p, int flags)
+> >       }
+> >   }
+> >
+> > +static void fair_remove_pushable_task(struct rq *rq, struct task_struct *p);
+> > +
+> >   /*
+> >    * The part of dequeue_task_fair() that is needed to dequeue delayed tasks.
+> >    *
+> > @@ -8195,6 +8197,7 @@ static bool __dequeue_task(struct rq *rq, struct task_struct *p, int flags)
+> >       bool task_delayed = flags & DEQUEUE_DELAYED;
+> >
+> >       clear_buddies(cfs_rq, se);
+> > +     fair_remove_pushable_task(rq, p);
+> >
+> >       update_curr_eevdf(cfs_rq);
+> >       update_entity_lag(cfs_rq, se);
+> > @@ -9799,6 +9802,157 @@ static int find_energy_efficient_cpu(struct task_struct *p, int prev_cpu)
+> >       return target;
+> >   }
+> >
+> > +DEFINE_STATIC_KEY_FALSE(sched_push_task);
+> > +
+> > +static inline bool sched_push_task_enabled(void)
+> > +{
+> > +     return static_branch_unlikely(&sched_push_task);
+> > +}
+> > +
+> > +static bool __check_pushable_fair_task(struct rq *rq, struct task_struct *p)
+> > +{
+> > +     if (!task_on_rq_queued(p))
+> > +             return false;
+> > +
+> > +     if (p->se.sched_delayed)
+> > +             return false;
+> > +
+> > +     if (p->nr_cpus_allowed <= 1)
+> > +             return false;
+> > +
+> > +     return true;
+> > +}
+> > +
+> > +static bool fair_check_pushable_task(struct rq *rq, struct task_struct *p, struct task_struct *next)
+> > +{
+> > +     if (!__check_pushable_fair_task(rq, p))
+> > +             return false;
+> > +
+> > +     return false;
+> > +}
+> > +
+> > +static inline int has_pushable_tasks(struct rq *rq)
+> > +{
+> > +     return !plist_head_empty(&rq->cfs.pushable_tasks);
+> > +}
+> > +
+>
+> Should this use static key?
 
-Add the event queue table and the first async event queue, fed by the
-RISC-V management core of the firmware. The queue owns one MSI-X
-vector taken from the async pool and, on interrupt, reads the event_id
-from the PF receive sub-channel of the BAR message area, maps it to
-an event type and fans it out through the per-event-type notifier
-chains of the table. The PF probe creates and tears down the queue
-through the existing IRQ pool interfaces.
+Not needed, teh statis key has been test prior calling it
 
-The BAR message channel handshake that tells the firmware which
-vectors to signal comes with the BAR message subsystem in a later
-series; the PF side wired here is live as soon as that channel is
-enabled. Subscribers for the RISCV_READY event register on the
-notifier chains in later series as well.
+>
+> > +static struct task_struct *pick_next_pushable_fair_task(struct rq *rq)
+> > +{
+> > +     struct task_struct *p;
+> > +
+> > +     if (!has_pushable_tasks(rq))
+> > +             return NULL;
+> > +
+> > +     p = plist_first_entry(&rq->cfs.pushable_tasks,
+> > +                           struct task_struct, pushable_tasks);
+> > +
+> > +     WARN_ON_ONCE(rq->cpu != task_cpu(p));
+> > +     WARN_ON_ONCE(task_current(rq, p));
+> > +     WARN_ON_ONCE(p->nr_cpus_allowed <= 1);
+> > +     WARN_ON_ONCE(!task_on_rq_queued(p));
+> > +
+> > +     /*
+> > +      * Remove task from the pushable list as we try only once after that
+> > +      * the task has been put back in enqueued list.
+> > +      */
+> > +     plist_del(&p->pushable_tasks, &rq->cfs.pushable_tasks);
+> > +
+> > +     return p;
+> > +}
+> > +
+> > +static int
+> > +select_task_rq_fair(struct task_struct *p, int prev_cpu, int wake_flags);
+> > +
+> > +/*
+> > + * See if the non running fair tasks on this rq can be sent on other CPUs
+> > + * that fits better with their profile.
+> > + */
+> > +static bool fair_push_task(struct rq *rq)
+> > +{
+> > +     struct task_struct *next_task;
+> > +     int prev_cpu, new_cpu;
+> > +     struct rq_flags rf;
+> > +     struct rq *cur_rq;
+>
+> You likely need below to keep clang's context tracking to be happy.
+>
+>         context_unsafe_alias(rq);
+>
+> > +
+> > +     next_task = pick_next_pushable_fair_task(rq);
+> > +     if (!next_task)
+> > +             return false;
+> > +
+> > +     if (is_migration_disabled(next_task))
+> > +             return true;
+>
+> If migration is disabled, then it shouldn't endup on pushable_tasks?
 
-Signed-off-by: Junyang Han <han.junyang@zte.com.cn>
----
- drivers/net/ethernet/zte/dinghai/Makefile  |   2 +-
- drivers/net/ethernet/zte/dinghai/en_pf.c   |  23 ++--
- drivers/net/ethernet/zte/dinghai/en_pf.h   |   2 +
- drivers/net/ethernet/zte/dinghai/zxdh_eq.c | 137 +++++++++++++++++++++
- drivers/net/ethernet/zte/dinghai/zxdh_eq.h |  60 +++++++++
- 5 files changed, 216 insertions(+), 8 deletions(-)
- create mode 100644 drivers/net/ethernet/zte/dinghai/zxdh_eq.c
- create mode 100644 drivers/net/ethernet/zte/dinghai/zxdh_eq.h
+This can happen after it has been added to the list
 
-diff --git a/drivers/net/ethernet/zte/dinghai/Makefile b/drivers/net/ethernet/zte/dinghai/Makefile
-index f4a8f9480291..2dc6d68cc0e1 100644
---- a/drivers/net/ethernet/zte/dinghai/Makefile
-+++ b/drivers/net/ethernet/zte/dinghai/Makefile
-@@ -4,4 +4,4 @@
- #
+>
+> > +
+> > +     /* We might release rq lock */
+> > +     get_task_struct(next_task);
+> > +
+> > +     prev_cpu = rq->cpu;
+> > +
+> > +     /*
+> > +      * We need to release rq lock and take both task and rq w/o
+> > +      * triggering a deadlock.
+> > +      */
+> > +     raw_spin_rq_unlock(rq);
+> > +
+> > +     cur_rq = task_rq_lock(next_task, &rf);
+> > +
+> > +     /* Task already migrated */
+> > +     if (cur_rq->cpu != prev_cpu)
+> > +             goto skip_push;
+> > +
+> > +     new_cpu = select_task_rq_fair(next_task, prev_cpu, 0);
+> > +
+> > +     /* Task doesn't need to migrate */
+> > +     if (new_cpu == prev_cpu)
+> > +             goto skip_push;
+> > +
+> > +     update_rq_clock(cur_rq);
+> > +     cur_rq = move_queued_task(cur_rq, &rf, next_task, new_cpu);
+> > +
+> > +skip_push:
+> > +     task_rq_unlock(cur_rq, next_task, &rf);
+> > +
+> > +     /* Restore rq state */
+> > +     raw_spin_rq_lock(rq);
+> > +     put_task_struct(next_task);
+> > +
+> > +     return true;
+> > +}
+> > +
+> > +static void fair_push_tasks(struct rq *rq)
+> > +{
+> > +     /* fair_push_task() will return true if it moved a fair task */
+> > +     while (fair_push_task(rq))
+> > +             ;
+> > +}
+>
+> Would it better to iterate through the list? This is bit difficult
+> to read at first.
 
- obj-$(CONFIG_DINGHAI_PF) += dinghai10e.o
--dinghai10e-y := en_pf.o zxdh_irq.o
-+dinghai10e-y := en_pf.o zxdh_irq.o zxdh_eq.o
-diff --git a/drivers/net/ethernet/zte/dinghai/en_pf.c b/drivers/net/ethernet/zte/dinghai/en_pf.c
-index d5462ac6468f..f7400d66bc69 100644
---- a/drivers/net/ethernet/zte/dinghai/en_pf.c
-+++ b/drivers/net/ethernet/zte/dinghai/en_pf.c
-@@ -513,7 +513,8 @@ static int zxdh_pf_irq_pools_init(struct zxdh_core_dev *zxdh_dev)
+I followed what is done in RT and deadline
 
- static void zxdh_pf_irq_pools_destroy(struct zxdh_pf_irq_table *pf_irq_table)
- {
--	zxdh_irq_pool_free(pf_irq_table->async_pool);
-+	if (pf_irq_table->async_pool)
-+		zxdh_irq_pool_free(pf_irq_table->async_pool);
- }
+>
+> In failure cases also, it can return true. No? for example,
+> is_migration_disabled(), It is needed since you need to iterate the
+> rq to see if there is a task to move.
 
- int zxdh_pf_irq_table_init(struct zxdh_core_dev *zxdh_dev)
-@@ -544,18 +545,17 @@ void zxdh_pf_irq_table_destroy(struct zxdh_core_dev *zxdh_dev)
- {
- 	struct zxdh_irq_table *table = &zxdh_dev->irq_table;
+Yes, we skip the current task and continue witht the next one
 
--	zxdh_pf_irq_pools_destroy(table->priv);
-+	if (table->priv)
-+		zxdh_pf_irq_pools_destroy(table->priv);
- 	kvfree(table->priv);
-+	table->priv = NULL;
- 	pci_free_irq_vectors(zxdh_dev->pdev);
- }
-
-+/* Fetch a vector from the async pool for one async event queue. */
- struct zxdh_irq *zxdh_pf_async_irq_request(struct zxdh_core_dev *zxdh_dev)
- {
--	struct zxdh_irq_table *table = &zxdh_dev->irq_table;
--	struct zxdh_pf_irq_table *pf_irq_table = table->priv;
--
--	if (!pf_irq_table->async_pool)
--		return NULL;
-+	struct zxdh_pf_irq_table *pf_irq_table = zxdh_dev->irq_table.priv;
-
- 	return zxdh_get_irq_of_pool(pf_irq_table->async_pool);
- }
-@@ -614,10 +614,18 @@ static int zxdh_pf_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 		goto err_irq_table;
- 	}
-
-+	ret = zxdh_pf_eq_table_init(zxdh_dev);
-+	if (ret) {
-+		dev_err(&pdev->dev, "zxdh_pf_eq_table_init failed: %d\n", ret);
-+		goto err_eq_table;
-+	}
-+
- 	devlink_register(devlink);
-
- 	return 0;
-
-+err_eq_table:
-+	zxdh_pf_eq_table_destroy(zxdh_dev);
- err_irq_table:
- 	zxdh_pf_irq_table_destroy(zxdh_dev);
- err_modern_cfg:
-@@ -637,6 +645,7 @@ static void zxdh_pf_remove(struct pci_dev *pdev)
- 	struct devlink *devlink = priv_to_devlink(zxdh_dev);
-
- 	devlink_unregister(devlink);
-+	zxdh_pf_eq_table_destroy(zxdh_dev);
- 	zxdh_pf_irq_table_destroy(zxdh_dev);
- 	zxdh_pf_modern_cfg_uninit(zxdh_dev);
- 	zxdh_pf_pci_close(zxdh_dev);
-diff --git a/drivers/net/ethernet/zte/dinghai/en_pf.h b/drivers/net/ethernet/zte/dinghai/en_pf.h
-index 3de96488a810..b48c786ef48a 100644
---- a/drivers/net/ethernet/zte/dinghai/en_pf.h
-+++ b/drivers/net/ethernet/zte/dinghai/en_pf.h
-@@ -9,6 +9,7 @@
-
- #include <linux/types.h>
-
-+#include "zxdh_eq.h"
- #include "zxdh_irq.h"
-
- #define ZXDH_PF_VENDOR_ID	0x1cf2
-@@ -81,6 +82,7 @@ struct zxdh_core_dev {
- 	struct pci_dev *pdev;
- 	struct devlink *devlink;
- 	struct zxdh_irq_table irq_table;
-+	struct zxdh_eq_table eq_table;
- 	void *priv;
- };
-
-diff --git a/drivers/net/ethernet/zte/dinghai/zxdh_eq.c b/drivers/net/ethernet/zte/dinghai/zxdh_eq.c
-new file mode 100644
-index 000000000000..3e70f4f3063f
---- /dev/null
-+++ b/drivers/net/ethernet/zte/dinghai/zxdh_eq.c
-@@ -0,0 +1,137 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * ZTE DingHai Ethernet driver - event queue plumbing
-+ * Copyright (c) 2022-2026, ZTE Corporation.
-+ *
-+ * Async event queues are the delivery path for firmware notifications:
-+ * a queue owns one MSI-X vector of the async pool and fans interrupts
-+ * out to the per-event-type notifier chains of the event queue table.
-+ * The BAR message channel handshake that tells the firmware which
-+ * vectors to signal comes with the BAR message subsystem in a later
-+ * series; the PF side wired here is live as soon as that channel is
-+ * enabled.
-+ */
-+
-+#include <linux/io.h>
-+#include <linux/kernel.h>
-+#include <linux/mutex.h>
-+#include <linux/notifier.h>
-+#include <linux/slab.h>
-+
-+#include "en_pf.h"
-+#include "zxdh_eq.h"
-+#include "zxdh_irq.h"
-+
-+/* PF side of the event queue table: one async EQ fed by the RISC-V
-+ * management core.
-+ */
-+struct zxdh_pf_eq_table {
-+	struct zxdh_eq_async riscv_eq;
-+};
-+
-+/* Fetch the event_id the RISC-V core posted in the PF receive
-+ * sub-channel of the BAR message area. The field lives at byte offset
-+ * 2 of the 12-byte message header, so a single 32-bit read of the
-+ * sub-channel start covers it.
-+ */
-+static u16 zxdh_eq_event_id_get(struct zxdh_core_dev *zxdh_dev)
-+{
-+	struct zxdh_pf_dev *pf_dev = zxdh_dev->priv;
-+	void __iomem *subchan;
-+
-+	subchan = pf_dev->pci_ioremap_addr[0] + ZXDH_BAR_MSG_SUBCHAN_RECV;
-+
-+	return ioread32(subchan) >> 16;
-+}
-+
-+static enum zxdh_eq_event_type zxdh_eq_event_type_get(u16 event_id)
-+{
-+	if (event_id == ZXDH_MSG_MODULE_RISC_READY)
-+		return ZXDH_EQ_EVENT_TYPE_RISCV_READY;
-+
-+	/* Only the RISC-V ready notification is dispatched in this
-+	 * series; the remaining firmware events arrive with the BAR
-+	 * message subsystem.
-+	 */
-+	return ZXDH_EQ_EVENT_TYPE_MAX;
-+}
-+
-+static int zxdh_eq_async_riscv_int(struct notifier_block *nb,
-+				   unsigned long action, void *data)
-+{
-+	struct zxdh_eq_async *eq = container_of(nb, struct zxdh_eq_async, irq_nb);
-+	struct zxdh_core_dev *zxdh_dev = eq->priv;
-+	enum zxdh_eq_event_type event_type;
-+
-+	event_type = zxdh_eq_event_type_get(zxdh_eq_event_id_get(zxdh_dev));
-+	if (event_type == ZXDH_EQ_EVENT_TYPE_MAX)
-+		return NOTIFY_DONE;
-+
-+	atomic_notifier_call_chain(&zxdh_dev->eq_table.nh[event_type],
-+				   event_type, NULL);
-+
-+	return NOTIFY_OK;
-+}
-+
-+int zxdh_pf_eq_table_init(struct zxdh_core_dev *zxdh_dev)
-+{
-+	struct zxdh_eq_table *table = &zxdh_dev->eq_table;
-+	struct zxdh_pf_eq_table *priv;
-+	struct zxdh_eq_async *eq;
-+	int err;
-+	int i;
-+
-+	priv = kvzalloc_obj(*priv, GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+	table->priv = priv;
-+
-+	mutex_init(&table->lock);
-+	for (i = 0; i < ZXDH_EQ_EVENT_TYPE_MAX; i++)
-+		ATOMIC_INIT_NOTIFIER_HEAD(&table->nh[i]);
-+
-+	eq = &priv->riscv_eq;
-+	eq->priv = zxdh_dev;
-+	eq->irq = zxdh_pf_async_irq_request(zxdh_dev);
-+	if (IS_ERR(eq->irq)) {
-+		err = PTR_ERR(eq->irq);
-+		goto err_irq;
-+	}
-+
-+	eq->irq_nb.notifier_call = zxdh_eq_async_riscv_int;
-+	err = zxdh_irq_attach_nb(eq->irq, &eq->irq_nb);
-+	if (err)
-+		goto err_attach;
-+
-+	return 0;
-+
-+err_attach:
-+	zxdh_irqs_release_vectors(&eq->irq, 1);
-+err_irq:
-+	eq->irq = NULL;
-+	return err;
-+}
-+
-+void zxdh_pf_eq_table_destroy(struct zxdh_core_dev *zxdh_dev)
-+{
-+	struct zxdh_pf_eq_table *pf_eq_table = zxdh_dev->eq_table.priv;
-+	struct zxdh_eq_table *table = &zxdh_dev->eq_table;
-+	struct zxdh_eq_async *eq;
-+
-+	if (!pf_eq_table)
-+		return;
-+
-+	eq = &pf_eq_table->riscv_eq;
-+
-+	mutex_lock(&table->lock);
-+	if (eq->irq) {
-+		zxdh_irq_detach_nb(eq->irq, &eq->irq_nb);
-+		zxdh_irqs_release_vectors(&eq->irq, 1);
-+		eq->irq = NULL;
-+	}
-+	mutex_unlock(&table->lock);
-+
-+	mutex_destroy(&table->lock);
-+	kvfree(table->priv);
-+	table->priv = NULL;
-+}
-diff --git a/drivers/net/ethernet/zte/dinghai/zxdh_eq.h b/drivers/net/ethernet/zte/dinghai/zxdh_eq.h
-new file mode 100644
-index 000000000000..ac9df4763059
---- /dev/null
-+++ b/drivers/net/ethernet/zte/dinghai/zxdh_eq.h
-@@ -0,0 +1,60 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * ZTE DingHai Ethernet driver - event queue abstraction
-+ * Copyright (c) 2022-2026, ZTE Corporation.
-+ */
-+
-+#ifndef __ZXDH_EQ_H__
-+#define __ZXDH_EQ_H__
-+
-+#include <linux/mutex.h>
-+#include <linux/notifier.h>
-+
-+struct zxdh_core_dev;
-+struct zxdh_irq;
-+
-+/* BAR message area: shared-memory mailbox between the driver and the
-+ * firmware, split into sub-channels of 2048 bytes. Notifications from
-+ * the RISC-V management core are posted to the PF receive sub-channel,
-+ * one interval above the area base.
-+ */
-+#define ZXDH_BAR_MSG_OFFSET		0x2000
-+#define ZXDH_BAR_MSG_SUBCHAN_INTERVAL	2048
-+#define ZXDH_BAR_MSG_SUBCHAN_RECV	(ZXDH_BAR_MSG_OFFSET +	\
-+					 ZXDH_BAR_MSG_SUBCHAN_INTERVAL)
-+
-+/* event_id of the "RISC-V core ready" firmware notification, carried
-+ * at byte offset 2 of the BAR message header.
-+ */
-+#define ZXDH_MSG_MODULE_RISC_READY	13
-+
-+/* Event types the upper layers can subscribe to over the per-type
-+ * notifier chains of the event queue table. The full catalogue lives
-+ * in the firmware; only the ones dispatched in this series are named.
-+ */
-+enum zxdh_eq_event_type {
-+	ZXDH_EQ_EVENT_TYPE_RISCV_READY = 0,
-+	ZXDH_EQ_EVENT_TYPE_MAX,
-+};
-+
-+/* Asynchronous event queue delivering firmware notifications to the
-+ * driver without a request/reply handshake.
-+ */
-+struct zxdh_eq_async {
-+	struct zxdh_irq *irq;
-+	struct notifier_block irq_nb;
-+	void *priv;
-+};
-+
-+struct zxdh_eq_table {
-+	/* Notifier chains fanned out by event type. */
-+	struct atomic_notifier_head nh[ZXDH_EQ_EVENT_TYPE_MAX];
-+	/* Serializes async EQ setup/teardown. */
-+	struct mutex lock;
-+	void *priv;
-+};
-+
-+int zxdh_pf_eq_table_init(struct zxdh_core_dev *zxdh_dev);
-+void zxdh_pf_eq_table_destroy(struct zxdh_core_dev *zxdh_dev);
-+
-+#endif /* __ZXDH_EQ_H__ */
--- 
-2.27.0
+>
+> > +
+> > +static DEFINE_PER_CPU(struct balance_callback, fair_push_head);
+> > +
+> > +static inline void fair_queue_push_tasks(struct rq *rq)
+> > +{
+> > +     if (!sched_push_task_enabled() || !has_pushable_tasks(rq))
+> > +             return;
+> > +
+> > +     queue_balance_callback(rq, &per_cpu(fair_push_head, rq->cpu), fair_push_tasks);
+> > +}
+> > +
+> > +static void fair_remove_pushable_task(struct rq *rq, struct task_struct *p)
+> > +{
+> > +     if (sched_push_task_enabled())
+> > +             plist_del(&p->pushable_tasks, &rq->cfs.pushable_tasks);
+> > +}
+> > +
+> > +static void __fair_add_pushable_task(struct rq *rq, struct task_struct *p)
+> > +{
+> > +     plist_del(&p->pushable_tasks, &rq->cfs.pushable_tasks);
+> > +     plist_node_init(&p->pushable_tasks, p->prio);
+> > +     plist_add(&p->pushable_tasks, &rq->cfs.pushable_tasks);
+> > +}
+> > +
+> > +static void fair_add_pushable_prev(struct rq *rq, struct task_struct *prev, struct task_struct *next)
+> > +{
+> > +     if (sched_push_task_enabled() && fair_check_pushable_task(rq, prev, next))
+> > +             __fair_add_pushable_task(rq, prev);
+> > +}
+> > +
+> >   /*
+> >    * select_task_rq_fair: Select a target runqueue for the task.
+> >    * There are 2 ways to select the target runqueue:
+> > @@ -10272,6 +10426,12 @@ static void put_prev_task_fair(struct rq *rq, struct task_struct *prev, struct t
+> >       cfs_rq->curr = NULL;
+> >       if (se->on_rq)
+> >               __enqueue_entity(cfs_rq, se);
+> > +
+> > +     /*
+> > +      * The previous task might be eligible for being pushed on another cpu
+> > +      * if it is still active.
+> > +      */
+> > +     fair_add_pushable_prev(rq, prev, next);
+> >   }
+> >
+> >   /*
+> > @@ -15379,6 +15539,7 @@ static void set_next_task_fair(struct rq *rq, struct task_struct *p, enum snt_e
+> >               goto repick;
+> >
+> >       clear_buddies(cfs_rq, se);
+> > +     fair_remove_pushable_task(rq, p);
+> >
+> >       if (on_rq)
+> >               __dequeue_entity(cfs_rq, se);
+> > @@ -15423,6 +15584,7 @@ static void set_next_task_fair(struct rq *rq, struct task_struct *p, enum snt_e
+> >
+> >       update_misfit_status(p, rq);
+> >       sched_fair_update_stop_tick(rq, p);
+> > +     fair_queue_push_tasks(rq);
+> >
+> >   repick:
+> >       /*
+> > @@ -15439,6 +15601,7 @@ void init_cfs_rq(struct cfs_rq *cfs_rq)
+> >   {
+> >       cfs_rq->tasks_timeline = RB_ROOT_CACHED;
+> >       cfs_rq->zero_vruntime = (u64)(-(1LL << 20));
+> > +     plist_head_init(&cfs_rq->pushable_tasks);
+> >       raw_spin_lock_init(&cfs_rq->removed.lock);
+> >   }
+> >
+> > diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+> > index e025d2a6c302..74130bd2a2c8 100644
+> > --- a/kernel/sched/sched.h
+> > +++ b/kernel/sched/sched.h
+> > @@ -721,6 +721,8 @@ struct cfs_rq {
+> >               unsigned long   runnable_avg;
+> >       } removed;
+> >
+> > +     struct plist_head       pushable_tasks;
+> > +
+> >   #ifdef CONFIG_FAIR_GROUP_SCHED
+> >       u64                     last_update_tg_load_avg;
+> >       unsigned long           tg_load_avg_contrib;
+> > @@ -3877,6 +3879,8 @@ static inline bool sched_energy_enabled(void) { return false; }
+> >
+> >   #endif /* !(CONFIG_ENERGY_MODEL && CONFIG_CPU_FREQ_GOV_SCHEDUTIL) */
+> >
+> > +DECLARE_STATIC_KEY_FALSE(sched_push_task);
+> > +
+> >   #ifdef CONFIG_MEMBARRIER
+> >
+> >   /*
+> > @@ -4209,6 +4213,9 @@ void move_queued_task_locked(struct rq *src_rq, struct rq *dst_rq, struct task_s
+> >       wakeup_preempt(dst_rq, task, 0);
+> >   }
+> >
+> > +extern struct rq *move_queued_task(struct rq *rq, struct rq_flags *rf,
+> > +                                struct task_struct *p, int new_cpu);
+> > +
+> >   static inline
+> >   bool task_is_pushable(struct rq *rq, struct task_struct *p, int cpu)
+> >   {
+>
