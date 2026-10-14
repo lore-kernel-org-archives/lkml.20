@@ -1,74 +1,95 @@
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE8074CE662
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:41:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13BD64D09E6
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:42:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792017718; cv=none; b=fZqRFsIXszwxtaemER9ouGxH2uS+dX9+9liX9I8DiQIUmo0A9mqeYNioGo981si258HZ+UnxYOM1YP1yvQce5s5+AdhxCtQY2QbbmRtFkal/5P9V3bYjTzKzsiaCtFskVx6DtoH1wfyeB86J517Mi9FOjkmvivMJ5NeWdpM5pbs=
+	t=1792017780; cv=none; b=Qo9Jmj1dtQc4+ARaSlaU97kBBnmRDkNOorgN8Jyv4/q1LsGx/FV+c6Edh2CzWILhY9CSeO7+1inxnlI7iRe2Ah92n8ZmXVhwq2PUFuWKeVbYl3pL+jNSNSeHfY7ZXQIRoNq9w0ZxjL9PaC+pIFu3fY6bVN1u1T4igbgbgIY3hOs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792017718; c=relaxed/simple;
-	bh=ki2ArKXM+5oyaB/oO6XYXhgQRk+2JAxST2ZQm4gkydQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ArWVsZQbaP0+OXWvRJ7SLWZaf0MhFxnsIUyzD5dJwTGktoH51ziL7k7SLyhrl/LFbRO9sUjhFPj0hC7GXaw2DMt1K9z7otIcefGfPT97GFDFNupjJ/bVOuT2HS2qGsy+NEs0aSHEx5IMSC7bzrJdNRhWnxlXoChPac8ftikQRN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=simpleble.org; spf=pass smtp.mailfrom=californiaopensource.com; dkim=pass (2048-bit key) header.d=simpleble.org header.i=@simpleble.org header.b=pbnhsuPS; arc=none smtp.client-ip=74.125.82.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=simpleble.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=californiaopensource.com
+	s=arc-20240116; t=1792017780; c=relaxed/simple;
+	bh=wT1o/FxZXPCVJocG+G7v9/SvXhoQPw/SLYSAZuA+Cwo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TTvpt4QNbpX3QbJUl+o+4sNXGuOaOxbBcvwL0shHB4cHvDEhm+5r567lCwy6xYrh+PNRqfHEMhZRz353kzpHDiRtX22bm7kzPaAGGxDWtJbdOkRGZIymrz53fiRUMg1gbyRq8EkA3abgG6DrJ1hSFAJHt8u26xsHvJzBgIdQeTg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=niqo6s7J; arc=none smtp.client-ip=185.125.188.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=simpleble.org header.i=@simpleble.org header.b="pbnhsuPS"
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-3514b90bb89so2487503eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:41:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=simpleble.org; s=google; t=1792017714; x=1792622514; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UycZ1PF4EQx1eN6YOc20RflCJPkeKntRi3SIYHfDNwg=;
-        b=pbnhsuPSVQzp3AGRFix5cW1N40kcPrTUMRX0gvrNDj4RnQJv5ndlzREogmOQapOkck
-         /jGCfD5AIawC3bH68c9LnOJ03u096KrH/tQldhVXhbHNU1RM0dRMwvIlJZ93LfFbuaF5
-         OnTO7F/MdOHxqDBP4QsZewcebKkuN4sieJgAlAkKKnFdwvQ+knnYQJKPnyiNhOvP0s0h
-         Ar3ap7xkK21QAg5NNWfEg+1ypjNfwD0idXtEPiePGBfGSpU7wQ7qPr+CtF7xwG9k3tOJ
-         xBAvecEpObFhw0QfSqAaCTA8jZZE3YcLswfD2p24AJyfrOADKLekU5VgrPirb8UirIqL
-         h/2A==
+	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="niqo6s7J"
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com [209.85.128.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 568EB3F98D
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:42:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1792017773;
+	bh=WBIhOlBUrb5LSRkLKCzEi1n3OV1RnmBzhcsSOFSLY10=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version;
+	b=niqo6s7JV3DzifgjIMIUc6721jR22ik9S7gOFQzGVKeohuQQDCx+v3qimP0V59JCa
+	 7wfIUwxDPfCPBVZ6XpR7GRs8Cn1vl11lQSeGLIdyO7P4uHaxKlvlpeoG/EPko6tjnX
+	 cCVXJf8Zic5ctK55l1aYFieBvyiDuUhWzMr/HUbgtiw732IYssCLhgX6MDdLRB+U1D
+	 sOqQV2ztmw/7ygsFpaZWkqyeKIxMFkFQow9Hdbrlxt7oCyXMRGA8A8XqDRCciDSa2k
+	 mbmegdFk0lMDUXm9wypk3SGNrTfaq0S2GfFmlB5mEKB/Iuh2/F7FDXr2g0RGj422hJ
+	 57yGssrnUIRz0nmH+hxeEg6rtMP37OHO7JdL1NPLQXiJGJTnnOWhG808GOUK8ECEYy
+	 /V6dRSwKZZMJUv9UCprnOfwApg4LeZ/nO1PgG09RvDfNi9cW8e6rrr5D8D8F88iSpd
+	 jz9ZMKOZZLpMzp4osSUqwr2WXSvML1UO4visd6xCcSKLRavafOD3D6CIrySSS8fwl5
+	 Bgf3hoiE863T9qrECnOqEyyDbtIHRXNioVNheLYFx5BAVm4KvlzGFAr8q3311JgGDX
+	 cDVHFT0w3cVFRfShRTZB3vHl5cv98Uqo5E9hD0anHbbUE8+t17ersJEFcEN5cQ+moH
+	 LROZymBPE40opYBHRldgE4OA=
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a1ac6663e1so21103525e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:42:53 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792017714; x=1792622514;
+        d=1e100.net; s=20260707; t=1792017772; x=1792622572;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UycZ1PF4EQx1eN6YOc20RflCJPkeKntRi3SIYHfDNwg=;
-        b=fL9DZ6O4ldnrHo/B2m2rf5rmj+r/SMgELSupPt57xYNziS4xXLFvy+bc/1ICpfJ/Gv
-         7fI2wDoaZ+UU2TZnm2ruGhsOvVeln2WP/7PqCuW3VCxtmFNCT+kcI7r3oFYCH9el86Nv
-         JjQg3MKh0qMqA2puryLGqYL8jwjwc2o3wYncbISrED3B3tK13eIL3KQ2/DADonbmbqzj
-         ZFS9WpzmnxBW5WdUy8pKx8IeiNUMUHLXGPBJXS1smtia+3EWi6U119c8c4bqOr+1QKj1
-         T76/BtlDOd0RcG1xsY90S7xD5Nbs4xaF7LG768LvUF2lnJAvpXYodnZB8evFReWj6Dhx
-         hirw==
-X-Forwarded-Encrypted: i=1; AKwUvBxa7ug8vDgQpu8UnQ6QjqQn5JG6JteLwvJVzLVU5n/pdw4TqT2sMo9pQYECg85gtUBq9Ttz12APBwFRpaI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJjsVtJOIZRAh2sqx8ZnWPJJTXSTjQVrihRVeynm4ksEKTdskf4
-	gB3/lpBSeZbj7kqiEoRg1gR24WcCxKOnkzSJZXPr6JWmuOJIyfAqEYYqHsAwOCVN3g7duvmbJea
-	dpdO0IFw=
-X-Gm-Gg: AYBFou2TlKPiwlFLLVLVQkeAfbXQQrAwjaQzwo/cQN7LFtHxdh68bmkSu8vDzxn1A5S
-	zXHjT4344KYByE7vnRDUUYoX23EAf44yaWkkLRnuia/zzGnLlYRKRtEXciymT66OJX8d9S6IyVU
-	mHElFzrh91DNesZuTRltIe3f6zX0HMFeWMPTQsA56DWlmABC3k43FaVMCKvRa8k+V6JwSa/C9/L
-	GtqBEkG4Dh0aCRWHi3jGuL+NAXFlfIcaG5DNDUS+osT8p5uUg3SpcHseG6toKk6btTI/v+qsGyk
-	i2X8yWIWkdlFgQ0bTIh4LNqjLb/FhsHCq9DxzisOKUusr1h/IgktrdWds6DaTjTrEglqCblPk3Q
-	w5i1ZHgf8JF2Zd+SBvqCaOLNplgS+kgDhAJVXRB8WyprkJpou3G8jjTx9ZfNSiu02Sm/KKJb1/R
-	q48OZIaXG+RlcEhq/LI7pQOy+auGYBDHopC324sVGnt2I2IDjYw8aA7RZOXmZYAnY2M3YFoPmlu
-	3Y/hZdBE6mJ5Njy/2BbBn8bl+0puF65IjcboXsV/Ov8zT9wHw7VWuUDbMYLuLjBtP1HgAT9eRrZ
-	Z7SNcJ772b7+wqKfqSmQI6Pi//bgOfQthexKC/YO
-X-Received: by 2002:a05:7300:229a:b0:359:2f0b:bee3 with SMTP id 5a478bee46e88-3592f0bbfb3mr17164410eec.32.1792017713551;
-        Wed, 14 Oct 2026 15:41:53 -0700 (PDT)
-Received: from localhost.localdomain ([147.185.47.151])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca329d9sm60022688eec.5.2026.10.14.15.41.53
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 14 Oct 2026 15:41:53 -0700 (PDT)
-From: Kevin Dewald <kevin@simpleble.org>
-To: linux-bluetooth@vger.kernel.org
-Cc: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+        bh=WBIhOlBUrb5LSRkLKCzEi1n3OV1RnmBzhcsSOFSLY10=;
+        b=IA1IK9LhVcU2cw4CwIrznvnjHNdMp39t3KV3tJvo3HQzUXO6L87EpTPIorHZuBtDo7
+         51pcHv/NLo8hSKs9LyrABx8pLegtrkPLVA/owoKlr3xwvaElXfDNLIf7tjIfcZi8UBu2
+         NLPyJE3NiuQmqOpirb+ooxCqFoYF/gs1uqxyGXSBiz9vQUJEinL2tE9FM/9W8QG47RjO
+         9W7XXlA3+p8F/3O2Id3ZqdN4RgqSGYNTjuBlGLZu84EMsCR19d1zUBgVH+nI8yQ0woYY
+         Cg7YN5bHPjVPQIfO2s/RIpaqAeynD6UTR568INDz/OZ79RDqBwV+yZkcid3ZSKZoPPy2
+         a7Eg==
+X-Forwarded-Encrypted: i=1; AKwUvBy45j0Y2ExtlIbMWEOnyoyI20gXtCZvbh0XlstYduWE61WKCSl2zKqvNM8t+KG05QfprrTJbtc9AbMdCpQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJPlWlZ8GNjZHpilFJJkOOM888a55kG01Sp3KF0cTGB4E6LTZCy
+	fVE+DgQFhK+/6d/jaWmHQTiZDGmD7a3YVUSEpLJzxPpEdZ8+1tgfjvsRE7WfL41GlSeFDn+7i1P
+	rVWjlhJTv/8DkWFTslytWdRNAApp6g/uipNATFtPmpZ7LAesdUTZ3hRT2AezSaYrMz7l92qtTq5
+	+rRZtOgg==
+X-Gm-Gg: AYBFou0rf0RAbx56VFql2HZqj4CP5E1HjttqfQTV9I94FLhxL5R7biPphqwgsiEpU7D
+	UvPn+pOSuL2GDPvuKgieclOqdH5UbuB6ixciuIfzxKNrXnb/17l4VBaagrMuhXNQ6CU53lccuNf
+	MF7k353YHyf9uvBkYYonB7T5p2dv8CctHM4oret3cdcyFMOeSRXOrXccTBwBHVggQGuoEYxvYKB
+	zlM2DhJCuqqfVtWQTxj+ZWyp6/1KQUvahGCWxFqBQHDPNed+LSSHISoVPI3qNpdESucL1BZ4Nk2
+	yfNvVqpwZFFeigkJz5uNSPotxZRHmV2YRFEB1xtuTiOseqrIjhZNS04XXcNaycYlzBos0Rp5u67
+	mqD5Dwt6GtyTZM8YcsIq73jm0lWlhNro8SlKRenTciitrQc/GQuFqGg9Q
+X-Received: by 2002:a05:600c:e556:10b0:4a1:93fd:8f2 with SMTP id 5b1f17b1804b1-4a193fd0a16mr194079925e9.6.1792017771979;
+        Wed, 14 Oct 2026 15:42:51 -0700 (PDT)
+X-Received: by 2002:a05:600c:e556:10b0:4a1:93fd:8f2 with SMTP id 5b1f17b1804b1-4a193fd0a16mr194079785e9.6.1792017771721;
+        Wed, 14 Oct 2026 15:42:51 -0700 (PDT)
+Received: from workstation5 ([2a02:908:1242:30e0:513f:8595:22d1:d25d])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bf63567esm23227965e9.10.2026.10.14.15.42.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 15:42:51 -0700 (PDT)
+From: Heinrich Schuchardt <heinrich.schuchardt@canonical.com>
+To: Anup Patel <anup@brainfault.org>,
+	Atish Patra <atish.patra@linux.dev>
+Cc: Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Sarah Emery <sarah.emery@canonical.com>,
+	kvm@vger.kernel.org,
+	kvm-riscv@lists.infradead.org,
+	linux-riscv@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Kevin Dewald <kevin@simpleble.org>
-Subject: [PATCH] Bluetooth: hci_event: Clear explicit connect state on LE connection
-Date: Wed, 14 Oct 2026 15:41:45 -0700
-Message-ID: <20261014224145.10801-1-kevin@simpleble.org>
-X-Mailer: git-send-email 2.54.0
+	linux-kselftest@vger.kernel.org,
+	Heinrich Schuchardt <heinrich.schuchardt@canonical.com>
+Subject: [PATCH 0/2] RISC-V: KVM: Allow Zicclsm, Ziccamoa, Ziccif, Za64rs in guest
+Date: Thu, 15 Oct 2026 00:42:37 +0200
+Message-ID: <20261014224239.963635-1-heinrich.schuchardt@canonical.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,88 +98,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Since commit 6cd29ec6ae5e ("Bluetooth: hci_sync: Wait for proper events
-when connecting LE"), create_le_conn_complete() only runs once the LE
-Connection Complete event has been handled, and le_conn_complete_evt()
-has already removed the connection parameters from pend_le_conns by
-then. hci_connect_le_scan_cleanup() looks the parameters up in
-pend_le_conns, so after a successful connection it no longer clears
-explicit_connect, nor deletes the parameters that were only created for
-the explicit connect.
+Extend the KVM ISA extension array to allow KVM userspace to
+detect Zicclsm, Ziccamoa, Ziccif, Za64rs.
 
-The parameters of every device connected through an explicit connect,
-such as an L2CAP or ATT connect or MGMT Pair Device, are thus left with
-explicit_connect set. MGMT Remove Device for all devices then keeps
-them as HCI_AUTO_CONN_EXPLICIT instead of freeing them, and if the
-device was set to auto-connect and is disconnected, they also stay on
-pend_le_conns: the kernel keeps scanning for the device and connects to
-it as soon as it advertises, although no one asked for it any more.
+This is just notifying of hardware provided capabilities.
+No KVM specific support is needed.
 
-Do the cleanup in le_conn_complete_evt() instead, where the explicit
-connect request is fulfilled: clear explicit_connect, delete the
-parameters if they only existed for it, and put report parameters back
-on pend_le_reports. Auto-connect parameters are added back to
-pend_le_conns on disconnection, as before.
+Add the extensions to the get-reg-list test.
 
-Fixes: 6cd29ec6ae5e ("Bluetooth: hci_sync: Wait for proper events when connecting LE")
-Assisted-by: Claude:claude-opus-5.5
-Signed-off-by: Kevin Dewald <kevin@simpleble.org>
----
-Reproduced in test-functional on bluetooth-next: after connecting with
-Bearer.LE1.Connect and disconnecting, the debugfs device_list of the
-central still has the peer with auto_connect 5 (HCI_AUTO_CONN_EXPLICIT),
-also after MGMT Remove Device for all devices. With this patch, the
-explicit parameters are gone once connected, and only disabled
-parameters remain.
+Heinrich Schuchardt (2):
+  RISC-V: KVM: Allow Zicclsm, Ziccamoa, Ziccif, Za64rs in guest
+  KVM: riscv: selftest: add Zicclsm, Ziccamoa, Ziccif, Za64rs
 
-This also fixes a test-functional failure seen in CI: when
-test_bass_past_transport_acquire runs right before test_bearer_le_connect
-on the same hosts, the peer survives the Remove Device of the next
-bluetoothd, and the kernel connects to it as soon as the next test
-advertises at the same address. test_bearer_le_connect fails 5 out of 5
-times in that order without this patch, and passes 5 out of 5 times with
-it. The kernel testers and the rest of test-functional pass with it.
+ arch/riscv/include/uapi/asm/kvm.h                |  4 ++++
+ arch/riscv/kvm/isa.c                             |  8 ++++++++
+ tools/testing/selftests/kvm/riscv/get-reg-list.c | 16 ++++++++++++++++
+ 3 files changed, 28 insertions(+)
 
-A tester case for the device_list check can be sent as well if wanted.
-
- net/bluetooth/hci_event.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
-
-diff --git a/net/bluetooth/hci_event.c b/net/bluetooth/hci_event.c
-index 1f80f2cf6b..dede0b686c 100644
---- a/net/bluetooth/hci_event.c
-+++ b/net/bluetooth/hci_event.c
-@@ -6041,6 +6041,28 @@ static void le_conn_complete_evt(struct hci_dev *hdev, u8 status,
- 			hci_conn_put(params->conn);
- 			params->conn = NULL;
- 		}
-+
-+		/* An explicit connect request is complete once connected, so
-+		 * clean it up here: hci_connect_le_scan_cleanup() no longer
-+		 * finds the params since they have just been removed from
-+		 * pend_le_conns.
-+		 */
-+		if (params->explicit_connect) {
-+			params->explicit_connect = false;
-+
-+			switch (params->auto_connect) {
-+			case HCI_AUTO_CONN_EXPLICIT:
-+				hci_conn_params_del(hdev, &conn->dst,
-+						    conn->dst_type);
-+				break;
-+			case HCI_AUTO_CONN_REPORT:
-+				hci_pend_le_list_add(params,
-+						     &hdev->pend_le_reports);
-+				break;
-+			default:
-+				break;
-+			}
-+		}
- 	}
- 
- 	/* If we are central and have subrate parameters stored, queue a
-
-base-commit: 397464709a204da9b8dc3b01d6ea42539d951cd2
 -- 
-2.53.0
+2.55.0
 
