@@ -1,92 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sm24.hosting.reg.ru (sm24.hosting.reg.ru [31.31.198.150])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2064262FD0;
-	Wed, 14 Oct 2026 05:31:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DD6D2F12AB;
+	Wed, 14 Oct 2026 05:31:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=31.31.198.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791955886; cv=none; b=Cb1Zv7qwERZhiU3ooyRu3UQvrpshzE5shiiIgOmxRfN/UILMNoFvQIdMQ3k3MtIVBrEESn2/yFXYBVG3YV3J7kD5KH2JYvGttDMuYGAI6Ae13euD03WwFuc6jXxVpAoCW2qlEZeyRZm+5ly+hoAc1AsxcBAWATJEXcs9atiavM4=
+	t=1791955909; cv=none; b=Qh2z2maZZFpk6uLtzvSQt/Y9phshtVH3AUpLPwJAtamvSV2FIVbjnmgRCU2ck7KEp9FN6g+ME+tecnR0ZgwIwT83fX3KgWechhpXRLj59mx56BKyrvvq3HUMY/UVNbjvzE2Nm/MuHLxkAw/M3P6ESgf/v0gWVgGhhKQ1SMqJEyI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791955886; c=relaxed/simple;
-	bh=ao7wh4Lx2JE+w5VeiMAV5qypuBBY31L4k3kJdKgV1Ls=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TWPcMu4ABk5cBi1LUcUFbmqei8fM8N6puDv+DZt1oZoxJNqDmUUAElbhtzbbU5cPQtIxsk0NaqGgXW1wsZONfPr32LfiDQU8qY95tXVfZTq51Myym+4l+FObOOn2PEvZ54/X5K8KD/kwd956xg/x5VLFDo171jL9sdZQhNQndzM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=z1seiXjb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791955909; c=relaxed/simple;
+	bh=gjk/oKs96fB4Z2DaF7Revw2BoOQNm+6j+bWWoDSVQyo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HV+lOvQ4czJQltgDRSv28SYgRhRXSGP/26Sq64sEIzoHFQ2Z4VQ0lO++sLNjryWJHuE6tLMr7ftqYcoVQpLhhAJ/qd7iJ6YRHWHMS9NQjXzjsJbUSjahlhRD/5hnFs0f+pDZ24Dll0S4Pgyv2HDD00W/YTKf4cWrtihldswwcIc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=minlexx.ru; spf=none smtp.mailfrom=minlexx.ru; dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b=tmNuO4Fq; arc=none smtp.client-ip=31.31.198.150
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=minlexx.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=minlexx.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="z1seiXjb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A827D1F000FF;
-	Wed, 14 Oct 2026 05:31:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791955885;
-	bh=FM7O65e7qLQ2Bmze2hQbadqclVwLMbd6njU5iyPcsNY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=z1seiXjbnZUwlbqRwenQUyRIwo7X7xm5IxUkeQ6fsKbzD1nbWVSEbAHE4BvrMpYXx
-	 tksM1ktBYq6uslxffQeYrjLmk6YNgMlrZIoBC8mr3gAmjlt3LcuOlqjOQyj+Vcog8v
-	 Uif+CRiVJlMr8rWw5d48WH+SIISklFSvjwCUNHN0=
-Date: Wed, 14 Oct 2026 07:31:19 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] driver core: fix race between bus_remove_driver() and
- dev_driver_uevent()
-Message-ID: <2026101444-unnoticed-caliber-21d5@gregkh>
-References: <as71DkwHeLGNDsPv@google.com>
+	dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b="tmNuO4Fq"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=minlexx.ru;
+	s=dkim; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:References:
+	Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=aL93h5H169V1YGksc6NSU0nrYwIciZ6QUOmK73uFp/4=; b=tmNuO4FqzYSrovEkTEg9G1GzTv
+	PfcAY5HkmgQHjkJxJqggRod6LEeKj9w9XL1LQs5qphHQiYiTDNMhMeztoO8YotTa3FFUVNEw+Fl1j
+	TnD7wJniXEkvMFke1sTW+aGQE7BngE+J/BR4rT6BSNfnAlDbo9z0eQOzz2VR4RxUSGaE=;
+Received: 
+	by sm24.hosting.reg.ru with esmtpsa (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(envelope-from <alexeymin@minlexx.ru>)
+	id 1xGraN-0000000Acx5-0z1U;
+	Wed, 14 Oct 2026 08:31:32 +0300
+Message-ID: <fd50b602-b0ca-46af-a04f-f7cf7adf6099@minlexx.ru>
+Date: Wed, 14 Oct 2026 08:31:30 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <as71DkwHeLGNDsPv@google.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/msm/a5xx: don't read the GPMU registers on GPUs
+ without a GPMU
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ AngeloGioacchino Del Regno <kholk11@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260920-a5xx-no-gpmu-v1-1-714200254f76@oss.qualcomm.com>
+Content-Language: en-US
+From: Alexey Minnekhanov <alexeymin@minlexx.ru>
+In-Reply-To: <20260920-a5xx-no-gpmu-v1-1-714200254f76@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 13, 2026 at 08:24:20PM -0700, Dmitry Torokhov wrote:
-> When a device driver is being removed, bus_remove_driver() removes the
-> driver from the bus klist before detaching it from bound devices. If
-> dev_driver_uevent() runs concurrently on another CPU, it may acquire the
-> bus klist lock after the driver has been removed from the list, read the
-> still-valid driver pointer from the device, and access the driver's name
-> while bus_remove_driver() proceeds to free the driver structure.
+On 20.09.2026 14:08, Dmitry Baryshkov wrote:
+> Only a530/a540 have a GPMU.  On the other a5xx parts, reading the
+> 0xa800-0xac60 GPMU aperture during a crashdump resets the board -- on
+> sda660 (a512) a GPU hang thus reboots the SoC instead of recovering.
 > 
-> To close this race window, acquire and immediately release the bus
-> drivers klist lock after all devices have been detached. This ensures
-> that any in-flight uevent generation that observed the driver pointer
-> before device detachment completed finishes reading the driver name
-> before the driver structure is destroyed.
+> Split the GPMU block into its own array and collect it only when a GPMU
+> is present.
 > 
-> Fixes: 18daa52418e7 ("driver core: fix potential NULL pointer dereference in dev_uevent()")
-> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+> Fixes: e20c9284c8f2 ("drm/msm/adreno: Add support for Adreno 510 GPU")
+> Assisted-by: LLM
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 > ---
-> 
-> Extremely unlikely to hit so I would not worry about backporting to
-> stable.
-> 
->  drivers/base/bus.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
-> 
-> diff --git a/drivers/base/bus.c b/drivers/base/bus.c
-> index d17bd91490ee..8b3aaf451e4f 100644
-> --- a/drivers/base/bus.c
-> +++ b/drivers/base/bus.c
-> @@ -830,6 +830,15 @@ void bus_remove_driver(struct device_driver *drv)
->  	driver_remove_file(drv, &driver_attr_uevent);
->  	klist_remove(&drv->p->knode_bus);
->  	driver_detach(drv);
-> +
-> +	/*
-> +	 * Ensure that any concurrent dev_driver_uevent() that observed
-> +	 * dev->driver before driver_detach() cleared it, finishes
-> +	 * accessing drv->name.
-> +	 */
-> +	scoped_guard(spinlock, &sp->klist_drivers.k_lock) {
-> +	}
 
-Shouldn't the compiler just no-op this away into nothing?
+Nvm, I've managed to "catch" the GPU hang (even 2 times) and with this
+patch I've seen GPU actually recover and kwin_wayland displaying popup
+saying "desktop effects were restarted due to graphics reset" and the
+device was usable again, which never happened before (before it was
+completely hung). And after hangcheck recover some register dump
+followed, which I also observed for the first time:
 
-thanks,
+https://paste.sr.ht/~minlexx/20376296a7d95d2273dd2a64c2ce792d77954bce
 
-greg k-h
+FWIW,
+
+Tested-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
+
+--
+Regards,
+Alexey Minnekhanov
