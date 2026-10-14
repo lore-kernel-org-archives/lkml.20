@@ -1,232 +1,382 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011055.outbound.protection.outlook.com [52.101.70.55])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA00E30E0EE;
-	Wed, 14 Oct 2026 14:07:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.55
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791986838; cv=fail; b=aHfkcpuFKoyIuvWpGmjM7XSpFHB0Q1g7ePly+lVJroI0oPJAJPmwZctj/Q3K1pVuSs44o2aYL43IhC5Qsfuin46yvH/R8+DvsN03pqvrTRGSzGVnGJfwFgTGFQmmhI9wvUGbYq0lV+IAn+bDEzwZR+SX6kjXlCS3CTjDldzIV8s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791986838; c=relaxed/simple;
-	bh=7Dv4aFaUbSEoMVsAh7qRb1Xbp3WvyJOfmGaB2VRjsR4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=CXRVrZozl6BfuHQSwmyiUo6p8dYykJe/6VWPoE2BIdwMJGIbwiOeNwCfCiqjuGpwBXCs5AGlSFkkrZ1UINz4C4S033Y5wC00Y89jNUerqbC5PR3KACsPXe7ZSumBgjLOvw+p1n7Sgl3+2qN4E89EdQrucv27hnLbfspm3ViDlz4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=SWYvVQH4; arc=fail smtp.client-ip=52.101.70.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A884053E30F
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:08:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791986902; cv=none; b=L59aXfeOGKM+jHfqXbcpm4wBCxwori9R0yrTQd3UbrdC6y4lNP6quUijPyJhMRpdVMyC6Dhc8B7jdOhYGWN/gvZ3/4YkQIeZPKrpj4kn7r6utippB7ohQWm3RQxDXV9PlKx403RuPR4UyVrpfxssvzSZJFuUPz3LqYuMetDVSNI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791986902; c=relaxed/simple;
+	bh=sY592CUXRPO5suo9F//HYejBA4k7aIIcVNN3evi8b7c=;
+	h=Message-ID:Date:MIME-Version:To:Cc:From:Subject:Content-Type; b=cXZXihWvyKWeFOyXV1Htfg/oPJGi0u75fNdR9YIKpRGhs3Yiexo0868k2ooEWdIUtVClObwbJx15q03X/AUpjHBGIDepll3qMyrJzIRRUjamyO44nzsj4iyqWmRpf5Mjp1iMwKVHoCky7rissYvpRANRVxAOEK8MTRsD1o5FCa8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=F2ViywUH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JASpGUeI; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="SWYvVQH4"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jMSoqCjAe88K932Sl5LR6L3X1tlAReT+O+kfHcHXNHNMD3EHuN8EZ3qjSiujUyxMw2rg/DuSQG7BKLlHhHhvOxGbN64r1i46xOAOs74EXPE8z6PER9Ls3NBtdaWrV7K9PBImKS1EpJ1MaGqoob5tbgjH5N8V7WiCghuM8Idid3ugTw9Lbs8LUT2T6Nw+gHDsKKCIjbEKLYvZFIxPGTzJXbLR2fBvkSV/c1lJmSyXQhCE7IhdNEJ79iD4auokHiltmAXwn6bBJ6NJaPi+Nf3SAHQvj7BAErUw9bqW+qyYIGEefH4vBsAy/Q7OFsZjtOTm0b75ji/2yZXHu69VZ2cPNw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0knYD4PTfnrDYj2BE5MqF8qj2rOuMIrCF+0vtLWdKFc=;
- b=tll7ONcj+LpomYR2epRYoZFUHWC6OA6mR533k8sDO1txuCIyc5x6Z75zYgusUGufYFj878cNItiOuXGOwAQWeRUexUOmfcakiwgIBVXs46oc9VINvbTcOuNgO9+gXlqHvjRY8AlHff1HOZzNRiMI7an46XjkRMaQRtDI2IpMDVic3MSJk/WBrLCjs2buWeQqAKbb+bCF/ibreIrBRr01B3E/HNSradk+WtPhnEouILNAbabbh3WE27kTXijnnxO8x5kzSaxeopPWuHd/o0BN/bIBnuCEsWHeVsN6LNICYmusasnNvr8lepdAmXW8Pvb1YCzs/OVOgdCigEZFgPY90g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0knYD4PTfnrDYj2BE5MqF8qj2rOuMIrCF+0vtLWdKFc=;
- b=SWYvVQH4eoAuAddExdneEobQ4a0EugisndrylpsKmmSc7lej7SCPAvJN5zTMgnTQIkjNKYYfcYk0tW4OLynWxh8sqk1XaHF0cI3lq/d0Vv9eXQOclmoLefqv7vPo0LKabPxGpHG+uh+kmrpcFPOJNyS2I+yOZIehHr9DvNkfXKRkydO35nxFGEUbuXDTHMXd6/7pSxzLoYErHfh1zqxOtl/0Q6ILFzSngHjFyflEV/EN9Kv0wb7nfmnawisOvoSWkj4KHMCNh7VqfFxd0pdbYULYZKZI+WwEI0birSPCvDiQVLUhX9Ug0bqzTOF0wAC7tvUoTzCavMEGszlZ8WYxDA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by DUZPR04MB9845.eurprd04.prod.outlook.com (2603:10a6:10:4d8::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Wed, 14 Oct
- 2026 14:07:04 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0522.012; Wed, 14 Oct 2026
- 14:07:03 +0000
-Date: Wed, 14 Oct 2026 09:06:46 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Jan Petrous <jan.petrous@oss.nxp.com>
-Cc: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>,
-	NXP S32 Linux Team <s32@nxp.com>, Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Bogdan Hamciuc <bogdan.hamciuc@nxp.com>,
-	Ionut Vicovan <ionut.vicovan@nxp.com>, Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Clark Wang <xiaoning.wang@nxp.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Chester Lin <chester62515@gmail.com>,
-	Matthias Brugger <mbrugger@suse.com>,
-	Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	imx@lists.linux.dev, linux-pci@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	Vincent Guittot <vincent.guittot@linaro.org>
-Subject: Re: [PATCH RFC v3 03/12] dt-bindings: PCI: nxp,s32g-pcie: Fix SerDes
- PHY phandle in example
-Message-ID: <as-MdloKd-7oJsUU@SMW015318>
-References: <20260919-s32g_serdes-v3-0-9d68868c1e89@oss.nxp.com>
- <20260919-s32g_serdes-v3-3-9d68868c1e89@oss.nxp.com>
- <as0qORxP0Roh9ktO@SMW015318>
- <as5CIYxKJTra4hqM@lsv051416.swis.nl-cdc01.nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <as5CIYxKJTra4hqM@lsv051416.swis.nl-cdc01.nxp.com>
-X-ClientProxiedBy: CY8PR11CA0028.namprd11.prod.outlook.com
- (2603:10b6:930:4a::14) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="F2ViywUH";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JASpGUeI"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EAR3e4466254
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:08:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=oam5RquUgPNLW/N5nhpho8
+	c5yrQywz5VwlW1AZvLTHc=; b=F2ViywUHwJp7WT/LTiy1TgBxjJXWsLT7jGdE0s
+	hn/vcrAvdPOHSnxpFCVhXbXm7RsjDXRmyfTQg4QC8u79MpvnSZKkdKyHgXOxuI8h
+	WdrM2y7AGWwJ7fnZ71zVrd0bdTW2zuN1MbvCkvPeOwJ8i9danvTt/8xDuvc8wHNu
+	l9qrdiHv2uDiO3VsmW/+A+R+bAi94mriaYGIKzt/FqyuQPv9ArOZswM8/SrM+iMg
+	MFL/idmpD6pPbsSQ8UeCtR+pu25CnjS5ECpwDh8kL651qCLIrJUFLCkLXNwFhr/c
+	cVpmv2hhADvSYBTY41jwjY4QUq8sIelBMf5CMDKIq4VycXnw==
+Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com [209.85.222.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ha80cru6p-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:08:19 +0000 (GMT)
+Received: by mail-ua1-f72.google.com with SMTP id a1e0cc1a2514c-98ffcd394e3so449460241.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:08:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791986899; x=1792591699; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=oam5RquUgPNLW/N5nhpho8c5yrQywz5VwlW1AZvLTHc=;
+        b=JASpGUeI0L7pvYC7NeUM+t5Dw+CdVdB5AjmHrRq+VdO01cfHhvPgIkS8O0F5I+duFG
+         KBlH7YYDDY51VNLWLaLUxzuHOwusi0qBLBG3yycVIdMu8dHweneLv1kpMzhV9kFDOiZf
+         jTfOuM83kfAwkirNlU/CZ7K9A0xDt68fVNTXQA3GxmcarWb62jMsK95j1N4oG2rHBVRk
+         2lLsZjk+S2fRLKPi6Rx7EvwuuQfXrTZciEJPF/2Y0FM90gr/cVZnaeE6NTHp3rNlReT3
+         zWgkSX8rFfWyMZmtzz2OL2ttY94DkLyIhRyjxJkW5lNjqaERmSRNwosS9khLdXApJha4
+         FiVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791986899; x=1792591699;
+        h=content-transfer-encoding:content-type:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oam5RquUgPNLW/N5nhpho8c5yrQywz5VwlW1AZvLTHc=;
+        b=IiomWWnMUHA3MYqEArUkWb2ckgHN3iRUGdk8gWrzER1D5pmDxtFyNPbClInlrEGqgm
+         lBg7Ny1/SMVVHhR9824yONS3emFEVd2SKJzjf3XewrsG877R4EqiODg4cvpfzdFxmngr
+         0nCLJLwZlKMJlHq1JvImfaqWbDR14z6JX154O+eotmgBMy8UTKEYhk5sA8yMj92muuFI
+         +9Pm4+jkXK0/OEvxaD17grML0DtNgpB5IuGkdtcPz7tgvvg9Q8m5YmOnhY18arxm7FAy
+         NoappvVHvhUhZAzhO4w917UZuRSJDsZlDCzggI4cnh3DvOUtHd01EyI3UFgm0bPG1nad
+         SmTw==
+X-Forwarded-Encrypted: i=1; AKwUvBy0/XmCadElMZTrWTxEp+aMbfUz23fJGnvIY/oA+LbV21gZ38fiOgcT9rzNNMiXMs1QZ1rwhtw8/Ic7w9Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL4uULVwbsUsN/ZmYZOrOQmRSolYejGIIBryNq8LzWF2aYIFNIB
+	0mdrJYCR1MCkZvZTN0QgmCfI2Yd8UOuKnurQgHigS88zxrO7bDDK3wKg0lgvOJypOewbCkCak02
+	zPKM3VkMB0UUvjGXP7WXtt4qmdY/f5noV0ahSoDpIT7T/a0XfeM+UWb8tl14IIgNek1I=
+X-Gm-Gg: AYBFou1+Uc3aPBSGpgJJ8LpFWcF4mL2jpxx1y2MJ4SeePyJ8CA3k07N4AOV0SC/fYYt
+	IdunXjWyMDd+S58cxiGdN898CW31jNj21ENgPpSWFGWJjcH5aA8x0UZJZ6gVNSgr/BbPmZYlgAT
+	TdzkXfZf/3esez/X6keOQtjEfFQyBDYnzGOLgvjBu16kKbaR7Ens+Bq6qBRiNTgUvcOd7YAeIWM
+	CEiABaQHog1UW0vgEbMm5K5npqQgktV7Fzdeum+2U1uTkJ6PxeE6zM/kJTr/x7bDQdjbIR5YnUV
+	50JwJ5imutdy73ZKUFbAcExhfwOFW1dE7WsesOV5/Svie/Sc9IuSCziD5srSfa+Es3MeXZptAxG
+	LVPZBYacv+DnSCj56dkcOVPe6LlCaz197yl3K+e+uM5FOweKSTre44cabJIN3Hw==
+X-Received: by 2002:a05:6122:e227:b0:5d7:2918:c644 with SMTP id 71dfb90a1353d-5e91f467355mr4514078e0c.7.1791986898563;
+        Wed, 14 Oct 2026 07:08:18 -0700 (PDT)
+X-Received: by 2002:a05:6122:e227:b0:5d7:2918:c644 with SMTP id 71dfb90a1353d-5e91f467355mr4514043e0c.7.1791986897980;
+        Wed, 14 Oct 2026 07:08:17 -0700 (PDT)
+Received: from ?IPV6:2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7? ([2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd04e9fesm2136375e9.7.2026.10.14.07.08.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 14 Oct 2026 07:08:17 -0700 (PDT)
+Message-ID: <f902a563-1e8f-4ff1-8463-f676775b75b7@oss.qualcomm.com>
+Date: Wed, 14 Oct 2026 16:08:15 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DUZPR04MB9845:EE_
-X-MS-Office365-Filtering-Correlation-Id: fbf40c06-1bcb-4bd7-61d3-08df29fc6c4b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|23010399003|1800799024|376014|7416014|366016|6133799003|22082099003|10067099003|18002099003|3023799007|11063799006|4143699003|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	hD40Yb1gfcLxcIVRMcMSkYUq5QeHQJ6LbH8j3c9xDOsM/1a+OEMVbzAEnOJAiwH3ifkHuN4M7Ue9EF9D+m8iXlO+lylwEPkgcIRV7ZFM9hQIMcM37XL3PTsxT+kBpGHDk3Nb1AtjCwi3l2mwGo7lY0tEOZWCKB1/b5CTrjo0vDYLkt1+mYUP55y3DKX4rncF+OugjehtgdTFzpLV9pmVZN/h8l0GfvkeuEIG3rtdWq6NrNB+gjVHqCCPAEr/Sc9sxks/ZOd+XeDuHEeuuXiayx8LTDIdYjMc9lM9x1Mg9TLsWy1p/b01Gsm3flqdQvx8SEmQJY6PhpHd/52fir61Dfk11fbAeD/pEscZIyWQEzkULRysduH0+ufFhpcvF5lJAkalV+tk6lGN7B9k3cVYZ7vKZp3amjeoSCXVuP6GIV7zZBsDVIvQg74B4EvTpflwq4NP/1q+blp1yZAjr4XglSXW+OdAh/lNRPCgYegGij/m/f537KffLwgI5G+WG7VkSntMjeqdO0gPN8CWfeX+rGjfb34KpyGUpk7R1mDYaASxAfObrHHJ1NQc5DCjC1311lKtEFLDEVWpTFbXU+Vhs6uGxK2dCuKLgaTBiNf9XsSyE4rXrsmdpjvJ9ow2VmlMnuoyW2Otywu/cEVB/AsKT/hmxMkvi2qvA9fttrLvaWY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(1800799024)(376014)(7416014)(366016)(6133799003)(22082099003)(10067099003)(18002099003)(3023799007)(11063799006)(4143699003)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?E++54nhll/b8CZAKz7RwlzS6+E1LH9Y/VcnKAONgLO8iIzSJh5lcLpgCipzE?=
- =?us-ascii?Q?fTg+nlHr/ecORHsGrBMSsmDssHkcHxCwI+eejc8pDodE1bjOrcX4GPW99Af4?=
- =?us-ascii?Q?AsVdYifyBAXVFHNv38BN2Y01gGFiftuYabXNEETrmAkx/0y//mJZ7vyI13KT?=
- =?us-ascii?Q?zIUgZsZQCIpAp4CHpWUrVQFaLpKS5HfpI7nS3e2qxq0DDwr4LgtufoDd7T51?=
- =?us-ascii?Q?lpcLFWTR1eT0RSQsR9jUHG9+flq47hTkmvKLC1KQuzkqQCjE/L4Hno2zZvKb?=
- =?us-ascii?Q?2SeDTD9PHUsBWAummin169UxUtmT8uDECn32/fi3YpjzKvtL6G7fih0r3Dcs?=
- =?us-ascii?Q?orSnesiBky6HY6d94IOvesIpOpLrjhgNhTeOmq3MCb22zM5wWrylYdh65WYY?=
- =?us-ascii?Q?haPgkWqTndxf/yfKECQpcVctRdRDl0JBIWg7xXBf3nTwTHgp+0roSFjoGHN3?=
- =?us-ascii?Q?q+oi8k5w5QEP2bxj7zpiBVkhAuav8kQ8DJIJiBTV+0u1uFioWkKn9QOujKGu?=
- =?us-ascii?Q?t04pHlp+iYjgXtA0MAuhczXs1YpqoE0UKyLdXo2ypJFsmH1FJ2QeoFErWJOM?=
- =?us-ascii?Q?SGZOx1MnV8Lex/xkcjmH+I+cWmOjfhGt8zrVErcMMwreZlaxp65pWKUvFi+4?=
- =?us-ascii?Q?O5hH1bnO4yA5GGAsnqAyFY9LdUyhVEYLuAJs9w/RncDMhp0afN6bT0+0hYar?=
- =?us-ascii?Q?vMkvg4L2P+S9Go907tA9Y9tkkDyLGUAZ/w2gHrx8LPMe/AKBWCUFJRkSWc3d?=
- =?us-ascii?Q?U0yU1KKqBRB8HL30I5A6g3SJ8TUfow12oxTNyLtGXXqQU1IfP9edaHFluHpB?=
- =?us-ascii?Q?rTwfIUN6n7x4jKmi8qng1Wn36s2zKoP9D582MQoXzcX43mfnjRYacs2WS/L6?=
- =?us-ascii?Q?qtbSFkYU22ELss0zTUuVqvNgP2kkPhJXi9QSHKlKlccpUz6a0uX8h5/8wYLd?=
- =?us-ascii?Q?OrpnJW6/2vPyCzg5rhnuZMTi4sWleTT2NjVrvCl1ySEZ+m7XzMnT2sOGgTub?=
- =?us-ascii?Q?d5SdAlNvaVm6uS+Op17XmqhhHhjOXUVvFRJIlz1WugtEGOEFwv1Hi5J4YQQW?=
- =?us-ascii?Q?ycApmqM7FAcf5xxKOW+HvooZWLlzC8HTuqQxPrAbzxzSAw2c1QeTo3dV9eN2?=
- =?us-ascii?Q?AMrzmsbkQpIRRI2/2cYTgtzS7Qf26latX3ejkAFiyojmwsXvx5yeiY/WTZZ2?=
- =?us-ascii?Q?m3gHp1Em5Nia390oI+b6cWOp5Xdkwa277PHZwGxrMqGtd6610JB15WRlhaV7?=
- =?us-ascii?Q?GlcYXJGEFil8mV0jZdQJgZ33HJbinWBdBZCxaPkBNtzK3IUy0n8uy8hY2s/k?=
- =?us-ascii?Q?2Hp+aPQ0tBF00HljhH+79E4mpTCmuGd0LnkQ5o4TLxNb0d7zoJgUjLVaI6aV?=
- =?us-ascii?Q?iqWsOUd/kol8rJ9uqOln6HBjt0O9a3RSNSVuCz8Pmdv9Wz7XtMWr3jxYaJYe?=
- =?us-ascii?Q?+Kmi+5ASYyjCGYp+yqtV/CWUAWf6cIljco7lvUC+Xfy9Rm9U/Uzmo/L+jF3d?=
- =?us-ascii?Q?coFhgbNg2KqB9qBrn6RwpQk3qmaWbiSx54N+RPoapE0A8a1onak7su3WExK0?=
- =?us-ascii?Q?nXFi+dajv91FrT6fB6HakdgGXL2gReQ8oBFiKfbfzcbuCFtXiI3gJUM+mepG?=
- =?us-ascii?Q?ox1bxmfMdPVlpCNg6qjjUz1T2RuDX5W6Jb4OVwXZnJXe4t17olHcPTwcN5Qx?=
- =?us-ascii?Q?xu+hFNb9lIkcHRSBGK0jOjiu4NRTdhbDNw9H5hJVVAxTqYgoa0inkWO9z/St?=
- =?us-ascii?Q?J8Sh9XznSPmrYvXYmJEg0cBaR6CPw1ZsVUFNB7G03OPbLyRxB1Xz?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fbf40c06-1bcb-4bd7-61d3-08df29fc6c4b
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 14:07:03.8337
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: onGrR+0cx0Dm0pJ4FQFXvM0/eJ0xts5dCx8X5xSOLxC93PUNEeFLVCiTFWcNmG9DaVDdKz0lI5n2cttofix6Soq400PqnnVPnY91hzfj1kVAnQ8TD53vaQBBj+ypat4H
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DUZPR04MB9845
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+        Aryan Sinha <sinha.aryan03@gmail.com>,
+        Bhargav Joshi
+ <j.bhargav.u@gmail.com>,
+        Biju Das <biju.das@bp.renesas.com>,
+        Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+        Dhruvin Rajpura <drajpura@qti.qualcomm.com>,
+        Florian Fainelli <florian.fainelli@broadcom.com>,
+        Georgi Djakov <djakov@kernel.org>,
+        Hemanth Selam <hemanth.selam@gmail.com>,
+        Karl Mehltretter <kmehltretter@gmail.com>,
+        liujing <liujing@cmss.chinamobile.com>,
+        Markus Elfring <Markus.Elfring@web.de>, muzafferkadir@mainlining.org,
+        Ovidiu Panait <ovidiu.panait.rb@renesas.com>,
+        Pengpeng Hou <pengpeng@iscas.ac.cn>,
+        Priyansh Jain <priyansh.jain@oss.qualcomm.com>,
+        Rob Herring <robh+dt@kernel.org>,
+        Ronald Claveau
+ <linux-kernel-dev@aliel.fr>,
+        Tudor Ambarus <tudor.ambarus@linaro.org>,
+        Vitaliy Sochnev <sochnev.v.74@gmail.com>,
+        Weigang He
+ <geoffreyhe2@gmail.com>,
+        Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+        Linux PM mailing list <linux-pm@vger.kernel.org>
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+Subject: [GIT PULL] thermal drivers for v7.4-rc1
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA1NiBTYWx0ZWRfX9UNvp5hojKQT
+ u4mJdmCDCcLq77JIHY3xOXfaaiJfaJ4rFQhiMBlAPA3bW52S/8KW+2jIJtXEfBA52I+vt880k55
+ vdfTaqVxPhi+KnhoCUu0IAyRSvzmKFc=
+X-Proofpoint-GUID: 9Urs9KBsD1-7LCSNU9EDYJlcGG1bnj6R
+X-Proofpoint-ORIG-GUID: 9Urs9KBsD1-7LCSNU9EDYJlcGG1bnj6R
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA1NiBTYWx0ZWRfXwvM9T2MqZmbI
+ vqaTiq1VBg7VKStbYMxBeiT6Eh7brEmseiL7fzFFmtvtO7r5tmCtkZHX7GH/FqFNgcMJlYOpOtm
+ dkrzlNtlrnye0fqob4fB6p+oXisW1rfSGBDvu9ccOdavMWBJJy/b+o9m0Z/OZWygEg+J6lP1Ve8
+ foKGPxcqfR+2aM6206pVvnikNWgAIdeJjmE9d/4nMjNRiD2tz6ULZsWxBoVVJY8KV8FQOBc2ncc
+ geci6c3XePTeZPcX3BH17ZvXh8aWeV67PoU44tZt+mK86K7xOzvayGl0AZQwk+w8orkikFsVqE/
+ PXuL2374hOzVTichnsdnnJzwLpNjXnsCr8M4Y1v52vqmqdo5Gkxuac5jMZTRO45aFVf3mfL1+07
+ /jOzXXTmGODjyR+vjtQfnOvwUmsvk275vaLx4ADesOc0c6o265po7GhvX86nnyYehr6sDvL5jgo
+ cBzpLkmRciX1aa4b26A==
+X-Authority-Analysis: v=2.4 cv=JegpPkKV c=1 sm=1 tr=0 ts=6acf8cd3 cx=c_pps
+ a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
+ a=-m7sRFRlS3AYhyV2FnQA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=1WsBpfsz9X-RYQiigVTh:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 phishscore=0 suspectscore=0 priorityscore=1501
+ bulkscore=0 lowpriorityscore=0 impostorscore=0 spamscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140056
 
-On Tue, Oct 13, 2026 at 04:37:21PM +0200, Jan Petrous wrote:
-> On Mon, Oct 12, 2026 at 01:43:05PM -0500, Frank Li wrote:
-> > On Sat, Sep 19, 2026 at 08:54:31AM +0200, Jan Petrous via B4 Relay wrote:
-> > > [You don't often get email from devnull+jan.petrous.oss.nxp.com@kernel.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
-> > >
-> > > From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
-> > >
-> > > The example references the SerDes PHY as
-> > >
-> > >   phys = <&serdes0 PHY_TYPE_PCIE 0 0>;
-> > >
-> > > i.e. the SerDes node itself with three PHY cells. That does not match
-> > > the SerDes binding: the per-lane child node is the generic PHY
-> > > provider and carries '#phy-cells = <0>', while the SerDes node itself
-> > > has no '#phy-cells' at all.
-> > >
-> > > Point the example at the PCIe lane child instead, which is also what
-> > > the S32G3 board device trees use. The dt-bindings/phy/phy.h include is
-> > > dropped along with the now-unused PHY_TYPE_PCIE constant.
-> > >
-> > > The schema itself is unchanged; 'phys: maxItems: 1' already describes
-> > > the corrected form.
-> > >
-> > > Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
-> > > ---
-> > >  Documentation/devicetree/bindings/pci/nxp,s32g-pcie.yaml | 3 +--
-> > >  1 file changed, 1 insertion(+), 2 deletions(-)
-> > >
-> > > diff --git a/Documentation/devicetree/bindings/pci/nxp,s32g-pcie.yaml b/Documentation/devicetree/bindings/pci/nxp,s32g-pcie.yaml
-> > > index 66a050028278..29323e50bd8b 100644
-> > > --- a/Documentation/devicetree/bindings/pci/nxp,s32g-pcie.yaml
-> > > +++ b/Documentation/devicetree/bindings/pci/nxp,s32g-pcie.yaml
-> > > @@ -82,7 +82,6 @@ unevaluatedProperties: false
-> > >  examples:
-> > >    - |
-> > >      #include <dt-bindings/interrupt-controller/arm-gic.h>
-> > > -    #include <dt-bindings/phy/phy.h>
-> > >
-> > >      bus {
-> > >          #address-cells = <2>;
-> > > @@ -124,7 +123,7 @@ examples:
-> > >                  ranges;
-> > >
-> > >                  device_type = "pci";
-> > > -                phys = <&serdes0 PHY_TYPE_PCIE 0 0>;
-> > > +                phys = <&serdes0_pcie0>;
-> >
-> > I don't think it fix somethings. The "serdes0" just a label, point to
-> > provider, which is not neccsary that "#phy-cells" is 0.
-> >
-> > Examples just show need how many phys and don't care about phy provider's
-> > arguments
-> >
->
-> The example validates either way, agreed. The three cells are the
-> '#phy-cells = <3>' of the downstream nxp,s32cc-serdes binding, which
-> was never posted upstream; patch 1 is the only SerDes binding for S32G
-> and has no three-cell provider. I would rather have the example match
-> it.
->
-> The form depends on the outcome of your patch 1 comment, so I will
-> keep this patch in sync with that. If you prefer the phys line
-> untouched, I can drop it and keep only the ranges fix v4 adds here.
 
-This patch is not important. suggest drop it.
+Hi Rafael,
 
-Frank
 
->
-> BR.
-> /Jan
->
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+
+   Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+
+are available in the Git repository at:
+
+   git://git.kernel.org/pub/scm/linux/kernel/git/thermal/linux.git 
+tags/thermal-v7.4-rc1
+
+for you to fetch changes up to 2dc1f296b5754dd2441fc8b6613a362a47f6b98f:
+
+   thermal/drivers/rzg3e: Propagate reset assertion failure from suspend 
+(2026-10-14 09:46:07 +0200)
+
+----------------------------------------------------------------
+- Add the Exynos ACPM thermal driver for Google GS101, along with
+   DT bindings and a MAINTAINERS entry (Tudor Ambarus)
+
+- Add Renesas RZ/G3L thermal sensor support and DT bindings, and move
+   default calibration values to per-SoC match data (Biju Das)
+
+- Add Qualcomm MSM8952 TSENS support and the corresponding DT binding
+   compatible (Muzaffer Kadir)
+
+- Document the Qualcomm PMAU0102 Master BandGap temperature monitor
+   compatible in the DT bindings (Dhruvin Rajpura)
+
+- Extend the QCom TSENS v2 trip temperature limits to the hardware
+   range of -204°C to +204°C to prevent interrupt storms when operating
+   beyond the previous software limits (Priyansh Jain)
+
+- Fix temperature threshold map indexing in the QCom SPMI temperature
+   alarm driver to prevent out-of-bounds reads (Georgi Djakov)
+
+- Describe the additional bus clock required by the Amlogic T7 thermal
+   sensor and switch the driver to the clk_bulk API to manage multiple
+   clocks (Ronald Claveau)
+
+- Request the Airoha EN7581 IRQ after thermal zone registration to
+   prevent the interrupt handler from accessing an unregistered or
+   already freed thermal zone (Vitaliy Sochnev)
+
+- Fix the Airoha AN7583 ADC mux field mapping, serialize access to the
+   shared ADC, and verify mux selection to avoid invalid temperature
+   readings and spurious critical shutdowns (Vitaliy Sochnev)
+
+- Register separate thermal zones for the AN7583 bandgap, GbE and CPU
+   sensors, and update the DT bindings to use one thermal sensor cell
+   to select the sensor (Vitaliy Sochnev)
+
+- Fix signed integer overflow in the Renesas RZ/G3E temperature-to-code
+   conversion, preserve compare interrupt state across runtime PM,
+   and prevent overlapping temperature conversions (Ovidiu Panait)
+
+- Remove redundant trip window validation and runtime PM
+   pm_runtime_mark_last_busy() calls from the Renesas RZ/G3E driver
+   (Ovidiu Panait)
+
+- Propagate reset assertion failures from Renesas RZ/G3E suspend and
+   attempt to restore power if the sensor was active (Pengpeng Hou)
+
+- Stop the TI bandgap alert IRQ before removing sensor interfaces and
+   cancel pending alert work to prevent use-after-free on driver removal
+   (Weigang He)
+
+- Validate Spreadtrum sensor IDs read from the device tree before using
+   them for register offsets and array indexing (Weigang He)
+
+- Convert the TI OMAP bandgap DT bindings to schema and document the
+   DRA752 compatible and thermal sensor cells (Bhargav Joshi)
+
+- Use DT property helpers matching the signed temperature and unsigned
+   hysteresis types defined by the thermal zone bindings (Rob Herring)
+
+- Reuse common error handling code in the power allocator governor
+   bind callback (Markus Elfring)
+
+- Constify the thermal zone device operations in the i.MX9 driver
+   (Christophe JAILLET)
+
+- Fix kernel-doc parameter names and firmware node references in the
+   cooling device registration helpers (Aryan Sinha)
+
+- Correct the documented return value of ti_bandgap_get_sensor_data()
+   to describe validation errors and potentially NULL stored data
+   (Karl Mehltretter)
+
+- Ensure NUL-termination when copying the cooling device command-line
+   argument in tmon and fix the associated string truncation warning
+   (Florian Fainelli)
+
+- Fix undefined behavior caused by a signed shift in the tmon thermal
+   zone binding display (Liu Jing)
+
+- Fix wording in tmon comments (Hemanth Selam)
+
+----------------------------------------------------------------
+Andy Shevchenko (1):
+       thermal: sysfs: switch to use scnprintf() to suppress truncation 
+warning
+
+Aryan Sinha (1):
+       thermal/fw: Fix kernel-doc parameter names
+
+Bhargav Joshi (1):
+       dt-bindings: thermal: ti,omap-bandgap: Convert to DT schema
+
+Biju Das (3):
+       dt-bindings: thermal: r9a08g045-tsu: Document RZ/G3L TSU
+       thermal/drivers/renesas/rzg3s: Convert calibration defaults to 
+per-SoC match data
+       thermal/drivers/renesas/rzg3s: Add RZ/G3L TSU support
+
+Christophe JAILLET (1):
+       thermal/drivers/imx9: Constify struct thermal_zone_device_ops
+
+Dhruvin Rajpura (1):
+       dt-bindings: thermal: qcom,pm8775-mbg-tm: Document PMAU0102
+
+Florian Fainelli (1):
+       tools/thermal/tmon: Fix string truncation warning in optarg copy
+
+Georgi Djakov (1):
+       thermal/drivers/qcom-spmi-temp-alarm: Fix temp_map indexing
+
+Hemanth Selam (1):
+       tools/thermal: Fix typo "binded" in comments
+
+Karl Mehltretter (1):
+       thermal: ti-soc-thermal: Fix the return value in 
+ti_bandgap_get_sensor_data() kernel-doc
+
+Liu Jing (1):
+       tools/thermal/tmon: Fix signed shift UB in binding display
+
+Markus Elfring (1):
+       thermal: gov_power_allocator: Use common error handling code in 
+power_allocator_bind()
+
+Muzaffer Kadir (2):
+       dt-bindings: thermal: tsens: Add MSM8952
+       thermal/qcom/tsens: Add support for MSM8952 tsens
+
+Ovidiu Panait (5):
+       drivers/thermal/renesas/rzg3e: Fix signed integer overflow in 
+temp_to_code()
+       thermal/drivers/renesas/rzg3e: Fix runtime PM handling of compare irq
+       thermal/drivers/renesas/rzg3e: Fix race between set_trips() and 
+get_temp()
+       thermal/drivers/renesas/rzg3e: Remove unneeded low/high check in 
+set_trips()
+       thermal/drivers/renesas/rzg3e: Remove redundant 
+pm_runtime_mark_last_busy() calls
+
+Pengpeng Hou (1):
+       thermal/drivers/rzg3e: Propagate reset assertion failure from suspend
+
+Priyansh Jain (1):
+       thermal/drivers/qcom/tsens: Widen temperature limits to match 
+hardware range
+
+Rob Herring (Arm) (1):
+       thermal: of: Match trip property helper types
+
+Ronald Claveau (2):
+       dt-bindings: thermal: amlogic: describe bus clock for t7-thermal
+       thermal/drivers/amlogic: Switch to clk_bulk API to support 
+multiple clocks
+
+Tudor Ambarus (3):
+       dt-bindings: thermal: Add Google GS101 TMU
+       thermal/drivers/samsung: Add Exynos ACPM TMU driver GS101
+       MAINTAINERS: Add entry for Samsung Exynos ACPM thermal driver
+
+Vitaliy Sochnev (5):
+       thermal/drivers/airoha: Request the EN7581 IRQ after zone 
+registration
+       thermal/drivers/airoha: Fix AN7583 ADC mux field mapping
+       thermal/drivers/airoha: Serialise access to the shared ADC
+       dt-bindings: arm: airoha: Use one thermal sensor cell for AN7583
+       thermal/drivers/airoha: Register a thermal zone per AN7583 sensor
+
+Weigang He (2):
+       thermal/drivers/ti-soc-thermal: Cancel pending alert work on remove
+       thermal/drivers/sprd: validate the sensor id from the device tree
+
+  .../bindings/arm/airoha,en7581-chip-scu.yaml       |   3 +-
+  .../bindings/thermal/amlogic,thermal.yaml          |  29 +-
+  .../bindings/thermal/google,gs101-tmu-top.yaml     |  69 +++
+  .../bindings/thermal/qcom,pm8775-mbg-tm.yaml       |   7 +-
+  .../devicetree/bindings/thermal/qcom-tsens.yaml    |   1 +
+  .../bindings/thermal/renesas,r9a08g045-tsu.yaml    |   4 +-
+  .../bindings/thermal/ti,omap-bandgap.yaml          | 177 ++++++
+  .../devicetree/bindings/thermal/ti_soc_thermal.txt |  88 ---
+  MAINTAINERS                                        |   8 +
+  drivers/thermal/airoha_thermal.c                   | 179 ++++--
+  drivers/thermal/amlogic_thermal.c                  |  14 +-
+  drivers/thermal/gov_power_allocator.c              |  11 +-
+  drivers/thermal/imx91_thermal.c                    |   2 +-
+  drivers/thermal/qcom/qcom-spmi-temp-alarm.c        |   8 +-
+  drivers/thermal/qcom/tsens-v1.c                    |  41 ++
+  drivers/thermal/qcom/tsens-v2.c                    |   4 +-
+  drivers/thermal/qcom/tsens.c                       |   3 +
+  drivers/thermal/qcom/tsens.h                       |   2 +-
+  drivers/thermal/renesas/rzg3e_thermal.c            |  45 +-
+  drivers/thermal/renesas/rzg3s_thermal.c            |  38 +-
+  drivers/thermal/samsung/Kconfig                    |  19 +
+  drivers/thermal/samsung/Makefile                   |   2 +
+  drivers/thermal/samsung/acpm-tmu.c                 | 651 
++++++++++++++++++++++
+  drivers/thermal/sprd_thermal.c                     |   6 +
+  drivers/thermal/thermal_fw.c                       |   8 +-
+  drivers/thermal/thermal_of.c                       |  11 +-
+  drivers/thermal/thermal_sysfs.c                    |  12 +-
+  drivers/thermal/ti-soc-thermal/ti-bandgap.c        |  10 +-
+  drivers/thermal/ti-soc-thermal/ti-thermal-common.c |   4 +
+  tools/thermal/tmon/sysfs.c                         |   2 +-
+  tools/thermal/tmon/tmon.c                          |   4 +-
+  tools/thermal/tmon/tmon.h                          |   2 +-
+  tools/thermal/tmon/tui.c                           |   2 +-
+  33 files changed, 1262 insertions(+), 204 deletions(-)
+  create mode 100644 
+Documentation/devicetree/bindings/thermal/google,gs101-tmu-top.yaml
+  create mode 100644 
+Documentation/devicetree/bindings/thermal/ti,omap-bandgap.yaml
+  delete mode 100644 
+Documentation/devicetree/bindings/thermal/ti_soc_thermal.txt
+  create mode 100644 drivers/thermal/samsung/acpm-tmu.c
+
+
+
