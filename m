@@ -1,283 +1,313 @@
-Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com [209.85.161.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 734D83BCD3A
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:39:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792003188; cv=pass; b=tSAjQoJzSmyMgl3qpFY4DvgHgatAT0oSM+w2Bk2pRA13VMbxntMDDFMyjNkp/rPgTiH+aoD8gwzmYIxVPyZqkgjS08RiF0BH5mJaAZ7j3iQEb9qqsRtUcPA4MVbBSQ6QyRKiX/U70nNMhtOojxBCUbUsxMGxpGMs+8RkNSK2TPQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792003188; c=relaxed/simple;
-	bh=Hi3oLimrk06HY77N752dV/sqU29cIiskVgmmFoM1BrY=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 361F2563FDD
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:40:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792003205; cv=none; b=OHDuCQgdVGRWggI9/tiNK8YOxtkwmOpimoWWUX7f0oFWuEeSavrKqy3TuBomloR7yw5ciRMb/+XO63BC54Opr0sq7nUQNvlxWAauEdKfCv7iVc34XgVU6IOLWWs3qs92fhAV8Vly0ykJWZebZoVcvRRBMPXY12dSnfHRQg3FHt8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792003205; c=relaxed/simple;
+	bh=wI5OtR9HR/J0RFCTg/Yk2o4tMSsqJLiSJGZ/bOEkyV8=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NxcOTpVBOKY85NvIn2XlEUZSHhUyc0TQJLz9dEtCOaGewoonuVzY9CPBlfT+RtdoZOkCjehfyCAktdvBCtuuMQKzMf2XLzJlAiR4+RZtO9yF9KnvY5kMnBYKIm/KRDHh2SG9Sve6Dsd7SH6MAiul7VcT9eXHEvXzw9C8ATxvbqc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LlGT/VHy; arc=pass smtp.client-ip=209.85.161.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=o9OGMx6p/TkWhOJpMEUJ8npvF52Tq+h4aUlWiSK20c2vM5y5mCQST1oeabn+BugMqVlVLkS2Yns+9F0ocwyC1377/q4p4ku+HmgjK0uLLrdd2Q4/F85PSc73vYSJD29D7L5Rl9j34n3tzq+8TrgqwykP04wlSBlOSlLYKkBoBW0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YiZElaLJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LlGT/VHy"
-Received: by mail-oo1-f51.google.com with SMTP id 006d021491bc7-6dd8e918218so193635eaf.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:39:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792003186; cv=none;
-        d=google.com; s=arc-20260327;
-        b=AbL/VI3VPaQVARE7g7M7XBektKEaGc32i5Yoy4S6+Mu5TLWEAHY3BA31n1+0HfSweT
-         Gdur0I9XEqokzl5XYvKccPEUj88+9XNSeaH7QMceZv15mVr/g6ts/DmLyYXn3QP8k2JN
-         IZZmlCk3ejR+zLWSM+SHtCBhQ60QEe2LGGnv3tY4loOKfgbx7IGF1yU8MeimEsYfNPpc
-         6dGhIQrmB/JmSVKbVlbuNaw2KkfdRmhlrNexP8UCC3P9KNCUp9OXgT6hr9JFk4l/hvSH
-         i9Q+U5JDZNPgXpVLtjOuMWjanpfaoyMU5YrWn534V9jgTBTF+/zWXjbmtx23ziLI5V3i
-         4LSA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=nfJLxdiTo6vJhA+TJkzuS9wIdOWg1+Cfb8ilaZ5iWJU=;
-        fh=RXKK1IPn0Xjtsl7S7st9NIZGtQb3KAmEcC70g6t+RN4=;
-        b=YFy7Jsd5KrvXE74yVGwZ+4WdjlCI1AI0wVGcL5/ifIAkE0QtkX+m/UWO8dhrdBxtjr
-         5mlogDUtyNs6cnE9jqG16WQvWXNJ7pvpRuhA2pa7OythetQLaCYrB/BNY0XI7m1AHczj
-         747KzW0gNkCL6fhQL35g/TjEwYuvvWV3nyuAAYDmNyrWhnAtoCDURRQl5kvcfx6RIW4e
-         FCU1ygV2gmkxUuBA4+lRDAgBvJxpJbU9gAb3HGoWoNw0HY1PjUwEuz7K6Uv06JQxK9jO
-         LRiEY33NzCON3RvP44j2w4aWoYEBYAvYGhXO63Wv2qfPsJn9UdX2oS4lmLoMdRLQOl4D
-         x61w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792003186; x=1792607986; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nfJLxdiTo6vJhA+TJkzuS9wIdOWg1+Cfb8ilaZ5iWJU=;
-        b=LlGT/VHyAgrN/IdTQ6Ev9lBxxjVLPU7IvPw+3n8w/2oSZdb4C4GhiwCyYdc05MHGCW
-         DIGRLng1bIT0K8ka2XlxR1z46Ab/bu8D3U3/nuCUNIDNA95ZU7v+coVJye3gTrtA8AD9
-         Uv1G/uJm79zKmnNd0k+TGg471AH+FOZmqyOBlcAcOMzvU7crgj6Tnc3u5+AcPHBp9fTM
-         TylteBLo+YMZlD7WH0+71IMu8/mABZyGEYwCAKeccW2uD0Vn6seyXJ7YTZnDcQivMpkG
-         98BbtWtL1eFgGwe/hcSHdFOIZf1k211IhdoNQDpDKdHxO90/TK6Q5MP3YjSNwwEC1VMy
-         blLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792003186; x=1792607986;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nfJLxdiTo6vJhA+TJkzuS9wIdOWg1+Cfb8ilaZ5iWJU=;
-        b=qenxK/BA0PhIe9db3qFAYm6yvIZC2JfuiABRjMXeZWpZkwAHnqhSeVuJVguhpKPM2v
-         VpRIzI16c1eroS9sWPjO/4GYVjx8gxyrdRS8zo19M6KnAsVOiMnEKrSnaix/lN8d1cBx
-         O4XciLnZMaDJbPc4mRcuxVDKDlnb6HV4jE/4dS5horlwcuOlyelezMOk7ILKxElcHltl
-         dH8Js4kfamQX90s+NcKbC6o3x1+IvNbA09AIUIr1MNsWv1xRZmaWNQgz//nRDFezCOVV
-         SFg/rEOy0Rjk3YAeL3q1kdNb5RIe6crG8Q/X32NzihHggoSKk1X7wHjzY5Kp3R78/kBh
-         Sreg==
-X-Forwarded-Encrypted: i=1; AKwUvBzn3hFhYNcHJwNWS1ItsgAsrmn2MrB1//6IBai+igg4aRtXZkxrl1ZjJCrRMSANPcIiQXBv2nG8dFGpXtk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKdqNuK182WJ/8MDcqbSjG33iBtVmjdXjMISNp9fOWlmuTmimK0
-	Y9joR4yjYPEPzOWOr4gfXV8pO9x1xKLw2AxYXk+oTxgRU6Tzx86lvzzvO7PneHbhk0U6plSAB+X
-	bDc6eIIYG3twdsRY3fnd4DGlHXldmwL4=
-X-Gm-Gg: AYBFou0MqKFVD9lhcGcnpFmylLRyqSfEOE099qs2NEHxkJwsxPQspoSdtMxAXP+uPev
-	cxWmStQ0kQE5ctYkMe1E5PEw7fmjfIJbIxAH1AgK0V/JOZtT+TxXP/lKOdQcsRRCiQ8YHwqD51u
-	4Yt4Q+IUxisrZiMmBvRoJXCN/MMPw0xkOzxvP1VZ+al2OpSj8UCPBxHstI11Hmwm+HmAn6VUTPJ
-	6NSg4nhXLNlM93I6Z0Piyulb+sQl6LlyfZSA4cMyDHQVTf4K6prhzXt+3XyEC7QGi/PlPIgmtmp
-	0aWdCvKtjBaLTM4i5sG+yae+jd1JMWO3ZuF8gzrqXUlfgT7DvDlPYKwbGm7GfoTZlJXxWSw=
-X-Received: by 2002:a05:6808:50a8:b0:4e8:9e40:a0dc with SMTP id
- 5614622812f47-50c41108624mr24831152b6e.1.1792003186157; Wed, 14 Oct 2026
- 11:39:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YiZElaLJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD28E1F01575
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:40:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792003203;
+	bh=h02T4dxmej+7U4k43nmeqwXEyqdw6fkeq/FbO3cSyPk=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=YiZElaLJacR1XjcoXsQ5YAtE+kKxtkSbIVOBNr2AwKzciTPWTLC0gDT+BrygyL9uB
+	 yyE6lix+ONFEDHUYpbFgalLOctIHBFvcccr3l5LYCncqQ4eOb2X30rF0wnG1YcOAEC
+	 FyL/ozKkJvmn6vgTnZ9q2gau0AkXzKaqgFc5po3Od1IEA+YiyZhy8WfxAuo41+EQ7W
+	 1xA8Yracvb+nOGbuc+0bBQQHtGbnFb3s8VJ9H7WRq7cBECI4yGSdhCAjTJci5gbsIQ
+	 zQ6q8fYNaVWFSPu9OQmKuG1nolInJK1+EJGbtZH6TTlN6tEnafXXQYhPRuc+j3dvXM
+	 65ZalyJj2b93w==
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5ba41ea31ccso5091932e87.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:40:03 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByJxJKpsqX/fAYIxVfVrhhvfVsuJe77fPtUNoXQshNyUMyTZWfqHBcrxCebMr95o4dmWwMd3JLWp5THbmA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJxgkY/Q2GoKSWOcV0kLFOVO41rvo6nH338n0fEDCtqTghhaTKy
+	wW2JInZARb74t+rHI4qakUN+ZJKQvj6JswDh4KxSZrD1rv6dNOXTmQq2TiJlkTCme67mQi3b6B9
+	UMacOmDVST1WySDWhsU8IyW2KohkiM2w=
+X-Received: by 2002:a05:6512:114a:b0:5bc:b375:9dbe with SMTP id
+ 2adb3069b0e04-5bcde6a96cemr5757469e87.45.1792003201656; Wed, 14 Oct 2026
+ 11:40:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261012-netcons-fixes-next-v2-1-ac8ec4c62edb@gmail.com> <179191204261.434549.8984165771561140450@kernel.org>
-In-Reply-To: <179191204261.434549.8984165771561140450@kernel.org>
-From: Gustavo Luiz Duarte <gustavold@gmail.com>
-Date: Wed, 14 Oct 2026 19:39:35 +0100
-X-Gm-Features: AclHuK9H5B8TXm5v5mDMBoKGdofCkC_RwhygYwsXkWt2btKwSIv0kBCAj4jxGFY
-Message-ID: <CAGSyskXLys0G5MzhnRjGzLBFcsGfWUwJbBSxOezL+1UpPqc2NA@mail.gmail.com>
-Subject: Re: [PATCH net-next v2 1/2] netconsole: avoid printing partially
- updated target attributes
-To: netdev-bot+sashiko@kernel.org
-Cc: leitao@debian.org, andrew+netdev@lunn.ch, davem@davemloft.net, 
-	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <dcde6e02-d61f-429f-a9fd-57043c4819f7@oss.qualcomm.com>
+In-Reply-To: <dcde6e02-d61f-429f-a9fd-57043c4819f7@oss.qualcomm.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Wed, 14 Oct 2026 20:37:54 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0hESvjrYRdVcAb+wQG5tc3wjQyQNongXhwEnh+GiN7Eyw@mail.gmail.com>
+X-Gm-Features: AclHuK8sTIQtflGauZ2JnhT2z6w0pBS_TBVqEEPoIfYBjLbQFth6jH8_eEbD3OQ
+Message-ID: <CAJZ5v0hESvjrYRdVcAb+wQG5tc3wjQyQNongXhwEnh+GiN7Eyw@mail.gmail.com>
+Subject: Re: [GIT PULL] thermal drivers for v7.4-rc1
+To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Aryan Sinha <sinha.aryan03@gmail.com>, Bhargav Joshi <j.bhargav.u@gmail.com>, 
+	Biju Das <biju.das@bp.renesas.com>, 
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>, Dhruvin Rajpura <drajpura@qti.qualcomm.com>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, Georgi Djakov <djakov@kernel.org>, 
+	Hemanth Selam <hemanth.selam@gmail.com>, Karl Mehltretter <kmehltretter@gmail.com>, 
+	liujing <liujing@cmss.chinamobile.com>, Markus Elfring <Markus.Elfring@web.de>, 
+	muzafferkadir@mainlining.org, Ovidiu Panait <ovidiu.panait.rb@renesas.com>, 
+	Pengpeng Hou <pengpeng@iscas.ac.cn>, Priyansh Jain <priyansh.jain@oss.qualcomm.com>, 
+	Rob Herring <robh+dt@kernel.org>, Ronald Claveau <linux-kernel-dev@aliel.fr>, 
+	Tudor Ambarus <tudor.ambarus@linaro.org>, Vitaliy Sochnev <sochnev.v.74@gmail.com>, 
+	Weigang He <geoffreyhe2@gmail.com>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+	Linux PM mailing list <linux-pm@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 13, 2026 at 6:20=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wro=
-te:
->
-> Thank you for your contribution! Sashiko AI review found 3 potential
-> issue(s) to consider.
->
-> Critical: 0 =C2=B7 High: 2 =C2=B7 Medium: 0 =C2=B7 Low: 1
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [High] In drivers/net/netconsole.c, local_mac_show() still takes no
->   lock.
-> - [High] dev_name_show() still races with netconsole_netdev_event()
->   writing np.dev_name, even though the commit message says this race is=
-=E2=80=A6
-> - [Low] The commit fixes a user-visible race: configfs *_show() callbacks
->   can return torn values while a store or the netdev notifier updates=E2=
-=80=A6
->
-> --
->
-> netconsole: avoid printing partially updated target attributes
->
-> This patch makes the netconsole configfs *_show() callbacks take
-> dynamic_netconsole_mutex, so they no longer return values that a
-> concurrent store has only partly updated. dev_name_show() also takes
-> target_list_lock to serialize against the NETDEV_CHANGENAME update in
-> netconsole_netdev_event().
->
-> > Reported-by: Sashiko <netdev-bot+sashiko@kernel.org>
-> > Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260814-ne=
-tcons_ipv6-v3-7-bc0915e8c75f@gmail.com
-> > Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928-ne=
-tcons-fixes-v1-0-bb5ffe5e698a%40gmail.com
-> > Signed-off-by: Gustavo Luiz Duarte <gustavold@gmail.com>
->
-> [Severity: Low]
-> Should this have a Fixes: tag?
->
-> The unlocked readers in dev_name_show(), remote_mac_show() and
-> local_mac_show() date back to commit 0bcc1816188e ("[NET] netconsole:
-> Support dynamic reconfiguration using configfs").
->
-> The family/address tearing in local_ip_show() and remote_ip_show() comes
-> from the more recent inet_addr/family rework (commits 46b3f9e7e761,
-> 56ddc8d48e75 and f6e96d72f64a).
->
-> > diff --git a/drivers/net/netconsole.c b/drivers/net/netconsole.c
-> > index 267254f046de9..953a1da071862 100644
-> > --- a/drivers/net/netconsole.c
-> > +++ b/drivers/net/netconsole.c
-> > @@ -859,7 +859,20 @@ static ssize_t release_show(struct config_item *it=
-em, char *buf)
-> >
-> >  static ssize_t dev_name_show(struct config_item *item, char *buf)
-> >  {
-> > -     return sysfs_emit(buf, "%s\n", to_target(item)->np.dev_name);
-> > +     struct netconsole_target *nt =3D to_target(item);
-> > +     unsigned long flags;
-> > +     int ret;
-> > +
-> > +     dynamic_netconsole_mutex_lock();
-> > +     /* Hold target_list_lock to prevent racing against
-> > +      * netconsole_netdev_event() changing np.dev_name.
-> > +      */
-> > +     spin_lock_irqsave(&target_list_lock, flags);
-> > +     ret =3D sysfs_emit(buf, "%s\n", nt->np.dev_name);
-> > +     spin_unlock_irqrestore(&target_list_lock, flags);
->
-> [Severity: High]
-> Does target_list_lock cover every place where netconsole_netdev_event()
-> changes np.dev_name?
->
-> It covers the NETDEV_CHANGENAME strscpy(). For NETDEV_UNREGISTER,
-> NETDEV_RELEASE and NETDEV_JOIN, though, the notifier drops
-> target_list_lock before it cleans up the target:
->
-> netconsole_netdev_event()
->     spin_unlock_irqrestore(&target_list_lock, flags);
->     mutex_unlock(&target_cleanup_list_lock);
->     ...
->     netconsole_process_cleanups_core()
->         mutex_lock(&target_cleanup_list_lock);
->         netcons_release_dev(nt)
->             do_netpoll_cleanup(&nt->np);
->             if (bound_by_mac(nt))
->                 memset(&nt->np.dev_name, 0, IFNAMSIZ);
->         spin_lock_irqsave(&target_list_lock, flags);
->         list_move(&nt->list, &target_list);
->
-> The memset in netcons_release_dev() runs with only RTNL and
-> target_cleanup_list_lock held. Neither dynamic_netconsole_mutex nor
-> target_list_lock is held, so the new dev_name_show() has no lock in
-> common with this writer.
->
-> MAC-bound targets do show up in configfs. A netconsole=3D cmdline target
-> bound by MAC is exposed through populate_configfs_item(), and
-> netpoll_setup() fills np.dev_name from ndev->name.
->
-> For such a target, can the sysfs_emit() here still copy a partly zeroed
-> name?
+Hi Daniel,
 
-This might happen, though quite unlikely and it has limited impact:
-printing a truncated device name.
-The fix would be taking target_list_lock around the memset in
-netcons_release_dev().
-I'm not convinced it is worth it, but happy to spin another revision
-if someone thinks otherwise.
+On Wed, Oct 14, 2026 at 4:08=E2=80=AFPM Daniel Lezcano
+<daniel.lezcano@oss.qualcomm.com> wrote:
+>
+>
+> Hi Rafael,
+>
+>
+> The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b9=
+35:
+>
+>    Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+>
+> are available in the Git repository at:
+>
+>    git://git.kernel.org/pub/scm/linux/kernel/git/thermal/linux.git
+> tags/thermal-v7.4-rc1
+>
+> for you to fetch changes up to 2dc1f296b5754dd2441fc8b6613a362a47f6b98f:
+>
+>    thermal/drivers/rzg3e: Propagate reset assertion failure from suspend
+> (2026-10-14 09:46:07 +0200)
+>
+> ----------------------------------------------------------------
+> - Add the Exynos ACPM thermal driver for Google GS101, along with
+>    DT bindings and a MAINTAINERS entry (Tudor Ambarus)
+>
+> - Add Renesas RZ/G3L thermal sensor support and DT bindings, and move
+>    default calibration values to per-SoC match data (Biju Das)
+>
+> - Add Qualcomm MSM8952 TSENS support and the corresponding DT binding
+>    compatible (Muzaffer Kadir)
+>
+> - Document the Qualcomm PMAU0102 Master BandGap temperature monitor
+>    compatible in the DT bindings (Dhruvin Rajpura)
+>
+> - Extend the QCom TSENS v2 trip temperature limits to the hardware
+>    range of -204=C2=B0C to +204=C2=B0C to prevent interrupt storms when o=
+perating
+>    beyond the previous software limits (Priyansh Jain)
+>
+> - Fix temperature threshold map indexing in the QCom SPMI temperature
+>    alarm driver to prevent out-of-bounds reads (Georgi Djakov)
+>
+> - Describe the additional bus clock required by the Amlogic T7 thermal
+>    sensor and switch the driver to the clk_bulk API to manage multiple
+>    clocks (Ronald Claveau)
+>
+> - Request the Airoha EN7581 IRQ after thermal zone registration to
+>    prevent the interrupt handler from accessing an unregistered or
+>    already freed thermal zone (Vitaliy Sochnev)
+>
+> - Fix the Airoha AN7583 ADC mux field mapping, serialize access to the
+>    shared ADC, and verify mux selection to avoid invalid temperature
+>    readings and spurious critical shutdowns (Vitaliy Sochnev)
+>
+> - Register separate thermal zones for the AN7583 bandgap, GbE and CPU
+>    sensors, and update the DT bindings to use one thermal sensor cell
+>    to select the sensor (Vitaliy Sochnev)
+>
+> - Fix signed integer overflow in the Renesas RZ/G3E temperature-to-code
+>    conversion, preserve compare interrupt state across runtime PM,
+>    and prevent overlapping temperature conversions (Ovidiu Panait)
+>
+> - Remove redundant trip window validation and runtime PM
+>    pm_runtime_mark_last_busy() calls from the Renesas RZ/G3E driver
+>    (Ovidiu Panait)
+>
+> - Propagate reset assertion failures from Renesas RZ/G3E suspend and
+>    attempt to restore power if the sensor was active (Pengpeng Hou)
+>
+> - Stop the TI bandgap alert IRQ before removing sensor interfaces and
+>    cancel pending alert work to prevent use-after-free on driver removal
+>    (Weigang He)
+>
+> - Validate Spreadtrum sensor IDs read from the device tree before using
+>    them for register offsets and array indexing (Weigang He)
+>
+> - Convert the TI OMAP bandgap DT bindings to schema and document the
+>    DRA752 compatible and thermal sensor cells (Bhargav Joshi)
+>
+> - Use DT property helpers matching the signed temperature and unsigned
+>    hysteresis types defined by the thermal zone bindings (Rob Herring)
+>
+> - Reuse common error handling code in the power allocator governor
+>    bind callback (Markus Elfring)
+>
+> - Constify the thermal zone device operations in the i.MX9 driver
+>    (Christophe JAILLET)
+>
+> - Fix kernel-doc parameter names and firmware node references in the
+>    cooling device registration helpers (Aryan Sinha)
+>
+> - Correct the documented return value of ti_bandgap_get_sensor_data()
+>    to describe validation errors and potentially NULL stored data
+>    (Karl Mehltretter)
+>
+> - Ensure NUL-termination when copying the cooling device command-line
+>    argument in tmon and fix the associated string truncation warning
+>    (Florian Fainelli)
+>
+> - Fix undefined behavior caused by a signed shift in the tmon thermal
+>    zone binding display (Liu Jing)
+>
+> - Fix wording in tmon comments (Hemanth Selam)
+>
+> ----------------------------------------------------------------
+> Andy Shevchenko (1):
+>        thermal: sysfs: switch to use scnprintf() to suppress truncation
+> warning
+>
+> Aryan Sinha (1):
+>        thermal/fw: Fix kernel-doc parameter names
+>
+> Bhargav Joshi (1):
+>        dt-bindings: thermal: ti,omap-bandgap: Convert to DT schema
+>
+> Biju Das (3):
+>        dt-bindings: thermal: r9a08g045-tsu: Document RZ/G3L TSU
+>        thermal/drivers/renesas/rzg3s: Convert calibration defaults to
+> per-SoC match data
+>        thermal/drivers/renesas/rzg3s: Add RZ/G3L TSU support
+>
+> Christophe JAILLET (1):
+>        thermal/drivers/imx9: Constify struct thermal_zone_device_ops
+>
+> Dhruvin Rajpura (1):
+>        dt-bindings: thermal: qcom,pm8775-mbg-tm: Document PMAU0102
+>
+> Florian Fainelli (1):
+>        tools/thermal/tmon: Fix string truncation warning in optarg copy
+>
+> Georgi Djakov (1):
+>        thermal/drivers/qcom-spmi-temp-alarm: Fix temp_map indexing
+>
+> Hemanth Selam (1):
+>        tools/thermal: Fix typo "binded" in comments
+>
+> Karl Mehltretter (1):
+>        thermal: ti-soc-thermal: Fix the return value in
+> ti_bandgap_get_sensor_data() kernel-doc
+>
+> Liu Jing (1):
+>        tools/thermal/tmon: Fix signed shift UB in binding display
+>
+> Markus Elfring (1):
+>        thermal: gov_power_allocator: Use common error handling code in
+> power_allocator_bind()
+>
+> Muzaffer Kadir (2):
+>        dt-bindings: thermal: tsens: Add MSM8952
+>        thermal/qcom/tsens: Add support for MSM8952 tsens
+>
+> Ovidiu Panait (5):
+>        drivers/thermal/renesas/rzg3e: Fix signed integer overflow in
+> temp_to_code()
+>        thermal/drivers/renesas/rzg3e: Fix runtime PM handling of compare =
+irq
+>        thermal/drivers/renesas/rzg3e: Fix race between set_trips() and
+> get_temp()
+>        thermal/drivers/renesas/rzg3e: Remove unneeded low/high check in
+> set_trips()
+>        thermal/drivers/renesas/rzg3e: Remove redundant
+> pm_runtime_mark_last_busy() calls
+>
+> Pengpeng Hou (1):
+>        thermal/drivers/rzg3e: Propagate reset assertion failure from susp=
+end
+>
+> Priyansh Jain (1):
+>        thermal/drivers/qcom/tsens: Widen temperature limits to match
+> hardware range
+>
+> Rob Herring (Arm) (1):
+>        thermal: of: Match trip property helper types
+>
+> Ronald Claveau (2):
+>        dt-bindings: thermal: amlogic: describe bus clock for t7-thermal
+>        thermal/drivers/amlogic: Switch to clk_bulk API to support
+> multiple clocks
+>
+> Tudor Ambarus (3):
+>        dt-bindings: thermal: Add Google GS101 TMU
+>        thermal/drivers/samsung: Add Exynos ACPM TMU driver GS101
+>        MAINTAINERS: Add entry for Samsung Exynos ACPM thermal driver
+>
+> Vitaliy Sochnev (5):
+>        thermal/drivers/airoha: Request the EN7581 IRQ after zone
+> registration
+>        thermal/drivers/airoha: Fix AN7583 ADC mux field mapping
+>        thermal/drivers/airoha: Serialise access to the shared ADC
+>        dt-bindings: arm: airoha: Use one thermal sensor cell for AN7583
+>        thermal/drivers/airoha: Register a thermal zone per AN7583 sensor
+>
+> Weigang He (2):
+>        thermal/drivers/ti-soc-thermal: Cancel pending alert work on remov=
+e
+>        thermal/drivers/sprd: validate the sensor id from the device tree
+>
+>   .../bindings/arm/airoha,en7581-chip-scu.yaml       |   3 +-
+>   .../bindings/thermal/amlogic,thermal.yaml          |  29 +-
+>   .../bindings/thermal/google,gs101-tmu-top.yaml     |  69 +++
+>   .../bindings/thermal/qcom,pm8775-mbg-tm.yaml       |   7 +-
+>   .../devicetree/bindings/thermal/qcom-tsens.yaml    |   1 +
+>   .../bindings/thermal/renesas,r9a08g045-tsu.yaml    |   4 +-
+>   .../bindings/thermal/ti,omap-bandgap.yaml          | 177 ++++++
+>   .../devicetree/bindings/thermal/ti_soc_thermal.txt |  88 ---
+>   MAINTAINERS                                        |   8 +
+>   drivers/thermal/airoha_thermal.c                   | 179 ++++--
+>   drivers/thermal/amlogic_thermal.c                  |  14 +-
+>   drivers/thermal/gov_power_allocator.c              |  11 +-
+>   drivers/thermal/imx91_thermal.c                    |   2 +-
+>   drivers/thermal/qcom/qcom-spmi-temp-alarm.c        |   8 +-
+>   drivers/thermal/qcom/tsens-v1.c                    |  41 ++
+>   drivers/thermal/qcom/tsens-v2.c                    |   4 +-
+>   drivers/thermal/qcom/tsens.c                       |   3 +
+>   drivers/thermal/qcom/tsens.h                       |   2 +-
+>   drivers/thermal/renesas/rzg3e_thermal.c            |  45 +-
+>   drivers/thermal/renesas/rzg3s_thermal.c            |  38 +-
+>   drivers/thermal/samsung/Kconfig                    |  19 +
+>   drivers/thermal/samsung/Makefile                   |   2 +
+>   drivers/thermal/samsung/acpm-tmu.c                 | 651
+> +++++++++++++++++++++
+>   drivers/thermal/sprd_thermal.c                     |   6 +
+>   drivers/thermal/thermal_fw.c                       |   8 +-
+>   drivers/thermal/thermal_of.c                       |  11 +-
+>   drivers/thermal/thermal_sysfs.c                    |  12 +-
+>   drivers/thermal/ti-soc-thermal/ti-bandgap.c        |  10 +-
+>   drivers/thermal/ti-soc-thermal/ti-thermal-common.c |   4 +
+>   tools/thermal/tmon/sysfs.c                         |   2 +-
+>   tools/thermal/tmon/tmon.c                          |   4 +-
+>   tools/thermal/tmon/tmon.h                          |   2 +-
+>   tools/thermal/tmon/tui.c                           |   2 +-
+>   33 files changed, 1262 insertions(+), 204 deletions(-)
+>   create mode 100644
+> Documentation/devicetree/bindings/thermal/google,gs101-tmu-top.yaml
+>   create mode 100644
+> Documentation/devicetree/bindings/thermal/ti,omap-bandgap.yaml
+>   delete mode 100644
+> Documentation/devicetree/bindings/thermal/ti_soc_thermal.txt
+>   create mode 100644 drivers/thermal/samsung/acpm-tmu.c
 
->
-> Two options that look possible: take target_cleanup_list_lock in
-> dev_name_show(), following the dynamic_netconsole_mutex ->
-> target_cleanup_list_lock -> target_list_lock order that
-> drop_netconsole_target() already uses. Or do the memset in
-> netcons_release_dev() under target_list_lock.
->
-> > +     dynamic_netconsole_mutex_unlock();
-> > +
-> > +     return ret;
-> >  }
-> >
->
-> [ ... ]
->
-> > @@ -906,7 +933,14 @@ static ssize_t local_mac_show(struct config_item *=
-item, char *buf)
-> >
-> >  static ssize_t remote_mac_show(struct config_item *item, char *buf)
-> >  {
-> > -     return sysfs_emit(buf, "%pM\n", to_target(item)->remote_mac);
-> > +     struct netconsole_target *nt =3D to_target(item);
-> > +     int ret;
-> > +
-> > +     dynamic_netconsole_mutex_lock();
-> > +     ret =3D sysfs_emit(buf, "%pM\n", nt->remote_mac);
-> > +     dynamic_netconsole_mutex_unlock();
-> > +
-> > +     return ret;
-> >  }
->
-> [Severity: High]
-> This patch leaves local_mac_show(), just above this hunk, without any
-> locking:
->
-> static ssize_t local_mac_show(struct config_item *item, char *buf)
-> {
->         struct net_device *dev =3D to_target(item)->np.dev;
->         static const u8 bcast[ETH_ALEN] =3D { 0xff, 0xff, 0xff, 0xff, 0xf=
-f, 0xff };
->
->         return sysfs_emit(buf, "%pM\n", dev ? dev->dev_addr : bcast);
-> }
->
-> It loads np.dev with no lock, no RCU read section and no netdev
-> reference, then dereferences dev->dev_addr.
->
-> enabled_store() sets and clears np.dev through netcons_netpoll_setup()
-> and netconsole_process_cleanups(). process_resume_target() sets and
-> clears it too. Both run under dynamic_netconsole_mutex.
->
-> The notifier also clears np.dev, without that mutex:
->
-> netconsole_netdev_event()
->     netconsole_process_cleanups_core()
->         netcons_release_dev()
->             do_netpoll_cleanup()
->                 netdev_put(np->dev, &np->dev_tracker);
->                 np->dev =3D NULL;
->
-> If netconsole holds the last reference on a device that is being
-> unregistered, netdev_run_todo() can free the net_device after this put.
->
-> Can a reader that already loaded dev then read dev->dev_addr from freed
-> memory?
-
-This is being addressed in
-https://lore.kernel.org/all/20261012-netcons-fixes-v3-2-1aac85ed7665@gmail.=
-com/
+Pulled and added to linux-pm.git/linux-next, thanks!
