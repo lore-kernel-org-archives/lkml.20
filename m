@@ -1,64 +1,64 @@
-Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
+Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFC2147CA98
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:46:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2E9B47ECF6
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:46:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791960382; cv=none; b=GrY1/e7k+h+jTndmuJ1Trz8TOtn9vdFyeyF5s41QhuGE5kIIKVtQ7YXaAbKfwycrUaFEA6Hjxp+y93JK2nmMns+6TlmZQVci+8F4v7pB3UZFq8DDf8OlEi6N6aPVuRaQ7ZufsoB1YAX0bRYqum82923h+qXHTjpxYeCBlkK0o38=
+	t=1791960386; cv=none; b=dPmC1HKxWWRPAHrPQgQDEq+0CBsUeHHLnQsE5pqGB7fjLUNwkwGn+BB9g3D1HqUx2uYNtgUObNjkWHgS5ZnRqAE6bYjLWlvAYYcILNhTFG/Rm5RW69fzYyt6Q7p5hgeFUdv34RQNb7HvDjyFnR5yp8E0mE6Q6k9Ag9rnbgZAwLk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791960382; c=relaxed/simple;
-	bh=bL1QIOdY4iBbsyehuWmtXTzrJj4iFYZfbHjVqAL/nho=;
+	s=arc-20240116; t=1791960386; c=relaxed/simple;
+	bh=UAdyZSpmedpSxvj/4fXxSj48GCAHvzY3a2CsrlVLooA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QQp4Qic4EOv5BLyZC2v3B2Z5YGijv5ZMNXLlOzUOG/+AHA7lu6rgINf1eEd6vsLNIZ1OL4lXlz00pvYXzPwDCD7ygBQ+hWsEMJZF8hP7WqR10zbs9/RXtgecK/WuAGUzStNHiJwWrn5Yxnxkmc+UaVbYOcP0aRG+Cp+gh8SwtIY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DokydNw3; arc=none smtp.client-ip=74.125.227.138
+	 MIME-Version; b=KBiAGAk1JU7VxRin/SRJAKlVLVzpqS/WddybCsnCE9wMhQsGQGX2TufKtR32DsOYxTqslEBoUSIu68Sbj52Yt7zS6o7tEYfRGMbbeWfjFb8xv5So9rJbDUs6Y7KffLtxzJaRa24067uwKh6lcJ72Og/348+cmkITEDC7om3KSQg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q3Z92uys; arc=none smtp.client-ip=74.125.227.139
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DokydNw3"
-Received: by mail-pj2-f10.google.com with SMTP id 98e67ed59e1d1-3ac144119e4so1005737a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:46:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q3Z92uys"
+Received: by mail-pj2-f11.google.com with SMTP id 98e67ed59e1d1-3a0aa5e2b20so1096422a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:46:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791960376; x=1792565176; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791960382; x=1792565182; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=lGjExfS683CVJLhb5GgAjexS33mn62Ms7AjjoWD0t6Q=;
-        b=DokydNw38x8fpXVZF6f/aQWVqLsIQNd7eSJj+jqfZ8OUCLewH7ggHePIgPpKIQAmPp
-         BrCOvmMxQcqmqUCvJSIZgPYa4ktwoJCMhN8jpqvMCAPBcCVrUPF5sNXIeVbd6dlLNsgx
-         YmJuwfxi67Affv9PjjGq6ECSKQav5XPuyMe3qCtoyE1A76NTUBOeZBFNmhII9QVoDo2X
-         bnGItwRoeCxvRC1+3MXFRCbq8JtoxgsSRGuriaBTli2nm6tHGb41gL9KmmmhBKnOz4y6
-         +c8YbzGarQ3wAw67LxD0fyQWYidmiY+vfBDg4gm2j/UJ26WkIZC9LOoXl8JyEcYtp1ic
-         4PpA==
+        bh=d51OaHjNWv8Izp5BdDFoIII7UFVdhf7f4jHUBNxIQfs=;
+        b=Q3Z92uysNh+t5blDkEn76xRiZLGQqyh6dMSZLVzMUGGjVcUYuHePEGSRyqazbJTkVs
+         OeuLuk9Xn+cHeZAZuo8Z+zWhAYUqqvMvgf+IG3oq7/aXl5PVoR9/2QRVXps8ntp7W6K1
+         nG9/geCePNPNlOUyXGzEaFoXgv3yadiEHPPOeScLvLb7IzcoyueJoSOZEFlSsNzbzoZ6
+         3a8SBD2bUyx1Igy/LIdeKJrHpoLxptj96mhE9kgd+AtNhhfPldwlg6V+me/jZdgP02TE
+         SuA+2itsFv6bG+xGq22knwQAm/NC0Zz4vHJjqjWLGmwiLH+9Oz/A6DnwfThLB4p7zKci
+         ZDVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791960376; x=1792565176;
+        d=1e100.net; s=20260707; t=1791960382; x=1792565182;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lGjExfS683CVJLhb5GgAjexS33mn62Ms7AjjoWD0t6Q=;
-        b=X7EZqz45i9tLXolASxd//fTaPpU7FhLvNkLog2u1n0OnJo4yjuUrX+gLS06ObiXvBm
-         GVYZ8vaNSi0GoAPlbWTkQ0GGXtKRdjQwlLR4QKaSRg8hqi00WwQj1k89PSQ7+U75L1Zh
-         z/uzofbjJBHlHtThdym1JZ1kR5tinyfKf+ZiQW9q960XF7JVIrNVlMjjXIxQhG81oD/G
-         A2csRVyUzaart05JV5G8w8yR2iN1ZWmnaV+x9fNt7yKBS7soRRR/YFGWi9+wHVTOoPmx
-         n+gTibbj+lA7lIA5K+droOhlinY1ZcYTy21P22Sw/n9H9OzjPM+BqJ5AZKHJ688dChY7
-         WJdw==
-X-Forwarded-Encrypted: i=1; AKwUvBzsd6aNpKzNJahMgpe1ZlEk1a4QQvhvsw+wbh8qNoTSTOb4kudh7LF8Ii0PG87johM4xuXMMK307di+I54=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIHRMOZeRXqr8c1UpNEMHJ0LSe6EapHixAX0oc3mkzvVzyNsh2R
-	6NpXUTOeaKnGbIFRdPwgj1gHI6zoz+Z+Ukn+jwg0LfT2ZC2fpUiq2xA3
-X-Gm-Gg: AYBFou1nxVHWlKHOn/S3B1YQCIdp/WNQDlr9BNrzodyumDevMg3GpVnrB70c3EqKT5d
-	oYEAUgZD35qE297JykD9TD+Mf3hXyjBiy+KcJxXoiHYy8dY/nBiQx40LHpNVxmULTmVpe5khobY
-	tzsG3yYf6I/f7DJcIIoINfQtsdn3gKOXvJkVWR2U4DC5y2/GqCLtHsmB7pb/RXPecLHH6Fosu7o
-	MP4uUtBpH3qHXnvqfCUstK2cHz44JF54RHmIwHEct6KzM0Vclvlb9snIJ6qMj4yNQciLTCWdIpi
-	j6C71kbzcs9QhlpfIkEVEgtMCp5UDH1Xp+1adyp0W/orN+aucnurrafVKeuPS4q7rlLC5jd6wo2
-	fBNQKeiU7lBe7t2ppFho1SgyFwo7g0QsdJwc8L2wSDGSXBPgoq+YVHQUw6cai4wOyr1hzWpGyhU
-	p82wG8aaK3yxl8O28hTUCAOeqPBPgs2gZEejq2oyERdZKXFn4zMgBRU1xn1G1V7Jcz5b2h9MUyX
-	o96UzJFYGrVU7z50DDk3bDxMRjh0v2rNjEW
-X-Received: by 2002:a17:90b:4d88:b0:3a4:a850:6982 with SMTP id 98e67ed59e1d1-3ab3a7786e4mr13315343a91.26.1791960376536;
-        Tue, 13 Oct 2026 23:46:16 -0700 (PDT)
+        bh=d51OaHjNWv8Izp5BdDFoIII7UFVdhf7f4jHUBNxIQfs=;
+        b=uIG6VpwEZV5ha88StHopuLp51aaRtlTc2/aWshhjaKpDR1/dZTZBy4UvDl6xzFAWTq
+         +kj1JHU7QT7LqQTKAbm+Qabc38G3IDYxB0SbIFBCKP5Xn5KxYglfy7q9/EqorLeRK1l0
+         2d9Pl32YduwXZ6hzxXkBQ9APgmjlXxv3Npa9xKJzk8iidaQTkrTWzu8/3zYfGxSsnLxL
+         MY3Z9ZEL8Ra+1GxIHhcb7j+hdLzMx2WZF/VY5NRbTsaAE6WS+QYJmR2zZeFI+PDU6Uh2
+         oZMxU3OdlatG9tE5k8YrPCItZOSbpAmHir/pN9KiHPjNJ+HFoOqHlNt4w/ou3gC55khz
+         Gqlw==
+X-Forwarded-Encrypted: i=1; AKwUvBw0gmnSal6N9VHnLc2lI8fZ/oe0c1mvIj/3Dz1QU8hRHndzWH0wHZdHitNvrmYAOkSltuLBoiE3oUYgqA0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL9q6X9ff36N+G/Zw7f82I4kRvZ/iuKwjLAdyHEXaTbrJg57LpY
+	L/18bqQ36r/sLHHp/vHoDMssgB8Kd6BZiadeLIqnibhrBymO0GC4JnVw
+X-Gm-Gg: AYBFou2j1Vpnx+M7I8Ae0b/BjTsBMAD9o1tn5cEhwXWy5MQ26F4J5N09Jr5bq8YMoU6
+	UBhdc1AW04AIVDD8U5B1G3w1BckoSnTewQehjJQhsw+IaAxjw75ZUagTqYY5WPP6xXGWkA0FBVR
+	lSW3tQRI0YTloylUxR84w9af12EQ8RhjkAnoIlXk7V4B6hby/LHPYvR42NHFChahiVpy8ZLDrTN
+	F5XwVN87q+dyFtzZCCU2jHZ2IF9BXLICZhmVCA6e+Z5BRBMhba1DEXtWBH8zg+dRyfp9bTLO/U1
+	5vfjdMZM22hKc5gOfECnjZVxtjfo7oZLIvZmv4sVNWX9JiPH+vOZF6pVs4CeM97ngdw/Y+Eo0Pc
+	nAIB60CIcEVNYoQrALBbgtU6rDOVEcrHXU7VKCnJ1izC+mvsdOeAlai2DJuiLw98G+asd/I69fA
+	mh+gottP2kmOcGnxf2ALlR7ReiemGg+OKpU9IUo6cUwOd5WOzfaibw8zHbJAC06Ge+EkRT5MOJb
+	RPECq7jY+LN1txbyiiaAZP9yE7ksZvEZ+hC
+X-Received: by 2002:a17:90b:28ce:b0:3a0:809b:1972 with SMTP id 98e67ed59e1d1-3ab3a745e5bmr11938256a91.26.1791960381967;
+        Tue, 13 Oct 2026 23:46:21 -0700 (PDT)
 Received: from nzzhao-ThinkCentre-M760t.mioffice.cn ([43.224.245.179])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac5f04e324sm3236371a91.2.2026.10.13.23.46.12
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac5f04e324sm3236371a91.2.2026.10.13.23.46.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 23:46:16 -0700 (PDT)
+        Tue, 13 Oct 2026 23:46:20 -0700 (PDT)
 From: Nanzhe Zhao <nzzhao.sigma@gmail.com>
 X-Google-Original-From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
 To: linux-f2fs-devel@lists.sourceforge.net,
@@ -76,9 +76,9 @@ Cc: Barry Song <baohua@kernel.org>,
 	Nanzhe Zhao <nzzhao@126.com>,
 	Pengfei Li <lipengfei28@xiaomi.com>,
 	Ryan Roberts <Ryan.Roberts@arm.com>
-Subject: [PATCH v5 14/16] f2fs: handle block cloning within the same large folio
-Date: Wed, 14 Oct 2026 14:44:43 +0800
-Message-ID: <20261014064445.2835813-15-zhaonanzhe@xiaomi.com>
+Subject: [PATCH v5 15/16] f2fs: allow large folio support to writeable files
+Date: Wed, 14 Oct 2026 14:44:44 +0800
+Message-ID: <20261014064445.2835813-16-zhaonanzhe@xiaomi.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261014064445.2835813-1-zhaonanzhe@xiaomi.com>
 References: <20261014064445.2835813-1-zhaonanzhe@xiaomi.com>
@@ -90,105 +90,147 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-With large folios, the source and destination block in __clone_blkaddrs()
-can belong to the same folio during same-inode operations such as
-collapse range and insert range.
-
-In that case, locking the source folio and then looking up the
-destination folio can try to lock the same folio again.  It also copies
-from and to offset 0, which is only correct for order-0 folios.
-
-Detect the same-inode, same-folio case before looking up the destination
-folio.  Then in this case,we reserve the destination block explicitly.
+Now we make all write path support large folios,
+so we open permission to let writeable file set
+large folio mapping.
 
 Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
 ---
- fs/f2fs/file.c | 61 +++++++++++++++++++++++++++++++++++++++++++-------
- 1 file changed, 53 insertions(+), 8 deletions(-)
+ fs/f2fs/data.c   |  2 +-
+ fs/f2fs/f2fs.h   | 17 +++++++++++++++++
+ fs/f2fs/file.c   | 16 +---------------
+ fs/f2fs/inline.c |  6 ++++++
+ fs/f2fs/inode.c  |  4 +---
+ fs/f2fs/namei.c  |  1 +
+ 6 files changed, 27 insertions(+), 19 deletions(-)
 
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index 45861c31fe76..a476464b856c 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -3242,7 +3242,7 @@ static int f2fs_read_data_large_folio(struct inode *inode,
+ 	int ret = 0;
+ 	bool folio_in_bio = false;
+ 
+-	if (!IS_IMMUTABLE(inode) || f2fs_compressed_file(inode)) {
++	if (f2fs_compressed_file(inode)) {
+ 		if (folio)
+ 			folio_unlock(folio);
+ 		return -EOPNOTSUPP;
+diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+index ddff43bcb800..1f9bd8e3b526 100644
+--- a/fs/f2fs/f2fs.h
++++ b/fs/f2fs/f2fs.h
+@@ -5348,6 +5348,23 @@ static inline bool f2fs_quota_file(struct f2fs_sb_info *sbi, nid_t ino)
+ 	return false;
+ }
+ 
++static inline void f2fs_mapping_set_large_folio(struct inode *inode)
++{
++	if (!S_ISREG(inode->i_mode) ||
++	    f2fs_compressed_file(inode) ||
++	    f2fs_quota_file(F2FS_I_SB(inode), inode->i_ino))
++		return;
++
++	/*
++	 * Keep the folio order range at 0 as a transitional step; large
++	 * folios will be enabled once the whole write path is audited.
++	 */
++	if (IS_IMMUTABLE(inode))
++		mapping_set_folio_min_order(inode->i_mapping, 0);
++	else
++		mapping_set_folio_order_range(inode->i_mapping, 0, 0);
++}
++
+ static inline bool f2fs_block_unit_discard(struct f2fs_sb_info *sbi)
+ {
+ 	return F2FS_OPTION(sbi).discard_unit == DISCARD_UNIT_BLOCK;
 diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index 5a8dbe228fb1..cad5329bbfd6 100644
+index cad5329bbfd6..803e2b9900d1 100644
 --- a/fs/f2fs/file.c
 +++ b/fs/f2fs/file.c
-@@ -1602,25 +1602,70 @@ static int __clone_blkaddrs(struct inode *src_inode, struct inode *dst_inode,
- 			f2fs_put_dnode(&dn);
- 		} else {
- 			struct folio *fsrc, *fdst;
-+			size_t src_off, dst_off;
-+			bool same_folio;
+@@ -163,17 +163,8 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
+ 	int err = 0;
+ 	vm_fault_t ret;
  
- 			fsrc = f2fs_get_lock_data_folio(src_inode,
- 							src + i, true);
- 			if (IS_ERR(fsrc))
- 				return PTR_ERR(fsrc);
--			fdst = f2fs_get_new_data_folio(dst_inode, NULL, dst + i,
--								true);
--			if (IS_ERR(fdst)) {
--				f2fs_folio_put(fsrc, true);
--				return PTR_ERR(fdst);
-+
-+			src_off = offset_in_folio(fsrc,
-+						(loff_t)(src + i) << PAGE_SHIFT);
-+
-+			/*
-+			 * For same-inode operations (collapse/insert), src and
-+			 * dst may fall within the same large folio. Detect this
-+			 * to avoid self-deadlock on folio lock.
-+			 */
-+			same_folio = src_inode == dst_inode &&
-+				     folio_contains(fsrc, dst + i);
-+			if (same_folio) {
-+				struct dnode_of_data dn;
-+
-+				/* Reserve block for dst before copying */
-+				set_new_dnode(&dn, dst_inode, NULL, NULL, 0);
-+				ret = f2fs_reserve_block(&dn, dst + i);
-+				if (ret) {
-+					f2fs_folio_put(fsrc, true);
-+					return ret;
-+				}
-+				fdst = fsrc;
-+			} else {
-+				fdst = f2fs_get_new_data_folio(dst_inode, NULL,
-+							      dst + i, true);
-+				if (IS_ERR(fdst)) {
-+					f2fs_folio_put(fsrc, true);
-+					return PTR_ERR(fdst);
-+				}
- 			}
+-	/*
+-	 * We only support large folio on the read case.
+-	 * Don't make any dirty pages.
+-	 */
+-	if (unlikely(IS_IMMUTABLE(inode)) ||
+-	    mapping_large_folio_support(inode->i_mapping)) {
+-		f2fs_err(sbi, "Not expected: immutable: %d large_folio: %d",
+-				IS_IMMUTABLE(inode),
+-				mapping_large_folio_support(inode->i_mapping));
++	if (unlikely(IS_IMMUTABLE(inode)))
+ 		return VM_FAULT_SIGBUS;
+-	}
  
-+			dst_off = offset_in_folio(fdst,
-+					(loff_t)(dst + i) << PAGE_SHIFT);
- 			f2fs_folio_wait_writeback(fdst, true, true);
--
--			memcpy_folio(fdst, 0, fsrc, 0, PAGE_SIZE);
-+			memcpy_folio(fdst, dst_off, fsrc, src_off,
-+				    PAGE_SIZE);
-+			if (folio_test_large(fdst)) {
-+				if (!f2fs_ffs_find_or_alloc(fdst)) {
-+					f2fs_folio_put(fdst, true);
-+					if (!same_folio)
-+						f2fs_folio_put(fsrc, true);
-+					return -ENOMEM;
-+				}
-+				f2fs_ffs_mark_subrange_uptodate(fdst,
-+							dst_off, PAGE_SIZE);
-+				f2fs_ffs_mark_subrange_dirty(fdst, dst_off,
-+							    PAGE_SIZE);
-+			}
- 			folio_mark_dirty(fdst);
-+			if (same_folio && i_size_read(dst_inode) <
-+			    ((loff_t)(dst + i + 1) << PAGE_SHIFT))
-+				f2fs_i_size_write(dst_inode,
-+					((loff_t)(dst + i + 1) << PAGE_SHIFT));
- 			folio_set_f2fs_gcing(fdst);
- 			f2fs_folio_put(fdst, true);
--			f2fs_folio_put(fsrc, true);
-+			if (!same_folio)
-+				f2fs_folio_put(fsrc, true);
+ 	/* mmap stores bypass the COW inode and would break atomicity */
+ 	if (f2fs_is_atomic_file(inode))
+@@ -724,9 +715,6 @@ static int f2fs_file_open(struct inode *inode, struct file *filp)
+ 	if (!f2fs_is_compress_backend_ready(inode))
+ 		return -EOPNOTSUPP;
  
- 			ret = f2fs_truncate_hole(src_inode,
- 						src + i, src + i + 1);
+-	if (mapping_large_folio_support(inode->i_mapping) &&
+-	    filp->f_mode & FMODE_WRITE)
+-		return -EOPNOTSUPP;
+ 
+ 	err = fsverity_file_open(inode, filp);
+ 	if (err)
+@@ -1198,8 +1186,6 @@ int f2fs_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
+ 		return -EPERM;
+ 
+ 	if ((attr->ia_valid & ATTR_SIZE)) {
+-		if (mapping_large_folio_support(inode->i_mapping))
+-			return -EOPNOTSUPP;
+ 		if (IS_DEVICE_ALIASING(inode))
+ 			return -EPERM;
+ 		if (!f2fs_is_compress_backend_ready(inode))
+diff --git a/fs/f2fs/inline.c b/fs/f2fs/inline.c
+index 49905aa08418..0dca6c3d58fb 100644
+--- a/fs/f2fs/inline.c
++++ b/fs/f2fs/inline.c
+@@ -239,6 +239,12 @@ int f2fs_convert_inline_inode(struct inode *inode)
+ 	if (IS_ERR(folio))
+ 		return PTR_ERR(folio);
+ 
++	/*
++	 * Inline data is only supported in an order-0 index #0 folio; the
++	 * inline write and mmap fault paths never request a larger order.
++	 */
++	f2fs_bug_on(sbi, folio_test_large(folio));
++
+ 	f2fs_lock_op(sbi, &lc);
+ 
+ 	ientry = f2fs_get_inode_cache(sbi, inode->i_ino);
+diff --git a/fs/f2fs/inode.c b/fs/f2fs/inode.c
+index 9164a2b5d9f0..f5a4dac98ef2 100644
+--- a/fs/f2fs/inode.c
++++ b/fs/f2fs/inode.c
+@@ -599,9 +599,7 @@ struct inode *f2fs_iget(struct super_block *sb, unsigned long ino)
+ 		inode->i_op = &f2fs_file_inode_operations;
+ 		inode->i_fop = &f2fs_file_operations;
+ 		inode->i_mapping->a_ops = &f2fs_dblock_aops;
+-		if (IS_IMMUTABLE(inode) && !f2fs_compressed_file(inode) &&
+-		    !f2fs_quota_file(sbi, inode->i_ino))
+-			mapping_set_folio_min_order(inode->i_mapping, 0);
++		f2fs_mapping_set_large_folio(inode);
+ 	} else if (S_ISDIR(inode->i_mode)) {
+ 		inode->i_op = &f2fs_dir_inode_operations;
+ 		inode->i_fop = &f2fs_dir_operations;
+diff --git a/fs/f2fs/namei.c b/fs/f2fs/namei.c
+index 38fcea8b72bf..6a1ff631393c 100644
+--- a/fs/f2fs/namei.c
++++ b/fs/f2fs/namei.c
+@@ -341,6 +341,7 @@ static struct inode *f2fs_new_inode(struct mnt_idmap *idmap,
+ 	f2fs_set_inode_flags(inode);
+ 
+ 	f2fs_init_extent_tree(inode);
++	f2fs_mapping_set_large_folio(inode);
+ 
+ 	trace_f2fs_new_inode(inode, 0);
+ 	return inode;
 -- 
 2.43.0
 
