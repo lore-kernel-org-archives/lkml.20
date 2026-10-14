@@ -1,114 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C975B5616AE
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:13:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 353DA5616D2;
+	Wed, 14 Oct 2026 18:14:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792001592; cv=none; b=dFVJ3/w+oP/ECU1tyLaAJvVR7uQi+K6+WIKUZ5FG8wGC/7vo1qn++A7Y0HSv2Hn1jISiz1QuyG0xWwHmMxxwOYZTnVn02TsBkBipaS9UtpfJz6j3GRYKQI224deibB35WCE/Dc/78+CdgDcKvQOLDt56N/1NgjN9989ND5sPBNA=
+	t=1792001649; cv=none; b=WOYX1siU2KONuY1tGz7B7NyKvj3YfJKGz3/5ZoSKhDjGOec8AI/Lg8Wg+1rxxjzOst0/l/m0ZkKTydkB1uyMg9SqP0aZWUHHC44E6eldGb41q+trjbBTHk6lD5BuKRPk1+vaEUGk+2Kx4Chts/yO9FChAiSx15zwyAgbIWYYc8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792001592; c=relaxed/simple;
-	bh=qCVt23NPLz+BzoAjfmW00Y/LFtzE1ShjP0EoMBiCiHs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pJUBhGcyGx6QeJbuffATv9ynAcq1sfzCZR4CuHbDkBOravjfincuVyiy9eHswy4sslT1anyALHngRPDe9B9Mhmp4+SYiRMOGeaqVYU906zvkLbLDO3bVPljI3hnHAf7z27GEHFSrsGt/7gw0yJCP4klcy9VN2hW76nUrDalARuI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hImGocuO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792001649; c=relaxed/simple;
+	bh=uPFfz3Nn2UoRr2Zhiw23OyGLwsJMWFGmFh+F+Eu4ZzQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=t3mKQd0HtdkCu3LG1BgWkhEw1ZZ2g1fR6dxvOufdB3U/DXFCfgROAUIR1H1FsEBClm8wB2RsLAzBQbgOO9ztAA1uFbsWJs11TqHQFJe5CTay7Vwg2srW8iY9RtFJtvzOQetipmubTH0kgfl0uddvuvTSHDJFlUJdQVDWVAq2hGI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dOkNvMo+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hImGocuO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64C011F000C9
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:13:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dOkNvMo+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C522E1F000C4;
+	Wed, 14 Oct 2026 18:14:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792001591;
-	bh=sFBK0Ld7Sq4nf3GX+t6/QlOXpIDT+j0rm9SIXjlrgZg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=hImGocuO0FaryyRAUlKb9/7Pj/W7gJ3wvJ27cp2EvfQJh5zcRFirWV+xdXEekwRYt
-	 BNM2Y/BfQ0WNy7VMYeCiY3M0nAQCsV/U21s23xNoZF3QgBS1+HRUYpovRFgWG1KNmw
-	 PcteKm19GHYj4Urx0sLJUJ3O//hdDdsS/VV0pV1wZsHGvRCf/BdpPNVyOX2pYtF9T4
-	 IXHCO1ydVqLTqQMLJCzOs89sjte7v46LC2990TvqL0fpTFyvCWk/yYRj5DbtkQqgC2
-	 CnOLleCuLSJvfVU9BqTcRqq/o9KztwYJWkfCJ4wJl2blbD7peNHIsIY8hRpXfxJMkl
-	 VKKg3Q12OOx3A==
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5bce4e278baso1431004e87.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:13:11 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwXyQeHMVfzc/Qy40Ng5Xo6gBhSHXFpdKfTFXv9OqQFaccVjvlrvqhrLnncvNToEwk6PkXPEgIRAYVq5Oc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI7fIomwFynhUCN1yAjM8et2F7BfdGAr44JmmG6fs0lRGlgUxoZ
-	CCXgjlNppYIOutUZmlCb1Ha0FrEugJ2NDyi0yzPJ3b6MclJBeZ8s6ltS5nVLIJ7kRrFlSp+cwjC
-	/xPH5G5YVN8jAbQrL9ziiUdFXECBlvRA=
-X-Received: by 2002:ac2:51c8:0:b0:5bc:f2d3:f949 with SMTP id
- 2adb3069b0e04-5be37942bc8mr721935e87.25.1792001589751; Wed, 14 Oct 2026
- 11:13:09 -0700 (PDT)
+	s=k20260515; t=1792001648;
+	bh=Sq092hTJqBoiRgYhY31UK7e1HOPV7BJpO25SHpl5CQw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dOkNvMo+umxwnFGD9/1pBeKGil0P984p8ZAfmQ+A1D2eoxAjvBe0ookaXzndPQmZ3
+	 soEv2XbEdceyy2Rk/WNsjf41V/p9b6D8ikitqXcbiYDiKHfc05bduUFtVMLmPSfUfJ
+	 QJry5/px8RgTkuZ38S2AqZ34x9UJReu7LZaW5liy6t617GgjNwwSluuE9IrqajKb75
+	 imGEmG3r3amFvRtVzjx8eJhTkcCSQb94VAjrIZQO9u3hrEVehgYM1OzKtw6todiz9f
+	 U3pdSPEyG+kaTrOx6iXXGKR1btZLZPLH5n5VDH+gu1dJ9z/u7+1GT/TttZNx6hVU60
+	 7XfTGiSxQDEBA==
+Date: Wed, 14 Oct 2026 11:14:06 -0700
+From: Namhyung Kim <namhyung@kernel.org>
+To: Chun-Tse Shao <ctshao@google.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>
+Cc: Ian Rogers <irogers@google.com>, James Clark <james.clark@linaro.org>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
+	linux-perf-users@vger.kernel.org
+Subject: Re: [PATCH] perf stat: Fix aggregation of cgroup events
+Message-ID: <as_GbmeRJ3MtwaVD@google.com>
+References: <20261002054832.64980-1-namhyung@kernel.org>
+ <CAJpZYjXK2qhkCn_ixge_1vEKjXzn_4tzPT=i9NqYg6HbYdWG6Q@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923082932.1049270-1-uajain@igalia.com> <20260923082932.1049270-2-uajain@igalia.com>
- <CAJZ5v0i0UPcGiiAxNbjUnzn=8D2jcTCo_wtM8aMbOKhqb37EDA@mail.gmail.com> <497522185b0d5edd0898edab04934d2a@igalia.com>
-In-Reply-To: <497522185b0d5edd0898edab04934d2a@igalia.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Wed, 14 Oct 2026 20:11:02 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0jmFT_eV+f9majTDTCLV4m0eNCR5RurdpcAqrFYYZQrGA@mail.gmail.com>
-X-Gm-Features: AclHuK8OWDKJgitWmaduupJ1CDDdVRxSuDyCn1-asoiak_irYygGw2Sb06VwtQM
-Message-ID: <CAJZ5v0jmFT_eV+f9majTDTCLV4m0eNCR5RurdpcAqrFYYZQrGA@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] acpi: battery: Query Battery charge time ("_BCT") method
-To: Umang Jain <uajain@igalia.com>
-Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, linux-acpi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, kernel-dev@igalia.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAJpZYjXK2qhkCn_ixge_1vEKjXzn_4tzPT=i9NqYg6HbYdWG6Q@mail.gmail.com>
 
-On Wed, Oct 14, 2026 at 7:31=E2=80=AFPM Umang Jain <uajain@igalia.com> wrot=
-e:
->
-> On 2026-10-12 17:15, Rafael J. Wysocki (Intel) wrote:
-> > On Wed, Sep 23, 2026 at 10:28=E2=80=AFAM Umang Jain <uajain@igalia.com>=
- wrote:
-> >>
-> >> Add plumbing for querying the Battery Charge Time ("_BCT") method.
-> >> If present, set ACPI_BATTERY_BCT_PRESENT in battery flags to denote
-> >> that the method is supported in ACPI.
-> >>
-> >> Signed-off-by: Umang Jain <uajain@igalia.com>
-> >> ---
-> >>  drivers/acpi/battery.c | 17 +++++++++++++++++
-> >>  1 file changed, 17 insertions(+)
-> >>
-> >> diff --git a/drivers/acpi/battery.c b/drivers/acpi/battery.c
-> >> index 670853ec3a4d..a1b7a821abaf 100644
-> >> --- a/drivers/acpi/battery.c
-> >> +++ b/drivers/acpi/battery.c
-> >> @@ -76,6 +76,7 @@ MODULE_DEVICE_TABLE(acpi, battery_device_ids);
-> >>  enum {
-> >>         ACPI_BATTERY_ALARM_PRESENT,
-> >>         ACPI_BATTERY_XINFO_PRESENT,
-> >> +       ACPI_BATTERY_BCT_PRESENT,
-> >>         ACPI_BATTERY_QUIRK_PERCENTAGE_CAPACITY,
-> >>         /* On Lenovo Thinkpad models from 2010 and 2011, the power uni=
-t
-> >>          * switches between mWh and mAh depending on whether the syste=
-m
-> >> @@ -110,6 +111,7 @@ struct acpi_battery {
-> >>
-> >>         struct mutex property_lock; /* Protects properties below. */
-> >>         unsigned long update_time;
-> >> +       unsigned long long charge_time;
+On Fri, Oct 02, 2026 at 10:13:29AM -0700, Chun-Tse Shao wrote:
+> On Thu, Oct 1, 2026 at 10:48 PM Namhyung Kim <namhyung@kernel.org> wrote:
 > >
-> > This doesn't need to be unsigned long long.  As per the spec, unsigned
-> > int should be sufficient.
->
-> Last thing before I send out v3, this is the function param-type for the
-> acpi_evaluate_integer()
->
-> In include/acpi/acpi_bus.h,
->
-> acpi_status
-> acpi_evaluate_integer(acpi_handle handle,
->                       acpi_string pathname,
->                       struct acpi_object_list *arguments, unsigned long l=
-ong *data);
+> > I got a report that perf stat with BPF and cgroup is broken with
+> > aggregation like per-socket or node.  On my machine, running the
+> > following command shows the problem.
+> >
+> >   $ sudo perf stat -a --bpf-counters --per-socket -e cycles \
+> >     --for-each-cgroup /user.slice,/system.slice  sleep 1
+> >
+> >    Performance counter stats for 'system wide':
+> >
+> >   S0       12      <not counted>      cpu_atom/cycles/                 user.slice
+> >   S0       16      <not counted>      cpu_core/cycles/                 user.slice
+> >   S0       12      <not counted>      cpu_atom/cycles/                 system.slice
+> >   S0       16      <not counted>      cpu_core/cycles/                 system.slice
+> >
+> >          1.002798147 seconds time elapsed
+> >
+> > That's because there's a logic to make the whole event failed if result
+> > from any CPU looks bad when aggregation is enabled.  Normally it
+> > considers bad when an event has no enabled and running time.  But it's
+> > possible for a cgroup event to have no chance to run on some CPU during
+> > the window and then it will have 0 enabled and running time.  Let's not
+> > treat them as errors.
+> >
+> > After the fix, the same command produces:
+> >
+> >    Performance counter stats for 'system wide':
+> >
+> >   S0       12          5,094,112      cpu_atom/cycles/                 user.slice
+> >   S0       16         28,075,944      cpu_core/cycles/                 user.slice
+> >   S0       12          1,516,568      cpu_atom/cycles/                 system.slice
+> >   S0       16          5,569,575      cpu_core/cycles/                 system.slice
+> >
+> >          1.003231856 seconds time elapsed
+> >
+> > Reported-by: Chun-Tse Shao <ctshao@google.com>
+> > Signed-off-by: Namhyung Kim <namhyung@kernel.org>
+> 
+> Tested-by: Chun-Tse Shao <ctshao@google.com>
 
-Yes, so you need an unsigned long long for calling that function, but
-then you can copy the value to a variable of a different type (a u32,
-say) if the given object is defined to return a value within the scope
-of that type.  Of course, you should validate the returned value
-before doing so, but it generally needs to be validated before being
-used anyway.
+Thanks for the test!
+
+Arnaldo, can you please take this?
+
+Thanks,
+Namhyung
+
