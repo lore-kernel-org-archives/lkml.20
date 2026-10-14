@@ -1,102 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 353DA5616D2;
-	Wed, 14 Oct 2026 18:14:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792001649; cv=none; b=WOYX1siU2KONuY1tGz7B7NyKvj3YfJKGz3/5ZoSKhDjGOec8AI/Lg8Wg+1rxxjzOst0/l/m0ZkKTydkB1uyMg9SqP0aZWUHHC44E6eldGb41q+trjbBTHk6lD5BuKRPk1+vaEUGk+2Kx4Chts/yO9FChAiSx15zwyAgbIWYYc8s=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792001649; c=relaxed/simple;
-	bh=uPFfz3Nn2UoRr2Zhiw23OyGLwsJMWFGmFh+F+Eu4ZzQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=t3mKQd0HtdkCu3LG1BgWkhEw1ZZ2g1fR6dxvOufdB3U/DXFCfgROAUIR1H1FsEBClm8wB2RsLAzBQbgOO9ztAA1uFbsWJs11TqHQFJe5CTay7Vwg2srW8iY9RtFJtvzOQetipmubTH0kgfl0uddvuvTSHDJFlUJdQVDWVAq2hGI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dOkNvMo+; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 968B556854B
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:15:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792001720; cv=pass; b=PJkuHelseB3MEXKdBLnbIIX1n9eF8YY6l3i2vmZI4yvYbxf2o09uTYPHkMmQjRq99RTgSjmai7poHmC3Fpx1IHqaQcXL30OthzElchThXJAsmwLHmkcvEG1leoFOHO6G7576s9KWoWOjVQaTd1EVBNmEw+PubbKaqiFM/a7ySTw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792001720; c=relaxed/simple;
+	bh=ZDeZDQJcijxdIEcisFFhzJK1uUV77Ej4r8MxO3z/x0Y=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cs+7pDrEVGpWbwy8E0YlSpxNGGuYlBf0wv3gPOEGpEFhjf+tdOUThH0IcKHSOpfXbwwrFnrhIwg2waCDqbR26ahXZecjFdhFQydwTywT44deBd8TU1bEc/lojUxPaQc9YLkzGpgrua2z9R/Hxycaf8uATkj8aTgfHE1idMOKgvw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=eDZW5tE0; arc=pass smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dOkNvMo+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C522E1F000C4;
-	Wed, 14 Oct 2026 18:14:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792001648;
-	bh=Sq092hTJqBoiRgYhY31UK7e1HOPV7BJpO25SHpl5CQw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dOkNvMo+umxwnFGD9/1pBeKGil0P984p8ZAfmQ+A1D2eoxAjvBe0ookaXzndPQmZ3
-	 soEv2XbEdceyy2Rk/WNsjf41V/p9b6D8ikitqXcbiYDiKHfc05bduUFtVMLmPSfUfJ
-	 QJry5/px8RgTkuZ38S2AqZ34x9UJReu7LZaW5liy6t617GgjNwwSluuE9IrqajKb75
-	 imGEmG3r3amFvRtVzjx8eJhTkcCSQb94VAjrIZQO9u3hrEVehgYM1OzKtw6todiz9f
-	 U3pdSPEyG+kaTrOx6iXXGKR1btZLZPLH5n5VDH+gu1dJ9z/u7+1GT/TttZNx6hVU60
-	 7XfTGiSxQDEBA==
-Date: Wed, 14 Oct 2026 11:14:06 -0700
-From: Namhyung Kim <namhyung@kernel.org>
-To: Chun-Tse Shao <ctshao@google.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>
-Cc: Ian Rogers <irogers@google.com>, James Clark <james.clark@linaro.org>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
-	linux-perf-users@vger.kernel.org
-Subject: Re: [PATCH] perf stat: Fix aggregation of cgroup events
-Message-ID: <as_GbmeRJ3MtwaVD@google.com>
-References: <20261002054832.64980-1-namhyung@kernel.org>
- <CAJpZYjXK2qhkCn_ixge_1vEKjXzn_4tzPT=i9NqYg6HbYdWG6Q@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="eDZW5tE0"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e8623790f8so247755ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:15:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792001719; cv=none;
+        d=google.com; s=arc-20260327;
+        b=B/c8OY4H/HpaoglgWOJz9GyO3hlO3/CAF87Npc3sdT8n3w1Zh5oHOFPMFX7EAIGNV4
+         qDj60M5SH2gYLVhgerX5nNNZv296N0Z0jyugtN6sXn2xdZJhKpvGnmcD+poMaH+g6khR
+         5YHYkyFzG5uE0BSJkWBFrkUF6Q04o953AiW2tMZ79p6/FtAcxauscT0C6K/UXogHBtY5
+         r2WYWzvC010J7j90UHZDAKfnadUI/ATKUnkOYaS+6vRd/aRTM5JaBiF3lu9cbIT4acLe
+         I3Z5BD6xFTanWdKucUc38aXZblThK3Vpd0Ak7gS44LdzCrp49T7zcvCUeMwvz0xN3cDm
+         hODQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ukWxxq7IJoiKFikFQrOXvwgn9jZTFnVv2R6ijBLFQBc=;
+        fh=Tg9uUayNcVktAtb79sl6OL4a8uf8rkrc77mh18D+PXQ=;
+        b=F43GyFoKtsZNrIJ5qGbmWzsDkers1oCsX9ZRWlGQ0WVPuivfe/eRMJCQQ01zWr2Ck9
+         n7nCU3OGdVKEKibyuhidnAYSP32vUHzyKhWytu4Qoo5DReBwwx6TQQslkbk2Q2zsyqHx
+         aXxejiYDcdE+rhjK6jKsYR6se/a43SVRysGDW4iPaguVjtQRYZ9DPPi305GpCh1UdSGs
+         3Vti/gfo4og1uSgcMIkBymrCoVz5VTjKHXFOUqVFbxr8AtoaeDYgmzGjtqsVQ6I0hGBp
+         beHYaC94zMPLBYsv7gDok1IPEeavpu7KgjAGhdepjMwOvrXIT+RLkvMbqbHHZCZ7iM/F
+         m9DQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792001719; x=1792606519; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ukWxxq7IJoiKFikFQrOXvwgn9jZTFnVv2R6ijBLFQBc=;
+        b=eDZW5tE0H0i3voxRY8dGPIy9d5/DPnjrUI5jZBS4x0h8n/nD0pw0WobLo5KLT9L0qE
+         kdA5Ttczp2IexcEIdWTMpnakZrUXPVKi6J4s+PLvirAd+g8KLRld3hKUgoDCEukl5cz5
+         2gxF+Budk4PGlFpKYcMhL2RjacadtMLfdXRooXjlvfYTjVdQunaPVKxFFYLTihepN2zo
+         oj0NJjwa0roM/fjLYG376bEkDiYLM8x+zsA6pGzOHO0LPlwOwSMPpeaBcFhRNdSXq1Vr
+         tB8GEHdz6igWH8FCPOIP/ujQiHNB+uwW9MTPkTqzwj0+PIqUUXNA3uK8+NGyAkH2in6t
+         EjlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792001719; x=1792606519;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ukWxxq7IJoiKFikFQrOXvwgn9jZTFnVv2R6ijBLFQBc=;
+        b=2I9z2ZQFBLoSKbazcU1OPe0S8ntceZzgxB/RQOiAcwR9sAk7AdaAZQo/afY2wrTv2A
+         sFymBhzK3DnBS6NgIa2gi5caja95uWT8GgSmnWS+GzQwOYVwtMTAz9Fs2O7X63JGDy/2
+         0rcHC48CIim/OFaSfVNoWEnsihN5L1140hYOzPiFuL1r7QAQSjA5Tp5e7FPR6qmkPb0I
+         IZfiLXsKyhz34VjQzuV7pw6UHBYz8OtfnZ/ftVeUcrLWyeOfDQ0PKIKCJw7BRmL5BAgC
+         oBFD2QiCDKRzbmOPKwZdM1/AoOQn0OKmTaw/cqsNyBceDhKtBTBZf9ztLJhuNH5ulWkq
+         xI5g==
+X-Forwarded-Encrypted: i=1; AKwUvBxZRoQI53BIzcO50E7fcwx3QxerS6obj+T2XLtcpAYJpOCaTknckFRWh6+URCbbGhsZozHJkvsnOz1bx4U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIb+Hoa8fggv1SQZY2BJ6eBpSCo38S1lxPH4ePnJ0HYQtItSHIX
+	CuUNRh6FsLspQMHUVqLaTmrEQvJ8Gb9VBikzEeFfQotPIFN0QpcmCW1BEA5xWUPbfk+kj2GA8yz
+	WkaQvXvLFdv1dMIT4JKhlIz8XueZihdYeEB8GxQ1e
+X-Gm-Gg: AYBFou32QiLK5/mkYiHbql6rHBN07lclaRKMJOcByX237+JCi9GTjo4KihJT69NK4KJ
+	nfgwQrEx9ndvxiuKZnpZ/CXWzGP4QENEa6qJsFhaZ7eCRhzRdWoZo1O4zLXtXSu7d3E2YO6Y0/M
+	3nfHry00n5nCIlizRxq2L/cAXTlxuwYA9F4QqfuSXSQ6gKFwl5psQaLdGQMtZRN/9N8U02GN5JG
+	5kxh8PweWKK93/GRnMom/p4av7HXJ8zwzM72iabtd7PIvJVY+Calx8AgyI3ppOUTCFaEUFtS3hj
+	Ziq043rsPsS4z8rLi4clVmMHhgIqt4ilyIlN0LzYeyXxgr1dvGzhcmMF
+X-Received: by 2002:a17:902:ec86:b0:2e6:1013:ad57 with SMTP id
+ d9443c01a7336-2e939d090a3mr4279565ad.12.1792001718105; Wed, 14 Oct 2026
+ 11:15:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAJpZYjXK2qhkCn_ixge_1vEKjXzn_4tzPT=i9NqYg6HbYdWG6Q@mail.gmail.com>
+References: <20261003212241.3432303-1-lrizzo@google.com> <8584c31e-fd93-4f1a-9929-e71c5d9ccd0f@nvidia.com>
+In-Reply-To: <8584c31e-fd93-4f1a-9929-e71c5d9ccd0f@nvidia.com>
+From: Luigi Rizzo <lrizzo@google.com>
+Date: Wed, 14 Oct 2026 20:14:41 +0200
+X-Gm-Features: AclHuK9G3FSCwwu9o-cWYwZA7nUn_K71LEEmvdGinw_0nCstr-Fs63NFljz-hj0
+Message-ID: <CAMOZA0JiGhVmc0PXajBzha3cBY-sdc3pz8eLCCbt6=hmsEh65Q@mail.gmail.com>
+Subject: Re: [RFC: DMA_PMD 00/22] DMA_PMD: PMD_SIZE-backed IO buffer pools
+To: Dragos Tatulea <dtatulea@nvidia.com>
+Cc: Luigi Rizzo <rizzo.unipi@gmail.com>, Joerg Roedel <joro@8bytes.org>, 
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, Christoph Hellwig <hch@lst.de>, 
+	Marek Szyprowski <m.szyprowski@samsung.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, David Hildenbrand <david@kernel.org>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J . Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Jesper Dangaard Brouer <hawk@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
+	Willem de Bruijn <willemb@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
+	Joshua Washington <joshwash@google.com>, Harshitha Ramamurthy <hramamurthy@google.com>, 
+	Saeed Mahameed <saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>, 
+	Tony Nguyen <anthony.l.nguyen@intel.com>, Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
+	Alexander Lobakin <aleksander.lobakin@intel.com>, Michael Chan <michael.chan@broadcom.com>, 
+	Pavan Chebbi <pavan.chebbi@broadcom.com>, iommu@lists.linux.dev, netdev@vger.kernel.org, 
+	linux-mm@kvack.org, driver-core@lists.linux.dev, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 02, 2026 at 10:13:29AM -0700, Chun-Tse Shao wrote:
-> On Thu, Oct 1, 2026 at 10:48 PM Namhyung Kim <namhyung@kernel.org> wrote:
-> >
-> > I got a report that perf stat with BPF and cgroup is broken with
-> > aggregation like per-socket or node.  On my machine, running the
-> > following command shows the problem.
-> >
-> >   $ sudo perf stat -a --bpf-counters --per-socket -e cycles \
-> >     --for-each-cgroup /user.slice,/system.slice  sleep 1
-> >
-> >    Performance counter stats for 'system wide':
-> >
-> >   S0       12      <not counted>      cpu_atom/cycles/                 user.slice
-> >   S0       16      <not counted>      cpu_core/cycles/                 user.slice
-> >   S0       12      <not counted>      cpu_atom/cycles/                 system.slice
-> >   S0       16      <not counted>      cpu_core/cycles/                 system.slice
-> >
-> >          1.002798147 seconds time elapsed
-> >
-> > That's because there's a logic to make the whole event failed if result
-> > from any CPU looks bad when aggregation is enabled.  Normally it
-> > considers bad when an event has no enabled and running time.  But it's
-> > possible for a cgroup event to have no chance to run on some CPU during
-> > the window and then it will have 0 enabled and running time.  Let's not
-> > treat them as errors.
-> >
-> > After the fix, the same command produces:
-> >
-> >    Performance counter stats for 'system wide':
-> >
-> >   S0       12          5,094,112      cpu_atom/cycles/                 user.slice
-> >   S0       16         28,075,944      cpu_core/cycles/                 user.slice
-> >   S0       12          1,516,568      cpu_atom/cycles/                 system.slice
-> >   S0       16          5,569,575      cpu_core/cycles/                 system.slice
-> >
-> >          1.003231856 seconds time elapsed
-> >
-> > Reported-by: Chun-Tse Shao <ctshao@google.com>
-> > Signed-off-by: Namhyung Kim <namhyung@kernel.org>
-> 
-> Tested-by: Chun-Tse Shao <ctshao@google.com>
+On Wed, Oct 14, 2026 at 7:28=E2=80=AFPM Dragos Tatulea <dtatulea@nvidia.com=
+> wrote:
+>
+> Hi Luigi,
+>
+> On 03.10.26 23:22, Luigi Rizzo wrote:
+> > Here is a subsystem called DMA_PMD on which I would like feedback on
+...
+>
+> Thanks for the RFC. Here are my notes (some points rephrase what was alre=
+ady
+> said):
+>
+> - On CoCo VMs it seems that the only way to opt in the IOMMU optimization=
+ is to
+>   also opt in the copy avoidance which is not always desirable.
+>
+> - Having the pool generic opens up more visibility from the untrusted hos=
+t
+>   side. Having device based pools at least isolates one device's memory f=
+rom
+>   the rest of the system.
+>
+> - Also, device driver could help with provisioning just the right amount =
+of
+>   memory that is needed. And per device control also means that probably
+>   you don't need to map everything RW to the IOMMU.
 
-Thanks for the test!
+Yes on all three. I am looking into providing more knobs for different leve=
+ls
+of opt-in and isolation, so users may adjust them according to the
+threat models and performance goals.
 
-Arnaldo, can you please take this?
+I am not especially worried about provisioning because the system is
+already reasonably adaptive, and leveraging existing caches, the waste
+the waste due to allocating 2MB units can be kept relatively small.
 
-Thanks,
-Namhyung
+As an example, the update I am working on has the following:
+- a lean per-cpu cache that can be attached on top of a dma_pmd_pool,
+  similar to the one used by the buddy allocator. The dma_pmd_pool will hol=
+d
+  the 2MB pages, and the caches can buffer smaller sets, reducing the waste=
+.
+  Useful on the tx side.
+- on the receive side, one dma_pmd_pool per device will feed all
+  pagepools for that device (typically one per queue).
+  The pagepool is already a pretty good cache that does not
+  access the allocator often, so once again the waste due to
+  partially used pages is minimized.
 
+cheers
+luigi
