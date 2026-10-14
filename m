@@ -1,207 +1,142 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2FE803438A1;
-	Wed, 14 Oct 2026 02:24:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57796368D5E
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 02:27:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791944695; cv=none; b=qK2vaTPDvALsMiup3qgmuH5bslFrS7jj5/F3TCS5x3M8sQhzpTD7tpcdoCx3BhIotS5kZASJYMFh9kBYf3bn8MIvnHS7ISNFstlkArcCNW5bswdnJfCRkCJkRNvE1LBaOxoeHK0C6oR7T0V7KV1eTOg7fypQahRyEXBHmjA/QbI=
+	t=1791944854; cv=none; b=FnkQaXVvjmcLDSZHyoIHhxvsiB5zZgZsj9EDZwDg0McayxxjWIrW1/V+y1ssDYD9vmY1pmXHr2hdvk8yMJnzLw1JGuVXyDMHeopBUJsSU95WusPHz070xZLixRXJDt788aoyxtuXT4vVmgFqBMiatg0tgwbd1AzBI8zF1uscpYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791944695; c=relaxed/simple;
-	bh=54HD4aWvf6er3plKu5EPRAeqkt1EkhUAEvOlSqVw+UQ=;
-	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=frZSSZaWUZWx1jO7Q6vKyIpeVO+QlAvzGiw2R1IIR3/xZzHrdPqVH+eqqNExS6mNi+QVLsmTRQWWzKqtBs4WMmIgKIIiv5XQ4IWu872+4vN1dz1tnDfgMs0X2iu8aTkIoe93FHzKZh/f9MlkUjTmuohPv11vchxlFs5AIMJ9tbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [123.138.236.242])
-	by gateway (Coremail) with SMTP id _____8CxQNHn585qmpsVAA--.63416S3;
-	Wed, 14 Oct 2026 10:24:39 +0800 (CST)
-Received: from [10.130.40.83] (unknown [123.138.236.242])
-	by front1 (Coremail) with SMTP id qMiowJCxPs_f585qZwwsAA--.26964S2;
-	Wed, 14 Oct 2026 10:24:33 +0800 (CST)
-Subject: Re: [PATCH v2 2/2] LoongArch: BPF: Optimize 32-bit operations using
- native instructions
-To: bot+bpf-ci@kernel.org, chenhuacai@kernel.org, hengqi.chen@gmail.com
-Cc: loongarch@lists.linux.dev, bpf@vger.kernel.org,
- linux-kernel@vger.kernel.org, ast@kernel.org, andrii@kernel.org,
- daniel@iogearbox.net, martin.lau@kernel.org, eddyz87@gmail.com,
- yonghong.song@linux.dev, mason@kernel.org, ihor.solodrai@linux.dev
-References: <20261013121005.626-3-yangtiezhu@loongson.cn>
- <ab9326a4770f9d1ac812e55feb39e34341d84951f3b5d276dee18d5471d8353e@mail.kernel.org>
-From: Tiezhu Yang <yangtiezhu@loongson.cn>
-Message-ID: <d5f6eb99-faf5-1aa7-1f1c-f216611d8082@loongson.cn>
-Date: Wed, 14 Oct 2026 10:24:31 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	s=arc-20240116; t=1791944854; c=relaxed/simple;
+	bh=qp0e9jukquw4BCOPfoaqFwsruB4sZhIFY+Jv7zRgTcg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rBiQMyZkYoVD7m0SmnY2p3rO07s3oA0C36nBrzg243wMmAJrBqwTA0BIIi4e08rFNXvo1LJm17/v7GVoXtbtpXXrujRvPzYRyv2tppjeAI9mgX7JfliaYaq6jQCQvuVupePb7hPxLOwl83RN9OPoLoc5DVMHRRJy/inSXeM1a+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=JVFS6ePx; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=YkYcJBbY; arc=none smtp.client-ip=202.12.124.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="JVFS6ePx";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="YkYcJBbY"
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+	by mailfout.stl.internal (Postfix) with ESMTP id 8B2B31D000C4
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 22:27:26 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-09.internal (MEProxy); Tue, 13 Oct 2026 22:27:26 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm2; t=1791944846; x=
+	1792031246; bh=mQSVeJ25fnZbuqHyHRooDn5QHTeglxDX2X/QddZ/Fuw=; b=J
+	VFS6ePxY1wVeWG3aiGhBfMJQAEoqEaF2mxl7rMKdhvzF11STb63PrpBawCWkJMTy
+	XJZ76GzptnIXDH86aVrucQWzbvuhsSrw2j5a2KNoBLXvUjlptWYUlMzPyDe81tXf
+	zdkhBXNur0m0xlMjcg4utQsxHvK03IKm2xaBkT7+JgVTZktYUaEejgDrjU69/WNk
+	wXaRau2tc9Kh9c+0jS69M8XhfZkJ/30qTetG3iDSaXL3vcIWQlRr0krsE0dHAJ1R
+	QKyRx0rdzW0B9CBuiZddH9/IY9JwgpYmCnxRcz36FF2R7Fq/ajVbgg1GGSw363ZK
+	rF9ajjPVtL6/t1ES16law==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1791944846; x=1792031246; bh=mQSVeJ25fnZbuqHyHRooDn5QHTeglxDX2X/
+	QddZ/Fuw=; b=YkYcJBbYNQ5hjA8X9W8PlV+a3LPZl1YOZkT3iQvkWzvHYKffj1x
+	bMANKXglPbrp2Qy5kn5b6GFS9OH7q1s75Y9/SMwEIPNCPsA2pOC+pkGTCApV79Eh
+	PjbY5Jb74PKu6Ktfg1zfEOfhwYzzb2ey+Yntp8bOOEhVN7+UHnQESLSAZrWMYLAE
+	8gazs9dhM84zC4DgoYpFd6LN+GDbUvu632mWvKs5yexnzkTbyZF2C4VdhCqo6HZj
+	H6b0QRdEDP1kuuVoOBLa6XTw2luWpb2m/6pfx5lWZOr26jq3hDR4Y5BVUR5Wi5fY
+	EM2ZM9OUKsyXJeFoHuyl0bQStXqPCvJFEFA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=sakamocchi.jp a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791944846; d=sakamocchi.jp;
+	mf=PG8tdGFrYXNoaUBzYWthbW9jY2hpLmpwPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:Y4u0/oFaQneiAkH2SQgX/5a6Al0APtWBIzkSg8r9ehUqVC7
+	4FdPzouHlZ1/v63IbUAbX7PCKCRMV4mmG3mhAQR1AA/Wg9yj4yWgoCZf9yCqbK8J
+	5+Nj9dBgwogHfVdXPRkrKETYRs6L4attqmIVbRcblSW5lsN17ieJzXtVRHAmaKBD
+	p0KMVhFSdewXhd3HkOs7Ed1XEL6Ybt6sRhTRmA6AQGL97bayfqE7FIVsmSKl6Qfx
+	A3FnqPA5pk7AgsLet8c74WUgad5BD5fnZ/yEA/su/CCB79M7debQbtE4BI9wBR2W
+	b4YZz6F+sa4FEQgEswqFFvRakDQDQDroauJ8AJA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,mail-followup-to,message-id,mime-version,references,
+	subject,to;
+Message-Instance: m=1; h=sha256:74LRhJZaaxn4HqWFbA30H/owZrXQNHrXHg8CpqoL7Fs=:qp0e9jukquw4BCOPfoaqFwsruB4sZhIFY+Jv7zRgTcg=;
+X-ME-Sender: <xms:jujOak5Q3KfOOJljCnH2IidqYTDYuVrOKutnCzh1C6rcMfgax9ClXg>
+    <xme:jujOaj2Otjw_BY93YefhmEGoCHsoznHdz6_bwkCyv9z5lw3B3VKT2t5UlEKQ94NyB
+    05Lt_Wu62JSNIAy4cBubRdHGRsKEvSH-O9p5qW6HSiUiNDrNyw3ghbU3Q>
+X-ME-Received: <xmr:jujOarDbh81sa4xe2j86JQopRax2yaywxIuzbU3kl2HAbFyudk2-CGdo1Bd59zVdylUy6iEPx8z27id9rtbFgDgoMSAYzA>
+X-ME-Proxy-Cause: dmFkZTEjyepREJCjRn3CLnwDM5MxBJ7ltuQjgq4uiLFT68rthNsg0GJls7AYGBoeg6GtEw
+    N1gB+JK5lOFmUTcrbBT/oF0rC2i9e0FS7oGkGpj/H5WwjbkyV3TLZFlgG76PKyHZ52PrgT
+    ZtIgJnSb7+TkxYXAMm62JhJUJriTyo9k173tfNR6WKO7JuysReAbJ606GDGUIxpHl2wFGK
+    1FjalAel+rnYLBiGjJlGzGAlhZdGvalUX04wBgrKXXy6uU2W3M7PbUP7x8ZO/bl9jq+gfP
+    lql5Yp+40itkbJSxhovATwT80d6Qhs5VxMcFnMhQreWI5QhKQ01xvP0VbcyCheSRIQm5XI
+    ajZbnbhYfCoq6wgu3z1gc4jwf4G65bjlsGpPbDkgMho6XtCDbmP7jmng0p8Atlfc9hl9P5
+    dkNcWQrjUwTnSP4hlz4JNBDT1IFPRQNyPJj3HrJkgkDRrDm8f6EdHGGsH7/fC3yvBbLEhu
+    WrfsJuz4dbXgr24guc5oMFPoYg+G6bTKUU+EnDCcXaKt8maC+ekgMZXcimd059H47G5ls5
+    kQfQ1p6iOk1+KMgZK/rnRl1HZFSFz4Q6q2ZTfVx3BOw58Xz/jt73pJF8cAMjpWvyI5tLn1
+    bYZInufg99aUaS3l1agKC9nsKOetMQ9cf/AKWsyKgtUgOnLRcXa7PEhUDYzg
+X-ME-Proxy: <xmx:jujOal2VEFZvoTsojkq-g5mssIz21xvTUusE-WTQ2fTYltx60K81YA>
+    <xmx:jujOalvZkb76_BNnxh9q2zPeEy6ajwt09zc1TxrwECj0vdkHA6lc-A>
+    <xmx:jujOal5FFykmtevKYkJLreUHieklcZFY181RUoV39AKfa_MbXMapRw>
+    <xmx:jujOamIFYRLkU6z0sGVZMcIKR-odtFEXsneBs2FfXC2tkLax0V3LNw>
+    <xmx:jujOatshzV1V2j4jXEzF6gvQy--jEk25TWwDdlYwUlOGeIuLcSb6q7qc>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 13 Oct 2026 22:27:25 -0400 (EDT)
+Date: Wed, 14 Oct 2026 11:27:22 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: linux1394-devel@lists.sourceforge.net
+Cc: linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] firewire: core: add kerneldoc for outbound
+ transaction-related symbols
+Message-ID: <20261014022722.GA627016@sakamocchi.jp>
+Mail-Followup-To: linux1394-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org
+References: <20261013111509.612518-1-o-takashi@sakamocchi.jp>
+ <20261013111509.612518-2-o-takashi@sakamocchi.jp>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <ab9326a4770f9d1ac812e55feb39e34341d84951f3b5d276dee18d5471d8353e@mail.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJCxPs_f585qZwwsAA--.26964S2
-X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoWxCF4DGw47CrWUJFyfuFy3trc_yoW7JrWUpF
-	ZrKF4Fkr4UJFy7ta48J39rXr42yw4akayrXF1UJrWkC39Iqr1fKF13Kr4S9asxArs3ZF92
-	qF1qvwnxXFWUK3gCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUPYb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr0_Gr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
-	kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUXVWU
-	AwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMx
-	k0xIA0c2IEe2xFo4CEbIxvr21lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l
-	4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_Jrv_JF1lx2IqxVAqx4xG67AKxV
-	WUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI
-	7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r
-	1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI
-	42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07jOa93UUUUU=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013111509.612518-2-o-takashi@sakamocchi.jp>
 
-On 2026/10/13 下午8:55, bot+bpf-ci@kernel.org wrote:
->> LoongArch: BPF: Optimize 32-bit operations using native instructions
+On Tue, Oct 13, 2026 at 08:15:08PM +0900, Takashi Sakamoto wrote:
+> The core provides helper functions and structures for initiating
+> asynchronous transactions.
 > 
-> TL;DR: LoongArch BPF JIT now feeds non-sign-extended operands to 32-bit
-> div/mod; on cores without DIV32 (e.g. 3A5000) results may be wrong, possibly
-> breaking verifier-proven bounds.
+> Add kerneldoc comments for these symbols.
 > 
->> diff --git a/arch/loongarch/net/bpf_jit.c b/arch/loongarch/net/bpf_jit.c
->> --- a/arch/loongarch/net/bpf_jit.c
->> +++ b/arch/loongarch/net/bpf_jit.c
-> 
-> [ ... ]
-> 
->> @@ -752,212 +741,232 @@ static int build_insn(const struct bpf_insn *insn, struct jit_ctx *ctx, bool ext
->>
->>   	/* dst = imm */
->>   	case BPF_ALU | BPF_MOV | BPF_K:
->> +		move_imm(ctx, dst, (u32)imm);
->> +		return 0;
-> 
-> [ ... ]
-> 
->>   	/* dst = dst / src */
->>   	case BPF_ALU | BPF_DIV | BPF_X:
->> +		if (!off)
->> +			emit_insn(ctx, divwu, dst, dst, src);
->> +		else
->> +			emit_insn(ctx, divw, dst, dst, src);
->> +		break;
->>   	case BPF_ALU64 | BPF_DIV | BPF_X:
->> -		if (!off) {
->> -			emit_zext_32(ctx, dst, is32);
->> -			move_reg(ctx, t1, src);
->> -			emit_zext_32(ctx, t1, is32);
->> -			emit_insn(ctx, divdu, dst, dst, t1);
->> -			emit_zext_32(ctx, dst, is32);
->> -		} else {
->> -			emit_sext_32(ctx, dst, is32);
->> -			move_reg(ctx, t1, src);
->> -			emit_sext_32(ctx, t1, is32);
->> -			emit_insn(ctx, divd, dst, dst, t1);
->> -			emit_zext_32(ctx, dst, is32);
->> -		}
->> +		if (!off)
->> +			emit_insn(ctx, divdu, dst, dst, src);
->> +		else
->> +			emit_insn(ctx, divd, dst, dst, src);
->>   		break;
-> 
-> Can divw/divwu be used directly on dst and src here?
-> 
-> The LoongArch ISA only defines the result of div.w, div.wu, mod.w and
-> mod.wu on LA64 when both rj and rk hold sign-extended 32-bit values.  The
-> exception is a core that reports CPUCFG2_DIV32 (BIT(26) in
-> arch/loongarch/include/asm/loongarch.h), where the upper 32 bits of the
-> inputs are ignored.  Cores without that bit, such as the LA464 in the
-> 3A5000, may return any value otherwise.  Nothing in the JIT checks for
-> CPUCFG2_DIV32.
-> 
-> The operands here are often not sign-extended.  Every ALU32 result is now
-> zero-extended at the common exit of build_insn():
-> 
->> +	if (is32)
->> +		emit_insn(ctx, bstrpickd, dst, dst, 31, 0);
->> +
->>   	return 0;
-> 
-> so any 32-bit value with bit 31 set is left in the register as
-> 0x00000000xxxxxxxx.  A BPF_LDX | BPF_W load (ldwu) is zero-extended in the
-> same way, and src can hold arbitrary upper bits coming from ALU64 ops or
-> pointers, since ALU32 only consumes the low 32 bits.
-> 
-> For example, with w0 = -6 followed by w0 s/= 3, rj is 0x00000000fffffffa
-> when divw executes, so the quotient is not guaranteed to be -2 on a core
-> without DIV32.  Likewise, a ldwu of 0xffffffff followed by w1 %= 16 gives
-> modwu a rj that is not a sign-extended value.
-> 
-> The old code widened both operands (zext for unsigned, sext for signed)
-> and then used the 64-bit divdu/divd/moddu/modd, which are well defined on
-> every LA64 core.  The MIPS64 JIT, which has the same ISA restriction,
-> still sign-extends the operands before its 32-bit div/mod.
-> 
-> [ ... ]
-> 
->>   	/* dst = dst / imm */
->>   	case BPF_ALU | BPF_DIV | BPF_K:
->> +		move_imm(ctx, t1, (u32)imm);
->> +		if (!off)
->> +			emit_insn(ctx, divwu, dst, dst, t1);
->> +		else
->> +			emit_insn(ctx, divw, dst, dst, t1);
->> +		break;
-> 
-> In the K forms the divisor is built with move_imm(ctx, t1, (u32)imm), so a
-> negative signed divisor, or an unsigned divisor of 0x80000000 or above,
-> also ends up in t1 as a zero-extended value rather than a sign-extended
-> one.
-> 
-> [ ... ]
-> 
->>   	/* dst = dst % src */
->>   	case BPF_ALU | BPF_MOD | BPF_X:
->> +		if (!off)
->> +			emit_insn(ctx, modwu, dst, dst, src);
->> +		else
->> +			emit_insn(ctx, modw, dst, dst, src);
->> +		break;
-> 
-> [ ... ]
-> 
->>   	/* dst = dst % imm */
->>   	case BPF_ALU | BPF_MOD | BPF_K:
->> +		move_imm(ctx, t1, (u32)imm);
->> +		if (!off)
->> +			emit_insn(ctx, modwu, dst, dst, t1);
->> +		else
->> +			emit_insn(ctx, modw, dst, dst, t1);
->> +		break;
-> 
-> The same question applies to the modwu/modw uses in these two cases.
-> 
-> The verifier narrows 32-bit div/mod results, for example
-> scalar32_min_max_umod() bounds the result of w1 %= 16 to [0, 15].  If the
-> JITed code returns a different value on a core without DIV32, can the
-> program end up with a value outside the range the verifier proved, for
-> instance when it is used as a map value offset?
-> 
-> The commit message reports test_bpf, test_verifier and test_progs passing,
-> but does not say which CPU was used.  Would those results be reproducible
-> on a core without CPUCFG2_DIV32?
-> 
-> Would it be better to sign-extend both operands into temporaries (for
-> example addw t, reg, $zero) before divw/divwu/modw/modwu, to gate the
-> native 32-bit forms on CPUCFG2_DIV32, or to keep the previous 64-bit
-> sequence for these four opcodes?
+> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+> ---
+>  Documentation/driver-api/firewire.rst |  3 ++
+>  drivers/firewire/core-transaction.c   |  2 +
+>  include/linux/firewire.h              | 61 +++++++++++++++++++++++++++
+>  3 files changed, 66 insertions(+)
+> ...
+> diff --git a/drivers/firewire/core-transaction.c b/drivers/firewire/core-transaction.c
+> index 33c4ea48c6c9..22cddb736289 100644
+> --- a/drivers/firewire/core-transaction.c
+> +++ b/drivers/firewire/core-transaction.c
+> @@ -396,6 +396,8 @@ __must_hold(&card->transactions.lock)
+>   * than when the request packet actually hits the wire.  On the other hand,
+>   * transaction completion and hence execution of @callback may happen even
+>   * before fw_send_request() returns.
+> + *
+> + * Context: Process context.
+>   */
+>  void __fw_send_request(struct fw_card *card, struct fw_transaction *t, int tcode,
+>  		int destination_id, int generation, int speed, unsigned long long offset,
 
-I will modify the code to adapt to the actual CPU hardware capabilities
-dynamically. After testing the patch on CPU cores both with and without
-CPUCFG2_DIV32, I will send out the v3 series.
+The above should be "Context: Any context.". Let me correct it when merging.
 
-Thanks,
-Tiezhu
 
+Regards
+
+Takashi Sakamoto
