@@ -1,104 +1,109 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3405563FD1;
-	Wed, 14 Oct 2026 17:13:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACF36563FCB;
+	Wed, 14 Oct 2026 17:13:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791997993; cv=none; b=isiR0XC1nFAFCE0RaqOO/XDHkRZlAMnXWHLZplJf07CP0zYBvfVHfMSVYj3e9RNdgwv/HmcPAGX74jSRnqR4G3ComAZ2RoHNG9E7Kf9wAhnffHd6CXkjzFSG488h2MKz2RVaRTeJ2mBH4Bnkngf5RAkjnO/90x6c41fB//HDIWs=
+	t=1791998019; cv=none; b=TmR46xWc8hIJ4IvEGpk6as6AVWJeYOYg8cLJu8VpWsiY6Etwq55Di9brtxN1VNpPFgqVivu6gXaX2OGBDv/yeJZ59cyHa+Dk6pFUtsmyvcQfeR/3xXLZnHxEsXmhpdaEogDwa6wsjDnCONL1EVeYc9EP6d417+YYuK6uD9+NTSk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791997993; c=relaxed/simple;
-	bh=CVQxqMXh+iMEuOOzMPhyTVJt6istyAm4Y525++iIRZA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QHlVbW3B8TeSNZE9xPY8Z3tpMMZZWfCdZ9XU7XH9BPIRpLWR0c3O/CqTS11a4G9Jqp2WkTNG00PBVIdXVLxixLhsb/0IUTpTUq7cy4e/yPecUcY4tt6wjGeMnyv3NLitXfA5eF218ImYeJfs9GIbMO/KDsj3eoePEuZkhhtPsb4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=OgqjSpOg; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1791998019; c=relaxed/simple;
+	bh=7+/A0LoacZHohjvN4wXEm3+Dk2UyCqNWrHEmAESILnU=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=FV/2GlRM7sZYcHnC3KZNhkcVFOBC45+2c/QKFvEpA/SiAqMMdEhhdeFIr8L+ifQC2u+qexWNqXRqp4R+Q2ImsIhp3NljRrPMUcPp3DZLFTejZuVRR7er9fdgKOIqsgo3rtwYweU4XELQXpO0gtO3eWOW+E5TCOOwK1SEHQCHXoM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X3551b1+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="OgqjSpOg"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
-	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
-	In-Reply-To:References; bh=hsC2J19Y8A8XnCWJEN9jMl8NLoIbisoNJrizDvKnD3Y=; b=Og
-	qjSpOgR6hRC+0DD1i47+0fZDjgyHKJHlZMM7QbH3O6fzgRkTFKQYfk3UVMlwXTOmCzjE9GT9+aF28
-	xQiNI85DprNM7wyYfLs4Y/Q2dD3ZWKrA7q6zNoEBDZgJSdzqO0j7nkPti74UiTBr+RA3s4UXyvziR
-	ivwnPqrwfOd6i2c=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xH2XF-00Amng-Ni; Wed, 14 Oct 2026 19:13:01 +0200
-Date: Wed, 14 Oct 2026 19:13:01 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: netdev@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2] net: phylink: allow stopping a suspended instance
-Message-ID: <209159e1-bd74-4462-bf00-8c2421af29e2@lunn.ch>
-References: <20261005-submit-phylink-suspended-stop-v1-v2-1-8b8e5d53dfc2@gmail.com>
- <224296ea-f196-44f3-91d6-1461846c55a5@lunn.ch>
- <CADvTj4qgcXE6azsNx-Wg5afatezLeuctGR607qO1WhZSmuqzBg@mail.gmail.com>
- <7ffb9b38-75e1-42e2-86e2-21a1666fc51f@lunn.ch>
- <CADvTj4pVtoMh=H=nJJaPxYf-ZqU8xJEJLMANUAXTFJWb5zBe-g@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X3551b1+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C0391F000C4;
+	Wed, 14 Oct 2026 17:13:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791998011;
+	bh=TIXKZ1EmqWU/VUc5XZWDJM5gBsBtYEI+Xauv3IN18ZA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=X3551b1+kerHLKkgoLyynluZRnT89nmMlG9rlmLWW8V9C4QCUneI15E6Pz3rcKqf9
+	 mHnyjzbkFavDjWlFHf3RQCcLasCJq9HAfrPjw3hWkHHxXB/PP60RQaugTlwBPfl59b
+	 pouU/CIq0JT/xXxfgqJ8zi10vGqVshJB/NPqD4ah7IwicwPdAhINXhJbu3uBmxBBWH
+	 0eoTAFzK4Rtfqjsqm1ipr19biNYZmoLMgRC76IWxb4YPVFWDAFGMFWxDgGABfGSWKF
+	 jUMX9Z2ufQqTXjt7hhXt2o9rt+9NtBSFpf0Cr2/CbUP18y1wdK41b5qjpg8KBgtQSP
+	 ipexh62I4hXbQ==
+Date: Wed, 14 Oct 2026 12:13:30 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Stian Halseth <stian@itx.no>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
+	Andreas Larsson <andreas@gaisler.com>, linux-pci@vger.kernel.org,
+	sparclinux@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	Tony Rodriguez <unixpro1970@gmail.com>
+Subject: Re: [PATCH] PCI: Set supported_speeds in set_pcie_port_type()
+Message-ID: <20261014171330.GA1640628@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CADvTj4pVtoMh=H=nJJaPxYf-ZqU8xJEJLMANUAXTFJWb5zBe-g@mail.gmail.com>
+In-Reply-To: <20261007131304.309511-1-stian@itx.no>
 
-On Wed, Oct 14, 2026 at 11:07:27AM -0600, James Hilliard wrote:
-> On Wed, Oct 14, 2026 at 10:02 AM Andrew Lunn <andrew@lunn.ch> wrote:
-> >
-> > On Tue, Oct 13, 2026 at 01:46:24PM -0600, James Hilliard wrote:
-> > > On Mon, Oct 12, 2026 at 7:22 PM Andrew Lunn <andrew@lunn.ch> wrote:
-> > > >
-> > > > On Mon, Oct 05, 2026 at 01:09:05PM -0600, James Hilliard wrote:
-> > > > > After a failed MAC resume, a driver must be able to stop phylink without
-> > > > > resuming it and reconfiguring the failed MAC. This is needed when recovery
-> > > > > leaves the interface administratively up but detached until a subsequent
-> > > > > down/up: ndo_stop() must finish the suspended phylink lifetime even though
-> > > > > the MAC could not be restored. The missing transition was identified by
-> > > > > code inspection of the stmmac recovery paths.
-> > > >
-> > > > I don't particularly like this. It feels like a workaround for a
-> > > > broken MAC. It would be better to fix the MAC so that resume does not
-> > > > fail.
-> > >
-> > > Fixing an identified cause of resume failure belongs in the MAC
-> > > driver. The intended purpose here is narrower: allow orderly shutdown
-> > > after the driver has returned an error, rather than recover the MAC
-> > > through phylink.
-> > >
-> > > stmmac_resume() already returns before phylink_resume() when hardware
-> > > setup fails.
-> >
-> > But why did the hardware setup fail?
+[+cc Tony]
+
+On Wed, Oct 07, 2026 at 03:13:04PM +0200, Stian Halseth wrote:
+> sparc64 and powerpc create PCI devices from the device tree in
+> of_create_pci_dev(), which calls set_pcie_port_type() but not
+> pci_setup_device(). Since d2bd39c0456b, supported_speeds is only set in
+> pci_setup_device(), so it stays 0 for these devices.
+> pcie_get_speed_cap() then returns PCI_SPEED_UNKNOWN, max_link_speed
+> reads "Unknown", and the failed link retraining quirk passes
+> PCI_SPEED_UNKNOWN to pcie_set_target_speed(), which warns on a SPARC
+> T7-1:
 > 
-> The exercised failure was injected, rather than a diagnosed spontaneous
-> MAC fault. This change comes from auditing the existing error paths for
-> the deferred stmmac recovery fix.
+>   WARNING: drivers/pci/pcie/bwctrl.c:125 at pcie_set_target_speed+0x284/0x2e0
 > 
-> > This is what i mean about it being a workaround.
+> Set supported_speeds in set_pcie_port_type(), which all three paths
+> call.
 > 
-> The deferred fix addresses a separate software failure: suspend has
-> already disabled NAPI, but an unsuccessful resume leaves the interface
-> administratively up.
+> Fixes: d2bd39c0456b ("PCI: Store all PCIe Supported Link Speeds")
+> Closes: https://github.com/sparclinux/issues/issues/109
+> Signed-off-by: Stian Halseth <stian@itx.no>
 
-But why was the resume unsuccessful?
+Applied with Tony's Tested-by to pci/enumeration for v7.4, thanks!
 
-Sorry, but i've asked this multiple times. You never give a good
-answer, so i'm just going to:
+I added a stable tag since d2bd39c0456b appeared in v6.13.
 
-NACK.
-
-	Andrew
+> ---
+> Tested on a SPARC T7-1: before, max_link_speed reads "Unknown" and the
+> warning above appears with CONFIG_PCIEPORTBUS; after, all 23 PCIe
+> devices report their real speed and the quirk lifts the 2.5GT/s
+> restriction without a warning. Not tested on powerpc.
+> 
+>  drivers/pci/probe.c | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
+> index 27008e2ea5afc..52a79b033b069 100644
+> --- a/drivers/pci/probe.c
+> +++ b/drivers/pci/probe.c
+> @@ -1651,6 +1651,8 @@ void set_pcie_port_type(struct pci_dev *pdev)
+>  		pdev->aspm_l1_support = 1;
+>  #endif
+>  
+> +	pdev->supported_speeds = pcie_get_supported_speeds(pdev);
+> +
+>  	parent = pci_upstream_bridge(pdev);
+>  	if (!parent)
+>  		return;
+> @@ -2074,9 +2076,6 @@ int pci_setup_device(struct pci_dev *dev)
+>  
+>  	set_pcie_untrusted(dev);
+>  
+> -	if (pci_is_pcie(dev))
+> -		dev->supported_speeds = pcie_get_supported_speeds(dev);
+> -
+>  	/* "Unknown power state" */
+>  	dev->current_state = PCI_UNKNOWN;
+>  
+> -- 
+> 2.43.0
+> 
