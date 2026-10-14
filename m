@@ -1,126 +1,173 @@
-Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0D2835C188;
-	Wed, 14 Oct 2026 09:09:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.220
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEE8244C661
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:10:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791968985; cv=none; b=ulKYB+xRwnzz3myZ8+dpK9/4xnQo0f8dQUZ0BjTGoe4Qf7H7FlZjrST4WEjNvsp0cDqS0nMnZyB8NZcWBoaWD3TSjouO60GWpR63EuFUczYTlH2KzP5FfRwDHwCp2s1hokoAz6l1MAznVXblDt3EGFk7BYfo4W0ODRmrLHEMDio=
+	t=1791969053; cv=none; b=erH4EdRyMtzWY17ZzvD/vxg+y9mZx2LcpBWuEIk2pgPXnHYxvP3veTFfbhHrkGAxkdrscMSLShH9iWYPE8atVJdvZuTUGpuUQRPG9fGfs/anEnATQ969jJ5raU2MyMOXhcLLl9Ag4k08T9uVMQI7eWAhmu9IjMrme5mlJFWmlTc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791968985; c=relaxed/simple;
-	bh=xx/s9vFCnHF+E2YGmdTq8pyrENMnV6O5x9VUFd7ysvA=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Z5x1chWU/5tsmk1OEm5AdsZixoMqXhJydTsnv0rY2erxdVv1KcMXYcDosZe+k0DG/6Y8J0IU51+PHXgMehFidI/xom2Y+tFnZaoy3oNH3UBouFnDDKaYjDzcZFaFzmQkfjy/IwxfbkpU0ejwbfJWyPtWFJEQuoSXbTWZ7AdogTQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=S6sbRlMk; arc=none smtp.client-ip=113.46.200.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1791969053; c=relaxed/simple;
+	bh=TADT5pqLCP7/EEMUpQ7FZ5u2kWNtsJWJLulqEY9u7P4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WhIkjkB2B62zJV24ahPCMNcEI4S0bg6P6x1YBTjg2CishjByQLjIDAXt0qxgylnZAKDr1hkNW34Q8rFvuFo+6+GBZLSLATNfScc0gpqIY99tPojMwKnL29D4x43VmD2Y3nBeJlURK5Qe6hI2SEQcj1foXECYtak75o/uBwcL+vI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AXVjay9x; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EDibeBrA; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="S6sbRlMk"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=no8UksaLDXaLjS5OYlOdeSrGlrw0y7An++0sfqkG2yk=;
-	b=S6sbRlMk7yfHk2lzfRo5iWjIj8e7rtJiRuB3reuV3SxWnwZCcStXOeZLHuVm4zRIHzarmQ4m2
-	V9VM1ZtIFdjW9Zf2kD+c7Fomdx0w05uaYhHuJo2etMdetKqS8wkq+6gt0/3Qav9NzVnNwhYJBED
-	riv4Jlitu9KHPsKkB9TEb3o=
-Received: from mail.maildlp.com (unknown [172.19.162.144])
-	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4j4Q895GCVz12LHj;
-	Wed, 14 Oct 2026 16:57:45 +0800 (CST)
-Received: from whupemp100012.china.huawei.com (unknown [7.152.185.135])
-	by mail.maildlp.com (Postfix) with ESMTPS id BFD8C4056D;
-	Wed, 14 Oct 2026 17:09:39 +0800 (CST)
-Received: from huawei.com (10.67.174.121) by whupemp100012.china.huawei.com
- (7.152.185.135) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 14 Oct
- 2026 17:09:38 +0800
-From: Yao Yiqi <yaoyiqi3@huawei.com>
-To: <deller@gmx.de>, <tzimmermann@suse.de>, <simona@ffwll.ch>
-CC: <dri-devel@lists.freedesktop.org>, <linux-fbdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH 1/2] fbcon: Rebuild rotated font buffer on font change
-Date: Wed, 14 Oct 2026 08:51:01 +0000
-Message-ID: <20261014085102.497789-1-yaoyiqi3@huawei.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AXVjay9x";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EDibeBrA"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69E67khr2685322
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:10:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	NtAEjqArzfjn7+O9rMHOz2hVGzWcB2IODXM/UtgZXR8=; b=AXVjay9xJxu8x0zm
+	N80g4E++AUhMuqtnDykVc4byahpqJXLW7jLXFGa7kaxXRJ/s2fhHbdKODKePgWBb
+	16dNArX/bBPuZ2W5SHd7/rVctRHf2Sh5LARmdWiUVCixqO72xWWzhWAYa6v9Ryjs
+	WUrguFceL4NKO5rmF9j6qx5ZeiCfjLHUbccZDBQj5QGH/T0bBxvSMOW2O4OO7b3N
+	ziAsVEVYBFOIqR2FFUm8/I03j7lgYQqVp8pbWay89f8TWC6CHjVawh1PUiW5G5Gf
+	c/Vddi3nQ1oTd/D3dld06Yuwwu66XLtclvI0xCbw66vIt6naDj8rum2SOjj+0egw
+	KfJsFw==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ha46u0r3n-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:10:52 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3a470ead068so4205493a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 02:10:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791969051; x=1792573851; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NtAEjqArzfjn7+O9rMHOz2hVGzWcB2IODXM/UtgZXR8=;
+        b=EDibeBrAL4bZZ3SZRVnWrAUsFh7Hdj7VHifjV7ysYt/lrs8rK23nYV/j+tuO6IYNPw
+         4hvKRxGjTpsz/+XJVVQv4JIjb1iOjG6fAryLHBM/T2j2rj0HJNrCMat90ywrPCD8mgn/
+         EaUSpbSgYxz+SUS780Ig+L+4nxwswqAKGYjZ9vxdGTDXnX7Sa/YqHxlMxZEGRSdXcjbW
+         jDj8hDo72byKEa8CGDB+IeC0atTSpagMvO9Kren3UtlkU0I5Tns65B6OxBiPxXdDu/qs
+         85COru+zPeLrPtomx5UESXBYKz36oOKsBgQ4i4FhxaCQokZHyJrvMo+dg2sR2mwOvGuE
+         CF3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791969051; x=1792573851;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NtAEjqArzfjn7+O9rMHOz2hVGzWcB2IODXM/UtgZXR8=;
+        b=Ap3qkZPmmBmsef4yfkg4HWcl9a43g4CCOLX6MsqgYFCYVy0j9lxZSi4YSwrwkqlgjv
+         3G5u79fZxHRGtAcqWUM7Ivhg/9be05uXGdafT91+YCmZn4hCXde/k1QKImhyIxreYsH0
+         2zEjjli1J/Ep5RsX6hqZjryQHld1C1bWyPZKIin8gPkA6BcXDd/pFB9uG/jOPPT9gSco
+         EE1irtMp3i/YfPVR6NzkTx4MUYiuL9awiUZI8C5x/ygtiT/dGdCxSC2Gy1KZb7OWbqmH
+         aapFk0vUCQ8TQimbKz4M2EdBpSH093OVsDSV9H9yTtc4vXCwrxYFHmUdglAE+ApbuVfH
+         A4Vg==
+X-Forwarded-Encrypted: i=1; AKwUvBwONWkQiXNztHt6OJR/MNVTZVzG30Bm5aW6LbG4XAoTj/DqiYI7hXjn4SMsodObjGgdBwsxmpnQFHA0MTs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLzFtvOKiffLv/4mvaI9n37aa5lVLeMOTg91tcjDvCLEZIO7kan
+	x8dN9BmdsVto8uSeb7FuFy5Fkm/vrkyPV108ArL6UZItujZAUbRH/cIHAI2HYdCMmwM/mfo094g
+	TR6j0Jch8HfsNES0FyZy9S9UJCdwJKGiDOLl0tRch1IhozlualnMYw9cs02pdeNSDgYxapZfJM/
+	RlBQ==
+X-Gm-Gg: AYBFou3Pjp6+TVr7Uee1xA4Qvl0iWGZ2Pf+8JZRG7O1anIq3++UBpwzz1FXS2ST6u50
+	U7zd6OBvLz+MWeGVLqjkO74s+gbsS/WYFv52cWA80GabvuX02H/3psKYVrgmkcvCmBvLiOCrNM+
+	JBP11qSJgEdRrOo7HLMSiBzjPCj7wwM6GlV7hAlTfescbtIQ/vyEAdDPbBR6kbenVBHsxk6cv0w
+	H+DC1g/uGTPsQAD783Zto+hMcpt6Q0ld9oP9gDoxEs6uikxagNkI/OjKJlI+0+Qxyx/2H77k8ZL
+	RkWoEQ745iKqtZVHQ/xNBtN0ODmgpxXxRyk0lIhsy+kz98PkKyBEDwCCOrNLDYM+tqSTRzswaZ1
+	VJGeG2PxvrDb9A4qEdw2fTgmnqSvG
+X-Received: by 2002:a17:90b:3b90:b0:3a8:5543:5572 with SMTP id 98e67ed59e1d1-3ab3a3654admr13949554a91.1.1791969051196;
+        Wed, 14 Oct 2026 02:10:51 -0700 (PDT)
+X-Received: by 2002:a17:90b:3b90:b0:3a8:5543:5572 with SMTP id 98e67ed59e1d1-3ab3a3654admr13949521a91.1.1791969050687;
+        Wed, 14 Oct 2026 02:10:50 -0700 (PDT)
+Received: from [10.219.56.188] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac6069ca15sm3642624a91.11.2026.10.14.02.10.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 14 Oct 2026 02:10:50 -0700 (PDT)
+Message-ID: <c4820536-bd14-4377-9966-80d787fec19e@oss.qualcomm.com>
+Date: Wed, 14 Oct 2026 14:40:45 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- whupemp100012.china.huawei.com (7.152.185.135)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] arm64: dts: qcom: talos: Make the ADSP remote heap
+ no-map
+To: Jianping Li <jianping.li@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        quic_chennak@quicinc.com
+References: <20261014083820.468-1-jianping.li@oss.qualcomm.com>
+Content-Language: en-US
+From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+In-Reply-To: <20261014083820.468-1-jianping.li@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDAzNiBTYWx0ZWRfXy17qZeG9l2S2
+ o5lLpX44DvZT5or+zIBPcqqdkj0oVZGGiKZAy9QwraaYLfFkU0y+xA0li+8X9862vftsYcxAtbC
+ qttWlo7s+ELqjCO376l3K0dr2CwyZHQ=
+X-Proofpoint-GUID: 1PLN7faaU-VDGyczxryJ0xIjPwbOFoMT
+X-Authority-Analysis: v=2.4 cv=Y6ttIReN c=1 sm=1 tr=0 ts=6acf471c cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=wpYJVS7NxIkf_1e-v7wA:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDAzNiBTYWx0ZWRfXyVesH3vGcI+u
+ mYdD/QRWgtk1BDUYU9WgohFqNbVjPScbL6wND8/L5+Cts1sWZo9vAZW9saqbTcNL7xhNnHJpUhR
+ CxWHH7Iv4d0NkTyDIhEKZqKoY7PAy52ytagKBJzpXgP3WrNPU4h3FYqokePcuy3sc8Dgy8Bx/5n
+ x2k4P01mWYfYQ1qQ6uD9XVozCk9zV4R0ooXRB1gkfNFd57oHdnQ7VZTGQxRGMAwRN/eMcl1VKue
+ BoV9kvc7fG6/dDUGXB5/VQ9A6sIUtx5f/Ltv23EXvH7VI9/+MlN+EyDpW4wZBhXE0xEoMYhEWtW
+ fHBR77h3xtVmN4hQ1GwG2C2+DaMfBActcR0YAuv0NkYnJiGC9NnPotNQ/XoHh3M3SyVfqAvDQk4
+ BgXQHVX1msZCSHo7ZLA3l45ITMp82lV5Z3Uoazj5KBBaaIwHmoCd2ErfnQw9yJU8pT1ml+w6M8n
+ R377Qnu5wbZFYOlDkfw==
+X-Proofpoint-ORIG-GUID: 1PLN7faaU-VDGyczxryJ0xIjPwbOFoMT
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 adultscore=0 phishscore=0
+ lowpriorityscore=0 clxscore=1015 spamscore=0 suspectscore=0 bulkscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610140036
 
-fbcon_rotate_font() caches a rotated copy of the console font in
-par->rotated.buf. The buffer is sized from the font's width, height and
-charcount, and is rebuilt in fbcon_init(), fbcon_switch() and
-fbcon_modechanged(), but not in fbcon_do_set_font().
+On 14-10-2026 14:08, Jianping Li wrote:
+> The ADSP remote heap is declared as a reusable CMA pool. FastRPC
+> assigns the entire region to the DSP through qcom_scm_assign_mem()
+> during probe without allocating the pages from CMA. Consequently,
+> the pages remain available for movable HLOS allocations even after
+> HLOS access to the region has been revoked.
+> 
+> On Talos, GPU stress testing triggers a synchronous external abort
+> when zram accesses pages within the ADSP remote heap.
+> 
+> Replace reusable with no-map to prevent the region from being reused
+> for normal kernel allocations and exclude it from the kernel's
+> standard memory mapping.
+> 
+> Fixes: b0b51a5f1911f ("arm64: dts: qcom: talos: Add memory-region for audio PD")
+> Link: https://lore.kernel.org/all/20260424-talosaudio-v3-1-9e2ad5d78a2e@oss.qualcomm.com/
+> Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/talos.dtsi | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/talos.dtsi b/arch/arm64/boot/dts/qcom/talos.dtsi
+> index 8ed6f2755705..b14952b57d6a 100644
+> --- a/arch/arm64/boot/dts/qcom/talos.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/talos.dtsi
+> @@ -682,7 +682,7 @@ pil_gpu_mem: pil-gpu@97715000 {
+>  		adsp_rpc_remote_heap_mem: adsp-rpc-remote-heap {
+>  			compatible = "shared-dma-pool";
+>  			alloc-ranges = <0x0 0x80000000 0x0 0x80000000>;
+> -			reusable;
+> +			no-map;
+>  			alignment = <0x0 0x400000>;
+>  			size = <0x0 0x800000>;
+>  		};
 
-When the console font is changed through KDFONTOP/KD_FONT_OP_SET, the new
-font data and geometry are installed and vc_resize() is called. The
-resulting redraw reaches the rotated bitops before the buffer is rebuilt:
-hide_cursor() drives both con_cursor() -> soft_cursor() and fbcon_putc()
--> *_putcs(), and they index par->rotated.buf with the new cell size and
-character codes. A stale, too-small buffer is read out of bounds.
-
-KASAN reports, for example:
-
-  BUG: KASAN: slab-out-of-bounds in soft_cursor
-  Read of size 64 at addr ...
-   memcpy
-   soft_cursor
-   cw_cursor
-   fbcon_cursor
-   hide_cursor
-   redraw_screen
-   vc_do_resize
-   fbcon_do_set_font
-   fbcon_set_font
-   con_font_op
-   vt_ioctl
-
-Rebuild the buffer for the visible console right after the new font
-geometry has been installed and before any redraw, as fbcon_switch() and
-fbcon_modechanged() already do.
-
-Unlike those callers, this one does not fall back to unrotated rendering
-on failure. The "par->rotate = FB_ROTATE_UR; set_blitting_type(vc, info);"
-fallback they use does not actually switch to unrotated rendering:
-set_blitting_type() calls fbcon_set_rotation(), which immediately
-re-derives par->rotate from par->p->con_rotate. Replicating that pattern
-here would not change the outcome; a failed rebuild leaves
-par->rotated.buf NULL, so the rotated ops skip drawing, and the following
-patch retries the allocation on the next call.
-
-Fixes: 6cc50e1c5b57 ("[PATCH] fbcon: Console Rotation - Add support to rotate font bitmap")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
----
- drivers/video/fbdev/core/fbcon.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
-index 01715873ea49..5cef18043bdb 100644
---- a/drivers/video/fbdev/core/fbcon.c
-+++ b/drivers/video/fbdev/core/fbcon.c
-@@ -2432,6 +2432,17 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
- 	else if (!vc->vc_hi_font_mask && charcount == 512)
- 		set_vc_hi_font(vc, true);
- 
-+	/*
-+	 * The rotated font buffer is sized from the new font's width, height
-+	 * and charcount. Rebuild it for the visible console before the redraw
-+	 * below, as fbcon_switch() and fbcon_modechanged() already do. The
-+	 * redraw reaches the rotated bitops through hide_cursor(), and those
-+	 * index the buffer with the new cell size and character codes, so a
-+	 * stale, too-small buffer is read out of bounds.
-+	 */
-+	if (con_is_visible(vc) && par->bitops->rotate_font)
-+		par->bitops->rotate_font(info, vc);
-+
- 	if (resize) {
- 		int cols, rows;
- 
--- 
-2.34.1
+Reviewed-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 
