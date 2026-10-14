@@ -1,122 +1,145 @@
-Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5EC63A0E86
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 03:25:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6236838F656;
+	Wed, 14 Oct 2026 03:25:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791948312; cv=none; b=gTGKB6PyBYX/iDMZmQtaIkEGW5lMnsDY79UNbp8dql3qnwgVaTJyhu31ri7cHhvt7tsEf0ofw5LGh7v9HfldS30YbMrqnUpVtjXmFjIxN+Otf5xYt0ji5sc61w8QXpoC0c5YpdSi2HLX9EvwW52qCg3JIcxX0gumhnHeM5PRGA8=
+	t=1791948327; cv=none; b=pn8dR2YhBRTMhwN1lng/oJr/QbsEjFHinNJMuH9NNvWEAMCvX4ZEHDrNiHdwCq9fpwRad4VM0Mgm5Z5YJkBq04Bmiu7uPgA6TfKWMrt09/rDWa03xDylh2H2H8IsdSVLj4KH7O/zhKtydsamvPosp3WU0ocn9p2dYjoOjzra4wQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791948312; c=relaxed/simple;
-	bh=Cvzf8DygOJrI+qQl9SJJL+k/akBvvsnBIBK/RZNZ074=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Rax2pcWN78ksipK+dHSgPZPyBwfA0W6LyLng9l6t42uK/CLu+kojgluvXOqJsrzw09gN+ch7j/vI9K1Jl8s+Ku16bxwGskR6WiUBE/1eWS2DdGfBr4nPwrtwCOFCyL81WSBTHJ5IWIJMuQZfvpxDMyGTOPGWWaaFPxYIHSHJ+ng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=kpcODCCS; arc=none smtp.client-ip=18.9.28.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
+	s=arc-20240116; t=1791948327; c=relaxed/simple;
+	bh=sptjsdJwVpiWKiXUZ48pm0Kd3dSMq8uSuChvkQlaagE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Yhkj0bv05T4wFtGR5CeGnUYKb1EfiOdpW4GN1JUOtnxRSFc+ypLYuURl8WGFauMeqNbZYG79z6O28wzj89eh5oxa6fnkXZUT0wfr4J2R7KVyiy2BJsMFq1tATBDUgGFKXyLcpF9w7/ePUeiClvdeOzBzLwfgAa8JwaORnzHzEHc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=JWAtiyLf; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="kpcODCCS"
-Received: from macsyma.thunk.org (pool-173-48-111-204.bstnma.fios.verizon.net [173.48.111.204])
-	(authenticated bits=0)
-        (User authenticated as tytso@ATHENA.MIT.EDU)
-	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 69E3Nv6V019206
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 13 Oct 2026 23:23:58 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
-	t=1791948244; bh=z3yqKHRDrqQQiz8tqpY89YBl4PBNpsH6SLTwbnMqKdc=;
-	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
-	b=kpcODCCSK+XafIp5lMILCnfvJkpUUutPJswB1SG7jeHDeBvO68RqAkYE9ltoiMiWI
-	 NM69IE/qYMyrLQXFg/zT3mY6K1DkZcUyegrEV5wdfCfL+/diijwZSawKOCQ2IuHACk
-	 3njDVYDja+Fzc40udyQPI8GkyZRlFTCzdzSAMpgM/OVV7HVwqncJ3XdXS8d7fcxYUD
-	 m/dfSjhFatFR1zqVuaClBD6KVSXXqz4W9Lxz1kQbAMzi5PjCs8qb11EWVrf/c/x327
-	 8+C1CPDEp3ChH9y9w/3i/7SS374K7DX9XinedOaEPP9QqmzisXEHRKiWq66p9zf2Ky
-	 CO7ya/+erg0qA==
-Received: by macsyma.thunk.org (Postfix, from userid 15806)
-	id 0EB932070BE3; Tue, 13 Oct 2026 23:23:54 -0400 (EDT)
-Date: Tue, 13 Oct 2026 23:23:53 -0400
-From: "Theodore Tso" <tytso@mit.edu>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>, Sasha Levin <sashal@kernel.org>,
-        corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
-        federico.vaga@vaga.pv.it, apw@canonical.com, joe@perches.com,
-        workflows@vger.kernel.org, linux-doc@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Linus Torvalds <torvalds@linux-foundation.org>,
-        Justin Stitt <justinstitt@google.com>,
-        Carlos Maiolino <cem@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
-        Jori Koolstra <jkoolstra@xs4all.nl>, Brian Foster <bfoster@redhat.com>,
-        Christoph Hellwig <hch@infradead.org>,
-        David Disseldorp <ddiss@suse.de>, Mark Brown <broonie@kernel.org>,
-        Jani Nikula <jani.nikula@intel.com>, Jens Axboe <axboe@kernel.dk>,
-        "David Hildenbrand (Arm)" <david@kernel.org>,
-        Vlastimil Babka <vbabka@kernel.org>,
-        "Christian Brauner (Amutable)" <brauner@kernel.org>
-Subject: Re: [PATCH] docs: remove Assisted-by references
-Message-ID: <as7uqZn9rQ52USwy@mit.edu>
-References: <20261009083137.3-1-sashal@kernel.org>
- <0914a106-bacf-4d95-854a-bfeefbff62a4@kernel.org>
- <asz9AeFe3CutP73z@gremlin>
- <20261013123132.GC4214@killaraus.ideasonboard.com>
- <as4pAEnLd4H68W4W@gremlin>
- <20261013131243.GM56180@killaraus.ideasonboard.com>
- <as4xMnT8a75pIw9v@gremlin>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="JWAtiyLf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=UF
+	ESNTwvo4wROsWoeRhohjb6E220HnrU0WFL5toQarc=; b=JWAtiyLfboXFoRi1R/
+	rKQndU7jNK8zDK56U9EEj5YH18G3LkSLytXSyXkkrpnAISHis2YcTzX4+k/qYm45
+	iEOI6fdqnON9nS5Tn9hvpVN5VzF04Hh/VkUdGwnZTxAbmLYdKrEMvh3RVpaFM89B
+	Ba0aMLgr6oyKcGlWbHLS4QzOw=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD3v88G9s5quKBFEQ--.27196S4;
+	Wed, 14 Oct 2026 11:24:56 +0800 (CST)
+From: Pengpeng Hou <hppiscas@163.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>
+Cc: Pengpeng Hou <hppiscas@163.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	John Hsu <supercraig0719@gmail.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Charles Keepax <ckeepax@opensource.cirrus.com>
+Subject: [PATCH v2 2/9] ASoC: nau8824: restore safe state after resume errors
+Date: Wed, 14 Oct 2026 11:24:45 +0800
+Message-ID: <20261014032452.13456-3-hppiscas@163.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261014032452.13456-1-hppiscas@163.com>
+References: <20261014032452.13456-1-hppiscas@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <as4xMnT8a75pIw9v@gremlin>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3v88G9s5quKBFEQ--.27196S4
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZw15Aw4xCry3tr47tr1fJFb_yoW5tr1fpr
+	Z3KrZYq3yxXrWxuryFyr1kXFnYy3yfKF45AwnxK3y7Aw15CFyxurn5JF1UZFW7tFyDGanx
+	Xr47t3y8GF15J3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pMCJBXUUUUU=
+X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbC7ggO1mrO9gi58gAA3v
 
-On Tue, Oct 13, 2026 at 02:29:08PM -0500, Lorenzo Stoakes (ARM) wrote:
-> On Tue, Oct 13, 2026 at 03:12:43PM +0200, Laurent Pinchart wrote:
-> > On Tue, Oct 13, 2026 at 01:59:33PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > > Ignoring is the only workable long-term solution.
-> > How do you decide which patches to ignore ?
-> Anything that looks schloppy. ATM it's very easy to tell.
+nau8824_resume() ignores regcache_sync() failure before continuing
+dependent resume operations. Restore cache-only mode, leave the cache
+dirty, and return the replay error before those operations.
 
-I think we're going about this the wrong way.  What we want is high
-quality contributions.  If they are high quality, who cares if they
-are AI-generated or not?
+Do not acquire the jack-detection semaphore or enable its IRQ after a
+failed replay.
 
-If we get a contribution which is sloppy, it could be because the
-contributor doesn't know how to drive the LLM, or they are using an
-insufficiently powerful or badly chosen LLM --- or both.
+ASoC still marks the component resumed when the callback reports failure.
+Track the suspend-owned IRQ disable so another suspend does not increment
+the disable depth again after a failed resume. A later successful resume
+releases that one disable reference. This does not add automatic retry or
+change the framework's best-effort card resume policy.
 
-This isn't actually a new problem.  In the pre-AI era, we would
-sometimes get marginal patches, and there is always a question of
-whether it is the maintainer's time to try to engage with a new
-contributor who might turn into the next valued senior contributor and
-reviewer --- or who might be resistant to education and/or who might
-disappear very shortly.  AI makes the problem worse in that there are
-many more newcomers with new contributions, but it's really not a new
-problem.
+The issue was found by our static-analysis tool and manually reviewed.
 
-If AI is making the review problem more challenging, the good news is
-that there are ways that AI can help.  For example Sashiko can help
-with the early AI review.  And if a newcomer sends 7 versions of the
-patch set in resposee to Sashiko reviews, I will generally not bother
-looking at it personally until a couple of days go past before I waste
-my limited human review bandwidth.  So it's not a case of permanently
-ignoring a patch --- but I may very well down-prioritize when I do pay
-attention.
+Fixes: dfeabded0496 ("ASoC: nau8824: new driver")
+Assisted-by: gpt 5
+Signed-off-by: Pengpeng Hou <hppiscas@163.com>
+---
+Changes since v1:
+- restore cache-only mode and dirty state on replay failure
+- keep suspend-owned IRQ disables balanced across failed resume cycles
+- send as one correctly threaded series, as Mark requested
 
-I also suspect it should be possible to use something like Jev or some
-other System One LLM to help with an initial prioritization for the
-patch, and then have that prioritization be set in patchwork.  Each
-subsystem might have their own criteria which they could encode in
-their prioritization prompt.  For example, if the bug requires root
-privileges and/or a maliciously fuzzed file system, for ext4 it will
-automatically get down-priotized to low priority.
+Previous series:
+https://lore.kernel.org/all/20260906034321.86080-1-hppiscas@163.com/
 
-Using AI-assited priotization may have some collateral damange because
-it might not get the prioritization correct.  But ultimately, if we
-get a flood of patches from newcomers, the choices is either to (a)
-load-shed, or (b) burn out.  And of the two, (a) is the better of two
-bad choices.
+ sound/soc/codecs/nau8824.c |   17 ++++++++++++++---
+ sound/soc/codecs/nau8824.h |    1 +
+ 2 files changed, 15 insertions(+), 3 deletions(-)
 
-						- Ted
+diff --git a/sound/soc/codecs/nau8824.c b/sound/soc/codecs/nau8824.c
+index 853eb9472af92df981b4668c6b0d0dd573c6c30c..522f8951b0598da3bf1def9119ec27a086427fde 100644
+--- a/sound/soc/codecs/nau8824.c
++++ b/sound/soc/codecs/nau8824.c
+@@ -1531,7 +1531,10 @@ static int __maybe_unused nau8824_suspend(struct snd_soc_component *component)
+ 	struct nau8824 *nau8824 = snd_soc_component_get_drvdata(component);
+ 
+ 	if (nau8824->irq) {
+-		disable_irq(nau8824->irq);
++		if (!nau8824->suspend_irq_disabled) {
++			disable_irq(nau8824->irq);
++			nau8824->suspend_irq_disabled = true;
++		}
+ 		snd_soc_dapm_force_bias_level(nau8824->dapm, SND_SOC_BIAS_OFF);
+ 	}
+ 	regcache_cache_only(nau8824->regmap, true);
+@@ -1546,7 +1549,12 @@ static int __maybe_unused nau8824_resume(struct snd_soc_component *component)
+ 	int ret;
+ 
+ 	regcache_cache_only(nau8824->regmap, false);
+-	regcache_sync(nau8824->regmap);
++	ret = regcache_sync(nau8824->regmap);
++	if (ret) {
++		regcache_cache_only(nau8824->regmap, true);
++		regcache_mark_dirty(nau8824->regmap);
++		return ret;
++	}
+ 	if (nau8824->irq) {
+ 		/* Hold semaphore to postpone playback happening
+ 		 * until jack detection done.
+@@ -1555,7 +1563,10 @@ static int __maybe_unused nau8824_resume(struct snd_soc_component *component)
+ 		ret = nau8824_sema_acquire(nau8824, 0);
+ 		if (ret)
+ 			nau8824->resume_lock = false;
+-		enable_irq(nau8824->irq);
++		if (nau8824->suspend_irq_disabled) {
++			nau8824->suspend_irq_disabled = false;
++			enable_irq(nau8824->irq);
++		}
+ 	}
+ 
+ 	return 0;
+diff --git a/sound/soc/codecs/nau8824.h b/sound/soc/codecs/nau8824.h
+index d8e19515133c803c20dfcb167f073515daa6f39a..f44fc39836d634e8f0b98ac9292dabe8069612b2 100644
+--- a/sound/soc/codecs/nau8824.h
++++ b/sound/soc/codecs/nau8824.h
+@@ -437,6 +437,7 @@ struct nau8824 {
+ 	struct clk *mclk;
+ 	int fs;
+ 	int irq;
++	bool suspend_irq_disabled;
+ 	int resume_lock;
+ 	int micbias_voltage;
+ 	int vref_impedance;
+
+base-commit: 8ef28aef33f2d5da6959ad6b579ec3cfccc009f6
+
