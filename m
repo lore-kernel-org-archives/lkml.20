@@ -1,73 +1,180 @@
-Received: from mta1.migadu.com (out-232.mta1.migadu.com [95.215.58.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 596D93BE162
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:18:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D189C4BB26D
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:19:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791980316; cv=none; b=ERe2nA3/+sePVFATKDvEbKn4vdAXyE7XoXqrshtKvZse8V16JjU7movyR7yLb6EcrmSl84hYkFmzXdLaG6fNsNh7Ga5hDG5YNUfjYxfwVojpKNB1Dk+TEi9V2i4va6++fqT8ZgQUenGPOIEujKyJx/NrHn5s12iqeoe9NAlznrc=
+	t=1791980363; cv=none; b=ClIs44Tk9OcaL95pHZ8Ysrb9yelAgQY82QxV86t/UpkleIe51vk7Kph6H2Rj7rVJD9u6nC9fzD8YshEraO9C+27O9srA4l6t2N55f5i4CG3ZDE+qpRBIsJqykmrGGobhQfR68EwZQ62YTOHTasdCcGeqTq5uHWQBfI/kjwJNY+0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791980316; c=relaxed/simple;
-	bh=epxOBuojfAEGBJOX5236uAg0yXfK5UUnnWkEkz0tIRM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JvZMnpRNk+n5BF3LQ3dCBrYTXMMMyY4sv/SEnKN3qtX46Bn7umAVo56jWvDl+NP7+4k5QxRLxymh+wIXCnU0snTe6cTqGYbWZS0Z07cMn12M88VfZkTi6SypL9wdLRQrOwkFuL3tk4yb6QH04nNsNkJMbYFvh3+HE768YL01LsQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=vLAoH4+n; arc=none smtp.client-ip=95.215.58.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791980363; c=relaxed/simple;
+	bh=qhS8MNkDQHRfqbTNQhDUBpErJ9biaMj+d95Ij1s7z7o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ahKuEH54/GukS7Lrv9ZI/SuBmIfQ/QgsTCALQ9mgtwYBu7ojfSQV9ynU8fSXGi+0fva4NFMlCPiONndHE9m0QtiyQRzcNE3IDZDo+xuLbUaeLaa79NFaD4mVp/vf9utR8Sws7aeUZZ/bWBAXe6EmqLxfkK2X9IEy8eg2+t5U+a4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PUjq6TUi; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Gx4yXjba; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="vLAoH4+n"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=epxOBuojfAEGBJOX5236uAg0yXfK5UUnnWkEkz0tIRM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791980311; v=1; x=1792585111;
- b=vLAoH4+nc84ay/n2UPu8MNMP/A7wX1/R6ddCSgohs3z+JBmHaJbGbtK/GHDVmh93DxZZ1pTu
- ysAtIUKIzoeOtHuO0d774zbM2RWbYEOh3gPBiX5+FSyqXxTOoT8XSKPiXk/2Q7vhImAjPT4e1RZ
- FXo1lbojVTzGU+bdzJ2edGog=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 2f5f8524ab26ce5d;
-	Wed, 14 Oct 2026 12:18:31 +0000
-X-Mizu-Trace-ID: 2f5f8524ab26ce5d
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <a114aeca-8e9f-4353-9dd3-9ce077f6fba4@linux.dev>
-Date: Wed, 14 Oct 2026 13:18:31 +0100
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PUjq6TUi";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Gx4yXjba"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EA9iNX806697
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:19:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=Jq90LBuDnLYVMzo9xa4WUu53RzmLM94/Z9r
+	DW7XH1P8=; b=PUjq6TUi6UYp1s7mZcV6KoqAy/UJilYnmKEM2RNGg6SZOkWvXiD
+	XT3bgtn3fPYKeSFqMKlj6U4Nk03oo57yx2s3wSIwRMTI8aQJTzFvrJbYjfSEqwOb
+	1PfgTaFvbGciEVP0CYN6u5fPjB94lj2xR0rZBMF8KzJ6iareHPsn/wsQRX6rPbOO
+	nNTQYbcYs4GpYwG9NqFv3Mgzc7VHG/sJLArXyVMo7QzGuqXPKdsc+zfmADAZpnwg
+	PnzK5MqJw7PMIGE3mZlOoifwvr3cs/xidIqGnIpafk7GOT2+M9vnRY8iHDEOr4Hz
+	64sYBX8ZdzT5vRAKq28recKC4Wqhiqed7JQ==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9ud6bcuu-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:19:20 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc764579e50so524708a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 05:19:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791980359; x=1792585159; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Jq90LBuDnLYVMzo9xa4WUu53RzmLM94/Z9rDW7XH1P8=;
+        b=Gx4yXjbae4yge0vxt6SKWEjIif5kEU/moLyVGYgo+/dM4t/ZcyPtXk96KXK0EUjOvt
+         32xhV+EIq3SsvWSzthqZn6V9qU860t/27IsS45IH3u+MC37stxbwfFUQip70EoXTjIHi
+         P4urTxFNHHyMHCDSI4FrB0QlnY1Ix7Ymz6F7u27kFeS8Dc2c9O7drk04JOdcYyPy6+qv
+         yzsrXVCVNACdviHYJ7RefHOrHxltgEi2ZfB/FDTcc/mobaxiKx/Dbh54b03UcAcFcFvi
+         3w9BIh21HIEIyIAPFz0vo4Pky9PWxJ1GtGb7prtOFNz59WR477twL0ctm8W8ThQKXPzC
+         fHNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791980359; x=1792585159;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Jq90LBuDnLYVMzo9xa4WUu53RzmLM94/Z9rDW7XH1P8=;
+        b=ilGIddTNDQ74haMrFjJHWaKQLlFrglwQITRDO/CAWkh5xyZlzBBL98kNpkwxhHMEsP
+         OmKuIi6E+eW/lqSxZjStLTghVu4afPHrHlhjCP3caizOIDUQ9rC8ZlG+9Qtuqb8UOED/
+         1iL15Oa9flj55YjD86TXW0l++hCgTA0o7cN4aAB4OjS/2Q8rq2Otliupw86q1XRY9xQ4
+         PieckjobDTC6fAJEAMEgwoiKOEVryHcaJwuridy+vTTJkEDPS8XKSmk1y5NjO+d/Vn25
+         kPvwfyDUCbNkviesLiYM9ULdbPTcuRpWtE3CiP2K2dcUVLq6he5d54PZU9MEVsFkTusY
+         RcHA==
+X-Forwarded-Encrypted: i=1; AKwUvBzVa7sBk+z5Iy3I9uaaetHYoQ/83gmdWuH88PfwnX6/lhDnc7oNmkkMRGbj4l7OQsXWVHwEb8DiLZbQkMw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIyhXR7Fhk5mlYzRjuKfOq97ugsAjBILPvEyxlts2tblZBpV0Iv
+	ypYFYscxFMksp2g+RhKShLtXYf/JYUsPx6hmsPi0p+NeUZUOvHaN5VffI6HihVHWGToXuNPnb07
+	kngGo24hhXjIcLsIh0odbhpXUHErHPRKRVOmjjQlIdhYJtpqZ+vTzv9dCKyj6CQDauU8=
+X-Gm-Gg: AYBFou0abF9UkRM2PLSQ9oCeJct/vdLQTzDHp45uCnnSETs32XZwfykx5L9t/wZVXHt
+	JB8yhOQZvE787dx+y6PKaIEKbhyui9s3fevhwKyVx/rpONucHIO1nMVkd7g9qLrsIQ4OqagCs+9
+	xAC/c/dpMdQPr70aHxaRGAgU7sUdttFB/hP+VFfEe7oJEj9YPw/5caxkSXh791bRabivlcM322b
+	MSQ6SnCBjF0W+LswpZIsrywsExTdZedV0qq5wZvv/0C5idUb/i9lfT8VpNQM3Z2/W5Bn0+n7G1M
+	FZyGYWPga1GGi/IaNnncR1huIGqnbVVohHeHJTh1IP+cnEsG5X5Sp7aCFF5UKajWGcA893uUrkA
+	NNbAEX3/BQFJjuqruhdg9MiyPQnv9
+X-Received: by 2002:a05:6a21:8285:b0:3de:50df:7faa with SMTP id adf61e73a8af0-3e16bd47a3cmr24640034637.1.1791980359362;
+        Wed, 14 Oct 2026 05:19:19 -0700 (PDT)
+X-Received: by 2002:a05:6a21:8285:b0:3de:50df:7faa with SMTP id adf61e73a8af0-3e16bd47a3cmr24639989637.1.1791980358858;
+        Wed, 14 Oct 2026 05:19:18 -0700 (PDT)
+Received: from sdciot-sh07-lnx.qualcomm.com ([114.94.8.21])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89d804ec645sm1016990b3a.43.2026.10.14.05.19.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 05:19:18 -0700 (PDT)
+From: Linghui Wu <linghui.wu@oss.qualcomm.com>
+To: Bartosz Golaszewski <brgl@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Miaoqing Pan <miaoqing.pan@oss.qualcomm.com>,
+        Hangtian Zhu <hangtian.zhu@oss.qualcomm.com>, linux-pm@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Linghui Wu <linghui.wu@oss.qualcomm.com>
+Subject: [RFC PATCH 0/3] power: sequencing: qcom-wcn: support SW_CTRL wake IRQ
+Date: Wed, 14 Oct 2026 20:19:07 +0800
+Message-ID: <20261014121910.1509541-1-linghui.wu@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] scsi: libsas: Fix SMP IO deadlock during HA resume
-To: yangxingui <yangxingui@huawei.com>, yanaijie@huawei.com,
- jejb@linux.ibm.com, mkp@kernel.org
-Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
- linuxarm@huawei.com, liuyonglong@huawei.com, kangfenglong@huawei.com
-References: <20260928040234.992912-1-yangxingui@huawei.com>
- <820657c2-1cbd-47d8-92f2-477531692135@linux.dev>
- <ba5d9188-937c-237c-e104-9b66e7c3be3e@huawei.com>
-Content-Language: en-US
-From: John Garry <john.garry@linux.dev>
-In-Reply-To: <ba5d9188-937c-237c-e104-9b66e7c3be3e@huawei.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: sFo3srF3Nq8fJf2OyAXcaz1jybnrwkmd
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA0OCBTYWx0ZWRfX/4qw9rAuR9Gn
+ QiNrNfoKJ7OPPZ4onPHu78VdaVwEqY8F1mV3Seu72Tx6kPcjgVUaqoZgd8/Zu/JjYnoQJGxIcgg
+ eyYKh0hmnLdRyGLmbLsHIQHpaTK30cE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA0OCBTYWx0ZWRfX8u7/HOCjvuFN
+ ZTCa2HDjhR/zB5NZrvY5dqdlT7wUTPknM5S/ml9AZDUSHPIyVAYLp0pnMbEUE8cmIXSrojcBhrl
+ 0rxIzuek3LnsZFvcEgN77n37vIVKFuUTDoPb7QolnnhZCx5H4jwffYbOHZbsjBHyDl1ki2DIY78
+ fWZtE0gIU/twHWUCpYT+Yt7uGPHpCaIMnF4V9TFRE9Tu9FQy9wJ2FleGzyzRDIdcCywvojiZuOv
+ bDwFVlbJphzdrr7jR2gxAjo9X0S/0tEIojScJPQAeU91N03bJpt3iyRzHmkf8NZn9wEeYFEpeuD
+ jC1Dj0JJvTZfIgSLNOU1CHeii8qei01+6SJiHXqaQokZCgr38qKMztjDznU52qwIKJJaZpVGmW4
+ M/LIlMGz6a7mEAZ/Ikeycukq9+lHowtX4S0M4aFwBBINon0Ws77ZdsyxaWECDky1wt9LDDqGYEY
+ UaMFK8N/7NQtsfurnaw==
+X-Authority-Analysis: v=2.4 cv=fJ6sTpae c=1 sm=1 tr=0 ts=6acf7348 cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=LbSbASDYXwb1C5uybScA:9
+ a=_Vgx9l1VpLgwpw_dHYaR:22
+X-Proofpoint-GUID: sFo3srF3Nq8fJf2OyAXcaz1jybnrwkmd
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 lowpriorityscore=0 malwarescore=0
+ suspectscore=0 adultscore=0 impostorscore=0 phishscore=0 bulkscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610140048
 
-On 10/8/26 04:11, yangxingui wrote:
->>> Fixes: 3dbbbf656b850 ("scsi: libsas: Fix HA resume deadlock and 
->>> hisi_sas disk-wake race")
->>> Signed-off-by: Xingui Yang <yangxingui@huawei.com>
->>
->> Question: do you have a (non-hisi_sas) SAS HBA card whose driver uses 
->> libsas? pm8001 would be such an example. It would be nice to verify 
->> that all these and other non-rpm libsas changes does cause regression 
->> there.
-> 
-> We don't have a pm8001 card at hand. From analysis the patch is a
-> no-op for the LLDDs without runtime PM support: pm8001 and isci
+Some WCN3990-family designs connect the SW_CTRL output to a GPIO on the
+application processor. On Shikra, the WCN3988 SW_CTRL signal is connected
+to GPIO88 and is used through the MGPI/AOSS hardware path to request the
+required RF clocks.
 
-It would be good if you could get another card whose driver uses libsas 
-to verify these and any changes.
+Qualcomm downstream kernels configure this path through
+msm_gpio_mpm_wake_set(), but upstream does not provide an equivalent API.
+This series models SW_CTRL as a dedicated wake IRQ. Requesting the GPIO IRQ
+resource enables POWER_SAVE_WAKEUP_ENABLE in Qualcomm TLMM when
+WAKEUP_PRESENT is advertised, while the PM core keeps the IRQ disabled
+during normal operation and arms it for system suspend.
 
-Anyway, the patch looks ok, so:
+This is an RFC because the intended hardware and software model still
+needs confirmation. In particular, please advise whether SW_CTRL should
+be represented as an AP wake source using dev_pm_set_dedicated_wake_irq(),
+or whether Linux only needs an interface to explicitly configure the
+TLMM/MGPI power-save path.
 
-Reviewed-by: John Garry <john.garry@linux.dev>
+The series documents the named wakeup interrupt for the WCN PMU binding,
+implements dedicated wake IRQ handling in the Qualcomm WCN power
+sequencer, and enables it on the Shikra CQM, CQS and IQS EVKs. On this
+base, CQM and CQS share shikra-cqm-som.dtsi, while IQS uses
+shikra-iqs-som.dtsi.
+
+Testing:
+- scripts/checkpatch.pl --strict: passed
+- dt-binding-check: passed
+- dtb-check: passed
+- sparse-check: passed
+- Shikra CQM, CQS and IQS DTB builds: passed
+- QIPL validation of the equivalent qcom-6.18.y implementation: passed
+
+An earlier experiment confirmed that requesting GPIO88 as an IRQ changes
+TLMM_GPIO_INTR_CFG88 from 0x942 to 0x9c2, setting
+POWER_SAVE_WAKEUP_ENABLE.
+
+Linghui Wu (3):
+  dt-bindings: power: sequencing: qcom-wcn: document wakeup-source
+  power: sequencing: qcom-wcn: support SW_CTRL wake IRQ
+  arm64: dts: qcom: shikra: enable WCN SW_CTRL wakeup
+
+ .../bindings/regulator/qcom,wcn3990-pmu.yaml  | 22 ++++++++++++++
+ arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi  |  4 +++
+ arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi  |  4 +++
+ drivers/power/sequencing/pwrseq-qcom-wcn.c    | 30 +++++++++++++++++++
+ 4 files changed, 60 insertions(+)
+
+
+base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
+-- 
+2.43.0
