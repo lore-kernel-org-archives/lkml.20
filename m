@@ -1,85 +1,232 @@
-Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E45D387346;
-	Wed, 14 Oct 2026 09:29:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791970159; cv=none; b=uolQINh4YWQoDZjB3RMAyKBVCEBINnZ+ndTCJCOoYq4iYk0MrAroHNM4E34OK2PCN3H4B7puqymwBAA8VQK78sZDnOSuxd2nKyqxvV7RTs0PMsT+lP9tvtMxHJLofKk5gVg5uey6YX8GJZ8NeIiQHu65DL+702YOOtHPm0q6+dg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791970159; c=relaxed/simple;
-	bh=bZcSaZIvM0ndoFJovUr9jXf0bk/P9K1VBlEWPXY85BQ=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=bBld1DOR4omgh/lI0vslKaR26ImI9OydCNpZinY5im7SAujYasqn7SWcF9bEJqY5oHaPcbjO8TuBHbYF6KBJI09wvIXyq+LV023n1Ien5Yppp+o8HDR3tkzOLSeDtJb+Xgcm3jJL6U3sWam8+NU4brY0SkLxE3PhnfuvcCYJ31g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=VS/5e8kh; arc=none smtp.client-ip=91.189.121.228
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5519A4D37C4
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:29:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791970201; cv=pass; b=lPcj4wHxD+CGkJtbVigSx/R59XQtE2LEJHn9hdLQ3fOlKpQMZZgwmC1LTc8CN43BhU0PzI83vADk+Zd9GCHJmCTQgvLCMnjhh0QlKhU7CrtgPEQ0qvMAHAedpRoLma2gEOMABXLfmSxP2mSnQkTaAslXuWO3AoAHm7HcoAB/yoo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791970201; c=relaxed/simple;
+	bh=pWLyM9luQsQK0o6TzyDtyGsr+aOk8Ps1JZKkmmEaLaY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=At1zFanx1/EQLzXSj8vhJ7UcCPT+VU7fDgziIkl+ghYhMVgFgFqFsYYXPbUvovGOYkGsb6Z49JyekhmJ6SPPQWIn4b6uxBAMkV1Ug3Zz3QBkYu3tBMSeSs0U3GOa2IxbmCiNOFMMtYAUX3lgfjSbDmdYBvULeKaHTXJXrE+TtfY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=aAoGSYIW; arc=pass smtp.client-ip=74.125.224.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="VS/5e8kh"
-Message-ID: <49e370ceff863dad24a58070e987ebd36440cbf1.camel@itx.no>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
-	t=1791970154;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bZcSaZIvM0ndoFJovUr9jXf0bk/P9K1VBlEWPXY85BQ=;
-	b=VS/5e8khANuO7HXcL7V38XITDuKBn0chUQXZSao+2yliGmnFv3axYWFLCDdTCVepYkqie4
-	ugHu7m6aAAHldAmMNVzdAOvMO6xhnduFKWj9bOq95TZBXKomt59vLJQO6Aualw4M/kk4QU
-	/5NJRxaLQSxoS/iGdp8wrFRNHcvqKK0=
-Subject: Re: [PATCH 3/3] selftests/seccomp: add sparc32 support
-From: Stian Halseth <stian@itx.no>
-To: Ludwig Rydberg <ludwig.rydberg@gaisler.com>, Andreas Larsson
-	 <andreas@gaisler.com>, "David S. Miller" <davem@davemloft.net>, Kees Cook
-	 <kees@kernel.org>, sparclinux@vger.kernel.org
-Cc: Andy Lutomirski <luto@amacapital.net>, Will Drewry <wad@chromium.org>, 
- Oleg Nesterov <oleg@redhat.com>, Shuah Khan <shuah@kernel.org>,
- linux-kselftest@vger.kernel.org,  linux-kernel@vger.kernel.org, John Paul
- Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-Date: Wed, 14 Oct 2026 11:29:13 +0200
-In-Reply-To: <20261014080730.8817-4-ludwig.rydberg@gaisler.com>
-References: <20261014080730.8817-1-ludwig.rydberg@gaisler.com>
-	 <20261014080730.8817-4-ludwig.rydberg@gaisler.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-Bw0MB6kSdidACYAXBKdy"
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="aAoGSYIW"
+Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-6798c43a3d6so302951d50.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 02:29:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791970197; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RgGLvWrPKF3TAJnIwb//6Q7sHhNafc7WK7QC4hJQiNW/g80sB2f5KgZG1aqVV1ykhA
+         slE/1o7BtEuf3Kh6T5gcoPX3CzkO5pUFLM028k1iohO0fMzrRTB1kDO4csOC1syHR4Zq
+         icVPDajDyE39b3in1UZGycxJjLZ9LKUMd+i+WyAQsT/tme5FMFZaIyZyKJsuHUygzMzL
+         q83N/dGBu9DXumFJ9UgJIrbQgu8SrrUYVmGbwii446iaAEoWzPqV93/8PPeynbx7oBo5
+         UwB9XXGQXS9cj0MeLQcIdWc9Kh+hgd8LUU+sHvFbeKeUO0G0e+fH0f0xG0cMJ8iRtbys
+         Gwfg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=pMwu/+dLKz/hELXQ8G9suR4fEQW92masMZdt6u+igOk=;
+        fh=UBnmdRJMSYTBLwycPJtKl9kYiSFQwXjQhuaWisX3ngI=;
+        b=H810G8hqtX0HWedmnbYQk1Nz/Xqlcdybduids3vKLcAdp+Lk3919DCf+aLVr75nyIV
+         wj1RKAkvExDi5Hqpv+/O9juCvNJykROsB0ifNe3zqSblrQDGjWwSuoONjro81cng1VTH
+         u8kPQT0IZras506/UNNWFR3xLXMz/33U5H5JiSl4xJ0yGnEZVUE2LnWHYfUrfediPEos
+         x+7GCtXmDQ33VOoIRiLMOZk4kWxfvMYty1e+e8kEXOW//WtYmcgHG7lnSMJxX9R4DYtT
+         /VjZQJLrLboseLidy/hSrtWSz7pANMcRSv1SLKXbgGT4heboYT86fa6BehB6jw0TrR3h
+         brwg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1791970197; x=1792574997; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pMwu/+dLKz/hELXQ8G9suR4fEQW92masMZdt6u+igOk=;
+        b=aAoGSYIWWjtVl7BdPGo49TE1UOs7NuJ9kjStb8r2sXTsaTBtWvFMA+ayTXnDHo4wVv
+         +ajzuC8CFoNnYs+L3Pd5obM6j8bqYoTtK63Fp52vRVwxAVtnds3dPppxzGg/qHsH5dDb
+         fXf5FX8TYvPKwE7Hmn8A97zWNhRVC+SXvPylI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791970197; x=1792574997;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pMwu/+dLKz/hELXQ8G9suR4fEQW92masMZdt6u+igOk=;
+        b=h1eyRUOzkNuSy43CJ5nLIXX05mS4wDzEJVq7E72JNPyIAcory0Gjv5BjkRXAXOd85/
+         S10H8tsn7jCcTc5F9lWkv+HxnHl/Hu+9ygtu2H9IpoBXAROXRD5Ck4vL8OxJIZzhylYW
+         ibyADIgYzBkRGD9S+sSdXXcTExNzkA9iCmWjQhqsQOwUi3MIzmSYYlw2bGwPWi01Qva7
+         c/3ryI5fKUfVjHwJ5+v62KfvaOrGczdkLXnE4V5UPrZMVJVL12Q9P2+Wd6xBfSHgRUL8
+         bexKu41cpfcZBkCFbBCkW+pxoq687nLc7RKTVu6T49DkEo7Gj3rQqoUrdTX5b9vitlw3
+         8doA==
+X-Forwarded-Encrypted: i=1; AKwUvBy/x96hucDsWG6ZxR1X17wmqgCNQX8nyDNGpqw2h9nNQOrccmE4RHEvye5MSQ0mymNOewDzI348baTUxlc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI22pqTa4Z9+nO8ykNAjc4PQzbfpb8WWIkiPiv65nnQeEUSdoeL
+	IiIFv3kEHxY+cPZOLJnySifxhuOGP/GiiOPEblhtuKBLLaYexjkRqFHX/0doQm8ZZr7Nc2bNPwD
+	N1bC5lFzCqdWdOP6npFnlraRJ1wx7bBs2KwTnRxuu
+X-Gm-Gg: AYBFou1o7grDnTWHqWjWx4HopLMQYOyqpHs3l8bV3lIFnAMIm4Q8Of9tEKvodXWiEZq
+	+SnjoV1TjvmSjR/cvXTkrgb6ilJT/gw0Skin1WhDpZpFU7ayQdsSBFiuF8/l3wPBDN7cemFB4gx
+	lCN0DlAbkftcgww9b6VwwwSLNik8SN4aw5OiK5Aq0lhNqQR1429M3+dOa8SdE0UbPXrrBGLL5e+
+	Lo1TiUxZGyPaF8OC+kiFDWp6ikNHPDJfbTCSKPBtoRBll0CtvKlTYSuIBnfRQpho32plkBv/ADB
+	aSCvIs8c2fYQAJZUvOYEKpBZ5SvAbodmlHZ17zHxPbeas08H3vB9U9ZVRGLE4cVvIvc=
+X-Received: by 2002:a05:690e:1094:10b0:677:d106:6f97 with SMTP id
+ 956f58d0204a3-679363475c0mr3180487d50.152.1791970197053; Wed, 14 Oct 2026
+ 02:29:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-
-
---=-Bw0MB6kSdidACYAXBKdy
-Content-Type: text/plain; charset="ISO-8859-1"
+References: <20261014082037.1774672-1-wenst@chromium.org> <20261014082037.1774672-3-wenst@chromium.org>
+ <7020a7a6-332e-4fd0-a659-d82eb768614c@linaro.org>
+In-Reply-To: <7020a7a6-332e-4fd0-a659-d82eb768614c@linaro.org>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Wed, 14 Oct 2026 18:29:46 +0900
+X-Gm-Features: AclHuK9N2qPZVqRIKj3AC2e-RNgLBJ_oiV-FNmg6s8RgvBJGg_msVeXPasEPdno
+Message-ID: <CAGXv+5G1kgyumbj7wGf6rPFbg3spSO0zYmEkn-hZT4qUdJbytA@mail.gmail.com>
+Subject: Re: [PATCH 2/2] dt-bindings: usb: snps,dwc3: Fix downstream port numbering
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Felipe Balbi <balbi@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+	Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Sven Peter <sven@kernel.org>, 
+	Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>, Joel Stanley <joel@jms.id.au>, 
+	Andrew Jeffery <andrew@codeconstruct.com.au>, Ryan Chen <ryan_chen@aspeedtech.com>, 
+	Billy Tsai <billy_tsai@aspeedtech.com>, Michal Simek <michal.simek@amd.com>, 
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	Peter Griffin <peter.griffin@linaro.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	Tudor Ambarus <tudor.ambarus@linaro.org>, Heiko Stuebner <heiko@sntech.de>, 
+	Alim Akhtar <alim.akhtar@samsung.com>, Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Yixun Lan <dlan@kernel.org>, 
+	Troy Mitchell <troy.mitchell@linux.spacemit.com>, Minda Chen <minda.chen@starfivetech.com>, 
+	Shyam Pandey <radhey.shyam.pandey@amd.com>, Wei Yang <yangwei1@eswincomputing.com>, 
+	Senchuan Zhang <zhangsenchuan@eswincomputing.com>, Hang Cao <caohang@eswincomputing.com>, 
+	Li Jun <jun.li@nxp.com>, Peng Fan <peng.fan@nxp.com>, Roy Luo <royluo@google.com>, 
+	Yang Xiwen <forbidden405@foxmail.com>, 
+	Ahmad Zainie <wan.ahmad.zainie.wan.mohamad@intel.com>, 
+	Robert Marko <robert.marko@sartura.hr>, Xu Yang <xu.yang_2@nxp.com>, 
+	Wesley Cheng <quic_wcheng@quicinc.com>, Stanley Chang <stanley_chang@realtek.com>, 
+	Ze Huang <huang.ze@linux.dev>, Aswath Govindraju <a-govindraju@ti.com>, 
+	Roger Quadros <rogerq@kernel.org>, linux-arm-kernel@lists.infradead.org, 
+	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	asahi@lists.linux.dev, linux-aspeed@lists.ozlabs.org, imx@lists.linux.dev, 
+	linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, 
+	spacemit@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, 2026-10-14 at 10:07 +0200, Ludwig Rydberg wrote:
-> Add SPARC32 definitions to seccomp_bpf selftest.
->=20
-> Reuse the sparc64 register handling on sparc32 but adapt the carry
-> bit handling to use %tstate on sparc64 and %psr on sparc32.
->=20
->=20
+On Wed, Oct 14, 2026 at 5:28=E2=80=AFPM Neil Armstrong
+<neil.armstrong@linaro.org> wrote:
+>
+> On 10/14/26 10:20, Chen-Yu Tsai wrote:
+> > The DWC3 controller can operate in host mode. It does so with a XHCI
+> > compliant host controller. The XHCI has two downstream ports, one for
+> > HS and one for SS. USB downstream ports start from 1, not 0.
+>
+> Is there something in index 0 we will need to define at some point ?
 
-Tested on a SPARC T7-1 (M7), 7.3-rc5 with the sparc64 series. The
-64-bit seccomp_bpf gives the same result with this patch as without
-it, pass:95 fail:0 skip:16. Built as a 32-bit binary against a sparc
-Gentoo stage3, it gets the same result on the 64-bit kernel through
-the compat path.
+On the host side, no. Downstream ports start at 1.
 
-Tested-by: Stian Halseth <stian@itx.no> # sparc64, native and compat
+On the device mode side, I believe the numbers are completely made up.
+
+> Using 0 as base for numbering in DT isn't incompatible with the USB
+> spec using base 1 for numbering,
+
+But you end up with diverging numbering schemes, and it diverges
+from other USB controllers, particularly XHCI, which DWC3 embeds.
+
+And it also differs from the numbering currently used for directly
+connected onboard devices (like hubs), which use or expect the USB
+numbering scheme.
+
+Sure we can make DWC3 "special", drop inclusion of usb-hcd.yaml,
+and duplicate the section for onboard devices. On Linux, we can
+add some more code to xhci_find_raw_port_number() to make an
+exception for DWC3 controllers.
+
+Also, usb_of_get_connect_type() is already broken for DWC3 based
+controllers that only describe the HS connection but not the SS
+connection. usb_of_get_connect_type() currently doesn't call
+usb_hcd_find_raw_port_number() so both HS and SS get mapped to port 1,
+which wouldn't be in the DT since HS is currently port@0. But even if
+it did, SS would get mapped to port 2 anyway.
 
 
---=-Bw0MB6kSdidACYAXBKdy
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+IMHO having consistent numbering across controller types would be
+better. This avoids making the USB core and hub code deal with more
+exceptions, and also easier to understand and write device trees.
 
------BEGIN PGP SIGNATURE-----
+> > Reconcile the downstream port numbering with the common USB host
+> > binding, renumbering the downstream port numbers from 0 and 1 to
+> > 1 and 2.
+> >
+> > This is non-backwards compatible, however it won't break current
+> > major implementations:
+> >
+> > - dwc3 "gadget mode" in Linux kernel only requires a connection to be
+> >    present; it doesn't matter which port it is
+> >    - dwc3 "host mode" OF graph connections aren't supported yet [1]
+> > - FreeBSD doesn't use the OF graph for anything
+> > - U-boot doesn't use the OF graph for USB
+> > - OpenBSD doesn't support dwc3, only the XHCI in dwc3, and doesn't use
+> >    the OF graph for USB
+> > - coreboot doesn't use the OF graph for anything
+> > - Zephyr doesn't support dwc3
+> > - TF-A doesn't use the OF graph for anything
+> > - EDK2 doesn't support dwc3 and doesn't support OF graph
+> > - OP-TEE doesn't support dwc3 and doesn't support OF graph
+> >
+> > [1] WIP to tie OF graph port node to USB port device
+> >
+> > Fixes: a33113f73693 ("dt-bindings: usb: snps,dwc3: document HS & SS OF =
+graph ports")
+> > Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+> > ---
+> > It is unclear to me whether the HS/SS numbering is fixed for all dwc3
+> > variants. I checked Allwinner H616 and Rockchip RK3588 and they both
+> > have HS as port 1 and SS as port 2.
+> >
+> > This also doesn't cover a potential "multi-port" DWC3 implementation,
+> > which Qualcomm seems to have.
+>
+> It breaks the current Qualcomm numbering on numerous boards.
 
-iHUEABYKAB0WIQTK1ph9OaYoND1R57zoeAEuJe36VgUCas9LaQAKCRDoeAEuJe36
-Vl7xAP4/fZi5foZm2kkVsdUAYC36tmBFv6bTnswy7KsNamlRGAEArNghgjdeevWS
-4BUgT6nqVttl7g8mubMyxAG0mTmNQQ4=
-=EVH7
------END PGP SIGNATURE-----
+Yes. It breaks _everyone_ using the current numbering in the sense that
+they are no longer valid, but should not affect actual usage.
 
---=-Bw0MB6kSdidACYAXBKdy--
+This comment refers to "multiport" controllers from Qualcomm [1], which
+would have ports beyond 1 and 2.
+
+[1] https://lore.kernel.org/all/20240420044901.884098-8-quic_kriskura@quici=
+nc.com/
+
+
+> > ---
+> >   Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml | 4 ++--
+> >   1 file changed, 2 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yam=
+l b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
+> > index 6c0b8b653824..4b6304bd2ec1 100644
+> > --- a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
+> > +++ b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
+> > @@ -410,11 +410,11 @@ properties:
+> >         property is used.
+> >
+> >       properties:
+> > -      port@0:
+> > +      port@1:
+> >           $ref: /schemas/graph.yaml#/properties/port
+> >           description: High Speed (HS) data bus.
+> >
+> > -      port@1:
+> > +      port@2:
+> >           $ref: /schemas/graph.yaml#/properties/port
+> >           description: Super Speed (SS) data bus.
+> >
+>
