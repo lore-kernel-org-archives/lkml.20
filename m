@@ -1,191 +1,212 @@
-Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
+Received: from gentwo.org (gentwo.org [62.72.0.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65F874BF924
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:43:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.122
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E15034BD370
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:43:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.72.0.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792017787; cv=none; b=eTNy9PLKrY1wCZyPTbkmJPHBjAyykAy0f3n125sdQYVN0SOjfQMv8WBQ5slrprAT6ePu0tsRufUBfDIaBgaO5ohusuu4hg/BVZIsP4RSzETf/l3TYBjPFWgBbkOuo9nZVzhCgt6qCbaNyvn27CBvvpQAdB1OjASNhevz1DxVBn8=
+	t=1792017791; cv=none; b=Ac9T4j1qi4PvvoD2xpr6DY8b+4lbaMD8U/EJyqVeq3wvaTzPsq+HjuO12Bht9pdgRTcj8FNJyUz9g6ez94m8JpYyLaXvnLLnQfKDVFuuZsvMmBHMCpMXpicsqzbLjT7DChxpdcGWHNmg98wTFxFzrFfRW13GAr6SkqVFIMVS4xI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792017787; c=relaxed/simple;
-	bh=6QMveXXpEj5QdPkVXKozi90KLuYOCVhf9Jhu27z3Jvw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Lf/t0PkQwWBmQorvhsZ2uhSOjvxJka/biFev1sMPzKXh6Q4dtFsUuy4etvTduMOAGFJIqltAxgYHGJAnj/P2Baazw/S3uDBTEmVSbNiGzgE4D5JnHm4LxxoDV4VQxeOzxEaclvPxEdBD+97LeHiA2KC/09krf0oHDFKiTSb7Nis=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=FsyQyuYO; arc=none smtp.client-ip=185.125.188.122
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
+	s=arc-20240116; t=1792017791; c=relaxed/simple;
+	bh=EZoYzXQPXdyFKTiPzoiAI99j3Ti9QUPKVhQ8aiGcbMI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=gE8IYfHAG6tcXqCkveAqeUrDeo5HOCFwXAdHDVxq7ocnpwI/D07lchIzDIHMHct5LGC1zv+gkbfKzGFywX2eRgECBISBWJDq2V9BP1+YNCXM8GDsds4hCPOtijbpU/91rihNKiMhU6T3ramO30go9nh7nf9PM/dJl/+9RNq/HFk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org; spf=pass smtp.mailfrom=gentwo.org; dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b=P/WnryW0; arc=none smtp.client-ip=62.72.0.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="FsyQyuYO"
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 0667040276
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:42:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1792017776;
-	bh=ZdiR6FLWYbNv8HRJW/cp7ACv/gfnAQ2Xl+ab8eRDEmc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version;
-	b=FsyQyuYOUONJp/2rlriXx/UMmB5To269mupZAhVKDQ0v+77/jNw7d+wl9RD0FOyK/
-	 g4j+U2pR6IR3u4gKqQRRtd5MLbct22J5n7aQ9ZhG1Mn4vEuL45/nxXLOQrrSwVNH3J
-	 LceGO9aLiMmvpqICnzmiZ8FKoRJoBbBDqQjayyNUCfx8zEUeuIaO7lSU24XliMuHNw
-	 2vTACYVsVUQt4FISzBYXlUvW1AZ2MV19FaygNEfKdZSrnRNoqED0ebxExo/xsH2+Wc
-	 d070OUBfOtJJAb0ghQ2s16b25xKTcKQOoRu/gX1nAJJvK6Tyhob9QyfYufdMEe8iDK
-	 8MKM7I4+gItFe8xQyr9sYChgpOIm7ZZfcWxjPFe1nbbUU3DPOvbg8JjkOODlTkF6DO
-	 pqbJ8fswtxKJ3+XkjkVw3S71b8wEUgtQrOWyF5qeDWzVoFV0ZM7jhuGIZw8+XOkN5Y
-	 3E0fyCOj2khgc5m6MJBD5t7xY21uEN+9vxGkTTvIFFY2Q/VZAhwWDm7qvCLGf1ogoM
-	 IICR+8VQoSokwWTr2plID4Uk/ir4ulobQAYX8P+PW4Q+z8kj4J2oLQ/UHrjerKYY9V
-	 SDr8/sG2+QzFKZuQ9xDiMoIvPllcNWVom3Kt9JN3WjpDwMilEowHrps61LAHw4+hO2
-	 MXWG9I6IiVy8V6+vnEC2dPo4=
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a0284121c6so10929235e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:42:55 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792017775; x=1792622575;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZdiR6FLWYbNv8HRJW/cp7ACv/gfnAQ2Xl+ab8eRDEmc=;
-        b=iaOmcX9IwwmAhhpMzDb/dh5UhpO/NLXAvBGSnEzEnCiPqgrrLaX2DhRu3++cjZ+gho
-         FPNO4mB6/uylcFtbJeEPGbV4Gl3cW9QYOGCCtuaJg79SJ+mCaz083XWavLPfhHkCriKp
-         MUeNT6vfqOb2gxea7wxTC6J1lfaTtHoVhCkeQr342eC0vnyweaUWgWS2JFfjCjWTyxDg
-         7+m6I+lMbBoybP7ru5/PD23LepScUlt7f5LnU7FhtG9rVbpi6nhn/2PTMxSDBsUJiUHK
-         HXZIgIqynJxB1hHr0tzCE/WS/swvRO+HGxYDU9lh3PTOWrt9CpnFxIHGQ7F4UE8yQrXB
-         e7EA==
-X-Forwarded-Encrypted: i=1; AKwUvBw675GL4DThj2b0AM62bsX4C3UNp8dW2enXr1k1JIFNb0VflnK1T/c0OmFmg5nbj+m+pVcgz7R0CFUDv50=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIacxaYjrwqd4/0xwZ6n78ininop9vcAEISwjf563q0TFE6JskG
-	xC5rLPofkJx2p6i+ZvC6ht7+3MFZ6xxVtnVNsuz6HV9o+dAx72sCJ39tW4iinY7Vq/UHEdd38XJ
-	prtJL2Bkk0Y5O+dyG7CgEFbHpqtGOq5Y7Y4Nvf+T64kVeECYJ+fL5nFqLo0O3PCrIafNO7udKMO
-	S09a9ocg==
-X-Gm-Gg: AYBFou1ovBhJGpOZ0aBtOxa+eb0dFI9QZI44mXZQewE3MjHFgHL3m4rq+6xqa2haudB
-	9867ru0OP47IxEktm93UJQMyshliak8K5Xp/uU/euWhBm/niRbqj+u43VaVq3DdPkh7L/N/mPjC
-	9pknpervk3eNh2PRdaWLfEXJ6gJXuSzXjG0ANac96MYOD2tzBY6/PAbG8fao7ktaUI5eVRio/3U
-	x/0WduALnWV+uc6ebSKne4mywK54WUMTQMBCwWsaYrKwLbt7H+IS9u4N5fm4Hdr4xPwH7zKbOEu
-	ScoRZu5G/yaHACVKxWMD7QFFMwUk18izndG1zBAwr2OESE/98fBFrlUYIk8GCKqN+2DtbnzfMZG
-	TRUXG4i9PLmfTRziXLwUCz85AqS12Lweanm7LXQcJVxSUicq0zVQ7hE2X
-X-Received: by 2002:a05:600c:4747:b0:4a1:77db:45d9 with SMTP id 5b1f17b1804b1-4a18e47aa9amr359760815e9.6.1792017775547;
-        Wed, 14 Oct 2026 15:42:55 -0700 (PDT)
-X-Received: by 2002:a05:600c:4747:b0:4a1:77db:45d9 with SMTP id 5b1f17b1804b1-4a18e47aa9amr359760415e9.6.1792017774558;
-        Wed, 14 Oct 2026 15:42:54 -0700 (PDT)
-Received: from workstation5 ([2a02:908:1242:30e0:513f:8595:22d1:d25d])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bf63567esm23227965e9.10.2026.10.14.15.42.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 15:42:54 -0700 (PDT)
-From: Heinrich Schuchardt <heinrich.schuchardt@canonical.com>
-To: Anup Patel <anup@brainfault.org>,
-	Atish Patra <atish.patra@linux.dev>
-Cc: Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Sarah Emery <sarah.emery@canonical.com>,
-	kvm@vger.kernel.org,
-	kvm-riscv@lists.infradead.org,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Heinrich Schuchardt <heinrich.schuchardt@canonical.com>
-Subject: [PATCH 2/2] KVM: riscv: selftest: add Zicclsm, Ziccamoa, Ziccif, Za64rs
-Date: Thu, 15 Oct 2026 00:42:39 +0200
-Message-ID: <20261014224239.963635-3-heinrich.schuchardt@canonical.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261014224239.963635-1-heinrich.schuchardt@canonical.com>
-References: <20261014224239.963635-1-heinrich.schuchardt@canonical.com>
+	dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b="P/WnryW0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
+	s=default; t=1792017136;
+	bh=EZoYzXQPXdyFKTiPzoiAI99j3Ti9QUPKVhQ8aiGcbMI=;
+	h=From:Date:Subject:To:Cc:From;
+	b=P/WnryW01x4sVMPKXShsWbxjaRK2wbMzd0ta55+PApYIaZ35w2eFkKTb89QnWLyEj
+	 7wqP2uuoQ31It6YJyoVUduBbPJhrB6kvAnW5iuh08IyWJJZXpHxZ3VbkkouXCJtqf5
+	 FKEENO54GGepRXXt2SCnYLSCrMuwOebZ7MUCt4k8=
+Received: from sut02sys-r112.scc-lab.amperecomputing.com (localhost [127.0.0.1])
+	by gentwo.org (Postfix) with ESMTPS id 76A0840112;
+	Wed, 14 Oct 2026 15:32:16 -0700 (PDT)
+From: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
+Date: Wed, 14 Oct 2026 15:32:10 -0700
+Subject: [PATCH v2] sched/rt,dl: Remove unreachable migration-disabled push
+ checks
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261014-sched-rt-dead-md-push-v2-1-9f57f1a530dc@gentwo.org>
+X-B4-Tracking: v=1; b=H4sIAOkC0GoC/4WNQQ6DIBBFr2Jm3WkAtVJXvUfjQmEQFgUDlrYx3
+ r3UC3T5XvLf3yBRdJSgrzaIlF1ywRcQpwqUHf1M6HRhEExcOOMNJmVJY1xR06jxoXF5JotKyqn
+ pVE3CMCjbJZJx76N7Hwpbl9YQP8dN5j/7r5g5cmzNtWu7iWol2W0mv77COcQZhn3fv5Y/P++7A
+ AAA
+X-Change-ID: 20261014-sched-rt-dead-md-push-c88b47c3e2f0
+To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
+ K Prateek Nayak <kprateek.nayak@amd.com>, 
+ Shubhang Kaushik <shubhang@os.amperecomputing.com>, 
+ "Christoph Lameter (Ampere)" <cl@gentwo.org>
+Cc: linux-kernel@vger.kernel.org, 
+ "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792017136; l=5021;
+ i=sh@gentwo.org; s=20251010; h=from:subject:message-id;
+ bh=EZoYzXQPXdyFKTiPzoiAI99j3Ti9QUPKVhQ8aiGcbMI=;
+ b=yi9KNuzmFFDqeV90yItmddrxB5HVzSvGD4GXaZrzSens0ZVNokGy+4MEn1dOi6tP3ovumNd4u
+ d/Zxl+2cUcnB4tupJ5d+D9kk4b3GzoroHv5uyiptaoLjobNaRXsm6M1
+X-Developer-Key: i=sh@gentwo.org; a=ed25519;
+ pk=jc8YIRvxPSyJaBRe5y+a4N0RXKBUEcAh8+OFhlROXPY=
 
-KVM supports extensions Zicclsm, Ziccamoa, Ziccif, Za64rs for the guest.
-Add these extensions to the get-reg-list test.
+push_rt_task() and push_dl_task() select their candidates with
+pick_next_pushable_task() and pick_next_pushable_dl_task(),
+respectively. Both helpers skip migration-disabled tasks.
 
-Signed-off-by: Heinrich Schuchardt <heinrich.schuchardt@canonical.com>
+The source rq lock is held after candidate selection. The selected task
+is queued, not executing, and cannot enter a migration-disabled region
+while that lock is held.
+
+find_lock_lowest_rq() and find_lock_later_rq() can drop the source rq
+lock. If that happens, they recheck is_migration_disabled() after
+reacquiring the locks and reject a task that changed state. Their
+callers then either exit or retry with a task selected by the same
+helper, which again excludes migration-disabled tasks.
+
+The migration-disabled fallback in push_rt_task() and the corresponding
+check in push_dl_task() are therefore unreachable. Remove them. The RT
+fallback is the only user of the @pull argument, so remove that
+argument too.
+
+This does not change the migration-disabled handling in pull_rt_task()
+or pull_dl_task(), which use different candidate selectors and retain
+their existing donor-push recovery.
+
+Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
 ---
- tools/testing/selftests/kvm/riscv/get-reg-list.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+Tested on 80-core SMP, non-SMT Ampere Altra system:
 
-diff --git a/tools/testing/selftests/kvm/riscv/get-reg-list.c b/tools/testing/selftests/kvm/riscv/get-reg-list.c
-index bf3980e9db127..71e5969142b30 100644
---- a/tools/testing/selftests/kvm/riscv/get-reg-list.c
-+++ b/tools/testing/selftests/kvm/riscv/get-reg-list.c
-@@ -63,6 +63,7 @@ bool filter_reg(__u64 reg)
- 	case KVM_REG_RISCV_ISA_EXT | KVM_REG_RISCV_ISA_SINGLE | KVM_RISCV_ISA_EXT_SVNAPOT:
- 	case KVM_REG_RISCV_ISA_EXT | KVM_REG_RISCV_ISA_SINGLE | KVM_RISCV_ISA_EXT_SVPBMT:
- 	case KVM_REG_RISCV_ISA_EXT | KVM_REG_RISCV_ISA_SINGLE | KVM_RISCV_ISA_EXT_SVVPTC:
-+	case KVM_REG_RISCV_ISA_EXT | KVM_REG_RISCV_ISA_SINGLE | KVM_RISCV_ISA_EXT_ZA64RS:
- 	case KVM_REG_RISCV_ISA_EXT | KVM_REG_RISCV_ISA_SINGLE | KVM_RISCV_ISA_EXT_ZAAMO:
- 	case KVM_REG_RISCV_ISA_EXT | KVM_REG_RISCV_ISA_SINGLE | KVM_RISCV_ISA_EXT_ZABHA:
- 	case KVM_REG_RISCV_ISA_EXT | KVM_REG_RISCV_ISA_SINGLE | KVM_RISCV_ISA_EXT_ZACAS:
-@@ -89,6 +90,9 @@ bool filter_reg(__u64 reg)
- 	case KVM_REG_RISCV_ISA_EXT | KVM_REG_RISCV_ISA_SINGLE | KVM_RISCV_ISA_EXT_ZICBOM:
- 	case KVM_REG_RISCV_ISA_EXT | KVM_REG_RISCV_ISA_SINGLE | KVM_RISCV_ISA_EXT_ZICBOP:
- 	case KVM_REG_RISCV_ISA_EXT | KVM_REG_RISCV_ISA_SINGLE | KVM_RISCV_ISA_EXT_ZICBOZ:
-+	case KVM_REG_RISCV_ISA_EXT | KVM_REG_RISCV_ISA_SINGLE | KVM_RISCV_ISA_EXT_ZICCAMOA:
-+	case KVM_REG_RISCV_ISA_EXT | KVM_REG_RISCV_ISA_SINGLE | KVM_RISCV_ISA_EXT_ZICCIF:
-+	case KVM_REG_RISCV_ISA_EXT | KVM_REG_RISCV_ISA_SINGLE | KVM_RISCV_ISA_EXT_ZICCLSM:
- 	case KVM_REG_RISCV_ISA_EXT | KVM_REG_RISCV_ISA_SINGLE | KVM_RISCV_ISA_EXT_ZICCRSE:
- 	case KVM_REG_RISCV_ISA_EXT | KVM_REG_RISCV_ISA_SINGLE | KVM_RISCV_ISA_EXT_ZICFILP:
- 	case KVM_REG_RISCV_ISA_EXT | KVM_REG_RISCV_ISA_SINGLE | KVM_RISCV_ISA_EXT_ZICFISS:
-@@ -576,6 +580,7 @@ static const char *isa_ext_single_id_to_str(__u64 reg_off)
- 		KVM_ISA_EXT_ARR(SVNAPOT),
- 		KVM_ISA_EXT_ARR(SVPBMT),
- 		KVM_ISA_EXT_ARR(SVVPTC),
-+		KVM_ISA_EXT_ARR(ZA64RS),
- 		KVM_ISA_EXT_ARR(ZAAMO),
- 		KVM_ISA_EXT_ARR(ZABHA),
- 		KVM_ISA_EXT_ARR(ZACAS),
-@@ -602,6 +607,9 @@ static const char *isa_ext_single_id_to_str(__u64 reg_off)
- 		KVM_ISA_EXT_ARR(ZICBOM),
- 		KVM_ISA_EXT_ARR(ZICBOP),
- 		KVM_ISA_EXT_ARR(ZICBOZ),
-+		KVM_ISA_EXT_ARR(ZICCAMOA),
-+		KVM_ISA_EXT_ARR(ZICCIF),
-+		KVM_ISA_EXT_ARR(ZICCLSM),
- 		KVM_ISA_EXT_ARR(ZICCRSE),
- 		KVM_ISA_EXT_ARR(ZICFILP),
- 		KVM_ISA_EXT_ARR(ZICFISS),
-@@ -1238,6 +1246,7 @@ KVM_ISA_EXT_SIMPLE_CONFIG(svinval, SVINVAL);
- KVM_ISA_EXT_SIMPLE_CONFIG(svnapot, SVNAPOT);
- KVM_ISA_EXT_SIMPLE_CONFIG(svpbmt, SVPBMT);
- KVM_ISA_EXT_SIMPLE_CONFIG(svvptc, SVVPTC);
-+KVM_ISA_EXT_SIMPLE_CONFIG(za64rs, ZA64RS);
- KVM_ISA_EXT_SIMPLE_CONFIG(zaamo, ZAAMO);
- KVM_ISA_EXT_SIMPLE_CONFIG(zabha, ZABHA);
- KVM_ISA_EXT_SIMPLE_CONFIG(zacas, ZACAS);
-@@ -1264,6 +1273,9 @@ KVM_ISA_EXT_SIMPLE_CONFIG(zfhmin, ZFHMIN);
- KVM_ISA_EXT_SUBLIST_CONFIG(zicbom, ZICBOM);
- KVM_ISA_EXT_SUBLIST_CONFIG(zicbop, ZICBOP);
- KVM_ISA_EXT_SUBLIST_CONFIG(zicboz, ZICBOZ);
-+KVM_ISA_EXT_SIMPLE_CONFIG(ziccamoa, ZICCAMOA);
-+KVM_ISA_EXT_SIMPLE_CONFIG(ziccif, ZICCIF);
-+KVM_ISA_EXT_SIMPLE_CONFIG(zicclsm, ZICCLSM);
- KVM_ISA_EXT_SIMPLE_CONFIG(ziccrse, ZICCRSE);
- KVM_ISA_EXT_SIMPLE_CONFIG(zicfilp, ZICFILP);
- KVM_ISA_EXT_SUBLIST_CONFIG(zicfiss, ZICFISS);
-@@ -1372,6 +1384,7 @@ struct vcpu_reg_list *vcpu_configs[] = {
- 	&config_svnapot,
- 	&config_svpbmt,
- 	&config_svvptc,
-+	&config_za64rs,
- 	&config_zaamo,
- 	&config_zabha,
- 	&config_zacas,
-@@ -1398,6 +1411,9 @@ struct vcpu_reg_list *vcpu_configs[] = {
- 	&config_zicbom,
- 	&config_zicbop,
- 	&config_zicboz,
-+	&config_ziccamoa,
-+	&config_ziccif,
-+	&config_zicclsm,
- 	&config_ziccrse,
- 	&config_zicfilp,
- 	&config_zicfiss,
+  - Built and booted with CONFIG_IRQ_WORK=y.
+  - Ran repeated SCHED_FIFO affinity changes among CPUs 78 and 79 with
+    RT_PUSH_IPI enabled and disabled; both runs completed and cleaned
+    up all worker tasks.
+  - With RT_PUSH_IPI enabled, function tracing confirmed repeated
+    execution of rto_push_irq_work_func() via irq_work_single().
+
+Changes in v2:
+  - Also remove the unreachable migration-disabled check in push_dl_task().
+  - Clarify that both push paths exclude migration-disabled tasks.
+
+Link to v1: https://lore.kernel.org/r/20261014-sched-rt-dead-md-push-v1-1-5f9757be3c80@gentwo.org
+---
+ kernel/sched/deadline.c |  3 ---
+ kernel/sched/rt.c       | 48 +++---------------------------------------------
+ 2 files changed, 3 insertions(+), 48 deletions(-)
+
+diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+index 0663c00c41c04213fda2ebaf16a0bdf34e0849a8..e9d952853f14aaf48cdca6f89135090adee5f6ba 100644
+--- a/kernel/sched/deadline.c
++++ b/kernel/sched/deadline.c
+@@ -3158,9 +3158,6 @@ static int push_dl_task(struct rq *rq)
+ 		return 0;
+ 	}
+ 
+-	if (is_migration_disabled(next_task))
+-		return 0;
+-
+ 	if (WARN_ON(next_task == rq->curr))
+ 		return 0;
+ 
+diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
+index 85303add726df4c2da846c427aab2d627fca9589..f85edc6f896c72d2251b5eb59ee7ffd0e23934f5 100644
+--- a/kernel/sched/rt.c
++++ b/kernel/sched/rt.c
+@@ -1957,7 +1957,7 @@ static struct rq *find_lock_lowest_rq(struct task_struct *task, struct rq *rq)
+  * running task can migrate over to a CPU that is running a task
+  * of lesser priority.
+  */
+-static int push_rt_task(struct rq *rq, bool pull)
++static int push_rt_task(struct rq *rq)
+ {
+ 	struct task_struct *next_task;
+ 	struct rq *lowest_rq;
+@@ -1981,48 +1981,6 @@ static int push_rt_task(struct rq *rq, bool pull)
+ 		return 0;
+ 	}
+ 
+-	if (is_migration_disabled(next_task)) {
+-		struct task_struct *push_task = NULL;
+-		int cpu;
+-
+-		if (!pull || rq->push_busy)
+-			return 0;
+-
+-		/*
+-		 * Invoking find_lowest_rq() on anything but an RT task doesn't
+-		 * make sense. Per the above priority check, curr has to
+-		 * be of higher priority than next_task, so no need to
+-		 * reschedule when bailing out.
+-		 *
+-		 * Note that the stoppers are masqueraded as SCHED_FIFO
+-		 * (cf. sched_set_stop_task()), so we can't rely on rt_task().
+-		 */
+-		if (rq->donor->sched_class != &rt_sched_class)
+-			return 0;
+-
+-		cpu = find_lowest_rq(rq->curr);
+-		if (cpu == -1 || cpu == rq->cpu)
+-			return 0;
+-
+-		/*
+-		 * Given we found a CPU with lower priority than @next_task,
+-		 * therefore it should be running. However we cannot migrate it
+-		 * to this other CPU, instead attempt to push the current
+-		 * running task on this CPU away.
+-		 */
+-		push_task = get_push_task(rq);
+-		if (push_task) {
+-			preempt_disable();
+-			raw_spin_rq_unlock(rq);
+-			stop_one_cpu_nowait(rq->cpu, push_cpu_stop,
+-					    push_task, &rq->push_work);
+-			preempt_enable();
+-			raw_spin_rq_lock(rq);
+-		}
+-
+-		return 0;
+-	}
+-
+ 	if (WARN_ON(next_task == rq->curr))
+ 		return 0;
+ 
+@@ -2078,7 +2036,7 @@ static int push_rt_task(struct rq *rq, bool pull)
+ static void push_rt_tasks(struct rq *rq)
+ {
+ 	/* push_rt_task will return true if it moved an RT */
+-	while (push_rt_task(rq, false))
++	while (push_rt_task(rq))
+ 		;
+ }
+ 
+@@ -2236,7 +2194,7 @@ void rto_push_irq_work_func(struct irq_work *work)
+ 	 */
+ 	if (has_pushable_tasks(rq)) {
+ 		raw_spin_rq_lock(rq);
+-		while (push_rt_task(rq, true))
++		while (push_rt_task(rq))
+ 			;
+ 		raw_spin_rq_unlock(rq);
+ 	}
+
+---
+base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
+change-id: 20261014-sched-rt-dead-md-push-c88b47c3e2f0
+
+Best regards,
 -- 
-2.55.0
+Shubhang Kaushik (Ampere) <sh@gentwo.org>
 
