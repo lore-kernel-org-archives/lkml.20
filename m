@@ -1,163 +1,76 @@
-Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 316AC3A9612
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:53:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8841348B37B;
+	Wed, 14 Oct 2026 19:54:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792007640; cv=none; b=C4mM5GWTGstLZU6lYfDbCfm3WAbRm3rN7vmjljf7K9OeYIPuEbogcl38H1MNlajrzNrYpYTPPE50Vs1+T28doAL1q6aWvu1Jk8lf9nM5AH6l6S/SsOhl9rO7cEEm89ccvVkgFMpZR7+aVjryARVIhaYyaA0wqAAiWLb3c9n9IBA=
+	t=1792007658; cv=none; b=PSrhqMnDbr0Cy36VfH3kyOgrtm9ZNCK/ZWZv1x9h3qG8xJ7x8IoLEIyniVQxegKu8W++MBoEVPnaoLPlQUiR5tW18Ks1Z69ZP14sucJ0yiAilorNLKWdvicsIq0mbIwrh9u4AV0ViNGKS73xmK0jHbIlQaonPRUAwYg5vIQxOTI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792007640; c=relaxed/simple;
-	bh=RdwdCAhipRogxhULLdA9JBiW4ojsjgGbdRDQN/qzzv4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PxePdvCBSod3jce48EYLtFfohQYCuqypSJpQVAJZFx+pmIpc2ZjEKcu5zsx8aiF2SRUemhvYP8tHQAwzGCriJUejHV+5vQIZqKh/anBgspFv4uEl/rQeS9yUCXeNBaVwyQ4LLqkxj079M1I0nw4cSTa4ss19CMJYwGQpsj1ZdzM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=QVTJ78Y9; arc=none smtp.client-ip=209.85.219.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	s=arc-20240116; t=1792007658; c=relaxed/simple;
+	bh=abx4cqLQ35N2zaMiMweelUHiSw3je1JRyqEgURBmIFs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=CXpHDST0dcJIxwqIDV0/2b3qMdaVT3swkrq4VreL+DwOECNIdwYvyW6Y0sh9rWZadPlcbz2nVEFtqexO6UAQGp7Y1xV7AmANBH70sI+78VjjZ99EO5TvvP0ppp4xxbY2SwxlgXuSzyysuClN7ZOC0W+9WDmvLW0L8ZxYVzmFZNs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l5s4qmCr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="QVTJ78Y9"
-Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-91986c5cb75so8221486d6.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:53:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1792007637; x=1792612437; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RjniCqND0NC3kKHSl3wLORt8DVjtH0W0kWfnOSpM6P4=;
-        b=QVTJ78Y9m0OLXKqMrhTp/4hM5OmxBqe7nZ/8JVvRK4wjP/bAsvJQzxAURfhQ5MH/t1
-         0t/qL35MJavlsQI2gd+So2+Z1Y49lBbXdo8j2XLRfEKMHycfk4v0dSto2jmRuwoOCAcp
-         MxjPs2l1M+Sr7FhCmz8HPAitzypsU7Jxk7HbbRuzMlMKY6SBN7YM3ngtys8KZfTXUP8j
-         YeHzl34+Yz6fm2JfiodMX7Zw6IOlwv/H0dwL/pIA5V7bE1fex95RNCMSei3rcZd0vF9K
-         Y2UQSWFcNay8CM2kUNEghmhOe5akTPss6f+bVrHfXDMcgs8HmYBsicYtQz4S3oy4eBfS
-         iZEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792007637; x=1792612437;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=RjniCqND0NC3kKHSl3wLORt8DVjtH0W0kWfnOSpM6P4=;
-        b=fam9IN6fqImitl01h4ulG0wXIq9JJ+PajfrRyg2gzdc6uOO1raTF69jWF5I21eL+UD
-         CrCe5nc+e19bdmf+HFXilBvnJiPIpVD/BU4gUNK86eeQxsGrP1fFp4hym7ajX138Ve6q
-         VaQ2ZYSxZzsA+7bg4ShdZI+Oq0o5zkFm6jLfqzOT65A7yPv6OKQRRjhgj8v/zPfTWyko
-         6DxDEgFFjS86LuRqut0b6k64wbjRSrQSTqA6f1pXUPCmOYOTX/lNdaRWLSHBjQOM7fXg
-         XdemGPpVBTvGJpiMQ+S7Ivt1inZvpgMr5H7Admsp8azUwiNmOXDYuXuMwS3Ih+MStJcB
-         r5nA==
-X-Forwarded-Encrypted: i=1; AKwUvBxguFCldR2FLzok7Fp+9Q+htzunakpAKXcu3HiuBSbfkg+tZkVry0nZonNLzUZlpixn87dSQYkeA5tP9Wg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKg9kStM7VbKu0/r4+MQmIIomb/CpxS2LQOveXh8n0QKehUALhP
-	0fIbQIz9Sj5PHjK6u8IQJP/WHSUyfSYNnDa3Xkb4lc2wtGwlc8oA10AOgMBNybNsQYE=
-X-Gm-Gg: AYBFou03hO22vo11H4KJg1/FnkA7m+E9Wyz0srBnHt1eKxTDFoP8/tImhXAhbL3jjqu
-	QZx82ObH7pvoNwWABnPiEGkdj7IGrufTdiCYLAUrsvLxTQd2J1bCu/WCVEy/2WgrolYVGtigr/4
-	hWKdYfFemzf9r6oh6r8kofBLx/cFZJRsJ7CAmD5Ev8PRuF+TMarfK5naQAjYiz/E73wHYdycTAr
-	5VcV9KQb688YqDPBhIbA33woX65r/jxAKx/GFxRJPKGIoy2IM09AMztqpahPFs8jg3VKRcDfH1r
-	VOCyA/i2qWLjuItDN2N8ksJuvDuLB5C75goWiu16a5t1bUPmQICVWNkbN6typf12nyEXu1kxUvC
-	bxEIOfmq1prs0/WEv8lZ+vofYIWMMoUd4iLKWHQE6f2yeBKNSQ1XOyx53DPxdrk7OTLbmUb0QmF
-	O+30iZHPgVpJiSAHKx1QYpd2QTuRQY5iKbz6QgLpeShs+jcY3iynPRkLiBAmU3+JcpNItZozf/g
-	Bq7cG4=
-X-Received: by 2002:a05:620a:270d:b0:93c:2c15:e508 with SMTP id af79cd13be357-93ebd20e626mr2844276585a.45.1792007636645;
-        Wed, 14 Oct 2026 12:53:56 -0700 (PDT)
-Received: from localhost ([2603:7001:f100:5081:9526:3c0:45cc:5ac6])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef50080b7sm567630985a.8.2026.10.14.12.53.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 12:53:55 -0700 (PDT)
-Date: Wed, 14 Oct 2026 21:53:54 +0200
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Chris Li <chrisl@kernel.org>, Nhat Pham <nphamcs@gmail.com>,
-	Baoquan He <baoquan.he@linux.dev>, Kairui Song <ryncsn@gmail.com>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Yosry Ahmed <yosry@kernel.org>, Muchun Song <muchun.song@linux.dev>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Barry Song <baohua@kernel.org>,
-	YoungJun Park <youngjun.park@lge.com>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
-	Rik van Riel <riel@surriel.com>, Gregory Price <gourry@gourry.net>,
-	Wenchao Hao <haowenchao22@gmail.com>,
-	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Tejun Heo <tj@kernel.org>,
-	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Kunwu Chan <kunwu.chan@linux.dev>,
-	Meta kernel team <kernel-team@meta.com>,
-	Linux Memory Management List <linux-mm@kvack.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	linux-doc@vger.kernel.org,
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l5s4qmCr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD71A1F000C4;
+	Wed, 14 Oct 2026 19:54:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792007656;
+	bh=GOJVABY0IvwuLtUWnjxpl472DCTwt9A3UmESRE0DpRw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=l5s4qmCrX8HZiY94A0AOUdfYCOTj+NBZ7bTxuqXD6YMP5G22pg4OY+JD1CNj8S1Ah
+	 JS8ZH36xCjJwhT2pchAEQJ+4OozFHNw4cZRZR8Tez6midV/Utnc0N0eFIuYJP7H1Fp
+	 G2woX7jKWWNkVcz4y10Fg82SrlSFssjtgV5VoK4NKc86EZ2Xwg291m5Za4Kh9Exw0g
+	 oTuzuDnvXv/KqTTuGPZOro03vjDrLkxMNUiFPv0q0/oKJfvblslWvRF4dPZHoBE0iR
+	 JBuLCVTUp+zVkrd7g8ZfEVi7YeUzOBou3sylmun2AveSWN/e/xfDWInTrXxE5sItCj
+	 fz6iLNYWFfUSg==
+From: "Harry Yoo (Meta)" <harry@kernel.org>
+To: Vlastimil Babka <vbabka@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-Message-ID: <20261014195354.GA371161@cmpxchg.org>
-References: <5fdb3777-95a2-48f9-bb38-aa4ba3c96a81@kernel.org>
- <CAKEwX=MuW6q354nB3tyFTM8d3ox7LRaqcSfUxeATR=Sop5mZPw@mail.gmail.com>
- <5ca344de-bc34-4a9b-ab85-f553811a1d9c@kernel.org>
- <CAKEwX=N05iOC4hmiyTt5OxjAsOfU7_V8xGfmK_RgUyrKtuyUTA@mail.gmail.com>
- <CAMgjq7DJwGCHCAchcfi2Kcu+XHx2YnKXDj53e0t2kpG_GSejkQ@mail.gmail.com>
- <aqgMCIOFi0dKx_6L@fedora>
- <CACePvbVMFA9N0nQers=sOnSXGbNhtNE0ewq47AJEH5Cr8imQXA@mail.gmail.com>
- <CAKEwX=OMYhUs3tt7jUzEzxsOW3yA2JmzpwwxVBP2eZuHOFu=vw@mail.gmail.com>
- <CACePvbUMjRgK=dQzLjECgBXaUtQSPdAnBXL1Y4=Kh5d15swYvQ@mail.gmail.com>
- <5c8a2b7b-b76d-4bba-92e1-ec3d66794273@kernel.org>
+	Imre Kaloz <kaloz@kernel.org>
+Cc: kernel-team@meta.com,
+	Hao Li <hao.li@linux.dev>,
+	Christoph Lameter <cl@gentwo.org>,
+	David Rientjes <rientjes@google.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Jann Horn <jannh@google.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	"Jose A . Perez de Azpillaga" <azpijr@gmail.com>
+Subject: Re: [PATCH v2] mm/slab: sample slab_state once in kmem_cache_destroy()
+Date: Wed, 14 Oct 2026 20:54:05 +0100
+Message-ID: <179200759984.3589452.3981388920201754777.b4-ty@b4>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261014150844.8536-1-kaloz@kernel.org>
+References: <20261014150844.8536-1-kaloz@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <5c8a2b7b-b76d-4bba-92e1-ec3d66794273@kernel.org>
 
-On Mon, Oct 05, 2026 at 01:06:28PM +0200, David Hildenbrand (Arm) wrote:
-> On 9/22/26 15:38, Chris Li wrote:
-> > On Mon, Sep 21, 2026 at 8:56 AM Nhat Pham <nphamcs@gmail.com> wrote:
-> >>
-> >> On Fri, Sep 18, 2026 at 11:50 PM Chris Li <chrisl@kernel.org> wrote:
-> >>> No that time slot is too late for Asia developers. I don't think we
-> >>> should use that time slot for swap alignment.
-> >>>
-> >>> We should find a time slot more friendly to Asia.
-> >>
-> >> Any time slot would have that kind of problem. We're spread out across
-> >> the globe.
-> >>
-> >> Let's just use a standardized time slot we have for MM alignment sessions.
-> > 
-> > There are more swap maintainers in Asia than in the US + Europe, at
-> > least based on the maintainer file. Please be more inclusive. If the
-> > alignment is done without key stakeholders, it miss the point.
-> > 
-> > Sigh, we can't even align on a time slot.
-> > 
-> > In that case, let's keep discussing on the mailing list. At least it
-> > is accessible to every one.
+On Wed, 14 Oct 2026 17:08:43 +0200, Imre Kaloz wrote:
+> kmem_cache_release() tests slab_state >= FULL after kmem_cache_destroy()
+> has dropped slab_mutex and unlinked the cache, and for a
+> SLAB_TYPESAFE_BY_RCU cache after rcu_barrier(). If slab_late_init() runs
+> before that test it sets slab_state to FULL but skips the unlinked cache,
+> which never got a sysfs entry, so sysfs_slab_release() calls kobject_put()
+> on a kobject that was never initialized:
 > 
-> Looking at the mailing list, that approach doesn't seem to work.
-> 
-> Finding a time slot that makes US, Europe and Asia happy is ... tricky.
-> 
-> 1 AM is certainly unpleasant.
-> 
-> US vs. Asia is also tricky, but doable.
-> 
-> China 8AM vs. US West Coast 5PM?
-> 
-> China 9AM vs. US West Coast 6PM?
-> 
-> (Europe is 2AM vs. 3AM, who besides me from Europe would join?)
+> [...]
 
-Either slot works for me. 8pm/9pm on US Eastern.
+Applied to mm/slab.git slab/for-next, thanks!
 
-Apologize as well for the late response. Travel week followed by
-post-travel sick week...
+[1/1] mm/slab: sample slab_state once in kmem_cache_destroy()
+      commit: 6d9bc3d860e64e2c5dbfd7531954df9ea8c388aa
+
+-- 
+Cheers,
+Harry / Hyeonggon
+
