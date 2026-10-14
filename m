@@ -1,108 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66C1C4F798D;
-	Wed, 14 Oct 2026 11:10:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 857CB4EC644
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:12:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791976255; cv=none; b=Q1rBQAhrdkGOEkDqTeI90yDgyE3a9fmN5Eev9O7K42tOUyoACMdTHdNeH7jlCvtsOIqE3O3Im1o0yR9nLHGk1cgVUYjdlccrD/0QBSqPBqSurWQ2pFM2PtDbedHbohaHlshqt0hVcgvKOu/Cub02sfnVg/EBPht+ch7QiufLdqY=
+	t=1791976360; cv=none; b=icqPkFx+t6wTE8KYI3bMg45JP6vUxBPKbHNG+eZUDE0y1VqEbGIsNVACgvB+8GsiWFF23aLLDbJ5qMY0IJ1P/2Wd3kSr4jky7Zi1j6C5nJcxSTsZV1HNjTSS+M14oTvRwY24f2kBM4F7VXyywrlJ+bcDnSk7I4FJtAGm1hUoTx0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791976255; c=relaxed/simple;
-	bh=dEHPKb1DKoNwCQMbfM4JudnCdMqGpWORd6mwaTX1o8I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OxXEoJjidzUpsMCrXM72xcyVQZ9M+vj+Ch5+BZSVXkfQZ9JNbk0XenWMWiXoDT2wJbLnEAw8AEyA2tZ6HhK0Shf46LvFnBli5b3snqEh7v7U7JTcar/xng/ogWWlvE0paILxIh8DXoqMh/OsuVuZAWC2no/S8OJhjCn8rOL9UZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CWx4n9R4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791976360; c=relaxed/simple;
+	bh=MeI3zB/x7HcysOTsREw/8vgJnOEIiDaS84Ud2PBmxd8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=PX8PLWfrAxE8/XWz6C8u3idwM7dxMdfHowus3nLz2PTVeJyKgWDiA/t/6u1KkTBCkblbu/zD0Jv1AwSJRQD81kPk8+WdFIhbHSaZiWIw3Kmr0LrE26jtQHySJhAPca2iOXlQU48xuAEwjKYnfY8+EJirIpzzSmGO5llkdvt2fw8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kMjT3zc2; arc=none smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CWx4n9R4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F4171F000FF;
-	Wed, 14 Oct 2026 11:10:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791976251;
-	bh=y96IkeDxhN2mv/HtCGTf5fVU+AZ1Foo8ubrdmppnui8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CWx4n9R46TUqwkh7PD3NrIpvAN6CeIsqtkLYPEI3nayTP82qiokRVEOSoTXi7JDun
-	 0T0Y0ZEdhNY2vwCweSoDYhfikgZsICh522SJERQY0izF6rslpI26wHSvQIRECpsgPw
-	 3T8DjC2hYwURj40OV3fgiSvD+O4LbCMP2loE5Hb3qn0Q/X6ZDvxT8K8G6R8xy9n45W
-	 XkCJlBrfGwp7E33utB0UnoF0NNz+aoNjOUT0mKmuIfJbZJpYRgX53yGP0t/xm9KADF
-	 r5HiAjK5/IcJVwY9jbWjDDP9ib7KsTnjIst2A5lQBCczmVDW6JacaVfo5Wh07knVNM
-	 ToBz+IPNA4kow==
-Date: Wed, 14 Oct 2026 13:10:48 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Larisa Grigore <larisa.grigore@oss.nxp.com>
-Cc: NXP S32 Linux Team <s32@nxp.com>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman <avri.altman@sandisk.com>, 
-	Bart Van Assche <bvanassche@acm.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
-	"Martin K. Petersen" <mkp@kernel.org>, Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>, 
-	Ajay Neeli <ajay.neeli@amd.com>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Pedro Sousa <pedrom.sousa@synopsys.com>, Hannes Reinicke <hare@suse.de>, 
-	Joao Pinto <Joao.Pinto@synopsys.com>, linux-scsi@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-arm-msm@vger.kernel.org, clizzi@redhat.com, aruizrui@redhat.com, eballetb@redhat.com, 
-	echanude@redhat.com
-Subject: Re: [PATCH v8 07/12] dt-bindings: ufs: Add NXP S32N79 UFS host
- controller
-Message-ID: <20261014-valiant-goose-of-revolution-efec17@quoll>
-References: <20261013103003.373156-1-larisa.grigore@oss.nxp.com>
- <20261013103003.373156-8-larisa.grigore@oss.nxp.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kMjT3zc2"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48b042c0728so922649f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:12:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791976354; x=1792581154; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bC6aVvICfoTaA3av0KP2hPJj4J889q6ls+h6HZwfSMo=;
+        b=kMjT3zc2E6XFIoPyRVegSmeGEEFbYbYI8AOMYuThQul5O7cOrUzzOpTFhvSjQuWktz
+         aeVkxzYRVTflBy5vYW9J1GToxrzPBqdVpmEQ3byHEahZpCS9eZ6L4wToVxOR6oEJ4PA1
+         smOtMnEl7t4Cp/DO7pid/5jAn/Ixz29oWFluo7mplG3qY+/C1chXAbaTcfwcJxeBR1ai
+         vj++bxlgZ1SgGQVb2HJvpLmtyt110Ae3WloL7RtQiDDMSUIdtwg/VuVTMBQ2lQ96l169
+         /5miIJOMz6YIaN9aZ040RX5THdUo8t8Jt/WCM73aynaO/ZRX6wgvLSvf3Ojr/QTCUsOW
+         QDyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791976354; x=1792581154;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bC6aVvICfoTaA3av0KP2hPJj4J889q6ls+h6HZwfSMo=;
+        b=RNq+M6ky4fQciF/SbN26v2S3ZXBefOaMUG30jMdG9ze/k4sR0rKW+AGL8YtTZCu0mT
+         t7tSQZHxCyUj8uegtS+TAt02hTjmFVeYO4TtXsLiLoCvzDhvjldfIJx/7OeM1vjqJrwT
+         8lIvaiP+ssrFJbd7lccKPt3NNGIkxwfI5w/bURp9FFlvlXqvRTZDfLDH3HE9rYMwJy2R
+         GNgnViVPxS1RhqDioO9kFU1K2HRsI5k/eVDrTePbIiUixXHuy+hYV8LP/uS+PYVtv2Ni
+         7GLdHBVdZvDn6mTxfln8yyXoBYHqK+mKK+jHRTsCw4Ctb4gIeFgANRG/mpQ/xUP229JL
+         zgyg==
+X-Forwarded-Encrypted: i=1; AKwUvBwynekMeV6ZpP0WmP/Kue/uSV+GcBpDFCXyHxuwqE+1/aXS8U1qn8q0W4mN+g9lrILcuUpx9Lk6IVFNyyI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJl5YbtwDJiX0ZMnI6oleA1b+17CEPPm9SGEqG2rma7gjoGqkzz
+	3TD2w0DKzVKgAvpeQF/zd8DxaPKnxhCqdUHIdkCTYxYstRmwE/Big79W
+X-Gm-Gg: AYBFou1+9curdyM2v1vYfTfg1uwq8gPNYDa54WeASl+R03g91H0XgE2mXndY1PrTgo+
+	mHMk5EvNFhEWowGFeSFQap63JX5Dsw9eI56Q66Hz3I/htbzzHoQiD5QprrRZJCmRBy0f5yet0TF
+	uTYa8t+E3zDywFdYeM1Ar70d5Y6CzxdVC/H71BvJb9CxWC0jnyONYxPgfEZbxiJnzTbxroNcbe4
+	xQ5vpxnXrTk12jLF2UzCRkowFjJQgjpxDt41OgwraE7qwdJA8hDkI2/MZxPunOdY/HoQFAKsoJU
+	ZItq1TVE0tVVv+XVRpte+RQj5uYvX0bFAW0Up9M5p8NOEP9LsBnI8oesZGYvtEn9z5D1wtVHTcG
+	Xe/z3QVzhTZT54K9cM2oXS/qXEIgsJBcr17ZZwNZ7CKGY7Joiz7N++XiVlVhNjDbllWvdIcXyRC
+	qgrfP3IDdRt8rq84DtDBq/P6MLO5ipAt50boDnYgRnxD9Rmxi6IaEsh1StdrbFiJQQ1cR/Gn/XO
+	TxaHO2ObiMB8tiEse95oQ==
+X-Received: by 2002:a05:6000:e0e:b0:48b:1ed:db34 with SMTP id ffacd0b85a97d-48dbaceeccfmr22523693f8f.45.1791976354227;
+        Wed, 14 Oct 2026 04:12:34 -0700 (PDT)
+Received: from ubuntu-4gb-nbg1-1.. ([2a01:4f8:1c19:b0ad::1])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48deeadc0b5sm1846481f8f.6.2026.10.14.04.12.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 04:12:33 -0700 (PDT)
+From: =?UTF-8?q?Rare=C8=99-Mihai=20Vladu?= <vladurares@gmail.com>
+To: Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Rare=C8=99-Mihai=20Vladu?= <vladurares@gmail.com>
+Subject: [PATCH v2 1/4] media: atomisp: sh_css_mipi: include assert_support.h directly
+Date: Wed, 14 Oct 2026 11:12:10 +0000
+Message-ID: <20261014111213.1967452-2-vladurares@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261014111213.1967452-1-vladurares@gmail.com>
+References: <20261014111213.1967452-1-vladurares@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261013103003.373156-8-larisa.grigore@oss.nxp.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 13, 2026 at 12:29:58PM +0200, Larisa Grigore wrote:
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  clock-names:
-> +    items:
-> +      - const: core
+sh_css_mipi.c uses assert() but only gets its definition indirectly
+through the circbuf headers. Include assert_support.h directly so the
+file does not depend on that include chain.
 
-I don't get why you added the clock-names.
+Signed-off-by: Rareș-Mihai Vladu <vladurares@gmail.com>
+---
+ drivers/staging/media/atomisp/pci/sh_css_mipi.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - reg-names
-> +  - clocks
-> +  - clock-names
-> +  - operating-points-v2
-
-Your opp-table is empty, so requiring such property looks like wrongly
-written driver.
-
-> +
-> +allOf:
-> +  - $ref: ufs-common.yaml
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    ufshc@4ac80000 {
-> +        compatible = "nxp,s32n79-ufshc";
-> +        reg = <0x4ac80000 0x1000>, <0x4ac40000 0x1000>;
-> +        reg-names = "ufshc", "scm";
-> +        interrupt-parent = <&irqsteer_coss>;
-> +        interrupts = <211>;
-> +        clocks = <&clks 0x92>;
-> +        clock-names = "core";
-> +        operating-points-v2 = <&ufs_opp_table>;
-> +
-> +        ufs_opp_table: opp-table {
-> +            compatible = "operating-points-v2";
-> +
-> +            opp-0 {
-> +                opp-hz = /bits/ 64 <0>;
-
-Best regards,
-Krzysztof
+diff --git a/drivers/staging/media/atomisp/pci/sh_css_mipi.c b/drivers/staging/media/atomisp/pci/sh_css_mipi.c
+index 971b685cdb58b..83424b6ce1713 100644
+--- a/drivers/staging/media/atomisp/pci/sh_css_mipi.c
++++ b/drivers/staging/media/atomisp/pci/sh_css_mipi.c
+@@ -4,6 +4,7 @@
+  * Copyright (c) 2015, Intel Corporation.
+  */
+ 
++#include "assert_support.h"
+ #include "ia_css_mipi.h"
+ #include "sh_css_mipi.h"
+ #include <type_support.h>
+-- 
+2.43.0
 
