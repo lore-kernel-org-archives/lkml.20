@@ -1,245 +1,200 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A5743FC5A1
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:10:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792005006; cv=none; b=cNJjq7auD90EqkIQa4GUHSzYprnu84GjZpx517HpWUnzIYWqhXpORAj4ifsgqKoON5ts5HWyktGWft5oKZgYfrFQ5dDIu0+cLgOOgKuAD6OQW81/96B9q14wQHC/CK/S1Bvqumh9L3YNRrbMnDhRnB+CFeQuv95eRprs6KTR4Hk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792005006; c=relaxed/simple;
-	bh=CPb4WsqW5lDxN5DmQve2puOIjx/DnRYWQ2pGqcxR37k=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 013A23803D3
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:11:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792005078; cv=pass; b=Zy8e4CZTWyqK9xxoVBddVIvEiecttHVs/n4CSG0tAM7qqVe5sa7/u0nsi9L4R9J7u1iMNRBmZiDugN3453CoTQyBNikXBy4qH7RNTMho7c+rCzxrgLwLqsmLgXj75Kt5c9dj7bxrIVoXlQmueO/njdV5Y0bv5qOkckGmRD/NZLs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792005078; c=relaxed/simple;
+	bh=4oB4aizrzm6vZ0ZydW4zr5YPF9osdEK++VeJ4BErisI=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BaQbXpNaKfwXArouEfEViOnUL9czId80xv3bE/AKNvCTxCD+l2b56Lbmb0645riQNhDJeuar0C67Zu8ePCHP7nvG2PkJzn+Qbt2Oq47KgHfprCe67Pz6aJxLeqJ7XJXFlIsvPdYJ7iR/ZbquyxvKJnShla47gsDtkpjxczL74Vw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e4+njpI6; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=c2taQOXAoNjXo4YV8T69WoT6fAGXVduoVqLHYydqAGuvhtAKd0z140g3BxJ+GWXCrFl0s680Ec5K3klQwvmKPxAlXwtKmVR1aqKUj+kPlNWwE5H/uA1warO0xtKzWFjS9Hh5jKfBUiO5YWwSQ3Mzd4kPg4QOVeP7vnIlU5mANBo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SY5O0Shx; arc=pass smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e4+njpI6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 216151F000C5
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:10:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792005004;
-	bh=LBewyNKx8kNLRf8WZ/HnKHYFZ2VU7KYZ/2nmLm9r2KI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=e4+njpI6WWX3EU++CLYVdgOBZ71ItvDtGZEcGnJd1xuQcyW9l4sR8gYcpVoZg26CF
-	 mL1RklmSE7vI1jw4+BgS8kC0fo0D7KOYjcqzfDqvTikmD/z5KIlobnmOgWf5l9bzh0
-	 FlIn9MfSi8ZLWfp8rsnAgwUL+iNXWNT4lUCOZ3l/mI8AnnOKdKlSzPUNWudVkIz6XJ
-	 vW/Tg9Xnrpy5GxJhdO1kjsiW6QHIQCHKqox/ZfM/yr1vDpVunC3hzsEw/HYtN5Sb7e
-	 y/VQVPMLdkdMJ3CTAxxyfah26bZauFigfL+7QrWLeB0HXqzWlSKTHH5tzaUJWzhcnj
-	 DZ2sJ2ava5J7Q==
-Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3a9ad623098so39802491fa.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:10:04 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzT/z3fxjlg2bNjIpmMc3Ie+dC1qGyXgfcjCgZrKJ6ixTe2Ep4slP4WdITzJ9bnaRet5BXb9h8gSr2MOfQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKR6nnkXFXo1gL0TjTmqpiYFsZpUZ8IK5JJ3tCjvx2VOzZaiV9l
-	r8tw+NURBb8YU1UDfIS2q5bGWHni4qfJh+q/73rLi+gLeoXIW1m+Ss5CeDsHc0LXBK+Nb9/2+O9
-	xh5LTY+4tufn8vfQV/qQZYS7ejmIC/vk=
-X-Received: by 2002:a05:6512:3047:b0:5b8:f4d4:8004 with SMTP id
- 2adb3069b0e04-5bcde6b4604mr6317929e87.15.1792005002482; Wed, 14 Oct 2026
- 12:10:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SY5O0Shx"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48df0fa43c5so352384f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:11:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792005075; cv=none;
+        d=google.com; s=arc-20260327;
+        b=EH2zGdBkProkS7BDh+seXInX1IRGnwXlxNCKrJCmhlNUDvSi6IIAS6kefP7SPGnv83
+         MuPiq3wKUw3I1pkEao1h/DwJdcFtb/63jKJ6V7m2fG0xewqr2FFlN+pTpbxPfTtkCTS6
+         DDnZaaG2ua65q99AY37LZ9VaGEPWz0AzTGblU89GH+hWmZLVPYiaBixHyikB8fVgX3rF
+         KKGIW796xtGeU+z/FOZfFLtp8KbDorWPLu56vtsjvgeD9GZC3WbEPXZqIosZl297JDVs
+         I1FmOug1rFKdlXaMcMQ4cMWhNirbfuX8CJwyZ97Qb+CdrblIqDxYSYQK8PPcaSn90NZd
+         skhw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=6Q0RE/342Z/vGnJRZ53rKL922YaGQQ/XyiajVgtWERI=;
+        fh=0h4ufn+NoTQtqT5aJYmxSXVK38FJNcyQpLv3iCWu8aw=;
+        b=n+aaVGXQ34d8TUsGXzNZRpwEEtzZwROdazahzhCF1Kzu5hL8V52R9/ReK46XVLNih9
+         K300pKyAI/RKdYm44VuBTTWJN9ShIOgTUFMQRzg23qO4wOuOlcEIRTilWwOIXhZg7v9R
+         ECsN2Ew0/ClgVjxwH4S3308qj0mNqyJOOJHSDMdcbDMA+sxUIN6DXK1GySdMSIFcon1H
+         eHaNDMUjVP3bf1BAaw9e1qsAzNYO1TenfdBf9Zka/H3J89LQOoJ4zt4IhjW7fKhy2eON
+         TFOv1QFg+vpqp1bT1HZW60IgEpjiV2g7nTse3entM4m6QwAk2RfBohH8P3T9ytF/KvVY
+         UMaA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792005075; x=1792609875; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6Q0RE/342Z/vGnJRZ53rKL922YaGQQ/XyiajVgtWERI=;
+        b=SY5O0Shx6HTpqPc3ZhmZ+kpBevYpt08pmtEPAMb6HwrmD9U2OHA9Bn9aEyCG1WGZsH
+         OGDqp09cMfL6xiIqlmOoe6GOG21ZBdfO5LQcoyUfuAdHghAAN0be/SiNPPgkXLkCqfFO
+         LC8OndAQKL22Y2iUlJTnq/8e5fho0WbgBNj1pQBdPIhq9A3Xk5FFUIyWkSCJ3hA9XlRC
+         koLfTf9rDh8uxmXPkGssTIftZaGGIRn7v1gzmClJViT0BEblaOWm/bsefO26L+CFQGWQ
+         hj2xc8KmnqU+ojblMApBoz4DdVfLymAf/84RzOaaJFk9FLSzl0q8tKwO8tLaIUnGs1mV
+         pZ/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792005075; x=1792609875;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6Q0RE/342Z/vGnJRZ53rKL922YaGQQ/XyiajVgtWERI=;
+        b=q2yJf5m7WATQNvfARqNePggzgwX3yhPjUggWKR72pNh94jDPaHpCwvkshreFC7M++3
+         hfz1tkqNvNaVM1tOABDNa9DN+wswP28v3Yi1Z3Y0/oP5ww5+006aEx6jOBT2mTkkmlhI
+         pIYDEpWtIOe9D6nss5tTfbKw+71iUHKqtyKXAe+XbDSRXmqhbo2+C8P2u5PT7OXEI5+o
+         tDrVLjsgLXeeWrVyuag7J1xylhXMmMX/WtL0/zIcfO7j5SP9YR5dKThkxOYxeJGUR4Uy
+         mjtQ4qRbJ59ac7xtGVsofsiTLpR3pYwl506gbFYLRrup0lXesAGVtgdZomkf8Frkm1iO
+         7AYg==
+X-Forwarded-Encrypted: i=1; AKwUvByZahsBtFvXxIITLACTo4ksWJyaBbavD4Xkz1SyupC+CYzJENRLdXOs9KKwQ+Ctpp9yU/9D+o0JJiVf7dI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLJWcqxaFY28V7xMsPG+cmKVB/k3BZJbiS5+ZxknPQS8ED2QCB+
+	7LcNEXzPtXq9970MPP+R/WJm6jGiZTeHAJkoWo59kO4tVJlZAxW6C2yrmYzfRkWc9YDK3tjzmRc
+	F6ptO75QKxyoAKWKPBX55aVfKMyutRjs=
+X-Gm-Gg: AYBFou2U7TX5kBrBO7+BHvnh20GRNUG5fRr9WVsDnIyFpAbuY48uuco2A/4WunI0DIm
+	LdXX/yss+iR5J1wXyxm3sDzSGLpYkJ8ztaQ6YoQj0ZedXM+hWWc3TzUNoyjSYS+xBl3ZXZyrGeF
+	UApUYPhxz9CFdHaEmRpHh1ldSJ7KbUmaxgyc6ejqfg5OEuC/3RA+kUbjcleG8rk4HeBjOvG9dOg
+	n9RykihEInKsFYt9GkFfKNh4bpvSKlk73bkXceCQ+qoB+pGq6pyyiv46yxSURxAYC4I8568LmwD
+	e5Vs3txAFLrs5zYYj2eW/BoDU18hd6QDuAEX2GFXv4jtmBMsjSA2O43f34qCKR69eKWgKtZaDou
+	3XggcQJh4B7pQ6/gXYbjx14rShpkjQBooF+nXSc/hg+rGeS4900nOTuPbWI8xMwEEbVQMCUvIhi
+	XyRmF/qw==
+X-Received: by 2002:a5d:5e88:0:b0:48d:bafc:a3f6 with SMTP id
+ ffacd0b85a97d-48dbafca4a1mr35041657f8f.0.1792005074870; Wed, 14 Oct 2026
+ 12:11:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261001155118.1750028-1-briannorris@chromium.org> <20261001085009.v4.2.I75ceea7b1afd016e08922e47b82e6eb36de144fe@changeid>
-In-Reply-To: <20261001085009.v4.2.I75ceea7b1afd016e08922e47b82e6eb36de144fe@changeid>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Wed, 14 Oct 2026 21:07:54 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0hMHutu69acgSR7KsmcLs0McZK+-3OFoiqFrU5GnJzTNQ@mail.gmail.com>
-X-Gm-Features: AclHuK9F865un8J1qhb-2gPhSak0oWK8xKAT4V2S2G2tepc2x7QVPaA-2eJ46Xg
-Message-ID: <CAJZ5v0hMHutu69acgSR7KsmcLs0McZK+-3OFoiqFrU5GnJzTNQ@mail.gmail.com>
-Subject: Re: [PATCH v4 2/2] PM: runtime: Add Example Driver Patterns section
-To: Brian Norris <briannorris@chromium.org>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Pavel Machek <pavel@kernel.org>, linux-doc@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Doug Anderson <dianders@chromium.org>, Len Brown <lenb@kernel.org>, Ulf Hansson <ulfh@kernel.org>
+References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
+ <5fdb3777-95a2-48f9-bb38-aa4ba3c96a81@kernel.org> <CAKEwX=MuW6q354nB3tyFTM8d3ox7LRaqcSfUxeATR=Sop5mZPw@mail.gmail.com>
+ <5ca344de-bc34-4a9b-ab85-f553811a1d9c@kernel.org> <CAKEwX=N05iOC4hmiyTt5OxjAsOfU7_V8xGfmK_RgUyrKtuyUTA@mail.gmail.com>
+ <CAMgjq7DJwGCHCAchcfi2Kcu+XHx2YnKXDj53e0t2kpG_GSejkQ@mail.gmail.com>
+ <aqgMCIOFi0dKx_6L@fedora> <CACePvbVMFA9N0nQers=sOnSXGbNhtNE0ewq47AJEH5Cr8imQXA@mail.gmail.com>
+ <CAKEwX=OMYhUs3tt7jUzEzxsOW3yA2JmzpwwxVBP2eZuHOFu=vw@mail.gmail.com>
+ <CACePvbUMjRgK=dQzLjECgBXaUtQSPdAnBXL1Y4=Kh5d15swYvQ@mail.gmail.com>
+ <5c8a2b7b-b76d-4bba-92e1-ec3d66794273@kernel.org> <CACePvbVTnCOh51jvEpkDJ32idvCubgN1eHBps6vESjhVC8E_aQ@mail.gmail.com>
+ <CAMgjq7D_=_4ZsCWJYywpZhPtg+YeH8o=ymRrV3sQ_58G6rs0sg@mail.gmail.com>
+In-Reply-To: <CAMgjq7D_=_4ZsCWJYywpZhPtg+YeH8o=ymRrV3sQ_58G6rs0sg@mail.gmail.com>
+From: Nhat Pham <nphamcs@gmail.com>
+Date: Wed, 14 Oct 2026 12:11:03 -0700
+X-Gm-Features: AclHuK-O9xN2h7Y61BKOyhDB3rUul2Ti7sGXJ2Q2LlVEmPwqRXTcsAZ_F7aCTNI
+Message-ID: <CAKEwX=MTapFb8ZjjoFNSyG-_ZKAsxqPY+x9st2s0b2iPL-d1Kw@mail.gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+To: Kairui Song <ryncsn@gmail.com>
+Cc: Chris Li <chrisl@kernel.org>, "David Hildenbrand (Arm)" <david@kernel.org>, 
+	Baoquan He <baoquan.he@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
+	Muchun Song <muchun.song@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Barry Song <baohua@kernel.org>, YoungJun Park <youngjun.park@lge.com>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Rik van Riel <riel@surriel.com>, 
+	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
+	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
+	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 1, 2026 at 5:51=E2=80=AFPM Brian Norris <briannorris@chromium.o=
-rg> wrote:
+On Wed, Oct 14, 2026 at 10:17=E2=80=AFAM Kairui Song <ryncsn@gmail.com> wro=
+te:
 >
-> The runtime PM API surface is pretty large, but there are a few common
-> patterns that many drivers should follow. Add some illustrative
-> examples, to help guide the most common audience for runtime PM docs --
-> driver writers.
 >
-> Signed-off-by: Brian Norris <briannorris@chromium.org>
-> ---
->
-> Changes in v4:
->  * "state" to "status", to be consistent with Introduction terminology
->
-> Changes in v3:
->  * Rewrite Examples to avoid devm_* at first, to highlight correct
->    approaches
->  * Include error-handling and remove() in any probe() Examples
->  * Advise more caution when using devm_*, as ordering issues are subtle
->
-> Changes in v2:
->  * Add appropriate teardown to "Probe with Hardware Powered Off"
->    Example, as the remove() + power-off behavior is subtle here, and
->    easy to get wrong
->
->  Documentation/power/runtime_pm.rst | 475 ++++++++++++++++++++++++++++-
->  1 file changed, 473 insertions(+), 2 deletions(-)
->
-> diff --git a/Documentation/power/runtime_pm.rst b/Documentation/power/run=
-time_pm.rst
-> index e4407b687f8b..cb25e0bb4ca7 100644
-> --- a/Documentation/power/runtime_pm.rst
-> +++ b/Documentation/power/runtime_pm.rst
-> @@ -429,7 +429,8 @@ in ->probe(). Usually this means calling pm_runtime_d=
-isable(),
->  pm_runtime_dont_use_autosuspend() etc. Alternatively, drivers can use
->  devm_pm_runtime_enable() during probe, which automatically takes care of
->  calling pm_runtime_disable() and pm_runtime_dont_use_autosuspend() upon =
-driver
-> -detachment.
-> +detachment. See also the Examples in `Section 10`_ for some effective
-> +strategies for driver teardown.
->
->  The user space can effectively disallow the driver of the device to powe=
-r manage
->  it at run time by changing the value of its /sys/devices/.../power/contr=
-ol
-> @@ -654,7 +655,9 @@ The implementation is well suited for asynchronous us=
-e in interrupt contexts.
->  However such use inevitably involves races, because the PM core can't
->  synchronize ->runtime_suspend() callbacks with the arrival of I/O reques=
-ts.
->  This synchronization must be handled by the driver, using its private lo=
-ck.
-> -Here is a schematic pseudo-code example::
-> +Here is a schematic pseudo-code example:
-> +
-> +.. code-block:: c
->
->         foo_read_or_write(struct foo_priv *foo, void *data)
->         {
-> @@ -720,3 +723,471 @@ pm_runtime_autosuspend_expiration() from within the=
- ->runtime_suspend()
->  callback while holding its private lock.  If the function returns a nonz=
-ero
->  value then the delay has not yet expired and the callback should return
->  -EAGAIN.
-> +
-> +.. _Section 10:
-> +
-> +10. Example Driver Patterns
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D
-> +
-> +The runtime PM API is large and complex, but most device drivers follow =
-a small
-> +set of canonical patterns when interacting with runtime PM. This section
-> +illustrates standard patterns for device probing, performing I/O, and ha=
-ndling
-> +interrupts.
-> +
-> +Probe and Initialization
-> +------------------------
-> +
-> +Basic Probe
-> +~~~~~~~~~~~
-> +
-> +A driver that powers on its hardware during probe and does not use autos=
-uspend
-> +can initialize runtime PM using standard helpers:
-> +
-> +.. code-block:: c
-> +
-> +       static int foo_probe(struct platform_device *pdev)
-> +       {
-> +               struct device *dev =3D &pdev->dev;
-> +               struct foo_priv *priv;
-> +               int ret;
-> +
-> +               priv =3D devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-> +               if (!priv)
-> +                       return -ENOMEM;
-> +
-> +               platform_set_drvdata(pdev, priv);
-> +
-> +               /* Power on and initialize hardware registers... */
-> +
-> +               /*
-> +                * The code above left hardware powered on and operationa=
-l, so
-> +                * tell the PM core that the device is active before enab=
-ling
-> +                * runtime PM.
-> +                */
-> +               pm_runtime_set_active(dev);
-> +               pm_runtime_enable(dev);
-> +
-> +               /*
-> +                * Perform remaining driver setup (e.g. register interrup=
-ts, device nodes).
-> +                * If any step fails after enabling runtime PM:
-> +                */
-> +               ret =3D foo_register_device(priv);
-> +               if (ret)
-> +                       goto err_pm_disable;
-> +
-> +               /*
-> +                * Upon successful return from ->probe(), the driver core
-> +                * automatically executes pm_request_idle(dev), allowing =
-the
-> +                * device to suspend asynchronously if its usage counter =
-is zero.
-> +                */
-> +               return 0;
-> +
-> +       err_pm_disable:
-> +               pm_runtime_disable(dev);
-> +               if (!pm_runtime_status_suspended(dev)) {
-> +                       /*
-> +                        * Power back off, in case device did not suspend=
- yet.
-> +                        * For example, leverage your .runtime_suspend()
-> +                        * implementation:
-> +                        */
-> +                       foo_runtime_suspend(dev);
+> 6. The one part that I think we can and should agree on it shat the
+> implement approach: at this point I think VM_SPARSE is the right
+> direction, Nhat is concerned about the testing on it, and I think we
+> can have more data for that, and collabration is highly encouraged. I
+> previously conducted many tests on everything posted from both sides,
+> will try to post more on this too.
 
-There are two reasons why this may not work, here and below.
+Let's see if I can help by doing the rebase :) We can use vswap as the base=
+line.
 
-First off, if a non-trivial PM domain or bus type etc is involved, its
-.runtime_suspend() callback may need to be invoked in addition to
-foo_runtime_suspend() to actually power off the device.  That's why
-pm_runtime_force_suspend() looks for the callback to invoke.
+And yeah, from a pure conceptual PoV, I'm ambivalent about VM_SPARSE.
+I just think it needs more data, as it imposes design implications on
+the rest of the implementation, whereas I already test vswap on a
+couple of workloads, including real swap-heavy production workloads
+with a mixed of swap and zswap users. Performance was good.
 
-Second, if the driver expects the device to be powered up and
-operational at the beginning of probe, which this one does AFAICS, it
-better should leave the device in that state on failing probe and
-remove or its own expectations regarding the initial state will not be
-met when it is re-probed.
+My question - and we can wait until the meeting to discuss - is why
+are we insistence on dropping all of existing code to just switch to
+VM_SPARSE? I would understand if it is indeed very difficult to switch
+down the line, but I don't think it is, based on my past hacky
+attempts to do it?
 
-> +                       pm_runtime_set_suspended(dev);
-> +               }
-> +               return ret;
-> +       }
-> +
-> +       static void foo_remove(struct platform_device *pdev)
-> +       {
-> +               struct device *dev =3D &pdev->dev;
-> +               struct foo_priv *priv =3D platform_get_drvdata(pdev);
-> +
-> +               foo_unregister_device(priv);
-> +
-> +               pm_runtime_disable(dev);
-> +               /*
-> +                * The runtime PM status is not guaranteed at this point.=
- We
-> +                * could be either suspended or active, so we need to han=
-dle
-> +                * both.
-> +                */
-> +               if (!pm_runtime_status_suspended(dev)) {
-> +                       /* Power back off, in case device did not suspend=
- yet. */
-> +                       foo_runtime_suspend(dev);
-> +                       pm_runtime_set_suspended(dev);
-> +               }
-> +       }
-> +
+>
+> That's a lot of problems already. I think we can discuss these points
+> further in the meeting.
+
+Thanks for the summary, Karui. From my end, these are my concerns:
+
+1. Interface: I don't like interface without justification. It has
+real userspace impact. Things like priority should not be exposed at
+all.
+
+And we should also avoid overloading swap interfaces with things other
+interfaces are better suited to handle. For instance, while I
+sympathize with your logical memory use cases, but I chatted with
+Johannes, and he pointed out that the overcommitting interface is
+better than swap for this purpose.
+
+Idk - maybe expanding /proc/sys/vm/overcommit_memory?
+
+2. Charging: personally I don't want virtual slots to charge to
+physical swap space, but I won't speak for memcg maintainers. One
+thing we can discuss is what kind of use case relies on the existing
+charging behavior, and come up with alternative setups to handle these
+use cases.
+
+3. Make sure any solution supports setups with mixed backends (per-cpu
+caching should also distinguish vswap v.s other swap solutions).
+
+Once we have a better idea of the rough design, then we can talk about
+implementations.
+
+Things I think we can skip:
+
+1. Writeback - this is a given now, I don't want to argue about it
+anymore. Just include it please.
+
+2. Swapoff - I don't think it should be a blocker in the first place.
+Vswap does not expose that functionality to userspace, but exposing it
+is trivial, because the machinery is identical to physical swapfile
+swapoff. If you want it could be a small-ish follow up patch.
+
+3. Memsw:  I think it's mostly a separate conversation. Vswap does not
+block memsw. FWIW, right now I keep vswap charged to memsw in cgroupv1
+because my understanding is that it's a logical counter, so it should
+count a page regardless of the physical reality.
+
+So if you expose memsw to cgroupv2, it will work as-is. The question
+is whether memsw will exposed to v2 in the first place, and that's
+orthogonal. Maybe the memcg folks can have a separate meeting to
+discuss it?
