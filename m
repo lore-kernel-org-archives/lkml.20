@@ -1,373 +1,251 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ED3A25B09D;
-	Wed, 14 Oct 2026 04:03:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 492373C1D7E
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:04:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791950632; cv=none; b=U6614Ca9GmFLGV4uPoo/tZiQ8PWmEalfmP7BEt3xXogSbuU62ccYAtTnOFyBBuKkTL/nHMWzEe03Y2UAb9ybbYa+V8MA+xGWJEMgaIjI63ZQr4uKSkl6Mb56/aktHERPNH7X4uGkLSjfe8WN31/6tPmJ6lAfKXgbuAzuCR+bb6Y=
+	t=1791950659; cv=none; b=jemPEX5J4IPGvwZUEI6BNHfd4J4o+mD28bDXzl+P98gb7bRIBKD2BetrheRi9TPD2Q1U48mEz+KRFVUX/RMSqDeFeTLH/CtQuaipjA4GasHqBv5kKPJQTNEJob2a1cCoJWyzl62QQod/qyVCklxxTWO8ZLgYYEXYB/8SV2G/9u8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791950632; c=relaxed/simple;
-	bh=/Rk6Pjt3Ru0rbRTMkEnRHnOQd/AgOkLGm3dtH40MmoI=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Q9uSZKXpwwACP81HtXgYgUDTtD5uyKIrDHzCkKGzpPgYlWzIu4ZRVZ2H4OCeDy9nmKGFhpL1OwPOUOePOz9Q/Dr8kJHTWiRXHNOJRHSP2/9LWo+aiun2bj+N3HjVlLUDIovyq6DWKyfCqnKYLSEBUxi93t5s6fpCN9ZcMTbzcq8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MGqvqDHC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791950659; c=relaxed/simple;
+	bh=TELD3byFoCzJHt38ueExDSjtqsJaLcUD5OsQqlJ9dpY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=qMdJy4EpjUVFOmrZ1FG6rrgpDL7yn7WxSI2/NkZPkFUK9fqatgIOKCTbNUQz6UdyACyLLyXGH1pvJEHOOlFYGr25EHdGYNAYsz8TeoZgElFUiZ1aL6EpAHsPjI7a52qZkfNEaVfOSPyuIOUTi26bwCG6L4M+Io2iBRC4YpLsEgI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cg9egB0m; arc=none smtp.client-ip=209.85.210.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MGqvqDHC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 285B01F00893;
-	Wed, 14 Oct 2026 04:03:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791950631;
-	bh=xAALzCeJyz2k0K1AD7EE+ZOgKqM4SXj6v8UkC897EZo=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=MGqvqDHCr9FxyG6CEYBYg01pQr0Xun9F4Gg8GL1ExQ9Dp3ptwHynzDeuVkxssAsxc
-	 YvmFuOn+WAjQKv1Jtd2o54lAYzSnFvrg+mYBPmwIL7cKkHosNnQFwlOM+pvYHbJjnS
-	 /2lTEB2d1VNMe43RMhYGHQs7Nn9dGNsrN48SrgdfohDwIekn2N8uKYjXCv777mA/js
-	 OlNv1lJdE9ouFxzY4l8hSp/cpiy1ev/dmOLEbzARQDdHirCyHHnN02AL5EBrFVxKJ7
-	 jmZ6W81lamKbVtpfhER7brPRy90MXY25eJF5mNqte5jvWp5hY7+JqL2nNptl/Y+GOT
-	 sUcgLLJtoThoQ==
-Subject: Re: [PATCH net-next v8 3/3] net: stmmac: dwxgmac2: add XGMAC
- timestamp interrupt support
-From: netdev-bot+sashiko@kernel.org
-To: zxyan0222@gmail.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- richardcochran@gmail.com, muhammad.nazim.amirul.nazle.asmade@altera.com,
- rohan.g.thomas@altera.com, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Wed, 14 Oct 2026 04:03:49 +0000
-Message-ID: <179195062971.434549.3907170504821168391@kernel.org>
-In-Reply-To: <20261013033207.1684328-4-zxyan0222@gmail.com>
-References: <20261013033207.1684328-4-zxyan0222@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cg9egB0m"
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8819033dbadso2229157b3a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 21:04:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791950657; x=1792555457; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=c+H2FgfTIXFxXOrQjvN5z55LLIoVUW5IktN5x14SgkI=;
+        b=cg9egB0mNzDHJVrYvAPkU2oGr/ePzujL1LZl2D6/C9kvqTJ7K68ZCcEQmtEjG+Rrpg
+         SQK10CMQmmPCgSt0z5ZC4nTZBWYr2YFjgufmqhXsObX6SHXE4qlr3yKilVITITIvmjy4
+         egdQk07sc7vUSH/SPRCtQkrjqOiCPeRzPJ13SkKd/GxJg5AmN8lQWAJVGs6IMfoymqDJ
+         +v94PWq2DqR3/4vxW0f+jpo8YshIUP3XfGY64q3qukyKKyKmvCrIGFtS0XJjdW4fH/Q5
+         UsZkdsOGDtoJfSv332uc9oEB4zq1NyvAMQjgAOZSMsqr0o7Q2mAxYKWf8AMOK81pM0vi
+         MCsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791950657; x=1792555457;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=c+H2FgfTIXFxXOrQjvN5z55LLIoVUW5IktN5x14SgkI=;
+        b=iQCTDkS4CFfSr+sxVK+SCgg2KoPNryq3KnyRm1Eo9+WXdV28Tf8BzZobiDpCFfGvlT
+         dfhzzvoDa5c6TFLaCO5p1ewOJ7D94BM91gXGdD8cjt3Wsgk7zru46enlN6PlBngsST06
+         KpXosGno+vAHP5pbC/REUonm7NAKJ5OXqUSMH3nAfQIIB7FpAZMjhl+zSrrGeZ75tLmt
+         lEsxHUIiZK1uquSRXTsa8kBKPiOSIoIuuH/SHWAoJR0XBeSWJstMkXK9XuPupai4+16d
+         6yClfOyXbBqD4XwCLPKqw4iU2btSljDm6TrRivdKKcqh/6xm6UOjfrz/rJme+LC0xlGy
+         AqdA==
+X-Forwarded-Encrypted: i=1; AKwUvBx5RCYISmmuhbiDSXXxcE0JkdAnxtxVWQDZUW+cQFFiJyEusFWo2Shp/0enwXCGDAYenmg3nE8egqCJnJ8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI+awKAboKR2V8B1uYDs98altoADIAHUccSGfVz43IMqELRH+x8
+	x4/nl9lzb/3Qh7gIliOX0h32w6D478BaBrg0Bba1OdZskrIxd/KNw8W3
+X-Gm-Gg: AYBFou3xb8RnTXwDyHXd4/Jzzqw5JsGUWtBGXnbH7xYv+aJkG+9Ey/mphNLYUi2oYCP
+	H7tbwaxvN11sywlGnJ74P0ZyEEtJHUJDZgOlTqys3X3chLkxIUMq3YKrkayC3KVi6y0K0aUf0qG
+	6rq0YNzqaj8I1bvKS1cq8F8/lrzdnnOH0Se0teaaJGxZE7L5+y2oHdskCt42J/C6GG1EFbQaK8D
+	RlgmG76173zryXOhfRWCczBre/bKkBVVs+vchB/9jPi8dSe8GrqOkI7leVx6H3o3c+Y1zWs51Ox
+	n1nzTrseV1kpQwwPgZlllow24gmqxl/by23XF4OgtK2jYbSaX9rsXYUpvSIKR5qKeyKxqlAl1MX
+	Jys/T6UpuRg1x55xZBQqNIbeOTcV9ksuJs+Ux/Bs3UCgJebGAPuRoqlAyrrEtppwsIYIMAUp9qs
+	RwC43Ww1Tr9H5qOB+JI7r6EPHjf8FgnS+rC/sIDRK9DjBA3TqE+7Rb523zvzBikQ6NvQ==
+X-Received: by 2002:a05:6a00:2e16:b0:882:d8c4:17c9 with SMTP id d2e1a72fcca58-897c6c248a9mr13355818b3a.23.1791950657453;
+        Tue, 13 Oct 2026 21:04:17 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89d802c09b5sm531115b3a.21.2026.10.13.21.04.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 21:04:17 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: perex@perex.cz,
+	tiwai@suse.com,
+	cassiogabrielcontato@gmail.com,
+	kees@kernel.org
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH] ALSA: pcm: Reject compat refinement after disconnect
+Date: Wed, 14 Oct 2026 12:04:12 +0800
+Message-Id: <pm-pmb-b3f7b3445bb11aaa9a7b-v2-a514c1399f30f407d626@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 5 potential
-issue(s) to consider.
+A disconnected PCM stream must reject hardware refinement before
+entering its runtime constraint program. The native ioctl path checks
+for SNDRV_PCM_STATE_DISCONNECTED, but snd_pcm_ioctl_hw_params_compat()
+only checks that the runtime exists before handling HW_REFINE32. The
+built-in BUFFER_BYTES rule retains the substream as its private payload
+and reads substream->buffer_bytes_max.
 
-Critical: 0 · High: 0 · Medium: 5 · Low: 0
+An open compat PCM file can therefore enter that rule after the
+component has been disconnected, while its owner is about to free the
+component. The request must include SNDRV_PCM_HW_PARAM_BUFFER_BYTES for
+this rule to run. A late HDA codec probe error on an already registered
+card can supply this teardown: snd_card_register() can publish an
+earlier PCM before a later registration fails, and
+snd_hda_codec_cleanup_for_unbind() then disconnects and frees the PCMs
+without the PCM-user drain used by normal codec removal.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+The failing order is:
 
-- [Medium] The commit message says dwxgmac2_timestamp_interrupt() cannot
-  race a FIFO flush because "PTP_ACR_ATSFC is only ever set while…
-- [Medium] In stmmac_enable(PTP_CLK_REQ_EXTTS), the 'already enabled'
-  -EBUSY check is dead.
-- [Medium] smtg_crosststamp() (dwmac-socfpga) tests
-  STMMAC_FLAG_EXT_SNAPSHOT_EN before mutex_lock(&priv->aux_ts_lock), and…
-- [Medium] Two handler instances can drain the auxiliary timestamp FIFO
-  at the same time.
-- [Medium] The commit message says TSIS is a read-to-clear bit that the
-  TX timestamp completion path clears.
+  1. The owner calls snd_pcm_dev_disconnect(), which marks the runtime
+     DISCONNECTED and returns.
+  2. The compat file enters snd_pcm_ioctl_hw_params_compat() and then
+     snd_pcm_hw_refine(), reaching snd_pcm_hw_rule_buffer_bytes_max().
+  3. The owner calls snd_device_free(); snd_pcm_free_stream() frees the
+     substream while the rule callback is still in progress.
+  4. The callback reads buffer_bytes_max through its freed private
+     payload, causing a use-after-free.
 
---
+The runtime and its rules remain allocated in this component-free path.
+The disconnect locks do not cover the subsequent free or the synchronous
+refinement loop, so they do not prevent this ordering.
 
-net: stmmac: dwxgmac2: add XGMAC timestamp interrupt support
+Reject compat HW_REFINE32 with -EBADFD when snd_pcm_get_state() reports
+a disconnected stream, matching the native ioctl. The existing helper
+reads the state under the stream lock. This stops refinement that starts
+after disconnect from entering the rule, closing the described window
+without changing component teardown.
 
-This adds a DWXGMAC2 timestamp interrupt handler that drains the
-auxiliary snapshot FIFO and reports the entries as PTP_CLOCK_EXTTS
-events. XGMAC_TSIE is armed on demand from the EXTTS enable path through
-a new timestamp_interrupt_cfg() callback. The suspend/resume,
-unregister and socfpga cross-timestamp paths are updated to coordinate
-FIFO ownership under aux_ts_lock.
+KASAN report as below:
 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-> index ee79b74bf21b6..93c1092237fc6 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-> @@ -311,6 +311,18 @@ static int smtg_crosststamp(ktime_t *device, struct system_counterval_t *system,
->  		return -EBUSY;
->  
->  	mutex_lock(&priv->aux_ts_lock);
-> +	/* Refuse to arm once the clock has been invalidated by
-> +	 * unregister.
-> +	 */
-> +	if (!priv->ptp_clock) {
-> +		mutex_unlock(&priv->aux_ts_lock);
-> +		return -ENODEV;
-> +	}
-> +	priv->plat->flags |= STMMAC_FLAG_INT_SNAPSHOT_EN;
+    BUG: KASAN: slab-use-after-free in snd_pcm_hw_rule_buffer_bytes_max+0x276/0x2a0
+    Read of size 8 at addr ffff888111b36870 by task pmbd_alsa_reade/486
 
-[Severity: Medium]
-The STMMAC_FLAG_EXT_SNAPSHOT_EN test that guards smtg_crosststamp() still
-runs before aux_ts_lock is taken. Under the lock, only ptp_clock is
-rechecked:
+    CPU: 2 UID: 0 PID: 486 Comm: pmbd_alsa_reade Tainted: G           O        7.2.0-rc6-pmb-bt-functional-v1+ #1 PREEMPT(lazy)
+    Tainted: [O]=OOT_MODULE
+    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+    Call Trace:
+     <TASK>
+     dump_stack_lvl+0x93/0xd0
+     print_report+0xce/0x630
+     ? snd_pcm_hw_rule_buffer_bytes_max+0x276/0x2a0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __virt_addr_valid+0x20d/0x410
+     ? snd_pcm_hw_rule_buffer_bytes_max+0x276/0x2a0
+     kasan_report+0xe0/0x110
+     ? snd_pcm_hw_rule_buffer_bytes_max+0x276/0x2a0
+     snd_pcm_hw_rule_buffer_bytes_max+0x276/0x2a0
+     ? snd_pcm_hw_rule_div+0x16b/0x200
+     ? __pfx_snd_pcm_hw_rule_buffer_bytes_max+0x10/0x10
+     ? constrain_params_by_rules+0x17a/0xfe0
+     constrain_params_by_rules+0x506/0xfe0
+     ? __pfx_constrain_params_by_rules+0x10/0x10
+     ? __ia32_compat_sys_ioctl+0x289/0x2f0
+     ? do_int80_emulation+0x14a/0x5e0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_release+0xc8/0x280
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? snd_interval_refine+0x284/0x470
+     snd_pcm_hw_refine+0x768/0xcc0
+     ? __pfx_snd_pcm_hw_refine+0x10/0x10
+     ? _copy_from_user+0x51/0xa0
+     snd_pcm_ioctl_hw_params_compat+0x138/0x280
+     snd_pcm_ioctl_compat+0x4c5/0x7c0
+     ? __pfx_snd_pcm_ioctl_compat+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? selinux_file_ioctl+0xaa/0x280
+     ? ksys_write+0x16b/0x200
+     ? __pfx_snd_pcm_ioctl_compat+0x10/0x10
+     __ia32_compat_sys_ioctl+0x289/0x2f0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     do_int80_emulation+0x14a/0x5e0
+     asm_int80_emulation+0x1a/0x20
+    RIP: 0023:0x8049084
+    Code: 80 b8 04 00 00 00 bb 01 00 00 00 b9 43 a0 04 08 ba 2b 00 00 00 cd 80 b8 36 00 00 00 89 f3 b9 10 41 5c c2 ba b8 b0 04 08 cd 80 <85> c0 78 6c b8 04 00 00 00 bb 01 00 00 00 b9 27 a0 04 08 ba 1c 00
+    RSP: 002b:00000000ffd35e40 EFLAGS: 00000246 ORIG_RAX: 0000000000000036
+    RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 00000000c25c4110
+    RDX: 000000000804b0b8 RSI: 0000000000000003 RDI: 0000000000000004
+    RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+    R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000000
+    R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+     </TASK>
 
-    if (priv->plat->flags & STMMAC_FLAG_EXT_SNAPSHOT_EN)
-        return -EBUSY;
+    Allocated by task 486:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     __kasan_kmalloc+0xaa/0xb0
+     __kmalloc_cache_noprof+0x251/0x610
+     snd_pcm_new_stream+0x98f/0x1350
+     _snd_pcm_new+0x1d1/0x310
+     snd_pcm_new+0x43/0x60
+     0xffffffffc0401115
+     do_one_initcall+0xf3/0x4e0
+     do_init_module+0x281/0x8e0
+     load_module+0x658c/0x7cc0
+     init_module_from_file+0x15b/0x180
+     idempotent_init_module+0x22d/0x770
+     __x64_sys_finit_module+0xd2/0x160
+     do_syscall_64+0x115/0x6a0
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-    mutex_lock(&priv->aux_ts_lock);
+    Freed by task 494:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     kasan_save_free_info+0x3b/0x60
+     __kasan_slab_free+0x5f/0x80
+     kfree+0x307/0x580
+     snd_pcm_free_stream+0xcf/0x290
+     snd_pcm_free+0xb1/0xf0
+     __snd_device_free+0x1a1/0x490
+     snd_device_free+0xcf/0x190
+     case_owner_ioctl+0xb8/0x160 [pmbd_alsa_fixture]
+     __x64_sys_ioctl+0x163/0x1d0
+     do_syscall_64+0x115/0x6a0
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-getcrosststamp doesn't take pincfg_mux. Can a concurrent
-PTP_EXTTS_REQUEST run its whole locked section inside that window?
+    The buggy address belongs to the object at ffff888111b36800
+     which belongs to the cache kmalloc-1k of size 1024
+    The buggy address is located 112 bytes inside of
+     freed 1024-byte region [ffff888111b36800, ffff888111b36c00)
 
-CPU1 (PTP_SYS_OFFSET_PRECISE)    CPU2 (PTP_EXTTS_REQUEST, on=1)
-smtg_crosststamp()
-  EXT_SNAPSHOT_EN not set
-                                 stmmac_enable()
-                                   sets EXT_SNAPSHOT_EN
-                                   writes ATSEN(index) | ATSFC
-                                   arms XGMAC_TSIE
-  mutex_lock(&priv->aux_ts_lock)
-  acr_value &= ~PTP_ACR_MASK;
-  sets ATSEN(int_snapshot_num)
-  ...
-  flags &= ~STMMAC_FLAG_INT_SNAPSHOT_EN
+    The buggy address belongs to the physical page:
+    page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff888111b35800 pfn:0x111b30
+    head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+    flags: 0x200000000000240(workingset|head|node=0|zone=2)
+    page_type: f5(slab)
+    raw: 0200000000000240 ffff888100042dc0 ffffea0004218610 ffffea00042c6810
+    raw: ffff888111b35800 000000000010000f 00000000f5000000 0000000000000000
+    head: 0200000000000240 ffff888100042dc0 ffffea0004218610 ffffea00042c6810
+    head: ffff888111b35800 000000000010000f 00000000f5000000 0000000000000000
+    head: 0200000000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
+    head: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000000
+    page dumped because: kasan: bad access detected
 
-Would that leave EXT_SNAPSHOT_EN set, TSIE armed and ext_snapshot_num
-naming the user's channel, while PTP_ACR enables only the internal
-snapshot channel?
+    Memory state around the buggy address:
+     ffff888111b36700: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+     ffff888111b36780: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+    >ffff888111b36800: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                                                                 ^
+     ffff888111b36880: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+     ffff888111b36900: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+    ==================================================================
 
-If so, the user's EXTTS channel would produce no more events, and every
-later smtg_crosststamp() would return -EBUSY. dwxgmac2_timestamp_interrupt()
-takes the reported index from the live PTP_ACR, so any events delivered
-in that state would carry the internal channel index. On resume,
-stmmac_rearm_timestamp_irq() would also program ext_snapshot_num, which
-no longer matches the hardware state.
+Assisted-by: LLM
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+---
 
-Could the EXT_SNAPSHOT_EN check move under aux_ts_lock, next to the new
-ptp_clock check?
-
-[ ... ]
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-> index 1a88cbaed70ca..3b98cd82ec2d7 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-
-[ ... ]
-
-> @@ -1154,6 +1160,59 @@ static int dwxgmac2_get_mac_tx_timestamp(struct mac_device_info *hw, u64 *ts)
->  	return 0;
->  }
->  
-> +void dwxgmac2_timestamp_interrupt(struct stmmac_priv *priv)
-> +{
-
-[ ... ]
-
-> +	/* Reading XGMAC_TIMESTAMP_STATUS clears TSIS, so use the ATSNS
-> +	 * count to see the pending snapshots.
-> +	 */
-> +	ts_status = readl(priv->ioaddr + XGMAC_TIMESTAMP_STATUS);
-
-[Severity: Medium]
-The commit message says TSIS is read-to-clear and that the TX timestamp
-completion path clears it. On XGMAC that path runs for every TX
-timestamp. dwxgmac2_get_tx_timestamp_status() always returns 0, so
-stmmac_get_tx_hwtstamp() always falls back to
-dwxgmac2_get_mac_tx_timestamp(), which polls the same register from
-NAPI:
-
-    if (readl_poll_timeout_atomic(ioaddr + XGMAC_TIMESTAMP_STATUS,
-                                  value, value & XGMAC_TXTSC, 100, 10000))
-
-Suppose that read lands after an auxiliary snapshot sets TSIS (with
-TSIE armed) but before the CPU takes the MAC interrupt. Can a
-level-triggered MAC IRQ then be deasserted, so the handler never runs
-for that snapshot?
-
-dwxgmac2_timestamp_interrupt() is the only consumer of the aux FIFO, and
-its only caller is stmmac_common_interrupt(). Skipping the TSIS gate
-only helps once the handler is already running.
-
-Would the snapshot then stay in the FIFO until an unrelated MAC
-interrupt arrives, or in single-IRQ mode the next DMA interrupt? In
-multi-MSI mode only MAC interrupts reach this handler. For a one-shot
-input the event could then be delayed indefinitely, or lost to FIFO
-overflow.
-
-> +
-> +	if (!(priv->plat->flags & STMMAC_FLAG_EXT_SNAPSHOT_EN) || !priv->ptp_clock)
-> +		return;
-> +
-> +	pending_snapshots = FIELD_GET(XGMAC_TIMESTAMP_ATSNS_MASK, ts_status);
-> +	if (!pending_snapshots)
-> +		return;
-> +
-> +	acr_value = readl(priv->ptpaddr + PTP_ACR);
-> +	/* Entries observed while the FIFO is being flushed are stale. */
-> +	if (acr_value & PTP_ACR_ATSFC)
-> +		return;
-> +	channel = FIELD_GET(PTP_ACR_MASK, acr_value);
-> +	if (!channel)
-> +		return;
-> +	channel = ilog2(channel);
-> +
-> +	for (i = 0; i < pending_snapshots; i++) {
-> +		read_lock_irqsave(&priv->ptp_lock, flags);
-> +		stmmac_get_ptptime(priv, priv->ptpaddr, &ptp_time);
-> +		read_unlock_irqrestore(&priv->ptp_lock, flags);
-
-[Severity: Medium]
-Can two instances of this loop drain the FIFO at the same time?
-stmmac_request_irq_single() registers stmmac_interrupt() on dev->irq and
-also on a separate wake line:
-
-    if (priv->wol_irq > 0 && priv->wol_irq != dev->irq) {
-        ret = request_irq(priv->wol_irq, stmmac_interrupt,
-                          IRQF_SHARED, dev->name, dev);
-
-Both lines reach this handler through stmmac_common_interrupt(). The
-handler deliberately doesn't gate on TSIS, so two CPUs servicing the two
-lines could both read the same ATSNS=N and both loop N times.
-
-read_lock_irqsave() on ptp_lock admits both readers at once. Also,
-get_ptptime() consumes each entry with two separate reads:
-
-    ns = readl(ptpaddr + PTP_ATNR);
-    ns += (u64)readl(ptpaddr + PTP_ATSR) * NSEC_PER_SEC;
-
-Would that pop 2N entries for N snapshots? Could one reported EXTTS
-timestamp combine the nanosecond and second halves of different entries?
-
-> +
-> +		event.type = PTP_CLOCK_EXTTS;
-> +		event.index = channel;
-> +		event.timestamp = ptp_time;
-> +		ptp_clock_event(priv->ptp_clock, &event);
-> +	}
-> +}
-
-[ ... ]
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-> index 3bfcc9760dce7..f41988f5927ad 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-
-[ ... ]
-
-> @@ -239,22 +246,49 @@ static int stmmac_enable(struct ptp_clock_info *ptp,
->  				return -EBUSY;
->  			}
->  
-> +			if (rq->extts.index >= PTP_ACR_ATSEN_NUM) {
-> +				mutex_unlock(&priv->aux_ts_lock);
-> +				return -EINVAL;
-> +			}
-> +
->  			priv->plat->flags |= STMMAC_FLAG_EXT_SNAPSHOT_EN;
-> +			priv->plat->ext_snapshot_num = rq->extts.index;
->  
->  			/* Enable External snapshot trigger */
->  			acr_value |= PTP_ACR_ATSEN(rq->extts.index);
->  			acr_value |= PTP_ACR_ATSFC;
->  		} else {
->  			priv->plat->flags &= ~STMMAC_FLAG_EXT_SNAPSHOT_EN;
-> +			priv->plat->ext_snapshot_num = -1;
->  		}
-
-[Severity: Medium]
-The "already enabled" check just above this hunk can never fire, because
-the mask is cleared before it is tested:
-
-    acr_value = readl(ptpaddr + PTP_ACR);
-    channel = ilog2(FIELD_GET(PTP_ACR_MASK, acr_value));
-    acr_value &= ~PTP_ACR_MASK;
-
-    if (on) {
-        if (FIELD_GET(PTP_ACR_MASK, acr_value)) {
-            ...
-            return -EBUSY;
-        }
-
-Before calling ops->enable(), ptp_extts_request() only checks
-req.extts.index >= ops->n_ext_ts. With the new single-slot
-ext_snapshot_num, what happens for the sequence enable(A), enable(B),
-disable(A)?
-
-enable(B) would clear ATSEN(A), set ATSEN(B) and overwrite
-ext_snapshot_num.
-
-disable(A) doesn't look at rq->extts.index. It clears EXT_SNAPSHOT_EN,
-sets ext_snapshot_num to -1, writes an empty ACR mask and disarms
-XGMAC_TSIE. That stops channel B while userspace still thinks it is
-enabled.
-
-The dead check predates this patch. However, the new ext_snapshot_num
-tracking, the resume rearm and the ATSFC/TSIE invariant in the commit
-message all assume only one channel is ever active.
-
-Should the busy test happen before the mask is cleared? And should the
-disable path check that rq->extts.index matches ext_snapshot_num?
-
->  		netdev_dbg(priv->dev, "Auxiliary Snapshot %d %s.\n",
->  			   rq->extts.index, on ? "enabled" : "disabled");
->  		writel(acr_value, ptpaddr + PTP_ACR);
-> -		mutex_unlock(&priv->aux_ts_lock);
-> -		/* wait for auxts fifo clear to finish */
-> +		/* Keep the lock across the FIFO clear so the arm below
-> +		 * cannot interleave with a suspend.
-> +		 */
->  		ret = readl_poll_timeout(ptpaddr + PTP_ACR, acr_value,
->  					 !(acr_value & PTP_ACR_ATSFC),
->  					 10, 10000);
-
-[ ... ]
-
-> +		/* Arm the timestamp interrupt only after the FIFO clear,
-> +		 * so the handler cannot see a snapshot that is about to be
-> +		 * discarded.
-> +		 */
-> +		stmmac_mac_timestamp_interrupt_cfg(priv, on && !ret);
-> +		/* Drain an in-flight handler before the channel is freed. */
-> +		if (!on)
-> +			stmmac_sync_timestamp_irq(priv);
-> +		mutex_unlock(&priv->aux_ts_lock);
-
-[Severity: Medium]
-The commit message says:
-
-  "PTP_ACR_ATSFC is only ever set while XGMAC_TSIE is disabled, so this
-  both keeps it off the FIFO on unrelated interrupts and stops it racing
-  a FIFO flush."
-
-Does that hold when a second PTP_CLK_REQ_EXTTS enable arrives while a
-channel is already enabled? This can come from the ioctl or from the
-extts_enable sysfs attribute.
-
-Because of the dead -EBUSY check above, the request gets through. The
-writel() above then sets ATSEN(new) | PTP_ACR_ATSFC while XGMAC_TSIE is
-still armed from the first enable. TSIE is not disarmed and
-stmmac_sync_timestamp_irq() is not called before the flush; the sync
-only happens for !on.
-
-dwxgmac2_timestamp_interrupt() runs on any MAC interrupt, or in
-single-IRQ mode any DMA interrupt. It shares no lock with this path, and
-it samples the FIFO level and the flush state at different times:
-
-    ts_status = readl(priv->ioaddr + XGMAC_TIMESTAMP_STATUS);
-    ...
-    acr_value = readl(priv->ptpaddr + PTP_ACR);
-    if (acr_value & PTP_ACR_ATSFC)
-        return;
-    ...
-    for (i = 0; i < pending_snapshots; i++) {
-        ...
-        stmmac_get_ptptime(priv, priv->ptpaddr, &ptp_time);
-
-If that PTP_ACR read happens before the ATSFC write, or after the
-self-clearing flush completes, ATSFC reads as 0.
-
-Could the handler then pop N entries from a FIFO that is being flushed
-or is already empty? It would report N stale or bogus PTP_CLOCK_EXTTS
-events, tagged with either the old or the new channel index.
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261013033207.1684328-1-zxyan0222%40gmail.com
+diff --git a/sound/core/pcm_compat.c b/sound/core/pcm_compat.c
+index 55ecf87586c4ddc553a82997ddaf30a69ab6627a..f5696ea3a5faf60430a04b792fd77b711fd0d7eb 100644
+--- a/sound/core/pcm_compat.c
++++ b/sound/core/pcm_compat.c
+@@ -241,6 +241,9 @@ static int snd_pcm_ioctl_hw_params_compat(struct snd_pcm_substream *substream,
+ 	runtime = substream->runtime;
+ 	if (!runtime)
+ 		return -ENOTTY;
++	if (refine &&
++	    snd_pcm_get_state(substream) == SNDRV_PCM_STATE_DISCONNECTED)
++		return -EBADFD;
+ 
+ 	struct snd_pcm_hw_params *data __free(kfree) =
+ 		kmalloc_obj(*data);
