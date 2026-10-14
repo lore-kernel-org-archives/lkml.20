@@ -1,37 +1,66 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 819D44F68C8;
-	Wed, 14 Oct 2026 11:06:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EEBA50129F
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:06:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791975999; cv=none; b=kOlFaYL+p6neSU4qKjrQg0TE3pxTmhbZ2t8ouP6yF97P+FYxTdjf5Y0AHvy/cNV3cA2Qyy1kkenDdJmwJ/v6XFvjr5p3C5T4xEK3SVAZba4EDVrqdsgaGZLL9656YVJZ2E3MBgI6tIRFQyPOJvrp2vU2LR4l9zlqZbQeARnUz60=
+	t=1791976007; cv=none; b=SRyJDait4SmdZSIkNYoqYl1Fjo17rkSxN5Ag4s1e11VLg182co8KpWU1M24Hrvw3lAgTSbLdizwrme/A9b+sSZg5OVWatmtAAlQYUfOCSbnMGNUV2HJWD5YgfeQGphcJda7tDvU5CHctKbQkBvT69gnGNCnfTK2oVT8zc7w6IlM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791975999; c=relaxed/simple;
-	bh=TTfxrsLm6/Jgz3DFS4QxmFqhD1DUEjCRl/gBNIf14VI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=k8PMk0uX7SsTrNYKjwZhWHhne0sD17kV2XeqrGIIKbeJkVH4OEeBGo61hmE5IeHcD0tIi6shth4hyBfHkraEBKZW9tGNtWUg+jUcbS2VD0OPrOCu9Rv7WHGo69r0gyiYXqKqwOqI2jDdT1EMSOxXfrq6/sCwBcc2w7SE5i8g4ug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WJUGl/6R; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791976007; c=relaxed/simple;
+	bh=Q4sS6ysJkh6bVqmDm0t8nwutvdPtgGri+t2E+qvwZrQ=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=tUxErXpWsULzphXAtQm3aQ+U2JFBsXfM67zUB2R2/DUmXyqTqAJ98LpU5ap2DyMugIuz0Bn736Lf0OT/MHs3z77ySQulY/b0yhaUwkpCw06kRaWmaOQ7rRKs+TFYVRPXvqPoMFD5cZk6Z4VRAlBFBg8L25SzuC4vOAKaowEiXQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lnNRWHem; arc=none smtp.client-ip=74.125.227.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WJUGl/6R"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id BC4FAC2BCF5;
-	Wed, 14 Oct 2026 11:06:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791975998;
-	bh=TTfxrsLm6/Jgz3DFS4QxmFqhD1DUEjCRl/gBNIf14VI=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=WJUGl/6RF/iuXvwdAmAuWbAvrp/uCTvL7vmdchmRbV6ZMpmSP8cSfKFWK3rNzzqlR
-	 rMtFpiYXeglAbZY/PNIo1pNyobiA8jDMkZFq2sNHv2z+c4y1orfbxgNlnvzWlPnmZn
-	 d+P0WUjdcGrOvkVbOuanx+UJs5vXQ6zDDeBDBlO3x3C2n0eLiDE2j6CMZYKLOuYFYa
-	 cR5aH2iC1g9tF3SwmpF3intTe7eVuMEE70+wEe8C1S3GY4tiyrBH0xzaSY5iwi+dZP
-	 aU+12e3yI2lZ2iMVXtNqbB5xc7fgZLS0nOvNVXDbHDvJjbhlpUVPuohyJD6fdkGW5A
-	 wsPWlsTpIe5/g==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A76ADCC6B1D;
-	Wed, 14 Oct 2026 11:06:38 +0000 (UTC)
-From: Nicholas Velten via B4 Relay <devnull+nicholasfvelten.gmail.com@kernel.org>
-Date: Wed, 14 Oct 2026 08:06:38 -0300
-Subject: [PATCH] usb: gadget: u_ether: refuse to re-register a failed
- net_device
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lnNRWHem"
+Received: by mail-pj2-f10.google.com with SMTP id 98e67ed59e1d1-3abe4fb64d2so1741943a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:06:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791976000; x=1792580800; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=E41qJNRzVmPfHenlZSA2Vl9639pSTN9ZvaDbaLPA2p0=;
+        b=lnNRWHemxl4Adum9W7q2lsSnAeuUGVAJM10nga7X5Ny3gjQ5nYA4FjQR4lEDYeTn4J
+         QvoncNKcllKwbJkxdqgKQMANLUaCrSAm6NEZZm+LkmNBewYdAEFDkQch9VsAFSLokQuR
+         iwEt/R+EF/oE5l14hESfPsB/m/v+x0qIjY62h88Jl58wY5b/nEI8SbiIC/1330VPQmpE
+         WGJ8AxCc1Pih9+MHHLsgjSxEdsYwh1t6FGFqDrOim7gYI2kaaW0TFPDc0DiLA+vMkSjb
+         MWMDKgIgVPOnAsil1oesXfD2fR/lRxXJvId/UyHS7jwJW5W1gouuRgFpdKef2iL6Unr9
+         oeMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791976000; x=1792580800;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=E41qJNRzVmPfHenlZSA2Vl9639pSTN9ZvaDbaLPA2p0=;
+        b=owEcqmgJBSsMf4Y6pxHXmoK4Ik2fX/f4x7D3ox0FiOoyxSdxXcUHXQ5E0LhJ/1IAX/
+         /ynm4Z/Mehh8/zKMD7H0j8FChun6zWRHtca3BvtGEapUxEcW/3FRywq9bMIfJZxckyrh
+         TzKSAXU6Gw7Bh+NgtzUzainydj4Xi8tfR72CVj6DGIQgFSCphELTzbOuvWMMcWMP8uoX
+         qicsHiWUntD8fRdniCNEuO6CjvmkxdAmp25izyIsiVzQljmIz6agPFedP/jqN5YMTgAC
+         FUWIE1eLnRmvSgn7QiKls0j3IHMISeNcMUhBFPio6/Ar3ewOx5vvvw5/w4bTVD4UfN74
+         7Lyw==
+X-Forwarded-Encrypted: i=1; AKwUvBwUAQGNCfH7vta3ebLoD+5udSfRPbZ7hBWWgHyU6h/cfQnvc0iZP/3fq5hdqkhVC1ELnO8BOHZUzwHA6hA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL7fFfQdGawgA2Epsh1blo67N+yNvFuilNUEbp5TlxJrjCx22fQ
+	vK6gBpZKShytZlgwLJdhHqS0ufsQ7hfSAufgLq6WQ8pGU7him+fRw6oWUiJs8oEOoa7PYMcyUjk
+	=
+X-Gm-Gg: AYBFou2AQPNnLd24EiKn1OFRU3dUwiSDWvjSSwTPXWEL7UD3l9tCnnmIEQiDsvqFtO2
+	XaE01P/9ILEbP/nz4Fs9TifUD6A1FfC2b6Xgv82gnrH+BfkXd3mhCyFfvVSw4dLCx18clcWPV/s
+	AuG9CJHiCjcqpzQMGg/F/k65GDHCbtqLIjNqeAVm0d/Dem6xqGLoxTFQ9GfsiGlFYJyzoZdnQZw
+	ZjKAUqgg0TEKcdO5z+M3j8jO6I6X116z+gKHjczVdOiFJJjlmIMtxUmmkkjP0MyAohWXZBcZl/Z
+	WDdaxxLKx5vv4coRiVXG2WSq1HnYD2KuCAoAO1RRQ/fSieN8y8KzRze75IiKe7RPQrWxWIOnQaS
+	RadZNew9AvW8qx1ttwFrnLPK/cyp5Cea8Zdkum9UWhKftcJjR/hCAKIEIOqSdXOcZcaTTYiqcDF
+	enKtpSwBU9n+DBvkCZU/U2v7sTUvaWsn4P0iXXcHrMBW72cRRfq7pKQliLIg3MoUuMjO2K7VM5b
+	HJAojXdTlZaLG3WteI3N1qZHfbnThI=
+X-Received: by 2002:a17:90b:4a08:b0:3ac:4e91:bff7 with SMTP id 98e67ed59e1d1-3ac4e91c1b6mr2825151a91.48.1791975999552;
+        Wed, 14 Oct 2026 04:06:39 -0700 (PDT)
+Received: from [172.20.10.4] ([240e:471:300:dde:5eec:32d6:f33:1d4b])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd5e2b79df5sm5281837a12.19.2026.10.14.04.06.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 04:06:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,132 +69,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-fix-gadget-netdev-reregister-v1-1-0fb91999da06@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAD1iz2oC/yXMQQrCMBBG4auUWTuQlKroVcRFmvyJ4yLKTCxC6
- d2Nuvzg8VYyqMDoPKykWMTkUTv8bqB4C7WAJXXT6MaDd37iLG8uIRU0rmgJCysURaxB+biPeXI
- nFzJm6ounove//eX6t73mO2L7PmnbPufLXnKAAAAA
-X-Change-ID: 20261014-fix-gadget-netdev-reregister-75cf4090afeb
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
- syzbot+85ede281798faf736677@syzkaller.appspotmail.com, 
- Nicholas Velten <nicholasfvelten@gmail.com>
+Subject: Re: [PATCH v2 0/2] HID: picolcd: Fix output-request and
+ framebuffer locking
+From: Aveline Noir <jm5905938@gmail.com>
+To: Aveline Noir <jm5905938@gmail.com>
+Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
+ linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ syzbot+912222e4cb82423535fa@syzkaller.appspotmail.com, 
+ bigeasy@linutronix.de, linux-rt-devel@lists.linux.dev, deller@gmx.de, 
+ simona@ffwll.ch, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <CANOyQmGfmBdTRaEamVdGuMBToVLeXGi6qLrnX=xkA9acsL9TSQ@mail.gmail.com>
+References: <CANOyQmGfmBdTRaEamVdGuMBToVLeXGi6qLrnX=xkA9acsL9TSQ@mail.gmail.com>
+Date: Wed, 14 Oct 2026 19:06:31 +0800
+Message-Id: <179197599193.532954.6543599494592547892.b4-reply@b4>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791975997; l=4551;
- i=nicholasfvelten@gmail.com; s=20261014; h=from:subject:message-id;
- bh=R8N/U9EpeodrPP2C8W4xyv5oFcDyRUldfgErXBf/7RE=;
- b=9ZXSnZvhgl4VAmjVXgi0COCcRCK6RUR7/fd0U2D9qtiM2mdmlvSsMVRN4HbiIJp0g3DxStTd8
- 7pMKyTgEQm9D731n6qgT6gqe+EN9/T3Z7dov6GndfdCu2MdQELCXtdu
-X-Developer-Key: i=nicholasfvelten@gmail.com; a=ed25519;
- pk=WVTZgm6yXQ+XrhULAObg4lwcHPhhxAXrAY+YY6svXzg=
-X-Endpoint-Received: by B4 Relay for nicholasfvelten@gmail.com/20261014
- with auth_id=1173
-X-Original-From: Nicholas Velten <nicholasfvelten@gmail.com>
-Reply-To: nicholasfvelten@gmail.com
+X-Developer-Signature: v=1; a=openssh-sha256; t=1791975994; l=2119;
+ i=jm5905938@gmail.com; h=from:subject:message-id;
+ bh=Q4sS6ysJkh6bVqmDm0t8nwutvdPtgGri+t2E+qvwZrQ=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgboJ0y2WZIrQV0H4HJI1WEQ5sxS6pM
+ Nc/XEYGLW8ee6wAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QJSB+KMp1PvZyKEm4roi9iB1DW2hPjN7sh98ZjltMhWCFYkG+UkBAjTEszr3F5A7A+M39+3Sa31
+ Dwagjpf+n0w0=
+X-Developer-Key: i=jm5905938@gmail.com; a=openssh;
+ fpr=SHA256:oSxqik6Pl1M8EjQW1QXKHoylm1jy0sguOWFFJlA9zf0
 
-From: Nicholas Velten <nicholasfvelten@gmail.com>
+Hi Jiri, Benjamin,
 
-When register_netdevice() fails in or after netdev_register_kobject(),
-it returns an error but leaves the net_device in NETREG_UNREGISTERED.
-Such a device can never be registered again; the only valid thing to do
-with it is free_netdev().
+Just a quick ping on this v2 series. Have you had a chance to take a look?
 
-The configfs Ethernet functions (ECM, EEM, NCM, RNDIS and subset)
-allocate their net_device once per function instance and register it
-from the bind callback, retrying on every bind for as long as the device
-is not registered (formerly tracked by a "bound" flag, now by
-device_is_registered()). After a failed registration the next bind
-therefore calls register_netdev() on an NETREG_UNREGISTERED device and
-hits the BUG_ON() at the top of register_netdevice():
+Both fixes have been tested with QEMU/UHID, though not on physical hardware. I'd appreciate any feedback and would be happy to make changes or run additional tests if needed.
 
-  kernel BUG at net/core/dev.c:11440!
-  Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-  RIP: 0010:register_netdevice+0xc21/0x1d00
-  Call Trace:
-   register_netdev
-   gether_register_netdev
-   ncm_bind
-   usb_add_function
-   configfs_composite_bind
-   gadget_bind_driver
-   ...
-   gadget_dev_desc_UDC_store
+Thanks,
+Aveline
 
-syzbot hits this by binding a gadget from a memory cgroup with a tiny
-limit, which makes the memcg-accounted allocations in
-netdev_register_kobject() fail. That is why its bisection lands on
-commit 425b9c7f51c9 ("memcg: accounting for objects allocated for new
-netdevice"): that commit made the failure reachable that way, while the
-retry itself is much older.
-
-Refuse to register a net_device that is not NETREG_UNINITIALIZED in
-gether_register_netdev(), which all of these functions use, so that the
-bind fails with -EINVAL instead of crashing. The function instance has
-to be recreated to get a usable net_device again.
-
-Reproduced with fail-nth fault injection on the allocations of the
-write() to the gadget's UDC attribute, binding again without injection
-after each failed bind, using a fresh function instance per iteration:
-without this change NCM, ECM and RNDIS hit the BUG_ON() at the 16th
-injected allocation; with it, 400 iterations for NCM and 300 each for
-ECM, EEM, RNDIS and subset complete with no BUG or KASAN report.
-
-Fixes: 40d133d7f542 ("usb: gadget: f_ncm: convert to new function interface with backward compatibility")
-Reported-by: syzbot+85ede281798faf736677@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=85ede281798faf736677
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Nicholas Velten <nicholasfvelten@gmail.com>
----
-The syzbot C reproducer did not reach the gadget bind in my virtme-ng
-guest (its sandbox setup appears to fail there), so I reproduced with a
-small fail-nth program instead. I can post it if useful.
-
-Not tested: architectures other than x86_64, and the legacy (non-configfs)
-gadgets that also call gether_register_netdev() (g_ether, g_multi,
-g_ffs); they register once from their bind path and should be unaffected.
-
-f_phonet has the same retry pattern but a different outcome:
-gphonet_register_netdev() calls free_netdev() on failure while
-phonet_opts->net still points at the device and phonet_opts->bound stays
-false, so the next bind uses a freed net_device. I left it out of this
-patch to keep it to one change and because f_phonet is being changed by
-"usb: gadget: f_phonet: fix use-after-free in pn_bind" (v3, not yet
-applied); I can send a separate fix on top of that if wanted.
-
-Also touching gether_register_netdev(), without conflict:
-"usb: gadget: u_ether: Fix NULL pointer deref in debug logging".
----
- drivers/usb/gadget/function/u_ether.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/drivers/usb/gadget/function/u_ether.c b/drivers/usb/gadget/function/u_ether.c
-index 59d85d6a8..1f4ac7078 100644
---- a/drivers/usb/gadget/function/u_ether.c
-+++ b/drivers/usb/gadget/function/u_ether.c
-@@ -865,6 +865,17 @@ int gether_register_netdev(struct net_device *net)
- 
- 	if (!net->dev.parent)
- 		return -EINVAL;
-+
-+	/*
-+	 * A register_netdev() that failed after netdev_register_kobject()
-+	 * leaves the device NETREG_UNREGISTERED, and it can never be
-+	 * registered again. The function drivers retry on every bind while
-+	 * the device is not registered, so refuse instead of hitting the
-+	 * BUG_ON() in register_netdevice().
-+	 */
-+	if (net->reg_state != NETREG_UNINITIALIZED)
-+		return -EINVAL;
-+
- 	dev = netdev_priv(net);
- 	g = dev->gadget;
- 
-
----
-base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
-change-id: 20261014-fix-gadget-netdev-reregister-75cf4090afeb
-
-Best regards,
---  
-Nicholas Velten <nicholasfvelten@gmail.com>
+On 2026-09-28 18:15 +0200, Aveline Noir wrote:
+> This series fixes two PicoLCD locking problems. The first moves output
+> requests into sleepable context and serializes LED state updates. The
+> second breaks the last-close/deferred-worker lock dependency using a
+> private framebuffer update mutex.
+> 
+> The first patch was tested separately with the original syzkaller C
+> reproducer and bounded concurrent sysfs/UHID-destroy workloads on
+> PREEMPT_RT. The complete series additionally passed repeated framebuffer
+> open/write/close and persistent-open framebuffer tests. Pre-fix modules
+> reproduced the respective failures. Physical hardware, prolonged stress
+> and suspend/resume have not been tested.
+> 
+> Patch 2's Fixes tag identifies the fbdev change that began draining
+> deferred work from fb_release() while holding info->lock. Patch 1's Fixes
+> tag was checked against the upstream transport-conversion diff.
+> 
+> Changes in v2:
+> - Address Sebastian Andrzej Siewior's feedback: clarify that the issue
+>   is not specific to PREEMPT_RT and identify picolcd_data::lock as a
+>   spinlock_t in patch 1. The code changes are identical to v1.
+> 
+> Aveline Noir (2):
+>   HID: picolcd: Move output requests out of spinlocked sections
+>   HID: picolcd: Avoid framebuffer last-close deadlock
+> 
+>  drivers/hid/hid-picolcd.h           |  4 +++
+>  drivers/hid/hid-picolcd_backlight.c |  7 ++--
+>  drivers/hid/hid-picolcd_core.c      | 46 +++++++++++++++---------
+>  drivers/hid/hid-picolcd_fb.c        | 56 ++++++++++++++++++-----------
+>  drivers/hid/hid-picolcd_lcd.c       |  7 ++--
+>  drivers/hid/hid-picolcd_leds.c      | 31 +++++++++-------
+>  6 files changed, 93 insertions(+), 58 deletions(-)
+> 
+> 
+> base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+> -- 
+> 2.55.0
+> 
 
 
