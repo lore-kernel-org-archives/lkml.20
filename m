@@ -1,201 +1,166 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8156F44C502;
-	Wed, 14 Oct 2026 08:37:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E326240EB8E
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:37:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791967029; cv=none; b=HhVOa8qWosObpbxxGmrE9OklPbM/OYCkb1j0SuOBalMpdzWEs1b+l3FVmg67VNMaMQgLyyftE+mqxEScRmBsWoemrsdvlGqfGJnS43OxgFLlAVTAFmaHkj5nNVg+PPRWhlrztG0fLcQvfASKwoSVbGaaFcgoJV5ysAsYBomoFUM=
+	t=1791967057; cv=none; b=DtO7DgFIfZP5HvaG4+y9jiDWSFzmS0J7tynsbLD0FB0XSOfEcKKYZ4D+fAt7a/+r1+Xhupil0lE1QSlShB/JwiCLvZ8eLvHburpPWHvuV/ISL6QhPQkynHt8YVzs+tdZXxWcxCokxw5YYffwpJO46ZZawJoDTshdrODu+ur71uM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791967029; c=relaxed/simple;
-	bh=KkZwlhXb7ppouEWVWD59Fver9AGZ9taM6rrP0X+t6q4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ufwG8GtYbwYSle0DaYYyXMMQ1Osqce9UQ471ioUIiufI7zDGLdtMhPxxad+V1R7DsPlukG5Krx4nrjt5pzgwQ35wsHfUFlip++NWLDgWcYkP37He5Z2yZMl4DXVxlzGzDys5uwriEZGbK2p4DlULilECiMQOL4ya0vDAKm8Itqg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cnf6f0/l; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cnf6f0/l"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791967028; x=1823503028;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=KkZwlhXb7ppouEWVWD59Fver9AGZ9taM6rrP0X+t6q4=;
-  b=cnf6f0/lGKnQUF9tEzOr1Rg6Zp61ZSS+opJpvl3vgxmPbqt6G0Ti0bAZ
-   6RxpZMDYex578bffBX3XznuUPPTVoLvCQLIO3UIO6mpP9qSThijzhzRnd
-   aec25PEFu8qEyYfVn0NLv46wJICSup34WWQXwe50OHw8rv8q9PsNlQWqt
-   ED0BnOXGwauVNRtE+Xt+MYMOSowILUq9TXzpLDdxsT/Iv+xaw/8kohHRJ
-   EwZfVV+hUjDWPoJwrxS4uMGKOIz2mMjEX1T9JHh/i2dxnw1h1nCl1FHUL
-   VY1HQ46uta0QhCea9xxxhZmXkPNiFms/vVLN36PQpJnpGJb4DQkYyn+IQ
-   g==;
-X-CSE-ConnectionGUID: yB9xy+YqSs2+E90xXLcGiQ==
-X-CSE-MsgGUID: id6nK5hSQcCarrl05hlzvQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="737485"
-X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="737485"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 01:37:08 -0700
-X-CSE-ConnectionGUID: GDhnAS2fTa2fxnusGSge9Q==
-X-CSE-MsgGUID: gGbEeHzqS0W1AP4lc+mGVg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="1473407"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa002.fm.intel.com with ESMTP; 14 Oct 2026 01:37:02 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xGuTs-00000000EOd-1RUK;
-	Wed, 14 Oct 2026 08:37:00 +0000
-Date: Wed, 14 Oct 2026 16:36:45 +0800
-From: kernel test robot <lkp@intel.com>
-To: Sarath Ganapathiraju via B4 Relay <devnull+sarath.ganapathiraju.oss.qualcomm.com@kernel.org>,
-	andersson@kernel.org, abelvesa@kernel.org, sboyd@kernel.org,
-	bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org,
-	srinivas.kandagatla@oss.qualcomm.com,
-	sarath.ganapathiraju@oss.qualcomm.com
-Cc: oe-kbuild-all@lists.linux.dev, linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, prasad.kumpatla@oss.qualcomm.com
-Subject: Re: [PATCH v11 2/2] clk: qcom: Add LPASS VA CSR heartbeat pulse clock
-Message-ID: <202610141629.Jo17UNWq-lkp@intel.com>
-References: <20261012-master-v11-2-15009e3ecac3@oss.qualcomm.com>
+	s=arc-20240116; t=1791967057; c=relaxed/simple;
+	bh=Z6T9vxtRiDAN6S3weuwesoy5grxA0ln/DGUgEqxPr+Y=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=JnEkv29RFm76PybQ5ABeqsVmNyMDwxmXZlwrhntjj1uU7+SiPA1ocbRhJOTBli9UbhwDXTN7KXjw2hZhVBgGGZNO+ujaPuCj44zLPt+4L14q5wDNb6Oo92UPgFgKZY39NtUKAEXG5H+U9I906qdf0m9oa1dcmyHYfJNdm96Sy+U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4f4612a1a5cso7504125b6e.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 01:37:35 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791967055; x=1792571855;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JzstWJngq+fbR8IpkjzdFf95Vm56G9Q5CCKAj6oODAY=;
+        b=CJQGWMNcHpDfyE28yrcigcxcqfRKYDMlWGzDK7DXjqeO7USkXMSthnNmcrVzfpBdjE
+         Kk+qJZLYD5W8M04hWKUiHLEnR9vVRScOlarpClS0yOmgp8zKxjtHhs+gUAZurVOsWppL
+         NSoQQ4VNDd4f9RCQ1OkF8XSwi3y2lgfVbA+hIQjW7CPAhNmI1WQHozrDshuzTOwj/s61
+         SjVQiI3q+lEHJs6ttzPy88I8XyoHm8enCY2kfbIJbzJUUsfaFK7wRw/9xCftY+JgGw77
+         KEl4xaYQjPgNGErbbjTZRwtIPLpu2QtiUkBBwifnGi+PHKLOlvK2CAX51DDgv2tiBiY1
+         XdYg==
+X-Forwarded-Encrypted: i=1; AKwUvBxwuT0HaBqpQTW4LPkZWGPek4BBquCsGv2VAZcf6hYECAjNR6efofWoMJfWyzpM7rttcGSYmqMGS5xHPqM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI8p8XlSBZ33DuB3KJ4EmYY3UJ8mwekUFpdnC8ZTX7UBSHXI4B0
+	+dxRmbR63Vp4dMJGHdi3BzbmVpn7ehW8t9ZruoQak+j5Wu0SGjp8jZ5MgZ4oDx9HiNQ339IiqAa
+	9mv+yFhcLZGiRvZO/aKMSULVJlt41OWXXeXiNSnLzPwTpBIp3loDBRCdiK8U=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012-master-v11-2-15009e3ecac3@oss.qualcomm.com>
+X-Received: by 2002:a05:6808:130e:b0:4e8:4a03:dfa3 with SMTP id
+ 5614622812f47-50b66f3009fmr11242365b6e.40.1791967055009; Wed, 14 Oct 2026
+ 01:37:35 -0700 (PDT)
+Date: Wed, 14 Oct 2026 01:37:34 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6acf3f4e.38256f13.2006af.00d7.GAE@google.com>
+Subject: [syzbot] [lsm?] general protection fault in smack_inode_getattr
+From: syzbot <syzbot+ce678add490179a73d5a@syzkaller.appspotmail.com>
+To: casey@schaufler-ca.com, jmorris@namei.org, linux-kernel@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, paul@paul-moore.com, serge@hallyn.com, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Sarath,
+Hello,
 
-kernel test robot noticed the following build errors:
+syzbot found the following issue on:
 
-[auto build test ERROR on becb95e45ef0dda9ffb35156d909d3da7a2789c3]
+HEAD commit:    fc1c25014ff8 Merge tag 'fsverity-for-linus' of git://git.k..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=13dce1d1580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=df4bbab1c2172b9f
+dashboard link: https://syzkaller.appspot.com/bug?extid=ce678add490179a73d5a
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Sarath-Ganapathiraju-via-B4-Relay/dt-bindings-clock-qcom-Add-LPASS-VA-CSR-HeartBeat-pulse-clock/20261012-172258
-base:   becb95e45ef0dda9ffb35156d909d3da7a2789c3
-patch link:    https://lore.kernel.org/r/20261012-master-v11-2-15009e3ecac3%40oss.qualcomm.com
-patch subject: [PATCH v11 2/2] clk: qcom: Add LPASS VA CSR heartbeat pulse clock
-config: parisc-allmodconfig (https://download.01.org/0day-ci/archive/20261014/202610141629.Jo17UNWq-lkp@intel.com/config)
-compiler: hppa-linux-gcc (GCC) 16.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261014/202610141629.Jo17UNWq-lkp@intel.com/reproduce)
+Unfortunately, I don't have any reproducer for this issue yet.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610141629.Jo17UNWq-lkp@intel.com/
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/c451e123dc02/disk-fc1c2501.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/2b4864696d50/vmlinux-fc1c2501.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/e549beefcba6/bzImage-fc1c2501.xz
 
-All errors (new ones prefixed by >>):
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+ce678add490179a73d5a@syzkaller.appspotmail.com
 
-   In file included from include/uapi/linux/posix_types.h:5,
-                    from include/uapi/linux/types.h:14,
-                    from include/linux/types.h:5,
-                    from include/linux/kasan-checks.h:5,
-                    from include/asm-generic/rwonce.h:26,
-                    from ./arch/parisc/include/generated/asm/rwonce.h:1,
-                    from include/linux/compiler.h:391,
-                    from include/linux/build_bug.h:5,
-                    from include/linux/bits.h:30,
-                    from include/linux/clk-provider.h:10,
-                    from drivers/clk/qcom/lpass-va-csr.c:6:
-   drivers/clk/qcom/lpass-va-csr.c: In function 'lpass_va_csr_runtime_resume':
->> include/linux/stddef.h:8:14: error: called object is not a function or function pointer
-       8 | #define NULL ((void *)0)
-         |              ^
-   include/linux/pm_clock.h:78:25: note: in expansion of macro 'NULL'
-      78 | #define pm_clk_resume   NULL
-         |                         ^~~~
-   drivers/clk/qcom/lpass-va-csr.c:61:15: note: in expansion of macro 'pm_clk_resume'
-      61 |         ret = pm_clk_resume(dev);
-         |               ^~~~~~~~~~~~~
->> include/linux/stddef.h:8:14: error: called object is not a function or function pointer
-       8 | #define NULL ((void *)0)
-         |              ^
-   include/linux/pm_clock.h:77:25: note: in expansion of macro 'NULL'
-      77 | #define pm_clk_suspend  NULL
-         |                         ^~~~
-   drivers/clk/qcom/lpass-va-csr.c:77:9: note: in expansion of macro 'pm_clk_suspend'
-      77 |         pm_clk_suspend(dev);
-         |         ^~~~~~~~~~~~~~
-   drivers/clk/qcom/lpass-va-csr.c: In function 'lpass_va_csr_runtime_suspend':
->> include/linux/stddef.h:8:14: error: called object is not a function or function pointer
-       8 | #define NULL ((void *)0)
-         |              ^
-   include/linux/pm_clock.h:77:25: note: in expansion of macro 'NULL'
-      77 | #define pm_clk_suspend  NULL
-         |                         ^~~~
-   drivers/clk/qcom/lpass-va-csr.c:83:16: note: in expansion of macro 'pm_clk_suspend'
-      83 |         return pm_clk_suspend(dev);
-         |                ^~~~~~~~~~~~~~
-   drivers/clk/qcom/lpass-va-csr.c: At top level:
-   drivers/clk/qcom/lpass-va-csr.c:81:12: warning: 'lpass_va_csr_runtime_suspend' defined but not used [-Wunused-function]
-      81 | static int lpass_va_csr_runtime_suspend(struct device *dev)
-         |            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/clk/qcom/lpass-va-csr.c:55:12: warning: 'lpass_va_csr_runtime_resume' defined but not used [-Wunused-function]
-      55 | static int lpass_va_csr_runtime_resume(struct device *dev)
-         |            ^~~~~~~~~~~~~~~~~~~~~~~~~~~
---
-   In file included from include/uapi/linux/posix_types.h:5,
-                    from include/uapi/linux/types.h:14,
-                    from include/linux/types.h:5,
-                    from include/linux/kasan-checks.h:5,
-                    from include/asm-generic/rwonce.h:26,
-                    from arch/parisc/include/generated/asm/rwonce.h:1,
-                    from include/linux/compiler.h:391,
-                    from include/linux/build_bug.h:5,
-                    from include/linux/bits.h:30,
-                    from include/linux/clk-provider.h:10,
-                    from lpass-va-csr.c:6:
-   lpass-va-csr.c: In function 'lpass_va_csr_runtime_resume':
->> include/linux/stddef.h:8:14: error: called object is not a function or function pointer
-       8 | #define NULL ((void *)0)
-         |              ^
-   include/linux/pm_clock.h:78:25: note: in expansion of macro 'NULL'
-      78 | #define pm_clk_resume   NULL
-         |                         ^~~~
-   lpass-va-csr.c:61:15: note: in expansion of macro 'pm_clk_resume'
-      61 |         ret = pm_clk_resume(dev);
-         |               ^~~~~~~~~~~~~
->> include/linux/stddef.h:8:14: error: called object is not a function or function pointer
-       8 | #define NULL ((void *)0)
-         |              ^
-   include/linux/pm_clock.h:77:25: note: in expansion of macro 'NULL'
-      77 | #define pm_clk_suspend  NULL
-         |                         ^~~~
-   lpass-va-csr.c:77:9: note: in expansion of macro 'pm_clk_suspend'
-      77 |         pm_clk_suspend(dev);
-         |         ^~~~~~~~~~~~~~
-   lpass-va-csr.c: In function 'lpass_va_csr_runtime_suspend':
->> include/linux/stddef.h:8:14: error: called object is not a function or function pointer
-       8 | #define NULL ((void *)0)
-         |              ^
-   include/linux/pm_clock.h:77:25: note: in expansion of macro 'NULL'
-      77 | #define pm_clk_suspend  NULL
-         |                         ^~~~
-   lpass-va-csr.c:83:16: note: in expansion of macro 'pm_clk_suspend'
-      83 |         return pm_clk_suspend(dev);
-         |                ^~~~~~~~~~~~~~
-   lpass-va-csr.c: At top level:
-   lpass-va-csr.c:81:12: warning: 'lpass_va_csr_runtime_suspend' defined but not used [-Wunused-function]
-      81 | static int lpass_va_csr_runtime_suspend(struct device *dev)
-         |            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   lpass-va-csr.c:55:12: warning: 'lpass_va_csr_runtime_resume' defined but not used [-Wunused-function]
-      55 | static int lpass_va_csr_runtime_resume(struct device *dev)
-         |            ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+Oops: general protection fault, probably for non-canonical address 0xdffffc018c69ac03: 0000 [#1] SMP KASAN PTI
+KASAN: probably user-memory-access in range [0x0000000c634d6018-0x0000000c634d601f]
+CPU: 0 UID: 0 PID: 5591 Comm: syz-executor Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+RIP: 0010:smk_of_inode security/smack/smack.h:411 [inline]
+RIP: 0010:smack_inode_getattr+0x1ac/0x240 security/smack/smack_lsm.c:1306
+Code: 48 bb 00 00 00 00 00 fc ff df 80 3c 18 00 74 08 4c 89 e7 e8 66 4e ab fd 44 8b 35 ef d7 30 09 4d 03 34 24 4c 89 f0 48 c1 e8 03 <80> 3c 18 00 74 08 4c 89 f7 e8 46 4e ab fd 49 8b 3e be 04 00 00 00
+RSP: 0018:ffffc9000595fa80 EFLAGS: 00010206
+RAX: 000000018c69ac03 RBX: dffffc0000000000 RCX: ffffc9000595fc80
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffffc9000595fad8
+RBP: ffffc9000595fb98 R08: ffffc9000595fb0f R09: 0000000000000000
+R10: ffffc9000595fae0 R11: fffff52000b2bf62 R12: ffff888063d04810
+R13: 1ffff92000b2bf54 R14: 0000000c634d6018 R15: 1ffff92000b2bf91
+FS:  0000555580366500(0000) GS:ffff8881249bb000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007ffc903e3ff0 CR3: 0000000056faa000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ security_inode_getattr+0x152/0x310 security/security.c:1895
+ vfs_getattr+0x23/0x70 fs/stat.c:259
+ vfs_statx_path+0x2b/0x230 fs/stat.c:299
+ vfs_statx+0x12e/0x200 fs/stat.c:356
+ vfs_fstatat+0x11b/0x170 fs/stat.c:373
+ __do_sys_newfstatat fs/stat.c:538 [inline]
+ __se_sys_newfstatat fs/stat.c:532 [inline]
+ __x64_sys_newfstatat+0x151/0x200 fs/stat.c:532
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7ff49529c81a
+Code: 48 c7 c2 e8 ff ff ff f7 d8 64 89 02 b8 ff ff ff ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 40 00 41 89 ca b8 06 01 00 00 0f 05 <3d> 00 f0 ff ff 77 07 31 c0 c3 0f 1f 40 00 48 c7 c2 e8 ff ff ff f7
+RSP: 002b:00007ffc903e4178 EFLAGS: 00000286 ORIG_RAX: 0000000000000106
+RAX: ffffffffffffffda RBX: 00007ff495334ccb RCX: 00007ff49529c81a
+RDX: 00007ffc903e41a0 RSI: 00007ffc903e4230 RDI: 00000000ffffff9c
+RBP: 00007ffc903e4230 R08: 00007ffc903e5230 R09: 00000000ffffffff
+R10: 0000000000000100 R11: 0000000000000286 R12: 00007ffc903e52c0
+R13: 00007ff495334ccb R14: 0000000000018d1f R15: 00007ffc903e5300
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:smk_of_inode security/smack/smack.h:411 [inline]
+RIP: 0010:smack_inode_getattr+0x1ac/0x240 security/smack/smack_lsm.c:1306
+Code: 48 bb 00 00 00 00 00 fc ff df 80 3c 18 00 74 08 4c 89 e7 e8 66 4e ab fd 44 8b 35 ef d7 30 09 4d 03 34 24 4c 89 f0 48 c1 e8 03 <80> 3c 18 00 74 08 4c 89 f7 e8 46 4e ab fd 49 8b 3e be 04 00 00 00
+RSP: 0018:ffffc9000595fa80 EFLAGS: 00010206
+RAX: 000000018c69ac03 RBX: dffffc0000000000 RCX: ffffc9000595fc80
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffffc9000595fad8
+RBP: ffffc9000595fb98 R08: ffffc9000595fb0f R09: 0000000000000000
+R10: ffffc9000595fae0 R11: fffff52000b2bf62 R12: ffff888063d04810
+R13: 1ffff92000b2bf54 R14: 0000000c634d6018 R15: 1ffff92000b2bf91
+FS:  0000555580366500(0000) GS:ffff888124abb000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f6b90b0a000 CR3: 0000000056faa000 CR4: 00000000003526f0
+----------------
+Code disassembly (best guess):
+   0:	48 bb 00 00 00 00 00 	movabs $0xdffffc0000000000,%rbx
+   7:	fc ff df
+   a:	80 3c 18 00          	cmpb   $0x0,(%rax,%rbx,1)
+   e:	74 08                	je     0x18
+  10:	4c 89 e7             	mov    %r12,%rdi
+  13:	e8 66 4e ab fd       	call   0xfdab4e7e
+  18:	44 8b 35 ef d7 30 09 	mov    0x930d7ef(%rip),%r14d        # 0x930d80e
+  1f:	4d 03 34 24          	add    (%r12),%r14
+  23:	4c 89 f0             	mov    %r14,%rax
+  26:	48 c1 e8 03          	shr    $0x3,%rax
+* 2a:	80 3c 18 00          	cmpb   $0x0,(%rax,%rbx,1) <-- trapping instruction
+  2e:	74 08                	je     0x38
+  30:	4c 89 f7             	mov    %r14,%rdi
+  33:	e8 46 4e ab fd       	call   0xfdab4e7e
+  38:	49 8b 3e             	mov    (%r14),%rdi
+  3b:	be 04 00 00 00       	mov    $0x4,%esi
 
 
-vim +8 include/linux/stddef.h
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-^1da177e4c3f415 Linus Torvalds   2005-04-16  6  
-^1da177e4c3f415 Linus Torvalds   2005-04-16  7  #undef NULL
-^1da177e4c3f415 Linus Torvalds   2005-04-16 @8  #define NULL ((void *)0)
-6e2182874324727 Richard Knutsson 2006-09-30  9  
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
