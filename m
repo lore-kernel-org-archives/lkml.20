@@ -1,92 +1,98 @@
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-159.mta0.migadu.com [91.218.175.159])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EEAF3BBFB2;
-	Wed, 14 Oct 2026 09:12:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 877C848B383
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:13:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.159
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791969157; cv=none; b=Ipq4Lc8ecNrJUfSQHyMGYkoWTS28nxNmoEwKVUMycnoNIlPM/1CbePytOCQf0bMBwbD55dY5lpC6QSr8H4L8sHtds6ec2U81jTuNmgZXZD1Bz9NxtomhSO9zSuRaWJv9kpLjljnENDavHjyDiWIcWW7SQ/tE16KQhXve7gGWV2o=
+	t=1791969183; cv=none; b=mdKFjVg+Ye0Fe7KEWDqP3A6A5fzbA2B29YtcP1MSZiMwzbe3NNK9Tpy6CAYup5aHEAHzpw1bS9jcdUyAh7hVNDJQ9e2dPPGcEhnIT3dWCsShYwVBxrwaSzy7X0QfK8x6cztsluihP4AtNMmbrQ6c5YvND/oE+XWenALxRfXHr2s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791969157; c=relaxed/simple;
-	bh=hK91owu3CIMmiIzqFkzkSTbAGhIDGulLKvYuiZCJAGw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XVuwRItZK9rIbzHJM/tvludlOrAcGiArK+XForrU/QPdqMYbqIYZwUMqR0xT0s7GzJqDBxPtu2ebEnz2ykyTxlafkoZ5aODHAcLROTafoLBYFMiauwVUv/bd4IVqYSgUKXBrz4ZbrsLIMAgAD8yUiM+ajgfZ39gUw411H7KHZjE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.204.34.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: zesmtpip3t1791969119tcb4ea60d
-X-QQ-Originating-IP: SB5iD+s/jtIVlg3nPPo2Q5OGSv0OnUuvZDMVUw85Kwo=
-Received: from [127.0.0.1] ( [localhost])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 14 Oct 2026 17:11:57 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 4673881643528853335
-EX-QQ-RecipientCnt: 10
-Message-ID: <C40ED949A0A7F842+faa4a30f-d228-44de-977a-fa73723045f9@radxa.com>
-Date: Wed, 14 Oct 2026 17:11:54 +0800
+	s=arc-20240116; t=1791969183; c=relaxed/simple;
+	bh=lEgnOh+QOt0L+POknI3R02rkeloFCY0tO55f0aJGrWM=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=TBH0BOvKDa4hX0yh7WjBlB5MYxoYPxzichFbpjiFLZZkDSpPR2LSUtZCBqIZOjfxQcCZKKa1djjWV+gmXiepjdU9Z0Cc03novYH1K7hP3mjeDx2YzeYENRL1bCrwvyFDyVCKSyVrlmg0lMZjqDHhYR4zpwZpsHR463IakdZHF44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=b+9e9XcY; arc=none smtp.client-ip=91.218.175.159
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="b+9e9XcY"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=lEgnOh+QOt0L+POknI3R02rkeloFCY0tO55f0aJGrWM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791969179; v=1; x=1792573979;
+ b=b+9e9XcYMpI/2OMtdrcxDX6Dznj/oJRo4NJZjS0xRJ+HqVy5m8L1v2SpbGanE9L6EZdYc4J7
+ 8EfHHTJW6O8edLjjOJOnvpcTo5DMYi2zNkZHMzCNmPs4bcm97X5oC5wds7byYtTBP2/YZ/2+TeH
+ GLcSb0xAxkr+fyZ3XukqvZBY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f7a90f2c0ebdc97f;
+	Wed, 14 Oct 2026 09:12:59 +0000
+X-Mizu-Trace-ID: f7a90f2c0ebdc97f
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: sophon@radxa.com
-Subject: Re: [PATCH] arm64: dts: qcom: sc8280xp: Fix GPU SMMU context fault
- interrupts
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, dragon@radxa.com
-References: <20261013-sc8280xp-gpu-smmu-fix-v1-1-8a781e3f1554@radxa.com>
- <bf865b13-4773-45d6-a93b-4db4f77b1feb@oss.qualcomm.com>
-From: Xilin Wu <sophon@radxa.com>
-Organization: Radxa Computer (Shenzhen) Co., Ltd
-In-Reply-To: <bf865b13-4773-45d6-a93b-4db4f77b1feb@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: NhdiEwnVOUqE1gnLn6MZhwXs/7z7gAOsdYqoSGcOf0NvG7JgRzLE7NUx
-	PsID5qYDIHuhtUaPEdxpUzD1Q4O+0hSBf9ovxDIsVOrtwXo9HgxxwFhYZ8N09BxgjYDqSfq
-	62doNaHQXgL/oZQBRAx4Tle20EF1P+8lmXRLs0NHvY/MImn6fvXiE/qoGocVOXawgoaRfUC
-	fww55LQrtpHUOeA+XPVDccCzvUlmRqUY7wprYuyOnw+mRDGsQ3iWvNJ7Y7GD6f8ZUnSE4Zy
-	QwLO70KXt8bruyz+94UzpjpaSmPDnlw+T+vtdVhHGkGlzGuGbTbs+n1SQXuPIZKeHo2BD7O
-	9d+oFFbcGJaZKOHnxNOPO2GDzG/Bxli/gn4ItHlG7wiuk1VKiN08X4qTZLkpszKTEvvRyEK
-	AUX6HUuPACIjHqgMeVdTRvPb4PVqODu2OtTEvc9CV8AAu0ezO3oYJRQoKhsXYxGloTyWCpC
-	MjMR5fzEKdOrwK1lH5NqqUrpAcZux/m111T5Qo6eG4cgjQJbMA1lye1O1Foshn8OsULrYZv
-	aiwHUy1eijyHitmWx9SWEIldYsWMqcIL1GSikBnsm/IErseqY9RkHgNlwCkRarcqAgEGPbp
-	wWyQY9oSuUt6i9KLJ897vkG6da8uR5MnFxnPpijt4AfJIIy8EttGFzXnKGTkGI/CvMuNNXB
-	wNIE3/gonhbZRk+Tk58IWQaJfsrP+sC/Z9z/WbFfz/TV+HDtGWWG3Njw/Iho3uLLk+zy3D6
-	xMU6L7urcyBqXwufh8H0JT5a5cf+MS7d5SX5s+PPxHSHvpj2H9ixJNbag0F4rMAV1pbs4pI
-	zsSaF23bb4OTxLigmADddixTYIysDIl7cW2/JXGZGFPTxAMsgwHw0io9ed2C8fyFcnpxqde
-	bCh6O8a/4SqRtOa2kE06L/ibcNBv8UfyJgNsRdQHA/3LHN0fZ2+neDe+fun2iuN2JtDGQxG
-	ea6pLH7J/i2yOCSFGmR9g/dfxPdSDmk6u1GF9+XCzFCV9N8YQ82l2vldA0YpgSJxUyKckye
-	mvhNvEusGi3v1dHq5jAksadIUK9X8X1Z8tp137cA==
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-X-QQ-RECHKSPAM: 0
+Date: Wed, 14 Oct 2026 09:12:59 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Luka Gejak" <luka.gejak@linux.dev>
+Message-ID: <602ff65a1384f1649c49dcab2d17975e17c29d7c@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH rtw-next v6 2/4] wifi: rtw88: sdio: Track running state
+ and cancel TX worker on stop
+To: "Alastair D'Silva" <alastair@d-silva.org>,
+ linux-wireless@vger.kernel.org, "Ping-Ke Shih" <pkshih@realtek.com>,
+ "Kalle Valo" <kvalo@kernel.org>
+Cc: "Martin Blumenstingl" <martin.blumenstingl@googlemail.com>, "Jernej
+ Skrabec" <jernej.skrabec@gmail.com>, "Ulf Hansson" <ulfh@kernel.org>,
+ linux-kernel@vger.kernel.org, "Alastair D'Silva" <alastair@d-silva.org>,
+ stable@vger.kernel.org
+In-Reply-To: <20261014074426.2183095-3-alastair@d-silva.org>
+References: <20261014074426.2183095-1-alastair@d-silva.org>
+ <20261014074426.2183095-3-alastair@d-silva.org>
 
-On 10/14/2026 4:59 PM, Konrad Dybcio wrote:
-> On 10/13/26 11:59 AM, Xilin Wu wrote:
->> The GPU SMMU interrupt list includes PMU interrupts as the first two
->> context fault interrupts. This makes the driver register the fault
->> handlers for context banks 0 and 1 on SPIs 678 and 679 instead of 680
->> and 681. Translation faults are consequently left unhandled, which
->> can stall the GPU and prevent recovery.
-> 
-> the context interrupts are 680-688 and 703
-> 
-> Konrad
+Hi Alastair,
 
-Thanks for the clarification. I limited the list to seven because IDR1 
-reports NUMCB=7 on my board. However, DT should describe the full 
-hardware interrupt list, and arm-smmu already ignores entries beyond the 
-reported context-bank count. In EL2, IDR1 does report NUMCB=10. I'll 
-include SPIs 680–688 and 703 in v2.
+October 14, 2026 at 9:44 AM, "Alastair D'Silva" <alastair@d-silva.org> wr=
+ote:
 
--- 
+>  static void rtw_sdio_stop(struct rtw_dev *rtwdev)
+>  {                                                                     =
+                       > -     rtw_sdio_disable_interrupt(rtwdev);
+> +     struct rtw_sdio *rtwsdio =3D (struct rtw_sdio *)rtwdev->priv;    =
+                         > +
+> +     sdio_claim_host(rtwsdio->sdio_func);
+> +     scoped_guard(mutex, &rtwsdio->irq_lock) {
+> +             rtwsdio->running =3D false;
+> +             rtw_sdio_disable_interrupt(rtwdev);
+> +     }
+> +     sdio_release_host(rtwsdio->sdio_func);
+> +
+> +     cancel_delayed_work_sync(&rtwsdio->tx_handler_data->work);
+>  }
+
+One thing about that cancel. The delayed work is the back pressure retry:
+rtw_sdio_8723bs_reschedule_tx() re-arms it with queue_delayed_work() when
+a page shortage parks a frame, and rtw_sdio_tx_kick_off() re-arms it with
+mod_delayed_work() for every new frame. On 8723bs the frames that fill th=
+e
+software FIFO past the watermark also stop the matching mac80211 queue
+(ieee80211_stop_queue() in rtw_sdio_8723bs_stop_tx_queue()), and
+rtw_sdio_start() undoes neither that nor tx_queue_stopped[]. The flag is
+cleared in rtw_sdio_init_tx() and in rtw_sdio_8723bs_wake_tx_queue(), and
+the second of those only runs after a write has gone out.
+
+So a stop that lands while an access category is held back leaves the
+queue stopped and its frames parked in rtwsdio->tx_queue[] with no work
+queued to come back for them. It recovers as soon as anything transmits
+on any queue, because that kicks the worker again and the handler walks
+all queues, so I could not make it a permanent wedge. It does mean an
+idle link can sit on those frames for a long time. Would it be worth
+re-arming the worker at the end of rtw_sdio_start(), or clearing
+tx_queue_stopped[] and waking the queues there?
+
 Best regards,
-Xilin Wu <sophon@radxa.com>
+Luka Gejak
