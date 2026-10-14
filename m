@@ -1,396 +1,185 @@
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6359C558212
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:32:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C85CF550DAF
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:32:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791991935; cv=none; b=VTpLC8riwWUXsr1dNiav4a+UFx53W1YhEwt0dpARfKCV6m67VJqxI0k4sNfz+5o+u9/a+m3D6WShiUEEKaI5pC9OBhFIY6cExvPasuTlRFTIrhLb8TdlQ7TTzG1YI0LAbE0T4EapK0reH9pIedF/+p1+OFaRYWB47RUE+R6CB9Y=
+	t=1791991936; cv=none; b=iHJ2nLFwmjWQ4skQwiKBPuyTfQbXZSPbRpRwo0gby+sNg7eU+2D5c98BlOBJepRZCoH4pTDOAkBOs+8ZP8+bm1k5EBgqqMP/BDKUeGULU67cbR5WHISDJ9UP0klJEy4924KX1ZlY8gSHrhxBkSwSjqxd1FBPZStBiUihZjqfKyM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791991935; c=relaxed/simple;
-	bh=XQsneU3xqmTVNbKsfGxKF7tM9c8BtVYj+AuD/RC2FWQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=fE+4Rpt2zXtScJ5Tc6GZYjW9wO61QfiqzaGq2GAuUdAoUGsIXA0Z6zgSizCnaZ0QhhZzZRb+LcrPigMRZHkYllQY3oINmVZbm6a97BI78TJmM1SSIZMk5xdk9uoyk44Qj25qObs4tXap3w0HEeAg96Ej77myiPYGfMpAE58x/Vs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P7H1Kd6B; arc=none smtp.client-ip=209.85.210.174
+	s=arc-20240116; t=1791991936; c=relaxed/simple;
+	bh=gSKqSmXip3sn8EnFq9N3wtwsiEZNIKbyvltPr41U76s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=j0yCYN8wmePQae1iRg5yi+6w5zwGaqKxDTqX/grrFcgx/tNWbvLhpobFkqRKbZW97/fkeVZFW1VC+pKyvyVlVz8qD+xB30YJrrLB/toagnHl6oBvZBtpPc+gmLcocZbbk6Yf3mo12CMy4rnDopKzQn8eQXXD4WORHlSafXBMkQI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sFFcR/Cz; arc=none smtp.client-ip=209.85.216.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P7H1Kd6B"
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-872024e2b4eso1756780b3a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:32:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sFFcR/Cz"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3ab98332238so2377648a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:32:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791991931; x=1792596731; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=H4gwh2fQvNe08kbDMKrdanW71GXiZ18Ym48/T8PhpJo=;
-        b=P7H1Kd6BzV4+tuGqfjsdcQ1iqUkeIVf026V6x+F9pSRpv1vGC7zAaJk8sYtL5Dfxbn
-         vx+P/Ov2zdK819XBhdRSU4t/I9MLcUdystkm4MveWw0mssBgyGSbyPj2nubsGkzkLjOP
-         Li6Qw21evC2HXOemjY0TCfm3HNLjmI5dEZ0jbHXY5gKOco2Xlr2Jyrz9SDbimta5+AIv
-         PKbq70fOs5vel/h2S/4MSV0L7Ls4PoqDRNlV53yxL2jWMtHDiMPNB4boMsyx+BCWMid+
-         e+F7LrtEYb3I7qPNoVNo1uouMgwSa9c/2fz2v87jNuNs5Re4VUGYsBj3EUdujmtaYzq5
-         z3Ig==
+        d=gmail.com; s=20251104; t=1791991933; x=1792596733; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=XqKz7CRVs28cW4eIvExMSd5yvZIIuml+6hL7rdRqk2o=;
+        b=sFFcR/CzpPfyPMuwKJ9DfaDJLLV9L8Tm5LCFvXnm0R5w9qkeCyA818p+812MU/FXfU
+         GGhHKW7VSoUxfE36yP39cDu3rE5ZQFXu/BoprgWRiXl7gJOY6adZyGzH4frZd6R2Iltd
+         /9zYC3aHN8IOTHbS8GcJX65UN8Kdw+2D1d7BI9cVOgazrVgYCsFTXOn8VTaWoGXWzmuL
+         axPBM502s1Sx0ApatQ7z1IxRpaGsHwFU0s0mbiKAlqvGyARSzMMMewNTqRmHnrhOWMJ0
+         NOzA/Y6ob/R6ixEQpQS8H55CU+tBoBQwofIFRTTlUOqBO7vdqxof15wo2DUq64oJ7qHt
+         miVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791991931; x=1792596731;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=H4gwh2fQvNe08kbDMKrdanW71GXiZ18Ym48/T8PhpJo=;
-        b=nR2GrEuVw3nXZ7qsusmkU0wAdL4AV02g4OUWa404sEC6Y/1RjOOJkx0Yx65j1bv2kt
-         5D5rJ0jtrUlraaTVPcMNwBGlvZMOeKr03CAt6vp6JLGVMvqqmXSTr/QDBfdEPoyrSumf
-         UZPNmd87Z4rzDf3sEko7yCphcZDSxjEttX6GwABgTX3DG7yRz2bq4noX8f1ejgfz/CjP
-         h8gmkssnM6IdfRZz5ztycmkGMi7qVJKTkrwQUYkQINp4KNYn7yM6FWU8r9l+3N7eeYpH
-         TjRwmt0aYS8OsrAZTfdEV4wvYGaFNX+/viKgJi8R8cr0NfJ0KplYthqhuh1onElWTRFq
-         A6ug==
-X-Forwarded-Encrypted: i=1; AKwUvBzxU42k9y3pSufd278wz1EeBLS1QY8BLpjXnVI5tPiBHbQqbz0BRx5YN/4Uxd+M09H1lCf5YKlAmdeUfP0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJEo2dbZxk2zF06DuydXtCp7vB+oPGW95Al42G1pZDavLVUeDam
-	O2Sl8DEOfikdYvYKpQIMNXhDZxtkxL93blC/Wu9sJmNlv+IV3DQpXhza
-X-Gm-Gg: AYBFou2C12NrIktgRJX0Zu4Syqv8EeHObv9xg8VoZRwpXx+i/ySqHsANcw+nrxeCdnL
-	dct5NeSOYipZK5617sYTitwvSwaig5/4+9C0HxeKL7RStDLIkkV6JvPr4Mx2BgRhQ4FkUUZ+TlV
-	nDIrdEUB2cd/vHmBlzaI+RQ1hNnKzUzNrLCFJE/8QSa/8qvi6IeJUOg5/AF5O2T1lkQNQMZx0jH
-	MiW256nni3CTpfuNOPZLaK4sbSTrdprY/JEYflCcnSBBfP0U1VogN8HCn6/9lMJyrqHd2abnKLl
-	oDWo2QJ/mV0mwmB/0e2SD7BB+5XNKeZF1MOf1hCxxxuISCIYFHpf2LonjGCa1JjyR+QwkKCT4AK
-	WE24UWxFC4TBGOCjOd+LSyaPI5gooK6rMEG83GJ5irDizu0h/otBay3Bd9gSCKvaAocJshQQbMG
-	EwxicxThWLA6AzFpENsC4+AtHNPVY6XYtm2nDhWm23PffU/yuiBujRkyCqtsvMg3tC0wB8R8X2J
-	ChKJXRd9W79hOW9Fb75fX0=
-X-Received: by 2002:a05:6a00:218e:b0:891:6d3e:3992 with SMTP id d2e1a72fcca58-897c7ccb7dcmr12544259b3a.46.1791991931331;
+        d=1e100.net; s=20260707; t=1791991933; x=1792596733;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XqKz7CRVs28cW4eIvExMSd5yvZIIuml+6hL7rdRqk2o=;
+        b=j6f6fj4SfmGBQmImdKX6ogDD0tbItzybtGDYClY54Ku0XXTl1PWLsabkRoFda6Ghvg
+         30iaHq+/WCJjbVcRTVAJ2K8cjYE0AOYdhvcvVOuQt700aN0Af4SiN+h3CYM2xhceVcc8
+         HC/SR6t2hh9vVgJuGKmYF7VOfEiWYStfFHjXKvz8MYeKZsTzmvDC0xKBGlPG0byaTwIm
+         p/zBjGlc3DL9jvEueJA19jzdJ5g/4IW2vrekl8L/abOhoh2YVhYA1e3pnw73JJ0ush6L
+         JKE3j3HkC88tvScIsIYfqmPvRG6bDszk7Xi5ziPS3V0FHjlmTjLSx5eAG9xLD830oSMC
+         x5Zg==
+X-Forwarded-Encrypted: i=1; AKwUvBzV3chUNaAqOCWCk8TF71TFIiSo5q4Uc941FL+EPsWRng5Egxqf8fkpA9rlsLhqlLS7QXJcXxi9p6XXztM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLBSTNOs5GyVar4p0ixmCvcwgBzzjjnwdgpitKfS0JwvwUtBXJY
+	CVTnLJ37hI9+VM8RtbsbprR91dF18/CvHn1n8Xi2TheutQaO8VxH+I0a
+X-Gm-Gg: AYBFou2foEmEzLaWzze9/pID6Wj4b5g+M/UbEqfoyEJomDZMb4tzboIPZuKFkrnE2dE
+	t6ntfFQ8UBkocIzbos8eIdStYvRd5pvqyCbhSnvUc++twiZgx0p7sNEnQqCbkPGXv6nb0/mPzlg
+	dqlqx60iQeR+CzKcmZEi1KQ9yFF4k8677janIcNKPiJWKUKoFoD4i101zZaUQbfxVe1IUE+t2vz
+	ziSW4ei0xQTSKokDtjwpZg1nK3TsmTaJFDjA+03raA+SasJlcMf//CTK6dMYopd7NGq8kVM+b+i
+	QPFX5S2XMkB9i6Fw0iqqMRMdsQAPA9P8SmMjpWxwjVRdthAXUEcJ0twyh5ME22rxVhBGlqrU//k
+	qHbUcNcfZ6WWzH8OFNImOzqbkQl4GnPPzYqnaLLSeM6wxpKn33Z/S2Y2Dh3mOYDtwu8BeiDmDec
+	h7qCQtxevzKt1wEGhkK0Fe79raXjt0jgqiqRENiLK7yScpEU5C0pa+oTgzy9akVESrLcco6Zavy
+	4urANbEzZWuMdw2FPXp1Xwbk2a6vHkdC1TjOF54ff2NgNzLvjcyPWPpJLKqMbNHsvPmppPGnGlR
+	b4IxnjS04xsScL0=
+X-Received: by 2002:a17:90a:c88b:b0:3a5:1b:34a5 with SMTP id 98e67ed59e1d1-3ab3af73a91mr13301264a91.49.1791991932825;
+        Wed, 14 Oct 2026 08:32:12 -0700 (PDT)
+Received: from localhost.localdomain ([180.182.24.11])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac5f24af99sm4976795a91.8.2026.10.14.08.32.09
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
         Wed, 14 Oct 2026 08:32:11 -0700 (PDT)
-Received: from localhost.localdomain ([47.100.192.162])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89d7f51f452sm1221941b3a.1.2026.10.14.08.32.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 08:32:07 -0700 (PDT)
-From: Yang Wen <anmuxixixi@gmail.com>
-To: linkinjeon@kernel.org,
-	sj1557.seo@samsung.com,
-	chizhiling@163.com
-Cc: yuezhang.mo@sony.com,
-	exfat@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Yang Wen <anmuxixixi@gmail.com>
-Subject: [PATCH v8 3/3] exfat: reclaim name filters under memory pressure
-Date: Wed, 14 Oct 2026 23:31:30 +0800
-Message-Id: <20261014153130.2111500-4-anmuxixixi@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261014153130.2111500-1-anmuxixixi@gmail.com>
-References: <20261014153130.2111500-1-anmuxixixi@gmail.com>
+From: Joonho Lee <mynameisjune111@gmail.com>
+To: Takashi Iwai <tiwai@suse.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,
+	virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH v2 0/1] ALSA: virtio: stage capture for VZ backends
+Date: Thu, 15 Oct 2026 00:32:07 +0900
+Message-ID: <rfc-v2-vz-capture-compat-0.b9ab4c1540dc4691@gmail.com>
+In-Reply-To: <rfc-vz-capture-compat-0.112c40f0e9284eaa@gmail.com>
+References: <rfc-vz-capture-compat-0.112c40f0e9284eaa@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Each active large directory can hold a dynamically sized name filter with a
-bitmap of up to 4 MiB. Add a per-superblock LRU and shrinker so filters can
-be reclaimed when memory is tight. Account reclaimable filters in pages so
-reclaim cost tracks their differing allocation sizes.
+Hi,
 
-Keep the scan budget initialized by the shrinker core instead of replacing
-it with the number of filters freed. If the LRU is already empty, return
-SHRINK_STOP. This guarantees that do_shrink_slab() either consumes its scan
-budget or stops, even when the LRU becomes empty before nr_to_scan is
-satisfied.
+This updates the VZ capture RFC with an explicit public base and its
+prerequisite series. The implementation is unchanged from v1. The core
+prerequisite is now the capture-drain RFC v3, including the notify=false
+pointer update discussed with Takashi.
 
-Signed-off-by: Yang Wen <anmuxixixi@gmail.com>
----
- fs/exfat/dir.c      | 159 +++++++++++++++++++++++++++++++++++++++++++-
- fs/exfat/exfat_fs.h |  10 +++
- fs/exfat/super.c    |   8 +++
- 3 files changed, 174 insertions(+), 3 deletions(-)
+The patch adds request-owned capture staging, validates completion sizes,
+and accounts for captured data independently of fixed-size requests. It
+also adds an opt-in pause/restart path using RELEASE and reprepare.
 
-diff --git a/fs/exfat/dir.c b/fs/exfat/dir.c
-index 4c36fded2412..bc99f2d6739e 100644
---- a/fs/exfat/dir.c
-+++ b/fs/exfat/dir.c
-@@ -10,6 +10,7 @@
- #include <linux/filelock.h>
- #include <linux/hash.h>
- #include <linux/log2.h>
-+#include <linux/shrinker.h>
- #include <linux/stringhash.h>
- 
- #include "exfat_raw.h"
-@@ -127,12 +128,158 @@ static bool exfat_name_filter_set(struct exfat_name_filter *filter,
- 	return filter->nr_set_bits >= nr_bits / 3;
- }
- 
-+static unsigned long
-+exfat_name_filter_nr_pages(const struct exfat_name_filter *filter)
-+{
-+	size_t size = struct_size(filter, bitmap,
-+				  BITS_TO_LONGS(BIT(filter->order)));
-+
-+	return DIV_ROUND_UP(size, PAGE_SIZE);
-+}
-+
-+static struct exfat_name_filter *
-+exfat_name_filter_detach_locked(struct exfat_sb_info *sbi,
-+				struct exfat_inode_info *ei)
-+{
-+	struct exfat_name_filter *filter = ei->name_filter;
-+
-+	if (!filter)
-+		return NULL;
-+
-+	list_del_init(&ei->name_filter_lru);
-+	ei->name_filter = NULL;
-+	sbi->name_filter_pages -= exfat_name_filter_nr_pages(filter);
-+	return filter;
-+}
-+
-+static void exfat_name_filter_touch(struct exfat_inode_info *ei)
-+{
-+	struct exfat_sb_info *sbi = EXFAT_SB(ei->vfs_inode.i_sb);
-+
-+	spin_lock(&sbi->name_filter_lock);
-+	if (ei->name_filter)
-+		list_move_tail(&ei->name_filter_lru, &sbi->name_filter_lru);
-+	spin_unlock(&sbi->name_filter_lock);
-+}
-+
- void exfat_name_filter_free(struct inode *inode)
- {
- 	struct exfat_inode_info *ei = EXFAT_I(inode);
-+	struct exfat_sb_info *sbi;
-+	struct exfat_name_filter *filter;
- 
--	kvfree(ei->name_filter);
--	ei->name_filter = NULL;
-+	if (!READ_ONCE(ei->name_filter))
-+		return;
-+
-+	sbi = EXFAT_SB(inode->i_sb);
-+	spin_lock(&sbi->name_filter_lock);
-+	filter = exfat_name_filter_detach_locked(sbi, ei);
-+	spin_unlock(&sbi->name_filter_lock);
-+	kvfree(filter);
-+}
-+
-+static unsigned long
-+exfat_name_filter_count_objects(struct shrinker *shrinker,
-+				struct shrink_control *sc)
-+{
-+	struct exfat_sb_info *sbi = shrinker->private_data;
-+	unsigned long pages;
-+
-+	spin_lock(&sbi->name_filter_lock);
-+	pages = sbi->name_filter_pages;
-+	spin_unlock(&sbi->name_filter_lock);
-+
-+	return pages ? pages : SHRINK_EMPTY;
-+}
-+
-+static unsigned long
-+exfat_name_filter_scan_objects(struct shrinker *shrinker,
-+			       struct shrink_control *sc)
-+{
-+	struct exfat_sb_info *sbi = shrinker->private_data;
-+	unsigned long freed = 0;
-+	bool empty = false;
-+
-+	/* Avoid reclaim recursion from a GFP_NOFS allocation under s_lock. */
-+	if (!mutex_trylock(&sbi->s_lock)) {
-+		sc->nr_scanned = 0;
-+		return SHRINK_STOP;
-+	}
-+
-+	while (freed < sc->nr_to_scan) {
-+		struct exfat_inode_info *ei;
-+		struct exfat_name_filter *filter;
-+
-+		spin_lock(&sbi->name_filter_lock);
-+		if (list_empty(&sbi->name_filter_lru)) {
-+			spin_unlock(&sbi->name_filter_lock);
-+			empty = true;
-+			break;
-+		}
-+
-+		ei = list_first_entry(&sbi->name_filter_lru,
-+				      struct exfat_inode_info,
-+				      name_filter_lru);
-+		filter = exfat_name_filter_detach_locked(sbi, ei);
-+		spin_unlock(&sbi->name_filter_lock);
-+
-+		freed += exfat_name_filter_nr_pages(filter);
-+		kvfree(filter);
-+		cond_resched();
-+	}
-+
-+	mutex_unlock(&sbi->s_lock);
-+	if (empty && !freed) {
-+		sc->nr_scanned = 0;
-+		return SHRINK_STOP;
-+	}
-+	return freed;
-+}
-+
-+void exfat_name_filter_shrinker_register(struct super_block *sb)
-+{
-+	struct exfat_sb_info *sbi = EXFAT_SB(sb);
-+	struct shrinker *shrinker;
-+
-+	shrinker = shrinker_alloc(SHRINKER_NONSLAB,
-+				  "exfat-name-filter:%s", sb->s_id);
-+	if (!shrinker) {
-+		exfat_warn(sb, "failed to allocate name filter shrinker");
-+		return;
-+	}
-+
-+	shrinker->count_objects = exfat_name_filter_count_objects;
-+	shrinker->scan_objects = exfat_name_filter_scan_objects;
-+	shrinker->private_data = sbi;
-+	shrinker_register(shrinker);
-+	sbi->name_filter_shrinker = shrinker;
-+}
-+
-+void exfat_name_filter_shrinker_unregister(struct super_block *sb)
-+{
-+	struct exfat_sb_info *sbi = EXFAT_SB(sb);
-+	struct shrinker *shrinker = sbi->name_filter_shrinker;
-+
-+	sbi->name_filter_shrinker = NULL;
-+	shrinker_free(shrinker);
-+
-+	for (;;) {
-+		struct exfat_inode_info *ei;
-+		struct exfat_name_filter *filter;
-+
-+		spin_lock(&sbi->name_filter_lock);
-+		if (list_empty(&sbi->name_filter_lru)) {
-+			spin_unlock(&sbi->name_filter_lock);
-+			break;
-+		}
-+
-+		ei = list_first_entry(&sbi->name_filter_lru,
-+				      struct exfat_inode_info,
-+				      name_filter_lru);
-+		filter = exfat_name_filter_detach_locked(sbi, ei);
-+		spin_unlock(&sbi->name_filter_lock);
-+		kvfree(filter);
-+	}
- }
- 
- bool exfat_name_filter_maybe_contains(struct inode *inode,
-@@ -145,6 +292,7 @@ bool exfat_name_filter_maybe_contains(struct inode *inode,
- 	if (!filter)
- 		return true;
- 
-+	exfat_name_filter_touch(ei);
- 	exfat_name_filter_indexes(inode->i_sb, name, filter->order, indexes);
- 	return test_bit(indexes[0], filter->bitmap) &&
- 	       test_bit(indexes[1], filter->bitmap) &&
-@@ -161,6 +309,7 @@ void exfat_name_filter_add(struct inode *inode,
- 	if (!filter)
- 		return;
- 
-+	exfat_name_filter_touch(ei);
- 	if (exfat_name_filter_order(inode) > filter->order) {
- 		exfat_name_filter_free(inode);
- 		return;
-@@ -188,7 +337,7 @@ static void exfat_build_name_filter(struct super_block *sb,
- 	u8 order;
- 	int i;
- 
--	if (ei->name_filter ||
-+	if (!sbi->name_filter_shrinker || ei->name_filter ||
- 	    exfat_bytes_to_dentries(i_size_read(inode)) <
- 					EXFAT_NAME_FILTER_MIN_DENTRIES)
- 		return;
-@@ -240,7 +389,11 @@ static void exfat_build_name_filter(struct super_block *sb,
- 	}
- 
- complete:
-+	spin_lock(&sbi->name_filter_lock);
- 	ei->name_filter = filter;
-+	list_add_tail(&ei->name_filter_lru, &sbi->name_filter_lru);
-+	sbi->name_filter_pages += exfat_name_filter_nr_pages(filter);
-+	spin_unlock(&sbi->name_filter_lock);
- 	return;
- abort:
- 	kvfree(filter);
-diff --git a/fs/exfat/exfat_fs.h b/fs/exfat/exfat_fs.h
-index d00b3235cee9..472e341e4d7d 100644
---- a/fs/exfat/exfat_fs.h
-+++ b/fs/exfat/exfat_fs.h
-@@ -15,6 +15,8 @@
- #include <uapi/linux/exfat.h>
- #include <linux/buffer_head.h>
- 
-+struct shrinker;
-+
- #define EXFAT_ROOT_INO		1
- 
- /*
-@@ -266,6 +268,11 @@ struct exfat_sb_info {
- 
- 	spinlock_t inode_hash_lock;
- 	struct hlist_head inode_hashtable[EXFAT_HASH_SIZE];
-+	/* Protects name_filter_lru and name_filter_pages. */
-+	spinlock_t name_filter_lock;
-+	struct list_head name_filter_lru;
-+	unsigned long name_filter_pages;
-+	struct shrinker *name_filter_shrinker;
- 	struct rcu_head rcu;
- };
- 
-@@ -297,6 +304,7 @@ struct exfat_inode_info {
- 	struct exfat_hint_femp hint_femp;
- 	/* Complete, in-memory Bloom filter of directory names */
- 	struct exfat_name_filter *name_filter;
-+	struct list_head name_filter_lru;
- 
- 	spinlock_t cache_lru_lock;
- 	struct list_head cache_lru;
-@@ -693,6 +701,8 @@ bool exfat_name_filter_maybe_contains(struct inode *inode,
- void exfat_name_filter_add(struct inode *inode,
- 			   const struct exfat_uni_name *name);
- void exfat_name_filter_free(struct inode *inode);
-+void exfat_name_filter_shrinker_register(struct super_block *sb);
-+void exfat_name_filter_shrinker_unregister(struct super_block *sb);
- 
- static inline int exfat_chain_advance(struct super_block *sb,
- 		struct exfat_chain *chain, unsigned int step)
-diff --git a/fs/exfat/super.c b/fs/exfat/super.c
-index 4924f0fad836..26b25cc86d1c 100644
---- a/fs/exfat/super.c
-+++ b/fs/exfat/super.c
-@@ -46,6 +46,7 @@ static void exfat_put_super(struct super_block *sb)
- {
- 	struct exfat_sb_info *sbi = EXFAT_SB(sb);
- 
-+	exfat_name_filter_shrinker_unregister(sb);
- 	mutex_lock(&sbi->s_lock);
- 	exfat_clear_volume_dirty(sb);
- 	exfat_free_bitmap(sbi);
-@@ -210,6 +211,7 @@ static struct inode *exfat_alloc_inode(struct super_block *sb)
- 		return NULL;
- 
- 	ei->name_filter = NULL;
-+	INIT_LIST_HEAD(&ei->name_filter_lru);
- 	return &ei->vfs_inode;
- }
- 
-@@ -746,6 +748,8 @@ static int exfat_fill_super(struct super_block *sb, struct fs_context *fc)
- 		goto free_table;
- 	}
- 
-+	exfat_name_filter_shrinker_register(sb);
-+
- 	return 0;
- 
- put_inode:
-@@ -845,6 +849,10 @@ static int exfat_init_fs_context(struct fs_context *fc)
- 
- 	mutex_init(&sbi->s_lock);
- 	mutex_init(&sbi->bitmap_lock);
-+	spin_lock_init(&sbi->name_filter_lock);
-+	INIT_LIST_HEAD(&sbi->name_filter_lru);
-+	sbi->name_filter_pages = 0;
-+	sbi->name_filter_shrinker = NULL;
- 	ratelimit_state_init(&sbi->ratelimit, DEFAULT_RATELIMIT_INTERVAL,
- 			DEFAULT_RATELIMIT_BURST);
- 
--- 
-2.34.1
+The five module parameters default to off: capture_staging,
+capture_packed_status, capture_allow_short, capture_allow_empty, and
+capture_pause_restart. Enabling the profile is still an explicit choice.
+Automatic VZ detection, a negotiated feature and Docker Desktop host-audio
+routing are outside this patch.
 
+Please apply the following on base 8d70e364e866, in this order:
+
+1. The five virtio-snd lifetime/error-recovery v3 patches:
+   https://lore.kernel.org/all/cover.1791881787.git.mynameisjune111@gmail.com/
+2. The generic teardown wait RFC v2:
+   https://lore.kernel.org/all/rfc-v2-generic-control-wait-0.2eddd58a796e497f@gmail.com/
+3. Both core capture-drain RFC v3 patches:
+   https://lore.kernel.org/all/rfc-v3-core-capture-drain-0.cf2e307fcac34b6a@gmail.com/
+4. This VZ patch.
+
+The trailers below identify all eight prerequisites in application order.
+The three prerequisite-message-id hints identify the public Lore threads
+containing them. I fetched those threads, checked every stable patch ID,
+and applied the stack from the declared base. The resulting nine changed
+source files match the kernel and modules used for the tests below.
+Use core v3 in place of core v2; the two revisions must not be stacked.
+
+Core v3 refreshes capture pointers inside the drain action and suppresses
+nested stop actions during that update. Its proposed error policy ends a
+failing capture member in SETUP while allowing a healthy linked member to
+retain its tail in DRAINING. A blocking capture-only drain returns 0 if
+the action otherwise succeeds. Whether it should instead report EPIPE
+after stopping all members remains a question in the core discussion:
+https://lore.kernel.org/all/core-drain-linked-lock-reply.cf2e307fcac34b6a@gmail.com/
+This generic core behavior also applies with the VZ parameters disabled.
+
+Validation with the complete stack above:
+
+- Rebuilt the ARM64 Image and modules with W=1, KASAN, lockdep and
+  atomic-sleep debugging. There were no build errors or sound warnings;
+  the base emitted 517 -Woverride-init warnings outside sound/.
+- Passed 10 QEMU scenarios: short capture tails, drop, delayed
+  PREPARE/START/STOP/RELEASE, pending RX after RELEASE, and held STOP and
+  RELEASE requests followed by SIGKILL, timeout, reset and I/O recovery.
+- Passed 24 synthetic linked capture cases across atomic and nonatomic
+  locking, covering pointer faults, tail reads and reopen/recovery.
+  Two additional unlinked controls also passed.
+- Candidate runs produced no KASAN or lockdep diagnostics.
+
+The QEMU tests use modified fault-injection and backend-reset fixtures.
+The rebuilt stack has not been tested with a physical microphone or VZ.
+Earlier AirPods results used a different kernel/module set. Input
+switching, sleep/wake, freeze/restore, physical non-coherent DMA, NOMMU,
+other Docker VMMs and mixed capture/playback linked groups still need
+coverage. Nonblocking drain behavior has only been code-reviewed.
+
+The existing public test package is at:
+https://github.com/whatisyourname0/virtio-snd-reproducer/tree/64fa85f3260b45e7dbb85c4eee68a5b4a8b064e1/rfc/vz-capture-20261014/sashiko-followup
+That snapshot contains the earlier core v2 source. The prerequisite mails
+above provide the exact updated stack. The new linked capture fixture and
+comparison logs are still local.
+
+I would appreciate feedback on these points before splitting this up:
+
+- Which observed behaviors should be fixed in Apple's backend?
+- What activation mechanism would be acceptable for the compatibility
+  profile? The module parameters are experimental.
+- Is RELEASE/reprepare an acceptable way to implement pause for this
+  backend, and what constraints should it have?
+- How should capture staging and lifecycle handling be split for review?
+
+Thanks,
+Joonho
+
+Changes in v2:
+- Pin the public base, list the eight prerequisite patch IDs, and add
+  Message-ID hints for the three public prerequisite series.
+- Use core capture-drain v3 and report tests on that integrated stack.
+- Preserve the VZ implementation and its existing human signoff.
+
+Assisted-by: LLM
+
+base-commit: 8d70e364e866bdfca81eee24d0688fac9472cfb9
+prerequisite-patch-id: 39fb327a004c966ab90f66a34a64bbdbb3ffb475
+prerequisite-patch-id: 7c6bc344656fd839ae0d697ba18d66ac0b47827a
+prerequisite-patch-id: 9dd290ac3147fa7b49a475d7df8a6172778f2860
+prerequisite-patch-id: f4c24a5e441343a690f4ac2437f181c815bc23d0
+prerequisite-patch-id: ab4a5b770247a65272ab7af18a75a147daf81287
+prerequisite-patch-id: cfe3e7000e695a2fda27993f4d9acf0a637cf24e
+prerequisite-patch-id: 0fc5fec2c6ac5d3043cf2210570472ed4ce32952
+prerequisite-patch-id: fa5c13a4c698a82bdce335a34c22e66bf72960d8
+prerequisite-message-id: cover.1791881787.git.mynameisjune111@gmail.com
+prerequisite-message-id: rfc-v2-generic-control-wait-0.2eddd58a796e497f@gmail.com
+prerequisite-message-id: rfc-v3-core-capture-drain-0.cf2e307fcac34b6a@gmail.com
