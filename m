@@ -1,148 +1,213 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA25D511E76
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:08:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791976091; cv=none; b=jPWZY/qYt/lnjmWZHI793cefOAZ9XOpDllGxQm/W+Gott4A/SlgeHVXg9Y6xgnzjBtwqYS8m34r4FI5pT2WpEJpX+XE/i02btuZqjBw7oqgqbq9arusRVHiv2WlDsPdtomKwvhDQRXDm3qRx3/yBQp1Dr022PCMOy3LkpjC1eVM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791976091; c=relaxed/simple;
-	bh=PGiY5w0Bw+ZJiJah8I5bNou1KJJLLOdYPIjQF6qLmRs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=levxeVc95Hiwy3mpePOIEJE+QBYJFO3tTYNRKuw+B4hUtur82rN2BHVsH/66+QlPBIju5RvlCV79yOTXkAmtEv/2sc77+QoSg9LPIX7etHvYhwA9rcLwUf9HgQpFkc1B3N4rO7gdvZvmD7LUvhdHn8RoxJjPrru9Q2WnVYrvH2o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QTCKT+P1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=b5+Q09gw; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6357747ACE7
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:10:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791976225; cv=pass; b=szxAe/rhychZWLPbcyH59LFvUFpWlwMKvdXkQx9poY3Xi5L9Lo4S6/f2tfNw8N/iy/awAQYAVNbZvMkSqQk/GcnN2whtCzU3OxY/9c/8/QYJjhOiUqJAeQFakpl6QNKmIEaqhvSdvlYuUu5gfdrsMs1iaVM5en0imiTEpT4IQ2A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791976225; c=relaxed/simple;
+	bh=v92a07kZ9pv1iZ0gl/XUWpQyf6mAsKw5gJ3QL1iN71k=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oG4/vXfHK7g/WYu/atqcpcVNvoLzat4nIEYHHM5LmJVpO0A+tOmjPXnDkyMajdFDaggzeV12XdySiBes3zfJcBQFEh+aIz+rcFYokd0atr9qjTEPIrsYV01W7N3XzOrLTWfJOtVouP3G55340tiIIqqAarWVPvBuLrYunl9jGO8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I5FGxH+0; arc=pass smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QTCKT+P1";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="b5+Q09gw"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EACGKK806684
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:08:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=t7/ELP5QzUV9MtdJIhtE22tO
-	y5vpjDEBoIy32gvwohY=; b=QTCKT+P1G+AASpDALulMAYptwpSNSKzHeTLmp6xR
-	1Jhftn7PeI951vdOmzt36/Tz+3H4HRanAk6vPQcjZhOBFDQBoaGm6aEKiSL/8tLc
-	px+4Fy/EX5i5LGgOr3OHKrvwEK9eMLayUtUL1XgqKhcj/B+o5nTtQQuJ3fZA85rN
-	jpfYw/DARozQJNqVfUk0ZoMmExoAEwqBwcSDmaDrIlU4BktVXLd6nWRhuOPnD95x
-	bfO11ODDZAWBj+x2GJcAmZJzmewUzrtK8O5ZPRRN4elTa+RhoWqdKCxEMfanIajk
-	v5tDv5N9Tpbi/Q75gW+85jlNEd0SKuNPy/d9jSUXXstepA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9ud6b4e4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:08:09 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93caf6c528aso695501385a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:08:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I5FGxH+0"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48af27fe287so392870f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:10:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791976222; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QZNzT0N5zeGLoj7C944B6zRiPToM7wvI6er702xZJ6MAUB+s2uM/xHu2pIkZssagTC
+         kPkQlMrQLG3fPGAorELkkNR0O4+uqBYG4Xl48bJ5sp2Q7lM4Ss5CrmaxqeWPY0lHyal3
+         F6eUCvPJqwyH0lssgfAR50wbJZ7eLnpch6oFvKUBWEglWdkJ5gOLpCLRDLH2GjnbWBbu
+         9lvucGJaRCgohYSccU/lG6fOSBw/6YepsmOtbakNi2IayQful52hDYPbvSg5wGVvKPIH
+         Z1pG+NC2A8uHSKTHmcD2mCKv4mAEpwZ+igidLGQ1xHz104GMG8yhL8fMP8p+mAaWpDBj
+         KTWg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=sUDJh128qN21U/Zac0vqYWgqSkXm0ycHDE5s6YgcYz8=;
+        fh=6R2qZ+piMKJKqLWaHDoctBjUq9roPEZokhV/BL21GBI=;
+        b=ruNFaPOh4qDu5uMIjY2FgqV2BTi5WUSyJosBGxspQLnTpG2BkXpED+Ca6UkFcd+2IN
+         2O1Wbc15SIdWdeiruOHbLUie5ADSrmw2YN7khPEuBBjVOz4qLFS2z3GbieJ/BBhg0Us7
+         0gdP9ARmHClJduJEwNrU9J9r7ke7eV3FJbOhuIfVXp6+bZOuJUXT3CnlVm1MbmoDyLP1
+         9+6HwfOq7W+fpCM9/aiI8/dQ7eKDVV/ZeufqVoF7Du6z564XCPedQo7jRw2SFowGvvXE
+         dlaG1H+q5Wc65W985zoCaxcfqhYA1V5waZF5zy49qEZg6oAB4Qxa53zp4sy60iMWERVt
+         E7pw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791976088; x=1792580888; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1791976222; x=1792581022; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=t7/ELP5QzUV9MtdJIhtE22tOy5vpjDEBoIy32gvwohY=;
-        b=b5+Q09gwLZ9zwe1Qd1BGMs4Ygq+6WDmSiwDum6ZO+3tqkoH8oLxQnHnuI8V+BcUgrw
-         bSb7TDZiXCemowMfGDm749o66YsxJ33KFa2Rb21zCR5aYziyaHUlHTFvFSpWVdskXVYi
-         UtfQjPPTVuu3nVFctWn8Em5/QQbDuvKS7fcsujjaYkp1MP+YS62G6S+42vXlnHeRDhAd
-         mIllUvl54TqB4QMtypvuQMi9AVqZzSLVcyjs7uoKzG3bOm8ROCvTP80SPaLPEDV6RmD8
-         TFcEt3f0LJRmFgFcsHWj3tzqCp2rwmUToQhDWlZPyXp01Y2bHu8yYitER2QP55muR/2i
-         aCZQ==
+        bh=sUDJh128qN21U/Zac0vqYWgqSkXm0ycHDE5s6YgcYz8=;
+        b=I5FGxH+0z/Prn267fHkf+CyaJZA71gU35He0ty4Jj8o1IQIU4skBDiCxFLNaTQV1qz
+         ZaS6WC4lH6k3BHebs0XORvU9LBHcvmvhhjlz5ZvgJvsabdyy3Q+jpRV/29Ec/yi6qmVR
+         HzvtKtQ31N6H7q/WoTlkYbizhPbJ0NNeCsE/THeiPtn3Lh+YRIpyskDBa1greRZ5kwF0
+         sOXKkyJ2rX6oyDchG4MuNxTLPm2ln/7Ziv6Snrk2VHz1WCuWH2eaQ2UU05/goTsQXcMo
+         ZEiFzJ8kbHy30crHme205EmvIMbGzulm5J45rQzIt7tx03Frnp6w11vA9IsOwNUnDPxy
+         T1Fw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791976088; x=1792580888;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1791976222; x=1792581022;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=t7/ELP5QzUV9MtdJIhtE22tOy5vpjDEBoIy32gvwohY=;
-        b=oG4hyKRW6/hiy59fOs16InswMWLOVvOQBbyvVNN3ypEosB1f/cqdfJ1KFgu0hExwm+
-         tgQo6mfXM/uH2nWk1dHAimQukETnMVkgvuKuEdvkz0egnMcftnDRWE3jIEV4wF4q3q2s
-         VWmXwyuo5/xt8NcNJpyj6gn3KLLQrr4W1J6/pv+770sq6kpV54R7pdmhPULl2YfFkAPF
-         WlrazBxqKs2DrSqmFuHoe2f0DwaJkE2SpWXbbwirlGqrKeXRr+2eIWk4GgyxW1J/FvCi
-         IkBSYQuPX9lsz50nzwm2F7gt5eZs/jpOC5F79Q8kn9tI+WlhsocTyJRmGWbTnKVtXXcs
-         UPfQ==
-X-Gm-Message-State: AFq9FYJ7A+w1XDLb6WahfawnPdypISObjOlEpvHgGC/wURUWZ4pAnyoi
-	dQkUvCTrDk/F+tgQQkCa9M8BGHR281O9VXQz4i7qQUvI9tpABjV+trraCdAex/6RR0gYxQ7jWxG
-	WPHodFFKNie+VFME1dIijZnovCsUuR/pREeK1QgSus380VFFDzCEW6gkSrH+0kpfXZ/4=
-X-Gm-Gg: AYBFou2WaM+1pC77pD0ye7pVBMmKAvzkZ0RjW491226oEs2cJPAKum/tMWXbLeH2dng
-	HwnIuaQcJCz7en5EWr3OXLlBaOFfT74iGpILnBa0q3yYa3wJ8luj9ualrPU6EfgSGdILSchu6Pe
-	N7Ka8R/Eja8PnSB6nujw12IJpHt0h/yyZ1OnP3yJ9V/iUWzzwv4QJh7DeU4hb6aPfeW9gRLZdfS
-	V93MKuyEZV0x8cXwCsXnmJUfNfSyZrpIn+JAJ9hjxSTEuwJY5NsRwtDU/qBIj7WGigDj4exmCsJ
-	9sSnx0jDCIdBJw3acmcCUqDDHQ2obnpwAZhAxIKu9PyvJwoO2vKA54o9qF9EJ5oLwozW4qXZcsP
-	DxLZ0p2Arz7scfdR2
-X-Received: by 2002:a05:620a:6601:b0:93e:7192:191c with SMTP id af79cd13be357-93ebd1e0044mr2477178185a.17.1791976088018;
-        Wed, 14 Oct 2026 04:08:08 -0700 (PDT)
-X-Received: by 2002:a05:620a:6601:b0:93e:7192:191c with SMTP id af79cd13be357-93ebd1e0044mr2477173385a.17.1791976087488;
-        Wed, 14 Oct 2026 04:08:07 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.215])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf31b83sm454585915e9.12.2026.10.14.04.08.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 04:08:06 -0700 (PDT)
-Date: Wed, 14 Oct 2026 14:08:05 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Dario Binacchi <dario.binacchi@amarulasolutions.com>,
-        Brian Masney <bmasney+clk@redhat.com>
-Cc: linux-kernel@vger.kernel.org, michael@amarulasolutions.com,
-        linux-amarula@amarulasolutions.com, Peng Fan <peng.fan@nxp.com>,
-        Abel Vesa <abelvesa@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-        Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Sascha Hauer <s.hauer@pengutronix.de>, Stephen Boyd <sboyd@kernel.org>,
-        imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-        linux-clk@vger.kernel.org
-Subject: Re: [PATCH v14 4/4] clk: imx: pll14xx: support spread spectrum clock
- generation
-Message-ID: <fqdoyldpejrzju4w4kex652ioi4txzbp7i2cf6zyqgu7h7ymx7@yepdo34huhw4>
-References: <20260904101243.412006-1-dario.binacchi@amarulasolutions.com>
- <20260904101243.412006-5-dario.binacchi@amarulasolutions.com>
+        bh=sUDJh128qN21U/Zac0vqYWgqSkXm0ycHDE5s6YgcYz8=;
+        b=Rgyy4351xxpQ6mjWRWHREVX21XTRqgUdPiExTVtdZMHdC1ZV08ZslVkjDj9qjLPTtq
+         W+ukin2PPpUxWlCDZmfWbOinJZ6yKwwF+yj5AtbA6W0/Jv4fzvlIdObJrhsm7J34rSib
+         YVpDtgt3Vjlf0DVA/j5Ee5V/Bi/rC+LmEkkLD5Vf/ITnr2G7JpOsI86mx+5MMeFI4E3I
+         t4SMzqFYsdNJ3oPIT5Pj8OEhh3mbVex32Zd2rSEfcVtiowIZK2E4Pu1he8ZHaR241nxZ
+         a1jANNzc6kUpxqfTPwJq6s2tE9zb97c+Vn9ySk6v/P6mOYlGQ401PFktOZZ8fU3BJZUX
+         iEig==
+X-Forwarded-Encrypted: i=1; AKwUvBxuCxtqwNPFHdf7xe3FD/Z3sykx8ZbPuJQhsKphYiFlNea+bdwDhY7vVtEg9X6ATGZRzrPhXN7qnjZbleo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKP0QhFWUX/7Ulq8Q8yogA3b2L+OGqvpXr0HQg2u/U9jBUJDjwH
+	eUO9n9/yPqMow2LABUnhdbOy518HsXZzZhCx3k6uEuSJ7hMiAaiGfjBdansKrFy7SB+wSlsW1Jt
+	0jn4B5miXi1XPA39oKKiSk63huN6zvWQ=
+X-Gm-Gg: AYBFou02A03qZceB2+lSIFR0n1rBSX8+Zuj+eaM/QQ5Wlc4O4Wx/mgRyr1rQgHOASqw
+	r6FVctjpUO091RRRLfRypR7cGtvn/lTQhSGmUaFooUHBf3/GD4j8IZVb/8x3RUGhzl8Fdkbe0zr
+	eiC1Pc0fzxwneCgcZOFcC2hKvd1rT2yIrxUFVw3AOzjN9xPeMfaPH8n+fi5D9N3iWytF/5dMxi0
+	95mlZ3sbxHs00L5/6zWMJdDmkWwbptIdVHakx138NsLjJ5xRpzKzVJfUXtI4nyLyv1zytQhz3bR
+	cAVS2cIZ+mb/MicCVjE5YKJCWjrwW4tCn0x+jRFw+NMfFzcRj7z4FFaKImUa4kfvmzFU6zeaXZs
+	fwMJKdScY4vENkIFDdDeB7VsZURmUTbFVLHkKhS4ERq6cBRVGf9QBv8uPExVBY214fo4sg3XFog
+	BOMwXI3wdV
+X-Received: by 2002:adf:e004:0:20b0:487:88b:4681 with SMTP id
+ ffacd0b85a97d-48dba9db07cmr22258882f8f.10.1791976222256; Wed, 14 Oct 2026
+ 04:10:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260904101243.412006-5-dario.binacchi@amarulasolutions.com>
-X-Proofpoint-ORIG-GUID: hvftZV65Z0K-fnPD2znNnHHbNe7odxHA
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA0NCBTYWx0ZWRfXxftUTsl7A4Wn
- XNE2pGqVmT7UbOe7IP5GIKhNctRPkM3wXAFy812Ts1qPWQXEK+L6O5MEhrDoKhGSQmrHzaHcepb
- Vhtyzs3u6QYz66j2mPWbuRDJmneAyeo=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA0NCBTYWx0ZWRfX/6FOjhsMFjs1
- v+nswzLO1DP/n72IgF/SfE+suDV9M0I2JuDnFuHT63leg1HUN2fz2vB3QWr/qlZInuuf4jagKKN
- mbRI0vUG9/JsrAKq52gMq4pHQnph2FnNz0fPVciUfCVOpyARhtZzRuwkZRt/fA4wYE+i+hm7WRD
- siciZL5jEToK575nKUpGncq9bk8GiKVb2OCry5eSsm8tUTusa47O1h1VNriZppIv/Wim9GU9g5F
- T+9GN87YfWGeHAzSzfvUpB+Q1RkUm1Ut97zXc39DZoj8aIXpjbEms6gc2jVDcUxHNbqIxrRUZzd
- asH1riznA4qQmg+6zlwjcvTRp9+iUjGfDA71b/Vymp+GqymlF91/WDkvU/3EfcAAzlv30ABSMgO
- 2XQklmk/bIZEtiPcg78i0EevdX7FFfDdiDhMz9j+FnLYZ0VfR1kpv2umhIHVnZAKCX4dzoYZlJG
- 1wMsR58NzAKDu2GpImw==
-X-Authority-Analysis: v=2.4 cv=fJ6sTpae c=1 sm=1 tr=0 ts=6acf6299 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=Rt3kCFFBWhWisHNmluDamg==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=8AirrxEcAAAA:8 a=iP-xVBlJAAAA:8 a=EUspDBNiAAAA:8 a=HkkWczMphfeU9HmRj9wA:9
- a=CjuIK1q_8ugA:10 a=IoWCM6iH3mJn3m4BftBB:22 a=ST-jHhOKWsTCqRlWije3:22
- a=lHLH-nfn2y1bM_0xSXwp:22
-X-Proofpoint-GUID: hvftZV65Z0K-fnPD2znNnHHbNe7odxHA
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 lowpriorityscore=0 malwarescore=0
- suspectscore=0 adultscore=0 impostorscore=0 phishscore=0 bulkscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610140044
+References: <20261006-miic-validate-dtb-v3-v3-0-68617b3dca5c@reliablecontrols.com>
+ <20261006-miic-validate-dtb-v3-v3-1-68617b3dca5c@reliablecontrols.com>
+In-Reply-To: <20261006-miic-validate-dtb-v3-v3-1-68617b3dca5c@reliablecontrols.com>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Wed, 14 Oct 2026 12:09:56 +0100
+X-Gm-Features: AclHuK_AtxgKnhvGzHMnS03oYn804x_h6ChuS1hEcf2qg0FXvn7x9yZA8Od0Jgc
+Message-ID: <CA+V-a8u-Sa7zwYRDvwzQB0N4GT4kAz8fj2fJX1dZCNx3Gz85Wg@mail.gmail.com>
+Subject: Re: [PATCH net-next v3 1/2] net: pcs: rzn1-miic: Update port
+ numbering for RZ/T2H
+To: khendry@reliablecontrols.com
+Cc: =?UTF-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@bootlin.com>, 
+	Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
+	Russell King <linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, linux-renesas-soc@vger.kernel.org, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 26-09-04 12:06:33, Dario Binacchi wrote:
-> Add support for spread spectrum clock (SSC) generation to the pll14xx
-> driver.
-> 
-> Tested on the video PLL of i.MX8MN and i.MX8MP based boards.
-> 
-> Reviewed-by: Peng Fan <peng.fan@nxp.com>
-> Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+On Tue, Oct 6, 2026 at 5:48=E2=80=AFPM Kyle Hendry via B4 Relay
+<devnull+khendry.reliablecontrols.com@kernel.org> wrote:
+>
+> From: Kyle Hendry <khendry@reliablecontrols.com>
+>
+> The port numbers on the RZ/T2H are documented as 0 to 3. Update the info
+> structure and change the member name to miic_port_last to be more accurat=
+e.
+>
+> This value was being used as the number of miic registers when setting
+> default values. Add logic to get the total port count and loop over that.
+>
+> Signed-off-by: Kyle Hendry <khendry@reliablecontrols.com>
+> ---
+>  drivers/net/pcs/pcs-rzn1-miic.c | 16 ++++++++++------
+>  1 file changed, 10 insertions(+), 6 deletions(-)
+>
+Reviewed-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Brian, you can take this through your tree.
+Cheers,
+Prabhakar
 
-Acked-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> diff --git a/drivers/net/pcs/pcs-rzn1-miic.c b/drivers/net/pcs/pcs-rzn1-m=
+iic.c
+> index 3aa513467060..31716241b58f 100644
+> --- a/drivers/net/pcs/pcs-rzn1-miic.c
+> +++ b/drivers/net/pcs/pcs-rzn1-miic.c
+> @@ -222,7 +222,7 @@ enum miic_type {
+>   * @index_to_string: String representations of the index values
+>   * @index_to_string_count: Number of entries in the index_to_string arra=
+y
+>   * @miic_port_start: MIIC port start number
+> - * @miic_port_max: Maximum MIIC supported
+> + * @miic_port_last: MIIC port last number
+>   * @sw_mode_mask: Switch mode mask
+>   * @reset_ids: Reset names array
+>   * @reset_count: Number of entries in the reset_ids array
+> @@ -240,7 +240,7 @@ struct miic_of_data {
+>         const char * const *index_to_string;
+>         u8 index_to_string_count;
+>         u8 miic_port_start;
+> -       u8 miic_port_max;
+> +       u8 miic_port_last;
+>         u8 sw_mode_mask;
+>         const char * const *reset_ids;
+>         u8 reset_count;
+> @@ -485,7 +485,7 @@ struct phylink_pcs *miic_create(struct device *dev, s=
+truct device_node *np)
+>
+>         miic =3D platform_get_drvdata(pdev);
+>         of_data =3D miic->of_data;
+> -       if (port > of_data->miic_port_max || port < of_data->miic_port_st=
+art) {
+> +       if (port > of_data->miic_port_last || port < of_data->miic_port_s=
+tart) {
+>                 put_device(&pdev->dev);
+>                 return ERR_PTR(-EINVAL);
+>         }
+> @@ -523,6 +523,7 @@ EXPORT_SYMBOL(miic_destroy);
+>  static int miic_init_hw(struct miic *miic, u32 cfg_mode)
+>  {
+>         u8 sw_mode_mask =3D miic->of_data->sw_mode_mask;
+> +       int num_ports;
+>         int port;
+>
+>         /* Unlock write access to accessory registers (cf datasheet). If =
+this
+> @@ -538,7 +539,10 @@ static int miic_init_hw(struct miic *miic, u32 cfg_m=
+ode)
+>         miic_reg_writel(miic, MIIC_MODCTRL,
+>                         ((cfg_mode << __ffs(sw_mode_mask)) & sw_mode_mask=
+));
+>
+> -       for (port =3D 0; port < miic->of_data->miic_port_max; port++) {
+> +       num_ports =3D miic->of_data->miic_port_last -
+> +               miic->of_data->miic_port_start + 1;
+> +
+> +       for (port =3D 0; port < num_ports; port++) {
+>                 miic_converter_enable(miic, port, 0);
+>                 /* Disable speed/duplex control from these registers, dat=
+asheet
+>                  * says switch registers should be used to setup switch p=
+ort
+> @@ -825,7 +829,7 @@ static struct miic_of_data rzn1_miic_of_data =3D {
+>         .index_to_string =3D index_to_string,
+>         .index_to_string_count =3D ARRAY_SIZE(index_to_string),
+>         .miic_port_start =3D 1,
+> -       .miic_port_max =3D 5,
+> +       .miic_port_last =3D 5,
+>         .sw_mode_mask =3D GENMASK(4, 0),
+>         .init_unlock_lock_regs =3D true,
+>         .miic_write =3D miic_reg_writel_unlocked,
+> @@ -841,7 +845,7 @@ static struct miic_of_data rzt2h_miic_of_data =3D {
+>         .index_to_string =3D rzt2h_index_to_string,
+>         .index_to_string_count =3D ARRAY_SIZE(rzt2h_index_to_string),
+>         .miic_port_start =3D 0,
+> -       .miic_port_max =3D 4,
+> +       .miic_port_last =3D 3,
+>         .sw_mode_mask =3D GENMASK(2, 0),
+>         .reset_ids =3D rzt2h_reset_ids,
+>         .reset_count =3D ARRAY_SIZE(rzt2h_reset_ids),
+>
+> --
+> 2.43.0
+>
+>
+>
