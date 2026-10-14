@@ -1,115 +1,395 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B85C2F7EF4
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 01:14:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791940461; cv=none; b=LlcwE8jEgLogY1Yn9LM5S3M1tr8xmRZmKSXISDjPMcyGRmbDBUs8LxoagFBq6ZtI/vOrCx/FJVsrV7jpg7I4YatpKnXj4iINjurpAlX3a73cbP4BaoKRMYnQU1ggjA7QUM+JIMl9BEkKb+yhG/0bCdbwsz9ES1zTv7n8PjkzQn8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791940461; c=relaxed/simple;
-	bh=73ZSkgvDAc/tEb38F0TL0h/qQE1nmehsX+W+85TKIlA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VW4DdOO3/UCAXHEReZtSHvMs44+f92debkQT83C7kFoBCh81wYqfv67tz2/HDlOvewRrd2PZRfcWWTkI8hXxrODFN3xFdSYnm9sRWr604pEUyG3E5DqL/nyq+EkGilmZf6JFWp290qoA3ao4CoM4f7eWEyiERbPGrNRCZ0fWSiw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CO6NDMK4; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 968DB1A6829
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 01:17:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791940657; cv=pass; b=B96djvn6mQ5ZYwmBHIavM7SsKQeO6xbzbtzpndkZsqpHV4alCS856hvYq8g67eOFZB4nWx25suOY7jAsSus96Uj1o4ujG5QfVAj52lu1jezmjmRnFlzseUeTfruEUNLg57R5colpLJNPgCuzfXXsA/PoQVF2hTAjRCcSJcR6FEw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791940657; c=relaxed/simple;
+	bh=AREZaq9AoShdZqxsl4otYZHYQiLB3tn4o/O3zRDrcOg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KJVfN7+r8qyu0I/d/aJFv42Y3+j4tYSbV0ZsVGntarH6at/JVeQmq/SJkXm2u1mMP8FT+HjXvvWXjCQmg3ddGWINsbJyKGcyB+CKU+ixy5svaP8MdLPG7m+uJcfacn47rjoqRVci7m57WUrRmF6j8cv8mP4R7Ouph/ZA8KUKoTQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tjx6f6yY; arc=pass smtp.client-ip=209.85.208.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CO6NDMK4"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a172eb31f0so28733025e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:14:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tjx6f6yY"
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3a9e87ba696so18190821fa.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:17:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791940653; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jmNPRIZ4Nxtkr4WAqcQWYiieaHUKUTwSY0s9L2OL2jg3CI0rR2EaE4HN0V2KyUj33v
+         OxTWEeLekf3Nt+SybtcxhgnigJSm9mQ7g7ysu4wdPynW2O+PjgQLff6cWHkTiCzY+G4g
+         lKkY+wt0BNgzf+JR6h7jcE0rmr/xRVGYXHcS9VTl7gpRJbrxCxp6m+1y4mw9vU+TvBqO
+         Ek8SB4cFRoseC+vlrcyKbsT9brZVKaQ3NP/GfyQto/7vTLazIw+egiBC2FRL15Rj8rfo
+         pn7FbhKjS2RDi0nVXyOKlqcuZq5EAHrS1bXiIEjd/NnuWbXaJpV8Rk6e2uCIRNOcM53/
+         wENQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=wyQBM5A+sbr/bsu9Xm3Evkx/SvDUAAi47Tsf2PiRHKk=;
+        fh=/OaV0BdMddQ4FEbcvQ8/GLeGtZX+dUvqoDQzQ4qhDiY=;
+        b=FOYVQqlyEnIxjgcSLwyBcWU1yqbxF3vR9+GpZ6LCHWbsfMpRNShSBTqLBi+4xtn7Ch
+         4srzbps9+iFINfy2VX6gHdYTCKiI0zhma3+IU25DRX6wwNHU9qfTQtrbbr44Y7Qrtnp0
+         tJTvg7TKC3+Z89OztwLZ0D5cgf/lnxweznoc6JAc719KUOa3SIBzwm3mHRDK8gQz7sOT
+         1jsgi7RutLoNof9Wev/9Z+PpBFq5rhjP56Pd0SKTgw9qStWv3yOeHPAnWRGJcs0S0wcv
+         5niBqWxOMW4ome+sHBG45+i8XJ+x16psZ6VB3tqj0sE8xjCV2ZqQ6IDny1rAAzIGV2MT
+         6qsw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791940458; x=1792545258; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+IRGY42o0foxKofOSIE21b7k7cypUKnC6DpjmgjMdLE=;
-        b=CO6NDMK43wiKPojMSSW1HF3u0mstSOPLyi8tY2H6Nlsljlo52qgIGTdCQYd2TL7+b9
-         0nakKlqYTz44tcHOFJpxhjHfMVl+4m3Jl/UYlZoBjPZtDeulxXD+VE5ySnVdsfl56Ofp
-         XhJK0xsaB5+DAFWrKMAMs/7OlBTinUNtsf2WZONpIWqvpMUP7q0PzAcidAEIKgbEnqVS
-         EfIn2Y64MePjoMFqN41bru7prUO2rfNHlCmoW4STOySXfFl5McK/pJO06QSCUM1T9aC6
-         7+wfEPHVoCS77Tvrt62ToQMUweDdvEDpkDcvMZvBpWJUn9JPERbPkiT0IjiFPbDCZ46P
-         DEdw==
+        d=gmail.com; s=20251104; t=1791940653; x=1792545453; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wyQBM5A+sbr/bsu9Xm3Evkx/SvDUAAi47Tsf2PiRHKk=;
+        b=Tjx6f6yYZ2XTYboFGXkBJ9cTWxnaJHUdXNNq4latGc5MaLbJ/w9DsKRmcPkLUvyreu
+         su+Tur95jI8yeg2ju6X93/qL8oeyaPjTSQXxcUXDm6QQ+acr+m7IJ+ZT8TY2C6NWpwfN
+         zVk+V6HoyhHZj1fxVmbmv6utR3S6E3DwiUS/hnwbsmWirz56cj9zhEExa+6K2rXl1oMb
+         bglNfwbZ7h4oxFuPijKjZheV/Vp3LFUqvdhblXyc0z50bPKNzpk8sJggsg244Z/9ILQR
+         tbXi75r2TSlDgYlMbLV7Aua7/fgSso1Pg9ucdxIq6kJZzv8ClPUwL50IeaHV6uwgHne7
+         R3Ng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791940458; x=1792545258;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+IRGY42o0foxKofOSIE21b7k7cypUKnC6DpjmgjMdLE=;
-        b=w72Uyj9mWluadhRbjLGhg5j56L4PMI0TQS0B1bVDmSED4v5oZ04SKtSshurC/oetgl
-         2WcZoBbDZYwqeA2xCWau4WIS3unrddHKBzCJU4p1B6oWHSKhplCjnPjP6U0oAjJ3QK7I
-         f4dcxpGP7z/y32E7Of5gtRVl3k7DOB1wm/SBkQxl0sH+N776SzTki9ObC7pWXdMJtHLs
-         uiPP5fi+mDWJgKTOW3vty6kUlxGOTPh6BvVYiinKctIIALPb8kR5T+E/y8t9/yH5hZeD
-         eSOG6TZstz4D5aazRWjSj5PoC3DmrOgufIw/+0g7ehO7SswiM7YW50hMuxQCOOAOosyu
-         T5yw==
-X-Forwarded-Encrypted: i=1; AKwUvBy+ejBXUrK99OcCie/13E2zTM3es3Fq8rcVj8GoTKtVhEmfAR6KLmNqBSLc+atkf9w3zbEtmmOknp4v4E4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJaGdX14Xz6EbJPQzaM6aW+79uwMb4xvkZ7qXLfb9ZxH8BAy6NF
-	9anh52OyWSP8CdG5UyEIOYYVelqG+hNTigRR8ZuTe4OdBGBp0+gI1xcY
-X-Gm-Gg: AYBFou2GhB3kESv4gFBDFKx68PZ1Pr/veKOV1s7GXNwfAQ1rnMj5XiDMsPOWiykh7DS
-	G7FT5MEQznMhCsSPEYupRvd21zArHl/jb6W1vLOBTi1O0Tq5ZvD00va5ok4vJ/05Me2ZbYSy3Gt
-	9keR77pB8ILdcSqTdwrf0cVanp8BoOO719S9YaTAgqBZ7OYsEKyQ5pjATbkOavmTBG4eCLSVWQP
-	rlfSht64bGKIGSV/BpOKUmJMo0XslrOkDxg86lRQ9mOuWmyuJFPrgd5QEiSlVd7tmhML/XH6StW
-	WpvlJwMEm65HaXGavgj8RvfrJFGmtPMvxqOapfMWa43Ki/avT82ljFtoAiK0jcfi0yAyBbb0pOT
-	tFePv6WyzMaKVjb76FVeuR1rz9UEuV76QnwIfUFYWlJLLagXJvWORhjSg5MKHPJLVzj4AyCkN0F
-	ugIPFobMEre3u2Smck1vIy/saNm1ddQTsrr/NJONROF/IF6osNT2n4RxB3DG0mITOM0tvwiDKc1
-	RUu94hy0BAy7Q8m/mP9iJaa56kjhEaqeMA0tZka68yE3ddk6lVylPgH+z3m8MOAm+Gk/IS3sc16
-	3q5o3KidY2GeBJUYgAn6poqmDrABczcszcEKItDKkPn+E9Ns
-X-Received: by 2002:a05:600c:3111:b0:4a1:811c:8069 with SMTP id 5b1f17b1804b1-4a18e49d640mr279688285e9.8.1791940458506;
-        Tue, 13 Oct 2026 18:14:18 -0700 (PDT)
-Received: from ?IPV6:2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c? ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1b748cbfdsm4389935e9.0.2026.10.13.18.14.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 18:14:17 -0700 (PDT)
-Message-ID: <86ae9136-3413-45b2-99b0-fbe404ef1b39@gmail.com>
-Date: Wed, 14 Oct 2026 02:14:16 +0100
+        d=1e100.net; s=20260707; t=1791940653; x=1792545453;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wyQBM5A+sbr/bsu9Xm3Evkx/SvDUAAi47Tsf2PiRHKk=;
+        b=wzuNVkLeRDvlNVjW8IzWnoSdZobCBzYN5h/5+UGSlJhYw3o24eZDxFN/ssewSqNETu
+         WzPRcmc02E+BQRVN7ZpL/dLxoQ5byTq6BClGxJ+uF9xCVEFZz/sq71dgaEVJwBGo0ZnF
+         nnnfsyKd/jtkfFb1vgTHylW0xjfS4kvOIWovTIRl7PjoApShkBrt4mOmpF4cbYiKuiun
+         Nv87AMU1zCykVeA/Wnjw0xUb7VEfsjU/8PyQLWlXIhkS6ApS5hMJRhINelbNkK75v+CY
+         F759sCC7/+iB/h+Us1fA7mcxgQ5evSezQ37c1Xx7ZhQo+WNYtL5MO2hltckdzELwdeYO
+         /ECQ==
+X-Forwarded-Encrypted: i=1; AKwUvBydiA/CifbXhr8Cl4Xb+5cJAF64Nuc91DRlV8zuFwXezZlrBNJ+ajoAV5TdPgJB0s8lzFijXVDC6Fz+7rs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ+OFq2rIOizQfsFVhdE6c78w2yPD5WsEgyKmafVOa5Zmws06OO
+	sVubcU/PQ+hlOsf5vZlaMUO5LrIWITLRjW84J66t03wOLa+Q/ybputV5SpnOlR0EmqiWjWKNQVS
+	CDgIdntUMXp+rlSx2tr07U8Sw/IumhYI=
+X-Gm-Gg: AYBFou2uMLwDNIqmOTeJk2VAmyYFnwpTKzLZmFQQ8CykImKT8Tr4yYxqb2Vk5IgJYSc
+	kLYdK5pGP2Y8xMDkM3gfUtmI+01lnq19iGHRKYwwFn3bUILjShfrkhnoYudGcQVW5saSlzXKA3m
+	eG2ZyqJjZ0tbEJckUFPVKysCGzDM9yMcs0XfRZIoIX9SUdSeQvbkpDTvsnuRJpEj2wQ4+sp/PtI
+	qvBi9SjnqQHi4jvsc7IvPARdn2hAOG/c3A07+IfqtsiEAmbDcWV6GuPsfwr3ZZt/XEj3c9BE79k
+	br9zc99xFQZL0VBVPRMpCeDJY0AC6QTOIOWcZDUuRgaiJx45xp/PWNY=
+X-Received: by 2002:a05:6512:b8d:b0:5bb:7c8e:15b2 with SMTP id
+ 2adb3069b0e04-5bcde6c4f1cmr5490083e87.31.1791940653284; Tue, 13 Oct 2026
+ 18:17:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] io_uring/cmd_net: prevent infinite retry loop on
- unextractable timestamp skb
-To: Bui Viet Dung <dungvn2345@gmail.com>, Jens Axboe <axboe@kernel.dk>
-Cc: Willem de Bruijn <willemb@google.com>, lollipopkit <a@lolli.tech>,
- io-uring@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20b406ac-94ec-4b0f-a307-08082092ae08@gmail.com>
- <6ac7afc4.cf15ae49.1a8a2a.2a55@mx.google.com>
-Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <6ac7afc4.cf15ae49.1a8a2a.2a55@mx.google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261008182814.27450-1-kanchanapsridhar2026@gmail.com>
+ <20261008182814.27450-6-kanchanapsridhar2026@gmail.com> <as7JC8o2kggiq_ss@google.com>
+In-Reply-To: <as7JC8o2kggiq_ss@google.com>
+From: "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
+Date: Tue, 13 Oct 2026 18:17:20 -0700
+X-Gm-Features: AclHuK9N-1t0qH1Ne5SzX5aznAgKqSCO5xi8WT7N5o98qXn1u4mrNoAaAXjfoHU
+Message-ID: <CACpmpofXMGBP70Rn7jHLwOF38GRKMUGoW3rb1Jp2SPH7ygKcfw@mail.gmail.com>
+Subject: Re: [PATCH v1 5/8] mm: zswap: Store the folio's node id in the zswap_entry.
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: hannes@cmpxchg.org, nphamcs@gmail.com, chengming.zhou@linux.dev, 
+	akpm@linux-foundation.org, linux-mm@kvack.org, herbert@gondor.apana.org.au, 
+	davem@davemloft.net, linux-crypto@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, rientjes@google.com, willy@infradead.org, 
+	senozhatsky@chromium.org, 
+	"Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-n 10/8/26 15:59, Bui Viet Dung wrote:
-> On Thu, Oct 8, 2026 at 3:43 PM Pavel Begunkov <asml.silence@gmail.com> wrote:
->> Sounds fine since there are only timestamp skbs in this list, do
->> you have a test case?
-> 
-> Hi Pavel,
-> 
-> Thanks for the review.
-> 
-> The issue was spotted during code inspection of the error handling path
-> in io_uring_cmd_timestamp(): specifically when skb_get_tx_timestamp() returns
-> a negative error (e.g. -ENOENT due to missing PHC bindings with
-> SOF_TIMESTAMPING_BIND_PHC or unavailable timestamp data). Since the
-> multishot apoll remains armed on EPOLLERR and the unhandled skb is spliced
-> back onto the head of sk_error_queue, it immediately re-triggers the command
-> in a tight busy-loop.
-> 
-> Below is a standalone test program demonstrating the TX_TIMESTAMP command
-> setup and execution with CQE32:
+On Tue, Oct 13, 2026 at 5:18=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrot=
+e:
+>
+> On Thu, Oct 08, 2026 at 11:28:11AM -0700, Kanchana P. Sridhar wrote:
+> > When storing a folio in zswap, save the folio's node id in the zswap
+> > entry instead of relying on the zswap_entry being allocated on the same
+> > node. This enables optimizations such as batch allocation of zswap
+> > entries for large folios using kmem_cache_alloc_bulk() that does not
+> > support specifying a node id.
+> >
+> > The size of the zswap_entry remains unchanged as 'referenced' is lumped
+> > in with the 'length' (as it doesn't need a full unsigned int anyway).
+> >
+> > Suggested-by: Nhat Pham <nphamcs@gmail.com>
+> > Suggested-by: Yosry Ahmed <yosry.ahmed@linux.dev>
+> > Signed-off-by: Kanchana P Sridhar <kanchana.p.sridhar@intel.com>
+> > Signed-off-by: Kanchana P. Sridhar <kanchanapsridhar2026@gmail.com>
+> > ---
+> >  mm/zswap.c | 23 +++++++++++------------
+> >  1 file changed, 11 insertions(+), 12 deletions(-)
+> >
+> > diff --git a/mm/zswap.c b/mm/zswap.c
+> > index ca513a9f89e3..c2731d3acb2c 100644
+> > --- a/mm/zswap.c
+> > +++ b/mm/zswap.c
+> > @@ -194,6 +194,7 @@ static struct shrinker *zswap_shrinker;
+> >   *              writeback logic. The entry is only reclaimed by the wr=
+iteback
+> >   *              logic if referenced is unset. See comments in the shri=
+nker
+> >   *              section for context.
+> > + * nid - NUMA node id of the page for which this is the zswap entry.
+> >   * pool_idx - id of the zswap_pool that the entry's data is in.
+> >   * handle - zsmalloc allocation handle that stores the compressed page=
+ data
+> >   * objcg - the obj_cgroup that the compressed memory is charged to
+> > @@ -201,8 +202,11 @@ static struct shrinker *zswap_shrinker;
+> >   */
+> >  struct zswap_entry {
+> >       swp_entry_t swpentry;
+> > -     unsigned int length;
+> > -     bool referenced;
+> > +     struct {
+> > +             unsigned int length:31;
+> > +             bool referenced:1;
+> > +     };
+> > +     int nid;
+>
+> This will increase the size of the struct now with pool_idx, right?
 
-Did you actually reproduce it? This program doesn't for me, nor does
-fault injection. Taking a look at the code, io_uring_cmd_timestamp()
-returns -EAGAIN, and the request will wait for the next wake up in the
-polling code. There are bits to improve, but that's not an infinite loop.
+I was gathering the struct size with the struct {unsigned int
+length:31; bool referenced:1} as suggested in v14, for my before/after
+comparisons:
 
--- 
-Pavel Begunkov
+before:
+struct zswap_entry {
+        swp_entry_t                swpentry;             /*     0     8 */
+        struct {
+                unsigned int       length:31;            /*     8: 0  4 */
 
+                /* Bitfield combined with next fields */
+
+                bool               referenced:1;         /*    11: 7  1 */
+        };                                               /*     8     4 */
+        int                        nid;                  /*    12     4 */
+        u8                         pool_idx;             /*    16     1 */
+
+        /* XXX 7 bytes hole, try to pack */
+
+        long unsigned int          handle;               /*    24     8 */
+        struct obj_cgroup *        objcg;                /*    32     8 */
+        struct list_head           lru;                  /*    40    16 */
+
+        /* size: 56, cachelines: 1, members: 7 */
+        /* sum members: 49, holes: 1, sum holes: 7 */
+        /* last cacheline: 56 bytes */
+};
+
+after:
+struct zswap_entry {
+        swp_entry_t                swpentry;             /*     0     8 */
+        struct {
+                unsigned int       length:31;            /*     8: 0  4 */
+
+                /* Bitfield combined with next fields */
+
+                bool               referenced:1;         /*    11: 7  1 */
+        };                                               /*     8     4 */
+        int                        nid;                  /*    12     4 */
+        long unsigned int          handle;               /*    16     8 */
+        struct obj_cgroup *        objcg;                /*    24     8 */
+        struct list_head           lru;                  /*    32    16 */
+        u8                         pool_idx;             /*    48     1 */
+
+        /* size: 56, cachelines: 1, members: 7 */
+        /* padding: 7 */
+        /* last cacheline: 56 bytes */
+};
+
+And decided to go with the placement in patch 7, since it also
+separates out members by compress/decompress path accesses. pool_idx
+is set once, and never changes. Further, moving pool_idx to the end
+gets rid of holes.
+
+>
+> Before you patch on x86_64:
+>
+> struct zswap_entry {
+>         swp_entry_t                swpentry;             /*     0     8 *=
+/
+>         unsigned int               length;               /*     8     4 *=
+/
+>         bool                       referenced;           /*    12     1 *=
+/
+>         u8                         pool_idx;             /*    13     1 *=
+/
+>
+>         /* XXX 2 bytes hole, try to pack */
+>
+>         unsigned long              handle;               /*    16     8 *=
+/
+>         struct obj_cgroup *        objcg;                /*    24     8 *=
+/
+>         struct list_head           lru;                  /*    32    16 *=
+/
+>
+>         /* size: 48, cachelines: 1, members: 7 */
+>         /* sum members: 46, holes: 1, sum holes: 2 */
+>         /* last cacheline: 48 bytes */
+> };
+>
+> After:
+>
+> struct zswap_entry {
+>         swp_entry_t                swpentry;             /*     0     8 *=
+/
+>         struct {
+>                 unsigned int       length:31;            /*     8: 0  4 *=
+/
+>
+>                 /* Bitfield combined with next fields */
+>
+>                 bool               referenced:1;         /*    11: 7  1 *=
+/
+>         };                                               /*     8     4 *=
+/
+>         struct {
+>                 unsigned int               length:31;            /*     0=
+: 0  4 */
+>
+>                 /* Bitfield combined with next fields */
+>
+>                 bool                       referenced:1;         /*     3=
+: 7  1 */
+>
+>                 /* size: 4, cachelines: 1, members: 2 */
+>                 /* last cacheline: 4 bytes */
+>         };
+>
+>         int                        nid;                  /*    12     4 *=
+/
+>         u8                         pool_idx;             /*    16     1 *=
+/
+>
+>         /* XXX 7 bytes hole, try to pack */
+>
+>         unsigned long              handle;               /*    24     8 *=
+/
+>         struct obj_cgroup *        objcg;                /*    32     8 *=
+/
+>         struct list_head           lru;                  /*    40    16 *=
+/
+>
+>         /* size: 56, cachelines: 1, members: 7 */
+>         /* sum members: 49, holes: 1, sum holes: 7 */
+>         /* last cacheline: 56 bytes */
+> };
+>
+> I think we want to reorder the fields. We can probably also avoid the
+> bitfield if the maximum page size is 64K (is it?)
+
+It seems on ARM64, the max page size is 64K, however on PPC, it can be
+256K. So it appears we need at least 18 bits on currently supported
+architectures.
+If you agree with the pool_idx placement to be moved to the end as
+proposed in patch 7, I can try and optimize this further, by limiting
+the "unsigned int length:18", if you think this makes sense.
+
+>
+> struct zswap_entry {
+>         swp_entry_t                swpentry;             /*     0     8 *=
+/
+>         u16                        length;               /*     8     2 *=
+/
+>         u8                         pool_idx;             /*    10     1 *=
+/
+>         bool                       referenced;           /*    11     1 *=
+/
+>         int                        nid;                  /*    12     4 *=
+/
+>         unsigned long              handle;               /*    16     8 *=
+/
+>         struct obj_cgroup *        objcg;                /*    24     8 *=
+/
+>         struct list_head           lru;                  /*    32    16 *=
+/
+>
+>         /* size: 48, cachelines: 1, members: 8 */
+>         /* last cacheline: 48 bytes */
+> };
+>
+>
+> >       u8 pool_idx;
+> >       unsigned long handle;
+> >       struct obj_cgroup *objcg;
+> > @@ -672,14 +676,8 @@ static int zswap_enabled_param_set(const char *val=
+,
+> >  * lru functions
+> >  **********************************/
+> >
+> > -static inline int entry_to_nid(struct zswap_entry *entry)
+> > -{
+> > -     return page_to_nid(virt_to_page(entry));
+> > -}
+> > -
+> >  static void zswap_lru_add(struct zswap_entry *entry)
+> >  {
+> > -     int nid =3D entry_to_nid(entry);
+> >       struct mem_cgroup *memcg;
+> >
+> >       /*
+> > @@ -696,19 +694,18 @@ static void zswap_lru_add(struct zswap_entry *ent=
+ry)
+> >       rcu_read_lock();
+> >       memcg =3D obj_cgroup_memcg(entry->objcg);
+> >       /* will always succeed */
+> > -     list_lru_add(&zswap_list_lru, &entry->lru, nid, memcg);
+> > +     list_lru_add(&zswap_list_lru, &entry->lru, entry->nid, memcg);
+> >       rcu_read_unlock();
+> >  }
+> >
+> >  static void zswap_lru_del(struct zswap_entry *entry)
+> >  {
+> > -     int nid =3D entry_to_nid(entry);
+> >       struct mem_cgroup *memcg;
+> >
+> >       rcu_read_lock();
+> >       memcg =3D obj_cgroup_memcg(entry->objcg);
+> >       /* will always succeed */
+> > -     list_lru_del(&zswap_list_lru, &entry->lru, nid, memcg);
+> > +     list_lru_del(&zswap_list_lru, &entry->lru, entry->nid, memcg);
+> >       rcu_read_unlock();
+> >  }
+> >
+> > @@ -1449,9 +1446,10 @@ static bool zswap_store_page(struct folio *folio=
+, long index,
+> >  {
+> >       swp_entry_t page_swpentry =3D folio_swap_entry(folio, index);
+> >       struct zswap_entry *entry, *old;
+> > +     int nid =3D folio_nid(folio);
+> >
+> >       /* allocate entry */
+> > -     entry =3D zswap_entry_cache_alloc(GFP_KERNEL, folio_nid(folio));
+> > +     entry =3D zswap_entry_cache_alloc(GFP_KERNEL, nid);
+>
+> We don't need to allocate the entry on the same node anymore, should we
+> drop this and let the slab allocator handle it as it sees fit?
+
+Was this a recent change? I see the folio_nid(folio) on my version of
+mm-unstable as of 10-3-2026. Let me check, and yes, allowing the slab
+allocated handle this is probably a good idea.
+
+Along the same lines, I have been working on replacing zsmalloc with
+direct SLAB allocations for the zswap compressed data storage and see
+very promising results: memory savings and latency improvements. I
+will submit an RFC shortly.
+
+>
+> >       if (!entry) {
+> >               zswap_reject_kmemcache_fail++;
+> >               return false;
+> > @@ -1466,6 +1464,7 @@ static bool zswap_store_page(struct folio *folio,=
+ long index,
+> >        * to an unrelated live pool.
+> >        */
+> >       entry->pool_idx =3D pool->idx;
+> > +     entry->nid =3D nid;
+> >
+> >       old =3D xa_store(swap_zswap_tree(page_swpentry),
+> >                      swp_offset(page_swpentry),
+> > --
+> > 2.39.5
+> >
