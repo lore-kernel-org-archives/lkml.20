@@ -1,122 +1,191 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010013.outbound.protection.outlook.com [52.101.61.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C36574E36D0;
-	Wed, 14 Oct 2026 14:58:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791989927; cv=none; b=Yie2Q00IoC+/SwA+DA0yWRtaHpLogNcVwASVEiwb8XUxnhAflA9DLYAxAA7EQ7o94XlpkrjvVpM1dQpb+mHM+5gKVw5q9+noLJbyTlBZ+V0GrYicUflgzsLjVnkBLUtqGQ4TR4wiGGYME3H9OU+xsoITasLthxELq7GUKCdEJPk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791989927; c=relaxed/simple;
-	bh=PpCmxhaMfmnmPpJ43Vt0tuPi8xBgG4Xfw0ApFv1iEn0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Dl8GWHGSQoJugFu1/xPDa1Po+03IotjZN5VYY7VHKV0ObnoGj5EaKRhBUZermYflDsiXORCQnxtHCOoZh80cixtMuPZUGIIcehHkQdKzmlIBN++wS6TZ0S2QC7DACgsY3V+9K8UKJ4KDyetSfy5ZO0LPfNAfjhhNheMtZI2rCWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uaq/TTJO; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 962B0214A84
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:58:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791989938; cv=fail; b=H1lzu2LdfC6jIh/KAeAnDSLyEykcOqb36dbV6O6oVld9HfVFw0ZZFa9ihx6P4VbHyoX5oD+lyR+Ccn7Th9JdIVhudj5e/sJtZgm5FvYPEyoRfC3Ekf4R1na6lPRjJXDosgPXa5O559Kc+YBTyYQFHH+KjcuifIMBbgvQEe+ybmw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791989938; c=relaxed/simple;
+	bh=i61JixUvSc3HHEHrmvyBnensR5QzYLUCWRDXoG1jl4g=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=TLSh2k2Fg3PYVA/WetOykd2Ax6QsCiCqM6L9EWSSLnY3wIVvyIVCJkhez7RyRn45THZ/WewcxUVIf4iy83V6S4r4r2cu842oZdc8SMwRm/jVY2oizoK4nEeeJRH52byChONqPmXl+8ePGJEeaLVia0JBz/oq1vEYzg7BGEjXQnA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Bni1sKPR; arc=fail smtp.client-ip=52.101.61.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uaq/TTJO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 579611F000C4;
-	Wed, 14 Oct 2026 14:58:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791989925;
-	bh=m+ycLKuN3NTfWeAQrQcT1OYPGsZBNIjzMzYu9BZ8owc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Uaq/TTJOyyKO8ne89bJ7RY6OBkHy1nyuxSYBCC3dJ/k8Yh5fTa4/jIgyp89+j88F2
-	 Ei5L8Q1faDSSUxZgpGy88aCV8LV4ksuAnIUh1cOWLbkyVuu4T6ZKqYh0P6WXRJMOjC
-	 TcZs0s8z3+S64CujwYRgyAn31dU1jWYzfA96/Zc6t8oKREallkpoERO6oxuQ+iD+TQ
-	 7RVIwPZTqiJvzdZGx1ZjSRBLf+jNeiJb1U7sY1CTl3biYWr6OIl3dyHmhNlaLX0B5w
-	 qXrlsJoyTPlXha0ha1qWkPlLo4lC0O4Qc4QRIimxW8ZfG+bY5CFeks3SpdjQbZgKvl
-	 S7LF2LQ6smcOA==
-Received: from johan by xi.lan with local (Exim 4.99.5)
-	(envelope-from <johan@kernel.org>)
-	id 1xH0RH-00000005rN6-1DS5;
-	Wed, 14 Oct 2026 16:58:43 +0200
-Date: Wed, 14 Oct 2026 16:58:43 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Alan Stern <stern@rowland.harvard.edu>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Mario Peter <mario.peter@leica-geosystems.com>,
-	driver-core@lists.linux.dev, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] driver core: take parent lock in async device
- attach
-Message-ID: <as-Yo_ge-2C6NZRO@hovoldconsulting.com>
-References: <20261014133109.1392265-1-johan@kernel.org>
- <20261014133109.1392265-4-johan@kernel.org>
- <a68b8b6c-c84e-44a2-baff-aff56824a465@rowland.harvard.edu>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Bni1sKPR"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ab5cx+6iqq/JdAAMVbP8dPtvqjHzyez/IxaNd1yE3fWOGvyQ9hABqNJGAeUJxbDGa9kdf8RPBydQUsMit3bIhRXuUNIhcm2LDrj3Y7k038uhWCzZs9nsvalNfx8qWBFJCpta/C+Wg7FUoqYVeialHhXcv0oXeZ+2YtqNyNR3frNkbTOX5rEqw04h5jwjIksfHEx4PaKhgQlzMHetTWOg1UpYwZNfP7ZQZWEkY5NQuFNrwcV5S5zRaOXU41WyKQj6uAFBeXe/VBN6FUOUPtgMWgGfTVqhb/3A2yRE5qxX3ci0v4v2lLFDhJBBoWA5eKS8/2pvVAdwzaLJTaIRra/FWA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yK9+EU47WgXpa6AFc4NPyVj0xg2vd3T10orPPJkQIoU=;
+ b=qSA4Mt2OXjv56nzGyQ9oJ9BZK0yAJZNyPW4ufOHyw82jIA02HTGn8tcniwgoGpu3sOMe4sQIN4qXbh+0vPwyzDzOKlaStLLGdgAmI3vM95wTO20BIVgcUH0CtUlkE78TiQAin2gL2W/ksifbxBDwI+TS5rH2GIvnYqcMObeRKpFoEKABqclA68XvUURTAC30QclQwaYFc0agrYbKbkwB3TJW/WeD6XQkjAK+MZthjt7f8CGx+Hj2KgNgppMTuPBAo8An4pfoufCik2aYDD8OrbxN9Bc0hMPWHPfS9hLurDsSYkafDyL5QDt7pwaghKXrwwbVOXoaoXURZY6mVjLxFA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=linux-foundation.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yK9+EU47WgXpa6AFc4NPyVj0xg2vd3T10orPPJkQIoU=;
+ b=Bni1sKPRs+UlUlMzxiWb5T+1bBdVZ45qCqYX/pzLCPtCFNpiN508QNA0Hr7mcHldAOXvRSopMx0+PU9m5xHr5I0GSAhUDIXCqQdsg+x9olS0f9HOEs/dP7+WAcTfB/PcnjnZKTmqCPIbF/+3+hP8paV/k3DYI6VRMHSN+wZ9lHw=
+Received: from CH0PR13CA0017.namprd13.prod.outlook.com (2603:10b6:610:b1::22)
+ by IA0PR12MB7529.namprd12.prod.outlook.com (2603:10b6:208:431::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.20; Wed, 14 Oct
+ 2026 14:57:51 +0000
+Received: from CH3PEPF0002457E.namprd04.prod.outlook.com
+ (2603:10b6:610:b1:cafe::21) by CH0PR13CA0017.outlook.office365.com
+ (2603:10b6:610:b1::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Wed, 14
+ Oct 2026 14:57:50 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CH3PEPF0002457E.mail.protection.outlook.com (10.167.252.24) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Wed, 14 Oct 2026 14:57:50 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 14 Oct
+ 2026 09:57:43 -0500
+Received: from xhdradheys41.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Wed, 14 Oct 2026 09:57:39 -0500
+From: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+To: <akpm@linux-foundation.org>, <david@kernel.org>, <ljs@kernel.org>,
+	<liam@infradead.org>, <vbabka@kernel.org>, <rppt@kernel.org>,
+	<surenb@google.com>, <mhocko@suse.com>, <baoquan.he@linux.dev>,
+	<pasha.tatashin@soleen.com>, <pratyush@kernel.org>, <graf@amazon.com>
+CC: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
+	<kexec@lists.infradead.org>, Radhey Shyam Pandey
+	<radhey.shyam.pandey@amd.com>
+Subject: [RFC PATCH 0/2] kexec,mm/cma: do not run the next kernel from a fixed-base CMA area
+Date: Wed, 14 Oct 2026 20:27:29 +0530
+Message-ID: <20261014145731.3431527-1-radhey.shyam.pandey@amd.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a68b8b6c-c84e-44a2-baff-aff56824a465@rowland.harvard.edu>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF0002457E:EE_|IA0PR12MB7529:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7fcb3540-7c3d-4acd-31b6-08df2a038449
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|23010399003|36860700016|1800799024|376014|7416014|6133799003|18002099003|10067099003|921020|261009223027099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	gUNMOGhE6gsY4EPAkgdIxjBNC/bKfsYvQYjuB3mgAwcRdWY/DEuF/EBADARPOCGAjVxdPPYyelavS8whAl2dXlwbi8x/of1Apo41N4RPDjIJsCtYndN1Vr9r7vKsw6MWR7dQGDUwRzOq6iz00FdrRFuQk+YO6R9LEIDbndJ+V7RnLxsdihqUigfTPLgGSoce/8CqKxj6y5al68Hd0/W25sB+V/tKosqMurIGP3w7lN2F/FjwaUNYjorWFgYDYFlX2i+QlagoLK+PGlNP1LA8t4DVGUBAMt5SWbchCaV7OPsbTt23GQoVU2sTJ0zgZ+bX4yr2JsooVIiW0Y/JTfkIktwlf53greGq1WY7kEAPZBUEqRJ//S0ChyPMOxhrxMAT3q3F8L1LGP79kYfJ56O4JeUxBWU2MNzScgLuRRaPCgKp1FjVCJlPlO7UgbBqByt/VNHx86JG+b8ulxsc3YkV0DABBt1Ze1TEgo0Mp/0BhyF9TdzbOhsm25XwanMzhiW4RbclFBJEcc4cWYDOeUlgECH7pIksq4SGzfjB55F9/Omrocy793qdKyExEqaIJxKBODvf7oMrsyiegE3FRqSFZrxMaFZ5gRnewUtFAFWh8Wsh4q1hKnIWxGvVTIqHCwuQ5LDZsmqaYjquudpgIt+VgWDlBtFKgMA7HDaEgGZ9RHiNSGw7RvGqQgEp1z3h4kP98D2W6nGOBSOBHO4TuC7zGpZmuRBNjQnOwDTAgbEK5o5u37sCvvizFdlWg0syej0/
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(36860700016)(1800799024)(376014)(7416014)(6133799003)(18002099003)(10067099003)(921020)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	I/jjoHaWgPV0sV3PQGefDxDeesfbXVccU/9QzPryR+IYVJs33x6xKny81UsZP1E5hmZhTNFIQQgVj2N8XK4GJbepZxX4taVYGQYt/Z37b6WZDVDXvYkz21a6BYBcIxvOzKW3tSFtJE8WL/w9Iumz4ujBt6++rSTYj7X1ealVAKaUtPQZuv7eAYEVQbGDcCsIQZeqAv9H10Mw8kv6YmycCRdVhMcH5SFAAsPIwGyScWXk9p4HX1iDw7KkjZWJwsE0Uy3RV5N2bKykQF03VObPzp4CwcaYbdP5Dls9goQnPBEGWn6qRmqVFq5BrA4tg3jPtuSqYnUYnwJlTVs98ZcKKKaFtnCZa4pqrg+lAEFoGZnR5lVSTPHX4Ou28lNSpOiu7h6ESwHP5IBreEVjJo1KjYEM2xa9N63PL9lQL/tTeGk4ofO5cNJtGKorvUscuTRV
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 14:57:50.1997
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7fcb3540-7c3d-4acd-31b6-08df2a038449
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH3PEPF0002457E.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7529
 
-On Wed, Oct 14, 2026 at 10:52:48AM -0400, Alan Stern wrote:
-> On Wed, Oct 14, 2026 at 03:31:09PM +0200, Johan Hovold wrote:
-> > From: Mario Peter <mario.peter@leica-geosystems.com>
+Since commit 07d24902977e ("kexec: enable CMA based contiguous
+allocation"), kexec_locate_mem_hole() tries kexec_alloc_contig() before
+the memblock hole search. On success the CMA address becomes the final
+destination of the next kernel rather than a staging buffer, so the
+image is run in place instead of being copied during the hot phase.
 
-> > Take the parent lock in __device_attach_async_helper() as well, like
-> > __driver_attach_async_helper() does, and move
-> > __device_driver_lock/unlock() up for that. With this the warning was
-> > gone in 300 boots on the board and in 6000 iterations in QEMU.
-> > 
-> > Fixes: 765230b5f084 ("driver-core: add asynchronous probing support for drivers")
-> > Assisted-by: LLM
-> > Signed-off-by: Mario Peter <mario.peter@leica-geosystems.com>
+That is unsafe when the default CMA area has a fixed base. CMA
+allocation state is purely runtime: the outgoing kernel marks the pages
+busy in its own bitmap, but that bitmap is not carried across kexec.
+The incoming kernel builds its CMA areas afresh from the same device
+tree, which describes the pool's extent - the one thing both kernels
+agree on exactly - and has no way to learn that part of the pool holds
+the image it is executing from. cma_activate_area() hands the area to
+init_cma_reserved_pageblock(), which clears PageReserved on every page
+and frees them into MIGRATE_CMA, overriding the memblock_reserve() of
+[_text, _end) the architecture installed.
 
-> > [ johan: switch to async_schedule_dev_nocall() to avoid deadlock if
-> >          async_schedule_dev() runs synchronously when parent lock is
-> > 	 held ]
+On a VEK385 (arm64, three device-tree CMA pools, 14 GiB total) this
+reproduces within ~300ms of /sbin/init starting, as a copy-on-write
+fault writing to the read-only linear alias of .text after kernel text
+had been handed out as a movable page:
 
-> > @@ -1118,8 +1150,13 @@ static int __device_attach(struct device *dev, bool allow_async)
-> >  	}
-> >  out_unlock:
-> >  	device_unlock(dev);
-> > -	if (async)
-> > -		async_schedule_dev(__device_attach_async_helper, dev);
-> > +	if (async) {
-> > +		if (!async_schedule_dev_nocall(__device_attach_async_helper, dev)) {
-> > +			put_device(dev);
-> > +			ret = 2;	/* retry synchronously */
-> > +		}
-> > +	}
-> > +
-> >  	return ret;
-> >  }
-> >  
-> > @@ -1146,48 +1183,20 @@ EXPORT_SYMBOL_GPL(device_attach);
-> >  void device_initial_probe(struct device *dev)
-> >  {
-> >  	struct subsys_private *sp = bus_to_subsys(dev->bus);
-> > +	int ret;
-> >  
-> >  	if (!sp)
-> >  		return;
-> >  
-> > -	if (sp->drivers_autoprobe)
-> > -		__device_attach(dev, true);
-> > +	if (sp->drivers_autoprobe) {
-> > +		ret = __device_attach(dev, true);
-> > +		if (ret == 2)
-> > +			__device_attach(dev, false);
-> > +	}
-> >  
-> >  	subsys_put(sp);
-> >  }
-> 
-> These two pieces do not seem to be related to the changes mentioned in 
-> the patch description.  Are they leftovers from some other patch?
+  Unable to handle kernel write to read-only memory at virtual address ffff00084030c000
+  Call trace:
+   copy_page+0x48/0xc4 (P)
+   copy_user_highpage+0x14/0x30
+   __handle_mm_fault+0x318/0x1340
 
-They are needed since async_schedule_dev() may execute the callback
-synchronously and in which case we'll deadlock if the caller already
-holds the parent mutex (e.g. during initial probe).
+Patch 1 is the fix. It records whether an area was placed at an address
+CMA chose or one dictated from outside, and refuses the latter for the
+kexec payload, leaving kexec_locate_mem_hole() to fall back to the
+memblock hole search as it did before CMA placement existed. Areas
+placed by __cma_declare_contiguous_nid() without a fixed base are still
+used, because the next kernel repeats that search against its own
+memblock state and so cannot land on the same extent. "cma=nn" keeps
+working and "cma=nn@ss" does not, which is the intended distinction.
 
-I only highlighted the issue in the trailer section of the patch,
-perhaps I should have amended the commit message proper.
+Patch 2 adds a check in cma_init_reserved_mem() so that a caller passing
+a base overlapping the kernel image is refused rather than silently
+corrupting it. It is hardening rather than the fix, and deliberately
+carries no Fixes: tag - see the open question below.
 
-Johan
+Open question for patch 2
+=========================
+Returning an error is not sufficient on its own for a device-tree pool.
+fdt_init_reserved_mem_node() responds to an error from a non-nomap
+region by calling memblock_phys_free() on the whole range, which drops
+the kernel image's own reservation along with it, so the pages are still
+released - as plain free memory instead of MIGRATE_CMA. powerpc's
+fadump_cma_init() is the one caller that keeps its reservation on
+failure and is therefore fully protected.
+
+Should of_reserved_mem avoid freeing a region whose node_init failed, or
+should cma_init_reserved_mem() signal this case differently? I have left
+patch 2 as a diagnostic and a second line of defence behind patch 1
+rather than guess at the right answer. Patch 1 stands on its own and
+does not depend on how patch 2 is resolved.
+
+Testing
+=======
+With patch 1 applied, kexec_file_load() on the VEK385 declines the
+default pool (4 GiB at 0x800000000) and places the Image through the
+memblock search at 0x9c00000 size 0x1de0000. The kernel that boots from
+it reports its image as [0x09c00000-0x0b9e0000] and 14680064K
+cma-reserved, i.e. all three pools present and none of them overlapping
+the running kernel. Both segments report being copied rather than run in
+place. Without patch 1, the payload is placed inside the default pool
+and the trace above follows.
+
+
+Radhey Shyam Pandey (2):
+  kexec: do not place the next kernel in a fixed-address CMA area
+  mm/cma: reject CMA areas that overlap the kernel image
+
+ include/linux/cma.h | 10 ++++++++++
+ kernel/kexec_file.c | 12 ++++++++++++
+ mm/cma.c            | 39 +++++++++++++++++++++++++++++++++++++++
+ mm/cma.h            |  2 ++
+ 4 files changed, 63 insertions(+)
+
+
+base-commit: 1fffefb00cc0b0da1f2ae24e3d33364530ea6515
+-- 
+2.43.0
+
