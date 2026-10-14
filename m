@@ -1,33 +1,87 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E90C325F7A9;
-	Wed, 14 Oct 2026 13:43:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 339D152758E
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:45:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791985438; cv=none; b=ovajAdvTmi1nmSbp9CeGOvBDPXA4Liy0U91WvnaIcrko0j0C8eG8m+Vi90fk04ovtC5Xw1qoreTT3PzvUUjBa6/hf70UMtIorMUeHJRszJqNGr2fAQWPqdjlF9MGgjDiTMSxmEXs6xJZZi8R1KFYt65r/DxfSbnUqE+EieC8SEI=
+	t=1791985517; cv=none; b=ulJIFjz/pZ3PUUubGbqi+PgkC5XIi0UGxoKatMu0X3/WRYNDs+hWpUS5FM6IWGhk0ZFt9VajvuTnUK8PBoNmqT6l4Gpf4XsPqcV1wLRM7LMnssbLaIyuymdDsKXm4afb3tJZvo3lglnlrUzbyKS/xvcsjs5gq9pHtxonqZkawGc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791985438; c=relaxed/simple;
-	bh=MbZnv2aFyF7Ym5YMUYAQMddwf0kzFG8Yuq53XRxGvBs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UwPN0PRDd9zfS4eeGliPZq3LNepKRFBw7gmBYU8HuGiB2OYyxZW0EzPfOTQPXn2jmdaAnTFMEioVJV5QOphUbm8jzUncNoPIi7dgK2uMkMcZ5dRsYdp6pxjtNIvn9S74Q5OYbrJBXiZCdWfZ79g9PA2RS6J5az6y9N1Twvvmv8M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=a0uePfgJ; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791985517; c=relaxed/simple;
+	bh=2eik+EK4C3BWVrmrUDhcQ5ZFi8ccW6MMSJf+dkVWE3Y=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=iS1KKl9wg/RtLmEM7o6Am1Pm6koxOWRhcDtJDCoIMPDPeXI4PvSCx0iRGBeP6scbCdE7MmRyoZU91rZPGmM33JbeD/w0F/TdciWU8YqI6M3q58h4EUHsJEgkdW6NfBV7BaVgPJjJMWRyXAIATUXGUae5BrKP11DHiQwprUgTngc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=I3ll0JsS; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fC3A7r/k; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="a0uePfgJ"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DAF7A1570;
-	Wed, 14 Oct 2026 06:43:51 -0700 (PDT)
-Received: from [10.164.19.62] (unknown [10.164.19.62])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3ED6A3F7B4;
-	Wed, 14 Oct 2026 06:43:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791985435; bh=MbZnv2aFyF7Ym5YMUYAQMddwf0kzFG8Yuq53XRxGvBs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=a0uePfgJ3M7g6AzfBFSq8n0o0CS2ReXcjjPBvbP4NBO1XBKIWzbkRPVXX/FXvC18x
-	 ZBv9YIMxapU9BbupxpSBDBe71Z8onU2XAj1DkhmK+C4c7SnWHe2/hVU1iEKh9jobUD
-	 b7ebjeOBq59RymK0dH8y6YcsgrB809oHV/h1p16c=
-Message-ID: <13ebe0c7-35c2-45e2-a217-54723ff7f0ba@arm.com>
-Date: Wed, 14 Oct 2026 19:13:46 +0530
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="I3ll0JsS";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fC3A7r/k"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EARDcD466354
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:45:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	QilNlIsY/JXTPlSp11Ew6P38xt9C05//jzUyoswKc8M=; b=I3ll0JsSee5/pLf+
+	2iYXqQIqlF7Y7lwhqeVFo1CcwbvlO5l3Da68kuTYdockb9wNlgD/Gzl4AwJ7w7g8
+	LH6W9LXMK/zhMGVLowNUNDeZH40ab6HSn301YcVDGWXJTtPlqByhl8GfpUf3J7PB
+	UvFdhLF7Sr4oVHA7TnbjqEXHavDlVMfOSjyM24XdNTcmh7k03is4mWa/oiBlRYNO
+	6ZpvJ+TI7QuPB2Z+C8vuTNTLXpAZhkXyFBZzrXgSKRp7iQd5z0vf5+NlkcW4XRGr
+	0JtPSKLNFdI+w/99NpZz1IyIZwNQKFXYJLTDN45OdJYcCRKMlPsXrYfLs9ztYlku
+	tEZYCQ==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ha80crr2f-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:45:15 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93cb7f9bb86so839626385a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:45:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791985514; x=1792590314; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QilNlIsY/JXTPlSp11Ew6P38xt9C05//jzUyoswKc8M=;
+        b=fC3A7r/kvLE6iohODWVYXB1/X6gnPNXDtxLLrV3lgkI78GKoOdFR/xYo7grZZ7pTcu
+         zewkdt9hpyByrlISk2nhS7yHPTjs8wLe7SdiPu50JuMt/xu59QhyYg8SS75mM8tGUAL3
+         lWPQO0454X9P9SZUq1kR6D3IzKIgFR1Peq1BVBiopeYhsQhDrjyhmzP6huQiPYKmzizn
+         ig+C95JrYSV6uPeIuh4Oe2sCvRJA12WKwt3uU5LP/DzPUDoqkeUEnGCdFtRESJ8KK3Rx
+         AdQoZuAK0mJWs6QRLugn7Zl5fu9jOsC4IdEaMAKbIOJrAu8/e8Y2y8BWMjSJGwFFGEBT
+         Yo1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791985514; x=1792590314;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QilNlIsY/JXTPlSp11Ew6P38xt9C05//jzUyoswKc8M=;
+        b=PrgTQ73qw1GPb29MKbN9tIKLULGpjv068VbElC3dpvb+JE2ic6riS+YbjMiBNtPHhh
+         isxV48M7sleMbDVW7jAoLAI+xOPjLHhh8n0wWhhG+CrMiP/aCqcYJEPfnuItoniDiPnu
+         2h/ART5BV9mFrs+FxO3u5yCnaDuGms2Gq+ElPao8vNObx2mboPI7oKRBj6UVvIXUf541
+         aEGQqY37jcojVcT+Ik3/cCXitmDWFZvYf2E6ZUu1BFNNNG+/c/hUqgGj9KloxF670UpD
+         X1FCKb4zABafg3GVuzZi9M0NKlkUVcFk+gb5vHAu8C+rnbky2vyvrZOU50CwqY23yrT0
+         p1fw==
+X-Forwarded-Encrypted: i=1; AKwUvByGGBYq5pAp7F62fP3ZUOEWtq8Nfx0IBuUXdWPEv4Tt6iaMXxAwNUaB/9ghWhaK/T+5gC1J4dwnon3E7yg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK0s6Lrcnxa5B6zPghunmCZurc0dPAr/3ky7eRjNZdfAk/u4E5x
+	IJFf5KRlwoeMP7kSGwLzMb/qHni+5lelMhPcw81YczqaV1H13+2pcK6IIx0Cg+HSrFzgKU88Ih7
+	QI5mj/GjzuE4JdMlpeVGpxth1kZsW0+SPy6pdfHCq8nHzv/1zmn50uGNl/+4959SlEXo=
+X-Gm-Gg: AYBFou3wCBqJTlEwyXCuDe3HcyhoohC8E04pGeO342KYs5ZODR3nlsgKnMMsXl6mFVN
+	0b4ZFujGWMBDGaPSWJTH7UVaDNOH6p67CCGXqKyl8K3RIcB/BPPDqBAcND08k9/wOPM09nGXwl/
+	6mHi2tNTMGYxEWZVz+nMtKj60P4gII46DQ1wQH7tARolRuYi78npZarvtjOcVY6g8NwpHM9AuHo
+	mHGoBkyXRtixxY5unXp22+3XQbaU11pUyefqOQIO/XmhDEsiO5gZLAdp6lOrEgGKKW/4dtOfehQ
+	n1wyepGgNTMZacshL4/TM9MDQFYUqjbiaKqTo1xvQvLc+YstD5z9sQ2a3eT2L+ylIetMln4zXV6
+	YmtSAcaOo3K2cb0UXXNybUQd8rNi+OlKbaf0tEwgPcwoHL28UVWv3vx304RxvqHiXQzw3HV5Ic8
+	APYssgwJ8qNOeDfb3RHs47EZlRxHiyG+rUw62sgvtVPaKLagn1AZpLpjQPFx1YovDaSg==
+X-Received: by 2002:a05:620a:2a0f:b0:93b:d7a0:d9e1 with SMTP id af79cd13be357-93ebd2445b1mr2514970385a.59.1791985514365;
+        Wed, 14 Oct 2026 06:45:14 -0700 (PDT)
+X-Received: by 2002:a05:620a:2a0f:b0:93b:d7a0:d9e1 with SMTP id af79cd13be357-93ebd2445b1mr2514960385a.59.1791985513405;
+        Wed, 14 Oct 2026 06:45:13 -0700 (PDT)
+Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec? (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl. [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9ac924dsm721471166b.70.2026.10.14.06.45.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 14 Oct 2026 06:45:12 -0700 (PDT)
+Message-ID: <24b2e368-f0bb-484c-bf88-b9ce3125180f@oss.qualcomm.com>
+Date: Wed, 14 Oct 2026 15:45:10 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,100 +89,97 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 1/5] mm/page_alloc: count guard pages as free again
- when their buddy merges
-To: Rik van Riel <riel@surriel.com>, linux-kernel@vger.kernel.org
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Brendan Jackman <brendan.jackman@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
- Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>,
- linux-mm@kvack.org, stable@vger.kernel.org
-References: <20261007021250.1665929-1-riel@surriel.com>
- <20261007021250.1665929-2-riel@surriel.com>
-Content-Language: en-US
-From: Dev Jain <dev.jain@arm.com>
-In-Reply-To: <20261007021250.1665929-2-riel@surriel.com>
+From: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Subject: Re: [PATCH 0/3] ACPI: Serialize battery methods and INT3403 _TMP
+To: =?UTF-8?Q?Ali_Ahmet_Memi=C5=9F?= <aliamemis@disroot.org>,
+        "Rafael J . Wysocki" <rafael@kernel.org>
+Cc: Len Brown <lenb@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+        Armin Wolf <W_Armin@gmx.de>, Rong Zhang <i@rong.moe>,
+        Charis Stratakis <c.stratakis@proton.me>, linux-acpi@vger.kernel.org,
+        linux-pm@vger.kernel.org, acpica-devel@lists.linux.dev,
+        linux-kernel@vger.kernel.org
+References: <20261014132703.93355-1-aliamemis@disroot.org>
+Content-Language: en-US, nl
+In-Reply-To: <20261014132703.93355-1-aliamemis@disroot.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA1NCBTYWx0ZWRfXz94CUZ/YWwoo
+ xK+oWFjcR/RM8aEWnuxc3fMjZH1a4NLrIzGRSaWH9bEt47Pwtn+71YuIqt+SLydQ6TY+LDJHX4L
+ mEk1TFK157eJZZNo9a0sphn56aO9AZI=
+X-Proofpoint-GUID: JknAFYJtCiuQ6JwBGR7RIzSLHh2le_kB
+X-Proofpoint-ORIG-GUID: JknAFYJtCiuQ6JwBGR7RIzSLHh2le_kB
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA1NCBTYWx0ZWRfX/zoct50lxzq4
+ n9SC5aHjIfN8S2q27Jrc0qDdx1sb3NJaqln9110u/OU6Z/JHNMflZs1CaPAOt4+ObJgE9kMZGI8
+ gz8LlPa2ymbt963wKZZG6NryFzRnNoRbEk/+MeMy8w+jC55tukC8HbDUIgXY2TSL2QyG/MDjboj
+ h09fkxAVAEmTzDEx1p2zup4BpGFaGoSBWRPWRV3WWdO8BuVRT/JbYFeSyB3gMCPF6LfpocWfjeq
+ ivI23bc2EU+zoGOzvfxZjIHKpiamUrJbUgCPdsYCSR9NGs627hz5hHwoGA4R6MtLqtrzWsr2pAa
+ qespZVaoeVuE9bwaOu21nAX3YJ5Sizc9Xh31YawhF5SGXKxjlTTs1CPudnyQSIvh4cCLkc/dj08
+ 3TZbShnTsyx1Ho5NKs4cA/9qNBalVTM5TtkFSktPySpfswHm4U0bwmGvbNcMsgybuwFmyjh96vv
+ 9LLbHwMzNM92YzzHPRA==
+X-Authority-Analysis: v=2.4 cv=JegpPkKV c=1 sm=1 tr=0 ts=6acf876b cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
+ a=pGLkceISAAAA:8 a=jSlZZTkqHIX6knNQi3kA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 phishscore=0 suspectscore=0 priorityscore=1501
+ bulkscore=0 lowpriorityscore=0 impostorscore=0 spamscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140054
+
+Hi,
+
+On 14-Oct-26 15:26, Ali Ahmet Memiş wrote:
+> As discussed in [1], add exclusive variants of acpi_evaluate_object()
+> and acpi_evaluate_integer() and use them for the battery methods and
+> INT3403 _TMP, which interleave badly on ThinkPad P1 Gen2 and P53.
+
+Thank you for your work on this!
+
+> UCSI (bko221065) is not converted.  There the contention is on a
+> firmware AML mutex that _Qxx EC queries also take, which a wrapper
+> around acpi_evaluate_object() cannot cover, and Rong's notification
+> merging in 7.3 already reduces it on the battery side.
+
+Hmm, I wonder if we should export the lock added in patch 1/3 and
+then also take that in the ACPI EC interrupt handler ?
+
+The ACPI code already uses a threaded IRQ handler for both EC GPIO
+IRQs and GPEs so sleeping in the handler should be ok.
+
+Note this is something which can be done on top of this set. I'm just
+thinking that if we're going to do this it would be nice to cover
+the bko221065 UCSI case too. Rong's notification changes do not fix
+the race, they just make it a bit harder to hit, but users are still
+hitting it just less frequent.
+
+Regards,
+
+Hans
 
 
 
-On 07/10/26 7:42 am, Rik van Riel wrote:
-> With debug_guardpage_minorder set, expand() turns the unused halves of a
-> split into guard pages, which page_del_and_expand() leaves out of the free
-> counts. Freeing the allocated half credits only that half, and
-> __free_one_page() then merges the guard buddy with clear_page_guard(),
-> which no longer touches the counters.
-> 
-> The merged block goes on a free list with the guard pages never counted,
-> so NR_FREE_PAGES falls behind the free lists by every guard that merges.
-> Before commit e0932b6c1f94 ("mm: page_alloc: consolidate free page
-> accounting"), __set_page_guard() and __clear_page_guard() adjusted the
-> counts themselves; that commit dropped both adjustments but kept the
-> subtraction implicit in expand().
-> 
-> Count the guard pages under the merged block's migratetype when the
-> buddy is cleared. account_freepages() skips an isolated block as it does
-> for every other free page, and moving the block off the isolated list
-> counts it then.
-> 
-> Booting a 16GB VM with debug_pagealloc=on debug_guardpage_minorder=1,
-> check the difference in free pages reported between /proc/vmstat
-> and /proc/buddyinfo.
-> 
-> At three points (idle, after a read and file-creation load, after
-> a second load), check the difference between nr_free_pages and the
-> buddyinfo numbers in the normal zone, as a number of pages:
-> 
->                 idle   after load   after second load
->     unpatched   -130        79205               99121
->     patched      -16           45                   0
-> 
-> The small remaining difference seems to be due to the numbers
-> not being read at exactly the same time, and is also seen
-> without guard pages.
-> 
-> Fixes: e0932b6c1f94 ("mm: page_alloc: consolidate free page accounting")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Rik van Riel <riel@surriel.com>
-> ---
-
-LGTM
-
-Reviewed-by: Dev Jain <dev.jain@arm.com>
-
-Probably send this separately? RFC on a fix will delay
-the patch.
 
 
->  mm/page_alloc.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
 > 
-> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-> index 12fac9084c483..4658af97be010 100644
-> --- a/mm/page_alloc.c
-> +++ b/mm/page_alloc.c
-> @@ -988,10 +988,12 @@ static inline void __free_one_page(struct page *page,
->  		 * Our buddy is free or it is CONFIG_DEBUG_PAGEALLOC guard page,
->  		 * merge with it and move up one order.
->  		 */
-> -		if (page_is_guard(buddy))
-> +		if (page_is_guard(buddy)) {
->  			clear_page_guard(zone, buddy, order);
-> -		else
-> +			account_freepages(zone, 1 << order, migratetype);
-> +		} else {
->  			__del_page_from_free_list(buddy, zone, order, buddy_mt);
-> +		}
->  
->  		if (unlikely(buddy_mt != migratetype)) {
->  			/*
+> [1] https://lore.kernel.org/all/CAJZ5v0gS4agVUkCO6M=VW4Wi2y1-s+k23bpzmX9aAZ0Rsv4z9Q@mail.gmail.com/
+> 
+> Ali Ahmet Memiş (3):
+>   ACPI: utils: Add exclusive AML evaluation helpers
+>   ACPI: battery: Evaluate battery methods exclusively
+>   thermal: intel: int340x: Evaluate _TMP exclusively
+> 
+>  drivers/acpi/battery.c                        | 17 +++---
+>  drivers/acpi/utils.c                          | 56 +++++++++++++++++--
+>  .../int340x_thermal/int340x_thermal_zone.c    |  3 +-
+>  include/acpi/acpi_bus.h                       |  8 +++
+>  4 files changed, 71 insertions(+), 13 deletions(-)
+> 
+> 
+> base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
 
