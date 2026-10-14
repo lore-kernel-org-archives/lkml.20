@@ -1,232 +1,133 @@
-Received: from mta1.migadu.com (out-71.mta1.migadu.com [95.215.58.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8296D30B529
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 02:37:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD41D34D38B;
+	Wed, 14 Oct 2026 02:37:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791945453; cv=none; b=QIiOEFJVncJ0+YLHWU2xVBHrYejFJg8HKsY/1JyWqIks484vjDlEQLKZA1h43d/LkBGHBRgHibddTYPO7EDnDDSfffvEipyJv8M/PRvH5GddtXFl/H6GFZyfeV6Ui2ruE2UwMi8Jq0N6byZzh4wJB1LnBh02KNZsYTLBQZjb0Ig=
+	t=1791945482; cv=none; b=CPsYH2k50AcMzqkNTmiyypwCkFmLphQDXrKegGN2/JFdNrx/5l7/Ic7myKMh0/xOAKuJMwzWfvwQdl998AkBKWTPsq5U6OunkkO9vy7jmfUlGE9+w2kIksMPu/JxDUqY/2Q3QmOAPWg6g50lJESoyBweVf688lGEol0LYhIyPXY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791945453; c=relaxed/simple;
-	bh=7UUTt82RGwkEsPz4m1IMAXE3gzzct3/wWyS9tYPd83k=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=X4MpSy+2vDQDRIJsZ17bshhx52SrZlLXOnsoxGNcFU2RJvUvbWt9jCqOwuwzKe2vskaGsVAIc6yqI+xWEy6ud6jFc9b0sog86u5rUWTqc9JZ1LReeUnitLjrEcDEvFHEsKjQibiT6gE5WhHXasGQGqg9DRXZuPV9tVVwoffyTgo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=La3OfXhN; arc=none smtp.client-ip=95.215.58.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791945482; c=relaxed/simple;
+	bh=scJ+EWsWMxUow6/2SUGfnwaqxnKcMze8D+4kJaJJdmc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Deakz0kmWqx8jBRUwUYqPkFAF2Wk8W2Tn8kozzIGTRKGOvNugsL1cA20JFLHfhzdq6gWECM1mInktSfzEIzst+KpRtOKR5M2uecbYKLuLwPDf11Xso36tfJNkMf93gXHXp4GHufl1YMvIMFUsUMGFqgYn6TwICxu+Moi+zYIW8Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ZvF+1RLz; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="La3OfXhN"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=7UUTt82RGwkEsPz4m1IMAXE3gzzct3/wWyS9tYPd83k=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791945449; v=1; x=1792550249;
- b=La3OfXhNVJgiTFfFk9tY+W6mgr0e+Wrslw7TVGCZm2oEArf037YkG/VaXD73QhxkIW+S4BFV
- ry6UXbtpmVLiaS93qlaY5ZSA+ykqVboleHgKUV82+emy1AR7Qc9Q5x/81sBMDn8K6OyGtfnWTED
- uTDeO7hHWs7VDkyRRPysYJTc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 48e5c038101e18a7;
-	Wed, 14 Oct 2026 02:37:27 +0000
-X-Mizu-Trace-ID: 48e5c038101e18a7
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ZvF+1RLz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=I0
+	w+qZkGD3asKEmiLpBeCWvDurwKWMq+2vM6Ay/ZnHU=; b=ZvF+1RLzH+dlgPXviw
+	sjDvUcER0GwG71Ir+DQztMb+G3s6DfbNddHBivONf1voBLrVvTAB70LfuMWVXXwy
+	/zZ+FZMazTFEwQpNU5oKDgEZnu1K2drBf7le0qbsVudS1uVWFFKqYEZXW3WzDV5x
+	Aem58wsYHhx4h+iYbAaTG616s=
+Received: from colol4bi5.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3PxPv6s5qhGmrEQ--.895S2;
+	Wed, 14 Oct 2026 10:37:36 +0800 (CST)
+From: Binbin Deng <18983559317@163.com>
+To: dsterba@suse.com,
+	mason@kernel.org
+Cc: linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Binbin Deng <18983559317@163.com>,
+	Qu Wenruo <quwenruo.btrfs@gmx.com>,
+	Daniel Vacek <neelx@suse.com>
+Subject: [PATCH v3] btrfs: wait for a grace period before freeing a new device
+Date: Wed, 14 Oct 2026 10:37:33 +0800
+Message-ID: <20261014023733.266854-1-18983559317@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH v2 1/4] mm: fix missing page-table destructor in
- pagetable_free()
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <2552e0bd-0e50-4dd5-a3d9-00e9204eb2c2@arm.com>
-Date: Wed, 14 Oct 2026 10:37:04 +0800
-Cc: Muchun Song <songmuchun@bytedance.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>,
- Oscar Salvador <osalvador@suse.de>,
- Dave Hansen <dave.hansen@intel.com>,
- Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>,
- =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@rivosinc.com>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Alistair Popple <apopple@nvidia.com>,
- linux-mm@kvack.org,
- linux-riscv@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <6DB87EB4-93BB-4861-AC17-159DCD1E442B@linux.dev>
-References: <20261010112457.49485-1-songmuchun@bytedance.com>
- <20261010112457.49485-2-songmuchun@bytedance.com>
- <2552e0bd-0e50-4dd5-a3d9-00e9204eb2c2@arm.com>
-To: Kevin Brodsky <kevin.brodsky@arm.com>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3PxPv6s5qhGmrEQ--.895S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAF4kGw13KF45ZrW5ZF4fKrg_yoW5Aw15pr
+	9Iga45JFWDJr1kAr4xCw429r1rX39Y9ayayrn7Kr4I9a4fJ34Yvry0k34UuasxCrWrJFyU
+	Za4jywn8Ja1jyw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U3u4UUUUUU=
+X-CM-SenderInfo: jprymmytvvmjmrxbiqqrwthudrp/xtbC4BBFKWrO6vDNDwAA3g
 
+KASAN reports a slab-use-after-free in btrfs_statfs() walking
+fs_devices->devices. btrfs_init_new_device() publishes the new device
+with list_add_rcu() and can fail afterwards, for example with -ENOSPC
+in init_first_rw_device() when a user with CAP_SYS_ADMIN adds a device
+that is too small to a seeding filesystem mounted read-only. The error
+path removes the entry with list_del_rcu() and frees the object in
+btrfs_free_device() without waiting for a grace period, while
+btrfs_calc_avail_data_space() and btrfs_ioctl_fs_info() keep reading
+the device list under rcu_read_lock().
 
+BUG: KASAN: slab-use-after-free in btrfs_statfs+0x11af/0x14a0
+Read of size 8 at addr ffff8880096be858 by task poc/252
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0x53/0x70
+ print_report+0xd0/0x630
+ ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+ ? filename_lookup+0x1a9/0x540
+ ? btrfs_statfs+0x11af/0x14a0
+ kasan_report+0xce/0x100
+ ? btrfs_statfs+0x11af/0x14a0
+ btrfs_statfs+0x11af/0x14a0
+ statfs_by_dentry+0x117/0x1e0
+ user_statfs+0xac/0x130
+ ? __pfx_user_statfs+0x10/0x10
+ __do_sys_statfs+0x80/0xe0
+ ? __pfx___do_sys_statfs+0x10/0x10
+ do_syscall_64+0xf9/0x540
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-> On Oct 13, 2026, at 23:46, Kevin Brodsky <kevin.brodsky@arm.com> =
-wrote:
->=20
-> On 10/10/2026 13:24, Muchun Song wrote:
->> Since commit 49f599666420 ("mm: call ctor/dtor for kernel PTEs"),
->> pte_alloc_one_kernel() runs the page-table constructor for kernel PTE
->> tables.
->>=20
->> HVO (HugeTLB Vmemmap Optimization) uses pte_alloc_one_kernel() when
->> splitting a PMD. Restoring the vmemmap backing pages does not =
-collapse
->> the PTE table, so a later memory hot-remove eventually frees it =
-through
->> pagetable_free() on x86-64. That releases the page without running =
-the
->> matching destructor and leaves NR_PAGETABLE elevated.
->>=20
->> Make pagetable_free() detect constructor-backed pages and run the
->> destructor before releasing their memory to fix the problem.
->>=20
->> Fixes: 49f599666420 ("mm: call ctor/dtor for kernel PTEs")
->> Cc: stable@vger.kernel.org
->> Assisted-by: LLM
->> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
->> ---
->> v2:
->> - Move destructor handling from x86 into pagetable_free() (suggested =
-by
->>  David Hildenbrand)
->> - Trim and update the commit message (requested by Dave Hansen)
->> ---
->> include/linux/mm.h | 37 ++++++++++++++++++++-----------------
->> 1 file changed, 20 insertions(+), 17 deletions(-)
->>=20
->> diff --git a/include/linux/mm.h b/include/linux/mm.h
->> index 5cca90fc1df6..771a7d60b0a5 100644
->> --- a/include/linux/mm.h
->> +++ b/include/linux/mm.h
->> @@ -3969,23 +3969,6 @@ static inline void =
-pagetable_free_kernel(struct ptdesc *pt)
->> __pagetable_free(pt);
->> }
->> #endif
->> -/**
->> - * pagetable_free - Free pagetables
->> - * @pt: The page table descriptor
->> - *
->> - * pagetable_free frees the memory of all page tables described by a =
-page
->> - * table descriptor and the memory for the descriptor itself.
->> - */
->> -static inline void pagetable_free(struct ptdesc *pt)
->> -{
->> - 	if (ptdesc_test_kernel(pt)) {
->> - 		ptdesc_clear_kernel(pt);
->> - 		pagetable_free_kernel(pt);
->> - 	} else {
->> - 		__pagetable_free(pt);
->> - 	}
->> -}
->> -
->> #if defined(CONFIG_SPLIT_PTE_PTLOCKS)
->> #if ALLOC_SPLIT_PTLOCKS
->> void __init ptlock_cache_init(void);
->> @@ -4078,6 +4061,26 @@ static inline void pagetable_dtor(struct =
-ptdesc *ptdesc)
->> 	lruvec_stat_sub_folio(folio, NR_PAGETABLE);
->> }
->>=20
->> +/**
->> + * pagetable_free - Free pagetables
->> + * @pt: The page table descriptor
->> + *
->> + * pagetable_free frees the memory of all page tables described by a =
-page
->> + * table descriptor and the memory for the descriptor itself.
->> + */
->> +static inline void pagetable_free(struct ptdesc *pt)
->> +{
->> + 	if (PageTable(ptdesc_page(pt)))
->> + 		pagetable_dtor(pt);
->=20
-> Took me a while to understand why this is fine. Currently we have:
->=20
->     ptdesc =3D pagetable_alloc();
->     pagetable_*_ctor(mm, ptdesc);
->     [...]
->     pagetable_dtor(ptdesc);
->     pagetable_free(ptdesc);
->=20
-> All good, nice and balanced.
->=20
-> Now we're saying that pagetable_free() should call the dtor. But of
-> course, in most cases, the dtor has already been called. Yes, this is
-> fine because in that case PageTable(page) returns false. Still, the
-> casual reader is likely to be confused (like I was).
->=20
-> The commit message should really explain this. I'm not a big fan of =
-the
+Allocated by task 256:
+ kasan_save_stack+0x33/0x60
+ kasan_save_track+0x14/0x30
+ __kasan_kmalloc+0x8f/0xa0
+ __kmalloc_cache_noprof+0x158/0x370
+ btrfs_alloc_device+0xad/0x3e0
+ btrfs_init_new_device+0x3e8/0x36e0
+ btrfs_ioctl+0x150d/0x6c20
+ __x64_sys_ioctl+0x134/0x1c0
+ do_syscall_64+0xf9/0x540
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-Maybe I should mention that pagetable_free() is supposed to free page
-table page from now on.
+Freed by task 256:
+ kasan_save_stack+0x33/0x60
+ kasan_save_track+0x14/0x30
+ kasan_save_free_info+0x3b/0x60
+ __kasan_slab_free+0x43/0x70
+ kfree+0x121/0x380
+ btrfs_init_new_device+0x4a0/0x36e0
+ btrfs_ioctl+0x150d/0x6c20
+ __x64_sys_ioctl+0x134/0x1c0
+ do_syscall_64+0xf9/0x540
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-> asymmetry we're creating between explicit alloc+ctor and free =
-implicitly
-> calling dtor, but I suppose it's safer this way. (And looking at the
-> rest of the series, it does bring some nice cleanups.)
+Fix by waiting for an RCU grace period after the device is removed
+from the list and before it is freed.Place the synchronize_rcu() after
+dropping the mutexes and before the `error_trans` label.
 
-Make sense. That's my plan.
+Fixes: 1f78160ce1b1 ("Btrfs: using rcu lock in the reader side of devices list")
+Signed-off-by: Binbin Deng <18983559317@163.com>
+Reviewed-by: Qu Wenruo<quwenruo.btrfs@gmx.com>
+Reviewed-by: Daniel Vacek<neelx@suse.com>
+---
+ fs/btrfs/volumes.c | 1 +
+ 1 file changed, 1 insertion(+)
 
->=20
-> I understand this is a bugfix series so its scope is limited, but if
-> time allows please post a follow-up series removing all those explicit
-> dtor calls that are no longer required.
->=20
-> Now don't get me wrong, I am absolutely in favour of moving as much
-> handling as possible out of the ctor/dtor and into
-> pagetable_{alloc,free}; a series I posted earlier [1] was a step in =
-that
-
-Excellent work.
-
-> direction. It unfortunately had many issues, including the unmatched
-> alloc/free calls [2]. The work you're doing in this series, and your
-> plan to use pagetable_alloc() for vmemmap, are exactly what I was
-> planning to do next, so thank you for taking care of that :)
-> With the commit message improved:
->=20
-> Reviewed-by: Kevin Brodsky <kevin.brodsky@arm.com>
-
-Thanks.
-
->=20
-> - Kevin
->=20
-> [1]
-> =
-https://lore.kernel.org/linux-mm/20260714-remove_pgtable_cdtor-v1-0-44be8a=
-7685d7@arm.com/
-> [2]
-> =
-https://lore.kernel.org/linux-mm/6d167aaa-e9b0-4687-970c-1c67d0df6344@arm.=
-com/
->=20
->> +
->> + if (ptdesc_test_kernel(pt)) {
->> + 	ptdesc_clear_kernel(pt);
->> + 	pagetable_free_kernel(pt);
->> + } else {
->> + 	__pagetable_free(pt);
->> + }
->> +}
->> +
->> static inline void pagetable_dtor_free(struct ptdesc *ptdesc)
->> {
->> 	pagetable_dtor(ptdesc);
-
+diff --git a/fs/btrfs/volumes.c b/fs/btrfs/volumes.c
+index 85ea9c5d4536..2693dacd1da7 100644
+--- a/fs/btrfs/volumes.c
++++ b/fs/btrfs/volumes.c
+@@ -3168,6 +3168,7 @@ int btrfs_init_new_device(struct btrfs_fs_info *fs_info, const char *device_path
+ 	btrfs_update_per_profile_avail(fs_info);
+ 	mutex_unlock(&fs_info->chunk_mutex);
+ 	mutex_unlock(&fs_info->fs_devices->device_list_mutex);
++	synchronize_rcu();
+ error_trans:
+ 	if (trans)
+ 		btrfs_end_transaction(trans);
+-- 
+2.43.0
 
