@@ -1,203 +1,160 @@
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013071.outbound.protection.outlook.com [40.107.159.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0BDB388E72
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:52:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.178
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791989579; cv=none; b=u17AlIY8oLaj0+ePSAhtQ0BMabdhLRoQJniWO7PPH4Prd43isi0S4da2r1xIYuaEBJn+napmPY7APkL3+qmV89LbBOcpFhWUKgPKO3U8jHyHH8nsBW364c3WEvxBqfBLhAdjx6J3/y4iA0QdntvR8VYVqJkqAgAyzcsKF7++66A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791989579; c=relaxed/simple;
-	bh=e8Xi16HfWrvgPspbbKSP+C4MvdQsWoCxCU7DY5jFEuI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jZBNQl9OmkOtp3rTPKfpmC49iQUUHDEm+4myIKQDvEjq1euuGRIweuItpSrS+HiUrHB56+p+BdRMW0MI3f78YIKkbdlujjmVSoQvdEkNy4BiKN9idjq0Z4kpNvpVhPe3OezUPElsybpq4uJDcuUAvnd43Io0dbDiFbwgr1fumok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=ktua+9DO; arc=none smtp.client-ip=209.85.160.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 142E15172D3;
+	Wed, 14 Oct 2026 14:53:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.71
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791989632; cv=fail; b=c3/xOxdXm3znJWPkxXr8LNnFCPBh6oxuHuS2RhCficYReayJq3nbzIRHLL6zaUW5tUKM+GyTnIE6dY2G53bv1uO9ohaaxk/1Ii9o6HtVq3IujFwl+tS/DMeTfdVFXByRYHYaVKz7BOhpu15KtSbef0sJB8gf+ica8I+NsKUIaH4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791989632; c=relaxed/simple;
+	bh=fv3n4MUMP7RhEOL1Q7vQrcsthC7LauXXZyvPaLdqPRM=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=Dw2vsj7L1pC08+zk1MzbvBGO1z0LDXX0iUzeuK327LqPzByewy2KJ66pf1rMQMC5dcIlhm1o1awuCSDld3dBn5Xpty9XDH5HxmWXOT1Koz3l574ofSkLJSAC0ziB6t5w5tgOe9U3bTCu7SaCT0pHZeUUyzJ084AI7SVtnYzM1VA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=vaqX1nHo; arc=fail smtp.client-ip=40.107.159.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="ktua+9DO"
-Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-535d60d850cso10862871cf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:52:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1791989571; x=1792594371; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FW3DR6i678zqHGzzWm6Z4Z10DNttvlGomhp81JEBMU4=;
-        b=ktua+9DOPH2zignKrjWw4FluRn0GMkvrn25/Tg8SnbWv6/TK4UGw/igxPl2bvphvaK
-         XHoIatyxEBu5OkKL97uTArcoHKyTpwgMPLOzioc43XEQC7ImC3diRZ9l5QFJ0Q19d/f8
-         prUj7hJbHt3t6aM54PhaLPPCv8R/m23z6yzECejnf/W7xKXwqLhhu4R4M5MRqlSyEMOg
-         7M9NZ/HeyL32Ga8iz48fE+HcQeYdDoN9OhDwdxb/lbfTq50CnwdcOUzuy8XqTnFBgMA8
-         zh2CpmCKqci1bCv+Ahk5bCsAdsAtA3j0nArTGq8GCgAP5y/4wpueEU/ABaXvFMBx2XIv
-         BvXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791989571; x=1792594371;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FW3DR6i678zqHGzzWm6Z4Z10DNttvlGomhp81JEBMU4=;
-        b=FdR54H/HXCntkn+mvcAk9H0EbtWzKwfPaFX/R7a3cM5TokZ/prvEaWhAiZedl6YazN
-         LVV2q5V1V/LHPIcDNQEYZoRqkUW95Agld5JKfqmlroOs0mUwZkzI42COuP2p7kimWus9
-         yNvXlQjWpo9eZvNjXrDymhqOG1iNWizhznogsGYEoDAZg6HQv5tE798xI6tK6xUC+SsI
-         GkZyQ9Sm1fDFdze+wppofhnov0V48pddC23Te4nAVY4u4XPYOmpWmDpLKgB4LBQwIHD8
-         1ewnM8k2KJYWrQpKSRVtQ9yd8FUkbDTR+zImmiIO0lM0kBwPwza4SxhB+DsaTxuxIFb9
-         cwhQ==
-X-Forwarded-Encrypted: i=1; AKwUvByFrW+pDMRiFgVeM4xKg56AuflnfeVnM3cqc6NgIAc/ea+B9kTRZ1ymH2/rxUkSnWgaNkRBpagWOcjKi+U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJWabL3LleV4RUJ5nZUpyf2UAH4vRivVaU2u8Aslm/BDQB9/Czw
-	Tj9QKM6E6rVZ+HgNnlY9t25e6S2HXaANY4kixsmOgrj/9c/fNVgRVBkQUDOtRg2Nrw==
-X-Gm-Gg: AYBFou24U+sqiGJA/kpGNKfUzXViksWmoSCNDMLH8jMMZL/RcTHJMsNVJkd9NW/MLfD
-	V5QlKZO28xKKY/MDvHDoQoMad8KnaJkGVNJSeX8HWeMRyEYhsrCoDF1AdRmgHfHPtqRYOr7LNdI
-	qGl0ceJgQa74Z+BO407D+Bck1wjPkQpAHwV6JH5KEDr+orIRVGaN5FOnZ3os81dR+dkMqvy4LUM
-	ks6axtT75lZTgSh5l4QVTg0jPz+Y1mzL7G9gfxzL+X8t/W5b5UM5/LPo7Zz7yIlv8Z5fcjQ5XQv
-	ERi6hqogUlYziVYNGRtxO4b+WPs/hFyjDj02xuYvbm2N+5bqVWTp6Rpp2EX443oiG6ZhwthErlN
-	XO1SulYNS5drAFPBAnpJLiwkBp1SD3yRXf/i1Vs0lKZYD3htXAYnuGmlGirBXqVru2G8ufDQ/cE
-	4DZbtpQYvf9EuZLayy28GOj6dCBNBSALfS0u2JSUV+qcO2NWouGigp78S711AyznWlrippf/PFx
-	dYwWphM+yCDvd0Q
-X-Received: by 2002:a05:622a:14d3:b0:535:e4e:4c60 with SMTP id d75a77b69052e-535a60cdf2amr251194681cf.10.1791989571387;
-        Wed, 14 Oct 2026 07:52:51 -0700 (PDT)
-Received: from rowland.harvard.edu ([140.247.181.15])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5359b740fcesm126108971cf.14.2026.10.14.07.52.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 07:52:50 -0700 (PDT)
-Date: Wed, 14 Oct 2026 10:52:48 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Johan Hovold <johan@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Mario Peter <mario.peter@leica-geosystems.com>,
-	driver-core@lists.linux.dev, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] driver core: take parent lock in async device
- attach
-Message-ID: <a68b8b6c-c84e-44a2-baff-aff56824a465@rowland.harvard.edu>
-References: <20261014133109.1392265-1-johan@kernel.org>
- <20261014133109.1392265-4-johan@kernel.org>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="vaqX1nHo"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cBvJ+vzdId88VtIB1alqz4BgZKqJOR+hD9CaNrSy0oU3WSRdZSRoXf8dHAYrh4oF1D1QCLZaXee4quwnS9WXjOJj/6CyglP7waqLCaSaa78t4ipxuSneVymKn/Xr/cNanzzZZ41VXxpwywovft9FP9GCh7nJ+J56cxeknIwSm28NXadiOGx8Wa61uwgflOegTYQ/7vTWhVczO1uI2jWyHBEcEx6jrwu7N2XbxnkrCVnKt6s7Jv+2crPrYuE7PMdwMnAOl3uIGeagx2/K3oQhWLdKbV8o3IVjB1isrPosOPDcK1ttilEvVydgjRhbsGrRAypQJuC8xEJVPDRoAuwCtw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bTt4PT9BPvdHWTIC76KTMmzz681/IhtCMV7AxDGCRtk=;
+ b=ebENIeYt9wA57KYWRuARORrJqmbG0nsAeG62lANrw83jdi8NhYdNoXEsFqgm6DJ0hhbPV9vMJaRkouZMWUSpAfG7Y6lYNCWhtoLMb7jehLmFFlkngXJrd874hz9UeGR/eBT6TIi3iHw7CLDiXhv0f0sUwZFV12M6m985rFInGtcxdADec1nr4cXpcQG9+Jjnbs0FRJ82OKFwadBinksGIda47dieOl6rzkKypIPMKWKfK0rfTVJh9Rc07/vojmvfXDQotOV7iqlmnvaZLP7/jUE9Ht/W5Rqr+iBIcnlzlP9h9VBUjM+JzTQRZHMQDttpZeAmKOBltn3czWlrvUFOFQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bTt4PT9BPvdHWTIC76KTMmzz681/IhtCMV7AxDGCRtk=;
+ b=vaqX1nHoyVVYcItrT8bseGHCcl/5TaCTUf1dLeZcxAQLeisxNE/OwltHC9ZkpFwVLMWrSaj6ARutq3orc7fICy2U/lM+qEncGanV6HJGxa7H8iOZAP6qY4Ml2tqo0O3tCY8Ojtl+sBQuYsdQNoivvNDv1GT9KqTkgW/siPN+xsosri33UW+HmeKRsQ7mYmqjkup7vDB0ejTll01fxsDvaQih2vcg9WvqMdhoCiaR3ngNbuPInawxK5248ayS9X71S7g2MkQlcPiSS+gyeRo2+hhkV35YQNiC3TogaE0XHKwfTl02OBSvlmYl9G1yMAA73x0lGhd+G4Hgf9cDIxQAPw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by MIWPR04MB757610.eurprd04.prod.outlook.com (2603:10a6:290:e5::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Wed, 14 Oct
+ 2026 14:53:41 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0522.012; Wed, 14 Oct 2026
+ 14:53:41 +0000
+From: Frank.Li@oss.nxp.com
+To: Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	dmaengine@vger.kernel.org (open list:DMA GENERIC OFFLOAD ENGINE SUBSYSTEM),
+	linux-kernel@vger.kernel.org (open list)
+Cc: imx@lists.linux.dev,
+	Frank Li <Frank.Li@nxp.com>
+Subject: [PATCH 1/1] dmaengine: dmatest: use dmaengine_submit() and dmaengine_desc_set_callback()
+Date: Wed, 14 Oct 2026 10:53:33 -0400
+Message-ID: <20261014145334.1449465-1-Frank.Li@oss.nxp.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: CYXPR03CA0003.namprd03.prod.outlook.com
+ (2603:10b6:930:d0::21) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261014133109.1392265-4-johan@kernel.org>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|MIWPR04MB757610:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8d9bb648-2c68-48fc-d83e-08df2a02ef95
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|23010399003|376014|1800799024|366016|18002099003|10067099003|11063799006|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	AEoWXLOZ1eU7MS0L1mA9evTpKVUt8STZgx/F9LRqKUYGHyZ7RUNO+OuLUNO+todRIe3OCzs/cDkUZS4pi667iL9HfXtXIgw/l8Ub+jd8UZb5KRGrdz93xeZAhIi+F2bQFFU8uv1L1GLKDThM5T16rZJi2eqYqVgfms8CdSObJhwHeI5ublGy65vCUNz1jj2Xx2DDJRWlz9xVfDeVN9anSUGKIzKP+H31psK7jGJHhD9FUbNf4QcAwlh/T6pyYAYxpv8TUMoZZbm/iJxBSbiHC/4sghQhO3jOLTOFG4UFVqNZqKbgHbuZ6dnEO007gWlecTwD+7YGESPSjf63rSaCySkOuY3IVn6bofXKDWg9PGkFd0PgCEepi6jvDnVEwqKvFzPzU1H7JFqIvg8p9wSJrq6r0TPHLisUyVc4+vkHRd3oD5Kc3fHCdLjzt+0Np6xOKlWSjyrDAIoj2Tr+FchZNhZ/tdRE+zSCwV6pb7rfP4/ffsDy5D+MywrDWeATE6djqdNQybDu5iJAzGz/rMWBR+3PXpoY5YHZNsywupS1TNyZ0YEbfSero+zgcVKSRG843jwV9hCvIQ77Km78FPXulVKKa+ySiQSiqxQeqH3Vv1QyEJRuKwbOZPNKR8yKy6P/
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(376014)(1800799024)(366016)(18002099003)(10067099003)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?E4MXOWuaKE4FAQNoy7vzhd4sYUUeUJoD25giem4PuNCOX/enjXZicJW7xm0p?=
+ =?us-ascii?Q?H/EGCbGGkP8VTgWfTWb7lj7DhMe1yzS94CbKs8EcucPIiW6uMywnZxwrEiAc?=
+ =?us-ascii?Q?Lduw7UnsXyS0HJrih5LpMg+bFCKGCCtTDIdCrxfZGzDik95/qoz5I5dZlFTG?=
+ =?us-ascii?Q?GcxlJlskXyQlI7n8ho7PAURXfMbf2rVwcF7Md968i4bUuQrpcx6GtBBSZXI5?=
+ =?us-ascii?Q?ffLY0pCawB/8gAlzxUdw03Qf22t+upyqJrRJrFPAguujGfETvzGZSE1DJ+jM?=
+ =?us-ascii?Q?FvA3KwkhdH7N0jdDVcMTniJtY/QlVbwIW3VoblIQF9SuzCaG4PUK27f6CiLL?=
+ =?us-ascii?Q?XQRsFV1h2m9yj3qY032XWcRSLxFGroesWXr1F84XXxtRER8N7Kt/udx8Cqb5?=
+ =?us-ascii?Q?8jEqdZ5XGdd332Xhco4580y9kTlllS9sWs3GqsXQ9pglDsJx3N2D66M7Sh6A?=
+ =?us-ascii?Q?do1hzrt1W7uX58L8lJGpGQSOmaoC33JGPj4aJktqXBG8a1R8xjLXGc3XjEbt?=
+ =?us-ascii?Q?dZsIInm+rftB/dthgGtKwZTH/vysvXXv89zuDXaw37GOu7VLlk9LcPvZaci4?=
+ =?us-ascii?Q?KCKBiaN75PmMFd7Ao75rkpyX40TkJhM9dhodS3nd4KzENBkuTNqDG1zuxg4c?=
+ =?us-ascii?Q?XXyjh1vXQbWriZhzoMmSUJW6lrIyPUFItlZUjuFMe2nhGawAjrRTh3wCSHPc?=
+ =?us-ascii?Q?nMiktRA+wpi/d0AXhp+HyH8PWoJa+WcIZqFFed+phYmzNnnsDI+a4L2kszTv?=
+ =?us-ascii?Q?307hEZJEamriFs8QyjZwc/SGm8XgnprERDAZgtduOQRsHaNZM16h27UdmnI8?=
+ =?us-ascii?Q?WHIKcwUbS1Oqc0ZFSwdDngAYh1pNDgrFPFFQi/w2plLoziC2f/QC4d+mf9mI?=
+ =?us-ascii?Q?pRqXTNEuoN077esvirRHZm4NgkunHKPMpRv6eBX+p3HNZWvGIjOVQG6hwJfT?=
+ =?us-ascii?Q?vhZ8zuhbUZf2wqwmcIkZ60dD6uv00zAqJ0VP2PSSoLk1r5INBHaUT9FJABPK?=
+ =?us-ascii?Q?L473wmp0Uj8jxy2eoS1lVwqPyI5zd5gLA7x0lZFg9q3C19ExFcsiAQ8w3Lwj?=
+ =?us-ascii?Q?DEs37VQ8gN4Ehx+ybPMqltsEuULmKC7c3HCylCuMy0dS/nBTp/ZLpkl9U5I8?=
+ =?us-ascii?Q?2Sm0TZ2dYzg8lQibKspPbtePg4pEmHWjGcaWGr4Azr9W6lKFjfUNzPf32gSM?=
+ =?us-ascii?Q?iCg+PsdhprnLjcHwI8A4b7nbc+/uYaBSpRuHtQz27MlYY9OlNDxj2202dp6G?=
+ =?us-ascii?Q?xQKP5ERV5BDVv44Dj1LK6bJ/tP5cCZpI1Nk1DlB4gbacZYw++EWhkfF9UuGs?=
+ =?us-ascii?Q?jkG/aKiROF6ogMO0WlNemcIHmKdMWEJPdaTNeYzAjBGXbb6EdMPBK6RIv2K0?=
+ =?us-ascii?Q?+oRcISf8PeyzdrIhIlm/lsVzgKVHwKU/BarL6IN4d9rjQzLp/d2/YWSBNJ4h?=
+ =?us-ascii?Q?RtI9LyG9RDvASjv4Io1gwE7cqhIIxENKV/3/rBStR/6GxFGKyQ5Lvcay+d/P?=
+ =?us-ascii?Q?d0XXp/snpfOf8r+5z/CDnGIwa+jgitfuwUrnQCGVniLExbdyHYcgc9x9U6Dv?=
+ =?us-ascii?Q?F+RXYhEHfR9PaK+0UZFSdZEMNUS9a/hxfao8LWLm3xMURpH0EDSb5HZ5eJXj?=
+ =?us-ascii?Q?zfXnDcVut+eGI90xj92mpHYGMQrpAGu+bLDuBsZIPJFIlClDV8s3wQX1Dc0C?=
+ =?us-ascii?Q?Vfrn1wg1sqj3Ie64IDaePdu+AqaYAQDEVs2RefhCc3yHNoJpwUOpv/ZCDZp2?=
+ =?us-ascii?Q?8COmfcTkFsEo3ShTbzLEVXyKPcVjEE+qoxU3QqT2SaTHjnDwWRC7?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8d9bb648-2c68-48fc-d83e-08df2a02ef95
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 14:53:40.9339
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YMIRKrmGW/6G+No4flL2LZfH6oemH+2dKzZJ6ZQs286M9Z9waCcbFz5sDdF0XucGJIOL7nnYgzyaePpBNYhwiYrDO+EV+OLNL01O0LiBf9RNzE7xL3hDI70CGXQDnWMi
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MIWPR04MB757610
 
-On Wed, Oct 14, 2026 at 03:31:09PM +0200, Johan Hovold wrote:
-> From: Mario Peter <mario.peter@leica-geosystems.com>
-> 
-> On buses with need_parent_lock set (only USB), probe() must run with the
-> parent device locked. A synchronous attach after device_add() gets this
-> from the caller, e.g. usb_set_configuration() holds the udev lock while
-> adding interfaces. __device_attach_async_helper() runs the probe from an
-> async worker instead, where that lock isn't held, and only takes
-> device_lock(dev).
-> 
-> With async probing enabled for the hub driver (e.g. driver_async_probe=*
-> or driver_async_probe=hub), this races when a multi-TT hub is
-> configured. For multi-TT hubs, hub_probe() calls
-> usb_set_interface(hdev, 0, 1) to select the TT-per-port altsetting, and
-> usb_set_interface() creates the endpoint devices of the interface a
-> second time:
-> 
->   usb_set_configuration()           async worker
->     [udev locked]
->     device_add(intf)
->       queues the probe  ----------> __device_attach_async_helper()
->                                       [intf locked, udev not locked]
->                                       hub_probe()
->                                         usb_set_interface(hdev, 0, 1)
->     create_intf_ep_devs(intf)             create_intf_ep_devs(intf)
-> 
-> create_intf_ep_devs() checks and sets intf->ep_devs_created without a
-> lock of its own. If usb_set_configuration() has created ep_81 but not
-> yet set the flag, usb_set_interface() skips removing the endpoint
-> devices of the old altsetting and creates ep_81 again. With a
-> synchronous probe, hub_probe() runs inside device_add() with the udev
-> lock held, and usb_set_configuration() then finds ep_devs_created
-> already set.
-> 
-> Single-TT hubs don't call usb_set_interface() from hub_probe() and
-> don't show this warning, but their probe runs without the udev lock as
-> well.
-> 
-> On an i.MX8MM board with an onboard USB2514 hub this hit 11 of 100
-> boots:
-> 
->   sysfs: cannot create duplicate filename '.../1-1/1-1:1.0/ep_81'
->   Call trace:
->    sysfs_warn_dup
->    usb_create_ep_devs
->    create_intf_ep_devs
->    usb_set_interface
->    hub_probe
->    usb_probe_interface
->    really_probe
->    __device_attach_async_helper
->    async_run_entry_fn
-> 
-> It also shows on v7.3-rc6 in QEMU, with dummy_hcd and a raw-gadget
-> program emulating a multi-TT hub: re-authorizing the hub in a loop,
-> while a SCHED_FIFO task preempts the writing task at random points for
-> 3 ms, hit the warning in 29 of 6000 iterations.
-> 
-> Take the parent lock in __device_attach_async_helper() as well, like
-> __driver_attach_async_helper() does, and move
-> __device_driver_lock/unlock() up for that. With this the warning was
-> gone in 300 boots on the board and in 6000 iterations in QEMU.
-> 
-> Fixes: 765230b5f084 ("driver-core: add asynchronous probing support for drivers")
-> Assisted-by: LLM
-> Signed-off-by: Mario Peter <mario.peter@leica-geosystems.com>
-> [ johan: switch to async_schedule_dev_nocall() to avoid deadlock if
->          async_schedule_dev() runs synchronously when parent lock is
-> 	 held ]
-> Cc: stable@vger.kernel.org	# 4.2
-> Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-> Signed-off-by: Johan Hovold <johan@kernel.org>
-> ---
+From: Frank Li <Frank.Li@nxp.com>
 
-...
+Direct assignment to tx->callback and tx->callback_param bypasses the
+dmaengine descriptor API. Replace them with dmaengine_desc_set_callback()
+and replace the tx->tx_submit() call with dmaengine_submit(), which are
+the proper interfaces for dmaengine clients.
 
-> @@ -1118,8 +1150,13 @@ static int __device_attach(struct device *dev, bool allow_async)
->  	}
->  out_unlock:
->  	device_unlock(dev);
-> -	if (async)
-> -		async_schedule_dev(__device_attach_async_helper, dev);
-> +	if (async) {
-> +		if (!async_schedule_dev_nocall(__device_attach_async_helper, dev)) {
-> +			put_device(dev);
-> +			ret = 2;	/* retry synchronously */
-> +		}
-> +	}
-> +
->  	return ret;
->  }
->  
-> @@ -1146,48 +1183,20 @@ EXPORT_SYMBOL_GPL(device_attach);
->  void device_initial_probe(struct device *dev)
->  {
->  	struct subsys_private *sp = bus_to_subsys(dev->bus);
-> +	int ret;
->  
->  	if (!sp)
->  		return;
->  
-> -	if (sp->drivers_autoprobe)
-> -		__device_attach(dev, true);
-> +	if (sp->drivers_autoprobe) {
-> +		ret = __device_attach(dev, true);
-> +		if (ret == 2)
-> +			__device_attach(dev, false);
-> +	}
->  
->  	subsys_put(sp);
->  }
+Prepare to make struct dma_async_tx_descriptor private.
 
-These two pieces do not seem to be related to the changes mentioned in 
-the patch description.  Are they leftovers from some other patch?
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+ base on https://git.kernel.org/pub/scm/linux/kernel/git/vkoul/dmaengine.git/ next
+---
+ drivers/dma/dmatest.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-Alan Stern
+diff --git a/drivers/dma/dmatest.c b/drivers/dma/dmatest.c
+index 2ae3469397f37..3f0b7e15abf05 100644
+--- a/drivers/dma/dmatest.c
++++ b/drivers/dma/dmatest.c
+@@ -822,11 +822,11 @@ static int dmatest_func(void *data)
+ 		}
+ 
+ 		done->done = false;
+-		if (!params->polled) {
+-			tx->callback = dmatest_callback;
+-			tx->callback_param = done;
+-		}
+-		cookie = tx->tx_submit(tx);
++		if (!params->polled)
++			dmaengine_desc_set_callback(tx, dmatest_callback, NULL,
++						    done);
++
++		cookie = dmaengine_submit(tx);
+ 
+ 		if (dma_submit_error(cookie)) {
+ 			result("submit error", total_tests, src->off,
+-- 
+2.43.0
+
