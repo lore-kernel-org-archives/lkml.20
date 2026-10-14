@@ -1,316 +1,356 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E55FC39D3D0
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:06:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2804C3B9DAD
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:10:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791950822; cv=none; b=EyFYiudV+0eRLkIE719s3rn3/GppJK5MdERIVBX2lKRqkbKpUyRpJYGdyqy4gipxL1JDaNUYUC79iCwcK1cQ3o0sHncUsyWNqJO5BM5gego7YF0p3CMB0V1PybhQtLDhL8D+gNA2bF+GMmaozyZbDnWs7HNi9AY0wone6xnMvwQ=
+	t=1791951027; cv=none; b=OK4+sdEyS4g0IGqozhgoga7tl11hucMQhrBzwHrCGfbotekL5YFWdUTsYHNypmbxcCuprHSN1xnlTgMJmbWtonQBThNMEHWGMkPl9ZsSzF33PgBpYyBPMg8tW1q21Ca4s1C/0YVsQHzUkPEcOIadUi74s4LhsTD4PPckxLOh3PE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791950822; c=relaxed/simple;
-	bh=1KtpDOY+h7GnZkqwCxm3kdRRjz+Hk65mq56qgc6Fflg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=DBHl6ArjsrwWlS+UidIf9A/dLbqkt7H1hrvUBlvJ1LNvX90SLVM1vTQm5IHa/ZgGO1haNeTAkkhgKahwHte5MxAtpnECd11J1tgftHU1SujUE8UiGFl0cdStSJu5IERhJ1gbpPC7kGJSiqlU3Pye4gx5iS1rvC7bIFGMr24RXBg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lTKu+WIq; arc=none smtp.client-ip=209.85.216.45
+	s=arc-20240116; t=1791951027; c=relaxed/simple;
+	bh=V4ngBpPUODuuWu2An2bhgPhwDi9OupCikjo5ZiTj6uY=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=cRz7pDFz+3E3V9X1Khedb7CC8UceGEHHRmZj9IH0W2ZpaqusYQC1/TKYVg+AwRf4hY6M2Db0wvOwwR2H5BR3zXYMZf4feNjvEkvNkO4ZIdW2F+sCMp7Q1M/0AbjSeCr8r+dcYpRwXdt2PUizrBj0DRht+vPRMRhkaHZ+Yrpai3s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=crh0/b6q; arc=none smtp.client-ip=74.125.224.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lTKu+WIq"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-398b3c37877so1806578a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 21:06:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="crh0/b6q"
+Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-6776efd4ff1so3188619d50.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 21:10:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791950818; x=1792555618; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fI+aIdg5Eg5PyjED5uc03DU2xv7jEMp47g/G9P6kJ88=;
-        b=lTKu+WIq3TRNWuh5SkHS/bVHvf2oKt8b4JNSkAb9BuLZymssKqN6n38p2QoNxvyfRE
-         X8krfMORniVCj7493DYmR+dHlJubngRFmTgSHBZFasCgBNArQ69HxSplYiuuMyZmdviq
-         oM2G8T5yVpBCjGVylUAWhV5Sx1Z/rHlEfaK6CDc6fgYNaDx/7/cfzO7p4LEwbdM/e/5/
-         MPerlnMzhbHGeaJPTDIH0jkyOzhSEQ4wV9oxjkl0gdPe3/3AVGhMhvGPd4ebYMpWdLR0
-         G/0ZBZN7c1TylXQujHXP12EAnRtPR2m0vc9eWzU+tYJwNMXaPWyE1OGzjUjdW586zvJQ
-         oP3A==
+        d=gmail.com; s=20251104; t=1791951025; x=1792555825; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ljQtddetZrnHdZkhpewiA0nv8+K0Dn1c6TsFqcV3Ues=;
+        b=crh0/b6qeHxfbLpCS7mTQbEah3x1+AZmPE5EIHcMjrrHZ7tgdUI14W9aOugAZxzycw
+         ohqQ3RhOypRFYyX84th92UAoznpNg7eXE40Ff9viYmYCQ/xagSMX3LD3jTEB+6vK/Myo
+         savjdWLABbnm4y44VYj8ukZSOZo9+ifBtqgJYkvi7yots4Wg+W0VgbmOZ/rhEZnMCSoi
+         ueY2Cr+oR72Pf/GBgTrBytPqL5uZaHI7p5E6/+EtbWNWiMoxM++YQabo7TmP4LXtW9qO
+         0YIbr9wup7rLsRKaiu4dvE3LwsuErwwdqYXo1ktFjw+P72lhMbYAgKnJz+q52/jCPc0j
+         G3WA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791950818; x=1792555618;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fI+aIdg5Eg5PyjED5uc03DU2xv7jEMp47g/G9P6kJ88=;
-        b=O9uUHscymzkpkxJ8sHHNmg6ivzhSmLZXDk7EXFAB5kAB/GSjZY/DKwNgW5m04KQQPU
-         Kqr3FZaBFwDrjnmo4XtfKg4DToG/V4J/uEqLWrRNwQHM6enUXkp866oT0xpXUjcumtrm
-         /oLzWwMm4zEERXFzQHiAjo6dy14fM4hAcwprzs42f2051KvuUxI2RQkv5rO9vSGPFHMq
-         CtrWvILin59TVJ1P43U823iniEFuOFYGVSqEWTm4l0ctAr/6/C90gnn2UbqpMH5/lOem
-         allIOguaLIP9t62JQNZMDhUdapqqx1ommDFwdTjO6EbWlt8QypyxQL8g7vHBnIWEasNq
-         yleA==
-X-Forwarded-Encrypted: i=1; AKwUvBwVyDXbLMau9m4ZBWgHO3YRkkN4Lb9ZUtW+7Jn5+SC8y1Nh55iKxHetZzabNI5fR/ZfgqVETTjH7WjuSB0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ1zZBU8VqvDX1IHW7UVBsnq6zWDCdvJPAoIhD51RpxW+80ExzQ
-	m7FO2+JZE0hBLPMPocSDd2IX6WRSTbbH7wzE+Og7PYgmYGqJook97GMT
-X-Gm-Gg: AYBFou1THULEoNUr69QSiAH0tWrvYNJFYEmrPh2TpFQnknWhkg0hOFVJMt7k+ja57KC
-	RPJ1CFfqaWQRqKohNoBrIqONcwY78Q4V0EmM+OM+yRq44fBqqtQ5act1yi11E82H4fyt0R4Ltv5
-	WC2JLVF8aotIWGBfxv7iYFluAbXXTfSNS4dZfs40L2Ym6i+hCwPgiGaV2qHFifuMplOlH3qpj62
-	+UtNADsRZkdVYMG0niA2+E7SUuOj6Ja4OU7CxA4rp2U8n6HxmEKishGvDTI30SSQQrfbfKpMz5U
-	ZrzpzLMA7XaUlzFmSjETrnA1Pnveyztd/Gruuc/sBSU1Fuk1LoxOhNA/hQ6LC0C4qIHrjcPZ+1q
-	MoW29R2igNRqcps2d3/7QtPcwXH9hGpC8jKz2dh5V1afkMpuTHw9pAZdFpZexF1yVlvFGXdxW9z
-	IZdU31fCYeRX+CCdbdm7gT4q2p3TpMAtzuiWIhLNvlyt69TZU6j7CXPch4ifYgxYXL7/8mupJim
-	/c6
-X-Received: by 2002:a17:90a:d44b:b0:3ab:365f:ebdd with SMTP id 98e67ed59e1d1-3ab3ad2029bmr11757991a91.37.1791950817907;
-        Tue, 13 Oct 2026 21:06:57 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac760fc92csm544113a91.14.2026.10.13.21.06.54
+        d=1e100.net; s=20260707; t=1791951025; x=1792555825;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ljQtddetZrnHdZkhpewiA0nv8+K0Dn1c6TsFqcV3Ues=;
+        b=mP6OFlZVTdDDo7otsZ9J0ieDneJJ2KNWFvnmpzICEbG/21bT5hZbGBv3WLUM7uHIQ1
+         gC6GXV8FqDITPoWzhGV2zsjp5em1FLjDzFhg2L/54RIsu0FtpCUXZuN55b4Hpw7XM1Es
+         SVKLekwJpzfyPXfCItw7eduOI2H6KjXwSGypLqBkhSD2F8SK95t3vn0IQ4DmCn4IfHT+
+         fPC4V4xmErUx+tz7OS3dQvi8qxcPL0QYTqXxRdM0RuY5DGtKs+a11MY4iOTxxVDq2RFw
+         oySvRxI1j1MQ9emSaRAUd1E3vMTWOIZhzKOlu3TnV93Aox7d0Uod/2K8wkN0wbzwD8Q8
+         Fs2Q==
+X-Forwarded-Encrypted: i=1; AKwUvBw3Mgu+UL1HMQDCgzGLRWQ3GliKOizXQalnHEtq0hNggUh4zkeKQtw+sabCzHEKBmbdGPx8D/aphwrNVVY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKZF7IXgqnK/Gd7HMik7QawbbF4hgLW9tyeygs+QvCYvlsImKXD
+	evXEj9F+9OUc/hdsyWCQB36QI3sXEfq+82WeWW4Ct5qBNh0804fOp4v7
+X-Gm-Gg: AYBFou1oOQ0zIqIhPqP+oEQdvSd5LrGx+ilYMUaIsW6LR9rIJ68UCw8dmgmz7j++CLO
+	BHqAJSRz2kiYNcwxAVa1OpKaTkcQ7c9TWLLjP0xtzFMUMIm+Z9sLXJYCbS+MsSpidGWhzn5F6fo
+	AR4AwYUFThcphRZ+gAkGWvXqVmBYgubP5+c+I0I40oHynOBBbcB+OCCzIx4kNRk617R76ZXVRer
+	Y0nYxL3/KgHVTSix9lz7ttTWAyZ8JCc/kBToG7z4+WPExSJ6ha1L5VDISF4lozwkPSink2IK0GI
+	4P/h1oVfBdJ/ZITBKk6ae+VNRuSQmXUeDiz8SwpYxfjglyvuxti85nCjUDena9d8yqiVqjXq9cj
+	4hxSAjwEKQQpFQaowXWTqlJE+yJRn2UZ+UPj4hRp56eLnuoVUu+XSBQB2b6pev+YFVff1rswVyy
+	L+ndPEXLKg/ILwgEgWT2OYaYOZ/vCj3nMzX9tAH7ZaJlBFZqM7SwKX8ijLvnIJTqK8WDVKvGShJ
+	4To4+XKHPZs4S25om//1YkdF0gOsqOw6qM+47tSeLEviZV15l2dzW5jt8MJkYTStN/rww1dtnnB
+	2H+2nBDyWL79WVU9L/KVvDrrY/Kzt76/wGIdIA==
+X-Received: by 2002:a05:690e:e8b:b0:675:4269:156b with SMTP id 956f58d0204a3-679369e3642mr4947534d50.59.1791951024885;
+        Tue, 13 Oct 2026 21:10:24 -0700 (PDT)
+Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67986a16470sm592229d50.4.2026.10.13.21.10.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 21:06:57 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: perex@perex.cz,
-	tiwai@suse.com,
-	kees@kernel.org
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH] ALSA: seq: oss: Prevent duplicate MIDI device teardown
-Date: Wed, 14 Oct 2026 12:06:52 +0800
-Message-Id: <pm-pmb-7c5128efe2110a87b872-v2-c718183fd693e73d8e95@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        Tue, 13 Oct 2026 21:10:24 -0700 (PDT)
+Date: Wed, 14 Oct 2026 00:10:23 -0400
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: netdev-bot+sashiko@kernel.org, 
+ shiming.cheng@mediatek.com
+Cc: davem@davemloft.net, 
+ edumazet@google.com, 
+ kuba@kernel.org, 
+ pabeni@redhat.com, 
+ horms@kernel.org, 
+ matthias.bgg@gmail.com, 
+ angelogioacchino.delregno@collabora.com, 
+ willemb@google.com, 
+ daniel.zahka@gmail.com, 
+ alice@isovalent.com, 
+ sd@queasysnail.net, 
+ eilaimemedsnaimel@gmail.com, 
+ imv4bel@gmail.com, 
+ nbd@nbd.name, 
+ dsahern@kernel.org, 
+ netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, 
+ stable@vger.kernel.org, 
+ steffen.klassert@secunet.com
+Message-ID: <willemdebruijn.kernel.26605ed441a3a@gmail.com>
+In-Reply-To: <179161428655.434549.7066789783316941855@kernel.org>
+References: <20261009060319.6229-1-shiming.cheng@mediatek.com>
+ <179161428655.434549.7066789783316941855@kernel.org>
+Subject: Re: [PATCH] net: tcp: fix fraglist GRO flushing on alternating TCP
+ PSH flag
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Each OSS MIDI alias and its coder must have one final-release owner.
-find_slot() pins the alias under register_lock, but
-snd_seq_oss_midi_check_exit_port() clears its slot in a separate critical
-section without checking whether another callback already removed it.
-The use counter protects active users, but draining it does not elect a
-single remover.
+netdev-bot+sashiko@ wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential
+> issue(s) to consider.
+> =
 
-This requires overlapping raw kernel-client port controls for the same
-client. snd_seq_kernel_client_ctl() does not take ioctl_mutex, and
-snd_seq_delete_port() releases ports_mutex before returning to the
-DELETE_PORT handler's PORT_EXIT broadcast. If the old deletion is delayed
-before that broadcast, a new port can reuse the vacant address. Its
-PORT_START finds and keeps the old alias. Deleting the replacement then
-produces a second PORT_EXIT for the same address. Non-atomic subscriber
-delivery holds a read rwsem, so the two receive_announce() callbacks can
-run concurrently:
+> Critical: 0 =C2=B7 High: 2 =C2=B7 Medium: 1 =C2=B7 Low: 0
+> =
 
-  Old-port deletion                 Replacement-port controls
-  -----------------                 -------------------------
-  Unlink and drain old port
-  Delay before PORT_EXIT            Create port at the same address
-                                    PORT_START keeps existing alias
-                                    Delete port; PORT_EXIT pins mdev
-  PORT_EXIT pins the same mdev
-  Clear slot; drop pin              Clear slot; drop pin
-  Wait for users to drain           Wait for users to drain
-                                    Free coder; pause before kfree(mdev)
-  Free coder again: read
-  freed coder->buf
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchw=
+ork
+> know by including "pw-bot: cr" as a separate line at the end of your re=
+ply
+> (one such reply per series is enough).
+> =
 
-Both callbacks can select the same alias before either clears its slot.
-After both drop their pins, both waits can return. The second call to
-snd_midi_event_free() can then read the freed coder's buffer pointer,
-as in the report below, and attempt to release the same objects twice.
+> - [High] Forwarded TCP FIN/PSH can be dropped from the wire when a
+>   fraglist GRO skb falls back to tcp_gso_segment()/skb_segment().
+> - [High] FIN/PSH in a fraglist tail segment is invisible to netfilter,
+>   conntrack, flowtable, tc and BPF, which all read only the aggregate's=
+=E2=80=A6
+> - [Medium] The commit message calls the removed check 'redundant' and
+>   only discusses PSH.
+> =
 
-Check that the pinned alias still occupies its slot under register_lock
-before clearing it. A callback that finds it already removed drops its
-pin and returns. Only the callback that removes the alias drains users
-and frees the coder and record. The pin keeps the record alive through
-this check, and the wait remains outside the spinlock.
+> --
+> =
 
-KASAN report as below:
+> net: tcp: fix fraglist GRO flushing on alternating TCP PSH flag
+> =
 
-    ==================================================================
-    BUG: KASAN: slab-use-after-free in snd_midi_event_free+0x53/0x60
-    Read of size 8 at addr ffff888107074518 by task alsa-seq-fixtur/492
+> This patch removes the unmasked TCP flag word comparison from the is_fl=
+ist
+> branch of tcp_gro_receive(). Segments whose PSH/FIN flags differ from t=
+he
+> held packet can then be appended to a fraglist GRO skb. The goal is to =
+stop
+> premature flushes when a sender alternates [ACK] and [PSH, ACK] segment=
+s
+> in forwarding and tethering setups.
+> =
 
-    CPU: 3 UID: 0 PID: 492 Comm: alsa-seq-fixtur Not tainted 7.2.0-rc6-pmb-bt-functional-v1+ #1 PREEMPT(lazy)
-    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-    Call Trace:
-     <TASK>
-     dump_stack_lvl+0x93/0xd0
-     print_report+0xce/0x630
-     ? snd_midi_event_free+0x53/0x60
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __virt_addr_valid+0x20d/0x410
-     ? snd_midi_event_free+0x53/0x60
-     kasan_report+0xe0/0x110
-     ? snd_midi_event_free+0x53/0x60
-     snd_midi_event_free+0x53/0x60
-     snd_seq_oss_midi_check_exit_port+0x1d8/0x370
-     receive_announce+0x1b8/0x370
-     ? __pfx_receive_announce+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __lock_acquire+0x466/0x2260
-     ? snd_seq_port_use_ptr+0x40/0x170
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? find_held_lock+0x2b/0x80
-     ? snd_seq_port_use_ptr+0x10c/0x170
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_release+0xc8/0x280
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_receive_announce+0x10/0x10
-     __snd_seq_deliver_single_event+0x105/0x1a0
-     ? snd_seq_port_use_ptr+0x111/0x170
-     snd_seq_deliver_single_event+0x2fc/0x770
-     ? __pfx_snd_seq_deliver_single_event+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_down_read_nested+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? do_raw_read_unlock+0x49/0xe0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? _raw_read_unlock+0x23/0x40
-     snd_seq_deliver_event+0x351/0x760
-     ? __pfx_snd_seq_deliver_event+0x10/0x10
-     ? _raw_spin_unlock_irqrestore+0x44/0x60
-     ? trace_hardirqs_on+0x18/0x160
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? _raw_spin_unlock_irqrestore+0x44/0x60
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     snd_seq_kernel_client_dispatch+0x13f/0x170
-     snd_seq_system_broadcast+0x100/0x150
-     ? __pfx_snd_seq_system_broadcast+0x10/0x10
-     ? mark_held_locks+0x40/0x70
-     ? _raw_spin_unlock_irqrestore+0x44/0x60
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lockdep_hardirqs_on_prepare+0xea/0x1a0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     snd_seq_ioctl_delete_port+0x179/0x4b0
-     call_seq_client_ctl+0x90/0x110
-     snd_seq_kernel_client_ctl+0x8a/0x100
-     pmbd_case_delete_port+0xa6/0xf0
-     ? __pfx_pmbd_case_delete_port+0x10/0x10
-     ? __might_fault+0xdd/0x190
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __might_fault+0x14e/0x190
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? strim+0x19c/0x200
-     pmbd_case_control_write+0x2c5/0x470
-     ? __pfx_pmbd_case_control_write+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __debugfs_file_get+0x1bd/0x7f0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_acquire+0x17b/0x2f0
-     ? ksys_write+0x111/0x200
-     full_proxy_write+0x11f/0x180
-     vfs_write+0x25a/0x1010
-     ? __pfx_full_proxy_write+0x10/0x10
-     ? __pfx___mutex_lock+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_acquire+0x17b/0x2f0
-     ? __pfx_vfs_write+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __fget_files+0x1e1/0x370
-     ksys_write+0x111/0x200
-     ? __pfx_ksys_write+0x10/0x10
-     ? rseq_register.isra.0+0x1f3/0x2e0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? exit_to_user_mode_loop+0x3a5/0x570
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     do_syscall_64+0x115/0x6a0
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-    RIP: 0033:0x7f3532e4e9ee
-    Code: 08 0f 85 f5 4b ff ff 49 89 fb 48 89 f0 48 89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24 08 0f 05 <c3> 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 80 00 00 00 00 48 83 ec 08
-    RSP: 002b:00007f3532dafe08 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
-    RAX: ffffffffffffffda RBX: 00007f3532db06c0 RCX: 00007f3532e4e9ee
-    RDX: 000000000000000a RSI: 000055efbd747156 RDI: 0000000000000003
-    RBP: 000055efbd747156 R08: 0000000000000000 R09: 0000000000000000
-    R10: 0000000000000000 R11: 0000000000000246 R12: 000000000000000a
-    R13: 0000000000000000 R14: 00007ffe7894e7f0 R15: 00007f35325b0000
-     </TASK>
+> > This redundant check causes premature flushing on any incoming PSH pa=
+cket,
+> > shattering aggregation and increasing softirq overhead.
+> =
 
-    Allocated by task 490:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     __kasan_kmalloc+0xaa/0xb0
-     __kmalloc_cache_noprof+0x251/0x610
-     snd_midi_event_new+0x74/0x210
-     snd_seq_oss_midi_check_new_port+0x329/0x610
-     receive_announce+0x277/0x370
-     __snd_seq_deliver_single_event+0x105/0x1a0
-     snd_seq_deliver_single_event+0x2fc/0x770
-     snd_seq_deliver_event+0x351/0x760
-     snd_seq_kernel_client_dispatch+0x13f/0x170
-     snd_seq_system_broadcast+0x100/0x150
-     snd_seq_ioctl_create_port+0x39a/0x9d0
-     call_seq_client_ctl+0x90/0x110
-     snd_seq_kernel_client_ctl+0x8a/0x100
-     pmbd_case_create_port+0xcc/0x160
-     pmbd_case_control_write+0x21d/0x470
-     full_proxy_write+0x11f/0x180
-     vfs_write+0x25a/0x1010
-     ksys_write+0x111/0x200
-     do_syscall_64+0x115/0x6a0
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> [ ... ]
+> =
 
-    Freed by task 493:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     kasan_save_free_info+0x3b/0x60
-     __kasan_slab_free+0x5f/0x80
-     kfree+0x307/0x580
-     snd_midi_event_free+0x48/0x60
-     snd_seq_oss_midi_check_exit_port+0x1d8/0x370
-     receive_announce+0x1b8/0x370
-     __snd_seq_deliver_single_event+0x105/0x1a0
-     snd_seq_deliver_single_event+0x2fc/0x770
-     snd_seq_deliver_event+0x351/0x760
-     snd_seq_kernel_client_dispatch+0x13f/0x170
-     snd_seq_system_broadcast+0x100/0x150
-     snd_seq_ioctl_delete_port+0x179/0x4b0
-     call_seq_client_ctl+0x90/0x110
-     snd_seq_kernel_client_ctl+0x8a/0x100
-     pmbd_case_delete_port+0xa6/0xf0
-     pmbd_case_control_write+0x398/0x470
-     full_proxy_write+0x11f/0x180
-     vfs_write+0x25a/0x1010
-     ksys_write+0x111/0x200
-     do_syscall_64+0x115/0x6a0
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> > a single fraglist, and are safely flushed together upon encountering =
+the
+> > PSH flag at `out_check_final`, preserving the required TCP push seman=
+tics.
+> =
 
-    The buggy address belongs to the object at ffff888107074500
-     which belongs to the cache kmalloc-96 of size 96
-    The buggy address is located 24 bytes inside of
-     freed 96-byte region [ffff888107074500, ffff888107074560)
+> [Severity: Medium]
+> Is the removed check really redundant? Commit 8d95dc474f85 ("net: add c=
+ode
+> for TCP fraglist GRO") added it to the is_flist branch on purpose.
+>
+> The general path can mask FIN|PSH out of its first comparison only beca=
+use
+> it later ORs those flags into the held packet's header:
+> =
 
-    The buggy address belongs to the physical page:
-    page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x107074
-    flags: 0x200000000000000(node=0|zone=2)
-    page_type: f5(slab)
-    raw: 0200000000000000 ffff888100042280 dead000000000122 0000000000000000
-    raw: 0000000000000000 0000000000200020 00000000f5000000 0000000000000000
-    page dumped because: kasan: bad access detected
+>     tcp_flag_word(th2) |=3D flags & (TCP_FLAG_FIN | TCP_FLAG_PSH);
 
-    Memory state around the buggy address:
-     ffff888107074400: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-     ffff888107074480: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-    >ffff888107074500: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
-                                ^
-     ffff888107074580: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
-     ffff888107074600: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
-    ==================================================================
+Indeed. PSH bits are important information and are expected to close
+a context.
+ =
 
-Assisted-by: LLM
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
----
+> The is_flist branch jumps to out_check_final before it reaches that lin=
+e.
+> So the unmasked comparison was what kept every fraglist member's flags
+> identical to the head's.
+> =
 
-diff --git a/sound/core/seq/oss/seq_oss_midi.c b/sound/core/seq/oss/seq_oss_midi.c
-index 70f94df651446e68af238e3a62180851a037ef76..b456bd37d87bc3d7363b5665fb65ab80c7a9aa36 100644
---- a/sound/core/seq/oss/seq_oss_midi.c
-+++ b/sound/core/seq/oss/seq_oss_midi.c
-@@ -211,6 +211,11 @@ snd_seq_oss_midi_check_exit_port(int client, int port)
- 	mdev = find_slot(client, port);
- 	if (mdev) {
- 		scoped_guard(spinlock_irqsave, &register_lock) {
-+			/* Only one callback may release the device. */
-+			if (midi_devs[mdev->seq_device] != mdev) {
-+				snd_use_lock_free(&mdev->use_lock);
-+				return 0;
-+			}
- 			midi_devs[mdev->seq_device] = NULL;
- 		}
- 		snd_use_lock_free(&mdev->use_lock);
+> The removal also relaxes FIN, not only PSH. Data-carrying FIN segments,=
+
+> such as the last segment of a response, can now join a fraglist. The
+> commit message doesn't mention this.
+> =
+
+> The claim that push semantics are preserved seems to hold only when the=
+
+> skb goes through skb_segment_list(). Could the commit message describe =
+the
+> FIN change and the cases raised in the comments on the diff below?
+> =
+
+> > diff --git a/net/ipv4/tcp_offload.c b/net/ipv4/tcp_offload.c
+> > index e74d99ca9face..54b40ec95a080 100644
+> > --- a/net/ipv4/tcp_offload.c
+> > +++ b/net/ipv4/tcp_offload.c
+> > @@ -328,7 +328,6 @@ struct sk_buff *tcp_gro_receive(struct list_head =
+*head, struct sk_buff *skb,
+> >  	flush |=3D skb_cmp_decrypted(p, skb);
+> >  =
+
+> >  	if (unlikely(NAPI_GRO_CB(p)->is_flist)) {
+> > -		flush |=3D (__force int)(flags ^ tcp_flag_word(th2));
+> =
+
+> [Severity: High]
+> Can this drop a forwarded FIN or PSH from the wire?
+> =
+
+> Without this check, skb_gro_receive_list() links an in-sequence [PSH, A=
+CK]
+> or [FIN, ACK] data segment into the held skb's frag_list. The is_flist
+> branch then jumps to out_check_final. That skips the only place where
+> FIN/PSH reach the head header:
+> =
+
+>     tcp_flag_word(th2) |=3D flags & (TCP_FLAG_FIN | TCP_FLAG_PSH);
+> =
+
+> tcp4_gro_complete() and tcp6_gro_complete() return early for is_flist.
+> The head can't carry FIN/PSH itself, because out_check_final would have=
+
+> flushed it. So the head header has neither flag, while the last frag_li=
+st
+> member has them.
+> =
+
+> tcp4_gso_segment() uses __tcp4_gso_segment_list() only when the geometr=
+y
+> still matches and SKB_GSO_DODGY is clear:
+> =
+
+>     if ((skb_pagelen(skb) - th->doff * 4 =3D=3D skb_shinfo(skb)->gso_si=
+ze) &&
+>         !(skb_shinfo(skb)->gso_type & SKB_GSO_DODGY))
+>         return __tcp4_gso_segment_list(skb, features);
+> =
+
+> Otherwise it falls back to tcp_gso_segment()->skb_segment(). That path
+> copies head_skb's headers, TCP flags included, into every segment.
+> =
+
+> tcp_gso_segment() then clears fin/psh on every segment except the last:=
+
+> =
+
+>     while (skb->next) {
+>         th->fin =3D th->psh =3D 0;
+> =
+
+> The last segment keeps the head's flags, which never had FIN/PSH.
+> tcp6_gso_segment() has the same fallback.
+> =
+
+> These can trigger the fallback on forwarded traffic:
+> =
+
+>   bpf_skb_proto_4_to_6() and bpf_skb_proto_6_to_4(), reached through
+>   bpf_skb_change_proto() (for example CLAT/464xlat when tethering), set=
+
+>   SKB_GSO_DODGY on GSO skbs.
+> =
+
+>   bpf_skb_net_grow() and bpf_skb_net_shrink() set SKB_GSO_DODGY.
+>   bpf_skb_net_grow() can also linearize frag_list skbs when
+>   BPF_F_ADJ_ROOM_FIXED_GSO is not set.
+> =
+
+>   Any pull or linearize that changes the geometry has the same effect,
+>   for example skb_ensure_writable(skb, skb->len) in NAT mangling.
+> =
+
+> In those cases the receiver doesn't get the FIN until the sender
+> retransmits it, and PSH is silently cleared.
+> =
+
+> A fraglist skb redirected to a local TCP socket after GRO (DNAT/TPROXY)=
+ is
+> also parsed from the head header only. TCP has nothing like UDP's
+> local-delivery fraglist handling, so the FIN would be missed there too.=
+
+> =
+
+> ORing the tail's flags into th2 in the is_flist branch doesn't seem to =
+fix
+> this. skb_segment_list() emits the head skb with its own TCP header, so=
+ the
+> first segment would then carry a spurious FIN/PSH.
+> =
+
+> [Severity: High]
+> Does this also hide the tail's FIN/PSH from netfilter, conntrack,
+> flowtable, tc and BPF? All of these read only the aggregate's head head=
+er
+> before segmentation.
+> =
+
+> In conntrack, get_conntrack_index() only checks the head's tcph->fin, s=
+o
+> the FIN transition never fires. tcp_in_window() computes:
+> =
+
+>     end =3D segment_seq_plus_len(seq, skb->len, dataoff, tcph);
+> =
+
+> skb->len covers all of the fraglist payload. The +1 for FIN is missing,=
+
+> because tcph is the head header. The peer's ACK of the FIN then hits:
+> =
+
+>     if (!before(sack, receiver->td_end + 1))
+>         return nf_tcp_store_invalid(ct, sender, log, NFCT_TCP_INVALID,
+>                                     NF_TCP_LOG_ACK_OVER, receiver->td_e=
+nd + 1);
+> =
+
+> That ACK is classified invalid, and so are the peer's own FIN and the
+> final ACK. A typical "ct state invalid drop" rule would then drop the
+> teardown packets. Without such a rule, the entry stays ESTABLISHED inst=
+ead
+> of moving to FIN_WAIT/CLOSE_WAIT.
+> =
+
+> In the flowtable, nf_flow_state_check() reads fin/rst only from the hea=
+d
+> header, so NF_FLOW_CLOSING is never set for the offloaded flow.
+> =
+
+> tcp_mt() in xt_tcpudp and the nft tcp flags match also read only the he=
+ad
+> header, so a FORWARD rule that matches FIN or PSH won't fire.
+> skb_segment_list() copies only the MAC header from the head and keeps e=
+ach
+> member's own TCP header. The FIN/PSH therefore still goes out on the wi=
+re
+> and bypasses that policy.
+> =
+
+> Before this patch, the unmasked comparison guaranteed that the head hea=
+der
+> described every member of the fraglist.
+> =
+
+> [ ... ]
+> =
+
+> -- =
+
+> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/pat=
+chset/20261009060319.6229-1-shiming.cheng%40mediatek.com
+
+
