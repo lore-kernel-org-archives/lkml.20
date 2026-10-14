@@ -1,82 +1,132 @@
-Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com [209.85.217.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56A82312836;
-	Wed, 14 Oct 2026 17:02:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791997322; cv=none; b=tURgQEKAu1vuDkFd/mXrFzxCrC23YFHu+Zzi7NmfzIamO/lgM/misLsc5B4GWMQb8JeOGfdSYaDv41TVSqBkIOnSlNo6Hw5VgsVSZ4WrgKSwrfYBnLsUMr4RX0wUQO5OjZj1HtWqzpuZKNaNRqgGU7IOS0nndnfYimo71LBBPNk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791997322; c=relaxed/simple;
-	bh=FHuEQlrJeSyFCnx0Sl6KYjcJChvZI4aji8nSCtEbPo0=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=RyvorHOOuqJNpLj03rS73PLfbE/rUVzzcsdjiNMSp/DUUw/BH9VMZaegWbuUeULD7EWoadoLxsdSWbCR7aEKjEc8er1o83nMTsdgiJ4d+c+MjzdHGm3nW7BSojR89pckKRZU8Wf+xyQeSY5wfTCXsAXF1VzZZc6xgkVfiU3AG3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=eT7p6b1I; arc=none smtp.client-ip=45.79.88.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4314B55C1B5
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:03:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791997388; cv=pass; b=cGb1uuJ5rytoGbsHFcR199yNI9ngwTBLsLPhvrX51suyC/CTeHjIvqJvYv6/2PZ4VtvQVE2humm2OY75nNx7zqpWey7GOfR977ICpwlyGUwMYQsTmbRe00h2XkwnG6CJs768dchiHFxRf9N7hLlRv1qxsqAiuJnq0FO2Q3sGUaw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791997388; c=relaxed/simple;
+	bh=X0/63h23d4RMhaW6j99etRVwb5HigSuyzGIZ3M+xFDQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=h089Z3eBNVlc93KneEzsss0VY9DmQVgj9AJ7mtOmNEWLnW6LPe+dahypBZxUq28R8QakqTqTEuU7jsYlWwYIpVIKvWXqiVMJc8M0JatjtcUHYO0GXlK9a3HPd4nYYtVXjNSxA0EODrIszSQxXcjXvmggWYcDy5ijAeHbnPTw4Ak=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VMBAfSah; arc=pass smtp.client-ip=209.85.217.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="eT7p6b1I"
-DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 71E87408FF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
-	t=1791997319; bh=r2IDnp5QEPh+48VvYTqPgu9xOpF9QcmZVlg8exZ1OMc=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=eT7p6b1Iq6jlbv8lusfy3cx/LuCOugso2dpGUqWtXa2Ywjsbe2EK+UgVy2a2teg2Z
-	 1RjxIhjytkIIFHxdjk60zKDUc8I9EgPXNRSXhbQmXRaAHwqhUB4YXZfa8XeuP6Pids
-	 fLQ09QC8HL/sA81PXhmyTVd12S07//AhFXFIOkFdoL5V/wPI6McXA8/7Zb3CBJ1iKM
-	 bryuAbYx8xE13ndyWetLSqIbVCeBoTcOxGtFl7xQhCS+eck6Y7a1rnfzpUcl713+Is
-	 kNJbaN2l9kgyKZJZGnsN+zy/nPEqRj/iDsXUsrnQFpPJypwsIR24ZZwd3B/EySFT9L
-	 jm+U/5Zp1OsBg==
-Received: from localhost (unknown [IPv6:2601:280:4600:814::1fe])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by ms.lwn.net (Postfix) with ESMTPSA id 71E87408FF;
-	Wed, 14 Oct 2026 17:01:59 +0000 (UTC)
-From: Jonathan Corbet <corbet@lwn.net>
-To: Akiyoshi Kurita <weibu@redadmin.org>, Akira Yokosawa <akiyks@gmail.com>
-Cc: Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Akiyoshi Kurita <weibu@redadmin.org>
-Subject: Re: [PATCH v3] docs/ja_JP: translate submitting-patches.rst (review
- and report tags)
-In-Reply-To: <20261007004715.107860-1-weibu@redadmin.org>
-References: <20261007004715.107860-1-weibu@redadmin.org>
-Date: Wed, 14 Oct 2026 11:01:58 -0600
-Message-ID: <87fqy8w709.fsf@trenco.lwn.net>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VMBAfSah"
+Received: by mail-vs1-f47.google.com with SMTP id ada2fe7eead31-7c337cd6614so2304214137.2
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:03:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791997386; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Ks8q8BxrLC/EI9lYvj/d72xt3nbZn//8ge7mzhPV4+Fb1g2iLiy8RPexiYHp+zvv+S
+         vJWq8wHl1Q8O6el8HeA3sJ/l81SFl3waApjKRbBPmgSvoJ3af3i+oQYGV/3ZQ45Y2o1h
+         9pxJJz0gfKt6MU5noZhAjUkxwwUxRvEAyHAXeqWvx2tpfhGMHTy3kMaPsRSj25qWL3Nt
+         EmZ+1g/5+0g0K08nf06QiaZ/XhHTYw17Er6xhojvD5VihBR5Y4cI8LXH/TgXcPPnzlft
+         TqNMjb7IT2/Jmv6o6Y1mAb3uhU/v1aCXvBKufyXiPnbHI/txdCe0bZH5B9J99wZrzUFW
+         HWQw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=WKSkT6scNX2t+/rtJq+i6cTIZ8UL66Szs79srg+q1rs=;
+        fh=7zjwcBlA6X97pknryJeGQJddaTMI0G4qwcKNZeD1Cxc=;
+        b=NvvTDlYvK2TqXPxyx5y0yLPi46DqJLDmsiKwr0HF/HB64yEtt6ApEY4Irnacw7uYg4
+         Wm1mY9OZXbTjUHSWiD/Ebp+6jTvo2ApsifPfyYEfb3izUhLo4RGw90xbV0m3UNqjFCXB
+         P5l06e8vHoxPl4mnC7ZIpRaLdQhk2Wdvs5uWo3/y5lZ0PnJouDV1Ek+OtvEYwX0VZbG3
+         9CS7zIYk/tQv+76Ro9RAKNSjWOJiC5kBUlx8Kb7WlKogtkDr7S8YL9HEDJqaIABHcLaB
+         5ogz054yHMc84OPKGXdRRDGD9MzgbTPxfVGp3qFXY7YEyECmvSwaCg2xFpHryFT5YLQ+
+         xsBA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791997386; x=1792602186; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WKSkT6scNX2t+/rtJq+i6cTIZ8UL66Szs79srg+q1rs=;
+        b=VMBAfSah8lb22/ugMKrH2ApzC2OCYCkC4xBO1VYYp1wP6RgGFysJPQMeXvw8z6SAch
+         I2jfLrBB1VPexoPvcH6ea07NjwoI8yKB3zlhTBsuF4V1nSczOD70mMTgUUO1t/dCMvnR
+         g1Axj2IKj8WZJdyWBZU+EHzj4ZfSH0grMCX27O1kf54v7Tnu34Y9nKke4T4Iw78JSEkc
+         QFQhxPv7fZFXolfSvL4eqJNbeOYS0YUlPBqUnyezm1dJHvKxKg6hxixE7p8/K/Qnz0mI
+         4ZlHZuYVnPNrg2Y3n9MNzop6OiBzCBh+V6kti8OJVFogS8yJBVqoPRrRabH1UxXWS38d
+         0+QQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791997386; x=1792602186;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WKSkT6scNX2t+/rtJq+i6cTIZ8UL66Szs79srg+q1rs=;
+        b=17B9cCjFTbw1aKbf7w1SkRNFta5dTWlHlflDdCLVkJNpWJfj43o2vUSH7QBL+yceum
+         Ed7MpjZqw5lUq3uVoXgojDGCHZujdyZie1x7YGHefkONpJsMj0TiuNozD8zpdejoyF/H
+         NzxqExR7B5wcqwE0i0jQG7oqTPVcVxILy3CW84V/dSWIerv0CfF0DcZG7KN3/Dg4+l0a
+         XVSw5qS65BnFIF9zA4hRm5lHAw7uFGfTivH16fU/njlwN0kVaEwy0nlYg8CW/fwzmNFv
+         hit1FsUwsd2xn9jElaNxQ8t8d13QfqRl9ehBmoj7bJS56bH11aOXwUkMbsTxazql72U6
+         ToMQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxmoikcVKvR7jH5c+X/ILWLXkqzU4lCmeGLjAZ8yEZWGP0bv+mSiY8ssvhfUqraoFwA0IsFwzGmGmlV2cE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJe61nb1X2lb1tZiPFJrY8VoVYdcDD9j9AC82AwpUZCtFNsBzJb
+	8JxN3nT8KmwvjgF6PsP0Vh99C475CT3R9+gFDwnyb47JCxs//oY2gDDj8vy+BaFqm+3cGM/cYyy
+	Wgs+UQ2fRkIwF6WVL2fGNwTYGNfT5Q8PjYh8nXazFxw==
+X-Gm-Gg: AYBFou2KzsL+7pp+u9dafURq6RP/lSmeKi0YouP0UI5JfDAiA1VXcMHTF2SmRHQipU2
+	Ca7qEz+1hjg+oBu45H8jTtbFJ2QaD9cdGTs5TRchL58uscgoGmZpnDrDiiwC/zgeA5gY/jbka5n
+	Kdq2j3r3hTeeJm+aEPMIpiwF6WFnIpCGOlCNktUelbZfK7Ru0KyZASQ2S8eHmLmFL5wpbhZVhnI
+	ygQ0+VAgszBcwOp5Q1nMwSng+04em0AfAn7dT/m+BXgjzUrNbBTjgFVuupqp01VpEGFu/eevSKe
+	DRkCnQHuGNtE6FasiC1rt/EzXryZjO256R2HTEJD8+rneDylDw9uqk1r8IbSjcF1aJ1bpSC96vF
+	CJDsYPkS/hNmONwqawQ/R9SxbZBv8QysXXM8gyfoL0onCP8517sHLmQSNGt2PFq50X2mz
+X-Received: by 2002:a05:6102:424f:b0:7c1:9f20:36ad with SMTP id
+ ada2fe7eead31-7cb36985e66mr5432455137.2.1791997385802; Wed, 14 Oct 2026
+ 10:03:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <cover.1791933697.git.lucasadramalho@gmail.com> <3f9bdd755f3db2405ec44471ebdcfb614bf41725.1791933697.git.lucasadramalho@gmail.com>
+In-Reply-To: <3f9bdd755f3db2405ec44471ebdcfb614bf41725.1791933697.git.lucasadramalho@gmail.com>
+From: Daniel Pereira <danielmaraboo@gmail.com>
+Date: Wed, 14 Oct 2026 14:02:54 -0300
+X-Gm-Features: AclHuK9QC3EQ75rLe9HTtHN9Rpytiw08godnH_mR6QYhJ5b38reZqyt0tZjRwqo
+Message-ID: <CAMAsx6fTx4hO2Dr-5a7R=OmUsbVvM7LAibh5avY3aXzwUpNU-A@mail.gmail.com>
+Subject: Re: [PATCH v1 1/3] docs: translations: pt_BR: process: add driver_development_debugging_guide
+To: Lucas Adryell Ramalho <lucasadramalho@gmail.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Akiyoshi Kurita <weibu@redadmin.org> writes:
+Em ter., 13 de out. de 2026 =C3=A0s 20:46, Lucas Adryell Ramalho
+<lucasadramalho@gmail.com> escreveu:
+    Hi Lucas,
 
-> Translate the section describing Reported-by, Tested-by, Reviewed-by,
-> Suggested-by, and Fixes tags into Japanese.
->
-> This includes the Reviewer's Statement and the guidance on adding or
-> removing review and testing tags in subsequent patch versions.
->
-> Keep the Reviewer's Statement in English and add a Japanese tentative
-> translation in a formal style.
->
-> Signed-off-by: Akiyoshi Kurita <weibu@redadmin.org>
-> ---
-> Changes in v3:
->
->  - Use the current Reviewer's Statement structure from the English
->    documentation.
->  - Make the Japanese tentative translation a literal block.
->  - Remove reST markup from the Japanese literal block.
->  - Translate "statement of oversight" as "=E7=9B=A3=E7=9D=A3=E5=A3=B0=E6=
-=98=8E".
->
->  .../ja_JP/process/submitting-patches.rst      | 115 ++++++++++++++++++
->  1 file changed, 115 insertions(+)
+    Thanks for working on this! The translation is very well done and
+  the documentation builds cleanly.
 
-Applied, thanks.
+    I have just one minor suggestion regarding technical terminology
+  in the DebugFS section:
 
-jon
+    > +Com esses arquivos, =C3=A9 poss=C3=ADvel armazenar valores de vari=
+=C3=A1veis
+    >ou gerar
+    > +dumps de registros/mem=C3=B3ria, ou ainda tornar esses arquivos
+    > grav=C3=A1veis e modificar
+    > +valores/configura=C3=A7=C3=B5es no driver.
+    > +
+    > +Poss=C3=ADveis casos de uso, entre outros:
+    > +
+    > +- Armazenar valores de registros
+
+    In the context of hardware and device drivers, the English term
+  "registers" translates to "registradores" in Portuguese (rather than
+  "registros", which usually refers to data records or logs).
+
+    Could you please update them to:
+    - "dumps de registradores/mem=C3=B3ria"
+    - "- Armazenar valores de registradores"
+
+    Please send a v2 with this change so we can proceed.
+
+    Thanks,
+    Daniel
