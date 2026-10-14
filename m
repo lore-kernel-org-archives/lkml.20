@@ -1,111 +1,207 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com [209.85.217.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0E351D9A70;
-	Wed, 14 Oct 2026 17:31:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791999085; cv=none; b=WPlrbau+2W1SaWLouEqu6v03qCY8K6IiG8+I5M39Yva6qwGhOwQ8TIHeWKPbhMpdzlDckxY7Jv6pgC/dgKsfFMYQ2tPmqz4WFzXgumgqLOJ2ZoSJpNCgsbK1MVVv3RmHhpPBWIG3hj4NGlgnkNdH9z+4fAsXQEMD7PqekwnxnME=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791999085; c=relaxed/simple;
-	bh=dhgkToCQSC3cv3cVb3QkyFhrdaxkWbOMz+N9eToBSG8=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=HtC2PWJqkf2wN37QYZT4PYnEDNkDBAWzrzW276YZ1HewsYVHb5Zmc9ebRBC56vjpcmqJzvMMMVJFvJwDq6ahzZKRNRvPaPM4+Plji9wQZFArdfMiAftMJpzDK2lEH97++jhbWn60aX1HNOk4ZcEkCe3Ffz7ePqkjo8FSxNaUD/I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=OudpZFtS; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DCD21FF1DA
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:31:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791999087; cv=pass; b=Jq99WQY3Y46LLXDKrQslXJgUPgFJP6buqCcozlwm+s2h4vLQtbVMqLQKoXQV7IR8kwYrzxMbted10dh9XY0+ey22xYosQYWLs3FzaoO8xC4oqa5JztEk1FJGch2PbvcATOdGMlRTag9UZ7tl7e5+wzs9/KUqmSarXuPf06fDhEI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791999087; c=relaxed/simple;
+	bh=J2brDSW0l1yMue6LXvefjqX49viPH5qU5HJnhrLt8Jg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=t+5ochS76ogQztg/RgmHBvcZ3DqsyhyK9Iq8qG9UT4N8w4pIagGVuC8cQyvcnBOkCFWKV3pORT9eIvrV/I8R9kvsDW5XC3dCEDWJhY0QrfrXtw0DLe4HkAC0LLqiZcTnkITLCqBhK2pViHuwIFbG7RHeC8FwsMSLuZ3ulEbuFaI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eCJ8gsBc; arc=pass smtp.client-ip=209.85.217.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="OudpZFtS"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:Message-ID:Subject:Cc:To
-	:From:Date:MIME-Version:From:Reply-To;
-	bh=ASFu+CI6i1hPXga1E+JbqqtJuGLel7uRyJac3aak7lE=; b=OudpZFtSvj0nWOJNHpkUk/XWKz
-	ztUTaoO2LQlqujtIT/9eAIPVzFn4aWlSW1SVjuwaJnd2A9hTk56KWEKJFWjeePqScFVGwWyThRo1g
-	yl/PACEcLFTavEsv4D+NNo7F1JaudtFOm9s3Sk4KBdC8Rw4tMl73vn1U+z9uVyR+fB62R3DpX4rLc
-	6gP/+5Bgj077n7cvJJiQMbtemH8vVovr7P4publu8lEv/dvHUUYF5g309644KAyQprNV1VCMTdlpS
-	lnc1x5OlzaPw/s5yj6cHHkxciWWlQm5WakVs/EM/gFyUE113EowwxKqndhe10/qd9LaWJmrsGC2i8
-	NQm0uVEA==;
-Received: from maestria.local.igalia.com ([192.168.10.14] helo=mail.igalia.com)
-	by fanzine2.igalia.com with esmtps 
-	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1xH2ok-0009qW-JX; Wed, 14 Oct 2026 19:31:06 +0200
-Received: from webmail.service.igalia.com ([192.168.21.45])
-	by mail.igalia.com with esmtp (Exim)
-	id 1xH2ok-00AWkN-0Q;
-	Wed, 14 Oct 2026 19:31:06 +0200
-Received: from localhost ([127.0.0.1] helo=webmail.igalia.com)
-	by webmail.service.igalia.com with esmtp (Exim 4.98.2)
-	(envelope-from <uajain@igalia.com>)
-	id 1xH2ok-00000009aAq-01k2;
-	Wed, 14 Oct 2026 19:31:06 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eCJ8gsBc"
+Received: by mail-vs1-f47.google.com with SMTP id ada2fe7eead31-745497ac8fcso1324098137.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:31:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791999081; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LZb0f52gMNl5C/D1CcZZ0D7FeK8Z6Hj6NtA73E5RA9Pxcq9Jd9MgYGaWUp9w/ZtjiS
+         mRipL3Gp/HLXxNFJl/OfV/SqVpMVTB1eMj8xWpTHZk1mwbsccdOgVQlAuVbYn3gadHT0
+         TvpNTPbEtdO+9e13+3wH+QXVvgnpy4CATZYo/QnxtBsY1S5ZvVgn7EcT6cfv3BETiD2p
+         qT/IOcnK7FGM7L7VnziPj6Zwt8081mxrbfBybsF/TkS25wMUUK5lbs1OU5yYpPBOsBSn
+         nr84V+G0nl2g4gvWgvCYc1ILee2DqYUKiTI3Fi+QMPsTa2A3n/mPxD0iybBxU4vOnvNp
+         Aemw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=o5ZbzPIc60pdlOqSNGnFeiMPLZidMz1uIN4k+iGTLwU=;
+        fh=4VQpmr6sO8PFoCjMOJPmQdb91Rs3dUQXAworRLHznQM=;
+        b=GAfcwms3rw1LXw2Dl254moPPfHy0xcTbhBaG83oywtXEN4sNn06qFXYI1XlYXT1lXv
+         lwnThcmS8N8l+I/k6AysfcSEoQjIAkzneB33k3MIgHygCH7egNjQO8eR1/uWylhOu4f0
+         DFUE9jR1wozgH2ZSgoPqsjpOOJOuCbf1vcZlqmn57O5j403qLxDKCRRPxOO9uNVaAteI
+         JqJ6MxUCC5I3xyUles4qeiigPeqB9BlqijIOZvAi/oOirJ51+gSAC1GYUEykO3q31iHa
+         2Wpu0ZfQZnqkX8LhQiZ3iwIhZN7bZ8qNJOG+zPBRjCU3/0Ku+DyQhKaUE8NavCZWcmwZ
+         EzMQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791999081; x=1792603881; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=o5ZbzPIc60pdlOqSNGnFeiMPLZidMz1uIN4k+iGTLwU=;
+        b=eCJ8gsBcQEQEp4BscJ3S5JnGJOAHrQ3ikKr5uDqVQA+5gaWBCeMHNJ0mtj2uMqc/mK
+         Us7J/hM/fd6NvBd4HJ3p87jPNdg8h0w1R5MZH95rJ/DO44Xj6DHkywVn/fkXmOscBLZi
+         CvtYzUYtOmCXrZOi8tBK7ulWybVHCLVOr4SbHTlC2skxKKkVEBueAvN8hgK06AN19o1G
+         +p2biUmLgezHq7c/lUM19cHtOCBcfMYWlajLpTWtTbIUVc8YNCgFCZdwmoYDiLevVm+5
+         4fIm++aFv/DB0SER1ajayBSeik93ywF6gDpYtLfChF2kxVbeoBknhOBkeDD2cZoF0CKX
+         fk+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791999081; x=1792603881;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=o5ZbzPIc60pdlOqSNGnFeiMPLZidMz1uIN4k+iGTLwU=;
+        b=EekEEpxN+VoL8QPsPEst8Qn67Jaht7D+QVbjDGavbU6XB4I+AwhV6i04UoR5g/3YtO
+         GE3DxrB4S6mBKS24dsZ426HWVs+Fs9+xFZstQmifcUeGotNbpOEOJF3C9m91+XLlWasl
+         tnIwe4bYzVa1Y0/yVHleIkBtYi5MRq32Z41Lxu4BtCBJYziITzwvxmSdHQHx4fSr5Pe4
+         K+UVxpfEo+yElgGCHiTM2VnsHSTIpOHZ8Ax0OqtUgzlLvb/iLl9AB4ja8Uqv3A44dsGE
+         iZCljCTRmujyaTIIVPATA5kWtM5icXXPfxO70tOARAnNOwtLijv3uwF74oY++2jZQPDp
+         4C8w==
+X-Forwarded-Encrypted: i=1; AKwUvBzZ/Hn7SG+RhXZ3fXTscivXXXqRswpSDv6aplFofGQKLyQwqfdGT4apLY7m7FJTZefTVs83YNaWXZbtUzk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ0KrCkSRJ9o5n7c/s1q33syitt71e5JkfbGWYI78WLNgNYS//L
+	gU3ZG3Q+6CRZ+VG7QOLHyClRvFhH38iSNgkdg00zxD8NURPLCO+jNOIz4nId6UHBgKLbhLPiLdQ
+	ATeiGrsm3R8GHBc19nkrjv1qLwHrl/qs=
+X-Gm-Gg: AYBFou3D6976cu1kCZ37DSUGPKrZky6z6rLlodvwNxIsn92o7KLZwJIxJ7oC3aGW4He
+	JnHwR8+jEq7/3kIJ5K5hgWieZPhCZos2LhSd18A4JCOayyAfeNOVv1e65hSZphPOok8yetuXQ6o
+	AJOVGkzplxkevblEcSwEo4btPfTjGUhRhV47i8bFSWuLNdm+VM78qvAgRMCRFWbKU2WDancX+C6
+	jsXBAFdreBzwY6cpUN7x7V6TPRhW3uCP0RZim6mbrbN5iBQD/yZmF/BdM+i8fflUUKaJTOpTtUd
+	PKaGnmMrzLK+fL4E9ESA3LZlDsz5fEbwT22Ni76wGLknH/L7E4v4mQciHZRaAsX+MBsdT7Ekqa8
+	6psfL9H03PWm9lXHEi9+Fxj21ppXIBdEY8JxgN8I7y/bnOQ+h0e4bUzzyHJT8XeZleJ4uTDQeSY
+	RTSAcbuPljFHdEN0+hms7JSg1piqqqsfNoEAtG19B3i3oZ
+X-Received: by 2002:a05:6102:915:b0:7c2:799c:9031 with SMTP id
+ ada2fe7eead31-7cb373d999amr4245321137.30.1791999080515; Wed, 14 Oct 2026
+ 10:31:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 14 Oct 2026 19:31:05 +0200
-From: Umang Jain <uajain@igalia.com>
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Cc: Len Brown <lenb@kernel.org>, linux-acpi@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel-dev@igalia.com
-Subject: Re: [PATCH v2 1/2] acpi: battery: Query Battery charge time ("_BCT")
- method
-In-Reply-To: <CAJZ5v0i0UPcGiiAxNbjUnzn=8D2jcTCo_wtM8aMbOKhqb37EDA@mail.gmail.com>
-References: <20260923082932.1049270-1-uajain@igalia.com>
- <20260923082932.1049270-2-uajain@igalia.com>
- <CAJZ5v0i0UPcGiiAxNbjUnzn=8D2jcTCo_wtM8aMbOKhqb37EDA@mail.gmail.com>
-Message-ID: <497522185b0d5edd0898edab04934d2a@igalia.com>
-X-Sender: uajain@igalia.com
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Spam-Report: NO, Score=-4.9, Tests=ALL_TRUSTED=-3,BAYES_00=-1.9,KAM_DMARC_STATUS=0.007
-X-Spam-Score: -48
-X-Spam-Bar: ----
+References: <20261005-submit-phylink-suspended-stop-v1-v2-1-8b8e5d53dfc2@gmail.com>
+ <224296ea-f196-44f3-91d6-1461846c55a5@lunn.ch> <CADvTj4qgcXE6azsNx-Wg5afatezLeuctGR607qO1WhZSmuqzBg@mail.gmail.com>
+ <7ffb9b38-75e1-42e2-86e2-21a1666fc51f@lunn.ch> <CADvTj4pVtoMh=H=nJJaPxYf-ZqU8xJEJLMANUAXTFJWb5zBe-g@mail.gmail.com>
+ <209159e1-bd74-4462-bf00-8c2421af29e2@lunn.ch>
+In-Reply-To: <209159e1-bd74-4462-bf00-8c2421af29e2@lunn.ch>
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Wed, 14 Oct 2026 11:31:08 -0600
+X-Gm-Features: AclHuK_7ESZCxbu9yX6KRTFYHTg5lezZAnYOymXlJdJMMz41cBXby-SS2_TBP7w
+Message-ID: <CADvTj4okPfzysGTX88jPFvr9jUuN3KGKzscCjDt7tT-RQ4vE_A@mail.gmail.com>
+Subject: Re: [PATCH net v2] net: phylink: allow stopping a suspended instance
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: netdev@vger.kernel.org, Russell King <linux@armlinux.org.uk>, 
+	Heiner Kallweit <hkallweit1@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2026-10-12 17:15, Rafael J. Wysocki (Intel) wrote:
-> On Wed, Sep 23, 2026 at 10:28 AM Umang Jain <uajain@igalia.com> wrote:
->>
->> Add plumbing for querying the Battery Charge Time ("_BCT") method.
->> If present, set ACPI_BATTERY_BCT_PRESENT in battery flags to denote
->> that the method is supported in ACPI.
->>
->> Signed-off-by: Umang Jain <uajain@igalia.com>
->> ---
->>  drivers/acpi/battery.c | 17 +++++++++++++++++
->>  1 file changed, 17 insertions(+)
->>
->> diff --git a/drivers/acpi/battery.c b/drivers/acpi/battery.c
->> index 670853ec3a4d..a1b7a821abaf 100644
->> --- a/drivers/acpi/battery.c
->> +++ b/drivers/acpi/battery.c
->> @@ -76,6 +76,7 @@ MODULE_DEVICE_TABLE(acpi, battery_device_ids);
->>  enum {
->>         ACPI_BATTERY_ALARM_PRESENT,
->>         ACPI_BATTERY_XINFO_PRESENT,
->> +       ACPI_BATTERY_BCT_PRESENT,
->>         ACPI_BATTERY_QUIRK_PERCENTAGE_CAPACITY,
->>         /* On Lenovo Thinkpad models from 2010 and 2011, the power unit
->>          * switches between mWh and mAh depending on whether the system
->> @@ -110,6 +111,7 @@ struct acpi_battery {
->>
->>         struct mutex property_lock; /* Protects properties below. */
->>         unsigned long update_time;
->> +       unsigned long long charge_time;
-> 
-> This doesn't need to be unsigned long long.  As per the spec, unsigned
-> int should be sufficient.
+On Wed, Oct 14, 2026 at 11:13=E2=80=AFAM Andrew Lunn <andrew@lunn.ch> wrote=
+:
+>
+> On Wed, Oct 14, 2026 at 11:07:27AM -0600, James Hilliard wrote:
+> > On Wed, Oct 14, 2026 at 10:02=E2=80=AFAM Andrew Lunn <andrew@lunn.ch> w=
+rote:
+> > >
+> > > On Tue, Oct 13, 2026 at 01:46:24PM -0600, James Hilliard wrote:
+> > > > On Mon, Oct 12, 2026 at 7:22=E2=80=AFPM Andrew Lunn <andrew@lunn.ch=
+> wrote:
+> > > > >
+> > > > > On Mon, Oct 05, 2026 at 01:09:05PM -0600, James Hilliard wrote:
+> > > > > > After a failed MAC resume, a driver must be able to stop phylin=
+k without
+> > > > > > resuming it and reconfiguring the failed MAC. This is needed wh=
+en recovery
+> > > > > > leaves the interface administratively up but detached until a s=
+ubsequent
+> > > > > > down/up: ndo_stop() must finish the suspended phylink lifetime =
+even though
+> > > > > > the MAC could not be restored. The missing transition was ident=
+ified by
+> > > > > > code inspection of the stmmac recovery paths.
+> > > > >
+> > > > > I don't particularly like this. It feels like a workaround for a
+> > > > > broken MAC. It would be better to fix the MAC so that resume does=
+ not
+> > > > > fail.
+> > > >
+> > > > Fixing an identified cause of resume failure belongs in the MAC
+> > > > driver. The intended purpose here is narrower: allow orderly shutdo=
+wn
+> > > > after the driver has returned an error, rather than recover the MAC
+> > > > through phylink.
+> > > >
+> > > > stmmac_resume() already returns before phylink_resume() when hardwa=
+re
+> > > > setup fails.
+> > >
+> > > But why did the hardware setup fail?
+> >
+> > The exercised failure was injected, rather than a diagnosed spontaneous
+> > MAC fault. This change comes from auditing the existing error paths for
+> > the deferred stmmac recovery fix.
+> >
+> > > This is what i mean about it being a workaround.
+> >
+> > The deferred fix addresses a separate software failure: suspend has
+> > already disabled NAPI, but an unsuccessful resume leaves the interface
+> > administratively up.
+>
+> But why was the resume unsuccessful?
 
-Last thing before I send out v3, this is the function param-type for the
-acpi_evaluate_integer()
+There is an independently reported case where resume cannot happen:
+an ASIX USB Ethernet adapter unplugged while the system is suspended.
 
-In include/acpi/acpi_bus.h, 
+Xu Yang reported this on an i.MX93 EVK, with a warning and call trace
+showing phy_stop() called from PHY_HALTED through phylink_stop(),
+ax88772_stop(), usbnet_stop() and usbnet_disconnect().[1]
 
-acpi_status
-acpi_evaluate_integer(acpi_handle handle,
-		      acpi_string pathname,
-		      struct acpi_object_list *arguments, unsigned long long *data);
+The sequence is:
 
+- Suspend calls phylink_suspend(false), which stops the PHY.
+- The adapter is physically removed while suspended.
+- USB core skips the disconnected interface's resume callback.
+- Disconnect unregisters the netdev, whose stop callback calls
+phylink_stop() on the still-suspended instance.
 
-Thanks,
-Umang
+That call sequence remains in the current code. Successful MAC resume
+is not an option once the device has been removed.
+
+There is also an existing resume failure path in UCC GETH. On
+CONFIG_PPC_85xx, resume rebuilds the controller resources, including RX
+buffers allocated using netdev_alloc_skb(). That helper uses GFP_ATOMIC,
+so allocation can fail under memory pressure without a hardware fault.
+
+The allocation failure propagates through ucc_geth_startup() to
+ucc_geth_init_mac(), whose error cleanup calls ucc_geth_stop() and then
+phylink_stop(). With non-MAC-WoL suspend, the PHY was already stopped.
+This reaches the transition directly during resume error cleanup,
+without the deferred stmmac changes. This second case is from code
+inspection, not a hardware reproduction.
+
+These are independent of the injected stmmac failure discussed earlier.
+The USB case provides an existing hardware report of why shutdown may
+need to proceed without a matching resume.
+
+The earlier discussion favored handling that case in usbnet.[2] That
+is a separate question about where to handle the transition, rather
+than whether the transition occurs in practice.
+
+These examples most directly support avoiding repeated shutdown of an
+already-stopped instance.
+
+[1] https://lore.kernel.org/r/20250806083017.3289300-1-xu.yang_2@nxp.com/
+[2] https://lore.kernel.org/r/1c352c2f-c8b3-4cbe-9921-8ba5f0e4b433@lunn.ch/
+
+> Sorry, but i've asked this multiple times. You never give a good
+> answer, so i'm just going to:
+>
+> NACK.
+>
+>         Andrew
