@@ -1,257 +1,141 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-231.mta1.migadu.com [95.215.58.231])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 520DF5158A6
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:03:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 390C95172D0
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:03:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.231
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791982992; cv=none; b=j2TwywHhUDbGBEra/L7t12I92PGUPZnGFrrofRiOxtx4xNALNjAkq/oVYbSXTHeWtmlBmQUPl/EPwjCOwpGO2Etmf/XifBDgev9tVarJIA8Wkw1r+L8NDKt2qGN6soa6SUa901sDhkn1qR8sjQKWePf3ibRw/czUVurhk3ip+WM=
+	t=1791982997; cv=none; b=UMd46W2uZPCUqLSQ7mESDp4NmBn7u7ACECrNr53oz8LxKtUVitepvHySOavLRR5o6E72mk2HErDLtBGxD7mVdxYtzKVsdaF6KhVTN4/2GW7G5ZT7uqlFvzyWGJTYBl1WQMXuiaf4QSCeR1mYTse326DAXEDZS5PURFsQddH0+Y0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791982992; c=relaxed/simple;
-	bh=M65grMqA0pbQdU4QyJoVu4Bgle4ZA4GTDxdFGfP4iCw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=TTyqbqarabT/HYY1c8PrGQXR10vnOBu1Ztwc/xtZ9DB0gm9oJ4t6Vdgk8iqMUCpcS8zgGEDH3evWzQAOGb+SAsUgPtSE9LKwdk4oqC36VkiLm6WFq2orow0DpHg+bChuqyeMCRTkbMET0ZC8hH/iHp10l5NarbMazJBZLiOArUQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EsuVTKBa; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=a+2gM4dL; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791982997; c=relaxed/simple;
+	bh=khPlBD3AeZJg4/XaFgEOpdGn+ZT+ENWKvYv6fGgsH80=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sBNXUTmb8SeWXYrQN28g9SAJ0MqQtpr64166YCRwaGzVPvxUjoC/C8q7JjnwyAt91ako77vBCk4o1ivdz23rfyFV7UoIH7vWbbWyBpTqszFWW5QM7iFk0zrN7NhQ+SYl0gAb1x2MUgi+Lb62/QEQeqXsDRetYLzD9Qoequ6Hxgc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wmZFQJD8; arc=none smtp.client-ip=95.215.58.231
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EsuVTKBa";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="a+2gM4dL"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69E93RUk3000880
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:03:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Q3z0cAL5rFgQt78BTP0aQrx2ojCO9AhS7BBpn8BW/14=; b=EsuVTKBa+BPJWbGJ
-	C6iV8zppThQzhk42jtzuOM242Lex5uB97yEBabka0Q/Xf0W42WHvDhq82FUaQAc4
-	MpyH/jqWMUMn7vN33TZ7ZUJZR3GqcPBLgokQFHA0fYBhH+bHF2/C6WBJATq+RNue
-	LyHNpTLiFwGo8KrlVYDb46G8NlgnIppAHU9MfSmax+e21cag1CgPvCIb2YiIIYoC
-	nTAUoT6lQDXky6r+EL/4lQBbMt3PXA9AGA/6NvsKV6Ix6GfJap6HnHjS77aB25Qq
-	Dn1CT+wBQERBdVy/5X/Lj+KLGPdZ0uj945rH+akIumPj6pZHcNxdRNUvOWEbnBBL
-	eLa9ig==
-Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9sbev1v2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:03:07 +0000 (GMT)
-Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5e93d46f76cso1042583e0c.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:03:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791982987; x=1792587787; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Q3z0cAL5rFgQt78BTP0aQrx2ojCO9AhS7BBpn8BW/14=;
-        b=a+2gM4dL96/IjLq9Dmhvu5xmupifLvTsUEWgE4Bw6WCkJY9qrK0u6BCVXCCvgbCTuR
-         zMypm1kBk8Zji+TrBB94v3pL/dmaobiVTH9ph8sdQA0Sxd1QoXqrDmr4P8gDmq4ngajt
-         1lHsQS8hBnla7yfoBCIj7PbyMRmJ4SBCl2vzwh5qGzdljusVb2sYbZG9SQTZEHxl1T/F
-         StAAegvXcvi00p5co4xZPpnAjgSHQmFJUx70t8fuEP7BIqDyaLfBPoJS59k8HaksJheX
-         upEyPlhOOY7V46Zk1WJTpzZ6hTszYv9q0cje1kfAzcK1vwOyM9jfKjaYiUqgnMG51pBW
-         AZQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791982987; x=1792587787;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Q3z0cAL5rFgQt78BTP0aQrx2ojCO9AhS7BBpn8BW/14=;
-        b=fBuF/fAxAYSWayFcJdo9Jg7MNp4+zr7Bz0R7g6FftD0+4SJFutROosZdIZoca/EDdM
-         EAk+J48WZniJvTlFPptHN95/4pY3UzMDPZuGaH235tS8EpkZrmSmksopIe1MxSeEe+zj
-         GZhmpCitPsaq8nOa40IyCmoQnF/ZMRGCc3T35eNfuUf6keSoOF+K5JCQJzR6nCghsr8l
-         CqzDy57zHs6X7e76YrWAS86gL9IapyXta6Oe5b4cgx7C3cF9OgTIkoT/a+x+sinzab13
-         7+ppgQ16ZgdLyGG6YIz6+v0JN7p5ttWyI9Zq0GSK+Pfr0TKnMYLQgXryRBJk/XMZUy4O
-         9v9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwkDkntrq78YSpJJbtA9oyel3Dt7mLdCNIhZoAcTe+2CUYgjt+KGLbJEbA+78FuKRxIiLyJExjzKMqiGeY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIrVHdx+nFDbgsXC4LFLm6KUeyfZhUd9w3Lwj/WiFwyR9GmGHMC
-	MGrH/5XvHn/9W9T2rRMGRB0urqb9M0A4SyOVK6riq9ElG6kiTni4Z0nfpkgsrhV2Hs0rl4/A8NX
-	UGiKXx4L978xKOYjUVFH/+P8g9pYwei97czXtZcoF2Y5spE1EzjhYiArJS7BQaBwPezOcpVQl1q
-	M=
-X-Gm-Gg: AYBFou0maNY6loo0agaHcQtHAtgsq3D1rHe6MOfqcDimzI6s3dvKMYukHMR4eQ3sKTT
-	lXNSDXWsy2F+1DmiSfsEaJkDXX03wcd+YoULSMDxlntxKAIIqwsexYsQm/I5PmbzNcdfBTOwOvj
-	dra8kVXyy0ThTL/KH3W3W1sYOZr2iZG+U+f+VwoRgNjAyj4Cou/+9ntoYjarwg2ctJ4zGRBATeJ
-	aMkZTI5H4RO5Km4zkLhMOOuayDK6tkcTKe6JCS41HVp4UzAlZZi51UmUNeRc7vvvGb42hZIaaEH
-	upqyC4kNDMFDmU0UrE4+XMz6NBR+Z+Hnhb2iBBdkBXRRJ+6+ZKAT9/TnbvfzALci/6EyAaqADkc
-	/v5bLQhcqMA==
-X-Received: by 2002:a05:6122:1828:b0:5c7:a9ee:dcfb with SMTP id 71dfb90a1353d-5e91f46ca9amr4659998e0c.5.1791982986665;
-        Wed, 14 Oct 2026 06:03:06 -0700 (PDT)
-X-Received: by 2002:a05:6122:1828:b0:5c7:a9ee:dcfb with SMTP id 71dfb90a1353d-5e91f46ca9amr4659950e0c.5.1791982985578;
-        Wed, 14 Oct 2026 06:03:05 -0700 (PDT)
-Received: from [127.0.1.1] ([86.121.170.215])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bcece106sm567795e9.9.2026.10.14.06.03.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 06:03:04 -0700 (PDT)
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Date: Wed, 14 Oct 2026 16:02:41 +0300
-Subject: [PATCH RFC 3/5] Bluetooth: hci_qca: Support BD address from an
- nvmem cell
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wmZFQJD8"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=khPlBD3AeZJg4/XaFgEOpdGn+ZT+ENWKvYv6fGgsH80=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791982990; v=1; x=1792587790;
+ b=wmZFQJD8sh6Wg7d1Q9m3jiA9bQrfLWyxuwhAaRmWGbBhe0cILqBnOUC/7KiAIx76rc3rPiyF
+ HUw9eXD2Ay004i5sOX66SRdpBL/ixTa8hOjVCPYDLsdthrEbD0BJjwe+A9/DoYl48p0xQ+5AD4b
+ EbUdFrpjnQm3qx6Fad9QXG+M=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4641c432dd9ea51d;
+	Wed, 14 Oct 2026 13:03:10 +0000
+X-Mizu-Trace-ID: 4641c432dd9ea51d
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 14 Oct 2026 21:03:49 +0800
+From: Chen Yu <chen.yu@linux.dev>
+To: Jemmy Wong <jemmywong512@gmail.com>
+Cc: Chen Yu <yu.c.chen@intel.com>, tim.c.chen@linux.intel.com,
+	Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] sched/cache: Remove the old cache group footprint on
+ exec
+Message-ID: <as99ta0PWAuYROp0@three-body>
+References: <20261010111612.31345-1-jemmywong512@gmail.com>
+ <aspT_A1vl-RwKmoP@chenyu-dev>
+ <32BC7D58-C1C9-4B24-857B-7433F19606A8@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-b4-nvmem-efivar-v1-3-187c85f65018@oss.qualcomm.com>
-References: <20261014-b4-nvmem-efivar-v1-0-187c85f65018@oss.qualcomm.com>
-In-Reply-To: <20261014-b4-nvmem-efivar-v1-0-187c85f65018@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Marcel Holtmann <marcel@holtmann.org>,
-        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-        Jeff Johnson <jjohnson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org,
-        linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>
-X-Mailer: b4 0.15.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3010;
- i=abel.vesa@oss.qualcomm.com; h=from:subject:message-id;
- bh=M65grMqA0pbQdU4QyJoVu4Bgle4ZA4GTDxdFGfP4iCw=;
- b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBqz317IP/RgPiFebMABWgpRQA4kfAxNpiWKdFo5
- nyL124My0aJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCas99ewAKCRAbX0TJAJUV
- ViGxD/4n6SfiXmZfYHLfCeUDnUW3mv0CjuulX8LDaae1+UfNKgq2D94MKSPHAq908uFKy8M3ACS
- 8DfA+SIbA95s/9QIamiIEZJhTyg8TpeZbzHTi3lj107xrKggAI85FudtTGjV9P4SaWUJNxR5IrQ
- XuCckMQWmRZesiLQaLZyZDrlUZEXVSi7kFEfw8aQV0bUwFFxe03NuxkfCONUipyohb14bMOz7+D
- tgTn6EO7LKZosyaY+4bnhyi2iueZEteOgPN7JC5dd5heheXIyhbhpR7m/gXQ/i20Nr0Mzr+IXSR
- QZmzceVn4hdEW/37uzJLcXdKtboeq2ONnycBsL2mwY8iMdH5ke7urm0DHXSktdl32F5bxHvsT8F
- orvrvmk6GSTuZWdKMr2YAfyo5Gyo1nRfRrr2dDUle4fJTJmFb3kiKhTh5UvunPj2UpVeqmXuJcJ
- d07Q2lNWp+wH87irkbyd7cKFJQ/WkwTvmacXxpdXe8wIqvriDLwsGG+bYzZUyPLbF73JtHDlXB3
- lJVm4uST7oRbRxr53+f9xCWnbICzwnmQmE6967SUaK+TL2gJEEf5zdhL3XTmc35je/Jxhq+FT+W
- EurMZI+mGnTYvwNTdprUK2sW4/ORcB6j+wzmndEhnrwi55cgs2wbJKsi4tlLroyV4YOkxJSFvap
- EaYk+c/iAwqdZLw==
-X-Developer-Key: i=abel.vesa@oss.qualcomm.com; a=openpgp;
- fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
-X-Proofpoint-ORIG-GUID: ylAXXvvNff441LYmRhy_V0qB1Oe1ue2K
-X-Proofpoint-GUID: ylAXXvvNff441LYmRhy_V0qB1Oe1ue2K
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA1MSBTYWx0ZWRfX7dbj8UU8bSdh
- zEhRWZcG/nqief2PtEbs3JD5zxQ/EjvqtsRTRvi+82S2ZfJhVZLrRK7/a8H7Vo6zMy/ZAayVb26
- FrN4+TcnDNVELNbX7J13BW8II6k65ZsBzXyDcfY59MqMsE8tI6Bowsc/thUQtcOQZ9Y2kVXMcVV
- EO+Itsrmu8NNiGcW+HeiXAk+640iXRikgNRRtlx5hsrPiBk5Hv/rXr7ComWErtJHWBLUYO5oa5s
- dcDXzXfA9ZnSJu+N8F7nlBk1D9DDPGQNabOVQpnzqM+YvMk7LkIDl1/yzIogf8S0/2cKbFuynKe
- NdEvW7R0gSoglNr2rGVyLgj+P41RGf5uYv8C6xksmesZAL2S3UoewvSymLbSrtVytuUtPcvrPbc
- anH4mS2heJO+lPZXXr2vEG4Q0QsHgaWw4rGrZbuQChjKG7c5+LoD9PpAX0oDwJGAGbflow2UG47
- rdzu/H2bk7qepSBgYmw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA1MSBTYWx0ZWRfX/fyPBOQ7/yBC
- CLaB6/39T/qAeWnJTsVvzeIleKFgEMp6YjGbcgKI4ccmoWYLIp2N4gOl8rbZMYMaYuf/BrDT2JD
- cenmWuqbn5ptHkYJkLoEvz501HbR8Wg=
-X-Authority-Analysis: v=2.4 cv=U7AHnuru c=1 sm=1 tr=0 ts=6acf7d8b cx=c_pps
- a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=Rt3kCFFBWhWisHNmluDamg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=e97J7Y3cOKKqNyIg4ksA:9 a=QEXdDO2ut3YA:10
- a=hhpmQAJR8DioWGSBphRh:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 malwarescore=0 lowpriorityscore=0
- adultscore=0 impostorscore=0 bulkscore=0 phishscore=0 suspectscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610140051
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <32BC7D58-C1C9-4B24-857B-7433F19606A8@gmail.com>
 
-Read an optional Bluetooth device address from an nvmem cell named
-"bd-address" (as already supported by hci_ll), and program it into the
-controller during setup. This lets QCA controllers source their BD_ADDR
-from firmware-provisioned storage such as a UEFI variable exposed via
-nvmem. An all-zero value is ignored, so unprovisioned storage leaves
-the controller default address untouched.
+Hi Jemmy,
 
-Assisted-by: LLM
-Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
----
- drivers/bluetooth/hci_qca.c | 48 +++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 48 insertions(+)
+On Wed, Oct 14, 2026 at 05:17:30PM +0800, Jemmy Wong wrote:
+> 
+> Hi Chenyu,
+> 
+> I've updated the patch to use atomic_long_t for grp->footprint, with
+> atomic_long_add() for placement deltas and atomic_long_sub() when a
+> task leaves the group through exec or exit.
+> 
+> The reason for removing the clamp is that the footprint aggregates the
+> same contributions tracked by p->total_numa_faults. NUMA placement
+> already applies each signed memory-fault delta to the per-node counters
+> and the task total without clamping. A negative delta only removes half
+> of an existing bucket, so normal decay cannot make the task's
+> contribution negative.
+> 
+> With atomic updates preventing lost deltas, and each departing task's
+> contribution subtracted exactly once, the group footprint should remain
+> nonnegative too, assuming no overflow. Clamping would hide an accounting
+> mismatch rather than correct it. The non-returning atomic add/sub
+> operations also need no ordering against unrelated accesses.
+> 
+> I've kept your suggestion to update the footprint once per placement
+> pass. Instead of maintaining a separate delta accumulator, the patch
+> snapshots p->total_numa_faults before the loop and applies its net change
+> afterward. This reuses the existing NUMA accounting and limits shared
+> cache-line traffic.
+> 
+> There is one exception to the balance argument: if exec fails after
+> switching groups but before task_numa_free() resets the statistics, exit
+> can subtract the old total from the new group, where it was never
+> accounted. That can make the new footprint negative. This group belongs
+> only to the execing task, which is past the point of no return and will
+> exit, so the mismatch does not persist in a surviving shared group.
+> This version leaves the existing NUMA reset ordering unchanged.
+> 
+> Does using atomic_long_t without the clamp look reasonable to you,
 
-diff --git a/drivers/bluetooth/hci_qca.c b/drivers/bluetooth/hci_qca.c
-index 7089e9b639b2..b704f4c3e1a4 100644
---- a/drivers/bluetooth/hci_qca.c
-+++ b/drivers/bluetooth/hci_qca.c
-@@ -25,6 +25,7 @@
- #include <linux/gpio/consumer.h>
- #include <linux/module.h>
- #include <linux/of.h>
-+#include <linux/nvmem-consumer.h>
- #include <linux/acpi.h>
- #include <linux/platform_device.h>
- #include <linux/pwrseq/consumer.h>
-@@ -230,6 +231,8 @@ struct qca_serdev {
- 	bool bdaddr_property_broken;
- 	bool support_hfp_hw_offload;
- 	const char *firmware_name[2];
-+	bdaddr_t bdaddr;
-+	bool bdaddr_valid;
- };
- 
- static int qca_regulator_enable(struct qca_serdev *qcadev);
-@@ -2079,6 +2082,16 @@ static int qca_setup(struct hci_uart *hu)
- 	else
- 		hu->hdev->set_bdaddr = qca_set_bdaddr;
- 
-+	/* Program a BD address sourced from an nvmem cell, if provided. */
-+	if (qcadev && qcadev->bdaddr_valid) {
-+		int berr = hu->hdev->set_bdaddr(hdev, &qcadev->bdaddr);
-+
-+		if (berr)
-+			bt_dev_warn(hdev, "Failed to set nvmem bd-address: %d", berr);
-+		else
-+			bt_dev_info(hdev, "Set bd-address %pMR from nvmem", &qcadev->bdaddr);
-+	}
-+
- 	if (qcadev && qcadev->support_hfp_hw_offload)
- 		qca_configure_hfp_offload(hdev);
- 
-@@ -2420,6 +2433,41 @@ static int qca_serdev_probe(struct serdev_device *serdev)
- 	qcadev->bdaddr_property_broken = device_property_read_bool(&serdev->dev,
- 			"qcom,local-bd-address-broken");
- 
-+	/* Optional BD address from an nvmem cell (e.g. a UEFI variable). */
-+	{
-+		struct nvmem_cell *cell;
-+
-+		cell = nvmem_cell_get(&serdev->dev, "bd-address");
-+		if (IS_ERR(cell)) {
-+			err = PTR_ERR(cell);
-+			if (err == -EPROBE_DEFER)
-+				return err;
-+			/* -ENOENT/-ENOSYS: no cell configured, ignore. */
-+		} else {
-+			size_t clen;
-+			void *cdata = nvmem_cell_read(cell, &clen);
-+
-+			nvmem_cell_put(cell);
-+			if (!IS_ERR(cdata)) {
-+				/*
-+				 * Ignore an all-zero address: the backing
-+				 * storage has not been provisioned.
-+				 */
-+				if (clen == sizeof(bdaddr_t) &&
-+				    bacmp(cdata, BDADDR_ANY)) {
-+					/*
-+					 * Per the device tree bindings the nvmem
-+					 * value is MSB first, while bdaddr_t is
-+					 * LSB first.
-+					 */
-+					baswap(&qcadev->bdaddr, cdata);
-+					qcadev->bdaddr_valid = true;
-+				}
-+				kfree(cdata);
-+			}
-+		}
-+	}
-+
- 	if (data)
- 		qcadev->btsoc_type = data->soc_type;
- 	else
+Yes, your proposal to use atomic_long_add() is more straighforward.
 
--- 
-2.54.0
+> including handling that failed-exec case as described?
+>
 
+The failed-exec case is not a big deal IMO as that over-substract value will
+soon disappear after the task exit.
+
+> 
+> +static inline void sched_cache_footprint_update(struct task_struct *p, long delta)
+> +{
+> +	struct sched_cache_group *grp = rcu_deref_sched_cache_grp(p);
+> +
+> +	if (grp && delta)
+> +		atomic_long_add(delta, &grp->footprint);
+> +}
+> +
+>  static struct sched_cache_group *sched_cache_replace_grp(struct task_struct *p,
+>  							 struct sched_cache_group *new)
+>  {
+>  	struct sched_cache_group *old;
+> 
+>  	old = rcu_deref_sched_cache_grp(p);
+> +#ifdef CONFIG_NUMA_BALANCING
+> +	if (old && old != new)
+> +		atomic_long_sub(p->total_numa_faults, &old->footprint);
+> +#endif
+
+The minor issue is that the goal of sched_cache_replace_grp() was to serve as a
+helper for dealing with sched_cache_group pointer assignment, so we don't want to
+interfere with its members' values, such as footprint. If you can reuse
+sched_cache_footprint_update() in sched_cache_exit_mm() and sched_cache_exec_mmap(),
+that would make the code cleaner for future maintenance. Do you have any reason
+to keep the current form?
+
+Could you please send a formal patch? I'll launch a test with your patch applied.
+The only concern is that we convert the raw READ/WRITE_ONCE into atomic write,
+which might impact performance.
+
+thanks,
+Chenyu
