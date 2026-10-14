@@ -1,163 +1,123 @@
-Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010040.outbound.protection.outlook.com [52.101.228.40])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 635B61A238F;
-	Wed, 14 Oct 2026 03:08:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.40
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791947300; cv=fail; b=MUBTG6oiBmTYQta6oWc9sRGi/o0pJGLlcOQ5xkzNcDf2Jrv48oDGWeHuja26AAzVhodacjRZqWIj2DQjnnwr4+Du2eVb70VmziOtYWJVRO8baXNT7y/Mu9VTRC8CSNSlC5lXRYrBal6bnM+P1r55AJRr6ePTwbkq/l3Sh6BXy24=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791947300; c=relaxed/simple;
-	bh=ZCl2zXdlaBpYOOj58SMDJxJpBOQomX8/urTAbyqDXHU=;
-	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 Date:MIME-Version; b=O1ZRP/gw748nzKWWwqINO/a6GUZU02gFmoKpzOSrBs5S0U36lpSzHm4uhiHQZKMcx//ixbe9X084jkMlTaQ7h4bEDm3F3TrMR17R8vN7VSLIDpQJbX7Tvrher/Hk8cCdjLlKAZPlj643X+KpH9w4yqoa74qSNJ0SDiBQQt78/b0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=i75GGQbu; arc=fail smtp.client-ip=52.101.228.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62B2A23ABBF
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 03:08:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791947333; cv=none; b=gi2pmuNoDv3LqrUolw5L+goG9uCVTw53/6XeyJD1kL2KR0NfCW/3WXxcfHv4nCGi/wgmvBVDQBCTRvrxrNGL93HDlxNTqNuHLAYASQ22A3Wx0L5rSdVKbCOKAWHufw3orcVMSdliVYCnorx/vx40b6cAd4JH6IwIDmQbpoOCAxw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791947333; c=relaxed/simple;
+	bh=wNuc0/B10XEqQY8495S4q6n50UFD9neJbZTVxue0XTM=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=H3v9bLtPj8QNheJ3rGbuacmYpwvuENluuSk9Dkhz4eON3b4feO6H7NqJZvmyoocdMsYwk9jOifP3lqOyHMVoihNUt4KXObt8ackLIq2UMEirP6t0ZzUH5+YWPTORH5qzuWMh4Rfj7gFf6VZKGMibTOH3XGiKR4NaozescFuL+I4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fs6lnAj8; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="i75GGQbu"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sJGVjJzbFHM2vZhRYiD/cXBcetqPr2/cpzloc5ni++C+FoXOFpOzHwCsEASytzGRFVfTeGWQjaEa67Gu9OJZs753b1WJsAYmHT6op5UUEt7gzAvtNhXtv9KkE8II4ltoXpGgTxsyP/x203Wyirujml++vAMjw5T31HwAvP4Gm+fUTcXdt7I/OupOut2ITSa0qMCU3BojQuloQ9Mb6Bi536aoZt+Ooj4K80KZwDrzJILOdpYGzkN6MnM+rFHxy8cKHXVVv0JbeUWI9qtVlPRvAYgiMr+Mo+4Zh83jjuDqrcmTEFEGzxCtdPjP8v8YMXfZIdBgBN1okgE2p+4agUNE8w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YlMSMVlWKuiqzKtuTo6ZDldSvF5hIwr6IrX/7aoF4SE=;
- b=pUSPr55P+aphcumxDCq/oFLYsv0p0VgnLf08YrGEw9lvgHYhFNo5q+qFHK/i1Dyrx5riFFtAFbGY2Nb9PCjHHN/ybkrXJPJlxmdwHMJWRaVhsPS2F4/6T9eA8dKqltgOBDh9ldyE/b0dEJyPljlDSRmMtSI0ON652PQciLbBoGvv8GVVtkJQRBTwMDH4IKxBtCgyQpkkKB18N+A0rFNXECh+WLkpEUj2SgY/2UI11MYgfj+vQ8htQgajyD5qsgqiOlL7n3r5pPQ2bo3HoCjv6wseFMx5SSp/qKCWM1sDx1nxIV7/eFwhiczgXRbHFjd7rK1moOPVEmNleFILLJh0EA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YlMSMVlWKuiqzKtuTo6ZDldSvF5hIwr6IrX/7aoF4SE=;
- b=i75GGQbu5CPjV6PCtAoer79POpMoEBrjDh+xklEk91vX1LTH2y6mq+jjWscdRdqzgjcIbMy27/4tQsX0VqLWUIdVTkbuV06rzDPdhqhT2VO1so4oj/JUwwjQDTjiTc/dEy0IBN03rdj8XFAGD0717t4IKSn9dnkxLIxiQYI8Oeg=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from OS9PR01MB820914.jpnprd01.prod.outlook.com
- (2603:1096:604:50f::14) by TYCPR01MB6996.jpnprd01.prod.outlook.com
- (2603:1096:400:bf::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Wed, 14 Oct
- 2026 03:08:16 +0000
-Received: from OS9PR01MB820914.jpnprd01.prod.outlook.com
- ([fe80::12e4:c507:3730:2294]) by OS9PR01MB820914.jpnprd01.prod.outlook.com
- ([fe80::12e4:c507:3730:2294%6]) with mapi id 15.21.0496.021; Wed, 14 Oct 2026
- 03:08:16 +0000
-Message-ID: <875wz5yo67.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Cc: Mark Brown <broonie@kernel.org>,
-	<linux-sound@vger.kernel.org>,
-	<tiwai@suse.com>,
-	<perex@perex.cz>,
-	<amade@asmblr.net>,
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 0/7] ASoC: core: Create new components in sane state
-In-Reply-To: <40696247-e763-40d8-9d4e-338047cdd4fe@intel.com>
-References: <20261007133353.455185-1-cezary.rojewski@intel.com>
-	<87pkxexyr6.wl-kuninori.morimoto.gx@renesas.com>
-	<ed059f1e-2390-4e1d-bd1a-cff08a3441ad@sirena.org.uk>
-	<40696247-e763-40d8-9d4e-338047cdd4fe@intel.com>
-User-Agent: Wanderlust/2.15.9 Emacs/30.2 Mule/6.0
-Content-Type: text/plain; charset=US-ASCII
-Date: Wed, 14 Oct 2026 03:08:16 +0000
-X-ClientProxiedBy: TY6P301CA0025.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:3bf::7) To OS9PR01MB820914.jpnprd01.prod.outlook.com
- (2603:1096:604:50f::14)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fs6lnAj8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791947332; x=1823483332;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=wNuc0/B10XEqQY8495S4q6n50UFD9neJbZTVxue0XTM=;
+  b=fs6lnAj8fCTR67WfU8zKBv2JdpjFdQBgsrbPx2vMHtIyoeXuO/qcPNzp
+   DkaLyVnRlggL/bX3hgyX84Vc6Yw7p9RCDH9Zwny00nO/LgfGmm5I6atvb
+   APEjCn2oVwIXUGLPdD8v5mqeNGosR7/BFht+sXpX7G9yB1U43vxe8vX9p
+   ut8wfFnTnyaUDNNrJ6Uww5rzBRYoE5ij2n1VPIYj5xxSkvZdSWQSLaMJc
+   f2Ym6tho3riC/uHmuhMOERm002aawG0oIEthQ06f2s8InIJ1v8tl+iSKb
+   4saYVekhOFe3m2MpRt/i2H97gbftulnV/T5EfK84quQkrLZ6fNqk8TkBY
+   g==;
+X-CSE-ConnectionGUID: mXY5jMU/RzqEEjZkT9EXbQ==
+X-CSE-MsgGUID: UKELTjIQSKGj3KBLkPfmZg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="589168"
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="589168"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 20:08:51 -0700
+X-CSE-ConnectionGUID: ibsjrjX7Q0mvoN5DIjEafw==
+X-CSE-MsgGUID: OH7W00PyQi+zQ/16rqLuZQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="1414362"
+Received: from chenyu-dev.sh.intel.com ([10.239.62.107])
+  by fmviesa005.fm.intel.com with ESMTP; 13 Oct 2026 20:08:48 -0700
+From: Chen Yu <yu.c.chen@intel.com>
+To: tony.luck@intel.com,
+	reinette.chatre@intel.com
+Cc: tglx@kernel.org,
+	bp@alien8.de,
+	mingo@redhat.com,
+	dave.hansen@linux.intel.com,
+	hpa@zytor.com,
+	fenghuay@nvidia.com,
+	babu.moger@amd.com,
+	hongyu.ning@intel.com,
+	chen.yu@linux.dev,
+	x86@kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chen Yu <yu.c.chen@intel.com>
+Subject: [PATCH v9 02/12] x86/resctrl: Require 64-bit x86 for resctrl support
+Date: Wed, 14 Oct 2026 10:58:23 +0800
+Message-Id: <2d718521cb64f27bb14a377da41121f890f77d43.1791933001.git.yu.c.chen@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <cover.1791933001.git.yu.c.chen@intel.com>
+References: <cover.1791933001.git.yu.c.chen@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OS9PR01MB820914:EE_|TYCPR01MB6996:EE_
-X-MS-Office365-Filtering-Correlation-Id: eb43eb40-071a-48d6-3a69-08df29a06480
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|52116014|376014|1800799024|23010399003|366016|6133799003|18002099003|22082099003|10067099003|11063799006|261009223027099003|4143699003|56012099006|38350700014;
-X-Microsoft-Antispam-Message-Info:
-	XXxZyrKDse9IV3ACrGW/8e0CqoXyFh3s4M9YMJTQiVs3GS/JQrxIpTc5arg9TRfbvgIUgp8zlAeeVIy09MuRljHIn8qeOS0ABAYh5btbzxehaE3nXDLvxmSyCxjeMjaGDJiLpTDq3LbpVuWn69CQibY1eYFD16g7xaMSUxrVzxx9Xd3BSVP+0Nv7OWm0zwJP9RLY0Byo97BN7Nq8ZSdA6TCyqiFIxbdxf9RIbDK+4Faz0vb2PqK7REsUsQZqM7LxgoFPNCZl7QfvE4FMY+bbWM8/Z6nV2zr4RxAHcDajN9Kx3fZdFXvTjS6LL9mhE6rFrm4oKc0Yxbn08a/BqFV1EqQG5TZx7Yzax20uuyptoEsUkwY2h4X7eUUKaNIj+Pi9z/7en2Q4B7q4dDb+zcSYS3kfEAYTiwcECHizKf5LuiKTC+1PpatIMvN2QlGobNGq65pDHv8w6KPSmuiyMSWT+0bgTG2RCY883zDuXhcERwWNAHeuq5GVgF1bJQlUwjfQ0RJ0UMPUP5fxg5Pnp5p0M6Cs+E2W1O3QqzuAqNxfmJNahVF5Lg/Wr/t9ydGkgM58u0Grx5bq4b8toFLCw9fRMawiz9FMUMei2NUVv0fXcJwQMFYF8U+wTdu1UhuTE55suiFtg5N5hPBh9bfPw7BRB7LuAhf4nnAaWf/rcJefZBmSa06x1T+U7t/A+GDBAuhbolXQql+7Fs3K3LjuTUGGSL2sIMHSRi6B7NXhzXpEvus=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS9PR01MB820914.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(52116014)(376014)(1800799024)(23010399003)(366016)(6133799003)(18002099003)(22082099003)(10067099003)(11063799006)(261009223027099003)(4143699003)(56012099006)(38350700014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?dB65Q/KlqN3gFD0k2jjs+qZbXQXnDSdMWWL5jsKQ9PLzHSZ7SVedPeLy8/aY?=
- =?us-ascii?Q?BfK2COqdLUhdQxXEPUL5jG1Ij++LlBl4cmrkPan38ISNzq/+MytKFeuKOa2I?=
- =?us-ascii?Q?s65AmSfc2nW8R3bJ7wAsHiJh7sRpZUy11w3VYWB0kdcUtC0bNYjb8S2TiAUy?=
- =?us-ascii?Q?o+OmipPgf5edjLjuE+Rl9kb5DrVswcV4nY/NfMIFMBuYcjp+llB+9g9En3yS?=
- =?us-ascii?Q?WlBAi9js0UcMCyBxJDQlGuu42Ka9ny9fooLADGC7XBkpC2aHVTuHHqMjVjJa?=
- =?us-ascii?Q?FAkBt8f9OQtzIZSOPNa7eXvvgiy/8Y1owaeMi03jU2bdNYmlOVwyqPcr9esx?=
- =?us-ascii?Q?2S+i/eTI3CYwdQ9X/j6e9IznrJzr5NoaZ+vBK49X6PqOZYAAis/RXNoSHvqj?=
- =?us-ascii?Q?yLERL1d1x3Hnax01f/UFPnwvmtmMeX6UNT4Aqn9TvNEHNrdVAhfHXRBmHXFh?=
- =?us-ascii?Q?9k4417sSRxL4KXOIbRqJZ/0f4maudz7LGBgYKpH4rL6iMkiYxOqXRB9CwTR5?=
- =?us-ascii?Q?1YuENso7hY3muQnKkRbiUROc1OrpFQDMD6v7mgTH69hMJlKctdhcd/ZhlC/l?=
- =?us-ascii?Q?B5pg66rbMzI4JFoX5KsrtSYblHuDGJb4NGoaxpZ74EvB7dj3y7YY3bcm/Jfl?=
- =?us-ascii?Q?WoOyY3ufxzm0CD8y1Gtn6TGLbdztPK5r4vcfh0nfi7lLIJa4ZddX6HZu6s35?=
- =?us-ascii?Q?BzvGGbYIKrQmZoZrdPOe4WpxZeonbfS4MSxeii3NVBbgvz8C4Hum2bPycsBm?=
- =?us-ascii?Q?+5IS6uCjCJ7qJnVD5PE++Gl4xGVMrWlwZG/Dwkn96GaLooFge32R8uZzUhfZ?=
- =?us-ascii?Q?OegSRj7VV5pWSQVd5sKPf0IVb/Yra8HmWdPI1h9O6CLzNxbBX9lQSP2tQIpX?=
- =?us-ascii?Q?Moc19tudloPZ0K8pikGGaeWA9klBkF28J33dmxb9k+TaR5yJkyikgomeiGnl?=
- =?us-ascii?Q?GhsOlNXbxFGd6PRGE77OckN9b5Xyct0jutpeGux56uAWnBcCLpvh7JA1eavY?=
- =?us-ascii?Q?WbhBTp9/kosPY7dcxNCqaiJ3f2InJ10m8d5DriNFblYEcDuFKa0k24Rn1XuQ?=
- =?us-ascii?Q?gsJoUlQq6cXy9jzgzcuFJ/RzJH40iE05Y/mb7lwAfM4XYX66MHOwLbyTjA0+?=
- =?us-ascii?Q?BHF5h1GIy8LNVp+GLxgdB0CWp3yhLC/CfrsXMR4BEOLgWPS3k+7a3OJNZTXi?=
- =?us-ascii?Q?T2gwD5L0mN5q0lSUC9liJg4f492EdaL9m/tv7qzQJgbjGvLJ8Hf5p41D2yp0?=
- =?us-ascii?Q?M5nBo/ItauVy9uaASfeKXwATSdFheJTOhAQjm3qxPtKfr/PY3OUgzQQyY4sw?=
- =?us-ascii?Q?vSVAtdEnksRB2jsH6z+JdXBp8r4zZsN2dKFpDnmmbr4d1e6bVgVy+ati5VQw?=
- =?us-ascii?Q?ZEfSyVedou+SQDBq/JKb7qOIpxwaGQYRkaV1WuwLVkl547ZNMFbna9qp8hVB?=
- =?us-ascii?Q?I4OowtYdChduMEfaOHwJOqpxDXKSgmxolrA6jch7klVZQCNg+PWvA75dy/lH?=
- =?us-ascii?Q?29yosuwRSppAs65bmy4QhsZyf/xE4jUUN2hf8yNDkoULgtwTnMNKz7RO3DVu?=
- =?us-ascii?Q?yLhyIHxKEzGPpw2p2S9aID3wNhKzlHOueyal6V7IjyZiJkaz8ppyPQDm+Q1w?=
- =?us-ascii?Q?s8udPqV7NddQnYUHqkQ3yBpumFMQHqQO78kaOgNSu33lKAB3ccbPDoI5jJor?=
- =?us-ascii?Q?nAzjiKj8b33GEZQzmR/27n+BKRiUYz6DGHomlf2qgPrh26RgRdqrjxKrP+cH?=
- =?us-ascii?Q?T/PA+I4y9I72/ZS4H4fA0+8szx+Jsx7v0ofMh4j3mKIsd43sleyo?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eb43eb40-071a-48d6-3a69-08df29a06480
-X-MS-Exchange-CrossTenant-AuthSource: OS9PR01MB820914.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 03:08:16.8210
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bhEDIZmXnQLmUHMwlSw/f8a/JDa1zVCcLpEO/9k2PSZ1AHSYKX3dqMMC9M/rIjLx12GdLG10lF70MM5kO1ZOguJen0TuT05i/foBjKoyrMUh/1qiTYSxxjv7h3m4Tm3+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB6996
+Content-Transfer-Encoding: 8bit
 
+From: Tony Luck <tony.luck@intel.com>
 
-Hi Mark, Cezary
+Intel Application Energy Telemetry (AET) provides event counts in 64-bit
+registers in MMIO space. For accurate results these should be read with a
+single 64-bit load operation from the CPU.
 
-> >> I will review your patch next week, but I guess some of them (= not all)
-> >> are conflicts to mine...
-> > 
-> > Ah, unfortunately I already applied it since we're in the last week
-> > before the merge window and it didn't get a reply - sorry about that.
-> 
-> I do not see it applied to the for-next.
-> 
-> Obviously I'd appreciate the merge as the gap mentioned in the
-> cover-letter is there and the framework should sanitize the object
-> before returning it.
-> 
-> At the same time, I'm here to help with any conflicts should any arise.
+In preparation for the removal of the separate CONFIG_X86_CPU_RESCTRL_INTEL_AET
+configuration option, move the X86_64 dependency to X86_CPU_RESCTRL.
 
-It seems there was no big issue/conflicts, Thank you for your help.
-But 1 concern from my side is that the function naming
+This is in line with Dave Hansen's proposal[1] for an addition to Linux
+documentation that details reduced 32-bit x86 support.
 
-We would like to keep snd_soc_component_xxx() naming.
-New ASoC has similar functions, it is very confusable.
-
-	snd_soc_component_register()
-	snd_soc_register_component()
-
-Both are for register function, and the diff is used parameter.
-So we would like to merge them by using _Generic()
-This part had conflict with my (not yet posted) patches.
-
-I will post merge patch (by _Generic()) later.
-
-Thank you for your help !!
-
-Best regards
+Signed-off-by: Tony Luck <tony.luck@intel.com>
+Signed-off-by: Chen Yu <yu.c.chen@intel.com>
+Link: https://lore.kernel.org/all/c6ab0c24-8931-4f0d-9be6-23498ab4c38b@intel.com/ # [1]
 ---
-Kuninori Morimoto
+Changes since v8:
+- Pick up the latest version of this patch from the AET series so that
+  both series carry identical versions. Changelog wording only, no code
+  change. (Reinette Chatre)
+
+ arch/x86/Kconfig | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
+index 15fd9ec5ecac..06b5d0c4633e 100644
+--- a/arch/x86/Kconfig
++++ b/arch/x86/Kconfig
+@@ -518,7 +518,7 @@ config X86_MPPARSE
+ 
+ config X86_CPU_RESCTRL
+ 	bool "x86 CPU resource control support"
+-	depends on X86 && (CPU_SUP_INTEL || CPU_SUP_AMD)
++	depends on X86_64 && (CPU_SUP_INTEL || CPU_SUP_AMD)
+ 	depends on MISC_FILESYSTEMS
+ 	select ARCH_HAS_CPU_RESCTRL
+ 	select RESCTRL_FS
+@@ -541,7 +541,7 @@ config X86_CPU_RESCTRL
+ 
+ config X86_CPU_RESCTRL_INTEL_AET
+ 	bool "Intel Application Energy Telemetry"
+-	depends on X86_64 && X86_CPU_RESCTRL && CPU_SUP_INTEL && INTEL_PMT_TELEMETRY=y && INTEL_TPMI=y
++	depends on X86_CPU_RESCTRL && CPU_SUP_INTEL && INTEL_PMT_TELEMETRY=y && INTEL_TPMI=y
+ 	help
+ 	  Enable per-RMID telemetry events in resctrl.
+ 
+-- 
+2.43.0
+
