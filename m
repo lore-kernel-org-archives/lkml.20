@@ -1,103 +1,133 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from silver.cherry.relay.mailchannels.net (silver.cherry.relay.mailchannels.net [23.83.223.166])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B7E214ABE;
-	Wed, 14 Oct 2026 00:43:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BD9522AE65;
+	Wed, 14 Oct 2026 00:51:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.83.223.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791938637; cv=none; b=h9TG97ojUp/+BNCrKmewCo992HB9jUF8cK/nsyQh0caMdC2pexw2JKkPlur0BMkXAzD6F7Pm+Z0K7RHEiYi1/qOSRJwDANTw6oSIQv6i4wBt/UwhssKBJwJw2wuLWdy8MqQmEEKHC/RGp4NJhBgoAPDF94/O0lGvyU7dSUAorYk=
+	t=1791939071; cv=none; b=L+mU37KPckW48OXXBdiEvUG1yoGBWi+K7KizNPRescOFeByQn2ZtznMUHI61Ly5UKyylycnbXttNA/nGPOey3/ZwL1mV/pg6cCSeq8eJMsIuHhPVq4NjzKJX5Gh4nL4EVZg+hCCaSlI6g0YDW5uSiA5jpPDZhzhuwX9tlc2lo5Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791938637; c=relaxed/simple;
-	bh=DEwAOojeiongagtOlt87yYGQZMkdExwAoe8IObQaKpo=;
+	s=arc-20240116; t=1791939071; c=relaxed/simple;
+	bh=V5MMkxLynIIyKMZVS1dRz4T9xVEbijQEvuiWZPE3m6E=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rvuOTLFkKXlOf3oAv7eHS/eU8JEzCBPIVgJfH88BytOL/JsShDDq9UjVQEsy53dT3v043JNnt0O7FpmNE4ZhVzlfE1BPAObgkFXrjzYi9pdoeOFqvIkIycIlsF7TAzay2NHNRxA3sE+5H192ARuLlrApcxEjUVrjW/DNBOWd9r0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=XX09ma8s; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	 Content-Type:Content-Disposition:In-Reply-To; b=V79TeABL8TVINxeR0K6WYNh1SUEnDONdnm3124oOlO52tjGOV42TJRCsU1Y83Cv5+Rk0QaLgF9Q1Nigj+9WudPexvFwIRg3W0G+l2227XmGVHdw+JltUrUn25D9x73CSZjvC3QiM135Sml+OKQGwv9Dv31tE6A/js/9QslnivDQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net; spf=fail smtp.mailfrom=stgolabs.net; dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b=h/jwnSA4; arc=none smtp.client-ip=23.83.223.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=stgolabs.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="XX09ma8s"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 7B61440E03BE;
-	Wed, 14 Oct 2026 00:43:52 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id ztWxKXfQInQV; Wed, 14 Oct 2026 00:43:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1791938629; bh=HttXpapOfloWP3Xee/1hRMeDOKEncI51M9qhqU6fyv4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=XX09ma8six+ptwY6QNDt4Xz7KzssK0RHt3WMMKFojSXKjcPQUcXoa99zhp6B1w9sq
-	 zJfgvQnj675p4WjlGdMs2AtB6q2WBv0sv/Ds0qOtG/fdJ7dpw+6z2eNm3+aO+s8hmS
-	 jK3QpLLOq0Elvq49hKvuEvsdZFn7sSdafzsTZGfCDeavNg52i+8qXWRCgnxf03iOie
-	 ourSBUuwJC7E3kMsUeq0iD/w2S4dptT47b+cpMs9HDJZNdEsZZAfBQAeWiWwusL9sn
-	 FEDpydHx8PC77UYWcdBFeu6ZAQlcAnbizWXQtjpt//S4JjrKg/1jACXDpYqKy/f4td
-	 D1vMakca0o236kiWMylCwi000YZ6npjX1EpKMdbjKPQ2wimM0IqoSO9lY1oIFcmclQ
-	 u3swMKoxul3gZuCXHJcIrWXN1VjxjgRLAvJa32P49S6gsJpVUE+75s79WFHKQu2LwG
-	 fGyKy7KK9Q4mu/lExnstMWrdKA5WNkv7Xe+ZWKmlBCvyMy+z5VdP1lccbc9sy8/VEc
-	 a9ksDoGUwT0WaP6tVwv3mczXRgsXGmDP6S70CcI65aZFE/BUsj6SXqc3tcX0mtU166
-	 6tM2WfeBCjnz90pzs+vMHR9HPO94HyIiQmvMTmmPH9iJ2u/VB/RiduLhTOL4nMbGR5
-	 DrhRIAb2g+025JqMhsm2949o=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
+	dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b="h/jwnSA4"
+X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+	by relay.mailchannels.net (Postfix) with ESMTP id 666F340265D;
+	Wed, 14 Oct 2026 00:51:04 +0000 (UTC)
+Received: from pdx1-sub0-mail-a233.dreamhost.com (100-98-37-160.trex-nlb.outbound.svc.cluster.local [100.98.37.160])
+	(Authenticated sender: dreamhost)
+	by relay.mailchannels.net (Postfix) with ESMTPA id EA5A2403952;
+	Wed, 14 Oct 2026 00:51:03 +0000 (UTC)
+X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: dreamhost|x-authsender|dave@stgolabs.net
+X-MailChannels-Auth-Id: dreamhost
+X-Eyes-Thread: 55251ccd64ff50e0_1791939064225_2171894218
+X-MC-Loop-Signature: 1791939064225:3107968013
+X-MC-Ingress-Time: 1791939064225
+Received: from pdx1-sub0-mail-a233.dreamhost.com (pop.dreamhost.com
+ [64.90.62.162])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+	by 100.98.37.160 (trex/8.0.2);
+	Wed, 14 Oct 2026 00:51:04 +0000
+Received: from offworld (unknown [76.167.199.67])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 9735F40E00E8;
-	Wed, 14 Oct 2026 00:43:24 +0000 (UTC)
-Date: Tue, 13 Oct 2026 17:43:21 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Bjorn Helgaas <helgaas@kernel.org>,
-	Mario Limonciello <mario.limonciello@amd.com>
-Cc: Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
-	Maciej Grochowski <Maciej.Grochowski@sony.com>,
-	Nikolas Joshua Britton <nbritton@exabit.io>,
-	Geramy Loveless <gloveless@jqluv.com>,
-	Eric Auger <eauger@redhat.com>,
-	Alexey Fomenko <alexey.fomenko@intel.com>,
-	Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
-	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	LKML <linux-kernel@vger.kernel.org>,
-	Bradley Morgan <brads@mainlining.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Kai-Heng Feng <kaihengf@nvidia.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	linux-acpi@vger.kernel.org
-Subject: Re: [PATCH v3 8/8] PCI/quirks: Avoid certain address on Genoa systems
-Message-ID: <20261014004321.GBas7QKRYgjdcIPLHb@fat_crate.local>
-References: <81b4f4bf-b721-4b5b-8ddf-d040865f02b2@amd.com>
- <20261013224010.GA1589480@bhelgaas>
+	(Authenticated sender: dave@stgolabs.net)
+	by pdx1-sub0-mail-a233.dreamhost.com (Postfix) with ESMTPSA id 4j4CLb0Npnz103x;
+	Tue, 13 Oct 2026 17:51:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stgolabs.net;
+	s=dreamhost; t=1791939063;
+	bh=zBIBkkBfkVDuxh0Ch6icchuEdKUPMlE1gehV7QY9wHs=;
+	h=Date:From:To:Cc:Subject:Content-Type;
+	b=h/jwnSA4ZsjAyrrHL4kPqBr2F7LSY2i0GjjYWZdFpDy5zhf7zBRreN0In/FrDPDFM
+	 Gsjm4dcg3cahk6lkrNPIqPxg1VZe5s1E52KAG1WrOwnJv8KNKQq3jkLOV9WqqKRxwf
+	 rkhD77CkL98oIupp8igtmiBcmBRat3jv1qq+8MPjymBs1WHUsHFQ7irUo1Kts49g8J
+	 upne52iIQkDR0X0vk/3X+SvSjOXGoWV657rfo2F8JLjhl39iJys5wT6xfh+XCjOIjn
+	 u8lW9mY7DD5HFHYKX8kYi7jYi+Iq4QAdqRmRHYaTuepe3D7fJfeWpxItlfzfxHbXnK
+	 h7rPhB68kxSIw==
+Date: Tue, 13 Oct 2026 17:51:00 -0700
+From: Davidlohr Bueso <dave@stgolabs.net>
+To: Richard Cheng <icheng@nvidia.com>
+Cc: jic23@kernel.org, dave.jiang@intel.com, alison.schofield@intel.com,
+	vishal.l.verma@intel.com, iweiny@kernel.org, ming.li@zohomail.com,
+	kaihengf@nvidia.com, kobak@nvidia.com, newtonl@nvidia.com,
+	kristinc@nvidia.com, linux-cxl@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8 2/4] cxl/region: Don't leak tolerated RAM -EFAULT from
+ unmapped poison scan
+Message-ID: <20261014005100.yj6eqsewe2xnosfs@offworld>
+References: <20260922101129.52794-1-icheng@nvidia.com>
+ <20260922101129.52794-3-icheng@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-In-Reply-To: <20261013224010.GA1589480@bhelgaas>
+In-Reply-To: <20260922101129.52794-3-icheng@nvidia.com>
+User-Agent: NeoMutt/20220429
 
-On Tue, Oct 13, 2026 at 05:40:10PM -0500, Bjorn Helgaas wrote:
-> But I'm frankly terrified to touch it because I'm skeptical that two
-> more quirks are enough.  I just expect that whatever strategy BIOS
-> uses to build these maps is likely to be used on many models.  I do
+On Tue, 22 Sep 2026, Richard Cheng wrote:
 
-Do we have an explanation why BIOS is doing that shit?
+>CXL 3.0 section 8.2.9.8.4.1 requires Get Poison List to return Invalid
+>Physical Address for a volatile range when the device does not support
+>volatile poison lists.
+>
+>For example, consider a memdev with a single RAM partition and a
+>committed decoder covering only part of it:
+>
+>  RAM partition: [ committed decoder ][ unmapped tail ]
+>
+>On a device without volatile poison-list support, querying this tail
+>returns Invalid Physical Address, which cxl_internal_send_cmd() maps
+>to -EFAULT. The driver tolerates this response for RAM because volatile
+>poison-list support is optional.
+>
+>When cxl_get_poison_unmapped() was converted to iterate over partitions,
+>the RAM-specific error handling became a continue without clearing rc.
+>If no subsequent query overwrites rc, the function returns the tolerated
+>-EFAULT and incorrectly reports the enumeration as failed.
+>
+>Clear rc before continuing, restoring the previous handling of this
+>expected response for RAM partitions.
+>
+>Fixes: be5cbd0840275 ("cxl: Kill enum cxl_decoder_mode")
+>Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+>Reviewed-by: Alison Schofield <alison.schofield@intel.com>
+>Signed-off-by: Richard Cheng <icheng@nvidia.com>
 
-Mario?
+Reviewed-by: Davidlohr Bueso <dave@stgolabs.net>
 
-Btw, Mario, you should replace "Genoa" with "Zen4" everywhere so that it is
-more clear to people.
-
-Thx.
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+>---
+> drivers/cxl/core/region.c | 4 +++-
+> 1 file changed, 3 insertions(+), 1 deletion(-)
+>
+>diff --git a/drivers/cxl/core/region.c b/drivers/cxl/core/region.c
+>index 7c7287315d72..042356c71ed7 100644
+>--- a/drivers/cxl/core/region.c
+>+++ b/drivers/cxl/core/region.c
+>@@ -2954,8 +2954,10 @@ static int cxl_get_poison_unmapped(struct cxl_memdev *cxlmd,
+> 		if (!length)
+> 			continue;
+> 		rc = cxl_mem_get_poison(cxlmd, offset, length, NULL);
+>-		if (poison_efault_forgiven(rc, cxlds->part[i].mode))
+>+		if (poison_efault_forgiven(rc, cxlds->part[i].mode)) {
+>+			rc = 0;
+> 			continue;
+>+		}
+> 		if (rc)
+> 			break;
+> 	}
+>-- 
+>2.43.0
+>
