@@ -1,247 +1,145 @@
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEB835616AF
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:46:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36D414A4EE6;
+	Wed, 14 Oct 2026 15:46:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.117.225.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791992779; cv=none; b=JfjvZPjiey6HP1/v8P00PhfuEzMsCzXpMRnZVi1cHFVucUDjWKp7oznYA8RukMc5XGSz/PicPwB6T7AnPHfuEMg+TKmaBE00ZfVHhgcXkuk1/mBIBwXvciNHDEQ+D4VZbp+f25vPENULThMkP6Pd9pKHwSoBpm+JYkoeovPsuik=
+	t=1791992793; cv=none; b=I6YXjDJOu/SMMbkf1MGiQ+PyN89rryJ/bcG7A+FMsm2NV91FWJXToMJK6HxOVNRYN6i0meTDq1onyhfcr15BjWjHzXbKp/ojbuEulPaCA+XE2FRx57bQLyvgbw+Kk4jb1GEphUK9Vg3fhsGzqMLvdWJYf3oTCyEDjhKsfqhNzR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791992779; c=relaxed/simple;
-	bh=wz8QQ7DeWXQsVXbj0hmgPgxjX+r3acDRS4N1h+N0AKs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=F5Xdbe5/HqWra3gpJp/FfbfawYwm80RhyIvByAbRJbcU5hMwG2sDcqFgz9vCy8kBGFyTom3ke8VjbdXkKm35wZKhmUYRUs5/7xUtf8ll1txX4YB0Qze8XL9ZbHa+SkD6EQ2DPCRK61rIHcs/uLROUo57h31me+0MWidLqy8VCT0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UY1NWh42; arc=none smtp.client-ip=209.85.210.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791992793; c=relaxed/simple;
+	bh=ccKR6pewzp3zZMmycW2Bk4rHSSS9C7rwMGxwqRO0ZTE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=X65U7sAbLkzQ/AaB7pakSXyVcjy920qIvLZjlnEqXKF3VuxjaMxcBQjbJDghpqYpzcRWGefInHeaFIlXOdjFniXS0i9ttXGB9w/pNKHjMG/1S0XwQ7l6OnGslhmat+VouGCvOB520SckQNOCdhH6RRA0V+1n1SE5WDKBHLAeItQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com; spf=pass smtp.mailfrom=virtuozzo.com; dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b=pyMcdMZQ; arc=none smtp.client-ip=130.117.225.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UY1NWh42"
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-85377c8bc96so1873621b3a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:46:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791992775; x=1792597575; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sy22pDYfeuvek64LZa9ynQRcmq/GB+YgHcRlx1f8W0A=;
-        b=UY1NWh422kU/o+QDxqtovFhT58zLcNvmqK1fGvfzsHBknJ6Pn5kkjjm+m9+gK7ODYk
-         CISTfRlhGbVRYaYyQPUzs2sjpr2t+XIR8tksSbpThLgydFK+ScsBhRQVJbrjhn3OyZrx
-         VHQr47TBLGXXc+epkLbaBBjip7/5BBhRVHoHgz56T+bkqN+6RXkfrr76lLcYuo6t3aC8
-         1PSsAdmgD4XXgc9ePX+WGU8mnA9V0/osR7G6M+f9QXWxgSW1tIO/YbMfKpsMF6a4sMHd
-         HaWKGUCqZE8uZSJQU6e3jShln5028fOsy7kvOJKB6B3CcnL7i7zHYPHq8Hzv734L4zuA
-         pFMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791992775; x=1792597575;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sy22pDYfeuvek64LZa9ynQRcmq/GB+YgHcRlx1f8W0A=;
-        b=P5T8o49/xFSkp88JrAT//643B/7+KsQBmMzw42vn/0Qv4dw52v/xQn2KaaVcQvxay6
-         2Txbbru6Ec1JdADmJQJT8ZFnUx3A5TTLhxuQlgzCW/4bGC1Jvky8McGHzG+mX2/8kH4L
-         nAes8o5SYYc8usq6kmN1Gp1eLUnxZdDtaAtPccdc4Ud05TlovbGX2HYc6b3cxgpXHcmX
-         KFr5QABqW6sih30quLiSRwxd2LPvjSGLFyS5fydPoWcZaKfS9mEQvgaeIlJCuWm6RBhe
-         2S7l4Bx+gu05LM2KAdCQi9XcFXtqxPOX5oFIsLo6ZECfCuyI9anqj/kemaqrFIbDh/UL
-         4ODA==
-X-Forwarded-Encrypted: i=1; AKwUvBzog2z6F6XpP5wdTGbPrJSRUZEAWna0yzo+8qLbPiRWZIFpJnnzeyC3fQ56tzPewxLikP3FlB7gjeBjI7s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ0FKUAftDGYgFXQevXal6AxS5cX0LnauyrFp9SjPCSuTTQKTDe
-	LjPeS+NKHHocYcV51lJgtEHNqF7BS0mOm3Mq2hGFBeVQe0D7JN5uFJa6
-X-Gm-Gg: AYBFou3EsmEcTXiOSHChs4Lw5c7qjyIt+MA0buGJFVVSjdPs5/Q9WVOdL447VGGCcPw
-	OMKcq6tUb/SvzBUzDaiKFNrT6Cn5fBx+ghQc43eSotWYUuHnUzzmnxaTH8fKeHAy+aTpqKk1ZvE
-	Ze8p8/NCR/1jFwG5zFQSSSe7Ra7dq7mVMA2uN8DY/NDS1cnfXZRmaPAi/GgS1B+p/u3loMbaWAO
-	v9AZJJwzyenCyPmLHO+j0S1whBTGWRpEZDAH10hTFMrO62mM66TEp0g1BHk0rOiZnFu8PuG4Ndp
-	je/v+yXPRvMm4Er54AJLqGRxw5Lm2nzNsP+UzDpO6BdNPXxaHBXCencToGDCgTiEYrFmFhcVdjx
-	EDo4hHzRZGNEsYZg4k3NNt4cTEL+IwMc7QXla2lDeK4zs3MaDucdt88GXJEXLT7rpt0wALvwLpZ
-	oJ+GI5oWYv9hCJv7Sfmm08TGFDPSHjLIlIh3kMkyiTWKWeBAkcThrkPZEGhhIum1pMtQM7u2HO1
-	swa
-X-Received: by 2002:a05:6a00:22ce:b0:89d:7832:55f2 with SMTP id d2e1a72fcca58-89d78325697mr3135446b3a.36.1791992774636;
-        Wed, 14 Oct 2026 08:46:14 -0700 (PDT)
-Received: from localhost ([37.22.102.248])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89d80511db9sm1300598b3a.56.2026.10.14.08.46.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 08:46:14 -0700 (PDT)
-From: Vladislav Zaharov <vladazaharova2018@gmail.com>
-To: dakr@kernel.org,
-	jhubbard@nvidia.com
-Cc: acourbot@nvidia.com,
-	aliceryhl@google.com,
-	ttabi@nvidia.com,
-	gary@garyguo.net,
-	nova-gpu@lists.linux.dev,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	Vladislav Zaharov <vladazaharova2018@gmail.com>
-Subject: [PATCH v6 1/3] gpu: nova-core: move the debugfs root into the module data
-Date: Wed, 14 Oct 2026 22:45:52 +0700
-Message-ID: <20261014154554.231015-2-vladazaharova2018@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261014154554.231015-1-vladazaharova2018@gmail.com>
-References: <20261014154554.231015-1-vladazaharova2018@gmail.com>
+	dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b="pyMcdMZQ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=virtuozzo.com; s=relay; h=Message-Id:Content-Type:MIME-Version:Subject:Date
+	:From; bh=7vC0C3sp4wt6zauR/zTBNv+UfY1Rq7XzZhYx35u+Pg0=; b=pyMcdMZQB5ZqvVLfY1c
+	7rwJCGcTAyuR7AiTeZGd0MdA2aYDFZJzn58phDbodFcBKdGH7IN2YcOx3wdqcl5v26RPIOQRJk+9W
+	wdmRJF/vyDaBrq3xJRM0EjzN0coRIHYANvzMBDssbnclJzBt4qh4LA9B8GdUKXYM6PFonfPMLYXdd
+	wZZu00DxSxjZ9mCUYfoW3kg7GiCkivih1R3rIox90CkrPBOdH7kkAFvASow/eK1Jd0T76aGIHteb5
+	XSnMa3S42jsDsfOC4EyCiu1su0r/rdLS4S/NgC22IbUqLTpbtr/ZPXCK5sTWpIdaEyU1lhmwn/6nK
+	ETmdNvppmvsaPeQ==;
+Received: from ch-demo-asa.virtuozzo.com ([130.117.225.8] helo=f0.sw.ru)
+	by relay.virtuozzo.com with esmtp (Exim 4.96)
+	(envelope-from <khorenko@virtuozzo.com>)
+	id 1xH17r-006OFq-1f;
+	Wed, 14 Oct 2026 17:46:15 +0200
+From: Konstantin Khorenko <khorenko@virtuozzo.com>
+Date: Wed, 14 Oct 2026 17:46:10 +0200
+Subject: [PATCH v3 2/2] mm/huge_memory: deposit a page table for a special
+ PMD copied by fork
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-2-85eaec8417f6@virtuozzo.com>
+References: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-0-85eaec8417f6@virtuozzo.com>
+In-Reply-To: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-0-85eaec8417f6@virtuozzo.com>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Peter Xu <peterx@redhat.com>
+Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org, 
+ =?utf-8?q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>, 
+ dri-devel@lists.freedesktop.org, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+ linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, Konstantin Khorenko <khorenko@virtuozzo.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Sashiko <sashiko-bot@kernel.org>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2295;
+ i=khorenko@virtuozzo.com; h=from:subject:message-id;
+ bh=ccKR6pewzp3zZMmycW2Bk4rHSSS9C7rwMGxwqRO0ZTE=;
+ b=owEBbQKS/ZANAwAKAVGWCkf5YVwqAcsmYgBqz6PFClTyKPLrnnz2A76nCcPaPtA7BJ8STorQS
+ 2LGmEvfjtGJAjMEAAEKAB0WIQRWD23IPcXT0GO9CCxRlgpH+WFcKgUCas+jxQAKCRBRlgpH+WFc
+ KiGVEACF48BxKLRtenct26B7UErEMP4cCXXKBBh2OQTdVQG/gTnTUQmsq/rRFofn4M3McyTNw82
+ ySfEk1gWQrQAKYowENQdUkKwKyDbgkCZOtL5nnOp40ZO6LPu35KF7+CNCkxOzXX0ZK4KnCz1ZTl
+ x8DcoUMCJPp2pneC9getMw4C6zGaSomDz7heiaT1Rjzl69SToQWP/YEjdBfkVqbepbWKDUkFdSf
+ P3FiHQ+K9+uVwKO0rUM+RpUW4x6PoDxfAC9pYTYVGENU76vAHXbbQWjLLQ496MoINpTBeQ+icLy
+ FodLaYFVmgD0y597BAwMwDAp/8OTUeMF46epEQ4Qg05XHsn1mWEm7qZEYY4u/vdLRdmwt6PiHRj
+ TGZJnxg9ywOfkLjRQtnfTh7AQtXhed6tvMcaZ3dZqXIe9kWA3sy2puP1B/Gy8lmWRiXmYAVYY74
+ 9cmCRDVPu9RcTZZrkdjaDI6kLpuntZeN0JyPiFsJNTxVpkLjCj02cZLuQTGrFJMwQhF8DNCfL3H
+ gxbA1Ha344ZOgRPMoKvyFErRvSqB59yIGmamAXa8eIVTo93ZTzYGEnj5fJs6FFsO/EdoTML9NuM
+ hZSVV8SY3dYfeBR/monHq2Hq0CZszYYxdozeXI6Zr8RcwERZH/RGXyPJdHgD+df7ZHvxIcRlnD3
+ 9o96Qx7HyTFbI3g==
+X-Developer-Key: i=khorenko@virtuozzo.com; a=openpgp;
+ fpr=560F6DC83DC5D3D063BD082C51960A47F9615C2A
 
-The debugfs root lives in a static that init() fills in and a guard
-field of the module data clears again. That costs a `static mut`, an
-unsafe write on each side and a guard type whose only job is to undo
-the write.
+Where arch_needs_pgtable_deposit() is true, every huge PMD needs a
+deposited page table. ppc64 in hash mode keeps the hash slot array of
+the huge page in it, so vmf_insert_pfn_pmd() deposits one for each
+special PMD it maps.
 
-It also leaks. try_pin_init! drops only the fields it has already
-built, and the guard is written after the Registration, so a
-registration that fails leaves the guard unbuilt and the static set.
-Statics are never dropped, and the module is unloaded right away, so
-the directory outlives everything that could remove it. The next load
-then finds the name taken: debugfs_create_dir() returns -EEXIST, which
-Entry keeps as it would any other pointer, and the driver comes up with
-no debugfs at all until the machine is rebooted.
+copy_huge_pmd() copies a special PMD into the child without a table.
+The child then dereferences a NULL table:
 
-Have the module data own a DebugfsData instead, built before the
-registration and dropped after it, and keep only a pointer to it in the
-static, for devices that have no other way to reach the data of their
-module. What is left is one unsafe read for the users and a single write
-when the data is built, with no guard type. A registration that fails
-now drops the data that was built before it, and the directory goes with
-it.
+- on the first hash fault on the PMD, in __hash_page_thp();
+- on the zap at munmap() or exit, in hash__pmdp_huge_get_and_clear().
 
+Allocate a table before taking the page table locks and deposit it
+with the copy, as insert_pmd() does.
+
+Fixes: d1503aa9ab805 ("powerpc/64s: Add support for huge pfnmaps")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v1-1-d225c60bc316@virtuozzo.com?part=1
+Cc: stable@vger.kernel.org
 Assisted-by: LLM
-Signed-off-by: Vladislav Zaharov <vladazaharova2018@gmail.com>
+Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
 ---
- drivers/gpu/nova-core/gsp.rs       | 10 +---
- drivers/gpu/nova-core/nova_core.rs | 74 ++++++++++++++++++++++--------
- 2 files changed, 56 insertions(+), 28 deletions(-)
+ mm/huge_memory.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/drivers/gpu/nova-core/gsp.rs b/drivers/gpu/nova-core/gsp.rs
-index dda58095f40b..01ed4adffe93 100644
---- a/drivers/gpu/nova-core/gsp.rs
-+++ b/drivers/gpu/nova-core/gsp.rs
-@@ -199,15 +199,7 @@ pub(crate) fn new(
-                         logrm,
-                     };
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index bf788bb231691..2380e4e877f82 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -1961,6 +1961,11 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+ 	pmd = pmdp_get_lockless(src_pmd);
+ 	if (unlikely(pmd_present(pmd) && pmd_special(pmd) &&
+ 		     !is_huge_zero_pmd(pmd))) {
++		if (arch_needs_pgtable_deposit()) {
++			pgtable = pte_alloc_one(dst_mm);
++			if (unlikely(!pgtable))
++				goto out;
++		}
+ 		dst_ptl = pmd_lock(dst_mm, dst_pmd);
+ 		src_ptl = pmd_lockptr(src_mm, src_pmd);
+ 		spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
+@@ -1974,6 +1979,8 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+ 		if (unlikely(pmd_none(pmd))) {
+ 			spin_unlock(src_ptl);
+ 			spin_unlock(dst_ptl);
++			if (pgtable)
++				pte_free(dst_mm, pgtable);
+ 			return -EAGAIN;
+ 		}
+ 		/*
+@@ -1983,6 +1990,10 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+ 		 * wrongly write to the backend MMIO.
+ 		 */
+ 		VM_WARN_ON_ONCE(vma_is_cow_mapping(src_vma) && pmd_write(pmd));
++		if (pgtable) {
++			mm_inc_nr_ptes(dst_mm);
++			pgtable_trans_huge_deposit(dst_mm, dst_pmd, pgtable);
++		}
+ 		goto set_pmd;
+ 	}
  
--                    #[allow(static_mut_refs)]
--                    // SAFETY: `DEBUGFS_ROOT` is created before driver registration and cleared
--                    // after driver unregistration, so no probe() can race with its modification.
--                    //
--                    // PANIC: `DEBUGFS_ROOT` cannot be `None` here.  It is set before driver
--                    // registration and cleared after driver unregistration, so it is always
--                    // `Some` for the entire lifetime that probe() can be called.
--                    let log_parent: &debugfs::Dir = unsafe { crate::DEBUGFS_ROOT.as_ref() }
--                        .expect("DEBUGFS_ROOT not initialized");
-+                    let log_parent: &debugfs::Dir = crate::debugfs_data(dev).root();
- 
-                     log_parent.scope(log_buffers, dev.name(), |logs, dir| {
-                         dir.read_binary_file(c"loginit", &logs.loginit.0);
-diff --git a/drivers/gpu/nova-core/nova_core.rs b/drivers/gpu/nova-core/nova_core.rs
-index a8f6dc22057b..ee3a6600f320 100644
---- a/drivers/gpu/nova-core/nova_core.rs
-+++ b/drivers/gpu/nova-core/nova_core.rs
-@@ -4,6 +4,7 @@
- 
- use kernel::{
-     debugfs,
-+    device,
-     driver::Registration,
-     pci,
-     prelude::*,
-@@ -32,40 +33,75 @@
- 
- pub(crate) const MODULE_NAME: &core::ffi::CStr = <LocalModule as kernel::ModuleMetadata>::NAME;
- 
--// TODO: Move this into per-module data once that exists.
--static mut DEBUGFS_ROOT: Option<debugfs::Dir> = None;
-+/// Pointer to the [`DebugfsData`] the module owns.
-+///
-+/// A device has no way to reach the data of its module, so code running on behalf of a bound
-+/// device goes through here instead.
-+///
-+/// Written once, while the module data is built, and never again: what it points at is dropped
-+/// only after the driver is unregistered, so it is good for as long as any device is bound, and
-+/// is not read outside of that.
-+// TODO: Drop this once devices can reach the data of their module.
-+static mut DEBUGFS_DATA: *const DebugfsData = core::ptr::null();
- 
--/// Guard that clears `DEBUGFS_ROOT` when dropped.
--struct DebugfsRootGuard;
-+/// Data the module shares with every GPU it drives.
-+///
-+/// Reached from a device through [`debugfs_data()`].
-+#[pin_data]
-+pub(crate) struct DebugfsData {
-+    /// Root directory of the driver in debugfs.
-+    root: debugfs::Dir,
-+}
-+
-+impl DebugfsData {
-+    /// Creates the shared data.
-+    fn new() -> impl PinInit<Self> {
-+        pin_init!(Self {
-+            root: debugfs::Dir::new(c"nova-core"),
-+        })
-+    }
- 
--impl Drop for DebugfsRootGuard {
--    fn drop(&mut self) {
--        // SAFETY: This guard is dropped after `_driver` (due to field order),
--        // so the driver is unregistered and no probe() can be running.
--        unsafe { DEBUGFS_ROOT = None };
-+    /// Returns the root directory of the driver in debugfs.
-+    pub(crate) fn root(&self) -> &debugfs::Dir {
-+        &self.root
-     }
- }
- 
-+/// Returns the data the module shares with its devices.
-+///
-+/// The bound device is what makes this sound: the data is built before the driver is registered
-+/// and dropped after it is unregistered, so it outlives every device that is bound, and the
-+/// returned reference cannot be held past the one it is taken for.
-+pub(crate) fn debugfs_data<'a>(_dev: &'a device::Device<device::Bound>) -> &'a DebugfsData {
-+    // SAFETY: A device can only be bound once the driver is registered, which happens after
-+    // `DEBUGFS_DATA` is written, so it points at the data of this module, which lives at least
-+    // as long as the caller's device is bound.
-+    unsafe { &*DEBUGFS_DATA }
-+}
-+
- #[pin_data]
- struct NovaCoreModule {
--    // Fields are dropped in declaration order, so `_driver` is dropped first,
--    // then `_debugfs_guard` clears `DEBUGFS_ROOT`.
-+    // Fields are dropped in declaration order, so the registration goes first and no probe() can
-+    // still be running once the shared data is torn down. `init()` builds them the other way
-+    // round, as the data has to be there before the first probe() reaches for it.
-     #[pin]
-     _driver: Registration<pci::Adapter<driver::NovaCoreDriver>>,
--    _debugfs_guard: DebugfsRootGuard,
-+    #[pin]
-+    _debugfs: DebugfsData,
- }
- 
- impl InPlaceModule for NovaCoreModule {
-     fn init(module: &'static kernel::ThisModule) -> impl PinInit<Self, Error> {
--        let dir = debugfs::Dir::new(c"nova-core");
--
--        // SAFETY: We are the only driver code running during init, so there
--        // cannot be any concurrent access to `DEBUGFS_ROOT`.
--        unsafe { DEBUGFS_ROOT = Some(dir) };
--
-         try_pin_init!(Self {
-+            _debugfs <- DebugfsData::new(),
-+            _: {
-+                // SAFETY: Nothing reads `DEBUGFS_DATA` before a device is bound, which cannot
-+                // happen until the driver is registered below. What it points at is dropped only
-+                // once the driver is unregistered, so it is valid for as long as any device is
-+                // bound, and nothing reads it outside of that.
-+                unsafe { DEBUGFS_DATA = &*_debugfs };
-+            },
-             _driver <- Registration::new(MODULE_NAME, module),
--            _debugfs_guard: DebugfsRootGuard,
-         })
-     }
- }
+
 -- 
-2.56.0
+2.43.0
 
