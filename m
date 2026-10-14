@@ -1,47 +1,47 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BE72541E6E
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:06:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D41A53CA9A
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:06:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791986799; cv=none; b=crOxyYu47obXO/6BY+z/WIhCTB8Or0wwoVcOYGPk+HXJBq9VXzjuAASSv12AQQGx0O7J+T66WTxGWlwKpGyecINRtgJc0Tbe1akIYT9OsILnoLNzRa4TPKth2UoSCHQO0HnYLzqQFOyg7iHbU6zfCc1nv5lEBdtSP+Tvc52Ey8U=
+	t=1791986800; cv=none; b=rKD2wJ2p1Cni7qhcwe0vxbqVEZG5KFSiLIWO7AnyE2X4JfPsYJSnIN4Uma/v1j0ip07VXY5d5OvXbfKTz8d8jpa/F6KuUcwkmJm4MF4tWed/tEFoDX4otm8hpperWph6tHRuQV1VhSiv6SElIPOEIrG7fjXpZ2ZTaNsOt6cOoas=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791986799; c=relaxed/simple;
-	bh=6SYz5Uc2wViAOPgGfOwl3BAaSMS7tgHVetq32KqXoiw=;
+	s=arc-20240116; t=1791986800; c=relaxed/simple;
+	bh=LujFeEFHTlf8r4xtThYtsf09EiQBw8KWvKyt7TX32pw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Y0536C0xZ5ZTYku3O7nct7/jcaAorAGyBQPZdafwFUHCW6WEhp11iGk3E6VErCJN97kJRAofdcpVuyb0CrIOHnArugcYSfqGxAFDuD+bIyoLIB4UR1netS4Ea5IUn5gXu1Tf0/YTr+Y8cdP66a47yNnVW4BUHTDyiHy19KdKJjg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=CIzUsecC; arc=none smtp.client-ip=170.10.133.124
+	 MIME-Version; b=RyiSbeTVoJiuTJEe8imvW28kA9jibVZXf4U27fImIdQ0fqq00zdogHRrYBTMwJj7e+Tax5oLDHtp1wKBgbG7zs7BvYJgcYmwc2ThlGAb9IzGQRAfE6a1Op4b1jwHffV0/YAxDOcPyzMUKb7kX5jyGKUEJPS00XAlwsJehB0P9Qk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=IvDbb0Np; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="CIzUsecC"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="IvDbb0Np"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791986793;
+	s=mimecast20190719; t=1791986789;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=0s+tG5dNwPT4lFxjIYixkIYbDTXJP5q7QQHRZdBmfSo=;
-	b=CIzUsecCwjFRv1NpkHyrGSJ6V585sErTQtXJwYzR5/L3HyZy1j2RY8/VgqkpbvUhq8CVS0
-	95zAKzrV28cnYjWjJ+qfRo1c5xnjPQfqHCOn3btKpNMYnGj16N58XYDJFFnXbnIT6n5Eyt
-	bw5LS6gDRXVcD2BB21tgO6b97RdiEQQ=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+	bh=hrZAE//JZ9CGtwCWdm+Bf3yq42GOp1UifGGCYSiPHgA=;
+	b=IvDbb0NpB6xYW9DezUY2Qwu7DpFsGEpmp4VTglodlSEkr2DnvI1kEztSVjyfvMjhw8v344
+	r7CBcyUrAYFUCZWJYNtf0qHetm5pPahrSytKiB5M406LMlsk4MhBiEI05aHEteYN+nqoWZ
+	Dy4LMH8N1zFZXE+lmLx7qh8+8RvFSVc=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-94-KdOVWCr9P6eSMzoWeDKomQ-1; Wed,
- 14 Oct 2026 14:06:29 +0000
-X-MC-Unique: KdOVWCr9P6eSMzoWeDKomQ-1
-X-Mimecast-MFC-AGG-ID: KdOVWCr9P6eSMzoWeDKomQ_1791986787
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-417-UklYtfWNN0aE0IJFyRAuNA-1; Wed,
+ 14 Oct 2026 14:06:25 +0000
+X-MC-Unique: UklYtfWNN0aE0IJFyRAuNA-1
+X-Mimecast-MFC-AGG-ID: UklYtfWNN0aE0IJFyRAuNA_1791986783
 Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C8D8B1955F00;
-	Wed, 14 Oct 2026 14:06:27 +0000 (UTC)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 661181800656;
+	Wed, 14 Oct 2026 14:06:23 +0000 (UTC)
 Received: from llong-thinkpadp16vgen1.rmtusnh.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id CFD5F418;
-	Wed, 14 Oct 2026 14:06:25 +0000 (UTC)
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id DF47A418;
+	Wed, 14 Oct 2026 14:06:20 +0000 (UTC)
 From: Waiman Long <longman@redhat.com>
 To: Ridong Chen <ridong.chen@linux.dev>,
 	Tejun Heo <tj@kernel.org>,
@@ -57,9 +57,9 @@ Cc: cgroups@vger.kernel.org,
 	Hui Peng <benquike@gmail.com>,
 	Guopeng Zhang <guopeng.zhang@linux.dev>,
 	Waiman Long <longman@redhat.com>
-Subject: [PATCH-next v3 9/9] selftests/cgroup: Skip test_cpuset_prs.sh test if some required CPUs are offline
-Date: Wed, 14 Oct 2026 10:05:48 -0400
-Message-ID: <20261014140548.575122-10-longman@redhat.com>
+Subject: [PATCH-next v3 7/9] selftests/cgroup: Add tests for isolcpus housekeeping check
+Date: Wed, 14 Oct 2026 10:05:46 -0400
+Message-ID: <20261014140548.575122-8-longman@redhat.com>
 In-Reply-To: <20261014140548.575122-1-longman@redhat.com>
 References: <20261014140548.575122-1-longman@redhat.com>
 Precedence: bulk
@@ -71,116 +71,228 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-The test_cpuset_prs.sh test assumes that all the relevant CPUs being
-tested are online. If some of them are offline, some of the test cases
-may fail. So skip the test if the required CPUs are either offline or
-not present.
+Whenever a partition is enabled or the cpumask of a valid partition
+changes, a housekeeping check will be performed to ensure that the
+change won't violate the imposed housekeeping constraints. One of the
+constraints is that a boot-time isolated CPU will not be used to form
+a non-isolated root partition. This requires the presence of boot-time
+isolated CPUs when a test is run.
 
-While at it, the cleanup() and online_cpus() functions as well as the
-trap statement to run cleanup() on exit are moved earlier to make sure
-the cleanup function will be run if the test is somehow aborted early.
+The test_cpuset_prs.sh test script is now updated to run a set a
+special housekeeping check tests that will only be run if a suitable
+boot-time isolated CPU is present. This will enable us to detect bugs
+or regressions in the housekeeping checking code though a "isolcpus="
+boot parameter with CPUs beyond CPU 8 must be present.
+
+This patch also includes a minor fix to the REMOTE_TEST_MATRIX to avoid
+test failure when the -v option is used.
 
 Signed-off-by: Waiman Long <longman@redhat.com>
 ---
- .../selftests/cgroup/test_cpuset_prs.sh       | 64 +++++++++++++------
- 1 file changed, 43 insertions(+), 21 deletions(-)
+ .../selftests/cgroup/test_cpuset_prs.sh       | 120 ++++++++++++++----
+ 1 file changed, 98 insertions(+), 22 deletions(-)
 
 diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-index ea0ebbdf4bb3..078475c9387a 100755
+index 85a4f87840b4..5aac0df86593 100755
 --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
 +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-@@ -67,6 +67,30 @@ then
- 	echo Y > /sys/kernel/debug/sched/verbose
- fi
+@@ -86,26 +86,37 @@ echo "" > test/cpuset.cpus
  
-+cleanup()
-+{
-+	online_cpus
-+	cd $CGROUP2
-+	rmdir A1/A2/A3 A1/A2 A1 B1 test/A1 test/B1 test > /dev/null 2>&1
-+	rmdir rtest/p1/c11 rtest/p1/c12 rtest/p2/c21 \
-+	      rtest/p2/c22 rtest/p1 rtest/p2 rtest > /dev/null 2>&1
-+	[[ -n "$SCHED_DEBUG" ]] &&
-+		echo "$SCHED_DEBUG" > /sys/kernel/debug/sched/verbose
+ #
+ # If isolated CPUs have been reserved at boot time (as shown in
+-# cpuset.cpus.isolated), these isolated CPUs should be outside of CPUs 0-8
+-# that will be used by this script for testing purpose. If not, some of
+-# the tests may fail incorrectly. Wait a bit and retry again just in case
+-# these isolated CPUs are leftover from previous run and have just been
+-# cleaned up earlier in this script.
++# /sys/devices/system/cpu/isolated), these isolated CPUs should be outside of
++# CPUs 0-8 that will be used by this script for testing purpose. If not, some
++# of the tests may fail incorrectly.
+ #
+-# These pre-isolated CPUs should stay in an isolated state throughout the
++# The current set of isolated CPUs (as shown in cpuset.cpus.isolated) should
++# be the same as the boot value. If not, wait a bit and retry again just in
++# case these isolated CPUs are leftover from previous run and have just been
++# cleaned up earlier in this script. If they still don't match, we report an
++# warning and skip the test.
++#
++# These boot isolated CPUs should stay in an isolated state throughout the
+ # testing process for now.
+ #
+-BOOT_ISOLCPUS=$(cat $CGROUP2/cpuset.cpus.isolated)
++BOOT_ISOLCPUS=$(cat /sys/devices/system/cpu/isolated)
++CURRENT_ISOLCPUS=$(cat $CGROUP2/cpuset.cpus.isolated)
++FIRST_ISOLCPUS=
++TEST_ISOLCPUS=
++
+ [[ -n "$BOOT_ISOLCPUS" ]] && {
++	FIRST_ISOLCPUS=$(echo $BOOT_ISOLCPUS | sed -e "s/[,-].*//")
++	echo "Boot isolated CPUs: $BOOT_ISOLCPUS"
++	[[ $FIRST_ISOLCPUS -le 8 ]] &&
++		skip_test "Boot isolated CPUs overlap CPUs to be tested"
 +}
 +
-+online_cpus()
++[[ "$BOOT_ISOLCPUS" != "$CURRENT_ISOLCPUS" ]] && {
+ 	sleep 0.5
+-	BOOT_ISOLCPUS=$(cat $CGROUP2/cpuset.cpus.isolated)
++	CURRENT_ISOLCPUS=$(cat $CGROUP2/cpuset.cpus.isolated)
++	[[ "$BOOT_ISOLCPUS" != "$CURRENT_ISOLCPUS" ]] &&
++		skip_test "Current isolated CPUs ($CURRENT_ISOLCPUS) don't match boot isolated CPUs!"
+ }
+-if [[ -n "$BOOT_ISOLCPUS" ]]
+-then
+-	[[ $(echo $BOOT_ISOLCPUS | sed -e "s/[,-].*//") -le 8 ]] &&
+-		skip_test "Pre-isolated CPUs ($BOOT_ISOLCPUS) overlap CPUs to be tested"
+-	echo "Pre-isolated CPUs: $BOOT_ISOLCPUS"
+-fi
+ 
+ cleanup()
+ {
+@@ -202,7 +213,7 @@ test_add_proc()
+ #
+ # ECPUs    - effective CPUs of cpusets
+ # Pstate   - partition root state
+-# ISOLCPUS - isolated CPUs (<icpus>[,<icpus2>])
++# ISOLCPUS - isolated CPUs (<icpus>[,<icpus2>] or .)
+ #
+ # Note that if there are 2 fields in ISOLCPUS, the first one is for
+ # sched-debug matching which includes offline CPUs and single-CPU partitions
+@@ -446,6 +457,46 @@ TEST_MATRIX=(
+ 	"   C0-3     .      .    C4-5   X3-5     .      .      .     1 A1:0-3|B1:4-5"
+ )
+ 
++# Test matrix with boot time isolated CPUs present for housekeeping check testing
++ISOLCPUS_TEST_MATRIX=(
++	#  old-A1 old-A2 old-A3 old-B1 new-A1 new-A2 new-A3 new-B1 fail ECPUs Pstate ISOLCPUS
++	#  ------ ------ ------ ------ ------ ------ ------ ------ ---- ----- ------ --------
++	# A local isolated partition containing boot isolated CPU cannot be
++	# switched to root partition.
++	" C1-2,I:P2  .      .      .      P1     .      .      .     0 A1:1-2,I A1:P-1 ."
++
++	# A remote isolated partition containing boot isolated CPU cannot be
++	# switched to root partition.
++	" X1-2,I CX1-2,I:P2 .      .       .    P1      .      .     0 A2:1-2,I A2:P-1 ."
++
++	# A local isolated partition with a boot isolated CPU distributed to a
++	# child isolated partition also cannot be switched to a root partition.
++	" C1-3,I:P2 C1,I:P2 .      .      P1     .      .      .     0 A1:1-3,I|A2:1,I A1:P-1|A2:P-2 ."
++
++	# A remote isolated partition with a boot isolated CPU distributed to a
++	# child isolated partition also cannot be switched to a root partition.
++	" X1-3,I C1-3,I:P2 C1,I:P2 .       .    P1      .      .     0 A2:1-3,I|A3:1,I A2:P-1|A3:P-2 ."
++
++	# The cpumask of a local root partition cannot be changed to include a
++	# boot isolated CPU.
++	" C1-2:P1    .      .      .     C2,I    .      .      .     0 A1:2,I A1:P-1 ."
++
++	# The cpumask of a remote root partition cannot be changed to include a
++	# boot isolated CPU.
++	" CX1-2,I  CX1-2:P1 .      .       .   CX2,I    .      .     0 A1:1-2,I|A2:2,I A2:P-1 ."
++
++	# Passing an boot isolated CPU down to a child root partition will invalidate it
++	" C2-3,I:X2-3 CX2-3,I .    .       .    P1      .      .     0 A1:I|A2:2-3 A2:P1 ."
++	" C2-3,I:X2-3 CX2-3,I:P1 . .     X2-3,I  .      .      .     0 A1:2-3,I|A2:2-3,I A2:P-1 ."
++
++	# An invalidated root partition must stay invalid when cpus grows but
++	# effective xcpus still contains a boot isolated CPU.
++	" CX1,I:P1   .      .      .     C1,2,I  .      .      .     0 A1:1-2,I|XA1:1,I A1:P-1 ."
++
++	# Growing cpus.exclusive must not revive it either
++	" CX1-2,I:X1,I:P1 . .      .     X1,2,I  .      .      .     0 A1:1-2,I|XA1:1-2,I A1:P-1 ."
++)
++
+ #
+ # Cpuset controller remote partition test matrix.
+ #
+@@ -498,8 +549,8 @@ REMOTE_TEST_MATRIX=(
+ 							 p1:P1|c11:P1|c12:P-1"
+ 	# Narrowing cpuset.cpus to previously sibling-excluded CPUs should
+ 	# not return CPUs that were never actually owned.
+-	"  C1-4:P1   .   C1-2:P1  C1-3:P2  .       .  \
+-	      .      .     .       C3      .       .     p1:4|c11:1-2|c12:3 \
++	"  C1-5:P1   .   C1-2:P1  C1-3:P2  .       .  \
++	      .      .     .       C3      .       .     p1:4-5|c11:1-2|c12:3 \
+ 							 p1:P1|c11:P1|c12:P2 3"
+ 	# Expanding cpuset.cpus to include a previously sibling-excluded CPU
+ 	# after the sibling has become a member should correctly request it.
+@@ -543,6 +594,27 @@ write_cpu_online()
+ 	pause 0.05
+ }
+ 
++#
++# Set the CPUS variable
++#  $1 - the passed in cpu parameter
++#
++# The special "I" CPU if present is being replaced by the first boot CPU
++# and assigned to the "CPUS" variable when the TEST_ISOLCPUS flag is set.
++# If not, the program will exit with an error.
++#
++set_cpus()
 +{
-+	[[ -n "$OFFLINE_CPUS" ]] && {
-+		for C in $OFFLINE_CPUS
-+		do
-+			write_cpu_online ${C}=1
-+		done
-+	}
++	local cpus=$1
++	if [[ $(expr "$cpus" : ".*I") -gt 0 ]]
++	then
++		[[ -z "$TEST_ISOLCPUS" ]] &&
++			skip_test "Special 'I' CPU added to non-isolcpus testing matrix!"
++		CPUS=$(echo $cpus | sed -e "s/I/$FIRST_ISOLCPUS/")
++	else
++		CPUS=$cpus
++	fi
 +}
 +
-+# Clean up the cgroupfs directory if the test is aborted.
-+trap cleanup 0 2 3 6
+ #
+ # Set controller state
+ #  $1 - cgroup directory
+@@ -577,16 +649,16 @@ set_ctrl_state()
+ 		}
+ 		case $CMD in
+ 		    X*)
+-			CPUS=${CMD#?}
++			set_cpus ${CMD#?}
+ 			COMM="echo $CPUS > $XFILE"
+ 			eval $COMM $REDIRECT
+ 			;;
+ 		    CX*)
+-			CPUS=${CMD#??}
++			set_cpus ${CMD#??}
+ 			COMM="echo $CPUS > $CFILE; echo $CPUS > $XFILE"
+ 			eval $COMM $REDIRECT
+ 			;;
+-		    C*) CPUS=${CMD#?}
++		    C*) set_cpus ${CMD#?}
+ 			COMM="echo $CPUS > $CFILE"
+ 			eval $COMM $REDIRECT
+ 			;;
+@@ -980,8 +1052,11 @@ run_state_test()
+ 	I=0
+ 	eval CNT="\${#$TEST[@]}"
+ 
++	# Skip isolcpus specific test matrix if FIRST_ISOLCPUS not defined
++	[[ -n "$TEST_ISOLCPUS" && -z "$FIRST_ISOLCPUS" ]] && return
 +
- cd $CGROUP2
- echo +cpuset > cgroup.subtree_control
+ 	reset_cgroup_states
+-	console_msg "Running state transition test ..."
++	console_msg "Running state transition test for $TEST ..."
  
-@@ -141,16 +165,25 @@ TEST_ISOLCPUS=
- 		skip_test "Current isolated CPUs ($CURRENT_ISOLCPUS) don't match boot isolated CPUs!"
- }
+ 	while [[ $I -lt $CNT ]]
+ 	do
+@@ -1000,7 +1075,7 @@ run_state_test()
+ 		NEW_A3=$7
+ 		NEW_B1=$8
+ 		RESULT=$9
+-		ECPUS=${10}
++		ECPUS=$(echo ${10} | sed -e "s/I/${FIRST_ISOLCPUS}/g")
+ 		STATES=${11}
+ 		ICPUS=${12}
  
--cleanup()
--{
--	online_cpus
--	cd $CGROUP2
--	rmdir A1/A2/A3 A1/A2 A1 B1 test/A1 test/B1 test > /dev/null 2>&1
--	rmdir rtest/p1/c11 rtest/p1/c12 rtest/p2/c21 \
--	      rtest/p2/c22 rtest/p1 rtest/p2 rtest > /dev/null 2>&1
--	[[ -n "$SCHED_DEBUG" ]] &&
--		echo "$SCHED_DEBUG" > /sys/kernel/debug/sched/verbose
--}
-+#
-+# This test assumes that all the relevant CPUs being tested are online.
-+# If some of them are offline, some of the tests may fail. So we are going to
-+# skip running this test script if some of the required CPUs may be offline.
-+# The required CPUs include CPUs 0-7 and the first boot time isolated CPU if
-+# present. However the check below is not exhaustive and can be a false
-+# positive, but users should not run this test if some CPUs are offline.
-+#
-+ONLINE_CPUS=$(cat /sys/devices/system/cpu/online | sed -e "s/,.*//")
-+ONLINE_FIRST=$(echo $ONLINE_CPUS | sed -e "s/-.*//")
-+ONLINE_LAST=$(echo $ONLINE_CPUS | sed -e "s/.*-//")
-+if [[ -n "$FIRST_ISOLCPUS" ]]
-+then
-+	LAST_REQUIRED_CPU=$FIRST_ISOLCPUS
-+else
-+	LAST_REQUIRED_CPU=7
-+fi
-+[[ $ONLINE_FIRST != 0 || $ONLINE_LAST -lt $LAST_REQUIRED_CPU ]] &&
-+	skip_test "Some of the required CPUs are offline or not present!"
- 
- # Pause in ms
- pause()
-@@ -748,16 +781,6 @@ set_ctrl_state_noerr()
- 	}
- }
- 
--online_cpus()
--{
--	[[ -n "$OFFLINE_CPUS" ]] && {
--		for C in $OFFLINE_CPUS
--		do
--			write_cpu_online ${C}=1
--		done
--	}
--}
--
- #
- # Remove all the test cgroup directories
- #
-@@ -1391,7 +1414,6 @@ test_inotify()
- 	echo "" > cpuset.cpus
- }
- 
--trap cleanup 0 2 3 6
+@@ -1286,6 +1361,7 @@ test_inotify()
+ trap cleanup 0 2 3 6
  run_state_test TEST_MATRIX
  run_remote_state_test REMOTE_TEST_MATRIX
- TEST_ISOLCPUS=1 run_state_test ISOLCPUS_TEST_MATRIX
++TEST_ISOLCPUS=1 run_state_test ISOLCPUS_TEST_MATRIX
+ test_isolated
+ test_boot_isolated
+ test_inotify
 -- 
 2.55.0
 
