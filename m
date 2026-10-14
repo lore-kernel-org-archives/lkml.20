@@ -1,432 +1,293 @@
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B65341F375;
-	Wed, 14 Oct 2026 04:48:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECCA730DEA3;
+	Wed, 14 Oct 2026 04:50:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791953285; cv=none; b=rZhLsD8RuQWH6etf8YBAu1EjSNv7Jyx1GqDI55/hzkWYdlxTh+NMzOEeqIfGWDTPQfY4OcWg8hKCTjheE7j8khb3WU8ycYwWyWmc5DxDFx64XmeeuumfcrCd11y4jl41UfjnLmwT7dX8i7DyzHPtVdQM1TQ3Ub2+71QQ8tb9G8Y=
+	t=1791953409; cv=none; b=NaCDLE6sjVbc/AFPMJ8a1LwOph/XhnVeZL8YBa37QE59w0LB9BK1U/Pfzq5ek1mQj70fOjt8k2/b522LyxZQ08krOufhoW7C75kSer7+LKcgk9lBeiWnpgFAAfqnyRRufGiNfvcarbEhhr0nBw29BqlmziuxqXUdbbSoEGa9th0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791953285; c=relaxed/simple;
-	bh=hhQwSFJAR+Msu/p3nQLQAE+klG0TysAT5LHvt7c+GjQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nPcsB4oZ1+iTQmyFkCiDulMmjZm/9rW6/BcET2+zmJVaX0rf/ecpDwscv+w44q+Mv8YMr+ZWSZE/QUZKR0c9pIgNN0HbmLxRRY7vh4wCKedjOwrIevZlHKJTgC1EDHFhjdHTELms4HW3eLRjO7/dYT/8Z4UdVYciWDzAm0e9yWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=VrA2jzrk; arc=none smtp.client-ip=203.29.241.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
+	s=arc-20240116; t=1791953409; c=relaxed/simple;
+	bh=lSs7B+ZA8LBp/9Mh53EedF5/69EojGfW74Qk0Mje+ag=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CnKqEyRlR2WskkEs+alM9fCQ1p1x5gXav+atHcgvO84nJr5Hf3OCxC00xWl3iC8E3sxVIRfXWMWaxg3OyxhRxxKwWRS4miHRvzh+W+wBM96JnyBtZTXb+3I2k7MibCsWSx4CDD7NLwdvG0KLH5Fe/APc/yxnd6ygl1cm9eKuw6M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QjI5wdcl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="VrA2jzrk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1791953277;
-	bh=bsU3BQKkEZQpwZQlJ87DA2fdswtpaHajk7QK6mPuvgE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=VrA2jzrkj7NDiv+irIxVpONiVDa6bXCAmpNObpbNiT/ljZ08xklSstSArOw6ZKWIJ
-	 C8HgftJwMopJAbVnG7Nwvg1erg3nrW4369vkdpX2hdD+YXiSMHaYjxfCROCpcdikNK
-	 8XFiPG3wtL5lNIHc2Nh4lgGstahfe5b+lM8cgPz8lWLneY1wqOxI9tTLvpWL1CMBYW
-	 I/E5fyvu20isLgsOP61kJo8bSuFNWRcstE7eCAlbnQDs4rC8Tk1yxvaFGta7ZTepu4
-	 FLSBOKplhmbhLI6ueX/8XeeRZusDtGyMiwiin/WLk+294OGQtyUDNHmMxtq+Lv1rmr
-	 dmSnUBBoF7OXQ==
-Received: by codeconstruct.com.au (Postfix, from userid 10004)
-	id 5A1616FD5A; Wed, 14 Oct 2026 12:47:57 +0800 (AWST)
-From: James Lee <james@codeconstruct.com.au>
-Date: Wed, 14 Oct 2026 12:47:36 +0800
-Subject: [PATCH net-next v3 6/7] net: mctp: usblib: Add initial kunit tx
- tests
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QjI5wdcl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 686D01F000FF;
+	Wed, 14 Oct 2026 04:50:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791953407;
+	bh=cl47tcviVDpqqzgHdWKVjrgzkSuGWKUJT78Tht8dJ3M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QjI5wdcl2w+jbkUo6EGj6OMqbxNrdS9hVOWqJ/BV0wDXujaCSUf2owcBOTvFsiMel
+	 JLoSHYjm8x8WoD4vsM19IATLN2tqqJMmT3ETDZkEgIFVtKs/2CE6E9jvqHpUjBvErg
+	 SjkghPgK6gr8JNxY1RILRJUvHZMVs6jXpIL65/DHwyQ/g/N1QYe9Nz8hYEMxX0J7NM
+	 RuhVYDEUJYyvz7aljgX74uB+Hn73J7hzXJaYAFBIK5lVrcO4yavFE76Wd+ePkwmCSq
+	 m/Rv4UhICmB24epXXWUQYswhfz+/WTmFX9TIOOb6h6WNnXA4uNNQtrevExXUBtAg95
+	 6RMitQSvt6hFg==
+Date: Wed, 14 Oct 2026 12:30:06 +0800
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Cc: linux-riscv@lists.infradead.org, pjw@kernel.org, palmer@dabbelt.com,
+	aou@eecs.berkeley.edu, alex@ghiti.fr, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3] riscv: Fix icache flush being skipped for a second mm
+ mapping an exec folio
+Message-ID: <as8FTtH7yzeKCpE7@xhacker>
+References: <20261009221957.760606-1-nickolai@csail.mit.edu>
+ <20261010155110.764010-1-nickolai@csail.mit.edu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-dev-mctp-usb-lib-test-v3-6-ee5bc3ea1db1@codeconstruct.com.au>
-References: <20261014-dev-mctp-usb-lib-test-v3-0-ee5bc3ea1db1@codeconstruct.com.au>
-In-Reply-To: <20261014-dev-mctp-usb-lib-test-v3-0-ee5bc3ea1db1@codeconstruct.com.au>
-To: Jeremy Kerr <jk@codeconstruct.com.au>, 
- Matt Johnston <matt@codeconstruct.com.au>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-hardening@vger.kernel.org, James Lee <james@codeconstruct.com.au>
-X-Mailer: b4 0.14.2
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261010155110.764010-1-nickolai@csail.mit.edu>
 
-Add tests for the transmit path, where MCTP packets are handed to
-outgoing USB transfer data. Testing a spanning transfer that is expected
-to succeed, the failure paths when sends fail, and large sequential
-sends.
+On Sat, Oct 10, 2026 at 11:51:10AM -0400, Nickolai Zeldovich wrote:
+> Since commit 01261e24cfab ("riscv: Only flush the mm icache when
+> setting an exec pte"), flush_icache_pte() flushes only the icache of
+> the harts that run the faulting mm (with a deferred fence.i for the
+> harts it migrates to later), but it still sets the folio-wide
+> PG_dcache_clean bit. The bit is then read as "no hart holds stale
+> instructions for this folio", which a per-mm flush does not establish.
+> 
+> So when a folio that was written through the page cache is mapped
+> executable first by mm A on hart X and then by a different mm B on a
+> hart Y outside A's cpumask, B gets no flush on Y and executes whatever
+> Y's icache still holds for those physical lines, e.g. the page's
+> previous contents. Before that commit, flush_icache_all() covered this
+> case.
+> 
+> Reproducer:
+> 
+>   /* Build with the kernel's nolibc (after "make headers_install"):
+>    *   clang --target=riscv64-linux-gnu -Os -static -nostdlib -nostdinc \
+>    *     -I tools/include/nolibc -I usr/include -include nolibc.h \
+>    *     -o icache_repro repro.c
+>    * Usage: ./icache_repro <file> <hartA> <hartB> [iterations]
+>    */
+>   #define N 1000    /* li a0,0; N x addi a0,a0,v; ret: returns N*v */
+>   static unsigned int text[N + 2];
+>   static int fd;
+> 
+>   static void write_text(unsigned int v)
+>   {
+>       int i;
+> 
+>       text[0] = 0x00000513;
+>       for (i = 1; i <= N; i++)
+>           text[i] = 0x00050513 | (v << 20);
+>       text[N + 1] = 0x00008067;
+>       lseek(fd, 0, SEEK_SET);
+>       write(fd, text, sizeof(text));
+>   }
+> 
+>   static long run_text(void)
+>   {
+>       long (*f)(void) = mmap(NULL, 4096, PROT_READ | PROT_EXEC,
+>                      MAP_PRIVATE, fd, 0);
+>       long r = f();
+> 
+>       munmap(f, 4096);
+>       return r;
+>   }
+> 
+>   static void pin(const char *cpu)
+>   {
+>       unsigned long mask = 1UL << atoi(cpu);
+> 
+>       syscall(__NR_sched_setaffinity, 0, sizeof(mask), &mask);
+>   }
+> 
+>   int main(int argc, char **argv)
+>   {
+>       int p2c[2], c2p[2], i, stale = 0;
+>       int iters = argc > 4 ? atoi(argv[4]) : 50;
+>       long got;
+>       char c;
+> 
+>       fd = open(argv[1], O_RDWR | O_CREAT | O_TRUNC, 0755);
+>       pipe(p2c);
+>       pipe(c2p);
+>       pin(argv[2]);
+>       if (!fork()) {            /* child = mm B on hart B */
+>           close(p2c[1]);
+>           pin(argv[3]);
+>           while (read(p2c[0], &c, 1) == 1) {
+>               got = run_text();
+>               write(c2p[1], &got, sizeof(got));
+>           }
+>           _exit(0);
+>       }
+>       for (i = 0; i < iters; i++) {    /* parent = mm A on hart A */
+>           write_text(1);
+>           write(p2c[1], "", 1);    /* B runs T1: primes hart B */
+>           read(c2p[0], &got, sizeof(got));
+>           write_text(2);
+>           run_text();        /* A runs T2: flushes hart A, sets the bit */
+>           write(p2c[1], "", 1);    /* B runs again: no flush on hart B */
+>           read(c2p[0], &got, sizeof(got));
+>           stale += got != 2 * N;
+>       }
+>       close(p2c[1]);
+>       wait(NULL);
+>       printf("%d of %d iterations stale\n", stale, iters);
+>       return !!stale;
+>   }
+> 
+> The parent (mm A, hart A) and the child (mm B, hart B) share a file.
+> Each iteration: A writes text T1, B maps it executable and runs it
+> (priming hart B's icache with T1) and unmaps it; A writes text T2 and
+> maps and runs it (per-mm flush of hart A only, bit set); B maps and
+> runs it again, with no flush on hart B, and executes T1. On a StarFive
+> JH7110 (VisionFive 2, non-coherent icache) running v7.3-rc6, 148 of
+> 150 iterations over three hart pairs (50 each on harts 0/3, 0/2 and
+> 1/3) execute stale instructions.
+> 
+> Keep the per-mm flush and make the skip decision per mm instead:
+> count the flushes that set the bit in a global generation, and let
+> every mm remember the generation of its own last flush taken in
+> flush_icache_pte(). An mm whose generation lags cannot trust any bit
+> set since, so it flushes its own harts once (local fence.i, IPIs only
+> to the harts currently running it, deferred fence.i for the rest) and
+> catches up. No global flush is issued, nothing happens while no new
+> executable folio is written, and the cost is bounded by one
+> flush_icache_mm() per mm per generation bump.
+> 
+> With the fix the reproducer executes 0 of 150 stale iterations on the
+> same board. The function-call IPI counters stay at a few hundred per
+> hart for the whole boot plus the 150 iterations, i.e. the IPI savings
+> of the per-mm flush are kept.
+> 
+> The generation is kept per mm as an atomic64_t so that the field is
+> read and written atomically on 32-bit as well, and the whole mechanism
+> is compiled only with CONFIG_SMP and CONFIG_MMU: on a single hart
+> flush_icache_mm() is the local flush and the bug cannot occur, and
+> without an MMU there is no flush_icache_pte() and no second mapping of
+> a written page to begin with.
+> 
+> Tested on the JH7110 with v7.3-rc6 and this patch; not tested on
+> 32-bit. The bug does not reproduce under QEMU TCG, which invalidates
+> translated code on page writes.
+> 
+> Fixes: 01261e24cfab ("riscv: Only flush the mm icache when setting an exec pte")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+> ---
+> 
+> Notes:
+>     v3: compile the generation logic only with CONFIG_SMP (on UP the bug cannot
+>         occur and flush_icache_mm() is the local flush) and CONFIG_MMU (the only
+>         user is flush_icache_pte()); keep the per-mm
+>         generation in an atomic64_t so it is read and written atomically on
+>         32-bit too; add the reproducer to the commit message (Jisheng Zhang).
+>     v2: move icache_gen out of the CONFIG_SMP block of mm_context_t; v1 did
+>         not build with CONFIG_SMP=n (kernel test robot).
+> 
+>  arch/riscv/include/asm/mmu.h         |  4 +++
+>  arch/riscv/include/asm/mmu_context.h |  3 +++
+>  arch/riscv/mm/cacheflush.c           | 38 ++++++++++++++++++++++++++++
+>  3 files changed, 45 insertions(+)
+> 
+> diff --git a/arch/riscv/include/asm/mmu.h b/arch/riscv/include/asm/mmu.h
+> index cf8e6eac77d5..4eacf06f7d2a 100644
+> --- a/arch/riscv/include/asm/mmu.h
+> +++ b/arch/riscv/include/asm/mmu.h
+> @@ -21,6 +21,10 @@ typedef struct {
+>  	cpumask_t icache_stale_mask;
+>  	/* Force local icache flush on all migrations. */
+>  	bool force_icache_flush;
+> +#ifdef CONFIG_MMU
+> +	/* icache_folio_gen at this mm's last flush in flush_icache_pte(). */
+> +	atomic64_t icache_gen;
+> +#endif
+>  #endif
+>  #ifdef CONFIG_BINFMT_ELF_FDPIC
+>  	unsigned long exec_fdpic_loadmap;
+> diff --git a/arch/riscv/include/asm/mmu_context.h b/arch/riscv/include/asm/mmu_context.h
+> index dbf27a78df6c..909404fb250b 100644
+> --- a/arch/riscv/include/asm/mmu_context.h
+> +++ b/arch/riscv/include/asm/mmu_context.h
+> @@ -32,6 +32,9 @@ static inline int init_new_context(struct task_struct *tsk,
+>  {
+>  #ifdef CONFIG_MMU
+>  	atomic_long_set(&mm->context.id, 0);
+> +#ifdef CONFIG_SMP
+> +	atomic64_set(&mm->context.icache_gen, 0);
+> +#endif
+>  #endif
+>  	if (IS_ENABLED(CONFIG_RISCV_ISA_SUPM))
+>  		clear_bit(MM_CONTEXT_LOCK_PMLEN, &mm->context.flags);
+> diff --git a/arch/riscv/mm/cacheflush.c b/arch/riscv/mm/cacheflush.c
+> index f8ead7cb7c7d..00bfdb7c487c 100644
+> --- a/arch/riscv/mm/cacheflush.c
+> +++ b/arch/riscv/mm/cacheflush.c
+> @@ -97,13 +97,51 @@ void flush_icache_mm(struct mm_struct *mm, bool local)
+>  #endif /* CONFIG_SMP */
+>  
+>  #ifdef CONFIG_MMU
+> +#ifdef CONFIG_SMP
+> +/*
+> + * PG_dcache_clean is folio-wide, but flush_icache_mm() only reaches the
+> + * harts of one mm.  Count the flushes that set the bit; an mm whose
+> + * generation lags cannot trust a bit set since its own last flush, so it
+> + * flushes its harts once before relying on it.
+> + */
+> +static atomic64_t icache_folio_gen = ATOMIC64_INIT(0);
+> +
+> +static u64 icache_gen_bump(void)
+> +{
+> +	return atomic64_inc_return(&icache_folio_gen);
+> +}
+> +
+> +static bool icache_gen_stale(struct mm_struct *mm, u64 *gen)
+> +{
+> +	/* Pairs with the fully ordered atomic64_inc_return() in icache_gen_bump(). */
+> +	smp_rmb();
+> +	*gen = atomic64_read(&icache_folio_gen);
+> +	return atomic64_read(&mm->context.icache_gen) != *gen;
 
-Signed-off-by: James Lee <james@codeconstruct.com.au>
+Now the patch looks better. I only have one concern: RV32 doesn't have
+native atomic64, so falls back to generic atomic64 implementation which
+disables local irq, takes spin lock, then does the operation, unlock,
+restore local irq, so I'm not sure whether overhead for RV32 is too
+heavy or not. However, I have no other better solution for RV32.
 
----
-v2:
-- Correct flex array reference
-- Simply return when mctp_usblib_test_tx_send() fails
-- Use skb_put_data() instead of manual assignment
-- Remember span parameter exists
----
- drivers/net/mctp/mctp-usblib-test.c | 286 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 286 insertions(+)
-
-diff --git a/drivers/net/mctp/mctp-usblib-test.c b/drivers/net/mctp/mctp-usblib-test.c
-index 4a8761618258dce08025fadc442c71f98e74026a..16c2c9963d2d4493268687764a1e9209f8c9a901 100644
---- a/drivers/net/mctp/mctp-usblib-test.c
-+++ b/drivers/net/mctp/mctp-usblib-test.c
-@@ -6,6 +6,7 @@
-  * Copyright (C) 2026 Code Construct Pty Ltd
-  */
- 
-+#include <linux/array_size.h>
- #include <uapi/linux/netdevice.h>
- #include <linux/netdevice.h>
- #include <kunit/test.h>
-@@ -16,6 +17,13 @@
- 
- #define HDR_LEN sizeof(struct mctp_usb_hdr)
- 
-+struct tx_buff {
-+	struct list_head list;
-+
-+	size_t length;
-+	u8 data[] __counted_by(length);
-+};
-+
- struct mctp_usblib_test_dev {
- 	struct net_device *ndev;
- 	struct mctp_dev *mdev;
-@@ -24,9 +32,104 @@ struct mctp_usblib_test_dev {
- 
- struct mctp_usblib_test_ctx {
- 	struct mctp_usblib_test_dev *dev;
-+	struct list_head tx_xfers;
- 	struct mctp_route rt;
- };
- 
-+static int mctp_usblib_test_tx_send(struct mctp_usblib_tx_ctx *tx_ctx,
-+				    void *data, size_t len)
-+{
-+	struct mctp_usblib_test_ctx *ctx;
-+	struct tx_buff *new_node;
-+	struct net_device *ndev;
-+
-+	ctx = mctp_usblib_tx_ctx_priv(tx_ctx);
-+	ndev = ctx->dev->ndev;
-+
-+	new_node = kzalloc_flex(*new_node, data, len, GFP_KERNEL);
-+	if (!new_node)
-+		return -ENOMEM;
-+
-+	new_node->length = len;
-+	memcpy(new_node->data, data, len);
-+	list_add_tail(&new_node->list, &ctx->tx_xfers);
-+
-+	mctp_usblib_tx_send_complete(tx_ctx, ndev, true);
-+	return 0;
-+}
-+
-+static int mctp_usblib_test_tx_send_fail(struct mctp_usblib_tx_ctx *tx_ctx,
-+					 void *data, size_t len)
-+{
-+	return -ENOMEM;
-+}
-+
-+static u8 *mctp_usblib_test_flatten_tx_buff(struct kunit *test,
-+					    struct list_head *in,
-+					    size_t *length_out)
-+{
-+	struct tx_buff *pos;
-+	size_t length;
-+	u8 *buf, *tail;
-+
-+	KUNIT_ASSERT_TRUE(test, length_out);
-+	KUNIT_ASSERT_TRUE(test, in);
-+
-+	length = 0;
-+	list_for_each_entry(pos, in, list)
-+		length = size_add(length, pos->length);
-+
-+	KUNIT_ASSERT_NE(test, length, 0);
-+	KUNIT_ASSERT_NE(test, length, SIZE_MAX);
-+
-+	buf = kunit_kzalloc(test, length, GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, buf);
-+
-+	tail = buf;
-+	list_for_each_entry(pos, in, list) {
-+		memcpy(tail, pos->data, pos->length);
-+		tail += pos->length;
-+	}
-+
-+	*length_out = length;
-+	return buf;
-+}
-+
-+static u8 *mctp_usblib_test_init_buf(struct kunit *test, size_t length)
-+{
-+	u8 *buffer;
-+	size_t i;
-+
-+	buffer = kunit_kzalloc(test, length, GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, buffer);
-+
-+	for (i = 0; i < length; i++)
-+		buffer[i] = i % 256;
-+
-+	return buffer;
-+}
-+
-+static void mctp_usblib_test_fill_head(struct mctp_usb_hdr *head, size_t len)
-+{
-+	len += HDR_LEN;
-+	head->id = cpu_to_be16(MCTP_USB_DMTF_ID);
-+	head->len = cpu_to_be16(len & MCTP_USB_1_1_PKTLEN_MAX);
-+}
-+
-+static struct sk_buff *mctp_usblib_test_init_skb(struct kunit *test,
-+						 unsigned int length,
-+						 struct net_device *ndev,
-+						 void *data)
-+{
-+	struct sk_buff *skb;
-+
-+	skb = __netdev_alloc_skb(ndev, length, GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, skb);
-+
-+	skb_put_data(skb, data, length);
-+	return skb;
-+}
-+
- static netdev_tx_t mctp_usblib_dev_tx(struct sk_buff *skb,
- 				      struct net_device *ndev)
- {
-@@ -119,6 +222,7 @@ static int mctp_usblib_test_dst_output(struct mctp_dst *dst,
- static void mctp_usblib_test_fini_action(void *data)
- {
- 	struct mctp_usblib_test_ctx *ctx = data;
-+	struct tx_buff *curr, *temp;
- 
- 	/* The device will have been destroyed, so ->rt will be unlinked.
- 	 * Just ensure that the refcount is as expected.
-@@ -126,6 +230,8 @@ static void mctp_usblib_test_fini_action(void *data)
- 	KUNIT_EXPECT_TRUE(current->kunit_test,
- 			  refcount_dec_and_test(&ctx->rt.refs));
- 
-+	list_for_each_entry_safe(curr, temp, &ctx->tx_xfers, list)
-+		kfree(curr);
- 	kfree(ctx);
- }
- 
-@@ -141,6 +247,7 @@ static struct mctp_usblib_test_ctx *mctp_usblib_test_init(struct kunit *test)
- 	INIT_LIST_HEAD(&ctx->rt.list);
- 	rt = &ctx->rt;
- 	refcount_set(&rt->refs, 1);
-+	INIT_LIST_HEAD(&ctx->tx_xfers);
- 
- 	rc = kunit_add_action_or_reset(test, mctp_usblib_test_fini_action, ctx);
- 	KUNIT_ASSERT_EQ(test, rc, 0);
-@@ -227,6 +334,32 @@ static int mctp_usblib_test_rx_complete(struct net_device *netdev,
- 	return rc;
- }
- 
-+static void action_tx_fini(void *data)
-+{
-+	struct mctp_usblib_tx *tx = data;
-+
-+	mctp_usblib_tx_fini(tx);
-+	kfree(tx);
-+}
-+
-+static struct mctp_usblib_tx *
-+mctp_usblib_test_tx_init(struct kunit *test,
-+			 const struct mctp_usblib_tx_ops *ops,
-+			 void *priv, bool span)
-+{
-+	struct mctp_usblib_tx *tx;
-+	int rc;
-+
-+	tx = kzalloc_obj(*tx);
-+	KUNIT_ASSERT_NOT_NULL(test, tx);
-+	rc = kunit_add_action_or_reset(test, action_tx_fini, tx);
-+	KUNIT_ASSERT_EQ(test, rc, 0);
-+
-+	mctp_usblib_tx_init(tx, ops, priv, span);
-+
-+	return tx;
-+}
-+
- /* Single packet, starting on a transfer boundary, contained entirely within
-  * the transfer
-  */
-@@ -585,6 +718,156 @@ static void mctp_usblib_test_rx_nonspanning_partial(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, dev->rx_pkts.qlen, 0);
- }
- 
-+static void mctp_usblib_test_tx_pkt_span(struct kunit *test)
-+{
-+	struct mctp_usblib_test_ctx *ctx;
-+	struct mctp_usblib_tx_ops ops;
-+	struct mctp_usblib_tx *tx;
-+	struct mctp_usb_hdr head;
-+	struct net_device *ndev;
-+	struct sk_buff *skb;
-+	size_t len, tx_len;
-+	u8 *buf, *flat_tx;
-+	int rc;
-+
-+	len = 1000;
-+
-+	ctx = mctp_usblib_test_init(test);
-+	ndev = ctx->dev->ndev;
-+
-+	ops.send = mctp_usblib_test_tx_send;
-+
-+	tx = mctp_usblib_test_tx_init(test, &ops, ctx, true);
-+
-+	buf = mctp_usblib_test_init_buf(test, len);
-+	mctp_usblib_test_fill_head(&head, len);
-+
-+	skb = mctp_usblib_test_init_skb(test, len, ndev, buf);
-+
-+	rc = mctp_usblib_tx_push(ndev, tx, skb, false);
-+	KUNIT_ASSERT_EQ(test, rc, 0);
-+	KUNIT_ASSERT_FALSE(test, list_empty(&ctx->tx_xfers));
-+
-+	flat_tx = mctp_usblib_test_flatten_tx_buff(test, &ctx->tx_xfers,
-+						   &tx_len);
-+	KUNIT_ASSERT_NOT_NULL(test, flat_tx);
-+
-+	KUNIT_EXPECT_EQ(test, tx_len, len + HDR_LEN);
-+	KUNIT_EXPECT_MEMEQ(test, flat_tx, &head, HDR_LEN);
-+	KUNIT_EXPECT_MEMEQ(test, flat_tx + HDR_LEN, buf, len);
-+}
-+
-+static void mctp_usblib_test_tx_failing_send(struct kunit *test)
-+{
-+	struct mctp_usblib_test_ctx *ctx;
-+	struct mctp_usblib_tx_ops ops;
-+	struct mctp_usblib_tx *tx;
-+	struct net_device *ndev;
-+	struct sk_buff *skb;
-+	size_t len;
-+	u8 *buf;
-+	int rc;
-+
-+	len = 100;
-+
-+	ctx = mctp_usblib_test_init(test);
-+	ndev = ctx->dev->ndev;
-+
-+	ops.send = mctp_usblib_test_tx_send_fail;
-+
-+	tx = mctp_usblib_test_tx_init(test, &ops, ctx, false);
-+	buf = mctp_usblib_test_init_buf(test, len);
-+	skb = mctp_usblib_test_init_skb(test, len, ndev, buf);
-+
-+	/* Doesn't call ops.send as more packets are expected,
-+	 * so the push shouldn't fail.
-+	 */
-+	rc = mctp_usblib_tx_push(ndev, tx, skb, true);
-+	KUNIT_ASSERT_EQ(test, rc, 0);
-+
-+	skb = mctp_usblib_test_init_skb(test, len, ndev, buf);
-+
-+	/* Calls ops.send as no further packets are expected. */
-+	rc = mctp_usblib_tx_push(ndev, tx, skb, false);
-+	KUNIT_EXPECT_EQ(test, rc, 0);
-+	KUNIT_EXPECT_NULL(test, tx->cur_ctx);
-+	KUNIT_EXPECT_TRUE(test, list_empty(&ctx->tx_xfers));
-+}
-+
-+/* Test sending multiple packets in the same transfer, followed by one that
-+ * spans multiple subsequent transfers.
-+ */
-+static void mctp_usblib_test_tx_multi_push(struct kunit *test)
-+{
-+	struct mctp_usblib_test_ctx *ctx;
-+	size_t i, max_length, tx_length;
-+	struct mctp_usblib_tx_ops ops;
-+	u8 *buf, *flat_tx, *index;
-+	struct mctp_usblib_tx *tx;
-+	struct net_device *ndev;
-+	struct sk_buff *skb;
-+	const struct {
-+		size_t len;
-+		bool more;
-+	} sends[] = {
-+		{ 1000, true  },
-+		{  500, false },
-+		{ 5000, false },
-+	};
-+	int rc;
-+
-+	static_assert(!sends[ARRAY_SIZE(sends) - 1].more,
-+		      "The last push must claim there will be no more");
-+
-+	max_length = 0;
-+	for (i = 0; i < ARRAY_SIZE(sends); i++) {
-+		if (sends[i].len > max_length)
-+			max_length = sends[i].len;
-+	}
-+
-+	ctx = mctp_usblib_test_init(test);
-+	ndev = ctx->dev->ndev;
-+
-+	ops.send = mctp_usblib_test_tx_send;
-+
-+	tx = mctp_usblib_test_tx_init(test, &ops, ctx, true);
-+	buf = mctp_usblib_test_init_buf(test, max_length);
-+
-+	for (i = 0; i < ARRAY_SIZE(sends); i++) {
-+		skb = mctp_usblib_test_init_skb(test, sends[i].len, ndev, buf);
-+
-+		rc = mctp_usblib_tx_push(ndev, tx, skb, sends[i].more);
-+		KUNIT_ASSERT_EQ(test, rc, 0);
-+	}
-+	KUNIT_ASSERT_FALSE(test, list_empty(&ctx->tx_xfers));
-+
-+	flat_tx = mctp_usblib_test_flatten_tx_buff(test, &ctx->tx_xfers,
-+						   &tx_length);
-+
-+	for (i = 0, index = flat_tx; i < ARRAY_SIZE(sends); i++) {
-+		size_t length_to_check, remaining_bytes;
-+		struct mctp_usb_hdr head;
-+
-+		if (index - flat_tx >= tx_length - HDR_LEN)
-+			break;
-+
-+		mctp_usblib_test_fill_head(&head, sends[i].len);
-+		KUNIT_EXPECT_MEMEQ(test, index, &head, HDR_LEN);
-+		index += HDR_LEN;
-+		remaining_bytes = tx_length - (index - flat_tx);
-+
-+		length_to_check = sends[i].len;
-+		KUNIT_EXPECT_GE(test, remaining_bytes, length_to_check);
-+		length_to_check = min(remaining_bytes, length_to_check);
-+
-+		KUNIT_EXPECT_MEMEQ(test, index,
-+				   buf, length_to_check);
-+
-+		index += length_to_check;
-+	}
-+	KUNIT_EXPECT_EQ(test, i, ARRAY_SIZE(sends));
-+}
-+
- static struct kunit_case mctp_usblib_test_cases[] = {
- 	KUNIT_CASE(mctp_usblib_test_rx_single),
- 	KUNIT_CASE_PARAM(mctp_usblib_test_rx_pkt_span,
-@@ -594,6 +877,9 @@ static struct kunit_case mctp_usblib_test_cases[] = {
- 	KUNIT_CASE(mctp_usblib_test_rx_invalid_dmtf_id),
- 	KUNIT_CASE(mctp_usblib_test_rx_nonspanning_tiny),
- 	KUNIT_CASE(mctp_usblib_test_rx_nonspanning_partial),
-+	KUNIT_CASE(mctp_usblib_test_tx_pkt_span),
-+	KUNIT_CASE(mctp_usblib_test_tx_multi_push),
-+	KUNIT_CASE(mctp_usblib_test_tx_failing_send),
- 	{}
- };
- 
-
--- 
-2.47.3
-
+> +}
+> +
+> +static void icache_gen_set(struct mm_struct *mm, u64 gen)
+> +{
+> +	atomic64_set(&mm->context.icache_gen, gen);
+> +}
+> +#else
+> +static u64 icache_gen_bump(void) { return 0; }
+> +static bool icache_gen_stale(struct mm_struct *mm, u64 *gen) { return false; }
+> +static void icache_gen_set(struct mm_struct *mm, u64 gen) { }
+> +#endif
+> +
+>  void flush_icache_pte(struct mm_struct *mm, pte_t pte)
+>  {
+>  	struct folio *folio = page_folio(pte_page(pte));
+> +	u64 gen;
+>  
+>  	if (!test_bit(PG_dcache_clean, &folio->flags.f)) {
+> +		gen = icache_gen_bump();
+>  		flush_icache_mm(mm, false);
+> +		icache_gen_set(mm, gen);
+>  		set_bit(PG_dcache_clean, &folio->flags.f);
+> +	} else if (unlikely(icache_gen_stale(mm, &gen))) {
+> +		flush_icache_mm(mm, false);
+> +		icache_gen_set(mm, gen);
+>  	}
+>  }
+>  #endif /* CONFIG_MMU */
+> 
+> base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
+> -- 
+> 2.55.0
+> 
