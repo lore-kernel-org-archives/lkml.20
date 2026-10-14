@@ -1,57 +1,77 @@
-Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E376354147F
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:11:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 384C04E80BD;
+	Wed, 14 Oct 2026 14:12:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791987119; cv=none; b=tJ/6oVs47HUXBNIVcieMVUX6AlbhlrW5sfLmkXQmVUSH//829zZoSu9VGZXgSoNQm6sbE8oi2deRlSvRfhWYcNFkcDHNRz61ocPr+wMHzKua9YaRfS0htqSroJETPP3GK683cC7F+9RJdG9xPtwBfcwRVTe/QL7qN7mYTPRj+rE=
+	t=1791987147; cv=none; b=OmRVlDlzy8IU7JsEPT6c18J0foxjDyLtQmRAXbwHKF49VSEwXandk46rLTh7Ej1b5NwXHOfOtmtxvBkA5G9zqRvYSSlZ1xUACsZz1dEI7dhNLk9kkEPEjJoCCF6NDZRz9koZNd6xUVho2K8Jh+jMqziigKnA4ynrNsY3KL5kzTg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791987119; c=relaxed/simple;
-	bh=vV6x6FIV2yGpHHj8sdpOHduIEMQvL67Zrz9bs0s+o9I=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=G7IgrO1jGSSqiiXL80cEplQ0ICIei6dXAd58CvaKqgSAiDHDIrKhSPLnneNDk4nPAjyXFjNUdVT1aYSaf3z8nLvnfa4GZo6Z6N6j1RJLxprNeaPXKzUAIVZRZnjN6aTRMB+pU/zRRMdc1veOJNVl4bVLO2ksPF5S8whSTl9k/S0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=i/Xv+I2i; arc=none smtp.client-ip=115.124.30.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1791987147; c=relaxed/simple;
+	bh=MtgThzQ1njBUKujr+z+EvBHpcW2lCs5+op3q2fPgav8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tFze+ex5PrttEaugw6Vz5kbwN2v6CPY3qptcl1HeWzJtoRWMinzbu+EkW9iN0eX3QeDNhqmYKAssqYmBQPLQOFratzz8gxejfUEMps9zmCxCMGypa6XZKXgkRrbPlyNecKiy7x4eCeeJn98ZmHmRp9NYVvxT6T74cU0sa4A34iU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=IAqBnoCP; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=8tKvnQ2V; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=wIe+jS4/; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=sxIsUXGF; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="i/Xv+I2i"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1791987102; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=3BDA8tuxbUYruftXQKUiM6Q2zzcDlFfuoJXp/9UZKuI=;
-	b=i/Xv+I2irvZwMCd60DUiyuspnnbqhXjAceG0jZbG+5fS56jyC7k1sg9BN0Xgmkd3BGkF+Xkr9MSejCdUChc9DnNeD76e4XaH9lzB7WphHkTtzs7e/eeNPr9LrL2/Yisf7870tbfpudGgBCiJT2ipj2JHqV4so3IQe6S4TDhr+mQ=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R151e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=20;SR=0;TI=SMTPD_---0XCp410e_1791987099;
-Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XCp410e_1791987099 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 14 Oct 2026 22:11:40 +0800
-From: fangyu.yu@linux.alibaba.com
-To: tomasz.jeznach@linux.dev,
-	joro@8bytes.org,
-	will@kernel.org,
-	robin.murphy@arm.com,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	jroedel@suse.de,
-	zong.li@sifive.com,
-	andrew.jones@oss.qualcomm.com,
-	jgg@nvidia.com,
-	jgg@ziepe.ca,
-	gsh517025@gmail.com
-Cc: fangyu.yu@linux.alibaba.com,
-	guoren@kernel.org,
-	iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	kvm-riscv@lists.infradead.org
-Subject: [RFC PATCH v2 4/4] iommu/riscv: Support IRQ forwarding without MSI page tables
-Date: Wed, 14 Oct 2026 22:11:24 +0800
-Message-Id: <20261014141124.48569-5-fangyu.yu@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <20261014141124.48569-1-fangyu.yu@linux.alibaba.com>
-References: <20261014141124.48569-1-fangyu.yu@linux.alibaba.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="IAqBnoCP";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="8tKvnQ2V";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="wIe+jS4/";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="sxIsUXGF"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id A82BA1F7C1;
+	Wed, 14 Oct 2026 14:12:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791987141; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=E1H5hcrPQh2rU12TigZSFLfiXPe8ucP8nib/3K5ch1o=;
+	b=IAqBnoCP8Vv9onXKjg63wWDof5K8j8CjkTIm0MnIJxnB8aXqealP3O0FlTL0TpqJK3cFZB
+	Xnt05/aSnSSWiWOTY0So9gFhzyPAPkJcw07yDlZgBvq3si6v9wpZ0pIMtu6LeGwRljmztK
+	EJZbfw8ko2F6Y8SX/ouS7vKobYRfF1g=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791987141;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=E1H5hcrPQh2rU12TigZSFLfiXPe8ucP8nib/3K5ch1o=;
+	b=8tKvnQ2VaV7SPkmLvzQ9woMIXMIASQ/ppF102wLSM4tzFwX44rGcL07B0ftrXlLXhXnsTC
+	JYk1npaeoknHroDg==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="wIe+jS4/";
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=sxIsUXGF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791987139; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=E1H5hcrPQh2rU12TigZSFLfiXPe8ucP8nib/3K5ch1o=;
+	b=wIe+jS4/zIJDaT5g0up4I6ucrc4n6H1XpGfzGyBkoPuP0dB1imE0TD06PHj7vMwM20SBPC
+	Rmj5uCnDJ6L4ARoc6l4GQBK4fdUaU2v3daLJTIzqaDKJ1lWJE/EDhMsJcS1rFuB66tv4l4
+	Tewerg9Uq6HlhCTVWLZsGS+wMb7wTIk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791987139;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=E1H5hcrPQh2rU12TigZSFLfiXPe8ucP8nib/3K5ch1o=;
+	b=sxIsUXGFKFK+TJT69/5zF3hbK+33SeHl03QXO1KKRfXnFdTW3c9g2o8jVFSubqZsu/GH6d
+	eI2PS+Z0wjfu0vCw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3397F133F1;
+	Wed, 14 Oct 2026 14:12:19 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id xFLVNMKNz2o/bAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 14 Oct 2026 14:12:19 +0000
+From: Takashi Iwai <tiwai@suse.de>
+To: linux-sound@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH] ALSA: pcm: Add refcount for races between drain and unlink
+Date: Wed, 14 Oct 2026 16:12:05 +0200
+Message-ID: <20261014141212.316223-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -59,235 +79,179 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Spam-Score: -3.01
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,alsa-project.org:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+	ARC_NA(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWO(0.00)[2];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_NONE(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Level: 
+X-Rspamd-Queue-Id: A82BA1F7C1
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 
-From: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+We added a workaround for the case where a linked substream gets
+unlinked during the drain operation by another substream of the same
+linked group in the commit 9b1dbd69ba6f ("ALSA: pcm: fix
+use-after-free on linked stream runtime in snd_pcm_drain()").
+There, we just cached the parameters of the draining substream for
+avoiding UAF.
 
-IOMMU implementations without the MSI_FLAT capability have no MSI page
-table, and their MSI writes are translated by the second-stage page
-table. Forward interrupts there by mapping the guest IMSIC GPA to the
-host IMSIC HPA in the second-stage domain, so device MSI writes reach
-the vCPU's interrupt file directly.
+Then, we check the draining substream (to_check) again in the loop and
+remove it from the queue only when it's still present.  It means,
+however, that the wait queue entry won't be removed if the substream
+went out of the link beforehand, hence a stale wq entry remains.
+Later on, this can be woken up, and this may hit a UAF, too.
+The problem surfaced more due to the recent change to call
+snd_pcm_unlink() earlier.
 
-Dispatch on the IOMMU capabilities in the IRQ forwarding entry: with
-MSI_FLAT nothing changes; without it, validate that every target is an
-IMSIC page in the guest MSI address window, install the GPA mappings,
-and replace the leaf PTE via the generic page table replace_leaf op
-when a vCPU migration moves the VS-file host page. Mappings persist
-for the lifetime of the domain; disabling forwarding or a failed
-operation only drops the per-IRQ state so the IRQ falls back to host
-delivery.
+For properly handling both cases above, in this patch, we introduce a
+refcount to the snd_pcm_runtime that indicates the substream is being
+accessed / used, then at snd_pcm_release_substream(), it's synced
+before the actual resource release via snd_refcount_sync().  This
+guarantees that the accessors are finished, and safe to release
+memories.  Along with the introduction of a refcount, the comments and
+the code changes by the former fix were partially reverted as they
+don't fit with the updated code flow any longer.
 
-Signed-off-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+Fixes: 9b1dbd69ba6f ("ALSA: pcm: fix use-after-free on linked stream runtime in snd_pcm_drain()")
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- drivers/iommu/riscv/iommu-ir.c | 156 ++++++++++++++++++++++++++++++++-
- 1 file changed, 153 insertions(+), 3 deletions(-)
+ include/sound/pcm.h     |  2 ++
+ sound/core/pcm.c        |  1 +
+ sound/core/pcm_native.c | 33 ++++++++++-----------------------
+ 3 files changed, 13 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/iommu/riscv/iommu-ir.c b/drivers/iommu/riscv/iommu-ir.c
-index b96baff9986d..bc474e44805d 100644
---- a/drivers/iommu/riscv/iommu-ir.c
-+++ b/drivers/iommu/riscv/iommu-ir.c
-@@ -271,14 +271,159 @@ static int riscv_iommu_ir_update_target(struct riscv_iommu_msi_table *msi_table,
- 	return 0;
- }
+diff --git a/include/sound/pcm.h b/include/sound/pcm.h
+index 02d8689354c4..1cf511f8d880 100644
+--- a/include/sound/pcm.h
++++ b/include/sound/pcm.h
+@@ -8,6 +8,7 @@
+  *                   Abramo Bagnara <abramo@alsa-project.org>
+  */
  
--static int riscv_iommu_ir_irq_set_vcpu_affinity_locked(struct irq_data *data,
-+static int riscv_iommu_ir_validate_noflat_target(const struct riscv_iommu_ir_vcpu_info *vcpu_info,
-+						 const struct riscv_iommu_ir_target *target)
-+{
-+	u64 addr = target->gpa >> IMSIC_MMIO_PAGE_SHIFT;
-+
-+	if (!IS_ALIGNED(target->gpa, IMSIC_MMIO_PAGE_SZ) ||
-+	    (addr & ~vcpu_info->msi_addr_mask) != vcpu_info->msi_addr_pattern)
-+		return -EINVAL;
-+
-+	/* Without MSI_FLAT there is no MSI page table, so only IMSIC targets work. */
-+	if (target->type != RISCV_IOMMU_IR_TARGET_IMSIC)
-+		return -EOPNOTSUPP;
-+
-+	if (!IS_ALIGNED(target->hpa, IMSIC_MMIO_PAGE_SZ))
-+		return -EINVAL;
-+
-+	return 0;
-+}
-+
-+/* Caller must hold msi_table->lock. */
-+static int riscv_iommu_ir_map_guest_imsic(struct riscv_iommu_msi_table *msi_table,
-+					  const struct riscv_iommu_ir_target *target)
-+{
-+	unsigned long index = target->gpa >> IMSIC_MMIO_PAGE_SHIFT;
-+	struct riscv_iommu_noflat_imsic *imsic;
-+	int ret;
-+
-+	imsic = xa_load(&msi_table->noflat_imsics, index);
-+	if (imsic) {
-+		if (imsic->hpa == target->hpa)
-+			return 0;
-+
-+		ret = riscv_iommu_msi_table_replace_gpa(msi_table, target->gpa,
-+							imsic->hpa, target->hpa);
-+		if (ret)
-+			return ret;
-+	} else {
-+		imsic = kzalloc_obj(*imsic, GFP_ATOMIC);
-+		if (!imsic)
-+			return -ENOMEM;
-+
-+		ret = xa_err(xa_store(&msi_table->noflat_imsics, index, imsic,
-+				      GFP_ATOMIC));
-+		if (ret) {
-+			kfree(imsic);
-+			return ret;
-+		}
-+
-+		ret = riscv_iommu_msi_table_map_gpa(msi_table, target->gpa, target->hpa);
-+		if (ret) {
-+			xa_erase(&msi_table->noflat_imsics, index);
-+			kfree(imsic);
-+			return ret;
-+		}
-+	}
-+
-+	imsic->hpa = target->hpa;
-+	riscv_iommu_msi_table_inval(msi_table, target->gpa);
-+	return 0;
-+}
-+
-+static int riscv_iommu_ir_activate_noflat(struct riscv_iommu_msi_table *msi_table,
-+					  struct riscv_iommu_ir_vcpu_info *vcpu_info)
-+{
-+	int ret;
-+
-+	ret = riscv_iommu_ir_validate_vcpu_info(vcpu_info);
-+	if (ret)
-+		return ret;
-+
-+	if (!vcpu_info->targets || !vcpu_info->nr_targets)
-+		return -EINVAL;
-+
-+	for (unsigned int i = 0; i < vcpu_info->nr_targets; i++) {
-+		ret = riscv_iommu_ir_validate_noflat_target(vcpu_info, &vcpu_info->targets[i]);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	for (unsigned int i = 0; i < vcpu_info->nr_targets; i++) {
-+		ret = riscv_iommu_ir_map_guest_imsic(msi_table, &vcpu_info->targets[i]);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int riscv_iommu_ir_update_target_noflat(struct riscv_iommu_msi_table *msi_table,
-+					       struct riscv_iommu_ir_vcpu_info *vcpu_info)
-+{
-+	const struct riscv_iommu_ir_target *target = &vcpu_info->target;
-+	int ret;
-+
-+	ret = riscv_iommu_ir_validate_vcpu_info(vcpu_info);
-+	if (ret)
-+		return ret;
-+
-+	ret = riscv_iommu_ir_validate_noflat_target(vcpu_info, target);
-+	if (ret)
-+		return ret;
-+
-+	if (!xa_load(&msi_table->noflat_imsics, target->gpa >> IMSIC_MMIO_PAGE_SHIFT))
-+		return -EINVAL;
-+
-+	return riscv_iommu_ir_map_guest_imsic(msi_table, target);
-+}
-+
-+static int riscv_iommu_ir_irq_set_vcpu_affinity_noflat(struct irq_data *data,
- 						       struct riscv_iommu_info *info,
- 						       struct riscv_iommu_ir_vcpu_info *vcpu_info,
- 						       struct riscv_iommu_msi_table *msi_table)
-+{
-+	int ret;
-+
-+	if (!vcpu_info) {
-+		/* Mappings persist; only the per-IRQ forwarding state is dropped. */
-+		if (irqd_is_forwarded_to_vcpu(data)) {
-+			irqd_clr_forwarded_to_vcpu(data);
-+			info->nr_forwarded_irqs--;
-+		}
-+		return 0;
-+	}
-+
-+	ret = vcpu_info->cmd == RISCV_IOMMU_IR_FORWARD ?
-+		riscv_iommu_ir_activate_noflat(msi_table, vcpu_info) :
-+		riscv_iommu_ir_update_target_noflat(msi_table, vcpu_info);
-+	if (!ret) {
-+		if (!irqd_is_forwarded_to_vcpu(data)) {
-+			irqd_set_forwarded_to_vcpu(data);
-+			info->nr_forwarded_irqs++;
-+		}
-+	} else if (irqd_is_forwarded_to_vcpu(data)) {
-+		irqd_clr_forwarded_to_vcpu(data);
-+		info->nr_forwarded_irqs--;
-+	}
-+
-+	return ret;
-+}
-+
-+static int riscv_iommu_ir_irq_set_vcpu_affinity_locked(struct irq_data *data,
-+						       struct riscv_iommu_info *info,
-+						       struct riscv_iommu_ir_vcpu_info *vcpu_info,
-+						       struct riscv_iommu_msi_table *msi_table,
-+						       bool noflat)
- {
- 	struct riscv_iommu_device *iommu = data->domain->host_data;
- 	int ret;
++#include <sound/core.h>
+ #include <sound/asound.h>
+ #include <sound/memalloc.h>
+ #include <sound/minors.h>
+@@ -414,6 +415,7 @@ struct snd_pcm_runtime {
+ 	snd_pcm_uframes_t twake; 	/* do transfer (!poll) wakeup if non-zero */
+ 	wait_queue_head_t sleep;	/* poll sleep */
+ 	wait_queue_head_t tsleep;	/* transfer sleep */
++	struct snd_refcount refcnt;	/* refcount for draining, etc */
+ 	struct snd_fasync *fasync;
+ 	bool stop_operating;		/* sync_stop will be called */
+ 	struct mutex buffer_mutex;	/* protect for buffer changes */
+diff --git a/sound/core/pcm.c b/sound/core/pcm.c
+index 41c2cab7a52c..c133f23418fe 100644
+--- a/sound/core/pcm.c
++++ b/sound/core/pcm.c
+@@ -957,6 +957,7 @@ int snd_pcm_attach_substream(struct snd_pcm *pcm, int stream,
  
-+	if (noflat)
-+		return riscv_iommu_ir_irq_set_vcpu_affinity_noflat(data, info,
-+								    vcpu_info, msi_table);
-+
- 	if (!vcpu_info) {
- 		if (WARN_ON_ONCE(!msi_table->nr_forwarded_irqs || !info->nr_forwarded_irqs))
- 			return -EINVAL;
-@@ -332,10 +477,12 @@ static int riscv_iommu_ir_irq_set_vcpu_affinity_locked(struct irq_data *data,
- static int riscv_iommu_ir_irq_set_vcpu_affinity(struct irq_data *data, void *arg)
- {
- 	struct riscv_iommu_ir_vcpu_info *vcpu_info = arg;
-+	struct riscv_iommu_device *iommu = data->domain->host_data;
- 	struct riscv_iommu_msi_table *msi_table;
- 	struct riscv_iommu_info *info;
- 	struct msi_desc *desc;
- 	struct device *dev;
-+	bool noflat;
- 	int ret;
+ 	init_waitqueue_head(&runtime->sleep);
+ 	init_waitqueue_head(&runtime->tsleep);
++	snd_refcount_init(&runtime->refcnt);
  
- 	if (!vcpu_info && !irqd_is_forwarded_to_vcpu(data))
-@@ -354,6 +501,8 @@ static int riscv_iommu_ir_irq_set_vcpu_affinity(struct irq_data *data, void *arg
- 	if (WARN_ON_ONCE(!info))
- 		return -EINVAL;
+ 	__snd_pcm_set_state(runtime, SNDRV_PCM_STATE_OPEN);
+ 	mutex_init(&runtime->buffer_mutex);
+diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+index 6c379068b54c..41b8e2d4894e 100644
+--- a/sound/core/pcm_native.c
++++ b/sound/core/pcm_native.c
+@@ -2226,9 +2226,6 @@ static int snd_pcm_drain(struct snd_pcm_substream *substream,
+ 	for (;;) {
+ 		long tout;
+ 		struct snd_pcm_runtime *to_check;
+-		unsigned int drain_rate;
+-		snd_pcm_uframes_t drain_bufsz;
+-		bool drain_no_period_wakeup;
  
-+	noflat = !(iommu->caps & RISCV_IOMMU_CAPABILITIES_MSI_FLAT);
-+
- 	scoped_guard(rcu) {
- 		/*
- 		 * RCU keeps the table alive, but the device may switch domains before
-@@ -361,7 +510,7 @@ static int riscv_iommu_ir_irq_set_vcpu_affinity(struct irq_data *data, void *arg
- 		 */
- 		for (;;) {
- 			msi_table = riscv_iommu_msi_table_rcu(info);
--			if (!msi_table || !msi_table->root)
-+			if (!msi_table || (!noflat && !msi_table->root))
- 				return -EOPNOTSUPP;
- 
- 			raw_spin_lock(&msi_table->lock);
-@@ -371,7 +520,8 @@ static int riscv_iommu_ir_irq_set_vcpu_affinity(struct irq_data *data, void *arg
+ 		if (signal_pending(current)) {
+ 			result = -ERESTARTSYS;
+@@ -2243,30 +2240,23 @@ static int snd_pcm_drain(struct snd_pcm_substream *substream,
+ 			runtime = s->runtime;
+ 			if (runtime->state == SNDRV_PCM_STATE_DRAINING) {
+ 				to_check = runtime;
++				/* pin the draining substream */
++				snd_refcount_get(&to_check->refcnt);
+ 				break;
+ 			}
  		}
- 	}
+ 		snd_pcm_group_unref(group, substream);
+ 		if (!to_check)
+ 			break; /* all drained */
+-		/*
+-		 * Cache the runtime fields needed after unlock.
+-		 * A concurrent close() on the linked stream may free
+-		 * its runtime via snd_pcm_detach_substream() once we
+-		 * release the stream lock below.
+-		 */
+-		drain_no_period_wakeup = to_check->no_period_wakeup;
+-		drain_rate = to_check->rate;
+-		drain_bufsz = to_check->buffer_size;
+ 		init_wait_entry(&wait, 0);
+ 		prepare_to_wait(&to_check->sleep, &wait, TASK_INTERRUPTIBLE);
+ 		snd_pcm_stream_unlock_irq(substream);
+-		if (drain_no_period_wakeup)
++		if (to_check->no_period_wakeup)
+ 			tout = MAX_SCHEDULE_TIMEOUT;
+ 		else {
+ 			tout = 100;
+-			if (drain_rate) {
+-				long t = drain_bufsz * 1100 / drain_rate;
++			if (to_check->rate) {
++				long t = to_check->buffer_size * 1100 / to_check->rate;
+ 				tout = max(t, tout);
+ 			}
+ 			tout = msecs_to_jiffies(tout);
+@@ -2274,14 +2264,9 @@ static int snd_pcm_drain(struct snd_pcm_substream *substream,
+ 		tout = schedule_timeout(tout);
  
--	ret = riscv_iommu_ir_irq_set_vcpu_affinity_locked(data, info, vcpu_info, msi_table);
-+	ret = riscv_iommu_ir_irq_set_vcpu_affinity_locked(data, info, vcpu_info,
-+							  msi_table, noflat);
- 	raw_spin_unlock(&msi_table->lock);
+ 		snd_pcm_stream_lock_irq(substream);
+-		group = snd_pcm_stream_group_ref(substream);
+-		snd_pcm_group_for_each_entry(s, substream) {
+-			if (s->runtime == to_check) {
+-				finish_wait(&to_check->sleep, &wait);
+-				break;
+-			}
+-		}
+-		snd_pcm_group_unref(group, substream);
++		finish_wait(&to_check->sleep, &wait);
++		/* unpin the draining substream again now */
++		snd_refcount_put(&to_check->refcnt);
  
- 	return ret;
+ 		if (card->shutdown) {
+ 			result = -ENODEV;
+@@ -2832,7 +2817,9 @@ void snd_pcm_release_substream(struct snd_pcm_substream *substream)
+ 	snd_pcm_unlink(substream);
+ 
+ 	snd_pcm_drop(substream);
++
+ 	if (substream->hw_opened) {
++		snd_refcount_sync(&substream->runtime->refcnt);
+ 		if (substream->runtime->state != SNDRV_PCM_STATE_OPEN)
+ 			do_hw_free(substream);
+ 		substream->ops->close(substream);
 -- 
-2.50.1
+2.55.0
 
