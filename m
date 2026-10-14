@@ -1,63 +1,65 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59955259C9C
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:17:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5524C41A91E
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:18:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791962281; cv=none; b=jIyASZ1QTrnBmDh+YXJftr6Eq63jBejkka9qg6FhDoW7vAVVjrmrsoESfjGQUidYOVIox5+IgMsWxZjNeiu5V/PfYB5adh/krV7VROOVM78Cido7ugxHEAWWJTcVLzPBXpkua5JiyudcddkifMqB8hgjNsaHSKsMmxmtrBeWT/U=
+	t=1791962284; cv=none; b=uckHH6/a/hVN3sWZWlACrHXs5LQrObwwT59OuffisOqIRGPB0edkhc0IED5GKLxYsvw1nXhYXOUs1765yAtCD5vS//xgQMqZRrdqY3zhkibqTWiDashsdggyEYIcHdulrdH0qYxTSAIg5PbzC0u7p7U5cr51jNrfWJjoNjTJ3kI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791962281; c=relaxed/simple;
-	bh=2oc4ITVXVK0Exx6OoR5Ug3N/01A/qNPfBJ3e1MRnxc8=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version; b=GwzDsF0pTjxx95pg74PZIYvrNtwrlidCZHkUN5rOMGZPRBDiJ/pGwuL5Kge17X845BogDYWL+Jx9xuQMYKtsROFMJr+XwI2yhcok5kmpw7TV/G96UMAo8sdtgIe41EEWluyD4LjCxn1pn48XRTo5lKhg1G4oFWgvqwmwLsPb25c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y2+O7Nr1; arc=none smtp.client-ip=209.85.128.49
+	s=arc-20240116; t=1791962284; c=relaxed/simple;
+	bh=d4GLcb5Sehan0oOBDRGYh5uZjLzRhyZtSNxK5RqNJZs=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=TACapeqUU+V1u37Az8s6bEexrpbs9dOfypMklIC6QMq/Ssihr7OR9wVnEqBUerv04P1dTCebmI63qD+5PpouKYaqxzCGVB9bfZeK6dO5IgKd/7Ex/NL8FKHryIdDFMn6InFrDiO/KEODFTHtkkaqh+r+uGSlsrj0FIiVMGGT91g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lfDsyo0f; arc=none smtp.client-ip=209.85.128.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y2+O7Nr1"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a16aaf2067so7684785e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 00:17:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lfDsyo0f"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a021c809e3so36590045e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 00:18:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791962276; x=1792567076; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kNifP+lNRe64+F/AhAXVYl+xl398Z2+g6GcnWg6zy8g=;
-        b=Y2+O7Nr1kmwjiVYlFJhBQE7p4V7dKAKpLVcxs6iY0TDUChMv5SvwGjvIxJO2up1F2u
-         EOyjpy22uPVaMMmDaSIn29dKkeXEaU4gzllbRwvVFKJG18rQTF9Tw5fg7i/Kjt8BfXZn
-         Fk5Q/q+vAAuFf211i239yq73kseXMNfPxjV0tEs76aUDTC45nNmycMgk56lj64nm0ItM
-         /HYJVWV0G7n9CBWz97ergOXCAc7u0lAl5RIb3lgMfubH9drTi1p3Z21A1xbWRqyLhrQt
-         0pCK5Au17wF0UDjMignMMRiBAczKFeWs6ift2N9zZld1zX6LTfoTw8cNJ0bSWgh0nrsk
-         UlOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791962276; x=1792567076;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=gmail.com; s=20251104; t=1791962279; x=1792567079; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=kNifP+lNRe64+F/AhAXVYl+xl398Z2+g6GcnWg6zy8g=;
-        b=mNPqXRjqayxbRHx00oyn6GUgcPON+v7KNVI9l9sd7KUVDMDUX7m+GrnDHvRy664+qC
-         AT8VwpgG/54weP0AXMUJstOvQBBgQVccKeD/YZXrHHK8UlWpsdWFiei8c3DZMXOknoP7
-         B/KYKRt0GfE/qSB4yDrfNLXXIAQJ5YD1KJSMWIlIjJaMhDcJsGLro5bBGfeqR+d5fAhf
-         Gft8J+WmRfk1ndVSg9ssH/B+iDkuEpwIwJBDt5GN0d6eHWZWlQqJLoJoQ+yCQrTOmmez
-         lN1XMOm+ntUMAc32DxvZRkKrVb0tWcUNXHjpoFCyT8ath6Ls+bx2dNh4IOddWtSpwkOJ
-         qcNA==
-X-Forwarded-Encrypted: i=1; AKwUvBx6xDGn3uTO3Cw9vq1oPQBGNqLvs57CuzY/95CP1i+TVnidlS82YLBjT7pSYqLdrLK36sOuvcecNpo+ZWY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLHD0RQ8+aq7z7M52bRBKYgfL0ME8JJnrMhRL7Kfo17EmSq2xEJ
-	q2DYltWz4KPtJbjgVHuoDXZt4Dcb80RQavymd6VFXhm2nkIl5xw87WjP
-X-Gm-Gg: AYBFou2nqll5KHk87GZixajI+ppeMuG0Y3stIVoyMQlGQ3cUxsImXuei4xG4yVVOZPY
-	dg40xpSUkEFDT/lUoyCfS3ks5drm9q36xBlY/9vpHNGg+mdYz8Z9EVtMUB8f/WnWj7JGC0z29en
-	XuRizFDTySbhB4ondoFFod5DYM6HeqfQfYcsuO5sEh1M6jWE719ZxV9kfCQTAR0uS0MiSfkmaLn
-	KQSB+pawwDIquTLRNz0E1EhxotnrRNW3kjKhugSOMftJpW5ayb3fK+wYf5HOulBh5deqIL08UY+
-	lp1A7bmYQQBXbig4rFZ2QI/NmzwIb7LS3ZSECzq7qRfyL1XWo3QKrJW6ZJPLPXkT9S2gLRlzv7h
-	pSiEa7ORLbq8y9q6GOulcGP3+UwqAZzrrTM4oizjthVWMGK681q1UXEK5Tf4t3U8vTK6dL2uTOx
-	8UVkqzYkXTtxN5Hjtlk86SM5smNIcYWmfrrMefCpJxoDBta6yrSBQ5lQq4uqPNJcETyoeHB8GBW
-	SG4jyNXfNuLaTGEMaTkJB48iIGjOifS6hXZ2ok+p/aUWSnrcwS2pTOw/p79UV/AMabmpIbAyJZm
-	bgujbE/q/1087eThYAbDZA==
-X-Received: by 2002:a05:600c:524a:b0:49b:9202:6f80 with SMTP id 5b1f17b1804b1-4a18e4a4f2amr296146185e9.6.1791962276389;
-        Wed, 14 Oct 2026 00:17:56 -0700 (PDT)
+        bh=+Gr5bWZcYgumQbnVFUL+12XP1Z/UJrPiizeHxuglwVk=;
+        b=lfDsyo0fqAJmiMO6qfwJnfuaEuU4QXcTPu4n27AgE7xoKpcRLA0vARvn3hwN/Kv+ES
+         9MoSbXs5G9Br3+J7DIfeulIQszoxluJ140IkTPgYoAH2fVUWo/sbUXUm03S5YTo9W4IC
+         OJIt2+OrckKB1bw5q69tB3qPmDVlGXkTe0e0pYWsovRnO+7dSYg84AUCYD+fPFlqGVmE
+         GYmDb0qh9EOHEgqvcdyAx/fVKj+nLBDgeCZkIR0lNkaYm+oqUxgBsYwk1/fBQSLPBjJn
+         uGRPyr9Drk7erbwyf83NjkMCLar4b7w9FIePp8r9PiVAlp9yrAuooBBr6fNJk4vNpRTi
+         5bqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791962279; x=1792567079;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=+Gr5bWZcYgumQbnVFUL+12XP1Z/UJrPiizeHxuglwVk=;
+        b=MU3Mf9exZ57Dq/HvjzCvSCrDCmYn1nDxNMxTv8bIEJ2wcSIovn/TURodUloyxoN60J
+         KQWLTZafhdxSb6n0+45B727a1h6wI+AzJLTTiq4lkFvQDT/N5O902gWJ9XKMfnKFiS6z
+         WWZ4KLPl7bqZmoRR4udi39BGONY03laU06Srv/mPtCiTNdEuvgMZo3g2YAzMYJJ68B7u
+         sUx/rB0Er+u9UrMYdqcwvw/tWniSmPVjZWUsFB/mVhp2Rap8C+kFhtQUDkT7l5+32qUx
+         D47xJNdnN2V049FxKLDy/1GpWzJQZW10t/ekMwjwx35+zVFgYudOGF+Z4XGfU4i9cTO+
+         hA6g==
+X-Forwarded-Encrypted: i=1; AKwUvBzuSvX2gVDdrbWvHKVQeR8cyNrm0B4Yc4FCMsHwJFfmtt4DvlQC9x/vd/AAmEp1sYeaw/bsWnXzIBU/OTI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJJKfAs/aUhyK873AAqCOEjgwKGyHiHA+LVKkm+2stwvmMXr6qZ
+	79cBVOBhvNpc/WB9KSbP1kaBqsS35z+4v5nlC03h1IpAxPxqj95nOO7j
+X-Gm-Gg: AYBFou2xP5wYs2rn1vJYT46uORTV5iuaxbzophnreTVksZ4YjaOOgbWARKZxckDJtA2
+	e7/z86GPFhBcs9aTQm45K8foB+0Sn4czVndMnWO6AW1xM5CjMRepq17mY3ucOL6MMgqs7qBrlMq
+	4HN5HtM1otwX9iT+HUXYDDF7FNAeASPK/8mhKRQAiSDYLwDkDquaLlld1ugAG+TAk3vleoJY/yk
+	nnwZ34YUZGKFAFDQiyfxl89kLsqjqMnsspJF7XxzFd8UNFKUy0G3IFWifN8gElBWZ7I0IU2rCMi
+	pnUht0Y6nZAqTyoO2fhPE0c6kgh3dBlOtBAVbagkfzlJIqSlm0G0UlOESSyvmez1+LrxFSLZcJu
+	1JPkL2F7qw1Bpu3PG3Gh2cpc7i+wO+DsS3L0ten7L0YTXIaHTKMWed8fZtK4ZF5M8jqwApwG0AE
+	wfNTW6fpB+JiZfheNgYcOz96nU6ch4GYlE825rvdT7SaHHXUVuJ8jKsuc8hhS2T25JjNP3RW1Fq
+	Qn4Z590Cp9uXWy8Vw+50c5HEpv6W7qL4t74NVLPnG/lEcPTeqM8dLMJaYe44XYdQAr8jVfAb0MQ
+	2M/TElmgiU/6wdochvH7NXL7pca5YzBZ
+X-Received: by 2002:a05:600c:3f0c:b0:4a1:85d9:13be with SMTP id 5b1f17b1804b1-4a18e498471mr318247985e9.20.1791962279370;
+        Wed, 14 Oct 2026 00:17:59 -0700 (PDT)
 Received: from Ansuel-XPS24.localdomain (host-95-235-252-189.retail.telecomitalia.it. [95.235.252.189])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a1b35d64e4sm18756285e9.0.2026.10.14.00.17.52
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a1b35d64e4sm18756285e9.0.2026.10.14.00.17.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 00:17:54 -0700 (PDT)
+        Wed, 14 Oct 2026 00:17:58 -0700 (PDT)
 From: Christian Marangi <ansuelsmth@gmail.com>
 To: Andrew Lunn <andrew@lunn.ch>,
 	Heiner Kallweit <hkallweit1@gmail.com>,
@@ -78,10 +80,12 @@ To: Andrew Lunn <andrew@lunn.ch>,
 	netdev@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org
-Subject: [PATCH net-next v3 0/6] net: phy: mediatek: calibration for AN7581/3
-Date: Wed, 14 Oct 2026 09:17:31 +0200
-Message-ID: <20261014071739.216345-1-ansuelsmth@gmail.com>
+Subject: [PATCH net-next v3 1/6] net: phy: mediatek: export __mtk_tr_write
+Date: Wed, 14 Oct 2026 09:17:32 +0200
+Message-ID: <20261014071739.216345-2-ansuelsmth@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261014071739.216345-1-ansuelsmth@gmail.com>
+References: <20261014071739.216345-1-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,63 +94,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This small series adds calibration support for Airoha AN7581 and
-AN7583 integrated PHYs.
+Export __mtk_tr_write to directly write to debug register.
 
-The calibration logic is quite big so I decided to split
-the driver from the mediatek one to keep things organized.
+Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+---
+ drivers/net/phy/mediatek/mtk-phy-lib.c | 5 +++--
+ drivers/net/phy/mediatek/mtk.h         | 2 ++
+ 2 files changed, 5 insertions(+), 2 deletions(-)
 
-Minor change were needed and just additional symbol to use what
-is common between mediatek and airoha PHYs.
-
-I followed the naming pattern of mtk by calling the new source
-airoha-ge-soc and related config.
-
-The calibration use lots of static table and software calibration
-at runtime instead of using efuse to calibrate.
-
-There is one pecularity where some register and calibration needs
-to be done on port0 first and then with the related port.
-
-This is O.K. as port0 presence is mandatory for the functionality
-of the integrated switch and it's assumed to be always present
-on the MDIO bus.
-
-MAINTAINERS is updated to reflect the changed code.
-
-(this was tested from a long time and also verified by Airoha for
-correct order of calibration)
-
-Changes v3:
-- Address comments from sashiko bot
-- Apply review and suggested changes from Airoha
-- Rebase on top of net-next
-
-Changes v2:
-- Split header register patch from cal_cycle part
-- Fix missing EXPORT_SYMBOL_GPL
-
-Christian Marangi (6):
-  net: phy: mediatek: export __mtk_tr_write
-  net: phy: mediatek: move MTK GE SoC registers define to dedicated
-    header
-  net: phy: mediatek: generalize cal_cycle function for GE SoC
-  net: phy: mediatek: split Airoha code to dedicated source
-  net: phy: mediatek: add calibration logic for AN7581
-  net: phy: mediatek: add calibration logic for AN7583
-
- MAINTAINERS                              |    9 +
- drivers/net/phy/mediatek/Kconfig         |   18 +-
- drivers/net/phy/mediatek/Makefile        |    1 +
- drivers/net/phy/mediatek/airoha-ge-soc.c | 1851 ++++++++++++++++++++++
- drivers/net/phy/mediatek/mtk-ge-soc.c    |  553 +------
- drivers/net/phy/mediatek/mtk-ge-soc.h    |  377 +++++
- drivers/net/phy/mediatek/mtk-phy-lib.c   |   77 +-
- drivers/net/phy/mediatek/mtk.h           |   15 +
- 8 files changed, 2365 insertions(+), 536 deletions(-)
- create mode 100644 drivers/net/phy/mediatek/airoha-ge-soc.c
- create mode 100644 drivers/net/phy/mediatek/mtk-ge-soc.h
-
+diff --git a/drivers/net/phy/mediatek/mtk-phy-lib.c b/drivers/net/phy/mediatek/mtk-phy-lib.c
+index 4c4eca870bde..3e4fb899a85b 100644
+--- a/drivers/net/phy/mediatek/mtk-phy-lib.c
++++ b/drivers/net/phy/mediatek/mtk-phy-lib.c
+@@ -36,8 +36,8 @@ static void __mtk_tr_read(struct phy_device *phydev, u8 ch_addr, u8 node_addr,
+ 		*tr_high, *tr_low);
+ }
+ 
+-static void __mtk_tr_write(struct phy_device *phydev, u8 ch_addr, u8 node_addr,
+-			   u8 data_addr, u32 tr_data)
++void __mtk_tr_write(struct phy_device *phydev, u8 ch_addr, u8 node_addr,
++		    u8 data_addr, u32 tr_data)
+ {
+ 	__phy_write(phydev, 0x11, tr_data & 0xffff);
+ 	__phy_write(phydev, 0x12, tr_data >> 16);
+@@ -45,6 +45,7 @@ static void __mtk_tr_write(struct phy_device *phydev, u8 ch_addr, u8 node_addr,
+ 		tr_data >> 16, tr_data & 0xffff);
+ 	__mtk_tr_access(phydev, false, ch_addr, node_addr, data_addr);
+ }
++EXPORT_SYMBOL_GPL(__mtk_tr_write);
+ 
+ void __mtk_tr_modify(struct phy_device *phydev, u8 ch_addr, u8 node_addr,
+ 		     u8 data_addr, u32 mask, u32 set)
+diff --git a/drivers/net/phy/mediatek/mtk.h b/drivers/net/phy/mediatek/mtk.h
+index 79e09727b81b..3565e39b96a8 100644
+--- a/drivers/net/phy/mediatek/mtk.h
++++ b/drivers/net/phy/mediatek/mtk.h
+@@ -72,6 +72,8 @@ struct mtk_socphy_priv {
+ 	unsigned long		led_state;
+ };
+ 
++void __mtk_tr_write(struct phy_device *phydev, u8 ch_addr, u8 node_addr,
++		    u8 data_addr, u32 tr_data);
+ void __mtk_tr_modify(struct phy_device *phydev, u8 ch_addr, u8 node_addr,
+ 		     u8 data_addr, u32 mask, u32 set);
+ void mtk_tr_modify(struct phy_device *phydev, u8 ch_addr, u8 node_addr,
 -- 
 2.55.0
 
