@@ -1,64 +1,65 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 873C344C661
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:37:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B4A84D6C55
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:37:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791970659; cv=none; b=nlsjGbzAEsu9rDxkQSa9uJ51Vfb9YtONY3yeDOn7qD9gzy4ZhEw/Tqk00ZKaf4pjRhN+idPkM1qGljb0MbSgWH+UzPwr2JJ5VIOoG8tXrPqiN8QfCL1oIqXkROqsBX268NWJlhPVbABVj2HJTN6HzgNyCzZrflWNkwJQ/IkHvKA=
+	t=1791970665; cv=none; b=IFdvVnbedk0tK8AksvngTtkTtmnN6c0dr3qfwzHCTz5jI9c3NGS98hofUrESld74HbuVTt9cNyiLtSbfZjW2j937nNfzFWR3XXleSist5M5DpvaJCWnaLUFJDaE1VDJtrmbVfA0dMC8c9jgAN6AtoaqrbGdz7iuroSfN++27kjM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791970659; c=relaxed/simple;
-	bh=VsWEymHiZbeElw8J7t5/565RmQK6ITwyG/cxFf2FgAw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=M5H2qdUE6Vl5F/7CZvmAvNZJydPmChM4pmCLVo0mF6RgOX6YQVToKDtQY9t6nq45cP0JYg+cG/Ynh4zEviTuLKjd7mMRcfiikT5Y2ZWKZDb8mGmOmTjhPiTawNNi1aX3NrkU+q4E/c90Rf+plfKsahBOxb/HLYDM94xI9SExIR0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Fz4aNNtF; arc=none smtp.client-ip=209.85.128.53
+	s=arc-20240116; t=1791970665; c=relaxed/simple;
+	bh=NYNBH3Tkye//9YpdFDFHZ0BtjpnzmGNNmri1Qom4Qg8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hq4SEEj/HYqNv64vM2vLL9RPBwdnTp5jFxntpzCvdo+/9je0AoWip9uZt3aao/i+/uYEJkXhOzGQ08uqfSzbto0UYj+O2VykGkKgynugMynuHI65wwU9W74y9Eo+cl0vvhV0gNiycNaWjhgey9gShFqMLu3grgF0q5+7FyQL6IA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J+qF6GWj; arc=none smtp.client-ip=209.85.221.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Fz4aNNtF"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a172eb31f0so32255435e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 02:37:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J+qF6GWj"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48b0d19cf7eso3881268f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 02:37:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791970656; x=1792575456; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=R05RRinsndJYz9OgDk1E3BcfzrlmFh1Ft/JMEJneKqY=;
-        b=Fz4aNNtFz0bfOC4ZYLlX63u7LERG5oOAkVJEuJHNt7xzByGX50ednN368VcHweTRN7
-         1FQX85+tm2UTHRMi8aQUgGThyzxP8lIq0vc0B/9urQNyIWhoRAKYWvcvA41VH7rXBMX7
-         tfYVo2ak5mIrx2mBQVwjtLPNZLlBeyslb+KvoKhJm/IWiKYfGR+hxMrNkYMHqL6mlcQY
-         c+05NEuDDV1nc3N+/LujWhbjF1atculyo1g465lDhAOyU8Pt7isL3+BRokkKExvvGz5C
-         Pb1GOK7Q2TtGESxR/Cob+istLfZpRthYbhbq8Mj55g5lWIptttK2b/dM9qLmuUg9sOKW
-         Z96w==
+        d=gmail.com; s=20251104; t=1791970658; x=1792575458; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sXoOtdmnob+YnMth1qvSHm903lQEMfykmhDcceAz8kQ=;
+        b=J+qF6GWjsjMTJoYgvYB8iEi2nBQYCWXFnaTEQaTwAAWbA35HHvBtMSXWdmeFtzCCjK
+         QI0jKFACHkWvOt5VZ+U8zOrbcpLI9jYiQ39To2FFME5ghqcVr+VKGEUb+D5OVC7kUfv2
+         Jidq3VV7ExZVpjR9meeXtVu1mRzl8AaPGMwB71TWp3GCg/9/p4S+m35AB6YvcqGkI2Gy
+         YAUBDNul80wNGu0tCG+uyDvoWAoDqcUbrPQxPaOQVX30fZj+JIidJ3COprwyjdHfnNYV
+         ojUTCAE5iMVMO0QuDH4Z8CfOT6K+Aro4GSCVOK/H+zxJzswT+nEbPIgdIfxCYJsTz8Q2
+         B6Cw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791970656; x=1792575456;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=R05RRinsndJYz9OgDk1E3BcfzrlmFh1Ft/JMEJneKqY=;
-        b=NHuPxsGE0QWjIEPh3vSTVSJYkXO/e8ESX+cBOOuoJUebrSzYPFFePLpubGRTRTSWRI
-         hB5aBTEqEt9g93viyqoRjd3QyRdJgUTK6zEWSSaErPdVOd0WTVC/dzWpQB3QNkLranfR
-         6oGcEIevU9dRaGSs/6UQZfw/m3B4/H80XXlFVWOwckzUsk5lQe9vkr61D9jd0o2D3sjK
-         LmrHPtrn7yS4zKVXyvNOgB1Yug5jsM27K3MLF/8tKS+jAt4tKQi+xZ3YOkPh+PphDquP
-         HaST1Xb7hOnZ6/nBRn6fKt8VOG1nVfztUtcK532EFQIOhVWQEZdJhQwd9MNVdyBicjzI
-         SIbw==
-X-Forwarded-Encrypted: i=1; AKwUvBwkfiVPf1CHOW39wTEwVsJGVcdd3PrgS4NPGOnDIb/mKZQq4upgIDCmE97x71LiDozrSqg0Jw/im+tB12Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJqbWSsdx1AiyRNWzP1XaIOgEl6RsOuiY7NVhbY4OJ/43uQxIjN
-	OJvQOIjmvVoC20U7SeSrdevxe4uNA/K+FTYEcJO81Bs8QyUU0bZBQs+0
-X-Gm-Gg: AYBFou3T9/V2/QtQdpzCNN+uTiwhUVki9bGv+TzTCmvdqXX7lHds0dVrtG0f3njyI5A
-	w3sc6BPgGZWY4umNQD5SRUfkxNa90XUKd5h/aDI6fVXuYq6muEAOIT5HGFoaNgznP6ABAqq7fov
-	Q86ALHNz7e68KCIf76tpoCG/I+BGBfZaTkwIFfOG+U95+cRqoALd9sYLLgfyvtk+hYedKXGFFB1
-	nm8LsVg1Gi58xWvxkTnNgE7vVrzb8L5bw5BiUJdSZ8AFMlLsbZBWkR+v5Qb4BxyJbC7+GFbUybH
-	u+q1xLVbdihw1GfB1CuWT6ZXrmowPPsewzbPRT4sZ8urmPFTjXjVykGD61+iRqhelRXZbmaKwxr
-	/LAzqd+FXwyu+C7Gq0VYMWDADiFlYXLCyXlZeI71Ls+LPrczAE4hEFRinKlTAtToNBPPzZiYvMX
-	MXcTUlKSiKHCkL8t1hefoR4tQiv2NI3HF/80O5RQbDqkUiOwmH07/uAPWqMpJGr/TKGvk9LRwq4
-	hm8vYDW/FmV4zWnZnUouMAHjHt2OS5JJlDftFtV48lx4meMIkqHl19IN5pkh0qBzDgbK7TEXLOq
-	+vDX3h//4SNPb/k+8KuWLRXHX5IDTMfeqqM=
-X-Received: by 2002:a05:600c:3e05:b0:4a0:2391:6540 with SMTP id 5b1f17b1804b1-4a18e4cdbd0mr281195195e9.25.1791970655308;
-        Wed, 14 Oct 2026 02:37:35 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791970658; x=1792575458;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sXoOtdmnob+YnMth1qvSHm903lQEMfykmhDcceAz8kQ=;
+        b=ieOxOuTOVZ1wShM9wIImf2nJuvhjzfxGrBF2BMjH5hrtTpU0bOMgmGPsPSp6j4zaaD
+         Wd9kJVmG2eRnvfil47urH6DuClL6sksTiSfcNhPLZJAtJy6pqi9HsUdg9xb1NZBv5xHE
+         jgbJATfsJSMRn6lbzAREeYxkoDPJhYCrZPPEyYEz8dGmV4VuJOaCs43+TU72dJxTJ2sx
+         CkmVsPNIzUEFPX5o6VXy6sARFrL49ablRZOw6GzU9q12eIIczl++6vgdq25wIRNqV0cf
+         0KpYxMoZCwn/ZHi1KMJP+lKeRnXkmZpP08hyN3wibLAvCb4PRwSK4occoiRnOPzTRY4c
+         R7gA==
+X-Forwarded-Encrypted: i=1; AKwUvBwKLjMSNsI9CnOylq28m8t5PoNuZaWkmcb5sKd+/NnFyWEd19m2ax/8rcNLCsM2T7YrEvu3Tq+Kk2chz6E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLiUQrPAEiEMPFf4y/Mir/99AsZc7LbRCTUEenO7Kgei0FCMW0M
+	UiKCw41l/AFu/PJsxcDvZ0215Y0lVI2kIx8qfOc2CoUF8tf1bkeKKYMj
+X-Gm-Gg: AYBFou2tOGi03KH2N9h6GSDUEbT8MxZP1i+NjNvavJUCOTtoHeanbIE+6NaBnjBpmem
+	m8pBAnHS/6pa3QZ56OmoMfyPjkNILTe1mUOY40zSn25ltSOjqq8+KFesiuwuYejJs/5AEDp+8Uk
+	9Fh6fGU5btQnYCp67dv0QWZQAKtYbdMBtyrfP8sYPnrEDqiH5d0IlrMAbhoIbh3dqClHCN6stAT
+	NPysPRTm47r5hg+GMcYVBy2X86x6JeRjHdgrH8pDgvSRDRcgN70YWAyD30MKueSPA15/r6tqehu
+	7Dg7YyksOBrQK7gjDBvrs8Xy8F/qMNnO9haGbRNDpTvm/obNJuDWLWpYn/3rGyZ1cO5OFvqcPiH
+	gitXs86f2Z1o1ZcALvTFDr9sifmB0pImnTPWOciQM4bSmKoZ4+EzvqoIK81fmLYpAKo9oF138ly
+	4DLFZfut39YmbHCTfNGAurSi7SSoF4ZoZnEmnDQzmWWf9+FBOhyPpq5U99Nv2Lwox0iumFfJqqv
+	ZwNmHtLtQIsy97AgxdC0ie2ld2ax5gPqMPQrmT2LR4HWy6TQkMuEM4G2dPz4ViJu+atdixJ/AJ3
+	mTfToM23OVMKNtWn1/0SL+qwbUN4C4qM2M4shD7CzQKytw==
+X-Received: by 2002:a5d:4381:0:b0:48c:7d67:8ee9 with SMTP id ffacd0b85a97d-48dbacec815mr21345295f8f.19.1791970658161;
+        Wed, 14 Oct 2026 02:37:38 -0700 (PDT)
 Received: from dev-dsk-fgriffo-1c-93421965.eu-west-1.amazon.com (54-240-197-234.amazon.com. [54.240.197.234])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de3f7f8b8sm9365477f8f.35.2026.10.14.02.37.34
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de3f7f8b8sm9365477f8f.35.2026.10.14.02.37.36
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 14 Oct 2026 02:37:34 -0700 (PDT)
+        Wed, 14 Oct 2026 02:37:37 -0700 (PDT)
 From: Fred Griffoul <griffoul@gmail.com>
 To: Paolo Bonzini <pbonzini@redhat.com>,
 	Sean Christopherson <seanjc@google.com>,
@@ -106,257 +107,310 @@ Cc: David Woodhouse <dwmw2@infradead.org>,
 	linux-mm@kvack.org,
 	linux-kselftest@vger.kernel.org,
 	linux-doc@vger.kernel.org
-Subject: [RFC PATCH v2 00/11] mm: Memory providers for guest_memfd and iommufd
-Date: Wed, 14 Oct 2026 09:37:22 +0000
-Message-ID: <20261014093733.90312-1-griffoul@gmail.com>
+Subject: [RFC PATCH v2 02/11] KVM: guest_memfd: Let get_pfn() report read-only pages
+Date: Wed, 14 Oct 2026 09:37:24 +0000
+Message-ID: <20261014093733.90312-3-griffoul@gmail.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261014093733.90312-1-griffoul@gmail.com>
+References: <20261014093733.90312-1-griffoul@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 From: Fred Griffoul <fgriffo@amazon.co.uk>
 
-Some drivers manage RAM outside the page allocator: a carve-out, device
-memory, or memory that a host component moves between VMs while they
-run. This memory often has no struct page. The driver wants to lend
-pages to a VM and to its devices, and to take any of them back later.
+A guest_memfd backing cannot map a page read-only for the guest:
+get_pfn() returns only a frame, and KVM_MEM_READONLY is refused on
+guest_memfd slots. So a hypervisor cannot give a guest a page it may
+read but not write.
 
-David Woodhouse's series "KVM: Allow alternative providers of
-guest_memfd backed by PFNMAP memory" lets such a driver back a
-guest_memfd through struct kvm_gmem_ops:
+get_pfn() gets a writable output, which it may clear. The x86 and arm64
+fault paths then map the page without write permission, and a guest
+write exits with KVM_EXIT_MEMORY_FAULT. A read-only answer applies to
+the whole block that max_order allows.
 
-  https://lore.kernel.org/kvm/20260720111259.122911-1-dwmw2@infradead.org/
+Callers that hand the page to something that writes it must refuse a
+read-only page: the arm64 VNCR page and the SEV-SNP VMSA. populate() has
+no writable output, so a backing cannot report read-only state through
+it. The output does not cover KVM's own writes through the slot's host
+address.
 
-That covers the guest, but not the VM's devices, which his cover
-letter left as an open question. This series adds a small interface in
-mm: the driver that owns the memory becomes a provider, and the code
-that maps it attaches as a consumer. There are two consumers, a
-guest_memfd backend and IOMMU_IOAS_MAP_FILE in iommufd.
+The memory provider backing, later in this series, is the first user.
 
-Why not dma-buf
-===============
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Fred Griffoul <fgriffo@amazon.co.uk>
+---
+ arch/arm64/kvm/mmu.c     | 13 ++++++++-----
+ arch/arm64/kvm/nested.c  | 16 ++++++++++++----
+ arch/x86/kvm/mmu/mmu.c   | 18 ++++++++++++++++--
+ arch/x86/kvm/svm/sev.c   | 13 +++++++++++--
+ include/linux/kvm_host.h | 16 +++++++++++++---
+ virt/kvm/guest_memfd.c   | 21 ++++++++++++++++-----
+ 6 files changed, 76 insertions(+), 21 deletions(-)
 
-The earlier RFC shared the memory as a dma-buf. Christian König
-rejected that: an importer must not build its own page tables from a
-dma-buf, and the use case should stay out of drivers/dma-buf. I
-acknowledged that and dropped it; this series does not touch dma-buf.
-
-Why a new interface
-===================
-
-kvm_gmem_ops gives KVM a way in. For devices, the only option today is
-a dma-buf plus a private call that iommufd looks up with symbol_get(),
-which is how vfio-pci works. Each new owner would need another such
-lookup, and iommufd would end up knowing each owner by name. With a
-common interface, a provider module only calls into mm, and nothing
-needs symbol_get().
-
-It also means the provider revokes a range once. The VMM hands the
-same file to KVM and to iommufd; on a revoke the core forwards it to
-every consumer, so KVM clears the range from stage-2, iommufd from the
-IOMMU page tables, and guest_memfd from the VMM's own mapping, all
-before the revoke returns.
-
-The contract
-============
-
-For a page of a provider file, get_page() returns the frame, its type
-(RAM or MMIO, read-only or not), and the largest aligned block of frames
-of the same type, so that consumers can use large mappings. A page
-without a frame is a hole.
-
-Consumers take no references. A frame stays valid until the revoke that
-removes it returns. To guarantee that, a consumer either holds a lock
-across get_page() and the mapping that its revoke callback also takes,
-or detects a racing revoke and retries.
-
-The interface does not deal with folios. The native guest_memfd backend
-and memfd pinning in iommufd handle pages from the page allocator, and
-pages that can move or swap would need references. A backend that needs
-full control over the file can still write its own kvm_gmem_ops.
-
-Backends
-========
-
-The motivating user is a host-side memory manager. It reserves a region
-of host RAM, lends parts of it to VMs and their devices, moves pages
-between VMs, and has to survive a live update of the host kernel. The
-sample module in this series models it.
-
-Device-DAX could also be a provider: its range never moves, get_page()
-is short, and it only revokes on unbind. iommufd can map MMIO, but KVM
-takes only RAM, because it picks the guest memory type itself.
-
-Neither consumer keeps state about the provider's frames, which helps
-with live update. guest_memfd has nothing to save across kexec, since
-KVM refills stage-2 on faults. The provider saves its frames and who
-owns them. Devices cannot fault, so their mappings stay part of the
-existing iommufd live update work, and the provider only has to give
-back the same frames.
-
-Confidential VMs
-================
-
-This series does not support them yet. For now only x86 VMs of type
-KVM_X86_DEFAULT_VM can use a provider. That type also covers legacy SEV
-and SEV-ES guests set up with KVM_SEV_INIT: for them, a revoke and the
-closing of the file write back the guest's caches, so that no stale
-encrypted line reaches the frames once the provider reuses them.
-
-For VMs with private memory, guest_memfd converts pages between shared
-and private, so it should tell the other users what to zap. Only
-guest_memfd knows which pages are private, and revoking a private page
-loses its contents, so a provider should not take part in conversions.
-
-The interface fits that model too. guest_memfd can be a provider for
-its own file: it returns the frames of shared pages, reports private
-pages as holes, and revokes a range that it converts to private.
-iommufd then maps only shared pages, without pinning them, whether
-guest_memfd allocates folios or takes its memory from a provider. In
-the second case, guest_memfd forwards the provider's revokes. I left
-that for a later series.
-
-Patches
-=======
-
-  Patch 1 is David's: guest_memfd gets a per-file struct kvm_gmem_ops,
-  and the native backend becomes one implementation of it.
-
-  Patch 2 lets a kvm_gmem_ops backend map a page read-only for the
-  guest. get_pfn() gets a writable output that it may clear, and a
-  guest write to such a page exits with KVM_EXIT_MEMORY_FAULT.
-  KVM_MEM_READONLY can't be used for this, because guest_memfd slots
-  don't allow it.
-
-  Patch 3 adds the interface and the core, and the FOP_MEM_PROVIDER
-  flag in struct file_operations.
-
-  Patch 4 adds the provider backend to guest_memfd, behind
-  GUEST_MEMFD_FLAG_USE_RESOURCE. guest_memfd also handles the
-  userspace mapping of the file, if the provider allows it, so
-  providers don't each have to get the fault and revoke handling right.
-
-  Patch 5 prepares iommufd for tracking pages it does not pin. No
-  functional change.
-
-  Patch 6 lets IOMMU_IOAS_MAP_FILE take a provider file. iommufd pins
-  nothing and maps only what the provider backs; a revoke unmaps the
-  range and maps it again. A scratch page for devices that cannot
-  fault is left for a later IOAS quirk, as David suggested.
-
-  Patch 7 maps each block the provider reports with large IOMMU pages
-  where the IOVA and the frames are aligned alike, one call per page so
-  that a revoke never splits a map call. A large IOMMU page can only be
-  unmapped whole, so a revoke that cuts one unmaps and remaps all of it.
-
-  Patches 8 and 9 add iommufd selftests: two mock-domain queries and a
-  mock provider.
-
-  Patch 10 adds a sample provider. It gives each VM a child file, can
-  move, donate and reclaim pages, and supports read-only pages. A child
-  file is read-only to its holder; the owner changes it through the
-  control device. It only uses the mm interface.
-
-  Patch 11 adds a KVM selftest with one provider and two VMMs. After
-  each change it checks what the guest, the device and the VMM's mapping
-  see. A third VM checks that KVM maps an aligned block with a 2 MiB
-  page, and drops it when a page inside goes away.
-
-Testing
-=======
-
-On x86_64 in QEMU, with KASAN and lockdep: mem_provider_test,
-guest_memfd_test and the iommufd provider selftests pass, with the
-mock IOMMU domain only. Each patch builds with KVM built in, as a
-module, and with SEV. arm64 is not tested.
-
-Changes since v1
-================
-
-v1: https://lore.kernel.org/all/20261006183235.16576-1-griffoul@gmail.com/
-
-  - Sit on David's kvm_gmem_ops patch alone instead of his whole
-    series; its revoke, iommufd exporter lookups, sample and selftests
-    are replaced by this series.
-
-  - Take the provider file through Ackerley Tng's
-    GUEST_MEMFD_FLAG_USE_RESOURCE and resource_fd [1], as discussed
-    with Aneesh and Ackerley. A file that is not from a provider fails
-    with -EOPNOTSUPP.
-
-  - Map the blocks the provider reports, so the IOMMU can use large
-    pages, and flush the IOTLB once per revoke (patch 7).
-
-[1] https://lore.kernel.org/all/20260925-gmem-tmpfs-backend-v1-0-d36159822d18@google.com/
-
-David Woodhouse (1):
-  KVM: guest_memfd: Introduce guest memory ops and route native gmem
-    through them
-
-Fred Griffoul (10):
-  KVM: guest_memfd: Let get_pfn() report read-only pages
-  mm: Add memory providers
-  KVM: guest_memfd: Add a memory provider backing
-  iommufd: Track the domains of pages that are not pinned
-  iommufd: Map memory provider files
-  iommufd: Use large IOMMU pages for provider mappings
-  iommufd/selftest: Add mock-domain IOVA queries
-  iommufd/selftest: Add a mock memory provider
-  samples/kvm: Add a memory provider sample
-  KVM: selftests: Test a memory provider shared by KVM and iommufd
-
- Documentation/virt/kvm/api.rst                |  46 +-
- MAINTAINERS                                   |   8 +
- arch/arm64/kvm/mmu.c                          |  13 +-
- arch/arm64/kvm/nested.c                       |  16 +-
- arch/x86/kvm/Makefile                         |   5 +-
- arch/x86/kvm/mmu/mmu.c                        |  18 +-
- arch/x86/kvm/svm/sev.c                        |  13 +-
- arch/x86/kvm/x86.c                            |   9 +
- drivers/iommu/iommufd/Kconfig                 |   1 +
- drivers/iommu/iommufd/io_pagetable.c          |  37 +-
- drivers/iommu/iommufd/io_pagetable.h          |  58 +-
- drivers/iommu/iommufd/iommufd_test.h          |  40 +
- drivers/iommu/iommufd/pages.c                 | 435 ++++++++-
- drivers/iommu/iommufd/selftest.c              | 325 +++++++
- include/linux/fs.h                            |   2 +
- include/linux/kvm_host.h                      | 100 +-
- include/linux/mem_provider.h                  | 211 +++++
- include/uapi/linux/iommufd.h                  |  16 +-
- include/uapi/linux/kvm.h                      |  11 +-
- mm/Kconfig                                    |   7 +
- mm/Makefile                                   |   1 +
- mm/mem_provider.c                             | 177 ++++
- samples/Kconfig                               |  17 +
- samples/Makefile                              |   1 +
- samples/kvm/Makefile                          |   2 +
- samples/kvm/mem_provider_sample.c             | 855 ++++++++++++++++++
- samples/kvm/mem_provider_sample.h             | 135 +++
- tools/include/uapi/linux/kvm.h                |  11 +-
- tools/testing/selftests/iommu/iommufd.c       | 185 ++++
- tools/testing/selftests/iommu/iommufd_utils.h |  69 ++
- tools/testing/selftests/kvm/Makefile.kvm      |   1 +
- .../testing/selftests/kvm/guest_memfd_test.c  |  15 +
- .../selftests/kvm/x86/mem_provider_test.c     | 653 +++++++++++++
- virt/kvm/Kconfig                              |   1 +
- virt/kvm/guest_memfd.c                        | 645 +++++++++++--
- virt/kvm/kvm_main.c                           |   8 +-
- virt/kvm/kvm_mm.h                             |   4 +-
- 37 files changed, 3987 insertions(+), 164 deletions(-)
- create mode 100644 include/linux/mem_provider.h
- create mode 100644 mm/mem_provider.c
- create mode 100644 samples/kvm/Makefile
- create mode 100644 samples/kvm/mem_provider_sample.c
- create mode 100644 samples/kvm/mem_provider_sample.h
- create mode 100644 tools/testing/selftests/kvm/x86/mem_provider_test.c
-
-
-base-commit: 0e35b9b6ec0ffcc5e23cbdec09f5c622ad532b53
+diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+index 6c941aaa10c6..32e591edc69d 100644
+--- a/arch/arm64/kvm/mmu.c
++++ b/arch/arm64/kvm/mmu.c
+@@ -1607,7 +1607,7 @@ struct kvm_s2_fault_desc {
+ 
+ static int gmem_abort(const struct kvm_s2_fault_desc *s2fd)
+ {
+-	bool write_fault, exec_fault;
++	bool write_fault, exec_fault, writable;
+ 	bool perm_fault = kvm_vcpu_trap_is_permission_fault(s2fd->vcpu);
+ 	enum kvm_pgtable_walk_flags flags = KVM_PGTABLE_WALK_SHARED;
+ 	enum kvm_pgtable_prot prot = KVM_PGTABLE_PROT_R;
+@@ -1641,14 +1641,17 @@ static int gmem_abort(const struct kvm_s2_fault_desc *s2fd)
+ 	/* Pairs with the smp_wmb() in kvm_mmu_invalidate_end(). */
+ 	smp_rmb();
+ 
+-	ret = kvm_gmem_get_pfn(kvm, s2fd->memslot, gfn, &pfn, &page, NULL);
+-	if (ret) {
++	ret = kvm_gmem_get_pfn(kvm, s2fd->memslot, gfn, &pfn, &page, NULL,
++			       &writable);
++	if (ret || (write_fault && !writable)) {
+ 		kvm_prepare_memory_fault_exit(s2fd->vcpu, s2fd->fault_ipa, PAGE_SIZE,
+ 					      write_fault, exec_fault, false);
+-		return ret;
++		if (!ret)
++			kvm_release_faultin_page(kvm, page, true, false);
++		return ret ?: -EFAULT;
+ 	}
+ 
+-	if (!(s2fd->memslot->flags & KVM_MEM_READONLY))
++	if (!(s2fd->memslot->flags & KVM_MEM_READONLY) && writable)
+ 		prot |= KVM_PGTABLE_PROT_W;
+ 
+ 	if (s2fd->nested)
+diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+index fb54f6dad995..fa86705df949 100644
+--- a/arch/arm64/kvm/nested.c
++++ b/arch/arm64/kvm/nested.c
+@@ -1411,11 +1411,19 @@ static int kvm_translate_vncr(struct kvm_vcpu *vcpu, bool *is_gmem)
+ 		if (is_error_noslot_pfn(pfn) || (write_fault && !writable))
+ 			return -EFAULT;
+ 	} else {
+-		ret = kvm_gmem_get_pfn(vcpu->kvm, memslot, gfn, &pfn, &page, NULL);
+-		if (ret) {
++		ret = kvm_gmem_get_pfn(vcpu->kvm, memslot, gfn, &pfn, &page, NULL,
++				       &writable);
++		/*
++		 * The VNCR page is always written, so a read-only page cannot
++		 * back it.  Exit on the first access, even a read, rather than
++		 * map it read-only and fault on the next write.
++		 */
++		if (ret || !writable) {
+ 			kvm_prepare_memory_fault_exit(vcpu, vt->wr.pa, PAGE_SIZE,
+-					      write_fault, false, false);
+-			return ret;
++					      true, false, false);
++			if (!ret)
++				kvm_release_faultin_page(vcpu->kvm, page, true, false);
++			return ret ?: -EFAULT;
+ 		}
+ 	}
+ 
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index 234d0a95abf5..f689ef5c2b46 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -4612,6 +4612,7 @@ static void kvm_mmu_finish_page_fault(struct kvm_vcpu *vcpu,
+ static int kvm_mmu_faultin_pfn_gmem(struct kvm_vcpu *vcpu,
+ 				    struct kvm_page_fault *fault)
+ {
++	bool writable;
+ 	int max_order, r;
+ 
+ 	if (!kvm_slot_has_gmem(fault->slot)) {
+@@ -4620,13 +4621,26 @@ static int kvm_mmu_faultin_pfn_gmem(struct kvm_vcpu *vcpu,
+ 	}
+ 
+ 	r = kvm_gmem_get_pfn(vcpu->kvm, fault->slot, fault->gfn, &fault->pfn,
+-			     &fault->refcounted_page, &max_order);
++			     &fault->refcounted_page, &max_order, &writable);
+ 	if (r) {
+ 		kvm_mmu_prepare_memory_fault_exit(vcpu, fault);
+ 		return r;
+ 	}
+ 
+-	fault->map_writable = !(fault->slot->flags & KVM_MEM_READONLY);
++	/*
++	 * get_pfn() may clear writable, on top of the memslot's read-only flag:
++	 * a read-only page is mapped read-only, and a guest write to it exits to
++	 * userspace rather than being installed.
++	 */
++	fault->map_writable = !(fault->slot->flags & KVM_MEM_READONLY) &&
++			      writable;
++	if (fault->write && !fault->map_writable) {
++		kvm_mmu_prepare_memory_fault_exit(vcpu, fault);
++		kvm_release_faultin_page(vcpu->kvm, fault->refcounted_page,
++				 true, false);
++		fault->refcounted_page = NULL;
++		return -EFAULT;
++	}
+ 	fault->max_level = kvm_max_level_for_order(max_order);
+ 
+ 	return RET_PF_CONTINUE;
+diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
+index 427229347876..e121441bc89c 100644
+--- a/arch/x86/kvm/svm/sev.c
++++ b/arch/x86/kvm/svm/sev.c
+@@ -3988,6 +3988,7 @@ static void sev_snp_init_protected_guest_state(struct kvm_vcpu *vcpu)
+ 	struct vcpu_svm *svm = to_svm(vcpu);
+ 	struct kvm_memory_slot *slot;
+ 	struct page *page;
++	bool writable;
+ 	kvm_pfn_t pfn;
+ 	gfn_t gfn;
+ 
+@@ -4025,9 +4026,17 @@ static void sev_snp_init_protected_guest_state(struct kvm_vcpu *vcpu)
+ 	 * The new VMSA will be private memory guest memory, so retrieve the
+ 	 * PFN from the gmem backend.
+ 	 */
+-	if (kvm_gmem_get_pfn(vcpu->kvm, slot, gfn, &pfn, &page, NULL))
++	if (kvm_gmem_get_pfn(vcpu->kvm, slot, gfn, &pfn, &page, NULL,
++			     &writable))
+ 		return;
+ 
++	/* The CPU writes the VMSA on every VMRUN: a read-only page cannot be one. */
++	if (!writable) {
++		if (page)
++			kvm_release_page_clean(page);
++		return;
++	}
++
+ 	/*
+ 	 * From this point forward, the VMSA will always be a guest-mapped page
+ 	 * rather than the initial one allocated by KVM in svm->sev_es.vmsa. In
+@@ -4958,7 +4967,7 @@ void sev_handle_rmp_fault(struct kvm_vcpu *vcpu, gpa_t gpa, u64 error_code)
+ 		return;
+ 	}
+ 
+-	ret = kvm_gmem_get_pfn(kvm, slot, gfn, &pfn, &page, &order);
++	ret = kvm_gmem_get_pfn(kvm, slot, gfn, &pfn, &page, &order, NULL);
+ 	if (ret) {
+ 		pr_warn_ratelimited("SEV: Unexpected RMP fault, no backing page for private GPA 0x%llx\n",
+ 				    gpa);
+diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
+index b33d2f475042..a15abd0f7fb7 100644
+--- a/include/linux/kvm_host.h
++++ b/include/linux/kvm_host.h
+@@ -649,6 +649,15 @@ static inline bool kvm_slot_has_gmem(const struct kvm_memory_slot *slot)
+  *    is responsible for put_page() after use.  If *page is left NULL the PFN
+  *    is treated as non-refcounted, and its lifetime is owned by the
+  *    implementation across bind()/unbind().
++ *  - *writable, when the caller passes it, is true on entry.  Clear it to
++ *    have KVM map the page read-only; a guest write then exits as a memory
++ *    fault.  It covers the whole block that *max_order allows, so that block
++ *    must be all writable or all read-only.  It applies to stage-2 mappings
++ *    only, not to KVM's own writes through the memslot's host address.  A
++ *    caller that hands the page to hardware that writes it passes @writable
++ *    and refuses a read-only page.  Only a caller that never writes the page
++ *    itself passes NULL.  populate() has no writable result, so KVM cannot
++ *    learn read-only state through it; it is used only to fill a page.
+  *
+  * Memory intended to back guest RAM MUST be reported as E820_TYPE_RAM by the
+  * host so KVM maps it write-back (and applies the memory-encryption bit on
+@@ -662,7 +671,8 @@ struct kvm_gmem_ops {
+ 		       struct kvm_memory_slot *slot);
+ 	int (*get_pfn)(struct file *file, struct kvm *kvm,
+ 		       struct kvm_memory_slot *slot, gfn_t gfn,
+-		       kvm_pfn_t *pfn, struct page **page, int *max_order);
++		       kvm_pfn_t *pfn, struct page **page, int *max_order,
++		       bool *writable);
+ 	int (*populate)(struct file *file, struct kvm *kvm,
+ 			struct kvm_memory_slot *slot, gfn_t gfn,
+ 			kvm_pfn_t *pfn, struct page *src_page, int order);
+@@ -2642,12 +2652,12 @@ static inline bool kvm_mem_is_private(struct kvm *kvm, gfn_t gfn)
+ #ifdef CONFIG_KVM_GUEST_MEMFD
+ int kvm_gmem_get_pfn(struct kvm *kvm, struct kvm_memory_slot *slot,
+ 		     gfn_t gfn, kvm_pfn_t *pfn, struct page **page,
+-		     int *max_order);
++		     int *max_order, bool *writable);
+ #else
+ static inline int kvm_gmem_get_pfn(struct kvm *kvm,
+ 				   struct kvm_memory_slot *slot, gfn_t gfn,
+ 				   kvm_pfn_t *pfn, struct page **page,
+-				   int *max_order)
++				   int *max_order, bool *writable)
+ {
+ 	KVM_BUG_ON(1, kvm);
+ 	return -EIO;
+diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
+index 057f90eb835a..c9595cc9d56e 100644
+--- a/virt/kvm/guest_memfd.c
++++ b/virt/kvm/guest_memfd.c
+@@ -624,7 +624,7 @@ static void kvm_gmem_native_unbind(struct file *slot_file, struct kvm *kvm,
+ static int  kvm_gmem_native_get_pfn(struct file *file, struct kvm *kvm,
+ 				    struct kvm_memory_slot *slot, gfn_t gfn,
+ 				    kvm_pfn_t *pfn, struct page **page,
+-				    int *max_order);
++				    int *max_order, bool *writable);
+ static void kvm_gmem_native_release(struct file *file);
+ static int  kvm_gmem_native_mmap(struct file *file,
+ 				 struct vm_area_struct *vma);
+@@ -936,7 +936,7 @@ static struct folio *__kvm_gmem_get_pfn(struct file *file,
+ static int kvm_gmem_native_get_pfn(struct file *file, struct kvm *kvm,
+ 				   struct kvm_memory_slot *slot, gfn_t gfn,
+ 				   kvm_pfn_t *pfn, struct page **page,
+-				   int *max_order)
++				   int *max_order, bool *writable)
+ {
+ 	pgoff_t index = kvm_gmem_get_index(slot, gfn);
+ 	struct folio *folio;
+@@ -964,7 +964,7 @@ static int kvm_gmem_native_get_pfn(struct file *file, struct kvm *kvm,
+ 
+ int kvm_gmem_get_pfn(struct kvm *kvm, struct kvm_memory_slot *slot,
+ 		     gfn_t gfn, kvm_pfn_t *pfn, struct page **page,
+-		     int *max_order)
++		     int *max_order, bool *writable)
+ {
+ 	const struct kvm_gmem_ops *ops;
+ 
+@@ -977,7 +977,10 @@ int kvm_gmem_get_pfn(struct kvm *kvm, struct kvm_memory_slot *slot,
+ 		return -EFAULT;
+ 
+ 	*page = NULL;
+-	return ops->get_pfn(file, kvm, slot, gfn, pfn, page, max_order);
++	if (writable)
++		*writable = true;
++	return ops->get_pfn(file, kvm, slot, gfn, pfn, page, max_order,
++			    writable);
+ }
+ EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_gmem_get_pfn);
+ 
+@@ -1028,6 +1031,7 @@ static int kvm_gmem_populate_one(const struct kvm_gmem_ops *ops,
+ 				      void *opaque)
+ {
+ 	struct page *ignored_page = NULL;
++	bool writable = true;
+ 	kvm_pfn_t pfn;
+ 	int ret;
+ 
+@@ -1041,10 +1045,17 @@ static int kvm_gmem_populate_one(const struct kvm_gmem_ops *ops,
+ 				    src_page, 0);
+ 	else
+ 		ret = ops->get_pfn(file, kvm, slot, gfn, &pfn,
+-				   &ignored_page, NULL);
++				   &ignored_page, NULL, &writable);
+ 	if (ret)
+ 		return ret;
+ 
++	/* post_populate() writes the page, so it cannot be read-only. */
++	if (!writable) {
++		if (ignored_page)
++			put_page(ignored_page);
++		return -EPERM;
++	}
++
+ 	ret = post_populate(kvm, gfn, pfn, src_page, opaque);
+ 
+ 	/*
 -- 
 2.47.3
 
