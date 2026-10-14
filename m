@@ -1,89 +1,74 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-115.mta1.migadu.com [95.215.58.115])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F15A518136;
-	Wed, 14 Oct 2026 13:20:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDDA5522F17
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:20:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.115
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791984007; cv=none; b=ujs3zoGRXbbpZWw8wHhPkq3BM1VkxAdGhD5bsIkIv/LnhuZZkAVWGwXWvQlVHqsOQtZLtFrOK3vGXb439PZ+29mtTXa0xUQ6439zMrTRKCgYt4IQeGQaspl7HFN+PWAdGfY3dk3NgsTHh84S/jA9o+gwZk/03/irx76jmU8rGH0=
+	t=1791984011; cv=none; b=G00kYkdduWYgE5W+q+mFTv9YZKpqiiHNjh2xwf1UOSMOG7C3bPLg2zeMkqJ1xolB9ixqgOPg0OdlqZnHRgUxN15UOm15kqKP74rgJnVDP6vq7I7xFYcsYAnp8Af30dre1XNXWHrmmhHb9uzwEEge7IO2cYrA5T8LKRGVwlAJ80M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791984007; c=relaxed/simple;
-	bh=c0PI4xFFoY2Ofu/8qn+CX74d3EunIVd2HRI7DK65jSA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YFlv3mizNX8fnD73cnt+tscuGLFxpOCWEDDEOvbJTs+aVY+mQnhbkIkYcsX8E9BHaoy2ThZGxsileKcNK1Su24ricX1TPikmcZfJF+d5JqSkZU+wujiWV176hrxke8FsF65q+vZMvGKvTZNBt2x4Y6Zu6NkSM0Mt9AsOqkm71JQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=m5cmBY5E; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=XUQDcmM5; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1791984011; c=relaxed/simple;
+	bh=E+DMpe7t/dGxE3sBJyyEWhe+11Lj4NA7Gz+f3SNlCqM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Bp+OOvg8NaSZDsyDei2MOzWlVTFMt8Dz6+9c13ppm7O36xPp+ltXsNZc6hp9UWOXHU4nGsY+wdB9RKpXcA45vNPiTjGJWKpt8IkzqBmE8CCx57zS22829atd15MhKFTbk//jRV4UOLikZfkJdXDCOTuetBw9SLSzkQ8zt+k6gOk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ttCwi0Fk; arc=none smtp.client-ip=95.215.58.115
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="m5cmBY5E";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="XUQDcmM5"
-Date: Wed, 14 Oct 2026 15:20:01 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1791984003;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FpLyD2E61bMYpA7x55WQay0cIIjyZAd7xfQmMzmeynk=;
-	b=m5cmBY5EkBOIf9pAyHtg4k/v7Nij0hJ8INNVtxU4Yx/70cUgDVKVs6j3wSnEfNneR/lpWk
-	Z9bdq5i1fBubeqBN3OuJQLlYlLMElZa/jTdhIKHnIzpqyjntF0DCSGwbywX62g+Mv0IP8F
-	B4OH8HSjy4oZtUbPYAbIrsWu3OjX+FRXEOJVlx3Ay/3U22nGxQqtuYQfBImmEhFRycitJp
-	dqLFJYYU4ZLVc135bToDoUpKeoENliaVQ3Rrzd7GbQEZTRRDg2FXJj+sWyPVG4e/pUOrgr
-	aDtxhLE6jha1R6Jf3CtwCvatkuryXgdiENCIQ2dWMqljscj4HT3OxYJVB+GGAA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1791984003;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FpLyD2E61bMYpA7x55WQay0cIIjyZAd7xfQmMzmeynk=;
-	b=XUQDcmM5X0vDcCR6uyqIu01cI2160NmU8WR2A2Dy9/0LykJ2fyGZcJ5ZbdfbaZMs2HmTGv
-	vbFqo6E8vsePrgAA==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Xin Xie <xiexinet@gmail.com>
-Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	horms@kernel.org, andrew+netdev@lunn.ch, shuah@kernel.org,
-	kees@kernel.org, petr.wozniak@gmail.com, qingfang.deng@linux.dev,
-	fmaurer@redhat.com, luka.gejak@linux.dev, xiaoliang.yang_1@nxp.com,
-	skhawaja@google.com, liuhangbin@gmail.com, stable@vger.kernel.org,
-	sdf.kernel@gmail.com
-Subject: Re: [PATCH net v7 1/4] net: hsr: keep GRO disabled on HSR/PRP ports
-Message-ID: <20261014132001.BzOkgyrC@linutronix.de>
-References: <20261009201324.17-1-xiexinet@gmail.com>
- <20261009201324.17-2-xiexinet@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ttCwi0Fk"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=E+DMpe7t/dGxE3sBJyyEWhe+11Lj4NA7Gz+f3SNlCqM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791984007; v=1; x=1792588807;
+ b=ttCwi0FkeBHPPztGfYXcARn0mcn0Vhbcr+ozK4POU+ndOki4jNrgZCDhd1NriMgwfqiN2JJk
+ yA7rnOXC/7mpS30O7Aq/2tBhMolPC5ahWsmaiVs8xowHUJ2oRdzpp9EChUCNkkemi8Y5+krIP5H
+ cia6KUSRMbbCJhgEXV1sqTZs=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f30e151a41daab8e;
+	Wed, 14 Oct 2026 13:20:07 +0000
+X-Mizu-Trace-ID: f30e151a41daab8e
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5bcbb378fc9so30778e87.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:20:03 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw7D21vWk9JJ+yFcYX5R3YTaF3T8yrgKJE/iwAZ4iZjHWbC/jyOkCHox+r4F1MbnvqvSlw2tgcFtZV6q0Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLDAVO3OiFjmzTw9U3ENdmMrmtQxEdyLVtRnEZmkSrYM8n4VxhP
+	6zmRQNLrVjPCi+S6PEFRiEY051Uem3Z0X4fLMgSWGwdF69sPuwzNJCZ31WQowGb+/2fdluNCxfV
+	+F0lsEDF0wGGJ6hc2xqiWWVKzTVMilp9z9T09zxyo
+X-Received: by 2002:a05:6512:39d1:b0:5bc:ed54:d5b1 with SMTP id
+ 2adb3069b0e04-5be35cbd990mr74741e87.14.1791984002197; Wed, 14 Oct 2026
+ 06:20:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261009201324.17-2-xiexinet@gmail.com>
+References: <20260605153248.2412064-1-weilin.chang@arm.com> <20260605153248.2412064-3-weilin.chang@arm.com>
+In-Reply-To: <20260605153248.2412064-3-weilin.chang@arm.com>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Wed, 14 Oct 2026 14:19:24 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTw=vMvvmoQ==6pGDZb9Y3rgZN6Bg29cOoYAjhmK-eTQwA@mail.gmail.com>
+X-Gm-Features: AclHuK-2zxxhToktFj1rc-j8CjjTBanqw9vP7b14CdsYAEhgF95q11O9e8ZWNkE
+Message-ID: <CA+EHjTw=vMvvmoQ==6pGDZb9Y3rgZN6Bg29cOoYAjhmK-eTQwA@mail.gmail.com>
+Subject: Re: [PATCH 2/2] KVM: arm64: Remove superfluous aligning of gfn for
+ dirty logging
+To: Wei-Lin Chang <weilin.chang@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, Marc Zyngier <maz@kernel.org>, 
+	Oliver Upton <oupton@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Gavin Shan <gshan@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 2026-10-09 22:13:21 [+0200], Xin Xie wrote:
-> HSR/PRP add tags and sequence numbers per wire frame. GRO can merge
-> plain interlink traffic before those fields are added, and userspace
-> can re-enable GRO after the port is attached.
-> 
-> Mark slave A/B and interlink devices with a kernel role bit. Filter
-> software GRO and configurable GRO_HW requests before ndo_fix_features()
-> without changing wanted_features. Filtering before the driver keeps
-> feature dependencies intact; fixed-on or driver-required GRO_HW is
-> left enabled.
-> 
-> Apply the policy before registering the RX handler and reject attach
-> if software GRO remains enabled. On failure or detach, unlink the
-> upper before clearing the role and recomputing features, restoring
-> the user's last request.
-> 
-> GSO skbs may still arrive. A later patch segments valid GSO before
-> HSR/PRP processing.
-> 
-> Fixes: 5055cccfc2d1 ("net: hsr: Provide RedBox support (HSR-SAN)")
-> Signed-off-by: Xin Xie <xiexinet@gmail.com>
+On Fri, 05 Jun 2026 16:32:48 +0100, Wei-Lin Chang <weilin.chang@arm.com> wrote:
+> Stage-2 mapping size is forced to PAGE_SIZE when dirty logging is
+> enabled for a memslot, therefore we don't need to align it down to
+> a possibly larger vma size or THP adjusted size, they won't happen.
 
-This looks better than what I remember from the previous version. Are
-the bot's complains legitime?
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+Tested-by: Fuad Tabba <fuad.tabba@linux.dev>
 
-Sebastian
+Cheers,
+/fuad
