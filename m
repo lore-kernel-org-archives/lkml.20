@@ -1,125 +1,134 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com [91.207.212.86])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83927497B8C
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:12:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0CAC47206C
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:14:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.207.212.86
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791965554; cv=none; b=QflBxmAjRPy7FpB+Ux7UZhVt00/52j+tuGNyuBEfgWk8QN0Riznpr6ug0wln90CmB70GrG5MRULB/u9x4Djx0KiFgAPDpUPx6rdK4EYNEIhm4rWzXOOMvM5ELP+fmrhqjqGsfcaTLBZNetPYtwnJBYCjf1QDZAX3yHMWnHkerfk=
+	t=1791965677; cv=none; b=ct0NiyQb+IofyT2MCyOFXc08kz3+qCwYdU6QzGL7jfpq9hY1I6tnyRSB5A22IB6IBs+NkJb/Ni1rJEYRW6HP+oNOeMbw/vspVw5qV/uJ3da/1LwAENrY6mAjjsXdQdVeCY2P2Fjffmp1Tn4JH0zqIZ5h/R3cVKOBhMKgIfl7JVQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791965554; c=relaxed/simple;
-	bh=JGcqGwBUE5iT4PuhKMKigfUdggUsfgSpmenKCJW8G9w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Yzshq/Ag2UJgHWH8R10h2zULfLgqTggxOxq9zCMAsWxEaNr6HPgnzrbGobuWUd41P4m1BBiK7dJ4huOsaPgcaoc4KlyP9EDBTPIaLX5mJ8rBKXvzrxBnVo5cBWh0ZLanwYTPyrx7cvM650/ZUr2J8KVWt3cz3iTJkvmb+7q8xCQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=KXb548I1; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791965677; c=relaxed/simple;
+	bh=isVFex81GmYXUE7XpNeI8h9xnX/Z5JYbr7nohRWPFqs=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=lbCGS8s/49NzJc+1c3diwu685NBODQY/Tx9z8Qlvu+ByePGU+LRMpZAdS6bauNx7qKblWkRmRCH9hgZpt5w5CW0cXMaWpIGwH+IBXDJG67MutwTVAU3nGYoQHu8qTTiKfrwu6+23k6ysgdve6FG0KV9HwRSU/7Jw+tYMzdrghEI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=lDEDM0MO; arc=none smtp.client-ip=91.207.212.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="KXb548I1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=bJMTlEhOQmjpDyXiQUhJm1mKByD3aMro94dbh75mtTw=;
-	b=KXb548I19YxyxUxg6BQ4kAvj6kn2clFeVq8S7N3eF8ih7bK/nvYjZSkmnIfft0
-	JGGUoYhbWamI1TXfqvAMk725UyUGfeuTR631P22G/yJ03+PtJnid9d+eSIMqcPLL
-	qzyBrOz5aHPfvS/C4gzRAf2rYETpQwExOOBf99OPXD1Fo=
-Message-ID: <07bfc007-145b-4ec5-a94e-c9f7bc3eedad@163.com>
-Date: Wed, 14 Oct 2026 16:11:41 +0800
+	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="lDEDM0MO"
+Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
+	by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69E646GU2182309;
+	Wed, 14 Oct 2026 09:13:49 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=dk201812; bh=oLr3miDz7pUAJC50HoEFTw6
+	c9z1+NoyAwV8Pq2AtTkM=; b=lDEDM0MOnUNP92U6peWWCpz1YuAQDkwD2ln8YrG
+	ZW8QUl0ZRDPU0qm9XsL3ayBUvL+BScLusD8FWKhqIq5tsQbEAs4iWRmadmH3A3QQ
+	oFFV+KZFfFTmfLzhIQwKpH3kvXWep9U+zi+3HpMt6wow44kHo0pNG0HicsRZcNS7
+	LOEU+fIqGA3wQtChr78gm51Ijo43FrXoEF8m8R/m6SLqFO+Dc8vSB/dK5nVC/vT9
+	mISfXYk4XOwsKJd+jQ+Xxi8izZ6luFH26iU1nJb+RbKxVS8f/uDCtEsPmrrtCPcF
+	rp3p+U2zXE+5NP6P/4QcK87pAZMrIt4UJ1+C8CuM0ouP1zg==
+Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+	by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4h7bmpapbd-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 14 Oct 2026 09:13:47 +0100 (BST)
+Received: from [127.0.1.1] (172.25.5.23) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 14 Oct
+ 2026 09:13:45 +0100
+From: Alexandru Dadu <alexandru.dadu@imgtec.com>
+Subject: [PATCH 0/4] drm/imagination: Clean up MIPS firmware interfaces
+Date: Wed, 14 Oct 2026 11:13:06 +0300
+Message-ID: <20261014-b4-simplify-mips-pte-defs-v1-0-b4ad7bb68e22@imgtec.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/7] exfat: drop i_rwsem from exfat_page_mkwrite
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: exfat@lists.linux.dev, linux-kernel@vger.kernel.org,
- Yuezhang.Mo@sony.com, dxdt@dev.snart.me, sj1557.seo@samsung.com,
- Chi Zhiling <chizhiling@kylinos.cn>
-References: <20261013033837.2748258-1-chizhiling@163.com>
- <20261013033837.2748258-5-chizhiling@163.com>
- <CAKYAXd-+whfZ9_Zrgi0awH2tPxuVLW2O7=6e-w5JcBNBMRrSbw@mail.gmail.com>
-From: Chi Zhiling <chizhiling@163.com>
-In-Reply-To: <CAKYAXd-+whfZ9_Zrgi0awH2tPxuVLW2O7=6e-w5JcBNBMRrSbw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:_____wD3v6E+Oc9qRdrZEA--.5933S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZFyUuFy5GFW5ZF4UJF4UCFg_yoW5JFWDpF
-	Wak34rCFZxAw129rn7uFnYya48Gw1fXr4xGF98uw40vr9Fyw1jgFWxKrZ5uFW5Zwn3X3W7
-	tFsYvF97J34DW3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRP73dUUUUU=
-X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC3AHsimrPOUENCQAA3i
+X-B4-Tracking: v=1; b=H4sIAJI5z2oC/yXMQQ6CMBBG4auQWTsJUxoWXsW4sPSvjhFsOmAkh
+ Ltbdfkt3tvIUBRGx2ajgpeaPqcKOTQ03C7TFayxmlzremnFc/BsOuaHppVHzcZ5BkckY7gASb1
+ 0UTzVPhckff/ep/PftoQ7hvk7pH3/AGsaHdp9AAAA
+X-Change-ID: 20261014-b4-simplify-mips-pte-defs-e2be1f613d14
+To: Alessio Belle <alessio.belle@imgtec.com>,
+        Luigi Santivetti
+	<luigi.santivetti@imgtec.com>,
+        Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Paul Walmsley <pjw@kernel.org>, "Palmer
+ Dabbelt" <palmer@dabbelt.com>,
+        Albert Ou <aou@eecs.berkeley.edu>, "Alexandre
+ Ghiti" <alex@ghiti.fr>
+CC: <linux-kernel@vger.kernel.org>, <imagination@lists.freedesktop.org>,
+        <dri-devel@lists.freedesktop.org>, <linux-riscv@lists.infradead.org>,
+        Alexandru Dadu <alexandru.dadu@imgtec.com>,
+        Matt Coster
+	<opensource@mtcoster.net>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791965625; l=1581;
+ i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
+ bh=isVFex81GmYXUE7XpNeI8h9xnX/Z5JYbr7nohRWPFqs=;
+ b=v45hrTr6EqvbFJNwPVBixni3ILqcB2OgFYqih/1ctaLWW1gc3uhamrBnuGe51uD2TBWpSlBgy
+ ir20L6EWAtRDn14eyJmnWNdfkmMZ4jICnJyWExAkQwY8kZY7Eq8dYEP
+X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
+ pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDAzMiBTYWx0ZWRfXyn61mNcYeQZb
+ i3trmZoGEcTTemQTLY1FRjkmmH7eI+qtqzVUb4bzB5nvFiDBsMwUyS2Vhi1EONY9Vy5Rfc2vke/
+ K1R3uxhTnr0lWIxEiMpl2eGMxYDNlHjMD4DN5lYJkvGX8DYK9GaRtvnA24O/5KZ1p4O2PIPnC5h
+ uWTAQhjnb8OPjeKGyFARLGV20QKV+Hj4Rub7zuhj4VTmxVfq57sA4N3CFjuhQYLQrIdELCOJcQq
+ U6Z2wD6AOn5ovFbg8dCdtFkZHnEyGfGTM4l96LIwLkDjyb2B/Z9CUQHH5UFUUdCtNZyDjDP/z+s
+ StksA1GCAH/WNyxyAD7s9ZaoYytEjj8ljAaNaXN+UjnmOg1ORzyIq9a4DZ8311nzYCy8XK5KSV7
+ D7+SPlFL/6vpvY39qztc3cmIUPlRh7TriCs0sH523ZvX4xnVs3a8dZB1H+4Mdm0J0ai1IvX7x4M
+ PJTLkmzzk64QGOYaimA==
+X-Proofpoint-GUID: Axa2GqAeopZDp5_kJ1qVY-YBUL85ITOp
+X-Authority-Analysis: v=2.4 cv=QpDLTlyd c=1 sm=1 tr=0 ts=6acf39bb cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=Vfs-8JXWiL0A:10 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
+ a=r_1tXGB3AAAA:8 a=uKU_ccNhAZKVZaoNEpUA:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-ORIG-GUID: Axa2GqAeopZDp5_kJ1qVY-YBUL85ITOp
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDAzMiBTYWx0ZWRfX8MGlftGlvsyH
+ QXCPYsJ2/M1eHMk4CXkJ62g191rn2GclD0oVYcJL/RPyP9zw63IT1MEOXLh4C4He1C/g3E7C/+L
+ Z9mpGWW2q4y5hyeHJCtEsAfUvCfXlDQ=
 
-On 10/14/2026 9:19 AM, Namjae Jeon wrote:
->> @@ -969,8 +969,9 @@ static vm_fault_t exfat_page_mkwrite(struct vm_fault *vmf)
->>          loff_t new_valid_size, mmap_valid_size, fault_page_start;
->>          bool dirty = false;
->>
->> -       if (!inode_trylock(inode))
->> -               return VM_FAULT_RETRY;
-> exfat_page_mkwrite() reads the file size before iomap_page_mkwrite()
-> locks the page. Because inode_trylock was removed, another thread can
-> grow the file in between. exfat_cont_expand() does not take
-> invalidate_lock, so the shared lock does not stop it.
-> 
-> mmap write fault                              ftruncate/fallocate
-> Snapshot i_size = 1000
-> new_valid_size = 1000
-> dirty = false
->                                                Extend i_size to 3000
->                                                valid_size stays 1000
-> iomap_page_mkwrite() locks folio
-> Checks the current i_size (3000) and succeeds
-> dirty is still false, so VDL is not advanced
-> 
-> MM makes the page writable
-> Store at offset 2000, no new page_mkwrite()
-> 
-> The data at offset 2000 is beyond valid_size, so it can later be read
-> as zero. Could you check and fix this race?
+1. Limits access to the MIPS firmware interface, keeping its state
+   within the relevant implementation.
+2. Align MIPS firmware headers with the other processor headers.
+3. Improved logging in error paths.
+4. Simplify MIPS PTE definitions.
 
-This is the issue Yuezhang mentioned earlier, and he has already 
-submitted a fix:
+Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
+---
+Alessio Belle (2):
+      drm/imagination: Limit access to the MIPS firmware interface
+      drm/imagination: Make the MIPS firmware headers arch-independent
 
-https://lore.kernel.org/exfat/20261010101200.1211462-2-Yuezhang.Mo@sony.com/
+Matt Coster (2):
+      drm/imagination: Improve some logging in error paths
+      drm/imagination: Simplify MIPS PTE definitions
 
-> 
-> +       sb_start_pagefault(inode->i_sb);
-> +       file_update_time(vmf->vma->vm_file);
-> +       filemap_invalidate_lock_shared(inode->i_mapping);
-> 
-> With i_size = 12 KB and valid_size = 0, DIO write to [0, 4 KiB  can
-> race with an mmap write fault at offset 8 KB. The fault zeroes and
-> dirties the gap [0, 8 KiB), then advances valid_size.
-> 
-> DIO write [0,4 KiB)                         mmap fault at 8 KiB
-> Starts writing data
->                                               Reads the gap as zero
->                                               Dirties pages 0 and 1
->                                               Advances valid_size
-> Completes
-> Post-DIO invalidation cannot remove
-> the dirty page
-> Writeback can overwrite DIO data with zeros
-> 
-> Removing  inode_trylock()  from exfat_page_mkwrite() can introduce
-> several racy issues. Could you check that the affected paths are
-> properly synchronized?
+ drivers/gpu/drm/imagination/pvr_fw.c               |   6 +-
+ drivers/gpu/drm/imagination/pvr_fw.h               |  11 +-
+ drivers/gpu/drm/imagination/pvr_fw_mips.c          |  79 +++--
+ drivers/gpu/drm/imagination/pvr_fw_mips.h          |  49 ---
+ drivers/gpu/drm/imagination/pvr_fw_riscv.c         |   1 -
+ drivers/gpu/drm/imagination/pvr_mips_internal.h    | 309 +++++++++++++++++++
+ .../gpu/drm/imagination/pvr_mips_internal_check.h  |  35 +++
+ drivers/gpu/drm/imagination/pvr_rogue_mips.h       | 335 ---------------------
+ drivers/gpu/drm/imagination/pvr_rogue_mips_check.h |  35 ---
+ drivers/gpu/drm/imagination/pvr_vm_mips.c          | 162 +++++++---
+ drivers/gpu/drm/imagination/pvr_vm_mips.h          |   2 +
+ 11 files changed, 519 insertions(+), 505 deletions(-)
+---
+base-commit: 6e375de99d0c420169481fcd36064177ab55b09d
+change-id: 20261014-b4-simplify-mips-pte-defs-e2be1f613d14
 
-Concurrent DIO and mmap writes are undefined behavior, and other 
-filesystems may have similar issues.
-
-I've spent quite a while thinking about this, but I still don't have a 
-good solution. So I added the following patch to the patch series:
-
-"exfat: publish i_size and valid_size on direct I/O completion".
-
-The purpose of this patch is to prevent stale on-disk data from being 
-exposed when DIO and mmap writes happen concurrently. However, the 
-trade-off is that concurrent DIO writes may have their data unexpectedly 
-zeroed.
-
-Do you have any thoughts on this?
-
-Thanks!
+Best regards,
+--  
+Alexandru Dadu <alexandru.dadu@imgtec.com>
 
