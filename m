@@ -1,174 +1,112 @@
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D85584EF122
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:40:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.48
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 75CD14EE868;
+	Wed, 14 Oct 2026 09:41:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791970814; cv=none; b=ukHQH+e2i4VCyWt+lo8b+RsTtx4pE/BtvrjUvAc/SFqVDe466nrjmI1O0oEs/ShmPa0/+vUB3NNbvBuh1vlcaSYzg/h1k6TvSCF/N9YTaG0ninJVit/LBDhaB0uPaehARs7OWYgopJhNcsyjq8rdGjPhtwALzmOMfvfD20ny6sY=
+	t=1791970871; cv=none; b=AWo/pYh2hMCDb8qjlRXdwTdvAUXtof3228tniVqFwE2Auu5m26MfmCeiLWkJj7SbyFp79C9Y9lkjTIpjBuevx8ciExTyq2flm9OVBwErpSTGBYQC/jSn2QP0gbcSgzQvYe3UAG3Q1e/lf7aFU7MaDAByPgraywFud5+Qmf0hlNE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791970814; c=relaxed/simple;
-	bh=/MIV5f10+7si6CVmjQsZhF4fNwIUhkUhxJFAlQ1gCSo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Z6UiAF/pR4RqO55okbQz8IwWSqYcT5yg3QU5JmfOuK4oqaptjSg2EJYt+sT7PNkoZs7eTM4H9bSmIUl8UYPLOJlmBi4pYl1E1Bki70c8k67FbMzI48QbIDOsJFP2RnEUfEAnNsG73qJ73IrvMxkpCN854gUanyGVZ0tT0vr9Ey4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=AlsBh/T8; arc=none smtp.client-ip=209.85.218.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1791970871; c=relaxed/simple;
+	bh=IZ8rfk5wxLDPpZ+dPdITJwhlPRFAwVPL9jnNAGRlXks=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JBdI4ATm9l/O8vSZbY+zE1Qj9dl4YCuCpckLgcP+OxPWHPUbukNG7ZH3yU5LeK/iGLc0ypQgVVpZjoOWQzVNKMbcCoP5ji7YPN/MsouQLIBDEB93L3GNPj9J1M0dUugamBm0gGA1I9E9t44BNu9/5ljHLwDFZ7dp/8YtvUGalGg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=V92y/KLn; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="AlsBh/T8"
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c2acc1e170cso656890766b.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 02:40:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791970811; x=1792575611; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GJTdB+tkmfzXQ0j0gtaqlX8LAfgF2qu6ASSbm0x0pyA=;
-        b=AlsBh/T8mEJYcCtJJfVVK9fzj2vAhhn4NPFD7gA/5/RXVY9wOrIfgr1kLwawS5ChCy
-         YxFVOmhcdtfe4nfQVaSaYb3OBwlqSZdGhkOXAsD2fa5yTXSEV8pELOgSdlMUFNtr2A8G
-         qHvHHYE47fODY8BF3ketgX81e90H6dMPmBYfpXCnRezFWjTNKYbmWTqExINue8moZKsA
-         3kc8sOHBDAWpHNcJUjh2KvzAZuVuyjwGG+M63juA3GIFckoUKM3D+vaiMhEtAJcqRJAb
-         MxOl++vvy/dasou6Qy3U+EMFto23P6QQgz4IOJwcYTCj6cXUSpdLGYkjUMhgKCZEBt1n
-         1w+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791970811; x=1792575611;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GJTdB+tkmfzXQ0j0gtaqlX8LAfgF2qu6ASSbm0x0pyA=;
-        b=lGfeIL3C0U4DH3AfJw+wECMAOPhyjHUQDfQCVn4KNXgcrsJ3rGZziI0zerSEQHrNxY
-         sEBiXF0RyZMTUazYzjmnXhToUx2ZdEXZ1RCFTge0XFWL3ff+VMUc1yrTNOpszRQVvx/h
-         dIEcTwYK3GQkM6ZOz54zg7sbcnSANOj6cWsklF85yN1q9kdc+piSOqN9p3Jhsar6q1uU
-         q29rrxMOurr5hR2htnhkmazuyQ6fuIWSmQsBMnebjuwfkJ5DG+cX+fF7DXWt/9f7zVlE
-         nfg1baF6P8gNlnS+aJXF/SD+R1Pzd02eIP7gmvBGqlrk5oAPTR+PQDfitG4sIFApwbZ6
-         ysYg==
-X-Forwarded-Encrypted: i=1; AKwUvBxXCs9XTHQCG1nHo4WOAP47LwZtoFxBL5K9vveuBdvis1fTZ2W1PcUsQiLpEaEy8dO8hiBCoF0eRza9p2E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKJgqF9eepXyi3X0FDbS+Cu6pH757UVYsVEaHCsvL8LRrzMN7gd
-	6I+BQ1pl6+mHFnDxfS2vFMd4oIVsh/gRL96uQZUXSE9UXBEwogEJWymkJvrWyTkanes=
-X-Gm-Gg: AYBFou3PbThZqJOzgxy2CgXKz0Kva/Zq6lG3OxKnEcTIyPx2RpDXpXEpFgtIwotBmtj
-	RvoDwcVmwJlK5bKQNny8Wj4tK+4VtfAuc1Gc9ibI2Rbf3uiw+5KXX9UtIw6Z/NVQYhxpZEkvIcC
-	9fjAvZg2BEsh/XBQ0j7BvWrgOeDaIXfKOy609aZklYU5pIR76AEnPonJ0VRpe3eBrttnh7enP/f
-	zZz2qyL55cXCr3yNKO2ylp80cYGY/gvY+l4OOCR0wXUzp7IgWhHDJc+4zbwmv3x0Dt1rF9v9Fks
-	+6w3dsnjXcW1lYLZ53MqVv76y1IClCSESVtoLICdrsZcBlarR8ZXeghicTxObyHJVUiDqQSNMao
-	0Wr0ddrMS3mYcym6EzvEVE3N0XlbbrJKSI3qZf97/9rAm/4/6iuzBIknMhfM5+se/y9UJFXgvvd
-	H3fFI2EOEMnZhCjK1+2vGBWNU5I2w3MzRDQLehe3Xu75R2VJLgUy+/Ef/zFakGkplYoHRnTxPu1
-	UYWgjBt+IU9
-X-Received: by 2002:a17:906:f586:b0:c2e:4742:4c91 with SMTP id a640c23a62f3a-c31aa08e8a5mr1307707966b.35.1791970810963;
-        Wed, 14 Oct 2026 02:40:10 -0700 (PDT)
-Received: from [192.168.0.167] ([109.76.126.202])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9ae6f8asm691140366b.85.2026.10.14.02.40.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 02:40:10 -0700 (PDT)
-Message-ID: <570f378f-3798-4a20-947c-d97d946f94cb@linaro.org>
-Date: Wed, 14 Oct 2026 10:40:09 +0100
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="V92y/KLn"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 87B1E1476;
+	Wed, 14 Oct 2026 02:41:05 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2AF293F7B4;
+	Wed, 14 Oct 2026 02:41:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791970868; bh=IZ8rfk5wxLDPpZ+dPdITJwhlPRFAwVPL9jnNAGRlXks=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=V92y/KLn+QFs1dHeT5iQbY8pAfel4csa8XC0I/lkv0KHx1K2TT47ezllvr0uhly/0
+	 015KPOYKeVKGO+UgOwsPrd/6b/fuoIlM6ngOfqHLEiWFVMzudL5X5ZAHOlmapDgTxZ
+	 T0WIJMCN2wo4aeW9rp9i0FoWrlPYfah9XjcOeeQM=
+Date: Wed, 14 Oct 2026 10:40:58 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>, Russell King <linux@armlinux.org.uk>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+	Tianrui Zhao <zhaotianrui@loongson.cn>,
+	Bibo Mao <maobibo@loongson.cn>, Anup Patel <anup@brainfault.org>,
+	Atish Patra <atish.patra@linux.dev>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Jonas Bonn <jonas@southpole.se>,
+	Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>,
+	Stafford Horne <shorne@gmail.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev, linux-mips@vger.kernel.org,
+	linux-arch@vger.kernel.org, linux-mm@kvack.org, kvm@vger.kernel.org,
+	kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
+	linux-openrisc@vger.kernel.org,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
+	Sohil Mehta <sohil.mehta@intel.com>
+Subject: Re: [PATCH 00/21] mm: change behavior of pXdp_get()/pXd_page() in
+ compile-time folded pgtable
+Message-ID: <as9OKt7pg-vkJDz9@e129823.arm.com>
+References: <20260921-dummy_ptxp3-v1-0-cd40cf68242e@arm.com>
+ <as36bbrMVHOESsLd@e129823.arm.com>
+ <ef5b6275-d15b-4192-a278-ab23235956a0@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 6/8] media: qcom: camss: Add Hawi compatible camss
- driver
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>, Robert Foss
- <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-Cc: Suresh Vankadara <svankada@qti.qualcomm.com>,
- Vikram Sharma <vikram.sharma@oss.qualcomm.com>, linux-i2c@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org
-References: <20261013-hawi-maili-camss-v2-0-fc93222da89c@oss.qualcomm.com>
- <20261013-hawi-maili-camss-v2-6-fc93222da89c@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20261013-hawi-maili-camss-v2-6-fc93222da89c@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ef5b6275-d15b-4192-a278-ab23235956a0@kernel.org>
 
-On 13/10/2026 12:02, Nihal Kumar Gupta wrote:
-> From: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+> On 10/13/26 11:31, Yeoreum Yun wrote:
+> > Hi all,
+> > 
+> > May I ask there are any further comments on this series?
 > 
-> Add support for Hawi in the camss driver. Hawi reuses the CSIPHY
-> resource table from Kaanapali and the TPG resource table from
-> X1E80100.
+> Let's resend after -rc1.
 > 
-> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-> ---
->   drivers/media/platform/qcom/camss/camss.c | 25 +++++++++++++++++++++++++
->   drivers/media/platform/qcom/camss/camss.h |  1 +
->   2 files changed, 26 insertions(+)
+> I think most arch changes are reasonably simple and uncontroversial.
+
+Acked.
+
 > 
-> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-> index 5db7e12a6f86973df372c0428c15c286d9f7e60a..664237ad5ce60be64806c5386ce88ed2133f0552 100644
-> --- a/drivers/media/platform/qcom/camss/camss.c
-> +++ b/drivers/media/platform/qcom/camss/camss.c
-> @@ -4381,6 +4381,19 @@ static const struct resources_icc icc_res_sa8775p[] = {
->   	},
->   };
->   
-> +static const struct resources_icc icc_res_hawi[] = {
-> +	{
-> +		.name = "ahb",
-> +		.icc_bw_tbl.avg = 38400,
-> +		.icc_bw_tbl.peak = 76800,
-> +	},
-> +	{
-> +		.name = "hf_mnoc",
-> +		.icc_bw_tbl.avg = 2097152,
-> +		.icc_bw_tbl.peak = 2097152,
-> +	},
-> +};
-> +
->   static const struct camss_subdev_resources csiphy_res_x1e80100[] = {
->   	/* CSIPHY0 */
->   	{
-> @@ -6086,6 +6099,17 @@ static const struct camss_resources sm8650_resources = {
->   	.vfe_num = ARRAY_SIZE(vfe_res_sm8650),
->   };
->   
-> +static const struct camss_resources hawi_resources = {
-> +	.version = CAMSS_HAWI,
-> +	.pd_name = "top",
-> +	.csiphy_res = csiphy_res_kaanapali,
-> +	.tpg_res = tpg_res_x1e80100,
-> +	.icc_res = icc_res_hawi,
-> +	.icc_path_num = ARRAY_SIZE(icc_res_hawi),
-> +	.csiphy_num = ARRAY_SIZE(csiphy_res_kaanapali),
-> +	.tpg_num = ARRAY_SIZE(tpg_res_x1e80100),
-> +};
-> +
->   static const struct camss_resources x1e80100_resources = {
->   	.version = CAMSS_X1E80100,
->   	.pd_name = "top",
-> @@ -6121,6 +6145,7 @@ static const struct of_device_id camss_dt_match[] = {
->   	{ .compatible = "qcom,sm8250-camss", .data = &sm8250_resources },
->   	{ .compatible = "qcom,sm8550-camss", .data = &sm8550_resources },
->   	{ .compatible = "qcom,sm8650-camss", .data = &sm8650_resources },
-> +	{ .compatible = "qcom,hawi-camss", .data = &hawi_resources },
->   	{ .compatible = "qcom,x1e80100-camss", .data = &x1e80100_resources },
->   	{ .compatible = "qcom,glymur-camss", .data = &x1e80100_resources },
->   	{ }
-> diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/platform/qcom/camss/camss.h
-> index 0551211f7948190a7cc2a2e7971e6c549f92ff60..2b0990b95a1fbca8cbc06628223437c24bceb792 100644
-> --- a/drivers/media/platform/qcom/camss/camss.h
-> +++ b/drivers/media/platform/qcom/camss/camss.h
-> @@ -96,6 +96,7 @@ enum camss_version {
->   	CAMSS_8550,
->   	CAMSS_8650,
->   	CAMSS_8775P,
-> +	CAMSS_HAWI,
->   	CAMSS_KAANAPALI,
->   	CAMSS_X1E80100,
->   };
+> But I'd prefer if riscv maintainers could have a look at
 > 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+>   [PATCH 11/21] riscv: mm: use proper set_pXd() for generic compile-time folded
+>   patable in vmalloc_fault()
+> 
+> You are working on some general vmalloc_fault() cleanups, but until we have them
+> I would hope to get an ACK from riscv maintainers that this temporary solution
+> is good to go in.
+
+Hopefully. Thanks!
+
+-- 
+Sincerely,
+Yeoreum Yun
