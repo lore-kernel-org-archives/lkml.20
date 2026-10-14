@@ -1,136 +1,169 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC87153CA9A;
-	Wed, 14 Oct 2026 14:00:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE5855349B9
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:00:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791986423; cv=none; b=HNBAz7OU9cX14IIbBsprKkFDaYivE1tSyGQ/Mzhrq1oYNfCp3kd73t0ddpXNFWjb810A9o3ltmXC+8nOc0bqCn6r+xK3GTyNiFeEDp6XYBKDaB/9F4l40BFZRTA6e6PH/Rpjd1IEky+oF/CVJ3G1FdNeHpvJC3HgwNy0vrUe3co=
+	t=1791986428; cv=none; b=FLSN4uuyf7sVxsFZ5ThDF6cjOnZp7SzaWAqKA9g5AAQRQRK2vZ5s5z8Hjz/AXG1QIaMPu7w46IYrSYJRfcAR5g79+k1t+c6Bv1zlX7+7TQYyImh3cIG8At7irUrJk8FBNGh2IxwKfwYIOMvxkqaJnPOg8kvmJurT7v/pfKOLy5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791986423; c=relaxed/simple;
-	bh=b9CXXtcashKP76vye/xkZHzz54m+XySmhG1AONZ/mM4=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=mGGRQLaUhD17ZiXWkZZpreljA2qocdxs8wIEACqaAeEziMgxQdKtiC6ATHbVgBrJyz07ne5FL6q2Tv+uT4wjobipcRY9MzukEgCDF/dDoEXOX3pjPQhQzPeaWXlxacgs349V/ynA0yVhAq6Q+AOSQOn/hS4N0llU0G5F+K5j5Lw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TcYYVqZZ; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791986428; c=relaxed/simple;
+	bh=Pxet30TRJQtNsCxEqkZUTERC6HZaIwRxrkW5u9k6X6A=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=KkDgEr9tn8Vc59nCNvLhK4bU5fbmeEfTWeDa2m7mXr5bowElyNACgVVZ/Pw32vVop6EO5y+8WaLwtIJGUlvDf3FeKkpARLvLXVMDG4BMlmlCKXZ5RcyuispRRDA+YfS6KqNzHfxxdmX+PNrN4bc0AIiy2acFZBK/NHxzGj1eqqc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TM88gY/S; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CDXbxrKM; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TcYYVqZZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791986413; x=1823522413;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=b9CXXtcashKP76vye/xkZHzz54m+XySmhG1AONZ/mM4=;
-  b=TcYYVqZZZNH1IRFIPGLFwGnYt9pcS5jkVA8/4ANbLd573mG5qvvcgf8I
-   ratDosj6kybfsFdS47s2nUVHcTXszgMCyOfA590o0IBqQU08K9PL+GAZV
-   xPFufARjesnCHcp9qKpOL0vLwMFBNkhb56XhsMOEJN07dAjh4YZr473xi
-   0bJKa3B+FrC04aXcsTjIx1c18ljD+pvt4Lkxss7XEtzPgq4M7JL5kOw+x
-   UzGEDY3/w/fPMzcS/eeraPRmAn43nrR3Vy+VwzINVypgkQR63L72TwovZ
-   fVj1ylNzc0JKcvbPNyNaM0BZPTqwAfOXkko3b0EVhh5NiNFOnfpCCteNM
-   A==;
-X-CSE-ConnectionGUID: XVw47yJtQYWvWbYjgN5bbQ==
-X-CSE-MsgGUID: Re5uxRpjTg+EbkPWHVGIPA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="735969"
-X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="735969"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 07:00:12 -0700
-X-CSE-ConnectionGUID: fUyB5PeUSoesp9Y5TVqs8w==
-X-CSE-MsgGUID: mx0QbGqrQBGnJ2FYFU80Kw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="1329530"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.234])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 07:00:07 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Wed, 14 Oct 2026 17:00:03 +0300 (EEST)
-To: Oleg Keri <okerixx@gmail.com>
-cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-    Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>, 
-    Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
-    Guenter Roeck <linux@roeck-us.net>, Bjorn Andersson <andersson@kernel.org>, 
-    Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
-    linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>, platform-driver-x86@vger.kernel.org, 
-    linux-hwmon@vger.kernel.org
-Subject: Re: [PATCH v6 2/3] platform/arm64: add Lenovo Yoga Slim 7x Gen 11
- EC driver
-In-Reply-To: <20261014132315.4659-3-okerixx@gmail.com>
-Message-ID: <3df5fce1-509b-1362-3b78-8f79337ebc05@linux.intel.com>
-References: <20261014132315.4659-1-okerixx@gmail.com> <20261014132315.4659-3-okerixx@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TM88gY/S";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CDXbxrKM"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EBSNTK3365345
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:00:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	M45fNMyP5YyLBZ5igr+FxKq6/r20bqTD6HB21/sx/vg=; b=TM88gY/SAkuivGf5
+	+yFWFP4405hUK4+veo6xqA8dkTVtPOBN96tlIMpYl66yC4OPDWEYnoW3ostFzXvP
+	/QxUnuWc0oekyclc2OdhCRsz5NQpn2pHquNClmYxC8hHJI53iRycdoczS1lXAgZI
+	8cRopjdlyX11Dhc+gxJTAmnlJTHA6Cp3dhZGg3sFugbI8Bejo2l7JRCnRlhG7hqS
+	9RwcaRNDYCak+N0+yJF/bsoqIDwaXOAOkS1j44CS8KXp7UpUAFQdwmw5tRig80oR
+	UJTomABLqeBTPY0zH4J+6r43Lbga/EYLgEjqPjknpgEBuU59+4pW3FR+37AKi2Bi
+	l2Re3Q==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ha4621wcd-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:00:19 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93ea8067974so1007297085a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:00:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791986418; x=1792591218; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=M45fNMyP5YyLBZ5igr+FxKq6/r20bqTD6HB21/sx/vg=;
+        b=CDXbxrKMNIAdXZ03dLl+KTIi/Y254jbAGd42kPLuII6veiB/By9Vn/UkLtAChuPlfX
+         Y94DXCIUe9JjBjEDugbjUd83Y/t9f4L2dnfiOkUVHkiB0pXQd1FInOQu7oU+cn8Mgt07
+         adJOZSoKY2VKdfLowtb2Zr+FjzmPpmVv53pR4VBsyDJmYVKEf3N8BzJ1oz6+z5jvuJbz
+         E/8TUljvVT042Eq6OD3OBz7Xvxhica7JcYjexxXetCV/IdxtOhpTrYuqOvAHrCup7AVT
+         o2XhsyAgJBl1ANr8LR6Je8LLJpR+nBZjAZQYjsWXfxEV5Pc4HNTQrJHEtIlLsy3b6Ivd
+         GGXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791986418; x=1792591218;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=M45fNMyP5YyLBZ5igr+FxKq6/r20bqTD6HB21/sx/vg=;
+        b=V+aHwBfR5ItZTHA2r4YdyetlJWtulFP1XJQO6luqZd++CB/nw1obcuRbEP744/2Mqo
+         At4+lud396Pd8R9pcTVNVyMNxcS/y7PrnZL6U2D8vJ9xEQnonuIV9nMIy1IgtHi1dvDq
+         QOmiU2Ru+SWl0ZkCBZwIt59K1Pf9akrDnt5JiQGwezZI8K+wSzVCxqol7As60bNUyhbR
+         OZA6voMiucvtzQUE+54d0CCHDbNQFPRkxPOrLM3yL90oLaZJaVWVDJeSc+cD8qrWSnnI
+         42UXJJJO+awHBW+r/m1GsZL9ZiQvUESf0JJoQF7SJQ2NlGFoTBEEnF7+HqwHxkE4eOBv
+         WS6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxTD6KCHZ3eGv01UaFIEOHCqaJdWTqIeb8EdvTPGSASNpL4BJHl8lkcy0jTEcPXx4r9nVQ4f6G9oWi99js=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL23/5QI+3bZRc+ieGLEg1PAQyJejma8fZQonufASrmgz9HIEok
+	C2M7NiwGum6bZ0hz4PAa+YUKzo0MYM1T1X4TqfPUwUoDfdo3iNRiIMMkgCBVdbXYDHF3+8mspHD
+	0YQOg+Ey/FjpIRmgB0fDzeTrTXjd/pruU6p9heQQY1n9KFp8oSYhNG/dVaMiDWsMwyJ0=
+X-Gm-Gg: AYBFou0MElsZvkh891Fq5XimOsK2i89Zrtk/R4LoWUulaleAVWqH5IW6qsK6JWsiUzg
+	jz791AjM/1iGGZlejOOyuH8HtdU3HtClpaO1LdfWanVN5iQ7lNKAJnR0G/WEH4HFOC4MjBHeYf3
+	a8M3CxcVXI2M6zIZJOCp9GUakgBah63sVf7scsjaIyCfBRRh7O1Wl9VUH3GNlgTEsJAm0U1L4uc
+	lpcJrrETBOPpYXGdfGvbS8DfuxFpOKQ2Lxibg6ntDuigNkYkMDe7sg5LkC2lwxd1JqIJQ4euG2A
+	H5A1iWOTYpn2kkL3VAUGMTBPw8ng8yGoGpNLCvxb2ME0gsIze1q725w59LeRUonFdMhmc/tKRLH
+	L9qhQXb2okr9KEpastBESWUWEhaSwlCY3o7A71yELC+F+GddcRbpfZJOCJFQKmG1Pof36iCqJwD
+	Z1agk04mLU00lXEJRafPvVxd+KruJs+i8ZwAsKcrVbP1Mo2WX2GhbwQpRs8vnUezD4/w==
+X-Received: by 2002:a05:620a:460d:b0:93e:4ede:8976 with SMTP id af79cd13be357-93ebd224c25mr2846062785a.26.1791986417288;
+        Wed, 14 Oct 2026 07:00:17 -0700 (PDT)
+X-Received: by 2002:a05:620a:460d:b0:93e:4ede:8976 with SMTP id af79cd13be357-93ebd224c25mr2846046985a.26.1791986416149;
+        Wed, 14 Oct 2026 07:00:16 -0700 (PDT)
+Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec? (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl. [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3b3836547bsm73203366b.13.2026.10.14.07.00.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 14 Oct 2026 07:00:15 -0700 (PDT)
+Message-ID: <a8d28d1a-5bc4-49a2-8437-18d1ae9d4f51@oss.qualcomm.com>
+Date: Wed, 14 Oct 2026 16:00:14 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+From: johannes.goede@oss.qualcomm.com
+Subject: Re: [PATCH] ACPI: battery: Re-read battery information in the
+ complete callback
+To: =?UTF-8?Q?Ali_Ahmet_Memi=C5=9F?= <aliamemis@disroot.org>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+        Armin Wolf <W_Armin@gmx.de>, Charis Stratakis <c.stratakis@proton.me>,
+        linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org,
+        regressions@lists.linux.dev, Mark Pearson <mpearson-lenovo@squebb.ca>,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <37N_jFulf7n-Z55NfKfE71C_wVPxYvZ0xD_iRUg2fXu7TypDiF5PStQ6siSfVBih6fThg5WoPes8U5ZQpfVm_teMFcUGXFxz2DdMbfSWuws=@proton.me>
+ <20261012225141.13683-1-aliamemis@disroot.org>
+ <fb993dd3-ee56-4e3d-aa16-573f011518f1@oss.qualcomm.com>
+ <CAJZ5v0gS4agVUkCO6M=VW4Wi2y1-s+k23bpzmX9aAZ0Rsv4z9Q@mail.gmail.com>
+ <044e9df4-1399-4ceb-80f8-f7cfe031d04f@oss.qualcomm.com>
+ <CAJZ5v0isCM3K3U6HSdDnvXzBX41AgQMFYxqLx3KvMA0W_91-ew@mail.gmail.com>
+ <20261013210609.8117-1-aliamemis@disroot.org>
+ <ab5c5ae1-1bfd-4fe4-adef-fb64b5b3dfbb@oss.qualcomm.com>
+ <20261014133218.94357-1-aliamemis@disroot.org>
+Content-Language: en-US, nl
+In-Reply-To: <20261014133218.94357-1-aliamemis@disroot.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: S__vpIa5NOQ9AjQO6mTKNaojl7ToZS1Z
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA1NSBTYWx0ZWRfX1YhK3MxNadYp
+ XolwS3eAYzRgnY4x5Waf+gHqhh9Va5y8TZ5L9y69Q4kxlKoBJbYOfQx/d2/j0ujgb0Cm+jsJ6Qk
+ OMx0NchNZgkTCGcNliNXZx2oVjK98LRZLFty7f14eCopzy4qwTmgTfSaCba9QGjX/6zywbWeYF4
+ OiOH63nK4i0ZUdjSXLzhdnoDAI7o7lXHzPd3SYBj8Ykn7b6PRnbZR5QuSFm5u8eylD0OKF4qWYg
+ niBkA05GXAePOPhmIHx1czL2poctYNxdXaJyb1g9ook+GHR3BZMQmNM4yQhr2jnAC7nyPb1/xck
+ HHDhJ+hIkJ+8Mpx9U/tKGHKfg8FtA9sZ5fmkYeT5CcyJ/wu2XeA13Mkneq6Mm1X2x+tOdVez1iw
+ wifMf8n7hGCku3diDd3cZhss6JQxwfpsUSlTPNhd7LfThRGp5to204ZtpQZuxjCqNBILHWBCWY7
+ 7epOrnNCS9JISJD4+PQ==
+X-Authority-Analysis: v=2.4 cv=ErZHPicA c=1 sm=1 tr=0 ts=6acf8af3 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8
+ a=LpNgXrTXAAAA:8 a=EUspDBNiAAAA:8 a=uisTf_hR4FytVPXRX4QA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22 a=LqOpv0_-CX5VL_7kjZO3:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA1NSBTYWx0ZWRfX/39wFM6QZHA3
+ hpykcMWITnnfgUNgVyUzYm5frJCuQuq7RvP6jw6WTRCLSiw/3RyPk7zsw3wLJaZZjDnam2eTCUf
+ ETebqOQ92DCVGtQibHGkhHBGpoYXjcM=
+X-Proofpoint-GUID: S__vpIa5NOQ9AjQO6mTKNaojl7ToZS1Z
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 malwarescore=0 bulkscore=0 impostorscore=0 adultscore=0
+ suspectscore=0 clxscore=1015 lowpriorityscore=0 priorityscore=1501
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610140055
 
-On Wed, 14 Oct 2026, Oleg Keri wrote:
+Hi,
 
-> The Lenovo Yoga Slim 7x Gen 11 (Qualcomm glymur / Snapdragon X2 Elite)
-> carries a Compal EF06 embedded controller on I2C at address 0x70. The
-> platform firmware describes it as an ACPI GenericSerialBus region, but the
-> machine boots from device tree, so nothing otherwise talks to it.
+On 14-Oct-26 15:32, Ali Ahmet Memiş wrote:
+> On Wed, Oct 14, 2026 at 12:01:55PM +0200, johannes.goede@oss.qualcomm.com wrote:
+>> Can you post a patch series for the code you've for this now ?
 > 
-> Commands are exchanged with two raw I2C block transfers: a 7 byte write to
-> register 0x02 carrying the command and up to six arguments, then a 6 byte
-> read of register 0x01 for the result, with a short delay in between before
-> the result register is valid. The EC offers no way to match a result to
-> its command; the delay is the one the vendor ACPI code uses.
+> Posted: https://lore.kernel.org/all/20261014132703.93355-1-aliamemis@disroot.org/
 > 
-> Expose what the EC offers that the rest of the kernel does not already
-> provide:
+>> Note I guess you're using LLM to help you with this, that is fine,
+>> but can you please manually shorten the commit messages of the patches
+>> a bit if they were written by LLM?
 > 
->   - the board thermistors that report a value at probe, five on this
->     machine, as hwmon temperature channels. These are charger, CPU
->     voltage regulator, 5 V rail and ambient sensors, not die sensors, and
->     read considerably cooler than tsens
->   - CPU fan speed in RPM
->   - the keyboard backlight as an LED, off/low/high
->   - Fn-lock as a read/write sysfs attribute, matching the ideapad-laptop
->     interface. The EC reports Fn+Esc as an event but keeps no state of its
->     own, so the driver owns the bit and toggles it on the key
->   - the mic-mute and airplane-mode keys as KEY_MICMUTE and KEY_RFKILL.
->     These reach the host only as EC events; they are not on the keyboard's
->     HID interface and have no GPIO of their own
-> 
-> The EC signals pending events on a dedicated line, and keeps pulsing it
-> until they are read - so the queue must be drained completely on every
-> interrupt, including codes this driver ignores. Leaving one behind makes
-> the controller pulse indefinitely.
-> 
-> Fan speed is reported but not controlled. The EC accepts a manual setpoint,
-> however it enforces no thermal floor over it: with the fan pinned at
-> roughly 2000 RPM under full load the SoC rose from 69 to 91 degrees in 30
-> seconds without the EC ever overriding. Exposing pwm1_enable or fan1_target
-> would therefore let userspace overheat the machine, so neither is
-> implemented.
-> 
-> Note this is the Gen 11 machine specifically. Its EC differs from the
-> Qualcomm reference EC that the reference designs place at address 0x76,
-> which is not populated here, and so EC_QCOM_HAMOA does not drive it.
-> 
-> Signed-off-by: Oleg Keri <okerixx@gmail.com>
-> ---
+> No LLM used here, I just thought the race needed some explanation.  
 
-> +static const struct of_device_id slim7x11_ec_of_match[] = {
-> +	{ .compatible = "lenovo,yoga-slim7x-gen11-ec" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, slim7x11_ec_of_match);
-> +
-> +static const struct i2c_device_id slim7x11_ec_i2c_id[] = {
-> +	{ "slim7x-gen11-ec" },
+That is fair, sometimes it can be hard to find the balance between
+including enough information and keeping things short and sweet.
 
-Thanks for the update. I've applied patch 2 to the review-ilpo-next branch 
-in the platform drivers (pdx86) tree.
+> I kept the series short.
 
-The other two patches will need to go through some other tree.
+Much appreciated, thx.
 
-While applying, I added .name = into that id struct.
+Regards,
+
+Hans
 
 
---
- i.
+
