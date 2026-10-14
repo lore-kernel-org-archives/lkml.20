@@ -1,137 +1,182 @@
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp10.goneo.de (smtp10.goneo.de [85.220.189.106])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20D8856510C
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:37:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3F5C560ADF;
+	Wed, 14 Oct 2026 17:39:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.220.189.106
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791999468; cv=none; b=KQlrrRnek5K6lO2zXkf3GW+qiOAvwmdvFSFr2UZt54obUdwWQ+4lbqtYJWMwEmkXy1BjARzIMziR5O2BkragTISEfEtfHWIwRtsbW9XdAjk91FrixIKNImNkAuFoIbMnJrp553AmFIDwntyghthkWEBR1DnH5HJuDXrlyXqVbF8=
+	t=1791999591; cv=none; b=Y6oYdBoCS9xgKskYhW0hPeI/PssBhbOz5os+NXsKPqWLCDx1aUsuMpuCleqqgdGquq9yv+tc/ILzlaoF/Mc1yJLeiVVjLyiMt/kOenKl66jL0WyeBFtdZiqSN7Oq7QH1HLkzdVvXrq9dfOrADaP+nx9XYjxd5n38jUh17LcGieo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791999468; c=relaxed/simple;
-	bh=tdlRIBPqud+ZhHQo4q4pnSx+uKMSRqHTAuSs1iG0fRo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=K3QzWi9fiyqqBo3DvA9P8OsyBRDTOSzFUQ6Qz5mRYUGDK0uleS9OTqAlcSaz0jippwAwBfcZFjT3g1LPPCpWMkw6web2hfYx22WVtCH/lBolGhA2MkG5EGg+nG/DA22oOz4tP0oPP06/MAq19SMWXoMZUy0fFkR0B8gqSJFXlMs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FpfsMsSM; arc=none smtp.client-ip=74.125.82.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791999591; c=relaxed/simple;
+	bh=PWNslq6VHLLM9Raaxzt2s9AFImzZnA3PhRA0Eb7CG4U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qTARUr6dRh62UDqVuh8AerC4senSeW+wwAy0IexplTPoaFTQbeAvTAyxY+/PSgM7fID8YELkZRkeFIbIW7dIbM2HRZVI9XUF6bVY+5NS03V2A6Or4hNiDkA8rcSW/SZNQNf0TsbyvQfR0zhvFrb7iOjNQZKXG8eMmwN3ZCvAcW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tk154.de; spf=pass smtp.mailfrom=tk154.de; dkim=pass (2048-bit key) header.d=tk154.de header.i=@tk154.de header.b=T/nWsEJg; arc=none smtp.client-ip=85.220.189.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tk154.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tk154.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FpfsMsSM"
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-353804b591eso7756142eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:37:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791999462; x=1792604262; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=jiGXiZIuMeD+fd3PiQCqnKfyIvL4Mb1E4TW6EqOHmI4=;
-        b=FpfsMsSMosBNqQ3Ssee+8b82uoByJ5wLWxsuDXHskeHz6JJgndJqYvEz3gGtIoMiFP
-         caLVzNOGqT9sIRqbwSxx+1prbkxL+/mrE289br59x5n9CbdfQuawE+Yxoi7sTprK5LUJ
-         JFkZTBtbDCW/WxGJZkKna3Dzln6MKddig+QAtDDq0S1EKjpf/+fOUinlFJPF07gO0tO1
-         gfNURgBknB83O8QZ5+ewXmiNlQiFU/fZCewHQZM8MOMlg5MoPohNO5q0GtTUiDAm8bPu
-         P8XGnRN+flibBqzBv65rtL7wnZiwJbOKVP7ryQTmkU+s08TqTruHdfiRTwiCvfuGSZe1
-         aHeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791999462; x=1792604262;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=jiGXiZIuMeD+fd3PiQCqnKfyIvL4Mb1E4TW6EqOHmI4=;
-        b=AyE5CZbFM4skjiOd5n/xaXJluocwRfmA2nLi/jBu6MICAOSz6npUf9hqIjFbETNDvG
-         0glWYgRiblqPxaVmF7W55XuY3vcyIpKnJ26YcQRx2FEFDN8wMdWe5+zl5xNv7CBCy//u
-         5i9KVgtxLKKdf8iYZVBDBSDRzRf3Y/UgdHrTVlC8OYeafDp+eXrCZdz4VnQjOzc1kKZy
-         dWNyyeQLcRe/1o2W0TdLazqlTcWrrE7Ui2Qfi6MDUCW3N5Vk0aX8IswrJzfHZaSWR7rY
-         GFGy/jVOjzyCcCLTBs8qcDo3mWK/AV9+13jpyNb4uam4xaPkHzWdhIrsDR6KaqcYS7x5
-         ui7g==
-X-Forwarded-Encrypted: i=1; AKwUvBwYKoI0IYzx1tPqZiSCdJTBUh1dvjnVpii+IAF01Q5Vjm894oKUC0O/NWhNlZAL+Q4gY++V7YlHxtVLvIc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL2q8d3nXU1jGFleXn66tb7RCATASXfnB4QLziyLUZuQp6uSpud
-	02AB9B8kGOzOfoXRKPourvPGryDlgioCwu5KfOCfZysM3NHSFlGfdOzz
-X-Gm-Gg: AYBFou00H1tn5GiqaADTvqQWlB3Ru3ZpYEI92dZbx2BCSI4k+kDGsvzlSpP6Q/Aty3w
-	G5Z9S/IbP4eYc8NHmbLB5W68o0vOA4QhQvC/tap3GvvU7+M9fdasNdMBe/zfaD4AScHW7mIa7yP
-	fj2wZwuMng+e7t28+zz9A/OnP3Du9bcuexuIhh+d5R+msC5/nPeiFXRfg+v654TvmCe6rAtg6MF
-	52AtD6aoGzwJBfIRrzfVaE/F/+hFFy8T8umqZosJ98i6evG43vgj44kHc0Hdtgy1uTXFYKp8Nrm
-	sUN7nQGtVFOJwT1TxtKZT84/7L5aUpLZgh+z6U0ehW+jyiVUxRpbPmqUCRfwjcLnmF9X0BH0tqe
-	AD8tK108kaCsPJg1uUbAqg2UZLVx/+fOAdU09iBXDuzGzf9D2iDW24fVyem2XcDUqBRHf2+j5w4
-	U0h8na1R4EaYw11hm2HaBXxW29TChazL5fGBH01dyLyazqUytA47Q0ZiF2aEi525Aa2BHhIanf
-X-Received: by 2002:a05:7300:7301:b0:351:2a18:c172 with SMTP id 5a478bee46e88-3537e0866b3mr29042179eec.15.1791999461798;
-        Wed, 14 Oct 2026 10:37:41 -0700 (PDT)
-Received: from [127.0.1.1] ([2405:201:201e:816f:c447:39f8:9b8a:fbce])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537c841648sm61523451eec.3.2026.10.14.10.37.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 10:37:41 -0700 (PDT)
-From: Viral Patel <viral8854@gmail.com>
-Date: Wed, 14 Oct 2026 23:07:36 +0530
-Subject: [PATCH] iio: magnetometer: tlv493d: fix magnetic field scale
+	dkim=pass (2048-bit key) header.d=tk154.de header.i=@tk154.de header.b="T/nWsEJg"
+Received: from hub2.goneo.de (hub2.goneo.de [85.220.129.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	by smtp10.goneo.de (Postfix) with ESMTPS id A45AA24037A;
+	Wed, 14 Oct 2026 19:31:52 +0200 (CEST)
+Received: from hub2.goneo.de (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	by hub2.goneo.de (Postfix) with ESMTPS id 61C342404E3;
+	Wed, 14 Oct 2026 19:31:50 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tk154.de; s=DKIM001;
+	t=1791999110;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=1HZIxrWp3/KeLWyxpicEoOuGfRyQwXuNYgUtQ/r5qmo=;
+	b=T/nWsEJgyVAgLW1RU/83O6crSqi68iRUW8Zf3em44EB1h+8E/SKzLUbzBMkIrFH4PxanDG
+	JKHWKTZItEgvn3aupY0SIuBgYZk9s630IaiXMIgrr4Em6JET6XksTNwuaStAYzAgppHqdp
+	4FnBDON3Wk+CvzZU+Sv7IjEC3HmxUTxCmOn+WjPlpVQ2t+Pc4bKHyz71zuBYIZVEUm07Z3
+	TO+zJwS/rRcSGdQOgDgyOY92sF43vaxH0qPIRZni3qTx0aPtCKdLJrNS+Dd0arMAuJWtph
+	+wgEKwruYQofeTi0+TJTCJQ9U55QOkn6W3HavtGUqRViqJ64bGBBV+9xuIcl0w==
+Received: from Til-Notebook.meshlab (unknown [195.37.88.189])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by hub2.goneo.de (Postfix) with ESMTPSA id 781C024040A;
+	Wed, 14 Oct 2026 19:31:47 +0200 (CEST)
+From: Til Kaiser <mail@tk154.de>
+To: netdev@vger.kernel.org
+Cc: Til Kaiser <mail@tk154.de>,
+	stable@vger.kernel.org,
+	Ido Schimmel <idosch@nvidia.com>,
+	Petr Machata <petrm@nvidia.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	Vadim Pasternak <vadimp@mellanox.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net] mlxsw: Initialize register query payloads
+Date: Wed, 14 Oct 2026 19:31:17 +0200
+Message-ID: <20261014173117.26305-1-mail@tk154.de>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261014-tlv493d-scale-fix-v1-1-69a722176c06@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAN+9z2oC/x2MWwqAIBAAryL73YLag+oq0YflVgtRoSFBePeWP
- mdg5oVIgSlCr14IlDjyeQiYQsG8uWMlZC8MVtvGaFPhvaeqKz3G2e2ECz9YOz215VRbbx1IdwU
- S/T+HMecP4WnipGMAAAA=
-To: Dixit Parmar <dixitparmar19@gmail.com>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Jonathan Cameron <jic23@kernel.org>, Viral Patel <viral8854@gmail.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791999457; l=1696;
- i=viral8854@gmail.com; s=20261014; h=from:subject:message-id;
- bh=tdlRIBPqud+ZhHQo4q4pnSx+uKMSRqHTAuSs1iG0fRo=;
- b=7YiJVZ7Ah4Y0W9OkYus8X2I16UgRiHjLD0enDJfXvjxjuzrxx07oJcKtJK1kqiILlFg+Y6I6N
- h05luhL9tXuBUH1Mpv8aq9kPj52gbpuDienauv/eq4w9A1EEIkJaHQe
-X-Developer-Key: i=viral8854@gmail.com; a=ed25519;
- pk=UC+UDB53t70pTK4wncXf3tfh0hsYMCqpxYnTaKX3MYA=
+X-Rspamd-UID: 4a72b7
+X-Rspamd-UID: 89885c
 
-The TLV493D-A1B6 datasheet specifies a magnetic resolution of
-98 uT/LSB (0.098 mT/LSB). IIO reports magnetic field in Gauss
-(1 mT = 10 G), so the scale should be 0.98 G/LSB.
+MFGD register queries can exhaust EMAD retries and leave Mellanox
+Spectrum switches stuck during boot or shutdown when running OpenWrt
+built with GCC 15.
 
-The driver currently reports 98/1000 = 0.098 G/LSB, which
-under-reports the magnetic field by a factor of 10. The comment
-also gives the resolution as 0.0098 mT (9.8 uT), mixing up units.
+An example failure is shown below with the second line wrapped:
 
-Correct the scale value and the comment.
+  EMAD retries (5/5) (tid=9b544fc100001f35)
+  EMAD reg access failed (tid=9b544fc100001f35,reg_id=90f0(mfgd),
+                          type=query,status=0(operation performed))
 
-Fixes: 106511d280c7 ("iio: magnetometer: add support for Infineon TLV493D 3D Magentic sensor")
-Signed-off-by: Viral Patel <viral8854@gmail.com>
+On an SN2100, the failure occurs during driver teardown on reboot.
+On an SN3420, it occurs while probing mlxsw_spectrum during boot.
+
+The register query API transmits the supplied payload to the device
+before replacing it with the response. Both MFGD callers pass an
+uninitialized stack buffer, so the request contains arbitrary register
+field values and reserved bits. This makes the request depend on stack
+contents and compiler code generation.
+
+Initialize both MFGD query buffers in the firmware fatal event
+configuration and reporter test paths. The initialization has been
+confirmed to eliminate the boot and shutdown hangs on both switches.
+The subsequent read-modify-write still preserves the other fields
+returned by the device.
+
+Also initialize the FORE fan fault query and the MOGCR mirroring policer
+base query, which pass entirely uninitialized payloads. Restore the MTMP
+query initialization in the temperature history reset path, where only
+the slot and sensor index fields are set before querying the register.
+
+This follows commit 5b0907407e7f ("mlxsw: core: Zero payload buffers for
+couple of registers"), which initialized other query payloads after a
+firmware field length bug caused firmware to consume uninitialized data.
+
+Fixes: 7d83ee111008 ("mlxsw: core: Introduce fw_fatal health reporter")
+Fixes: 2c6a33cd334b ("mlxsw: core: Extend hwmon interface with fan fault attribute")
+Fixes: 4039504e6a0c ("mlxsw: spectrum_span: Allow setting policer on a SPAN agent")
+Fixes: b890ad418e1f ("mlxsw: core_hwmon: Extend internal structures to support multi hwmon objects")
+Cc: stable@vger.kernel.org
+Signed-off-by: Til Kaiser <mail@tk154.de>
 ---
-Found while comparing this driver against the TLE493D-W2B6 register
-map for a new driver I am working on. Compile-tested only; I do not
-have TLV493D-A1B6 hardware.
----
- drivers/iio/magnetometer/tlv493d.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/net/ethernet/mellanox/mlxsw/core.c          | 4 ++--
+ drivers/net/ethernet/mellanox/mlxsw/core_hwmon.c    | 4 ++--
+ drivers/net/ethernet/mellanox/mlxsw/spectrum_span.c | 2 +-
+ 3 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/iio/magnetometer/tlv493d.c b/drivers/iio/magnetometer/tlv493d.c
-index 03415cc2c9b3..234e3ce63ff7 100644
---- a/drivers/iio/magnetometer/tlv493d.c
-+++ b/drivers/iio/magnetometer/tlv493d.c
-@@ -299,11 +299,11 @@ static int tlv493d_read_raw(struct iio_dev *indio_dev,
- 		switch (chan->type) {
- 		case IIO_MAGN:
- 			/*
--			 * Magnetic field scale: 0.0098 mTesla (i.e. 9.8 µT)
--			 * Magnetic field in Gauss: mT * 10 = 0.098.
-+			 * Magnetic field scale: 0.098 mTesla (i.e. 98 µT) per LSB.
-+			 * In Gauss (1 mT = 10 G): 0.98 G per LSB.
- 			 */
- 			*val = 98;
--			*val2 = 1000;
-+			*val2 = 100;
- 			return IIO_VAL_FRACTIONAL;
- 		case IIO_TEMP:
- 			/*
+diff --git a/drivers/net/ethernet/mellanox/mlxsw/core.c b/drivers/net/ethernet/mellanox/mlxsw/core.c
+index 308d8a94865f..42e9689d7f35 100644
+--- a/drivers/net/ethernet/mellanox/mlxsw/core.c
++++ b/drivers/net/ethernet/mellanox/mlxsw/core.c
+@@ -2001,7 +2001,7 @@ mlxsw_core_health_fw_fatal_test(struct devlink_health_reporter *reporter,
+ 				struct netlink_ext_ack *extack)
+ {
+ 	struct mlxsw_core *mlxsw_core = devlink_health_reporter_priv(reporter);
+-	char mfgd_pl[MLXSW_REG_MFGD_LEN];
++	char mfgd_pl[MLXSW_REG_MFGD_LEN] = {0};
+ 	int err;
+ 
+ 	/* Read the register first to make sure no other bits are changed. */
+@@ -2022,7 +2022,7 @@ mlxsw_core_health_fw_fatal_ops = {
+ static int mlxsw_core_health_fw_fatal_config(struct mlxsw_core *mlxsw_core,
+ 					     bool enable)
+ {
+-	char mfgd_pl[MLXSW_REG_MFGD_LEN];
++	char mfgd_pl[MLXSW_REG_MFGD_LEN] = {0};
+ 	int err;
+ 
+ 	/* Read the register first to make sure no other bits are changed. */
+diff --git a/drivers/net/ethernet/mellanox/mlxsw/core_hwmon.c b/drivers/net/ethernet/mellanox/mlxsw/core_hwmon.c
+index 30f172ce822c..a5e7aee730d6 100644
+--- a/drivers/net/ethernet/mellanox/mlxsw/core_hwmon.c
++++ b/drivers/net/ethernet/mellanox/mlxsw/core_hwmon.c
+@@ -120,7 +120,7 @@ static ssize_t mlxsw_hwmon_temp_rst_store(struct device *dev,
+ 			container_of(attr, struct mlxsw_hwmon_attr, dev_attr);
+ 	struct mlxsw_hwmon_dev *mlxsw_hwmon_dev = mlxsw_hwmon_attr->mlxsw_hwmon_dev;
+ 	struct mlxsw_hwmon *mlxsw_hwmon = mlxsw_hwmon_dev->hwmon;
+-	char mtmp_pl[MLXSW_REG_MTMP_LEN];
++	char mtmp_pl[MLXSW_REG_MTMP_LEN] = {0};
+ 	unsigned long val;
+ 	int index;
+ 	int err;
+@@ -177,7 +177,7 @@ static ssize_t mlxsw_hwmon_fan_fault_show(struct device *dev,
+ 			container_of(attr, struct mlxsw_hwmon_attr, dev_attr);
+ 	struct mlxsw_hwmon_dev *mlxsw_hwmon_dev = mlxsw_hwmon_attr->mlxsw_hwmon_dev;
+ 	struct mlxsw_hwmon *mlxsw_hwmon = mlxsw_hwmon_dev->hwmon;
+-	char fore_pl[MLXSW_REG_FORE_LEN];
++	char fore_pl[MLXSW_REG_FORE_LEN] = {0};
+ 	bool fault;
+ 	int err;
+ 
+diff --git a/drivers/net/ethernet/mellanox/mlxsw/spectrum_span.c b/drivers/net/ethernet/mellanox/mlxsw/spectrum_span.c
+index ae63d549b542..d54fe5e61296 100644
+--- a/drivers/net/ethernet/mellanox/mlxsw/spectrum_span.c
++++ b/drivers/net/ethernet/mellanox/mlxsw/spectrum_span.c
+@@ -1720,7 +1720,7 @@ static int mlxsw_sp2_span_init(struct mlxsw_sp *mlxsw_sp)
+ static int mlxsw_sp2_span_policer_id_base_set(struct mlxsw_sp *mlxsw_sp,
+ 					      u16 policer_id_base)
+ {
+-	char mogcr_pl[MLXSW_REG_MOGCR_LEN];
++	char mogcr_pl[MLXSW_REG_MOGCR_LEN] = {0};
+ 	int err;
+ 
+ 	err = mlxsw_reg_query(mlxsw_sp->core, MLXSW_REG(mogcr), mogcr_pl);
 
----
-base-commit: ceb05f22e5cdc3f8bd3f7d5dcfc57843942191dd
-change-id: 20261014-tlv493d-scale-fix-5a0b83b52d2a
-
-Best regards,
+base-commit: 513444cc62e231a11c9b15ea88de0890da9b2b4f
 -- 
-Viral Patel <viral8854@gmail.com>
+2.55.0
 
