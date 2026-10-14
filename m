@@ -1,195 +1,199 @@
-Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com [209.85.208.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11023141.outbound.protection.outlook.com [40.107.159.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42D2E44C66A
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:43:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15FDC4457C9
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:43:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.141
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791960196; cv=pass; b=N/bbCzXGOWf/VbEvhCqqStLLNl281amBL+ZaJtxH6aHY8eh/YukeYtjpSxpoyAHwo62d1Brln+nmih3sMmO7OMaLtDM2o06v+LOcyWUSbUKGQ7d6MlP46i3LUD/92CNoMB1rjNHVZ+JimgePm486qSI3LMhovQhoNSnWEhYBuJs=
+	t=1791960192; cv=fail; b=j+VoJON3SzXwVAvnRe0X8f3rjiQ4Pjzmf9j3QI19/Zp0uxVdBPpey3Wy8QR/85xUFAK2vRUE7vFV/HKoRNj1cnfBeKUUa3zHinXWacDkFclbSfP38yEyp0xEviD2PkeeQYGYUjbSP535A1UE7OpXycfksx19XMa4VQBaS6SoMJs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791960196; c=relaxed/simple;
-	bh=kF9c+8KKO+ipWwSE4hjYVCkfFFSKZ4K0zjQHaC5WzaA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AUVrHB79Sg5ejZkOulnZWCpgGkfrxlhMQTBvd19zvcMrpSLyka7kEGcpJf5IBSO+g5gAcqLGz816l5dyMisSJNBszFYNWnVy3GgFjbmvuZ4gcDYjwRGC1nIaXZUYbZmsg4SDLs1yhj6sjC/W2zSCY+3rhgbbB8ZPjVvYTGR7ZJ0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CLoD31v+; arc=pass smtp.client-ip=209.85.208.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791960192; c=relaxed/simple;
+	bh=8noKhKdWrfbira6Cyg4o/9dKw4RX6bUOX9a00mQT2IY=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=dfN9SK3hdhx5BdmYpvB1iD9UGWOX5Q0fp5K6zc50B2iJvCujczdHgH4DCELTA8lidu5oV+Nw+X13ay/RRTzK5967LpS1W+p8kc9dkemITmAWC8ndeWNcfyLfgKD3vLDpmxOR4i3xb7T0E8hUB8XYdQRZ6jSaTEOkgrHZ7+iJHcs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kontron.de; spf=pass smtp.mailfrom=kontron.de; dkim=pass (2048-bit key) header.d=kontron.de header.i=@kontron.de header.b=gy11qyof; arc=fail smtp.client-ip=40.107.159.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kontron.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kontron.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CLoD31v+"
-Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-3a808f09021so5102321fa.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:43:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791960192; cv=none;
-        d=google.com; s=arc-20260327;
-        b=f7r5UEiqIeEq+BB0Ndu5YykTlAfcgehFL8OfYC22+a+2rKXKaQQZFWTbcBCTzjV3Z8
-         wIarxr6EaW9OUb8lcDcFtqsWCaD4okx7ANiFjaJeU88EEpt8s0zX6C/wpT+yKoRd8g5K
-         qqKHopdFQ9Tr7ZNjKDM3KCcneKM0GJ11HMyOQmhD3LTne59xGZ95wgmgeqTpJbSrwuEv
-         lcfJCLg/fttKPXHbvsERKXltXY4mj2x7XxDo9lV05NKYQNWyVnGUpqTTKL0cwio4mAkr
-         Hkp06qSbe0W1cclKnDTXxp/Z6liPKkcAYBVTzneII0yuNdJxn2b4y7MXBlUP93Iw6h6x
-         Bbdg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=ZwsjYHPheqBa+JzSbow2ZB78X+lBjsll/uWCTK8ljxY=;
-        fh=eHDGF2I9M27Fzbflc5W4W3lsR9t5YPWq494HSBq025o=;
-        b=ho56EMCTQLr6J9XcbOf7a4dcQKUNuvMPifrSNWc8Ir7rv2Jky6IhJQZCdnC2MqTBjn
-         9hdFf17tw7IaYJRRoNzi764Mar0+8TrSKZCj9vVLmFWD+/TArDHrvpDr+E/uGAoktdxi
-         NNeujSm4zpM/zLVLjnEUPYSoVVIE7G7J9Nrt6NDS8EGzS78Tmf7nNuIF7MqmdpSP8vCu
-         db5Op9/AfbZGO0zBU2y5nW17EIgJDIC3GgL4ErK0xq5WMbRGPBVo87XsE8juI/gimTy1
-         +irTfsHHAdnXVdiOoKvomgRLZ8draextwcZXthRkfLZykgNNAs/ww6g7cKplMfZPIPnm
-         6t+A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791960192; x=1792564992; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZwsjYHPheqBa+JzSbow2ZB78X+lBjsll/uWCTK8ljxY=;
-        b=CLoD31v+l1P72fEBKMMdTK/TXv9KLYzmoKJNius6R6Byr8VKxMGnOOzvfpavPXzbz9
-         qiRs7/egnR+74oM8DggBI8FU859CG5PQ2cN5BOWJq0amkZ+nKidrM49O11RHAC7zQKLr
-         crF/kJD1Wp/UkMsdRlCXbI1ooqI9nQLlhGf+RRPWspNKKSAB5T0d0l8XJJCUFsH/YenU
-         rcPJRWd8r96/8jjRxcu1sTGCKIuD7DmSVcyt87IpbbGYgvuJZdP2sQF4thbB5jKphRgq
-         3NRw80c1OQSuhCVzr1Yju7hgD6iAwwec+4RRmi+hhInmQ5E9s7vYi1FxBzksp5io1Jlp
-         154g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791960192; x=1792564992;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ZwsjYHPheqBa+JzSbow2ZB78X+lBjsll/uWCTK8ljxY=;
-        b=VSq4C24LowTjng3BhSHz5DHB2MvrXiLLK3/qj+82ZvrbZeF4mqEVubg6k8rYY/0eng
-         URYOw08+ctm6w8rnLPDdXdhFwOvcHUhl79uwE1qTQPMWqbs1G9lz90beEqj7vPmSNqC7
-         5eNAR+ShoyxIW9V4gMrWiKoaB8TubIvTZlwMdJuNsgaoHGkLMOvRxhQ29m/LjI/MFV7U
-         s3ymhO04yP7kOeeUQydu0eYmPMRqRJCJZmeD6/r0d7TYVlGWxNPMYe4hSoKAKxYUvFVi
-         wV4N70ZlGYZqNkok3P6ji/4KcBzw90fY5ebaMg1ec4OIfqT+4Cmn/5KcQpygcWrBScTb
-         1lHQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxaBZYPX8yIR9F96P1fjdrrNYEQ9ZHAhiz6s+pOq1ZzWdui5v+6BCNffU54nDU0B/lqZqAN+iu4AF6sPTc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIPYmg/E3EBSUANvcjL6x//EKMMBBjXQtUjxtG1HKFfFe+owRjH
-	W/fK/o3FZKmF4lsINTIkuQzhnTUfrly9xNEDtQnBrsMnAOOETj84bj181BRY6HnxlUSQQg8Yw0i
-	IVU+bAhSVg3aJZge3qIx00bWEJLZEvik=
-X-Gm-Gg: AYBFou1I2c3FZ6pbnn0AT3JhlPNHeNZeV4s4YmpE3KypnzXM54J7VEVQ1l73uPt9kmx
-	ILSHr1jAvg/AhfCdNbtcMdUy0bYzD/vk5KGTk3KZn50b9VlWYknQEAn0z855lrP3p/FRPvPWAZR
-	gPrds2eTvnxX2hQKfjOd+td3Llv4HFK5/wAcudwDHJmdiyvd7O6Z4dvQdXn8u55JGq6OmdKvfUb
-	a+LrtLRIl4aHVsQ5y8IXCV6OeG43TH8TzCrpehTUsNgFmg5Eu4wvmufIvdB02Trb8lntqtpBaef
-	vJ6zee+fmnUtcF21obPFBQpXzFGGyCRKptQx18j57ykt0OMB/erj6i6nDHFEIPlZZNI8N7TKmwx
-	XXfX4wSra83Gb/jnhTmVe/sGfJbl9NIh+l6YFhfH6mr20EbJY2AnCoDL+9yIpBK75keaWZM6dBw
-	==
-X-Received: by 2002:a2e:b888:0:b0:3a9:82c2:ec1e with SMTP id
- 38308e7fff4ca-3a9c537ed07mr33111191fa.15.1791960191931; Tue, 13 Oct 2026
- 23:43:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kontron.de header.i=@kontron.de header.b="gy11qyof"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pjcIAkYRaqa1ps/iKxJE0nl8oM2BwtLVpSIVUfakhPs8h10lNcNqu4u92TQpJu2Yz1V4WmsNmeqm2arXflCBaVPuyrvNqce2RDaUYrRQjF1ulZQmKNGLokeGC86eIh5u2V0a8cTpV7ZGewvq3GA54Xpya5TmZWRqpDc+3zDE/1eLOf730WZZ/L1sCsKYojXqbdNqlNTtZ5etCn4EkYdZu5feV4ZIFcmj9NxOmAxf6NJW3BSf3tQR0Zc/qqzdutH4yu9sR3vVlj0FfQvzwUC0XrjOw1mH/xKANSKmi3e49rXXPVPfolmNoRBjv/z0zRHobxJtC+33ni0WZ5KqbYziJQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/sAoByyFN9WMB5Ps8ghvDWHvqy/f7jhAK6Oayc4G8Uk=;
+ b=Oer8ZZnTX3L0EFBGxOf26gonB0ZbNXmmyAl/DxXxsjPnoZ83lf0MnwPnKldG64RHhff5vqJdto9hW27hoeGmLXcVmiCrPZKiuz4eq/WFRkY1drwaGFawFYzDOXs2ApMv424HBB4s2ZmwpujkmHsLoVg2k2t3tLjE/YMxr2YWq8bTc8fAjBER1V+M6yAFxdNoWrxWwcy3JdSO1UwTO/YnKJon4wlf3BGb0CYrkTxHP9PN7+cLCE+94ht0nRjej1wFK0DdwlYiXAkUROFDLxSVkD5yFPE5hmRoAiZxvYyXHzr1DePQVVpdi1FXLrPCaIWqLVQ5H7EuIh8K7nExfe87CQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=kontron.de; dmarc=pass action=none header.from=kontron.de;
+ dkim=pass header.d=kontron.de; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kontron.de;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/sAoByyFN9WMB5Ps8ghvDWHvqy/f7jhAK6Oayc4G8Uk=;
+ b=gy11qyofZHRTy44xNweDbVMcqybxTNzJKq8EaNEqSptBadaammZZDZ1fvUGOooVvj8EtjC5j4f/ETn0ZAjVbiFY8B/GPW1DhFRdoCi/CmXNbVVlvI0d8jEBpcyZoCJAYK59eRkSWSJdvkMq4YKuRpAhgslTuH+3Y7rY47bRZSi4uMb3Zykhmy5mCGWkwUoyQ+IOPdW45gqwPHFkK3PRbO/xqMXb9B8WJP4HeZaIjnLTi8FB/j5Ix1EJc0iftPqIrxZrn0tuUYOrboAVPmxW7wHU2JwD5LN4oBgOshFJa5NWkTRy8OVvdqqPKRzql19LfoOr3IUF4sGCRhXLe6ujrFQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=kontron.de;
+Received: from AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:1fb::23)
+ by FRWPR10MB9291.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:d10:184::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Wed, 14 Oct
+ 2026 06:43:04 +0000
+Received: from AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::a276:4ad7:962:da22]) by AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::a276:4ad7:962:da22%6]) with mapi id 15.21.0522.012; Wed, 14 Oct 2026
+ 06:43:04 +0000
+Message-ID: <1aa5753c-0c63-48e3-a649-8a87955c2362@kontron.de>
+Date: Wed, 14 Oct 2026 08:43:02 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] mtd: spinand: Do not re-enable continuous reads vetoed
+ during variant selection
+To: Miquel Raynal <miquel.raynal@bootlin.com>,
+ Frieder Schrempf <frieder@fris.de>
+Cc: Richard Weinberger <richard@nod.at>, Vignesh Raghavendra
+ <vigneshr@ti.com>, linux-mtd@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261007-spinand-cont-read-supported-v2-1-4c63a0f8828a@kontron.de>
+ <874ieq3lj7.fsf@bootlin.com>
+Content-Language: en-US, de-DE
+From: Frieder Schrempf <frieder.schrempf@kontron.de>
+In-Reply-To: <874ieq3lj7.fsf@bootlin.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0183.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9f::19) To AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:20b:1fb::23)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929094812.93374-1-tkhandelwal32@gmail.com> <CAPwBhz_ow3BFEns2WL69Gj2BmOHGiFOEzP7U-=FfzSvoH=DZSA@mail.gmail.com>
-In-Reply-To: <CAPwBhz_ow3BFEns2WL69Gj2BmOHGiFOEzP7U-=FfzSvoH=DZSA@mail.gmail.com>
-From: Tarun Khandelwal <tkhandelwal32@gmail.com>
-Date: Wed, 14 Oct 2026 12:12:34 +0530
-X-Gm-Features: AclHuK_roABVrEaRhuHK5p8P-AhgVeh6e8Rm4bmNzCFIfTidAX3p_1c6lDNfvkM
-Message-ID: <CAPwBhz-yAXeZTca0iFT=9fVhD8k7rUQBtjNKCw_FKPFzYFC2gw@mail.gmail.com>
-Subject: Re: [PATCH] fuse: propagate SB_POSIXACL to submounts
-To: Miklos Szeredi <miklos@szeredi.hu>
-Cc: fuse-devel@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
-	virtualization@lists.linux.dev, German Maglione <gmaglione@redhat.com>, 
-	Vivek Goyal <vgoyal@redhat.com>, Stefan Hajnoczi <stefanha@redhat.com>, 
-	=?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
-	linux-kernel@vger.kernel.org, Tarun Khandelwal <tarun@supabase.io>
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM9PR10MB4277:EE_|FRWPR10MB9291:EE_
+X-MS-Office365-Filtering-Correlation-Id: 04516122-847d-4377-d8e7-08df29be65d1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|56012099006|11063799006|4143699003|261009223027099003|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	9eZtVaWxGaZGkNl3OhIFaXHlz+EKVLy1xG4OBP5cRiseocpJMh1hzOAfO5aw8+nuKimfQZvQDhGoLLTKiSw0rmPGQ58Q2+DEWdyLCtZyHNKxeZeuYkidCZXsLx9AOyoH6gZsboTkWkEhegdM8tXOUkQhMkVloI557/K/almAlfOQzCXL/HL2H1j7BCNajZvpnUYmyIbyJZ7tRZq3MHUhfdke1DgvFHer5P92SXnrkz8bFJu5TLAQ/odphxZkm+iLZS2KltCzRXVzBIfLUmUnjeiCYRZ7hWBmtuhrmYk3ZqviToHUA9iFXU69WntAAwty2Kfa1dT/suuAyxwHpjajj/D7s9fxgfE6o9+4+c2Mkk1VyYBBIOP4DuPImvvqZy5AQ3JEee1RmpFwa2NcvVrErypsGYI2rip/LnWxs/Z97gTWjMu8bBKZPX+RKJJl7HlTu5mcSitBnf4TXSAfXUajNJsXpX7PUrfpxfzcQ3SoRgQfyJ5pi6KAHae+q3owm8HM2iLdKse3Z5FRS2Ofdr5y6dvz7OBJBdkrKu5TYxYAoSBG1U3JSJGKtcyDcT0drVhUoRqLoUorNCoZaiOkuMXCr0q3XrcZgXJqHAxrK4L2Bb29H9loFG37/dD/61g9R3qlomAIdKq5svRCYGMXj01MxR07o8x1voS4FcE5h+/KVQg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(56012099006)(11063799006)(4143699003)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VDBOQS94WUcwc1NrbDhFbkE2cTZJN2lWRUsvaTRUSkVJTys2dUM2RzkxYnE3?=
+ =?utf-8?B?MURySFcwa0l1QytLSURPeVpRbTdUdFMxOE9keUttWlh4NlJnS24zUXVOSERH?=
+ =?utf-8?B?V2xhcjZhTDlTRlJ6aXRaOXJ2NTkvZmxPb0hWYitFTm44WmxHRkxGYlVCUVBQ?=
+ =?utf-8?B?WU16bnluRnJseWR5ekdmazgvdmppNEFNL2tCUjhJTGRBMGRDcFB0OEtaK0Jx?=
+ =?utf-8?B?NHltc2QrbVpSRG13L2FCcHEwQjV2c2ltUlN1N3hrSEpoZzZLb0c4RlJTNnNz?=
+ =?utf-8?B?WWU3SStIMTl4UUlYenpZd3dYRUVKSDl0YnpLNXlEM0syaXA3d2lvOFJ3MUla?=
+ =?utf-8?B?aFVXMEZYVDdweStqczdvV2RyUmZSaXY4a0JMakpEWE9Ca3lZbzF0LzA2MDVL?=
+ =?utf-8?B?WjVzZERLSGRyNWZSSlZnTm9LSjdoSmcxRS8vM0FOd0U2MEJJQXZmNHFOSHhv?=
+ =?utf-8?B?N0tNV3BtWTdWejJleHpBZ3oxaDFnb0VTaFJVM0p5UDRUZXl0cXlCek1tcWZ2?=
+ =?utf-8?B?OHpOV0JXT1VxTWtJUzVxQjEyMmpMZmN1VzlBZFNqSWRuT1dtOXZ6aFN3a1Ry?=
+ =?utf-8?B?ZTdyaVdTSStlTVBEL2lCSnhNdXJnYmNmbXMwbVNUZlF6enhmbTNWV3J4eito?=
+ =?utf-8?B?d2pFQVQ2TWVodWVPWGxFR0x2Smx0Ky9OSmowbmpqSlZ0ZkVlcFpKSFgrSGVo?=
+ =?utf-8?B?WHZrVEVadGFKQjRrVGZtMTFmVnR0SjNlbWRCejhsZ2pJSGZSbTB6eUlNVUlq?=
+ =?utf-8?B?eVc0cGZvdnE0OGZUbWE0NjRjNGJkYjFBdzhrd3MrS0N1VURMamRRL0NqYUpY?=
+ =?utf-8?B?aGthYUpWYzQvNExIOGIxSWhJMkZNSFJHSjZMaXI1RmlnSktjUWtQQ3VhcG56?=
+ =?utf-8?B?WXdDbzVzYy82bUx3U1JMZWc0aXlHNmtndXh1R2wwRlNTZEtaOVplcVFrWVgw?=
+ =?utf-8?B?T1piczhZdWFhN3RGZTVDNGtDL2lpbXBhR3ptZ2dqSFBXZWJSZHVDL2YrS3Ur?=
+ =?utf-8?B?akN0QzZNcEtnMzBlQlk4Vjl1SWR4QVlBeUM4eVdxT0gyQ1U5YjRGa2pteFlB?=
+ =?utf-8?B?MDA2bmlMQXAzMXRRU3dCT3NQM3gvRmJiTVcwelFkdFc2U21adXVHRE1uT0Qw?=
+ =?utf-8?B?eEwzeE9ydHhDZHQ4K0wrampOd3JKdlE1ZUZTVU9vTlA1SVpuTU5HaTNmdktR?=
+ =?utf-8?B?NlZ3MmFsNTljb3lOR2VFYmcrdE5HKzBzZkNZRHBGNGlJcEZQaSt3YktmRGhx?=
+ =?utf-8?B?Z21MNzU1Q05oL0Z4LzhDT1gyS3lJd0tHd0RPTHRaN2lGaWl0b0YrUkNkVERs?=
+ =?utf-8?B?VUtqZzdFdHhCbTNDMWR2ZTEyenJjQ0pUbm5YM1FnR0U5aTk1Znc3Sm1Kck9w?=
+ =?utf-8?B?c3BkaHRkVldqVmlCd0xqWk9QMG1ETjZuRmJGM2RYWTUybm1uSzRhNEdoRWFE?=
+ =?utf-8?B?UVczUUVaWktUVkpwVDJuYmtvTENFTEpYUGZqQVdvMHdFMXBBZ0R3a2k5QmlY?=
+ =?utf-8?B?MG1KOVowNFhzY0lqKzlUVTdFZlBKcHZ5Uk93cWtPRXM2YlB1ZXdWazZndkt4?=
+ =?utf-8?B?czQxZDhTbFB2ZTdrak5tK3lFTk5xQUdBa2VLek93ZlZVa3duMFBkdTlhdXZu?=
+ =?utf-8?B?d3h3aEJvQWdsemhITW8vVmR3b0tya3cwdHBRVnlOUExvaCtKOGcyNis3a2Rw?=
+ =?utf-8?B?dk1PR3g5YWJzY3hETmQ0QlRlcURCTUMvbXlIeEMrL1BxNlRVb1VrQWFmVk9V?=
+ =?utf-8?B?dHkrUHI2Z0ZIa3pvYnE4eEwrRnpQTERnZDdHdFptSS9Sbk45V3dEZFkxZGlo?=
+ =?utf-8?B?SlI1MTc2Qk9Bd0ZhNlIxMEpOU1dteGNVdTJqMDh4UFpSS3dma01HOWJqSFY4?=
+ =?utf-8?B?R2JJN3M4TjBKa0xteUd4UWNXRWZBTm5pWElCMksyWVJGSzdxRW5TbkZZN25t?=
+ =?utf-8?B?VlBNU2tMVmNmc0kyV25vRHAwT2RCOWVnVGFhekFxWmFMa01PcFlWY1pFekRC?=
+ =?utf-8?B?cXlQd3NFdFpFMTlDWVI4S1lnWU1ObWwycktIOHp4NDJodWZIZWNjSER6VXlS?=
+ =?utf-8?B?MEh1OE0vZWNvS0JUeFNGdGlhWEUxeXA2ME11TGRxaVN5M0ZzTHVpbG1yNXBz?=
+ =?utf-8?B?M2VPeDJ1NGtRa0tNZDA3aEw1ay9CVEtiNmdPQkgzQXU2eENuNGFaRFBmUFha?=
+ =?utf-8?B?Y1J6Y2lBR2xwQWhVbEV0TWFvQXljTzRLN0NuUVU4OGxrSnEzTUJpbnVubG9j?=
+ =?utf-8?B?K2xmL0tRZEU2WmRDaXJqV0JyT0M2TW8yODgydnExZTVKNjMxSzVueHQ5cU1X?=
+ =?utf-8?B?a1JrNURpY1hHSy9WVmpjeDNHbzltdFhMaGFSSTc4S3dMTXEraTREdy91MFhr?=
+ =?utf-8?Q?PKnpJpC++aoaV3OQ=3D?=
+X-OriginatorOrg: kontron.de
+X-MS-Exchange-CrossTenant-Network-Message-Id: 04516122-847d-4377-d8e7-08df29be65d1
+X-MS-Exchange-CrossTenant-AuthSource: AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 06:43:04.0321
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 8c9d3c97-3fd9-41c8-a2b1-646f3942daf1
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: rNdiKKUysSR3FqdiegL7YbuGNttZEjqzAPIdO8kKaFOIT33ABeNAPe6OTi2vC7FXUgw22w6zMIv8Zh/Jy/QumbUAFDsSYi7oJLb3qOd+qp4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: FRWPR10MB9291
 
-(Resending as plain text, the lists bounced the previous copy.)
+Hi Miquèl,
 
-Hi Miklos,
-
-Gentle ping on this one.
-
-It fixes POSIX ACLs being unusable (and not enforced) on virtiofs
-submounts, so it may be a candidate for fixes. If leaving SB_POSIXACL
-off submounts was intentional, I'm happy to rework or drop it.
-
-Thanks,
-Tarun
-
-On Wed, 14 Oct 2026 at 11:22, Tarun Khandelwal <tkhandelwal32@gmail.com> wrote:
->
-> Hi Miklos,
->
-> Gentle ping on this one.
->
-> It fixes POSIX ACLs being unusable (and not enforced) on virtiofs
-> submounts, so it may be a candidate for fixes. If leaving SB_POSIXACL
-> off submounts was intentional, I'm happy to rework or drop it.
->
-> Thanks,
-> Tarun
->
-> On Tue, 29 Sept 2026 at 15:18, Tarun Khandelwal <tkhandelwal32@gmail.com> wrote:
->>
->> From: Tarun Khandelwal <tarun@supabase.io>
->>
->> fuse_fill_super_common() always sets SB_POSIXACL on the superblock, but
->> fuse_fill_super_submount() never does. Submount superblocks are created
->> from an fs_context with no sb_flags, so the superblock of an automounted
->> FUSE_ATTR_SUBMOUNT directory (e.g. a virtiofs export containing another
->> host mount) lacks SB_POSIXACL, even though it shares the fuse_conn, and
->> thus fc->posix_acl, with its parent.
->>
->> Since IS_POSIXACL() is false on such a submount, the VFS:
->>
->>  - fails setting POSIX ACLs with -EOPNOTSUPP and hides existing ACLs,
->>    without sending any request to the server;
->>  - applies the umask itself on create, so default ACLs on the server are
->>    not honoured for new files;
->>  - skips ACL checks in acl_permission_check(), so with
->>    default_permissions (implied by FUSE_POSIX_ACL) access is decided by
->>    the mode bits alone and restrictive ACL entries are not enforced.
->>
->> Copy SB_POSIXACL from the parent superblock, as is already done for the
->> other superblock fields inherited from it. It cannot be set in
->> fuse_sb_defaults(), because fuse_fill_super_common() checks whether the
->> flag was passed at mount time to decide fc->dont_mask before setting it.
->>
->> Reproducer, with virtiofsd 1.10.0 started with --posix-acl and an export
->> containing a nested mount:
->>
->>   host# mount -t tmpfs none /srv/share
->>   host# mkdir /srv/share/child
->>   host# mount -t tmpfs none /srv/share/child
->>   host# touch /srv/share/rootfile /srv/share/child/childfile
->>   guest# mount -t virtiofs <tag> /mnt
->>   guest# setfacl -m u:12345:rw /mnt/rootfile           # works
->>   guest# setfacl -m u:12345:rw /mnt/child/childfile
->>   setfacl: /mnt/child/childfile: Operation not supported
->>
->> With this patch the second setfacl succeeds, ACLs set on the host are
->> reported by getfacl on the submount, and default ACLs and ACL-based
->> access checks behave the same as on the root mount. Tested on v7.3-rc5
->> in a QEMU guest.
->>
->> Signed-off-by: Tarun Khandelwal <tarun@supabase.io>
+On 12.10.26 18:56, Miquel Raynal wrote:
+> Hi Frieder,
+> 
+>> Fixes: 6eb7c193e751 ("mtd: spinand: Use secondary ops for continuous reads")
+>> Assisted-by: LLM
+>> Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
 >> ---
->> I wasn't sure whether leaving SB_POSIXACL off submount superblocks was
->> intentional. I would have opened an issue first, but since the fix is a
->> one-liner I'm sending the patch directly. If there is a reason for the
->> current behaviour, I'm happy to rework this or drop it.
+>> I was using an LLM to check sync patches for U-Boot and the LLM reported
+>> a bug in the upstream kernel code. To me it looks like this is indeed a
+>> bug and the fix also looks correct to me, but I would like to mention, that
+>> this is purely LLM-generated and theoretical. I didn't verify the bug and
+>> the fix on actual hardware.
 >>
->>  fs/fuse/inode.c | 2 ++
->>  1 file changed, 2 insertions(+)
+>> @Miquel: Do you have a hardware setup that would be affected by this?
+> 
+> I do not.
+> 
+>> Do you think there is a better fix?
+> 
+> I agree with your bug analysis and with the proposal, just a few nits below.
+> 
+>> --- a/include/linux/mtd/spinand.h
+>> +++ b/include/linux/mtd/spinand.h
+>> @@ -772,6 +772,9 @@ struct spinand_mem_ops {
+>>   *		suitable to use or not in general with this chip/configuration.
+>>   *		A per-transfer check must of course be done to ensure it is
+>>   *		actually relevant to enable this feature.
+>> + * @has_cont_read_variants: The chip needs dedicated continuous read from
+>> + *			    cache operations, which must then be available for
+>> + *			    the bus interface in use
+> 
+> "The chip needs dedicated continuous read from cache variants"
+
+As below you are proposing to rename the field to needs_cont_read_op,
+which contains "op", I will leave the description as is to match this.
+
+> 
+>>   * @set_cont_read: Enable/disable the continuous read feature
+>>   * @priv: manufacturer private data
+>>   * @fact_otp: SPI NAND factory OTP info.
+>> @@ -810,6 +813,7 @@ struct spinand_device {
+>>  	int (*configure_chip)(struct spinand_device *spinand,
+>>  			      enum spinand_bus_interface iface);
+>>  	bool cont_read_possible;
+>> +	bool has_cont_read_variants;
+> 
+> Can we name it needs_cont_read_op?
+
+Sure, will do in v3.
+
+> 
+>>  	int (*set_cont_read)(struct spinand_device *spinand,
+>>  			     bool enable);
+>>  	int (*set_randomizer)(struct spinand_device *spinand,
 >>
->> diff --git a/fs/fuse/inode.c b/fs/fuse/inode.c
->> index e9552be36..ef3c7fac4 100644
->> --- a/fs/fuse/inode.c
->> +++ b/fs/fuse/inode.c
->> @@ -1629,6 +1629,8 @@ static int fuse_fill_super_submount(struct super_block *sb,
->>         WARN_ON(sb->s_bdi != &noop_backing_dev_info);
->>         sb->s_bdi = bdi_get(parent_sb->s_bdi);
->>
->> +       sb->s_flags |= parent_sb->s_flags & SB_POSIXACL;
->> +
->>         sb->s_xattr = parent_sb->s_xattr;
->>         sb->s_export_op = parent_sb->s_export_op;
->>         sb->s_time_gran = parent_sb->s_time_gran;
->> --
->> 2.43.0
->>
+> 
+> The rest is good to me.
+
+Thanks for the review!
+
+Best regards
+Frieder
