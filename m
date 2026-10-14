@@ -1,224 +1,645 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-234.mta1.migadu.com [95.215.58.234])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B21BA4A841D;
-	Wed, 14 Oct 2026 08:52:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB2ED3002AB
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:54:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.234
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791967952; cv=none; b=qucIMRzQIbkjN8qfBFatCaIQEQx4WSj/2fDW6df+YK4gEg7PiLhu02uuETtzySDSBgLAarj0wnoryqyZRUUr3fa4wYNKBPl7EYBtgW1M7lPMVLZeWAwq+py4qoyzblWTfpiTUqViE+WC5k/wByt7mM/VsZeyu9lPCxWAkO5Z9Zg=
+	t=1791968078; cv=none; b=o3FWFH7kOr+Zlvtcvk3XSqr6HGoI+Bj1AXLeOUaYZAZtSQ3HATO0UQeiJ8yrKdb/sMfscaNIAbJJK3KCubjYVZ9Dv7geULiwa6vlDhSq/ECOMv5sGMFfbGVEcrrXLOTuXF26nBRV3zVrNIAg9OJi88LPvyEZR0zuuN+q1yB9Cf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791967952; c=relaxed/simple;
-	bh=uBgXEUhJEyTCvIva/iLkM0JNPDAeftjCSjsxPOdBnrY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=TZnSDTArhyOE27l5y+vKJzDaAKKQ/A/LWhx9mPOAUyd7a8E/8DEtDrYqeR0TgeW4GW1T4qqJXYTEeBt4iom8yoyzmg29dCDqmDDj6CwmmLPfwY8cKcPkDQ+oWtKjwm6l7Wv/oYmURel4LoX7GWIPEwPEtMZ0pOORc4NQ9AmLjSQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=I39l4qPT; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1791968078; c=relaxed/simple;
+	bh=loRjuuwluUPBJRl/tOlkBshetBDq31ySMcEEeTZP1FA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=MTE+5O1XrNW9RW5qth6EY/XBRdc9seS+k4waxBqjRvonjNmvz+QtW4J+x9QUzLr/Y8854UDXVUFExUlePPRESl1M91Ppx0RtX9T37M/WSP/f93T3qjd79CLeCek+Xm0BczgBkbd/2FActs1HrVQeU9tP6NhwT3yisp7dcq1FQbA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Zbapy0FX; arc=none smtp.client-ip=95.215.58.234
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="I39l4qPT"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 1F8BFC63440;
-	Wed, 14 Oct 2026 08:53:18 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 3A2A560368;
-	Wed, 14 Oct 2026 08:52:22 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DAE79103286A7;
-	Wed, 14 Oct 2026 10:52:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791967940; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=i48MIGwzBxi2do2WYXSYPbruC3HoFCZMxRU1UUDDuYs=;
-	b=I39l4qPTZiayixscQ25oSYYL3NpbdUqY5vfY8WjlnawudFpyJfGrP7Qd2xXs+oY+HTA5L9
-	HYG+p+V4eBlDcIkQ33/sT8qNfxC8TxPzOExPZE/a5dM+N52o+LuWWB8KjPTdbW+x9UMPeB
-	Qhecxah11hmwDPZRaT9PiF59W4bRSzao28f6nvWfzVCtSEvWNU49ziJdfT9UvzUTpIujSw
-	iU/fUi0oEKauswQ54YxEGuXjuFAKJNNr7aF6yW+3HO1ThHWX9cevyrzYYK6akFYkZC0gOW
-	PhIc3r6BCCYQxX/ItYeHQdHgIF9KDMPtMIGn2ZmhijQyiPsPDfQXidzI/a9xkA==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Manikandan Muralidharan <manikandan.m@microchip.com>
-Cc: <pratyush@kernel.org>,  <mwalle@kernel.org>,
-  <takahiro.kuwano@infineon.com>,  <richard@nod.at>,  <vigneshr@ti.com>,
-  <robh@kernel.org>,  <krzk+dt@kernel.org>,  <conor+dt@kernel.org>,
-  <srini@kernel.org>,  <nicolas.ferre@microchip.com>,
-  <alexandre.belloni@bootlin.com>,  <claudiu.beznea@tuxon.dev>,
-  <linux@armlinux.org.uk>,  <richardcochran@gmail.com>,
-  <linusw@kernel.org>,  <arnd@arndb.de>,  <aaro.koskinen@iki.fi>,
-  <gregkh@linuxfoundation.org>,  <mathieu.dubois-briand@bootlin.com>,
-  <michael@walle.cc>,  <linux-mtd@lists.infradead.org>,
-  <devicetree@vger.kernel.org>,  <linux-kernel@vger.kernel.org>,
-  <linux-arm-kernel@lists.infradead.org>,  <netdev@vger.kernel.org>
-Subject: Re: [PATCH v8 5/8] nvmem: layouts: add Microchip/SST SFDP EUI
- layout driver
-In-Reply-To: <89aa4ac1eee01e3c425c12367f1e036354787ce8.1790847519.git.manikandan.m@microchip.com>
-	(Manikandan Muralidharan's message of "Wed, 14 Oct 2026 12:10:09
-	+0530")
-References: <cover.1790847519.git.manikandan.m@microchip.com>
-	<89aa4ac1eee01e3c425c12367f1e036354787ce8.1790847519.git.manikandan.m@microchip.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Wed, 14 Oct 2026 10:52:14 +0200
-Message-ID: <87fqy8zmtd.fsf@bootlin.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Zbapy0FX"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=loRjuuwluUPBJRl/tOlkBshetBDq31ySMcEEeTZP1FA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791968073; v=1; x=1792572873;
+ b=Zbapy0FXo63YHbXZxPXfgu7DtrC4zljrj2a+j7cGiY0Q9FVDLJSaYfl3u8yNCTTl7GOMNAXv
+ ud1BWk5ThN8GagiEjr1mv13BtobKPeHirxi5T2ZE/diuHcJ+v47r62hdh8mojno5iBJNZwFVghf
+ SR1MDmB/GzGtntz52BYR9juc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7b09edecf1889c5b;
+	Wed, 14 Oct 2026 08:54:33 +0000
+X-Mizu-Trace-ID: 7b09edecf1889c5b
+X-Migadu-Flow: FLOW_OUT
+From: Ye Liu <ye.liu@linux.dev>
+Date: Wed, 14 Oct 2026 16:54:12 +0800
+Subject: [PATCH] proc: Move OOM-related procfs code to fs/proc/oom.c
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261014-oom_procfs-v1-1-f2d75e73571e@linux.dev>
+X-B4-Tracking: v=1; b=H4sIADNDz2oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDA0MT3fz83PiCovzktGLdNHOTREsjozRz4zRDJaCGgqLUtMwKsGHRsRB
+ +cWlSVmpyCcgEpdpaAJ+s1EtuAAAA
+X-Change-ID: 20261014-oom_procfs-f74a922f73f1
+To: Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, 
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ linux-mm@kvack.org, Ye Liu <liuye@kylinos.cn>
+X-Mailer: b4 0.17-dev-39d60
 
-Hi,
+From: Ye Liu <liuye@kylinos.cn>
 
-On 14/10/2026 at 12:10:09 +0530, Manikandan Muralidharan <manikandan.m@micr=
-ochip.com> wrote:
+fs/proc/base.c is a large file (~3700 lines) handling all per-process
+procfs entries. The OOM score, oom_adj, and oom_score_adj interface
+code is self-contained and has no dependencies on other parts of
+base.c, so move it into a dedicated fs/proc/oom.c following the same
+pattern as fs/proc/fd.c and fs/proc/task_mmu.c.
 
-> Add an NVMEM layout that exposes the factory-programmed EUI-48 identifier
-> from the Microchip/SST vendor SFDP parameter table (e.g. SST26VF064BEUI)
-> as a "mac-address" cell, for use as a network MAC address. The vendor
-> table is located at runtime via the SFDP NVMEM device (no offset in DT),
-> and a read_post_process callback reverses the LSB-first bytes into
-> canonical MAC order. Binds to an "nvmem-layout" node with compatible
-> "microchip,sst26vf-sfdp-eui".
->
-> Signed-off-by: Manikandan Muralidharan <manikandan.m@microchip.com>
+This makes both files easier to read and keeps OOM-related procfs
+entries together in one place.
 
-Mostly minor nits, see below.
+Signed-off-by: Ye Liu <liuye@kylinos.cn>
+---
+ MAINTAINERS        |   1 +
+ fs/proc/Makefile   |   1 +
+ fs/proc/base.c     | 232 -------------------------------------------------
+ fs/proc/internal.h |   8 ++
+ fs/proc/oom.c      | 249 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 5 files changed, 259 insertions(+), 232 deletions(-)
 
-> --- a/drivers/nvmem/layouts/Makefile
-> +++ b/drivers/nvmem/layouts/Makefile
-> @@ -6,4 +6,5 @@
->  obj-$(CONFIG_NVMEM_LAYOUTS) +=3D fixed-layout.o
->  obj-$(CONFIG_NVMEM_LAYOUT_SL28_VPD) +=3D sl28vpd.o
->  obj-$(CONFIG_NVMEM_LAYOUT_ONIE_TLV) +=3D onie-tlv.o
-> +obj-$(CONFIG_NVMEM_LAYOUT_SST26VF_SFDP_EUI) +=3D sst26vf-sfdp-eui.o
->  obj-$(CONFIG_NVMEM_LAYOUT_U_BOOT_ENV) +=3D u-boot-env.o
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 1da3623e77ce..4b1c13a65136 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -17676,6 +17676,7 @@ R:	David Rientjes <rientjes@google.com>
+ R:	Shakeel Butt <shakeel.butt@linux.dev>
+ L:	linux-mm@kvack.org
+ S:	Maintained
++F:	fs/proc/oom.c
+ F:	include/linux/oom.h
+ F:	include/trace/events/oom.h
+ F:	include/uapi/linux/oom.h
+diff --git a/fs/proc/Makefile b/fs/proc/Makefile
+index 27e2b26b2d42..68e65866b5df 100644
+--- a/fs/proc/Makefile
++++ b/fs/proc/Makefile
+@@ -21,6 +21,7 @@ proc-y += interrupts.o
+ endif
+ proc-y	+= loadavg.o
+ proc-y	+= meminfo.o
++proc-y	+= oom.o
+ proc-y	+= stat.o
+ proc-y	+= uptime.o
+ proc-y	+= util.o
+diff --git a/fs/proc/base.c b/fs/proc/base.c
+index 8c04fcd436d2..26ccc05a50ff 100644
+--- a/fs/proc/base.c
++++ b/fs/proc/base.c
+@@ -80,7 +80,6 @@
+ #include <linux/audit.h>
+ #include <linux/poll.h>
+ #include <linux/nsproxy.h>
+-#include <linux/oom.h>
+ #include <linux/elf.h>
+ #include <linux/pid_namespace.h>
+ #include <linux/user_namespace.h>
+@@ -99,7 +98,6 @@
+ #include <linux/cn_proc.h>
+ #include <linux/ksm.h>
+ #include <uapi/linux/lsm.h>
+-#include <trace/events/oom.h>
+ #include "internal.h"
+ #include "fd.h"
+ 
+@@ -580,28 +578,6 @@ static const struct file_operations proc_lstats_operations = {
+ 
+ #endif
+ 
+-static int proc_oom_score(struct seq_file *m, struct pid_namespace *ns,
+-			  struct pid *pid, struct task_struct *task)
+-{
+-	unsigned long totalpages = totalram_pages() + total_swap_pages;
+-	unsigned long points = 0;
+-	long badness;
+-
+-	badness = oom_badness(task, totalpages);
+-	/*
+-	 * Special case OOM_SCORE_ADJ_MIN for all others scale the
+-	 * badness value into [0, 2000] range which we have been
+-	 * exporting for a long time so userspace might depend on it.
+-	 */
+-	if (badness != LONG_MIN)
+-		points = (OOM_SCORE_ADJ_MAX +
+-			  badness * OOM_SCORE_ADJ_MAX / (long)totalpages) * 2 / 3;
+-
+-	seq_printf(m, "%lu\n", points);
+-
+-	return 0;
+-}
+-
+ struct limit_names {
+ 	const char *name;
+ 	const char *unit;
+@@ -1115,214 +1091,6 @@ static const struct file_operations proc_auxv_operations = {
+ 	.release	= mem_release,
+ };
+ 
+-static ssize_t oom_adj_read(struct file *file, char __user *buf, size_t count,
+-			    loff_t *ppos)
+-{
+-	struct task_struct *task = get_proc_task(file_inode(file));
+-	char buffer[PROC_NUMBUF];
+-	int oom_adj = OOM_ADJUST_MIN;
+-	size_t len;
+-
+-	if (!task)
+-		return -ESRCH;
+-	if (task->signal->oom_score_adj == OOM_SCORE_ADJ_MAX)
+-		oom_adj = OOM_ADJUST_MAX;
+-	else
+-		oom_adj = (task->signal->oom_score_adj * -OOM_DISABLE) /
+-			  OOM_SCORE_ADJ_MAX;
+-	put_task_struct(task);
+-	if (oom_adj > OOM_ADJUST_MAX)
+-		oom_adj = OOM_ADJUST_MAX;
+-	len = snprintf(buffer, sizeof(buffer), "%d\n", oom_adj);
+-	return simple_read_from_buffer(buf, count, ppos, buffer, len);
+-}
+-
+-static int __set_oom_adj(struct file *file, int oom_adj, bool legacy)
+-{
+-	struct mm_struct *mm = NULL;
+-	struct task_struct *task;
+-	int err = 0;
+-
+-	task = get_proc_task(file_inode(file));
+-	if (!task)
+-		return -ESRCH;
+-
+-	mutex_lock(&oom_adj_mutex);
+-	if (legacy) {
+-		if (oom_adj < task->signal->oom_score_adj &&
+-				!capable(CAP_SYS_RESOURCE)) {
+-			err = -EACCES;
+-			goto err_unlock;
+-		}
+-		/*
+-		 * /proc/pid/oom_adj is provided for legacy purposes, ask users to use
+-		 * /proc/pid/oom_score_adj instead.
+-		 */
+-		pr_warn_once("%s (%d): /proc/%d/oom_adj is deprecated, please use /proc/%d/oom_score_adj instead.\n",
+-			  current->comm, task_pid_nr(current), task_pid_nr(task),
+-			  task_pid_nr(task));
+-	} else {
+-		if ((short)oom_adj < task->signal->oom_score_adj_min &&
+-				!capable(CAP_SYS_RESOURCE)) {
+-			err = -EACCES;
+-			goto err_unlock;
+-		}
+-	}
+-
+-	/*
+-	 * Make sure we will check other processes sharing the mm if this is
+-	 * not vfrok which wants its own oom_score_adj.
+-	 * pin the mm so it doesn't go away and get reused after task_unlock
+-	 */
+-	if (!task->vfork_done) {
+-		struct task_struct *p = find_lock_task_mm(task);
+-
+-		if (p) {
+-			if (mm_flags_test(MMF_MULTIPROCESS, p->mm)) {
+-				mm = p->mm;
+-				mmgrab(mm);
+-			}
+-			task_unlock(p);
+-		}
+-	}
+-
+-	task->signal->oom_score_adj = oom_adj;
+-	if (!legacy && has_capability_noaudit(current, CAP_SYS_RESOURCE))
+-		task->signal->oom_score_adj_min = (short)oom_adj;
+-	trace_oom_score_adj_update(task);
+-
+-	if (mm) {
+-		struct task_struct *p;
+-
+-		rcu_read_lock();
+-		for_each_process(p) {
+-			if (same_thread_group(task, p))
+-				continue;
+-
+-			/* do not touch kernel threads or the global init */
+-			if (p->flags & PF_KTHREAD || is_global_init(p))
+-				continue;
+-
+-			task_lock(p);
+-			if (!p->vfork_done && process_shares_mm(p, mm)) {
+-				p->signal->oom_score_adj = oom_adj;
+-				if (!legacy && has_capability_noaudit(current, CAP_SYS_RESOURCE))
+-					p->signal->oom_score_adj_min = (short)oom_adj;
+-			}
+-			task_unlock(p);
+-		}
+-		rcu_read_unlock();
+-		mmdrop(mm);
+-	}
+-err_unlock:
+-	mutex_unlock(&oom_adj_mutex);
+-	put_task_struct(task);
+-	return err;
+-}
+-
+-/*
+- * /proc/pid/oom_adj exists solely for backwards compatibility with previous
+- * kernels.  The effective policy is defined by oom_score_adj, which has a
+- * different scale: oom_adj grew exponentially and oom_score_adj grows linearly.
+- * Values written to oom_adj are simply mapped linearly to oom_score_adj.
+- * Processes that become oom disabled via oom_adj will still be oom disabled
+- * with this implementation.
+- *
+- * oom_adj cannot be removed since existing userspace binaries use it.
+- */
+-static ssize_t oom_adj_write(struct file *file, const char __user *buf,
+-			     size_t count, loff_t *ppos)
+-{
+-	char buffer[PROC_NUMBUF] = {};
+-	int oom_adj;
+-	int err;
+-
+-	if (count > sizeof(buffer) - 1)
+-		count = sizeof(buffer) - 1;
+-	if (copy_from_user(buffer, buf, count)) {
+-		err = -EFAULT;
+-		goto out;
+-	}
+-
+-	err = kstrtoint(strstrip(buffer), 0, &oom_adj);
+-	if (err)
+-		goto out;
+-	if ((oom_adj < OOM_ADJUST_MIN || oom_adj > OOM_ADJUST_MAX) &&
+-	     oom_adj != OOM_DISABLE) {
+-		err = -EINVAL;
+-		goto out;
+-	}
+-
+-	/*
+-	 * Scale /proc/pid/oom_score_adj appropriately ensuring that a maximum
+-	 * value is always attainable.
+-	 */
+-	if (oom_adj == OOM_ADJUST_MAX)
+-		oom_adj = OOM_SCORE_ADJ_MAX;
+-	else
+-		oom_adj = (oom_adj * OOM_SCORE_ADJ_MAX) / -OOM_DISABLE;
+-
+-	err = __set_oom_adj(file, oom_adj, true);
+-out:
+-	return err < 0 ? err : count;
+-}
+-
+-static const struct file_operations proc_oom_adj_operations = {
+-	.read		= oom_adj_read,
+-	.write		= oom_adj_write,
+-	.llseek		= generic_file_llseek,
+-};
+-
+-static ssize_t oom_score_adj_read(struct file *file, char __user *buf,
+-					size_t count, loff_t *ppos)
+-{
+-	struct task_struct *task = get_proc_task(file_inode(file));
+-	char buffer[PROC_NUMBUF];
+-	short oom_score_adj = OOM_SCORE_ADJ_MIN;
+-	size_t len;
+-
+-	if (!task)
+-		return -ESRCH;
+-	oom_score_adj = task->signal->oom_score_adj;
+-	put_task_struct(task);
+-	len = snprintf(buffer, sizeof(buffer), "%hd\n", oom_score_adj);
+-	return simple_read_from_buffer(buf, count, ppos, buffer, len);
+-}
+-
+-static ssize_t oom_score_adj_write(struct file *file, const char __user *buf,
+-					size_t count, loff_t *ppos)
+-{
+-	char buffer[PROC_NUMBUF] = {};
+-	int oom_score_adj;
+-	int err;
+-
+-	if (count > sizeof(buffer) - 1)
+-		count = sizeof(buffer) - 1;
+-	if (copy_from_user(buffer, buf, count)) {
+-		err = -EFAULT;
+-		goto out;
+-	}
+-
+-	err = kstrtoint(strstrip(buffer), 0, &oom_score_adj);
+-	if (err)
+-		goto out;
+-	if (oom_score_adj < OOM_SCORE_ADJ_MIN ||
+-			oom_score_adj > OOM_SCORE_ADJ_MAX) {
+-		err = -EINVAL;
+-		goto out;
+-	}
+-
+-	err = __set_oom_adj(file, oom_score_adj, false);
+-out:
+-	return err < 0 ? err : count;
+-}
+-
+-static const struct file_operations proc_oom_score_adj_operations = {
+-	.read		= oom_score_adj_read,
+-	.write		= oom_score_adj_write,
+-	.llseek		= default_llseek,
+-};
+-
+ #ifdef CONFIG_AUDIT
+ #define TMPBUFLEN 11
+ static ssize_t proc_loginuid_read(struct file * file, char __user * buf,
+diff --git a/fs/proc/internal.h b/fs/proc/internal.h
+index df873df9afc5..b72a2bd604ed 100644
+--- a/fs/proc/internal.h
++++ b/fs/proc/internal.h
+@@ -238,6 +238,14 @@ static inline int folio_average_page_mapcount(struct folio *folio)
+ 	/* ... but return at least 1. */
+ 	return max_t(int, avg + entire_mapcount, 1);
+ }
++/*
++ * oom.c
++ */
++int proc_oom_score(struct seq_file *m, struct pid_namespace *ns,
++		   struct pid *pid, struct task_struct *task);
++extern const struct file_operations proc_oom_adj_operations;
++extern const struct file_operations proc_oom_score_adj_operations;
++
+ /*
+  * array.c
+  */
+diff --git a/fs/proc/oom.c b/fs/proc/oom.c
+new file mode 100644
+index 000000000000..5f22ec4a4a6e
+--- /dev/null
++++ b/fs/proc/oom.c
+@@ -0,0 +1,249 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * OOM-related procfs entries
++ *
++ * This file handles the OOM score, oom_adj, and oom_score_adj interfaces
++ * in /proc/<pid>/.
++ */
++
++#include <linux/proc_fs.h>
++#include <linux/oom.h>
++#include <linux/seq_file.h>
++#include <linux/capability.h>
++#include <linux/mm.h>
++#include <linux/swap.h>
++#include <linux/sched/signal.h>
++#include <linux/pid_namespace.h>
++#include <trace/events/oom.h>
++
++#include "internal.h"
++
++int proc_oom_score(struct seq_file *m, struct pid_namespace *ns,
++		   struct pid *pid, struct task_struct *task)
++{
++	unsigned long totalpages = totalram_pages() + total_swap_pages;
++	unsigned long points = 0;
++	long badness;
++
++	badness = oom_badness(task, totalpages);
++	/*
++	 * Special case OOM_SCORE_ADJ_MIN for all others scale the
++	 * badness value into [0, 2000] range which we have been
++	 * exporting for a long time so userspace might depend on it.
++	 */
++	if (badness != LONG_MIN)
++		points = (OOM_SCORE_ADJ_MAX +
++			  badness * OOM_SCORE_ADJ_MAX / (long)totalpages) * 2 / 3;
++
++	seq_printf(m, "%lu\n", points);
++
++	return 0;
++}
++
++static ssize_t oom_adj_read(struct file *file, char __user *buf, size_t count,
++			    loff_t *ppos)
++{
++	struct task_struct *task = get_proc_task(file_inode(file));
++	char buffer[PROC_NUMBUF];
++	int oom_adj = OOM_ADJUST_MIN;
++	size_t len;
++
++	if (!task)
++		return -ESRCH;
++	if (task->signal->oom_score_adj == OOM_SCORE_ADJ_MAX)
++		oom_adj = OOM_ADJUST_MAX;
++	else
++		oom_adj = (task->signal->oom_score_adj * -OOM_DISABLE) /
++			  OOM_SCORE_ADJ_MAX;
++	put_task_struct(task);
++	if (oom_adj > OOM_ADJUST_MAX)
++		oom_adj = OOM_ADJUST_MAX;
++	len = snprintf(buffer, sizeof(buffer), "%d\n", oom_adj);
++	return simple_read_from_buffer(buf, count, ppos, buffer, len);
++}
++
++static int __set_oom_adj(struct file *file, int oom_adj, bool legacy)
++{
++	struct mm_struct *mm = NULL;
++	struct task_struct *task;
++	int err = 0;
++
++	task = get_proc_task(file_inode(file));
++	if (!task)
++		return -ESRCH;
++
++	mutex_lock(&oom_adj_mutex);
++	if (legacy) {
++		if (oom_adj < task->signal->oom_score_adj &&
++				!capable(CAP_SYS_RESOURCE)) {
++			err = -EACCES;
++			goto err_unlock;
++		}
++		/*
++		 * /proc/pid/oom_adj is provided for legacy purposes, ask users to use
++		 * /proc/pid/oom_score_adj instead.
++		 */
++		pr_warn_once("%s (%d): /proc/%d/oom_adj is deprecated, please use /proc/%d/oom_score_adj instead.\n",
++			  current->comm, task_pid_nr(current), task_pid_nr(task),
++			  task_pid_nr(task));
++	} else {
++		if ((short)oom_adj < task->signal->oom_score_adj_min &&
++				!capable(CAP_SYS_RESOURCE)) {
++			err = -EACCES;
++			goto err_unlock;
++		}
++	}
++
++	/*
++	 * Make sure we will check other processes sharing the mm if this is
++	 * not vfrok which wants its own oom_score_adj.
++	 * pin the mm so it doesn't go away and get reused after task_unlock
++	 */
++	if (!task->vfork_done) {
++		struct task_struct *p = find_lock_task_mm(task);
++
++		if (p) {
++			if (mm_flags_test(MMF_MULTIPROCESS, p->mm)) {
++				mm = p->mm;
++				mmgrab(mm);
++			}
++			task_unlock(p);
++		}
++	}
++
++	task->signal->oom_score_adj = oom_adj;
++	if (!legacy && has_capability_noaudit(current, CAP_SYS_RESOURCE))
++		task->signal->oom_score_adj_min = (short)oom_adj;
++	trace_oom_score_adj_update(task);
++
++	if (mm) {
++		struct task_struct *p;
++
++		rcu_read_lock();
++		for_each_process(p) {
++			if (same_thread_group(task, p))
++				continue;
++
++			/* do not touch kernel threads or the global init */
++			if (p->flags & PF_KTHREAD || is_global_init(p))
++				continue;
++
++			task_lock(p);
++			if (!p->vfork_done && process_shares_mm(p, mm)) {
++				p->signal->oom_score_adj = oom_adj;
++				if (!legacy && has_capability_noaudit(current, CAP_SYS_RESOURCE))
++					p->signal->oom_score_adj_min = (short)oom_adj;
++			}
++			task_unlock(p);
++		}
++		rcu_read_unlock();
++		mmdrop(mm);
++	}
++err_unlock:
++	mutex_unlock(&oom_adj_mutex);
++	put_task_struct(task);
++	return err;
++}
++
++/*
++ * /proc/pid/oom_adj exists solely for backwards compatibility with previous
++ * kernels.  The effective policy is defined by oom_score_adj, which has a
++ * different scale: oom_adj grew exponentially and oom_score_adj grows linearly.
++ * Values written to oom_adj are simply mapped linearly to oom_score_adj.
++ * Processes that become oom disabled via oom_adj will still be oom disabled
++ * with this implementation.
++ *
++ * oom_adj cannot be removed since existing userspace binaries use it.
++ */
++static ssize_t oom_adj_write(struct file *file, const char __user *buf,
++			     size_t count, loff_t *ppos)
++{
++	char buffer[PROC_NUMBUF] = {};
++	int oom_adj;
++	int err;
++
++	if (count > sizeof(buffer) - 1)
++		count = sizeof(buffer) - 1;
++	if (copy_from_user(buffer, buf, count)) {
++		err = -EFAULT;
++		goto out;
++	}
++
++	err = kstrtoint(strstrip(buffer), 0, &oom_adj);
++	if (err)
++		goto out;
++	if ((oom_adj < OOM_ADJUST_MIN || oom_adj > OOM_ADJUST_MAX) &&
++	     oom_adj != OOM_DISABLE) {
++		err = -EINVAL;
++		goto out;
++	}
++
++	/*
++	 * Scale /proc/pid/oom_score_adj appropriately ensuring that a maximum
++	 * value is always attainable.
++	 */
++	if (oom_adj == OOM_ADJUST_MAX)
++		oom_adj = OOM_SCORE_ADJ_MAX;
++	else
++		oom_adj = (oom_adj * OOM_SCORE_ADJ_MAX) / -OOM_DISABLE;
++
++	err = __set_oom_adj(file, oom_adj, true);
++out:
++	return err < 0 ? err : count;
++}
++
++const struct file_operations proc_oom_adj_operations = {
++	.read		= oom_adj_read,
++	.write		= oom_adj_write,
++	.llseek		= generic_file_llseek,
++};
++
++static ssize_t oom_score_adj_read(struct file *file, char __user *buf,
++					size_t count, loff_t *ppos)
++{
++	struct task_struct *task = get_proc_task(file_inode(file));
++	char buffer[PROC_NUMBUF];
++	short oom_score_adj = OOM_SCORE_ADJ_MIN;
++	size_t len;
++
++	if (!task)
++		return -ESRCH;
++	oom_score_adj = task->signal->oom_score_adj;
++	put_task_struct(task);
++	len = snprintf(buffer, sizeof(buffer), "%hd\n", oom_score_adj);
++	return simple_read_from_buffer(buf, count, ppos, buffer, len);
++}
++
++static ssize_t oom_score_adj_write(struct file *file, const char __user *buf,
++					size_t count, loff_t *ppos)
++{
++	char buffer[PROC_NUMBUF] = {};
++	int oom_score_adj;
++	int err;
++
++	if (count > sizeof(buffer) - 1)
++		count = sizeof(buffer) - 1;
++	if (copy_from_user(buffer, buf, count)) {
++		err = -EFAULT;
++		goto out;
++	}
++
++	err = kstrtoint(strstrip(buffer), 0, &oom_score_adj);
++	if (err)
++		goto out;
++	if (oom_score_adj < OOM_SCORE_ADJ_MIN ||
++			oom_score_adj > OOM_SCORE_ADJ_MAX) {
++		err = -EINVAL;
++		goto out;
++	}
++
++	err = __set_oom_adj(file, oom_score_adj, false);
++out:
++	return err < 0 ? err : count;
++}
++
++const struct file_operations proc_oom_score_adj_operations = {
++	.read		= oom_score_adj_read,
++	.write		= oom_score_adj_write,
++	.llseek		= default_llseek,
++};
 
-Not sure this is ordered alphabetically, so in general add it at the end.
+---
+base-commit: 1fffefb00cc0b0da1f2ae24e3d33364530ea6515
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+change-id: 20261014-oom_procfs-f74a922f73f1
 
-> +/* SFDP header and parameter header, as laid out on the flash. */
-> +struct sfdp_header {
-> +	u8 signature[4];
-> +	u8 minor;
-> +	u8 major;
-> +	u8 nph;
-> +	u8 unused;
-> +};
-> +
-> +struct sfdp_parameter_header {
-> +	u8 id_lsb;
-> +	u8 minor;
-> +	u8 major;
-> +	u8 length;
-> +	u8 parameter_table_pointer[3];
-> +	u8 id_msb;
-> +};
-> +
-> +#define SFDP_SIGNATURE			0x50444653U
-> +
-> +#define SFDP_PARAM_HEADER_ID(h)		(((h)->id_msb << 8) | (h)->id_lsb)
-> +#define SFDP_PARAM_HEADER_PTP(h)	get_unaligned_le24((h)->parameter_table=
-_pointer)
-> +
-> +/* Microchip (vendor) parameter table identifier: id_msb << 8 | id_lsb. =
-*/
+Best regards,
+--  
+Ye Liu <ye.liu@linux.dev>
 
-This is not relevant, we saw it just above         ^^^^^^^^^^^^^^^^^^^^^^^
-
-> +#define SFDP_MCHP_VENDOR_ID		0x01bf
-> +
-> +#define SFDP_MCHP_EUI48_MARKER_OFFSET	0x60
-> +#define SFDP_MCHP_EUI48_MARKER		0x30
-> +#define SFDP_MCHP_EUI48_OFFSET		0x61
-> +
-> +static int sfdp_eui_read_post_process(void *priv, const char *id, int in=
-dex,
-> +				      unsigned int offset, void *buf,
-> +				      size_t bytes)
-> +{
-> +	u8 *data =3D buf;
-> +	int i;
-> +
-I believe the if against the length is wrong and should be inverted and
-placed here:
-
-        if (bytes !=3D ETH_ALEN)
-                return -EINVAL;
-
-Since lenght does not change, prefer to bail out early.
-
-> +	/* SFDP stores the address least-significant octet first; reverse it. */
-> +	for (i =3D 0; i < bytes / 2; i++)
-> +		swap(data[i], data[bytes - 1 - i]);
-> +
-> +	if (bytes =3D=3D ETH_ALEN && !is_valid_ether_addr(buf))
-
-Is bytes !=3D ETH_ALEN a valid use case?
-
-> +		return -EINVAL;
-> +
-> +	return 0;
-> +}
-> +
-> +static int sfdp_eui_find_vendor_table(struct nvmem_device *nvmem, u32 *p=
-tp)
-> +{
-> +	struct sfdp_parameter_header ph;
-> +	struct sfdp_header hdr;
-> +	int nph, i, ret;
-> +
-> +	ret =3D nvmem_device_read(nvmem, 0, sizeof(hdr), &hdr);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	if (get_unaligned_le32(hdr.signature) !=3D SFDP_SIGNATURE)
-> +		return -EINVAL;
-> +
-> +	/* The number of parameter headers (NPH) field is zero-based. */
-> +	nph =3D hdr.nph;
-
-nph =3D hdr.nph + 1 ?
-
-> +
-> +	for (i =3D 0; i <=3D nph; i++) {
-
-and here the usual i < nph?
-
-> +		ret =3D nvmem_device_read(nvmem, sizeof(hdr) + i * sizeof(ph),
-> +					sizeof(ph), &ph);
-> +		if (ret < 0)
-> +			return ret;
-> +
-> +		if (SFDP_PARAM_HEADER_ID(&ph) !=3D SFDP_MCHP_VENDOR_ID)
-> +			continue;
-> +
-> +		*ptp =3D SFDP_PARAM_HEADER_PTP(&ph);
-> +		return 0;
-> +	}
-> +
-> +	return -ENOENT;
-> +}
-
-...
-
-> +	info.name =3D "mac-address";
-> +	info.offset =3D base + SFDP_MCHP_EUI48_OFFSET;
-> +	info.bytes =3D ETH_ALEN;
-> +	info.np =3D of_get_child_by_name(layout_np, "mac-address");
-> +	info.read_post_process =3D sfdp_eui_read_post_process;
-> +
-> +	ret =3D nvmem_add_one_cell(nvmem, &info);
-> +	if (ret)
-> +		of_node_put(info.np);
-> +	else
-> +		dev_dbg(dev, "exposed EUI-48 at SFDP offset 0x%x\n", info.offset);
-
-This one is not really useful anymore.
-
-> +
-> +	of_node_put(layout_np);
-> +
-> +	return ret;
-> +}
-> +
-
-Thanks,
-Miqu=C3=A8l
