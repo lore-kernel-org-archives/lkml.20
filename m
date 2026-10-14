@@ -1,111 +1,91 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAEF429BD9A;
-	Wed, 14 Oct 2026 13:04:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 328001DF980;
+	Wed, 14 Oct 2026 13:04:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791983062; cv=none; b=ulFX9ZP8IoxCtEiAtjRYoNG0AE08mCDCYeqRFneAZ3WpBANwljWgD/LGwLV9WU63Jvka9nuWqylloV2f37GRkRg50pYMnjj2JF5Nd2vtpg6w8mJRLs/KRIPRLPSVNpFsIPOIg0nx1fCcz0kPlCRskCyrnGSpnwfcLz8NKUQj+nM=
+	t=1791983072; cv=none; b=PbyFSJMK4LG6iQJKEZs+Zgx7dMIn0kAcTnfh2dPKjpCsF0Qb+qlOVRj28oe22Tj8JwML4ywistSm7564tCeYI0/l0O9AfYlR+gYc8eCaZU5GlznVGQ21RXWq9c6xUqAgsLEN3VYUpqI0SvjRDxHIHr1GkNu9/9ZyL72emlCl1HY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791983062; c=relaxed/simple;
-	bh=ptLnCE7zOBxkxahejBJE/p797FO+YNScPSLPSPJvccw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Hm/KEd9zAeWD+xML6zaVY+RJMc2yWlggqCfyYuBJOaXw1ZhAG0nYMq7mQa+MmYmrgw5yfbfGfCVLGOnnTVZBLSF5yk+9JpDHcn10A30hAmpXljQ2K7lGaI7GwnURujnYOTYLwK9B2Fdt55uVQZD6ZklhtdyBTuAArxPfyNeRExw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dW7D++mx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791983072; c=relaxed/simple;
+	bh=DfdG8Mv3+zufx8SrlKKlpFST8xc1hAD2q3bZ3e6KRPc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=V+3O2yI8vIwphj/FNdGh2VyCYVmMUxRpxCMs5UoclGCqyFaIGR0VjyjMIg2vht6FWKcYU7ct8kojovqAMBWfQmYaauFYTZPEQL9Ye7K2rCcwfMPfusRILh4XUJlZqOZOCPDXsJeU+wSW6cpY+EsmpqSWAppbU20r+3G4hy7NBGM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y0n7EgOf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dW7D++mx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8B071F000FF;
-	Wed, 14 Oct 2026 13:04:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791983060;
-	bh=b6rZoCWrpJX5Mv+LHM4nf6Kjojq4EI7a7291JjA+f5Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dW7D++mxv3TtkcE+UnApDVfLyqZcFih9O1Dg/jaXxPi96f4WBUFJPKWuo15MpiViC
-	 zEzy885Yf0itUumKS/0qXahCpOdzZySIgxKHceTZrhs78cmbeWQAP8RDjLhRaJbUdF
-	 E04wIYPOh+yXasjry0/2Df6sTTlYmdiDK2DJb+3Y=
-Date: Wed, 14 Oct 2026 15:04:25 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Luka Gejak <luka.gejak@linux.dev>
-Cc: Ping-Ke Shih <pkshih@realtek.com>, linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Michael Straube <straube.linux@gmail.com>,
-	Peter Robinson <pbrobinson@gmail.com>,
-	Bitterblue Smith <rtl8821cerfe2@gmail.com>
-Subject: Re: [PATCH rtw-next v8 5/7] wifi: rtw88: 8723b: add the RTL8723B
- chip driver
-Message-ID: <2026101452-chapter-friday-dada@gregkh>
-References: <20261006130701.120460-6-luka.gejak@linux.dev>
- <3db085e6c3c14545ac9fd4221e0715ed@realtek.com>
- <df4a73de51784e35c15a39e85e4dae9629ba1132@linux.dev>
- <e983dedfeb9341ad9d8cf159656395c6@realtek.com>
- <df8313a72bdef1dc8859a4ac018370b24b606766@linux.dev>
- <d403e88ca53841fba87190764e2a45cc@realtek.com>
- <2026100746-delicate-carless-a04c@gregkh>
- <3028b229a6fbe02d2bcfa30c497b6a768ba8c928@linux.dev>
- <2026101046-transport-unnerving-96de@gregkh>
- <4464409846710dfa13134265f0f99523714cfa92@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y0n7EgOf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7B3B1F000FF;
+	Wed, 14 Oct 2026 13:04:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791983070;
+	bh=PGYA60mHnTCioRjOgFXdMUTLxHyhzPZTPJY/+n4H04A=;
+	h=From:Date:Subject:To:Cc;
+	b=Y0n7EgOfFva5Ex6qRYM1AWszr3H1j/kRXd+Y1uV0yRYqNKbBogTslSrGDCb73OMc+
+	 3lvZv4xPxXZbR105xlHsa04m13L9OP3Vl3EL7pai/EcWhPt9fipd5F/ILPNxT17hJM
+	 Q7wJ9KDUbGblyFqESc+ZQdisJTYPDLKgIgMd1+ojZh9YWDPPgSp8kaeKG07I97FC0h
+	 UtQQICFMJeShVovNdXAVQ6gisMaDOdMVZAT19oE7bUrRAbRA5sdFt8DaK1TESZ+76N
+	 +J3T+O6GF62tB5efsDeloyKLIYKgbX6Ielyu1Cr8G04apLtBIL0GYGRBh5mc7Ln/bu
+	 UMxbjZxwnkMMQ==
+From: Mark Brown <broonie@kernel.org>
+Date: Wed, 14 Oct 2026 14:03:33 +0100
+Subject: [PATCH] selftests: lib.mk: Don't fail install if no modules were
+ built
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4464409846710dfa13134265f0f99523714cfa92@linux.dev>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261014-kselftest-lib-no-modules-v1-1-e4f7208dcb56@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAKV9z2oC/yXMQQ6CMBBA0auQWTsJhQDqVYwLOx10tLamU4wJ4
+ e4WWL7F/zMoJ2GFczVD4q+oxFBgDhXQ4xbujOKKoamb3tSmxZeyHzNrRi8WQ8R3dJNnRXt0Q0c
+ DdSdqoeSfxKP8tvXlulsn+2TK6w+W5Q/U0onzfAAAAA==
+X-Change-ID: 20261013-kselftest-lib-no-modules-b8d75c7c59c3
+To: Shuah Khan <shuah@kernel.org>
+Cc: linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Mark Brown <broonie@kernel.org>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1324; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=DfdG8Mv3+zufx8SrlKKlpFST8xc1hAD2q3bZ3e6KRPc=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLO197uOTrNdauldgw7a43B6tC4Vz+2NRikJuVG1XdHB
+ F99VLO7o5SFQYyLQVZMkSUui/tlfcnrNXwHF7bBzGFlAhnCwMUpABOZc4ORoeXKAdOZvHnf9mi5
+ 3ZNm7+F4u7HpTUfBrxnlG47+T5tu9Zzhf9n7m8n7Pl8LsLgv3Jl9M/1igC7flQdFSekZpREZG5+
+ 28wIA
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Mon, Oct 12, 2026 at 11:31:57AM +0000, Luka Gejak wrote:
-> October 10, 2026 at 12:18 PM, "Greg KH" <gregkh@linuxfoundation.org> wrote:
-> 
-> 
-> > 
-> > On Wed, Oct 07, 2026 at 10:35:25AM +0000, Luka Gejak wrote:
-> > 
-> > > 
-> [...]
-> > >  
-> > >  Hi Greg,
-> > >  
-> > >  I have sent the patch, and I think you are going to like this
-> > >  number: 66186 deletions
-> > > 
-> > Very happy :)
-> > 
-> > > 
-> > > Not sure what people are going to use to learn though. It seems to
-> > >  me everyone is repeating the same patches.
-> > > 
-> > Yeah, we need to dig up some more out-of-tree kernel code to add it for
-> > them to churn on. But really, this is a good thing, it's nice to see
-> > real support for this hardware finally.
-> 
-> Hi Greg,
-> 
-> As both of you and I know there are not many young people in the
-> kernel community and the steep learning curve is a big reason for that.
+The install rule for TEST_GEN_MODS_DIR copies *.ko from the directory
+with rsync which fails if there are no modules, for example because the
+directory's Makefile skipped building them. Only run rsync if there is
+something to install. This currently affects the livepatch suite but it
+seems sensible to fix here for added robstness.
 
-Really?  We average about 200-250 new contributors every kernel release
-until recently when it's shot up to 600-700 if not more.  So we don't
-seem to have a lack of new contributors for some reason...
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ tools/testing/selftests/lib.mk | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> I was not sure whether you were joking or not about the comment
-> above so I decided to find that appropriate replacement for staging
-> rtl8723bs. After searching I found this interesting xradio driver,
-> which is a mac80211 based driver for some orange pies and other devices.
-> It is around 18,000 lines of code and upon check it out I fixed bunch
-> of security issues per se and lockups that caused kernel to hang and it
-> is decently stable. I'm not gonna claim some extreme stability but it
-> is at least usable and it has many coding standard issues. It is a good
-> candidate because newcomers would be learning the modern architecture
-> and on top of it there is a lot of janitor work so people can learn
-> the workflow and etc. Link is [1] so you can see for yourself and tell
-> me what you think about it.
+diff --git a/tools/testing/selftests/lib.mk b/tools/testing/selftests/lib.mk
+index f02cc8a2e4ae..7841bd4239c7 100644
+--- a/tools/testing/selftests/lib.mk
++++ b/tools/testing/selftests/lib.mk
+@@ -155,7 +155,7 @@ endef
+ 
+ define INSTALL_MODS_RULE
+ 	$(if $(INSTALL_LIST),@mkdir -p $(INSTALL_PATH)/$(INSTALL_LIST))
+-	$(if $(INSTALL_LIST),rsync -a --copy-unsafe-links $(INSTALL_LIST)/*.ko $(INSTALL_PATH)/$(INSTALL_LIST))
++	$(if $(wildcard $(INSTALL_LIST)/*.ko),rsync -a --copy-unsafe-links $(INSTALL_LIST)/*.ko $(INSTALL_PATH)/$(INSTALL_LIST))
+ endef
+ 
+ define INSTALL_RULE
 
-If you think it is worth adding, sure, but normally we need someone to
-actually care about it getting into the tree (i.e. real users
-somewhere).  Also look at the bottom of the readme, shouldn't the
-existing in-kernel driver just be tweaked for this hardware instead?
+---
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm master
+change-id: 20261013-kselftest-lib-no-modules-b8d75c7c59c3
 
-thanks,
+Best regards,
+--  
+Mark Brown <broonie@kernel.org>
 
-greg k-h
