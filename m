@@ -1,453 +1,162 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1C3A4A1E04;
-	Wed, 14 Oct 2026 08:08:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7A6C3E3156
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:10:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791965343; cv=none; b=KXpSiliAkJsATDb2QGmO2O+srcvhMDASdLdkF7a2ydvCVpHd+G/nhD2oofCkR/gFXxhA500Hkjkk3m/M4T86QBrzOl9lTcYt5Sz+S7+hPz2yVIZj6h4n7zORDi05gWQ4iD3ZpHxKoSv34DwGhi/d8WnVPeRm0QfGZlR4YZYJD2w=
+	t=1791965447; cv=none; b=dSHEX82DWjjvvvF4jyRfPSGhGAYhdCb8C5/ySZ1wtHzm8iR2w5akmjWK6cJr4KVloYwmaIwufigRvrxAjKU31PilJ7yIwOhjBolhcfayH/rj5pMBWBKQJE7FTmWHlhtAxE/fF8KTjRX/3gT5AgPkJGUpjsmgyN9MEp3RL7V58W0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791965343; c=relaxed/simple;
-	bh=FMCnP/Bt6vWYrgRPyZ/1cUDHYAvHo+tWYI7paomheD8=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=UJVOuXIQXeuoquwrc9rljlUqmrNbuMkPcTPPhAntQmKB3chpLhbIiY5F27lVNcOBc5FX5Eatfv8sE6sMaIxGFteauu71p/a8zv4tcyIIerXlRaECfWxx8WQ1E3/9qJD8AY0Z0lIIQswieM9u92lV0TyU0QrYyihwUNwD4e2fSqA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PtDlEKC7; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791965447; c=relaxed/simple;
+	bh=g6hFtLVrE/UjzzVSQQOzbX4cj/oiFJZYtfo2+FNowfA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=C3iJCfe+PRSfv5DyKUc4DF5jTk1YSCg4CV5bzhxrhJ4JVp4scRJc3fpIZ7C8w83I2Zcr40k7C2/h0hoiE49Z6QhoPeCtw0jJ7hAzEFZzXeiGZQModw4aEhPPTCGvx3bVpUKMWertwjkooWGZPx0XxuWrUTqftrJWU6DsFsM0qog=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kYnEJZbO; arc=none smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PtDlEKC7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791965341; x=1823501341;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=FMCnP/Bt6vWYrgRPyZ/1cUDHYAvHo+tWYI7paomheD8=;
-  b=PtDlEKC7CJWTFt1bVrcLrGZcB0WqJKZ2PgNIHZlpdJZP1MumJpi7ncJU
-   dxgvIpfYn9Gdr12jinrN7gBBBDADgGxrfJR82fQiWIytyce5UbtUkVXQI
-   LFr1ORGg1YULCzTmOnoSF8gBtJSxnB0ByspxK6dTUHpOciuG2YoKNO1a+
-   HfxycmDbhM3f4CJI2bILfTV0/bWt2++U4ULdhYGhduYCrpmkqCtuOg/wn
-   S8iBQl6ho+LQH8s1Mei4xRbNk/FYm53X+zMjVz0OLnBs+lu/g7flRWG71
-   PUpA2o4mx5jOx2j3a1oBJwLqIK9+Zz4iUfCr2RgahxdmTxvNX+wEpK9SE
-   A==;
-X-CSE-ConnectionGUID: 9hqU/sexTty17QykyF9DeA==
-X-CSE-MsgGUID: 8bsp6C6aRamiqbcMJ3951w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="715431"
-X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="715431"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 01:08:59 -0700
-X-CSE-ConnectionGUID: b1YosQc3TdyCdwflI5hOUA==
-X-CSE-MsgGUID: eJy5EuBFQ1C/HQLkJJILAw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="1444910"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.234])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 01:08:54 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Wed, 14 Oct 2026 11:08:50 +0300 (EEST)
-To: Birk Skyum <birk.skyum@pm.me>
-cc: Anvesh Jain P <anvesh.p@oss.qualcomm.com>, 
-    Sibi Sankar <sibi.sankar@oss.qualcomm.com>, 
-    Hans de Goede <hansg@kernel.org>, 
-    Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
-    Guenter Roeck <linux@roeck-us.net>, Jonathan Corbet <corbet@lwn.net>, 
-    Shuah Khan <skhan@linuxfoundation.org>, 
-    Randy Dunlap <rdunlap@infradead.org>, Daniel J Blueman <daniel@quora.org>, 
-    Maya Matuszczyk <maccraft123mc@gmail.com>, linux-arm-msm@vger.kernel.org, 
-    platform-driver-x86@vger.kernel.org, linux-hwmon@vger.kernel.org, 
-    linux-doc@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [RFC PATCH v2 1/2] platform: arm64: qcom-hamoa-ec: monitor Slim
- 7x legacy sensors
-In-Reply-To: <20260908135801.81436-2-birk.skyum@pm.me>
-Message-ID: <847772fa-4b09-75e7-704d-eccaf35879da@linux.intel.com>
-References: <20260908135801.81436-1-birk.skyum@pm.me> <20260908135801.81436-2-birk.skyum@pm.me>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kYnEJZbO"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e8da6ef7ddso4414925ad.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 01:10:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791965445; x=1792570245; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=r9mA2qoZtggQ/j/8me9B77LmzqnDxoGP/VtqAIm/t1U=;
+        b=kYnEJZbO5Gvr3rfc9dhuvUnEeU1bw1gJ/TBYCnOkAO+upF6gjIuJJzTmlXciGFRK5d
+         1gTqUNfDbxFMP5xMT47gD4h4DJ6Msr63aKdMIvQKKR1WfuV6PoP7VN7obRsPBRvS2hBf
+         ovAFT+zFdqGwAsnDe2eCLwk+3Z/4/8938FntPpiYvOzfn/l6FdOqcxUvnHD7N/iQSZw1
+         uH9yr2eHTbpkMGGgDIMMB/LYYXMm90zd0shZy3ibF3iMZOQEmw2dCF/eKNZYX5ydbteL
+         41c6aHDo0TFjZDvw6RuP9/VaP/boVcmOD+nIW4HQyVbSthSDK4wnjL+BUIO9blPiKicj
+         CPag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791965445; x=1792570245;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=r9mA2qoZtggQ/j/8me9B77LmzqnDxoGP/VtqAIm/t1U=;
+        b=fwdarESo2so4O8S0oFWG2/KqOBXkWmXxh0M8tmVM0fYHIksGC2guPc1LCrmq0VoNWc
+         CzyNm70sIOy4sVKdDHylzc5ZlM+8PvvyScCR3tSgg8o0AgKUJy7Wv+hXtXEAKRe2eJ2O
+         9UX8cWfetwBy4a/IYTyadk7fDUFD7JucLmaGkdBu0HQoWOBLkVM7nqOOnsCI4zE3ggnB
+         xnejL4XuxDT8u9GeptYjLeti9ws/Esj9eGUum1mHrNbUi24sNNa8/6Y8yc4TREBrWgvK
+         kZJBfIlRmSWIOPuvNVsCkZ6lpT0233JUY1eOaEjqbkZ/uQLe5naQ1D1Ji/BZKBJMgLMk
+         PG0A==
+X-Forwarded-Encrypted: i=1; AKwUvBxuEEXwYDEX1m+TC4ZjoriUFj6qUQZ6BUe85mMKLCfLAdz0Yp45oijLkfzCGnJGDttepWA1bn/mwyzP6rU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIt/bhhqATUY09eumfIuzq9/t/mmt9MhNvYr5JADcnPRPN4N7c2
+	91lxt5YJEd2R/kO/yb+IiEl+jksrYZuW7AE/PJ9AOE3cUdPJiY/NbdxG
+X-Gm-Gg: AYBFou21f2rwGjSHbgHoP6LFNvg5OSk1n82f4CZAXkvSCwCFoRkdyVaU5dK4jcU3tTv
+	ycvxxKAbvTy2aymr5dMJVjZ9MeUq7JH7Wqnqr2N1V2YMY/Bjd1iAe9APu49haeeyn6cpZibtY4d
+	XTXTlsamDo8N4rRyCYUbz85UrXMHx154rm/Xhq6c6DxLqDYzEyBjW4yYNpSzOXG2FuaDke58vOR
+	cxvDgyfsoNxU8hbhPKjG0QAmE15ao4CvOMJW/9ZDo4A58zDUi+FLNrqEDqfJfXlCk1tG24cUbCp
+	1y/CANz2EO6d04WUxQ0WEmjMdT93YMNCMX87f3unXn1YDyKF9+JU44Dn0ChAAzuvCX6jpRBuMAu
+	LdKCcsDfqQ/Hlr/HMRMm6/0lQYOEW0Tj21vFpaaLojqE/vjQDgQVNvY4RJMeSvpUF3N/qVUY/fU
+	GXvlFZPqiZDldIo/peYNpsiOEXtUiewg+Adxj6Bg9gHR0G0dg4Oq4uw9zU25kgvvqmkYzsnR7ig
+	2h1IUEUutfFkMtJ4H1yoFVWiabgDrMZysE7TIV6XKuig1s=
+X-Received: by 2002:a17:903:120f:b0:2e8:e617:18 with SMTP id d9443c01a7336-2e8e617032emr63957225ad.48.1791965445086;
+        Wed, 14 Oct 2026 01:10:45 -0700 (PDT)
+Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan ([183.242.161.82])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422e2511sm65145085ad.76.2026.10.14.01.10.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 01:10:44 -0700 (PDT)
+From: Chaosheng Qu <chaosheng.qu.linux@gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Daniel Bristot de Oliveira <bristot@kernel.org>,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] tracing/osnoise: Don't start a kthread in timerlat user-space mode
+Date: Wed, 14 Oct 2026 16:10:34 +0800
+Message-ID: <20261014081034.12702-1-chaosheng.qu.linux@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
-On Tue, 8 Sep 2026, Birk Skyum wrote:
+In timerlat user-space mode (NO_OSNOISE_WORKLOAD) the workload is a user
+task reading timerlat_fd, so there is no per-CPU kernel thread to run.
+start_kthread() only checks for that in the osnoise branch:
 
-> The Yoga Slim 7x EC returns an all-zero response to the reference-board
-> thermal capability command. Probe fails even though its legacy RPM and
-> thermistor queries work and firmware controls the fan automatically.
-> 
-> Select a read-only path for the Lenovo compatible. Expose its first RPM
-> channel and thermistor through hwmon, validating the transfer length and
-> RPM payload count and treating the thermistor's 0xff sentinel as ENODATA.
-> Do not enable SCI, register manual cooling controls or send standby
-> commands on this path. Keep the reference-board behavior and strict
-> capability validation unchanged.
-> 
-> The transactions are documented by the Yoga's FC22 and FC29/TZ39 DSDT
-> methods and Maya Matuszczyk's EC protocol notes. Anvesh Jain P's pending
-> fan-profile series also documents the RPM query. This change does not
-> include its calibration, LUT programming or temperature reporting.
-> 
-> Link: https://github.com/aarch64-laptops/build/blob/2e58842f5fa2f87771c2df017ae4d8c65225ef10/misc/lenovo-yoga-slim-7x/acpi/dsdt.dsl
-> Link: https://lkml.iu.edu/hypermail/linux/kernel/2607.3/08806.html
-> Signed-off-by: Birk Skyum <birk.skyum@pm.me>
-> ---
-> Changes in v2:
-> - Move the platform-driver documentation to the laptop-driver guide and
->   update its index and MAINTAINERS entry, following Guenter's review.
-> - No driver code changes.
-> 
->  Documentation/admin-guide/laptops/index.rst   |   1 +
->  Documentation/admin-guide/laptops/qcom-ec.rst |  40 +++++
->  MAINTAINERS                                   |   1 +
->  drivers/platform/arm64/Kconfig                |   4 +-
->  drivers/platform/arm64/qcom-hamoa-ec.c        | 153 +++++++++++++++++-
->  5 files changed, 194 insertions(+), 5 deletions(-)
->  create mode 100644 Documentation/admin-guide/laptops/qcom-ec.rst
-> 
-> diff --git a/Documentation/admin-guide/laptops/index.rst b/Documentation/admin-guide/laptops/index.rst
-> index c0b911d05..44c9c7c08 100644
-> --- a/Documentation/admin-guide/laptops/index.rst
-> +++ b/Documentation/admin-guide/laptops/index.rst
-> @@ -11,6 +11,7 @@ Laptop Drivers
->     asus-laptop
->     disk-shock-protection
->     lg-laptop
-> +   qcom-ec
->     samsung-galaxybook
->     sony-laptop
->     sonypi
-> diff --git a/Documentation/admin-guide/laptops/qcom-ec.rst b/Documentation/admin-guide/laptops/qcom-ec.rst
-> new file mode 100644
-> index 000000000..11f9f2347
-> --- /dev/null
-> +++ b/Documentation/admin-guide/laptops/qcom-ec.rst
-> @@ -0,0 +1,40 @@
-> +.. SPDX-License-Identifier: GPL-2.0-only
-> +
-> +Kernel driver qcom-hamoa-ec
-> +==========================
-> +
-> +Supported systems:
-> +
-> +  * Lenovo Yoga Slim 7x (14Q8X9)
-> +
-> +    Prefix: 'qcom_ec'
-> +
-> +    I2C address: 0x76, instantiated from the device tree. No scanning.
-> +
-> +Description
-> +-----------
-> +
-> +The Yoga Slim 7x embedded controller provides a fan speed channel and a
-> +thermistor through a legacy interface. It does not provide the thermal
-> +capability response used by the Qualcomm reference-board interface.
-> +
-> +On this system the driver only reads sensors. Cooling remains under firmware
-> +control, including when the driver is unloaded. The driver does not change
-> +fan curves, fan profiles, PWM settings, SCI events or EC standby state.
-> +The exposed RPM channel does not establish the number of physical fans.
-> +
-> +The hwmon interface is selected by the ``lenovo,yoga-slim7x-ec`` compatible.
-> +It is not exposed on Qualcomm reference boards by this driver.
-> +
-> +Sysfs attributes
-> +----------------
-> +
-> +All attributes below are read-only.
-> +
-> +=============== ======================================================
-> +fan1_input      Fan speed in RPM. Zero is valid when the fan is stopped.
-> +temp1_input     EC thermistor temperature in millidegrees Celsius.
-> +=============== ======================================================
-> +
-> +An unavailable thermistor reading returns ``ENODATA``. A malformed fan
+	if (timerlat_enabled()) {
+		snprintf(comm, 24, "timerlat/%d", cpu);
+		main = timerlat_main;
+	} else {
+		/* if no workload, just return */
+		if (!test_bit(OSN_WORKLOAD, &osnoise_options)) {
+			...
+			return 0;
+		}
+		...
+	}
 
-Is this a temporary condition? If not, it should be hidden with 
-.is_visible.
+start_per_cpu_kthreads() guards against this mode itself, but
+osnoise_hotplug_workfn() calls start_kthread() directly. Bringing a CPU
+online in user-space mode therefore starts a timerlat/N thread and sets
+its bit in kthread_cpumask while OSN_WORKLOAD is clear.
 
-> +response or an incomplete bus transfer returns an error, not a zero speed.
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 6215fcb07..c3c208602 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -22440,6 +22440,7 @@ M:	Anvesh Jain P <anvesh.p@oss.qualcomm.com>
->  M:	Sibi Sankar <sibi.sankar@oss.qualcomm.com>
->  L:	linux-arm-msm@vger.kernel.org
->  S:	Maintained
-> +F:	Documentation/admin-guide/laptops/qcom-ec.rst
->  F:	Documentation/devicetree/bindings/embedded-controller/qcom,hamoa-crd-ec.yaml
->  F:	drivers/platform/arm64/qcom-hamoa-ec.c
->  
-> diff --git a/drivers/platform/arm64/Kconfig b/drivers/platform/arm64/Kconfig
-> index e32e01b2a..4f338c715 100644
-> --- a/drivers/platform/arm64/Kconfig
-> +++ b/drivers/platform/arm64/Kconfig
-> @@ -94,6 +94,7 @@ config EC_QCOM_HAMOA
->  	tristate "Embedded Controller driver for Qualcomm Hamoa/Glymur reference devices"
->  	depends on ARCH_QCOM || COMPILE_TEST
->  	depends on I2C
-> +	depends on HWMON
->  	depends on THERMAL || THERMAL=n
->  	help
->  	  Say M or Y here to enable the Embedded Controller driver for Qualcomm
-> @@ -101,6 +102,7 @@ config EC_QCOM_HAMOA
->  	  control, temperature sensors, access to EC state changes and supports
->  	  reporting suspend entry/exit to the EC.
->  
-> -	  This driver currently supports Hamoa/Purwa/Glymur reference devices.
-> +	  This driver supports Hamoa/Purwa/Glymur reference devices and read-only
-> +	  fan speed and temperature monitoring on the Lenovo Yoga Slim 7x.
->  
->  endif # ARM64_PLATFORM_DEVICES
-> diff --git a/drivers/platform/arm64/qcom-hamoa-ec.c b/drivers/platform/arm64/qcom-hamoa-ec.c
-> index 4d2ad042a..3a4ca8a0d 100644
-> --- a/drivers/platform/arm64/qcom-hamoa-ec.c
-> +++ b/drivers/platform/arm64/qcom-hamoa-ec.c
-> @@ -9,6 +9,7 @@
->  #include <linux/device.h>
->  #include <linux/dev_printk.h>
->  #include <linux/err.h>
-> +#include <linux/hwmon.h>
->  #include <linux/i2c.h>
->  #include <linux/interrupt.h>
->  #include <linux/kernel.h>
-> @@ -16,10 +17,13 @@
->  #include <linux/pm.h>
->  #include <linux/slab.h>
->  #include <linux/thermal.h>
-> +#include <linux/unaligned.h>
->  
->  #define EC_SCI_EVT_READ_CMD	0x05
->  #define EC_FW_VERSION_CMD	0x0e
-> +#define EC_FAN_RPM_QUERY_CMD	0x22
->  #define EC_MODERN_STANDBY_CMD	0x23
-> +#define EC_THERMISTOR1_CMD	0x29
->  #define EC_FAN_DBG_CONTROL_CMD	0x30
->  #define EC_SCI_EVT_CONTROL_CMD	0x35
->  #define EC_THERMAL_CAP_CMD	0x42
-> @@ -76,13 +80,126 @@ struct qcom_ec_cooling_dev {
->  	u8 state;
->  };
->  
-> +struct qcom_ec_variant {
-> +	bool monitor_only;
-> +};
-> +
->  struct qcom_ec {
-> +	const struct qcom_ec_variant *variant;
->  	struct qcom_ec_cooling_dev *ec_cdev;
->  	struct qcom_ec_thermal_cap thermal_cap;
->  	struct qcom_ec_version version;
->  	struct i2c_client *client;
->  };
->  
-> +/* FC22 in the Slim 7x DSDT: command, fan ID; count, little-endian RPM. */
-> +static int qcom_ec_read_fan_rpm(struct qcom_ec *ec, long *val)
-> +{
-> +	struct i2c_client *client = ec->client;
-> +	u8 request[] = { EC_FAN_RPM_QUERY_CMD, 1 };
-> +	u8 response[3];
-> +	struct i2c_msg messages[] = {
-> +		{
-> +			.addr = client->addr,
-> +			.len = sizeof(request),
-> +			.buf = request,
-> +		}, {
-> +			.addr = client->addr,
-> +			.flags = I2C_M_RD,
-> +			.len = sizeof(response),
-> +			.buf = response,
-> +		},
-> +	};
-> +	int ret;
-> +
-> +	ret = i2c_transfer(client->adapter, messages, ARRAY_SIZE(messages));
-> +	if (ret < 0)
-> +		return ret;
-> +	if (ret != ARRAY_SIZE(messages))
+stop_kthread() uses that bit to decide what the recorded task is:
 
-Add include.
+	if (cpumask_test_and_clear_cpu(cpu, &kthread_cpumask) &&
+	    !WARN_ON(!test_bit(OSN_WORKLOAD, &osnoise_options))) {
+		kthread_stop(kthread);
+	} else if (!WARN_ON(test_bit(OSN_WORKLOAD, &osnoise_options))) {
+		kill_pid(kthread->thread_pid, SIGKILL, 1);
+		put_task_struct(kthread);
+	}
 
-> +		return -EIO;
-> +	if (response[0] != sizeof(response) - 1)
-> +		return -EPROTO;
-> +
-> +	*val = get_unaligned_le16(&response[1]);
+The bit is set but OSN_WORKLOAD is not, so the first WARN_ON() fires and
+the && short-circuits into the user-task branch. A running kernel thread
+is SIGKILLed and its task_struct is put without ever being stopped, so it
+keeps executing until it is freed underneath itself.
 
-Please use proper endianness type. I think the way you currently do this 
-would also trigger a warning in sparse's endianness checking.
+Any write to osnoise/options reaches this: osnoise_options_write() stops
+the per-CPU threads before applying the new value, so stop_kthread()
+still sees OSN_WORKLOAD clear. Re-writing the value that is already set
+triggers it just as well as changing it.
 
-> +
-> +	return 0;
-> +}
-> +
-> +static umode_t qcom_ec_hwmon_is_visible(const void *data, enum hwmon_sensor_types type,
-> +					u32 attr, int channel)
-> +{
-> +	if (channel)
-> +		return 0;
-> +	if ((type == hwmon_fan && attr == hwmon_fan_input) ||
-> +	    (type == hwmon_temp && attr == hwmon_temp_input))
-> +		return 0444;
-> +
-> +	return 0;
-> +}
-> +
-> +static int qcom_ec_hwmon_read(struct device *dev, enum hwmon_sensor_types type,
-> +			      u32 attr, int channel, long *val)
-> +{
-> +	struct qcom_ec *ec = dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	if (channel)
-> +		return -EOPNOTSUPP;
-> +
-> +	if (type == hwmon_fan && attr == hwmon_fan_input)
-> +		return qcom_ec_read_fan_rpm(ec, val);
-> +
-> +	if (type != hwmon_temp || attr != hwmon_temp_input)
-> +		return -EOPNOTSUPP;
-> +
-> +	/* FC29/TZ39 report degrees Celsius, or 0xff if unavailable. */
-> +	ret = i2c_smbus_read_byte_data(ec->client, EC_THERMISTOR1_CMD);
-> +	if (ret < 0)
-> +		return ret;
-> +	if (ret == 0xff)
-> +		return -ENODATA;
-> +
-> +	*val = ret * 1000;
+  echo NO_OSNOISE_WORKLOAD > osnoise/options
+  echo timerlat > current_tracer
+  echo 0 > /sys/devices/system/cpu/cpu1/online
+  echo 1 > /sys/devices/system/cpu/cpu1/online
+  echo NO_OSNOISE_WORKLOAD > osnoise/options
 
-You can probably replace that 1000 with a define from units.h. Don't 
-forget to add also the include if you use something from there.
+The offline/online pair is required, otherwise no kthread is recorded and
+no bit is set. Running this on 7.3-rc7 with KASAN gives a WARNING in
+stop_kthread() followed by a slab-use-after-free in update_se(); leaving
+out the hotplug step produces neither.
 
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct hwmon_ops qcom_ec_hwmon_ops = {
-> +	.is_visible = qcom_ec_hwmon_is_visible,
-> +	.read = qcom_ec_hwmon_read,
-> +};
-> +
-> +static const struct hwmon_channel_info * const qcom_ec_hwmon_info[] = {
-> +	HWMON_CHANNEL_INFO(fan, HWMON_F_INPUT),
-> +	HWMON_CHANNEL_INFO(temp, HWMON_T_INPUT),
-> +	NULL,
-> +};
-> +
-> +static const struct hwmon_chip_info qcom_ec_hwmon_chip_info = {
-> +	.ops = &qcom_ec_hwmon_ops,
-> +	.info = qcom_ec_hwmon_info,
-> +};
-> +
-> +static int qcom_ec_hwmon_probe(struct qcom_ec *ec)
-> +{
-> +	struct device *dev = &ec->client->dev;
-> +	struct device *hwmon;
-> +	long rpm;
-> +	int ret;
-> +
-> +	if (!i2c_check_functionality(ec->client->adapter,
-> +				     I2C_FUNC_I2C | I2C_FUNC_SMBUS_READ_BYTE_DATA))
-> +		return -EOPNOTSUPP;
-> +
-> +	ret = qcom_ec_read_fan_rpm(ec, &rpm);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to read fan RPM\n");
-> +
-> +	hwmon = devm_hwmon_device_register_with_info(dev, "qcom_ec", ec,
-> +						     &qcom_ec_hwmon_chip_info, NULL);
-> +	return PTR_ERR_OR_ZERO(hwmon);
-> +}
-> +
->  static int qcom_ec_read(struct qcom_ec *ec, u8 cmd, u8 resp_len, u8 *resp)
->  {
->  	int ret;
-> @@ -331,6 +448,10 @@ static const struct thermal_cooling_device_ops qcom_ec_thermal_ops = {
->  static int qcom_ec_resume(struct device *dev)
->  {
->  	struct i2c_client *client = to_i2c_client(dev);
-> +	struct qcom_ec *ec = i2c_get_clientdata(client);
-> +
-> +	if (ec->variant->monitor_only)
-> +		return 0;
->  
->  	return i2c_smbus_write_byte_data(client, EC_MODERN_STANDBY_CMD,
->  					 EC_MODERN_STANDBY_EXIT);
-> @@ -339,6 +460,10 @@ static int qcom_ec_resume(struct device *dev)
->  static int qcom_ec_suspend(struct device *dev)
->  {
->  	struct i2c_client *client = to_i2c_client(dev);
-> +	struct qcom_ec *ec = i2c_get_clientdata(client);
-> +
-> +	if (ec->variant->monitor_only)
-> +		return 0;
->  
->  	return i2c_smbus_write_byte_data(client, EC_MODERN_STANDBY_CMD,
->  					 EC_MODERN_STANDBY_ENTER);
-> @@ -356,14 +481,24 @@ static int qcom_ec_probe(struct i2c_client *client)
->  		return -ENOMEM;
->  
->  	ec->client = client;
-> +	ec->variant = i2c_get_match_data(client);
-> +	if (!ec->variant)
-> +		return -ENODEV;
-> +	i2c_set_clientdata(client, ec);
-> +
-> +	/*
-> +	 * The Slim 7x does not implement the reference-board capability command.
-> +	 * Its firmware controls cooling autonomously. Only expose its legacy
-> +	 * sensors; do not enable SCI, fan debug control or standby notifications.
-> +	 */
-> +	if (ec->variant->monitor_only)
-> +		return qcom_ec_hwmon_probe(ec);
->  
->  	ret = devm_request_threaded_irq(dev, client->irq, NULL, qcom_ec_irq,
->  					IRQF_ONESHOT, "qcom_ec", ec);
->  	if (ret < 0)
->  		return ret;
->  
-> -	i2c_set_clientdata(client, ec);
-> -
->  	ret = qcom_ec_read_fw_version(dev);
->  	if (ret < 0)
->  		return dev_err_probe(dev, ret, "Failed to read EC firmware version\n");
-> @@ -410,6 +545,9 @@ static void qcom_ec_remove(struct i2c_client *client)
->  	struct device *dev = &client->dev;
->  	int ret;
->  
-> +	if (ec->variant->monitor_only)
-> +		return;
-> +
->  	ret = qcom_ec_sci_evt_control(dev, false);
->  	if (ret < 0)
->  		dev_err(dev, "Failed to disable SCI events: %d\n", ret);
-> @@ -421,14 +559,21 @@ static void qcom_ec_remove(struct i2c_client *client)
->  	}
->  }
->  
-> +static const struct qcom_ec_variant qcom_ec_reference = {};
-> +
-> +static const struct qcom_ec_variant qcom_ec_slim7x = {
-> +	.monitor_only = true,
-> +};
-> +
->  static const struct of_device_id qcom_ec_of_match[] = {
-> -	{ .compatible = "qcom,hamoa-crd-ec" },
-> +	{ .compatible = "lenovo,yoga-slim7x-ec", .data = &qcom_ec_slim7x },
-> +	{ .compatible = "qcom,hamoa-crd-ec", .data = &qcom_ec_reference },
->  	{}
->  };
->  MODULE_DEVICE_TABLE(of, qcom_ec_of_match);
->  
->  static const struct i2c_device_id qcom_ec_i2c_id_table[] = {
-> -	{ "qcom-hamoa-ec", },
-> +	{ "qcom-hamoa-ec", (kernel_ulong_t)&qcom_ec_reference },
->  	{}
->  };
->  MODULE_DEVICE_TABLE(i2c, qcom_ec_i2c_id_table);
-> 
+Keep the check in start_kthread(), where the related hotplug bug was
+fixed in 0bb0a5c12ecf, instead of adding another copy to the callback.
 
+Fixes: e88ed227f639 ("tracing/timerlat: Add user-space interface")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chaosheng Qu <chaosheng.qu.linux@gmail.com>
+---
+ kernel/trace/trace_osnoise.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/kernel/trace/trace_osnoise.c b/kernel/trace/trace_osnoise.c
+index 0e1265acd..9715462ee 100644
+--- a/kernel/trace/trace_osnoise.c
++++ b/kernel/trace/trace_osnoise.c
+@@ -2038,6 +2038,14 @@ static int start_kthread(unsigned int cpu)
+ 		return 0;
+ 
+ 	if (timerlat_enabled()) {
++		/*
++		 * In timerlat user-space mode the workload is the user task
++		 * reading timerlat_fd, so there is no kernel thread to start.
++		 * One started here would set its kthread_cpumask bit, which
++		 * stop_kthread() reads as "osnoise workload kthread".
++		 */
++		if (!test_bit(OSN_WORKLOAD, &osnoise_options))
++			return 0;
+ 		snprintf(comm, 24, "timerlat/%d", cpu);
+ 		main = timerlat_main;
+ 	} else {
 -- 
- i.
+2.43.0
 
