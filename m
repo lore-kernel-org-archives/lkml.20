@@ -1,67 +1,73 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEF13499F06;
-	Wed, 14 Oct 2026 09:01:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3E1639A060;
+	Wed, 14 Oct 2026 09:02:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791968510; cv=none; b=UL5KpH0uRKpSls8Cir3pY9QbOSLAKE4ZmscBqRMttwNSt0Ztmv9pXhbX+iKHj1xHTkgT49HqxmB946+FHSwusYJ1tS5v2HgEPlbkHy5ROEzDJYx5yw0E59nYNuYPEZ2TKuk/SSrbBbX0l7/BzQwE8teAVlr/RMlBfYOFew9xgGI=
+	t=1791968526; cv=none; b=sMgoOLnnTJqCo9jljA4WhY29BqHRjT35tLevCCzb1UvS1/N6sHqw9wPK8K+5xmG6XxKXN68WPu9HgLElPW2IzSUOYuusByygJ8C7SmzaLuzh5qPjR5fHjX8wCNwLeNP8BHoKDcVhHA88VTALy0RDPHejG/J+MeveBo7w7qjRQ+U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791968510; c=relaxed/simple;
-	bh=fK4EBgbsh8y/ygyHTRLW2d0pik1a4U3geawr9D0Cotw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XJ3D8LaCSV/okzl6y2eilwKUMtfjizkNW6Rv3ekEJ6SidQqkxcZRFHgelv7R3ikKvuUhdoCcJMxwuQ8YOY8FB68XPJwxpc/xjiDGsM0uDN9N6+RUqKTzrH6VebmIdIf0r2rGPyQBQNw0Lw+4/lCEIoRVT8B5iNxS8rdK7ZVYCQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Y1f7c/Z1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791968526; c=relaxed/simple;
+	bh=eSj2Ehj3rTJ7XqMU1hdnsqqWovY4bdv9LbzLlMxB5Ss=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=X2eldCldnbaHPuwoQoLqI214KfUcnZWhjqLrIglpVsoo4zJALjAJp/cF8McI+no1vtnQ5sI/pIbzmtZvBMP5jJUePc/QBxwlG8WcGVKlAWOGUGe+Un4moXylNxchIcoGPblCL7UsLIBQQekGavXBNUr8ELGXq4n5KvuHiheBjw4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Hg2LdJYy; arc=none smtp.client-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Y1f7c/Z1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A81EB1F000FF;
-	Wed, 14 Oct 2026 09:01:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791968508;
-	bh=d+7qA8mWix34k0BGyINGvUZ3WOquU0CkExvHwCQqckA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Y1f7c/Z1xVNfz7w+aWA4/TrYcE5cspE0wpsRMWXzOqMHpzWtkcqC5hyx2xJbrURxs
-	 owCy6n/murUxKR4gmnmz/8eGz9Myh/MKV+NWrtY24aGMwDykiiF2/jAGfCuePR6oDi
-	 zVu2WqCjnhX3PXW8OibGWSC2JYoTFQYyXmfpfrXQ=
-Date: Wed, 14 Oct 2026 11:01:52 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Brett A C Sheffield <bacs@librecast.net>
-Cc: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org,
-	patches@lists.linux.dev, linux-kernel@vger.kernel.org,
-	torvalds@linux-foundation.org, akpm@linux-foundation.org,
-	linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
-	lkft-triage@lists.linaro.org, pavel@nabladev.com,
-	jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.18 000/621] 6.18.57-rc1 review
-Message-ID: <2026101445-announcer-unreached-bd03@gregkh>
-References: <as4kGIjqjrKzu0O0@auntie.librecast.net>
- <2026-10-13-1-daily-reply-0014-6-18-rc1-krb5-link-failure@kernel.org>
- <as8_EiojooHC5H-v@karahi.librecast.net>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Hg2LdJYy"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version:
+	Content-Type; bh=eSj2Ehj3rTJ7XqMU1hdnsqqWovY4bdv9LbzLlMxB5Ss=;
+	b=Hg2LdJYyqwbd6mR/mqBidrUAZruGbSJSyyLgJXS1TOjdWDkfUeQ3ZNfYOA/kvm
+	mlCyU5bvP8p4GhTGimxXNRz6gKlZjhTqi/RZPgFADPYTTGMkYeqyviAb4E8GRx2f
+	pT+PmXiKFF7pB/KvHwBCiuU8mJK6uUX19EQvJRZ9kXO7Y=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wBXtj_ERM9qyf14Eg--.14109S2;
+	Wed, 14 Oct 2026 17:00:53 +0800 (CST)
+From: Pengpeng Hou <hppiscas@163.com>
+To: anup@brainfault.org
+Cc: alex@ghiti.fr,
+	andrew.jones@oss.qualcomm.com,
+	aou@eecs.berkeley.edu,
+	atish.patra@linux.dev,
+	fangyu.yu@linux.alibaba.com,
+	guoren@kernel.org,
+	nutty.liu@hotmail.com,
+	palmer@dabbelt.com,
+	pjw@kernel.org,
+	kvm-riscv@lists.infradead.org,
+	kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	hppiscas@163.com
+Subject: Re: [PATCH v2 0/2] RISC-V: KVM: Validate AIA MMIO ranges against GPA width
+Date: Wed, 14 Oct 2026 17:00:50 +0800
+Message-ID: <caplitmus-rv.reply.20261014.aia-status.3387a76a787b44fca8fd288ba84ec964@163.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <cover.1789872556.git.hppiscas@163.com>
+References: <cover.1789872556.git.hppiscas@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <as8_EiojooHC5H-v@karahi.librecast.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wBXtj_ERM9qyf14Eg--.14109S2
+X-Coremail-Antispam: 1Uf129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjfUesqXDUUUU
+X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbC7gXQmWrPRMUpaAAA3H
 
-On Wed, Oct 14, 2026 at 10:36:34AM +0200, Brett A C Sheffield wrote:
-> On 2026-10-13 21:27, Sasha Levin wrote:
-> > > Build failing on amd64:
-> > >
-> > > /usr/x86_64-pc-linux-gnu/binutils-bin/2.47/ld: vmlinux.o: in function `gss_krb5_get_mic_v2':
-> > > (.text+0xfc2762): undefined reference to `crypto_krb5_get_mic'
-> > 
-> > Thanks for the report. The krb5 patches in the queue need a select of
-> > CRYPTO_KRB5 that was missing. Queued for 6.18.
-> 
-> Thanks.
-> 
-> Will there be an RC2?
+Hi Anup,
 
-Yes, let me work on that today...
+A brief follow-up on this v2 series. Patch 1 preserves the required
+address checks and limits initialization revalidation to APLIC, as
+discussed. Patch 2 keeps the reviewed GPA-width freeze unchanged.
+
+Is anything else needed before the series can be picked up?
+
+Thanks,
+Pengpeng
+
