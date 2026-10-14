@@ -1,52 +1,41 @@
-Received: from mta0.migadu.com (out-161.mta0.migadu.com [91.218.175.161])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 055EC562619
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:44:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD6AC282F15;
+	Wed, 14 Oct 2026 15:45:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791992691; cv=none; b=OWoZQqNvhpDqwbY24TnN90KtSRSTqsy5NuMqzOrL6J9YaBgqe8FfGvTTKXmitgGLxB9g+4lKCjYY8Ho226Gw2k99pgELFdb8O088/SMBX9ujCTQXbAVKppJ93Ls5FB+VJR5N5lXgyzlDOpMN9FfV6eptUrlK3+u+gz/oif1WGj8=
+	t=1791992722; cv=none; b=odJ/6rDa5kra5JFQ+OL7Tz17TwvVx5HDx6x8xUC7EligHjINK6/3uMgg4bjLuROQqkjfEJUk8CYvVKSvHCNK0UDCaVSNmogkXy15ju7L2QoXLIQ9Bi+F9zZg/6h2xD5IWiL+vEjl42p6eSYtrj56zZ2zT9lEQTtVUJPuv8gg1OQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791992691; c=relaxed/simple;
-	bh=IWz8TrA14wXCf8RgDJH9LfVZ/eamPEvc/gsSPc9D0Bo=;
+	s=arc-20240116; t=1791992722; c=relaxed/simple;
+	bh=ioy33umfUozLDv0mTYAF+duQnQFKRGrOSRaWzI350wM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YJgUID8fruIkJaepShVJzcx/FiUuuxdx3DxjHxKf6S36YTpkuo7CjXx8jpwbGtalNvz3JXMYqusfSEoEBrkvXDtuE0zxf97ayoQMabMvaDMpG2ePRL4LFG7QjPjxSJQSm68pD0BBdm79oSP1YDLd6u4hOCAW8OtAzMN1WeFEwEY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=fyHfYF9H; arc=none smtp.client-ip=91.218.175.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 Content-Type:Content-Disposition:In-Reply-To; b=GkOplcOPXZODicog/brGP+v3P5Wt08cv34kKVHPCvrATBoM5nw7DVKxkQcnP6BJYz7JOiYEAEbYhlnYHZwKbNVspgxmH0dPuC/7IBrgDDmR9gCWw/w4uiEHE/wDR0mVDxyE18LBCCvOO+Kur+OGv0UmoKCq6jaJd2n5E8gcfmLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m6lJhoYb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="fyHfYF9H"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=IWz8TrA14wXCf8RgDJH9LfVZ/eamPEvc/gsSPc9D0Bo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791992686; v=1; x=1792597486;
- b=fyHfYF9HnChCb6/0k2VjEefs6pLGzzdYX3jaYS7wCIxRvKNz3VOSjXq5e6aCp6lTnLWuXDJp
- 4WsKBn7S6wlen5GF+AcMNHubAMsH9lqQBtwMUdwZJMSqNOg3xJ+/ots1ipSenUeyfZqGcCaa4IP
- 15hFAk7XGU91PIxss8lOo1xs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id e2f26255d9a7fbec;
-	Wed, 14 Oct 2026 15:44:46 +0000
-X-Mizu-Trace-ID: e2f26255d9a7fbec
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 14 Oct 2026 23:44:38 +0800
-From: Baoquan He <baoquan.he@linux.dev>
-To: Klara Modin <klarasmodin@gmail.com>
-Cc: Baoquan He <hebaoquan@kylinos.cn>, linux-mm@kvack.org,
-	akpm@linux-foundation.org, chrisl@kernel.org, kasong@tencent.com,
-	hannes@cmpxchg.org, nphamcs@gmail.com, baohua@kernel.org,
-	youngjun.park@lge.com, yosry@kernel.org, shikemeng@huaweicloud.com,
-	chengming.zhou@linux.dev, david@kernel.org,
-	linux-kernel@vger.kernel.org, kunwu.chan@gmail.com
-Subject: Re: [PATCH v4 00/14] mm, swap: extendable swap devices (xswap phase
- I)
-Message-ID: <as-jZpQBQ9mMNqlH@fedora>
-References: <20261003003136.750633-1-hebaoquan@kylinos.cn>
- <asZt7-8mcxqc1a02@soda.int.kasm.eu>
- <asylV5YyyaHs8rP3@fedora>
- <aszb4OgUUCh5JHle@soda.int.kasm.eu>
- <as4F9wxsMwNsg5_R@fedora>
- <as4gb7BdnFffV4SI@parmesan.int.kasm.eu>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m6lJhoYb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1115C1F000C4;
+	Wed, 14 Oct 2026 15:45:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791992720;
+	bh=8CKsvn5/mex49XJDPJGQYYFFebPfyHMGW+J5OfBAf2Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=m6lJhoYbS0mrwh34mwo41hcZ3ABbTS5dPXhJg2elGFJaUejLR8bBgcjaCO6EFqFSw
+	 tiUPE++o2isIZK5AY87SGks9Qh9YE0GNF2Z3meLiZlDQhEVZWKP2n7ZH0L9DTzZDSG
+	 jmy+/S5Rknb+lLh5dST2ltTazZ9FNQYVWzaqzyntAIRjVpI+qU/Jcj8yPg0P5XB/FS
+	 dbsduDm1t6NtXUUpOH9nmqPLA8rFeiQHTTZrX7H56p9sMnslBbqRrTGNWU8n4RwpZ0
+	 oL8YKAbLdd15q3CPNvH9MlejwCqEJfMvac5EXRAMZVPuQ5qD+I5baDrl1IQ08hpSHn
+	 8wcHYqwHqPqtg==
+Date: Wed, 14 Oct 2026 15:45:18 +0000
+From: Yosry Ahmed <yosry@kernel.org>
+To: "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
+Cc: hannes@cmpxchg.org, nphamcs@gmail.com, chengming.zhou@linux.dev, 
+	akpm@linux-foundation.org, linux-mm@kvack.org, herbert@gondor.apana.org.au, 
+	davem@davemloft.net, linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	rientjes@google.com, willy@infradead.org, senozhatsky@chromium.org
+Subject: Re: [PATCH v1 0/8] Batched zswap_store() with compression batching
+Message-ID: <as-jZopKRfuYAiTE@google.com>
+References: <20261008182814.27450-1-kanchanapsridhar2026@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,246 +44,248 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <as4gb7BdnFffV4SI@parmesan.int.kasm.eu>
+In-Reply-To: <20261008182814.27450-1-kanchanapsridhar2026@gmail.com>
 
-On 10/13/26 at 04:26pm, Klara Modin wrote:
-> Hi Baoquan,
+On Thu, Oct 08, 2026 at 11:28:06AM -0700, Kanchana P. Sridhar wrote:
+> v1: Batched zswap_store() with compression batching
+> ===================================================
 > 
-> On 2026-10-13 18:20:39 +0800, Baoquan He wrote:
-> > On 10/12/26 at 04:10pm, Klara Modin wrote:
-> > > Hi Baoquan,
-> > > 
-> > > On 2026-10-12 17:16:22 +0800, Baoquan He wrote:
-> ...
-> > > > 
-> > > > Thanks for the comment.
-> > > > 
-> > > > Here xswap.max= is a global boot parameter, while not a per-device or
-> > > > runtie knob. It sets the space space (si->max) of the xswap device
-> > > > at boot and can't change at runtime. So on the two places: the size is
-> > > > a global setting, fixed at boot; the priority is per device, it is in
-> > > > the create interface. They are different things.
-> > > > 
-> > > > The default is 2xRAM. From our earlier discussion, this is the largest
-> > > > size we think is sensible, and in practice I don't think it is not
-> > > > reachable in reality. If a system has swapped out 70% of its memory, and
-> > > > even more at 100%, it is already doubtful that it can still function
-> > > > normally. So 2xRAM is an upper bound, not a target.
-> > > 
-> > > I'm just not sure this is the case. An application could have a
-> > > relatively small working set but a much larger amount of cold memory it
-> > > rarely touches. In my GCC 17 example, I saw even greater ratios later in
-> > > the build process. This is from your previous xswap version where I got
-> > > around the 2x RAM limit by using multiple xswap devices:
-> > > 
-> > > MemTotal:        3966828 kB
-> > > SwapCached:          868 kB
-> > > SwapTotal:      80232412 kB
-> > > SwapFree:       69467760 kB
-> > > Zswap:            792048 kB
-> > > Zswapped:        6342024 kB
-> > > AnonPages:       2072820 kB
-> > > AnonHugePages:      4096 kB
-> > > 
-> > > This is almost 160 % of RAM in zswap and is getting close to the limit
-> > > in practice.
-> > 
-> > OK, thanks a lot for the concrete testing data. It truly is reaching
-> > almost 160% of RAM. However, it's a little different than David's Windows
-> > VMs case. In that case, those VMs's memory could be touched and swapped in
-> > in a distant future. While in your GCC build process, it's running and
-> > costing memory, with 160% of RAM in zswap, it was probably close to
-> > hanging? Wondering how long would it take to finish the build process,
-> > and how long it would take to finish the build proces with e.g 20% RAM
-> > swapped out.
+> This series is a spin-off of "v14: zswap compression batching with optimized
+> iaa_crypto driver" [1], and focuses on the generic crypto_acomp and zswap
+> compression batching enablers. Resuming work on this series following a gap
+> since v14 (January 2026). Please note that my email address and affiliation have
+> changed from kanchana.p.sridhar@intel.com to kanchanapsridhar2026@gmail.com. I
+> have retained the original Intel sign-offs on prior patches for historical
+> attribution while signing off v1 of this series with my current address.
 > 
-> Might be close to hanging, I don't know, but it's definitely under quite the
-> memory pressure (only two AnonHugePages, implying either very fragmented
-> or that they are split after allocation). Worth to note is that it hits
-> the zswap default limit of 20 percent of memory for the compressed pool.
-
-I see. If so, it may not be a real use case, but only a corner case within
-an experimental environment. Because in that situation it's hard to say
-the system is still functioning normally.
-
+> To summarize the main contribution of this patch series: Batching is introduced
+> in zswap_store() of large folios: we carve out a large folio into batches of
+> ZSWAP_MAX_BATCH_SIZE (8 pages) for software compressors, and store each
+> batch. Moving the fundamental operations that need to be happen to store a page
+> to now work at the granularity of a batch offers opportunities to optimize them
+> from these perspectives:
 > 
-> > 
-> > > 
-> > > In addition, if I read your writeback series correctly, if data from
-> > > xswap is written back to a block device, the space of the written back
-> > > data cannot be reused in the xswap device (please correct me if I am
-> > 
-> > Yes, you are right. xswap slot need record which backend slot stores its
-> > data, so xswap slot can't be reused in this case.
-> > 
-> > > wrong). For low memory systems, I frequently set aside a lot more swap
-> > > than they have memory. If I do not grow the xswap address space size, I
-> > > could risk it getting full if enough of the block-based swap is used.
-> > 
-> > Got it. Even with normal swap devices, 50% full will trigger swap
-> > reclaiming. 
-> > 
-> > /* Swap 50% full? Release swapcache more aggressively.. */
-> > static inline bool vm_swap_full(void)
-> > {       
-> >         return atomic_long_read(&nr_swap_pages) * 2 < total_swap_pages;
-> > }
-> > 
-> > > 
-> > > Looking at the example again, about 10 GiB of swap is reported as used,
-> > > but some of that is being reported twice (once through xswap and once
-> > > through the backing device) due to being written back (which I still
-> > > think is not so great). In this case, the system has 16 GiB of
-> > > block-based swap, meaning that the default limit would leave the xswap
-> > > device full if even half of it is used through writeback. If I would
-> > > only have a single default-sized xswap device in this example I would
-> > > likely have hit this in practice.
-> > 
-> > I see, so a larger swap space of xswap is expected in this case.
+> 1) Utilize existing kernel API that minimize obtaining locks for bulk
+>    operations, e.g. kmem_cache_alloc_bulk()/kmem_cache_free_bulk().
 > 
-> Yes, due to the writeback still needing the slot in xswap I would never
-> want to have less xswap than block-based swap.
+> 2) We keep the working set for each of the core store functionalities (alloc
+>    entries, compress pages, store pages in zsmalloc) to be focused on a
+>    batch, thereby minimizing cache evictions and benefiting from cache
+>    locality.
 > 
-> Ideally, I would like to not have to take the amount of block-based
-> swap into account when enabling xswap/vswap. A very high default limit
-> would be one way to solve it. Another option could be to automatically
-> create an xswap device with a size equal to the block-based swap device
-> (maybe a mount option?) on swapon, but this feels kind of like a hack to
-> me.
-
-Chris ever suggested this way. With it people can set in /etc/fstab and
-make it take effect during boot. Not sure if people like it.
-
+> 3) Along the lines of (1), the main zswap_compress() batching routine obtains
+>    the acomp_ctx mutex lock once per batch, and releases it after it has
+>    processed all pages in that batch.
 > 
-> > 
-> > > 
-> > > > 
-> > > > On the max short name: it would set the address space to the largest value
-> > > > the format allows. As you said, that is close to vm.overcommit_memory=1,
-> > > > and it is not a real capacity, so we may not want it as the default.
-> > > > 
-> > > > We keep xswap.max= only for special needs. Otherwise we may not need to
-> > > > change it.
-> > > > 
-> > > > Chris suggested a CONFIG option for the size. While CONFIG is not friendly
-> > > > to distros, you must rebuild the kernel to change it.
-> > > 
-> > > For my use case I would probably prefer a CONFIG option if that is the
-> > > only way. I typically build all my kernels on the same machine and send
-> > > the image either directly or for netboot. Setting the kernel command
-> > > line can be very different depending on the system (Different EFI
-> > > bootloaders, U-Boot and all its vendor versions).
-> > 
-> > From the actual use case and concrete number you provided, the interface
-> > can be adjusted like these:
-> > 1. 
-> > CONFIG_XSWAP_DEFAULT_MAX_PCT=200 
-> > default to 200, or default to the max value?
-> > 
-> > 2. 
-> > xswap.max= can override it. Or a xswap.max=max can be provided?
-> > 
-> > 3.
-> > The sysfs allow people to adjust the max size and priority:
-> > echo  > /sys/kernel/mm/xswap/create
-> > echo max=10G prio=100 > /sys/kernel/mm/xswap/create
-> > 
-> > Could you help comment if they are OK to you, or what is not needed
-> > actually or not good?
+> 4) Any zswap store functionality that works on a batch can potentially be
+>    parallelized as a next step, to further improve performance.
 > 
-> I do not mind having both a CONFIG option and a command line option for
-> the default where the latter overrides the first. I also do not mind
-> having the limit in sysfs since I need it to create the xswap device
-> anyway, but having all three together might be a bit extraneous.
+> Performance data: usemem with 60% over-commit:
+> ==============================================
+
+How much of the performance benefits come from patch 6 vs patch 8?
+
+> Validation was done with mm-unstable as of 10-3-2026 (Baseline) and with this
+> patch series.
 > 
-> However, if this is put in the sysfs it might be good to rethink how it
-> is structured. E.g. do we want to do so much string parsing when we
-> could instead have the limit and priority be separate files? I quite
-> like how NVME target handles this in configfs, where the user creates a
-> directory for the hosts, ports and subsystems and each config option is
-> a separate file inside. So for xswap, the user would mkdir
-> /sys/kernel/mm/xswap/typeN (or whatever) and have a structure inside
-> with something like:
-> typeN
->  |- enabled # 0/1, which would actually destroy or create the device
->  |- priority
->  |- max_size_pct
->  |- max_size_bytes # where writing to either would override the other
+> Testing was done on a Chromebook with a QEMU "vng" VM running in Crostini.
+>     
+> Chromebook Diagnostics reports:
+>   Intel(R) Core(TM) Ultra 5 115U (10 CPUs, 4.200GHz)
+>   RAM: 16GB
 > 
-> (and only accept changes when not enabled) but this might be more
-> complicated than we need. Even better would be for the defaults to work
-> for everybody since we wouldn't need the knobs, but then we would have
-> to agree on what those defaults should be.
-
-Yes. I ask people around, they are all surprised and say how come 8PB
-is needed. And mobile phone people care about the swap amount, they only
-allow several GBs swapped out to zram with RAM of tens of GBs. 
-
-So how about these:
-
-1.
-CONFIG_XSWAP_DEFAULT_MAX=
-max; 8PB
-size; e.g 10TB
-200%; percentenge of RAM
-defaults to 2xRAM
-
-2.
-xswap.max=
-can override CONFIG_XSWAP_DEFAULT_MAX=
-max; 8PB
-size; e.g 10TB
-200%; percentenge of RAM
-
-3. 
-echo  > /sys/kernel/mm/xswap/create
-defaults to 2xRAM
-The sysfs allow people to adjust the priority:
-echo 100 > /sys/kernel/mm/xswap/create
-
-> > 
-> > > 
-> > > > 
-> > > > By the way, I remember you mentioned you ever did a test making swapped
-> > > > out pages about 110% of system RAM, could you share your testing steps
-> > > > or scripts so that I can give it a shot on my testing system? If it's
-> > > > not convenient, then never mind.
-> > > 
-> > > It's nothing fancy. I just build the Gentoo package for the GCC 17
-> > > pre-release on my RISC-V BPI-F3. As I understand, the pre-release
-> > > sources will also enables some extra debugging and correctness checks
-> > > which will make the build slower and maybe also use more memory. Note
-> > > that I do not see the same memory usage on other arches which is I
-> > > believe due to the implementation of the RISC-V autovectorisation (GCC
-> > > 14 saw a large jump and that was the release which added it). I do add
-> > > configure options --with-matchpd-partitions=20 and
-> > > --with-insnemit-partitions=50 since especially insn-recog.cc tends to be
-> > > huge and the default partition of 10 it will still be quite large.
-> > > 
-> > > My datapoints are from just dumping some fields of /proc/meminfo every
-> > > ten seconds.
-> > 
-> > OK, seems it's not easy to copy from my side. Thank you again for your
-> > detailed testing information and suggestion.
+> vng setup:
+>          Memory: 7G
+>            Swap: 3G
+>     Pinned CPUs: 4 (E-Cores: 4,5,6,7)
 > 
-> You might be able to do it in a VM, but without hardware acceleration it
-> is likely even slower than the ~18 hours it takes on my BPI-F3 to
-> complete. I use the Gentoo package since it's convenient, but for
-> testing purposes, building from the GCC sources directly would likely be
-> similar.
+> zswap compressor:
+>   ZSTD
 > 
-> Another scenario which could potentially benefit from a lot of zswap (or
-> swap in general) would be when suspending processes (i.e. ^Z or kill
-> -SIGSTOP). Their memory would quickly go cold and therefore be swapped
-> out under memory pressure. I have used this sometimes on low memory
-> systems where I have started a build process with too many workers and
-> not wanted to restart it, but am not sure if there are other reasonable
-> use cases of this.
-
-Got it, the build process seems not easy to copy, while the latter one
-sounds doable, I can give it a shot sometime. Thanks a lot for providing
-these valuable information and your patience.
-
-
-Thanks
-Baoquan
+> mTHP enabled:
+>   64kB
+> 
+> vm-scalability/usemem setup:
+> 
+>   cgroup memory.high: 3G
+>   4 usemem processes, each allocates 1200M anonymous memory, reads the
+>   Silesia dataset [2] from a pre-fork-allocated buffer into the 1200M,
+>   writes to each unsigned long in the 1200M, sleeps for 10 sec, then
+>   frees the memory and exits.
+> 
+>     usemem --read-silesia -w -O -b 1 -s 10 -n 4 1200M
+> 
+>  usemem metrics averaged across 10 iterations*:
+>  ================================================
+>  
+>  --------------------------------------------------------------------------
+>                                           Baseline       Patch     Change
+>                                        mm-unstable      series       with
+>                                          10-3-2026          v1         v1  
+>  --------------------------------------------------------------------------
+>  Average Throughput (KB/s)                  11,794      17,810    +51.00%
+>  Total Throughput (KB/s)                    47,179      71,242    +51.00%
+>  Average Time to Free Memory (usecs)       490,973     294,920    -39.93%
+>  Total Time to Free Memory (usecs)       1,963,892   1,179,682    -39.93%
+>  --------------------------------------------------------------------------
+>  * vmstats are as reported at the end of the 10th iteration:
+> 
+>  64kB-alloc                                834,567     828,199     -0.76%
+>  64kB-zswpout                              700,138     743,697      6.22%
+>  64kB-swpout-fallback                       35,342      17,978    -49.13%
+>  64kB-swpout                                     0           0           
+>  --------------------------------------------------------------------------
+> 
+>  The speedup with zswap store batching of large folios has a propelling effect
+>  on other parts of mm, especially, by enabling large folios to be swapped out
+>  without splitting, as the data shows. This enables other mm components that are
+>  optimized for large folios, such as munmap(), folio refcounts/mapcounts
+>  updates, PTE invalidation upon freeing memory, zswap_invalidate(); which
+>  benefit from xarray offsets/range continuity. As a result, subsequent large
+>  folio swapouts are more likely to find contiguous swap slots, there are fewer
+>  large folio splits during reclaim, more mTHP zswpouts and the cycle
+>  continues. As the data demonstrates, this directly contributes to more memory
+>  over-commit opportunity.
+> 
+> Detailed usemem metrics/cgroup memory utilization/vmstats:
+> ==========================================================
+> 
+>  A) MAX zswap pool_total_size vmstats:
+>  =====================================
+>  This is a snapshot at the 10th iteration's peak zswap pool usage:
+> 
+>  --------------------------------------------------------------------------
+>                                     Baseline             Patch     Change
+>                                  mm-unstable            series       with
+>                                    10-3-2026                v1         v1  
+>  --------------------------------------------------------------------------
+>  pswpin                                    0                 0
+>  pswpout                                   0                 0
+>  thp_swpout                                0                 0
+>  thp_swpout_fallback                       0                 0
+>  swpin_zero                              594               548
+>  swpout_zero                           1,062               864
+>  zswpin                           10,603,882        11,070,673
+>  zswpout                          16,594,356        16,509,201     -0.51%
+>  zswpwb                                    0                 0           
+>  nrswpin                                   0                 0           
+>  nrswpout                                  0                 0           
+>  pgmajfault                        1,460,360         1,470,092      0.67%
+>  nr_free_pages                       897,249           908,935      1.30%
+>  nr_free_pages_blocks                892,928           903,680      1.20%
+>  64kB-alloc                          831,788           825,556     -0.75%
+>  64kB-zswpout                        690,961           735,863      6.50%
+>  64kB-swpout                               0                 0           
+>  64kB-swpout-fallback                 32,982            16,545    -49.84%
+>  64kB-swpin                                0                 0           
+>  zswap_pool_total_size         1,420,120,064     1,377,210,368     -3.02%
+>  memory.current                3,390,189,568     3,299,569,664     -2.67%
+>  memory.swap.current           3,221,221,376     3,221,221,376
+>  --------------------------------------------------------------------------
+> 
+>   B) STEADY STATE vmstats after usemem finishes:
+>   ==============================================
+>   This is a snapshot after the 10th iteration finishes:
+> 
+>  --------------------------------------------------------------------------
+>                                     Baseline             Patch     Change
+>                                  mm-unstable            series       with
+>                                    10-3-2026                v1         v1  
+>  --------------------------------------------------------------------------
+>  pswpin                                    0                 0 
+>  pswpout                                   0                 0
+>  thp_swpout                                0                 0
+>  thp_swpout_fallback                       0                 0
+>  swpin_zero                              594               548
+>  swpout_zero                           1,062               949
+>  zswpin                           11,526,695        11,963,729
+>  zswpout                          17,293,120        17,219,911     -0.42%
+>  zswpwb                                    0                 0           
+>  nrswpin                                   0                 0           
+>  nrswpout                                  0                 0           
+>  pgmajfault                        1,591,298         1,596,095      0.30%
+>  nr_free_pages                     1,752,789         1,753,264      0.03%
+>  nr_free_pages_blocks              1,258,496         1,240,064     -1.46%
+>  64kB-alloc                          834,567           828,199     -0.76%
+>  64kB-zswpout                        700,138           743,697      6.22%
+>  64kB-swpout                               0                 0           
+>  64kB-swpout-fallback                 35,342            17,978    -49.13%
+>  64kB-swpin                                0                 0           
+>  zswap_pool_total_size                     0                 0           
+>  memory.current                      757,760           802,816      5.95%
+>  memory.swap.current                       0                 0
+>  --------------------------------------------------------------------------
+>  zswap debugfs counters:                                      
+>                                                               
+>   pool_limit_hit                           0                 0
+>   written_back_pages                       0                 0
+>   reject_alloc_fail                        0                 0
+>   reject_kmemcache_fail                    0                 0
+>   reject_reclaim_fail                      0                 0
+>   reject_compress_fail                     0                 0
+>   reject_compress_poor                     0                 0
+>   decompress_fail                          0                 0
+>   stored_incompressible_pages              0                 0
+>   stored_pages                             0                 0
+>  --------------------------------------------------------------------------
+> 
+> 
+> [1]: https://patchwork.kernel.org/project/linux-mm/cover/20260125033537.334628-1-kanchana.p.sridhar@intel.com/
+> [2]: https://wanos.co/assets/silesia.tar
+> 
+> 
+> Changes since [1]:
+> ==================
+> 1) Better cacheline placement of struct zswap_pool and struct zswap_entry
+>    members for temporal memory access efficiency in zswap store/load hot paths,
+>    while minimizing holes.
+> 
+> 2) Refactored the core compression batching functionality to a separate
+>    __zswap_compress() function, which is called by zswap_compress(), as per
+>    Nhat's and Yosry's comments. Hopefully this helps explain the outer "store
+>    batching" zswap_compress() vis-a-vis the inner "compress batching"
+>    __zswap_compress() distinction.
+> 
+> 3) The acomp_ctx is locked once and is passed to the routine that compresses a
+>    batch, per the algorithm's batch-size. Similarly, the folio's node id and
+>    writeback_enabled status are computed once and passed to the routines that
+>    implement the different store functionalities, to save latency by avoid
+>    localized recomputes of information that doesn't change.
+> 
+> 4) Moved the folio node id being stored in zswap_entry to a separate patch, per
+>    Yosry's comment.
+> 
+> 5) Addressed the kunmap_local() issue flagged by Jixin He in the
+>    IS_ERR_VALUE(handle) error path
+>    (https://patchwork.kernel.org/comment/27095925) - thanks!
+> 
+> 6) Moved comments inline, per Yosry's suggestions.
+> 
+> Thanks,
+> Kanchana
+> 
+> 
+> Kanchana P. Sridhar (8):
+>   crypto: acomp - Define a unit_size in struct acomp_req to enable
+>     batching. mm: zswap: Set the unit size for zswap to PAGE_SIZE.
+>   crypto: acomp - Add bit to indicate segmentation support.
+>   crypto: acomp - Add trivial segmentation wrapper.
+>   crypto: acomp - Add API to get a compression algorithm's batch-size.
+>   mm: zswap: Store the folio's node id in the zswap_entry.
+>   mm: zswap: Store large folios in batches.
+>   mm: zswap: Optimally place members of struct zswap_pool, struct
+>     zswap_entry.
+>   mm: zswap: Batched zswap_compress() for storing large folios in
+>     batches.
+> 
+>  crypto/acompress.c                  |  47 ++-
+>  include/crypto/acompress.h          |  62 +++
+>  include/crypto/algapi.h             |   5 +
+>  include/crypto/internal/acompress.h |   8 +
+>  include/linux/crypto.h              |   3 +
+>  mm/zswap.c                          | 571 ++++++++++++++++++++--------
+>  6 files changed, 528 insertions(+), 168 deletions(-)
+> 
+> -- 
+> 2.39.5
+> 
