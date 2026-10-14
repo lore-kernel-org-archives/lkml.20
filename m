@@ -1,81 +1,65 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010060.outbound.protection.outlook.com [52.101.46.60])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E69743BB40
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:03:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791968624; cv=none; b=El8NdOV/Lz8C1ot94c8GOteLL0tZqLjh6jKKprxnVWE4n88I7HaEDg/1R6rqTVnNezw6DMhzRu7jKkp5XPqBhcieiJ10pABAu7UaHABHOXwptHX3ecvbMSZgvfWyL8OlWIpKLaHO7mB5xLdIXg0i8zsN485ZSI+xZPLcZ69CtbQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791968624; c=relaxed/simple;
-	bh=w3+rmKiHD0nMGk+YTb51hi2+Nu0URhUjGASGtpLenWg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qNHWca5F/ZPVcVEGqrv1vzTr06JkxrLR4q3JeubbFRdMvhjV9uZhEBY4oFTPKIK3m0YNvvRfYhUf0Y97AiU4FeZlIxZnXGCVCpr+1zMLGi6NUVA9jIxFi3IuPV6au146/FB9ZgqabrkhQNAMjS3vMC0fLjDtc9a08P3x8mnk5Vo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=EZnT4x8t; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=ydFZka5d; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=MvYI37zZ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=7gVYws/D; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 457D934D4CE;
+	Wed, 14 Oct 2026 09:03:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.60
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791968638; cv=fail; b=ZG/akEsSOLFiA27JPU6KnKeqydzU0IFvF/RS1SEkUKqoWlE5LBw4l4UK4hg9NRbl0mrrFvDj0u9vyc+z8WDjRxvxLvB5vdU5cowqWSK/6oXEo83T7GWLACFEvNwKAmYgw0kgEJOhTKExrS1dZKIp0spaczfY8LkpRFQo79GXM6o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791968638; c=relaxed/simple;
+	bh=JEOHvyc5KEzUVRFGnTslXtt0bwF2wwILtSrmLUPr0Yk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=O5OAqNfls30BsMxZizP9GFHs9ZfS/G9UmVl2Fer7sQrt8cvWHJBH8qkGf6juzYDd7Wb5hZynRg4XZRYu43Y2oq15UE6gXd+ivMyUCK1nDqKVPB4NRqUXibIZ29kX7NsjYDFSdMq1Ay09lHmbcNoc6EOCnb6CGB5vAOzrDXtCEfk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=kly/rwuC; arc=fail smtp.client-ip=52.101.46.60
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="EZnT4x8t";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ydFZka5d";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="MvYI37zZ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="7gVYws/D"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 450E01F7C9;
-	Wed, 14 Oct 2026 09:03:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791968620; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=oKQqxm6OFPCcoen8OcNLWepnPvxoN36WQr2RSIk6B1c=;
-	b=EZnT4x8tH8/9tP3nabsHyj0KdhIq4M6qgrO0dVl82YL3LiNoSkTiiaDfXNXeECWfOrvthu
-	Q06LYLNBiKfM4wjlZRDRx26GTdLIFQ5xSv31oUxq9FEDj01DvBwHYkIac+rsGZhFh/6Mzb
-	YYPkJfOdeIB/xekK6sCukBCOkwv/cNk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791968620;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=oKQqxm6OFPCcoen8OcNLWepnPvxoN36WQr2RSIk6B1c=;
-	b=ydFZka5dHSLNjIRth3BY8e0iIjjo0p0Zgp+/+yB7Wwmao6rzR4Cj9+E3HwHq87ssnMLSzP
-	W73/erecWRMnD+Cw==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=MvYI37zZ;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="7gVYws/D"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791968619; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=oKQqxm6OFPCcoen8OcNLWepnPvxoN36WQr2RSIk6B1c=;
-	b=MvYI37zZBnhhcjMxHvxqbcJb93RFyXenWj+oYl4PYOTV0e2BC3+XirgtfxcMnezx+zbXfe
-	GV0h3SNBp7Gz3m1tf0G0JKLuU5bgDj3tAjP0wNzG01FXMdRWHDz1SvvB/O1MbHh9NB15gt
-	ozh5rEiUgnmz9uwZysP712DMEoYpXok=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791968619;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=oKQqxm6OFPCcoen8OcNLWepnPvxoN36WQr2RSIk6B1c=;
-	b=7gVYws/D7fF3RbMAAc+dPQdyy9YF4sys6nSl+8o9/nCvdm68APlq/GVjBh2AgyXkcuDetw
-	21yDQJQiWPPvF0BA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DE90A133F1;
-	Wed, 14 Oct 2026 09:03:38 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id xkVaKmpFz2qnEQAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Wed, 14 Oct 2026 09:03:38 +0000
-Message-ID: <fdc5b911-407f-437f-ab05-33d1287e20da@suse.de>
-Date: Wed, 14 Oct 2026 11:03:38 +0200
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="kly/rwuC"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=I1SHywBDk0t4Jwj5mU1qzqfuW3OoWkqTfhKgoTw99qZM3khBJ0hy+WMXcnz+rEv5FfjaqAWZcWUADngKZISH5JF7UEnjQlwKeBxcCLBoH9tLyPJlNRlsdKq+L3gTfGP1M5Hp/zwQ/CRu4Nc6x/n7vT1AKpk6frdf2DOWU5pzh/0iXiuwkpJ8Hh4OHeXkzwgobXUTrpIX7BUwQsQg5S33mLNZjhNQ/5dNDrw7TXBW8EnhM4Lr50HOZESKeCR80dX8rTDF/4av8AmgL0T3ai0gT2h4Dqzpx37YytGVj3Gnxc09yHIY2AWbkDmUocS2PE7FFGkqIN+EgAb3ykn0ubLUfg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pL7YcLUpyzlaM2e48ee1XWh/3qwaEdO79lQEuvsk5gw=;
+ b=weXUMX4cRY3YaXqE+L7ad20Y7z5jftsLOwxNnhgwq0KxnU3nOpa8NBe9CW/GV/SuDgOeKe8IQ7RJmjMgAZ1p9JahE5Maed04YfpsQHiga375kfhlNSTc8a5Ar1mL8u6STqI0PdKudgK6CMQVJVAw64DvO2Hm3nml6bh8M5QXUEfHiHCtiYK2f3YF+M1J/asDtcfkcaPq+yAl7YfT3D5a72VUWK6Dc0y7OjeGTRLIPfjXzeyi3m/J69TuCrpXgsKwxFqtoz8UpAkL6DmTdvuUzPd2NjQtyK5EOB4ppMiC74by2b+VOK6c8+QS60A0nl0+947GSw0v8qwgP43zRM/g+g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pL7YcLUpyzlaM2e48ee1XWh/3qwaEdO79lQEuvsk5gw=;
+ b=kly/rwuCZv1qu4njJ22YLzlljMkVHuG7+fBud3z6BenMVa30iDOfKPZXJRPQz03u5ta8k782NZsG36CvZkJQ/2/2WAlgkYVZ1y98/DBP3N/n1sCs9N93NiniOv25jKGL6zyvA5Z9K4SNZknhRwrZHqK+okzyqp7gj2hA+WPhymA=
+Received: from BN1PR14CA0008.namprd14.prod.outlook.com (2603:10b6:408:e3::13)
+ by BL4PR12MB9536.namprd12.prod.outlook.com (2603:10b6:208:590::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Wed, 14 Oct
+ 2026 09:03:54 +0000
+Received: from LV8PEPF00000067.namprd03.prod.outlook.com
+ (2603:10b6:408:e3:cafe::3d) by BN1PR14CA0008.outlook.office365.com
+ (2603:10b6:408:e3::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Wed, 14
+ Oct 2026 09:03:54 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ LV8PEPF00000067.mail.protection.outlook.com (10.167.248.39) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Wed, 14 Oct 2026 09:03:53 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 14 Oct
+ 2026 04:03:47 -0500
+Received: from [10.136.45.168] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Wed, 14 Oct 2026 04:03:46 -0500
+Message-ID: <e2a7a5c9-0886-4130-894b-dda93854e36b@amd.com>
+Date: Wed, 14 Oct 2026 14:33:45 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,168 +67,162 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/format-helper: Add XRGB8888 to UYVY conversion
-To: Jie Feng <hjf3108@gmail.com>
-Cc: dri-devel@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org
-References: <20261012170857.199561-1-hjf3108@gmail.com>
- <64707239-eac7-4259-a8ff-7ec43d13860e@suse.de>
- <CABOQOSXgG2kBzs2sBEE69mmPcO0cKVgjyk_6DG5RST_4uL2+sg@mail.gmail.com>
- <c9460a8d-3fdf-439f-9655-82b60617b85c@suse.de>
- <CABOQOSUE17pQQYydLxCLHg1Jg90dwCEvMZYyo6TzYHMn9RAL2Q@mail.gmail.com>
+Subject: Re: [PATCH] cpufreq: amd-pstate: Preserve names for aliased EPP
+ values
+To: Mario Limonciello <mario.limonciello@amd.com>
+CC: Perry Yuan <perry.yuan@amd.com>, "open list:X86 ARCHITECTURE (32-BIT AND
+ 64-BIT)" <linux-kernel@vger.kernel.org>, "open list:CPU FREQUENCY SCALING
+ FRAMEWORK" <linux-pm@vger.kernel.org>
+References: <20261012205559.3421297-1-mario.limonciello@amd.com>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <CABOQOSUE17pQQYydLxCLHg1Jg90dwCEvMZYyo6TzYHMn9RAL2Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 450E01F7C9
-X-Rspamd-Action: no action
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.50 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FREEMAIL_TO(0.00)[gmail.com];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[lists.freedesktop.org,linux.intel.com,kernel.org,gmail.com,ffwll.ch,vger.kernel.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:email,suse.de:dkim,suse.com:url]
-X-Spam-Flag: NO
-X-Spam-Score: -4.50
+From: K Prateek Nayak <kprateek.nayak@amd.com>
+In-Reply-To: <20261012205559.3421297-1-mario.limonciello@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PEPF00000067:EE_|BL4PR12MB9536:EE_
+X-MS-Office365-Filtering-Correlation-Id: da7d53c4-5d58-429f-f69a-08df29d2127a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|23010399003|82310400026|36860700016|56012099006|11063799006|261009223027099003|22082099003|10067099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	gNm4JY1tnsy80tZtQHZ63RzF65veSxT72fV70jdPS1gBL9R8d97Y/6blPlhCfmb3CUqOavpU7gSSlm8Of+PPpKALMeTCttOlflZ00PT4MiChl3dWimb2lDZkr8RsK5jKcoJchVmILxT+0VSwDE9lN7B804QmwsfDB7gP8Hg1zLQEmSNbMdHoGbGR4+GnIa91yg8gvYUOkn/lXSirp6Sfw4zhXGNMbMC1EQU/xMZvPJVFJS69vn4LCkcc8L6/M1nYIvMX+kQidryhKGXbvlvNOvegDE2i8TgNK8taxTBW3t8GeMtyeoZsBReIyyQtdLYf+nrxwy2Z7snJ5TKCpIhlHZO5Etj/D94oeArJMtXixurqtkPm4t0fUw8ChBqZOUQRKfchwoktCJfuBI0R4UFiQjvMpomyWFUkIbDeawJwfRxgUNGgQz8MHhaUb9/BJGXU6AV65EWw2sJweyIPHbqk590DQOULFXC81M1gg9O16kYQd8geQYKw0DrDCF5yIMT7FeYJi4cu/+hE4BSGXfUNvYVmrU2bViCyEPY/xMIiLjVKIGbC2oVqGNw7Yw9F+AOEjij1ddxlK57FX61zxgV8mvavzU2FGxs8tUhtCYk4OYRS4x0UW4acoBkISKASizjmtckD4uc7HZ+PEQYKHY4dSm/7l2qF/cttqcIPry8nFdqMHfKcrmhwYjXVW64xJZchBbEoNf2hkAJyF5T/XpYNbA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(82310400026)(36860700016)(56012099006)(11063799006)(261009223027099003)(22082099003)(10067099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	GGR2yI0gjaxLxf32MWx6ZdJXgCr3bV+f47wRTPt+LAd7yY+mnsNeQ+wNBoJcfWlQoBArpcUl2f1mOxkFhemfLrZHiOmn795LZqeL48uA2PxvMvrR7DBTNxorw61iXRavehzSnBPYyM2/12K1XA9GAxlnug0EdraYSh/mJbMxUBkBFnNjO+LFj2XlWsXmvgOwYqu+lcRUWHXKroOfCeytweZQhdDr2y4Vl9Rk7hViNdtvCbUPwmOQ4CdI1B7wPCQOFndZnX8ohAlpb8oKKurHJ0r/PNRthX6TdGS7dfR2smxVhYZesukLcC32q254UZQtzqqLD7DxbcAw7FuuH8S/wJjvUCyutnnk9Z8NbDXDkAptWGRiG6LeQj030w2scIwHwYRnQiBZYN67lRL3BQ+rw2oJHF5ZGorW4k0qr8qeFao3HK0ytMzvyLwzigsG9emI
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 09:03:53.9425
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: da7d53c4-5d58-429f-f69a-08df29d2127a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	LV8PEPF00000067.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9536
 
-Hi
+Hello Mario,
 
-Am 13.10.26 um 15:07 schrieb Jie Feng:
-> On Tue, 13 Oct 2026 at 20:32, Thomas Zimmermann <tzimmermann@suse.de> wrote:
->> Hi
->>
->> Am 13.10.26 um 14:17 schrieb Jie Feng:
->>> On Tue, 13 Oct 2026 at 15:11, Thomas Zimmermann <tzimmermann@suse.de> wrote:
->>>> Hi
->>>>
->>>> Am 12.10.26 um 19:08 schrieb Ho Jie Feng:
->>>>> Add a helper for devices that use packed UYVY but accept XRGB8888
->>>>> framebuffers.
->>>> Is there a description of UYVY available somewhere?
->>> This is for a reverse engineered usb display adapter, which accepts
->>> input in bytes of U, Y, V, Y in that order. I'm not sure what
->>> counts as a description, apart from it matching DRM_FORMAT_UYVY?
->> I see. The format exists already in DRM.
->>
->>> This patch is meant to move this out of the driver:
->>> https://github.com/rhgndf/ms912x/blob/main/ms912x_transfer.c#L153
->>>
->>>>> Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
->>>>> ---
->>>>> This is used for a driver, ms912x that I will be submitting. It only
->>>>> supports uyvy framebuffers.
->>>> Please resubmit as part of the driver series. We're not going to merge
->>>> it without callers anyway.
->>>> ...
->>>> For naming, please follow the conventions used by the other helpers in
->>>> this file.
->>> Will send the driver in with this patch and its fixes, thanks for the review.
->>>
->>>> ...
->>>>> +             v = drm_pixel_rgb2_to_v_bt601(r, g, b);
->>>>> +             u = drm_pixel_rgb2_to_u_bt601(r, g, b);
->>>>> +
->>>>> +             transfer_buffer[dst_offset++] = u;
->>>>> +             transfer_buffer[dst_offset++] = y1;
->>>>> +             transfer_buffer[dst_offset++] = v;
->>>>> +             transfer_buffer[dst_offset++] = y2;
->>>> Rather that writing bytes individually, use put_unaligned_le32() or a
->>>> similar helper.  Byte order within a pixel is little endian, although
->>>> I'm not sure what this means for UYVY.
->>> This is meant to be sent over a usb transfer, so byte order needs to be
->>> the same on both little and big endian systems.
->> DRM formats always refer to little endian. As it is implemented now,
->> it's not clear what the endianess of your output is. Please duplicate
->> the other helpers' logic. They all pack the output with appropriate
->> helpers. If the USB device requires BE, you have to write a separate
->> conversion helper for that.
->>
->> BTW, you have an OOB access if the line width is not a multiple of 2.
-> How should I handle this? Rounding it within the helper doesn't seem
-> to make sense and the function return is a void, so it can't return -EINVAL.
+On 10/13/2026 2:25 AM, Mario Limonciello wrote:
+> Zen6 low-power cores use the same numeric EPP value for the
+> balance_performance, balance_power, and power preferences. The show
+> callback currently scans the numeric values and returns the first matching
+> name, so writing balance_power or power reads back as
+> balance_performance.
+> 
+> Cache the index of the last successfully written static named preference.
+> Return that name while the cached numeric EPP still agrees, retaining the
+> numeric lookup as a fallback for boot, firmware, default, and dynamic
+> states.
+> 
+> Make the unit test require exact string round-tripping again.
+> 
+> Fixes: 52763c00945a ("cpufreq: amd-pstate: Update Zen6 client EPP tuning values")
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 
-It's the callers responsibility to pass in enough pixels. You'll have to 
-take care of it in the driver by rounding the damage area accordingly. 
-It's not optimal but it's not a big deal either.
+Feel free to include:
 
-In the line-conversion helper, simply round down to the nearest multiple 
-of 2.
+Reviewed-by: K Prateek Nayak <kprateek.nayak@amd.com>
+Tested-by: K Prateek Nayak <kprateek.nayak@amd.com>
 
->
-> Other helpers ignore the -ENOMEM error when drm_format_conv_state_reserve
-> fails, so should it follow this convention?
-
-Do you have a specific example?
-
->
-> Alternatively, drm_fb_xfrm can be exported, and let the driver define
-> the rgb->yuv coefficients? But I think it is fine since _to_gray8 also
-> cites BT.601.
-
-The current constants seem fine. With the 2-pixel alignment, there 
-shouldn't be any other cases required.
-
-Best regards
-Thomas
+One small nit. below:
 
 
+> @@ -1548,6 +1551,14 @@ ssize_t show_energy_performance_preference(struct cpufreq_policy *policy, char *
+>  	if (!cpudata->dynamic_epp && cpudata->raw_epp)
+>  		return sysfs_emit(buf, "%u\n", epp);
+>  
+> +	/* Several named preferences may share the same numeric EPP value. */
+> +	if (!cpudata->dynamic_epp &&
+> +	    cpudata->epp_index >= EPP_INDEX_PERFORMANCE &&
+> +	    cpudata->epp_index <= EPP_INDEX_POWERSAVE &&
+> +	    epp == values[cpudata->epp_index])
 
+That checks seems overly defensive. And I have a hunch ...
+
+> +		return sysfs_emit(buf, "%s\n",
+> +				  energy_perf_strings[cpudata->epp_index]);
+> +
+>  	/*
+>  	 * Map the cached EPP value back to a named preference. Skip the
+>  	 * "default" slot (index 0) so an EPP of 0 reports as "performance".
+> @@ -1980,6 +1991,7 @@ static int amd_pstate_epp_cpu_init(struct cpufreq_policy *policy)
+>  
+>  	cpudata->cpu = policy->cpu;
+>  	cpudata->cpu_type = cpu_data(policy->cpu).topo.cpu_type;
+> +	cpudata->epp_index = EPP_INDEX_MAX;
+
+... it is mostly to handle this case. Can we instead initialize it to
+the correct index and say if epp_index != EPP_INDEX_MAX, use the
+index to derive string always?
+
+Something like below squashed into your patch:
+
+  (Tested with amd-pstate-ut on top of your patch)
+
+diff --git a/drivers/cpufreq/amd-pstate.c b/drivers/cpufreq/amd-pstate.c
+index 8eebba922219..1f64726348bc 100644
+--- a/drivers/cpufreq/amd-pstate.c
++++ b/drivers/cpufreq/amd-pstate.c
+@@ -1504,7 +1504,7 @@ ssize_t store_energy_performance_preference(struct cpufreq_policy *policy,
+ 			if (ret)
+ 				return ret;
+ 
+-			return count;
++			goto success;
+ 		}
+ 
+ 		if (ret) {
+@@ -1533,6 +1533,7 @@ ssize_t store_energy_performance_preference(struct cpufreq_policy *policy,
+ 		return ret;
+ 
+ 	cpudata->raw_epp = raw_epp;
++success:
+ 	cpudata->epp_index = epp_index;
+ 
+ 	return count;
+@@ -1552,10 +1553,7 @@ ssize_t show_energy_performance_preference(struct cpufreq_policy *policy, char *
+ 		return sysfs_emit(buf, "%u\n", epp);
+ 
+ 	/* Several named preferences may share the same numeric EPP value. */
+-	if (!cpudata->dynamic_epp &&
+-	    cpudata->epp_index >= EPP_INDEX_PERFORMANCE &&
+-	    cpudata->epp_index <= EPP_INDEX_POWERSAVE &&
+-	    epp == values[cpudata->epp_index])
++	if (cpudata->epp_index != EPP_INDEX_MAX)
+ 		return sysfs_emit(buf, "%s\n",
+ 				  energy_perf_strings[cpudata->epp_index]);
+ 
+@@ -1980,7 +1978,6 @@ static int amd_pstate_epp_cpu_init(struct cpufreq_policy *policy)
+ 
+ 	cpudata->cpu = policy->cpu;
+ 	cpudata->cpu_type = cpu_data(policy->cpu).topo.cpu_type;
+-	cpudata->epp_index = EPP_INDEX_MAX;
+ 
+ 	ret = amd_pstate_init_perf(cpudata);
+ 	if (ret)
+@@ -2030,6 +2027,7 @@ static int amd_pstate_epp_cpu_init(struct cpufreq_policy *policy)
+ 		policy->policy = CPUFREQ_POLICY_PERFORMANCE;
+ 		cpudata->epp_default_ac = cpudata->epp_default_dc = default_epp;
+ 		cpudata->current_profile = PLATFORM_PROFILE_PERFORMANCE;
++		cpudata->epp_index = EPP_INDEX_PERFORMANCE;
+ 	} else {
+ 		u8 *values = amd_pstate_cpu_epp_values(cpudata->cpu_type);
+ 
+@@ -2037,6 +2035,7 @@ static int amd_pstate_epp_cpu_init(struct cpufreq_policy *policy)
+ 		cpudata->epp_default_ac = values[EPP_INDEX_PERFORMANCE];
+ 		cpudata->epp_default_dc = values[EPP_INDEX_BALANCE_PERFORMANCE];
+ 		cpudata->current_profile = PLATFORM_PROFILE_BALANCED;
++		cpudata->epp_index = EPP_INDEX_BALANCE_PERFORMANCE;
+ 	}
+ 
+ 	ret = amd_pstate_set_epp(policy, cpudata->epp_default_dc);
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
+Thanks and Regards,
+Prateek
 
