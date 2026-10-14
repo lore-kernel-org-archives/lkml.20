@@ -1,67 +1,195 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52478305667;
-	Wed, 14 Oct 2026 23:22:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59D4D420E89
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 23:23:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792020137; cv=none; b=n+elqEzhW9YatH1H3Hh96XP5VXf4APasOayMeMjD97B3y7lV40C0M7fZbGQhpKhHTfS9K9Dz1dWlDPhNH/DU0qYiNt7zAbQLGNv2R76YJdCu5WS4jv36ykOPKLXzkID0Jt75vQzHrrOQ6An1lBsNtxwppb/Bt8a2Sp3E7WeukEU=
+	t=1792020207; cv=none; b=kWg5eE5K03LRVqpuC5MKWmibD0J5ylE4zJJeFBlggz8bM7Zb74dieURpwzqzv+gWel+TeoWmNTCvIHHpicHXf6h5CyRG2fcWlgpquorUN+ztDyo+5GQZI0IxMAQrd9qQ7W71oz4YQqAAlhy+khu5jmvWzIvY247h1zLeSYWPCFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792020137; c=relaxed/simple;
-	bh=nezIFOMIHe5BTXgdZTRDRTmir8o6ahnkOGBaXIlH7jw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-Id; b=IQUEbFo4uvnz0KvUWriZ9qmQKLA9Vhw/6IirL3XZloE2rZGxXYc0Wpr3zmCQf28PTtYOywhnKHbqOOcSJkGYKNyub1UbzD3bobQA8p8Lld0nOoUdk1twkMr95b8v2n/MJ5omT/GKa45s4LXy8SXVi6y0F2lz0EwQZaDc8IOR6U8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GchSTDKU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792020207; c=relaxed/simple;
+	bh=vjWmS0UNeghaG0iFRASfWWwznEzbC2i4qrauC4ke36c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tbbBEzQTCl/A5xlE5vbtpeJ+nF4OV/uKawTdBjJwxk17rqyJNGlFwct2XVKsMoynLUa6VC3K0LmlpFK8j0g0sUJ79VNXNKPCBmXy3XpHhVNHvNO8ssU1pPA615sZ6i5ZZlmPzsrKvNBjZAbTfXYpD9L0b3eweU0upoXg1rgL2+E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YbfRVDpP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GchSTDKU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 756651F000C4;
-	Wed, 14 Oct 2026 23:22:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YbfRVDpP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EBCA1F000C4;
+	Wed, 14 Oct 2026 23:23:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792020135;
-	bh=VD1J8g4gHfJIFTkXY2M7IHzffrijTMqnNdYdZxb2K98=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GchSTDKUVGSuAq7BxuUgDhdFZ9x8aYWt6zfHFNkgdqO/I/NnBEcN2JJxcAzwnKPtE
-	 iQ/s2ark7H+Y9Ys7TLn9Uds0r3tE1zKAfEQ2cEvz4i6SpaSxRR9sXU3eiBGqAiCY6i
-	 Xt3IzEL/mG3vcUkk+ly4WKFnQaIoPlH0WaHA2e2rfxeyt7RINzbzzhwf2bQHS5XC7p
-	 8jfGsKcLuKK8YONS93+a92jKimqHD1lnNvHYidF7TUGFme6YAh/wPdV2l9zgMFgQkb
-	 +jZ560uNft2xhEX5uPbK3Sck77PRpaVGG/LBIEapt4HCn0yOnKdKyj2w7/GfJ3fD4d
-	 9ITAzZnMCdUAA==
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-To: Vincent Donnefort <vdonnefort@google.com>
-Cc: rostedt@goodmis.org, linux-trace-kernel@vger.kernel.org,
- mathieu.desnoyers@efficios.com, kernel-team@android.com,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] ring-buffer: Use subbuf_order in available memory
- estimation
-Date: Thu, 15 Oct 2026 08:22:12 +0900
-X-Mailer: UndineD 0.1
-In-Reply-To: <20261013102047.1488347-3-vdonnefort@google.com>
-References: 20261013102047.1488347-1-vdonnefort@google.com
- <20261013102047.1488347-3-vdonnefort@google.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1792020205;
+	bh=K4Is1qFyFVz8EUcqjtlhLvy1hm5i6s8uM3AIuoRnppA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YbfRVDpPlUyiByGw1vvj04z7Sck319oFlFCg8aqc1vNms4RnDRhzsZyg1g5OJjQEv
+	 LwREEUA9k4yYg+w3fcZe7EZ9fghFCPqHlDsYXZ5Ypk1dNTqUfj8+5qDqTIQzTnB3Lt
+	 4/ztFBJj2hOsBL3ZKFqu91DZKSl2AEP+rJuL3N5jtGwv6TGyweLRKabx5f80AVcmYh
+	 Ormh9TeU8XwFBbRq9lk3jMjBVMrFagSRmLTK/IXHgJ+xhNw/3gbtbrvV1IDKmVXGXB
+	 AJLw2Zj5gDYy4nMlfy5W8GRK2A03IXq29yvxbAp/28yDycJpDN0xYYmlF+TC7GxdPk
+	 qY4puLslkO2Bg==
+Date: Wed, 14 Oct 2026 23:23:23 +0000
+From: Jaegeuk Kim <jaegeuk@kernel.org>
+To: Nanzhe Zhao <nzzhao.sigma@gmail.com>
+Cc: linux-f2fs-devel@lists.sourceforge.net, Chao Yu <chao@kernel.org>,
+	Barry Song <baohua@kernel.org>, Juan Yescas <jyescas@google.com>,
+	Daeho Jeong <daehojeong@google.com>,
+	Pengfei Li <lipengfei28@xiaomi.com>, Dev Jain <Dev.Jain@arm.com>,
+	David Hildenbrand <David.Hildenbrand@arm.com>,
+	linux-kernel@vger.kernel.org, Bo Zhang <zhangbo56@xiaomi.com>,
+	Kalesh Singh <kaleshsingh@google.com>, Nanzhe Zhao <nzzhao@126.com>,
+	Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
+	Ryan Roberts <Ryan.Roberts@arm.com>
+Subject: Re: [f2fs-dev] [PATCH v5 00/16] f2fs: support & optimize large
+ folios for writable files
+Message-ID: <atAO6ykqwGgZq77y@google.com>
+References: <20261014064445.2835813-1-zhaonanzhe@xiaomi.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <20261014232214.756651F000C4@smtp.kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014064445.2835813-1-zhaonanzhe@xiaomi.com>
 
-On Tue, 13 Oct 2026 11:20:47 +0100, Vincent Donnefort <vdonnefort@google.com> wrote:
-> To avoid failing in the middle of an allocation of a ring-buffer,
-> __rb_allocate_pages() looks at the available memory estimation with
-> si_mem_available(). Use the subbuffer order with this estimation to fail
-> early if necessary for ring-buffers with an order > 0.
->
-> Fixes: f9b94daa542a ("ring-buffer: Set new size of the ring buffer sub page")
-> Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
+Hi Nanzhe,
 
-Looks good to me.
+Could you please check IO submission path for Zoned block device?
+I hit this.
 
-Reviewed-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+[   93.100225] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+[   93.100420] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+[   93.100551] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+[   93.100948] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+[   93.101432] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+[   93.101762] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+[   93.101907] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+[   93.102564] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+[   93.103054] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+[   93.103447] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+[   93.103667] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+[   93.104294] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+[   93.104373] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+[   93.104449] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+[   93.105220] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+[   93.105253] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+[   93.105532] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+[   93.105575] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+[   93.105606] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+[   93.105781] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+[   93.105985] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+[   93.106192] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+[   93.106692] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+[   93.106799] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+[   93.107015] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+[   93.107090] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+[   93.107113] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443320; zone offset 19064; I/O scheduler (none); rq 00000000ea98b61b {.op=WRI
+[   93.107268] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+[   93.107288] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443320; zone offset 19064; I/O scheduler (none); rq 00000000ea98b61b {.op=WRI
+[   93.107499] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+[   93.107511] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443320; zone offset 19064; I/O scheduler (none); rq 00000000ea98b61b {.op=WRI
+[   93.107707] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+[   93.107724] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443320; zone offset 19064; I/O scheduler (none); rq 00000000ea98b61b {.op=WRI
+[   93.107770] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+[   93.107781] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443320; zone offset 19064; I/O scheduler (none); rq 00000000ea98b61b {.op=WRI
+[   93.107929] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+[   93.107941] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443320; zone offset 19064; I/O scheduler (none); rq 00000000ea98b61b {.op=WRI
+[   93.108040] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+[   93.108050] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443320; zone offset 19064; I/O scheduler (none); rq 00000000ea98b61b {.op=WRI
+[   93.108166] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+[   93.108179] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443320; zone offset 19064; I/O scheduler (none); rq 00000000ea98b61b {.op=WRI
+[   93.108322] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+[   93.108341] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443320; zone offset 19064; I/O scheduler (none); rq 00000000ea98b61b {.op=WRI
+[   93.108582] sd 0:0:0:4: [sde] tag#31 UNKNOWN(0x2003) Result: hostbyte=0x00 driverbyte=DRIVER_OK cmd_age=0s
+[   93.108588] sd 0:0:0:4: [sde] tag#31 Sense Key : 0x5 [current]
+[   93.108595] sd 0:0:0:4: [sde] tag#31 ASC=0x21 ASCQ=0x4
+[   93.108605] sd 0:0:0:4: [sde] tag#31 CDB: opcode=0x8a 8a 00 00 00 00 00 01 ee d9 4e 00 00 00 01 03 00
+[   93.108607] critical target error, dev sde, sector 259443312 op 0x1:(WRITE) flags 0x800 phys_seg 1 prio class 0
+[   93.108612] sde: zone 2639: Aborting plugged BIOs
+[   93.108626] CPU: 1 UID: 1000 PID: 1831 Comm: CachedAppOptimi Tainted: G        W  O       6.12.81-android16-6-maybe-dirty-4k #1 de5ea2c0fc3867082493fabcae9896176e2e435e
+[   93.108630] Tainted: [W]=WARN, [O]=OOT_MODULE
+[   93.108631] Hardware name: KODIAK DVT 1.0 based on MALIBU (DT)
+[   93.108632] Call trace:
+[   93.108633] dump_backtrace+0xec/0x128
+[   93.108641] show_stack+0x18/0x28
+[   93.108645] dump_stack_lvl+0x40/0xb8
+[   93.108649] dump_stack+0x18/0x28
+[   93.108652] f2fs_stop_checkpoint+0x1f0/0x2d8
+[   93.108654] f2fs_write_end_bio+0x50/0x694
+[   93.108657] f2fs_write_end_io+0x80/0x94
+[   93.108660] bio_endio+0x114/0x224
+[   93.108662] __dm_io_complete+0xf4/0x278
+[   93.108665] clone_endio+0xc0/0x26c
+[   93.108669] bio_endio+0x114/0x224
+[   93.108671] blk_zone_write_plug_bio_endio+0x104/0x334
+[   93.108674] bio_endio+0x160/0x224
+[   93.108676] blk_update_request+0x17c/0x218
 
-Thanks,
-
--- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+On 10/14, Nanzhe Zhao wrote:
+> This series supports large folios for most readable/writable files
+> in buffered I/O paths, including normal files, block-layer encrypted
+> files, and atomic files except for inline-data files, compressed files,
+> and quota files.
+> 
+> It also extends f2fs_folio_state to coexist with f2fs page-private
+> flags and to handle large folio write path and partial truncate of
+> large folios correctly.  A valid large folio always carries a
+> f2fs_folio_state at its folio->private in the current implementation.
+> 
+> Benchmark details can be found in the RFC v2 cover letter [1].
+> 
+> Changes in v5:
+> - Rebased onto the f2fs dev-test branch (d1685c24b6c3).
+> - Dropped the two prerequisite bug fixes, which are now merged:
+>     c04f209773ec ("f2fs: read i_size once in f2fs_vm_page_mkwrite")
+>     b3c984358925 ("f2fs: remove mappedtodisk flag usage in mmap write path")
+> - Link to v4: [2]
+> 
+> Many thanks to Chao and Daeho for your extensive reviews and valuable
+> suggestions!
+> 
+> [1] https://lore.kernel.org/r/20260622160830.324455-1-zhaonanzhe@xiaomi.com
+> [2] https://lore.kernel.org/linux-f2fs-devel/20261013115621.968742-1-nzzhao.sigma@gmail.com/
+> 
+> Nanzhe Zhao (16):
+>   f2fs: extend folio state for large folio write path
+>   f2fs: carry subpage offset and count in write IO
+>   f2fs: support regular file buffered writes on large folios
+>   f2fs: support atomic file large folios buffered write
+>   f2fs: support large folio writeback
+>   f2fs: account large folio dirty data at block granularity
+>   f2fs: prepare mmap write faults for large folios
+>   f2fs: make GC migration large-folio aware
+>   f2fs: optimize small block size large folio read
+>   f2fs: support partial uptodate large folio read
+>   f2fs: handle partial truncate of large folio dirty subpages
+>   f2fs: wait for folio writeback before ffs_detach_free
+>   f2fs: fix zeroing paths for large folios
+>   f2fs: handle block cloning within the same large folio
+>   f2fs: allow large folio support to writeable files
+>   f2fs: make compressed files compatible with large folio
+> 
+>  Documentation/filesystems/f2fs.rst |   10 +
+>  fs/f2fs/checkpoint.c               |   40 +-
+>  fs/f2fs/compress.c                 |    7 +-
+>  fs/f2fs/data.c                     | 1467 +++++++++++++++++++++++++---
+>  fs/f2fs/dir.c                      |    2 +-
+>  fs/f2fs/f2fs.h                     |  170 +++-
+>  fs/f2fs/file.c                     |  226 +++--
+>  fs/f2fs/gc.c                       |   38 +-
+>  fs/f2fs/inline.c                   |    9 +-
+>  fs/f2fs/inode.c                    |    4 +-
+>  fs/f2fs/namei.c                    |    1 +
+>  fs/f2fs/node.c                     |    2 +-
+>  fs/f2fs/segment.c                  |    5 +-
+>  13 files changed, 1716 insertions(+), 265 deletions(-)
+> 
+> -- 
+> 2.43.0
+> 
+> 
+> 
+> _______________________________________________
+> Linux-f2fs-devel mailing list
+> Linux-f2fs-devel@lists.sourceforge.net
+> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
