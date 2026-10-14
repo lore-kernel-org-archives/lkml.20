@@ -1,116 +1,182 @@
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3B522FD696
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:56:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 395783AFAE0
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:56:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791953785; cv=none; b=uiMo/5PoPBsQFHtXnLwCPg/3l/piyiUCd01RzRkB3k0Zi98uxiB4ya9HquR4nveaquqjigPPncFE5b+l/87FdI6aAziVcKYYs+Zj9QXR7CT13n4l0NoPNwTmrJcxXhoPZPS/S/1HG2Sft52BNT6KNobtvzhbVK2+bS3eOW6nzDI=
+	t=1791953796; cv=none; b=jLkl33XlpEYdd+Zt9X/lhVFUj8ztQUTFWaDG2/FhNgshBo0ALC4vzuUwzSxic4hQdOIUaZc5ckSKnmoeP+gv7BpZpxLnpo3x8GnmuqBqptb2uqlKH7x7HmOTJ/9/NyWuk6GulGSyboJy4YQmuXjVOIU9crjjR679CZuS5W1EWQw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791953785; c=relaxed/simple;
-	bh=WjQH6eF1riN+Hdn/Ak1ts4FChWpGKVUmHOzzJk7eT5E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bLqPHskLpxkDfq0giEWQ8oWdB6YPjSTwYy9YXkotisHVrOBuXs8HTBnBlBUmfi9DANeu7m3Cjat8Nv4lfFAawnb0IteyOoqKCpOHF82ZviM2nt/ehOG8On0so/0HFDzNMq2jxjTDiQsK7TazV75x9p8XOSlIQ9AjYZduSRgA1W8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fdRVC+SW; arc=none smtp.client-ip=74.125.82.169
+	s=arc-20240116; t=1791953796; c=relaxed/simple;
+	bh=TrQg+o6wa2CcVVkKAsnttl9C+U8MDiRzdNKhFCzLV4M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=B3gYAVIRb5mBV1tJ+nd9Ccfv7palwGgJlO70qa7USVXIhAjAjpFNEZR3gWCy46EStfzri2ZyUzQemGN6ES9lLIv5uBuCD/8l7Bo2Z3gjv5Xe8TEtxfmxUKfYot4Rzy6YOnQBtlVQEvS91oxmbGCLa1EcccikSYiTQ15WQRxbgr4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V9axJvTo; arc=none smtp.client-ip=209.85.214.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fdRVC+SW"
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-354ba08cfd1so6301586eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 21:56:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V9axJvTo"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2e87c66e556so15946325ad.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 21:56:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791953784; x=1792558584; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WjQH6eF1riN+Hdn/Ak1ts4FChWpGKVUmHOzzJk7eT5E=;
-        b=fdRVC+SWYM8ZLJ165A3wGZaw8opLHoA0K+UmYdypp+Cmd/Ztex9ifE4hrWWSXMH1Sw
-         mH7zN9u3SXhBs3Vvhgda9GCZh6dCojN9NRrd8hlpT051Gvc55yoc8mdlzSCDXcH62C+R
-         Gg0dyDwzvRrRXOTAFDJKHy+7/CYhnf6cWf+EwHxZZOteALETiPMcP2pMjpSNexiHFg5c
-         WMYMeqSbtgtXVWKGKRmaqDFwCPG+SjO7mUZaYLbbg4M3/iacpSYKhcYC/Ht6PUVYyelW
-         uSCtYJTRALKDoDuvoJVxlzTlI3dfTL6nNS5fmCPS6BVO7RGNG8fGl4RMl75FKXdXNpaU
-         V5Tw==
+        d=gmail.com; s=20251104; t=1791953794; x=1792558594; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BSW6i2w4Oy60qLb7Zx4Md14I5u5RccmlocFS2yUpAMQ=;
+        b=V9axJvTo/gBL1MAhOqAUEX84TDZbRMlSRBQFb8J/PGpu4XsnJSZUOmcSbnXscjnSEY
+         VSsaXWkjlGfcDXwu9yG44AZ7fUa3URSW9XswLz3+Oq7uD9BqbHevCyYBk6p8BjFAtV7g
+         ngylDqbS8/TR0y7hKPmHrhoi6vW7xymOFg21yu5tLjdpEaPmpIQQJRnRL+Ura8ncI2dh
+         YZuI+74n2zRIxLw16XLKw6uFgYqh8mppzWGIN/Ajlv9m47VW4oedxOGTuSO9g9std+yZ
+         XJoEEOpyDp/8iY2T1CPPDVRV+aLpU1G5oC/xr3y3hj+M0mOwTE4W5amjWWBnVOO39bko
+         ILpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791953784; x=1792558584;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WjQH6eF1riN+Hdn/Ak1ts4FChWpGKVUmHOzzJk7eT5E=;
-        b=N3Qi6KkC1ntexXK41VdwqTp3dLfFt+acxK1Temvbw+WJiO5n7bK/JGdEudGJ1mdiNQ
-         meqLcZP2FYL/LTbdjR8Gc7pkjn0H6QnPLAXH8gZpDUL5elAqOrYeipJHufKhRcfoYNOZ
-         xpLyKr+Tq+EVze9lJAfncktnGpygtfup7G2RReMYbdgtzrVsWdkQT8VBKemppeyz644/
-         NtA4frHY6ogydkUCU/7M8J6MxqYXW1zAszH3c2x8GxMcE+mKGNQUgIueihtZK/bhB8rV
-         erUjsDp2M16lyyfm6/eLjRTa5SUDPw7eZjwGG3JzgrO3tTa8Alwjj0jTMMm59KiDU7Rt
-         Aiqw==
-X-Forwarded-Encrypted: i=1; AKwUvByQsT0joZZL2bBB5laZxfXD8tlPTkqcakfjMRexj35J1QBj0to4VHdTi8l5BVThrdtY0f2Ko/spGzDOjoU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLNKGA2ZHsl55COsozmkRZphgybpzZgl691qvci/IeFju0A6+Wi
-	8twx1atF5mHjLjyXcQ1hkT8fdpLJrTJWo06HS98HgsrUbu3I45OGZ3eA
-X-Gm-Gg: AYBFou2dXvV/LAiH72Lm4Ljj2neuKLsxdP/5i8dLxqxrr9XCaOjTzoglGifmlzs/Rcz
-	WomoDn6Vv6KYUNZlJdSZHERM+1yM3Mcq8Rej34O53KH5ayyWL+HJeepXIP2TEcoatGk017XTF+b
-	sdU5OpV2SakERhqTM13PfNg6nVWQhQNwO9HnMDFma5nhIpm2VciTbvKrLfMR4DVohdytizI7JAH
-	63RLvU3Me0zG+64fHD+YieqwieU/GNkPgmvhmGW74jEM783gIcN3aFNgE6Am4BYbImea5/EEviO
-	bIwvww0e3vxpHRsDh0xxjFUiIU6iC+F742B7tjlu9Ar+c07Na3tH8FnXAmmyXlbPa3X8IHCDGiC
-	MKCCA69cmeS2w5RZnX9HcuPUhwukIlFzhghoo8X3Ec1PFgvgPtbFE4wtyzFmdM2hwnOFYSOCpx8
-	ZEere1xTkz8Cc3/UaSWCltJSyktmp2tB9YDcervESRpGJIgFv9dFbWnS56AQeKWndiqI8RlDdrR
-	m1d2Ykno7G6
-X-Received: by 2002:a05:7301:dd8a:b0:35d:ea6f:b85e with SMTP id 5a478bee46e88-35dea6fb98cmr1093412eec.1.1791953783690;
-        Tue, 13 Oct 2026 21:56:23 -0700 (PDT)
-Received: from online.mioffice.cn ([2408:8607:1b00:8:a73d:31e0:8b98:4eee])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-359789fde97sm33473630eec.20.2026.10.13.21.56.13
+        d=1e100.net; s=20260707; t=1791953794; x=1792558594;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BSW6i2w4Oy60qLb7Zx4Md14I5u5RccmlocFS2yUpAMQ=;
+        b=qCPmAdRYNm2LyFKBjrtn1HdEJ8YaLEVEEBQxyD2Vc9O8N0P2lBL54tPjuS49gFv0T/
+         lfjGsYQKXQ/pAm2lW66tI40W81PpAuAuvugEam4mB9BzI+037WKuPujBP4obnLx0Mvak
+         iP3NxV3yJkJ7Xa/57c15FafAuXZO3gO4+mmJ4XLZYpJ6Z3pX38QTb5l0OYFclP2H0+VV
+         MkRekvwLfPHjPegR4Ni0eG0s3lECuF+t9sRTU8By3WEy2Dkq8TmlFtaIJWrlIYhdr58A
+         tNDbJBxtvALtw20+JvGId+Y099spreVpLYSqCsRw/cAyK+l1VoYyZDYOy+mil2fH9zZf
+         S2Tw==
+X-Forwarded-Encrypted: i=1; AKwUvBwSljX0ttk9j7qhSz/3JYtzThP3P68nOYqNTv5Eatm31KFLfoSeXUt0ZYHJieXLsh7fXO8HXYcjMac1G/Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJN9VQtHwf7+EEemCyisTpfTpKLjBeObOXbAyJaPBAgERUOl4+c
+	hHXstP/owkU1ToZKc77ej0btN+L759sI8tEcIq2+iYjCxr+fGq7n6Xbp
+X-Gm-Gg: AYBFou0o1bgfmOBgMWvafnff1+zPLngxbilgpk0xhuoIaZCSKOAH9Ot/qWaL178DKuU
+	Xsudl4aH1NJL1IDaERXbhpum8PnLvAtLR+lak07FzsJmris7K/ygJUGYPI8pBuqYSUpLEjH8OrZ
+	yMePpjRLr9/6WVvITSE0wsHBt6GVs6xUuEDUQXhkbPchkYYHf+13h42XtSZFrAvmPULS/kHPao3
+	qKS6jpJmv1uuji5n5axk3Ehrvc8fYKzvm+pUiDkGrpZ2zitY1bPbEocLf3mpCFP5SmLnFRbuAT9
+	/RIKpDgO/a1u0ttTPnZlHLntXJyElq3AK3+6H2CetIBoSwCjJzePQMemnOpwsPLAQMT5xbsx+ZC
+	eHAWWxOa+G/PzqU92R79pQ3Ea7YukkbhFQGMfps6ffG3x0H5Wqr9eVjPJQF07j+t8nqy4JJ6E3D
+	Fc/vff9sDs88RTmzz45tEf9x5Sc2jVA9TmohVcWqHW6Jk5cw6XDRv92JuVRgoFHyqCwJqjpjl6J
+	bu9jWu3EHSxyeMyVw==
+X-Received: by 2002:a17:903:350d:b0:2e7:4a2f:690a with SMTP id d9443c01a7336-2e8404d4c53mr91842265ad.14.1791953794490;
+        Tue, 13 Oct 2026 21:56:34 -0700 (PDT)
+Received: from rigel (194-223-74-160.tpgi.com.au. [194.223.74.160])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422b8dd5sm66344525ad.55.2026.10.13.21.56.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 21:56:22 -0700 (PDT)
-From: Pengfei Zhang <zhangfeionline@gmail.com>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>,
-	EricChan <chenchuangyu@xiaomi.com>,
-	Simon Horman <horms@kernel.org>,
-	zhangpengfei16@xiaomi.com,
-	netdev@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net: stmmac: xgmac: do not treat TBU as a TX event
-Date: Wed, 14 Oct 2026 12:56:07 +0800
-Message-ID: <20261014045607.3421104-1-zhangfeionline@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <179194881415.434549.5017437610608933310@kernel.org>
-References: <179194881415.434549.5017437610608933310@kernel.org>
+        Tue, 13 Oct 2026 21:56:33 -0700 (PDT)
+Date: Wed, 14 Oct 2026 12:56:24 +0800
+From: Kent Gibson <warthog618@gmail.com>
+To: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] gpiolib: cdev: don't record a line direction the driver
+ refused
+Message-ID: <20261014045624.GB13991@rigel>
+References: <20261012-gpiolib-cdev-direction-v1-1-aambrozewicz@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012-gpiolib-cdev-direction-v1-1-aambrozewicz@nvidia.com>
 
-> [Severity: Medium]
-> Can the XDP_TX and ndo_xdp_xmit path stall permanently on XGMAC in
-> shared-IRQ mode when the TX coalesce timer is disabled?
+On Mon, Oct 12, 2026 at 04:49:18PM +0300, Adrian Ambrozewicz wrote:
 
-This is not caused by this patch. It needs a very specific setup: XDP
-TX traffic, tx-usecs set to 0, and tx-frames too large to be reached
-below STMMAC_TX_THRESH. With that setup the same stall can already
-happen on XGMAC with per-channel MSI today, because
-stmmac_xdp_xmit_xdpf() only sets IC on a tx_coal_frames boundary and
-has no fallback when the TX timer is disabled.
+I would change the subject to "don't set GPIOD_FLAG_IS_OUT" as cdev
+doesn't interact directly with the driver - gpiolib does, and the change
+here is unconditional.
 
-I will look at fixing that in the XDP TX path with a separate patch,
-but it is independent of this one.
+> When a line is requested or reconfigured through the v2 uAPI,
+> gpio_v2_line_config_flags_to_desc_flags() copies the requested
+> configuration into the descriptor flags, GPIOD_FLAG_IS_OUT included,
+> before gpiod_direction_input_nonotify() or
+> gpiod_direction_output_nonotify() asks the driver for the direction.
+> If the driver refuses, for instance with -EOPNOTSUPP from
+> .direction_input() for a line that can only be an output, the ioctl
+> fails but the flag keeps the refused direction. gpiod_free_commit()
+> does not touch GPIOD_FLAG_IS_OUT, so this outlives the failed request,
+> and GPIO_V2_GET_LINEINFO_IOCTL reports the line as an input while the
+> hardware still drives it, until a request without direction flags
+> makes gpiod_request_commit() read the direction back from the driver:
+> 
+>   GPIO_V2_GET_LINE_IOCTL, line 0, input:         -EOPNOTSUPP
+>   GPIO_V2_GET_LINEINFO_IOCTL, line 0:            input
+>   GPIO_V2_GET_LINE_IOCTL, line 0, no direction:  ok
+>   GPIO_V2_GET_LINEINFO_IOCTL, line 0:            output
+> 
+> GPIO_V2_LINE_SET_CONFIG_IOCTL updates the flags in the same order.
+> There the line stays requested, and since commit 92ac7de3175e
+> ("gpiolib: don't allow setting values on input lines")
+> GPIO_V2_LINE_SET_VALUES_IOCTL on it then fails with -EPERM, though the
+> line is still an output. A line whose driver refuses to make it an
+> output is likewise reported as one.
+> 
+> gpiod_direction_input_nonotify() and gpiod_direction_output_nonotify()
+> set or clear GPIOD_FLAG_IS_OUT themselves once the driver has accepted
+> the direction, emulated open drain and open source included, and
+> nothing between the copy and those calls reads the flag. Leave it to
+> them, as the v1 uAPI already does.
+> 
+> The other flags that the helper copies stay as they are. Active low,
+> drive and bias are what gpiod_direction_*() applies, drive and bias
+> possibly before the driver refuses the direction; edges and event
+> clock are the character device's own. None of them is read back from
+> the driver, so there is no earlier state that is more accurate to go
+> back to. A failed request releases the line, which clears them, and a
+> failed reconfiguration leaves the line, like the lines before it, with
+> what was applied up to the failure.
+> 
+> Reproduced under QEMU with a test GPIO chip whose line 0 refuses input
+> and line 1 refuses output: both refused requests and both refused
+> reconfigurations leave the line info with the refused direction, and
+> setting the value of the reconfigured output fails with -EPERM. With
+> this change the line info shows the direction of the hardware in all
+> four cases and setting the value works. First seen on real hardware
+> with v6.12.
+> 
+> Fixes: 3c0d9c635ae2 ("gpiolib: cdev: support GPIO_V2_GET_LINE_IOCTL and GPIO_V2_LINE_GET_VALUES_IOCTL")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+> ---
+>  drivers/gpio/gpiolib-cdev.c | 9 ++++-----
+>  1 file changed, 4 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpio/gpiolib-cdev.c b/drivers/gpio/gpiolib-cdev.c
+> index 5d53bfcdf726..9bbee3a1f9c9 100644
+> --- a/drivers/gpio/gpiolib-cdev.c
+> +++ b/drivers/gpio/gpiolib-cdev.c
+> @@ -1226,14 +1226,13 @@ static void gpio_v2_line_config_flags_to_desc_flags(u64 lflags,
+>  {
+>  	unsigned long flags = READ_ONCE(*flagsp);
+>  
+> +	/*
+> +	 * GPIOD_FLAG_IS_OUT is left to gpiod_direction_input/output(), which
+> +	 * only update it once the chip has accepted the direction.
+> +	 */
 
-> [Severity: Medium]
-> This isn't a bug introduced by this patch, but does
-> dwmac4_dma_interrupt() in dwmac4_lib.c have the same sticky TBU
-> problem?
+Not a fan of comments describing why code that should not be here is not
+here.  The equivalent functions linehandle_flags_to_desc_flags() and
+gpiod_configure_flags() don't have any mention of GPIOD_FLAG_IS_OUT, so
+why here?
 
-Yes, it looks like it does, especially since commit 6ccf12ae111e
-("net: stmmac: use interrupt mode INTM=1 for multi-MSI") moved the TBU
-check out of the NIS block. I only have XGMAC hardware at the moment,
-so I kept this patch to XGMAC. I will send a separate patch for dwmac4
-once I can test it on dwmac4 hardware.
+If this is part of a policy change to "gpiolib should manage GPIOD_FLAG_IS_OUT"
+then gpiolib.h would be a more appropriate location.
+Not that I'm suggesting adding such a comment - just that a comment here is
+wrong for multiple reasons.
+
+>  	assign_bit(GPIOD_FLAG_ACTIVE_LOW, &flags,
+>  		   lflags & GPIO_V2_LINE_FLAG_ACTIVE_LOW);
+>  
+> -	if (lflags & GPIO_V2_LINE_FLAG_OUTPUT)
+> -		set_bit(GPIOD_FLAG_IS_OUT, &flags);
+> -	else if (lflags & GPIO_V2_LINE_FLAG_INPUT)
+> -		clear_bit(GPIOD_FLAG_IS_OUT, &flags);
+> -
+
+Having gpiolib manage GPIOD_FLAG_IS_OUT to keep it consistent with the
+driver state makes sense, so no problem with the code change itself.
+
+Cheers,
+Kent.
