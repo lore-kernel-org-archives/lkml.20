@@ -1,277 +1,270 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8468747B436
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:44:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+Received: from zg8tmja2lje4os43os4xodqa.icoremail.net (zg8tmja2lje4os43os4xodqa.icoremail.net [206.189.79.184])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 63C024E0B9D;
+	Wed, 14 Oct 2026 09:44:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.79.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791971074; cv=none; b=VOAEsLoBWqupeiUxdITb9Qv8Mrxpa/bLOeiW+XhvpRxZSy2c75oZGAFKpV+WICoM+e+TVnT790qo5aVtt5B8vsjM1p0a+Qz1JzmulVkI/gJ3oZH3uGc3XgXL+dqvvhkHppnPIoiyV0h1/1UuD9DQWOGpt/1X1lnATeIR1lQBmNM=
+	t=1791971077; cv=none; b=ijm5PeMUmEDfolZqw7v+JghHYHpZkdiCI3mXy0LCQ8TP0cuqu1NNV7ClFiJGtUwzfz41B9OT92r7FhYypALl/6Q+azRxivz+uXxLiRlBupNOAfeaqxlsCA/rlTKXrt+H6VLPGA4MYUJp3WR2NJLoRnC5IHK2hoYi/1vj7900yOI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791971074; c=relaxed/simple;
-	bh=WaYVZicrDlr4HfBHe/rJfnu+8TVr0yyGGzp7RQjsvxA=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=Zzcjzhjlb62CnlVJW5kHCwebQVCPgaR2BOPfheSzTWhTqvSd2uomN9C6amTQWYBjg33a3nnY2t2gFHHGLE5S/PDl41FsfxIOWZlh+PVxnoZ1KjIYHQVO8P9DoNYSKdpXsIvk92NHdR+ajNcTqCNcNQV8NAhUP8UdN6q2EK1RxR8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=I8XQHrdb; arc=none smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="I8XQHrdb"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48c4649b3aaso2471183f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 02:44:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791971071; x=1792575871; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=H6xM3sm3th3dZUQDR90wqF/auFVqXIo1QuQOs4ETDrQ=;
-        b=I8XQHrdbkKkPYfSgwJZAAfJxAIWGRM3OGO/xmLPD7ip+aV/bhsJsC0rgHdqxd7jOhj
-         w48DVXEGyxtwruEJ5EaoYZPM9WGThErLKPyP71dnq3fkiMuUuLT8rpy32Ix7jt8n4U6z
-         YUfc7WFwcaiSBCLSRWXOYVICimnrfNiz5N2bhk5zZCLHE60ED8LhFL2cAiMxsW8nJJnf
-         6SuDySEwvgQC8b7rOnOpZ8VqmO67Z74N1bXlySPNmpBDnNLUuLcBT8mq5aggo8TrVVSE
-         QkjU29NIMlJvvPw7KuGnk2b2REUoDRZxTnKYpmACbZSB51x4TbV5Wn/sMbivaJXdv+0A
-         rn8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791971071; x=1792575871;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=H6xM3sm3th3dZUQDR90wqF/auFVqXIo1QuQOs4ETDrQ=;
-        b=K9d3YW0yzq4SrMs60g8Wf45nt43pASTH8PZcZmj5A8pRk/MRjQEeRYd2UoJLwXsBqG
-         2M5CfJo1vsWz91LrpQbyUgBsrgh2O+graYGsDNmvob0KtOecFh9OfoH9fLX+Kt4EgwsI
-         0tnsAUlgfL5H3AmbCcz3BiPav6xNs8AHX6R+5JBcF0BCvAAqBgm2semezVw7tjz9UhnS
-         PniLgGvlx9ILRAom2oCdFMIpZBRoNYQA+k4gtLRwx2Okrh30ZPA+1ko4yACYKEK0JdDP
-         Ml/E2/PkQ3xsNyCzCXqj/mtUWpvkpfsXTyzwXhAVtNo9+qN9rQXTdTAbWinez8R1ItBq
-         hnoA==
-X-Forwarded-Encrypted: i=1; AKwUvByAYlTJVVlMocvdCXNTVk0uVEJ8LZ05PNBwwv2Jn2ieLtkvrqshPFPd6+qhKSp1uiT3m1qkic1b77OagXQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJsuYL+vVwXnmy1RPjHKolOeLUEOcEg8gZJiGgWlp7yTZrCMBLa
-	djgtjGyvzbW6P82Y/+3ebFhzKJ4q7OX9kcEKDZy9YBTDcjNa0uxoigZb7TG4k9iV1eQ=
-X-Gm-Gg: AYBFou06ANSALa/t5C0Cd9igEuL8/1C3AUQWShk6a9KMAQZpCJE5fjgRyDdFgoUWfqG
-	xQeaNG/ztdcYo7XCGyGkEbOqgVrpPuTzxkBUYYt2+y1OirEri/zGgBkVzKJo4Xrfx2LhH6bI69J
-	xBH7XeSUBtIyByS5SdK62uMbyuFiz1yqomuDoVAHz2aWXlwxymQ4oyVWUABZBRuf/O6AdS1zS6C
-	SHjPSlnd3d0Rdd7jiGpThm1weLzMWzYVhswSCLZFOP+aIndnxOpIq9g6zxIqan0YqexA/yI2vtK
-	vkCIBsYsyFeRK8XeDD5xEd00lki/GPxd4F8RprLIazamBmTLGzUFrB13tcLazdWI0Bf8iCBGpJe
-	047oflNFfpfMgriMtssj6gmnWVWm8bdzoe6gJn5ptgJOjk1jLBFfQ83vfKfUfRZyuHFVjBf5xJJ
-	OZe7N6vslBe0VNXsdxpPlQNiVRz7zGLyU9844DDhQDin04aHHbGmA99Y/nSC6OU4o/ETQxVJLSm
-	cpGXfcUVzHHFsfY3vtJhl0tmRPE9u5LKPbZgoIQrJmITrTt6kf1Kg==
-X-Received: by 2002:a05:6000:22c8:b0:48c:6a50:cb9a with SMTP id ffacd0b85a97d-48dbacf56a0mr28939645f8f.51.1791971070318;
-        Wed, 14 Oct 2026 02:44:30 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:ef1f:5ab3:36fa:3ccb? ([2a01:e0a:106d:1080:ef1f:5ab3:36fa:3ccb])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de70079e7sm5699992f8f.11.2026.10.14.02.44.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 02:44:29 -0700 (PDT)
-Message-ID: <03375a31-0ac6-47a4-b0dc-6327080e1622@linaro.org>
-Date: Wed, 14 Oct 2026 11:44:28 +0200
+	s=arc-20240116; t=1791971077; c=relaxed/simple;
+	bh=Wec2LdFBCDRlFYqPwmYrASwapZ2kO7Te7wk01Q1reTE=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=ZGW+MPm3OrnzwaE5F/SmTeArxDLPx21qqeQLaFPwSiEzKGcno8euEn4XP6orAApTNP8y6q4LEmI437u51WJy6ijz/lDQiqDLGnq6Ia/3PvjUXh9KsaPLJfp7+DCc9ukMSFjGiL8zzjZM9MgQWwPNUMmcgNoSbHLRJSgInotItqU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=206.189.79.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from E0002472LT.eswin.cn (unknown [10.12.96.78])
+	by app1 (Coremail) with SMTP id TAJkCgCXKW7vTs9q6aSGAA--.43637S3;
+	Wed, 14 Oct 2026 17:44:17 +0800 (CST)
+From: Xiaofeng Yuan <yuanxiaofeng@eswincomputing.com>
+To: Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>
+Cc: Alexandre Ghiti <alex@ghiti.fr>,
+	Nam Cao <namcao@linutronix.de>,
+	Naveen N Rao <naveen@kernel.org>,
+	"David S . Miller" <davem@davemloft.net>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	Xiaofeng Yuan <yuanxiaofeng@eswincomputing.com>
+Subject: [PATCH v5 1/2] riscv: kprobes: reject probes inside LR/SC sequences
+Date: Wed, 14 Oct 2026 17:44:14 +0800
+Message-Id: <20261014094415.374-2-yuanxiaofeng@eswincomputing.com>
+X-Mailer: git-send-email 2.31.1.windows.1
+In-Reply-To: <20260828091202.1124-1-yuanxiaofeng@eswincomputing.com>
+References: <20260828091202.1124-1-yuanxiaofeng@eswincomputing.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 2/2] dt-bindings: usb: snps,dwc3: Fix downstream port
- numbering
-To: Chen-Yu Tsai <wenst@chromium.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Felipe Balbi <balbi@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-usb@vger.kernel.org,
- devicetree@vger.kernel.org, Kevin Hilman <khilman@baylibre.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
- Neal Gompa <neal@gompa.dev>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@codeconstruct.com.au>,
- Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai
- <billy_tsai@aspeedtech.com>, Michal Simek <michal.simek@amd.com>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Peter Griffin
- <peter.griffin@linaro.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?=
- <andre.draszik@linaro.org>, Tudor Ambarus <tudor.ambarus@linaro.org>,
- Heiko Stuebner <heiko@sntech.de>, Alim Akhtar <alim.akhtar@samsung.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Masami Hiramatsu <mhiramat@kernel.org>, Yixun Lan <dlan@kernel.org>,
- Troy Mitchell <troy.mitchell@linux.spacemit.com>,
- Minda Chen <minda.chen@starfivetech.com>,
- Shyam Pandey <radhey.shyam.pandey@amd.com>,
- Wei Yang <yangwei1@eswincomputing.com>,
- Senchuan Zhang <zhangsenchuan@eswincomputing.com>,
- Hang Cao <caohang@eswincomputing.com>, Li Jun <jun.li@nxp.com>,
- Peng Fan <peng.fan@nxp.com>, Roy Luo <royluo@google.com>,
- Yang Xiwen <forbidden405@foxmail.com>,
- Ahmad Zainie <wan.ahmad.zainie.wan.mohamad@intel.com>,
- Robert Marko <robert.marko@sartura.hr>, Xu Yang <xu.yang_2@nxp.com>,
- Wesley Cheng <quic_wcheng@quicinc.com>,
- Stanley Chang <stanley_chang@realtek.com>, Ze Huang <huang.ze@linux.dev>,
- Aswath Govindraju <a-govindraju@ti.com>, Roger Quadros <rogerq@kernel.org>,
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-kernel@vger.kernel.org, asahi@lists.linux.dev,
- linux-aspeed@lists.ozlabs.org, imx@lists.linux.dev,
- linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
- spacemit@lists.linux.dev
-References: <20261014082037.1774672-1-wenst@chromium.org>
- <20261014082037.1774672-3-wenst@chromium.org>
- <7020a7a6-332e-4fd0-a659-d82eb768614c@linaro.org>
- <CAGXv+5G1kgyumbj7wGf6rPFbg3spSO0zYmEkn-hZT4qUdJbytA@mail.gmail.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <CAGXv+5G1kgyumbj7wGf6rPFbg3spSO0zYmEkn-hZT4qUdJbytA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:TAJkCgCXKW7vTs9q6aSGAA--.43637S3
+X-Coremail-Antispam: 1UD129KBjvJXoW3XF47GrW7WFy7AFW8CF4fGrg_yoW3Jr48pF
+	s5Cw15JrWDXFs7CrySyr4kZr4Svan5G3y7KryDZa43KayUKryrtFZ29w42k3Z8CrZY9w1f
+	WrWavrZ8u347AaDanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUml14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jr4l82xGYIkIc2
+	x26xkF7I0E14v26r4j6ryUM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
+	Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJw
+	A2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAS
+	0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2
+	IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0
+	Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kIc2
+	xKxwCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE-syl42xK82IYc2Ij64vIr41l4I8I3I0E
+	4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGV
+	WUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_
+	Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rV
+	WUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4U
+	JbIYCTnIWIevJa73UjIFyTuYvjfUnZXrUUUUU
+X-CM-SenderInfo: h1xd05xldrwv1qj6v25zlqu0xpsx3x1qjou0bp/1tbiAgEAE2rOXakY1wAAsP
 
-On 10/14/26 11:29, Chen-Yu Tsai wrote:
-> On Wed, Oct 14, 2026 at 5:28 PM Neil Armstrong
-> <neil.armstrong@linaro.org> wrote:
->>
->> On 10/14/26 10:20, Chen-Yu Tsai wrote:
->>> The DWC3 controller can operate in host mode. It does so with a XHCI
->>> compliant host controller. The XHCI has two downstream ports, one for
->>> HS and one for SS. USB downstream ports start from 1, not 0.
->>
->> Is there something in index 0 we will need to define at some point ?
-> 
-> On the host side, no. Downstream ports start at 1.
-> 
-> On the device mode side, I believe the numbers are completely made up.
-> 
->> Using 0 as base for numbering in DT isn't incompatible with the USB
->> spec using base 1 for numbering,
-> 
-> But you end up with diverging numbering schemes, and it diverges
-> from other USB controllers, particularly XHCI, which DWC3 embeds.
-> 
-> And it also differs from the numbering currently used for directly
-> connected onboard devices (like hubs), which use or expect the USB
-> numbering scheme.
-> 
-> Sure we can make DWC3 "special", drop inclusion of usb-hcd.yaml,
-> and duplicate the section for onboard devices. On Linux, we can
-> add some more code to xhci_find_raw_port_number() to make an
-> exception for DWC3 controllers.
-> 
-> Also, usb_of_get_connect_type() is already broken for DWC3 based
-> controllers that only describe the HS connection but not the SS
-> connection. usb_of_get_connect_type() currently doesn't call
-> usb_hcd_find_raw_port_number() so both HS and SS get mapped to port 1,
-> which wouldn't be in the DT since HS is currently port@0. But even if
-> it did, SS would get mapped to port 2 anyway.
-> 
-> 
-> IMHO having consistent numbering across controller types would be
-> better. This avoids making the USB core and hub code deal with more
-> exceptions, and also easier to understand and write device trees.
+A trap taken in the middle of an LR/SC sequence clears the load
+reservation, so an SC following the probed instruction always fails and
+the enclosing retry loop re-enters the breakpoint, livelocking the CPU.
+Reject probes of the LR/SC instructions themselves and of any address
+between them.
 
-I was in the impression the port number not necessarily reflects
-an actual physical numbering, and can be a logical number we would
-then map in the kernel.
+arm64's kprobes rejects its equivalent exclusive load/store instructions
+and, in arm_kprobe_decode_insn(), walks backward from the probe address
+(bounded by the enclosing symbol) to reject any address inside an
+exclusive sequence.  RISC-V cannot walk backward because
+variable-length instructions make instruction boundaries ambiguous, so
+walk forward from the enclosing symbol, a known instruction boundary, up
+to the probe address and track whether an LR is still outstanding.
 
-I don't see any issue here having base 0 for the bindings and then
-converting it to base 1 for the XHCI port numbering.
+A Zalrsc-constrained LR/SC retry loop holds at most 16 instructions, so
+an LR more than MAX_LRSC_GAP instructions ahead of the probe cannot
+start a sequence containing it.  Count instructions, not bytes:
+compressed instructions would make a byte window ambiguous.
 
-Each controller (Host, Device, OTG) will have it's own numbering anyway,
-so using the XHCI numbering only sounds a bad idea TBH.
+The LR/SC instructions themselves are rejected in
+riscv_probe_decode_insn(), and an address inside a sequence is rejected
+in arch_check_kprobe().
 
-> 
->>> Reconcile the downstream port numbering with the common USB host
->>> binding, renumbering the downstream port numbers from 0 and 1 to
->>> 1 and 2.
->>>
->>> This is non-backwards compatible, however it won't break current
->>> major implementations:
->>>
->>> - dwc3 "gadget mode" in Linux kernel only requires a connection to be
->>>     present; it doesn't matter which port it is
->>>     - dwc3 "host mode" OF graph connections aren't supported yet [1]
->>> - FreeBSD doesn't use the OF graph for anything
->>> - U-boot doesn't use the OF graph for USB
->>> - OpenBSD doesn't support dwc3, only the XHCI in dwc3, and doesn't use
->>>     the OF graph for USB
->>> - coreboot doesn't use the OF graph for anything
->>> - Zephyr doesn't support dwc3
->>> - TF-A doesn't use the OF graph for anything
->>> - EDK2 doesn't support dwc3 and doesn't support OF graph
->>> - OP-TEE doesn't support dwc3 and doesn't support OF graph
->>>
->>> [1] WIP to tie OF graph port node to USB port device
->>>
->>> Fixes: a33113f73693 ("dt-bindings: usb: snps,dwc3: document HS & SS OF graph ports")
->>> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
->>> ---
->>> It is unclear to me whether the HS/SS numbering is fixed for all dwc3
->>> variants. I checked Allwinner H616 and Rockchip RK3588 and they both
->>> have HS as port 1 and SS as port 2.
->>>
->>> This also doesn't cover a potential "multi-port" DWC3 implementation,
->>> which Qualcomm seems to have.
->>
->> It breaks the current Qualcomm numbering on numerous boards.
-> 
-> Yes. It breaks _everyone_ using the current numbering in the sense that
-> they are no longer valid, but should not affect actual usage.
+Signed-off-by: Xiaofeng Yuan <yuanxiaofeng@eswincomputing.com>
+---
+ arch/riscv/include/asm/insn.h          | 33 ++++++++++++++
+ arch/riscv/kernel/probes/decode-insn.c |  2 +
+ arch/riscv/kernel/probes/kprobes.c     | 63 +++++++++++++++++++++-----
+ 3 files changed, 86 insertions(+), 12 deletions(-)
 
-Older DT are supposed to be working on new kernels, you will break ABI
-and will break usage if the port numbering is enforced to enabled embedded
-hubs for example.
-
-Neil
-
-> 
-> This comment refers to "multiport" controllers from Qualcomm [1], which
-> would have ports beyond 1 and 2.
-> 
-> [1] https://lore.kernel.org/all/20240420044901.884098-8-quic_kriskura@quicinc.com/
-> 
-> 
->>> ---
->>>    Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml | 4 ++--
->>>    1 file changed, 2 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
->>> index 6c0b8b653824..4b6304bd2ec1 100644
->>> --- a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
->>> +++ b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
->>> @@ -410,11 +410,11 @@ properties:
->>>          property is used.
->>>
->>>        properties:
->>> -      port@0:
->>> +      port@1:
->>>            $ref: /schemas/graph.yaml#/properties/port
->>>            description: High Speed (HS) data bus.
->>>
->>> -      port@1:
->>> +      port@2:
->>>            $ref: /schemas/graph.yaml#/properties/port
->>>            description: Super Speed (SS) data bus.
->>>
->>
+diff --git a/arch/riscv/include/asm/insn.h b/arch/riscv/include/asm/insn.h
+index ad348d8b8..46a1666d2 100644
+--- a/arch/riscv/include/asm/insn.h
++++ b/arch/riscv/include/asm/insn.h
+@@ -141,6 +141,7 @@
+ #define RVG_OPCODE_JALR		0x67
+ #define RVG_OPCODE_JAL		0x6f
+ #define RVG_OPCODE_SYSTEM	0x73
++#define RVG_OPCODE_AMO		0x2f
+ #define RVG_SYSTEM_CSR_OFF	20
+ #define RVG_SYSTEM_CSR_MASK	GENMASK(11, 0)
+ 
+@@ -175,6 +176,8 @@
+ #define RVG_FUNCT3_BGE		0x5
+ #define RVG_FUNCT3_BLTU		0x6
+ #define RVG_FUNCT3_BGEU		0x7
++#define RVG_FUNCT3_AMO_W	0x2
++#define RVG_FUNCT3_AMO_D	0x3
+ 
+ /* parts of funct3 code for C extension*/
+ #define RVC_FUNCT3_C_BEQZ	0x6
+@@ -263,6 +266,36 @@ __RISCV_INSN_FUNCS(ebreak, RVG_MASK_EBREAK, RVG_MATCH_EBREAK)
+ __RISCV_INSN_FUNCS(sret, RVG_MASK_SRET, RVG_MATCH_SRET)
+ __RISCV_INSN_FUNCS(fence, RVG_MASK_FENCE, RVG_MATCH_FENCE);
+ 
++/*
++ * LR/SC are identified by the AMO opcode plus the funct3 width field
++ * (.w/.d) and the funct5 field (funct7[6:2]) distinguishing LR from SC.
++ * The aq/rl bits (funct7[1:0]) are ignored.  For LR the rs2 field must
++ * encode x0.
++ */
++#define RVG_AMO_FUNCT5_LR	0x02
++#define RVG_AMO_FUNCT5_SC	0x03
++
++static __always_inline bool riscv_insn_is_lr(u32 code)
++{
++	u32 funct5 = (code >> 27) & 0x1f;
++	u32 funct3 = (code >> 12) & 0x7;
++
++	return (code & RV_INSN_OPCODE_MASK) == RVG_OPCODE_AMO &&
++	       funct5 == RVG_AMO_FUNCT5_LR &&
++	       (funct3 == RVG_FUNCT3_AMO_W || funct3 == RVG_FUNCT3_AMO_D) &&
++	       !(code & GENMASK(24, 20));
++}
++
++static __always_inline bool riscv_insn_is_sc(u32 code)
++{
++	u32 funct5 = (code >> 27) & 0x1f;
++	u32 funct3 = (code >> 12) & 0x7;
++
++	return (code & RV_INSN_OPCODE_MASK) == RVG_OPCODE_AMO &&
++	       funct5 == RVG_AMO_FUNCT5_SC &&
++	       (funct3 == RVG_FUNCT3_AMO_W || funct3 == RVG_FUNCT3_AMO_D);
++}
++
+ /* special case to catch _any_ system instruction */
+ static __always_inline bool riscv_insn_is_system(u32 code)
+ {
+diff --git a/arch/riscv/kernel/probes/decode-insn.c b/arch/riscv/kernel/probes/decode-insn.c
+index 433d9035b..e6a889467 100644
+--- a/arch/riscv/kernel/probes/decode-insn.c
++++ b/arch/riscv/kernel/probes/decode-insn.c
+@@ -23,6 +23,8 @@ riscv_probe_decode_insn(probe_opcode_t *addr, struct arch_probe_insn *api)
+ 	 */
+ 	RISCV_INSN_REJECTED(system,		insn);
+ 	RISCV_INSN_REJECTED(fence,		insn);
++	RISCV_INSN_REJECTED(lr,			insn);
++	RISCV_INSN_REJECTED(sc,			insn);
+ 
+ 	/*
+ 	 * Simulate instructions list:
+diff --git a/arch/riscv/kernel/probes/kprobes.c b/arch/riscv/kernel/probes/kprobes.c
+index a76eab297..8f20f1535 100644
+--- a/arch/riscv/kernel/probes/kprobes.c
++++ b/arch/riscv/kernel/probes/kprobes.c
+@@ -7,11 +7,13 @@
+ #include <linux/slab.h>
+ #include <linux/stop_machine.h>
+ #include <linux/vmalloc.h>
++#include <linux/unaligned.h>
+ #include <asm/ptrace.h>
+ #include <linux/uaccess.h>
+ #include <asm/sections.h>
+ #include <asm/cacheflush.h>
+ #include <asm/bug.h>
++#include <asm/insn.h>
+ #include <asm/text-patching.h>
+ 
+ #include "decode-insn.h"
+@@ -49,35 +51,72 @@ static void __kprobes arch_simulate_insn(struct kprobe *p, struct pt_regs *regs)
+ 	post_kprobe_handler(p, kcb, regs);
+ }
+ 
+-static bool __kprobes arch_check_kprobe(unsigned long addr)
++/*
++ * A trap taken in the middle of an LR/SC sequence clears the load
++ * reservation, so an SC following the probed instruction would always
++ * fail and the enclosing retry loop would re-enter the breakpoint.
++ * Reject probes inside such a sequence.
++ *
++ * RISC-V instruction boundaries cannot be recovered by walking
++ * backwards - a 32-bit instruction whose upper halfword looks like a
++ * compressed instruction is ambiguous - so walk forward from the
++ * enclosing symbol, a known instruction boundary, up to the probe address
++ * and track whether an LR is still outstanding.  A Zalrsc-constrained
++ * LR/SC retry loop holds at most 16 instructions, so an LR more than
++ * that many instructions ahead of the probe cannot start a sequence
++ * containing it.  Count instructions, not bytes: compressed
++ * instructions would make a byte window ambiguous.
++ */
++#define MAX_LRSC_GAP	16
++
++/*
++ * Verify that @addr points at the start of an instruction and is not
++ * inside an LR/SC sequence.  Returns 0 on success, -EILSEQ if @addr is
++ * not an instruction boundary, or -EINVAL if the probe would land
++ * inside an LR/SC sequence.
++ */
++static int __kprobes arch_check_kprobe(unsigned long addr)
+ {
+-	unsigned long tmp, offset;
++	unsigned long pc, offset;
++	int outstanding_lr = -1;
+ 
+-	/* start iterating at the closest preceding symbol */
+ 	if (!kallsyms_lookup_size_offset(addr, NULL, &offset))
+-		return false;
++		return -EILSEQ;
+ 
+-	tmp = addr - offset;
++	/* pc starts at the closest preceding symbol, a known instruction boundary */
++	pc = addr - offset;
+ 
+-	while (tmp <= addr) {
+-		if (tmp == addr)
+-			return true;
++	while (pc < addr) {
++		u32 insn = get_unaligned((u32 *)pc);
++		unsigned int len = GET_INSN_LENGTH(insn);
+ 
+-		tmp += GET_INSN_LENGTH(*(u16 *)tmp);
++		if (riscv_insn_is_lr(insn))
++			outstanding_lr = 0;
++		else if (riscv_insn_is_sc(insn))
++			outstanding_lr = -1;
++		else if (outstanding_lr >= 0 && ++outstanding_lr > MAX_LRSC_GAP)
++			outstanding_lr = -1;
++
++		pc += len;
+ 	}
+ 
+-	return false;
++	if (pc != addr)
++		return -EILSEQ;
++
++	return outstanding_lr >= 0 ? -EINVAL : 0;
+ }
+ 
+ int __kprobes arch_prepare_kprobe(struct kprobe *p)
+ {
+ 	u16 *insn = (u16 *)p->addr;
++	int ret;
+ 
+ 	if ((unsigned long)insn & 0x1)
+ 		return -EILSEQ;
+ 
+-	if (!arch_check_kprobe((unsigned long)p->addr))
+-		return -EILSEQ;
++	ret = arch_check_kprobe((unsigned long)p->addr);
++	if (ret)
++		return ret;
+ 
+ 	/* copy instruction */
+ 	p->opcode = (kprobe_opcode_t)(*insn++);
+-- 
+2.34.1
 
