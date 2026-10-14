@@ -1,122 +1,302 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66B034E13EE
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 23:52:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 418C54A8FF4;
+	Wed, 14 Oct 2026 23:53:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792021932; cv=none; b=Ja6HnFtpraABpcgC/YzPHLNchPhzl5FGsCPHFZ4/PKmxqYRtjDeoIZ/banEYJRt89vETgJa1MHnARXahz7JWYQqUO4MTO56hKAlcbPN/gxL038HSpkIT/8lQsQlQceQ6TEhdBRmLyNl/TDli5W+sZw5n6rL9kaMH/OtDnaBu9xg=
+	t=1792021997; cv=none; b=AwG8pYYTnRKlamd0YYv2K4XImTwoYNWyQ3msyzN6AzfNlZFYbHWL0OdCXujvaHvXrZCqqEraVytMHM3vsYVx2cq3f3aIzY4vC4G2y8tV0EH7PMuNLvb47eP6EHLQaKmv9k8AUiT2bKzh66blNMUkXWEAroVo6nfnOVgSCH3f4zs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792021932; c=relaxed/simple;
-	bh=RRLqekvGZQ+53SYPIEm6C+hfQvOWKj/0/1Rnrc6/8sU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nOCNK1Wxx2wAGRLr7vg5pN0fqXF3elnKBJX87E3TKfafFAcY8r7OwOzhluYbDGK+6450UEXboojteXDSHZoUP3R6d0zUVPM4WpEBDDyMTyWb03glAJP2uiBiao3L9BiUOrHw7cE8bqZpBPDlBJpNi07um5l6KBl1Z6mSnCAMuCw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OU4Q/Tr7; arc=none smtp.client-ip=209.85.215.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792021997; c=relaxed/simple;
+	bh=L4jf0lthvlUB4Jz007BKi/H886KzYmifmU6z1iSt7P0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HVArHvfn+LkIXPyBvvoYniJL8Ed1LmDUj6ySUS+RAnoF44ceW8CLsFk4k68heunknVAOMlesgcqUC5aq9hxfIk5kW4M8vroGLF6WP+/BKNSUL+sCuBRkjgDfcUmqwAEgigvSedW5SBqMvzV0ybSlIh8ZQWTAnKA0KChoxk6Sfqg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QS++b7o0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OU4Q/Tr7"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc4aa18f9afso788494a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:52:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792021931; x=1792626731; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=323vij1mo5h7hUHWqUpabgnpKBMGHxI36tWkLHAoZ2I=;
-        b=OU4Q/Tr74rMH1Mw9h44mxxaEBwoJ4ha0yvl9MEMQsxIoBh8MYOouk3gvQn3pToYssq
-         v/R/oPSt7/6ooj0Hg0Gooi6CkgAUZrlQiBvn3WlA2XyPbdoBb04uHwmWRmnPGtS8hcow
-         QUh+ANlne3J/m5OWnntEBOJviOyDDbeWo5BcOFm7bbr3PMDNj7TRKoncoz2ddiisgwN5
-         wbBNAPR6V3HPZEc3/GvnHnHXQaKf8vQeX7nWQFS65CU/HwFMfWNdK09AbUg507LTOg48
-         udYuF5EHvThqksh/3JrOXPy547Mnyhw8q66aEZerijDlYRUHGDq6V3yFLVNj082AZeOl
-         nJjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792021931; x=1792626731;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=323vij1mo5h7hUHWqUpabgnpKBMGHxI36tWkLHAoZ2I=;
-        b=HjyO55CqZUBAFMEF/e3Wfmvbyu0ROrzeGW4uMhO6fLaY+iU7z6NrsHUr5N9LCht7fc
-         k0Fl5N6vRFZ9CN5En7Ialg/ByGna8s4MlyAzjMe1zxXZraVMP6eSlKhTLY1G7TBVJmnp
-         IHgy1QNPpV5tgAIdbq8mz0Af1SWebby15u9pRWyX2VtQPEdKzX9MY7CykbkTKDUz1jhN
-         s0zrC5BcgBAXuK5My1hldGt+pcR7mPsTW0Mqsbe21lG0AbbEiY00PTrbspRXmDAvudu5
-         fOEKSIGky4N7PMABi1tmWRfkH37iRjVAoJiP6SLxFphc/OI7ms0Xg0FLluFfSTqrIX+B
-         S8tw==
-X-Forwarded-Encrypted: i=1; AKwUvBwtdlstGCfbHoKbZCT24y4bWWf9ytMEbcAR2xINKt9gbpEncbgL5Hwx3RM44JlNZB2qqWvJP8RqDioTiAg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLyYSC8BrdksNXZvKI8ho3ujv7uBfDkVkb8NCb2WmCIuuIioVkO
-	a2oV9CXPQ4JkG/IvM/cBY8a211AwPrWxSlNJVAaS8uoKYlxtbzYplLbf
-X-Gm-Gg: AYBFou1mTWLvnLshLsXqv/nDNrMR7F+pn8TSic02ypfEsc7VqXSplHIRAWjhIKx3xoN
-	zYO1Plbv9rJIUpkFGkaQmdww6/5wySxFv8c4TfWQSulFA+EqtIrf8Q5CykU2X/55ojIbLb0SRuW
-	5jSaEk1cuYBRGRQSBXgFF9llIX79HDdxaDi0035lFTpuQvAVNZpztvzY5LikFveo76T1BK+zb1o
-	qD8e53rgnqqJy2s2aO20VvMu7dqqxs1DGC8N7nNURUMNLWWgFBUxWlnEBP8B2o8QZIbv6uG70gG
-	ptce2HxxPRDw6KZQ9yaRV/Shhffli0VRZz664t2E6cd1RDm/c3QWFq79/Z8y5eMVMUXfdWqX312
-	lRXiTrRtFZz9AwQi/YMzXBUxtN8Y7RLauxbP6cT4HU8b10rBsuOnDCIP4bzgF3/t5p3yR8bFE/O
-	asfoT5aCt5ONY+Yslshi/WuSgWkmuzRZheIPwj9uIhJJjCJLix7pnB3hJ/tVGL19LVSYDQ8XvEz
-	Ge9BTvWciTpCPI9nZZqu3+eHhBwT+YQV3R16USn0/bNJdcHjuGFg0GMpC1uC5WN3EbP+0wPY685
-	cdtADkmzz5gZJOzhHppLLIaySr8=
-X-Received: by 2002:a17:90a:d006:b0:3a8:6a04:80ef with SMTP id 98e67ed59e1d1-3ab3a2901c2mr12576549a91.6.1792021930548;
-        Wed, 14 Oct 2026 16:52:10 -0700 (PDT)
-Received: from localhost.localdomain ([183.96.175.225])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac943e755bsm1500440a91.2.2026.10.14.16.52.07
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 14 Oct 2026 16:52:09 -0700 (PDT)
-From: Joonho Lee <mynameisjune111@gmail.com>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-api@vger.kernel.org
-Subject: Re: [RFC PATCH 2/2] ALSA: pcm: refresh capture pointers before drain
-Date: Thu, 15 Oct 2026 08:52:03 +0900
-Message-ID: <core-drain-helper-reply.0c1099dbd0ca4a37@gmail.com>
-In-Reply-To: <87jynkcn60.wl-tiwai@suse.de>
-References: <rfc-core-capture-drain-0.112c40f0e9284eaa@gmail.com> <rfc-core-capture-drain-2.112c40f0e9284eaa@gmail.com> <8733u8g0kh.wl-tiwai@suse.de> <87y0c0el29.wl-tiwai@suse.de> <core-drain-linked-lock-reply.cf2e307fcac34b6a@gmail.com> <87jynkcn60.wl-tiwai@suse.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QS++b7o0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB43D1F000C4;
+	Wed, 14 Oct 2026 23:53:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792021995;
+	bh=75/9tTJ+EvDebUI8WiEf4R/eQconwyIqpfToVl+D6Co=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QS++b7o0MWlz46sJR5Uf7WlOS3TiVAnVhOCixRSU0p+gg/+NeO0zSwhMwOphEKPFy
+	 G4MACKykyBPwFUbOm80suHbjNdO1BXvA7BahfOUcPKEJJE2jVZdydCsFvcxoWTRZuH
+	 HKifQtBeRCXYR/OEtPiAS3ckjdItjFz1EaYpuH8ifuxxGVwc0mRKQvlvOpMVSBnB6a
+	 CSBTGoFCYAW5ULqTDRILF5OISvHVdTBi/o/bg4zNlc4bNDE+46Jk22ZR+DAmd+X6Jd
+	 X6p90o+k7Bxfd5ftt7DuuRJGAjYAQbpveJGbxI89v4E/Nv6sTN771GJ8lBR9VWfzOk
+	 0qWGPMwgNRi6w==
+Date: Thu, 15 Oct 2026 07:33:13 +0800
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Roman Storozhenko <romeusmeister@gmail.com>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>
+Subject: Re: [PATCH v2] riscv: mm: Trace TLB flush path selection
+Message-ID: <atAROTefufggiFPO@xhacker>
+References: <20260830-tlb_tracepoint-v2-1-e3c88c24df5b@gmail.com>
+ <ar_Rathmoj2aP-H7@xhacker>
+ <CALsPMBOYQbro2gZTQR=DSUowmVDs9kujH4ua2UzCoHAQrncuiw@mail.gmail.com>
+ <asm95GdbmMpc81p3@xhacker>
+ <CALsPMBPMHc7q-YZvqLLYDSr5RfLmDRwBSq-TFeB8Fc8bPBjQGg@mail.gmail.com>
+ <as8NpaT0g9Tsl6PS@xhacker>
+ <CALsPMBOdy4ZDWfnkYokUFuB3UYPV27wTUpBCZaxLWEV10ZuS=A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CALsPMBOdy4ZDWfnkYokUFuB3UYPV27wTUpBCZaxLWEV10ZuS=A@mail.gmail.com>
 
-Hi Takashi,
+On Wed, Oct 14, 2026 at 05:58:42PM +0200, Roman Storozhenko wrote:
+> Hi Jisheng,
+> 
+> Thanks for the clarification.
+> 
+> Since Radim's tracepoint code-generation results are now part of this
+> discussion, I've added him to Cc in case I misinterpret any aspect of
+> that issue.
+> 
+> I agree with you on one point regarding the compiler overhead. Since
+> the kernel supports older GCC versions, we have to take the code
+> generated by those supported compilers into account today. So
+> describing the issue simply as temporary was too strong.
+> 
+> However, I think there are two separate questions here: whether the
+> event exposes useful information, and whether the disabled-path cost
+> of its current implementation is acceptable.
+> 
+> Regarding kprobes, most of the raw fields in this event are indeed
+> already arguments of `__flush_tlb_range()`. My point is not that these
+> values are impossible to obtain dynamically.
+> 
+> Kprobes can be used to observe a very large part of the kernel. If the
+> ability to reconstruct an event with kprobes were by itself sufficient
+> reason not to add a tracepoint, the same reasoning would apply to many
+> existing tracepoints.
+> 
+> The distinction I see here is between observing implementation details
+> and exposing the semantic event directly.
+> 
+> For this case, the interesting information is not only `start`,
+> `size`, `stride`, `cmask`, etc., but their correlation with the path
+> Linux selected for that particular request:
+> 
+>         local
+>         SBI RFENCE
+>         cross-CPU call
+> 
+> Calculating the local case from `cmask` may be simple with the current
+> implementation, but the tracing program still has to reproduce
+> knowledge of the selection logic. Likewise, observing downstream
+> functions ties the tracing program to the current call graph.
+> 
+> I also don't think `/proc/interrupts` provides equivalent information here.
+> 
+> The RISC-V IPI statistics are aggregate counters. In particular, Linux
+> accounts `IPI_CALL_FUNC` as "Function call interrupts", while SBI
+> RFENCE is handled below Linux by firmware; for example, OpenSBI
+> implements the remote TLB operation using its own `IPI_TLB` event.
 
-Thanks, I've reworked the local version along those lines.
+I think you misunderstood something. A riscv platform uses either
+SBI RFENCE or IPI for tlb shootdown, and won't change. So you can
+know whether the system is SBI RFENCE powered or IPI powered by
+cat /proc/interrupts. It's much simpler.
 
-The helper takes snd_pcm_link_rwsem for reading and updates each running
-member under its own stream lock. It uses snd_pcm_update_hw_ptr() for both
-playback and capture. I call it after the existing pause-resume step so a
-paused capture stream gets its final pointer update too. The pause and
-drain-init actions remain outside the link rwsem.
-
-A pointer error now follows the usual XRUN path and returns -EPIPE before
-drain-init. This restores the group-wide error handling from v2 and removes
-the "notify" boolean argument introduced in v3 proposal.
-
-While checking this version, I also confirmed three problems in the first
-patch: 
-1) a reader already waiting for data could lose the capture tail
-2) finishing a capture read could stop a linked playback stream
-3) DELAYand SYNC_PTR(HWSYNC) rejected capture DRAINING. The local fixes preserve
-the unread count when waking the reader, finish capture with
-snd_pcm_drain_done(), and use the cached pointer for capture hwsync.
-
-I reproduced all three failures with the helper plus the old first patch,
-then checked the fixes in both atomic and nonatomic modes. The blocked
-reader now receives all 64 final frames, capture EOF leaves linked playback
-in DRAINING, and both position queries succeed without another pointer
-callback. The 26 linked-stream checks, including paused drain and pointer
-errors, and the 10 existing lifecycle/reset cases also passed under ARM64
-QEMU with KASAN and lockdep, but physical real-world device testing is still pending in this time.
-
-There is one concurrency point I'd like to check. The helper releases the
-link rwsem before drain-init, and snd_pcm_link() allows another RUNNING
-stream to join in that interval. The new member could enter drain-init
-without being visited by the refresh loop.
-My question is, should we handle concurrent linking across these two steps, or leave that outside this change's scope?
-
-Thanks,
-Joonho
+> 
+> So checking `/proc/interrupts` can certainly be useful as a sanity
+> check in a controlled workload: an increase in function-call IPIs can
+> indicate use of the Linux cross-CPU path.
+> 
+> But it cannot associate that IPI activity with a particular TLB
+> invalidation request, and it cannot correlate it with the range, ASID,
+> stride and target cpumask. Other users of the call-function IPI also
+> contribute to the same counters. In a concurrent workload this becomes
+> an inference rather than an observation of the TLB path decision.
+> 
+> That per-request correlation is what I am trying to expose with the tracepoint.
+> 
+> Regarding the performance argument, I agree that the disabled path
+> must be cheap and that the current RISC-V tracepoint code-generation
+> issue is relevant when evaluating the patch.
+> 
+> I would not claim that all tracepoints have exactly the same overhead.
+> My narrower point is that the issue referenced in Radim's thread is a
+> general interaction between RISC-V tracepoints and compiler code
+> generation rather than something specific to the semantics of this
+> event.
+> 
+> If the generated disabled path is considered too expensive, that is a
+> valid implementation concern and may require improvement or
+> mitigation. But I don't think it shows that the TLB path-selection
+> event itself is redundant because the information can be reconstructed
+> with kprobes.
+> 
+> There is also no contradiction, in my view, between using the event
+> for performance analysis and the event having overhead when enabled.
+> Tracing normally perturbs the workload when it is enabled. The
+> intended use here is primarily to understand things such as the
+> distribution of local/SBI/IPI decisions and the request context
+> associated with those decisions, rather than to use the tracepoint
+> itself for cycle-accurate measurement of the cost of a TLB flush.
+> 
+> The important requirement is therefore that the disabled path be
+> sufficiently cheap.
+> 
+> I think the PowerPC TLB tracepoints also remain a useful precedent
+> here: they show that permanent architecture-specific TLB observability
+> can be worthwhile when the architecture-specific information is
+> useful.
+> 
+> So I agree that convenience, maintenance cost and disabled-path
+> overhead all need to be considered. I just don't think that kprobes or
+> `/proc/interrupts` provide the same abstraction as recording the
+> path-selection decision directly.
+> 
+> Thanks,
+> Roman
+> 
+> On Wed, Oct 14, 2026 at 7:25 AM Jisheng Zhang <jszhang@kernel.org> wrote:
+> >
+> > On Sun, Oct 11, 2026 at 02:43:05PM +0200, Roman Storozhenko wrote:
+> > > On Sat, Oct 10, 2026 at 6:44 AM Jisheng Zhang <jszhang@kernel.org> wrote:
+> > > >
+> > > > On Sat, Oct 03, 2026 at 10:54:44AM +0200, Roman Storozhenko wrote:
+> > > > > On Fri, Oct 2, 2026 at 6:04 PM Jisheng Zhang <jszhang@kernel.org> wrote:
+> > > > > >
+> > > > > > On Sun, Aug 30, 2026 at 04:36:37PM +0200, Roman 'Hedin' Storozhenko wrote:
+> > > > > > > Make RISC-V TLB flush path selection observable. Record whether Linux
+> > > > > > > handles an invalidation locally, delegates it to SBI RFENCE, or executes
+> > > > > > > it through a cross-CPU call, so MM activity can be correlated with the
+> > > > > > > RISC-V, firmware, or Linux cross-CPU path carrying the request.
+> > > > > >
+> > > > > > I didn't see too much usefullness of the trace here. why not use kprobe
+> > > > > > instead? can you plz show a real usage example of the trace? Which
+> > > > > > bug/performance problem can be solved conveniently with this trace only?
+> > > > > >
+> > > > > > From another side, except x86, other architectures don't have the trace
+> > > > > > in the TLB path.
+> > > > > >
+> > > > >
+> > > > > Hi Jisheng,
+> > > > >
+> > > > > Thanks for the review. I agree that the current commit message describes
+> > > > > the intended use rather abstractly.
+> > > > >
+> > > > > A kprobe can certainly be used to investigate this. My motivation
+> > > > > for a tracepoint is not that dynamic tracing cannot obtain the
+> > > > > information, but that doing so requires knowledge of the current
+> > > > > implementation and reconstruction of a semantic decision made inside
+> > > > > __flush_tlb_range() / flush_tlb_all().
+> > > >
+> > > > I prefer aligning with other architectures(except x86), I.E not
+> > > > add this kind of trace. However, I would leave the decision to riscv
+> > > > maintainers.
+> > > >
+> > > > FYI, you may notice that the riscv trace overhead is not trivial per
+> > > > https://lore.kernel.org/linux-riscv/20250619190315.2603194-4-rkrcmar@ventanamicro.com/
+> > >
+> > > Hi Jisheng,
+> > >
+> > > Thanks for the feedback.
+> > >
+> > > Regarding the comparison with other architectures, thanks to Michael
+> > > Ellerman for pointing me to the PowerPC TLB tracing when we happened
+> > > to discuss this at LPC 2026.
+> > >
+> > > PowerPC defines the powerpc:tlbie and powerpc:tlbia trace events in
+> > > arch/powerpc/include/asm/trace.h, and the corresponding trace calls
+> > > are used in the PowerPC TLB invalidation paths.
+> > >
+> > > These events are not identical to the proposed RISC-V event: the
+> > > PowerPC events primarily describe architecture invalidation
+> > > operations, whereas this patch records the path selected by Linux
+> > > before dispatch. However, I think they provide useful precedent for
+> > > architecture-specific TLB observability beyond x86.
+> > >
+> > > Regarding kprobes, I agree that dynamic tracing can be used to investigate this.
+> > >
+> > > My concern is that obtaining the same information requires knowledge
+> > > of the current implementation and reconstruction of the decision made
+> > > inside __flush_tlb_range() / flush_tlb_all().
+> > >
+> > > For example, probing __flush_tlb_range() gives us the incoming
+> > > request, but does not directly tell us whether Linux selected the
+> > > local flush, SBI RFENCE, or cross-CPU-call path. A tracing tool has to
+> > > probe and correlate implementation-specific downstream functions, or
+> > > reproduce the selection logic itself.
+> >
+> > Hmm, let's look at where the tracepoints added:
+> > void __flush_tlb_range(struct mm_struct *mm,
+> >                               const struct cpumask *cmask,
+> >                               unsigned long start, unsigned long size,
+> >                               unsigned long stride)
+> > void flush_tlb_all(void)
+> >
+> > most of the information you exported with the tracepoints are just
+> > parameters of flush_tlb_range.
+> > So kprobe or function trace can also get most of them, while whether
+> > local or not needs to calcuate the cmask, but getting this info is
+> > also easy via. adding one LoC to the kprobe routine.
+> >
+> > The tlb invalidation is frequently executed, so we need to carefully
+> > evaluate the convience VS maitanince offort and performance overhead when
+> > adding permanent tracepoints, given current riscv tracepoint overhead
+> > isn't trivial.
+> >
+> > BTW: whether SBI RFENCE or cross-cpu-call is much easier. Just search
+> > IPI in /proc/interrupts. No need to kprobe/function trace/tracepoint
+> >
+> > >
+> > > The proposed event records this semantic decision directly at the
+> > > point where Linux makes it. Users therefore do not need to depend on
+> > > the current helper names, call graph, or exact implementation of the
+> > > selection logic.
+> > >
+> > > Regarding the tracepoint overhead issue, I agree that disabled-path
+> > > overhead is important, especially in the TLB flush path.
+> > >
+> > > However, I see the referenced SBI tracepoint case primarily as a
+> > > RISC-V compiler/code-generation issue rather than as an argument
+> > > against providing this kind of observability.
+> > >
+> > > The referenced discussion itself shows that the generated code depends
+> > > significantly on compiler behavior, and that this is an area being
+> > > improved. The undesirable overhead is not an inherent semantic
+> > > requirement of the tracepoint.
+> > >
+> > > Even if the same code-generation problem currently affects this
+> > > tracepoint, I don't think a temporary compiler limitation should by
+> > > itself determine whether the tracepoint is useful or whether this
+> > > observability belongs in the kernel.
+> > >
+> > > If the compiler currently generates unacceptable disabled-path
+> > > overhead, that is certainly something that should be improved or
+> > > mitigated in the implementation. But I would separate that issue from
+> > > the question of whether exposing the RISC-V TLB path-selection
+> > > decision is useful.
+> > >
+> >
+> > But we need to live with it. Per the Radim email, gcc14 can still
+> > see the issue, given the minimum gcc version of kernel building
+> > requirement is gcc8 now, gcc14 has a long time to bailout.
+> >
+> > And another tricky point here is
+> > one of your motivations of adding the tracepoint is to profile then
+> > improve the tlb related code path performance, but adding the
+> > tracepoint brings non-trivial overhead to tlb code path.
+> 
+> 
+> 
+> -- 
+> Kind regards,
+> Roman 'Hedin' Storozhenko
