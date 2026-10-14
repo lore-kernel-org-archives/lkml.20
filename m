@@ -1,209 +1,76 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42C3C2F83A2
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 00:21:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA5A42FBE;
+	Wed, 14 Oct 2026 00:24:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791937277; cv=none; b=r1ZS/vAk2LqAf4mPlJEK9FwIoRsgrXFWO9w/ynKqHa2A0GtrHTYFDGPldZs4UFzIDZcHT/UJFR7os4vY1k195dByH8iPA/EUhxvZSfsfvVo/18RYDnkJINqrTDEo+OwlNBIS98C6N2hl/btWnkQIqZIjXK4Lu3jZ/dQZJX8lTtk=
+	t=1791937450; cv=none; b=T8+bN3/KFPT3bPkD2G6V7zm2UIfJiayVTMfAmnMBvaQc5YiKXCasGHDpoP1wrandfGvgpS6lZWv1UW3Touq0F2eBS+Q44wX1MCgXR1flwLge4YIuOLZcsrvcpiQi1ci2yFtf5p5nFN3UtDtu44KMu8427GCzKjLxaF2JaxwDApk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791937277; c=relaxed/simple;
-	bh=+tK0b1RAxNQMdQiTT5cRoMWNc7ASdEz1LthT7TUJlKg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RYkZbr/xzVdvtbSpHDyvkTIMUCTpR02ovMIvyRgbBdWDoZXAMnb2uHHaQPLWeEbfSPDab52bDzbQoZSQ2ZR/sfhuPPKFlNazu9uoZ/u95S1QDculvRqJSix/UAa0ee61e40aUbRwvJodiD1QaB9wPgolcOzPkae0xVS5/A4FcrE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Do8chB8t; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FYKn/caF; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791937450; c=relaxed/simple;
+	bh=DxOA3K04TdGKgV9RBzwq7NMB042SfZvdvrNpiga7nYU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=lDCL6WuH/euTBdR7woKccaU5wxXWkZHObvPXQoPRMh70/73aSsxcDBBpKX5LHe3MIoOllnBSQCOAZZzih+I4Y255mEOvfx6fNjiv+a68YddOdCuqbntafo1RLMaWv/XrlBB9osbXloW80OH7bG+chCfEvmdVc6seTUvnjXepYHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gdBeTzoG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Do8chB8t";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FYKn/caF"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69DKCNAE1460116
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 00:21:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	uxk3TbtCw88JdAOdSEkADB0LBJ9HmN0IwiUJsngVV5c=; b=Do8chB8twnjrRnAX
-	C3eCZ7CFWjJNFOR8gTb5p/Q2oc2zNKlZbB37QhA0ZHt3Lb4nSAACLrEgtkNdpGQn
-	2qDF0m8pGmTn9XGXCFPnio+D5Dn5urH+MLl6/x4pv0LjsxuvxCfH8ahSAkoEIIGp
-	4NjBm9jI/r8Tg7kwt9dTnnyS0LklLwnGE/e/wiPwNHsRh0p8KLP+dkGTl3OyexZa
-	xuVt33bR5mpJ5pfrfyPbKDR5gcqT8e5mHpVrT2W+1Qg3G7cbYZpHXGAjmOxLHW1E
-	s2jsXuOhO9oPIgV/gApYW13GUUvGLNbT7LphKo67eDLiyW/jqwFmVJSfBEiEaW6n
-	QZyHzA==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9hmjunnd-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 00:21:13 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-35cbea41088so673388eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:21:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791937272; x=1792542072; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uxk3TbtCw88JdAOdSEkADB0LBJ9HmN0IwiUJsngVV5c=;
-        b=FYKn/caFe5TPM3I6qlarBJF3kzNQEXEUX+Kv1esDvp0lmiVqI3tlxz7J3HOqLzS56J
-         UznjShJE6PyVPro156bK7TL1kYvgl8UUkBNway/fZYGduzkwn3ar/u8lnt0+zQZtmJt3
-         7RTRQ0TcWkF2s311EXh3F6AWLE4ftttGBJU3tZGFLZtU30S5aO/3/S6Uhp1aVcJ2n+/Z
-         ZLxBnhL3yrSk3wm5Ob9vwX7uQdxu9AMxH8Q/phvSeEck8gugHfaxBxwqpEAYaukPVfly
-         CaCwXdD3y6QtSjOtBix+EbcByfF8IN1XLdh9mmPhWNyfmCvX1Jyb5bo7rsUO7zUNYMyn
-         MPhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791937272; x=1792542072;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uxk3TbtCw88JdAOdSEkADB0LBJ9HmN0IwiUJsngVV5c=;
-        b=EiqiORcrstjmvtpqCh3mQqw3t6dV1ISXSxUM78VTNNLPfSmU/YKiIdcEYmYaI4wuMT
-         8b61DI1OkTyTxh4+uw/Gg9aAAPUEFCcouKUFSKjqkL9Gk3QvuJ74ae1k+p5beajkFar+
-         vxFYra/YqR0Am+quU0+d5VqT9rkZ4zVeBP+ysEWfuHlKmckUlDuZ5o3YIh4YiBatSyJv
-         5F2zDL3E/CVhJF/j5G7gYv3IMK8wGGdHHE/RYZWAtnB4a6SjLt7Ebloe4ogsjaKkDgzM
-         MLvN+XZUZ5SUwNgHgKFU8DIAq6HPR0sgAqCdGHT+/oaW9MJE4T5kZhztdD+7yE3juvZ+
-         3OVg==
-X-Forwarded-Encrypted: i=1; AKwUvBz3Mwq/zX/tBB2zLcnEUVSzEHRuZFijgELXD+/SzvcASbRvtN0SueerdrHibY/45NYLkqAtkD4VWU8TZ4g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL1qtpqnQ6XaD74VxZk2j8FqDY/PcXEptAIBOxFJZ2Q6DY3XVxZ
-	penNqG4V7csz6wuwBK4O2ei8En22972GFP0K5Lf7hs/0yDInCIwiQ1F5K+2XUk7EhpIKIeQQa1Z
-	euneVFdrdOvWbSM2WHamnvycINVZ5n2c/h5jon1lIfRF2kIwQdC+Z6O/8/YfniiYd2EY=
-X-Gm-Gg: AYBFou0cVLiKeUYE67uylM4vJ4s3JAMtdjxndUMyjFxWwOR+/egOlao+zn6bmCkvR1+
-	ql5o9L1ISwCGrSHGedznBh24D1JcXifxRkPYzpS3esPYwzryuBs/RVkWTvyWu2t4qULQQ0Qd5oO
-	0/WCuNtBcCl3iP3ZE8FudX0BlUQewqfOs/PvHcsIyH6qFXO7BLzFFEx1ZMJFS6zT7U8Huwq+862
-	8iuhW/XMa0EnwNARQ9CUIGcmKaAjfq/TJH9s4MN6OPeuJCoq11mjxa+WIaHJ0Pyrqt5Kh1LMBUI
-	Dj5txfYzp6haT0NKguVwSGF31M+c6o3LSNZN5jNHMWg7ll8Rr6UNb5kPrT+ycnFuMSfqPB8FRNJ
-	MWSmGPS8xXwvF4FoJkv1JFPitsl/TkDm8gC8uH46tTpd1z8DIEem5xUoDAg==
-X-Received: by 2002:a05:7300:d209:b0:35a:47ed:c39a with SMTP id 5a478bee46e88-35a47edc590mr10691799eec.37.1791937272095;
-        Tue, 13 Oct 2026 17:21:12 -0700 (PDT)
-X-Received: by 2002:a05:7300:d209:b0:35a:47ed:c39a with SMTP id 5a478bee46e88-35a47edc590mr10691765eec.37.1791937271328;
-        Tue, 13 Oct 2026 17:21:11 -0700 (PDT)
-Received: from [192.168.1.20] (33.sub-75-218-193.myvzw.com. [75.218.193.33])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb68e56sm42940011eec.29.2026.10.13.17.21.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 17:21:10 -0700 (PDT)
-Message-ID: <bbd65b93-816b-427b-8abe-1d1fd1cf4e70@oss.qualcomm.com>
-Date: Tue, 13 Oct 2026 17:21:07 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gdBeTzoG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA1931F000FF;
+	Wed, 14 Oct 2026 00:24:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791937448;
+	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=gdBeTzoGP+6lFJrZ+Geh0DuT2zsgY9n5Ajbs1n7R2VgLVcmrix0rRTfjVfN4qtKpT
+	 Vf74xM2T28rkHNtSZjHGcSwLzObmeHEnHx/2lDUR1Rij/EO4g23APwrcaLjxTlAipN
+	 yPb9xhF2Xh8Sm25SPkv95yp6K1+HbvAQkt2YOAynydfOFixljPaTh+wkMWSA0fRL3Z
+	 NXI4GuQY3If4TSQLAMm4L3PAp1sFXvzGHfNv6JAtlIMNHPSnyvwRGK02zABw51QHLK
+	 iXTG5rhbB2HQiFE/2Xt3La/euBX5ZW4CFT7ljKrAuQu3+pLQF1AdpEVAgN2cWqt7fZ
+	 bSTbb4DWA3jzQ==
+From: netdev-bot+sinfo@kernel.org
+To: Rosen Penev <rosenp@gmail.com>
+Cc: netdev@vger.kernel.org,
+ =?utf-8?q?Rafa=C5=82_Mi=C5=82ecki?= <rafal@milecki.pl>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: bgmac: don't process RX with a zero NAPI budget
+Date: Wed, 14 Oct 2026 00:24:07 +0000
+Message-ID: <179193744747.160550.5149195491197564430@kernel.org>
+In-Reply-To: <20261014001912.141532-1-rosenp@gmail.com>
+References: <20261014001912.141532-1-rosenp@gmail.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH ath-current] wifi: ath12k: fix frequency range for
- single-pdev devices
-To: Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
-        Shenghan Gao <gsh20040816@gmail.com>
-Cc: Jeff Johnson <jjohnson@kernel.org>,
-        Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>,
-        linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
-        linux-kernel@vger.kernel.org
-References: <20260715065218.41232-1-gsh20040816@gmail.com>
- <5ca16013-e8a0-4403-a2b3-b3b43ea2bb2d@oss.qualcomm.com>
- <CAMVcGaDKC626A6=VC+10vtw3KVNm2NM_yPXTbgnA9Efd5eyL7A@mail.gmail.com>
- <9dd4e992-5810-429f-bc54-036c4eb276a7@oss.qualcomm.com>
- <b4fcaa4f-8c4e-4fc0-898c-6c97e1446323@oss.qualcomm.com>
-Content-Language: en-US
-From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-In-Reply-To: <b4fcaa4f-8c4e-4fc0-898c-6c97e1446323@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDAwMSBTYWx0ZWRfXzkoKny1/rfEz
- gzyfLWWpe4Y9qMs2Z+rcFV3fycA53KYTp08Nsa8GcgJKSbooq0kV/qL/VzEqxk+akP+wQX1xhyP
- fDVu2elkqwPVy9qFnWRSdPgcYjuJGsk=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDAwMSBTYWx0ZWRfXyIXMQYFtXu0X
- 40be+mzLyhRUKM84alG3Gue/oAJ2zP8TyhK4gSskcPgCz/4eVviMOH0nVOk1SqQcPQ6vsxtMRbx
- jf1lw2cSr7O08bQ7y90PwSwNALclY32rSO4EQAv6tH+BIDxovY+pu6I3Ri/RS9qOILk9vWOBwzL
- pSBrq2WYYtX4XBvSsicVS+m3QP9mSfO0lDIxG1S6IfKFdPwSyopZ58zGo1xVDWXZMSz2gJb7MrD
- TuhYJ7bOd2uWrVYl1dGHowMFDbsUiN/P1ZB6sxaAKGceo2BsVXrBhg8pQ6BW75Cv5PGX0nU1aD7
- uWepUvR25agwgmBW4KibFgDEsLtLZDEB6wExBCNcIvuMz4NxVKYAD/4g4fEgH3/Zgw7f1+GYhwB
- BeL16pLFtoB6T9av3YfzFSAyoxPqoUFVOt9usz2hPVCwWBdsO5WE4mbo0mEIM5cAb9yTZEiYDBZ
- t2IM7m8ldH68QlD+xxA==
-X-Proofpoint-ORIG-GUID: iRkXTe5Ce86txhT9JGfc5bEcGO8-BGBy
-X-Authority-Analysis: v=2.4 cv=O5+sLx9W c=1 sm=1 tr=0 ts=6acecaf9 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=AnolQpdaNwb4XK4FG+QP+g==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=Xp_5AQX54b4_orL4JKgA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-GUID: iRkXTe5Ce86txhT9JGfc5bEcGO8-BGBy
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 adultscore=0 spamscore=0 priorityscore=1501
- bulkscore=0 malwarescore=0 lowpriorityscore=0 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140001
 
-On 9/9/2026 2:46 AM, Baochen Qiang wrote:
-> 
-> 
-> On 8/3/2026 4:36 PM, Baochen Qiang wrote:
->>
->>
->> On 7/20/2026 5:25 PM, Shenghan Gao wrote:
->>> The update sequence is as follows.
->>>
->>> ath12k_regd_update() first resets ar->freq_range to zero. On the
->>> tested WCN7850 under the CN regulatory domain, the 2 GHz branch
->>> calculates a valid range, so the first call to
->>> ath12k_mac_update_freq_range() sets ar->freq_range to 2402-2482 MHz.
->>>
->>> The existing 5 GHz branch is skipped because ar->supports_6ghz is true.
->>>
->>> When the new regulatory domain is built, reg_freq_6ghz.end_freq is
->>> reset to zero. Since the CN regulatory event contains no 6 GHz rules,
->>> it remains zero. The 6 GHz branch therefore calculates freq_high as
->>> zero, and ath12k_mac_update_freq_range() returns without extending the
->>> existing range.
->>>
->>> Consequently, ar->freq_range remains 2402-2482 MHz, and the subsequent
->>> channel-list update filters out all 5 GHz channels.
->>
->> Thanks, now I get the root cause.
->>
->> However the change of this patch looks more like a workaround rather than a proper fix:
->>
->> Current radio frequency logic has been architecturally wrong from the start. Ever since
->> 657b0c72c4ad introduced reg_freq_*, the entire purpose of this code has been to compute a
->> per-radio frequency range (to advertise each radio's own Frequency Range to user space —
->> Idx 0/Idx 1 in iw phyX info). Since the quantity is per-radio, reg_freq_2ghz/5ghz/6ghz
->> should not live in struct ath12k_base (per-device). Storing a per-radio quantity in a
->> per-device field is a layer mismatch, and every problem below derives from it.
->>
->> Two problems caused by keeping them in ath12k_base:
->>
->> (a) A cross-phy race that silently drops a range. Firmware sends WMI_REG_CHAN_LIST_CC_EXT
->> per phy. build_regd() resets all three ab->reg_freq_* to {INT_MAX, 0} and refills only its
->> own phy's band on every event, while regd_update() runs per-ar off a workqueue reading
->> that shared per-device state. A later phy's event can reset, e.g., reg_freq_5ghz back to
->> {INT_MAX, 0} before an earlier radio's regd_update_work runs; that radio then computes
->> freq_high = min(high_5ghz_chan, 0) = 0 and the range is silently dropped by
->> ath12k_mac_update_freq_range(). This is a real shared-state race.
->>
->> (b) It forces the ar->supports_6ghz proxy — which is where your change comes from. Because
->> ab->reg_freq_* is per-device, regd_update() can't tell from it which band this radio
->> covers, so it falls back to ar->supports_6ghz to guess whether this is the 6 GHz-only
->> radio. That proxy only holds on split-pdev; on single-pdev (one pdev covers 5+6 GHz,
->> supports_6ghz=true) it breaks, which is exactly why you had to add the || single_pdev_only
->> exception to rescue 5 GHz. The awkward compound gate is rooted in using a per-device proxy
->> to decide per-radio band ownership.
->>
->> Based on above, I would suggest making reg_freq_2ghz/5ghz/6ghz per-radio, in struct
->> ath12k_pdev. ath12k_pdev is the driver's canonical per-radio object (1:1 with a radio,
->> holding ar/cap/mac_addr), and this operating range is a property of the radio — so it
->> belongs there, right next to cap (the HW freq limits), which is the same class of data (HW
->> capability vs. the rule-intersected actual range). Both problems then dissolve:
->>
->> - (a) is gone: each radio's range is isolated; a later phy's event can no longer clobber
->> another's.
->> - (b) is gone: the gate can ask the ground-truth question — "did this radio receive reg
->> rules for this band?" (end_freq != 0) — with no supports_6ghz proxy:
->>
->>   if (supported_bands & WMI_HOST_WLAN_5GHZ_CAP &&
->>       ar->pdev->reg_freq_5ghz.end_freq) {
-> 
-> Shenghan, any thoughts on the suggestion?
+Hi!
 
-Working through my backlog. Is there any action on this?
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
+
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
+
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
+
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
