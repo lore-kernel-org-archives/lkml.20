@@ -1,226 +1,420 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013021.outbound.protection.outlook.com [52.101.83.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87D2F5218BB;
-	Wed, 14 Oct 2026 15:36:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DEA253A89C
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:37:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.52
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791992204; cv=fail; b=hLopLBykYootAty6q3Z4CX5GHFZYvsNTpEMU3YlBd3GmzftZ+JDOV0VUzG74rrvqhDqACwXVODBj7m7zgDk6cH0IDhrdr7dV3+fD3KnyKalpslAlO5F7vHMXFHnnQH5+uYSvKl6+LuedzjucMTSirEQLboRhhUloAgQmliGWbNg=
+	t=1791992253; cv=pass; b=s5gK+OsFxn9WbcA1X91k53vVJ7N5OQ7dahqz8m0LjmikufR+ubLSg3JInnpC5VYXuJmOMHD1QsD1FSHnpwwfWx0JVrcOzYOt+nGJdCF8Ti7kF07Pk8ukcOKbdHygz3J3YM8WBXXp7CLOrC0sdTq7NyjbSo6Bq6j6qQ2JgujmLTk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791992204; c=relaxed/simple;
-	bh=foaSvrziFs3RHazpDrhcaqUu9rpRniwHJ5fDF8VzVV4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=B/2fQLYvHPWN8YEK9p4v6FS/VhBPk7B7GMx68Nu8HYG4sGEIZNgmrebPzAnSNSTnLrkjmkxFEmHFGNkjADw7cy97X6yR5N8S9NJw4VwM8lzcHgmchVkqVBLQ82Rf1jt5oB//67dokXDMYyPAJmL6NEqJIHASFfpg7xYatfWdyQU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=OirsuTVa; arc=fail smtp.client-ip=52.101.83.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1791992253; c=relaxed/simple;
+	bh=eN9RmH4BI2cnExW/4JcWr15L/o/fC5a8DaLSvML2mAc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=otCco+jhynqf8VOBER+qnsYiIjGn0RnjTOF10DM6WQBDo+sGg5samYTrF6YYGz45XYKH2F1+28359MdFHllMCyUGNaMfQsOk01UHXPkQ7q94X0PLIm6hM5uWx2N2tfX+e0Gxml9op39EtHaV2GxqQGuo/5IapiyVSPebqkSaFYs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=CrKd5u+7; arc=pass smtp.client-ip=209.85.218.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="OirsuTVa"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sBKVZo2qZ2HZvKJEHg3ahMrc7tLHmnVLFdzDnun0M27ntYSJgRgzJ/frsIwal4TP3qA1gVfzjPq+boGwH9ooMjMDWnn9W5H32YJxjy1UHw5O55zSKYosZe6aAAe+ah2X3OXoq8RIYU8KFI84Wp0eNP9+Pq4DDFG1zrQEsqarUDIwPQDjG6im3gwsDxWo9T9z9sJxh6h9F1j1tRxoyfNhtGYmiqOK59PRDsSJVHUE9UE9KKnG8oc3pzdrSoWlcX4rr7Bx23WfHCc1KiX7CAORsIX8BoAjYI5sSzkM+OjEFN77wiH44Wl3CfJOCfDs9tWF1L6sbzfRLeVYgr0lDEVD8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=K2zCj8zlMVSrkiC/oNIwRd5jNwLN/is3/Bpmoy3C47g=;
- b=yJGURvmwegdfvoVFxC10YKrdI2khfay1o/qpYo1YS3q0AUtoDJrt8um4R7mhLmJyl8JsZXDqaKUiQSjOBfvGesuruGWI6PbzzfItui+iPY6BDQ6GkCn7OqOYmzaLiXKTqIymEIPPJgwd+WW3TePh5/iwbil8+iBkg1xIq5mGBIiApy+g7hLbAwHbINs9/aMCopgYxjxVJK+00+c3Jn7HWC4ehBMCDExyKPMx9ZL4+6Za5a/zlx5Qz/lv7lPc+aj5AnICWAinXO6mhMM0woaP3LH0cUPSedBUbryxqIveyURBT+Cb33XNdRojFuReIvyYrciJs1FCm3+JIsTqPShU7Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=K2zCj8zlMVSrkiC/oNIwRd5jNwLN/is3/Bpmoy3C47g=;
- b=OirsuTVav/Y/DGc0fOOXJk6kdSDRMRpyatBYeNlAH+r9jywBk3VGOY6yQ/ff4PTPzkMPFMpKB8dQEDSpM8p3SVuQcFeKqZo/5KLb0BysZId4F6CgF99Ha3lQ6UMdntCEsfgYpQlZZLmU3+//HbJyFtUwxqAhET+pILN7+DDIlUR9qLUzuMyUPdRMb7qbh+xp/adJMDYt0FnS02vRT3Z3+fMSZAnRCRP4CgCQ3peijJen+I8JsEzqnGzGo0Cn/wD16yAh1yiBv//2f8PHQIZ/0yNlUKk5A7AFPRho4JGzAlsB00wBZe+Z6/soU9mbdKO/dhArFlM4qMVKi5ZpC8gNKQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AM0PR04MB6932.eurprd04.prod.outlook.com (2603:10a6:208:182::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Wed, 14 Oct
- 2026 15:36:37 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0522.012; Wed, 14 Oct 2026
- 15:36:37 +0000
-Date: Wed, 14 Oct 2026 10:36:25 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Leonardo Costa <leoreis.costa@gmail.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Francesco Dolcini <francesco@dolcini.it>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Leonardo Costa <leonardo.costa@toradex.com>
-Subject: Re: [PATCH 0/3] Add VGA support for Apalis iMX6
-Message-ID: <as-heYw7PKLPm3yH@SMW015318>
-References: <20261012-v1-apalis-imx6-enable-vga-v1-0-8905d8746504@toradex.com>
- <20261012164054.GA56180@killaraus.ideasonboard.com>
- <20261013090631.GA33628@francesco-nb>
- <20261013111158.GG56180@killaraus.ideasonboard.com>
- <druavdvcgm3rljk3mhano3o424xyelupmcz7kbzguuljdsungx@xuj2ovbvz654>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <druavdvcgm3rljk3mhano3o424xyelupmcz7kbzguuljdsungx@xuj2ovbvz654>
-X-ClientProxiedBy: DM6PR07CA0091.namprd07.prod.outlook.com
- (2603:10b6:5:337::24) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="CrKd5u+7"
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c38ac26cc5dso219933566b.2
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:37:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791992250; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XxaMgzC9GtUPi9P/yG9hCYmc6ypUtW9GBlpY8xDeB0MoRBpe0xLmv8jcJCHUJf0DUo
+         DqchrpcNa375f1sMV1KXuirLqj6i232Vhi7QQ9MGidqEwhuG9x2fQBD4v/0w5y49fAD+
+         4JogbeO5+PQbXWa50ddjkdhUOjxGsoDufEbaHTRNkLsDjafnMH6O3EvpGrOXxW5x+woY
+         G5rAS237/P1O4Rm7AKyYGKpnKPq6gA0ALr62zVxTQXXM0sZ9YNlqwmjMqhCouFeAUif5
+         X9OLPvyCVJtWFhl47gZOiEdx+Zk7d+kYtBRdFO0fZclq73TrBbZEBl7Yey6HnsRKQcJf
+         L6vA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=fnNwm6C79wpN7fbQEqclVUnBkZYtp3MvR4gRBYtaF2g=;
+        fh=JwkKHdGAx6JJm1VIaLmdovDRfZY3fkD5BWelM6V6ZW8=;
+        b=cyUgbAgUfY1TmBnaakmyhF5Qqq5uQ8sMT5mUR5smc96a/sfL66pCUD79omehBM7B/R
+         4m0Ua8+WoatAA5uri+RLjtayhxZtonQnxTBs1jvDQeZXkx+5D2KnuyE+BL05r7CRE+NY
+         +P4wP8SjWAhr2mg/xg3ayuwWQXfgh8MWp1I2PhFg1JhgctxDdf/VVC/YBhFi71aY8SpN
+         hjy8BRWIvxYMxL65QtQR+lw+nYA5e6G3S5jvEC6lQhN56u/qsUcXhW1GNatep7y28JP4
+         piDw+96CbgG9lUYxEsmAYPWN+7POratqgXvacU9WF4x6rP+PG8eif1VIcjPkt1ZwFgww
+         +cNw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1791992250; x=1792597050; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fnNwm6C79wpN7fbQEqclVUnBkZYtp3MvR4gRBYtaF2g=;
+        b=CrKd5u+747hxNi5W2Gu729RrDHs7Q/8rLF0k6JIWI0cWgzI39nXR2BKPBKZdy7GplZ
+         f4V/5XlZXK68Eo3x14dcEtHa1q9tUKsaG5xSucR6PXL+Cpft7p7wVEipXu8RkK+msuX2
+         JuXjDV35WtqnqQoODHIKY5l0YV9w65RVkUXV+KdD0fdeVuLR8QKE6b1J5hwMjFEW8kbF
+         cVAgM/irL0tjpuNZi9aEq0Qi/+cSCRBi5MWvB31aV7nKyEuLy9zbK+gmRFVxPmw9TuqB
+         Pml22URKV4uFE2us55ok1cmbHT/7PfmxZaTwEh1QH8nYMA4dH8yZlrBaHR38D7zb6IPY
+         EyYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791992250; x=1792597050;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=fnNwm6C79wpN7fbQEqclVUnBkZYtp3MvR4gRBYtaF2g=;
+        b=ACUOq9Jw0sT28oGB0EPetId+12vinc7jRHEG36gzr8Z9Tmo9pp/Qxf1XQ3srykFFm2
+         66qTQLTWYS0K6YMPZdinPRzGBNWFhug2TuzwqtUR9MYHOI5RSHL6BOXqbYCT0VHf3QdD
+         gZTTqB6mDtjKMiFMzKHapQqH50XA9mQWpjOmhUEmPW48yg6DMLFHpZd+u3otHfeH22bY
+         ep9nuWc2JbZXHhsX+PvVoyxrxU23l0TYNENZEzEW2jsnybICVbiiH3nkX9x9LeIe9x+L
+         nullzgDUFhsWjQPKrIhYcM6K0n1PpeKmLEbWoYvYx/jd+xVeoOVDNu2Xw53TeqTmqvBz
+         ofuw==
+X-Forwarded-Encrypted: i=1; AKwUvByiI1xq7OnY8iZCLtArc+2W8i18Ytb0TUmzrKxP93UUJ9FCxOpQTsCIEBG3YqitRiYFwMtWObydb2gu+dU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL0nAOxXKAAsw8V+HoWkJIwSyxV1VSq/EN6q6VGQT00ihxg2qyX
+	96apU6NT1yGXgflfyoAnv7XJNjBhMX5uh/+GlZVO/kHvwxZajla9tyhf2eET3Ydlg6ykQcYlt03
+	FvwyXA+LxMDUKtpoCSP/eN8d/VXWDUO34BYrGG3yfNQ==
+X-Gm-Gg: AYBFou2pzT90Gu1HViR08l9GZMcYapEpsVtaS2YVPFmpBYzQ8sB943MuKPT+ubNjalQ
+	iCAo453xaiMD9ksrHbguLqgVjvNXM8IfzPBIrBdgPRWySpvWDsPPZ6lgdCne/rJDxmr7gbZxkOJ
+	fdxTQGgnLgiblXm63KX01bHbO6arDYSdzpqsKD4cw3UMhfrFOyBtLOraG9PBxF1id2zDtNpE0ND
+	ub5SQ3FNJy7VTH+0hAubhqUh9fhSFaR+i4hpnJ1GDYkYr7KyjgtxZVRCLbQDWcqj6uBi343pwMI
+	2UhlegeIk3gdkFLxwqatjtG8tPXa64PLLtFrJaWHhW9+kgc/ShyepO/KzfHlbuUdAlMchZmSMeG
+	1yLhY9oeFffw=
+X-Received: by 2002:a17:907:eccc:b0:c25:4f7c:8ec5 with SMTP id
+ a640c23a62f3a-c31aa0291acmr1487426866b.23.1791992249514; Wed, 14 Oct 2026
+ 08:37:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM0PR04MB6932:EE_
-X-MS-Office365-Filtering-Correlation-Id: 99fcc377-c82d-411e-20b1-08df2a08ef2e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|366016|376014|7416014|19092799006|56012099006|11063799006|4143699003|261009223027099003|22082099003|10067099003|18002099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	METUsq93XjYVnfaItmIrREQQwjZ5ONSBvV7WWIhaYR5iCtMedD1/FSPPgYjeocx4wdyuEoIAPiGc0WcGMr6OUktMKlb8sGSsGEFPaHDIaqeZuPLVNtGwDjaXuQDTWsrvuQ3rASGY4ER851Uz8G2BWPQlyZzHJ+MuwaJo9oc92fLg6zYgg+i36HS9tY28ZcUbK72iTESv+RarDbY7TK8N8j2gpKOuifb37syynPmJ7UEaUDuRV2gLmxu/Cq/Nt0O38catk046FPDoF47+PuCxffTqQyC6w88R0viB0fH8M9niisf73ogldOR/zZapWLP4W1pUeFvnpCGrYYkM5YCcUYj0/wdCZXH4rMyF5+SeFY4EsUwUKIU5zJidf1ipkvMU734glJl3X2u2ILrsczAZtodFUl7xF1PEK/BzlTA4GHu1px5/jFYWPrpYf753l2nNkUp2zZH9ZJrW8ODuVQBRUen0ftZCjD5aPrmul7L98NKsTbX2c93iX/L03LwIv3P2L2gt2h1qJpvZA5KbCsT6JeJS9PvL/YGQyYEpHL1puilZFnkeYYFEQ0yA2QnYlqEAHFSQRUhBHnComiBVJzb/69BK6UG3z+HlFXLAU+dx1Qw9vHFMmfaGcBBoP9mPGWuCf8CxVdYQUL3Hc/dQZKzviFSQwrmHOWAtrWg4J3DP5n0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(7416014)(19092799006)(56012099006)(11063799006)(4143699003)(261009223027099003)(22082099003)(10067099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?+Cea8tcqfD1VXBaAvDCQLmaj3qMn1GfyUioxiKbLeHjdLpsXT/qEzWcPF2az?=
- =?us-ascii?Q?KbPAsunGgkcqpGjZi3SHPsncbrf9XPcojDCO5tvcNYkCgcfeIxaCprSFLgbZ?=
- =?us-ascii?Q?fnZOGPCOgpLgH9U1YzuhbEMei7IYrg5xY8vzmKY+EYECkSd9QZbYybKxY6Rc?=
- =?us-ascii?Q?audkI5nGlfx2+gDuQ7v0hnmB8aEfHzDs0I7nGVGtLXOH1C8dXhNWd6yVpPUn?=
- =?us-ascii?Q?bUOouhIZ/QLldbBQJyzXeZ7BH5WjZX0hg3xOK2ApMeF4GCGhrylwLOO36CEr?=
- =?us-ascii?Q?EU3RY0bB+7kIlmV9F83iQAHjpk0AwL87sP808knz9RHopuZkVWZDL8eerofo?=
- =?us-ascii?Q?EVn4tRNdk+ZiR7LvGnxw0iXgdF/v/6TnPE/8HI6yCeayslGo6tpoDKEvh1hd?=
- =?us-ascii?Q?vDzVzDC9xz0EG8Tz/VHDK5LbkRA/RSm3CYTEo7Oz6KEJp9YcElTZu8LdLW+E?=
- =?us-ascii?Q?PiVnk8sz0krczpSyHfUDuvCazjqn8qFdvnrDSOe63WOwNtWTM6sjR6pqKMLT?=
- =?us-ascii?Q?/Bvg5QemIhcu1anXvCSIyF3K7kjk90XBKl5928h9zToHMPmENM3/hBEcsG2G?=
- =?us-ascii?Q?jQ1Lw790AxTwT9dEcW7WArk9fbTStoZXFwbP77/THgB7kBArI8QpQXJfG2La?=
- =?us-ascii?Q?O4QnqNjHLlyN3JpmMVu/5O94uEKAt+rcQwPVavrB5jfl4FM++bx19gJMPIvL?=
- =?us-ascii?Q?4BvNZMZlkGjlwg+XazhrCUszEXf8dapzVWWFQrMtEivCkuyCpSuLTOSb5HW2?=
- =?us-ascii?Q?MT57NA7yrhB2yxLphJk3Pl6fbK89JBLA9Q6I5QwdJwUCgyWS0JrkSJ+hyTM0?=
- =?us-ascii?Q?cvMNRrAUpj3SmR5IzhR5xyr8mH7qC2EmlnoQn1WAr9YJ5A8C+Q+zfvsiR5I6?=
- =?us-ascii?Q?Vr6abtsHunxtR4a7/SEoYqv3E+zhOs4BDPacTuxhkwBBL+vE9R/FnVdogKQS?=
- =?us-ascii?Q?ZhPqXUQ94kaSy5Yam098w86rD49bCNNwZZ0D3zjzB2nrO5/wYpCJzE8qmC7n?=
- =?us-ascii?Q?ulV1ekhGev9DI9vu0tVVKODGHCASBHQB0oeAZEod2p2p7dh/TbllGa7RDOea?=
- =?us-ascii?Q?5/pLo1FBfE2Z/tOh8Rtswzn67NYEzkJkKzHfReJ5Dtu0MyRyyyHnbAtatNtM?=
- =?us-ascii?Q?RRGEFdmR3HsEVMLtGNmPPWx1Hr9s00gQldti95hto7SiZj2J9EoEBvH/R76r?=
- =?us-ascii?Q?7Cj2HBjMBoc11r/YYYcv7s7Qg89dFOX185kpbTxtV2dB5VoSXWuUmEUzkomQ?=
- =?us-ascii?Q?UAveManu0EArwGIZzMofCfmW/UFbC1Etxtbc/H4iqqXbMfC74n5ZtAojgcwQ?=
- =?us-ascii?Q?zZUl48SWtgaQiS4mABJMnnPp4a59WkxAKvDvibnnC5a9qezoRpFzSWxAd0gY?=
- =?us-ascii?Q?KZfseA+j3YtFAd610MK4Nx3IdxG0zbvPuE9J27MNX4U3UJ8vOJh9PsgGreLQ?=
- =?us-ascii?Q?iGaODZl0CTD9aYM9LSmFvYWpfHH3F7XJdbdLyUJDFI326yGlWKPjjwvB4m/T?=
- =?us-ascii?Q?xe/v9Biauf758WmAex30K0nvTJ70BX560u/8ndX/XY90rBz9nVj8kLb3O/79?=
- =?us-ascii?Q?wYzQEb3EYVjUFDyMQD1Jh/zEOqbkghhUqI01euPc6lVwEj7rHyrjtorn3x4h?=
- =?us-ascii?Q?U/JfnTFxy4q0TrEsXwiIv8avZOUXCC4LgbiPKSsIob8YPZ3/sgXym4/Wb7K9?=
- =?us-ascii?Q?jHWSj/g+x0Lqs0BrqcBBnx/Z26uqmamcp4lFK5HcpyOcaxHJPYtlPZY2kz4y?=
- =?us-ascii?Q?UZ8W6aT8y+e0QDGghNsbS/YUMNaiXfJPbhClkwjD6JbTqnanlo4R?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 99fcc377-c82d-411e-20b1-08df2a08ef2e
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 15:36:37.3468
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: N8GTFSY/GQkmI5Vdfp++S/ZIQJAtDHwB/Lijm/fBU4k+YHZK9gxiISTzZsDberYi2mPV6B9MXW9MkxJgV2RI7EQhIrL8TcHsN8V3w3s41HTl4Dp1X/9/RB3tmBwx9WTC
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB6932
+References: <20261002154415.2270586-1-vincent.guittot@linaro.org>
+ <20261002154415.2270586-8-vincent.guittot@linaro.org> <a18e6fe1-e14e-46be-9779-3704ab8625a0@linux.ibm.com>
+In-Reply-To: <a18e6fe1-e14e-46be-9779-3704ab8625a0@linux.ibm.com>
+From: Vincent Guittot <vincent.guittot@linaro.org>
+Date: Wed, 14 Oct 2026 17:37:17 +0200
+X-Gm-Features: AclHuK-CGGWcfZAYs4XYXiC55pivspaDbdCD0_NPFeWvFdImCVIM28r15KKP_4U
+Message-ID: <CAKfTPtDkSs8KOUYAdSOz_h93khGbT6TaVc9gCa1Cpa0JbmKEGw@mail.gmail.com>
+Subject: Re: [PATCH 07/18] sched/fair: Add push task mechanism for fair
+To: Shrikanth Hegde <sshegde@linux.ibm.com>
+Cc: qyousef@layalina.io, christian.loehle@arm.com, pierre.gondois@arm.com, 
+	mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com, 
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, 
+	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, 
+	linux-kernel@vger.kernel.org, lukasz.luba@arm.com, rafael@kernel.org, 
+	linux-pm@vger.kernel.org, tj@kernel.org, void@manifault.com, 
+	arighi@nvidia.com, changwoo@igalia.com, sched-ext@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Oct 14, 2026 at 10:57:40AM -0300, Leonardo Costa wrote:
-> Hi Laurent,
+On Mon, 12 Oct 2026 at 16:07, Shrikanth Hegde <sshegde@linux.ibm.com> wrote:
 >
-> On Tue, Oct 13, 2026 at 01:11:58PM +0200, Laurent Pinchart wrote:
-> > Hi Francesco,
+> Hi Vincent,
+>
+> Disclaimer:
+> I haven't read the full series yet. I will try to do. Sorry in case i read
+> it wrong.
+> Thought of quickly checking the push path since i had recently worked on it.
+>
+> On 10/2/26 9:14 PM, Vincent Guittot wrote:
+> > EAS is based on wakeup events to efficiently place tasks on the system, but
+> > there are cases where a task doesn't have wakeup events anymore or at a far
+> > too low pace. For such situation, we can take advantage of the task being
+> > put back in the enqueued list to check if it should be pushed on another
+> > CPU.
 > >
-> > On Tue, Oct 13, 2026 at 11:06:31AM +0200, Francesco Dolcini wrote:
-> > > On Mon, Oct 12, 2026 at 06:40:54PM +0200, Laurent Pinchart wrote:
-> > > > On Mon, Oct 12, 2026 at 04:25:22AM -0300, Leonardo Costa wrote:
-> > > > > This series adds a device tree overlay that enables the VGA output on Apalis
-> > > > > iMX6, which is driven from a parallel RGB interface passing through a
-> > > > > non-programmable video DAC.
-> > > > >
-> > > > > The video DAC is a simple resistor network gated by an active-low
-> > > > > data-enable signal. For the bridge to work properly, this series also
-> > > > > changes the following in the dt-bindings and simple-bridge driver:
-> > > > >
-> > > > > - dt-bindings: Add a new compatible for the bridge in the simple-bridge
-> > > > >   binding. This is necessary because the existing dumb-vga-dac compatible
-> > > > >   doesn't describe a data-enable signal polarity.
-> > > > >
-> > > > > - simple-bridge: Add the VGA bridge match-table entry and timings
-> > > > >   struct, setting the DRM_BUS_FLAG_DE_LOW flag for the bridge.
-> > > >
-> > > > Is there schematics available anywhere ? That would help reviewing the
-> > > > series ?
-> > >
-> > > This circuit is on the SoM, and the SoM schematics are
-> > > confidential and not generally available.
-> > >
-> > > I tried to extract as ascii art the relevant circuit, hope it helps
+> > Add a push task mechanism that enables fair scheduler to push runnable
+> > tasks. EAS will be one user but other feature like filling idle CPUs or
+> > short slice tasks can also take advantage of it.
 > >
-> > Thank you, it makes things clearer.
+> > Signed-off-by: Vincent Guittot <vincent.guittot@linaro.org>
+> > ---
+> >   kernel/sched/core.c  |   4 +-
+> >   kernel/sched/fair.c  | 163 +++++++++++++++++++++++++++++++++++++++++++
+> >   kernel/sched/sched.h |   7 ++
+> >   3 files changed, 172 insertions(+), 2 deletions(-)
 > >
-> > The circuit seems fairly generic. Wouldn't it be better to add an
-> > optional property ot the dumb-vga-dac instead of a new compatible string
-> > specific to Apalis ?
+> > diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> > index 837dc74c9a8d..18692b752814 100644
+> > --- a/kernel/sched/core.c
+> > +++ b/kernel/sched/core.c
+> > @@ -2553,8 +2553,8 @@ static inline bool is_cpu_allowed(struct task_struct *p, int cpu)
+> >    *
+> >    * Returns (locked) new rq. Old rq's lock is released.
+> >    */
+> > -static struct rq *move_queued_task(struct rq *rq, struct rq_flags *rf,
+> > -                                struct task_struct *p, int new_cpu)
+> > +struct rq *move_queued_task(struct rq *rq, struct rq_flags *rf,
+> > +                         struct task_struct *p, int new_cpu)
+> >       __must_hold(__rq_lockp(rq))
+> >   {
+> >       lockdep_assert_rq_held(rq);
+> > diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> > index f12678850ce2..00078ac7fada 100644
+> > --- a/kernel/sched/fair.c
+> > +++ b/kernel/sched/fair.c
+> > @@ -8179,6 +8179,8 @@ static void dequeue_hierarchy(struct task_struct *p, int flags)
+> >       }
+> >   }
+> >
+> > +static void fair_remove_pushable_task(struct rq *rq, struct task_struct *p);
+> > +
+> >   /*
+> >    * The part of dequeue_task_fair() that is needed to dequeue delayed tasks.
+> >    *
+> > @@ -8195,6 +8197,7 @@ static bool __dequeue_task(struct rq *rq, struct task_struct *p, int flags)
+> >       bool task_delayed = flags & DEQUEUE_DELAYED;
+> >
+> >       clear_buddies(cfs_rq, se);
+> > +     fair_remove_pushable_task(rq, p);
+> >
+> >       update_curr_eevdf(cfs_rq);
+> >       update_entity_lag(cfs_rq, se);
+> > @@ -9799,6 +9802,157 @@ static int find_energy_efficient_cpu(struct task_struct *p, int prev_cpu)
+> >       return target;
+> >   }
+> >
+> > +DEFINE_STATIC_KEY_FALSE(sched_push_task);
+> > +
+> > +static inline bool sched_push_task_enabled(void)
+> > +{
+> > +     return static_branch_unlikely(&sched_push_task);
+> > +}
+> > +
+> > +static bool __check_pushable_fair_task(struct rq *rq, struct task_struct *p)
+> > +{
+> > +     if (!task_on_rq_queued(p))
+> > +             return false;
+> > +
+> > +     if (p->se.sched_delayed)
+> > +             return false;
+> > +
+> > +     if (p->nr_cpus_allowed <= 1)
+> > +             return false;
+> > +
+> > +     return true;
+> > +}
+> > +
+> > +static bool fair_check_pushable_task(struct rq *rq, struct task_struct *p, struct task_struct *next)
+> > +{
+> > +     if (!__check_pushable_fair_task(rq, p))
+> > +             return false;
+> > +
+> > +     return false;
+> > +}
+> > +
+> > +static inline int has_pushable_tasks(struct rq *rq)
+> > +{
+> > +     return !plist_head_empty(&rq->cfs.pushable_tasks);
+> > +}
+> > +
 >
-> See the diff below, this was the initial idea we had when working on
-> this. On one hand, at least to me it seems like something that other
-> bridges could use, and a new property seems reasonable. On the other,
-> since we don't know exactly how much configuration is expected from a
-> bridge in the simple-bridge driver, we weren't sure if this would be
-> accepted, and went with the simpler solution of creating a new binding
-> for our bridge, which also seemed less intrusive.
+> Should this use static key?
+>
+> > +static struct task_struct *pick_next_pushable_fair_task(struct rq *rq)
+> > +{
+> > +     struct task_struct *p;
+> > +
+> > +     if (!has_pushable_tasks(rq))
+> > +             return NULL;
+> > +
+> > +     p = plist_first_entry(&rq->cfs.pushable_tasks,
+> > +                           struct task_struct, pushable_tasks);
+> > +
+> > +     WARN_ON_ONCE(rq->cpu != task_cpu(p));
+> > +     WARN_ON_ONCE(task_current(rq, p));
+> > +     WARN_ON_ONCE(p->nr_cpus_allowed <= 1);
+> > +     WARN_ON_ONCE(!task_on_rq_queued(p));
+> > +
+> > +     /*
+> > +      * Remove task from the pushable list as we try only once after that
+> > +      * the task has been put back in enqueued list.
+> > +      */
+> > +     plist_del(&p->pushable_tasks, &rq->cfs.pushable_tasks);
+> > +
+> > +     return p;
+> > +}
+> > +
+> > +static int
+> > +select_task_rq_fair(struct task_struct *p, int prev_cpu, int wake_flags);
+> > +
+> > +/*
+> > + * See if the non running fair tasks on this rq can be sent on other CPUs
+> > + * that fits better with their profile.
+> > + */
+> > +static bool fair_push_task(struct rq *rq)
+> > +{
+> > +     struct task_struct *next_task;
+> > +     int prev_cpu, new_cpu;
+> > +     struct rq_flags rf;
+> > +     struct rq *cur_rq;
+>
+> You likely need below to keep clang's context tracking to be happy.
+>
+>         context_unsafe_alias(rq);
 
-Look like add data-enable-active make sense at this case. You can try it.
+I just noticed that I didn't answer to this one
 
-Frank
+Why should I need this ?
+
+rq remains the same in fair_push_task(). I'm using rq and new_rq to
+differentiate both current and new rq
 
 >
-> What are your thoughts about a change like this?
+> > +
+> > +     next_task = pick_next_pushable_fair_task(rq);
+> > +     if (!next_task)
+> > +             return false;
+> > +
+> > +     if (is_migration_disabled(next_task))
+> > +             return true;
 >
-> diff --git a/drivers/gpu/drm/bridge/simple-bridge.c b/drivers/gpu/drm/bridge/simple-bridge.c
-> index 3fba7002322e..41b00a44983a 100644
-> --- a/drivers/gpu/drm/bridge/simple-bridge.c
-> +++ b/drivers/gpu/drm/bridge/simple-bridge.c
-> @@ -171,6 +171,7 @@ static int simple_bridge_probe(struct platform_device *pdev)
->  {
->  	struct simple_bridge *sbridge;
->  	struct device_node *remote;
-> +	u32 de;
+> If migration is disabled, then it shouldn't endup on pushable_tasks?
 >
->  	sbridge = devm_drm_bridge_alloc(&pdev->dev, struct simple_bridge,
->  					bridge, &simple_bridge_bridge_funcs);
-> @@ -212,6 +213,19 @@ static int simple_bridge_probe(struct platform_device *pdev)
->  	sbridge->bridge.of_node = pdev->dev.of_node;
->  	sbridge->bridge.timings = sbridge->info->timings;
+> > +
+> > +     /* We might release rq lock */
+> > +     get_task_struct(next_task);
+> > +
+> > +     prev_cpu = rq->cpu;
+> > +
+> > +     /*
+> > +      * We need to release rq lock and take both task and rq w/o
+> > +      * triggering a deadlock.
+> > +      */
+> > +     raw_spin_rq_unlock(rq);
+> > +
+> > +     cur_rq = task_rq_lock(next_task, &rf);
+> > +
+> > +     /* Task already migrated */
+> > +     if (cur_rq->cpu != prev_cpu)
+> > +             goto skip_push;
+> > +
+> > +     new_cpu = select_task_rq_fair(next_task, prev_cpu, 0);
+> > +
+> > +     /* Task doesn't need to migrate */
+> > +     if (new_cpu == prev_cpu)
+> > +             goto skip_push;
+> > +
+> > +     update_rq_clock(cur_rq);
+> > +     cur_rq = move_queued_task(cur_rq, &rf, next_task, new_cpu);
+> > +
+> > +skip_push:
+> > +     task_rq_unlock(cur_rq, next_task, &rf);
+> > +
+> > +     /* Restore rq state */
+> > +     raw_spin_rq_lock(rq);
+> > +     put_task_struct(next_task);
+> > +
+> > +     return true;
+> > +}
+> > +
+> > +static void fair_push_tasks(struct rq *rq)
+> > +{
+> > +     /* fair_push_task() will return true if it moved a fair task */
+> > +     while (fair_push_task(rq))
+> > +             ;
+> > +}
 >
-> +	if (!sbridge->bridge.timings &&
-> +	    !of_property_read_u32(pdev->dev.of_node, "data-enable-active", &de)) {
-> +		struct drm_bridge_timings *timings;
-> +
-> +		timings = devm_kzalloc(&pdev->dev, sizeof(*timings), GFP_KERNEL);
-> +		if (!timings)
-> +			return -ENOMEM;
-> +
-> +		timings->input_bus_flags = de ? DRM_BUS_FLAG_DE_HIGH :
-> +						DRM_BUS_FLAG_DE_LOW;
-> +		sbridge->bridge.timings = timings;
-> +	}
-> +
->  	return devm_drm_bridge_add(&pdev->dev, &sbridge->bridge);
->  }
+> Would it better to iterate through the list? This is bit difficult
+> to read at first.
+>
+> In failure cases also, it can return true. No? for example,
+> is_migration_disabled(), It is needed since you need to iterate the
+> rq to see if there is a task to move.
+>
+> > +
+> > +static DEFINE_PER_CPU(struct balance_callback, fair_push_head);
+> > +
+> > +static inline void fair_queue_push_tasks(struct rq *rq)
+> > +{
+> > +     if (!sched_push_task_enabled() || !has_pushable_tasks(rq))
+> > +             return;
+> > +
+> > +     queue_balance_callback(rq, &per_cpu(fair_push_head, rq->cpu), fair_push_tasks);
+> > +}
+> > +
+> > +static void fair_remove_pushable_task(struct rq *rq, struct task_struct *p)
+> > +{
+> > +     if (sched_push_task_enabled())
+> > +             plist_del(&p->pushable_tasks, &rq->cfs.pushable_tasks);
+> > +}
+> > +
+> > +static void __fair_add_pushable_task(struct rq *rq, struct task_struct *p)
+> > +{
+> > +     plist_del(&p->pushable_tasks, &rq->cfs.pushable_tasks);
+> > +     plist_node_init(&p->pushable_tasks, p->prio);
+> > +     plist_add(&p->pushable_tasks, &rq->cfs.pushable_tasks);
+> > +}
+> > +
+> > +static void fair_add_pushable_prev(struct rq *rq, struct task_struct *prev, struct task_struct *next)
+> > +{
+> > +     if (sched_push_task_enabled() && fair_check_pushable_task(rq, prev, next))
+> > +             __fair_add_pushable_task(rq, prev);
+> > +}
+> > +
+> >   /*
+> >    * select_task_rq_fair: Select a target runqueue for the task.
+> >    * There are 2 ways to select the target runqueue:
+> > @@ -10272,6 +10426,12 @@ static void put_prev_task_fair(struct rq *rq, struct task_struct *prev, struct t
+> >       cfs_rq->curr = NULL;
+> >       if (se->on_rq)
+> >               __enqueue_entity(cfs_rq, se);
+> > +
+> > +     /*
+> > +      * The previous task might be eligible for being pushed on another cpu
+> > +      * if it is still active.
+> > +      */
+> > +     fair_add_pushable_prev(rq, prev, next);
+> >   }
+> >
+> >   /*
+> > @@ -15379,6 +15539,7 @@ static void set_next_task_fair(struct rq *rq, struct task_struct *p, enum snt_e
+> >               goto repick;
+> >
+> >       clear_buddies(cfs_rq, se);
+> > +     fair_remove_pushable_task(rq, p);
+> >
+> >       if (on_rq)
+> >               __dequeue_entity(cfs_rq, se);
+> > @@ -15423,6 +15584,7 @@ static void set_next_task_fair(struct rq *rq, struct task_struct *p, enum snt_e
+> >
+> >       update_misfit_status(p, rq);
+> >       sched_fair_update_stop_tick(rq, p);
+> > +     fair_queue_push_tasks(rq);
+> >
+> >   repick:
+> >       /*
+> > @@ -15439,6 +15601,7 @@ void init_cfs_rq(struct cfs_rq *cfs_rq)
+> >   {
+> >       cfs_rq->tasks_timeline = RB_ROOT_CACHED;
+> >       cfs_rq->zero_vruntime = (u64)(-(1LL << 20));
+> > +     plist_head_init(&cfs_rq->pushable_tasks);
+> >       raw_spin_lock_init(&cfs_rq->removed.lock);
+> >   }
+> >
+> > diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+> > index e025d2a6c302..74130bd2a2c8 100644
+> > --- a/kernel/sched/sched.h
+> > +++ b/kernel/sched/sched.h
+> > @@ -721,6 +721,8 @@ struct cfs_rq {
+> >               unsigned long   runnable_avg;
+> >       } removed;
+> >
+> > +     struct plist_head       pushable_tasks;
+> > +
+> >   #ifdef CONFIG_FAIR_GROUP_SCHED
+> >       u64                     last_update_tg_load_avg;
+> >       unsigned long           tg_load_avg_contrib;
+> > @@ -3877,6 +3879,8 @@ static inline bool sched_energy_enabled(void) { return false; }
+> >
+> >   #endif /* !(CONFIG_ENERGY_MODEL && CONFIG_CPU_FREQ_GOV_SCHEDUTIL) */
+> >
+> > +DECLARE_STATIC_KEY_FALSE(sched_push_task);
+> > +
+> >   #ifdef CONFIG_MEMBARRIER
+> >
+> >   /*
+> > @@ -4209,6 +4213,9 @@ void move_queued_task_locked(struct rq *src_rq, struct rq *dst_rq, struct task_s
+> >       wakeup_preempt(dst_rq, task, 0);
+> >   }
+> >
+> > +extern struct rq *move_queued_task(struct rq *rq, struct rq_flags *rf,
+> > +                                struct task_struct *p, int new_cpu);
+> > +
+> >   static inline
+> >   bool task_is_pushable(struct rq *rq, struct task_struct *p, int cpu)
+> >   {
 >
