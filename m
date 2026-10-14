@@ -1,184 +1,133 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from www262.sakura.ne.jp (www262.sakura.ne.jp [202.181.97.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A682560AB6
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:21:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCA983E2769
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:21:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.181.97.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791994868; cv=none; b=AgidOwgPylg0yb364PHoEHQTfhMRExSQWYqaMFNRrJlS8zhFUGgTLUZ/ohBW6jjCM5uDie7bUYa7tBETNtfgyRZz3UhY1Uu7wR37ww8JG2b1VWWOaDGqJSAqx+/hgJyEck4gjHr2f0fB9ua5ZmgFuWVI7OhZFusFpLDotxJTnb8=
+	t=1791994894; cv=none; b=JoWSm/Yk5HsR8N05LJK9pcXnCSTH6nvWLfVuHRuPTnGnO1tjLX4Pqv78k6S0CYrfoMRIJkC/fW5FbYQ/jryAokwXcNNwgo2Hu7jxDcVkRk626Ts+LGMBxUXLzu/zgrroaPXBcHxgno/MOoxEXeqwwsZXM1dw5NokPPslt5h3CDQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791994868; c=relaxed/simple;
-	bh=P3+kOL1y2nv1UhzDI3hBIeFZ+qnuxfwB9W3emUPgCGE=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=C77nrS2bxW7uXKfDLlvhXy7LbZLX/Ur0x5cuV6IiJ2ZpAGgvzkMPDQjQ0cbUY0VVjkFVAVWo42kVgpfxAXulQoptqqvnehW1qTviyzLc5tn7hd1uCgvHQLPoB4GFNjmpbDH4ezwbajOBd6YY3dlPDzqM/K/GmGlFxi4qt3l1auI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PAZnYwE+; arc=none smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PAZnYwE+"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2db3728f0c4so3960085ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:21:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791994865; x=1792599665; darn=vger.kernel.org;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=P3+kOL1y2nv1UhzDI3hBIeFZ+qnuxfwB9W3emUPgCGE=;
-        b=PAZnYwE+Dstuux6bB4LXq6Uldd2Te10BQgI1YZL3P2o+AbWwKVs526yGHFXALkDRLk
-         lUR2So0bMZnVLOTquUQfSfi3RoixIWXlpPii/G8nbg4H+jxFliaE4429mkVpBGMZCaQU
-         C9zlT2GD8elQBy6VVTM/GYGfJG54gmyXEvIhQU8Uv7/1QwYQpiwTWojGG6ZcSWkZga8r
-         qNR1xvEzP/DIEgQPnIGc9ZEllvPyD+NSNHZHmpu4a248FuFrxryNHY/aUPYh7PFBJUEW
-         v+qKuZHLSlIRLcjOuoE0Idn/nP4gAdThfsELhtBka0FPUBD7mx0WodhaHt6WHF4XNnxh
-         Y6jQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791994865; x=1792599665;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=P3+kOL1y2nv1UhzDI3hBIeFZ+qnuxfwB9W3emUPgCGE=;
-        b=vktIKMdjmSrX6Uh0+Wyl7OuxgnL+YpaAKJ8TOlaQJMDsPL0ufwkyXKUhkGyBgk0I/B
-         n4lfpRJfXBG3+sEQ77bDD+GO7ZM3MWYzF15KPWLdphUhYfQH7IGlxaFyfV7Mftia2lNz
-         NF7jf8IqXyePlGxgq1GQ8Spi1wsh5ic5qNqXz7Wn21avZj/ovvnNADaBPm0bnol7LSz7
-         dTFHOI07TZ85bcq8xkTMa8x3RH9dy5p9Az98nv6uCPb8GBWd5UWzYim66cFeDcFH2oPl
-         9idD9gBwYfNooArX3R9lEb9ly3HzvPli1E3yICVkKDDcbAis1ZlwwtvcQJhwX0UR+k1e
-         atjA==
-X-Forwarded-Encrypted: i=1; AKwUvByGSQOyRmyz6V8M06sMO7BAWF7iW/lUaZ9eEPOOo9DM7bG9HDm/5rAwKo3IW/zXJTra5JtoGCUhN4cTvz8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL3DJ6AEwmtxBRGf85YMh4O5kyasYcIeCWWt2lDQBf5JlLzMRbt
-	k2EO/2v/Yf1XERfi5A80s6yMs5/1wmy/CzAvrMTOtSSV/34a/F4fHPel
-X-Gm-Gg: AYBFou2WqGMok3X9firw0uq3A5eXcdoRhZ4MwfA+MKZ+fQhB+Yw7Nd2kTh0mTrPPWxh
-	RBxiJyslI0n7QI/gR2HEs1EqkKlwbTO48Z3STmZIe6A93P/rQZuF3UboBfe9/7bSgkv6EWA+NOz
-	yvimuV0Hj4bFJB16Sgq5WPyy6XIAE3x+mZQi9dnbLxPh/VavbC+9kK49B5lRn7YcvcnJDvKHPU0
-	goq9OTDG+GAV1JkxNXx2uNZMCbVRNWv6V98oFqUc9x87aR+QdAmhqee12Q5+EU/4OtYhouErhLK
-	1AVC2qzKgbtmjqdUA13QkBLrUBLQrTnIt3ehiBYbStaLfAYxXfEccT+EXEvWHdLn8eUtEyFBie6
-	cIPjbyPuvbPYyzTcIcaNBnyyXVwigLrSUuTV6qhSlfcIaiKMOCpPxq8qNGve3k4MABgN9XOn4X5
-	BN3b20yUc8C7Fr1rgojmQC43QucVk7VpPAyPcPjN+UDchV7cN9TK99jWIGoAjL2rNvGryIEUWix
-	Ec6AorG419nZ5okIQQAv9YPBu8zsFc=
-X-Received: by 2002:a17:90a:d44d:b0:3a4:9d98:f980 with SMTP id 98e67ed59e1d1-3ab3a3b0c61mr24024340a91.1.1791994865254;
-        Wed, 14 Oct 2026 09:21:05 -0700 (PDT)
-Received: from smtpclient.apple ([23.247.139.92])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac92a1f906sm335949a91.0.2026.10.14.09.21.02
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 14 Oct 2026 09:21:04 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
+	s=arc-20240116; t=1791994894; c=relaxed/simple;
+	bh=DKmUcf3UX2uo5PYFvyNXWQbwzGjnAAIqyn8pLNXb+iQ=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
+	 In-Reply-To:Content-Type; b=cIdVbCcrh8lGF6SIl8fsrt9Vb/2iTKkkOiCVQuZnp4w9Kobn5xgvIDY8DdiIhS24m0wWJlGH6Z68Y8JTDFv8MhlIhM5z+m6YmbSzzc2e3qBBii91DVxp/ThxMmJRgiO0+QHDoE7bAsoETz5e6FZ1Du8nI0N7k8zO0ex5TZ4S34M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp; arc=none smtp.client-ip=202.181.97.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp
+Received: from www262.sakura.ne.jp (localhost [127.0.0.1])
+	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id 69EGLT8Q014763
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:21:29 +0900 (JST)
+	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
+Received: from [192.168.1.6] (M106072072000.v4.enabler.ne.jp [106.72.72.0])
+	(authenticated bits=0)
+	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id 69EGL9Z0014721
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NO)
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:21:29 +0900 (JST)
+	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
+Message-ID: <f9f521a6-2132-4eb7-ad74-28363366e6a8@I-love.SAKURA.ne.jp>
+Date: Thu, 15 Oct 2026 01:21:09 +0900
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
-Subject: Re: [PATCH RFC v2 0/4] gpio: loongson-64bit: add interrupt support
- for more models
-From: Miao Wang <shankerwangmiao@gmail.com>
-In-Reply-To: <CAMRc=MeW2nR8W3_4266N05p3Oa1WPNJhA92+T3miXQ0k5CsyJg@mail.gmail.com>
-Date: Thu, 15 Oct 2026 00:20:49 +0800
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Miao Wang via B4 Relay <devnull+shankerwangmiao.gmail.com@kernel.org>,
- Jiaxun Yang <jiaxun.yang@flygoat.com>,
- linux-gpio@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Yinbo Zhu <zhuyinbo@loongson.cn>,
- Linus Walleij <linusw@kernel.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <317E251E-9135-4376-B813-74B8A748FD72@gmail.com>
-References: <20261002-loongsongpio-v2-0-6e3eb150a4ef@gmail.com>
- <CAMRc=McnDBO6OZx6p9HGHn=Yyt8ydD=8Z=zYZvYvuy-_DUq6tQ@mail.gmail.com>
- <7D6EB1C6-0CCB-44F1-B698-89B0479EEDA2@gmail.com>
- <CAMRc=MeW2nR8W3_4266N05p3Oa1WPNJhA92+T3miXQ0k5CsyJg@mail.gmail.com>
-To: Bartosz Golaszewski <brgl@kernel.org>
-X-Mailer: Apple Mail (2.3826.700.81.1.8)
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: [PATCH v4] block: avoid long sync_blockdev() under disk->open_mutex
+ during parallel close
+From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+To: LKML <linux-kernel@vger.kernel.org>
+References: <17fb5b42-4f54-41db-8bcb-2c13e05c6137@I-love.SAKURA.ne.jp>
+ <d52496da-fb19-4b60-91bc-76402822c6b7@I-love.SAKURA.ne.jp>
+ <450c6828-9187-487e-a219-f64e56d34fe7@I-love.SAKURA.ne.jp>
+Content-Language: en-US
+In-Reply-To: <450c6828-9187-487e-a219-f64e56d34fe7@I-love.SAKURA.ne.jp>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Anti-Virus-Server: fsav412.rs.sakura.ne.jp
+X-Virus-Status: clean
 
-Hi,
+Commit b849dd84b6cc ("bdev: Reduce time holding bd_mutex in sync in
+blkdev_close()") introduced a sync_blockdev() call immediately before
+holding disk->open_mutex. But this check was racy and best-effort basis.
 
-> 2026=E5=B9=B410=E6=9C=8814=E6=97=A5 23:33=EF=BC=8CBartosz Golaszewski =
-<brgl@kernel.org> =E5=86=99=E9=81=93=EF=BC=9A
->=20
-> On Thu, 8 Oct 2026 12:21:43 +0200, Miao Wang =
-<shankerwangmiao@gmail.com> said:
->> Hi,
->>=20
->>> 2026=E5=B9=B410=E6=9C=888=E6=97=A5 18:04=EF=BC=8CBartosz Golaszewski =
-<brgl@kernel.org> =E5=86=99=E9=81=93=EF=BC=9A
->>>=20
->>> On Thu, 1 Oct 2026 20:13:18 +0200, Miao Wang via B4 Relay
->>> <devnull+shankerwangmiao.gmail.com@kernel.org> said:
->>>> This patch series aims to correctly add interrupt support for GPIO
->>>> controllers found on more Loongson CPUs. The GPIO controllers in =
-such
->>>> models do not have a complete intgrated interrupt controller, but =
-choose
->>>> to delegate interrupt handling to their parent interrupt =
-controller.
->>>> This sounds like a heirarchical interrupt setup, but what makes it
->>>> more complex is that multiple GPIO lines in these controllers may =
-share
->>>> one interrupt line on the parent interrupt controller. The details =
-is
->>>> described in the third patch.
->>>>=20
->>>> Signed-off-by: Miao Wang <shankerwangmiao@gmail.com>
->>>> ---
->>>=20
->>> The series looks pretty good. Who is the RFC addressed at in this =
-case? I can't
->>> really answer the questions from patch 3/4 as I don't know this =
-platform nor am
->>> I well versed in ACPI. Maybe Cc the GPIO ACPI maintainers for =
-review?
->>=20
->> Thanks for your review. The RFC contains two questions, the first is =
-about
->> the firmware interface, including FDT and ACPI; the second is about =
-the
->> way handling the delegated IRQs.
->>=20
->> Regarding the firmware interface, it is to be decided how to declare
->> platform irq numbers for the GPIO controller. Such a GPIO controller
->> may have N gpio lines with M parent interrupt lines (M < N). The
->> firmware should a) list M irq numbers corresponding to the M parent
->> interrupt lines or b) list N irq numbers (which might be duplicated)
->> orresponding to the N gpio lines. Previously b) was chosen by the
->> kernel driver. However actual ACPI tables found in the published
->> firmware chose a). The discussion about it happened in [1].
->>=20
->=20
-> Unless it impacts DT systems, I'll let Andy handle the ACPI part. =
-Please Cc him
-> next time as I pointed out under the RFC.
+If more than one process concurrently called bdev_release() and saw
+atomic_read(&bdev->bd_openers) > 1, the process which actually hit
+the atomic_dec_and_test(&bdev->bd_openers) condition will call
+sync_blockdev() from blkdev_flush_mapping() (which could take several
+minutes) with disk->open_mutex held.
 
-Will add him on the Cc list in further revisions.
+Kill this race window and make sync_blockdev() always be called before
+holding disk->open_mutex, by using a marker that checks whether lockless
+sync_blockdev() has raced.
 
->> Regarding to the interrupt handling delegation, since there is no
->> complete interrupt controller integrated with the GPIO controller,
->> the interrupt handling, including detecting edge triggered interrupts
->> and masking/unmasking, should be delegated to the parent IRQ =
-controller.
->> I want to check if my implementation approach is acceptable and not
->> violating any implicit rules on the interrupt subsystem side.
->>=20
->=20
-> I'd suggest to run your implementation by Thomas Gleixner because =
-directly
-> accessing the internals of the parent's irq data looks fishy. For =
-instance:
-> you call irq_set_type() directly without going through __setup_irq() =
-->
-> __irq_set_trigger() which does some additional bookkeeping.
+Signed-off-by: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+---
+ block/bdev.c              | 37 ++++++++++++++++++++++++++++++++++---
+ include/linux/blk_types.h |  1 +
+ 2 files changed, 35 insertions(+), 3 deletions(-)
 
-I would originally tend to avoid directly calling into ->irq_set_type() =
-and
-other handlers like this. However, the IRQ subsystem does not seem to =
-provide
-APIs to mask, unmask or set type of a given IRQ. Furthermore, =
-__setup_irq()
-is for registering irq_handler for an irq, while in chained irq chip, =
-however,
-irq_flow_handler is needed and should be registered via =
-__irq_do_set_handler().
-
-Cheers,
-
-Miao Wang
-
+diff --git a/block/bdev.c b/block/bdev.c
+index cd8323083740..57f0f57da8c1 100644
+--- a/block/bdev.c
++++ b/block/bdev.c
+@@ -1167,10 +1167,41 @@ void bdev_release(struct file *bdev_file)
+ 	 * of the world and we want to avoid long (could be several minute)
+ 	 * syncs while holding the mutex.
+ 	 */
+-	if (atomic_read(&bdev->bd_openers) == 1)
+-		sync_blockdev(bdev);
+-
+ 	mutex_lock(&disk->open_mutex);
++ retry:
++	if (bdev_is_partition(bdev)) {
++		if (atomic_read(&bdev->bd_openers) == 1) {
++			bdev->bdev_syncer = current;
++			mutex_unlock(&disk->open_mutex);
++			sync_blockdev(bdev);
++			/*
++			 * Always sync the whole disk despite we need to sync
++			 * only when we're the last one, for we can't serialize
++			 * concurrent closing of multiple partitions on the
++			 * same disk using open_mutex.
++			 */
++			sync_blockdev(bdev_whole(bdev));
++			mutex_lock(&disk->open_mutex);
++			if (bdev->bdev_syncer != current)
++				goto retry;
++		} else {
++			/* Mark sync_blockdev() being possibly raced. */
++			bdev->bdev_syncer = NULL;
++		}
++	} else {
++		if (atomic_read(&bdev->bd_openers) == 1) {
++			bdev->bdev_syncer = current;
++			mutex_unlock(&disk->open_mutex);
++			sync_blockdev(bdev);
++			mutex_lock(&disk->open_mutex);
++			if (bdev->bdev_syncer != current)
++				goto retry;
++		} else {
++			/* Mark sync_blockdev() being possibly raced. */
++			bdev->bdev_syncer = NULL;
++		}
++	}
++
+ 	bdev_yield_write_access(bdev_file);
+ 
+ 	if (holder)
+diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
+index 98e21b4cbf32..d79bb4b6100f 100644
+--- a/include/linux/blk_types.h
++++ b/include/linux/blk_types.h
+@@ -74,6 +74,7 @@ struct block_device {
+ #ifdef CONFIG_SECURITY
+ 	void			*bd_security;
+ #endif
++	struct task_struct	*bdev_syncer; /* Not refcounted. */
+ 	/*
+ 	 * keep this out-of-line as it's both big and not needed in the fast
+ 	 * path
+-- 
+2.56.0
 
