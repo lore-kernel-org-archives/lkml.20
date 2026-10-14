@@ -1,303 +1,178 @@
-Received: from va-1-111.ptr.blmpb.com (va-1-111.ptr.blmpb.com [209.127.230.111])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F152B3168EF
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:40:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0A75443C21;
+	Wed, 14 Oct 2026 06:40:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791960020; cv=none; b=Oq4xhFsWwEISkNGFrtc5bCtpIUBpkNd1dxYM5duiD5q+pXbZZUOEr9ZNCBFB3xd45VK10TdLCZrcIVdz/0wVqjXNqap5V42R7BSX8n2IXeJj0ERIgX0XA3dlPPZ8BWKBlOnKFLb/p96lD9GkiCjDxEguQJ5Rs6izp0WKZkVjqAg=
+	t=1791960047; cv=none; b=JtlnGYybDWotUoQdm/T7VW8kWvHPGEXFoEWpk72uUoqe5TU/s63ZxZPjSRTNdbGECJ4oJpnEvMxZ0ZXA7TOFsasogxtGOytmlbvv25YWtxpZU05shqihmAGeazn46CqJQ9dkLJv0uPD77MgTzl+ewNaNbEJLH63NiJmC1IYkjFw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791960020; c=relaxed/simple;
-	bh=C0XcoC87yW/++8AJXGOxW05GqKZ6gqXm6NsTqB0339Y=;
-	h=Date:Mime-Version:In-Reply-To:References:Message-Id:To:
-	 Content-Type:Cc:From:Subject; b=KTUuPMfJXDGdo4Epb/1/607lMdfcdmYE4oFzUnXAH8ENa/R6f2pJHSVuFKLWElg/170Nv5SuIDf4iKgCp1/zEAqkRnaUIHgVWkr4PQjxWPNYyEAlWv5LJtE+wD0X0vndxfIbEFOgajBNgSxrxjGPaPc0jVystextGpY14XeE46k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=XiV83qdJ; arc=none smtp.client-ip=209.127.230.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1791960047; c=relaxed/simple;
+	bh=YB8kz/ID/XehfQjwXEA5abLAoigvKWCrN6PJeVFUUA0=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Zc1l9+8DTX3WWuFgfO2fnmjnNWGaJ5lXc+unrPaQZ5EkS1uRn/xlW8TOaecu4rDg90QXNA6X2tYIS/vtt8Kff/jeC8t93fcoFIkAPYsiAV2bQoWN4BPEoFQzhfmJgO/yZlgZxFGmv/9NHCkVigGf4y5BFKrPKEXakGN3j9SL8NU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=Wu/GKERr; arc=none smtp.client-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="XiV83qdJ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1791960007; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=EwuNqo0+XHPwZDaTi39gy+CiCLpMn+EunsNZ/8hw9/Y=;
- b=XiV83qdJI5+J3HFUS6LMfBVVTOP338pX0Is/EZSIVi6EGM0HNiRLoiYoY9/3IEBposbUPb
- Q6FcIgPJx66kjauXVhBQxLtxzCyC1GZsqvpFvh8qf/b/U+SEBgPSCYsTNsM0be3L+JppUd
- LDhZo2MpO0n7X/5LAgEg3IGZ/WM3UAMYBnl/aycXdJS61WAgijJ5+Iz4IB8jStRZKN6ZBR
- FlUVkJJtSzqOFcAsFQm1IpAWovaabGM3hyrFn3KDCVkGthDEzMHLF0dLnBlgoRA75mX2zr
- tUHWYOCv6VephUJlH7N+n1tuKuLkYgo7hn871X8Wd2LkMRgbTmLnXSvc8gCnVg==
-Date: Wed, 14 Oct 2026 14:39:54 +0800
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="Wu/GKERr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1791960045; x=1823496045;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=YB8kz/ID/XehfQjwXEA5abLAoigvKWCrN6PJeVFUUA0=;
+  b=Wu/GKERrKjiF1V9Q134WLHtAbEYBn9wdlUluHE99w3eUQIohVpjXlSrS
+   NXculn0axlNnSDq/URZ+TgsRg9OcdDk+w4EE+1WRUMouSlr3Qj8tmCEwY
+   xEaRnKdhm+KxH/jA9uP//pnOyclRGkEwEpQMMjd3FmeWIYPxSfkWt7PWM
+   92KnYKXKTnN230o6a8juGGJaTbgzr8SvjP+r0pccgjWrkShhO96v6Avqn
+   B9xVTB8nl0dr8gL7bqRQNdRc0a+E69BXNlG9dwxV79W9Z2u1Ey281E2aO
+   RirUOyQfyLxD/obiQVy8rW1BG+8WA4PZBKj1S7M/7R7dj5QyoyEtga68o
+   g==;
+X-CSE-ConnectionGUID: ze9kuomzSkKsCdw4s2j0Dg==
+X-CSE-MsgGUID: Q2YK/AHwT2604iaaLgSX/g==
+X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
+   d="scan'208";a="232101696"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 13 Oct 2026 23:40:44 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Tue, 13 Oct 2026 23:40:44 -0700
+Received: from che-ll-i67131.microchip.com (10.10.85.11) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Tue, 13 Oct 2026 23:40:35 -0700
+From: Manikandan Muralidharan <manikandan.m@microchip.com>
+To: <pratyush@kernel.org>, <mwalle@kernel.org>,
+	<takahiro.kuwano@infineon.com>, <miquel.raynal@bootlin.com>,
+	<richard@nod.at>, <vigneshr@ti.com>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>, <srini@kernel.org>, <nicolas.ferre@microchip.com>,
+	<alexandre.belloni@bootlin.com>, <claudiu.beznea@tuxon.dev>,
+	<linux@armlinux.org.uk>, <richardcochran@gmail.com>, <linusw@kernel.org>,
+	<arnd@arndb.de>, <aaro.koskinen@iki.fi>, <gregkh@linuxfoundation.org>,
+	<mathieu.dubois-briand@bootlin.com>, <michael@walle.cc>,
+	<linux-mtd@lists.infradead.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<netdev@vger.kernel.org>
+CC: <manikandan.m@microchip.com>
+Subject: [PATCH v8 0/8] Read MAC address from SST vendor specific SFDP region
+Date: Wed, 14 Oct 2026 12:10:04 +0530
+Message-ID: <cover.1790847519.git.manikandan.m@microchip.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-User-Agent: Mozilla Thunderbird
-In-Reply-To: <70ea8ee6-6fc5-4209-8cee-362da37f5035@kernel.org>
-References: <20260930064308.58159-1-lizhe.67@bytedance.com> <arzVaC2IYkqSb0_U@gmail.com> <9a7c026e-f5f2-40e0-84aa-919c988cc136@bytedance.com> <2b4571c5-8e51-4c91-9d88-11929f200875@kernel.org> <asjVUa6XBZ8ti-0_@gremlin> <70ea8ee6-6fc5-4209-8cee-362da37f5035@kernel.org>
-Message-Id: <86de1ee5-be14-4123-b372-b4691cea8e67@bytedance.com>
-X-Lms-Return-Path: <lba+26acf23c5+051143+vger.kernel.org+lizhe.67@bytedance.com>
-Content-Transfer-Encoding: quoted-printable
-To: "David Hildenbrand (Arm)" <david@kernel.org>, 
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Original-From: Li Zhe <lizhe.67@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-Cc: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, 
-	<akpm@linux-foundation.org>, <muchun.song@linux.dev>, 
-	<osalvador@suse.de>, <linux-mm@kvack.org>, 
-	<linux-kernel@vger.kernel.org>
-From: "Li Zhe" <lizhe.67@bytedance.com>
-Subject: Re: [PATCH] mm/hugetlb: avoid recursive i_mmap_rwsem in PMD sharing
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On 10/10/26 2:05 AM, David Hildenbrand (Arm) wrote:
-> On 10/9/26 13:52, Lorenzo Stoakes (ARM) wrote:
->> On Mon, Oct 05, 2026 at 11:25:01AM +0200, David Hildenbrand (Arm) wrote:
->>>> David mentioned that Oscar was planning to send a proper fix for this
->>>> issue, so I will wait for that patch instead of moving forward with th=
-is
->>>> trylock fallback approach.
->>> @Lorenzo, if Oscar is too busy, I guess we can paste the overall idea f=
-or the
->>> fix here as well (publicly)?
->> Yeah I don't see why not! I don't think there's anything that needs to b=
-e
->> private here.
-> Li, see below, can you work with the below?
->
->
-> ----8<----
->  From 9e1c0676ea6c9cbcabf91cd8badf81a9d88fd3ef Mon Sep 17 00:00:00 2001
-> From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-> Date: Wed, 29 Jul 2026 18:33:08 +0100
-> Subject: [PATCH] fix
->
-> ---
->   mm/hugetlb.c | 103 +++++++++++++++++++++++++++++++++++++++------------
->   1 file changed, 79 insertions(+), 24 deletions(-)
->
-> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-> index e93c4d2456aa..88ff2c4ad483 100644
-> --- a/mm/hugetlb.c
-> +++ b/mm/hugetlb.c
-> @@ -5077,6 +5077,79 @@ static void move_huge_pte(struct vm_area_struct *v=
-ma, unsigned long old_addr,
->   	spin_unlock(dst_ptl);
->   }
->
-> +/* Returns last address processed */
-> +static unsigned long prealloc_or_move_page_tables(struct vm_area_struct =
-*vma,
-> +		struct vm_area_struct *new_vma, unsigned long old_addr,
-> +		unsigned long new_addr, unsigned long len, unsigned long sz,
-> +		unsigned long last_addr_mask, struct mmu_gather *tlb,
-> +		bool is_prealloc)
-> +{
-> +	unsigned long old_end =3D old_addr + len;
-> +	struct hstate *h =3D hstate_vma(vma);
-> +	struct mm_struct *mm =3D vma->vm_mm;
-> +	pte_t *src_pte, *dst_pte;
-> +
-> +	hugetlb_vma_assert_locked(vma);
-> +
-> +	for (; old_addr < old_end; old_addr +=3D sz, new_addr +=3D sz) {
-> +		src_pte =3D hugetlb_walk(vma, old_addr, sz);
-> +		if (!src_pte) {
-> +			old_addr |=3D last_addr_mask;
-> +			new_addr |=3D last_addr_mask;
-> +			continue;
-> +		}
-> +		if (huge_pte_none(huge_ptep_get(mm, old_addr, src_pte)))
-> +			continue;
-> +
-> +		if (is_prealloc) {
-> +			if (!huge_pte_alloc(mm, new_vma, new_addr, sz))
-> +				break;
-> +			continue;
-> +		}
-> +
-> +		if (huge_pmd_unshare(tlb, vma, old_addr, src_pte)) {
-> +			old_addr |=3D last_addr_mask;
-> +			new_addr |=3D last_addr_mask;
-> +			continue;
-> +		}
-> +
-> +		dst_pte =3D hugetlb_walk(new_vma, new_addr, sz);
-> +		if (!dst_pte)
-> +			break;
-> +
-> +		move_huge_pte(vma, old_addr, new_addr, src_pte, dst_pte, sz);
-> +		tlb_remove_huge_tlb_entry(h, tlb, src_pte, old_addr);
-> +	}
-> +
-> +	return old_addr;
-> +}
-> +
-> +/* Returns true if preallocation succeeded across range, otherwise false=
-. */
-> +static bool prealloc_hugetlb_page_tables(struct vm_area_struct *vma,
-> +		struct vm_area_struct *new_vma, unsigned long old_addr,
-> +		unsigned long new_addr, unsigned long len, unsigned long sz,
-> +		unsigned long last_addr_mask)
-> +{
-> +	unsigned long old_end =3D old_addr + len;
-> +	unsigned long addr_end;
-> +
-> +	addr_end =3D prealloc_or_move_page_tables(vma, new_vma, old_addr, new_a=
-ddr,
-> +			len, sz, last_addr_mask, NULL, /*is_prealloc=3D*/true);
-> +
-> +	return addr_end >=3D old_end;
-> +}
-> +
-> +/* Returns last processed address. */
-> +static unsigned long __move_hugetlb_page_tables(struct vm_area_struct *v=
-ma,
-> +		struct vm_area_struct *new_vma, unsigned long old_addr,
-> +		unsigned long new_addr, unsigned long len, unsigned long sz,
-> +		unsigned long last_addr_mask, struct mmu_gather *tlb)
-> +{
-> +	i_mmap_assert_write_locked(vma->vm_file->f_mapping);
-> +	return prealloc_or_move_page_tables(vma, new_vma, old_addr, new_addr,
-> +			len, sz, last_addr_mask, tlb, /*is_prealloc=3D*/false);
-> +}
-> +
->   int move_hugetlb_page_tables(struct vm_area_struct *vma,
->   			     struct vm_area_struct *new_vma,
->   			     unsigned long old_addr, unsigned long new_addr,
-> @@ -5088,9 +5161,9 @@ int move_hugetlb_page_tables(struct vm_area_struct =
-*vma,
->   	struct mm_struct *mm =3D vma->vm_mm;
->   	unsigned long old_end =3D old_addr + len;
->   	unsigned long last_addr_mask;
-> -	pte_t *src_pte, *dst_pte;
->   	struct mmu_notifier_range range;
->   	struct mmu_gather tlb;
-> +	bool preallocated;
->
->   	mmu_notifier_range_init(&range, MMU_NOTIFY_CLEAR, 0, mm, old_addr,
->   				old_end);
-> @@ -5106,30 +5179,12 @@ int move_hugetlb_page_tables(struct vm_area_struc=
-t *vma,
->   	last_addr_mask =3D hugetlb_mask_last_page(h);
->   	/* Prevent race with file truncation */
->   	hugetlb_vma_lock_write(vma);
-> +	preallocated =3D prealloc_hugetlb_page_tables(vma, new_vma, old_addr,
-> +			new_addr, len, sz, last_addr_mask);
->   	i_mmap_lock_write(mapping);
-> -	for (; old_addr < old_end; old_addr +=3D sz, new_addr +=3D sz) {
-> -		src_pte =3D hugetlb_walk(vma, old_addr, sz);
-> -		if (!src_pte) {
-> -			old_addr |=3D last_addr_mask;
-> -			new_addr |=3D last_addr_mask;
-> -			continue;
-> -		}
-> -		if (huge_pte_none(huge_ptep_get(mm, old_addr, src_pte)))
-> -			continue;
-> -
-> -		if (huge_pmd_unshare(&tlb, vma, old_addr, src_pte)) {
-> -			old_addr |=3D last_addr_mask;
-> -			new_addr |=3D last_addr_mask;
-> -			continue;
-> -		}
-> -
-> -		dst_pte =3D huge_pte_alloc(mm, new_vma, new_addr, sz);
-> -		if (!dst_pte)
-> -			break;
-> -
-> -		move_huge_pte(vma, old_addr, new_addr, src_pte, dst_pte, sz);
-> -		tlb_remove_huge_tlb_entry(h, &tlb, src_pte, old_addr);
-> -	}
-> +	if (preallocated)
-> +		old_addr =3D __move_hugetlb_page_tables(vma, new_vma, old_addr,
-> +			new_addr, len, sz, last_addr_mask, &tlb);
->
->   	tlb_flush_mmu_tlbonly(&tlb);
->   	huge_pmd_unshare_flush(&tlb, vma);
-> --
-> 2.55.0
+Some Microchip/SST QSPI flashes (e.g. the SST26VF064BEUI) are factory
+programmed with globally unique, write-protected EUI-48 and EUI-64
+identifiers stored in a vendor-specific SFDP parameter table. On boards
+that have no on-board EEPROM (sama5d27_wlsom1, sama5d29 curiosity,
+sam9x75 curiosity) this is a reliable source for an Ethernet MAC address,
+instead of relying on a U-Boot-provided or random address.
 
-Hi David,
+The series exposes the SFDP as a generic NVMEM framework with no vendor
+code in the SPI NOR core:
+ - The SPI NOR core exposes the entire SFDP as a generic read-only NVMEM
+   device, rooted at a new "sfdp" child node of the flash.
+ - A new NVMEM layout driver (drivers/nvmem/layouts/) locates the
+   Microchip vendor parameter table at runtime and presents the EUI-48 as
+   a "mac-address" cell.
+ - Arbitrary parameters can be read with a standard fixed-layout
+   (known offset) or with an nvmem-layout parser (location discovered at runtime).
 
-I thought more about the case where the destination page table was
-preallocated as a shared PMD.
+Changes in v8:
+ - New 3/8 - nvmem: core: take a reference on dev.of_node in
+             nvmem_register(). v7's 3/8 (now 4/8) called of_node_put() right
+			 after devm_nvmem_register(), which left nvmem->dev.of_node backed by
+			 no reference at all once the caller's own reference was dropped.
+			 Fixing it at the nvmem_register() by taking  its own of_node_get()
+			 when assigning nvmem->dev.of_node and released in nvmem_release().
+ - 6/8 - drop the #address-cells/#size-cells from the qspi1_flash node.
 
-I do not think the current move_huge_pte() handles that case very well. The
-reason is that it assumes the destination PTE is not part of a shared PMD
-page table: it clears the source PTE and then installs that PTE into the
-destination. That works when the destination PMD page table is not shared,
-because the source removal and destination install have a net-zero effect o=
-n
-rmap and hugetlb accounting.
+Changes in v7:
+ - 1/7 - Add blank lines in the "sfdp" schema per review;
+ 		 Add Reviewed-by: Rob Herring.
+ - 2/7 - Add Reviewed-by: Rob Herring.
+ - 3/7 - Drop the spi_nor_sfdp_nvmem_put_np() helper and
+ 		 call of_node_put() right after devm_nvmem_register().
+ - 6/7 - Note in the commit message that the sama5d27_wlsom1 SoM ships the
+         factory-programmed SST26VF064BEUI, so the EUI-48 "mac-address"
+         cell is always present.
 
-If the destination PTE belongs to a shared PMD, that assumption does not
-hold. In that case, I think we should leave the shared destination page
-table untouched and treat the operation as a source-side unmap. Otherwise
-move_huge_pte() either writes through a shared page table or skips the
-source-side unmap accounting. That can make the rmap, hugetlb count and
-folio release handling inconsistent with the actual PTE update.
+Changes in v6:
+ - 3/7 - Move the SFDP NVMEM registration from sfdp.c into core.c, since
+         sfdp.c is only for parsing the tables;use of_get_compatible_child()
+		 instead of the open-coded child-node lookup.
+ - 2/7, 6/7, 7/7 - Add Reviewed-by: Linus Walleij.
 
-So I think the change should be roughly:
+Changes in v5:
+ - 1/7 and 5/7 - Add R-b tags
+ - 3/7- Rework the comments, function name and commit message.Check all the nodes
+        (for_each_available_child) for the right compatible "jedec,sfdp" instead
+		of node name.
+
+Changes in v4:
+ - Rework per v3 review: remove the vendor-specific SFDP handling from the
+   SPI NOR core; expose the whole SFDP as a generic read-only NVMEM device
+   and move the EUI extraction into an nvmem-layout driver.
+ - Introduce a new nvmem-layout driver to discover the vendor-table location
+   at runtime; no offset hardcoded in the device tree.
+ - Describe the SFDP via a dedicated "sfdp" subnode (compatible
+   "jedec,sfdp"), which also resolves the v3 dtbs_check "Unevaluated
+   properties ('nvmem-layout')" warning.
+ - Reverse the stored EUI bytes into canonical MAC order.
+ - Enable the layout in sama5_defconfig.
+
+Changes in v3:
+ - 2/3 - add support to update the QSPI partition into 'fixed-partition'
+   binding in sama5d27_wlsom1
+ - 3/3 - add nvmem-layout in qspi node for EUI48 MAC Address and nvmem cell
+   properties for macb node in sama5d27_wlsom1
+
+Changes in v2:
+ - 1/3 - parse the SST vendor table, read and store the addresses
+  into a resource - managed space. Register the addresses
+  into NVMEM framework
+ - 2/3 - add support to update the QSPI partition into 'fixed-partition'
+  binding
+
+v7: https://lore.kernel.org/all/20260812104955.485667-1-manikandan.m@microchip.com/
+
+Manikandan Muralidharan (8):
+  dt-bindings: mtd: jedec,spi-nor: allow the SFDP to be exposed via
+    NVMEM
+  dt-bindings: nvmem: layouts: add Microchip/SST SFDP EUI layout
+  nvmem: core: take a reference on dev.of_node in nvmem_register()
+  mtd: spi-nor: sfdp: expose the SFDP as a read-only NVMEM device
+  nvmem: layouts: add Microchip/SST SFDP EUI layout driver
+  ARM: dts: microchip: sama5d27_wlsom1: use fixed-partitions for QSPI
+    flash
+  ARM: dts: microchip: sama5d27_wlsom1: read MAC address from QSPI SFDP
+  ARM: configs: sama5: enable Microchip/SST SFDP EUI NVMEM layout
+
+ .../bindings/mtd/jedec,spi-nor.yaml           |  20 ++
+ .../layouts/microchip,sst26vf-sfdp-eui.yaml   |  60 ++++++
+ .../bindings/nvmem/layouts/nvmem-layout.yaml  |   1 +
+ MAINTAINERS                                   |   6 +
+ .../dts/microchip/at91-sama5d27_wlsom1.dtsi   |  63 +++---
+ .../dts/microchip/at91-sama5d27_wlsom1_ek.dts |   2 +
+ arch/arm/configs/sama5_defconfig              |   1 +
+ drivers/mtd/spi-nor/core.c                    |  78 ++++++++
+ drivers/nvmem/core.c                          |   5 +-
+ drivers/nvmem/layouts/Kconfig                 |  10 +
+ drivers/nvmem/layouts/Makefile                |   1 +
+ drivers/nvmem/layouts/sst26vf-sfdp-eui.c      | 182 ++++++++++++++++++
+ 12 files changed, 403 insertions(+), 26 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/nvmem/layouts/microchip,sst26vf-sfdp-eui.yaml
+ create mode 100644 drivers/nvmem/layouts/sst26vf-sfdp-eui.c
 
 
----
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-@@
- =C2=A0static void move_huge_pte(struct vm_area_struct *vma, unsigned long=
-=20
-old_addr,
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 unsigned long new_addr, p=
-te_t *src_pte,
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 pte_t *dst_pte, unsigned =
-long sz)
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 unsigned long new_addr, p=
-te_t *src_pte,
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 pte_t *dst_pte, struct mm=
-u_gather *tlb,
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 unsigned long sz)
- =C2=A0{
- =C2=A0 =C2=A0 =C2=A0struct hstate *h =3D hstate_vma(vma);
-+=C2=A0 =C2=A0 bool dst_shared =3D hugetlb_pmd_shared(dst_pte);
- =C2=A0 =C2=A0 =C2=A0struct mm_struct *mm =3D vma->vm_mm;
-+=C2=A0 =C2=A0 struct folio *folio =3D NULL;
- =C2=A0 =C2=A0 =C2=A0pte_t pte;
+base-commit: 551c722f40809618230001baccf219193e22fc5a
+--
+2.43.0
 
- =C2=A0 =C2=A0 =C2=A0pte =3D huge_ptep_get_and_clear(mm, old_addr, src_pte,=
- sz);
-+=C2=A0 =C2=A0 tlb_remove_huge_tlb_entry(h, tlb, src_pte, old_addr);
-+
-+=C2=A0 =C2=A0 if (dst_shared) {
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (pte_present(pte)) {
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 folio =3D page_folio(pte_page(pt=
-e));
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (huge_pte_dirty(pte))
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 folio_mark_dirty(f=
-olio);
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 hugetlb_count_sub(pages_per_huge=
-_page(h), mm);
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 hugetlb_remove_rmap(folio);
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 }
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 goto unlock;
-+=C2=A0 =C2=A0 }
-
- =C2=A0 =C2=A0 =C2=A0/* Existing non-shared destination path remains unchan=
-ged. */
- =C2=A0 =C2=A0 =C2=A0set_huge_pte_at(mm, new_addr, dst_pte, pte, sz);
-
-+unlock:
- =C2=A0 =C2=A0 =C2=A0...
-+
-+=C2=A0 =C2=A0 if (folio)
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 tlb_remove_page_size(tlb, folio_page(folio, 0)=
-,
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0folio_size(folio));
- =C2=A0}
----
-
-
-Does this sound like the right direction to you? If so, I will fold this
-into the next version.
-
-Thanks,
-Zhe
