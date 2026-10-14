@@ -1,291 +1,124 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D9973B83F9;
-	Wed, 14 Oct 2026 08:40:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 580A247533F;
+	Wed, 14 Oct 2026 08:42:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791967202; cv=none; b=oLlkmgbK9qdGquMKoN9IVmwg/w25ZE1c/qLJVeIF32ECcrzxbg8NR79vDBHATERHx+da2/87VRQzJKaIIFulmfJScyH65C/UVlnt0vOOdqiSMBHsK7Lk2Yn/IzIDYbCWKviJ8DoIgDWfdFPiWlO5A5R+TIlSpQScdiORSWW1suE=
+	t=1791967339; cv=none; b=f/RycO0Su3S70zQQKpVNHJdo9DyDXMbMzemThAoLTDq7aN+Ct2qqyYDmxpB6I8UselHy1SQzJ7nmpeAOkqTIyjzuQv2y7JYeXN3Pz5cgCWKUGAiXCTKFritHCBTbUkqYZdSm+bDWVGS0t17pqO/B9KDqAbcgdIiQScrewW46/UI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791967202; c=relaxed/simple;
-	bh=bpPuIS3RC+fQbyWeH8q4nk9ocP5zYJlWV0tzJUaHRJA=;
-	h=From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:Date; b=Tw7+6jiY8MF54W33+g+W5ntzjvmrGLkDKEbx4tMxgqBmVQvIPERijwmAMsb1ObmlHX5US8LN33AGA2mYsilgeoBeZ2GalZChJUnhOnQyl9pn3G90daEbKaNhujD4950XETy5qtiW8xBhmrboRt9U2cD1L0glZiCV3VZlnV8oOlE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g08pHBsx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791967339; c=relaxed/simple;
+	bh=tK8lra/dReHc/0SlxAuvkDnLWE5wdnvnb8/yRByFDcg=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
+	 In-Reply-To:Content-Type; b=B+rdUXxuT01mGuYdxu+e0Xpd/+wSxLwNvILUDfWIbLUfotpaaPvUvvYeFGBcez/jeha3WXNXBvvtiw5ldBraAZk1EGrL2hKctwElP6p98++4x+WLhvpn98zE9k0lLONM5kbD2N4kzS2TSkek4UiFK0RkdmqvtrmGd8VZtmcsslU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KyQs1PNJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g08pHBsx"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 5C1E91F000FF;
-	Wed, 14 Oct 2026 08:40:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KyQs1PNJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E23631F000FF;
+	Wed, 14 Oct 2026 08:42:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791967200;
-	bh=ndSOnXH9akC/oEngD3YgzdbULw1ZSB1oMqmqeyzMUp8=;
-	h=From:To:Cc:Subject:Date;
-	b=g08pHBsxTdkCYpBKUreISzuC2WK7Jt7y0tyLiyEUvVbwW+L4zjM1f2quBezsJlc7R
-	 B23mwRgrr1jnMqBKPcbKzcKF56k9FPH3YzX1ly3GvZ7E1Hzs/JlxKHXekq3OxNIKPw
-	 IfEvSOFZmzRoYt17FcresdpX/hMqnZYhLMjFPImp2qlkIS/WRO7qU3ZrVo6o9G+gw2
-	 iGYMFkFhNJFt/EaHjZ9sVzOUn+Etv7y0aL00y+LKSnqpGhu4UiOjpjRE72fenA6GQ4
-	 d+jheMWD/zkD/CaaLfNSaAp6beOdRG/4RlmVkkudyLCBoHckeikm/umTkudPCfyvg9
-	 e6j8Eu4a5Bgwg==
-From: "syzbot" <syzbot@kernel.org>
-To: syzkaller-bugs@googlegroups.com, Krystian Kaniewski <krystianmkaniewski@gmail.com>, <linux-media@vger.kernel.org>, "Mauro Carvalho Chehab" <mchehab@kernel.org>, "Linus Torvalds" <torvalds@ppc970.osdl.org>
-Cc: kees@kernel.org, linux-kernel@vger.kernel.org, syzbot@lists.linux.dev
-Subject: [PATCH] media: ttusb-dec: fix buffer overflow in ttusb_dec_send_command()
-Message-ID: <66cb7980-f474-41c8-bf2f-529ebfbdc62a@mail.kernel.org>
+	s=k20260515; t=1791967338;
+	bh=O4YUvIPcE3U2DI+6+HI+UJ14xnY+oG+8AWE4d13EzJM=;
+	h=Date:Subject:From:To:References:In-Reply-To;
+	b=KyQs1PNJJAQhOIa9aSTBO3p+jk1bT2q08AK1YrVovtG/Cpu25n0mciZaPkpToenJ1
+	 q+saXtriqCBsIbkatmecKEj1Kz9uZZmyWo9BRwSIS2/7Bh7j3iGK/VP7zFLwgJe5UN
+	 lVpPMgLXQDHxJ2QHb7o2j5zAzr54rlXY4cQawsMwTTQwANX77K0kNO5PJSNbpp7+cq
+	 NKfaf0ViPzzXgaKaaiKol1z/8Jee1hYmRM1gVBIrZCVLWeXoIuRXMEagVA+KsRXhKp
+	 Tz7j6RJ8xNxU4Ot6T3eYSHQ7GZ7MUW0OoeAlTnzQMOugHsHq/sXctt/c/1dHnHh5Td
+	 kHde8eL1X3WqQ==
+Message-ID: <419fd819-75e4-49c2-9b99-1155bb214b47@kernel.org>
+Date: Wed, 14 Oct 2026 10:42:13 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: 2026 LF Technical Advisory Board election - voting reminder
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+To: tab-elections@lists.linux.dev, tech-board-discuss@lists.linux.dev,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ ksummit@lists.linux.dev
+References: <a7f69e8d-1140-44b5-baf8-bacb8c30c01a@kernel.org>
+ <f6c986a1-b3b4-4b0a-bf12-d98357fbc4e5@kernel.org>
+ <51d0a329-e53c-48ea-876e-98208575b770@kernel.org>
+ <75387e88-a2f9-4a33-97dc-45774bd23a01@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <75387e88-a2f9-4a33-97dc-45774bd23a01@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Date: Wed, 14 Oct 2026 08:40:00 +0000 (UTC)
+Content-Transfer-Encoding: 7bit
 
-From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+Hi,
 
-In ttusb_dec_send_command(), a 64-byte buffer is allocated
-(COMMAND_PACKET_SIZE + 4, where COMMAND_PACKET_SIZE is 60) for sending a
-command to the USB device and receiving the response via usb_bulk_msg().
-After receiving the response, the fourth byte b[3] is treated as the
-payload length and used directly in memcpy(cmd_result, &b[4], b[3]) without
-validating it against the actual number of received bytes (actual_len), the
-allocated source buffer bounds, or the capacity of the destination buffer
-cmd_result.
+One last reminder that voting for members of the Linux Foundation
+Technical Advisory Board is open; it will close at the end of October 15,
+AoE (Anywhere on Earth).  For details, see the previous announcement:
 
-During device probe in ttusb_dec_probe(), ttusb_dec_init_stb() calls
-ttusb_dec_get_stb_state() to query the device state. If the device returns
-a response with an untrusted payload length b[3] greater than
-COMMAND_PACKET_SIZE (e.g. 75), memcpy() reads past the end of the source
-buffer and overflows the caller's 60-byte destination buffer on the stack,
-triggering a FORTIFY_SOURCE buffer overflow failure ("memcpy: detected
-buffer overflow: 75 byte read of buffer size 60").
+  https://lore.kernel.org/r/a7f69e8d-1140-44b5-baf8-bacb8c30c01a@kernel.org/
 
-Moreover, other callers such as ttusbdecfe_dvbt_read_status() supply
-destination buffers as small as 4 bytes, which can lead to a stack buffer
-overflow even if the device returns fewer than 60 bytes. Additionally,
-param_length is copied into &b[4] without checking whether it exceeds
-COMMAND_PACKET_SIZE.
+I'll post the results shortly after voting ends.
 
-Fix this by first verifying that param_length is non-negative and does not
-exceed COMMAND_PACKET_SIZE. Next, add a cmd_result_len parameter to
-ttusb_dec_send_command(), fe_send_command(), and struct
-ttusbdecfe_config.send_command to pass the destination buffer capacity, and
-update all callers accordingly. Finally, strictly reject malformed replies
-with -EIO if actual_len is less than 4 bytes, if the untrusted payload
-length b[3] exceeds the remaining received bytes (actual_len - 4), or if
-cmd_result is provided and b[3] exceeds cmd_result_len. This ensures that
-invalid replies fail safely and memcpy() never performs an out-of-bounds
-read or write.
+If you have not yet voted, you still have a bit more time to do so.
+Remember, in order to vote, you must enable your email address with
+CIVS at:
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Assisted-by: Gemini:gemini-3.8-flash syzbot
-Reported-by: syzbot+e1dbaae5eefaa2dfbc35@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=e1dbaae5eefaa2dfbc35
-Link: https://syzkaller.appspot.com/ai_job?id=5d2e7c8a-5cf6-49fe-a6e9-124e4d1e051d
-Signed-off-by: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+  https://civs1.civs.us/cgi-bin/opt_in.pl
 
----
-diff --git a/drivers/media/usb/ttusb-dec/ttusb_dec.c b/drivers/media/usb/ttusb-dec/ttusb_dec.c
-index 825a38759..524be8f10 100644
---- a/drivers/media/usb/ttusb-dec/ttusb_dec.c
-+++ b/drivers/media/usb/ttusb-dec/ttusb_dec.c
-@@ -314,13 +314,17 @@ static u16 crc16(u16 crc, const u8 *buf, size_t len)
- 
- static int ttusb_dec_send_command(struct ttusb_dec *dec, const u8 command,
- 				  int param_length, const u8 params[],
--				  int *result_length, u8 cmd_result[])
-+				  int *result_length, u8 cmd_result[],
-+				  int cmd_result_len)
- {
- 	int result, actual_len;
- 	u8 *b;
- 
- 	dprintk("%s\n", __func__);
- 
-+	if (param_length < 0 || param_length > COMMAND_PACKET_SIZE)
-+		return -EINVAL;
-+
- 	b = kzalloc(COMMAND_PACKET_SIZE + 4, GFP_KERNEL);
- 	if (!b)
- 		return -ENOMEM;
-@@ -366,6 +370,12 @@ static int ttusb_dec_send_command(struct ttusb_dec *dec, const u8 command,
- 			       __func__, actual_len, b);
- 		}
- 
-+		if (actual_len < 4 || b[3] > actual_len - 4 ||
-+		    (cmd_result && b[3] > cmd_result_len)) {
-+			result = -EIO;
-+			goto err_mutex_unlock;
-+		}
-+
- 		if (result_length)
- 			*result_length = b[3];
- 		if (cmd_result && b[3] > 0)
-@@ -389,7 +399,8 @@ static int ttusb_dec_get_stb_state (struct ttusb_dec *dec, unsigned int *mode,
- 
- 	dprintk("%s\n", __func__);
- 
--	result = ttusb_dec_send_command(dec, 0x08, 0, NULL, &c_length, c);
-+	result = ttusb_dec_send_command(dec, 0x08, 0, NULL, &c_length, c,
-+					sizeof(c));
- 	if (result)
- 		return result;
- 
-@@ -448,7 +459,7 @@ static void ttusb_dec_set_pids(struct ttusb_dec *dec)
- 	memcpy(&b[2], &audio, 2);
- 	memcpy(&b[4], &video, 2);
- 
--	ttusb_dec_send_command(dec, 0x50, sizeof(b), b, NULL, NULL);
-+	ttusb_dec_send_command(dec, 0x50, sizeof(b), b, NULL, NULL, 0);
- 
- 	dvb_filter_pes2ts_init(&dec->a_pes2ts, dec->pid[DMX_PES_AUDIO],
- 			       ttusb_dec_audio_pes2ts_cb, dec);
-@@ -902,7 +913,7 @@ static int ttusb_dec_set_interface(struct ttusb_dec *dec,
- 			break;
- 		case TTUSB_DEC_INTERFACE_IN:
- 			result = ttusb_dec_send_command(dec, 0x80, sizeof(b),
--							b, NULL, NULL);
-+							b, NULL, NULL, 0);
- 			if (result)
- 				return result;
- 			result = usb_set_interface(dec->udev, 0, 8);
-@@ -1021,7 +1032,7 @@ static int ttusb_dec_start_ts_feed(struct dvb_demux_feed *dvbdmxfeed)
- 
- 	}
- 
--	result = ttusb_dec_send_command(dec, 0x80, sizeof(b0), b0, NULL, NULL);
-+	result = ttusb_dec_send_command(dec, 0x80, sizeof(b0), b0, NULL, NULL, 0);
- 	if (result)
- 		return result;
- 
-@@ -1056,7 +1067,7 @@ static int ttusb_dec_start_sec_feed(struct dvb_demux_feed *dvbdmxfeed)
- 	memcpy(&b0[5], &dvbdmxfeed->filter->filter.filter_value[0], 1);
- 
- 	result = ttusb_dec_send_command(dec, 0x60, sizeof(b0), b0,
--					&c_length, c);
-+					&c_length, c, sizeof(c));
- 
- 	if (!result) {
- 		if (c_length == 2) {
-@@ -1114,7 +1125,7 @@ static int ttusb_dec_stop_ts_feed(struct dvb_demux_feed *dvbdmxfeed)
- 	struct ttusb_dec *dec = dvbdmxfeed->demux->priv;
- 	u8 b0[] = { 0x00 };
- 
--	ttusb_dec_send_command(dec, 0x81, sizeof(b0), b0, NULL, NULL);
-+	ttusb_dec_send_command(dec, 0x81, sizeof(b0), b0, NULL, NULL, 0);
- 
- 	dec->pva_stream_count--;
- 
-@@ -1135,7 +1146,7 @@ static int ttusb_dec_stop_sec_feed(struct dvb_demux_feed *dvbdmxfeed)
- 	list_del(&finfo->filter_info_list);
- 	spin_unlock_irqrestore(&dec->filter_info_list_lock, flags);
- 	kfree(finfo);
--	ttusb_dec_send_command(dec, 0x62, sizeof(b0), b0, NULL, NULL);
-+	ttusb_dec_send_command(dec, 0x62, sizeof(b0), b0, NULL, NULL, 0);
- 
- 	dec->filter_stream_count--;
- 
-@@ -1238,7 +1249,7 @@ static int ttusb_init_rc( struct ttusb_dec *dec)
- 	if (usb_submit_urb(dec->irq_urb, GFP_KERNEL))
- 		printk("%s: usb_submit_urb failed\n",__func__);
- 	/* enable irq pipe */
--	ttusb_dec_send_command(dec,0xb0,sizeof(b),b,NULL,NULL);
-+	ttusb_dec_send_command(dec, 0xb0, sizeof(b), b, NULL, NULL, 0);
- 
- 	return 0;
- }
-@@ -1354,7 +1365,7 @@ static int ttusb_dec_boot_dsp(struct ttusb_dec *dec)
- 	firmware_csum_ns = htons(firmware_csum);
- 	memcpy(&b0[6], &firmware_csum_ns, 2);
- 
--	result = ttusb_dec_send_command(dec, 0x41, sizeof(b0), b0, NULL, NULL);
-+	result = ttusb_dec_send_command(dec, 0x41, sizeof(b0), b0, NULL, NULL, 0);
- 
- 	if (result) {
- 		release_firmware(fw_entry);
-@@ -1395,7 +1406,7 @@ static int ttusb_dec_boot_dsp(struct ttusb_dec *dec)
- 		}
- 	}
- 
--	result = ttusb_dec_send_command(dec, 0x43, sizeof(b1), b1, NULL, NULL);
-+	result = ttusb_dec_send_command(dec, 0x43, sizeof(b1), b1, NULL, NULL, 0);
- 
- 	release_firmware(fw_entry);
- 	kfree(b);
-@@ -1621,10 +1632,12 @@ static void ttusb_dec_exit_filters(struct ttusb_dec *dec)
- 
- static int fe_send_command(struct dvb_frontend* fe, const u8 command,
- 			   int param_length, const u8 params[],
--			   int *result_length, u8 cmd_result[])
-+			   int *result_length, u8 cmd_result[],
-+			   int cmd_result_len)
- {
- 	struct ttusb_dec* dec = fe->dvb->priv;
--	return ttusb_dec_send_command(dec, command, param_length, params, result_length, cmd_result);
-+	return ttusb_dec_send_command(dec, command, param_length, params,
-+				      result_length, cmd_result, cmd_result_len);
- }
- 
- static const struct ttusbdecfe_config fe_config = {
-diff --git a/drivers/media/usb/ttusb-dec/ttusbdecfe.c b/drivers/media/usb/ttusb-dec/ttusbdecfe.c
-index 215221370..1c2892a1e 100644
---- a/drivers/media/usb/ttusb-dec/ttusbdecfe.c
-+++ b/drivers/media/usb/ttusb-dec/ttusbdecfe.c
-@@ -44,7 +44,8 @@ static int ttusbdecfe_dvbt_read_status(struct dvb_frontend *fe,
- 
- 	*status=0;
- 
--	ret=state->config->send_command(fe, 0x73, sizeof(b), b, &len, result);
-+	ret = state->config->send_command(fe, 0x73, sizeof(b), b, &len,
-+					  result, sizeof(result));
- 	if(ret)
- 		return ret;
- 
-@@ -85,7 +86,7 @@ static int ttusbdecfe_dvbt_set_frontend(struct dvb_frontend *fe)
- 
- 	__be32 freq = htonl(p->frequency / 1000);
- 	memcpy(&b[4], &freq, sizeof (u32));
--	state->config->send_command(fe, 0x71, sizeof(b), b, NULL, NULL);
-+	state->config->send_command(fe, 0x71, sizeof(b), b, NULL, NULL, 0);
- 
- 	return 0;
- }
-@@ -130,7 +131,7 @@ static int ttusbdecfe_dvbs_set_frontend(struct dvb_frontend *fe)
- 	lnb_voltage = htonl(state->voltage);
- 	memcpy(&b[28], &lnb_voltage, sizeof(u32));
- 
--	state->config->send_command(fe, 0x71, sizeof(b), b, NULL, NULL);
-+	state->config->send_command(fe, 0x71, sizeof(b), b, NULL, NULL, 0);
- 
- 	return 0;
- }
-@@ -149,7 +150,7 @@ static int ttusbdecfe_dvbs_diseqc_send_master_cmd(struct dvb_frontend* fe, struc
- 
- 	state->config->send_command(fe, 0x72,
- 				    sizeof(b) - (6 - cmd->msg_len), b,
--				    NULL, NULL);
-+				    NULL, NULL, 0);
- 
- 	return 0;
- }
-diff --git a/drivers/media/usb/ttusb-dec/ttusbdecfe.h b/drivers/media/usb/ttusb-dec/ttusbdecfe.h
-index 73828bb22..96600ad4c 100644
---- a/drivers/media/usb/ttusb-dec/ttusbdecfe.h
-+++ b/drivers/media/usb/ttusb-dec/ttusbdecfe.h
-@@ -14,7 +14,8 @@ struct ttusbdecfe_config
- {
- 	int (*send_command)(struct dvb_frontend* fe, const u8 command,
- 			    int param_length, const u8 params[],
--			    int *result_length, u8 cmd_result[]);
-+			    int *result_length, u8 cmd_result[],
-+			    int cmd_result_len);
- };
- 
- extern struct dvb_frontend* ttusbdecfe_dvbs_attach(const struct ttusbdecfe_config* config);
+Without enabling your address, you will not receive the ballot via email,
+even if you are eligible for an automatic ballot.
 
+Eligible voters with fewer than 50 commits can request a ballot by sending an
+email to tab-elections@lists.linux.dev.  Hurry up, the clock is ticking!
 
-base-commit: 93f51579e7df248780214094418f205253383cc5
--- 
-See https://goo.gle/syzbot-ai-patches for information about AI-generated patches.
-The person who has signed off on the patch is responsible for
-addressing comments.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+Please contact tab-elections@lists.linux.dev if you have any questions.
+
+Thanks!
+
+--
+Cheers,
+The LF TAB elections team
