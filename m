@@ -1,84 +1,149 @@
-Received: from cstnet.cn (smtp23.cstnet.cn [159.226.251.23])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF5594FD798;
-	Wed, 14 Oct 2026 14:54:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.23
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BA2C4E9C0E;
+	Wed, 14 Oct 2026 14:54:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.117.225.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791989681; cv=none; b=d7j6PQINw38ZqzCFdVqJsjWG3QNy+90zyLt0NUG3tbTG5pATzWszTqJCNokp9Y+uwemTuazlThiqVGT3Z5AwNOE6dRppM/v2f/DpjDA8V2Mzs4rIaKgYhczqbkrcb09+Gi73aoOb0wokyaKyBwlbpQzu4ZJqW/ff5QijZF8LjF8=
+	t=1791989695; cv=none; b=JM2wZyJrfdP5GCryN5v8ssIAtRCjE0qTODONG5Q8pHU1VDvilERsNp9O+sWZ3PeghGTJojzEzNZa6gk6pGPCPgPq0bmtV+1wuYIOKvSc4k6+iGgZFMHNJ/iZv+JTCf+x/6bJ8V3qVbX0EOhHwVGNRcdiuIVfmE7xHl8DrQLGntY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791989681; c=relaxed/simple;
-	bh=3JfaNEVGkBns1VAswZju3md8BsKJx/Eb8XEER1odfs0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=eCp8reZmXINM2nrQ9gj/V7LDYB8SBK3iO2tA7TwVVYKtQGizID8i5/2cto1Wka9VeywfHW64CWcTU4bqkhoi5/HIE1KaSUbggxtpgkSYcHq0YTG1tyWnWpWcy2q4yJiBInE8eQzWuTwIeC4VheqEVhrkslXFsRXPGE86P/J8iRg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=semi.ac.cn; spf=pass smtp.mailfrom=semi.ac.cn; arc=none smtp.client-ip=159.226.251.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=semi.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=semi.ac.cn
-Received: from huanggaobin23$semi.ac.cn ( [159.226.228.16] ) by
- ajax-webmail-APP-10 (Coremail) ; Wed, 14 Oct 2026 22:48:51 +0800
- (GMT+08:00)
-Date: Wed, 14 Oct 2026 22:48:51 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: =?UTF-8?B?6buE6auY5b2s?= <huanggaobin23@semi.ac.cn>
-To: "Alison Schofield" <alison.schofield@intel.com>
-Cc: linux-cxl@vger.kernel.org, "Davidlohr Bueso" <dave@stgolabs.net>, 
-	"Jonathan Cameron" <jic23@kernel.org>, 
-	"Dave Jiang" <dave.jiang@intel.com>, 
-	"Vishal Verma" <vishal.l.verma@intel.com>, 
-	"Dan Williams" <djbw@kernel.org>, "Ira Weiny" <iweiny@kernel.org>, 
-	"Li Ming" <ming.li@zohomail.com>, 
-	"Richard Cheng" <icheng@nvidia.com>, linux-kernel@vger.kernel.org
-Subject: Re: Re: [PATCH] cxl/mbox: bound the device-supplied command return
- code
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2024.1-cmXT5 build
- 20240627(e6c6db66) Copyright (c) 2002-2026 www.mailtech.cn cnic.cn
-In-Reply-To: <as7cid_6QQS5gBI-@aschofie-mobl2.lan>
-References: <20260929060747.3550005-1-huanggaobin23@semi.ac.cn>
- <as7cid_6QQS5gBI-@aschofie-mobl2.lan>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	s=arc-20240116; t=1791989695; c=relaxed/simple;
+	bh=S5pKXlc8nyAL42PzwQoBsDoCOCSgtHQeHvMgfKY+ET4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=VZfXReg+ifc+eq0y7KEpOnouT+xt6Yn0mbSepcWSk2v+3ytq0A6IDGCryKUttisXrkgv0rXpouW/aSRhCWsZGYJ/vYjXgp8TmJVEJhVgjg0E6MlQMMwH9tlPuf2rz5Hp90yWVJ1oKNVgob9ExUQJV+t0RDV9BGei8s2vtgTULpU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com; spf=pass smtp.mailfrom=virtuozzo.com; dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b=V1WGQBEK; arc=none smtp.client-ip=130.117.225.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b="V1WGQBEK"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=virtuozzo.com; s=relay; h=Message-Id:Content-Type:MIME-Version:Subject:Date
+	:From; bh=HWkLknY7xKuy1SA57I+rolv6ltWrRmW9nqFyBjSVvQU=; b=V1WGQBEKONr07ayyPOq
+	f59wHfgGQCXmctUhu4aQGgSJKvgHsJnKSTouvxK9sfyv8boIWdyvHm/i1C4bBnzSsBgsfd0PMeN6D
+	NDISZRH7uTU3M1lqZFdtzwxTH80pg88JI4FLUYc05mU+zX6esk7o+VFHEeaYyJNW3HC73dDKRcQNu
+	1MH4uGox25QJDGBcQzgxTOlMiAFphadKDKBpDn17SNaMOgP70AYO2dvY7suLnH4vPXsLbwxMWp3Kz
+	NlFQeZCnVZYqmgC6cw3/hzlct944W91ADQRh/4YODFKtOxDwVyskK5+UulXUI5iSlUep3alkSISXk
+	th41TVl7iqmJipw==;
+Received: from ch-demo-asa.virtuozzo.com ([130.117.225.8] helo=f0.sw.ru)
+	by relay.virtuozzo.com with esmtp (Exim 4.96)
+	(envelope-from <khorenko@virtuozzo.com>)
+	id 1xH0Jy-005Oui-08;
+	Wed, 14 Oct 2026 16:54:42 +0200
+From: Konstantin Khorenko <khorenko@virtuozzo.com>
+Date: Wed, 14 Oct 2026 16:54:37 +0200
+Subject: [PATCH v2 1/2] mm/shrinker: size shrinker_info_unit to a power of
+ two
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <49ee762d.402bc.1a13ae337d6.Coremail.huanggaobin23@semi.ac.cn>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:tACowAAnLaxTls9q8yYTAA--.30477W
-X-CM-SenderInfo: xkxd0wxjdruxrqstq2xhplhtffof0/1tbiBwcADGrOyBb0pAACsk
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
-	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
-	daVFxhVjvjDU=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261014-b4-prep-vstor-144715-size-shrinker_info_unit-to-a-power-of-two-v2-1-51af2aedbe6c@virtuozzo.com>
+References: <20261014-b4-prep-vstor-144715-size-shrinker_info_unit-to-a-power-of-two-v2-0-51af2aedbe6c@virtuozzo.com>
+In-Reply-To: <20261014-b4-prep-vstor-144715-size-shrinker_info_unit-to-a-power-of-two-v2-0-51af2aedbe6c@virtuozzo.com>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>, 
+ Roman Gushchin <roman.gushchin@linux.dev>, 
+ Muchun Song <muchun.song@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Michal Hocko <mhocko@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ cgroups@vger.kernel.org, Konstantin Khorenko <khorenko@virtuozzo.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3201;
+ i=khorenko@virtuozzo.com; h=from:subject:message-id;
+ bh=S5pKXlc8nyAL42PzwQoBsDoCOCSgtHQeHvMgfKY+ET4=;
+ b=kA0DAAoBUZYKR/lhXCoByyZiAGrPl7Cj+MS2MZcYboAZyGfaWxUgNJHSegFzxv1aZwzsnYJY1
+ YkCMwQAAQoAHRYhBFYPbcg9xdPQY70ILFGWCkf5YVwqBQJqz5ewAAoJEFGWCkf5YVwq+g8P/j71
+ 4qOS1vdUF33iiqyre5o6E4LH1jmZ8aERi2jJnKkQPqXBGQab5QFxVfVOV4OxX1DS0rPYy89LVhX
+ jvirxoS1MDu3fWxpXe7pwgLcPHMK+9uYsei3l6ghVsnEALpriZWvv6urqvtTUaL1MRFyWVp3dZ4
+ MqfkPG50rMArlFl9bHXZ0qizhPy6C869lDHsu0UoGXhZagS2Pj8zEhn92V0NvwlvSErzHRPRvhO
+ b6jFYkkGVwjtOgHdUv4TnO1rKQ/991MKZcXMO+4P3ZKcffVLCyuX4CI1hN1WQHFihynBJzlVjmX
+ 6Anie+1bM6zRslYp3Vi9bHHnVorRre86BLtgVrEc15g+SWtXFm4pc238Vb0F+efwAKR9lvoCDPV
+ r/WVII5avltoH+MbIcilws8hvPwbIOHXZGdTAtTXWIkrj5KZ4beqLSJuoczqeP6MVQD77wm4BCT
+ nuvzyV35XOscvwRVtVHtTzsLn4S6EaP1A4LrzEydsKbv7Qitht0cNIdTgrmO5TnDSfN/RdJuXQF
+ IaKszmxzQtzh38MGRKl3dEvXPKaPpL/urMvrGF+xcSySAo/JL/1gaPHe7L8xgDMBQSLrO2lpALx
+ p+oCDejJw3R+pkiprYf8q8wpAgiPW8ic94Y0kycYPIM3rD0eRRfHvznJ8N83QTsbnJxcjY4H+E8
+ Ztnyr
+X-Developer-Key: i=khorenko@virtuozzo.com; a=openpgp;
+ fpr=560F6DC83DC5D3D063BD082C51960A47F9615C2A
 
-SGkgQWxpc29uLAoKVGhhbmsgeW91IGZvciBwaWNraW5nIGl0IHVwLCBhbmQgZm9yIHRoZSBjb3Jy
-ZWN0aW9ucy4KCj4gKFNhc2hpa28gaXMgcmlnaHQgaGVyZS4gUEFERFIgYW5kIFBPSVNPTkxNVCBk
-b24ndCBtYXAgdG8gLUVOWElPLCBzbyB0aGUKPiBjb21tZW50IGFuZCBjaGFuZ2Vsb2cgY2xhaW0g
-aXNuJ3QgYWNjdXJhdGUuIC1FTlhJTyBpcyBzdGlsbCB0aGUgcmlnaHQKPiBmYWxsYmFjayBmb3Ig
-YW4gdW5rbm93biBjb2RlLikKCllvdSBhcmUgYm90aCByaWdodDogdGhlIGNsYWltIHNob3VsZCBi
-ZSB0aGF0IGFuIHVua25vd24gY29kZSBpcyBzdGlsbCBhIGZhaWx1cmUKYW5kIHRoYXQgLUVOWElP
-IGtlZXBzIGl0IGluIHRoZSB1c3VhbCBkZXZpY2UtZXJyb3IgY2xhc3MgLS0gbm90IHRoYXQgZXZl
-cnkKbm9uLXN1Y2Nlc3MgZW50cnkgbWFwcyB0byAtRU5YSU8uICBQbGVhc2UgdXNlIHRoYXQgd29y
-ZGluZyBpbiB0aGUgdmVyc2lvbiB5b3UKY2Fycnk7IEkgd2lsbCBub3QgcmVwb3N0IHRoZSBwYXRj
-aCBvbiBpdHMgb3duLgoKPiBJJ20gdGFraW5nIHRoaXMgaW50byBhIHNlcmllcyB0aGF0IGFkZHMg
-Q1hMIEtVbml0IHRlc3RzLCBpbmNsdWRpbmcgYQo+IHJlZ3Jlc3Npb24gdGVzdCBmb3IgdGhpcyB0
-YWJsZS4gWW91J2xsIGdldCBDQydkIHdoZW4gaXQgcG9zdHMgYW5kIEknbGwgbmVlZAo+IHlvdSBB
-Q0sgaXQgc2luY2UgaXQgaGFzIHlvdXIgb3JpZ2luYWwgYXV0aG9yc2hpcCB3aXRoIGNoYW5nZXMg
-ZnJvbSBtZSBhZGRlZC4KClVuZGVyc3Rvb2QgLS0gSSB3aWxsIEFDSyBhcyBzb29uIGFzIGl0IHBv
-c3RzLgoKPiBJdCBsb29rcyBsaWtlIHRoZSByZXR1cm4gY29kZSB5b3Ugc2F3IGlzIHZhbGlkIGZv
-ciBDWEwgNC4wIGFuZCBqdXN0IG5vdCBhZGRlZAo+IHRvIENYTCBkcml2ZXIgeWV0LiAuLi4gQ1hM
-IDQuMCwgVGFibGUgOC0yMDggLi4uIDAwMUZoIGFuZCAwMDIwaAo+IEkgZG9uJ3QgdGhpbmsgYW55
-b25lIGVsc2UgaGFzIHNlbnQgYSBwYXRjaCBmb3IgdGhhdCB5ZXQsIHNvIHlvdSBjYW4gaWYgeW91
-Cj4gbGlrZS4KClR3byB0aGluZ3MgdGhlcmUsIGFuZCBJIHdvdWxkIHJhdGhlciBub3QgY29sbGlk
-ZSB3aXRoIHlvdXIgc2VyaWVzOgoKLSBUaGUgS0FTQU4gcmVwcm9kdWN0aW9uIHVzZWQgMHgxZiwg
-d2hpY2ggc3RvcHMgYmVpbmcgb3V0IG9mIHJhbmdlIG9uY2UgMDAxRmggaXMKICBpbiB0aGUgdGFi
-bGUuICBPdXQgb2YgcmFuZ2UgaXMgYW55IGNvZGUgcGFzdCB0aGUgZW5kIG9mIHRoZSB0YWJsZSwg
-c28gd2l0aAogIDAwMUZoIGFuZCAwMDIwaCBhZGRlZCBpdCBpcyAwMDIxaCB1cHdhcmRzIC0tIHRo
-ZSBib3VuZCBpdHNlbGYgaXMgdW5jaGFuZ2VkLgotIEFkZGluZyB0aGUgdHdvIGVudHJpZXMgaXMg
-YSBzZXBhcmF0ZSBjaGFuZ2UgZnJvbSB0aGUgYm91bmQuICBEbyB5b3Ugd2FudCBpdCBpbgogIHlv
-dXIgc2VyaWVzIG5leHQgdG8gdGhlIEtVbml0IHRlc3QsIHNvIHRoZSBib3VuZGFyeSBhbmQgdGhl
-IHRlc3QgbW92ZQogIHRvZ2V0aGVyLCBvciBhcyBhIHN0YW5kYWxvbmUgcGF0Y2ggZnJvbSBtZSBh
-ZnRlciB5b3Vycz8gIEVpdGhlciBpcyBmaW5lLiAgSWYKICB5b3Ugd291bGQgcmF0aGVyIGhhdmUg
-aXQgZnJvbSBtZSwgSSB3aWxsIHRha2UgdGhlIG5hbWVzIGFuZCBlcnJubyBtYXBwaW5ncwogIGZy
-b20gVGFibGUgOC0yMDggYW5kIHNlbmQgaXQgc2VwYXJhdGVseS4KClRoYW5rcywKR2FvYmlu
+Every memory cgroup allocates, per NUMA node, one shrinker_info_unit
+for every SHRINKER_UNIT_BITS shrinker ids up to shrinker_nr_max. The
+unit holds BITS_PER_LONG atomic_long_t of deferred work, a power of
+two, plus the one-word bitmap of shrinkers with objects charged to the
+cgroup. That word takes the unit just past the power of two, to 520
+bytes on 64-bit, so every unit comes from kmalloc-1k and almost half of
+it is padding.
+
+The units are allocated when the cgroup goes online and freed when it is
+freed, so a dying cgroup keeps them until the last reference to it is
+gone. Their number is the number of memory cgroups, times the NUMA
+nodes, times shrinker_nr_max / SHRINKER_UNIT_BITS. shrinker_nr_max is
+the peak number of memcg-aware shrinkers registered at once, and every
+superblock registers one, so a host that mounts many filesystems and
+runs many cgroups carries the padding as unreclaimable slab, and keeps
+paying it for new cgroups after the mounts are gone.
+
+Let a unit cover one id less than a word holds. The bitmap still fits
+one word, and nr_deferred[] plus that word add up to BITS_PER_LONG
+longs, so the unit fills a power-of-two kmalloc slot exactly and, on
+64-bit, the memory taken by units halves, for about one unit more in
+BITS_PER_LONG.
+round_up() in expand_shrinker_info() needs a power-of-two step and
+becomes roundup(); the other uses of SHRINKER_UNIT_BITS are divisions,
+modulos and multiplications that do not care. Assert the unit size at
+build time, since the layout depends on it.
+
+Assisted-by: LLM
+Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
+---
+ include/linux/shrinker.h | 6 +++++-
+ mm/shrinker.c            | 4 +++-
+ 2 files changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/include/linux/shrinker.h b/include/linux/shrinker.h
+index 1a00be90d93a9..f1cf6096a7a06 100644
+--- a/include/linux/shrinker.h
++++ b/include/linux/shrinker.h
+@@ -7,7 +7,11 @@
+ #include <linux/refcount.h>
+ #include <linux/completion.h>
+ 
+-#define SHRINKER_UNIT_BITS	BITS_PER_LONG
++/*
++ * One id less than a word holds, so that nr_deferred[] and the map word add
++ * up to BITS_PER_LONG longs: a power of two, which fills a kmalloc slot.
++ */
++#define SHRINKER_UNIT_BITS	(BITS_PER_LONG - 1)
+ 
+ /*
+  * Bitmap and deferred work of shrinker::id corresponding to memcg-aware
+diff --git a/mm/shrinker.c b/mm/shrinker.c
+index 7ec2a9704f6f2..5e4a5ce231868 100644
+--- a/mm/shrinker.c
++++ b/mm/shrinker.c
+@@ -46,6 +46,8 @@ static inline int shrinker_unit_alloc(struct shrinker_info *new,
+ 	int start = old ? DIV_ROUND_UP(old->map_nr_max, SHRINKER_UNIT_BITS) : 0;
+ 	int i;
+ 
++	BUILD_BUG_ON(!is_power_of_2(sizeof(struct shrinker_info_unit)));
++
+ 	for (i = start; i < nr; i++) {
+ 		unit = kzalloc_node(sizeof(*unit), GFP_KERNEL, nid);
+ 		if (!unit) {
+@@ -159,7 +161,7 @@ static int expand_one_shrinker_info(struct mem_cgroup *memcg, int new_size,
+ static int expand_shrinker_info(int new_id)
+ {
+ 	int ret = 0;
+-	int new_nr_max = round_up(new_id + 1, SHRINKER_UNIT_BITS);
++	int new_nr_max = roundup(new_id + 1, SHRINKER_UNIT_BITS);
+ 	int new_size, old_size = 0;
+ 	struct mem_cgroup *memcg;
+ 
+
+-- 
+2.43.0
+
