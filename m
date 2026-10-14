@@ -1,84 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25EC72FC893
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 23:09:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F07164A7CA6
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 23:09:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792019353; cv=none; b=N3okT0YyZQ/ME2xEZBGePs3DndDohDD+AQyKp0IoLzYttQS72cLGZjWlpY2hF5MFmJ3C66XzWZd1PXnHf2/u0oiCS/WBDVZMA6K+2DDnfDsQK7OCXr/P/SURNMRaKFM4du9h1/Z42pT+441cDMwC4iAyQJnm5s6V9B+uJm1GSCE=
+	t=1792019361; cv=none; b=PXGOD/cyoWK60vV9c5xuGm59jm12pH0vhXGNgegaCqVvr98kvq+GY4uI4tlKmnkAF9MwSqFG7klUxOB5F/KfUM9S54gwHhARJEya0C8G6gq+etT03oG6Y7btq6yF/WwGWW6JDI4j3FuZkhyF+QSiZ+Q3jSIgqreyCXFe4tpS+4U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792019353; c=relaxed/simple;
-	bh=gfk+T8P/u+pE/Fhb/Q2Yk7BonKL8voYUqTaS2OXtfc0=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=oU7OChS4/WGBAwdX4k9im9JHdMj5jm4KvZKbhRDIHhpqTwLK0fPr24LdD81rVE88p15sJqGjb3FV4ur650cpiosAwbBGd+I1XqR5IGLWMbErh8el8bLVMulChbuZlIqMkSA6LlBVnri3Upb9pojMjODw19zNwtEMFKnDKH4Roec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=wPW2HHY0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792019361; c=relaxed/simple;
+	bh=tuNEW0tRRxjD3iYiFvttO3m8efqWqZN+P4eMjl89C60=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RQU/OM8gv4XhshfwvR7dWwMmZufHNrodWoxLrtw6ygIMz6rWUP6Ja2I9iBNCTWWhtuICQroO3tuaNvNkq6tem5meUgRosZZQ9V0w77IAa9flxOSrWueD+i5dMsQQVwNwyq1NduJhDOYx601SuXgwfcNBh2e96N1Z0keZ/k2QLLQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FsPM2NTi; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="wPW2HHY0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 102F51F000C4;
-	Wed, 14 Oct 2026 23:09:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792019351;
-	bh=cbmYsA9KrEptMrJ4TWH3Zu5hn3Aq4CSH6awCQPo0RqY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=wPW2HHY0GoMweDWZnBFXZJZVavcyDJP8YNyVymfc6W5aZU6VEOoxj7GOJN1L0eH8R
-	 MauY1JmmqzvI6WJX6rEfJ1ip5JGLPov29C9a8jqeAVE2ZDC6ChTa17LNRWZbO0qf1Z
-	 HRtYpL0p47CIJRiu/CFRK6CFRJsPcrtd1knpcaTk=
-Date: Wed, 14 Oct 2026 16:09:10 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Hui Zhu <hui.zhu@linux.dev>
-Cc: Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, Shakeel
- Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>, Axel
- Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei
- Xu <weixugc@google.com>, Johannes Weiner <hannes@cmpxchg.org>, David
- Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, Lorenzo
- Stoakes <ljs@kernel.org>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, Hui Zhu
- <zhuhui@kylinos.cn>
-Subject: Re: [PATCH v6 0/2] mm/vmscan: fix NR_ISOLATED accounting and
- throttle MGLRU eviction
-Message-Id: <20261014160910.eeaa24697b614d1b94806d0d@linux-foundation.org>
-In-Reply-To: <cover.1791968227.git.zhuhui@kylinos.cn>
-References: <cover.1791968227.git.zhuhui@kylinos.cn>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FsPM2NTi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792019359; x=1823555359;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=tuNEW0tRRxjD3iYiFvttO3m8efqWqZN+P4eMjl89C60=;
+  b=FsPM2NTi32inf/GSQLFRayGLSYiVKtPpS7xbBDxcoMOq6hM4teCryy2M
+   ctVAKeLiduW5KarzuKx4lPGIMSRqIBwz+FZiznZcicETQQm427AfW302V
+   by5eURfJra7XVQHzEGtHzT3PXbZkZCrGk8i7Rl6CTaq0Eg5FynS7+sOfW
+   W/5XohWC93dGPslCHBuHx21y81yFPRRIwjm9LZFAcpt0mtm+y2s6HM9bF
+   CE4CxUQT835fuJy0Wki+XMBM8M3Z2Qqk2Gk4n7hYAxLJBLf9l4ah4Sx73
+   PGKJDuuTUJK+43rX4JwuzLnLXESpEuLOzl2nHPfhBy/r4hy3jNbyQb0kg
+   A==;
+X-CSE-ConnectionGUID: 9nzFTPVqTb6iREPMRi8Tcw==
+X-CSE-MsgGUID: zlXapWBiQrOEHdQTUR51yA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="679176"
+X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
+   d="scan'208";a="679176"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 16:09:18 -0700
+X-CSE-ConnectionGUID: wuYULF2ARVODPDifWii0/w==
+X-CSE-MsgGUID: RiW5I2+FRGmozmoX2Rs65A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
+   d="scan'208";a="1511053"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa003.jf.intel.com with ESMTP; 14 Oct 2026 16:09:15 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xH85w-00000000FKf-0Urc;
+	Wed, 14 Oct 2026 23:09:12 +0000
+Date: Thu, 15 Oct 2026 07:08:36 +0800
+From: kernel test robot <lkp@intel.com>
+To: Ketil Johnsen <ketil.johnsen@arm.com>,
+	Boris Brezillon <bbrezillon@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Alice Ryhl <aliceryhl@google.com>
+Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Florent Tomasin <florent.tomasin@arm.com>,
+	Paul Toadere <paul.toadere@arm.com>,
+	Samuel Percival <samuel.percival@arm.com>,
+	Ketil Johnsen <ketil.johnsen@arm.com>
+Subject: Re: [PATCH v4 05/12] drm/panthor: Add support for entering and
+ exiting protected mode
+Message-ID: <202610150946.AYfCvKtU-lkp@intel.com>
+References: <20261012125940.3291951-6-ketil.johnsen@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012125940.3291951-6-ketil.johnsen@arm.com>
 
-On Wed, 14 Oct 2026 17:00:22 +0800 Hui Zhu <hui.zhu@linux.dev> wrote:
+Hi Ketil,
 
-> The legacy reclaim path has two mechanisms around isolated folios that
-> MGLRU lacks:
-> 
-> 1. NR_ISOLATED_ANON/FILE counters are updated when folios are isolated
->    from the inactive lists. Compaction's too_many_isolated() relies on
->    them to decide when to back off. The MGLRU reclaim path never
->    updates them, so compaction cannot see MGLRU's in-flight isolation.
-> 
-> 2. shrink_inactive_list() throttles direct reclaim via
->    too_many_isolated() when isolated folios pile up. MGLRU's
->    evict_folios() isolates folios without any such check, so many
->    concurrent reclaimers can over-isolate the same (oldest) generation,
->    leading to unnecessary swapping, thrashing and premature memcg OOM.
-> 
-> Patch 1 fixes the counter accounting in the MGLRU isolation path.
-> Patch 2 adds a per-lruvec throttle, mirroring the legacy behavior but
-> adapted to MGLRU's per-lruvec contention and its dynamic type
-> selection/fallback.
+kernel test robot noticed the following build warnings:
 
-Thanks.  Questions for yourself and maintainers:
+[auto build test WARNING on drm-misc/drm-misc-next]
+[also build test WARNING on next-20261012]
+[cannot apply to linus/master v7.3-rc7]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-[1/2] is nice and simple and reviewed.  How about I queue this for
-second week of the upcoming merge window?
+url:    https://github.com/intel-lab-lkp/linux/commits/Ketil-Johnsen/drm-panthor-De-duplicate-FW-memory-section-sync/20261012-145929
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/20261012125940.3291951-6-ketil.johnsen%40arm.com
+patch subject: [PATCH v4 05/12] drm/panthor: Add support for entering and exiting protected mode
+config: arm64-defconfig (https://download.01.org/0day-ci/archive/20261015/202610150946.AYfCvKtU-lkp@intel.com/config)
+compiler: aarch64-linux-gcc (GCC) 16.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261015/202610150946.AYfCvKtU-lkp@intel.com/reproduce)
 
-[2/2] is much more code, isn't reviewed and has a Sashiko whine[*].  So
-I'm thinking this is 7.4-rcX material.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610150946.AYfCvKtU-lkp@intel.com/
 
+All warnings (new ones prefixed by >>):
 
-[*] https://sashiko.dev/#/patchset/cover.1791968227.git.zhuhui@kylinos.cn
+>> Warning: drivers/gpu/drm/panthor/panthor_sched.c:353 Excess struct member 'active_group' description in 'panthor_scheduler' (did you mean one of: 'protm.active_group', 'reset.stopped_groups')
+   Warning: drivers/gpu/drm/panthor/panthor_sched.c:4341 function parameter 'file' not described in 'panthor_fdinfo_gather_group_mem_info'
+   Warning: drivers/gpu/drm/panthor/panthor_sched.c:4341 Excess function parameter 'pfile' description in 'panthor_fdinfo_gather_group_mem_info' (did you mean one of: 'file')
+>> Warning: drivers/gpu/drm/panthor/panthor_sched.c:353 Excess struct member 'active_group' description in 'panthor_scheduler' (did you mean one of: 'protm.active_group', 'reset.stopped_groups')
+   Warning: drivers/gpu/drm/panthor/panthor_sched.c:4341 function parameter 'file' not described in 'panthor_fdinfo_gather_group_mem_info'
+   Warning: drivers/gpu/drm/panthor/panthor_sched.c:4341 Excess function parameter 'pfile' description in 'panthor_fdinfo_gather_group_mem_info' (did you mean one of: 'file')
 
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
