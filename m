@@ -1,107 +1,90 @@
-Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 331BE1D9A66;
-	Wed, 14 Oct 2026 06:02:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.113
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 580DD1D9A66;
+	Wed, 14 Oct 2026 06:03:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791957771; cv=none; b=SxNSqAowursnQH+gZNLRRlEB0HSso/PwqKl6ubAbOWTdoZG9lkYmFP7Hk1Npwj8jmO3cMqZf7xz6+fxvS4CFg2BJkxNU7aPU2zM4+e+t4g29SDZ1EIbasdz5hhmst1p1nfcZAKYeIJ8QE6gKEHR0V6AP0HbwU1RD9XhKhGhs+C0=
+	t=1791957802; cv=none; b=tdLv1Yh/SMp2nTQYRoNqO/P10G9Lu0KlRW43eCG3e6/HPAMh7lGsbuPXHj7m8x7xu/TwFEItEasnGno/ffG1Qs9khYLJJ+npW7VuTPX201Qkijg2CP1XSkh1t07fy9JGxR3GRYbWyqDDP2YTEyL0otpm+14EHifiq78AaBdzKWM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791957771; c=relaxed/simple;
-	bh=apB+CCNmmj5PykOfXdfLni7NehzQcXSALn7GneS2rG8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UdEMIvChlAeqd0iqF9MYQtJRWNybLyyV/gujOI36VU788Q1JlGQuMGn6uMBDgL2nrC0wMnNCFrmBGlvY+NbtfKNt2EVtZHdP1+nbJ+IDkIpBj16KjiRBOun4gTrzeLeBUoAwR1OReSNPWFFjGB4LJrepUI8EwQo0MMbO6H331w8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=reh3EPjm; arc=none smtp.client-ip=115.124.30.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1791957802; c=relaxed/simple;
+	bh=4MTLOAA9ntn7SODjZIkNJoO1rqcau6BHexLg21k5OJk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=HQktNLDpoqupaYkpIKw/RELdVuY4FOMNbbLArjZp30ShG14j8bT1/VGURSjOkKSF+kFw2Hk6O/fOu/UMOP/ATLpPKkDZssSmiH7dqbJO1omlv+QMa/NBQUUeGhpmADRHD93SRlIrcpg6wbkTYfZ7Koey9kmekmYE6gU1lFxnYpA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GMpGHFpH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="reh3EPjm"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1791957765; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=9BIscm2cTTBNlc9P4KV7eUnjnf4F0Y6UQu2TU1+hhSQ=;
-	b=reh3EPjmmP0ATGMx3tdU85PVBPkJA2d9P5dQXJuumoYd0q/MPh+0P7KwswuD3Ik6yrCPdw2zs8sxRDjwrcE7zPbJ7jDZlpb27EWsOSyTxI66EZwrd3P+3sUu4/0D98r8TWy/dreT17pawSvrgaLbMOpYWuIyvHe+8RDo9wS7HKw=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R191e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=17;SR=0;TI=SMTPD_---0XCo3AyK_1791957763;
-Received: from 30.74.144.153(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XCo3AyK_1791957763 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 14 Oct 2026 14:02:44 +0800
-Message-ID: <5848db18-9de3-437b-9967-162ced4f8cb9@linux.alibaba.com>
-Date: Wed, 14 Oct 2026 14:02:43 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GMpGHFpH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 008FE1F000FF;
+	Wed, 14 Oct 2026 06:03:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791957800;
+	bh=s8MfM1mspDM0nFe3fO8QU0AZxJBshy5OE1RZcD39XyA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=GMpGHFpHZg8OK40FDa0Ea/Zn2Al8G4/v+g/4I3M4rIX9F26aHpnUQ4P+QHcaHDVx6
+	 eFUHBalNtPEpZfeGq1Kzf0sDB/hDWkUj836/Ct3cGRgC5stlFmptYXtkm1rTZnXsfH
+	 EeaVwVUQ0Day3PGTkIWI4oWvs6XQ4yGBmrWKDvK8+GtoBkltXXzi2Rf9dJCzl8sJgN
+	 vlAsSMcqkI4tlhJ7oq+xGLFkUeNDqx/ChrlWjVyOXqgb3tabr8EerXm/ZKRdZk7qUb
+	 JbvZ9t13acfimcVhlFcrjVok7b/iVlYQ50p3hKwaff154u5S8r/ALKfRf8wkMPLeJx
+	 32qWTjCjzOcEA==
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Jingoo Han <jingoohan1@gmail.com>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Xincheng Zhang <zhangxincheng@ultrarisc.com>
+Cc: Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+ Jia Wang <wangjia@ultrarisc.com>, Niklas Cassel <cassel@kernel.org>, 
+ Frank Li <Frank.Li@kernel.org>, linux-pci@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260905025635.211390-1-zhangxincheng@ultrarisc.com>
+References: <20260905025635.211390-1-zhangxincheng@ultrarisc.com>
+Subject: Re: [PATCH v2 0/2] PCI: dwc: Support large BARs on UltraRISC
+ DP1000
+Message-Id: <179195779048.12828.9922780104352595952.b4-ty@b4>
+Date: Wed, 14 Oct 2026 11:33:10 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm: fix address wraparound when scanning large folio PTEs
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Ying Huang <huang.ying.caritas@gmail.com>,
- Barry Song <baohua@kernel.org>, Ryan Roberts <ryan.roberts@arm.com>,
- Chuanhua Han <hanchuanhua@oppo.com>, Kiryl Shutsemau <kas@kernel.org>,
- Kyle Zeng <kylebot@openai.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261013-folio_pte_scan_range-v1-1-c50dc30bf6ad@kernel.org>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20261013-folio_pte_scan_range-v1-1-c50dc30bf6ad@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=826; i=mani@kernel.org;
+ h=from:subject:message-id; bh=6MjK7eCitBMibi9JJ/uSN3z9cJrlntuBDQZ04qrMuls=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBqzxsjXjKyfzsQ5+8R22XSg88fMvhvQxJrgaMGS
+ 29yZ0gTZMmJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCas8bIwAKCRBVnxHm/pHO
+ 9bFPCACYnJ+rs6NlAmWih1CvbVwOlxzQDfuytorFsEaI+zQKSxnPHbqI6Rf8yB2vzyXh52aDMkL
+ E4JQzPBGmJKFmLoN45OFRvkecg7cxD7xM6jP66e3pdqfI6GTcOEs33XzECFciVqKH6Q/uXN88H1
+ ATF1ij5Cyy6gvNV2hy9QoUMcC0zWYCh16oju93hwK82KXJ40AqAvJga0Wd9sBHChjR3hWnCVf4L
+ F801TrVUpxHL2SPFbnK7LU4JmCtm7NEHv2r48nktW7EtLjFrCao1EIijldCTuCiypxwLOov9Mmd
+ gMoaa/pxPfxAVW+T67Lba0hStmXSDSizyaWOkXcIe0hSAJlh
+X-Developer-Key: i=mani@kernel.org; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
 
 
-
-On 10/13/26 8:30 PM, David Hildenbrand (Arm) wrote:
-> numa_rebuild_large_mapping() and do_swap_page() can be tricked into
-> generating an address wraparound, crashing the kernel. All that's required
-> is to map a tail page of a large folio close enough to the start/end of
-> the address space to e.g., make
+On Sat, 05 Sep 2026 10:56:33 +0800, Xincheng Zhang wrote:
+> PCI: dwc: Support large BARs on UltraRISC DP1000
 > 
-> 	unsigned long addr_start = addr - (nr << PAGE_SHIFT);
+> This series lets DWC host drivers skip generic outbound iATU programming
+> for host bridge MEM ranges, which is useful for some compute cards' very
+> large BAR size demand (>100GB).
 > 
-> to wrap around.
+> DP1000 has 16 outbound iATU windows, and each window can map up to
+> 4GB. This limits its allocatable MEM64 BAR size to 4GB*(16-3)=52GB
+> (-3 for CFG, I/O and MEM32).
 > 
-> Let's fix it by providing a better helper, folio_pte_scan_range(), that
-> takes care of staying within VMA and page table boundaries while
-> handling possible wraparounds.
-> 
-> Reported-by: Kyle Zeng <kylebot@openai.com>
-> Fixes: d2136d749d76 ("mm: support multi-size THP numa balancing")
-> Fixes: 508758960b8d ("mm: swap: entirely map large folios found in swapcache")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
+> [...]
 
-Thanks for the fix.
+Applied, thanks!
 
->   mm/memory.c | 43 +++++++++++++++++++++++++++++--------------
->   1 file changed, 29 insertions(+), 14 deletions(-)
-> 
-> diff --git a/mm/memory.c b/mm/memory.c
-> index 1f5d5f7d39cd2..a3823010aa981 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -4933,6 +4933,27 @@ static void check_swap_exclusive(struct folio *folio, swp_entry_t entry,
->   	} while (--nr_pages);
->   }
->   
-> +/*
-> + * Get the address range in which a folio might be mapped, assuming its pages
-> + * are mapped consecutively and the folio page at the given idx is mapped at
-> + * the given address.
-> + */
-> +static void folio_pte_scan_range(const struct folio *folio,
-> +		const struct vm_area_struct *vma, unsigned long addr,
-> +		unsigned long idx, unsigned long *start, unsigned long *end)
-> +{
-> +	/* Stay within the page table and VMA boundaries. */
-> +	const unsigned long pmd_start = addr & PMD_MASK;
-> +	const unsigned long pmd_end = pmd_start + PMD_SIZE;
-> +	const unsigned long lower = max(pmd_start, vma->vm_start);
-> +	const unsigned long upper = min(pmd_end - 1, vma->vm_end - 1) + 1;
+[1/2] PCI: dwc: Allow drivers to skip MEM outbound iATU setup
+      commit: 35e7ff697f320aa4c0c8cd2f9d0377df307bb34a
+[2/2] PCI: ultrarisc: Skip MEM outbound iATU setup on DP1000
+      commit: e9ad968d240e0d8313d3aac19bd5ef0dad866da1
 
-I also agree with Barry and Lorenzo's suggestion to use the more 
-readable pmd_addr_end() helper. With Lorenzo's comments addressed, feel 
-free to add:
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Best regards,
+-- 
+மணிவண்ணன் சதாசிவம்
+
+
