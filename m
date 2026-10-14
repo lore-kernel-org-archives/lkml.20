@@ -1,63 +1,63 @@
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B59552FE34
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:58:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03DBE568524
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:58:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792000689; cv=none; b=cdrrAyCy606RsvP+TIaD+MxWLoifrwMWPlsOr1tM8vWGeWDLpUGF3n+UggtoqyKs8fvQ531+WFk/rEyeYeOgEDJdeqHoDlm0L5dbq0KBQxR6MV04OylR62bUCrJQbtQg8yNylteiFg1PVzfM+EroadsR4TEnyUCZOBarqN2mgYk=
+	t=1792000690; cv=none; b=XFwjDpgHaiRDtkRdFJKUsy0p9az+uytzzxiDBw4s87I8sVp9LSDBoUqRIwDVgAawwbc6ILXlERg0NJg34Y4WcHov0r9CljDpuNrsaVmGeEwGj1ShaScIjfshNH59F4zytb8eh333vCkRpBG2cakHru2v18maxRgFtEJPgXVLNm0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792000689; c=relaxed/simple;
-	bh=dQFd174IyKEc42PMYrNrs0oRtwuuB5aMw09KeEoMoUM=;
+	s=arc-20240116; t=1792000690; c=relaxed/simple;
+	bh=RBY1rm5m57OTxM6rzLZnBppbmcBXepNbmDS03aHEmGk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HyDSiaWy0RlcXKdp9BrGgGwetF0yFMuF4CYEg/3A/y/a5vkzFhFiaep1yRbr405BUtnwwEVWSs5WqvrYI0S2JRjBXOAx1xUMLLdPXc6osVE3P3SZLksgl7CcJfhKhl+E849xN1Nquf3nvZ3pjSQd8XoMDTMVWu1wXOPvkZ6Jvm0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=YU5IghKe; arc=none smtp.client-ip=209.85.219.49
+	 MIME-Version; b=brw2FdbAkOnfh2vxX1OD6O0UnpNA046aWsR7cX/LRKqTN8MQluXGhR6ccFB2GCbH1eCE8TjNnozl+SnTY+W0iTd6HN4kY3ax1rQ4ISvPu47vtfxPxa/kn7yG+wSBHZgJiCXHIubL1v2edsTFEGUY9rQm6Ur6EDLk1r6YDPOBwns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=Ea8lSsHa; arc=none smtp.client-ip=209.85.160.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="YU5IghKe"
-Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-91986c5cb75so7135376d6.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:58:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="Ea8lSsHa"
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-5339173489eso47954551cf.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:58:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1792000686; x=1792605486; darn=vger.kernel.org;
+        d=gourry.net; s=google; t=1792000688; x=1792605488; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=bK/BWDZAO2OK/KTNrMPySMyjNClCeAdL4aMTxK9K6Oc=;
-        b=YU5IghKeg7JpVxt87Rd2tJKWWgmiUkpJ1bvgSRI/AnN46mYbNHr3jhXDYX9bIJJAWp
-         ibDqyTlLz0SZe/gHGnXHkoyi65nbH11yQjwoCf+pKHQHC10hqcUHkPwz0/YWmeGFyP0J
-         8YxGxX1O+ugfKby267ucBRB3CPLrG7z2P58YniwO1uxETWyDCuhMX2WkbfUhuwc9K4j+
-         yqNnUwkvtvAGwGTloQfhWjnxTi/rLLPfJPcvF6hZxt6PTd40h+IJzQxMLTI5VobJM88R
-         9YjxA5a/2df4lWiT6UAE0Ta3jCYaZFijK28N+uvU+6+F5z0VpSHXKQlyE5bUxpw6TfBc
-         C9tg==
+        bh=pJbFkHFq6Y12l3Bi7MpiC5ltuWIc3jdeP3hN8D/FbRY=;
+        b=Ea8lSsHahxNRRj609qdGWSFTN8eOkYV0T4Fx9mt55/19LMcvSHE0NwwsbbOxbpRAHH
+         HpINP3xZEEqZH1r06V82hbv60Vn84Fc6YSewxBzg/WpW+rvYXADVtiXPrDm2KUHRMbtD
+         QSnaQHOlqG3g3nQ++z96PSmvuWv7nAgOOy7Z9iDooZrQQAFxK9oZT4DAanb0Cadmpvzn
+         vs+sLCN59LkMjCtUK54gk3LAhORs+/0oILGuNctL/GgH+h6VLqm2rZqPg6U+lr2le5T0
+         1IrdLM2lNHVVTGzjlhdyTGmgs0jiIMF6d5TP1VPbdGXjVjfR0QH7gpP1+k4+8yVtoQHS
+         Rpdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792000686; x=1792605486;
+        d=1e100.net; s=20260707; t=1792000688; x=1792605488;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bK/BWDZAO2OK/KTNrMPySMyjNClCeAdL4aMTxK9K6Oc=;
-        b=Z55DK8rKqcF9HALV4jLR+zsEpC6MA1vAlgHDjEcLXGteGiuO+qbUo1ikKl/oaIovbc
-         jUVCI2YrjdDrJenXxv31tRmk2xMc3jhPghwsPmSOsGXTKW5FOgLKnGgJEDg4HtAV5oMM
-         MK32t2NpU4BPux4zTPttGATpBePNsgXZkfGdzZlYCL8DYRw1N6x2PM8h8IUqB9Aybf54
-         O8Ei0OmAeidcA0ACJwG1jxNpcngYz8U6LBS07o4PcNM3OTgUCESYre45HQbYeuxYAZvL
-         cpz6UUNId0cySVJ1Fo84GfiRvpu45mtjQ8c72vLLdtuUKqXDRME5knGC6WWV3di1KhY/
-         RK9w==
-X-Gm-Message-State: AFq9FYI3Nok1y6Fz4gogcXV+M4zC9VtyixOcjsPaw7kxlxcqe7JAg4sA
-	M3pmbWWmJrXuGWZxe9SwhMRI6jysVsSwE5fhS/vNA7YIiLtzezGHCSRA0CHDhj2xN7E=
-X-Gm-Gg: AYBFou2i2gj2Fjx0imuclfJKb+fckMRo+6OBEnGVsRkBb1OMDq+3kSIdWLYjwXerWbD
-	6hYFUzLetAHzYYUuLHLtKAzSYWZzwlmeJqW7PYaPh2sMVEecoZdga6MIMYFVUdB0Qg0oYMkmfls
-	yu6dL4oPIwtcSLQXjOC+B6eHL9ij7Lhto69raS2/J5JmkndNTMg0nA9fa2Vcu/2o4Kgp4kPpHOn
-	on5G29XiiV2wjcxpTBiPWgGmiE7RigAkcSGjVlK5QZgXkBCIx4HiFnW6RthB1MRCABylpxm4i1t
-	vYOuxt2PLirx1k6mpuRDHjVfSvUht2NHZ8GyOqQxT0BDUtQdgtoShOxsFdIrPlFmSwycgTefy+Z
-	4FiYlJzldfXloV77P4zGZbYlHRJZlFVgU/9chwSsji7GvB72SQbh1sTxVvLzD1VQLqcTqflo7Fh
-	T2rOYlmcOcDCne6QnIxwq2Jc2SGA/lmfnEqXLTSpkavOTYRLYvagMKEpicPVwOsExYyIlL5dx9g
-	1+zClvpfZyvlriD45aw0YiNNXajHw0mKs4wcROBKNt5UUjWxPKY+9em/7kw
-X-Received: by 2002:a05:620a:1720:b0:93e:c12c:9b69 with SMTP id af79cd13be357-93ec12c9eb7mr2613825985a.68.1792000686355;
-        Wed, 14 Oct 2026 10:58:06 -0700 (PDT)
+        bh=pJbFkHFq6Y12l3Bi7MpiC5ltuWIc3jdeP3hN8D/FbRY=;
+        b=mvvWwdEqkw8/k0UTok9iTIwWUyQSepdfipt4L9D+4tUv/y+JXmCJ2L3GkgVNw8DBTn
+         Bh42qlQ/jAd5SNbc6m6c4M5Kl90NhAuSwaHdWeOKjSSPU71QUaDRNQUSyoQ0KfKBVtj2
+         h4HOL0Fsx70uo1x53SfiDd77KpBeD9NwOizWKDfhaGiRZc7s+SZS3SLuKfwagHrsfIdP
+         1FKRNlbMNFGEhs7QACSi32p+cUu+mDt0FavEEMbxhpaWVqvla08xBdKUf/Y9aE+DmsPq
+         Jtv4RrL+LoXcK54kE8vNWDBHWvUd7UVeQZNDELpbgcgu00pd+41qX1TJFrShnlVVPIfk
+         aKAA==
+X-Gm-Message-State: AFq9FYJO9LSUh/BvNeLGnp0m+YywMxYkungqUMCS9KhZt2xegAGQdyZu
+	NnYUuJQA03SKnhnpw0+c/rAX6ygw7vLL/WFLKCM/z8GckTOG4GIGP6Ld8flRPz9zkd0=
+X-Gm-Gg: AYBFou3B1QObtNsdo1cdTuPxP81Kvpkyu+0/uKa54dak0DfhZvWZ0KgP0aL7WYArcB9
+	kAmrv4bP8WNmGl83SUV9vBDKtokgbum59FL5qSkKgM8mz6apBO3C8gTIZR5xQ4W/XEnGIKTX5lw
+	Dt/+N7ljGfP+2fpYOzaGHueTStsO3i/qEnYplp0SmAEmLDPQyRkTHFFLmaOsclL58p+mj3uZ2Mm
+	TEYD3zLo5/jt6PLGpa+eFvlnWwiDlRsROl5peQ6LGjgQ92AObmo9rp4LCsncT2cJegmpm0FKVhe
+	DWCF3H4021kRL5wYh2FbNV8Y1sgnHQ3lWjSljgTHZm+FJEIiHwsrVLLxp1kIXMUwuDGxxqiKVH+
+	+JkEtszZQPB0JKK3CsDiEGYITdE0Y34MAq4M4cKmwNyHTfqNGuw+GDAWka/HOohNV9jdYvD/uo4
+	zjr22lh1oJPNLmw0vzGikhYVK5n9cstk1CgBBwjDk6RQRUUriUMQePeU3gXWneVk3K1naiVfRpc
+	jzXmfQOMYlKxMu6seWjNnH+6gBQgL0T4kxmH/bxq/ZQwHCJNJqyJ4s+OqXzHo9C2BK99ww=
+X-Received: by 2002:a05:622a:418c:b0:535:a5f7:d585 with SMTP id d75a77b69052e-535a5f7f25bmr272204631cf.63.1792000687747;
+        Wed, 14 Oct 2026 10:58:07 -0700 (PDT)
 Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97b95847sm58498006d6.32.2026.10.14.10.58.05
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97b95847sm58498006d6.32.2026.10.14.10.58.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 10:58:06 -0700 (PDT)
+        Wed, 14 Oct 2026 10:58:07 -0700 (PDT)
 From: "Gregory Price (Meta)" <gourry@gourry.net>
 To: linux-kselftest@vger.kernel.org,
 	linux-mm@kvack.org
@@ -72,9 +72,9 @@ Cc: linux-kernel@vger.kernel.org,
 	surenb@google.com,
 	mhocko@suse.com,
 	shuah@kernel.org
-Subject: [PATCH 1/8] selftests/mm: add MADV_COLD and MADV_PAGEOUT contract tests
-Date: Wed, 14 Oct 2026 13:57:49 -0400
-Message-ID: <20261014175756.2035176-2-gourry@gourry.net>
+Subject: [PATCH 2/8] selftests/mm: check that MADV_PAGEOUT skips holes and swapped pages
+Date: Wed, 14 Oct 2026 13:57:50 -0400
+Message-ID: <20261014175756.2035176-3-gourry@gourry.net>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261014175756.2035176-1-gourry@gourry.net>
 References: <20261014175756.2035176-1-gourry@gourry.net>
@@ -86,220 +86,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-MADV_COLD and MADV_PAGEOUT share a page-table walker covering ordinary
-PTEs, PTE-mapped large folios and huge PMDs. Existing selftests provide
-little coverage of its range, folio-state and permission decisions.
-
-Add a kselftest harness test for both hints, starting with the most basic
-behavior userspace relies on: MADV_COLD neither populates a PTE hole nor
-faults a swapped page back in, and neither hint may be applied to a locked
-VMA.
-
-The swapped-page test skips when swap is unavailable.
+The contract tests check that MADV_COLD neither populates a PTE hole nor
+faults a swapped page back in. MADV_PAGEOUT makes the same promises, so
+check them for it too.
 
 Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 ---
- tools/testing/selftests/mm/Makefile        |   2 +
- tools/testing/selftests/mm/ksft_madvise.sh |   4 +
- tools/testing/selftests/mm/madvise.c       | 134 +++++++++++++++++++++
- tools/testing/selftests/mm/run_vmtests.sh  |   5 +
- 4 files changed, 145 insertions(+)
- create mode 100755 tools/testing/selftests/mm/ksft_madvise.sh
- create mode 100644 tools/testing/selftests/mm/madvise.c
+ tools/testing/selftests/mm/madvise.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/tools/testing/selftests/mm/Makefile b/tools/testing/selftests/mm/Makefile
-index beacc0f87304..07d61110eb24 100644
---- a/tools/testing/selftests/mm/Makefile
-+++ b/tools/testing/selftests/mm/Makefile
-@@ -69,6 +69,7 @@ TEST_GEN_FILES += hugetlb-shm
- TEST_GEN_FILES += hugetlb-soft-offline
- TEST_GEN_FILES += khugepaged
- TEST_GEN_FILES += madv_populate
-+TEST_GEN_FILES += madvise
- TEST_GEN_FILES += map_fixed_noreplace
- TEST_GEN_FILES += map_populate
- ifneq (,$(filter $(ARCH),arm64 riscv riscv64 x86 x86_64 loongarch32 loongarch64))
-@@ -156,6 +157,7 @@ TEST_PROGS += ksft_ksm.sh
- TEST_PROGS += ksft_ksm_numa.sh
- TEST_PROGS += ksft_madv_guard.sh
- TEST_PROGS += ksft_madv_populate.sh
-+TEST_PROGS += ksft_madvise.sh
- TEST_PROGS += ksft_memfd_secret.sh
- TEST_PROGS += ksft_memory_failure.sh
- TEST_PROGS += ksft_migration.sh
-diff --git a/tools/testing/selftests/mm/ksft_madvise.sh b/tools/testing/selftests/mm/ksft_madvise.sh
-new file mode 100755
-index 000000000000..29cbbca800f2
---- /dev/null
-+++ b/tools/testing/selftests/mm/ksft_madvise.sh
-@@ -0,0 +1,4 @@
-+#!/bin/sh -e
-+# SPDX-License-Identifier: GPL-2.0
-+
-+./run_vmtests.sh -t madvise
 diff --git a/tools/testing/selftests/mm/madvise.c b/tools/testing/selftests/mm/madvise.c
-new file mode 100644
-index 000000000000..bb4efb92e6da
---- /dev/null
+index bb4efb92e6da..42cc08fe45ae 100644
+--- a/tools/testing/selftests/mm/madvise.c
 +++ b/tools/testing/selftests/mm/madvise.c
-@@ -0,0 +1,134 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * MADV_COLD and MADV_PAGEOUT tests.
-+ */
-+#define _GNU_SOURCE
-+#include <errno.h>
-+#include <fcntl.h>
-+#include <stdbool.h>
-+#include <sys/mman.h>
-+#include <unistd.h>
-+
-+#include "kselftest_harness.h"
-+#include "vm_util.h"
-+
-+/* Reclaim can fail transiently, so retry for up to a second. */
-+#define PAGEOUT_RETRIES 100
-+
-+static size_t page_size;
-+
-+FIXTURE(madvise)
-+{
-+	int pagemap_fd;
-+};
-+
-+FIXTURE_SETUP(madvise)
-+{
-+	page_size = getpagesize();
-+
-+	self->pagemap_fd = open("/proc/self/pagemap", O_RDONLY);
-+	ASSERT_GE(self->pagemap_fd, 0);
-+}
-+
-+FIXTURE_TEARDOWN(madvise)
-+{
-+	close(self->pagemap_fd);
-+}
-+
-+/* Page out the range until its first page is swapped. */
-+static bool pageout_until_swapped(struct __test_metadata *_metadata,
-+				  char *mapping, size_t size, int pagemap_fd)
-+{
-+	int retry;
-+
-+	for (retry = 0; retry < PAGEOUT_RETRIES; retry++) {
-+		ASSERT_EQ(madvise(mapping, size, MADV_PAGEOUT), 0);
-+		if (pagemap_is_swapped(pagemap_fd, mapping))
-+			return true;
-+		usleep(10000);
-+	}
-+
-+	return false;
-+}
-+
-+/*
-+ * Both hints are best effort, so these tests check what userspace can rely
-+ * on: which mappings are accepted, which pages must never be reclaimed, and
-+ * that neither hint changes memory contents or populates the range. A test
-+ * that needs a page to be reclaimed first checks that reclaim works at all,
-+ * and skips if it does not.
-+ */
-+
-+/* Neither hint may populate a hole between two populated pages. */
-+static void check_skips_pte_hole(struct __test_metadata *_metadata,
-+				 int pagemap_fd, int advice)
-+{
-+	char *mapping;
-+
-+	mapping = mmap(NULL, 3 * page_size, PROT_READ | PROT_WRITE,
-+		       MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-+	ASSERT_NE(mapping, MAP_FAILED);
-+	mapping[0] = 1;
-+	mapping[2 * page_size] = 1;
-+	ASSERT_FALSE(pagemap_is_populated(pagemap_fd, mapping + page_size));
-+
-+	ASSERT_EQ(madvise(mapping, 3 * page_size, advice), 0);
-+	ASSERT_FALSE(pagemap_is_populated(pagemap_fd, mapping + page_size));
-+	ASSERT_EQ(mapping[0], 1);
-+	ASSERT_EQ(mapping[2 * page_size], 1);
-+
-+	ASSERT_EQ(munmap(mapping, 3 * page_size), 0);
-+}
-+
-+TEST_F(madvise, cold_skips_pte_hole)
-+{
-+	check_skips_pte_hole(_metadata, self->pagemap_fd, MADV_COLD);
-+}
-+
-+/* Neither hint may be applied to locked memory. */
-+TEST_F(madvise, locked_vma_is_rejected)
-+{
-+	char *mapping;
-+
-+	mapping = mmap(NULL, page_size, PROT_READ | PROT_WRITE,
-+		       MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-+	ASSERT_NE(mapping, MAP_FAILED);
-+	mapping[0] = 1;
-+	if (mlock(mapping, page_size))
-+		SKIP(return, "could not lock a page");
-+
-+	ASSERT_EQ(madvise(mapping, page_size, MADV_COLD), -1);
-+	ASSERT_EQ(errno, EINVAL);
-+	ASSERT_EQ(madvise(mapping, page_size, MADV_PAGEOUT), -1);
-+	ASSERT_EQ(errno, EINVAL);
-+	ASSERT_EQ(mapping[0], 1);
-+
-+	ASSERT_EQ(munmap(mapping, page_size), 0);
-+}
-+
-+/* Neither hint may fault a swapped page back in. */
-+static void check_skips_swapped_pte(struct __test_metadata *_metadata,
-+				    int pagemap_fd, int advice)
-+{
-+	char *mapping;
-+
-+	mapping = mmap(NULL, page_size, PROT_READ | PROT_WRITE,
-+		       MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-+	ASSERT_NE(mapping, MAP_FAILED);
-+	mapping[0] = 1;
-+	if (!pageout_until_swapped(_metadata, mapping, page_size, pagemap_fd))
-+		SKIP(return, "MADV_PAGEOUT did not swap the page");
-+
-+	ASSERT_EQ(madvise(mapping, page_size, advice), 0);
-+	ASSERT_TRUE(pagemap_is_swapped(pagemap_fd, mapping));
-+	ASSERT_EQ(mapping[0], 1);
-+
-+	ASSERT_EQ(munmap(mapping, page_size), 0);
-+}
-+
-+TEST_F(madvise, cold_skips_swapped_pte)
-+{
-+	check_skips_swapped_pte(_metadata, self->pagemap_fd, MADV_COLD);
-+}
-+
-+TEST_HARNESS_MAIN
-diff --git a/tools/testing/selftests/mm/run_vmtests.sh b/tools/testing/selftests/mm/run_vmtests.sh
-index a1b45a3dedae..0e6a24659d12 100755
---- a/tools/testing/selftests/mm/run_vmtests.sh
-+++ b/tools/testing/selftests/mm/run_vmtests.sh
-@@ -53,6 +53,8 @@ separated by spaces:
- 	test madvise(2) MADV_GUARD_INSTALL and MADV_GUARD_REMOVE options
- - madv_populate
- 	test memadvise(2) MADV_POPULATE_{READ,WRITE} options
-+- madvise
-+	test madvise(2) MADV_COLD and MADV_PAGEOUT
- - memfd_secret
- 	test memfd_secret(2)
- - process_mrelease
-@@ -330,6 +332,9 @@ CATEGORY="madv_guard" run_test ./guard-regions
- # MADV_POPULATE_READ and MADV_POPULATE_WRITE tests
- CATEGORY="madv_populate" run_test ./madv_populate
+@@ -85,6 +85,11 @@ TEST_F(madvise, cold_skips_pte_hole)
+ 	check_skips_pte_hole(_metadata, self->pagemap_fd, MADV_COLD);
+ }
  
-+# MADV_COLD and MADV_PAGEOUT tests
-+CATEGORY="madvise" run_test ./madvise
++TEST_F(madvise, pageout_skips_pte_hole)
++{
++	check_skips_pte_hole(_metadata, self->pagemap_fd, MADV_PAGEOUT);
++}
 +
- # PROCESS_MADV test
- CATEGORY="process_madv" run_test ./process_madv
+ /* Neither hint may be applied to locked memory. */
+ TEST_F(madvise, locked_vma_is_rejected)
+ {
+@@ -131,4 +136,9 @@ TEST_F(madvise, cold_skips_swapped_pte)
+ 	check_skips_swapped_pte(_metadata, self->pagemap_fd, MADV_COLD);
+ }
  
++TEST_F(madvise, pageout_skips_swapped_pte)
++{
++	check_skips_swapped_pte(_metadata, self->pagemap_fd, MADV_PAGEOUT);
++}
++
+ TEST_HARNESS_MAIN
 -- 
 2.56.0
 
