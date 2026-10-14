@@ -1,146 +1,146 @@
-Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DB4A4E0212
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:13:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.146
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38FEA5372E3
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:13:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791990795; cv=none; b=bGejsVTUlwMIOO4yM3CukdqdltURkGS7/cu1kTvkYQPYr2U3uX4/hL2RqO3YgZ341l1586qvon0wBbAXlwpLdIfiN4VUpBRGb1xt+a6C4tFuVKmHWl3pKjKm5u8e21TatFaSJMXU8ntf8QA/kC3WdqxiXQWKoa8uD0mt574Jr1s=
+	t=1791990811; cv=none; b=INpnTCjkrkxJ0QxirE2U6I/BF3vz8kDl08hh3uzEeUj2LKQfEszbdwJjfUFO09+kezqPvoNIjPauq137vlgxSJs6FSYPugvP000/x6YvD0blWyHX/RVJb3C7MHZFDXe5/ZSwAYXgP5pnq6VNgURW29jNyhHLAJ0HY5c0NhJOyzc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791990795; c=relaxed/simple;
-	bh=G60KgCAh3+4rO87ttQo4oGU0cSK3AxlL7WM4JZKqcCA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SIT/gW4iMM7gU7WaAUthUupxD21ls/rHkUJXCy36Kw5+9EVTdVbg7nqTRIYuahY5e85fW07V0uVSdqWenGRm+S/mc6TzUloj/INGT0cHY0RSVv/KYylJMrnbKgerXcG8MmG2hbmSoYGszJSRwFKpTmTGaLQeJpdjOSZ1e2Z8Jmk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=uQta/omL; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=OxtN50Ew; arc=none smtp.client-ip=202.12.124.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	s=arc-20240116; t=1791990811; c=relaxed/simple;
+	bh=Kjt0QJCSGByXoOkT1ogX7P6lKoV/VO28TXtAtkuup6A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VU1p4UzNhZjV3o28b1zaLHhl9nWiyVknmK29pT5yq7skNf6p3THFGhczMpPjz1o07JWXQ/L/iPyc2mCtdbSYAWKgwwR3atkqIVXc550Vst6oB9uyVpC4O2d8rB3k9hy+gAO1VdD+E0tFfTselvMYW9DJwaPSCo8h1xSNc3+TT1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f32chest; arc=none smtp.client-ip=74.125.224.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="uQta/omL";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="OxtN50Ew"
-Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
-	by mailfout.stl.internal (Postfix) with ESMTP id BE38C1D000E9
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:13:12 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-12.internal (MEProxy); Wed, 14 Oct 2026 11:13:12 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1791990791; x=
-	1792077191; bh=wOpUc93gFFArBoAXhaus4seduOQibJAcMCNch1pqklg=; b=u
-	Qta/omLOGimjIHUEKQwfL7ovZ1Lo4R2MfYGoNM89lkMZeWaHMKy7GL1g5UqyTjbI
-	mbo66i77QLZAfV3PpUG9ahmmUcu8KmnaxXoccU+oSWy76beQqEjtU5Ph5I+bYIyi
-	/XsLiOP+VgLb5ZDRb0KDuweDD4JEhAlN1hTqnm2Iz99/rcku+U599ErRcNi7VLJB
-	d5EhCcxfcGidc6TJf38fmp6Y2vxjz2WMRFDD1ZUuf+CP8glkRtHfIt5xkq9B8W5N
-	FlNAFLz2W9OGOCr2nEuO5bfFbbmTYQ7VuET4qkr4dICA3uIhUB+3kn5BMCr3D5xH
-	2fYfseBlR4WbAouF730eg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1791990791; x=1792077191; bh=wOpUc93gFFArBoAXhaus4seduOQibJAcMCN
-	ch1pqklg=; b=OxtN50EwzPAHLrIDo+SxTurWAKMOY2VMScylMB8tMqI8HyUuzVG
-	kZo04+Z/KnJeSZ3zklT3vpuhPha5g4GYCQG/C5T17xcl1y+Me9kxGkct0/I010KQ
-	ZJi+UAjAg4exnfGaX15qgmxBHXeIFy1Akbx/qYdd14LZv/FJMTs2RUjiViJAOFJd
-	OF7LsOWh0BRHfenivBQRo0K+8qVxQ82KWlE/F8gSQBU32V35CclON0xi9yWcTnvA
-	qaQUAuqjkeRGIuerWTUzn9DboQvbMl71xyT3EfG5LcLJExVlyA+jVKzuilKRV8pW
-	JSmoiazAIucv0nmcqcekkac+NqHOBcgRBvA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=shutemov.name a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791990791; d=shutemov.name;
-	mf=PGtpcmlsbEBzaHV0ZW1vdi5uYW1lPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:FFEKBuDxcEp/nOq7CJQ7Y5RlVhtJIhukMz2V3TzdeXrkZ/l
-	6lCK+3vktcNjt49u24JGGEVonnwFw+0pCDSszvRdpN04A8h+oI6m4zPkWWf0fpnj
-	rZemLGeAozB6WFKbmjuk/oY1SZGL27EGKKEqXqoyheJ8SPLTPPK4tmILvCOJPWWv
-	wlgCRO9Cvw6z9SEvI6shq2GDn94h+R0BQdkgpy+X70Fcg/BvHfkCdtJsPUzKHIWV
-	cauVLsR6eLzBlg/bmgdIYoruAER1Tvf/hc0i5SqioXAUotQm9I8KBc4tJ4UODl8G
-	DMVfhRCEEXsYBx7I7ZJXUkDMOFhsHlsuhtAk4fA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:l7exCgdNv9j0ZInYme449tBrkRlNDP+jpQLyBNQizzU=:G60KgCAh3+4rO87ttQo4oGU0cSK3AxlL7WM4JZKqcCA=;
-X-ME-Sender: <xms:BpzPagLxp0jZW1pc4QX2lC1ovBgjRCBisoidbAJQmyCY0Acu9v0p6A>
-    <xme:BpzPaq_7GYtVozT03T6peLWLV67rToRejqTMAdddSqANNPp-hwx_FRUtGAszqKSDs
-    aDbD4uYMQ35vzCPXCD8GDy8QXJwCfuG2TWrgm_4BbqsVw98oVxz5HQ>
-X-ME-Received: <xmr:BpzPau8vqyvIR_bktSL81eFnEAJe6HFpopdo_oLBkXN70gOaxp2Nm2GKxDQ>
-X-ME-Proxy-Cause: dmFkZTGOpaIiUCvzOKJYmWwXLjE5VgiI69sgmw5zefHn3fmXaEZm9155gUIeRoBxRHgim+
-    ixRIflW98cI4qN3hOAjoBaFOgQR1uVMYXdKZ+fm59GlcrANLb2+KrT5qejXhIsxbQBVqak
-    1xyLocSkJsK8DtQftxAbNn+72pI6QgbvPcQ7E5BcVM+MrYW/mxVTtwGxkpJBdPU9OZdPFZ
-    j7vKRWCjzBkG9w+tE20g1pFuIPAhd78DzHySseDSKBy2rIghh8NJer6mAS6Tj5c43ccszP
-    ggeSyQ7V/cdwJiI6FVREhq6feoXVDszLULow4fyrDr4sy3cFU/Ms4vtOPIs8OhElQk/sTm
-    wIfCb4Z9fF0Zvqb++fnTIbI4LSFY72L9U8H9f0eDS9isgrlxGTsieOHp8uGHXF4yZOubLv
-    NIRHaTqOdPpHbjZWewcgr4kRAZZIX/u2CQfSgLXHfT+ck/AAq3W7duqcwKIuo8gNzmbc+q
-    4x0IG+l7d+LyfQIx6LpMd9z8lsHFqaYAMZbp2OCncLW/4cUCpmh+DOWFeWqK91+U12j+qu
-    ITuE3dOOc4PqunrKwNv37D5SJpDCe76lw+pmkMj3Od2Y1zm7v8GEDpC4kQMU/aqVyHhiFe
-    oNzPBWg3oQOV6cUd5NYqJxMtjgHJq2qU38hxfrikXYACTyMHiHgCuwZb7new
-X-ME-Proxy: <xmx:BpzPas_aL-HXSm6Evglg5jCYT_Vqfbmuuym6tulxuya7o9B4bbE5sQ>
-    <xmx:BpzPahKlWfzgSXDFkUL_olfi1a6lLRK6WTW4PyP-nSUzqcKu-30-rA>
-    <xmx:BpzPapS_789xelULVYeqwXs2AfZZvE2AYwLqgJ4Iu8tjfcwmzZQXqA>
-    <xmx:BpzPai-m-KAXgGLQZ7CGnmSbNfJbNNrEFJTouUWp-_Apo5O-uFZ1gw>
-    <xmx:B5zPalhIblhyXImjNOn_4nXgCQ6sg96scz4_xXA25V2_KEep2ZytyFTS>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 14 Oct 2026 11:13:10 -0400 (EDT)
-Date: Wed, 14 Oct 2026 16:13:08 +0100
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	kernel-team@meta.com, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>
-Subject: Re: [PATCH v4 10/13] mm/collapse: open-code collapse_single_pmd() in
- its two callers
-Message-ID: <as-WGjXRHws2f0z7@thinkstation>
-References: <20260928100630.21870-1-kirill@shutemov.name>
- <20260928100630.21870-11-kirill@shutemov.name>
- <b2133cff-ce69-4a45-bf33-c44b774dee7b@kernel.org>
- <ar-nKHZ5hlbsXeFP@thinkstation>
- <dfbb4bac-0def-4e1b-87a7-91c9cd91349e@kernel.org>
- <20261013143839.832f1a4db51f801a2b95f850@linux-foundation.org>
- <3bd88620-c245-4fab-abb7-9091d9a1b649@kernel.org>
- <as9cHpbmDm2FzJai@thinkstation>
- <b5b2e72e-496a-4756-bdd9-c83c78b3da89@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f32chest"
+Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-675676afc3cso4501341d50.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:13:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791990808; x=1792595608; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UrPLy49Oe94z3Z9uVuonzYqWl9efS/JIcpkVKd750wY=;
+        b=f32chestKpzW7moKinn2bwSUG9y4V3qJxcwIF0nXrdiJgYiSzXRaU5bL3L44hhnDDC
+         AL9Zwbbs2XuMKStG8vIBnw43HwgikMKRFodgMDl4jjG3yvC2f3r7Cpfp2SEPBKym50pv
+         hZM+vrUwbb/aRSuLVOY5CntSF+zApbu2vhrMAjWLZ9rmN+EGgFIVGT6iZ/vJyvZrXRD4
+         U2DL10ycgSxbce6MQoPQmShD2x+S6BwER0ZyWSkg2DsmIgUHUfHiv9piw9NEUO3C+Ws+
+         TRa9O9l6VBaOOfNKHcX281uC8Jn105/v4kV6G1a0o5SUVkhUFepjZkO4evqAAnF5RJZI
+         ms0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791990808; x=1792595608;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UrPLy49Oe94z3Z9uVuonzYqWl9efS/JIcpkVKd750wY=;
+        b=C4KUH1ZT4LIkCxPRLzEJJ25Met4JAN91mUGdTCkrQnZmLfT68Cm9q2ccGupxAnp4OA
+         btT3Xurluv7eS06CmCS0ATUO1MxxitFoNDSs3Jnwd5PYHXqqTeKTHxgnKrETWACQRq8U
+         HBl8PZCm6oDNr509xljvZ8tH9pfHL9PF5NQmbM6oYQc2zSZUXNtIFtzVdaRvKp5Norkz
+         DF5Paa7QR1a6/a4ZThI7ip6SaEUzF1Oof/ipJVAeMxPP8z5LOCHdTax1CLJbvgqTVYwo
+         5UMXZhziQ32Yjp01EeJ0a+GeXcSVUUhf4WaxCfWnAmFBdYZh17K53G17RS7s+6rgK8Zu
+         Dxdg==
+X-Forwarded-Encrypted: i=1; AKwUvBylL9dZkW3mQsPWOMprOuFzsv8MCFerMPRrcdgzItcsufK4xPXEA4ehYAjyVWvpt6icaasKo3Ryllvc178=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIzjjIRTmQrQd4CzzpOegI9EY65VNS4pPGAIaTQwtwMNij+1LGN
+	/7ZGiDp4mFM05W2Sdfn9d86uROxW5uXwm2Slhx/9+WtAs8lXqOewTyFD9OwvpA==
+X-Gm-Gg: AYBFou3n5TPKLvULDSMBIn8S5N/Iz3pZeYC4brEw65ddfwkPMm7HIko3d2Ytt5p9ad8
+	6Bq9Rpaun5jH0oo9k0Jn3ARBphnJmeqe9iMpnvCckLEjYM0FBo83ERJ0FZZdA++vQhKiLAS//aV
+	Uu5sSOEWqb1yW16eFWcyj1e0TPZD7nTrz0qcNl6Bw5zhVVbVJ6TGw2fkeXeLgpJB+mS4tENmza+
+	yAK8vzFSBEDIpGj8I6rEIBtXG4qa+IGnNfhTo8lsVqm+rK3FQZGprsdK9fsjofn8I7CgqqsRbWo
+	l6msZYwEh8YCUpRxh5ksGI7W+JrHDqBtpQACiE/GvMruW/F8fkL2L4gMJviuq99Rjd9Rkmndy+l
+	yI+H8f4vT2fTooo1e3l1WUdTcUkGXNBP3E4gSkh/IuURoEEONv1hxMd9Mw5MmdI2N7nIPNn0xB9
+	WDGUTAHbBkLW9nUXzscbw97kZ0NBHp0uMIBQMJFbb1WY2kSMJMeXbcKB07HuGO8fWXfF9gLw==
+X-Received: by 2002:a05:690e:4809:b0:675:70a3:71b6 with SMTP id 956f58d0204a3-6793600b1d2mr3413272d50.36.1791990807189;
+        Wed, 14 Oct 2026 08:13:27 -0700 (PDT)
+Received: from localhost ([2a03:2880:1fff:48::])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67986ace301sm1131608d50.24.2026.10.14.08.13.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 08:13:26 -0700 (PDT)
+From: Matthew Wood <thepacketgeek@gmail.com>
+To: Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>
+Cc: Puranjay Mohan <puranjay@kernel.org>,
+	Breno Leitao <leitao@debian.org>,
+	Arnaldo Carvalho de Melo <acme@redhat.com>,
+	linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v1] perf machine: Don't unwind the arm64 leaf frame caller without symbols
+Date: Wed, 14 Oct 2026 08:13:25 -0700
+Message-ID: <20261014151326.4142140-1-thepacketgeek@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b5b2e72e-496a-4756-bdd9-c83c78b3da89@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 14, 2026 at 02:37:02PM +0200, David Hildenbrand (Arm) wrote:
-> On 10/14/26 12:55, Kiryl Shutsemau wrote:
-> > On Wed, Oct 14, 2026 at 11:33:46AM +0200, David Hildenbrand (Arm) wrote:
-> >> On 10/13/26 23:38, Andrew Morton wrote:
-> >>>
-> >>>
-> >>> I've suggested to Kyril that we park this series until the next -rc
-> >>> cycle.
-> >>>
-> >>> But I can bring it back - we have a couple of weeks, three if we get a
-> >>> 3-week merge window.
-> >>
-> >> I'd say we move forward with the uncontroversial parts, and keep discussing the
-> >> controversial bits. Either these make it still in this cycle or we'll simply
-> >> have them for the next cycle.
-> > 
-> > Agreed.
-> > 
-> > Andrew, could you pick up 1-9 and leave 10-13 out for now?
-> 
-> I think #9 needs a resend, right?
+On arm64, 'perf record --call-graph fp' also samples LR so that
+thread__resolve_callchain_sample() can recover the leaf function's
+caller, which is missing from the frame pointer chain. It does so via
+get_leaf_frame_caller_aarch64(), which runs a DWARF unwind. The
+unwinder looks up the symbol of every frame it visits, so the first
+lookup in a DSO loads its full symbol table and demangles every symbol
+in it.
 
-Ah, my bad will spin v5.
+Commit 02b2705017d2 ("perf callchain: Allow symbols to be optional when
+resolving a callchain") added the symbols argument so that callers which
+only need maps can avoid loading symbols, and passed it down to every
+add_callchain_ip() call. The leaf frame unwind was missed and still runs
+for symbols=false, so 'perf inject' on arm64 has been loading symbols it
+doesn't need ever since.
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Commit 29be60c93d2d ("perf build-id: Mark DSO in sample callchains")
+compounded the issue: process_buildids() now walks the callchain of
+every sample at the end of 'perf record' to mark DSOs hit. With -a, that
+loads and demangles the symbol tables of every user binary sampled on
+the system. This can send things into exponential time and memory
+(over 1GB of heap growth in 5 seconds), so
+
+  perf record -a -e cycles:u --call-graph fp -- sleep 2
+
+never finishes writing perf.data after the workload exits.
+
+Callers that pass symbols=false only want the maps that callchain IPs
+fall in, and add_callchain_ip() already honours that by using
+thread__find_map() instead of thread__find_symbol(). Skip the leaf
+frame unwind for them as well. The leaf frame caller is almost always
+in the same DSO as the sampled IP or the next frame in the chain, so
+build-id marking loses nothing in practice.
+
+Fixes: 02b2705017d2 ("perf callchain: Allow symbols to be optional when resolving a callchain")
+Signed-off-by: Matthew Wood <thepacketgeek@gmail.com>
+---
+ tools/perf/util/machine.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/tools/perf/util/machine.c b/tools/perf/util/machine.c
+index f86b3b7df742..51597cddd239 100644
+--- a/tools/perf/util/machine.c
++++ b/tools/perf/util/machine.c
+@@ -2989,7 +2989,13 @@ static int thread__resolve_callchain_sample(struct thread *thread,
+
+ 		usr_idx = callchain_param.order == ORDER_CALLEE ? j-2 : j-1;
+
+-		if (usr_idx >= 0 && chain->ips[usr_idx] == PERF_CONTEXT_USER) {
++		/*
++		 * Finding the leaf frame caller needs a DWARF unwind, and the
++		 * unwinder looks up the symbol of every frame it visits. Skip
++		 * it when the caller asked for maps only, as for build-id
++		 * marking, so that no symbol tables are loaded.
++		 */
++		if (symbols && usr_idx >= 0 && chain->ips[usr_idx] == PERF_CONTEXT_USER) {
+
+ 			leaf_frame_caller = get_leaf_frame_caller(sample, thread, usr_idx);
+
+--
+2.53.0-Meta
