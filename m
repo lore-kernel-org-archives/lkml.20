@@ -1,134 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1CAB37F72F;
-	Wed, 14 Oct 2026 14:50:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95DC137187C
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:51:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791989418; cv=none; b=eOqd3MOlc+Sex+kJWFgbT6lrHUSGMG2W0jIQ+XRfi+s+UaJXL9/CTeJHM23J/SrArpd6RRb0/sirwqxSYOp03l25Gn0ysqSMV8weqz1ukr8ZbFXf6qxu1Zr+C9m2LbZWfoDHLZdKUZfePbl8OiEtVSaLeULK1bwpNEMsPKyEPSk=
+	t=1791989469; cv=none; b=TtJV9XmqKAgOTffP9dVIVunCfd8bJ6JQZJkDEsMciqvcXw40nvYk2KuoOIYTBPACYiig7Jdq/UPEzgK2P3eXdvrTLsv9u2Jtp4DFkici8tBQAwZiBL7o45dR+E0ehk19pIlwNfkRDqYri/uAuVOqzEfBLwMGqVdH/sKtH3zDkkw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791989418; c=relaxed/simple;
-	bh=1ZGFJL3aWBxdpm2daJRhOsohwWnF9u/jnnIW8uUSFdI=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=XBIeaKuEJ5ed0tp3tPqnmwHoae2MxjP+LJ1lZqf43Y9y0N9GBiUK5+iapYakOZSR9ol1doqJPyQ8euaSj4xZTIKWibL6+RcDiKQY0DldxoA+mjfXERKbj1h/jW2xyip/xdFk4r2iyLviIf8GF5UhHNCNnkwmM+KDKhniyTMY3xo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BM+UwMfH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791989469; c=relaxed/simple;
+	bh=UGeCbHlWoUrPihPSuPP7/nRq3OBVNxZ/+WecCtx2m8Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=q2BWZm4XTLcvYwC9Jhq19eyh18rPqU61p0TEAWBW2UNiD1kKidiR8FXPBBwhqd116f7TQqsJOHnKsRe/5WU2oow3yGPqG9toWt+8Z+iUJj6ComAI9Y9vp4QtkdwYSWcaYNwJ3+YXAE3Gj9X6DoaIzKiUR6w83YRLLA5sHF4yP0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GN1H4Sgv; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BM+UwMfH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0002F1F000C4;
-	Wed, 14 Oct 2026 14:50:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791989414;
-	bh=NdWDzbW7Y26htAfpjZvTCflFdSCpG0s8lhU2ZneTFLQ=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=BM+UwMfHAZjW9N+hXqGXqJO9+J70Tu+8At5e5U9AabuLJPkoU+OY5Q1tGeuDSRar7
-	 h+ueY9Vo+zchRUUDgnBlJpJjetO+qPXf++oPOSRIyP/PLLyvuOMCgyJOlm++Hbpw60
-	 91hK/nZUCLHOb407EzR1u0TPmbD+57P+JLtsy0JLqNWJLg6hPEMYNaJhx/1+SxKz0d
-	 SO9dytJU49vKpXLjbMQzrDTGL+wUdcHlbtIZVVNCRud1aDPerhS0f2Ud7adqwIcLSQ
-	 +H4U30KC2ow3o0gXS5ee0f1ShRWTDgZpMUZXwUlPNsa0ImzI79zjWNk1pRc+3suPXr
-	 gOVfAi3aygJUg==
-Received: from stl-compute-04.internal (stl-compute-04.internal [10.204.2.64])
-	by mailfauth.stl.internal (Postfix) with ESMTP id 04A4D780043;
-	Wed, 14 Oct 2026 10:50:12 -0400 (EDT)
-Received: from stl-imap-11 ([10.204.2.102])
-  by stl-compute-04.internal (MEProxy); Wed, 14 Oct 2026 10:50:13 -0400
-X-ME-Sender: <xms:pJbParDoKmXnnnpeCXDM-T7ZQy3mvEAFl8leKVWTW8fxLoSHruK5UQ>
-    <xme:pJbPasUGIp5Y-WerYrbOqfCqOomhS8YNkL3QSuUtKHjrt1PtIhP5Tu_WX_moXYsdi
-    sbHexPhmB_BmED0e-qA-2512EZv-PGP1oM7DEoJZYvBXbW1hOGKzMw>
-X-ME-Proxy-Cause: dmFkZTEBp4CSFP+oEygyR/ha7jJPYfJMSPM5LgWWD6WbfqNZUsOvuFcngQ6E2/sdCMTQyy
-    HijyMuq/lh8owh49Uvpdcd1Ra8UygobWNKOnsEZkYTkmkHBveua5QlCVL0sCLNdxkZT+w3
-    DLhzUNIRhU4ZpiQON0x0kMLOeVf1NUWdQo8JyVcvXXYMchFoGUAJI+xNE/ThwwUpa6FP20
-    cODEKLQFrG3geSG9+uwSFuaKXh/2ud2Hqj5zJA8H7nV9YIwFspm4XSoh0NWLuXc9SN7nF+
-    M0GU0dQmTpL8asKz2BQ4XwgO2/Sbpm/VnJLXVHzZvHTjDZHcObiXGKyIKkXuB2XL3tAzYg
-    g5OGTBD8KSmGCXSDu0gnl3UHb3Lp0SpglQkUX+piCkkNEgINFXYTsBjDIeCtd2BdV9QJQ3
-    mTfP+iSHHMJzo+KhWjJukhVQ8api1RFiaA7pywTevfwudi7iFEWHwbF3fD5qNbbxrYH6AU
-    uYTVm5lCHKo9KUELmKH5bJ67yzCta8QTOKdU30qDP+TjTRIjQ+yKitK4LMuJrfSdbT2I9F
-    XD2Zr3H2f1O2VvIbU3//Z6dHBXNQw8Z3KtlE1yB8wGuWJDbUxnRMiVGCy3EYOa2136W6Bm
-    7OdRD5lAU7SoYDdBdbK4z9I3J6kegvsNGaHYnREsjFZCq7Mj6bavvPFXsDFw
-X-ME-Proxy: <xmx:pJbPansXMvJtbNWVaV-mNd-qlczn-gGt_SH9XPSu00VX_1SCUwMIlg>
-    <xmx:pJbPavaCY2nnNd54zW53nb1b3n4NiW-6Jz-Ae3Sgp4IwUoSeeyOUxQ>
-    <xmx:pJbPahNykOFC4DtN7tXyMI1gDyWwjUYT8QfRvRRh_Su1dkRJTn2MGA>
-    <xmx:pJbPakut9LU5_6VoGmrV77P8-_f8MaRAa1YriFmU-18E2Z6zPqispA>
-    <xmx:pJbPapJayEVieuXZFLVJRdxfrNSvTiCPGOlJqmlWP5cgxmEZki4NOH5n>
-Feedback-ID: i927946fb:Fastmail
-Received: by mailuser.stl.internal (Postfix, from userid 501)
-	id 90E9119C0067; Wed, 14 Oct 2026 10:50:12 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GN1H4Sgv"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a02753c04fso23490595e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:51:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791989466; x=1792594266; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vFvjSQRh3A/XQC7Xbty1pFGQXBuDdUgjTrl6Iafg+nY=;
+        b=GN1H4Sgv9bxWMTLBm7BF4Th9vbbL/dhV3wzpmYtG6TtHuTVTKJFakwmG1tRBPeXBzZ
+         SiV7L+zIv9+zBm3VH9MsGdoxO+F0tbZtr1ALEv+Y8zKKqwUmsXraO61MtnuG90es5H/7
+         MiCwEALFLWPUErVtpdUlKeqlkZkHEMXG9DobOj5BLMGJGU3Eefwnrt8tJzIh7TkpSUjh
+         QWlJyhOH3IQG6bKNN2Fwcu5UV36M68DbeKSXG0BAZnfXMA5SY3f2+zGM/8TAaP/ctizn
+         yCtiZLTCUEuWcdevdRzLVuV4Sp7F4QfmF8vBCcSCEFCD0C7KcBy2ixrkXpqdEhXwEQF4
+         bCyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791989466; x=1792594266;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=vFvjSQRh3A/XQC7Xbty1pFGQXBuDdUgjTrl6Iafg+nY=;
+        b=ekdHO1XIOtvLoE/AD8Re+Z6d13dc02V5vAk4aJ7+cMZ22CzoKxhrfGFSQmsV3QPu1H
+         umlk5Q86NvaIHDwi9Rv1tlh89NOOFRE0VkS1SulZ7Wqgmnge6t8dHZKE+/4Wt3gNHUeT
+         VYZWXaV557t+c4jk9qk6De79A9gLkvEBRqm/nWWQNO35vJqPCDjlwnSyiGiS76ZRPJ1R
+         Acf0arAuaWx6WP5XdOdv48axbPQDVAjEcrwsGOZ5DzdhO+n2j9U2I6XsLccrrGCgRcTB
+         yPBUntBHuyzh5TzfsY7vtIQ8iRQDNZBckj/wTHSoRNz345k6NZuUfagNJglqJrPbERlX
+         CYNw==
+X-Forwarded-Encrypted: i=1; AKwUvBxpOfnqAiYvoTdz2tmzpbMjjx0PRjzYr0wRWbH67VITTvvdXDUS4F9WiqTgVN8/eM0Y//O1wf1dc+crEiM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJTVyfVWLIPJrhLHUhdNI3Y/zivjPkPe13i0ZifTysosSYe4820
+	cHzjGzN33qQ4HPSS/7Xzg02CXqDxJgnXDPYzKuI/0aEVoCJLvGvd3Utmgi8a/YCmWhrPuA==
+X-Gm-Gg: AYBFou0zQ0swWlN1d7BtSAltpuJUlIfVAh+Vysnni+7q+accjq6RrQZZYk8Qq6GIt9L
+	p2/MuQ3d3kua9e2Ud5z+3Ms9IVFW8JFnYwCowEXvGc+fr2fz/g73btKJoRkyB/6Spt6/b1Mowlk
+	dWX1RGucJ8Ps2CkCNIJIzEDhXeZEYdUYwDRhKTOV3EXN3iINTC9LyffM9tOkUj7pPn8NQR85mIF
+	w1hMkWKTQdm+pX4RGAiBQBp/97xUgGCRSytbvwrvO4Q+UM2UQmrsmB28NRpgM9Y22SWfLmYfYE8
+	m3i1WmLh3IcKd2Q+r2iNh1v3t5eKwK+ywG1fI6mVShrlPfEuOqTq7rFiRz4WmfMTgLKz0yzy5un
+	ySt1a9wP5n9dumNKAotVskUHV6TB6Hl4fNQjwlC7OWJCKIoCRpVUYSqQIqDPyEJ7qzvp6VDKLQI
+	3t5eKYvg3gcly8kmtEaSceYpRXDqXI3n8jdGgjvGAfpnW6kKFO9SnqyVMybaM8ArrrcRPdLjxhq
+	8c6ONuq3Xmf05P0xyrwXyHjSowLM3fdUlRnEJjDIj2PAmjNIBj/G1jaUo7PJ2zrQA==
+X-Received: by 2002:a05:600c:46cc:b0:4a0:8b1:f5c with SMTP id 5b1f17b1804b1-4a18e4b583fmr320053565e9.22.1791989465509;
+        Wed, 14 Oct 2026 07:51:05 -0700 (PDT)
+Received: from [192.168.1.28] (29.pool92-59-2.dynamic.orange.es. [92.59.2.29])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd640be0sm30545e9.1.2026.10.14.07.51.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 14 Oct 2026 07:51:05 -0700 (PDT)
+Sender: Julian Braha <julian.braha@gmail.com>
+Message-ID: <95cb289c-384d-495e-91d4-bd7dd4d2a12a@gmail.com>
+Date: Wed, 14 Oct 2026 15:51:03 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 14 Oct 2026 17:49:53 +0300
-From: "Leon Romanovsky" <leon@kernel.org>
-To: "Bjorn Helgaas" <helgaas@kernel.org>
-Cc: "Bjorn Helgaas" <bhelgaas@google.com>,
- "Logan Gunthorpe" <logang@deltatee.com>,
- "Jason Gunthorpe" <jgg@ziepe.ca>, "Joerg Roedel" <joro@8bytes.org>,
- "Will Deacon" <will@kernel.org>, "Robin Murphy" <robin.murphy@arm.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, iommu@lists.linux.dev,
- "Tushar Dave" <tdave@nvidia.com>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
- "Chaitanya Kulkarni" <kch@nvidia.com>,
- "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
- "Jens Axboe" <axboe@kernel.dk>, "Alex Williamson" <alex@shazbot.org>,
- "Ankit Agrawal" <ankita@nvidia.com>, "Jonathan Corbet" <corbet@lwn.net>,
- "Shuah Khan" <skhan@linuxfoundation.org>,
- "Randy Dunlap" <rdunlap@infradead.org>,
- "Sumit Semwal" <sumit.semwal@linaro.org>
-Message-Id: <eb8e0edd-4c4d-402e-9875-bdbc6d191edf@app.fastmail.com>
-In-Reply-To: <20261014132353.GA1625948@bhelgaas>
-References: <20261014132353.GA1625948@bhelgaas>
-Subject: Re: [PATCH v11 00/19] PCI/P2PDMA: Route peer-to-peer DMA by TLP class
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] kconfig: fix use-after-free when a variable refers to
+ itself
+To: Leizhen Zhang <lzsx618@gmail.com>, nathan@kernel.org, nsc@kernel.org
+Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261008164504.3683811-1-lzsx618@gmail.com>
+Content-Language: en-US
+From: Julian Braha <julianbraha@gmail.com>
+In-Reply-To: <20261008164504.3683811-1-lzsx618@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-
-
-On Wed, Oct 14, 2026, at 16:23, Bjorn Helgaas wrote:
-> On Wed, Oct 14, 2026 at 09:53:47AM +0300, Leon Romanovsky wrote:
->> On Tue, Oct 13, 2026 at 05:25:08PM +0300, Leon Romanovsky wrote:
->> > PCI P2PDMA applies Request and Completion Redirect throughout both paths.
->> > This misclassifies asymmetric and nested switches, and reports one answer
->> > for every kind of TLP.
->> > 
->> > Three ACS controls act on TLP attributes the Requester chooses rather
->> > than on the topology: Translation Blocking and Direct Translated P2P act on
->> > a Request's Address Type, and Completion Redirect skips Completions carrying
->> > Relaxed Ordering.
->> > 
->> > Evaluate each direction at the path divergence, decide every class from the
->> > one walk, and treat a client with ATS enabled as translating unless its
->> > driver declares per-mapping ATS.
->> > 
->> > This completes the P2PDMA side; dma-buf and mlx5 follow separately.
->> > 
->> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
->> > ---
->> > Changes in v11:
->> 
->> 
->> Bjorn,
->> 
->> Could you please save me from the AI-bot attack? Every rebase seems to
->> uncover another bizarre pre-existing issue. It never ends.
->
-> Can you elaborate?  I'm not sure what you'd like me to do here.  I
-> don't control the Sashiko reviews, and I thought Sashiko was recently
-> changed to put pre-existing issues in a database but not in the email
-> responses.
-
-AI reviews are not deterministic and every resubmission gives us slightly different result, which is in this phase of submission is  full of hallucinated flows not applicable to the upstream.
-
-In addition to upstream Sashiko, i run everything through local one with slightly better models which hallucinating even more.
-
-I would ask you to merge the series so it gets real exposure in addition to my kunit and specific hw setup.
-
-Thanks 
-
->
-> Bjorn
+On 10/8/26 17:45, Leizhen Zhang wrote:
+> For a simply expanded variable, variable_add() frees the old value of an
+> existing variable (or allocates a new variable with an uninitialized
+> value) before expanding the right-hand side. If the right-hand side
+> refers to the variable itself, which is a common idiom in Makefiles,
+> e.g.
+> 
+>   X := 1
+>   X := $(X) 2
+> 
+> the expansion reads the freed (or uninitialized) value. With ASan this
+> is reported as a heap-use-after-free, or a SEGV if X was undefined.
+> Without ASan, X silently ends up as " 2" instead of "1 2".
+> 
+> Expand the right-hand side before updating the variable, initialize the
+> value of a newly created variable, and only free the old value when it
+> is actually replaced. Add a test case for this.
+> 
+> Found by fuzzing Kconfig input with ASan/UBSan.
+> 
+> Fixes: 1175c02506ff ("kconfig: support simply expanded variable")
+> Assisted-by: Claude:claude-opus-5-5 ASan UBSan libFuzzer
+> Signed-off-by: Leizhen Zhang <lzsx618@gmail.com>
+Tested-by: Julian Braha <julianbraha@gmail.com>
+Reviewed-by: Julian Braha <julianbraha@gmail.com>
