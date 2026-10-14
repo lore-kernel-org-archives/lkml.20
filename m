@@ -1,170 +1,280 @@
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B07C3955EA
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:07:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791997664; cv=pass; b=tCIOUXpSQprEwg4vg+BhLTm1Z7D8XuffQhPummLD50c1b50KuSH9y9prCx75ORPgxVgeyjRQGIxuz20dErbJz5DdhSE4DD7cObQ2f0mdE2eW7wJ63fpweAgG2GDyosM70qXM2Qra+xKCNFa10gSGi8+CQLtSW2TPrS7VmQc/r3w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791997664; c=relaxed/simple;
-	bh=mqlHJeBfyTwlYUc3NbiaMm0Dt0eUNRbSZnH5mzrwXDU=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EE05530E0F
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:07:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.98
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791997670; cv=none; b=raAcWc3PEofXCWHlBwEtUBcvRTfgtwXUB5ZagGufct4KZL3L6vxRTRBo/8f9rVb0BfCOHO400QwfwjUf1NAr067DmHscigTL+ufJ3meyxZt1Hx/t+e9jjG536/gj+/EhD32R+ov6ejCDXv6Y3/FC+XS/aPpCoDghUIw+eFM0eQ0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791997670; c=relaxed/simple;
+	bh=Y5G0mMRpazj+l72BXubNfUUmLZPNnidwgRwTbstnri0=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nEU5/PW/i705BiTGQRXCObC15i9R3xAo78l0FbDuPeIjNaAO6Uv7Ke3Qd1HCMOsARRdpEnIWd9eDlAf2rmQRGB6PjP0hqcvJXuzs08vAVGosFCl33EO97DCroJXv+EPLoE3sp4IATFbykAkfSYc/wzdA7/wVXC4hu1Wbs/HUDUE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mrEYySNs; arc=pass smtp.client-ip=209.85.208.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=PeIgI96wvLcewfSzZmvgQNS1vm1SKJg2vyO7okm9OE6RAezCXpyImvGofMeQXxENyYAvSYH0jeCzsyCXmK3jLz537+D1hyUJEMU7F3BHFy1xoa9juOuFOpQ+XDWAtVvtAhgj9g403PHO/ejlCV8/7wxEfLJiT3A6ziIk9cOHEp8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=Wxi1dvfO; arc=none smtp.client-ip=209.85.216.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mrEYySNs"
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6aa8d04fcddso9032471a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:07:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791997661; cv=none;
-        d=google.com; s=arc-20260327;
-        b=A/6ge8X1V+D9ar/SruSCQAkiuUV+1FX/IdKW+XBtrd9bCXSJCeflRgcd0o71prZWhS
-         RSqJBcQmh1NxmqEX/CnEqw1ScNdlEvo8RW/GhqLudBJTYr8b31yzaoTGqGVrZ3V7bGPC
-         C3q+idkEpBznBL/EqApKtoyAnLIozB7Nouv5iiraMdXlUDcZiX/yZ1VFL5zAT9LUSRF3
-         FSCjQHFim8H4Dg6PmK0XkM31dn56TQ70tqsN8O/oiMCl8iskwzSN9xFRxg34WfS4xn2N
-         fQkgkH/QlHq2/EEgllIKoxMWyHvQcWXlhrK5OW12RcSfoHpvl1p3Al3FmUiARuKL+pDi
-         9Z6A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=sdFd3r41M7yyc6N2ofKUYBcOXWgEzV7hB2FeJ/0r1mQ=;
-        fh=s7qvI7P5A+GS/2KB0InchFO15dIZTTW7sPfQPhIO9i4=;
-        b=UEhTUpdOsF+MrZ3YZLpXXQKXWtCA2ZIaJXKbXhs4Z6+XuYopVIWPnxye7q/pGKT0RY
-         WbZbul07U4aH8jnlY7uDXMosa7DRizakNJv1o3W2Q+JHMNmAftAHpgw9MoGqDoDidTP+
-         7aPaLr9EemwQFHKswC3WwgBuvq4k8gUY6eIItgSpW54dRTdUezB0KmZWXx2k6KOZm6XX
-         /a81+9Hal4zRrGsLz5IO1QhkynyO4shrDzvOvurIVGsdIcM6eq9iajD/ybYx5mHCA2ZZ
-         cy3uR0FHoBij4wr+04BrUeNzoXlIMZckR7Gtj4sfCrsQXFO0TjZkUNsDXfyiXgX0xqi1
-         s+mw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791997661; x=1792602461; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=sdFd3r41M7yyc6N2ofKUYBcOXWgEzV7hB2FeJ/0r1mQ=;
-        b=mrEYySNsWseLC2l+53rWTlhw76X+YIL5ycc5vq0799t+s6A2x9vDqXVd9VqDf1FEy/
-         pnZpRIrts8tgLvUaCfJWhkn6oEE8u8+3Eoe8PdFt8BP0/VHtDLTW8reB4uMoRt4DkzbD
-         rUqP2G6xntA4N08A6CagNg+W73HGGEC0SpREw1oVo+SlI1q6TTPvR60ntSLIUK+d3NHg
-         pDfzIlC3Au4QYu7R04VGC/FH0ajG4Qqw5xPzJ5SXsxlclq6JB93IxHHdBqqpNi3DUaVk
-         3uyFZtd+DS/dKtimIlCO4gbQv0+rjL7Y0ykxr965BDomvtPVW/LMa//WnN8dM+Jq4l65
-         2PCA==
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="Wxi1dvfO"
+Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3ac77270fbfso549054a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:07:49 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791997661; x=1792602461;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=1e100.net; s=20260707; t=1791997669; x=1792602469;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EPBQKB8avX7XdZFu2VVKrfLOEV5/DL70jPe3HkgjCyI=;
+        b=0ogi+isSsTSnTmGRxPnmh8etcxjT2ZDisY6iFIbAJZkjnelEcqlvKsrD5BvQWLfsh/
+         kz5GoksWcFDRRn70o2Rk4exK6pAxmOcCErVj4QwAXcsqOtI4zTkOEp91Jydk3lOBMgqs
+         EuPvBJ614DNbIkhcoqR6PRocmwkdHGal51CNH9oqF8p3lunY5Shm4pMzQkqMJ8t0F2Px
+         8t3wgy2eqRd+LB4tsUCImKaonaCwqn/5TJtgtMPZ2SFzGrEpldTserwgCXZTHkGLjcuJ
+         jfWwklePn0JQx2rnQ3USQydeU+Lf9L9ykCranOmW0p/s5YhbBOGH81T2eyxuB6Q5s9dS
+         /5XQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwgbHB4uONmJlDordhMwXe6/Sw4bevhfIWCoc3w5ScRbNNL1SS2HAqSKbSpYltIrsa0MmkCgYt+gT/I7Kk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKfTH9CwPjzOI4hyEQw24CBPiE+et70aUTmRxEmH6yo/D8BQSWa
+	FyuYgKW3R5b/Zieu3XukD2miFD58SUu8UerAyxIGfLEzbnxswpkDVh8TLYh8q93PN5NFYRt4xgb
+	b2ljID/tP/1eldYmA2UeeP5i8rq9FT5NB8RiJWp1nLrmAIjnGrh/d8+WUYKK2I1HXcfZsdjepAq
+	+x0pTkrQhAWmGjGSx2jhxlUNn1xaNNaGAoe6I3s7uPOUDnsKz4OTbZh+7ofpxg5fU+VdAzosrsh
+	22KSezmBqkBJEFI6Cc=
+X-Gm-Gg: AYBFou0TcuMhdT2TSh2QeazrnQf+WGPqlJuWNn2oO0CwTg9yAPpbs6EUHoTslM0SYWV
+	YZ1i4ISa4aRojrUH53AY+5+uZQiSoTRABeMo9+67a1Q7uXKcN+2Vaavo4O25CBOrOLoYB1/Rygv
+	f1vo2/e10WZ8rRcK9WdVZIVMtpCbE/zZuHU2x95SG8Fu2vTWw0q/kqCsCdpUB0d6ieRKIMl+4iM
+	tWCBFjAalTkdSFclwlDm4ns1LsL3tfRPASnZw85JxhqRSgBdlb8idez/igoYS4nmAu/By48s53E
+	1JbRSZsr29z0fWxdwt8s75HoY7Pvs9oYgLaFbEBRhGRN35JiSDOzjHCLi2jxL6FygRMO+3zWrpv
+	ybi0zmRa+4av5kVTkqaIL4Z41/K5Seykq+3FH5X2XmxP1OlZBmUjuYVPtB5BV5appM9ow533Dc7
+	64+4Qma+1Ij/maSzZF7rq0Bmh8A9cN7xon/h8=
+X-Received: by 2002:a17:90b:2d8e:b0:3ab:c674:d83c with SMTP id 98e67ed59e1d1-3abc674eb8amr8424015a91.27.1791997668503;
+        Wed, 14 Oct 2026 10:07:48 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ac9462cba7sm98454a91.4.2026.10.14.10.07.46
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 14 Oct 2026 10:07:48 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-lj1-f197.google.com with SMTP id 38308e7fff4ca-3a9e7d65fe4so20170511fa.2
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:07:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1791997665; x=1792602465; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=sdFd3r41M7yyc6N2ofKUYBcOXWgEzV7hB2FeJ/0r1mQ=;
-        b=FE+Kx+s6nBtANw8azcYATm7FA+w2Bh20z2uRxMhtifwm1cX0CcPaXZnBOBs3W3+K2O
-         idHKC2q7hDMBUX5m7FRIL3HC5c4Qn8I11CY2leRM5u17MakKb4RYDcGfJYOQQLJY8OU+
-         R3NRXoliQ9sBWB++ti/wWPZSFxKfI+9WYDS7NQ8sP4jKSzBU0RVl3xZRSASMx4mxuFtF
-         aUj7TnklowHZRwpX5X0vYNONo3HBARr6h6053WWEUcN1KyCh6gCsoAUoWJlQicD/PeE4
-         H2zxSMj7m1PCYsCj2VdD+7G4IBWjrJWHKWks6/KUSQIxYKAPcKpvFKxjvOuMGBzQOSaq
-         FCDA==
-X-Forwarded-Encrypted: i=1; AKwUvBzimWQAYqMQBdwCEnur7lOKYo0jWXSLSZbLi/L+ZcReaQ4lDFv/b2WM580OVi8Jm5wIsg6XApKD+J+jZzE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKahid3GFob7WuYr2XQJVEGbsFPf27Q/028ocIEQjGG24x56PtD
-	B1SJTy/gu/MAutnjDEXjLSIBuUz1+NcyI/bxLBgwO5TiDlm0fzesm2aZVr0hjKvAYhdv6IOBdri
-	6gwYWC+2bD6CjfMLIqUdhXMR0oR6IQoA=
-X-Gm-Gg: AYBFou1xfHNg+snuBG0C7dzPXnukswyKQiW++VrRsrMVwIM7GqBU3YYkW1/t532LBKp
-	7UW3pVm6yAXHBjlGa3AP5QvN6V9YMCS/Ezh7JnGlmoZflxtbpvUWpo0r/1IShrAz+/4rSiisafw
-	75a0kJqArwKkxV52EOU2te6bd3lst027Px18hP9grVFz+02y0ThvFsqYGCt6Eo+ef/UirJYd9+a
-	Bu4DpuJsVEWd3Y8B4z5e0V9OEQs/GSZn2dVN2vjqRFxMOP3X9JraPPqcuHuisJJlh/hD90UwRbt
-	V0pctIuMNaif6aRbE57duFaJdE+bbpPdPMMHfO81JQ5SvxyZrfEhHfCDF0Bhr7abc9PR3mlemzA
-	7CKAMDNClWOrZmmpJnol6TypROeKTXxejqv2eMqyA/gs6Brw53Fz+Q6PIPkBZr6qfb/FqUncNQx
-	J6dLqjRGR2f44p7jWl75N9nD7//Jd0MYwyGunMAqeRSIhL
-X-Received: by 2002:aa7:cf16:0:b0:6a9:9a0e:e05f with SMTP id
- 4fb4d7f45d1cf-6b17ae26000mr9090745a12.2.1791997661286; Wed, 14 Oct 2026
- 10:07:41 -0700 (PDT)
+        bh=EPBQKB8avX7XdZFu2VVKrfLOEV5/DL70jPe3HkgjCyI=;
+        b=Wxi1dvfOVInqM3/wUAHrhkIfFzklnZiv0lcd12BGVc3TTVUAIl0mnMEaEvfq6YYVoZ
+         6k8tn9UwhieKdR2PFyW/PkdaZTyfQoyWfGEXbxglnmZjt8mM7ZKMREheH0tHb8C+zhjo
+         qbEu7pXD3gMWQzLwpWdGFDNTRWGxBarD1vMtI=
+X-Forwarded-Encrypted: i=1; AKwUvBzb91Cd3ac4WdJ4uQWNjuGtFrDgKIA+bF0BB7HGVXCXxa17wlzI53eAKBTysQ8o60L7DR7d6pfsg03v/ws=@vger.kernel.org
+X-Received: by 2002:a05:651c:b27:b0:3a6:6aad:be45 with SMTP id 38308e7fff4ca-3a9c54b789fmr36820581fa.10.1791997665343;
+        Wed, 14 Oct 2026 10:07:45 -0700 (PDT)
+X-Received: by 2002:a05:651c:b27:b0:3a6:6aad:be45 with SMTP id
+ 38308e7fff4ca-3a9c54b789fmr36820461fa.10.1791997664890; Wed, 14 Oct 2026
+ 10:07:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261005-submit-phylink-suspended-stop-v1-v2-1-8b8e5d53dfc2@gmail.com>
- <224296ea-f196-44f3-91d6-1461846c55a5@lunn.ch> <CADvTj4qgcXE6azsNx-Wg5afatezLeuctGR607qO1WhZSmuqzBg@mail.gmail.com>
- <7ffb9b38-75e1-42e2-86e2-21a1666fc51f@lunn.ch>
-In-Reply-To: <7ffb9b38-75e1-42e2-86e2-21a1666fc51f@lunn.ch>
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Wed, 14 Oct 2026 11:07:27 -0600
-X-Gm-Features: AclHuK8jlqpg-qIbwAqpxCbEEkIemf37SHQz8CwDLoD9nKTqJNXJIwBV8qcy8Jo
-Message-ID: <CADvTj4pVtoMh=H=nJJaPxYf-ZqU8xJEJLMANUAXTFJWb5zBe-g@mail.gmail.com>
-Subject: Re: [PATCH net v2] net: phylink: allow stopping a suspended instance
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: netdev@vger.kernel.org, Russell King <linux@armlinux.org.uk>, 
-	Heiner Kallweit <hkallweit1@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>, linux-kernel@vger.kernel.org
+References: <cover.1790014793.git.zack.rusin@broadcom.com> <364337F4-8127-4693-BB85-E0657B634B43@mainlining.org>
+In-Reply-To: <364337F4-8127-4693-BB85-E0657B634B43@mainlining.org>
+From: Zack Rusin <zack.rusin@broadcom.com>
+Date: Wed, 14 Oct 2026 10:07:30 -0700
+X-Gm-Features: AclHuK-pXeefcjtxG6LN0Usydz067LI9rz9CqzP8-9S0l3gWG-8eO_FkGWWqZ_g
+Message-ID: <CABQX2QMX7yQgKwY7EnazH6ejAExx_hb2o8Vcw21E+kucYz=h-A@mail.gmail.com>
+Subject: Re: [PATCH v2 0/6] panic, x86/vmware: Preserve crash logs before kdump
+To: Bradley Morgan <brads@mainlining.org>
+Cc: ajay.kaher@broadcom.com, akpm@linux-foundation.org, 
+	alexey.makhalov@broadcom.com, baoquan.he@linux.dev, 
+	bcm-kernel-feedback-list@broadcom.com, bo.gan@broadcom.com, bp@alien8.de, 
+	brennan.lamoreaux@broadcom.com, corbet@lwn.net, dave.hansen@linux.intel.com, 
+	gpiccoli@igalia.com, hpa@zytor.com, ian.forbes@broadcom.com, 
+	joel.granados@kernel.org, john.ogness@linutronix.de, kees@kernel.org, 
+	kexec@lists.infradead.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, maaz.mombasawala@broadcom.com, 
+	mhklinux@outlook.com, mingo@redhat.com, pasha.tatashin@soleen.com, 
+	pmladek@suse.com, pratyush@kernel.org, rdunlap@infradead.org, 
+	rostedt@goodmis.org, rppt@kernel.org, ruirui.yang@linux.dev, 
+	senozhatsky@chromium.org, skhan@linuxfoundation.org, 
+	stephen.s.brennan@oracle.com, tglx@kernel.org, virtualization@lists.linux.dev, 
+	x86@kernel.org
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
+	boundary="0000000000004c2873065dcff8c3"
+
+--0000000000004c2873065dcff8c3
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 14, 2026 at 10:02=E2=80=AFAM Andrew Lunn <andrew@lunn.ch> wrote=
-:
+On Mon, Sep 28, 2026 at 1:40=E2=80=AFPM Bradley Morgan <brads@mainlining.or=
+g> wrote:
 >
-> On Tue, Oct 13, 2026 at 01:46:24PM -0600, James Hilliard wrote:
-> > On Mon, Oct 12, 2026 at 7:22=E2=80=AFPM Andrew Lunn <andrew@lunn.ch> wr=
-ote:
-> > >
-> > > On Mon, Oct 05, 2026 at 01:09:05PM -0600, James Hilliard wrote:
-> > > > After a failed MAC resume, a driver must be able to stop phylink wi=
-thout
-> > > > resuming it and reconfiguring the failed MAC. This is needed when r=
-ecovery
-> > > > leaves the interface administratively up but detached until a subse=
-quent
-> > > > down/up: ndo_stop() must finish the suspended phylink lifetime even=
- though
-> > > > the MAC could not be restored. The missing transition was identifie=
-d by
-> > > > code inspection of the stmmac recovery paths.
-> > >
-> > > I don't particularly like this. It feels like a workaround for a
-> > > broken MAC. It would be better to fix the MAC so that resume does not
-> > > fail.
+> On 28 September 2026 18:55:34 BST, Zack Rusin <zack.rusin@broadcom.com>
+> wrote:
+> >A VMware guest may have no persistent storage or working userspace after
+> >a crash. Preserve its newest kernel log tail in the host's vmware.log
+> >before entering kdump, without enabling every panic notifier by default.
 > >
-> > Fixing an identified cause of resume failure belongs in the MAC
-> > driver. The intended purpose here is narrower: allow orderly shutdown
-> > after the driver has returned an error, rather than recover the MAC
-> > through phylink.
+> >Following Petr's suggestion, add one generic panic_pre_kdump_list with
+> >VMware as its first client. A set-once helper covers panic() and direct
+> >crash-kexec entry. Fatal oopses can reach kdump without calling panic(),
+> >so patch 2 adds that call after capturing the original registers under
+> >the existing kexec lock. The late panic call follows sys_info() and
+> >precedes the kmsg dumpers.
 > >
-> > stmmac_resume() already returns before phylink_resume() when hardware
-> > setup fails.
+> >Patch 3 adds Guilherme's suggested escape hatch for debugging kdump
+> >failures involving early callbacks. With panic_pre_kdump_postpone set,
+> >the list runs before kdump only when crash_kexec_post_notifiers is also
+> >set. This can omit hypervisor crash handling as well as diagnostics.
+> >The late panic call remains eligible. This policy is a separate patch;
+> >I can omit patch 3 if it is not wanted.
+> >
+> >The logger preallocates an 8 KiB buffer and bounds its register-based
+> >RPC transfer and retries. Michael suggested increasing the buffer
+> >because 4 KiB can omit useful stack-trace context. Ordinary guests
+> >enable logging by default; encrypted guests must opt in. Use
+> >bool/proc_dobool for the sysctl as Joel requested. The potentially
+> >terminating REPORTGUESTCRASH event remains a separate late dumper,
+> >suppressed whenever a crash image is loaded. The v1 assignment to
+> >crash_kexec_post_notifiers is dropped.
+> >
+> >Tested on VMware Workstation and ESXi with ordinary guests, and on
+> >ESXi with SEV-SNP and TDX guests.
+> >
+> >v1:
+> >https://lore.kernel.org/r/cover.1788414671.git.zack.rusin@broadcom.com
+> >
+> >Zack Rusin (6):
+> >  panic: Add a notifier chain for pre-kdump callbacks
+> >  crash: Notify pre-kdump callbacks before switching kernels
+> >  panic: Allow postponing pre-kdump notifiers
+> >  x86/vmware: Add a bounded pre-kdump log sender
+> >  x86/vmware: Add the vmware_record_panic_msg sysctl
+> >  x86/vmware: Report guest crashes after kmsg dumpers
+> >
+> > .../admin-guide/kernel-parameters.txt         |  14 +
+> > Documentation/admin-guide/sysctl/kernel.rst   |  20 ++
+> > arch/x86/include/asm/vmware.h                 |   2 +
+> > arch/x86/kernel/cpu/vmware.c                  | 250 ++++++++++++++++++
+> > include/linux/panic_notifier.h                |   4 +
+> > kernel/crash_core.c                           |   3 +
+> > kernel/panic.c                                |  28 ++
+> > 7 files changed, 321 insertions(+)
+> >
 >
-> But why did the hardware setup fail?
-
-The exercised failure was injected, rather than a diagnosed spontaneous
-MAC fault. This change comes from auditing the existing error paths for
-the deferred stmmac recovery fix.
-
-> This is what i mean about it being a workaround.
-
-The deferred fix addresses a separate software failure: suspend has
-already disabled NAPI, but an unsuccessful resume leaves the interface
-administratively up. Closing it can then disable NAPI again and hang.
-The recovery changes preserve resource ownership so administrative down
-can finish and a later open can retry initialization.
-
-That shutdown also has to finish the suspended phylink lifetime.
-Without MAC WoL, suspend has already stopped phylink, although
-prepare_resume() may have powered the PHY back up. With MAC WoL,
-link-down was deferred and the MAC_WOL disable bit remains set.
-Suspend-owned advertisement changes also need restoring.
-
-Those are phylink-owned states. Avoiding the second NAPI disable in
-stmmac does not resolve them, and calling phylink_resume() just to
-permit shutdown would reconfigure the MAC after its setup failed.
-
-The required operation is therefore to terminate the suspended
-instance without bringing it back into service. Cleanup must not
-depend on first succeeding at the initialization that failed.
-
-The original resume error remains an error, and an identified
-MAC/PHY sequencing defect still needs its own fix. This transition
-addresses the subsequent shutdown failure; it does not hide or
-work around the cause of the unsuccessful resume.
-
->     Andrew
+> All the panic changes and crash_core changes looks good to me!
 >
+> Reviewed-by: Bradley Morgan <brads@mainlining.org>
+>
+> Tested basic panic calls with Power10, in courtesy of osuosl:
+>
+> Tested-by: Bradley Morgan <brads@mainlining.org> # Power10
+
+Thank you for testing!
+
+Petr, do you have any thoughts? I think this version addresses all of
+your concerns/suggestions from v1.
+
+z
+
+--0000000000004c2873065dcff8c3
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
+
+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
+6U6qgI8F5eiKsQyE0HgYrQJx/sDs9LLVZlaNiA3U8M8CgEnb8VhuH3BN/yXphhEQdJXb1TyaJA60
+SmHcZdEQZbl4EjwUcs3UIowmI/Mhi7ADQB7VNsO/BaOVBEQk53xH+4djY/cg7jvqTTeliY05j2Yx
+uwwXcDC4mWjGzxAT5DVqC8fKQvon1uc2heorHb555+sLdwYxAgMBAAGjggHYMIIB1DAOBgNVHQ8B
+Af8EBAMCBaAwgZMGCCsGAQUFBwEBBIGGMIGDMEYGCCsGAQUFBzAChjpodHRwOi8vc2VjdXJlLmds
+b2JhbHNpZ24uY29tL2NhY2VydC9nc2djY3I2c21pbWVjYTIwMjMuY3J0MDkGCCsGAQUFBzABhi1o
+dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMwZQYDVR0gBF4wXDAJ
+BgdngQwBBQMBMAsGCSsGAQQBoDIBKDBCBgorBgEEAaAyCgMCMDQwMgYIKwYBBQUHAgEWJmh0dHBz
+Oi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAkGA1UdEwQCMAAwQQYDVR0fBDowODA2
+oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCIG
+A1UdEQQbMBmBF3phY2sucnVzaW5AYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
+A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBQNDn2m/OLuDx9YjEqPLCDB
+s/VKNTANBgkqhkiG9w0BAQsFAAOCAgEAF463syOLTQkWZmEyyR60W1sM3J1cbnMRrBFUBt3S2NTY
+SJ2NAvkTAxbPoOhK6IQdaTyrWi8xdg2tftr5FC1bOSUdxudY6dipq2txe7mEoUE6VlpJid/56Mo4
+QJRb6YiykQeIfoJiYMKsyuXWsTB1rhQxlxfnaFxi8Xy3+xKAeX68DcsHG3ZU0h1beBURA44tXcz6
+fFDNPQ2k6rWDFz+XNN2YOPqfse2wEm3DXpqNT79ycU7Uva7e51b8XdbmJ6XVzUFmWzhjXy5hvV8z
+iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
+3CxrVqXUKm93J+rupyKVTGgKO9T1ODVPo665aIbM72RxSI9Wsofatm2fo8DWOkrfs29pYfy6eECl
+91qfFMl+IzIVfDgIrEX6gSngJ2ZLaG6L+/iNrUxHxxsaUmyDwBbTfjYwr10H6NKES3JaxVRslnpF
+06HTTciJNx2wowbYF1c+BFY4r/19LHygijIVa+hZEgNuMrVLyAamaAKZ1AWxTdv8Q/eeNN3Myq61
+b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
+VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
+VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
+QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIEFo
+IJ5vd/MUhAk2bv3a6kGZnwx1m1lxJbC2yytLvdDuMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
+HAYJKoZIhvcNAQkFMQ8XDTI2MTAxNDE3MDc0NVowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
+ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
+YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBABK9edzXmHJsrnESInLkCDpMxAeQWV5jzCabkD63
+GDvvFykL23/V0cxhOSPMDMCRC9nn0dsnVDcbFl9Zhc4DtkDZuXCbQENDMfMUSI/GePHHJG8YnjrD
+2JWCESHf00TcVrhQbaO1r4Nq7xZtgMbLEeEz5zIB7hjmqikeVV6EyHhSloq+nAx07GaiUnIlZwoA
++Um86trs2MIo17ep5P50407bAKu5B9UkDlVvUWYNFpmBYZ02S+tKGkXM93HQ0hBzHbrwpTcko8Tn
+6gqJzfNUh5LDuNdSF+L/WRZqxKEVQcHaRRsf16bPWPxCB7I+x++uf69cRAP2I0rYxLtm5Et7KXc=
+--0000000000004c2873065dcff8c3--
