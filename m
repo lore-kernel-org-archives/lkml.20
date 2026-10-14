@@ -1,367 +1,125 @@
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B267240801E
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 03:59:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52C2940F747
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 03:59:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791950356; cv=none; b=NTzJKXZ+TtA0MmSbknYQNnZtEaBgVwOooR+6w+u0MEZiYxiVkKiM1RZ4t7PCxBEEaF0Uzd12BhBviskvH2VROtuY9/Pmkv9ZoNpRApKnDfGdKgPlwppOmFC/p9c6YGVyONrtDCWVP2UzNdjVwXJWYhraSFFu+Y+982IsmLtimpo=
+	t=1791950361; cv=none; b=XD0/xhBwR25VR3yGkBupsoIKA6qYVRqOgkgwP8Sn3gahHf3UewWyoV1vrXsFJhwYD73+6Tci3+hf1ZTquCKpFOwCWqj+5IM8jyzCtuSQmtbrXNZEasD3e0V+xea7mXXHzHA7DY8s2MtmIvCyAD0yhAUjbeovuCxlHnM6qZBXg+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791950356; c=relaxed/simple;
-	bh=UHe31DZB0nVpQKek8RtayuPW7SrG61Ae4OAKhFVXocs=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=W0elHvkVPrbrsVd+FLvYmZ1qSEXj64Zt21FHH9eCa4fSPST1Tp/mxQJ+sE4oWP+RBO7b7d0OLk3L8g75a0m6jaT7gmlPCbVXpUJOGcPpfr0ivRNG7JqpZzQIi3wN4g3+MS6Cko1GsI/Art4LAEVd2gKTsgQgJwJEqFCeBHW8s68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ISy/JFHa; arc=none smtp.client-ip=209.85.128.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791950361; c=relaxed/simple;
+	bh=eo2KS1rD2mthJFfkPWGzxyjARkBBzJ1ObzuNrYesD1s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hpCEgyDNpo5JroxPiOd8zOo8cKtoKEm+0+7+0i0Skw2kpC3XKRP64MMn+zapZWLoI14moKy0HRQ/x7x4Djm5FU2G2Oi6GwJ/Nolm0UlLCloQbpvNUPglo80YQv6IPshkPMhKQ+Kshc0vGeyA2HHJQTywrATcHK0N1A8zB6XanTc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=ajkvbjk3; arc=none smtp.client-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ISy/JFHa"
-Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-8565d77c277so26105767b3.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 20:59:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="ajkvbjk3"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3a0aaa0fd13so2634749a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 20:59:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791950353; x=1792555153; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=WkMUe/NsYTM0ez+xe3tw/2n8+K1FB1iD4W4PefzB3ik=;
-        b=ISy/JFHabc3VHYlQWREj9rlzFSTwum64aJK5yMDNgPbQc3PNbTPWy32+G9zhKEkcGb
-         CLFsBMYuj4YF6g+XKBkFFfDngibR3YTG7VcN9w/KaQ7Xnk4QUYn1dRm/HRVnaLPwbD/s
-         i8awDCpRuMY0dMym4PDMB2xBTrwyaRs+rpUgY5u2iKPsjCIayIIonZiSIT516jp6b9vr
-         /sdbakXLLN8kkCHcKec+v438t1NTByGx66m6yXjFnA9is1wY9eNJ2Nk6gDP4IKIjCKTD
-         5qFvR1KMkpfjJVtu1wUv5TvITYy99ABsGyEZPJYZ/EZrH06qoEnrBJnNDYZ0INJ6ncc3
-         qfmg==
+        d=bytedance.com; s=google; t=1791950358; x=1792555158; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5STA7RRpF0bZE7yNESPvMRAN/jMwPnFqOs2b9BGo7gc=;
+        b=ajkvbjk3kTPfvCqcZGv4EJqKjl+5/xxRCJuc52x+TJywPi/B9lU7YuQiSJvhgrdZFS
+         ZCqGSfrf5efC82Vl+nSlFwfDM8PcreOEcIMxYFLkZrGBQinbjcZFV3cn95wzsuFAKNHu
+         c9EXuJyOrgR43wPTICZCiqx5zbn10VaDruDFaTZfhr7STZmLeLqeWpOaTxV+GdLRUa+P
+         LGG2A4hNTeO0nvLe6CVn+adZh+nalPuwJGwWWc9+5jMH2ejXNhIY1ByllNNuX1r2oUCu
+         DgUfkyOmM15luwL/Gz0oEp/tEOp7ECgdgo6JMC9cruIIn3aGKDIvi7a1+d8e7OmPq/32
+         gXjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791950353; x=1792555153;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WkMUe/NsYTM0ez+xe3tw/2n8+K1FB1iD4W4PefzB3ik=;
-        b=ZJKWaRz7r3QxN/Btxh3XLuhBWM+FJPKFibOYaP3afZnUDAi2A2IpPsCKMsSM1izGx2
-         ANM02A9PtRIJPgz1fogvc9iC3wjs3YQRKR5RnkoSDGzqrFhJGsEHQgJGDeETpHkm7LCJ
-         03bPu+tkZkZ8Su5W2YkhSlRt3rbKGq3uYUhyE3eP9rudnbGHPdDvxxxpKvTZo0422NEW
-         6hUmg4wQd0t69towHj2FFJDFfG6qvjD5yblcZSoO/8NdgQ/8lnrqDhG+biUd2V3Fzkd/
-         rmJd8IxEHFFuZDLKdFs7GFZ7gqqNLWYYvA21rJcNeaQVcfeiN4eZhFVzNCDkHZW4LsNZ
-         VAog==
-X-Forwarded-Encrypted: i=1; AKwUvByAM7o5U8DM9Y67PSmlnDXfrxU3au4eu82sbDOPChi87LB8y+CaGpg4qcRrEiStgarlJGpRGKrMgIL93Xw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI7s2CRBxsBh4JlAqn6WfDozo1a6iL/rhRfgaeQdIlWjERPxHTb
-	7s5XhBDSdbErkjanBvMvx9PLFDJA40kaciQ67I3aTikz4W0AI3yB5Qvf
-X-Gm-Gg: AYBFou3T16gjYwptY43gSONjiI7XOxEzM1cHcUZXf0ereGVn8qSUnfVoC52IF59gfxq
-	3iWNfc4cijnn9OKxTaFUqIeFYePLA4Z/ICWO8ferA9iSgo5GbhDzLvLenD8m5EMo0sdCBMYnFHD
-	IS+MYsZjsiBSTghrKWA6LqERzJWTJ3d2RRS5nTEiw0z1xvDeX6828BtrbZ+nIZ5TL6MA+wZzUQI
-	zky633ILPAyYHSBhDwgxotOSTvR8YNN7sFeAjAe/Z57S/5WRo+VBlMNWBNYWEmC4USVEwH4Jias
-	ItzJi4wzHwNel0sd5a1Tl3RjORO+EfxQLJy/X7jUkxufUxmWPtzxb14SUQu2pLSglGecfOrL+zL
-	V4OrODFsBY3OV8KrjNgh6O7nF0+gv6TeSyQG4px/IezKTqSckhcHtOgER/vI0/nmLVMTolzYRnW
-	0lvXwjN2KmcUfIQNvaoCu6QyMFocHdAsg1Nz+btIUohIsjCKk77K1KlKGUqRzGzTF94CAik7TF2
-	YzzV417qBogDSmBpzZiYP/gHQYyo2urQFqz2UEWiGM2eio5grn+z/nnOiGcUW1wmvvOyCjwRxK/
-	iBCz0nY8IztRApQr5cGPouziHd0cuNw3DlrBiw==
-X-Received: by 2002:a05:690c:854:b0:8ab:44a4:6362 with SMTP id 00721157ae682-8b07ebf6791mr32329597b3.4.1791950352647;
-        Tue, 13 Oct 2026 20:59:12 -0700 (PDT)
-Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b0a9d8e52csm23584347b3.11.2026.10.13.20.59.11
+        d=1e100.net; s=20260707; t=1791950358; x=1792555158;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5STA7RRpF0bZE7yNESPvMRAN/jMwPnFqOs2b9BGo7gc=;
+        b=QbIkFdobCB2IE6g4ESd1dpRES7qIyvPYoC6vy4WfvzxM9tk3RFZfnEMjhujV8UqpZN
+         GCOLnkxii9n8XCYzlQf4rS7PPTifpjJ/T+vDD6CKbF5vpWvA0b+gwVAOo9GE6M/a7VlL
+         EZ1qVAN2XccCbpMhrPtRrguINDV2KXy2aroWZBRU1GDQApa35QAds+a7dx8psfcY59pN
+         mVQ1LH7358kn4zZ3D9PyRZdUtBk2Mny8jW+VPBMnSw+tJkEi3GdsvOmK6ePNQx2I2w7+
+         zXaNI32ZBI0CbsGZlQmaGqwuE0m0tuiY4SMlXU1a3flfmM8LRtr5X56OiE8J2q/jDtO1
+         witQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy2ZPMczXatbJ+wtCh4ra03kjm7t+68lkGVTs0Fu1N2CCujjLp4XTQmtKigTp7XLE17lb95hGNfQen27+I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJOkVK5khX6CXWtX5oEandmzxlk0PetXJg7FfZnxbSvaXVsiJvv
+	svhOrDu9cYhmYbxn6ZIZJ1yUk40OeNM0IQz8cEtTkmFS8/wjefxIPXTIA6/DZfqJURc=
+X-Gm-Gg: AYBFou2AczIP4W9qlru9tOG835QjxnlWQ9IjItXA0MNJPavguuKGD6CgLjUNtn2Ajq2
+	yKQkaGF6PdV+Z3maQItBl99oBHvw4aB4q5QUYd08scVtgWMF81XzrhT/c5A9gMhJwQXGdO9shCf
+	NHu9zUEGIlFYrSrG32n7XpJbNljMYXUvgJkvlWv22vcjqQbFJGPSJj9VFsAqVqh3ub9zTvw99YM
+	ta9qMf1X8La2968ZWOroWnTL4TUVmodCjNn6pXNYu3Ru59Bk2HxUAUxpv/JHVl2qjkQ8t1qmu6Y
+	/m5n/JnTmkiiL7NyPWwQLUrJ7+wugOdxLVfZnGQSYgwP8ab0sC/BBrq2wF8Mwq8LLO5zFrxrydC
+	JnL5pqJ65k4VjdHKKCiMl9swy3zY+eFPlqYUCWTZ3GEUKCz0TXF9KjqFlK8QEKrBe4/j2OtKikr
+	mWa1MZumpMyqUgD8sJc1N3e/IiBLSxlH1UGtbs3vJwYAsw2CBwS1R9eLBON4VH8ZrzNyModDk7C
+	rmr5wjmeWszxsgF7G0v
+X-Received: by 2002:a17:90b:4c8a:b0:39e:6a80:b799 with SMTP id 98e67ed59e1d1-3ac63bfe81amr1395913a91.41.1791950357376;
+        Tue, 13 Oct 2026 20:59:17 -0700 (PDT)
+Received: from n232-176-004.byted.org ([36.110.163.103])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac5f24a538sm2492305a91.9.2026.10.13.20.59.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 20:59:11 -0700 (PDT)
-Date: Tue, 13 Oct 2026 23:59:10 -0400
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: netdev-bot+sashiko@kernel.org, 
- harshit.m.mogalapalli@oracle.com
-Cc: maheshb@google.com, 
- willemdebruijn.kernel@gmail.com, 
- jasowangio@gmail.com, 
- andrew+netdev@lunn.ch, 
- davem@davemloft.net, 
- edumazet@google.com, 
- kuba@kernel.org, 
- pabeni@redhat.com, 
- peterpenkov96@gmail.com, 
- netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- kernel-janitors@vger.kernel.org, 
- error27@gmail.com, 
- stable@vger.kernel.org
-Message-ID: <willemdebruijn.kernel.3587ccd7685e2@gmail.com>
-In-Reply-To: <179152553052.434549.7841966987517379353@kernel.org>
-References: <20261005054224.4154727-1-harshit.m.mogalapalli@oracle.com>
- <179152553052.434549.7841966987517379353@kernel.org>
-Subject: Re: [PATCH] tun: fix skb length underflow in NAPI frags path
+        Tue, 13 Oct 2026 20:59:16 -0700 (PDT)
+From: Muchun Song <songmuchun@bytedance.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>
+Cc: Muchun Song <muchun.song@linux.dev>,
+	Muchun Song <songmuchun@bytedance.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	Helge Deller <deller@gmx.de>,
+	linux-mm@kvack.org,
+	linux-arch@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	linux-mips@vger.kernel.org,
+	linux-parisc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/3] mm: Generalize page table allocation helpers
+Date: Wed, 14 Oct 2026 11:59:07 +0800
+Message-ID: <20261014035910.687847-1-songmuchun@bytedance.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-netdev-bot+sashiko@ wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
-> =
+A subsequent series will switch runtime vmemmap population to the
+generic page-table allocators. Since vmemmap tables belong to init_mm,
+the allocators must select GFP_PGTABLE_KERNEL and mark the ptdesc as a
+kernel page table.
 
-> Critical: 0 =C2=B7 High: 1 (1) =C2=B7 Medium: 0 =C2=B7 Low: 0 (1)
-> =
+Some architecture-specific allocators do not preserve both semantics.
+LoongArch and MIPS choose PMD/PUD GFP flags without checking the mm,
+which can charge kernel PMD tables to a memcg and leave user PUD tables
+unaccounted. The private PMD/PUD allocators also omit kernel ptdesc
+marking.
 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchw=
-ork
-> know by including "pw-bot: cr" as a separate line at the end of your re=
-ply
-> (one such reply per series is enough).
-> =
+Rather than duplicate this handling in each architecture, extend the
+generic PTE, PMD and PUD allocators to support architecture
+initialization hooks and non-zero table orders. LoongArch, MIPS and
+parisc can then drop their private allocators and inherit the generic
+GFP selection and ptdesc handling.
 
-> - [High] This fix is incomplete.
-> =
+This series only prepares the allocation interfaces; the runtime
+vmemmap conversion will be submitted separately.
 
-> Pre-existing issues:
-> - [High] tun_napi_alloc_frags() builds fragments from `iter_iov(it) + i=
-`
->   and the raw `iov->iov_len` (drivers/net/tun.c:1505-1506).
-> - [Low] In tun_get_user(), the `if (msg_control)` block
->   (drivers/net/tun.c:1837-1849) still computes copylen/linear and walks=
-=E2=80=A6
-> =
+Muchun Song (3):
+  mm: generalize kernel PTE table allocation
+  mm: generalize PMD page table allocation
+  mm: generalize PUD page table allocation
 
-> --
-> =
+ arch/loongarch/include/asm/pgalloc.h | 48 ----------------------------
+ arch/mips/include/asm/pgalloc.h      | 40 -----------------------
+ arch/parisc/include/asm/pgalloc.h    | 17 ----------
+ include/asm-generic/pgalloc.h        | 29 ++++++++++++++---
+ 4 files changed, 24 insertions(+), 110 deletions(-)
 
-> tun: fix skb length underflow in NAPI frags path
-> =
 
-> This patch moves the clearing of zerocopy for the IFF_NAPI_FRAGS path i=
-n
-> tun_get_user() so it happens before copylen is computed. The NAPI frags=
-
-> allocation is then sized for the complete iterator instead of the zeroc=
-opy
-> linear prefix. This avoids a skb->data_len underflow and a BUG() in
-> __skb_pull().
-> =
-
-> > diff --git a/drivers/net/tun.c b/drivers/net/tun.c
-> > index 5a302709a68aa..1124b8b33664e 100644
-> > --- a/drivers/net/tun.c
-> > +++ b/drivers/net/tun.c
-> > @@ -1848,6 +1848,10 @@ static ssize_t tun_get_user(struct tun_struct =
-*tun, struct tun_file *tfile,
-> >  			zerocopy =3D true;
-> >  	}
-> >  =
-
-> > +	/* The NAPI frags path copies the complete iterator. */
-> > +	if (frags)
-> > +		zerocopy =3D false;
-> > +
-> =
-
-> [Severity: Low]
-> This isn't a bug introduced by this patch, but with this override in
-> place, the msg_control block just above in tun_get_user() has no useful=
-
-> effect when frags is set:
-> =
-
-> drivers/net/tun.c:tun_get_user() {
->     ...
-> 	if (msg_control) {
-> 		struct iov_iter i =3D *from;
-> =
-
-> 		/* There are 256 bytes to be copied in skb, so there is
-> 		 * enough room for skb expand head in case it is used.
-> 		 * The rest of the buffer is mapped from userspace.
-> 		 */
-> 		copylen =3D min(hdr_len ? hdr_len : GOODCOPY_LEN, good_linear);
-> 		linear =3D copylen;
-> 		iov_iter_advance(&i, copylen);
-> 		if (iov_iter_npages(&i, INT_MAX) <=3D MAX_SKB_FRAGS)
-> 			zerocopy =3D true;
-> 	}
->     ...
-> }
-> =
-
-> For frags, the !zerocopy branch overwrites copylen and linear, and the
-> result of the iov_iter_npages() walk is discarded.
-> =
-
-> The comment doesn't describe the frags path either. It also says 256
-> bytes, but GOODCOPY_LEN is defined as 128.
-> =
-
-> Would gating the block with msg_control && !frags make the code and the=
-
-> comment agree, and also skip the extra iov_iter_npages() walk?
-
-This is nice suggestion.
-
-> =
-
-> >  	if (!frags && tun_can_build_skb(tun, tfile, len, noblock, zerocopy)=
-) {
-> >  		/* For the packet that is not easy to be processed
-> >  		 * (e.g gso or jumbo packet), we will do it at after
-> > @@ -1868,11 +1872,6 @@ static ssize_t tun_get_user(struct tun_struct =
-*tun, struct tun_file *tfile,
-> >  		if (frags) {
-> >  			mutex_lock(&tfile->napi_mutex);
-> >  			skb =3D tun_napi_alloc_frags(tfile, copylen, from);
-> =
-
-> [Severity: High]
-> Does this fully close the underflow described in the commit message?
-> =
-
-> copylen is an int, but len is a size_t taken from iov_iter_count(). The=
-
-> frags path now always goes through this assignment:
-> =
-
-> drivers/net/tun.c:tun_get_user() {
->     ...
-> 		if (!zerocopy) {
-> 			copylen =3D len;
-> 			linear =3D min(hdr_len, good_linear);
-> 		}
->     ...
-> }
-> =
-
-> tun_napi_alloc_frags() checks the truncated value against ETH_MAX_MTU. =
-It
-> then takes linear from the first segment, which is not truncated:
-> =
-
-> drivers/net/tun.c:tun_napi_alloc_frags() {
->     ...
-> 	linear =3D iov_iter_single_seg_count(it);
-> 	err =3D __skb_grow(skb, linear);
-> 	if (err)
-> 		goto free;
-> =
-
-> 	skb->len =3D len;
-> 	skb->data_len =3D len - linear;
->     ...
-> }
-> =
-
-> So when len is over 4 GiB, the first segment can still be larger than t=
-he
-
-This is not a normal length. Not sure whether it is feasible (quite
-plausible), but would warrant a separate patch, not included here.
-
-> allocation length.
-> =
-
-> vhost-net appears able to deliver such an iterator to an IFF_NAPI_FRAGS=
-
-> TAP backend. init_iov_iter() adds the guest descriptor lengths into a
-> size_t, and get_tx_bufs() only rejects a length of 0. The default copy
-> mode then calls handle_tx_copy()->tun_sendmsg()->tun_get_user() with
-> msg_control =3D NULL.
-> =
-
-> For example, this needs a guest memslot of at least 4 GiB. The guest
-> builds a chain whose first iovec is about 0xfffffff3 bytes after the
-> vnet header, followed by a 272 byte iovec. That gives len =3D 0x1000001=
-03
-> and copylen =3D 259:
-> =
-
-> - __skb_grow() with diff =3D 0xfffffff3 passes a negative ntail to
->   pskb_expand_head(), so it makes a small allocation instead of failing=
-
-> - skb->len =3D 259 and skb->data_len =3D 272
-> - skb_copy_datagram_from_iter() and pskb_may_pull(ETH_HLEN) both succee=
-d
-> - eth_type_trans()->__skb_pull() sees skb->len < skb->data_len and
->   calls BUG()
-> =
-
-> Copy mode already reached copylen =3D len before this patch. With this
-> change, the msg_control case reaches it too.
-> =
-
-> Would it make sense to pass the size_t len directly to
-> tun_napi_alloc_frags(), or to reject lengths that don't fit in an int
-> before narrowing?
-> =
-
-> [Severity: High]
-> This is a pre-existing issue, but tun_napi_alloc_frags(), which this fi=
-x
-> relies on, assumes the iterator is ITER_IOVEC. It also doesn't clamp th=
-e
-> last fragment to the remaining count:
-> =
-
-> drivers/net/tun.c:tun_napi_alloc_frags() {
->     ...
-> 	for (i =3D 1; i < it->nr_segs; i++) {
-> 		const struct iovec *iov =3D iter_iov(it) + i;
-> 		size_t fragsz =3D iov->iov_len;
->     ...
-> }
-> =
-
-> io_uring IORING_OP_WRITE_FIXED on a tun fd reaches tun_get_user() throu=
-gh
-
-If this is a bug only reachable by io_uring x napi_frags, we should
-just disable the combination of these two.
-
-napi_frags was added as a way to test insertion of packets with
-specific segment layout. No need to be able to do that from io_uring.
-
-> tun_chr_write_iter() with an ITER_BVEC iterator. io_import_fixed() sets=
-
-> the count to len, but the last bvec keeps its full bv_len:
-> =
-
-> io_uring/rsrc.c:io_import_fixed() {
->     ...
-> 	nr_segs =3D (offset + len + bvec->bv_offset + folio_mask) >> imu->foli=
-o_shift;
-> 	iov_iter_bvec(iter, ddir, bvec, nr_segs, len);
->     ...
-> }
-> =
-
-> In this case iter_iov() returns the bio_vec array cast to struct iovec.=
-
-> On 64-bit little-endian, iov_len reads as bv_len | (u64)bv_offset << 32=
-.
-> For page-aligned bvecs that is just bv_len.
-> =
-
-> Take a 5000 byte write from a page-aligned registered buffer. linear is=
-
-> about 4084 and data_len is about 904, but the second fragment is given =
-a
-> size of 4096. skb_copy_datagram_from_iter() writes only 904 bytes into =
-it.
-> =
-
-> Can this leave about 3192 bytes of uninitialized netdev_alloc_frag()
-> memory inside the fragment? The fragment sizes would then add up to mor=
-e
-> than skb->data_len.
-> =
-
-> If so, anything that later walks the frags by skb_frag_size() could exp=
-ose
-> that memory.
-> =
-
-> [ ... ]
-> =
-
-> -- =
-
-> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/pat=
-chset/20261005054224.4154727-1-harshit.m.mogalapalli%40oracle.com
-
+base-commit: ad9f2d463666c64e94b04be5263c9bf8f9f96fb7
+-- 
+2.54.0
 
