@@ -1,103 +1,82 @@
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB2EB3F8ECA
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:01:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56A82312836;
+	Wed, 14 Oct 2026 17:02:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791997290; cv=none; b=exsxpCPQdkr4P7eAPoe2+l9lgc8l/3e+x6X9zMSrCjOy8iZM5bMBZlnfiqBPVSewm9UX3U9R8oI57ABO6pvlLtIvBwtuwEu/GlvVhy55ZbDr9hetQngS8z7vZD/qnXFhtJUgXI4qk5TJEaQyDVG+r2iimnaXhi8xzuE7R7sE0JU=
+	t=1791997322; cv=none; b=tURgQEKAu1vuDkFd/mXrFzxCrC23YFHu+Zzi7NmfzIamO/lgM/misLsc5B4GWMQb8JeOGfdSYaDv41TVSqBkIOnSlNo6Hw5VgsVSZ4WrgKSwrfYBnLsUMr4RX0wUQO5OjZj1HtWqzpuZKNaNRqgGU7IOS0nndnfYimo71LBBPNk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791997290; c=relaxed/simple;
-	bh=Kdc6yC4xRjvpZvivtkFQl4egG4a2TmHEsEe5UY+hyoo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cx0zjG/hFPUdeJVXf8FP1oZ1WZjzzMyCAjXYmQtHbRxut3XzNul0AL4jpTBJ0Vubryg+jf2KN/QwWQsiPKmDBvT4O+CcuCVphfaOvG1L0DZNBMULLkneqK53MVLouSOcWbE7Wk2T1PHRh5Wvici6MfYjzJ/C2VoYJsT4hIj8/2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=fW1nLXln; arc=none smtp.client-ip=209.85.218.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1791997322; c=relaxed/simple;
+	bh=FHuEQlrJeSyFCnx0Sl6KYjcJChvZI4aji8nSCtEbPo0=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=RyvorHOOuqJNpLj03rS73PLfbE/rUVzzcsdjiNMSp/DUUw/BH9VMZaegWbuUeULD7EWoadoLxsdSWbCR7aEKjEc8er1o83nMTsdgiJ4d+c+MjzdHGm3nW7BSojR89pckKRZU8Wf+xyQeSY5wfTCXsAXF1VzZZc6xgkVfiU3AG3Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=eT7p6b1I; arc=none smtp.client-ip=45.79.88.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="fW1nLXln"
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c2e8e738ae0so774756366b.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:01:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1791997287; x=1792602087; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=u/J2ax6te+1JRzLcB5oiAyce7s6PHnNfpG49L6qJGy4=;
-        b=fW1nLXlnBECQ7oS+J9+xtNkZCJNTaK5lZ83ZE4EKSy3392VigHevDm7I6HvQqQpGpE
-         k3ylNKRB8jxQQSDU6hrr3lSUQvTeB2W0gsnOIZnWqct5g1lHQojb2A/3JOtfjexg5d4B
-         /QlGbe6TA4qDx85pw1VqoXBEBbFkqTmz3fW84=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791997287; x=1792602087;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=u/J2ax6te+1JRzLcB5oiAyce7s6PHnNfpG49L6qJGy4=;
-        b=WQjLhTxfYhOO5X4R8DcLGWEGi3yHDAfcOz5Pzqfwn3xR/It/GuFpxfPevpfv7pxL53
-         /OAK0Mx9VeJkPxh5Wa6lnxY2GAZzjF/7WSPwkCMha2lI2eXoyq39Gf0/Zk8eyQ+HWBgY
-         l/v56LrzJtgrrBdItUIfs/Usig6YbZGWetyvbGR2x2m/1UPG+xlU+eSlFkGI5uVaM8my
-         Cl91jIB5+G3NB1H4DvvwsDhN4BjSPF6Iez9go/y1BPUP/Buyw23LScf2xYC4rLpSZHBx
-         AGLmV7+RmXx7sXCqdbxaER/PQswX7Dfq3yiqM+iG287VEgDM2jcsFrdJOMz9Ch0YDA4l
-         cd9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzOEFQRw/GfG3ZKK/+blm+aprCfirOgjFXU4QvdKzXGudyUMbDrjrHpgk1qCRn5UcOXocECPGAX7vC/fdQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK0ch0ImxYKXNa3IeLhZbxmuuPDOAVZPl4sZy66CwH/F6VRRz7n
-	EiD57uBpBSap0HzzNSL8bXiJfhP3fNi690wPqz0iEXeLxjSV8NQFQValgtqCtxwYnM505MZaGJx
-	HDldvmxA=
-X-Gm-Gg: AYBFou0fZEEqbqj8pLsPSZFjpevPHhP3sCvR3WYr1+WOiIA7yFDVnaCMmQpRwldeh/p
-	GgX113jMNbGG1ysoeDQc6b1vXyzOWaMk6XgRczrDVzA8w1d5aAnHmqGVNkRl5p1FsNDpj+52jV3
-	VMQ7FaIW7w2DWzJSnRMPqIpX8aneXxrIabD5frFcdvIkiL7qB0fr1J2SrpqO2XRz6XDoIJjpAUT
-	SyAvZDZ/9Nwk2/9e5s3XzVD3TU3tBj1Zb/grm+sXLXnJcLwkxTQin4ko4VB5ShXH7v5qCquvsHq
-	6sASK0Su+12cRo8521HcSjB0xFGsfSdx+pQLGkkekSCiXV8/kKxdjBP2/G3VN9YUXuLBDWY5EcY
-	h3Fshb9BWP1Q7VU+XvSNm/uEsCyr9GjxFYdWaWUKxvgYXsxIzzoYSivfPqI+i6C5hhQLMbsw5cC
-	u0OjT2Ijp1o6mR/StLd6PP5TXWRtvtmsLQv1iGW2PUJgfP2y26TjJnviNhXgV8k+MPZKbGhyNE3
-	GMPKaqmw02OWxVj1HTfTDvItEUKMHbxTdkXSre5T0bAr9lK
-X-Received: by 2002:a17:907:9801:b0:c29:4fcb:2886 with SMTP id a640c23a62f3a-c31a9fd831emr1537567766b.39.1791997286998;
-        Wed, 14 Oct 2026 10:01:26 -0700 (PDT)
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com. [209.85.218.51])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3ed6beaf65sm7613766b.3.2026.10.14.10.01.26
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 10:01:26 -0700 (PDT)
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c2e8c710847so544437466b.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:01:26 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwwtnKpg7uxQs/QeTYufWs/9QzJvpx4OotY2dBnytPPlJO8bf2Fm3WQfGARtL7wrlcpBIL/V3tnaBgUVXU=@vger.kernel.org
-X-Received: by 2002:a17:907:968f:b0:c31:8c48:e18b with SMTP id
- a640c23a62f3a-c31a9afb3b6mr1614699966b.14.1791997286294; Wed, 14 Oct 2026
- 10:01:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="eT7p6b1I"
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 71E87408FF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
+	t=1791997319; bh=r2IDnp5QEPh+48VvYTqPgu9xOpF9QcmZVlg8exZ1OMc=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+	b=eT7p6b1Iq6jlbv8lusfy3cx/LuCOugso2dpGUqWtXa2Ywjsbe2EK+UgVy2a2teg2Z
+	 1RjxIhjytkIIFHxdjk60zKDUc8I9EgPXNRSXhbQmXRaAHwqhUB4YXZfa8XeuP6Pids
+	 fLQ09QC8HL/sA81PXhmyTVd12S07//AhFXFIOkFdoL5V/wPI6McXA8/7Zb3CBJ1iKM
+	 bryuAbYx8xE13ndyWetLSqIbVCeBoTcOxGtFl7xQhCS+eck6Y7a1rnfzpUcl713+Is
+	 kNJbaN2l9kgyKZJZGnsN+zy/nPEqRj/iDsXUsrnQFpPJypwsIR24ZZwd3B/EySFT9L
+	 jm+U/5Zp1OsBg==
+Received: from localhost (unknown [IPv6:2601:280:4600:814::1fe])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by ms.lwn.net (Postfix) with ESMTPSA id 71E87408FF;
+	Wed, 14 Oct 2026 17:01:59 +0000 (UTC)
+From: Jonathan Corbet <corbet@lwn.net>
+To: Akiyoshi Kurita <weibu@redadmin.org>, Akira Yokosawa <akiyks@gmail.com>
+Cc: Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Akiyoshi Kurita <weibu@redadmin.org>
+Subject: Re: [PATCH v3] docs/ja_JP: translate submitting-patches.rst (review
+ and report tags)
+In-Reply-To: <20261007004715.107860-1-weibu@redadmin.org>
+References: <20261007004715.107860-1-weibu@redadmin.org>
+Date: Wed, 14 Oct 2026 11:01:58 -0600
+Message-ID: <87fqy8w709.fsf@trenco.lwn.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261014160144.1835860-1-jarkko@kernel.org> <20261014163550.GA327771@quark>
-In-Reply-To: <20261014163550.GA327771@quark>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Wed, 14 Oct 2026 10:01:10 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wi7cq3pdpGV4mnErRqxTmUm2UA87+v4N-nni2tQNw6Bkg@mail.gmail.com>
-X-Gm-Features: AclHuK9QDUgl4J1rJvqvCYjnkQ4RS2QijjPUkASw7HMcAk5l4Pr5JiIIEojmQ2Q
-Message-ID: <CAHk-=wi7cq3pdpGV4mnErRqxTmUm2UA87+v4N-nni2tQNw6Bkg@mail.gmail.com>
-Subject: Re: [PATCH] lib/tests: kunit for associative array
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: Jarkko Sakkinen <jarkko@kernel.org>, keyrings@vger.kernel.org, 
-	Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, 
-	Andrew Morton <akpm@linux-foundation.org>, Rae Moar <raemoar63@gmail.com>, 
-	Ryota Sakamoto <sakamo.ryota@gmail.com>, Kuan-Wei Chiu <visitorckw@gmail.com>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, Kir Chou <note351@hotmail.com>, 
-	Petr Mladek <pmladek@suse.com>, Dmitry Antipov <dmantipov@yandex.ru>, 
-	Guan-Chun Wu <409411716@gms.tku.edu.tw>, open list <linux-kernel@vger.kernel.org>, 
-	"open list:KERNEL UNIT TESTING FRAMEWORK (KUnit)" <linux-kselftest@vger.kernel.org>, 
-	"open list:KERNEL UNIT TESTING FRAMEWORK (KUnit)" <kunit-dev@googlegroups.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 14 Oct 2026 at 09:36, Eric Biggers <ebiggers@kernel.org> wrote:
+Akiyoshi Kurita <weibu@redadmin.org> writes:
+
+> Translate the section describing Reported-by, Tested-by, Reviewed-by,
+> Suggested-by, and Fixes tags into Japanese.
 >
-> Would this effort (and Linus's effort) be better spent on converting
-> keyrings to use an rhashtable?
+> This includes the Reviewer's Statement and the guidance on adding or
+> removing review and testing tags in subsequent patch versions.
+>
+> Keep the Reviewer's Statement in English and add a Japanese tentative
+> translation in a formal style.
+>
+> Signed-off-by: Akiyoshi Kurita <weibu@redadmin.org>
+> ---
+> Changes in v3:
+>
+>  - Use the current Reviewer's Statement structure from the English
+>    documentation.
+>  - Make the Japanese tentative translation a literal block.
+>  - Remove reST markup from the Japanese literal block.
+>  - Translate "statement of oversight" as "=E7=9B=A3=E7=9D=A3=E5=A3=B0=E6=
+=98=8E".
+>
+>  .../ja_JP/process/submitting-patches.rst      | 115 ++++++++++++++++++
+>  1 file changed, 115 insertions(+)
 
-I agree that it would be lovely to just get rid of assoc_array, since
-this is the only use for it, and no other use has grown in the (many)
-years it's been around.
+Applied, thanks.
 
-                Linus
+jon
