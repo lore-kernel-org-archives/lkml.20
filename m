@@ -1,169 +1,161 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010016.outbound.protection.outlook.com [52.101.61.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAC7D4D0CE2;
-	Wed, 14 Oct 2026 12:48:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97DE24EC671
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:48:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.45
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791982125; cv=fail; b=Io6FjuVtTDsikDH82gdblKIf6ZP7bviQNq2mMRi3VdgHueVPd0eNBAGy4rVZ3BU3YckWJzslDT37aizQl3ElxGEAML6nJzTNJkHctDvntFCjRuH3dYNSKRrS0SKHYFzXJk7OR6EHG8TByR5Bbuo9mzXgiHSpi+ejbYChmxkWQ24=
+	t=1791982130; cv=pass; b=H9h0IpOaMTL49+eyv+IbJsiDk914+FgFr/m3POBtdnM/cD/wZxIBP+I4Z4tqKXGA8oWr04UU4NUMdyTLDfMBJ1cZ7FWozE7JxbhIAgi+UgrPr4eXXSIH8Jt4Ovl+wt1zklJSov6RKMTlQ4yjD6Z+5Z9Lcl3B+UEOQIxfVW0D77Y=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791982125; c=relaxed/simple;
-	bh=UYlzfNUCrXdxiGfHGen/aXCDgbs0d/xDeCRr0srvuDA=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=o3QgNwWgo/7JJYa1GrLe9CqQvyhUHDZ1hEKL1p0N/VIoKhVSVN3vYatLN8jbEiVrz7QXKK0kYpGCk3IHpZVWUQ8pkVya0Mhq1o/C2xk1F1JJlmaMaSrYh9j90hai9b8tXSphZob81IEg99csK24YN0DJ7kpJsER54TOwO+hL+iM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=PZ6O6/8C; arc=fail smtp.client-ip=52.101.61.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1791982130; c=relaxed/simple;
+	bh=PErefbjRur8+lAPuSaGWtGt6QpUAIajC81LrxVlpFMs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=EZZcVXcheQsoxIy1vehH8C56kXkwMyctU4mtIoeoQH3J/8k3/0Hw1P+1mGERnb/mGQKRFteLXdOVJy9rVyA+W6eawl93rpVPq8H5JLv1ujoEygPglNAxKciuJQjM0MYtbjp3Fxu/0BTi0SyV0Z558Af4mTVaEL6BwGj3fjO+TGg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ArcUYW7P; arc=pass smtp.client-ip=209.85.208.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="PZ6O6/8C"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uBxWZzDfMhnroePGQcRdV84en021fjYgWu86sOGM1WELzbAs7/Fz2cdv/8fxlonugJ4kTDMzAkRJeW+Qtu2u+c4R4DX9OHc6ExiRvWEJ9jMvn7tFqXmPY9DubhjJ6tIMKdsw1I5cwy6FshKlhvVFiPvBz6XVkV9y/fUEzthq4iQjXn67Fxap518E7t3dJLh/zb/3HkxsQfulnlmf6pdbxYPtFAqHBQJDGMr9GJDeUzs2Hvouc6kgpVj90Rlxsv/QhFHDiO4DNThpxjHLSjuYaqY2fQanQmCA9AmruvtbfCk5sib1tqHjSh2AWt3qqsv96Zt/rljiETb3iHjuRJVdrw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=essQg3KQF9rkha8A9ELCLAgwXBzMYMImDwlkWSAecAg=;
- b=dgM0Y83Y5SH1scuRquwp1h84Th0lyNyWIIo0IiqQ45Wro4zTmBbOLlqthCL00ifbzlCORsT4tL88FDYoc1HX4p/+1RgbadiMAil0l7hVT8I4/nHvu076DmT8Sk+Dbi8nZfKc5E7R5qqGsIk+Y5ItaUxMJuors3XeqIofGbIMmOJ+SFRUZm/jUBlnIvelr2nC44+kkogQZNFGF0n1ofI5OcRFFCkyDuUBuVBliOaiCNhyZoZxM3BlBSm5eEYwKyKbRWDNsLMR3Pgjc20dlujb8wp1qg1uo+7LHeOqIVGPg8a2/lWeQ9i2LsjSIUyR6EvTnLqn6q2xE5cXwmPO6/h00w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.233) smtp.rcpttodomain=lunn.ch smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=essQg3KQF9rkha8A9ELCLAgwXBzMYMImDwlkWSAecAg=;
- b=PZ6O6/8Ck98xKbqEDWk4qLdkrk419Yfetmyc77pM+NTOAvarMeGO78NaAJe01sTp+w8SwyRx04a22vf7Be2brI4hswooVF423QvbvXTt6h/R4VJ/RBZMrdgJPOfeSmWT/hK3Vd3gN8L4oxnmMIRBIytSPcFnK7dcyL9Wn53sLHCBqFztqMOIa36JZTHmR6jbuCzdr0RkNxW7aG9uUIx6cHZ9HM563Umad2pb7RwQvzjiqfqeLL2rrQIDZigJO+5NwKFgy9BWKnHaCFnDMDlxgQeKM5K1lsm3vkX/j3BWrB1EN31zm0p4yKgWuaoput2M5mRzaurNtzFVMhClWZhIJg==
-Received: from MW4PR03CA0030.namprd03.prod.outlook.com (2603:10b6:303:8f::35)
- by SJ0PR12MB7081.namprd12.prod.outlook.com (2603:10b6:a03:4ae::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 14 Oct
- 2026 12:48:11 +0000
-Received: from SJ5PEPF000001F7.namprd05.prod.outlook.com
- (2603:10b6:303:8f:cafe::25) by MW4PR03CA0030.outlook.office365.com
- (2603:10b6:303:8f::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Wed, 14
- Oct 2026 12:48:11 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.118.233) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.233 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.233; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.233) by
- SJ5PEPF000001F7.mail.protection.outlook.com (10.167.242.75) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Wed, 14 Oct 2026 12:48:11 +0000
-Received: from drhqmail203.nvidia.com (10.126.190.182) by mail.nvidia.com
- (10.127.129.6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 14 Oct
- 2026 05:47:46 -0700
-Received: from drhqmail203.nvidia.com (10.126.190.182) by
- drhqmail203.nvidia.com (10.126.190.182) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Wed, 14 Oct 2026 05:47:46 -0700
-Received: from vdi.nvidia.com (10.127.8.10) by mail.nvidia.com
- (10.126.190.182) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Wed, 14 Oct 2026 05:47:42 -0700
-From: Tariq Toukan <tariqt@nvidia.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
-	<kuba@kernel.org>, <netdev@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>
-CC: Dragos Tatulea <dtatulea@nvidia.com>, Gal Pressman <gal@nvidia.com>, "Joe
- Damato" <joe@dama.to>, Leon Romanovsky <leon@kernel.org>, open list
-	<linux-kernel@vger.kernel.org>, <linux-rdma@vger.kernel.org>, Mark Bloch
-	<mbloch@nvidia.com>, "Nabil S. Alramli" <dev@nalramli.com>, Rahul Rameshbabu
-	<rrameshbabu@nvidia.com>, Saeed Mahameed <saeedm@nvidia.com>, Tariq Toukan
-	<tariqt@nvidia.com>, Yael Chemla <ychemla@nvidia.com>
-Subject: [PATCH net 1/3] net/mlx5e: Sync CQE moderation pflags with coalesce params
-Date: Wed, 14 Oct 2026 15:47:02 +0300
-Message-ID: <20261014124704.1017782-2-tariqt@nvidia.com>
-X-Mailer: git-send-email 2.44.0
-In-Reply-To: <20261014124704.1017782-1-tariqt@nvidia.com>
-References: <20261014124704.1017782-1-tariqt@nvidia.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ArcUYW7P"
+Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b1b12de661so39328a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 05:48:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791982117; cv=none;
+        d=google.com; s=arc-20260327;
+        b=B/JqlQIVQ3rSiC4wQrCtwf0Up/QjhCOlubFNRP66ltyM5RzNeWndnh3TDrl2j5lfkR
+         Ufdw+eDjUboOKa8js3x4aWEt71ExYZbnb987yeitEFlmX9AY+xCB8BOkj7Sny1Rjl0FW
+         3rFIsAcya5nwpuZlHgYFaw9X5PhEhHbZFJNBuruuEZ7yi8roB7fxIsxx0u9raFDeL76I
+         51bi2duq8nyYJb7sv/zNPHuXiLeXt/aRf/b3cjJE5eDOUFyINfBkMleD0N3qveERfLyS
+         B9YNEwS+OhXGn0o5r5veC5DJCRX48enDGgxcfdaDcYUmK65StPtujiZdJaJWM1DfuW/h
+         ccYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ZQL2xas4nG18KleQ+fT63AHqIIDtA2su0UrfgqIbaUY=;
+        fh=zhoGh4kb6eL6sxeUEjV3RDjbT97Q0KqzS0b1EpEYA9A=;
+        b=plky1BjhXWzegS0ucvQmnS+nlPw86e5++U/W/OsITZ5S6UfxBi3+0APgvsLefE7tMm
+         FyILLhYvfQJODe9PUllbQOFwxub/IsAwuhSYdHFW/lV5b0/3HRF+6oQzuU0FXeTzDmd5
+         EqdazvismolTHl6doylfHdr3ND8QpdhLQ3qa3IjuJyHjEt9Jd8Dpz/axYerhIFzanWl2
+         kzocNxHIqlrCFIbjhPWXDOEqOgEk0A39BVzuDfS9pJXWidIFBsZmej5K+ZaP5i0LZ8IY
+         Im5U4rxEpbyiDp9CUNxMCbT2XV3hY7EVtiVWLpenTNRCyDlfdub06grK/geErMT1NTfG
+         6V1g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791982117; x=1792586917; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZQL2xas4nG18KleQ+fT63AHqIIDtA2su0UrfgqIbaUY=;
+        b=ArcUYW7PlGRQMppwNESL5NfTwEdvl54Oot4YOC2WoKwUCaoA7NsFTGNXVw7tfUthDd
+         6KABLnr7CEb3SUwCV1D1LVst2kJbBZZH0GB7u6PXSNGLHs9fp7yGwXPHlb0yQw6MXRfn
+         1FHe+2wZ52Y2NR0bru9BeMi+OvJMMEMMYe/AbVL/5MGckfBa3T5KdzzEH+UQLtG7MkEj
+         He3bPtJQD5QNx3SNrkcctMBlwB9MF9gbOAtm1PNvrbegs+z1oj0rDIrD3e0Fg8bV1X7H
+         X0TaJU6JUh6crWo7To8GvDW3bzJiMY4WmRAsLZ0+EP7TicXpkhu//e3heGs59NwUkdij
+         iNBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791982117; x=1792586917;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZQL2xas4nG18KleQ+fT63AHqIIDtA2su0UrfgqIbaUY=;
+        b=rsGDSNuuRFYv+R4AKitQzJG2LwcGVSge1q3IF09bOt6w6JN9jED76YruRP9X7W1iEA
+         kA2JBNOW6QEFocVWHlrYiAZa/xFUYz18kadx/DrsK1bpsIjJIta4vJ8OYV4pYcg3lqVd
+         BrQI/M3uK3vW78SdHKXdd+4bJua/gyuzF9CoG/6nXaau/QlPHrZTT2hS+wA95ObHz+Hh
+         ekHtEgGFu0+0ujPHHyrvGtd/dXP9aQtBxzQ3ofMZEFykreXSFZfRYoOeQTsMlKSKS3eK
+         irHtZDURuNsSvIz2Cw3I2z4KyuWRvxsFlCfbZQgbpKhEaz5qjdc1rfuysOQR4PbFnGvi
+         2T7w==
+X-Forwarded-Encrypted: i=1; AKwUvBzojRki2ACA8Tml42YbU7A1clPc0lTSgKvh7jmZ8FN1XAsqKbuu8hHRsQp87ptwU7tVm1lUQyB6ZL1aaQs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLFuZyQGTM0fIGWHCIQoqKcrR8LRF7UkBg4iBKQvpuvtuugZcJD
+	68sU4GtEi2eqCvobzNOQ0zELbbZt349SI6FDGiIaX60X+Rd4+XStQlXIhyAmZdLfU/g25NZOBMX
+	x601lN66XgqTRCxWsKGNjIn5c78EmVruY1PR0JbMO
+X-Gm-Gg: AYBFou0LrE5O89R/oRMI/43HtZ5ZSWcrRM1BA8PjpQd6KEK7o/IEXPeNQqLX3dzyPQK
+	zg1Z8mMILYh7SwTvZW+iamkPFw16handcWCZGpdexoXANBA/QeGLUxgqQsTbqTnZYZ5vGR71at5
+	RUnf+IG9upU9XzfsF9H44Rml6+ur6AIQoPVM8ChqS0TvUqAkZxiUYECap2dpndITinXqWxhIgnL
+	zdyvEDJxYjIbU64WW2SZAeDKma6qhK+7hwohXc+UAdX/oXhTk2RDACEiSDD/M+dKX4M4osHAhfV
+	4M8fFwwZ8UfhiA9Db2mxtryrx1MJexxQPaoGit1+VqkIsm01pgGKMnU=
+X-Received: by 2002:a05:6402:424c:20b0:6ae:188e:e119 with SMTP id
+ 4fb4d7f45d1cf-6b20aad471fmr31158a12.9.1791982116138; Wed, 14 Oct 2026
+ 05:48:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F7:EE_|SJ0PR12MB7081:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0c305480-2ddd-4b4f-1f34-08df29f16789
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|23010399003|376014|82310400026|7416014|261009223027099003|56012099006|11063799006|22082099003|10067099003|6133799003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	6JsOtGAzUJGiSrxt1whtcqz9nixkAFPA5cCN6yRKEbUpjw53raxfadSJF+9LcTeyoSEfBDUoWlfeFemys9F6pooV51hRgZHs3hx+d33MJ59oIweG9uSAZ4oi4mzkgQA3s5vGCTRayStMV3O4mDPqW2rW14LwS+RyVgEknG3CyR09f95CTTB78fcPVj3LsP8d8kJ7BX0JCzCVDCnmVCWmEOV1C6zgFKN1ZBy4Z6AkpoGD0zrhUO517a5GCpJGSF0KkCbjt1O9YJvQ7yCnq/evx4BvlZx1DkPgT59kt01Uj35PfBFT55YdnZfnU1ZylhcBbzYoa4kB2eJF2TlWrxUUTXSsGfTdouxZzeUFUOCx2cbbs9yaFxJ4xGKFJ64/fq6SC4KubfM7yL4Ayjtybb5fNreQmlAHpBuip32GpcRAtayTbGQhF2klRklSAjzTaNWXOq6BwQTn28vnw7d1SADIzPl+nQJMvknlpqo4s6OJ21ZraSCJv69jdRYAfkQ5L7vFfShy+CkoIouMM6nkGyodrMmkCq8oKybijvD5dacAKcdC6IcyDBcosoVcTLYTyXY58Q7sBcsbfAwPFgw8/Czb+k2x5hhHJsRQMHN9tfAFf8tUP3NNAcLOxK0TbCgZNeRZ+CuNdKNcRbnHSAnk6/aO2escPOYVM9jKdE/scI3/+tTXknxk9B/2kF/Gk/rCax0dd08Y6MBz365kVHK15C6vIQ==
-X-Forefront-Antispam-Report:
-	CIP:216.228.118.233;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(23010399003)(376014)(82310400026)(7416014)(261009223027099003)(56012099006)(11063799006)(22082099003)(10067099003)(6133799003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	DU3FRHqvr9eNAvLgCRUR60nq+c0ww/6Sn2HKdbneSc2GKvEedfjBx6J5404MODUQ5V+0PHTQqbPt4XkfWAg9d70I3YHZwxzRfTA2dqjBXJOHn8Cx+pUjSJ1/Pt9EysGX0owaySjtbWXae9dKOIlBDDCcuyoxwiUecodmcU26HyCHJLxYdtmaAzOGb2tRmimG/MN9C9DlX+IBKkqSk3pkzYriBLuywp2PNQ+JsYE2Xl7xfOkXI3XuaesDci80tukB+rmNkyfS7cIUcfQe2EgPVrK+JRDclgxzDX/7Um2F9S6oZ9Q3MOp/2JMqU0YlVEkemENibPs3By9b4vsG0lGnIDIQxGAtqRhm7T5O2zFCzxRWiYppUUff96bFVE1cyVccE5fgTZd3KdHmoySWJInlkGVAllhOeohc7ylDbR6cyphG394/NoZ47EOtKFwaOnIk
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 12:48:11.0645
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0c305480-2ddd-4b4f-1f34-08df29f16789
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.233];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001F7.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7081
+References: <20261013231728.883001-1-yosry@kernel.org> <20261013231728.883001-2-yosry@kernel.org>
+In-Reply-To: <20261013231728.883001-2-yosry@kernel.org>
+From: Jim Mattson <jmattson@google.com>
+Date: Wed, 14 Oct 2026 05:48:23 -0700
+X-Gm-Features: AclHuK_eUHrZ3upceONbVQEejfpEzwYMGcSk3TlD294BOAEgQl9aP_4IrxL6XqQ
+Message-ID: <CALMp9eQ3mz_EiV4AcmMC2CQZ47s_uf7XCbhnn7pfvVjHwsXdTA@mail.gmail.com>
+Subject: Re: [PATCH 1/4] KVM: x86/mmu: WARN, don't BUG, when walking a cached
+ root with a PAE MMU
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Yael Chemla <ychemla@nvidia.com>
+On Tue, Oct 13, 2026 at 4:17=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrot=
+e:
+>
+> Replace the BUG_ON() in shadow_walk_init_using_root() that guards against
+> walking a cached (previous) root while the MMU is configured for PAE
+> paging with a WARN_ON_ONCE(), and terminate the walk if the WARN fires.
+> Walking a cached root with a PAE MMU is a KVM bug, as PAE roots are never
+> cached, but there's no need to bring down the host, as KVM can simply
+> bail from the walk.
+>
+> Note, the BUG_ON() is currently reachable by a guest if TDP is disabled,
+> as KVM walks cached roots even if they were created for a different MMU
+> context, e.g. if L2 executes INVLPG while using PAE paging, L1 doesn't
+> intercept INVLPG, and L1's 64-bit root is cached.
+>
+> Add a common error label for terminating the walk, and use it for the
+> existing invalid/dummy root check as well.
+>
+> Fixes: 7eb77e9f5fcf ("kvm: x86: Add a root_hpa parameter to kvm_mmu->invl=
+pg()")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+> ---
+>  arch/x86/kvm/mmu/mmu.c | 13 ++++++++-----
+>  1 file changed, 8 insertions(+), 5 deletions(-)
+>
+> diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+> index aadd5bdc2c97a..126faef5a6476 100644
+> --- a/arch/x86/kvm/mmu/mmu.c
+> +++ b/arch/x86/kvm/mmu/mmu.c
+> @@ -2558,10 +2558,8 @@ static void shadow_walk_init_using_root(struct kvm=
+_shadow_walk_iterator *iterato
+>         iterator->addr =3D addr;
+>         iterator->shadow_addr =3D root;
+>
+> -       if (WARN_ON_ONCE(!VALID_PAGE(root)) || kvm_mmu_is_dummy_root(root=
+)) {
+> -               iterator->level =3D 0;
+> -               return;
+> -       }
+> +       if (WARN_ON_ONCE(!VALID_PAGE(root)) || kvm_mmu_is_dummy_root(root=
+))
+> +               goto error;
+>
+>         iterator->level =3D vcpu->arch.mmu->root_role.level;
+>
+> @@ -2575,7 +2573,8 @@ static void shadow_walk_init_using_root(struct kvm_=
+shadow_walk_iterator *iterato
+>                  * prev_root is currently only used for 64-bit hosts. So =
+only
+>                  * the active root_hpa is valid here.
+>                  */
 
-mlx5e_params keeps two representations of CQE moderation: the private
-flags (MLX5E_PFLAG_RX_CQE_BASED_MODER, MLX5E_PFLAG_TX_CQE_BASED_MODER)
-and the fields rx_moder_use_cqe_mode / tx_moder_use_cqe_mode, which are
-used by ethtool get/set coalesce. Both are used by the driver (ethtool
-get/set coalesce, channel open, moderation apply). When they disagree,
-CQE moderation reported value is wrong.
+Can you please rewrite this poorly worded comment that now explains
+your code below? What do 64-bit *hosts* have to do with this
+bug/warning? I assume that should be 64-bit *guests*. But, even that's
+imprecise. Aren't prev_roots tied to 4- or 5- level paging (i.e. long mode)=
+?
 
-Such an issue can be seen on channel attach or reopen:
-mlx5e_build_nic_params() runs and sets rx_moder_use_cqe_mode and
-tx_moder_use_cqe_mode from device capability but did not set the
-corresponding pflags. So after attach/reopen, pflags could remain zero
-while the fields reflected hardware configuration.
-
-Fix by syncing pflags in build_nic_params from the capability-derived
-fields.
-
-Reproducer:
-
-    ethtool --show-priv-flags eth2 | grep rx_cqe_moder
-      rx_cqe_moder       : off
-    ethtool --coalesce eth2 adaptive-tx off
-    ethtool --show-priv-flags eth2 | grep rx_cqe_moder
-      rx_cqe_moder       : on
-
-Fixes: 445a25f6e1a2 ("net/mlx5e: Support updating coalescing configuration without resetting channels")
-Signed-off-by: Yael Chemla <ychemla@nvidia.com>
-Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
-Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
----
- drivers/net/ethernet/mellanox/mlx5/core/en_main.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
-index 4c6060d54fbe..9fcea0395137 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
-@@ -5407,6 +5407,10 @@ void mlx5e_build_nic_params(struct mlx5e_priv *priv, struct mlx5e_xsk *xsk, u16
- 				 MLX5_CAP_GEN(mdev, cq_period_mode_modify);
- 	params->rx_moder_use_cqe_mode = !!MLX5_CAP_GEN(mdev, cq_period_start_from_cqe);
- 	params->tx_moder_use_cqe_mode = false;
-+	MLX5E_SET_PFLAG(params, MLX5E_PFLAG_RX_CQE_BASED_MODER,
-+			params->rx_moder_use_cqe_mode);
-+	MLX5E_SET_PFLAG(params, MLX5E_PFLAG_TX_CQE_BASED_MODER,
-+			params->tx_moder_use_cqe_mode);
- 	mlx5e_reset_rx_moderation(&params->rx_cq_moderation, params->rx_moder_use_cqe_mode,
- 				  params->rx_dim_enabled);
- 	mlx5e_reset_tx_moderation(&params->tx_cq_moderation, params->tx_moder_use_cqe_mode,
--- 
-2.44.0
-
+> -               BUG_ON(root !=3D vcpu->arch.mmu->root.hpa);
+> +               if (WARN_ON_ONCE(root !=3D vcpu->arch.mmu->root.hpa))
+> +                       goto error;
