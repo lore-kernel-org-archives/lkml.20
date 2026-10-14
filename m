@@ -1,38 +1,38 @@
 Received: from shared-aoh59.rev.nazwa.pl (shared-aoh59.rev.nazwa.pl [85.128.243.59])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A388476056;
-	Wed, 14 Oct 2026 20:06:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D67233A83BF;
+	Wed, 14 Oct 2026 20:06:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.128.243.59
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792008388; cv=none; b=JcJ32+8bv34I1q1I6Y6R2v9KDLVCfmZQfZXU4vtQAc4VtcS7HFY70rQjKLolM2AGVqB4kU98xa3YuimY3Yd19W5GfXyby16qTeKWwf2G9P8kJM64XNpVaUW9D33h/8hcNd+TYhQlWRJg6d155xiWh6zvXa1IJF3O558KSVWe8+Y=
+	t=1792008388; cv=none; b=doBPoODMvd3GW9XCC0/cNi6iVs5tWHMURm9rCIT8KwSu+x/ctA4HjNCe25ICc+NeScypEVPercsc7W+PeO/ZNRKtDnqO2oUaoPfU6c3TPIWfWzbzM278evQf/Q2xfh2Lk1o3qm/au7AWiOZwnoYNZ3dbZqevj0ISGxf0edn32qw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792008388; c=relaxed/simple;
-	bh=CFDzAlI06m0tCCC1S/OpehHW705cd+WuGgMamjfs2L8=;
+	bh=jlAYGy/0N4bb/8wpXxCXCVnIE8lIy1BvxbVQNX2onuw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ClNU4Lcr9eleHsLbaEbKmtZsYI0/tj576+XhIUcLQSxByctTO/7bzPT9YyG4iCnc2uxXINM0T/utUaMlwc+sXacf2WHdXl6wNmI7Ic4vk/RPEHCNolHVHxIB+cSCEm8sF3Z5IUpyLJzf9IznfgTihaYKP60tdNYzz/i8hSLmaI4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=asmblr.net; spf=pass smtp.mailfrom=asmblr.net; dkim=pass (2048-bit key) header.d=asmblr.net header.i=@asmblr.net header.b=FmR9kWLN; arc=none smtp.client-ip=85.128.243.59
+	 MIME-Version:Content-Type; b=C0L/pxnl8f+fcRgE6K9jReTzzf46vngf8L9cbJQ8ek3NLrICowY4EEXmIJEe5Apc7C8Nsb5WjygBGYQoRBH/+x0SfcV1ISLocT6IjfW4DwPrWOd1MnL/wG+MLf0L2VN0nuWSKwEdhHZKXSV4ao9RKR6UhEk6Aysygu8vN9Ml6Gc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=asmblr.net; spf=pass smtp.mailfrom=asmblr.net; dkim=pass (2048-bit key) header.d=asmblr.net header.i=@asmblr.net header.b=i+Ao3fVN; arc=none smtp.client-ip=85.128.243.59
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=asmblr.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asmblr.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=asmblr.net header.i=@asmblr.net header.b="FmR9kWLN"
+	dkim=pass (2048-bit key) header.d=asmblr.net header.i=@asmblr.net header.b="i+Ao3fVN"
 X-Virus-Scanned: by amavisd-new using ClamAV (2)
 X-Spam-Flag: NO
 X-Spam-Score: -0.625
 X-Spam-Level: 
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=asmblr.net;
-	s=1706450368.internal; t=1792008376;
-	bh=Dq+E/XrCMYASPuVffIiDjn7QH/Go9EhW8/h2dFcZAXk=;
+	s=1706450368.internal; t=1792008378;
+	bh=IxLrYtMhhqSn0Eq7yboPMnwLTO5CQM4clEaxJAQRAsY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FmR9kWLNUGNlDEjV/IBzm4R+ilRE/mdQ0TaS0XvAIlpGdfy1QbWb0TcMZL9gnv4Tb
-	 q+O3sU8WpWCKg0WwH0YWEoiFRKlKTfSWPj1gnnKXeuR5rk7rsvjngRihPUzkGCM/lC
-	 LwAACsxIWRDi3fkuZ4GQssYUFXyG9BICd/SW6PyvEXZZsbK5ZdPZphiaXkAFofNls6
-	 fCxQQNJA/8FgQ0zbzIwtblhIoudS9/a29o6Qvh98TVzc67m49ze7HdU8QF4orh0bjW
-	 aN2trO/fTN5HM++jD3Bf1Ybxqw6FB2p6Y358iDM1YmSusNj8KUN7zBbtAqj24v5zaU
-	 qEBukXoABwknA==
+	b=i+Ao3fVNxwo9RqltH+X3yc3Yv+w96QvhQSqjNs5HIokCnFB9ZcfvqJkzXoaqoHxcp
+	 NwfUegn5hZm1CF1x62Uqyiw0BzUAuWO9K+WNtdtcTl3Pk2qVPL+gvcKo2iYmtLWc/v
+	 um+YbRFHhr4bbWuSvxv2IDIi4VD+J1S1SIy/W0oKWl9IP1tqbHrxQYP6H3WFag8ktr
+	 GRpMIbklG9gZAGTfJ0sAQMTb/822Zd2V/o6nnANziz8PhNgZcUA4uF/dbiLqhZTPK0
+	 e74m1FwXuz28S9uLuA92VgX9En/7851pnPi1RNc4OoBwNZdxVUsKdbqhGKOT2nKXOb
+	 cEXa0dz5RRpTA==
 Received: from milkyway (91-150-221-36.dynamic.play.pl [91.150.221.36])
-	by server753313.nazwa.pl (Postfix) with ESMTP id B39DB1BC4E1;
-	Wed, 14 Oct 2026 22:06:16 +0200 (CEST)
+	by server753313.nazwa.pl (Postfix) with ESMTP id CC0AE1BC53C;
+	Wed, 14 Oct 2026 22:06:17 +0200 (CEST)
 From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?= <amade@asmblr.net>
 To: linux-sound@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
@@ -41,9 +41,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Takashi Iwai <tiwai@suse.com>,
 	Liam Girdwood <lgirdwood@gmail.com>,
 	=?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?= <amade@asmblr.net>
-Subject: [PATCH 1/8] ASoC: soc-link: Correct stream stop operations in snd_soc_link_trigger
-Date: Wed, 14 Oct 2026 22:06:01 +0200
-Message-ID: <20261014200608.118770-2-amade@asmblr.net>
+Subject: [PATCH 4/8] ASoC: soc-card-test: Check return value of kunit_device_register()
+Date: Wed, 14 Oct 2026 22:06:04 +0200
+Message-ID: <20261014200608.118770-5-amade@asmblr.net>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261014200608.118770-1-amade@asmblr.net>
 References: <20261014200608.118770-1-amade@asmblr.net>
@@ -56,29 +56,41 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-When snd_soc_link_trigger() is called to stop, pause push or suspend
-stream it should call soc_link_mark_pop() on proper target to reverse
-operation from trigger start, pause release or resume.
+Call to kunit_device_register() can fail. Check return result of
+register call. While at it introduce helper variable so that if it fails
+put_device is called on properly initialized variable.
 
-Fixes: 6374f493d93b ("ASoC: soc-pcm: care trigger rollback")
+Fixes: ef7784e41db7 ("ASoC: soc-card: Add KUnit test case for snd_soc_card_get_kcontrol")
 Signed-off-by: Amadeusz Sławiński <amade@asmblr.net>
 ---
- sound/soc/soc-link.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/soc-card-test.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/soc-link.c b/sound/soc/soc-link.c
-index 02fd68f2e702..50ff9ba3ac87 100644
---- a/sound/soc/soc-link.c
-+++ b/sound/soc/soc-link.c
-@@ -161,7 +161,7 @@ int snd_soc_link_trigger(struct snd_pcm_substream *substream, int cmd,
- 			break;
+diff --git a/sound/soc/soc-card-test.c b/sound/soc/soc-card-test.c
+index 47dfd8b1babc..610b8220786d 100644
+--- a/sound/soc/soc-card-test.c
++++ b/sound/soc/soc-card-test.c
+@@ -70,6 +70,7 @@ static void test_snd_soc_card_get_kcontrol(struct kunit *test)
+ static int soc_card_test_case_init(struct kunit *test)
+ {
+ 	struct soc_card_test_priv *priv;
++	struct device *dev;
+ 	int ret;
  
- 		ret = soc_link_trigger(substream, cmd);
--		soc_link_mark_pop(rtd, startup);
-+		soc_link_mark_pop(rtd, trigger);
- 	}
+ 	priv = kunit_kzalloc(test, sizeof(*priv), GFP_KERNEL);
+@@ -82,8 +83,10 @@ static int soc_card_test_case_init(struct kunit *test)
+ 	if (!priv->card)
+ 		return -ENOMEM;
  
- 	return ret;
+-	priv->card_dev = kunit_device_register(test, "sound-soc-card-test");
+-	priv->card_dev = get_device(priv->card_dev);
++	dev = kunit_device_register(test, "sound-soc-card-test");
++	if (IS_ERR(dev))
++		return PTR_ERR(dev);
++	priv->card_dev = get_device(dev);
+ 	if (!priv->card_dev)
+ 		return -ENODEV;
+ 
 -- 
 2.56.0
 
