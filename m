@@ -1,105 +1,184 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-24420.protonmail.ch (mail-24420.protonmail.ch [109.224.244.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DA953EC684;
-	Wed, 14 Oct 2026 18:57:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B109930F803;
+	Wed, 14 Oct 2026 18:57:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792004243; cv=none; b=ly5CgGj6YcwxnRBZJ0DlMFJ8sKiQlRvCx6Z435qt9PTok0VZN86gIB1OZwQzIOpYyTrF31RW43wlV7yisuxejVSkZirwLF1wqYtMsRMtLllpAqpn1S6aqmILz/BnnnFK3oyFQS7chhJBxOZb/XgxzZAzQoZNIhgQZFJdHjlawYk=
+	t=1792004267; cv=none; b=fd2Tem/DEjNU0Em5GYaJkMTZ2iOF0AwB4x1eTJC/jTQ7uJBfHiCkapyj0NaF9Z+rdmUJY7z3HJNFWe9uARkE/dEN9aXmS6peZI5oTpWyHWzFBbGPaBIpyJFPRlxMv8i5hjapg8aZDlGL9ro89sgyXdgpjFnH0yG0njRv8VtJN7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792004243; c=relaxed/simple;
-	bh=WmNcsA5G711yUOhv3vRumoM3sNXabGcZCFbLELV1ebE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mvYcDGVFE7UEru9vZvBy+piWNEOpjU8BPyTS0JNCpn2+2VhnEvylZMziLxb2nxtAG9NC07J4RHWLj1IkGGejJTwKnYrc8FUyYpwkKoV09NtMioNRRvifSSy8WLG4G1k58TRCxGNSb9D/0sq4HM297ahfkxTHulPTEguwpcrPf6I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G4F521D7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792004267; c=relaxed/simple;
+	bh=2ky2JEHkf5oo9nqbXUOOwx5CR5R9dikAiDNnQyDS/x0=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=Iek3LnyV6FlispRq4vEXLX+cVX77LKxkWjUgk2f0JnJXjUN8oPKvDDpi3NN12QjZKsmfRGq9iIOEYHdJWkSt60nseqTfE81iz3OorjWb0Xg6SDTGuDncN+kdEQD3YHUuNaMDzJnj2ZFD8ls16Vf/TzselV0O4cOusu1Iw3YKS8M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=davidbq.me; spf=pass smtp.mailfrom=davidbq.me; dkim=pass (2048-bit key) header.d=davidbq.me header.i=@davidbq.me header.b=G9ozIUeQ; arc=none smtp.client-ip=109.224.244.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=davidbq.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=davidbq.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G4F521D7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 314031F000C4;
-	Wed, 14 Oct 2026 18:57:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792004241;
-	bh=CvWOaTUlMXOEn3tnxgA4QdZqJ3etpFx5xwMvPC1gXq4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=G4F521D7LiiIZZCqQVxHOB/nZBiu4tBxIrJQIPczjUHE+9a4ljcAa5OTOC19AOt/M
-	 rGoKmaMxA+wiyvhsWOZZEmMlyGxP3Fht7DONoGYHa8rKGnJNPOBU7hqGwasqMppiDD
-	 lj4CXohfxWrglWa+txVDNBw+bPCOdgEhQTckY2zfH0ZHgR0L/WNgTXn5Zeh/5QgqxV
-	 NQTLBjMv2/0kf0itpRvtcPZcdOJMQYdLblZtfduOYIvb2NT7t0hKKaPc4AedK6EZLm
-	 sCYsf901oGif3DjXDGjJHt6feyuSnqKqJoGw1fNebhvxz0Rnprqy5WN4zEg1AFqjcX
-	 mLR9Es3GE/qkw==
-Date: Wed, 14 Oct 2026 19:57:16 +0100
-From: Simon Horman <horms@kernel.org>
-To: Sagi Maimon <maimon.sagi@gmail.com>
-Cc: netdev@vger.kernel.org, radhey.shyam.pandey@amd.com,
-	michal.simek@amd.com, andrew+netdev@lunn.ch, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	daniel@iogearbox.net, jacob.e.keller@intel.com, joe@dama.to,
-	suraj.gupta2@amd.com, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v4] net: axienet: free outstanding TX buffers in
- axienet_dma_bd_release()
-Message-ID: <20261014185716.GD83879@horms.kernel.org>
-References: <20261004083759.1016519-1-maimon.sagi@gmail.com>
- <20261007034620.1360542-1-maimon.sagi@gmail.com>
+	dkim=pass (2048-bit key) header.d=davidbq.me header.i=@davidbq.me header.b="G9ozIUeQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=davidbq.me;
+	s=protonmail; t=1792004256; x=1792263456;
+	bh=9cPE8sJgvAuIuDlgjPyOglvFdNvaO2sHV9bRLSkaJc8=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=G9ozIUeQiW0+5rgkhEKi2pyjKpWNm1SAkTCW2sSOjTfqSlAF5YOz8l7fkCQ/dQHGI
+	 68+syymC0Qeqr87Gyk4p3TG0gDd/rswW93f715odCqCvLSU4/rAuFs3sYyzikw2z4L
+	 DjWBQJCzAQmrRI0Y9GjZQoKdyg+QNmMraPxkQQCdSjmLXd0ZjIGkDTP/m+2uix1jHM
+	 pGxSUeiptcPr30QZbbNNiXEeRPJe77dYcvaI4wg9bmhUlrOVjGdhUZ9b0s03Q6xtMa
+	 JDT6uUt98LFkE1Vfcsu0yPKqUyzu+/6Snw8eGATazgdro7nHHQMdu9ZWmJY1OHdC7j
+	 dhAZvertO7gGA==
+Date: Wed, 14 Oct 2026 18:57:25 +0000
+To: Sean Christopherson <seanjc@google.com>
+From: David Ballesteros <linux@davidbq.me>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: KVM: ioapic RTC EOI tracking wedges on non-FIXED delivery modes
+Message-ID: <20261014185709.58592-1-linux@davidbq.me>
+Feedback-ID: 221125243:user:proton
+X-Pm-Message-ID: 3a57efbd88323e4def158ee51814ed7c258edcf1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261007034620.1360542-1-maimon.sagi@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 07, 2026 at 06:46:20AM +0300, Sagi Maimon wrote:
-> axienet_dma_bd_release() walks the RX ring to unmap and free every
-> receive buffer before releasing it, but frees the TX descriptor ring
-> with dma_free_coherent() alone.  Any descriptor that
-> axienet_free_tx_chain() had not yet reclaimed still holds its skb and
-> its streaming DMA mapping, and both are lost.
-> 
-> axienet_stop() disables TX NAPI and stops the DMA engine before calling
-> it, so nothing reclaims those descriptors afterwards.  Bringing the
-> interface down while frames are in flight therefore leaks up to
-> lp->tx_bd_num skbs and mappings each time.
-> 
-> axienet_dma_err_handler() already walks the TX ring this way before it
-> restarts the DMA engine: it unmaps every descriptor whose cntrl is still
-> set - axienet_free_tx_chain() clears it on reclaim - frees any skb still
-> attached, and clears the descriptor.  Move that loop into a helper,
-> axienet_free_tx_bufs(), and call it from axienet_dma_bd_release() too.
-> This relies on axienet_stop() having stopped the DMA engine first, as
-> the RX walk in the same function already does.  The helper frees the
-> skbs with dev_kfree_skb_any(), as drops: in the error handler, which
-> runs from a workqueue, that frees them directly rather than deferring
-> them to softirq as dev_kfree_skb_irq() did.
-> 
-> The walk must not run on a ring that is not there.  axienet_open() does
-> not check the result of the reset that runs axienet_dma_bd_init(), so
-> when that reset fails tx_bd_v is either still NULL or, after an earlier
-> close, points at the ring that close freed.  Clear tx_bd_v and rx_bd_v
-> once their rings are freed, and skip the walk when tx_bd_v is NULL.
-> That also ends the second dma_free_coherent() of a stale ring which the
-> same path already did.  On the axienet_dma_bd_init() error path the TX
-> ring has just been allocated zeroed, so the walk does nothing.
-> 
-> This was reported by the Sashiko AI review bot.
-> 
-> Tested on the AXI Ethernet MAC of an ADVA TimeCard X2 (PCIe card, with
-> the built-in AXI DMA): traffic passes, and after each of ten down/up
-> cycles and five module reloads, all made with traffic running and each
-> running axienet_dma_bd_release(), traffic resumes and nothing is logged.
-> The leak itself was not measured, and neither the failed-reset paths nor
-> axienet_dma_err_handler() were exercised.
-> 
-> Fixes: 8a3b7a252dca ("drivers/net/ethernet/xilinx: added Xilinx AXI Ethernet driver")
-> Reviewed-by: Joe Damato <joe@dama.to>
-> Assisted-by: LLM sparse
-> Signed-off-by: Sagi Maimon <maimon.sagi@gmail.com>
+Hi Sean, Paolo,
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+It was your tripwire in cc3d0e1afd10 ("KVM: x86: WARN (once) if RTC pending
+EOI tracking goes off the rails") that led me here. While auditing the
+ioapic RTC EOI tracking logic with its arithmetic invariants in mind, I
+found that the check cannot fire for the failure mode it was hunting for.
+It turns out there's a third desync state, silent and permanent, where
+rtc_status.pending_eoi > 0 while rtc_status.map is empty.
 
-In future please post new patch revisions as new email threads,
-not as a reply to an earlier revision.
+With in-kernel irqchip, a guest-kernel source that performs two MMIO writes
+to the guest IOAPIC (0xFEC00000; reachable only from guest kernel mode) to
+write a non-FIXED delivery mode into the RTE of the RTC GSI permanently
+wedges the tracking. Every later RTC IRQ of that VM is then silently
+dropped, and the VM loses its timer. To be fair though, no host boundary is
+crossed since a guest can only freeze its own VM, so I'm reporting this as
+a correctness bug on the normal channel.
 
-Thanks!
+The root cause lies in an asymmetry: ioapic_service() counts any accepted
+delivery into pending_eoi (arch/x86/kvm/ioapic.c:491), but
+__apic_accept_irq() only sets map bits for FIXED/LOWEST modes
+(lapic.c:1433-1438). As a result, modes like NMI, INIT, STARTUP, SMI, and
+EXTINT return result > 0 without touching rtc_status at all. By design none
+of these receive an EOI, so no ISR bit is ever established for the paired
+decrement.
+
+When RTE 8 (RTC) has delivery_mode !=3D FIXED/LOWEST, the next tick causes
+ioapic_service() to count N accepted deliveries into pending_eoi while the
+map stays empty. Both sides of the invariant hold from each side's own
+bookkeeping; the system is simply counting two different things. Then every
+later tick gets discarded in ioapic_set_irq() before ioapic_service() even
+runs (ioapic.c:225-229: gate on rtc_irq_check_coalesced()), so pending_eoi
+never gets re-assigned. The WARN_ON_ONCE sits inside the RTC branch, one
+call below that gate, which means it can only fire if ioapic_service()
+actually reaches pin 8 with a stale count. In the stuck state, the gate
+closes the signal before the WARN can evaluate it.
+
+I verified this statically on mainline 0fcb05b72344, v6.1.74, and a
+hardened 7.2-rc5 build (the git history confirms no commit since cc3d0e1
+touches this logic). Dynamically, the same reproducer showed the identical
+stuck state (pending_eoi =3D 1, map =3D 0x0 observed live with kprobes) on =
+both
+hardened 7.2-rc5 and upstream v6.1.74. On the hardened build carrying
+cc3d0e1, the warning never fired across 6 runs with clean dmesg. To keep
+the claims straight on the other two trees: that observation is
+dynamic-only on the hardened build, since that is the only tree carrying
+cc3d0e1afd10 I could run on; on mainline it follows statically from the
+gate analysis above (the WARN is unreachable in the stuck state), and
+v6.1.74 predates the commit, so there is no WARN there. Rewriting the RTE
+back to fixed-mode does not recover the timer. A same-harness run with a
+fixed-mode RTE delivers 100/100 ticks normally. Causality closed when a
+build with the fix delta made the same reproducer behave correctly (ticks
+flow, no coalescing).
+
+I'm keeping the reproducer off-list; the tarball is packaged and ready, so
+I can send it in a single reply. All run hashes and a pre-registered
+prediction record are available on request, and I can also re-run on an
+upstream mainline build on request.
+
+The fix I believe is right is to count into rtc_status only deliveries
+that participate in EOI pairing. Concretely, in ioapic_service(), take the
+RTC branch (and its pending_eoi =3D ret assignment) only when the RTE's
+delivery_mode is FIXED or LOWEST. This preserves the current gate
+semantics without forcing __apic_accept_irq() to populate the map for modes
+that architecturally won't receive an EOI the kernel can associate back. I
+validated it on the same rig: 3/3 runs post-fix show every tick delivered,
+coalesced =3D 0, and the observed rtc_status stays consistent (map populate=
+d
+whenever pending_eoi is armed). Normal fixed/lowest path remains
+unaffected (100/100 delivered, EOIs paired).
+
+Separately, the tripwire itself could be extended to catch this class
+directly (WARN if pending_eoi !=3D hweight(map)), though I left it as-is in
+the patch.
+
+The minimal patch with explanatory comments is inlined below. If this
+direction works, I'll send it through the normal patch flow. It carries
+Fixes: 2c2bf0113697 ("KVM: Use eoi to track RTC interrupt delivery status",
+Yang Zhang, 2013-04-11). The coalescing gate, the pending_eoi =3D ret
+assignment, and the paired decrement all trace back to that commit, so the
+fixed/lowest-only asymmetry is as old as the tracking itself. I haven't
+found any historical change that validated delivery_mode on this pin.
+
+Thanks,
+David
+
+-- ----[ fix patch ]---- --
+
+KVM: ioapic: only track RTC IRQs that can receive an EOI
+
+Only count RTC IRQs into the RTC EOI tracking when they can actually
+receive an EOI, i.e. those with the FIXED and LOWEST delivery modes;
+treat every other delivery mode on the RTC GSI as a plain IRQ with no
+RTC book-keeping.
+
+The tracking counts every accepted IRQ into rtc_status.pending_eoi,
+but __apic_accept_irq() populates rtc_status.map only for FIXED and
+LOWEST delivery.  Any other mode (NMI, SMI, INIT, STARTUP, ExtINT)
+accepts the IRQ without establishing an ISR bit, so no later EOI can
+pair with the count armed at that moment.  A guest can trigger this
+by writing a non-fixed delivery mode into the RTE of the RTC GSI
+through MMIO; the tracking then wedges (pending_eoi > 0 with an empty
+map) and every later RTC IRQ of the VM is coalesced, until the ioapic
+is reset or the irqchip is reloaded.
+
+Fixes: 2c2bf0113697 ("KVM: Use eoi to track RTC interrupt delivery status")
+Assisted-by: Claude-Code:GLM-5.3-flash KASAN kprobes
+Signed-off-by: David Ballesteros <linux@davidbq.me>
+---
+--- a/arch/x86/kvm/ioapic.c
++++ b/arch/x86/kvm/ioapic.c
+@@ -477,7 +477,23 @@
+ =09if (irqe.trig_mode =3D=3D IOAPIC_EDGE_TRIG)
+ =09=09ioapic->irr_delivered |=3D 1 << irq;
+=20
+-=09if (irq =3D=3D RTC_GSI && line_status) {
++=09if (irq =3D=3D RTC_GSI && line_status &&
++=09    (irqe.delivery_mode =3D=3D APIC_DM_FIXED ||
++=09     irqe.delivery_mode =3D=3D APIC_DM_LOWEST)) {
++=09=09/*
++=09=09 * Track only RTC IRQs that can actually receive an EOI.
++=09=09 * The EOI tracking in __apic_accept_irq() sets a map bit
++=09=09 * and a vector for FIXED and LOWEST delivery only; every
++=09=09 * other delivery mode (NMI, SMI, INIT, STARTUP, ExtINT)
++=09=09 * accepts the IRQ without establishing an ISR bit for the
++=09=09 * vector, so no EOI can ever pair with the count armed
++=09=09 * here.  Counting those accepted IRQs into pending_eoi
++=09=09 * wedges the RTC status: pending_eoi stays > 0 with an
++=09=09 * empty map, rtc_irq_check_coalesced() suppresses every
++=09=09 * subsequent RTC IRQ, and rewriting the RTE back to fixed
++=09=09 * delivery does not recover (restore_all runs only at
++=09=09 * inject-all/reset/restore time, not on RTE rewrite).
++=09=09 */
+ =09=09/*
+ =09=09 * pending_eoi cannot ever become negative (see
+ =09=09 * rtc_status_pending_eoi_check_valid) and the caller
+
+-- ----[ end of fix patch ]---- --
+
 
