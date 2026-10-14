@@ -1,76 +1,80 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF048259C9C
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:22:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EF1B47ACF0
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:22:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791962573; cv=none; b=j3gzjjW8YX1EW0EYrGS5eE3S7uL4ruzIkPRw47Iu0Qzjvs6RVAKHInIxo3TV9s36jfItLQbxqNkOMMln8CwgWB2xg3M2WGSh55yg4oLZ8ATGAxiHHAjh058i2146dQn5Y3oDI0WONMLWPqsy+6Pz11Fvr2lG0Frw8mhN7F6cXcU=
+	t=1791962577; cv=none; b=UxwT9uufq9turZyXF7gkSVFiAbvCCQaQDZE59b34UBl/jkfuFT/Gbjox4ERjL82bzHkPMftAbrStNGGQFPgj3lEN6qYTAAp+XyUln4F4TRePXAlM46Sn8o1/MS7ViJhouikVNlqDvhIagPnmxuMYMXHd5VPIwPcWzpKNVByncAg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791962573; c=relaxed/simple;
-	bh=Yj6xdx/HfplobMGFe74RJ/xg4KvP/tPVQp9tLz96PiU=;
+	s=arc-20240116; t=1791962577; c=relaxed/simple;
+	bh=RxMFHdBPhcbQk/XvMD1Q3LpCKXSlp3PhA0DJPF9bQmA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=h5amhAXcpbhs0/I22qR+xbzo/zgJSu5KI6cm9dvlloidrTBlOKtU0z4V+o/klrJWCod1uBT2VaQH8iEK2de4DVQT6ZhC5bd5beQvaEhbjwsELyw7+S+e2vhDOdCi1jpI2bhVcIrK/6oTEk+K1QguRgjy3CTITiLAKia5RlpBivk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ihA+asoi; arc=none smtp.client-ip=209.85.221.52
+	 MIME-Version; b=sZB2FobtUNgiW68FCZdt0O/enAcSVsD0FfDAO2M5FhwMUBJ04S1ozWC4PHTJPq4wkdsNo5JFidRB0Arj210zJqZ6FvFDZlomyvuwh85WxMjzwzlgd12aw6dU04MLjPWx0bp+dVXNsKjdjtD0AHljExzHGFUD2juzNA+yForohvk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XUOPZto9; arc=none smtp.client-ip=209.85.128.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ihA+asoi"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48c4649b35bso88840f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 00:22:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XUOPZto9"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a19cba5c14so31035735e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 00:22:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791962570; x=1792567370; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=09lg+c/R4s/y8iNO4IclaAxHsHOS/zunqEudLnO820k=;
-        b=ihA+asoiHdKsh22CiuVQz0X9GO9IVjDaKrMrkRZGK4bNFilsgjumrvd0IqccRTvKsR
-         jI3424C1kBPnJef4vPZTsr7Cjqbe4J5GvYBuJTurK6vaIDZ2vvtevSbQD4LQMYuA8vuG
-         svGRqDu22SjV3dZAD8y2Xks3UtplU2ek25LnXL11qD/qLE6Awj5rwnBm15gGrccB0aGh
-         Kkdm2T3J4QEaFKTW+mDhOr97pX3A2ZfEPKZyGqNvgLfjRby1LpT+vv+4IhDCkjRGWKZp
-         x3GzwylMLiKwwBVNpKUbCjk1s0djitQTQGYUxlOpkcXC7lc8Dy53uIYvaEgLhKVA2Y3M
-         3FDg==
+        d=gmail.com; s=20251104; t=1791962571; x=1792567371; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+cCpO3mm93VdvLC92oeje7VMfvdRi9PpFQzlDPGKJXc=;
+        b=XUOPZto9HVavWhNdje7Bnj2cew0P3CDLzcyXrHqfN71VoloamOYcTZDBDwALbhRzqh
+         hrrPQOK+WlLqrClgziWR/Pqhi0Qi/nNIlGM9YKzSNyTGElvkoamrKJUv/r7T9jsglU5q
+         n+FJoliXJdDkjDvO5Nm9uTtJmD/Md49QXWX7icBcen4j2CWPCXDmfdb+CN3bJJ7L7muU
+         EK1Ype2ePtPDxnWhLt+d7imf/kzXpZarucUUM+nLLcBe7Cg5bkXOYuyCTj9/uQGx5v2l
+         mJWzqCr0Zdzodp3KKX0rbBlpwvgjXWdHYhMTAym1UjKsRUzWYigY9OvqkC9oSzC0vayO
+         CUpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791962570; x=1792567370;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=09lg+c/R4s/y8iNO4IclaAxHsHOS/zunqEudLnO820k=;
-        b=Ft8GzwO8nteVJnN92BBeEjIsJj5tLRMPOqUJS+ow6weiRpiJCEnClmDg17oNn2CkeS
-         XXUYaMXKE+OajlIp/W3x+FZjD8lvZfsNH8g7SKCxweGW779CHzGKdT6PXFdHrdCJqIYx
-         eVkeLkheSr9SLtJ1s+swHDqc70LorEr68CKsKUhNmoaYfh+ZEVMdrL5N/j5VE99m/F/g
-         qG5WtuU1G9MvmUoJOnOvz4IZ/vr0DWIcbIaG/W3CjVaBqFuxn7Ot+EYWGDk/+QMnquTh
-         duumc41uqW59LMhv5MslkGD8dTCjNUQPJMfqZH4Z5x9v8/UfGeWZesQ8I/SZK5Zzpp7J
-         AGjw==
-X-Forwarded-Encrypted: i=1; AKwUvBxAWarz4jdSfW4+4l27t6gQKl+TBBAWw+a7tsGKs0Bdxm361pSfoCGGPM7ujwyhrUS8eBF2pDhYXzPq5Z4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLEWgOdEdoonH+ZATyVodDyw08unDvvaNevOP70G0e8HeHfWnYc
-	ne9ZvChy7LrPMWXbslk/W0PcUHRDFYPlI/7MfCz76yiL6k6fHgAzaljKyUMfVrh6hBXCnw==
-X-Gm-Gg: AYBFou3xppl4kqVTEHIQYVin53Vq2+evE359XuEbVcA4ZPpNu/LLgvgZ/MCMkoidi7C
-	9wsdI6BNgPctMrQMbItUPC+i6l3TqyzCZktbDcGFwwy7X7pOF3VxoXiUlHcylTHh3R1S9Aqi7SR
-	m2SGXhsMmbJkfTiZplGTnDGcZlXrgB3gFBwO/YzHfCv9UEowME7cIsVrNXSeluNCF6ucSZiM+1I
-	7njL+0eBEnP9gD8Ejormlu5hW4xPYFw7lkTL+cnwvTUEoNqyCcGEnthnOyQmZ3XGPFUJgg2e23e
-	eMrbu2Mz4CsRes6BxT/N5ajU0Ml2UjDeUHTrYK7kOGSvhBOjCaFNMQGKR8wCuIxyVRfLd+zld5s
-	TfoilHnD4FEOwsA5+GvgU+IClU9eWSxH+rWfnrTAZ5i5QpDp8pVIfOrW4rq4moSQzBRSQT5PKUj
-	1wf/7lFgGEZq8EUCsUEe9UEJfG9wzZiyMR+3cvPEyRfLR2XoVOZXBoVJSZebjgQi1PhTKu4xZKA
-	NmVvaULaLiGtIW+RVFg0XkU4cStpmlyRU0vwpMoH9YTt1/B8FeyaH2/wa7D7Fx9lRnNy6QbhO7x
-	XQT/4+YQY/RHTyIR5rO0QSvGF+NS/jnAoiWQzTg8ir/kT5tcyKrls1S1mNSQ4A0=
-X-Received: by 2002:a05:6000:290a:b0:48b:910:35c3 with SMTP id ffacd0b85a97d-48dbaaefeddmr28879154f8f.35.1791962570140;
-        Wed, 14 Oct 2026 00:22:50 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791962571; x=1792567371;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+cCpO3mm93VdvLC92oeje7VMfvdRi9PpFQzlDPGKJXc=;
+        b=F8tsVyIep3ZmCw8IuzMUHo1Idcc9jH3dowbeWulfjAeQ4ilxZcVDwKxIdLiWEr0wwQ
+         LV9R2uO3jpaRJ6fFwo5xVYmvD9xhYxsX5Bm/PXwBy0Zbgx9v1MPx+3XL2YKpL5ujNZdh
+         8kEPDGx6cYvAu8fQjBK+8YrdvOckaCMjroJykPyFyNcTVfVedHVB4BLEY3Wk6anuH+FY
+         GqAsw2nAprEWZjB9Q5pbg7xdCUB3/ZIQEHol1OzWbP/kV0DJPWk/vr0Ha1m9kwVT2Yv4
+         nnFnL6Hpz9hPT0t3bWawg41yTJF4hfSyRFPYXM4ryG5rtEl5ocbf7H4ey29MZO4Hvl4Z
+         NGBA==
+X-Forwarded-Encrypted: i=1; AKwUvByMCb+lVCaNY5IdENahoEnyJtXxCPSA72TUtDC15CgBjIDmr95RqHGeYmkllp6gK+DDwfBz4J8olj35CNU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKZPzYpdI+IJdDUSU1LXQRLlRum7ypqs4vNCtiH6qZnyh5vtEDs
+	tgNVb1iwlgrjruvfo72mmdlbnUx9ygGx/nnA7n4jPFcREOCqRpWwR3yd
+X-Gm-Gg: AYBFou1I/xxmAIIqjQh13lW6r9kP75LEtvHbSeC6grfh0PE1LEnLMZ0h/ajDuv9wmgt
+	iuE+YqEGQXY363vHfA5nk0fpOP5NI590YPAbmdtOBa4S94vJPHzghrY/8oHSB8ktEfEbB/SW7x3
+	hVFCfRkZfDuJgQRCcRH15nF7FxW5xUh25lOKYORX08KsX0dCJH/HARbkUvZ069ZPqcxzZBBpOrV
+	/JxKZ9MhSnV95yuyizBusnxmt9xPLj25I0onHCg/Ic3gBHe3k0Ht08xxdZCo8kt7F3OoOAFvIb2
+	UuvDNlADhDr4UNIY7VH0ScSfmCGa/LN4ZGqkzu73fA/UzVziwaufhpX7V1qgCnXpCxZbUz3Wkzd
+	PjSuwYGvaZulQW3Fo3RRqd5hmbWcLti1MKspxI4cvQXXIAaXAHngwdf7a8yNV4U362QsDGKbeZz
+	88CQH63w6UmqmwHHz6S6m/R22ihhWTpllfVTI2d5rLpHlqVRgOVDESLnZ+YpXklWl85dXQl+/2+
+	f6POm6FhEeTYYnaED7ahvhFvW9ZsCPPTu4F+jxxbgYGeZd+UQtB+wwGMwwH8rDAf+wY6oomEUXF
+	tIS3qGWU/BvagjvuIDv7bLpJaBZ0qNdZqDRDq9XW7Hvz3xRmdXAUFLYAvlxiWQ==
+X-Received: by 2002:a05:600c:350b:b0:4a1:ad01:f8dc with SMTP id 5b1f17b1804b1-4a1ad01f924mr86376325e9.21.1791962571262;
+        Wed, 14 Oct 2026 00:22:51 -0700 (PDT)
 Received: from navid-pc ([2a01:4b00:a856:6220::a11])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de3f7f8b8sm8500933f8f.35.2026.10.14.00.22.49
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de3f7f8b8sm8500933f8f.35.2026.10.14.00.22.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 00:22:49 -0700 (PDT)
+        Wed, 14 Oct 2026 00:22:50 -0700 (PDT)
 From: Navid Ghahremani <ghahramani.navid@gmail.com>
 To: linux-arm-kernel@lists.infradead.org
 Cc: arnd@arndb.de,
 	stefandoesinger@gmail.com,
 	krzk@kernel.org,
 	Navid Ghahremani <ghahramani.navid@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 01/24] MAINTAINERS: Consolidate ARM/ZTE ZX SOC SUPPORT with Stefan Doesinger
-Date: Wed, 14 Oct 2026 08:20:41 +0100
-Message-ID: <20261014072109.1759502-2-ghahramani.navid@gmail.com>
+Subject: [PATCH v2 02/24] dt-bindings: arm: Add ZTE ZX279128S platform descriptions
+Date: Wed, 14 Oct 2026 08:20:42 +0100
+Message-ID: <20261014072109.1759502-3-ghahramani.navid@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261014072109.1759502-1-ghahramani.navid@gmail.com>
 References: <20261014072109.1759502-1-ghahramani.navid@gmail.com>
@@ -80,62 +84,66 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Unify the ARM/ZTE ZX SoC entries under ARM/ZTE ZX SOC SUPPORT with
-Stefan Doesinger and Navid Ghahremani as co-maintainers, covering
-both ZX29 and ZX279128S platforms.
+Describe the SoC board compatibility, SRAM used by the parked second CPU
+and the SMP enable method.
 
 Signed-off-by: Navid Ghahremani <ghahramani.navid@gmail.com>
 ---
- MAINTAINERS | 27 +++++++++++++++++++++++++--
- 1 file changed, 25 insertions(+), 2 deletions(-)
+ Documentation/devicetree/bindings/arm/cpus.yaml  | 1 +
+ Documentation/devicetree/bindings/arm/zte.yaml   | 8 +++++++-
+ Documentation/devicetree/bindings/sram/sram.yaml | 1 +
+ 3 files changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 4f72b4ac27..b806d1fc1c 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -3894,14 +3894,37 @@ F:	drivers/video/fbdev/vt8500lcdfb.*
- F:	drivers/video/fbdev/wm8505fb*
- F:	drivers/video/fbdev/wmt_ge_rops.*
+diff --git a/Documentation/devicetree/bindings/arm/cpus.yaml b/Documentation/devicetree/bindings/arm/cpus.yaml
+index 5be89c5840..25a141f80b 100644
+--- a/Documentation/devicetree/bindings/arm/cpus.yaml
++++ b/Documentation/devicetree/bindings/arm/cpus.yaml
+@@ -284,6 +284,7 @@ properties:
+           - ste,dbx500-smp
+           - ti,am3352
+           - ti,am4372
++          - zte,zx279128s-smp
  
--ARM/ZTE ZX29 SOC SUPPORT
-+ARM/ZTE ZX SOC SUPPORT
- M:	Stefan Dösinger <stefandoesinger@gmail.com>
-+M:	Navid Ghahremani <ghahramani.navid@gmail.com>
- L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
--S:	Odd fixes
-+S:	Maintained
- F:	Documentation/arch/arm/zte/
-+F:	Documentation/devicetree/bindings/arm/zte/
- F:	Documentation/devicetree/bindings/arm/zte.yaml
-+F:	Documentation/devicetree/bindings/clock/zte,zx*
-+F:	Documentation/devicetree/bindings/gpio/zte,zx*
-+F:	Documentation/devicetree/bindings/net/zte,zx*
-+F:	Documentation/devicetree/bindings/pci/zte,zx*
-+F:	Documentation/devicetree/bindings/phy/zte,zx*
-+F:	Documentation/devicetree/bindings/reset/zte,zx*
-+F:	Documentation/devicetree/bindings/spi/zte,zx*
-+F:	Documentation/devicetree/bindings/usb/zte,zx*
- F:	arch/arm/boot/dts/zte/
- F:	arch/arm/mach-zte/
-+F:	drivers/clk/zte/
-+F:	drivers/gpio/gpio-zx*
-+F:	drivers/net/ethernet/zte/
-+F:	drivers/net/mdio/mdio-zx*
-+F:	drivers/net/phy/sanechips.c
-+F:	drivers/pci/controller/dwc/pcie-zx*
-+F:	drivers/phy/phy-zx*
-+F:	drivers/reset/reset-zx*
-+F:	drivers/spi/spi-zx*
-+F:	include/dt-bindings/clock/zte,zx*
-+F:	include/dt-bindings/reset/zte,zx*
-+
-+
+   cpu-release-addr:
+     oneOf:
+diff --git a/Documentation/devicetree/bindings/arm/zte.yaml b/Documentation/devicetree/bindings/arm/zte.yaml
+index f028d2cec7..a1a3742219 100644
+--- a/Documentation/devicetree/bindings/arm/zte.yaml
++++ b/Documentation/devicetree/bindings/arm/zte.yaml
+@@ -11,7 +11,8 @@ maintainers:
  
- ARM/ZYNQ ARCHITECTURE
- M:	Michal Simek <michal.simek@amd.com>
+ description: |
+   ARM platforms using SoCs designed by ZTE. Currently this supports devices
+-  based on the zx297520v3 SoC which is found in LTE routers.
++  based on the zx297520v3 SoC which is found in LTE routers, and on the
++  zx279128s SoC which is found in home gateways.
+ 
+ properties:
+   $nodename:
+@@ -23,4 +24,9 @@ properties:
+               - dlink,dwr932m
+           - const: zte,zx297520v3
+ 
++      - items:
++          - enum:
++              - zte,zxhn-h3600
++          - const: zte,zx279128s
++
+ additionalProperties: true
+diff --git a/Documentation/devicetree/bindings/sram/sram.yaml b/Documentation/devicetree/bindings/sram/sram.yaml
+index b83fc68319..d1389156c1 100644
+--- a/Documentation/devicetree/bindings/sram/sram.yaml
++++ b/Documentation/devicetree/bindings/sram/sram.yaml
+@@ -104,6 +104,7 @@ patternProperties:
+             - samsung,exynos4210-sysram-ns
+             - socionext,milbeaut-smp-sram
+             - stericsson,u8500-esram
++            - zte,zx279128s-smp-sram
+ 
+       reg:
+         description:
 -- 
 2.55.0
 
