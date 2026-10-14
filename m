@@ -1,87 +1,188 @@
-Received: from mail.thorsis.com (mail.thorsis.com [217.92.40.78])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C9C9282F14;
-	Wed, 14 Oct 2026 14:47:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.92.40.78
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE48836A367
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:48:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791989257; cv=none; b=IoDYtkyhNw6S15NGjOlpgdqn3Zsce51X4QRc3q0HsH65njhEkwN+cXaUNkc/wzRw62bg3cIc1PKGYxe6t//C1QrdPaFKwZkgvH8NZGtVQikhsTNDChBpD9YKnWDMxqoPQM/OKQS2fRHLpoyUIpEqtwk5rxcOevYThW6z+Yny7ho=
+	t=1791989340; cv=none; b=c03MpRNOMCTVQBsh/z/1P56Ct1CTtccx67FjkXRkKaiNfQL+br0e9T9HqDfJXeoGkxGywDM8Jp7JJgMOQR6VQzwql2fVF4bE8aT9smRx6GjPG6+w5Ud2dnDRNccJGiLBJ/zvW/YVGwaetbfD607LDpIK2ZlfY+iR38p7wifDV0M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791989257; c=relaxed/simple;
-	bh=upeD6fUrQMtbrY+ESvSkqKgRSiS+U38urfmzfPe7b0k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MGrp3sHADLn8j6ZXQyyqRPHEfZNxSAq1R97Pz02x8BQMspr7WqxBsXRmjOuM3dyltZYOVRH4uqmfWXRETh5olX2O3s04eNT9GHAq5FVAus6nK8739ITULFgf5kd1CdM+bvBCdOT4LsAJ/qPAUwx864Cnj8wQoTSnVHw4pR3tUiQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=thorsis.com; spf=pass smtp.mailfrom=thorsis.com; dkim=pass (2048-bit key) header.d=thorsis.com header.i=@thorsis.com header.b=s335Ao7X; arc=none smtp.client-ip=217.92.40.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=thorsis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thorsis.com
+	s=arc-20240116; t=1791989340; c=relaxed/simple;
+	bh=j9+aZgHEnds3ISh/9ClPqudGNuxATzy9WD9d0bNw14o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Aa+f4Aa26kcWkSP4AoqzR6hEPej4mOXWYuxucHaZ3n8I3ZEP4zuVP29WHlXB0lr+6HxpX+GwFbnkK+Bqi2M15RuO+tt8v+Oxvjspl8XvGE+nO5dFk0txzFo/dvNz7RU1Gjk9kPwXU4MK4+cPI5Wj16C8rJkA52lL9LLyxvg7VdQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TahbXIvA; arc=none smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=thorsis.com header.i=@thorsis.com header.b="s335Ao7X"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E5032148FDFB;
-	Wed, 14 Oct 2026 16:39:04 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=thorsis.com; s=dkim;
-	t=1791988746; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=o4aBxesv+vBtVvSxWhefHeqzqJtPvappSmoCf4blYE0=;
-	b=s335Ao7XbUWldgKyMzh7twRWMfboqYdP5YUN75P/riJ/gatq/juIoGx5fRSOkdKgsQVHWP
-	m5L5cV0J3k0Ou80A/58TPlpKx+ILfZVMJWiyMjS9XfItgcfenhyWZoUPheSVVPtuswQm4a
-	aDITQ55NfAkuXZmge3K+KVniUXDGdXwpwLNTHB8rgoFqu3n2LAjXQ1Wgwdu3Wqf975ctya
-	s1DyIGkFwirgJz0hzTNWvWHOgnM9x8sc8fHWKzksxHWyRfVU9lAhABvXcMh8ZiFPndntqC
-	RuyBH+g8ggh/swxROklZtU6IAY50kQFg7DKw33POQrXgmSoCGqEtgW3bl9+yXQ==
-Date: Wed, 14 Oct 2026 16:38:34 +0200
-From: Alexander Dahl <ada@thorsis.com>
-To: Mihai Sain <mihai.sain@microchip.com>
-Cc: stern@rowland.harvard.edu, gregkh@linuxfoundation.org,
-	nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com,
-	claudiu.beznea@tuxon.dev, linux-usb@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] usb: host: ehci-atmel: Use dev_dbg() for debug messages
-Message-ID: <20261014-smugness-lather-c65cb20cf37e@thorsis.com>
-Mail-Followup-To: Mihai Sain <mihai.sain@microchip.com>,
-	stern@rowland.harvard.edu, gregkh@linuxfoundation.org,
-	nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com,
-	claudiu.beznea@tuxon.dev, linux-usb@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261014121656.1634-1-mihai.sain@microchip.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TahbXIvA"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48c5b7d5865so458849f8f.2
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:48:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791989337; x=1792594137; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KIXMvV4RGxrQI2o+3q8hLAdGHWQv5V0aUAuVvLhThJE=;
+        b=TahbXIvAjZFCxZR/gFYJ9jaFOc1J9ViibFe2uye0wcYfEiz8nkbwwCuC0yU5Et8sJO
+         EmYev/bi1Jpm+hTWaxpf6mg2vx3UVmrPF5cY6haNFMLAcRxPhcbaHxqZsbXWi0ioImK6
+         JwiJRbD3YRR5mISEK6k8kadBlSuhk92GxeAIaUBwMR3z1+rwi739tsql19jQs3apLD4s
+         b0GckAYdO0LcUcWM+BpvXrAbb+3sddyl4vctKA5ELOd9rsbmhGza4pKjM9y8des4XYMZ
+         e8GXhE3DQrkCsbVzvNreSZeqg+/hU+Wg+OIRBb04lb4HW3eKhQvP1TLZnVGkJKqvaGfb
+         Ji3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791989337; x=1792594137;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KIXMvV4RGxrQI2o+3q8hLAdGHWQv5V0aUAuVvLhThJE=;
+        b=AAA8HG4NZxO4A7s9N/Fnqtk1pUtVQImfZKE96SCGP7Ic4u7Nen2T56TFiVL5shCpQr
+         gUhUfNrzvUM+H1WWZHx+2yO6NDLWrV8ia6hEtXOJcfmSkcq15ucnwbk2vvWAzDFWuSAR
+         EEMb2Kje5sYtIaYinhpyC4Bz13eAcnZplsoqDMDAoOr0RG9w3/zEAYMz98nhprDCDlH7
+         h4FU2OgXio11AqXTg/YsjCFPHDLeU7ttbbqZc9zKDp6Y5w1dKRIX2keKKLWvhrKDEN87
+         86YbxVc+jr/HDjfjNj+MdBUIlWZ+9KdIlxePiafF6jRVyPhSLy6GJU6dylgkPASJ3H1F
+         o+Gw==
+X-Forwarded-Encrypted: i=1; AKwUvBxcBZy9LJnTOisGJ88OK82jfz+hALF4/33te1c4XEmovah8Hk2WUKEeZbIDf7snQFNdx4libtgT9y4OPVg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJv/OiNktqHro8BXo6gnuLZzjOb/Ku9rskuMTH00G4a/0xwdcE4
+	1iQlSfZR0OASiIYkgLdpp2anAlcS/czN5iJDmt7dcoAKf6SZgulu6RhW
+X-Gm-Gg: AYBFou1HTrpjqOC18gWrSOQYvfR1opAFPX2SoMIosf6Y4qXqY7O4kAAJeYFOo5FUTT0
+	8DclmPbXHbz9AhpMK7WyWv9iYzJyoaaao3NmXDpAjrVm3lphw1lK7wyNWKCc66WUHbAX10/1rAu
+	pxtIizO5pLLb7WhJMUNZgWNT7dRj9OLTDRQAxwdaPg7IiLg5h/0xSjGYMER9BUvdnxl0XGiQGBC
+	qO4WQ104McYTfu0CNqtuZfYwrp6Q+PW4coSTWdNYj2SkWS7VxXLhymifH6LGcpR70Ua5ibgBBj1
+	zabTtetpHmIhfSbjr38lEyjd2tqcAQ0sfiiM4a0dwsvMh7yCDLcB9jEbIjtAGqIAqqh7tT9Kxos
+	SGlB2O16sYvlDkkydINaPCiH3cNoPZCEEjS3mFdrBexVxn9A7RB2ynSHdqoaOWl3kmGmGvI/q+P
+	Th69iOmh5clbAisDlaYuSJvFaq1o7Oa+s7Xt9P8avuQsCBcwGB8aE48MWuFe+tYMk6c73ueSXGm
+	9rwZCy1tbT/FElBdwaC99ppWC7qzieyY3TLiA702CtBjFIB7JeztFqggKAAU4l+LvAbjrX2ROCJ
+	JXq4lJ4ZA+tmSlCqQ/C78BBl9LCfOt1sldLYuEEIfvOnXsBVzKTwHT7YFKYqweEESyFuOuZ6KuR
+	mzjK9CqKT5ty0ZO9yGKyV
+X-Received: by 2002:a05:600c:6285:b0:4a1:715d:1913 with SMTP id 5b1f17b1804b1-4a18e4760demr324543655e9.1.1791989336820;
+        Wed, 14 Oct 2026 07:48:56 -0700 (PDT)
+Received: from ?IPV6:2a02:3100:5ad1:60fc:7c7a:4c9b:4d41:afaf? (dynamic-2a02-3100-5ad1-60fc-7c7a-4c9b-4d41-afaf.310.pool.telefonica.de. [2a02:3100:5ad1:60fc:7c7a:4c9b:4d41:afaf])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd068126sm4449255e9.11.2026.10.14.07.48.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 14 Oct 2026 07:48:56 -0700 (PDT)
+Message-ID: <003d3e2a-3568-44f6-a9cc-3202de60da58@gmail.com>
+Date: Wed, 14 Oct 2026 16:48:55 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261014121656.1634-1-mihai.sain@microchip.com>
-User-Agent: Mutt/2.2.13 (2024-03-09)
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v7 2/4] net: hsr: preserve submission order without a
+ forwarding lock
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>, liuhangbin@gmail.com,
+ Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, andrew+netdev@lunn.ch, shuah@kernel.org,
+ kees@kernel.org, petr.wozniak@gmail.com, qingfang.deng@linux.dev,
+ fmaurer@redhat.com, luka.gejak@linux.dev, xiaoliang.yang_1@nxp.com,
+ skhawaja@google.com, stable@vger.kernel.org, sdf.kernel@gmail.com,
+ syzbot+fbf74291c3b7e753b481@syzkaller.appspotmail.com
+References: <20261009201324.17-1-xiexinet@gmail.com>
+ <20261009201324.17-3-xiexinet@gmail.com>
+ <20261014134718.YGcKmfB9@linutronix.de>
+Content-Language: en-GB
+From: Xin Xie <xiexinet@gmail.com>
+Autocrypt: addr=xiexinet@gmail.com; keydata=
+ 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
+ sNySbH3veZ/55EtlXA==
+In-Reply-To: <20261014134718.YGcKmfB9@linutronix.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hello Mihai,
+> What are stacked HSR devices? Looking from the setup in the referenced
+> report this is a bridge device attached to a HSR ring.
+> An announce frame is sent and this goes to hsr_dev_xmit(). This does not
+> look like a normal setup. Is this something you use or is this something
+> the bot came up with?
+It is the setup from the syzbot report, not something we use. In that
+report the slave port of one HSR device is a bridge, and one bridge
+port is a second HSR device. The announce frame of the first device
+holds its seqnr_lock, goes through the bridge, and ends in
+hsr_dev_xmit() of the second device, which takes its own seqnr_lock.
+Lockdep sees the same lock class twice and reports it. With two
+devices this is not a real deadlock. It only becomes one when the
+transmit path comes back to the same device.
 
-Am Wed, Oct 14, 2026 at 03:16:56PM +0300 schrieb Mihai Sain:
-> Use dev_dbg() instead of pr_debug() in the probe function
-> to provide a more specific device message.
-> This ensures the log message is properly associated with
-> the corresponding platform device instance.
-> 
-> Signed-off-by: Mihai Sain <mihai.sain@microchip.com>
-> ---
->  drivers/usb/host/ehci-atmel.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/usb/host/ehci-atmel.c b/drivers/usb/host/ehci-atmel.c
-> index 65747270fd88..b6ba7005be69 100644
-> --- a/drivers/usb/host/ehci-atmel.c
-> +++ b/drivers/usb/host/ehci-atmel.c
-> @@ -99,7 +99,7 @@ static int ehci_atmel_drv_probe(struct platform_device *pdev)
->  	if (usb_disabled())
->  		return -ENODEV;
->  
-> -	pr_debug("Initializing Atmel-SoC USB Host Controller\n");
-> +	dev_dbg(&pdev->dev, "Initializing Atmel-SoC USB Host Controller\n");
->  
->  	irq = platform_get_irq(pdev, 0);
->  	if (irq < 0) {
+> This looks very complex and I am not a big fan of it. I would prefer to
+> break lock chain early assuming the setup is valid/ sane (see above).
+I understand. The queue exists only for the ordering you pointed out
+in v6: frame N must reach every lower device before frame N+1 gets its
+number, otherwise a receiver without the bitmap discard (aae9d6b616b5)
+drops N as stale. In our test an unpatched HSRv0 peer received 19128
+of 20000 frames with the narrowed lock, and all 20000 with the queue.
 
-Reviewed-by: Alexander Dahl <ada@thorsis.com>
+> The ID by itself can be assigned with an atomic_inc() but then you don't
+> have the transmit ordering. So you introduce the workqueue for the
+> ordering which is ugh. I'm not sure how this works if you get
+> submissions from two CPUs given the lock is gone and the workqueue is
+> per-CPU.
+The FIFO and the owner flag are protected by fwd_lock. Only one
+context owns the consumer at a time: either the CPU that found it idle
+and processes its own frame, or the single work item of this HSR
+device. A frame submitted from another CPU meanwhile is appended to
+the FIFO and processed after the current frame, in that order. The
+work item is one work_struct per device, so the per-CPU workqueue
+cannot run it twice at the same time. But I agree it is a lot of code
+for this, and it also serializes all forwarding of one device, like the
+lock does today.
 
-Greets
-Alex
+So for v8 I see two simple options:
+(a) Keep seqnr_lock across the submission like today and only break
+    the re-entry: a frame that enters HSR transmit while this CPU is
+    already inside HSR forwarding is dropped and counted. Ordering is
+    kept, but all forwarding of one device stays serialized.
+(b) Narrow the lock to the counter update, as in v6 and in Hangbin's
+    patch [1]. Several CPUs can forward in parallel. A receiver without
+    the bitmap discard can drop a reordered frame, so the patch would
+    carry "Cc: <stable@vger.kernel.org> # aae9d6b616b5: ..." as Simon
+    suggested there, and the TX statistics move to per-CPU counters.
 
+I would prefer (b) because of the parallel forwarding, if the old
+receiver limitation is acceptable to you. Otherwise (a). 
+
+Hangbin, Simon, your view is welcome too.
+
+Patch 3 works with both: it segments before the lock, and each
+segment is numbered and submitted under the lock.
+
+[1] https://lore.kernel.org/netdev/20260805-hsr_deadlock-v1-1-d8a6f06fc5a8@kylinos.cn/
+
+-- 
+Xin
