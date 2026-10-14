@@ -1,356 +1,166 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f10.google.com (mail-wr2-f10.google.com [74.125.225.74])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50ED751D524;
-	Wed, 14 Oct 2026 13:21:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791984078; cv=pass; b=esh2mInlQyqQ/ezF1eiwVBpJbpw8tT9XLbsaOO5DdTkQGwaoFhGFpQH7vjcCtAiXlEDUCbkpuMjP4wCGuXka374H6lmmfNuxVhAr2kvY70suEh0+QUrENLMxhCkpkPAxIf59/dihSaqqb2GLZ49OGooA+6vjmsRtIrq6IG2FO7w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791984078; c=relaxed/simple;
-	bh=WPqCicLhyMgLMwuyG1U9We5xCvBt5ziTql9y46M4CMg=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=lUivpEoM/H7OWHJuQnAre0OKWzVQCdUaHIIkXVbY3sruX643SbiBJW8eUIJGM+YtprmPlZtcmpjQkK+tw0lXs0UqsmmjhqqHE95k3gul5hvqxchObawTO/hvBrKnAsi5HZ6sutLRzU2mbRAmMhbxMa+yANmX1qZ0iHu99XVTBYk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=Nf2ez91k; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22A0551DE03
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:21:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.74
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791984083; cv=none; b=Vgr9SebRDXsiDPMjQ8QmF56Sj3SET170DJ1feajbuLbcP+zJpxEPUzgaQutcLlpZPFHqBzEnA8GKyqTQvuioCjjEPJG1hI6e+h4wBe9ahDUItPwhuK+3AJZ6ZoOcav5LSAFzYDS7Sv54AdbBBs5Jniruy4mqEITQo3UW9GIK1RU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791984083; c=relaxed/simple;
+	bh=+2DksuN0PXimCBlfhp3flMUyobqYYJ1LAz/bP03IRBA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZcKYQnHhU4IncLMW6JIOuwIVVQAswvNxRujkMf/cKIxBtuGJePRkV4ZJHIFoNf/dRoQv/HFLbuPd5jF+/3sui/vU7uu9ikscAak2r+iXMsLUKDshQHZjlx6cxLfyXvATLUbQY27f616sB79Dz4pn9nxG9HT+wsX3jfgkr03g/hs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OmAnp/a5; arc=none smtp.client-ip=74.125.225.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="Nf2ez91k"
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 655C22018A0;
-	Wed, 14 Oct 2026 15:21:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1791984071;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hMbRbbBiIgkyYJWVgnEuLvQGMAKrsAL3AoruOMfe5IM=;
-	b=Nf2ez91k0+kTT2KhxIUDmy2YIb3zpI0Kd7A22Xr1J1tgFs6NZRtew/7I1zXoKMZHD6lCW1
-	aywkuTHpojj2FA0Mwe94LC4ECn2cHqCuUVGZt6E/s/ZSsOzTaCiyuHN2RWPNLZGXZ1NsYg
-	fV1CCQEO7Qd3LRgLkgVjYYhEYjgajXvt9CjAG0M2ANuDTBXBkPbg1h4XTnGgNCmXhIuLNs
-	cOpaRGa/lulshw0Heiw+Q28BoScA1QTq8aGcs3TUX9eg4ZZIWY4o+RlZ/lj8s7l1ga9bNe
-	e3duEO9JFuQNXFlQ79ciPDR5X2K+CMxe96dJqZfqrYdWHme2HSevGYZOqbct1w==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1791984071; a=rsa-sha256;
-	cv=none;
-	b=OgyHEsg5ElH3Xe3to8fF0mReUPsYPdIeMdxV6uD6XKYvgOj5hFvbs9QH1K35qXURGK12qf
-	5hR//PWpWJXCgVVpbosz1CLqASkvM9huHusT2La9WZAA71IJsIvlfy1gEU9TpA1N5qfIIC
-	zq1XNMl64FUtEs+q0WpKqTdnE7gQkysNDrk8kLjR7oBdIytQDCbCKJRLFsONJeScdUf8gK
-	MqNfvQChBRP2vXk9N4K2Qx1assRJmGwhi4C6kpSo/b57AFvlLMz9U5U/FO7RJrj+6Slcyt
-	QZ8fxJxSYK1yg+CwdRfbGwvcl7uUVxLwZs7CdYAFrgrBoWUEGHcq678KkFCWsw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1791984071;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hMbRbbBiIgkyYJWVgnEuLvQGMAKrsAL3AoruOMfe5IM=;
-	b=TBZ1cyIi2Eqd0TjbvLJ3B2n6DhTx6YTKOVeFimuVc3wbPhYsULTxccMfs3jaiDTyXaZfVg
-	qa+5Mwwd6/HoSdmlr7GgOQpqcub6Zn6b8uCbizmA9d9XOsfRNOCjGR6KfaTCOt73tSAQm3
-	sKNxvbSgOGw6nLE431DR6tJuraw26FPD4LncXxbAjDhrlto/USFId5GxvGE6WD9qhaeO1F
-	RgZxp0ZjgMlNHedgLF75T35YUUSZQlbh3h0w+pbn9w34zPhYa9jozGs0DDT5VSwkPjIBx6
-	OHF6jlIeief9Mor8i6rEApDNaBKBzRqPNq+5YjlddM09LRgCgFdZ8YPMW69N6g==
-Message-ID: <95690313aa006369e994b6c4a7af69b809a84337.camel@pengutronix.de>
-Subject: Re: [PATCH v2 06/24] clk: zte: Add ZX279128S CRM clock and reset
- driver
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Navid Ghahremani <ghahramani.navid@gmail.com>, 
-	linux-arm-kernel@lists.infradead.org
-Cc: arnd@arndb.de, stefandoesinger@gmail.com, krzk@kernel.org, Stephen Boyd
-	 <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet
-	 <jbrunet+clk@baylibre.com>, linux-kernel@vger.kernel.org, 
-	linux-clk@vger.kernel.org
-Date: Wed, 14 Oct 2026 15:21:11 +0200
-In-Reply-To: <20261014072109.1759502-7-ghahramani.navid@gmail.com>
-References: <20261014072109.1759502-1-ghahramani.navid@gmail.com>
-	 <20261014072109.1759502-7-ghahramani.navid@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OmAnp/a5"
+Received: by mail-wr2-f10.google.com with SMTP id ffacd0b85a97d-48df0245ce6so78572f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:21:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791984080; x=1792588880; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mH8cYaV01On54VD3MX65wnE47n38Aav2xpeeuVOOg0E=;
+        b=OmAnp/a5nchU9X8AGD7+9AAixdrpKHiXM+OI6wmg1gzkdeRfGrbozSYH3qbSbT+UeO
+         1FWQ0HHX4QOjOQJw9R30lf+wVA/1k/fAuEWMw2vJGX3QW2AQ4MLHkMNZpKS5dHScSfZ8
+         8Vg9baZfIrwODThd0P/sUhUI/pxV34Ym0qNTZjTiiIGk6UTvgmg54eIEbg/aLW3q+JnU
+         l9/cKRn487hD+0yafcBCl7tnVqnLQcfwJq/2fhcYwCgvofTw8vNlvVoE4nbfZgv+MHW/
+         TT88EQXkF3zWxZkjoT0Xy9aOS4VMn1X9Vw8Hr8sJwpX7tIA3yQJM7ty1aOMoTxKfcwFR
+         gNfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791984080; x=1792588880;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mH8cYaV01On54VD3MX65wnE47n38Aav2xpeeuVOOg0E=;
+        b=aQbzWTqCgwzYfP5zL1Cfm4njLkbr1oQSAPhd/7tEVmXMNjO4sRV8NdGA9axPQZyRjL
+         md743Bqc63vIbs3VT6yL7ILe5wUTPYjNtdmKCiMwg6BsWwgtF5ttegUngFpjd/q8QiTc
+         FvJNVaCN0XpZuQn/eby1Yt1DLB7Y6iz7UAcQDPZrSVcVyKtBJO69UJT02d4QmRUfjLKZ
+         Jr97BJh+ZZTXucImanrLi6TJnAPiB+sgQ7HbYJpWI06EHE3JFsm6TssgPrnqBj0s1qmC
+         Tr3hKRBCftzYUK5cfiK3zpYEBdHDmHj9mfjxIlAsre3YFSMWaK/ujPvNj1Uil70IUA57
+         2JGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy0TyIp4or8hZBEx9h1Dytdad77uA7G1ZEJYIA/mTsCDmRcZLLK+OG7LLcdWkycnUoGVwqtuqBT86kEY3I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLDV5pzZUMIw2qbEeymqAgaZhVPI0iNAR5g1/0m5TocOd27BiSB
+	BxdphRRId3RBphZIBBHcBhxdHX4DGmmg8gAtb8K8apPPwUVs+sk3OfSF
+X-Gm-Gg: AYBFou0H8KYP7eWM26SFKhDtKAtG6XebBVxt84QH/1qT1aJYrRUtELnBM4R2HBLB1pN
+	EiapThs22lYoU2QWb/NVOoTYFu30/NkS8uMJxKUi2vFKSksi4AZ4n/OPpohndjxj9Tbvf9NQ3ko
+	64HMkii4lFHA+ZOrB1N8vdY39PsuJ5E7hF9VHsEfpxgT+LX25j7bGG51zc7aJGmVNN/KWXmMMkb
+	x4I0tt5SP8tmo7rl7dHyEP0ourZ1SuHhqrvH85D02Q29+eINMX78NBQ6IQaC1UH3U5HH++l1Q5J
+	bNEZBXzQyEtZgYwGnCrAVs+iZAjBaF37nmeFR06DP0QoyW6b63Tfl02ZM/3TvgeWlWcQlhAU3ZQ
+	JQdXy3TNKvTxXU3k2Zv0k34Q2VNGrauyv90kNF8WxsghboT7czswSjOIBe0eAfinWeyttmg2mNl
+	N2NHzNS9w0fnfJxkHN8xCxxZ9jRLDIm/1o4fQbLrBYk5cuhbYo/6uAYdbPihOX2TQoY+iF7A==
+X-Received: by 2002:a05:600c:524a:b0:49b:9202:6f80 with SMTP id 5b1f17b1804b1-4a18e4a4f2amr317315465e9.6.1791984079883;
+        Wed, 14 Oct 2026 06:21:19 -0700 (PDT)
+Received: from fedora41 ([37.168.54.225])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bcf2537fsm1250895e9.8.2026.10.14.06.21.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 06:21:19 -0700 (PDT)
+From: Timo Joannin <timo.joannin@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	guojy.bj@gmail.com,
+	error27@gmail.com,
+	Timo Joannin <timo.joannin@gmail.com>
+Subject: [PATCH v6] staging: rtl8723bs: remove unused phy_stat struct and dead prototype
+Date: Wed, 14 Oct 2026 15:21:07 +0200
+Message-ID: <20261014132107.171964-1-timo.joannin@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mi, 2026-10-14 at 08:20 +0100, Navid Ghahremani wrote:
-> Support the top CRM and low-speed peripheral clock controllers of the
-> ZTE ZX279128S SoC. Implement custom reset controller ops mapping
-> logical reset IDs to internal hardware register offsets, and provide
-> CRM2 clock gating and reset controller support for PCIe.
->
-> Signed-off-by: Navid Ghahremani <ghahramani.navid@gmail.com>
-> ---
->  drivers/clk/Kconfig             |   1 +
->  drivers/clk/Makefile            |   1 +
->  drivers/clk/zte/Kconfig         |  14 +
->  drivers/clk/zte/Makefile        |   2 +
->  drivers/clk/zte/clk-zx279128s.c | 758 ++++++++++++++++++++++++++++++++
->  5 files changed, 776 insertions(+)
->  create mode 100644 drivers/clk/zte/Kconfig
->  create mode 100644 drivers/clk/zte/Makefile
->  create mode 100644 drivers/clk/zte/clk-zx279128s.c
->=20
-> diff --git a/drivers/clk/Kconfig b/drivers/clk/Kconfig
-> index f9592fd9ec..5200de26c0 100644
-> --- a/drivers/clk/Kconfig
-> +++ b/drivers/clk/Kconfig
-> @@ -547,6 +547,7 @@ source "drivers/clk/uniphier/Kconfig"
->  source "drivers/clk/visconti/Kconfig"
->  source "drivers/clk/x86/Kconfig"
->  source "drivers/clk/xilinx/Kconfig"
-> +source "drivers/clk/zte/Kconfig"
->  source "drivers/clk/zynqmp/Kconfig"
-> =20
->  # Kunit test cases
-> diff --git a/drivers/clk/Makefile b/drivers/clk/Makefile
-> index b18af485d7..07393019c3 100644
-> --- a/drivers/clk/Makefile
-> +++ b/drivers/clk/Makefile
-> @@ -181,5 +181,6 @@ ifeq ($(CONFIG_COMMON_CLK), y)
->  obj-$(CONFIG_X86)			+=3D x86/
->  endif
->  obj-y					+=3D xilinx/
-> +obj-y					+=3D zte/
->  obj-$(CONFIG_ARCH_ZYNQ)			+=3D zynq/
->  obj-$(CONFIG_COMMON_CLK_ZYNQMP)         +=3D zynqmp/
-> diff --git a/drivers/clk/zte/Kconfig b/drivers/clk/zte/Kconfig
-> new file mode 100644
-> index 0000000000..92fd27ea42
-> --- /dev/null
-> +++ b/drivers/clk/zte/Kconfig
-> @@ -0,0 +1,14 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +config CLK_ZX279128S
-> +	bool "ZTE zx279128s clock driver"
-> +	depends on SOC_ZX279128S || COMPILE_TEST
-> +	depends on OF
-> +	default SOC_ZX279128S
-> +	select RESET_CONTROLLER
-> +	select RESET_SIMPLE
+Commit d355fbb22519 ("staging: rtl8723bs: rename phy_status_rpt_8192cd_t
+to rtl8723bs_phy_status_rpt.") renamed struct phy_status_rpt_8192cd_t
+and propagated its type through the call chain.
 
-Don't select RESET_SIMPLE without using it.
+Remove the remaining unused phy_stat struct in rtl8192c_recv.h along
+with the dead function prototype rtl8723b_query_rx_phy_status() in
+rtl8723b_recv.h which referenced it.
 
-> +	help
-> +	  This driver supports the clocks of the ZTE zx279128s SoC: the
-> +	  top clock and reset module (CRM) with the PLLs, the CPU, bus and
-> +	  peripheral group clocks, and the CRPMs of the two groups of low
-> +	  speed peripherals (UARTs, SPI flash controller, GPIO, MDIO).
-> +	  Say Y if you build a kernel for a board with this SoC.
-> diff --git a/drivers/clk/zte/Makefile b/drivers/clk/zte/Makefile
-> new file mode 100644
-> index 0000000000..a55ffbfaf1
-> --- /dev/null
-> +++ b/drivers/clk/zte/Makefile
-> @@ -0,0 +1,2 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +obj-$(CONFIG_CLK_ZX279128S)	+=3D clk-zx279128s.o
-> diff --git a/drivers/clk/zte/clk-zx279128s.c b/drivers/clk/zte/clk-zx2791=
-28s.c
-> new file mode 100644
-> index 0000000000..892e0c22e5
-> --- /dev/null
-> +++ b/drivers/clk/zte/clk-zx279128s.c
-> @@ -0,0 +1,758 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * ZTE zx279128s clocks: the top CRM and the CRPMs of the two groups of =
-low
-> + * speed peripherals
-> + *
-> + * Copyright (C) 2026 Navid Ghahremani <ghahramani.navid@gmail.com>
-> + *
-> + * The boot loader sets up the PLLs and the CPU and bus clocks, and the =
-driver
-> + * leaves them as they are: it reads them once and registers their rates=
-. The
-> + * gates, and the muxes and dividers of the peripherals, are under its
-> + * control.
-> + */
-> +
-> +#include <linux/bitfield.h>
-> +#include <linux/clk.h>
-> +#include <linux/clk-provider.h>
-> +#include <linux/io.h>
-> +#include <linux/of.h>
-> +#include <linux/of_address.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/property.h>
-> +#include <linux/reset-controller.h>
-> +
-> +#include <linux/slab.h>
-> +#include <linux/spinlock.h>
-> +
-> +#include <dt-bindings/clock/zte,zx279128s-crm.h>
-> +#include <dt-bindings/reset/zte,zx279128s-reset.h>
-> +
-> +/* Top CRM */
-> +#define TOP_CLK_SEL		0x0c
-> +#define  TOP_MATRIX_SEL_SHIFT	15
-> +#define  TOP_CPU_SEL_SHIFT	13
-> +#define TOP_CLK_EN		0x14
-> +#define TOP_PLL_A9		0x18
-> +#define TOP_PLL_AUDIO		0x28
-> +#define TOP_USB_EN		0x48
-> +
-> +#define TOP_NUM_CLKS		(ZX279128S_TOP_USB_REF + 1)
-> +
-> +struct zx_reset_line {
-> +	u16 reg;
-> +	u8 bit;
-> +};
-> +
-> +static const struct zx_reset_line zx279128s_top_resets[] =3D {
-> +	[ZX279128S_RESET_USB_B9]  =3D { 0x4c, 9 },
-> +	[ZX279128S_RESET_USB_B10] =3D { 0x4c, 10 },
-> +	[ZX279128S_RESET_USB_B11] =3D { 0x4c, 11 },
-> +	[ZX279128S_RESET_USB_B14] =3D { 0x4c, 14 },
+Signed-off-by: Timo Joannin <timo.joannin@gmail.com>
+---
+Note: While rebasing onto staging-testing as requested in v4, I noticed
+that the struct rename and u8 * cast cleanup from v2/v3 were already
+applied to staging-testing in commit d355fbb22519 ("staging: rtl8723bs:
+rename phy_status_rpt_8192cd_t to rtl8723bs_phy_status_rpt.").
+This v6 patch contains only the remaining change from v4/v5: removing
+the unused phy_stat struct and dead prototype.
 
-Why store reg in zx_reset_line when it's all the same value?
+Changes in v6:
+- Fixed build failure in v5 caused by leftover rebase conflict markers
+  in odm_HWConfig.c.
+- Dropped patch 1/2 and the cast cleanup from patch 2/2 as they are
+  already in staging-testing.
+- Updated subject and commit message to reflect only the remaining
+  phy_stat struct and dead prototype removal.
 
-On the other hand, keeping reg and adding a bool active_low field would
-allow to share ops between the two reset controllers.
+Changes in v5:
+- Rebased against the latest staging/staging-testing branch.
+- Resolved minor merge conflicts in odm_HWConfig.c.
 
-> +};
-> +
-> +static DEFINE_SPINLOCK(zx_top_lock);
+Changes in v4:
+- Split monolithic patch into 2-part series.
+- Removed dead struct phy_stat and unused prototype
+  rtl8723b_query_rx_phy_status().
 
-Why share the lock? Each reset controller has its own register.
+Changes in v3:
+- Included patch version changelog (missed in v2, sorry).
 
-> +
-> +struct zx_reset_data {
-> +	struct reset_controller_dev rcdev;
-> +	void __iomem *base;
-> +	spinlock_t *lock;
-> +};
-> +
-> +static inline struct zx_reset_data *to_zx_reset_data(struct reset_contro=
-ller_dev *rcdev)
-> +{
-> +	return container_of(rcdev, struct zx_reset_data, rcdev);
-> +}
-> +
-> +static int zx_reset_assert(struct reset_controller_dev *rcdev, unsigned =
-long id)
-> +{
-> +	struct zx_reset_data *data =3D to_zx_reset_data(rcdev);
-> +	const struct zx_reset_line *line;
-> +	unsigned long flags;
-> +	u32 val;
-> +
-> +	if (id >=3D ARRAY_SIZE(zx279128s_top_resets))
-> +		return -EINVAL;
+Changes in v2:
+- Propagated the real struct type through
+  the call chain to remove u8 * casting.
 
-This check is unnecessary, fwnode_reset_simple_xlate() already checked
-this before the reset control was created.
+ .../staging/rtl8723bs/include/rtl8192c_recv.h  | 18 ------------------
+ .../staging/rtl8723bs/include/rtl8723b_recv.h  |  1 -
+ 2 files changed, 19 deletions(-)
 
-> +	line =3D &zx279128s_top_resets[id];
-> +	spin_lock_irqsave(data->lock, flags);
-> +	val =3D readl(data->base + line->reg);
-> +	val &=3D ~BIT(line->bit);
-> +	writel(val, data->base + line->reg);
-> +	spin_unlock_irqrestore(data->lock, flags);
+diff --git a/drivers/staging/rtl8723bs/include/rtl8192c_recv.h b/drivers/staging/rtl8723bs/include/rtl8192c_recv.h
+index b63625ab4e45..072e2b5f6129 100644
+--- a/drivers/staging/rtl8723bs/include/rtl8192c_recv.h
++++ b/drivers/staging/rtl8723bs/include/rtl8192c_recv.h
+@@ -9,24 +9,6 @@
+ 
+ #define MAX_RECVBUF_SZ (10240)
+ 
+-struct phy_stat {
+-	unsigned int phydw0;
+-
+-	unsigned int phydw1;
+-
+-	unsigned int phydw2;
+-
+-	unsigned int phydw3;
+-
+-	unsigned int phydw4;
+-
+-	unsigned int phydw5;
+-
+-	unsigned int phydw6;
+-
+-	unsigned int phydw7;
+-};
+-
+ /*  Rx smooth factor */
+ #define	Rx_Smooth_Factor (20)
+ 
+diff --git a/drivers/staging/rtl8723bs/include/rtl8723b_recv.h b/drivers/staging/rtl8723bs/include/rtl8723b_recv.h
+index e9ebecb224a6..2f230e2d27a4 100644
+--- a/drivers/staging/rtl8723bs/include/rtl8723b_recv.h
++++ b/drivers/staging/rtl8723bs/include/rtl8723b_recv.h
+@@ -84,7 +84,6 @@ struct rxreport_8723b {
+ s32 rtl8723bs_init_recv_priv(struct adapter *padapter);
+ void rtl8723bs_free_recv_priv(struct adapter *padapter);
+ 
+-void rtl8723b_query_rx_phy_status(union recv_frame *prframe, struct phy_stat *pphy_stat);
+ void rtl8723b_process_phy_info(struct adapter *padapter, void *prframe);
+ 
+ void rtl8723b_read_chip_version(struct adapter *padapter);
+-- 
+2.56.0
 
-Consider sharing a read-modify-write helper between implementations.
-
-> +	return 0;
-> +}
-> +
-> +static int zx_reset_deassert(struct reset_controller_dev *rcdev, unsigne=
-d long id)
-> +{
-> +	struct zx_reset_data *data =3D to_zx_reset_data(rcdev);
-> +	const struct zx_reset_line *line;
-> +	unsigned long flags;
-> +	u32 val;
-> +
-> +	if (id >=3D ARRAY_SIZE(zx279128s_top_resets))
-> +		return -EINVAL;
-> +
-> +	line =3D &zx279128s_top_resets[id];
-> +	spin_lock_irqsave(data->lock, flags);
-> +	val =3D readl(data->base + line->reg);
-> +	val |=3D BIT(line->bit);
-> +	writel(val, data->base + line->reg);
-> +	spin_unlock_irqrestore(data->lock, flags);
-> +	return 0;
-> +}
-> +
-> +static int zx_reset_status(struct reset_controller_dev *rcdev, unsigned =
-long id)
-> +{
-> +	struct zx_reset_data *data =3D to_zx_reset_data(rcdev);
-> +	const struct zx_reset_line *line;
-> +	u32 val;
-> +
-> +	if (id >=3D ARRAY_SIZE(zx279128s_top_resets))
-> +		return -EINVAL;
-> +
-> +	line =3D &zx279128s_top_resets[id];
-> +	val =3D readl(data->base + line->reg);
-> +	return !(val & BIT(line->bit));
-> +}
-> +
-> +static const struct reset_control_ops zx_reset_ops =3D {
-> +	.assert =3D zx_reset_assert,
-> +	.deassert =3D zx_reset_deassert,
-> +	.status =3D zx_reset_status,
-> +};
-> +
-> +/*
-> + * Reset bits are cleared to hold the reset. The registers also hold oth=
-er
-> + * controls, but no other driver writes the reset registers.
-> + */
-> +static int __init zx_top_reset_init(struct device_node *np,
-> +				    void __iomem *base)
-
-Why is this initialized from CLK_OF_DECLARE_DRIVER()?
-Surely USB resets are not required early?
-
-> +{
-> +	struct zx_reset_data *rst;
-> +	int ret;
-> +
-> +	rst =3D kzalloc_obj(*rst, GFP_KERNEL);
-> +	if (!rst)
-> +		return -ENOMEM;
-> +
-> +	rst->lock =3D &zx_top_lock;
-> +	rst->base =3D base;
-> +	rst->rcdev.ops =3D &zx_reset_ops;
-> +	rst->rcdev.owner =3D THIS_MODULE;
-> +	rst->rcdev.nr_resets =3D ARRAY_SIZE(zx279128s_top_resets);
-> +	rst->rcdev.of_node =3D np;
-> +
-> +	ret =3D reset_controller_register(&rst->rcdev);
-> +	if (ret)
-> +		kfree(rst);
-> +
-> +	return ret;
-> +}
-[...]
-> +static void __init zx279128s_topcrm_init(struct device_node *np)
-> +{
-[...]
-> +}
-> +
-> +CLK_OF_DECLARE_DRIVER(zx279128s_topcrm, "zte,zx279128s-topcrm",
-> +	       zx279128s_topcrm_init);
-[...]
-> +struct zx_crm2_reset_data {
-> +	struct reset_controller_dev rcdev;
-> +	void __iomem *base;
-> +	spinlock_t *lock;
-> +};
-
-This is exactly the same as zx_reset_data, why duplicate it?
-Same comments as above apply here.
-
-regards
-Philipp
