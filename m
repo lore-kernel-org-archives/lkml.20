@@ -1,163 +1,192 @@
-Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30CC93E4C75;
-	Wed, 14 Oct 2026 10:21:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.230.196.243
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C73522C21D0;
+	Wed, 14 Oct 2026 10:22:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791973321; cv=none; b=FjaVo6y+y1XwWHhVK357wQV8LIz6LVhUKlvIVtUpQwofUoypx2lEt5N2pCDD9asZTFVhtt3vvSyE3/0spNMBlxIBFYFHuGxpxroKaveuODcJEjkrR3XgT1+vlC4ayDHKj3Is7F4fi5Du394spOFoRXsfsrCSh76QSbYGV0ehT9E=
+	t=1791973355; cv=none; b=WdrBUWhESKBekUZmnyExKItt6cKe1Fu0v7THeg2koX/glSI/BbsbMAwaYfsOFVfwJD77ZB4GjcRXYsvKKKUSzIOiRvGsbj+bPyU2zMD7GFBbxeUxMzzxKwCkfJPCGA2AFYVn9Hx9fpJnGgm8HQMbMdY6vIJyEftx3ADdNPEUtA4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791973321; c=relaxed/simple;
-	bh=6PhHbGJyneBOewtMI3bjV7aMDnFRJJreKrCh2fxs4bQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DPiyZVBXQs2IVQXoyVF6+GpPZqOXHG75flnt1RNNQLZgYUhlRDLNx9ThTmirkl2zJMi3Y5Jf+g7lKb6I+VVfNlu/uzCYscVRb9AsyxhIiaa1c42QuiKSv+17+7azqq51qOaDDvQcR5o4kv5eXjQWAmgTLuWefXnpi3E8Qk7VtfU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru; spf=pass smtp.mailfrom=astralinux.ru; dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b=L9633jGp; arc=none smtp.client-ip=37.230.196.243
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+	s=arc-20240116; t=1791973355; c=relaxed/simple;
+	bh=1ESQ0ekRio6WEiqPpZNuXzRCMorhN8/L6m7ea8uJC8s=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=arGmyB1fV9HDauVQVUCXqEzW3pm2KmO7lUfT2FWs4kl4HTrWXGGo83RvDZB+ciXxwhvTPpnx4BbEnPEGZnRQrQPDBaboD+dFhbDcsyKxbAc3qRTJ8ceNgSt4MuuP22muHoclezQpUEzeve0BNgQk5L709D5+7riP4IX90ARRk3M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K2kM6Zga; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b="L9633jGp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1791973309;
-	bh=6PhHbGJyneBOewtMI3bjV7aMDnFRJJreKrCh2fxs4bQ=;
-	h=From:To:Cc:Subject:Date:From;
-	b=L9633jGpUrk8dtf/mexqpQnx6IQM6gonmO9MjX1BG0BieJWWyzJhAmbJP6he9LwOI
-	 4Mzql6nwvcKXlnALLLyzXUTl+dQnGoQMUA8Na9Jcx3YN0X2UW5lqMTLmKWArX8Qj2F
-	 jSCQmSi/LOn9omVshJhhF3zhFoEItGbl8nKwKdmabyMFF7FeMzjSltXExY6oG+5Q6J
-	 QwzrKWla2VwZn0Twe8rEcqBvop+Z8LwailI5jCSrZSUvRROHstBZfCm8FtiYlFvLRZ
-	 uHTBKgJXOcTHO3Ofy3BfAsdgvkiChLEk1C/4Hada2JWdKU0kDxY1kCGYbM3pQ3yWip
-	 QYN55YxkV+23g==
-Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 2EE2F25849;
-	Wed, 14 Oct 2026 13:21:49 +0300 (MSK)
-Received: from new-mail.astralinux.ru (unknown [10.205.207.8])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
-	Wed, 14 Oct 2026 13:21:48 +0300 (MSK)
-Received: from DESKTOP-D46TNHI (unknown [10.198.48.143])
-	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4j4S175jJHzDqd;
-	Wed, 14 Oct 2026 13:21:47 +0300 (MSK)
-From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
-	Sasha Levin <sashal@kernel.org>,
-	Muhammad Bilal <meatuni001@gmail.com>,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
-	Sangho Lee <kudo3228@gmail.com>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Johan Hedberg <johan.hedberg@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	linux-bluetooth@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org
-Subject: [PATCH 5.10] Bluetooth: HIDP: fix missing length checks in hidp_input_report()
-Date: Wed, 14 Oct 2026 13:20:14 +0300
-Message-ID: <20261014102016.1807-1-mdmitrichenko@astralinux.ru>
-X-Mailer: git-send-email 2.54.0.windows.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K2kM6Zga"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B0CA1F00898;
+	Wed, 14 Oct 2026 10:22:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791973354;
+	bh=HFwvdFjQOwo7pNUIA7Q1LUEaShtAWaPIThtJF3QfRdg=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=K2kM6Zga5EhfcsonE7sl3EtIK834t52YBu16IpCI54NiHzwbxmjsop6jsIk4seoj3
+	 njJaiBnWL97Mky0phu1y9UjhuwQz43S++fXQhFTaqOCvAt5Y3CWHlddrdzcOw4HvQD
+	 OwRSsDgQeM+ImnftFCyosIEzLm06LF+Sw8A+uwibe47IxbaAp1crYzv0TRWkLhUuZ/
+	 sjaXy5f2p2dVFmncemOue2KWkbbi1T8ySgYR7sjjr9HJDJadx3FE8ysaARLs/ShGJ7
+	 QObrWjZpdlAaIqiSwA5p4QBsUx2sfobMcSd4UIn/jSIi6ioVDd/WsGsm+EarAFiRTP
+	 5VWMjU8ncMtNQ==
+Message-ID: <c5af1a40-e498-4855-8797-2663db83b9e6@kernel.org>
+Date: Wed, 14 Oct 2026 12:22:25 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 127 0.3.127 0884f7b061fa529b810563f359267cd65d2ec05c, {Tracking_from_domain_doesnt_match_to}, new-mail.astralinux.ru:7.1.1;127.0.0.199:7.1.2;astralinux.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 206666 [Oct 14 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.27
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/14 09:13:00 #28683309
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: interrupt-controller: introduce
+ toshiba,tc9564-msigen.yaml
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Conor Dooley <conor@kernel.org>
+Cc: Alex Elder <elder@riscstar.com>, tglx@kernel.org, radu@rendec.net,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ p.zabel@pengutronix.de, mohd.anwar@oss.qualcomm.com,
+ lorenzo.bianconi@oss.qualcomm.com, danielt@kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Daniel Thompson <daniel@riscstar.com>
+References: <20261012190245.3988619-1-elder@riscstar.com>
+ <20261012190245.3988619-2-elder@riscstar.com>
+ <20261013-coexist-sixtyfold-cc6614086d3a@spud>
+ <20261014-eminent-normal-lynx-3ebba3@quoll>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261014-eminent-normal-lynx-3ebba3@quoll>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Muhammad Bilal <meatuni001@gmail.com>
+On 14/10/2026 12:15, Krzysztof Kozlowski wrote:
+> On Tue, Oct 13, 2026 at 06:54:11PM +0100, Conor Dooley wrote:
+>> On Mon, Oct 12, 2026 at 02:02:43PM -0500, Alex Elder wrote:
+>>> Define the binding for the MSIGEN interrupt controller present in the
+>>> Toshiba TC9564 SoC.
+>>>
+>>> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
+>>> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+>>> Signed-off-by: Alex Elder <elder@riscstar.com>
+>>> ---
+>>>  .../toshiba,tc9564-msigen.yaml                | 70 +++++++++++++++++++
+>>>  MAINTAINERS                                   |  6 ++
+>>>  2 files changed, 76 insertions(+)
+>>>  create mode 100644 Documentation/devicetree/bindings/interrupt-controller/toshiba,tc9564-msigen.yaml
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/interrupt-controller/toshiba,tc9564-msigen.yaml b/Documentation/devicetree/bindings/interrupt-controller/toshiba,tc9564-msigen.yaml
+>>> new file mode 100644
+>>> index 0000000000000..39dc63964bd52
+>>> --- /dev/null
+>>> +++ b/Documentation/devicetree/bindings/interrupt-controller/toshiba,tc9564-msigen.yaml
+>>> @@ -0,0 +1,70 @@
+>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>>> +%YAML 1.2
+>>> +---
+>>> +$id: http://devicetree.org/schemas/interrupt-controller/toshiba,tc9564-msigen.yaml#
+>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>> +
+>>> +title: Toshiba TC9564 MSIGEN Interrupt Controller
+>>> +
+>>> +maintainers:
+>>> +  - Daniel Thompson <daniel@riscstar.com>
+>>> +  - Alex Elder <elder@riscstar.com>
+>>> +
+>>> +description: |
+>>> +  The Toshiba TC9564 is an SoC accessed by a host system through the
+>>> +  upstream PCIe port on the PCIe switch it implements.  The switch
+>>> +  includes an embedded PCIe endpoint that provides access to various
+>>> +  SoC peripherals (including an interrupt controller) via its BARs.
+>>> +
+>>> +  The TC9564 MSIGEN (MSI Generator) provides an interrupt controller
+>>> +  with 25 hardware interrupt lines.  It aggregates internal interrupts
+>>> +  and generates a single PCIe MSI to the host.  Each PCIe function
+>>> +  implements an MSIGEN instance.
+>>> +
+>>> +  Each MSIGEN uses a gated clock and reset line.  These are provided
+>>> +  by the clock and reset controllers internal to the TC9564.
+>>> +
+>>> +allOf:
+>>> +  - $ref: /schemas/interrupt-controller.yaml#
+>>> +
+>>> +properties:
+>>> +  compatible:
+>>> +    const: toshiba,tc9564-msigen
+>>> +
+>>> +  reg:
+>>> +    maxItems: 1
+>>> +
+>>> +  interrupt-controller: true
+>>> +
+>>> +  '#interrupt-cells':
+>>> +    const: 1
+>>> +
+>>> +  clocks:
+>>> +    maxItems: 1
+>>> +    description: Gate clock from the TC9564 clock controller
+>>
+>> I'm surprised that the clock is not mandatory.. Realistically the reset
+>> is also mandatory, there's probably one instance of this on the device,
+>> where both clock and reset are connected. I'd add both to the required
+>> list.
+>>
+>> Otherwise this looks
+>> fine to me. I know you mentioned this device in the other series that
+>> we were discussing but I don't see how it is related and is perfectly
+>> fine to implement as a standalone device as you have done here.
+> 
+> I still do not understand why do we need to describe the inner wirings
+> of the tc9564 device. So far I found no posting of DTS showing proper
+> usage of it on the host. Without proper usage, what is the point exactly
+> to describe the inner specifics of tc9564?
 
-commit 2a3ac9ee11dbb9845f3947cef4a79dba658cf6f6 upstream.
+And as shown here:
+https://lore.kernel.org/all/20261012152408.3729237-5-elder@riscstar.com/
 
-hidp_input_report() reads keyboard and mouse payload data from an skb
-without first verifying that skb->len contains enough data.
+there is no single user of any of this (this=reset, clock, irqchip
+probably and more) in upstreamed patches.
 
-hidp_recv_intr_frame() pulls the 1-byte HIDP header before dispatching
-to hidp_input_report(). If a paired device sends a truncated packet,
-the handler reads beyond the valid skb data, resulting in an
-out-of-bounds read of skb data. The OOB bytes may be interpreted as
-phantom key presses or spurious mouse movement.
+I am getting tired to keep discussing it, so next time instead of words,
+please post CODE which is the argument - who uses any of these devices
+you keep adding.
 
-Replace the open-coded length tracking and pointer arithmetic with
-skb_pull_data() calls. skb_pull_data() returns NULL if the requested
-bytes are not present, eliminating the need for a manual size variable
-and the separate skb->len guard.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
----
-Backport fix for CVE-2026-63947
- net/bluetooth/hidp/core.c | 23 ++++++++++++++++++-----
- 1 file changed, 18 insertions(+), 5 deletions(-)
-
-diff --git a/net/bluetooth/hidp/core.c b/net/bluetooth/hidp/core.c
-index 153cda4ed820..299d59838a3b 100644
---- a/net/bluetooth/hidp/core.c
-+++ b/net/bluetooth/hidp/core.c
-@@ -179,12 +179,21 @@ static void hidp_input_report(struct hidp_session *session, struct sk_buff *skb)
- {
- 	struct input_dev *dev = session->input;
- 	unsigned char *keys = session->keys;
--	unsigned char *udata = skb->data + 1;
--	signed char *sdata = skb->data + 1;
--	int i, size = skb->len - 1;
-+	unsigned char *udata;
-+	signed char *sdata;
-+	u8 *hdr;
-+	int i;
-+
-+	hdr = skb_pull_data(skb, 1);
-+	if (!hdr)
-+		return;
- 
--	switch (skb->data[0]) {
-+	switch (*hdr) {
- 	case 0x01:	/* Keyboard report */
-+		udata = skb_pull_data(skb, 8);
-+		if (!udata)
-+			break;
-+
- 		for (i = 0; i < 8; i++)
- 			input_report_key(dev, hidp_keycode[i + 224], (udata[0] >> i) & 1);
- 
-@@ -213,6 +222,10 @@ static void hidp_input_report(struct hidp_session *session, struct sk_buff *skb)
- 		break;
- 
- 	case 0x02:	/* Mouse report */
-+		sdata = skb_pull_data(skb, 3);
-+		if (!sdata)
-+			break;
-+
- 		input_report_key(dev, BTN_LEFT,   sdata[0] & 0x01);
- 		input_report_key(dev, BTN_RIGHT,  sdata[0] & 0x02);
- 		input_report_key(dev, BTN_MIDDLE, sdata[0] & 0x04);
-@@ -222,7 +235,7 @@ static void hidp_input_report(struct hidp_session *session, struct sk_buff *skb)
- 		input_report_rel(dev, REL_X, sdata[1]);
- 		input_report_rel(dev, REL_Y, sdata[2]);
- 
--		if (size > 3)
-+		if (skb->len > 0)
- 			input_report_rel(dev, REL_WHEEL, sdata[3]);
- 		break;
- 	}
--- 
-2.43.0
-
+Best regards,
+Krzysztof
