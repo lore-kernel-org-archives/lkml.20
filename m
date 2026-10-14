@@ -1,150 +1,224 @@
-Received: from fhigh-a8-smtp.messagingengine.com (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B120347F786
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:51:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.159
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B21BA4A841D;
+	Wed, 14 Oct 2026 08:52:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791967902; cv=none; b=gqBvdhWEff+q/WaGC3boKqFPae2UCI4EcWfmpMiiq8YpgI7rUMFv7uq7zFaDwiyf3PUCXBGuXVH898W64ImyWeqK3TT9JT3nr4ovD7TdEP25OtvGhmk3uNFPh3I+OdPriccB1KTRN5znoN+jqQQ/lJIIjkU7WVG+9tiTf4tAGyE=
+	t=1791967952; cv=none; b=qucIMRzQIbkjN8qfBFatCaIQEQx4WSj/2fDW6df+YK4gEg7PiLhu02uuETtzySDSBgLAarj0wnoryqyZRUUr3fa4wYNKBPl7EYBtgW1M7lPMVLZeWAwq+py4qoyzblWTfpiTUqViE+WC5k/wByt7mM/VsZeyu9lPCxWAkO5Z9Zg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791967902; c=relaxed/simple;
-	bh=M0aObq6bJgje0UT2uUYtzH9eDNb/TIATR/h5EGpBzx4=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=RDeUkTJJHcQr7tdFCmdvaGGDJvOhtWMWtKAs2bT58kUz+GVwuYLMwV2QIJ00QCApEoYJE1B7VMs0dBlDLmdTF80M2++t5jR+re8+hKXyFsleMLWNggwtu7E5SqEohJ2P7xrqOiVXHVFsoYgab24Gs53wIKvfXXpN3TxAqKxBK2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=H7Q8uwOd; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=uXnuJTd4; arc=none smtp.client-ip=103.168.172.159
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1791967952; c=relaxed/simple;
+	bh=uBgXEUhJEyTCvIva/iLkM0JNPDAeftjCSjsxPOdBnrY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=TZnSDTArhyOE27l5y+vKJzDaAKKQ/A/LWhx9mPOAUyd7a8E/8DEtDrYqeR0TgeW4GW1T4qqJXYTEeBt4iom8yoyzmg29dCDqmDDj6CwmmLPfwY8cKcPkDQ+oWtKjwm6l7Wv/oYmURel4LoX7GWIPEwPEtMZ0pOORc4NQ9AmLjSQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=I39l4qPT; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="H7Q8uwOd";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="uXnuJTd4"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 9A82514000A2
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:51:39 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Wed, 14 Oct 2026 04:51:39 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1791967893;
-	 x=1792054293; bh=s+LFPCsnRJvUDK1wOaRGQjPBjNNnRquMTT9sppD5pbc=; b=
-	H7Q8uwOdfZ5NC7b7Lsvv01U48s0aTFncOG9VIwFbOOe5N47jIwLMWUYikw7JG0Ri
-	jrcbi941SLOrQHyadwOo9J7mwHjXWjCgP6vsitQLvr5fs26jfIhlsdCTH711ASBx
-	23JYMgTbTlqSTRZI3pWC50O4XBIv45l9M+qBXXbb4jJh/nzSY8kc5XjMLkNSQN9j
-	xbc8OdK308x1/ZYi4EUma+kejvWOPE+7OSj2utwDhspTTto8/6nw7uftpLndrqlD
-	6y30BvDBAHBT1ihJ4+1ljsIYqTxWgKUK3woEc4r3ZSnmqGhK6zHvn8MxmUT0JuQk
-	1qPkDHu8wa2A5OtULYto0Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791967893; x=
-	1792054293; bh=s+LFPCsnRJvUDK1wOaRGQjPBjNNnRquMTT9sppD5pbc=; b=u
-	XnuJTd4UKSjZwjkMpcFrsaHYu29Z0NIP/lmiSEym7AjjBr2of1MybzODN5jJQySl
-	Cj3ndxvY/MpQSneJPdqbgYGLIsNTxTVU6Lt+TrpnFCAa1QglxhctOhnuEwGHRE2n
-	MRivEGXn1M1exXKX/IG2qdNhDxm2MDUERFxgXCHVwjB/O+fttZgVOuO7smVImGg+
-	QYQja4c48Bh683vML4JGtxsNy5NoVW204pM8Dn5K9JzdHvIkigl6R4qeRPWO4M4t
-	6JRj7dWOHyIFaN0luQ9vE9Uh84q5Z63QnsDlEQvAZSxYziGpBr8Yscsf7Zs+XFbP
-	ywdTrJjW48Fs/X5+jVQJw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791967893; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:abJinEQlnVg/qH9OUfZ8qrq0/PBKCxi7eU+8lIDas6Mf9wg
-	oYJ5p+M7E4Xd+ubPdzKj+aLDfQT2hdGhiRdjcWsvShvfRapPlWx70UHQ+dT4U5d0
-	Zj+i0UiZrpmrhOvd2JoXIKHRlgxx4JZ91ZjTk7zKuJ79OuUnGyQXxOVRgzfQHc6B
-	cSdWrpoVxaIzEcagC0mnHdMxyxdJ+ns4pqNXoHAAb0hSrMO+tEZESTdPjMBr2Jho
-	Pdc0QU7s5VIv7RBTJNQe/P0JlC5ppYqg847enQg9CylZEHPhYmmGAkJvQGbPL9xK
-	INjuK+KA5C4DhUuYTP3QM4VQI3fAIMyl63hcPjg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:v6jLbFLw97rgSTMbKiy0NdGsK2y8cjSwS8WxYzPzZMk=:M0aObq6bJgje0UT2uUYtzH9eDNb/TIATR/h5EGpBzx4=;
-X-ME-Sender: <xms:j0LParrUFvTBU9K5I63Y-2el0ciOVViHHyk-Kq_Ou2Yh2hcmMvoRbA>
-    <xme:j0LPageD3rN_ND-tLI8Og7jolQ8CvuytjspA1jFXB1IzvLr0ZLjWp7ZChrJ4OGzri
-    l_C-NceuDSiwG9FaRPinYr0IFnRKdutPSE9NowvdAkbJUcqI5SZj_u5uA>
-X-ME-Proxy-Cause: dmFkZTGfLAdL0vxkYY9Ttp8RamOvH+ay9++SlVeOLJK84cLH+pRPHm/ENjo/I7LTE8S1CS
-    Pt3dYazVhuhFGQGkwCmAnYYyN2w7mdq8y3lgN54SKGHyb3aF+4577m/Tl0GQ5FAxX0GVGz
-    4Z7n1u2AxTAhSmN/KjfRXoFBFt5cDn8bvvDfOyC93p7I5Znsg2Oxh7HIF437xkWy/OP9h8
-    KXiWYFfh9U1fjnFV56J+aeDhe4Qvn/DtUgAeGCpOfq1JTPSP2Mn6y/OdTpM6Q0BzDsSzpq
-    qmhdDTB0vEA3lzY+dRnoDMgr1oZ16v9QXLvTx8RAPx8+WdFl38hiqqKh1QxfSt3nM7VzUT
-    wW4qwdfnUOGClYvS5UpYaaqIQuMcjfjNP8qxSn90BOqzbmjxxGa3nBrtBpLJKok/SPnuMs
-    WGS6raSYS7nXd3S3c5sBTKaB79nmVExOo0fxhAbLNJPhgWs+OUi+SHZ49g975Vksf2RFt1
-    B4Eey1G0WHJEYzpX9tDIK6CMe2oX7qxqVlU9Gf0ncOv/9Rz9Z5QdxNMTboTLIv6W1cMt/B
-    GjYIxcTXmyxAmiarQXOZKDIvr3ar5oAmnV5r0BxhIbKg/UjeF/NxfFaIHAqne8Jobu7rqd
-    vjo4SHyOQni/1IUBfAq6ZWzUue0th1TqM20pp0ltIbnkGn0UTeRCI4YfQ7lg
-X-ME-Proxy: <xmx:kULPatM4VJ1Zwhq655jW2EEW3xBlfzHEbFjBAkoxfR_iU95aYvE_9A>
-    <xmx:kULPar2WUvss1AKYri0cURhIrYpDA_3JivpX165pibkxZYFreSNE2A>
-    <xmx:kULPapQXn-HDuXcQZzYvyCI9G7Z6yfo3mcHSgeKc45ZdgeqgBxpWyQ>
-    <xmx:kULPaulsjdHffN5dkWaQGazC0dX4uVEwOwhf_UwhFQfMHFP5CrYCaA>
-    <xmx:lULPat6tNBS87e05J6rt2D6fCks1s1cE8x5Ay9Y52WC2KUjFub3YZUjp>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 2DBBE32A008E; Wed, 14 Oct 2026 04:51:27 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="I39l4qPT"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 1F8BFC63440;
+	Wed, 14 Oct 2026 08:53:18 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 3A2A560368;
+	Wed, 14 Oct 2026 08:52:22 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DAE79103286A7;
+	Wed, 14 Oct 2026 10:52:14 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791967940; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=i48MIGwzBxi2do2WYXSYPbruC3HoFCZMxRU1UUDDuYs=;
+	b=I39l4qPTZiayixscQ25oSYYL3NpbdUqY5vfY8WjlnawudFpyJfGrP7Qd2xXs+oY+HTA5L9
+	HYG+p+V4eBlDcIkQ33/sT8qNfxC8TxPzOExPZE/a5dM+N52o+LuWWB8KjPTdbW+x9UMPeB
+	Qhecxah11hmwDPZRaT9PiF59W4bRSzao28f6nvWfzVCtSEvWNU49ziJdfT9UvzUTpIujSw
+	iU/fUi0oEKauswQ54YxEGuXjuFAKJNNr7aF6yW+3HO1ThHWX9cevyrzYYK6akFYkZC0gOW
+	PhIc3r6BCCYQxX/ItYeHQdHgIF9KDMPtMIGn2ZmhijQyiPsPDfQXidzI/a9xkA==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Manikandan Muralidharan <manikandan.m@microchip.com>
+Cc: <pratyush@kernel.org>,  <mwalle@kernel.org>,
+  <takahiro.kuwano@infineon.com>,  <richard@nod.at>,  <vigneshr@ti.com>,
+  <robh@kernel.org>,  <krzk+dt@kernel.org>,  <conor+dt@kernel.org>,
+  <srini@kernel.org>,  <nicolas.ferre@microchip.com>,
+  <alexandre.belloni@bootlin.com>,  <claudiu.beznea@tuxon.dev>,
+  <linux@armlinux.org.uk>,  <richardcochran@gmail.com>,
+  <linusw@kernel.org>,  <arnd@arndb.de>,  <aaro.koskinen@iki.fi>,
+  <gregkh@linuxfoundation.org>,  <mathieu.dubois-briand@bootlin.com>,
+  <michael@walle.cc>,  <linux-mtd@lists.infradead.org>,
+  <devicetree@vger.kernel.org>,  <linux-kernel@vger.kernel.org>,
+  <linux-arm-kernel@lists.infradead.org>,  <netdev@vger.kernel.org>
+Subject: Re: [PATCH v8 5/8] nvmem: layouts: add Microchip/SST SFDP EUI
+ layout driver
+In-Reply-To: <89aa4ac1eee01e3c425c12367f1e036354787ce8.1790847519.git.manikandan.m@microchip.com>
+	(Manikandan Muralidharan's message of "Wed, 14 Oct 2026 12:10:09
+	+0530")
+References: <cover.1790847519.git.manikandan.m@microchip.com>
+	<89aa4ac1eee01e3c425c12367f1e036354787ce8.1790847519.git.manikandan.m@microchip.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Wed, 14 Oct 2026 10:52:14 +0200
+Message-ID: <87fqy8zmtd.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AAmuA3xfg9N3
-Date: Wed, 14 Oct 2026 10:50:41 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Andrew Morton" <akpm@linux-foundation.org>,
- "Biplab Raut" <Biplab.Raut@amd.com>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- "Gao Xiang" <hsiangkao@linux.alibaba.com>, "Nick Terrell" <terrelln@fb.com>,
- yann.collet.73@gmail.com, guoxuenan@huawei.com,
- "Nathan Chancellor" <nathan@kernel.org>,
- "Nicolas Schier" <n.schier@fritz.com>, "Kees Cook" <kees@kernel.org>
-Message-Id: <e2afcf01-c77a-4da6-8f56-237d97abdaf6@app.fastmail.com>
-In-Reply-To: <20261012203257.614d88c12146544aa6487b4d@linux-foundation.org>
-References: <20261013032010.2453893-1-Biplab.Raut@amd.com>
- <20261012203257.614d88c12146544aa6487b4d@linux-foundation.org>
-Subject: Re: [PATCH] lib/lz4: add software-pipelined prefetch to decode fast loop
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, Oct 13, 2026, at 05:32, Andrew Morton wrote:
-> On Tue, 13 Oct 2026 03:20:10 +0000 Biplab Raut <Biplab.Raut@amd.com> w=
-rote:
->>=20
->>   Kernel LZ4 median scan:  1.0994 s
->>   Patched  median scan:    1.0472 s
->>   Median paired speedup:   5.09%  (range 4.19%=E2=80=936.99%)
->>   Patched was faster in all 15 rounds.
+Hi,
+
+On 14/10/2026 at 12:10:09 +0530, Manikandan Muralidharan <manikandan.m@micr=
+ochip.com> wrote:
+
+> Add an NVMEM layout that exposes the factory-programmed EUI-48 identifier
+> from the Microchip/SST vendor SFDP parameter table (e.g. SST26VF064BEUI)
+> as a "mac-address" cell, for use as a network MAC address. The vendor
+> table is located at runtime via the SFDP NVMEM device (no offset in DT),
+> and a read_post_process callback reverses the LSB-first bytes into
+> canonical MAC order. Binds to an "nvmem-layout" node with compatible
+> "microchip,sst26vf-sfdp-eui".
 >
-> Well that's nice.  I can't actually recall a case where prefetch made a
-> measurable difference, although I'm sure there are such cases.
->
-> We used to use prefetches often (10+ years ago) but it seems to fallen
-> out of favor.  This code is a prime candidate.  mm/ barely uses
-> prefetch.  Maybe it should,
+> Signed-off-by: Manikandan Muralidharan <manikandan.m@microchip.com>
 
-Unfortunately the patch causes a build regression on x86 when using lz4
-compressed bzImage files:
-x86_64-linux-ld: error: unplaced orphan section `.altinstructions' from =
-`arch/x86/boot/compressed/misc.o'
-x86_64-linux-ld: error: unplaced orphan section `.altinstr_replacement' =
-from `arch/x86/boot/compressed/misc.o'
+Mostly minor nits, see below.
 
-I see that the zero-day bot has also reported this[1].
+> --- a/drivers/nvmem/layouts/Makefile
+> +++ b/drivers/nvmem/layouts/Makefile
+> @@ -6,4 +6,5 @@
+>  obj-$(CONFIG_NVMEM_LAYOUTS) +=3D fixed-layout.o
+>  obj-$(CONFIG_NVMEM_LAYOUT_SL28_VPD) +=3D sl28vpd.o
+>  obj-$(CONFIG_NVMEM_LAYOUT_ONIE_TLV) +=3D onie-tlv.o
+> +obj-$(CONFIG_NVMEM_LAYOUT_SST26VF_SFDP_EUI) +=3D sst26vf-sfdp-eui.o
+>  obj-$(CONFIG_NVMEM_LAYOUT_U_BOOT_ENV) +=3D u-boot-env.o
 
-The problem is that the prefetch() helpers use SMP alternatives
-that are not available in the decompressor. This has been a problem
-in other patches before [2].
+Not sure this is ordered alphabetically, so in general add it at the end.
 
-Not sure if there is an easy way to stop the decompressor from using
-the alternatives here, for 7.4 I assume the only option is to drop
-the patch and try again once that is resolved.
+> +/* SFDP header and parameter header, as laid out on the flash. */
+> +struct sfdp_header {
+> +	u8 signature[4];
+> +	u8 minor;
+> +	u8 major;
+> +	u8 nph;
+> +	u8 unused;
+> +};
+> +
+> +struct sfdp_parameter_header {
+> +	u8 id_lsb;
+> +	u8 minor;
+> +	u8 major;
+> +	u8 length;
+> +	u8 parameter_table_pointer[3];
+> +	u8 id_msb;
+> +};
+> +
+> +#define SFDP_SIGNATURE			0x50444653U
+> +
+> +#define SFDP_PARAM_HEADER_ID(h)		(((h)->id_msb << 8) | (h)->id_lsb)
+> +#define SFDP_PARAM_HEADER_PTP(h)	get_unaligned_le24((h)->parameter_table=
+_pointer)
+> +
+> +/* Microchip (vendor) parameter table identifier: id_msb << 8 | id_lsb. =
+*/
 
-       Arnd=20
+This is not relevant, we saw it just above         ^^^^^^^^^^^^^^^^^^^^^^^
 
-[1] https://lore.kernel.org/all/202610140857.6jRIqXf1-lkp@intel.com/
-[2] https://lore.kernel.org/all/CAHk-=3Dwhrc-ruKs4Kt90EGzKd+pYhZFKs6bgBV=
-CV=3D55BK+p1nzg@mail.gmail.com/
+> +#define SFDP_MCHP_VENDOR_ID		0x01bf
+> +
+> +#define SFDP_MCHP_EUI48_MARKER_OFFSET	0x60
+> +#define SFDP_MCHP_EUI48_MARKER		0x30
+> +#define SFDP_MCHP_EUI48_OFFSET		0x61
+> +
+> +static int sfdp_eui_read_post_process(void *priv, const char *id, int in=
+dex,
+> +				      unsigned int offset, void *buf,
+> +				      size_t bytes)
+> +{
+> +	u8 *data =3D buf;
+> +	int i;
+> +
+I believe the if against the length is wrong and should be inverted and
+placed here:
+
+        if (bytes !=3D ETH_ALEN)
+                return -EINVAL;
+
+Since lenght does not change, prefer to bail out early.
+
+> +	/* SFDP stores the address least-significant octet first; reverse it. */
+> +	for (i =3D 0; i < bytes / 2; i++)
+> +		swap(data[i], data[bytes - 1 - i]);
+> +
+> +	if (bytes =3D=3D ETH_ALEN && !is_valid_ether_addr(buf))
+
+Is bytes !=3D ETH_ALEN a valid use case?
+
+> +		return -EINVAL;
+> +
+> +	return 0;
+> +}
+> +
+> +static int sfdp_eui_find_vendor_table(struct nvmem_device *nvmem, u32 *p=
+tp)
+> +{
+> +	struct sfdp_parameter_header ph;
+> +	struct sfdp_header hdr;
+> +	int nph, i, ret;
+> +
+> +	ret =3D nvmem_device_read(nvmem, 0, sizeof(hdr), &hdr);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	if (get_unaligned_le32(hdr.signature) !=3D SFDP_SIGNATURE)
+> +		return -EINVAL;
+> +
+> +	/* The number of parameter headers (NPH) field is zero-based. */
+> +	nph =3D hdr.nph;
+
+nph =3D hdr.nph + 1 ?
+
+> +
+> +	for (i =3D 0; i <=3D nph; i++) {
+
+and here the usual i < nph?
+
+> +		ret =3D nvmem_device_read(nvmem, sizeof(hdr) + i * sizeof(ph),
+> +					sizeof(ph), &ph);
+> +		if (ret < 0)
+> +			return ret;
+> +
+> +		if (SFDP_PARAM_HEADER_ID(&ph) !=3D SFDP_MCHP_VENDOR_ID)
+> +			continue;
+> +
+> +		*ptp =3D SFDP_PARAM_HEADER_PTP(&ph);
+> +		return 0;
+> +	}
+> +
+> +	return -ENOENT;
+> +}
+
+...
+
+> +	info.name =3D "mac-address";
+> +	info.offset =3D base + SFDP_MCHP_EUI48_OFFSET;
+> +	info.bytes =3D ETH_ALEN;
+> +	info.np =3D of_get_child_by_name(layout_np, "mac-address");
+> +	info.read_post_process =3D sfdp_eui_read_post_process;
+> +
+> +	ret =3D nvmem_add_one_cell(nvmem, &info);
+> +	if (ret)
+> +		of_node_put(info.np);
+> +	else
+> +		dev_dbg(dev, "exposed EUI-48 at SFDP offset 0x%x\n", info.offset);
+
+This one is not really useful anymore.
+
+> +
+> +	of_node_put(layout_np);
+> +
+> +	return ret;
+> +}
+> +
+
+Thanks,
+Miqu=C3=A8l
