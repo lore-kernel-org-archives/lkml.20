@@ -1,120 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D838B3C1985;
-	Wed, 14 Oct 2026 14:15:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 345442D063E
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:16:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791987355; cv=none; b=ZcJvMzVFfVq1Eqnzai8f9lPQwHt+q1qfLAE2iAcBnuyNnsRzOVqScF1yQdqqAzVPnqpWv+GULWG66v/R7FCTxsvlZmnEj4oOLQCxi63oWfpiBUAVTYzWsogLvkuHve1YdEWkLxg2iByf4Q7sSx1aJ27m+h+z8X4zoT6H7SCo/gs=
+	t=1791987382; cv=none; b=IfrUNnS9O7a908Q7jljVsOPIrzS+XuhW3TlBjXBMUL7FVwt2bkFSMHAS+0GZ7Erxtw8gcuw6lAWCnWt6ckHc6L5o3O6p7ZmXkok1+iMQDzpRctMeeTp61+/oXOQio6U+aHdqT7CrrwRuQwRG6FTvxio+swm7JaQ7Gy9rCczuUD4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791987355; c=relaxed/simple;
-	bh=yFy8jKNEVD5aCWcbmOASnsJk2pCrcuWkNIOMU0IPEjE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qC5o/3izM9v0huhlfP+yBXzdf24rlpbEYtY2lUJMQzAuvrHrrRXz8VDUq2ncS25uqtjdEP13qwIaEA9ySp6jHrTMpyk8y5cTSv9uhtg0KZI2LBHR/7hKnb1/ynSL7g3pivPD9FO1wiKw9Gmi33eVvhr3ZLf/AdlT5weQvtYfe9A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B5r8eGWH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791987382; c=relaxed/simple;
+	bh=+gcTnytu6bg29DEP+Z2oFEapatSpXXzRj1ksbk8npt4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VT6M4kAn28whhl314xVqvQ1644qJmBgnX1rfXAciajdfqhS9B4QDpgzAT18roASNDtlWRBfrzleLOuHQOGECyNGXyiedTLTyhBWqNetH9oBC+P/OF0aHZ+btzDbdVTRSXa2WsV0EMj6PypwHrwtqB/zkaqzmk6ubFQrLMXHC+24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=kxehxrDm; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B5r8eGWH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 500FB1F00ADB;
-	Wed, 14 Oct 2026 14:15:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791987354;
-	bh=cNm60TBpTyZut0H523+N0q+d3z2GKFPS8cxZLfYPT1w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=B5r8eGWHgk+I1TEgATWXTG7eRgO5lv1UuLPysWJwcZ5TgCFhyiY+iQJ3b4OWhctz8
-	 HjFRhWGMJaqlTiIb4x4Z1470K2eQikWj1CUgrzMVr4vR2sjdWZfMR+yluK4U6EIvAv
-	 agaqKU+wls3CmY89Q0qfHst1rxilBmujnW4H64imNeYQogt/AOYSpHlYJVZlvabXvl
-	 fLxyFhKrDOuC8rsu43D2t2SQYH6jgElObDeKZ4og5to8LK92WUcpo3gx9mxzmZQ5AA
-	 cBTHPdOc+k/150CvsLjga5sPYxHfhPxMl3+nXopjIAk6uWK/cwhhwOurxwP4YhHwEe
-	 4aPBQiVlCUDmg==
-Date: Wed, 14 Oct 2026 15:15:46 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Theodore Tso <tytso@mit.edu>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Sasha Levin <sashal@kernel.org>, corbet@lwn.net,
-	skhan@linuxfoundation.org, rdunlap@infradead.org,
-	federico.vaga@vaga.pv.it, apw@canonical.com, joe@perches.com,
-	workflows@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Justin Stitt <justinstitt@google.com>,
-	Carlos Maiolino <cem@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
-	Jori Koolstra <jkoolstra@xs4all.nl>,
-	Brian Foster <bfoster@redhat.com>,
-	Christoph Hellwig <hch@infradead.org>,
-	David Disseldorp <ddiss@suse.de>,
-	Jani Nikula <jani.nikula@intel.com>, Jens Axboe <axboe@kernel.dk>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>
-Subject: Re: [PATCH] docs: remove Assisted-by references
-Message-ID: <289112f3-41bf-4673-acb3-667bac48a76b@sirena.org.uk>
-References: <20261009083137.3-1-sashal@kernel.org>
- <0914a106-bacf-4d95-854a-bfeefbff62a4@kernel.org>
- <asz9AeFe3CutP73z@gremlin>
- <20261013123132.GC4214@killaraus.ideasonboard.com>
- <as4pAEnLd4H68W4W@gremlin>
- <20261013131243.GM56180@killaraus.ideasonboard.com>
- <as4xMnT8a75pIw9v@gremlin>
- <as7uqZn9rQ52USwy@mit.edu>
- <as-Dwg8DcEOYMXki@gremlin>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="kxehxrDm"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3412A1570;
+	Wed, 14 Oct 2026 07:16:17 -0700 (PDT)
+Received: from [10.164.19.62] (unknown [10.164.19.62])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BBF633FB7F;
+	Wed, 14 Oct 2026 07:16:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791987380; bh=+gcTnytu6bg29DEP+Z2oFEapatSpXXzRj1ksbk8npt4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=kxehxrDm3UjrSeH8mx0a1SGe+IcIGgxOr9On33ZZWq3Tj4LdEPkUYFFvr2SXVqzLq
+	 3fQi006eqvaihoKsVwPFwMR3K++MZonmqTJje5Z2ew/8zm0hO78RsfkGwg2mDWbj3a
+	 ywnzqZBIJeCgPJi5R/Y/R78erG0j3/+PzbLgstKA=
+Message-ID: <55f51fb8-9777-424a-b45f-a6a5bd9a4693@arm.com>
+Date: Wed, 14 Oct 2026 19:46:12 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="fbxWzeNq4nV8olKM"
-Content-Disposition: inline
-In-Reply-To: <as-Dwg8DcEOYMXki@gremlin>
-X-Cookie: Live free or die.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 2/5] mm/page_alloc: count a merged buddy's pages under
+ the merged type
+To: Rik van Riel <riel@surriel.com>, linux-kernel@vger.kernel.org
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Brendan Jackman <brendan.jackman@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+ Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>,
+ linux-mm@kvack.org
+References: <20261007021250.1665929-1-riel@surriel.com>
+ <20261007021250.1665929-3-riel@surriel.com>
+Content-Language: en-US
+From: Dev Jain <dev.jain@arm.com>
+In-Reply-To: <20261007021250.1665929-3-riel@surriel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
 
---fbxWzeNq4nV8olKM
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Wed, Oct 14, 2026 at 02:42:09PM +0100, Lorenzo Stoakes (ARM) wrote:
-> On Tue, Oct 13, 2026 at 11:23:53PM -0400, Theodore Tso wrote:
+On 07/10/26 7:42 am, Rik van Riel wrote:
+> __free_one_page() merges a freed page with a free buddy of another
+> mergeable type at pageblock order and above, and retypes the buddy to
+> match. The buddy's pages stay counted under the old type: nothing moves
+> them to the merged type in the free counts.
+> 
+> That is unobservable today. NR_FREE_PAGES does not separate types, so the
+> missing move nets to zero there.  Any future per-type free count would
+> undercount on a merge from the other side, and allocating the merged
+> run later could wrap it.
+> 
+> Move the buddy's pages to the merged type in the count too.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Rik van Riel <riel@surriel.com>
+> ---
+>  mm/page_alloc.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> index 4658af97be010..ae38e25971559 100644
+> --- a/mm/page_alloc.c
+> +++ b/mm/page_alloc.c
+> @@ -993,6 +993,11 @@ static inline void __free_one_page(struct page *page,
+>  			account_freepages(zone, 1 << order, migratetype);
+>  		} else {
+>  			__del_page_from_free_list(buddy, zone, order, buddy_mt);
+> +			/* The buddy's free pages join the merged block's type. */
+> +			if (unlikely(buddy_mt != migratetype)) {
+> +				account_freepages(zone, -(1 << order), buddy_mt);
+> +				account_freepages(zone, 1 << order, migratetype);
+> +			}
+>  		}
+>  
 
-> > I think we're going about this the wrong way.  What we want is high
-> > quality contributions.  If they are high quality, who cares if they
-> > are AI-generated or not?
+MAX_PAGE_ORDER > pageblock_order confuses things so much : (
 
-> Recently 2 people sent 1,000 patches over 2 hours. Care to check each and
-> every patch for 'quality'? :) Only the beginning.
+Sashiko raises something:
+https://sashiko.dev/#/patchset/20261007021250.1665929-1-riel%40surriel.com
 
-And, crucially, unlike what would have tended to happen in the past with
-mass patch sending a lot of the time the patches tend not to be
-repetitive patches fixing the same issue in the same way in many places
-like are seen when someone has a shiny new static check.
+Although feels like it is exaggerating.
 
-> > I also suspect it should be possible to use something like Jev or some
-> > other System One LLM to help with an initial prioritization for the
-> > patch, and then have that prioritization be set in patchwork.  Each
+My concern is for systems with a high diff between MAX_PAGE_ORDER and
+pageblock_order. So on arm64 systems with 64K pagesize but pageblock
+size as 2M (and PMD size 512M), the pageblock order is 5. We use this
+configuration to reliably get TLB optimization from contpte size mappings.
 
-> Using AI to detect AI right now works, who knows in the future. But that's
-> an arms race which we'll eventually lose. Which also costs money...
+Will we then repeatedly overflow the pcpu counter into the zone counter,
+regressing stuff?
 
-Reports I've seen from other areas suggest a noticable false positive
-rate even with the current stuff.
+Perhaps I am overthinking. Your approach is clean, but perhaps we could
+also do:
 
---fbxWzeNq4nV8olKM
-Content-Type: application/pgp-signature; name="signature.asc"
+void account_freepages_move(zone, order, buddy_mt, mt)
 
------BEGIN PGP SIGNATURE-----
+	/* PCP-types do not have per-migratetype free counts. */
+	if (likely (buddy_mt < MIGRATE_PCPTYPES && mt < MIGRATE_PCPTYPES))
+		return;
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrPjpEACgkQJNaLcl1U
-h9ASvggAhblOCoLUXEoPxwVvyi6GB2/D+t/3E8S5ENJTY1ft2fg1LoCQvTof7acG
-DAY2yJIwnh+UaQaXvPaMQ4cDYxe5wpFi01EJiEtHD/GeClmOZL706bPCDcdDKPuM
-i2/bpQk1OXRW0Vf7MhJqmW0drHKGTUrtmfPS3VFXplQWOlfQTXMC8kM0QhDmP2Jr
-BNvTAN4fbi198ILQ6GnrTvDXok+3LROl0GGkDrqEF9od5dJ9mWq2VUhzUEdFaHAW
-cVHIhXp7tvzTUNvEB5tbwCHEcf9LCRWnW1BKK/8ahokm6vlsbWLfVOHG6bDsorIC
-PGxdCTv47f4Poh/rpam8XmBZvYEKfw==
-=ZdWd
------END PGP SIGNATURE-----
+account_freepages(zone, -(1 << order), buddy_mt);
+account_freepages(zone, 1 << order, migratetype);
 
---fbxWzeNq4nV8olKM--
+
+>  		if (unlikely(buddy_mt != migratetype)) {
+
