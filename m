@@ -1,72 +1,49 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A7BC4EBAFE;
-	Wed, 14 Oct 2026 13:05:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14A584582CA;
+	Wed, 14 Oct 2026 13:06:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791983150; cv=none; b=EJ26vm0f9gXpdCcbHXRPUeAT+yG7tOq5jw+pTyta49D3dZXKtzZfYNFqhmErUy4IodMsM3s4JJuqQLd2kScNqIdBtcLyEJ/KZ3wyauucJLaxSJF/a/WLo6AeBrvmNbjdniqLqiDMuGZsZKb9LYkZBAw9NEDF8OKqdJgcZm6nsz0=
+	t=1791983162; cv=none; b=FWqhnUgkhX4PJrXEzlH36WmikpMmWYExQrv0OWq/ULpwZRx1LxovexKHXsKtcGiLYXYvl//xdM/tSDBMZkOyDC+hQ82wsaotrCPq0N/RtlvfUqPowiR7+WuyqBM+QtBvZYfYJXg045G7NRrP7kCex2Evjb927a7lLoiZWF5F+sQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791983150; c=relaxed/simple;
-	bh=Frc+ADQTxRwKDWaoqMQMlUJQ/gCXB8qyIs31/48aD70=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=JckSWuw4agALMEJm8OdYzC44PEs+M4J0jU9XkPg4aiJmKaH0qE9rqouTYPvySBK8TqwhcKbpbqJEfAc2NY+ygq18v0miZzjKR/SfAF2JjyYzVa/mVRzBP4Q8g102zVJSQ8+y3783YdQ5qxYEBGq3WnpPQuMV3k5sb1HN+gLsCHA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cRkzIA7P; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cRkzIA7P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA8621F000FF;
-	Wed, 14 Oct 2026 13:05:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791983148;
-	bh=80POjU5WP6ctS0DqN7hA/63JAQ8Agh1hTny2C1kJcvk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cRkzIA7P6kReMHys5hr8tjkJt9YXh81X7TVdLyTPgQakkRldWUIwzGnk0++peqf3m
-	 dRtWMvOXhL9HkAhbZ9AqxXzz6sHtVo0jSdqtnrn/0RtjlKRrd4glSLOBAmjmzoEU0z
-	 LKkqU7RcGYqalB9jpmbksVif/W0yfwnK7Js6hbVP22PzizygLIPDtVBfIlB8z4+h6C
-	 p42UhHWtZnoQRhgGNOZoG1AlXHfiuMh996lysDT33eayNX0XuVFPNbJurA8HNUKW3b
-	 E2b0yg1tTvpK1Yz7Oj5zZdhI1Vyv82tGMrz5wfULAS6nITI+vWCkuIR4EwXoDFuYzU
-	 SaPXEEX8/jv1g==
-From: netdev-bot+sinfo@kernel.org
-To: Rishi Kumar <r-kumar12@ti.com>
-Cc: netdev@vger.kernel.org, MD Danish Anwar <danishanwar@ti.com>,
- Roger Quadros <rogerq@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Jacob Keller <jacob.e.keller@intel.com>, Meghana Malladi <m-malladi@ti.com>,
- Vadim Fedorenko <vadim.fedorenko@linux.dev>, Kevin Hao <haokexin@gmail.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- j-rameshbabu@ti.com, aaron.richard@ti.com, l-chinnannavar@ti.com,
- m-santhoshkadavan@ti.com, k-tiwari1@ti.com, a-dev@ti.com, pratheesh@ti.com
-Subject: 
- Re: [PATCH net 0/2] net: ti: icssg-prueth: fix port config and rx_mode drops
-Date: Wed, 14 Oct 2026 13:05:47 +0000
-Message-ID: <179198314724.320699.12261216986083339257@kernel.org>
-In-Reply-To: <20261014125948.230571-1-r-kumar12@ti.com>
-References: <20261014125948.230571-1-r-kumar12@ti.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	s=arc-20240116; t=1791983162; c=relaxed/simple;
+	bh=oVs/gIMuL881eLwUXewA+7D3o86KvXDU42xkdhXGLWI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZpDUkjyyHtL0M7GmtUfsut5ml6DBwq5K7DBfMM8WcnPDxyXEuwETORU9V7muBMDpM097YIBInN1NBu4yJHoWPejizMQ1wI6ffJhfjzfuPb8cEicZUQCLfFpenVlMOrFn0y0GRn4+q+HRrQEgvM2zqpCSjERYnAbi0YK2z1C+JBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 614A768BFE; Wed, 14 Oct 2026 15:05:57 +0200 (CEST)
+Date: Wed, 14 Oct 2026 15:05:57 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: daejun7.park@samsung.com
+Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org,
+	Christoph Hellwig <hch@lst.de>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Dave Chinner <dgc@kernel.org>, Chuck Lever <cel@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>, Dai Ngo <Dai.Ngo@oracle.com>,
+	Sergey Bashirov <sergeybashirov@gmail.com>,
+	linux-nfs@vger.kernel.org, Andrey Albershteyn <aalbersh@kernel.org>,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] xfs: refuse pNFS LAYOUTCOMMITs of ranges
+ without blocks
+Message-ID: <20261014130557.GA15773@lst.de>
+References: <20261014-xfs-pnfs-commit-hole-v2-0-d3a02a79ab6c@samsung.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014-xfs-pnfs-commit-hole-v2-0-d3a02a79ab6c@samsung.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-Hi!
+Can you please send your entire xfs pNFS batch of patches in a single
+series?  That makes it much easier to coordinate.  Let's ignore the
+parts about the nfsd interface for now (I'm going to review them,
+but it's clearly too late for 7.4 at this point).
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
-
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
-
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
