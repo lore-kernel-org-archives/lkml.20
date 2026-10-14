@@ -1,132 +1,204 @@
-Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com [209.85.217.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4314B55C1B5
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:03:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791997388; cv=pass; b=cGb1uuJ5rytoGbsHFcR199yNI9ngwTBLsLPhvrX51suyC/CTeHjIvqJvYv6/2PZ4VtvQVE2humm2OY75nNx7zqpWey7GOfR977ICpwlyGUwMYQsTmbRe00h2XkwnG6CJs768dchiHFxRf9N7hLlRv1qxsqAiuJnq0FO2Q3sGUaw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5583E54A7CC;
+	Wed, 14 Oct 2026 17:03:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791997388; cv=none; b=jjrQrRRTyKqBy4+8mkQmPkOBant4GkFqcYJ0K6ms4whkDoZfIEtOKb8KNeUdRuq4iOGauwgAPInKz4/FszAXyOTyJrSbO2rCR4rEoGhRvM7asX+rTs4nrKxggJSMw6DC0ckHevMGSVQR7Rn4hVyl+2EgENGPBvWlZ6vXsXt19DQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791997388; c=relaxed/simple;
-	bh=X0/63h23d4RMhaW6j99etRVwb5HigSuyzGIZ3M+xFDQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=h089Z3eBNVlc93KneEzsss0VY9DmQVgj9AJ7mtOmNEWLnW6LPe+dahypBZxUq28R8QakqTqTEuU7jsYlWwYIpVIKvWXqiVMJc8M0JatjtcUHYO0GXlK9a3HPd4nYYtVXjNSxA0EODrIszSQxXcjXvmggWYcDy5ijAeHbnPTw4Ak=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VMBAfSah; arc=pass smtp.client-ip=209.85.217.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=iFAnrRfWiXjrZSVBmYWzgUIDLhMC4ZgrfW0F16D+pKA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=M026s19clbSiD0QKjnuIQEv96Tzbfk0AkdAszMJYmltvVHpmYC9HfSIDuEQ4PTy4TjNKZclqAlola1OoLieNx9wVhyZYPbx2F9uIhWYGYEics9vEKUOHzo/XPc8M/1IeWGKXYQ+Nk/5R8cd9mz4gR6hgZFDrohmii9PuIs+du60=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DeIKuK/9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VMBAfSah"
-Received: by mail-vs1-f47.google.com with SMTP id ada2fe7eead31-7c337cd6614so2304214137.2
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:03:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791997386; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Ks8q8BxrLC/EI9lYvj/d72xt3nbZn//8ge7mzhPV4+Fb1g2iLiy8RPexiYHp+zvv+S
-         vJWq8wHl1Q8O6el8HeA3sJ/l81SFl3waApjKRbBPmgSvoJ3af3i+oQYGV/3ZQ45Y2o1h
-         9pxJJz0gfKt6MU5noZhAjUkxwwUxRvEAyHAXeqWvx2tpfhGMHTy3kMaPsRSj25qWL3Nt
-         EmZ+1g/5+0g0K08nf06QiaZ/XhHTYw17Er6xhojvD5VihBR5Y4cI8LXH/TgXcPPnzlft
-         TqNMjb7IT2/Jmv6o6Y1mAb3uhU/v1aCXvBKufyXiPnbHI/txdCe0bZH5B9J99wZrzUFW
-         HWQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=WKSkT6scNX2t+/rtJq+i6cTIZ8UL66Szs79srg+q1rs=;
-        fh=7zjwcBlA6X97pknryJeGQJddaTMI0G4qwcKNZeD1Cxc=;
-        b=NvvTDlYvK2TqXPxyx5y0yLPi46DqJLDmsiKwr0HF/HB64yEtt6ApEY4Irnacw7uYg4
-         Wm1mY9OZXbTjUHSWiD/Ebp+6jTvo2ApsifPfyYEfb3izUhLo4RGw90xbV0m3UNqjFCXB
-         P5l06e8vHoxPl4mnC7ZIpRaLdQhk2Wdvs5uWo3/y5lZ0PnJouDV1Ek+OtvEYwX0VZbG3
-         9CS7zIYk/tQv+76Ro9RAKNSjWOJiC5kBUlx8Kb7WlKogtkDr7S8YL9HEDJqaIABHcLaB
-         5ogz054yHMc84OPKGXdRRDGD9MzgbTPxfVGp3qFXY7YEyECmvSwaCg2xFpHryFT5YLQ+
-         xsBA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791997386; x=1792602186; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WKSkT6scNX2t+/rtJq+i6cTIZ8UL66Szs79srg+q1rs=;
-        b=VMBAfSah8lb22/ugMKrH2ApzC2OCYCkC4xBO1VYYp1wP6RgGFysJPQMeXvw8z6SAch
-         I2jfLrBB1VPexoPvcH6ea07NjwoI8yKB3zlhTBsuF4V1nSczOD70mMTgUUO1t/dCMvnR
-         g1Axj2IKj8WZJdyWBZU+EHzj4ZfSH0grMCX27O1kf54v7Tnu34Y9nKke4T4Iw78JSEkc
-         QFQhxPv7fZFXolfSvL4eqJNbeOYS0YUlPBqUnyezm1dJHvKxKg6hxixE7p8/K/Qnz0mI
-         4ZlHZuYVnPNrg2Y3n9MNzop6OiBzCBh+V6kti8OJVFogS8yJBVqoPRrRabH1UxXWS38d
-         0+QQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791997386; x=1792602186;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WKSkT6scNX2t+/rtJq+i6cTIZ8UL66Szs79srg+q1rs=;
-        b=17B9cCjFTbw1aKbf7w1SkRNFta5dTWlHlflDdCLVkJNpWJfj43o2vUSH7QBL+yceum
-         Ed7MpjZqw5lUq3uVoXgojDGCHZujdyZie1x7YGHefkONpJsMj0TiuNozD8zpdejoyF/H
-         NzxqExR7B5wcqwE0i0jQG7oqTPVcVxILy3CW84V/dSWIerv0CfF0DcZG7KN3/Dg4+l0a
-         XVSw5qS65BnFIF9zA4hRm5lHAw7uFGfTivH16fU/njlwN0kVaEwy0nlYg8CW/fwzmNFv
-         hit1FsUwsd2xn9jElaNxQ8t8d13QfqRl9ehBmoj7bJS56bH11aOXwUkMbsTxazql72U6
-         ToMQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxmoikcVKvR7jH5c+X/ILWLXkqzU4lCmeGLjAZ8yEZWGP0bv+mSiY8ssvhfUqraoFwA0IsFwzGmGmlV2cE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJe61nb1X2lb1tZiPFJrY8VoVYdcDD9j9AC82AwpUZCtFNsBzJb
-	8JxN3nT8KmwvjgF6PsP0Vh99C475CT3R9+gFDwnyb47JCxs//oY2gDDj8vy+BaFqm+3cGM/cYyy
-	Wgs+UQ2fRkIwF6WVL2fGNwTYGNfT5Q8PjYh8nXazFxw==
-X-Gm-Gg: AYBFou2KzsL+7pp+u9dafURq6RP/lSmeKi0YouP0UI5JfDAiA1VXcMHTF2SmRHQipU2
-	Ca7qEz+1hjg+oBu45H8jTtbFJ2QaD9cdGTs5TRchL58uscgoGmZpnDrDiiwC/zgeA5gY/jbka5n
-	Kdq2j3r3hTeeJm+aEPMIpiwF6WFnIpCGOlCNktUelbZfK7Ru0KyZASQ2S8eHmLmFL5wpbhZVhnI
-	ygQ0+VAgszBcwOp5Q1nMwSng+04em0AfAn7dT/m+BXgjzUrNbBTjgFVuupqp01VpEGFu/eevSKe
-	DRkCnQHuGNtE6FasiC1rt/EzXryZjO256R2HTEJD8+rneDylDw9uqk1r8IbSjcF1aJ1bpSC96vF
-	CJDsYPkS/hNmONwqawQ/R9SxbZBv8QysXXM8gyfoL0onCP8517sHLmQSNGt2PFq50X2mz
-X-Received: by 2002:a05:6102:424f:b0:7c1:9f20:36ad with SMTP id
- ada2fe7eead31-7cb36985e66mr5432455137.2.1791997385802; Wed, 14 Oct 2026
- 10:03:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DeIKuK/9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3F6E1F000C4;
+	Wed, 14 Oct 2026 17:03:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791997386;
+	bh=Esd1xovFMot4e+VD6qfstBOMCypNZ2JuCPRuue5vIlA=;
+	h=From:Date:Subject:To:Cc;
+	b=DeIKuK/9Ukqqo3k2TYHCz95mDfB3zsX9ZGZr0PQ9suX9rd2w/2SdRnmP+rUZxNv+U
+	 /BKGPMz3YjTLRNZaecg0rglf3s4o4TXmlocHlWM7Q31iT4bPDeJS0UQv7KyRU6G9vP
+	 bnU446OhGmLDgzJj2mehNKfMb86/NO7Qpy3zzeqvjdm32dMVdDPK8wonDNbXLgKcHq
+	 R3bS3Dmdkh0lVksZ4OEefFnDKpO+lns9VjxSt9uxUyicpi9M20/DjMNStQ1BnMu8VO
+	 lArLRqiH6gU1uzK8xpcNAPH2a63iJUNgl1fsichCrmsUJl5NV83gXYlQmw4KnLrNN0
+	 7M5ocCjyychrg==
+Received: by venus (Postfix, from userid 1000)
+	id B6B1A180A50; Wed, 14 Oct 2026 19:03:04 +0200 (CEST)
+From: Sebastian Reichel <sre@kernel.org>
+Date: Wed, 14 Oct 2026 19:02:54 +0200
+Subject: [PATCH] ASoC: codecs: wsa884x: Add mute control knob
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1791933697.git.lucasadramalho@gmail.com> <3f9bdd755f3db2405ec44471ebdcfb614bf41725.1791933697.git.lucasadramalho@gmail.com>
-In-Reply-To: <3f9bdd755f3db2405ec44471ebdcfb614bf41725.1791933697.git.lucasadramalho@gmail.com>
-From: Daniel Pereira <danielmaraboo@gmail.com>
-Date: Wed, 14 Oct 2026 14:02:54 -0300
-X-Gm-Features: AclHuK9QC3EQ75rLe9HTtHN9Rpytiw08godnH_mR6QYhJ5b38reZqyt0tZjRwqo
-Message-ID: <CAMAsx6fTx4hO2Dr-5a7R=OmUsbVvM7LAibh5avY3aXzwUpNU-A@mail.gmail.com>
-Subject: Re: [PATCH v1 1/3] docs: translations: pt_BR: process: add driver_development_debugging_guide
-To: Lucas Adryell Ramalho <lucasadramalho@gmail.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261014-wsa884x-mute-support-v1-1-74d98d79e635@collabora.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrDuQxBBsr1K6iDrqCNWQSVpBv
+ LtpXb7F/zsIRSaBR7VDpA8Lr0uBvlXQTX4ZCbkvBqOM00pb/IpvGrvhOydCySGsMeHdWUN1Paj
+ eOyhpiDTw9t8+X5cltzN16feC4zgBFns+EHgAAAA=
+X-Change-ID: 20261014-wsa884x-mute-support-9642e33f0da6
+To: Srinivas Kandagatla <srini@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Sebastian Reichel <sre@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4776;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=iFAnrRfWiXjrZSVBmYWzgUIDLhMC4ZgrfW0F16D+pKA=;
+ b=owEBbQKS/ZANAwAKAdju1/PIO/qaAcsmYgBqz7XIyXj5SCAwyRN7Byvm3eFVrpF9sFGfzhiua
+ pAJ3lvqY+eJAjMEAAEKAB0WIQTvZg0HRj+Lcmp5VBPY7tfzyDv6mgUCas+1yAAKCRDY7tfzyDv6
+ mg9YEACL8rrEkqf42lgyUUGtT4Xe1Q4TptpSeA7+L66T2R++vCnYcwwH7ZvBbBk57hLwItCECnP
+ LKWflCOBjX4wcT5+/OjhDg1YXD9oSeU7MShUiKw124QSMY4wScKmKpdVg1gqypggK+EkBh90FrQ
+ bJF9FY17a6aY7+TsrqjvXSpMb4SVST6gcsRVpdZZBBpJUN19I1EkTS7WfSs2zW65DoIyKuCKwZW
+ t8sQ7Cv/i2l1UBdJhvSRe3roWmbFeo02ywGQaXJS+FgFNIZ6cjGmUnxF7eaDMQdlPZ5Pz+FipDt
+ gABWzq+Qry7IY4B11wVsLQv+H003aVB8KY4Z043IO1sgbyglNpDkoOdCW05DfNzHip39bOeF8ge
+ 6XrIpofxvf/HuGce3r0gyIcEzePHXmjNp+uina9zWuHQ08Qk0GpRTl+21QYBY4JdjBenyw0GUhu
+ pHpXWJv6GoHXnuNAxB3VuYPOoyMMtFgJjlCTeRmlZJB8q8pzVY+FA4DpRzTreFsKqifIBvE3w+r
+ dX5yWvuauzDxxAPJPiFCkAGNrbfNIwwep2LP7SNa2FqZpiKr7heaOFp940RCVj83RZa2xzwIS5I
+ i/yjh3YUzBWUqahz2Kp/DzbzL5zTik1685BIgcDvFZ9Rb6RrDE8z56TGO11g0m4lr4GGZBtZ3Rw
+ UoKwXeKhJMxxwWg==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-Em ter., 13 de out. de 2026 =C3=A0s 20:46, Lucas Adryell Ramalho
-<lucasadramalho@gmail.com> escreveu:
-    Hi Lucas,
+This codec is typically used with ALSA UCM, which right now falls back
+to handling mute in software. Expose proper hardware mute control
+considering the driver already handles it internally anyways, which
+allows UCM to bind speaker mute LED to the new control knob.
 
-    Thanks for working on this! The translation is very well done and
-  the documentation builds cleanly.
+Signed-off-by: Sebastian Reichel <sre@kernel.org>
+---
+UCM pull request for the speaker mute LED support:
 
-    I have just one minor suggestion regarding technical terminology
-  in the DebugFS section:
+https://github.com/alsa-project/alsa-ucm-conf/pull/880
 
-    > +Com esses arquivos, =C3=A9 poss=C3=ADvel armazenar valores de vari=
-=C3=A1veis
-    >ou gerar
-    > +dumps de registros/mem=C3=B3ria, ou ainda tornar esses arquivos
-    > grav=C3=A1veis e modificar
-    > +valores/configura=C3=A7=C3=B5es no driver.
-    > +
-    > +Poss=C3=ADveis casos de uso, entre outros:
-    > +
-    > +- Armazenar valores de registros
+It's fine to land this patch before the ALSA UCM series (control knob
+will be unused), or after the UCM series (UCM will detect that the
+control knob is missing and fall back to existing behaviour).
+---
+ sound/soc/codecs/wsa884x.c | 67 ++++++++++++++++++++++++++++++++++------------
+ 1 file changed, 50 insertions(+), 17 deletions(-)
 
-    In the context of hardware and device drivers, the English term
-  "registers" translates to "registradores" in Portuguese (rather than
-  "registros", which usually refers to data records or logs).
+diff --git a/sound/soc/codecs/wsa884x.c b/sound/soc/codecs/wsa884x.c
+index a367c94bfb4d..97cd93c6f4a8 100644
+--- a/sound/soc/codecs/wsa884x.c
++++ b/sound/soc/codecs/wsa884x.c
+@@ -742,11 +742,13 @@ struct wsa884x_priv {
+ 	bool hw_init;
+ 	/*
+ 	 * Protects temperature reading code (related to speaker protection) and
+-	 * fields: temperature and pa_on.
++	 * fields: temperature, pa_on, user_mute and trigger_mute.
+ 	 */
+ 	struct mutex sp_lock;
+ 	unsigned int temperature;
+ 	bool pa_on;
++	bool user_mute;
++	bool trigger_mute;
+ };
+ 
+ enum {
+@@ -1731,10 +1733,52 @@ static const struct snd_soc_dapm_widget wsa884x_dapm_widgets[] = {
+ 
+ static const DECLARE_TLV_DB_SCALE(pa_gain, -900, 150, -900);
+ 
++static void wsa884x_set_mute(struct snd_soc_component *component, bool mute)
++{
++	snd_soc_component_write_field(component, WSA884X_DRE_CTL_1,
++				      WSA884X_DRE_CTL_1_CSR_GAIN_EN_MASK,
++				      mute ? 0x0 : 0x1);
++	snd_soc_component_write_field(component, WSA884X_PA_FSM_EN,
++				      WSA884X_PA_FSM_EN_GLOBAL_PA_EN_MASK,
++				      mute ? 0x0 : 0x1);
++}
++
++static int wsa884x_get_spk_mute(struct snd_kcontrol *kcontrol,
++				struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
++	struct wsa884x_priv *wsa884x = snd_soc_component_get_drvdata(component);
++
++	guard(mutex)(&wsa884x->sp_lock);
++	ucontrol->value.integer.value[0] = !wsa884x->user_mute;
++
++	return 0;
++}
++
++static int wsa884x_put_spk_mute(struct snd_kcontrol *kcontrol,
++				struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
++	struct wsa884x_priv *wsa884x = snd_soc_component_get_drvdata(component);
++	bool mute = !ucontrol->value.integer.value[0];
++
++	guard(mutex)(&wsa884x->sp_lock);
++	if (wsa884x->user_mute == mute)
++		return 0;
++
++	wsa884x->user_mute = mute;
++	if (wsa884x->pa_on)
++		wsa884x_set_mute(component, mute || wsa884x->trigger_mute);
++
++	return 1;
++}
++
+ static const struct snd_kcontrol_new wsa884x_snd_controls[] = {
+ 	SOC_SINGLE_RANGE_TLV("PA Volume", WSA884X_DRE_CTL_1,
+ 			     WSA884X_DRE_CTL_1_CSR_GAIN_SHIFT,
+ 			     0x0, 0x1f, 1, pa_gain),
++	SOC_SINGLE_BOOL_EXT("Speaker Switch", 0,
++			    wsa884x_get_spk_mute, wsa884x_put_spk_mute),
+ 	SOC_ENUM_EXT("WSA MODE", wsa884x_dev_mode_enum,
+ 		     wsa884x_dev_mode_get, wsa884x_dev_mode_put),
+ 	SOC_SINGLE_EXT("DAC Switch", WSA884X_PORT_DAC, 0, 1, 0,
+@@ -1802,23 +1846,11 @@ static int wsa884x_hw_free(struct snd_pcm_substream *substream,
+ static int wsa884x_mute_stream(struct snd_soc_dai *dai, int mute, int stream)
+ {
+ 	struct snd_soc_component *component = dai->component;
++	struct wsa884x_priv *wsa884x = snd_soc_component_get_drvdata(component);
+ 
+-	if (mute) {
+-		snd_soc_component_write_field(component, WSA884X_DRE_CTL_1,
+-					      WSA884X_DRE_CTL_1_CSR_GAIN_EN_MASK,
+-					      0x0);
+-		snd_soc_component_write_field(component, WSA884X_PA_FSM_EN,
+-					      WSA884X_PA_FSM_EN_GLOBAL_PA_EN_MASK,
+-					      0x0);
+-
+-	} else {
+-		snd_soc_component_write_field(component, WSA884X_DRE_CTL_1,
+-					      WSA884X_DRE_CTL_1_CSR_GAIN_EN_MASK,
+-					      0x1);
+-		snd_soc_component_write_field(component, WSA884X_PA_FSM_EN,
+-					      WSA884X_PA_FSM_EN_GLOBAL_PA_EN_MASK,
+-					      0x1);
+-	}
++	guard(mutex)(&wsa884x->sp_lock);
++	wsa884x->trigger_mute = mute;
++	wsa884x_set_mute(component, mute || wsa884x->user_mute);
+ 
+ 	return 0;
+ }
+@@ -2077,6 +2109,7 @@ static int wsa884x_probe(struct sdw_slave *pdev,
+ 	wsa884x->slave = pdev;
+ 	wsa884x->dev = dev;
+ 	wsa884x->dev_mode = WSA884X_SPEAKER;
++	wsa884x->trigger_mute = true;
+ 	wsa884x->sconfig.ch_count = 1;
+ 	wsa884x->sconfig.bps = 1;
+ 	wsa884x->sconfig.direction = SDW_DATA_DIR_RX;
 
-    Could you please update them to:
-    - "dumps de registradores/mem=C3=B3ria"
-    - "- Armazenar valores de registradores"
+---
+base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
+change-id: 20261014-wsa884x-mute-support-9642e33f0da6
 
-    Please send a v2 with this change so we can proceed.
+Best regards,
+--  
+Sebastian Reichel <sebastian.reichel@collabora.com>
 
-    Thanks,
-    Daniel
