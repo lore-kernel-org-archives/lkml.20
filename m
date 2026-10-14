@@ -1,78 +1,78 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C87FB550DA3
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:24:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69F8F54EEB2
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:24:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791991473; cv=none; b=mnGYUEhMAXHhvtY/HwGS8hPcuOVWjmo05KbrTRhAq7uqTevTIM0rVMHeawF24WUX7Gm3S12gSUT11yK6RffXELwc613C1KQ6C7KFhKHSIKSQF2zgNVvVPRhB4a1S+46aUm5/s7oV4Yhx1Mq9bDjK1zShk313+6U5yjRvmeJYWE8=
+	t=1791991480; cv=none; b=gxKpRHQF36XFtBBd0yfiv7Jzsc4h4dFeGFGN+88vz4kiJXm8LE6UL0n9wHPAwpxXF9yY5MiNAITMWjEyx/JSiwrM/FAj0NBELZfSRS+Nky/dPEhu6pnhi+N+z152YKMkxHi0Mdi9BypObdHumaGEwClu+rSZ5iHURm/vaQNuB5M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791991473; c=relaxed/simple;
-	bh=j7lxWLDV11oCPAd9zrLwY8YtZWMYkppFEMxTV68KR2o=;
+	s=arc-20240116; t=1791991480; c=relaxed/simple;
+	bh=wSZ3zwnVBwhfAGt5ifjj+oFVu2p72JS9QMJwu71vpk4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=X5H9jdsUXL19mbf3PuDTibDPWCXPIhJCCV/Iue8ca49e/vB5qp7fJJsYAIb5Kn5s3xwrmb5SJuOm0N+TFpc5ZuXLZCyERk+mHgx8R808jlu/Nlp5dXRO7JbCbJcVPwHYGouwX7fta7PVSvY5wGR4ADMi0erwJ3qz/CCIpz5HnsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=DlPjgH+R; arc=none smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	 MIME-Version:Content-Type; b=qCJsXSVp9+xnMLVfat+/f1dSshu4Hk/gIe3V+zVb9VJLHWUG88n/UGffTj0eUb9e4rcSIfQawWDEldHAnon/mKWrI9D+3hvTIMo0CHNM8/4dXIeAX/yC7XFDD0/6YGVuhS/Or+fZBKFDL7Vwz3Do52EkeAZGCqExWd/OwtrsONM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QfBE8ICn; arc=none smtp.client-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="DlPjgH+R"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3a4cdc9025bso2324011a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:24:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QfBE8ICn"
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cc4dbcf2b85so577531a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:24:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791991472; x=1792596272; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791991479; x=1792596279; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=X+A8usko4cfoywAC26NwTGT/rqph25xWtjEIyd5GKa0=;
-        b=DlPjgH+R4eVy0Q9DUapa12egNiHPhSBPBBtUFEwylIHo2+kQgJZFk8LDZsedaol2Gj
-         xbw4MRAClT2NdIJVJEbZHI3at8c0HZzR2hEmvIXuHCRGjaCtalKV57gSfSGQ57MohQMT
-         HMb59FqY8lrOqK5rzJEFk8JDpY3tlTV8VxLilPVl0tui3BTW6O6tXTbg0yGrCWHK1s1s
-         6NJSJ3TnJkE4CMe0ZBWqNofomfYkNLUzmvWByY5iYwJD+UWtIV+w0A0Z5W4Wxoqsllzv
-         fz6QWELI2ZhLUw6DJi1Yi+B9MfaiykbRIqg1nc+heDwrqi5GD1l5p+asIJsefUGOGXie
-         WOlw==
+        bh=t7IRL6SEiSa3rzeqlbvDCyLB5N7LUmPGMrQiBUcualE=;
+        b=QfBE8ICnBaTlQIr0Ew8EulgJJxMWQQT9rxQSB5J859fwuJcD/OCaK62L9R4xp/udf5
+         yNLrfnHILV6s+dZskFPnkl4JALRizQYL+ubN/tJlcCm2oH0L6q4P5gBNDe4v896lsjZA
+         5RSPqiuplVAaxH7EqehwTjdsQYlfED3WDSEOYAjpqI5fwLUYkIgvs3KpYiaotthaWbDC
+         eW1WuOE15ISxXG73RbwahGFKPtJ9lpSkOrS/XcCW47id0Vn281+iYgaAsJFZslBJvFSN
+         DB/oA3sd1ZCStE5zhEnILwpLHJUQZUFsgH4KRHZJpl3/pdRUbmNUkBjFYWum+POckq6w
+         rcbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791991472; x=1792596272;
+        d=1e100.net; s=20260707; t=1791991479; x=1792596279;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=X+A8usko4cfoywAC26NwTGT/rqph25xWtjEIyd5GKa0=;
-        b=vfrC6rR8U+F7TtaoUy4ubczjWQQbnegpdYxGJE+w4DYT9MzUDEUmyNzxYdJ7vFiWrL
-         tK3OaQhHYB4RkhBSbxeFu3/exQoBTKvXGCj/hGJtwzwhU6JWT6AE4zofas1VEW2f7O6/
-         tX8TU3ZWFWZbK7nrxtVORYSC2yOzk54JAt7z8xqL0sfHeIeZi9KLJDinTUHsbCQLjsAS
-         fBIxLA9zeXFquc74W01ph9Le5LIzkWSZYgwvvV7crS00bGJL+7QLk+EHFhKqqazF9MVg
-         5EN818MK5xU2f2LqWH7stpys8nyTev5g37jxylder1yXGuFKcQN9lH/+SFbVrYj0Irau
-         Vb6w==
-X-Forwarded-Encrypted: i=1; AKwUvByTVFFMqCP+r9TvBoLSdJkj1f6n6v7mwLcy18rlo3Bw/1RZN5eicqFkXN37ANssVn/RWKk4YasHw7LRtZs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIInhiz9PeSXg60F11Rvq3USuAHZIVvVJLPuvW+qgy7JHsAuu+x
-	uKBltqBWxcRlnEcsde3iYQ9U9g24cLMPTa+vYZK9h0RzFLixJ3KnAmrS0JMSvjeO2Bk=
-X-Gm-Gg: AYBFou2XKZVZcl3WPwX007WTUwUTq758Tqmf/DHaXO/w/O+HFZvXiRviYnSPbK/MFb7
-	hvELQ8tBsdw86BeNS/Lm31g0SD0oL1uran18K/SXLGZc1EcRr/x174hocQE+crZ4N3TRF/tfRkM
-	e1A4TPFGkBTPKIyuY/WRckH8mU6c0GGYC8WycEkmzXs7T7ttd/A7n3WraXdhRmWj4NCfHrvq6IW
-	kVgHDewL3fnqB43NzcqcflH5pfearB6Dboi6cAvSIUviUS+gkeNUvuvXdmInTfAQwOOtNG7ebtJ
-	yARFtdyb+D9B4JctrU4Ic4CTGP1J+CuQlzOYlKPgkP96BXYuLEH/qZSjLjKMXPx2GjKyum3zdbZ
-	qeU8Hy2fseBaTzyWtEOFXPrrIq98cpknFvJT6JIkqhOBjzg0QlzdZ8bVwORRFe2M49Zsw2BTGaq
-	0rTBhp0L2k04Fz2WXAkcNzlpUmW/Myu1HrlADatdwwPqoIAd7V29lU8w7GYgYQZzt6p4Sv1C4tr
-	H4GBo1onM9QIpPHre2e
-X-Received: by 2002:a17:90b:3d82:b0:3a8:f70f:2437 with SMTP id 98e67ed59e1d1-3ab3ab3771fmr11573342a91.50.1791991472168;
-        Wed, 14 Oct 2026 08:24:32 -0700 (PDT)
-Received: from localhost.localdomain ([2406:5900:1044:110c:1c49:61ee:8c8:3f4c])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac9373f5c4sm58461a91.3.2026.10.14.08.24.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 08:24:31 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: "Martin K . Petersen" <mkp@kernel.org>,
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: linux-scsi@vger.kernel.org,
+        bh=t7IRL6SEiSa3rzeqlbvDCyLB5N7LUmPGMrQiBUcualE=;
+        b=IZQHFJSBquXKa86n022qYcv35K1d9dfvtZM2yKeVw6EOGBuyq/zrsVvZtDmw4p+YJE
+         9t+jgT3uuO/KAW4G8dSd8DnTPXbTOrW0+NUQr8cn2WF6hBp61xondyia7aIiqmkn/F6V
+         SG2ZjW92IMXAs4yu1YBu4Jzx+wIWBSC/EpXvLPSdvxY4Lso6HMPZKLcH/FeHRKvnYtq6
+         cNUYv+XqbSlYZyOeAbPoAy/s0eCgqd2/ispTlaJhzPok/Hyo9Dyzgn+B3l1p1BmZHfJ6
+         SDDUfF2dWUK6ncIU1490WkNugY54MYhJiJWOvCa+PmndARUMaU8llHpCXXKqd9tTtuEM
+         705Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzNw4zbXUjf+ClGFq5ZnnwnIqmv7boTxxciT2wWzxN8IxtS1BHC4IdENrlDnFhBya4MZ6NDyGKdTltDzlo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK8vKG+l01VlasqfyD3ZWJCwEt9q/uVKvvFCSeZMYRbRGT5A0sW
+	y8ZT/FzOKIwOHAVMj5ixemlaway7E23DWzIeoQUBbbf9Jv59bFJ6aFmZu8YvYA==
+X-Gm-Gg: AYBFou1sp7I9+grZgZ/Zh67M1BPpw+awF7iq6MASbyxU2RlOQKftch9bEpLm6yeCrGX
+	HTClwHS6yDcovLkU7PsyXYjRjIi2U4xPrfZNqMoWRjBqMWcLFswY7BMo+kczGgrDlq3phrTnRj3
+	/Tur9ELioqVO6cG3wyHi8yX5aBoZGBUbsM63c/TtQY+Bhc+ItL9RrWg0PEj5H8WidLT0c3/e/gX
+	Lne1HaNE1YicIvg36JOkIqYVE554nflKnifQH7zjhK402i976dyM/B1v5nEaFHOPg8k3kqlW0A4
+	AlVIXrlf6IE3XADL5WHGjALQ52rszJOzvq5XMkFYDwnf1ILWGWrUFdNpIhE1ymj9lZOnXuWPSFg
+	i5SJNzwTfUVgDL6SYvidNRQ9GCzH9jGtZjxb9g9fKqrxyEek56pJ0iuKhTb8I1kV7xUnUCbBNt+
+	qi6+HFFZ1CiRQaSGb1kCKgc9mo1gVLxRVE2uzX00lF/xx+a8vMsUBJXZ/Edlkkjy1ZdTjWnpaMQ
+	W1pxNxqM8Sk7jPDpMxBZeisSuiRa9Ek1EwCFWuP+wQLyRoXDUl8WnWuw1xOuYOzuikRMBSTL2HU
+	9jOx+88KMUe/tsY=
+X-Received: by 2002:a17:90b:4c04:b0:3ac:80dc:f40a with SMTP id 98e67ed59e1d1-3ac80dd0188mr1244754a91.16.1791991478624;
+        Wed, 14 Oct 2026 08:24:38 -0700 (PDT)
+Received: from localhost.localdomain ([180.182.24.11])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3d9e08905sm7169469a12.9.2026.10.14.08.24.35
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 14 Oct 2026 08:24:37 -0700 (PDT)
+From: Joonho Lee <mynameisjune111@gmail.com>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	yhlee@isslab.korea.ac.kr
-Subject: Re: [PATCH v4] scsi: mvumi: reject handshake sizes that overflow the list allocations
-Date: Thu, 15 Oct 2026 00:24:25 +0900
-Message-ID: <20261014152425.3637406-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261014134104.3528958-1-yhlee@isslab.korea.ac.kr>
-References: <20261014134104.3528958-1-yhlee@isslab.korea.ac.kr>
+	linux-api@vger.kernel.org
+Subject: [RFC PATCH v3 1/2] ALSA: pcm: allow capture reads while draining
+Date: Thu, 15 Oct 2026 00:24:22 +0900
+Message-ID: <rfc-v3-core-capture-drain-1.cf2e307fcac34b6a@gmail.com>
+In-Reply-To: <rfc-v3-core-capture-drain-0.cf2e307fcac34b6a@gmail.com>
+References: <rfc-core-capture-drain-0.112c40f0e9284eaa@gmail.com> <rfc-core-capture-drain-2.112c40f0e9284eaa@gmail.com> <8733u8g0kh.wl-tiwai@suse.de> <87y0c0el29.wl-tiwai@suse.de> <core-drain-linked-lock-reply.cf2e307fcac34b6a@gmail.com> <rfc-v3-core-capture-drain-0.cf2e307fcac34b6a@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,19 +82,53 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Please drop this patch.  It is superseded by
+Allow capture transfer calls in DRAINING so already captured tail frames
+remain readable until drain completes.
 
-  [PATCH v5 0/6] scsi: mvumi: bound the values the firmware supplies
-  <20261014151914.3632701-1-yhlee@isslab.korea.ac.kr>
-  https://lore.kernel.org/linux-scsi/20261014151914.3632701-1-yhlee@isslab.korea.ac.kr/
+Assisted-by: LLM
+Signed-off-by: Joonho Lee <mynameisjune111@gmail.com>
+---
+ sound/core/pcm_lib.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-where it is 4/6, with one addition: it also rejects an entry size too small
-to hold the frames the driver puts in the entry.
-mvumi_internal_cmd_sgl() writes one scatter-gather element at payload[0]
-whatever host->sg_tablesize says, and the max_sg subtraction in
-mvumi_io_attach() wraps when ib_max_size is below
-sizeof(struct mvumi_msg_frame), so the lower bound was missing from this
-version.
-
-The series also folds in the two-patch length series I posted separately
-and adds three more bounds from a full pass over the driver.
+diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
+index 4d665b4148d7..de952f639d3b 100644
+--- a/sound/core/pcm_lib.c
++++ b/sound/core/pcm_lib.c
+@@ -2208,13 +2208,17 @@ static int pcm_sanity_check(struct snd_pcm_substream *substream)
+ 	return 0;
+ }
+ 
+-static int pcm_accessible_state(struct snd_pcm_runtime *runtime)
++static int pcm_accessible_state(struct snd_pcm_substream *substream)
+ {
++	struct snd_pcm_runtime *runtime = substream->runtime;
++
+ 	switch (runtime->state) {
+ 	case SNDRV_PCM_STATE_PREPARED:
+ 	case SNDRV_PCM_STATE_RUNNING:
+ 	case SNDRV_PCM_STATE_PAUSED:
+ 		return 0;
++	case SNDRV_PCM_STATE_DRAINING:
++		return substream->stream == SNDRV_PCM_STREAM_CAPTURE ? 0 : -EBADFD;
+ 	case SNDRV_PCM_STATE_XRUN:
+ 		return -EPIPE;
+ 	case SNDRV_PCM_STATE_SUSPENDED:
+@@ -2320,7 +2324,7 @@ snd_pcm_sframes_t __snd_pcm_lib_xfer(struct snd_pcm_substream *substream,
+ 	nonblock = !!(substream->f_flags & O_NONBLOCK);
+ 
+ 	snd_pcm_stream_lock_irq(substream);
+-	err = pcm_accessible_state(runtime);
++	err = pcm_accessible_state(substream);
+ 	if (err < 0)
+ 		goto _end_unlock;
+ 
+@@ -2388,7 +2392,7 @@ snd_pcm_sframes_t __snd_pcm_lib_xfer(struct snd_pcm_substream *substream,
+ 		atomic_dec(&runtime->buffer_accessing);
+ 		if (err < 0)
+ 			goto _end_unlock;
+-		err = pcm_accessible_state(runtime);
++		err = pcm_accessible_state(substream);
+ 		if (err < 0)
+ 			goto _end_unlock;
+ 		appl_ptr += frames;
