@@ -1,221 +1,181 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012002.outbound.protection.outlook.com [52.101.43.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4A4B4A4F1C;
-	Wed, 14 Oct 2026 20:57:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792011456; cv=none; b=GaR9QY9FjiRBcGhC0YuuCEWP16sw4JWXF1jA0IKg7ce0+bat/pdzplW5AnsezZhjHsMCfm+ZFa1SS4okSh/mqdARNaSB+dNnHfAVdflhjQRtRV2ULRanL2OaQZ4sSpfjdVc23atAv1LTPxUxhGB8AFUbGxbjTH6BoZQOTZCnDuM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792011456; c=relaxed/simple;
-	bh=LgfXvygZHFJvmfBaXhUTWYvU2EJvFX8zOuzCXAYW+Is=;
-	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
-	 Content-Type; b=YHl9vkNGZ2hQlI+DATyTY9XVT4gGArSrzCml3Wjk5HzVtTtwRdurFtNedqA0y5uyyHWexsZCHJ9j7n0njZistzs10knrmWOh6XCHYsHAUwHli2RPIAobvaQESj6+HcipNlZ3iYD/X6niXC10C/mppxPdViZ4yy8MzX0vFyyNI9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=rOMfpMsE; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=h4WxwYJ/; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2D2641F5D7;
+	Wed, 14 Oct 2026 20:58:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.2
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792011486; cv=fail; b=PzHdzmSJjQvTsToqPAW8Juj828QabDIbaAmhvNWdicHBsExiyTz8c9c+/YH0H21NUWO9dT4w1TgsoAhqiYjiOCKXlV647t2MKe2AQD8Wa51sQW7o2qjo1UGDzwxTWZixsyy5BSIFc4wjSX48qKHWApWATGfLqJ6ABJ/ay8dLMI4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792011486; c=relaxed/simple;
+	bh=yl9svijwAXKna/pqlF6wMQIkq+NfnMPfBZb0x9La/b0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=RCj+DpdNB2mHqlMMGr15In5woj59nw6yXZFfzZD8rlTs83b7m5SjfaeuWVZzBqbLiBXgTYg2Chm4kU/9ri9yTpeOix40WNP8dje7SHnwfF9p7EBZ7FCLmv+mJD2WICO0VUMfa/XhbI4dmUpHaLPnveeMWfASNw4l/zdV+G8dXtc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=lhXqVhdg; arc=fail smtp.client-ip=52.101.43.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="rOMfpMsE";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="h4WxwYJ/"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1792011447; bh=LrJdjhfj6oEWAw3FjBd63GM
-	ryVpg4rJg5unfuR6JQGs=; b=rOMfpMsEdaZWSH/GG84wfEAMZ/J1zLgKTnmdPSN4T9/VnrMd88
-	7q+F6RGhReC75rRUq1pGLmOO6+nojui8cJjASmiqYCIgXClBuo9sGTC6vkApVsn0Fousiq75TVa
-	RfM7zSaI7uXoCZsgih4PECUhlz9ii48RcN+yFRjhH6X4hqUHYFaGn0aXSKYUBJ9ba/4v4ONfAJr
-	49/fJU9njZIO9g2laSdBNFtxcxGu1uL2RYUXQkdXFcipgS1sn6qSyHODs0goevfO58Q9ElSUzOn
-	u24GvXLkeaSvwdDbI2wfIWThGBmNZXaDsICpJ20Sa9wxm9seXTB/5dK228SsjMTBEmw==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1792011447; bh=LrJdjhfj6oEWAw3FjBd63GM
-	ryVpg4rJg5unfuR6JQGs=; b=h4WxwYJ/A6iegW6s+b10ABGJP16VzERqoQqqoRUWwafRjdbsKV
-	SDvzc6xNoXb6rSC1EmrsiNziLYRYbmtGQyCA==;
-Date: Wed, 14 Oct 2026 21:57:28 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: josef@toxicpanda.com
-CC: brauner@kernel.org, dhowells@redhat.com, jarkko@kernel.org, jmorris@namei.org,
- keyrings@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
- morgan@kernel.org, paul@paul-moore.com, serge@hallyn.com, sergeh@kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2_3/5=5D_userns=3A_check_the_op?=
- =?US-ASCII?Q?ener_and_the_writer_before_mapping_uid_0?=
-In-Reply-To: <20261014-b4-setfcap-userns-v2-3-fac4d19281d7@toxicpanda.com>
-Message-ID: <3789784A-6B41-480F-B370-B0C5E67EDD91@mainlining.org>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="lhXqVhdg"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=B25HPaoeUNKgWx5UXJ7flPX6aTrKMm7MYBmeWXykMiFX9CVwRHsTVMHMVqfZc9kfcPZpQ2FHY8i0aSfIeRc4fnDSiWx0728XZ7B4WeHsmon2ZSZPGwCRoh1EHVnTUsTvItuQimluxzpS3u8x2oZU1lbZSzDr2wCDxTAXBpsvrP+C3xsEhegUThg3V94lX8D/BSOlgoohA8n965ATIwPxHIZDdNUppR3J2jPpykPnBVHCWFPXik+7nEqDhCE5krG8w2s2ydjkWqA0+3GisXVlPxfnANgON0b4teThGfBOxrn5SeH9ulN7txyLF1WTbime+eAD+pjiHwpk/iOW7HjnlQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=a0y/fKU2Ifrp4Fac4Ji+NMyyN41o2L8MsOiUCwLE9Nw=;
+ b=jR7dYoBrF1N1jb2m/DK3k8eNF0pKrTM5rEhGuWCaKvjWyxG/y9GmjFfZarRngtFF8m2exhpCtColrJA2g1pviVQEpDEMhEpNV8oLUMP+PXRDOvC0hDPaChzMLDBfNtprAGYxMl0fryFusTY56Lst1WnyktnuvNL8eiyVajkQVtrSGug1K3BOYG5umyFoQAz9o7EXkvIv8jY2Ejd7DxdyrJ9ENfV8eXkAkeDWYNqlzW0iW72Xl23n6nN1Mbz8zeUSCicdiweKVFgiBbaNODDXw0/B6OZR+geO77sgKiI7uEeX496btgTgeMBrJ5f7NO8UTEJdXMOIhgacNadWGdWdAw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=a0y/fKU2Ifrp4Fac4Ji+NMyyN41o2L8MsOiUCwLE9Nw=;
+ b=lhXqVhdg98abOiPtuXDjPmzBIc6xG6RPBdfiFxWRgWYVx+90KcSY4NEUx6YryAFQwSTDgTQx5FXl/HErmrJiBUKbL1x71XZbsOdePmHdL+N7xPK8xQEkfSbRgIkRwyWAcs/7V0S8YgUlHgRnV2eLZTrbQmgccQqrQxYE2CZoCRde4sB9jTsZLoPNzlUyEruFlkjzODyQvzAU+RFS33kNldvbmVLZVeCgpUxZyESXiiQXLbg77PHSVLifS75Bt1Ad5NZ51B4NqZwZ4lTkBndd2M2jPO86tcadQK1Q1JD4Hc29N+zPe/+fDqpFT56D/M1stq1LfqKltUftDEWmMd6tpQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by DS0PR12MB7607.namprd12.prod.outlook.com (2603:10b6:8:13f::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 14 Oct
+ 2026 20:57:55 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0472.016; Wed, 14 Oct 2026
+ 20:57:54 +0000
+From: Zi Yan <ziy@nvidia.com>
+To: Rik van Riel <riel@surriel.com>
+Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Brendan Jackman <brendan.jackman@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <kasong@tencent.com>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ Baoquan He <baoquan.he@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>,
+ linux-mm@kvack.org, stable@vger.kernel.org
+Subject: Re: [RFC PATCH 1/5] mm/page_alloc: count guard pages as free again
+ when their buddy merges
+Date: Wed, 14 Oct 2026 16:57:45 -0400
+X-Mailer: MailMate (3.0r7032)
+Message-ID: <AD43E3BA-72CF-4066-83C3-9CF554AACEEF@nvidia.com>
+In-Reply-To: <20261007021250.1665929-2-riel@surriel.com>
+References: <20261007021250.1665929-1-riel@surriel.com>
+ <20261007021250.1665929-2-riel@surriel.com>
+Content-Type: text/plain
+X-MS-Reactions: disallow
+X-ClientProxiedBy: BY3PR04CA0006.namprd04.prod.outlook.com
+ (2603:10b6:a03:217::11) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DS0PR12MB7607:EE_
+X-MS-Office365-Filtering-Correlation-Id: fb8de088-0032-4609-abd4-08df2a35d064
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|18002099003|22082099003|261009223027099003|10067099003|4143699003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	fRazT/53yoREXeNzCQi59EVG+tCoGWmuvJo5RXL/V4T8fPnHRN6I5ZiKMxJPwdm8Op94xkxoNBxLHfdJvmrJJv8K85NKptU6bbpgEo67urCehG2i7BBEsdMtGahUVKjW8FZH1jexojhd1DL6eamEI4uLsyfXDmRIXd2kzPZdJqx/LqnM9YuHeMjABYXLM/GK/U3s05d2aCR+vjETGTm93Hlr3EBmmtiVzWvfkGLm+Z7Yrr9rHi3USvsjK8wU7WSY4HNHXqNqsInh/xX7Llp5tF1dEpcGXngx+BkDafqfAWsItPsEbV6ChWzxuhU52o9Eit/sfPvzSW4meXMSeQ4Yts4rbstG+1+G42RcUkaiAjxwAHC3hixkKb0vFYo0jfcHIe4+i0cr0KTs94TEJS3FAKI3vg7UQS8/5J9N6rESww7p3cbkkZyiC8vE17Y/FA5JIqpP5QBP4KJApeY0w97SkuIkUgJNh2BcqCdESqRFOUuYfjA6rF5PhbmZFmGeNWT6fPH+f/LK9CS4VPI0riWMgmZWn4GwNQeu+m41O3Xn+CQtQPFf7cANnLMl7UUMUs9CcKNMpsarr5NpN6sblKoLFMSSfYUL+GBKI6CAS6yzWD5/YLFHYT7TquyLTVFLUvVMmRYrj5PpPQx4N1o1QZaP7W1yssH8e85/VSdYX8TPTPY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(18002099003)(22082099003)(261009223027099003)(10067099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?NyosQfoIcR8EfmULEnEuNGI5euzHCcO9W6qEAECwNd83P66SuFqVof6xXpWR?=
+ =?us-ascii?Q?Tt8eWnAcK14tXBDUMUmfbzxqokkTPLUIauvoISg3pG0+UxbNouSdBpqq0hW4?=
+ =?us-ascii?Q?AFTM8VBIgBHbPFVTEEgHoiMzeHpnsXaRpn111DjWfm+f+xWpKadzePRrg1B5?=
+ =?us-ascii?Q?KvlCtdTRBPwLFJU7+sbnxUpfDhMcomsjABYUhePjvwHhPrNU3h0dTpYiRD9M?=
+ =?us-ascii?Q?xpTdeT/TkHiKLWEIyOwqB+DTS1Aw8iRKmPrERj5kuWkERTMVzxFPNx9S1lNX?=
+ =?us-ascii?Q?1PZdX50QrLBXIGJBRPKRVkVzm1me8iMAw3uk3U7mVXVqhhSDb4ewAgQqB6oQ?=
+ =?us-ascii?Q?x0OnLtSIataUvbu0o3ZiUvA9WmFXeNh6tcBGChnX9BAkApm5bX4ZRQLf8O7j?=
+ =?us-ascii?Q?saOOlvLL0HICXOT7xCI6dyPdmhwhA9fWgDyEh8gBIucuayFClkdxeMjYXuJa?=
+ =?us-ascii?Q?z6cYGziAmfEsZf6Ueo7lDQDGbdbL+RRoomA4xXv3E7Zh8toubizJplmYU86l?=
+ =?us-ascii?Q?ctb+f9u4peOk6LM0B3EdXhKG5Fg75MpkWbghYiqAi21O6yXFYK3r/dgW3vbQ?=
+ =?us-ascii?Q?fNNBsx3k3APfjxrYthAqzsCqdbI+59SIsecsa3RmJxPGtaCy/q0JsHj7Np8O?=
+ =?us-ascii?Q?nq4LW9MbXuJ5pmpssz1+2rXJas9DopFZC0PRBXKD0Jf8kkqfUm1eEMY5+D0C?=
+ =?us-ascii?Q?5u2Eh4EvfpnS3MgEipD9G4RRT1iPCBBwCR2iHwNmzNVlRc+bjwSWXfQsL4sK?=
+ =?us-ascii?Q?4SGGM8/2QPxqNrvc8W1UsCzCvcfau6mNw/pNnIlwmrlYHlsPi3JahtX5rFAM?=
+ =?us-ascii?Q?O/q8tk3ZAo+Bbh0/IL70jiPpUibFh3zdRnz/OT+A64NkyF6PYfNJR+gebOlt?=
+ =?us-ascii?Q?nwu60obAAYGROntWj/KkPJ9B/2/0oejAJoEGlkrIsOc9/mHUHJd7EIpSqtW3?=
+ =?us-ascii?Q?rFF6hjz18ggMkiCAZ4gdGn/vfOBb+t2NYpPONAo+z7mQNGUtlJ5N1uuI+15/?=
+ =?us-ascii?Q?AjFkgS3MoP3N4o/0HSiUJb6Vya2Yxhsgjekk+G0aT/1IekoDRKjUFYs2VIOs?=
+ =?us-ascii?Q?/7UKQNpewrB9niUIO/WVo9b1bBG5MIbBaiUkl/7ntX+EOdZ0lR1zYICQPizk?=
+ =?us-ascii?Q?/EXs09lIBaOMVLZlXGTExSdUmozZfPToBV6ZBdUbIKrrUzA0RhGfdxYQLJ35?=
+ =?us-ascii?Q?T4flZc4IEuvM1y7b6aWnJCLr7Lx7loO7eOmbzYdEYxjVkyNdcnUFk9rCDTOJ?=
+ =?us-ascii?Q?sydBQm2E/QDFfzgGLeodJ/wXKR5gpfPE3Tle1gsoptEaZQg//ZoNGbvzZ99C?=
+ =?us-ascii?Q?JqSovFMQVZLESlrobaRwDJBs5vxm6li8kX3n/2r7L4NWWoFKEDNma58As4ap?=
+ =?us-ascii?Q?NLb/VhcHhvel2pJvXmUdTJ8UsK5j29tRDVmsvpNRWQ9osGygmpIX91PoYtRA?=
+ =?us-ascii?Q?82XwvKaNY2X55/mi0qTSrtPbNOkLzwQKkI52+T/hu6dJycbJns7+mn2/hZIo?=
+ =?us-ascii?Q?ube6jZXivx+jTxh7hvXdGJZS0SZYKxxjPbMUIBurCtxMzG3RSYJt08NMo5U3?=
+ =?us-ascii?Q?/S8rN1SS9izv3WFL7qGIU7FT/JGfPls9ONMA47n+a0Td78Zou6fNr53j0+bt?=
+ =?us-ascii?Q?LA4Whh3putd/MRgGG0rzuOsffbYQb2NV4i2tIB+4kAXsKnp3GA+7vkL2lzZd?=
+ =?us-ascii?Q?keBqK3FNb8H9RHCnnpsDnzauTqE57f+RFMtUZJaHNq+KugzD?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fb8de088-0032-4609-abd4-08df2a35d064
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 20:57:53.0550
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UdRfAHv88kMoDpDiAnBpovJRHucKyWAFyrHF2NE8css3sp917R1g+T3VxIQxJtMb
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7607
 
-On 14 October 2026 21:47:48 BST, Josef Bacik <josef@toxicpanda.com> wrote:
->verify_root_map() looks at the cred that opened the map file: it asks
->whether it has CAP_SETFCAP over the parent, or, for an opener inside the
->namespace, whether the creator had.  Two things are missing.
->
->The writer isn't checked.  For every other privileged mapping
->new_idmap_permitted() wants the capability from the opener and from the
->task that calls write(), but a map that consists of the single line
->"0 0 1" takes the unprivileged branch, where only the opener's euid
->counts.  So an open uid_map file is a token for mapping uid 0:
->
->  task A: uid 0, full caps          task B: uid 0, no CAP_SETFCAP
->  fd = open("/proc/<pid>/uid_map")
->  B gets fd by inheritance
->  or SCM_RIGHTS
->                                    write(fd, "0 0 1")
->                                      opener had CAP_SETFCAP -> allowed
->
->And CAP_SETFCAP over the parent isn't always enough.  The parent may map
->its own parent's uid 0, so its root user is the root user of ancestors
->further up, and the capability has to count there too.  A task without
->CAP_SETFCAP that unshared a namespace, which a privileged task then
->mapped "0 0 1" for, has CAP_SETFCAP in it.  It could unshare again and
->pass on uid 0 of the initial namespace one level further down.
->
->Find the topmost namespace that shares the parent's root user with
->cap_root_level(), and require that the opener and the writer both reach
->that far: by ns->setfcap_level for a task in the namespace that is being
->mapped, by cap_setfcap_level() for one outside it.
->
->This only affects maps that contain uid 0 of the parent namespace.  A
->write by a task without CAP_SETFCAP to a file opened by one with it, and
->a map by a task whose CAP_SETFCAP stops short of the root user it passes
->on, now fail with -EPERM.
+On 6 Oct 2026, at 22:12, Rik van Riel wrote:
 
-Ok. Look. I feel there will be nits on this exact review. But I review
-more based on "is this code correct? ", because the users are my priority 
-right now until I learn maintainers opinions or liking.
-
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
-
-
+> With debug_guardpage_minorder set, expand() turns the unused halves of a
+> split into guard pages, which page_del_and_expand() leaves out of the free
+> counts. Freeing the allocated half credits only that half, and
+> __free_one_page() then merges the guard buddy with clear_page_guard(),
+> which no longer touches the counters.
 >
->Fixes: db2e718a4798 ("capabilities: require CAP_SETFCAP to map uid 0")
->Assisted-by: LLM
->Signed-off-by: Josef Bacik <josef@toxicpanda.com>
->---
-> include/linux/capability.h |  1 +
-> kernel/user_namespace.c    | 29 +++++++++++++++++++++--------
-> security/commoncap.c       | 23 +++++++++++++++++++++++
-> 3 files changed, 45 insertions(+), 8 deletions(-)
+> The merged block goes on a free list with the guard pages never counted,
+> so NR_FREE_PAGES falls behind the free lists by every guard that merges.
+> Before commit e0932b6c1f94 ("mm: page_alloc: consolidate free page
+> accounting"), __set_page_guard() and __clear_page_guard() adjusted the
+> counts themselves; that commit dropped both adjustments but kept the
+> subtraction implicit in expand().
 >
->diff --git a/include/linux/capability.h b/include/linux/capability.h
->index 026974a5111b..90f9f976d216 100644
->--- a/include/linux/capability.h
->+++ b/include/linux/capability.h
->@@ -224,5 +224,6 @@ int cap_convert_nscap(const struct mnt_idmap *idmap, struct dentry *dentry,
-> 		      const void **ivalue, size_t size);
-> 
-> int cap_setfcap_level(const struct cred *cred, struct user_namespace
-> *ns);
->+int cap_root_level(kuid_t kuid, struct user_namespace *ns);
-> 
-> #endif /* !_LINUX_CAPABILITY_H */
->diff --git a/kernel/user_namespace.c b/kernel/user_namespace.c
->index 330085a7d7d4..7dba6594516d 100644
->--- a/kernel/user_namespace.c
->+++ b/kernel/user_namespace.c
->@@ -888,8 +888,9 @@ EXPORT_SYMBOL_IF_KUNIT(uid_gid_map_sort);
->  * @new_map: requested idmap
->  *
->  * If a process requests mapping parent uid 0 into the new ns, verify that the
->- * process writing the map had the CAP_SETFCAP capability as the target process
->- * will be able to write fscaps that are valid in ancestor user namespaces.
->+ * process that opened the map file and the process writing the map had the
->+ * CAP_SETFCAP capability as the target process will be able to write fscaps
->+ * that are valid in ancestor user namespaces.
->  *
->  * Return: true if the mapping is allowed, false if not.
->  */
->@@ -897,7 +898,7 @@ static bool verify_root_map(const struct file *file,
-> 			    struct user_namespace *map_ns,
-> 			    struct uid_gid_map *new_map)
-> {
->-	int idx;
->+	int idx, level;
-> 	const struct user_namespace *file_ns = file->f_cred->user_ns;
-> 	struct uid_gid_extent *extent0 = NULL;
-> 
->@@ -915,24 +916,36 @@ static bool verify_root_map(const struct file *file,
-> 	if (!extent0)
-> 		return true;
-> 
->+	/* The parent may in turn share its root user with its ancestors. */
->+	level = cap_root_level(make_kuid(map_ns->parent, 0), map_ns->parent);
->+
-> 	if (map_ns == file_ns) {
-> 		/* The process unshared its ns and is writing to its own
-> 		 * /proc/self/uid_map.  User already has full capabilites in
-> 		 * the new namespace.  Verify that the parent had CAP_SETFCAP
->-		 * when it unshared.
->+		 * when it unshared, as far up as that root user goes.
-> 		 * */
->-		if (file_ns->setfcap_level >= file_ns->level)
->+		if (file_ns->setfcap_level > level)
-> 			return false;
-> 	} else {
-> 		/* Process p1 is writing to uid_map of p2, who is in a child
-> 		 * user namespace to p1's.  Verify that the opener of the map
-> 		 * file has CAP_SETFCAP against the parent of the new map
->-		 * namespace */
->-		if (!file_ns_capable(file, map_ns->parent, CAP_SETFCAP))
->+		 * namespace, and as far up as that root user goes.
->+		 */
->+		if (!file_ns_capable(file, map_ns->parent, CAP_SETFCAP) ||
->+		    cap_setfcap_level(file->f_cred, map_ns->parent) > level)
-> 			return false;
-> 	}
-> 
->-	return true;
->+	/* The file may have been handed to someone else since it was opened,
->+	 * so the same goes for the process that is doing the write.
->+	 */
->+	if (map_ns == current_user_ns())
->+		return map_ns->setfcap_level <= level;
->+
->+	return ns_capable(map_ns->parent, CAP_SETFCAP) &&
->+	       cap_setfcap_level(current_cred(), map_ns->parent) <= level;
-> }
-> 
-> /*
->diff --git a/security/commoncap.c b/security/commoncap.c
->index a51b9d51d96d..f52f1c7a87be 100644
->--- a/security/commoncap.c
->+++ b/security/commoncap.c
->@@ -157,6 +157,29 @@ int cap_setfcap_level(const struct cred *cred, struct user_namespace *ns)
-> 	return cred->user_ns->level + 1;
-> }
-> 
->+/**
->+ * cap_root_level - Find the topmost namespace in which a kuid is the root user
->+ * @kuid: The kuid to look for
->+ * @ns: The user namespace to start from
->+ *
->+ * Return: the lowest ->level among @ns and its ancestors in which @kuid is
->+ * uid 0, which is how far up file capabilities with that root user are
->+ * honoured; INT_MAX if there is no such namespace.
->+ */
->+int cap_root_level(kuid_t kuid, struct user_namespace *ns)
->+{
->+	int level = INT_MAX;
->+
->+	for (;; ns = ns->parent) {
->+		if (from_kuid(ns, kuid) == 0)
->+			level = ns->level;
->+		if (ns == &init_user_ns)
->+			break;
->+	}
->+
->+	return level;
->+}
->+
-> /**
->  * cap_settime - Determine whether the current process may set the system clock
->  * @ts: The time to set
+> Count the guard pages under the merged block's migratetype when the
+> buddy is cleared. account_freepages() skips an isolated block as it does
+> for every other free page, and moving the block off the isolated list
+> counts it then.
 >
+> Booting a 16GB VM with debug_pagealloc=on debug_guardpage_minorder=1,
+> check the difference in free pages reported between /proc/vmstat
+> and /proc/buddyinfo.
 >
+> At three points (idle, after a read and file-creation load, after
+> a second load), check the difference between nr_free_pages and the
+> buddyinfo numbers in the normal zone, as a number of pages:
+>
+>                 idle   after load   after second load
+>     unpatched   -130        79205               99121
+>     patched      -16           45                   0
+>
+> The small remaining difference seems to be due to the numbers
+> not being read at exactly the same time, and is also seen
+> without guard pages.
+>
+> Fixes: e0932b6c1f94 ("mm: page_alloc: consolidate free page accounting")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Rik van Riel <riel@surriel.com>
+> ---
+>  mm/page_alloc.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+>
+Good catch.
 
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+
+Best Regards,
+Yan, Zi
