@@ -1,291 +1,155 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [85.215.255.84])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E4F34F4743
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:58:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791975495; cv=none; b=d8h361oXSuQvUiaDpVqpAZnnc2rb1onFH3uwn8gZ9ZMbhhF2rAdQlV97AtPlMGOtlDalNgLTD6PRm9lqz6x2e0jrnaONDFke58zGXKNhLZcNu3R9nREf3m9b7uO4pgSaBIohBZwPOpbQBGs27x+5ERNiqPzR9xGl3k00F+XaIC4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791975495; c=relaxed/simple;
-	bh=oMdJQ4OULZXyBz3Ko0nv7l3azl/UbkYzjQDSpcXpAiM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=obsfRGuS7V/mnOaaNC4io3gU/ftA3fi4v1TcdpK5TFtmjMibYeGvhiE/1IZJqu+or5aj11f3c8VvdLk+Jyx+yYAKNMSiOu67PjjNR4vyn+UP0bnDZw/w1xTlwL8Itx1ZTpy6pcZSVYuF+7Dq0NIYpvzqza4s7fGjJnuarvAL5d8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Ft5vQYAs; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=tsZFKvrD; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F0484F4733;
+	Wed, 14 Oct 2026 10:58:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.84
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791975535; cv=pass; b=X0zHsJL0Lu2QinrukosL7nNJS8i99c2unlkKKKHtE46N+x06HKcmHRJ8JuPvUMcGfkms8mIHymjl5PFWZGLT+TnUPK4P7/i6HzPB/2pxvw3ZYY9P5y34HBFygPADcFLPIn20HazJ4Mysk04XlDIv6368PYKJALDJmXow8aphIq0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791975535; c=relaxed/simple;
+	bh=i77e+wBiWi8FqvuuJeUW9AWeITiuJSztxl7rR9SlHBk=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=c6WXE8mHW6x8HiLShEts6qWW1aWcLxJWBj9OAp1C+2DW/AJH3c33E7A3YfMb8vk5Xt6BLOtGuwL81wnuJMQIiDVmBVZKbsD3MQc3/x3iafopXpmccLtbb5iLWntFTC946nDFS0nftrtzAl2RxGRIu5G2bHTNQKLyJbXLn46R8BA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de; spf=none smtp.mailfrom=iokpp.de; dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=mDWjPhU5; dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=mza393iE; arc=pass smtp.client-ip=85.215.255.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Ft5vQYAs";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="tsZFKvrD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791975493;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jH1ufsQ5g3r1H3aslg+X8qJ0wMgxmZRuam6ChKawEQw=;
-	b=Ft5vQYAsmmGrRvVXqCt1HYeHZ/Ss5dxr+fW7NY2k/4aJRERtUVy/lcCqrKuHmbsHW1mIvF
-	lwm0g58dzj8uO5BdKbbyl88Cy96OXK2D0xq5nPhbHx1TXTSahG42t6QArrLKLHX60mPBvZ
-	NUjCa1cCI43Ezz/SggMR+G19hiElMBU=
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
- [209.85.216.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-333-sTBVsbq0Nz-ypl-rAfFYhQ-1; Wed, 14 Oct 2026 10:58:11 +0000
-X-MC-Unique: sTBVsbq0Nz-ypl-rAfFYhQ-1
-X-Mimecast-MFC-AGG-ID: sTBVsbq0Nz-ypl-rAfFYhQ_1791975491
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3a813204f87so257374a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 03:58:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1791975491; x=1792580291; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jH1ufsQ5g3r1H3aslg+X8qJ0wMgxmZRuam6ChKawEQw=;
-        b=tsZFKvrDJdx0xmEGXFDrwEUj6NFztX1lFZcLELxDCe8JkICwkQrgex07wF5qaXKRtI
-         nVcjGshA+pAgOfyOJAJBIHgXQ1qGPw4xPK+igxTmxRy6Wmp3BdbRpb+LlC14CggA3+QR
-         gTEKWRerJgr32RdzSITDcUPayUqQJQyZ5fbMyoryb1IWY5K8HfOHeqxKJaT6P2P8ZI6F
-         SzMHNXewgLJGLhusb88n1YmzU3bybx1t5XW3ZsXVDXoizidq54LN8JiRu9EkRSGm0/lr
-         zu2MAhEMIPrjCRyuVYYRENudlCgmcmBTHcdaPNVup7TrUqKRG6sWnR6rpZoKveOR2SRg
-         vzbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791975491; x=1792580291;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jH1ufsQ5g3r1H3aslg+X8qJ0wMgxmZRuam6ChKawEQw=;
-        b=DbWiry1ETA1ULWfmr7AGXUfAY3/X5i0eqw3URHuwCCoZqoHXolnWiaTz+edW2I2snW
-         rum8n5wx5Vhv4IcsmCeEp+5Hx/6oKD73B2rjW1rCr1O5O/lMDaf3amCSJywsnRGLVmb0
-         /hii4/+hjzN1+mkZs09Ql2d8sRQB91v7gYiSrSI4+7JUlaQB8TXo+gmEChaZt9NuEh6L
-         Q2pP+4j8E1NQ3ucJcxDNNYedRYUE3kqNjHG2IUApns8muDQMU7uLtZbDzUCLpbtr7Udl
-         +akyHiLhgUno1SLkeBl8o8c29YP2SM3gKUNiyjh3TXsJQYzxpUO1PgGr4jXOKwdxadvP
-         pAcg==
-X-Forwarded-Encrypted: i=1; AKwUvBxxRE9pRFqZnqgsgy1GYCUQwtnexU4ObXN3s7DZWctV9weG2QsA6jK1EnubdPUP6w3zrStwMpMURvZpMpk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJor+ZZI9wBV5MTyTtaFHw8k1wZkE2MiMA1/QdQSltRKl17eZdT
-	eqQYmE5Bpc4kaTJ3WmEEn0ALke6UaJLocjhRHZroHDrZYnqxK5JGhvdXnl5fEuAsJkXkExp+kDQ
-	N8VGbvUrA7T1TY89HsbT/N6nA+Q4t1b1PebW8Phd31M1o/o/kHcdyESLfmy08PSUlVHiKjSjHUA
-	==
-X-Gm-Gg: AYBFou3ZrSY1JaM56o7vQDdTcvOTJ700jmsemGAYgpuPfN8jT6XWr5+ZckzdD3HyKOd
-	7tC0aqeRSbucLNkdafm4W9Z3vLR9KMC8sLfHWZZhe/UUCYZKv6HyARjQTom+jvVU3YUfWFpNVct
-	DmGDB/K8nGjvSGoSA/2UD6IdApSDF+AqxJzxxkoR92ip8NZHtQRTinET/xGS+cHLQDzqA2Ompyt
-	DQsK6lJrx3QA78dXSq7EuewqoGpO17ZLTJ55oDXVKcYjr6+vaWCly9fLsAMQ14xqq1nhYrdfXgV
-	8o+DScFbZigINV5XY2VkZ2mQ8P6TosIZtx+5/qwqNJyjuam57pvYoLXiY03RPpeHAa4J0HMsJAN
-	LOCqnk4Yb2T2j6wBUFksjqjrmfemnMTmCXfX9EkXgKg==
-X-Received: by 2002:a17:90a:51a7:b0:3ab:4262:1a3a with SMTP id 98e67ed59e1d1-3ab42621c33mr8647751a91.61.1791975490675;
-        Wed, 14 Oct 2026 03:58:10 -0700 (PDT)
-X-Received: by 2002:a17:90a:51a7:b0:3ab:4262:1a3a with SMTP id 98e67ed59e1d1-3ab42621c33mr8647724a91.61.1791975490063;
-        Wed, 14 Oct 2026 03:58:10 -0700 (PDT)
-Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac5f05083fsm4391258a91.1.2026.10.14.03.58.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 03:58:09 -0700 (PDT)
-Message-ID: <0ceda99f-0352-474b-a30a-c5e79b817c2d@redhat.com>
-Date: Wed, 14 Oct 2026 20:58:00 +1000
+	dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="mDWjPhU5";
+	dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="mza393iE"
+ARC-Seal: i=1; a=rsa-sha256; t=1791975523; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=OA1ZxccYceiWPQRn4RfeedxzDtdGhYXZ98aj3Rp5ixpOOmQmYnLeATWtLR65N18c1s
+    +MdS4TNx+K9mWxOYAl6/TKzxNxfGPkniQCt3KKBJzG9nc1xluBNyc8unqdwoJtJpYeKF
+    muJsQAtk1vH3jrZhQZfieXUz8vJ+mUBMkspIECloQltnLTpXE0jbN2tbbzvQj2Z3oWOQ
+    XpycyiakhYgsKu5cp3+JqWZiH0PeJqRhf9M6dIlLVZ9jcN0Yuq+e2KqzFzkkcNcIuGB+
+    FkQ/smYV5NV8zOyMh+Xty6dJoevo4Wp0O70C9hUmRNCUQj5XqAs2QuG+v366EOuxVGB7
+    b6ig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1791975523;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=i77e+wBiWi8FqvuuJeUW9AWeITiuJSztxl7rR9SlHBk=;
+    b=mEuxMPAlzyIm632nodxxENzRGrfDBIXf7AJdVn/EvMYdoXqEGcHohS7h2pqFRapXMD
+    FpRearoEexw8wRmGlTCgenw2wlGuCRz3XwD4PLM0mO2DR7fW5lv9x7KdJPnYZdiEuX3P
+    gPprvQrFkQDpDeoXxI4kKIG2nxLHvelCMDYnoMOtWgqE3DapYC51nJP8MHJ1vPpLUr8z
+    e4dmOWfTdORF5B06ovDkJczeqLgagMLTPyv1HxxwYj6bPDELcyD1Hmprkf7hgR7AiuHu
+    LMFxou9uhUlzZ+knd0XgZWPbxpuuDrSHSkVi1adYF2N3Wm649oOhXgx46TizGTz/B5P9
+    O5Og==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo02
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1791975523;
+    s=strato-dkim-0002; d=iokpp.de;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=i77e+wBiWi8FqvuuJeUW9AWeITiuJSztxl7rR9SlHBk=;
+    b=mDWjPhU5+ZfHnvBR3UBil4JsiC0OwcXULLsrd9/XFQlXkiiyrjxa2mI9VZEhABWgiC
+    O0kBJIQgazWJ21kitiD+9t+/m9DXICGCLyBVYBM5fY9B50FQMC+DWLoY7xdLQFGHhaIr
+    0Gd6dlS0ZWESMabl+U4Zp0w9Mjqs3RfNvchW8giAhdUaOQEOZiXpVGmRF+SLSaIIMWbZ
+    aiMWW3p1xBsmER+IFCEVwciy6mZba9l6nF/Xcm1dXdMiaqK7h8WD8t8l7TEwMbpA4PAJ
+    xVCbU5+Qb72LCIMM9QPVKJxSh86DAw2H23HAjT8b/5R0eckI2MiIZqYuvsj3bZ2ci1A0
+    YhiQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1791975523;
+    s=strato-dkim-0003; d=iokpp.de;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=i77e+wBiWi8FqvuuJeUW9AWeITiuJSztxl7rR9SlHBk=;
+    b=mza393iEpO8uOfC+eFAI+vNsxnbP1+Q/iyTSTKjs4CboahGLWZl/bOPVIk0agqUEwS
+    ZsjCgbZ2/zs1PBSTzdCQ==
+X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0DBslXBtZUxPOub3IZuk"
+Received: from [10.176.237.108]
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id z831ad29EAwg3jF
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Wed, 14 Oct 2026 12:58:42 +0200 (CEST)
+Message-ID: <1502975d00e9344bf33b5d1ed23501699895998e.camel@iokpp.de>
+Subject: Re: [PATCH 3/3] scsi: ufs: core: Clear stale UIC result byte before
+ peer DME retries
+From: Bean Huo <beanhuo@iokpp.de>
+To: Stanley Jhu <stanleyjhu@google.com>, "Martin K. Petersen"
+ <mkp@kernel.org>,  "James E.J. Bottomley"
+ <James.Bottomley@HansenPartnership.com>
+Cc: powenkao@google.com, Alim Akhtar <alim.akhtar@samsung.com>, Bart Van
+ Assche <bvanassche@acm.org>, Bean Huo <beanhuo@micron.com>, Peter Wang
+ <peter.wang@mediatek.com>, linux-scsi@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Wed, 14 Oct 2026 12:58:41 +0200
+In-Reply-To: <20261013102913.948718-4-stanleyjhu@google.com>
+References: <20261013102913.948718-1-stanleyjhu@google.com>
+	 <20261013102913.948718-4-stanleyjhu@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v22 02/10] firmware: arm_rmm: Check for RMI support at
- init
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
- kvmarm@lists.linux.dev
-Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
- sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
-References: <20261002061507.1600269-1-suzuki.poulose@arm.com>
- <20261002061507.1600269-3-suzuki.poulose@arm.com>
- <2586e689-c27d-4e4c-8c69-03e24259cb96@redhat.com>
- <8be050e3-8af1-4f04-902f-9bc01b209dd0@arm.com>
- <3fbd4739-a4eb-4428-95ae-ead22e7cf9f2@redhat.com>
- <799fb810-c33e-4d0e-9a70-7092c0a681ff@arm.com>
-Content-Language: en-US
-From: Gavin Shan <gshan@redhat.com>
-In-Reply-To: <799fb810-c33e-4d0e-9a70-7092c0a681ff@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-On 10/14/26 7:19 PM, Suzuki K Poulose wrote:
-> On 14/10/2026 08:26, Gavin Shan wrote:
->> On 10/13/26 7:58 PM, Suzuki K Poulose wrote:
->>> On 13/10/2026 04:53, Gavin Shan wrote:
->>>> Hi Suzuki,
->>>>
->>>> On 10/2/26 4:14 PM, Suzuki K Poulose wrote:
->>>>> From: Steven Price <steven.price@arm.com>
->>>>>
->>>>> Query the RMI version number and check if it is a compatible version.
->>>>> All RMM feature registers are read and exposed for future code to
->>>>> use. Also restrict the support to SMC conduit.
->>>>>
->>>>> We only support this for Little Endian kernels, the Big Endian kernel
->>>>> support is anyway marked BROKEN and is being removed.
->>>>>
->>>>> Cc: Marc Zyngier <maz@kernel.org>
->>>>> Cc: Oliver Upton <oupton@kernel.org>
->>>>> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
->>>>> Reviewed-by: Gavin Shan <gshan@redhat.com>
->>>>> Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
->>>>> Tested-by: Gavin Shan <gshan@redhat.com>
->>>>> Signed-off-by: Steven Price <steven.price@arm.com>
->>>>> Co-developed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
->>>>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
->>>>> ---
->>>>
->>>> [...]
->>>>
->>>>> ---
->>>>>   MAINTAINERS                       |   2 +
->>>>>   arch/arm64/Kconfig                |   1 +
->>>>>   arch/arm64/kernel/cpufeature.c    |   1 +
->>>>>   arch/arm64/kvm/sys_regs.c         |   2 +
->>>>>   drivers/firmware/Kconfig          |   1 +
->>>>>   drivers/firmware/Makefile         |   1 +
->>>>>   drivers/firmware/arm_rmm/Kconfig  |  25 +++++++
->>>>>   drivers/firmware/arm_rmm/Makefile |   1 +
->>>>>   drivers/firmware/arm_rmm/rmi.c    | 112 ++++++++++++++++++++++++++ ++++
->>>>>   include/linux/arm-rmi-cmds.h      |  48 +++++++++++++
->>>>>   10 files changed, 194 insertions(+)
->>>>>   create mode 100644 drivers/firmware/arm_rmm/Kconfig
->>>>>   create mode 100644 drivers/firmware/arm_rmm/Makefile
->>>>>   create mode 100644 drivers/firmware/arm_rmm/rmi.c
->>>>>   create mode 100644 include/linux/arm-rmi-cmds.h
->>>>>
->>>>
->>>> [...]
->>>>
->>>>> diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/ arm_rmm/rmi.c
->>>>> new file mode 100644
->>>>> index 0000000000000..06f5392c982d2
->>>>> --- /dev/null
->>>>> +++ b/drivers/firmware/arm_rmm/rmi.c
->>>>> @@ -0,0 +1,112 @@
->>>>> +// SPDX-License-Identifier: GPL-2.0
->>>>> +/*
->>>>> + * Copyright (C) 2023-2026 ARM Ltd.
->>>>> + */
->>>>> +
->>>>> +#include <linux/arm-rmi-cmds.h>
->>>>> +#include <linux/cpufeature.h>
->>>>> +#include <linux/memblock.h>
->>>>> +#include <linux/slab.h>
->>>>> +
->>>>> +#include <asm/memory.h>
->>>>> +#include <asm/pgtable-hwdef.h>
->>>>> +
->>>>> +/* RMM v2.0 defines RmiFeatureRegister0 to RmiFeatureRegister4. */
->>>>> +static unsigned long rmi_feat_reg_cache[5] __ro_after_init;
->>>>> +
->>>>> +static int rmi_check_version(void)
->>>>> +{
->>>>> +    unsigned short version_major, version_minor;
->>>>> +    unsigned long host_version = RMI_ABI_VERSION(RMI_ABI_MAJOR_VERSION,
->>>>> +                             RMI_ABI_MINOR_VERSION);
->>>>> +    unsigned long aa64pfr0 = read_sanitised_ftr_reg(SYS_ID_AA64PFR0_EL1);
->>>>> +    struct arm_smccc_1_2_regs res = {
->>>>> +        SMC_RMI_VERSION, host_version,
->>>>> +    };
->>>>> +
->>>>> +    /* If RME isn't supported, then RMI can't be */
->>>>> +    if (cpuid_feature_extract_unsigned_field(aa64pfr0, ID_AA64PFR0_EL1_RME_SHIFT) == 0)
->>>>> +        return -ENXIO;
->>>>> +
->>>>> +    if (arm_smccc_1_1_get_conduit() != SMCCC_CONDUIT_SMC)
->>>>> +        return -ENXIO;
->>>>
->>>> I think we need to ensure SMCCC version is v1.2 or a newer one here? arm_smccc_1_2_smc()
->>>> is immediately called by rmi_smccc_invoke() after this check.
->>>>
->>>>      if (arm_smccc_1_1_get_conduit() != SMCCC_CONDUIT_SMC ||
->>>>              arm_smccc_get_version() < ARM_SMCCC_VERSION_1_2)
->>>
->>> We could. But I am wondering if that adds any value ? If the RMM
->>> exists and responds to the RMI_ABI_VERSION, it must be so on a
->>> platform with v1.2 or greater ? The extra check doesn't hurt.
->>>
->>
->> It's required as documented in section "B1.1 overview" of RMM-spec-v2.0- bet3.
->> In the same section, there are more requirements regarding the SMCCC version
->> when SVE/SME are supported. I don't see a practical problem if the check is
->> missed since the combination of TF-A and TF-RMM are the only RMM-spec- v2.0-bet3
->> implementation (as I knew) where the SMCCC version has been set to v1.5 in the
->> 'master' branch.
-> 
-> Reading the RMM spec again, DFNMZ lists how one can detect if the RMM
-> ABI is present. That specifies that the user checks for SMCCC
-> version >= 1.1, which we do by using arm_smccc_1_1_get_conduit().
-> 
-> Then checking the R{M,S}I_VERSION call is sufficient. So, I think
-> we are good here. Do you agree ?
-> 
+On Tue, 2026-10-13 at 18:29 +0800, Stanley Jhu wrote:
+> Peer DME get and set retry a failed attempt with the same struct
+> uic_command. UIC completion ORs the ConfigResultCode into
+> argument2[7:0], and nothing clears it before the next attempt. Once an
+> attempt fails, every retry keeps reporting that error code, even when
+> the device returns success, so a transient failure becomes a hard
+> failure after three retries. Each such retry also triggers the
+> WARN_ON_ONCE() in ufshcd_dispatch_uic_cmd().
+>=20
+> Clear the result byte before each attempt.
+>=20
+> Fixes: 64238fbd15ea ("scsi: ufs: add retries to dme_peer get and set
+> attribute")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
+> ---
+> =C2=A0drivers/ufs/core/ufshcd.c | 2 ++
+> =C2=A01 file changed, 2 insertions(+)
+>=20
+> diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+> index bcc2512bf34b..9adb3b576e28 100644
+> --- a/drivers/ufs/core/ufshcd.c
+> +++ b/drivers/ufs/core/ufshcd.c
+> @@ -4398,6 +4398,7 @@ int ufshcd_dme_set_attr(struct ufs_hba *hba, u32
+> attr_sel,
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0int retries =3D UFS_UIC_C=
+OMMAND_RETRIES;
+> =C2=A0
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0do {
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0uic_cmd.argument2 &=3D ~MASK_UIC_COMMAND_RESULT;
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0/* for peer attributes we retry upon failure */
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0ret =3D ufshcd_send_uic_cmd(hba, &uic_cmd);
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0if (ret)
+> @@ -4465,6 +4466,7 @@ int ufshcd_dme_get_attr(struct ufs_hba *hba, u32
+> attr_sel,
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0}
+> =C2=A0
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0do {
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0uic_cmd.argument2 &=3D ~MASK_UIC_COMMAND_RESULT;
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0/* for peer attributes we retry upon failure */
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0ret =3D ufshcd_send_uic_cmd(hba, &uic_cmd);
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0if (ret)
 
-arm_smccc_1_1_get_conduit() ensures SMCCC version >= v1.1, but we need
-SMCCC version >= v1.2. We will have problem if the firmware only supports
-SMCCC v1.1 and R{M,S}I_VERSION is coincidentally supported. In this
-rare (even impossible) case, it's not sufficient to check R{M,S}I_VERSION
-as I understand.
+Stanley,
 
-As far as TF-A+TF-RMM is concerned, I agree there is no issue. However,
-the extra check doesn't hurt and make the code following the spec a bit
-more strictly? :-)
+AI Sashiko comment on arg3 should not happen on a spec compliant ufshci
+controller, since arg3 is an input for dme_set, arg2 indeed has an output b=
+yte
+for every command, but restoring arg3 in the set loop would be cheap safety
+enhancement, but up to you:
 
-Thanks,
-Gavin
+for me this patch is ok:
 
-> Suzuki
-> 
->>
->> Thanks,
->> Gavin
->>
->>> Suzuki
->>>
->>>>          return -ENXIO;
->>>>
->>>> Thanks,
->>>> Gavin
->>>>
->>>>> +
->>>>> +    rmi_smccc_invoke(&res);
->>>>> +    if (res.a0 == SMCCC_RET_NOT_SUPPORTED)
->>>>> +        return -ENXIO;
->>>>> +
->>>>> +    version_major = RMI_ABI_VERSION_GET_MAJOR(res.a1);
->>>>> +    version_minor = RMI_ABI_VERSION_GET_MINOR(res.a1);
->>>>> +
->>>>> +    if (res.a0 != RMI_SUCCESS) {
->>>>> +        unsigned short high_version_major, high_version_minor;
->>>>> +
->>>>> +        high_version_major = RMI_ABI_VERSION_GET_MAJOR(res.a2);
->>>>> +        high_version_minor = RMI_ABI_VERSION_GET_MINOR(res.a2);
->>>>> +
->>>>> +        pr_err("Unsupported RMI ABI (v%d.%d - v%d.%d) we want v%d. %d\n",
->>>>> +               version_major, version_minor,
->>>>> +               high_version_major, high_version_minor,
->>>>> +               RMI_ABI_MAJOR_VERSION,
->>>>> +               RMI_ABI_MINOR_VERSION);
->>>>> +        return -ENXIO;
->>>>> +    }
->>>>> +
->>>>> +    pr_info("RMI ABI version %d.%d\n", version_major, version_minor);
->>>>> +
->>>>> +    return 0;
->>>>> +}
->>>>> +
->>>>
->>>> [...]
->>>>
->>>>
->>>>
->>>
->>
-> 
+Reviewed-by: Bean Huo <beanhuo@micron.com>
 
