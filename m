@@ -1,84 +1,77 @@
-Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C43B947DD64
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 20:29:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D98548EC74
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 20:30:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792009782; cv=none; b=s2g/zCqYCWtcZHcjmmSBhcvqF0nUW3ViyTt9zOC98sTg7kvzRDzr2xogT+j1aUNQZsvQJr5Q93yIyH2VKUDf8zLEcUBRdAOlL3Dowlq/Z/4y4yqrsXbXGsVTRp0JLq/W8sv9hXLApnN14rg3V4rxObyGYpvMzdhfdT30CuJVrVc=
+	t=1792009831; cv=none; b=CNxJp29wuHjXavq03z8T0/6JQcsBMxe2mR1Riu0ffGl2V4u6Eunkkv3wX8yp34vbM1WEaTg3P+AvkTGgnuRYfFLqVmPhRh2BgeJOn3RNfgB1gIpulA+1GZQG1/g6BaXK3KXWgKURCbVR0/FF9phbrYku33M/bA+9r8e310zs/fo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792009782; c=relaxed/simple;
-	bh=yW2JRdI+sHVXqRRLn3ro5rxRmw1YQMKkbezj+YasMm0=;
+	s=arc-20240116; t=1792009831; c=relaxed/simple;
+	bh=m13NBzcveU+SKQE3j2uf1MErjWzIeo/6YD0bhzhmMlo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ENtgd/GfMOa/PT18/KdK6Tbk5PBDCSyvhZ6mFYV5qTM9aCje6h0pECMxgDoRMPdBWQiEKUkLGSC+NNi2j+0PWpXxPzvvcSzzf5bfB/v9H6IWGyVqKPmwejhdHTx3Z9p5tmKTdfEKhHNYeLEUhVUJ7/nEqS68titRWTcxHSnV62I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=rdAxAsMm; arc=none smtp.client-ip=209.85.160.170
+	 Content-Type:Content-Disposition:In-Reply-To; b=AjYd7ujnfq8Ykq13Zdp1JmZLBypiuwLhps3YrlIyTc9JeD13zkcvWStGBw6yRMQaIuuOFKYPqF3Av9mr2ywesdff60wGEVPBkfPVdltw8w0nI3SlK9AamSG5P/Qy24FCslokLlZSq2bWrS4DkojlXu6khBLsARRnA1Jiv8Q/S5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=RVMXw0fL; arc=none smtp.client-ip=209.85.222.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="rdAxAsMm"
-Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-5339199d8c3so44049451cf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:29:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="RVMXw0fL"
+Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-93e4c00d71aso349031085a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:30:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1792009781; x=1792614581; darn=vger.kernel.org;
+        d=cmpxchg.org; s=google; t=1792009829; x=1792614629; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=8KpIQc9Vyaph3vkgeCaoJ68oVGAH4Ek85s5zfjWhrac=;
-        b=rdAxAsMmZjVc+aFoV7+zMJ2GvAxRjMz/tFtzAatt9ZbyWsHrVKsMcAa+d81t4EGrJy
-         kdJql+zC5+eQ+90faaXFS4Sb4K8hOpZhcCSGW8kvnLn9oCiBV2wDxDjnmMVl2VCmQ7XN
-         Uwg6uggwkp4CA/yv4jlqeKfvCcxqo81sK4jH69lYZ+5N4JHExW62PKKbqis6oA2XRVEt
-         Eunxjf+o0xNL95IWFknf+wI+8v6qCuOnhmKG8gzEzmFU8lQuzHi6xLLK58k7qPSRrX9B
-         o3XJRpEKzSy/9aa2JFaLclIr+ZhFKrjLoy654fdxJNu2b7w/B3M5hhpnJuYZx18si2QI
-         sQsA==
+        bh=yaoYiNsU7mJl5B1XUBRs0KY4FNWwAjLp6a5fD5J3icY=;
+        b=RVMXw0fLh1vBFhHveKnAXQ6Hz+mLSbomQhj7r1PIYaBj2UQwe96OfhsykcALNTowpR
+         aRXmLe7k4Fek2ZYTki9CQHjVtpgQPLWjnDUAoA0FFIzCzuGBhgEFHknq5jMeiPWn6G0k
+         Ne2ZPz/YBumkl4IGhplpfHxovg0H4KCG0jdIYNPHvY7Z0zywYBY8Yu0KHAKbNar0Qcy3
+         GTfYL+FnlhAlc7Za09zm92vc96rdkKIefX8FYBgo+6LpPJrQLhiqB8sd8pdAHAFlxQoE
+         Rf7qKQiBAVgXwdWpDsWC/5p0rZbyxDtusTjutolKLdIJkRL2gR3i3QKU4x2KSfNXbxm7
+         7HKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792009781; x=1792614581;
+        d=1e100.net; s=20260707; t=1792009829; x=1792614629;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=8KpIQc9Vyaph3vkgeCaoJ68oVGAH4Ek85s5zfjWhrac=;
-        b=XKeTvHH+4CyGYE/4wQiuMYh9Hhkw0i8pwN0ka66lYVcotDvGEmfcq9mfKhedgfIbmL
-         OIrEdQAvtErUDXJSKEGcmZPQblurGYlGSK0D1iDz2v+8vX6pNzUT91YjpaVxzUDYcWiC
-         v4FLSccOef6S4jYcxR+VwPOUpf/uj+DobfxkR6Qlas6gb8lICo3+5jISf7vtUYEboLr7
-         nVA0GW9eVbAzfgjqeRjedE1LIhdhrb+DRhdSK/GaD4176+jj6y2YGBAa5AlwkkIH3exQ
-         weLebTETF9x0CGfEPDFDT+vHgGR2549pbZ4Bc2QZ6lK2MhbSF2rWpRdygX9VPlSMHpCk
-         8ucA==
-X-Forwarded-Encrypted: i=1; AKwUvByYtBAw/loyjTd31KJVU1ALtKRHdr5kcKwT9RRy0JkvkRpNrfZblD6xPWvODlctd/lRSFMMXMTZi0qDSsk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLu3IgtxBxCDxSo+asELoojjRkXM6Mmv/oO1uTik4vSEUuc3F1i
-	0vqiajEcDmiBa7TpnoyHT4kN/wf6OGWfTbPLzbrF8xbg566kY/9clVRUo0sSPOR4kes=
-X-Gm-Gg: AYBFou1Ia369KjTIT9RibTj9omj9SIXxYy308NjDJw8DMbjGRRjrJwpnh0eSvKsS75j
-	r2g+ekkFvwBm14JKt5O6KLTAlJEpxQz8WDMCBUHrFgyW284ZKKFAt+uQ1cWAGQOIMA+2lZeiCID
-	gR+coOg4QIaTtVPj6oJJRLNa613xYpOh3pPDhdmq7PLb5emR9xB6TIsv6nYYGmVThAObqeE640y
-	1icruYI612qKerK5SDNhgO4KCzrizXI2x7zzSNWJ2+l0vu7sbpI7gtENHYpYpZcXfk5XZayrDDO
-	rozON0yEELOb2qMuUisOYwTzdp93xXJWrXxQNYC0NOSyC3tneXIiLcQoNbEHflKKdltoDhHK/RW
-	yKAROCHXTk04FCjPjOBj30w6gQq4XnwZ25/M4ffd6EGqQBvKWBrARbQ+18vrRudF5Gmi4qmwMXj
-	iifdAW5Q1E+1TfbWrYOrqgQAzKHzESf780eBbUYbPsuUbn3PhjNduwVpCIQTgrxLbOWeeI
-X-Received: by 2002:a05:622a:22c5:10b0:535:fc2d:b7c2 with SMTP id d75a77b69052e-535fc2dba9emr47727251cf.33.1792009779058;
-        Wed, 14 Oct 2026 13:29:39 -0700 (PDT)
+        bh=yaoYiNsU7mJl5B1XUBRs0KY4FNWwAjLp6a5fD5J3icY=;
+        b=EjhL2GUvoD9yRpOEVDhXVyarIdZlyHBEsO8rxyUPkbqSaamm16m+/x3n0OwN40WZ4w
+         u6JaLpyJTjcK7KU4/f5Zt6aGuSNNlWb8UKxrqzGJ0XuVVWQuGbMY4NO2XvbRdC6nH9QP
+         C9HLTHhSR2Ox2wiLg4HKGuRkB53b9mooTjkARYNPD0FGVnUU+e1oh4DEK9KpWO4kF9GA
+         2N70cXyBUskEant1MjHOyAywYO/u/bpDnnlFOpVnq4kIf+fNsNQeVlkyq9t/ePiXmh00
+         YwnD1rpUU2XrW/Crr4I+X2fFcffm/9gEMXp2U38MP3H7wASbDnYuHc/TWTua9+XC4M46
+         3QSw==
+X-Forwarded-Encrypted: i=1; AKwUvBwmWG0C1Q5eVIUL2rGdwM4l5L4uoSAES2G8ne9kDLhuNLWIEz32AW72tDxy3UP8EQJDESZAAbMhH10E0H8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIbBYNQWgF3brKE/E2vx/X1M1sAok+60S9MW9z75zegI1Lw7/IU
+	4xtFlb1qk4iNJpKV3NHZ6rTUcBqihVPBsT5/UscLHtz6XMXnIn+rf80GyL5wQsgqhjp5knxgVqa
+	nl0E3
+X-Gm-Gg: AYBFou1nUbhQSSm0NlopT/34hfMrO2/KRNXp8cUSxyKIjsZpIuCj1PVmnLm9MZQsuLs
+	Wcp4dsCpleyoRi5PZAaqIXQ4OTLezcfkU0JUOb/T70Q7/Wj8yDndADUzupQZ705Now3iqyveaoV
+	o9bPJQpKQWGV4lovbSIYhjHYTVkzuGlSjn6TahM0Z+ICz4jSNi91scrcpMsDMVdoqDRNdVWOLH5
+	Hnm/OPHlXCQjxyLgkqZNWFZjAjopRSdqPvc0QpqfpqF3q0J6yRgfS0bT7cjRRq6R61yedGZ+AMS
+	2F12LbCPFFvpZJ6oyucgoU31ekEpVoT0o1RTwdojlN9T1Iw8rylpncuLOQ+ji81cq7/rXfpzSaM
+	Jb94mhu6nOE/2sjeb9WIWHSeyGGMu224mZvdcoe5sClwVCvw7KPcLw6HNfnipE8eh+X5XzMtOAR
+	l7Ay9lb3yoCZZGyzQjM0XEUIR2bEsNqDSnyfk7/n7vpO5FFmvByi1ProMs2ABZKISEdpH+
+X-Received: by 2002:a05:620a:26a6:b0:93a:c102:1123 with SMTP id af79cd13be357-93ebd1bb363mr2748648785a.15.1792009828985;
+        Wed, 14 Oct 2026 13:30:28 -0700 (PDT)
 Received: from localhost ([2603:7001:f100:5081:9526:3c0:45cc:5ac6])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5361281f0f2sm5986961cf.25.2026.10.14.13.29.37
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f0cfac145sm64291685a.31.2026.10.14.13.30.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 13:29:37 -0700 (PDT)
-Date: Wed, 14 Oct 2026 22:29:36 +0200
+        Wed, 14 Oct 2026 13:30:28 -0700 (PDT)
+Date: Wed, 14 Oct 2026 22:30:27 +0200
 From: Johannes Weiner <hannes@cmpxchg.org>
-To: Kiryl Shutsemau <kas@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-	David Hildenbrand <david@kernel.org>, Harry Yoo <harry@kernel.org>,
-	Usama Arif <usama.arif@linux.dev>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Zi Yan <ziy@nvidia.com>, Shakeel Butt <shakeel.butt@linux.dev>,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH v3] mm: page_alloc: make defrag_mode retries follow the
- promoted order
-Message-ID: <20261014202936.GC371161@cmpxchg.org>
-References: <20261009125503.126202-1-kas@kernel.org>
- <15a9e03e-c748-4e51-b8cc-583a3610c897@kernel.org>
- <20261012192834.6934ef85444dee4a60d6d876@linux-foundation.org>
- <as5q14OsbK2CmOrh@thinkstation>
+To: Tal Zussman <tz2294@columbia.edu>
+Cc: Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>, cgroups@vger.kernel.org,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] mm: memcontrol: remove mod_memcg_page_state()
+Message-ID: <20261014203027.GD371161@cmpxchg.org>
+References: <20261014-memcg-unused-page-helpers-v1-0-240b37c53831@columbia.edu>
+ <20261014-memcg-unused-page-helpers-v1-1-240b37c53831@columbia.edu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -87,23 +80,14 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <as5q14OsbK2CmOrh@thinkstation>
+In-Reply-To: <20261014-memcg-unused-page-helpers-v1-1-240b37c53831@columbia.edu>
 
-On Tue, Oct 13, 2026 at 06:37:20PM +0100, Kiryl Shutsemau wrote:
-> @@ -4127,6 +4127,12 @@ __alloc_pages_may_oom(gfp_t gfp_mask, unsigned int order,
->  	return page;
->  }
->  
-> +static inline bool order_nofrag_promoted(unsigned int order,
-> +					 const struct alloc_context *ac)
-> +{
-> +	return ac->reclaim_compact_order != order;
-> +}
+On Wed, Oct 14, 2026 at 01:08:20PM -0400, Tal Zussman wrote:
+> The last caller was removed in commit c466412c73c3 ("mm: memcontrol:
+> switch to native NR_VMALLOC vmstat counter"). Remove it.
+> 
+> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 
-order_defrag_promoted?
-
-Otherwise looks good to me!
 Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
 
-And agree 7.4-rc1 with CC stable is fine. Sadly, not sure if anyone
-but Meta is using the feature right now.
+Thanks Tal
