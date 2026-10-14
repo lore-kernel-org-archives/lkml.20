@@ -1,95 +1,97 @@
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0224A20DD51
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 01:18:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D3A31C01
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 01:18:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791940718; cv=none; b=EDoZMpS5elJybpOyav/ukIiWfUGc9UOw2v0g6pW0oKjDTLTRrt8j3eKXRqeKrqdH82YKHYLJklcdwjMTN7xA+8WssaFT3e5IJN9QPjv/uQOCTtvje9BGvBGYX/dlsXXdvROQuIfy3Lmwi0etlFbjkgo/GqsX5nSxgTkR4iTjHn0=
+	t=1791940732; cv=none; b=QaAFmo0BRr9fWDkwpGQ7XmTEli8p0mqGned/AxS5eWWwiJ0S1iMfCcCz7qxW2sk8dztmJPSWpaHJohsC+J7KvG23Z14D240+PedjbWWCg57PMRpfPinfecxXu+800D0exJ+ufWRDm8XZBnnCpAdm9kdhugdj3Z6RfMzeFjcdkX4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791940718; c=relaxed/simple;
-	bh=b+2Mv1LpDFg9goZtZ1oDMZLOr1tRhG1QhMX5Qn6Q2Xo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BOy1aoE9T6v6X2FVqAtBXqk09THRwfNUuSfK6ULc/i3JUu4Z3sTD1X6BR10bYuwnwIHQZRTcHDnfxsrFiG0TtpcXSNrzf5rZqHwXTGKQLDhJK4sRz5VxqJ5NV4dwpe9KfazylCDAa+h+xrTo2YyV6U4duPggrv1K6v9Gw4VIDcA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=Wy86SfeX; arc=none smtp.client-ip=209.85.215.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="Wy86SfeX"
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cd5e6f0a22bso196305a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:18:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791940716; x=1792545516; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ja8EyJvuRT6hgl8HNzUWNQGXZ1QnpSq8JcxdmHiFCDc=;
-        b=Wy86SfeXomgiHiyv7uM1cWpswNtwte32c+KhRk2xe44zezfebC+WmmCc3pHqMnfIdj
-         6j+Me2jecZ3XWVn2e/gnWpIQmmj1GalwfMPxVavgQ78FDtp/2wPLSehIier7mL9bIjEB
-         jk+ZDeTOnmWtsVXU2TgYcZk5t3vt+diw7vbTYYsbn13SuZmHP+ZtHQOdCc6ZRa/KIAHp
-         jl0SLcoumQNq8RF/0bCSYmH4hPeEImKt8WKY2z0elvGae1/x7XAvzevHLfdPJlNf6V5L
-         7pu6jipINhiB+6L3V6QfFSHkStVFTfFU4sRsv7oK+UyMhVSMMvE3V7K2CW27GIc48K2b
-         MF8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791940716; x=1792545516;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ja8EyJvuRT6hgl8HNzUWNQGXZ1QnpSq8JcxdmHiFCDc=;
-        b=GTh+sJOqSFTeR/zFi8T6DmB44aTKTL6Ijz0jae5Gt5BHqryCu5EplFXWRU+yg/bVH1
-         dPvnR1Y6PumCwWT95vpcWLKpUqjE0v6eDNvSJTYsf/LZRDzjb/pfURYFzN+7f04Vhohj
-         DtUDQok4qf4aEHU0sUdMhY6JN1wMflXNq8Hd9vHExgXRkGYtIkjh8JQ7J3bp0pH2EE6o
-         h5ybbDKw2sNDIepxhZKjlCaUJ1g6DgAb6dIHJ1RDhebesDMh6XEDnMjUiJ1a4w4J0s2L
-         CY4HZJYW2PM2Caxc+ViLZAA5lqVW5/ZVlCCxK8O3tPWBqPis/sBDxOSZhq8oi9XlnLUh
-         6h4g==
-X-Forwarded-Encrypted: i=1; AKwUvBzUOQszBuuTA++Y1V7w3qwI9mQwna8Rmg6zLAJrCRerYCCo+80sN624AQMvLhajgnc0njMcNi7cwCt4NM8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJg7IV2d67hODyDeD26yPxuigHOL4YumNiumfJJT2K5TF8MYEfJ
-	814BOyVSNeFk1ElAB6U9IoSml8Zh3BWQhatTlyMVcCKLLrajrH84KcswoHCtptfTCX4=
-X-Gm-Gg: AYBFou0dddfGamKxV+r7aTHr2B+7vl/Yb0wsCO4ATwXSJb/ebNIzA+yJRxmytvhDmI/
-	1vBY4FZWVIEpdSyQv5KMP+9JRDxptZ1Jwg9xjiI3UTDIf16oFu6zbrdrGYa+KD6Yze9m/OlDqHl
-	rPvhpKEEk/w+SI8To6WQ+74iPArW1GIG0knH+w3KXR+PmIcUZW71Cwh54qL5EUSOVpd2UrlDAK0
-	+EsBvEbCLmkRbQF0vDyMqU41ZCkladtwrrqSiIXnUrDUl0pH0Hgtq1I+QCD6BbAkM3JNypdteC9
-	Kxyk92FwQqDVdjAbEUiuJw36zrz+gE1zGWgCM4zQ5u72YnxT7KLQOJCFnVldhLuigF4swgdAJqY
-	58ONoNU9q86SHdsnhadHWlFbGh+CsZIbsEMQ9dcq7wv7XLJW3vY86deKOsqWlsQZQ8T6KMUCuDx
-	JAZGqV0YSJKF7eWqkDXvcv1zHNgC6/NQ1RzZu6R4W6VBUrNwGynsfx4PFVK97DxvzAA3+o55NFz
-	Eu8J/sGmLf5uIDYgQGu
-X-Received: by 2002:a17:90b:3c04:b0:3a7:db88:3495 with SMTP id 98e67ed59e1d1-3ab3a93262dmr12843399a91.52.1791940715867;
-        Tue, 13 Oct 2026 18:18:35 -0700 (PDT)
-Received: from localhost.localdomain ([2406:5900:1044:110c:c51c:be8a:c517:276])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac5f3db2f5sm1967806a91.1.2026.10.13.18.18.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 18:18:35 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: sashiko-bot@kernel.org,
-	"Martin K . Petersen" <mkp@kernel.org>,
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: linux-scsi@vger.kernel.org,
+	s=arc-20240116; t=1791940732; c=relaxed/simple;
+	bh=AMl2aWuauYzcDFthFpyeaYA3wlVJBMbQKbHj0jXbfJQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=RU1R9JUZMQ85Vt6a72Vi8EuADZgqGIuFGqKGc0gzDgKxGA8SOSWJJ0ubrrYJhcqKidRob/VRDitn/7siG7Z5dU92fnUWgzNLznLA8s/SOWEnuKyeUqsOTK1TjpzxxMkKT0N4rszIgfEuMvnkyAldiNZnacb+oUQoYuwjB1K3Pi0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 2fef8074c76d11f19a56ed5b684f684d-20261014
+X-CTIC-Tags:
+	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
+	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
+	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
+	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
+	HR_TO_NO_NAME, IP_UNTRUSTED, SRC_UNTRUSTED, IP_UNFAMILIAR, SRC_UNFAMILIAR
+	SA_TRUSTED, SA_EXISTED, SN_TRUSTED, SN_EXISTED, SPF_NOPASS
+	DKIM_NOPASS, DMARC_NOPASS, CIE_BAD, CIE_GOOD_SPF, CIE_UNKNOWN
+	GTI_FG_BS, GTI_RG_INFO, GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:a5738390-a88d-486e-82bb-c653abb40bff,IP:10,
+	URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:10
+X-CID-INFO: VERSION:1.3.19,REQID:a5738390-a88d-486e-82bb-c653abb40bff,IP:10,UR
+	L:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
+	elease,TS:10
+X-CID-META: VersionHash:7db8b62,CLOUDID:2626081ce28e968e1183f334528d0287,BulkI
+	D:261014091842K86BXRZZ,BulkQuantity:0,SF:17|19|38|66|78|102|127|136|850|86
+	5|898,TC:nil,Content:0|15|50|99,EDM:-3|-100,IP:-2,URL:0,File:nil,RT:nil,Bu
+	lk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:
+	0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 2fef8074c76d11f19a56ed5b684f684d-20261014
+X-User: wangxuewen@kylinos.cn
+Received: from localhost.localdomain [(223.104.40.190)] by mailgw.kylinos.cn
+	(envelope-from <wangxuewen@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1274830366; Wed, 14 Oct 2026 09:18:39 +0800
+From: Xuewen Wang <wangxuewen@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	yhlee@isslab.korea.ac.kr
-Subject: Re: [PATCH] scsi: mvumi: reject handshake sizes that overflow the list allocations
-Date: Wed, 14 Oct 2026 10:18:27 +0900
-Message-ID: <20261014011827.3479523-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <sashiko-outbox-170653@kernel.org>
-References: <20261014004226.3469868-1-yhlee@isslab.korea.ac.kr> <sashiko-outbox-170653@kernel.org>
+	Xuewen Wang <wangxuewen@kylinos.cn>
+Subject: [PATCH v1] ntfs: report birth time for symbolic links
+Date: Wed, 14 Oct 2026 09:18:24 +0800
+Message-Id: <20261014011824.493241-1-wangxuewen@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Thanks -- both are addressed in v2.
+NTFS already loads the creation time into i_crtime and reports it through
+ntfs_getattr(). However, the symbolic-link inode operations omit getattr,
+so statx() with AT_SYMLINK_NOFOLLOW falls back to generic_fillattr() and
+does not return STATX_BTIME for the link itself.
 
-- 32-bit truncation: correct.  size_t is 32 bits on 32-bit targets, so the
-  products wrap and "total > UINT_MAX" can never be true there.  v2 computes
-  the total in u64, which is 64-bit on every architecture.
+Use ntfs_getattr() for symbolic links to expose their stored creation time.
 
-- list_num_io vs max_io: v2 rejects a handshake list depth that is zero or
-  yields more entries than max_io.  The inbound and outbound rings are
-  allocated for max_io entries and the slot index wraps on list_num_io, so
-  bounding list_num_io by max_io keeps the index within the rings.
+Signed-off-by: Xuewen Wang <wangxuewen@kylinos.cn>
+---
+Tested in QEMU with WSL and native symlinks, including dangling links and
+links to directories. Birth times survive inode cache eviction, remounts
+and a fresh boot. Queries that follow a link still report the target's
+creation time.
+
+ fs/ntfs/file.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
+index 58afd310d57b..58aad7f5c6c5 100644
+--- a/fs/ntfs/file.c
++++ b/fs/ntfs/file.c
+@@ -1556,6 +1556,7 @@ const struct inode_operations ntfs_file_inode_ops = {
+ const struct inode_operations ntfs_symlink_inode_operations = {
+ 	.get_link	= ntfs_get_link,
+ 	.setattr	= ntfs_setattr,
++	.getattr	= ntfs_getattr,
+ 	.listxattr	= ntfs_listxattr,
+ 	.fileattr_get	= ntfs_fileattr_get,
+ 	.fileattr_set	= ntfs_fileattr_set,
+-- 
+2.25.1
+
