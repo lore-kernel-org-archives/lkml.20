@@ -1,141 +1,122 @@
 Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 592983FF8A5
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 21:29:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EC9C2E1EFC
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 21:31:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.176
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792013379; cv=pass; b=fRL7ynZ2F9JvutjnFPA18O6LrnCcIm2Co6hhVfinr8AKs1wFFfZ0n/0JJwpIxn6fqN0LCVyPwjHIv+7J+MilChgMp8mI9uYhyywHrN86gPUpps76ZG1VvQ2aI28TLz0v1UjLdYAP5TxtF53RD4ZbAa37QO/5AKnSdBJGGR1pi48=
+	t=1792013484; cv=pass; b=cdusiEms3KoEic2xnpnAJEVq/dpbK2xPbBMkOnDNo9b9FCKJwPqSH4lRRhPnHMFwonzxfZfZXrGQUE4zQtIzdayGk1BdFGpGFj/Pc/ctswElEW9ezlkijWIpG9zdljtrkDrIkI0Nq5pU7RwNZIj3ZbTc6hGo3phCUq3JP9y8eTE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792013379; c=relaxed/simple;
-	bh=iefBJmYupKVJayKOqvQ87buV4ppZMJex7WihUR0osRE=;
+	s=arc-20240116; t=1792013484; c=relaxed/simple;
+	bh=N2//8YzpYh7RD5FH3/we2KabQEoyKWuwF8/BIhfoJs8=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DPS22GYFnt1i+O7SjeSSz8uWvuo5okTL4g2yQ/0JN7ea7tC24YfoFz/AjhTPUosZMHC1qOTxi4ANkVIMS7/G+2cF1AOr5BM0a93NPyQW+dDMjLWdH/l88HN8Jcgmn8mqupPuXeavKDOcaQjfFg8OD4nxrO9qpwK69ES1QHSpL54=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JYiMvfnz; arc=pass smtp.client-ip=209.85.160.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=Tw/Qp8RxZcEvj1dTilSW4zcGzFE01t9zLuBzWRH6JbXyebDRlsMF+oT3xF94Cdb5VU/Y963OshIcPZegtXmrpoioaBWVPyLkovZFevIU0QEbxE96RjaxlxaNcHpRYGuXIXFE2Fuw8gXiBD4m57VSDks/dEJCRclUT56x2tYIN9k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=cMid7/Ds; arc=pass smtp.client-ip=209.85.160.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JYiMvfnz"
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-5350c1b9e0dso9240431cf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:29:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792013377; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="cMid7/Ds"
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-5337c7b9937so2001cf.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:31:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792013482; cv=none;
         d=google.com; s=arc-20260327;
-        b=P5949qacjwycRx6l0hsexAKgBJ3oR8lnnMoU0CQiN5heh4ReK0c6ZgrEQ/gPlfK3hQ
-         BYAjXFTIml/kG2PV9ASIZCIE2KvBbu5VI2X5U6LVVXQJOf5QaC7Ss85/zE5u4tfKP97U
-         warGu88ZpT81rg5eyDYEihdSDuiIaS/qS2JUXLxKbD7Re001GAGcSiDys7M9ZJ5WttIj
-         hN9NntMOZ+0QgCJSFTXqoWn+bYbLM8TNRC8gySv/l0wDxKISExkMb5ZIiwcouuelzmQo
-         4a1XsDzOeTpiPoL2fq4To7t49yZXGXzal/vaPm+j5pZB0QQM3NN5KLPpzPlOvEiePabY
-         RRtQ==
+        b=VBSTi+Ydnc8Uni0wvJZNmoI70+bspyuVO9hFA7tnI05uiB69cdMHED/gKclnP8vAIw
+         FGyNLNzADKBLhdEfZvUXdbz978PG/vYdCAiL4vDdZEyNXbPdjH2niV3T+AXnUAnr/n42
+         G27jmGjDJIvR0LcJBf5tmY1/Wj4ZCu0f5JBZBnu1B6LH+LyrezSY7u1qmKAoV2I8CXnD
+         RbjfLUzwSUIcFSHQ+JrI0f2nHu5XC7kMH5TJRJShhu6MhmK0Fk6xbWsLnwmgOAD65XId
+         XbiW7qobWbcMd5zUTiqxobCYqnZxqj3z1CtWdms3PETFxGvr9aCpIE4EFV3RAMNc1LeR
+         35ow==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=YwgxusmBTG3+SD3/g0+kXEe8xsc6kMCtJNV8dtSIErM=;
-        fh=AmGoO4KM02zK1oFhfmfh469eFerTjHYg7nHS5rmkgQY=;
-        b=RMf/9Rb+p1ogZru/6bYY25ytRU8Pt91tsfQjCURzzV4o2Vg6rFAuy7JAcVzOwe53yJ
-         0xsxRpvUrddOvEhE0h6L3xQTZdAjqP6W1LZl/sqHq5gjz5FohKrbD46fyWhvVQ8Rc/lM
-         ZWm3QDQ2x5F1oTUJsEVoD9NGNU6YT5ULqntP3inuXsdd0U916SNnZU4lhvRoaN0rbKvG
-         GdoimelzBFC5Z7CbPadZkKsgBmBvkaUERaKL3c+J3vvy/pK55JbFTcsuucX9URQeD9kC
-         CEqxtgRzueCs1WmWr1j6RKcM4vJJHHaGEJ31oNc4BfUsEEU8NBph96SMl1wKP83DnrXh
-         qQ7w==;
+        bh=salcn/4EyworpNRCKf3UMv4eLln63cK07XscTHdnYOY=;
+        fh=ghB3TN0WS4+dYPb54rnsqKQf1Op6AaTe2zvimJ5UVaw=;
+        b=pU8xE2EqFgR21CwNTp7GGTelfVrMwYxAyy275QyvLWxk6cMzKvEpQkKOpyMhk5Arui
+         YdTfPKNrArichbWyp4IxNtThuI23Tr5KUH//RA03D2lNX+nEJcSuaD9+wFok13fK9O4c
+         UEnU3OdtRBsVhmyMte/6qjjhCpiRy4/Zi8aOJbLwPhCVF8JG/uTOQc3wIO7f8Uwz0JED
+         Edn8V55QFrLLjU2QniIhG/nkbGA0SNXS9r5YhJUtswLcRsTF5OfXbBqADnyxZwRr+q3p
+         H48Hm39YxNJqQCQwYbxIdjEBdM5cnXe74YRF20EGTTJihQQY8GPMeFWJURsZQqraWZKC
+         ZcXA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792013377; x=1792618177; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1792013482; x=1792618282; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=YwgxusmBTG3+SD3/g0+kXEe8xsc6kMCtJNV8dtSIErM=;
-        b=JYiMvfnzBMm0PJBMQgYJaKN3PNndQknU5uRJyxJxp770e5ALcIgfqyJmcKb4LDj7O2
-         xqO0ueqKLijwjemP1KfuvVOZo0e6GLsR4+bn1NvmZqeYCC35k7D9tdltzZjT9bDLs2tC
-         kQvkziF4biyejaVfJeB4oZ4bbjeuVDTKD449ebaf4jnrV1dA31PdJRTDgVfUx6hB3MHZ
-         crLvxKt7ae+GUuz23nF9rFTTB9ht00EtJQTmMZ6fox25eDclrvMy6sqG9/Rm6svapNye
-         xqJpIMoyGblHKjEPYeKkCX4d5JiWndzgAmXe6yURqcaqukAp6KfaVEhS5hlluwo0a5Ni
-         qqLg==
+        bh=salcn/4EyworpNRCKf3UMv4eLln63cK07XscTHdnYOY=;
+        b=cMid7/DssrCMiK8QUyh+qtpdfZDZLxWE/hdQbsu4VGCyrF8YEWf+2x7X74e43rueBp
+         KE7f8w7Q7Vi2M/o702mMnYIfANb2nuwBf91cXqZt6/gMzkgIQtfDnOc2FE2UbaWs5bow
+         S85RcTh0ejfmQGGbiDNln5E30oQ7PG++cCWwvvS/aqshfLJAf3cBr75puKtojotINHRN
+         6/NbcA0UPDn/T0T2+TvA9fCNL8nPDvbxNFq4lSP07zmpuYWELIbEjktvaPPgUSVGiFEv
+         b1mMhSbVJTNm46IH8Ktmo4p5wTGQfGkFNiX/sI3y3mzSDOJBZV3guqdYjLLR5c0Qu071
+         6GMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792013377; x=1792618177;
+        d=1e100.net; s=20260707; t=1792013482; x=1792618282;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=YwgxusmBTG3+SD3/g0+kXEe8xsc6kMCtJNV8dtSIErM=;
-        b=nGzxe302ji1rIFM4Z4ofWCnM717D5G6MHX5m1ksv5kkcpU1vFEZUBdLBeRsVkNLtrb
-         6OI++QNhptDwuiBiJZNUd9UjmNzp4dFzDdk03dOBHc/lV7TZA6PBqnuo2eWw/dQrLe8X
-         ypAZ9a5arh6SSxNr4fm64nGzESLAa/lDVRAyGw+asgJeuWxdfzwUPCm71Fz3DvNYsx1/
-         0lCcpoO9gX0cpchzkENnB7xldZ3GJ9+qOcLr7Pbowk1z26XPywELIeD8YExnffferUyg
-         o1tvbEmSA02srGs2L2WPdN3SXP80aRY3ny/XbzDTSj/U4PhpEa+ek3sO+P2jfxEqzA23
-         boKA==
-X-Forwarded-Encrypted: i=1; AKwUvBzNCXNTd6VKaT07SckkQR6Q2BzFgFytmQ53/9CCo9ryd7u236LNG4++lF4iD0dRlErYLvXamsRyDjRzJYQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLBcseiod5We8auQsBjzP6680OHIxMgGWzZLOW8+6XdZcPv2JNN
-	Af99SvUwWbyIYWvxMUTM8LK2dYv8BCkkJWsI5wAvJW2eUlXZQrpD2bxLGpd1LMDExh0jUztClwm
-	wJ3LmGw/x2q3q/zfcbL8mOKoLQsyR/c0=
-X-Gm-Gg: AYBFou1YutJ4E9T7+NOUX5I4oMb/zWQGwaHTI1r6A1yM8IsSFfMYi2zZDktXTkY/QFZ
-	XSGXUDIDWhGbmKDBUnEsLRGCpiFEKbpZAdt1tSepUbrYYN0tTbT+Ak5CO8IzjkAvx+CWMuWn5Iy
-	76OTdBQBa3fSthkWprQeJ4tDwoR8K8irmofRKIsnr2EedwnXMoqEjTXO0JAXM8R51TmlpFyUJFu
-	lnRqYBDyN72SXX9hyfDSVEImiVxwoD1VuKS+MHQcBc4LW2ZK0Oji434wN+KdA0Qwvsj57zeUseD
-	zg+fE85gVuNcBCLhAKcX1Jhxzh0A5skBkur7dtG/z0wghKaCP/rKt6s=
-X-Received: by 2002:a05:622a:598c:b0:535:84e3:ceef with SMTP id
- d75a77b69052e-5359fb86e08mr292010171cf.45.1792013376625; Wed, 14 Oct 2026
- 14:29:36 -0700 (PDT)
+        bh=salcn/4EyworpNRCKf3UMv4eLln63cK07XscTHdnYOY=;
+        b=og4NSPlCO+V7mbjTcl9Ho1yzF1gOwHK5zhm91S3cwdnnF41rD9/PuBQPzoV64tqlSt
+         mkEXW9aFI3D9lTlOxcZFYSX7nlqCbX+S0eyd2bxZ1xzkebcE5BQ3XtYawmL5n1WA81tn
+         ndhaFC++EctTbsSkZXKL8THna/5HaCy/Xp9PzfYk9GdlfIv7Ha1u/qRLbDnbcTeECyHS
+         yXUsuPzZgv0IJfRbGtVv+lUsm5lCWdEQfhxaxRi5Jgpd1pdZgTJdtE9WwcRLPKCbEKY5
+         eI9sXo1AXQrpFKRHv5EYu9kmyYuBgJKhQcLpMx2NNqqoB2mC7EAGas9mjgBwMsHQfX+u
+         cwWw==
+X-Forwarded-Encrypted: i=1; AKwUvBwE6X8XikS8KdDtwC5BmzN1DU+ZfCIlWvopSh7MNshLZvNfn++ifP04dpvcY3tSPyZGqkgRNXBPqyMMB8g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJXDoWNPFuscOUk2QwyI6nf7W4TuaAyBAsTiKvYeapDJ5ypeIhh
+	bMYx3OxTtXevzN2BTWc7TXC6yZfAvabrDYkdVZfbXAPTYHvj7esv2TIPP4THUa4a3bZRZA02+WR
+	NDvcR8b/3wfgPNqR7Kc0yCR86oPjn7jESiQmmQHm5
+X-Gm-Gg: AYBFou0FzIGbB4Pt9Npr4Mt1melsHfTPyCqn89f9c91KKJVAvgdXJOBPlROvoOuueAw
+	pbSTD+xXowOp9zqvUHwbx08hvTXy5CLS0Nu7ChpgH7JD7ea4GOYd8F8PseROMr2pMNW0un9UqxT
+	4cd4CTji05IOrHvDkfGXOXxj3/BlDOQY3ctN+/tvApxit/pyPVhyYt1rfoJwlLV3pHLpZnxDlbj
+	S2qJJlrJBGSrOyFUCtFm4dv1kTxkNLmT+mXnaVFr954M7ocsFbzBzbxpFsxIV5S8ck9oF4wogXF
+	yYYa30+S+hhCwd7kNLHgkchlGrCxoG6KZ/YlcPsdft3KtBTCzYXjoEx0ZREJF9us3XBLAr5uc37
+	fy6yY0VDmEQ==
+X-Received: by 2002:a05:622a:1306:b0:50f:af60:3496 with SMTP id
+ d75a77b69052e-5361649aca9mr627821cf.1.1792013481394; Wed, 14 Oct 2026
+ 14:31:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260924020936.17612-1-matheus.aalmeida@inf.ufrgs.br> <1e4cd74d1d4598dcb22198724323cf00@inf.ufrgs.br>
-In-Reply-To: <1e4cd74d1d4598dcb22198724323cf00@inf.ufrgs.br>
-From: Jason Gerecke <killertofu@gmail.com>
-Date: Wed, 14 Oct 2026 14:29:25 -0700
-X-Gm-Features: AclHuK_EW-cvvhCm33wG1LwURzuAIYspTU3DOos0A_N6byRXCMb2FNUeb1-g6hI
-Message-ID: <CANRwn3QfxSxVqGUjOuMhoEhuOHRz0ODdFqUU5wZQKuPNp7kG-Q@mail.gmail.com>
-Subject: Re: [PATCH] HID: wacom: fix wacom_intuos_irq NULL pen_input deref
-To: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-Cc: Ping Cheng <ping.cheng@wacom.com>, Jason Gerecke <jason.gerecke@wacom.com>, 
-	Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	syzbot+b5a7cd83622c747977de@syzkaller.appspotmail.com
+References: <20261008172208.1139281-1-scollyer@google.com> <as8slqeTjJYWOlaa@google.com>
+In-Reply-To: <as8slqeTjJYWOlaa@google.com>
+From: Scott Collyer <scollyer@google.com>
+Date: Wed, 14 Oct 2026 14:30:45 -0700
+X-Gm-Features: AclHuK9dTNy2V58Mvde2wiIYRycH3eWAjlKVw_MqF69XjxEhPGK5vsGbDkVBF58
+Message-ID: <CALUcz=0LAVTML4GsrSvJ555Scr20v3b=t3Qs=E3Vm5yiZKBBVA@mail.gmail.com>
+Subject: Re: [PATCH] platform/chrome: cros_ec: trigger kernel_restart on EC_HOST_EVENT_PANIC
+To: Tzung-Bi Shih <tzungbi@kernel.org>
+Cc: Benson Leung <bleung@chromium.org>, Guenter Roeck <groeck@chromium.org>, 
+	chrome-platform@lists.linux.dev, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 7, 2026 at 8:35=E2=80=AFPM Matheus Alves de Almeida
-<matheus.aalmeida@inf.ufrgs.br> wrote:
+When the EC crashes, the AP will be reset as you mentioned. There is a
+slight benefit for the EC case with this change in that a controlled
+shutdown of the AP gets triggered. But, the primary motivation for
+this change is for ISH panic handling. When the ISH resets, there is
+currently nothing in place to trigger an AP reboot, and this results
+in the sensor stack getting out of sync. So when the ISH panics, we
+need the AP to reboot as well.
+
+On Wed, Oct 14, 2026 at 12:17=E2=80=AFAM Tzung-Bi Shih <tzungbi@kernel.org>=
+ wrote:
 >
-> Em 2026-09-23 23:09, Matheus Alves de Almeida escreveu:
-> > Currently, wacom_intuos_irq() passes the parent of wacom_wac's
-> > pen_input to the dev_dbg() in the unknown report path. However,
-> > pen_input can be NULL on interfaces without a pen, causing a
-> > NULL pointer dereference.
+> On Thu, Oct 08, 2026 at 10:22:08AM -0700, Scott Collyer wrote:
+> > When an attached EC or ISH device reports an EC_HOST_EVENT_PANIC host
+> > event, the EC/ISH subsystem has encountered a fatal exception.
 > >
-> > Get the HID device from the enclosing struct wacom and use hid_dbg()
-> > instead.
-> >
-> > Fixes: eb71d1bb270e ("Input: wacom - use dev_xxx() instead of naked
-> > printk()s
-> > and dbg()s")
-> > Reported-by: syzbot+b5a7cd83622c747977de@syzkaller.appspotmail.com
-> > Closes: https://syzkaller.appspot.com/bug?extid=3Db5a7cd83622c747977de
-> > Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+> > Handle the EC_HOST_EVENT_PANIC event by:
+> > 1. Logging an emergency message (dev_emerg) with the device name.
+> > 2. Calling the panic notifier chain (panic_notifier).
+> > 3. Emitting a uevent (ERROR=3DPANIC) to userspace.
+> > 4. Triggering kernel_restart("CrOS EC Panic") to cleanly restart the AP
+> >    so that panic logs are preserved and collected by crash reporting
+> >    services across reboot.
 >
-> Hi,
->
-> Gentle ping on this. Has anyone been able to take a look at it yet?
->
-> Matheus
->
-
-Apologies for the delay... I've reviewed the patch and it looks good.
-It does make me wonder about similar patterns elsewhere in the code
-though (calling `dev_dbg(input->dev.parent, ...)` isn't unique to this
-function). I'm happy to take this as a standalone fix for an observed
-crash, but an audit of other log statements is still probably
-reasonable.
-
-Reviewed-by: Jason Gerecke <jason.gerecke@wacom.com>
-
-Jason (she/they)
----
-Now instead of four in the eights place /
-you=E2=80=99ve got three, =E2=80=98Cause you added one  /
-(That is to say, eight) to the two,     /
-But you can=E2=80=99t take seven from three,    /
-So you look at the sixty-fours....
+> If the EC crashed, wouldn't the AP be reset anyway?
