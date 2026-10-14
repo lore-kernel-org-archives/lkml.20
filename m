@@ -1,151 +1,240 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010002.outbound.protection.outlook.com [52.101.61.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F95548D883;
-	Wed, 14 Oct 2026 21:15:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.2
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792012514; cv=fail; b=CjGSfj+tn1Xb4VmAuqAYb+uGHcvYkRgM9Is/G5Vg70o5HOD+scPKSC2arrnHHQj8+uj5mdlyLAegRwGi3Thzs1SwHMMeOA4AOwZWoCAqJvPqKg2cPSI2/Unla/bfkfNV3gx4HvUNxbia6+XdIrNW14SAC7w8Qmq/qUIZQlLh5tI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792012514; c=relaxed/simple;
-	bh=yHHSdApTo3pZGcEdFNQpodwPu7WHSyURPWb6JxUPiIo=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=aIDbAYealHahomx2426y+QVYaHW3oNHL/Hf5ZW1pN0xhsxkUkJGO/EquTbzdfBZX85c3T6nJfWUnymU5vqTeNUDyJhvnYz3BYLm2kpBU+tsXYT49RR0e5C+O/Hin8vi9NXdbw6oIPijIUsxerHm9h3LckL3Z5U3STLOe2yVx+JM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=LD0B4GZc; arc=fail smtp.client-ip=52.101.61.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FFA01EB1AA
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 21:16:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792012579; cv=none; b=BqLXkggEUr2ZS4zbAMBSrBqFV1NrcCBQlgX4EGbph9ioNF/JIJyHdY3DynMPxwlvhVADLursjvqg/ZKa79kJMMDNr5HXm0yfN5RH/Zw1bCg+inrgBAmLjap4URPqFYSEh8PzrAJnrjWDU2TleNtFyP8INT4y6mmRWTYTGOU6yAI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792012579; c=relaxed/simple;
+	bh=2YPbw4ijLQC5YPAZVxJY+LLFZVCCcWM+C2SOu1ThUWw=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=iQksgB+3jLHoh/hpc0pbjOmY7iaqqRcFZJvQfqML4gEPw9XGfO8+4Yi7OYchj1S77710yM6LkcPoij8MAnj6Ar65SlR8l72NsyqgAmooBr1FoMOJiv/UlXu9fDpLLkrhFmtTW6lQL2nvAG2iFaCPmrdyESsc4cyzSU7zb5TBin8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=wHPwfnc1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="LD0B4GZc"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lM91cbuSECs/hEgpyn1pS5EaoN0BVYxb9ehaLyvQ5vn3Brx1gW0Btiq+xfOHZpeaMPUSuwQ9yjDLgKFct2nDTd6LYO6r34DSKf4FcUpQEqTsVuYGNVVvYIJ6jagF+AKh0dq07i6uXo6x6f4q4FAXu/Ohouobzv1vcapFwmv4eockDO8tyU2b1UNeaKAHc0gOIm+/hI3GyZSjwjmxwujqAwI44l8XL12t992Y2S3JPSukWPnv59qp27npHKVTcpqEXab2EDnH1QP5yggtxXHVB7mU0H5qGZd7183RueTnaP3PPA8sOJMmUAZkK8v7RO+D2AI3mEixZqG3nyKFQ9Mzew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MRMrryxgm2ZcaADd1ITwVor9w4Ct54HBktQqAqoUwn0=;
- b=aBpLvK9J/fJvs62MLosKS6/3O9HWCBxl1sp4iwVnf/tTeDqIujmtaqqHc6A5XryyqBEitxxXrlcz1NdmUuDmhXPzJA6oTikBhc82HfgQwD+0njxgkcx+HALaQ1j9ifkLvcXvwccwPc3BR/JNsbUZTW6H7LnxitiVsF4cOqBYqddnL6QGY4v6Vm+0OPYf6z1CQ87BcOqDRa3v5qyUwM8G1NPzvlzweZOmm77KRr2kPOX+zIDJW8JYivfYxJSCxksJ8N9Eh4E/pXyOUeKn+Em9492uce0RuJ/7UQ4enfnAEl8SEMTlDgx/vuBMrPHo1Otr89NrcA7g7VbRIaim5F99EA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MRMrryxgm2ZcaADd1ITwVor9w4Ct54HBktQqAqoUwn0=;
- b=LD0B4GZcrKe9kORUkZfZC5Mii/w2Vt/hY7sCjNNCwhbo6JShdg9ZKp1iRffg9wKRIG1aNxGba6KnqiTy0v68goHsMH/pFhotQL2iC75tnf+I4welRZLJvgESYCCaema5mjHDvtIhDTbTUoqcopxfDs0WKT8wwdjlxdKq0Awk0uM=
-Received: from CH0PR03CA0396.namprd03.prod.outlook.com (2603:10b6:610:11b::16)
- by MN0PR12MB5762.namprd12.prod.outlook.com (2603:10b6:208:375::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.20; Wed, 14 Oct
- 2026 21:14:50 +0000
-Received: from DS4PEPF000001C1.namprd21.prod.outlook.com
- (2603:10b6:610:11b:cafe::16) by CH0PR03CA0396.outlook.office365.com
- (2603:10b6:610:11b::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Wed, 14
- Oct 2026 21:14:49 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DS4PEPF000001C1.mail.protection.outlook.com (10.167.23.167) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.3 via Frontend Transport; Wed, 14 Oct 2026 21:14:49 +0000
-Received: from nigeria-2635-os.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 14 Oct
- 2026 16:14:41 -0500
-From: Ashish Kalra <Ashish.Kalra@amd.com>
-To: <tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
-	<dave.hansen@linux.intel.com>, <x86@kernel.org>, <hpa@zytor.com>,
-	<seanjc@google.com>, <peterz@infradead.org>, <thomas.lendacky@amd.com>,
-	<herbert@gondor.apana.org.au>, <davem@davemloft.net>, <ardb@kernel.org>
-CC: <pbonzini@redhat.com>, <aik@amd.com>, <Michael.Roth@amd.com>,
-	<KPrateek.Nayak@amd.com>, <Tycho.Andersen@amd.com>,
-	<Nathan.Fontenot@amd.com>, <ackerleytng@google.com>, <jackyli@google.com>,
-	<pgonda@google.com>, <rientjes@google.com>, <jacobhxu@google.com>,
-	<xin@zytor.com>, <pawan.kumar.gupta@linux.intel.com>, <babu.moger@amd.com>,
-	<nikunj@amd.com>, <darwi@linutronix.de>, <linux-kernel@vger.kernel.org>,
-	<linux-crypto@vger.kernel.org>, <kvm@vger.kernel.org>,
-	<linux-coco@lists.linux.dev>
-Subject: [PATCH v2 2/2] x86/sev: Only announce RMPOPT optimizations when SNP is enabled
-Date: Wed, 14 Oct 2026 21:14:38 +0000
-Message-ID: <5fbbf065e912fc011ec0f043db90f530b55c4517.1792011434.git.ashish.kalra@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1792011434.git.ashish.kalra@amd.com>
-References: <cover.1792011434.git.ashish.kalra@amd.com>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="wHPwfnc1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65D4F1F000C4;
+	Wed, 14 Oct 2026 21:16:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1792012577;
+	bh=sLczMfcbTDkoBgkV9qbzR8bM6PnzlWrtoAMW7ghjW5M=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=wHPwfnc1aFL4h4B6Qqbfm4Y79W4TejKdqJENP2t9KGj9HqeNOt0t6saaPuCgfAEDp
+	 UM7Y8SlJbflypjFzTvtRGWyJNVEmfsB39HN87On8jUXMzEwQgXoxWDn5ryAtefQuJr
+	 06N2C0Lh9LDRvG4fDD4vDLG2py7+ULucIVj2OVNw=
+Date: Wed, 14 Oct 2026 14:16:16 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry
+ Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, Usama Arif
+ <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, Jann Horn
+ <jannh@google.com>
+Subject: Re: [PATCH v5 0/9] mm/collapse: separate a collapse from its
+ callers
+Message-Id: <20261014141616.6d79df8fc8c6ef7d41df5afc@linux-foundation.org>
+In-Reply-To: <20261014171145.3292736-1-kas@kernel.org>
+References: <20261014171145.3292736-1-kas@kernel.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS4PEPF000001C1:EE_|MN0PR12MB5762:EE_
-X-MS-Office365-Filtering-Correlation-Id: d2b1ab84-8e72-417f-3bef-08df2a382ea3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|23010399003|7416014|1800799024|36860700016|376014|22082099003|10067099003|18002099003|11063799006|56012099006|921020;
-X-Microsoft-Antispam-Message-Info:
-	FymYO+oUO54xPyJ8OOo+ZIuz0QXhaAZail4ji6rLoplpK8zeQhbCKwnX9B6zTObI+tA4JSuYk9RJl6u1qboTtK33YR0faG4GuYkttwTiqrzAdpRwugHSzugkuD/9tTq4Bp1RVxsuDvC4e002XMZwuvgfrARpuZjeeZUdI7PTJ0gP3eYwa5s/VVN5szNodmdYlMSjWFcSKQn4elmJs7okr1pUUD6pX0Sr/bmB/F05L4Xzzo/9RP6CGZ8Ib1tYshbWEQcYfY5UpKRi4YmHkzGCCgxeU90G3uXaN8juozMdQJlJwFSMuEW5zFgr5TYYGVeA62bXHCDca8yHgxNdqzOjONT25xknNyLkGfkY8KykAkRXgy5Dx0IyNdFOBJVqmnVJqsCB8HkWJACDMNx+IN71aYOAIFDkIdr5J/i4Ngp4h1Z/8C0Gmp/P5AEJG5CideMb0xzBD6EeiTe/e+KzGm7+5SszM/F1QjVOYqflNhBemqQ2y9cEm4Kc4RsZwefBWfs9UNYRgjgYv/BnUPUdiiOXvt6RnUvTx4yDE/XwghgHV966H697SM8a9KsNBE5C+cVnn4HXMU5yxgLmFj5nrD+cOH23y7ekXyHbR9hssFxTzHA2fls3vHuXtbf6K6MYqBvNC3ognwbbSL9pWIdGJmqfgTNLatW2NBgHd9TiuhfZTWaJN/al24stDHsnqJXVYdgtL1ToCTH4qqw9AykienMjlAWFy+bg94IxIVabbs5awhIZo3q4ue1h5D4FfyQBh6xp
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(7416014)(1800799024)(36860700016)(376014)(22082099003)(10067099003)(18002099003)(11063799006)(56012099006)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	3X94ztjuCjf0IKJ1ijOScNFPKpWxKyEw96Rl+jY+TLTRd72wY603m34mmXdO9cWIezBpeROjdj5U2tmIJoxBy5X681NhSedrhYaMM3RwdfG9zheGSoEEMI5bJxLXUQ977O1lyUYDkP/w/tWYKK4cgAe79KPaV8uJizRD0tquoENJtC/dKjdOiZrvQB4hWGABmR1Ep8rIl6eMFBUeQCab2tacLQq+jzR/AqK1u23iw+FLIchYA5c+M5HueVshUq0I5p226ruaL5XNyBlkpGPgR7u8SGLHpY/fAvas2s4Ao6hWUd4PfOK9lScfgIxwLZNNCzc96Q3mu9FzOGYhWaD962XNVjS3ZRV6Ye8RtuHfzdmV9Yh++YJdJozV6tXvQWSVqDqc+eN+Ou3lPc8AbxAs4pCezG7MfifbJIjxC8PcKPPq+0nZ47Tac6nzRa6RxSXG
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 21:14:49.8092
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d2b1ab84-8e72-417f-3bef-08df2a382ea3
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS4PEPF000001C1.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5762
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Ashish Kalra <ashish.kalra@amd.com>
+On Wed, 14 Oct 2026 18:11:33 +0100 "Kiryl Shutsemau (Meta)" <kas@kernel.org> wrote:
 
-rmpopt_init() sets up the RMPOPT workqueue and prints "RMPOPT
-optimizations enabled" gated only on X86_FEATURE_RMPOPT, which is a CPUID
-bit advertised independently of whether SNP is active.  On a system where
-SNP is disabled in the BIOS the workqueue is allocated and the message is
-printed at boot even though RMPOPT is never used (snp_enable_rmpopt() bails
-out on a non-SNP host).
+> There is no line between the collapse engine and the callers that ask for
+> a collapse.  khugepaged.c holds both, and they reach into each other.
+> 
+>  - Sixteen tests through the collapse path read cc->is_khugepaged to work
+>    out what they are allowed to do, when every one of those decisions was
+>    made by the caller before it asked.
+> 
+>  - collapse_single_pmd() does both halves of a collapse behind one call.
+>    Where it gives up mmap_lock between them is buried in the anonymous
+>    scan on one side and ahead of the file scan on the other.
+> 
+> Start drawing the line.  The caller states what it allows in a policy,
+> and the collapse code reads the policy instead of asking who called.  The
+> scan of a PTE table and the collapse that follows get a function each,
+> with the mmap_lock drop between them in one place.
 
-X86_FEATURE_SEV_SNP is resolved in bsp_determine_snp(), well before this
-initcall, and is cleared when the SNP host cannot be brought up (including
-SNP disabled in the BIOS).  Gate rmpopt_init() on it as well, so the setup
-and the announcement only happen on an SNP host.
+Thanks, updated.
 
-Suggested-by: Tom Lendacky <thomas.lendacky@amd.com>
-Fixes: c6c6f156d192 ("x86/sev: Perform RMP optimizations asynchronously")
-Signed-off-by: Ashish Kalra <ashish.kalra@amd.com>
----
- arch/x86/virt/svm/sev.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+> Changes since v4
+> ================
+> 
+>   https://lore.kernel.org/all/20260928100630.21870-1-kirill@shutemov.name/
+> 
+>  - Patches 10-13 dropped.
+> 
+>  - Patch 7: the changelog no longer mentions a release for the control,
+>    which v4 dropped.
+> 
+>  - Patch 9: collapse_scan_anon(), collapse_pmd() and collapse_anon()
+>    replace collapse_scan_anon_pmd(), collapse_run_pmd() and
+>    mthp_collapse() (David).  The scan_* fields in collapse_control are
+>    commented as anonymous-only and file-only (Zi).  Comments that named
+>    collapse_scan_pmd() for the anonymous scan follow the rename.
+> 
+>  - Acked-by from David Hildenbrand on 5 and 8; Reviewed-by from Zi Yan on
+>    5 and 8 and from Baolin Wang on 5; Tested-by from Baolin Wang on 5;
+>    Acked-by from Zi Yan on 9.
 
-diff --git a/arch/x86/virt/svm/sev.c b/arch/x86/virt/svm/sev.c
-index 43e4945e6cdf..81b9efd55c51 100644
---- a/arch/x86/virt/svm/sev.c
-+++ b/arch/x86/virt/svm/sev.c
-@@ -639,7 +639,8 @@ static void do_rmpopt_work(struct work_struct *work)
+Here are the v3->v4 changes for the nine remaining patches:
+
+
+ mm/collapse.h   |   16 ++++++++++------
+ mm/khugepaged.c |   28 ++++++++++++++--------------
+ 2 files changed, 24 insertions(+), 20 deletions(-)
+
+--- a/mm/collapse.h~b
++++ a/mm/collapse.h
+@@ -100,16 +100,20 @@ struct collapse_control {
+ 	DECLARE_BITMAP(eligible_ptes, MAX_PTRS_PER_PTE);
  
- static int __init rmpopt_init(void)
+ 	/*
+-	 * What a scan found and the run after it needs.  Live only between the
+-	 * two, and read by nobody else.
+-	 *
+-	 * The file side takes a reference while it still has the VMA, since a
+-	 * file collapse works on the page cache and never sees one; the run is
+-	 * what gives it back.
++	 * What a scan found and the collapse after it needs.  Live only between
++	 * the two, and read by nobody else.
+ 	 */
++
++	/* Anonymous only: orders to try, referenced and swap PTE counts */
+ 	unsigned long scan_orders;
+ 	int scan_referenced;
+ 	int scan_unmapped;
++
++	/*
++	 * File only.  A file collapse works on the page cache and never sees a
++	 * VMA, so the scan takes a reference to the file while it still has
++	 * one, and the collapse gives it back.
++	 */
+ 	struct file *scan_file;
+ 	pgoff_t scan_pgoff;
+ };
+--- a/mm/khugepaged.c~b
++++ a/mm/khugepaged.c
+@@ -646,7 +646,7 @@ static enum scan_result __collapse_huge_
+ 			goto out;
+ 		}
+ 
+-		/* See collapse_scan_pmd(). */
++		/* See collapse_scan_anon(). */
+ 		if (folio_maybe_mapped_shared(folio)) {
+ 			/*
+ 			 * TODO: Support shared pages without leading to further
+@@ -1099,7 +1099,7 @@ static enum scan_result check_pmd_still_
+ 
+ /*
+  * Bring missing pages in from swap, to complete THP collapse.
+- * Only done if collapse_scan_pmd() believes it is worthwhile.
++ * Only done if collapse_scan_anon() believes it is worthwhile.
+  *
+  * For mTHP orders the function bails on the first swap entry, because
+  * faulting pages back in during collapse could re-populate PTEs that
+@@ -1460,8 +1460,8 @@ static unsigned int max_order_from_offse
+ }
+ 
+ /*
+- * mthp_collapse() consumes the bitmap that is generated during
+- * collapse_scan_pmd() to determine what regions and mTHP orders fit best.
++ * collapse_anon() consumes the bitmap that is generated during
++ * collapse_scan_anon() to determine what regions and mTHP orders fit best.
+  *
+  * Each bit in cc->eligible_ptes marks a PTE the scan accepted as a collapse
+  * source. We start at the PMD order and check if it is eligible for collapse;
+@@ -1476,8 +1476,8 @@ static unsigned int max_order_from_offse
+  * If a collapse is permitted, we attempt to collapse the PTE range into a
+  * mTHP.
+  */
+-static enum scan_result mthp_collapse(struct mm_struct *mm, unsigned long address,
+-		struct collapse_control *cc)
++static enum scan_result collapse_anon(struct mm_struct *mm,
++		unsigned long address, struct collapse_control *cc)
  {
--	if (!cpu_feature_enabled(X86_FEATURE_RMPOPT))
-+	if (!cpu_feature_enabled(X86_FEATURE_SEV_SNP) ||
-+	    !cpu_feature_enabled(X86_FEATURE_RMPOPT))
- 		return -ENODEV;
+ 	unsigned int nr_eligible_ptes, nr_ptes, max_ptes_none;
+ 	enum scan_result last_result = SCAN_FAIL;
+@@ -1576,7 +1576,7 @@ done:
+ 	return last_result;
+ }
  
- 	rmpopt_wq = alloc_workqueue("rmpopt_wq", WQ_PERCPU, 1);
--- 
-2.43.0
+-static enum scan_result collapse_scan_anon_pmd(struct vm_area_struct *vma,
++static enum scan_result collapse_scan_anon(struct vm_area_struct *vma,
+ 		unsigned long start_addr, struct collapse_control *cc)
+ {
+ 	const unsigned int max_ptes_shared = collapse_max_ptes_shared(cc, HPAGE_PMD_ORDER);
+@@ -1612,7 +1612,7 @@ static enum scan_result collapse_scan_an
+ 	/*
+ 	 * If PMD is the only enabled order, enforce max_ptes_none, otherwise
+ 	 * scan all pages to populate the bitmap for mTHP collapse. The bitmap
+-	 * is then checked again in mthp_collapse() for each attempted order.
++	 * is then checked again in collapse_anon() for each attempted order.
+ 	 */
+ 	if (enabled_orders != BIT(HPAGE_PMD_ORDER))
+ 		max_ptes_none = COLLAPSE_MAX_PTES_LIMIT;
+@@ -2785,20 +2785,20 @@ static enum scan_result collapse_scan_pm
+ 	pgoff_t pgoff;
+ 
+ 	mmap_assert_locked(vma->vm_mm);
+-	/* Whatever the last scan found has to have been run by now */
++	/* A scan that found work has to have been followed by collapse_pmd() */
+ 	if (WARN_ON_ONCE(cc->scan_file)) {
+ 		fput(cc->scan_file);
+ 		cc->scan_file = NULL;
+ 	}
+ 
+ 	if (vma_is_anonymous(vma))
+-		return collapse_scan_anon_pmd(vma, addr, cc);
++		return collapse_scan_anon(vma, addr, cc);
+ 
+ 	pgoff = linear_page_index(vma, addr);
+ 	result = collapse_scan_file(vma->vm_mm, addr, vma->vm_file, pgoff, cc);
+ 	/*
+ 	 * SCAN_PTE_MAPPED_HUGEPAGE is work too: the page cache already holds
+-	 * the PMD folio, and retracting the PTE table is the run's job.
++	 * the PMD folio, and collapse_pmd() still has to retract the PTE table.
+ 	 */
+ 	if (result != SCAN_SUCCEED && result != SCAN_PTE_MAPPED_HUGEPAGE)
+ 		return result;
+@@ -2812,7 +2812,7 @@ static enum scan_result collapse_scan_pm
+ 	return result;
+ }
+ 
+-static enum scan_result collapse_run_pmd(struct mm_struct *mm,
++static enum scan_result collapse_pmd(struct mm_struct *mm,
+ 		unsigned long addr, enum scan_result result,
+ 		struct collapse_control *cc)
+ {
+@@ -2821,7 +2821,7 @@ static enum scan_result collapse_run_pmd
+ 	pgoff_t pgoff;
+ 
+ 	if (!file)
+-		return mthp_collapse(mm, addr, cc);
++		return collapse_anon(mm, addr, cc);
+ 
+ 	cc->scan_file = NULL;
+ 	pgoff = cc->scan_pgoff;
+@@ -2882,7 +2882,7 @@ static enum scan_result collapse_single_
+ 	mmap_read_unlock(mm);
+ 	*lock_dropped = true;
+ 
+-	return collapse_run_pmd(mm, addr, result, cc);
++	return collapse_pmd(mm, addr, result, cc);
+ }
+ 
+ static void collapse_scan_mm_slot(unsigned int progress_max,
+_
 
