@@ -1,140 +1,114 @@
-Received: from out30-132.freemail.mail.aliyun.com (out30-132.freemail.mail.aliyun.com [115.124.30.132])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E34584F5E04
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:23:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.132
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2913C4B04A8;
+	Wed, 14 Oct 2026 11:23:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791977009; cv=none; b=vC/DDtQ3eKkNfTeKTcENzRuT0TQEHtsLUQmw8ajKh0pGvaNvPx5tAiBSiiGE9aXwMg+YJ97Zcyx7ZEuQmA7DY6L2l4DsxmINMf9BrM8YRPQkui4Q7A5PCekw+YvqSnyMSfVCRW3BYNcXh9GM0WfjpT4ZxQNiMqD3OGffrBioZFo=
+	t=1791977025; cv=none; b=eeyyEukYK3oXJFVgfxAgJgGzu+cr1vvZk2ZCXRo63yGbrb68GeexfSuHwHKGSUvMryys/OfUj2O7wmcRHt0yl9cCP8lGB3L1J9t+gwCP+XymrlgpjvRjrPFqM4JZPAN5fCsBFE6F7xKGYaYbFii72QpGmKTPlc1TgLDLY4EbmlU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791977009; c=relaxed/simple;
-	bh=gvZblxMbNnPBwlfPk4lfkDR4K+EEAEYN0ydugwx77/s=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=OFRo0JecPcwpSEi35o0/J9u1Vj+xlMfjlvmf46q+Q5H6PbzZsIN06eXwmRZsYeMCRKAsXjjNUOJT6OBzFI74p2BEx1GqAfunuH9gld2BJHYDqVfY9YUbMPE2jOuVUyPXplfEp4bNAslSwm9epkNMgACvPaH71UVhvc80H1xbvcA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=SkHe+nrx; arc=none smtp.client-ip=115.124.30.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1791977025; c=relaxed/simple;
+	bh=Q+RVusbeLdi8XIJXHf3HTvvYMVAilyCBSrlI/wes5Vw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hLiS/JvasZxeDDpUuMj525k0EDXkeegQ5E+VRyQyxcjxMXKUMPHTQK3u3ULU07SxkTWpJYeR2qfzTq0SKrUQ6O0C/mOSRxaooXR2juAZOZmwSGuDFX2pogWhqGO3xvmsv0dCOnXC9irG6Ew8kbShUNREdavHkXTEFnuhob1X8z0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ff7i8vxE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="SkHe+nrx"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1791977002; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=caGDUFxt5LVNaqNJ4efKRsvklAhDC/F8AjH3Q+78AlA=;
-	b=SkHe+nrxrBZW5758aA9sh8rA63Kj/jyPMmRcrN7sJT6cO5vkMj8hhK/ZfJIUdQb0246mtQLwk+g98Eg4tPyw3zpxnlHMbUdyzhCxbopaywzMA84K30GbVejIcTbzVkXnxT0u4aEZSsNZD1Okd8kI+Go4KPDJU3lsugfkJvEEbF4=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XCoySAW_1791977001;
-Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XCoySAW_1791977001 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 14 Oct 2026 19:23:21 +0800
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Heming Zhao <heming.zhao@suse.com>
-Cc: Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ocfs2/dlm: hold the lookup reference across convert AST enqueue
-Date: Wed, 14 Oct 2026 19:23:21 +0800
-Message-Id: <20261014112321.2955584-1-joseph.qi@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ff7i8vxE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF6AB1F000FF;
+	Wed, 14 Oct 2026 11:23:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791977023;
+	bh=JtekSZWk6e4uCmIrYJHo0FATFAlPDVmFTKhPQB8voEQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ff7i8vxExXHeIuDPOnYsN54xDzxoUFP0iDWue5CcR/jHq18/dEGKXUahZrI/fFpEq
+	 R/Lz49mqeD7x00fblhH5F6w7YeCEDM5iDbzkgeGH0IrtcbbUzSUVWd7/wvG43q19vQ
+	 Ej7b1nrqJayVTmUuwp2kstkEWbkJul2wsQRUI7q/edQqm4ZB6p4ydSIjaX6eA8NLvb
+	 v+QsUl9Pxni2WhwM1byepXWRKGWklhefLsO3HZEqaAu7GwIJgR9oj4iZJ2xR3uOuGn
+	 nwDvySCfjxLVsxlR7ANobTovTS5RAw6aodkObP0dyDAf5t24HMsX+2SipRPgLJKw0D
+	 MTOi4GVM5ltMw==
+Date: Wed, 14 Oct 2026 12:23:36 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Theodore Tso <tytso@mit.edu>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Sasha Levin <sashal@kernel.org>, corbet@lwn.net,
+	skhan@linuxfoundation.org, rdunlap@infradead.org,
+	federico.vaga@vaga.pv.it, apw@canonical.com, joe@perches.com,
+	workflows@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Justin Stitt <justinstitt@google.com>,
+	Carlos Maiolino <cem@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+	Jori Koolstra <jkoolstra@xs4all.nl>,
+	Brian Foster <bfoster@redhat.com>,
+	Christoph Hellwig <hch@infradead.org>,
+	David Disseldorp <ddiss@suse.de>,
+	Jani Nikula <jani.nikula@intel.com>, Jens Axboe <axboe@kernel.dk>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>
+Subject: Re: [PATCH] docs: remove Assisted-by references
+Message-ID: <18b8cc5e-477c-4ea4-b829-11cfeb85b0b3@sirena.org.uk>
+References: <20261009083137.3-1-sashal@kernel.org>
+ <0914a106-bacf-4d95-854a-bfeefbff62a4@kernel.org>
+ <asz9AeFe3CutP73z@gremlin>
+ <20261013123132.GC4214@killaraus.ideasonboard.com>
+ <as4pAEnLd4H68W4W@gremlin>
+ <20261013131243.GM56180@killaraus.ideasonboard.com>
+ <as4xMnT8a75pIw9v@gremlin>
+ <as7uqZn9rQ52USwy@mit.edu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="CcA2oE3jWqldSecD"
+Content-Disposition: inline
+In-Reply-To: <as7uqZn9rQ52USwy@mit.edu>
+X-Cookie: Live free or die.
 
-dlm_convert_lock_handler() drops the reference it took when it found the
-lock on res->granted at its leave label, one statement before it calls
-dlm_queue_ast().  dlm_free_dead_locks() takes res->spinlock and drops the
-list and base references, so a peer death landing in that gap leaves the
-handler's own put as the one that frees the lock, and __dlm_queue_ast()
-then reads lock->lockres from freed memory.
 
-The handler is registered next to dlm_create_lock_handler(), so a convert
-message buffered on a dying peer's socket arrives on the same o2net
-receive work that o2net_disconnect_node() does not wait for.  The two can
-interleave as follows, with the reference counts as they are before this
-fix:
+--CcA2oE3jWqldSecD
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-  Socket data-ready       Node-down thread      Receive worker
-  -----------------       ----------------      --------------
-  o2net_data_ready()
-    select sc under
-    callback read lock
-                          o2net_disconnect_node()
-                            queue shutdown
-                            begin flush; new color
-    queue sc_rx_work
-    in the new color
-    release callback lock
-                            shutdown socket
-                            flush returns
-                                                read buffered convert_lock
-                                                dlm_convert_lock_handler()
-                                                  find lock on res->granted
-                                                  dlm_lock_get()  refs = 3
-                                                  lock res->spinlock
-                                                  __dlmconvert_master()
-                                                    call_ast = 1
-                                                  unlock res->spinlock
-                          DLM node-down cleanup
-                            lock res->spinlock
-                            dlm_free_dead_locks()
-                              unlink lock
-                              put list ref  refs = 2
-                              put base ref  refs = 1
-                            unlock res->spinlock
-                                                dlm_lock_put()  refs = 0
-                                                  free lock
-                                                dlm_queue_ast()
-                                                  __dlm_queue_ast()
-                                                  read lock->lockres
-                                                  (use-after-free)
+On Tue, Oct 13, 2026 at 11:23:53PM -0400, Theodore Tso wrote:
+> On Tue, Oct 13, 2026 at 02:29:08PM -0500, Lorenzo Stoakes (ARM) wrote:
+> > On Tue, Oct 13, 2026 at 03:12:43PM +0200, Laurent Pinchart wrote:
+> > > On Tue, Oct 13, 2026 at 01:59:33PM +0100, Lorenzo Stoakes (ARM) wrote:
 
-__dlmconvert_master() only moves the lock between lists, so the count
-entering the gap is base, list and lookup.  Drop the lookup reference
-after the AST is queued instead of before it and the race ends with the
-one __dlm_queue_ast() took, which dlm_flush_asts() releases later with
-ast_pending cleared and ast_list unlinked.  No extra get is needed, and
-the normal case ends with the same count as before.
+> > > > Ignoring is the only workable long-term solution.
 
-dlmconvert_master() has the same shape but is only reached from dlmlock()
-for a lock this node owns, which dlm_free_dead_locks() never matches.
+> > > How do you decide which patches to ignore ?
 
-Fixes: 2c5c54aca9d0 ("ocfs2/dlm: Add missing dlm_lock_put()s")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
----
- fs/ocfs2/dlm/dlmconvert.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+> > Anything that looks schloppy. ATM it's very easy to tell.
 
-diff --git a/fs/ocfs2/dlm/dlmconvert.c b/fs/ocfs2/dlm/dlmconvert.c
-index 450d46eefab32..8a828448ba958 100644
---- a/fs/ocfs2/dlm/dlmconvert.c
-+++ b/fs/ocfs2/dlm/dlmconvert.c
-@@ -534,15 +534,19 @@ int dlm_convert_lock_handler(struct o2net_msg *msg, u32 len, void *data,
- 	}
- 
- leave:
--	if (lock)
--		dlm_lock_put(lock);
--
- 	/* either queue the ast or release it, if reserved */
- 	if (call_ast)
- 		dlm_queue_ast(dlm, lock);
- 	else if (ast_reserved)
- 		dlm_lockres_release_ast(dlm, res);
- 
-+	/*
-+	 * Keep the lock alive through AST enqueue: a concurrent
-+	 * dlm_free_dead_locks() drops the list and base references.
-+	 */
-+	if (lock)
-+		dlm_lock_put(lock);
-+
- 	if (kick_thread)
- 		dlm_kick_thread(dlm, res);
- 
--- 
-2.39.3
+> I think we're going about this the wrong way.  What we want is high
+> quality contributions.  If they are high quality, who cares if they
+> are AI-generated or not?
 
+I think when people are talking about slop there's always an implicit
+quality gate in there, what people are talking about is questionable
+contributions that have an aura of AI assistance about them.  It's a
+specific term for a specific kind of problematic contribution.
+
+--CcA2oE3jWqldSecD
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrPZjcACgkQJNaLcl1U
+h9BgxQf/WSCVFPpSX4m0B9KCLYfKnC1r1/ApOFFUWVLEJ9S6d/UR3ojfdWYmaeP4
+ur4jEkPKBCXM4fN0s9aw9SBZEp3DNeMCvac4u3n+/jiw1GcK3POpgWiK3ls+Ogld
+Lwm1Dd8BcVYEdseCpOsczzm6oR3G+yC2T2C1mpBPTesPcyulwHEcrHwZWqAp4q+6
+D7KOcoOnTPcMo8jshtzTXTDIPTG1ujR3VCN/yxmc7gk9rOwWsin+jVPQm23s741X
+nslf8VoQ+IDUms/BDADvOFLXpQTCDeKOnWThHaWMU/3LbD8IZ1BjNsGHAHrXCFyA
+HkkKkpG36uyvIjkKM5ywrzRQwFy7hA==
+=cj2/
+-----END PGP SIGNATURE-----
+
+--CcA2oE3jWqldSecD--
