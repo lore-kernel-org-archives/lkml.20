@@ -1,138 +1,93 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A86E21FC0;
-	Wed, 14 Oct 2026 01:50:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25F5E2EB5B8;
+	Wed, 14 Oct 2026 01:52:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791942659; cv=none; b=gVXl43bbo7tesnHeFyLbRTPqLOXmTNaFOeMoDCg/WaQt2+YLUYe/JL0h7JLqMlwDEfACJ+ArXf2do41ort9Pj2S5eMKXw3wGdJjkqnvuChPpW6FCzUGxhBV77X7Pt2ZcaVk0/cr1TBx+3MAfoRVAKZMzPhadIUqDoyMuowQOm14=
+	t=1791942754; cv=none; b=Dp0INZB3eEKbfatVrAE6aTNv9q1SpZEgWnIAnZ9qhllBbfCHuLPNVdpbXfzk0/arcvPsMYKDQskRkVUDppCu3PHseMOuGiENlGc3leQHrWioKTzc1YGKA7NvN9tNG5E9YFx0Ojq2nGEaeyc8q9IfntlYlA/m9ZA4jyxhDSSMrsw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791942659; c=relaxed/simple;
-	bh=+B+uyvx9Iw9ATQqOyIU5cndaMT4KyQf+Zz6HrXr9nbw=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=o/2nEAuXzS4g/WWBAcXW89QzJl4isBieRp11IHzl9rRoGwrnh4Pl364HnHipS/kO1tyqvcfScmyz2wRtmSd42Te8LYHbRWQTW2krOYprNYRHZ6GoUvf3+80FWiNhDBShlvg60oY5HUm0fpJ+j4BafzcjImIfI8Ju1t/HTjWkZ0E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=acNEavqO; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791942754; c=relaxed/simple;
+	bh=5+MsJQXbAeKJj33FjbkZ9YHFqOeF9BJmJUF2H4kJ6eA=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=K3Cf+C/jwZCViZFxschm8vrK4wm6++CmIM7wyxHWvwYF5qByVxoMiNsvyUgZpiufBgktEno/DXn3rIK6GgjmN4ovbhIGJaClSXtVM4wScqIbJG0jvtQr98pvF5kRo/raRv3iNRHPb9qx22PFNsY6JgzGshqdLm8RxcoFigNr7DY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=tfSw98zu; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="acNEavqO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=kw
-	rMt3W8ZV1DNCUMW2T5/dYRmEwoznw1MEYsa+uUAc0=; b=acNEavqOH5qKArs3Qc
-	r/1oE5mrHTFAARCvOUAObQGDeYME6fDwQ0aAeD3HUnuCHzpLclqYgpZY8iYPpuiq
-	74G8zrMIqlmcsyP7WWikpPlOAheZQLwOF81skGNCVSfa06RaxEs1VEdjnBONUz0m
-	ytlREP1A2e/Qp3DKYEdYqIIAM=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgDnIMPr385qTgZdEA--.54482S2;
-	Wed, 14 Oct 2026 09:50:36 +0800 (CST)
-From: liujinlong176@163.com
-To: rafael@kernel.org
-Cc: lenb@kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	liujinlong <liujinlong@kylinos.cn>
-Subject: [PATCH v2] ACPI: button: Evaluate _PSB to determine power button state
-Date: Wed, 14 Oct 2026 09:50:34 +0800
-Message-Id: <20261014015034.2248352-1-liujinlong176@163.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261013063856.1755787-1-liujinlong176@163.com>
-References: <20261013063856.1755787-1-liujinlong176@163.com>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="tfSw98zu"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 69E1qPEK11182857, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1791942746; bh=LRwYYEuk3EfpjDIL8wyGO8ywDYnlmQSQbc7TDOHmZRo=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=tfSw98zutn/sM+WDQfiDfNbHsb9HEpBJYtlrSP3dZias0yIouqIYV6C6OfNmg6AKG
+	 FxLb8PpbWFS79xbh8L2zWvzZYRW4NuxJymAUpeeLW/rwd9ruMegJJOy4lLFEhbUjVP
+	 hqOxM/BTYhcMmvydJVL2No9yAguH0UWjDLbRLSDE9WR2ViM6LR1hvUuEHNk4c1/3D3
+	 kALxceWbN1IKY9Vy1kXbBsuphs0ku/IWuPiwvqu7SF5r0AwWIOarIK941hA3oS3ItL
+	 o06RHSS4giDmexxvFzbjnVm4c+TFgA6w0yFzysTYVDva59oXS2nMtpskoGqmLtEasV
+	 BEN05STUjbv3w==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 69E1qPEK11182857
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 14 Oct 2026 09:52:26 +0800
+Received: from RTKEXHMBS01.realtek.com.tw (172.21.6.40) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 14 Oct 2026 09:52:26 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS01.realtek.com.tw (172.21.6.40) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 14 Oct 2026 09:52:26 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Wed, 14 Oct 2026 09:52:26 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Abdurrahman Karadag <abdurrahmankaradag19@gmail.com>,
+	"linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>
+CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH rtw-next v2] wifi: rtw88: pci: wake the TX queues when the
+ rings are reset
+Thread-Topic: [PATCH rtw-next v2] wifi: rtw88: pci: wake the TX queues when
+ the rings are reset
+Thread-Index: AQHdWO4MPV0dG/pKrEyzZWvhd4YBNrb5eb7AgAINFoCAAMEoQA==
+Date: Wed, 14 Oct 2026 01:52:25 +0000
+Message-ID: <c15cbcb38aed477ab8d4c06ce30b174d@realtek.com>
+References: <02b86ed0d0814f009cb5ca83bae343c7@realtek.com>
+ <20261013220839.39149-1-abdurrahmankaradag19@gmail.com>
+In-Reply-To: <20261013220839.39149-1-abdurrahmankaradag19@gmail.com>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PSgvCgDnIMPr385qTgZdEA--.54482S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxJFy7urWkAw4ftrWfWw18Grg_yoW5Wr4Upr
-	Z8KayS93y5Kan7X3Wavr1UuryYk34xKr15GrsrAa4fZa15WryrArZrtryjva1UC3s2qa1q
-	qa1DtFs0kF4UA3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jozuXUUUUU=
-X-CM-SenderInfo: xolxyxxqor0wqrxwqiywtou0bp/xtbC5wyBlGrO3+x89gAA3j
 
-From: liujinlong <liujinlong@kylinos.cn>
+Abdurrahman Karadag <abdurrahmankaradag19@gmail.com> wrote:
+> I also left ring->queue_stopped alone. It stays set until the first
+> completion after the restart, which clears it, and rtw_pci_tx_write()
+> does not read it before stopping a queue, so a stale value costs nothing.
+> I can clear it in rtw_pci_reset_trx_ring() if you would rather the driver
+> state did not claim a stop that is gone.
 
-The ACPI button driver always synthesizes a press followed by an
-immediate release upon receiving a 0x80 notify.  This prevents
-userspace from determining the actual duration of a power button
-press.
+I re-think ring->queue_stopped and restart work. I feel the flow should be
 
-When the 0x80 notification is received, evaluate the _PSB control
-method if present.  If _PSB returns 1, report only a key press; if
-it returns 0, report only a key release.  If _PSB is not available,
-fall back to the existing press+release behavior for compatibility
-with firmware that does not implement it.
+1. fw/hw asked to restart -> rtw_fw_recovery_work() -> __fw_recovery_work()
+2. __fw_recovery_work()
+2.1. I think here should call ieee80211_stop_queues() to stop all TX queues
+2.2. __fw_recovery_work() resets most driver states, but doesn't reset ring=
+->queue_stopped.
+     I think we can reset it (but not call ieee80211_wake_queues() if resta=
+rting) by
+     rtw_pci_stop() -> rtw_pci_dma_release()
+3. rtw_reconfig_complete()
+   call ieee80211_wake_queues() as you did in v3.
 
-Signed-off-by: liujinlong <liujinlong@kylinos.cn>
+I'll discuss above flow internally, and give back to you.=20
 
---- changes in v2:
- - Dropped the new ACPI notify values 0x81/0x82 per Rafael's
-   feedback, as they would require an ACPI specification update.
- - Instead, evaluate the _PSB control method upon receiving the
-   existing 0x80 notification to determine the real button state.
- - No longer touches include/acpi/button.h.
----
- drivers/acpi/button.c | 29 +++++++++++++++++++++++++----
- 1 file changed, 25 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/acpi/button.c b/drivers/acpi/button.c
-index cdbb1023a8ee..2d079703899b 100644
---- a/drivers/acpi/button.c
-+++ b/drivers/acpi/button.c
-@@ -456,12 +456,25 @@ static void acpi_lid_notify(acpi_handle handle, u32 event, void *data)
- 	acpi_lid_update_state(button, true);
- }
- 
-+static int acpi_button_evaluate_state(acpi_handle handle)
-+{
-+	unsigned long long state;
-+	acpi_status status;
-+
-+	status = acpi_evaluate_integer(handle, "_PSB", NULL, &state);
-+	if (ACPI_FAILURE(status))
-+		return -ENODEV;
-+
-+	return !!state;
-+}
-+
- static void acpi_button_notify(acpi_handle handle, u32 event, void *data)
- {
- 	struct acpi_button *button = data;
- 	struct acpi_device *device = button->adev;
- 	struct input_dev *input;
- 	int keycode;
-+	int state;
- 
- 	switch (event) {
- 	case ACPI_BUTTON_NOTIFY_STATUS:
-@@ -482,10 +495,18 @@ static void acpi_button_notify(acpi_handle handle, u32 event, void *data)
- 	input = button->input;
- 	keycode = test_bit(KEY_SLEEP, input->keybit) ? KEY_SLEEP : KEY_POWER;
- 
--	input_report_key(input, keycode, 1);
--	input_sync(input);
--	input_report_key(input, keycode, 0);
--	input_sync(input);
-+	state = acpi_button_evaluate_state(device->handle);
-+	if (state < 0) {
-+		/* No _PSB method, synthesize a press+release */
-+		input_report_key(input, keycode, 1);
-+		input_sync(input);
-+		input_report_key(input, keycode, 0);
-+		input_sync(input);
-+	} else {
-+		/* _PSB returns 1 = pressed, 0 = released */
-+		input_report_key(input, keycode, state ? 1 : 0);
-+		input_sync(input);
-+	}
- 
- 	acpi_bus_generate_netlink_event(button->class, dev_name(&device->dev),
- 					event, ++button->pushed);
--- 
-2.25.1
-
-
-No virus found
-		Checked by Hillstone Network AntiVirus
+Ping-Ke
 
