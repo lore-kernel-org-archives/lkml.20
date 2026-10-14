@@ -1,162 +1,127 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B5DA563FAA
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:27:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55E2C568FB8
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:28:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792002466; cv=none; b=CbtAXU75A8sRHcx6BJUr7i6VgJ+a6KqTAVZMusGtYSTOdfliFj0QurFukrKEfoyl9oO2srJouSSxbS+LZoMK9pMtikAd/oDtmnUsp5n0szQ/K7Y4WWTynN1dcC+OvJWeTjqMN3Gpo/N8yJ7e0KpeoXPfAPBJdfs60oJAJo87wyo=
+	t=1792002494; cv=none; b=cHGSrwU1PZ7Rlbq+YjbFnCU1e1LyydKjiR7l6uXOI99zJofXSTlqYegkpS3ZBOMLR9w4+t2+5FNCODhZeXZ+STxm1bDOFbIwv4whlPHhVF+J1PzwgGk3zgaO+5HrBKeLmolf9RVdkGdt/91ek4hiFziv6uGFBWe+dtRloWJ5OKs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792002466; c=relaxed/simple;
-	bh=U/Vkfvw4hnItpjnozIJs+gajkX/CA0gS8JJ2x/F0i/4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SgW+jDBe6Eb2aXJj9Tp4TmYQHttwBVOTWQ+I2uLyDHygEgSvTbDRvCTaQ/4SAe806txOcGMvaT4b54jv66Q3/5wm0aQKIxNpAbdZkylNN4v+hCVs98awcoBE9sKWHAopTNv03J1gserdxlLiMpaM9lG3Opc/DKYbcwlr1Mfiscg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=P5G2o/ou; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fg3pyaqz; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792002494; c=relaxed/simple;
+	bh=9lv5lEBi8BQA1RI8DM77rZ8370a1/ZEY0HJy1ux5YbU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=a5YQ73RB4tSZso5k5F9s4csnuCR1kj0FTbCQWHn+Q3jEPx2e+oEQJ9VBna4I3nttCdwuXfT6orSO/aanlP9pgaTKJ9tOZB63Oq5gEUnBhOeuAKm/eZ+qXiN5EyZinjeH/JxfhePnEoxLjtS4ZsT1Xo6ACqRRzE0YLbPLoCuvfL8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gN06LqC2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="P5G2o/ou";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fg3pyaqz"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EF4DHC4167044
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:27:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	XCRXy6jRcZHOHEg2EMNJm5Fu8QWLy5d9vUyJpE6AgZI=; b=P5G2o/ouR6X6YCn6
-	8Tzjl5CMhTTYzO5hYCJiyE2kEVfWYEJlBkLKJlCZxmJQfMXaE5wOEkj51EU5kRw+
-	MMb3GwlYPXRhvih5hiZQbuG7wnj0gr3Ti5PIg1r8NOYyU5Oea7QEMHT53IYZgZtc
-	srlkguPgvRpvu/+5L2QLlCLo3U1S4iMI0wngWOrjUmvKOdQAhQafq8tleH+eG10P
-	piJjcvX1Z4ME2P33F02AjaB2ZwTKE5Tn2g8Jaq7oWO0lw+z5WdLTHaKyz7QlVzTP
-	pHjUt26WEvT2QPHU1h343W6t7EUtrXGPPCYpOJ/6sbXaoADjmayb2vhyoz1DG+q0
-	+HB/Pg==
-Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hac230tsd-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:27:43 +0000 (GMT)
-Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-17dc865c94cso685190c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:27:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792002463; x=1792607263; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XCRXy6jRcZHOHEg2EMNJm5Fu8QWLy5d9vUyJpE6AgZI=;
-        b=fg3pyaqzbZxBwOCkTA9T4auGw5a7Iwai3B4qv/5Dhnc+ZJdnp5bh85jLIDal0lGjd4
-         IoBiNObtV4LUo8XkbETftr6fm+d8xQSdCCOmXDwx1F62nHCf9oshRWSnqR61t6vG3dAi
-         Y3e2PtJ57vaey6D16AfAFDByRD4dA1mIT15tWBZKm5xDt2pEMcVxu1l1XqJuGI2QTiQA
-         bgXQgOJLu/XgBHj51coNA9/AaLxEF1oqrIhiRKil5bsdMIy5Wu1IgaauGwsFcd5YTbhL
-         eTla3LpRMxi/PtPWsZa9CiXvaGon5lS+Vci98FC5jdbuDiMjDpg2GQ0HFy7D4sdqPRkr
-         77Xw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792002463; x=1792607263;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XCRXy6jRcZHOHEg2EMNJm5Fu8QWLy5d9vUyJpE6AgZI=;
-        b=uEfhzuH3zbDvhlhJ5Zdk2TcHAe4tcUrlqqUu/ATaWzY175QYKh9StRrOa3UXUaagzx
-         pbDLCAdWZi5XKYVWJfckkxnKyFJxpBQp1pljaSHh6V14fULhUrdlnL9yJ8Ow/gRcG3Nm
-         ins1FrXkbbaQsK9W/BMx+s3iX5L+l/YBTXhe9pkVvaXzNlDe3zdW+KKZm7Dw++ekzr3T
-         eDEwpv5AEE0TYJENQaJ3lsGCvI0kXkqN9XFPmbT70Rrk3lkqsgGY2WGDo3yLlT+782Cq
-         0HpiNtPT5lFltsQfe02TWwMI9fBb0zVKhlHOcngzwFJtmFyvcck2RWv/vqgmHyJKyZxP
-         aVRw==
-X-Forwarded-Encrypted: i=1; AKwUvByOVN6cP2WKn4SRXBv/GKV5KIk4jeoyjIuJQUsc+ccLAZhDJkPLKL2snNcR5B4IPLvInuWNQFPvoo3QlV0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIRLU20iegf9kaPAWHCcgbSdAN/CbpR7Tbz8wrv9Kpc/NGd6RsS
-	4AUp9cHZawMG2wd6ye6mBBKybqqDAYt/aL4dP+RcSq2TKUlecEKs4Vjs2ATiNpVuCjDmi3ky/lQ
-	P0617dZgyCORMk4pzPUTcQLG3ttss/jkTENMpOWKjV93vCLu2w4JfeYeEWWC+fVTQTxM=
-X-Gm-Gg: AYBFou3SdYKiqEUyqY4O0wOZKUZEou0tFPuGLpext7mU+lLN9eFL57PNnUImZC1VWDt
-	6eVN7zIqH1H74C9EV3abLUMJPWSYWGdjMnSnRTSLy/NVH+VCWWn0JDuTno96QbpFzIguOqS98nK
-	+bkt5YWjsggIq8XWOjiAyJdzL5p88IE6V2eZQ4zL08SLoUHnjIFy9uJKEhNryXttvGejEcvjJjv
-	zHnOFvRWewEaAy46lyb2pUgqxeTpWsHnTXn5sG/Jz3mB+AlWw7HcXCzU8pudQyxvKpucXk1tVj2
-	Hc0AW8pfduTkhA3XQfQPh7G1hkGVJU1xkmJ9llk8B8b+FL6O9YuJiUarPCzEn+DwNLs12XHjxYw
-	sHZ+5kd4kV7ncwgnuwUz60elHFp7xtkZQ
-X-Received: by 2002:a05:701b:2084:10b0:143:8188:fafe with SMTP id a92af1059eb24-16a63099ec2mr24162431c88.41.1792002462640;
-        Wed, 14 Oct 2026 11:27:42 -0700 (PDT)
-X-Received: by 2002:a05:701b:2084:10b0:143:8188:fafe with SMTP id a92af1059eb24-16a63099ec2mr24162381c88.41.1792002461889;
-        Wed, 14 Oct 2026 11:27:41 -0700 (PDT)
-Received: from [192.168.1.2] ([106.222.235.49])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a442956asm62360686c88.16.2026.10.14.11.27.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 11:27:41 -0700 (PDT)
-Message-ID: <02a7367f-ea7f-4c20-91c4-03b751562ea0@oss.qualcomm.com>
-Date: Wed, 14 Oct 2026 23:57:36 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gN06LqC2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A47741F000C4;
+	Wed, 14 Oct 2026 18:28:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792002491;
+	bh=1FG/dI3SNgpPU4Bu7DcRd1rffp3ub89wihELCwlProk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gN06LqC2tjJ6VYjpIGDT1q+UakkgtM3aj6RkW8WoRsBC08dmHPleVLmpKzf4pWP8K
+	 ERnwJt+Z6KBK1RLxT/Z4ZjRDbg0CFe5f0iM47ZXMWFu9wAZtgb3UdxQkqsWqQ2gUT/
+	 jvuJi8LQs6XO0yHMnQc3+BVT/Kh/Bm++oyhgv/xa5t55P4jXHlVJJw/tKXDv8Axmh5
+	 kNZqxw2k/h29fblvDhBFBv61Io2sAU/OaVsQE4padaFw4WEJ+oxUKQtZaI/x84W530
+	 JPikfsOfanabG8XAN+s59QzN08AfBplVqgn8jQQyP1nIdtwxnaqeX4uP4HcMUvrn1U
+	 oW21Jgix2xZ0w==
+Date: Wed, 14 Oct 2026 19:28:08 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] arm64: gcs: Store GCSCRE0_EL1 values instead of
+ userspace mode
+Message-ID: <c39b2cc4-832f-49cb-8a59-e5b7a8bd9317@sirena.org.uk>
+References: <20260917-arm64-gcs-store-gcscre0-v1-0-3c9fa9213bac@kernel.org>
+ <20260917-arm64-gcs-store-gcscre0-v1-2-3c9fa9213bac@kernel.org>
+ <as-8IqsbMbOBo5Oq@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/2] i2c: qcom-target: Add driver for Qualcomm I2C
- target controller
-To: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
-        Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261005-i2c-qcom-slave-v5-0-6254cc7c08d3@oss.qualcomm.com>
- <20261005-i2c-qcom-slave-v5-2-6254cc7c08d3@oss.qualcomm.com>
-Content-Language: en-US
-From: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
-In-Reply-To: <20261005-i2c-qcom-slave-v5-2-6254cc7c08d3@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=PYJqFShd c=1 sm=1 tr=0 ts=6acfc99f cx=c_pps
- a=SvEPeNj+VMjHSW//kvnxuw==:117 a=N5Y/PXOiYxOVLBGg3HvMCg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=b46tEugvMB0N3bD9OT0A:9 a=QEXdDO2ut3YA:10
- a=Kq8ClHjjuc5pcCNDwlU0:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA3MyBTYWx0ZWRfX98yplwEoMA2P
- R5LLfZiv+ARD24uUZGrXwuUo6qGrPqoQAvJhGBIauQbmstDw3mrUdhGmRoA7E2i0oX1eEineICL
- ub76z8Qr6XetPzHHtJKBt7f22K6Kpmk=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA3MyBTYWx0ZWRfXwbAz4ftdmMKA
- JtWeiHbVPmanlYmmaWOKPtxwtQpwqjITEZtpF3/H1y7FwEIdMu6XF4cQomQKgl2nBzx0q4gpr5n
- o3uYRMNh7NYYy42deBREIeE5moYXoGNrJdKttRR4aspUzbvNdTJ8+TzXjgsffQSDJwHo6KHVyup
- P95EeSO0lcuvl8l4KrbHZdnZs5MNKVnQ+Wi2Dn/6HEcozSx7pdmQ66GhlURwChsQODhPHaBjyRX
- owoMF4oajLVkZMUOLyY/PoW7lgH+t/kmz+phVfN/lJjUEZoCIYg4GAz37Ic7NgzivzOwRX5EDxD
- 6lTK2EYx5BpAdKtLjoJDeBrbtZv2EVfG2c0+gxSIXK9kCU3EQl7phkqdUlHPifJp4ZAhy90eo+i
- rYLDp3FdNRXLLOHgrIDk8mNpkGEUugVanID9RuhDPqRrlmzHvZRKrTAjcojoTsZqNQarbGRAJW+
- ovChYZHj/w5qDMn7Y1Q==
-X-Proofpoint-GUID: RfnSGXy8luVA5s7i5MMYdtwfgzuussvp
-X-Proofpoint-ORIG-GUID: RfnSGXy8luVA5s7i5MMYdtwfgzuussvp
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 clxscore=1015 priorityscore=1501
- suspectscore=0 phishscore=0 malwarescore=0 impostorscore=0 adultscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610140073
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="z4+DNe/36eU2EIEe"
+Content-Disposition: inline
+In-Reply-To: <as-8IqsbMbOBo5Oq@arm.com>
+X-Cookie: Live free or die.
 
 
+--z4+DNe/36eU2EIEe
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 10/5/2026 10:15 PM, Viken Dadhaniya wrote:
-> QDU1000 and related Qualcomm SoCs include a dedicated I2C target
-> controller that operates exclusively in target mode. The existing
-> Qualcomm I2C controller drivers, GENI and QUP, are master-only and
-> cannot serve systems where the SoC must respond as an I2C target on
-> the bus.
-> 
-> Register the controller with the Linux I2C slave framework through
-> i2c_algorithm.reg_slave and i2c_algorithm.unreg_slave. This allows
-> standard slave backends, such as slave-24c02, to be attached at
-> runtime through i2c_slave_register().
-> 
-> Handle IRQ events for RX FIFO service, clock stretching during read
-> and write phases, STOP and repeated-start conditions, and error
-> recovery through a software reset.
-> 
-> Enable the required AHB and XO clocks and vote for interconnect
-> bandwidth. Restore the hardware state across system suspend and
-> resume using regular system-sleep PM callbacks.
-> 
-> Signed-off-by: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
-> ---
+On Wed, Oct 14, 2026 at 06:30:10PM +0100, Catalin Marinas wrote:
+> On Thu, Sep 17, 2026 at 11:14:17PM +0100, Mark Brown wrote:
 
-Reviewed-by: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
+> >  	u64			por_el0;
+> >  #ifdef CONFIG_ARM64_GCS
+> > -	unsigned int		gcs_el0_mode;
+> > +	unsigned int		gcscre0_el1;
 
+> u64?
+
+Sure, I always find the decision about which to use in a given situation
+confusing.
+
+> > -	current->thread.gcs_el0_mode =3D enabled;
+> > +	gcs_set_el0_mode(current, enabled);
+>=20
+> I think we have an existing bug here and it's more serious without this
+> patch. restore_gcs_context() does not update the actual register and,
+> with current mainline, we may even skip the hardware write in
+> gcs_thread_switch(). Basically one task can disable GCS for another
+
+Right, that's an existing bug.
+
+> task. Can we get gcs_set_el0_mode() to actually update the register as
+> well?
+
+We also set the mode from ptrace at which point it's being set for a
+different thread.
+
+> On the sigreturn bug, do you recall why we thought we needed to update
+> the gcs_el0_mode in the signal handler (or even expose it)? Wouldn't it
+> be better if the signal handler did a prctl() directly if it needed to
+> change the mode for the current thread?
+
+In theory you could have tasks with a mix of GCS and non-GCS threads
+doing green thread stuff, especially if the clone3() stuff had gone in
+so that the GCS wasn't so tied to the thread.  You could also have mixed
+push or write permissions in that case.  I am not sure that any of this
+is a realistic use case though, I'm certainly not aware of any current
+users.=20
+
+The case where a signal handler tries to handle a GCS fault by disabling
+GCS could be handled using prctl() if someone wants it.  I'm not aware
+of anyone doing that yet, there was some talk about implementing it in
+glibc at LPC but it's not been implemented.
+
+> I don't think we have any precedent for allowing sigreturn to update an
+> EL1 sysreg. In hindsight, we shouldn't have exposed it at all but that's
+> ABI now. The next best thing we can do now is check the field hasn't
+> been modified and fault otherwise (assuming no-one does anything with
+> this field).
+
+I don't think userspace is doing anything with it at present.
+
+--z4+DNe/36eU2EIEe
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrPybcACgkQJNaLcl1U
+h9A+twf/SvrdXCf5iFoUVIJnYy0vstIxnbvlnm8Ng/nkRT0U38Wg0Sawsj4f8kQ+
+e38vZSWOU4zXOjqyGBjtjT3QUd6JkdfxBBRFZsT8mMv+Dcn92i41yKCTk+a096E+
+LSnUj/qVOP3iGE/4qbRqJbLkhTrbM/UeMmFFel0Tp29nLMakKnV3Df9/L+iwG1d+
+iTF0yZCDMEyJ+wqAdnVfj/hhj0XFop4O81BxcSnKEpznhET2RF9yZWtYN6BWs8kK
+AthpKsF2dogqkK8Et1ijxF525s31M51GeiDWL+S4doH75/61GRPed54+dUzS0JVG
+MUtKCK/VA2vmvM4K4WhSJAgi44vPQQ==
+=pqzz
+-----END PGP SIGNATURE-----
+
+--z4+DNe/36eU2EIEe--
