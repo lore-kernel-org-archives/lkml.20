@@ -1,98 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EBD42D6E5A;
-	Wed, 14 Oct 2026 22:15:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4464D2D6E5A;
+	Wed, 14 Oct 2026 22:17:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792016159; cv=none; b=cLJ61SISIPRbLZ2ogNlRcfeE7APNs5wIJ1O6Vx3HDVoK6QsaA0gLcSP/z3RlzqbQ85nR22ctn+rpoPx6AcRF2AhvszA0cGeSsvXnwJ3GW633/upecOtjDcWvbxRq2iYGa7R9xTBIggcxrZ+IbriviLH1OzILoEpWGxW/RQigZdQ=
+	t=1792016260; cv=none; b=A8jY6Cru+WbkUxIzY0ysoWt5gxiaigP2acpU96rAeYh+yNoXZeA3+HgFRIwmXUqbq1fKLUznEYR+sMmjIzC7UZqEA8BEUih0Fxw6TX8yM1dX5P3WJ5P5TPwmJXgzLG9Ku/sq0blZWwY2XIiG5+zwJjGKJoyXlAPVSXHqKEV2RiE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792016159; c=relaxed/simple;
-	bh=KiKQf58YhfqJ55SK2Fon15/aCzDyNxAQqqUSIZfY3Go=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kwsm8k7RFEX+H9Ghf1fm3p9wO3pkCyfnmtEBwn4bbejNmflRLEvykUaUV+wmL19ev+Y1NXQWbOJmUnZllnYkC7UO9nQCEriQhxUJoe5nsDN4Bexzqcv9+Smo9ceegosiCb6isUm2etRJ5Rr1ok6KIU204AEs1Wzo02HrG0n380s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q7OZvvn8; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792016260; c=relaxed/simple;
+	bh=6rYEKpuyZg54h/jG43AxiPwkT7iadM87/QZyfSZXIpk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LLNq24Zan+RNmSYRYqKyTfOpm5OXPhre7fjCgzCTK4vZ6E7zb8gReaecNaDCXJP1Rc7yD3eSTx3C+KvR3Rlj0+reqo7a6kgvCFrrUlBpumyRAqAKC4Iq/MVbmaCDtngmmRT+nHJ2USOIPLfS+2njH5YtVJQJiyEBYZaJin3vdoI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OAn3E2cp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q7OZvvn8"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 76F19C2BCFC;
-	Wed, 14 Oct 2026 22:15:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792016158;
-	bh=KiKQf58YhfqJ55SK2Fon15/aCzDyNxAQqqUSIZfY3Go=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Q7OZvvn8e6fuvNc1twpqKXR80t9oPytgqXSAXKaDc3pqYyDQRec+EA/DL9zG+xtmt
-	 T9XkfFn4hZ6jWKumITg09vXKSEPc+MPZYw0NQ4uRLrWUPvdmeg/LFf1Qk6yHe3QOUQ
-	 1nIvBoj+mkew1aExq8KAGN+aB5Zow6aSt5v07bhRR9YQIl6+8J5LOyt2bT/LI2MwxV
-	 p2JKEhk4BlM0R8Q9gun3l4dDd7hQRgNqi1tpEzjP0Q3go2qz7856gJeFIHg4ZY+MbR
-	 3Bs1DwIH5lxFpOG5uR0UrZ5kRRjP8ZqIitdh7QepIwmuT4auoVgv8yPErSo6wLDjPa
-	 0f1DqG9PUtTEw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 54E9BCC6B24;
-	Wed, 14 Oct 2026 22:15:58 +0000 (UTC)
-From: =?utf-8?q?Mert_Erdo=C4=9Fan_via_B4_Relay?= <devnull+mrterdo75.gmail.com@kernel.org>
-Date: Thu, 15 Oct 2026 01:15:41 +0300
-Subject: [PATCH v2 1/2] platform/x86: hp-wmi: Add Victus 16-d1xxx board
- 8A26 support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OAn3E2cp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48C961F000C4;
+	Wed, 14 Oct 2026 22:17:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792016258;
+	bh=9oY1kBKAVCptGWm6qXZuVZLaR35xmMfyPEP9DIKR+qc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OAn3E2cp7LcGIxIGM1/DQrNRFSy6LdmNIdjdDFniK/zrjIn0ZdJF9HJNkh/bYsWDc
+	 ucy2uWdGC7+N2L0wYtBsyHcopFPUqQRwtOqo7iyyl/PsL2PUpmteEZcm2SsMC0c+Xb
+	 2scUV0umrRrRb6y74rdAMXvr8SIod6wnnMbhf9U00CR7dStVDrexr83tpudmnjQrq8
+	 lxoxn0dyP3BuTMLTt82YEwzhjk+sVPNoekL5fH0JT54j+auIH6rahOcjvkIRH4d63c
+	 an+XVfOSmvKmq2gG42GX4wjjzgicMbIi3PV4A3gsiaNgmh//DgTikyQfi6jXYtjnvq
+	 Y9iYwPc0MyYcA==
+Date: Wed, 14 Oct 2026 19:17:35 -0300
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: Ian Rogers <irogers@google.com>, Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
+	linux-perf-users@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v3 1/4] perf symbol: Fix symbol loading from libbfd
+Message-ID: <as__f7LjG4GckkBj@x2>
+References: <20261012235938.87912-1-namhyung@kernel.org>
+ <as557LTNwiigXk0O@x2>
+ <as6cV-cm6dgTtzet@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261015-hp-wmi-victus-8a26-v2-1-3a9e40e00e64@gmail.com>
-References: <20261015-hp-wmi-victus-8a26-v2-0-3a9e40e00e64@gmail.com>
-In-Reply-To: <20261015-hp-wmi-victus-8a26-v2-0-3a9e40e00e64@gmail.com>
-To: Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
- =?utf-8?q?Mert_Erdo=C4=9Fan?= <mrterdo75@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792016155; l=1146;
- i=mrterdo75@gmail.com; s=20261007; h=from:subject:message-id;
- bh=L1CH7dlpQUM4NNhDRcqjtEsJk9TWWjgNN0gDBPxarCY=;
- b=11xG9szFUV7nbSEEVY2pC/SJryjsjF31k0UFfR3IXsMvt6cUqDy5OYltf7IOJ9aJ8p2qinc0c
- GXQYbZrlQaFBv1zjlDK+vlA42PBAtqi7XRSKzJgTg9CcIo4SELJBB6g
-X-Developer-Key: i=mrterdo75@gmail.com; a=ed25519;
- pk=bUOfewdT6wnBK6cWdxYDgGaI8ee0+BwtzPbg982vJP8=
-X-Endpoint-Received: by B4 Relay for mrterdo75@gmail.com/20261007 with
- auth_id=1127
-X-Original-From: =?utf-8?q?Mert_Erdo=C4=9Fan?= <mrterdo75@gmail.com>
-Reply-To: mrterdo75@gmail.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <as6cV-cm6dgTtzet@google.com>
 
-From: Mert Erdoğan <mrterdo75@gmail.com>
+On Tue, Oct 13, 2026 at 02:02:15PM -0700, Namhyung Kim wrote:
+> On Tue, Oct 13, 2026 at 03:35:24PM -0300, Arnaldo Carvalho de Melo wrote:
+> > On Mon, Oct 12, 2026 at 04:59:34PM -0700, Namhyung Kim wrote:
+> > > The dso__load() should return a positive number (number of symbols
+> > > loaded) when it succeded to load symbols.  But dso__load_bfd_symbols()
+> > > only returns 0 and it's hard to check if it actually loaded symbols or
+> > > not.  Let's return the value of dso__has_symbol() and check it in
+> > > dso__load() so that it can return 1 for success.
+> > > 
+> > > Reported-by: Sashiko <sashiko-bot@kernel.org>
+> > > Closes: https://lore.kernel.org/r/sashiko-outbox-162540@kernel.org
+> > > Fixes: eac9a4342e5447cad ("perf symbols: Try reading the symbol table with libbfd")
+> > > Reviewed-by: Ian Rogers <irogers@google.com>
+> > > Signed-off-by: Namhyung Kim <namhyung@kernel.org>
+> > 
+> > Thanks, applied to perf-tools-next, for v7.4.
+> 
+> Thanks Arnaldo!
+> 
+> As you may know, this is from my other series on cleaning up symtab and
+> binary types.  I'd like to land it as well so that I can continue
+> working on the related issues.  There are some Sashiko feedback left,
+> but I think they are either pre-existing bugs or known issues.
 
-The Victus 16-d1xxx ships with at least two DMI board names. 8A25 is
-already listed in victus_thermal_profile_boards, but 8A26 is not, so
-on those machines the driver falls back to the generic thermal policy.
-Selecting a platform profile then never issues the Victus performance
-mode WMI call (HPWMI_SET_PERFORMANCE_MODE via HPWMI_GM), and the
-firmware keeps the GPU's +15 W configurable TGP offset disabled.
+Right, its now at tmp.perf-tools-next, while I test build in my
+container set, will push it to perf-tools-next next.
 
-Add 8A26 to the list so these machines use the same Victus thermal
-profile path as 8A25.
-
-Assisted-by: claude-opus-5-5
-Signed-off-by: Mert Erdoğan <mrterdo75@gmail.com>
----
- drivers/platform/x86/hp/hp-wmi.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
-index 387f60e88..15f1e9f63 100644
---- a/drivers/platform/x86/hp/hp-wmi.c
-+++ b/drivers/platform/x86/hp/hp-wmi.c
-@@ -234,6 +234,7 @@ static const char * const omen_timed_thermal_profile_boards[] = {
- static const char * const victus_thermal_profile_boards[] = {
- 	"88F8",
- 	"8A25",
-+	"8A26",
- };
- 
- /* DMI board-specific feature data for Omen and Victus laptops. */
-
--- 
-2.56.0
-
-
+- Arnaldo
