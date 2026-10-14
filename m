@@ -1,313 +1,310 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 361F2563FDD
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:40:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46A2B5581E5
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:40:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792003205; cv=none; b=OHDuCQgdVGRWggI9/tiNK8YOxtkwmOpimoWWUX7f0oFWuEeSavrKqy3TuBomloR7yw5ciRMb/+XO63BC54Opr0sq7nUQNvlxWAauEdKfCv7iVc34XgVU6IOLWWs3qs92fhAV8Vly0ykJWZebZoVcvRRBMPXY12dSnfHRQg3FHt8=
+	t=1792003255; cv=none; b=ZupoDjJVVuxdhRcr2J2cOeoJeQxwR397ttmoVugJVZ3jCzBPqjAOJQPMbVolKv+hGyeL+aT3+FMA9guknM9OXl1HkCoai/5hwNqmOIfNRgIOB5a9gxRYx50iUCbeS3PrOKTyCDiC4ZsAlSEVFcDhEoOJ1/Zb8G4JUJTFo7qLl4w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792003205; c=relaxed/simple;
-	bh=wI5OtR9HR/J0RFCTg/Yk2o4tMSsqJLiSJGZ/bOEkyV8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=o9OGMx6p/TkWhOJpMEUJ8npvF52Tq+h4aUlWiSK20c2vM5y5mCQST1oeabn+BugMqVlVLkS2Yns+9F0ocwyC1377/q4p4ku+HmgjK0uLLrdd2Q4/F85PSc73vYSJD29D7L5Rl9j34n3tzq+8TrgqwykP04wlSBlOSlLYKkBoBW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YiZElaLJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792003255; c=relaxed/simple;
+	bh=Eakc5P+atJed99vsTRV6pg1nJISJyM38DYaHGxoQrDA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RL5i0gMk6G03LNXysVCssOH/4O7mKrLg5KEDTzVtZWUX8Wgbz/C2Dvu9ynZelER1BcFgeV3zjP7CjaWty214Fekdkq93SLw1rFjXo2o40KZXz2VVbmsk5D5tePytzd+rCrKwjRvdylLsbXC/iVQIy+wNpsFRdBZ2MlcxMPPQNXs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KSR8/3DS; arc=none smtp.client-ip=209.85.167.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YiZElaLJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD28E1F01575
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:40:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792003203;
-	bh=h02T4dxmej+7U4k43nmeqwXEyqdw6fkeq/FbO3cSyPk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=YiZElaLJacR1XjcoXsQ5YAtE+kKxtkSbIVOBNr2AwKzciTPWTLC0gDT+BrygyL9uB
-	 yyE6lix+ONFEDHUYpbFgalLOctIHBFvcccr3l5LYCncqQ4eOb2X30rF0wnG1YcOAEC
-	 FyL/ozKkJvmn6vgTnZ9q2gau0AkXzKaqgFc5po3Od1IEA+YiyZhy8WfxAuo41+EQ7W
-	 1xA8Yracvb+nOGbuc+0bBQQHtGbnFb3s8VJ9H7WRq7cBECI4yGSdhCAjTJci5gbsIQ
-	 zQ6q8fYNaVWFSPu9OQmKuG1nolInJK1+EJGbtZH6TTlN6tEnafXXQYhPRuc+j3dvXM
-	 65ZalyJj2b93w==
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5ba41ea31ccso5091932e87.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:40:03 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByJxJKpsqX/fAYIxVfVrhhvfVsuJe77fPtUNoXQshNyUMyTZWfqHBcrxCebMr95o4dmWwMd3JLWp5THbmA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJxgkY/Q2GoKSWOcV0kLFOVO41rvo6nH338n0fEDCtqTghhaTKy
-	wW2JInZARb74t+rHI4qakUN+ZJKQvj6JswDh4KxSZrD1rv6dNOXTmQq2TiJlkTCme67mQi3b6B9
-	UMacOmDVST1WySDWhsU8IyW2KohkiM2w=
-X-Received: by 2002:a05:6512:114a:b0:5bc:b375:9dbe with SMTP id
- 2adb3069b0e04-5bcde6a96cemr5757469e87.45.1792003201656; Wed, 14 Oct 2026
- 11:40:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KSR8/3DS"
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5bcb1f1358aso3087088e87.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:40:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792003251; x=1792608051; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5XehtWRHe4CRZCUlTIf4w4Y3AhoUdGKPHSw8atLC5qs=;
+        b=KSR8/3DSxf4ChJ4PfGhznBFBUd/4/HDCzLHj4w8XI3vMbdtLGWfd78fImrgQA6aOQf
+         oB5kupR0Th3/dkOmoJiDKIQqMzfX991lpT5B4fwETGIbqlcNDjvRupauXykZg59TM2ev
+         MCk1Zc7nZ0OiVyWxwE1Pu+yVYoUmmAy3ZSeOfpL1aZYhKZEmWiEpABusB8XtcNdqaf30
+         Sovy6gH/v+cd31Hq+QSKJJEtvOKd0Fjrh1Oig/mPiJwgJf3c08Bw51s2MsQwyzk10DXB
+         4PmuJGgHni2Yl0NiwLrxo/f994Y3C5BwPMljBk6D51YewWo1GYsUf2D6tU7KOEq9thlK
+         RMUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792003251; x=1792608051;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5XehtWRHe4CRZCUlTIf4w4Y3AhoUdGKPHSw8atLC5qs=;
+        b=e/Vu2ZFpkpp/bwXSuqfPQ1RpaUBMuBATctLQI6IhgVm3hE9ySxhmpJx/jr0+ivqkpj
+         8Ut75MlQ+WwVulSJlmYz7J9KcGnp0+ShHGCOVEIMoZswHOI7lw2vUeS+4wlhSKJZqFrp
+         JZ1oDBpuCuIfyZ3VV1xXEvHICmq8adoLEdpn4WEYnZcyPBOQA1sSOF+obx6Lm5ohgC+v
+         Egj/B5TnwX/kiQOGStobMexi21hB5wR8Yi4QI3vGEAI5rI4P5SP3jxQT39yW2RPGZqHj
+         YU1Ik5j2xmBuv5/JMz+Ml3zSmfe4E5X5ao2k3dppBiwsnHZMyU5BRq7ggS1XO/zsVq2b
+         BWTQ==
+X-Forwarded-Encrypted: i=1; AKwUvByaEA5EZ3HPKCh0VbtxsaeItLQUQKugY/OC9uoSglPpYvwW8oUkOqvBvwna4pLyOyyoY69iXBHvkF9QU5k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLaTaA3B40nZOBlIUGTWTsJARMYkzPglc4slXC/7ooYBHWT1jiw
+	XMxX+r0aptutD0QiXFh2g5DpzRPFVhZk3MDo4BQ8i9PVTARmQq/orIWl
+X-Gm-Gg: AYBFou2jj78I4k9zibATEnDEAufHyJkn1FiFiMlWQstGRTFuccKsCnd6LtyuQtw4+iX
+	xiN6fWOQsDZ/8WPt/98EisPSy48vppf6WHwKTghRlBZZAJm1PC6jJNlam+cupejUB4pt4xXUG4f
+	BG7ZdKTmssZXcyyer6hBkjX1Ab8SjEYndrqI8QwgSlJB6PzJKNWt5werL3cuRPbVnh3b2lqnHeY
+	1c0X0aT/ITfeQCJoDGsv5Qn2pscxxjyIJUB0KjeK1x1L4kq9PQgDvepOQTJyeAjnJDblVU+R3Km
+	OAd4NzbHk/PEU07C1YW8NCmKkpZgVeCKfIN9bKauMxEx5penYhfGT/E+1VIuJxNdPr8M5P1cMCN
+	AOiYag1ldjpeYfARlNHChCxKF264ZEKDaM3mxdBka54jXv0Xdr4YWawGrMc/QEXRzPjswe0NaSh
+	iRvmNP5TQAJGacK+R1G6bIYE9ZVHdRqptQys5Wbt+N11SwQnauhC1EJ62fk8DJmMDgkoQz+T3nV
+	hJtdLN7Un8i1q+eaI2JSJFEYtpq
+X-Received: by 2002:a05:6512:31d5:b0:5b8:c763:67f7 with SMTP id 2adb3069b0e04-5bcde6c0076mr6508273e87.24.1792003250860;
+        Wed, 14 Oct 2026 11:40:50 -0700 (PDT)
+Received: from localhost (parmesan.int.kasm.eu. [2001:678:a5c:1204:5508:6e19:c6a3:9875])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5be33feff92sm785393e87.0.2026.10.14.11.40.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 11:40:50 -0700 (PDT)
+Date: Wed, 14 Oct 2026 20:40:49 +0200
+From: Klara Modin <klarasmodin@gmail.com>
+To: Baoquan He <baoquan.he@linux.dev>
+Cc: Baoquan He <hebaoquan@kylinos.cn>, linux-mm@kvack.org, 
+	akpm@linux-foundation.org, chrisl@kernel.org, kasong@tencent.com, hannes@cmpxchg.org, 
+	nphamcs@gmail.com, baohua@kernel.org, youngjun.park@lge.com, yosry@kernel.org, 
+	shikemeng@huaweicloud.com, chengming.zhou@linux.dev, david@kernel.org, 
+	linux-kernel@vger.kernel.org, kunwu.chan@gmail.com
+Subject: Re: [PATCH v4 00/14] mm, swap: extendable swap devices (xswap phase
+ I)
+Message-ID: <as_MPhc4HcXdgUTe@parmesan.int.kasm.eu>
+References: <20261003003136.750633-1-hebaoquan@kylinos.cn>
+ <asZt7-8mcxqc1a02@soda.int.kasm.eu>
+ <asylV5YyyaHs8rP3@fedora>
+ <aszb4OgUUCh5JHle@soda.int.kasm.eu>
+ <as4F9wxsMwNsg5_R@fedora>
+ <as4gb7BdnFffV4SI@parmesan.int.kasm.eu>
+ <as-jZpQBQ9mMNqlH@fedora>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <dcde6e02-d61f-429f-a9fd-57043c4819f7@oss.qualcomm.com>
-In-Reply-To: <dcde6e02-d61f-429f-a9fd-57043c4819f7@oss.qualcomm.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Wed, 14 Oct 2026 20:37:54 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0hESvjrYRdVcAb+wQG5tc3wjQyQNongXhwEnh+GiN7Eyw@mail.gmail.com>
-X-Gm-Features: AclHuK8sTIQtflGauZ2JnhT2z6w0pBS_TBVqEEPoIfYBjLbQFth6jH8_eEbD3OQ
-Message-ID: <CAJZ5v0hESvjrYRdVcAb+wQG5tc3wjQyQNongXhwEnh+GiN7Eyw@mail.gmail.com>
-Subject: Re: [GIT PULL] thermal drivers for v7.4-rc1
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Aryan Sinha <sinha.aryan03@gmail.com>, Bhargav Joshi <j.bhargav.u@gmail.com>, 
-	Biju Das <biju.das@bp.renesas.com>, 
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>, Dhruvin Rajpura <drajpura@qti.qualcomm.com>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, Georgi Djakov <djakov@kernel.org>, 
-	Hemanth Selam <hemanth.selam@gmail.com>, Karl Mehltretter <kmehltretter@gmail.com>, 
-	liujing <liujing@cmss.chinamobile.com>, Markus Elfring <Markus.Elfring@web.de>, 
-	muzafferkadir@mainlining.org, Ovidiu Panait <ovidiu.panait.rb@renesas.com>, 
-	Pengpeng Hou <pengpeng@iscas.ac.cn>, Priyansh Jain <priyansh.jain@oss.qualcomm.com>, 
-	Rob Herring <robh+dt@kernel.org>, Ronald Claveau <linux-kernel-dev@aliel.fr>, 
-	Tudor Ambarus <tudor.ambarus@linaro.org>, Vitaliy Sochnev <sochnev.v.74@gmail.com>, 
-	Weigang He <geoffreyhe2@gmail.com>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
-	Linux PM mailing list <linux-pm@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <as-jZpQBQ9mMNqlH@fedora>
 
-Hi Daniel,
+(Resending since gmail rejected my original message. Sorry if anyone
+gets a duplicate)
 
-On Wed, Oct 14, 2026 at 4:08=E2=80=AFPM Daniel Lezcano
-<daniel.lezcano@oss.qualcomm.com> wrote:
->
->
-> Hi Rafael,
->
->
-> The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b9=
-35:
->
->    Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
->
-> are available in the Git repository at:
->
->    git://git.kernel.org/pub/scm/linux/kernel/git/thermal/linux.git
-> tags/thermal-v7.4-rc1
->
-> for you to fetch changes up to 2dc1f296b5754dd2441fc8b6613a362a47f6b98f:
->
->    thermal/drivers/rzg3e: Propagate reset assertion failure from suspend
-> (2026-10-14 09:46:07 +0200)
->
-> ----------------------------------------------------------------
-> - Add the Exynos ACPM thermal driver for Google GS101, along with
->    DT bindings and a MAINTAINERS entry (Tudor Ambarus)
->
-> - Add Renesas RZ/G3L thermal sensor support and DT bindings, and move
->    default calibration values to per-SoC match data (Biju Das)
->
-> - Add Qualcomm MSM8952 TSENS support and the corresponding DT binding
->    compatible (Muzaffer Kadir)
->
-> - Document the Qualcomm PMAU0102 Master BandGap temperature monitor
->    compatible in the DT bindings (Dhruvin Rajpura)
->
-> - Extend the QCom TSENS v2 trip temperature limits to the hardware
->    range of -204=C2=B0C to +204=C2=B0C to prevent interrupt storms when o=
-perating
->    beyond the previous software limits (Priyansh Jain)
->
-> - Fix temperature threshold map indexing in the QCom SPMI temperature
->    alarm driver to prevent out-of-bounds reads (Georgi Djakov)
->
-> - Describe the additional bus clock required by the Amlogic T7 thermal
->    sensor and switch the driver to the clk_bulk API to manage multiple
->    clocks (Ronald Claveau)
->
-> - Request the Airoha EN7581 IRQ after thermal zone registration to
->    prevent the interrupt handler from accessing an unregistered or
->    already freed thermal zone (Vitaliy Sochnev)
->
-> - Fix the Airoha AN7583 ADC mux field mapping, serialize access to the
->    shared ADC, and verify mux selection to avoid invalid temperature
->    readings and spurious critical shutdowns (Vitaliy Sochnev)
->
-> - Register separate thermal zones for the AN7583 bandgap, GbE and CPU
->    sensors, and update the DT bindings to use one thermal sensor cell
->    to select the sensor (Vitaliy Sochnev)
->
-> - Fix signed integer overflow in the Renesas RZ/G3E temperature-to-code
->    conversion, preserve compare interrupt state across runtime PM,
->    and prevent overlapping temperature conversions (Ovidiu Panait)
->
-> - Remove redundant trip window validation and runtime PM
->    pm_runtime_mark_last_busy() calls from the Renesas RZ/G3E driver
->    (Ovidiu Panait)
->
-> - Propagate reset assertion failures from Renesas RZ/G3E suspend and
->    attempt to restore power if the sensor was active (Pengpeng Hou)
->
-> - Stop the TI bandgap alert IRQ before removing sensor interfaces and
->    cancel pending alert work to prevent use-after-free on driver removal
->    (Weigang He)
->
-> - Validate Spreadtrum sensor IDs read from the device tree before using
->    them for register offsets and array indexing (Weigang He)
->
-> - Convert the TI OMAP bandgap DT bindings to schema and document the
->    DRA752 compatible and thermal sensor cells (Bhargav Joshi)
->
-> - Use DT property helpers matching the signed temperature and unsigned
->    hysteresis types defined by the thermal zone bindings (Rob Herring)
->
-> - Reuse common error handling code in the power allocator governor
->    bind callback (Markus Elfring)
->
-> - Constify the thermal zone device operations in the i.MX9 driver
->    (Christophe JAILLET)
->
-> - Fix kernel-doc parameter names and firmware node references in the
->    cooling device registration helpers (Aryan Sinha)
->
-> - Correct the documented return value of ti_bandgap_get_sensor_data()
->    to describe validation errors and potentially NULL stored data
->    (Karl Mehltretter)
->
-> - Ensure NUL-termination when copying the cooling device command-line
->    argument in tmon and fix the associated string truncation warning
->    (Florian Fainelli)
->
-> - Fix undefined behavior caused by a signed shift in the tmon thermal
->    zone binding display (Liu Jing)
->
-> - Fix wording in tmon comments (Hemanth Selam)
->
-> ----------------------------------------------------------------
-> Andy Shevchenko (1):
->        thermal: sysfs: switch to use scnprintf() to suppress truncation
-> warning
->
-> Aryan Sinha (1):
->        thermal/fw: Fix kernel-doc parameter names
->
-> Bhargav Joshi (1):
->        dt-bindings: thermal: ti,omap-bandgap: Convert to DT schema
->
-> Biju Das (3):
->        dt-bindings: thermal: r9a08g045-tsu: Document RZ/G3L TSU
->        thermal/drivers/renesas/rzg3s: Convert calibration defaults to
-> per-SoC match data
->        thermal/drivers/renesas/rzg3s: Add RZ/G3L TSU support
->
-> Christophe JAILLET (1):
->        thermal/drivers/imx9: Constify struct thermal_zone_device_ops
->
-> Dhruvin Rajpura (1):
->        dt-bindings: thermal: qcom,pm8775-mbg-tm: Document PMAU0102
->
-> Florian Fainelli (1):
->        tools/thermal/tmon: Fix string truncation warning in optarg copy
->
-> Georgi Djakov (1):
->        thermal/drivers/qcom-spmi-temp-alarm: Fix temp_map indexing
->
-> Hemanth Selam (1):
->        tools/thermal: Fix typo "binded" in comments
->
-> Karl Mehltretter (1):
->        thermal: ti-soc-thermal: Fix the return value in
-> ti_bandgap_get_sensor_data() kernel-doc
->
-> Liu Jing (1):
->        tools/thermal/tmon: Fix signed shift UB in binding display
->
-> Markus Elfring (1):
->        thermal: gov_power_allocator: Use common error handling code in
-> power_allocator_bind()
->
-> Muzaffer Kadir (2):
->        dt-bindings: thermal: tsens: Add MSM8952
->        thermal/qcom/tsens: Add support for MSM8952 tsens
->
-> Ovidiu Panait (5):
->        drivers/thermal/renesas/rzg3e: Fix signed integer overflow in
-> temp_to_code()
->        thermal/drivers/renesas/rzg3e: Fix runtime PM handling of compare =
-irq
->        thermal/drivers/renesas/rzg3e: Fix race between set_trips() and
-> get_temp()
->        thermal/drivers/renesas/rzg3e: Remove unneeded low/high check in
-> set_trips()
->        thermal/drivers/renesas/rzg3e: Remove redundant
-> pm_runtime_mark_last_busy() calls
->
-> Pengpeng Hou (1):
->        thermal/drivers/rzg3e: Propagate reset assertion failure from susp=
-end
->
-> Priyansh Jain (1):
->        thermal/drivers/qcom/tsens: Widen temperature limits to match
-> hardware range
->
-> Rob Herring (Arm) (1):
->        thermal: of: Match trip property helper types
->
-> Ronald Claveau (2):
->        dt-bindings: thermal: amlogic: describe bus clock for t7-thermal
->        thermal/drivers/amlogic: Switch to clk_bulk API to support
-> multiple clocks
->
-> Tudor Ambarus (3):
->        dt-bindings: thermal: Add Google GS101 TMU
->        thermal/drivers/samsung: Add Exynos ACPM TMU driver GS101
->        MAINTAINERS: Add entry for Samsung Exynos ACPM thermal driver
->
-> Vitaliy Sochnev (5):
->        thermal/drivers/airoha: Request the EN7581 IRQ after zone
-> registration
->        thermal/drivers/airoha: Fix AN7583 ADC mux field mapping
->        thermal/drivers/airoha: Serialise access to the shared ADC
->        dt-bindings: arm: airoha: Use one thermal sensor cell for AN7583
->        thermal/drivers/airoha: Register a thermal zone per AN7583 sensor
->
-> Weigang He (2):
->        thermal/drivers/ti-soc-thermal: Cancel pending alert work on remov=
-e
->        thermal/drivers/sprd: validate the sensor id from the device tree
->
->   .../bindings/arm/airoha,en7581-chip-scu.yaml       |   3 +-
->   .../bindings/thermal/amlogic,thermal.yaml          |  29 +-
->   .../bindings/thermal/google,gs101-tmu-top.yaml     |  69 +++
->   .../bindings/thermal/qcom,pm8775-mbg-tm.yaml       |   7 +-
->   .../devicetree/bindings/thermal/qcom-tsens.yaml    |   1 +
->   .../bindings/thermal/renesas,r9a08g045-tsu.yaml    |   4 +-
->   .../bindings/thermal/ti,omap-bandgap.yaml          | 177 ++++++
->   .../devicetree/bindings/thermal/ti_soc_thermal.txt |  88 ---
->   MAINTAINERS                                        |   8 +
->   drivers/thermal/airoha_thermal.c                   | 179 ++++--
->   drivers/thermal/amlogic_thermal.c                  |  14 +-
->   drivers/thermal/gov_power_allocator.c              |  11 +-
->   drivers/thermal/imx91_thermal.c                    |   2 +-
->   drivers/thermal/qcom/qcom-spmi-temp-alarm.c        |   8 +-
->   drivers/thermal/qcom/tsens-v1.c                    |  41 ++
->   drivers/thermal/qcom/tsens-v2.c                    |   4 +-
->   drivers/thermal/qcom/tsens.c                       |   3 +
->   drivers/thermal/qcom/tsens.h                       |   2 +-
->   drivers/thermal/renesas/rzg3e_thermal.c            |  45 +-
->   drivers/thermal/renesas/rzg3s_thermal.c            |  38 +-
->   drivers/thermal/samsung/Kconfig                    |  19 +
->   drivers/thermal/samsung/Makefile                   |   2 +
->   drivers/thermal/samsung/acpm-tmu.c                 | 651
-> +++++++++++++++++++++
->   drivers/thermal/sprd_thermal.c                     |   6 +
->   drivers/thermal/thermal_fw.c                       |   8 +-
->   drivers/thermal/thermal_of.c                       |  11 +-
->   drivers/thermal/thermal_sysfs.c                    |  12 +-
->   drivers/thermal/ti-soc-thermal/ti-bandgap.c        |  10 +-
->   drivers/thermal/ti-soc-thermal/ti-thermal-common.c |   4 +
->   tools/thermal/tmon/sysfs.c                         |   2 +-
->   tools/thermal/tmon/tmon.c                          |   4 +-
->   tools/thermal/tmon/tmon.h                          |   2 +-
->   tools/thermal/tmon/tui.c                           |   2 +-
->   33 files changed, 1262 insertions(+), 204 deletions(-)
->   create mode 100644
-> Documentation/devicetree/bindings/thermal/google,gs101-tmu-top.yaml
->   create mode 100644
-> Documentation/devicetree/bindings/thermal/ti,omap-bandgap.yaml
->   delete mode 100644
-> Documentation/devicetree/bindings/thermal/ti_soc_thermal.txt
->   create mode 100644 drivers/thermal/samsung/acpm-tmu.c
+On 2026-10-14 23:44:38 +0800, Baoquan He wrote:
+> On 10/13/26 at 04:26pm, Klara Modin wrote:
+> > Hi Baoquan,
+> > 
+> > On 2026-10-13 18:20:39 +0800, Baoquan He wrote:
+> > > On 10/12/26 at 04:10pm, Klara Modin wrote:
+> > > > Hi Baoquan,
+> > > > 
+> > > > On 2026-10-12 17:16:22 +0800, Baoquan He wrote:
+> > ...
+> > > > > 
+> > > > > Thanks for the comment.
+> > > > > 
+> > > > > Here xswap.max= is a global boot parameter, while not a per-device or
+> > > > > runtie knob. It sets the space space (si->max) of the xswap device
+> > > > > at boot and can't change at runtime. So on the two places: the size is
+> > > > > a global setting, fixed at boot; the priority is per device, it is in
+> > > > > the create interface. They are different things.
+> > > > > 
+> > > > > The default is 2xRAM. From our earlier discussion, this is the largest
+> > > > > size we think is sensible, and in practice I don't think it is not
+> > > > > reachable in reality. If a system has swapped out 70% of its memory, and
+> > > > > even more at 100%, it is already doubtful that it can still function
+> > > > > normally. So 2xRAM is an upper bound, not a target.
+> > > > 
+> > > > I'm just not sure this is the case. An application could have a
+> > > > relatively small working set but a much larger amount of cold memory it
+> > > > rarely touches. In my GCC 17 example, I saw even greater ratios later in
+> > > > the build process. This is from your previous xswap version where I got
+> > > > around the 2x RAM limit by using multiple xswap devices:
+> > > > 
+> > > > MemTotal:        3966828 kB
+> > > > SwapCached:          868 kB
+> > > > SwapTotal:      80232412 kB
+> > > > SwapFree:       69467760 kB
+> > > > Zswap:            792048 kB
+> > > > Zswapped:        6342024 kB
+> > > > AnonPages:       2072820 kB
+> > > > AnonHugePages:      4096 kB
+> > > > 
+> > > > This is almost 160 % of RAM in zswap and is getting close to the limit
+> > > > in practice.
+> > > 
+> > > OK, thanks a lot for the concrete testing data. It truly is reaching
+> > > almost 160% of RAM. However, it's a little different than David's Windows
+> > > VMs case. In that case, those VMs's memory could be touched and swapped in
+> > > in a distant future. While in your GCC build process, it's running and
+> > > costing memory, with 160% of RAM in zswap, it was probably close to
+> > > hanging? Wondering how long would it take to finish the build process,
+> > > and how long it would take to finish the build proces with e.g 20% RAM
+> > > swapped out.
+> > 
+> > Might be close to hanging, I don't know, but it's definitely under quite the
+> > memory pressure (only two AnonHugePages, implying either very fragmented
+> > or that they are split after allocation). Worth to note is that it hits
+> > the zswap default limit of 20 percent of memory for the compressed pool.
+> 
+> I see. If so, it may not be a real use case, but only a corner case within
+> an experimental environment. Because in that situation it's hard to say
+> the system is still functioning normally.
 
-Pulled and added to linux-pm.git/linux-next, thanks!
+Well, the build completed successfully and the system was at least
+usable afterwards so I would still call it a real usecase.
+
+> > > > In addition, if I read your writeback series correctly, if data from
+> > > > xswap is written back to a block device, the space of the written back
+> > > > data cannot be reused in the xswap device (please correct me if I am
+> > > 
+> > > Yes, you are right. xswap slot need record which backend slot stores its
+> > > data, so xswap slot can't be reused in this case.
+> > > 
+> > > > wrong). For low memory systems, I frequently set aside a lot more swap
+> > > > than they have memory. If I do not grow the xswap address space size, I
+> > > > could risk it getting full if enough of the block-based swap is used.
+> > > 
+> > > Got it. Even with normal swap devices, 50% full will trigger swap
+> > > reclaiming. 
+> > > 
+> > > /* Swap 50% full? Release swapcache more aggressively.. */
+> > > static inline bool vm_swap_full(void)
+> > > {
+> > >         return atomic_long_read(&nr_swap_pages) * 2 < total_swap_pages;
+> > > }
+> > > 
+> > > > 
+> > > > Looking at the example again, about 10 GiB of swap is reported as used,
+> > > > but some of that is being reported twice (once through xswap and once
+> > > > through the backing device) due to being written back (which I still
+> > > > think is not so great). In this case, the system has 16 GiB of
+> > > > block-based swap, meaning that the default limit would leave the xswap
+> > > > device full if even half of it is used through writeback. If I would
+> > > > only have a single default-sized xswap device in this example I would
+> > > > likely have hit this in practice.
+> > > 
+> > > I see, so a larger swap space of xswap is expected in this case.
+> > 
+> > Yes, due to the writeback still needing the slot in xswap I would never
+> > want to have less xswap than block-based swap.
+> > 
+> > Ideally, I would like to not have to take the amount of block-based
+> > swap into account when enabling xswap/vswap. A very high default limit
+> > would be one way to solve it. Another option could be to automatically
+> > create an xswap device with a size equal to the block-based swap device
+> > (maybe a mount option?) on swapon, but this feels kind of like a hack to
+> > me.
+> 
+> Chris ever suggested this way. With it people can set in /etc/fstab and
+> make it take effect during boot. Not sure if people like it.
+
+That's not exactly what I meant. What I think you're referring to here
+is that xswap itself would be enabled by doing swapon on a specially
+crafted swapfile header? What I suggested here was that when a regular
+block device is swapon, it would also swapon an additional xswap device
+with equal size to the block-based swap device.
+
+My reasoning here was that this would alleviate the problem where xswap
+would become full because it had written back all its data to the
+block-based swap device.
+
+> > > > > On the max short name: it would set the address space to the largest value
+> > > > > the format allows. As you said, that is close to vm.overcommit_memory=1,
+> > > > > and it is not a real capacity, so we may not want it as the default.
+> > > > > 
+> > > > > We keep xswap.max= only for special needs. Otherwise we may not need to
+> > > > > change it.
+> > > > > 
+> > > > > Chris suggested a CONFIG option for the size. While CONFIG is not friendly
+> > > > > to distros, you must rebuild the kernel to change it.
+> > > > 
+> > > > For my use case I would probably prefer a CONFIG option if that is the
+> > > > only way. I typically build all my kernels on the same machine and send
+> > > > the image either directly or for netboot. Setting the kernel command
+> > > > line can be very different depending on the system (Different EFI
+> > > > bootloaders, U-Boot and all its vendor versions).
+> > > 
+> > > From the actual use case and concrete number you provided, the interface
+> > > can be adjusted like these:
+> > > 1. 
+> > > CONFIG_XSWAP_DEFAULT_MAX_PCT=200 
+> > > default to 200, or default to the max value?
+> > > 
+> > > 2. 
+> > > xswap.max= can override it. Or a xswap.max=max can be provided?
+> > > 
+> > > 3.
+> > > The sysfs allow people to adjust the max size and priority:
+> > > echo  > /sys/kernel/mm/xswap/create
+> > > echo max=10G prio=100 > /sys/kernel/mm/xswap/create
+> > > 
+> > > Could you help comment if they are OK to you, or what is not needed
+> > > actually or not good?
+> > 
+> > I do not mind having both a CONFIG option and a command line option for
+> > the default where the latter overrides the first. I also do not mind
+> > having the limit in sysfs since I need it to create the xswap device
+> > anyway, but having all three together might be a bit extraneous.
+> > 
+> > However, if this is put in the sysfs it might be good to rethink how it
+> > is structured. E.g. do we want to do so much string parsing when we
+> > could instead have the limit and priority be separate files? I quite
+> > like how NVME target handles this in configfs, where the user creates a
+> > directory for the hosts, ports and subsystems and each config option is
+> > a separate file inside. So for xswap, the user would mkdir
+> > /sys/kernel/mm/xswap/typeN (or whatever) and have a structure inside
+> > with something like:
+> > typeN
+> >  |- enabled # 0/1, which would actually destroy or create the device
+> >  |- priority
+> >  |- max_size_pct
+> >  |- max_size_bytes # where writing to either would override the other
+> > 
+> > (and only accept changes when not enabled) but this might be more
+> > complicated than we need. Even better would be for the defaults to work
+> > for everybody since we wouldn't need the knobs, but then we would have
+> > to agree on what those defaults should be.
+> 
+> Yes. I ask people around, they are all surprised and say how come 8PB
+> is needed. And mobile phone people care about the swap amount, they only
+> allow several GBs swapped out to zram with RAM of tens of GBs.
+
+What drawbacks does having a 8 PiB address space for xswap actually
+have (besides that with your current implementation it would essentially
+mean vm.overcommit_memory=1)?
+
+I tried to look in the other thread, and from what I could read, it will
+result in more metadata, but only if that space is actually used?
+
+8 PiB for me satisfies that I would not have to care about e.g. the
+amount of block-based swap the system has.
+
+> So how about these:
+> 
+> 1.
+> CONFIG_XSWAP_DEFAULT_MAX=
+> max; 8PB
+> size; e.g 10TB
+> 200%; percentenge of RAM
+> defaults to 2xRAM
+> 
+> 2.
+> xswap.max=
+> can override CONFIG_XSWAP_DEFAULT_MAX=
+> max; 8PB
+> size; e.g 10TB
+> 200%; percentenge of RAM
+> 
+> 3. 
+> echo  > /sys/kernel/mm/xswap/create
+> defaults to 2xRAM
+> The sysfs allow people to adjust the priority:
+> echo 100 > /sys/kernel/mm/xswap/create
+
+In my case I would then set the config option to max so I would not have
+to care about it.
+
+Regards,
+Klara Modin
