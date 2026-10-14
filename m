@@ -1,338 +1,251 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41FD1352032
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:02:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCC9A32D0FC
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:03:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791950573; cv=none; b=CHp0UbRDEum36XoSJZ/IdBoP87xcVBkT1dquiaIAMhcN3dB+fvDA+pUx71ZyhOg8eIEEUWtH+F7gBNxCclAb3tdw5hVTVQeTu6Fjl0dobsZ+X5GrVN5BPjairq/6uSoPx93p6OxI6qcTu55p4+glXlAzYDePWhm3Qp6VkSgofVk=
+	t=1791950587; cv=none; b=YEtLeu3tHLe7am5c7uTFi6SfK93wfzWc/WRg4kL3ppsaDTuv1IE82bk/Hriqq6Rjlk7onsA3e7R4EvPkfIctQfUOn4i7h9+GDlmaK2sO8X34I2bZ3pQGE777rJnezmvrqa+8SdMAuspkPH5eWps7+RP0l1vUzXtSkDZQhZBaypg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791950573; c=relaxed/simple;
-	bh=zyFH7BN9ULbDLnV9+6C+CotRQ6LBNKREOzyRpiZpaDg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eppNyoWtvDw/WaEPJdcI3b7LSyGEX6FQc1JRmFQQk2/4lpHlVnZjGdIgZa5VHcMdzlLS9bM5KllG6GjCjbY2UwKSTELNwGsntg3GIEn9rPNNqLU7kGX2JeeVN/Q1YJdmfY99cRKL6fGO6ZaKh/RozOr27ABj8mOdVKIFosVCCvo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=p52aLg4o; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XsXGfdJt; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791950587; c=relaxed/simple;
+	bh=N27GfF/aeXt4Lq0RNt6dQo1+aQjT6kEm4OAi7y+mL5U=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=gyXPNcNY8VGBDSWsiQ2zO/GAwP4pbFrPZq/o10cFIVupNlyQ2B7NAJf9zD53xy6VVyuZCsGNvUY+hMuk3xeAS8XCYVbpl+0LEehXLS4EHJjzOCHTYTg48+yaFUkzZQO7/4eoj2Y7hzjkU83jT1U898XHGQMcuFqC2dkcF1a+Oos=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VLgRhHWt; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="p52aLg4o";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XsXGfdJt"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69DJaAMV2222099
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:02:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=VWdbP2YpPS6VQfeV27iDbD/q
-	vWCuu42ZlVxsIM4yMqU=; b=p52aLg4oqtWTVq+OGhn1mbuFCCdAblvqzUacGfB0
-	U6X48RQ5MqlULeAjZr6+vISYvjeYJszESwFiSAp9TAIlVwKQvVJzUIML7zfIZ7yp
-	8f7J7WLfwEgM9ojdBzkMMC6ZpO0mKO3M5v5lNRCEFFA0EXmeNwOG1M3O/1TeBtGD
-	du4HXJ3eAwg/aIY+xMLOznrb8aluZFhodl+laqpIGjNsfydnfsKMcg00yI9HUICL
-	QXHmP/apS4j/N26cP7DpOnPDY+dUcYtd6LGIhrrKr/ThtFdRiMJsewoZa0YMHr3T
-	wRvWhxyZIOgEHBISEXEodQcOo3krDbHteXU0A/KH9M3PyQ==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9txs9m4d-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:02:51 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-341eff9e381so10060959eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 21:02:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VLgRhHWt"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3ac78f4c10bso5206a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 21:03:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791950571; x=1792555371; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VWdbP2YpPS6VQfeV27iDbD/qvWCuu42ZlVxsIM4yMqU=;
-        b=XsXGfdJtjoOl1k4P6y8NfYE/K5BDKzYObKhcaViAnb4iP7QvKvI7deGKBe/awZHsSR
-         LzIbIZNVfCnPXb1sjGaB+wvfEkDA3gCvlyWHCKH/zSCZn54wAQ46fe30sfqZVm97v+W/
-         hjjKF02dlmxqIsuNlayl+A7/5ZdS9HS68PAKJfXcCjunAjohL3LjPE17tUv18K0J1yEq
-         5UZ/wAOUrXENVxEH5izYDb+t4yk6OLWTgsTBPGd7uO2kVs8qQ4X6kkq7S3VOG5Jk+2r2
-         jpHTPV/ijKrjFhjB+XPuoSwcOovt1SDjmj85kn6tTTQ0t1D6XDRPttnhpvoycP9I8Qc0
-         QUMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791950571; x=1792555371;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1791950585; x=1792555385; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=VWdbP2YpPS6VQfeV27iDbD/qvWCuu42ZlVxsIM4yMqU=;
-        b=wM1fYQx4BEWXt59tID/j3Z7WTSxNNB2YePgHvBglgrJC8ihAOOLspvWzz4wgYOzUGX
-         mT57xt432xWjY8t0ubjdgbhroJgfX+NWJ62jEEyaNWZiHcI1i3ZiOYkIbYZrf58kzWxM
-         oxsvtmQRfOdptZStucZ+uj54zCpoUiYJt0jLYfvtArHLUHmyoBDULmY6ynlQPbkKWxFo
-         fIACUzwnRRmfwE3Ni6mhYmlwtlTB4YsSkvCckcKZ/Yq3/2Xqz38vpo3vuFBkRSv3n0Ne
-         v4JYAkMiqwZPHw0cAKiXY19+EnH8oIlv3l7TqxG8KwVDmiKYjUaK8hvet/iIJUjCewZ8
-         wJkw==
-X-Forwarded-Encrypted: i=1; AKwUvBwbzFEkPUJT53zo7gu2EffUD9a8TRSZQ5s6Z/CD4lqh450Vh5vPDqGvqtoS92frqGq5QfJsdhdBaDT+obE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJL0hWo6tgQOOzateSgSJ/ksMWE4ImPJbwPiQC44IkIV03j4iaa
-	sedH6DmalXLqXy6pS3QcKK+Xywl10T7qCgOw364/T4vAPRFzkEOoymtWNL43HXHbeS+PIA6Ipe1
-	H2acGRlpMlDepU3USHryYsIzcUsb/Ud2lyo5csEPuCQ2DbsH4RyezJrWZy+5Y6Lglec4=
-X-Gm-Gg: AYBFou3tHQvkG168q38sK+goIJgiVAxrKbg6A1mYL4FvDYW8+DuXV1qos7zPOdtWjf8
-	y8RJb018WgEYsz/fLGXuk2ljWwOgTR/y6CTLBs/Fn0IK7qqt31NKSI1SzLqBiKzemXgPiiTBinP
-	4qTtMgvgZhlGo2xcBRuIu4Rlbrs8sWkkbhFAgpexRZjQ/Ri/osfmHz0p274QyIBvrMCEk/G1/t4
-	w+OPiW9SsgBwWMp+cd9jXGUx2HmM7jl2XNJLtftDnTwYmO9YMoJwee6/2mq5YD2Qys5jweQ0nNZ
-	Scs3eygWaDGgbh2Ou70dMzpfMk6xlwhQyEAjYyY0/MWXPln6sGvCVnA8dFLVQ+ui5dq28624JVA
-	tfXtRB90+yxC4K/75BnqmmT7w8UKzCHIiRN2/B9/r3CfsgYD4aCth6IfWePjrBsCNvoD3X3WRCk
-	+sG1I48bpPjeXkRtO7NcugvDJ0
-X-Received: by 2002:a05:7300:f0ce:b0:34b:b410:9352 with SMTP id 5a478bee46e88-3537de1ce96mr19572197eec.1.1791950570410;
-        Tue, 13 Oct 2026 21:02:50 -0700 (PDT)
-X-Received: by 2002:a05:7300:f0ce:b0:34b:b410:9352 with SMTP id 5a478bee46e88-3537de1ce96mr19572147eec.1.1791950569770;
-        Tue, 13 Oct 2026 21:02:49 -0700 (PDT)
-Received: from hu-himchau-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cacb61asm50995980eec.21.2026.10.13.21.02.39
+        bh=3zQfqQvUUSUX/8/9x6ZyNgJ6KcYRnctiVv4ojnaD9r8=;
+        b=VLgRhHWt24I38Li08YmIy6dZhNwiLIxny8cTmxdR/25DpaiEn4bu4vTu/2hnV3ZuwI
+         D6/OGzXB6rEn4B1BN42EpRUTkhfPEBblw4KQ1myNNzjnL/l1vxeETytjEIJ2y24kB6rm
+         mKENlbgirh5pvzrhdlEDBHFIQvfJqc8H4bSTelxhR+jdQ0lVr3bJbl+SE/6SQ2YJ/C9g
+         vIv9DLnLK57jfNH6mfGAzBRxl/vcm4viTfx/vj85zEfp8X9sUyGjkSCtY5pCjO5E3nPA
+         9UfBie+Zy/U2GKvENCsmHtsSEoa7l2jsR14uAe8DlajwfIzV+ba5NBzWybrWRcou6gND
+         oepg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791950585; x=1792555385;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3zQfqQvUUSUX/8/9x6ZyNgJ6KcYRnctiVv4ojnaD9r8=;
+        b=fCZKmGntEEMbbvs+ppXn/Ok3vdv9R1H+18CkOYOKtHZmrlOsk1R5U+TgUG6we18b92
+         eH+IiPzThfRdA860kpYXn1TxOAHn9+Wcio3euch+/sGD2QcQHNiB9chXD3O/d+UMqCiq
+         ygcCBCh/xI3XvY0On+4jfQHrZRyK2HrO9/O5sB+/RqPP8Yk7HVj30LpQBtwo27aQdmvI
+         SGYAJ9HVsxv1u/u6edSaEhEM5W80TzUk53NtKn2rfKJmHfPtEOgR4hVbF3fJnEOdH6Rv
+         lcu7WC9mLOKENDLt6C42J5Up/nDUVvrgcPErWVViqKzI6TJHCT+Hb6J1jLeOFUMwWOpK
+         YktA==
+X-Forwarded-Encrypted: i=1; AKwUvBzip67TGXSfvm1o9C3WFhvGaOlaHrAadnTLnre+t7LBFrDA9vAdk3aXP/TXmbYmK0jtKNbeFv51OOim358=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKw9EUajPQxxMDyXq9uaFoGeQtPoYnXFDnG7IrKxgU1f3K2TrfO
+	Yq5NYKVEVq6y1gYT5MSl9LccqdA4qQbPPyqYQ5Pzu3V7jN2/wA0oH5Sm
+X-Gm-Gg: AYBFou3z5Q7yQyBeOx12SDPfW3ehbN88s8bjaqqiflDwzwpwNwCl1ahn5P5CrDEmaF+
+	TxYz4+zB6rJr/k3Wyk1kzjdfhbBudS/OVYC1Arjg31zbNk2qodpHc7yjijC9bc86d4Q6+14drKN
+	KySyx4otgl5GWTYbGJKLd4IeOKTZL5xzYjdf/9cLCHT3NR/nSEe41cOikkAVdbc+LWA2AFY6Hfm
+	b7JOzacP1iDSqNxfQpgWMjziEqAQuDs/8ZK7aFg+rm+0AOBEvJyvGnFhqloD32Mqg3bJJNSrIDJ
+	TSBvlR1HGbdHHaSXHmvEio/9k1q344sU+DDDfsFqq8OcAKU4fKU4QS5yyBnw/rSq6rfHbYu/nSa
+	T61WWpTcE7RH6iJdO+pGvHX+EpSsnwOnXZgO8EnTepfiK065gyfOHD1YqWe12+ppvWWttwUFsP+
+	w/i22hpaNFjh+e9CZVejNKIN93MMwELc/KWnkTJOjSier94CVmy81aA/bsvCOu2kq1mA==
+X-Received: by 2002:a17:90b:4b92:b0:3a8:545f:520d with SMTP id 98e67ed59e1d1-3ab3ac9f939mr11478111a91.32.1791950584896;
+        Tue, 13 Oct 2026 21:03:04 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac632711a8sm1043068a91.1.2026.10.13.21.02.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 21:02:48 -0700 (PDT)
-Date: Wed, 14 Oct 2026 09:32:36 +0530
-From: Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>
-To: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-        Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-        Conor Dooley <conor@kernel.org>, Anup Patel <anup@brainfault.org>,
-        =?iso-8859-1?Q?Cl=E9ment_L=E9ger?= <cleger@rivosinc.com>,
-        Yunhui Cui <cuiyunhui@bytedance.com>,
-        Atish Patra <atish.patra@linux.dev>,
-        Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-        Arnaldo Carvalho de Melo <acme@kernel.org>,
-        Namhyung Kim <namhyung@kernel.org>,
-        Mark Rutland <mark.rutland@arm.com>,
-        Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-        Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-        Adrian Hunter <adrian.hunter@intel.com>,
-        James Clark <james.clark@linaro.org>, Will Deacon <will@kernel.org>,
-        Thomas Gleixner <tglx@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-        Randy Dunlap <rdunlap@infradead.org>,
-        Shuah Khan <skhan@linuxfoundation.org>, Shuah Khan <shuah@kernel.org>,
-        Yuanzhu <yuanzhu@bytedance.com>,
-        Yicong Yang <yang.yicong@picoheart.com>,
-        Susheng Yang <yang.susheng@zte.com.cn>,
-        linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
-        linux-perf-users@vger.kernel.org, linux-doc@vger.kernel.org,
-        linux-kselftest@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v10 RESEND 3/9] riscv: sse: mask events during shutdown
- and kexec
-Message-ID: <as7-3PbWDxygadnJ@hu-himchau-blr.qualcomm.com>
-References: <cover.1789974241.git.zhangzhanpeng.jasper@bytedance.com>
- <03472b45125793a768f3e5bbc168f167e673d4cc.1789974241.git.zhangzhanpeng.jasper@bytedance.com>
+        Tue, 13 Oct 2026 21:03:04 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: perex@perex.cz,
+	tiwai@suse.com
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH] ALSA: emux: Guard the OSS argument during port initialization
+Date: Wed, 14 Oct 2026 12:02:50 +0800
+Message-Id: <pm-pmb-f8d6ccb28f196910444f-v2-c253bf022b6e954a7bdc@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <03472b45125793a768f3e5bbc168f167e673d4cc.1789974241.git.zhangzhanpeng.jasper@bytedance.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDAxNSBTYWx0ZWRfX6S79AvTwzQpW
- 5aSNIDmIithr+77HRSU3gpJv7uG5Pm+trgQDWZnRzbG66gKD2Zu4Fg8Pkq1Zv/p13bkpR2nUEKV
- dfPvXsMyuThGt/Q4IBJWNrB2Ac/UDiyLNxrmjlK3J4gmbm7fNVK4cnrLtVI6fBtI3RVdKM/6F2Y
- 9ItP5IyQNbQ7C6NdRMxrVlJuSien1TiC+emJUXutcZg/U/KE5wV1a/iTv+Dd3tQwcSIgQjDpFB7
- dwgoFbZLkyDBpMid+BQEWVVckQKLoSeM9oQUvIKJ/AauPGhPzOhcSNDgXJIqbhKfkobw7II5hjY
- 80+yWbzMDbh1bAPyCS5MkzjChZFvALQdcGhYn45xyEWKP/scP4v0nImhIHaDNH00nVzeoOO/liT
- fToMoNmCIQVbXNCFbyGS94hCRlj5rxoXO13ZZlUSrN06W2vY+K/cDkw7DNTNLgq/lfliPvjJDua
- 3wIF83EDgH/LKQoNoug==
-X-Authority-Analysis: v=2.4 cv=LPPz05W9 c=1 sm=1 tr=0 ts=6acefeeb cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=968KyxNXAAAA:8 a=a_nq2awA8k5mFBtTUooA:9 a=CjuIK1q_8ugA:10 a=O8hF6Hzn-FEA:10
- a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDAxNSBTYWx0ZWRfX2k4SW8kH0UIe
- KDH3byks7BWTqE1abnurlytCq8hNUCML9bd6AvF1p0+XHWyUtPJM/hsGQHxUlpmNzZHG9fQGSKX
- zGidnl0FVRqul2Q/2BnHOptoLXu6OKE=
-X-Proofpoint-ORIG-GUID: 9h_IU1X7ajCbrx2p4jm2vKvykv5O82z8
-X-Proofpoint-GUID: 9h_IU1X7ajCbrx2p4jm2vKvykv5O82z8
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 clxscore=1015 adultscore=0 malwarescore=0
- phishscore=0 lowpriorityscore=0 spamscore=0 suspectscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140015
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 21, 2026 at 07:15:00PM +0800, Zhanpeng Zhang wrote:
-> SSE delivery is independent of normal S-mode interrupts. Firmware may also
-> retain an event registration until Linux explicitly unregisters it. A hart
-> must therefore stop accepting SSE events before Linux stops servicing the
-> registered handler.
-> 
-> Mask SSE on the local hart before panic stop, CPU stop, restart, poweroff,
-> and crash shutdown paths. This prevents firmware from entering Linux-owned
-> handler state after the corresponding CPU or kernel context is no longer
-> valid.
-> 
-> A crash kernel cannot identify or take ownership of registrations
-> inherited from the crashed kernel. Reject a later normal kexec while such
-> SSE state may still exist, rather than transferring unknown firmware state
-> to another kernel.
-> 
-> Signed-off-by: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
-> ---
->  arch/riscv/kernel/machine_kexec.c | 11 +++++++++++
->  arch/riscv/kernel/reset.c         | 18 ++++++++++++++++++
->  arch/riscv/kernel/smp.c           | 17 +++++++++++++++++
->  3 files changed, 46 insertions(+)
-> 
-> diff --git a/arch/riscv/kernel/machine_kexec.c b/arch/riscv/kernel/machine_kexec.c
-> index 738df176ff6f..24e7affae70b 100644
-> --- a/arch/riscv/kernel/machine_kexec.c
-> +++ b/arch/riscv/kernel/machine_kexec.c
-> @@ -14,10 +14,13 @@
->  #include <asm/set_memory.h>	/* For set_memory_x() */
->  #include <linux/compiler.h>	/* For unreachable() */
->  #include <linux/cpu.h>		/* For cpu_down() */
-> +#include <linux/crash_dump.h>
->  #include <linux/reboot.h>
->  #include <linux/interrupt.h>
->  #include <linux/irq.h>
->  
-> +#include <asm/sse.h>
-> +
->  /*
->   * machine_kexec_prepare - Initialize kexec
->   *
-> @@ -36,6 +39,13 @@ machine_kexec_prepare(struct kimage *image)
->  	unsigned int control_code_buffer_sz = 0;
->  	int i = 0;
->  
-> +	/* A crash kernel cannot tear down registrations inherited from firmware. */
-> +	if (is_kdump_kernel() && image->type != KEXEC_TYPE_CRASH &&
-> +	    riscv_sse_available()) {
+The OSS argument must be non-NULL before reset_port_mode() writes its
+event_passing field. snd_emux_open_seq_oss() assigns p->oss_arg only
+after snd_emux_create_port() attaches the writable sequencer port, so
+this field is still NULL when the callback first becomes reachable.
 
-I just realized. This rejects a normal kexec from any kdump kernel whenever firmware
-merely advertises SSE, regardless of CONFIG_RISCV_SBI_SSE or whether anything is registered.
-Can you check if its breaking kexec() with SSE just being advertised?
+With sequencer OSS and an EMUX provider enabled, another sequencer
+client can learn the new address from a PORT_START announcement and
+send a direct SNDRV_SEQ_EVENT_OSS channel-mode command, with marker
+0xfe and command byte 0x8a. The following ordering is possible:
 
-Also, there are some shasiko's comments worth addressing.
+  OSS opener                        Sequencer writer
+  snd_emux_create_port()
+    snd_seq_event_port_attach()
+      publish port, announce
+                                    receive PORT_START
+                                    snd_seq_write()
+                                      snd_emux_event_oss_input()
+                                        reset_port_mode()
+                                          write via NULL oss_arg
+  p->oss_arg = arg
 
-> +		pr_err("Normal kexec from a crash kernel is unsupported with SSE\n");
-> +		return -EOPNOTSUPP;
-> +	}
-> +
->  	/* Find the Flattened Device Tree and save its physical address */
->  	for (i = 0; i < image->nr_segments; i++) {
->  		if (image->segment[i].memsz <= sizeof(fdt))
-> @@ -127,6 +137,7 @@ void
->  machine_crash_shutdown(struct pt_regs *regs)
->  {
->  	local_irq_disable();
-> +	riscv_sse_mask_current_hart();
->  
->  	/* shutdown non-crashing cpus */
->  	crash_smp_send_stop();
-> diff --git a/arch/riscv/kernel/reset.c b/arch/riscv/kernel/reset.c
-> index 14eb08a6db85..fdab37e7ae52 100644
-> --- a/arch/riscv/kernel/reset.c
-> +++ b/arch/riscv/kernel/reset.c
-> @@ -6,6 +6,20 @@
->  #include <linux/efi.h>
->  #include <linux/reboot.h>
->  #include <linux/pm.h>
-> +#include <linux/smp.h>
-> +
-> +#include <asm/sse.h>
-> +
-> +#ifndef CONFIG_SMP
-> +void __noreturn panic_smp_self_stop(void)
-> +{
-> +	riscv_sse_mask_current_hart();
-This function call does SSE probe on every call. Wouldn't it be cheaper to do once?
+The callback's write precedes the opener's assignment. The core's port
+reference keeps the private data allocated but does not wait for its
+initialization. The write therefore dereferences NULL and can panic the
+kernel, as shown by the report below.
 
-Regards
-Himanshu
+Take a single READ_ONCE() snapshot of oss_arg and update event_passing
+only when that snapshot is non-NULL. Pair it with WRITE_ONCE() in the
+open path, so the check and write use the same pointer despite
+concurrent initialization. The open path still sets the initial mode
+after assigning the argument, and subsequent channel-mode events retain
+their existing handling.
 
-> +	local_irq_disable();
-> +
-> +	for (;;)
-> +		cpu_relax();
-> +}
-> +#endif
->  
->  static void __noreturn default_power_off(void)
->  {
-> @@ -18,6 +32,8 @@ EXPORT_SYMBOL(pm_power_off);
->  
->  void machine_restart(char *cmd)
->  {
-> +	riscv_sse_mask_current_hart();
-> +
->  	/*
->  	 * UpdateCapsule() depends on the system being reset via ResetSystem().
->  	 */
-> @@ -30,12 +46,14 @@ void machine_restart(char *cmd)
->  
->  void machine_halt(void)
->  {
-> +	riscv_sse_mask_current_hart();
->  	do_kernel_power_off();
->  	default_power_off();
->  }
->  
->  void machine_power_off(void)
->  {
-> +	riscv_sse_mask_current_hart();
->  	do_kernel_power_off();
->  	default_power_off();
->  }
-> diff --git a/arch/riscv/kernel/smp.c b/arch/riscv/kernel/smp.c
-> index fa66f9c97d74..7f0d4e7332f1 100644
-> --- a/arch/riscv/kernel/smp.c
-> +++ b/arch/riscv/kernel/smp.c
-> @@ -23,10 +23,13 @@
->  #include <linux/irq.h>
->  #include <linux/irq_work.h>
->  #include <linux/nmi.h>
-> +#include <linux/panic.h>
->  
->  #include <asm/tlbflush.h>
->  #include <asm/cacheflush.h>
->  #include <asm/cpu_ops.h>
-> +#include <asm/sbi.h>
-> +#include <asm/sse.h>
->  
->  enum ipi_message_type {
->  	IPI_RESCHEDULE,
-> @@ -79,8 +82,18 @@ int riscv_hartid_to_cpuid(unsigned long hartid)
->  	return -ENOENT;
->  }
->  
-> +void __noreturn panic_smp_self_stop(void)
-> +{
-> +	riscv_sse_mask_current_hart();
-> +	local_irq_disable();
-> +
-> +	for (;;)
-> +		cpu_relax();
-> +}
-> +
->  static void ipi_stop(void)
->  {
-> +	riscv_sse_mask_current_hart();
->  	set_cpu_online(smp_processor_id(), false);
->  	while (1)
->  		wait_for_interrupt();
-> @@ -91,6 +104,7 @@ static atomic_t waiting_for_crash_ipi = ATOMIC_INIT(0);
->  
->  static inline void ipi_cpu_crash_stop(unsigned int cpu, struct pt_regs *regs)
->  {
-> +	riscv_sse_mask_current_hart();
->  	crash_save_cpu(regs, cpu);
->  
->  	atomic_dec(&waiting_for_crash_ipi);
-> @@ -254,6 +268,8 @@ void smp_send_stop(void)
->  {
->  	unsigned long timeout;
->  
-> +	riscv_sse_mask_current_hart();
-> +
->  	if (num_online_cpus() > 1) {
->  		cpumask_t mask;
->  
-> @@ -301,6 +317,7 @@ void crash_smp_send_stop(void)
->  		return;
->  
->  	cpus_stopped = 1;
-> +	riscv_sse_mask_current_hart();
->  
->  	/*
->  	 * If this cpu is the only one alive at this point in time, online or
-> -- 
-> 2.50.1 (Apple Git-155)
-> 
+KASAN report as below:
+
+    Oops: general protection fault, probably for non-canonical address 0xdffffc0000000003: 0000 [#1] SMP KASAN NOPTI
+    KASAN: null-ptr-deref in range [0x0000000000000018-0x000000000000001f]
+    CPU: 2 UID: 0 PID: 495 Comm: fixture Tainted: G           O        7.2.0-rc6-pmb-bt-functional-v1+ #1 PREEMPT(lazy)
+    Tainted: [O]=OOT_MODULE
+    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+    RIP: 0010:snd_emux_event_oss_input+0xa76/0xdd0
+    Code: fc ff df 48 c1 ea 03 80 3c 02 00 0f 85 e1 02 00 00 48 b8 00 00 00 00 00 fc ff df 48 8b 5d 78 48 8d 7b 18 48 89 fa 48 c1 ea 03 <0f> b6 04 02 84 c0 74 08 3c 03 0f 8e 40 03 00 00 c7 43 18 00 00 00
+    RSP: 0018:ffff88810a937888 EFLAGS: 00010216
+    RAX: dffffc0000000000 RBX: 0000000000000000 RCX: ffffffff84f391b2
+    RDX: 0000000000000003 RSI: 0000000000000000 RDI: 0000000000000018
+    RBP: ffff8881179fc000 R08: 0000000000000001 R09: 0000000000000001
+    R10: ffffffff89444257 R11: ffff888107dd3a00 R12: 1ffff11021526f17
+    R13: 0000000000000000 R14: 0000000000000001 R15: ffff888112cda000
+    FS:  00007fdd13c9f780(0000) GS:ffff8881fd826000(0000) knlGS:0000000000000000
+    CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+    CR2: 00007fdd13e2f943 CR3: 00000001057ba005 CR4: 0000000000770ef0
+    PKRU: 55555554
+    Call Trace:
+     <TASK>
+     ? __pfx_snd_emux_event_oss_input+0x10/0x10
+     ? snd_seq_port_use_ptr+0x40/0x170
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? find_held_lock+0x2b/0x80
+     ? snd_seq_port_use_ptr+0x10c/0x170
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_release+0xc8/0x280
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_snd_emux_event_oss_input+0x10/0x10
+     __snd_seq_deliver_single_event+0x105/0x1a0
+     ? snd_seq_port_use_ptr+0x111/0x170
+     snd_seq_deliver_single_event+0x2fc/0x770
+     ? __pfx_snd_seq_deliver_single_event+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? add_lock_to_list+0x9d/0x1e0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? check_prev_add+0x34c/0xe80
+     snd_seq_deliver_event+0x45a/0x760
+     ? __pfx_snd_seq_deliver_event+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_acquire+0x17b/0x2f0
+     snd_seq_client_enqueue_event.constprop.0+0x278/0x430
+     ? __pfx_snd_seq_client_enqueue_event.constprop.0+0x10/0x10
+     ? __might_fault+0xdd/0x190
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __might_fault+0x14e/0x190
+     ? _raw_spin_unlock_irq+0x28/0x50
+     snd_seq_write+0x30a/0x5e0
+     ? __pfx_snd_seq_write+0x10/0x10
+     ? selinux_file_permission+0x122/0x570
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? security_file_permission+0x26/0x80
+     vfs_write+0x25a/0x1010
+     ? __pfx_snd_seq_write+0x10/0x10
+     ? __pfx_vfs_write+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? trace_hardirqs_on+0x18/0x160
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __call_rcu_common.constprop.0+0x5c1/0xbd0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __fput+0x5ba/0xa60
+     ksys_write+0x1b7/0x200
+     ? __pfx_ksys_write+0x10/0x10
+     do_syscall_64+0x115/0x6a0
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+    RIP: 0033:0x7fdd13d31687
+    Code: 48 89 fa 4c 89 df e8 58 b3 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
+    RSP: 002b:00007fff073e9f20 EFLAGS: 00000202 ORIG_RAX: 0000000000000001
+    RAX: ffffffffffffffda RBX: 00007fdd13c9f780 RCX: 00007fdd13d31687
+    RDX: 000000000000001c RSI: 00007fff073e9fc0 RDI: 0000000000000003
+    RBP: 0000000000000003 R08: 0000000000000000 R09: 0000000000000000
+    R10: 0000000000000000 R11: 0000000000000202 R12: 0000561260c48082
+    R13: 0000561260c48011 R14: 0000561260c4809d R15: 0000000000000002
+     </TASK>
+    Modules linked in: snd_emux_validation(O)
+    ---[ end trace 0000000000000000 ]---
+    RIP: 0010:snd_emux_event_oss_input+0xa76/0xdd0
+    Code: fc ff df 48 c1 ea 03 80 3c 02 00 0f 85 e1 02 00 00 48 b8 00 00 00 00 00 fc ff df 48 8b 5d 78 48 8d 7b 18 48 89 fa 48 c1 ea 03 <0f> b6 04 02 84 c0 74 08 3c 03 0f 8e 40 03 00 00 c7 43 18 00 00 00
+    RSP: 0018:ffff88810a937888 EFLAGS: 00010216
+    RAX: dffffc0000000000 RBX: 0000000000000000 RCX: ffffffff84f391b2
+    RDX: 0000000000000003 RSI: 0000000000000000 RDI: 0000000000000018
+    RBP: ffff8881179fc000 R08: 0000000000000001 R09: 0000000000000001
+    R10: ffffffff89444257 R11: ffff888107dd3a00 R12: 1ffff11021526f17
+    R13: 0000000000000000 R14: 0000000000000001 R15: ffff888112cda000
+    FS:  00007fdd13c9f780(0000) GS:ffff8881fd826000(0000) knlGS:0000000000000000
+    CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+    CR2: 00007fdd13e2f943 CR3: 00000001057ba005 CR4: 0000000000770ef0
+    PKRU: 55555554
+    Kernel panic - not syncing: Fatal exception
+    Kernel Offset: disabled
+    Rebooting in 1 seconds..
+
+Assisted-by: LLM
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+---
+
+diff --git a/sound/synth/emux/emux_oss.c b/sound/synth/emux/emux_oss.c
+index 1145c7956afde167a451a3446ffd78ffce09cb65..30e353e7323d1129f1260cc6a3228bb7deacd4ef 100644
+--- a/sound/synth/emux/emux_oss.c
++++ b/sound/synth/emux/emux_oss.c
+@@ -124,7 +124,7 @@ snd_emux_open_seq_oss(struct snd_seq_oss_arg *arg, void *closure)
+ 	arg->private_data = p;
+ 	arg->addr.client = p->chset.client;
+ 	arg->addr.port = p->chset.port;
+-	p->oss_arg = arg;
++	WRITE_ONCE(p->oss_arg, arg);
+ 
+ 	reset_port_mode(p, arg->seq_mode);
+ 
+@@ -141,16 +141,24 @@ snd_emux_open_seq_oss(struct snd_seq_oss_arg *arg, void *closure)
+ static void
+ reset_port_mode(struct snd_emux_port *port, int midi_mode)
+ {
++	struct snd_seq_oss_arg *arg;
++
++	/* OSS events can arrive before the open path has set oss_arg. */
++	arg = READ_ONCE(port->oss_arg);
++
+ 	if (midi_mode) {
+ 		port->port_mode = SNDRV_EMUX_PORT_MODE_OSS_MIDI;
+ 		port->drum_flags = DEFAULT_DRUM_FLAGS;
+ 		port->volume_atten = 0;
+-		port->oss_arg->event_passing = SNDRV_SEQ_OSS_PROCESS_KEYPRESS;
++		if (arg)
++			arg->event_passing =
++				SNDRV_SEQ_OSS_PROCESS_KEYPRESS;
+ 	} else {
+ 		port->port_mode = SNDRV_EMUX_PORT_MODE_OSS_SYNTH;
+ 		port->drum_flags = 0;
+ 		port->volume_atten = 32;
+-		port->oss_arg->event_passing = SNDRV_SEQ_OSS_PROCESS_EVENTS;
++		if (arg)
++			arg->event_passing = SNDRV_SEQ_OSS_PROCESS_EVENTS;
+ 	}
+ }
+ 
