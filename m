@@ -1,96 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF0B247CA79;
-	Wed, 14 Oct 2026 09:12:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DB874A498E
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:12:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791969136; cv=none; b=NqnDzxQ79mFq3tJL/7oPpBW8LFwTeHWFK5e4a2vPakqBCJJBIdA8Y/tEOuvCncEH+wqyTaIQfi4dob7EDC1LZnMpdv3+mVaDAGrK+P3X7ZXC99VqG6YrZ2xoxZpnONEO4DeMLBhvMjCJ8yc6H1b59fwajzbS3glaNBgm4Se2MtI=
+	t=1791969140; cv=none; b=oBy09wGmMEi/4AlKL8FkmCgwp5JFMwMQf7e6jKmp91b5T0Q9rO+4wF8gveAFXXLJSPpWtnEX6YPGqzTSXnidkuj2z4AgUv9ah/pPaJM1luRkFAlS8/F2YM2C73+BNAFEQcLVlWiVhRaPO+Flz4Z2kMuPZFa2HoDC6UM3bO/554E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791969136; c=relaxed/simple;
-	bh=Y99uqPqfDhQ120rnGroawz9lqy6eeL55mgnbGQJ5KsM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Jn+xfNbdWgeXRg4Ctx0APgaK8sqXmvSI/P5G1W5Xon1LAVjM8BxfBtChjGygt9RJnrRterFd93Mk4mTSkarbZf3JAOoyxHyxsVMF0DSFAw5r3K/bInHzf6a6MUBFdbeE0hKDwqfAHeRrFIwUPJ7zkJ5rr1d+ZD+Rwwn3pFHHx40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SH6m4y/Q; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791969140; c=relaxed/simple;
+	bh=lRP4bJl5SdVNOJG+y1WwkVlB28FaMO41Z/f5pWVsxLM=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=c9z0E5K1fM5Yj3KQYEVne70PQxQpULQVnx8UWg9rn0KUohakpeeHZpN7NFw/WIJ3xQScaU8daCFddjvj7P7jpJHuuihT/FJaidgOkJBgxgWfkw7A15rFfEBpVmNA7MQbF2kzUwUkT/FfWcHcJzhJVUKa3bWcamH21VKwrd/avDs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=E79CjDLi; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SH6m4y/Q"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 74ECE1F00893;
-	Wed, 14 Oct 2026 09:12:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791969134;
-	bh=Y99uqPqfDhQ120rnGroawz9lqy6eeL55mgnbGQJ5KsM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SH6m4y/Q26xnIfaLbL0LKLJ9GsyrvgptTxf9IYL4V98FafFL5Ymzx0S7S132c/sGx
-	 7F2o0leazSbBgVqjBhcrbQZbCUtsFLB4Xv/uMjRWfyOybBZ2V14NISOTBkt0W3Cq7k
-	 MV2lb+hpFGtOoy6rDtkPRn949Gi3loTPKY+lb7NfWM+ir50TnzSpOrhKs4caHsuv4R
-	 ftnPxr/tp4gpoS/YPRT8ACZ+EuvAnJe1uTKj+FNzHPB7ZNoKPsWf8vzCMLmkTCkP9T
-	 Zk5SHP1fb2w8Y5iX2Z3y+8bk7GiEFRAKxcLjus49xueXsFKpGrnZVTtJi1fmhA7bOW
-	 aMdKlk4lvCXHw==
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="E79CjDLi"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id C4BBA4E4120C;
+	Wed, 14 Oct 2026 09:12:15 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9906560368;
+	Wed, 14 Oct 2026 09:12:15 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 95C041032898A;
+	Wed, 14 Oct 2026 11:12:11 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791969134; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=lRP4bJl5SdVNOJG+y1WwkVlB28FaMO41Z/f5pWVsxLM=;
+	b=E79CjDLifyM+hr0VPaPwWud3S3QF+ZaBXPZha/6kMq+3dU2x6jTvJWDPM+hKYK7d+2f6lP
+	MsZHFh3ofjvAvKLVyTn1IRLygxgpskwSzD8IHFyPq4te/UJkRmjYze6d9ks+jU8W9j4N0s
+	l8o046kHUf2i0kDliC44D81GUez9tGv5uGimbmVPHl+RwqQSPNWVGmEtgFXtD4NJaeV5vB
+	QCn9ZU23hLlRfY+zgOqJVxb/Kk0lt20Fpai9yxzgDSUOckEL4v6JGDuOQoIlqBiF3KRBCk
+	m67Hz6G2Sp0GcNEPjYuhbfwk58PAkj2bimGpXfz6PowOlZ+DVjKQ1ynTrZ/EQg==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Pratyush Yadav <pratyush@kernel.org>
+Cc: Michael Walle <mwalle@kernel.org>,  Takahiro Kuwano
+ <takahiro.kuwano@infineon.com>,  Richard Weinberger <richard@nod.at>,
+  Vignesh Raghavendra <vigneshr@ti.com>,  Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>,  Steam Lin <STLin2@winbond.com>,
+  linux-mtd@lists.infradead.org,  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 00/17] mtd: spi-nor: winbond: Add support for the
+ W35TxxNW family
+In-Reply-To: <20261013-winbond-master-spi-nor-w35t-v3-0-6dde1d513df8@bootlin.com>
+	(Miquel Raynal's message of "Tue, 13 Oct 2026 18:33:50 +0200")
+References: <20261013-winbond-master-spi-nor-w35t-v3-0-6dde1d513df8@bootlin.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
 Date: Wed, 14 Oct 2026 11:12:11 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Yureka Lilian <yureka@cyberchaos.dev>
-Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
-	Neal Gompa <neal@gompa.dev>, Wim Van Sebroeck <wim@linux-watchdog.org>, 
-	Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Hector Martin <marcan@marcan.st>, 
-	Sasha Finkelstein <k@chaosmail.tech>, Linus Walleij <linusw@kernel.org>, 
-	Mark Kettenis <kettenis@openbsd.org>, Andi Shyti <andi.shyti@kernel.org>, asahi@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-i2c@vger.kernel.org
-Subject: Re: [PATCH v2 06/10] dt-bindings: pwm: apple,s5l-fpwm: Add t6041
- compatible
-Message-ID: <as9HQml198veWxDy@monoceros>
-References: <20261014-apple-m4-pro-max-initial-devicetrees-v2-0-961edd8d661b@cyberchaos.dev>
- <20261014-apple-m4-pro-max-initial-devicetrees-v2-6-961edd8d661b@cyberchaos.dev>
+Message-ID: <87y0c0y7bo.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="mzqqhllyskho77o3"
-Content-Disposition: inline
-In-Reply-To: <20261014-apple-m4-pro-max-initial-devicetrees-v2-6-961edd8d661b@cyberchaos.dev>
-
-
---mzqqhllyskho77o3
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 06/10] dt-bindings: pwm: apple,s5l-fpwm: Add t6041
- compatible
-MIME-Version: 1.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, Oct 14, 2026 at 08:56:13AM +0200, Yureka Lilian wrote:
-> The PWM controller on Apple Silicon M4 Pro/Max SoCs is compatible with
-> the t8103 (M1) one. Add "apple,t6041-fpwm"as per-SoC compatibles for M4
-> Pro/Max.
->=20
-> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
-Fine for me to go in via apple-soc
+Hi Michael,
 
-Acked-by: Uwe Kleine-K=F6nig <ukleinek@kernel.org>
+> First patches are misc fixes.
+>
+> Then there are core enhancements to support ODTR chips.
+>
+> Last set of patches is Winbond specific, where I add the bulk of the
+> changes for supporting the new Winbond Octal-DTR SPI NOR chips in the
+> winbond manufacturer driver, and then sparkle the ID table with the new
+> IDs and their respective testing logs.
 
-Best regards
-Uwe
+Just to let you know that I considered the reviews from Sashiko on
+this version, but I discarded them both. I'll let you do your own review
+-no hurry-, let me know if you disagree or require more details.
 
---mzqqhllyskho77o3
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrPR2gACgkQj4D7WH0S
-/k5U+wgApfuQUcC81+F0xRcpsmtZvSbz5AVEGouH3+XNu/8L1latDub6jMQMtvpf
-5e17zrSmAvr24cslWxo3aSYXrCZ3kqrNyTq/53kwfaU6pCWFsjBf1O/34BERZlEU
-5WlDJIN8cx2+unVaKOYjECKUcaPrGJJAe3Xy9tR2+iBmIOqpurdQeMb49PqCGwRh
-dPvcAPWyNne3XIu++Gz2xXdzg2vx0jRAbo3aZIjtOKfbC76DHvJWHMPTUReikd8x
-7lLFFuU8p01k32f+S24v9ivYJe6n4MaLTeD/N2IYaLLMtL5P4yOTKvD+SqQ43gBr
-S9TQlFnLEXFvb4g4OCuixPOzrCde+A==
-=V9CH
------END PGP SIGNATURE-----
-
---mzqqhllyskho77o3--
+Cheers,
+Miqu=C3=A8l
