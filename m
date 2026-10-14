@@ -1,63 +1,75 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 820F855D870
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:44:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791992674; cv=none; b=N6iqY4A/NgFjZenIpHy/IPEcfbcfsHgERHD/ftgNOGXF5fAjBeLDYDTq668jnNxeeuHlr0mp4ygCr3g7a5Uj4niToem78+ipQLWy6yW7KT/kRvhgIpxT1qy0mD4X+FmVCwglqU8OaNFfZS0YC/oAwSPIqrn1hyuRP/l8zo+fUxg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791992674; c=relaxed/simple;
-	bh=2GD9iQ0q0Ryk0Y1hCEDYuwqq89P1KQU2qBZF2vslX5I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NFfCu0PVUHaxepoAW6pQHUBq/LKiwOiYx9rqdS63pVzCe2mpPrVz6GHILJw8fbhXnTHa6GmQejAU+Eh3/tddcRnf7+Na8Dvw0RK54ceQs8O9r56upkh27a7pL6G2SPuvuFs+knEq7pfq6R3+g7BcLXaQ4iFP/pH8xDcSFRyzlQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=uD8v375y; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 347BF55C332;
+	Wed, 14 Oct 2026 15:44:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791992682; cv=pass; b=tUaMKGsc/CI2Xk1P5iLyc5XU77gazWjmod1bOOtqMGUZldc1dsoc6wvZBuhkuEAIF3S8zNJGBN05Nm9LZ96iZKb2LA1MxrddbDg8cItic1EjBBpaqC5O4mUSZguiBRwaib7RzHZTwXm5+ory+tARwtIjDHAbW4C4zNPCqU7/dQs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791992682; c=relaxed/simple;
+	bh=//6/Yppifp2lpbUNKplhyz67WHLAKWi+fnh2ND58wJI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=h2My9cfCvKGObsuOuMYaDA83VEzL3jx1gqetCre4G6d0qZ1BQTuklsodcEL5lwwI1eFSlwleFnxLWW7Sa06YnGYLQAN3h65/sdjwfthJ8Z7R2LiDvNod//fbzv2H20e+TEjCRtqzv3EdFoizITkjuJFqwBWvJP0LGkbUHvAGCQc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=DUqOZ+Ma; arc=pass smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="uD8v375y"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 978B5C6344E;
-	Wed, 14 Oct 2026 15:45:26 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 92FF060368;
-	Wed, 14 Oct 2026 15:44:30 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 53AA7103289BC;
-	Wed, 14 Oct 2026 17:44:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791992664; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=O3NL8fkErfRFwG+o5fUs2LgXhRTFrJyf5hL+wJ8c3N4=;
-	b=uD8v375ySJi4m+wyAhOk0tJZFCAYruYKj/FsKzKi4F7ppiPZTV5dDp6qRjlrM/GLxBpD6i
-	WKvEbv4Bl4ss6zp9zIGPq72ZZJbzbP422igRxDSa5BHI695w/pY6JnUIu0IeUnonGJYPi4
-	joRr4S4AilFoYNQEtxPF65hAxkI+h1OBsYyNVT8JgTL8LwwW9+b8ROQCNLHdJdIRDxbJ2E
-	QoAzocpf8kphIehTu6Rm+EQ5q9pfm2DWyTruE8tptwK6c9HWJbIeqA0ucqdd3kY1HORQs4
-	b3QDYZ2VSqEEgBqllA+LjKX9DPjOxSQAdzQG7+UGoS1uKg6Y/n7zVs+oU9m/wQ==
-From: Paul Cercueil <paul.cercueil@bootlin.com>
-To: Pratyush Yadav <pratyush@kernel.org>,
-	Michael Walle <mwalle@kernel.org>,
-	Takahiro Kuwano <takahiro.kuwano@infineon.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Mark Brown <broonie@kernel.org>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Cc: Kees Cook <kees@kernel.org>,
-	Tony Luck <tony.luck@intel.com>,
-	"Guilherme G . Piccoli" <gpiccoli@igalia.com>,
-	linux-mtd@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="DUqOZ+Ma"
+Received: from dude04.red.stw.pengutronix.de (dude04.red.stw.4.pengutronix.de [10.17.1.12])
+	(Authenticated sender: relay-from-dude04.red.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 0CA1A2004FC;
+	Wed, 14 Oct 2026 17:44:37 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1791992677;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=3ykxcgn7EkB9Mckt1qKuKY8PIkRTTdUuMMlIkNr4F5A=;
+	b=DUqOZ+Ma/SCj1XB1Vbl6CJKnkZ1JaQ1BwgSGNjgVoiMgQlzDhZQ2yXqc3Nv/jCy9DcpMp1
+	hQe/buikxlCwIPu/ucusaj4FsX894N/hxc2s9KOdiQ7ejXCf+EjKQROc6FGh7QqkYImWgo
+	0SVxrLJ3zf0xX8gVTarCtzwT5GeV7FcqSH6dTMY/c67HojHSRUvzetk7ngDd2yZOJ+x5vQ
+	lcMykTkggQ3QVwInQKzXvHHT2wsVPTESA7FdhTWKNBsIMmqhvHxKI+nTBG9KBemDOOMHRq
+	Re0n3MooR7z9gDlVO4izbqUsqnN0HWLFlnT+hsF8FvhSi3FJyaUuKhfnwzvpuQ==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1791992677; a=rsa-sha256;
+	cv=none;
+	b=Xe/ecYgeZJUlRjt1z42Vzmtfw42QcIb+vgoxx4oh/sVJKi9eG0idi/UJjTWO1VOn/s7IdY
+	zMZCuzQXcJ2ujtPKV5NvjIBp0U+LRRfgiWFU+rJ9E+8xFwN98+fjCznMo3T2nN4nAjPI44
+	gpM9qHMMT0Mcflj10u8OQlVQUCg9i20uwoBHDqTg8vIrcw/PiiRyFRPKWk3Lyo+Ivj9Vn2
+	c0NTP/YD0aIlREqJiEPQ+c+NyWUxWqftJ0pv+GjgnKAvF0f2UGBkOcLn06Soxlda1mW/wj
+	aFZOdVAU/2fCJ3ytXaTX+r8pSUabWUBm6sM0wU16DuBXCj75ILI1RCPPRAxdIw==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-dude04.red.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1791992677;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=3ykxcgn7EkB9Mckt1qKuKY8PIkRTTdUuMMlIkNr4F5A=;
+	b=RAixPj5scwEfR2Dq/Z0ZCaEDqJkPgcz2n34m/fgWlBxncbhKnlCBogDwhHih5kSeDcGAka
+	XN2yH/5tPy2RoouQbdjJu17XWWN0iidVyHQuXaw6yoMXd8xeksIBQrWfRSAsNYwQ9g73y1
+	AT5xh7V40Yjd+pZAXWjZ0RRUycOkq8UzJOwNgkbU3VV3C87WuAME4j6eKNJ56/HaGhDR6c
+	GQvU4YAyuzdghNcue+MOpfZCqUeICEaCC9zlXTorbUZH2ciwH87zY0NpE0pCv4dWdlE3fF
+	t8g/24LlaIcSx7Pog99gzmZ9uctztDY+ry3DfKoPcNTFqZ9MjhwSGxRxC5wStQ==
+Received: by dude04.red.stw.pengutronix.de (Postfix, from userid 1058)
+	id F4186380BA7; Wed, 14 Oct 2026 17:44:36 +0200 (CEST)
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: Robin van der Gracht <robin@protonic.nl>,
+	Oliver Hartkopp <socketcan@hartkopp.net>,
+	Marc Kleine-Budde <mkl@pengutronix.de>,
+	Shuah Khan <shuah@kernel.org>
+Cc: Oleksij Rempel <o.rempel@pengutronix.de>,
+	kernel@pengutronix.de,
+	linux-can@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-spi@vger.kernel.org,
-	Bharat Bhushan <bbhushan2@marvell.com>,
-	Sunil Kovvuri Goutham <sgoutham@marvell.com>,
-	Tanmay Jagdale <tanmay@marvell.com>,
-	Paul Cercueil <paul.cercueil@bootlin.com>
-Subject: [PATCH v3 5/7] spi: cadence-xspi: Add irq-less support
-Date: Wed, 14 Oct 2026 17:42:59 +0200
-Message-ID: <20261014154301.157755-6-paul.cercueil@bootlin.com>
+	linux-kselftest@vger.kernel.org,
+	=?UTF-8?q?Alexander=20H=C3=B6lzl?= <alexander.hoelzl@gmx.net>,
+	Quchaosheng <quchaosheng000406@163.com>,
+	Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+Subject: [PATCH can-next v1 0/8] selftests: can: add J1939 socket and transport tests
+Date: Wed, 14 Oct 2026 17:44:26 +0200
+Message-ID: <20261014154435.3577983-1-o.rempel@pengutronix.de>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261014154301.157755-1-paul.cercueil@bootlin.com>
-References: <20261014154301.157755-1-paul.cercueil@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -65,182 +77,55 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-From: Tanmay Jagdale <tanmay@marvell.com>
+net/can/j1939 has had no in-tree selftests. This series adds a kselftest
+suite for the J1939 socket layer and the TP/ETP transport, run on vcan with
+a CAN_RAW socket as an independent on-the-wire peer.
 
-Make the interrupt line optional. If not provided, the driver will
-instead resort to polling registers.
+The whole suite runs on vcan under QEMU and passes. Two limits span the
+series and are left for follow-up: the transport timers are checked only
+with wide windows, not tight bounds, and the ETP abort/timeout edge cases
+are not covered yet (the abort/timeout tests are TP only).
 
-This can be useful in itself, but will be used later to support write on
-kernel panic.
+Oleksij Rempel (8):
+  selftests: can: add J1939 test helper header and library
+  selftests: can: add J1939 base functional tests
+  selftests: can: add J1939 socket option and metadata tests
+  selftests: can: add J1939 addressing and concurrency tests
+  selftests: can: add J1939 wire-format tests against CAN_RAW
+  selftests: can: add J1939 TP/ETP multi-frame tests against CAN_RAW
+  selftests: can: cover J1939 transport abort and timeout paths
+  selftests: can: check SO_J1939_PROMISC receive effect
 
-Note the cdns_xspi_is_{sdma,stig}_ready() seem to have moved for no
-reason; they were actually moved out of a conditional compilation block
-(#ifdef CONFIG_64BIT), as they are needed in conf-independent paths now.
+ tools/testing/selftests/net/can/.gitignore    |   5 +
+ tools/testing/selftests/net/can/Makefile      |  20 +-
+ tools/testing/selftests/net/can/config        |   2 +
+ tools/testing/selftests/net/can/j1939_lib.sh  |  74 ++
+ tools/testing/selftests/net/can/j1939_tests.h | 460 +++++++++++++
+ .../selftests/net/can/test_j1939_addr.c       | 336 +++++++++
+ .../selftests/net/can/test_j1939_addr.sh      |   5 +
+ .../selftests/net/can/test_j1939_base.c       | 160 +++++
+ .../selftests/net/can/test_j1939_base.sh      |   5 +
+ .../selftests/net/can/test_j1939_multi.c      | 638 ++++++++++++++++++
+ .../selftests/net/can/test_j1939_multi.sh     |   5 +
+ .../selftests/net/can/test_j1939_opts.c       | 347 ++++++++++
+ .../selftests/net/can/test_j1939_opts.sh      |   5 +
+ .../selftests/net/can/test_j1939_wire.c       | 170 +++++
+ .../selftests/net/can/test_j1939_wire.sh      |   5 +
+ 15 files changed, 2235 insertions(+), 2 deletions(-)
+ create mode 100644 tools/testing/selftests/net/can/j1939_lib.sh
+ create mode 100644 tools/testing/selftests/net/can/j1939_tests.h
+ create mode 100644 tools/testing/selftests/net/can/test_j1939_addr.c
+ create mode 100755 tools/testing/selftests/net/can/test_j1939_addr.sh
+ create mode 100644 tools/testing/selftests/net/can/test_j1939_base.c
+ create mode 100755 tools/testing/selftests/net/can/test_j1939_base.sh
+ create mode 100644 tools/testing/selftests/net/can/test_j1939_multi.c
+ create mode 100755 tools/testing/selftests/net/can/test_j1939_multi.sh
+ create mode 100644 tools/testing/selftests/net/can/test_j1939_opts.c
+ create mode 100755 tools/testing/selftests/net/can/test_j1939_opts.sh
+ create mode 100644 tools/testing/selftests/net/can/test_j1939_wire.c
+ create mode 100755 tools/testing/selftests/net/can/test_j1939_wire.sh
 
-Signed-off-by: Tanmay Jagdale <tanmay@marvell.com>
-Co-developed-by: Paul Cercueil <paul.cercueil@bootlin.com>
-Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
----
-
-Notes:
-    v2: Make sure we only enable interrupts if not using polling mode
-    
-    v3: No change
-
- drivers/spi/spi-cadence-xspi.c | 104 ++++++++++++++++++---------------
- 1 file changed, 58 insertions(+), 46 deletions(-)
-
-diff --git a/drivers/spi/spi-cadence-xspi.c b/drivers/spi/spi-cadence-xspi.c
-index 095bf640b379..2a2a40bf0a4c 100644
---- a/drivers/spi/spi-cadence-xspi.c
-+++ b/drivers/spi/spi-cadence-xspi.c
-@@ -365,6 +365,38 @@ static int cdns_xspi_wait_for_controller_idle(struct cdns_xspi_dev *cdns_xspi)
- 					  100, 1000);
- }
- 
-+static bool cdns_xspi_is_stig_ready(struct cdns_xspi_dev *cdns_xspi, bool sleep)
-+{
-+	u32 ctrl_stat;
-+
-+	return !readl_relaxed_poll_timeout
-+		(cdns_xspi->iobase + CDNS_XSPI_CTRL_STATUS_REG,
-+		ctrl_stat,
-+		((ctrl_stat & BIT(3)) == 0),
-+		sleep ? MRVL_XSPI_POLL_DELAY_US : 0,
-+		sleep ? MRVL_XSPI_POLL_TIMEOUT_US : 0);
-+}
-+
-+static bool cdns_xspi_is_sdma_ready(struct cdns_xspi_dev *cdns_xspi, bool sleep)
-+{
-+	u32 ctrl_stat;
-+
-+	if (readl_relaxed_poll_timeout
-+	    (cdns_xspi->iobase + CDNS_XSPI_INTR_STATUS_REG,
-+	     ctrl_stat,
-+	     (ctrl_stat & CDNS_XSPI_SDMA_TRIGGER),
-+	     sleep ? MRVL_XSPI_POLL_DELAY_US : 0,
-+	     sleep ? MRVL_XSPI_POLL_TIMEOUT_US : 0)) {
-+		return false;
-+	}
-+
-+	/* Clear the flag */
-+	writel(CDNS_XSPI_SDMA_TRIGGER,
-+	       cdns_xspi->iobase + CDNS_XSPI_INTR_STATUS_REG);
-+
-+	return true;
-+}
-+
- static void cdns_xspi_trigger_command(struct cdns_xspi_dev *cdns_xspi,
- 				      u32 cmd_regs[6])
- {
-@@ -532,7 +564,8 @@ static int cdns_xspi_send_stig_command(struct cdns_xspi_dev *cdns_xspi,
- 	writel(FIELD_PREP(CDNS_XSPI_CTRL_WORK_MODE, CDNS_XSPI_WORK_MODE_STIG),
- 	       cdns_xspi->iobase + CDNS_XSPI_CTRL_CONFIG_REG);
- 
--	cdns_xspi->set_interrupts_handler(cdns_xspi, true);
-+	if (cdns_xspi->irq >= 0)
-+		cdns_xspi->set_interrupts_handler(cdns_xspi, true);
- 	cdns_xspi->sdma_error = false;
- 
- 	memset(cmd_regs, 0, sizeof(cmd_regs));
-@@ -562,16 +595,25 @@ static int cdns_xspi_send_stig_command(struct cdns_xspi_dev *cdns_xspi,
- 
- 		cdns_xspi_trigger_command(cdns_xspi, cmd_regs);
- 
--		wait_for_completion(&cdns_xspi->sdma_complete);
--		if (cdns_xspi->sdma_error) {
--			cdns_xspi->set_interrupts_handler(cdns_xspi, false);
-+		if (cdns_xspi->irq >= 0) {
-+			wait_for_completion(&cdns_xspi->sdma_complete);
-+			if (cdns_xspi->sdma_error) {
-+				cdns_xspi->set_interrupts_handler(cdns_xspi, false);
-+				return -EIO;
-+			}
-+		} else if (!cdns_xspi_is_sdma_ready(cdns_xspi, true)) {
- 			return -EIO;
- 		}
-+
- 		cdns_xspi->sdma_handler(cdns_xspi);
- 	}
- 
--	wait_for_completion(&cdns_xspi->cmd_complete);
--	cdns_xspi->set_interrupts_handler(cdns_xspi, false);
-+	if (cdns_xspi->irq >= 0) {
-+		wait_for_completion(&cdns_xspi->cmd_complete);
-+		cdns_xspi->set_interrupts_handler(cdns_xspi, false);
-+	} else if (!cdns_xspi_is_stig_ready(cdns_xspi, true)) {
-+		return -EIO;
-+	}
- 
- 	cmd_status = cdns_xspi_check_command_status(cdns_xspi);
- 	if (cmd_status)
-@@ -1052,38 +1094,6 @@ static int cdns_xspi_prepare_transfer(int cs, int dir, int len, u32 *cmd_regs)
- 	return 0;
- }
- 
--static bool cdns_xspi_is_stig_ready(struct cdns_xspi_dev *cdns_xspi, bool sleep)
--{
--	u32 ctrl_stat;
--
--	return !readl_relaxed_poll_timeout
--		(cdns_xspi->iobase + CDNS_XSPI_CTRL_STATUS_REG,
--		ctrl_stat,
--		((ctrl_stat & BIT(3)) == 0),
--		sleep ? MRVL_XSPI_POLL_DELAY_US : 0,
--		sleep ? MRVL_XSPI_POLL_TIMEOUT_US : 0);
--}
--
--static bool cdns_xspi_is_sdma_ready(struct cdns_xspi_dev *cdns_xspi, bool sleep)
--{
--	u32 ctrl_stat;
--
--	if (readl_relaxed_poll_timeout
--	    (cdns_xspi->iobase + CDNS_XSPI_INTR_STATUS_REG,
--	     ctrl_stat,
--	     (ctrl_stat & CDNS_XSPI_SDMA_TRIGGER),
--	     sleep ? MRVL_XSPI_POLL_DELAY_US : 0,
--	     sleep ? MRVL_XSPI_POLL_TIMEOUT_US : 0)) {
--		return false;
--	}
--
--	/* Clear the flag */
--	writel(CDNS_XSPI_SDMA_TRIGGER,
--	       cdns_xspi->iobase + CDNS_XSPI_INTR_STATUS_REG);
--
--	return true;
--}
--
- static int cdns_xspi_transfer_one_message_b0(struct spi_controller *controller,
- 					   struct spi_message *m)
- {
-@@ -1276,15 +1286,17 @@ static int cdns_xspi_probe(struct platform_device *pdev)
- 	}
- #endif
- 
--	cdns_xspi->irq = platform_get_irq(pdev, 0);
--	if (cdns_xspi->irq < 0)
--		return -ENXIO;
-+	cdns_xspi->irq = platform_get_irq_optional(pdev, 0);
-+	if (cdns_xspi->irq < 0 && cdns_xspi->irq != -ENXIO)
-+		return cdns_xspi->irq;
- 
--	ret = devm_request_irq(dev, cdns_xspi->irq, cdns_xspi_irq_handler,
--			       IRQF_SHARED, pdev->name, cdns_xspi);
--	if (ret) {
--		dev_err(dev, "Failed to request IRQ: %d\n", cdns_xspi->irq);
--		return ret;
-+	if (cdns_xspi->irq >= 0) {
-+		ret = devm_request_irq(dev, cdns_xspi->irq, cdns_xspi_irq_handler,
-+				       IRQF_SHARED, pdev->name, cdns_xspi);
-+		if (ret) {
-+			dev_err(dev, "Failed to request IRQ: %d\n", cdns_xspi->irq);
-+			return ret;
-+		}
- 	}
- 
- #ifdef CONFIG_64BIT
--- 
+--
 2.47.3
 
