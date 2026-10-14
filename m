@@ -1,132 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B6FA4052D4;
-	Wed, 14 Oct 2026 19:20:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45A23479880
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:21:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792005653; cv=none; b=WFbAImIASFJRHPJH9yvN95EIZOalhN04aL+u/7lkat2EGlwhubYvSXL9PQlWp+FiyqDcueVIUou2v1qkufW2gjT3OIpLFRZNTeFOgWDGley8r/TFe/zS2mXeq3tbmT6qPhlASwgkaBxmq4IduEQG6XrKV/QjEOmkXbmZqN4v0SY=
+	t=1792005684; cv=none; b=c5hovlRUbOilC9o8oOuPn5X6Kt5JWgvKyywYfKGktTRacCjgRdBqir5lVT/fSKuoXGFBxybn9dOhnb5XLO1/Afo82UkkEW7xi3lUeALJh1k1vRYHVS+QgXcrQk8ravB1ebO16jVJtwVX9WnZKT3ljumrtGFXWa23nTs0VsnEaWo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792005653; c=relaxed/simple;
-	bh=pDmTop8BydgD2ybL2HcX1RP/U45dYAP4r5m5IqunrBU=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=AHfsZEN6efs7aoG6EuMcTo/QFzDykK2yZVyo6njTS5/YR+xB50zTgwIj0v8VZ4WjHgIIz5MQMj1ma8ZSK6XbOyUErZI+9gRpt+tqN66tXsPE1tVyyQc8KI7nrkU09/Y0JlwJezHrHcDYnVl6KSi8ewd9kMFpv1c2+9Ngv3TFe7U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mtHnBXN/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792005684; c=relaxed/simple;
+	bh=UrMyo00SNY2ABPsFiD1pr1qfiLMNapahXhN5HWuZbvA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rAbijKibca4eUaywlVZu8Gstn694vHNItcBAg7JWyQa0SnX/wsYDmJfpy3z+8n6sF5JE9D1CgGGURTnRtXKsgenZYmxryRLKClSG9ZLab9lLdGY3NASCDv0fyisnGK6R/8VdWRBDnQGWCZClCKqGGwWuVZ+RXOysUm6bevCtdHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=H1gVrXDD; arc=none smtp.client-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mtHnBXN/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D77881F000C4;
-	Wed, 14 Oct 2026 19:20:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792005651;
-	bh=gYj6Ssb4Y0qTANOC8LZlRZc7A0UjRimm4BD4FoPdOjA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=mtHnBXN/S6ULFpffBTaEE21x6yZLfQpy/DKuHtLKw1att0fMfnH5aHqsgpD1mfJe3
-	 3ngJGExwgKUbHT3ZyVwwSlSr1seacsFU603+QZPkU46yAd5En5VVK9HN71f39yk9zh
-	 yk2ghumqG6bzx5n+Sk3a9g4XiEdzRAspB+7sXqoLl47snPJc4lYWFlrEtBG6sbEcI9
-	 RWc2hMyMGo96KDvSVpNydYBK/4qJZVoA0JQvoMkq0/1HMeOP6RhOeXNy4SJG39SKn4
-	 uDGu4k6qpSGBMOFl6L04xjjQ9Uwbb4h2G0yCiy2dRa4GEBhM2iAC1oXGPernTqVyEB
-	 PuQoB/RsIt6Gg==
-Date: Wed, 14 Oct 2026 14:20:49 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Sumit Kumar <sumit.kumar@oss.qualcomm.com>
-Cc: Jingoo Han <jingoohan1@gmail.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] pci: designware: Set DMA_BYPASS bit in outbound IATU
- CTRL2 register
-Message-ID: <20261014192049.GA1654252@bhelgaas>
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="H1gVrXDD"
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-353804b591eso7946935eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:21:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1792005681; x=1792610481; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FKWPHyXm/RBE3XBdWdQ17S7GMceJugCqc25wfMm20QQ=;
+        b=H1gVrXDDyQ8UIHoIheY/+RwT1BBtBVvr01/IgjHfyZE7qdDB2zt7DWFgONB1MGERH7
+         54ifE5QIzGtLNpgOKoVBC+4nLj4LCAQDu3eSPf/l5DB4JRZN0GNgUMlKinpJaBlJIn9m
+         Jl32acUW65YGx7i80VXQLOc/kSCrsaH2tc0H4DjPk5EJszqKvXF9taA6jt9CWqIEs/7n
+         6jJj4fdU92UuAu3uOThf3UwkkgCd8Dfc8VX8MXdt/oQvnzppu4iejtPSLZ44k7TIfHR3
+         Dv4/vkZeg1JRpumV2kljA9C8WjgCSAG30fzdrZI/DM4f7AtaBSmKKdvBBytwDqC0vkHN
+         iH0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792005681; x=1792610481;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FKWPHyXm/RBE3XBdWdQ17S7GMceJugCqc25wfMm20QQ=;
+        b=GLVzm8uL6N/VmeDOvK5CntIrXivmPD6Y3rQo7+o/Fkuzih+kMDpUJUDwu5xWVzz6OO
+         +o3eHqipNa3qVCdwc4gjQN7wW6T53s0lkmfiAEStA6U+i+kXxJaDUrkwrHIXrHfctURw
+         hUpdxEIW3EsCF9sQazbMVoqiLqHJGorV/621QSz7YPmoA18SQ5PuXJbt67SrCwR1SLAo
+         7Cf1Ik/egK6pcm4l6MTjHZ8Dicdsakvpl/NH21/MxYYYTyOiMEdMrCU7mABTuouX4ddH
+         3UbL19HFQmUNlUrKKrFc9veMacJPCQR9wvM2hGedBi1QkzgRSZ2Oryk/wBAF5RL3aeR2
+         DCPw==
+X-Gm-Message-State: AFq9FYLEDWwg6NzaQYQUcBarg+hGKZY/tlQwzzLne2nGSE8b91+oTdjs
+	i/r8Ud7taNSyIUastLYWx6ZnuBc5fYZ8YMBal4fnX3M2/X8VM148CCPpywwSpmbviMM=
+X-Gm-Gg: AYBFou2HefoWueNofIa4WZygheKXfcK+Q8nYxavaKWbT5Mb587ijbFfEl+VVgIX8l7K
+	ARn29uE/ZslYW1SFbVc53Qjq+8tmP5gNs8LUBmNTlKl51CGH/x6H0YtpODLJDbIRsL/OyQ3RiUr
+	cmX6qHOUt7YPccFQ9Q3FyH/koOjclcU17mPd/j+FZl0cHwZjamE1gzodUm60TqXrzn1mPiQ2vgt
+	Bgba11ZMPmiu5rxCeWX0p60GolySyONaoAG/c0PnvyQj40X3iDPDyXuEoc+K/iCBDJEHRzLYQax
+	LcKQ9bXGfnVWTo4UCSHWeH6zlwgEbz8yOb2XzX9/aTu31oselTqOvsPMXAblnZPkgk0F15WS5V7
+	7wGD42R0KKPhnU41q238voM9zzAf2h1HhoqvziwziNFs03tLtgwF3jkPQbSC7DGJyMmg/5HjU75
+	0a7C1y3ealQ2kFu9q8m1s43ut3adWLxRU1IZZVcVrlVpWthsilKqnG7B8hmdNtQxfScQjVcGyYS
+	7MT17eMtRoKb1fBW/EIXnpMHjFqxYUNOkmXX3rCeaalhuKxVW+NloDmIwl3HBFTZJeQCz4=
+X-Received: by 2002:a05:7301:53c1:b0:351:5cb5:53f7 with SMTP id 5a478bee46e88-3537dedd531mr23549875eec.3.1792005681162;
+        Wed, 14 Oct 2026 12:21:21 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:39d1:d8de:aae7:23dd])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35b29c2f861sm38670979eec.11.2026.10.14.12.21.17
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 14 Oct 2026 12:21:19 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	tiwai@suse.de
+Subject: [PATCH 6.6.y] ALSA: control: Don't add invalid kcontrols to LED layer
+Date: Wed, 14 Oct 2026 15:21:15 -0400
+Message-ID: <20261014192115.24210-1-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260908-dma_bypass-v2-1-c3c81d408c0c@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 08, 2026 at 11:48:22AM +0530, Sumit Kumar wrote:
-> An outbound iATU region matches any local (AXI/application-side)
-> address that falls within its Base/Limit window and rewrites it to
-> the PCIe-side address programmed in that region's Target Address
-> Registers before the transaction goes out on the link. This matching
-> does not distinguish CPU-initiated transactions from ones issued by
-> the internal DMA engine (eDMA/HDMA).
-> 
-> Example: outbound region 0 is programmed with Base/Limit covering
-> local addresses 0x8000_0000-0x8000_0FFF and Target 0x1_0000_0000, for
-> CPU-initiated accesses. The DMA engine is later given a descriptor
-> whose destination is the host address 0x8000_0080, which happens to
-> fall inside region 0's Base/Limit range. The iATU matches the DMA
-> transaction against region 0 too and rewrites it to 0x1_0000_0080
-> instead of passing 0x8000_0080 through unchanged. The transaction
-> then lands on the wrong host address, causing data corruption or an
-> IOMMU fault when the rewritten address has no valid mapping.
-> 
-> Set the DMA_BYPASS bit (bit 27) in PCIE_ATU_REGION_CTRL2 when
-> programming outbound iATU regions so only CPU/AXI-initiated
-> transactions are matched against the region; DMA engine transactions
-> bypass the translation and go out on the PCIe link with their
-> original address.
-> 
-> Signed-off-by: Sumit Kumar <sumit.kumar@oss.qualcomm.com>
+From: Takashi Iwai <tiwai@suse.de>
 
-Thanks for the fix.  A data corruption is pretty disastrous.
+[ Upstream commit 74e3b979ce8b78a690f8b94ccf2e2c965f7f5c11 ]
 
-Is there a Fixes: tag we can add here?
+The kcontrol LED state layer tries to track the all associated
+kcontrol elements with naive assumptions that they are readable.
+But one can create a write-only element that has no get callback (even
+a user element can do it), and this may lead to a NULL dereference at
+the call chain of snd_ctl_led_notify(), as found by syzkaller.
 
-Probably also a stable tag?
+For avoiding the Oops, add a sanity check of the kcontrol's info and
+get callbacks, and just skip the invalid kcontrols before assigning
+the kctl to the LED layer.
 
-What is the connection with ver 460A?  It would be nice to have
-something meaningful here, e.g., "has_eDMA" or something that connects
-the test with a controller property.
+Reported-by: syzbot+b7fe2760ea6f1ee44b4d@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/6a9007b3.1d9ded08.62e62.00cd.GAE@google.com
+Fixes: 22d8de62f11b ("ALSA: control - add generic LED trigger module as the new control layer")
+Reviewed-by: Jaroslav Kysela <perex@perex.cz>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Link: https://patch.msgid.link/20260827113951.893291-1-tiwai@suse.de
+Assisted-by: LLM
+[ Backport to 6.6.y: After the target's locked control lookup, reject
+  missing info/get callbacks via the existing unlock label so
+  controls_rwsem and the card reference are released. ]
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+---
+Hi,
 
-> ---
-> pci: designware: Set DMA_BYPASS in outbound IATU to prevent HDMA
-> interception
-> ---
-> Changes in v2:
-> - Rewrote the commit message according to suggestion(Mani).
-> - Link to v1: https://lore.kernel.org/r/20260826-dma_bypass-v1-1-3a53dc748ce2@oss.qualcomm.com
-> ---
->  drivers/pci/controller/dwc/pcie-designware.c | 2 ++
->  drivers/pci/controller/dwc/pcie-designware.h | 1 +
->  2 files changed, 3 insertions(+)
-> 
-> diff --git a/drivers/pci/controller/dwc/pcie-designware.c b/drivers/pci/controller/dwc/pcie-designware.c
-> index 593388f29bdd48381cb04710f445042aaf2be29f..9297d0e607e3a1caaeb585b23742f9a29607b7f2 100644
-> --- a/drivers/pci/controller/dwc/pcie-designware.c
-> +++ b/drivers/pci/controller/dwc/pcie-designware.c
-> @@ -577,6 +577,8 @@ int dw_pcie_prog_outbound_atu(struct dw_pcie *pci,
->  		/* The data-less messages only for now */
->  		val |= PCIE_ATU_INHIBIT_PAYLOAD | atu->code;
->  	}
-> +	if (dw_pcie_ver_is_ge(pci, 460A))
-> +		val |= PCIE_ATU_DMA_BYPASS;
->  	dw_pcie_writel_atu_ob(pci, atu->index, PCIE_ATU_REGION_CTRL2, val);
->  
->  	/*
-> diff --git a/drivers/pci/controller/dwc/pcie-designware.h b/drivers/pci/controller/dwc/pcie-designware.h
-> index 0735ae94092404bc2976af67a58f6842cc5e5c50..668a5ba1c6f59aef1aaf15566b77a649bd282ce0 100644
-> --- a/drivers/pci/controller/dwc/pcie-designware.h
-> +++ b/drivers/pci/controller/dwc/pcie-designware.h
-> @@ -201,6 +201,7 @@
->  #define PCIE_ATU_ENABLE			BIT(31)
->  #define PCIE_ATU_BAR_MODE_ENABLE	BIT(30)
->  #define PCIE_ATU_CFG_SHIFT_MODE_ENABLE	BIT(28)
-> +#define PCIE_ATU_DMA_BYPASS		BIT(27)
->  #define PCIE_ATU_INHIBIT_PAYLOAD	BIT(22)
->  #define PCIE_ATU_FUNC_NUM_MATCH_EN      BIT(19)
->  #define PCIE_ATU_LOWER_BASE		0x008
-> 
-> ---
-> base-commit: 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
-> change-id: 20260826-dma_bypass-bbbf8a0c9af7
-> 
-> Best regards,
-> -- 
-> Sumit Kumar <sumit.kumar@oss.qualcomm.com>
-> 
+Please consider this backport of the fix for CVE-2026-90060 to 6.6.y.
+
+The code changes are identical to upstream, except missing-callback
+failure uses the target unlock label; see the bracketed backport note
+above.
+
+The complete fix is already present in 6.12.y, 6.18.y and 7.2.y.
+
+Build-tested only as part of a cumulative 6.6.y series: x86_64 objects
+(allmodconfig, CONFIG_WERROR=y); no runtime testing.
+
+Thanks,
+Artem Dinaburg
+
+ sound/core/control_led.c |    4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/sound/core/control_led.c b/sound/core/control_led.c
+index 15acb07c651502d4dc22f72bcc9e3a47923caf5e..639d86e4dd1623df612ead223a11e049fbf39afb 100644
+--- a/sound/core/control_led.c
++++ b/sound/core/control_led.c
+@@ -253,6 +253,10 @@ static int snd_ctl_led_set_id(int card_number, struct snd_ctl_elem_id *id,
+ 		down_write(&card->controls_rwsem);
+ 		kctl = snd_ctl_find_id_locked(card, id);
+ 		if (kctl) {
++			if (!kctl->info || !kctl->get) {
++				err = -EINVAL;
++				goto unlock;
++			}
+ 			ioff = snd_ctl_get_ioff(kctl, id);
+ 			vd = &kctl->vd[ioff];
+ 			access = vd->access & SNDRV_CTL_ELEM_ACCESS_LED_MASK;
