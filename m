@@ -1,100 +1,173 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93581253B73
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 00:13:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 329C12459CF
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 00:13:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791936783; cv=none; b=YtRqVFrxcP901Sj6f+KvSooiPcWTU0cNXPQQIfnz5hRbprHgrIEcZqt1WIz/MGSzn/G5f8GzO9vsSXXPHWKnB4TtyaSOEKbFUUWUxvpW+yz1a4Vq3XEjACA7v7+OyiFlRPZP5XQtqxg7SEC7c8vm4hnD9oSuTsGR2/P7yqAbNXg=
+	t=1791936820; cv=none; b=Gc96aAoKWsk4E0neIuT8/AefzOjrbNImPENLCwD4vgBPpasTfYs9smf4oPuHtpru66X4nXZuzuf5xGNaFG/BpzAyF3F4fmZAWFb5EYHiNS9ps/we5iPdIJS4RNhwp4vZuFrmIBBu88MGfpJQgK7VE6HHJp+704dSpmgrU2itxkE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791936783; c=relaxed/simple;
-	bh=S4TCCHOZ/EiuYIi8iQtArq+z1qIcHqKPyLYcq4MiOk8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ItfEXrjg0gsOepceu8b9ZOan3QklzZ3KmgmUTPngBaKQYKCsL3e0CRTdsmqAUr6p2SCJ2dfTd8bx1j/jadQcchzoHZSmQSE3/aKk6Om7+YaiIwJAG04sQ5p0YoohHRdZdpNib149fcHVeXaNWGrPOrKFN9aJZf6GkPffdpl34es=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OuaQMZX/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791936820; c=relaxed/simple;
+	bh=Pk4cVGh0jjW/kLfS4OKxW4nT8KVSwSEC2IoukbeQcwY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=L8w0IpJ1aEawHt0DJYaiGZeY0jXVWe5J8uO875CfeauI5NPjmpJZ0qrBpGwExl//E5gdzxIz0mdzV9bH/AQ64dBKPdOJ5xTs9PhepRAu7w/6ME1VbGdNVEU2onOCQZGsRGAAga553ZrMWAXBNJeYZjkgBBaTglHbFIqFoH9jGV4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cKGb0dtb; arc=none smtp.client-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OuaQMZX/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B4FC1F000FF;
-	Wed, 14 Oct 2026 00:13:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791936781;
-	bh=Ia1VUQ1nYtUAKbFmfVhgW8uhMXui542LoIvaoMrzFk0=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=OuaQMZX/maFpPITVX+qnGEGQ/PDtvWJoSirhTdgFJBElxTNKih5W0TxBGKhWNU+6s
-	 gYznpLoO23qyABM5NVPkMBJGZOpBWonsdZy8mujkK5J7GR7oF3IIk5pFxI1kr19VKi
-	 7SPS/Wn0T65S3BJC6ceMjyJXFQSC2T5+nQVk0g1+utCfWiKmDoym0vKKxmJgn0rfU8
-	 ut1hwU0A3MUoX2cQwRRXcT1mdz6xyU+Ab/P0mF/6JUM981SzhjzplTFTdbXlluNMCv
-	 4ff7BTOZv1b27ifas+FRmUQ5iA8QuLY23b4oLX4/p5u2jOhwsIreB5ze9WsoTB0Z3I
-	 g3G/LmamkF0kA==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id CC713CE0459; Tue, 13 Oct 2026 17:13:00 -0700 (PDT)
-Date: Tue, 13 Oct 2026 17:13:00 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	linux-kernel@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH] sched/core: Call wakeup_preempt() for queued tasks
- during class change
-Message-ID: <c334b382-a13c-4222-99bb-798340ff0d68@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <8fa7f795-518c-4507-b684-60b0c1cac2c5@paulmck-laptop>
- <20261013152455.9039-1-kprateek.nayak@amd.com>
- <786f52b9-adef-4246-b83c-fc0081bbabba@paulmck-laptop>
- <44e3b645-b8d3-4812-930b-0112c05a9132@paulmck-laptop>
- <af6eb571-791d-475a-8413-18d2125328f4@paulmck-laptop>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cKGb0dtb"
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-17bc533fda3so442573c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:13:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791936817; x=1792541617; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gdl5lSwvs1BvirX8ZMQMXcZHrn9GDzZQxUX+cxMM3Ro=;
+        b=cKGb0dtbiw4NezQqNbnQxlXNErXxK9H4a4XjUyD1wr5Ikf6WMiQEJ1d3cKG7axMx9K
+         EkT6bo/Ahm6ugsKnA5K+eWd5I1Z5vKzURzj+n+uAZVSrIFke0mw8wCjxato/qv3M3RD9
+         U7wvWnwiZ1bXduv8BJh/kTAaUEJWUzCX/BOw4xrYz0/vprCwwe3cYDO0JP6ohqmBYp36
+         yM0vw2lsb3CUVrNZeMlxnvNCVk9qcYsxtKMAUUDFRUnL0pzBS/7cFi8Mt/pbKUcHJAcA
+         KnH6UdpFqFwFV0LhihONYFs5WM8ygsLeiUV7pha5UUO/W6rY8yleDcDN8xscNYJZZxWI
+         QGPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791936817; x=1792541617;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gdl5lSwvs1BvirX8ZMQMXcZHrn9GDzZQxUX+cxMM3Ro=;
+        b=SOeaukIUgrsaGlkvfAe1jZZLhEoTONKZz93+U2pKtjeb9SSSzf6jNl3KGmJom7huYF
+         xAvW6JR1/oFmVZDMODWz3PbqCYP3AjBMpOmgUjUicFA3ZQI046bPki376e9YSgzXWR5L
+         fjcCE3ZIy0erIa8JweTiF9RBDcIHaThVPzPQOvWjpmJkAzKV6l26A/vCaMOHsVqL/MVs
+         ODTKKkBkkg6gW9BRW2xaEoxezkc3LNukiz0o/vJVtFw72txNisGsooLJcik31v0PLOlj
+         jCxEYxNMSExCNmHI6tN3gC0gQc5zQHlNjQF6q1Lv2em6HLfILU5DQM7Cab9/N8eQkoJt
+         Hi0A==
+X-Forwarded-Encrypted: i=1; AKwUvBwHPBRx6fc2a1Vg6kLzy3mP0+4zjNgt7cEgc0717z8ZIivmljGOI5ihwt7SX0N16dgQ49Jmc36z7ztbuS4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIF9Retv9zVrUK9HkCq5c/UKPwzD3tpHUww3FJEx5G9OA6+I8tj
+	0+yWQgpoBAlaMsgTIsusicoQufiBOGkpgDaIcSpCk6nzQDN3Xez4bJYH
+X-Gm-Gg: AYBFou0DK1XLckJI14KSutQqXPiqpjQIFx16vEw9Y1fFUT2t57nVevytGjJetLCgUqn
+	elEqvWksYndQ60Ql2sD0vhcwNZSLGxKP+s/gXgAZHpmrerHUCmAjIupXWxnDG5uInuiLGxDBp0s
+	gnOg0lkvnQZ83nEKb4Ba5WquqnoCRx7Q0ti2CmbcukWjSs1I8ZaToVKMp6NyWv27UynLfN5txM/
+	jdNPLzL7bzq6d5/WyniQ9XdKLdTHO2IYNRFo4JSKlinAWQhe0ZRz7gNzhzdrV1jODV5ivmHhcSF
+	qb884rrZPMtCR9Jxgo5ddIu9vQKwj0EXrui/1VhEbBUqE9gB6dZw2/idV3K7ialnTbFMOozdH2x
+	+Dczi0rW3DQ0dmqmkBx0H+XAP4FnMOiQ6zSLXEsdnklVzdNECMhr28PxWXKkxOaaJ1Qcj3L+1nP
+	Rl0MJ5DG+lmepcfIuf0dyEEaGYGYLg+MAeBFoghAq5TCowQtwHVhlijubkhBLWjLVqVpcsc62ny
+	fU4nmJbAjE05djAzFwBjPU1oYuRG2BlrHYZVbzoW5zmFhrV4oAjH2GNx/4E1vz0LfAJ/jRYgdIw
+	vcvXVDWb4BQ4Lk59H1ot7E3UuhpSw3u5YaLjTGpQpEykOzeC
+X-Received: by 2002:a05:701b:2807:b0:144:eaa7:2763 with SMTP id a92af1059eb24-16a5e49fe15mr19365662c88.16.1791936816962;
+        Tue, 13 Oct 2026 17:13:36 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a31f6f5csm40553750c88.11.2026.10.13.17.13.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 17:13:36 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Chris Snook <chris.snook@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH net-next v3] net: ag71xx: align the IP header behind DSA tags
+Date: Tue, 13 Oct 2026 17:13:34 -0700
+Message-ID: <20261014001334.132962-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <af6eb571-791d-475a-8413-18d2125328f4@paulmck-laptop>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 13, 2026 at 01:06:50PM -0700, Paul E. McKenney wrote:
-> On Tue, Oct 13, 2026 at 12:55:12PM -0700, Paul E. McKenney wrote:
-> > On Tue, Oct 13, 2026 at 10:57:17AM -0700, Paul E. McKenney wrote:
-> > > On Tue, Oct 13, 2026 at 03:24:55PM +0000, K Prateek Nayak wrote:
-> > > > Paul reported recent RCU changes exposed a lost resched where CPU idles
-> > > > with a rcutorture thread waiting while being completely runnable.
-> > > > 
-> > > > Dumping the rq state at the time of idling with runnable tasks showed
-> > > > the following:
-> > > > 
-> > > >   rq->next_class = &fair_sched_class
-> > > >   rq->nr_running = 1
-> > > >   rq->cfs.h_nr_queued = 0
-> > > >   rq->rt.rt_nr_running = 1
-> > > > 
-> > > > Although the waiting task was an RT task, "rq->next_class" did not point
-> > > > to rt_sched_class and was stuck at the lower priority fair_sched_class.
-> > > 
-> > > Thank you all very much!  I have started a short test.  If all goes well
-> > > with the short tests, I will run an overnight test.
-> > > 
-> > > I will of course let you know how the individual tests go.
-> > 
-> > 20 minutes of 39*TREE03 (13 hours) on x86 passed!  2 hours of 9*TREE03 (18
-> > hours) on arm64 in progress.  Starting five hours of 200*TREE03 on x86.
-> > If that works, 12 hours of same.
-> 
-> And the 2 hours of 9*TREE03 on arm64 passed!  Started a 15-hour run.
+The receive buffer offset includes NET_IP_ALIGN to get the IP header
+aligned behind a 14 byte Ethernet header. Most ag71xx devices use DSA
+switches whose tag sits in front of the EtherType, which moves the IP
+header by another 2 bytes. Every access to the IP and TCP headers then
+traps and gets emulated by the unaligned access handler, around 6 times
+per forwarded frame.
 
-And the five hours of 200*TREE03 on x86 passed!  Started a 12-hour run.
+Take the headroom needed by the DSA tagger into account when choosing
+the offset.
 
-So thus far, this patch has passed bit more than 1,000 hours on x86 and
-18 hours on arm64.  (Something about having access to quite a few more
-x86 boxes than arm64 boxes.)
+TP-Link Archer C7 v2 (qca8k), median of 3 runs, Mbit/s:
 
-If it is still alive in the morning, Pacific Time, it will have more
-than earned itself a Tested-by.  ;-)
+                       before   after
+  routed up               743     855
+  routed down             660     749
+  local receive           554     572
 
-							Thanx, Paul
+The unaligned instruction counter no longer moves while forwarding.
+
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+---
+ v3: rebase and fix sashiko warnings
+ v2: rebase and add Reviewed-by.
+ drivers/net/ethernet/atheros/ag71xx.c | 28 ++++++++++++++++++++++-----
+ 1 file changed, 23 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/net/ethernet/atheros/ag71xx.c b/drivers/net/ethernet/atheros/ag71xx.c
+index 8a3c689f6825..73b5f8020ece 100644
+--- a/drivers/net/ethernet/atheros/ag71xx.c
++++ b/drivers/net/ethernet/atheros/ag71xx.c
+@@ -38,6 +38,7 @@
+ #include <linux/reset.h>
+ #include <linux/clk.h>
+ #include <linux/io.h>
++#include <net/dsa.h>
+ #include <net/selftests.h>
+ 
+ #define AG71XX_OOM_REFILL	(1 + HZ / 10)
+@@ -1396,6 +1397,26 @@ static void ag71xx_hw_disable(struct ag71xx *ag)
+ 	ag71xx_rings_cleanup(ag);
+ }
+ 
++static unsigned int ag71xx_rx_offset(struct ag71xx *ag)
++{
++	unsigned int align = NET_IP_ALIGN;
++
++	if (ag71xx_is(ag, AR7100) || ag71xx_is(ag, AR9130))
++		return NET_SKB_PAD;
++
++#if IS_ENABLED(CONFIG_NET_DSA)
++	/* A tag inserted in front of the EtherType shifts the IP header,
++	 * compensate for it to avoid unaligned accesses in the stack.
++	 * This is only evaluated in ndo_open, so a DSA tree that binds to
++	 * or unbinds from a running conduit takes effect on the next open.
++	 */
++	if (netdev_uses_dsa(ag->ndev))
++		align = (align - ag->ndev->dsa_ptr->tag_ops->needed_headroom) & 3;
++#endif
++
++	return NET_SKB_PAD + align;
++}
++
+ static int ag71xx_open(struct net_device *ndev)
+ {
+ 	struct ag71xx *ag = netdev_priv(ndev);
+@@ -1410,8 +1431,9 @@ static int ag71xx_open(struct net_device *ndev)
+ 	}
+ 
+ 	max_frame_len = ag71xx_max_frame_len(ndev->mtu);
++	ag->rx_buf_offset = ag71xx_rx_offset(ag);
+ 	ag->rx_buf_size =
+-		SKB_DATA_ALIGN(max_frame_len + NET_SKB_PAD + NET_IP_ALIGN);
++		SKB_DATA_ALIGN(max_frame_len + ag->rx_buf_offset);
+ 
+ 	/* setup max frame length */
+ 	ag71xx_wr(ag, AG71XX_REG_MAC_MFL, max_frame_len);
+@@ -1874,10 +1896,6 @@ static int ag71xx_probe(struct platform_device *pdev)
+ 	ndev->min_mtu = 68;
+ 	ndev->max_mtu = dcfg->max_frame_len - ag71xx_max_frame_len(0);
+ 
+-	ag->rx_buf_offset = NET_SKB_PAD;
+-	if (!ag71xx_is(ag, AR7100) && !ag71xx_is(ag, AR9130))
+-		ag->rx_buf_offset += NET_IP_ALIGN;
+-
+ 	if (ag71xx_is(ag, AR7100)) {
+ 		ag->tx_ring.desc_split = AG71XX_TX_RING_SPLIT;
+ 		tx_size *= AG71XX_TX_RING_DS_PER_PKT;
+-- 
+2.56.0
+
