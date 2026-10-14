@@ -1,81 +1,78 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DCF649A3B0
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:23:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5659549B219
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:23:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791962602; cv=none; b=a0dSJaPNwhuqLCJ9YiOgquSTlbXXcf7yJ4Jb42Uytvpg1uSFEKg5a9Ht6P7QinCkIUdy/n4R6p42MMTzjY+pQiiDRvO5+/33l9nq0B3E8zc7zPpC+PdWi0+xsQ7SKXjTkBoFUrFaQQnivZpA64J6df9Vpjn+L7l3OZppIMLuqeA=
+	t=1791962604; cv=none; b=WnfhARZH2gzreAwJ/W8d6PHObXBM1YwBeBCGVZvGQZuDXuBJgVDz1EYcQ+yM/T+jq+1jUuRkQ4F5SY7mcQY8JTQ//ZSI5kYFL3Nyxb3VAmsv9sfcf0NgL/5cZ1IBPH4oLThegRDJvPFjViZbf4aFLYAlrfQ6YOKouRkF0tgivs4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791962602; c=relaxed/simple;
-	bh=AeYQ6bYHaMT0p/kFWJE/8MdQoDiA0voWCHbJpcoug5A=;
+	s=arc-20240116; t=1791962604; c=relaxed/simple;
+	bh=O6bQmveyBapZrsTbTRgn6yMmYaOs7Qm/ZnNsDdveNGo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HmCJsbT7wj8vGxh6EfRKLc1uOHb51Sj8V9OuZ8xtW89hwScJkBi4AOlrigDom1d+rb1oTTqgz1DurkeX4shcvmGgyYRecwjuOG5C1hSJpuPbI6hzQjbwb71TdtohLcCUeYOqMeY67bpmAhVt/r14KxRWrkDhZU8JpTFjBXpo4do=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E8kIWwvQ; arc=none smtp.client-ip=209.85.221.48
+	 MIME-Version; b=Kn+odOlqWyLo57bQ3s1ECYNCt8lUawYnA+grhp7Behw4vB0EJoQXCmD9/iOuHvBIetAaxIZKG2WefzqyxX5X+GOhnLxJLhI0XK40GS+OXR5WRoJPxaIvtrPWHLYc7SzegVkkyVs9Lb/rI/6XYgOfIFsK6p6pu7iVZLIbUz6JeXo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QbD+2fqC; arc=none smtp.client-ip=209.85.221.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E8kIWwvQ"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48af4d4e61fso2667173f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 00:23:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QbD+2fqC"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48c411d6615so2673746f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 00:23:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791962596; x=1792567396; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791962597; x=1792567397; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mD6uhOC25MC0utvblQcaawGrjbm/zqFeoGXg401bJQk=;
-        b=E8kIWwvQULsySlwroE72e24FpkTRxN5fawaXylenavv6N6jwkPO7N3jUqPsJ4ocNuX
-         vWzXHGf4az1F0zrYdgQq6AmgOoECfVZZTzP2DJotbp5i97wMrfepdtBAyYncJ/+Drdff
-         mMEFj0y+ZEnoPawbXHaPOkRaeRJXn0Iq0HpHvkX9Lg2H17K797RZhLHg44iuSI6s2+T7
-         sy0JagSoy8f5CRHvAWQ6qC88KH1cWO87wenyjvyK+prkf7WbNUzOCcRQlMi5KrhT1D0I
-         iQbQgGNfLZTJk0a6+GASUJ37xeIJeR87mSgwFNb720fvb6X7fL4OrYvQ+VbL/hibJhVg
-         VfsA==
+        bh=bbM6G/cfBuexLxJw6Bstl+WC8ZXf72ew5u9fh5toXB8=;
+        b=QbD+2fqC0b2rzeihat7sKallGttcHj4OrGgmv4ScquGCawheYmzQmhziTPfJ5ZRzq0
+         fETQLSWVlRSdzIiEFhkYPPByKgeL9XYlkVegGRwYmdpLrqqWnWP6WHL2Bgt1b6L364Uz
+         +JPMcnoZtJfaGCt4L2FEWTgePjH7zf6Ak/nec4UDBC1t8LIxfNyskaz1JyKlWm0Z0Fo6
+         qn+3tZWS/gkGaOfg65twZQuX3720QVrtDSIYaPuPy1YxdS24rRJlJAn/pjuT9lTMPrCH
+         j7wrfc07ucKahQfw5X9FRMLjPYLdXPLW8D8XBYMqBibBldF8Dc5+UD9gLQl9bqblDMzl
+         8kfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791962596; x=1792567396;
+        d=1e100.net; s=20260707; t=1791962597; x=1792567397;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mD6uhOC25MC0utvblQcaawGrjbm/zqFeoGXg401bJQk=;
-        b=OZCGCAblckH5kH/XLIDftkBSHCS9O3QiQQKXZFv2HKog0Phfmqnu7rOPx/94Mjyidt
-         aaCMJNiTw8OiyBvpMFZCoRt6Ol18Rs6qyhZwaCYHhy6L/XIJYxYg18lZ+NF08qj+QzZr
-         tyWGUB+R0rSQ4uLU8LTtxPIJmHqbrDB+2/9L9nMxadHfGOJdhi4imTU2A6pxXQT8Zr/k
-         htRfbzG0PviStqYuRcQmDd2zOQ2Vh0baQ3kaD+/Ju64RWP5Rq+ydUk+lZ8wh1phuW9PO
-         NAyner+bBir8HCVdM5eNo/kK4zVOfoCeBQnMkrPesz6Dr3YkBem+bYrqf5Be4eGtJKWI
-         BfRg==
-X-Forwarded-Encrypted: i=1; AKwUvBydNOi3FSlKVjsl0uxAguaqgaFdKsH7I0qioR1n5tEpmzMWxn2PpQlqEtvDAmVZ3CMgYvkCMXEn4QJlVaE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJbo5h/QMMBkj/vD8oOnl8mdT4HL42Bz3+d8ouvRybYjl82QC4l
-	ZyAxrYJLTp+060qVYbMLtl5+tbCzYwobeFdz1eA+VPe1swYBAOa+Oq4T
-X-Gm-Gg: AYBFou3rTIos6bOivINx7bVi7DWmIyXriSGJQxJrhrG7BMJrfJ3EXfKfrmL3hL1fLPY
-	ASgX5wd7gVuZPGKk+2kJagtpRwJRLSy3IMZ6yvLfSeJvz+Ou4Du5DdfGqphKPI9aayRTfNYsr5f
-	8Z4+I9BVH8gcL4bj7JYw0GgWs7U+LzfEP3dAU8UkNygbjkxiY4mDcZ2NhH9lq+8a67nOLECE5/U
-	xr//MncZCF05nuzFjuZhtoWzEDWZJm2r7mnNENTmM13PaimV/JNEG0fjthzOmgrZ6aN4TYO5YP2
-	ekBoX5Olh1KZlNoVBXLTYs/wY2dyTwB4XkRbV7OtvrailrTDyYyvhUMYcqRguOGd2WPlFsiRH/W
-	4D2Z5zF4HLQoSJy7QD0jGiRh0bZ9UL70vf+aJyTSSfWFDLUIrNnL5ClSJbWzbmBGe3DAWCt37El
-	/CMRcDEwrs1yRUWra7odsfqMuIRB5jgF5Rb7LkYavjRFmS2GOtL9TNxZiF7Hwmcz5y1lh0QGcpa
-	DUjGc7z4tTVErrnUGjN/QaQEdMDmXqk1e5smLXWIWD37hGaL5zXe7UtWtp7Z5c+3GEe3Y3GUokg
-	bjXG39PxtW99A3imKuEGnktNq/OSXYADO+3fFgORDZGN0YTLdsyXGV1Q+gfhp94szcOXlr0Z
-X-Received: by 2002:a05:6000:27c6:b0:48b:11a5:d42 with SMTP id ffacd0b85a97d-48dbacfc1demr18369617f8f.30.1791962596282;
-        Wed, 14 Oct 2026 00:23:16 -0700 (PDT)
+        bh=bbM6G/cfBuexLxJw6Bstl+WC8ZXf72ew5u9fh5toXB8=;
+        b=IXpLsIOBoUt0rAvS9FjPSsAgRucv79mRn6XcCUzfNR8UKbrT9bHOAWiCCKmHQKkQMj
+         CkKTmm5ip4ZTkP4y85JOHHlQjwYMl9OmGYepKapYR6XuCuiA1nBHgNVOrowMVIghUoWE
+         06gCqeCTwanWcjKifJ+AkwY5ligC/mk6VumpL3py8YHGMyso6wy6iA7YvyXlGCvg8BBA
+         q+me9Z74SxwgnKuG/vNb2Uxan+gQCmcTQhAzNKVL/35n9YwH8KOB/MW8kGu8/dSskIJh
+         lqhUA4muamjFrBWLVBdXKM1tzb3cvf5y7opffIvSkxFPnb6WpWwHWn4Jv8SoG9RaJpqJ
+         D88w==
+X-Forwarded-Encrypted: i=1; AKwUvBziM5cW3/+TIuuirZPJbXKQQ0K4U+K3tdx6oKdC8hxenSmoeb20Xno0faORumjXisaLoe+Z/Ytcgt1Mv1I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJLSD58RahlOniRcN0XX8f1y/IqlW09P8YDI9Qo8sOAfsqz1+VG
+	6ozETqVm5ZHQ6a0JNa+odGjCP2KAg652L92m34csYXIYsf6yLJ9WPQfV
+X-Gm-Gg: AYBFou2n5M2hxL3txOCHu4AuveHdJ4NcQOYyuNAx55yFr5AVMl1flD4MwplGl4I5XqB
+	1IdOMRitUbiQ3SZIbAfvByItAf0SRM7jCiuOBtMdoR9WbcClVLR+FN9daVWr56jfLnXGl6qiFR6
+	+0CVvajZ+NTOBmupifgbAP67kmr/2tHxc6pU1eTZkXtLE/1M59kOpiVFFebQ4hU3Qvy7Jl+0ORj
+	lJ1eoXD4grIFkZsshAtZ32WO+VqY5+K6PZZZTRwYJGs8T6j4Tn2J3VYzYn1R/EQPl0LmXEy6VbP
+	WRwojYC1GPwPWDcViEROZcjibRF7SALb1TXa2v/BayMly7bRAUgc7XaSQQWP3g481Wo0QhkadY3
+	WKOa5btfqIWpcj0Bg1PwQbE6/IhYmxY9rFC36eZkB5xxQBy6WOVW2FE5hwgl48LFvW/U8ZFwsoA
+	MJrETOzo8Su5VwaUQNjSgayxSpAXEd5N05OQ0MgvwD3nBQP9VII/d1zMNd1zJq/PGO1RW6rdm2N
+	uHwOjvHoz2KrC3UVPw34R8ona65kvop6Oaek/a3d8nHEMIwtKUB5ngelFUUl6JlqXeStu0vhelS
+	e1cRZxtRRt1Llg52IJstGLPmG8+2JacB5pT1XatcfYeR5TL056PCHNRAGqcsZA==
+X-Received: by 2002:a05:600c:5391:b0:49e:7a10:1b71 with SMTP id 5b1f17b1804b1-4a18e4a003cmr296042805e9.11.1791962597174;
+        Wed, 14 Oct 2026 00:23:17 -0700 (PDT)
 Received: from navid-pc ([2a01:4b00:a856:6220::a11])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de3f7f8b8sm8500933f8f.35.2026.10.14.00.23.15
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de3f7f8b8sm8500933f8f.35.2026.10.14.00.23.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 00:23:15 -0700 (PDT)
+        Wed, 14 Oct 2026 00:23:16 -0700 (PDT)
 From: Navid Ghahremani <ghahramani.navid@gmail.com>
 To: linux-arm-kernel@lists.infradead.org
 Cc: arnd@arndb.de,
 	stefandoesinger@gmail.com,
 	krzk@kernel.org,
 	Navid Ghahremani <ghahramani.navid@gmail.com>,
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
 	linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 21/24] dt-bindings: usb: Add ZTE ZX279128S DWC3 controller
-Date: Wed, 14 Oct 2026 08:21:01 +0100
-Message-ID: <20261014072109.1759502-22-ghahramani.navid@gmail.com>
+Subject: [PATCH v2 22/24] usb: dwc3: generic-plat: Add ZTE ZX279128S
+Date: Wed, 14 Oct 2026 08:21:02 +0100
+Message-ID: <20261014072109.1759502-23-ghahramani.navid@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261014072109.1759502-1-ghahramani.navid@gmail.com>
 References: <20261014072109.1759502-1-ghahramani.navid@gmail.com>
@@ -87,97 +84,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Describe the USB host integration with three CRM clocks and four reset
-bits.
+Use the generic DWC3 platform integration to enable clocks and release
+resets. ZX279128S is an always-on networking gateway SoC without
+system low-power sleep/suspend states, and the suspend clock is an APB
+clock gating input handled alongside core clocks, making the generic
+platform glue sufficient.
 
 Signed-off-by: Navid Ghahremani <ghahramani.navid@gmail.com>
 ---
- .../bindings/usb/zte,zx279128s-dwc3.yaml      | 76 +++++++++++++++++++
- 1 file changed, 76 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/usb/zte,zx279128s-dwc3.yaml
+ drivers/usb/dwc3/Kconfig             | 2 +-
+ drivers/usb/dwc3/dwc3-generic-plat.c | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/usb/zte,zx279128s-dwc3.yaml b/Documentation/devicetree/bindings/usb/zte,zx279128s-dwc3.yaml
-new file mode 100644
-index 0000000000..2fd9fe0cc7
---- /dev/null
-+++ b/Documentation/devicetree/bindings/usb/zte,zx279128s-dwc3.yaml
-@@ -0,0 +1,76 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/usb/zte,zx279128s-dwc3.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: ZTE zx279128s DWC3 USB controller
-+
-+maintainers:
-+  - Navid Ghahremani <ghahramani.navid@gmail.com>
-+
-+description:
-+  The ZTE zx279128s has a DesignWare USB3 controller (DWC_usb3 2.80a) with
-+  integrated USB 2.0 and USB 3.0 PHYs, used as a host. Its clocks and resets
-+  come from the top clock and reset module.
-+
-+allOf:
-+  - $ref: snps,dwc3-common.yaml#
-+
-+properties:
-+  compatible:
-+    const: zte,zx279128s-dwc3
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: 20 MHz reference clock
-+      - description: bus (AXI) clock
-+      - description: 32.768 kHz suspend clock
-+
-+  clock-names:
-+    items:
-+      - const: ref
-+      - const: bus_early
-+      - const: suspend
-+
-+  resets:
-+    description: The four reset bits of the controller and its PHYs, in the
-+      order they are released.
-+    minItems: 4
-+    maxItems: 4
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+  - clock-names
-+  - resets
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/zte,zx279128s-crm.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+    usb@9100000 {
-+        compatible = "zte,zx279128s-dwc3";
-+        reg = <0x09100000 0x100000>;
-+        interrupts = <GIC_SPI 50 IRQ_TYPE_LEVEL_HIGH>;
-+        clocks = <&topcrm ZX279128S_TOP_USB_REF>,
-+                 <&topcrm ZX279128S_TOP_USB_ACLK>,
-+                 <&topcrm ZX279128S_TOP_USB_SUSPEND>;
-+        clock-names = "ref", "bus_early", "suspend";
-+        resets = <&topcrm ZX279128S_TOP_RST_USB_B11>,
-+                 <&topcrm ZX279128S_TOP_RST_USB_B14>,
-+                 <&topcrm ZX279128S_TOP_RST_USB_B9>,
-+                 <&topcrm ZX279128S_TOP_RST_USB_B10>;
-+        dr_mode = "host";
-+    };
+diff --git a/drivers/usb/dwc3/Kconfig b/drivers/usb/dwc3/Kconfig
+index 18169727a4..dd0f6d25dd 100644
+--- a/drivers/usb/dwc3/Kconfig
++++ b/drivers/usb/dwc3/Kconfig
+@@ -207,7 +207,7 @@ config USB_DWC3_GENERIC_PLAT
+ 	default USB_DWC3
+ 	help
+ 	  Support USB3 functionality in simple SoC integrations.
+-	  Currently supports SpacemiT DWC USB3. Platforms using
++	  Currently supports SpacemiT and ZTE zx279128s DWC USB3. Platforms using
+ 	  dwc3-of-simple can easily switch to dwc3-generic by flattening
+ 	  the dwc3 child node in the device tree.
+ 	  Say 'Y' or 'M' here if your platform integrates DWC3 in a similar way.
+diff --git a/drivers/usb/dwc3/dwc3-generic-plat.c b/drivers/usb/dwc3/dwc3-generic-plat.c
+index ca69ac0eb0..aa838cf067 100644
+--- a/drivers/usb/dwc3/dwc3-generic-plat.c
++++ b/drivers/usb/dwc3/dwc3-generic-plat.c
+@@ -237,6 +237,7 @@ static const struct of_device_id dwc3_generic_of_match[] = {
+ 	{ .compatible = "fsl,ls1028a-dwc3", &fsl_ls1028_dwc3},
+ 	{ .compatible = "eswin,eic7700-dwc3", &eic7700_dwc3},
+ 	{ .compatible = "starfive,jhb100-dwc3", },
++	{ .compatible = "zte,zx279128s-dwc3", },
+ 	{ /* sentinel */ }
+ };
+ MODULE_DEVICE_TABLE(of, dwc3_generic_of_match);
 -- 
 2.55.0
 
