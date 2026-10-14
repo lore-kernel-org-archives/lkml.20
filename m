@@ -1,193 +1,117 @@
-Received: from gentwo.org (gentwo.org [62.72.0.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C02D8480DED
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 21:21:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.72.0.81
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792012898; cv=none; b=WGbhcCQmr+LztDAp/sBoDZI8hRhU6w/k6GRhzJ6W2aY4z8EWW8pQIxartgKL1Gfsp/YEuMfGAgl8snQZURyOCM6QQMtt54J4Jzn/oCSrFL4ltr8uwog5kxcTAlPIouazBIgavzsUnHc1k4UyWaJnX1qjXZf+fo3FpZHcqYUYfl0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792012898; c=relaxed/simple;
-	bh=Z5sBfGJfFUHq6SrNoKo9ClbQsjhf0q8HrKf8iTnITIY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=OyBQdlxpzE70iHmKiHzazMhTKo6rdPC33cxbapfDtgBaYJ2BJKHsdBfv5MUGXOam9CPnHUkR5eC2zOYITEOX+Sb5pYFsCRkZPlxpGqga3ct179rYFFisfs6e1m+VFTa3NUFRH1NqcSIPnyg4YPt90WsqHIrK41zj6LC0acKCqAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org; spf=pass smtp.mailfrom=gentwo.org; dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b=S8RvbXiG; arc=none smtp.client-ip=62.72.0.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 909CB3E3169
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 21:24:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792013059; cv=pass; b=Z3vtAtkLzsZ4zQCOlZ3nWv8iK4sHOJFKEUqmSkBcNex3zNROXjkNOYF333RWsvIXba/c+T7ppjeQV4D62DqGFLBzY7mqhYCoYpt8WPoYsq4nFMt7KYMPGwC/d8tZyDHddVBaCd26lNGEK5kdTIINnqYBLwpLoONDtykU89ITI4Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792013059; c=relaxed/simple;
+	bh=r63gPEMvPL46RQn5CZ3hAGQZunKTStReh88mSxqbHk4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gnGv5i/qesHzAQ2YxP1yCoH9BHXN+2ljn2uWlasmGSZyaSNvP0aI4RCoUCoVWtGF5U2isMfBIO2TKbEsbVOwqEYho8akc23pYITnlZ0SrVGRgx8qWeZbbTQis+nchw6RBBTfa8755UdN0pHDfbCIXOOXJEMOGz7g1LvVShFLDiY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=OWdpkyxE; arc=pass smtp.client-ip=74.125.224.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b="S8RvbXiG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
-	s=default; t=1792012889;
-	bh=Z5sBfGJfFUHq6SrNoKo9ClbQsjhf0q8HrKf8iTnITIY=;
-	h=From:Date:Subject:To:Cc:From;
-	b=S8RvbXiGBH1mKNLo8BhDXeN4WunjOmaRB5r8L7K4eT+6JBDBY1A9jREoG6Qk93NsC
-	 b0HNNeJt96gDvCLjxf4P5qcwINF307OZw7xI7HwGTHjHeMmZ3Z+8GRtdzMV4Egucrh
-	 a4Q/3HA5/Bm+zWzbXjLe8Kb5ZZmspjtKJSYxf/TY=
-Received: from sut02sys-r112.scc-lab.amperecomputing.com (localhost [127.0.0.1])
-	by gentwo.org (Postfix) with ESMTPS id 98F6040112;
-	Wed, 14 Oct 2026 14:21:29 -0700 (PDT)
-From: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
-Date: Wed, 14 Oct 2026 14:21:02 -0700
-Subject: [PATCH] sched/rt: Remove unreachable migration-disabled push path
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="OWdpkyxE"
+Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-67489c8202cso965052d50.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:24:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792013056; cv=none;
+        d=google.com; s=arc-20260327;
+        b=E1qdx7d3SC5A9EZD1lkXEvXXnus+7CxChix9elXDDtHmJdMVZMAFltcDlUKmAreCPS
+         RFqzpUmSXo+XR+s5YFcE6CYVEYQ4oXdVVsSQA2VpzyiUp6GL0/Gvea2rG09W5eLgta+d
+         7Z8p7+6UN6F35n3BVeXW9s11LZzdJic8WxCW3eO0XF21vpYPzVrvYUipAWYs14LyzhuL
+         c0wx+yMzxmFJGW+3e/IeVXnbfpDv8kDO8CoI3FgzJk3mFojXb3Rvq7o6fFZrt5rDMuwK
+         INM26DN2ye8UwGfK18bsYLfLhwQfJbNTtqQkQjg1qrXxfzBK9JAhh6rIVt6uNE2Ad4Tg
+         lPgg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=2r+3eSWI2QRQlHxhWBBPMAcUqGg26+JgtcOo3f8da98=;
+        fh=euH0D0Z75TWUMQ6vBw6wi634hSnLEUboF2evMNCexdk=;
+        b=anKN5S/I9trKeTdFzFgpLQXVdp8aDWI27ky3/3nPjDrY7eSE3BY50EL0H9IzycaLDK
+         0QzMwQ7zbSJb2/4bQw3+dMWrTR7X6awE+hIQM+sG35gGXzwM04J+wJoWgRsMcRPZ8aOl
+         z2VQNR7ECMN/2y6OpCiNBRZEqI7h/cCt6etI3ehK79enOi9x5lUmdJjwn7TuHFu2jaWZ
+         Zw7dfEfHr/yGm5+fxC0hQXCglsISFsBwrX+l2Y8KYg74YwltnWfiyp1zTQCeVDBu3lUe
+         T1ePoVR6SxU86LqbQu407ylKhYiqL/VYoSMQYxNrtK0ODLeiF4a6K/hgMsvAFdd+DmLX
+         hNOg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mojatatu.com; s=google; t=1792013056; x=1792617856; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2r+3eSWI2QRQlHxhWBBPMAcUqGg26+JgtcOo3f8da98=;
+        b=OWdpkyxEJ5TnzcjENDcaA+a7fHg35oYRafNUrZqSlKGyEEAngECYDjQOTtuf923wJI
+         uXITMvx3ZKGLV9MB06KrFKv6lglH9cRt4rd1U/ajJRCL5CCq9VJ399wc7jml892IunRH
+         otivvuTloqHrLmKPDITwXC7mnD9NG6kl0RBPY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792013056; x=1792617856;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2r+3eSWI2QRQlHxhWBBPMAcUqGg26+JgtcOo3f8da98=;
+        b=sDAhFVBEPed7LlKHCnZVV/heP1UtGCos+heO998mipoBNu6PeffIVdhH8Ut6/nOXZh
+         hYceLPnqeAjseTGb1Hy/2ceows/zdolRLDLnIIfDHRFErQRv+ErLYACrOeJz4C9+Bg5A
+         cNFzcypxZyNklZ4xb7U0sLMncJqRGu7DwI7srKHANvedfrqQ4llnuZx0yEIfOUrfU3Sc
+         9ajvT7rif4/OdIj/3ltuRtLQ0hwV9Q8jggMFO0rQkDDIc/JeOb9yEqFYzPnpDIK6OKJz
+         BYbM0WhXCCF/3qFsqwW3bknRHSzv1r7LDioJDxaBZyevRJBKGfeXdqOp/uQkDera9KLJ
+         QlOg==
+X-Forwarded-Encrypted: i=1; AKwUvBzLSRT2Io4SNaoaCULTyPLGHLxu24YdLzddsr4FvVD6kE5dfExSh/F+wvCZE7uTxzeai2WrCwscHOmP5yo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIct0b10rIiJXBR749Bxuva4dcPSSzYvjuFk2/0wxxpYN1viXyW
+	gbWaFyCONAiTHZ8iSVfmtthLhwoLXGqZZ+vET0uvfsMHGi79HwfgIDrMKNCNPyG8RnDQci6JMm9
+	ZghCk3Nax07lgHGBBFJ184CdCouMCicnAyp8LLtQNBuuyXYsH1XCMAg==
+X-Gm-Gg: AYBFou2aZbgsAWdFj6C0RNAFuzJdFJ8XWtWQreEgi1YERtq1+2RkyDqWxeFowSfQ9cs
+	r8HC0EPHhW5491z1Q0nrXf3UHj6LnRWryeT3+alD0lAPWPIZstyXiaCYfHgCPzWJkPdnPzArbVh
+	tm/fJGfhGJR5B9D8uuX5/TQQyz+oFgW/EkxYvlF75MXJNiHGrYm8ACz6xdWZI2c0nB08i8rQH4U
+	4s0Dkyoi/BEOMR5F/Dirq0S9bZ2B6a+Q4UYExiqYn7R6ciqqHitBk4J/gs3sou0QmejuI3TaddP
+	dnlaR32s9p1xMyBJH6mPgP/9H6CfIWTvH1v92VQUC6aaUXA1DYk0r5+d2k2aLq2BCmzAjQ==
+X-Received: by 2002:a05:690e:d43:b0:675:3f33:b183 with SMTP id
+ 956f58d0204a3-679362745a0mr6171135d50.24.1792013056258; Wed, 14 Oct 2026
+ 14:24:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-sched-rt-dead-md-push-v1-1-5f9757be3c80@gentwo.org>
-X-B4-Tracking: v=1; b=H4sIAD3yz2oC/x3MPQqAMAxA4atIZgNtFRWvIg7aRJvBHxoVQby7x
- fEb3ntAOQortNkDkS9R2dYEm2fgw7DOjELJ4IyrrLElqg9MGA8kHggXwv3UgL5pxrL2BbvJQGr
- 3yJPc/7fr3/cDnHMtAGcAAAA=
-X-Change-ID: 20261014-sched-rt-dead-md-push-c88b47c3e2f0
-To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Dietmar Eggemann <dietmar.eggemann@arm.com>, 
- Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
- Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
- K Prateek Nayak <kprateek.nayak@amd.com>, 
- Shubhang Kaushik <shubhang@os.amperecomputing.com>, 
- "Christoph Lameter (Ampere)" <cl@gentwo.org>
-Cc: linux-kernel@vger.kernel.org, 
- "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792012889; l=4258;
- i=sh@gentwo.org; s=20251010; h=from:subject:message-id;
- bh=Z5sBfGJfFUHq6SrNoKo9ClbQsjhf0q8HrKf8iTnITIY=;
- b=TCYAQYgC7cFcpAIeciy+717vbbYFgMTf1YuFuq0Zodr4w9xLDi/Ko/tbeQhScS6CLnFmJazfq
- CEVvQgdeATNAw27PN8yKbR58w5vMaxXf6fHJ5BrtCdSXvgu+xi/odF5
-X-Developer-Key: i=sh@gentwo.org; a=ed25519;
- pk=jc8YIRvxPSyJaBRe5y+a4N0RXKBUEcAh8+OFhlROXPY=
+References: <20261014121414.2373985-1-ivecera@redhat.com>
+In-Reply-To: <20261014121414.2373985-1-ivecera@redhat.com>
+From: Victor Nogueira <victor@mojatatu.com>
+Date: Wed, 14 Oct 2026 18:24:05 -0300
+X-Gm-Features: AclHuK_VTAdZZkQW0BtcsHxlVRXv9pULtYyY-Xyg2W4k_wvNoU0bv1qIgpz4UTg
+Message-ID: <CA+NMeC_dh5k-WQ52q8JOqYW46=dzT5EKnwuc=kLs7Mr4g25ZuA@mail.gmail.com>
+Subject: Re: [PATCH net] selftests: tc-testing: use $IP in hfsc test 8c39 setup
+To: Ivan Vecera <ivecera@redhat.com>
+Cc: netdev@vger.kernel.org, Jamal Hadi Salim <jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>, 
+	Shuah Khan <shuah@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+	"open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-push_rt_task() selects next_task with pick_next_pushable_task().
-That helper does not return migration-disabled tasks.
+On Wed, Oct 14, 2026 at 9:14=E2=80=AFAM Ivan Vecera <ivecera@redhat.com> wr=
+ote:
+>
+> Test 8c39 brings up lo with a bare "ip" command. nsPlugin runs it as
+> "$IP netns exec <ns> ip ...", and as tdc runs commands with an empty
+> environment, "ip netns exec" searches only the default execvp() path
+> (/bin:/usr/bin). On systems that install ip only in /sbin, like Fedora,
+> the setup fails:
+>
+>   # ./tdc.py -e 8c39
+>   Test 8c39: HFSC classify walk still reaches leaf after lateral drift
+>   -----> prepare stage *** Could not execute: "ip link set lo up"
+>   -----> prepare stage *** Error message: "exec of "ip" failed: No such f=
+ile or directory
+>
+> Use $IP like all other tdc tests do.
+>
+> Fixes: 1e24c4f2ee44 ("selftests: tc-testing: add a lateral-drift hfsc cla=
+ssify-walk test")
+> Signed-off-by: Ivan Vecera <ivecera@redhat.com>
 
-The relevant path is:
-
-    push_rt_task()
-      next_task = pick_next_pushable_task()
-      is_migration_disabled(next_task)
-      find_lock_lowest_rq(next_task)
-
-Before the migration-disabled check, rq->lock is held, so the selected
-queued task cannot run and change its migration-disabled state.
-
-find_lock_lowest_rq() can temporarily drop rq->lock. If that happens,
-it rechecks is_migration_disabled(task) after reacquiring the locks and
-rejects the task if it changed state. push_rt_task() then consults
-pick_next_pushable_task() again; it either exits or retries only a task
-returned by that helper.
-
-The migration-disabled branch in push_rt_task() is therefore
-unreachable. Remove it along with the @pull argument, which exists only
-for that branch.
-
-This does not change the migration-disabled handling in pull_rt_task(),
-which uses pick_highest_pushable_task() and retains its existing
-donor-push recovery.
-
-Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
----
-Tested on 80-core SMP, non-SMT Ampere Altra system:
-
-  - Built and booted with CONFIG_IRQ_WORK=y.
-  - Ran repeated SCHED_FIFO affinity changes among CPUs 78 and 79 with
-    RT_PUSH_IPI enabled and disabled; both runs completed and cleaned
-    up all worker tasks.
-  - With RT_PUSH_IPI enabled, function tracing confirmed repeated
-    execution of rto_push_irq_work_func() via irq_work_single().
----
- kernel/sched/rt.c | 48 +++---------------------------------------------
- 1 file changed, 3 insertions(+), 45 deletions(-)
-
-diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
-index 85303add726df4c2da846c427aab2d627fca9589..f85edc6f896c72d2251b5eb59ee7ffd0e23934f5 100644
---- a/kernel/sched/rt.c
-+++ b/kernel/sched/rt.c
-@@ -1957,7 +1957,7 @@ static struct rq *find_lock_lowest_rq(struct task_struct *task, struct rq *rq)
-  * running task can migrate over to a CPU that is running a task
-  * of lesser priority.
-  */
--static int push_rt_task(struct rq *rq, bool pull)
-+static int push_rt_task(struct rq *rq)
- {
- 	struct task_struct *next_task;
- 	struct rq *lowest_rq;
-@@ -1981,48 +1981,6 @@ static int push_rt_task(struct rq *rq, bool pull)
- 		return 0;
- 	}
- 
--	if (is_migration_disabled(next_task)) {
--		struct task_struct *push_task = NULL;
--		int cpu;
--
--		if (!pull || rq->push_busy)
--			return 0;
--
--		/*
--		 * Invoking find_lowest_rq() on anything but an RT task doesn't
--		 * make sense. Per the above priority check, curr has to
--		 * be of higher priority than next_task, so no need to
--		 * reschedule when bailing out.
--		 *
--		 * Note that the stoppers are masqueraded as SCHED_FIFO
--		 * (cf. sched_set_stop_task()), so we can't rely on rt_task().
--		 */
--		if (rq->donor->sched_class != &rt_sched_class)
--			return 0;
--
--		cpu = find_lowest_rq(rq->curr);
--		if (cpu == -1 || cpu == rq->cpu)
--			return 0;
--
--		/*
--		 * Given we found a CPU with lower priority than @next_task,
--		 * therefore it should be running. However we cannot migrate it
--		 * to this other CPU, instead attempt to push the current
--		 * running task on this CPU away.
--		 */
--		push_task = get_push_task(rq);
--		if (push_task) {
--			preempt_disable();
--			raw_spin_rq_unlock(rq);
--			stop_one_cpu_nowait(rq->cpu, push_cpu_stop,
--					    push_task, &rq->push_work);
--			preempt_enable();
--			raw_spin_rq_lock(rq);
--		}
--
--		return 0;
--	}
--
- 	if (WARN_ON(next_task == rq->curr))
- 		return 0;
- 
-@@ -2078,7 +2036,7 @@ static int push_rt_task(struct rq *rq, bool pull)
- static void push_rt_tasks(struct rq *rq)
- {
- 	/* push_rt_task will return true if it moved an RT */
--	while (push_rt_task(rq, false))
-+	while (push_rt_task(rq))
- 		;
- }
- 
-@@ -2236,7 +2194,7 @@ void rto_push_irq_work_func(struct irq_work *work)
- 	 */
- 	if (has_pushable_tasks(rq)) {
- 		raw_spin_rq_lock(rq);
--		while (push_rt_task(rq, true))
-+		while (push_rt_task(rq))
- 			;
- 		raw_spin_rq_unlock(rq);
- 	}
-
----
-base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
-change-id: 20261014-sched-rt-dead-md-push-c88b47c3e2f0
-
-Best regards,
--- 
-Shubhang Kaushik (Ampere) <sh@gentwo.org>
-
+Reviewed-by: Victor Nogueira <victor@mojatatu.com>
