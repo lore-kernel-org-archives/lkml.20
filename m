@@ -1,60 +1,60 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63E482F30;
-	Wed, 14 Oct 2026 01:08:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D2692F30
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 01:08:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791940123; cv=none; b=AXxlireHeaRKtMUdEzzljdoup/f+yevdcqqcZRXwT4fdhSU2XoRy2dKt5qfSf4KlKGOW4LBsxvgOt58GO9jBGChbMXNgFO4QHnPfk8nWWS6CayPmid90f8eSs0v4rbxEKTlPqcgXGwsmAJ6fKmiNGHN6a5jZfL6iZXQnigy8Mlk=
+	t=1791940136; cv=none; b=s0Gv+bGi9EQG4pDGH0qKZztSBwTIKyIHKQgGpzrGZA27q302Axr8B0YHNDP0DxRdm+6z+rs4X5Rn+1X1oFklfssAPEvQJ6H87ZjTK+aAQ2jHmP5JxhmqYcTUYFPgGGDaIc8wv6DOqzSX4SVml8ACBhL1ICgBAEAYgFZu9+X7YBY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791940123; c=relaxed/simple;
-	bh=xe5I9USZq0NzjRBC7co1qlXZ3qQwSIdc/rSR/F1oNlQ=;
-	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=eAYYDAu4RFu8qo/k1tzccGFZ0swOUQW3oDdxIfUzkVahGxx/6toVutxC7SJlGRU4kfkRBdr3jTxORAFElNi1dp4TLAdUDTPn8RcXyFdF5LMQBzfabTKJFfss2CP6D/uYfzb/RlvvqSJU/eU2FLwQwWx6PbWTCGjaH61HwxM3Nqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M525/WwW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791940136; c=relaxed/simple;
+	bh=hBiHzxJ6AlnRntrZ6gyGz5pjOCXcH7/BAw0cNWAMAAI=;
+	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=FGAm59SYNZAbBvUA4ZnzzowIiJ2JvTayVDNEK1Q2XEilwu9/YOBkpIL+WGg3GwRJcL9J3agTQOpRiSP7c6TGFG2w7ZHlnFK8wvXyUbSKNjHCCnOKvsEFUcNQMYOs9d6avn6GSJ7jkjfFWr1vu4M5wT3S0m0NHTjJvmE/19OalFg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ld022I/N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M525/WwW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 091E21F000FF;
-	Wed, 14 Oct 2026 01:08:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ld022I/N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 458081F000FF;
+	Wed, 14 Oct 2026 01:08:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791940122;
-	bh=GRIp7KhwCAi0ClV148cvmSOD3OjIvcolOyiXiMGHIhQ=;
+	s=k20260515; t=1791940135;
+	bh=JDIjBm4G+yt/N7BcyKFeDYTq+Y9BOD3BwVaTWod/r+8=;
 	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=M525/WwWXVoqKvapIlltgdazum+HpzAarUqVCCCe9mNJP/1zLr8O6KWoIGBs2Ljl+
-	 OTutJkmou852zBRUNoJh1JJSqvoh9F3KjlgnkotqqXHokz6pI6APX2ViQILCZYUXCy
-	 Wn2nzgE7T2zJoz+ORCIkuQs5kun69woxqukr5zy62tsMeq6fbLtn3O4pFibUwBnZT4
-	 vQQEeJkaGRJA3c1KXg7HjgjrSIFmqjXq0Z3IvTzyr/E+/mg6azTvTLhCx876wllC3R
-	 5V2KhiIe58zJHDV7edVXHDU6EtsV8lJc++3JrHWG5YYvvlMjrLYYTUV2N7Ta+NlZjj
-	 YwS9Q5tX1r26Q==
+	b=Ld022I/NQDtBmMuruFrzaIPPQrwPVAqLsdSKRlGxqfGlBY40l4oJnNXQ9tEDZulNL
+	 5bwz0i4aoN4bMseH92SlH+6h96xgeaoDlvOPHdk6+k8JkVfjwPm9TTSMrBOZL9RJaM
+	 vGmm7WFbYxV02HX3a0G7tfEukRZ2O6bLpxnGbskM05JOZHq4Rvm5FLVf7gvpjRrKEu
+	 B6NDR5xRxh0HNp+9XwxanppCxIlxqqqV/mI6LBrXlIkFzVutPcXdScSQ3OJzaeMqGZ
+	 j2kJ8f7PwVOuLdPjHGHIVW7v5toQREX55OOydAovPcb/gc7LVekzEyMcPhYwm7o/aL
+	 sKLO4K99VJtgQ==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F15F739E8A57;
-	Wed, 14 Oct 2026 01:08:41 +0000 (UTC)
-Subject: Re: [GIT PULL] power-supply changes for 7.3-rc
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A4A139E8A57;
+	Wed, 14 Oct 2026 01:08:55 +0000 (UTC)
+Subject: Re: [GIT PULL] NIOS2: update for v7.4
 From: pr-tracker-bot@kernel.org
-In-Reply-To: <as7BWpR9ytU4Ihdd@venus>
-References: <as7BWpR9ytU4Ihdd@venus>
-X-PR-Tracked-List-Id: <linux-pm.vger.kernel.org>
-X-PR-Tracked-Message-Id: <as7BWpR9ytU4Ihdd@venus>
-X-PR-Tracked-Remote: https://git.kernel.org/pub/scm/linux/kernel/git/sre/linux-power-supply.git tags/for-v7.3-rc
-X-PR-Tracked-Commit-Id: 5b4bd13e0552926648a46c2c9a12a24dfaee3715
+In-Reply-To: <20261013234753.1733745-1-dinguyen@kernel.org>
+References: <20261013234753.1733745-1-dinguyen@kernel.org>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <20261013234753.1733745-1-dinguyen@kernel.org>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/dinguyen/linux.git tags/nios2_update_for_v7.4
+X-PR-Tracked-Commit-Id: b963f2345fa20417401c51a69dedb6a58eea33a9
 X-PR-Merge-Tree: torvalds/linux.git
 X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: d77bd0d469e1923e587bb919301c0bb29093e30a
-Message-Id: <179194012048.1544263.8307529566537051165.pr-tracker-bot@kernel.org>
-Date: Wed, 14 Oct 2026 01:08:40 +0000
-To: Sebastian Reichel <sre@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
+X-PR-Merge-Commit-Id: 4056b3c9d3c92ea45955641dbafeb9b960e146ef
+Message-Id: <179194013377.1544263.11239174546741299138.pr-tracker-bot@kernel.org>
+Date: Wed, 14 Oct 2026 01:08:53 +0000
+To: Dinh Nguyen <dinguyen@kernel.org>
+Cc: torvalds@linux-foundation.org, dinguyen@kernel.org, linux-kernel@vger.kernel.org
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 
-The pull request you sent on Wed, 14 Oct 2026 01:40:34 +0200:
+The pull request you sent on Tue, 13 Oct 2026 18:47:53 -0500:
 
-> https://git.kernel.org/pub/scm/linux/kernel/git/sre/linux-power-supply.git tags/for-v7.3-rc
+> git://git.kernel.org/pub/scm/linux/kernel/git/dinguyen/linux.git tags/nios2_update_for_v7.4
 
 has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/d77bd0d469e1923e587bb919301c0bb29093e30a
+https://git.kernel.org/torvalds/c/4056b3c9d3c92ea45955641dbafeb9b960e146ef
 
 Thank you!
 
