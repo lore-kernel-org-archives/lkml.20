@@ -1,190 +1,146 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E6CD539760
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:12:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791990774; cv=pass; b=MWUDLraRCY7C5ThF2+Tnb5Y9lKK4ZU1D/vUP5XdvvCr0vzT5OfIhcbvPjy5BiAojIEPWkYrhViUyTZ+UepLT/p7AbnvLxCfEt1lZN40COGpbDhwfBEcUxHTckkJpebvaVLoJNo02L04o1zepmG2F4l84p0xI30CBEmaQJYMkQuw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791990774; c=relaxed/simple;
-	bh=S5zs7o+IvJ94PTcJ859wDkqWMdgUCMYMIGrDaQPMmSA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sqhhuVjFEe3w+7fMRKYUqNaR9XyKndzO8WTV5o3UsowcXkkAE5ilrJTBaDhJBJ3DmcHVElSWBO3gI6jPcMwVgHyR4/WPAe5+FnOP1XXeif9gAKGecWVHd3N1w15qKXSmqeIFdXfJ5f2WctQNldg/oT3rvQGJuSeeV7BpZl7ZsDE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DXfwA3nj; arc=pass smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DB4A4E0212
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:13:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.146
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791990795; cv=none; b=bGejsVTUlwMIOO4yM3CukdqdltURkGS7/cu1kTvkYQPYr2U3uX4/hL2RqO3YgZ341l1586qvon0wBbAXlwpLdIfiN4VUpBRGb1xt+a6C4tFuVKmHWl3pKjKm5u8e21TatFaSJMXU8ntf8QA/kC3WdqxiXQWKoa8uD0mt574Jr1s=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791990795; c=relaxed/simple;
+	bh=G60KgCAh3+4rO87ttQo4oGU0cSK3AxlL7WM4JZKqcCA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SIT/gW4iMM7gU7WaAUthUupxD21ls/rHkUJXCy36Kw5+9EVTdVbg7nqTRIYuahY5e85fW07V0uVSdqWenGRm+S/mc6TzUloj/INGT0cHY0RSVv/KYylJMrnbKgerXcG8MmG2hbmSoYGszJSRwFKpTmTGaLQeJpdjOSZ1e2Z8Jmk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=uQta/omL; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=OxtN50Ew; arc=none smtp.client-ip=202.12.124.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DXfwA3nj"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48c4d870d54so2698140f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:12:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791990771; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PBKpi7Yc2FdQhBIx7o/xWf9Q2eJm0RVWrlW1fL3ClApRFQf3Z2RCv6um08femb2IZD
-         FDvtjETwzLFOQgru/Ey8SPiiNFMmY1IvFbkyMeEjuGKl+ACAJjJXdNE8hANR59JV+arx
-         WfNPyCYux1n6inb+9FuVYqIVGbKaDah5rGgeLr9F/q8VAxYAbEf+HIOyhF8ypYomNoLV
-         tNRm35aeCwSkMhUcSc8bSya+cBVNQjgXDjeKU7h04I7osNiDOMYzGFv1wkWEH6FrxitC
-         WSYv/fs6KRf3IDu2Sh7R1rbx658Mrhx/7LNSkfFmuLlCTp+Bcd+se8sqvbNDBaqivySH
-         BDMQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=WUSTZfpPOOhjEr0q1WimSib8kVLmZYK9NAgp2MPe0uQ=;
-        fh=y4NsRwzahSYKOU4yQX89dx7JIp25juBSaSrpoFT6VM8=;
-        b=KywhjDrHilufd++PjwBjP/IyFX+S0B5HEFFGaQoem/iodQAgLHC9CcL/27yErJ9vlm
-         bGVb/2v1efNdJuFDBK14iX//Bj3weODF8YuTPHxVKEcEwkhZmZAECkpCWZGeV4Iy4nOQ
-         lAHW9X4yZemAfu6iBTFNLlQtb8qDoaMhwewCRpkqVLRh7XFpT+Joeuy25bTnxajW3aiM
-         mOzQD/5U1CwqkEDAnXNDvpaPl2hj8+sfXabQoNOe1OH7MOg5DJ6qDx4SI2dcdTPcnIZ/
-         Cc2wmzaGNqKhrOAgoxVXpl/rXWVzNm1emx0KtbLkmEzcnYrVG3LaepbsjlsgZbUJmDnw
-         8K/Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791990771; x=1792595571; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WUSTZfpPOOhjEr0q1WimSib8kVLmZYK9NAgp2MPe0uQ=;
-        b=DXfwA3njbnanK1S+51Hx1cy4UO9CZ0e2Oa4rvzBS+JGEYkWcmjEkvDq+GR1ZTJxFG6
-         Oj0EJKJ8bqP+3ok2+Wv85blS/YJh7EES4pYWOqBVUqzyYNVE9ILJovS2AINGN+jgv5pN
-         kInj8WcsUElThf793hZrtbeANVHIhdQBFlm437b7Kj9PUPhIt+sNJktS6FYBm+YEIc+V
-         jjV9seGNTnk4gP/SHPSzhClmtYryZgyjGb83Jmyfwr/trylUPQhQxcnVZ2f1cwApss1P
-         gDGyDuuLZTuus0hnJyC5zHKL48wkJDff9u+ansoalKQRes4I/vvI82ixp54YABQmQISU
-         HTFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791990771; x=1792595571;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WUSTZfpPOOhjEr0q1WimSib8kVLmZYK9NAgp2MPe0uQ=;
-        b=JIjSZd4mbH3qRHfFkofilqwxRL5I0xZ71m/Hj4PoF2rf31xsfhesMUqUB3t4e8GIsi
-         Zwl5ltcv5Nhc0NplHTDJvKxb/b3IWlJUYORbMxTHJl4BZgCGlly8cWwgOsSFmXqm3Bj9
-         CzqduPFuZ2r8adW6nGjtFduS6nWC2HRXdpxBY20WG+jNq+fBIVWz9YlJ31+2eBHQ0SzQ
-         INz3Rfv8oTtA8BWe6EtfY0Gztu3jpb9/k+vuuhvPusHQIhPsOjXrNlwYEJLj8LirBndz
-         Ijb+4bq1uEqOhOS57uD30Ni8s6GjheOFEc5eTJ+kG+2y5+tLFtYIhkSGriRWHhOWO57t
-         f1yw==
-X-Forwarded-Encrypted: i=1; AKwUvBxYlaM762iasK4fNFJLeWUihQP6Agf5bJg3TzdxVF8cg8O6eyVhGm3+W+QENJ+7lbcHh6rHSL7nzJp9w3c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYImZXJj0KKA9SHw14v8arjlLtOxjCaCo4axD0jG9YhqKt0cjz6m
-	D70lAsV5x6b/OE7bt2gk1talY7GKpO3jq8ua+soEoxD3B99aCas7raA3lbDXR/675aT58/3p1s0
-	NovvZ8k+tyo+hhlgiYEC5jubbkIJSgwA=
-X-Gm-Gg: AYBFou0/hPr8vbskDkV9QpySSqEbmluJJdlsqU38Xb3b75TwMj6Y2aOU+ExCTHyzuSy
-	/PdVONRARQQ38uOAngu3MDq9ZJ6sShKk78z87GuAezXCxLaKn4bBXpQ+l9zJcPBaVeVCAWTQzoR
-	EeBvW4+z5DyTPF42CiUOrlRr06Socw/JHhykVn0Zzu9NOJyd12xJ+o+eUaGKYUdyQBPBnGqw0Nc
-	kcHtzPG7HANLUHLK01oIWy/GCXoKpb6VtG7lhW0MnxEkccYzYNqASzkuuI1X0qJKwDCDYuA29vL
-	dSQVQlp2Tw+Ivz0tr/9YDTEpiSsi6vJ3x+wF0yaa5OPyxGgx6TP7fTareoX/MNdzpCc4tQ8U0uN
-	g+bjfQqcenYY1xnGnueG2/KBwY5TKefKGwtpsycQ5SfoY5nTiYyvJZ3kkPuabcfphNGKaLoUuTb
-	WR6152RCCd
-X-Received: by 2002:a05:6000:2085:b0:488:7496:15b5 with SMTP id
- ffacd0b85a97d-48dbacf126amr30278767f8f.47.1791990771057; Wed, 14 Oct 2026
- 08:12:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="uQta/omL";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="OxtN50Ew"
+Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
+	by mailfout.stl.internal (Postfix) with ESMTP id BE38C1D000E9
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:13:12 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-12.internal (MEProxy); Wed, 14 Oct 2026 11:13:12 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm3; t=1791990791; x=
+	1792077191; bh=wOpUc93gFFArBoAXhaus4seduOQibJAcMCNch1pqklg=; b=u
+	Qta/omLOGimjIHUEKQwfL7ovZ1Lo4R2MfYGoNM89lkMZeWaHMKy7GL1g5UqyTjbI
+	mbo66i77QLZAfV3PpUG9ahmmUcu8KmnaxXoccU+oSWy76beQqEjtU5Ph5I+bYIyi
+	/XsLiOP+VgLb5ZDRb0KDuweDD4JEhAlN1hTqnm2Iz99/rcku+U599ErRcNi7VLJB
+	d5EhCcxfcGidc6TJf38fmp6Y2vxjz2WMRFDD1ZUuf+CP8glkRtHfIt5xkq9B8W5N
+	FlNAFLz2W9OGOCr2nEuO5bfFbbmTYQ7VuET4qkr4dICA3uIhUB+3kn5BMCr3D5xH
+	2fYfseBlR4WbAouF730eg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1791990791; x=1792077191; bh=wOpUc93gFFArBoAXhaus4seduOQibJAcMCN
+	ch1pqklg=; b=OxtN50EwzPAHLrIDo+SxTurWAKMOY2VMScylMB8tMqI8HyUuzVG
+	kZo04+Z/KnJeSZ3zklT3vpuhPha5g4GYCQG/C5T17xcl1y+Me9kxGkct0/I010KQ
+	ZJi+UAjAg4exnfGaX15qgmxBHXeIFy1Akbx/qYdd14LZv/FJMTs2RUjiViJAOFJd
+	OF7LsOWh0BRHfenivBQRo0K+8qVxQ82KWlE/F8gSQBU32V35CclON0xi9yWcTnvA
+	qaQUAuqjkeRGIuerWTUzn9DboQvbMl71xyT3EfG5LcLJExVlyA+jVKzuilKRV8pW
+	JSmoiazAIucv0nmcqcekkac+NqHOBcgRBvA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=shutemov.name a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791990791; d=shutemov.name;
+	mf=PGtpcmlsbEBzaHV0ZW1vdi5uYW1lPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:FFEKBuDxcEp/nOq7CJQ7Y5RlVhtJIhukMz2V3TzdeXrkZ/l
+	6lCK+3vktcNjt49u24JGGEVonnwFw+0pCDSszvRdpN04A8h+oI6m4zPkWWf0fpnj
+	rZemLGeAozB6WFKbmjuk/oY1SZGL27EGKKEqXqoyheJ8SPLTPPK4tmILvCOJPWWv
+	wlgCRO9Cvw6z9SEvI6shq2GDn94h+R0BQdkgpy+X70Fcg/BvHfkCdtJsPUzKHIWV
+	cauVLsR6eLzBlg/bmgdIYoruAER1Tvf/hc0i5SqioXAUotQm9I8KBc4tJ4UODl8G
+	DMVfhRCEEXsYBx7I7ZJXUkDMOFhsHlsuhtAk4fA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:l7exCgdNv9j0ZInYme449tBrkRlNDP+jpQLyBNQizzU=:G60KgCAh3+4rO87ttQo4oGU0cSK3AxlL7WM4JZKqcCA=;
+X-ME-Sender: <xms:BpzPagLxp0jZW1pc4QX2lC1ovBgjRCBisoidbAJQmyCY0Acu9v0p6A>
+    <xme:BpzPaq_7GYtVozT03T6peLWLV67rToRejqTMAdddSqANNPp-hwx_FRUtGAszqKSDs
+    aDbD4uYMQ35vzCPXCD8GDy8QXJwCfuG2TWrgm_4BbqsVw98oVxz5HQ>
+X-ME-Received: <xmr:BpzPau8vqyvIR_bktSL81eFnEAJe6HFpopdo_oLBkXN70gOaxp2Nm2GKxDQ>
+X-ME-Proxy-Cause: dmFkZTGOpaIiUCvzOKJYmWwXLjE5VgiI69sgmw5zefHn3fmXaEZm9155gUIeRoBxRHgim+
+    ixRIflW98cI4qN3hOAjoBaFOgQR1uVMYXdKZ+fm59GlcrANLb2+KrT5qejXhIsxbQBVqak
+    1xyLocSkJsK8DtQftxAbNn+72pI6QgbvPcQ7E5BcVM+MrYW/mxVTtwGxkpJBdPU9OZdPFZ
+    j7vKRWCjzBkG9w+tE20g1pFuIPAhd78DzHySseDSKBy2rIghh8NJer6mAS6Tj5c43ccszP
+    ggeSyQ7V/cdwJiI6FVREhq6feoXVDszLULow4fyrDr4sy3cFU/Ms4vtOPIs8OhElQk/sTm
+    wIfCb4Z9fF0Zvqb++fnTIbI4LSFY72L9U8H9f0eDS9isgrlxGTsieOHp8uGHXF4yZOubLv
+    NIRHaTqOdPpHbjZWewcgr4kRAZZIX/u2CQfSgLXHfT+ck/AAq3W7duqcwKIuo8gNzmbc+q
+    4x0IG+l7d+LyfQIx6LpMd9z8lsHFqaYAMZbp2OCncLW/4cUCpmh+DOWFeWqK91+U12j+qu
+    ITuE3dOOc4PqunrKwNv37D5SJpDCe76lw+pmkMj3Od2Y1zm7v8GEDpC4kQMU/aqVyHhiFe
+    oNzPBWg3oQOV6cUd5NYqJxMtjgHJq2qU38hxfrikXYACTyMHiHgCuwZb7new
+X-ME-Proxy: <xmx:BpzPas_aL-HXSm6Evglg5jCYT_Vqfbmuuym6tulxuya7o9B4bbE5sQ>
+    <xmx:BpzPahKlWfzgSXDFkUL_olfi1a6lLRK6WTW4PyP-nSUzqcKu-30-rA>
+    <xmx:BpzPapS_789xelULVYeqwXs2AfZZvE2AYwLqgJ4Iu8tjfcwmzZQXqA>
+    <xmx:BpzPai-m-KAXgGLQZ7CGnmSbNfJbNNrEFJTouUWp-_Apo5O-uFZ1gw>
+    <xmx:B5zPalhIblhyXImjNOn_4nXgCQ6sg96scz4_xXA25V2_KEep2ZytyFTS>
+Feedback-ID: ie3994620:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 14 Oct 2026 11:13:10 -0400 (EDT)
+Date: Wed, 14 Oct 2026 16:13:08 +0100
+From: Kiryl Shutsemau <kirill@shutemov.name>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	kernel-team@meta.com, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>
+Subject: Re: [PATCH v4 10/13] mm/collapse: open-code collapse_single_pmd() in
+ its two callers
+Message-ID: <as-WGjXRHws2f0z7@thinkstation>
+References: <20260928100630.21870-1-kirill@shutemov.name>
+ <20260928100630.21870-11-kirill@shutemov.name>
+ <b2133cff-ce69-4a45-bf33-c44b774dee7b@kernel.org>
+ <ar-nKHZ5hlbsXeFP@thinkstation>
+ <dfbb4bac-0def-4e1b-87a7-91c9cd91349e@kernel.org>
+ <20261013143839.832f1a4db51f801a2b95f850@linux-foundation.org>
+ <3bd88620-c245-4fab-abb7-9091d9a1b649@kernel.org>
+ <as9cHpbmDm2FzJai@thinkstation>
+ <b5b2e72e-496a-4756-bdd9-c83c78b3da89@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261009184122.1378797-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20261009184122.1378797-9-prabhakar.mahadev-lad.rj@bp.renesas.com> <as5LQ6zFzkft2zNJ@ashevche-desk.local>
-In-Reply-To: <as5LQ6zFzkft2zNJ@ashevche-desk.local>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Wed, 14 Oct 2026 16:12:24 +0100
-X-Gm-Features: AclHuK_fe1o3s5DtDV5FGIwilMVE-kQkfjxo_HHCOHYJ4usL-K9N52nyOxeW19E
-Message-ID: <CA+V-a8vV80UfHtfrxMFDk_UFH04F=evyAqTvHEMSOiRNTJd+Kw@mail.gmail.com>
-Subject: Re: [PATCH v2 8/8] iio: adc: rzt2h: Add support for RZ/V2H(P) SoC
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>, 
-	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Geert Uytterhoeven <geert+renesas@glider.be>, 
-	Magnus Damm <magnus.damm@gmail.com>, linux-iio@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Prabhakar <prabhakar.csengg+renesas@gmail.com>, 
-	Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b5b2e72e-496a-4756-bdd9-c83c78b3da89@kernel.org>
 
-Hi Andy,
+On Wed, Oct 14, 2026 at 02:37:02PM +0200, David Hildenbrand (Arm) wrote:
+> On 10/14/26 12:55, Kiryl Shutsemau wrote:
+> > On Wed, Oct 14, 2026 at 11:33:46AM +0200, David Hildenbrand (Arm) wrote:
+> >> On 10/13/26 23:38, Andrew Morton wrote:
+> >>>
+> >>>
+> >>> I've suggested to Kyril that we park this series until the next -rc
+> >>> cycle.
+> >>>
+> >>> But I can bring it back - we have a couple of weeks, three if we get a
+> >>> 3-week merge window.
+> >>
+> >> I'd say we move forward with the uncontroversial parts, and keep discussing the
+> >> controversial bits. Either these make it still in this cycle or we'll simply
+> >> have them for the next cycle.
+> > 
+> > Agreed.
+> > 
+> > Andrew, could you pick up 1-9 and leave 10-13 out for now?
+> 
+> I think #9 needs a resend, right?
 
-Thank you for the review.
+Ah, my bad will spin v5.
 
-
-On Tue, Oct 13, 2026 at 4:16=E2=80=AFPM Andy Shevchenko
-<andriy.shevchenko@intel.com> wrote:
->
-> On Fri, Oct 09, 2026 at 07:41:22PM +0100, Prabhakar wrote:
->
-> > Add support for the ADC found on the Renesas RZ/V2H(P) SoC, which share=
-s
-> > the RZ/T2H ADC IP but differs in channel count, sampling, calibration a=
-nd
-> > resolution support.
-> >
-> > The RZ/V2H(P) ADC provides 8 channels, has a fixed conversion time of
-> > 20 ADCLK cycles, does not support calibration, and supports selectable
-> > 12-bit and 8-bit conversion resolution.
->
-> ...
->
-> > +static int rzt2h_adc_write_scale(struct iio_dev *indio_dev,
-> > +                              struct iio_chan_spec const *chan,
-> > +                              int val, int val2)
-> > +{
-> > +     struct rzt2h_adc *adc =3D iio_priv(indio_dev);
-> > +     unsigned int i;
-> > +     u64 scale;
-> > +     u32 rem;
-> > +
-> > +     if (!(adc->chip_info->features & RZT2H_ADC_FEATURE_RES_SELECT))
-> > +             return -EINVAL;
-> > +
-> > +     for (i =3D 0; i < chan->num_ext_scan_type; i++) {
-> > +             scale =3D (u64)RZT2H_ADC_VREF_mV * NANO >>
-> > +                     chan->ext_scan_type[i].realbits;
-> > +             if (div_u64_rem(scale, NANO, &rem) =3D=3D val && rem =3D=
-=3D val2)
-> > +                     break;
->
-> Hmm... AFAICT we can use multiplication as the result of the division is =
-just
-> used to compare.
->
-Agreed, I will drop it.
-
-> > +     }
-> > +     if (i =3D=3D chan->num_ext_scan_type)
-> > +             return -EINVAL;
-> > +
-> > +     /* The scan type changes with the resolution. */
-> > +     IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
-> > +     if (IIO_DEV_ACQUIRE_FAILED(claim))
-> > +             return -EBUSY;
-> > +
-> > +     adc->resolution =3D i;
-> > +
-> > +     return 0;
-> > +}
->
-> ...
->
-> > +     ret =3D reset_control_assert(adc->rstc);
-> > +     if (ret)
-> > +             pwrseq_enable(adc->pwrseq);
-> >
-> > -     return reset_control_assert(adc->rstc);
-> > +     return ret;
->
-> Hmm... If it was added in the previous patches, add with unfolded check a=
-nd
-> explain in the comments that the code done this way to avoid churn in the
-> future changes.
->
-Ok while adding reset support I will check the return value to avoid this c=
-hurn.
-
-Cheers,
-Prabhakar
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
