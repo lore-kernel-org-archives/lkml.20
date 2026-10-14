@@ -1,145 +1,601 @@
-Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36D414A4EE6;
-	Wed, 14 Oct 2026 15:46:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.117.225.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76DD35616AA
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:46:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791992793; cv=none; b=I6YXjDJOu/SMMbkf1MGiQ+PyN89rryJ/bcG7A+FMsm2NV91FWJXToMJK6HxOVNRYN6i0meTDq1onyhfcr15BjWjHzXbKp/ojbuEulPaCA+XE2FRx57bQLyvgbw+Kk4jb1GEphUK9Vg3fhsGzqMLvdWJYf3oTCyEDjhKsfqhNzR4=
+	t=1791992790; cv=none; b=VCIFXf+ycfzGNKz8OlP6wCSTqsCAfDPVVlbJdOKjGcLaJP/UbxwCTvI9pdE3W0F1haPWAPQOOnvA1qiV41B9SWcKkcWpjZx8lZwtRkhd/od1C52dMJZWeZJv0KsNCwesc6vYpYYB1JLgDYAhHoz6HHO0KNoh/zsg3hdNjfijzbo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791992793; c=relaxed/simple;
-	bh=ccKR6pewzp3zZMmycW2Bk4rHSSS9C7rwMGxwqRO0ZTE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=X65U7sAbLkzQ/AaB7pakSXyVcjy920qIvLZjlnEqXKF3VuxjaMxcBQjbJDghpqYpzcRWGefInHeaFIlXOdjFniXS0i9ttXGB9w/pNKHjMG/1S0XwQ7l6OnGslhmat+VouGCvOB520SckQNOCdhH6RRA0V+1n1SE5WDKBHLAeItQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com; spf=pass smtp.mailfrom=virtuozzo.com; dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b=pyMcdMZQ; arc=none smtp.client-ip=130.117.225.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
+	s=arc-20240116; t=1791992790; c=relaxed/simple;
+	bh=EczwGj+kCfdYsTh6qMqtNLrkc5Hhe6R0nzmxiq5I/io=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=iijFk+EMuwL0m4uPsW46J+CxcqIv2HIpu3renox9KjvgY6iTibYQIACcggkxHdHR2RkQxZR+MinMsnQBGxUXix7hZ3cCYeZ74VWolvPnhY0mTGMygd/4I6nu+IycmUJ3dxYtFhAsWKZe0JcAC3bsnQaRloxyrQMafVPBGkyFqVM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BL+Vjyr6; arc=none smtp.client-ip=209.85.210.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b="pyMcdMZQ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=virtuozzo.com; s=relay; h=Message-Id:Content-Type:MIME-Version:Subject:Date
-	:From; bh=7vC0C3sp4wt6zauR/zTBNv+UfY1Rq7XzZhYx35u+Pg0=; b=pyMcdMZQB5ZqvVLfY1c
-	7rwJCGcTAyuR7AiTeZGd0MdA2aYDFZJzn58phDbodFcBKdGH7IN2YcOx3wdqcl5v26RPIOQRJk+9W
-	wdmRJF/vyDaBrq3xJRM0EjzN0coRIHYANvzMBDssbnclJzBt4qh4LA9B8GdUKXYM6PFonfPMLYXdd
-	wZZu00DxSxjZ9mCUYfoW3kg7GiCkivih1R3rIox90CkrPBOdH7kkAFvASow/eK1Jd0T76aGIHteb5
-	XSnMa3S42jsDsfOC4EyCiu1su0r/rdLS4S/NgC22IbUqLTpbtr/ZPXCK5sTWpIdaEyU1lhmwn/6nK
-	ETmdNvppmvsaPeQ==;
-Received: from ch-demo-asa.virtuozzo.com ([130.117.225.8] helo=f0.sw.ru)
-	by relay.virtuozzo.com with esmtp (Exim 4.96)
-	(envelope-from <khorenko@virtuozzo.com>)
-	id 1xH17r-006OFq-1f;
-	Wed, 14 Oct 2026 17:46:15 +0200
-From: Konstantin Khorenko <khorenko@virtuozzo.com>
-Date: Wed, 14 Oct 2026 17:46:10 +0200
-Subject: [PATCH v3 2/2] mm/huge_memory: deposit a page table for a special
- PMD copied by fork
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BL+Vjyr6"
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-885cd98d226so2018110b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:46:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791992783; x=1792597583; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Wivo9DBJtTp2ygBIwiEaGcthF7OY9JEVSGcgepraZC0=;
+        b=BL+Vjyr6ugVCm7kgtA/g4EVtB8ayHY8LFUhU8Te+SMbOISTiRKkqJTHOZ2O1D/4Z8h
+         cEf12eZz4RW5S47H8xzGu+wSC4PNeZhmbRFOdFeaQgDfxHhGjcMk4ZZBMJqkAVjL99pD
+         jSIsTS8PwBJj7DPn3fOdTK0QpSF5E9dE0ZkjdeIa+Ar+m1smIqA3ccaXjfqnmZoPSSY/
+         w3Y5eI4y/LESJ4Q0pyKwyCPlnAjMLxIlO0ITGgyXcjXYRCC+d8eXF39uuTddXsHQ2Z42
+         AdJ4qJmfM4lCXMBJpAYeMW+Ca6nBGxxpFfkqMC53Der9sEemeo16gdz4h5DYy6f6ycyX
+         FMQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791992783; x=1792597583;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Wivo9DBJtTp2ygBIwiEaGcthF7OY9JEVSGcgepraZC0=;
+        b=cYwzhzIoRo6YL22usJu0DzSxSSzHK5aLEA9HysB5qOXsok+4gX5EsEk1IhwkbrUssG
+         xFpCd3ciZlkDGEEtLMhh8vAF1eRfhe1XGxglB3zwzWtXzxnCfboam+lVVWeji+Pm9ao2
+         aYNVDkQhrka/HZ7AsQI0VPibAfrQ+A1/Vee9cJIfb7sNnrRyUlFe5r0PzRyQLgO/VGxs
+         Iymho2z2aC6pAOyCHTVCC8/6tHEGxDv1RmZQap+TssIeQDA5HcTxY+USggPq5MtAhmuo
+         dllYrYHM5Yh2ugP0cbkv9IILQItDkhv3Fy8IZ2ZLyviOJlEfI15MVpwhcWhyD8swJzP2
+         7Tlw==
+X-Forwarded-Encrypted: i=1; AKwUvBzkGIMCEww+i+qpgeYSA6P/WEgAlmhtkTQ036WsheN1HtxAdyjL3pR0bmH8JacY4gZ8QDfT2a0x7Xlo7gc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJqwalk7eCSQdzTaJEtvW2W5xmI2mGJWVAzw6bnAhPq3jjTNOuh
+	AOAIGmMfZB1OuyiaX3OfEnnHjo17mXZmu4TOJR3pdmx69XG+5Vx/ncaj
+X-Gm-Gg: AYBFou14f5q38d8SRAgedi7ZIVINCTVC5Bm1gj7weLLDLEONunjNQgARI3AW9oq+hpb
+	u4CNLy1DPxmya1mR6kOVddx8EorzDB49OWByMN/CL72uMtLkVE1c8dsm8YA92pEpPhtozXuR+jM
+	2EeKMKRBZ8y0ou2UOnmPPYYrY5Gm5q+NEN3mlz67x0w/VpvQoamZwmgp5X6Yu5qfpnvOBCov2pz
+	bTU12D/x1G6Ic2WGzEFV99+jpDHvnu8IKribtb1yg/VVn8MSZJ8crunFp5oG2uJq9QmjDPHVGXc
+	Q77oZufTSnaDen21mscqddH/ClcyMXSQV9IEp2e9ZfcCcajLgds+UwcVQrt/zx29/ziJKsfsYg0
+	2i5zK/HTS5p0zzeDdmJ9j9SeolTYPvwk9Xn7rPnu/OqGzBJqqC6nuliAnrG6GnGBztYj9xNynPb
+	vUBkfBYbGutSLORMEybVB8ceXpKN1yuYUCmnGkmGsj5cA4/K/80oaV2qNW7xqjnMYR5qABD+JD5
+	eN/
+X-Received: by 2002:a05:6a00:4f83:b0:893:a3e8:5630 with SMTP id d2e1a72fcca58-89695403746mr11656271b3a.13.1791992782427;
+        Wed, 14 Oct 2026 08:46:22 -0700 (PDT)
+Received: from localhost ([37.22.102.248])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89d80511db9sm1300598b3a.56.2026.10.14.08.46.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 08:46:21 -0700 (PDT)
+From: Vladislav Zaharov <vladazaharova2018@gmail.com>
+To: dakr@kernel.org,
+	jhubbard@nvidia.com
+Cc: acourbot@nvidia.com,
+	aliceryhl@google.com,
+	ttabi@nvidia.com,
+	gary@garyguo.net,
+	nova-gpu@lists.linux.dev,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	Vladislav Zaharov <vladazaharova2018@gmail.com>
+Subject: [PATCH v6 2/3] gpu: nova-core: gsp: retain the GSP-RM log buffers after unbind
+Date: Wed, 14 Oct 2026 22:45:53 +0700
+Message-ID: <20261014154554.231015-3-vladazaharova2018@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261014154554.231015-1-vladazaharova2018@gmail.com>
+References: <20261014154554.231015-1-vladazaharova2018@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-2-85eaec8417f6@virtuozzo.com>
-References: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-0-85eaec8417f6@virtuozzo.com>
-In-Reply-To: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-0-85eaec8417f6@virtuozzo.com>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Peter Xu <peterx@redhat.com>
-Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org, 
- =?utf-8?q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>, 
- dri-devel@lists.freedesktop.org, Madhavan Srinivasan <maddy@linux.ibm.com>, 
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
- linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, Konstantin Khorenko <khorenko@virtuozzo.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Sashiko <sashiko-bot@kernel.org>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2295;
- i=khorenko@virtuozzo.com; h=from:subject:message-id;
- bh=ccKR6pewzp3zZMmycW2Bk4rHSSS9C7rwMGxwqRO0ZTE=;
- b=owEBbQKS/ZANAwAKAVGWCkf5YVwqAcsmYgBqz6PFClTyKPLrnnz2A76nCcPaPtA7BJ8STorQS
- 2LGmEvfjtGJAjMEAAEKAB0WIQRWD23IPcXT0GO9CCxRlgpH+WFcKgUCas+jxQAKCRBRlgpH+WFc
- KiGVEACF48BxKLRtenct26B7UErEMP4cCXXKBBh2OQTdVQG/gTnTUQmsq/rRFofn4M3McyTNw82
- ySfEk1gWQrQAKYowENQdUkKwKyDbgkCZOtL5nnOp40ZO6LPu35KF7+CNCkxOzXX0ZK4KnCz1ZTl
- x8DcoUMCJPp2pneC9getMw4C6zGaSomDz7heiaT1Rjzl69SToQWP/YEjdBfkVqbepbWKDUkFdSf
- P3FiHQ+K9+uVwKO0rUM+RpUW4x6PoDxfAC9pYTYVGENU76vAHXbbQWjLLQ496MoINpTBeQ+icLy
- FodLaYFVmgD0y597BAwMwDAp/8OTUeMF46epEQ4Qg05XHsn1mWEm7qZEYY4u/vdLRdmwt6PiHRj
- TGZJnxg9ywOfkLjRQtnfTh7AQtXhed6tvMcaZ3dZqXIe9kWA3sy2puP1B/Gy8lmWRiXmYAVYY74
- 9cmCRDVPu9RcTZZrkdjaDI6kLpuntZeN0JyPiFsJNTxVpkLjCj02cZLuQTGrFJMwQhF8DNCfL3H
- gxbA1Ha344ZOgRPMoKvyFErRvSqB59yIGmamAXa8eIVTo93ZTzYGEnj5fJs6FFsO/EdoTML9NuM
- hZSVV8SY3dYfeBR/monHq2Hq0CZszYYxdozeXI6Zr8RcwERZH/RGXyPJdHgD+df7ZHvxIcRlnD3
- 9o96Qx7HyTFbI3g==
-X-Developer-Key: i=khorenko@virtuozzo.com; a=openpgp;
- fpr=560F6DC83DC5D3D063BD082C51960A47F9615C2A
+Content-Transfer-Encoding: 8bit
 
-Where arch_needs_pgtable_deposit() is true, every huge PMD needs a
-deposited page table. ppc64 in hash mode keeps the hash slot array of
-the huge page in it, so vmf_insert_pfn_pmd() deposits one for each
-special PMD it maps.
+The GSP-RM log buffers are exposed through debugfs, but the Scope that
+owns them lives in Gsp, inside GspResources, inside the Gpu built by
+probe(). They are DMA allocations of the device and cannot outlive it,
+so the entries go away as soon as the GPU is unbound - and, more to the
+point, as soon as probe() fails, which is exactly when the log of a GSP
+that did not come up is the thing one wants to read.
 
-copy_huge_pmd() copies a special PMD into the child without a table.
-The child then dereferences a NULL table:
+Add a gsp_keep_logs module parameter. When it is set, dropping the log
+buffers copies whatever the GSP wrote into memory owned by the module
+and exposes the copies until the module is unloaded. A buffer whose
+"put" pointer is still zero was never written to and is skipped.
 
-- on the first hash fault on the PMD, in __hash_page_thp();
-- on the zap at munmap() or exit, in hash__pmdp_huge_get_and_clear().
+The GSP has normally been stopped by the time the buffers are dropped,
+but a boot that timed out can leave it still appending, so a DMA read
+barrier orders the read of the "put" pointer before the copy, and that
+value, not the one the copy reads again, is what the copy keeps.
 
-Allocate a table before taking the page table locks and deposit it
-with the copy, as insert_pmd() does.
+The copies belong to the module data next to the debugfs root, and live
+in a "retained" directory created during module init rather than on
+first use, which keeps the teardown path of a device from having to
+create anything. Keeping them out of the directory used by bound GPUs
+also means a device coming back does not find its debugfs name taken by
+its own history; nouveau, which recreates the entries under the name of
+the GPU that just went away, has that problem.
 
-Fixes: d1503aa9ab805 ("powerpc/64s: Add support for huge pfnmaps")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v1-1-d225c60bc316@virtuozzo.com?part=1
-Cc: stable@vger.kernel.org
+While at it, move the log buffer code out of gsp.rs into gsp/logbuffer.rs.
+
 Assisted-by: LLM
-Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
+Signed-off-by: Vladislav Zaharov <vladazaharova2018@gmail.com>
 ---
- mm/huge_memory.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ drivers/gpu/nova-core/gsp.rs           |  92 ++-------
+ drivers/gpu/nova-core/gsp/logbuffer.rs | 255 +++++++++++++++++++++++++
+ drivers/gpu/nova-core/nova_core.rs     |  29 ++-
+ 3 files changed, 302 insertions(+), 74 deletions(-)
+ create mode 100644 drivers/gpu/nova-core/gsp/logbuffer.rs
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index bf788bb231691..2380e4e877f82 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -1961,6 +1961,11 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
- 	pmd = pmdp_get_lockless(src_pmd);
- 	if (unlikely(pmd_present(pmd) && pmd_special(pmd) &&
- 		     !is_huge_zero_pmd(pmd))) {
-+		if (arch_needs_pgtable_deposit()) {
-+			pgtable = pte_alloc_one(dst_mm);
-+			if (unlikely(!pgtable))
-+				goto out;
-+		}
- 		dst_ptl = pmd_lock(dst_mm, dst_pmd);
- 		src_ptl = pmd_lockptr(src_mm, src_pmd);
- 		spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
-@@ -1974,6 +1979,8 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
- 		if (unlikely(pmd_none(pmd))) {
- 			spin_unlock(src_ptl);
- 			spin_unlock(dst_ptl);
-+			if (pgtable)
-+				pte_free(dst_mm, pgtable);
- 			return -EAGAIN;
- 		}
- 		/*
-@@ -1983,6 +1990,10 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
- 		 * wrongly write to the backend MMIO.
- 		 */
- 		VM_WARN_ON_ONCE(vma_is_cow_mapping(src_vma) && pmd_write(pmd));
-+		if (pgtable) {
-+			mm_inc_nr_ptes(dst_mm);
-+			pgtable_trans_huge_deposit(dst_mm, dst_pmd, pgtable);
-+		}
- 		goto set_pmd;
- 	}
+diff --git a/drivers/gpu/nova-core/gsp.rs b/drivers/gpu/nova-core/gsp.rs
+index 01ed4adffe93..72752c6bd6c0 100644
+--- a/drivers/gpu/nova-core/gsp.rs
++++ b/drivers/gpu/nova-core/gsp.rs
+@@ -12,11 +12,7 @@
+         CoherentView,
+         DmaAddress, //
+     },
+-    io::{
+-        io_project,
+-        io_write,
+-        Io, //
+-    },
++    io::io_write,
+     pci,
+     prelude::*, //
+ };
+@@ -24,9 +20,13 @@
+ pub(crate) mod cmdq;
+ pub(crate) mod commands;
+ mod fw;
++mod logbuffer;
+ mod regs;
+ mod sequencer;
  
-
++use logbuffer::LogBuffers;
++pub(crate) use logbuffer::RetainedLogs;
++
+ pub(crate) use fw::{
+     GspFmcBootParams,
+     GspFwWprMeta,
+@@ -77,10 +77,6 @@ pub(crate) fn dev(&self) -> &'gpu device::Device<device::Bound> {
+     }
+ }
+ 
+-/// Number of GSP pages to use in a RM log buffer.
+-const RM_LOG_BUFFER_NUM_PAGES: usize = 0x10;
+-const LOG_BUFFER_SIZE: usize = RM_LOG_BUFFER_NUM_PAGES * GSP_PAGE_SIZE;
+-
+ /// Array of page table entries, as understood by the GSP bootloader.
+ #[repr(C)]
+ #[derive(FromBytes, IntoBytes)]
+@@ -101,49 +97,6 @@ fn init(view: CoherentView<'_, Self>, start: DmaAddress) -> Result<()> {
+     }
+ }
+ 
+-/// The logging buffers are byte queues that contain encoded printf-like
+-/// messages from GSP-RM.  They need to be decoded by a special application
+-/// that can parse the buffers.
+-///
+-/// The 'loginit' buffer contains logs from early GSP-RM init and
+-/// exception dumps.  The 'logrm' buffer contains the subsequent logs. Both are
+-/// written to directly by GSP-RM and can be any multiple of GSP_PAGE_SIZE.
+-///
+-/// The physical address map for the log buffer is stored in the buffer
+-/// itself, starting with offset 1. Offset 0 contains the "put" pointer (pp).
+-/// Initially, pp is equal to 0. If the buffer has valid logging data in it,
+-/// then pp points to index into the buffer where the next logging entry will
+-/// be written. Therefore, the logging data is valid if:
+-///   1 <= pp < sizeof(buffer)/sizeof(u64)
+-struct LogBuffer<'a>(Coherent<'a, [u8; LOG_BUFFER_SIZE]>);
+-
+-impl<'a> LogBuffer<'a> {
+-    /// Creates a new `LogBuffer` mapped on `dev`.
+-    fn new(dev: &'a device::Device<device::Bound>) -> Result<Self> {
+-        let obj = Self(Coherent::zeroed(dev, GFP_KERNEL)?);
+-
+-        let start_addr = obj.0.dma_address();
+-
+-        let pte_view = io_project!(
+-            obj.0,
+-            [build: size_of::<u64>()..][build: ..RM_LOG_BUFFER_NUM_PAGES * size_of::<u64>()]
+-        )
+-        .try_cast::<PteArray<RM_LOG_BUFFER_NUM_PAGES>>()?;
+-        PteArray::init(pte_view, start_addr)?;
+-
+-        Ok(obj)
+-    }
+-}
+-
+-struct LogBuffers<'a> {
+-    /// Init log buffer.
+-    loginit: LogBuffer<'a>,
+-    /// Interrupts log buffer.
+-    logintr: LogBuffer<'a>,
+-    /// RM log buffer.
+-    logrm: LogBuffer<'a>,
+-}
+-
+ /// GSP runtime data.
+ #[pin_data]
+ pub(crate) struct Gsp<'gsp> {
+@@ -168,9 +121,7 @@ pub(crate) fn new(
+         pin_init::pin_init_scope(move || {
+             let dev = pdev.as_ref();
+ 
+-            let loginit = LogBuffer::new(dev)?;
+-            let logintr = LogBuffer::new(dev)?;
+-            let logrm = LogBuffer::new(dev)?;
++            let log_buffers = LogBuffers::new(dev)?;
+ 
+             // Initialise the logging structures. The OpenRM equivalents are in:
+             // _kgspInitLibosLoggingStructures (allocates memory for buffers)
+@@ -185,28 +136,23 @@ pub(crate) fn new(
+                         GFP_KERNEL,
+                     )?;
+ 
+-                    libos.init_at(0, LibosMemoryRegionInitArgument::new("LOGINIT", &loginit.0))?;
+-                    libos.init_at(1, LibosMemoryRegionInitArgument::new("LOGINTR", &logintr.0))?;
+-                    libos.init_at(2, LibosMemoryRegionInitArgument::new("LOGRM", &logrm.0))?;
++                    libos.init_at(
++                        0,
++                        LibosMemoryRegionInitArgument::new("LOGINIT", &log_buffers.loginit.0),
++                    )?;
++                    libos.init_at(
++                        1,
++                        LibosMemoryRegionInitArgument::new("LOGINTR", &log_buffers.logintr.0),
++                    )?;
++                    libos.init_at(
++                        2,
++                        LibosMemoryRegionInitArgument::new("LOGRM", &log_buffers.logrm.0),
++                    )?;
+                     libos.init_at(3, LibosMemoryRegionInitArgument::new("RMARGS", rmargs))?;
+ 
+                     libos.into()
+                 },
+-                logs <- {
+-                    let log_buffers = LogBuffers {
+-                        loginit,
+-                        logintr,
+-                        logrm,
+-                    };
+-
+-                    let log_parent: &debugfs::Dir = crate::debugfs_data(dev).root();
+-
+-                    log_parent.scope(log_buffers, dev.name(), |logs, dir| {
+-                        dir.read_binary_file(c"loginit", &logs.loginit.0);
+-                        dir.read_binary_file(c"logintr", &logs.logintr.0);
+-                        dir.read_binary_file(c"logrm", &logs.logrm.0);
+-                    })
+-                },
++                logs <- log_buffers.scope(),
+             }))
+         })
+     }
+diff --git a/drivers/gpu/nova-core/gsp/logbuffer.rs b/drivers/gpu/nova-core/gsp/logbuffer.rs
+new file mode 100644
+index 000000000000..3c85d48f3942
+--- /dev/null
++++ b/drivers/gpu/nova-core/gsp/logbuffer.rs
+@@ -0,0 +1,255 @@
++// SPDX-License-Identifier: GPL-2.0
++
++//! GSP-RM log buffers, and the debugfs entries exposing them.
++
++use core::convert::Infallible;
++
++use kernel::{
++    debugfs,
++    device,
++    dma::Coherent,
++    io::{
++        io_project,
++        Io, //
++    },
++    prelude::*,
++    str::CString,
++    sync::barrier::{
++        dma_mb,
++        Read, //
++    }, //
++};
++
++use crate::gsp::{
++    PteArray,
++    GSP_PAGE_SIZE, //
++};
++
++/// Number of GSP pages to use in a RM log buffer.
++const RM_LOG_BUFFER_NUM_PAGES: usize = 0x10;
++const LOG_BUFFER_SIZE: usize = RM_LOG_BUFFER_NUM_PAGES * GSP_PAGE_SIZE;
++
++/// The logging buffers are byte queues that contain encoded printf-like
++/// messages from GSP-RM.  They need to be decoded by a special application
++/// that can parse the buffers.
++///
++/// The 'loginit' buffer contains logs from early GSP-RM init and
++/// exception dumps.  The 'logrm' buffer contains the subsequent logs. Both are
++/// written to directly by GSP-RM and can be any multiple of GSP_PAGE_SIZE.
++///
++/// The physical address map for the log buffer is stored in the buffer
++/// itself, starting with offset 1. Offset 0 contains the "put" pointer (pp).
++/// Initially, pp is equal to 0. If the buffer has valid logging data in it,
++/// then pp points to index into the buffer where the next logging entry will
++/// be written. Therefore, the logging data is valid if:
++///   1 <= pp < sizeof(buffer)/sizeof(u64)
++pub(super) struct LogBuffer<'a>(pub(super) Coherent<'a, [u8; LOG_BUFFER_SIZE]>);
++
++impl<'a> LogBuffer<'a> {
++    /// Creates a new `LogBuffer` mapped on `dev`.
++    fn new(dev: &'a device::Device<device::Bound>) -> Result<Self> {
++        let obj = Self(Coherent::zeroed(dev, GFP_KERNEL)?);
++
++        let start_addr = obj.0.dma_address();
++
++        let pte_view = io_project!(
++            obj.0,
++            [build: size_of::<u64>()..][build: ..RM_LOG_BUFFER_NUM_PAGES * size_of::<u64>()]
++        )
++        .try_cast::<PteArray<RM_LOG_BUFFER_NUM_PAGES>>()?;
++        PteArray::init(pte_view, start_addr)?;
++
++        Ok(obj)
++    }
++
++    /// Copies the contents of this buffer into memory that does not belong to the device.
++    ///
++    /// A buffer the GSP never wrote to yields an empty vector, as it holds nothing worth keeping.
++    fn snapshot(&self) -> Result<VVec<u8>> {
++        // Offset 0 holds the "put" pointer, which the GSP advances as it appends entries. It is
++        // still zero if nothing was ever logged, which is all that is tested here: a buffer that
++        // was written to is copied whole, and making sense of "put" is left to the decoder.
++        let put = io_project!(self.0, [build: ..size_of::<u64>()])
++            .try_cast::<u64>()?
++            .read_val();
++        if put == 0 {
++            return Ok(VVec::new());
++        }
++
++        // ORDERING: LOAD->LOAD ordering needed to order the "put" read before the data read. The
++        // GSP has normally been stopped by the time this runs, but a boot that timed out can leave
++        // it still appending.
++        dma_mb(Read);
++
++        let mut snapshot = VVec::zeroed(LOG_BUFFER_SIZE, GFP_KERNEL)?;
++        io_project!(self.0, [build: ..]).copy_to_slice(&mut snapshot);
++
++        // The copy read "put" once more, and nothing orders that read against the rest of it, so
++        // it may be newer than the data next to it. Keep the value read before the barrier, which
++        // the data is at least as new as. Nothing done here can help a GSP that is still running
++        // and wraps around over the oldest entries while they are copied; only stopping it could.
++        snapshot[..size_of::<u64>()].copy_from_slice(&put.to_ne_bytes());
++
++        Ok(snapshot)
++    }
++}
++
++/// The log buffers of a GPU, for as long as it is bound to the driver.
++pub(super) struct LogBuffers<'a> {
++    /// Device the buffers belong to. Also names their debugfs directory.
++    dev: &'a device::Device<device::Bound>,
++    /// Init log buffer.
++    pub(super) loginit: LogBuffer<'a>,
++    /// Interrupts log buffer.
++    pub(super) logintr: LogBuffer<'a>,
++    /// RM log buffer.
++    pub(super) logrm: LogBuffer<'a>,
++}
++
++impl<'a> LogBuffers<'a> {
++    /// Allocates the three log buffers of `dev`.
++    pub(super) fn new(dev: &'a device::Device<device::Bound>) -> Result<Self> {
++        Ok(Self {
++            dev,
++            loginit: LogBuffer::new(dev)?,
++            logintr: LogBuffer::new(dev)?,
++            logrm: LogBuffer::new(dev)?,
++        })
++    }
++
++    /// Creates an initializer exposing these buffers under a directory named after their device.
++    pub(super) fn scope(self) -> impl PinInit<debugfs::Scope<Self>, Infallible> + 'a {
++        let dev = self.dev;
++
++        let log_parent: &debugfs::Dir = crate::debugfs_data(dev).root();
++
++        log_parent.scope(self, dev.name(), |logs, dir| {
++            dir.read_binary_file(c"loginit", &logs.loginit.0);
++            dir.read_binary_file(c"logintr", &logs.logintr.0);
++            dir.read_binary_file(c"logrm", &logs.logrm.0);
++        })
++    }
++
++    /// Preserves whatever the GSP logged, so it can still be read once the GPU is gone.
++    ///
++    /// The buffers are DMA allocations of the device and cannot outlive it, so their contents are
++    /// copied into memory owned by the module and exposed through fresh debugfs entries. Those
++    /// live until the module is unloaded.
++    ///
++    /// Does nothing if `gsp_keep_logs` was not set when the module was loaded, as there is then
++    /// no directory to put the copies in.
++    fn retain(&self) -> Result {
++        let data = crate::debugfs_data(self.dev);
++
++        // The directory is taken here and the lock dropped again right away: what follows
++        // allocates 64 KiB three times, and no other device should have to wait for that.
++        let Some(dir) = data.retained_logs().lock().dir.clone() else {
++            return Ok(());
++        };
++
++        let logs = RetainedLogBuffers {
++            name: CString::try_from_fmt(fmt!("{}", self.dev.name()))?,
++            loginit: self.loginit.snapshot()?,
++            logintr: self.logintr.snapshot()?,
++            logrm: self.logrm.snapshot()?,
++        };
++
++        // Nothing was ever logged, so there is nothing to keep. A copy from an earlier run of
++        // this device is deliberately left alone: logs from a run that failed are worth more
++        // than the silence of one that did not. A run that did log something does replace it,
++        // even where what it replaces came from a run that failed: nothing here can tell the two
++        // apart, and keeping the older copy would mean never seeing anything newer.
++        if logs.loginit.is_empty() && logs.logintr.is_empty() && logs.logrm.is_empty() {
++            return Ok(());
++        }
++
++        // Make every allocation of our own that can fail before the previous copy of this device
++        // is dropped, so that none of them failing can leave it with no logs at all.
++        let scope = KBox::<debugfs::Scope<RetainedLogBuffers>>::new_uninit(GFP_KERNEL)?;
++
++        let mut retained = data.retained_logs().lock();
++
++        retained.gpus.reserve(1, GFP_KERNEL)?;
++
++        // An earlier run of the same device may have left a copy behind, and its directory
++        // carries the name about to be used again, so it has to go first. Nothing below can
++        // fail, so the replacement is guaranteed to take its place.
++        retained.gpus.retain(|gpu| *gpu.name != *logs.name);
++
++        let scope = scope.write_pin_init(dir.scope(logs, self.dev.name(), |logs, dir| {
++            if !logs.loginit.is_empty() {
++                dir.read_binary_file(c"loginit", &logs.loginit);
++            }
++            if !logs.logintr.is_empty() {
++                dir.read_binary_file(c"logintr", &logs.logintr);
++            }
++            if !logs.logrm.is_empty() {
++                dir.read_binary_file(c"logrm", &logs.logrm);
++            }
++        }))?;
++
++        retained.gpus.push(scope, GFP_KERNEL)?;
++
++        dev_dbg!(self.dev, "GSP-RM log buffers retained\n");
++
++        Ok(())
++    }
++}
++
++impl Drop for LogBuffers<'_> {
++    fn drop(&mut self) {
++        if let Err(e) = self.retain() {
++            dev_warn!(self.dev, "failed to retain GSP-RM log buffers: {:?}\n", e);
++        }
++    }
++}
++
++/// Copies of the log buffers of a GPU that is no longer around.
++struct RetainedLogBuffers {
++    /// Name of the device the buffers came from, which also names their directory.
++    ///
++    /// A copy rather than a reference to the device, so that a GPU that is gone does not stay
++    /// allocated for as long as its logs are kept.
++    name: CString,
++    /// Contents of the init log buffer, empty if it was never written to.
++    loginit: VVec<u8>,
++    /// Contents of the interrupts log buffer, empty if it was never written to.
++    logintr: VVec<u8>,
++    /// Contents of the RM log buffer, empty if it was never written to.
++    logrm: VVec<u8>,
++}
++
++/// Log buffers of GPUs that are gone, and the debugfs entries exposing them.
++///
++/// The copies live under a `retained` directory of their own instead of next to the entries of
++/// the GPUs that are actually bound, so that a device coming back does not find its name taken.
++pub(crate) struct RetainedLogs {
++    /// One entry per GPU.
++    ///
++    /// Declared before `dir`, as the copies live below it.
++    gpus: KVec<Pin<KBox<debugfs::Scope<RetainedLogBuffers>>>>,
++    /// Parent directory of all copies. `None` unless retaining was asked for.
++    dir: Option<debugfs::Dir>,
++}
++
++impl RetainedLogs {
++    /// Creates an empty set of retained log buffers, retaining disabled.
++    pub(crate) const fn new() -> Self {
++        Self {
++            gpus: KVec::new(),
++            dir: None,
++        }
++    }
++
++    /// Creates the directory the copies will live in, enabling retaining.
++    ///
++    /// Does nothing without `CONFIG_DEBUG_FS`, where a [`debugfs::Dir`] is a zero-sized type and
++    /// the copies could never be read back.
++    pub(crate) fn enable(&mut self, parent: &debugfs::Dir) {
++        if !cfg!(CONFIG_DEBUG_FS) {
++            return;
++        }
++
++        self.dir = Some(parent.subdir(c"retained"));
++    }
++}
+diff --git a/drivers/gpu/nova-core/nova_core.rs b/drivers/gpu/nova-core/nova_core.rs
+index ee3a6600f320..62684631c7fc 100644
+--- a/drivers/gpu/nova-core/nova_core.rs
++++ b/drivers/gpu/nova-core/nova_core.rs
+@@ -8,6 +8,7 @@
+     driver::Registration,
+     pci,
+     prelude::*,
++    sync::Mutex,
+     InPlaceModule, //
+ };
+ 
+@@ -49,6 +50,11 @@
+ /// Reached from a device through [`debugfs_data()`].
+ #[pin_data]
+ pub(crate) struct DebugfsData {
++    /// Copies of the log buffers of GPUs that are gone.
++    ///
++    /// Declared before `root`, as the copies live below it.
++    #[pin]
++    retained_logs: Mutex<gsp::RetainedLogs>,
+     /// Root directory of the driver in debugfs.
+     root: debugfs::Dir,
+ }
+@@ -56,8 +62,18 @@ pub(crate) struct DebugfsData {
+ impl DebugfsData {
+     /// Creates the shared data.
+     fn new() -> impl PinInit<Self> {
++        let root = debugfs::Dir::new(c"nova-core");
++
++        // Deciding here, rather than when the first GPU goes away, keeps the teardown path of a
++        // device from having to create anything.
++        let mut retained_logs = gsp::RetainedLogs::new();
++        if module_parameters::gsp_keep_logs.value() {
++            retained_logs.enable(&root);
++        }
++
+         pin_init!(Self {
+-            root: debugfs::Dir::new(c"nova-core"),
++            retained_logs <- kernel::new_mutex!(retained_logs),
++            root,
+         })
+     }
+ 
+@@ -65,6 +81,11 @@ fn new() -> impl PinInit<Self> {
+     pub(crate) fn root(&self) -> &debugfs::Dir {
+         &self.root
+     }
++
++    /// Returns the copies of the log buffers of GPUs that are gone.
++    pub(crate) fn retained_logs(&self) -> &Mutex<gsp::RetainedLogs> {
++        &self.retained_logs
++    }
+ }
+ 
+ /// Returns the data the module shares with its devices.
+@@ -113,6 +134,12 @@ fn init(module: &'static kernel::ThisModule) -> impl PinInit<Self, Error> {
+     description: "Nova Core GPU driver",
+     license: "GPL v2",
+     firmware: [],
++    params: {
++        gsp_keep_logs: bool {
++            default: false,
++            description: "Keep the GSP-RM log buffers in debugfs after their GPU is gone",
++        },
++    },
+ }
+ 
+ kernel::module_firmware!(firmware::ModInfoBuilder);
 -- 
-2.43.0
+2.56.0
 
