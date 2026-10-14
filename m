@@ -1,91 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A9FA44A409;
-	Wed, 14 Oct 2026 07:28:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DE0A484251;
+	Wed, 14 Oct 2026 07:28:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791962882; cv=none; b=mlLdxW1wTe0pbg4iErzXwa9fWMI+57ABWXlY+mAO36Hvb/bbjHf6ZN163U0XNK35DqNb27LubYxQlM3akls6Bl3whrhYK800pdule0S8JNkd9i6WFUmHDxrFnqubOslSDkg3XeWS5aMAbZGoqLyF/D1OQRd8kRUEmPyuTTdnE94=
+	t=1791962898; cv=none; b=ORqoFNsPhl/v5Be+a1of0w6azLA8JNXkiTumTTEYPsORN0ZSq/GGT7Hn5jMDmI96z8BlfRJoG3eaN2qwu9rGaOkO6Zuc9zILbglKt2Fj9AazB1glmGx+k+xANU6W+KQP3R65qXa89bOe0DMb+/RMesVZNFzz/56pw49+Xrdheuo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791962882; c=relaxed/simple;
-	bh=n3FTo4mK9R/lIGl5C3jeelRqRYzuENdY8tuLlXHAZOc=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=vB1QUnbUz+uO1ZfC5JjNmqGHv+KyNqqf03s4gSdYZICfEx0VBBdmv6YsQJIv2+Ek3R+2k9J69KA3FapiX8kjG4xtQ654n4KBq1WhxUuyqnREsPdtSz1w8TJ9KJgVKzR4u3McqS8iZbIe1V3Libqn4j8dW3nyR93G+aFWv299zx8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD0AA1F000FF;
-	Wed, 14 Oct 2026 07:27:55 +0000 (UTC)
+	s=arc-20240116; t=1791962898; c=relaxed/simple;
+	bh=VRJm0GX5gGNZeeJU6SH/WjPWrGtrvWc6z4YP4cWfhsA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bV9kMZvONpnnUINKXVkwbp4P3KgmTesV0TzqOo/dw/ysl2enHvnpPEnO9QMHYALMf+ujfaEnIUV8vaSlN98scBrMnvmv8BCzdBg9vl3vh4N2C0OPIwSZXJvdkjvCgqyNwu5NzDyHONplyGALpDxAMgkX9VM0KzSujJKQS7V/XXY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PaKKFrV9; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PaKKFrV9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791962896; x=1823498896;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=VRJm0GX5gGNZeeJU6SH/WjPWrGtrvWc6z4YP4cWfhsA=;
+  b=PaKKFrV9bkB0B5ZFNNWzQ9dtgDz/dd2Ccevjaf308b/RzFjUUoO6IPsk
+   wPRPVAvQNUkVKMEN63aaFmQPBmFIc+/UmrIDdfqkkxgHLEyz5+OUhnr9Q
+   NF1k+q8mvtQoSvn1HSHQr9mXFQznbJX90f3QOpRdD9fHthAkoDRUPrYpr
+   XaDV4tGyPMtl1XfHes5WnvKAGyTHGJ5utqX/uuYelGFxyUkym/P3P1Hi7
+   fCsO0HG7DXTnWJbTMn0OFZ47NJBaj/enbPE0ZA/WlLmZB5S0sZU4cTe5g
+   Hd/QJBHRTM+RJOnwSlfpLdMTXhytYHD8Uhwt7HGHjAQejdP75SJgOMZDg
+   w==;
+X-CSE-ConnectionGUID: mLIbrJVyT4ywE010VQqlAg==
+X-CSE-MsgGUID: rQPGf1gPSc2ftUrwtEtNbQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="586671"
+X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
+   d="scan'208";a="586671"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 00:28:15 -0700
+X-CSE-ConnectionGUID: WBidRpaJQ2axOUOeUS4+qw==
+X-CSE-MsgGUID: ExeeW0IvQZSpgMeP60pB/w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
+   d="scan'208";a="1817895"
+Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
+  by fmviesa010.fm.intel.com with ESMTP; 14 Oct 2026 00:28:11 -0700
+Date: Wed, 14 Oct 2026 15:24:10 +0800
+From: Xu Yilun <yilun.xu@linux.intel.com>
+To: Chao Gao <chao.gao@intel.com>
+Cc: linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev,
+	kvm@vger.kernel.org, binbin.wu@linux.intel.com,
+	tony.lindgren@linux.intel.com, rick.p.edgecombe@intel.com,
+	nik.borisov@suse.com, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>
+Subject: Re: [PATCH v4 01/10] x86/virt/tdx: Add a helper to read a table of
+ metadata fields
+Message-ID: <as8uGpCMhxEvQZm+@yilunxu-OptiPlex-7050>
+References: <20261012094754.27702-1-chao.gao@intel.com>
+ <20261012094754.27702-2-chao.gao@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v2] PCI: rockchip: Skip the Tpvperl wait when power is
- already valid
-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-To: =?utf-8?q?Enrique_Hern=C3=A1ndez_Bello?= <ehbello@gmail.com>
-Cc: shawn.lin@rock-chips.com, lpieralisi@kernel.org, kwilczynski@kernel.org, 
- mani@kernel.org, bhelgaas@google.com, robh@kernel.org, heiko@sntech.de, 
- dlemoal@kernel.org, linux-pci@vger.kernel.org, 
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20260911211559.207990-1-ehbello@gmail.com>
-References: <20260911211559.207990-1-ehbello@gmail.com>
-Date: Wed, 14 Oct 2026 12:57:47 +0530
-Message-Id: <179196286749.38040.5597453767131590054.b4-reply@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2102;
- i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
- bh=n3FTo4mK9R/lIGl5C3jeelRqRYzuENdY8tuLlXHAZOc=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBqzy72A6EYqXUa8oem4GQlieL7BdAjqrbq/LHus
- 95HXXNGgXqJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCas8u9gAKCRBVnxHm/pHO
- 9VzpB/9GLv7F5DEMWwQ3WZjJLu4Q7SDngruevsqLwGdrOGO7UOVSUAgVdr7yQ57EUHYIaeZF5jp
- Pl/kg+HBvpSxkjLex1X5MQSkf2u1VGWSk0SZT/0DsNYYQzNE/9oBlSZLEzdCZJeu/+/OyRl6Xyk
- LCuLsMqwOy+cVpFLHNsNLqxRjcnKBlDyVo+76vBGsF/woWmS9WeFOWS/I9RYFhJ5M2Qjrx0zJEu
- 4UGxgjsyHy9OhBypKbC/c+0i59rAqfwMZn4NxjTHpwQEkQW1zgafnsKHcXnSdc2zrYqzVA3jBv5
- CkBZWRKvHxzrhppg5Wu6eG3LH4WUTlgxkkBZoiHvsH+0v0CG
-X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
- fpr=C668AEC3C3188E4C611465E7488550E901166008
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012094754.27702-2-chao.gao@intel.com>
 
-On 2026-09-11 22:15 +0100, Enrique Hernández Bello wrote:
-> Since commit c47f90be4c89 ("PCI: rockchip-host: Fix
-> rockchip_pcie_host_init_port() PERST# handling"), a JMicron JMB585
-> behind an rk3399 root port almost never becomes usable: the link trains
-> normally, but the endpoint's configuration space never answers, so the
-> device is not enumerated. On this controller a configuration read that
-> gets no usable completion is reported as an external abort rather than
-> as an all-ones response, which on arm64 brings the machine down.
+On Mon, Oct 12, 2026 at 02:47:28AM -0700, Chao Gao wrote:
+> The metadata field readers get_tdx_sys_info_<class>() in
+> tdx_global_metadata.c were generated by an out-of-tree script. That has
+> not worked out: the JSON file they were generated from is neither stable
+> nor authoritative enough [1].  The goal now is to maintain the readers by
+> hand and to establish one standard way of adding a metadata field.
 > 
-> The change added an unconditional 100 ms sleep so that PERST# stays
-> asserted for at least Tpvperl after power becomes valid. The wait is
-> performed while PERST# is asserted, so it also extends the reset by
-> 100 ms, and this endpoint does not tolerate the longer assertion.
+> Take get_tdx_sys_info_version() as an example:
 > 
-
-This is hard to believe. First of all, Tpvperl is the min time specified by the
-CEM spec to allow the power to be stable, not the max. Even if the bootloader
-has already enabled the power supply during boot, it would've taken several
-seconds for the kernel driver to probe and execute this delay of 100ms. But
-claiming that the Endpoint doesn't tolerate this 100ms delay, but still several
-seconds of the boot delay is quite hard to believe.
-
-Maybe the issue is with the delay between PERST# assert and deassert? Is the
-PERST# signal polarity on the board DTS correct? We used to see Endpoint
-firmware crashes when the polarity was incorrect and the Endpoint got confused
-with incorrect PERST# sequence.
-
-> Tpvperl is counted from the supplies becoming valid (PCIe CEM r5.1,
-> sec 2.9.2). On boards whose PCIe supplies are always-on -- vcc3v3_pcie
-> on ROCK Pi 4 is regulator-always-on and regulator-boot-on -- power has
-> been valid since boot, seconds before the driver probes, so the
-> requirement is already met and the sleep only lengthens the reset.
+>       if (!ret && !(ret = read_sys_metadata_field(0x0800000100000003, &val)))
+>               sysinfo_version->minor_version = val;
+>       if (!ret && !(ret = read_sys_metadata_field(0x0800000100000004, &val)))
+>               sysinfo_version->major_version = val;
+>       if (!ret && !(ret = read_sys_metadata_field(0x0800000100000005, &val)))
+>               sysinfo_version->update_version = val;
 > 
+> Two patterns stand out: the read-check-store sequence repeats once per
+> field, and the error of each read is chained into the reads that follow.
+> Neither is common in hand-written code.
+> 
+> Prepare to eliminate both with a loop that reads each field, stores the
+> value into its structure member, and returns on the first error.
+> 
+> Add 'struct field_mapping' to describe one field as its ID plus the offset
+> and size of the member that receives its value. Add FIELD_MAP() to
+> build such an entry from a field ID, a structure type and a member name.
+> Add __read_sys_metadata_table() helper to read every field in a table.
+> Annotate that helper __maybe_unused as there is no caller right now.
+> 
+> Following changes will convert the existing readers to use the new helper.
+> 
+> AI was used under supervision to review code and workshop logs. It
+> suggested adding read_sys_metadata_table() macro, which avoids repeating
+> the table name when passing both the table and its size.
+> 
+> Signed-off-by: Chao Gao <chao.gao@intel.com>
+> Reviewed-by: Nikolay Borisov <nik.borisov@suse.com>
+> Reviewed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
+> Link: https://lore.kernel.org/kvm/1e7bcbad-eb26-44b7-97ca-88ab53467212@intel.com/ # [1]
 
-I do agree that the Tpvperl delay is *redundant* if the supplies are already
-enabled by the bootloader. But I do not agree that it causes the Endpoint to not
-respond.
-
-- Mani
-
+Reviewed-by: Xu Yilun <yilun.xu@linux.intel.com>
