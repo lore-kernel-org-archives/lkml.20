@@ -1,46 +1,43 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EF1E3C5857;
-	Wed, 14 Oct 2026 03:25:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CFC63CBE69;
+	Wed, 14 Oct 2026 03:25:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791948333; cv=none; b=vAWfWU8+CaOYvIOV2VgExu+siVCjdyVdqLA2cD34S8xjg3z1e4bbKSWQZQQuS3bcbVKlT+/uqzcqF/XR/J8bRuE9kBrIXUITp7G8JkCkF5t5e9np+yaA9yJZVqgPRrK8i2jtzEhsCEEMotDL7tjnqI1xrYFP9mXqo4/NfABnWK8=
+	t=1791948334; cv=none; b=hYxp+JZZbQktGYh7SbZb+qBtxWPowPmY2juLVrtVSDRfoqkqUlAX5eM2xGe8/bRwgTRK1k2FlIK8EAkdwFKIHpKdSPAZRJst8UMl3Ku0FHzhWpqwy4VTK5Jwd0OtMmhlhLx1i/7ZG3/GraBhKuF9YQY/qdjkaI+CK7hXuWVyBZo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791948333; c=relaxed/simple;
-	bh=fw5lB2sgYxZgdLlQFDwjQeBXVp7tJFOURK6CCOvlzxw=;
+	s=arc-20240116; t=1791948334; c=relaxed/simple;
+	bh=ii4rs8V31yagis8aH+QIQYzb0cVHUCcUYXX5IVB2pFk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=a0y/pcwVPyrs3tQE3ajzNDkruNRf3U3QlceQlJC8t06buEpYaqdO9PieMs/hxFEK1GMn+vtowF2oRfcbvafa0N7aVOzguoNLROXGxZzAMD831Wy+GmmIs+jreKWbSWXgP8w7bHJs2DBzD+QglXllLy70yhP8+1Nd8pAXSNnHMRA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=RYJdVxtn; arc=none smtp.client-ip=220.197.31.5
+	 MIME-Version; b=rhOXSH7dMcmZZwPsN3+O7qE0h+iW8ySsnzgEHj1vhB+Hn3eGVYDZLNCXohExL2arjHLS/wK/8Fggzid1FYZnO9pXognz9pXmD30xK113YPaXVA/T212DLlF7oxSwcsm797Fnvaakg4l2ei1+anwbkUDZWoV3e93BpzUwVc+vBt0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=OsbbQWXI; arc=none smtp.client-ip=220.197.31.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="RYJdVxtn"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="OsbbQWXI"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Vj
-	aOfUXLUmCqR08z3V3xlnlFVncViHQcbCDJvc5knMw=; b=RYJdVxtnQoJDWIAhKj
-	ex3o75fQz2hw32V5iw4y3PsG0QUoWDwS6Rkq4B8yJpP9iPymMnfac3wsvrqLaIZU
-	o1xbiWnA6XDJleuBlvVHVQv6zapenHQDgr865pAXpuX+UJOnWLYZX1cpHhucTjCI
-	3hw9NwS1SBOAUYpyfvL0D4buE=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Bf
+	ux+4l8p40RchJYJaFqlL8xY7IaMkk15hiYRud+k+I=; b=OsbbQWXIqtHJrD8X9m
+	or819rl6n944zDuugnJ7QZ/h4D4ZYVacx5M6EMypuoDA2m2x/gcodj8sXYgHMOUi
+	HCUhHJznxeJGj97jBKb9opxyPes4OH8ExCOQkNKus9kMZJKNklviIxnbTA7zids5
+	FZWiTm1IPUpzRZ1w8Vl0Mh708=
 Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD3v88G9s5quKBFEQ--.27196S6;
-	Wed, 14 Oct 2026 11:24:57 +0800 (CST)
+	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD3v88G9s5quKBFEQ--.27196S3;
+	Wed, 14 Oct 2026 11:24:56 +0800 (CST)
 From: Pengpeng Hou <hppiscas@163.com>
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>
 Cc: Pengpeng Hou <hppiscas@163.com>,
-	Oder Chiou <oder_chiou@realtek.com>,
 	Jaroslav Kysela <perex@perex.cz>,
 	Takashi Iwai <tiwai@suse.com>,
-	Jack Yu <jack.yu@realtek.com>,
-	Bard Liao <bardliao@realtek.com>,
-	John Lin <john.lin@realtek.com>,
+	Seven Lee <wtli@nuvoton.com>,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Charles Keepax <ckeepax@opensource.cirrus.com>
-Subject: [PATCH v2 4/9] ASoC: rt5663: restore safe state after resume errors
-Date: Wed, 14 Oct 2026 11:24:47 +0800
-Message-ID: <20261014032452.13456-5-hppiscas@163.com>
+Subject: [PATCH v2 1/9] ASoC: nau8821: restore safe state after resume errors
+Date: Wed, 14 Oct 2026 11:24:44 +0800
+Message-ID: <20261014032452.13456-2-hppiscas@163.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20261014032452.13456-1-hppiscas@163.com>
 References: <20261014032452.13456-1-hppiscas@163.com>
@@ -51,19 +48,18 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3v88G9s5quKBFEQ--.27196S6
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZw15Aw4xCF45Gw4rGrW3ZFb_yoW5Ww13pF
-	ZIgFZYyw1xXr4I9FZ0yr48ZF1rCrWxKayFy3y7K342y343Jr1xur1rtF12va4qqrW5Jrnr
-	Zr40q34kWF1rGaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pirMaOUUUUU=
-X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbC7QoO1mrO9grDKQAA3N
+X-CM-TRANSID:_____wD3v88G9s5quKBFEQ--.27196S3
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZw15Aw45ZFy8tr48KFWrGrg_yoW5ZF13pr
+	ZagrWvq3yIqa1avryFyr18XFnYkrWfKF45A39xK3y7Aw15CryrurykJr17ZF4UtrW8GF9r
+	Xr42q3y8GFy5Ja7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pi5EfwUUUUU=
+X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbC7ggO1mrO9gi51gAA3L
 
-rt5663_resume() ignores regcache_sync() failure before continuing
+nau8821_resume() ignores regcache_sync() failure before continuing
 dependent resume operations. Restore cache-only mode, leave the cache
 dirty, and return the replay error before those operations.
 
-Do not schedule jack-detection work or enable its IRQ after a failed
-replay.
+Leave jack-detection IRQs disabled after a failed replay.
 
 ASoC still marks the component resumed when the callback reports failure.
 Track the suspend-owned IRQ disable so another suspend does not increment
@@ -73,7 +69,7 @@ change the framework's best-effort card resume policy.
 
 The issue was found by our static-analysis tool and manually reviewed.
 
-Fixes: df7c52168ee1 ("ASoC: add rt5663 codec driver")
+Fixes: aab1ad11d69f ("ASoC: nau8821: new driver")
 Assisted-by: gpt 5
 Signed-off-by: Pengpeng Hou <hppiscas@163.com>
 ---
@@ -85,58 +81,60 @@ Changes since v1:
 Previous series:
 https://lore.kernel.org/all/20260906034321.86080-1-hppiscas@163.com/
 
- sound/soc/codecs/rt5663.c |   17 ++++++++++++++---
- 1 file changed, 14 insertions(+), 3 deletions(-)
+ sound/soc/codecs/nau8821.c |   16 +++++++++++++---
+ sound/soc/codecs/nau8821.h |    1 +
+ 2 files changed, 14 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/codecs/rt5663.c b/sound/soc/codecs/rt5663.c
-index ec46e6180cc0ee9fd66df0174bf0d0ac8022dc45..bd6a8e98bf44445e91edf81896f526a180df083f 100644
---- a/sound/soc/codecs/rt5663.c
-+++ b/sound/soc/codecs/rt5663.c
-@@ -75,6 +75,7 @@ struct rt5663_priv {
- 
- 	int jack_type;
- 	unsigned int irq;
-+	bool suspend_irq_disabled;
- };
- 
- static const struct reg_sequence rt5663_patch_list[] = {
-@@ -3187,8 +3188,10 @@ static int rt5663_suspend(struct snd_soc_component *component)
+diff --git a/sound/soc/codecs/nau8821.c b/sound/soc/codecs/nau8821.c
+index ecadbaee103798466755e2fbc2f3843f6ad2c05e..41c4cf947999020246e6431cf24c8527c7f6319a 100644
+--- a/sound/soc/codecs/nau8821.c
++++ b/sound/soc/codecs/nau8821.c
+@@ -1620,8 +1620,10 @@ static int __maybe_unused nau8821_suspend(struct snd_soc_component *component)
  {
- 	struct rt5663_priv *rt5663 = snd_soc_component_get_drvdata(component);
+ 	struct nau8821 *nau8821 = snd_soc_component_get_drvdata(component);
  
--	if (rt5663->irq)
-+	if (rt5663->irq && !rt5663->suspend_irq_disabled) {
- 		disable_irq(rt5663->irq);
-+		rt5663->suspend_irq_disabled = true;
+-	if (nau8821->irq)
++	if (nau8821->irq && !nau8821->suspend_irq_disabled) {
+ 		disable_irq(nau8821->irq);
++		nau8821->suspend_irq_disabled = true;
 +	}
  
- 	cancel_delayed_work_sync(&rt5663->jack_detect_work);
- 	cancel_delayed_work_sync(&rt5663->jd_unplug_work);
-@@ -3202,14 +3205,22 @@ static int rt5663_suspend(struct snd_soc_component *component)
- static int rt5663_resume(struct snd_soc_component *component)
+ 	if (nau8821->jdet_active)
+ 		cancel_delayed_work_sync(&nau8821->jdet_work);
+@@ -1639,11 +1641,19 @@ static int __maybe_unused nau8821_suspend(struct snd_soc_component *component)
+ static int __maybe_unused nau8821_resume(struct snd_soc_component *component)
  {
- 	struct rt5663_priv *rt5663 = snd_soc_component_get_drvdata(component);
+ 	struct nau8821 *nau8821 = snd_soc_component_get_drvdata(component);
 +	int ret;
  
- 	regcache_cache_only(rt5663->regmap, false);
--	regcache_sync(rt5663->regmap);
-+	ret = regcache_sync(rt5663->regmap);
+ 	regcache_cache_only(nau8821->regmap, false);
+-	regcache_sync(nau8821->regmap);
+-	if (nau8821->irq)
++	ret = regcache_sync(nau8821->regmap);
 +	if (ret) {
-+		regcache_cache_only(rt5663->regmap, true);
-+		regcache_mark_dirty(rt5663->regmap);
++		regcache_cache_only(nau8821->regmap, true);
++		regcache_mark_dirty(nau8821->regmap);
 +		return ret;
 +	}
- 
- 	rt5663_irq(0, rt5663);
- 
--	if (rt5663->irq)
-+	if (rt5663->suspend_irq_disabled) {
-+		rt5663->suspend_irq_disabled = false;
- 		enable_irq(rt5663->irq);
++	if (nau8821->suspend_irq_disabled) {
++		nau8821->suspend_irq_disabled = false;
+ 		enable_irq(nau8821->irq);
 +	}
  
  	return 0;
  }
+diff --git a/sound/soc/codecs/nau8821.h b/sound/soc/codecs/nau8821.h
+index f9d7cd8cbd2116be93cf8692f1acb9022aeabaed..def3942f8785ece82a2eafd0e18dce51c7db72cc 100644
+--- a/sound/soc/codecs/nau8821.h
++++ b/sound/soc/codecs/nau8821.h
+@@ -563,6 +563,7 @@ struct nau8821 {
+ 	struct snd_soc_jack *jack;
+ 	struct delayed_work jdet_work;
+ 	bool jdet_active;
++	bool suspend_irq_disabled;
+ 	int irq;
+ 	int clk_id;
+ 	int micbias_voltage;
 
 base-commit: 8ef28aef33f2d5da6959ad6b579ec3cfccc009f6
 
