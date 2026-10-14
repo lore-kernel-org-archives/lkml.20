@@ -1,121 +1,195 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F536145B3F;
-	Wed, 14 Oct 2026 19:05:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77F1541B8F6;
+	Wed, 14 Oct 2026 19:06:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792004741; cv=none; b=MS+2ugcHjntUIE11e5qbaOOnFrahi5mEnOhKwnsYXBaDt2IeVU1EoNuuHGMLqfSubeeuEf6QtPA5zh2Xcpl7o40TXLVTnr/2MItykCrzf+YvWDbwgBUDLq5kTBtfF6llxCaCdOmmz01k1xSrFvQ+oXQ++zu9w0K+08YkuAITvdY=
+	t=1792004762; cv=none; b=T66qCe7Oxqk9cdoMC1UqVgxSyjoBunbAMswojSPSfnD4SShEyM8V1OtDmmwwzbptu7Vseviy0peiY+ijJ+zlixs2/llr8oNvr4akiHY04lNwcPV37BL3xyjDgnzjUxQ5qk/MKt6vZtlKs6s9iFWBrElt7j2LgFpisu2i/yWfm0I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792004741; c=relaxed/simple;
-	bh=bqwt4easrNgYXL0S8q08n+eJvcS2ScFTvqicsmr3CJk=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VqKC9Tfq/faiLMwxUAD5qRFTdMCl9eIHVxJbsZhc+EvboGiemFLqVlBOtPEh+n0qrO5CkKBw0CeqPrQ4MFgK5waoEUkDCe+urOTdI+It8I62nfKeZU3c/IwcSeZZwxAoRZSikm/f96NTxmiWgmWK0KuI2XIBoD9Y0KQ4MeAx84U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T2KwKket; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792004762; c=relaxed/simple;
+	bh=cFFwZgxIAz797KN9F08BtOyHGb4+W9+w5rCoIbeC920=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=gPHnoX4Z/SUISGZ9bnKeRMVKNmYjJLxZeBmcX82isH8qdaFXruEvM+XMfbqYDdJy4i6IPwIHJlRTZ5jonMB3sJBjYY2pZM5pzRJnKVQX+PEN0zbe1U9HXX3onw25UurFpf8Ob/kOCoUEw18eBHxjtWmJDUXT+F0+gjVEruN+zak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=kAteC5Qt; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T2KwKket"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1FE81F000C4;
-	Wed, 14 Oct 2026 19:05:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792004739;
-	bh=YyINmxXO7pd+spEYBHJ/vCjoSEPDem460Y+EQItZG60=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=T2KwKketgjd78ySIjWZfpm14SK8fmn/dOIHeg5mSexSu49wSiIFL09CZgoCSlNZmV
-	 dRSwwOOBSwSht+owNr5w6EKvDRfvqfCX3RrdYlgV427de0Ct/6OnNgMEQGoNkZpZhS
-	 XWq+FzHLiklU/hnG3eZKRkX5HJ1Wg8sf8lMbt9yEO3ukX4BwkRnmng/FuAXpg8ONTn
-	 /dgm3svw5odmG9ltLLcFDAC/v5bC9DoVDcIRhA/kfudaDw4H/lRAY3xihqBbQM3khC
-	 YVFb15bIeGtRCGC97m61q8Syu2fhAEPXlV/DeFwWk5ytvozOGNoeLdlAb74nxTwBBo
-	 ROPpDl6OXoiWA==
-Date: Wed, 14 Oct 2026 09:05:38 -1000
-Message-ID: <0bc5d58533f10b4841807be3025daa11@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Liz Fong-Jones <lizf@honeycomb.io>
-Cc: Christian Brauner <brauner@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Jens Axboe <axboe@kernel.dk>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Xin Yin <yinxin.x@bytedance.com>,
-	linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org,
-	cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ian@honeycomb.io
-Subject: Re: [PATCH v6 3/3] writeback: switch a replaced cgwb's inodes to its successor
-In-Reply-To: <20261002-wb-dying-cgwb-flush-v6-3-1991b4e2dcff@honeycomb.io>
-References: <20261002-wb-dying-cgwb-flush-v6-0-1991b4e2dcff@honeycomb.io>
- <20261002-wb-dying-cgwb-flush-v6-3-1991b4e2dcff@honeycomb.io>
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="kAteC5Qt"
+Received: from mail01.layka.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id E6A3C808E7;
+	Wed, 14 Oct 2026 21:05:58 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id 6ZC3vkLDG1jv; Wed, 14 Oct 2026 21:05:58 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1792004758; bh=cFFwZgxIAz797KN9F08BtOyHGb4+W9+w5rCoIbeC920=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=kAteC5QtrGz/GVo1zrZ1jt4775cQVl5d1ftvY+T0NoDSV4zOscnh8BTl0wC+rvQgX
+	 qsbK367oRJ/MiK6rCJN5IwgQ3gbqlhfT3RweFbntZgsAVSMyPqdU8KbqtsQ+0nX8Ra
+	 b0HjgKGH82JkuDcjrqcx2BA591TNmeaZFEPGn/nAxApij2QUFD9QsZ+qff5hbk8Q1J
+	 suLPk5sT/9eRNrghcYBzkJKuUNDFkrywyc9h+wMGTPg6rqBFmqQ63DrKOpzWznb7Zl
+	 waPH/qt20oFHVN29mKraz7ijuBGQ/amVJRZHSqNlaGFHtWJxdq3xWhrtFWZS7RZtDX
+	 76jrYcoh97ohw==
+From: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>
+To: "Rafael J . Wysocki" <rafael@kernel.org>
+Cc: Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Len Brown <lenb@kernel.org>,
+	Ike Panhc <ikepanhc@gmail.com>,
+	"Derek J . Clark" <derekjohn.clark@gmail.com>,
+	Mark Pearson <mpearson-lenovo@squebb.ca>,
+	Rong Zhang <i@rong.moe>,
+	Armin Wolf <W_Armin@gmx.de>,
+	Avraham Hollander <anhollander516@gmail.com>,
+	=?UTF-8?q?Jeffrey=20W=C3=A4lti?= <jeffrey@waelti.dev>,
+	Rick <rickk1166@gmail.com>,
+	linux-acpi@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	acpica-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/4] ACPI: utils: Add acpi_evaluate_dsm_exclusive()
+Date: Wed, 14 Oct 2026 22:04:53 +0300
+Message-ID: <20261014190544.150093-2-aliamemis@disroot.org>
+In-Reply-To: <20261014190544.150093-1-aliamemis@disroot.org>
+References: <20261014190544.150093-1-aliamemis@disroot.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hello, Liz.
+Add an exclusive variant of acpi_evaluate_dsm() for _DSM methods that
+are known to break when interleaved with other AML.
 
-The following is a Claude-generated review.
+Signed-off-by: Ali Ahmet Memiş <aliamemis@disroot.org>
+---
+ drivers/acpi/utils.c    | 54 +++++++++++++++++++++++++++--------------
+ include/acpi/acpi_bus.h |  3 +++
+ include/linux/acpi.h    |  8 ++++++
+ 3 files changed, 47 insertions(+), 18 deletions(-)
 
-On Fri, Oct 02, 2026 at 09:40:48PM +0000, Liz Fong-Jones wrote:
-> + * Switch all inodes attached to @wb, dirty or not, to the wb that foreign
-> + * flushes now find for @wb's memcg.  If that one is already gone, fall back
-
-The scan only reaches inodes on @wb's lists, so any inode attached to @wb
-but on none of them stays behind, not just one from the
-__inode_attach_wb() race. A clean inode switched over from the root wb,
-which keeps clean inodes off its lists, is one example. Maybe say "all
-inodes on @wb's lists" here and broaden that sentence in the description?
-
-> +	spin_lock(&wb->list_lock);
-> +	restart = isw_prepare_wbs_switch(new_wb, isw, &wb->b_attached, &nr) ||
-> +		  isw_prepare_wbs_switch(new_wb, isw, &wb->b_dirty, &nr) ||
-> +		  isw_prepare_wbs_switch(new_wb, isw, &wb->b_io, &nr) ||
-> +		  isw_prepare_wbs_switch(new_wb, isw, &wb->b_more_io, &nr) ||
-> +		  isw_prepare_wbs_switch(new_wb, isw, &wb->b_dirty_time, &nr);
-> +	spin_unlock(&wb->list_lock);
-
-With f6988c90671e ("writeback: bound cleanup_offline_cgwb() rescans by
-rotating scanned inodes") on mainline, isw_prepare_wbs_switch() moves
-every scanned inode to the newest end of the list, and wb_switch_rwsem
-keeps switches from landing during a sync but doesn't cover this scan.
-On b_dirty, that can make a sync miss data:
-
-1. A background work on the replaced wb yields to a sync_inodes_sb()
-   work and leaves inodes on b_io.
-
-2. The sync work fixes dirtied_before at entry but doesn't queue_io()
-   until b_io drains.
-
-3. Meanwhile, the memcg dirties a clean inode, which goes to the head of
-   b_dirty.
-
-4. This scan fills an isw from the tail of b_dirty and moves those older
-   inodes in front of the new one.
-
-5. Their switches block on wb_switch_rwsem, which the sync holds for
-   write.
-
-6. queue_io() stops at the new inode, so the older ones, dirtied before
-   the sync started, are still dirty when it returns.
-
-Maybe hold wb_switch_rwsem for read across the scan?
-
-> +/* called with cgwb_lock held, possibly with interrupts disabled */
-
-cgwb_lock is always taken with irqs disabled and lockdep_assert_held()
-already says the rest. Maybe drop the comment?
-
-> + * cgwb_kick_replaced - switch inodes away from @wb again if it was replaced
-
-This queues replaced_work rather than switching anything. Maybe "queue
-@wb's replaced_work if @wb has been replaced"?
-
-Thanks.
-
+diff --git a/drivers/acpi/utils.c b/drivers/acpi/utils.c
+index f28680424f14..32689c901564 100644
+--- a/drivers/acpi/utils.c
++++ b/drivers/acpi/utils.c
+@@ -799,23 +799,9 @@ acpi_status acpi_evaluate_reg(acpi_handle handle, u8 space_id, u32 function)
+ }
+ EXPORT_SYMBOL(acpi_evaluate_reg);
+ 
+-/**
+- * acpi_evaluate_dsm - evaluate device's _DSM method
+- * @handle: ACPI device handle
+- * @guid: GUID of requested functions, should be 16 bytes
+- * @rev: revision number of requested function
+- * @func: requested function number
+- * @argv4: the function specific parameter
+- *
+- * Evaluate device's _DSM method with specified GUID, revision id and
+- * function number. Caller needs to free the returned object.
+- *
+- * Though ACPI defines the fourth parameter for _DSM should be a package,
+- * some old BIOSes do expect a buffer or an integer etc.
+- */
+-union acpi_object *
+-acpi_evaluate_dsm(acpi_handle handle, const guid_t *guid, u64 rev, u64 func,
+-		  union acpi_object *argv4)
++static union acpi_object *
++__acpi_evaluate_dsm(acpi_handle handle, const guid_t *guid, u64 rev, u64 func,
++		    union acpi_object *argv4, bool exclusive)
+ {
+ 	acpi_status ret;
+ 	struct acpi_buffer buf = {ACPI_ALLOCATE_BUFFER, NULL};
+@@ -840,7 +826,10 @@ acpi_evaluate_dsm(acpi_handle handle, const guid_t *guid, u64 rev, u64 func,
+ 		params[3].package.elements = NULL;
+ 	}
+ 
+-	ret = acpi_evaluate_object(handle, "_DSM", &input, &buf);
++	if (exclusive)
++		ret = acpi_evaluate_object_exclusive(handle, "_DSM", &input, &buf);
++	else
++		ret = acpi_evaluate_object(handle, "_DSM", &input, &buf);
+ 	if (ACPI_SUCCESS(ret))
+ 		return (union acpi_object *)buf.pointer;
+ 
+@@ -851,8 +840,37 @@ acpi_evaluate_dsm(acpi_handle handle, const guid_t *guid, u64 rev, u64 func,
+ 
+ 	return NULL;
+ }
++
++/**
++ * acpi_evaluate_dsm - evaluate device's _DSM method
++ * @handle: ACPI device handle
++ * @guid: GUID of requested functions, should be 16 bytes
++ * @rev: revision number of requested function
++ * @func: requested function number
++ * @argv4: the function specific parameter
++ *
++ * Evaluate device's _DSM method with specified GUID, revision id and
++ * function number. Caller needs to free the returned object.
++ *
++ * Though ACPI defines the fourth parameter for _DSM should be a package,
++ * some old BIOSes do expect a buffer or an integer etc.
++ */
++union acpi_object *
++acpi_evaluate_dsm(acpi_handle handle, const guid_t *guid, u64 rev, u64 func,
++		  union acpi_object *argv4)
++{
++	return __acpi_evaluate_dsm(handle, guid, rev, func, argv4, false);
++}
+ EXPORT_SYMBOL(acpi_evaluate_dsm);
+ 
++union acpi_object *
++acpi_evaluate_dsm_exclusive(acpi_handle handle, const guid_t *guid, u64 rev,
++			    u64 func, union acpi_object *argv4)
++{
++	return __acpi_evaluate_dsm(handle, guid, rev, func, argv4, true);
++}
++EXPORT_SYMBOL_GPL(acpi_evaluate_dsm_exclusive);
++
+ /**
+  * acpi_check_dsm - check if _DSM method supports requested functions.
+  * @handle: ACPI device handle
+diff --git a/include/acpi/acpi_bus.h b/include/acpi/acpi_bus.h
+index e7a671dba624..e9859fdf76e8 100644
+--- a/include/acpi/acpi_bus.h
++++ b/include/acpi/acpi_bus.h
+@@ -66,6 +66,9 @@ bool acpi_dock_match(acpi_handle handle);
+ bool acpi_check_dsm(acpi_handle handle, const guid_t *guid, u64 rev, u64 funcs);
+ union acpi_object *acpi_evaluate_dsm(acpi_handle handle, const guid_t *guid,
+ 			u64 rev, u64 func, union acpi_object *argv4);
++union acpi_object *acpi_evaluate_dsm_exclusive(acpi_handle handle,
++			const guid_t *guid, u64 rev, u64 func,
++			union acpi_object *argv4);
+ #ifdef CONFIG_ACPI
+ bool
+ acpi_get_physical_device_location(acpi_handle handle, struct acpi_pld_info **pld);
+diff --git a/include/linux/acpi.h b/include/linux/acpi.h
+index ddacac812094..6a798d5bde5c 100644
+--- a/include/linux/acpi.h
++++ b/include/linux/acpi.h
+@@ -1042,6 +1042,14 @@ static inline union acpi_object *acpi_evaluate_dsm(acpi_handle handle,
+ 	return NULL;
+ }
+ 
++static inline union acpi_object *acpi_evaluate_dsm_exclusive(acpi_handle handle,
++							     const guid_t *guid,
++							     u64 rev, u64 func,
++							     union acpi_object *argv4)
++{
++	return NULL;
++}
++
+ static inline union acpi_object *acpi_evaluate_dsm_typed(acpi_handle handle,
+ 							 const guid_t *guid,
+ 							 u64 rev, u64 func,
 -- 
-tejun
+2.55.0
+
