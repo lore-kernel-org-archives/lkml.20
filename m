@@ -1,146 +1,198 @@
-Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com [209.85.161.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56FA2563288
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:47:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE3D0563FDD;
+	Wed, 14 Oct 2026 18:47:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792003631; cv=none; b=EGkf27+tVVy50TU8sq7llQvSKjPYvACzR9FYCGWx7FOlJrs2qN/s/2epoaVQsw8gMBBF4pI5Pv6MpPV8LdeWRNq+TOVW/XiYaqU6bomoAWA85e3xBlqCu3AHeLUelZ0F1KrDgGr9xn6mgJjGwtbg+I3mHKgZXxZM2OQPsVuPOQ0=
+	t=1792003667; cv=none; b=HiTqPdfImU7PqQRgq6tsUCiaBleOS8JKIrg3ADZMfMTadenNQfQHxDbd/zIhqAg4URoYOnnpGDHcohRMhVufPsb/km/AfXzCdj2pXheH1UQ+MGh+fPcWpM8+CEmXxiSJ/wy1JZliUFdZBm2yHV2P3yDhwbwT/tXT0s5GCCCZXBY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792003631; c=relaxed/simple;
-	bh=suiRUnyroocuk12grD5LSkD20Wp++sZxWYm4G3hH8zM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=IAi88EHTfc0EMCW9ciAhx5fdHfrW27yJmWUm0GIRyEmmVIQbympw54JKww6swlQ+4aYHq2ObnOGgV3YWkAKjnhUTLCnEPbTGBpB9RhPCk/076qWm2AYkgJh2ATeX1kAp/VBlvsZRl6QEmF5K7Car73czbSmcmNJOoT8d0VbThYs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marliere.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=marliere.net header.i=@marliere.net header.b=FPIOsqjv; arc=none smtp.client-ip=209.85.161.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marliere.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792003667; c=relaxed/simple;
+	bh=h6lmp4xibLx24No/EOQmMye1fmUOIkBhRr2353+kT6Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=My5jwVtPorkWdl1QrVxqTkkRh5JgxbkD/wrfpAJirG5Tha5wPoknQkjfSEa6x96Ssz5lQVDO3HcPLsTHOZHNpZ9NEem0pr9CbEEi/l3yK1VP1oM7GUNpwGJsK4n3cb4UYyUC5u1e2+PJabJUJ2rrlHG75S3Boyzgik1frU8CyRg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S7Mx3Hjw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marliere.net header.i=@marliere.net header.b="FPIOsqjv"
-Received: by mail-oo1-f44.google.com with SMTP id 006d021491bc7-6cf995766a3so3599529eaf.2
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:47:09 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792003628; x=1792608428;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:dkim-signature:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ud4UQpU7GXwKVtHEzNn/aXQljAT04341tSRIlnW7qwM=;
-        b=v6XdRlylHTK2BMaBvjhNGU2cfq3dMXdgoqzo6V5li2U+JLKRNhtidfimxR+JjBUL65
-         Ua9ZBRSKD2mn/pfMgDohwgpvZy6BfYKNMpo/PDyBNDnin1bAZ+TkdefDec3vVajX/5vK
-         B3Spz/cevCeyOVugBnGWWEB77chZwdSjDak/Ge1AtHT/JoXlty4E+v3mPyO65UMSZBXT
-         hI8jYIwRENVBUwSoUDvPOxUTTf6vGHVxPpq4PfPgABBLcz9/tHeDyXwj+j1dXRFav6Qf
-         SIAwrMY2WPIw/ygoAC3srVIYacIYLSUzQmrtyFJL6VBa2SXtg03y/XDS4sDGRESHK3Ah
-         LYRA==
-X-Forwarded-Encrypted: i=1; AKwUvBx1j804nvMRDtGvl7TPqWDptCv+Dp0Sy9f3APDjENRBxxSIWtrkWAhEze5h2GTnWPNMW/f67mHDmnmqhbE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLV9jh0He6PtEG32xuLOpOwcp382OjdRj9lnLYmWUQbWnlpYaZz
-	oh5nmWojGW6iAbE+yCra/sGzdUGaUdtNGYgxJo2BLwmc9+MTeNyBlYLh
-X-Gm-Gg: AYBFou0w7qtmNB2pTVNXWb1JdXnHYlyL5cyvlMf82r5QHU1bLbIUsc/oly0g3zxyl8v
-	nHaa+fDdu+CJ7nJYN5DX/5DN6/OxVBbs18mwKfflNqsVUKqhzlmQk6UM2sxbkEdUkeV9FR7k02A
-	ptcjur+KEmSxNeVEHsvNpWxqY+eh52HWwz6gKi1LJ5IzQlC00N76oCPw6laNwbL49AgCO8tEoxx
-	9XmAc2mmoS625Li71dzvgwL+ZLmZR17SLL8QA3VLNBuApr9oeNiBXChOChaNjT8vq84DZkFjRCU
-	GgikXYB1C75ZtJgz90r3rT0Sxjki3WZgi/cb1iq3GM5RBL0sn4zbhawaTBbbZ0J9tbB+wgubPAd
-	gb2t8jh2DQHrF0JRomRS1JdwwYjLZXejVHY0iV9sHiaCpz2z8egGy02Zx/fJ9mBZRcg8hWZb0rd
-	SAEWF61dUPI29HxobttyVQUUKnwTG5ITydJVWy0aZhc7DUPIysCuRtqw3TmvLH95fv2BXjBBlNN
-	HTcfHNS5vXgPTAMLSPKheP5m8v54gbdQ1ECsfWgFrebZu8hLy6f11awVga4C0Ohf9rY7TcR4gkh
-X-Received: by 2002:a05:6820:c2c8:20b0:6f4:ae96:c59b with SMTP id 006d021491bc7-6f4ae96ccdcmr6553693eaf.5.1792003628127;
-        Wed, 14 Oct 2026 11:47:08 -0700 (PDT)
-Received: from mail.marliere.net (137.65.66.34.bc.googleusercontent.com. [34.66.65.137])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6f47500ae30sm9548549eaf.1.2026.10.14.11.47.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 11:47:06 -0700 (PDT)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 283216061E;
-	Wed, 14 Oct 2026 18:47:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marliere.net;
-	s=dkim; t=1792003624;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=ud4UQpU7GXwKVtHEzNn/aXQljAT04341tSRIlnW7qwM=;
-	b=FPIOsqjvI9KwWd8TDkBUXyQASuIwYvkymEHQbt7eA3vYTcc+QbYh7fpFXA2/SeJxafJZBR
-	GH0srJnkwqT3w9MGG/AnWN8R7TzJNy63q76UWYHjemYZ2I3zvJrLqJQiktQGgOeppwuQNE
-	fC9R2T24tUdjYBOSe7RPPbih2dytIgLjsq50IzNB7mVtUrISDQBn0JD2U3S1/aml8H5jzH
-	f3iz9SHZ7TICCUk8Y8Zq8ZF7BKNuCy7ro6pJdUQp7fdNchflAtapa0RePn3gwoKKx25O5V
-	Aqeyrw5iu3ur3zcR5BFZnoEcRSn3/VGrNTuREDwAIw4pxK/n6TyJoVeOrdX34w==
-From: =?utf-8?q?Ricardo_B=2E_Marli=C3=A8re_=28SUSE=29?= <ricardo@marliere.net>
-Date: Wed, 14 Oct 2026 15:46:46 -0300
-Subject: [PATCH] selftests/mm: mremap_test: Validate the preamble region
- before mapping it
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S7Mx3Hjw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B3571F000C4;
+	Wed, 14 Oct 2026 18:47:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792003666;
+	bh=2HebUlT5neFwjNW4ckqFvgcxp/1U4hD9q1BVhBR5egg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=S7Mx3Hjw7nTck7V3rARjeQwm6h1a+E3YC9LYr9jr6UKtisgkB6IiN/tj5sPEQbvUO
+	 f2l2m0dL8wXbXj8C2dgnNQK3Wr1qsuyIOAwrYmrjoiI6Ii2DkkIzOAi8nvSjHyIzCG
+	 lPPKIxb48ylB9hISXo7OtFNyQ4Qs4bF672Vp6+sUKlPo8IjH8+wo3V3Y7S6QwypEGC
+	 Z5sf7Ej6e8feRIngYTx+OqfJek8iUa1Sp3HAUw23Yd20TnjxW0OZE9xeMwc1ckgVis
+	 JI38OKraMYt7AeDbvaXdFf19sJ6p7846l2zixNLwks1OQiDtMa8u3wGgGEuRTXTJL/
+	 NZazP7X/WUCXQ==
+Date: Wed, 14 Oct 2026 11:47:46 -0700
+From: Kees Cook <kees@kernel.org>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Jori Koolstra <jkoolstra@xs4all.nl>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Sasha Levin <sashal@kernel.org>, corbet@lwn.net,
+	skhan@linuxfoundation.org, rdunlap@infradead.org,
+	federico.vaga@vaga.pv.it, apw@canonical.com, joe@perches.com,
+	workflows@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Justin Stitt <justinstitt@google.com>,
+	Carlos Maiolino <cem@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+	Brian Foster <bfoster@redhat.com>,
+	Christoph Hellwig <hch@infradead.org>,
+	David Disseldorp <ddiss@suse.de>, Mark Brown <broonie@kernel.org>,
+	Jani Nikula <jani.nikula@intel.com>, Jens Axboe <axboe@kernel.dk>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>
+Subject: Re: [PATCH] docs: remove Assisted-by references
+Message-ID: <202610140951.C3D6CBF73@keescook>
+References: <20261013123132.GC4214@killaraus.ideasonboard.com>
+ <as4pAEnLd4H68W4W@gremlin>
+ <20261013131243.GM56180@killaraus.ideasonboard.com>
+ <as4xMnT8a75pIw9v@gremlin>
+ <FAD7F1E6-5FE0-47F5-8D10-40473B39A2D8@kernel.org>
+ <907933931.787284.1791903485683@kpc.webmail.kpnmail.nl>
+ <202610131000.43AB316FBC@keescook>
+ <20261013174243.GC178151@killaraus.ideasonboard.com>
+ <202610131216.C841415F01@keescook>
+ <20261013201628.GO4214@killaraus.ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261014-selftests-mm-mremap_preamble-v1-1-2e97f501cb56@marliere.net>
-X-B4-Tracking: v=1; b=H4sIABXOz2oC/yWMUQrCMBBEr1L222ATtahXEZFNu2lXmrTsRhFK7
- 26qX8ObGd4CSsKkcK0WEHqz8pQK2F0F7YCpJ8NdYXC1a2xtj0ZpDJk0q4nRRKGI82MWwuhHMqd
- wOWPXuJIHKIoyBP789Lf7n/Xln9Tmzbk9PCoZL5jaYasm4Z7TPqJmEljXL+N+uOGgAAAA
-X-Change-ID: 20261014-selftests-mm-mremap_preamble-5f98ad625f93
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>
-Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- =?utf-8?q?Ricardo_B=2E_Marli=C3=A8re_=28SUSE=29?= <ricardo@marliere.net>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openssh-sha256; t=1792003619; l=2090;
- i=ricardo@marliere.net; h=from:subject:message-id;
- bh=suiRUnyroocuk12grD5LSkD20Wp++sZxWYm4G3hH8zM=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgguRCc5X8/UX9M40lkMnr//aFGOhce
- x5ezt8MFNUFlqYAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QMvzTA1Be/AaPv+icYSQObP6ZSepseS099c1IS7GWL5yRAlaiDjRXKqF7qK+kLROsQ0b2JWSCxZ
- Qwfn01UPNwg8=
-X-Developer-Key: i=ricardo@marliere.net; a=openssh;
- fpr=SHA256:pzhe0fJpYLz+3cZ33FFPhIfaUElk9CXPFFXmalIH+1g
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013201628.GO4214@killaraus.ideasonboard.com>
 
-remap_region() checks that the destination region is free before mapping
-it, but not the preamble region placed right before it, so mapping the
-preamble can intermittently fail with EEXIST:
+Oops, this reply ended up long, sorry! :P tl;dr: if you get bored,
+please skip to my last paragraph.
 
-  # Failed to map dest preamble region: File exists
-  not ok 15 5MB mremap - Source 1MB-aligned, Dest 1MB-aligned with 40MB Preamble
+On Tue, Oct 13, 2026 at 10:16:28PM +0200, Laurent Pinchart wrote:
+> Perhaps, but I think that's missing the point. The SoB line is not
+> enforceable either. Very few of our requirements and assumptions can be
+> enforced. We're not telling people they can get backdoors merged in the
+> kernel because we can't guarantee 100% that one won't sneak in.
 
-This happens when the kernel's heap ASLR (arch_randomize_brk()) lands the
-process heap inside that unchecked range. Confirmed by correlating
-brk(NULL) at startup with pass/fail across 60 runs: every failure had brk
-land inside that range.
+I think the SoB is at least _more_ enforceable, in the sense that it
+has mechanical validation attached to it ("sender matches SoB"), and
+it's designed to be used to declare "chain of custody" in some way.
+Specifically the SoB is about making a declaration of origin, DCO,
+literally. :) So that tag does do what it says it does, and can be
+meaningfully interrogated later.
 
-Fix it by including the preamble in the free-region check.
+But I agree, it's a statement that says "I brought this to the project",
+and is _just_ a statement. What we want for the LLM stuff is "I
+understand this change and am ready to convince other people about why
+they, too, want it to be included in the project". "Assisted-by" never
+did that. And I've always held that the place to do that is, and has
+always been, in the commit message body itself.
 
-Signed-off-by: Ricardo B. Marlière (SUSE) <ricardo@marliere.net>
----
-Hi, this sporadic issue has been found in openSUSE CI:
+> What this is about is setting our expectations, telling what we want and
+> what we don't want. There's still value in that, and I'd argue there's
+> even more value now. There will be people who won't care, there will be
+> people who cheat. We've always had those, we'll keep having them, and
+> we'll keep rejecting their contributions. I really don't get the
+> unenforceable argument here.
 
-https://openqa.opensuse.org/tests/6270334/logfile?filename=serial_terminal.txt#line-6760
----
- tools/testing/selftests/mm/mremap_test.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+I am perhaps using the wrong word, and maybe "enforceable" doesn't map
+well. I think I mean "Assisted-by" is (and has always been[1]) irrelevant:
+the thing we want to have is understanding, correctness, etc. This gets
+called "patch quality" under the huge umbrella of what "quality" means.
 
-diff --git a/tools/testing/selftests/mm/mremap_test.c b/tools/testing/selftests/mm/mremap_test.c
-index 131d9d6db867..8d4fa3025a9d 100644
---- a/tools/testing/selftests/mm/mremap_test.c
-+++ b/tools/testing/selftests/mm/mremap_test.c
-@@ -1006,8 +1006,10 @@ static long long remap_region(struct config c, unsigned int threshold_mb,
- 	if (!((unsigned long long) addr & c.dest_alignment))
- 		addr = (void *) ((unsigned long long) addr | c.dest_alignment);
- 
--	/* Don't destroy existing mappings unless expected to overlap */
--	while (!is_remap_region_valid(addr, c.region_size) && !c.overlapping) {
-+	/* Don't destroy existing mappings unless expected to overlap. */
-+	while (!is_remap_region_valid(addr - c.dest_preamble_size,
-+				      c.dest_preamble_size + c.region_size) &&
-+	       !c.overlapping) {
- 		/* Check for unsigned overflow */
- 		tmp_addr = addr + c.dest_alignment;
- 		if (tmp_addr < addr) {
+And the LLMs change the nature of all of this, I agree, but the tag
+didn't help at all. For example, I was (I think) responsible for
+netdev's rule about "please don't send more than a dozen patches at
+once; wait for us to process those before sending the next wave", due to
+the treewide changes I've done over the years (where netdev also wanted
+them broken up by driver, etc). And that was strictly a mechanical and
+"trivial" set of changes (driven usually by Coccinelle). There was no
+tag for that, and "enforcing" it was a social one. I did what they
+asked, etc.
 
----
-base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
-change-id: 20261014-selftests-mm-mremap_preamble-5f98ad625f93
+Recently we've seen an attempt to make that an enforceable delay by having
+Sashiko hold off on patch reviews for 24 hours for netdev patches, etc.
+In that case, there is a mechanical way to induce the result we want.
+But "add a tag" wasn't it: that wasn't an "enforceable" solution to the
+problem of quality and quantity.
 
-Best regards,
---  
-Ricardo B. Marlière (SUSE) <ricardo@marliere.net>
+> What would be your issue with writing commit messages manually ?
 
+Up until about 4 months ago, I did 100% do that because the prose and
+rationale coming out of the LLMs, even when guided toward specific
+templates, was horrendously bad. But now it is, I think, substantially
+better. I almost never take the result as-is still, but it produces a
+commit message very close to what I want to see. And note that it's not
+blindly producing it; I have extensive instructions about what I expect
+and how it should go about it.
+
+The resulting commit messages are better than what I would have written
+alone. I spell poorly, I make typos, I forget to mention aspects that
+were involved in coming to whatever design got implemented, I'm slow at
+digging out the exact error or warning that was emitted into a build log,
+I miss CCing someone who touched this area of code in a meaningful way
+outside of get_maintainer's git history window, the list goes on and
+on. The LLM reads faster, writes faster, and notices missed/forgotten
+things better. So for me, I would be delinquent in NOT using its help
+to write commit messages.
+
+> Again, we're not aiming for 100% accuracy, we've never considered that
+> goal reachable, LLMs or not.
+
+I'm a maintainer for a bunch of subsystems, but I don't have remotely
+anywhere near the level of patches coming in as other subsystems, so I'm
+still in a little corner of gleeful obliviousness from the perspective of
+dealing with review volume, but even I see drive-by patch dumps. I'm not
+sure if/how this is scalable, or even the right answer, but the signals
+I have for patch review tend to be:
+
+- sender and area trust/reputation (If I'm getting a patch from someone
+  that I've taken patches from before, I know I have in the past assessed
+  their work as useful/helpful/robust/whatever. And I know what they
+  have touched before: if I've landed a bunch of binfmt_elf patches from
+  someone, and then later they send me pstore patches, I'm going to be
+  surprised and then need to examine this new area of work from them.)
+
+- testing (how was the change tested, how will it continue to be tested,
+  etc. Compile-time? Run-time? Unit? Integration?)
+
+- correctness, utility, maintainability, all the rest (the "core" review
+  work)
+
+Things like Sashiko give us some mechanistic view into "correctness"
+(and I've been working on adding an analysis stage to Sashiko to cover
+"testing"[2]). The first one (the matrix of trust across sender vs code
+area) look significantly more filterable, though. (The parallel threads
+on "ignore all new submitters" is an extreme, and IMO bad, form of
+that filter.) Maintainers had been doing this filtering in their heads
+basically, and the LLMs changed the volume of people sending patches,
+and similarly disrupted the trust part too where suddenly people who
+used to send good patches might be sending bad patches. The intent, as
+I saw it, of "Assisted-by" was to give a signal about this latter form
+(known person sending possibly bad patches suddenly), but it didn't really
+work, and then both the LLMs got better and people using them figured out
+(I hope) how to wield them better.
+
+So, I'm kind of back to looking at some way to scale my understanding
+of any given contributor's reputation[3], area of work, ownership
+and responsibility of fixing mistakes, depth of understanding
+of various topics outside of their common area of kernel work
+(compilers? user-space?), rationality, friendliness, communication style,
+etc. And my evaluative criteria is going to be different from other
+maintainer's too, so outside of basic facts ("contributor has sent X
+many patches"), this is highly subjective stuff that I suspect will
+resist objective mechanistic handling.
+
+-Kees
+
+[1] https://lore.kernel.org/all/202507241337.F9595E1D@keescook/
+[2] https://github.com/masoncl/review-prompts/pull/100
+[3] https://lore.kernel.org/all/35426E86-9663-48D7-8899-B82D62D04A84@kernel.org/
+
+-- 
+Kees Cook
