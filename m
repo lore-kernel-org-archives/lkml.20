@@ -1,179 +1,108 @@
-Received: from mta1.migadu.com (out-161.mta1.migadu.com [95.215.58.161])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 933BD477283
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:56:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53293472F8E
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:57:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791964587; cv=none; b=Qz/vi8QwN9fU4A/dg+oXZn5rNW/jroC5ajMu33TM9bFRu63yJ8ctWGTe00x7xbcfEOVignX6+Adnr8fpxAqNA8lbh4XJCuW9qxTVPxXY8PMfAwrEjG0zWZGgTKW8R1GmGufE0XV4UJ7CDXni1ufQoDp1EDfOobkNTG0cw2FGlKo=
+	t=1791964625; cv=none; b=OcyjV+efbdUUBRKv6XPzMkOfLu2sxrHI7gUKcHeMDsctJzg6wRaFl7ofW+Fipf4pkT542bpobQlNlLDkGd75nyR5K+5v+hsClVfiSugah801oUlkT4lsKN8xvlkeG4R03HL59wNsw/qklo2Kt54ZZOmapp+NIRAvvC0ELX3iTcE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791964587; c=relaxed/simple;
-	bh=3NakkYm+exfqHeo87l+Jy3RJZBZS8mbhTiQS6F5ENvk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ughiNWnpmoYexE9rjEiwqQoU1KkqCb90hJKhReXXaeaxmYr0lzNMdXMWbK5nnODH72F+XljrermZCEeaI9hlgJyDoPIbFlqsZ0ZCJ+DTwfQauLLvdRencIAxKhK3tAXsJq5RQWoHK3RUo1avlYbWA7x1ER+rfRKb2r47ZozhfxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=KgfDKtGl; arc=none smtp.client-ip=95.215.58.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791964625; c=relaxed/simple;
+	bh=RCyeFPG6a0o4i4nAcfBnADbLLTwFrfgfycZJHu7aoY0=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=u3WP7l5G/cVzEDiDo+8cC4KLDsQv2XZEK456FKjCcwHo9RWL9t1Y1hpl91EkgEtFpXEgMDkWj0ZYdjU2gnhznOanASIW9EyiXxotFpiQO9stJHRgL6kWemJLry2sjOvvkmb/eyeASU7nS0X6BwG46JHvSEcayFjHQramyjUg6/Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=co9OoteD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="KgfDKtGl"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=3NakkYm+exfqHeo87l+Jy3RJZBZS8mbhTiQS6F5ENvk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791964582; v=1; x=1792569382;
- b=KgfDKtGlnya+w0y+13eDfqGYwadeUvStcnSjdRAXRZPy/w4ajj0Yu1rBDQ1hqaulwiQkV10G
- TBiORH9tEtm52K4jwFva0QEuVVFkuvUSmTzHiLNz9qiE/zk15Gsg+ZFlKVkSI9pJdKeHfueUC/x
- 68XbzPnENWRiOxSmlLisNpgE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 38737ea13a66a289;
-	Wed, 14 Oct 2026 07:56:22 +0000
-X-Mizu-Trace-ID: 38737ea13a66a289
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: david@kernel.org
-Cc: pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	akpm@linux-foundation.org,
-	zhangchunyan@iscas.ac.cn,
-	rppt@kernel.org,
-	kas@kernel.org,
-	andrew+kernel@donnellan.id.au,
-	rmclure@linux.ibm.com,
-	debug@rivosinc.com,
-	baolin.wang@linux.alibaba.com,
-	usama.arif@linux.dev,
-	wangruikang@iscas.ac.cn,
-	namcao@linutronix.de,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	alexghiti@rivosinc.com,
-	viro@zeniv.linux.org.uk,
-	ajones@ventanamicro.com,
-	arnd@arndb.de,
-	axelrasmussen@google.com,
-	brauner@kernel.org,
-	conor.dooley@microchip.com,
-	conor@kernel.org,
-	jack@suse.cz,
-	liam@infradead.org,
-	ljs@kernel.org,
-	mhocko@suse.com,
-	paul.walmsley@sifive.com,
-	peterx@redhat.com,
-	robh@kernel.org,
-	surenb@google.com,
-	vbabka@kernel.org,
-	yuanchu@google.com,
-	stable@vger.kernel.org,
-	pasha.tatashin@soleen.com,
-	linux-mm@kvack.org,
-	me@ziyao.cc
-Subject: Re: [PATCH 1/1] riscv/mm: fix soft-dirty migration PMDs being treated as present
-Date: Wed, 14 Oct 2026 15:56:16 +0800
-Message-ID: <20261014075616.76429-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261007113345.32755-1-lance.yang@linux.dev>
-References: <20261007113345.32755-1-lance.yang@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="co9OoteD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D53291F00899
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:57:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791964623;
+	bh=sl6IW0nnvVtp07vNT44AV7L0erWrDL8jBfOworvsToI=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=co9OoteDp2WuxaM8YqiplSwL9GnSd9In+175+3Te3DpvnRRfRQnFkFo+66Rxr8uTx
+	 fJYP8sycpWgurlsHVS+fCyw7p0VkLM5hgv1fQct5k3l5MryucUFTUwW8D16h6rKYJg
+	 qC4Sw6Yl0Vw/3h8SiPgyDEjGvfrAQ7z9DAOU1XID9Fw9QCjsHRSI9Zp4EufxvqDtdj
+	 OEQz2ODYL3dahOwI1VJmJpeVa78kuo8g0w91NTk7fJCZz3zCIfoCumI482++PTfRGZ
+	 KioZJz1346e+z5inJu/Mi6i3b47QXZAtTuEh6hOOvlz2sD33rq1jc+BXpeoUaXnX5i
+	 KjDhwntvI9xiQ==
+Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-3a980c01033so5532261fa.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 00:57:03 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzl9+DO6hx26sBUhgzbtSVVSer7tgIypX7Ekx61NRbIkC/vvxsH34HyVdnGat4efURFhW6/37FLpusWq5A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ7b0umixU73Jp5rHPInCfz7Jswve+tPK59Y5yEtSZzPKIbSy6R
+	2jBuGeMKLsg0oOo9OvAsFrfeIMyHfb6sw4d3W3wb6YOxWu6dN3nSYQ3NFIhOI3n+R2sAlzVxa+p
+	2cRWLii6rEFuui3+8NLL9txYf4JHJZjbkpE9ADC1yJw==
+X-Received: by 2002:a05:651c:1542:b0:3a6:692d:b7ed with SMTP id
+ 38308e7fff4ca-3a9c539343dmr40055691fa.20.1791964622555; Wed, 14 Oct 2026
+ 00:57:02 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 14 Oct 2026 00:57:01 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 14 Oct 2026 00:57:01 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260814075624.16639-1-pengpeng@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260814075624.16639-1-pengpeng@iscas.ac.cn>
+Date: Wed, 14 Oct 2026 00:57:01 -0700
+X-Gmail-Original-Message-ID: <CAMRc=Me3kH8rrifW20xw2JqECydKrbBfQ2ZfFsTrL6KwD8+9=A@mail.gmail.com>
+X-Gm-Features: AclHuK_kQw-qSVTPtUkRCZuiCj0gamOTj8vq5XddbmqNqJG15Vf0yUsge2wg9SY
+Message-ID: <CAMRc=Me3kH8rrifW20xw2JqECydKrbBfQ2ZfFsTrL6KwD8+9=A@mail.gmail.com>
+Subject: Re: [PATCH v2] ARM: davinci_all_defconfig: enable the current ST7586 symbol
+To: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Cc: David Lechner <david@lechnology.com>, dri-devel@lists.freedesktop.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Bartosz Golaszewski <brgl@kernel.org>, Russell King <linux@armlinux.org.uk>
+Content-Type: text/plain; charset="UTF-8"
 
-
-On Wed, Oct 07, 2026 at 07:33:45PM +0800, Lance Yang wrote:
+On Fri, 14 Aug 2026 09:56:24 +0200, Pengpeng Hou <pengpeng@iscas.ac.cn> said:
+> The ST7586 DRM provider is now built by CONFIG_DRM_ST7586.
+> davinci_all_defconfig still enables the removed DRM_TINYDRM and
+> TINYDRM_ST7586 carrier symbols.
 >
->On Wed, Oct 07, 2026 at 01:01:14PM +0200, David Hildenbrand (Arm) wrote:
->>On 10/5/26 15:46, Lance Yang wrote:
->>> 
->>> On Mon, Oct 05, 2026 at 12:37:20PM +0200, David Hildenbrand (Arm) wrote:
->>>> On 10/4/26 05:03, Lance Yang wrote:
->>>>> RISC-V uses _PAGE_EXEC for swap soft-dirty tracking when
->>>>> CONFIG_MEM_SOFT_DIRTY is enabled and Svrsw60t59b is available. That's
->>>>> a problem for PMD migration entries, since pmd_present() also checks
->>>>> _PAGE_LEAF (R/W/X) to recognize THPs with _PAGE_PRESENT temporarily
->>>>> cleared during splitting.
->>>>
->>>> I'm curious: why do we have to set leaf indications for non-present things? The
->>>> HW sure will ignore it, right?
->>> 
->>> Yeah, that surprised me too :) Still wrapping my head around the details
->>> ...
->>> 
->>>> Is this a sw problem? Who needs that?
->>> 
->>> IIUC, it's for software during a PMD split.
->>> 
->>> __split_huge_pmd_locked() invalidates the huge PMD and flushes the TLB
->>> before installing the PTE table. Software still needs pmd_present() and
->>> pmd_trans_huge() to recognize the THP in between.
->>> 
->>> RISC-V clears V but keeps the R/W/X bits for that, so the entry is invalid
->>> to hardware but still identifiable as a THP by software.
->>> 
->>> Hopefully I didn't miss something.
->>
->>I thought some change we performed to GUP-fast wouldn't require that anymore.
->>But my memory is a bit vague ... :)
+> Replace those stale entries with the current provider symbol.
 >
->Yeah, I'll have another look at that :)
+> Assisted-by: Codex:gpt-5
 
-Emm ... I'm back. Do you mean 4b471e8898c3, which removed the GUP-fast
-pmd_trans_splitting() check after the THP refcounting rework? That check
-made GUP-fast bail out during the old THP split. The refcounting rework
-made extra GUP references prevent the physical split :)
+Should be Assisted-by: LLM but even that tag is going away[1].
 
-RISC-V gained THP support in 2021 (e88b333142e4), after
-pmd_trans_splitting() had been removed. It never implemented that helper.
+> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+> ---
+> Changes since v1: https://lore.kernel.org/all/20260624082029.18675-1-pengpeng@iscas.ac.cn/
+> - no source-code changes
+> - rebase davinci_all_defconfig
+> - route the revision to DaVinci and ST7586 maintainers
+> - add the coding-assistant disclosure
+>
+> The Kconfig/provider mapping was reviewed statically; no DaVinci kernel
+> build was performed.
+>
+>  arch/arm/configs/davinci_all_defconfig | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+>
+> diff --git a/arch/arm/configs/davinci_all_defconfig b/arch/arm/configs/davinci_all_defconfig
+> index 72703ef0c51c..ac0029701283 100644
+> --- a/arch/arm/configs/davinci_all_defconfig
+> +++ b/arch/arm/configs/davinci_all_defconfig
+> @@ -144,8 +144,7 @@ CONFIG_VIDEO_ADV7343=m
+>  CONFIG_DRM=m
+>  CONFIG_DRM_TILCDC=m
+>  CONFIG_DRM_SIMPLE_BRIDGE=m
+> -CONFIG_DRM_TINYDRM=m
+> -CONFIG_TINYDRM_ST7586=m
+> +CONFIG_DRM_ST7586=m
+>  CONFIG_FB=y
+>  CONFIG_FB_DA8XX=y
+>  CONFIG_BACKLIGHT_PWM=m
+> --
+> 2.50.1 (Apple Git-155)
+>
+>
 
-Keeping R/W/X in an invalidated RISC-V PMD preserves its leaf identity for
-software page-table walks. That requirement is separate from the old
-GUP-fast splitting check.
+Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-For RISC-V, pmd_mkinvalid() clears V and PROT_NONE but keeps R/W/X, so
-pmd_present() and pmd_trans_huge() still return true:
-
-#define _PAGE_LEAF (_PAGE_READ | _PAGE_WRITE | _PAGE_EXEC)
-
-static inline pmd_t pmd_mkinvalid(pmd_t pmd)
-{
-	return __pmd(pmd_val(pmd) & ~(_PAGE_PRESENT|_PAGE_PROT_NONE));
-}
-
-static inline int pmd_present(pmd_t pmd)
-{
-	/*
-	 * Checking for _PAGE_LEAF is needed too because:
-	 * When splitting a THP, split_huge_page() will temporarily clear
-	 * the present bit, in this situation, pmd_present() and
-	 * pmd_trans_huge() still needs to return true.
-	 */
-	return (pmd_val(pmd) & (_PAGE_PRESENT | _PAGE_PROT_NONE | _PAGE_LEAF));
-}
-
-static inline bool pmd_leaf(pmd_t pmd)
-{
-	return pmd_present(pmd) && (pmd_val(pmd) & _PAGE_LEAF);
-}
-
-static inline int pmd_trans_huge(pmd_t pmd)
-{
-	return pmd_leaf(pmd);
-}
-
-And the rmap walk also needs that leaf indication. page_vma_mapped_walk()
-checks pmd_trans_huge() before taking the PMD lock, then rereads the entry
-under the lock. Keeping R/W/X lets it recognize the invalidated THP and
-wait for the split to finish :)
-
-Anyway, R/W/X still have a job there (RISC-V doesn't have a separate leaf
-bit), and I don't think we can just drop them yet :D
-
-Cheers, Lance
-
-[...]
+[1] https://lore.kernel.org/lkml/20261009083137.3-1-sashal@kernel.org/
