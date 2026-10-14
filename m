@@ -1,195 +1,160 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1BD64F6484
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:20:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791976847; cv=pass; b=f1R/NhG0r/q0q+bktuSl5wLZVrhHuLYEa4BLsig1inQtsPdSDK017N5yxH6559VM7pbflN1DhSyeq7uCaiywMgbkbHPZ6FieqvTivnv5MVW2L0Ke0DqFXRe8ZGcr3B0CriA+K8duLmZMso0xDXFx5HfcXOqUYbCK7u2/XJQKad0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791976847; c=relaxed/simple;
-	bh=Dm1smR04ZivAMkU8QgbMvCQPxO0lGpCaWtgIm5vurN0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Osb3UzNWgEDYs7BARuDVoBBYcuitlInIL4Z0t+JOMs8yHtGviU/UKZ/hMhInijGfLUCTA4cTIl8gsnHZS8O4vGDAD2ePeTGCLHvwS4LaIdQjg4gfXrYKyjEHobVOVogRn3n/AVvJPXm5jpnBTwAJeaEnaHzat096cFA+n40aCCE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iCp4paHr; arc=pass smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4DCD4F6499
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:21:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791976868; cv=none; b=M4JiqX8vZ+Sw+DSJyURu50abiX+qW0BTbrkUADB/hrk4heI5fJ3SyUaGtqHHcRFbYdUjCOzPMx1ptDIBtz/9ZTkz3D4U8nz6x0rmQRW6Nd8m8B3D0R8BWsm7VQaJEhagMY4LdO3IaPp7cqAiLWwSp3CwRmHLkJ9Wm7BMRF147Nk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791976868; c=relaxed/simple;
+	bh=Ch0k37ZwRXyF+QmHQJEjZjn8meEqwJrUMR+Eu0Lv7aQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ff9UWn+kduMal3TXAfDLFB7OnBJyEgwXgYjsc9J0rKTH+DxW0KNBRPblbHC4z/t9X10ir8E4Io9HsI2+q72mrpjYqbLBdPXMHW3kRFueieVC75zijyj2MoHilXuq1+B+Zs4K8qoSiXWofJpnl/DDz6XanKFMvmZhpNBKnaY/BXE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=UMLG9yr4; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iCp4paHr"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a01933b584so34951185e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:20:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791976844; cv=none;
-        d=google.com; s=arc-20260327;
-        b=I90+IxqIh6aWz12JG2s4PB06zOhCKFEuyfWPjQPaR3jX+tLNk5D4bYzgZWsTsBqKG/
-         dZsjwrHvS1/dd2Rb0Lyo+y1Zri2pSb3EOOZhnCBq9rVzJDKPfCWp9gUHEnIaLzxhfCfn
-         gHJjRm7m663eaiFr5g3a+Vx0MQbEZr9lp1iG4gzmGYPIhlIPJvp99jPXMRrPaidEZrtZ
-         hCxw3OzDNez69W8JMtKgw89xIJnYNZcMOeQE70TKmrJZrUCHz2ahKWG6Rnlc2PQ5iA4e
-         +YBrzeQ7GRRGzqfV3PXhV9r4aegn676cQuUU7zKzqh+3Xaw4LMoJBrkz7W9FM8L8PTTv
-         tq/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=bO5/h39EF/Oj8X3PFjOOqCZcmmbplUnPDUCoN8XUO3Q=;
-        fh=13WHpdli3d11ivXoqPIunuw13eZzSmq9HCwmw5j2/H8=;
-        b=iIQUjpxChkw8SeBGxP88y6UsSIl441AwckJzQSGMBGvo4m76T/G5ZEO/4h6GoME/GP
-         RZjtSynrHwsNPDx2y73upf/wvVN63lvQoG9bOBhRXkZx/5JuSKwj1WsgAJ2j82wio7m9
-         nqN4RVDRgmbXM8OvRy/vhsyCzqpVmK9AEnmzlpI7m4g5bW9fQZekmvqJtPK1ugyTTOY+
-         ilgaqP0l2WAc+tWw4V5cG1S4/AJKClrKU0PKFNdldKIANi/8ZHXQ6q9dqDyuB3zHzf+c
-         pPixN890CkQbvHRIM7cU/bNXPuwjXVe+HrpYo3Pb/+iTiGLcRB9Mq6GGf+Wg2IQBs75x
-         ONfg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="UMLG9yr4"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49ff680331aso9553135e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:21:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791976844; x=1792581644; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=suse.com; s=google; t=1791976865; x=1792581665; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=bO5/h39EF/Oj8X3PFjOOqCZcmmbplUnPDUCoN8XUO3Q=;
-        b=iCp4paHrczB97BfRM2s9Ejtsf1TkEplvFt/4up8zH8BGspsqNcbsc8Gs/mLEhTgYj1
-         sGm9CCM/komsQ9lr4+99Re+Ecjnzvps5UpmidI7SVbnMi3dATbEfhxdcftQg+UqM7Y+n
-         m+tZ+c49dRFnc7yGaR08maSAmdg3qlMfZmXGRL8El4Zqo4AynX5J6oOxh7Y0IjW0bPu2
-         62/B8Iaa5vOSBlTmTeGLZ/NJquY7xWH9OSIRywvO8skLVM4lrYrr+LDfZW153CABGMsj
-         nqado3o3DM4ldUL4D6VxAOSTzOSl2GCjXxKzXnuVYbSGyAr/SAPxJw7uXbBt7utwCSst
-         mhiw==
+        bh=KDrnC41SrQnoIWB3x7VgCSDF/VPgZxWskPROOodTSN8=;
+        b=UMLG9yr4APlXj2SYfzoNLTD4OigNxm43sP9VjcxtEuj4gsw85SSEroiR1qv/1CBHAh
+         FfNYygywHcMLgAnEfF0AHSE/YceWgB9/EUchVejwC/xN++SdLcDkm7uAPjZP4eZqXDDN
+         5UHCu3ShcLE6hPiozgiGWoeZmQ3gUz1ccpfByWvMn9+4mLETlEZNrCi7athv5jjJ7Oq9
+         CZt0rl7dqWIJmcpOADSTjiX5cSKa7gyFBXDDJ0iJu+HjOyOpf+EExSzV0xN/N56rmgWe
+         37jVEYQ/I7lQzqmgIPWVDzfGmqoVDT4mM7geP1Yxlc4MqGPwE/XFS2y4hXaLfQ5y6GsO
+         PaCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791976844; x=1792581644;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1791976865; x=1792581665;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=bO5/h39EF/Oj8X3PFjOOqCZcmmbplUnPDUCoN8XUO3Q=;
-        b=lYhBCwc0LS3q1cB2mrRiNmSt7Gw3717415VbZ1aRAozGqCJCUEEOYQVIehKjxQNw1w
-         1MISYOe6NjpN+kn3UXbNiuuzcTN1D+vwX1gLe0fxN6hwAq/+RSuyXVC+ffWZLVAmP9hu
-         mSRpi2jYCcfygTB7lnkkTFhL7spMamPNif0/Hbxn2gJrXIBDc2AMo4goIq7kvA1YgAU5
-         00JPhMTC9Ry1eTgf75H9VMcC+E1whUxMrXhN7k5R7Jhoe5Nt+sTCdpuzRRTaZov2w5CX
-         WmH68Vc96fsUL9RpQuiNlyOtAV1o7y/o2+5T0D6yyV6gpjmIYApvHHupH/ZxdriL8gsV
-         gWyQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx+dD10V84BOZK5uGh0viFrIuP82ZHSflFCum3fKloL7mYejNg0KzU759VBSvRfIAz2PxXwRyLw4iMSqC0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIA1Ge0vv056eQaJ3AwHLdqYk/mpWja/HGaSt4EOc4HL+/VmCtX
-	AsdsuMkBkDq4u4+zcxFRx2z2CAT94SN0XF+etUmKvqU0affzjVNM6BsBQ0Z2emEQ5oTSCZWdm8F
-	7tDdBY/3gBAA9XHznetOmOe6KZ4E9Kqk=
-X-Gm-Gg: AYBFou09UnqCuu2gvO2lqt69xL70r/cSY+kzzH1Hu5IljY1jvQ0BOwSKSDv2ldd8h3J
-	aqnzjlJa68xMUtEADNAOO5c1RkitFn58QmN8cJcm78DnXCDmFb0684+vRoiv3s2Z11kd6hq6yIs
-	HFwCTDto41KdrxWYuahXnAqFvc41tx/9GFPLJUe/h+8ARm4jsdVuiotK14+quV4QMuHTPCOvDBD
-	zq41JZsjW8WAD7BA2oYAY6cDy3xmfGBFwqEuxWwCDa/Qt1Sx+HDG/7QC48aCXtd/dQUBdvBugQj
-	tVJStjG4RATzVRcaDI8efv7jaAC5051xHoc3zjjMxFdQNjo/fYVGV62SBhJpz5UMgjLNxxpZo5y
-	anFJ+m8/9VFxVlRfIuTOWT7sHTWoWZ277d1jgLb3EWInxaWn1psdR9/pEQUX8S9WXu1ibYbwkIl
-	lZdJx0nJACHw==
-X-Received: by 2002:a05:600c:6384:b0:4a1:7741:ec43 with SMTP id
- 5b1f17b1804b1-4a18e4b8966mr285168845e9.26.1791976844095; Wed, 14 Oct 2026
- 04:20:44 -0700 (PDT)
+        bh=KDrnC41SrQnoIWB3x7VgCSDF/VPgZxWskPROOodTSN8=;
+        b=U2OCeVpgfBX1v86Cjx2dx9Npr5dREZtrJjtqiJlk7a0ErfJIcXR14NtNL7ZQ7b9WME
+         94XfgBMEewUW2UIoMnRQfHLpobeNZtnbLPTlgEP1DulCtD9XzphF7TROMF+2o58z211b
+         BkFmEarxoDhh7R7V4ICrbLA1RFe35qhAt/lBgsCJg4y6fd6jtcMUeF8VQ/e6Zq0cZazg
+         rX8BYVg6ZnnSuKSzlmrYdzcabGRQa2c4lLKBAFcnXZaBvY9gAib5Mkcb9ufH20B9QUk6
+         7rB/LZAE2uut7Q3rvlGqyW431PTEFikyrSGJuzOjzQ9zVf+DauldEn1ThBwCBCF8n+3g
+         QD0A==
+X-Forwarded-Encrypted: i=1; AKwUvBxTsV5bQgZan9+wBzIq7r5kPelcu04ejtmhX6NBdUF2zIPa3rocJQo70faaHOxbvh49KxcP70hNzzTCGuc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKe8YIoC/BfckChByndfczA0xwF8bguH/pfwt8GekFzAk0jTZta
+	GalgZ03b7yqCjIFuc2rDBjhdZyEp6tUQNU0Bx4pv2mODa2/j2X0My2ZRLWVlCWr/yG0=
+X-Gm-Gg: AYBFou2Edu+7z1zCZTl7J05rrKiu2T2WsNXp8/Jscvx6y8oXa7l6HMrpws7eq9xnUfH
+	fgOoT444UBxFKhVpX0FuyNlWh7uAgJgIwLoKOV5pzWLebrS1p19CbkBrCzh08GnYvAw5GHhSQpX
+	zKCVJvdQu/34uQytbHH0dKkPcNouUTC9l0ABbREOImH+DFz3+o+k3EgmOoFC1V+qGbLVp1xY2Hi
+	86NwC1mDdncUkVbNPmJ7ZTK8bPInGLkRNSFCpxuime6ImprhPCXeOri/FKe8duwMJ5c/6d7eZC6
+	+vzIvYvzfa8+aIfeC8siRM8SE+JuGVooHLIPZEp1I9vqOBoUqU5olBH0AOkUft3zOsCF18R+edb
+	DkIkTQTQRgpzTooZ59Y0TGTqWg3qRUg+KuvBeHbm+JvD2X3Cx1EEgZT62QoafqfTfaa9wXBwTHM
+	7Lu25VROLv9l5YwV64p8FVAQ5jzvgHrUaNTzeubYf1sEQuqQIIMlkVliDsd1K3j8oJeROZxntrh
+	dHLsDCIz7ZG
+X-Received: by 2002:a05:600c:3f0c:b0:4a1:6517:ccf1 with SMTP id 5b1f17b1804b1-4a18e47a844mr324249785e9.9.1791976864761;
+        Wed, 14 Oct 2026 04:21:04 -0700 (PDT)
+Received: from localhost (109-81-25-183.rct.o2.cz. [109.81.25.183])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ab6361sm9561760f8f.32.2026.10.14.04.21.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 04:21:03 -0700 (PDT)
+Date: Wed, 14 Oct 2026 13:21:01 +0200
+From: Michal Hocko <mhocko@suse.com>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>, Tejun Heo <tj@kernel.org>,
+	Meta kernel team <kernel-team@meta.com>, cgroups@vger.kernel.org,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH for-7.5 2/5] memcg: use high_work for kernel threads
+Message-ID: <as9lnTYY0NCAp-c5@tiehlicka>
+References: <20261010210957.1350874-1-shakeel.butt@linux.dev>
+ <20261010210957.1350874-3-shakeel.butt@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261006-miic-validate-dtb-v3-v3-0-68617b3dca5c@reliablecontrols.com>
- <20261006-miic-validate-dtb-v3-v3-2-68617b3dca5c@reliablecontrols.com>
-In-Reply-To: <20261006-miic-validate-dtb-v3-v3-2-68617b3dca5c@reliablecontrols.com>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Wed, 14 Oct 2026 12:20:17 +0100
-X-Gm-Features: AclHuK9lTkcKfev6iJ1zocn1hec2LLI_EBu29VRkVnV_MFGRgCWPxR3baUck-N0
-Message-ID: <CA+V-a8vZmCia0aRyx_KU+_3Wz4JJNOMG=-GC-QXcEL8RaE3-qg@mail.gmail.com>
-Subject: Re: [PATCH net-next v3 2/2] net: pcs: rzn1-miic: Validate dtb
- configuration values
-To: khendry@reliablecontrols.com
-Cc: =?UTF-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@bootlin.com>, 
-	Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
-	Russell King <linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, linux-renesas-soc@vger.kernel.org, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261010210957.1350874-3-shakeel.butt@linux.dev>
 
-On Tue, Oct 6, 2026 at 5:48=E2=80=AFPM Kyle Hendry via B4 Relay
-<devnull+khendry.reliablecontrols.com@kernel.org> wrote:
->
-> From: Kyle Hendry <khendry@reliablecontrols.com>
->
-> Bad configuration values from the dtb could result in out of bounds array
-> access. Verify parsed values are within range for the SoC and fail the
-> probe if invalid.
->
-> Signed-off-by: Kyle Hendry <khendry@reliablecontrols.com>
+On Sat 10-10-26 14:09:54, Shakeel Butt wrote:
+> Kernel threads never return to userspace, so deferred memory.high
+> reclaim does not run. Reclaim and throttling during a charge can also
+> delay work they do for other tasks.
+> 
+> Treat kernel threads like interrupts. Queue high_work for the first
+> cgroup over memory.high and skip reclaim and throttling in the charging
+> thread.
+> 
+> User workers created by create_io_thread() and vhost_task_create() keep
+> their current behavior. Vhost kernel threads use the new path, even when
+> they borrow the owner's mm.
+> 
+> The worker requests a fixed batch of pages each time. A fast allocator
+> can keep usage well above memory.high. Kernel threads also skip
+> memory.swap.high throttling and its high-event reporting. The memory.max
+> and memory.swap.max checks stay the same.
+> 
+> Suggested-by: Tejun Heo <tj@kernel.org>
+> Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+
+yes this makes sense as a general improvemnt.
+
+Acked-by: Michal Hocko <mhocko@suse.com>
+
+Thanks!
 > ---
->  drivers/net/pcs/pcs-rzn1-miic.c | 29 +++++++++++++++++++++++++++--
->  1 file changed, 27 insertions(+), 2 deletions(-)
->
-Reviewed-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-
-Cheers,
-Prabhakar
-
-> diff --git a/drivers/net/pcs/pcs-rzn1-miic.c b/drivers/net/pcs/pcs-rzn1-m=
-iic.c
-> index 31716241b58f..10622eb654d2 100644
-> --- a/drivers/net/pcs/pcs-rzn1-miic.c
-> +++ b/drivers/net/pcs/pcs-rzn1-miic.c
-> @@ -693,16 +693,40 @@ static int miic_parse_dt(struct miic *miic, u32 *mo=
-de_cfg)
->         memset(dt_val, MIIC_MODCTRL_CONF_NONE,
->                sizeof(*dt_val) * miic->of_data->conf_conv_count);
->
-> -       if (of_property_read_u32(np, "renesas,miic-switch-portin", &conf)=
- =3D=3D 0)
-> -               dt_val[0] =3D conf;
-> +       if (of_property_read_u32(np, "renesas,miic-switch-portin", &conf)=
- =3D=3D 0) {
-> +               if (conf >=3D miic->of_data->conf_to_string_count) {
-> +                       dev_err(miic->dev, "Port input configuration out =
-of range: %d\n",
-> +                               conf);
-> +                       ret =3D -EINVAL;
-> +                       goto err;
-> +               } else {
-> +                       dt_val[0] =3D conf;
-> +               }
-> +       }
->
->         for_each_available_child_of_node(np, conv) {
->                 if (of_property_read_u32(conv, "reg", &port))
->                         continue;
->
-> +               if (port < miic->of_data->miic_port_start ||
-> +                   port > miic->of_data->miic_port_last) {
-> +                       dev_err(miic->dev, "Port number out of range: %d\=
-n", port);
-> +                       of_node_put(conv);
-> +                       ret =3D -EINVAL;
-> +                       goto err;
-> +               }
+>  mm/memcontrol.c | 13 +++++++++++--
+>  1 file changed, 11 insertions(+), 2 deletions(-)
+> 
+> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> index 20c5dfe1a894..8116fce6ab96 100644
+> --- a/mm/memcontrol.c
+> +++ b/mm/memcontrol.c
+> @@ -2705,6 +2705,7 @@ static void memcg_enforce_high(struct mem_cgroup *memcg, unsigned int nr_pages,
+>  			       gfp_t gfp_mask)
+>  {
+>  	bool allow_spinning = gfpflags_allow_spinning(gfp_mask);
+> +	bool use_worker = !in_task() || (current->flags & PF_KTHREAD);
+>  
+>  	/*
+>  	 * If the hierarchy is above the normal consumption range, schedule
+> @@ -2723,8 +2724,12 @@ static void memcg_enforce_high(struct mem_cgroup *memcg, unsigned int nr_pages,
+>  		swap_high = page_counter_read(&memcg->swap) >
+>  			READ_ONCE(memcg->swap.high);
+>  
+> -		/* Don't bother a random interrupted task */
+> -		if (!in_task()) {
+> +		/*
+> +		 * Don't make an unrelated interrupted task handle this charge.
+> +		 * Kernel threads may be working for other tasks, so let a worker
+> +		 * reclaim instead.
+> +		 */
+> +		if (use_worker) {
+>  			if (mem_high) {
+>  				if (allow_spinning)
+>  					schedule_work(&memcg->high_work);
+> @@ -2751,6 +2756,10 @@ static void memcg_enforce_high(struct mem_cgroup *memcg, unsigned int nr_pages,
+>  		}
+>  	} while ((memcg = parent_mem_cgroup(memcg)));
+>  
+> +	/* Interrupts and kernel threads stop here. */
+> +	if (use_worker)
+> +		return;
 > +
->                 if (of_property_read_u32(conv, "renesas,miic-input", &con=
-f))
->                         continue;
->
-> +               if (conf >=3D miic->of_data->conf_to_string_count) {
-> +                       dev_err(miic->dev, "Port %d configuration out of =
-range: %d\n",
-> +                               port, conf);
-> +                       of_node_put(conv);
-> +                       ret =3D -EINVAL;
-> +                       goto err;
-> +               }
-> +
->                 /* Adjust for 0 based index */
->                 dt_val[port + !miic->of_data->miic_port_start] =3D conf;
->
-> @@ -712,6 +736,7 @@ static int miic_parse_dt(struct miic *miic, u32 *mode=
-_cfg)
->         }
->
->         ret =3D miic_match_dt_conf(miic, dt_val, mode_cfg);
-> +err:
->         kfree(dt_val);
->
->         return ret;
->
-> --
-> 2.43.0
->
->
->
+>  	/*
+>  	 * Reclaim is set up above to be called from the userland
+>  	 * return path. But also attempt synchronous reclaim to avoid
+> -- 
+> 2.53.0-Meta
+> 
+
+-- 
+Michal Hocko
+SUSE Labs
