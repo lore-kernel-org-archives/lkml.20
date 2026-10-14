@@ -1,298 +1,110 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C899A48FF80
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 20:12:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.9
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792008777; cv=fail; b=GZSr1QbMiwiatj/kkqcDW7SNExxwPsDmeXbrd3aJf6KUGn+MvKegWh2Fe/k8oko5aO35BYkw7HtP/4QsXcwdjLkjgCK32LKB6Xmd6kknHprTvsN+tPRMizL1EdmqSDSwuQ6EkBloJt1o0HNnkaEufmTVoexC7ac3ChMysznoeoI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792008777; c=relaxed/simple;
-	bh=3TtRVDy/+gNFXdTibeAvqDr3Txvt/TkFHvXjNBwxyAs=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=nNagJlwf07O8A/brw+WryGI6OVn5mvfb2O9GXBAGkR35DSMZIIx4UpJQl2JMyeGfWe80+eJMJ95dVz/yBIcY+QAGs56PcJFZOKVMI821MXh558FUwoLVFhWbXfCdt1+rGZZfxGFBWzFb5MkTATAtrbDxijXYooXJzg23+9Bwwdo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=E0k8FSvA; arc=fail smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6253048BD2E
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 20:13:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792008811; cv=none; b=NjyAKVYbK8egX6f7CrdDVeU3WDFqqKxixs2ilkrCXmDQDyZfiKqoR8lBM0YpIB6HrRyVLe75oz2X2sY4oBUYgCO/utKyIiBm0q+ANUr50SJDCPqBIA4GwsdFDmjGAfTVHgtGjgGASK6iV1JROVsXJbNn1SsQBuPCML5O9nwWU1M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792008811; c=relaxed/simple;
+	bh=9GlBUMY9Tt4evjQ4ULoWffGbTfu8IfA43snp9BZJV8A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Kv6qJqpFR69Z/xC2klTqwdEgJ0mYFW6A+v86YWwUSGUE04tcSVNvnpVssMsdFqOw3K4D3jNTrHu/HAJ1NHSMoCfuH2Ey9DOLfEjlmnIvLiDKoI9/JNeRsj3LXUpGe3Em1wX/2hamMiooEP2vfRvCircJGTLCJNbIce0StWAZsHI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=RzFqpfz0; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="E0k8FSvA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792008770; x=1823544770;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=3TtRVDy/+gNFXdTibeAvqDr3Txvt/TkFHvXjNBwxyAs=;
-  b=E0k8FSvAOdjWy2aRYlLLGNpyPI8f1nmaTVIaIVagqztDjDJK7mBGP9/H
-   hJV3ci1wR5XnXxW3Z8J1kqRlaUqtyIXkkLKn7B5fcccmD4wEL6e7caFUC
-   aMkJ9AqNPfKMtiufQoNjPWiaXt5hBUOPMzC/QnvZj5adHgyruIEnat21d
-   QlAYgzmQdMNAjz6wLu1GuYpxML6CN8G2aNIOjG6bveULgHrMQdoqsQIaU
-   qkspwyaNP8NUA+90q3cJxQ1cHYUTqaNkGypKffMiiN1L5CUm2Xz4Xruo1
-   t5tYyVqKEthabYMAiLZ6z3X3pWcrbLFs4IoMeTzVMpaPgdE6zvpIJs8gu
-   g==;
-X-CSE-ConnectionGUID: ksE0ok2zSDaVjL7LkDp0yg==
-X-CSE-MsgGUID: Bd25f/PBQq2+nbkMNKjbbw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="665711"
-X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
-   d="scan'208";a="665711"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 13:12:49 -0700
-X-CSE-ConnectionGUID: KMueiIw0QSeQM+mXllwnww==
-X-CSE-MsgGUID: +j9wI3LUQt2U39u1ArOFdA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
-   d="scan'208";a="1594498"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
-  by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 13:12:49 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Wed, 14 Oct 2026 13:12:49 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Wed, 14 Oct 2026 13:12:49 -0700
-Received: from CH1PR05CU001.outbound.protection.outlook.com (52.101.193.19) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Wed, 14 Oct 2026 13:12:49 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NEWzOxv31J5AR7sBTLSuvp8eYPbYTpsdz4VI19JHn5KzafBPA0OMEaIw3X2KcX30k1mVZ0Zw7kX6SlsTVgdMB9Ygj9Ofp79n90MU8v1mLGO69WfYcFfROyrtaciW9ji/pr6LIZBdW795EVsA5PjRZml0lgKh5mL9cNEgpCn2F7yaBJDXZ15cAuLzBICSe+6IjtkBBEw0zm/KNu7rlpvcZRAn4iW6Lf9CynavZQPChLO7CMaADweYpZRYrSJlP4qc+qAqmz87myk1zns4LEnHHGoJEWNdClBlzedoLPR8NTDzALMFZuwC4s16cRXxbSA0vX61Keh+Yuz/tAZCai/YYQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JRYHNqgZxiL/1VJ2YbbcB0XXw+9JGjwIVyWqUGGxfC0=;
- b=q6i7//6bn9NFCt9Wgj318zobxrsNmQqSOp+6u0PIs0EI5sN+HKQGxZE7L2R3pAICtWW9b7Nqzrrhd6mVVMyJgXOyHo/jhhr3EDsli9XJxkt7O7WAg+lchdL+uGQ+EICy/V3Ypc1BNYtQrHwZwTV9YPVltlLeFGNxU3pn7Wgn0Rf4rhgKBSK5Rj6LX6oKgHZrKJb1gkj5ms79e0AF+bxpu1UpHbPhTGpOgdtXMD8QwP3s9FVHLSMH7jq3c3wUP841mQ1y7V8C0TaPWqc/r2f3beWnr0FGSn8D6wweNa9OMRrROOkBwQQUXo5y5avgtRPjB3/+U4Rztx8oeKcgzsrcQA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CH3PR11MB7180.namprd11.prod.outlook.com (2603:10b6:610:148::5)
- by SJ5PPF56FDAD370.namprd11.prod.outlook.com (2603:10b6:a0f:fc02::82a) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Wed, 14 Oct
- 2026 20:12:46 +0000
-Received: from CH3PR11MB7180.namprd11.prod.outlook.com
- ([fe80::70dc:90b2:50b4:31a8]) by CH3PR11MB7180.namprd11.prod.outlook.com
- ([fe80::70dc:90b2:50b4:31a8%7]) with mapi id 15.21.0496.021; Wed, 14 Oct 2026
- 20:12:46 +0000
-Date: Wed, 14 Oct 2026 16:12:41 -0400
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Constantinos Chalkias <cch@e-psn.eu>, Bata Roland
- =?iso-8859-1?Q?Kriszti=E1n?= <batarolandkrisztian@gmail.com>
-CC: <intel-xe@lists.freedesktop.org>, <matthew.brost@intel.com>,
-	<thomas.hellstrom@linux.intel.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
-	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] drm/xe/hwmon: refresh Battlemage thermal telemetry under
- force-wake
-Message-ID: <as_iOd6A_Yncj8Gt@intel.com>
-References: <20261012104245.2108030-1-cch@e-psn.eu>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261012104245.2108030-1-cch@e-psn.eu>
-X-ClientProxiedBy: SJ0PR03CA0066.namprd03.prod.outlook.com
- (2603:10b6:a03:331::11) To CH3PR11MB7180.namprd11.prod.outlook.com
- (2603:10b6:610:148::5)
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="RzFqpfz0"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48b0946c2c2so2917190f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:13:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20251104; t=1792008805; x=1792613605; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fMcFVSFe2pDmfUyudYthyboJo6z1+8bv8RHgL8W6a6U=;
+        b=RzFqpfz0zkZk/18iV+lRahB2FBBSf14OK25JLOLOT10ZfXSlDwJ5jC9bRLySjUYwNj
+         XdnlMPnv7D2GKNyiK7i7IZY4Cvly8fgYO/Nos8FBTlG1Loq0KUiXt7+KISV/X+89zlOZ
+         fKAc3QZG13Sjc48cVGvAZAZBLNWHmc9vsVdWpIKQ18PdG1D4t19o5b707LVjPZ0NN438
+         eJzygHNFkzeHUSf71vslGXlWIpyxBYoAcnhRbhlVGPf3A1o2rNzg7G4Tnpu0LpVdGeKi
+         cCcxVul7NJeVakAOj6bPmax9efgjTbGyvz2a7chQWWr5a75ArTpQGjvtilHiCwM4zwlQ
+         Vikg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792008805; x=1792613605;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fMcFVSFe2pDmfUyudYthyboJo6z1+8bv8RHgL8W6a6U=;
+        b=0RCzOyFIy/n67amNyDQs9DatlxWtReP3Gxo8g7upUR4cZfyrASB346J8tY3zuFKB+f
+         GfSsnZI5A3sY+UbO5s3pbmBuzCHxs6THvUtO73wa3sQRxjbgNEcc/YtJ8Sk7bptcl0q4
+         ulvo1eJ78IANwDKDzFRkQ3oYthaYuJiS9lNPuT5ySNclVfL2Z0V/5Rs+KbyujdcNVsDg
+         Ch2lApdu092eCyIgnSL3EScT58UxMdYQcqRLNG1mPG9GRaIq0jwwj34Y/rLY0C+Hl/3c
+         8A+0o/1/rKHvL7mfzaovVBdBgjUyCdUxJP9fLpFwIBsvUYUOHNdfQDJ8XBh5Z+/rNTSG
+         yR/w==
+X-Forwarded-Encrypted: i=1; AKwUvBxhx5jpjHGnq1UV0xVwdcWCaArelDgBQJOrsStWEQKV8yg6zBphmKsPpzAsmB/r2k8sjdNEz3c5zhpULr8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLOngVZmSTysF4DcJzLYZYcEOeLwOm/HALjroGv//Hs1pfmjcef
+	coO09rk/cMtroSBw3X0VYxkF4bAbd/YTDmPT70qT8F5kPSsgKWbVq4I=
+X-Gm-Gg: AYBFou03sp1LIN3kgYou1Nyw02ZDXHkO1670yMgrpKdMf/tjBW9iXpDdw6+tyvNnfjs
+	M6+sc+J1/AApCrVpLPCw9aZoz7sjtMU0vcDyS2eaeb/wo6npERVOwDBnDoDiAjpzdJjLqgDw+QX
+	57xHXg77DC1tUZkPR5rpuwPvyoVb23mmWtI542WlLcg529leOc9+EVm5Jhm+MmKBwZYs4kYyaMt
+	oRP4kxDA+Mz0Ssg99JK3cvkzj0fzHrVQtWQ34t7yJIL1clnVFeGFEJ9sN2qobrYITCIkp+EtFMo
+	hzWOp5h88Xggw0X7xtF1p9x496V7u1g1pVgGl8VNALWbbw25fq7WaDuq7QDLArQC1i3SGH7xYyv
+	p6nusvnYCF0+U+D578N0te95EXr2M6aJqfVKrUwiCdPIRemmWDX1D4XHRCmfHemOfYia9aTeicL
+	UwNWqU1Dls355lXvYnLVbwD3w3FqR2wbbQAKtEpg8oc54ZKHXOnTmXFedj/3JBgQ9bLZfMkXctd
+	F3E1sm5X+SOo5O0N3s8nOKZ939qI7+nntQLo1ktcIU5oEmilzg=
+X-Received: by 2002:a05:6000:2610:b0:48b:60a:760c with SMTP id ffacd0b85a97d-48dbacdbca4mr34058229f8f.31.1792008805303;
+        Wed, 14 Oct 2026 13:13:25 -0700 (PDT)
+Received: from [192.168.1.3] (p5b2acf7e.dip0.t-ipconnect.de. [91.42.207.126])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ab4e8csm13344281f8f.23.2026.10.14.13.13.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 14 Oct 2026 13:13:24 -0700 (PDT)
+Message-ID: <2ac348c8-1aa7-4d01-b189-9b7665cbfad8@googlemail.com>
+Date: Wed, 14 Oct 2026 22:13:24 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PR11MB7180:EE_|SJ5PPF56FDAD370:EE_
-X-MS-Office365-Filtering-Correlation-Id: 042511c8-e07d-44d5-01fd-08df2a2f8313
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|18002099003|22082099003|10067099003|11063799006|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info: 1GOoYFVghdo+k/JOsAbrHovnwsjI5esRu7s+nEQzhEZG05GF59ohFJbr8gQLi+8KuMUWyd7kZfQzUWJqPf1XvkEljO5OejNQ0RT7mWh8jOqRfzuWR24pfKg/m4N9ApcI4CVMgIIZMmTeLoL3oxUTLC/5vHJJcmhQzDIlnSaZEhRY+W3UWZCZnjPOS/IO2cBIMemz7aPo/KuDx0gxY3hbInD2A/Mava/D+yDorUKoVjH6eKGqTJFx2YD9fUzcT6rp3S4FMadaB1HncgjC2pI/wNXC0UU8Lgxm8+qH7QvskReBhyhBDL7POhm71O+6bBMHkAW0FvGHF4HAez2qyZpz49EMkrmPzn4u+phgiZ1SsFIR97wTndQqXWJ2UnGtIMPvJEnBIa72h1v0Ps/96tKS5MH9aN7/Hn8lR0xZKWfPMCGHOONmVjlBlkCAgurj33XfbUdxxjWrYeachWeZKsDH7YK22PvMBX50hW6DcYH7Hsru3CItRaPTNzZhKg2uzx4dRvf0An/SRZcAG/t9rwjZgNqWTUBG6G8C+kYq1n+4TigRUmxVqZev0kxyier77SklNKC2V7s/IkfeAqAZKrdGNat+dAMnqx1QAIKTLieEMB+8OOmdoRYO58+JnTIMUA3c
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR11MB7180.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(18002099003)(22082099003)(10067099003)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?THCWiz2OeOtSvi+yjkl2NKvUwnJ43wsjBlGmtjukXH1R7uKCqbwaOARRcN?=
- =?iso-8859-1?Q?sxT5fWOjFJIqjlPZYBSezzpkPLpVyd5z/VwTPALD0YZXDbzUGmPuDq/MRr?=
- =?iso-8859-1?Q?PtWV12x1n3iZXuHhjizLy9vUUrTz1viA0JeIZH/Gr8+lhk/hLYTpyRcc63?=
- =?iso-8859-1?Q?t3/MdIM4/BY4mZ+12hr+3OtgbgrlgfnzqaS3DvgY7Izr4siVM9m+amYGr5?=
- =?iso-8859-1?Q?sgoRmGnp6rvPfZZaloR9LYrtjQYIph9WUkbOG0OqI5QmKKs0JlpSDelToG?=
- =?iso-8859-1?Q?GZabi9KhjLSNgs456/HEmYbH3Ww0HRlpy2cgmf0D9CND6oTI52rQ9iO4zX?=
- =?iso-8859-1?Q?kNdjCPGhFB6SdRvWPGn9X/tJ+eaC16L0DYlLdkB+YQ2SVZqvp061NZU5Nk?=
- =?iso-8859-1?Q?q6en/P4xQy5sdOSFRKL+JkLeb7JktIRDW+HanLSZuJ66rFwhigQpETpgR8?=
- =?iso-8859-1?Q?c1jlEeydvGSZM3eYXQlKo1vAB72fl/bvavOzOqWpaqmqis/XUj7n6NtE+H?=
- =?iso-8859-1?Q?J3R5fh7YsE0RxaRgirrEZQ+EKDdb7B4JC0ywuxHwUW5A9mr+aOrQSs3coN?=
- =?iso-8859-1?Q?QvicamyETAG12UikTfLfWNME1zOAWf7wTTi2jioZ7A2iV3bRHPaGEpcUNu?=
- =?iso-8859-1?Q?5iK5knMExQ1IsWqsgLIDwOoye6hgVtYTtKT+Ya9Gx5Ue6a3yeZXyVyXkGk?=
- =?iso-8859-1?Q?myGs1jQaLSkPcuT3aI/eJXVsirnH4fQSsUgYyKsaDZri1PaecnG+0waVm1?=
- =?iso-8859-1?Q?H/QkfpLR9PVWF8R8zlNoJ51P1qXdT7ZTbSknEThYgaBBbs92EEH93ZASxr?=
- =?iso-8859-1?Q?Vo+NdJIcpXDQw0R9Y2HbU/L56Kuqr/bUwyIe/0fsRIXnnzPfNttEH74LDM?=
- =?iso-8859-1?Q?Y1QCYyrKRKQ2G8IVZyLO1Mt6rs81kvNQpXqJjetOpIgO4hlvpq1HuqfAxl?=
- =?iso-8859-1?Q?0AEMzFSlokSYFlBjBi5fVlsS8q5KeSUy61Iy5pAfm+4tUALnNbE3ChuFj+?=
- =?iso-8859-1?Q?1deV5DFjyEGaE6RAClsc6MmnjchkBv7qzJJM4IPr5MKcMxK31JzebpKHI3?=
- =?iso-8859-1?Q?vJYoNWfGXX0vZzlEAOgsqW4xEF7sfnXr5t316jnCECbLXiEdLKOrH+qz8E?=
- =?iso-8859-1?Q?uygkewvGd3YJmTtrtO0V4MKsWDqx4jV/5afLCvV8o+l8YM4daCsvnJwvwJ?=
- =?iso-8859-1?Q?1KUqySyzYqzcMkbQLYgdcwZQ4OkCHrmhgdr2qM4TQBzSzNusJZ6XXcp/Vw?=
- =?iso-8859-1?Q?qmi3uOGdP90umNe2r0GEpuO+HPXaGthy3zNbPfjt+q9pqeLXRJFOr0jwpQ?=
- =?iso-8859-1?Q?6wi8XYFdWKKJzpbbC9Ry78QVdJBJFFT/ZJRqywVgdQAKPdmmp3xMY28EYv?=
- =?iso-8859-1?Q?gyN0+Kp0k7Z3aNsiMUR3ubwPiIrXDs+gRhQfr4kLJ45gB7e/npVxLAOIXC?=
- =?iso-8859-1?Q?LwioiykTndi/yH+13X3fM1sllCjiLB9l0CmpnGx1WDCMMd4qoImyxrzP37?=
- =?iso-8859-1?Q?vloc8Xax29FDLcqPAPWDkF+BG9QxQeEReA7Re7FO78y+7v/AJl3u/HnDlP?=
- =?iso-8859-1?Q?JI6O2Fmop6FmLMmj5DiKFGPFr6640pzALMGm4UPihtU7iegaz03DY3wTqE?=
- =?iso-8859-1?Q?+LrPp7Dt1QRebnWQkyrDdLO81fbL1VNc3Fo9XMPrtPB8PIZ27cD8HPc7P6?=
- =?iso-8859-1?Q?q1IbeKb2Bfzo1mxY7i/CDUH0LWQu4zRg2PKlPNxaazAc9qSIsRSEFu502T?=
- =?iso-8859-1?Q?PzxRPtgx8FD70mm3rYf1BJGWfcBed5JMqOKw7/hvgg0Xzzmz4f4MqlIVyl?=
- =?iso-8859-1?Q?XuitkBAKww=3D=3D?=
-X-Exchange-RoutingPolicyChecked: FJouS/ysoF25Sm2XAbEhUi3ry6u/yJzzsxUv8tdfR79DFDsY/z9ywqAwG3Og+TsBd1YFzAgjc5VWoz6VjtsCc3c0l/DvX3mtrhFEyQwMVYeN/TluwGOQ5fiTS5ABW96NqlZYWVx9ZxJnKvwpRbNTigXUKsZwtU5PABe7Z80nRvj5WI/MrJfwR0+rHu+iBomC6+4chv9ZnfaLwJR50rb5Z8EQXNTxPA4f97yzvxVnClH57Ykc+AfTnjJBlo3SVB+x5NzpSkRBNsKlfEbbNV/R3antbNdePqRxh1dkwh5IQ5I23MAfvXb7gDuqNI2BTpMiX5QxPQp4ZQldsDAWsQO9ag==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 042511c8-e07d-44d5-01fd-08df2a2f8313
-X-MS-Exchange-CrossTenant-AuthSource: CH3PR11MB7180.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 20:12:46.3060
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BoO9OQ4HtPYIBiW92FTQWNaNqKncMr1HkfGOkasLREwKcq4uAvM8pdbSMO2k99bKmpCg4i1kCbVJCUgUcKITJg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF56FDAD370
-X-OriginatorOrg: intel.com
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 7.2 000/284] 7.2.11-rc2 review
+Content-Language: de-DE
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261014123758.782265692@linuxfoundation.org>
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20261014123758.782265692@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 12, 2026 at 01:42:45PM +0300, Constantinos Chalkias wrote:
-> On Battlemage, thermal telemetry can remain stale after the GT returns
-> to RC6 following sustained workloads.
-> 
-> On an Intel Arc Pro B70, package and VRAM temperature telemetry may stop
-> refreshing after a long inference workload. Fan telemetry can also
-> become invalid while the physical blower remains elevated.
-> 
-> Acquire the GT force-wake domain around Battlemage thermal MMIO reads
-> and allow a short settling interval before reading the register. Route
-> package, VRAM and VRAM-channel availability reads through the helper.
-> 
-> Testing showed that an immediate read, as well as a 100-300 us delay,
-> could leave telemetry stale. A 500-1000 us delay recovered correctly
-> across repeated inference-to-idle cycles.
-> 
-> The change is restricted to Battlemage, where the behavior has been
-> reproduced and validated.
-> 
-> Signed-off-by: Constantinos Chalkias <cch@e-psn.eu>
+Am 14.10.2026 um 14:50 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 7.2.11 release.
+> There are 284 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-Cc: Bata Roland Krisztián <batarolandkrisztian@gmail.com>
+Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697v2 server. No dmesg oddities or regressions found.
 
-https://lore.kernel.org/intel-xe/179041811564.526373.13204522833274380927.b70-hwmon-rfc@gmail.com/
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
 
-I believe you guys are facing the same dificulties and arriving to similar
-conclusions.
 
-If the consensus is that we need this forcewake, let's do it.
+Beste GrÃ¼ÃŸe,
+Peter Schneider
 
-Let's just avoid duplication of efforts in here.
+-- 
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
 
-And thank you all for the contributions.
-
-> ---
->  drivers/gpu/drm/xe/xe_hwmon.c | 51 ++++++++++++++++++++++++++++++-----
->  1 file changed, 45 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/xe/xe_hwmon.c b/drivers/gpu/drm/xe/xe_hwmon.c
-> index 5edeac961ec3..fee358ab9a6b 100644
-> --- a/drivers/gpu/drm/xe/xe_hwmon.c
-> +++ b/drivers/gpu/drm/xe/xe_hwmon.c
-> @@ -3,6 +3,7 @@
->   * Copyright © 2023 Intel Corporation
->   */
->  
-> +#include <linux/delay.h>
->  #include <linux/hwmon-sysfs.h>
->  #include <linux/hwmon.h>
->  #include <linux/jiffies.h>
-> @@ -14,6 +15,7 @@
->  #include "regs/xe_mchbar_regs.h"
->  #include "regs/xe_pcode_regs.h"
->  #include "xe_device.h"
-> +#include "xe_force_wake.h"
->  #include "xe_hwmon.h"
->  #include "xe_mmio.h"
->  #include "xe_pcode.h"
-> @@ -946,14 +948,43 @@ static void xe_hwmon_get_voltage(struct xe_hwmon *hwmon, int channel, long *valu
->  	*value = DIV_ROUND_CLOSEST(REG_FIELD_GET(VOLTAGE_MASK, reg_val) * 2500, SF_VOLTAGE);
->  }
->  
-> -static inline bool is_vram_ch_available(struct xe_hwmon *hwmon, int channel)
-> +static int xe_hwmon_temp_mmio_read(struct xe_hwmon *hwmon,
-> +				   struct xe_reg reg, u32 *reg_val)
->  {
->  	struct xe_mmio *mmio = xe_root_tile_mmio(hwmon->xe);
-> +
-> +	if (hwmon->xe->info.platform == XE_BATTLEMAGE) {
-> +		struct xe_gt *gt = xe_root_mmio_gt(hwmon->xe);
-> +
-> +		CLASS(xe_force_wake, fw_ref)(gt_to_fw(gt), XE_FW_GT);
-> +
-> +		if (!xe_force_wake_ref_has_domain(fw_ref.domains, XE_FW_GT))
-> +			return -ETIMEDOUT;
-> +
-> +		/*
-> +		 * Allow thermal telemetry to refresh after leaving RC6
-> +		 * before reading the temperature register.
-> +		 */
-> +		usleep_range(500, 1000);
-> +
-> +		*reg_val = xe_mmio_read32(mmio, reg);
-> +		return 0;
-> +	}
-> +
-> +	*reg_val = xe_mmio_read32(mmio, reg);
-> +
-> +	return 0;
-> +}
-> +
-> +static inline bool is_vram_ch_available(struct xe_hwmon *hwmon, int channel)
-> +{
->  	int vram_id = channel - CHANNEL_VRAM_N;
->  	struct xe_reg vram_reg;
-> +	u32 reg_val;
->  
->  	vram_reg = xe_hwmon_get_reg(hwmon, REG_TEMP, channel);
-> -	if (!xe_reg_is_valid(vram_reg) || !xe_mmio_read32(mmio, vram_reg))
-> +	if (!xe_reg_is_valid(vram_reg) ||
-> +	    xe_hwmon_temp_mmio_read(hwmon, vram_reg, &reg_val) || !reg_val)
->  		return false;
->  
->  	/* Create label only for available vram channel */
-> @@ -1025,15 +1056,19 @@ xe_hwmon_temp_is_visible(struct xe_hwmon *hwmon, u32 attr, int channel)
->  static int
->  xe_hwmon_temp_read(struct xe_hwmon *hwmon, u32 attr, int channel, long *val)
->  {
-> -	struct xe_mmio *mmio = xe_root_tile_mmio(hwmon->xe);
-> -	u64 reg_val;
-> +	u32 reg_val;
-> +	int ret;
->  
->  	switch (attr) {
->  	case hwmon_temp_input:
->  		switch (channel) {
->  		case CHANNEL_PKG:
->  		case CHANNEL_VRAM:
-> -			reg_val = xe_mmio_read32(mmio, xe_hwmon_get_reg(hwmon, REG_TEMP, channel));
-> +			ret = xe_hwmon_temp_mmio_read(hwmon,
-> +						      xe_hwmon_get_reg(hwmon, REG_TEMP, channel),
-> +						      &reg_val);
-> +			if (ret)
-> +				return ret;
->  
->  			/* HW register value is in degrees Celsius, convert to millidegrees. */
->  			*val = REG_FIELD_GET(TEMP_MASK, reg_val) * MILLIDEGREE_PER_DEGREE;
-> @@ -1043,7 +1078,11 @@ xe_hwmon_temp_read(struct xe_hwmon *hwmon, u32 attr, int channel, long *val)
->  		case CHANNEL_PCIE:
->  			return get_pcie_temp(hwmon, val);
->  		case CHANNEL_VRAM_N...CHANNEL_VRAM_N_MAX:
-> -			reg_val = xe_mmio_read32(mmio, xe_hwmon_get_reg(hwmon, REG_TEMP, channel));
-> +			ret = xe_hwmon_temp_mmio_read(hwmon,
-> +						      xe_hwmon_get_reg(hwmon, REG_TEMP, channel),
-> +						      &reg_val);
-> +			if (ret)
-> +				return ret;
->  			/*
->  			 * This temperature format is 24 bit [31:8] signed integer and 8 bit
->  			 * [7:0] fraction.
-> -- 
-> 2.56.0
-> 
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
