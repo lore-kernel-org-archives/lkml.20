@@ -1,149 +1,218 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013032.outbound.protection.outlook.com [40.93.196.32])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A043A61FCE;
-	Wed, 14 Oct 2026 01:00:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.32
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791939627; cv=fail; b=OabazXqk6R+Kt2blFHkOGziXW5Cdza9yugmfkOHCKRtEfOhuIdqMATINgpfCn4TEWg0s2hOP3ICzjSvS6mqAhPJsxPevynYwmgvFoRm2b9GFfXD8yTSMaFdBfS9yRPZRCJbdA9BbPhE67flie9v7LjIPqlRQR+8uPXTEGsfdAMg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791939627; c=relaxed/simple;
-	bh=CNdRuNd3tqxkuhBr8GZMs7d5vGORbSmUvGEwMq29WdI=;
-	h=Content-Type:Date:Message-Id:To:Cc:Subject:From:References:
-	 In-Reply-To:MIME-Version; b=VEEMOO8qoOXwwH5sN1UoMce22J183hQRM+cNDCG815xdRpg198YyrY66uCtS8LBrEmDhXVro++F1d/sstWK/EuHsXvdsaRGrt8mfQAtHXWeY4h+dDZ0h7lkLth1Hh4C5YW1uzCzgsrHOoX94T5Y+mLrL75JmfKiYNpKqZ8s3Mco=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=VBvK9FbC; arc=fail smtp.client-ip=40.93.196.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D70BA1E47CC
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 01:01:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.52
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791939697; cv=none; b=oOJrZfdt0OZNcNPyHF8e9x0appBi1tPtqm2eIgxj9MJeNyEUIliPVeGj0qS6eCFi6Yd/vu6Jorj2siFLMiQ51IFIwlsbO22/OpdvW5S2FE+ITpPjVl8ev7c9TOb0qIfa+DSHsHQq0+ypdqV/g15h345DptTo8AzC2S6LQcWhtF8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791939697; c=relaxed/simple;
+	bh=AwRPdt5xIdbOdtIrmjRMF3i2SFwbOZGxrI/2zdeiMKA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ttxHiRRO09Gk8fQOvndpMscjLe+iqA9ucTKljVuy7FNgzWHps8eAFVvJIRs4BbmjPcqieIYZcaAHfj4SvX+ZivdGz1aFBLch1ck3bIizhiDzmYVgTtpAIvd1xBeJF/oApQPhR2lbmojESRMBY7V9B/mMkAlEJVW90Uhuoi4G59I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=OUYNnrdJ; arc=none smtp.client-ip=209.85.208.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="VBvK9FbC"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uo+jJnCHJtnLHrFsXvGSNgfDbSukYvQQRUVxWigIGhLnLEL3j81fGXfefHix2meyUF0LUwV+u5k4bX8Y3pKLFmtoGL5PHClG95JVAyUFDmQYuZJmLy5xvR5Oq8Lpv3EjkFPvNdodtIerv3A8qzTQqowQBDDvNds56nCuc18SrXMjLJzH3R+ZpfpPVEo1BpLezwxVgEcw1h2FM0NfHp6RPJ9i2jArQRO0eZ01lmDs+eSmoNK2jCVFyqtvoRL69SH7hKf3n0zvR1hjksqwBV2PDcF4v6aAPX7nOWzOea54LCfEMBDAe2gzFYiZf9s/YpfGjeD8K9ooT9PMWYKDVk/ueQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CNdRuNd3tqxkuhBr8GZMs7d5vGORbSmUvGEwMq29WdI=;
- b=IGNZltVbYhr9k58ON4G8X/q5urbdj3s4eKLZ3fNIrp3A/ayoCr27F88U6wsxB6dU5dTw5NqaXI4BOFO2+pvsq/xJ38+/ClN6oRqZtPmiPNlsQKGviU/SvZtRtlWLEqieI6GVTtQRBWVk+ag4cYOGZDXZM7f19uJmIbP/a/epZ5WF2LYV3OhswA+ps6xIRYMFUoMVtMf4mVc504GZjvP7cMOnm6KmEnwTjH0VkVDMRCgMShgtUyKJnjso60B2R8itJFthrisoqLZ3WxGUvncuzb4qfYTtVmdg2k0icN+nSf/uULWe6v7nbKhF6AalhvNg9gCg/3LyeabhtnMP+7PhXw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CNdRuNd3tqxkuhBr8GZMs7d5vGORbSmUvGEwMq29WdI=;
- b=VBvK9FbC8evOGcyLJzckEuxq2a8QifRrXkR8iDQo3SW81BQNdRnX5wJH7DkF5OfGaY524ydt7LhxTN/ftbU2X00+GTJYj2+GaltFIGjil0TcV/v6Zj3ZSpYcgasEy5X/hwBBG8MkYWWA2FG8xGY+ma2V23LQhRRYPrmXvqPG7ul8QnND8gw9WxDCzaDHcprc3cHv4aKWXAiaNY7KiSWK06il5fu2Yorg7rcXCwKGaaWKrTR0i//gIyQWOeE/5hdJVTxzRbbuKQv/By1tYFQKmGE0z+RAfda/QAsRkopTxBEh8fB20MGgc1nsD+MDVdwPyk6H2G1I/tPAAGj3w1BsRg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- SJ0PR12MB6926.namprd12.prod.outlook.com (2603:10b6:a03:485::8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.23; Wed, 14 Oct 2026 01:00:19 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0496.021; Wed, 14 Oct 2026
- 01:00:19 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 14 Oct 2026 10:00:15 +0900
-Message-Id: <DM45KUU32XJY.3SEO01811QCUP@nvidia.com>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "John Hubbard"
- <jhubbard@nvidia.com>, "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Benno Lossin" <lossin@kernel.org>, "Gary Guo"
- <gary@garyguo.net>
-Cc: "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
- "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
- "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [PATCH v4 06/10] gpu: nova-core: gsp: cmdq: move RPC message
- logging to RpcMessage
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261009-cmdq-rpc-v4-0-c9ab8de1d3f2@nvidia.com>
- <20261009-cmdq-rpc-v4-6-c9ab8de1d3f2@nvidia.com>
-In-Reply-To: <20261009-cmdq-rpc-v4-6-c9ab8de1d3f2@nvidia.com>
-X-ClientProxiedBy: TYCP286CA0122.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:2b6::8) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="OUYNnrdJ"
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6acb57c2b88so577097a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:01:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1791939693; x=1792544493; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NcyFLOR307IwCd4Dy0GBYyDYcbdMnlagtjknr2E8Tlk=;
+        b=OUYNnrdJTTcRx4V9jh685tlK8hCjWlNb9EnhktIE4y4sBSGtjvDv0cgN81IEqlA1DN
+         NDNwrNjjnzjJCq93JWTpO2nxoEG85qzd4dZVMviuE7h3R6ysPTlF1Xjl4pttz2pcZnW+
+         9xm/6h19LeahgO1323L9zPSz93dsNS6gtxALA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791939693; x=1792544493;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=NcyFLOR307IwCd4Dy0GBYyDYcbdMnlagtjknr2E8Tlk=;
+        b=WFG3dZXPgWyRMLMuVA8solN8yAtJwbSZY+CMtrOIaoFYt92abgceteMgw1DxdVHphH
+         Pd7hOVKEyHcztY0uir6971weJhvWGxETOq6JbE9lS4SsfpTUs+Ndx/rgXphkD020EJwv
+         Q7qR2woI/hZUoaUNdWBlIOuoACWyABRkqjpUIAnQwyjyVRogkc2usTV1VgHvcJe91hZu
+         +T5hLVwn40v7xxonQz0w3fSPdIWMnYy1pROZXpoJM+dNYSm47EgfpEUhyvVjgjlB2P5P
+         6D85KoedUAlq1az1lVCCw38rkRlq6sdXVBPUwXph1y4WxpjWxW7pfdDs9IB7CYvVwmcA
+         zPEA==
+X-Forwarded-Encrypted: i=1; AKwUvByWUlkyjrsQWeBCuxbqK85xFYM7dmmqKM578su0cR07+hfHyuvpWwpTAamdBzfdch2jFM4y5NYjdCMM5e8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ+yxDDeSnO3+Nc1TT9Qr7JISSXNdTN0LvV8d6acuNpfCnVvbs7
+	kQWyHHADj0ZFPnhxeiRvuryK4rqzDZoqt35X+oxlRQMFHgPJrJS/4NvJNXw3BCEAe7tE0aqBAx5
+	vVgURJaw=
+X-Gm-Gg: AYBFou0VNh9XfAsyqg0Lf1jA9iRZzkko46BvcelUlLgaRDwjbqip/a/XPXcxhreeIXi
+	U0cptF17DlWewbijY6cgOH19M4SwH6Ydc1aOSyKH8G2PIDR2+xcfjZ5HA5P8weRS+RXNRSZ3J6F
+	u3kTHvt+7Q6gBXjbjMvPeWaOT7w7QavVxUxzxkXj7QBZBFssfcdRwKJsbs2XOg6/61yv74+GrER
+	12nUpML8n015KowJ48hT+BlHwlh/7z9wTODvgfpBKzczwe0ThfjbEAtHgzQrW4rjldI3JO+aicf
+	yZmKACmpraPAweoU0pGMBQeKna0Xl5XAp0PAPoCKxezuOXaV592HuXLDNRgfz/BcsAoBOEqtDwq
+	o3fO6z8Z69fgd7OH2Qxaipm5Q1JOFswKPNDn5nLYtsV3JoxMQIjhRvbaCxRwJvmAMl9x5uQeMUg
+	OlmVXhuzV9qY76QIxKX7AptWSfC8O7FSz+Z501UiZ8T1R5sJK7JmWtfVda1vXwZX+/5CAGqUROE
+	W+1TtX/qZa4IxYAsyw+v9nRneqYjP3gaWqZPBMcuQmX3TXu
+X-Received: by 2002:a17:907:e0db:20b0:c35:d50a:1356 with SMTP id a640c23a62f3a-c35d50a286cmr384110966b.42.1791939692907;
+        Tue, 13 Oct 2026 18:01:32 -0700 (PDT)
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com. [209.85.218.47])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c363d61243fsm208447666b.6.2026.10.13.18.01.31
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 13 Oct 2026 18:01:32 -0700 (PDT)
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c3156e7705cso83137266b.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:01:31 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByR8nk/swd/wzNgN/TICPLcKaU0Rw2aAfbvUOwR0kRlKtxrt70Vh4SGCf8QDgeh6ZadPg3gzG8bGTT8yRQ=@vger.kernel.org
+X-Received: by 2002:a17:907:c07:b0:c2e:3d17:5259 with SMTP id
+ a640c23a62f3a-c31aa0bf51amr1323546966b.41.1791939691728; Tue, 13 Oct 2026
+ 18:01:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|SJ0PR12MB6926:EE_
-X-MS-Office365-Filtering-Correlation-Id: c3d5989c-ffae-46da-e566-08df298e8423
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|366016|1800799024|10070799003|23010399003|56012099006|4143699003|11063799006|22082099003|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	k8dlGE20726L0zT5Ubin2268XHzT/l9g1QD2y7pDQMKXOyaXO+s2reBS6vVfBw+vH2U39cxkEF4ha2PUlUS2YFJmsWgFx/nPb944aq+cukvDwGesSxnlQnXVmkPErtQ5mmumx5Q63Eow9c5uxfBG9fOBuYyy/deI2sUfaRkgYRTc4392RgZ+uzL4jJp8OZ5iSNny46el6dw7rjG3njN8bv/UjoepRYCZ2GI6RhH9o9V8fm9U+Uls3j/h4yLeT+ZYMhp2O8nWEFvFf0J56h0mLv2It0kCyLn7Fojy6+E63HzSi4qM6zWclQUWc8lC4Kq7ylxFY3MpQUzUfJKHZkHhILvLYWIhaeSXjctipVoowG9MAb6/BTvvmhqCLRQblFUImp7uLHccRH4rjH8886iIS4yynxbCID3zQ0YJ1huLWSVijoYsUQUpVWrFuJ8rht3T8of13xXFxVDC1pUtZGZg1BQOSqlLzqYKdKVnVkvInDUZzsT24ZUkcVyK9KIjNeSXmE68RPO21ln3mkO669ttn5hw0Njb3HxtDwfOuQGO0qLu4frAcyGVoexBf08pLc3zFC+m0peHZRzD9Tpwf72YsdtJvu1Bomp+n6iaZ3zew9yMCgWJQSyuRcxJ5vOY0Y+5UT+/4oh9fry99nRuQmspMLPrB30ywBoBukiLyhSdNFA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(10070799003)(23010399003)(56012099006)(4143699003)(11063799006)(22082099003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?T1prTlNZN0UzN1hBZzhtUnE0MVgyd2cxTUVZaFdsTVJJQkZadHB6RXAwZWtt?=
- =?utf-8?B?Z3ZPTXlMYmFYc3JMb3UxeXdRZ0NpeEZNWExsNjBiTFRlOUx2TTdoVVZvdEtP?=
- =?utf-8?B?OXlYQzRpdzlMbFZjZTZFRW9ZQUlwNk1SSm1GQWI0TXlxL2wrcy8xQXF4QnlU?=
- =?utf-8?B?RXpZNUwwc05ESFRXd05RdVVGeExGMWxQaFBWY3AxYUY5dnNwTGdFcHhYbHMv?=
- =?utf-8?B?cStjNFc3WktyTXJWN2RFeGtUQ0hYVmJZWG02VUI1Z2I4TWhHZHFkdHBXL0xD?=
- =?utf-8?B?MlRZcExUQnF5MXZIRHpETGFOWVU3Vk9veHlXcjgxekNOaW9kamFqVDZuLzFl?=
- =?utf-8?B?U0FaaHhLS0lzZHpCeEZmNDBiQTB6dTlzb0dTejdUNC8xc0w2bVF5N3JSczJh?=
- =?utf-8?B?bFh2VkhUZTBGbUswSllLdGo2bDV5b0xGYzRtYkdQbHBWbVllR2thK0l2aE54?=
- =?utf-8?B?U2F3OGtRQWdiR2ZmUnVkK0ZNZ1paK2NWaEkvdG00eU1LdTg5cWJNUFFCTklO?=
- =?utf-8?B?alczYmhENTlaR1hsYTVxaEhjbnlwcHAyS2JKUmExNkxRQ0FnTTFnaENDNDBl?=
- =?utf-8?B?MWdINUtXa2NKblQ1ZnZrMTBnY1gxaUY2NzEzOUdVV2hrTkpBYUlvUWYxRHEx?=
- =?utf-8?B?ZUE5NlNYakh0c2VrOStLeWlSTlpDNWFVQzJ6TllmVTF6Z1dDUU4vTzVkMEI0?=
- =?utf-8?B?S3lkUG5MU3lMOFFQUU9oTGlvMC9DWUQ5djVGL204UkQ3dU1MMDlSVlg2K2g3?=
- =?utf-8?B?QU5sOG45RlhSRTdhQjREM1JzMEQ0V0VKRVNPQzJjNkZpZVBCUmFyK0tXQUto?=
- =?utf-8?B?VVVHbUtwbFcxTFgwUXp0ZDZ3dGlXYXJkOXhlYllEczNwVVIwajg1amlockRm?=
- =?utf-8?B?NWpJT3NsclZzaEpBNDZqM2cxdHJRbDFCalVmMkVJQTF2TkxmQ1ZxWjUyNUJp?=
- =?utf-8?B?K1h0TmhYbUhUWUUvckFnVWRCbEJmTWZZQUd5c3RjT0FiM2lVR0hnZ3djZmhi?=
- =?utf-8?B?R2ZMMDM4UEQxRm5POVUyZk53R2VKcTNtbG1IVkYxb0IyWjBmcHJFRkpnYWZL?=
- =?utf-8?B?UlBhRGtjeTRId3d2dG1HZ0s1S0hlcnNVcDRwcUFmMm5qcmMzME1DMytBM1Jr?=
- =?utf-8?B?TDJtTDl1OXNwcHZuWEp2WS9nRXphc2Zpb3JURlo5ekVpK0ZBUmZrZFBhaThO?=
- =?utf-8?B?YXJ4ZERVSGcwTDJjZitRL1hJeW01dkYyZ29lTmprby92U3RLRFVZN0JwSXFz?=
- =?utf-8?B?NnFuWGt4WkdDaWlSNDBhSkhScWp6QXZQdzIwbFY3SDROTVBLRnlyUDNkR1lM?=
- =?utf-8?B?MmVkQVFIeEdaN1hDd1o1ak5PMmxKSDFiRXV5Nk5WWXJweVRCM0t1M3QxZ2NM?=
- =?utf-8?B?Q1U2N08ydXhvYVFyVHpQekhvYVViWjVuODZiTHA0RzJxU3VseXV3SVFCcjZY?=
- =?utf-8?B?a24yOEZnOWhhaVBrSGozN3NYRlgyR1hLSnBQdEVXdXhWbGQ4T3lOQkRuQ29y?=
- =?utf-8?B?M25PUlJ0QTBTd0pXRVlqZHhsZnZRWGh1V2ZPRjhNR0hQbU1FV0RwL2ZpL0JP?=
- =?utf-8?B?ZktQNmZxaGRxdFBNZkhQQWRMWjErSWFIWXpQRUs2OFNIVFVBRk1DVEFJc05D?=
- =?utf-8?B?MFMzcnVMRkJSQm84ejI2NjFPM2x2U1VnYXl6MXFmUmdWZUNSUXlBNEJkZFdS?=
- =?utf-8?B?K0FaTC90anR6cUxrRjdUY0h2YzdXMDZDR1ZYa0JnVCtyMEkwcDRBYmZrUE5k?=
- =?utf-8?B?VmFWeGdOS1Z4YlZiMDJ2VDVUQmNlMm5Pa1FMZ1kyb1paQ21wajR1MXM4aUhO?=
- =?utf-8?B?anlDNmkwMWNqTEtSYlhGODdFT2ErelhBQTdkemVjOC9Ld2hKYkRxRFRzM0FI?=
- =?utf-8?B?R2labktxSjdlVXhTNHg0M2RNK1FRaW4zaW5VTVdoTWJvMTBmb3ppYmpIRks5?=
- =?utf-8?B?S0ZraXpMSVkrYUszbUVkQkZ4OWpia1BJbFBtajBxOW9qK1diWHVwQWlXakZT?=
- =?utf-8?B?eGFzMXBiQTFqL3M1SnYvTkRkUm5xL1BvdXdQcFQvUXNkWjNHTW5TdzdqZFg5?=
- =?utf-8?B?Yk5jU3ZIK2FCbTZIOWVJTmNGcFd1eXlZRDRtWVZFb0dQaGlGcWNZQlRjWU1N?=
- =?utf-8?B?bVN3Y0RNYU0rTCs5a3BiUU1SaWpUcVc5NWxJTGdweXZDbU5la2lPSytOTG5M?=
- =?utf-8?B?NS9XalBacUU3Y09iYThsY2UwN1Nsdi81TDJGWlA4c2J3OTY3MWtTL0pBRHly?=
- =?utf-8?B?RWJNT0d4dWtDdkpYU0h0eHFkTmRpZFBvQVY1RGlIbEZUZ1RFd1dwclJjcmxP?=
- =?utf-8?B?aFdHdTN3c1JGWkw4UC8xZlVqZkNXVEJERjZOZW4vdHdPTzZqTEdoSDFRVTdG?=
- =?utf-8?Q?Q787mEC6jZmE57wWfqD05BKbhliBFk6axSgVelTt+ZmKj?=
-X-MS-Exchange-AntiSpam-MessageData-1: k9MeAd2FCCUpFg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c3d5989c-ffae-46da-e566-08df298e8423
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 01:00:19.0992
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: H+mwZ7CXOpQp7/Qah7xBYnF5Wd31Ky0+OTQKdTYybDc4Z2uT4YtskPNYHfIjcxNoXOaXms/SoS/1TYS1tUxoTA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6926
+References: <CAHk-=wjLjgfwgSZ1RDk4YdNFcV0ntosMO5AmBoHD76Zb3HFY7Q@mail.gmail.com>
+ <as690Xcu7FxIDYjf@thinkpad>
+In-Reply-To: <as690Xcu7FxIDYjf@thinkpad>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Tue, 13 Oct 2026 18:01:15 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wiak+h+d2tZ5W_MwRzatUP=hJKn7cpGjDxArG-gwgHLXg@mail.gmail.com>
+X-Gm-Features: AclHuK-7BzKDDoP5wgoiVMN8_EAgBIxPIkVd2eugYnHCB-lOaGFTkQDZImU89yo
+Message-ID: <CAHk-=wiak+h+d2tZ5W_MwRzatUP=hJKn7cpGjDxArG-gwgHLXg@mail.gmail.com>
+Subject: Re: Improve page refcount scalability
+To: Harry Yoo <harry@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>, Kiryl Shutsemau <kirill@shutemov.name>, 
+	Ilya Gladyshev <ilya.gladyshev@linux.dev>, Matthew Wilcox <willy@infradead.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Linux-MM <linux-mm@kvack.org>, 
+	"Paul E. McKenney" <paulmck@kernel.org>, Pedro Falcato <pfalcato@suse.de>
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri Oct 9, 2026 at 8:54 PM JST, Alexandre Courbot wrote:
-> The `RpcMessage` type is the right container for the `log_event` method,
-> since it contains all the data we passed to it. Move it there so callers
-> don't need to extract the required data themselves.
+On Tue, 13 Oct 2026 at 17:10, Harry Yoo <harry@kernel.org> wrote:
 >
-> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
-> ---
+> There should be a limitation on how much memory can be submitted to RCU
+> by the page cache, otherwise will be a corner case where we have too
+> much unreclaimable memory waiting for the RCU subsystem to free them.
 
-Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
+There is. In fact, I tried it a few different ways... It's not quite
+what you suggest, but try it out.
 
+> For the same reason, when a process tries to create RCU-delay-freed
+> pages much faster than RCU can free memory, the kernel needs to limit
+> that.
+
+That was actually my initial approach - making the places that set the
+PG_rcu_delay bit throttle themselves when there were lots of such
+pages in flight.
+
+Except I worried about slowing down simple things like truncating big
+files: particularly since I believe firmly that slowing that down is
+the *wrong* thing to do from a memory pressure standpoint, because
+you'd be slowing down the very thing that is actively freeing pages -
+it's just that it then takes a (short) while for those pages to get to
+a usable state.
+
+So what I did instead was to actively then expedite RCU when there
+were a lot of pages in flight.
+
+That worked quite well, but it hit a problem when you had lots of CPUs
+doing it: since an RCU quiet period needs to happen on *each* CPU, you
+still end up wanting to at some point wait for things: you need to
+synchronize not _one_ thread freeing things, but synchronize across
+all the CPU's.
+
+But again: the good part really is that this "lots and lots of pages
+in flight" only happens when there are literally lots and lots of
+pages that are very much about to be free'd. So you are in a fairly
+good position when it happens, you just need to *understand* the
+position you are in.
+
+So the other part is to come at the issue from the other end: when you
+have trouble allocating pages, but see that there are a ton of pages
+in flight due to PG_rcu_free, you basically do the same thing from the
+other end, and do synchronize_rcu_expedited().
+
+And in testing, that worked really well under even insane loads where
+concurrent hole punching or truncate calls would generate gigabytes of
+PG_rcu_free activity each second.
+
+Now, it turns out that Kiryl also suggested another approach to the
+pages becoming PG_rcu_free in the first place: instead of being able
+to easily trigger gigabytes of such free pages by just truncating a
+large file - which marked all those pages PG_rcu_free whether that was
+useful or not - the current version actually comes at *that* the other
+way too: mark only pages that are hot and are *worth* the PG_rcu_free
+treatment (because they get read over and over again) with PG_rcu_free
+in the first place, so that you don't generate that flood of
+RCU-free'd pages in the first place, and now the PG_rcu_free flood is
+in a way throttled by the *use* of said pages.
+
+So there's effectively three different things working together:
+
+ - mark a folio PG_rcu_free only when it's hot and keeps being accessed
+
+   (See commits dabc522cee5b: "mm: have folio_mark_accessed() return
+whether the folio is hot" and  bb5908b733a1: "mm/filemap: set
+PG_rcu_free on the folios that reads keep coming back to" for details
+- both are pretty tiny and not really all that complicated)
+
+ - proactively expedite RCU grace periods when there are a lot of of
+pages pending
+
+   (See commit 2ce8df4627fe: "mm: expedite the grace period when a CPU
+has many deferred frees")
+
+ - teach the page allocator about the outstanding pages ratehr that failing
+
+   (See commit 82fc13ff3a1e mm: "count the pages waiting for a grace
+period and free them before OOM")
+
+and it really does seem to work quite smoothly. But it's not like I
+can guarantee it's perfect.
+
+All those commits are fairly trivial. Of the ones listed above, that
+"count the pages waiting for a grace period and free them before OOM"
+is the biggest by far, but it's not really particularly complex or
+subtle.
+
+The actual biggest patches in the series are:
+
+ - 65401f4102b9 ("mm/filemap: read from the page cache without folio
+references")
+
+   This really is not very big or complicated, although it *does* have
+subtle ordering issues with i_size as pointed out by Kiryl. It's
+mostly really just a simplified version of my patch from two and a
+half years ago. And it's simplified because now the RCU freeing makes
+everything more natural.
+
+ - df0b133495c9 ("mm: free PG_rcu_free folios only after an RCU grace period")
+
+   This is the one that actually runs on the page freeing side and
+adds a page that is marked PG_rcu_free to a list and sets up the whole
+RCU machinery (ok, there are actually two per-cpu lists: the 'pending'
+list and the 'batch' list, and a RCU grace period will free the
+current batch and move the pending list to be the next batch - not
+rocket science).
+
+and even those "big" patches aren't really all that big. Both are less
+than 200 lines of code, and while I wouldn't call either of them
+_trivial_, both are very much doing one clear thing and there's
+nothing really *strange* about them either.
+
+So it's ten patches, none of them particularly hairy. I really would
+encourage you to just take a look and take it for a try.
+
+Now, I *will* say that obviously RCU-freeing pages is an absolutely
+conceptually *enormous* change to the VM. But it's in no way at all a
+new thing: we've been doing the same thing for kmalloc() for decades.
+With the right pattern, you can cause a lot of RCU-delayed kfree
+loads. And we've had to tweak things for that.
+
+So do I believe that branch is perfect on the first try? Hell no. I'm
+sure there are things to improve there. But there are few syustem
+calls more important than 'read()', so I think it's worth doing. We've
+been doing the RCU-freeing for almost every other path, and I will
+argue very forcefully that the path handling RCU code is an order of
+magnitude more complicated than this particular code is.
+
+              Linus
