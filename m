@@ -1,64 +1,64 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DF4053E2E0
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:19:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADA1C55293F
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:19:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791991174; cv=none; b=ukKXFbyaER41yzhwTOW5+J/NxfMRyXPuSMliLqRIRSZpUzMYfnPduVPS09bXP1SWhmrycCCclGGE512p91AXZQk++rBj/eu1dvhdxPlj9IC4dTLc2EOmh8B50/Z8+h5NYslt/3WhrSy/rv07C8P6c5QYqg68MlIFhIKZRaibnHI=
+	t=1791991176; cv=none; b=AbJKBxe27bRjLNyyWjBtk/HM2vgBiUKrGvPDYTOF11TqJZ/4++h9VDt/SOi8aDS8mxCMg8Pfxc9GkPaE0ZESjIaVSCyAuLgXF/2Dcdl0Z+ZF/ZDeVy+kLSTf5YKjL6AtGvUlhhNnJLsrdRCXJIt5DZgHwSQJv0woNwfAw2tPhUw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791991174; c=relaxed/simple;
-	bh=WWTcqcrYuK6IbdrjMRhsuwFkgDt4+Cy7tBLo38z8uik=;
+	s=arc-20240116; t=1791991176; c=relaxed/simple;
+	bh=/0Th4cc1vO+E41gV5mMuaLCXH78VA1Yl6fBR7oSaQAk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ocNEMG6gOAkqpWylSi4nscUw0x0J4NAhbk5z29cgixFo4/JmulAtR62/qPVLANmzN6HPXnW4JSQUilEx1qa+h4DpgeCzH8PZpOjfsQd2BxDY3G8oxamb9pAHsS03c8U+FbWvypfFAb9KpBtqHFpbDlen4fXjHK6ecTBtOun5Fo8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=oaIsrMwy; arc=none smtp.client-ip=209.85.216.48
+	 MIME-Version; b=ZI+OFaITIeuYe21Nicwt1SV+S/4/WDzSeVBEDnCFB44PtwyYMoWwmKf4e+pPCQ2btMAxXAXi2iqeOi3XgLxsjszkQTrYD0LCs6aKBgq2BH4xayj50vtu4SBO66GfZJDy/nY+1clImnbfYfdCHi4bWXE1E4WyIOcxgbeerEZiPPY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=W5QP5ZNC; arc=none smtp.client-ip=209.85.216.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="oaIsrMwy"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3ac397836fbso1631053a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:19:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="W5QP5ZNC"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3a80d1c98f5so391950a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:19:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791991171; x=1792595971; darn=vger.kernel.org;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791991174; x=1792595974; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=cmaZjOlL7Z4YX68oXGeP0K0pl8aIA8E2Yu5c3A96tCc=;
-        b=oaIsrMwyko0HylMxqNY/z+6J7Y86zJaVSxuKW/5p+83+xLwwbZbX3cIjsvT0E6iTU/
-         Sts3ykYSzQuNISmhdaH4ePVEHmb7EZW62JNqr2PZcr8OaIL2Tw2UBOS3i0JfrjC8Xf3f
-         /PsLd+fc9vKMfa4D0oXjDx5MEu2a5W0ampDeg24BiRXDjveXffcgy2nvFqqdMWwzfDaW
-         HwuR/HkLjrtNPumP2FedXNjEfD6oQt2TX2a1Fc8Hz8WNUqvQM1ufUNZg2/SHb3+sZBja
-         hfFHkyqKFUMjmIVn8EdYuNZLa+K9JBryI5+7Hdauj5S8NO4WOxa3A6A+O15xY7w6u6Yw
-         xmzA==
+        bh=UPVBPUAW/BeX8HkZROCJHuR0r1MMomkKnirbqP6fatU=;
+        b=W5QP5ZNCg5HOM970gA/cmUW+rdLt4vu7m0zwC9EJnguKn57fl5HlqMRxS5OCDkjev9
+         Hts/E4D3UMK/2mOboKdTJfHWgJHqunfUzgVaqOKjeMcxsCaFqLSiTR/zob1btQD+3zII
+         m+oV2XfupFtergDCqatrkeL3PGYh74XE98VbAjy7Q6LhRA2qkb5hzLGegs9IqTAZu1fv
+         IBH8NRwJZ3arxzilRDkQ9nm/SuGt9AY0+rgglNYYYhuxIROUxLoVJh/hWGr7vAS/YE5E
+         axknfccnrZmOLC4gCoWUlMV2zWowO74Nd6TuCYn24F5y+/+lI5KxKjdlyOCPAA0JR1or
+         pE7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791991171; x=1792595971;
+        d=1e100.net; s=20260707; t=1791991174; x=1792595974;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cmaZjOlL7Z4YX68oXGeP0K0pl8aIA8E2Yu5c3A96tCc=;
-        b=POCeTJ/+RhliH3hqA8yx6WHFPybS/gamy7WMKpeV8wri1MyA8l6IXIR8QJ6oXiYE2V
-         SihIGiXLVenxdRbkVkfy5OYRwD2B9+tMloKf3gcqzoxPqxDBuT93PVHCO6IkvS8kx8oE
-         T7vRWxPPRuhjSoFkfjVX+zi2FWnCrTrSVSvo/nPHP+DPj9lDv5N6S2eM8klSue5Y/Ot3
-         sIz9x1G2Hl43bnZO2GKyLmqLJGk8gGtBwzbM3l6kXqEXH8WFNWCpzul5AZuEavDr9A1G
-         DLTYg14Qkgn8AeDGPaFeidis5ZbD51bHMkuOuUW6JXg87YydiQeoXu9YCNSRvX+Lf8AS
-         vvTQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxSAvBT5aIHskpaX5hWZ6AKrxwkTnvNxjSyQJfZ8ZigIKyscOYP7a70r8D/hRMeoSCfa4HYIaW0EeuNepM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJFKfdMsSoBg6wtwdlcG00wNiSEoEG9YwVq6mq4sXVdL+s6dAcd
-	tq0AnqZzq/HgN48nmdeMPu85bev8TcYZwkf/b0yP4wFjMikpfM0eQ0h4oqXwNBbFTy0=
-X-Gm-Gg: AYBFou0WFHgaLzw49m9zoiSFcFqPzFsrrQapF0NQicWTQuW8LQboEbrtqjIZeOQqxjx
-	4DAY0psNsFIEP+AE13TKb+EhQmv35VbPh7VBLsKU3vR+H328TTFEJ8JZZg8boGb1oLRzNN4qozK
-	xPP5rqe8hI6mGy5syK46k8GReuAFhfijgy+YBQIkm6FCVAcFa1VrFCRqu6wBmUcVNJOjS8ffvK3
-	BhErowhmnWq7wd5pP1hWedBgE2miTm9Gn7fGx/vFHfLX1ZccRjpGSAKcYHbOZ2hyyuT8Ma9B4uD
-	gmcOzXzxDyb/EF0xtwremff6oNF94ccs/muS6msSV5c4Dq/i6nBkNkB2zuFaBCa+mntchFXqTj4
-	bBdzx0aaA1UXV9WbzGrjQBLcxj11NFOEEcwoyBiW2vMsVBMv7viGpX3+/QEgyoJt5T1jD2dmVl+
-	FNP/K62j+RMM1xhWVO8vX9+ahWiniYIaNypz/NZTOfKn1F0Uaqu4Fkyaku7wxRW7DQ8/A6h5F89
-	PoaNTR32Brck5XKMrUB
-X-Received: by 2002:a17:90b:524f:b0:3a8:c0cd:57f8 with SMTP id 98e67ed59e1d1-3ab3a239c2fmr12717993a91.4.1791991171274;
-        Wed, 14 Oct 2026 08:19:31 -0700 (PDT)
+        bh=UPVBPUAW/BeX8HkZROCJHuR0r1MMomkKnirbqP6fatU=;
+        b=ZbrrzIlU7NOZp28unApcSkyt+ukt0EcYGPAiEozcmqE2Kx9T0mUt/SzrLQWza5U/iC
+         FuPbn0ibJ0pgB5HoaNr0fup3b6+uU1nPvT9Scajd6NGXQwZ8Ct0+XroGq+DoALcaA/Ff
+         zzO/wnHaZn5Cq7SQhsm9G8FinmYN0Y/BM+zC77n1s1cnTrMwgrpWs52tb8sB7gYapNB4
+         vDeV61gcUQRTpNwdCT503LdGKYgbBYrR+GZmB5Myc2bBeNmYyAmf0CM5GPziMDFyxMh5
+         MkK8WS46lIcIydi1tTMuvT1SCcs2P/6FO9iLDcEL5uBYItbkLnCBBetMuYLBR0/POrkX
+         xDqw==
+X-Forwarded-Encrypted: i=1; AKwUvBwxpL+gtd1bq/cMdjsrV4WYV3OIgLyGw5U8A2yEQLWDiad5jsN5ULCHRMacXjsUScRYgS5nqGISrdwVZf0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKWRvL42cLbiNunTUvytFlnpan5Fs6NyNUFTczKcoQycr6jsKnl
+	ZtEuFuMFkQ2hMkvpgoO27/Hkb3t2Ptm/ML5+Wa0Eb3mi4+37iQpmbYqzBqKtTOpXkg4=
+X-Gm-Gg: AYBFou1odHZDx10Fq64pNVUU1QMlPP/TFWIkkOwgvDHcAgSsrOU1N0gDHXajzkq1Q2t
+	7hvQ7Gzc0dnbDunGRqL6/zrmQRzrjB/UaqY/KD6R+jDIkS24QwqbbqXOoeDemdBE+JtGEgwvjhL
+	/jnerX0q2e/Z8o+Hhbd6EFy7qTcAIy4N0yCGDj+CNqDK5pBnvgFfbT0/m29pXiR9lp87lVqsRyO
+	sH4HzQ32d1No4VrXVS0YV/Kz292kEWggTmpGyyHImks5qzAzWN0SGe8i0kyLyVahcmclE4ztvF9
+	7oZefG63M4l/Q8mhac7DYusOMkuQ6yQargTFlqNMy6ODsFwA75pWT/KMQlnCNZ5V1LHK+RXrRGr
+	yym9my3h8T+x6A/e0Dv1E5UAHoDuqu46qLVsAk/3hYc4OaBhFYQDOSg8B0AaCFYAOHdA2E+FOWZ
+	V45PBHi7L9reP+2xEfYjlOvb7S3BB1uFr16rQgsz0FxB4bqL8jWIanjHF7TY5iUqnf+K1G44PXo
+	Iu/2QQLYgGsVrdcMuT+
+X-Received: by 2002:a17:90a:d17:b0:3ab:b764:826e with SMTP id 98e67ed59e1d1-3abb7649dc3mr6448099a91.63.1791991173860;
+        Wed, 14 Oct 2026 08:19:33 -0700 (PDT)
 Received: from localhost.localdomain ([2406:5900:1044:110c:1c49:61ee:8c8:3f4c])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac8d40e7f3sm622450a91.5.2026.10.14.08.19.29
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac8d40e7f3sm622450a91.5.2026.10.14.08.19.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 08:19:31 -0700 (PDT)
+        Wed, 14 Oct 2026 08:19:33 -0700 (PDT)
 From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 To: "Martin K . Petersen" <mkp@kernel.org>,
 	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
@@ -66,9 +66,9 @@ Cc: linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	yhlee@isslab.korea.ac.kr
-Subject: [PATCH v5 1/6] scsi: mvumi: bound the per-event parameter and sense dumps
-Date: Thu, 15 Oct 2026 00:19:09 +0900
-Message-ID: <20261014151914.3632701-2-yhlee@isslab.korea.ac.kr>
+Subject: [PATCH v5 2/6] scsi: mvumi: reject an out-of-range handshake frame length
+Date: Thu, 15 Oct 2026 00:19:10 +0900
+Message-ID: <20261014151914.3632701-3-yhlee@isslab.korea.ac.kr>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261014151914.3632701-1-yhlee@isslab.korea.ac.kr>
 References: <20261014151914.3632701-1-yhlee@isslab.korea.ac.kr>
@@ -80,47 +80,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mvumi_show_event() prints param_count u32 words from params[] and
-sense_data_length bytes from sense_data[], but both counts come from the
-firmware event (struct mvumi_driver_event) and are never checked against
-the arrays, which hold four words and 30 bytes.  A firmware that reports
-the maximum (255 each) makes the loops read far past the event and past
-the 512-byte buffer the event block is allocated in, printing the result
-to the kernel log.
+mvumi_hs_process_page() checksums and parses a handshake page using
+frame_length from the page header, a u16 the firmware fills in, without
+checking it against the HSP_MAX_SIZE buffer the page lives in.
+mvumi_calculate_checksum() then walks frame_length bytes of frame_content
+with an unsigned char loop counter, so a frame_length of 256 or more never
+terminates and the probe path hangs; values between the buffer size and
+255 read past the page.
 
-Stop each loop at the size of its array.
+Reject a frame_length that does not fit the handshake buffer before using
+it.
+
+Read frame_length once into a local and use it for both the bound check
+and the checksum, so the device cannot change the value in the DMA page
+between the two, and use READ_ONCE() so the single fetch is guaranteed
+rather than left to the compiler.
 
 Fixes: f0c568a478f0 ("[SCSI] mvumi: Add Marvell UMI driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 ---
- drivers/scsi/mvumi.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/scsi/mvumi.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/scsi/mvumi.c b/drivers/scsi/mvumi.c
-index e70d336b4ab39..38a92f8c25f5b 100644
+index 38a92f8c25f5b..2378b676a7a78 100644
 --- a/drivers/scsi/mvumi.c
 +++ b/drivers/scsi/mvumi.c
-@@ -1361,7 +1361,8 @@ static void mvumi_show_event(struct mvumi_hba *mhba,
- 	if (ptr->param_count) {
- 		printk(KERN_WARNING "Event param(len 0x%x): ",
- 						ptr->param_count);
--		for (i = 0; i < ptr->param_count; i++)
-+		for (i = 0; i < ptr->param_count &&
-+		     i < ARRAY_SIZE(ptr->params); i++)
- 			printk(KERN_WARNING "0x%x ", ptr->params[i]);
+@@ -1039,9 +1039,15 @@ static int mvumi_hs_process_page(struct mvumi_hba *mhba,
+ {
+ 	struct mvumi_hs_page1 *hs_page1;
+ 	unsigned char page_checksum;
++	u16 frame_length = READ_ONCE(hs_header->frame_length);
  
- 		printk(KERN_WARNING "\n");
-@@ -1370,7 +1371,8 @@ static void mvumi_show_event(struct mvumi_hba *mhba,
- 	if (ptr->sense_data_length) {
- 		printk(KERN_WARNING "Event sense data(len 0x%x): ",
- 						ptr->sense_data_length);
--		for (i = 0; i < ptr->sense_data_length; i++)
-+		for (i = 0; i < ptr->sense_data_length &&
-+		     i < sizeof(ptr->sense_data); i++)
- 			printk(KERN_WARNING "0x%x ", ptr->sense_data[i]);
- 		printk(KERN_WARNING "\n");
- 	}
+-	page_checksum = mvumi_calculate_checksum(hs_header,
+-						hs_header->frame_length);
++	if (frame_length > HSP_MAX_SIZE - sizeof(struct mvumi_hs_header)) {
++		dev_err(&mhba->pdev->dev, "invalid handshake frame length %d\n",
++			frame_length);
++		return -1;
++	}
++
++	page_checksum = mvumi_calculate_checksum(hs_header, frame_length);
+ 	if (page_checksum != hs_header->checksum) {
+ 		dev_err(&mhba->pdev->dev, "checksum error\n");
+ 		return -1;
 -- 
 2.43.0
 
