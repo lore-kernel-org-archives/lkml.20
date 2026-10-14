@@ -1,197 +1,378 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A03132765DF;
-	Wed, 14 Oct 2026 21:31:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EBAB2E1EFC;
+	Wed, 14 Oct 2026 21:31:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792013485; cv=none; b=CjMS67Zsw42WktZvyFe/nJS+yidH3O9kvXlnR+ZTBLzpU8KgvIbTz4J0dFplFk1lH7dp2P+vkiU9XBKlYHtLsZrsMUOoI0LyNm3/Ju5p3VsAWKUVtcUjY66g7EG3zCjr3cb2czbMir/e6TzV0k3VNudJMv0bp7xTvlPy1YYt04c=
+	t=1792013515; cv=none; b=Hqfz4SLGHC4l4RfZkSd3Q/Ogs8+GDT434sVEjxHANnZWRF5mj2aKLwH+bg/03V3xmV7RYDPzr98xa4SStUMjqdS/M24BmVqnkoOjsDMYpna3h5nU5Pzlvir4cAPgNPDNPtdv4p0SOJ5CqmRRf4lQUsGbL1HrB99nmL+xNHRnT0U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792013485; c=relaxed/simple;
-	bh=yxVp6rtFKy8SKn4sKwSh5MIJVbzrZDuFIWMj+MdfWug=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Ovcx7mEV3lRZcTAHCIrZEcXBq5mvN+zlKuNjTyzBEGW4aidgx6fMY6ZxEJ5ZCRMFo58KFj2dsC+Zj5nfIIR+Nf/EpjzhejSoD5GiFmv+hMRV3YRoBqH0HX5OSiwzfGmeSe78B1/aitnYu6SRt5LTdCxE7PXrx8waefJjJ9c7ep8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=k6hymkK8; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
+	s=arc-20240116; t=1792013515; c=relaxed/simple;
+	bh=aR5+VfiyeDilrEGKV1lJ2GI043AhmakRZD4ovEu0WN0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ASZwhSyC1UlnMXZpVFj2dqOTs5MzQpFtjQvWe/5X1fdEr5/ptckQhjLlex+L5WmrzIk5FNOm2SD/GaI8V4mMTp2b1JGOyX47yqxMqYT1lQY0ymBF/LbqWd8qbvFCkqlsmXmP7mcT0kSlUezqXzcn0T9QgaYQhc7mcQiXjBc3pf8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.b=bF20Zd8Z; arc=none smtp.client-ip=212.227.15.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="k6hymkK8"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=yxVp6rtFKy8SKn4sKwSh5MIJVbzrZDuFIWMj+MdfWug=; b=k6hymkK8izvI8t/SeIoH8PLDVk
-	eLoHlkk0+ir94IcQUUVNSHLe7mHuaosf6w1r5C/RMm1BXz5kha22bz6wCjdVr8Q1ajfCehVhH6Rp/
-	BMofGbyyasq6Db7AsNo5Lh5amsN/nFCrXkikwgI6vmML9wsbd+FUqZ135y0T/d6ofX1Tsctb83YPE
-	xlRDLuihGSc8bpt/WFK8eq4dBR1tLFTB1QNZG9xbo5aU2nsTR0/pbZxYrtEAjQMXkLiPsUfBHmayN
-	7lxY8oFhEs/5HiIxL5whP71TpwVSCTzxPIcXar8kl8pqEIDwfXIUXaZNvP5QlrBddk08v3sPT2HY8
-	FyHkyK6w==;
-Received: from 54-240-197-227.amazon.com ([54.240.197.227] helo=u09cd745991455d.ant.amazon.com)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xH6ZB-00000007SKk-0Sq7;
-	Wed, 14 Oct 2026 21:31:17 +0000
-Message-ID: <ecd351a5d56edd89e7d0ff5f57c585f00de60717.camel@infradead.org>
-Subject: Re: [PATCH v2 04/21] srcutree: Add an atomic Tree SRCU
-From: David Woodhouse <dwmw2@infradead.org>
-To: paulmck@kernel.org, Sean Christopherson <seanjc@google.com>
-Cc: rcu@vger.kernel.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
- 	rostedt@goodmis.org
-Date: Wed, 14 Oct 2026 22:31:16 +0100
-In-Reply-To: <0514b2ce-217e-4e0e-9b2e-3f145a3e8afd@paulmck-laptop>
-References: <546c81a7-f677-4d8e-a304-746b227058b0@paulmck-laptop>
-	 <20261007205924.1983367-4-paulmck@kernel.org>
-	 <729dfdb236e4daaf2438b74d4d921993a156ec34.camel@infradead.org>
-	 <d1539cc5-0ff3-400e-a487-eedd942cf6f5@paulmck-laptop>
-	 <3aba8068a1424c91c81ec35b2ea6dfaa28161fb1.camel@infradead.org>
-	 <0514b2ce-217e-4e0e-9b2e-3f145a3e8afd@paulmck-laptop>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-03O4gD5x9HE6nDZAh4I5"
-User-Agent: Evolution 3.62.0-0ubuntu1~ppa1~24.04 
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.b="bF20Zd8Z"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1792013498; x=1792618298; i=w_armin@gmx.de;
+	bh=aM2UhJ9H34f9pw+d3edmgLiVGPa0mDIo59IoLpF8DuE=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=bF20Zd8Zx7P3NT9XNQjlEwh7am+ZTELtyKTQWNNCTX7//PdsVZm70ioR2NQ0h2pC
+	 TEhEJl9kJVWNTjge0BVbP10kb2bvd9y0B0bpDCgap+HyMJbj6TjxpaKC1ognV9DCP
+	 EN26LmGZm57L2jWxSDQNuUPYLo3wWc8vRkkjIgYEpRl5yeoXnBzE16Ck1PzRSX3fL
+	 KoiUb67WkiqAARMAnW8ksIYng3U0IxQZJwFeijTdLUKYEE/o0tu+S8tzq1iywA6XC
+	 x7qU0UXmL5p3bS+v7zb0+KKlvarFZWwut5gv+4FQXcHhv1x2bOGgX6LP53BEgLo0Z
+	 WsbLRxXxgyNGd+qEHQ==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MDhlV-1xNwac30sh-0025PU; Wed, 14
+ Oct 2026 23:31:37 +0200
+Message-ID: <c751e18d-57e9-4ce6-95dc-1bf53a7a4808@gmx.de>
+Date: Wed, 14 Oct 2026 23:31:32 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
-
-
---=-03O4gD5x9HE6nDZAh4I5
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 3/4] platform profile: Add firmware-neutral aggregate
+ sysfs interface
+To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>, rafael@kernel.org
+Cc: Len Brown <lenb@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>, Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Maximilian Luz <luzmaximilian@gmail.com>,
+ Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
+ Mark Pearson <mpearson-lenovo@squebb.ca>,
+ "Derek J. Clark" <derekjohn.clark@gmail.com>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, Jai Luthra <jai.luthra@ideasonboard.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jack Wu <jackbb_wu@compal.com>, "Mario Limonciello (AMD)"
+ <superm1@kernel.org>, linux-acpi@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-pm@vger.kernel.org, platform-driver-x86@vger.kernel.org
+References: <20261014132500.3817549-1-daniel.lezcano@oss.qualcomm.com>
+ <20261014132500.3817549-4-daniel.lezcano@oss.qualcomm.com>
+Content-Language: en-US
+From: Armin Wolf <W_Armin@gmx.de>
+In-Reply-To: <20261014132500.3817549-4-daniel.lezcano@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:KvIyXOZv8Of9ngI43DUZZJblO1ZTX05en203T5afDZVS0h5qR4i
+ QEjCHC+4shtlOWr6hyRFGvJSlKJ0FrccQ7k16jvZeNOJWoBuVnKUv+UH+e3h3Tlef8RnKwb
+ 23o7pPACOG9DWNursFtNcvvlPgubLzkUJLp1BZkH6kpDX65ZheUUIGl/xI4c1qkEklRp0+L
+ HOLHKPWqrrNYXF0CH+YcA==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:S4KYuole48k=;6NiKUx/3NVdTHJ3BhetuHoEIeSz
+ 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
 
-On Wed, 2026-10-14 at 14:14 -0700, Paul E. McKenney wrote:
-> >=20
-> > Looks good, thanks!
->=20
-> And these are now applied in my -rcu tree:
->=20
-> 60df507b6091 ("srcutree: Add an atomic Tree SRCU")
-> a48669f0c49c ("srcutiny: Add an atomic Tiny SRCU")
->=20
-> I intend to send the pull request before the merge window opens, so if
-> further adjustment is needed, please let me know right away.
+Am 14.10.26 um 15:24 schrieb Daniel Lezcano:
 
-Great, thank you!
+> The per-provider class interface is firmware-independent, but system-
+> wide profile selection is only exposed under /sys/firmware/acpi.
+>
+> Add /sys/kernel/platform_profile/{choices,profile}, sharing the existing
+> aggregate callbacks and semantics with the legacy interface. Keep
+> attributes hidden until a provider is registered and remove them after
+> the last provider.
+>
+> Notify both aggregate frontends on profile changes. Also notify the
+> provider class device on a direct profile write, matching its documented
+> POLLPRI ABI. Restore aggregate visibility after a failed registration.
 
-https://git.infradead.org/?p=3Dusers/dwmw2/linux.git;a=3Dshortlog;h=3Drefs/=
-heads/gpc-srcu-v2
-is now based on your dev.2026.10.12a and the tests will rerun overnight.
+IMHO the aggregate sysfs interface only exists for backwards-compatibility=
+,
+so i would be very happy if you could just make the associated code option=
+al
+and instead teach platform-profiles-daemon to use the individual class dev=
+ices
+instead.
 
---=-03O4gD5x9HE6nDZAh4I5
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
+Thanks,
+Armin Wolf
 
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCE8Ew
-ggWvMIIEl6ADAgECAhANkOKMSmGXhF5eMl0rsRhvMA0GCSqGSIb3DQEBDAUAMGUxCzAJBgNVBAYT
-AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
-BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBHMjAeFw0yNDAzMTMwMDAwMDBaFw0zNDAz
-MTIyMzU5NTlaMGIxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UE
-AxMxRGlnaUNlcnQgQXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTCCAiIw
-DQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAOfSIeC0vv1xPQ+dgSxbIIrkaru6skAWJYaGFzmv
-q4Kq+2wU2jxhcWlJg/JeP5jEkq/LM3pn5aaLao79j+XRmS7J1ZpJKUODJVoM4s9MQJhTMvo4qS5Z
-S64g6QR7Obkz3I1Lr3aWeSBmDDEyzue+NKtuWZ1Cxy3RdXo/w5HgRc3l2AercOM3Gt1XonTzEtTb
-Z/Hwc0Sn9Gz8RmGRK6Ka4hVDl8q/2l110KaV233Kh5etP0csXS8MIMdVRfRu3sc5hp13DG7lCKzK
-72a2GEpI8Wpl26G6I1/LMzz/98T+FqjTqxsdquk7Cj7m2vKGLW1BorpQH7WFGPdJQXJe1hfbfiZA
-CcVdCtl4nAacFacmsiArZBfX7AQGL7isvHUwwYFEtcApyGW4p2Lt+t8nvU0CANA6BHOpOz1xOP8W
-mAESbUriIjyuTUf3fJ9oDNCurVqhASMJCDaWI3lYX/QAoiAzt6akqbbZxo2ujW7mGGqc0KxqE2cs
-h2T79v7pC8aUtHBfwNrTR19GnZVxE0eQ7ViIQhR6mpSaUQFA9sG+cmD2G8TnCgYsLa0q8De6F61a
-CBevQGHNzrbZ3JAMneveYg/Jy1XxQHDRcvrMfWKe0jjcWbdKYlaGVPm5V1ILwYz7Yv5ewo3NUrxI
-GJiywe9qPhuJSDZs7VehTuI0FxGIsgKzVjgbAgMBAAGjggFcMIIBWDASBgNVHRMBAf8ECDAGAQH/
-AgEAMB0GA1UdDgQWBBT3m6JO05fF9DQPQw6Bhc6RkzKv+TAfBgNVHSMEGDAWgBTOw0q5mVXyuNtg
-v6l+vVa1lzan1jAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
-MHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMG
-CCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURS
-b290RzIuY3J0MEUGA1UdHwQ+MDwwOqA4oDaGNGh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdp
-Q2VydEFzc3VyZWRJRFJvb3RHMi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUA
-A4IBAQA+b8Uw53sDspdZgukU+qzLyyHkcjlxGGhHlP+zrmDLKm1wEFvCRS2pili3Hy67i8N4N5NU
-vw5Rg6kv3lxb9S9Rktxk43k+tvm68pl7OxQE55ZjVY87P0lUPGwEqOOwLLyH02ZQcsfq5p5LrOH9
-0JvmvZ1yy73HS+VpDAqOlytE0NSvTIRqFFkKQGQwfjvtql9YflujuNNvJztjBaHKYZsnNSg+J38o
-jYq4TP3pSg3UdVH0PncVjPQyqxC9xef5Xae92Kbkzol3x7Nel3A1bwAkalrDMspvTHvey6LfiBks
-FIqviTnoy7fgjaRAJgHS+RXx/cmuRd3rUAclSVVrYu8RMIIHAzCCBOugAwIBAgIQAzUotrsybJHx
-HTjKOIVdIDANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQs
-IEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQg
-MjAyNCBDQTEwHhcNMjYwNzE4MDAwMDAwWhcNMjgwMTA0MjM1OTU5WjAeMRwwGgYDVQQDDBNkd213
-MkBpbmZyYWRlYWQub3JnMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2pYux73kdbYX
-sWF8f1u6DJP91qcqaZetsyfPkZk0B+MmXmAEv0kVes5n15V2mbDThOnpoPFly0UugQO9JYqLfrtD
-tKD5yL58fgrDB9Dw+LQikgrHafl6YSCds5AvUu/8hw2J6noKrcOLJpKlKn9Fl/4IB9Q3JIdLx5aa
-EtTqMalIPqHFOlgrJ7s+aua8xbB8YQ9ahqYBXWRJNv3P/2b1DYtdrz1oqZPE3CcB8Pc6Gf2a1Tcm
-6TAgtEx7Cf1BFcrsrMz7TWHmGQITieNb2r9UYWSc2Gp+GtYFNJCgT0JJXKUBIauPMKBLteYrL8Fo
-ff/uY44dC/mDWjdCP/5x0qelPQjlBvWdHL5zvBTOj06rJ0m3HNI/hnIcDh0Qu2j9reb9rLVcdym6
-bWmBM4uDEB8Zv9Ph0KTBFSy1IosyakuD1j1Os30EzjGfbi0EUXIvnOcYbTBAbM5UAzrxEHMhBvoX
-Pvnx+OyvjJmc9tWxTX6AcSz+m40esbT17URBeZS18afgieiikm5TynlUYP1LciR3hSgGVzvGXnKO
-02VDFR5itGWdRKZ2W5wIShNfWfhSa0D0K5UdIDt5Qc7sjzwK1Yb1sY5Tu0uA5mhIS82q1ov83uxB
-sFkriNnhGv/M1NCDVLBiOMsHu73qUM+yKmgKLwF9Hfn9WI25glbAMI4S5r3hYzcCAwEAAaOCAfcw
-ggHzMB8GA1UdIwQYMBaAFPebok7Tl8X0NA9DDoGFzpGTMq/5MB0GA1UdDgQWBBRcYhqbcGzn1jrT
-JOZaB8O7qllDpzAwBgNVHREEKTAngRNkd213MkBpbmZyYWRlYWQub3JngRBkYXZpZEB3b29kaG91
-LnNlMBQGA1UdIAQNMAswCQYHZ4EMAQUBAjAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYB
-BQUHAwIGCCsGAQUFBwMEMIGpBgNVHR8EgaEwgZ4wTaBLoEmGR2h0dHA6Ly9jcmwzLmRpZ2ljZXJ0
-LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsME2gS6BJ
-hkdodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZT
-SEEzODQyMDI0Q0ExLmNybDCBjQYIKwYBBQUHAQEEgYAwfjAkBggrBgEFBQcwAYYYaHR0cDovL29j
-c3AuZGlnaWNlcnQuY29tMFYGCCsGAQUFBzAChkpodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20v
-RGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZTSEEzODQyMDI0Q0ExLmNydDANBgkqhkiG9w0B
-AQsFAAOCAgEAocabrh1cPd5s3vY5rnlBVQSTc7zs2ZWs67dAIltR+05WELrYClVzzUhMs/LOJPlr
-EUo45UDDomXq38DxFepaPd9+iNLjXfn33EX/IG44j04lU/oF/Rg9VeQILkYLbCZ/x9wOjNHZc4SN
-ydY7Dhvf/sT5aBz88u7D5+azZJ7Qf1U57wYseCH1Mt0nDrtr5y19IJ8D9xJJ33RFL6vfpHZBBAQ8
-+3RqkKNxLoV2aFvQhxdhjNLDqTv3LjUIdicwPraN7JkxEu7CV2Lka7eRqJgkWL7SK0YmBjGpRafs
-+icP/ON5RCCKTTb6VlX8eTG2sJJfsFhvJNCCt6xexbWzWtIrfP7NvPBvwBB737AyEGBZkS5aNizT
-McURJGTv9UKvBh1LF/+tNhYtLvPCN7oecGzhCHht9jcwSkygTo3Y6YlK3QgOu+ncmiBbfeuwlLZ1
-LxbYvG6hgNqXv7u6YyADbYajAQJXJ2OQen39pm3Q/AQSyLYG+B8lDglWsM8tYXPlEdrYJcksGK6F
-nqIX6Bumn43rBooLJdiZp4WmfWdL2pxe+LxRDjprmqu1WprixDxULSTOKJZoqTlugs6y3Bc+if+s
-gHnBBtz9WQ6MtPHkh7zONDAFIKcBmv8OqPQCx0F3Wv3OEybwMpXx0OsKgK8wLldaX1pXcMuyDgTL
-Sqs0AV0OHUgwggcDMIIE66ADAgECAhADNSi2uzJskfEdOMo4hV0gMA0GCSqGSIb3DQEBCwUAMGIx
-CzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UEAxMxRGlnaUNlcnQg
-QXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTAeFw0yNjA3MTgwMDAwMDBa
-Fw0yODAxMDQyMzU5NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqG
-SIb3DQEBAQUAA4ICDwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZe
-YAS/SRV6zmfXlXaZsNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2z
-kC9S7/yHDYnqegqtw4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qG
-pgFdZEk2/c//ZvUNi12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41va
-v1RhZJzYan4a1gU0kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0c
-vnO8FM6PTqsnSbcc0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PW
-PU6zfQTOMZ9uLQRRci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXt
-REF5lLXxp+CJ6KKSblPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQr
-lR0gO3lBzuyPPArVhvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7Iq
-aAovAX0d+f1YjbmCVsAwjhLmveFjNwIDAQABo4IB9zCCAfMwHwYDVR0jBBgwFoAU95uiTtOXxfQ0
-D0MOgYXOkZMyr/kwHQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3
-bXcyQGluZnJhZGVhZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEC
-MA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwgakGA1UdHwSB
-oTCBnjBNoEugSYZHaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZEcyU01J
-TUVSU0E0MDk2U0hBMzg0MjAyNENBMS5jcmwwTaBLoEmGR2h0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNv
-bS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsMIGNBggrBgEF
-BQcBAQSBgDB+MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wVgYIKwYBBQUH
-MAKGSmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNB
-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
-CFZeuFoGAXMoR6Zqj5md7WQAAAAAAAA=
-
-
---=-03O4gD5x9HE6nDZAh4I5--
+> Assisted-by: OpenCode:gpt-6.1-sol
+> Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+> ---
+>   drivers/platform/profile/core.c | 60 +++++++++++++++++++++++++++++----
+>   1 file changed, 53 insertions(+), 7 deletions(-)
+>
+> diff --git a/drivers/platform/profile/core.c b/drivers/platform/profile/=
+core.c
+> index f18fd96b942c..507b96bdfdb1 100644
+> --- a/drivers/platform/profile/core.c
+> +++ b/drivers/platform/profile/core.c
+> @@ -26,9 +26,11 @@ static DEFINE_MUTEX(profile_lock);
+>   static DEFINE_MUTEX(profile_registration_lock);
+>   static LIST_HEAD(profile_handlers);
+>   static struct kobject *compat_kobj;
+> +static struct kobject *profile_kobj;
+>  =20
+>   static void profile_notify(void)
+>   {
+> +	sysfs_notify(profile_kobj, NULL, "profile");
+>   	if (compat_kobj)
+>   		sysfs_notify(compat_kobj, NULL, "platform_profile");
+>   }
+> @@ -250,6 +252,7 @@ static ssize_t profile_store(struct device *dev,
+>   		ret =3D _store_class_profile(dev, &index);
+>   		if (ret)
+>   			return ret;
+> +		_notify_class_profile(dev, NULL);
+>   	}
+>  =20
+>   	profile_notify();
+> @@ -324,7 +327,7 @@ static int _remove_hidden_choices(struct device *dev=
+, void *arg)
+>   }
+>  =20
+>   /**
+> - * platform_profile_choices_show - Show the available profile choices f=
+or legacy sysfs interface
+> + * platform_profile_choices_show - Show the aggregate profile choices
+>    * @kobj: The kobject
+>    * @attr: The attribute
+>    * @buf: The buffer to write to
+> @@ -360,7 +363,7 @@ static ssize_t platform_profile_choices_show(struct =
+kobject *kobj,
+>   }
+>  =20
+>   /**
+> - * _aggregate_profiles - Aggregate the profiles for legacy sysfs interf=
+ace
+> + * _aggregate_profiles - Aggregate the profiles across providers
+>    * @dev: The device
+>    * @data: The profile to return
+>    *
+> @@ -385,7 +388,7 @@ static int _aggregate_profiles(struct device *dev, v=
+oid *data)
+>   }
+>  =20
+>   /**
+> - * _store_and_notify - Store and notify a class from legacy sysfs inter=
+face
+> + * _store_and_notify - Store and notify a provider from an aggregate wr=
+ite
+>    * @dev: The device
+>    * @data: The profile to return
+>    *
+> @@ -403,7 +406,7 @@ static int _store_and_notify(struct device *dev, voi=
+d *data)
+>   }
+>  =20
+>   /**
+> - * platform_profile_show - Show the current profile for legacy sysfs in=
+terface
+> + * platform_profile_show - Show the current aggregate profile
+>    * @kobj: The kobject
+>    * @attr: The attribute
+>    * @buf: The buffer to write to
+> @@ -431,7 +434,7 @@ static ssize_t platform_profile_show(struct kobject =
+*kobj,
+>   }
+>  =20
+>   /**
+> - * platform_profile_store - Set the profile for legacy sysfs interface
+> + * platform_profile_store - Set the profile across all providers
+>    * @kobj: The kobject
+>    * @attr: The attribute
+>    * @buf: The buffer to read from
+> @@ -493,8 +496,30 @@ static const struct attribute_group platform_profil=
+e_group =3D {
+>   	.is_visible =3D profile_class_is_visible,
+>   };
+>  =20
+> +static struct kobj_attribute aggregate_choices =3D
+> +	__ATTR(choices, 0444, platform_profile_choices_show, NULL);
+> +static struct kobj_attribute aggregate_profile =3D
+> +	__ATTR(profile, 0644, platform_profile_show, platform_profile_store);
+> +
+> +static struct attribute *aggregate_attrs[] =3D {
+> +	&aggregate_choices.attr,
+> +	&aggregate_profile.attr,
+> +	NULL
+> +};
+> +
+> +static const struct attribute_group aggregate_group =3D {
+> +	.attrs =3D aggregate_attrs,
+> +	.is_visible =3D profile_class_is_visible,
+> +};
+> +
+>   static int profile_update(void)
+>   {
+> +	int err;
+> +
+> +	err =3D sysfs_update_group(profile_kobj, &aggregate_group);
+> +	if (err)
+> +		return err;
+> +
+>   	if (compat_kobj)
+>   		return sysfs_update_group(compat_kobj, &platform_profile_group);
+>  =20
+> @@ -502,7 +527,7 @@ static int profile_update(void)
+>   }
+>  =20
+>   /**
+> - * platform_profile_notify - Notify class device and legacy sysfs inter=
+face
+> + * platform_profile_notify - Notify the provider and aggregate sysfs in=
+terfaces
+>    * @dev: The class device
+>    */
+>   void platform_profile_notify(struct device *dev)
+> @@ -643,6 +668,7 @@ struct device *platform_profile_register(struct devi=
+ce *dev, const char *name,
+>   cleanup_cur:
+>   	scoped_guard(mutex, &profile_lock)
+>   		list_del(&to_pprof_handler(ppdev)->node);
+> +	profile_update();
+>   	device_unregister(ppdev);
+>  =20
+>   cleanup_ida:
+> @@ -726,15 +752,33 @@ static int __init platform_profile_init(void)
+>   	if (err)
+>   		return err;
+>  =20
+> +	profile_kobj =3D kobject_create_and_add("platform_profile", kernel_kob=
+j);
+> +	if (!profile_kobj) {
+> +		err =3D -ENOMEM;
+> +		goto unregister_class;
+> +	}
+> +
+> +	err =3D sysfs_create_group(profile_kobj, &aggregate_group);
+> +	if (err)
+> +		goto put_kobj;
+> +
+>   	compat_kobj =3D platform_profile_compat_kobj();
+>   	if (compat_kobj) {
+>   		err =3D sysfs_create_group(compat_kobj, &platform_profile_group);
+>   		if (err) {
+>   			kobject_put(compat_kobj);
+> -			class_unregister(&platform_profile_class);
+> +			goto remove_group;
+>   		}
+>   	}
+>  =20
+> +	return 0;
+> +
+> +remove_group:
+> +	sysfs_remove_group(profile_kobj, &aggregate_group);
+> +put_kobj:
+> +	kobject_put(profile_kobj);
+> +unregister_class:
+> +	class_unregister(&platform_profile_class);
+>   	return err;
+>   }
+>  =20
+> @@ -744,6 +788,8 @@ static void __exit platform_profile_exit(void)
+>   		sysfs_remove_group(compat_kobj, &platform_profile_group);
+>   		kobject_put(compat_kobj);
+>   	}
+> +	sysfs_remove_group(profile_kobj, &aggregate_group);
+> +	kobject_put(profile_kobj);
+>   	class_unregister(&platform_profile_class);
+>   }
+>   subsys_initcall_sync(platform_profile_init);
