@@ -1,200 +1,180 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF3194C6EF8;
-	Wed, 14 Oct 2026 11:53:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E313A3793B0
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:53:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791978810; cv=none; b=K7fAOAD867u9aszt+Smu6n9E5oUqPHlxCIF6Kwi6OxTUSCiS1NiuRtlGZ6RtCyiIDBuk8GgZqBsyzmD33yBv/c26cJjzSCyRC5VMbjh08f89l99sF7fnGULSRJpgxwZ1aFl2/rhYx0SIbWchedVvgcAR2Z8EjWzO/HH8qRj1WpM=
+	t=1791978825; cv=none; b=LXgTRmEPhow+3UVXM7r2o43boLA5IgpsRgMseFzt5mLwMlWdcHNGC4YhUhMBst9wyWgODEoUH1Tk7P17TMRmgiAwWb1xmoXjU5xkRrAGILNe6pVKkwcZ10MfLDYAPwdK1MlJn5mkXXiVjqMiUfUq4NgtvGWMYb9zTQKfLmEDjX0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791978810; c=relaxed/simple;
-	bh=4liNeH/vLJODztqvfH/8m6hfpRYfRIpQUuqbTUpTvlM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=NCnZ4rukF/mXOJXEIgI378fDbp/c1n2GZXbAM7Q9knQ3LOEENo2iP8Rt8fbnMDhn29KLERUuIn5z8oXe2SUfiHYx2Qox+u5a4flX2eSFFfBnLZvxN+UcL/b7sWVpTZPDmDlUdqlYtTJ4Kd4TW6jIOq+Vc7SgdmJ//EAmAiyfNP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TGmAMt3e; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791978825; c=relaxed/simple;
+	bh=fV5ckFoRMpL8tzwBk+b3CiDquISxyjYCfUTpMEycObs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KIIk1sIG1+qQFrRPVqW1ivW9WkUTJGC39iN5IDyyLss9vHgcIgy0N6COBaZdUfq8L4/dbWm/F60ejV/tF9vK6GyS+PdjgxDJ88r2rg5JJmyozEexw0qgxs1QY+U6Hs6AXhZ+tyOMCxxsW58nxwRZF9Lr41t0WxqX8Ag2fFXbkdY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com; spf=pass smtp.mailfrom=ionos.com; dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b=PF01V8Lz; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TGmAMt3e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A9A21F000FF;
-	Wed, 14 Oct 2026 11:53:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791978803;
-	bh=Uzdvz5cW6a2o/ObFU/gtLfu9gsnhDlXZ0EQ8P4QL8bY=;
-	h=From:Date:Subject:To:Cc;
-	b=TGmAMt3eTrPbWZ20yf0XuuW0ZoR2PYrHLiDE3AjcrWjAV7pEyYiU1EKsL0XkjWeO9
-	 Rd3x0cPSVdHNWrbkO7xP6MvOKa1vEFa4gYpAahlqEmLcxxbKp7mw74IdaVLaFwH3pC
-	 OwoZ9OSKgZA5MLdxUCFp2Nn3Bq+bYu744UHQEpRlSYPtULZKWy3BpwMccgahlDvA+W
-	 ox1eAiaqOkjFNfOAUb4G66bIGO2ZBmg02Lx6O+SJBOQrQsOdU7EiRMpLQwke/NrEqq
-	 Rm30slPKvO2sTafFusog2ZjtUhwc3QkTVzliMRKpr4oBhW4H92bPwMhVZ0R3rTtV4I
-	 m16Hf7TFxSLRQ==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Wed, 14 Oct 2026 13:53:11 +0200
-Subject: [PATCH] mm/userfaultfd: only allocate anon_vma in CoW mappings
+	dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b="PF01V8Lz"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48b06f58380so569583f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:53:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ionos.com; s=google; t=1791978816; x=1792583616; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DCCYXPUAIyRRMCD1jG1kgx8qgwOSRxTPQHP2nAo/2z8=;
+        b=PF01V8LzcDCXCiBydvcgYAlUng6ofqrZNrw9pk2S08jHXsf5NosBg7AyHiQW6Rcg/s
+         3HX6y7pt46wF0bOyffHd+ulfhg6yXKBrhFBltEG7Ub33GjW9Z8Tb7JN0Maj79lzuV3tW
+         g8vrQyJTCEdCIIgbcvaROvvl88xe+qxsAyJtHGfzXD8KBUcsEiRm76xQqCfYskyGeJ+A
+         wky3OF2/PUOpebbVyhNIUX4ryFVx5fpXavLP3VL6aiCJHg1NVvwK7zfXoFX8X94goBsn
+         XVDE0j+ZWMg9R/qmBnK9kkpqwwPenxngs6h1/YnNwtLWXstOJr/WzgM/RoqW8touGqX4
+         WZzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791978816; x=1792583616;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DCCYXPUAIyRRMCD1jG1kgx8qgwOSRxTPQHP2nAo/2z8=;
+        b=iuJ2txzuH9uUoai7s74/sXDoPYkQ4WWnbt3FeXDbvq1rUMqZNWrD6hFvoV+xi8aals
+         G+RugYEwK9cP59r3ThezYAfTLW/1VMLO+8X5ESBF5G8POgZeKFW4HKZOFNaV6xfrenvj
+         BcrXYLN3yrBmJqZAoGQgMvoOgaeFvmx7DU7ZZnKxyCrrZ6pzouoN0xCX6iEFTykjzxTz
+         lYy+NndUt1bOE6i8ZNlggsRLf0rb6W1aiUJss056wuoR7zAL/WXKCM7hoB+0zPJT2eD6
+         tJ84yTiUmUfa9lV00SRI5WkX0EUBXMbPW4rxbDEA4lPNgmWnf9kaMI2Jn/yfJqf5x4gk
+         /3qg==
+X-Forwarded-Encrypted: i=1; AKwUvBzWa4O4NeuWfVpqBvLDX63XaSejA/oNYSgQe6vsCBK1fyxa9l+zAh81lhbcVqJ24E3NATfwdPCqrBFZYHE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLnaAvpZPzsIqnXPAdjFuEUPRD2jQmN71SVVvV6Mnd3Ci5uZhIz
+	MFZSypZ6nyAIQGDIpyaDhEBl5C8DlfPkxI1jqP2GMkFzzB656/yAvwEvACQhGPKkBn4=
+X-Gm-Gg: AYBFou2hpL1qQGo7FS0fvi+ZjsP7OY53XPQULnSolH8ZcLosfYfhkmp4e+aSJEFdeHU
+	8Zz/BPgQpuBqQsDD1Kc1Vvdn+DmZkUVFpGPJZtrM9jHVr9Gl4n4XzEaqnYPfNL0lkEbjRYvrk3m
+	M+JTPSh7p6n1dzXgoafnRM9zxePJfp5OWAsEva17pSGzoUkp+uJbHp4BcUnn/NwOg9F20IKXmHx
+	+KjafvR9hdsmy5VE87/IuwrhNK5amSN8shd+zgCwhpJ3JIyPlkp7i+E6F5dxwVRJy185/nAuut+
+	rcH4eQrIhr+Cz4jXswl9sbvcXsI60ZXIlGYKUL1oiSa1t+mC4Tzy+JXpfUTh/P/VcqrdGloTHEL
+	UQrMBdd6sQtboSbCfyB98Qk8Ib5oe4g+PcXr09j5Ssc98Fn6FioQPJ4zIbrpNsxPWIfWf6sYQCN
+	vB90sP1yR2o21FoPKt22yCW1j5E6qF8CaRWBfSI5Q2j2/juGIL+f9hkbne5b8kxXA5d4LZzY6z+
+	+IRVGAPng7nLk9hq/akG7e0oSieDw2todeooUCozgk=
+X-Received: by 2002:a05:6000:24c2:b0:48d:f102:aba5 with SMTP id ffacd0b85a97d-48df102acfbmr162515f8f.0.1791978815826;
+        Wed, 14 Oct 2026 04:53:35 -0700 (PDT)
+Received: from jwang-ThinkPad-T14-Gen-6.fkb.profitbricks.net ([212.227.34.98])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de3f7f8b8sm10170728f8f.35.2026.10.14.04.53.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 04:53:35 -0700 (PDT)
+From: Jack Wang <jinpu.wang@ionos.com>
+To: Song Liu <song@kernel.org>,
+	Yu Kuai <yukuai@fygo.io>
+Cc: Li Nan <magiclinan@didiglobal.com>,
+	Xiao Ni <xiao@kernel.org>,
+	linux-raid@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jack Wang <jinpu.wang@cloud.ionos.com>
+Subject: [PATCH v2] md: clear MD_CLOSING when array_state_store() bails on interrupted lock
+Date: Wed, 14 Oct 2026 13:53:34 +0200
+Message-ID: <20261014115334.619923-1-jinpu.wang@ionos.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-copy_hugetlb_page_range-v1-1-5b68e03fe7fe@kernel.org>
-X-B4-Tracking: v=1; b=H4sIACZtz2oC/yXMUQqDMBRE0a3I+1ZIUqlttyISYpzGV4qGJJYWc
- e9G+3lg5q4UERiRHsVKAR+OPE8ZsizIjmZyqHjIJiXUVQpZV3b2Pz0uDunda28cdDhnTX0ZGmn
- U/SZA+e0Dnvw9y233d1z6F2w6crRtO8S6zBJ7AAAA
-X-Change-ID: 20261014-copy_hugetlb_page_range-743d71a2980e
-To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>, 
- Peter Xu <peterx@redhat.com>, Miaohe Lin <linmiaohe@huawei.com>, 
- Lokesh Gidra <lokeshgidra@google.com>, 
- "Liam R. Howlett" <liam@infradead.org>
-Cc: Kyle Zeng <kylebot@openai.com>, Lorenzo Stoakes <ljs@kernel.org>, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5311; i=david@kernel.org;
- h=from:subject:message-id; bh=4liNeH/vLJODztqvfH/8m6hfpRYfRIpQUuqbTUpTvlM=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLO52rlLPGK+azO6X7yzz4jY/mlv7Nfs3dIP+reUr+O7
- 49tYn5GRykLgxgHg6yYIktQ8H2Dly/X1Va78THDzGFlAhnCwMUpABM568bwP2/28aa/kQk6p9+8
- 15fszl5cLqbaOSfrjOidBCV25XkLlzMy7HO8cpPzsG248N7lbPvcXCccDTk3qe9RtQJ/4eOskql
- ejAA=
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+Content-Transfer-Encoding: 8bit
 
-find_vma_and_prepare_anon() can end up allocating an anon_vma in VMAs that
-are not CoW mappings, which is wrong.
+From: Jack Wang <jinpu.wang@cloud.ionos.com>
 
-If we have a MAP_SHARED R/O file mapped, we lack VM_SHARED (but do have
-VM_MAYSHARE) and lack VM_MAYWRITE.
+Writing "clear", "readonly", "inactive" or "read_auto" to array_state
+calls mddev_set_closing_and_sync_blockdev(), which sets MD_CLOSING to
+keep the array from being reopened while it is torn down. The flag is
+only cleared again at the tail of array_state_store() (for readonly /
+read_auto / inactive, or the failed-clear case).
 
-While uffd later rejects such mappings (uffd registration requires
-VM_MAYWRITE, see comment in validate_dst_vma) find_vma_and_prepare_anon()
-still wrongly allocates an anon vma before it validates the vma.
+Between setting the flag and reaching that tail there is an early return:
 
-This in turn later confuses copy_page_range()->vma_needs_copy() such
-that we end up calling copy_hugetlb_page_range() with ranges that
-actually do not contain *any* per-pagetable information that would
-require copying, which is the basis for PMD-table sharing in the first
-place.
+	err = mddev_lock(mddev);
+	if (err)
+		return err;
 
-copy_hugetlb_page_range() should not have to worry about shared
-PMD tables at all: it doesn't make any sense to copy page tables that are
-shared, as they can be fully recreated later. Ending up in the function
-with shareable page tables is the real issue.
+mddev_lock() is mutex_lock_interruptible() on reconfig_mutex. If the
+writing task catches a signal while blocked there, it returns -EINTR and
+MD_CLOSING is left set on a still-running array. do_md_stop() /
+md_set_readonly() never ran, so the array keeps working internally, but
+every subsequent md_open() now returns -ENODEV for all callers - the
+device shows up in /proc/mdstat and sysfs is fully populated, yet cannot
+be opened, and cannot be recovered without a reboot (all clear paths
+either need the device open or re-enter test_and_set_bit(MD_CLOSING) and
+bail with -EBUSY before the clear).
 
-If a destination PMD table is shared in copy_hugetlb_page_range(), it
-might get concurrently unshared as we are not holding relevant
-locks, resulting in us using a page table that is no longer mapped and
-possibly freed after calling:
+The window is easy to hit on a busy host: reconfig_mutex is held for long
+stretches by a running resync/recovery, widening the interruptible wait,
+and a userspace helper writing to array_state and then being killed or
+timed out is enough to leak the flag.
 
-	dst_pte = huge_pte_alloc(dst, dst_vma, addr, sz);
+Route the interrupted-lock exit through a common label so the flag is
+released. Guard the clear with a set_closing flag that records whether
+this write actually set MD_CLOSING: when mddev->pers is already NULL (for
+example a concurrent STOP_ARRAY is mid-teardown) this write skips the
+mddev_set_closing_and_sync_blockdev() call above, so it must not clear a
+MD_CLOSING that the other thread owns - doing so could let the array be
+reopened while it is being destroyed. This also tightens the pre-existing
+tail clear, which had the same unconditional behaviour.
 
-To fix it, do not allocate an anon_vma in non-CoW mappings and add a
-safety guard to copy_hugetlb_page_range(), making sure that we never
-end up messing with shared PMD tables in there.
+mddev_unlock() is correctly skipped on the goto path since the lock was
+never acquired.
 
-Before commit 867a43a34ff8a ("userfaultfd: use per-vma locks in userfaultfd
-operations") we would always validate the VMA before allocating an
-anon_vma, and consequently never wrongly allocate an anon_vma.
-
-As uffd_lock_vma() is part of the same lookup machinery and
-also contains a misleading VM_SHARED check, change that one as well
-directly for consistency.
-
-A follow-up cleanup will stop taking the hugetlb_vma_lock_read(src_vma)
-lock in copy_hugetlb_page_range() entirely. Further, the usage of
-VM_SHARED in userfaultfd code should be cleaned up later to focus on
-CoW vs. non-CoW mappings.
-
-Reported-by: Kyle Zeng <kylebot@openai.com>
-Fixes: 867a43a34ff8a ("userfaultfd: use per-vma locks in userfaultfd operations")
-Cc: stable@vger.kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Fixes: 99b902ac1725 ("md: sync blockdev before stopping raid or setting readonly")
+Assisted-by: Claude:claude-opus-4-8 [Claude Code]
+Signed-off-by: Jack Wang <jinpu.wang@cloud.ionos.com>
 ---
- mm/hugetlb.c     | 24 ++++++++++++------------
- mm/userfaultfd.c |  5 ++---
- 2 files changed, 14 insertions(+), 15 deletions(-)
+v2: resend, rebased on md-7.4-20261013 (md/md-7.4), no code changes.
+ drivers/md/md.c | 17 ++++++++++++++---
+ 1 file changed, 14 insertions(+), 3 deletions(-)
 
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 63dc836061c99..60f9b209c8db1 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -4984,10 +4984,11 @@ int copy_hugetlb_page_range(struct mm_struct *dst, struct mm_struct *src,
- 		raw_write_seqcount_begin(&src->write_protect_seq);
- 	} else {
- 		/*
--		 * For shared mappings the vma lock must be held before
--		 * calling hugetlb_walk() in the src vma. Otherwise, the
--		 * returned ptep could go away if part of a shared pmd and
--		 * another thread calls huge_pmd_unshare.
-+		 * Shared mappings only need copying when we could have
-+		 * information stored in page tables (e.g., userfaultfd PTE
-+		 * bits or markers), which is incompatible with PMD sharing.
-+		 * Still take the hugetlb VMA lock for now to satisfy
-+		 * hugetlb_walk()'s locking requirements.
- 		 */
- 		hugetlb_vma_lock_read(src_vma);
+diff --git a/drivers/md/md.c b/drivers/md/md.c
+index 03e35386a802..f6dfd5d76199 100644
+--- a/drivers/md/md.c
++++ b/drivers/md/md.c
+@@ -4671,6 +4671,7 @@ array_state_store(struct mddev *mddev, const char *buf, size_t len)
+ {
+ 	int err = 0;
+ 	enum array_state st = match_word(buf, array_states);
++	bool set_closing = false;
+ 
+ 	/* No lock dependent actions */
+ 	switch (st) {
+@@ -4691,6 +4692,7 @@ array_state_store(struct mddev *mddev, const char *buf, size_t len)
+ 		err = mddev_set_closing_and_sync_blockdev(mddev, 0);
+ 		if (err)
+ 			return err;
++		set_closing = true;
+ 		break;
+ 	default:
+ 		break;
+@@ -4719,7 +4721,7 @@ array_state_store(struct mddev *mddev, const char *buf, size_t len)
  	}
-@@ -4995,6 +4996,13 @@ int copy_hugetlb_page_range(struct mm_struct *dst, struct mm_struct *src,
- 	last_addr_mask = hugetlb_mask_last_page(h);
- 	for (addr = src_vma->vm_start; addr < src_vma->vm_end; addr += sz) {
- 		spinlock_t *src_ptl, *dst_ptl;
-+
-+		if (WARN_ON_ONCE(want_pmd_share(src_vma, addr) ||
-+				 want_pmd_share(dst_vma, addr))) {
-+			ret = -EINVAL;
-+			break;
-+		}
-+
- 		src_pte = hugetlb_walk(src_vma, addr, sz);
- 		if (!src_pte) {
- 			addr |= last_addr_mask;
-@@ -5006,14 +5014,6 @@ int copy_hugetlb_page_range(struct mm_struct *dst, struct mm_struct *src,
- 			break;
- 		}
+ 	err = mddev_lock(mddev);
+ 	if (err)
+-		return err;
++		goto out_clear_closing;
  
--#ifdef CONFIG_HUGETLB_PMD_PAGE_TABLE_SHARING
--		/* If the pagetables are shared, there is nothing to do */
--		if (ptdesc_pmd_is_shared(virt_to_ptdesc(dst_pte))) {
--			addr |= last_addr_mask;
--			continue;
--		}
--#endif
--
- 		dst_ptl = huge_pte_lock(h, dst, dst_pte);
- 		src_ptl = huge_pte_lockptr(h, src, src_pte);
- 		spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
-diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-index 0e0fe9bfef239..82b56a58fc40d 100644
---- a/mm/userfaultfd.c
-+++ b/mm/userfaultfd.c
-@@ -115,8 +115,7 @@ struct vm_area_struct *find_vma_and_prepare_anon(struct mm_struct *mm,
- 	vma = vma_lookup(mm, addr);
- 	if (!vma)
- 		vma = ERR_PTR(-ENOENT);
--	else if (!(vma->vm_flags & VM_SHARED) &&
--		 unlikely(anon_vma_prepare(vma)))
-+	else if (vma_is_cow_mapping(vma) && unlikely(anon_vma_prepare(vma)))
- 		vma = ERR_PTR(-ENOMEM);
+ 	switch (st) {
+ 	case inactive:
+@@ -4792,8 +4794,17 @@ array_state_store(struct mddev *mddev, const char *buf, size_t len)
+ 	}
+ 	mddev_unlock(mddev);
  
- 	return vma;
-@@ -145,7 +144,7 @@ static struct vm_area_struct *uffd_lock_vma(struct mm_struct *mm,
- 		 * We know we're going to need an anon rmap, so check that
- 		 * early.
- 		 */
--		if (!(vma->vm_flags & VM_SHARED) && unlikely(!vma_has_anon_rmap(vma)))
-+		if (vma_is_cow_mapping(vma) && unlikely(!vma_has_anon_rmap(vma)))
- 			vma_end_read(vma);
- 		else
- 			return vma;
-
----
-
-base-commit: 1d0b04a60516de48250b04227dcf483c6c09aab1
-
-change-id: 20261014-copy_hugetlb_page_range-743d71a2980e
-
---
-
-Cheers,
-
-David
+-	if (st == readonly || st == read_auto || st == inactive ||
+-	    (err && st == clear))
++out_clear_closing:
++	/*
++	 * Only clear MD_CLOSING if this write actually set it. Otherwise a
++	 * concurrent teardown (e.g. STOP_ARRAY) may own the flag - this write
++	 * would have skipped setting it above when mddev->pers was already
++	 * NULL - and clearing it here would let the array be reopened while it
++	 * is being destroyed.
++	 */
++	if (set_closing &&
++	    (st == readonly || st == read_auto || st == inactive ||
++	     (err && st == clear)))
+ 		clear_bit(MD_CLOSING, &mddev->flags);
+ 
+ 	return err ?: len;
+-- 
+2.43.0
 
