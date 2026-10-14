@@ -1,67 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A91A4262D0B
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:46:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2B5239D3D0
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:46:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791953213; cv=none; b=eDG/ov0q2QBDOrd1/O210Ukk0D9tO1CbA2qmGsKmgfoLUZIV2JO00eVl1g+2Q8sB08Mvb9teovAzWRF7MRBRlEtdQs6SU2LgrDNCNogUJr43PhxGPOQjVtQWXlTOcXImXrL07hxM9Txq4E8qxYoBUegPQ+cVmsGD27UjrJAg3LY=
+	t=1791953215; cv=none; b=ESPUTFsHJi3TDzbyZefoHuWjk8PCyQA+9HpaBKK93xc4CR56FXwIDgJmuSQ+nscVYyL0Vvu94lm+dVA3S4WW9S8wR8x1v3vtlOgQJjYyOD7bMt4GsU6RzWkvptyJ9cva4PfINoelV06vWNqlZ3G66NAAQA+lm/bZVQ4Ia1UovW8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791953213; c=relaxed/simple;
-	bh=ax/hhnguRxE1fjlz/PvFhM8Gpmq37OUwqa8+4w053z0=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=afrgjAwZAVdHah7wa28oYkoHp2k8MyxlpW0U3Mr/cmzUQQxmrJ3HOi0s6VPRVhKM7wbuvsf2Qy2h6zsaV7RQj/VBobw3M1RgmXxHyYPhf3h8qXvxTQrPJdMzoyZqg/btl47w9zuxGlJPXmyS0/UDnn+ultd8VMXonUb4mMzteLg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U0nVGai/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791953215; c=relaxed/simple;
+	bh=YdcDYQHnvG8d50ez60dcr6M46F9miUwHHwv/BLN639I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=L2N8pN+iy90u6sWGhpCN/z1Y2MCUaRKzkFxefpHndS0S+T6pDKY8lSJFflKleKYDaFOzvKQdb7IExu1Ym/ydYYXZS18/B61G1i2oel4W8pqA4kfJ+3kU4Lsdt6dZi+ZVEW4RNckIo45X8Ng1Cg4imM3Gdj8eHLYVp9gxWrCeVZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ynn2eBTU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U0nVGai/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 541A41F000FF;
-	Wed, 14 Oct 2026 04:46:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ynn2eBTU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 400CA1F008A1
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:46:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791953212;
-	bh=kXD2GjwhdrNaOacUYXGcDRg2qS2dsXZ26SXag0ScQEQ=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=U0nVGai/btox4o7m+rnlgmn87HVj675DswCm7fGvqSQRPIqiUK1EWBlo/5NFDPmlg
-	 hyud5NVORz+PcEFB+YdhUZzPi765+CJGcPhCYQxNbwcFHcQcxE2zXW+XmTkJ7mosEQ
-	 mSYLMwnTvoWmzwKrtqlQMW8wctTXL0f2E1Zu/R90BIPEU/m18ZuqBPE0SDJPw1bn3N
-	 +CSTlHC1fQYHqY7bQaQmtF+s9druCs94JGp91RqyWurngWRzI70zvaTL3ODSAwwB/b
-	 gdhwU2/8bbyx19966uvZTjwecZSVSatYk97QZcucfk6RIcVYX71CSv9lIdpgUvJix9
-	 P0RaCAXLiEPew==
-Message-ID: <c8760418-a4b1-4649-bbac-ca465fd5b73b@kernel.org>
-Date: Wed, 14 Oct 2026 12:46:49 +0800
+	s=k20260515; t=1791953214;
+	bh=GOBAAntqs+1udpw3fkkHGyAvF+q+wF+2NHy3MJ/XtcE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Ynn2eBTUc3w60hIV2e288f6OYMHEdO4qJI26rrf1lVAyKpxPGrnZc9kownP87KKEQ
+	 IKXLYw2lhm+Zz71F6eJlpA8jpO3TpRM0TOy2uPC0cbVt5CkQNuCG0p1g+BXPq2y69y
+	 n0ODVYMgK27HfizdR5eHGEpwpba/qsVKtsQPhsWVqr/jmjfssBYWqtCKElsXthRTqm
+	 /4GKAluI8u73xS2JfxrGL+x/rrHH7zE04N/qRwfxqlMY1Yw3xs6kDMX1MUk8opBGt/
+	 qvA7JKnLRpEoQ2BI7MwlYGVwy6Otke0zyYx4dv3UNgctuvPafrPLXnhjmC0VisP06z
+	 OXyI54Vx0BOaQ==
+Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-93cbc3ab2fdso167292185a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 21:46:54 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzPBJmvPH1A033EJKGr9voJ+VRekXgKi3EImsCZt9h9DtxiqjdGQt85LkIPFj6E8Ge0DvZk0Xfy5yny9zI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI09Nuza6ChQtCLxDfaRSxtGenjqcwjINemVSDkrrmIiN9mhNYs
+	fZtaEYwhngQV5KKNui2o5IduZJip0rxsEjho7Zc/o69iYzpJNSbpKIRe4K1SDcMSaari7QMemSx
+	nfrzil2M+wMmpUz5xiqepakxqsd5ZcNw=
+X-Received: by 2002:a05:620a:370c:b0:93e:7944:b874 with SMTP id
+ af79cd13be357-93ebd244676mr2342724585a.33.1791953213386; Tue, 13 Oct 2026
+ 21:46:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] f2fs: avoid unnecessary reads in f2fs_update_meta_block()
-To: Seongjae Jeong <jsjlee1020@gmail.com>, jaegeuk@kernel.org
-References: <20261002064853.37782-1-jsjlee1020@gmail.com>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <20261002064853.37782-1-jsjlee1020@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261012205447.2717801-1-max.kellermann@ionos.com>
+ <20261012205447.2717801-4-max.kellermann@ionos.com> <a64f6a98-de70-4004-aac0-312cb05aaf92@linux.dev>
+ <CAKPOu+83bH2CRtiAio+1VTTQrYFF9th5XfG5wL45ujEavPS3Dg@mail.gmail.com>
+In-Reply-To: <CAKPOu+83bH2CRtiAio+1VTTQrYFF9th5XfG5wL45ujEavPS3Dg@mail.gmail.com>
+From: Barry Song <baohua@kernel.org>
+Date: Wed, 14 Oct 2026 12:46:42 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4y_c3TZb5=rNK-sQ5bJWozL42bGo_zgvAtY6hW5eoMcmQ@mail.gmail.com>
+X-Gm-Features: AclHuK_pOHHzKZZH_dTCG6g8kkCM2rEF8JtYxcMjCWMOy51d0raKwsKHCVbMgDI
+Message-ID: <CAGsJ_4y_c3TZb5=rNK-sQ5bJWozL42bGo_zgvAtY6hW5eoMcmQ@mail.gmail.com>
+Subject: Re: [PATCH 3/5] mm/mglru: cache the last memcg node, make tail
+ insertion constant time
+To: Max Kellermann <max.kellermann@ionos.com>
+Cc: Ridong Chen <ridong.chen@linux.dev>, akpm@linux-foundation.org, kasong@tencent.com, 
+	qi.zheng@linux.dev, shakeel.butt@linux.dev, axelrasmussen@google.com, 
+	yuanchu@google.com, weixugc@google.com, baoquan.he@linux.dev, 
+	baolin.wang@linux.alibaba.com, david@kernel.org, ljs@kernel.org, 
+	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
+	mhocko@suse.com, hannes@cmpxchg.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, rcu@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/2/26 14:48, Seongjae Jeong wrote:
-> When the packed SSA feature is enabled, f2fs_update_meta_block()
-> uses f2fs_get_meta_cache_retry(), which reads the target block from
-> disk if the cache entry is not uptodate.
-> 
-> However, f2fs_update_meta_block() overwrites the entire filesystem
-> block with memcpy(), so the existing contents are not needed.
-> Partial updates to packed SSA blocks are handled separately in
-> write_sum_block().
-> 
-> Use f2fs_grab_meta_cache() unconditionally to avoid reading blocks
-> that will be fully overwritten. Also remove the error check, since
-> f2fs_grab_meta_cache() retries allocation failures internally and
-> does not return an error pointer.
-> 
-> Signed-off-by: Seongjae Jeong <jsjlee1020@gmail.com>
-Reviewed-by: Chao Yu <chao@kernel.org>
+On Wed, Oct 14, 2026 at 11:58=E2=80=AFAM Max Kellermann
+<max.kellermann@ionos.com> wrote:
+>
+> On Wed, Oct 14, 2026 at 5:31=E2=80=AFAM Ridong Chen <ridong.chen@linux.de=
+v> wrote:
+> > I've also submitted an RFC patch that addresses this issue.
+>
+> Oh, interesting!  I did not know but your patch, but it looks very
+> similar to mine (but without the hlist_nulls refactoring so yours
+> comes with some code duplicating the hlist_nulls header).
+>
+> Too bad your RFC went nowhere, that would have saved us from a
+> production incident...  Anyway, even if neither gets merged, I'll keep
+> my patches on our internal kernel fork, because they do help a lot
+> with our workload.
 
-Thanks,
+Hi Max, Ridong,
+
+Let me discuss this with you and Ridong, run some tests, and get back
+to you. I'd be very interested in getting this optimization upstream.
+I'm also happy to discuss it with Ridong privately, as that's easier
+for me.
+
+Best Regards
+Barry
