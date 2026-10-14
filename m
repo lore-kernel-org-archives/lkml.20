@@ -1,89 +1,80 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6021F53D9E0;
-	Wed, 14 Oct 2026 14:30:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1DCE53CA6D;
+	Wed, 14 Oct 2026 14:31:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791988253; cv=none; b=VwTXOMBP3n7mKbaD/dd4DDhF7MdnPnlAEe1hTuJuJfcYfhSP4h2TBNpGeZSLl33yKt2edYT1+o2az0U+/zyuGjoxtlw465fs1bbJf+meFvgMkZi9LVUwkdZoAdQnKrltW0UZ8KekUKL9l5YAQaEz+0shjXEyjMWF/ToaBAxruRg=
+	t=1791988270; cv=none; b=cp2F2dh/7xO1BOQjTeh8eCb4lfBfE4Rj4EPX5znMpd3JKDjPrjRYo2z0ImAy1tJ85emEXjRfrULE7pasviFLYAq2U2m8ftYSxtwZWcyZkpJkuGdz1yyq30ioTUobqvBkS63btMnJMcNbkZheTAQB+asWidbqclM/uIoAZhGuOb0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791988253; c=relaxed/simple;
-	bh=fMBeam/zOOgKWNtCnDtUC7mnmy/TtsBEDUY4nS0LHGA=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=tsR1X3CLuOvWKAePrJNrDb31SE6GlZEIqEeaFiDmGEMyK66zBjr91PWqjFR9vxOpG93+xtHDaHFLq23hPwvGx+GYt/XAPpXFGkFMZHQy+K69tQKVbqHPyDnu5fpT2l3AqAUHx6gcNtaCVn3U8RYiNQH9YxW+e1N7SfCdCnhcvEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TUwHJa0K; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791988270; c=relaxed/simple;
+	bh=hyilG20mp+XnLj/3lAEhVhlkR8b20X2hA3TZAObYtSQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cJdEs2rBvXdb/+2sQub3T460uuL7fIfL8xCGNXd+exAbVikRDibRjOiMD4tkfuu7PUtmWZPequq1eeSt/NEhSujqEEk+1ZX/bKWMzMAruUWSQ6iphlhJvXc0hXVBh04DYyp97nHUqtPRyAUirgpR3g/K7jw3HLxkwWGdRSCm2o8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nvBbCT2e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TUwHJa0K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5CE31F000C4;
-	Wed, 14 Oct 2026 14:30:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nvBbCT2e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E78AD1F000C4;
+	Wed, 14 Oct 2026 14:31:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791988251;
-	bh=dKfIAC0YXO8UqRJ28sEGEIpaahHp44GZxTk9EsGyPsk=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=TUwHJa0KsNAWxA1Uu0qoMNH4UlCHKBky1cH+SPuj28RAsBRrNeC3x+tEAoMCyMTUK
-	 GY6TubNY5o9CffmODMx34dKmc7WlJC8ukJDPIPZtAkdyZSvmqmzznLxS5VRI/Lj4b4
-	 HV7Pp75YOi3VC3sctDZkLB13ogKsVtAIQHqW9776bekes9xf1ltZAHwHGrsDAl5aAo
-	 iwzGEdZ+lbMm0l1WRtFY06LKip3eSjlPs/s9cehn2W7yy9482MuCtbjsy5Vxoxexfp
-	 4ru5WHuB+Q+AZd8SWDQ/l1rNo0FEbRWwWtRs7e+/BG5bH+D+RitYBvCE2WY4EsTorp
-	 3/2nnZTyRqpgw==
+	s=k20260515; t=1791988269;
+	bh=w+RKbY8SslnL+CJpoN7wytSAuSNSgN6XS5KDsZ/4/v8=;
+	h=From:To:Cc:Subject:Date;
+	b=nvBbCT2eSrtikZX+/vZ4QzZEkQZY+ug71dspcf7O2v6IFSPewBjSqbOqyR5IyXzyW
+	 ni6WbgdImcirxfJYziIRxklRruJCoKiAXo/X0CaVF3rPVsOuQ3H1pKpvNzMyDm9g+H
+	 zfR/3RQLsNMXGrOgLRb/I9PKCS35kS0WltifcKW0VQhdG8cMBUmTpDPtmA180cskSZ
+	 OslpSagUHwMrDowBZhFz0wNpkfkj3BKPEVYk9dYQX0eqysPdyPfBqsihrxzfNH7mOR
+	 5v5Z5C1mSKTs6KMTLeqKyknw9NUqQvzHLPR1JNBHewWqAATAzM1zHRA5nT2drgR2GU
+	 umYu6iUlEYyKQ==
+From: Thorsten Blum <blum@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+	Johan Hovold <johan@kernel.org>,
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	John Ogness <john.ogness@linutronix.de>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>
+Cc: Thorsten Blum <blum@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org
+Subject: [PATCH 1/2] serial: core: Use isdigit() in uart_parse_options()
+Date: Wed, 14 Oct 2026 16:30:32 +0200
+Message-ID: <20261014143034.104950-3-blum@kernel.org>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 14 Oct 2026 16:30:48 +0200
-Message-Id: <DM4MTGIILY95.YZSDZOIBBZZT@kernel.org>
-Subject: Re: [PATCH] driver core: take parent lock on deferred probe
-Cc: "Johan Hovold" <johan@kernel.org>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- "Dmitry Torokhov" <dmitry.torokhov@gmail.com>,
- <driver-core@lists.linux.dev>, <linux-usb@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, "Mario Peter"
- <mario.peter@leica-geosystems.com>, <stable@vger.kernel.org>
-To: "Alan Stern" <stern@rowland.harvard.edu>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20261013140615.1226992-1-johan@kernel.org>
- <DM3WA69YX6WE.2Q4DY9MIU7A0L@kernel.org>
- <ba24846a-7403-4bb1-a0cb-869cf1d44e05@rowland.harvard.edu>
- <DM40HVOBKMFI.3W1DK371ZWI80@kernel.org>
- <9803935c-11d9-48a0-8d4c-95c478a724a8@rowland.harvard.edu>
-In-Reply-To: <9803935c-11d9-48a0-8d4c-95c478a724a8@rowland.harvard.edu>
+MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=886; i=blum@kernel.org; h=from:subject; bh=hyilG20mp+XnLj/3lAEhVhlkR8b20X2hA3TZAObYtSQ=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFnnJ3EHzG2I4zYr/NL6cJbZ1LnO/BNdg0Ifvfk8VUG+p jnRqN27o5SFQYyLQVZMkeXBrB8zfEtrKjeZROyEmcPKBDKEgYtTACYi1MLIMHtDS26N5lfvrYn/ t4o4Hr/ygrvCnH2raqrQUxsr81dyhYwMN+9PbyxbpX5k7UR33hkzbFQmJNopVDDymW79O6t0lko TNwA=
+X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
+Content-Transfer-Encoding: 8bit
 
-On Wed Oct 14, 2026 at 4:38 AM CEST, Alan Stern wrote:
-> I was going to suggest that the driver core could acquire and release=20
-> these extra references automatically for devices on a bus with=20
-> need_parent_lock set, but it looks like that can't be done because the=20
-> bus_type might not yet be set when device_initialize() runs.
->
-> However, is there any real reason why the driver core wouldn't want to=20
-> guarantee that dev->parent will be a valid pointer up until the time=20
-> when dev is released?  For every device that has a parent, not just USB?
+Use isdigit() to replace the open-coded implementation.
 
-I'm not sure we don't have any cases where this would create cyclic referen=
-ce
-counts.  Like with the kobject API, the separate device_del() step would br=
-eak
-circular reference counts.
+Signed-off-by: Thorsten Blum <blum@kernel.org>
+---
+ drivers/tty/serial/serial_core.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-From a quick check ALSA seems to have this cyclic topology.
-
-> On the other hand, there's something a bit weird about this whole thing. =
-=20
-> The problem arises when you want to probe a device whose parent has been=
-=20
-> deleted.  Isn't there some sort of protection to prevent that from ever=
-=20
-> happening?  I mean, doesn't deleting a device imply that all its=20
-> descendants have been (or are in the process of being) deleted?  And of=
-=20
-> course, deleting and probing are mutually exclusive -- they can't race,=
-=20
-> right?
-
-Yes, that's what the dev->p->dead check under the device lock protects agai=
-nst.
-But the new code accesses dev->parent before acquiring the device lock and
-reaching that check.
+diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
+index 6332ed545c89..6509f65dec36 100644
+--- a/drivers/tty/serial/serial_core.c
++++ b/drivers/tty/serial/serial_core.c
+@@ -14,6 +14,7 @@
+ #include <linux/sched/signal.h>
+ #include <linux/init.h>
+ #include <linux/console.h>
++#include <linux/ctype.h>
+ #include <linux/gpio/consumer.h>
+ #include <linux/kernel.h>
+ #include <linux/of.h>
+@@ -2211,7 +2212,7 @@ uart_parse_options(const char *options, int *baud, int *parity,
+ 	const char *s = options;
+ 
+ 	*baud = simple_strtoul(s, NULL, 10);
+-	while (*s >= '0' && *s <= '9')
++	while (isdigit(*s))
+ 		s++;
+ 	if (*s)
+ 		*parity = *s++;
