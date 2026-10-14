@@ -1,208 +1,197 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8CC440801E;
-	Wed, 14 Oct 2026 20:28:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FF5140801E;
+	Wed, 14 Oct 2026 20:28:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792009708; cv=none; b=GswmAavocp42QI0GD/1yx+wTPtUAqm731NQGNzhX1ECn7bOHklG90/TX8r615jYiA/Tzi5h/veUY7t8xS7/4FjNXwchjgc89zLCsol1usWQ0+L+68koIMDj0woQ30OiZEO9r8Z+uGv+Ulz6RB7VoTUiAR3KMrqCMOB6Q2I/U0yo=
+	t=1792009714; cv=none; b=gqj43SyrMVZ/QTGN89RzQV7vX3lGjwQ/f9HLCT2M9Hi4nkebHpFoizDUZvBum5S+sqr795rD+rfgA5XBEP6z2dREK5nWMKbHKCpnCXd9U6DpyEOsasHoPhMD0Flr/K04kJ0L23qHokDEQfY0N0VikeHpktQcP2WGLWKuAbHO21k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792009708; c=relaxed/simple;
-	bh=c5kTXmOvgSqIYT6Hs/HhiyaSTu6YGk6E/XaeA6AWj08=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=fE0cDR7YB+PYk0BQt1N6vBwCUoAcIoTGMFv+7zHITe7DpT70sMHYeJ71AB2AfGJdPlHgqURb5A8ZYi9xz7vzafw55r3PHUzxkjAdzTXavQX80rOUhg+VFTdn0lWyauhhC3jHjvIWirNA84jbhm+grDqa78KmRO5O00jbgVVA9Cg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=mD2gC9Mf; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1792009714; c=relaxed/simple;
+	bh=BX/t+hLJ2S8B/FDiF1rkwxacsGbGLaTfMTrOiqHgBOg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nc7jxk9vNozUBjf4zhIr0iEn/XtC8WclJaj5u0bweCEYgJ0P1lZFlC0X0uiree628B3zfwcE2qY1YqDO0huDPS9+97AZYBi9mptP3cmQFyGka7z7qLVaLMm9faOlMPKfZk8xSN9HXfjdheaIwnj+z5r37msaPh7cwChdZCNUHdc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=bmvQFVZY; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=poo+4aJ9; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=bjWw9OFs; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=i8z1qfdc; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="mD2gC9Mf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1792009707; x=1823545707;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=c5kTXmOvgSqIYT6Hs/HhiyaSTu6YGk6E/XaeA6AWj08=;
-  b=mD2gC9MfOZNwaRuCRa6g8eVL2IlUkNzL3BsAhJnaAWn79dAT4IDgu+51
-   07xqNSHFzHuOhaTRuPoSTcd96ZIfHwa1UuoXCnbL900/0jbPnGL17T5Z7
-   uZuVD4jyI0naIvcNpIp69wsDCkWeEV7NhK8hmH+k7I97phkUllH4fWtg0
-   BQL8tWFZp0u/7IvLrIuxast/HfEIpxvflC6ieLBEmAK4/SVYXLH8AyYBP
-   KBjxWluU6RlJ7ByZB8qRbJnJ2wVnIfct8CnV/z/lAwD76IAFqEAslHSxx
-   DduqUB2dRDu1Gz9QudxrjvBbLpDbkrJt0qL/71JxUUdCYSJS0xxzFBzp9
-   A==;
-X-CSE-ConnectionGUID: zv7YhBbySSSm7hs3J5Vahw==
-X-CSE-MsgGUID: v9B0qLJ1TgmQYWoK/O8m6A==
-X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
-   d="scan'208";a="65328629"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 13:28:26 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
- chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.49; Wed, 14 Oct 2026 13:28:25 -0700
-Received: from ROU-LL-M51280.microchip.com (10.10.85.11) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Wed, 14 Oct 2026 13:28:22 -0700
-From: Aubin Constans <aubin.constans@microchip.com>
-To: Ulf Hansson <ulfh@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>,
-	Eugen Hristev <ehristev@kernel.org>, Claudiu Beznea
-	<claudiu.beznea@tuxon.dev>, Romain Sioen <romain.sioen@microchip.com>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>, Ludovic Desroches
-	<ludovic.desroches@microchip.com>, Robert Marko <robert.marko@sartura.hr>
-CC: Alexandre Belloni <alexandre.belloni@bootlin.com>, Ryan Wanner
-	<ryan.wanner@microchip.com>, <linux-mmc@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	"Aubin Constans" <aubin.constans@microchip.com>
-Subject: [PATCH v2] mmc: sdhci-of-at91: disable selectively clocks on pm runtime
-Date: Wed, 14 Oct 2026 22:26:18 +0200
-Message-ID: <20261014202619.715573-1-aubin.constans@microchip.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="bmvQFVZY";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="poo+4aJ9";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="bjWw9OFs";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="i8z1qfdc"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 2B6A51F7D2;
+	Wed, 14 Oct 2026 20:28:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792009710; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ObnF/RqTluVfm2tHrjFhRxAcjcIGzUcQAyoUyoJgM+g=;
+	b=bmvQFVZYHWo1SG2pxXdnfDn9W3jQGzgQFhStHj/8xqrzimBARqr9rECS9xJLmcUgDc+4eg
+	FRXzfDTkgvDK3AWC1ewD3YZLpWmTS7OnYcfOuY2512A20MEC0/TFlIE84kK13ZnVON2B1m
+	S8CLm99EpyDAMfeISp2Nc649fIol2UI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792009710;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ObnF/RqTluVfm2tHrjFhRxAcjcIGzUcQAyoUyoJgM+g=;
+	b=poo+4aJ91LWLvPVIgiptl7AgCZpHRJ9kKWNiMDEbIPDurmJU+WksRmXkPVmzhq0IQRimfd
+	iwwjanQYW07k/UBg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792009709; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ObnF/RqTluVfm2tHrjFhRxAcjcIGzUcQAyoUyoJgM+g=;
+	b=bjWw9OFsPnbv9yNI1WwAYs0+d6UPWXdUMHw95wWAOO/EGh4f++GwwXCnj+XUZvps2aPjGC
+	zgNTlOTKDl9GE+SmRWYN40IXNvWabBDfa6tbl3Kae2eVum0Ctx+GAUWraAUxYFo5zaSB8P
+	zNZQlvcR5GnDRQwYV/4ivr0AJO/5mnI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792009709;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ObnF/RqTluVfm2tHrjFhRxAcjcIGzUcQAyoUyoJgM+g=;
+	b=i8z1qfdcKxO3suHluCNueaVnLofkXZYWMudRnpEUfb1ePqOZq1y0HAUeKtY0xyCxetnsQQ
+	jEb0AnhhIbHmfpDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 780461373D;
+	Wed, 14 Oct 2026 20:28:28 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id VCXNB+zlz2pHCwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 14 Oct 2026 20:28:28 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 83376A140F; Wed, 14 Oct 2026 18:27:49 +0200 (CEST)
+Date: Wed, 14 Oct 2026 18:27:49 +0200
+From: Jan Kara <jack@suse.cz>
+To: Zhang Yi <yi.zhang@huaweicloud.com>
+Cc: linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, tytso@mit.edu, adilger.kernel@dilger.ca, 
+	libaokun@linux.alibaba.com, jack@suse.cz, ojaswin@linux.ibm.com, ritesh.list@gmail.com, 
+	enwlinux@gmail.com, yi.zhang@huawei.com, yizhang089@gmail.com, 
+	chengzhihao1@huawei.com, yangerkun@huawei.com, yukuai@fnnas.com
+Subject: Re: [PATCH] ext4: fix extent status cache clearing when truncating
+ inline data
+Message-ID: <sohkizuoexeuwreaxw463pyktxbrafyvtscklv5qyanhaehn4d@sx2bgp2s6e4u>
+References: <20261014021714.2382353-1-yi.zhang@huaweicloud.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014021714.2382353-1-yi.zhang@huaweicloud.com>
+X-Spamd-Result: default: False [-2.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	URIBL_BLOCKED(0.00)[appspotmail.com:email,huawei.com:email,suse.com:email,imap1.dmz-prg2.suse.org:helo];
+	RCPT_COUNT_TWELVE(0.00)[16];
+	TAGGED_RCPT(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,fnnas.com];
+	RCVD_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[huawei.com:email,imap1.dmz-prg2.suse.org:helo,suse.com:email]
+X-Spam-Score: -2.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-From: Claudiu Beznea <claudiu.beznea@microchip.com>
+On Wed 14-10-26 10:17:14, Zhang Yi wrote:
+> From: Zhang Yi <yi.zhang@huawei.com>
+> 
+> ext4_inline_data_truncate() clears the whole extent status tree of the
+> inode when it truncates the inline data, with
+> 
+> 	ext4_es_remove_extent(inode, 0, EXT_MAX_BLOCKS);
+> 
+> It does that when the inode still carries inline data while the
+> EXT4_STATE_MAY_INLINE_DATA state bit is already cleared, which is the
+> case once an inline to extent conversion has been initiated, for
+> example a delalloc buffered write larger than the inline space.
+> 
+> The clear is meant to drop stale extent status entries of such an inode
+> to prevent stale extents and stale reserved space after the conversion,
+> but the range is too wide.  It also drops the entries of the blocks
+> below the new end of file, that is the blocks that stay in the file.
+> 
+> When writeback of these blocks starts later, the lookup of such a block
+> misses the extent status tree, falls back to the extent tree and caches
+> a hole entry for it.  Those blocks then have dirty, mapped and delayed
+> buffers together with a hole extent status entry.  This is an
+> unexpected inconsistency.
+> 
+> This problem has been hidden so far because we allocate blocks and new
+> extents for them during writeback.  But once [1] is merged during the
+> iomap conversion, the writeback behavior will be normalized, and it will
+> no longer allocate blocks for holes, thus exposing this problem.
 
-SDMMC run-time clock disabling is not supported in newer SoCs, including
-SAMA7G54, SAMA7D65 and LAN969x.
+Hum, I don't understand. So we have inode with inline data. We truncate it
+(i.e. further reduce i_size). At this point we hold i_rwsem,
+invalidate_lock, i_data_sem. So how can race with inline data
+conversion?
 
-Make the clock disabling scenario conditional:
-- still enabled for the sama5d2 and sam9x60 compatibles (which are all
-  those implemented at present),
-- otherwise avoided by default, for subsequent SoC families.
+								Honza
 
-Signed-off-by: Claudiu Beznea <claudiu.beznea@microchip.com>
-[Romain: Fix unbalanced clock activation/deactivation]
-Co-developed-by: Romain Sioen <romain.sioen@microchip.com>
-Signed-off-by: Romain Sioen <romain.sioen@microchip.com>
-[Aubin: Rebase before sama7g5 support and edit the commit msg]
-Signed-off-by: Aubin Constans <aubin.constans@microchip.com>
-Tested-by: Robert Marko <robert.marko@sartura.hr>
----
-Changes in v2:
-- Edit the commit msg to say the patch prepares SAMA7G54/SAMA7D65/LAN969x
-  SoC support w/o immediate change.
-  Also, move and summarize Romain's own commit msg close to its sign-off.
-- Restore Claudiu's author and sign-off email to the microchip.com address
-  he had upon writing the patch.
-- Link to v1: https://lore.kernel.org/r/20260918153414.909333-1-aubin.constans@microchip.com
-
- drivers/mmc/host/sdhci-of-at91.c | 36 ++++++++++++++++++++++++--------
- 1 file changed, 27 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/mmc/host/sdhci-of-at91.c b/drivers/mmc/host/sdhci-of-at91.c
-index 7c4ac65f247d..399856643e57 100644
---- a/drivers/mmc/host/sdhci-of-at91.c
-+++ b/drivers/mmc/host/sdhci-of-at91.c
-@@ -39,6 +39,7 @@ struct sdhci_at91_soc_data {
- 	const struct sdhci_pltfm_data *pdata;
- 	bool baseclk_is_generated_internally;
- 	unsigned int divider_for_baseclk;
-+	bool pm_runtime_disable_clks;
- };
- 
- struct sdhci_at91_priv {
-@@ -149,12 +150,14 @@ static const struct sdhci_pltfm_data sdhci_sama5d2_pdata = {
- static const struct sdhci_at91_soc_data soc_data_sama5d2 = {
- 	.pdata = &sdhci_sama5d2_pdata,
- 	.baseclk_is_generated_internally = false,
-+	.pm_runtime_disable_clks = true,
- };
- 
- static const struct sdhci_at91_soc_data soc_data_sam9x60 = {
- 	.pdata = &sdhci_sama5d2_pdata,
- 	.baseclk_is_generated_internally = true,
- 	.divider_for_baseclk = 2,
-+	.pm_runtime_disable_clks = true,
- };
- 
- static const struct of_device_id sdhci_at91_dt_match[] = {
-@@ -164,7 +167,7 @@ static const struct of_device_id sdhci_at91_dt_match[] = {
- };
- MODULE_DEVICE_TABLE(of, sdhci_at91_dt_match);
- 
--static int sdhci_at91_set_clks_presets(struct device *dev)
-+static int sdhci_at91_set_clks_presets(struct device *dev, bool start_clks)
- {
- 	struct sdhci_host *host = dev_get_drvdata(dev);
- 	struct sdhci_pltfm_host *pltfm_host = sdhci_priv(host);
-@@ -174,7 +177,14 @@ static int sdhci_at91_set_clks_presets(struct device *dev)
- 	unsigned int			gck_rate, clk_base_rate;
- 	unsigned int			preset_div;
- 
--	clk_prepare_enable(priv->hclock);
-+	/*
-+	 * Manage clock prepare/enable procedure depending on if the board
-+	 * support runtime clock disabling and if we come from the probing
-+	 * or restoring procedure (for backup+self refresh).
-+	 */
-+	if (start_clks)
-+		clk_prepare_enable(priv->hclock);
-+
- 	caps0 = readl(host->ioaddr + SDHCI_CAPABILITIES);
- 	caps1 = readl(host->ioaddr + SDHCI_CAPABILITIES_1);
- 
-@@ -223,8 +233,11 @@ static int sdhci_at91_set_clks_presets(struct device *dev)
- 	writew(SDHCI_AT91_PRESET_COMMON_CONF | preset_div,
- 	       host->ioaddr + SDHCI_PRESET_FOR_DDR50);
- 
--	clk_prepare_enable(priv->mainck);
--	clk_prepare_enable(priv->gck);
-+	/* Same clock management as for hclock */
-+	if (start_clks) {
-+		clk_prepare_enable(priv->mainck);
-+		clk_prepare_enable(priv->gck);
-+	}
- 
- 	return 0;
- }
-@@ -254,9 +267,11 @@ static int sdhci_at91_runtime_suspend(struct device *dev)
- 	if (host->tuning_mode != SDHCI_TUNING_MODE_3)
- 		mmc_retune_needed(host->mmc);
- 
--	clk_disable_unprepare(priv->gck);
--	clk_disable_unprepare(priv->hclock);
--	clk_disable_unprepare(priv->mainck);
-+	if (priv->soc_data->pm_runtime_disable_clks) {
-+		clk_disable_unprepare(priv->gck);
-+		clk_disable_unprepare(priv->hclock);
-+		clk_disable_unprepare(priv->mainck);
-+	}
- 
- 	return 0;
- }
-@@ -269,7 +284,7 @@ static int sdhci_at91_runtime_resume(struct device *dev)
- 	int ret;
- 
- 	if (priv->restore_needed) {
--		ret = sdhci_at91_set_clks_presets(dev);
-+		ret = sdhci_at91_set_clks_presets(dev, priv->soc_data->pm_runtime_disable_clks);
- 		if (ret)
- 			return ret;
- 
-@@ -277,6 +292,9 @@ static int sdhci_at91_runtime_resume(struct device *dev)
- 		goto out;
- 	}
- 
-+	if (!priv->soc_data->pm_runtime_disable_clks)
-+		goto out;
-+
- 	ret = clk_prepare_enable(priv->mainck);
- 	if (ret) {
- 		dev_err(dev, "can't enable mainck\n");
-@@ -344,7 +362,7 @@ static int sdhci_at91_probe(struct platform_device *pdev)
- 		return dev_err_probe(&pdev->dev, PTR_ERR(priv->gck),
- 				     "failed to get multclk\n");
- 
--	ret = sdhci_at91_set_clks_presets(&pdev->dev);
-+	ret = sdhci_at91_set_clks_presets(&pdev->dev, true);
- 	if (ret)
- 		return ret;
- 
+> 
+> Therefore, restrict the range to the blocks that are actually truncated
+> away, and pass EXT_MAX_BLOCKS minus lblk as the length.
+> 
+> [1] https://lore.kernel.org/linux-ext4/20261009103033.2920530-9-yi.zhang@huaweicloud.com/
+> 
+> Reported-by: syzbot ci <syzbot+ci46f64f7b6a2a188e@syzkaller.appspotmail.com>
+> Closes: https://lore.kernel.org/linux-ext4/6ac92a4c.70ed5d86.2ac85.0072.GAE@google.com/
+> Fixes: 0add491df4e5 ("ext4: remove extent cache entries when truncating inline data")
+> Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
+> ---
+>  fs/ext4/inline.c | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
+> 
+> diff --git a/fs/ext4/inline.c b/fs/ext4/inline.c
+> index ceee69a66482b..b630e56815bb5 100644
+> --- a/fs/ext4/inline.c
+> +++ b/fs/ext4/inline.c
+> @@ -1905,8 +1905,12 @@ int ext4_inline_data_truncate(struct inode *inode, int *has_inline)
+>  		 * the extent status cache must be cleared to avoid leaving
+>  		 * behind stale delayed allocated extent entries
+>  		 */
+> -		if (!ext4_test_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA))
+> -			ext4_es_remove_extent(inode, 0, EXT_MAX_BLOCKS);
+> +		if (!ext4_test_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA)) {
+> +			ext4_lblk_t lblk = EXT4_B_TO_LBLK(inode, i_size);
+> +
+> +			ext4_es_remove_extent(inode, lblk,
+> +					      EXT_MAX_BLOCKS - lblk);
+> +		}
+>  
+>  		/* Clear the content in the xattr space. */
+>  		if (inline_size > EXT4_MIN_INLINE_DATA_SIZE) {
+> -- 
+> 2.52.0
+> 
 -- 
-2.43.0
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
