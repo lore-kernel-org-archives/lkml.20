@@ -1,88 +1,77 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6905B4AAC50
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:39:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E69264C651E
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:39:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791981565; cv=none; b=f4jgPUrzMhH8PKZJLNxK2RsVbmrpmgF4ISi9jyTX+6KDAatAF6o2l1c/yzjOW0z+ldSChLOk2iopqRMiWogaaotVC91vdA6AT7BBXIqzswSEBg+w8AI0cHxo1pbrRf3UsWmJh1lYbbLlmvXZljx9MHKWjyW/VjrUkBB9QZg1GmE=
+	t=1791981565; cv=none; b=soy2tjX9mjKdBrkMTiCvSc0lhkN9O2cZAoV+fRi0VHFL+iRFTBqFi4kaeK9M2ukJR56rOGnB4GC8aa5aPF22Zz0UBcJSYDjrR3eYcVHoBS7kgRDWlMyNnNLdRH4g9mgXGNoVaA0eCMr3A1ipUAAw3K/BgGei5TMewrX1Hcx3A5E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791981565; c=relaxed/simple;
-	bh=VqCku/yr84+wi1BYtwWHIO+VixKt7ok+NpIkwDBqt8A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QGt5XOCBY9eP+UrEmjSq/j0i9BEIiWhQKdHh79kMdzFLpm8xlnBam6roxNuKblN2AGDVeicNaTmCSzPVLZ/iAxBIgvPuL3oEdvEgxY+3LJx15prVQ2NzvA+p1wckoD/mUMmqGKygaRLf/jP5DIZF9dJesMzzA7DgcYeJwyc49U4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ddG0OXR/; arc=none smtp.client-ip=100.103.45.18
+	bh=7Kk0CxwEtjzYkojvCKWxzAP67CgEdO67ClErl6G2Ym4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Tw5JchO+OywzeCeAXuq+++QdSIf/SK3YVH0id2OARKNb4e7On5cagskt7M5UaRfCaeAr40dUEPGqIH1QAq4VLYr7VhqR3ObDAdyMrn7nt8dNbfr/Y8+5JruGlz+RVrBzr5+PPKzUWgiVNh4oDElLAvGTRTNNISuBTbfUyVR/eYw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aO69Pm3o; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ddG0OXR/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4B221F000FF;
-	Wed, 14 Oct 2026 12:39:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aO69Pm3o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD6241F00899
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:39:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791981563;
-	bh=xs23ZCbOpRQvVMNf4hJDdJp9/IHWSovb0CNsgvI34vM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ddG0OXR/A06ko6m7Cvzkqe2iSqfekBlGQTdXas3ZQMkBtnbnkAjv6bd2iwlUQBiuy
-	 6mRgYfOodX3xCjBnBGjWijIE/quWBn3s7q5X/a43dziXpACZNju9GhOdXJ+X6dd7Pa
-	 johR6ztmFiyfqVs/Nz7g8phXGVDFA451KRYqGGUuou7CcQrBau4WhH/KCJvEzvsBe6
-	 v2AA7a5dOR+ypmQ4vftqcAVlc3z8qGPhbYPnO/EAxN1YlnKKZB9SubSoMDFwF7UyDy
-	 jNHoPEIZjDP4erNAqf1s6OUsg4wHrH7dwT5prBYHJBpWMQOxEVVa3uLdESgZHrbH77
-	 i2Zux7wBr/CEw==
-Message-ID: <c373cb30-a505-414b-850f-4356aa68595a@kernel.org>
-Date: Wed, 14 Oct 2026 14:39:18 +0200
+	s=k20260515; t=1791981564;
+	bh=Knf75Ls2vrIpkylWUr/pvbXb19RPsFAB0AeEvO/u/KE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=aO69Pm3orR74eKnDwFMNan/luuWNO7WGE9hfDknGgP47EDc2T5jPGbbZhnA852w9F
+	 xy37hDBw7Kp5L/NbHjSkMmxq5gBJBROv0CTxDgc3ZyUWyTcjonU5y97mtmaiVEXSQf
+	 WtR2f9TfOpbZT/AkY9E2FQeyDSYK6S3RXwTKMNHtZG09r1/BQjRivCLDZkNOI+NnhD
+	 hT5acDpAp0hz6O8mexoA1DIdoWbnyofqjlw4NK8zUu84kqAF0SX7JcAwF99jB2Kq7a
+	 Mp6Tw1TaP1UM+kBGv1pBbfBS6nxBfs8xMTLS859QZfjnPzah+tenYouIdiVlg07dgP
+	 AZ/C31ZKmeU+A==
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c33bb2f3e6cso172100066b.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 05:39:24 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzhI9j0hobARF+43JS3Dr4TmnYOiC5Qp9OEIJSIfkFcc7pfM+RZxkHZnRVgXrpHr43az+KDoqEuriwpthY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJFzAPUVowQ8W2AZfiMns4NAiAN+yrUz6ruk6osN7JbmuReCtyn
+	X04jd4pdWyCSBTZxqkFU2KVMb18AxBP4WBzmRLsRHOlO/CE6j+wjq5utp6xoawgseplxtwANX4r
+	gpVFqn3Y1us3kcKmt/zD8hHZPpFeUJTk=
+X-Received: by 2002:a17:907:96a6:b0:c31:5c2b:9e4b with SMTP id
+ a640c23a62f3a-c31a9fcf341mr1694753366b.9.1791981563351; Wed, 14 Oct 2026
+ 05:39:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] powerpc/Kconfig: limit the PPC_85xx DATA_SHIFT range to
- STRICT_KERNEL_RWX
-To: Julian Braha <julianbraha@gmail.com>, maddy@linux.ibm.com
-Cc: mpe@ellerman.id.au, npiggin@gmail.com, ritesh.list@gmail.com,
- sshegde@linux.ibm.com, linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org
-References: <20261011113108.539470-1-julianbraha@gmail.com>
- <af5559f0-89f8-42d7-a43b-068bbd183161@kernel.org>
- <7eafa839-ef4e-4856-be6d-d8e0a9ab3030@gmail.com>
-Content-Language: fr-FR
-From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-In-Reply-To: <7eafa839-ef4e-4856-be6d-d8e0a9ab3030@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20261013145846.56415-1-charsyam@gmail.com>
+In-Reply-To: <20261013145846.56415-1-charsyam@gmail.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Wed, 14 Oct 2026 21:39:10 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd9oz1EgU_+wscBQtQhy2OvY0aTLD+qspgWuxG_wUXN0XA@mail.gmail.com>
+X-Gm-Features: AclHuK9ycT3hqCHux-rWwKW7hmgl-GX0VeiRBI-Vic7dBTJo9x-xz8Sv84ssuYQ
+Message-ID: <CAKYAXd9oz1EgU_+wscBQtQhy2OvY0aTLD+qspgWuxG_wUXN0XA@mail.gmail.com>
+Subject: Re: [PATCH 0/2] ntfs: handle block device cache flush in fsync paths
+To: DaeMyung Kang <charsyam@gmail.com>
+Cc: Hyunchul Lee <hyc.lee@gmail.com>, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-
-
-Le 14/10/2026 à 13:23, Julian Braha a écrit :
-> On 10/12/26 11:28, Christophe Leroy (CS GROUP) wrote:
->> Le 11/10/2026 à 13:31, Julian Braha a écrit :
->>> On PPC_85xx, enabling DEBUG_PAGEALLOC without STRICT_KERNEL_RWX activates
->>> the DATA_SHIFT range of 20..24, but since the PAGE_SHIFT default is
->>> outside the range (12), kconfig adjusts it to 20, causing 1mb alignment
->>> instead of 4kb. However, the larger alignment is only needed for the
->>> separate kernel permissions provided by STRICT_KERNEL_RWX.
->>>
->>> Since PPC_85xx uses page poisoning for DEBUG_PAGEALLOC and does not
->>> support KFENCE, let's restrict this range to STRICT_KERNEL_RWX.
->>>
->>> This out-of-range default was detected by kconfirm, a static analysis
->>> tool
->>> for Kconfig.
->>
->> Looks like with this change I'm now able to set DATA_SHIFT to any value
->> when STRICT_KERNEL_RWX is not set and DEBUG_PAGEALLOC is set.
->>
->> The range used to protect against that.
-> 
-> Sorry, yeah kconfig can be tricky...
-> 
->> +    range 20 24 if STRICT_KERNEL_RWX && PPC_85xx
-> I think if we keep this ^ and then add another range:
-> 
->      range PAGE_SHIFT 24 if !STRICT_KERNEL_RWX && PPC_85xx
-> 
-> this would cover your STRICT_KERNEL_RWX=n and DEBUG_PAGEALLOC=y
-> configuration while resolving the 12 -> 20
-
-Yes I think that should work.
-
-Christophe
+On Tue, Oct 13, 2026 at 11:58=E2=80=AFPM DaeMyung Kang <charsyam@gmail.com>=
+ wrote:
+>
+> Regular-file fsync currently ignores a block device cache flush failure,
+> while directory fsync never issues a cache flush. Both can report success
+> without ensuring that the data and metadata reached stable storage.
+>
+> The first patch returns and logs flush failures from regular-file fsync.
+> The second adds a flush to directory fsync and reports its failure. The
+> syncfs path already handles flush errors.
+>
+> QEMU blkdebug injected -EIO for flush_to_disk on ntfs-next at
+> 04fb910da2c8. Before these changes, both file and directory fsync
+> returned success while syncfs returned -EIO. With the respective fixes,
+> both fsync calls return -EIO. A kretprobe confirmed the flush failures.
+>
+> DaeMyung Kang (2):
+>   ntfs: report block device flush failures from fsync
+>   ntfs: flush the block device when syncing a directory
+Applied them to #ntfs-next.
+Thanks!
