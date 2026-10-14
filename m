@@ -1,150 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 604D84E8DE6;
-	Wed, 14 Oct 2026 12:46:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ED1B4E9C29;
+	Wed, 14 Oct 2026 12:46:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791981990; cv=none; b=f2He4KFUywQ4oExxfIHQyPtcg6NJiDrKZ3/yeTBqBORJrqen4Dah1gVcdNcOiZn1OEo9/0SctkBWrMhTYfJwzURS6ozyb0fLSijS1nszEZrl2DNNEm5bVpN8w6zwSQtK6oIbmhmoE5fvHQFIjZTgcu1qR2ZH50qyjPdiqI6uuXU=
+	t=1791981994; cv=none; b=KLAhWs4BNND3g80ZRYIoaODBA0IzA2BLdnzY4uzyoEhtj8XyAfClGaJdz5APSzgV+WXWLhieQ8s0ntvHmjn8aQkHNHpuXzTUOvOVWOGiez4MFEorJ0lvJf+bNe7CEwHNAVYqLaq1mBrAZj79/yYDVJjLwxGX4Jvw1Q2EHwzBe/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791981990; c=relaxed/simple;
-	bh=FwIdmK/Fobi0USlDhQbtZ3+4sL6eKx+2lvg1PMayO44=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GexdbUfbcd/QqtRWd1bkHizCrUgQdK8/v6DjxcTVAGRYka9ZpH935Dg4kTY6wyWbdmdYmjvpHy9XzTYdyU9ZXXsM1zn5casMGUD4xxtUps/aAgI5AYrsqqRWQBO2mVHCHd9SA6ugN3hZAEXWkU4+ZkOarxQbheMRF1zB1VBdhbc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ePhn/HY/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791981994; c=relaxed/simple;
+	bh=lraDbSUwAu7Z6xHj08mL74wjdccsueS4o1yJiXkADz8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DTARN4E+elCM4MIvjRC29WYjFjQyueKgKckVbKJAFaumAb7SK44bEw9jw6dT9YIBlmtcscsfVj7tL8zratvQUL4isz3or1FAsTm2nYXPub5k+h2YU0Z8JQ6yGdoeiB2ThMGCkJQxHYD4G4oVyJW83V/2D7pNV5mJwhmfwxBBjMI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Y8wy5yfd; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Yrj976DB; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Y8wy5yfd; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Yrj976DB; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ePhn/HY/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 115A71F000FF;
-	Wed, 14 Oct 2026 12:46:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791981975;
-	bh=Ulbr2YT3Sm148c2os6yQKC/cck5K4HaIPuoT7Ot2zmg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ePhn/HY/atReBXxmRXWskHsnp8UTYvuhBaY2k3eduWJc7cVJXGx/FsCs6mSnOubF1
-	 uTeAioksM7puO3Yi8RlO5Gn24QN//ZcFuTMtDg0739tSQDyfOiftOJc/rn8iydAKCT
-	 Zq/59MLWv6qVYAyiFq/niUWrIlqTQji0TtyFL9m6jRCPSx0CGG4c7X02B1wJNWwEcT
-	 buKGoodJFcHZCk8x80hS/005YW1et3nrkXIiFfkNYRXLl4zsHwA+5RumjSCMYsiFNu
-	 e+wM2fFbqPeLobMxj66wklnpoPntxrypFIyMSeijMEZPPh10SaLB1knxI3SznwvovK
-	 JFNDvotHx6RXA==
-Message-ID: <33d5b87e-9c79-4a8f-9ca3-f42f47b703d3@kernel.org>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Y8wy5yfd";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Yrj976DB";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Y8wy5yfd";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Yrj976DB"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 2E1441FB60;
+	Wed, 14 Oct 2026 12:46:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791981976; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=J4yChObc0Pr5+TH+wCOECBsU64iiuVGH1brRjSQo7/o=;
+	b=Y8wy5yfdVq86Q5k04TxfBS38OWfohfpK1BVq6eZQXND0tTrbWUnl8uHBfdrIHynssv7VJb
+	XIjQoRX+rRrnYYdB3mgqtIvomogrpVaVtKH+XnUmG2/T9Bjp+SsXS802R83YO7y9otUgld
+	THgJSEN6Urr5x8gPNY50lA/E8DVa8bY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791981976;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=J4yChObc0Pr5+TH+wCOECBsU64iiuVGH1brRjSQo7/o=;
+	b=Yrj976DB4rU9pA3E8wU7wCw9IFFFaX7mPxnvh4eSK1s8LcxoMa7Hr9f0zX43R9fT6qi6bV
+	SWCSnsNkOTIbH9BA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791981976; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=J4yChObc0Pr5+TH+wCOECBsU64iiuVGH1brRjSQo7/o=;
+	b=Y8wy5yfdVq86Q5k04TxfBS38OWfohfpK1BVq6eZQXND0tTrbWUnl8uHBfdrIHynssv7VJb
+	XIjQoRX+rRrnYYdB3mgqtIvomogrpVaVtKH+XnUmG2/T9Bjp+SsXS802R83YO7y9otUgld
+	THgJSEN6Urr5x8gPNY50lA/E8DVa8bY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791981976;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=J4yChObc0Pr5+TH+wCOECBsU64iiuVGH1brRjSQo7/o=;
+	b=Yrj976DB4rU9pA3E8wU7wCw9IFFFaX7mPxnvh4eSK1s8LcxoMa7Hr9f0zX43R9fT6qi6bV
+	SWCSnsNkOTIbH9BA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B6D6A1368E;
+	Wed, 14 Oct 2026 12:46:15 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 4fQEGJd5z2oXDQAAD6G6ig
+	(envelope-from <dwagner@suse.de>); Wed, 14 Oct 2026 12:46:15 +0000
 Date: Wed, 14 Oct 2026 14:46:10 +0200
+From: Daniel Wagner <dwagner@suse.de>
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
+	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, Ming Lei <ming.lei@redhat.com>, 
+	Surabhi Gogte <sgogte@purestorage.com>, Hannes Reinecke <hare@kernel.org>, 
+	Nilay Shroff <nilay@linux.ibm.com>, Frederic Weisbecker <frederic@kernel.org>, 
+	Aaron Tomlin <atomlin@atomlin.com>, Maurizio Lombardi <mlombard@redhat.com>, 
+	linux-block@vger.kernel.org, linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Daniel Wagner <wagi@kernel.org>
+Subject: Re: [PATCH 1/5] nvme-tcp: initialize pf_cache_lock when allocating
+ the controller
+Message-ID: <93fdde74-b362-4b06-a08e-c5027bd5619d@flourine.local>
+References: <20261014-nvme-fabrics-isolcpu-v1-0-355156be27b2@kernel.org>
+ <20261014-nvme-fabrics-isolcpu-v1-1-355156be27b2@kernel.org>
+ <20261014110804.VsqI0ZaP@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] platform/arm64: lenovo-thinkpad-t14s: Adjust thermal
- trip with platform profile
-To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
- "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
- Mario Limonciello <mario.limonciello@amd.com>, Kurt Borja <kuurtb@gmail.com>
-Cc: sre@kernel.org, bryan.odonoghue@linaro.org,
- platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
- stephan.gerhold@linaro.org
-References: <20261001181917.9367-1-daniel.lezcano@oss.qualcomm.com>
- <1eb6d74f-28c7-8f0a-4001-dfe717196836@linux.intel.com>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <1eb6d74f-28c7-8f0a-4001-dfe717196836@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014110804.VsqI0ZaP@linutronix.de>
+X-Spamd-Result: default: False [-4.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[16];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,infradead.org:url]
+X-Spam-Score: -4.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-Hi,
-
-On 14-Oct-26 12:19, Ilpo Järvinen wrote:
-> + more people.
+On Wed, Oct 14, 2026 at 01:08:04PM +0200, Sebastian Andrzej Siewior wrote:
+> > Initialize pf_cache_lock for all queues when allocating the controller
+> > and keep it for the lifetime of the controller.
+> > 
+> > Fixes: 61b0ed3be81b ("nvme-tcp: parallelize I/O queue allocation and startup")
 > 
-> On Thu, 1 Oct 2026, Daniel Lezcano wrote:
-> 
->> Tie the keyboard thermal mitigation temperature to the platform profile
->> selected through the ThinkPad embedded controller.
->>
->> The EC reports Fn+L, Fn+M and Fn+H events corresponding to low-power,
->> balanced and performance operating modes. Use these events to update the
->> passive trip point of the "keyboard-thermal" zone to 49.85°C, 57.85°C
->> and 59.85°C respectively.
->>
->> These thresholds match the thermal mitigation temperatures used by the
->> platform for the corresponding operating profiles.
->>
->> Look up the keyboard thermal zone at probe time and locate the passive
->> trip named "keyboard-ec-alert". The trip name is used deliberately so
->> the EC driver can identify the device-tree trip associated with the
->> platform thermal profile without depending on its position in the trip
->> table.
->>
->> Initialize the thermal mitigation threshold to the balanced profile,
->> matching the default platform behaviour, and update the thermal zone
->> whenever a profile change event is reported by the EC so that the new
->> mitigation temperature takes effect immediately.
->>
->> Using the platform_profile API would provide a more appropriate interface
->> for exposing and managing these operating modes. However, while the API
->> itself is generic, the platform profile core implementation currently
->> lives under the ACPI framework. Making it available to device-tree based
->> platforms requires separating the generic infrastructure from ACPI,
->> which is a larger and independent piece of work.
-> 
-> So the only problem is that platform profile resides underneath acpi 
-> namespace in sysfs?
+> I only see 2a8513091d2f0 ("nvme-rdma: parallelize I/O queue allocation
+> and startup"). That tcp commit is not in next-20261013.
 
-That and that the module_init() for the shared platform-profile code has:
+The commit is in
 
-        if (acpi_disabled)
-                return -EOPNOTSUPP;
+https://git.infradead.org/?p=nvme.git;a=shortlog;h=refs/heads/nvme-7.4
 
-I gave a talk about DT-ACPI hybrid mode for these laptops at plumbers:
+but I missed the nvme-rdma version of it. It's about time to merge this
+into common code.
 
-https://lpc.events/event/20/contributions/2363/
-
-The conclusions there where that:
-
-1. DT-ACPI hybrid mode is interesting as an experiment and for reverse
-engineering but not something we necessarily want in mainline.
-
-2. We do however want to at least load the ACPI tables and make them
-available under /sys/firmware/acpi/tables/ so that acpidump will work,
-which is useful for improving the DT descriptions.
-
-I believe there is consensus we want to do 2. Which means creating
-/sys/firmware/acpi at which point we could just keep 
-
-/sys/firmware/acpi/platform_profile[_choices]
-
-there.
-
-In hindsight it would have been better to have a firmware-type
-agnostic place for this.
-
-The question then becomes do we want to move this to
-a firmware-type agnostic place with maybe a compat symlink,
-or do we keep this as is ?
-
-As mentioned I do expect we will get /sys/firmware/acpi/ on
-these laptops even when booted in DT mode even if it is just
-to expose the tables.
-
-This means that we could keep things as is and future generation
-Snapdragon SoCs for laptops are expected to eventually fully move
-to ACPI.
-
-Other ARM64 and Risc-V / Loongson laptops all seem to standardize
-on ACPI.
-
-So I think that just keeping this as /sys/firmware/acpi/platform_profile
-is ok and we (I) need to move forward with always loading + sysfs
-exporting the tables which will allow us to expose
-/sys/firmware/acpi/platform_profile even when booted in DT mode.
-
-I realize this will be a bit weird path to use in DT mode, but
-it should work fine and these really are ACPI laptops booted in DT
-mode, so I think this is fine.
-
-Regards,
-
-Hans
-
-
+Thanks,
+Daniel
