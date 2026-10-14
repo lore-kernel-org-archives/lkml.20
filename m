@@ -1,63 +1,65 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E79C44E01E5
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:35:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95C394DE727
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:35:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791981349; cv=none; b=NypnecFtJnM2wbf9+xRa2kXzFTe3rXNBbc3XpoHe31EJh/zUjbBUQHVhFGfwvSM0CNqH6CbprEBUJ5CBqU/anKu6erIsevxysBTCbbOmvxC6W79NCbpqOTfAHM7Rs+E1Dzli+LzQOYZ/7OqkU/tr6HkLkaYYhD79zxcwZ3WsyGU=
+	t=1791981351; cv=none; b=CNo8MpL7sorl2EBwzDGbdDn5ElkZd5L2nA8rFVcAfMPUxCU54xTyrbuiXk8Uw8rRCpIamxyQmFcr96qIIRLIOtCXqhQ33QnmpaiZWU6p6LOA6FRaLVsfSDnrZvz2mt1ZAG3CMwmkdTSIrfJi2Yzqxk4diZERF8xB5CMKrZge2Qo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791981349; c=relaxed/simple;
-	bh=Jz1g63wBph8z+pjdHc0gSKp70UAE5wnC76nJPFvqda8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hh0rMQSXc06Iyuj/BVf4EGo2saj0kgkc406RvyumSEf0QIrr6jjoeAsOh9//yxGuvWYWK7f5N4x7pAhSTHiqh6UGSf7fv0KJtP+O+s5vpnijoMU7IHSmDXXPccuaKZCqYd4s0tLdiuVI7H7OoDte2sW7GhlU3TiDXgLfoIgQvFw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KgVbfNho; arc=none smtp.client-ip=209.85.128.52
+	s=arc-20240116; t=1791981351; c=relaxed/simple;
+	bh=8yqPK/hBeI+MydFnPwtDEDydcwIdIgN6roHBhwTkxDM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PJJthZx1NjOVB/hDa7BDu4fvdDQcsAjAwmiDLmCe3A5j+Lt0qBQKJyP2DdA0ckXQndjwBclR+xBeAL4Bcr+mOvMdyDVkLvs6O4zZl5N5g8briPjEO1h0t+oUZTl29I/TF/ujCqvlDfgaOmR8UMgJjGXmdURHFVVm/U/803KwKcs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gmG0+GP9; arc=none smtp.client-ip=209.85.221.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KgVbfNho"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a018792ab3so33499725e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 05:35:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gmG0+GP9"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48b0946c2c2so2597178f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 05:35:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791981346; x=1792586146; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=62WR7HSbpTYVFTv5L5GyNfp/jte/MYhYGnFTixB56k0=;
-        b=KgVbfNho42fawTPbqL2bIV48wdhG5Xd/rxFDzQU6XB4juG1AsoHydlHBPDptsaAsE/
-         hrTpY3e8K/icnF9zAi75LzSUaaxjCwGWeCzSqPjuywQZZ739BAQlwERhk0z1nOlpd3ZM
-         I3iiWZscBj/RaBbhWFyeyl/IOeaKPVWUYlmv8od9iS1BcfXTye9a2TAIPtuFJWHgAfPX
-         bnZJEjVXxCKm5lUPUmYYKDYy6XvlhEntTf6B80KcSzcgDMkIXbd52JnSrc8kbsyxyxxZ
-         UAio8MSYxZ4AVPguStZGc2MvIUm4VvJfAG+e+V5X6V2Si+F8pINM60mwUuC/64Jg+Ied
-         UCyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791981346; x=1792586146;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791981348; x=1792586148; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=62WR7HSbpTYVFTv5L5GyNfp/jte/MYhYGnFTixB56k0=;
-        b=bYfqn4YI6awRoPe59ceHK3Q32q/stQVFnDnqlTu1JcfcHibWudUHaQbqxcMojgavMR
-         TbasuGMhGi6pHuvVFoIEaW2f8JHjqaOJlEL5bhM+Sd4pxARlSJx+aaWE2zYb1mFEAyRI
-         JHAgnIX0qmsWGqia87lfKy3JfC+oJ5KTzmwAc3pLthroE8qvkJryCEc6kYQfOsQusFv3
-         iNgo1mEGS0+X0FsSxz+UwV+5s3B4HVZ8p9jge5kF7kLPFSLuksZzKVatAzkQFWN1BVNQ
-         8meagKF7iSXhZciJopdSew8hz3klCFVqSoN0IyG6GQLqXTQuwtYSE79t8YO4GxdFGK/G
-         xMEg==
-X-Forwarded-Encrypted: i=1; AKwUvBzDGiq+FV1Mzawky2B0E8izJjxQYAWbwHCQWxI3l4uhwaNmsr4ahJi1DMnBGhIdIrCQA7LSK4DGLHh6K/Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIiWKSVGTe53Yw/WCyqhUZekROwo16nPhKQTl5MFkEYJ6lWInEN
-	AWaY4IHidBiwd5IJVqVhZtiOQJ0Z1uyX+58/VvIPJXR+n7FqLasMZbAG
-X-Gm-Gg: AYBFou0utXHJJ3a5kVkZu0jwpBFPK2SF7OpZDBz6qCoKfXH8g4ut66rDPoOyqKvOAO4
-	cGl9oBVW6OOd/W4JSF3EPQAwBYuBWg1Dp/dHgBlqbbt6wY52mYwuD1XXY/hHlNO76+xP0RZCL3R
-	m8FOLeUn3y/+SJsNB1oU06cYlQ5PBhjubqScvcFrfwG3D8rxkh1ikFPHE8nJ5vgxGaExg014jDS
-	mUmubmxkNIMi0T4aLVpmKQZDkAj4Gb1slmVZUWgJZplK+oRD5gnun3zkq3Lhmif+OEbar7OkVK0
-	2BhZs9sIrIU60qGKjodzAjFlT7c3SUvBV6ODXBtint4OS0Fiju+mo1GculJrpD9W9yRk2Uo+J5r
-	Px25y/OL9Q+T5UB5uHsp80xSfIHSjLY1iBOIy04ZKznqHl1XnIaoASDJzhlFH5dh6G85Vbtpvwe
-	p115Y13zv3V/aaAS4XvtFLaentu+Rvf7848J8gvk0zpHAWYWhMPjf/qIatx9GBmYZVf44s8YJP4
-	wC2ix1BWTvY8p/Rr3/ooKM/wCYD8YeTmse1Uk4euyeXG+/MOTFgO01fF8umNxQn
-X-Received: by 2002:a05:600c:c104:b0:4a1:96cd:2f73 with SMTP id 5b1f17b1804b1-4a196cd32b0mr167859285e9.1.1791981345889;
-        Wed, 14 Oct 2026 05:35:45 -0700 (PDT)
+        bh=om1ONkc929u95vn1fQ/Nbz6FD0lMp1Ust+GYISd+Hxs=;
+        b=gmG0+GP9TF4Gbrs97mPC86qVXaQW8+AOjzhEmaAswG783yKt2LI5QRexk0v7ewm4B1
+         2nKIwRUvanQgp+SCJJ1jIVinmbCYwx1LTdVGQ6MTd6CqUQzLKSYNDvOIJPobjJYXU2Tf
+         81O0n1BsKTgxPzUdw36vkj8r0bchjY5ZEQ7k/qTRv2Z72/iVoWsx9VlvcSDcLIYVTvjC
+         iVBpxo+CMoogHkxPt2tKdBot4NTdGW+tloLqB+zzY72H2ds9BUDMjxPL7yoiH76XCzDe
+         yGlReax6ae7eF0s6l4VsMtFBYsYlgFXzo/1Bv62+lChaEa9m2UNSiw1bCHyQCv2GKZF6
+         tQkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791981348; x=1792586148;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=om1ONkc929u95vn1fQ/Nbz6FD0lMp1Ust+GYISd+Hxs=;
+        b=yxMtFjbbH0ext0fRmmGpLtPMKBrbyaEJ5tyb5tlVGzXjv0k6sT6YEasEWqdESVZCrl
+         DYWaavYgRmjZO3ZFwZVjJoTAS95z3QmbUNUZVN7S8ha/+rWy092NNhaxFD6+kpQDBO40
+         hTuobJonEmya1IZOUiQVHWcqRqOB0F1m6H/+EyeCp9ztcK7+KGQZJ+NLZY5/UYAeNQ1e
+         8ExAcQlZ9ZpLBLS3P5tTPPmBS4E3FOxX4jSOCZNC6P1EL6GsiBNC03GIjlUluI1qnAKS
+         TauwZ4GCS0qdYqZ8XlypMepIawVH4gYCC/zJ+XhkO9mDeBeah8p9K0mXEaqM+NX5IOcd
+         szMQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwnTZX0wEqalI63y8/7LUDZ15xgP9OhDjXcg/90fwrYsg9xrLSpUyKE8G4LSl3oTL4S3P2i8ARV8fXkbfA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLnQ6MiXypMEK3s5TizbT5xKFHOCkofjrnRREoYcaPw/nGckmWt
+	gNYWVOHm0V0WS+Et5Kf+sIIzcxZKkY+LGnzMSK8+zNkicq0hSg7SlOy+
+X-Gm-Gg: AYBFou2MBNhSSFXuACy5GYX35WNCjTqZ97BbXFkFJoz5yvbhg+9GNtBuUc0jbLVNsCs
+	+jwnT5rxKHgv3WYgjBGOEH6+tR/bKrccEfiynHhHRIhfXeAX7OVAal8NLTzQrydF4g7k4LQCFS6
+	9MDwbmpoVMY86bAAYPQJg58MdaYCUUJmnSlgtU2c9w2aqVtTz4CzLryXtuFCQldu3PxCZlNqrHT
+	5A0SSVGFWK+0/KAgKyiKDZg2CZAa9qkc2iO68smyvLVeuy39HANZdJh2LibwCqyi92pUCbxz3nQ
+	+VhAU7x270gl7xoH7pvsH6U4ircIMuGqmBXqa1l2dcYAi59fT7qDlLZs90BNZKdXcynbmNgMgBS
+	NjVvMhSWJe90U3ERr0FcHSVkq4QnV+SZqnWvqteUoY3ynrUy3/ITNOODnTh8BsfCIhiTOhIsEgf
+	J3xzXaTo+IKQorkSik3Mpm0JX9N/wpXoBjt0nz1MS6chO7FOJU7B2QqGi6JSBZP45R3RSeB/FTD
+	HShncpVCvnMlDEJvSjMGai5GlxahccxxfuVUf8uo/GTWzQryK9E07cMEVUF+7Q=
+X-Received: by 2002:adf:e007:0:20b0:487:8ba:8aa4 with SMTP id ffacd0b85a97d-48dbace50e3mr22564611f8f.38.1791981347653;
+        Wed, 14 Oct 2026 05:35:47 -0700 (PDT)
 Received: from nixos-office (29.pool92-59-2.dynamic.orange.es. [92.59.2.29])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48ded3874c6sm3003353f8f.18.2026.10.14.05.35.44
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48ded3874c6sm3003353f8f.18.2026.10.14.05.35.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 05:35:45 -0700 (PDT)
+        Wed, 14 Oct 2026 05:35:47 -0700 (PDT)
 Sender: Julian Braha <julian.braha@gmail.com>
 From: Julian Braha <julianbraha@gmail.com>
 To: mark.rutland@arm.com,
@@ -71,10 +73,12 @@ Cc: radu@rendec.net,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Julian Braha <julianbraha@gmail.com>
-Subject: [PATCH v3 0/2] irqchip: gic-v3: fix unmet dependency on ARM_PSCI_FW
-Date: Wed, 14 Oct 2026 13:35:37 +0100
-Message-ID: <20261014123539.2259230-1-julianbraha@gmail.com>
+Subject: [PATCH v3 1/2] irqchip: gic-v3: only select HAVE_ARM_SMCCC_DISCOVERY on arm64
+Date: Wed, 14 Oct 2026 13:35:38 +0100
+Message-ID: <20261014123539.2259230-2-julianbraha@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261014123539.2259230-1-julianbraha@gmail.com>
+References: <20261014123539.2259230-1-julianbraha@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,21 +87,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ARM_GIC_V3 currently selects HAVE_ARM_SMCCC_DISCOVERY without ensuring its
-dependency, ARM_PSCI_FW, is met.
+ARM_PSCI_FW is always enabled for arm64, and the GICv3 driver only
+uses HAVE_ARM_SMCCC_DISCOVERY to identify the NVIDIA T241, which is
+arm64 anyway.
 
-Patch 1 of this series makes the select conditional on arm64, and patch 2
-adds stubs for arm32.
+For ARM_GIC_V3, let's only select HAVE_ARM_SMCCC_DISCOVERY on arm64.
 
+Fixes: 35727af2b15d ("irqchip/gicv3: Workaround for NVIDIA erratum T241-FABRIC-4")
+Suggested-by: Marc Zyngier <maz@kernel.org>
+Signed-off-by: Julian Braha <julianbraha@gmail.com>
 ---
-Julian Braha (2):
-  irqchip: gic-v3: fix unmet dependency on ARM_PSCI_FW
-  firmware: smccc: provide stubs when discovery is disabled
+Changes since v2:
+- split out changes into two patches
 
- drivers/irqchip/Kconfig   | 2 +-
- include/linux/arm-smccc.h | 7 +++++++
- 2 files changed, 8 insertions(+), 1 deletion(-)
+Link to v2:
+https://lore.kernel.org/all/20260823180832.1246363-1-julianbraha@gmail.com/
 
+Changes since v1:
+- remove select and dependency on ARM_PSCI_FW,
+- make the HAVE_ARM_SMCCC_DISCOVERY 'select' conditional on arm64
+
+Link to v1: https://lore.kernel.org/all/20260801212235.2692694-1-julianbraha@gmail.com/
+---
+ drivers/irqchip/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/irqchip/Kconfig b/drivers/irqchip/Kconfig
+index a8f8c423b795..31b7e4c90007 100644
+--- a/drivers/irqchip/Kconfig
++++ b/drivers/irqchip/Kconfig
+@@ -37,7 +37,7 @@ config ARM_GIC_V3
+ 	bool
+ 	select IRQ_DOMAIN_HIERARCHY
+ 	select GENERIC_IRQ_EFFECTIVE_AFF_MASK if SMP
+-	select HAVE_ARM_SMCCC_DISCOVERY
++	select HAVE_ARM_SMCCC_DISCOVERY if ARM64
+ 	select IRQ_MSI_IOMMU
+ 
+ config ARM_GIC_ITS_PARENT
 -- 
 2.55.0
 
