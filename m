@@ -1,53 +1,42 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EEB638C2A7;
-	Wed, 14 Oct 2026 03:25:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9174939B94A;
+	Wed, 14 Oct 2026 03:26:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791948344; cv=none; b=GmiIysOfH+0vK1mnJXCZyyzO+TZNh5/kA8ho4jVhIBCCVwgtQgoziXLVqsGUvsqNZjw8ZrTRVHs+RaPXDePM/TuM2kzRVExzAyOREWdSv32H9fpaJMH2zraiAy5PRz7i9TQbBLFvx0sEHzCl0ZON7lUacaF6mWNRd1ZWRfZvUig=
+	t=1791948375; cv=none; b=HNhWjswyYWPTOJsrr8rDQJqGChT72xLIMbFbQjx/MdEu1CCa+YAUPlmcxOWE6w5fg2aeU35tGWxMUtGwHmOjvr6xZuiSWHDOtTF7gUEnCrj0M2SLjMe+MaL4GfMbsZJNnODJr/xZxMHTe6AVQbEL3aFGyIjWBezwNRt+PqYOTLI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791948344; c=relaxed/simple;
-	bh=ATXxZ4TRrfAvRKgy1xwcBmgHACM+hNV7ElwSwkqXwtU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DgEJptwdg66Dzdd5qiHkz+361WhHEc+5Bm/jj2bwip/hf/GTub5ETDoeUrMYiXD5UdZlEpu7MxYEFeROjZljNgwo5GfqwObtk9fa1V/KbEaBZCDw2wX/15IS9u6MBUb0dwDbGS6DuZ11A55cF5BgLLbyemGX9yCAXmDwbYhJwxk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=QvJl5DX/; arc=none smtp.client-ip=220.197.31.4
+	s=arc-20240116; t=1791948375; c=relaxed/simple;
+	bh=1MkMYXRkCCDApZ3mxxdFy6NmCVENs4XSZvohPNx/Uw8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QpYmg4H0T5VlB2sGbZx89DxwpaG9kzcqo8dgX7WQ8qYBFgbr0Jofr7GyPEFiVSpFIB0GzrXlEqLiodb0K96HxbHQGtg2LaXYbqDaw80yeF5rsk7zESdAu12FPyumQmqNQ3g08eRXGYkatlhumSjh4OrFoSWTkfkzf+mudSspvNg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=VrCTKYIu; arc=none smtp.client-ip=117.135.210.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="QvJl5DX/"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="VrCTKYIu"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=u6
-	4zh6KIdkfTRkxUpHBFUPJswjilzMUb7D4STARJsh8=; b=QvJl5DX/+1lktNv6/8
-	7fjNs67sCQRlqpHuTXVfKO5ONd4QP0Adnc1COGtwY/3ICrWAPuUv6sHLNKBCJQha
-	tGkM0kMowZvSkHa6ifHjqOG4QHZiGzuDb+rojsYNPDR5zG8LYOApmYsRVQEO8Kv0
-	8x4U/TCwbMHhHyKHoZAbHivYw=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=ZC
+	7IVOM91nENCBz/6/raj1xaaQ7jxcRs4GVZUTNAE4A=; b=VrCTKYIu2yjORpYaOu
+	+BH0iTT5qF2A56kB/hBD73Dxb5RqrYX09w8t7HBhBj7bx8FOfE4/HiL4y4lWGuym
+	//yx13/VNeRTumw4LNxnss7vC1ADdjKWjbGSzoAoTRy6xmSy7rLRUeJht5DYd4KC
+	cxZHU1xF2Q3HYLCxWlEiKXdys=
 Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD3v88G9s5quKBFEQ--.27196S2;
-	Wed, 14 Oct 2026 11:24:55 +0800 (CST)
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD3l7M29s5qhWn7EQ--.42443S2;
+	Wed, 14 Oct 2026 11:25:43 +0800 (CST)
 From: Pengpeng Hou <hppiscas@163.com>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>
+To: Elad Nachman <enachman@marvell.com>
 Cc: Pengpeng Hou <hppiscas@163.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Seven Lee <wtli@nuvoton.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	John Hsu <supercraig0719@gmail.com>,
-	"Fang, Yang A" <yang.a.fang@intel.com>,
-	Yong Zhi <yong.zhi@intel.com>,
-	Oder Chiou <oder_chiou@realtek.com>,
-	Jack Yu <jack.yu@realtek.com>,
-	Bard Liao <bardliao@realtek.com>,
-	John Lin <john.lin@realtek.com>,
-	Derek Fang <derek.fang@realtek.com>,
-	Guennadi Liakhovetski <g.liakhovetski@gmx.de>,
-	patches@opensource.cirrus.com,
-	Stephen Warren <swarren@nvidia.com>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>
-Subject: [PATCH v2 0/9] ASoC: stop dependent resume work after restore failures
-Date: Wed, 14 Oct 2026 11:24:43 +0800
-Message-ID: <20261014032452.13456-1-hppiscas@163.com>
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v2] net: prestera: avoid overreading a short firmware tail
+Date: Wed, 14 Oct 2026 11:25:40 +0800
+Message-ID: <20261014032540.14311-1-hppiscas@163.com>
 X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -56,53 +45,89 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3v88G9s5quKBFEQ--.27196S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ArWxtFWxXry5GF4UAw18Krg_yoW8KrWxpF
-	s7Wa9Ykrs7J3WIyFW8urWjyFykGa93K3y5A34DW3ykWr98G34DZrs2gFZrXrZrGry3Gw1j
-	vr4UCw12yr4Dur7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zEubytUUUUU=
-X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbC7QcN1WrO9gfCrgAA3L
+X-CM-TRANSID:_____wD3l7M29s5qhWn7EQ--.42443S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxWF1UWr15Zr18Ww4rKryfZwb_yoW5CFWfpF
+	WDCFy3tr4DGF1ft39rJF18ZF45X3s5tFW7KFZxuw1Svr4jkr97Jay29rs7KrnxJrWSgw1U
+	Zr4Yk3Zxurn8Jw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piRuWQUUUUU=
+X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbC7RcZ4WrO9jfNewAA3R
 
-This revision addresses Mark's cache-mode concern and Charles's WM8978
-bias rollback question. It also accounts for the next suspend after a
-failed resume: the ASoC wrapper reports the callback error but marks the
-component resumed, so leaving an IRQ disabled needs driver-local ownership
-tracking to avoid disabling it a second time in the next suspend.
+prestera_ldr_fw_send() passes complete 1024-byte blocks to the loader
+and then sends fw_size - pos as the final chunk. Firmware header validation
+does not require the payload size to be a multiple of four. Consequently
+that last chunk can end with one to three bytes, while prestera_ldr_send()
+still loads a full u32 from it and transfers bytes beyond the supplied
+firmware image to the device.
 
-All nine changes retain best-effort card resume. They do not add framework
-rollback or automatic retries. The RT5682 SoundWire branch and RT5677
-retained VAD path keep their existing behavior. RT5640 handles both IRQ
-producers of jack work and clears ownership when either IRQ is freed.
-RT5677 also propagates normal-mode transport write errors and remembers
-pending restoration across later changes to the requested VAD mode.
+Reserve space for the rounded-up transfer, use unaligned-safe full-word
+loads, and construct the final word from only the remaining bytes with
+zero padding. The firmware image-size register still describes the exact
+payload size. Preserve the existing native-word load and writel_relaxed()
+byte-order convention.
 
-These issues were found by our static-analysis tool and manually reviewed.
-The code and descriptions were prepared with gpt 5 assistance; the patches
-carry the corresponding Assisted-by trailers.
+The issue was found by our static-analysis tool and manually reviewed.
 
+Fixes: 4c2703dfd7fa ("net: marvell: prestera: Add PCI interface support")
+Assisted-by: gpt 5
+Signed-off-by: Pengpeng Hou <hppiscas@163.com>
+---
 Changes since v1:
-- restore cache-only mode and preserve dirty state on replay errors
-- avoid repeated suspend-owned IRQ disables after failed resume
-- return WM8978 bias to OFF on failure, without claiming hardware rollback
-  is guaranteed when the bias callback itself ignores register errors
-- clear WM8978 PLL power as system suspend does
-- quiesce both RT5640 jack IRQs and reject fresh setup while unrestored
-- fix RT5677's normal-mode write error propagation and pending-restore state
-- preserve the per-driver power, SoundWire and DSP VAD distinctions
-- resend all members as one series rather than separate unthreaded posts
+- explain why a short final chunk reaches the loader, as Andrew requested
+- include linux/unaligned.h to fix the reported undeclared get_unaligned()
+- use a const full-word source pointer and sizeof(u32) for index movement
+- rebase on current mainline
 
-Previous series:
-https://lore.kernel.org/all/20260906034321.86080-1-hppiscas@163.com/
+Previous version:
+https://lore.kernel.org/all/20260830142404.37663-1-pengpeng@iscas.ac.cn/
 
-Base: 8ef28aef33f2d5da6959ad6b579ec3cfccc009f6 (sound/for-next)
+ .../net/ethernet/marvell/prestera/prestera_pci.c   |   20 +++++++++++++++-----
+ 1 file changed, 15 insertions(+), 5 deletions(-)
 
-1. ASoC: nau8821: restore safe state after resume errors
-2. ASoC: nau8824: restore safe state after resume errors
-3. ASoC: nau8825: restore safe state after resume errors
-4. ASoC: rt5663: restore safe state after resume errors
-5. ASoC: rt5682s: restore safe state after resume errors
-6. ASoC: rt5682: restore safe state after resume errors
-7. ASoC: wm8978: restore safe state after resume errors
-8. ASoC: rt5640: restore safe state after resume errors
-9. ASoC: rt5677: restore safe state after resume errors
+diff --git a/drivers/net/ethernet/marvell/prestera/prestera_pci.c b/drivers/net/ethernet/marvell/prestera/prestera_pci.c
+index 1ad0e62a8433ba91a9c019aa7f277c6c9f65f58e..4492c35ea5d388ef485f424d88fc1f9b0f7ad29e 100644
+--- a/drivers/net/ethernet/marvell/prestera/prestera_pci.c
++++ b/drivers/net/ethernet/marvell/prestera/prestera_pci.c
+@@ -6,6 +6,7 @@
+ #include <linux/device.h>
+ #include <linux/firmware.h>
+ #include <linux/iopoll.h>
++#include <linux/unaligned.h>
+ #include <linux/kernel.h>
+ #include <linux/module.h>
+ #include <linux/pci.h>
+@@ -589,18 +590,27 @@ static u8 __iomem *prestera_ldr_wr_ptr(struct prestera_fw *fw)
+ 
+ static int prestera_ldr_send(struct prestera_fw *fw, const u8 *buf, size_t len)
+ {
++	size_t write_len = ALIGN(len, sizeof(u32));
++	size_t i;
+ 	int err;
+-	int i;
+ 
+-	err = prestera_ldr_wait_buf(fw, len);
++	err = prestera_ldr_wait_buf(fw, write_len);
+ 	if (err) {
+ 		dev_err(fw->dev.dev, "failed wait for sending firmware\n");
+ 		return err;
+ 	}
+ 
+-	for (i = 0; i < len; i += 4) {
+-		writel_relaxed(*(u32 *)(buf + i), prestera_ldr_wr_ptr(fw));
+-		prestera_ldr_wr_idx_move(fw, 4);
++	for (i = 0; i + sizeof(u32) <= len; i += sizeof(u32)) {
++		writel_relaxed(get_unaligned((const u32 *)(buf + i)),
++			       prestera_ldr_wr_ptr(fw));
++		prestera_ldr_wr_idx_move(fw, sizeof(u32));
++	}
++	if (i < len) {
++		u32 last = 0;
++
++		memcpy(&last, buf + i, len - i);
++		writel_relaxed(last, prestera_ldr_wr_ptr(fw));
++		prestera_ldr_wr_idx_move(fw, sizeof(u32));
+ 	}
+ 
+ 	prestera_ldr_wr_idx_commit(fw);
+
+base-commit: 4056b3c9d3c92ea45955641dbafeb9b960e146ef
 
