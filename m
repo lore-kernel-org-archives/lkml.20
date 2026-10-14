@@ -1,187 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 135F13AD51C
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:44:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D33D53AD51C;
+	Wed, 14 Oct 2026 09:44:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791971056; cv=none; b=ktFLVZ/qcvBKfctJVeAsKO0c3A/MST2eXjqHH9gP7L4VzE4QfC2C92B82rhVeyk7alhY0YL+8OHkjjXsK51mvUSKDCRori6Zr7I+K+mLYm1VQhLclUeqGMPF50+O7YI0leDhtesQ0v4+uJZkxbbjOV7yh97NN84bJNAeCrejppE=
+	t=1791971072; cv=none; b=NdqbjgX5gIRmYJNHsgoJ7jReQoocjEMwAxvo8sxpxunwC2GZrl451CalXaMefW19NsCOI7HRL7dJJt2t7qlDThe0KEQz0sCHKNxX5ciVZVc/TWlXuI2UxEsW5rP+jmHfgpVEIYe4p/lbonVBbYqk8UEaP+vH1iEEU44fq0MThxk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791971056; c=relaxed/simple;
-	bh=JQlpRiUaOXNfdMDy+o24+jWUaR5vlVHK5OhebwrY45w=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=jgU5M+s0iu9BBxyhJQB56rFBYdNjraW+r8pr9OT2pmJE67g0m9nYBbUYjivkgPr2wGDBWv5iFRNrV2OyTNsvf9I5/cgElCltk0S6UMfZFenWkXIZQfLUsxD6IYAKEX3P3+5PJT1M9r1GD7HnFj32RePxsasHiVcUrs8YPnfQ6bU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BT+OgzoG; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BT+OgzoG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6175F1F0089F
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:44:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791971054;
-	bh=RibJr+lkK5w34aXVUZqBACmNuB3QmP95yMnwX8HmFKQ=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=BT+OgzoGfyq8uQEYFqZcC6K8t/Rjzu0eu1MklLKXCmRIOrGiWB25ETHSbC0+eSFqk
-	 80wfFOpQ+VuAZCGfoqeGQ0FMC+oYARK1dsSgOzkePlYk3C4uQMrX8eULLXa8D+pCHe
-	 /DVi4EX6LDMbyyfa/fmOUFylNJtXgbk5R+X3knOlC81p8QIcqRf0RFuAQ/mchIoKC3
-	 z+psg12xLMggnQXvmScMKersFpdgHbJmpSXD80CR07XzIQsBacJxk8/Lir05MH/LRE
-	 oP9998w9gEkdowPDK2JOjHnbOcdUYx/OA9/nqS15t9h8yaMdP3GxBi4+33Yo0Z6KrJ
-	 e/SgiXlmRV0Jg==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id D13AC198003A;
-	Wed, 14 Oct 2026 05:44:12 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Wed, 14 Oct 2026 05:44:12 -0400
-X-ME-Sender: <xms:607PajM0wqOjIhGz2rAOrLL01EoYD--AXQqdku797tWpvWAMt0U98Q>
-    <xme:607PaozfKGksLOlCwjvVRPUtU6EmbS-pE8j7RQC3LX-PZrHM4Lc3fWi9UUWYxRPI5
-    KF_wqa3BqSvFEAPhuGfUcX_Qs6ONhyoZOqCL3b8tbWNT3IgYvQEbzcV>
-X-ME-Proxy-Cause: dmFkZTG4qDbjkd8V/yEC2ZTNDUkLSoqEFfjf9pDh5dVIvv11+jOBRwgedbQQEemplu4fac
-    tELNld/pjUFEZA5pcjb8qJY0hIS3+mWibWQ62OlvcuItA8q2et6DzUlBlF8oilXJjOpdL+
-    Fnbw6g8q9z7qEJuXNk09xt8HNPIYrmT8XGnkLX6VTuHzHG7cVSY2Dr4f/tCqbT9CKo7KCX
-    9MTx4b/rVG57gPjqAeJ67MR4FRtQ8acl4ma77/G/lJbbX5T7cQRZrk/lnQrtIBHauG7Ori
-    1EtMS6e2aXBFtheGtIEq6eJZjCNoh7CN6dR/ntqlcvwoWWkL7Pjyo/S+VEfajh/i42O0fL
-    +o7uxWP1nacV/q3oCK94mV+G93ejAiT6seLlFerjZDzvs8eTM9Luf38k7UkpOuu8BFFWUF
-    w24DwdylnGHhafWH75kAmolZcjZtahMcd8VHCHfiR8H2M00FHnyf1E0hfeI5wy3/nWLw86
-    4/jlCfublcbYf+OpZIXNMa9YYSF9SUY7GovUZ7ruJTaQ9tuZwyaVuog39cjTquaPcyICXL
-    Qwc1B9IqGnLGePRZposoyfEFujrsPQvfvtFlExcFU4kMitF5fU9St/qv3CTi9+gnPIJxP0
-    3rqU1iv7K4lh6DOluQjMqi1AVsojcUgj8HiGMG06NFeQn6DifxYTPvkCw6yQ
-X-ME-Proxy: <xmx:7E7Pai06VHF_LSDvcwDKuXk3Hmk4z2F6YkoECo4F3WT7tN6YE9temg>
-    <xmx:7E7Pai5BvW3dJMMh3xEJ6b1CqYg0TOQjstQ_QojhOK_zjcqLR7zDwg>
-    <xmx:7E7PalVKzWm1w3NsCD14GS_znULJcdXdXabU5q3AbzUnULUiqiV8mw>
-    <xmx:7E7PahBSIwg1yYw0mwb1EHRDADKcWKSe-jzk0PWTH_4aLIpyPoktkA>
-    <xmx:7E7Pak5kb0FG2fdSp8LqZnI1KiSw11LRO3cIt0FkId4ZubLY7fXQ3QSj>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 87AB6F8008E; Wed, 14 Oct 2026 05:44:11 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=arc-20240116; t=1791971072; c=relaxed/simple;
+	bh=jGQQd8DQS8UuyQfDaYk7tK9oDrfxKggilWhZKe7ggbg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=goP18zp3585oMIPgjQQ6T3XIIWz+GbemojwL0qMwUrt6c+4qWnoWQm6Vy5XPF/AyL9bjOEa4Noq7UUvyrcKDt67eJCXlwEF9fvU005kitIgMLETsB/3kO+OBOuHDG72qX6AgHIHLuUxSkH8UFx9AA2VXXeLxIqQ0w2Rk7MbC8eQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=162.243.161.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from E0002472LT.eswin.cn (unknown [10.12.96.78])
+	by app1 (Coremail) with SMTP id TAJkCgCXKW7vTs9q6aSGAA--.43637S2;
+	Wed, 14 Oct 2026 17:44:17 +0800 (CST)
+From: Xiaofeng Yuan <yuanxiaofeng@eswincomputing.com>
+To: Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>
+Cc: Alexandre Ghiti <alex@ghiti.fr>,
+	Nam Cao <namcao@linutronix.de>,
+	Naveen N Rao <naveen@kernel.org>,
+	"David S . Miller" <davem@davemloft.net>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	Xiaofeng Yuan <yuanxiaofeng@eswincomputing.com>
+Subject: [PATCH v5 0/2] riscv: kprobes: reject probes inside LR/SC sequences
+Date: Wed, 14 Oct 2026 17:44:13 +0800
+Message-Id: <20261014094415.374-1-yuanxiaofeng@eswincomputing.com>
+X-Mailer: git-send-email 2.31.1.windows.1
+In-Reply-To: <20260828091202.1124-1-yuanxiaofeng@eswincomputing.com>
+References: <20260828091202.1124-1-yuanxiaofeng@eswincomputing.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 14 Oct 2026 11:43:51 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Melody Wang" <huibo.wang@amd.com>, x86@kernel.org
-Cc: LKML <linux-kernel@vger.kernel.org>,
- "Tom Lendacky" <thomas.lendacky@amd.com>
-Message-Id: <81c6d97f-850e-4f51-919f-cb3a11f47962@app.fastmail.com>
-In-Reply-To: 
- <5ae01ceb58a3fdf6ed9367e236d77b4a21a3363c.1791912902.git.huibo.wang@amd.com>
-References: <cover.1791912902.git.huibo.wang@amd.com>
- <5ae01ceb58a3fdf6ed9367e236d77b4a21a3363c.1791912902.git.huibo.wang@amd.com>
-Subject: Re: [PATCH v4 5/7] x86/sev: Register the guest with the SVSM APIC protocol
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:TAJkCgCXKW7vTs9q6aSGAA--.43637S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Kr4ktF4fCF48JF1rWFyDKFg_yoW8ZF13pF
+	Z5Cwn8tr4kWw1fCry3Gw48Z34Sya1rGr43Jr1kJw1jy3y5tr1rtFnxKw4Uur98GrZYgw13
+	Zw10grZ8Wa47ZFDanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9G14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK6svPMxAIw28IcxkI7VAKI48JMx
+	C20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAF
+	wI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20x
+	vE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v2
+	0xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxV
+	W8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VU13ku3UUUUU==
+X-CM-SenderInfo: h1xd05xldrwv1qj6v25zlqu0xpsx3x1qjou0bp/1tbiAQEAE2rOXTMYPwAAs+
 
-Hello Melody,
+A breakpoint trap taken in the middle of an LR/SC sequence clears the
+load reservation, so an SC following the probed instruction always fails
+and the enclosing retry loop re-enters the breakpoint, livelocking the
+CPU.  This series makes the RISC-V kprobes implementation reject probes
+placed on an LR/SC instruction or between them, following arm64's
+approach for its equivalent exclusive load/store instructions.
 
-On Tue, 13 Oct 2026, at 19:50, Melody Wang wrote:
-> The SVSM APIC protocol supports 5 calls. SVSM_APIC_CONFIGURE_EMULATION
-> (shortened to SVSM_APIC_CONFIG_EMULATION for brevity), call 1, provides
-> the controls whether the guest can make use of the SVSM APIC protocol.
->
-> Implement this call, and register Alternate Injection for the guest by
-> default.
->
-> Signed-off-by: Melody Wang <huibo.wang@amd.com>
-> ---
->  arch/x86/boot/compressed/sev.h          |  2 --
->  arch/x86/include/asm/sev.h              |  2 ++
->  drivers/firmware/efi/libstub/efistub.h  | 11 ++++++++
->  drivers/firmware/efi/libstub/x86-stub.c | 34 +++++++++++++++++++++++++
->  include/linux/efi.h                     |  2 ++
->  5 files changed, 49 insertions(+), 2 deletions(-)
->
-> diff --git a/arch/x86/boot/compressed/sev.h b/arch/x86/boot/compressed/sev.h
-> index 22637b416b46..62e50c2e71ed 100644
-> --- a/arch/x86/boot/compressed/sev.h
-> +++ b/arch/x86/boot/compressed/sev.h
-> @@ -14,7 +14,6 @@
-> 
->  void snp_accept_memory(phys_addr_t start, phys_addr_t end);
->  u64 sev_get_status(void);
-> -bool early_is_sevsnp_guest(void);
-> 
->  static inline u64 sev_es_rd_ghcb_msr(void)
->  {
-> @@ -37,7 +36,6 @@ static inline void sev_es_wr_ghcb_msr(u64 val)
-> 
->  static inline void snp_accept_memory(phys_addr_t start, phys_addr_t end) { }
->  static inline u64 sev_get_status(void) { return 0; }
-> -static inline bool early_is_sevsnp_guest(void) { return false; }
-> 
->  #endif
-> 
-> diff --git a/arch/x86/include/asm/sev.h b/arch/x86/include/asm/sev.h
-> index 93161b663d9b..13f2e8c009b4 100644
-> --- a/arch/x86/include/asm/sev.h
-> +++ b/arch/x86/include/asm/sev.h
-> @@ -471,6 +471,8 @@ static __always_inline void sev_es_nmi_complete(void)
->  extern int __init sev_es_efi_map_ghcbs_cas(pgd_t *pgd);
->  extern void sev_enable(struct boot_params *bp);
-> 
-> +bool early_is_sevsnp_guest(void);
-> +
->  /*
->   * RMPADJUST modifies the RMP permissions of a page of a lesser-
->   * privileged (numerically higher) VMPL.
-> diff --git a/drivers/firmware/efi/libstub/efistub.h 
-> b/drivers/firmware/efi/libstub/efistub.h
-> index fd91fc15ec81..d65cdc8f2acd 100644
-> --- a/drivers/firmware/efi/libstub/efistub.h
-> +++ b/drivers/firmware/efi/libstub/efistub.h
-> @@ -177,6 +177,17 @@ void efi_set_u64_split(u64 data, u32 *lo, u32 *hi)
->   */
->  #define EFI_MMAP_NR_SLACK_SLOTS	32
-> 
-> +typedef union sev_alt_inj_register_protocol sev_alt_inj_register_protocol_t;
-> +union sev_alt_inj_register_protocol {
-> +	struct {
-> +		efi_status_t (__efiapi * sev_register_alt_inj)
-> +			(sev_alt_inj_register_protocol_t *);
-> +	};
-> +	struct {
-> +		u32 sev_register_alt_inj;
-> +	} mixed_mode;
-> +};
-> +
->  typedef struct efi_generic_dev_path efi_device_path_protocol_t;
-> 
->  union efi_device_path_to_text_protocol {
-> diff --git a/drivers/firmware/efi/libstub/x86-stub.c 
-> b/drivers/firmware/efi/libstub/x86-stub.c
-> index 2a1fa773d241..b6e58ade4162 100644
-> --- a/drivers/firmware/efi/libstub/x86-stub.c
-> +++ b/drivers/firmware/efi/libstub/x86-stub.c
-> @@ -783,6 +783,36 @@ static efi_status_t exit_boot(struct boot_params 
-> *boot_params, void *handle)
->  	return EFI_SUCCESS;
->  }
-> 
-> +/*
-> + * When the guest is running at VMPL2 with Alternate Injection enabled,
-> + * register Alternate Injection before ExitBootServices().
-> + */
-> +static int svsm_register_alt_inj(void)
-> +{
-> +	efi_guid_t alt_inj_proto = OVMF_SEV_ALT_INJ_REGISTER_PROTOCOL_GUID;
-> +	sev_alt_inj_register_protocol_t *proto;
-> +	efi_status_t status;
-> +
-> +	if (early_is_sevsnp_guest() && snp_vmpl) {
-> +		if (!(sev_get_status() & MSR_AMD64_SNP_ALTERNATE_INJ))
-> +			return 0;
-> +	}
-> +
+Changes since v4:
+- Reject the LR and SC instructions themselves in the decode stage
+  (riscv_probe_decode_insn()), so a probe placed directly on them is
+  caught independently of the kallsyms offset (fixes the case where the
+  probe address is exactly the enclosing symbol's start).
+- Bound the sequence scan by instruction count (MAX_LRSC_GAP = 16)
+  instead of bytes, matching the Zalrsc "at most 16 instructions"
+  constraint and avoiding ambiguity with compressed instructions.
+- Fold the LR/SC scan into arch_check_kprobe() so the function is walked
+  only once; arch_check_kprobe() now returns an error code.
+- Use the existing GET_INSN_LENGTH() macro and a single unaligned 32-bit
+  load instead of two separate loads.
+- Extend the KUnit test to check a probe right before, on the LR, inside,
+  on the SC, and right after the sequence, storing absolute probe
+  addresses instead of offsets.
 
-I'm struggling to follow the logic here: doesn't this attempt to locate
-the protocol on non-SEV/SNP systems as well?
+Verified by cross-compiling for RISC-V and running the kprobes KUnit
+test in QEMU (ok 2 kprobes_riscv).
 
-Wouldn't it be sufficient to do
+Xiaofeng Yuan (2):
+  riscv: kprobes: reject probes inside LR/SC sequences
+  riscv: kprobes: add KUnit test for LR/SC sequence rejection
 
-if (!snp_vmpl ||
-   !(sev_get_status() & MSR_AMD64_SNP_ALTERNATE_INJ))
-       return 0;
+ arch/riscv/include/asm/insn.h                 | 33 ++++++++++
+ arch/riscv/kernel/probes/decode-insn.c        |  2 +
+ arch/riscv/kernel/probes/kprobes.c            | 63 +++++++++++++++----
+ .../kernel/tests/kprobes/test-kprobes-asm.S   | 24 +++++++
+ .../riscv/kernel/tests/kprobes/test-kprobes.c | 26 ++++++++
+ .../riscv/kernel/tests/kprobes/test-kprobes.h |  3 +
+ 6 files changed, 139 insertions(+), 12 deletions(-)
 
-and leave the early_is_sevsnp_guest() check alone?
+-- 
+2.34.1
 
