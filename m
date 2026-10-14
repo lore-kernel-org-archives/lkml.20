@@ -1,135 +1,173 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB5AB5452BD;
-	Wed, 14 Oct 2026 15:30:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F53053D9E3
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:31:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791991862; cv=none; b=hrpnu2IVWbEiXkfhDZ1GrS0jcj+3PH1Qg8AWS3MmXpzpj+yfD+DUdLg+oic05ryql1Gmz3PLab2dV0OVhO3E2ydLaGyUyzbTqpWYSaPvRS4NIq6YqUGPi0jjWk2UegNXosJ1QWFQwOIZwyXkpBciRWvwL18twZe2l/6rbPVmBKQ=
+	t=1791991915; cv=none; b=LO4XTKSnEaU2yYttagv6Z+sStC7EemdT5G/g275XBMnekd6OghROlJyPQvpAxvyw8PeLtcJYpWf4waMgbHwmDWqwqSCgFc0dwnuPTDGnHw+Rr/j+mrB1BNg9AxRSYaghgmbqnu/1ZJ9RQagSOeLBrFul7aELr2PsRa/76CCRsIo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791991862; c=relaxed/simple;
-	bh=FzHi1Cw4t+MGI7+l51bHFtFma8ZQ9UVkIljcQ1+i3ZU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AKfUjgwK6PaslM7bVIiLLePyg/i2n/m1QXU+4CMTtqLsXI6Gz5xxTarVE7eiepHj5GKMXiZyjrJA2/x0n8NxsKsAReB8mlWDpNaWDZBA/kiAqAqNwQHPPn3SnXnM2u63y6keUTCK8HoxEBoKtXzxZbU5gGvbjTg78hLAU7MVzBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=P46W/hni; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791991915; c=relaxed/simple;
+	bh=GWS96uhwvjD8pBeUxeNzx3Q9nm3IjXH+MmITVGTRSps=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=uwKKXfjSn8BbmTliGo3GIcNFZd12uO8OgJKvMCiTJtC7nsL6/vwTAJvMe/PgsD+zOU+y45BCiHxxuxDZQvybrBUap5LzLUMAuq5LyG/ImFXzmR+Pl60iCDBL0X3BWrVd/haJb9vnWJRe9T8d4opHN8b2BxBk5bJWhl2CtqLy8Iw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NRYez+C7; arc=none smtp.client-ip=209.85.210.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="P46W/hni"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791991860; x=1823527860;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=FzHi1Cw4t+MGI7+l51bHFtFma8ZQ9UVkIljcQ1+i3ZU=;
-  b=P46W/hniQAn21EDNb4Cn+9nev+5RQwsQAALr6wgTSBKnOZFXxOTogLpW
-   wa0+njdA1fv+b+VCUSo2kS9G9RhfFnJd4NUEbrzQebvqxMK11qN3n0wvH
-   Zv9jGcsoCSy7gwnhafvJDpVTvqzpphUQ8Boer42BqsNwxFvezZpxHTVJD
-   qQDybO/qPumi1VJ7/qIzSqdTbAj6fXLQs4HQ9LwwKXasdJUZ8sh4K7/+N
-   ckWVm2oQICDgPuEHoWfT3msmI8Gail8wO1W0Vq+nSEko+WBudRPs7mEwD
-   uK50Wy/uGEgqo+ME1EiVcIhHwCFbCAZlrtiofCRn9540D1LqLJtuyNegD
-   A==;
-X-CSE-ConnectionGUID: +QbGuP0nQoGLhuqG+bdb0w==
-X-CSE-MsgGUID: AdIAkHCdRoKQ+NF9STtQJg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="641801"
-X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
-   d="scan'208";a="641801"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 08:30:59 -0700
-X-CSE-ConnectionGUID: hZXyl66FRrS9epym4iP06w==
-X-CSE-MsgGUID: N18RU2L6SFCiwyrKJrwBuw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
-   d="scan'208";a="1474313"
-Received: from gabaabhi-mobl2.amr.corp.intel.com (HELO [10.125.110.36]) ([10.125.110.36])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 08:30:55 -0700
-Message-ID: <73434314-6210-49d9-9355-60c4166a7117@intel.com>
-Date: Wed, 14 Oct 2026 08:30:51 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NRYez+C7"
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8935f42e8f0so357432b3a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:31:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791991913; x=1792596713; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yA0cwHPsMUsglcT0cBHl9/S80mGW6LWbt4CaYradWFw=;
+        b=NRYez+C7ELCUTwYqPKQSApTBH+0nYReY6sbIHqj5BVO5OTRIUJbfLz16gkTKKhwU/w
+         0iEA9llisGQfRCaYEkso2wramThmtEkLiP7nBPsyiOstCU4lL8BHroW4E58hja5luvrf
+         34obF11Q4iDbMsmaVIs9WqXOIax2ZI1EukWl3Hr81yzRzGDAYcASOB5dRJbpC/pn9jNm
+         Dd0FAS6aHhHap5iqGIpZfSPLFK/LXV18WeHKu4HQn0joO/oIP5oC2n7mYBu8TiluobgN
+         p99sGtpWLu+/IYc1BpxDvINEJAjVgeuxMLKLzimc1Ea8FDaZPVneNKcuajXoswf6OWuW
+         pLUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791991913; x=1792596713;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yA0cwHPsMUsglcT0cBHl9/S80mGW6LWbt4CaYradWFw=;
+        b=yi6b92M7PWK6OmXHOVMqTGsoUJwhQUnaihPBuHcOu7VVozlMscim6zlpA9hH7paf0T
+         Feq4t7DK6HYRltMSyk9enDYgBTmP/GF+O4/inqxDUKk4eddeTQrFrA7hf0oLbcji5NXr
+         AZt4cDIxV8jPt4CFKQPtkoOSTHJfYyy7e9NcYZq0NVoA2mpPPc7TAWgvsXL3gB4ASBvf
+         tux7Kng3J5DZxJMsHrAfI6ySLJPx/fb+1mU4SlZYsiMI4iR/87VumC0Z9o2VSBfrNY9N
+         /91xQM8ndWY3QYsXgVdbyJZWbULoCJzFsftm1Ndwp14wb08UOgxv1TJGcTUKLna/QlTy
+         wKDw==
+X-Forwarded-Encrypted: i=1; AKwUvByV6i1jZC3iR+mdnDx/Vw51jtkTzOLd0nNVVjBYkdEBR54v8i+pZbM/N/zF5CuS29FsQTC+fPCrg1LsHDQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL4Z2ZjyW6TnYPGQgsLQEPMLyWRSyvRMUvxiUb20k6IcQPViF2U
+	dbsih3ftGpglYQVYMcCxvkAOMutlRBHMatpN+0qOJ74zmgJR7pWEWezF
+X-Gm-Gg: AYBFou3fakVnZ6+m3zfhGhjD1MsT+Y1S3MSbf9Y3ORD1Gs5/pmxNsWzENDKGBZPb2zH
+	7SEh7O4YQplnNGTsciBkykhq1ZFtYatmKVJSy5SVHpO75CiqLtSvbqnQ2XRB47EPbK9UH8Dll8W
+	eCmxdgFDCyppEFIrDJkUMWCPD49Lx1xi9LiQLObmzANbtT5F3EqAoa7u0L30YHBC7gO49PuuteI
+	ivNlsdt0wXDkxSgrWCkCZvzYwxuz8nAoAR3TnzTDYR/m8JJlMeRjUoFC8LBTql7nJ6+Pgl1NSa2
+	K9Sv8CABbzaOChBx0v3JzW+rV/6a4xmwgaErJPcEKcaQGvax1o0Y4dfQVMRRj03TX1DJNtyqcRk
+	kuVZoBUAaENqYvbsyo5fwJ+6LwEhlUDMu2KN77c4uCV7Foi95mPMboEcm37ypXy3mKqx7R1rwxr
+	yJs2HU9JEa0vqyR5C2ieeblBRyYLMTKRBp281FR6D1wQfRryK1dCfUSRQI6dVvncqY8SZjanGQJ
+	aZZxWnrGrfO
+X-Received: by 2002:a05:6a00:4c08:b0:891:3e34:e080 with SMTP id d2e1a72fcca58-897c6c248f5mr14126170b3a.24.1791991912400;
+        Wed, 14 Oct 2026 08:31:52 -0700 (PDT)
+Received: from localhost.localdomain ([47.100.192.162])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89d7f51f452sm1221941b3a.1.2026.10.14.08.31.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 08:31:51 -0700 (PDT)
+From: Yang Wen <anmuxixixi@gmail.com>
+To: linkinjeon@kernel.org,
+	sj1557.seo@samsung.com,
+	chizhiling@163.com
+Cc: yuezhang.mo@sony.com,
+	exfat@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Yang Wen <anmuxixixi@gmail.com>
+Subject: [PATCH v8 0/3] exfat: speed up file creation in large directories
+Date: Wed, 14 Oct 2026 23:31:27 +0800
+Message-Id: <20261014153130.2111500-1-anmuxixixi@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 0/4] cxl: Repair poison enumeration regressions
-To: Richard Cheng <icheng@nvidia.com>, jic23@kernel.org, dave@stgolabs.net,
- alison.schofield@intel.com, vishal.l.verma@intel.com
-Cc: iweiny@kernel.org, ming.li@zohomail.com, kaihengf@nvidia.com,
- kobak@nvidia.com, newtonl@nvidia.com, kristinc@nvidia.com,
- linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260922101129.52794-1-icheng@nvidia.com>
-From: Dave Jiang <dave.jiang@intel.com>
-Content-Language: en-US
-In-Reply-To: <20260922101129.52794-1-icheng@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+Negative name lookups and empty-entry allocation can repeatedly scan a
+directory from the beginning. Bulk creation in a large directory therefore
+approaches O(N^2).
 
+This series separates the optimization into three independently reviewable
+steps. Patch 1 adds the Bloom filter used to reject definite name misses.
+Patch 2 retains and correctly invalidates the next-empty-entry hint.
+Patch 3 adds the LRU and shrinker used to reclaim filters under memory
+pressure.
 
-On 9/22/26 3:11 AM, Richard Cheng wrote:
-> This series repairs four poison enumeration regressions introduced by
-> commit be5cbd084027 ("cxl: Kill enum cxl_decoder_mode"). It groups the
-> remaining poison fixes from v7 [1] into a poison repair set.
-> 
-> Patch 1: cxl_get_poison_unmapped() ends the partition walk when it
-> encounters a fully mapped partition. Continue to the next partition
-> instead, so unmapped poison in later partitions is still collected.
-> 
-> Patch 2: the unmapped scan tolerates -EFAULT for RAM partitions but
-> leaves the error in rc. If no later query overwrites rc, enumeration
-> incorrectly reports failure. Clear rc before continuing past the
-> tolerated error.
-> 
-> Patch 3: use the ctx->offset handoff from the committed-decoder walk
-> as the starting point for the unmapped scan. Starting after the highest
-> DPA allocation leaves ranges allocated to uncommitted decoders
-> unqueried. Resume at the committed boundary and scan later partitions
-> from their beginning.
-> 
-> Patch 4: cxl_get_poison_by_memdev() can overwrite an earlier partition
-> query failure with a later success. Stop on the first error that is
-> not already tolerated as a RAM -EFAULT, preserving the failure.
-> 
-> In v7 [1] patch 6's review, Jonathan also noted that
-> cxl_internal_send_cmd() documents -EFAULT as a hardware error.
-> I will send a separate patch to clarify its mapping from the Invalid
-> Physical Address device response.
-> 
-> Changes since v7 [1]:
-> - Retain v7 patches 2–5, renumbered as patches 1–4, and rebase onto
->   current cxl/next.
-> - Drop v7 patches 1 and 7, which have been applied to cxl/next.
-> - Drop v7 patch 6 because the zero-sized HDM decoder series [2]
->   already fixes its negative partition-index access. Specifically,
->   commit 00f9ef9ad1ce ("cxl/hdm: Allow zero sized HDM decoders") [3]
->   guards the partition lookup while allowing the decoder walk to continue.
-> - Expand patch 2's commit message to explain how a RAM poison query
->   produces -EFAULT and why that response is tolerated.
-> 
-> 
-> [1]:
-> https://lore.kernel.org/linux-cxl/20260902053839.25595-1-icheng@nvidia.com/
-> [2]:
-> https://lore.kernel.org/linux-cxl/20260914090858.19181-1-icheng@nvidia.com/
-> [3]:
-> https://lore.kernel.org/linux-cxl/20260914090858.19181-3-icheng@nvidia.com/
-> 
-> 
-> Richard Cheng (4):
->   cxl/region: Scan all partitions for unmapped poison
->   cxl/region: Don't leak tolerated RAM -EFAULT from unmapped poison scan
->   cxl/region: Start unmapped poison scan at the committed decoder
->     boundary
->   cxl/memdev: Don't overwrite the error from an earlier partition poison
->     query
-> 
->  drivers/cxl/core/memdev.c |  2 ++
->  drivers/cxl/core/region.c | 13 ++++++-------
->  2 files changed, 8 insertions(+), 7 deletions(-)
-> 
-> 
-> base-commit: f2e9991100c903ec2d8eb62c3a1d6e0b9c67432e
+Test environment:
+  QEMU TCG multi-thread, 4 vCPUs, 6 GiB RAM
+  4 GiB exFAT image, 32 KiB clusters
 
-Can you please rebase against a Linus tag? That's typically preferred. Thanks. Maybe you can address Alison and Davidlohr's comments when you rebase. 
+                         Previous baseline   Patched v8
+  real                   589.48 s            30.27 s
+  user                     4.72 s             3.40 s
+  sys                    584.63 s            26.83 s
 
+The unpatched baseline is a previously recorded result and was not rerun.
+The patched run created 20,000 files; fsck.exfat reported a clean image.
+
+Changes in v8:
+- Rebase the series onto exfat/dev at 8e431c3bce0b.
+- Drop unrelated blank-line changes from the Bloom-filter patch.
+- Discard empty-entry hints collected by positive name lookups, since a
+  lookup can start at hint_stat and return before scanning the directory
+  prefix.
+- Track the remaining root-directory chain length during volume-label scans
+  so their empty-entry hints remain valid across cluster boundaries.
+- Remove a reclaimed filter from the LRU before clearing the inode pointer,
+  so the lockless free fast path cannot observe a linked but pointerless
+  filter during teardown.
+
+Changes in v7:
+- Size each Bloom filter from the allocated directory size, using four bits
+  per on-disk entry and clamping the bitmap between 512 bytes and 4 MiB.
+- Track set bits and discard a filter when one third of its bits are set or
+  directory growth requires a larger bitmap. Rebuild it lazily after a
+  later complete negative lookup.
+- Account reclaimable filters in pages so shrinker accounting follows their
+  dynamic allocation sizes.
+- Preserve the shrinker core's scan budget and return SHRINK_STOP when the
+  LRU is already empty, preventing repeated no-progress scans.
+
+Changes in v6:
+- Invalidate the name filter when committing a new entry set fails, before
+  attempting rollback. Despite the reported write error, the new name may
+  already have reached disk.
+- Move rename/move error invalidation into the Bloom filter patch so that
+  each patch remains correct when applied independently.
+
+Changes in v5:
+- Rebase the series onto the exFAT maintainer's dev branch.
+- Treat every non-negative exfat_find_empty_entry() return value as a
+  successful allocation in the volume-label path.
+- Record the minimum entry-set size for which a saved empty-entry hint is
+  valid. A shorter entry set now rescans from the beginning and can reuse a
+  smaller hole that an earlier, longer entry set could not use.
+
+Changes in v4:
+- Publish the next-empty-entry hint only after the directory entry set is
+  successfully committed, so post-allocation failures cannot skip an unused
+  slot.
+- Invalidate the destination name filter when rename or move fails because
+  the new entry may already exist on disk.
+
+Changes in v3:
+- Split the change into Bloom filter, empty-entry hint, and shrinker
+  patches.
+- Accept filenames containing exactly 255 UTF-16 code units while building
+  the Bloom filter.
+- Invalidate the empty-entry hint in every path that can free directory
+  entries, preventing stale hints from skipping earlier holes.
+
+Changes in v2:
+- Move exfat_name_filter_free() to exfat_evict_inode() because
+  ->free_inode() may run from an RCU callback in softirq context.
+
+Yang Wen (3):
+  exfat: add a Bloom filter for negative name lookups
+  exfat: retain the next empty directory entry hint
+  exfat: reclaim name filters under memory pressure
+
+ fs/exfat/dir.c      | 363 +++++++++++++++++++++++++++++++++++++++++++-
+ fs/exfat/exfat_fs.h |  30 +++-
+ fs/exfat/inode.c    |   1 +
+ fs/exfat/namei.c    |  87 ++++++++++-
+ fs/exfat/super.c    |   9 ++
+ 5 files changed, 478 insertions(+), 12 deletions(-)
+
+base-commit: 8e431c3bce0bb51802fc79b10225cc90a15f15d1
+-- 
+2.34.1
