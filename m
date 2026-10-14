@@ -1,234 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3DEB23D7E3;
-	Wed, 14 Oct 2026 00:18:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 537E128B7D3
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 00:19:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791937098; cv=none; b=arbnkgAKGgFojZm8YnjV2yeDwoQ9ugeXAyUSAqlJygTGRrUJgTKhkYN5BDC+CsYORosINZ0FQznczFBu/+bc2oZAlfzGj+Fu9BlZnYdxryFNpJ52KUWsgV5EYqM7ofmVOr1Og1/jpc45vAxPu+hkTTK3z0HFf0uincwXf4QmvxQ=
+	t=1791937163; cv=none; b=WVMvch5KEcvGfT6bp5nbhJLPhojPeCpG0MVm2n+ywELy1OKXdZTREx7FassaTJ6N97twMXA2yxaPCLwPBY0P18AQYCBpdplpR/kfNG1ctGMHUQkEC+wqt8n3yL8K0w7I0BAwjj5O80yoVE2No9SzwkOL85ulaqcT3lPT4CV7m5g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791937098; c=relaxed/simple;
-	bh=URA8KTAZUQmltFnz8XVV//LKAnb1vcTnY0iYNs2+cDM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kDVGlnQslwrXQeuwS6tGzR5244j3EPjjyhZovyAT9eu4U0BrY0Pd/PyD9YkBKnisNz1JBjOKbeJBYS4/yX7SbAc0NTZFUxPgNZTqazsCngviMa9rjCTX/+YCp3RTl27jXmU1lNo+xogk42i756eg8n268vk68DbxSF5hBRbwRL8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hzn17pG9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791937163; c=relaxed/simple;
+	bh=+CjQJw4TmLJjx0ap5zKMR4YlXTxBErMluxLinens74g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GTQwFApmjLhWEiAmBPyBnSp0lRU/PPHLgi4iYQuRA2rzHCBKIYb+H0Up67xmP6lVjlmvGu/kVi2c/qEUmSo6VUtLSVA9D8bSN+xdoe0DUkQO6Il3dTU6EE5p3FCrZRXE0/BlCLI/6Ix/Q3/kpYharYe8+CBHk/AH4yv8uJCTtpI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lXtCuddq; arc=none smtp.client-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hzn17pG9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C578F1F000FF;
-	Wed, 14 Oct 2026 00:18:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791937095;
-	bh=6ojGJwDPTVvH1mNyQFRD6ZgJPJ+C3Xv6E6vMi/T8h+E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hzn17pG99bpu4AnLp0GZuqYv84aeXmdu4EX/E6PlW4tSL5nn0xPhvQDvylCA8J4uJ
-	 HbbsWrjqdsqr+5dUmhTwGFQS3JYlfN73D/LFNtot6qcrLEm6LPWCW10jnGuow8zifc
-	 9RyfYHDVGFy+nXcM/0BGc+00HvdJnXD85ukvRN9qe5PCHldwZ/SwfZgQsVrDYuRLw4
-	 XI91kO7ay9LNFSMbz2EBR+tGXBLbTyQS7QJtF3/E0EiEg1gYfXe9Nij9xqHqlw8yXc
-	 wTI1Rre0YJdOPZ1g0a8kjdVzSL6xkVCi5EVgekdy5FMoYjeb3OUTRwk/jmjGIBzG0i
-	 J94sV8320RL7A==
-Date: Wed, 14 Oct 2026 00:18:13 +0000
-From: Yosry Ahmed <yosry@kernel.org>
-To: "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
-Cc: hannes@cmpxchg.org, nphamcs@gmail.com, chengming.zhou@linux.dev, 
-	akpm@linux-foundation.org, linux-mm@kvack.org, herbert@gondor.apana.org.au, 
-	davem@davemloft.net, linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	rientjes@google.com, willy@infradead.org, senozhatsky@chromium.org
-Subject: Re: [PATCH v1 5/8] mm: zswap: Store the folio's node id in the
- zswap_entry.
-Message-ID: <as7JC8o2kggiq_ss@google.com>
-References: <20261008182814.27450-1-kanchanapsridhar2026@gmail.com>
- <20261008182814.27450-6-kanchanapsridhar2026@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lXtCuddq"
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-30b6dad2382so8222626eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:19:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791937159; x=1792541959; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=w9IwgLzkDZ0iRcnUoTHhJ3o94HSpCzvoAYWamlL8/eQ=;
+        b=lXtCuddqztDsRF+WE6xyLzgUG/4njusTKaga7Rg7Ed/WPIdVb264OfPlsiDiLrBtHx
+         KSQkeZl81qtUB13EHi1Reu50/Vt9ohDJlt/n+bowbcVv7MRHjDftnu7OIdS6DPPxmjBT
+         ULQsKBc5bmAUocK9lKrlOQs9QAjFgKysefFpzTAAma12qmEWN3xzImJI7rvawH19eJ5r
+         RgCnq4yjJyLLq8D3Wxp2UTMBvAJ/zWG4qssnBd6ORMuLyXZDfz+AKWeQ+QxKYNET3tGN
+         l0rAXdFChPnW6sfp5OyiYG4lJ6DYAk42nWojpKZiyKqR+O6uh+baRwjFtArH0O1lpbXM
+         1hCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791937159; x=1792541959;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=w9IwgLzkDZ0iRcnUoTHhJ3o94HSpCzvoAYWamlL8/eQ=;
+        b=TQXnqNJ4D2J2tQqOt4aJVnHYhBLnfokPlqYeH/ywvV6ri6IEPG/xzmtcH8LyXF0fZa
+         5FY+qdstrdyh0AlNFZd+aWsoU8G9tmiZhVTBxm9rR57kjrNa50SrG750d3aT2aWDcBUu
+         0XKQt7GRK6lTa3OPsM1JSU2ZzzqLsnlHtYrUHDocUs4FhGNQqh1Z6+W03VDUFetBrBdx
+         WbTx0vuWzglkYp/n9nX9jSquuzUrHYKTeO7wdqfld4lAhq2pMIrlMceIlcD5jhReyRey
+         4OUILMeEq4kMIHykYfLte52V2dgDSo7yPmr2dWawibfllQKBPStPaxLQHG9JE6e1A1pD
+         SL1A==
+X-Forwarded-Encrypted: i=1; AKwUvBx//5OeeUoQljdRxa7IM6Dd3IHQ+zXRN3GfjHYVqBvXVWM/VaA8rx/4O+S2i7x1yK4j7uu95Fdit6xfb3s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK9IlvaZEsGioaaRn2S796mrKFo1HQ3xmIaOEhHYEDZmSpLAcLG
+	s7XNac3ZFRQph7qZzZ7DUJWV2AWj3ndSuJWc4gebtrJceHIdfVrPJ4Z1
+X-Gm-Gg: AYBFou3tUAqm2cb2qutbe34ClrGLC0o+Y31bQdntogtlb9ExsceLmRkd6npT3hQQoXm
+	Z9WwVqV8ZebICwVppdjt77P/8ZSHw/p7ZenfmXerQigOsYLJwmdwgcjGCNLZrVdqPGLjfIhdibf
+	ObiG9BR7M1MqxXRxZN3v2Ije4QxifUewuZbrpSpc/hrPrHhElcysEnnHJQKhRUXBmDWXcSAsR8L
+	Fr8kvuT39IMCO5IH1+CQQDtqo/NtrxTCbESEuSdIVwOdlsFLGi8CcDz4uhJdtyH5x09an8lD+S5
+	EMRbsIa+uLJrMIJ1kOoHJixJpu4a8V++u4T3TDL2uMCjj/GaHnrNsuvLBO0As8sfNRDjqd6ziZz
+	bIgPOzNu3gzVsLZgU+dSYOZxJTJPgQrTR5p5SyKurIVPP8Y5RybPwOnW+u1l7U8nzROnZnrRUfx
+	d9hIoIcoPeTP7+vqwKz/yCr9KFNCeT+rmCeC0lAmJZmnIJojibup7obLSj/W7MRScqekWcc6/zV
+	sTWl7HFqbrOoSZP3c5two40rUBc+pxPjTjqDVehG1vzaJ0BVeGVZi7Bv1P8koGglEeB98AWHCKl
+	GsMB3m1kALBUy44JxPnxB4PzWEexGU/0kGHObGsfiWmEHPfmHGsHpVppB9k=
+X-Received: by 2002:a05:7300:e5c4:b0:353:5d9a:9971 with SMTP id 5a478bee46e88-3537e088be4mr19654921eec.18.1791937158928;
+        Tue, 13 Oct 2026 17:19:18 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cab27d5sm52213504eec.17.2026.10.13.17.19.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 17:19:18 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: netdev@vger.kernel.org
+Cc: =?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH net] net: bgmac: don't process RX with a zero NAPI budget
+Date: Tue, 13 Oct 2026 17:19:12 -0700
+Message-ID: <20261014001912.141532-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261008182814.27450-6-kanchanapsridhar2026@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 08, 2026 at 11:28:11AM -0700, Kanchana P. Sridhar wrote:
-> When storing a folio in zswap, save the folio's node id in the zswap
-> entry instead of relying on the zswap_entry being allocated on the same
-> node. This enables optimizations such as batch allocation of zswap
-> entries for large folios using kmem_cache_alloc_bulk() that does not
-> support specifying a node id.
-> 
-> The size of the zswap_entry remains unchanged as 'referenced' is lumped
-> in with the 'length' (as it doesn't need a full unsigned int anyway).
-> 
-> Suggested-by: Nhat Pham <nphamcs@gmail.com>
-> Suggested-by: Yosry Ahmed <yosry.ahmed@linux.dev>
-> Signed-off-by: Kanchana P Sridhar <kanchana.p.sridhar@intel.com>
-> Signed-off-by: Kanchana P. Sridhar <kanchanapsridhar2026@gmail.com>
-> ---
->  mm/zswap.c | 23 +++++++++++------------
->  1 file changed, 11 insertions(+), 12 deletions(-)
-> 
-> diff --git a/mm/zswap.c b/mm/zswap.c
-> index ca513a9f89e3..c2731d3acb2c 100644
-> --- a/mm/zswap.c
-> +++ b/mm/zswap.c
-> @@ -194,6 +194,7 @@ static struct shrinker *zswap_shrinker;
->   *              writeback logic. The entry is only reclaimed by the writeback
->   *              logic if referenced is unset. See comments in the shrinker
->   *              section for context.
-> + * nid - NUMA node id of the page for which this is the zswap entry.
->   * pool_idx - id of the zswap_pool that the entry's data is in.
->   * handle - zsmalloc allocation handle that stores the compressed page data
->   * objcg - the obj_cgroup that the compressed memory is charged to
-> @@ -201,8 +202,11 @@ static struct shrinker *zswap_shrinker;
->   */
->  struct zswap_entry {
->  	swp_entry_t swpentry;
-> -	unsigned int length;
-> -	bool referenced;
-> +	struct {
-> +		unsigned int length:31;
-> +		bool referenced:1;
-> +	};
-> +	int nid;
+netpoll calls the NAPI poll with a budget of 0 and expects only TX
+completions to be handled. bgmac_poll() passes the budget straight to
+bgmac_dma_rx_read(), which checks it only after handling a descriptor,
+so one received frame is always processed and bgmac_poll() returns 1.
+That trips the "exceeded budget in poll" WARN_ONCE() in poll_one_napi()
+when netconsole is used, and passes a frame up the stack from netpoll
+context.
 
-This will increase the size of the struct now with pool_idx, right?
+Return right after cleaning TX when the budget is 0. NAPI stays
+scheduled, so the pending RX frames are picked up by the next regular
+poll.
 
-Before you patch on x86_64:
+Fixes: dd4544f05469 ("bgmac: driver for GBit MAC core on BCMA bus")
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ drivers/net/ethernet/broadcom/bgmac.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-struct zswap_entry {
-	swp_entry_t                swpentry;             /*     0     8 */
-	unsigned int               length;               /*     8     4 */
-	bool                       referenced;           /*    12     1 */
-	u8                         pool_idx;             /*    13     1 */
+diff --git a/drivers/net/ethernet/broadcom/bgmac.c b/drivers/net/ethernet/broadcom/bgmac.c
+index 427a096e5ad4..b1cb973caee5 100644
+--- a/drivers/net/ethernet/broadcom/bgmac.c
++++ b/drivers/net/ethernet/broadcom/bgmac.c
+@@ -1154,6 +1154,11 @@ static int bgmac_poll(struct napi_struct *napi, int weight)
+ 	bgmac_write(bgmac, BGMAC_INT_STATUS, ~0);
+ 
+ 	bgmac_dma_tx_free(bgmac, &bgmac->tx_ring[0]);
++
++	/* A zero budget (netpoll) means only TX may be cleaned */
++	if (unlikely(!weight))
++		return 0;
++
+ 	handled += bgmac_dma_rx_read(bgmac, &bgmac->rx_ring[0], weight);
+ 
+ 	/* Poll again if more events arrived in the meantime */
+-- 
+2.56.0
 
-	/* XXX 2 bytes hole, try to pack */
-
-	unsigned long              handle;               /*    16     8 */
-	struct obj_cgroup *        objcg;                /*    24     8 */
-	struct list_head           lru;                  /*    32    16 */
-
-	/* size: 48, cachelines: 1, members: 7 */
-	/* sum members: 46, holes: 1, sum holes: 2 */
-	/* last cacheline: 48 bytes */
-};
-
-After:
-
-struct zswap_entry {
-	swp_entry_t                swpentry;             /*     0     8 */
-	struct {
-		unsigned int       length:31;            /*     8: 0  4 */
-
-		/* Bitfield combined with next fields */
-
-		bool               referenced:1;         /*    11: 7  1 */
-	};                                               /*     8     4 */
-	struct {
-		unsigned int               length:31;            /*     0: 0  4 */
-
-		/* Bitfield combined with next fields */
-
-		bool                       referenced:1;         /*     3: 7  1 */
-
-		/* size: 4, cachelines: 1, members: 2 */
-		/* last cacheline: 4 bytes */
-	};
-
-	int                        nid;                  /*    12     4 */
-	u8                         pool_idx;             /*    16     1 */
-
-	/* XXX 7 bytes hole, try to pack */
-
-	unsigned long              handle;               /*    24     8 */
-	struct obj_cgroup *        objcg;                /*    32     8 */
-	struct list_head           lru;                  /*    40    16 */
-
-	/* size: 56, cachelines: 1, members: 7 */
-	/* sum members: 49, holes: 1, sum holes: 7 */
-	/* last cacheline: 56 bytes */
-};
-
-I think we want to reorder the fields. We can probably also avoid the
-bitfield if the maximum page size is 64K (is it?)
-
-struct zswap_entry {
-	swp_entry_t                swpentry;             /*     0     8 */
-	u16                        length;               /*     8     2 */
-	u8                         pool_idx;             /*    10     1 */
-	bool                       referenced;           /*    11     1 */
-	int                        nid;                  /*    12     4 */
-	unsigned long              handle;               /*    16     8 */
-	struct obj_cgroup *        objcg;                /*    24     8 */
-	struct list_head           lru;                  /*    32    16 */
-
-	/* size: 48, cachelines: 1, members: 8 */
-	/* last cacheline: 48 bytes */
-};
-
-
->  	u8 pool_idx;
->  	unsigned long handle;
->  	struct obj_cgroup *objcg;
-> @@ -672,14 +676,8 @@ static int zswap_enabled_param_set(const char *val,
->  * lru functions
->  **********************************/
->  
-> -static inline int entry_to_nid(struct zswap_entry *entry)
-> -{
-> -	return page_to_nid(virt_to_page(entry));
-> -}
-> -
->  static void zswap_lru_add(struct zswap_entry *entry)
->  {
-> -	int nid = entry_to_nid(entry);
->  	struct mem_cgroup *memcg;
->  
->  	/*
-> @@ -696,19 +694,18 @@ static void zswap_lru_add(struct zswap_entry *entry)
->  	rcu_read_lock();
->  	memcg = obj_cgroup_memcg(entry->objcg);
->  	/* will always succeed */
-> -	list_lru_add(&zswap_list_lru, &entry->lru, nid, memcg);
-> +	list_lru_add(&zswap_list_lru, &entry->lru, entry->nid, memcg);
->  	rcu_read_unlock();
->  }
->  
->  static void zswap_lru_del(struct zswap_entry *entry)
->  {
-> -	int nid = entry_to_nid(entry);
->  	struct mem_cgroup *memcg;
->  
->  	rcu_read_lock();
->  	memcg = obj_cgroup_memcg(entry->objcg);
->  	/* will always succeed */
-> -	list_lru_del(&zswap_list_lru, &entry->lru, nid, memcg);
-> +	list_lru_del(&zswap_list_lru, &entry->lru, entry->nid, memcg);
->  	rcu_read_unlock();
->  }
->  
-> @@ -1449,9 +1446,10 @@ static bool zswap_store_page(struct folio *folio, long index,
->  {
->  	swp_entry_t page_swpentry = folio_swap_entry(folio, index);
->  	struct zswap_entry *entry, *old;
-> +	int nid = folio_nid(folio);
->  
->  	/* allocate entry */
-> -	entry = zswap_entry_cache_alloc(GFP_KERNEL, folio_nid(folio));
-> +	entry = zswap_entry_cache_alloc(GFP_KERNEL, nid);
-
-We don't need to allocate the entry on the same node anymore, should we
-drop this and let the slab allocator handle it as it sees fit?
-
->  	if (!entry) {
->  		zswap_reject_kmemcache_fail++;
->  		return false;
-> @@ -1466,6 +1464,7 @@ static bool zswap_store_page(struct folio *folio, long index,
->  	 * to an unrelated live pool.
->  	 */
->  	entry->pool_idx = pool->idx;
-> +	entry->nid = nid;
->  
->  	old = xa_store(swap_zswap_tree(page_swpentry),
->  		       swp_offset(page_swpentry),
-> -- 
-> 2.39.5
-> 
