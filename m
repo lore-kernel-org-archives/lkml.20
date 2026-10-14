@@ -1,442 +1,191 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from mta1.migadu.com (out-13.mta1.migadu.com [95.215.58.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4091556E077
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:54:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 582775221F3
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:55:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792000488; cv=none; b=Cwdm+nOedj3OmFXf3DBe1MGi9b/0C+lapfKK44yfEk+Jq16xKdwjr/E7Vti2gWbwCEbvtbkVM9S+2NBVMxFDS0iDT2r3vZary1aaknJ0AYQNbWQ721r13niKIjIoGxk+gg6wJz9N5L1Gka8dOR2bMoWL7IXSDe5wYuBTyn96wUM=
+	t=1792000538; cv=none; b=OO60wrEnmAoShmJwumINXLf1zuRlUjjKuJOnD0YPn2xu7r0rqEQYIVIgB71wvBYJeDoHks14f5QFyVGS/bj+CF8f8gYig9TDW0KTEZ2zjR4JBCilRgGMXWaN236UYiMBxzlnuE952bulERUQXw031Rl819fcNvZPd45Iy1Oa7UY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792000488; c=relaxed/simple;
-	bh=LZoCcnUy49epUWlE38MO+7APZBGPI3IdlTqWVu9PGIg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=JI2WSfouwA+O54RWEMh4Vv3fOMOqUT/7S+OwUxE2HZKO9Gxb4NifoWAu12S7bT2mNJmwKapnVjdxEKX5gVrBrafCe7IfNKr2SAY4IBaQF3JCXZLs21JvXL8UXlGJQojlNVL66fuYOacCNDFdgInlE7SP0G8rp8gnmXaT1Io+KLk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=HOOHVPxP; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	s=arc-20240116; t=1792000538; c=relaxed/simple;
+	bh=eaVf8DiKWy+Ej0oOi27k8+cbzyMwGdVNwHvpr7Pf3+Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AnB6RxH5KLaHw5k2G/czTK9ZkfWxpTTty0KGoiXHZKxVxXZiy521GAT/BdnNnOQEwgnZWhMOqy7puJ9MA2MU6o3W0hRsvGcI53nHMM51UXKx5cR2yeT3AW/kDmWqfvUhxw9BlfZE+pFBstg7JnCvj7NgLfSkyFSui76OlLauSns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=AKkjKY88; arc=none smtp.client-ip=95.215.58.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="HOOHVPxP"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a061a13884so37825505e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:54:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1792000483; x=1792605283; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3vb93dv47DwAU4G+yx7NJ2IJnStIIEl/3TyXaODl3Q4=;
-        b=HOOHVPxPi/rpv09hymAON2ZkCZMOANa/aCRfnsK7VNt9Rw93QVSWCzX+CgQLgJiNto
-         CuEawW0+XPCRnFXKb+SW6+PDAB0DM10tuR2gtG4tAiTF5inN92mVy5Kt6nclwpW6xYnJ
-         3Rf0XNBgj3E0sTS/S+kQPn5VuNNFLsWAKUaWT1f0x8+n6kcgVr3Ao3IFAu9mY07asSA7
-         FN2v9f0nnrHuQzlt8S/CobYCzYA17Y39i0K+bRtDpUZ/jKzES2zZon5vAtaCvLAZ7LIH
-         FQ9tp1EMhkjizhqSbUpFssvXKJIab30Sf0akWV34FcAeSB7yWmXC9+Ue0ZzzW0dUUPz0
-         crYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792000483; x=1792605283;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3vb93dv47DwAU4G+yx7NJ2IJnStIIEl/3TyXaODl3Q4=;
-        b=MttRrEazUcpF3BfckVZXFPqAgzJbXspJQKvlpZhqN0AT/K0hdMAZ66wIBCguUR18yS
-         +cHylUv2BLAET5xTTR6uoW9i07NHn7qeWPrw1fSIyR4EsIyAr7Jpj7PN+iU58WWM8cKc
-         CF8ioW4gHJCEiYhlXFGQXOZZUsCCjnVkSqVtoKO8RmW0Rzbky8ultaomK8b9z7FrlNjX
-         OQvO/4+EMdoCF2iQ3+WDO9d2bc32jUeRW+josRfrazfr1ZtSH3d92elA2KWuYELY/PnI
-         eqsidbPmw775Er10wNFHWsbKjghNjU11HE+V08WDw7+NXvXVqurZNKBe8a59N8tghgut
-         0zSQ==
-X-Forwarded-Encrypted: i=1; AKwUvByQDklXPlMax6PdbGYl9JthcJ3sdomcBHDZhVTPslEMcjROEYr8hSVEMWn0kV2HDlos7SINvP+gudxghy8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIFE+zhv4r+z53sUMIhWzyCGJ1ILh14ZpqgxlF9lL7Hk6rFdVpH
-	y/EnneLhoTyk/MxP1q83nxIIbvDyDt/euCno4khXsCW4kYwajDtRVHQBZbwU1/UPzaQ=
-X-Gm-Gg: AYBFou3IlCPmbGupi2H5H+2KS6ON9xluTmst0fFJwPQ2/5I+LYvW2LwlU4TyJeuFl/J
-	SlKTl3ElzJEU2a1DfmDhmHSRL80HyPD0/OImeUorTBLtra/MQN0+WlzS+VWwzLzZUu3xaCREx3j
-	NqUJrN2uNaYAse5EBg5GpHIKaJblrotOqQ5ePghZtkcHf0vJjl4o1tJZweu4LTR9Kuv+4mVVoXe
-	gpUETrU3IOwCTghnhhRH55zJrQVBfc3M9EgGcFpKjEd8v7mEWekg8njwFqHo0Eiy4WMBSrWAK/9
-	m4w/CtI1x02twBPtnSoX0fLDRVEplr6UGq+SyMVn+UlEMo+m3SUHgE3NH8mumAnzg5zZ8feorua
-	gVm1z7IW2tDNZ2xdO0ROUCB3khB0ga0yPVsz10WemG8Ag9iXxtR3vk1suulKUaHIDOsQJW19FYd
-	7yVuNSgQCG7LGpdbGAj5uCWH2h5VEErhWkz/OFddF48nsU4nHr3RAUNx+QZYd2aAucNVauPIQb4
-	+thq/sgBqRLF+qN52UrUtA1t6rdg+2E22X2J7F6mtGNs8kE7dZ+WekBWROb
-X-Received: by 2002:a05:600c:3554:b0:4a0:1b14:e283 with SMTP id 5b1f17b1804b1-4a18e43a1cemr337672755e9.1.1792000483249;
-        Wed, 14 Oct 2026 10:54:43 -0700 (PDT)
-Received: from [127.0.1.1] ([2a00:1098:3142:e::8])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a1bd986095sm8188395e9.7.2026.10.14.10.54.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 10:54:42 -0700 (PDT)
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Wed, 14 Oct 2026 18:54:35 +0100
-Subject: [PATCH v3 14/14] media: sony-starvis2: Add support for IMX585
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="AKkjKY88"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=eaVf8DiKWy+Ej0oOi27k8+cbzyMwGdVNwHvpr7Pf3+Y=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792000533; v=1; x=1792605333;
+ b=AKkjKY88BP8jUI9Gc3I6okeGZb/a7o378A/ApJqOdDcQwYE1gt3N6LVXPayoYOin3sCXrvgc
+ yHk/PJxd0LmP6YamEGIRT4XbBOPd+FXgX0uuXN6rsL33qy8pDar8nkRL0+4eb9eUWQrqEKX2qzb
+ ElHPuSg8MiFF4EZ6mo3As3wI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 071c26393a68de4d;
+	Wed, 14 Oct 2026 17:55:23 +0000
+X-Mizu-Trace-ID: 071c26393a68de4d
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 14 Oct 2026 10:55:21 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Michal Hocko <mhocko@suse.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Muchun Song <muchun.song@linux.dev>, Tejun Heo <tj@kernel.org>, 
+	Meta kernel team <kernel-team@meta.com>, cgroups@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH for-7.5 4/5] memcg: avoid queuing high_work from reclaim
+Message-ID: <as_AxtUlV8K2fkNu@linux.dev>
+References: <20261010210957.1350874-1-shakeel.butt@linux.dev>
+ <20261010210957.1350874-5-shakeel.butt@linux.dev>
+ <as9p2uFqCQprwdnI@tiehlicka>
+ <as97Nzob4XuzO9Ss@linux.dev>
+ <as-08j9_1C2F_N8s@tiehlicka>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-media-starvis2-v3-14-c958362b5d06@raspberrypi.com>
-References: <20261014-media-starvis2-v3-0-c958362b5d06@raspberrypi.com>
-In-Reply-To: <20261014-media-starvis2-v3-0-c958362b5d06@raspberrypi.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Jai Luthra <jai.luthra@ideasonboard.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Alexander Shiyan <eagle.alexander923@gmail.com>, 
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Dave Stevenson <dave.stevenson@raspberrypi.com>
-X-Mailer: b4 0.14.1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <as-08j9_1C2F_N8s@tiehlicka>
 
-IMX585 is an 8MPix Starvis 2 sensor, so add support for it.
+On Wed, Oct 14, 2026 at 06:59:30PM +0200, Michal Hocko wrote:
+> On Wed 14-10-26 09:06:00, Shakeel Butt wrote:
+> > On Wed, Oct 14, 2026 at 01:39:06PM +0200, Michal Hocko wrote:
+> > > On Sat 10-10-26 14:09:56, Shakeel Butt wrote:
+> > > > Kernel threads and remote chargers use high_work when memory.high is
+> > > > exceeded. Their allocations during reclaim can also charge memory,
+> > > > for example when zswap stores a page.
+> > > > 
+> > > > Without a check, the high_work worker can queue itself from its own
+> > > > reclaim. The pending bit is cleared before high_work runs, so each run
+> > > > can queue another run.
+> > > 
+> > > What does that mean really? Does this delays the actual run?
+> > 
+> > It will not delay the actual charge request. This mainly means that we keep
+> > enqueing the high reclaim work even from high reclaim context and can
+> > potentially keep wasting CPU if high reclaim is not very successful.
+> 
+> Hmm, so is there any practical problem if we do that? What exactly do you
+> mean by "keep wasting CPU"?
 
-Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
----
- drivers/media/i2c/sony-starvis2.c | 305 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 305 insertions(+)
+More specifically if high_work kworker keeps enqueing high_work, most probably
+the memcg does not have reclaimable memory and keep retrying it wastes CPU.
 
-diff --git a/drivers/media/i2c/sony-starvis2.c b/drivers/media/i2c/sony-starvis2.c
-index 0fc62a99bedc..41b6054097f2 100644
---- a/drivers/media/i2c/sony-starvis2.c
-+++ b/drivers/media/i2c/sony-starvis2.c
-@@ -14,6 +14,8 @@
-  *         pixels.
-  * IMX832: Diagonal 6.45mm (Type 1/2.8) CMOS image sensor with 2.12 M effective
-  *         pixels.
-+ * IMX585: Diagonal 12.84 mm (Type 1/1.2) CMOS image sensor with 8.40 M effective
-+ *         pixels.
-  *
-  * Copyright (C) 2026 Ideas On Board Oy.
-  *
-@@ -1090,6 +1092,286 @@ const struct starvis2_variant imx832_variant_def = {
- 	.shr_min = 4,
- };
- 
-+static const struct cci_reg_sequence imx585_common_regs[] = {
-+	{ STARVIS2_REG_THIN_V_EN, 0x00 },
-+	{ STARVIS2_REG_VCMODE, 0x01 },
-+	{ CCI_REG8(0x306b), 0x00 },
-+	{ STARVIS2_REG_GAIN_PGC_FIDMD, 0x01 },
-+
-+	{ CCI_REG8(0x3460), 0x21 },
-+	{ CCI_REG8(0x3478), 0xa1 },
-+	{ CCI_REG8(0x347c), 0x01 },
-+	{ CCI_REG8(0x3480), 0x01 },
-+	{ CCI_REG8(0x3930), 0x0c },
-+	{ CCI_REG8(0x3931), 0x01 },
-+	{ CCI_REG8(0x3a4c), 0x39 },
-+	{ CCI_REG8(0x3a4d), 0x01 },
-+	{ CCI_REG8(0x3a4e), 0x14 },
-+	{ CCI_REG8(0x3a50), 0x48 },
-+	{ CCI_REG8(0x3a51), 0x01 },
-+	{ CCI_REG8(0x3a52), 0x14 },
-+	{ CCI_REG8(0x3a56), 0x00 },
-+	{ CCI_REG8(0x3a5a), 0x00 },
-+	{ CCI_REG8(0x3a5e), 0x00 },
-+	{ CCI_REG8(0x3a62), 0x00 },
-+	{ CCI_REG8(0x3a6a), 0x20 },
-+	{ CCI_REG8(0x3a6c), 0x42 },
-+	{ CCI_REG8(0x3a6e), 0xa0 },
-+	{ CCI_REG8(0x3b2c), 0x0c },
-+	{ CCI_REG8(0x3b30), 0x1c },
-+	{ CCI_REG8(0x3b34), 0x0c },
-+	{ CCI_REG8(0x3b38), 0x1c },
-+	{ CCI_REG8(0x3ba0), 0x0c },
-+	{ CCI_REG8(0x3ba4), 0x1c },
-+	{ CCI_REG8(0x3ba8), 0x0c },
-+	{ CCI_REG8(0x3bac), 0x1c },
-+	{ CCI_REG8(0x3d3c), 0x11 },
-+	{ CCI_REG8(0x3d46), 0x0b },
-+	{ CCI_REG8(0x3de0), 0x3f },
-+	{ CCI_REG8(0x3de1), 0x08 },
-+	{ CCI_REG8(0x3e10), 0x10 },
-+	{ CCI_REG8(0x3e14), 0x87 },
-+	{ CCI_REG8(0x3e16), 0x91 },
-+	{ CCI_REG8(0x3e18), 0x91 },
-+	{ CCI_REG8(0x3e1a), 0x87 },
-+	{ CCI_REG8(0x3e1c), 0x78 },
-+	{ CCI_REG8(0x3e1e), 0x50 },
-+	{ CCI_REG8(0x3e20), 0x50 },
-+	{ CCI_REG8(0x3e22), 0x50 },
-+	{ CCI_REG8(0x3e24), 0x87 },
-+	{ CCI_REG8(0x3e26), 0x91 },
-+	{ CCI_REG8(0x3e28), 0x91 },
-+	{ CCI_REG8(0x3e2a), 0x87 },
-+	{ CCI_REG8(0x3e2c), 0x78 },
-+	{ CCI_REG8(0x3e2e), 0x50 },
-+	{ CCI_REG8(0x3e30), 0x50 },
-+	{ CCI_REG8(0x3e32), 0x50 },
-+	{ CCI_REG8(0x3e34), 0x87 },
-+	{ CCI_REG8(0x3e36), 0x91 },
-+	{ CCI_REG8(0x3e38), 0x91 },
-+	{ CCI_REG8(0x3e3a), 0x87 },
-+	{ CCI_REG8(0x3e3c), 0x78 },
-+	{ CCI_REG8(0x3e3e), 0x50 },
-+	{ CCI_REG8(0x3e40), 0x50 },
-+	{ CCI_REG8(0x3e42), 0x50 },
-+	{ CCI_REG8(0x4054), 0x64 },
-+	{ CCI_REG8(0x4148), 0xfe },
-+	{ CCI_REG8(0x4149), 0x05 },
-+	{ CCI_REG8(0x414a), 0xff },
-+	{ CCI_REG8(0x414b), 0x05 },
-+	{ CCI_REG8(0x420a), 0x03 },
-+	{ CCI_REG8(0x4231), 0x08 },
-+	{ CCI_REG8(0x423d), 0x9c },
-+	{ CCI_REG8(0x4242), 0xb4 },
-+	{ CCI_REG8(0x4246), 0xb4 },
-+	{ CCI_REG8(0x424e), 0xb4 },
-+	{ CCI_REG8(0x425c), 0xb4 },
-+	{ CCI_REG8(0x425e), 0xb6 },
-+	{ CCI_REG8(0x426c), 0xb4 },
-+	{ CCI_REG8(0x426e), 0xb6 },
-+	{ CCI_REG8(0x428c), 0xb4 },
-+	{ CCI_REG8(0x428e), 0xb6 },
-+	{ CCI_REG8(0x4708), 0x00 },
-+	{ CCI_REG8(0x4709), 0x00 },
-+	{ CCI_REG8(0x470a), 0xff },
-+	{ CCI_REG8(0x470b), 0x03 },
-+	{ CCI_REG8(0x470c), 0x00 },
-+	{ CCI_REG8(0x470d), 0x00 },
-+	{ CCI_REG8(0x470e), 0xff },
-+	{ CCI_REG8(0x470f), 0x03 },
-+	{ CCI_REG8(0x47eb), 0x1c },
-+	{ CCI_REG8(0x47f0), 0xa6 },
-+	{ CCI_REG8(0x47f2), 0xa6 },
-+	{ CCI_REG8(0x47f4), 0xa0 },
-+	{ CCI_REG8(0x47f6), 0x96 },
-+	{ CCI_REG8(0x4808), 0xa6 },
-+	{ CCI_REG8(0x480a), 0xa6 },
-+	{ CCI_REG8(0x480c), 0xa0 },
-+	{ CCI_REG8(0x480e), 0x96 },
-+	{ CCI_REG8(0x492c), 0xb2 },
-+	{ CCI_REG8(0x4930), 0x03 },
-+	{ CCI_REG8(0x4932), 0x03 },
-+	{ CCI_REG8(0x4936), 0x5b },
-+	{ CCI_REG8(0x4938), 0x82 },
-+	{ CCI_REG8(0x493c), 0x23 },
-+	{ CCI_REG8(0x493e), 0x23 },
-+	{ CCI_REG8(0x4940), 0x23 },
-+	{ CCI_REG8(0x4ba8), 0x1c },
-+	{ CCI_REG8(0x4ba9), 0x03 },
-+	{ CCI_REG8(0x4bac), 0x1c },
-+	{ CCI_REG8(0x4bad), 0x1c },
-+	{ CCI_REG8(0x4bae), 0x1c },
-+	{ CCI_REG8(0x4baf), 0x1c },
-+	{ CCI_REG8(0x4bb0), 0x1c },
-+	{ CCI_REG8(0x4bb1), 0x1c },
-+	{ CCI_REG8(0x4bb2), 0x1c },
-+	{ CCI_REG8(0x4bb3), 0x1c },
-+	{ CCI_REG8(0x4bb4), 0x1c },
-+	{ CCI_REG8(0x4bb8), 0x03 },
-+	{ CCI_REG8(0x4bb9), 0x03 },
-+	{ CCI_REG8(0x4bba), 0x03 },
-+	{ CCI_REG8(0x4bbb), 0x03 },
-+	{ CCI_REG8(0x4bbc), 0x03 },
-+	{ CCI_REG8(0x4bbd), 0x03 },
-+	{ CCI_REG8(0x4bbe), 0x03 },
-+	{ CCI_REG8(0x4bbf), 0x03 },
-+	{ CCI_REG8(0x4bc0), 0x03 },
-+	{ CCI_REG8(0x4c14), 0x87 },
-+	{ CCI_REG8(0x4c16), 0x91 },
-+	{ CCI_REG8(0x4c18), 0x91 },
-+	{ CCI_REG8(0x4c1a), 0x87 },
-+	{ CCI_REG8(0x4c1c), 0x78 },
-+	{ CCI_REG8(0x4c1e), 0x50 },
-+	{ CCI_REG8(0x4c20), 0x50 },
-+	{ CCI_REG8(0x4c22), 0x50 },
-+	{ CCI_REG8(0x4c24), 0x87 },
-+	{ CCI_REG8(0x4c26), 0x91 },
-+	{ CCI_REG8(0x4c28), 0x91 },
-+	{ CCI_REG8(0x4c2a), 0x87 },
-+	{ CCI_REG8(0x4c2c), 0x78 },
-+	{ CCI_REG8(0x4c2e), 0x50 },
-+	{ CCI_REG8(0x4c30), 0x50 },
-+	{ CCI_REG8(0x4c32), 0x50 },
-+	{ CCI_REG8(0x4c34), 0x87 },
-+	{ CCI_REG8(0x4c36), 0x91 },
-+	{ CCI_REG8(0x4c38), 0x91 },
-+	{ CCI_REG8(0x4c3a), 0x87 },
-+	{ CCI_REG8(0x4c3c), 0x78 },
-+	{ CCI_REG8(0x4c3e), 0x50 },
-+	{ CCI_REG8(0x4c40), 0x50 },
-+	{ CCI_REG8(0x4c42), 0x50 },
-+	{ CCI_REG8(0x4d12), 0x1f },
-+	{ CCI_REG8(0x4d13), 0x1e },
-+	{ CCI_REG8(0x4d26), 0x33 },
-+	{ CCI_REG8(0x4e0e), 0x59 },
-+	{ CCI_REG8(0x4e14), 0x55 },
-+	{ CCI_REG8(0x4e16), 0x59 },
-+	{ CCI_REG8(0x4e1e), 0x3b },
-+	{ CCI_REG8(0x4e20), 0x47 },
-+	{ CCI_REG8(0x4e22), 0x54 },
-+	{ CCI_REG8(0x4e26), 0x81 },
-+	{ CCI_REG8(0x4e2c), 0x7d },
-+	{ CCI_REG8(0x4e2e), 0x81 },
-+	{ CCI_REG8(0x4e36), 0x63 },
-+	{ CCI_REG8(0x4e38), 0x6f },
-+	{ CCI_REG8(0x4e3a), 0x7c },
-+	{ CCI_REG8(0x4f3a), 0x3c },
-+	{ CCI_REG8(0x4f3c), 0x46 },
-+	{ CCI_REG8(0x4f3e), 0x59 },
-+	{ CCI_REG8(0x4f42), 0x64 },
-+	{ CCI_REG8(0x4f44), 0x6e },
-+	{ CCI_REG8(0x4f46), 0x81 },
-+	{ CCI_REG8(0x4f4a), 0x82 },
-+	{ CCI_REG8(0x4f5a), 0x81 },
-+	{ CCI_REG8(0x4f62), 0xaa },
-+	{ CCI_REG8(0x4f72), 0xa9 },
-+	{ CCI_REG8(0x4f78), 0x36 },
-+	{ CCI_REG8(0x4f7a), 0x41 },
-+	{ CCI_REG8(0x4f7c), 0x61 },
-+	{ CCI_REG8(0x4f7d), 0x01 },
-+	{ CCI_REG8(0x4f7e), 0x7c },
-+	{ CCI_REG8(0x4f7f), 0x01 },
-+	{ CCI_REG8(0x4f80), 0x77 },
-+	{ CCI_REG8(0x4f82), 0x7b },
-+	{ CCI_REG8(0x4f88), 0x37 },
-+	{ CCI_REG8(0x4f8a), 0x40 },
-+	{ CCI_REG8(0x4f8c), 0x62 },
-+	{ CCI_REG8(0x4f8d), 0x01 },
-+	{ CCI_REG8(0x4f8e), 0x76 },
-+	{ CCI_REG8(0x4f8f), 0x01 },
-+	{ CCI_REG8(0x4f90), 0x5e },
-+	{ CCI_REG8(0x4f91), 0x02 },
-+	{ CCI_REG8(0x4f92), 0x69 },
-+	{ CCI_REG8(0x4f93), 0x02 },
-+	{ CCI_REG8(0x4f94), 0x89 },
-+	{ CCI_REG8(0x4f95), 0x02 },
-+	{ CCI_REG8(0x4f96), 0xa4 },
-+	{ CCI_REG8(0x4f97), 0x02 },
-+	{ CCI_REG8(0x4f98), 0x9f },
-+	{ CCI_REG8(0x4f99), 0x02 },
-+	{ CCI_REG8(0x4f9a), 0xa3 },
-+	{ CCI_REG8(0x4f9b), 0x02 },
-+	{ CCI_REG8(0x4fa0), 0x5f },
-+	{ CCI_REG8(0x4fa1), 0x02 },
-+	{ CCI_REG8(0x4fa2), 0x68 },
-+	{ CCI_REG8(0x4fa3), 0x02 },
-+	{ CCI_REG8(0x4fa4), 0x8a },
-+	{ CCI_REG8(0x4fa5), 0x02 },
-+	{ CCI_REG8(0x4fa6), 0x9e },
-+	{ CCI_REG8(0x4fa7), 0x02 },
-+	{ CCI_REG8(0x519e), 0x79 },
-+	{ CCI_REG8(0x51a6), 0xa1 },
-+	{ CCI_REG8(0x51f0), 0xac },
-+	{ CCI_REG8(0x51f2), 0xaa },
-+	{ CCI_REG8(0x51f4), 0xa5 },
-+	{ CCI_REG8(0x51f6), 0xa0 },
-+	{ CCI_REG8(0x5200), 0x9b },
-+	{ CCI_REG8(0x5202), 0x91 },
-+	{ CCI_REG8(0x5204), 0x87 },
-+	{ CCI_REG8(0x5206), 0x82 },
-+	{ CCI_REG8(0x5208), 0xac },
-+	{ CCI_REG8(0x520a), 0xaa },
-+	{ CCI_REG8(0x520c), 0xa5 },
-+	{ CCI_REG8(0x520e), 0xa0 },
-+	{ CCI_REG8(0x5210), 0x9b },
-+	{ CCI_REG8(0x5212), 0x91 },
-+	{ CCI_REG8(0x5214), 0x87 },
-+	{ CCI_REG8(0x5216), 0x82 },
-+	{ CCI_REG8(0x5218), 0xac },
-+	{ CCI_REG8(0x521a), 0xaa },
-+	{ CCI_REG8(0x521c), 0xa5 },
-+	{ CCI_REG8(0x521e), 0xa0 },
-+	{ CCI_REG8(0x5220), 0x9b },
-+	{ CCI_REG8(0x5222), 0x91 },
-+	{ CCI_REG8(0x5224), 0x87 },
-+	{ CCI_REG8(0x5226), 0x82 },
-+	{ CCI_REG8(0x5b3c), 0x07 },
-+
-+	{ STARVIS2_REG_WDMODE, 0x00 },
-+	{ STARVIS2_REG_MDBIT, 0x01 },
-+	{ STARVIS2_REG_XXS_DRV, 0x00 },
-+};
-+
-+static const u16 imx585_min_hmax_2lane[] = {
-+	[STARVIS2_LINK_FREQ_297MHZ] = 2984,
-+	[STARVIS2_LINK_FREQ_360MHZ] = 2464,
-+	[STARVIS2_LINK_FREQ_445MHZ] = 2004,
-+	[STARVIS2_LINK_FREQ_594MHZ] = 1512,
-+	[STARVIS2_LINK_FREQ_720MHZ] = 1260,
-+	[STARVIS2_LINK_FREQ_891MHZ] = 996,
-+	[STARVIS2_LINK_FREQ_1039MHZ] = 856,
-+	[STARVIS2_LINK_FREQ_1188MHZ] = 856,
-+};
-+
-+const struct starvis2_variant imx585_variant_def = {
-+	.name = "imx585",
-+	.id_reg = CCI_REG16_LE(0x5a1d),
-+	.id_mask = 0x3ff,
-+	.id_value = 0x259,
-+	.native_area = {
-+		.top = 0,
-+		.left = 0,
-+		.width = 3857,
-+		.height = 2201,
-+	},
-+	.active_area = {
-+		.top = 20,
-+		.left = 0,
-+		.width = 3856,
-+		.height = 2180,
-+	},
-+	.pixel_rate = 594000000,
-+	.pix_per_clk = 8,
-+	.common_regs = imx585_common_regs,
-+	.num_common_regs = ARRAY_SIZE(imx585_common_regs),
-+	.vmax_default = 2250,
-+	.hmax_min_link_freq = imx585_min_hmax_2lane,
-+	.hmax_min_pixel_array = 550,
-+	.exposure_min = 2,
-+	.exposure_step = 2,
-+	.shr_min = 8,
-+};
-+
- struct starvis2_model_info {
- 	enum starvis2_type type;
- 	const u32 *codes;
-@@ -1180,6 +1462,26 @@ static const struct starvis2_model_info imx832_autodetect_info = {
- 	.auto_detect_mono = &imx832_amr_info,
- };
- 
-+static const struct starvis2_model_info imx585_aaqj_info = {
-+	.type = STARVIS2_COLOR,
-+	.codes = codes_bayer,
-+	.num_codes = ARRAY_SIZE(codes_bayer),
-+	.variant = &imx585_variant_def,
-+};
-+
-+static const struct starvis2_model_info imx585_aamj_info = {
-+	.type = STARVIS2_MONOCHROME,
-+	.codes = codes_monochrome,
-+	.num_codes = ARRAY_SIZE(codes_monochrome),
-+	.variant = &imx585_variant_def,
-+};
-+
-+static const struct starvis2_model_info imx585_autodetect_info = {
-+	.variant = &imx585_variant_def,
-+	.auto_detect_colour = &imx585_aaqj_info,
-+	.auto_detect_mono = &imx585_aamj_info,
-+};
-+
- static const char * const starvis2_supply_name[] = {
- 	"avdd",  /* Analog (3.3V) supply */
- 	"dvdd",  /* Digital Core (1.1V) supply */
-@@ -2011,6 +2313,8 @@ static const struct dev_pm_ops starvis2_pm_ops = {
- };
- 
- static const struct of_device_id starvis2_of_match[] = {
-+	{ .compatible = "sony,imx585-aamj", .data = &imx585_aamj_info },
-+	{ .compatible = "sony,imx585-aaqj", .data = &imx585_aaqj_info },
- 	{ .compatible = "sony,imx662-aamr", .data = &imx662_aamr_info },
- 	{ .compatible = "sony,imx662-aaqr", .data = &imx662_aaqr_info },
- 	{ .compatible = "sony,imx675-aamr", .data = &imx675_aamr_info },
-@@ -2020,6 +2324,7 @@ static const struct of_device_id starvis2_of_match[] = {
- 	{ .compatible = "sony,imx832-amr", .data = &imx832_amr_info },
- 	{ .compatible = "sony,imx832-aqr", .data = &imx832_aqr_info },
- 	/* for non-conforming DTs that rely on runtime check */
-+	{ .compatible = "sony,imx585", .data = &imx585_autodetect_info },
- 	{ .compatible = "sony,imx662", .data = &imx662_autodetect_info },
- 	{ .compatible = "sony,imx675", .data = &imx675_autodetect_info },
- 	{ .compatible = "sony,imx678", .data = &imx678_autodetect_info },
+>  
+> > > > Skip memory.high enforcement for charges from task context with
+> > > > PF_MEMALLOC set when they would use high_work. This covers kernel
+> > > > threads and remote charges. The memory is still charged. Interrupt
+> > > > charges keep their current path.
+> > > > 
+> > > > In a VM with incompressible zswap data, the worker queued itself 163 times
+> > > > without this check.
+> > > > 
+> > > > Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+> > > 
+> > > The patch itself looks OK. I am wondering whether we can unify the check
+> > > with the existing one which forces the allocation through in main
+> > > charging path.
+> > 
+> > The force charge (and ENOMEM) paths bypass the memory.high enforcement
+> > altogether.
+> 
+> Exactly. Isn't that exactl what we want to achieve here as well?
+> 
+> > Only successful charges (done_restock label) goes through
+> > memory.high enforcement. So, even if we move this check in try_charge_memcg, it
+> > will still be a separate check before calling high enforcement function. I think
+> > this check is very high_work specific and better to be in the high enforcement
+> > function.
+> 
+> I meant something like the following
 
--- 
-2.34.1
+Oh ok this makes sense. Do you want to send a patch or should I add this in this
+series replacing the 4th patch?
 
+> 
+> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> index 856a7d07586c..832b40ee5b6f 100644
+> --- a/mm/memcontrol.c
+> +++ b/mm/memcontrol.c
+> @@ -2653,7 +2653,6 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
+>  	bool passed_oom = false;
+>  	unsigned int reclaim_options;
+>  	bool drained = false;
+> -	bool raised_max_event = false;
+>  	unsigned long pflags;
+>  	bool allow_spinning = gfpflags_allow_spinning(gfp_mask);
+>  
+> @@ -2661,6 +2660,15 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
+>  	if (consume_stock(memcg, nr_pages))
+>  		return 0;
+>  
+> +	/*
+> +	 * Prevent unbounded recursion when reclaim operations need to
+> +	 * allocate memory. This might exceed the limits temporarily,
+> +	 * but we prefer facilitating memory reclaim and getting back
+> +	 * under the limit over triggering OOM kills in these cases.
+> +	 */
+> +	if (unlikely(current->flags & PF_MEMALLOC))
+> +		goto force;
+> +
+>  	if (!allow_spinning)
+>  		/* Avoid the refill and flush of the older stock */
+>  		batch = nr_pages;
+> @@ -2683,15 +2691,6 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
+>  		goto retry;
+>  	}
+>  
+> -	/*
+> -	 * Prevent unbounded recursion when reclaim operations need to
+> -	 * allocate memory. This might exceed the limits temporarily,
+> -	 * but we prefer facilitating memory reclaim and getting back
+> -	 * under the limit over triggering OOM kills in these cases.
+> -	 */
+> -	if (unlikely(current->flags & PF_MEMALLOC))
+> -		goto force;
+> -
+>  	if (unlikely(task_in_memcg_oom(current)))
+>  		goto nomem;
+>  
+> @@ -2712,7 +2711,6 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
+>  		goto nomem;
+>  
+>  	__memcg_memory_event(mem_over_limit, MEMCG_MAX, allow_spinning);
+> -	raised_max_event = true;
+>  
+>  	psi_memstall_enter(&pflags);
+>  	nr_reclaimed = try_to_free_mem_cgroup_pages(mem_over_limit, nr_pages,
+> @@ -2773,13 +2771,6 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
+>  	if (!(gfp_mask & (__GFP_NOFAIL | __GFP_HIGH)))
+>  		return -ENOMEM;
+>  force:
+> -	/*
+> -	 * If the allocation has to be enforced, don't forget to raise
+> -	 * a MEMCG_MAX event.
+> -	 */
+> -	if (!raised_max_event)
+> -		__memcg_memory_event(mem_over_limit, MEMCG_MAX, allow_spinning);
+> -
+>  	/*
+>  	 * The allocation either can't fail or will lead to more memory
+>  	 * being freed very soon.  Allow memory usage go over the limit
+> @@ -2789,6 +2780,8 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
+>  	if (do_memsw_account())
+>  		page_counter_charge(&memcg->memsw, nr_pages);
+>  
+> +	if (mem_cgroup_margin(memcg))
+> +		__memcg_memory_event(memcg, MEMCG_MAX, allow_spinning);
+>  	return 0;
+>  
+>  done_restock:
+> 
+> -- 
+> Michal Hocko
+> SUSE Labs
