@@ -1,61 +1,105 @@
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71C604FECCF;
-	Wed, 14 Oct 2026 13:10:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D378E50B8D4;
+	Wed, 14 Oct 2026 13:10:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791983448; cv=none; b=TfTUOLCOYHpnRYmqTeK+pHZIr7zcpbDJT75iKVS+xltsT3UoEbwjUrkXK+swImrUMPzQoTQ32ROSHAPG6vt/+O4e0Tybqf57PaS+f2MUkJQMIhjbCXOPeVWqnQalsvf/J4yDWyxB3Vt8Unfs+oX18MhDp1AH8PU391zEptrmwTI=
+	t=1791983453; cv=none; b=Og58gzaKSNwTDoS+weyq45bT9Lt2AG5YdpNlLSse3DIiXwlYCKOvg7stt2SMi3dBVsfELe1JINzIObl4oDKHbVoPSNny91EsCu1Onyl3sO/QgYzPmIQgIcLznStBPXRQSOLFHZrEwfyPhjnBih83OFnT1MMZ4yD7M+h4CeMCSFw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791983448; c=relaxed/simple;
-	bh=ce1V/vC7Ibx+vcCqURH2LWlp4CEboQAEjh7LzG0R2yg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WQs/XBP8nCVYHrcwfv9YBv6eg1q6pOmQKkQv3X1O1MqYv6vJL4ByAcFiQYInQ0+fzIeqcrWibfFWimZOBG1sxrys0Zq3AaJa5FYbbsKBRYikHQgj2gcIbzH3lxFoPg49N+mUkgXQx3/ZLj/pZHvbQ/oiosQPqymv0iHq53MyPJM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id C602168B05; Wed, 14 Oct 2026 15:01:24 +0200 (CEST)
-Date: Wed, 14 Oct 2026 15:01:24 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Daejun Park <daejun7.park@samsung.com>
-Cc: Christoph Hellwig <hch@lst.de>, Carlos Maiolino <cem@kernel.org>,
-	"linux-xfs@vger.kernel.org" <linux-xfs@vger.kernel.org>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Dave Chinner <dgc@kernel.org>, Chuck Lever <cel@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>, Dai Ngo <Dai.Ngo@oracle.com>,
-	Sergey Bashirov <sergeybashirov@gmail.com>,
-	"linux-nfs@vger.kernel.org" <linux-nfs@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: (2) [PATCH] xfs: make pNFS LAYOUTCOMMIT stable the way
- fdatasync does
-Message-ID: <20261014130124.GA15407@lst.de>
-References: <20261013120846.GA4040@lst.de> <20261013-xfs-pnfs-commit-datasync-v1-1-2a12ef89ecd9@samsung.com> <CGME20261013120853epcas2p4eaaf03a8d782645c9d336cc4a5300f3c@epcms2p5> <20261014014056epcms2p5df940cfbe097b8cccce16080e482e422@epcms2p5>
+	s=arc-20240116; t=1791983453; c=relaxed/simple;
+	bh=IlMfouMOxpndHSvha7zoPut9EGbvEOesTefJMEaBFr4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=p2SSHm9y8yaaCOgKAIP39AGHI2AMP+o/vZmnjtaIKolCrm2cUBBPgPRO4+7ASXP8NMz6fzl3VaPXbNSgJUpA7ulmQoruRj76unRAK2oG8/QzpwXUx62XImoEVEOXpoPZTNPK2feBrpiNtCKY48fC3+Zr8jj3y6MdN0SlbYa61d8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XhBcmTAV; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XhBcmTAV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FBF81F000FF;
+	Wed, 14 Oct 2026 13:10:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791983451;
+	bh=Esy1ty/NXoqM8qagD3dl2CUQc5Ou95Cl8V9mfrO5p3M=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=XhBcmTAVPCmm0Ad7+szs7uERJLIa1v7dU6Qy2w3pd67UQecln2VGZYyOwYhG/5WuM
+	 MSlDNlqJIZCVnY5vvQdnXrmPJ8ngAEyoIWMcf3Zvp/kXfAEcZKfjeUm2Q2eA8Ev7q/
+	 TZP+tu332+INfQI5GZB5KOTDUyGGx3LioSBI3fjFXFTL8EtdvS8waFIVmomUWlZH3t
+	 c7OWqI7IJXW8SlJrIZ/umNBwlEuznId+cEVUx3/JnAXUxqCDVDDuakE+corqhvuu8F
+	 mAPn04HfSJgxCLlARMRmk+nm6y7HQw2QNYdII2WgdQzHQ3f7gOR8xVU2dS8jdiSxvS
+	 3MNRVmtqg7RZg==
+Message-ID: <4d396361-6dbb-449f-9849-c4c54bdbf568@kernel.org>
+Date: Wed, 14 Oct 2026 15:10:47 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261014014056epcms2p5df940cfbe097b8cccce16080e482e422@epcms2p5>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] platform/arm64: lenovo-thinkpad-t14s: Adjust thermal
+ trip with platform profile
+To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+ Mario Limonciello <mario.limonciello@amd.com>, Kurt Borja <kuurtb@gmail.com>
+Cc: sre@kernel.org, bryan.odonoghue@linaro.org,
+ platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
+ stephan.gerhold@linaro.org
+References: <20261001181917.9367-1-daniel.lezcano@oss.qualcomm.com>
+ <1eb6d74f-28c7-8f0a-4001-dfe717196836@linux.intel.com>
+ <36418d4e-ba34-4c31-b676-1e636cfb8a7a@oss.qualcomm.com>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <36418d4e-ba34-4c31-b676-1e636cfb8a7a@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 14, 2026 at 10:40:56AM +0900, Daejun Park wrote:
-> On Tue, Oct 13, 2026 at 02:08:46PM +0200, Christoph Hellwig wrote:
-> > That feels like a bit of overkill, given that the shared code is
-> > just two function calls.
-> 
-> OK, no helper then.
-> 
-> > ... but maybe this helper should move to xfs_log.c and renamed to
-> > something like xfs_log_force_inode?
-> 
-> Makes sense now that it is used outside xfs_file.c. There already is an
-> xfs_log_force_inode() in xfs_inode.c, which is the !datasync case of
-> this one, so in v2 I'll move xfs_fsync_flush_log() next to it and make
-> xfs_log_force_inode() a wrapper around it.
+Hi,
 
-Oh, I should have thought of xfs_log_force_inode as I added it.
-I think adding the datasync argument to it is probably the best idea.
+On 14-Oct-26 15:03, Daniel Lezcano wrote:
+> On 10/14/26 12:19, Ilpo Järvinen wrote:
+>> + more people.
+>>
+>> On Thu, 1 Oct 2026, Daniel Lezcano wrote:
+>>
+>>> Tie the keyboard thermal mitigation temperature to the platform profile
+>>> selected through the ThinkPad embedded controller.
+>>>
+>>> The EC reports Fn+L, Fn+M and Fn+H events corresponding to low-power,
+>>> balanced and performance operating modes. Use these events to update the
+>>> passive trip point of the "keyboard-thermal" zone to 49.85°C, 57.85°C
+>>> and 59.85°C respectively.
+>>>
+>>> These thresholds match the thermal mitigation temperatures used by the
+>>> platform for the corresponding operating profiles.
+>>>
+>>> Look up the keyboard thermal zone at probe time and locate the passive
+>>> trip named "keyboard-ec-alert". The trip name is used deliberately so
+>>> the EC driver can identify the device-tree trip associated with the
+>>> platform thermal profile without depending on its position in the trip
+>>> table.
+>>>
+>>> Initialize the thermal mitigation threshold to the balanced profile,
+>>> matching the default platform behaviour, and update the thermal zone
+>>> whenever a profile change event is reported by the EC so that the new
+>>> mitigation temperature takes effect immediately.
+>>>
+>>> Using the platform_profile API would provide a more appropriate interface
+>>> for exposing and managing these operating modes. However, while the API
+>>> itself is generic, the platform profile core implementation currently
+>>> lives under the ACPI framework. Making it available to device-tree based
+>>> platforms requires separating the generic infrastructure from ACPI,
+>>> which is a larger and independent piece of work.
+>>
+>> So the only problem is that platform profile resides underneath acpi
+>> namespace in sysfs?
+> 
+> Yes but I have a series I'm about to send decoupling the platform_profile from ACPI
+
+Ah nice, as I mentioned in my other reply in this thread that might not
+be strictly necessary, but long term decoupling is probably for the best.
+I'm looking forward to your series for this.
+
+Regards,
+
+Hans
+
