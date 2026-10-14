@@ -1,69 +1,65 @@
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C612B3FB7E0
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:34:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75AFF3FF8A5
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:34:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791999271; cv=none; b=KWeJmqIJOzMsy8HXRQ4DO/OX0YFtAfDe4RAFBz4N0nUje/fGlJwsvJ+GxChfzQiF6LLtaa5daKsKTuFxgeFXVsFtltZdtzo2Er6O01tJiJXcC/h8tHzM/VkeicjKyEh2L/U8m0Ab0jvXohDcZZJDaO6ZkrpraLzx2kQM1ufYPMc=
+	t=1791999270; cv=none; b=Kz+Pp3o85JjL8RMLvgsHhjsJNsA0YXhO8HTtQaY00JUADHj1bcl92uvVnH07QbK1ihLcn8dZQeID0Gg0VB2ArySF2/INwNCf3CzvCtDqTKGB9j3rH8UJJUCesTcfAvqI05gQoEHaHhMNkcE1AqcOGaXXSV3jwnYr7zGwfqzcLt8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791999271; c=relaxed/simple;
-	bh=fIqA33wSyUtbRcCcYiczdNv6wVti+pGWaArnAAC/2uc=;
+	s=arc-20240116; t=1791999270; c=relaxed/simple;
+	bh=lAl1Sz6UtxNzLv/NGEiZAxIbxVN+cdv3/XLoEIh0W9E=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=TNtMEF6SFxi2Zm5Vmz4IHDQDKGfBIajF7TE3SfpwA2bfXMufKc+DK+JkaqvK6Znp52kK0nXpgMfde++pORIUtmd+UE5ZqzE+MGpu74zVqEYIvl367k2ekJyW3WS83voQgf5iNOFU5wkEVca0eupU6RzG7v5NvYV/oNnvEOKhc38=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nRgkEyzF; arc=none smtp.client-ip=209.85.218.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:To:Cc; b=CNjh9wratI6z5o7+1AtO8/CjiQb3Oauv/ILQ3YL+cYExr/8PMNEzrX4wu7xPUJjeLPrYiUC3nxnnJU1sLIreg1cASlItk8SNuGJHqtnVfITt1fd87aGIqZjoNOCs1V3QmvIR31aXEytLQZNEq0plO9JreTU1pgmSXA27Pspi54E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=intelfx.name; spf=pass smtp.mailfrom=intelfx.name; dkim=pass (1024-bit key) header.d=intelfx.name header.i=@intelfx.name header.b=ZHgT4T9a; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=intelfx.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intelfx.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nRgkEyzF"
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c247f6687dcso676994766b.2
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:34:26 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=intelfx.name header.i=@intelfx.name header.b="ZHgT4T9a"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a02667ccebso32311675e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:34:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791999265; x=1792604065; darn=vger.kernel.org;
+        d=intelfx.name; s=google; t=1791999263; x=1792604063; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=bK91X2SdwuCyQyEfLGRdQUCBBXpE80vPU5AmtR26wN0=;
-        b=nRgkEyzFJ02Z1m7gFpmVV2z7oYmCwZt3aIUHuAxF7lPS+ROaLZW+lA1JidWm2NQYgT
-         796jHY5tRGyywfxrRNGEhiTy3HUxUZN+RM7Hu/zTbxWD/sXws/Lchd5zns9b6fEynGS0
-         UMLN4IFrQvJS5tAQn84EEU8wsKat/MNonna9QA2L6/x99nbrlfyQpDLjd8iJxJnPxzdC
-         Tcwk+hW7lu+oxipDil8RHrwzpmmGGils8nveJ6CCm9ZZhlRpyQPyFOqmKTkXcW/V47bq
-         gWUQ/qOMt3s1xdI7+vRjI45NyMPTvZobi7YUCsxODYNmSKbWSkS0VMIs8RF13vMmHVKd
-         C7Lg==
+        bh=E4bPqAU0YcptqOfDY2eaFYdAmTQF/YWW9ZR1qf0BXew=;
+        b=ZHgT4T9a7wUwsDyc6iSQtH7687RS+g2JAm3MVvZPIZW3emMgIFyaKJ0vUyaDX0AbiX
+         vHThg5YqdYIu7KBHuUkeOJcmd9Vj7abtsCDoKK8Xh2ca8JpjkLhnc7m2mG2FpBO+rOpS
+         6rH+6mwjhx75Rq30sOK23h8lh8OBiLVa9EWUU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791999265; x=1792604065;
+        d=1e100.net; s=20260707; t=1791999263; x=1792604063;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=bK91X2SdwuCyQyEfLGRdQUCBBXpE80vPU5AmtR26wN0=;
-        b=IQNHj8uTob4G8m1VHcwgMGO8ZVADuLZm2/dFR3UEKRrnnGNAwnqIcZ/rVR3Sz9hILO
-         oekHkLsJgOV2OnkzFYcF7tcFquOH2qpjAf7pcVrM1My61r4do3V5ubUzqmiVnIP8kBd3
-         +tPL77gaSTswPkkDP2kOC82qQ4m2IvNoE7h3c9qScL7IUJvEuRyszTcc4YWcCrKKdMsf
-         Ko4JPmzeOFCDltaSA29g+Ok7teN3zNaZfDK87fYlofNWdYqmBZ1bsLybaj0TG4iK3LFL
-         ozTHW/OlFjP8FjWjIxL3xDTpQoDfzVjskZNK53scjkxIOPbSKJneJYqASyoCfJXXmObM
-         AyOA==
-X-Forwarded-Encrypted: i=1; AKwUvBxa4KvIvHSx1R3Qxg3o3ggXYIGW8UnHgkhMQI+Z0p3aGo8vhJe5bYK9TkRNnvIJuQ3szfPIZ/HcqoAvlrc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYInB/jDT89vpvbzJfASKfZ/4GLyj8HjqdQhGm0C8EaMO1AI/Zhy
-	k8mIWjQn4fbyYQb3hLodDMHqEznjK/Owku0rcfphME+YgFqhtD5KCvrX
-X-Gm-Gg: AYBFou1RH8CVYbuFInfL6oeFxrPgHq5SDYr3dSTRFTUUBDNEbDjx+BjR7hTISWCPno8
-	+GvE74/BJ7Ziwy1l9myn/zUNMeRulweqjFumfB5MPGuj6Syj/cpHKPWsA7y5ZRtPZIMSY3Cqw/C
-	PpGmN2KzIBLnScpc61bJlia3yOoH9dF0yW2RSbAxxDnhhI1tAW30Edf6lZFDRc6qVhr4KGGgPDx
-	2wFqQSkveenn1mwLaiuHO0SSuoLbZrbSPDx546Z6Fz8nZlOSqfZDFCgfKATmhxoXOsvRHI4QTxN
-	2v7kUzlkp4ETci5hPY2OIF0z9E0j6ZDhzEaTO7bfs7fqm0oQZ1nAMdb86NsJe7Yp/pREB0OlKQc
-	ula1cMvY3By6TSTAHoMRo/pA/GRWKXATmRGA+cpds2E66kRVEK0LcbVyEIw4kHIZaiA2cSidlJc
-	6nP80GFO2PFKzlFhW2ggGh3brfksflraC18Cvjrdjg6f5BR7FvYEAZuZtxyWM1MuofPHyQ507GD
-	g7b7QnLCD3lUp05a0sm7z7wMRw=
-X-Received: by 2002:a17:907:9686:b0:c1f:983f:d8a with SMTP id a640c23a62f3a-c31aa017261mr1685459966b.24.1791999264715;
-        Wed, 14 Oct 2026 10:34:24 -0700 (PDT)
-Received: from [127.0.1.1] ([2001:4bb8:148:f08c:65a8:f8e5:f310:5a71])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3ed963cecesm9381366b.21.2026.10.14.10.34.23
+        bh=E4bPqAU0YcptqOfDY2eaFYdAmTQF/YWW9ZR1qf0BXew=;
+        b=r/+rj3M8JPdMK+tWoBUAhuCsfWKQT3bsO2tYR9xG8ihH+A57nrzDbtkFzKQ7PhoXNX
+         NXBiEv1TFo8pN/GrlPv9cCNx2vWvcZiMaH/nEP2RPB1ezis0Iq3+57TWb8uwG2ur0X2g
+         0wc+Uq9VLqjiJr53urZTE7u2dBBIyJGF5picf8ZHaEgZMbt29ThCfJR0x4Z1y4hIfVHO
+         Jev6hhWWoCq4q86L5ARAIaQ4MzBnk9QMzhOhudsc4pncA1lbSF85/0lAIA+BmSNQR+hL
+         jDEoPvmk1BQiLw6u9nrDpHNMOWoHhQGDT+qqgd/o8Nx1SkbZDn1yFXc3SQAgkycWVvHe
+         +uSw==
+X-Forwarded-Encrypted: i=1; AKwUvByKzyU17fp4rtQOia/OWykON3I6DlscYMiYvblJ4+JJjUF+74C9him4T4QlXSTBlRyCD/l5+XqbBehQMDM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKhPiThKQell0i3E/3jzS/v73NjSmWalyXw7TVVXi+iVIRB59Sg
+	TODL6wWs1uj6u2oqxNd2u5P6OzVNYZZpJHQh9ah4N1dwsdaA11UqUmyYmrCORRYYQxQ=
+X-Gm-Gg: AYBFou2jV2Lb45umEJabpBCWkn1b4auDweIrzEzWS+p3uqnEEJ7XEDbkuTUCWIrYwQU
+	NnHoTSOZeuEHBZ5OZR6fs6DPERpcuqHgs1srytgIXpxU0TopHNASmAz4Q+QOCuehdDJF+oDF2LP
+	j7+dSTsTMmrFFtzeHQWrO6DWi/7AOBmCrBoMMPph5GmbKLnz+gwYfeFitoVIF+HzaWxKNj0WW7p
+	YawMJ3fl762z3QiFEy6R1FywrkYFFotHFKNWHuKpKWlGIax4YVp54xcXD8OC9+bdoO78vXqBsqb
+	YThjyY/xNNOTKx0GfvocRXoXG3vwOiIGDkoQdrv77bwJDBQfmzCqvc9nqOkRbf6zOSsMa2a3HGa
+	giVzH5T1s6WbrfHkGysKlfnwUfOwllmoy/chSjVxfB6JSp4Qaq46W1tmFMlXww2Ir7fa0G0RH/8
+	G/BX7g/mqdBnOGquhL28d1QVa7zMp5IXkOGk9wVz58gm8AYaxkxDXnlzcz
+X-Received: by 2002:a05:600c:6215:b0:4a0:eae0:b30e with SMTP id 5b1f17b1804b1-4a18e4ca157mr299272915e9.22.1791999263451;
+        Wed, 14 Oct 2026 10:34:23 -0700 (PDT)
+Received: from localhost ([2a00:1358:e0ce:6800::3db])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd67a080sm9558415e9.3.2026.10.14.10.34.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 10:34:24 -0700 (PDT)
-From: Javier Carrasco <javier.carrasco.cruz@gmail.com>
-Date: Wed, 14 Oct 2026 19:34:06 +0200
-Subject: [PATCH v3 07/11] hwmon: chipcap2: enable IRQ processing when
- regulator is already enabled
+        Wed, 14 Oct 2026 10:34:22 -0700 (PDT)
+From: Ivan Shapovalov <intelfx@intelfx.name>
+Date: Wed, 14 Oct 2026 20:34:09 +0300
+Subject: [PATCH 3/4] perf: zstd: add streaming decompression and format
+ probe functions
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,56 +68,198 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-chipcap2_locks-v3-7-27ebfc2c5b9e@gmail.com>
-References: <20261014-chipcap2_locks-v3-0-27ebfc2c5b9e@gmail.com>
-In-Reply-To: <20261014-chipcap2_locks-v3-0-27ebfc2c5b9e@gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Javier Carrasco <javier.carrasco.cruz@gmail.com>, stable@vger.kernel.org
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791999252; l=1283;
- i=javier.carrasco.cruz@gmail.com; s=20260924; h=from:subject:message-id;
- bh=fIqA33wSyUtbRcCcYiczdNv6wVti+pGWaArnAAC/2uc=;
- b=wGwEIFvv57yZEZRHNLCnr5pHFMdGHny3xsVW76RPyioM1t8Hqj03BSfwk9UChXIEm0Sf6Hlt8
- TJldbe/ES8UByswF2ukfIfMUIQQgn+r0EIUg0837081JqI2pn8heN00
-X-Developer-Key: i=javier.carrasco.cruz@gmail.com; a=ed25519;
- pk=VV+hcMoOj1Sx6xSiY0W/FZNAskGZe2AagSMVj0PsmAs=
+Message-Id: <20261014-perf-zstd-v1-3-9652727886fa@intelfx.name>
+References: <20261014-perf-zstd-v1-0-9652727886fa@intelfx.name>
+In-Reply-To: <20261014-perf-zstd-v1-0-9652727886fa@intelfx.name>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>, Nick Terrell <terrelln@fb.com>, 
+ David Sterba <dsterba@suse.com>
+Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Ivan Shapovalov <intelfx@intelfx.name>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4572; i=intelfx@intelfx.name;
+ h=from:subject:message-id; bh=lAl1Sz6UtxNzLv/NGEiZAxIbxVN+cdv3/XLoEIh0W9E=;
+ b=LS0tLS1CRUdJTiBQR1AgTUVTU0FHRS0tLS0tCgpvd0did012TXdDVVdHM2x2aGVTbFF6Mk1wO
+ VdTR0xMTzd4V2UveVBNWkZMdGhCOUxlL1l1dXZ0VStCR256T1huCi96bXVIWXM0dm52UlFvMTZ0
+ bzVTRmdZeExnWlpNVVdXM2ZlbmhUMmFPMEhwa09lR1hKZzVyRXdnUXhpNE9BVmcKSWd2dU0velB
+ XUDZ4Y21kQ3Y5V0tMVzN6Wm5hWFBMT01QWC9zZ01qMkNYNkxuM0oxWlUwNnlQQlB6MW14Vk01RQ
+ o2RmVBZ1dpVTJDWlhydm5lejJZYXh4dE1qSFM1WUpQMDRpMDdBQT09Cj1wMENhCi0tLS0tRU5EI
+ FBHUCBNRVNTQUdFLS0tLS0K
+X-Developer-Key: i=intelfx@intelfx.name; a=openpgp;
+ fpr=04DEA27EEF682F17083D892295D5D5F5A5A5E5E5
 
-cc2_enable() returns early when the regulator is already enabled.
-This can happen if a previous regulator_disable() failed or if the
-regulator was configured as always-on.
+Add an actual streaming zstd decompression (fd->fd) entry point,
+plus a file->fd wrapper and a helper to detect zstd magic on a file
+for compressions[] in dso.c.
 
-In this case, process_irqs remains false, causing the ready interrupt
-to be ignored. Subsequent operations waiting for the ready completion
-then time out.
-
-Set process_irqs before returning when the regulator is already
-enabled, so that the driver continues to process ready interrupts.
-
-Fixes: 3af350929e75 ("hwmon: Add support for Amphenol ChipCap 2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+Signed-off-by: Ivan Shapovalov <intelfx@intelfx.name>
 ---
- drivers/hwmon/chipcap2.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ tools/perf/util/compress.h |  18 ++++++++
+ tools/perf/util/zstd.c     | 104 +++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 122 insertions(+)
 
-diff --git a/drivers/hwmon/chipcap2.c b/drivers/hwmon/chipcap2.c
-index 654f6420da7a..837b1830f2e4 100644
---- a/drivers/hwmon/chipcap2.c
-+++ b/drivers/hwmon/chipcap2.c
-@@ -120,8 +120,10 @@ static int cc2_enable(struct cc2_data *data)
- 	int ret;
+diff --git a/tools/perf/util/compress.h b/tools/perf/util/compress.h
+index e7aa89d31fc6f..fd6b541358bb6 100644
+--- a/tools/perf/util/compress.h
++++ b/tools/perf/util/compress.h
+@@ -59,6 +59,9 @@ ssize_t zstd_compress_stream_to_records(struct zstd_data *data, void *dst, size_
  
- 	/* exclusive regulator, check in case a disable failed */
--	if (regulator_is_enabled(data->regulator))
-+	if (regulator_is_enabled(data->regulator)) {
-+		data->process_irqs = true;
- 		return 0;
+ size_t zstd_decompress_buffer(struct zstd_data *data, void *src, size_t src_size,
+ 			      void *dst, size_t dst_size);
++int zstd_decompress_stream(struct zstd_data *data, int input_fd, int output_fd);
++int zstd_decompress_to_fd(const char *input, int output_fd);
++bool zstd_is_compressed(const char *input);
+ #else /* !HAVE_ZSTD_SUPPORT */
+ 
+ static inline int zstd_init(struct zstd_data *data __maybe_unused, int level __maybe_unused)
+@@ -88,6 +91,21 @@ static inline size_t zstd_decompress_buffer(struct zstd_data *data __maybe_unuse
+ {
+ 	return 0;
+ }
++
++static inline int zstd_decompress_stream(struct zstd_data *data, int input_fd, int output_fd)
++{
++	return -1;
++}
++
++static inline int zstd_decompress_to_fd(const char *input, int output_fd)
++{
++	return -1;
++}
++
++static inline bool zstd_is_compressed(const char *input)
++{
++	return false;
++}
+ #endif
+ 
+ #endif /* PERF_COMPRESS_H */
+diff --git a/tools/perf/util/zstd.c b/tools/perf/util/zstd.c
+index 3af8910bb87cf..982655a1f1a51 100644
+--- a/tools/perf/util/zstd.c
++++ b/tools/perf/util/zstd.c
+@@ -1,7 +1,11 @@
+ // SPDX-License-Identifier: GPL-2.0
+ 
++#include <errno.h>
++#include <fcntl.h>
+ #include <string.h>
++#include <unistd.h>
+ #include <linux/perf_event.h>
++#include <internal/lib.h>
+ 
+ #include "util/compress.h"
+ #include "util/debug.h"
+@@ -172,3 +176,103 @@ size_t zstd_decompress_buffer(struct zstd_data *data, void *src, size_t src_size
+ 
+ 	return output.pos;
+ }
++
++int zstd_decompress_stream(struct zstd_data *data, int input_fd, int output_fd)
++{
++	ssize_t ret;
++	bool unflushed = false;
++	char buf_in[ZSTD_DStreamInSize()];
++	char buf_out[ZSTD_DStreamOutSize()];
++	ZSTD_inBuffer in = {};
++	ZSTD_outBuffer out = {};
++
++	ret = zstd_init_dstream(data);
++	if (ret < 0)
++		return ret;
++
++	for (;;) {
++		if (in.pos == in.size) {
++			/* out of input, read more */
++			ret = read(input_fd, buf_in, sizeof(buf_in));
++			if (ret < 0) {
++				pr_err("zstd: failed to read() %zu bytes: %s\n",
++				       sizeof(buf_in), strerror(errno));
++				return ret;
++			}
++			in = (ZSTD_inBuffer) {
++				.src = &buf_in,
++				.pos = 0,
++				.size = ret,
++			};
++		}
++
++		if (in.pos == in.size && !unflushed) {
++			/* out of input, out of file, and nothing to flush, exit */
++			break;
++		}
++
++		out = (ZSTD_outBuffer) {
++			.dst = &buf_out,
++			.pos = 0,
++			.size = sizeof(buf_out),
++		};
++		ret = ZSTD_decompressStream(data->dstream, &out, &in);
++		if (ZSTD_isError(ret)) {
++			pr_err("zstd: failed to decompress %zu bytes into buffer of %zu bytes (wrote %zu): %s\n",
++				in.size, out.size, out.pos, ZSTD_getErrorName(ret));
++			return -1;
++		}
++		unflushed = ret > 0;
++
++		ret = writen(output_fd, out.dst, out.pos);
++		if (ret < 0) {
++			pr_err("zstd: failed to write() %zu bytes: %s\n",
++			       out.pos, strerror(errno));
++			return ret;
++		}
 +	}
- 
- 	/* clear any pending completion */
- 	try_wait_for_completion(&data->complete);
++
++	return 0;
++}
++
++int zstd_decompress_to_fd(const char *input, int output_fd)
++{
++	int input_fd = -1;
++	int ret;
++	struct zstd_data data;
++
++	input_fd = open(input, O_RDONLY);
++	if (input_fd < 0) {
++		pr_err("zstd: failed to open(%s): %s\n", input, strerror(errno));
++		return -1;
++	}
++
++	ret = zstd_init(&data, ZSTD_CLEVEL_DEFAULT);
++	if (ret < 0)
++		goto err;
++
++	ret = zstd_decompress_stream(&data, input_fd, output_fd);
++
++err:
++	zstd_fini(&data);
++	close(input_fd);
++	return ret;
++}
++
++bool zstd_is_compressed(const char *file)
++{
++	int fd = open(file, O_RDONLY);
++	const uint32_t magic_le = htole32(ZSTD_MAGICNUMBER);
++	char buf[4];
++	ssize_t rc;
++
++	if (fd < 0) {
++		pr_err("zstd: failed to open(%s): %s\n", file, strerror(errno));
++		return -1;
++	}
++
++	rc = read(fd, buf, sizeof(buf));
++	close(fd);
++	return rc == sizeof(buf) ?
++	       memcmp(buf, (const char *) &magic_le, sizeof(buf)) == 0 : false;
++}
 
 -- 
-2.43.0
+2.55.0.8.g37e2a0019f
 
