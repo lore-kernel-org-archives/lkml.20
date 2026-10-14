@@ -1,33 +1,67 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DBFF4E4C4B;
-	Wed, 14 Oct 2026 09:38:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B6074DDB41
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:38:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791970715; cv=none; b=A6JxeiPsz0X9JUby/x4I2WBhHkUqKs5wAfySyGv9DB9FZGTqxCeahPUnwwEt5DVjs8HYq5NLXCS0RUXGQUB8tydOAzj4KKiv1/8DoKyb183xTknR3aaLJsj7UJthIosMtYXK4EwGzhI4PgcamrW1ZhclnM9NITlS8UtakWPZY7s=
+	t=1791970716; cv=none; b=mMrnlZ4Ea+ucB4gj9ye33i7bdBaseRtdVX6B+ZVLehYZN8pcPgQ1aBA2HVu0R/QZoUoyDeDHE+dy04tnBDaP9G20WF7ko2nHndLjyZ2qIxDIE/4NmGtgCAS3jBwT8vy14/zfTXd5qOzMdzR2+dYBjFDCnl8kJv81+a6yEeyiKVI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791970715; c=relaxed/simple;
-	bh=AxKdmJrP0IH3YpfUlw2dNutWImngnRPxoK/25soqHT8=;
+	s=arc-20240116; t=1791970716; c=relaxed/simple;
+	bh=ieAQq8W05Ldh6ypvnca0o/oiaSqWrWwDpTTeoe4YWdo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OS4d5KNNySyw76rkShDOD1hi+7bzRwXfNHjYZdYpid9YbcYWpXSxdVU3xpBXny3y9iFiyuvYYevfV8BLvn+6WnmG0AWK68e+JLKhUPUVQjgu9Lk6IvVuuo/gMkngIsLeGMLJEUe1d4UTaYk0xuPFrBTlYNuTQXXeWlopho6NWFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eG0jUYG+; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=ph2T5+twkHsNZNbDQ/UU6oXtaeoO0/f6WRNt/TQbzMhvkO+FsJ/89FtViCN3E6Z1AnJiYSot0qafzN3ehQToW6gmk82Cdgxb9/R4JUSuzUpJGxDLVFBqwnemDu6sVRfJ4NIx3M5NgyzaBXrUAc7VkcuV1TRsVx4TyvOP1/KuPtw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=vE4seWoj; arc=none smtp.client-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eG0jUYG+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92FDB1F00A08;
-	Wed, 14 Oct 2026 09:38:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791970714;
-	bh=KpXJrzBDyvJvMZGQ7sWNVin16ZGNhFmi7scpeRJwY88=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=eG0jUYG+FHPC1mIGBXF1XswYvWqsvCRJ5g1WeWMqfBOTk7qeccaNz1bXKpRGDLiWt
-	 cl814MgIVDFjDkY4hxw9NYvt+1ChdY6Kn8HS9OwlJkdOiiXm1ldSZ0oSBYupNcL4Kb
-	 VMdOWNcagKOW3CvJ5kbtm5qf1Int1kDfIV+OSf1vhkEoWBalH/u2c+tsnjSPqKr3ei
-	 zggVoHfRQ2+BPJMcXv5+UwWqjabHz/WNlmQHjgaTe5OnDEDOpCGSWZmh0PbVsiG52t
-	 0w8/QCPoUnwTtiB/3rNIJKxqhnGkAnXbnQvNkO3Gdj5lCMMTd0Itd04ZifoMYQMA8v
-	 bt7T7IiHlzFOQ==
-Message-ID: <e4bbf208-41d3-480f-92c4-231d69a749cd@kernel.org>
-Date: Wed, 14 Oct 2026 11:37:48 +0200
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="vE4seWoj"
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c2e8c710847so483152866b.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 02:38:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1791970712; x=1792575512; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=g+phdlrYB/RD28JPtIDO6lYJBfhoxurBJxdEKdj89FI=;
+        b=vE4seWojajhrXAXU3xkwRJahawNuJ33pEC0+n+TRATlgWD9pK4vOTKM1Nl41iSYS6U
+         NVaLwS3CuoaOhOk47H8rHOk9ctsVFASx6ad2sXWx2MDFEtPIvFTS1r21sZyRcR/lNQaf
+         J5r4Flv4V2CoXYuuWIKCX8QdWLero6zPviAcFLQ2Xc/EOa+iXWaFmeIEaV8MdYtSgtuI
+         m6K4eA/mM5/hIaGSBnkVE/DkR1SZmWUWcs8gTQ4TQ/s8TFg8aQssW6bVe/grxJUrsn+2
+         nHIYaQTqeJ4t2pLmiWHdx42xejEQpS6jU4J48SCTFCfgEcG+Ntc2yFjk2lMSfUdTxpfl
+         J2Bw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791970712; x=1792575512;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=g+phdlrYB/RD28JPtIDO6lYJBfhoxurBJxdEKdj89FI=;
+        b=UdCFDicp9cdFdREXv04v6OT4C7zL+9O6SYn9yeFL/1xeRq+V5nyUdXV0Qdp06w4ka4
+         hvnRg5/k9ApnsZ/GQIg+NTe5uuuPLzAe9SSSEjCU+4W9QVqO3SgCaFrVg572+GBTmTpz
+         FZZP1RL2n1r+NWcSA2D0U6ayXYWbrUXAqhK75YHXAvbwU2EELFjQ8e4PvkqehkZxNnsB
+         pB0RQbLFJbqjbvWs5cTmERperrH/Q4brjlGsdR38TwWz7T8566vnb67+KJgO7AuXldBu
+         /79P+E37y+u5F5oqM6KEYGirR922ZGd9c6ceS/XOwaUhjsJIDbEtKljQjxtmMuGlHYPE
+         Ssxg==
+X-Forwarded-Encrypted: i=1; AKwUvBzk0QseCLcypaDdg66F1Ioyck8Et+KsP7bdPLYU5ii8rjBripzgzEMo/RYy8TxkyHl+sAHBvuZL1ksiNCw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKQSOhJ/SaFLFEbTyEFRc7V+zudTHwBKJIJFllwAe2W1G8fEyx9
+	ambOUs4LKDo949K+6XFoZrixSk+SyCKRR/QgQzbea/P0YNPxR+vRx/bWujAaK4QPKfU=
+X-Gm-Gg: AYBFou1OOzL33Oe/NMgmiHa9l8jW2v+RSIGgarg0JCe0b/SmY85Tk1+hC5Bc26+LNhU
+	QJ3UwgX9bN4YUXZIp55Gh/YPxQKemWxylu3JTbXJ3GUydtiQek0Z3+lp4MprZw406KuhpYH1Hqs
+	CluaxdrC1m9kVqV/h37xlrdTWEtbF08ZFKYKNL21I5mOlyjHeDXeBmgXEBtzesIKLcTj7FiArbG
+	93IEKFIAXmodHugU94IKPV8ZEyKJF6Fh5mgqYTcrzilGfQw5gV2xcvKTUXOcKdgFcTGmB/kERZj
+	AYOuMkh3Ttp8HoKemlpldbtd7PiIUdfgxuljb5jrHyf+h/GS/IgrmJ811mE+xkjH1O28K3wWZk8
+	lIb9RnebLLdeQMBhcIRaLEgqXvEqo4ne+lIBvb7eEgOmUBmP85clYCmyDoLqO+XNAuP8ktR+RGr
+	BwxTKzoPasqYQPjLOKmDj+3jrfzGeLwnctKzohL+cLrrIshbf+YcWtSyfeE12A32YIVE1SMQFXC
+	bkXSPg97s5y
+X-Received: by 2002:a17:907:2d88:b0:c25:541:fd3a with SMTP id a640c23a62f3a-c31a9a07db1mr1358197766b.7.1791970711490;
+        Wed, 14 Oct 2026 02:38:31 -0700 (PDT)
+Received: from [192.168.0.167] ([109.76.126.202])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9aa5953sm693842466b.58.2026.10.14.02.38.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 14 Oct 2026 02:38:31 -0700 (PDT)
+Message-ID: <47c2af33-05f1-41a2-958f-11ca13568acf@linaro.org>
+Date: Wed, 14 Oct 2026 10:38:29 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,220 +69,67 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 11/21] riscv: mm: use proper set_pXd() for generic
- compile-time folded patable in vmalloc_fault()
-To: Yeoreum Yun <yeoreum.yun@arm.com>, Russell King <linux@armlinux.org.uk>,
- Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>, Andrew Morton <akpm@linux-foundation.org>,
- Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Johannes Weiner <hannes@cmpxchg.org>,
- Michal Hocko <mhocko@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Tianrui Zhao <zhaotianrui@loongson.cn>, Bibo Mao <maobibo@loongson.cn>,
- Anup Patel <anup@brainfault.org>, Atish Patra <atish.patra@linux.dev>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Dave Hansen <dave.hansen@linux.intel.com>, Andy Lutomirski
- <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Jonas Bonn <jonas@southpole.se>,
- Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>,
- Stafford Horne <shorne@gmail.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- loongarch@lists.linux.dev, linux-mips@vger.kernel.org,
- linux-arch@vger.kernel.org, linux-mm@kvack.org, kvm@vger.kernel.org,
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
- linux-openrisc@vger.kernel.org
-References: <20260921-dummy_ptxp3-v1-0-cd40cf68242e@arm.com>
- <20260921-dummy_ptxp3-v1-11-cd40cf68242e@arm.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260921-dummy_ptxp3-v1-11-cd40cf68242e@arm.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v2 4/8] dt-bindings: media: Add CAMSS device for Maili
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, Robert Foss
+ <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+Cc: Suresh Vankadara <svankada@qti.qualcomm.com>,
+ Vikram Sharma <vikram.sharma@oss.qualcomm.com>, linux-i2c@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org
+References: <20261013-hawi-maili-camss-v2-0-fc93222da89c@oss.qualcomm.com>
+ <20261013-hawi-maili-camss-v2-4-fc93222da89c@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20261013-hawi-maili-camss-v2-4-fc93222da89c@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 9/21/26 12:55, Yeoreum Yun wrote:
-> The behaviour of pXdp_get() will change with generic compile-time folded
-> page tables, making it invalid to use set_pXd() with the result of
-> pXdp_get(). Instead, the appropriate first-level set_pXd() must be paired
-> with the corresponding pXdp_get().
+On 13/10/2026 12:02, Nihal Kumar Gupta wrote:
+> Maili shares the same IP as Hawi. The only difference is
+> Hawi has six CSIPHY while Maili has five.
 > 
-> Therefore, call the appropriate set_pXd() for generic compile-time folded
-> page tables so that vmalloc_fault() continues to handle folded entries
-> correctly when checking pXd_present().
-> 
-> There should be no functional change.
-> 
-> Since most architectures use a similar pattern to handle vmalloc fault
-> by syncing the faulted entry, it would be worth cleaning this up by
-> introducing a common helper in the near future.
-> 
-> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
 > ---
-
-@ Riscv maintainers, is this good enough until we get some more generic cleanups
-in this area?
-
-
->  arch/riscv/mm/fault.c | 52 ++++++++++++++++++++++++++++++++-------------------
->  1 file changed, 33 insertions(+), 19 deletions(-)
+>   Documentation/devicetree/bindings/media/qcom,hawi-camss.yaml | 9 +++++++--
+>   1 file changed, 7 insertions(+), 2 deletions(-)
 > 
-> diff --git a/arch/riscv/mm/fault.c b/arch/riscv/mm/fault.c
-> index 04ed6f8acae4f..b2bcaf10d13f1 100644
-> --- a/arch/riscv/mm/fault.c
-> +++ b/arch/riscv/mm/fault.c
-> @@ -167,14 +167,16 @@ bad_area(struct pt_regs *regs, struct mm_struct *mm, int code,
->  
->  static inline void vmalloc_fault(struct pt_regs *regs, int code, unsigned long addr)
->  {
-> -	pgd_t *pgd, *pgd_k;
-> -	pud_t *pud_k;
-> -	p4d_t *p4d_k;
-> -	pmd_t *pmd_k;
-> -	pte_t *pte_k;
-> +	pgd_t *pgdp_k, *pgdp, pgd_k;
-> +	p4d_t *p4dp_k, *p4dp;
-> +	pud_t *pudp_k, *pudp, pud_k;
-> +	pmd_t *pmdp_k, *pmdp, pmd_k;
-> +	pte_t *ptep_k;
->  	int index;
->  	unsigned long pfn;
->  
-> +	BUILD_BUG_ON(CONFIG_PGTABLE_LEVELS != 5 && CONFIG_PGTABLE_LEVELS != 2);
-> +
->  	/* User mode accesses just cause a SIGSEGV */
->  	if (user_mode(regs))
->  		return do_trap(regs, SIGSEGV, code, addr);
-> @@ -189,39 +191,51 @@ static inline void vmalloc_fault(struct pt_regs *regs, int code, unsigned long a
->  	 */
->  	index = pgd_index(addr);
->  	pfn = csr_read(CSR_SATP) & SATP_PPN;
-> -	pgd = (pgd_t *)pfn_to_virt(pfn) + index;
-> -	pgd_k = init_mm.pgd + index;
->  
-> -	if (!pgd_present(pgdp_get(pgd_k))) {
-> +	pgdp = (pgd_t *)pfn_to_virt(pfn) + index;
-> +	pgdp_k = init_mm.pgd + index;
-> +
-> +	pgd_k = pgdp_get(pgdp_k);
-> +	if (!pgd_present(pgd_k)) {
->  		no_context(regs, addr);
->  		return;
->  	}
-> -	set_pgd(pgd, pgdp_get(pgd_k));
-> +	if (CONFIG_PGTABLE_LEVELS == 5)
-> +		set_pgd(pgdp, pgd_k);
->  
-> -	p4d_k = p4d_offset(pgd_k, addr);
-> -	if (!p4d_present(p4dp_get(p4d_k))) {
-> +	p4dp = p4d_offset(pgdp, addr);
-> +	p4dp_k = p4d_offset(pgdp_k, addr);
-> +	if (!p4d_present(p4dp_get(p4dp_k))) {
->  		no_context(regs, addr);
->  		return;
->  	}
->  
-> -	pud_k = pud_offset(p4d_k, addr);
-> -	if (!pud_present(pudp_get(pud_k))) {
-> +	pudp = pud_offset(p4dp, addr);
-> +	pudp_k = pud_offset(p4dp_k, addr);
-> +
-> +	pud_k = pudp_get(pudp_k);
-> +	if (!pud_present(pud_k)) {
->  		no_context(regs, addr);
->  		return;
->  	}
-> -	if (pud_leaf(pudp_get(pud_k)))
-> +	if (pud_leaf(pud_k))
->  		goto flush_tlb;
->  
->  	/*
->  	 * Since the vmalloc area is global, it is unnecessary
->  	 * to copy individual PTEs
->  	 */
-> -	pmd_k = pmd_offset(pud_k, addr);
-> -	if (!pmd_present(pmdp_get(pmd_k))) {
-> +	pmdp = pmd_offset(pudp, addr);
-> +	pmdp_k = pmd_offset(pudp_k, addr);
-> +
-> +	pmd_k = pmdp_get(pmdp_k);
-> +	if (!pmd_present(pmd_k)) {
->  		no_context(regs, addr);
->  		return;
->  	}
-> -	if (pmd_leaf(pmdp_get(pmd_k)))
-> +	if (CONFIG_PGTABLE_LEVELS == 2)
-> +		set_pmd(pmdp, pmd_k);
-> +	if (pmd_leaf(pmd_k))
->  		goto flush_tlb;
->  
->  	/*
-> @@ -230,8 +244,8 @@ static inline void vmalloc_fault(struct pt_regs *regs, int code, unsigned long a
->  	 * addresses. If we don't do this, this will just
->  	 * silently loop forever.
->  	 */
-> -	pte_k = pte_offset_kernel(pmd_k, addr);
-> -	if (!pte_present(ptep_get(pte_k))) {
-> +	ptep_k = pte_offset_kernel(pmdp_k, addr);
-> +	if (!pte_present(ptep_get(ptep_k))) {
->  		no_context(regs, addr);
->  		return;
->  	}
+> diff --git a/Documentation/devicetree/bindings/media/qcom,hawi-camss.yaml b/Documentation/devicetree/bindings/media/qcom,hawi-camss.yaml
+> index 5bf0dca3d24621bfc4a09feb8e5037a925869751..d1d53d6f024cbf7d2a0f2525aa4040260353b200 100644
+> --- a/Documentation/devicetree/bindings/media/qcom,hawi-camss.yaml
+> +++ b/Documentation/devicetree/bindings/media/qcom,hawi-camss.yaml
+> @@ -4,17 +4,22 @@
+>   $id: http://devicetree.org/schemas/media/qcom,hawi-camss.yaml#
+>   $schema: http://devicetree.org/meta-schemas/core.yaml#
+>   
+> -title: Qualcomm Hawi Camera Subsystem (CAMSS)
+> +title: Qualcomm Hawi and Maili Camera Subsystem (CAMSS)
+>   
+>   maintainers:
+>     - Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+> +  - Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+>   
+>   description:
+>     The CAMSS IP is a CSI decoder and ISP present on Qualcomm platforms.
+>   
+>   properties:
+>     compatible:
+> -    const: qcom,hawi-camss
+> +    oneOf:
+> +      - const: qcom,hawi-camss
+> +      - items:
+> +          - const: qcom,maili-camss
+> +          - const: qcom,hawi-camss
+>   
+>     reg:
+>       maxItems: 13
 > 
-
-
--- 
-Cheers,
-
-David
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
