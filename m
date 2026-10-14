@@ -1,131 +1,130 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 606254A6CF6;
-	Wed, 14 Oct 2026 22:04:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 046E44A33E6;
+	Wed, 14 Oct 2026 22:05:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792015449; cv=none; b=O4vjFIemEGDbqzybIERb8pXis7qX6EO8+/NH1wF8SHmwdRVAABNcQuRLNY40mR+i8rTtTB1YwusOaSljLlKLjVdccEClU6BVwsY5xAKexiVdiYG3qOEbYCcACZbcmf1JXoCbQIwcR4hk33fojSw/mtbAjkiZj9bm22TETxJJoH8=
+	t=1792015513; cv=none; b=BkszW0KTopyKRhdJyuCn5KpGjgApFni51gR6tumQTbUWCAZVJktkIFyjTOk403C4VMbZ3K7P1o+NUgBCd97Hai7IudqrirS6d7YF0T9sOwfaG6Catdh4jL9C+9qSVk6HnY1xl/LuJqsKo1hDHyNq2K7m9zrHON8Nk97TUvEl+Ss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792015449; c=relaxed/simple;
-	bh=7iCkqsU4Ad7M8KWA124YeJwDPvtti4iHztzsXKUlQGY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TfZ1ZiwFBNKWYVvtWp09HxtLqsxtE1fkB2bnx6XHg2+deEHuyy3S45g6brzQ4Uk8idRSJhzwYnK3dcTwVQf8ycyzfCxH4vF9Pmj8MnSk6Vh8FLXN8Ic1V4ypfjiEjTDw8xqY/IwaUXnZENMA3kmzaWpmG/vE9mlYx7UTJ5R6gRY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=uu5GCBh+; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=+z8kiiBM; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1792015513; c=relaxed/simple;
+	bh=TJrKSaiyFuxca8Vlo+ReKlXWw/wZWpCMWK4nWFBvx2c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cIDHRluNJwodTuxbCLURXv5xAT9Kps6nIsDaVmklRe20pGPxqBj45/CAExqyAWm6Nf024YlsVqBDesrJeDWgxTbpW+uV2PP6J9O2ZuyRdzKOZ9pn2GIy/1i13jaHPk0o47SJqx7MmUv0s6IREuCY+FlNuV8elT2Q0QXVO/pc7yw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=qLGnTPya; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="uu5GCBh+";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="+z8kiiBM"
-Date: Thu, 15 Oct 2026 00:04:03 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792015445;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GbhZUdKqlUjyf4jQIZVOFYUKhQ/g3sxzg2YLeQTEr+s=;
-	b=uu5GCBh+F2eJAZ6DatREDVi9wL9zlkFpvAgpCIB8aoQKxMSFiQyWcoJj4RNca6CUf/ViZ5
-	+1qEmeWlQh6gDkW1w1N8mS3dAjRW729BWIqJ+jyLmNSh25J77/wT6Yojgp7IEpdyIapIeP
-	Od49rE0ZXxkz5u8voPS/91mz/iVSdBqfSsp1UP4ju1mE5dmJrC25OEznZuYJ2fkMRLwjgC
-	uFhx1RIbZZYwaLFYiORe9KVojMiTXkH7lUu5YkSIz/f+zJq1XJZWvScQbJhLJTJlfXxCW3
-	Ks4KFOJvxb+ERHBF+Ajjd88WFvGKffeEoi6lM58MhiuTULuu3Thkm2nnQv0BOA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792015445;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GbhZUdKqlUjyf4jQIZVOFYUKhQ/g3sxzg2YLeQTEr+s=;
-	b=+z8kiiBMOE5gHHBox/v0UyxyrYrqkYlgHGiZ/3m2ZVQaXFiCUVWKxANkpgHc+J0XnKWAye
-	LRh75uJRNMukF4Bg==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Alan Stern <stern@rowland.harvard.edu>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	=?utf-8?B?w5ZtZXI=?= Mete Kaya <omermetekaya0@gmail.com>,
-	oneukum@suse.com, netdev@vger.kernel.org, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	david.laight.linux@gmail.com,
-	syzbot+04cd90bb99c6ef81a65d@syzkaller.appspotmail.com
-Subject: Re: [PATCH net v6] usbnet: fix smp_processor_id() use in preemptible
- context
-Message-ID: <20261014220403.R38Gf0pW@linutronix.de>
-References: <7c4a2f1c-f16d-479b-a11f-cef962d5e2c7@rowland.harvard.edu>
- <20261008094338.301a75fa@kernel.org>
- <06a81ea1-b17d-40bd-82d9-922de946b86f@rowland.harvard.edu>
- <2026100910-petition-embattled-94cb@gregkh>
- <20261012194902.aEq58Q6b@linutronix.de>
- <8545800a-a37f-482a-9b06-cbdd70312b7a@rowland.harvard.edu>
- <20261012212527.5sFqlGYu@linutronix.de>
- <41af30de-4725-4913-9ad8-54d1dea2d4b8@rowland.harvard.edu>
- <20261014191141.GxlJhR1e@linutronix.de>
- <89da3b1f-60e5-4f18-9592-3d6d7175c437@rowland.harvard.edu>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="qLGnTPya"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
+	Reply-To:Content-Type:Content-ID:Content-Description;
+	bh=iEsGD0gJeLZeX9wVnvyRcrmLSYL9UV26EOpY5LY4Peg=; b=qLGnTPyaaiQfWOAkB3QQIScqYJ
+	RCW8mfWlGyF8E2D7yU0mp+OtBTDrWZh3z6GOIX4IQrAMGv6ARaiLLDS1TCoVHllcqOVXcDjoiQn0Y
+	mpzF2U+XMC5Qj5HB/GGQ9lmt0zxHzy4XxvHCbZXrWJsbexsDtvSUj2wfwa3yKn2rCYTniFUDyUPZv
+	AVnILhBf0Bc8FOqQNzE8qbjEADle6saaCOivhgQIksKMDT0Ow4pZpkMXNFIF7d22At6A9h60foOGo
+	WPTPppk/M4DYbot7LNbnnYFMIT2AcJGkkd//6fRBu3hsON7opoHGXGvWuaPLQoC2WoqYPNExxJEuK
+	PLjgROtA==;
+Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xH75w-00000007ibs-3wAd;
+	Wed, 14 Oct 2026 22:05:08 +0000
+Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
+	id 1xH75w-00000002Ay0-37R9;
+	Wed, 14 Oct 2026 23:05:08 +0100
+From: David Woodhouse <dwmw2@infradead.org>
+To: kvm@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Paul Durrant <paul@xen.org>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Fred Griffoul <fgriffo@amazon.co.uk>,
+	David Woodhouse <dwmw@amazon.co.uk>
+Subject: [PATCH v2 09/11] KVM: x86/xen: Don't dirty track "vCPU info" page
+Date: Wed, 14 Oct 2026 23:05:05 +0100
+Message-ID: <20261014220508.518772-10-dwmw2@infradead.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261014220508.518772-1-dwmw2@infradead.org>
+References: <20261014220508.518772-1-dwmw2@infradead.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <89da3b1f-60e5-4f18-9592-3d6d7175c437@rowland.harvard.edu>
+Content-Transfer-Encoding: 8bit
+Sender: David Woodhouse <dwmw2@infradead.org>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-On 2026-10-14 15:22:51 [-0400], Alan Stern wrote:
-> > "local interrupts disabled" as is local_irq_disable()? If so, that is
-> > not the case. If it completes in BH context (due to HCD_BH) then
-> > interrupts remain enabled.
-> 
-> Yes, but we can call local_irq_disable() before invoking the completion 
-> handler -- if we decide that would be a good thing to do.
+From: Sean Christopherson <seanjc@google.com>
 
-Oh please don't. This will break PREEMPT_RT badly.
+Give the Xen per-vCPU info page the same treatment as the per-VM shared
+info page, and never mark it dirty, as KVM clearly relies on userspace to
+assume the page is always dirty.  While the page is marked dirty on writes
+via kvm_xen_inject_pending_events(), it's not marked dirty when written by
+__kvm_xen_set_evtchn_fast().
 
-> Otherwise I would say that we don't guarantee anything.
+Furthermore, as was the case with the shared info page, writes in the event
+channel fastpath may be done without an active vCPU, e.g. when called via
+timer callback or irqfd injection.  I.e. attempting to fix the fastpath
+would run afoul of the same issue that was fixed by
+commit 55749769fe60 ("KVM: x86: Fix wall clock writes in Xen shared_info
+not to mark page dirty").
 
-Okay.
+This also covers the pvclock writes kvm_guest_time_update() makes
+through the same cache; userspace assuming the page is always dirty
+covers those equally.
 
-> > > Of course, in special cases you might know more about how a particular 
-> > > HCD works.  But except for platform-specific settings, it's hard to be 
-> > > certain that your driver will always be used with that one particular 
-> > > HCD.
-> > > 
-> > > If this is okay with you, I can write a documentation patch.
-> > 
-> > Sure. The kernel doc for usb_hcd_giveback_urb() says BH or caller's
-> > context. I think you need to clarify that part and once we have tha, we
-> > can proceed with the drivers.
-> 
-> What do you think?  Should local interrupts always be disabled, or 
-> should we offer no guarantee?
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+[dwmw2: also update the KVM_GET_DIRTY_LOG note in api.rst, which
+ named only the shared_info page]
+Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+Assisted-by: LLM
+---
+ Documentation/virt/kvm/api.rst | 5 +++--
+ arch/x86/kvm/xen.c             | 3 +--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-No guarantees in this regard, please. Disabling interrupts will break
-PREEMPT_RT here.
+diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.rst
+index e0430cc750c9..b24aac070b11 100644
+--- a/Documentation/virt/kvm/api.rst
++++ b/Documentation/virt/kvm/api.rst
+@@ -385,8 +385,9 @@ The bits in the dirty bitmap are cleared before the ioctl returns, unless
+ KVM_CAP_MANUAL_DIRTY_LOG_PROTECT2 is enabled.  For more information,
+ see the description of the capability.
+ 
+-Note that the Xen shared_info page, if configured, shall always be assumed
+-to be dirty. KVM will not explicitly mark it such.
++Note that the Xen shared_info page and vcpu_info area, if configured,
++shall always be assumed to be dirty. KVM will not explicitly mark them
++such.
+ 
+ 
+ 4.10 KVM_RUN
+diff --git a/arch/x86/kvm/xen.c b/arch/x86/kvm/xen.c
+index df72ab95658b..e72c0b3d2109 100644
+--- a/arch/x86/kvm/xen.c
++++ b/arch/x86/kvm/xen.c
+@@ -735,7 +735,6 @@ void kvm_xen_inject_pending_events(struct kvm_vcpu *v)
+ 		WRITE_ONCE(vi->evtchn_upcall_pending, 1);
+ 	}
+ 
+-	kvm_gpc_mark_dirty_in_slot(gpc);
+ 	read_unlock_irqrestore(&gpc->lock, flags);
+ 
+ 	/* For the per-vCPU lapic vector, deliver it as MSI. */
+@@ -2479,7 +2478,7 @@ void kvm_xen_init_vcpu(struct kvm_vcpu *vcpu)
+ 
+ 	kvm_gpc_init(&vcpu->arch.xen.runstate_cache, vcpu->kvm);
+ 	kvm_gpc_init(&vcpu->arch.xen.runstate2_cache, vcpu->kvm);
+-	kvm_gpc_init(&vcpu->arch.xen.vcpu_info_cache, vcpu->kvm);
++	__kvm_gpc_init(&vcpu->arch.xen.vcpu_info_cache, vcpu->kvm, true);
+ 	kvm_gpc_init(&vcpu->arch.xen.vcpu_time_info_cache, vcpu->kvm);
+ }
+ 
+-- 
+2.43.0
 
-> Completion handler routines will have to be conservative, so if we don't 
-> guarantee anything then they will need to disable interrupts themselves 
-> whenever they require it (for example, by using spin_lock_irqsave() 
-> instead of spin_lock()).  The core could save them this extra effort, at 
-> the cost of unnecessarily disabling interrupts sometimes.
-
-The problem is spin_lock_irqsave() will not disable interrupts on
-PREEMPT_RT while local_irq_save() will. For this reason I would prefer
-to skip it.
-
-> USB isn't a tremendously fast bus, so the overhead probably doesn't 
-> matter much.  Which tradeoff do you prefer?
-
-So if we don't guarantee that BH is disabled then I would say nothing is
-guaranteed, anything is possible.
-
-A little note: cdns and dwc3 do disable BH in their voluntary threaded
-interrupt handler. The reason is that the networking driver expect this.
-I know this is the gadget and not HCD side but sort of the same issue.
-While BH is disabled for interrupt handler (and forced threaded handler)
-it is not if requested explicitly.
-
-This would mean that the completion handler of the networking driver
-would have to do local_bh_disable() themself. I could live with this ;)
-
-> Alan Stern
-
-Sebastian
