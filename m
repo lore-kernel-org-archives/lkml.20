@@ -1,383 +1,200 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012004.outbound.protection.outlook.com [52.101.48.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81A1E51C061
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:08:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791986927; cv=none; b=m8hUM/mExXZ/3Iav7YqlWz3BD5CI2rYeuxcbkZ+FioxiVYYhOXdqCrNkSwGSvASk2QzpBVg0FMc6pAxHvau/iCyjfAZb9mL4yKOjYj/ok1PgsoM2oIsG4jkPiOjpNnLCLmro8rzgi1HcHIwoFLNme1zTfcsy46SUbiNmA6m9iUI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791986927; c=relaxed/simple;
-	bh=sY592CUXRPO5suo9F//HYejBA4k7aIIcVNN3evi8b7c=;
-	h=Message-ID:Date:MIME-Version:To:Cc:From:Subject:Content-Type; b=YEjCTgyntz9xigthXDIOIzmIJwUT3jbZTTSjUGpOnhi76bzRTb5ONI+kUHSoBFImUeuKtP4OTxZsT1RFa5Juurb3w6Ggsl3cqBDzuJl4+CPpxjpSPV9aYSPoT9nf5Oq4Q+I4LzCdh1ODySVnqID1SsYTUfze5Koh1KiFEcYEgNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Crg5LVH/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Zik/JQ4R; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A2774D0CE2;
+	Wed, 14 Oct 2026 14:09:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.4
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791986957; cv=fail; b=hVTmiLA0Tb3wdgvzy/P1CaCq7MOT/GuZ33gmAtcjn2JDaxO2/4PYpaB22Y5RYgEXoNG+L2N1Lkjr360g4m6foO7GGupWtVDBhMbKOwdqvzaCAglhi2b617iEUS+mBfIl6eEqAfiwbAUuVOZlTSCH0z4/Ld/fsvVQnakkS933CiU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791986957; c=relaxed/simple;
+	bh=i/scIOqpa4hPWN4J97hDkJGRy8C+CZAGIdEBaFExmJk=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=JHsy6qXNJwFolUHS2W3jRHnnHLkWM4jxRGnpz/LzF14lNmBA/gjRISNoCDEVdZp+rf8GuiZJfyXwng4K/m/L+QAnkcOlxiUMrMG7o4dOpLfHUSLRfr+GC1yucg9QRpOGxEGHWYO7uE5mTYGls3nJ4ATypTqDLy/65z/brWc4928=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=b9EOxAr1; arc=fail smtp.client-ip=52.101.48.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Crg5LVH/";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Zik/JQ4R"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69E8oUxX3000901
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:08:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=oam5RquUgPNLW/N5nhpho8
-	c5yrQywz5VwlW1AZvLTHc=; b=Crg5LVH/AsSD5Dv8kMwlFzsjWdaGdTVsE7KRFc
-	S3Xnyr1rUcn2lbzMJDQDzrC/HER56lCFeqgzwAHkq+C4ZYDLY0vxigoSLY9q0x11
-	LaiMblerqCf5piEV817qE8XJWW3EqHO6VARc6XKLKNLDgMXSqPkAmOrbrE9WXy9e
-	T4iwyjmV/W4G26jCt4wIqRUz0X/noyuOjJEWUV0eWduNK79bTZo4B/ehKsIWNAYQ
-	Z3kmb9viSQ5CwgBGo3iRE3zAUMaUYE31J9RKihFN2HMb6JoVeR+lnYBFH6H+wrr9
-	H9GOEIEHsk2+JQvNLbyoFyeURz9Kjtg8tbUmBZZmK7SjRYqQ==
-Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9sbevafb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:08:45 +0000 (GMT)
-Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5de9d3d00acso430657e0c.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:08:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791986925; x=1792591725; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=oam5RquUgPNLW/N5nhpho8c5yrQywz5VwlW1AZvLTHc=;
-        b=Zik/JQ4RHFXjTDP+rF4mavLfE3aNy25P4Fr8vDRv85uejJ4wdocR21mXF60kt7R6ky
-         YZn/E9YAvnBNKXHg1bYQPby0NjjOSeNuwaSgr4HV1MOsS8n0CC3EA0LFfNdRNz7LOzCU
-         S3q4eF6zW1pDLMl3alWO1P7WQ3A0uneaRpmTSfvmOIpLaL+qNbQ7MGZhcNb4ZMSqfkEM
-         CgH6gCfZkKyvbe2mP1fdBQWTMoOsWC4e1Klj1AYDg9QHPrrFFOzQfGhUfddWzhpOorkB
-         TTAWuRvzT1ovY0wElYyKX+HyV/UV3tNafmOuIM4+8HpT7taCZXy+bTQX6GP5jcfJhGn5
-         0cqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791986925; x=1792591725;
-        h=content-transfer-encoding:content-type:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oam5RquUgPNLW/N5nhpho8c5yrQywz5VwlW1AZvLTHc=;
-        b=TZGFL8e6Vhp3ANi/+OQRpfY5JU+qlylVCTeoF/r9u/zx7x9h5/slhuP7RuNrhFyDol
-         CgtI9tnWFIOeaFO3htIf2JLz5Iy1R9Crqb4YH+4c6mkXmtxIEqCbk49eIq8U0aZm5Qf0
-         UK9UdZfTGScyeOmXBU5bBijH0n2kK5q87TJeNDVmnnAiHFBGuWARnG6b3brMJ+VyiT2P
-         yPbtR+hcToQf+XwL1yygq004q2cr+o17cwXTBYO5wQndtMrb29uIrllamFnkZWYKVHk8
-         0MF9MtGyzhZsy5UhdEFWjNEfltFPW3C/RCrhIHfrxyzMBDJB0F2lr6ATYtwUp/ZtaLZ9
-         NXZw==
-X-Forwarded-Encrypted: i=1; AKwUvBwQPtvK2D7cJvv53NMVU5644dQfKBfPmHRduiup62zKOe49b7JJGY3ApccTeSjGh3LT6cQG0kBgvGdIJIY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJi4R2u6tctyBox6lL3km6np1NqzhRGUQ0qXhmPI5neSsLB9vOL
-	GmCNKbt32dq6e0M0PTl75blM1wbSKpTsrnm5jaIs02CZ+ETuMUpUJihh0RseaMM3SvEI+9crSgu
-	iU0svc+bov4Mn3qapdZPUcmfNG8WBfM0riFCXx8Qx3TkuLlYK/ZaJXAVikE1sIDYGVRc=
-X-Gm-Gg: AYBFou0ifbLozH7RkHNP1CPS+8PhlVXukH78rMEA43E/AuoXLJtTJd7NtOtvcEXNFMq
-	MZgjjmItmb5a3oqf9IkUF2+EkBX6n/1L9g0rd6VI2d4wi7EY6IZ30IJUb1Hmj9EVRPOHUf4iX2y
-	csNs89SlO+NWROYXJynboKNmcaElLTKla1yXwazaeHvZQXUG075UX5u6Y2295TfmJm7FQ1b4j8K
-	kL4VS1kri/5+kAWROO7bhcX73tB7mHeZI/4GVUjTrKnGQL/Q2qhMvM4aoDGFVz4xY7shd3Ii6Kw
-	DNMWK+1pZVA4vWJpr8IfAsqVafTGDE7dzKa8zn28oepag511yfqE83FQ7sjke/cu6IiQ3uUY1dP
-	akvXugglkAGqv5YO8zINr/9p/nMULK6ydOQqrh7uNSoLEYscUCwuoagyY/ZF+lA==
-X-Received: by 2002:a05:6122:6b0d:b0:5e9:5e79:cdf with SMTP id 71dfb90a1353d-5e95e795208mr1917709e0c.12.1791986924497;
-        Wed, 14 Oct 2026 07:08:44 -0700 (PDT)
-X-Received: by 2002:a05:6122:6b0d:b0:5e9:5e79:cdf with SMTP id 71dfb90a1353d-5e95e795208mr1917607e0c.12.1791986923209;
-        Wed, 14 Oct 2026 07:08:43 -0700 (PDT)
-Received: from ?IPV6:2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7? ([2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd037883sm2802145e9.4.2026.10.14.07.08.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 07:08:42 -0700 (PDT)
-Message-ID: <dcde6e02-d61f-429f-a9fd-57043c4819f7@oss.qualcomm.com>
-Date: Wed, 14 Oct 2026 16:08:41 +0200
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="b9EOxAr1"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YrP+8MBuVtE8k1A0J2vr+tqqPIg40u+zb03mLsW4c9ZxDFPczoC/437F1yJyALTHvUvXZBrTLHO66GJvw/NtFe1mczEI28aShBM43fadZ8si19BoGsWvV+0GvmG67ItEGLum0ARMrh3HZ6avGAIF5k4nOpDDthSGA9ebg7w6Z/1vJ+hgRcHkZyT+hxu4COsuR7Vy52b597ycnlIeA1TgDK9lNogyWBQoiY0TX9K1p1iLLjW2tnB7dANLzHBqmeHlXGLkO/c+rFB9Vc2snNuYsD9nZqmOkpvReErobjvz1FLk+zd/e2LajNp3Wcuy89EndvWYg+TZ6D8RL7B+ja125A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KDZ7kG0qZh8rz4IuGHG5KYxEg7BxYg5G2Zu4YVQyIC4=;
+ b=bZ8+VN+y+zFM6zV2zTMdP8omTFaE11GZfoixuCTSwAFdq/DT7EOQeaUtibKVmTlwHG6BzDOQv7L+a0YrkLI+2w87weBnmk7o0drxPsJa1miaJvzUIp6r3WxDWH7GLTfP5KGD9wQOBTozPn87qVupV8vpSzfob+qxQ98YuTz39Y0jF1JuwNphnWu8NJjRjJAWymL9sMPXtd3zen8FDZYIbaH4nivoTcvUABpNTl76l4j6A2UwBDJEo/E9VZNXkJWPhEJGivsaWGpbzinIPvmrT8tHf2zbOq9EyNRu1LrIVFZ/olHKI0UZkxbvaRCUd/P/mHVbksWdJ/e4srfvpyhKTQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.118.233) smtp.rcpttodomain=linux-foundation.org
+ smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
+ header.from=nvidia.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KDZ7kG0qZh8rz4IuGHG5KYxEg7BxYg5G2Zu4YVQyIC4=;
+ b=b9EOxAr1Eh7RgwB6UrjX4PuEZN7wjvh5r1ElCB8bM13EsHKh6SM0Q5fuftGAEKQHTDVYFmUDuLkf5aMz46KS1cYYS6x//wZI2dY0jV2H3Xb8F4E5h0MRC6xcf6WBBp5BCpKiV3dihA1qFm4KO4QE5qkXVvwv/+oI+LZojlX/k8MYV8E8jO/KSgQGCzVAo6Fg3LKRUjKY28J8iCLXV74haoEHdpqGjcSsqCPCKwWHSye8Eh0hCT0yyj9tlNfI7dY57xVvRdVvTdtqKgVepMqxBB1FUyHG6XpS9yGiNWvg9GHlOfoAjRC6coACCvzkeV5UG3Tk4V/vgBZanpqfhKTJjA==
+Received: from MN0PR04CA0013.namprd04.prod.outlook.com (2603:10b6:208:52d::18)
+ by CY8PR12MB7658.namprd12.prod.outlook.com (2603:10b6:930:9e::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Wed, 14 Oct
+ 2026 14:09:08 +0000
+Received: from BN3PEPF0000B374.namprd21.prod.outlook.com
+ (2603:10b6:208:52d:cafe::42) by MN0PR04CA0013.outlook.office365.com
+ (2603:10b6:208:52d::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Wed,
+ 14 Oct 2026 14:09:08 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.118.233) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.118.233 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.233; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.233) by
+ BN3PEPF0000B374.mail.protection.outlook.com (10.167.243.171) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.0 via Frontend Transport; Wed, 14 Oct 2026 14:09:08 +0000
+Received: from drhqmail201.nvidia.com (10.126.190.180) by mail.nvidia.com
+ (10.127.129.6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 14 Oct
+ 2026 07:08:30 -0700
+Received: from drhqmail203.nvidia.com (10.126.190.182) by
+ drhqmail201.nvidia.com (10.126.190.180) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 14 Oct 2026 07:08:30 -0700
+Received: from vdi.nvidia.com (10.127.8.14) by mail.nvidia.com
+ (10.126.190.182) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Wed, 14 Oct 2026 07:08:24 -0700
+From: Nimrod Oren <noren@nvidia.com>
+To: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
+	<david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett"
+	<liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport
+	<rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko
+	<mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>
+CC: Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+	<rdunlap@infradead.org>, Zi Yan <ziy@nvidia.com>, Baolin Wang
+	<baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, "Ryan
+ Roberts" <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song
+	<baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, Usama Arif
+	<usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, Brendan Jackman
+	<brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, "David
+ Laight" <david.laight.linux@gmail.com>, <linux-mm@kvack.org>,
+	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Nimrod Oren
+	<noren@nvidia.com>
+Subject: [PATCH] mm: stop recalculating min_free_kbytes once set by userspace
+Date: Wed, 14 Oct 2026 17:08:59 +0300
+Message-ID: <20261014140859.1006967-1-noren@nvidia.com>
+X-Mailer: git-send-email 2.45.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-        Aryan Sinha <sinha.aryan03@gmail.com>,
-        Bhargav Joshi
- <j.bhargav.u@gmail.com>,
-        Biju Das <biju.das@bp.renesas.com>,
-        Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
-        Dhruvin Rajpura <drajpura@qti.qualcomm.com>,
-        Florian Fainelli <florian.fainelli@broadcom.com>,
-        Georgi Djakov <djakov@kernel.org>,
-        Hemanth Selam <hemanth.selam@gmail.com>,
-        Karl Mehltretter <kmehltretter@gmail.com>,
-        liujing <liujing@cmss.chinamobile.com>,
-        Markus Elfring <Markus.Elfring@web.de>, muzafferkadir@mainlining.org,
-        Ovidiu Panait <ovidiu.panait.rb@renesas.com>,
-        Pengpeng Hou <pengpeng@iscas.ac.cn>,
-        Priyansh Jain <priyansh.jain@oss.qualcomm.com>,
-        Rob Herring <robh+dt@kernel.org>,
-        Ronald Claveau
- <linux-kernel-dev@aliel.fr>,
-        Tudor Ambarus <tudor.ambarus@linaro.org>,
-        Vitaliy Sochnev <sochnev.v.74@gmail.com>,
-        Weigang He
- <geoffreyhe2@gmail.com>,
-        Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-        Linux PM mailing list <linux-pm@vger.kernel.org>
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-Subject: [GIT PULL] thermal drivers for v7.4-rc1
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: zTS7fI4dpGVtS4n80d3JsVIsvvE9bEGo
-X-Proofpoint-GUID: zTS7fI4dpGVtS4n80d3JsVIsvvE9bEGo
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA1NiBTYWx0ZWRfX7ZtJ0VopHVQe
- dud8cGQ2BgpMgL8Jv6P3rdep3VZMA3jA+37nMheqnFgC2JUb1Np0orW1LGnDnBLWEbj6F5R3vjL
- PRrJDsCS35dZ/92CK8YOGdfPxrdMzkgz80Jjb/D46OCZCeE+ljzISmklhUEWZuOqErOzxqpq47r
- E6FzNPpVCPsYiaEsbVAe6sIf1VCSO9e90GiQUkGB5Zb0fUvX9zk62wJPhJGEcEWuH1xqppFNWAQ
- 1N1ZBbRwwqeKJX4rk9bc/QUdshGqwhqMHxonUQ9virqYQP4UdqYWziMHUAJARrpoBLGLxucWHrU
- YLD9XUbQXlVi4bYbZUcwwuBNVeX5afIHvH/cerCLG+biW4+XoPIHJIfwou2Ie24ChHWON8jEahA
- M5ket9+EFT8/OAF+mVG2afe8jnYs4+m3N+KgYTYg8DIyh7o0Vir5QQ4OvQOuELEQ7/Xi8si+NCn
- y/+2c/nkLfB0BQSZH0g==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA1NiBTYWx0ZWRfX0FdIXjrazrlb
- B7Brh5JqeSoOGQbtIQOAi9/8pYLphhg3xwSzxIZC6lGDl9ZG5flTlTKLRlwrWqCnz7NHtr7XvVS
- xKoPiRKMkshp1ZICP3gfLuTMuj96VhE=
-X-Authority-Analysis: v=2.4 cv=U7AHnuru c=1 sm=1 tr=0 ts=6acf8ced cx=c_pps
- a=+D9SDfe9YZWTjADjLiQY5g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=VwQbUJbxAAAA:8
- a=-m7sRFRlS3AYhyV2FnQA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=vmgOmaN-Xu0dpDh8OwbV:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 malwarescore=0 lowpriorityscore=0
- adultscore=0 impostorscore=0 bulkscore=0 phishscore=0 suspectscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610140056
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B374:EE_|CY8PR12MB7658:EE_
+X-MS-Office365-Filtering-Correlation-Id: 17c400f6-7e0f-4ae5-2895-08df29fcb6b6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|7416014|376014|36860700016|23010399003|6133799003|18002099003|10067099003|11063799006|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	r1w6ugStFEO4LoHcQASXd+QE69mXzcM3/0goVzzTan0P+B0B+2DpfqlnN8sJbivTFR9TAdC98T1dr9lr0E1u9n4AYE2B1gI6rBmW9EnSw2K5fLjZyjk0358eijMLY1C1XTWrQjS2YmoKr5gaspGluCua+vBdVQ4cR6Z4OohnxeaOVeTAlseJYN7jtKmaE0jproGBzA0Ps3dEUYvETmH9NSKbfIAHeVsgZDK0vd9hfJR3mVX7Fywxz6AyVTM1oQr+iia1DZ+QHm9kMiH++ckv5gMHMfwAClt3fOLn3h0hIlSS45SsNckTl3Yb1/eDMMgu3Mc7Lx6r+42ih7L2IiSoeOThzL37SCwfsK/FIi+eDsd/rUh0djCMyeR9qFcJIbYEX2jJVmbFRRO/sU/QK+GySMrlwDB/4jKMLx7AI/lpZz4aCVyDTmME6NlFX5tQdm65HoBbAoOmj/37whFQZ87d8TNx43D9MOT5T6rTPu9prFfEtWwDUfpxikW/CCw8L9n46pt474GOI3JMeZ+OccUG5npdtGdYr7wzwLQFLm/0ge8KMLEG47hbDRyAeQ+pkYJ29FIundjMJ07/KuFRSxsi38ForO0G1aAywpepgvGIwJqn6uobrZHQU92Yu9p2AVd8UPwwX0gGVZc+S7gctJmzxhY1BlBaaeWfee5/xYQAxEcoStNj3mUnqxZdojwoL9VSW9LXGaaeiqX3BbG6ruux9g==
+X-Forefront-Antispam-Report:
+	CIP:216.228.118.233;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(7416014)(376014)(36860700016)(23010399003)(6133799003)(18002099003)(10067099003)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	CB50L1m7Vql5VMHcOKsYmtO9NlMOj0gGCYV4bOeC3Z2ytcBgrNQPnNJ3ocaCZnv2y7gOVnXrfQKJVxzKIy2+w29OaK+HFMRHuQphutR6o4zzMSCzqwR6THZXVof0um39fhbudPsKGry6c/FEpc1oiLJ6ehDzZ0wahjuP/oMzoJltuK5yE+AFtHEKURSBh27wzFiZkIXrrrWQjXunBdK5osa6+YJFjZfxWI/+A8BNnNStQ+7ki8g67y7L4mtTwgV4wni+WLKjWpIDChnEo3r5hV65F3L0m1oBBAiUh3Cxi/ek823/L/ucVcRThX+R2Png1WAFqWAR4u5rM5mnW1XjNtJXO6oxXeOxbWXy2ZsTh9tcy8yo0WZOnKiwl3Mnu3LUhlSO6dxbKwUnxFvc3QVboWpBw4Tq5k02gsFTbQIZ6t+ibfWLAOhGVvzG3aBGouzN
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 14:09:08.1983
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 17c400f6-7e0f-4ae5-2895-08df29fcb6b6
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.233];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF0000B374.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7658
 
+min_free_kbytes is recalculated on memory hotplug and on THP sysfs
+writes. The new value comes from calculate_min_free_kbytes() or, while
+THP is enabled, from set_recommended_min_free_kbytes(). A value written
+to the vm.min_free_kbytes sysctl is replaced whenever the new value is
+higher, so a lower value does not stick. This matters most when THP is
+enabled on configurations with large pageblocks, where the new value
+can be excessive [1].
 
-Hi Rafael,
+Stop recalculating min_free_kbytes once a value has been written to the
+sysctl. Systems where the sysctl is never written keep the current
+behavior.
 
+Link: https://lore.kernel.org/r/20260716173504.760369-1-noren@nvidia.com/ [1]
+Suggested-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Link: https://lore.kernel.org/r/d202dcc3-d7d7-4e98-a9a5-3137cfbfd041@kernel.org/
+Signed-off-by: Nimrod Oren <noren@nvidia.com>
+---
+ Documentation/admin-guide/sysctl/vm.rst | 7 +++++++
+ mm/khugepaged.c                         | 7 +------
+ mm/page_alloc.c                         | 6 +-----
+ 3 files changed, 9 insertions(+), 11 deletions(-)
 
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
-
-   Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
-
-are available in the Git repository at:
-
-   git://git.kernel.org/pub/scm/linux/kernel/git/thermal/linux.git 
-tags/thermal-v7.4-rc1
-
-for you to fetch changes up to 2dc1f296b5754dd2441fc8b6613a362a47f6b98f:
-
-   thermal/drivers/rzg3e: Propagate reset assertion failure from suspend 
-(2026-10-14 09:46:07 +0200)
-
-----------------------------------------------------------------
-- Add the Exynos ACPM thermal driver for Google GS101, along with
-   DT bindings and a MAINTAINERS entry (Tudor Ambarus)
-
-- Add Renesas RZ/G3L thermal sensor support and DT bindings, and move
-   default calibration values to per-SoC match data (Biju Das)
-
-- Add Qualcomm MSM8952 TSENS support and the corresponding DT binding
-   compatible (Muzaffer Kadir)
-
-- Document the Qualcomm PMAU0102 Master BandGap temperature monitor
-   compatible in the DT bindings (Dhruvin Rajpura)
-
-- Extend the QCom TSENS v2 trip temperature limits to the hardware
-   range of -204°C to +204°C to prevent interrupt storms when operating
-   beyond the previous software limits (Priyansh Jain)
-
-- Fix temperature threshold map indexing in the QCom SPMI temperature
-   alarm driver to prevent out-of-bounds reads (Georgi Djakov)
-
-- Describe the additional bus clock required by the Amlogic T7 thermal
-   sensor and switch the driver to the clk_bulk API to manage multiple
-   clocks (Ronald Claveau)
-
-- Request the Airoha EN7581 IRQ after thermal zone registration to
-   prevent the interrupt handler from accessing an unregistered or
-   already freed thermal zone (Vitaliy Sochnev)
-
-- Fix the Airoha AN7583 ADC mux field mapping, serialize access to the
-   shared ADC, and verify mux selection to avoid invalid temperature
-   readings and spurious critical shutdowns (Vitaliy Sochnev)
-
-- Register separate thermal zones for the AN7583 bandgap, GbE and CPU
-   sensors, and update the DT bindings to use one thermal sensor cell
-   to select the sensor (Vitaliy Sochnev)
-
-- Fix signed integer overflow in the Renesas RZ/G3E temperature-to-code
-   conversion, preserve compare interrupt state across runtime PM,
-   and prevent overlapping temperature conversions (Ovidiu Panait)
-
-- Remove redundant trip window validation and runtime PM
-   pm_runtime_mark_last_busy() calls from the Renesas RZ/G3E driver
-   (Ovidiu Panait)
-
-- Propagate reset assertion failures from Renesas RZ/G3E suspend and
-   attempt to restore power if the sensor was active (Pengpeng Hou)
-
-- Stop the TI bandgap alert IRQ before removing sensor interfaces and
-   cancel pending alert work to prevent use-after-free on driver removal
-   (Weigang He)
-
-- Validate Spreadtrum sensor IDs read from the device tree before using
-   them for register offsets and array indexing (Weigang He)
-
-- Convert the TI OMAP bandgap DT bindings to schema and document the
-   DRA752 compatible and thermal sensor cells (Bhargav Joshi)
-
-- Use DT property helpers matching the signed temperature and unsigned
-   hysteresis types defined by the thermal zone bindings (Rob Herring)
-
-- Reuse common error handling code in the power allocator governor
-   bind callback (Markus Elfring)
-
-- Constify the thermal zone device operations in the i.MX9 driver
-   (Christophe JAILLET)
-
-- Fix kernel-doc parameter names and firmware node references in the
-   cooling device registration helpers (Aryan Sinha)
-
-- Correct the documented return value of ti_bandgap_get_sensor_data()
-   to describe validation errors and potentially NULL stored data
-   (Karl Mehltretter)
-
-- Ensure NUL-termination when copying the cooling device command-line
-   argument in tmon and fix the associated string truncation warning
-   (Florian Fainelli)
-
-- Fix undefined behavior caused by a signed shift in the tmon thermal
-   zone binding display (Liu Jing)
-
-- Fix wording in tmon comments (Hemanth Selam)
-
-----------------------------------------------------------------
-Andy Shevchenko (1):
-       thermal: sysfs: switch to use scnprintf() to suppress truncation 
-warning
-
-Aryan Sinha (1):
-       thermal/fw: Fix kernel-doc parameter names
-
-Bhargav Joshi (1):
-       dt-bindings: thermal: ti,omap-bandgap: Convert to DT schema
-
-Biju Das (3):
-       dt-bindings: thermal: r9a08g045-tsu: Document RZ/G3L TSU
-       thermal/drivers/renesas/rzg3s: Convert calibration defaults to 
-per-SoC match data
-       thermal/drivers/renesas/rzg3s: Add RZ/G3L TSU support
-
-Christophe JAILLET (1):
-       thermal/drivers/imx9: Constify struct thermal_zone_device_ops
-
-Dhruvin Rajpura (1):
-       dt-bindings: thermal: qcom,pm8775-mbg-tm: Document PMAU0102
-
-Florian Fainelli (1):
-       tools/thermal/tmon: Fix string truncation warning in optarg copy
-
-Georgi Djakov (1):
-       thermal/drivers/qcom-spmi-temp-alarm: Fix temp_map indexing
-
-Hemanth Selam (1):
-       tools/thermal: Fix typo "binded" in comments
-
-Karl Mehltretter (1):
-       thermal: ti-soc-thermal: Fix the return value in 
-ti_bandgap_get_sensor_data() kernel-doc
-
-Liu Jing (1):
-       tools/thermal/tmon: Fix signed shift UB in binding display
-
-Markus Elfring (1):
-       thermal: gov_power_allocator: Use common error handling code in 
-power_allocator_bind()
-
-Muzaffer Kadir (2):
-       dt-bindings: thermal: tsens: Add MSM8952
-       thermal/qcom/tsens: Add support for MSM8952 tsens
-
-Ovidiu Panait (5):
-       drivers/thermal/renesas/rzg3e: Fix signed integer overflow in 
-temp_to_code()
-       thermal/drivers/renesas/rzg3e: Fix runtime PM handling of compare irq
-       thermal/drivers/renesas/rzg3e: Fix race between set_trips() and 
-get_temp()
-       thermal/drivers/renesas/rzg3e: Remove unneeded low/high check in 
-set_trips()
-       thermal/drivers/renesas/rzg3e: Remove redundant 
-pm_runtime_mark_last_busy() calls
-
-Pengpeng Hou (1):
-       thermal/drivers/rzg3e: Propagate reset assertion failure from suspend
-
-Priyansh Jain (1):
-       thermal/drivers/qcom/tsens: Widen temperature limits to match 
-hardware range
-
-Rob Herring (Arm) (1):
-       thermal: of: Match trip property helper types
-
-Ronald Claveau (2):
-       dt-bindings: thermal: amlogic: describe bus clock for t7-thermal
-       thermal/drivers/amlogic: Switch to clk_bulk API to support 
-multiple clocks
-
-Tudor Ambarus (3):
-       dt-bindings: thermal: Add Google GS101 TMU
-       thermal/drivers/samsung: Add Exynos ACPM TMU driver GS101
-       MAINTAINERS: Add entry for Samsung Exynos ACPM thermal driver
-
-Vitaliy Sochnev (5):
-       thermal/drivers/airoha: Request the EN7581 IRQ after zone 
-registration
-       thermal/drivers/airoha: Fix AN7583 ADC mux field mapping
-       thermal/drivers/airoha: Serialise access to the shared ADC
-       dt-bindings: arm: airoha: Use one thermal sensor cell for AN7583
-       thermal/drivers/airoha: Register a thermal zone per AN7583 sensor
-
-Weigang He (2):
-       thermal/drivers/ti-soc-thermal: Cancel pending alert work on remove
-       thermal/drivers/sprd: validate the sensor id from the device tree
-
-  .../bindings/arm/airoha,en7581-chip-scu.yaml       |   3 +-
-  .../bindings/thermal/amlogic,thermal.yaml          |  29 +-
-  .../bindings/thermal/google,gs101-tmu-top.yaml     |  69 +++
-  .../bindings/thermal/qcom,pm8775-mbg-tm.yaml       |   7 +-
-  .../devicetree/bindings/thermal/qcom-tsens.yaml    |   1 +
-  .../bindings/thermal/renesas,r9a08g045-tsu.yaml    |   4 +-
-  .../bindings/thermal/ti,omap-bandgap.yaml          | 177 ++++++
-  .../devicetree/bindings/thermal/ti_soc_thermal.txt |  88 ---
-  MAINTAINERS                                        |   8 +
-  drivers/thermal/airoha_thermal.c                   | 179 ++++--
-  drivers/thermal/amlogic_thermal.c                  |  14 +-
-  drivers/thermal/gov_power_allocator.c              |  11 +-
-  drivers/thermal/imx91_thermal.c                    |   2 +-
-  drivers/thermal/qcom/qcom-spmi-temp-alarm.c        |   8 +-
-  drivers/thermal/qcom/tsens-v1.c                    |  41 ++
-  drivers/thermal/qcom/tsens-v2.c                    |   4 +-
-  drivers/thermal/qcom/tsens.c                       |   3 +
-  drivers/thermal/qcom/tsens.h                       |   2 +-
-  drivers/thermal/renesas/rzg3e_thermal.c            |  45 +-
-  drivers/thermal/renesas/rzg3s_thermal.c            |  38 +-
-  drivers/thermal/samsung/Kconfig                    |  19 +
-  drivers/thermal/samsung/Makefile                   |   2 +
-  drivers/thermal/samsung/acpm-tmu.c                 | 651 
-+++++++++++++++++++++
-  drivers/thermal/sprd_thermal.c                     |   6 +
-  drivers/thermal/thermal_fw.c                       |   8 +-
-  drivers/thermal/thermal_of.c                       |  11 +-
-  drivers/thermal/thermal_sysfs.c                    |  12 +-
-  drivers/thermal/ti-soc-thermal/ti-bandgap.c        |  10 +-
-  drivers/thermal/ti-soc-thermal/ti-thermal-common.c |   4 +
-  tools/thermal/tmon/sysfs.c                         |   2 +-
-  tools/thermal/tmon/tmon.c                          |   4 +-
-  tools/thermal/tmon/tmon.h                          |   2 +-
-  tools/thermal/tmon/tui.c                           |   2 +-
-  33 files changed, 1262 insertions(+), 204 deletions(-)
-  create mode 100644 
-Documentation/devicetree/bindings/thermal/google,gs101-tmu-top.yaml
-  create mode 100644 
-Documentation/devicetree/bindings/thermal/ti,omap-bandgap.yaml
-  delete mode 100644 
-Documentation/devicetree/bindings/thermal/ti_soc_thermal.txt
-  create mode 100644 drivers/thermal/samsung/acpm-tmu.c
-
-
+diff --git a/Documentation/admin-guide/sysctl/vm.rst b/Documentation/admin-guide/sysctl/vm.rst
+index 5b318d17aa4b..189fc57dac5f 100644
+--- a/Documentation/admin-guide/sysctl/vm.rst
++++ b/Documentation/admin-guide/sysctl/vm.rst
+@@ -539,6 +539,13 @@ watermark[WMARK_MIN] value for each lowmem zone in the system.
+ Each lowmem zone gets a number of reserved free pages based
+ proportionally on its size.
+ 
++By default, the kernel sets this value based on the amount of lowmem
++and recalculates it on memory hotplug.  When Transparent Hugepage (THP)
++support is enabled through global or per-size controls, the kernel may
++also raise it to help keep pageblocks free and reduce fragmentation for
++THP allocations.  Once a value is written to this file, the kernel no
++longer adjusts it automatically.
++
+ Some minimal amount of memory is needed to satisfy PF_MEMALLOC
+ allocations; if you set this to lower than 1024KB, your system will
+ become subtly broken, and prone to deadlock under high loads.
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index dbae78b68dd8..3fd209f9377d 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -3148,13 +3148,8 @@ void set_recommended_min_free_kbytes(void)
+ 			      (unsigned long) nr_free_buffer_pages() / 20);
+ 	recommended_min <<= (PAGE_SHIFT-10);
+ 
+-	if (recommended_min > min_free_kbytes) {
+-		if (user_min_free_kbytes >= 0)
+-			pr_info_ratelimited("raising min_free_kbytes from %d to %lu to help transparent hugepage allocations\n",
+-					    min_free_kbytes, recommended_min);
+-
++	if (user_min_free_kbytes < 0 && recommended_min > min_free_kbytes)
+ 		min_free_kbytes = recommended_min;
+-	}
+ 
+ update_wmarks:
+ 	setup_per_zone_wmarks();
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index 6ed36ba4d055..57a33da2562d 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -6737,12 +6737,8 @@ void calculate_min_free_kbytes(void)
+ 	lowmem_kbytes = nr_free_buffer_pages() * (PAGE_SIZE >> 10);
+ 	new_min_free_kbytes = int_sqrt(lowmem_kbytes * 16);
+ 
+-	if (new_min_free_kbytes > user_min_free_kbytes)
++	if (user_min_free_kbytes < 0)
+ 		min_free_kbytes = clamp(new_min_free_kbytes, 128, 262144);
+-	else
+-		pr_warn_ratelimited("min_free_kbytes is not updated to %d because user defined value %d is preferred\n",
+-				    new_min_free_kbytes, user_min_free_kbytes);
+-
+ }
+ 
+ int __meminit init_per_zone_wmark_min(void)
+-- 
+2.45.0
 
