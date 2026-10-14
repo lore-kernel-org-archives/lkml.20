@@ -1,120 +1,302 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E31EF353A9E;
-	Wed, 14 Oct 2026 10:19:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2667F4EE872;
+	Wed, 14 Oct 2026 10:19:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791973150; cv=none; b=oDF/t6hwuroqjZLyoImayYOu5EvvvLoRBIyFeSxn+9QFMjDwqqB0lmZqqyFGKLo99RXOXGrZzfz5BmSKfGUTO1jkiyRg5ebEvVnuZ4XhJiwCsgO42HUP1u+RwS5bv9YtmQym9QTql3M1TD99WiPxdKsZzbMVrH/nbX/9v7ibz6Q=
+	t=1791973162; cv=none; b=OzrInxH5UC3OcwMkX9RzpvFm6unNOYSBjFcQsJiPQnLdX0pSniIzTs0w38SKuZ1qgog+T9jMHWrETwCkvlPKzKDji6+UcVa4xLrgZstvcyYhKXdSr2HCAaQr1mdCrh/A4BnYcuKmM1czF8bWBLXAs7jMWjtUyxXfWwZaDtNXvxk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791973150; c=relaxed/simple;
-	bh=2LtioBquwAbUbSOn3AYEL4uu9sxSan/Vt2unz2B5qDY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MqnQwKpHBUi4tXOuzN62CvUuBuyRV3VaUTR1ZdPebd/mowigr2gsomYpAv/KHMc5wgLIDCrX3OcbPNxDsVjxr7+4ypPbIrQaoU00OLySy85LlrRGz/LNJlBqUx9GiGer/nRsWyN0XFQsGNtKyh6496XJyUDNeiHLVW4cSdEYicY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PZIi8Iaz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791973162; c=relaxed/simple;
+	bh=sO4OVMN/vSAEerk+8FGEdY9qKfrIkn6N6rblEaJnZR4=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=p79ZhcJ/enWYnLmRaWxf4coaF2jT2hZdwFnR5IkmqG22WWDmSC7CTF571m5LEC/mfJ/UIIO0ZnED16sKcwkk1j5Xuw8VsIUZwp/qR33BlYV/EIjgLO5m5lw1b5tmfiyvejP3N9OTlJiDtNEle1YY1e1yNStUOmkH0HVCsdIMXk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VYrlXImD; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PZIi8Iaz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10FC21F000FF;
-	Wed, 14 Oct 2026 10:18:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791973147;
-	bh=FSxp0EiKhhJDZXuqHjpyQa7SAk/lwD+sgt8rf3eZYRo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=PZIi8IazGLimXdvXu+uZhC5WY8mPJzfHTaq91ZCqO+22bunyVuy1NGJEXPDNLGnH0
-	 azUwwS8nIIceIF5vT+CiBn8I2lX8tA+Q7ZYZKP2SN8NIG1GGLyHy1yjT7WbewIkvXX
-	 5fa9srXP6IUTp8xhGNUmpuITCal+s+K4LpvWQYe9TgcU5/q781ZEbCE518D/IxCq3W
-	 /5VJQ7fjwU56NclHZNQhrKWw9CkE+vqmGmHpKgYnqAZWMn469b5Ah3ioR0eDNCEP/v
-	 2ZEm1mOeYdI41eKx56TJ2T2qq1UqdG2h4CRYO7y0Yh6P2KH+nvdW/n561TXHbv95V1
-	 vTZTSHgLFxjSA==
-Message-ID: <f7ef8af7-e8b4-4ee5-88e2-f3271e10ea9c@kernel.org>
-Date: Wed, 14 Oct 2026 12:18:56 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VYrlXImD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791973159; x=1823509159;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=sO4OVMN/vSAEerk+8FGEdY9qKfrIkn6N6rblEaJnZR4=;
+  b=VYrlXImDOLIO/7QRefZSXbbtG69tQUmmfO5YyT9UreRycO8jpWmI+8rm
+   4/gEjYcQSvpY28UNiA6vh1thNeSPBu+Pxymf1e+ps88jwAaj/kWwLxJrk
+   caNQhuwcMBeilF3Ao2ZncDySBYXsuREvlV9YVbvvqq0Rp6Sg+ltsEbI3+
+   ufcTMOHO/nFMRak4vXQ9MpzGM8h0Rwf6Mpvi+ZqAJFDg8sJhB4uarcwaW
+   zet9h0q4ORoyOD8G/jc+gQchfjhHOekP1Hp7hmtQKCPw57m2Omr1ME8Nn
+   zS2kObPLUeCO6M7d5xm/kycrYeFfqZA9rtJfwC3hYg8pmsEBHHi2qYY33
+   w==;
+X-CSE-ConnectionGUID: DqjofrRbSlqYkDhiXvytdg==
+X-CSE-MsgGUID: v7NeAmZ2Re+baCmh2UqHAQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="722901"
+X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
+   d="scan'208";a="722901"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 03:19:18 -0700
+X-CSE-ConnectionGUID: n3i/xexmTxmQaTw9IMMkXA==
+X-CSE-MsgGUID: hhV1+KZjQOOSuBd3MkMJPg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
+   d="scan'208";a="1724530"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.234])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 03:19:14 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Wed, 14 Oct 2026 13:19:07 +0300 (EEST)
+To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>, 
+    Hans de Goede <hansg@kernel.org>, 
+    "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, 
+    Mario Limonciello <mario.limonciello@amd.com>, 
+    Kurt Borja <kuurtb@gmail.com>
+cc: sre@kernel.org, bryan.odonoghue@linaro.org, 
+    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
+    stephan.gerhold@linaro.org
+Subject: Re: [RFC PATCH] platform/arm64: lenovo-thinkpad-t14s: Adjust thermal
+ trip with platform profile
+In-Reply-To: <20261001181917.9367-1-daniel.lezcano@oss.qualcomm.com>
+Message-ID: <1eb6d74f-28c7-8f0a-4001-dfe717196836@linux.intel.com>
+References: <20261001181917.9367-1-daniel.lezcano@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/4] dt-bindings: clock: introduce
- toshiba,tc9564-clock.yaml
-To: Alex Elder <elder@riscstar.com>, sboyd@kernel.org,
- bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org,
- konradybcio@kernel.org
-Cc: abelvesa@kernel.org, kees@kernel.org, gustavoars@kernel.org,
- mohd.anwar@oss.qualcomm.com, lorenzo.bianconi@oss.qualcomm.com,
- danielt@kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
- linux-kernel@vger.kernel.org, Daniel Thompson <daniel@riscstar.com>
-References: <20261012152408.3729237-1-elder@riscstar.com>
- <20261012152408.3729237-2-elder@riscstar.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261012152408.3729237-2-elder@riscstar.com>
+Content-Type: multipart/mixed; boundary="8323328-1170719270-1791973147=:1157"
+
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323328-1170719270-1791973147=:1157
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-On 12/10/2026 17:24, Alex Elder wrote:
-> +    syscon@0 {
-> +        compatible = "syscon", "simple-mfd";
-> +        reg = <0x0 0x2000>;
++ more people.
 
-None of above are relevant to this example.
+On Thu, 1 Oct 2026, Daniel Lezcano wrote:
 
+> Tie the keyboard thermal mitigation temperature to the platform profile
+> selected through the ThinkPad embedded controller.
+>=20
+> The EC reports Fn+L, Fn+M and Fn+H events corresponding to low-power,
+> balanced and performance operating modes. Use these events to update the
+> passive trip point of the "keyboard-thermal" zone to 49.85=C2=B0C, 57.85=
+=C2=B0C
+> and 59.85=C2=B0C respectively.
+>=20
+> These thresholds match the thermal mitigation temperatures used by the
+> platform for the corresponding operating profiles.
+>=20
+> Look up the keyboard thermal zone at probe time and locate the passive
+> trip named "keyboard-ec-alert". The trip name is used deliberately so
+> the EC driver can identify the device-tree trip associated with the
+> platform thermal profile without depending on its position in the trip
+> table.
+>=20
+> Initialize the thermal mitigation threshold to the balanced profile,
+> matching the default platform behaviour, and update the thermal zone
+> whenever a profile change event is reported by the EC so that the new
+> mitigation temperature takes effect immediately.
+>=20
+> Using the platform_profile API would provide a more appropriate interface
+> for exposing and managing these operating modes. However, while the API
+> itself is generic, the platform profile core implementation currently
+> lives under the ACPI framework. Making it available to device-tree based
+> platforms requires separating the generic infrastructure from ACPI,
+> which is a larger and independent piece of work.
+
+So the only problem is that platform profile resides underneath acpi=20
+namespace in sysfs?
+
+--
+ i.
+
+> For now, handle the EC profile events directly and use them to adjust the
+> thermal mitigation threshold while keeping the thermal policy described
+> in the device tree.
+>=20
+> This change depends on the keyboard thermal zone and the
+> "keyboard-ec-alert" trip introduced by the following series.
+>=20
+> Link: https://lore.kernel.org/all/20261001181055.9149-1-daniel.lezcano@os=
+s.qualcomm.com/
+> Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+> ---
+>  drivers/platform/arm64/lenovo-thinkpad-t14s.c | 109 ++++++++++++++++++
+>  1 file changed, 109 insertions(+)
+>=20
+> diff --git a/drivers/platform/arm64/lenovo-thinkpad-t14s.c b/drivers/plat=
+form/arm64/lenovo-thinkpad-t14s.c
+> index e7acb66b77f2..ee39b0382219 100644
+> --- a/drivers/platform/arm64/lenovo-thinkpad-t14s.c
+> +++ b/drivers/platform/arm64/lenovo-thinkpad-t14s.c
+> @@ -18,8 +18,10 @@
+>  #include <linux/leds.h>
+>  #include <linux/lockdep.h>
+>  #include <linux/module.h>
+> +#include <linux/platform_profile.h>
+>  #include <linux/regmap.h>
+>  #include <linux/slab.h>
+> +#include <linux/thermal.h>
+>  #include <linux/pm.h>
+> =20
+>  #define T14S_EC_CMD_ECRD=090x02
+> @@ -93,9 +95,16 @@ struct t14s_ec_led_classdev {
+>  =09struct t14s_ec *ec;
+>  };
+> =20
+> +struct t14s_ec_thermal_profile {
+> +=09struct thermal_zone_device *tzd;
+> +=09struct thermal_trip *keyboard_alert;
+> +=09enum platform_profile_option current_profile;
+> +};
 > +
-> +        clock-controller {
-> +            compatible = "toshiba,tc9564-clock";
-> +            clocks = <&tc9564_xo_board>;
-> +            #clock-cells = <1>;
+>  struct t14s_ec {
+>  =09struct regmap *regmap;
+>  =09struct device *dev;
+> +=09struct t14s_ec_thermal_profile profile;
+>  =09struct t14s_ec_led_classdev led_pwr_btn;
+>  =09struct t14s_ec_led_classdev led_chrg_orange;
+>  =09struct t14s_ec_led_classdev led_chrg_white;
+> @@ -472,6 +481,99 @@ static int t14s_input_probe(struct t14s_ec *ec)
+>  =09return input_register_device(ec->inputdev);
+>  }
+> =20
+> +static int t14s_platform_profile_temp(enum platform_profile_option profi=
+le)
+> +{
+> +=09/*
+> +=09 * These thresholds match the temperatures used by the
+> +=09 * platform firmware for the corresponding operating profiles.
+> +=09 */
+> +=09switch (profile) {
+> +=09case PLATFORM_PROFILE_LOW_POWER:
+> +=09=09return 49850;
+> +=09case PLATFORM_PROFILE_BALANCED:
+> +=09=09return 57850;
+> +=09case PLATFORM_PROFILE_PERFORMANCE:
+> +=09=09return 59850;
+> +=09default:
+> +=09=09return THERMAL_TEMP_INVALID;
+> +=09}
+> +}
+> +
+> +static int t14s_platform_profile_set(struct t14s_ec_thermal_profile *tp,
+> +=09=09=09=09     enum platform_profile_option profile)
+> +{
+> +=09int temp;
+> +
+> +=09if (!tp->tzd)
+> +=09=09return -ENODEV;
+> +
+> +=09if (tp->current_profile =3D=3D profile)
+> +=09=09return 0;
+> +
+> +=09temp =3D t14s_platform_profile_temp(profile);
+> +=09if (temp =3D=3D THERMAL_TEMP_INVALID)
+> +=09=09return -EINVAL;
+> +
+> +=09thermal_zone_set_trip_temp(tp->tzd, tp->keyboard_alert, temp);
+> +=09thermal_zone_device_update(tp->tzd, THERMAL_TRIP_CHANGED);
+> +
+> +=09tp->current_profile =3D profile;
+> +
+> +=09return 0;
+> +}
+> +
+> +static int t14s_profile_find_keyboard_alert(struct thermal_trip *tt, voi=
+d *data)
+> +{
+> +=09struct device_node *np;
+> +=09struct t14s_ec_thermal_profile *tp =3D data;
+> +
+> +=09if (tt->type !=3D THERMAL_TRIP_PASSIVE)
+> +=09=09return 0;
+> +
+> +=09np =3D tt->priv;
+> +
+> +=09if (!np)
+> +=09=09return -EINVAL;
+> +
+> +=09if (!of_node_name_eq(np, "keyboard-ec-alert"))
+> +=09=09return 0;
+> +
+> +=09tp->keyboard_alert =3D tt;
+> +
+> +=09return 1;
+> +}
+> +
+> +static int t14s_profile_probe(struct t14s_ec_thermal_profile *tp)
+> +{
+> +=09struct thermal_zone_device *tzd;
+> +=09int ret;
+> +
+> +=09tzd =3D thermal_zone_get_zone_by_name("keyboard-thermal");
+> +=09if (IS_ERR(tzd)) {
+> +=09=09ret =3D PTR_ERR(tzd);
+> +
+> +=09=09if (ret =3D=3D -ENODEV)
+> +=09=09=09return -EPROBE_DEFER;
+> +
+> +=09=09return ret;
+> +=09}
+> +
+> +=09tp->tzd =3D tzd;
+> +
+> +=09ret =3D thermal_zone_for_each_trip(tzd, t14s_profile_find_keyboard_al=
+ert, tp);
+> +=09if (ret < 0)
+> +=09=09return ret;
+> +
+> +=09if (!tp->keyboard_alert)
+> +=09=09return -ENODEV;
+> +
+> +=09ret =3D t14s_platform_profile_set(tp, PLATFORM_PROFILE_BALANCED);
+> +=09if (ret)
+> +=09=09return ret;
+> +
+> +=09return 0;
+> +}
+> +
+>  static irqreturn_t t14s_ec_irq_handler(int irq, void *data)
+>  {
+>  =09struct t14s_ec *ec =3D data;
+> @@ -534,12 +636,15 @@ static irqreturn_t t14s_ec_irq_handler(int irq, voi=
+d *data)
+>  =09=09break;
+>  =09case T14S_EC_EVT_KEY_FN_L:
+>  =09=09dev_dbg(ec->dev, "FN + L - low performance mode\n");
+> +=09=09t14s_platform_profile_set(&ec->profile, PLATFORM_PROFILE_LOW_POWER=
+);
+>  =09=09break;
+>  =09case T14S_EC_EVT_KEY_FN_M:
+>  =09=09dev_dbg(ec->dev, "FN + M - medium performance mode\n");
+> +=09=09t14s_platform_profile_set(&ec->profile, PLATFORM_PROFILE_BALANCED)=
+;
+>  =09=09break;
+>  =09case T14S_EC_EVT_KEY_FN_H:
+>  =09=09dev_dbg(ec->dev, "FN + H - high performance mode\n");
+> +=09=09t14s_platform_profile_set(&ec->profile, PLATFORM_PROFILE_PERFORMAN=
+CE);
+>  =09=09break;
+>  =09case T14S_EC_EVT_KEY_FN_T:
+>  =09=09dev_dbg(ec->dev, "FN + T - toggle intelligent cooling mode\n");
+> @@ -590,6 +695,10 @@ static int t14s_ec_probe(struct i2c_client *client)
+>  =09if (ret < 0)
+>  =09=09return ret;
+> =20
+> +=09ret =3D t14s_profile_probe(&ec->profile);
+> +=09if (ret < 0)
+> +=09=09return ret;
+> +
+>  =09ret =3D devm_request_threaded_irq(dev, client->irq, NULL,
+>  =09=09=09=09=09t14s_ec_irq_handler,
+>  =09=09=09=09=09IRQF_ONESHOT, dev_name(dev), ec);
+>=20
 
-So this is the same as v1. I do not see how you addressed "should be
-folded into the parent node.".
+--=20
+ i.
 
-I am repeating the same for weeks now, so can we stop with sending new
-patches which are exactly the same from the point of view of that comment?
-
-Best regards,
-Krzysztof
+--8323328-1170719270-1791973147=:1157--
