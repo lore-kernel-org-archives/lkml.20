@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B522B4A68B5;
-	Wed, 14 Oct 2026 22:21:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 543F14B7176;
+	Wed, 14 Oct 2026 22:21:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792016479; cv=none; b=EUK0z0IZeYrxwXO9je3+d5jHIjCxGIpEpk/ZPRgdp+iJL3cMT528FuR+zZXuJK3hi6NSNOmZ3HMOVKnImGjP+yHgGTIF/GsJ97nuv0A0749ozrpC6EmRKwOVXP5/rR5kU1zkGb7s3JY4e4EW9VXkvqk8T/EwGbIKY8fokF4g+DQ=
+	t=1792016480; cv=none; b=LlyCIe8VlaPXnc8VHoPnrgg5TMkUx0gHT/BhYwCNVIPJRxCYAnDFjEnOhGcrziLtLMek51ReZ7r2XqjOTYimDBQF79CXYVcDdhQmQE417E6tNCsE+2YpgVVZjkF3vrRTOCVObLpdATAmU6bQp4JEsBCBgAqVQzixyCCTslzOV9o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792016479; c=relaxed/simple;
-	bh=kT+1n89KKMglmPGAVmL3flLqESwxykiVXQMhtSGAw9M=;
+	s=arc-20240116; t=1792016480; c=relaxed/simple;
+	bh=96yxm9trVTXUnIb5vqenPgEkzET7ysSNK5GfMm/Nnuw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=RWzC8H/77qnDTsc4v7RVlos694Dwj9xmxLn1a3qZFS2ouWUXS9Fhi7LgBaxvszd777Z7J42ORQjrJslt7A4gbzNKgtKEijvU54nbvcB8E1p/6g3QWOU0vIuYUdosreEAuPE1rbzFBKpFPiQGiN1agDt3IiEGE/vwhdgKNm+bBvI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bf/ifoaD; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=ZEb0F8x9uSBxZeuJnlq1zj1HLDG/dRsriERe664kF4uStVwMkGdvcR2gb/DT5puZCoZXhpaaEZSCIQrbPprI1dNLDgup9f6IvcDt+zXbYRURcbpFGZ9561LWBvE71iy4Hmd4QQkKStUKEm+CsL8Wqf/FDv46YzHLLnrZPLZ+9UQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J+9nh4kH; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bf/ifoaD"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8D6EBC32781;
-	Wed, 14 Oct 2026 22:21:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J+9nh4kH"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 39B6EC2BCC7;
+	Wed, 14 Oct 2026 22:21:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792016479;
-	bh=kT+1n89KKMglmPGAVmL3flLqESwxykiVXQMhtSGAw9M=;
+	s=k20201202; t=1792016480;
+	bh=96yxm9trVTXUnIb5vqenPgEkzET7ysSNK5GfMm/Nnuw=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Bf/ifoaDsdL+SH5YekjPm9GrnovJeDTlaEhJvKwsYxwtJsq7X8s1IGdNoxQaVreSx
-	 7WJRIv9rNbw4ZIzQI0ba9F4KKCnBnhwy/AW/p9pJeJh/4m/fMAOS8rfs8lh1MTXr64
-	 2MNyvUFLlSGBwSb5x+/WNBDe6Ort8zhNNV5RoROQzvWhg0QGkipaFUyXYBo2WR3gwq
-	 PFBYFRnNm8/Jf8W6sSESoxbkDiyqKrpnFypoEuNzo+J7fOrDCdJWSn32BP83HKZh+9
-	 Ukskns9zZRdJxkH7WVfzfS182PuER1/UvvuKSX5r27Dz+wpqd42zXwP8GAa2/umNrW
-	 h2wZ2lQGpG+cA==
+	b=J+9nh4kHF53ULy7ISFLVkzeKLlJ0AOEWFYIAb78qpX03gRaw4AAizuKJdQ5PC/3gg
+	 Z1nLETykXUW9QZDvz0ecSp4OQPdF7OXIKqiZ4U0QNJ7DXA4ArhzBmkUkLBx4tavDQT
+	 Iyp++vP7kdl+7J5Btd4gKBa5Ni6YhmRufS1gQXNZ8hrnLOKnAFNnqjf3n9s5GXTJh6
+	 JtSbMk/X1awvVZju9ZuRkinSLWH2+OtHNBobOaHTvbU6+yfZEcpg+sJ+OxDxH0iHcJ
+	 qg7S9Wd9EqJN7xfdV3kOhltqAxZ0JfgKLTSz5s4TcTIGU3xPo1PuYWNKBQAvk0WKgM
+	 fjFShAUpVXfdg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7B94CCC6B33;
-	Wed, 14 Oct 2026 22:21:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2601ACC6B30;
+	Wed, 14 Oct 2026 22:21:20 +0000 (UTC)
 From: Eric Davis via B4 Relay <devnull+eric.davis.broadcom.com@kernel.org>
-Date: Wed, 14 Oct 2026 15:21:14 -0700
-Subject: [PATCH rdma-next 05/13] RDMA/core: extended address handle
- attributes
+Date: Wed, 14 Oct 2026 15:21:22 -0700
+Subject: [PATCH rdma-next 13/13] RDMA/core: attach a memory region to a
+ queue pair
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,18 +41,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-uet-ib-core-v1-5-a0e626117113@broadcom.com>
+Message-Id: <20261014-uet-ib-core-v1-13-a0e626117113@broadcom.com>
 References: <20261014-uet-ib-core-v1-0-a0e626117113@broadcom.com>
 In-Reply-To: <20261014-uet-ib-core-v1-0-a0e626117113@broadcom.com>
 To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>
 Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Eric Davis <eric.davis@broadcom.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792016478; l=16395;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792016478; l=9799;
  i=eric.davis@broadcom.com; s=20261014; h=from:subject:message-id;
- bh=rSJsplHb28MJ2oMWP6ASVUUk9DA5Hjp5nuz+gXgp6GU=;
- b=GFqYKWjpMFo2ELYrmmgjuysjpezyiccPfrRucAMOxgNMgNhWqVOAfvKI8aFtEXJZ3ZFJP6smt
- SKruCh+8lT6B19TYuz4Jc2CfeyjsNAanBCJ/X3dAIOeyMar/2nf9wER
+ bh=AtnU0FQTsiJPbOb6Mg3k7u9oSJtiMYsDE9Jct/jZNbg=;
+ b=5uiwP9769dOZmoXsOQZfM2IEurwF09Wi97Ks/ZbvhjMAUH/SlDvjYTU7JfQu5pRqmEI8Zb5eG
+ Oa9wmcCgvv4C7hjDC1wuCW9lpvbaSig7Y8xT6qOBODD/m2PiLSxkyuI
 X-Developer-Key: i=eric.davis@broadcom.com; a=ed25519;
  pk=uy3oCTOYBipIPjryXGMynBmtPvbO6qN2FOrduzpiI4A=
 X-Endpoint-Received: by B4 Relay for eric.davis@broadcom.com/20261014 with
@@ -62,459 +62,284 @@ Reply-To: eric.davis@broadcom.com
 
 From: Eric Davis <eric.davis@broadcom.com>
 
-An unconnected transport over UET resolves a peer by both its network
-address and its queue pair number. The write() create-AH command has no
-room for additional attributes. Add rdma_ah_attr_ex to carry new
-attributes, reach it through rdma_ah_init_attr, and add an ioctl method
-that supports it.
+A region registered against a protection domain is reachable from every QP
+in it. When a device can narrow that, let a region be attached to one QP
+and detached again, so the network only reaches the MR over that QP.
 
-rdma_create_user_ah() now takes the init attributes rather than the
-address alone, so callers pass the wider set.
+Which restrictions a device supports is reported through the memory region
+access capability bits.
 
 Signed-off-by: Eric Davis <eric.davis@broadcom.com>
 ---
- drivers/infiniband/core/user_mad.c         |  4 +-
- drivers/infiniband/core/uverbs.h           |  3 ++
- drivers/infiniband/core/uverbs_cmd.c       | 60 ++++++++++++++----------
- drivers/infiniband/core/uverbs_std_types.c | 73 +++++++++++++++++++++++++++++-
- drivers/infiniband/core/verbs.c            | 43 ++++++++++--------
- include/rdma/ib_verbs.h                    | 20 ++++++--
- include/uapi/rdma/ib_user_ioctl_cmds.h     |  7 +++
- include/uapi/rdma/ib_user_ioctl_verbs.h    |  9 ++++
- 8 files changed, 172 insertions(+), 47 deletions(-)
+ drivers/infiniband/core/device.c              |   2 +
+ drivers/infiniband/core/uverbs_std_types_mr.c |   2 +-
+ drivers/infiniband/core/uverbs_std_types_qp.c | 110 +++++++++++++++++++++++++-
+ drivers/infiniband/core/verbs.c               |  10 +++
+ include/rdma/ib_verbs.h                       |  11 ++-
+ include/uapi/rdma/ib_user_ioctl_cmds.h        |  12 +++
+ 6 files changed, 144 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/infiniband/core/user_mad.c b/drivers/infiniband/core/user_mad.c
-index c3ef9f85c7eb..05e2898f0a6a 100644
---- a/drivers/infiniband/core/user_mad.c
-+++ b/drivers/infiniband/core/user_mad.c
-@@ -512,6 +512,7 @@ static ssize_t ib_umad_write(struct file *filp, const char __user *buf,
- 	struct ib_umad_packet *packet;
- 	struct ib_mad_agent *agent;
- 	struct rdma_ah_attr ah_attr;
-+	struct rdma_ah_init_attr init_attr = {};
- 	struct ib_ah *ah;
- 	__be64 *tid;
- 	int ret, hdr_len, copy_offset, rmpp_active;
-@@ -569,7 +570,8 @@ static ssize_t ib_umad_write(struct file *filp, const char __user *buf,
- 		rdma_ah_set_dgid_raw(&ah_attr, packet->mad.hdr.gid);
- 	}
+diff --git a/drivers/infiniband/core/device.c b/drivers/infiniband/core/device.c
+index fd45decf9c4f..1b838bf3600d 100644
+--- a/drivers/infiniband/core/device.c
++++ b/drivers/infiniband/core/device.c
+@@ -3018,6 +3018,8 @@ void ib_set_device_ops(struct ib_device *dev, const struct ib_device_ops *ops)
+ 	SET_DEVICE_OP(dev_ops, query_pkey);
+ 	SET_DEVICE_OP(dev_ops, query_port);
+ 	SET_DEVICE_OP(dev_ops, query_port_speed);
++	SET_DEVICE_OP(dev_ops, qp_attach_mr);
++	SET_DEVICE_OP(dev_ops, qp_detach_mr);
+ 	SET_DEVICE_OP(dev_ops, query_qp);
+ 	SET_DEVICE_OP(dev_ops, query_qp_semantics);
+ 	SET_DEVICE_OP(dev_ops, query_srq);
+diff --git a/drivers/infiniband/core/uverbs_std_types_mr.c b/drivers/infiniband/core/uverbs_std_types_mr.c
+index 2957cae25a7b..2b3f9755daba 100644
+--- a/drivers/infiniband/core/uverbs_std_types_mr.c
++++ b/drivers/infiniband/core/uverbs_std_types_mr.c
+@@ -42,7 +42,7 @@ static int uverbs_free_mr(struct ib_uobject *uobject,
+ {
+ 	struct ib_mr *mr = uobject->object;
  
--	ah = rdma_create_user_ah(agent->qp->pd, &ah_attr, NULL);
-+	init_attr.ah_attr = &ah_attr;
-+	ah = rdma_create_user_ah(agent->qp->pd, &init_attr, NULL);
- 	if (IS_ERR(ah)) {
- 		ret = PTR_ERR(ah);
- 		goto err_up;
-diff --git a/drivers/infiniband/core/uverbs.h b/drivers/infiniband/core/uverbs.h
-index c64dd6b94e10..e08c41b8f45b 100644
---- a/drivers/infiniband/core/uverbs.h
-+++ b/drivers/infiniband/core/uverbs.h
-@@ -227,6 +227,9 @@ int ib_uverbs_dealloc_xrcd(struct ib_uobject *uobject, struct ib_xrcd *xrcd,
- int uverbs_dealloc_mw(struct ib_mw *mw);
- void ib_uverbs_detach_umcast(struct ib_qp *qp,
- 			     struct ib_uqp_object *uobj);
-+int copy_ah_attr_from_uverbs_ah(struct ib_device *dev,
-+				struct rdma_ah_attr *rdma_attr,
-+				const struct ib_uverbs_ah_attr *uverb_attr);
+-	/* regions derived from this one still use it */
++	/* regions derived from this one, or the QP it is attached to, use it */
+ 	if (atomic_read(&mr->usecnt))
+ 		return -EBUSY;
  
- struct bundle_alloc_head {
- 	struct_group_tagged(bundle_alloc_head_hdr, hdr,
-diff --git a/drivers/infiniband/core/uverbs_cmd.c b/drivers/infiniband/core/uverbs_cmd.c
-index ed55fbbdfc18..5cfbe863df0b 100644
---- a/drivers/infiniband/core/uverbs_cmd.c
-+++ b/drivers/infiniband/core/uverbs_cmd.c
-@@ -1746,6 +1746,37 @@ static int modify_qp_mask(enum ib_qp_type qp_type, int mask)
- 	}
- }
+diff --git a/drivers/infiniband/core/uverbs_std_types_qp.c b/drivers/infiniband/core/uverbs_std_types_qp.c
+index 47ca994f9ac9..4593965069f1 100644
+--- a/drivers/infiniband/core/uverbs_std_types_qp.c
++++ b/drivers/infiniband/core/uverbs_std_types_qp.c
+@@ -666,12 +666,120 @@ DECLARE_UVERBS_NAMED_METHOD(
+ 			     enum ib_uverbs_qp_attach_comp_cntr_op,
+ 			     UA_MANDATORY));
  
-+/* The ib_uverbs_ah_attr counterpart of copy_ah_attr_from_uverbs() below,
-+ * which takes the modify QP layout. This one also rejects an invalid port.
-+ */
-+int copy_ah_attr_from_uverbs_ah(struct ib_device *dev,
-+				struct rdma_ah_attr *rdma_attr,
-+				const struct ib_uverbs_ah_attr *uverb_attr)
-+{
-+	if (!rdma_is_port_valid(dev, uverb_attr->port_num))
-+		return -EINVAL;
-+
-+	rdma_attr->type = rdma_ah_find_type(dev, uverb_attr->port_num);
-+	rdma_ah_set_make_grd(rdma_attr, false);
-+	rdma_ah_set_dlid(rdma_attr, uverb_attr->dlid);
-+	rdma_ah_set_sl(rdma_attr, uverb_attr->sl);
-+	rdma_ah_set_path_bits(rdma_attr, uverb_attr->src_path_bits);
-+	rdma_ah_set_static_rate(rdma_attr, uverb_attr->static_rate);
-+	rdma_ah_set_port_num(rdma_attr, uverb_attr->port_num);
-+
-+	if (uverb_attr->is_global) {
-+		rdma_ah_set_grh(rdma_attr, NULL, uverb_attr->grh.flow_label,
-+				uverb_attr->grh.sgid_index,
-+				uverb_attr->grh.hop_limit,
-+				uverb_attr->grh.traffic_class);
-+		rdma_ah_set_dgid_raw(rdma_attr, uverb_attr->grh.dgid);
-+	} else {
-+		rdma_ah_set_ah_flags(rdma_attr, 0);
-+	}
-+
-+	return 0;
-+}
-+
- static void copy_ah_attr_from_uverbs(struct ib_device *dev,
- 				     struct rdma_ah_attr *rdma_attr,
- 				     struct ib_uverbs_qp_dest *uverb_attr)
-@@ -2421,6 +2452,7 @@ static int ib_uverbs_create_ah(struct uverbs_attr_bundle *attrs)
- 	struct ib_pd			*pd;
- 	struct ib_ah			*ah;
- 	struct rdma_ah_attr		attr = {};
-+	struct rdma_ah_init_attr	init_attr = {};
- 	int ret;
- 	struct ib_device *ib_dev;
- 
-@@ -2432,36 +2464,18 @@ static int ib_uverbs_create_ah(struct uverbs_attr_bundle *attrs)
- 	if (IS_ERR(uobj))
- 		return PTR_ERR(uobj);
- 
--	if (!rdma_is_port_valid(ib_dev, cmd.attr.port_num)) {
--		ret = -EINVAL;
--		goto err;
--	}
--
- 	pd = uobj_get_obj_read(pd, UVERBS_OBJECT_PD, cmd.pd_handle, attrs);
- 	if (IS_ERR(pd)) {
- 		ret = PTR_ERR(pd);
- 		goto err;
- 	}
- 
--	attr.type = rdma_ah_find_type(ib_dev, cmd.attr.port_num);
--	rdma_ah_set_make_grd(&attr, false);
--	rdma_ah_set_dlid(&attr, cmd.attr.dlid);
--	rdma_ah_set_sl(&attr, cmd.attr.sl);
--	rdma_ah_set_path_bits(&attr, cmd.attr.src_path_bits);
--	rdma_ah_set_static_rate(&attr, cmd.attr.static_rate);
--	rdma_ah_set_port_num(&attr, cmd.attr.port_num);
--
--	if (cmd.attr.is_global) {
--		rdma_ah_set_grh(&attr, NULL, cmd.attr.grh.flow_label,
--				cmd.attr.grh.sgid_index,
--				cmd.attr.grh.hop_limit,
--				cmd.attr.grh.traffic_class);
--		rdma_ah_set_dgid_raw(&attr, cmd.attr.grh.dgid);
--	} else {
--		rdma_ah_set_ah_flags(&attr, 0);
--	}
-+	ret = copy_ah_attr_from_uverbs_ah(ib_dev, &attr, &cmd.attr);
-+	if (ret)
-+		goto err_put;
- 
--	ah = rdma_create_user_ah(pd, &attr, &attrs->driver_udata);
-+	init_attr.ah_attr = &attr;
-+	ah = rdma_create_user_ah(pd, &init_attr, &attrs->driver_udata);
- 	if (IS_ERR(ah)) {
- 		ret = PTR_ERR(ah);
- 		goto err_put;
-diff --git a/drivers/infiniband/core/uverbs_std_types.c b/drivers/infiniband/core/uverbs_std_types.c
-index e160786e1df1..c72c9e5a2286 100644
---- a/drivers/infiniband/core/uverbs_std_types.c
-+++ b/drivers/infiniband/core/uverbs_std_types.c
-@@ -184,6 +184,76 @@ DECLARE_UVERBS_NAMED_OBJECT(UVERBS_OBJECT_MW,
- 			    UVERBS_TYPE_ALLOC_IDR(uverbs_free_mw),
- 			    &UVERBS_METHOD(UVERBS_METHOD_MW_DESTROY));
- 
-+/* Creating an address handle is still a write() command whose request
-+ * struct cannot grow. A transport (reliable unconnected) that resolves a
-+ * peer using both transport and network addresses requires additional
-+ * fields in the address handle. Here the address handle create command is
-+ * made available as an ioctl method, where additional attributes can be
-+ * carried.
-+ */
-+static int UVERBS_HANDLER(UVERBS_METHOD_AH_EX_CREATE)(
++/* bind a region to the QP that will use it */
++static int UVERBS_HANDLER(UVERBS_METHOD_QP_ATTACH_MR)(
 +	struct uverbs_attr_bundle *attrs)
 +{
-+	struct ib_uobject *uobj = uverbs_attr_get_uobject(
-+		attrs, UVERBS_ATTR_CREATE_AH_EX_HANDLE);
-+	struct ib_pd *pd =
-+		uverbs_attr_get_obj(attrs, UVERBS_ATTR_CREATE_AH_EX_PD_HANDLE);
-+	struct ib_device *ib_dev = attrs->context->device;
-+	struct ib_uverbs_ah_attr_ex uah;
-+	struct rdma_ah_init_attr init_attr = {};
-+	struct rdma_ah_attr_ex attr = {};
-+	struct ib_ah *ah;
++	struct ib_qp *qp =
++		uverbs_attr_get_obj(attrs, UVERBS_ATTR_QP_ATTACH_MR_QP_HANDLE);
++	struct ib_mr *mr =
++		uverbs_attr_get_obj(attrs, UVERBS_ATTR_QP_ATTACH_MR_MR_HANDLE);
++	u64 caps = qp->device->attrs.device_cap_flags;
++	u32 id;
 +	int ret;
 +
-+	if (IS_ERR(pd))
-+		return PTR_ERR(pd);
-+
-+	/* Only a reliable unconnected device has a use for the extended
-+	 * attributes.
-+	 */
-+	if (!(ib_dev->attrs.device_cap_flags & IB_DEVICE_RU))
++	if (!qp->device->ops.qp_attach_mr)
 +		return -EOPNOTSUPP;
 +
-+	ret = uverbs_copy_from(&uah, attrs,
-+			       UVERBS_ATTR_CREATE_AH_EX_AH_ATTR_EX);
++	if (qp->real_qp != qp || qp->qp_type != IB_QPT_RU)
++		return -EINVAL;
++
++	if (mr->pd != qp->pd || mr->type != IB_MR_TYPE_USER)
++		return -EINVAL;
++
++	/* the device has to implement the access class the region asks for */
++	if (!(caps & (mr->jkey ? IB_DEVICE_MR_QP_JOB_RESTRICTED :
++				 IB_DEVICE_MR_QP_RESTRICTED)))
++		return -EOPNOTSUPP;
++
++	/* a region restricted to a job serves a QP in that job */
++	if (mr->jkey && (!qp->jkey || qp->jkey->job != mr->jkey->job))
++		return -EINVAL;
++
++	/* one QP at a time */
++	if (cmpxchg(&mr->attached_qp, NULL, qp))
++		return -EBUSY;
++
++	ret = xa_alloc(&qp->attached_mrs, &id, mr, xa_limit_32b, GFP_KERNEL);
++	if (ret)
++		goto err_claim;
++
++	ret = qp->device->ops.qp_attach_mr(qp, mr);
++	if (ret)
++		goto err_xa;
++
++	/* the QP holds the region until detach or its own destroy */
++	mr->attach_id = id;
++	atomic_inc(&mr->usecnt);
++
++	return 0;
++
++err_xa:
++	xa_erase(&qp->attached_mrs, id);
++err_claim:
++	WRITE_ONCE(mr->attached_qp, NULL);
++	return ret;
++}
++
++static int UVERBS_HANDLER(UVERBS_METHOD_QP_DETACH_MR)(
++	struct uverbs_attr_bundle *attrs)
++{
++	struct ib_qp *qp =
++		uverbs_attr_get_obj(attrs, UVERBS_ATTR_QP_DETACH_MR_QP_HANDLE);
++	struct ib_mr *mr =
++		uverbs_attr_get_obj(attrs, UVERBS_ATTR_QP_DETACH_MR_MR_HANDLE);
++	int ret;
++
++	if (!qp->device->ops.qp_detach_mr)
++		return -EOPNOTSUPP;
++
++	if (qp->real_qp != qp)
++		return -EINVAL;
++
++	if (READ_ONCE(mr->attached_qp) != qp)
++		return -EINVAL;
++
++	ret = qp->device->ops.qp_detach_mr(qp, mr);
 +	if (ret)
 +		return ret;
 +
-+	ret = copy_ah_attr_from_uverbs_ah(ib_dev, &attr.ah_attr, &uah.ah_attr);
-+	if (ret)
-+		return ret;
-+
-+	attr.remote_qpn = uah.remote_qpn;
-+
-+	init_attr.ah_attr = &attr.ah_attr;
-+	init_attr.ah_attr_ex = &attr;
-+
-+	ah = rdma_create_user_ah(pd, &init_attr, &attrs->driver_udata);
-+	if (IS_ERR(ah))
-+		return PTR_ERR(ah);
-+
-+	ah->uobject = uobj;
-+	uobj->object = ah;
++	xa_erase(&qp->attached_mrs, mr->attach_id);
++	WRITE_ONCE(mr->attached_qp, NULL);
++	atomic_dec(&mr->usecnt);
 +
 +	return 0;
 +}
 +
 +DECLARE_UVERBS_NAMED_METHOD(
-+	UVERBS_METHOD_AH_EX_CREATE,
-+	UVERBS_ATTR_IDR(UVERBS_ATTR_CREATE_AH_EX_HANDLE,
-+			UVERBS_OBJECT_AH,
-+			UVERBS_ACCESS_NEW,
++	UVERBS_METHOD_QP_ATTACH_MR,
++	UVERBS_ATTR_IDR(UVERBS_ATTR_QP_ATTACH_MR_QP_HANDLE,
++			UVERBS_OBJECT_QP,
++			UVERBS_ACCESS_WRITE,
 +			UA_MANDATORY),
-+	UVERBS_ATTR_IDR(UVERBS_ATTR_CREATE_AH_EX_PD_HANDLE,
-+			UVERBS_OBJECT_PD,
++	UVERBS_ATTR_IDR(UVERBS_ATTR_QP_ATTACH_MR_MR_HANDLE,
++			UVERBS_OBJECT_MR,
 +			UVERBS_ACCESS_READ,
-+			UA_MANDATORY),
-+	UVERBS_ATTR_PTR_IN(UVERBS_ATTR_CREATE_AH_EX_AH_ATTR_EX,
-+			   UVERBS_ATTR_STRUCT(struct ib_uverbs_ah_attr_ex,
-+					      remote_qpn),
-+			   UA_MANDATORY),
-+	UVERBS_ATTR_UHW());
++			UA_MANDATORY));
 +
- DECLARE_UVERBS_NAMED_METHOD_DESTROY(
- 	UVERBS_METHOD_AH_DESTROY,
- 	UVERBS_ATTR_IDR(UVERBS_ATTR_DESTROY_AH_HANDLE,
-@@ -193,7 +263,8 @@ DECLARE_UVERBS_NAMED_METHOD_DESTROY(
++DECLARE_UVERBS_NAMED_METHOD(
++	UVERBS_METHOD_QP_DETACH_MR,
++	UVERBS_ATTR_IDR(UVERBS_ATTR_QP_DETACH_MR_QP_HANDLE,
++			UVERBS_OBJECT_QP,
++			UVERBS_ACCESS_WRITE,
++			UA_MANDATORY),
++	UVERBS_ATTR_IDR(UVERBS_ATTR_QP_DETACH_MR_MR_HANDLE,
++			UVERBS_OBJECT_MR,
++			UVERBS_ACCESS_READ,
++			UA_MANDATORY));
++
+ DECLARE_UVERBS_NAMED_OBJECT(
+ 	UVERBS_OBJECT_QP,
+ 	UVERBS_TYPE_ALLOC_IDR_SZ(sizeof(struct ib_uqp_object), uverbs_free_qp),
+ 	&UVERBS_METHOD(UVERBS_METHOD_QP_CREATE),
+ 	&UVERBS_METHOD(UVERBS_METHOD_QP_DESTROY),
+-	&UVERBS_METHOD(UVERBS_METHOD_QP_ATTACH_COMP_CNTR));
++	&UVERBS_METHOD(UVERBS_METHOD_QP_ATTACH_COMP_CNTR),
++	&UVERBS_METHOD(UVERBS_METHOD_QP_ATTACH_MR),
++	&UVERBS_METHOD(UVERBS_METHOD_QP_DETACH_MR));
  
- DECLARE_UVERBS_NAMED_OBJECT(UVERBS_OBJECT_AH,
- 			    UVERBS_TYPE_ALLOC_IDR(uverbs_free_ah),
--			    &UVERBS_METHOD(UVERBS_METHOD_AH_DESTROY));
-+			    &UVERBS_METHOD(UVERBS_METHOD_AH_DESTROY),
-+			    &UVERBS_METHOD(UVERBS_METHOD_AH_EX_CREATE));
- 
- DECLARE_UVERBS_NAMED_METHOD_DESTROY(
- 	UVERBS_METHOD_FLOW_DESTROY,
+ const struct uapi_definition uverbs_def_obj_qp[] = {
+ 	UAPI_DEF_CHAIN_OBJ_TREE_NAMED(UVERBS_OBJECT_QP,
 diff --git a/drivers/infiniband/core/verbs.c b/drivers/infiniband/core/verbs.c
-index 24db88e6d3fa..8ce7e376112c 100644
+index 87dc48ecb77a..add6034ff061 100644
 --- a/drivers/infiniband/core/verbs.c
 +++ b/drivers/infiniband/core/verbs.c
-@@ -561,24 +561,23 @@ rdma_update_sgid_attr(struct rdma_ah_attr *ah_attr,
- }
+@@ -1351,6 +1351,7 @@ static struct ib_qp *create_qp(struct ib_device *dev, struct ib_pd *pd,
  
- static struct ib_ah *_rdma_create_ah(struct ib_pd *pd,
--				     struct rdma_ah_attr *ah_attr,
--				     u32 flags,
--				     struct ib_udata *udata,
--				     struct net_device *xmit_slave)
-+				     struct rdma_ah_init_attr *init_attr,
-+				     struct ib_udata *udata)
- {
--	struct rdma_ah_init_attr init_attr = {};
-+	struct rdma_ah_attr *ah_attr = init_attr->ah_attr;
- 	struct ib_device *device = pd->device;
- 	struct ib_ah *ah;
+ 	spin_lock_init(&qp->mr_lock);
+ 	xa_init(&qp->comp_cntrs);
++	xa_init_flags(&qp->attached_mrs, XA_FLAGS_ALLOC);
+ 	INIT_LIST_HEAD(&qp->rdma_mrs);
+ 	INIT_LIST_HEAD(&qp->sig_mrs);
+ 	init_completion(&qp->srq_completion);
+@@ -1385,6 +1386,7 @@ static struct ib_qp *create_qp(struct ib_device *dev, struct ib_pd *pd,
+ err_create:
+ 	rdma_restrack_put(&qp->res);
+ 	xa_destroy(&qp->comp_cntrs);
++	xa_destroy(&qp->attached_mrs);
+ 	kfree(qp);
+ 	return ERR_PTR(ret);
+ 
+@@ -2212,6 +2214,7 @@ int ib_destroy_qp_user(struct ib_qp *qp, struct ib_udata *udata)
+ 	struct ib_qp_security *sec;
+ 	struct ib_comp_cntr *cc;
+ 	unsigned long index;
++	struct ib_mr *mr;
  	int ret;
  
--	might_sleep_if(flags & RDMA_CREATE_AH_SLEEPABLE);
-+	might_sleep_if(init_attr->flags & RDMA_CREATE_AH_SLEEPABLE);
+ 	WARN_ON_ONCE(qp->mrs_used > 0);
+@@ -2249,6 +2252,13 @@ int ib_destroy_qp_user(struct ib_qp *qp, struct ib_udata *udata)
+ 		atomic_dec(&cc->usecnt);
+ 	xa_destroy(&qp->comp_cntrs);
  
- 	if (!udata && !device->ops.create_ah)
- 		return ERR_PTR(-EOPNOTSUPP);
- 
- 	ah = rdma_zalloc_drv_obj_gfp(
- 		device, ib_ah,
--		(flags & RDMA_CREATE_AH_SLEEPABLE) ? GFP_KERNEL : GFP_ATOMIC);
-+		(init_attr->flags & RDMA_CREATE_AH_SLEEPABLE) ? GFP_KERNEL :
-+								GFP_ATOMIC);
- 	if (!ah)
- 		return ERR_PTR(-ENOMEM);
- 
-@@ -586,14 +585,12 @@ static struct ib_ah *_rdma_create_ah(struct ib_pd *pd,
- 	ah->pd = pd;
- 	ah->type = ah_attr->type;
- 	ah->sgid_attr = rdma_update_sgid_attr(ah_attr, NULL);
--	init_attr.ah_attr = ah_attr;
--	init_attr.flags = flags;
--	init_attr.xmit_slave = xmit_slave;
- 
- 	if (udata)
--		ret = device->ops.create_user_ah(ah, &init_attr, udata);
-+		ret = device->ops.create_user_ah(ah, init_attr, udata);
- 	else
--		ret = device->ops.create_ah(ah, &init_attr, NULL);
-+		ret = device->ops.create_ah(ah, init_attr, NULL);
++	/* the driver ended the bindings with the QP, release the regions */
++	xa_for_each(&qp->attached_mrs, index, mr) {
++		WRITE_ONCE(mr->attached_qp, NULL);
++		atomic_dec(&mr->usecnt);
++	}
++	xa_destroy(&qp->attached_mrs);
 +
- 	if (ret) {
- 		if (ah->sgid_attr)
- 			rdma_put_gid_attr(ah->sgid_attr);
-@@ -619,6 +616,7 @@ static struct ib_ah *_rdma_create_ah(struct ib_pd *pd,
- struct ib_ah *rdma_create_ah(struct ib_pd *pd, struct rdma_ah_attr *ah_attr,
- 			     u32 flags)
- {
-+	struct rdma_ah_init_attr init_attr = {};
- 	const struct ib_gid_attr *old_sgid_attr;
- 	struct net_device *slave;
- 	struct ib_ah *ah;
-@@ -634,7 +632,12 @@ struct ib_ah *rdma_create_ah(struct ib_pd *pd, struct rdma_ah_attr *ah_attr,
- 		rdma_unfill_sgid_attr(ah_attr, old_sgid_attr);
- 		return ERR_CAST(slave);
- 	}
--	ah = _rdma_create_ah(pd, ah_attr, flags, NULL, slave);
-+
-+	init_attr.ah_attr = ah_attr;
-+	init_attr.flags = flags;
-+	init_attr.xmit_slave = slave;
-+
-+	ah = _rdma_create_ah(pd, &init_attr, NULL);
- 	rdma_lag_put_ah_roce_slave(slave);
- 	rdma_unfill_sgid_attr(ah_attr, old_sgid_attr);
- 	return ah;
-@@ -646,18 +649,21 @@ EXPORT_SYMBOL(rdma_create_ah);
-  * given address vector.
-  * It resolves destination mac address for ah attribute of RoCE type.
-  * @pd: The protection domain associated with the address handle.
-- * @ah_attr: The attributes of the address vector.
-+ * @init_attr: The address vector, and for an extended handle the
-+ *             attributes beyond it.
-  * @udata: pointer to user's input output buffer information need by
-  *         provider driver.
-  *
-- * It returns 0 on success and returns appropriate error code on error.
-  * The address handle is used to reference a local or global destination
-  * in all UD QP post sends.
-+ *
-+ * Return: the address handle, or an ERR_PTR on error.
-  */
- struct ib_ah *rdma_create_user_ah(struct ib_pd *pd,
--				  struct rdma_ah_attr *ah_attr,
-+				  struct rdma_ah_init_attr *init_attr,
- 				  struct ib_udata *udata)
- {
-+	struct rdma_ah_attr *ah_attr = init_attr->ah_attr;
- 	const struct ib_gid_attr *old_sgid_attr;
- 	struct ib_ah *ah;
- 	int err;
-@@ -674,8 +680,9 @@ struct ib_ah *rdma_create_user_ah(struct ib_pd *pd,
- 		}
- 	}
- 
--	ah = _rdma_create_ah(pd, ah_attr, RDMA_CREATE_AH_SLEEPABLE,
--			     udata, NULL);
-+	init_attr->flags |= RDMA_CREATE_AH_SLEEPABLE;
-+
-+	ah = _rdma_create_ah(pd, init_attr, udata);
- 
- out:
- 	rdma_unfill_sgid_attr(ah_attr, old_sgid_attr);
+ 	ib_qp_usecnt_dec(qp);
+ 	if (sec)
+ 		ib_destroy_qp_security_end(sec);
 diff --git a/include/rdma/ib_verbs.h b/include/rdma/ib_verbs.h
-index 8d74ed4fc581..68f7a271cf7a 100644
+index f9171b47ac1b..c9ddc4147ef8 100644
 --- a/include/rdma/ib_verbs.h
 +++ b/include/rdma/ib_verbs.h
-@@ -974,10 +974,14 @@ struct ib_mr_status {
-  */
- __attribute_const__ enum ib_rate mult_to_ib_rate(int mult);
+@@ -2003,6 +2003,8 @@ struct ib_qp {
+ 	struct list_head	xrcd_list;
+ 	struct xarray		comp_cntrs; /* op_mask -> comp_cntr */
+ 	u32			comp_cntr_op_mask;
++	/* regions attached to this QP, each held until detach or destroy */
++	struct xarray		attached_mrs;
  
-+struct rdma_ah_attr_ex;
-+
- struct rdma_ah_init_attr {
- 	struct rdma_ah_attr *ah_attr;
- 	u32 flags;
- 	struct net_device *xmit_slave;
-+	/* set to name a peer by both transport+network addresses */
-+	struct rdma_ah_attr_ex *ah_attr_ex;
- };
+ 	/* count times opened, mcast attaches, flow attaches */
+ 	atomic_t		usecnt;
+@@ -2091,8 +2093,11 @@ struct ib_mr {
+ 	struct ib_jkey	  *jkey;
+ 	/* the region this one was derived from, NULL if registered fresh */
+ 	struct ib_mr	  *parent;
+-	/* regions derived from this one that are still registered */
++	/* regions derived from this one, and an attachment, that hold it */
+ 	atomic_t	   usecnt;
++	/* the QP this region is attached to, NULL if none */
++	struct ib_qp	  *attached_qp;
++	u32		   attach_id; /* index in attached_qp->attached_mrs */
  
- enum rdma_ah_attr_type {
-@@ -1016,6 +1020,11 @@ struct rdma_ah_attr {
- 	};
- };
- 
-+struct rdma_ah_attr_ex {
-+	struct rdma_ah_attr	ah_attr;
-+	u32			remote_qpn;
-+};
-+
- enum ib_wc_status {
- 	IB_WC_SUCCESS,
- 	IB_WC_LOC_LEN_ERR,
-@@ -3893,16 +3902,18 @@ struct ib_ah *rdma_create_ah(struct ib_pd *pd, struct rdma_ah_attr *ah_attr,
-  * rdma_create_user_ah - Creates an address handle for the given address vector.
-  * It resolves destination mac address for ah attribute of RoCE type.
-  * @pd: The protection domain associated with the address handle.
-- * @ah_attr: The attributes of the address vector.
-+ * @init_attr: The address vector, and for an extended handle the
-+ *             attributes beyond it.
-  * @udata: pointer to user's input output buffer information need by
-  *         provider driver.
-  *
-- * It returns 0 on success and returns appropriate error code on error.
-  * The address handle is used to reference a local or global destination
-  * in all UD QP post sends.
-+ *
-+ * Return: the address handle, or an ERR_PTR on error.
-  */
- struct ib_ah *rdma_create_user_ah(struct ib_pd *pd,
--				  struct rdma_ah_attr *ah_attr,
-+				  struct rdma_ah_init_attr *init_attr,
- 				  struct ib_udata *udata);
- /**
-  * ib_get_gids_from_rdma_hdr - Get sgid and dgid from GRH or IPv4 header
-@@ -4981,7 +4992,8 @@ static inline struct ib_global_route
- 	return &attr->grh;
- }
- 
--static inline void rdma_ah_set_dgid_raw(struct rdma_ah_attr *attr, void *dgid)
-+static inline void rdma_ah_set_dgid_raw(struct rdma_ah_attr *attr,
-+					const void *dgid)
+ 	struct ib_dm      *dm;
+ 	struct ib_sig_attrs *sig_attrs; /* only for IB_MR_TYPE_INTEGRITY MRs */
+@@ -2846,6 +2851,9 @@ struct ib_device_ops {
+ 					struct ib_mr_ex_attr *attr,
+ 					struct ib_udata *udata);
+ 	int (*dereg_mr)(struct ib_mr *mr, struct ib_udata *udata);
++	/* attach/detach a region so it is bound to single QP (restricted) */
++	int (*qp_attach_mr)(struct ib_qp *qp, struct ib_mr *mr);
++	int (*qp_detach_mr)(struct ib_qp *qp, struct ib_mr *mr);
+ 	int (*query_qp_semantics)(struct ib_device *device,
+ 				  enum ib_qp_type qp_type,
+ 				  struct ib_qp_semantics *sem);
+@@ -4866,6 +4874,7 @@ static inline void ib_mr_init_core_refs(struct ib_mr *mr)
  {
- 	struct ib_global_route *grh = rdma_ah_retrieve_grh(attr);
+ 	mr->jkey = NULL;
+ 	mr->parent = NULL;
++	mr->attached_qp = NULL;
+ 	atomic_set(&mr->usecnt, 0);
  
+ 	if (!(mr->device->attrs.device_cap_flags & IB_DEVICE_KEY64)) {
 diff --git a/include/uapi/rdma/ib_user_ioctl_cmds.h b/include/uapi/rdma/ib_user_ioctl_cmds.h
-index 816b3107464f..40fcd4bd1b5e 100644
+index 51910240a7e1..8359f7afeded 100644
 --- a/include/uapi/rdma/ib_user_ioctl_cmds.h
 +++ b/include/uapi/rdma/ib_user_ioctl_cmds.h
-@@ -410,6 +410,13 @@ enum uverbs_attrs_xrcd_destroy_ids {
- 
- enum uverbs_methods_ah {
- 	UVERBS_METHOD_AH_DESTROY,
-+	UVERBS_METHOD_AH_EX_CREATE,
+@@ -199,6 +199,18 @@ enum uverbs_methods_qp {
+ 	UVERBS_METHOD_QP_CREATE,
+ 	UVERBS_METHOD_QP_DESTROY,
+ 	UVERBS_METHOD_QP_ATTACH_COMP_CNTR,
++	UVERBS_METHOD_QP_ATTACH_MR,
++	UVERBS_METHOD_QP_DETACH_MR,
 +};
 +
-+enum uverbs_attrs_create_ah_ex_cmd_attr_ids {
-+	UVERBS_ATTR_CREATE_AH_EX_HANDLE,
-+	UVERBS_ATTR_CREATE_AH_EX_PD_HANDLE,
-+	UVERBS_ATTR_CREATE_AH_EX_AH_ATTR_EX,
++enum uverbs_attrs_qp_attach_mr_cmd_attr_ids {
++	UVERBS_ATTR_QP_ATTACH_MR_QP_HANDLE,
++	UVERBS_ATTR_QP_ATTACH_MR_MR_HANDLE,
++};
++
++enum uverbs_attrs_qp_detach_mr_cmd_attr_ids {
++	UVERBS_ATTR_QP_DETACH_MR_QP_HANDLE,
++	UVERBS_ATTR_QP_DETACH_MR_MR_HANDLE,
  };
  
- enum uverbs_attrs_ah_destroy_ids {
-diff --git a/include/uapi/rdma/ib_user_ioctl_verbs.h b/include/uapi/rdma/ib_user_ioctl_verbs.h
-index b6d46115f799..210f3f945bd7 100644
---- a/include/uapi/rdma/ib_user_ioctl_verbs.h
-+++ b/include/uapi/rdma/ib_user_ioctl_verbs.h
-@@ -318,6 +318,15 @@ struct ib_uverbs_buffer_desc {
- #define IB_UVERBS_QPN_UET_RESERVED_MASK		0x7f000000
- #define IB_UVERBS_QPN_UET_ABSOLUTE_ADDR_BIT	0x80000000
- 
-+/* An address handle that names a peer using both transport+network addresses.
-+ * Used for reliable unconnected QPs in both work request address handles and
-+ * a Job address table.
-+ */
-+struct ib_uverbs_ah_attr_ex {
-+	struct ib_uverbs_ah_attr ah_attr;
-+	__u32 remote_qpn;
-+};
-+
- enum ib_uverbs_comp_cntr_entry {
- 	IB_UVERBS_COMP_CNTR_ENTRY_COMP,
- 	IB_UVERBS_COMP_CNTR_ENTRY_ERR,
+ enum uverbs_attrs_create_srq_cmd_attr_ids {
 
 -- 
 2.56.0
