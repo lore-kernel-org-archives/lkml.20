@@ -1,302 +1,189 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012016.outbound.protection.outlook.com [52.101.48.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2667F4EE872;
-	Wed, 14 Oct 2026 10:19:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791973162; cv=none; b=OzrInxH5UC3OcwMkX9RzpvFm6unNOYSBjFcQsJiPQnLdX0pSniIzTs0w38SKuZ1qgog+T9jMHWrETwCkvlPKzKDji6+UcVa4xLrgZstvcyYhKXdSr2HCAaQr1mdCrh/A4BnYcuKmM1czF8bWBLXAs7jMWjtUyxXfWwZaDtNXvxk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791973162; c=relaxed/simple;
-	bh=sO4OVMN/vSAEerk+8FGEdY9qKfrIkn6N6rblEaJnZR4=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=p79ZhcJ/enWYnLmRaWxf4coaF2jT2hZdwFnR5IkmqG22WWDmSC7CTF571m5LEC/mfJ/UIIO0ZnED16sKcwkk1j5Xuw8VsIUZwp/qR33BlYV/EIjgLO5m5lw1b5tmfiyvejP3N9OTlJiDtNEle1YY1e1yNStUOmkH0HVCsdIMXk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VYrlXImD; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0061A4EC64D;
+	Wed, 14 Oct 2026 10:19:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.16
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791973167; cv=fail; b=A5iCGM8vUZpw0NflhJBUuvyEl9WNy1+CUhT8QbmLa/Jaf48FgiDGK1FRl5wEs12uu8nSS6ezktT29e02MD2R52yKaXVWNkGr3xg5oGaPrxajqRWDg4ZJtqkQvB1ttlxwRmZnyFwzD4haLYtoVojGm1uSiFAeabF/Gtv8wozJDh0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791973167; c=relaxed/simple;
+	bh=Xm5bTDHFaz8S2D9OupThCi4LJN7wUFRyC++OYCdqSDU=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=VNBI+/nH82uScdjaU1D9IwljToJI+riNrvVqSzrqeDUDWYal8DxxujU7et2hujB3JqbWEREA89H3a6YkZesxgxPfCd9OANKRUjJR7ynpBdjYwvJUuCT7wISwCcLvPPTvq5jYt/GtIECs9YBxei46ziscQYCRisfUpe1nY9XF9H0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=sCYdn4Sv; arc=fail smtp.client-ip=52.101.48.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VYrlXImD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791973159; x=1823509159;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=sO4OVMN/vSAEerk+8FGEdY9qKfrIkn6N6rblEaJnZR4=;
-  b=VYrlXImDOLIO/7QRefZSXbbtG69tQUmmfO5YyT9UreRycO8jpWmI+8rm
-   4/gEjYcQSvpY28UNiA6vh1thNeSPBu+Pxymf1e+ps88jwAaj/kWwLxJrk
-   caNQhuwcMBeilF3Ao2ZncDySBYXsuREvlV9YVbvvqq0Rp6Sg+ltsEbI3+
-   ufcTMOHO/nFMRak4vXQ9MpzGM8h0Rwf6Mpvi+ZqAJFDg8sJhB4uarcwaW
-   zet9h0q4ORoyOD8G/jc+gQchfjhHOekP1Hp7hmtQKCPw57m2Omr1ME8Nn
-   zS2kObPLUeCO6M7d5xm/kycrYeFfqZA9rtJfwC3hYg8pmsEBHHi2qYY33
-   w==;
-X-CSE-ConnectionGUID: DqjofrRbSlqYkDhiXvytdg==
-X-CSE-MsgGUID: v7NeAmZ2Re+baCmh2UqHAQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="722901"
-X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="722901"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 03:19:18 -0700
-X-CSE-ConnectionGUID: n3i/xexmTxmQaTw9IMMkXA==
-X-CSE-MsgGUID: hhV1+KZjQOOSuBd3MkMJPg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="1724530"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.234])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 03:19:14 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Wed, 14 Oct 2026 13:19:07 +0300 (EEST)
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>, 
-    Hans de Goede <hansg@kernel.org>, 
-    "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, 
-    Mario Limonciello <mario.limonciello@amd.com>, 
-    Kurt Borja <kuurtb@gmail.com>
-cc: sre@kernel.org, bryan.odonoghue@linaro.org, 
-    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
-    stephan.gerhold@linaro.org
-Subject: Re: [RFC PATCH] platform/arm64: lenovo-thinkpad-t14s: Adjust thermal
- trip with platform profile
-In-Reply-To: <20261001181917.9367-1-daniel.lezcano@oss.qualcomm.com>
-Message-ID: <1eb6d74f-28c7-8f0a-4001-dfe717196836@linux.intel.com>
-References: <20261001181917.9367-1-daniel.lezcano@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="sCYdn4Sv"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=F4eObiL85BQzrOVXMD9PPXQ6+hWlKpG883axS/cM8Lqp8jzceG1dFlZ6GAojCmMRn3LienvZ/8QUorJZ1J47MTQ9O9skgpJhFFEg1XIb15Ni1OkYsSJF5rYSrcWZTmc1dyxE8iwhjQLZW+P9pEuDwy7TXjBOUOYCN0gvTNTSx1UjxJmAYAu757/apyvaX5vZ6oXM871O2oN/UBtDNnvlO9vhb7nrmdoFsIllwWQgYV6nI7mxwcDmt6oVrRyx60P5eSmt6AMW2ldyCnKbxjurz4dtiWrmJTcgTOU4ftFxWjpG/Si4UzWsPholX2gzqJP0IYNTN41I5C/lYB/C6/fX2g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bfnwLdjlUE1lTHCDy6NrPBvm9pfouD6Ti+IjscdNhgc=;
+ b=RlPRtRw2pU43EXpYX8U73C2gtusvpVl0GV3lNAUMlYTkcWUaMQwVqevROCFN955Mb+NSiykm3XceZgQJwMjXQ+wYmsZPrBMgZUX0QQZ6ErKJPqCY5+nQEAe4f6EhLvbZE9PcXlXw1EUARP+cm4k80EwTD+rzzqV8zlSPdOBGAkdWm9PyiFMkZJnYw2E7hEEbDK+fJ26PJsNg19BYhz2PNPCF395/+O5oIpMzOR8y3aYwOVUfK1m80kyOcQa2YZKrzLS0uoVS+uiW5BTKZM2tWCDPhghxtWYHGgegwUOLR06+bO3ZK9SV1VBGXMvJhmiqnuiwF/ObYtes7WpE8I70zg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bfnwLdjlUE1lTHCDy6NrPBvm9pfouD6Ti+IjscdNhgc=;
+ b=sCYdn4SvUnQiudrgmyLRUnRFog/7lxPGJkRP2upNIC9yZrGreKsLnOCKpADWuG7gpIjPKq7It3Qcb3N6rw4/eTt76/po7vNiOJ2K7+DH81kOV8Mb13I3L6o1yiQ+/sIJgL8MWFGeiSEc0bGEBu7a91x3Zz4L9r4WkG3r0tDZFWs=
+Received: from CYZPR10CA0013.namprd10.prod.outlook.com (2603:10b6:930:8a::21)
+ by DS3PR12MB999215.namprd12.prod.outlook.com (2603:10b6:8:38f::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Wed, 14 Oct
+ 2026 10:19:19 +0000
+Received: from CY4PEPF000392DC.namprd03.prod.outlook.com
+ (2603:10b6:930:8a:cafe::28) by CYZPR10CA0013.outlook.office365.com
+ (2603:10b6:930:8a::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Wed,
+ 14 Oct 2026 10:19:19 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CY4PEPF000392DC.mail.protection.outlook.com (10.167.247.122) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Wed, 14 Oct 2026 10:19:18 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 14 Oct
+ 2026 05:19:11 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 14 Oct
+ 2026 05:19:11 -0500
+Received: from amd-System-Product-Name.amd.com (10.180.168.240) by
+ satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53
+ via Frontend Transport; Wed, 14 Oct 2026 05:19:07 -0500
+From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+To: <broonie@kernel.org>
+CC: <alsa-devel@alsa-project.org>, <lgirdwood@gmail.com>, <perex@perex.cz>,
+	<tiwai@suse.com>, <yung-chuan.liao@linux.intel.com>,
+	<Basavaraj.Hiregoudar@amd.com>, <Sunil-kumar.Dommati@amd.com>,
+	<venkataprasad.potturu@amd.com>, <Syed.SabaKareem@amd.com>,
+	<Mario.Limonciello@amd.com>, <Richard.Gong@amd.com>,
+	<Vijendar.Mukunda@amd.com>, <Poojitha.N@amd.com>,
+	<linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<sound-open-firmware@alsa-project.org>
+Subject: [PATCH 00/13] ASoC: amd: acp: ACP7.B/7.F SoundWire machine driver support
+Date: Wed, 14 Oct 2026 15:46:19 +0530
+Message-ID: <20261014101817.1240200-1-Vijendar.Mukunda@amd.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-1170719270-1791973147=:1157"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF000392DC:EE_|DS3PR12MB999215:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5b99300c-d688-49d3-db76-08df29dc9b56
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|36860700016|1800799024|82310400026|56012099006|261009223027099003|11063799006|10067099003|18002099003|6133799003|13003099007|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	dEYwZKRfldi+5qTCQ3sJsmZ7QVfORUCUra4OimxJPssVVJJvz1HNk1zLr3vR6VK9pe4wAe91PkgLQU4qlr7KJVa/mOGQbjM35HYsDHrxl2mOdhbabbWsD5MFq6MJcWuKos0v+b1SrlZayOOhodRQ2bx7AcwHeTGgHqfbslHbZat676NJqJDtdrCF8ppj95bpTIh5eY1O46Trf1GeYEMeT3AcNrQ16xJtxJSDFc3kH4eABMyvIeZLug3+BIZKvSYx80H3PUFVnzzpoL8t1nZl/3vqdsY6X1LNHMzqz579KSpkxLYv+EOkd9LzK5rI00LWuXYSU5DVw0bsJjiXKvqalsl9kXHx21d9AFW3R5Ob/GXUWhBVz7bvrmwTSHhXYycsKty1tSQIU0gOOmslPr3dqHnSqiDdiH6tn9alNJ49sXNBrp8skB2+JdmRw8bjE5UOtw04NRJxan5hwCWRMiHbPnI7tqMesGH5dr5vd2hAzfiH1nbmysaBN193rYYg9MRXTj5o/IJd3dL/GQjp5tMIMltQYR2fsjWeH99k82j/lBqN/52/ooJTl1/eaA/k/u9m20zQboyboLs3tNqc+c/A3Ys64TMsUeFwvfkx0YgPmA0O5NutpGRsSlGf4N0KuU6PA1waAKUXq6/X+i11w5VYRQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(36860700016)(1800799024)(82310400026)(56012099006)(261009223027099003)(11063799006)(10067099003)(18002099003)(6133799003)(13003099007)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	x3xDtqBYbxcESjSRSFEu1SRYpphAbYCWIfXm1SCPwQ+L8/jKGyBpLmE0g5EDkOPS8slfhM4OcXDmW7/UbyAy/lRfJwmK1U3AzKrKGvQs/s3wqerPTqw+fFXYgN99//z0Awm7biHeUb8VQy8Oe2SpHLyUBwqdlHzbeUZDdew6FYz3DzVpnJFYubHqteiEPGNglWWiiCsCTRWodMXyDn6AtRCpIc14C6sdO8k9A5+pM0b5vTvFfWVqNW0B5bFsjIDUlv+hVZvTIY7Xf77guKuVRY+qkwU+pdcrrgs1xVSON5uvD/MWR1RGi8CibxAfzW8A2pYedD0GMsDvvGuB4geKGXAg/1hCpcKGbGRHvbE4lAAawTtBDdgcrnL2AS6NBLY+bS8buMiiyTgsCL29SzWLwMiVD1bY3kdNe4bpyiDybk4rGBB/K6yfJ++5ItC82xKD
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 10:19:18.4726
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5b99300c-d688-49d3-db76-08df29dc9b56
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF000392DC.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS3PR12MB999215
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+This series extends the AMD ACP SoundWire machine driver to support
+ACP7.B and ACP7.F platforms, adds ACPI machine tables for SoundWire
+codec configurations, and fixes several issues in the SOF SoundWire
+machine driver.
 
---8323328-1170719270-1791973147=:1157
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+Patches 1-2 add the infrastructure for ACP7.B/7.F SoundWire support.
+Patch 1 adds PCI revision constants and the ACP7X_SDW_MAX_LINKS (4)
+constant to soc_amd_sdw_common.h, and switches mc_probe() to set
+max_sdw_links based on PCI revision. Patch 2 adds the get_acp7x_cpu_pin_id()
+function and hooks it into create_sdw_dailink() for ACP7.B/7.F alongside
+the existing ACP63 and ACP70 paths.
 
-+ more people.
+Patches 3-7 address DMIC DAI link selection and components string
+handling for ACP7.B/7.F platforms. Patch 3 fixes the PDM quirk
+evaluation order: ASOC_SDW_ACP_DMIC1 was checked before dmi_check_system()
+and quirk_override were applied, making the fallback dead code. It also
+corrects the condition to use else if, since only one PDM controller
+can be active at a time. Patch 4 adds ASOC_SDW_ACP_DMIC1 to log_quirks()
+for boot-time diagnostics. Patch 5 extends the DMIC DAI link enable
+condition to also check amd_ctx->pdm_sel so that ACPI-selected PDM
+controllers on ACP7.B/7.F are handled without requiring a DMI quirk.
+Patch 6 moves the ignore_internal_dmic gate to the DMIC enable condition,
+removing dead code and demoting a spurious dev_warn to dev_dbg. Patch 7
+appends the DMIC components string to card->components in mc_probe()
+when a DMIC link will be registered, mirroring the condition used in
+sof_card_dai_links_create().
 
-On Thu, 1 Oct 2026, Daniel Lezcano wrote:
+Patch 8 propagates the PCI subsystem vendor and device IDs to the ALSA
+card via snd_soc_card_set_pci_ssid() for correct device identification.
 
-> Tie the keyboard thermal mitigation temperature to the platform profile
-> selected through the ThinkPad embedded controller.
->=20
-> The EC reports Fn+L, Fn+M and Fn+H events corresponding to low-power,
-> balanced and performance operating modes. Use these events to update the
-> passive trip point of the "keyboard-thermal" zone to 49.85=C2=B0C, 57.85=
-=C2=B0C
-> and 59.85=C2=B0C respectively.
->=20
-> These thresholds match the thermal mitigation temperatures used by the
-> platform for the corresponding operating profiles.
->=20
-> Look up the keyboard thermal zone at probe time and locate the passive
-> trip named "keyboard-ec-alert". The trip name is used deliberately so
-> the EC driver can identify the device-tree trip associated with the
-> platform thermal profile without depending on its position in the trip
-> table.
->=20
-> Initialize the thermal mitigation threshold to the balanced profile,
-> matching the default platform behaviour, and update the thermal zone
-> whenever a profile change event is reported by the EC so that the new
-> mitigation temperature takes effect immediately.
->=20
-> Using the platform_profile API would provide a more appropriate interface
-> for exposing and managing these operating modes. However, while the API
-> itself is generic, the platform profile core implementation currently
-> lives under the ACPI framework. Making it available to device-tree based
-> platforms requires separating the generic infrastructure from ACPI,
-> which is a larger and independent piece of work.
+Patch 9 fixes a pre-existing typo: the MODULE_AUTHOR macro call was
+missing the closing '>' in the email address.
 
-So the only problem is that platform profile resides underneath acpi=20
-namespace in sysfs?
+Patches 10-13 add ACPI machine tables and wire them into the SOF
+descriptors. Patch 10 introduces amd-acp7x-acpi-match.c with four
+ACP7.F SoundWire machine entries covering RT721+RT1320 (L0+L3),
+RT721+RT1320 (L0+L1), standalone RT721, and standalone RT722. Patch 11
+registers the ACP7.F SoundWire table as alt_machines in the ACP7.F SOF
+descriptor. Patch 12 adds a single ACP7.B entry for RT721 (L0) + RT1320
+(L3). Patch 13 registers the ACP7.B SoundWire table as alt_machines in
+the ACP7.B SOF descriptor.
 
---
- i.
+This patch series has dependency on the following SOF patch series:
+https://lore.kernel.org/alsa-devel/20261014100902.1215212-1-Vijendar.Mukunda@amd.com/T/#t
 
-> For now, handle the EC profile events directly and use them to adjust the
-> thermal mitigation threshold while keeping the thermal policy described
-> in the device tree.
->=20
-> This change depends on the keyboard thermal zone and the
-> "keyboard-ec-alert" trip introduced by the following series.
->=20
-> Link: https://lore.kernel.org/all/20261001181055.9149-1-daniel.lezcano@os=
-s.qualcomm.com/
-> Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-> ---
->  drivers/platform/arm64/lenovo-thinkpad-t14s.c | 109 ++++++++++++++++++
->  1 file changed, 109 insertions(+)
->=20
-> diff --git a/drivers/platform/arm64/lenovo-thinkpad-t14s.c b/drivers/plat=
-form/arm64/lenovo-thinkpad-t14s.c
-> index e7acb66b77f2..ee39b0382219 100644
-> --- a/drivers/platform/arm64/lenovo-thinkpad-t14s.c
-> +++ b/drivers/platform/arm64/lenovo-thinkpad-t14s.c
-> @@ -18,8 +18,10 @@
->  #include <linux/leds.h>
->  #include <linux/lockdep.h>
->  #include <linux/module.h>
-> +#include <linux/platform_profile.h>
->  #include <linux/regmap.h>
->  #include <linux/slab.h>
-> +#include <linux/thermal.h>
->  #include <linux/pm.h>
-> =20
->  #define T14S_EC_CMD_ECRD=090x02
-> @@ -93,9 +95,16 @@ struct t14s_ec_led_classdev {
->  =09struct t14s_ec *ec;
->  };
-> =20
-> +struct t14s_ec_thermal_profile {
-> +=09struct thermal_zone_device *tzd;
-> +=09struct thermal_trip *keyboard_alert;
-> +=09enum platform_profile_option current_profile;
-> +};
-> +
->  struct t14s_ec {
->  =09struct regmap *regmap;
->  =09struct device *dev;
-> +=09struct t14s_ec_thermal_profile profile;
->  =09struct t14s_ec_led_classdev led_pwr_btn;
->  =09struct t14s_ec_led_classdev led_chrg_orange;
->  =09struct t14s_ec_led_classdev led_chrg_white;
-> @@ -472,6 +481,99 @@ static int t14s_input_probe(struct t14s_ec *ec)
->  =09return input_register_device(ec->inputdev);
->  }
-> =20
-> +static int t14s_platform_profile_temp(enum platform_profile_option profi=
-le)
-> +{
-> +=09/*
-> +=09 * These thresholds match the temperatures used by the
-> +=09 * platform firmware for the corresponding operating profiles.
-> +=09 */
-> +=09switch (profile) {
-> +=09case PLATFORM_PROFILE_LOW_POWER:
-> +=09=09return 49850;
-> +=09case PLATFORM_PROFILE_BALANCED:
-> +=09=09return 57850;
-> +=09case PLATFORM_PROFILE_PERFORMANCE:
-> +=09=09return 59850;
-> +=09default:
-> +=09=09return THERMAL_TEMP_INVALID;
-> +=09}
-> +}
-> +
-> +static int t14s_platform_profile_set(struct t14s_ec_thermal_profile *tp,
-> +=09=09=09=09     enum platform_profile_option profile)
-> +{
-> +=09int temp;
-> +
-> +=09if (!tp->tzd)
-> +=09=09return -ENODEV;
-> +
-> +=09if (tp->current_profile =3D=3D profile)
-> +=09=09return 0;
-> +
-> +=09temp =3D t14s_platform_profile_temp(profile);
-> +=09if (temp =3D=3D THERMAL_TEMP_INVALID)
-> +=09=09return -EINVAL;
-> +
-> +=09thermal_zone_set_trip_temp(tp->tzd, tp->keyboard_alert, temp);
-> +=09thermal_zone_device_update(tp->tzd, THERMAL_TRIP_CHANGED);
-> +
-> +=09tp->current_profile =3D profile;
-> +
-> +=09return 0;
-> +}
-> +
-> +static int t14s_profile_find_keyboard_alert(struct thermal_trip *tt, voi=
-d *data)
-> +{
-> +=09struct device_node *np;
-> +=09struct t14s_ec_thermal_profile *tp =3D data;
-> +
-> +=09if (tt->type !=3D THERMAL_TRIP_PASSIVE)
-> +=09=09return 0;
-> +
-> +=09np =3D tt->priv;
-> +
-> +=09if (!np)
-> +=09=09return -EINVAL;
-> +
-> +=09if (!of_node_name_eq(np, "keyboard-ec-alert"))
-> +=09=09return 0;
-> +
-> +=09tp->keyboard_alert =3D tt;
-> +
-> +=09return 1;
-> +}
-> +
-> +static int t14s_profile_probe(struct t14s_ec_thermal_profile *tp)
-> +{
-> +=09struct thermal_zone_device *tzd;
-> +=09int ret;
-> +
-> +=09tzd =3D thermal_zone_get_zone_by_name("keyboard-thermal");
-> +=09if (IS_ERR(tzd)) {
-> +=09=09ret =3D PTR_ERR(tzd);
-> +
-> +=09=09if (ret =3D=3D -ENODEV)
-> +=09=09=09return -EPROBE_DEFER;
-> +
-> +=09=09return ret;
-> +=09}
-> +
-> +=09tp->tzd =3D tzd;
-> +
-> +=09ret =3D thermal_zone_for_each_trip(tzd, t14s_profile_find_keyboard_al=
-ert, tp);
-> +=09if (ret < 0)
-> +=09=09return ret;
-> +
-> +=09if (!tp->keyboard_alert)
-> +=09=09return -ENODEV;
-> +
-> +=09ret =3D t14s_platform_profile_set(tp, PLATFORM_PROFILE_BALANCED);
-> +=09if (ret)
-> +=09=09return ret;
-> +
-> +=09return 0;
-> +}
-> +
->  static irqreturn_t t14s_ec_irq_handler(int irq, void *data)
->  {
->  =09struct t14s_ec *ec =3D data;
-> @@ -534,12 +636,15 @@ static irqreturn_t t14s_ec_irq_handler(int irq, voi=
-d *data)
->  =09=09break;
->  =09case T14S_EC_EVT_KEY_FN_L:
->  =09=09dev_dbg(ec->dev, "FN + L - low performance mode\n");
-> +=09=09t14s_platform_profile_set(&ec->profile, PLATFORM_PROFILE_LOW_POWER=
-);
->  =09=09break;
->  =09case T14S_EC_EVT_KEY_FN_M:
->  =09=09dev_dbg(ec->dev, "FN + M - medium performance mode\n");
-> +=09=09t14s_platform_profile_set(&ec->profile, PLATFORM_PROFILE_BALANCED)=
-;
->  =09=09break;
->  =09case T14S_EC_EVT_KEY_FN_H:
->  =09=09dev_dbg(ec->dev, "FN + H - high performance mode\n");
-> +=09=09t14s_platform_profile_set(&ec->profile, PLATFORM_PROFILE_PERFORMAN=
-CE);
->  =09=09break;
->  =09case T14S_EC_EVT_KEY_FN_T:
->  =09=09dev_dbg(ec->dev, "FN + T - toggle intelligent cooling mode\n");
-> @@ -590,6 +695,10 @@ static int t14s_ec_probe(struct i2c_client *client)
->  =09if (ret < 0)
->  =09=09return ret;
-> =20
-> +=09ret =3D t14s_profile_probe(&ec->profile);
-> +=09if (ret < 0)
-> +=09=09return ret;
-> +
->  =09ret =3D devm_request_threaded_irq(dev, client->irq, NULL,
->  =09=09=09=09=09t14s_ec_irq_handler,
->  =09=09=09=09=09IRQF_ONESHOT, dev_name(dev), ec);
->=20
+Vijendar Mukunda (13):
+  ASoC: amd: acp: add ACP7.B/7.F SoundWire link count for machine driver
+  ASoC: amd: acp: add ACP7.B/7.F SoundWire DAI link support
+  ASoC: amd: acp: fix PDM1 quirk and PDM controller selection for
+    ACP7.B/7.F
+  ASoC: amd: acp: log ASOC_SDW_ACP_DMIC1 quirk in SOF SoundWire machine
+    driver
+  ASoC: amd: acp7x: enable DMIC DAI link based on PDM controller
+    selection
+  ASoC: amd: acp: move ignore_internal_dmic gate to DMIC enable
+    condition
+  ASoC: amd: acp: add DMIC components string for SOF SoundWire machine
+    driver
+  ASoC: amd: acp: set PCI subsystem ID for SOF SoundWire machine driver
+  ASoC: amd: acp: fix MODULE_AUTHOR missing closing angle bracket
+  ASoC: amd: acp: add ACPI machine tables for ACP7.F SoundWire
+  ASoC: SOF: amd: add alt_machines for ACP7.F SOF SoundWire
+  ASoC: amd: acp: add SoundWire machine table for ACP7.B platform
+  ASoC: SOF: amd: register SoundWire alt_machines for ACP7.B
 
---=20
- i.
+ sound/soc/amd/acp/Makefile               |   2 +-
+ sound/soc/amd/acp/acp-sdw-mach-common.c  |  36 +++++
+ sound/soc/amd/acp/acp-sdw-sof-mach.c     | 101 ++++++++++--
+ sound/soc/amd/acp/amd-acp7x-acpi-match.c | 198 +++++++++++++++++++++++
+ sound/soc/amd/acp/soc_amd_sdw_common.h   |  32 ++++
+ sound/soc/amd/mach-config.h              |   2 +
+ sound/soc/sof/amd/pci-acp7x.c            |   2 +
+ 7 files changed, 360 insertions(+), 13 deletions(-)
+ create mode 100644 sound/soc/amd/acp/amd-acp7x-acpi-match.c
 
---8323328-1170719270-1791973147=:1157--
+-- 
+2.48.1
