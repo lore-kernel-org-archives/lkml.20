@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3A994A68AA;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C10327FB1C;
 	Wed, 14 Oct 2026 22:21:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792016479; cv=none; b=GJIc2DqLrvwPU/jdmlhRte9M0kG5I658rj7nl260i34X2DEPcpc5t+u9qeSOHWlQDlX7nekzLpMHXWsJYyanJNjdiZLtSk0I4hpI6SVW+wiVFa6rzNKRJ62zaRl5M6eCztCooCRuh98i+eyIfVV8UXufJyGQchSZo+Sc9xCKnGs=
+	t=1792016479; cv=none; b=d8A8JKMpC2MNwxjXsYOaf4N5FeR5LdnpDBrYP1fdAi9VTCg50Umkl9NGd8d85wzM3yU4KNUkvNW3qTSkix1CHsyNT0c4zWRGDc6cwE0DgNscIrVeAcP31RegYC3UB2cnc65cvV6fY93Y6ELtx0D3/lrAHJMmfbsUDzPWZUFGDc0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792016479; c=relaxed/simple;
-	bh=wfoslcjjy6E0PPw6ODNQiI0ItktGDS6jCVHHl/mQIS4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=dFS+v7PICWKKTqBq+V02/BOpsnlSXPcbqDSMJ2fgXsQ6ujh1fTzVGPNB74XS/yqoAyVp5rVN9vDkyqoHp3gm37DakOGpQi/XhQMEvXuwR0nDzwjt0ORc5l6cBJCukUzQ+jtmeoIz6jx6BqG/zXE18z8IQk2O9oTiP/kfpVIlXOM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hO67rnuq; arc=none smtp.client-ip=10.30.226.201
+	bh=pmO235+sOiP0U982ZnFLaKOB723M7EJvhoJ2eSf6MuU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=LfAq+bNlem4UVgjkbCT8SmPM9NVBrYZ3/c8Z2c7Hq3ksKD5eEv3ZXK2+WHONFwYEyYECm6pi5J9dZ/sFOZcMEupDS8xMyuZR9m4849X6qBFerhR50IVrUoCcGX9d+A3wxa1kChqfvYi7qzngh6mNg31/yMfrIx0KysgtnvN0VMM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tS/lgKFU; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hO67rnuq"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 75A34C2BD01;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tS/lgKFU"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2E0F0C2BCC7;
 	Wed, 14 Oct 2026 22:21:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1792016479;
-	bh=wfoslcjjy6E0PPw6ODNQiI0ItktGDS6jCVHHl/mQIS4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=hO67rnuqiIvPlwa8ujuUyvwGsWs30YUTTI48mXWiPDF5mFE6R7s2eoq8b55koc3pP
-	 QN6B7FEnBb+z+JlX+KmVO+G+xVSvSQhR6QRCVBDfMV0BVfe3DCHZO2c5wbe5IITwQ5
-	 czmmWbwm4ztkkAFSyFYULyJDrQhL1LUH2aQXphN9aINtGstyZJidSBAeAmPWSJIkkN
-	 xSlWRrH1EbJ/+V6igbPFyeepC7e2/D+1AqOl4y9WNcD5+lVbyP/DlezF0QAS+jD42E
-	 PFyqNgF2r8HCPeCml12i1GMjwzVOssrXUf4MjQbUQC5IMV/e1kncfuKshGINErFqUU
-	 1+s/b0ZGqFa9w==
+	bh=pmO235+sOiP0U982ZnFLaKOB723M7EJvhoJ2eSf6MuU=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=tS/lgKFUV/bkU7syacqwOl7hWcRl10b8t90Qq+D4Uomop0JQnEiehyZ0T+IhNA5F9
+	 or356MSwLx3Coe6Pb6W/HlZlHhnGXIxcNgemFv4pjcjvw9tfyOCPV9iM5635x0jBi8
+	 +vhiwW690FofpQHDqWcgP/j8u5FhbSuEXhKdK6BGLnWLLh/IppFpanlzMR3WsfhFMH
+	 KRo5mxpgR3Yxv3ZraS/q3jojCWBVNCzpJb3ihAWUW/Crc8IKHTBhtWbTZsgCMzvqKZ
+	 eh6ApExqkqfMfQ5Cumxb3x95/ol8Y/E/I2YF4UOEeo8kt8YR9LIfT1fp5d71zC5taB
+	 TlCey6tasokNw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 636A3CC6B31;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 18617CC6B2D;
 	Wed, 14 Oct 2026 22:21:19 +0000 (UTC)
 From: Eric Davis via B4 Relay <devnull+eric.davis.broadcom.com@kernel.org>
-Date: Wed, 14 Oct 2026 15:21:13 -0700
-Subject: [PATCH rdma-next 04/13] RDMA/core: add the reliable unconnected
- queue pair type
+Subject: [PATCH rdma-next 00/13] RDMA/core: Ultra Ethernet transport verbs
+Date: Wed, 14 Oct 2026 15:21:09 -0700
+Message-Id: <20261014-uet-ib-core-v1-0-a0e626117113@broadcom.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,18 +40,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-uet-ib-core-v1-4-a0e626117113@broadcom.com>
-References: <20261014-uet-ib-core-v1-0-a0e626117113@broadcom.com>
-In-Reply-To: <20261014-uet-ib-core-v1-0-a0e626117113@broadcom.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMwQqDMBAFf0X23AVdamn6K6UHTZ7tFhrLJoog/
+ ntTPQ7DzEoJpkh0q1YyzJp0jAWaU0X+1cUnWENhkloutRPHEzJrz340cLgK3LkZWrRCpfgaBl3
+ 2250sfDqOWDI9DpWm/g2f/zfath9o6aOHegAAAA==
+X-Change-ID: 20260929-uet-ib-core-d82e941f5e52
 To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>
 Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Eric Davis <eric.davis@broadcom.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792016478; l=3535;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792016478; l=5120;
  i=eric.davis@broadcom.com; s=20261014; h=from:subject:message-id;
- bh=L3wMh3G54GedqHBn1oHoS/DOBV8omUdKsjOycbtDnDU=;
- b=i8Qr4lWAYjzAEIzXiqVXNaGZ95Lx1KHmJ3IvLYzFEi9rhMgPwT0zPH+u7i4Gp8JzJ0+HBDYIn
- LHn/R4FF9wtAkwDmMcjyexInZZFce15QUgmtIIQo3jAvKwDae8BSc6o
+ bh=pmO235+sOiP0U982ZnFLaKOB723M7EJvhoJ2eSf6MuU=;
+ b=2j9T//Lxu1ZXKUViHBaBUNaBvHlbFtD1QtbApUyy+slaG1871meEFMzOJg0WNpE0jn5ub3jo8
+ 9dJPIy9CyNWAoU2Pdm3qTFsS6U8JKaqlT9vXVAioAGdWSysE6Z6mwah
 X-Developer-Key: i=eric.davis@broadcom.com; a=ed25519;
  pk=uy3oCTOYBipIPjryXGMynBmtPvbO6qN2FOrduzpiI4A=
 X-Endpoint-Received: by B4 Relay for eric.davis@broadcom.com/20261014 with
@@ -60,94 +60,106 @@ X-Endpoint-Received: by B4 Relay for eric.davis@broadcom.com/20261014 with
 X-Original-From: Eric Davis <eric.davis@broadcom.com>
 Reply-To: eric.davis@broadcom.com
 
-From: Eric Davis <eric.davis@broadcom.com>
+Ultra Ethernet defines a reliable unconnected transport. A queue pair
+sends to any peer in its job without a connection, incoming traffic is
+demultiplexed on a JobID rather than on a connection, and what a device
+orders is far weaker than IB or RoCE and varies between devices. None of
+that has a home in the current uverbs ABI.
 
-Add IB_QPT_RU and its userspace counterpart, together with the field
-layout of a reliable unconnected queue pair number used by UET.
+This series adds the generic half. The objects, methods, and attributes
+any UET device implements. No driver is part of it, though two already
+exist against this ABI. A reference device model that implements all of
+it, and HPE's Slingshot driver implementing a large subset. That is the
+argument for ib_core carrying this. What is device specific should come
+from private interfaces per vendor.
 
-Such a number uses all 32 bits, unlike the 24-bit InfiniBand and RoCE
-one, so exempt it from the restrack assertion that no queue pair number
-sets the top byte.
+Patch 1 widens the uverbs object key. The two new core objects would
+otherwise leave drivers no free object keys.
+
+Patches 2-4 expose the transport. The two UET encapsulations as GID
+types, the capabilities and limits a device advertises, and IB_QPT_RU
+with its 32-bit queue pair number.
+
+Patch 5 widens address handles, which an unconnected peer needs since
+it is named by both a network address and a queue pair number.
+
+Patch 6 adds a query for what a queue pair type actually orders.
+
+Patch 7 adds jobs and job keys, the objects an unconnected transport
+demultiplexes and authorizes on. A job can be exported to a file
+descriptor, so an unprivileged process can join one set up for it.
+
+Patches 8-10 let a queue pair be created ready to send, since a
+transport with nothing to negotiate gains nothing from the modify
+sequence. Patch 8 is a no-functional-change refactor pulling the
+attribute copy out of modify_qp. Patch 9 lets create take those
+attributes. Patch 10 adds the attributes a reliable unconnected
+transport needs.
+
+Patches 11-13 cover memory registration with a job binding, a chosen
+key, derived regions, 64-bit keys for devices whose keys do not fit
+in 32 bits, and attaching a region to one queue pair so the network
+reaches it only over that QP.
+
+New attributes are optional, so existing userspace is unaffected and a
+device without a feature reports it absent rather than failing. The
+attributes that restrict access are sent mandatory by userspace, so a
+kernel that does not know one refuses the request rather than creating
+an object with less protection than was asked for.
+
+Tested against a reference device implementing the ABI, and against rxe
+to confirm nothing already upstream regressed. The userspace half is a
+matching rdma-core series.
 
 Signed-off-by: Eric Davis <eric.davis@broadcom.com>
 ---
- drivers/infiniband/core/restrack.c      | 13 ++++++++++++-
- include/rdma/ib_verbs.h                 |  1 +
- include/uapi/rdma/ib_user_ioctl_verbs.h | 16 ++++++++++++++++
- 3 files changed, 29 insertions(+), 1 deletion(-)
+Eric Davis (13):
+      RDMA/core: widen the uverbs object key
+      RDMA/core: add the UET GID types
+      RDMA/core: report the reliable unconnected device capabilities
+      RDMA/core: add the reliable unconnected queue pair type
+      RDMA/core: extended address handle attributes
+      RDMA/core: query the semantics a queue pair type guarantees
+      RDMA/core: job and job key objects
+      RDMA/uverbs: factor out the queue pair attribute copy
+      RDMA/core: create a queue pair ready to send
+      RDMA/core: queue pair attributes for unconnected transports
+      RDMA/core: extended memory registration
+      RDMA/core: 64-bit memory keys
+      RDMA/core: attach a memory region to a queue pair
 
-diff --git a/drivers/infiniband/core/restrack.c b/drivers/infiniband/core/restrack.c
-index a8b838fdc7b5..ddb09b17b733 100644
---- a/drivers/infiniband/core/restrack.c
-+++ b/drivers/infiniband/core/restrack.c
-@@ -241,7 +241,18 @@ void rdma_restrack_add(struct rdma_restrack_entry *res)
- 		/* Special case to ensure that LQPN points to right QP */
- 		struct ib_qp *qp = container_of(res, struct ib_qp, res);
- 
--		WARN_ONCE(qp->qp_num >> 24 || qp->port >> 8,
-+		/* An InfiniBand/RoCE QP number is 24 bits and the top byte is
-+		 * where the port is folded in for SMI and GSI. A reliable
-+		 * unconnected pair is an exception as its QP number is a
-+		 * full 32b wide, though of the top byte only the absolute bit
-+		 * may be set. An absolute number whose low bits are 0 or 1
-+		 * still conflicts SMI/GSI on port 128, which takes a device
-+		 * with both RU and MADs on that many ports.
-+		 */
-+		WARN_ONCE(qp->port >> 8 ||
-+			  (qp->qp_type != IB_QPT_RU && qp->qp_num >> 24) ||
-+			  (qp->qp_type == IB_QPT_RU &&
-+			   qp->qp_num & IB_UVERBS_QPN_UET_RESERVED_MASK),
- 			  "QP number 0x%0X and port 0x%0X", qp->qp_num,
- 			  qp->port);
- 		res->id = qp->qp_num;
-diff --git a/include/rdma/ib_verbs.h b/include/rdma/ib_verbs.h
-index 02f3312c7cf2..8d74ed4fc581 100644
---- a/include/rdma/ib_verbs.h
-+++ b/include/rdma/ib_verbs.h
-@@ -1188,6 +1188,7 @@ enum ib_qp_type {
- 	IB_QPT_RAW_PACKET = IB_UVERBS_QPT_RAW_PACKET,
- 	IB_QPT_XRC_INI = IB_UVERBS_QPT_XRC_INI,
- 	IB_QPT_XRC_TGT = IB_UVERBS_QPT_XRC_TGT,
-+	IB_QPT_RU = IB_UVERBS_QPT_RU,
- 	IB_QPT_MAX,
- 	IB_QPT_DRIVER = IB_UVERBS_QPT_DRIVER,
- 	/* Reserve a range for qp types internal to the low level driver.
-diff --git a/include/uapi/rdma/ib_user_ioctl_verbs.h b/include/uapi/rdma/ib_user_ioctl_verbs.h
-index ed72f48960f8..b6d46115f799 100644
---- a/include/uapi/rdma/ib_user_ioctl_verbs.h
-+++ b/include/uapi/rdma/ib_user_ioctl_verbs.h
-@@ -91,6 +91,7 @@ enum ib_uverbs_qp_type {
- 	IB_UVERBS_QPT_RAW_PACKET = 8,
- 	IB_UVERBS_QPT_XRC_INI,
- 	IB_UVERBS_QPT_XRC_TGT,
-+	IB_UVERBS_QPT_RU,
- 	IB_UVERBS_QPT_DRIVER = 0xFF,
- };
- 
-@@ -302,6 +303,21 @@ struct ib_uverbs_buffer_desc {
- 	__aligned_u64 length;
- };
- 
-+/* A UET reliable unconnected queue pair number uses all 32 bits:
-+ *
-+ *	[ absolute 1b | reserved 7b | resource index 12b | PIDonFEP 12b ]
-+ *
-+ * An absolute pair is named by its number alone. A relative one is named
-+ * within a job, so it must carry a job key when it is created. The reserved
-+ * bits are zero.
-+ */
-+#define IB_UVERBS_QPN_UET_PID_ON_FEP_MASK	0x00000fff
-+#define IB_UVERBS_QPN_UET_PID_ON_FEP_SHIFT	0
-+#define IB_UVERBS_QPN_UET_RI_MASK		0x00fff000
-+#define IB_UVERBS_QPN_UET_RI_SHIFT		12
-+#define IB_UVERBS_QPN_UET_RESERVED_MASK		0x7f000000
-+#define IB_UVERBS_QPN_UET_ABSOLUTE_ADDR_BIT	0x80000000
-+
- enum ib_uverbs_comp_cntr_entry {
- 	IB_UVERBS_COMP_CNTR_ENTRY_COMP,
- 	IB_UVERBS_COMP_CNTR_ENTRY_ERR,
+ drivers/infiniband/core/Makefile                  |   3 +-
+ drivers/infiniband/core/cache.c                   |  12 +-
+ drivers/infiniband/core/cma.c                     |   4 +
+ drivers/infiniband/core/device.c                  |  16 +-
+ drivers/infiniband/core/nldev.c                   |   4 +
+ drivers/infiniband/core/rdma_core.h               |   2 +
+ drivers/infiniband/core/restrack.c                |  17 +-
+ drivers/infiniband/core/roce_gid_mgmt.c           |   6 +-
+ drivers/infiniband/core/user_mad.c                |   4 +-
+ drivers/infiniband/core/uverbs.h                  |  16 +
+ drivers/infiniband/core/uverbs_cmd.c              | 261 ++++----
+ drivers/infiniband/core/uverbs_main.c             |   5 +
+ drivers/infiniband/core/uverbs_std_types.c        |  73 ++-
+ drivers/infiniband/core/uverbs_std_types_device.c |  73 ++-
+ drivers/infiniband/core/uverbs_std_types_job.c    | 763 ++++++++++++++++++++++
+ drivers/infiniband/core/uverbs_std_types_mr.c     | 222 ++++++-
+ drivers/infiniband/core/uverbs_std_types_qp.c     | 340 +++++++++-
+ drivers/infiniband/core/uverbs_uapi.c             |   2 +
+ drivers/infiniband/core/verbs.c                   | 109 +++-
+ include/rdma/ib_verbs.h                           | 242 ++++++-
+ include/rdma/restrack.h                           |   8 +
+ include/rdma/uverbs_ioctl.h                       |   4 +-
+ include/uapi/rdma/ib_user_ioctl_cmds.h            | 120 ++++
+ include/uapi/rdma/ib_user_ioctl_verbs.h           | 100 +++
+ include/uapi/rdma/ib_user_verbs.h                 |  25 +
+ 25 files changed, 2270 insertions(+), 161 deletions(-)
+---
+base-commit: d37e98844afea39a9614cac0de837701263c90f7
+change-id: 20260929-uet-ib-core-d82e941f5e52
 
--- 
-2.56.0
+Best regards,
+--  
+Eric Davis <eric.davis@broadcom.com>
 
 
