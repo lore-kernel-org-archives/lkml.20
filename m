@@ -1,89 +1,74 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DC8E4E36C9;
-	Wed, 14 Oct 2026 12:17:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3AEE47535E;
+	Wed, 14 Oct 2026 12:17:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791980252; cv=none; b=KmJQIEICQHr54mgwzLFyE1sm4qq/WpGa/JTBJA43LL21G5hNjHk5vxYJLLkodgrNqvxR1nB3yBjy0LTiWGVXZNlzZVsQPiw64H6v6ZlCr5otbI07oTwy/7DkWpJjMFJeZCJHltx5SAjmQauNuZmja3Mm60Cyx6TvzFMMP/KIaso=
+	t=1791980272; cv=none; b=tT2BTNINfQgnT2EApsP3kYuIfZJ6g6vVPIO5UaXCT6vtgKgzhS0QjudeURO2SPXmtP5lK1S8p2BBzC+TF4bPo7JkgsyJ2EzN6fkk9ZoVGdG97gSX95pCBPhwziYGrY70VQ4JBlk8e4xvmZGHvwdtzT37gyXnhFxHsVVrd3r23Ew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791980252; c=relaxed/simple;
-	bh=VwGEM9bG+gm8aZY+vx8GaLjgb1ELCuBd2Ygqztwzy94=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=e7BOjBM9qrccyKSywJFiM5cvCOVuW+TawyfDRCZ5usEkFZr5AaLwojztal9cBxPdu5Uj5iTZO2+hm0Ny3KAO6amiQ9jzNapYRWdSaa458sa62anzsjBZXutYrsN/IPk8VHUYiD0BN58ERCndNTG0fCFnKLM4HoV371aMQZdMnRY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=IwFLJlPj; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1791980272; c=relaxed/simple;
+	bh=T5Hkm/YfoDO+dt6SbmWey/1JV9LB5wEM6WRtVkUSZx0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=j4CU6F4SnpbvyuM152Z2TfzCIvt2wH4vAyt2pvYaoBjpsHgU7aqcnKwgKpdz1YcGn+MZHIXLdEr6+YljoofaSIuIpqoNP8SEY5awqxF2A9Js7MfKAqM8oPsHUc5Mx15j5MsBXrBa4N7lSzSpwi8X4nXQiIDxXL7UcT0m4n8iQkA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P1Vr36a2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="IwFLJlPj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1791980250; x=1823516250;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=VwGEM9bG+gm8aZY+vx8GaLjgb1ELCuBd2Ygqztwzy94=;
-  b=IwFLJlPjqETJZHywaDx1VgS4yfiwAvrHZ4+6r79x65j5Ja9REgeArjdH
-   OxdTZ9q3pQuxEHlozx8zYx3GOyq/FVyFrMuEzjmPruUG4a+NhAxrJ+QjK
-   rPe2Ys8p+rpEKCeL9qTOUnH92zq2I1ir0b4IC5kvBrMtr+ATyJ9rsNCGE
-   1mvO6AMm5CxxGBHvigwdhThEWGk4dxnnP+VVga0V+2RQbHoLd5HothxhW
-   Nlf7tifznt5VvQFz5JM4AYTD4s3Wma9jG7hKdPaNP+kCcHI5dT0doL7jk
-   vCFwcmi1447mRu7to9M0VXXuuJ57ffesvK3vngeR+NLPQNcBDfWRyd1Kp
-   w==;
-X-CSE-ConnectionGUID: AS0fM4N0TTu+W0y8BvP7CQ==
-X-CSE-MsgGUID: e/ISQjFySC2entXgr5BMBQ==
-X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="296441734"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 14 Oct 2026 05:17:29 -0700
-Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Wed, 14 Oct 2026 05:17:28 -0700
-Received: from archlinux.mchp-main.com (10.10.85.11) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Wed, 14 Oct 2026 05:17:26 -0700
-From: Mihai Sain <mihai.sain@microchip.com>
-To: <stern@rowland.harvard.edu>, <gregkh@linuxfoundation.org>,
-	<nicolas.ferre@microchip.com>, <alexandre.belloni@bootlin.com>,
-	<claudiu.beznea@tuxon.dev>
-CC: <linux-usb@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, Mihai Sain <mihai.sain@microchip.com>
-Subject: [PATCH] usb: host: ehci-atmel: Use dev_dbg() for debug messages
-Date: Wed, 14 Oct 2026 15:16:56 +0300
-Message-ID: <20261014121656.1634-1-mihai.sain@microchip.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P1Vr36a2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6B8A1F000FF;
+	Wed, 14 Oct 2026 12:17:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791980269;
+	bh=GS6ckad+7RfurmBBM899KY6kDFBy5nKpxV7tqbtyUHY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=P1Vr36a2+hJElQ4VSbrcuuuEmqBNukF5/zvDyamvnJL9clkBXrqOoZr7GWSbWvpty
+	 ulkzto8fvLxgXK+EaiGub/WP+9WdSdWwWHD0IYVwDnAfr7SjAhPNwr3Ja4tIlkmZjb
+	 poXk60hthRd+vO7toncThWVTRH5gjgDv0hLy+m+d5UlJAu9EJC2htieyeErV9Acdky
+	 OBwp5pnTDHUTPkB30J8x8I9VPV8w/tmy3UmnDzbjIrTCbZcE+pPf0nbl5XkVUTWw4j
+	 AQ9a8+tEVyrP1IWxPhE30djLIECvP4VfIuQdJRxtp8vS/dU63N0CJ3YntCqEKAQL68
+	 8bu9sZobW581A==
+Date: Wed, 14 Oct 2026 14:17:46 +0200
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Stian Halseth <stian@itx.no>
+Cc: Thomas Gleixner <tglx@kernel.org>,
+	Anna-Maria Behnsen <anna-maria@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	regressions@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] sched/cputime: Don't account idle time twice after
+ dyntick-idle
+Message-ID: <as9y6gQSpDPq3z9A@localhost.localdomain>
+References: <20261007142950.547604-1-stian@itx.no>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+In-Reply-To: <20261007142950.547604-1-stian@itx.no>
 
-Use dev_dbg() instead of pr_debug() in the probe function
-to provide a more specific device message.
-This ensures the log message is properly associated with
-the corresponding platform device instance.
+Le Wed, Oct 07, 2026 at 04:29:50PM +0200, Stian Halseth a écrit :
+> On idle exit the dyntick-idle accounting accounts the time up to now,
+> then the tick is restarted on its old period. The first tick accounts a
+> whole TICK_NSEC to whatever runs, although the part of that period
+> before the idle exit has just been accounted as idle time, or with
+> IRQ_TIME_ACCOUNTING as IRQ time. That is up to a full tick per idle
+> exit, and /proc/stat reports more idle time than wall time.
+> 
+> Record how much of the current tick period dyntick-idle has accounted,
+> and leave it out of the tick that ends the period.
+> 
+> Fixes: cf6444c3e1bb7 ("tick/sched: Unify idle cputime accounting")
+> Link: https://lore.kernel.org/all/20261004142724.3896396-1-stian@itx.no/
+> Signed-off-by: Stian Halseth <stian@itx.no>
 
-Signed-off-by: Mihai Sain <mihai.sain@microchip.com>
----
- drivers/usb/host/ehci-atmel.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Reviewed-by: Frederic Weisbecker <frederic@kernel.org>
 
-diff --git a/drivers/usb/host/ehci-atmel.c b/drivers/usb/host/ehci-atmel.c
-index 65747270fd88..b6ba7005be69 100644
---- a/drivers/usb/host/ehci-atmel.c
-+++ b/drivers/usb/host/ehci-atmel.c
-@@ -99,7 +99,7 @@ static int ehci_atmel_drv_probe(struct platform_device *pdev)
- 	if (usb_disabled())
- 		return -ENODEV;
- 
--	pr_debug("Initializing Atmel-SoC USB Host Controller\n");
-+	dev_dbg(&pdev->dev, "Initializing Atmel-SoC USB Host Controller\n");
- 
- 	irq = platform_get_irq(pdev, 0);
- 	if (irq < 0) {
+Thank you very much!
+
 -- 
-2.56.0
-
+Frederic Weisbecker
+SUSE Labs
