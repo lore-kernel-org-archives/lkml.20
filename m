@@ -1,119 +1,93 @@
-Received: from shared-aoh59.rev.nazwa.pl (shared-aoh59.rev.nazwa.pl [85.128.243.59])
+Received: from 4.mo576.mail-out.ovh.net (4.mo576.mail-out.ovh.net [46.105.42.102])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99A1148EBE0;
-	Wed, 14 Oct 2026 20:06:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.128.243.59
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A4814718DD
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 20:06:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.105.42.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792008401; cv=none; b=nzdY7Mlt1VP1VDRlUi2BYbRfEmNHJX1Fa+7IBglBDS1+hVTRRVK+3Kj5XqF1lzM61Wcy8CJvBfwj7/T52qHUZ7o90SOK8sj0UcnHbNFaVFQBWPvv+CIIU0LyQlWSBsM2S/e0LSlJfGOpYe85Z6SSWlDg3rUrmZJMlLsxFanKwUk=
+	t=1792008424; cv=none; b=mx0Hyyq2orQPrPG5dkfDHatTeKA4QkSZAAdQXyhvyOG6VXVKqnL7FoS2ldHcGC0Dvd4V9P7aMi0G6qen26F2TSijwRdld1zbxFeTjAtr9J/Z2AvyfZBKDge73HsiMeAT6OrW9yqc9G9AMolQ2nmooXhSlMU15XZHLdzDYQ30D6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792008401; c=relaxed/simple;
-	bh=9GVYWY+al7DfmO/VCzNoggGLRhvjKBh7L6yUspJMc2k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZgL9vvIygDokN1Dngq8NpQvq8IXBtycFEfQsZ7IATsPPmPnh+hIkERr1n2exJhblJ6wdt9zsyNuh6XXQ6eJIc1x7fbp0IXwcA2V0tSOyJUl08aJTZgDSUmlwrgdjmb1ob4vU+9VSQ9l5/Q5B/pae6yqyOYgNtlPkLUqFuFW68v4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=asmblr.net; spf=pass smtp.mailfrom=asmblr.net; dkim=pass (2048-bit key) header.d=asmblr.net header.i=@asmblr.net header.b=S61x9FlB; arc=none smtp.client-ip=85.128.243.59
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=asmblr.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asmblr.net
+	s=arc-20240116; t=1792008424; c=relaxed/simple;
+	bh=TYtYdXUsdW2Bgbj0of1rrpHBCaxBL/WJU5cUe8oRie0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uwrYyxNLNcIUN8MGe6jGnSRpVCG4Q+3T2XlwyD60PnSVibQif7W5iAHiDg2iBRaKZuWcReHJXFZtLEFSrPJq5nDJVTDhJm3Ml1PrPUQdcHNubNE149BPOcNe9gGrn35fm9FE6UiY61wBiy0TE5yism8+u1bjC8V6qrtimGxxp4M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sk2.org; spf=pass smtp.mailfrom=sk2.org; dkim=pass (2048-bit key) header.d=sk2.org header.i=@sk2.org header.b=JZGYR0wT; arc=none smtp.client-ip=46.105.42.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sk2.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sk2.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=asmblr.net header.i=@asmblr.net header.b="S61x9FlB"
-X-Virus-Scanned: by amavisd-new using ClamAV (2)
-X-Spam-Flag: NO
-X-Spam-Score: -0.625
-X-Spam-Level: 
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=asmblr.net;
-	s=1706450368.internal; t=1792008379;
-	bh=W/B29Pv0PXz2rmbd7oBhHSBfPouiXLPv0ZyZeSfZpTs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=S61x9FlBkrdKKGi6n9Fnqv7FOfFqoerBrLC487DLx/sPRQpox+Z5aTTx2uWlHJnFQ
-	 sPyWbuWftGCpIaiWKQqHWrzbv63mTY069eCGc/5lNuqjQltSAc1IptTvMCYLo5w4ff
-	 3Q92oQW6W//SBSm5HYyUCl+XH2qYd+2t5OezZuS++vQ5lCfJ9yrVdwoFBW573+oW7r
-	 ERDr7zymwPw2tCOB7njU5vuHEuGh6PYe05fw+lScicfBk7ZMhqqMn7ZLLPW+HMmAHd
-	 /FhUSaEW+KibNIC3ktn2DBe37pWe4qSms/EZKxCVrhCn+Zrdwjh9cVGSLUleLzyD5z
-	 UosJ+5u5kRlAg==
-Received: from milkyway (91-150-221-36.dynamic.play.pl [91.150.221.36])
-	by server753313.nazwa.pl (Postfix) with ESMTP id 536181BBA30;
-	Wed, 14 Oct 2026 22:06:19 +0200 (CEST)
-From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?= <amade@asmblr.net>
-To: linux-sound@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	=?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?= <amade@asmblr.net>
-Subject: [PATCH 8/8] ASoC: soc-dapm: Remove widget from cache on removal
-Date: Wed, 14 Oct 2026 22:06:08 +0200
-Message-ID: <20261014200608.118770-9-amade@asmblr.net>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261014200608.118770-1-amade@asmblr.net>
-References: <20261014200608.118770-1-amade@asmblr.net>
+	dkim=pass (2048-bit key) header.d=sk2.org header.i=@sk2.org header.b="JZGYR0wT"
+Received: from director7.ghost.mail-out.ovh.net (unknown [10.110.43.246])
+	by mo576.mail-out.ovh.net (Postfix) with ESMTP id 4j4cBc0Pp9z5wgK
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:30:32 +0000 (UTC)
+Received: from ghost-submission-5474cd94dc-54jct (unknown [10.108.54.179])
+	by director7.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 7331AC00EC;
+	Wed, 14 Oct 2026 16:30:31 +0000 (UTC)
+Received: from sk2.org ([37.59.142.96])
+	by ghost-submission-5474cd94dc-54jct with ESMTPSA
+	id 4JDAECeuz2o+bwAArWaaig
+	(envelope-from <steve@sk2.org>); Wed, 14 Oct 2026 16:30:31 +0000
+Authentication-Results:garm.ovh; auth=pass (GARM-96R0019bfdabee-4663-4810-a2e9-75780c991234,
+                    58F39AC3C6885B12E77626CC8F19CB2AA97F92B4) smtp.auth=steve@sk2.org
+X-OVh-ClientIp:82.65.25.201
+From: Stephen Kitt <steve@sk2.org>
+To: "Theodore Ts'o" <tytso@mit.edu>,
+	Andreas Dilger <adilger.kernel@dilger.ca>
+Cc: Stephen Kitt <steve@sk2.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	linux-ext4@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] docs: ext4 filesystems can be converted to 64-bit
+Date: Wed, 14 Oct 2026 18:29:20 +0200
+Message-ID: <20261014162921.450235-1-steve@sk2.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+x-ovh-tracer-id: 12549280362310800188
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: dmFkZTE2ROnsvz6nYESn2a7zLbxr24oglCetlVnnSwmt8gG9OTrPLyD073GyTBAZ+3atAZgXrmc2O1v9yXD+aQMy1hAr+VWNKeu6ETP0OaaUG+XZ3UJUNRQcjKo8kT5xHebSskkbXXRgq4L1RXxs7DUWV5IoxU3ZD32mIDS/QeITQcwtn8/3U3Og1RVCytHCYe/xBNW8w+rpX7ETnOX2fBYgpReZPZfqgo27Oo2iw+NOQv7O1baWE6TAFBpfrLvSKyb5/Sxxb2T33U77Aks3UQq2fm+z2Ln/lAwUVAAJ92oYz2f9ZkYoiOXofO91WZdeS3y0C3I7UCzmb9ETqFLH2U7jKvRFDz6FsMDyQYRGfFuTHcvPX3cezbDUR2ShjLNnzq8HAahxSddAlhqUqUDiYh3vmZJ7dE5QBI4S2U1nH44vE/N/9cfS1l34aeO/kMdEfP72RaDOiMSAEEWZmvQRDU6tJpnFCOWP03edIRkC8pQ50YWmD+gTrmpIIgh/sDFUeBhDoidOqUR3eXM28DdNFIFDRE+RiTQN1tgeouztxZwlf97jxP6ZlJLi1LRzSzoDSu6dm3Wn/lIx0Q3RS3Zb8FqXUYuPM0Yf4/zDlCU6BqVKIB1LA+lX4FWwQUub9ze6oOHI1JxPNNcFBOk45Kqcw4GlTSAGgauIjxrEZf1MxJd0jdqdfA
+DKIM-Signature: a=rsa-sha256; bh=bMGDprWDfvd4xUWzv9mBDwkTiIxwCEOXyHkVqN5mtQE=;
+ c=relaxed/relaxed; d=sk2.org; h=From; s=ovhmo304764-selector1;
+ t=1791995432; v=1;
+ b=JZGYR0wTGI0ehWgWaMs9Cmhu/DWAOk+xrOa8tejBOPFjE00Ff4/wFo3z3+PMJfEx1eSbVvy4
+ gD7Uzm+aRkRWIrpjRrvAxJQkJ6+o4YaZnvI0B0EfzZ0geSf7faQih69MyDyJqIqm3s6sGpgJQ7V
+ IKfVID+lgg92rNKDxB+immNrFWZ0lRhBZWZvSYzLGgj98I1BJXWHht9AKzP7bok3NxHVqX5yKQo
+ rYxSmFkUGtMO3Q/f7EiT6/zLcOJZJ3SjdP98WEpskvb/Z3liAey0tauMpioHp4WNKop/zAgIvEi
+ T9ikpDwyGdOPrh+y+XbwXsSru8Qg+e6FwYGKRG58LcHBQ==
 
-When a single DAPM widget is removed, it also needs to be removed from
-the widget cache to prevent dapm_wcache_lookup() from using a dangling
-pointer when checking if a widget is in cache. Since widgets may be
-cached across different DAPM contexts on the card (e.g. card routes),
-clear any matching cache entries across all DAPM contexts on the card.
-Since dapm_free_widgets() calls snd_soc_dapm_free_widget() anyway, it
-does not need to clear cache anymore.
+Since commit fe12931 ("resize2fs: convert fs to and from 64bit mode")
+in e2fsprogs, which shipped in version 1.43, resize2fs can convert
+filesystems from 32-bit to 64-bit and back, so the mention in the
+checksum documentation that this is impossible is obsolete. This fixes
+that.
 
-Signed-off-by: Amadeusz Sławiński <amade@asmblr.net>
+Signed-off-by: Stephen Kitt <steve@sk2.org>
 ---
- sound/soc/soc-dapm.c | 20 +++++++++++++++++---
- 1 file changed, 17 insertions(+), 3 deletions(-)
+ Documentation/filesystems/ext4/checksums.rst | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
-index 74be5e209493..7455160b11fe 100644
---- a/sound/soc/soc-dapm.c
-+++ b/sound/soc/soc-dapm.c
-@@ -2869,6 +2869,7 @@ static void dapm_free_path(struct snd_soc_dapm_path *path)
-  */
- void snd_soc_dapm_free_widget(struct snd_soc_dapm_widget *w)
- {
-+	struct snd_soc_dapm_context *d;
- 	struct snd_soc_dapm_path *p, *next_p;
- 	enum snd_soc_dapm_direction dir;
+diff --git a/Documentation/filesystems/ext4/checksums.rst b/Documentation/filesystems/ext4/checksums.rst
+index e232749daf5f..51a2150a1bf8 100644
+--- a/Documentation/filesystems/ext4/checksums.rst
++++ b/Documentation/filesystems/ext4/checksums.rst
+@@ -10,9 +10,9 @@ of October 2012 the only supported algorithm is crc32c. Some data
+ structures did not have space to fit a full 32-bit checksum, so only the
+ lower 16 bits are stored. Enabling the 64bit feature increases the data
+ structure size so that full 32-bit checksums can be stored for many data
+-structures. However, existing 32-bit filesystems cannot be extended to
+-enable 64bit mode, at least not without the experimental resize2fs
+-patches to do so.
++structures. ``resize2fs`` in ``e2fsprogs`` 1.43 or later can be used to
++convert filesystems from 32-bit to 64-bit and back (using the ``-b``
++and ``-s`` options).
  
-@@ -2889,6 +2890,22 @@ void snd_soc_dapm_free_widget(struct snd_soc_dapm_widget *w)
- 
- 	dapm_debugfs_free_widget(w);
- 
-+	if (w->dapm) {
-+		if (w->dapm->card) {
-+			for_each_card_dapms(w->dapm->card, d) {
-+				if (d->wcache_sink == w)
-+					d->wcache_sink = NULL;
-+				if (d->wcache_source == w)
-+					d->wcache_source = NULL;
-+			}
-+		} else {
-+			if (w->dapm->wcache_sink == w)
-+				w->dapm->wcache_sink = NULL;
-+			if (w->dapm->wcache_source == w)
-+				w->dapm->wcache_source = NULL;
-+		}
-+	}
-+
- 	kfree(w->kcontrols);
- 	kfree_const(w->name);
- 	kfree_const(w->sname);
-@@ -2906,9 +2923,6 @@ static void dapm_free_widgets(struct snd_soc_dapm_context *dapm)
- 			continue;
- 		snd_soc_dapm_free_widget(w);
- 	}
--
--	dapm->wcache_sink	= NULL;
--	dapm->wcache_source	= NULL;
- }
- 
- static struct snd_soc_dapm_widget *dapm_find_widget(
+ Existing filesystems can have checksumming added by running
+ ``tune2fs -O metadata_csum`` against the underlying device. If tune2fs
 -- 
 2.56.0
 
