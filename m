@@ -1,584 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay.hostedemail.com (smtprelay0012.hostedemail.com [216.40.44.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E3B93D7A01;
-	Wed, 14 Oct 2026 21:28:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2901F481AB3;
+	Wed, 14 Oct 2026 21:28:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792013286; cv=none; b=oclnRQAIFlmrOrJKnrHvdJvaIIDGhOQy7Wosf+9x0NSXg3ZtY0CTFD62ZTXYOrwq4W0Ecdgno/ZKhwpj80WcnfGxuUBh0+PSVAibZIRBCi/CXKMX7Sm1RUcnT4XgINPAp8Neq0Qmoduvox26EZC/ho5OLD7brAQdJbPr1VgrofE=
+	t=1792013314; cv=none; b=FApNQVRh2qkKGC6aAtapESWP4is5PPd63UlB+GdABe2A09aPe+8iCRLXgP9qc/hlcA07vD5wMLtyPqVveRUH/4dMTnAxegdTBFkWbcCpMomC4pFaGeRrGix8NIzjiWB8VoVhLqjXLJ1EfBht5Emq5SGN1JJEAfWMTsJh4sWkC/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792013286; c=relaxed/simple;
-	bh=aQig4N2xfmlRsaa/N0/8aa4FiWF4o63+0/+9xvd7Vks=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kZjTR2GKYUH+YCRQ0rdfJzEfcCmT0uXcCdY875n7hrFtC1P/cRSKnyn+zK+NFV8N2gpQMF9u1ZfFRp6XdkFaVB0P2l06yxcdsyJOdhb/03dnq0BQtBFIRvIZkWHbTV4T6DLLf37PT/thoTCtbz3nLxg5Hd2c7eidlNoNiVqLD7w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XzbjU+HB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792013314; c=relaxed/simple;
+	bh=LpA+uJyhB8EEGLA/EzeAiOtgtEBsNeUt70KXBYbelLc=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=kjS2IXkBqGyDQePceEdiKYhChWjZEZ7aHPaAoTTImIIBnB8hG2kGURmuE7vGjTffGVzlHfDNqmsChHaYd5+NQ+HdBzIJBVLp6Y/VLfeXi3G5ZmXCWzR5oJ2TJBRQ3TiVjmII9cwKnHtpJBLGsjUZKAwyjF/1K8gB2HJsnXksKbs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=2n5lE5gT; arc=none smtp.client-ip=216.40.44.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XzbjU+HB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8833C1F000C4;
-	Wed, 14 Oct 2026 21:28:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792013283;
-	bh=FKZH0us2Zujglnx4VyL4YCvCAGYcpqLAKyu9Q12YHnY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XzbjU+HBBlqURUbKwJ80sJ/kifxc61xRosbYCw8uQ9QVFWpy6DGYUQqBAdvg54Ixl
-	 PiMEJ5Jpi5fQAVPr/4XioeRL4jukix9bA/QD/2o1T9oijCGEQLDumPH6DIXT0OASgi
-	 3D+o5E04kN3IbtfFBA4+InWVw9jAcaeOeexnXTrDUCxWkuiEvsyCOaZIpcivzOuB6g
-	 X6moeo48mXFiM7G6XTSdn7yUGpExFMAdJ6ET7v62PYfNpHSnmIfhpJgsOkV8GW6zj/
-	 jekiePt5HMGqh78hx3DCTYxTtruXgOh3ZFq7TVmQnaBSERhQYbvKn3PwxQBWOHG8k8
-	 IGRwaCtuYNMIQ==
-Date: Wed, 14 Oct 2026 14:28:02 -0700
-From: Namhyung Kim <namhyung@kernel.org>
-To: Changbin Du <changbin.du@gmail.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>, linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	David Laight <david.laight.linux@gmail.com>
-Subject: Re: [PATCH v4] perf bench: Add atomic operations benchmark
-Message-ID: <as_z4g6CZTObWm2H@google.com>
-References: <20261013085648.976819-1-changbin.du@gmail.com>
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="2n5lE5gT"
+Received: from omf08.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay03.hostedemail.com (Postfix) with ESMTP id 85626A04FC;
+	Wed, 14 Oct 2026 21:28:24 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf08.hostedemail.com (Postfix) with ESMTPA id C985020027;
+	Wed, 14 Oct 2026 21:28:22 +0000 (UTC)
+Date: Wed, 14 Oct 2026 17:28:21 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Andrea Parri <parri.andrea@gmail.com>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH] ftrace: Fix lost recursion records in
+ ftrace_record_recursion()
+Message-ID: <20261014172821.2b1fde91@gandalf.local.home>
+In-Reply-To: <20260917090217.6738-1-parri.andrea@gmail.com>
+References: <20260917090217.6738-1-parri.andrea@gmail.com>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261013085648.976819-1-changbin.du@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout07
+X-Rspamd-Queue-Id: C985020027
+X-Stat-Signature: drctf8sc869jumqk859ukfc9mpq7zkrz
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1+eLNP5VhHoeWSdhwdUGvCEUjjZxRn7iwo=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=NbU69m8BL/3/ePbzU92HaN4diDbYa6HHrjwHCIZGzuw=; b=2n5lE5gTAHJLkU2QP6er9B1ou6S2Sg6YdJFMtaeKFARIjmoNFBR3hQh2uRld8CEqgwINUZE7P80r6UylCFShFFUHdc5NXubZznZnxIgeUXTeZZFR/8hxltsJsbPNqneg0s8ay+CQiCNdwIjR4O2fZyFUhos68Ddtagu/Hnh19bM=
+X-HE-Tag: 1792013302-700209
+X-HE-Meta: U2FsdGVkX1/VvuSB3H8ol/0Mycl3ICwPaj6Ch4qbMbD4JhBVitsMMDPeY5HGzhnuMM3hFhqzDa5u1ma7p5bFmHCNMhXKMCyhzKkP9uPyxtQkBxB73Yv8pePaQbnaucRYzfpThoxP3wTJa1t7JpDLoGKakcZods8V3q+QsCK4vvW7yXqpVENFqmGH6GPalcqeBPtr9ELnOfGFMW4w1HBNkXdQayzyAUXh+hDYT6yvnhqvMLgotuaJxir2gUyXydf/PcYQ/mvLu9/9IbCg8SDGgzuIeRk/sMiArUJ0pQk/h+aVYpusnwckPtFZRWTXls7nzFgS6+aHLJRY5mwWxeEBQVxpwTVA745V
 
-On Tue, Oct 13, 2026 at 04:56:48PM +0800, Changbin Du wrote:
-> Add a new 'atomic' collection to perf bench for benchmarking
-> atomic read-modify-write operations with multi-threaded
-> contention testing. It provides two subcommands:
+On Thu, 17 Sep 2026 11:02:17 +0200
+Andrea Parri <parri.andrea@gmail.com> wrote:
+
+> cached_function is set to the current ip before the cmpxchg() that
+> claims a slot in recursed_functions[]. When that cmpxchg() loses a
+> race for the same slot, the code bumps index and retries via "goto
+> again", but the retry immediately matches its own cached_function
+> write and returns without ever reaching the bumped-index cmpxchg().
 > 
->   - atomic cas: contended compare-and-swap operations
->     (__atomic_compare_exchange_n)
->   - atomic inc: contended fetch-add operations (__atomic_fetch_add)
+> Concretely, for two writers racing on the same index:
 > 
-> Both support a configurable thread count and runtime to measure
-> atomic contention effects.
+>   CPU 0 (ip = A)                    CPU 1 (ip = B)
+>   --------------                    --------------
+>                                      cmpxchg(&recursed_functions[index].ip,
+>                                              0, B);      // succeeds
+>   cached_function = A;
+>   cmpxchg(&recursed_functions[index].ip,
+>           0, A);
+>     // fails, old == B
+>   index++;
+>   goto again;
+>   if (A == cached_function)         // true: matches A's own store
+>           return;                   // A is dropped, not retried
 > 
-> Why this benchmark is needed:
-> - Atomic read-modify-write operations are fundamental to lock-free
->   algorithms and data structures. Understanding their performance
->   characteristics under contention is critical for designing
->   high-performance concurrent applications.
-> - The benchmark helps identify atomic operation latency and
->   scalability issues across different thread counts, revealing
->   contention patterns that are not visible in single-threaded tests.
-> - Useful for evaluating atomic implementation quality on different
->   architectures and for regression testing after changes to atomic
->   primitives or memory ordering.
+> Once dropped this way, cached_function stays set to A, so every later
+> recursion of A also hits the fast path and returns before reaching the
+> retry, until some unrelated ip overwrites the cache.
 > 
-> Measurement methodology:
-> - By default two threads contend for the counter, enough to expose
->   the contention effect; use -t to scale the count.
-> - Each thread starts a private timer (clock_gettime CLOCK_MONOTONIC)
->   after synchronizing on a pthread_barrier, ensuring all threads
->   begin simultaneously.
-> - Each thread performs a hot loop of the selected atomic operation
->   (compare-and-swap or fetch-add) on a shared unsigned long counter
->   for a fixed runtime. It counts its own completed operations in a
->   local variable, and the loop runs in batches so the termination
->   flag is only polled between batches.
-> - The main thread sleeps for the runtime and then sets the flag; the
->   throughput of a repeat is the total operation count divided by the
->   measured wall time (the max per-thread runtime).
-> - The shared counter is cache-line aligned (64 bytes) to isolate
->   contention to the target cache line and avoid false sharing.
-> - The per-thread operation counts of the last repeat show whether
->   any thread failed to make progress under contention.
-> - The first repeat is excluded from statistics as a warmup phase
->   to avoid cache-cold effects.
+> Only set cached_function once the record is confirmed present, either
+> because a concurrent writer already added it or because this writer
+> just claimed the slot. The retry path leaves it untouched, so it no
+> longer matches against a value it just wrote for itself.
 > 
-> Example usage:
->   $ perf bench atomic all
->   # Running atomic/cas benchmark...
->     Threads: 2, runtime: 2 sec, repeats: 10 (warmup: 1)
->     Avg throughput: 68,599,954 ops/sec (+- 0.13%)
->     Per-thread ops (last repeat):
->       fastest:  74,842,112 ops
->       slowest:  63,176,704 ops
->       avg:      69,009,408 ops
-> 
->   # Running atomic/inc benchmark...
->     Threads: 2, runtime: 2 sec, repeats: 10 (warmup: 1)
->     Avg throughput: 128,428,772 ops/sec (+- 0.54%)
->     Per-thread ops (last repeat):
->       fastest:  146,230,272 ops
->       slowest:  112,825,344 ops
->       avg:      129,527,808 ops
-> 
-> Output fields explained:
-> - Threads: number of contending threads
-> - runtime: seconds each thread runs per repeat
-> - repeats: number of test runs (first is warmup)
-> - Avg throughput: mean aggregate ops/sec across repeats
-> - +- %: relative standard error of the mean throughput across repeats
-> - Per-thread ops: fastest/slowest/avg operations per thread in the
->   last repeat (shows scheduling imbalance and lack of progress)
-> 
-> Assisted-by: opencode:DeepSeek-V4-Pro
-> Signed-off-by: Changbin Du <changbin.du@gmail.com>
+
+Good catch!
+
+> Fixes: 773c16705058e ("ftrace: Add recording of functions that caused recursion")
+> Assisted-by: LLM
+> Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
 > ---
-> Changes in v4:
-> - Default to 2 threads (1 on a single-CPU machine).
-> - Replace the iteration count with a fixed runtime per repeat.
-> - Report per-thread operation counts to show lack of progress.
-> 
-> Changes in v3:
-> - Use native word size (unsigned long) for the shared counter instead
->   of u64 to avoid libatomic on 32-bit targets.
-> - Include <stdint.h> explicitly for UINT64_MAX.
-> 
-> Changes in v2:
-> - Add an 'atomic inc' subcommand for contended __atomic_fetch_add.
-> - Hoist the load out of the CAS retry loop; the failed
->   __atomic_compare_exchange_n already returns the current value.
-> - Cast the seconds delta to u64 before multiplying by NSEC_PER_SEC to
->   avoid 32-bit overflow.
+> Can't claim to fully understand the logic behind ftrace_record_recursion().
+> Notably, its smp_mb__after_atomic() calls and the lack of barrier comments
+> both look suspicious to my LKMM-trained eyes.  ;)  Hence the RFC.
+
+Well, the nr_records is updated via a cmpxchg() which itself is a full
+memory barrier. The smp_mb__after_atomic() calls are to make sure the value
+read is in sync with other CPUs before doing the compares. It also syncs
+with the clearing function that is disabling and the writes, clears it, and
+enables it (the -1 updates).
+
+Otherwise, IIUC, the atomic_read() itself doesn't guarantee that what you
+read is what is in memory without explicitly using the smp_mb__after_atomic().
+
+
 > ---
->  tools/perf/Documentation/perf-bench.txt |  38 +++
->  tools/perf/bench/Build                  |   1 +
->  tools/perf/bench/atomic.c               | 295 ++++++++++++++++++++++++
->  tools/perf/bench/bench.h                |   2 +
->  tools/perf/builtin-bench.c              |   9 +
->  5 files changed, 345 insertions(+)
->  create mode 100644 tools/perf/bench/atomic.c
+>  kernel/trace/trace_recursion_record.c | 19 +++++++++++--------
+>  1 file changed, 11 insertions(+), 8 deletions(-)
 > 
-> diff --git a/tools/perf/Documentation/perf-bench.txt b/tools/perf/Documentation/perf-bench.txt
-> index c5913cf59c98..2a1206fea0c9 100644
-> --- a/tools/perf/Documentation/perf-bench.txt
-> +++ b/tools/perf/Documentation/perf-bench.txt
-> @@ -58,6 +58,9 @@ SUBSYSTEM
->  'numa'::
->  	NUMA scheduling and MM benchmarks.
+> diff --git a/kernel/trace/trace_recursion_record.c b/kernel/trace/trace_recursion_record.c
+> index bac4bc844ccd8..f42089c30f53c 100644
+> --- a/kernel/trace/trace_recursion_record.c
+> +++ b/kernel/trace/trace_recursion_record.c
+> @@ -17,8 +17,8 @@ static struct recursed_functions recursed_functions[CONFIG_FTRACE_RECORD_RECURSI
+>  static atomic_t nr_records;
 >  
-> +'atomic'::
-> +	Atomic operation benchmarks.
-> +
->  'futex'::
->  	Futex stressing benchmarks.
->  
-> @@ -283,6 +286,41 @@ SUITES FOR 'numa'
->  *mem*::
->  Suite for evaluating NUMA workloads.
->  
-> +SUITES FOR 'atomic'
-> +~~~~~~~~~~~~~~~~~~~
-> +*cas*::
-> +Suite for evaluating compare-and-swap (CAS) atomic operations under
-> +multi-threaded contention.
-> +
-> +*inc*::
-> +Suite for evaluating atomic fetch-add (increment) operations under
-> +multi-threaded contention.
-> +
-> +Options of *cas* and *inc*
-> +^^^^^^^^^^^^^^^^^^^^^^^^^^
-> +-t::
-> +--threads=::
-> +Number of threads contending for the shared counter (default: 2, or
-> +1 on a single-CPU machine).
-> +
-> +-r::
-> +--runtime=::
-> +Runtime of each repeat in seconds (default: 2).
-> +
-> +The per-thread fastest/slowest/avg ops summary is only printed when
-> +running with more than one thread.
-> +
-> +The average throughput is annotated with its relative deviation
-> +("+- x%"), i.e. the standard error of the mean over the measured
-> +repeats. A small value means the average is reproducible; it does not
-> +reflect per-thread fairness, which the per-thread ops summary shows.
-> +
-> +Note that the cas benchmark counts successful compare-and-swap
-> +operations only; retries and the loads between them are additional
-> +atomic instructions not included in the ops/sec count, so cas and
-> +inc throughputs are not directly comparable at the instruction
-> +level.
-> +
->  SUITES FOR 'futex'
->  ~~~~~~~~~~~~~~~~~~
->  *hash*::
-> diff --git a/tools/perf/bench/Build b/tools/perf/bench/Build
-> index 67b76fe20ba6..c64c52468d3d 100644
-> --- a/tools/perf/bench/Build
-> +++ b/tools/perf/bench/Build
-> @@ -3,6 +3,7 @@ perf-bench-y += sched-pipe.o
->  perf-bench-y += sched-seccomp-notify.o
->  perf-bench-y += syscall.o
->  perf-bench-y += mem-functions.o
-> +perf-bench-y += atomic.o
->  perf-bench-y += futex.o
->  perf-bench-y += futex-hash.o
->  perf-bench-y += futex-wake.o
-> diff --git a/tools/perf/bench/atomic.c b/tools/perf/bench/atomic.c
-> new file mode 100644
-> index 000000000000..2da74bf078bc
-> --- /dev/null
-> +++ b/tools/perf/bench/atomic.c
-> @@ -0,0 +1,295 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (C) 2026 Changbin Du <changbin.du@gmail.com>
-> + *
-> + * Benchmarks for atomic read-modify-write operations.
-> + *
-> + * Measures throughput (ops/sec) of contended atomic operations on a
-> + * single shared counter across multiple threads. Each thread performs
-> + * a hot loop of the selected operation -- compare-and-swap (cas) or
-> + * fetch-add (inc) -- competing with all other threads for the same
-> + * cache line. Threads run for a fixed runtime, so a system that
-> + * cannot make progress under heavy contention reports a low (or
-> + * zero) throughput instead of hanging.
-> + */
-> +#include "bench.h"
-> +#include <linux/compiler.h>
-> +#include "../util/debug.h"
-> +
-> +#ifndef HAVE_PTHREAD_BARRIER
-> +int bench_atomic_cas(int argc __maybe_unused, const char **argv __maybe_unused)
-> +{
-> +	pr_err("%s: pthread_barrier_t unavailable, disabling this test...\n", __func__);
-> +	return 0;
-> +}
-> +
-> +int bench_atomic_inc(int argc __maybe_unused, const char **argv __maybe_unused)
-> +{
-> +	pr_err("%s: pthread_barrier_t unavailable, disabling this test...\n", __func__);
-> +	return 0;
-> +}
-> +#else /* HAVE_PTHREAD_BARRIER */
-> +#include <stdlib.h>
-> +#include <stdio.h>
-> +#include <stdbool.h>
-> +#include <stdint.h>
-> +#include <unistd.h>
-> +#include <pthread.h>
-> +#include <time.h>
-> +#include <inttypes.h>
-> +#include <err.h>
-> +#include <linux/types.h>
-> +#include <linux/kernel.h>
-> +#include <linux/time64.h>
-> +#include <perf/cpumap.h>
-> +#include <subcmd/parse-options.h>
-> +#include "../util/stat.h"
-> +
-> +static unsigned int threads;		/* 0: default to min(2, online CPUs) */
-> +static unsigned int runtime	= 2;	/* seconds per repeat */
-> +
-> +static const struct option options[] = {
-> +	OPT_UINTEGER('t', "threads", &threads,
-> +		     "Number of contending threads (default: 2, or 1 on single CPU)"),
-> +	OPT_UINTEGER('r', "runtime", &runtime,
-
-Can you please pick a different short option than 'r'?  perf bench
-itself has -r/--repeat option so it would be confusing.  It doesn't
-clash for now, but I think it's better to use perf bench options from
-'perf bench atomic ...' later.
-
-Otherwise, looks good to me.
-
-Thanks,
-Namhyung
-
-
-> +		     "Runtime of each repeat in seconds (default: 2)"),
-> +	OPT_END()
-> +};
-> +
-> +static const char * const cas_usage[] = {
-> +	"perf bench atomic cas <options>",
-> +	NULL
-> +};
-> +
-> +static const char * const inc_usage[] = {
-> +	"perf bench atomic inc <options>",
-> +	NULL
-> +};
-> +
-> +enum atomic_op {
-> +	OP_CAS,
-> +	OP_INC,
-> +};
-> +
-> +static int bench_op = OP_CAS;
-> +
-> +/*
-> + * The termination flag is polled between batches only, so that the
-> + * check does not perturb the measured loop.
-> + */
-> +#define BATCH_OPS	1024
-> +
-> +static unsigned long shared_counter __aligned(64);
-> +static pthread_barrier_t start_barrier __aligned(64);
-> +static bool done;
-> +
-> +struct worker_stats {
-> +	u64	runtime_ns;
-> +	u64	ops;
-> +};
-> +
-> +static void cas_batch(void)
-> +{
-> +	unsigned long i;
-> +
-> +	for (i = 0; i < BATCH_OPS; i++) {
-> +		unsigned long old_val, new_val;
-> +
-> +		old_val = __atomic_load_n(&shared_counter, __ATOMIC_RELAXED);
-> +		do {
-> +			new_val = old_val + 1;
-> +		} while (!__atomic_compare_exchange_n(&shared_counter, &old_val,
-> +						      new_val, false,
-> +						      __ATOMIC_RELAXED,
-> +						      __ATOMIC_RELAXED));
-> +	}
-> +}
-> +
-> +static void inc_batch(void)
-> +{
-> +	unsigned long i;
-> +
-> +	for (i = 0; i < BATCH_OPS; i++)
-> +		__atomic_fetch_add(&shared_counter, 1, __ATOMIC_RELAXED);
-> +}
-> +
-> +static void *worker(void *arg)
-> +{
-> +	struct worker_stats *ws = (struct worker_stats *)arg;
-> +	struct timespec tstart, tend;
-> +	u64 ops = 0;
-> +
-> +	pthread_barrier_wait(&start_barrier);
-> +
-> +	clock_gettime(CLOCK_MONOTONIC, &tstart);
-> +	while (!__atomic_load_n(&done, __ATOMIC_RELAXED)) {
-> +		switch (bench_op) {
-> +		case OP_CAS:
-> +			cas_batch();
-> +			break;
-> +		case OP_INC:
-> +			inc_batch();
-> +			break;
-> +		default:
-> +			BUG_ON(1);
-> +			break;
-> +		}
-> +		ops += BATCH_OPS;
-> +	}
-> +	clock_gettime(CLOCK_MONOTONIC, &tend);
-> +
-> +	ws->runtime_ns	= (u64)(tend.tv_sec - tstart.tv_sec) * NSEC_PER_SEC +
-> +			  (tend.tv_nsec - tstart.tv_nsec);
-> +	ws->ops		= ops;
-> +
-> +	return NULL;
-> +}
-> +
-> +static void print_default_format(struct worker_stats *wstats,
-> +				 struct stats *throughput_stats)
-> +{
-> +	double thru_avg, thru_stddev;
-> +
-> +	printf("  Threads: %u, runtime: %u sec, repeats: %u (warmup: 1)\n",
-> +	       threads, runtime, bench_repeat);
-> +
-> +	thru_avg    = avg_stats(throughput_stats);
-> +	thru_stddev = stddev_stats(throughput_stats);
-> +
-> +	printf("  Avg throughput: %'.0f ops/sec (+- %.2f%%)\n",
-> +	       thru_avg, rel_stddev_stats(thru_stddev, thru_avg));
-> +
-> +	/*
-> +	 * Per-thread operation counts from the last measured repeat show
-> +	 * whether any thread failed to make progress under contention.
-> +	 */
-> +	if (threads > 1) {
-> +		u64 min_ops = UINT64_MAX, max_ops = 0, total_ops = 0;
-> +
-> +		for (unsigned int t = 0; t < threads; t++) {
-> +			if (wstats[t].ops < min_ops)
-> +				min_ops = wstats[t].ops;
-> +			if (wstats[t].ops > max_ops)
-> +				max_ops = wstats[t].ops;
-> +			total_ops += wstats[t].ops;
-> +		}
-> +
-> +		printf("  Per-thread ops (last repeat):\n");
-> +		printf("    fastest:  %'" PRIu64 " ops\n", max_ops);
-> +		printf("    slowest:  %'" PRIu64 " ops\n", min_ops);
-> +		printf("    avg:      %'" PRIu64 " ops\n", total_ops / threads);
-> +	}
-> +}
-> +
-> +static int run_benchmark(void)
-> +{
-> +	pthread_t *thread_ids;
-> +	struct worker_stats *wstats;
-> +	struct stats throughput_stats;
-> +	unsigned int r, t;
-> +
-> +	thread_ids = calloc(threads, sizeof(pthread_t));
-> +	if (!thread_ids)
-> +		err(EXIT_FAILURE, "calloc");
-> +
-> +	wstats = calloc(threads, sizeof(struct worker_stats));
-> +	if (!wstats)
-> +		err(EXIT_FAILURE, "calloc");
-> +
-> +	init_stats(&throughput_stats);
-> +
-> +	for (r = 0; r < bench_repeat + 1; r++) {
-> +		u64 max_runtime_ns = 0, total_ops = 0;
-> +		double throughput;
-> +
-> +		shared_counter = 0;
-> +		__atomic_store_n(&done, false, __ATOMIC_RELAXED);
-> +		pthread_barrier_init(&start_barrier, NULL, threads);
-> +
-> +		for (t = 0; t < threads; t++) {
-> +			if (pthread_create(&thread_ids[t], NULL,
-> +					   worker, &wstats[t]))
-> +				err(EXIT_FAILURE, "pthread_create");
-> +		}
-> +
-> +		sleep(runtime);
-> +		__atomic_store_n(&done, true, __ATOMIC_RELAXED);
-> +
-> +		for (t = 0; t < threads; t++)
-> +			pthread_join(thread_ids[t], NULL);
-> +
-> +		pthread_barrier_destroy(&start_barrier);
-> +
-> +		for (t = 0; t < threads; t++) {
-> +			total_ops += wstats[t].ops;
-> +			if (wstats[t].runtime_ns > max_runtime_ns)
-> +				max_runtime_ns = wstats[t].runtime_ns;
-> +		}
-> +
-> +		/*
-> +		 * Exclude the first repeat (warmup) from statistics so
-> +		 * that cache-cold and lazy-init effects are not counted.
-> +		 */
-> +		if (r > 0 && max_runtime_ns) {
-> +			throughput = (double)total_ops /
-> +				     ((double)max_runtime_ns / NSEC_PER_SEC);
-> +			update_stats(&throughput_stats, (u64)throughput);
-> +		}
-> +	}
-> +
-> +	switch (bench_format) {
-> +	case BENCH_FORMAT_DEFAULT:
-> +		print_default_format(wstats, &throughput_stats);
-> +		break;
-> +
-> +	case BENCH_FORMAT_SIMPLE:
-> +		printf("%.0f\n", avg_stats(&throughput_stats));
-> +		break;
-> +
-> +	default:
-> +		fprintf(stderr, "Unknown format: %d\n", bench_format);
-> +		exit(EXIT_FAILURE);
-> +	}
-> +
-> +	free(thread_ids);
-> +	free(wstats);
-> +
-> +	return 0;
-> +}
-> +
-> +static int run_atomic_bench(int argc, const char **argv,
-> +			    const char * const *usage)
-> +{
-> +	struct perf_cpu_map *cpu;
-> +
-> +	if (parse_options(argc, argv, options, usage, 0)) {
-> +		usage_with_options(usage, options);
-> +		exit(EXIT_FAILURE);
-> +	}
-> +
-> +	if (!threads) {	/* default to 2 threads (1 on a single-CPU machine) */
-> +		cpu = perf_cpu_map__new_online_cpus();
-> +		threads = (cpu && perf_cpu_map__nr(cpu) > 1) ? 2 : 1;
-> +		perf_cpu_map__put(cpu);
-> +	}
-> +
-> +	if (runtime < 1) {
-> +		fprintf(stderr, "Invalid runtime: %u\n", runtime);
-> +		return 1;
-> +	}
-> +
-> +	return run_benchmark();
-> +}
-> +
-> +int bench_atomic_cas(int argc, const char **argv)
-> +{
-> +	bench_op = OP_CAS;
-> +	return run_atomic_bench(argc, argv, cas_usage);
-> +}
-> +
-> +int bench_atomic_inc(int argc, const char **argv)
-> +{
-> +	bench_op = OP_INC;
-> +	return run_atomic_bench(argc, argv, inc_usage);
-> +}
-> +#endif /* HAVE_PTHREAD_BARRIER */
-> diff --git a/tools/perf/bench/bench.h b/tools/perf/bench/bench.h
-> index 8519eb5a42fa..85e3ac471875 100644
-> --- a/tools/perf/bench/bench.h
-> +++ b/tools/perf/bench/bench.h
-> @@ -30,6 +30,8 @@ int bench_mem_memcpy(int argc, const char **argv);
->  int bench_mem_memset(int argc, const char **argv);
->  int bench_mem_mmap(int argc, const char **argv);
->  int bench_mem_find_bit(int argc, const char **argv);
-> +int bench_atomic_cas(int argc, const char **argv);
-> +int bench_atomic_inc(int argc, const char **argv);
->  int bench_futex_hash(int argc, const char **argv);
->  int bench_futex_wake(int argc, const char **argv);
->  int bench_futex_wake_parallel(int argc, const char **argv);
-> diff --git a/tools/perf/builtin-bench.c b/tools/perf/builtin-bench.c
-> index 02d47913cc6a..62bebdedd3b8 100644
-> --- a/tools/perf/builtin-bench.c
-> +++ b/tools/perf/builtin-bench.c
-> @@ -14,6 +14,7 @@
->   *  syscall ... System call performance
->   *  mem   ... memory access performance
->   *  numa  ... NUMA scheduling and MM performance
-> + *  atomic ... Atomic operation performance
->   *  futex ... Futex performance
->   *  epoll ... Event poll performance
+>  /*
+> - * Cache the last found function. Yes, updates to this is racey, but
+> - * so is memory cache ;-)
+> + * Cache the last function confirmed present in recursed_functions[].
+> + * Updates to this are racy, but this is only a best-effort cache.
 >   */
-> @@ -115,6 +116,13 @@ static const struct bench uprobe_benchmarks[] = {
->  	{ NULL,	NULL, NULL },
->  };
+>  static unsigned long cached_function;
 >  
-> +static const struct bench atomic_benchmarks[] = {
-> +	{ "cas",	"Benchmark CAS (compare-and-swap) operations",	bench_atomic_cas	},
-> +	{ "inc",	"Benchmark atomic fetch-add operations",	bench_atomic_inc	},
-> +	{ "all",	"Run all atomic benchmarks",			NULL			},
-> +	{ NULL,		NULL,						NULL			}
-> +};
-> +
->  struct collection {
->  	const char		*name;
->  	const char		*summary;
-> @@ -128,6 +136,7 @@ static const struct collection collections[] = {
->  #ifdef HAVE_LIBNUMA_SUPPORT
->  	{ "numa",	"NUMA scheduling and MM benchmarks",		numa_benchmarks		},
->  #endif
-> +	{ "atomic",	"Atomic operation benchmarks",			atomic_benchmarks	},
->  	{"futex",       "Futex stressing benchmarks",                   futex_benchmarks        },
->  #ifdef HAVE_EVENTFD_SUPPORT
->  	{"epoll",       "Epoll stressing benchmarks",                   epoll_benchmarks        },
-> -- 
-> 2.53.0
-> 
+> @@ -67,24 +67,27 @@ void ftrace_record_recursion(unsigned long ip, unsigned long parent_ip)
+>  		}
+>  	}
+>  
+> -	cached_function = ip;
+> -
+>  	/*
+>  	 * We only want to add a function if it hasn't been added before.
+> -	 * Add to the current location before incrementing the count.
+> -	 * If it fails to add, then increment the index (save in i)
+> -	 * and try again.
+> +	 * Claim the current slot before incrementing the count. If the slot
+> +	 * is occupied by another function, advance to the next slot and retry.
+> +	 *
+> +	 * Do not update cached_function until ip is known to be present;
+> +	 * otherwise the retry would match its own cache update.
+>  	 */
+>  	old = cmpxchg(&recursed_functions[index].ip, 0, ip);
+>  	if (old != 0) {
+>  		/* Did something else already added this for us? */
+> -		if (old == ip)
+> +		if (old == ip) {
+> +			cached_function = ip;
+>  			return;
+> +		}
+
+I think we do not need the above. If old == ip, then whatever set it before
+should have updated the cached_function.
+
+-- Steve
+
+
+>  		/* Try the next location (use i for the next index) */
+>  		index++;
+>  		goto again;
+>  	}
+>  
+> +	cached_function = ip;
+>  	recursed_functions[index].parent_ip = parent_ip;
+>  
+>  	/*
+
