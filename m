@@ -1,300 +1,215 @@
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74150411A18
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:18:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5175B51C05E
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:19:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791994689; cv=none; b=tI2zUpw9RvTKIpxK+ryNGgn8o1oJYH2W0gtQZ9x0OZXsSkawICOqpO9gvlg50ZyU7868tLZWLLjziV3v/LiVAPX41pGt9m3taajkWjZRwD+/HlgL1RQOA5cCaOuu4Da5bEeywlVuOUB2Bg8vfOr1p5+9uYs1bQ58QSq1BXPsIhI=
+	t=1791994769; cv=none; b=sEX7+l0GV90rBPnm8cKK3ALtfshZbdXiFK6niiz1KfLbiqoBtgXZAqttzXWpFKS3KFK5IQbKVI/GxhH7iWylQVIM4DSXLyDr2FYOmNv9fcWD0ya8klYziiAScfl1uYxs+GhxHhcCYZ81hiNd9rPh856cjeX3PbmhGVNSrtZuLWo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791994689; c=relaxed/simple;
-	bh=7+ZuMQGm1WqmYa/SemsnkHIbC/OIMDMcJFeU+26oqOg=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=Dg5nTjhVBMBEPnVpsTSEWw+b/BAbK2rd8jgFauSmMgyYYdS8k42i68OvZewT+ZIzeqZAkFZfpLGKw9Kg1H8u3Av6MB3u8Lmv4dwxR5B8fegXKsR6564lsV4N+PX0UYDK8BkwI4aKzruOhcZRw+0NycRa6Imc4+AkjNJe8pSRQQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ZcYDU7FA; arc=none smtp.client-ip=74.125.82.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
+	s=arc-20240116; t=1791994769; c=relaxed/simple;
+	bh=C3SNj+o4nSmOZQcsvatoOKv0uXSF6BYXRfbVTfTvTAA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=OI5L9fVeUKi8uNUU1r8nnrMCXTEq7P/K2zN5XPAe3XKnmx3+yB8n07exXt2Ol/RHq3kg8LfLZgdDlWsrQ5CPVkK6CXeVCQ10i8tzgLbP19/kfN5jXhc4cmR3T0JEbvU8sfL9w3RZB1zzQzENDeEqlsFeiYvFD2KpgNJ79dI1oeo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AunjBc7u; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IypHFoVM; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ZcYDU7FA"
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-341eff9e381so11980942eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:18:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AunjBc7u";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IypHFoVM"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EFMi7f1682646
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:19:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=WLJdnOu7zalmLPYlOcnVTI
+	+JOF39KQbZ+zn1YXHnHCs=; b=AunjBc7uMMq8tgxtSwxU144uc4pMa2fafLl2p2
+	QoheRVaumtjh33CGvylRWezd/zUUTLxe1MlwA5LSKbk8R+Pv9jznwD4nCjQjz8v3
+	h4Sidfx3ddfdW8qktcX7WeqxYftx48IjgXxBbSLU2Z2Z++OMJXxgTO1zlCivWVQ9
+	frPceb7tRQtDcsPCSrC1PvyTp9AMbFtqnNRmeixxh2EECqxPBJrufAHT6Doz59RR
+	RegN9B9TOkKlglSNR77P5HVVgzK57fq9nlc8fXIQ6yT7IkPxLlshiuXtvz1fOWLO
+	VgjyFURJ8aDY+xECDzkAnWKLtxRKgH0Yg8oDD6Q2eP47YntQ==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hacb007hc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:19:26 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-919879b09b7so97102946d6.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:19:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791994680; x=1792599480; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wON/Y5KE9qpxqraW/pAdp0YZ1NlG3ckfd93a0Oe+XQc=;
-        b=ZcYDU7FA3vQ/qXSKedsmrcEfASZelK9CsRbRfBJQwefOdSk4q+Dn2BIx0mY/asQwtA
-         P1KNsziUhXWv2MxRoiQQcGw9ITe4fBYBkeXibjKfgLAWCfIQfrzKXopJLTUhyU6CxcXZ
-         3RCMdAsdAfzncmHXTMDHyPBgFvkF7TyBMeQm8EAWevLu6JkFnFeQ8dOxpQ6OTfOoLzaR
-         Asrhc0bc1ebIwO0251LOxCS1Rtx4j1HyX31pt99yyq99LwtjzFsWgCip0VFYtXYuSg8z
-         iRbW4gWZCcsqNIYjwPWGivrfC02kzCxJYWJOus6l0DAnX9ia/eLDR5A5Ke8Mic4g/d/j
-         d0cg==
+        d=oss.qualcomm.com; s=google; t=1791994764; x=1792599564; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=WLJdnOu7zalmLPYlOcnVTI+JOF39KQbZ+zn1YXHnHCs=;
+        b=IypHFoVM8f5qVwW297OYGnEcxDaJ/ubMV35wLx/USvN6hjL87Hdw0mzljXyJKLU7wt
+         yn7yk9X86C+V3rYbd+PC7GYK2ZrhYgzXTPC7OgWd+jKLeiXXyen93Sl9qBYgXXEykxZo
+         TsJeM4K2gJIt7vR8hN51RMmYpl610pMFQN5bdHWqL0xPRz+xG+vgRXPLKUHocYPR6AxY
+         pY7gf52dV3vv+wguetHo7vqnodE6bPP/IEvoXrD96ehmUukwWjM793P/WA7Ho2POU50f
+         DeyRz7k1G/NWvKviRJa7K8z00jnrFxQnXw+3sKXF6JAgdd1MZ8KlD17qnktF2lg4LWzH
+         fTBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791994680; x=1792599480;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wON/Y5KE9qpxqraW/pAdp0YZ1NlG3ckfd93a0Oe+XQc=;
-        b=kOQkJZkcWE3yTb59CjLcXoZ+biYF8WSwvDkBWGk1HwylLWhAy5nQAkW6KRpgRF9xsR
-         3rj65wc3X6f3nXe8pcaZ629DNhgv2UZbUaEn1XHj7eouDgASrKiB5t7ECu6Dq+wmCCfE
-         7Wfb84rEY7xUsqb7KcaqqOpMWrs0/86QFy14GSL0n3ggoPDMv8BsCIIb+qRpzo2HkiWO
-         +VPVOlYEXpPje4ZMWqHHHq86XlWu6p1Gxl/B/XLzV1h1OJYQeFVn/vY+nzOuwbp9PaYN
-         Ti/tKnDMRXEwkz9fYpd58SiY1ONtuLwM694wcUyLenB9mN1t04q8YrVGIQj3J150Otst
-         kBxA==
-X-Forwarded-Encrypted: i=1; AKwUvBxQCH3iPsN+gtGDbzNbQ2hKj0QE+0Pc7VbNgQ3YUjamJg2KubatumvflbiPRsf8iuI6f2uPJA33tndbWTI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIr6ke5CtaFxgcJ3PdS7T64BCNOYn3NVDNV1yHziFLmuWHR9BWQ
-	BkDWGZJCufDtBsHRG2TdWjU4EvKv28eBcPjO0CYbrxOjfpQB8kCMgPnR3K2XgVUQVtaikEMBmze
-	aKqMcmx/FrZfR0yYNb6Ms1zzFZA==
-X-Received: from dybvq12.prod.google.com ([2002:a05:7301:77cc:b0:35d:636:2f60])
- (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7301:3d10:b0:34d:96cb:d75e with SMTP id 5a478bee46e88-3537e069fb9mr34072614eec.27.1791994679866;
- Wed, 14 Oct 2026 09:17:59 -0700 (PDT)
-Date: Wed, 14 Oct 2026 16:17:54 +0000
-In-Reply-To: <20261014161754.3782346-1-almasrymina@google.com>
+        d=1e100.net; s=20260707; t=1791994764; x=1792599564;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=WLJdnOu7zalmLPYlOcnVTI+JOF39KQbZ+zn1YXHnHCs=;
+        b=2Eiz4yYHgqHUteggWOBx4EhpYgKesGiJ17UcoeJFPAxGiO5YJ89+diCsRIs4Z9jviB
+         kXOgQJhVw00R2bQW0bJ9gs9jgZOEfFTxFlHfrSMcQ5KGTQa7AS5NZy0QB39hIkhsRLqh
+         788BKkYVQ8KM1HUTIy+OPVyBf7CmmPKq+R+ahvIaXPW8W2TR2gYBt+NBFGgK37P56/do
+         ceQ5FNUm2zpLvtJmXlZO3LPQ24//Vs2H8fqnn0c32c6ulKuvFEGi1Pj1fEwJ0z1MYm0V
+         ktHGytRgeYBB7EGxJ9IwjJ81H6BinACQOtS2yi1IhEs5QZ8MubzR5SKwjQNVtfj4tar4
+         CZuA==
+X-Forwarded-Encrypted: i=1; AKwUvBxPBkMOwvswlupvi8HwSvzJH3XPb0CCHeugg1WmVWAdbWxtjvPT5GlwYc3LMO8DrF8nB4iyVgDoeVJZBC4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKArlNfN9F7vILnAgR+9Kd7pWwzaUUWJ9BXPlVJkRt+BviP5m9J
+	eLSWUCPO8a91M7fHhYt3owTzya+ViLJ2AEL+pIAVfL+QakYsu75+kWgIF37QGwjGHZHwHxGwujJ
+	TV/mbHdR9FDFwVxc4R23euKHKbl/Tcb5a199N6sWjhW6PUp8zm8NYAh3lrLjRYQoBza4=
+X-Gm-Gg: AYBFou1y3bQiEx81jEikNY0XhTMP5tfEGBMn42DtAkO5zGsa//3f/YNTsHRCFPUhtQf
+	5xPVH/o4Xnlyd94qLBX3NcrHBP7jfwUyYBfspYvaYFEL1BY7yOBb9ii5AV387Qq7HlR4k2X6muU
+	/JeDSf7nm/SNBs50QvXcCHLeYjHVQs1J3EPXVNhRa0Ais0mlsRNiZ9yUBEu8zlThHiHvBwJf9QS
+	wWs0otlucaKQTcevL6XEB31Ucas1hcboSm5bq9JVIB7pYMUCDB0biLYD+bVxYLooWi6TEed2VYZ
+	8v3+6BCItLUHLVkz3XA0DbNwZ5PYeu65AsYraf4BcXF2ytbh2CQ9VAZA2NyZsx+gzjh2gwEauhU
+	ixoKFX6h/RzJNeR7/qumOfg+gP0TZurTXXMYp2KiXhnrq3PQbPivsL/qEDqiOcsyYI+FLv/+QtP
+	yE0yXtEso2AYNJ
+X-Received: by 2002:a05:620a:1789:b0:937:5ab5:53f7 with SMTP id af79cd13be357-93ebd233be3mr2728368585a.43.1791994764175;
+        Wed, 14 Oct 2026 09:19:24 -0700 (PDT)
+X-Received: by 2002:a05:620a:1789:b0:937:5ab5:53f7 with SMTP id af79cd13be357-93ebd233be3mr2728364485a.43.1791994763716;
+        Wed, 14 Oct 2026 09:19:23 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5be33d7d0f6sm740187e87.38.2026.10.14.09.19.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 09:19:21 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: [PATCH v2 0/5] arm64: dts: qcom: support SDM845 HDK
+Date: Wed, 14 Oct 2026 19:19:15 +0300
+Message-Id: <20261014-sdm845-hdk-v2-0-6d0b4b42f267@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261014161754.3782346-1-almasrymina@google.com>
-X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
-Message-ID: <20261014161754.3782346-5-almasrymina@google.com>
-Subject: [PATCH net v3 4/4] selftests: net: add devmem RX and TX netdev
- unregister tests
-From: Mina Almasry <almasrymina@google.com>
-To: Jakub Kicinski <kuba@kernel.org>, Mina Almasry <almasrymina@google.com>, 
-	Pavel Begunkov <asml.silence@gmail.com>, David Wei <dw@davidwei.uk>, 
-	Stanislav Fomichev <sdf@fomichev.me>, Taehee Yoo <ap420073@gmail.com>, Paolo Abeni <pabeni@redhat.com>, 
-	Kaiyuan Zhang <kaiyuanz@google.com>, Bobby Eshleman <bobbyeshleman@meta.com>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, 
-	"=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Nikolay Aleksandrov <razor@blackwall.org>, Tariq Toukan <tariqt@nvidia.com>, 
-	Kaifeng Wang <kaifengw@google.com>, Dragos Tatulea <dtatulea@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAIOrz2oC/03MQQ6CMBCF4auQWVvSjnQAV97DsCCltY1CtaNEQ
+ 7i7FTduJvkned8CbFOwDIdigWTnwCFOOXBXgPH9dLYiDLkBJZJUiIKHsam08MNFtBWR3ktTIdW
+ QB7dkXXht2KnL7QM/Ynpv9qy+3x+Dqv5nZiWkaIicakk76+pjZC7vz/5q4jiW+UC3rusHLitGb
+ KsAAAA=
+X-Change-ID: 20260122-sdm845-hdk-9466530c4267
+To: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Abel Vesa <abelvesa@kernel.org>, Ulf Hansson <ulfh@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        dri-devel@lists.freedesktop.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2523;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=C3SNj+o4nSmOZQcsvatoOKv0uXSF6BYXRfbVTfTvTAA=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqz6uGjdwxsEiRA5wBpZhF5ZT2usgjG6+BD2jxf
+ iz4Y2so3fuJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCas+rhgAKCRCLPIo+Aiko
+ 1WDpCACBIarplL/y0Mo5vOtfypBdG1ZflLKgW1wwjSJPLPPT3rgF41+93qBvGYJPAnePANm+c+C
+ SqLqLNMIzhslGqMJ84RvxMbjS8B87r1uRmjFSCDvPzfH+/U/hlbkquIPBGLGx5fSwMEU2yXvu5l
+ Clyn7wGI7zpk5cQBqhLSj2KLjE3XP1aXpqU2dN3p7Q1Y3DkQYskeJ7GbA5htdvEYdjUrNVfChTA
+ 0/tVGXTiRvLCZbGDlt8U6d3eGWejGYzrdrqlsRFh9icm6Nz+eqBgi18s4pzyEIPFYNtXJAmbIKP
+ SdaMy5KlHFO5BnPWPzyNZDwQW2ig1+MQSfd3uIR7Z6kCJbTY
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Authority-Analysis: v=2.4 cv=VKpIDNPX c=1 sm=1 tr=0 ts=6acfab8e cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8 a=pGLkceISAAAA:8 a=QyXUC8HyAAAA:8
+ a=e5mUnYsNAAAA:8 a=S_NnZ3hT_RIKTG7XCKUA:9 a=QEXdDO2ut3YA:10
+ a=OIgjcC2v60KrkQgK7BGD:22 a=cvBusfyB2V15izCimMoJ:22 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA2NCBTYWx0ZWRfXwM3iDV74R5Sq
+ c4ziJd6gRwvIpbERRr0K1iFdXzAGG4rE2+jUn/5DFrYI+B2VgpEW1AW6ccwo+ScIQQ8LFxoOduC
+ 1mLtxaL1wb/IkFjJ6FmWfnkRqzu4evE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA2NCBTYWx0ZWRfX58B8w4BPBdKQ
+ ptJOP5+E5U77pEd70+y+TfvOcAD86tRFH1HK6ILjvujIH/t42LxEPMhjE7KBGnCxyirnBMrxMJg
+ APkAmVZ9prFWwYPfcOXEKHod96Ajfp5KjNjqwks6dL/oQVD1zLxQYmh5+BqB1FAxhWomZ2Tk7t4
+ vZL0lDl4DWTcxWv3v1pNPztZZO31kXNSdMRTEuIbK7V1IKprCeRWxS9ZtleKBQPwirVDgmZ72sk
+ 9EO8d2OIYsmNi7K3W5zLP6caaMeoMwJO6Iu231sSJqZOboSBUYgvazCejLgqGfPEbBxWespYpKu
+ m712DrzdaAqwWEN7jzj8xXJ7TAAU1VhOvrDSDg6ZWV2uNHecAAQ6ELNwgqNsyQBNioSU2bRteFw
+ bN6/6jGJ3AG6cTZzTsl+rNrK/z3bYaQ5vk8Ce7T6XsRBPUQKMaWhkXNSGTtcKhuFvcLny99ksU8
+ C1fCH1NgWd3ZVGlB7Bg==
+X-Proofpoint-ORIG-GUID: I6vaSsnF_p0sXkQ_CgFArZl_aZ3aWwtu
+X-Proofpoint-GUID: I6vaSsnF_p0sXkQ_CgFArZl_aZ3aWwtu
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 spamscore=0 clxscore=1015 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140064
 
-Add devmem_bind_rx_unregister_check and devmem_bind_tx_unregister_check
-to nl_netdev.py to verify that unregistering a netdevsim device while a
-netlink socket holds an active RX or TX devmem binding synchronously
-detaches the dma_buf attachment and cleanly closes the netlink socket
-without use-after-free or page faults.
+Lantronix HDK845 aka Qualcomm SDM845-HDK is a hardware development kit
+for the Qualcomm SDM845 / SDA845 platform. It uses the modem-less
+version of the chip (SDA845) and provides a rich set of the peripherals
+and connectors. The DSI panel is an optional addon, so it is being split
+to a separate overlay. To (hopefully) ease merging, the overlay is split
+to a separate patch as it depends on the panel. The base DT doesn't have
+external dependencies.
 
-Add the dma-buf, udmabuf and devmem options the tests need to
-tools/testing/selftests/net/config.
-
-Cc: Tariq Toukan <tariqt@nvidia.com>
-Cc: Kaifeng Wang <kaifengw@google.com>
-Assisted-by: LLM
-Signed-off-by: Mina Almasry <almasrymina@google.com>
-Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
-v3:
-- Count attachments of the test's own dma-buf only, and skip instead of
-  passing when debugfs bufinfo is not readable (Sashiko).
-- Close the netlink socket after removing the device, clean up with
-  defer(), and skip on EOPNOTSUPP from bind-rx/bind-tx (Sashiko).
-- Replace the hardcoded UDMABUF_CREATE value with a helper that computes
-  it for the running architecture (Sashiko, Dragos), and close the memfd
-  and /dev/udmabuf fds on errors (Sashiko).
-- Add the needed options to tools/testing/selftests/net/config (Sashiko).
----
- tools/testing/selftests/net/config       |   4 +
- tools/testing/selftests/net/nl_netdev.py | 125 ++++++++++++++++++++++-
- 2 files changed, 126 insertions(+), 3 deletions(-)
+Changes in v2:
+- Dropped MDSS reset patch (Konrad)
+- Added panel driver and the display card overlay.
+- Link to v1: https://lore.kernel.org/r/20260217-sdm845-hdk-v1-0-866f1965fef7@oss.qualcomm.com
 
-diff --git a/tools/testing/selftests/net/config b/tools/testing/selftests/net/config
-index 737e7e6327b37..1e21f0055a2c0 100644
---- a/tools/testing/selftests/net/config
-+++ b/tools/testing/selftests/net/config
-@@ -11,6 +11,7 @@ CONFIG_CRYPTO_ARIA=y
- CONFIG_CRYPTO_CHACHA20POLY1305=m
- CONFIG_CRYPTO_SHA1=y
- CONFIG_CRYPTO_SM4_GENERIC=y
-+CONFIG_DEBUG_FS=y
- CONFIG_DEBUG_INFO_BTF=y
- CONFIG_DEBUG_INFO_BTF_MODULES=n
- CONFIG_DUMMY=y
-@@ -76,6 +77,7 @@ CONFIG_NET_CLS_BPF=m
- CONFIG_NET_CLS_FLOWER=m
- CONFIG_NET_CLS_MATCHALL=m
- CONFIG_NET_CLS_U32=m
-+CONFIG_NET_DEVMEM=y
- CONFIG_NETDEVSIM=m
- CONFIG_NET_DROP_MONITOR=m
- CONFIG_NETFILTER=y
-@@ -120,6 +122,7 @@ CONFIG_OPENVSWITCH=m
- CONFIG_PAGE_POOL_STATS=y
- CONFIG_PSAMPLE=m
- CONFIG_RPS=y
-+CONFIG_SYNC_FILE=y
- CONFIG_SYN_COOKIES=y
- CONFIG_SYSCTL=y
- CONFIG_SYSFS=y
-@@ -131,6 +134,7 @@ CONFIG_TEST_BPF=m
- CONFIG_TLS=m
- CONFIG_TRACEPOINTS=y
- CONFIG_TUN=y
-+CONFIG_UDMABUF=y
- CONFIG_USER_NS=y
- CONFIG_VETH=y
- CONFIG_VLAN_8021Q=y
-diff --git a/tools/testing/selftests/net/nl_netdev.py b/tools/testing/selftests/net/nl_netdev.py
-index ceb44c8e1fec5..988878b71358c 100755
---- a/tools/testing/selftests/net/nl_netdev.py
-+++ b/tools/testing/selftests/net/nl_netdev.py
-@@ -6,10 +6,14 @@ Tests for the netdev netlink family.
- """
- 
- import errno
-+import fcntl
-+import mmap
-+import os
-+import struct
- from os import system
--from lib.py import ksft_run, ksft_exit
-+from lib.py import ksft_run, ksft_exit, KsftFailEx, KsftSkipEx
- from lib.py import ksft_eq, ksft_ge, ksft_ne, ksft_raises, ksft_busy_wait
--from lib.py import NetdevFamily, NetdevSimDev, NlError, defer, ip
-+from lib.py import EthtoolFamily, NetdevFamily, NetdevSimDev, NlError, defer, ip
- 
- 
- def empty_check(nf) -> None:
-@@ -366,6 +370,119 @@ def page_pool_stats_ifindex_check(nf) -> None:
-     ksft_eq(cm.exception.nl_msg.extack['bad-attr'], '.info.id')
- 
- 
-+def _udmabuf_create_ioctl() -> int:
-+    """Return UDMABUF_CREATE, _IOW('u', 0x42, struct udmabuf_create)."""
-+    machine = os.uname().machine
-+    if machine.startswith(("alpha", "mips", "ppc", "powerpc", "sparc")):
-+        ioc_write = 4 << 29
-+    elif machine.startswith("parisc"):
-+        ioc_write = 2 << 30
-+    else:
-+        ioc_write = 1 << 30
-+    return ioc_write | 24 << 16 | ord("u") << 8 | 0x42
-+
-+
-+def _create_udmabuf(num_pages=64) -> int:
-+    """Create a sealed memfd-backed udmabuf fd for devmem tests."""
-+    if not os.path.exists("/dev/udmabuf"):
-+        raise KsftSkipEx("/dev/udmabuf is not available")
-+
-+    size = num_pages * mmap.PAGESIZE
-+    memfd = os.memfd_create("devmem-ksft", os.MFD_ALLOW_SEALING)
-+    try:
-+        os.ftruncate(memfd, size)
-+        fcntl.fcntl(memfd, fcntl.F_ADD_SEALS, fcntl.F_SEAL_SHRINK)
-+        devfd = os.open("/dev/udmabuf", os.O_RDWR)
-+        try:
-+            req = bytearray(struct.pack("IIQQ", memfd, 0, 0, size))
-+            return fcntl.ioctl(devfd, _udmabuf_create_ioctl(), req)
-+        finally:
-+            os.close(devfd)
-+    finally:
-+        os.close(memfd)
-+
-+
-+def _dmabuf_attach_count(dmabuf_fd) -> int:
-+    """Return the number of devices attached to dmabuf_fd, from debugfs."""
-+    path = "/sys/kernel/debug/dma_buf/bufinfo"
-+    try:
-+        with open(path, "r", encoding="utf-8") as f:
-+            lines = f.read().splitlines()
-+    except OSError as e:
-+        raise KsftSkipEx(f"{path} is not readable: {e}") from e
-+
-+    ino = os.fstat(dmabuf_fd).st_ino
-+    found = False
-+    for line in lines:
-+        fields = line.split("\t")
-+        if not found:
-+            found = (len(fields) == 7 and fields[5].isdigit() and
-+                     int(fields[5]) == ino)
-+        elif line.startswith("Total "):
-+            return int(line.split()[1])
-+    raise KsftFailEx(f"dma-buf {ino} not found in {path}")
-+
-+
-+def _devmem_bind(bind, attrs) -> None:
-+    """Run a devmem bind op, skip the test if the device can't do devmem."""
-+    try:
-+        bind(attrs)
-+    except NlError as e:
-+        if e.error == errno.EOPNOTSUPP:
-+            raise KsftSkipEx(f"devmem binding not supported: {e}") from e
-+        raise
-+
-+
-+def devmem_bind_rx_unregister_check(_nf) -> None:
-+    """Verify RX devmem bindings detach dma_buf synchronously on netdev unregister."""
-+    dmabuf_fd = _create_udmabuf()
-+    defer(os.close, dmabuf_fd)
-+    nf_priv = NetdevFamily()
-+    defer(nf_priv.close)
-+    nsimdev = NetdevSimDev(queue_count=2)
-+    defer(nsimdev.remove)
-+    nsim = nsimdev.nsims[0]
-+
-+    ip(f"link set dev {nsim.ifname} up")
-+    with EthtoolFamily() as ef:
-+        ef.rings_set({"header": {"dev-index": nsim.ifindex},
-+                      "tcp-data-split": "enabled"})
-+    _devmem_bind(nf_priv.bind_rx, {
-+        "ifindex": nsim.ifindex,
-+        "fd": dmabuf_fd,
-+        "queues": [{"id": 1, "type": "rx"}],
-+    })
-+    ksft_ge(_dmabuf_attach_count(dmabuf_fd), 1)
-+
-+    nsimdev.remove()
-+    ksft_eq(_dmabuf_attach_count(dmabuf_fd), 0)
-+
-+    nf_priv.close()
-+
-+
-+def devmem_bind_tx_unregister_check(_nf) -> None:
-+    """Verify TX devmem bindings detach cleanly on netdev unregister without UAF."""
-+    dmabuf_fd = _create_udmabuf()
-+    defer(os.close, dmabuf_fd)
-+    nf_priv = NetdevFamily()
-+    defer(nf_priv.close)
-+    nsimdev = NetdevSimDev(queue_count=2)
-+    defer(nsimdev.remove)
-+    nsim = nsimdev.nsims[0]
-+
-+    ip(f"link set dev {nsim.ifname} up")
-+    _devmem_bind(nf_priv.bind_tx, {
-+        "ifindex": nsim.ifindex,
-+        "fd": dmabuf_fd,
-+    })
-+    ksft_ge(_dmabuf_attach_count(dmabuf_fd), 1)
-+
-+    nsimdev.remove()
-+    ksft_eq(_dmabuf_attach_count(dmabuf_fd), 0)
-+
-+    nf_priv.close()
-+
-+
- def main() -> None:
-     """ Ksft boiler plate main """
-     nf = NetdevFamily()
-@@ -379,7 +496,9 @@ def main() -> None:
-               page_pool_check,
-               page_pool_dump_ifindex,
-               page_pool_ifindex_leak_check,
--              page_pool_stats_ifindex_check
-+              page_pool_stats_ifindex_check,
-+              devmem_bind_rx_unregister_check,
-+              devmem_bind_tx_unregister_check
-               ],
-              args=(nf, ))
-     ksft_exit()
--- 
-2.56.0.176.g3575e65682-goog
+To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Jessica Zhang <jesszhan0024@gmail.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Abel Vesa <abelvesa@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org
+
+---
+Dmitry Baryshkov (5):
+      dt-bindings: display: panel: add Truly NT36850 WQHD panel
+      drm/panel: add Novatek NT36850 panel driver
+      dt-bindings: arm: qcom: add Qualcomm SDM845 HDK
+      arm64: dts: qcom: add device tree for SDM845-HDK
+      arm64: dts: qcom: sdm845-hdk: add display card overlay
+
+ Documentation/devicetree/bindings/arm/qcom.yaml    |   1 +
+ .../display/panel/truly,wqhd60-nt36850.yaml        |  98 +++
+ arch/arm64/boot/dts/qcom/Makefile                  |   5 +
+ .../boot/dts/qcom/sdm845-hdk-display-card.dtso     | 109 +++
+ arch/arm64/boot/dts/qcom/sdm845-hdk.dts            | 820 +++++++++++++++++++++
+ drivers/gpu/drm/panel/Kconfig                      |  10 +
+ drivers/gpu/drm/panel/Makefile                     |   1 +
+ drivers/gpu/drm/panel/panel-novatek-nt36850.c      | 343 +++++++++
+ 8 files changed, 1387 insertions(+)
+---
+base-commit: a7d52d51b31a58da686320f5e4edac74e2dad682
+change-id: 20260122-sdm845-hdk-9466530c4267
+
+Best regards,
+--  
+With best wishes
+Dmitry
 
