@@ -1,211 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11BFD54281B
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:08:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64D5454CF6D
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:08:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791990501; cv=none; b=Y/ZgfwQ95fjectloGKVC+nsIIk9mR+FeNf/8kXPhPHjYWqkWPNp3M6nvKg/PQUPky0yNyQnBFPzOPnt58HCiezseJSriM3zYVdBgv9u9Jw1QmeTtWWIbzqQG75Q+CsXWbZF/TtrnKR3dkOBjwPI8wkxjt2fUPpZohf/a+vfVp30=
+	t=1791990540; cv=none; b=r8BTttWjD9YFkq521peuoYcsVEe5RjBkQ437uxU+VoUwVzxoDL4Ev2LT/SOJf4VJND9urd2Tbqsgx7L2NckQQT9Kz2rgoztNDez5yKmHbCFEthcX6ZWT2ujSIOO3gKP4vkIhWg6J9uRB4a+kqkYlH+cM+VMXDpMA0xsi4463O60=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791990501; c=relaxed/simple;
-	bh=OrVR4ICDaqIMRFPXX7OWuZx/GX2al5sZl9xwPRxED5Y=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YCvCRx1be178CzzP2zQYm/uaZTfI2fKK7GDrYt5yHja/3RrYoayOywVLfwOarHuy6Cc7CWvb87rk2Vc4zJdXgvvNQME6Z0YygJqbIjuwk8mzeIVEEym2g4A7MyuGwl0lT6aZmnIXok9WlzF50L/ZGTexbIaScBVRtIiKjzDr2Xk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XD2nmMtP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791990540; c=relaxed/simple;
+	bh=kmmF0P+i5UWKRlZ9F/TFFB8xOojGwHSnZNx1VhtwHr0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZAA+W3ViEkVZz5Nxt1sisVDW8HPvn0mF5UH8dAXC8Tqux8DCwidiEmlW7WSsJQLl6bSqA+a/cYIi6GGkxUeqpdVrk+kj2JOgZ6gcygxXBZMehPk2rcsTN6ukFazSVUPkB7OB0FIMuCt5t+7BS7sSMx0UFMWQWZinbpgV2GvZco8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=mLALfMK7; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=1LuPuFtT; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XD2nmMtP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9168C1F000C5
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:08:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791990497;
-	bh=ljk9MNy1mrOZMOuTAp5WT6L4E5edUdTWjdqXrdRQBe4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=XD2nmMtPGm6s8KO2i0KDKogYIhqcbBzXqw3iBp5uSmdKK7S2k6V+CArmJIEl1/KyI
-	 gYcNtC2LPq/H3zjOiGOg23l6GMybqupTm/+iYCYkOBZue6Gedwk/5c/anI1E/6nxcR
-	 kmg6bdrog0KfyUAGjMk7L8b7/iJbGGTvQab9KLkAizjPF8g5mUpB7DcjNVjqlSAzsb
-	 dS89Oe/1CCLTXApGBES6GU0K42kWL3rSVTKqKq/CWDgDWl4ENi637yKc1dB4BP8sp3
-	 OPbbzYq3fb/CeYEBZWfuOV9nWW27R9vQFf22bhge9/NEhy4A/9DhYlCG0TvcBOiARc
-	 XWzzUQZSMQovA==
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5ba7ed32ccdso710617e87.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:08:17 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzuFVBvm0N9I00ATv8ZJuz+tEW31bwLAanK2w6/BbB48/ODXvU8bExOcsEDO6ZeRgFDB+bHadDamy+s7/E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKYJ/tkuS2/m7B92tlolj7i1ma786U9BBMM2zmvlo8HV1cjoInP
-	x57KkDPmgykyF/3jTdV3noYzKC6YTIrNHlRvhzSqjP4+bRwbzmrJwlP+n8bleRqRbZckun76oUP
-	WQdxzLj/UAwEOhcWCntqsSnZMGkHTzCQ=
-X-Received: by 2002:a05:6512:3f0f:b0:5bb:7c7c:c4e with SMTP id
- 2adb3069b0e04-5bcde8e65f9mr6142561e87.63.1791990495980; Wed, 14 Oct 2026
- 08:08:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="mLALfMK7";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="1LuPuFtT"
+Date: Wed, 14 Oct 2026 17:08:53 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1791990534;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Cw3APKaQu/b4+Iid0imheNzIZFinTC6z+bGAfQ94t3c=;
+	b=mLALfMK7Fzggs3t0AYQpg1ocwxErtF3Dr8xq+hJofeWD9RVMwtKCOs0SY1M9cMgXQJlqSC
+	TIKwoE8g17gw955ZBlCDQuchBIn+jWiI2peyb0uiatXweCXChKMjqkdH1Yk6YrEgbO9Zpn
+	rUXcVDo87Vfc9R6q7+QZ1P1alCPbJtdYww1w8YOmOJcj8sq6Ok9yOs1aXm01EiXrOvTwT0
+	erCgSwMGGjJOsrmjxoVRYdJYW2OqGgISxFedpNhEmP4q039FEQYVcj/HWiQv642DN//Z1q
+	foFO0iU7nveiWMlzyCv80zsntJ5esd+HdanJWFR4AnQed3oAnXGvEO2QnXehCQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1791990534;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Cw3APKaQu/b4+Iid0imheNzIZFinTC6z+bGAfQ94t3c=;
+	b=1LuPuFtTe9YHcRgJP8AVdTyePRRJeJg89Mip3HrncKEC1iU7nOXq8KDOc90t7dARB7TPrR
+	QY4qcdQOTbM/aEDQ==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: wen.yang@linux.dev, Clark Williams <clrkwllms@kernel.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	Eric Dumazet <edumazet@google.com>,
+	Jesper Dangaard Brouer <brouer@redhat.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	linux-rt-devel@list.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6.1-rt 00/15] net: Backport backlog-NAPI threads to
+ resolve PREEMPT_RT softirq warning in SMP flush
+Message-ID: <20261014150853.f8I2fNx0@linutronix.de>
+References: <cover.1791912669.git.wen.yang@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <37N_jFulf7n-Z55NfKfE71C_wVPxYvZ0xD_iRUg2fXu7TypDiF5PStQ6siSfVBih6fThg5WoPes8U5ZQpfVm_teMFcUGXFxz2DdMbfSWuws=@proton.me>
- <20261012225141.13683-1-aliamemis@disroot.org> <fb993dd3-ee56-4e3d-aa16-573f011518f1@oss.qualcomm.com>
- <CAJZ5v0gS4agVUkCO6M=VW4Wi2y1-s+k23bpzmX9aAZ0Rsv4z9Q@mail.gmail.com>
- <044e9df4-1399-4ceb-80f8-f7cfe031d04f@oss.qualcomm.com> <CAJZ5v0isCM3K3U6HSdDnvXzBX41AgQMFYxqLx3KvMA0W_91-ew@mail.gmail.com>
- <b64b8092-93d7-4873-a55f-422b8e70cc04@oss.qualcomm.com>
-In-Reply-To: <b64b8092-93d7-4873-a55f-422b8e70cc04@oss.qualcomm.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Wed, 14 Oct 2026 17:06:08 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0j4xiDYBGA0LsUq4esJCzYBXjsmmXb1ZJvLcUZqDp+yuQ@mail.gmail.com>
-X-Gm-Features: AclHuK9xOO3fl-25LwE2ScVkTnZoEmEEqpNoPfQjqZjGkNfKWcVggqNMlzc8seE
-Message-ID: <CAJZ5v0j4xiDYBGA0LsUq4esJCzYBXjsmmXb1ZJvLcUZqDp+yuQ@mail.gmail.com>
-Subject: Re: [PATCH] ACPI: battery: Re-read battery information in the
- complete callback
-To: johannes.goede@oss.qualcomm.com
-Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, =?UTF-8?Q?Ali_Ahmet_Memi=C5=9F?= <aliamemis@disroot.org>, 
-	Len Brown <lenb@kernel.org>, Armin Wolf <W_Armin@gmx.de>, 
-	Charis Stratakis <c.stratakis@proton.me>, linux-acpi@vger.kernel.org, 
-	linux-pm@vger.kernel.org, regressions@lists.linux.dev, 
-	Mark Pearson <mpearson-lenovo@squebb.ca>, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <cover.1791912669.git.wen.yang@linux.dev>
 
-Hi Hans,
+Please keep the networking folks out of the loop. This is a backport
+request which goes entirely via the RT-queue.
 
-On Wed, Oct 14, 2026 at 11:58=E2=80=AFAM <johannes.goede@oss.qualcomm.com> =
-wrote:
->
-> Hi Rafael,
->
-> On 13-Oct-26 19:20, Rafael J. Wysocki (Intel) wrote:
-> > Hi Hans,
-> >
-> > On Tue, Oct 13, 2026 at 3:36=E2=80=AFPM <johannes.goede@oss.qualcomm.co=
-m> wrote:
-> >>
-> >> Hi Rafael,
-> >>
-> >> On 13-Oct-26 13:58, Rafael J. Wysocki (Intel) wrote:
-> >>> On Tue, Oct 13, 2026 at 11:33=E2=80=AFAM <johannes.goede@oss.qualcomm=
-.com> wrote:
-> >>>>
-> >>>> Hi,
-> >>>>
-> >>>> On 13-Oct-26 00:46, Ali Ahmet Memi=C5=9F wrote:
-> >>>>> Since commit d33e89d12295 ("thermal: core: Suspend thermal zones la=
-ter
-> >>>>> and resume them earlier"), thermal zones are resumed from dpm_compl=
-ete(),
-> >>>>> before the PM_POST_SUSPEND notifier that re-reads _BIX and _BST. On
-> >>>>> ThinkPad P1 Gen2 and P53, INT3403 _TMP calls \GTST which switches t=
-he EC
-> >>>>> page selector (HIID) without taking the BATM mutex used by the batt=
-ery
-> >>>>> methods. ACPICA releases the interpreter lock around EC accesses
-> >>>>
-> >>>> I'm wondering if this "ACPICA releases the interpreter lock around E=
-C
-> >>>> accesses" is not the real problem here.
-> >>>
-> >>> Yes, it most likely is.
-> >>>
-> >>> What actually happens is that ACPICA drops the interpreter lock and
-> >>> the namespace lock in several cases listed in the
-> >>> acpi_ex_exit_interpreter() documentation comment, the majority of
-> >>> which involve having to wait.
-> >>>
-> >>> The bottom line though is that the interpreter and namespace locks
-> >>> cannot be expected to be held throughout AML evaluation because it is
-> >>> not known in advance if any of the cases in question will appear.
-> >>>
-> >>>> Recently I've learned / heard
-> >>>> from a trusted source that Windows ACPI subsystem is very much singl=
-e
-> >>>> threaded. So it is nice that ACPI has these mutexes and other stuff
-> >>>> to support multi-threading but as long as Windows ACPI interpreter i=
-s
-> >>>> not multi-threaded I think we may need to consider to copy Windows
-> >>>> behavior.
-> >>>
-> >>> This is also my conclusion, at least to some extent.
-> >>>
-> >>> The problem with it though is that in some cases parallel evaluation
-> >>> of AML is actually useful.  For example, say two PCI devices are
-> >>> powered up at the same time and AML waits for each of them.  The asyn=
-c
-> >>> suspend/resume aligns those waits to take place simultaneously instea=
-d
-> >>> of serializing them which allows some time to be saved.
-> >>>
-> >>>> So maybe the EC accesses should keep the interpreter lock locked dur=
-ing
-> >>>> EC accesses.
-> >>>
-> >>> The problem here is that it is hard to say in advance whether or not
-> >>> _BIX or _BST will access the EC and whether or not that will clash
-> >>> with _TMP evaluation for a seemingly unrelated thermal zone.
-> >>>
-> >>>> And even go further and maybe we need to introduce a big-acpi-lock,
-> >>>> which I guess the interpreter lock more or less is? And just seriali=
-ze
-> >>>> all ACPI accesses since most ACPI tables clearly do not handle
-> >>>> multi-threaded access to ACPI methods well ?
-> >>>
-> >>> I would be inclined to do so except for device power management
-> >>> methods, that is _ON, _OFF, and _PSx, that are not the problematic
-> >>> ones, at least as far as I know.
-> >>
-> >> That sounds like a reasonable compromise which should fix both
-> >> this case as well as help with bko221065 .
-> >>
-> >>>> Another example of multi-threaded ACPI calls causing problems is:
-> >>>>
-> >>>> https://bugzilla.kernel.org/show_bug.cgi?id=3D221065
-> >>>
-> >>> Right.
-> >>>
-> >>> So I guess the idea would be to add locking to acpi_evaluate_object()=
-?
-> >>
-> >> Yes that seems like a nice single point of entry to do this where
-> >> all the various helpers eventually end up.
-> >
-> > That, of course, would require updating ACPICA code and I'm not sure
-> > if doing it upstream is useful.  For example, if some hosts already
-> > use locking around acpi_evaluate_object(), this modification won't
-> > help them and it will certainly be a change in behavior.
-> >
-> > This means that we'll likely end up with a Linux-specific divergence
-> > from the upstream which can be lived with, but it won't be nice.
->
-> Ah, I see.
->
-> >>> An alternative might be to introduce an "exclusive" variant of
-> >>> acpi_evaluate_object() with built-in locking and use it in the cases
-> >>> that are known-problematic.
-> >>
-> >> So here we have _TMP and _BIX / _BST and in bko221065 we have
-> >> a bunch of again batteyr methods + UCSI racing. I'm afraid if
-> >> we add something like acpi_evaluate_object_exclusive() we'll end
-> >> up eventually using that almost everywhere.
-> >
-> > While I think that your concern is valid, this can be done without
-> > touching the ACPICA code at all.
->
-> Not needing to touch ACPICA is a valid concern. So I agree lets go
-> with a wrapper for paths which we know need to be serialized for now.
->
-> And then add that around the battery methods + _TMP + UCSI methods
-> for starters I guess ?
+On 2026-10-14 01:58:34 [+0800], wen.yang@linux.dev wrote:
+> From: Wen Yang <wen.yang@linux.dev>
+> 
+> *** Overview ***
+> Backport the backlog-NAPI smpboot-thread mechanism and its prerequisite
+> NAPI/RPS/defer_list work from upstream (v6.4 - v6.9) to v6.1-rt-next.
+> 
+> *** Problem ***
+> On PREEMPT_RT, RPS steers packets to a remote CPU's backlog by sending an
+> IPI. The IPI handler (rps_trigger_softirq) calls ____napi_schedule(), which
+> raises NET_RX_SOFTIRQ. do_softirq_post_smp_call_flush() then sees a softirq
+> pending that was not pending before the flush, and NET_RX_SOFTIRQ is not
+> masked by SCHED_SOFTIRQ_MASK, so it fires:
 
-Yes.
+I was about to point out that v6.1-RT should have duct tape for this but
+from reading 1/15 is see that this duct is not complete and is missing
+RPS. Indeed.
 
-> ###
->
-> Should we also stop releasing the interpreter lock in the EC code?
+A backport of what is merged is my preference, too. However, we should
+get v6.6-rt fixed first then v6.1-rt. Otherwise users upgrading from
+v6.1 to v6.6 will have this case broken.
 
-Which EC code do you mean in particular?
+Clark, any objections here from your side?
 
-> All these things (battery, _TMP, UCSI) seem to have in common that
-> they might talk to the EC in some cases?
-
-Yes, they are EC-based in many cases.
-
-> Where as e.g. your powering-up of PCI slots example is unlikely to
-> talk to the EC ?
-
-Yup.
+Sebastian
