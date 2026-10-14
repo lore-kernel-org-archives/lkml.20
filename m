@@ -1,266 +1,239 @@
-Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com [209.85.210.69])
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D33773A7F6B
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:59:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 336873AC0DD
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:59:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792018745; cv=none; b=Xnj8qy/6e+LDqE0bieOGBstiOptptS4cS4X7PQJ8C5Ht9mHHuTOS2sCAkkS4ZuiHCb+lpofdfzR1TokRjSfvuBQN3991K1GEpmg+Wpy4qD/h0ZTrMoJdbeqg97wxSTctlhs2gWVdD6UNzIAyIDUBKR5oXRCa4WjlE0jK3Cufn+c=
+	t=1792018783; cv=none; b=izQsopnL4Ej+39WPjEcBXAsYTuhgxRDDHIu5y0DkgZtoN4VcUt2RolwjhlytHvj9NxDQRsJaqDl48uVRRORpw5m3EUy2AhpDVJ9S7fZOkC+V6mjtdV2FUOUc+N4rMXnijoZONsZ0ePCorusxcgRj0/3OBrcN+zgoCLfFVJdeghg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792018745; c=relaxed/simple;
-	bh=NmYrKtolHOUwoYDxayxetNO65+tVAXw7/PaxXzTNe2M=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=V2h2/UIxKC/ilfTBzfE75c6nvsz4f+peknyrptImyi4B3K6b1jAarXyfELRQLUgs1BvALVpj+vs8TxjpAqlYpSNFwVWmK8mYNTSu+C3Uydyd4Ws6evC5nUUYeSg1l2atO0mgY+p/aohL4BMDguSUxHNIQPOnrfsGEPmgsZpmFAg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-809f1af7992so11091290a34.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:59:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792018743; x=1792623543;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+	s=arc-20240116; t=1792018783; c=relaxed/simple;
+	bh=6IzRm3gbWm4v5PT5vb67nXiWI4WfIXBpLht01HrlhQI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=n0YehX9shDB8iU1O2pYRtdUwC3FMWA+PwDjiJVbJYfs0XyY2pC6WAfoKE9zvicUMn2RcuHKEcXJSEumwKOV8FMMijicSloTEai6xq6Kqd510kqGKvYUtPuTH+K9swsqeXq+SCuDRN5p1r/fwC6rReU8V4+uaCk4BVaJC6u+apjc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=KOv3s8wY; arc=none smtp.client-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="KOv3s8wY"
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-35829219da8so1481751eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:59:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nexthop.ai; s=google; t=1792018780; x=1792623580; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=rZipK1w0WjODbbSpfTW3jFBUH/Y1PRplm/i+vEVlonY=;
-        b=F0KOggJkE4ozIQBYIlttmHoiaGWXCK9z0J4/zAs1fZRGvdVLejMhTXDMfozTfJRdH9
-         +ZpBqr90KvIK88mmr3pxPY4Mvo1PjuRZdlwVqrsRffbWFyJNvHsdxVqZZsL0kFFUJ8Cs
-         GqNJZpMOKWa0DmXQQm8qt8v/hGCLpbNho0umURIyUQSnOurGQ0FjjnMjLeZee+wyrGyP
-         oYoSwLjLJDnzXf/1VD+2+e5KtWv2SbBAj75V1vhHoB5KU+hZQyN47mYX8luLJmV7t5x3
-         wkkuZOtdrhgDFER2n1401x6Hry1dVfSwd2F3D+ZPhOiDgGXyVOBG+kg5rSOJWbyzoO5+
-         oZug==
-X-Gm-Message-State: AFq9FYLNyUacFAAf+Qz82h/U1wR3KJykYU1VFaP2DCAXqh+Z0JBHUjuw
-	axGO8NigrHnPojs70PZLhX/FJQW77MpFgZHRjpqTaGxZgbtb4FqcNI1HvhZwQYKcuvKLbvH7muF
-	wYFuVDbTiq0bUV4ggH6jR+avoynzZfvLaCZs4wus2onUGeYV4MQ4HBPpb0vM=
+        bh=t3pynPmw/EnL3R/GwrsIs45glAby0u83ylhJ7no5P1I=;
+        b=KOv3s8wY72Ak1edNom5WZeSMXeS8DfTUVflAoQdKOuGQSpHjdm/TGCaWsGj2aGLuyw
+         oAscGmS9lOn263/fFqzh76CAcQmg8u2IWWkSfqoSH61TjMY4rbQMSQUCK554rc2o4NUZ
+         NP0JbCXczcfOt1FrOkp0QzWt/PGgqLfWFvrqbVjeKEECExVmXxNCFtiqkK93TwMlg705
+         m6lcQhPk8m4vIdG11rkS06+n34tc7iblOb9If0BTMLHHIobhRE4Mt7dln666fbY5UqmP
+         CN1w+ZGRGgPZUMZ8TuxqIrqBzIaM72KY8aNtL/e8VYJbA8EZQdm/RrBYppEuGHNkkUWi
+         nFPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792018780; x=1792623580;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=t3pynPmw/EnL3R/GwrsIs45glAby0u83ylhJ7no5P1I=;
+        b=DlcpW96RxXIyidOuAe1nq/DNAIV3iqR1fMLMjHoGc9f0Gz1S0o3/VeDUitdXcqYsPa
+         Tgs4FoPc8xNkXdR8381sAmABrVgHjwoaNTKLQsmyQvLiT6WYBTkt6P3LNWS7v2yzmjhk
+         C7xcxLec+nZJmkWhlS9MUry8KsQmDXRCVMmUm7aUwQPX5y/0JoPVwfXimOw1f6M8mMMg
+         XTVq1MePKRNglaMfwjsZBNAz7UZwKUL7AhO6AWgT0mzV8Wvs5GlA1GiIeRVtNtnItCKv
+         2b2GcpO7DxbtUxyA8dPZwFr7BNcK9BISBEoV5TxFcjmKZnn4mR9HWQZ3Tz73v6exD02h
+         DkjA==
+X-Forwarded-Encrypted: i=1; AKwUvBw12X1UMHtr5/U2ZGP91avhgnAyCZZ4f8FHIJBcYXub8yZKK4IchOvjbGBO20ATXEmkDB4j+F/uCBQcXnQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIgEPykrngH8QaktNIq/VoL11cnfr/5OSS4B6SBH6p+eNb6ePF0
+	i0chBAC1EQ45uw0K1C6DKNoP+K4Ir3zPuaWfs08mwabLAZy7Kw01rpsaf0peCRZpAGM=
+X-Gm-Gg: AYBFou1ZTvQizZj6NxHZEs3QFSVxuXuaMnwC4I0CdaMxs5VJeRYCgnteJyS/Jt0pew2
+	zJW7X226c61E52J5Yj7wt4H8dRvHRT/5g64Aiw8pYTamVEkBYizEaGdTUPPICC9vcOKtBNDoxfG
+	evFydK9VmhHaCnd1qE628yojvrqSRSuQC+apjx3b2f9jiaMaPXs9NfQb/gks9wu6ANsycYdUPsz
+	Mgzss3lCJprhUo8dujYju1pK3FOqwcozZqK7LcWepf0cxTjr4pvDf91dtU8faqNALHxyDY1Z2y/
+	0uV4flqWxKP+Q/EOOG5sPT0VcaaZdpEEWV/if8vzw7g8nidjWxNL5DS8yrb48EgYeYbFKy/iMLm
+	PVz+lYfFL2/V8jVC5koRy+eCZzVVOCL319zbAd1mT1ojWAxFLBGtGXutgqG0ddRoztyLZ5OZ8lv
+	7RJXAbOeBzbnR3UVacIQ1+zTA19hsdt+QiytqJrBkvXuKSpjLNjpXRk4ZJx4Q+ix9MeB5V3uTqA
+	Q==
+X-Received: by 2002:a05:7301:470b:b0:35d:5e81:1d87 with SMTP id 5a478bee46e88-35d5e812b71mr5898834eec.12.1792018780044;
+        Wed, 14 Oct 2026 15:59:40 -0700 (PDT)
+Received: from [127.0.0.2] ([50.145.100.174])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-358ee8a3387sm47110561eec.15.2026.10.14.15.59.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 15:59:39 -0700 (PDT)
+From: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+Date: Wed, 14 Oct 2026 15:59:36 -0700
+Subject: [PATCH v2] of: overlay: remove unused of_overlay_remove_all()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:3384:b0:4b9:a8ac:489 with SMTP id
- 5614622812f47-50c52a4eb8cmr17062452b6e.39.1792018742742; Wed, 14 Oct 2026
- 15:59:02 -0700 (PDT)
-Date: Wed, 14 Oct 2026 15:59:02 -0700
-In-Reply-To: <CAFJkwZxEecAizR2Onef19ss4F8jcig41Robzud4ASpi1J+zxrA@mail.gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ad00936.a150a118.27e199.0069.GAE@google.com>
-Subject: Re: [syzbot] [x25?] inconsistent lock state in x25_kill_by_neigh (2)
-From: syzbot <syzbot+300375dfd44665f063a6@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, neganhat@gmail.com, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261014-b4-of-overlay-remove-all-fix-v2-1-cf5ea2cc9dc3@nexthop.ai>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42NQQ6CMBBFr0K6dkzbNCquvIdhMdSpjEFK2tpAC
+ He34AXc/ffz8/4iIgWmKK7VIgJljuyHAvpQCdvh8CTgR2GhpT7JWp2hNeAd+EyhxxkCvUsE7Ht
+ wPEHt0NmLkoZQiqIYA5V619+bH8dP+yKbNue26DgmH+b9P6tt9+dVVqCg1tIYZcki6dtAU+r8e
+ EQWzbquX5hFqMTbAAAA
+X-Change-ID: 20260917-b4-of-overlay-remove-all-fix-9fafc8104ea0
+To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+ Frank Rowand <frowand.list@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Sashiko AI <sashiko-bot@kernel.org>, 
+ Abdurrahman Hussain <abdurrahman@nexthop.ai>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Alex Shi <alexs@kernel.org>, 
+ Yanteng Si <si.yanteng@linux.dev>, Dongliang Mu <dzm91@hust.edu.cn>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ linux-doc@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792018778; l=5893;
+ i=abdurrahman@nexthop.ai; s=20260510; h=from:subject:message-id;
+ bh=6IzRm3gbWm4v5PT5vb67nXiWI4WfIXBpLht01HrlhQI=;
+ b=sgyHz1N2p6g9zyHxAbvE0HYqgdPVI0C3s/uuKHhgdrRcjegyy0iY9lMuVv9XVJa9wm+GwfkbO
+ QKUyIEn9gpeCt7tWt0FB1uVHazdX5hp6Pcpi1/Dv4Usi9MBRtTPjhun
+X-Developer-Key: i=abdurrahman@nexthop.ai; a=ed25519;
+ pk=omTm9cCAbO0ZhS32aKfJDKue0W3sQGpG9ub5eYHif8I=
 
-Hello,
+of_overlay_remove_all() has no in-tree callers.
 
-syzbot has tested the proposed patch but the reproducer is still triggering an issue:
-inconsistent lock state in x25_kill_by_neigh
+It is also subtly broken. It passes &ovcs->id to of_overlay_remove(),
+which zeroes *ovcs_id once the changeset is reverted, before calling
+free_overlay_changeset(). Through the aliased pointer that zeroes
+ovcs->id itself, so free_overlay_changeset()'s "ovcs->id > 0" guard is
+false and both idr_remove() and list_del() are skipped: the
+overlay_changeset is kfree()d while still linked in ovcs_list and
+registered in ovcs_idr.
 
-================================
-WARNING: inconsistent lock state
-syzkaller #0 Not tainted
---------------------------------
-inconsistent {SOFTIRQ-ON-W} -> {IN-SOFTIRQ-W} usage.
-swapper/1/0 [HC0[0]:SC1[1]:HE1:SE0] takes:
-ffff8880270b6260 (sk_lock-AF_X25){+.?.}-{0:0}, at: lock_sock include/net/sock.h:1713 [inline]
-ffff8880270b6260 (sk_lock-AF_X25){+.?.}-{0:0}, at: x25_kill_by_neigh+0x168/0x280 net/x25/af_x25.c:1778
-{SOFTIRQ-ON-W} state was registered at:
-  lock_acquire kernel/locking/lockdep.c:5942 [inline]
-  lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-  lock_sock_nested+0x41/0xf0 net/core/sock.c:3837
-  lock_sock include/net/sock.h:1713 [inline]
-  x25_bind+0x221/0x5c0 net/x25/af_x25.c:694
-  __sys_bind_socket net/socket.c:1945 [inline]
-  __sys_bind_socket net/socket.c:1937 [inline]
-  __sys_bind+0x1a9/0x260 net/socket.c:1976
-  __do_sys_bind net/socket.c:1981 [inline]
-  __se_sys_bind net/socket.c:1979 [inline]
-  __x64_sys_bind+0x72/0xb0 net/socket.c:1979
-  do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-  do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
-  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-irq event stamp: 688540
-hardirqs last  enabled at (688540): [<ffffffff81ca5325>] __local_bh_enable_ip+0xa5/0x120 kernel/softirq.c:478
-hardirqs last disabled at (688539): [<ffffffff81ca534e>] __local_bh_enable_ip+0xce/0x120 kernel/softirq.c:455
-softirqs last  enabled at (687752): [<ffffffff81ca4d8a>] __do_softirq kernel/softirq.c:679 [inline]
-softirqs last  enabled at (687752): [<ffffffff81ca4d8a>] invoke_softirq kernel/softirq.c:519 [inline]
-softirqs last  enabled at (687752): [<ffffffff81ca4d8a>] __irq_exit_rcu+0x16a/0x210 kernel/softirq.c:758
-softirqs last disabled at (688117): [<ffffffff81ca4d8a>] __do_softirq kernel/softirq.c:679 [inline]
-softirqs last disabled at (688117): [<ffffffff81ca4d8a>] invoke_softirq kernel/softirq.c:519 [inline]
-softirqs last disabled at (688117): [<ffffffff81ca4d8a>] __irq_exit_rcu+0x16a/0x210 kernel/softirq.c:758
+Rather than fix a helper nobody calls, remove it, along with its
+!CONFIG_OF_OVERLAY stub and the paragraph documenting it in
+overlay-notes.rst and in the zh_CN translation.
 
-other info that might help us debug this:
- Possible unsafe locking scenario:
+ovcs_list itself stays: overlay_removal_is_ok() still walks it to check
+that a changeset is topmost.
 
-       CPU0
-       ----
-  lock(sk_lock-AF_X25);
-  <Interrupt>
-    lock(sk_lock-AF_X25);
+Reported-by: Sashiko AI <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/20260901014554.83A8D1F000E9@smtp.kernel.org
+Suggested-by: Rob Herring <robh@kernel.org>
+Link: https://lore.kernel.org/all/20260928182658.GA185307-robh@kernel.org/
+Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+---
+Changes in v2:
+- Drop the one-liner fix and just remove of_overlay_remove_all(), as
+  Rob suggested: it has no in-tree callers, so there is nothing to fix.
+- Also drop the !CONFIG_OF_OVERLAY stub and the paragraph documenting
+  the function in overlay-notes.rst and in the zh_CN translation.
+- No longer tagged for stable: a removal is not a backport candidate.
+- Link to v1: https://patch.msgid.link/20260917-b4-of-overlay-remove-all-fix-v1-1-920441cecae2@nexthop.ai
 
- *** DEADLOCK ***
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Alex Shi <alexs@kernel.org>
+To: Yanteng Si <si.yanteng@linux.dev>
+To: Dongliang Mu <dzm91@hust.edu.cn>
+To: Jonathan Corbet <corbet@lwn.net>
+To: Shuah Khan <skhan@linuxfoundation.org>
+To: Saravana Kannan <saravanak@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-doc@vger.kernel.org
+---
+ Documentation/devicetree/overlay-notes.rst         |  4 ----
+ .../zh_CN/devicetree/overlay-notes.rst             |  3 ---
+ drivers/of/overlay.c                               | 23 ----------------------
+ include/linux/of.h                                 |  6 ------
+ 4 files changed, 36 deletions(-)
 
-locks held by swapper/1/0: 1, last CPU#1:
- #0: ffffffff8fdec5e0 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- #0: ffffffff8fdec5e0 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
- #0: ffffffff8fdec5e0 (rcu_read_lock){....}-{1:3}, at: netif_receive_skb_core+0x25/0x1a0 net/core/dev.c:6321
+diff --git a/Documentation/devicetree/overlay-notes.rst b/Documentation/devicetree/overlay-notes.rst
+index ba401ef850e7..f2bb1145bd9f 100644
+--- a/Documentation/devicetree/overlay-notes.rst
++++ b/Documentation/devicetree/overlay-notes.rst
+@@ -115,10 +115,6 @@ The API is quite easy to use.
+    previously created via the call to of_overlay_fdt_apply(). Removal of an
+    overlay changeset that is stacked by another will not be permitted.
+ 
+-Finally, if you need to remove all overlays in one-go, just call
+-of_overlay_remove_all() which will remove every single one in the correct
+-order.
+-
+ There is the option to register notifiers that get called on
+ overlay operations. See of_overlay_notifier_register/unregister and
+ enum of_overlay_notify_action for details.
+diff --git a/Documentation/translations/zh_CN/devicetree/overlay-notes.rst b/Documentation/translations/zh_CN/devicetree/overlay-notes.rst
+index ba5edd05dc1e..f1217ea2ff44 100644
+--- a/Documentation/translations/zh_CN/devicetree/overlay-notes.rst
++++ b/Documentation/translations/zh_CN/devicetree/overlay-notes.rst
+@@ -116,9 +116,6 @@ DT中的适当位置。在这种情况下，可以提供目标路径。通过标
+ 2) 调用of_overlay_remove()来删除和清理先前通过调用of_overlay_fdt_apply()
+    而创建的覆盖变更集。不允许删除一个被另一个覆盖的覆盖变化集。
+ 
+-最后，如果你需要一次性删除所有的覆盖，只需调用of_overlay_remove_all()，
+-它将以正确的顺序删除每一个覆盖。
+-
+ 你可以选择注册在覆盖操作中被调用的通知器。详见
+ of_overlay_notifier_register/unregister和enum of_overlay_notify_action。
+ 
+diff --git a/drivers/of/overlay.c b/drivers/of/overlay.c
+index 83c56dd9b5d8..b2e1198fb41c 100644
+--- a/drivers/of/overlay.c
++++ b/drivers/of/overlay.c
+@@ -1282,26 +1282,3 @@ int of_overlay_remove(int *ovcs_id)
+ 	return ret;
+ }
+ EXPORT_SYMBOL_GPL(of_overlay_remove);
+-
+-/**
+- * of_overlay_remove_all() - Reverts and frees all overlay changesets
+- *
+- * Removes all overlays from the system in the correct order.
+- *
+- * Return: 0 on success, or a negative error number
+- */
+-int of_overlay_remove_all(void)
+-{
+-	struct overlay_changeset *ovcs, *ovcs_n;
+-	int ret;
+-
+-	/* the tail of list is guaranteed to be safe to remove */
+-	list_for_each_entry_safe_reverse(ovcs, ovcs_n, &ovcs_list, ovcs_list) {
+-		ret = of_overlay_remove(&ovcs->id);
+-		if (ret)
+-			return ret;
+-	}
+-
+-	return 0;
+-}
+-EXPORT_SYMBOL_GPL(of_overlay_remove_all);
+diff --git a/include/linux/of.h b/include/linux/of.h
+index 20e4f752d5b6..c40d7d598875 100644
+--- a/include/linux/of.h
++++ b/include/linux/of.h
+@@ -1837,7 +1837,6 @@ struct of_overlay_notify_data {
+ int of_overlay_fdt_apply(const void *overlay_fdt, u32 overlay_fdt_size,
+ 			 int *ovcs_id, const struct device_node *target_base);
+ int of_overlay_remove(int *ovcs_id);
+-int of_overlay_remove_all(void);
+ 
+ int of_overlay_notifier_register(struct notifier_block *nb);
+ int of_overlay_notifier_unregister(struct notifier_block *nb);
+@@ -1855,11 +1854,6 @@ static inline int of_overlay_remove(int *ovcs_id)
+ 	return -ENOTSUPP;
+ }
+ 
+-static inline int of_overlay_remove_all(void)
+-{
+-	return -ENOTSUPP;
+-}
+-
+ static inline int of_overlay_notifier_register(struct notifier_block *nb)
+ {
+ 	return 0;
 
-stack backtrace:
-CPU: 1 UID: 0 PID: 0 Comm: swapper/1 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
-Call Trace:
- <IRQ>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_usage_bug.part.0+0x258/0x340 kernel/locking/lockdep.c:4086
- print_usage_bug kernel/locking/lockdep.c:4054 [inline]
- valid_state kernel/locking/lockdep.c:4100 [inline]
- mark_lock_irq kernel/locking/lockdep.c:4311 [inline]
- mark_lock+0x956/0x1020 kernel/locking/lockdep.c:4797
- mark_usage kernel/locking/lockdep.c:4686 [inline]
- __lock_acquire+0x7f1/0x1f40 kernel/locking/lockdep.c:5242
- lock_acquire kernel/locking/lockdep.c:5942 [inline]
- lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
- lock_sock_nested+0x41/0xf0 net/core/sock.c:3837
- lock_sock include/net/sock.h:1713 [inline]
- x25_kill_by_neigh+0x168/0x280 net/x25/af_x25.c:1778
- x25_lapb_receive_frame+0x4b1/0x1000 net/x25/x25_dev.c:138
- __netif_receive_skb_one_core+0x1b2/0x1e0 net/core/dev.c:6297
- netif_receive_skb_core+0x5a/0x1a0 net/core/dev.c:6322
- lapbeth_napi_poll+0x42/0xc0 drivers/net/wan/lapbether.c:100
- __napi_poll.constprop.0+0xaf/0x450 net/core/dev.c:7830
- napi_poll net/core/dev.c:7893 [inline]
- net_rx_action+0xa40/0xf20 net/core/dev.c:8050
- handle_softirqs+0x1e6/0x9d0 kernel/softirq.c:645
- __do_softirq kernel/softirq.c:679 [inline]
- invoke_softirq kernel/softirq.c:519 [inline]
- __irq_exit_rcu+0x16a/0x210 kernel/softirq.c:758
- irq_exit_rcu+0x9/0x30 kernel/softirq.c:775
- instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
- sysvec_apic_timer_interrupt+0xa3/0xc0 arch/x86/kernel/apic/apic.c:1062
- </IRQ>
- <TASK>
- asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
-RIP: 0010:pv_native_safe_halt+0xf/0x20 arch/x86/kernel/paravirt.c:64
-Code: a7 96 02 e9 53 50 03 00 0f 1f 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 f3 0f 1e fa 66 90 0f 00 2d 93 48 17 00 fb f4 <c3> cc cc cc cc 66 2e 0f 1f 84 00 00 00 00 00 66 90 90 90 90 90 90
-RSP: 0018:ffffc900001a7e00 EFLAGS: 00000246
-RAX: 00000000000a7ff3 RBX: ffff888020684b00 RCX: ffffffff8bd47235
-RDX: 0000000000000001 RSI: ffffffff8e3e3486 RDI: ffffffff8c625580
-RBP: ffffed10040d0960 R08: 0000000000000001 R09: ffffed10170667bd
-R10: ffff8880b8333deb R11: 0000000000000001 R12: 0000000000000000
-R13: 0000000000000000 R14: 1ffff92000034fc4 R15: dffffc0000000000
- arch_safe_halt arch/x86/include/asm/paravirt.h:62 [inline]
- default_idle+0x9/0x10 arch/x86/kernel/process.c:768
- default_idle_call+0x6c/0xb0 kernel/sched/idle.c:122
- cpuidle_idle_call kernel/sched/idle.c:199 [inline]
- do_idle+0x3ae/0x5b0 kernel/sched/idle.c:355
- cpu_startup_entry+0x4f/0x60 kernel/sched/idle.c:454
- start_secondary+0x21d/0x2d0 arch/x86/kernel/smpboot.c:312
- common_startup_64+0x13e/0x158
- </TASK>
-BUG: sleeping function called from invalid context at net/core/sock.c:3839
-in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 0, name: swapper/1
-preempt_count: 101, expected: 0
-RCU nest depth: 1, expected: 0
-INFO: lockdep is turned off.
-Preemption disabled at:
-[<0000000000000000>] 0x0
-CPU: 1 UID: 0 PID: 0 Comm: swapper/1 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
-Call Trace:
- <IRQ>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- __might_resched.cold+0x1dc/0x222 kernel/sched/core.c:9264
- lock_sock_nested+0x52/0xf0 net/core/sock.c:3839
- lock_sock include/net/sock.h:1713 [inline]
- x25_kill_by_neigh+0x168/0x280 net/x25/af_x25.c:1778
- x25_lapb_receive_frame+0x4b1/0x1000 net/x25/x25_dev.c:138
- __netif_receive_skb_one_core+0x1b2/0x1e0 net/core/dev.c:6297
- netif_receive_skb_core+0x5a/0x1a0 net/core/dev.c:6322
- lapbeth_napi_poll+0x42/0xc0 drivers/net/wan/lapbether.c:100
- __napi_poll.constprop.0+0xaf/0x450 net/core/dev.c:7830
- napi_poll net/core/dev.c:7893 [inline]
- net_rx_action+0xa40/0xf20 net/core/dev.c:8050
- handle_softirqs+0x1e6/0x9d0 kernel/softirq.c:645
- __do_softirq kernel/softirq.c:679 [inline]
- invoke_softirq kernel/softirq.c:519 [inline]
- __irq_exit_rcu+0x16a/0x210 kernel/softirq.c:758
- irq_exit_rcu+0x9/0x30 kernel/softirq.c:775
- instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
- sysvec_apic_timer_interrupt+0xa3/0xc0 arch/x86/kernel/apic/apic.c:1062
- </IRQ>
- <TASK>
- asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
-RIP: 0010:pv_native_safe_halt+0xf/0x20 arch/x86/kernel/paravirt.c:64
-Code: a7 96 02 e9 53 50 03 00 0f 1f 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 f3 0f 1e fa 66 90 0f 00 2d 93 48 17 00 fb f4 <c3> cc cc cc cc 66 2e 0f 1f 84 00 00 00 00 00 66 90 90 90 90 90 90
-RSP: 0018:ffffc900001a7e00 EFLAGS: 00000246
-RAX: 00000000000a7ff3 RBX: ffff888020684b00 RCX: ffffffff8bd47235
-RDX: 0000000000000001 RSI: ffffffff8e3e3486 RDI: ffffffff8c625580
-RBP: ffffed10040d0960 R08: 0000000000000001 R09: ffffed10170667bd
-R10: ffff8880b8333deb R11: 0000000000000001 R12: 0000000000000000
-R13: 0000000000000000 R14: 1ffff92000034fc4 R15: dffffc0000000000
- arch_safe_halt arch/x86/include/asm/paravirt.h:62 [inline]
- default_idle+0x9/0x10 arch/x86/kernel/process.c:768
- default_idle_call+0x6c/0xb0 kernel/sched/idle.c:122
- cpuidle_idle_call kernel/sched/idle.c:199 [inline]
- do_idle+0x3ae/0x5b0 kernel/sched/idle.c:355
- cpu_startup_entry+0x4f/0x60 kernel/sched/idle.c:454
- start_secondary+0x21d/0x2d0 arch/x86/kernel/smpboot.c:312
- common_startup_64+0x13e/0x158
- </TASK>
-----------------
-Code disassembly (best guess):
-   0:	a7                   	cmpsl  %es:(%rdi),%ds:(%rsi)
-   1:	96                   	xchg   %eax,%esi
-   2:	02 e9                	add    %cl,%ch
-   4:	53                   	push   %rbx
-   5:	50                   	push   %rax
-   6:	03 00                	add    (%rax),%eax
-   8:	0f 1f 00             	nopl   (%rax)
-   b:	90                   	nop
-   c:	90                   	nop
-   d:	90                   	nop
-   e:	90                   	nop
-   f:	90                   	nop
-  10:	90                   	nop
-  11:	90                   	nop
-  12:	90                   	nop
-  13:	90                   	nop
-  14:	90                   	nop
-  15:	90                   	nop
-  16:	90                   	nop
-  17:	90                   	nop
-  18:	90                   	nop
-  19:	90                   	nop
-  1a:	90                   	nop
-  1b:	f3 0f 1e fa          	endbr64
-  1f:	66 90                	xchg   %ax,%ax
-  21:	0f 00 2d 93 48 17 00 	verw   0x174893(%rip)        # 0x1748bb
-  28:	fb                   	sti
-  29:	f4                   	hlt
-* 2a:	c3                   	ret <-- trapping instruction
-  2b:	cc                   	int3
-  2c:	cc                   	int3
-  2d:	cc                   	int3
-  2e:	cc                   	int3
-  2f:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
-  36:	00 00 00
-  39:	66 90                	xchg   %ax,%ax
-  3b:	90                   	nop
-  3c:	90                   	nop
-  3d:	90                   	nop
-  3e:	90                   	nop
-  3f:	90                   	nop
+---
+base-commit: 30724547b221e0e670ddfef140fc7d816b2aaec6
+change-id: 20260917-b4-of-overlay-remove-all-fix-9fafc8104ea0
 
+Best regards,
+--  
+Abdurrahman Hussain <abdurrahman@nexthop.ai>
 
-Tested on:
-
-commit:         24a19b95 Linux 7.3-rc7
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=124d0235580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=129d675874dbf896
-dashboard link: https://syzkaller.appspot.com/bug?extid=300375dfd44665f063a6
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-
-Note: no patches were applied.
