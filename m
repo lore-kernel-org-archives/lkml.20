@@ -1,50 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 218C02EEE75;
-	Wed, 14 Oct 2026 01:27:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCED332C94A;
+	Wed, 14 Oct 2026 01:27:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791941265; cv=none; b=fVjdkwYHXBdWpYeN0n6KsfOALFFO3Rhh7ZBkm8kUwD/9fVWAQcnmmecdueMl+gtI+EL2ZluMiufDC69BosXtO78IE/7yZyHDJTj6yfnsVzNDPPDcHNSKheyJWPnhCiaSwiz/8VrjJb+f/RBIhdVTxGlVkRDBx0vOELanC7HGakg=
+	t=1791941267; cv=none; b=IMuZt5rMdqExNX8gnzY+fkbN/3jtYIgeZY84uC15E8E/laf2hdNKliIVDFAHI9LR/4PvaIhR0pqPYWZkPq1hMakpnQrpkSZdGMAhN6l0z6IjhQ54Bxt1BPiF0VLA1IEe4yG9/7WEohBmFy3wP7TaHVTDyfqwqyJsKDndGMDMXHY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791941265; c=relaxed/simple;
-	bh=DDODb8L9vExy+gESUK9lMiTfPlQfxXisU4hAA4oT2S4=;
+	s=arc-20240116; t=1791941267; c=relaxed/simple;
+	bh=Yt3cudUSyvmrvEZFm2WltRnnDfmS8+1ttt+mWIO3HbY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AJHdIghEenYKqKn2oBs2MgbHBlm+/ECAkANpeiCLT4XErTI9UPQzxfGT03BronJzXX4VSoZ6p6Rs6xZkAz3ULn8gorPJZm0Mey9WkBFlXZe0iADQsUc2FWihYOCFjZ11m+xmxN/g2631dItJiM8oAs91CRoeE9SUeGx4Z5+zfRc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OEidWyfG; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=aYO80S/LDqhgSi+6Z+Jh+R72efSPDd/u5ug4x2CNpQ320TxkWM432hfp2DexuJLZdf58NccFVCFgSA8Bvlay99STp6KCEYObcH3Fblc848Fs10z6ftak/8NK2+rLJMunyNAWSpj+RJ72Bfoobqa+y9zwQoEg323IPpClpiE6sp8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BAorv5bV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OEidWyfG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87B291F00893;
-	Wed, 14 Oct 2026 01:27:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BAorv5bV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89B481F00893;
+	Wed, 14 Oct 2026 01:27:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791941263;
-	bh=CnvCQKb/Fl89d0FC9NpXpZbzIMX73JQDMnMO+GLMxxE=;
+	s=k20260515; t=1791941266;
+	bh=MVd+j60iEaAuvc6F+U/SFgTeVDPOvIpqqXN5ppAYSGU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OEidWyfGo3yio8aoR7s1A/hPv3O5CjxScN7ahHERWZZw6yQm+dvsUsxc3mRvcDojA
-	 rkKFQk8U8HVKVZH4LICRNBS4zLvReip2Lh9lZLW7cGzzBTB4wFq7dkAiaQdTjV1l1x
-	 hAJzf6Jd9gnenpSuskBZcFk/xmx9whVZz6dSa3gsJUgX4lQG2Ct0NjGEtu6I/sOxY/
-	 Yrndu9hBvxVO3EYinxh6d8Fm831Gy01t/Of3ntv2ckW/NKZK9599V2k4sLo3iqeLMJ
-	 uSQVttM3U8cFOy/ikcp2egtvn4hGJqR9ikeFp/1RIRL8y0AVYxdTNvrRyYy/hhYdUT
-	 EhoOoCArib8vw==
+	b=BAorv5bVuqRqIK5nGE9Q5XdSTidZrX9qAV3dCjCdBfMFYAEOchTMj/WbR8ciP/rhs
+	 S1q2/17STP7IBYKtmZqrjHch9/Fyxn852fNpEXiQa1qYKjEoeheOK8jRGt5K0YX3If
+	 n5Ny+8cNfAohje5zBNbVUV4VbLjC9vtwjdl6DNRKe01vX3pHrZnxY+xVZ4W9tzVSLi
+	 U5xbeTKy/foveFkZW6r6cO/w4OzChutXjkjOuq577tGbskC70nwWPSmR5KhpcH9AmZ
+	 VyljruPCu/6ZnplxS2rAjvqZf8iFmyU3Tu0qvJRaFl6zlPUGauczg4aZGq9tKUW8vt
+	 QBjg3JN5/dnAw==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: lee@kernel.org,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
-	Kalle Valo <kvalo@kernel.org>,
-	Jeff Johnson <jjohnson@kernel.org>,
-	Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
-	Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>,
-	ath12k@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Artem Dinaburg <artem@trailofbits.com>
-Subject: Re: [PATCH 6.6.y 2/2] wifi: ath12k: copy M3 firmware when reusing the buffer
-Date: Tue, 13 Oct 2026 21:27:13 -0400
-Message-ID: <2026-10-13-1-daily-reply-0023-ath12k-m3-reuse-2of2-hold@kernel.org>
+	stable@vger.kernel.org,
+	Vicki Pfau <vi@endrift.com>,
+	Jiri Kosina <jkosina@suse.com>
+Subject: Re: [STABLE v6.18 1/4] HID: steam: Fully unregister controller when hidraw is opened
+Date: Tue, 13 Oct 2026 21:27:16 -0400
+Message-ID: <2026-10-13-1-daily-reply-0026-hid-steam-6-18-series@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261012165925.32575-3-artem@trailofbits.com>
-References: <20261012165925.32575-3-artem@trailofbits.com>
+In-Reply-To: <20261013091138.526840-1-lee@kernel.org>
+References: <20261013091138.526840-1-lee@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,13 +50,10 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> This fixes my 6.6.y backport of upstream commit 05090ae82f44 ("wifi:
-> ath12k: check M3 buffer size as well whey trying to reuse it"). There is
-> no corresponding upstream commit, because upstream never had this bug.
+> To avoid conflicts between anything touching the hidraw and the driver we
+> had previously detached the evdev nodes when the hidraw is opened.
 
-Holding this series until we have an Acked-by or Reviewed-by on 2/2 from
-Baochen Qiang or Jeff Johnson. It is a stable-only fix with no upstream
-equivalent, so I'd like an ath12k maintainer to look at it first.
+Queued the series for 7.2 and 6.18, thanks.
 
 -- 
 Thanks,
