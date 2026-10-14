@@ -1,178 +1,143 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CDE3E3F824B
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:12:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76F203F65E6
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:13:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791994349; cv=none; b=FixbYNQsm75IKXeOU1CISAYG3GuLDgaxHoo+fSq4/qKqZ+ck0OCxZyYlxYJZEglzLlATE9Wi8z/awaws80cXKJZPeCPpYMd62eIgRU7S3BkUYE4lTB790F0k4GG3ci9WDuzE356x920s3/JjlJsXIGFKnvvWrZm8ZNhYpEi6tQg=
+	t=1791994390; cv=none; b=d5WCgBF2fYZI2qkwxYlLGxC/I4MwpphIlv8HvKSBAQCSjkSBzzNJjoycEQ418Ii8tPftvj5l64qluyb2zM1JaKvKCA1kn/aCs6A73s1QoONRM8MjrL2rPIPV2BSFHMVN838G+B4AxEfP/Zh7kh40Y8+tunazUw//1r3X3A9eI4c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791994349; c=relaxed/simple;
-	bh=rnsG3A+ee6yo9tquFGuRos2grmFPPE6Si2Pxkstm0DE=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=pwhg3mhEcwTHvzt/jUz8weDBkP4wblOMt7YDjJy/YwQjptmD2x8MnF/waNdNidQlC8Yt0SGeO4dvapKm/4EUqTC4D+8gYFLb76h94FNO8jmtGgQ30x83Sc6yDQgVQxtlmRq6YSXxnD52EOpF4MUpI5kxe7+Eg0dGL0fCWED/1KQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=N81THiN0; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791994390; c=relaxed/simple;
+	bh=mJCrs+s0ZUwB67FAy55nmz7UoLZvqqXCBpLBXkPUW4I=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=hW+R63JIO0y9LfkaB3xXIfC9n6dE4ltjYOAYq3ns77u4+MnC9t7SxcjNVW/y8WNOiDIj31qZxzntIRjhSTjfD2Hs4fQNze0dQkL8mLTkaBh+xsEmcyzLawkss6QgM+4AsxsK8xZTpifBEtK4PfP0ldXlsSSfGujdQ7ZlIHHc43g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=gbMKX0bN; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="N81THiN0"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A1CF5152B;
-	Wed, 14 Oct 2026 09:12:11 -0700 (PDT)
-Received: from [10.57.88.29] (unknown [10.57.88.29])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5CD533F871;
-	Wed, 14 Oct 2026 09:12:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791994334; bh=rnsG3A+ee6yo9tquFGuRos2grmFPPE6Si2Pxkstm0DE=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=N81THiN0VHhdwIy2kqW3CcQqEOPZGi30TGe6mtPP+C8E++GPpqHY6l7YyglwbtVON
-	 08n03BhQzeezLC8jQbHxmE7RsUURvtP/HTlh+JlYmxaC3i7vI1x9ENCXloW/WW6C3y
-	 lDwHvh9RapyMF6RNMvPfF51K+/ouJBZFb7MDeyL0=
-Message-ID: <4ce12bff-9532-4b27-98f2-a807bbccfaf7@arm.com>
-Date: Wed, 14 Oct 2026 17:12:05 +0100
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="gbMKX0bN"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a02667ccebso31680165e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:13:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1791994382; x=1792599182; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=HDngV/MEWMOz176WZdeYlQIiI34y77WDxTDRN8eDtpg=;
+        b=gbMKX0bNlUTJZ7aKCS6g24t4lZbTGdDYVYaJJlLhjIkHKj6wF6qwqCRo8DbyVngoHX
+         iEgpYHpPhj/e28rPEAfgcjDzgHJwrf+3X+0Aj6PxsUdTXji3+elW4kw6ydI0cxzRtBVU
+         E2yLAekHLxTaHVMYYxOvExh0KASBQ26mCfRQhYOh3Dpu4nGbSMq9/WnA8492cXAquU06
+         LIY7DpoZtknUpPaI7TP/mQgM2qHJRaOqncG0g12JO6UfDBggTrgJ/xcadrwJu280UUfk
+         l+6PE9JFBmJy0cko83BAGL7eVM6kAi40cl4RZA6Co5v7w5hZSgB+O6EoBVM1caHS+Tj8
+         aBAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791994382; x=1792599182;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=HDngV/MEWMOz176WZdeYlQIiI34y77WDxTDRN8eDtpg=;
+        b=iZ4PuU/WF0UcdFbtLxhSenE9lHkhpHFmSe0J4giq4fI+fAxDbgJEXlVZFATCyyu+qV
+         mytf7VPWemGtf5LXgvttslx2sMBJbEmaZbs54JIVNforgL3YxtBnLIF8aCUlS8WAhmc2
+         60MHxzw0WkuOi+AosTvyCxt+AG/0g40RUR4WXmNjHU8eephj841nBaeHi81JjeJT+EAZ
+         XO0bbW4DGvhhsp5jnioyyn+rzslft1HrspPjWdCgCCiFUlnWkMtFPKjiRwF76ygF/lj0
+         oeK8m2ZFGCVBTjmEoNvmxh9hd3+OtU4+dfLHFtmUibQHt5tMh7+JibjrUkSynGor/LOy
+         dIDw==
+X-Forwarded-Encrypted: i=1; AKwUvBzAmNQxjM/12xOPhka1XXTIqo3toHv0KwIxNx6AaNT46jgQAPqeGEgMtx00yvrXikeCUWcLJYGwScf6cS0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIocB6HtF+FSEUTtAUC8cYj7DudVrM1uvz1dQxIAW5HD/KD6lXJ
+	qsvaehp7fLCJswU8Qb5CgDyjau8V4VGgusbNRNUH/hrwipm1hTpxWfosk6oqgJWgwe4=
+X-Gm-Gg: AYBFou1sm1MT4PdNUcJpQi+9oUW7+uMTDvW0ufY3Iwg5J8I9HvtwtXBwxYwEOrwOzJs
+	ub0t2SPBMT7KEYJZXFDaUFGAwGc0M0bqP0zj6Hhwg3ZNvj8wgLgbrd04suUmGnZPLwx74LhySzU
+	PVZVcxZLxNRC5ZUUGX4HKtds+B3K36bA5eeQzkEGROrLFhVOza24QkGjQfYWpELZoUnIUdEGVSs
+	WemzxNc6NVExK1m2j+je6R7LkbnudpHSPQGuOjslQoKa1Dm622IwKdYb11fIqixdPm1mcBUDlER
+	k4oy/JUtkVZpKuU2gmHGvhraUGQExthCM0vWvcdWPaKaxhlu7lViSymTcs/F4/L2Zmk1pTKYFY5
+	MBnatA+tOt/U+0zFrQt1+Hdky2njiSc0xNVA8z9uPKnT2uPbgW643z9g3rL/TYHKI+LQRZfqTnw
+	iylY3wgbRV5IuOLnic5RdPITFp2/UalXjgPfC9zMELzuWb4gvYHRrJLlZonvijr01miKsqoxLuN
+	LUyFwU0DqLRsym1qg==
+X-Received: by 2002:a05:600d:4452:20b0:4a1:90d7:88a8 with SMTP id 5b1f17b1804b1-4a190d7891emr233014315e9.25.1791994382408;
+        Wed, 14 Oct 2026 09:13:02 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd6834dasm3937795e9.4.2026.10.14.09.13.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 09:13:01 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+Date: Wed, 14 Oct 2026 18:11:53 +0200
+Subject: [PATCH] clk: cdce925: Size the PLL child name buffer for any int
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [PATCH] sched: Account blkio delay independently of delayed dequeue
-From: Christian Loehle <christian.loehle@arm.com>
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>
-Cc: Balbir Singh <bsingharora@gmail.com>, Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Valentin Schneider <vschneid@redhat.com>, Josh Snyder <joshs@netflix.com>,
- linux-kernel@vger.kernel.org, Zhan Xusheng <zhanxusheng@xiaomi.com>
-References: <20261014081731.1068794-1-zhanxusheng@xiaomi.com>
- <fab66e31-7c7e-4a81-be59-1a4c1458ff43@arm.com>
-Content-Language: en-US
-In-Reply-To: <fab66e31-7c7e-4a81-be59-1a4c1458ff43@arm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261014-cdce925-truncate-child-name-v1-1-00136be00c49@baylibre.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CMAwA0F8hPdtkG2gyf8V4GG2REpxmG4SE8
+ O9OPb7L2yFLUslwbXZIsmrWV6ywpwZoDPEhqFwNzriLNbZDYhLvzljSEikUQRp1ZozhKRg69tx
+ 7GoxpoQ7vJINuv/12/zsv/SRUviUcxwdBEv2AfwAAAA==
+X-Change-ID: 20261014-cdce925-truncate-child-name-a4d9db9cf003
+To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, 
+ Michael Turquette <mturquette@linaro.org>, 
+ Mike Looijmans <mike.looijmans@topic.nl>
+Cc: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Jerome Brunet <jbrunet@baylibre.com>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1803; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=mJCrs+s0ZUwB67FAy55nmz7UoLZvqqXCBpLBXkPUW4I=;
+ b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFnnV3H/zunklv3VvSry0Ju/XOqSU1pe9anE8ZrFRHaqn
+ eM5+39HRykLgxgXg6yYIksNd7X4O0mtL7Om69yGmcPKBDKEgYtTACbS/YWRoVFxmVtA/beS7iSn
+ jy1b4vdWzlthmujO+uiN8grh4vrXTxgZzpsq5XJaTwnkPzXLe9eD11VXtk47tU4hfkfYfN85Wjk
+ mLAA=
+X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
+ fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-Starting blkio delay accounting in __block_task() ties the interval to
-removal from the runqueue. With EEVDF delayed dequeue, this misses the
-initial part of an I/O sleep, or the entire sleep if the task wakes
-before it is dequeued. Final dequeue can also run in another task's
-context, causing delayacct_blkio_start() to timestamp the wrong task.
+The PLL child node name is built from "PLL%d" in a 6 byte stack buffer.
+The PLL index is bounded by the chip's num_plls, at most 4, but GCC
+cannot see that bound and, with W=1, warns that the formatted string
+may not fit.
 
-Start accounting in try_to_block_task(), when the current task commits
-to blocking, before delayed dequeue or proxy execution can retain it on
-the runqueue. End accounting when clearing is_blocked, including queued
-wakeups and the proxy execution paths that let the current task continue.
+Make the buffer large enough to hold any int and use snprintf() with
+sizeof() so the size stays tied to the declaration.
 
-Reported-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
-Closes: https://lore.kernel.org/r/20261014081731.1068794-1-zhanxusheng@xiaomi.com
-Fixes: 152e11f6df29 ("sched/fair: Implement delayed dequeue")
-Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+Fixes: 19fbbbbcd3a3 ("Add TI CDCE925 I2C controlled clock synthesizer driver")
+Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 ---
- kernel/sched/core.c  | 27 +++++++++++++++++----------
- kernel/sched/sched.h |  4 +---
- 2 files changed, 18 insertions(+), 13 deletions(-)
+ drivers/clk/clk-cdce925.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 1fe40de6ebe3..824c8278d2fc 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -636,7 +636,7 @@ int task_llc(const struct task_struct *p)
-  *
-  * p->is_blocked <- { 0, 1 }:
-  *
-- *   is set by try_to_block_task() and cleared by ttwu_do_wakeup() and tracks
-+ *   is set by try_to_block_task() and cleared by unblock_task() and tracks
-  *   if the task is blocked. Traditionally this would mirror p->on_rq, however
-  *   due things like DELAY_DEQUEUE and PROXY_EXEC, this can diverge.
-  *
-@@ -3737,12 +3737,20 @@ ttwu_stat(struct task_struct *p, int cpu, int wake_flags)
- 		__schedstat_inc(p->stats.nr_wakeups_sync);
- }
- 
-+static inline void unblock_task(struct task_struct *p)
-+{
-+	if (p->is_blocked && p->in_iowait)
-+		delayacct_blkio_end(p);
-+
-+	p->is_blocked = 0;
-+}
-+
- /*
-  * Mark the task runnable.
-  */
- static inline void ttwu_do_wakeup(struct task_struct *p)
- {
--	p->is_blocked = 0;
-+	unblock_task(p);
- 	WRITE_ONCE(p->__state, TASK_RUNNING);
- 	trace_sched_wakeup(p);
- }
-@@ -3839,10 +3847,8 @@ ttwu_do_activate(struct rq *rq, struct task_struct *p, int wake_flags,
- 		en_flags |= ENQUEUE_RQ_SELECTED;
- 	if (wake_flags & WF_MIGRATED)
- 		en_flags |= ENQUEUE_MIGRATED;
--	else if (p->in_iowait) {
--		delayacct_blkio_end(p);
-+	else if (p->in_iowait)
- 		atomic_dec(&task_rq(p)->nr_iowait);
--	}
- 
- 	activate_task(rq, p, en_flags);
- 	wakeup_preempt(rq, p, wake_flags);
-@@ -4415,10 +4421,8 @@ int try_to_wake_up(struct task_struct *p, unsigned int state, int wake_flags)
- 
- 		cpu = select_task_rq(p, p->wake_cpu, &wake_flags);
- 		if (task_cpu(p) != cpu) {
--			if (p->in_iowait) {
--				delayacct_blkio_end(p);
-+			if (p->in_iowait)
- 				atomic_dec(&task_rq(p)->nr_iowait);
--			}
- 
- 			wake_flags |= WF_MIGRATED;
- 			psi_ttwu_dequeue(p);
-@@ -6762,6 +6766,9 @@ static bool try_to_block_task(struct rq *rq, struct task_struct *p,
- 
- 	p->is_blocked = 1;
- 
-+	if (p->in_iowait)
-+		delayacct_blkio_start();
-+
- 	/*
- 	 * We check should_block after signal_pending because we
- 	 * will want to wake the task in that case. But if
-@@ -6934,7 +6941,7 @@ find_proxy_task(struct rq *rq, struct task_struct *donor, struct rq_flags *rf)
- 		if (!mutex) {
- 			clear_task_blocked_on(p, mutex);
- 			if (task_current(rq, p)) {
--				p->is_blocked = 0;
-+				unblock_task(p);
- 				return p;
- 			}
- 			goto deactivate;
-@@ -6970,7 +6977,7 @@ find_proxy_task(struct rq *rq, struct task_struct *donor, struct rq_flags *rf)
- 			 */
- 			__clear_task_blocked_on(p, NULL);
- 			if (task_current(rq, p)) {
--				p->is_blocked = 0;
-+				unblock_task(p);
- 				return p;
- 			}
- 			goto deactivate;
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 4c25fbe84fb5..638c7709654a 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -3072,10 +3072,8 @@ static inline void __block_task(struct rq *rq, struct task_struct *p)
- 	if (p->sched_contributes_to_load)
- 		rq->nr_uninterruptible++;
- 
--	if (p->in_iowait) {
-+	if (p->in_iowait)
- 		atomic_inc(&rq->nr_iowait);
--		delayacct_blkio_start();
--	}
- 
- 	ASSERT_EXCLUSIVE_WRITER(p->on_rq);
- 
--- 
-2.34.1
+diff --git a/drivers/clk/clk-cdce925.c b/drivers/clk/clk-cdce925.c
+index 4d49cc1659c0..56b69d4fe4c2 100644
+--- a/drivers/clk/clk-cdce925.c
++++ b/drivers/clk/clk-cdce925.c
+@@ -625,7 +625,12 @@ static int cdce925_probe(struct i2c_client *client)
+ 	int i;
+ 	int err;
+ 	struct device_node *np_output;
+-	char child_name[6];
++	/*
++	 * The PLL number isn't a compile time constant so GCC can't infer
++	 * the number. Make the stack buffer large enough to hold any int
++	 * so Wformat-truncation does not complain.
++	 */
++	char child_name[15];
+ 	struct regmap_config config = {
+ 		.name = "configuration0",
+ 		.reg_bits = 8,
+@@ -697,7 +702,7 @@ static int cdce925_probe(struct i2c_client *client)
+ 			dev_err(&client->dev, "Failed register PLL %d\n", i);
+ 			goto error;
+ 		}
+-		sprintf(child_name, "PLL%d", i+1);
++		snprintf(child_name, sizeof(child_name), "PLL%d", i + 1);
+ 		np_output = of_get_child_by_name(node, child_name);
+ 		if (!np_output)
+ 			continue;
+
+---
+base-commit: a5929cbf1406eb3da217d4a182ff6c5b73f3ed91
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/clk/linux.git clk-next
+change-id: 20261014-cdce925-truncate-child-name-a4d9db9cf003
+
+Best regards,
+--  
+Jerome
+
