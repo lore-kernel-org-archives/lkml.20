@@ -1,117 +1,176 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 374C43806C5
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:56:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE9F352842F
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:56:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791993381; cv=none; b=ozGTDUlc9APYul6OqsRL0GZ6BAQdcexqjTuweGbXCD3NHwZt1vc4cCHFFVxvV4DcaeqRgYEEy02fFeZSXOr2kf7O1QXxlmAkb2RxTah2GFxnt6qFfnK3KDXh5Xmi3KhCUB1tNUi57M69IfnoULxzhPyVoeXC171UXwLA1ColKmo=
+	t=1791993387; cv=none; b=DidNTReD1QaKZHQGGSd4tPRAKQwQhbwLjrxeaNRQEi/ybIg25Rv9aP2f0qBQCTS4QsBhpqWxRNlPyYG5HPcscZYnlsYtL5JVBATOvZeq82aIRJH13NbVY37saA6J8IKtM8XHqrUj2Oa1B08VoBdajgT4Rv9xgBxmKUswLNXBj/c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791993381; c=relaxed/simple;
-	bh=va13RaM/sanuKVZ3CaYPU08d6tBndpG5IAYdTqJH6Zc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Disposition; b=L5yl/J1TDPONV3GaKSwhqz1zTFduj3/9T7J2SKbyc+qj40fZoDp/XyywsqmGsnT3RCvN3aGyQu05E2nOkfXGBtQTsnD1GUlhDNhBJJ3d8R4K03+qR054eGsZrMVehMIVR5FvDYiVmCuJac6Tccv4GlVHA/8j4NNekt1o+g5mWVk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=J3j8A+o7; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791993387; c=relaxed/simple;
+	bh=QcP01yeYANmnSOpCckxi4SHgUGs/ns1aGF7CqSeJ3UI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=EsQ6wVHXwHat5tJXGt4vXjruo8ZePK5m0pwBfHAWTh8TdNKo3IV30GKGpMOdrsoUL0M4sX+l/yhSMATBmkpZ75cKVaV/Z7UAIG2GMg/npDuB6OiuenKFmYRCNpW2/EnRVNq0hb0Wkjs9FdEwxs4jvjfVIvQ3oH4D+elySaS70rA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VvjzfRk5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=URkttb1u; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="J3j8A+o7"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 43B3D14BF;
-	Wed, 14 Oct 2026 08:56:16 -0700 (PDT)
-Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 890BA3F7B4;
-	Wed, 14 Oct 2026 08:56:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791993379; bh=va13RaM/sanuKVZ3CaYPU08d6tBndpG5IAYdTqJH6Zc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=J3j8A+o7YMnGQzWRo3Z55LcdGh0AeUHPrlQxrh+yhl6FsnnpzMxM6D9BXg0A0gTAg
-	 C1Ab0IcjTSRIDPSFmfs7zaufoifA+gC2NpOekh0hFjItW/wNaTum6HLrjMfY9BL8ej
-	 cd+J+gOyOsf8XLF2oRHGcSe54kVXiZjIQ+TjmUZk=
-From: Leonardo Bras <leo.bras@arm.com>
-To: Oliver Upton <oupton@kernel.org>
-Cc: Leonardo Bras <leo.bras@arm.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Raghavendra Rao Ananta <rananta@google.com>,
-	Tian Zheng <zhengtian10@huawei.com>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 5/5] KVM: arm64: Enable HAFDBS for guests not on migration
-Date: Wed, 14 Oct 2026 16:56:15 +0100
-Message-ID: <as-mH36YSMxAosND@LeoBrasDK>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <aqvt2gnlBZeNsaf4@LeoBrasDK>
-References: <20260901171558.2674031-1-leo.bras@arm.com> <20260901171558.2674031-6-leo.bras@arm.com> <aqneWnlsdpocLIl6@kernel.org> <aqqhDs3NyjtkZzXK@LeoBrasDK> <aqsl1_IqnV2r8kUL@kernel.org> <aqvt2gnlBZeNsaf4@LeoBrasDK>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VvjzfRk5";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="URkttb1u"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EEbJPL152429
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:56:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=nRN5mwPXK5jua7t9LUgDQO
+	MkK+R4yZYyk715f9CNhO0=; b=VvjzfRk5J6Z9CkwIJwodw+ihTsee+ukv63IqOX
+	Q6WCjbh4ntyQsNl40UV0YtscS8XbHAdRr1bSL5Lwkxd3jYJQPOdWAsMF+a+byAjn
+	35O78uSyLMmGd+S3EukL4LU1QVoUfA12dDj4tlsGrsIO+mHvy2h/ZVFhFiSukeTS
+	/5Acr0uNCgHGOGLKOD4cwQwAiEsEXn1PgSImFhcWwDYowpNtjbqbzh7eX6aqwZqw
+	8vgCAyuoLnXxJdI04NgbxrW+XRC6Gke2cjuUNaC8UNVrSr9A3/BXMS+HiAmXJ7uz
+	XqJT2pK4mL6e28eD/AIb7o8SWS8IbWXweKZyKtMVnlRUP8gQ==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ha7aehfhr-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:56:24 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc7e0321ec1so5166501a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:56:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791993383; x=1792598183; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=nRN5mwPXK5jua7t9LUgDQOMkK+R4yZYyk715f9CNhO0=;
+        b=URkttb1ut8eimOCDpWhwtTxTZstoPc9C3UmmbNqVbdM5lQvNR+Ij6iNk03ZQ/EQlQE
+         Lz6X2VvCumzJJryuNWf5IkiOT5rqJ/9JtWDukWYqMFw/mzgtADKrcWELI5Na1bd1XZyg
+         KoB5K0moxBJcCqRjwgyPVvci2nxxDOzTU07Zlb7gbTxAuo0c12qfJjykXEqDaObLZwd0
+         BPyGSWt4+qYM61YHSrxGKbRC1vSKVgfb/HnO6DPDnExY6f5wLLc6ZmEBxilagIJ346DX
+         oAS0wrZaVlkl7s/hwjbd+cIJjQsZCy275jRO27mfJW58sfkaFPJaRZMfCK/K1Z+l7WT6
+         XDqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791993383; x=1792598183;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=nRN5mwPXK5jua7t9LUgDQOMkK+R4yZYyk715f9CNhO0=;
+        b=sPrA7pM2nvsUp5I3VXZMJXNvdbFKEBUArqXgX3R5UQxlesMl929WHJU9SNgyIaDvbu
+         DbStUmle9as7ljVPhRDhfXTC6z6BUAaJyWd9kJkG3zNYZwHa9tVtykz8W/rdwPQwe2y8
+         lw/JtcfcdPbY1RduGMkoI3YPJycoXuPN4O45JQqJbEKH2+yreVCCiIqRBDc9kwWCv/64
+         TJY8mni7+9rWDjLFtn7DAY8Xby3skh8ICBfONwDSPtaSj6rwxdENqSn6u92qpvwrFX8t
+         ECULvJ6JMu66teW2Jlerg94U6tFfRvf1igMd5No8cmltBdKpZWmClQpvvgu1c3J91Fsl
+         3c2A==
+X-Forwarded-Encrypted: i=1; AKwUvBylSx7frXiA8jgLtu0bmE/IDxQRQvJrCA83rBSApkoeR+BvOiLz7hc4G4UB54/5Wea1K+0QDsFOWKdY+J4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK7Bnbdj8nBOzLNaZE6lSoDVRM3anvQbgaihT2vrjflr0oejmIx
+	CgKvUzVyx2CBtwWUo0vhLE/FyJd/+H8eFU6MCBN/S9nyLjjrcA8N5Xp8pQHyaDcyGtucSDuMWdQ
+	RvcG6SuLRAh/5AAyJmcP1IRAqEvBle7joaHmzp3p3tKyKegEBTY9Nnic+mxQ3vAMnRO8=
+X-Gm-Gg: AYBFou0JQQqUjV1v+zOj1P5dCzUtmzMZp8k8lUtQ4LAu4WTdbHBVuiD4VdsR0VbFN4D
+	v6NAKAwJE6fdnrh/Z1IAgHTrgCAkyERthXOMZzJJwIKbBWvwZ9E7SjIGlRSZwK5D6EynQ/gBsxh
+	Xj89EWXFRiB2r/py2Q25UVJts+yXQ8nbDV8COcOx5ePhK0JHwiqXimMqMoJMNmcZeQXC18NPb90
+	/Vf3bc2iWBOrmxhhOvAcY0sDgZQjxsta64UIAaED3ec+8I4swAyrOIaJTTtDf0BPws5Gf7w5nYu
+	IovNA4Q94ziCibRFEDNA0OOKVzuH53XyYr5T3shLkb4bMyOyZzBDqLGiNqRKPRH0IZ9FCPziAMc
+	4adgs9JiZVpEnvk/KMj8SqMDWdQ5h72VgdQ==
+X-Received: by 2002:a17:902:e847:b0:2e5:e1e2:21fb with SMTP id d9443c01a7336-2e842ac8aa0mr158858215ad.37.1791993383405;
+        Wed, 14 Oct 2026 08:56:23 -0700 (PDT)
+X-Received: by 2002:a17:902:e847:b0:2e5:e1e2:21fb with SMTP id d9443c01a7336-2e842ac8aa0mr158857925ad.37.1791993382906;
+        Wed, 14 Oct 2026 08:56:22 -0700 (PDT)
+Received: from hu-faiyazm-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422e14f6sm71961375ad.69.2026.10.14.08.56.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 08:56:22 -0700 (PDT)
+From: Faiyaz Mohammed <faiyaz.mohammed@oss.qualcomm.com>
+Subject: [PATCH 0/4] edac: qcom: add DDR DRAM ECC reporting for Shikra
+ (QCM2390)
+Date: Wed, 14 Oct 2026 21:26:15 +0530
+Message-Id: <20261014-master-v1-0-aba3cfcfbac9@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAB+mz2oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDCyMT3dzE4pLUIt1EM2MLwyTzNFPjtDQloOKCotS0zAqwQdGxEH5xaVJ
+ WanIJSLdSbS0AIWU//WoAAAA=
+X-Change-ID: 20260824-master-a6381b7f53ff
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Conor Dooley <conor@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>,
+        Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-edac@vger.kernel.org,
+        Faiyaz Mohammed <faiyaz.mohammed@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Proofpoint-ORIG-GUID: PC4JwW9J7-5DlPslVvW43S3K_s71ELtP
+X-Proofpoint-GUID: PC4JwW9J7-5DlPslVvW43S3K_s71ELtP
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA2MyBTYWx0ZWRfXwKi8HRKcHxMd
+ 441MkZlczQL8/Q5GVxpSe++KqzAWpetBRNiJE5BjSgGk6NAUUtINmUUIAy68sU52zHsbZtGK0E5
+ 5lWgb16Z0bx/s6YiPeUlXYxVSeJthuk=
+X-Authority-Analysis: v=2.4 cv=NctzRGD4 c=1 sm=1 tr=0 ts=6acfa628 cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=28_99TRhucPTTWWXKPwA:9 a=QEXdDO2ut3YA:10
+ a=3WC7DwWrALyhR5TkjVHa:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA2MyBTYWx0ZWRfX2+UeKaehD9Sp
+ 3oYdu9YVb4SHhzLU9l9P10K9EG2lseb5asQbFtBksYXqWXEmmByRF/RqSTtNxv0kTJ4yCovJOzY
+ fdwM3DO3i1KsAjDOYkICCLyPaPCvJ7HMJXB+j9FYLrAh82Meo15ahF81kSae53wuVgOIU0YDrvb
+ A6HCHu4DHkj/swEFyIILzck/afLWWE3jRxi2hkvL8tSb+oQY1mCLY6cHP0lemKWt+o+i8tMIHNH
+ oOeXNWikKPw4gtSTWfeDgtVe2XpxhXTwXZypOecLOtHsz2sh31pOVzr2ts6xFxfZuD7KxkdCA3H
+ BrKH6cWXyuPBJgXJ1GSjLjPF73d6gR7SGwRxV5TAzFKTkYD9SJcdbw/RoyYsY3No9tcv/p/ZbQo
+ tZPKMSwrd/+ezfA85h712o3Xrs2mJTETJfLaX5ow29Mth2WOMxh+w5WApEzZqQ9Vb5Ysz7diQs4
+ uF7ZPuxmYrNcf2QS8rg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 clxscore=1011 suspectscore=0 lowpriorityscore=0
+ spamscore=0 phishscore=0 impostorscore=0 bulkscore=0 malwarescore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610140063
 
-On Thu, Sep 17, 2026 at 02:40:42PM +0100, Leonardo Bras wrote:
-> On Wed, Sep 16, 2026 at 04:27:19PM -0700, Oliver Upton wrote:
-> > On Wed, Sep 16, 2026 at 03:00:46PM +0100, Leonardo Bras wrote:
-> > > On Tue, Sep 15, 2026 at 05:10:02PM -0700, Oliver Upton wrote:
-> > > > Hi,
-> > > > 
-> > > > On Tue, Sep 01, 2026 at 06:15:56PM +0100, Leonardo Bras wrote:
-> > > > > When dirty-logging is disabled, even non-write faults make a page dirty,
-> > > > > which avoids a second fault when the page is actually written to.
-> > > > > 
-> > > > > On dirty-logging enable, this approach causes all (writable) pages on the
-> > > > > memslot to be marked clean, even if they were not written to, which can
-> > > > > take a lot of time, while holding the MMU lock, doing atomic writes to
-> > > > > PTEs.
-> > > > 
-> > > > Do you have any performance numbers for this? Enabling HAFDBS seems a
-> > > > bit involved to avoid some stores on the first pass.
-> > > 
-> > > Not yet, but if the idea does not look too crazy I can find hardware and 
-> > > collect some data :)
-> > 
-> > TBH this looks like a micro-optimization so I'm not expecting the
-> > performance gains to justify the behavior change.
-> > 
-> 
-> Okay then, I will get a machine to figure the performance gains :)
+Add DDR DRAM ECC reporting for QCM2390 (Shikra) via the LLCC EDAC
+driver. The LCP/SRP block between the LLCC and DDR PHY signals CE/UE
+errors on a dedicated interrupt separate from the TRP/DRP cache ECC
+path.
 
-Got the performance numbers here. 
-I tested both the case where all PTEs are dirty, and the case that 50% of 
-the PTEs are dirty.
+Patch 1 updates the DT binding to allow an optional second interrupt,
+adds interrupt-names ("llcc-ecc", "llcc-lcp-ecc"), and enforces both
+are present for qcom,shikra-llcc.
 
-For that test, actually patch #5 could make kvm_pgtable_stage2_wrprotect() 
-slower, which is counter-intuitive, in all platforms tested:
+Patch 2 adds LCP/SRP register offsets to struct llcc_edac_reg_offset,
+populates them for QCM2390, and adds lcp_irq to struct llcc_drv_data.
 
-When we walk the S2 pagetable to wrprotect, using the new walker, the 
-write to the PTE itself is so cheap* that the cost of the branch 
-misprediction (write PTE or not) for the 50/50 case is significantly higher 
-than the cost of the 50% extra writes, which makes the 50/50 up to 60% 
-slower than the 100% dirty case. It is still slower in the '25% dirty' as 
-well, and starts to get even at '10% dirty'. 
+Patch 3 adds qcom_llcc_lcp_setup() to initialise the LCP block and
+llcc_lcp_ecc_irq_handler() to report per-bank CE/UE errors via EDAC.
 
-* (non-atomic, everything is in order, walker is small, cpu will probably 
-bundle it all in a single cacheline write) 
+Patch 4 adds the second interrupt entry and interrupt-names to the
+Shikra LLCC DT node.
 
-Since the idea of patch #5 was to reduce PTE writes in the first wrprotect 
-walk, it becomes faster only if only a small portion (<10%) of the VM was 
-write-faulted while the remaining was read-faulted, which seems to be a 
-really reduced audience.
+Signed-off-by: Faiyaz Mohammed <faiyaz.mohammed@oss.qualcomm.com>
+---
+Faiyaz Mohammed (4):
+      dt-bindings: cache: qcom,llcc: allow optional second interrupt for LCP/SRP ECC
+      soc: qcom: llcc: add LCP/SRP DDR DRAM ECC register offsets
+      edac: qcom: add LCP/SRP DDR DRAM ECC support for Shikra
+      arm64: dts: qcom: shikra: add LCP/SRP ECC interrupt to LLCC node
 
-Since this comes with increased complexity, and also carry costs of 
-having HAFDBS itself enabled outside dirty-tracking, I don't think it's a 
-good idea to further pursue patch #5. It's only value is that it served as 
-a base for HDBSS implementation.
+ .../devicetree/bindings/cache/qcom,llcc.yaml       |  26 +++-
+ arch/arm64/boot/dts/qcom/shikra.dtsi               |   4 +-
+ drivers/edac/qcom_edac.c                           | 147 +++++++++++++++++++++
+ drivers/soc/qcom/llcc-qcom.c                       |  45 ++++++-
+ include/linux/soc/qcom/llcc-qcom.h                 |  13 ++
+ 5 files changed, 231 insertions(+), 4 deletions(-)
+---
+base-commit: cbf6c6b201561342d673223d1e59ef771c7a9dbf
+change-id: 20260824-master-a6381b7f53ff
 
-Thanks for reading!
-Leo
+Best regards,
+--  
+Faiyaz Mohammed <faiyaz.mohammed@oss.qualcomm.com>
+
