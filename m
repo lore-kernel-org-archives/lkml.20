@@ -1,149 +1,120 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDCDE3C2790
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:52:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE313C2774;
+	Wed, 14 Oct 2026 09:53:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791971535; cv=none; b=D2NL0k7/Amba22EmG7XvY9QxLUgWM/aPxM8kubuH6WFGuQZu2hWYuzAiwrFVdOv5/sassC520jlSVDhBc2GNBiHm8ACyFIAA4aN0Rx5xj85bVp1L09FF/Z9EgzJ/0cRrz6M0/rtyuFYJIhvp1sv5qYRo8Q7XCW+kcWYhB3+W0A0=
+	t=1791971602; cv=none; b=VQgTyxS0GbuscKmOh5f/ht9gT8m6g32S0eQssz5tJto9skoJNWwundKYxFNWaP4nfoOg9WSuVI0Gq3iwyfN0reG5y2stnc2HsPoThfFz7BU+Gze7sn7HZgG+ugawMSfbc8/DpreCMN8EiVQtiSDhADGiQJcfDymMqrInbooigPM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791971535; c=relaxed/simple;
-	bh=uXYzMefJOP+aHO3bNqIlMQmN18rqz1b+wDrH65TOCEE=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=pUQ3L7VUkF2QEp755xeQWrdDf7Tp5nIx86LW7uPgB56La1a6wPHD5o/iPkhyOdl+CbwIf5g1hERENRBQlCJ7PqVuVpG0xGz9ezqTjZnWMb05NjWYqjtv1qEQV/A/7O1LytQ4+t2Xa6DdVP2srjLqJlt/vVWfhOekUtFl5lqSG7U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QNiHo/+v; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=P3yOk370; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791971602; c=relaxed/simple;
+	bh=71Nb/diD0RFkIlqGupsPVxEdRSByfY6gUGToH1EH1XQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eb26lFsb1RIUaFuohgbfjjrnvEtntCHtzFHfokHBV5yRuWLOwjAxbvndTY9v5e25B5qORCPDPbXSVi/A1HAtkjrzskZ6Hlj5t9G/yhNCP3wDr0a4hmNUpXcfNrFirlcb7r9ouzkuSuEH7nTPuYthwLHbP5Y0t2Xa/fV3+ymTeWw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=THlFOC+8; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="QNiHo/+v";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="P3yOk370"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791971532;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=ew/yEA9efwsEsgTzBND1D0weZnW/cI9Jw/YyC/suOs8=;
-	b=QNiHo/+vzy0HQPpJOnuwxaetnoPbgfqAB1WX2EOLPLdLjr5llFTdj8SEPpkMdtUj4TmlI3
-	xXbmkzTGmUi3KSDfpeHAhTl48GUIRtB/uq+R8hsRhz516XtwZKSIU3dTyp7qGqAK90dYMz
-	xKduoozd2JwK4K/fqO2EJTVBoSOhDm4=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-74-H7_PXOHAMra6-UF-XCoRjQ-1; Wed, 14 Oct 2026 09:52:11 +0000
-X-MC-Unique: H7_PXOHAMra6-UF-XCoRjQ-1
-X-Mimecast-MFC-AGG-ID: H7_PXOHAMra6-UF-XCoRjQ_1791971530
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-48b0679906dso2406187f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 02:52:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1791971530; x=1792576330; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ew/yEA9efwsEsgTzBND1D0weZnW/cI9Jw/YyC/suOs8=;
-        b=P3yOk370FYz3ds2ok6YIQppHaZwq2rD3XJE+j7bvH/HbBvVGIPHc5NBeH9tVfjAnvT
-         4ZE5hsW5Eovx8S28G7YXtHRAvdnsVpMihc1M7h1T6v4axXNCTc/BdYdI3DFW9BYb8hJO
-         GWWYU4DLNemNyb/uj+sOVQgouIaAU34wHhxOK0yU+OoErewWWHN8gtNVA1vR2tXGPXH1
-         n6BcF0IOt+deQUSlIZzswmBeWQRQway1VnLArZWTvMKGX+VpNBvKstJmPLRU4RkCqNoQ
-         mXM6IQEZJX5y20Fi5m5304HrJdkDRxwH49h9zv4rBauENbjsRRRcOwny2BU/ZRCzPoNt
-         XZmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791971530; x=1792576330;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ew/yEA9efwsEsgTzBND1D0weZnW/cI9Jw/YyC/suOs8=;
-        b=XiefTV0k2L2ZAS56ujTJGKKqB/9a4S3PPcky71ZiTGsvFanzgK3fcRP5HEmOsNT+30
-         fsMahgzo5xJbMp1eS88HrVqE9wEytJFhkbhWnyT4FrnqUN54H0zLFEbKJ8mKlGHmR8h1
-         HDvGKV8MHzKVqxfgTNugZBQH1N3m+IykhPpZMVHnA1Hlkm0ioPYxX8M//psAAvu1nKWX
-         nNA2X7zzohTKUPwTb1c4imHupd6CqDwjTr2ZVjBu7J1kgS2lFpbjQ1A0k6e3ieMOYmOC
-         JGRmFxHychRTf8tCAfBRNyM1bybn+JMquoj23M/IKP+mMDkGAxPxLb9zIZSz0n+b3V9m
-         MNEA==
-X-Forwarded-Encrypted: i=1; AKwUvBzVbnNNESRxyBBev0b3CwkBTdlnZe1ixAm0JGnVuMgCQKeYGCVUIPCl13CsQB44YArjYO4NxtxAV9De5Fo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK62dLJQnP55W3kOCjcBsGRpzSIMmVsG1LszfQI2mz+VQrpEbwB
-	D5IIavcB/D9YQq+P1ksW10PxVR2IhuT3XRa34+tJZatREwhucAuwq759EKCNKk///8VcCOgpCTM
-	V7D2FnlyC9Y7teoS18IQ7pPE5qI05Sn7J5ac6vu5erje2BnGhGFhu6YWfbSwC4F3cNQ==
-X-Gm-Gg: AYBFou07OF1fyVluGf+LMmu7/+iHa/Dcvt+MvzNg5wY1yGDQTHPjYioXQMYA5w0xtJS
-	v2djdrAZ/3Ub11ploWNwny7E5RAqRYHbjyOcBeUa68tOhfJ7PC3eC49CeOfwmNrnnEBte44netR
-	dHGt8ZvC1pqBuYzE9YE6gww8FtEygTsCDagbtdyXQ/WPZeAqyOd80M2OdiP19THeMd07EfKSpA3
-	LDGLhsRx2RtYPvUVN54jSjn2qxCT6gDTpD8lLdGwwAzsKuH/ocP3iujQvVYtD6A9OEET2J7YyO+
-	JolTgBMXYVwJzTB/WaGb8Po364tpqlyywwXC+P6zKWjTqxPC7U4su2UcJ02RKjzGQOBe0anT1OQ
-	D1trAq9scXnx1lbiC0M/sEl70lLl7
-X-Received: by 2002:a05:600c:8b70:b0:49f:e701:51c8 with SMTP id 5b1f17b1804b1-4a18e4a01acmr312576295e9.9.1791971530390;
-        Wed, 14 Oct 2026 02:52:10 -0700 (PDT)
-X-Received: by 2002:a05:600c:8b70:b0:49f:e701:51c8 with SMTP id 5b1f17b1804b1-4a18e4a01acmr312575565e9.9.1791971529966;
-        Wed, 14 Oct 2026 02:52:09 -0700 (PDT)
-Received: from gmonaco-thinkpadt14gen3.rmtit.csb ([195.174.135.130])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18be97d1esm679092125e9.8.2026.10.14.02.52.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 02:52:09 -0700 (PDT)
-Message-ID: <1ff1999324ecbbfe9a36f8c088d7d4122ae59177.camel@redhat.com>
-Subject: Re: [PATCH v2 04/15] rv: Cast result of model_get_*_name()
-From: Gabriele Monaco <gmonaco@redhat.com>
-To: Nam Cao <namcao@linutronix.de>, linux-kernel@vger.kernel.org, 
-	linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org, Steven Rostedt
-	 <rostedt@goodmis.org>
-Cc: Wen Yang <wen.yang@linux.dev>, Tobias Schaffner
-	 <tobias.schaffner@siemens.com>, Viktor Malik <vmalik@redhat.com>
-Date: Wed, 14 Oct 2026 11:52:08 +0200
-In-Reply-To: <87jynmgm94.fsf@yellow.woof>
-References: <20261001152042.124445-1-gmonaco@redhat.com>
-	 <20261001152042.124445-5-gmonaco@redhat.com> <87jynmgm94.fsf@yellow.woof>
-Autocrypt: addr=gmonaco@redhat.com; prefer-encrypt=mutual;
- keydata=mDMEZuK5YxYJKwYBBAHaRw8BAQdAmJ3dM9Sz6/Hodu33Qrf8QH2bNeNbOikqYtxWFLVm0
- 1a0JEdhYnJpZWxlIE1vbmFjbyA8Z21vbmFjb0BrZXJuZWwub3JnPoiZBBMWCgBBFiEEysoR+AuB3R
- Zwp6j270psSVh4TfIFAmjKX2MCGwMFCQWjmoAFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgk
- Q70psSVh4TfIQuAD+JulczTN6l7oJjyroySU55Fbjdvo52xiYYlMjPG7dCTsBAMFI7dSL5zg98I+8
- cXY1J7kyNsY6/dcipqBM4RMaxXsOtCRHYWJyaWVsZSBNb25hY28gPGdtb25hY29AcmVkaGF0LmNvb
- T6InAQTFgoARAIbAwUJBaOagAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgBYhBMrKEfgLgd0WcK
- eo9u9KbElYeE3yBQJoymCyAhkBAAoJEO9KbElYeE3yjX4BAJ/ETNnlHn8OjZPT77xGmal9kbT1bC1
- 7DfrYVISWV2Y1AP9HdAMhWNAvtCtN2S1beYjNybuK6IzWYcFfeOV+OBWRDQ==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="THlFOC+8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=20
+	/IVJDdeostxRbcAR4r2TFhHfef4iPbpNq8zOKeLNQ=; b=THlFOC+8TygI4enULa
+	5S0Cqho3L8vkADWlx3D8kSIs3c4LaHeyZqYrhJhIEaoQWCKCfkg0lOj7kxxa0BAX
+	DgqIzuOtUWiDgOI2k+VMx4hJrzdi/A8YuxkfEhQKxKuYRajZXWf7LbtI+zi/a6pe
+	lS4A9mUzfeR7z/EOGAmgigNkU=
+Received: from localhost (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wDnT1LpUM9qHgaBEg--.10621S2;
+	Wed, 14 Oct 2026 17:52:41 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: elver@google.com,
+	dvyukov@google.com
+Cc: kasan-dev@googlegroups.com,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	workflows@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH 3/4] kcsan: add targeted watchpoint selftest
+Date: Wed, 14 Oct 2026 18:52:37 +0900
+Message-ID: <20261014095238.2132580-4-sh_def@163.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDnT1LpUM9qHgaBEg--.10621S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7uF4DJr4DKF43ZF45uryxuFg_yoW8trykpr
+	4qkr45tw4FyrZaqF4fCFy8ZF1rJrs7Cry7t34Igr4kZ34agrs5K3s2kr4qkFnIgFZ0gr1Y
+	yasrJF1UCay5XaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jjv38UUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6QncPGrPUOnUIgAA3q
 
-On Tue, 2026-10-13 at 08:14 +0200, Nam Cao wrote:
-> Gabriele Monaco <gmonaco@redhat.com> writes:
->=20
-> > Functions like model_get_event_name() and model_get_state_name() are
-> > shared with BPF monitors, however those programs don't play nice with
-> > string pointers without fixed length and the event_name and state_name
-> > arrays need to be defined differently. This gets the compiler to notice
-> > those are const char and the above function discard the const qualifier=
-.
-> >=20
-> > Drop the warning by casting the result to (char *). Note, a cleaner
-> > solution would require to modify all callers, but that would require
-> > changing every single monitor's tracepoint and the advantage is minimal=
-.
->=20
-> I prefer the cleaner solution. Just mass replace "char *" with
-> "const char *", and manually fix up a few errors and we are done.
+Test targeted address matching for exact and containing access ranges,
+adjacent ranges, zero-sized accesses, and boundary addresses at ULONG_MAX.
+These cases cover subtraction-based matching without runtime debugfs setup.
 
-The reason I initially didn't do this was that some lines get beyond 100
-characters adding the const, so I'd need to break them and make rvgen even =
-more
-complicated to generate things (TL;DR still laziness).
+Signed-off-by: Hui Su <sh_def@163.com>
+---
+ kernel/kcsan/selftest.c | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
-I'm actually taking a different approach and storing everything in macros l=
-ike:
-
-#define DEFINE_DA_EVENT(name)						\
-	DEFINE_EVENT(event_da_monitor, name,				\
-		TP_PROTO(char *state, char *event,			\
-			 char *next_state, bool final_state),		\
-		TP_ARGS(state, event, next_state, final_state))
-
-So both per-monitor trace headers and rvgen get simpler and if we ever need=
- to
-change something again, it comes for free.
-
-Gabriele
+diff --git a/kernel/kcsan/selftest.c b/kernel/kcsan/selftest.c
+index 84a1200271af..8da1ba2ba25a 100644
+--- a/kernel/kcsan/selftest.c
++++ b/kernel/kcsan/selftest.c
+@@ -12,6 +12,7 @@
+ #include <linux/init.h>
+ #include <linux/kcsan-checks.h>
+ #include <linux/kernel.h>
++#include <linux/limits.h>
+ #include <linux/printk.h>
+ #include <linux/random.h>
+ #include <linux/sched.h>
+@@ -101,6 +102,33 @@ static bool __init test_matching_access(void)
+ 	return true;
+ }
+ 
++/* Test whether an access contains the selected target byte. */
++static bool __init test_target_matching(void)
++{
++	const unsigned long target = 0x1004;
++
++	if (WARN_ON(!kcsan_target_matches(target, 0x1004, 1)))
++		return false;
++	if (WARN_ON(!kcsan_target_matches(target, 0x1000, 8)))
++		return false;
++	if (WARN_ON(kcsan_target_matches(target, 0x1000, 4)))
++		return false;
++	if (WARN_ON(kcsan_target_matches(target, 0x1005, 1)))
++		return false;
++	if (WARN_ON(kcsan_target_matches(target, 0x1004, 0)))
++		return false;
++	if (WARN_ON(!kcsan_target_matches(ULONG_MAX, ULONG_MAX, 1)))
++		return false;
++	if (WARN_ON(!kcsan_target_matches(ULONG_MAX, ULONG_MAX - 3, 4)))
++		return false;
++	if (WARN_ON(kcsan_target_matches(ULONG_MAX, ULONG_MAX - 1, 1)))
++		return false;
++	if (WARN_ON(kcsan_target_matches(0, ULONG_MAX - 1, 4)))
++		return false;
++
++	return true;
++}
++
+ /*
+  * Correct memory barrier instrumentation is critical to avoiding false
+  * positives: simple test to check at boot certain barriers are always properly
+@@ -251,6 +279,7 @@ static int __init kcsan_selftest(void)
+ 
+ 	RUN_TEST(test_encode_decode);
+ 	RUN_TEST(test_matching_access);
++	RUN_TEST(test_target_matching);
+ 	RUN_TEST(test_barrier);
+ 
+ 	pr_info("selftest: %d/%d tests passed\n", passed, total);
+-- 
+2.55.0
 
