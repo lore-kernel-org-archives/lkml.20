@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E3D8468C23;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DC56448BB7;
 	Wed, 14 Oct 2026 06:49:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791960588; cv=none; b=TmyFPlt5/nDKsPE6hqtriycIq9M9oTVAOVzRvn9XgvzwMURwSY3AA0WU7JhGN9l/xH2fMS0whrdVaaoRthqGGz2tl+TGD+3QF5fsbXSmxHwhFpSvYbWMxEpfaqNHxw6GqYlSQvyV1tTAc8DEBnj0+vvLCZg5umnavoy0BGPFrX8=
+	t=1791960588; cv=none; b=Ay2jiJ6B+Fns1tF7b4baGaYfiQDU5SYPOJZBh/oq84WIVIeoMsuby9OGtnVpVVcThurC3gK6DzyNJX4VYMX3TU6lRMD652hhxyVq1lK+2U9Uz1F7RHq1WM8UGjos6ijCtWGWUOBBN3IK1wBWPSCAGeW5mH4Gwdccve7y1twxGH0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791960588; c=relaxed/simple;
-	bh=5AfeHxdzIe4On+d5DmZHfSd4BJhPKM5RlNXDO5HXWIY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LXzYL9N+C154UElhbM344vepwsANZ5Yf9Tb49DAI+o5a7clWanhs7WmA1uavFsqoozKR/acsxAP6yYSeCsz+DuzcBgac3QaRyTLCxxCXN6PYP3k0pPgkSzHsPYQiKGZWiKcTK3XGyD9+JskQBViFuzBx5+Z/YBhYtvO5xIGzcoo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=pD5+ujE0; arc=none smtp.client-ip=10.30.226.201
+	bh=fPoVaBChIFHd+yHZ4HnyWeijFq2EFmam/UDpQxJIVkc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=OMl90UIeVdocjjAKK1qHyeeexBjB93zLRhuncZlzXbHxXtdmQAJvUoFR+lcx6DD5F8lO4R34F1032HFXRYNinOmFO6M8oPaWmeOIR+EMbGFEBXvpwaHudC4Dvq5jt9vkdad44nSTb/Lr/TjLlUTc2Z9kvnboHhHN2eOXFY/vsJc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=apUVhXI4; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="pD5+ujE0"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3E1B3C4AF09;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="apUVhXI4"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 1D9B4C2BCF7;
 	Wed, 14 Oct 2026 06:49:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
-	t=1791960588; bh=5AfeHxdzIe4On+d5DmZHfSd4BJhPKM5RlNXDO5HXWIY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=pD5+ujE0hqRTofsn52iZ6ej/MqZTJKEHTJV7WakHBihrUH7XkLz/fQUn5pUxKCOWW
-	 G1tnpzMuRa0HUqL4F7IGKe5qC2+esSNmblML9FEIkqHH+GWUYyRPqTzxMf103xn2Cm
-	 +v1xvUePwdGgsWXN8Bof7iprXLlAnmvLzXveZ7R4=
+	t=1791960588; bh=fPoVaBChIFHd+yHZ4HnyWeijFq2EFmam/UDpQxJIVkc=;
+	h=From:Subject:Date:To:Cc:From;
+	b=apUVhXI4lIyTHXhqAgOEXWGgr+LRNmsxDRr5bytGSjEkjbypcZyV9NzJVuTzHrVjf
+	 /689eUU/IXWoPbSvpzNoHF7I0cdt5liGPYd5wb7WlWYgOoXSEXqfy1vktQA7qXSuN0
+	 MHoBfcBiG2N93bALiv+xU3Za9S7EXjl9vVsaezK8=
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1E4D9CC6B25;
-	Wed, 14 Oct 2026 06:49:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EDC23CC6B20;
+	Wed, 14 Oct 2026 06:49:47 +0000 (UTC)
 From: Richard Leitner <richard.leitner@linux.dev>
-Date: Wed, 14 Oct 2026 08:49:09 +0200
-Subject: [PATCH v2 2/8] media: i2c: ov9282: fix pixel rate and line time
- calculation
+Subject: [PATCH v2 0/8] media: i2c: ov9282: fix strobe timing and control
+ handling
+Date: Wed, 14 Oct 2026 08:49:07 +0200
+Message-Id: <20261014-ov9282-fixes-v2-0-3bb376d8b1a9@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,9 +37,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261014-ov9282-fixes-v2-2-3bb376d8b1a9@linux.dev>
-References: <20261014-ov9282-fixes-v2-0-3bb376d8b1a9@linux.dev>
-In-Reply-To: <20261014-ov9282-fixes-v2-0-3bb376d8b1a9@linux.dev>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/1WNwQ6CMBBEf4Xs2Zp2FUI9+R+GQ2m3ssaAaaHBE
+ P7dgl48vszMmwUiBaYIl2KBQIkjD30GPBRgO9PfSbDLDCixklpqMSSNNQrPM0XhjK4rZ1qLpxr
+ y5BVoD/Li1nw5Tu2D7Lg5tkbHcRzCe/9Lauv91Or8r05KSOFLlMaX2nnVXp/cT/PRUYJmXdcP6
+ DYXJ7oAAAA=
+X-Change-ID: 20260909-ov9282-fixes-da986dabc238
 To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
  Dave Stevenson <dave.stevenson@raspberrypi.com>, 
  Mauro Carvalho Chehab <mchehab@kernel.org>, 
@@ -54,128 +56,97 @@ Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
  linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
  stable@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791960586; l=4066;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791960586; l=3646;
  i=richard.leitner@linux.dev; s=20250225; h=from:subject:message-id;
- bh=5AfeHxdzIe4On+d5DmZHfSd4BJhPKM5RlNXDO5HXWIY=;
- b=qSaMlNS0F6xeT2c1ivRY011te6/+ewsVdNGsi/GLqDhkjWOKHKH2QL2FRQdBpHcfY30rfsM4a
- W9zOQr6JY21Bd38R9FTa4jhOr1/w612VoPnPRpu4c8JcpETPba6zXeX
+ bh=fPoVaBChIFHd+yHZ4HnyWeijFq2EFmam/UDpQxJIVkc=;
+ b=7ZCjtz7ib4MZq7iON48g/9AhjNMFoJZJAYWE66GPm3YLbt8H1IhKKWt41XSyGKRaMvpeXQZ4j
+ 0aLnNHtdlQXA8OwJrLLNhyqkZd/uhjL9+tVJEGxFax3I/mwWtVB3Hsq
 X-Developer-Key: i=richard.leitner@linux.dev; a=ed25519;
  pk=8hZNyyyQFqZ5ruVJsSGBSPIrmJpfDm5HwHU4QVOP1Pk=
 X-Endpoint-Received: by B4 Relay for richard.leitner@linux.dev/20250225
  with auth_id=350
 
-The OV9282_PIXEL_RATE_8BIT is calculated incorrectly from the
-OV9282_LINK_FREQ. The hardware scales the pixel rate by changing the
-multiplier from 0x50 (for 10 bit) to 0x60 (for 8 bit). Resulting in a
-x1.2 factor.
+This series fixes a set of related issues in the OV9282 strobe timing
+and control handling code.
 
-The current OV9282_PIXEL_RATE_8BIT calculation scales from /10
-(for 10 bit) to /8 (for 8 bit). This results in a x1.25 factor.
+The driver updated exposure- and flash duration-related control ranges
+in several places, but some of those updates used an incorrect timebase
+or were triggered too late, which could leave the controls clamped
+against stale values.
 
-As all the inputs to the pixel rate calculation are constant in this
-driver also define the OV9282_PIXEL_RATE_{8,10}BIT as constants.
-Additionally introduce a new function to calculate the current
-line time in nanoseconds and use it in ov9282_exposure_to_us().
+The series:
+- checks the return value of the exposure range update
+- drops the redundant vblank field
+- converts probe error messages to dev_err_probe()
+- fixes the 8-bit pixel rate (192 MHz instead of 200 MHz) and the
+  corresponding line time calculation
+- treats the strobe frame span as a line count and converts the flash
+  duration accordingly
+- fixes the flash duration range (min/max/default) and refreshes it on
+  HBLANK changes, independent of the sensor power state
+- refreshes the exposure and flash duration ranges on mode changes
+- reprograms the strobe span when HBLANK changes
 
-Kudos to Dave Stevenson for pointing me into the right direction!
+This series was tested with an ov9282 sensor on a vision components camera
+module attached to an i.MX8MP mainboard in a defined (dark) environment
+with a custom made LED flash pcb.
 
-Link: https://lore.kernel.org/linux-media/CAPY8ntBaSHjztuSLTOtv9KYvEbmcbinSMJ78ZDg+0sZg-1fz3Q@mail.gmail.com/
-Fixes: df60764ea5210 ("media: i2c: ov9282: dynamic flash_duration maximum")
-Fixes: 43ac0cac18f41 ("media: i2c: ov9282: Add support for 8bit readout")
-Cc: stable@vger.kernel.org
-Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
+Any feedback is warmly welcome.
+
+Thanks!
+
 ---
- drivers/media/i2c/ov9282.c | 50 +++++++++++++++++++++++++++++++++-------------
- 1 file changed, 36 insertions(+), 14 deletions(-)
+Changes in v2:
+- New patch: fix the 8-bit pixel rate.
+- New patch: re-write strobe span and HTS in s_ctrl when HBLANK changes
+- Calculate line time in ns using 64-bit math instead of 32-bit µs
+- Treat the strobe frame span as a line count and reuse the helpers of the
+  exposure -> drop OV9282_STROBE_SPAN_FACTOR
+- Flash duration range: min is 1 line, max is S32_MAX instead of the
+  current exposure time, default is converted from the register default
+- Refresh the flash duration range on HBLANK changes instead of on
+  exposure/gain writes, so it is also correct while the sensor is idle
+- Add missing "\n" to dev_err_probe() messages
+- Add Fixes: and Cc: stable tags where applicable
+- Reorder patches to keep non-fixes at the end
+- Reword commit messages and subjects
+- Thanks to Dave, Bryan and Sakari for the review!
+- Link to v1: https://patch.msgid.link/20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev
 
-diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-index c10b2e205834e..5907f57b34523 100644
---- a/drivers/media/i2c/ov9282.c
-+++ b/drivers/media/i2c/ov9282.c
-@@ -10,10 +10,12 @@
- #include <linux/delay.h>
- #include <linux/i2c.h>
- #include <linux/math.h>
-+#include <linux/math64.h>
- #include <linux/module.h>
- #include <linux/pm_runtime.h>
- #include <linux/regmap.h>
- #include <linux/regulator/consumer.h>
-+#include <linux/time64.h>
- 
- #include <media/v4l2-cci.h>
- #include <media/v4l2-ctrls.h>
-@@ -111,11 +113,14 @@
- #define OV9282_LINK_FREQ	400000000
- #define OV9282_NUM_DATA_LANES	2
- 
--/* Pixel rate */
--#define OV9282_PIXEL_RATE_10BIT		(OV9282_LINK_FREQ * 2 * \
--					 OV9282_NUM_DATA_LANES / 10)
--#define OV9282_PIXEL_RATE_8BIT		(OV9282_LINK_FREQ * 2 * \
--					 OV9282_NUM_DATA_LANES / 8)
-+/*
-+ * Pixel rate: Derived from the PLL2 clock tree.
-+ * For 10 bit it's exactly the same as the sample PLL configuration.
-+ * For 8 bit the PLL2 multiplier (REG_PLL_CTRL_0D) is changed 0x50 -> 0x60,
-+ * which results in x1.2 and therefore 160 MHz x 1.2 = 192 MHz.
-+ */
-+#define OV9282_PIXEL_RATE_10BIT	160000000
-+#define OV9282_PIXEL_RATE_8BIT	192000000
- 
- /*
-  * OV9282 native and active pixel array size.
-@@ -472,6 +477,32 @@ static inline struct ov9282 *to_ov9282(struct v4l2_subdev *subdev)
- 	return container_of(subdev, struct ov9282, sd);
- }
- 
-+/**
-+ * ov9282_line_time_ns() - Calculate duration of one sensor line.
-+ * @ov9282: pointer to ov9282 device
-+ *
-+ * Return: line time in nanoseconds.
-+ */
-+static u32 ov9282_line_time_ns(struct ov9282 *ov9282)
-+{
-+	u64 hts = ov9282->cur_mode->width + ov9282->hblank_ctrl->val;
-+
-+	return div_u64(hts * NSEC_PER_SEC, *ov9282->pixel_rate->p_cur.p_s64);
-+}
-+
-+/**
-+ * ov9282_exposure_to_us() - Convert an exposure register value to microseconds
-+ * @ov9282: pointer to ov9282 device
-+ * @exposure: exposure register value to convert
-+ *
-+ * Return: microsecond representation of the given exposure register value.
-+ */
-+static u32 ov9282_exposure_to_us(struct ov9282 *ov9282, u32 exposure)
-+{
-+	return div_u64((u64)exposure * ov9282_line_time_ns(ov9282),
-+		       NSEC_PER_USEC);
-+}
-+
- /**
-  * ov9282_update_controls() - Update control ranges based on streaming mode
-  * @ov9282: pointer to ov9282 device
-@@ -510,15 +541,6 @@ static int ov9282_update_controls(struct ov9282 *ov9282,
- 					mode->vblank_max, 1, mode->vblank);
- }
- 
--static u32 ov9282_exposure_to_us(struct ov9282 *ov9282, u32 exposure)
--{
--	/* calculate exposure time in µs */
--	u32 frame_width = ov9282->cur_mode->width + ov9282->hblank_ctrl->val;
--	u32 trow_us = frame_width / (ov9282->pixel_rate->val / 1000000UL);
--
--	return exposure * trow_us;
--}
--
- /**
-  * ov9282_update_exp_gain() - Set updated exposure and gain
-  * @ov9282: pointer to ov9282 device
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Daniele Alessandrelli <daniele.alessandrelli@gmail.com>
+To: Paul J. Murphy <paul.j.murphy@intel.com>
+To: Martina Krasteva <martinax.krasteva@intel.com>
+To: Richard Leitner <richard.leitner@linux.dev>
+To: Hans Verkuil <hverkuil+cisco@kernel.org>
+To: Bryan O'Donoghue <bod@kernel.org>
+To: Jacopo Mondi <jacopo@jmondi.org>
+Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Cc: Gyula Kelemen <gyula.kelemen@advasolutions.com>
+Cc: linux-media@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
 
--- 
-2.53.0
+---
+Richard Leitner (8):
+      media: i2c: ov9282: handle error from exposure range update
+      media: i2c: ov9282: fix pixel rate and line time calculation
+      media: i2c: ov9282: fix flash duration to/from microseconds conversion
+      media: i2c: ov9282: fix flash duration range calculation
+      media: i2c: ov9282: add refresh of additional ranges on a mode change
+      media: i2c: ov9282: recalculate strobe span on HBLANK change
+      media: i2c: ov9282: drop redundant vblank field
+      media: i2c: ov9282: harmonize dev_err_probe usage
+
+ drivers/media/i2c/ov9282.c | 236 +++++++++++++++++++++++++++------------------
+ 1 file changed, 144 insertions(+), 92 deletions(-)
+---
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+change-id: 20260909-ov9282-fixes-da986dabc238
+
+Best regards,
+--  
+Richard Leitner <richard.leitner@linux.dev>
 
 
