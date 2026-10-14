@@ -1,105 +1,346 @@
-Received: from sonic309-14.consmr.mail.bf2.yahoo.com (sonic309-14.consmr.mail.bf2.yahoo.com [74.6.129.124])
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 171EA36B905
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:24:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.6.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85B783E024B
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:26:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791998674; cv=none; b=SaDk2PROM2X1n2Ut2fJ4WXtRnIn+rJ/nKpQ7aY7nRHGVtq2TjdF8kYyZe8PuyOETvLNmA01R5zaqkpS6+IuQ7OW+Jd+dYU02MsYOAZLMX7tsmz7bn/YYnJ400Jjh+Ne89qEQqqhEPaxQJRiXPjB1zA8eElryQacZJOacHWnmY70=
+	t=1791998779; cv=none; b=CV5nPX3aWMs11o5memfBsIyRY+Jfb/90CPyOOP5ww9OQFo+SEGa7h28F5p61aTRVJ46Tq1O9QeoJaJnzyMQaS6UnnzdcM4JRJu00V2tai/GQQ2TAWSYUzgZ0rGhvJUAZ0605uNKnSophYgJJserqfJh2ckBCYwNotkCRhfXjxVg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791998674; c=relaxed/simple;
-	bh=XEvKOCv3K+UgHb6IG55edNfPEEVp3CEHek9hbwGscNc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:References; b=jl+9/tUVI7sblfpI74PiOIe8q/px5EMiitnGmmC+DG+jH1YHXYCh0psCRlaKitZ1osDmItgETui2uoAJT4eiazjn3oqn5LLgp36gT8rox8t3LTEfe+DFHaG1rtB+O/8g2fV86AE71AY+paO/SnseKfVXvLSk1Wx9pmsoeWBTydI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=NokvUPxs; arc=none smtp.client-ip=74.6.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	s=arc-20240116; t=1791998779; c=relaxed/simple;
+	bh=WyPFSQzlcPsM7bEg65zgmEDipP6f4nXL0yMbSWA5h84=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=kRgfdAzPPaCJlXgiVzb+itRxhpmoVQftMYvaUEcVqSYWn/Ho1Pxnfw4qRrOCrtHtNmg2B95ltbLvO9woLoJ3JLXnekG+1a8brhXeFaWsvgUvPRihInsrqdsUVl1rowgPglFBb13KfBm771c9rgSPbmMXXDhN1iuQs/Q7md9HwaU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g6xltyem; arc=none smtp.client-ip=209.85.210.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="NokvUPxs"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791998665; bh=4v6XorRSwXhXcku3qnh51d91z1LPE04gABIRSEP3Ky4=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=NokvUPxsObEifEypE6lKhxuX++6gRjCgm8YvRZxRBQg1BozraYnYi40pdc7732AzMTOhda0padvXVh08loBTunm5Vaq2/FLXSGFX4msnpcbCaZB7PD7RkWAHoNqFvdB74tvhVbo3fVVErZmXFTIDiSmGyYq1r7hhTAyExqwLzJNkQhUJKLcQneaZVIffArJKsKZVa8b3jUTRpZ07TEiO/xAr4HPjmsdx0YKUOOen3cTG0gcfTxVFyq80eDFG5qsEHtY/nYLawXGlqgaK5yZMhMpIFXaK9Pg+fkcH3J4wrDR2B0CO8EqfLBS9/amIroYvArLiIMucf/xymzf4tF5HAA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791998665; bh=NRj/IKKhMNUddCTqNW7z2/TzI11hDDItcsLIVkDzS1R=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=WzM6WIW6ClvFZSGBC7CtePn2NIA8hfk7uMlZhhP1TCg73B3LNNPIcuppOoSNcbq70evfsXRnsWuMmcLLq0NQw6q6pjV74LTvOfJw8EUHD3Cp8cV0nSpTwZ7VA7s7XzdIWMn8kRKip+sYN4WKso6wQJON6/Pvi/tKS6eFBm0FCnLG3OvX7GyR5vFClxy6IPttZLbMTJL3K4Mpvq8voNA1cbWxGlJTwUKJ6YrfaFK2VwhyzP/nKTY29zxwPA9HWt8xlxZSqj5/5xPZ5YUA8onq14AFhYT2DaP3TfAYqSaT8tDZUD7N5Lx6UgApHW1MV5O8FeyjYYEld8wiZdCksDN8cw==
-X-YMail-OSG: qs6WiKIVM1kkPGrkkjp7IXVwt.NTnLHSQX.zAef6jxs7DrDflb7UJtR8Da3w9BI
- qEI8OPUEiDY7cNltTnqBPrWdjX5Hz0YtLPZqfcG3BgB6KBeRR6nvsNI3uyzst1ejK0cIJ.uZJF10
- s1sZSlH60FZKEyrSVL7vKSN9SQaMcGWy.amhkpsQlYPIPFgmmH.A.XPk9UP7VgcIvTqWr73O37x1
- Q7gl20deZpZNnHmjZgoTbjfsPEC_D11A..PKlLJ9GXHsn8ajrN4mn2kOMYOY.bXevLhMVwtX7jZY
- Ki2K0Qm78pwUyn4GOj1HOhA0FVPOFe0hJyhRgJj0U9hAhesSYTOi4CXvxKbpacD_gbq0DePKouGB
- jxEXSmA2s6YsYygav6BPzSGEIzeLDXNu8sRJlg5mPfXpWMqRgm.PW5LEOFJQxPBvzzMTf4Wx1dMU
- XOVPKkuQk2QUG1WRIZ1pEzS9ALeWCx2uNaQBhD5UYndSyOMBGSvfUatiULFVuFMThCLeNEPDPUOS
- n_KKmAZP09XdzCxkXy6G1RJLeXoFNnIU7bjrDod7Ke5ZlF5_N66.sXHCNoZNK2.c1eOYd1zq.8xB
- IrV2G6IqtRhZQtPvDii7Rthr6jtlpwzCSj_bWR2SddEXkDE3d4RXNnQfg5o8EBMXwn1RGUq7mZmD
- Z1t4q2umgqapie_v57fqHdRUtYa3TSDK_vtqy.NqPj5Uru.yGG5svdv5NklEVDOyMuoZD8WLz0Rx
- vmEPvK71mVZbtiu9fSo.iGhYAUOgivmsJe72H.5EI4Rccm3exCEytcX9DR8fdaPO3S1qOCaxhKCH
- iOT53D0t7l_XMqzPYWIsAb1awpEubLxTJzM.pzAtbu7q6xfIZ7xBik9RdeMCrV_QeH4EzZRc1Q8v
- FzLeaaGW0iEAa9Eg8vRE.KY_qCWQ676wi.DhcaoA4Puvz80NYhMaD0irVskI2T0Sd4aa1p3Z0Lwg
- 7_Q8Zvjd1TELWOitG.l2WcoB7d0C6RHu5q_IZTKRg8unPATcmwpQLWEjWhUC6WFBpdUT5W5cTlUY
- tycenTNy.eriRWv3UK6RHShwt5lU7tY_Jq85Ht0tL2c2XFVbzVqlRBtN.U5X11uluBfTA04VVSlg
- 9_OV31cVQa4TMA3Dlc2kZJro5F1iDf6WqG6kpvj1dxAZjDTFKwsPGZUArxIdPbFY817b9BjiLeDm
- 8SmFGDo3tUJT3OVdN.XI3HmOAlsGqOb2bSuw6zR6bqgw1sKoQKOWd3FJq1XvIFxro.MSqWR6Ppy5
- 6bJSQ_pj1DbBekmojF1XeSjjlJefEnyaPFbEXVFJkngW4qesuI4.3sXBONAJxLWndgv456VGOgDk
- BgqagoePG3kmwldnQHaLMzfaQwPaIpsGkBMbhh6Txao4ozfId6t4lp0V.NPtj8jl369JbLjPN3Bs
- Su7FbxZ.jeicmg8.MnwNEyVFAZX3ASLdCamIlTPGSkCg2A_1zC4OVwW73NuDs7KYMSqy6Cx8Sa0Q
- LNJZyLoh6.ZoxU437VVxKR4QAekYv5ruhAj88bKEoWBofTdBU_L_3O7h_Wtta2c70wz.X9LCti1X
- gZMAU9b4_hQuBCWhmzrfa0fkHcXAln60beJmPpEzkGowK4WTHR038sAaiWTjSYWlbe.cyqPZfH.Y
- WlYisnLOB5QXPvQ9DOY5XmpT5su7sHiNUrmpl9kwsz3tv_3ZavA22xFh0NZiPT3Z_VG8.9N7aoQJ
- dsxGfUY.OPYyIHyqWI6Juo3Fr9UTYglHtubmp6St1ZIrIUGLVYLKrbr8UP20t31BgU4GNTFt_ISi
- vPnu_IJcpEo0nMnPOyduFSvKCyc0r6O4iBQF5qP1PoWNheFWWhJArvYiRQ09t21PZNa6hEdhR4ZK
- ybxphzISr.Vhofn8JD300EjNla1pStkq1_XOUK6_VGWgpJtbni9lK0GWdxgHWLkGbhYA5BwKVKzj
- _Ed2.TCTrgo5sk30wci5YXPrwf9AXsVjfZLFFoUGx6b32nQ8Ghzn2k5b4GjvPMQ9vvmLZ1CyjJwg
- Ckfajp5j1yWvA0Hg59U0qn.h_cvCB4mJhGEBrvGSK.Vl8ekAEAW.JEhfXZXb1meCQwEkFSQfrH7n
- CKZdpWH3jWb1_03wtkL8vWBPjnkxMU9dJnJ_hZr9yu2jc5SfS.EZnoiK4.DqKuNG54NjG0HebcWi
- qMvbLpgkfSqeDo.TPRvEhZaUu1K_POfM_3GQ51lg6VKRjccHxHBKfqt6Q6LgbJb4Ae.sbyxCgL2M
- Dbb1lNThA6N1Qf1Aa0.xBpYD8w7S6CeKiVTWXN4utFkbztKxFnZqC2eTQeN27cfCHJ_PWIA--
-X-Sonic-MF: <deaner92@yahoo.com>
-X-Sonic-ID: abe0381a-835a-4927-a6a3-dea8a61793f5
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic309.consmr.mail.bf2.yahoo.com with HTTP; Wed, 14 Oct 2026 17:24:25 +0000
-Received: by hermes--production-bf1-6d6877594b-cqkzp (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 5a0a8dec9b05504a6d0243a2b95346ff;
-          Wed, 14 Oct 2026 17:14:08 +0000 (UTC)
-From: Jeremy Dean Clifton <deaner92@yahoo.com>
-To: Viresh Kumar <vireshk@kernel.org>,
-	Johan Hovold <johan@kernel.org>,
-	Alex Elder <elder@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: outreachy@lists.linux.dev,
-	Jeremy Dean Clifton <deaner92@yahoo.com>,
-	greybus-dev@lists.linaro.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] staging: greybus: Remove unused header declaration to_fw_mgmt_connection
-Date: Wed, 14 Oct 2026 17:13:42 +0000
-Message-ID: <20261014171342.97160-1-deaner92@yahoo.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g6xltyem"
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-88834d30002so2190629b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:26:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791998778; x=1792603578; darn=vger.kernel.org;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=WyPFSQzlcPsM7bEg65zgmEDipP6f4nXL0yMbSWA5h84=;
+        b=g6xltyemoesbxQ3OqIiTgQlkBFOTXRvi+8OhuhQmCecZcFUQe3Kw6wI6IkYWEaAjUp
+         Cg1mTFBiuj4i47WMRf+O54F3dCXlBe0zFusblAr973LRntzxbHe3WwK2px2PO2nNHt7C
+         pXhdiJWt7PljbqdVWcqOf/ilFgCVxXBNza0fTdH+e7FFVd1IQtuvR7iaRYUrfKVLFAQ/
+         bGsQHVJ0GuqM1nxtZ4mV8slfJHXI94kJVTCPHULzDaDwUY5rWmW3k45pl83jfNkmaSg7
+         POs56Nb+PxEXQnUIx+Y0CESHRG3JwCiX9HuTkbRuVzKfZ7ZDv9SI2Eyn7TGvEkHwYgUB
+         6Fcw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791998778; x=1792603578;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WyPFSQzlcPsM7bEg65zgmEDipP6f4nXL0yMbSWA5h84=;
+        b=fo2vnEGMuesbGer4n5kXRZnMLxvhnkPnSekPQre2k+rN7oroBwquP/8kJGboFLR1LS
+         rrwlq0jZKy0HjwSljdIbY8z+5BKPV+ZQkJDTGt7UM/imxeEMxOHLauNJV9M54WK0tGht
+         loPPdxS4ttXWtlPRsBC44y92ebpR+N19LT/2+zwJ51CoPvulOcs+98aXMlmkRc/XoJ4d
+         sfjZ2vdDE11xJA6fiN0VdQBpPU1x81bcsYlMFEoRho+JU2tnyqDLI/tVICx1QI0q/loe
+         Fj8f9BkrI4Q6TnDrgu4y3Lw2dIqLywDe9XWbgmk2uv+UZ7PL0A0jDyWXKqnh8uRez1S7
+         wtTw==
+X-Forwarded-Encrypted: i=1; AKwUvBwCq9R/m2ZmFSAiOaBX/971ky8UhEHgS9wLDED+2/qFH95fjZkzLcjNVG0CH9+fBpjKJ+868I8qUzu3Yc8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLWY/CUEpd0qypqn8T6Km6ppabEk8AC6AxK4CbCSCJlyGaZWWsL
+	5Mc6TBKDa9fqB7NUVWEp5joo0QdlwdKeZwHvv5UUh/uX2kBL9+2AuVF2
+X-Gm-Gg: AYBFou289JiBlzOw19yzWYMstzC2+XWeobc6biQR31Kr8KBpw9RMpqGEZe6iZ0c7uH4
+	Ydoo4Hw4kArs753QQsOIkHu0i61GzBoUr+WWmCQQKotKR3p8iZtG8cRHk/G7oig3wQdxu6fW9wI
+	WzjXd87QfuZSIx9Oj0E4Alr5kyT2byuv4N7HQJ236Uf5NFSnMA56eG3mGONevHkiMBefkSfwL6G
+	n3o+IYRU03nuwREBPM5yk+csvT4u4Mu7Yd1p1Tkem9QfFPLv5g5TIUtirtXCAEO8KC3fHutza5T
+	kYfo6BYcceWusivqRD8tHtfBNAU2/tAD6S91QsQkKqWILbOfPXmUAg9NflLJQFZyDLZPGBowVJk
+	eqUmReple84XhyIkL5a/ARNCXKS6MRAMPYoKFjDSPTyzJVSWrVGtmPEcEjQLz5Nco6qj7geAiZW
+	nhkCQ5yzw0279DaUHiN5ig3yYvY8WBrw5U1o6dHxQgbQiYcaWDUmVRWPPt6QlpnAVl
+X-Received: by 2002:a05:6a20:734b:b0:3e1:9071:acdd with SMTP id adf61e73a8af0-3e19071d800mr10023078637.35.1791998777510;
+        Wed, 14 Oct 2026 10:26:17 -0700 (PDT)
+Received: from smtpclient.apple ([2a05:dfc1:8bc4:feda::11])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89d803cc9f0sm1402553b3a.29.2026.10.14.10.26.13
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 14 Oct 2026 10:26:16 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-References: <20261014171342.97160-1-deaner92.ref@yahoo.com>
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
+Subject: Re: [PATCH v2] sched/cache: Remove the old cache group footprint on
+ exec
+From: Jemmy Wong <jemmywong512@gmail.com>
+In-Reply-To: <as99ta0PWAuYROp0@three-body>
+Date: Thu, 15 Oct 2026 01:25:52 +0800
+Cc: Jemmy Wong <jemmywong512@gmail.com>,
+ Chen Yu <yu.c.chen@intel.com>,
+ tim.c.chen@linux.intel.com,
+ Ingo Molnar <mingo@redhat.com>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ Ben Segall <bsegall@google.com>,
+ Mel Gorman <mgorman@suse.de>,
+ Valentin Schneider <vschneid@redhat.com>,
+ K Prateek Nayak <kprateek.nayak@amd.com>,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <1174BE6F-35AC-4BBA-BD36-661B6FEC0794@gmail.com>
+References: <20261010111612.31345-1-jemmywong512@gmail.com>
+ <aspT_A1vl-RwKmoP@chenyu-dev>
+ <32BC7D58-C1C9-4B24-857B-7433F19606A8@gmail.com>
+ <as99ta0PWAuYROp0@three-body>
+To: Chen Yu <chen.yu@linux.dev>
+X-Mailer: Apple Mail (2.3901.200.71.1.16)
 
-commit 3228900f80c2
-("staging: greybus: Remove unused function 'to_fw_mgmt_connection'")
 
-Function header declaration needs to be removed after it's declaration.
-There is no declaration of this function nor is there any place where it
-is called.
+> On Oct 14, 2026, at 9:03=E2=80=AFPM, Chen Yu <chen.yu@linux.dev> =
+wrote:
 
-Signed-off-by: Jeremy Dean Clifton <deaner92@yahoo.com>
----
- drivers/staging/greybus/firmware.h | 1 -
- 1 file changed, 1 deletion(-)
+[=E2=80=A6]
 
-diff --git a/drivers/staging/greybus/firmware.h b/drivers/staging/greybus/firmware.h
-index 5d2564462ffc..04a67d2d5b8f 100644
---- a/drivers/staging/greybus/firmware.h
-+++ b/drivers/staging/greybus/firmware.h
-@@ -22,7 +22,6 @@
- /* Firmware Management Protocol specific functions */
- int fw_mgmt_init(void);
- void fw_mgmt_exit(void);
--struct gb_connection *to_fw_mgmt_connection(struct device *dev);
- int gb_fw_mgmt_request_handler(struct gb_operation *op);
- int gb_fw_mgmt_connection_init(struct gb_connection *connection);
- void gb_fw_mgmt_connection_exit(struct gb_connection *connection);
--- 
-2.43.0
+> The minor issue is that the goal of sched_cache_replace_grp() was to =
+serve as a
+> helper for dealing with sched_cache_group pointer assignment, so we =
+don't want to
+> interfere with its members' values, such as footprint. If you can =
+reuse
+> sched_cache_footprint_update() in sched_cache_exit_mm() and =
+sched_cache_exec_mmap(),
+> that would make the code cleaner for future maintenance. Do you have =
+any reason
+> to keep the current form?
+>=20
+> Could you please send a formal patch? I'll launch a test with your =
+patch applied.
+> The only concern is that we convert the raw READ/WRITE_ONCE into =
+atomic write,
+> which might impact performance.
+>=20
+> thanks,
+> Chenyu
+
+Hi Chenyu,
+
+I originally put the subtraction in sched_cache_replace_grp()
+so both exec and exit share it (and the CONFIG_NUMA_BALANCING
+guard stays in one place).
+
+I tried moving it into the two callers as you suggested
+(patch attached). That required several small helpers to hide
+the config guards and reuse the old group pointer, which
+fragmented the code more than expected for this small bit of
+accounting.
+
+I agree a pure pointer-assignment helper should not touch the
+footprint. I now think it is better to change its responsibility:
+rename it to sched_cache_switch_grp(): have it subtract the
+task's contribution from the old group, publish the new pointer,
+and return the old group for the caller to put. This keeps the
+leave-group accounting and NUMA guard centralized.
+
+Would you be comfortable with that approach? I'll send a formal
+v3 once we settle this. Thanks for offering to test, especially
+the performance impact of the atomic updates.
+
+Thanks,
+Jemmy
+
+
+diff --git a/include/linux/sched.h b/include/linux/sched.h
+index d35ae49a991f..4a02a47c988e 100644
+--- a/include/linux/sched.h
++++ b/include/linux/sched.h
+@@ -2412,7 +2412,8 @@ struct sched_cache_group {
+unsigned long epoch;
+u64 nr_running_avg;
+unsigned long next_scan;
+- unsigned long footprint;
++ /* Sum of the member tasks' accounted footprints, in pages. */
++ atomic_long_t footprint;
+int cpu;
+refcount_t refcnt;
+struct rcu_head rcu;
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 57360f5cdde4..4d635bb28f18 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -1483,6 +1483,7 @@ static bool exceed_llc_capacity(struct =
+sched_cache_group *grp, int cpu)
+#ifdef CONFIG_NUMA_BALANCING
+unsigned long llc, footprint;
+struct sched_domain *sd;
++ long fp;
+int scale;
+
+guard(rcu)();
+@@ -1497,7 +1498,9 @@ static bool exceed_llc_capacity(struct =
+sched_cache_group *grp, int cpu)
+* excluded.
+*/
+llc =3D sd->llc_bytes;
+- footprint =3D READ_ONCE(grp->footprint);
++ fp =3D atomic_long_read(&grp->footprint);
++ WARN_ON_ONCE(fp < 0);
++ footprint =3D max(fp, 0L);
+
+/*
+* Scale the LLC size by 256*llc_aggr_tolerance
+@@ -1677,7 +1680,7 @@ int mm_init_sched(struct mm_struct *mm,
+grp->cpu =3D -1;
+grp->next_scan =3D jiffies;
+grp->nr_running_avg =3D 0;
+- grp->footprint =3D 0;
++ atomic_long_set(&grp->footprint, 0);
+refcount_set(&grp->refcnt, 1);
+/*
+* The update to grp->pcpu_sched should not be reordered
+@@ -1719,6 +1722,27 @@ DEFINE_FREE(sched_cache_group_put, struct =
+sched_cache_group *,
+#define rcu_deref_sched_cache_grp(tsk) \
+rcu_dereference_check((tsk)->sched_cache_grp, (tsk) =3D=3D current)
+
++static inline void sched_cache_footprint_update(struct =
+sched_cache_group *grp,
++ long delta)
++{
++ if (grp && delta)
++ atomic_long_add(delta, &grp->footprint);
++}
++
++static inline void sched_cache_footprint_update_task(struct task_struct =
+*p,
++ long delta)
++{
++ sched_cache_footprint_update(rcu_deref_sched_cache_grp(p), delta);
++}
++
++static inline void sched_cache_footprint_drop(struct sched_cache_group =
+*grp,
++ struct task_struct *p)
++{
++#ifdef CONFIG_NUMA_BALANCING
++ sched_cache_footprint_update(grp, -(long)p->total_numa_faults);
++#endif
++}
++
+static struct sched_cache_group *sched_cache_replace_grp(struct =
+task_struct *p,
+struct sched_cache_group *new)
+{
+@@ -1780,6 +1804,7 @@ void sched_cache_exec_mmap(struct task_struct *p, =
+struct mm_struct *mm)
+* the old one. @p is current and the only writer of its own pointer.
+*/
+old =3D sched_cache_replace_grp(p, =
+sched_cache_group_get(mm->sched_cache_grp));
++ sched_cache_footprint_drop(old, p);
+sched_cache_group_put(old);
+}
+
+@@ -1787,19 +1812,7 @@ void sched_cache_exit_mm(struct task_struct *p)
+{
+struct sched_cache_group *grp =3D sched_cache_replace_grp(p, NULL);
+
+-#ifdef CONFIG_NUMA_BALANCING
+- /*
+- * Subtract this task's footprint from the group before dropping the
+- * reference, so the group footprint converges as its threads exit.
+- * Unlocked for performance; clamp to avoid underflow.
+- */
+- if (grp && p->total_numa_faults) {
+- unsigned long fp =3D READ_ONCE(grp->footprint);
+- unsigned long sub =3D min(fp, p->total_numa_faults);
+-
+- WRITE_ONCE(grp->footprint, fp - sub);
+- }
+-#endif
++ sched_cache_footprint_drop(grp, p);
+sched_cache_group_put(grp);
+}
+
+@@ -2189,6 +2202,9 @@ void init_sched_mm(struct task_struct *p)
+static inline void account_mm_sched(struct rq *rq, struct task_struct =
+*p,
+s64 delta_exec) { }
+
++static inline void sched_cache_footprint_update_task(struct task_struct =
+*p,
++ long delta) { }
++
+void init_sched_mm(struct task_struct *p) { }
+
+static void task_tick_cache(struct rq *rq, struct task_struct *p) { }
+@@ -3883,14 +3899,13 @@ static int preferred_group_nid(struct =
+task_struct *p, int nid)
+static void task_numa_placement(struct task_struct *p)
+__context_unsafe(/* conditional locking */)
+{
+- struct sched_cache_group __maybe_unused *grp;
+int seq, nid, max_nid =3D NUMA_NO_NODE;
+unsigned long max_faults =3D 0;
+unsigned long fault_types[2] =3D { 0, 0 };
++ unsigned long old_faults =3D p->total_numa_faults;
+unsigned long total_faults;
+u64 runtime, period;
+spinlock_t *group_lock =3D NULL;
+- long __maybe_unused new_fp;
+struct numa_group *ng;
+
+/*
+@@ -3965,36 +3980,6 @@ static void task_numa_placement(struct =
+task_struct *p)
+ng->total_faults +=3D diff;
+group_faults +=3D ng->faults[mem_idx];
+}
+-#ifdef CONFIG_SCHED_CACHE
+- /*
+- * Per task p->numa_faults[mem_idx] converges,
+- * so the accumulation of each task's faults
+- * converges too - Given the number of threads,
+- * it cannot overflow an unsigned long.
+- * Racy with concurrent updates from other threads
+- * sharing this mm. Acceptable since footprint is a
+- * heuristic and occasional lost updates are tolerable.
+- *
+- * If a task exits, its corresponding footprint must
+- * be subtracted from p->sched_cache_grp->footprint,
+- * otherwise the footprint will not converge: the
+- * exiting thread's footprint remains unchanged/undecayed.
+- * See exit_mm().
+- *
+- * Lost updates and unsynchronized subtraction
+- * in exit_mm() can cause footprint + diff to
+- * go negative. Clamp to zero to prevent the
+- * unsigned footprint from wrapping.
+- */
+- scoped_guard(rcu) {
+- grp =3D rcu_dereference(p->sched_cache_grp);
+-
+- if (grp) {
+- new_fp =3D (long)READ_ONCE(grp->footprint) + diff;
+- WRITE_ONCE(grp->footprint, max(new_fp, 0L));
+- }
+- }
+-#endif
+}
+
+if (!ng) {
+@@ -4017,6 +4002,8 @@ static void task_numa_placement(struct task_struct =
+*p)
+max_nid =3D preferred_group_nid(p, max_nid);
+}
+
++ sched_cache_footprint_update_task(p, p->total_numa_faults - =
+old_faults);
++
+if (max_faults) {
+/* Set the new preferred node */
+if (max_nid !=3D p->numa_preferred_nid)
+--
+2.54.0 (Apple Git-157)
+
+
 
