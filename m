@@ -1,170 +1,277 @@
-Received: from zg8tndyumtaxlji0oc4xnzya.icoremail.net (zg8tndyumtaxlji0oc4xnzya.icoremail.net [46.101.248.176])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 47DCB41441F;
-	Wed, 14 Oct 2026 09:44:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.101.248.176
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8468747B436
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:44:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791971073; cv=none; b=Xy2wYYkOTzPP1yIpTn0L+Tshdfb8uG14MdzuyQcUOky5+rwFU2w5OL2JL8OkgoLu0EkDRupg2BoMcQ/lvJBQrRMzyg9ULWTTON+mnUwbiW/BZWCspGTl/72U2pPD6Od1bjDgSikbzhS426XMeF9+QEU+Yz3HJtE2eGVgy7/OxJQ=
+	t=1791971074; cv=none; b=VOAEsLoBWqupeiUxdITb9Qv8Mrxpa/bLOeiW+XhvpRxZSy2c75oZGAFKpV+WICoM+e+TVnT790qo5aVtt5B8vsjM1p0a+Qz1JzmulVkI/gJ3oZH3uGc3XgXL+dqvvhkHppnPIoiyV0h1/1UuD9DQWOGpt/1X1lnATeIR1lQBmNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791971073; c=relaxed/simple;
-	bh=EMM0YWZbAsJdqpS0CLa378eD17p7cN6w75pfeCUKS1g=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=j4oxcCdHy+OdHLlDKJ+7tId0Dq8MdRjnQFnfJ1ns9ErKER/POINIvjjRUhz4n6Y6G68MzieF4B6I+/x7w9Ukacu9zSfBI29oKHn9YqDV7ymqweQxm8rYWc6NuSodC4tvlG95YUagMthx01fX/erxxFrqkUFvXrLzVkyxwFoZkYk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=46.101.248.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from E0002472LT.eswin.cn (unknown [10.12.96.78])
-	by app1 (Coremail) with SMTP id TAJkCgCXKW7vTs9q6aSGAA--.43637S4;
-	Wed, 14 Oct 2026 17:44:18 +0800 (CST)
-From: Xiaofeng Yuan <yuanxiaofeng@eswincomputing.com>
-To: Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>
-Cc: Alexandre Ghiti <alex@ghiti.fr>,
-	Nam Cao <namcao@linutronix.de>,
-	Naveen N Rao <naveen@kernel.org>,
-	"David S . Miller" <davem@davemloft.net>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	Xiaofeng Yuan <yuanxiaofeng@eswincomputing.com>
-Subject: [PATCH v5 2/2] riscv: kprobes: add KUnit test for LR/SC sequence rejection
-Date: Wed, 14 Oct 2026 17:44:15 +0800
-Message-Id: <20261014094415.374-3-yuanxiaofeng@eswincomputing.com>
-X-Mailer: git-send-email 2.31.1.windows.1
-In-Reply-To: <20260828091202.1124-1-yuanxiaofeng@eswincomputing.com>
-References: <20260828091202.1124-1-yuanxiaofeng@eswincomputing.com>
+	s=arc-20240116; t=1791971074; c=relaxed/simple;
+	bh=WaYVZicrDlr4HfBHe/rJfnu+8TVr0yyGGzp7RQjsvxA=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=Zzcjzhjlb62CnlVJW5kHCwebQVCPgaR2BOPfheSzTWhTqvSd2uomN9C6amTQWYBjg33a3nnY2t2gFHHGLE5S/PDl41FsfxIOWZlh+PVxnoZ1KjIYHQVO8P9DoNYSKdpXsIvk92NHdR+ajNcTqCNcNQV8NAhUP8UdN6q2EK1RxR8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=I8XQHrdb; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="I8XQHrdb"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48c4649b3aaso2471183f8f.2
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 02:44:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1791971071; x=1792575871; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=H6xM3sm3th3dZUQDR90wqF/auFVqXIo1QuQOs4ETDrQ=;
+        b=I8XQHrdbkKkPYfSgwJZAAfJxAIWGRM3OGO/xmLPD7ip+aV/bhsJsC0rgHdqxd7jOhj
+         w48DVXEGyxtwruEJ5EaoYZPM9WGThErLKPyP71dnq3fkiMuUuLT8rpy32Ix7jt8n4U6z
+         YUfc7WFwcaiSBCLSRWXOYVICimnrfNiz5N2bhk5zZCLHE60ED8LhFL2cAiMxsW8nJJnf
+         6SuDySEwvgQC8b7rOnOpZ8VqmO67Z74N1bXlySPNmpBDnNLUuLcBT8mq5aggo8TrVVSE
+         QkjU29NIMlJvvPw7KuGnk2b2REUoDRZxTnKYpmACbZSB51x4TbV5Wn/sMbivaJXdv+0A
+         rn8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791971071; x=1792575871;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=H6xM3sm3th3dZUQDR90wqF/auFVqXIo1QuQOs4ETDrQ=;
+        b=K9d3YW0yzq4SrMs60g8Wf45nt43pASTH8PZcZmj5A8pRk/MRjQEeRYd2UoJLwXsBqG
+         2M5CfJo1vsWz91LrpQbyUgBsrgh2O+graYGsDNmvob0KtOecFh9OfoH9fLX+Kt4EgwsI
+         0tnsAUlgfL5H3AmbCcz3BiPav6xNs8AHX6R+5JBcF0BCvAAqBgm2semezVw7tjz9UhnS
+         PniLgGvlx9ILRAom2oCdFMIpZBRoNYQA+k4gtLRwx2Okrh30ZPA+1ko4yACYKEK0JdDP
+         Ml/E2/PkQ3xsNyCzCXqj/mtUWpvkpfsXTyzwXhAVtNo9+qN9rQXTdTAbWinez8R1ItBq
+         hnoA==
+X-Forwarded-Encrypted: i=1; AKwUvByAYlTJVVlMocvdCXNTVk0uVEJ8LZ05PNBwwv2Jn2ieLtkvrqshPFPd6+qhKSp1uiT3m1qkic1b77OagXQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJsuYL+vVwXnmy1RPjHKolOeLUEOcEg8gZJiGgWlp7yTZrCMBLa
+	djgtjGyvzbW6P82Y/+3ebFhzKJ4q7OX9kcEKDZy9YBTDcjNa0uxoigZb7TG4k9iV1eQ=
+X-Gm-Gg: AYBFou06ANSALa/t5C0Cd9igEuL8/1C3AUQWShk6a9KMAQZpCJE5fjgRyDdFgoUWfqG
+	xQeaNG/ztdcYo7XCGyGkEbOqgVrpPuTzxkBUYYt2+y1OirEri/zGgBkVzKJo4Xrfx2LhH6bI69J
+	xBH7XeSUBtIyByS5SdK62uMbyuFiz1yqomuDoVAHz2aWXlwxymQ4oyVWUABZBRuf/O6AdS1zS6C
+	SHjPSlnd3d0Rdd7jiGpThm1weLzMWzYVhswSCLZFOP+aIndnxOpIq9g6zxIqan0YqexA/yI2vtK
+	vkCIBsYsyFeRK8XeDD5xEd00lki/GPxd4F8RprLIazamBmTLGzUFrB13tcLazdWI0Bf8iCBGpJe
+	047oflNFfpfMgriMtssj6gmnWVWm8bdzoe6gJn5ptgJOjk1jLBFfQ83vfKfUfRZyuHFVjBf5xJJ
+	OZe7N6vslBe0VNXsdxpPlQNiVRz7zGLyU9844DDhQDin04aHHbGmA99Y/nSC6OU4o/ETQxVJLSm
+	cpGXfcUVzHHFsfY3vtJhl0tmRPE9u5LKPbZgoIQrJmITrTt6kf1Kg==
+X-Received: by 2002:a05:6000:22c8:b0:48c:6a50:cb9a with SMTP id ffacd0b85a97d-48dbacf56a0mr28939645f8f.51.1791971070318;
+        Wed, 14 Oct 2026 02:44:30 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:ef1f:5ab3:36fa:3ccb? ([2a01:e0a:106d:1080:ef1f:5ab3:36fa:3ccb])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de70079e7sm5699992f8f.11.2026.10.14.02.44.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 14 Oct 2026 02:44:29 -0700 (PDT)
+Message-ID: <03375a31-0ac6-47a4-b0dc-6327080e1622@linaro.org>
+Date: Wed, 14 Oct 2026 11:44:28 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 2/2] dt-bindings: usb: snps,dwc3: Fix downstream port
+ numbering
+To: Chen-Yu Tsai <wenst@chromium.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Felipe Balbi <balbi@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-usb@vger.kernel.org,
+ devicetree@vger.kernel.org, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
+ Neal Gompa <neal@gompa.dev>, Joel Stanley <joel@jms.id.au>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai
+ <billy_tsai@aspeedtech.com>, Michal Simek <michal.simek@amd.com>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Peter Griffin
+ <peter.griffin@linaro.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?=
+ <andre.draszik@linaro.org>, Tudor Ambarus <tudor.ambarus@linaro.org>,
+ Heiko Stuebner <heiko@sntech.de>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>, Yixun Lan <dlan@kernel.org>,
+ Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+ Minda Chen <minda.chen@starfivetech.com>,
+ Shyam Pandey <radhey.shyam.pandey@amd.com>,
+ Wei Yang <yangwei1@eswincomputing.com>,
+ Senchuan Zhang <zhangsenchuan@eswincomputing.com>,
+ Hang Cao <caohang@eswincomputing.com>, Li Jun <jun.li@nxp.com>,
+ Peng Fan <peng.fan@nxp.com>, Roy Luo <royluo@google.com>,
+ Yang Xiwen <forbidden405@foxmail.com>,
+ Ahmad Zainie <wan.ahmad.zainie.wan.mohamad@intel.com>,
+ Robert Marko <robert.marko@sartura.hr>, Xu Yang <xu.yang_2@nxp.com>,
+ Wesley Cheng <quic_wcheng@quicinc.com>,
+ Stanley Chang <stanley_chang@realtek.com>, Ze Huang <huang.ze@linux.dev>,
+ Aswath Govindraju <a-govindraju@ti.com>, Roger Quadros <rogerq@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org, asahi@lists.linux.dev,
+ linux-aspeed@lists.ozlabs.org, imx@lists.linux.dev,
+ linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
+ spacemit@lists.linux.dev
+References: <20261014082037.1774672-1-wenst@chromium.org>
+ <20261014082037.1774672-3-wenst@chromium.org>
+ <7020a7a6-332e-4fd0-a659-d82eb768614c@linaro.org>
+ <CAGXv+5G1kgyumbj7wGf6rPFbg3spSO0zYmEkn-hZT4qUdJbytA@mail.gmail.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <CAGXv+5G1kgyumbj7wGf6rPFbg3spSO0zYmEkn-hZT4qUdJbytA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:TAJkCgCXKW7vTs9q6aSGAA--.43637S4
-X-Coremail-Antispam: 1UD129KBjvJXoWxXr43AFyrJFyDWF1fuFyDWrg_yoW5KryxpF
-	nrGwn0yFWkG3ZxXry3Ww1kAa4fta1kCw43Wr1kGw18Cw47Jr4UtwnagrWUtrn8WrWFqryf
-	Zw18XFZ5Kr9rZFDanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUml14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jryl82xGYIkIc2
-	x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
-	Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJw
-	A2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAS
-	0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2
-	IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0
-	Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kIc2
-	xKxwCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE-syl42xK82IYc2Ij64vIr41l4I8I3I0E
-	4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGV
-	WUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_
-	JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rV
-	WUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4U
-	JbIYCTnIWIevJa73UjIFyTuYvjfUF5rcDUUUU
-X-CM-SenderInfo: h1xd05xldrwv1qj6v25zlqu0xpsx3x1qjou0bp/1tbiAQEAE2rOXTMYQQAAsA
 
-Extend the kprobes KUnit test with a function containing an LR/SC
-sequence and assert that register_kprobe() accepts a probe placed right
-before or right after the sequence, and rejects a probe placed on the
-LR, on an instruction inside the sequence, or on the SC.
+On 10/14/26 11:29, Chen-Yu Tsai wrote:
+> On Wed, Oct 14, 2026 at 5:28 PM Neil Armstrong
+> <neil.armstrong@linaro.org> wrote:
+>>
+>> On 10/14/26 10:20, Chen-Yu Tsai wrote:
+>>> The DWC3 controller can operate in host mode. It does so with a XHCI
+>>> compliant host controller. The XHCI has two downstream ports, one for
+>>> HS and one for SS. USB downstream ports start from 1, not 0.
+>>
+>> Is there something in index 0 we will need to define at some point ?
+> 
+> On the host side, no. Downstream ports start at 1.
+> 
+> On the device mode side, I believe the numbers are completely made up.
+> 
+>> Using 0 as base for numbering in DT isn't incompatible with the USB
+>> spec using base 1 for numbering,
+> 
+> But you end up with diverging numbering schemes, and it diverges
+> from other USB controllers, particularly XHCI, which DWC3 embeds.
+> 
+> And it also differs from the numbering currently used for directly
+> connected onboard devices (like hubs), which use or expect the USB
+> numbering scheme.
+> 
+> Sure we can make DWC3 "special", drop inclusion of usb-hcd.yaml,
+> and duplicate the section for onboard devices. On Linux, we can
+> add some more code to xhci_find_raw_port_number() to make an
+> exception for DWC3 controllers.
+> 
+> Also, usb_of_get_connect_type() is already broken for DWC3 based
+> controllers that only describe the HS connection but not the SS
+> connection. usb_of_get_connect_type() currently doesn't call
+> usb_hcd_find_raw_port_number() so both HS and SS get mapped to port 1,
+> which wouldn't be in the DT since HS is currently port@0. But even if
+> it did, SS would get mapped to port 2 anyway.
+> 
+> 
+> IMHO having consistent numbering across controller types would be
+> better. This avoids making the USB core and hub code deal with more
+> exceptions, and also easier to understand and write device trees.
 
-Signed-off-by: Xiaofeng Yuan <yuanxiaofeng@eswincomputing.com>
----
- .../kernel/tests/kprobes/test-kprobes-asm.S   | 24 +++++++++++++++++
- .../riscv/kernel/tests/kprobes/test-kprobes.c | 26 +++++++++++++++++++
- .../riscv/kernel/tests/kprobes/test-kprobes.h |  3 +++
- 3 files changed, 53 insertions(+)
+I was in the impression the port number not necessarily reflects
+an actual physical numbering, and can be a logical number we would
+then map in the kernel.
 
-diff --git a/arch/riscv/kernel/tests/kprobes/test-kprobes-asm.S b/arch/riscv/kernel/tests/kprobes/test-kprobes-asm.S
-index 15e50934b..6625a960c 100644
---- a/arch/riscv/kernel/tests/kprobes/test-kprobes-asm.S
-+++ b/arch/riscv/kernel/tests/kprobes/test-kprobes-asm.S
-@@ -100,6 +100,21 @@ test_kprobes_branch_addr8:
- 	.option pop
- SYM_FUNC_END(test_kprobes_branch)
- 
-+SYM_FUNC_START(test_kprobes_lrsc)
-+.Llrsc_before:
-+	nop
-+1:
-+.Llrsc_lr:
-+	lr.w t0, 0(x0)
-+.Llrsc_inside:
-+	addi t0, t0, 1
-+.Llrsc_sc:
-+	sc.w t0, t0, 0(x0)
-+	bnez t0, 1b
-+.Llrsc_after:
-+	ret
-+SYM_FUNC_END(test_kprobes_lrsc)
-+
- #ifdef CONFIG_RISCV_ISA_C
- 
- SYM_FUNC_START(test_kprobes_c_j)
-@@ -253,3 +268,12 @@ SYM_DATA_START(test_kprobes_functions)
- #endif /* CONFIG_RISCV_ISA_C */
- 	RISCV_PTR 0
- SYM_DATA_END(test_kprobes_functions)
-+
-+.section .rodata
-+SYM_DATA_START(test_kprobes_lrsc_offsets)
-+	RISCV_PTR .Llrsc_before
-+	RISCV_PTR .Llrsc_lr
-+	RISCV_PTR .Llrsc_inside
-+	RISCV_PTR .Llrsc_sc
-+	RISCV_PTR .Llrsc_after
-+SYM_DATA_END(test_kprobes_lrsc_offsets)
-diff --git a/arch/riscv/kernel/tests/kprobes/test-kprobes.c b/arch/riscv/kernel/tests/kprobes/test-kprobes.c
-index 027424a3f..272753756 100644
---- a/arch/riscv/kernel/tests/kprobes/test-kprobes.c
-+++ b/arch/riscv/kernel/tests/kprobes/test-kprobes.c
-@@ -43,8 +43,34 @@ static void test_kprobe_riscv(struct kunit *test)
- 	kfree(kp);
- }
- 
-+static void test_kprobe_lrsc(struct kunit *test)
-+{
-+	/*
-+	 * test_kprobes_lrsc_offsets[] points, in order, at an instruction
-+	 * right before an LR/SC sequence, the LR itself, an instruction
-+	 * inside the sequence, the SC, and an instruction right after it.
-+	 */
-+	bool reject[] = { false, true, true, true, false };
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(reject); i++) {
-+		struct kprobe kp = {};
-+
-+		kp.pre_handler = kprobe_dummy_handler;
-+		kp.addr = (kprobe_opcode_t *)test_kprobes_lrsc_offsets[i];
-+
-+		if (reject[i]) {
-+			KUNIT_EXPECT_LT(test, register_kprobe(&kp), 0);
-+		} else {
-+			KUNIT_EXPECT_EQ(test, register_kprobe(&kp), 0);
-+			unregister_kprobe(&kp);
-+		}
-+	}
-+}
-+
- static struct kunit_case kprobes_testcases[] = {
- 	KUNIT_CASE(test_kprobe_riscv),
-+	KUNIT_CASE(test_kprobe_lrsc),
- 	{}
- };
- 
-diff --git a/arch/riscv/kernel/tests/kprobes/test-kprobes.h b/arch/riscv/kernel/tests/kprobes/test-kprobes.h
-index 537f44aa9..65a8e7217 100644
---- a/arch/riscv/kernel/tests/kprobes/test-kprobes.h
-+++ b/arch/riscv/kernel/tests/kprobes/test-kprobes.h
-@@ -19,6 +19,9 @@ extern void *test_kprobes_addresses[];
- /* array of functions that return KPROBE_TEST_MAGIC */
- extern long (*test_kprobes_functions[])(void);
- 
-+/* offsets of the probe points inside test_kprobes_lrsc() */
-+extern void *test_kprobes_lrsc_offsets[];
-+
- #endif /* __ASSEMBLER__ */
- 
- #endif /* TEST_KPROBES_H */
--- 
-2.34.1
+I don't see any issue here having base 0 for the bindings and then
+converting it to base 1 for the XHCI port numbering.
+
+Each controller (Host, Device, OTG) will have it's own numbering anyway,
+so using the XHCI numbering only sounds a bad idea TBH.
+
+> 
+>>> Reconcile the downstream port numbering with the common USB host
+>>> binding, renumbering the downstream port numbers from 0 and 1 to
+>>> 1 and 2.
+>>>
+>>> This is non-backwards compatible, however it won't break current
+>>> major implementations:
+>>>
+>>> - dwc3 "gadget mode" in Linux kernel only requires a connection to be
+>>>     present; it doesn't matter which port it is
+>>>     - dwc3 "host mode" OF graph connections aren't supported yet [1]
+>>> - FreeBSD doesn't use the OF graph for anything
+>>> - U-boot doesn't use the OF graph for USB
+>>> - OpenBSD doesn't support dwc3, only the XHCI in dwc3, and doesn't use
+>>>     the OF graph for USB
+>>> - coreboot doesn't use the OF graph for anything
+>>> - Zephyr doesn't support dwc3
+>>> - TF-A doesn't use the OF graph for anything
+>>> - EDK2 doesn't support dwc3 and doesn't support OF graph
+>>> - OP-TEE doesn't support dwc3 and doesn't support OF graph
+>>>
+>>> [1] WIP to tie OF graph port node to USB port device
+>>>
+>>> Fixes: a33113f73693 ("dt-bindings: usb: snps,dwc3: document HS & SS OF graph ports")
+>>> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+>>> ---
+>>> It is unclear to me whether the HS/SS numbering is fixed for all dwc3
+>>> variants. I checked Allwinner H616 and Rockchip RK3588 and they both
+>>> have HS as port 1 and SS as port 2.
+>>>
+>>> This also doesn't cover a potential "multi-port" DWC3 implementation,
+>>> which Qualcomm seems to have.
+>>
+>> It breaks the current Qualcomm numbering on numerous boards.
+> 
+> Yes. It breaks _everyone_ using the current numbering in the sense that
+> they are no longer valid, but should not affect actual usage.
+
+Older DT are supposed to be working on new kernels, you will break ABI
+and will break usage if the port numbering is enforced to enabled embedded
+hubs for example.
+
+Neil
+
+> 
+> This comment refers to "multiport" controllers from Qualcomm [1], which
+> would have ports beyond 1 and 2.
+> 
+> [1] https://lore.kernel.org/all/20240420044901.884098-8-quic_kriskura@quicinc.com/
+> 
+> 
+>>> ---
+>>>    Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml | 4 ++--
+>>>    1 file changed, 2 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
+>>> index 6c0b8b653824..4b6304bd2ec1 100644
+>>> --- a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
+>>> +++ b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
+>>> @@ -410,11 +410,11 @@ properties:
+>>>          property is used.
+>>>
+>>>        properties:
+>>> -      port@0:
+>>> +      port@1:
+>>>            $ref: /schemas/graph.yaml#/properties/port
+>>>            description: High Speed (HS) data bus.
+>>>
+>>> -      port@1:
+>>> +      port@2:
+>>>            $ref: /schemas/graph.yaml#/properties/port
+>>>            description: Super Speed (SS) data bus.
+>>>
+>>
 
