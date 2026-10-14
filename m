@@ -1,100 +1,65 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A756753D9C9;
-	Wed, 14 Oct 2026 15:14:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15C263AB27B;
+	Wed, 14 Oct 2026 15:15:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791990879; cv=none; b=efIXM+KMe8TOQG8mv6XxnHBqXHtlEdW910tI2KXaHHgde1kSibaH+w/Dx9koQJQfKoQY10iaVwU7s5qjv8wykAHV0QV9Sr4kXoVWKMqipfUiMxpxrtrwOVAy3S9O1+DlT9AwGjN0rzO4GBopstmj0aFQo067TheMJg9caRTpLIA=
+	t=1791990934; cv=none; b=K0Q8K8EZtceYKIrc6WBtJyb1qlW1QEONgjUDsNKQaJWTlSsrv9QKRpVdbJEOqam6PBs2bt25ZB0zIxzVRUimcDSpjnbDqSdUHY/3EqjzUF0Er2ZmwbkR0OA+zNtMx1mF/xb9CrACYxRyFPQin0Bb2XJp8OEx5eHfCxsnwDjc/Po=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791990879; c=relaxed/simple;
-	bh=5HLdvCKEtor/BZh+ZJtx4KLXQxhliYq2xIHaNVluhkw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GkHDAgycCzV/VstmW/3IwE9C/dsFWcs1cgFRgSqS60hAdmsotVWeW6rJnVqaiKAS2JCbKEHc9+2b8+XpUXb8topTiJL4T7s82bhJ897gadZlsE4bywhgWCnHHyjsW9TFJORjQ7fZHxxGxIBaOSeRPI+OQcKPeQEuj3N2mrnqn28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JexxFad0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791990934; c=relaxed/simple;
+	bh=agyryjZEzK0M2hQOByp3o2vRDdw+ErOUT6ZTZ0Nj16U=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=YgTKdTLyan8tFjkzM2FEDbLBqu0n/i+n8QhqITybCe1RsCqc8G62zD+/RDyNenb8Pwm5TB9AjzuQ8hkdHhh/Y3pap1ArwtfZD0ModK7aSEzUwGdJD2CmoSWZ+3yGxYlo8Od9scyNKLmXTHSVjxR+6PDQnNE6p6srgX2nPauBC1Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T60oS71/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JexxFad0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38F581F000C4;
-	Wed, 14 Oct 2026 15:14:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T60oS71/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA1C71F000C4;
+	Wed, 14 Oct 2026 15:15:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791990878;
-	bh=m2t6IV3+oio1dQSemWtno2dRZmypxTkjVf9NZHep8sI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JexxFad0o14u0n+lZ/R5GUNwTfzl/lqChfiWtq8GWjs1MebfLyLh/D6smPOu2kDAL
-	 53N3BkMtBzMwXaxUFnjSWzj5XjmuevoHi+BA9MSVloDGKA7sqf4SmJsvidIzXMnk2L
-	 bXuWn+GwmA9zKQhgj3L0F4Pzcp2173uFrb7WjcJNcRShtpl3q40yoSPtjndYfqmowi
-	 wHkkC3SDDZjfhghwMk3NtyL0V71q06dFD7V7994q6JMrv3FiqeCWaw5c4V6beQoeXc
-	 RlA++T90ejHt8G2Et9t61Vvi/3HJ8ifzIDMuBMG2/Kojc7ZM5Xs7EHG7+W4IZHI+Bt
-	 yk6/XAHiTGjbQ==
-Received: from johan by xi.lan with local (Exim 4.99.5)
-	(envelope-from <johan@kernel.org>)
-	id 1xH0gd-00000005rd9-2gom;
-	Wed, 14 Oct 2026 17:14:35 +0200
-Date: Wed, 14 Oct 2026 17:14:35 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Alan Stern <stern@rowland.harvard.edu>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	driver-core@lists.linux.dev, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mario Peter <mario.peter@leica-geosystems.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] driver core: take parent lock on deferred probe
-Message-ID: <as-cW9ZwmMCPcftL@hovoldconsulting.com>
-References: <20261013140615.1226992-1-johan@kernel.org>
- <DM3WA69YX6WE.2Q4DY9MIU7A0L@kernel.org>
- <ba24846a-7403-4bb1-a0cb-869cf1d44e05@rowland.harvard.edu>
- <DM40HVOBKMFI.3W1DK371ZWI80@kernel.org>
- <as86K1qm1sHtgTFL@hovoldconsulting.com>
- <DM4N25JXKTQM.3K7TP9HM68KQ2@kernel.org>
+	s=k20260515; t=1791990933;
+	bh=N5peGRE7JeLBURqgzGuy+k2qGL/GVit3+SF1nIv/4lc=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=T60oS71/Ht1wcXsUw1LVY99TOkoYx847NJ87c4mHCcRFlwnqaAEffehrwK5EOuX9B
+	 X9ImlNi1g414Oesf8LzSRtqdoTj1GMp0kc/x6/CL9eBjhtBilHpyvCE2WsDWuyycXw
+	 GYglHtSwJerJJnusriLEj54SUSG3few8rwRcogxo9v5K7NEf0HhUxmi05Abdqhu3yV
+	 QABEqxOVMSoh9MGxEc8R/mHbuYedZBaE09v+sI9H/Ku3Pqfg6VVC6TB32LIqpSpGHy
+	 +aLTirQYPiIa/Pv5j8JnsFH4CeEF4J/etU6rPtkpxF3EMqbXmr//jiOexq8jROnEsg
+	 ETRBGF1o+H52Q==
+From: Lee Jones <lee@kernel.org>
+To: Sen Chu <sen.chu@mediatek.com>, Sean Wang <sean.wang@mediatek.com>, 
+ Macpaul Lin <macpaul.lin@mediatek.com>, Lee Jones <lee@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ "Rob Herring (Arm)" <robh@kernel.org>
+Cc: linux-pm@vger.kernel.org, mfd@lists.linux.dev, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+In-Reply-To: <20260921232649.3132592-1-robh@kernel.org>
+References: <20260921232649.3132592-1-robh@kernel.org>
+Subject: Re: (subset) [PATCH] dt-bindings: mfd: Add MT6397 sound DAI cells
+Message-Id: <179199093070.1189352.17803579225122726032.b4-ty@b4>
+Date: Wed, 14 Oct 2026 16:15:30 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DM4N25JXKTQM.3K7TP9HM68KQ2@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.16-dev-ad80c
 
-On Wed, Oct 14, 2026 at 04:42:09PM +0200, Danilo Krummrich wrote:
-> On Wed Oct 14, 2026 at 10:15 AM CEST, Johan Hovold wrote:
+On Mon, 21 Sep 2026 18:26:48 -0500, Rob Herring (Arm) wrote:
+> Document the one sound DAI cell provided by MT6397 PMIC nodes.
 
-> > But it's driver core that needs the extra reference. It seems
-> > reasonable to require that any subsystem that sets a new
-> > type->need_parent_lock also makes sure that any device of that type
-> > holds a reference to its parent. And importantly, it's already the case
-> > for the only user of this feature today (i.e. USB interfaces).
-> 
-> Exactly, it is the driver core that needs the extra reference count; for a field
-> that is owned by the driver core, and for which the driver core manages its
-> lifetime.  If it needs an additional reference count for async or deferred work
-> it should obtain the reference count for this scope explicitly.
+Applied, thanks!
 
-As I've mentioned, it's not just for async or deferred probe. It's also
-needed when a driver gets added or when probe is triggered through
-sysfs. The bus iterators only takes a reference to the each device and
-not their parents before calling __driver_attach() etc.
+[1/1] dt-bindings: mfd: Add MT6397 sound DAI cells
+      commit: 198f3bfc6658c2f1a75cf0e9b03231242cc711cf
 
-> USB interfaces already holding an additional reference makes the proposed
-> contract work for today's user, but I'd rather not make that prerequisite of the
-> API.  It would push a prerequisite for an implementation detail to the user.
+--
+Lee Jones [李琼斯]
 
-I understand your concern, but my reasoning is that this feature is only
-needed when devices are tightly coupled with their parents and where it
-therefore probably always make sense to pin the parent.
-
-Note that the need_parent_lock flag is now set in the device type struct
-which also holds a pointer to the release function that drops the
-reference. So it's pretty easy to check any theoretical further users.
-
-> Please, let's not add this API contract. Let's have the driver core deal with
-> this internally.
-
-I can take another look at it, but the alternatives seemed either error
-prone or a bit icky (e.g. a helper that returns a reference to the
-parent after checking the dead flag under the device lock).
-
-Johan
