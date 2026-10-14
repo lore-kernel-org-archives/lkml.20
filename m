@@ -1,76 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A405A47A88E;
-	Wed, 14 Oct 2026 11:00:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34D694F5DF3
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:01:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791975646; cv=none; b=mliw6Za3oQCVXb4OS8O0VQDXwc5fR7/yXEB2NVBZAUDtGRxpaFtBHB/2qzQPJtnWxO4xsIh+bPVE7z0zooo4uSi/MPzBYLtdrAjfRrvJFUrWDSdGH+oWyaYF7peuMp9zz+yS//bJwXbPO1Is/uaVoDcuU8Lp9GEqmHAD/jI0kbk=
+	t=1791975669; cv=none; b=idj7+i381VDY6zWdruySNFOUcaBwQmSGpLfggW7pgrJKVl+KVgOnwsgMWc6QGHKwfdiWbu5gm3IO88DRoa465lloZKvurqgMunsyGPe8DlVoFl9Mu62SQgnp0kJGDGe8zBNPffBC3yHm+aJTL3tmxnJqrZUXyMa+nVa9kzLCZwY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791975646; c=relaxed/simple;
-	bh=m2zGuI1114KB7j2Md4jUhmFglPbeNlyzqJzKL4P086U=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=V1szGe/qcQr1kSTjBojJb1vb0U+nmpDd2/MBvj+gtvdMkwv3jcgByhnCudVIzZlTHDyDiNiiDx4301soRjBP8BQ/W3d2L6rGERJFmZcshz7KZPD3aqCymrx5WsUWStogwufM1jeu0oIN1Oz5FjK5vLeLSK05g6nyNv8dLMDoRU4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35FC31F000FF;
-	Wed, 14 Oct 2026 11:00:38 +0000 (UTC)
+	s=arc-20240116; t=1791975669; c=relaxed/simple;
+	bh=JSrw61r+qr7d9pRzfg9/dqjpZ1FtmE4Cx50rKP3P1wI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jt6YYCkAgbN7RRnGGN4weKNmmkZht41Hg/53XoeoOLDCZFZqutM3Uwa/Eje11blP/vINoYJdG7pQe51wS8bjLUMYO/XjmEweA6i2Xeb9vpZVLWptNPvQr6885JfkmnoyVZ/gV/OpmKvPtPufpHnDQrE8aNBw9Zlmj14qQPL+3Yc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T/77zoDM; arc=none smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T/77zoDM"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48c02782159so2417875f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:01:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791975662; x=1792580462; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ore5pTjDZjqNZvaBmIBth3riUQaRpMdBJFRuQs+XS9I=;
+        b=T/77zoDMoUYxVBvNMyt5+yTmTqQkwpXtSwfbIz0ygoY9s/bmVvAqNZRJSOuZzVOe5E
+         HcEOM09eRPNYsbukak0Ricj40k7lZ7wc90x/oFGp1OwiGDba8BnxvuiIMy+ox/n9vIlW
+         vJZVbrXZQLKQapGfA+KOa8yiDlX8SQ72eZHfI8Y+V3FIbYcbhI0eEG9qtQhyJ1wbx/mG
+         7lQzQsgvHut0tZCJsi/2JlLdVImw5C6FqpHDMfjWJT3tvQwvPS9c4+Ib8v/gsVHmam/U
+         +V+EsTxwZb9GoaXz1ISM+QYAUZsxCJ4TNxdanNVwhj8GSprn/clxZQs3AvmQaRGccx/R
+         JeTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791975662; x=1792580462;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ore5pTjDZjqNZvaBmIBth3riUQaRpMdBJFRuQs+XS9I=;
+        b=XXEOqZcIZkjC2sPzazl1dW2ON+v+QQzuAZudSEXOHG0ZL5wHbDshWwPRzF3L6Eng/t
+         JbEfVTQV2dLesdu5yKbvDoK85l6GQYlReAzGgEmIno8xd/3BHh+nm+8q/rwfVvXjg9qJ
+         67d/s6BlTaWcnjd5UHYnR3oOwxypIBst5BPAAMz64R06J7U5tDwSuVdJDa8WMIR1uRvc
+         ah2vBmf0U+AEeAdjGCEgpeFSgnOOv+yuiAZhVlUCgRnKiFdDBtRfnmWvsszqGrWUHmID
+         aW4jr8yj1QvSysmNfKWhFekGDM4Sva+ovC6AcKBlYnVaUFdcDnm6kDB4Ieg/j5lYjaY1
+         FbGw==
+X-Forwarded-Encrypted: i=1; AKwUvByvNC56fcDk5bi93cgnNgDtbpu6VcH6WzxNonimFMT6djYdwfkv+2kb5YNu+FuT6cHKASIJ5L7LzIRKu5I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLCYhKfPxnHra0oaXCtALE+ftrsrtJmjwWrkmqP7xqXT8pm2Zzn
+	xDLWqzlIU5XgQlTBozjdrR466aey7DtAj8VAX05OYVSvQdyP7m1m1l2cTvYm+w==
+X-Gm-Gg: AYBFou3gMsBLIUn+2oVABQgbqTqICwpXDpTEDqFcPrD6Y+W3xwPOTwQcHulkNgeRz2S
+	w4Gdadt8vDmFc2KvNuj/RDUsRlH3AeD2uUuzqRkyNnd65k+dRkqlGBRcMKH6f/5+rBr47vc85hU
+	sXc3naubSTWC3K110WzQYp7GyLpHwvkwQnnXl7hIwcVE/KT3qe+LnGdNEhbz1QwWET0w9FgepVu
+	gRjm95TfPjvkgHCTgWbItwOW2FYglfUAj8rreIpNoy+1XhgGzzl1CouMJG1QbsSIBfMxWjOh9dS
+	UPQRl3uyfzptcOD4ZcVg4tsrmnHuLGmB/wpuQyFD5F7Z3BkJX3XrKFx0c8BmP01rzdU8msEohj7
+	oPgp2hwA4yhQ8uBIxm1kDCdNXxm6x8eGku31+q3Q02h6Kr2DOKs5MZR2JjCTyiaq92MIR8XqvgC
+	rKh3yyh+143hU9iU/MB91tycsPOOn/YIPyAukGt8x1uswzyHg+Y2d8ZP39/MZVTbH5S5OV76F5/
+	WiaRhgVI+YGp5Gmp3KI0spRiRrqhd8UQ0OFn4TaeEegCJjJCokuy7wo
+X-Received: by 2002:a05:600c:8b83:b0:4a1:811c:8064 with SMTP id 5b1f17b1804b1-4a18e4d5512mr296251135e9.26.1791975662021;
+        Wed, 14 Oct 2026 04:01:02 -0700 (PDT)
+Received: from andreayoga.wind3.hub ([31.189.109.133])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf21276sm653036435e9.8.2026.10.14.04.01.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 04:01:01 -0700 (PDT)
+From: Andrea Parri <parri.andrea@gmail.com>
+To: Christoph Hellwig <hch@lst.de>
+Cc: Andrea Parri <parri.andrea@gmail.com>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Damien Le Moal <dlemoal@kernel.org>,
+	linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/5] nvmet: zns: reject a NUMD whose byte count wraps
+Date: Wed, 14 Oct 2026 13:00:52 +0200
+Message-ID: <20261014110053.95249-1-parri.andrea@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261013142649.GD14759@lst.de>
+References: <20261012141239.156408-1-parri.andrea@gmail.com> <20261012141239.156408-4-parri.andrea@gmail.com> <20261013142649.GD14759@lst.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v4 1/2] PCI: Expose
- devm_pci_alloc_host_bridge_release()
-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Semih Baskan <strst.gs@gmail.com>, 
- Manivannan Sadhasivam <mani@kernel.org>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Rob Herring <robh@kernel.org>, Ray Jui <rjui@broadcom.com>, 
- Scott Branden <sbranden@broadcom.com>, 
- =?utf-8?q?Rafa=C5=82_Mi=C5=82ecki?= <rafal@milecki.pl>, 
- =?utf-8?q?Rafa=C5=82_Mi=C5=82ecki?= <zajec5@gmail.com>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Arnd Bergmann <arnd@arndb.de>, Rosen Penev <rosenp@gmail.com>, 
- Rani Hod <rani.hod@gmail.com>, bcm-kernel-feedback-list@broadcom.com, 
- linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>
-In-Reply-To: <20261013220421.1588051-2-bhelgaas@google.com>
-References: <20261013220421.1588051-1-bhelgaas@google.com>
- <20261013220421.1588051-2-bhelgaas@google.com>
-Date: Wed, 14 Oct 2026 16:30:35 +0530
-Message-Id: <179197563532.38040.2990484499406539707.b4-reply@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=639;
- i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
- bh=m2zGuI1114KB7j2Md4jUhmFglPbeNlyzqJzKL4P086U=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBqz2DWgeXL37dRXhlsw+cju33dbarzvO4skPBCf
- XNu9gd5OPaJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCas9g1gAKCRBVnxHm/pHO
- 9ST7B/95w7G/Q0Ayf+Fn8WxvcIro1W8eLT4TqGaJ5xN5vjz72qAs+mDUnuUlLWWaQwx4O/IyI32
- 0tlfRfuxr2yU+qb7SLiNPskgPQsocJ90VBkCsBG6VXbTy8XR6JXE9BGqJVghyN9BdlxTjWP9LXY
- kp2Z6cx+UsoJ0xmNyt0fjFmwcey8jCZbmqTg+AP9ffMKUppB35fHfFiPvS/RyGC+h5fsf1LuYDH
- yK21Ulp7ZnybzG1lRqgTRiH87OYwPAgrJVu+ujPNROPZ1TdkhvM49r+kkZcLsgFtnYQ3JLJMA59
- QIFFwRJHGlemAsi1fGGHVeBF32u1954SZ11WsUnk0kCjae2U
-X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
- fpr=C668AEC3C3188E4C611465E7488550E901166008
+Content-Transfer-Encoding: 8bit
 
-On 2026-10-13 17:04 -0500, Bjorn Helgaas wrote:
-> devm_pci_alloc_host_bridge() allocates a struct pci_host_bridge and also
-> parses device tree resources and claims them.  There are drivers, e.g.,
-> pcie-iproc-bcma.c, that need to allocate a pci_host_bridge but do not need
-> device tree resources.
+On Tue, Oct 13, 2026 at 04:26:49PM +0200, Christoph Hellwig wrote:
+> > +	/* From U32_MAX / 4 up, the byte count wraps and no longer matches NUMD. */
 > 
-> Expose devm_pci_alloc_host_bridge_release() so they can avoid the device
-> tree parts by calling pci_alloc_host_bridge() directly and adding the devm
-> release function manually.
+> Overly long line here.
 > 
-> Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+> > +	if (numd >= U32_MAX / 4 ||
+> > +	    out_bufsize < sizeof(struct nvme_zone_report)) {
+> 
+> I guess to make various sanitizers happy we probably should only
+> calculate out_bufsize after bounds checking numd?
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Agreed.  For v2 I plan to move the check to the start of
+nvmet_bdev_execute_zone_mgmt_recv(), before the handler or its work item
+computes (numd + 1) << 2, and to make nvmet_io_cmd_transfer_len() return
+0 for such a NUMD, so pci-epf doesn't compute it either.  I'll also keep
+the comments within 80 columns.
 
-- Mani
-
+Thanks,
+Andrea
