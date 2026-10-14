@@ -1,116 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C76A33630BF;
-	Wed, 14 Oct 2026 17:44:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7FE73E5EF8
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:47:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791999898; cv=none; b=Dc1TYLYG+fNLL87FnhtG13ALZqiONB0+tF1fWo03zLBNGw9n5iEsQkEq8gfnXVCVc+S7sDEijtkIsCilXPcYK8GokYEWTRd90+dN2tsduVkrIHitGHEqqW9ut27DVAgVNncqJGgdIVKwY8lcMnl5sxhzmURR7cviu7Dq80Vl0S8=
+	t=1792000066; cv=none; b=hEbcGgk/rEZ256coc7s98bMttF4VZHaLx2ioJfAXpEokB/MPNExWxgpMg8BgVhdDJJYwz4ITsd67VMSYqnBf0Qa3P5dKyVpenh1vBnx88hjZfzGi0i7OOdz+WaFGnI3K6L0/jrm9hz//zjxjlSfVqFa5TQMI/ksr0zQOo2eDH6g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791999898; c=relaxed/simple;
-	bh=4AbmuGaQmg8yTQKRE3P7KnMLvr6mh8Ei2C0jhRF37cs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fFyM7PKc95k5I4lS7+DWzH7JUT+y8I9oppGvPmdAcjTcKUOlkozhPLghs6o3ajntIJS29Ae5HyIN0fMSOw0uDGNyuccBThGaMTxJ/XLBkEy0A3TjftpIMiwLG9x3+svr71Q+esWlnsfqAOsZcOZaEs604gIbpcptj4VkR4MLm+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Y/JbqQJU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792000066; c=relaxed/simple;
+	bh=IUPDwUL0BaNCf4DV5Ybn+DP1Rz/VR/mXDkTWYRMeRb8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=QVLfh1mV0ipeedMpcLodwI/A8YNp+355L4T/tvt8DRc9jJa85v+GqvHTSKUokd+TKlCPG88S6OmjbMDvJR1M/alxDEbUFzPeUIzM0oacW0gzjoMrEscGm/z4ZRW9UmQ0m0WQJun6WdHuxv1e3bMY2BU2t2uV3TbOT3dRph1nq+k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=a2qw7B+3; arc=none smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Y/JbqQJU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 330F01F000C4;
-	Wed, 14 Oct 2026 17:44:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791999896;
-	bh=sTxxFIiD6mgFs2UdEY1I8MyQnekZZiyPvhQw7RuhHrg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Y/JbqQJUIEWFLFscjenxW9GCe5wNUa4lKG/qtufKEMdVe8I7JjwbgDqX5hbrhnbnk
-	 g11pdaabApMfzBMkfpM3w5n1u6n4ty6P15W2DYuVy6e5rpnrYB4vdZc0i3KcsTyQQY
-	 TKLv1ClTGNe42312p3oiyQs34X3dYVxDiKaB2oxQ=
-Date: Wed, 14 Oct 2026 19:45:00 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Cc: Kees Cook <kees@kernel.org>, Ian Rogers <irogers@google.com>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Nayna Jain <nayna@linux.ibm.com>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>,
-	Rich Felker <dalias@libc.org>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	David Teigland <teigland@redhat.com>,
-	Alexander Aring <aahringo@redhat.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Richard Weinberger <richard@nod.at>,
-	Zhihao Cheng <chengzhihao1@huawei.com>,
-	Felix Kuehling <Felix.Kuehling@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	driver-core@lists.linux.dev, llvm@lists.linux.dev,
-	linux-hardening@vger.kernel.org, linux-doc@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-acpi@vger.kernel.org,
-	gfs2@lists.linux.dev, xen-devel@lists.xenproject.org,
-	linux-s390@vger.kernel.org, linux-mtd@lists.infradead.org,
-	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 00/11] kobject: Require explicit initialization of struct
- kobj_type::release
-Message-ID: <2026101434-scam-padding-87a5@gregkh>
-References: <20261013223946.1836757-1-irogers@google.com>
- <2026101425-why-boring-4f2d@gregkh>
- <202610140932.5F9CFCE5@keescook>
- <CANiq72=4WQ1B1oCSW=69u_Z=FFLE56hYCqDwWr+poQdzSTS31A@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="a2qw7B+3"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48df0fa43c5so310479f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:47:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1792000063; x=1792604863; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=XVQ4KwgLvEhsk9ZR/bxOmORzJTQYU0FLwNCJ2bt4pQU=;
+        b=a2qw7B+3pnwoS2p4dRcduKHNzMaKgl+j+lbGGOA0kCnq+oEAYxCYsqnf+WyUuVAQsy
+         tvvAvu140KgI0nvMVnrgPhBzL4KVQBOvOyb81H/MgxoFy/HST8BWbMi0v9qdCTqjd/xE
+         i1pk8DJ3FiW8N+R9sYk/BTqsrRlDei6KpnwUipFqD94zM9ZQzTuq4io1Hrn23xWuN15f
+         76cgX8eLNDp+E+tjQrBVYFkzRAp1arwD1+tHjjD8/hH1R2tqF5VAPoPkY7D/TFMxxwdv
+         GCKtO0mj70m5nOKDyrGteP66/Q6MnsuF7lD+YtR6kzJgYs9+46PWdYLrHYD3XsgZUtYo
+         FeHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792000063; x=1792604863;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=XVQ4KwgLvEhsk9ZR/bxOmORzJTQYU0FLwNCJ2bt4pQU=;
+        b=TOI0iDrTMkIy4ASQFmCm/k4E7t81QrqZ4/sEX9k6h8GIX/pvn4eQOcbM5cLz4ZVWXO
+         +DNHHKxBjWMO4hNvG3Hho+u+RjOuD+LBtsvtN+O7GwYg5iJMZDWw/CxoxdjfIyJcboq9
+         bbjQkTUO5x1EfCCq9cX1o73WM+wvOM30Pw0u4Saz8l+IIcAj0opzFmEG1fk+5Ky0+RxI
+         Oo1D8mr5g6Hmo6wphl/F+nNdXiZu/XjMJH3mxMaWPMLKmtn9b9NSrT1sIPblKunFFFzs
+         sLIK1CTb/szvqZm7q6ZTGLL5dJv1zAw4i2cQnUwrzLquNHNgDPpSJvGNhrwlUXtYBJxt
+         c46Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzfzLiEOQ2iX2BU6seDzl7FdejU93cfVnBF0P9FnzdJPj4T7KjQoGnY8OmY7GQkYgy2GRy/6t3i9AI+A00=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLeE0O02gmVlZujM8Twug0LXz1KDf7ROU/5w+bAbdtXdB2Cl4S+
+	YCmiVrrI0svWJEGQJ+FkaDuL7Gr9ipWM1IBf+VMZuRw+48anwaJehOJd8GcI3/jX+9Y=
+X-Gm-Gg: AYBFou3kBNqfOsXCkj4RO/UDGAYh7QmbuJFKpsVyEx2uwIllTdDnBDjice3Cq8/qLlZ
+	KDqwZcsCK6rda7btNGa4W4Gdi2o8ce3lCOjq07r3oj2FcZhwsNs1GKAnFFPdIjQciKAYmk8ioF6
+	GotE2yvnF8CEXxGoqVDX3OGvlh/0NO/Ck1UhKFZJ19TXADwnWaZ9vUCLzrpXSeV9oS5n8FeXtkC
+	040sdlNzuTecJNvj6f+kt0GSJVuEG6AHcvnC5w4hYPhUYHAE4L3c/oAeQcaFv31cq9/bS8MxDxU
+	atjlDshTLw5fahRToNEIiZyMiMydxV/LcByw5aaLfoTTWyaBbnlHmbqEnnlBE//M6z1wEOXOcko
+	EUWY2a6DlyFyEEDnY5FBM3HSKfaS8yKVjVpsDU6Y9SUlnWcAUakRAkUn4Q0wB+y4NZJ4Xr3uLJT
+	+8zDSrMt8NSbJCu+6SunPsSlqxdmTN9Bk1KpBC3aVO84Ww2oJbunZi8rZSPfCjDYapnbyw9WqTs
+	Wwc112sNgQ6SoBdCcTR3oZSn6Uyf7qYLggeaiTfctBwhiupoWPDMxfj+4MWxT6qE9DUJg==
+X-Received: by 2002:adf:e983:0:b0:48c:7f94:8755 with SMTP id ffacd0b85a97d-48dbaced42bmr27950392f8f.20.1792000062772;
+        Wed, 14 Oct 2026 10:47:42 -0700 (PDT)
+Received: from z13-ek5.local ([151.41.28.233])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ac3ac5sm13337683f8f.38.2026.10.14.10.47.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 10:47:42 -0700 (PDT)
+From: Ettore Chimenti <ettore.chimenti@linaro.org>
+Date: Wed, 14 Oct 2026 19:47:23 +0200
+Subject: [PATCH] usb: musb: musb_dsps: Wait for controller reset
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CANiq72=4WQ1B1oCSW=69u_Z=FFLE56hYCqDwWr+poQdzSTS31A@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261014-patch-ektor5-dm8168-usb-v1-1-9670414271d6@linaro.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrDvghBpSryJdxGTUaalKJpaCe
+ PemdfkW/++gnIQV2mqHxG9RWeYCulQQJj+PjBKLwdTGUk1XXH0OE/IzL6nB+HJkHW7aY7TBG9+
+ Quw0WSr0mHuTzP3f307r1Dw75t4Pj+AIfDLdXewAAAA==
+X-Change-ID: 20261014-patch-ektor5-dm8168-usb-d6ca2a5189f6
+To: Bin Liu <b-liu@ti.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Felipe Balbi <balbi@ti.com>, Ravi Babu <ravibabu@ti.com>, 
+ Ajay Kumar Gupta <ajay.gupta@ti.com>, andrew.goodbody@linaro.org, 
+ rouven.czerwinski@linaro.org
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Ettore Chimenti <ettore.chimenti@linaro.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792000060; l=1954;
+ i=ettore.chimenti@linaro.org; s=20261014; h=from:subject:message-id;
+ bh=FNhYi3zdirabUGuJUuxxNcXj3ChSUs+IDNUC/BSjvn8=;
+ b=ZWCYtYZ+3hvJTQEiKqMs8W58/P+0C6v6vSjz+RIX5UvfNkLUZ0cviSEFQgklOhCT0KBxPhaXj
+ NUhZsCow/tVBadS2w8BnIPQVjPzV/qeVyzef05ugC92Ls62DNhlBSw+
+X-Developer-Key: i=ettore.chimenti@linaro.org; a=ed25519;
+ pk=wCaUblFVaqhuBTQt/hAtysafsAaEsqj/yOD9SPlz6NM=
 
-On Wed, Oct 14, 2026 at 06:44:18PM +0200, Miguel Ojeda wrote:
-> On Wed, Oct 14, 2026 at 6:37 PM Kees Cook <kees@kernel.org> wrote:
-> >
-> > I'd really like to have the attribute available, and I've got at least
-> > one user I can apply today that don't require fix-ups (seq_file), so
-> > if Miguel is okay with it, I'd like to snag patch 1 and send it with
-> > my seq_file "first user" for this coming merge window so it's available
-> > starting with v7.4-rc1, and we don't end up needing to wait 10 weeks for
-> > other subsystems to be able to use it. And the kobj fixups can continue
-> > in parallel. Does that sounds okay?
-> 
-> Of course, please feel free to pick it up (with the small tweak I
-> requested) if you have a user.
-> 
-> And if you don't pick the user, I could still pick the first patch up
-> through the compiler attributes tree if you and other folks want to
-> use it after -rc1.
-> 
-> Greg: adding the attribute itself should be safe and would unblock
-> others that may want to "protect" themselves, without having to wait
-> for every potential user to get fixed (but of course I agree they
-> should get fixed -- we should not forget about them, if that is your
-> concern).
+From: Andrew Goodbody <andrew.goodbody@linaro.org>
 
-I agree, not a problem to add the attribute now as long as it doesn't
-break the build.
+After soft resetting the USB controller wait for it to complete and then
+set the mode of the controller. This ensures that the controller is in a
+sane state. The timeout value used is just large as the board is likely
+broken if it is ever reached so no need to optimise. It was tested with
+a timeout of 500us which worked so gave it a 10x safety margin and used
+5000us as the timeout value.
 
-thanks,
+Fixes: 9ecb887522a0 ("usb: musb: Add support for ti81xx platform")
+Signed-off-by: Andrew Goodbody <andrew.goodbody@linaro.org>
+Signed-off-by: Ettore Chimenti <ettore.chimenti@linaro.org>
+---
+ drivers/usb/musb/musb_dsps.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-greg k-h
+diff --git a/drivers/usb/musb/musb_dsps.c b/drivers/usb/musb/musb_dsps.c
+index e3935f18dd56..d909c45c253d 100644
+--- a/drivers/usb/musb/musb_dsps.c
++++ b/drivers/usb/musb/musb_dsps.c
+@@ -15,6 +15,7 @@
+  */
+ 
+ #include <linux/io.h>
++#include <linux/iopoll.h>
+ #include <linux/irq.h>
+ #include <linux/err.h>
+ #include <linux/platform_device.h>
+@@ -35,6 +36,7 @@
+ #include "musb_core.h"
+ 
+ static const struct of_device_id musb_dsps_of_match[];
++static int dsps_musb_set_mode(struct musb *musb, u8 mode);
+ 
+ /*
+  * DSPS musb wrapper register offset.
+@@ -466,7 +468,13 @@ static int dsps_musb_init(struct musb *musb)
+ 	timer_setup(&musb->dev_timer, otg_timer, 0);
+ 
+ 	/* Reset the musb */
+-	musb_writel(reg_base, wrp->control, (1 << wrp->reset));
++	musb_writel(reg_base, wrp->control, BIT(wrp->reset));
++	read_poll_timeout(musb_readl, val, !(val & BIT(wrp->reset)), 2, 5000,
++			  false, reg_base, wrp->control);
++	if (val & BIT(wrp->reset))
++		return -ENODEV;
++
++	dsps_musb_set_mode(musb, musb->port_mode);
+ 
+ 	musb->isr = dsps_interrupt;
+ 
+
+---
+base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
+change-id: 20261014-patch-ektor5-dm8168-usb-d6ca2a5189f6
+
+Best regards,
+--  
+Ettore Chimenti <ettore.chimenti@linaro.org>
+
