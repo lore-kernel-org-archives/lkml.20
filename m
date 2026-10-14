@@ -1,110 +1,75 @@
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C72B2459CF
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:26:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DF8E4EFFB7;
+	Wed, 14 Oct 2026 11:27:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791977215; cv=none; b=F6NGTPUd1B5Gimj4WwjGans77KJ6Fmx7PupWPG+QuhieE50IQVESE+Wc3XN3/IFKoMbwonzevYqb56HzV2ZAhnkPKgVLpQYx6jKsxa+/uzAIPq+gyBUphv1lrdhxk7MocCCAeQmw9j1D6dM5dbrrFNfyjTRMbDFOQAZ555+eSjY=
+	t=1791977237; cv=none; b=qRu4zJskxyIQ/hioi38sbbOxe5xrNBrAdeufnK4hlS6DRHUo8PyVqWYNHJoOWjM8pk6SpxR6yO4vQEH2mwZiZ1SV16J80MVURqg1vey7HjrzRo7au57W7EQNKmWCYumXTQmYzkQ56C6sSsRoDHYKfKfvZP+1qeIDZGOJrtIiM+k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791977215; c=relaxed/simple;
-	bh=i6zB31ECCBXxZNkEbgZKuX9jQosNHygMU3cudfxDrVk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Dyp6diLkAdT8h5jW/z2nGnBLOl5R0A5CKvnfXOr50R9YK45J9BCn648KfPa73CjlAUipPjynwgOMk9IduVBEf0j8eo4zjVb2LUpOrE/RDuSKkayGVRLrUampc3OUiuPaP/ddJbioWTLN2t7n0AmUEcTCjw71Z4C7DL8X2vSafmQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cv72eDqT; arc=none smtp.client-ip=209.85.215.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791977237; c=relaxed/simple;
+	bh=DZXj6cfyoSFJfGCTSH09og0CwhR90Nu5ZF0MvrJX5SE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QyURs/6edZuhl0ywlJfSyj9qVxZJ1wl9Ereppl7ny8659D6xgKd/OwBpY5ep8TS6Mevqv6K6gahugkj0wIy74vi6Af1jAR6tVhuvLwSi/tR1M7xyZW+E03hrwQmtsi3ygmfEE21bylVN2xaQbIfQQDohu7wcaR7iSgyMs9VclGg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LjxbY4NL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cv72eDqT"
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc147d86bebso2142210a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:26:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791977213; x=1792582013; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Q1TKQk69KHcjaDb24fEb/peTLu9FmofWYrxae6HA3jA=;
-        b=cv72eDqTksmxYyCThXtT0ilxniLI0nc7k+mJ7odZc0IBJkf1kL6DLWet42A0BC3TDW
-         1Bi+c454TSxZPGmPYl7wp3KNvCcYi/wJEZ770LS6p/dPf/BsLdCOk8KZ9poWhVNQohGS
-         JXWSCH0TA2Y8xB6/SiMYswgI9n9Xwvj+28XYC8TXf96yESVggZCQc7K5bYqnH1pH8743
-         GJzMunKB6JsrQIQ9QZ1VwLyPax9gl+2V4hEUzvfR0q5Ey3p/UxktnD/RtbgvXT9KT89R
-         /w37eFRpiwkoxSqYJwfC61lfPplaPbNw7xbKq6OigL/xNzDZ7DJGxfisj9N8/IJ/FvBX
-         6GAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791977213; x=1792582013;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Q1TKQk69KHcjaDb24fEb/peTLu9FmofWYrxae6HA3jA=;
-        b=Y62AaAOlRwOkxxHecUocL9RT6m3VuBwX5OG466cgL7EBCYNUjYJxcTd9qziRg5yp2f
-         gB9UGZ2h+E7vqEF68giUrzxIrrdGb35i0q7Hx4TU/gmF6HaRhTAh/DOJeSVtP1M1lFMW
-         xvqNIiC94uKIq5+e78OBH1OmkZ0053qa6JpMuOObYLhBtq0cyGpJ7paIO8dnvhNjBHVg
-         MR0jgBuVWdrowMQVu89MD2mlFzRWuNS6EiqxVAc3H1gUbcHAgThhvvWIpK/IMsE4IbVV
-         6OFSuai8hnD82IuCHDPFeXcNKzCkgHAdTf3DeKvmm1p8GO68grFai9NP0ys6Ais5qAzZ
-         9tGQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwI6VwfdTVNnByvkpjam5qvAeII2UMCzd6RRJOG609qtyof7i08oEmGTTDaUYhGffTvtiUOhdL+U7g0PoI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKNT/oGoygZYJjG0+QpUVDeF8t7AQZPAGAzAyfLjSGVOV3jDl8N
-	VqHiACngQ3Oi0vUPgdgUfvUZjT+t9YsmU9MAl83jSfx+UrZDWIjYD8ev
-X-Gm-Gg: AYBFou3vKu5wDqsvws35LFcHj3C3KJ7jKqEKsZJCbOg5Tq40/nj8qWXVI0Vk7C0DxHx
-	xQMe7+BlqTJg/ZZ5BkJcNpa8ZHo1Sx76mVmBofHXVSJK0b95NuCqzei0ODBQbJfC5dJrxCLaHXO
-	/rdFeSAha+zRNhhfRk940H4lEzFWBLp9rQ21oCSdrIr8ip4Kl9nlp1HDVFXd17OvWGk9h4inBiq
-	0JJnFaRRO9Ye1/45avdA4YWv4ng3ZHiaSM/HNvqUlbOluHczrSjBrNKfwEb5x5/9Ehf6J0DuZx5
-	8OQMVrjW7NtGhH2xPsjV35S3wJ4RDa8KGIuGH9N+9Qt/HLterom9qG04xvOrWNorHjTHlnYBWH2
-	8C6zkHlANXX5WPbZ+/TClTewXpwEx9LgHPU6S5YFuyhCXCoEEKtTbEmRhXkf0kOb4a8L+hEU9BL
-	fmQX6ZU1rFWY2afxwy8xKMlVxFNIOcBek1YjmDOUCRONsKPooYc3EKgEOypHKvgCvx7bPhEwLBE
-	KgF94V9IYRInWQ6xcMS5ol/gFb01b9U6z6s3y1KRRYxk+VtGQkCPtgXwEq/y7VLpPWFS4HI
-X-Received: by 2002:a17:90a:118f:b0:3ab:8288:b8ce with SMTP id 98e67ed59e1d1-3ab8288c567mr4759379a91.24.1791977213408;
-        Wed, 14 Oct 2026 04:26:53 -0700 (PDT)
-Received: from codespaces-2362ac.m2fxbej512jepnsor2itp05j3d.ix.internal.cloudapp.net ([23.97.62.132])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac5f05083fsm4508247a91.1.2026.10.14.04.26.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 04:26:52 -0700 (PDT)
-From: Seongjae Jeong <jsjlee1020@gmail.com>
-To: jaegeuk@kernel.org,
-	chao@kernel.org
-Cc: linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	Seongjae Jeong <jsjlee1020@gmail.com>
-Subject: [PATCH] f2fs: fix submit accounting for IPU writeback
-Date: Wed, 14 Oct 2026 11:26:29 +0000
-Message-ID: <20261014112629.59861-1-jsjlee1020@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LjxbY4NL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 570B91F000FF;
+	Wed, 14 Oct 2026 11:27:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791977236;
+	bh=Vs2YSOCjr3xVmak5ziahA1zHaGFZLaSeGx6bxxkF+zc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LjxbY4NL+zzr8SqrIPm8KpFEvTUDwZt7ei8wBvZ3X0WOQhRC4luP4SlARkFORg8tr
+	 W++Wky8LNEX28Noo/6O0usUN0KfHyk1oxgQqwQ8RMfxju9iAr/ahpqvmyGCqBQ3xhP
+	 MB5uM4ToMHjKCHbUkrECB+Mk34LyXzRvl4WW/FVJ3+MuXB7AFNen7NQ6lJnZdpwIHz
+	 KaVzNjFTa9ljvrK7mQq4iYr11maFv1xdMh4MtcI/MLJbCePCRDLmcpSnxtQ8kQFXyT
+	 UpwVQFoXsslQf8NEBlanI6pfBjt+MPTFM+aTvJn0ayu6jHDs+C/f8bFcjcpV+IuqZd
+	 B5M3idJlG/5Pw==
+Date: Wed, 14 Oct 2026 13:27:12 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Jai Luthra <jai.luthra@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Alexander Shiyan <eagle.alexander923@gmail.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 08/13] media: dt-bindings: sony,imx678: Add other
+ Starvis 2 family members
+Message-ID: <20261014-amiable-pogona-of-growth-ab3a8c@quoll>
+References: <20261013-media-starvis2-v2-0-3670722d250a@raspberrypi.com>
+ <20261013-media-starvis2-v2-8-3670722d250a@raspberrypi.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261013-media-starvis2-v2-8-3670722d250a@raspberrypi.com>
 
-f2fs_write_cache_pages() uses the submitted count, which is set to
-fio.submitted in f2fs_write_single_data_page(), to update nwritten
-and decrement wbc->nr_to_write.
+On Tue, Oct 13, 2026 at 04:17:07PM +0100, Dave Stevenson wrote:
+> +      - items:
+> +          - enum:
+> +              - sony,imx675-aamr
+> +              - sony,imx675-aaqr
+> +          - const: sony,imx675
+> +      - items:
+> +          - enum:
+> +              - sony,imx662-aamr
+> +              - sony,imx662-aaqr
+> +          - const: sony,imx662
+> +      - items:
+> +          - enum:
+> +              - sony,imx832-amr
+> +              - sony,imx832-aqr
+> +          - const: sony,imx832
 
-In the OPU path, f2fs_submit_page_write() sets fio->submitted to 1.
-However, in the IPU path, fio->submitted is never set and remains zero.
-As a result, successful IPU writes are not accounted for.
-This can cause asynchronous writeback to continue beyond its budget.
+Please keep the list sorted by fallback compatible.
 
-Set fio->submitted in f2fs_inplace_write_data() after a page is
-successfully merged into a bio or submitted, so that successful
-IPU writes are included in the writeback accounting.
 
-Signed-off-by: Seongjae Jeong <jsjlee1020@gmail.com>
----
- fs/f2fs/segment.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-index 453f9284ec86..2e19124f1463 100644
---- a/fs/f2fs/segment.c
-+++ b/fs/f2fs/segment.c
-@@ -4298,6 +4298,7 @@ int f2fs_inplace_write_data(struct f2fs_io_info *fio)
- 	else
- 		err = f2fs_submit_page_bio(fio);
- 	if (!err) {
-+		fio->submitted = 1;
- 		f2fs_update_device_state(fio->sbi, fio->ino,
- 						fio->new_blkaddr, 1);
- 		f2fs_update_iostat(fio->sbi, fio_inode(fio),
--- 
-2.53.0
+Best regards,
+Krzysztof
 
