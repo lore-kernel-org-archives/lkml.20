@@ -1,50 +1,49 @@
 Received: from mail2-relais-roc.national.inria.fr (mail2-relais-roc.national.inria.fr [192.134.164.83])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A3E63E024B
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:14:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F04093BED66
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:14:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.134.164.83
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792005245; cv=none; b=uPsTQTw2R6+t+v8W5fTDeUrLg0ATUDnMzC3FLfX9f7tqJnsSluYfjYMlHDASPdlhCC1Tv3rcVYxxAJKahmd0IxQ/pFoZu7H/fGFopCl2Sf++WqIxS2V6+Twi2A5kcQwn5pcI4E5QbP+BndPhPT93jZ9WW9EMZhXwUTXDPY0IVRw=
+	t=1792005283; cv=none; b=DJ3OQ9gi4+nP6hVZJeiYPMcR9px+NAXXXIpD0FpdupjzcfZhjPcUBCaZC0uid3ML2COQzYvaR+VcIjAYjo8LwYsKNyxTm90FyMfcZnqdJmL+KknA8ERFrnkBL6ZBogzFyt+WH4P4W71Cz9U6W+80rdLOcOlTaO7c7YiesWenzoc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792005245; c=relaxed/simple;
-	bh=5/QJ98KYPE0a7nBWrjH4cOW1aV6TKro/1XWWVOZhT8c=;
+	s=arc-20240116; t=1792005283; c=relaxed/simple;
+	bh=22cMGJmu+olcIQAvru8FYwcvx83drLwu6zBAFWRXOkk=;
 	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=RCOmqPmcJzL6u9D6tyREKP4oa5iW/YwAA87qHlIAZzvgRK9x+Rc3SFa8gVA4gQgy1zw6V8EtvlBIYLp5go6QOaEdENGyRestpgGk0T01AdRZBlxPAOP1eidELouGO+Xq+2JqFjY9kPKpa3o8lqIGo2Cb29eJUehg5B18G0mQrE8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr; spf=pass smtp.mailfrom=inria.fr; dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr header.b=hchTF0Qh; arc=none smtp.client-ip=192.134.164.83
+	 MIME-Version:Content-Type; b=gnxofMDbFrdSrgDcvvVuzLGRzVo2oGaxAF0ICQrz8byaIeYFrwptXKmeXvDhHYPOY0Qrdss8UG1zkUT64mu/rw+cUY7eQa155DAF5wv9CaEjqfwTlias9VEDD/ntQztVI0KVWYUnku4ZZtUNnpuY0Thil5pN38KhGvjr6gtEAno=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr; spf=pass smtp.mailfrom=inria.fr; dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr header.b=gVctyC/2; arc=none smtp.client-ip=192.134.164.83
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inria.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr header.b="hchTF0Qh"
+	dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr header.b="gVctyC/2"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=inria.fr; s=dc;
   h=date:from:to:cc:subject:in-reply-to:message-id:
    references:mime-version;
-  bh=jEKZVf5UjTHrAA2sDaeoyhdrG/YWIzgeZA7wBiLvde0=;
-  b=hchTF0QhuqaU5H2jV81WMpyO5ZJq8/iFzIWKBwH/lgOv3CNlXKW5M59o
-   +cT1duUySsPUjb9Tvg38liCBOnRgG6mdRlKutFk7COAyX2Myj0xMP+Oc/
-   fm0UH1ibxmTYcAIOwYWaIoAcdJykpXcyfELEjNkgw66PXooI7aGlOkDGa
-   4=;
-X-CSE-ConnectionGUID: ufffbtJxTEK5eSPtbUvLHA==
-X-CSE-MsgGUID: 8Kr4xvZVSe6LpXCsOtQdSw==
+  bh=2XFcb73BfOgY5BAeGxtj9itl8uTCT7Sg++CRrNSV6LE=;
+  b=gVctyC/2uAJQkGMJPlCsjd4V6ly49hws3QVqcT3FfdjK2s6qOf0/KMAT
+   jOF4/pqtXKEOqdflDZ0rjFnkU4G+QlQoXuXaehSWhGrfXBXxdamo/RBpN
+   TZvhkgBPcDO72bl4OEv0u5UpKw6dJRQ2sEayw3tE9oCM2ddxprgo5EagD
+   8=;
+X-CSE-ConnectionGUID: 9oiZ0uKsRHOy1l7giRFkdw==
+X-CSE-MsgGUID: RzJDcJiZQlWUqUv73eSuhQ==
 Authentication-Results: mail2-relais-roc.national.inria.fr; dkim=none (message not signed) header.i=none; spf=SoftFail smtp.mailfrom=julia.lawall@inria.fr; dmarc=fail (p=none dis=none) d=inria.fr
 X-IronPort-AV: E=Sophos;i="6.27,158,1787004000"; 
-   d="scan'208";a="300237416"
+   d="scan'208";a="300237447"
 Received: from static.host-68-71-1-178.nrbn.ca (HELO hadrien) ([68.71.18.178])
-  by mail2-relais-roc.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 21:13:50 +0200
-Date: Wed, 14 Oct 2026 15:13:48 -0400 (EDT)
+  by mail2-relais-roc.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 21:14:37 +0200
+Date: Wed, 14 Oct 2026 15:14:36 -0400 (EDT)
 From: Julia Lawall <julia.lawall@inria.fr>
-To: Jeremy Dean Clifton <deaner92@yahoo.com>
-cc: Viresh Kumar <vireshk@kernel.org>, Johan Hovold <johan@kernel.org>, 
-    Alex Elder <elder@kernel.org>, 
-    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, outreachy@lists.linux.dev, 
-    greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, 
-    linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] staging: greybus: Remove unused header declaration
- to_fw_mgmt_connection
-In-Reply-To: <20261014171342.97160-1-deaner92@yahoo.com>
-Message-ID: <377d4e4f-93bd-6634-c3c5-1113f5057e2@inria.fr>
-References: <20261014171342.97160-1-deaner92.ref@yahoo.com> <20261014171342.97160-1-deaner92@yahoo.com>
+To: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
+cc: Alex Elder <elder@ieee.org>, johan@kernel.org, gregkh@linuxfoundation.org, 
+    vireshk@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, 
+    linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
+    outreachy@lists.linux.dev, gservice341@gmail.com
+Subject: Re: [PATCH v2] staging: greybus: replace PTR_ERR() with %pe in error
+ messages
+In-Reply-To: <as-wgGhJAGgYBZ7-@user>
+Message-ID: <9f3e98b4-8c11-62bb-49e0-99873c6fea8@inria.fr>
+References: <20261013022402.6322-1-pavankumaryalagada@gmail.com> <2fd23f9b-7eab-4afd-aa77-93a5b9ff0c75@ieee.org> <as6mC7sZnpqIKxN6@user> <26a2a4af-5d27-4bd5-b284-3758fa7a67b2@ieee.org> <as-wgGhJAGgYBZ7-@user>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,44 +54,70 @@ Content-Type: text/plain; charset=US-ASCII
 
 
 
-On Wed, 14 Oct 2026, Jeremy Dean Clifton wrote:
+On Wed, 14 Oct 2026, Yalagada Pavan Kumar wrote:
 
-> commit 3228900f80c2
-> ("staging: greybus: Remove unused function 'to_fw_mgmt_connection'")
-
-What is this?
-
+> On Wed, Oct 14, 2026 at 08:32:54AM -0500, Alex Elder wrote:
+> > On 10/13/26 4:43 PM, Yalagada Pavan Kumar wrote:
+> > > > I think your suggested change is a net positive, but
+> > > > doing it in some spots but not others means it is
+> > > > adding a bit of inconsistency.
+> > > I agree that similar cases elsewhere in Greybus are worth
+> > > checking to keep error reporting consistent. I will look
+> > > at the other Greybus files for cases where using %pe would
+> > > be appropriate.
+> > >
+> > > Would you prefer me to extend this change to the other
+> > > relevant Greybus files, or keep this patch focused on
+> > > fw-core.c and submit a separate patch for the remaining
+> > > changes?
+> >
+> > I guess I mainly wanted to understand your intent.  I don't
+> > really mind your proposed change, but I would really prefer
+> > to have it be part of an overall plan to upgrade all error
+> > messages this way.
 >
-> Function header declaration needs to be removed after it's declaration.
+> I checked all Greybus source files to identify other places where
+> %pe could be used.
+>
+> >
+> > Ideally error (and other) messages are done consistently,
+> > and so changing them in just one file sort of raises a flag
+> > for me.
+>
+> I agree that keeping error messages consistent across Greybus.
+>
+> >
+> > Can you survey the messages elsewhere in the Greybus code
+> > and get a sense of how much work it will be to do this
+> > comprehensively?  Your current patch affects four spots in
+> > one source file; how many others would there be?
+>
+> I found 12 additional cases in arche-apb-ctrl.c and arche-platform.c
+> where using %pe would be appropriate. I also found one additional
+> case in uart.c:954 where the error message could be improved by
+> printing the error name.
+>
+> I will keep PTR_ERR() calls that are needed to return error codes
+> unchanged.
+>
+> >
+> > And if updating everything is a task you're willing to do,
+> > then I think I would prefer you extend this change.
+>
+> I am willing to make these additional changes. Since my original patch
+> is already in staging-next, should i send a v3 of the existing patch
+> or submit a new patch covering all the relevant cases?
 
-it's -> its
-
-But I don't really understand the sentence.
+v3
 
 julia
 
-> There is no declaration of this function nor is there any place where it
-> is called.
 >
-> Signed-off-by: Jeremy Dean Clifton <deaner92@yahoo.com>
-> ---
->  drivers/staging/greybus/firmware.h | 1 -
->  1 file changed, 1 deletion(-)
+> Thanks for your guidance.
 >
-> diff --git a/drivers/staging/greybus/firmware.h b/drivers/staging/greybus/firmware.h
-> index 5d2564462ffc..04a67d2d5b8f 100644
-> --- a/drivers/staging/greybus/firmware.h
-> +++ b/drivers/staging/greybus/firmware.h
-> @@ -22,7 +22,6 @@
->  /* Firmware Management Protocol specific functions */
->  int fw_mgmt_init(void);
->  void fw_mgmt_exit(void);
-> -struct gb_connection *to_fw_mgmt_connection(struct device *dev);
->  int gb_fw_mgmt_request_handler(struct gb_operation *op);
->  int gb_fw_mgmt_connection_init(struct gb_connection *connection);
->  void gb_fw_mgmt_connection_exit(struct gb_connection *connection);
-> --
-> 2.43.0
+> Pavan
 >
+> >
+> > 					-Alex
 >
 >
