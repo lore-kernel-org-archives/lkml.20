@@ -1,56 +1,56 @@
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 618573F23DB
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:18:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B39B75372D7
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:17:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791994685; cv=none; b=GJlEzwzaZiRKyLT/eIHC4wlCHCgYezGjhqCLmqEHHl1zABp4FNA4W3g1+vApv1mxTPuHSj2uhrDqeDmG404p4NiIREPKS50NcpAhtNZMYbeprPtY6HDw/9MxRshjjrVEO2AH04/MzjbMbHE5bXK5mlqKBUjx0Iai+8Z8A265lF8=
+	t=1791994690; cv=none; b=L4hF+Zg57ZXCdpFmGrqLsq2OKcBZQ53UgUahW0wKGLujvz9LQwgVYeLed67LWnCYDHTds1B8nJAPK0E6UoL1uozbs4z0V5o3yqG9WRmvUHwxUoRfSiH9e3pM1kKTxy99SoH+RQaxZ7csdiCaTsNp5+xfMtdotdlIFb1XSqTiW6k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791994685; c=relaxed/simple;
-	bh=vO6YEQIMsSYDbMWgTeXfd0RkPWpXF5baIQZyZXdCBFU=;
+	s=arc-20240116; t=1791994690; c=relaxed/simple;
+	bh=dAgXe0XNd45p+baSOsW9FDQI1TPsr+qqpXRiROQBMgM=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=tAqMRz9wb3Xmzb62fJYSjoG19U2D2LxKk9CY2Ge4f1jTM9fcB/+LSc/bpv29oX2JkN5KyMYRynzdOMXhKMoeuunMOYaG9Yik0fAby6sTCDPQk0UDVINzw0woWUK5N36bFvfnLSnYPLf5f13rNsKRYt1XVuVuerGyfRuLRjnHsEI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=u60jC2Lr; arc=none smtp.client-ip=74.125.82.199
+	 To:Cc:Content-Type; b=gJEBaGrRtcHJCzgUa3xdfZvPjIOHcuwkKxb6H4Ia4oaQQFH4NP6ajNW5CDmJItgfOHRs5URPYVbiSqhSqJ7ySPApkCXG6SckzT3ZnZ72I6LLcfBRNelsY/eH6PfhC0YKUvBxRjUK7r29iUSs3WDMwkiygnFCbKrO7pe6Rk7B2TE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=VZhvsJ0g; arc=none smtp.client-ip=74.125.82.198
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="u60jC2Lr"
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-35c5aef2a74so4874365eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:18:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="VZhvsJ0g"
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-3515266f6eeso2074530eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:17:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791994679; x=1792599479; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1791994678; x=1792599478; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=01xy5PseRVpPPje1JnCly3s3YIplU78ERdCkYH+3Kds=;
-        b=u60jC2LrZnLVjsNpgSBwNsGCb+pDuHCqnJDjsjOmuV6t/YK8fv4GRcfPXvFkyAzhod
-         V3JXDO6sbpVcuGGjU6YwQfyaF7f0Fy4Hh2+eEIwIWfJ/Fd9DeNAQxDAcPBiCY/EhlaYd
-         7GAZjDcGGLEHBaP4l6ImBpMM6Px8QQq3VyDbD3MPylumTIl+XCB9rlaluSZx3q30MEeG
-         Mro5dR0F4B/KMJQhshU5IovZIyV39RHAt8imGJFa6B/o+MQe+8mWwiwFym5yyIZoEULo
-         DDxqtb5ra3CM+qfk3wcgsZ5CQ8+QVOUhYeKzJmUDMlKhYOo76ua8Tb04oHA10K8151vx
-         nxDQ==
+        bh=ivOUg8vGPcnE+LE9XwDoyhijZ8m1lm4RK26pVgGfAJ8=;
+        b=VZhvsJ0gl+vY1/43zk+02pUfp1ZzuvrhhLwPjhsMJDJC7gyWTME5hUACtqx85tT9CI
+         A7YiGJrYqp0HoXDaux+tFYIiT2pLRETn5kwWFi/n0BrHDCKcxOi69LE586lt+4rtR9Ds
+         d8oN9EPTVbGEvc/Nhk2AXrLdX9hemh1hG5xP4M52Dqwa8cesmYjevNEJcQJXpLzowLHr
+         pWP/AlarXRXdslZLHp2eRpGfk/o2D5bd0dN+s8BNLz4IrX6NHTcKvDgMlyBPsXDmbXEB
+         icegwdF3BoIjSsDQ4wii0/HcC7R0i6ISIe9/awYMseazdsu2rIbypTss6J7dsENqa4EQ
+         iW6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791994679; x=1792599479;
+        d=1e100.net; s=20260707; t=1791994678; x=1792599478;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=01xy5PseRVpPPje1JnCly3s3YIplU78ERdCkYH+3Kds=;
-        b=JEYHc6zLkj2ZQy+UK5n1AykojhujKwFLKy6IP4M76fx9UUJVdj6a0v3fv0NxGEg0cA
-         nL72JbQCkLZB7C+Q5bfg/PsUU+d3uNjtmqeRIwJvtBaWZ4/U2B283vHXN/0putfAYMLm
-         DQXNLum3/fEOxYT2GJBNABx+Dhy5V6qfmP5dBk+DWkVI/JjiagvK0Y9Uv9xIEGGmiTkS
-         h1qzaQ+6C9IxLOQY17PFVvUIcev6PCJV5Zg5fw6qMhdhZHreM11jRkoETnE8kRIfJ+WB
-         XW2E6ruMPYyk3HLp3tqlEowCDFKxxnpkOI+uVCZYROnG/Wfo6/Vomy5KSCnZ7cFQgo1L
-         r3NA==
-X-Forwarded-Encrypted: i=1; AKwUvBzLZ/ivIHytgB0jDcpxzg+GeRAR+A4ibn/gkOyE6rHXhnl42GfoaYn/ZezZH3+xnmdeh/jK9j68ITXiX2A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI4hjBbxr/Z/Xh+8aNfQsp8DnxxtLjI6p73pK7hlH9ObTW+xgxo
-	VvieaKQJbX8PLhSRljN4tXXJYfPBj/3doYXY3RtS9sLq0hsX1/HbpV8xu6GVP/yD6uOtlNEJwdc
-	Epb+HXFKHZe+s97sXO0+SqDWn7A==
-X-Received: from dlcip5.prod.google.com ([2002:a05:7023:c085:b0:16b:e65c:ee1b])
+        bh=ivOUg8vGPcnE+LE9XwDoyhijZ8m1lm4RK26pVgGfAJ8=;
+        b=x1SR+6TAPFaXapLyDolqYJF6IhkLlN6i8LIxmUHxnzGEaKeXuPzOnt+uEWdq9yxY4g
+         89px/Hg1xopgvdl2KpWeIbLkWj6eU6xHCKEKN58EisoPzkg0wgBgv7737HuxKB5VYUcF
+         1C3N3qC2CYwOTvvTuDNxM5uJSy3oC3+mZA9uawT1a+y+GE/Zkc2yARAqR30YSER2P88m
+         c1CV8TgD0NcesvB0H5MHgq2b6czBQqprLi7rNcuZ4DMpkLlrndSnKYQwKH8TQ/65DmB4
+         OKQ1upay6pqtbb6aYgGVl7/jp9zxFyATf5iiyhsg0c+cCWH4gOoYHUBJl3+lkCk76zSl
+         mP7w==
+X-Forwarded-Encrypted: i=1; AKwUvByNMJQM9bkE5QpKCi2Ovme60WDpMncFGQeVWvrPKBmiLEM1NTpGCN98oYbbdllfn8JGJfJgDS4754yFe2U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIoS94yFHYzxj5jAZmH55r1lESGB6eqATa/0vlDZsBtyqm279Lv
+	ehPQo5ErC/N1XPx7Ir1POEf1Uknx+HzhiHyQuv8d6qiGvQFNGUaq+66DH0JhVXSiH/AueGS0bDz
+	i2ek74uBBMdlVCgF+souQiRAMDQ==
+X-Received: from dycmv5.prod.google.com ([2002:a05:693c:2805:b0:351:5787:a37a])
  (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:701b:4541:10b0:144:ed03:8972 with SMTP id a92af1059eb24-16a5dee12c8mr21630544c88.16.1791994679033;
- Wed, 14 Oct 2026 09:17:59 -0700 (PDT)
-Date: Wed, 14 Oct 2026 16:17:53 +0000
+ 2002:a05:7301:f8c:b0:35c:ea0d:a9a6 with SMTP id 5a478bee46e88-35cea0daeb8mr4982706eec.32.1791994677848;
+ Wed, 14 Oct 2026 09:17:57 -0700 (PDT)
+Date: Wed, 14 Oct 2026 16:17:52 +0000
 In-Reply-To: <20261014161754.3782346-1-almasrymina@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20261014161754.3782346-1-almasrymina@google.com>
 X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
-Message-ID: <20261014161754.3782346-4-almasrymina@google.com>
-Subject: [PATCH net v3 3/4] netdevsim: support devmem RX and TX bindings
+Message-ID: <20261014161754.3782346-3-almasrymina@google.com>
+Subject: [PATCH net v3 2/4] net: devmem: detach TX bindings on NETDEV_UNREGISTER
 From: Mina Almasry <almasrymina@google.com>
 To: Jakub Kicinski <kuba@kernel.org>, Mina Almasry <almasrymina@google.com>, 
 	Pavel Begunkov <asml.silence@gmail.com>, David Wei <dw@davidwei.uk>, 
@@ -77,19 +77,42 @@ Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>
 	Kaifeng Wang <kaifengw@google.com>, Dragos Tatulea <dtatulea@nvidia.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Set a 64-bit DMA mask on nsim_bus_dev, enable NETMEM_TX_DMA on the
-netdevsim net_device, and configure page_pool instances with
-PP_FLAG_ALLOW_UNREADABLE_NETMEM and queue_idx, plus PP_FLAG_DMA_MAP |
-PP_FLAG_DMA_SYNC_DEV when CONFIG_HAS_DMA is set, so devmem bind-rx and
-bind-tx netlink operations can be tested against netdevsim in software
-selftests.
+TX devmem bindings (NETDEV_CMD_BIND_TX) have no bound RX queues, so
+mp_dmabuf_devmem_uninstall() never runs when binding->dev or
+binding->vdev unregisters. As a result, binding->dev and binding->vdev
+dangle pointing to freed struct net_device memory, and the dma_buf
+remains attached and mapped after device removal.
 
-The pp_hold debugfs file allocates pages from the queue 0 page pool, so
-refuse it when that pool is backed by a memory provider, and take the
-netdev instance lock there so a concurrent bind-rx cannot swap the pool
-in between. The software PSP path checksums the payload when the peer
-does not decapsulate, so drop unreadable skbs there.
+Closing the netlink socket after netdev unregistration dereferences the
+freed struct net_device in netdev_nl_sock_priv_destroy():
 
+  BUG: unable to handle page fault for address: ffff88824ca9b000
+  Oops: Oops: 0000 [#1] SMP KASAN NOPTI
+  RIP: 0010:netdev_nl_sock_priv_destroy+0xbd/0x1e0
+  Call Trace:
+   genl_release+0xf5/0x190
+   netlink_release+0xd01/0x18d0
+   __sock_release+0xb0/0x270
+   sock_close+0x18/0x20
+
+Extend net_devmem_dev_unregister() to TX bindings, including ones
+whose netlink socket is already closed but which TCP retransmits keep
+alive:
+- When binding->dev (the physical DMA-capable device) unregisters,
+  clear the binding's NET_DEVMEM_BINDING_LIVE mark and both
+  binding->dev and binding->vdev. Then wait for in-flight RCU/TX readers
+  with a single synchronize_net() and unmap the detached bindings'
+  dma_bufs under binding->lock.
+- When only binding->vdev (virtual device) unregisters while
+  binding->dev lives, only clear binding->vdev so no new TX sends match
+  the virtual device while allowing in-flight TX packets on binding->dev
+  to finish DMA safely.
+
+Fixes: bd61848900bf ("net: devmem: Implement TX path")
+Fixes: 1abe839b34ae ("net: devmem: support TX over NETMEM_TX_NO_DMA devices")
+Cc: Kaiyuan Zhang <kaiyuanz@google.com>
+Cc: Stanislav Fomichev <sdf@fomichev.me>
+Cc: Bobby Eshleman <bobbyeshleman@meta.com>
 Cc: Tariq Toukan <tariqt@nvidia.com>
 Cc: Kaifeng Wang <kaifengw@google.com>
 Assisted-by: LLM
@@ -97,141 +120,98 @@ Signed-off-by: Mina Almasry <almasrymina@google.com>
 Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
 ---
 v3:
-- Only request page pool DMA mapping when CONFIG_HAS_DMA is set
+- Detach all matching TX bindings first, then call synchronize_net()
+  once before unmapping them, instead of once per binding. Don't wait
+  for a grace period when only binding->vdev is cleared, since vdev is
+  never dereferenced (Sashiko).
+- Don't detach TX bindings when the device only moves to another netns
   (Sashiko).
-- Refuse pp_hold on a page pool backed by a memory provider, under the
-  netdev instance lock (Sashiko).
-- Drop unreadable skbs in the software PSP path when it would have to
-  checksum the payload (Sashiko).
----
- drivers/net/netdevsim/bus.c    |  1 +
- drivers/net/netdevsim/netdev.c | 27 +++++++++++++++++++++------
- drivers/net/netdevsim/psp.c    |  5 +++++
- 3 files changed, 27 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/net/netdevsim/bus.c b/drivers/net/netdevsim/bus.c
-index 5c55c308487b4..f87f5e037b6fb 100644
---- a/drivers/net/netdevsim/bus.c
-+++ b/drivers/net/netdevsim/bus.c
-@@ -462,6 +462,7 @@ nsim_bus_dev_new(unsigned int id, unsigned int port_count, unsigned int num_queu
- 	nsim_bus_dev->port_count = port_count;
- 	nsim_bus_dev->num_queues = num_queues;
- 	nsim_bus_dev->initial_net = current->nsproxy->net_ns;
-+	dma_coerce_mask_and_coherent(&nsim_bus_dev->dev, DMA_BIT_MASK(64));
- 	/* Disallow using nsim_bus_dev */
- 	smp_store_release(&nsim_bus_dev->init, false);
- 
-diff --git a/drivers/net/netdevsim/netdev.c b/drivers/net/netdevsim/netdev.c
-index b4a99f3ceac60..357ea9e5623b3 100644
---- a/drivers/net/netdevsim/netdev.c
-+++ b/drivers/net/netdevsim/netdev.c
-@@ -414,19 +414,27 @@ static int nsim_poll(struct napi_struct *napi, int budget)
- 	return done;
+v2:
+- Build on the net_devmem_dev_unregister() walk from the previous patch,
+  so unbound TX bindings are also detached (Sashiko). Clear the
+  binding's LIVE mark instead of erasing its ID.
+- The walk holds net_devmem_lock, which the final free also takes
+  before erasing the binding, instead of using RCU and
+  percpu_ref_tryget(), so it no longer takes a binding reference
+  (Stanislav).
+---
+ net/core/devmem.c | 51 +++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 51 insertions(+)
+
+diff --git a/net/core/devmem.c b/net/core/devmem.c
+index 93cc2815d935a..dd07203076808 100644
+--- a/net/core/devmem.c
++++ b/net/core/devmem.c
+@@ -192,9 +192,55 @@ net_devmem_dev_unregister_rx(struct net_devmem_dmabuf_binding *binding,
+ 	mutex_unlock(&binding->lock);
  }
  
--static int nsim_create_page_pool(struct page_pool **p, struct napi_struct *napi)
-+static int nsim_create_page_pool(struct net_device *dev, struct page_pool **p,
-+				 struct napi_struct *napi, int idx)
++static bool
++net_devmem_dev_unregister_tx(struct net_devmem_dmabuf_binding *binding,
++			     unsigned long xa_idx, struct net_device *dev)
++{
++	if (READ_ONCE(binding->dev) == dev) {
++		xa_clear_mark(&net_devmem_dmabuf_bindings, xa_idx,
++			      NET_DEVMEM_BINDING_LIVE);
++
++		mutex_lock(&binding->lock);
++		WRITE_ONCE(binding->dev, NULL);
++		WRITE_ONCE(binding->vdev, NULL);
++		mutex_unlock(&binding->lock);
++		return true;
++	}
++
++	if (READ_ONCE(binding->vdev) == dev) {
++		mutex_lock(&binding->lock);
++		WRITE_ONCE(binding->vdev, NULL);
++		mutex_unlock(&binding->lock);
++	}
++
++	return false;
++}
++
++static void net_devmem_unmap_detached_tx(void)
++{
++	struct net_devmem_dmabuf_binding *binding;
++	unsigned long xa_idx;
++
++	/* Ensure no tx net_devmem_lookup_dmabuf() or
++	 * validate_xmit_unreadable_skb() are in flight after detach.
++	 */
++	synchronize_net();
++
++	xa_for_each(&net_devmem_dmabuf_bindings, xa_idx, binding) {
++		if (binding->direction != DMA_TO_DEVICE ||
++		    READ_ONCE(binding->dev))
++			continue;
++
++		mutex_lock(&binding->lock);
++		net_devmem_dmabuf_binding_unmap(binding);
++		mutex_unlock(&binding->lock);
++	}
++}
++
+ void net_devmem_dev_unregister(struct net_device *dev)
  {
-+	struct netdevsim *ns = netdev_priv(dev);
- 	struct page_pool_params params = {
- 		.order = 0,
- 		.pool_size = NSIM_RING_SIZE,
-+		.flags = PP_FLAG_ALLOW_UNREADABLE_NETMEM,
-+		.max_len = PAGE_SIZE,
- 		.nid = NUMA_NO_NODE,
--		.dev = &napi->dev->dev,
-+		.dev = &ns->nsim_bus_dev->dev,
- 		.napi = napi,
- 		.dma_dir = DMA_BIDIRECTIONAL,
--		.netdev = napi->dev,
-+		.netdev = dev,
-+		.queue_idx = idx,
- 	};
- 	struct page_pool *pool;
+ 	struct net_devmem_dmabuf_binding *binding;
++	bool tx_detached = false;
+ 	unsigned long xa_idx;
  
-+	if (IS_ENABLED(CONFIG_HAS_DMA))
-+		params.flags |= PP_FLAG_DMA_MAP | PP_FLAG_DMA_SYNC_DEV;
+ 	if (dev->reg_state != NETREG_UNREGISTERING)
+@@ -204,7 +250,12 @@ void net_devmem_dev_unregister(struct net_device *dev)
+ 	xa_for_each(&net_devmem_dmabuf_bindings, xa_idx, binding) {
+ 		if (binding->direction == DMA_FROM_DEVICE)
+ 			net_devmem_dev_unregister_rx(binding, xa_idx, dev);
++		else if (net_devmem_dev_unregister_tx(binding, xa_idx, dev))
++			tx_detached = true;
+ 	}
 +
- 	pool = page_pool_create(&params);
- 	if (IS_ERR(pool))
- 		return PTR_ERR(pool);
-@@ -450,7 +458,7 @@ static int nsim_init_napi(struct netdevsim *ns)
- 	for (i = 0; i < dev->num_rx_queues; i++) {
- 		rq = ns->rq[i];
- 
--		err = nsim_create_page_pool(&rq->page_pool, &rq->napi);
-+		err = nsim_create_page_pool(dev, &rq->page_pool, &rq->napi, i);
- 		if (err)
- 			goto err_pp_destroy;
- 	}
-@@ -762,14 +770,16 @@ nsim_queue_mem_alloc(struct net_device *dev,
- 	if (ns->rq_reset_mode == 1) {
- 		if (!netif_running(ns->netdev))
- 			return -ENETDOWN;
--		return nsim_create_page_pool(&qmem->pp, &ns->rq[idx]->napi);
-+		return nsim_create_page_pool(dev, &qmem->pp,
-+					     &ns->rq[idx]->napi, idx);
- 	}
- 
- 	qmem->rq = nsim_queue_alloc();
- 	if (!qmem->rq)
- 		return -ENOMEM;
- 
--	err = nsim_create_page_pool(&qmem->rq->page_pool, &qmem->rq->napi);
-+	err = nsim_create_page_pool(dev, &qmem->rq->page_pool, &qmem->rq->napi,
-+				    idx);
- 	if (err)
- 		goto err_free;
- 
-@@ -929,12 +939,15 @@ nsim_pp_hold_write(struct file *file, const char __user *data,
- 		return ret;
- 
- 	rtnl_lock();
-+	netdev_lock(ns->netdev);
- 	ret = count;
- 	if (val == !!ns->page)
- 		goto exit;
- 
- 	if (!netif_running(ns->netdev) && val) {
- 		ret = -ENETDOWN;
-+	} else if (val && page_pool_is_unreadable(ns->rq[0]->page_pool)) {
-+		ret = -EOPNOTSUPP;
- 	} else if (val) {
- 		ns->page = page_pool_dev_alloc_pages(ns->rq[0]->page_pool);
- 		if (!ns->page)
-@@ -946,6 +959,7 @@ nsim_pp_hold_write(struct file *file, const char __user *data,
- 	}
- 
- exit:
-+	netdev_unlock(ns->netdev);
- 	rtnl_unlock();
- 	return ret;
++	if (tx_detached)
++		net_devmem_unmap_detached_tx();
+ 	mutex_unlock(&net_devmem_lock);
  }
-@@ -1051,6 +1065,7 @@ static int nsim_init_netdevsim(struct netdevsim *ns)
- 	ns->netdev->netdev_ops = &nsim_netdev_ops;
- 	ns->netdev->stat_ops = &nsim_stat_ops;
- 	ns->netdev->queue_mgmt_ops = &nsim_queue_mgmt_ops;
-+	ns->netdev->netmem_tx = NETMEM_TX_DMA;
- 	netdev_lockdep_set_classes(ns->netdev);
  
- 	err = nsim_udp_tunnels_info_create(ns->nsim_dev, ns->netdev);
-diff --git a/drivers/net/netdevsim/psp.c b/drivers/net/netdevsim/psp.c
-index 6b3532b5e360d..908cc0d391dc6 100644
---- a/drivers/net/netdevsim/psp.c
-+++ b/drivers/net/netdevsim/psp.c
-@@ -86,6 +86,11 @@ nsim_do_psp(struct sk_buff *skb, struct netdevsim *ns,
- 		__wsum csum;
- 		int udplen;
- 
-+		if (!skb_frags_readable(skb)) {
-+			rc = SKB_DROP_REASON_PSP_OUTPUT;
-+			goto out_unlock;
-+		}
-+
- 		/* Do not decapsulate. Receive the skb with the udp and psp
- 		 * headers still there as if this is a normal udp packet.
- 		 * psp_dev_encapsulate() sets udp checksum to 0, so we need to
 -- 
 2.56.0.176.g3575e65682-goog
 
