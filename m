@@ -1,107 +1,105 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4930341442D;
-	Wed, 14 Oct 2026 21:56:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C34FA38B122;
+	Wed, 14 Oct 2026 21:58:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792014971; cv=none; b=TNMtmDs9hn58Vpi0Qmiek4dp2kBcns92646RWUDXObIe2eabhABOdgxCICLAoV3/ReOkf58pdQApMP+fPhXMK7/mTrIXBZVrICt77SwS5lynVlzb7n0N3MtgElJovs97GrZ6ljL0Gq74C4aTVe0oWBlPsgjjvOb5B0wFly1emc8=
+	t=1792015105; cv=none; b=tKwDijjyBahCVud0SP2kKNGnXaNG7SL3N5u0Y4JheeW3UpmhDp8FLqeGHBJddQfG36KzDV+AVUgGuZ7C9xSYhqldKC8Lvie1CrQE55WUb6e46QJYZJ0hUoL3PCsZelpYejoCyOdFlWU8cOWYUMA6CuYSB1uXrfMEjXzAFOTc8oQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792014971; c=relaxed/simple;
-	bh=7uB7pWYKGkJ0kAF2Aw86BM8RV0dxWrCfnl6W2JEIN6U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Uayeev4HVIvmv8IcYfXd3KY/OOgE6kOBe7DO+ncwS13tj1Uafyg5WmsoTs6Ly470WtX88qIEnJhnyttcQaGjcP9dKr/4yFZtFKbOiSi2n9S7fA6h6MxevwnG6fCNgOCjar62icoWnkkSSFKExGyduR/nJWCulp+OFvy80qAgFj4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=wTGgkj5P; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1792015105; c=relaxed/simple;
+	bh=brkQDJQNNlxAy/6blY96IdbiPifLKNqDcW8gnFUQaDw=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=p2SsNcXBqWXjNJhB5vcP0bh1rXODmEAsHBUK6wOOIZlLynxnnjl/elktLxWiOfJSXeMR5trnNU6B7LD++3k4LfnCnvTQetsf+MpI5rHgEiSR/DMh2XUZLLnrZ4AiSIG/w446Y2AJqjfnIivswgn+07ojDmF8l/ksbgS5PVK1Yl8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gwG6lK1l; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="wTGgkj5P"
-Received: from killaraus.ideasonboard.com (unknown [80.155.15.37])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id C9315BC;
-	Wed, 14 Oct 2026 23:54:04 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1792014844;
-	bh=7uB7pWYKGkJ0kAF2Aw86BM8RV0dxWrCfnl6W2JEIN6U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=wTGgkj5PBvgb9lbmG/k+vWjnOOQZfx0fifY2n9Ijxa25iE3w+SRFGs9paNrdWdGFh
-	 T0ygxjOr2Mr09vZ/EuS3/MfpXZcqeabDEWT4OV/P9HnjRzkr0R91b7hM/XwNZpU65R
-	 nCmPkFuYzDSzuD5q4vkJrmD700UyWdrKBNEvD+io=
-Date: Wed, 14 Oct 2026 23:56:06 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: guoniu.zhou@oss.nxp.com
-Cc: Frank Li <Frank.Li@nxp.com>,
-	Martin Kepplinger-Novakovic <martink@posteo.de>,
-	Rui Miguel Silva <rmfrfs@gmail.com>,
-	Purism Kernel Team <kernel@puri.sm>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, imx@lists.linux.dev,
-	linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, Alice Yuan <alice.yuan@nxp.com>
-Subject: Re: [PATCH] media: imx-mipi-csis: add support for
- MEDIA_BUS_FMT_YUYV8_1X16
-Message-ID: <20261014215606.GB283442@killaraus.ideasonboard.com>
-References: <20261009-csis_sam-v1-1-81f2b0fb76ef@oss.nxp.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gwG6lK1l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E44DF1F000C4;
+	Wed, 14 Oct 2026 21:58:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792015104;
+	bh=JFNoFpngqoFf9NYyppuLv/yxto7jom22R1QvJtAwSYw=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=gwG6lK1l3w4+r6otOEIhBoeVI/BR1VAS43XaS1Y340hNar+VaxyVThvttryMf8o0e
+	 OoU3M7ZhcTV5rZsATNpc4PeBPfNIlr7x3TSzYAfvDWtZ71mkvwxuRneMiR55CytZ9+
+	 EeV5bV+r9T0QU1Ubvvo5kqoNefTcfF+sJsY1b2hr31YNnQuIsyqDDRcT5M7IdEjN2q
+	 URVFhP+zQDlL4ma9zqoJeNFo6j5VQ8FKF9WO011gMBoo4LoMGt7iP0TP96g2H6zp7t
+	 K8JTH9El3wYTlNRkd5o81zobuJEYq8bXOWQbQahiMWOaQ1Lq4bwK38+3khnrQadg/P
+	 AgTIpjUjBnEIA==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Pranjal Shrivastava <praan@google.com>, iommu@lists.linux.dev
+Cc: Will Deacon <will@kernel.org>, Joerg Roedel <joro@8bytes.org>, Robin
+ Murphy <robin.murphy@arm.com>, Jason Gunthorpe <jgg@ziepe.ca>, Mostafa
+ Saleh <smostafa@google.com>, Nicolin Chen <nicolinc@nvidia.com>, Daniel
+ Mentz <danielmentz@google.com>, Ashish Mhetre <amhetre@nvidia.com>,
+ linux-arm-kernel@lists.infradead.org, Radu Rendec <radu@rendec.net>, Bjorn
+ Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, rafael@kernel.org, Danilo Krummrich
+ <dakr@kernel.org>, driver-core@lists.linux.dev, Pranjal Shrivastava
+ <praan@google.com>, sashiko-bot@kernel.org
+Subject: Re: [PATCH v11 08/16] genirq/msi: Provide
+ msi_device_domain_restore_msi_msgs()
+In-Reply-To: <20260929034510.2023173-9-praan@google.com>
+References: <20260929034510.2023173-1-praan@google.com>
+ <20260929034510.2023173-9-praan@google.com>
+Date: Wed, 14 Oct 2026 23:58:21 +0200
+Message-ID: <8733u8eygy.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261009-csis_sam-v1-1-81f2b0fb76ef@oss.nxp.com>
+Content-Type: text/plain
 
-Hello Guoniu,
+On Tue, Sep 29 2026 at 03:45, Pranjal Shrivastava wrote:
+> +void msi_device_domain_restore_msi_msgs(struct device *dev, unsigned int domid)
+> +{
+> +	if (!dev->msi.data)
+> +		return;
+> +
+> +	guard(msi_descs_lock)(dev);
+> +	struct irq_domain *domain = msi_get_device_domain(dev, domid);
+> +
+> +	if (!domain || !irq_domain_is_msi_device(domain))
+> +		return;
+> +
+> +	struct xarray *xa = &dev->msi.data->__domains[domid].store;
+> +	struct msi_domain_info *info = domain->host_data;
+> +	struct msi_desc *msi_desc;
+> +	unsigned long idx;
+> +
+> +	xa_for_each_range(xa, idx, msi_desc, 0, info->hwsize - 1) {
+> +		/* Only handle MSI entries which have an interrupt associated */
+> +		if (!msi_desc_match(msi_desc, MSI_DESC_ASSOCIATED))
+> +			continue;
+> +
+> +		scoped_irqdesc_get_and_buslock(msi_desc->irq, 0) {
+> +			struct irq_data *data = irq_desc_get_irq_data(scoped_irqdesc);
+> +			struct msi_msg msg = msi_desc->msg;
+> +
+> +			if (data->chip)
+> +				irq_chip_write_msi_msg(data, &msg);
+> +		}
+> +	}
 
-Thank you for the patch.
+In this case sashiko is wrong:
 
-On Fri, Oct 09, 2026 at 06:58:41PM +0800, guoniu.zhou@oss.nxp.com wrote:
-> From: Alice Yuan <alice.yuan@nxp.com>
+> [Severity: Critical]
+> Will this result in a NULL pointer dereference in hierarchical IRQ domains?
 > 
-> Add MEDIA_BUS_FMT_YUYV8_1X16 to the list of supported bus formats.
+> Since irq_desc_get_irq_data() retrieves the top-level irq_data, data->chip
+> points to the top-level irq_chip. In hierarchical IRQ domains, the top-level
+> irq_chip typically does not implement the irq_write_msi_msg callback.
 > 
-> The format uses the same CSI-2 YUV422 8-bit data type and 16-bit
-> parallel bus width as MEDIA_BUS_FMT_UYVY8_1X16, but with a different
-> component ordering. Supporting YUYV allows sensors and bridge devices
-> that output YUYV formatted YUV422 data to be used with the i.MX MIPI
-> CSIS driver without requiring format conversion.
+> When this top-level irq_data is passed to irq_chip_write_msi_msg(), it will
+> dereference a NULL function pointer:
 
-What sensor(s) do you have in mind ? CSI-2 does not support other
-component orderings, the YUV4222_8B data type specifies the ordering on
-the bus as [U1, Y1, V1, Y2], and V4L2 maps that to
-MEDIA_BUS_FMT_UYVY8_1X16.
+All MSI top level (device) domains implement the irq_write_msi_msg()
+callback. That's the whole point of the top level MSI domain as that's
+the one which has access to the device and the associated message store.
 
-> Signed-off-by: Alice Yuan <alice.yuan@nxp.com>
-> Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
-> ---
->  drivers/media/platform/nxp/imx-mipi-csis.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/drivers/media/platform/nxp/imx-mipi-csis.c b/drivers/media/platform/nxp/imx-mipi-csis.c
-> index 5f9691d76434..14a00b9fcedf 100644
-> --- a/drivers/media/platform/nxp/imx-mipi-csis.c
-> +++ b/drivers/media/platform/nxp/imx-mipi-csis.c
-> @@ -382,6 +382,11 @@ static const struct csis_pix_format mipi_csis_formats[] = {
->  		.output = MEDIA_BUS_FMT_UYVY8_1X16,
->  		.data_type = MIPI_CSI2_DT_YUV422_8B,
->  		.width = 16,
-> +	}, {
-> +		.code = MEDIA_BUS_FMT_YUYV8_1X16,
-> +		.output = MEDIA_BUS_FMT_YUYV8_1X16,
-> +		.data_type = MIPI_CSI2_DT_YUV422_8B,
-> +		.width = 16,
->  	},
->  	/* RGB formats. */
->  	{
-> 
-> ---
-> base-commit: b38d06ad1e13c32970d58039c154f009b81a3368
-> change-id: 20261009-csis_sam-c5c10ed12322
+Thanks,
 
--- 
-Regards,
-
-Laurent Pinchart
+        tglx
