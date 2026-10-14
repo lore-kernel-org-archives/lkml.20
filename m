@@ -1,241 +1,232 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-71.mta1.migadu.com [95.215.58.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15BA53546ED;
-	Wed, 14 Oct 2026 02:36:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8296D30B529
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 02:37:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791945407; cv=none; b=U9Yo9PrHz3iBCxM7h3cVvr/vvubgfwUcGUOnhZd/xAYoYYg3j4Vp96tIZRYievfEdGh0Rp2/E1mrMOzPGEu2gqV57XGw+cdW9V1YLMqD0pGVFCwMFOSx1Bekw7DXhrlxlQRLU91xX9y81/hLNuZoEDMRANwfSIk77EoBBak4NL4=
+	t=1791945453; cv=none; b=QIiOEFJVncJ0+YLHWU2xVBHrYejFJg8HKsY/1JyWqIks484vjDlEQLKZA1h43d/LkBGHBRgHibddTYPO7EDnDDSfffvEipyJv8M/PRvH5GddtXFl/H6GFZyfeV6Ui2ruE2UwMi8Jq0N6byZzh4wJB1LnBh02KNZsYTLBQZjb0Ig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791945407; c=relaxed/simple;
-	bh=nBYPJ6hQ2zwD9dhiLLMMERUOYL/Q6XZyOvsjIQMqHog=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=XyjZtrajHwnGjlw+K5m70QJ/hzQC8ZUyo6E6z+T12AYkLbb0qDyT1vjGeec7wi7JByJcLJJHnZeKb0PcP9C/PVn/cXJZRtYG8FJjRpSdZsyl26yoI0M97Fj34X+r4PmsDlLHBYKEotN/M1h0MjfAjbXWPKQJ9MWDonXni2yVKsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I2AP7ouo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791945453; c=relaxed/simple;
+	bh=7UUTt82RGwkEsPz4m1IMAXE3gzzct3/wWyS9tYPd83k=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=X4MpSy+2vDQDRIJsZ17bshhx52SrZlLXOnsoxGNcFU2RJvUvbWt9jCqOwuwzKe2vskaGsVAIc6yqI+xWEy6ud6jFc9b0sog86u5rUWTqc9JZ1LReeUnitLjrEcDEvFHEsKjQibiT6gE5WhHXasGQGqg9DRXZuPV9tVVwoffyTgo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=La3OfXhN; arc=none smtp.client-ip=95.215.58.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I2AP7ouo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86D9D1F00893;
-	Wed, 14 Oct 2026 02:36:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791945405;
-	bh=NFKiLkRrPiUeuoNYCtT7oKjnxArLpHFtM3eBd6KaK7A=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=I2AP7ouov0sOgDuJVi0YU4/Qa+jileELU8/OpmPIBeN0H/DN+xC7qD0yh9A3tOl/1
-	 wO8zIBJwNPMy3ekKIwlTaHyzfnpwhDYV1sbYTgrw2k7w0ZFu2jfb9m3Y2TNQn0e+QY
-	 A70JX/+oJo7zjvwwlzYXctXdQ3VN5z45w3stLsFqGSa3ZGYClDLpSduU/cJjq6KLi0
-	 SuAe8KKkJECptWRPys5nrE94SxPyQT7oruG2P6eAnAqcjWDWicRJ+81SBX9ftqphA8
-	 HzNwRCCkovYOkD93rnSpd3I6rxxy/XDRSUGOCHoDs+5wCAsFrGE3WrSE412kpboh7r
-	 lcAZRzBXW8k9g==
-Subject: Re: [PATCH net-next v14 2/2] hinic3: Add ethtool statistic ops part2
-From: netdev-bot+sashiko@kernel.org
-To: gongfan1@huawei.com
-Cc: wudi234@huawei.com, tengpeisen@huawei.com, netdev@vger.kernel.org,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, andrew+netdev@lunn.ch, ioana.ciornei@nxp.com,
- maxime.chevallier@bootlin.com, mohsin.bashr@gmail.com,
- dimitri.daskalakis1@gmail.com, hramamurthy@google.com,
- larysa.zaremba@intel.com, vadim.fedorenko@linux.dev,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- zhoushuai28@huawei.com, wulike1@huawei.com
-Date: Wed, 14 Oct 2026 02:36:44 +0000
-Message-ID: <179194540407.434549.6240409030242210074@kernel.org>
-In-Reply-To:
- <d3d6148426f3228b52e9b8082262aa71c7fdf6dc.1791858167.git.gongfan1@huawei.com>
-References:
- <d3d6148426f3228b52e9b8082262aa71c7fdf6dc.1791858167.git.gongfan1@huawei.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="La3OfXhN"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=7UUTt82RGwkEsPz4m1IMAXE3gzzct3/wWyS9tYPd83k=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791945449; v=1; x=1792550249;
+ b=La3OfXhNVJgiTFfFk9tY+W6mgr0e+Wrslw7TVGCZm2oEArf037YkG/VaXD73QhxkIW+S4BFV
+ ry6UXbtpmVLiaS93qlaY5ZSA+ykqVboleHgKUV82+emy1AR7Qc9Q5x/81sBMDn8K6OyGtfnWTED
+ uTDeO7hHWs7VDkyRRPysYJTc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 48e5c038101e18a7;
+	Wed, 14 Oct 2026 02:37:27 +0000
+X-Mizu-Trace-ID: 48e5c038101e18a7
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH v2 1/4] mm: fix missing page-table destructor in
+ pagetable_free()
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <2552e0bd-0e50-4dd5-a3d9-00e9204eb2c2@arm.com>
+Date: Wed, 14 Oct 2026 10:37:04 +0800
+Cc: Muchun Song <songmuchun@bytedance.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>,
+ Oscar Salvador <osalvador@suse.de>,
+ Dave Hansen <dave.hansen@intel.com>,
+ Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>,
+ =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@rivosinc.com>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ linux-mm@kvack.org,
+ linux-riscv@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <6DB87EB4-93BB-4861-AC17-159DCD1E442B@linux.dev>
+References: <20261010112457.49485-1-songmuchun@bytedance.com>
+ <20261010112457.49485-2-songmuchun@bytedance.com>
+ <2552e0bd-0e50-4dd5-a3d9-00e9204eb2c2@arm.com>
+To: Kevin Brodsky <kevin.brodsky@arm.com>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 3 · Low: 1
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+> On Oct 13, 2026, at 23:46, Kevin Brodsky <kevin.brodsky@arm.com> =
+wrote:
+>=20
+> On 10/10/2026 13:24, Muchun Song wrote:
+>> Since commit 49f599666420 ("mm: call ctor/dtor for kernel PTEs"),
+>> pte_alloc_one_kernel() runs the page-table constructor for kernel PTE
+>> tables.
+>>=20
+>> HVO (HugeTLB Vmemmap Optimization) uses pte_alloc_one_kernel() when
+>> splitting a PMD. Restoring the vmemmap backing pages does not =
+collapse
+>> the PTE table, so a later memory hot-remove eventually frees it =
+through
+>> pagetable_free() on x86-64. That releases the page without running =
+the
+>> matching destructor and leaves NR_PAGETABLE elevated.
+>>=20
+>> Make pagetable_free() detect constructor-backed pages and run the
+>> destructor before releasing their memory to fix the problem.
+>>=20
+>> Fixes: 49f599666420 ("mm: call ctor/dtor for kernel PTEs")
+>> Cc: stable@vger.kernel.org
+>> Assisted-by: LLM
+>> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+>> ---
+>> v2:
+>> - Move destructor handling from x86 into pagetable_free() (suggested =
+by
+>>  David Hildenbrand)
+>> - Trim and update the commit message (requested by Dave Hansen)
+>> ---
+>> include/linux/mm.h | 37 ++++++++++++++++++++-----------------
+>> 1 file changed, 20 insertions(+), 17 deletions(-)
+>>=20
+>> diff --git a/include/linux/mm.h b/include/linux/mm.h
+>> index 5cca90fc1df6..771a7d60b0a5 100644
+>> --- a/include/linux/mm.h
+>> +++ b/include/linux/mm.h
+>> @@ -3969,23 +3969,6 @@ static inline void =
+pagetable_free_kernel(struct ptdesc *pt)
+>> __pagetable_free(pt);
+>> }
+>> #endif
+>> -/**
+>> - * pagetable_free - Free pagetables
+>> - * @pt: The page table descriptor
+>> - *
+>> - * pagetable_free frees the memory of all page tables described by a =
+page
+>> - * table descriptor and the memory for the descriptor itself.
+>> - */
+>> -static inline void pagetable_free(struct ptdesc *pt)
+>> -{
+>> - 	if (ptdesc_test_kernel(pt)) {
+>> - 		ptdesc_clear_kernel(pt);
+>> - 		pagetable_free_kernel(pt);
+>> - 	} else {
+>> - 		__pagetable_free(pt);
+>> - 	}
+>> -}
+>> -
+>> #if defined(CONFIG_SPLIT_PTE_PTLOCKS)
+>> #if ALLOC_SPLIT_PTLOCKS
+>> void __init ptlock_cache_init(void);
+>> @@ -4078,6 +4061,26 @@ static inline void pagetable_dtor(struct =
+ptdesc *ptdesc)
+>> 	lruvec_stat_sub_folio(folio, NR_PAGETABLE);
+>> }
+>>=20
+>> +/**
+>> + * pagetable_free - Free pagetables
+>> + * @pt: The page table descriptor
+>> + *
+>> + * pagetable_free frees the memory of all page tables described by a =
+page
+>> + * table descriptor and the memory for the descriptor itself.
+>> + */
+>> +static inline void pagetable_free(struct ptdesc *pt)
+>> +{
+>> + 	if (PageTable(ptdesc_page(pt)))
+>> + 		pagetable_dtor(pt);
+>=20
+> Took me a while to understand why this is fine. Currently we have:
+>=20
+>     ptdesc =3D pagetable_alloc();
+>     pagetable_*_ctor(mm, ptdesc);
+>     [...]
+>     pagetable_dtor(ptdesc);
+>     pagetable_free(ptdesc);
+>=20
+> All good, nice and balanced.
+>=20
+> Now we're saying that pagetable_free() should call the dtor. But of
+> course, in most cases, the dtor has already been called. Yes, this is
+> fine because in that case PageTable(page) returns false. Still, the
+> casual reader is likely to be confused (like I was).
+>=20
+> The commit message should really explain this. I'm not a big fan of =
+the
 
-- [Medium] Of the five new callbacks, only hinic3_get_eth_phy_stats()
-  returns early for VFs (`if (HINIC3_IS_VF(nic_dev->hwdev)) return;`).
-- [Medium] Several counters are now reported through both the private
-  ethtool -S table and the standard RMON uAPI.
-- [Medium] Nothing can ever call hinic3_get_pause_stats().
-- [Low] The commit message does not describe this patch.
+Maybe I should mention that pagetable_free() is supposed to free page
+table page from now on.
 
---
+> asymmetry we're creating between explicit alloc+ctor and free =
+implicitly
+> calling dtor, but I suppose it's safer this way. (And looking at the
+> rest of the series, it does bring some nice cleanups.)
 
-hinic3: Add ethtool statistic ops part2
+Make sense. That's my plan.
 
-This commit adds five standard ethtool statistics callbacks to the hinic3
-driver: get_eth_phy_stats, get_eth_mac_stats, get_eth_ctrl_stats,
-get_rmon_stats and get_pause_stats. Each callback reads the physical port
-counters from firmware via hinic3_get_phy_port_stats() and copies them
-into the standard ethtool structures.
+>=20
+> I understand this is a bugfix series so its scope is limited, but if
+> time allows please post a follow-up series removing all those explicit
+> dtor calls that are no longer required.
+>=20
+> Now don't get me wrong, I am absolutely in favour of moving as much
+> handling as possible out of the ctor/dtor and into
+> pagetable_{alloc,free}; a series I posted earlier [1] was a step in =
+that
 
->   Add PF/VF statistics functions in TX and RX processing.
+Excellent work.
 
-[Severity: Low]
-This isn't a bug, but this sentence matches the one in the part1 commit
-("hinic3: Add ethtool statistic ops part1"). This patch doesn't touch any
-TX or RX processing code. It only adds read-only ethtool callbacks in
-hinic3_ethtool.c that use the MAG_CMD_GET_PORT_STAT firmware query.
+> direction. It unfortunately had many issues, including the unmatched
+> alloc/free calls [2]. The work you're doing in this series, and your
+> plan to use pagetable_alloc() for vmemmap, are exactly what I was
+> planning to do next, so thank you for taking care of that :)
+> With the commit message improved:
+>=20
+> Reviewed-by: Kevin Brodsky <kevin.brodsky@arm.com>
 
-The message also doesn't say how VFs are handled. Only
-hinic3_get_eth_phy_stats() returns early for VFs.
+Thanks.
 
-Could the commit message be updated to describe what this patch does?
+>=20
+> - Kevin
+>=20
+> [1]
+> =
+https://lore.kernel.org/linux-mm/20260714-remove_pgtable_cdtor-v1-0-44be8a=
+7685d7@arm.com/
+> [2]
+> =
+https://lore.kernel.org/linux-mm/6d167aaa-e9b0-4687-970c-1c67d0df6344@arm.=
+com/
+>=20
+>> +
+>> + if (ptdesc_test_kernel(pt)) {
+>> + 	ptdesc_clear_kernel(pt);
+>> + 	pagetable_free_kernel(pt);
+>> + } else {
+>> + 	__pagetable_free(pt);
+>> + }
+>> +}
+>> +
+>> static inline void pagetable_dtor_free(struct ptdesc *ptdesc)
+>> {
+>> 	pagetable_dtor(ptdesc);
 
-> diff --git a/drivers/net/ethernet/huawei/hinic3/hinic3_ethtool.c b/drivers/net/ethernet/huawei/hinic3/hinic3_ethtool.c
-> index 3863d26542ad4..f61337d494444 100644
-> --- a/drivers/net/ethernet/huawei/hinic3/hinic3_ethtool.c
-> +++ b/drivers/net/ethernet/huawei/hinic3/hinic3_ethtool.c
-> @@ -723,6 +723,179 @@ static void hinic3_get_ethtool_stats(struct net_device *netdev,
->  	hinic3_get_drv_queue_stats(netdev, data + i);
->  }
->  
-> +static void hinic3_get_eth_phy_stats(struct net_device *netdev,
-> +				     struct ethtool_eth_phy_stats *phy_stats)
-> +{
-> +	struct hinic3_nic_dev *nic_dev = netdev_priv(netdev);
-> +	struct mag_cmd_port_stats *ps;
-> +	int err;
-> +
-> +	if (HINIC3_IS_VF(nic_dev->hwdev))
-> +		return;
 
-[ ... ]
-
-> +static void hinic3_get_eth_mac_stats(struct net_device *netdev,
-> +				     struct ethtool_eth_mac_stats *mac_stats)
-> +{
-> +	struct hinic3_nic_dev *nic_dev = netdev_priv(netdev);
-> +	struct mag_cmd_port_stats *ps;
-> +	int err;
-> +
-> +	ps = kmalloc_obj(*ps);
-> +	if (!ps)
-> +		return;
-> +
-> +	err = hinic3_get_phy_port_stats(nic_dev->hwdev, ps);
-> +	if (err) {
-> +		kfree(ps);
-> +		netdev_err(netdev, "Failed to get eth mac stats from fw\n");
-> +		return;
-> +	}
-
-[Severity: Medium]
-Should this callback, and the new ctrl, rmon and pause callbacks, have the
-same HINIC3_IS_VF() check as hinic3_get_eth_phy_stats()?
-
-As written, on a VF these call hinic3_get_phy_port_stats(), which sends
-MAG_CMD_GET_PORT_STAT for hinic3_physical_port_id(hwdev).
-
-The rest of the driver keeps physical port stats away from VFs. For
-example, hinic3_get_ethtool_stats() does:
-
-	if (!HINIC3_IS_VF(nic_dev->hwdev))
-		i += hinic3_get_ethtool_port_stats(netdev, data + i);
-
-hinic3_get_hw_stats_strings() and hinic3_get_sset_count() do the same.
-hinic3_get_link_settings() also skips the pause query on VFs.
-
-ETHTOOL_MSG_STATS_GET does not require admin permission. Any unprivileged
-user can reach these callbacks with something like
-"ethtool -S <vf> --groups eth-mac eth-ctrl rmon".
-
-If firmware accepts the query from a VF, the VF sees port-wide MAC, control
-and RMON counters. Those include traffic from the PF and every other VF on
-the port.
-
-If firmware rejects it, each request makes several blocking mailbox round
-trips. Each failure also logs an unratelimited dev_err() in
-hinic3_get_phy_port_stats() plus a netdev_err() in the callback. Could
-that be used to flood the kernel log?
-
-[ ... ]
-
-> +static void hinic3_get_rmon_stats(struct net_device *netdev,
-> +				  struct ethtool_rmon_stats *rmon_stats,
-> +				  const struct ethtool_rmon_hist_range **ranges)
-> +{
-
-[ ... ]
-
-> +	rmon_stats->undersize_pkts	= ps->mac_rx_undersize_pkt_num;
-> +	rmon_stats->oversize_pkts	= ps->mac_rx_oversize_pkt_num;
-> +	rmon_stats->fragments		= ps->mac_rx_fragment_pkt_num;
-> +	rmon_stats->jabbers		= ps->mac_rx_jabber_pkt_num;
-> +
-> +	rmon_stats->hist[0]		= ps->mac_rx_64_oct_pkt_num;
-
-[ ... ]
-
-> +	rmon_stats->hist_tx[10]		= ps->mac_tx_9217_12287_oct_pkt_num;
-
-[Severity: Medium]
-Are these counters now reported to userspace twice? hinic3_port_stats[],
-added by the part1 patch, still exports the same values through
-ethtool -S:
-
-	HINIC3_PORT_STAT(mac_tx_64_oct_pkt_num),
-	...
-	HINIC3_PORT_STAT(mac_tx_9217_12287_oct_pkt_num),
-	...
-	HINIC3_PORT_STAT(mac_rx_fragment_pkt_num),
-	HINIC3_PORT_STAT(mac_rx_undersize_pkt_num),
-	...
-	HINIC3_PORT_STAT(mac_rx_64_oct_pkt_num),
-	...
-	HINIC3_PORT_STAT(mac_rx_9217_12287_oct_pkt_num),
-
-The table already omits the counters that the new mac, ctrl, pause and phy
-callbacks report (good, multi and broad counts, pause, control, oversize,
-jabber, sym_err, fcs_err). The RMON histogram, fragment and undersize
-entries are still in it.
-
-Counters that have a standard uAPI should not be duplicated in ethtool -S.
-Should these 24 entries be removed from hinic3_port_stats[]?
-
-[ ... ]
-
-> @@ -734,6 +907,11 @@ static const struct ethtool_ops hinic3_ethtool_ops = {
->  	.get_strings                    = hinic3_get_strings,
->  	.get_sset_count                 = hinic3_get_sset_count,
->  	.get_ethtool_stats              = hinic3_get_ethtool_stats,
-> +	.get_eth_phy_stats              = hinic3_get_eth_phy_stats,
-> +	.get_eth_mac_stats              = hinic3_get_eth_mac_stats,
-> +	.get_eth_ctrl_stats             = hinic3_get_eth_ctrl_stats,
-> +	.get_rmon_stats                 = hinic3_get_rmon_stats,
-> +	.get_pause_stats                = hinic3_get_pause_stats,
->  };
-
-[Severity: Medium]
-Can hinic3_get_pause_stats() ever be called? The driver doesn't provide a
-.get_pauseparam callback, and pause_prepare_data() in net/ethtool/pause.c
-returns before it calls get_pause_stats:
-
-	if (!dev->ethtool_ops->get_pauseparam)
-		return -EOPNOTSUPP;
-	...
-	dev->ethtool_ops->get_pauseparam(dev, &data->pauseparam);
-	if (req_base->flags & ETHTOOL_FLAG_STATS &&
-	    dev->ethtool_ops->get_pause_stats)
-		dev->ethtool_ops->get_pause_stats(dev, &data->pausestat);
-
-Pause stats aren't part of the ETHTOOL_MSG_STATS_GET groups either. So
-"ethtool -I -a <dev>" fails with -EOPNOTSUPP, and there is no standard way
-to read mac_tx_pause_num or mac_rx_pause_num.
-
-Does this patch also need a .get_pauseparam implementation?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1791858167.git.gongfan1%40huawei.com
