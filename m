@@ -1,75 +1,68 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DF8E4EFFB7;
-	Wed, 14 Oct 2026 11:27:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 149A84D2EC3
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:27:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791977237; cv=none; b=qRu4zJskxyIQ/hioi38sbbOxe5xrNBrAdeufnK4hlS6DRHUo8PyVqWYNHJoOWjM8pk6SpxR6yO4vQEH2mwZiZ1SV16J80MVURqg1vey7HjrzRo7au57W7EQNKmWCYumXTQmYzkQ56C6sSsRoDHYKfKfvZP+1qeIDZGOJrtIiM+k=
+	t=1791977257; cv=none; b=hlfUYIrHQT/eyLods8RNqEm6an2yS86msf2lTmRUWYRD8f2SJw1rwwjIUd11Yn4egd+6OUUo8LCqx8x6s1HO4aPHS0Lg/70SClHhu/dvSXCUJmLIehT81WscQxKqdQOGAvnXDG1zHvI82fC0KxEBqTqlxtjWYnnAY3QdPT2ZpvE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791977237; c=relaxed/simple;
-	bh=DZXj6cfyoSFJfGCTSH09og0CwhR90Nu5ZF0MvrJX5SE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QyURs/6edZuhl0ywlJfSyj9qVxZJ1wl9Ereppl7ny8659D6xgKd/OwBpY5ep8TS6Mevqv6K6gahugkj0wIy74vi6Af1jAR6tVhuvLwSi/tR1M7xyZW+E03hrwQmtsi3ygmfEE21bylVN2xaQbIfQQDohu7wcaR7iSgyMs9VclGg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LjxbY4NL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791977257; c=relaxed/simple;
+	bh=zuv6pOOWeLAKZmBd8Ansq+o08TNWLk8Kd2TVb0TmpKM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=oFR43Dvl3bEIvR/DRCYxsJRJz9H+Bvf7oofZlGHUzuTb08KYKB5HgTSpUlnA893auCvXKT6yziZnGpzjZv4VkiyMdP/03bxWc4mOlXV85lL/8OLMus2XyRdS/gS0kzoaC8YRnHgZ5RUQDLjrXPWEY//tTx+CS+dLMJQvMhUxk4Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ORI1kCjs; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LjxbY4NL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 570B91F000FF;
-	Wed, 14 Oct 2026 11:27:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791977236;
-	bh=Vs2YSOCjr3xVmak5ziahA1zHaGFZLaSeGx6bxxkF+zc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LjxbY4NL+zzr8SqrIPm8KpFEvTUDwZt7ei8wBvZ3X0WOQhRC4luP4SlARkFORg8tr
-	 W++Wky8LNEX28Noo/6O0usUN0KfHyk1oxgQqwQ8RMfxju9iAr/ahpqvmyGCqBQ3xhP
-	 MB5uM4ToMHjKCHbUkrECB+Mk34LyXzRvl4WW/FVJ3+MuXB7AFNen7NQ6lJnZdpwIHz
-	 KaVzNjFTa9ljvrK7mQq4iYr11maFv1xdMh4MtcI/MLJbCePCRDLmcpSnxtQ8kQFXyT
-	 UpwVQFoXsslQf8NEBlanI6pfBjt+MPTFM+aTvJn0ayu6jHDs+C/f8bFcjcpV+IuqZd
-	 B5M3idJlG/5Pw==
-Date: Wed, 14 Oct 2026 13:27:12 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Jai Luthra <jai.luthra@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Alexander Shiyan <eagle.alexander923@gmail.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 08/13] media: dt-bindings: sony,imx678: Add other
- Starvis 2 family members
-Message-ID: <20261014-amiable-pogona-of-growth-ab3a8c@quoll>
-References: <20261013-media-starvis2-v2-0-3670722d250a@raspberrypi.com>
- <20261013-media-starvis2-v2-8-3670722d250a@raspberrypi.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ORI1kCjs"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DAA201595;
+	Wed, 14 Oct 2026 04:27:31 -0700 (PDT)
+Received: from gaia.lan (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D5AD33F673;
+	Wed, 14 Oct 2026 04:27:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791977255; bh=zuv6pOOWeLAKZmBd8Ansq+o08TNWLk8Kd2TVb0TmpKM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=ORI1kCjsFOhguMPKfDxA3H0tlWs6BladvmHWBa1oKwZrm/ardftjBtzcb+3SLZjDh
+	 zGp+h0d/LtL+UlmLz07uvvInVHM5aiXUQacSJus7c5+A2FkbeQ/lAqmUbJoq9BlycI
+	 6Ol+kqlswpmnOCOMwWh1u65eBjz0gDe5e1jllucU=
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Kohei Enju <enju.kohei@fujitsu.com>
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Sami Mujawar <sami.mujawar@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	"Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+Subject: Re: [PATCH v2] arm64: rsi: Correct type of realm_config::hash_algo
+Date: Wed, 14 Oct 2026 12:27:27 +0100
+Message-ID: <179197724762.2616400.14263026474127319284.b4-ty@b4>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261014-cca-b4-rsi-fix-hash_algo-type-rebase-v2-1-6cb0ae13c8c1@fujitsu.com>
+References: <20261014-cca-b4-rsi-fix-hash_algo-type-rebase-v2-1-6cb0ae13c8c1@fujitsu.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261013-media-starvis2-v2-8-3670722d250a@raspberrypi.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 13, 2026 at 04:17:07PM +0100, Dave Stevenson wrote:
-> +      - items:
-> +          - enum:
-> +              - sony,imx675-aamr
-> +              - sony,imx675-aaqr
-> +          - const: sony,imx675
-> +      - items:
-> +          - enum:
-> +              - sony,imx662-aamr
-> +              - sony,imx662-aaqr
-> +          - const: sony,imx662
-> +      - items:
-> +          - enum:
-> +              - sony,imx832-amr
-> +              - sony,imx832-aqr
-> +          - const: sony,imx832
+On Wed, 14 Oct 2026 11:43:23 +0900, Kohei Enju wrote:
+> The RMM specification defines RsiHashAlgorithm as an 8-bit type, but
+> realm_config::hash_algo is currently declared as unsigned long.
+> 
+> There are currently no upstream users of this field, so the mismatch
+> does not cause an observable issue today. However, a proposed series
+> adding support for Realm measurement registers uses this field and
+> exposes a bug caused by the incorrect type.
+> 
+> [...]
 
-Please keep the list sorted by fallback compatible.
+Applied to arm64 (for-next/smccc-bus), thanks!
 
-
-Best regards,
-Krzysztof
-
+[1/1] arm64: rsi: Correct type of realm_config::hash_algo
+      https://git.kernel.org/arm64/c/c83237edf0ad
