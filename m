@@ -1,175 +1,257 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3109653ED04
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:05:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB5FB53F69B
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:05:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791986718; cv=none; b=ErbqFD2hRFqL6YEuMmNSnkjSqLqJa7mP3IIXrmE7Y+lVk9c64cT2jRII4HGXGoxm6klRO/IfHiLR6aUXiefUu4zy3YfVTtiKdJ2K01vsDIASj3lkm+iuFXeyt2g1qKfjHGHVQ/aLenyLsq6KoeToHhJEczdJRnQ9urpgJSyeDbw=
+	t=1791986721; cv=none; b=gj7fYSyUKzbSUTcKndTadRufar5bfNZkOf7TIXLjNvmAWr5ewHBWjQgEXwr/HanuLfQXZ50GAJ0+Flz4CcMigo25aoEDnTduei162aGEpi95WRsJ+5ZkVSovkfHD7BgjYfKlThAQTsHazYsy8A4J10SMFbibGw6wGP8oKd5aiTc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791986718; c=relaxed/simple;
-	bh=on2PEhB3zQq1g4jTu3KddnrV7cQSAaGoMUS/teguhck=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Z9catMvggcbfewC87kFGeUc/xagFThGGi03sDZ8Rx4YFLDBSz6YEfpN6smxT96gI5HsPPWZChUUeI30fWGiW122Wp6h1VSGhSF7QAXY/C5ezFRNc9iDyt5nqLZ+BrPVBkiU9Uq9x82zTJU/N1rZ49FRSSyuLQx3IWChKqV252Ao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=H4YyJgJC; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Gqm+93QL; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791986721; c=relaxed/simple;
+	bh=BcS1DfKG3o26wsOhDMqs7ZNTVdrEU4sz2ASwsqj0Eoo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ElkmuC7hTRw3o013jYH3E+iocEW4yqEStpWSI7bg9i7bUCTLLqipgZvXD/XU+uDj/WMrmwZML721WDMIPnHWY/POOLaAXp1T1Nmhz3kqpuugTK/99Pfm0uTW4tml35ai0+PsAmzo2jA79/fsLLybBUKExzkeUNe846ev4R21OxM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=0XvkIx6Z; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=P0oixPkI; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=0XvkIx6Z; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=P0oixPkI; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="H4YyJgJC";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Gqm+93QL"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69ECBcSd2088021
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:05:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	DXB1+owYQBBqW88XzzY6K4eceuh+GlN0C86aFl0rv78=; b=H4YyJgJCbnABl9nz
-	FmZ7sqPp+0OU5N0uI4WwVsQ6BxuZtcWiYZwgKoCwW9E/5flb+LG/sKBPnUMaNxGb
-	7MiUv6vxm7rrJbssZja31V8RfPFlrQZnt4pmlMul6VixjbYUpA0WzmfXSmxssXsH
-	GexKlSPHb4hhG/zIxIejefUy3VlURerLDXzfPEfZFE6w+E8ycwFaDDvZSLAq7tVz
-	Ph5zbELPlNS8yM7v3qB2/zxDXe08DKhDLq2hCDYVlbcyt4Cx01KAMKto9sft7DEG
-	ZNjw1b90zrQdHjUPewyxunuqZJHwgsqSU4Q9iiHBK/BDfDVeL7xKFNUXBM0H/+jz
-	QAPAzA==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9x49k7as-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:05:09 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93ea8a9cfe6so64603385a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:05:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791986709; x=1792591509; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DXB1+owYQBBqW88XzzY6K4eceuh+GlN0C86aFl0rv78=;
-        b=Gqm+93QLsvhXkJGzpMiguhMUoOOWRp47JkJb/vPHAmMuqVmorC5sjrbFdCBfaRWp3i
-         5yh6XyFHB01QIV/05mexdANyKCBPLA3hyh7kF2udnQP9kH7v94z6GEamTe+RuzwNrY59
-         e7MRyGo9tjbVFHTp+LloYaLEvQAFqFbN8wvMbgUxV5I+gj8KoqFhNOZOpcS7pGKl351A
-         MfroU84up89C1p8xQ13PbqfD6m5h1mSgva89+GPg+CicaxXavVZJoxQEAaR87Mq1V7B3
-         QXmo6aACGyekZVhW/EBQ+2QCp/ur3XzpfVn37YrnMedZRgj6DlKE2I6m9Fa6GewkYw1Q
-         5I9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791986709; x=1792591509;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DXB1+owYQBBqW88XzzY6K4eceuh+GlN0C86aFl0rv78=;
-        b=JJaMbjmMtvJpSSQL5r/30tLPN4+w4a4kUCEJg68yY0VJ9Q9HiwU8c/BiCnXHegwJa9
-         7dPsnnlfJPshomildjfXNdeDhoe+WU8vH21C153bLcEwu+s/hQogVBD7pvbjOon6qIYJ
-         gkNgBS3V+P6j7ex8KKlGdBG+KyMr3DcYgMxzzwL7/EAf0/nTCLEW56q5DBNsWrRIk0Ro
-         Kupbu8RO64tnTWwu6NwcjzfjtuibuV8agqfyprx1ABnutEYf3zdifbXPLOmGomZQwbFD
-         PzgyJRKiYFsfImWzvC0kZ8/ElUM4O3P2sB4SYyjie0hwkdp8KOyDtWhP3Ln9VU6X19Ao
-         pEpg==
-X-Forwarded-Encrypted: i=1; AKwUvByIV9CaHpfEkIFd88OJ2yds9a8szWnfCAnbE4TFf3lB+L3LYGKUb6tFSpB+I+c6vYNKEGVccFlJtEB8UeI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKCAfE0BiDt7zD2SkU6LAGroUZX1seFaB1n2I4xqOhpJIPJykc9
-	Hn04FOrF0P+mm7Hy4cxOxKvupxCrvPSGQ3DMrHra7hU/VOzQVzOop7aEcqZVcCEDY5pBQseK6AI
-	JB230ijraI/lCGlXNypkFNknSfCUXaxn8MucWc30YhJTsBsRuhdYFiMlDkc0vU+Naxq8=
-X-Gm-Gg: AYBFou3j2vQcabNlXKA/h2sR5KnY20q3GckMMHAGVbxpqmovYPUhAT+N6RxS99D+sZz
-	Z00swtgswH7hapPRRKhD3GyezGfb6CUtcBu/Ucrh7V3xeaWSFo7ItbRhcF/ul+QV3ZSEBmbFlz9
-	WE7ZJhrOyuwbq8NncJ40bHJQqOUAfUmcUsJdDMavkkqvH671D9oX6ECrJqORllAtSSSqudg4cyY
-	aYwYlVW9Zm5b/3BA6b7GV3F05DVTHNF9koBL/VYiliHposuquCk08VDM5GSTuchj17aUFp+6NYE
-	C5AsErBY0CMeP6y4MplwV2ISA3pPVi2SrP5X36f56FF8dY+SiNHTUJJXCYulvItUKh7bZiwLqna
-	Ddr+NqPCXEEccnzC1AVVYeQ==
-X-Received: by 2002:a05:620a:6498:b0:93e:e111:2771 with SMTP id af79cd13be357-93ee1112d0cmr1775884785a.2.1791986708876;
-        Wed, 14 Oct 2026 07:05:08 -0700 (PDT)
-X-Received: by 2002:a05:620a:6498:b0:93e:e111:2771 with SMTP id af79cd13be357-93ee1112d0cmr1775875785a.2.1791986708169;
-        Wed, 14 Oct 2026 07:05:08 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a9c6805985sm38426281fa.2.2026.10.14.07.05.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 07:05:07 -0700 (PDT)
-Message-ID: <11f513bf-fdc1-419d-8eb6-5cabb6220fbb@oss.qualcomm.com>
-Date: Wed, 14 Oct 2026 16:05:03 +0200
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="0XvkIx6Z";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="P0oixPkI";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="0XvkIx6Z";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="P0oixPkI"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id B7CF31FBB7;
+	Wed, 14 Oct 2026 14:05:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791986714; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/jzBRIumIkRQfzVUhv0b17LsLJAndLvzauLlUMqudqo=;
+	b=0XvkIx6ZsNBk27nnMlmBbhpsARlPLSs0NpDQW1OdCoZlEvkpBwC54O5c8HO89zXv4r0Wq7
+	6pv6mvgjrOXNpGCJtc+PwfkpvO88lEU99z82bAupoxafwV9RXr7eLERl1BJwIbon4nnVUn
+	tbSeNEue0lx7erI1P59EhziUN1zsSBw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791986714;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/jzBRIumIkRQfzVUhv0b17LsLJAndLvzauLlUMqudqo=;
+	b=P0oixPkIAon4rHjZ8LShiwbrjZxTnqzwWCZVGCVSGljNzBfFZZTySaPpQrPhuFOyybRf0h
+	WKgb27CyPPea8VAA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791986714; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/jzBRIumIkRQfzVUhv0b17LsLJAndLvzauLlUMqudqo=;
+	b=0XvkIx6ZsNBk27nnMlmBbhpsARlPLSs0NpDQW1OdCoZlEvkpBwC54O5c8HO89zXv4r0Wq7
+	6pv6mvgjrOXNpGCJtc+PwfkpvO88lEU99z82bAupoxafwV9RXr7eLERl1BJwIbon4nnVUn
+	tbSeNEue0lx7erI1P59EhziUN1zsSBw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791986714;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/jzBRIumIkRQfzVUhv0b17LsLJAndLvzauLlUMqudqo=;
+	b=P0oixPkIAon4rHjZ8LShiwbrjZxTnqzwWCZVGCVSGljNzBfFZZTySaPpQrPhuFOyybRf0h
+	WKgb27CyPPea8VAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 66BEA133F1;
+	Wed, 14 Oct 2026 14:05:12 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id au8sMReMz2qmZAAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Wed, 14 Oct 2026 14:05:12 +0000
+Date: Wed, 14 Oct 2026 15:05:10 +0100
+From: Pedro Falcato <pfalcato@suse.de>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>, akpm@linux-foundation.org, 
+	ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, 
+	surenb@google.com, mhocko@suse.com, qi.zheng@linux.dev, jack@suse.cz, 
+	ayushr@modal.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] mm: memory: fix truncation removing mapped folios
+Message-ID: <as-L6bGPpGRiF4-Q@pedro-suse.tail5790ac.ts.net>
+References: <542c97482eae84f86704bcee56482633d1b32321.1791616645.git.baolin.wang@linux.alibaba.com>
+ <8245424a-f068-4be5-9e58-713cbff1f8ae@kernel.org>
+ <405811f5-ee36-4b3c-80d0-7dc6827ab5d4@linux.alibaba.com>
+ <6660d3bb-3485-4c34-8734-3ea99df920f1@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 5/5] arm64: dts: qcom: glymur-crd: Source MAC
- addresses from a UEFI variable
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Marcel Holtmann <marcel@holtmann.org>,
-        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-        Jeff Johnson <jjohnson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org,
-        linux-wireless@vger.kernel.org, ath12k@lists.infradead.org
-References: <20261014-b4-nvmem-efivar-v1-0-187c85f65018@oss.qualcomm.com>
- <20261014-b4-nvmem-efivar-v1-5-187c85f65018@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261014-b4-nvmem-efivar-v1-5-187c85f65018@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=YJcKWhGx c=1 sm=1 tr=0 ts=6acf8c16 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=jRqq2JA-ig1rCJpZVWcA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA1NiBTYWx0ZWRfXwgMdaHbH1M/O
- ELprO+7hUKuUjAHzHcG09wmEU8XSbLpzEJK8wpv1RMa3P5lPmKesiiFCUvw/Rg4zszRlL3Y7+TL
- E8EyiW2arVULyUR8rPKicfqn6XDsR/eZXNhKKjaUdHH/Kie1kq55pou2PdMcYWK6ZHaGOCulAkv
- nJisD7x1WUR572e9GugXiv3ATtL6OSag4D12OWXGVgQY/lRzXvwX+wsprVDnpsFxdcb3Mt7D82o
- +ygHgYwEGhON2ExqeZrNlJhRcu2JxeKlc6T+/hV4DXrljSdgLucHnt75YqZ44qXPE+ErpWnKcT+
- PpLpRX8itRXjNdIm7eW0xk+vyKey7S7ZPO2jaIY63qwPnSayvqtkRNlnaolxjlg2P6KvkfGyDe1
- wwSk6gWhBH/naC6t2c62rbhmBAdgrw==
-X-Proofpoint-GUID: 3oEz9LQ0bCQjFXnPOOEcQxBUwa4d1PK4
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA1NiBTYWx0ZWRfX8+woU8epwmgW
- d6cqjzlwpYkjYmZVRiwD2+4FLZkJVnbiShdXcuBjYJx8/ZL9yvrYiINu4bgYzmupMrnCsGLppPn
- FGwpmfVme1CuGa4xH1vefXGMwf8IdJg=
-X-Proofpoint-ORIG-GUID: 3oEz9LQ0bCQjFXnPOOEcQxBUwa4d1PK4
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0 spamscore=0 adultscore=0 malwarescore=0
- lowpriorityscore=0 bulkscore=0 classifier=typeunknown authscore=0 authtc=
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.22.0-2610080000 definitions=main-2610140056
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <6660d3bb-3485-4c34-8734-3ea99df920f1@kernel.org>
+X-Spamd-Result: default: False [-4.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -4.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-On 10/14/26 3:02 PM, Abel Vesa wrote:
-> Add an nvmem-efivar provider exposing the "MacAddresses" UEFI variable,
-> carrying the Bluetooth BD_ADDR (bytes 0-5) and the WLAN MAC address
-> (bytes 6-11), both MSB first. The variable is looked up by name, so no
-> vendor GUID needs to be hardcoded.
+On Wed, Oct 14, 2026 at 03:25:33PM +0200, David Hildenbrand (Arm) wrote:
+> On 10/13/26 11:36, Baolin Wang wrote:
+> > 
+> > 
+> > On 10/12/26 6:23 PM, David Hildenbrand (Arm) wrote:
+> >> On 10/10/26 09:22, Baolin Wang wrote:
+> >>> Ayush reported an issue that shmem/tmpfs folios are still mapped when
+> >>> truncating them on production:
+> >>> "
+> >>> BUG: Bad page cache in process ...  pfn:...
+> >>> page dumped because: still mapped when deleted
+> >>> "
+> >>>
+> >>> I reproduced the issue with Ayush's reproducer [1] with the latest mm-unstable
+> >>> branch, and I got the following crash info. From the dump message, we can
+> >>> see that truncate_inode_folio() is really trying to remove mapped folios,
+> >>> which is incorrect.
+> >>>
+> >>> "
+> >>> [  189.171977] page: refcount:3 mapcount:1 mapping:00000000fe168ee1
+> >>> index:0x3880 pfn:0x191647
+> >>> [  189.171995] memcg:ffff0000cc073d40
+> >>> [  189.171997] aops:shmem_aops ino:3c01 dentry name(?):"memfd:runsc-memory"
+> >>> [  189.172006] flags: 0x17fffef0002022d(locked|referenced|uptodate|lru|
+> >>> workingset|swapbacked|node=0|zone=2|lastcpupid=0x3ffff)
+> >>> .......
+> >>> [  189.172017] page dumped because: VM_BUG_ON_FOLIO(folio_mapped(folio))
+> >>> [  189.172026] ------------[ cut here ]------------
+> >>> [  189.172027] kernel BUG at mm/filemap.c:155!
+> >>> [  189.172057] Internal error: Oops - BUG: 00000000f2000800 [#1]  SMP
+> >>> .......
+> >>> [  189.177721] CPU: 3 UID: 0 PID: 5521 Comm: repro Kdump: loaded Tainted:
+> >>> 7.3.0-rc4+ #277 PREEMPT(lazy)
+> >>> .......
+> >>> [  189.183986] Call trace:
+> >>> [  189.184124]  filemap_unaccount_folio+0xf0/0x1e8 (P)
+> >>> [  189.184391]  __filemap_remove_folio+0x34/0x160
+> >>> [  189.184633]  filemap_remove_folio+0x4c/0xb0
+> >>> [  189.184859]  truncate_inode_folio+0x34/0x58
+> >>> [  189.185087]  shmem_undo_range+0x220/0x658
+> >>> [  189.185308]  shmem_fallocate+0x2f0/0x470
+> >>> [  189.185527]  vfs_fallocate+0x128/0x328
+> >>> ......
+> >>> [  189.187078]  el0t_64_sync+0x184/0x188
+> >>> "
+> >>>
+> >>> After analysis, I believe the race exists between truncation and MADV_DONTNEED,
+> >>> and shmem's ->map_pages() merely makes the issue easier to reproduce. Since
+> >>> MADV_DONTNEED synchronously releases the pagetable page before calling
+> >>> tlb_flush_rmaps(), this could cause another thread's truncation to skip
+> >>> zap_pte_range() (due to pmd is none) but still observe the folio's mapcount
+> >>> as non-zero. A possible race scenario is as follows:
+> >>>
+> >>> CPU 0                           CPU 1
+> >>> shmem_fallocate                 madvise_dontneed_single_vma
+> >>>    unmap_mapping_range            .......
+> >>>    ......
+> >>>    (filemap_map_pages() remap folios)
+> >>>                   zap_pte_range
+> >>>    truncate_inode_folio            zap_empty_pte_table(pmd clear)
+> >>>      unmap_mapping_folio
+> >>>      ......
+> >>>        zap_pmd_range (saw pmd none, skip)
+> >>>
+> >>>    filemap_remove_folio
+> >>>      BUG_ON(folio_mapped)
+> >>
+> >> That reminds me of sync_with_folio_pmd_zap() usage in page_vma_mapped_walk().
+> >>
+> >> Isn't that the better approach?
+> > 
+> > I had considered this approach before, but it is not feasible. IIUC, the
+> > sync_with_folio_pmd_zap() is used to address the race with zap_huge_pmd(), and
+> > both the PMD clear and the folio mapcount decrement are performed under the PMD
+> > lock in zap_huge_pmd().
 > 
-> Wire the bd-address cell to the Bluetooth controller and the mac-address
-> cell to the WLAN endpoint (pci17cb,1107) via the standard nvmem-cells
-> binding. Until the variable is provisioned the cells read as zeroes and
-> the controllers keep using their default addresses.
+> Just to be clear, I am thinking about something like the following on the
+> zap_pmd_range() side:
 > 
-> Assisted-by: LLM
-> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/glymur-crd.dtsi | 22 ++++++++++++++++++++++
->  1 file changed, 22 insertions(+)
+> diff --git a/mm/internal.h b/mm/internal.h
+> index 38b1165212c94..a8820ad7e2f21 100644
+> --- a/mm/internal.h
+> +++ b/mm/internal.h
+> @@ -584,14 +584,15 @@ void free_pgtables(struct mmu_gather *tlb, struct
+> unmap_desc *desc);
+>  void pmd_install(struct mm_struct *mm, pmd_t *pmd, pgtable_t *pte);
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
-> index 58158b51fe29..2dd09ab1d550 100644
-> --- a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
-> @@ -31,6 +31,22 @@ chosen {
->  		stdout-path = "serial0:115200n8";
->  	};
->  
-> +	/* BD_ADDR and WLAN MAC from the "MacAddresses" UEFI variable. */
+>  /**
+> - * sync_with_folio_pmd_zap - sync with concurrent zapping of a folio PMD
+> + * sync_with_folio_pmd_zap - sync with concurrent zapping of folios
+>   * @mm: The mm_struct.
+>   * @pmdp: Pointer to the pmd that was found to be pmd_none().
+>   *
+>   * When we find a pmd_none() while unmapping a folio without holding the PTL,
+> - * zap_huge_pmd() may have cleared the PMD but not yet modified the folio to
+> - * indicate that it's unmapped. Skipping the PMD without synchronization could
+> - * make folio unmapping code assume that unmapping failed.
+> + * zap_huge_pmd() or zap_empty_pte_table() may have cleared the PMD but not
+> + * yet modified the mapped folios to indicate they are unmapped. Skipping the
+> + * PMD without synchronization could make folio unmapping code assume that
+> + * unmapping failed.
+>   *
+>   * Wait for concurrent zapping to complete by grabbing the PTL.
+>   */
+> diff --git a/mm/memory.c b/mm/memory.c
+> index 8b0c2c735d3de..c585f5eb255c9 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -2139,9 +2139,7 @@ static inline unsigned long zap_pmd_range(struct
+> mmu_gather *tlb,
+>                                 continue;
+>                         }
+>                         /* fall through */
+> -               } else if (details && details->single_folio &&
+> -                          folio_test_pmd_mappable(details->single_folio) &&
+> -                          next - addr == HPAGE_PMD_SIZE && pmd_none(*pmd)) {
+> +               } else if (details && details->single_folio && pmd_none(*pmd)) {
+>                         sync_with_folio_pmd_zap(tlb->mm, pmd);
+>                 }
+>                 if (pmd_none(*pmd)) {
+> 
+> > 
+> > However, the race here is different: tlb_flush_rmaps() is under the PTE lock,
+> > while zap_empty_pte_table() is under the PMD lock, and reordering between the
+> > two functions is also possible. That is, the folio mapcount operation could
+> > execute after the acquire barrier (spin_lock()) of zap_empty_pte_table(),
+> > allowing a reader on CPU 0 to incorrectly observe that the PMD is none while
+> > mapcount > 0.
+> 
+> I think we really just have to make sure to flush rmaps before zapping the PMD.
+> Then it's really just the same thing we had before with sync_with_folio_pmd_zap().
 
-Let's drop this comment and sort the node
+Hmm, could we viably replace sync_with_folio_pmd_zap() with the memory barriers
+instead? Seems lighter-weight and functionally equivalent?
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-
-Konrad
+-- 
+Pedro
