@@ -1,238 +1,226 @@
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013021.outbound.protection.outlook.com [52.101.83.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F899559CA1
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:36:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.179
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791992172; cv=none; b=aRbjSiwaEjQVUzVW/qvtQEGffCY9jGWwTUcI3Fg2gaMfk790AUCa4HsnI5cT8qaybGpUdPStB/eONj7gAyswpj0MtKxXXkhJumdwxmWLoLl8XNAOeFqjxGyDUa14hZlXZ2/A6T8pQsRR6dgNWo0H37KsjbpDwaYQaT+6uEPKM4w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791992172; c=relaxed/simple;
-	bh=PYDJwu5N8INu3IwpBcVDaWqMzao/rXbPSaTI4lABlIk=;
-	h=From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References; b=QfcFSqpeIjQa0U4fa4fOvhOB+Xdc2Ssri7L5Vr5orVjGjSXV7lklBfMSSP9ebQrf81HLs14AHtd7yLTwPHvDKnXGBf2p34oZYOch22BIEbb+G868dBmGkWyEXaoqyabNtdnMHbfyy7OD9QAcHZRLt0m8mvDJ1VKXzP5iuO9OODU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZzGCBKq0; arc=none smtp.client-ip=74.125.82.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87D2F5218BB;
+	Wed, 14 Oct 2026 15:36:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.21
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791992204; cv=fail; b=hLopLBykYootAty6q3Z4CX5GHFZYvsNTpEMU3YlBd3GmzftZ+JDOV0VUzG74rrvqhDqACwXVODBj7m7zgDk6cH0IDhrdr7dV3+fD3KnyKalpslAlO5F7vHMXFHnnQH5+uYSvKl6+LuedzjucMTSirEQLboRhhUloAgQmliGWbNg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791992204; c=relaxed/simple;
+	bh=foaSvrziFs3RHazpDrhcaqUu9rpRniwHJ5fDF8VzVV4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=B/2fQLYvHPWN8YEK9p4v6FS/VhBPk7B7GMx68Nu8HYG4sGEIZNgmrebPzAnSNSTnLrkjmkxFEmHFGNkjADw7cy97X6yR5N8S9NJw4VwM8lzcHgmchVkqVBLQ82Rf1jt5oB//67dokXDMYyPAJmL6NEqJIHASFfpg7xYatfWdyQU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=OirsuTVa; arc=fail smtp.client-ip=52.101.83.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZzGCBKq0"
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3550c917fd3so1544829eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:36:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791992168; x=1792596968; darn=vger.kernel.org;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=qA6YOwaVdkDe5WPMOWVzqY8zBl+ZRCOyb3XB7KK+18Y=;
-        b=ZzGCBKq0/9dWK9oVIpeCFK+54AUddga3xwAnNuUZKduNWQtn2fJ4opSpHo4JX+4s5U
-         ZWXZLvzpFTZUKwrQkAs4xGygG5WntDLddZXVQNHplBVm/6WYyhVz2bNxXfXXdXgfGyEt
-         9KweiO3cgB1+z2vw1+597htaonmJ+sHuprytgwEgxOeYjpShqXOkks/161+Dx3Z+6KxV
-         thvEoinnUdS0A8aw18aY4Z/cHnZQd6h5FQdt+bKoRDqj3INYNRVzqdLCNjCs9mhd9MAl
-         nBukhdcnWlCNMWZHNH8rpiM7KINIj/MIhPzdkf8XP1i020k4tM5gewAjSVyIbDf+sC4h
-         dK2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791992168; x=1792596968;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qA6YOwaVdkDe5WPMOWVzqY8zBl+ZRCOyb3XB7KK+18Y=;
-        b=o3oncRLeyev7HsFC7G9oqSkktLQ1OBYDcHk9XWDfcUsUU4dPA4qnRl/Pbw0O4b+q+k
-         fRdvs2/HkJxYl2yGZ8N7KzAbVK/6og50Gx2XsRVdtJXh+GmDFldbzxBJI6tOyxiEWlBo
-         iQ3faNbxQorHizrP+NrTSmxULaG9xm9dKFnq8CYj4metkOYqYRr0G2M0EtHQ2U3yVryU
-         v/hUb1/CZeBXV8r1YOhxFlytUIihKQYwrNZd1uY14D1Irr5mOAL5qbTsBO2bBD25zMmp
-         WudqVQUYzWDxi/c8/FEEni2AaFSv0/l5kIkTFBtUqg+vYCdODl0wxl2BwFumBW4cj1rm
-         7lfw==
-X-Forwarded-Encrypted: i=1; AKwUvBydg874i+6VynHKnkVaEgPhctawlHbN9YVOE/8pgPXdK6s+vLSVRjjqM6nZC3dQqz8xyGcPl02Ngtsfh30=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJQanT3kAfjUZMZiIcCerCIqVDZ+MQw9TLESDSWpz9dX+BxsESY
-	X5ZWtpm6bJBO96Ymj+7Yhy5YLGT/fUO6Sczf9uadaPBKIBDsDp3x3IWd
-X-Gm-Gg: AYBFou0G4xFESnIJpaoIhJW1nT8lVUVrY1czQzP9OqBJMXoQPfMCsBsUv8hKHwnoTrf
-	eZSj/OE1KjFDqb+kUd10D9YRdE9d2yDhT/9bF7PKKAo48D5VDJDFvL1U4HtLdVO3jVJhRn1EOBr
-	F9WJl/txC3u6VybBLYVk3WGevHZUwTxofiqWVoBDJL5d134XUz3aH58PFsjl/VUrR19aN2dWmCE
-	7EQkqwqlQlLzm38vGgsRhbs39w8N2gs5q9+j3GwNdgnfEIN45OgUp8bE63rWfrKWZArCKMQCu18
-	nAw/9bl3M8R+HNZMT4d79k7FwwQPwyJ0Pv1CUYYf+QZ8FkjU8fbxVxvJfvHRTRNc65Ng8P20j0h
-	cfWigAUzRLA/Qm+Aj/TnBEsf0e640b1jOJ1yX5dNJlIE5mcGAPiBVfpt5o2OPQm4U8IEditm2TB
-	OtdyJgdaFncLVCnWzJAAEwF2FeVMRDLEG59YV2rB8GibgWiwpR2fg4qi8lM9sw+asPMEkN
-X-Received: by 2002:a05:7300:e9d6:10b0:359:bdc8:c9d5 with SMTP id 5a478bee46e88-359bdd83104mr17479248eec.21.1791992167458;
-        Wed, 14 Oct 2026 08:36:07 -0700 (PDT)
-Received: from pve-server ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca6d20dsm58172660eec.12.2026.10.14.08.35.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 08:36:06 -0700 (PDT)
-From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-To: Muchun Song <songmuchun@bytedance.com>, Madhavan Srinivasan <maddy@linux.ibm.com>, Mike Rapoport <rppt@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>
-Cc: Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>, Shrikanth Hegde <sshegde@linux.ibm.com>, Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Qi Zheng <qi.zheng@linux.dev>, Lance Yang <lance.yang@linux.dev>, linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, Muchun Song <songmuchun@bytedance.com>, muchun.song@linux.dev
-Subject: Re: [PATCH v4 0/6] mm: Unify device DAX and HugeTLB vmemmap population paths
-In-Reply-To: <20261010075755.83339-1-songmuchun@bytedance.com>
-Date: Wed, 14 Oct 2026 20:19:23 +0530
-Message-ID: <wlrkqqvg.ritesh.list@gmail.com>
-References: <20261010075755.83339-1-songmuchun@bytedance.com>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="OirsuTVa"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sBKVZo2qZ2HZvKJEHg3ahMrc7tLHmnVLFdzDnun0M27ntYSJgRgzJ/frsIwal4TP3qA1gVfzjPq+boGwH9ooMjMDWnn9W5H32YJxjy1UHw5O55zSKYosZe6aAAe+ah2X3OXoq8RIYU8KFI84Wp0eNP9+Pq4DDFG1zrQEsqarUDIwPQDjG6im3gwsDxWo9T9z9sJxh6h9F1j1tRxoyfNhtGYmiqOK59PRDsSJVHUE9UE9KKnG8oc3pzdrSoWlcX4rr7Bx23WfHCc1KiX7CAORsIX8BoAjYI5sSzkM+OjEFN77wiH44Wl3CfJOCfDs9tWF1L6sbzfRLeVYgr0lDEVD8Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=K2zCj8zlMVSrkiC/oNIwRd5jNwLN/is3/Bpmoy3C47g=;
+ b=yJGURvmwegdfvoVFxC10YKrdI2khfay1o/qpYo1YS3q0AUtoDJrt8um4R7mhLmJyl8JsZXDqaKUiQSjOBfvGesuruGWI6PbzzfItui+iPY6BDQ6GkCn7OqOYmzaLiXKTqIymEIPPJgwd+WW3TePh5/iwbil8+iBkg1xIq5mGBIiApy+g7hLbAwHbINs9/aMCopgYxjxVJK+00+c3Jn7HWC4ehBMCDExyKPMx9ZL4+6Za5a/zlx5Qz/lv7lPc+aj5AnICWAinXO6mhMM0woaP3LH0cUPSedBUbryxqIveyURBT+Cb33XNdRojFuReIvyYrciJs1FCm3+JIsTqPShU7Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=K2zCj8zlMVSrkiC/oNIwRd5jNwLN/is3/Bpmoy3C47g=;
+ b=OirsuTVav/Y/DGc0fOOXJk6kdSDRMRpyatBYeNlAH+r9jywBk3VGOY6yQ/ff4PTPzkMPFMpKB8dQEDSpM8p3SVuQcFeKqZo/5KLb0BysZId4F6CgF99Ha3lQ6UMdntCEsfgYpQlZZLmU3+//HbJyFtUwxqAhET+pILN7+DDIlUR9qLUzuMyUPdRMb7qbh+xp/adJMDYt0FnS02vRT3Z3+fMSZAnRCRP4CgCQ3peijJen+I8JsEzqnGzGo0Cn/wD16yAh1yiBv//2f8PHQIZ/0yNlUKk5A7AFPRho4JGzAlsB00wBZe+Z6/soU9mbdKO/dhArFlM4qMVKi5ZpC8gNKQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AM0PR04MB6932.eurprd04.prod.outlook.com (2603:10a6:208:182::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Wed, 14 Oct
+ 2026 15:36:37 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0522.012; Wed, 14 Oct 2026
+ 15:36:37 +0000
+Date: Wed, 14 Oct 2026 10:36:25 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Leonardo Costa <leoreis.costa@gmail.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Francesco Dolcini <francesco@dolcini.it>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Leonardo Costa <leonardo.costa@toradex.com>
+Subject: Re: [PATCH 0/3] Add VGA support for Apalis iMX6
+Message-ID: <as-heYw7PKLPm3yH@SMW015318>
+References: <20261012-v1-apalis-imx6-enable-vga-v1-0-8905d8746504@toradex.com>
+ <20261012164054.GA56180@killaraus.ideasonboard.com>
+ <20261013090631.GA33628@francesco-nb>
+ <20261013111158.GG56180@killaraus.ideasonboard.com>
+ <druavdvcgm3rljk3mhano3o424xyelupmcz7kbzguuljdsungx@xuj2ovbvz654>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <druavdvcgm3rljk3mhano3o424xyelupmcz7kbzguuljdsungx@xuj2ovbvz654>
+X-ClientProxiedBy: DM6PR07CA0091.namprd07.prod.outlook.com
+ (2603:10b6:5:337::24) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM0PR04MB6932:EE_
+X-MS-Office365-Filtering-Correlation-Id: 99fcc377-c82d-411e-20b1-08df2a08ef2e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|366016|376014|7416014|19092799006|56012099006|11063799006|4143699003|261009223027099003|22082099003|10067099003|18002099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	METUsq93XjYVnfaItmIrREQQwjZ5ONSBvV7WWIhaYR5iCtMedD1/FSPPgYjeocx4wdyuEoIAPiGc0WcGMr6OUktMKlb8sGSsGEFPaHDIaqeZuPLVNtGwDjaXuQDTWsrvuQ3rASGY4ER851Uz8G2BWPQlyZzHJ+MuwaJo9oc92fLg6zYgg+i36HS9tY28ZcUbK72iTESv+RarDbY7TK8N8j2gpKOuifb37syynPmJ7UEaUDuRV2gLmxu/Cq/Nt0O38catk046FPDoF47+PuCxffTqQyC6w88R0viB0fH8M9niisf73ogldOR/zZapWLP4W1pUeFvnpCGrYYkM5YCcUYj0/wdCZXH4rMyF5+SeFY4EsUwUKIU5zJidf1ipkvMU734glJl3X2u2ILrsczAZtodFUl7xF1PEK/BzlTA4GHu1px5/jFYWPrpYf753l2nNkUp2zZH9ZJrW8ODuVQBRUen0ftZCjD5aPrmul7L98NKsTbX2c93iX/L03LwIv3P2L2gt2h1qJpvZA5KbCsT6JeJS9PvL/YGQyYEpHL1puilZFnkeYYFEQ0yA2QnYlqEAHFSQRUhBHnComiBVJzb/69BK6UG3z+HlFXLAU+dx1Qw9vHFMmfaGcBBoP9mPGWuCf8CxVdYQUL3Hc/dQZKzviFSQwrmHOWAtrWg4J3DP5n0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(7416014)(19092799006)(56012099006)(11063799006)(4143699003)(261009223027099003)(22082099003)(10067099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?+Cea8tcqfD1VXBaAvDCQLmaj3qMn1GfyUioxiKbLeHjdLpsXT/qEzWcPF2az?=
+ =?us-ascii?Q?KbPAsunGgkcqpGjZi3SHPsncbrf9XPcojDCO5tvcNYkCgcfeIxaCprSFLgbZ?=
+ =?us-ascii?Q?fnZOGPCOgpLgH9U1YzuhbEMei7IYrg5xY8vzmKY+EYECkSd9QZbYybKxY6Rc?=
+ =?us-ascii?Q?audkI5nGlfx2+gDuQ7v0hnmB8aEfHzDs0I7nGVGtLXOH1C8dXhNWd6yVpPUn?=
+ =?us-ascii?Q?bUOouhIZ/QLldbBQJyzXeZ7BH5WjZX0hg3xOK2ApMeF4GCGhrylwLOO36CEr?=
+ =?us-ascii?Q?EU3RY0bB+7kIlmV9F83iQAHjpk0AwL87sP808knz9RHopuZkVWZDL8eerofo?=
+ =?us-ascii?Q?EVn4tRNdk+ZiR7LvGnxw0iXgdF/v/6TnPE/8HI6yCeayslGo6tpoDKEvh1hd?=
+ =?us-ascii?Q?vDzVzDC9xz0EG8Tz/VHDK5LbkRA/RSm3CYTEo7Oz6KEJp9YcElTZu8LdLW+E?=
+ =?us-ascii?Q?PiVnk8sz0krczpSyHfUDuvCazjqn8qFdvnrDSOe63WOwNtWTM6sjR6pqKMLT?=
+ =?us-ascii?Q?/Bvg5QemIhcu1anXvCSIyF3K7kjk90XBKl5928h9zToHMPmENM3/hBEcsG2G?=
+ =?us-ascii?Q?jQ1Lw790AxTwT9dEcW7WArk9fbTStoZXFwbP77/THgB7kBArI8QpQXJfG2La?=
+ =?us-ascii?Q?O4QnqNjHLlyN3JpmMVu/5O94uEKAt+rcQwPVavrB5jfl4FM++bx19gJMPIvL?=
+ =?us-ascii?Q?4BvNZMZlkGjlwg+XazhrCUszEXf8dapzVWWFQrMtEivCkuyCpSuLTOSb5HW2?=
+ =?us-ascii?Q?MT57NA7yrhB2yxLphJk3Pl6fbK89JBLA9Q6I5QwdJwUCgyWS0JrkSJ+hyTM0?=
+ =?us-ascii?Q?cvMNRrAUpj3SmR5IzhR5xyr8mH7qC2EmlnoQn1WAr9YJ5A8C+Q+zfvsiR5I6?=
+ =?us-ascii?Q?Vr6abtsHunxtR4a7/SEoYqv3E+zhOs4BDPacTuxhkwBBL+vE9R/FnVdogKQS?=
+ =?us-ascii?Q?ZhPqXUQ94kaSy5Yam098w86rD49bCNNwZZ0D3zjzB2nrO5/wYpCJzE8qmC7n?=
+ =?us-ascii?Q?ulV1ekhGev9DI9vu0tVVKODGHCASBHQB0oeAZEod2p2p7dh/TbllGa7RDOea?=
+ =?us-ascii?Q?5/pLo1FBfE2Z/tOh8Rtswzn67NYEzkJkKzHfReJ5Dtu0MyRyyyHnbAtatNtM?=
+ =?us-ascii?Q?RRGEFdmR3HsEVMLtGNmPPWx1Hr9s00gQldti95hto7SiZj2J9EoEBvH/R76r?=
+ =?us-ascii?Q?7Cj2HBjMBoc11r/YYYcv7s7Qg89dFOX185kpbTxtV2dB5VoSXWuUmEUzkomQ?=
+ =?us-ascii?Q?UAveManu0EArwGIZzMofCfmW/UFbC1Etxtbc/H4iqqXbMfC74n5ZtAojgcwQ?=
+ =?us-ascii?Q?zZUl48SWtgaQiS4mABJMnnPp4a59WkxAKvDvibnnC5a9qezoRpFzSWxAd0gY?=
+ =?us-ascii?Q?KZfseA+j3YtFAd610MK4Nx3IdxG0zbvPuE9J27MNX4U3UJ8vOJh9PsgGreLQ?=
+ =?us-ascii?Q?iGaODZl0CTD9aYM9LSmFvYWpfHH3F7XJdbdLyUJDFI326yGlWKPjjwvB4m/T?=
+ =?us-ascii?Q?xe/v9Biauf758WmAex30K0nvTJ70BX560u/8ndX/XY90rBz9nVj8kLb3O/79?=
+ =?us-ascii?Q?wYzQEb3EYVjUFDyMQD1Jh/zEOqbkghhUqI01euPc6lVwEj7rHyrjtorn3x4h?=
+ =?us-ascii?Q?U/JfnTFxy4q0TrEsXwiIv8avZOUXCC4LgbiPKSsIob8YPZ3/sgXym4/Wb7K9?=
+ =?us-ascii?Q?jHWSj/g+x0Lqs0BrqcBBnx/Z26uqmamcp4lFK5HcpyOcaxHJPYtlPZY2kz4y?=
+ =?us-ascii?Q?UZ8W6aT8y+e0QDGghNsbS/YUMNaiXfJPbhClkwjD6JbTqnanlo4R?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 99fcc377-c82d-411e-20b1-08df2a08ef2e
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 15:36:37.3468
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: N8GTFSY/GQkmI5Vdfp++S/ZIQJAtDHwB/Lijm/fBU4k+YHZK9gxiISTzZsDberYi2mPV6B9MXW9MkxJgV2RI7EQhIrL8TcHsN8V3w3s41HTl4Dp1X/9/RB3tmBwx9WTC
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB6932
 
-Muchun Song <songmuchun@bytedance.com> writes:
-
-> This v4 is based on mm-new commit d5207c6d152c, which contains v6 of
-> "mm: Switch device DAX to section-based vmemmap optimization" [1].
+On Wed, Oct 14, 2026 at 10:57:40AM -0300, Leonardo Costa wrote:
+> Hi Laurent,
 >
+> On Tue, Oct 13, 2026 at 01:11:58PM +0200, Laurent Pinchart wrote:
+> > Hi Francesco,
+> >
+> > On Tue, Oct 13, 2026 at 11:06:31AM +0200, Francesco Dolcini wrote:
+> > > On Mon, Oct 12, 2026 at 06:40:54PM +0200, Laurent Pinchart wrote:
+> > > > On Mon, Oct 12, 2026 at 04:25:22AM -0300, Leonardo Costa wrote:
+> > > > > This series adds a device tree overlay that enables the VGA output on Apalis
+> > > > > iMX6, which is driven from a parallel RGB interface passing through a
+> > > > > non-programmable video DAC.
+> > > > >
+> > > > > The video DAC is a simple resistor network gated by an active-low
+> > > > > data-enable signal. For the bridge to work properly, this series also
+> > > > > changes the following in the dt-bindings and simple-bridge driver:
+> > > > >
+> > > > > - dt-bindings: Add a new compatible for the bridge in the simple-bridge
+> > > > >   binding. This is necessary because the existing dumb-vga-dac compatible
+> > > > >   doesn't describe a data-enable signal polarity.
+> > > > >
+> > > > > - simple-bridge: Add the VGA bridge match-table entry and timings
+> > > > >   struct, setting the DRM_BUS_FLAG_DE_LOW flag for the bridge.
+> > > >
+> > > > Is there schematics available anywhere ? That would help reviewing the
+> > > > series ?
+> > >
+> > > This circuit is on the SoM, and the SoM schematics are
+> > > confidential and not generally available.
+> > >
+> > > I tried to extract as ascii art the relevant circuit, hope it helps
+> >
+> > Thank you, it makes things clearer.
+> >
+> > The circuit seems fairly generic. Wouldn't it be better to add an
+> > optional property ot the dumb-vga-dac instead of a new compatible string
+> > specific to Apalis ?
+>
+> See the diff below, this was the initial idea we had when working on
+> this. On one hand, at least to me it seems like something that other
+> bridges could use, and a new property seems reasonable. On the other,
+> since we don't know exactly how much configuration is expected from a
+> bridge in the simple-bridge driver, we weren't sure if this would be
+> accepted, and went with the simpler solution of creating a new binding
+> for our bridge, which also seemed less intrusive.
 
-Hi Muchun,
+Look like add data-enable-active make sense at this case. You can try it.
 
-I was checking this patch series and seems like I am hitting an issue on
-mm-new, which most likely is due to this patch series.
-(Note that a similar issue was reported by Pavithra on PowerPC)
+Frank
 
-Let me first give the call stack:
-
-[   79.930815] page: refcount:0 mapcount:1 mapping:0000000000000000 index:0x0 pfn:0x140000
-[   79.930833] flags: 0x0(node=0|zone=0|lastcpupid=0x0)
-[   79.930838] raw: 0000000000000000 0000000000000000 0000000000000000 0000000000000000
-[   79.930840] raw: 0000000000000000 0000000000000000 0000000000000000 0000000000000000
-[   79.930841] page dumped because: VM_BUG_ON_PAGE(!zone_spans_pfn(page_zone(page), pfn))
-[   79.931043] ------------[ cut here ]------------
-[   79.931051] kernel BUG at mm/page_alloc.c:373!
-[   79.931109] Oops: invalid opcode: 0000 [#1] SMP DEBUG_PAGEALLOC PTI
-[   79.940576] CPU: 2 UID: 0 PID: 743 Comm: ndctl Tainted: G                 N  7.3.0-rc5-01065-g45f4c1453cbe #23 PREEMPT(full)
-[   79.942647] Tainted: [N]=TEST
-[   79.943190] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.16.3-0-ga6ed6b701f0a-prebuilt.qemu.org 04/01/2014
-[   79.945080] RIP: 0010:__set_pfnblock_flags_mask.constprop.0+0xef/0x110
-[   79.946231] Code: 48 8b 07 48 89 d1 48 f7 d1 48 89 c2 48 21 ca 48 09 f2 f0 48 0f b1 17 75 f0 c3 cc cc cc cc 48 c7 c6 b0 9b 5a 83 e8 91 be fa ff <0f> 0b ba 00 10 00 00 e9 7a ff ff ff 48 c7 c6 a8 b5 56 83 e8 79 be
-[   79.949296] RSP: 0018:ffffc90011ebf7b0 EFLAGS: 00010246
-[   79.950179] RAX: 000000000000004a RBX: 0000000000140000 RCX: 0000000000000000
-[   79.951366] RDX: 0000000000000000 RSI: 0000000000000001 RDI: ffffffffffffffff
-[   79.952562] RBP: 0000000000180000 R08: 0000000000000001 R09: 0000000000000000
-[   79.953759] R10: 0000000000000118 R11: 0000000000008000 R12: 0000000000000001
-[   79.954948] R13: 0000000000000000 R14: 0000000000180000 R15: 0000000000190000
-[   79.956151] FS:  00007ffff7e36d40(0000) GS:ffff8880f7f22000(0000) knlGS:0000000000000000
-[   79.957490] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[   79.958464] CR2: 000055555572ce90 CR3: 0000000031130003 CR4: 0000000000172ef0
-[   79.959657] Call Trace:
-[   79.960096]  <TASK>
-[   79.960487]  pageblock_migratetype_init_range.constprop.0+0x50/0x90
-[   79.961561]  memmap_init_zone_device+0x2fb/0x380
-[   79.962392]  pagemap_range+0x272/0x590
-[   79.963069]  memremap_pages+0x125/0x210
-[   79.963726]  ? lockdep_hardirqs_on+0x7d/0x100
-[   79.964488]  devm_memremap_pages+0x21/0x70
-[   79.965191]  dev_dax_probe+0x1db/0x300
-[   79.965870]  dax_bus_probe+0x6f/0xa0
-[   79.966495]  call_driver_probe+0x24/0xf0
-[   79.967190]  really_probe+0xb6/0x310
-[   79.967810]  ? __pfx___device_attach_driver+0x10/0x10
-[   79.968667]  __driver_probe_device+0x87/0x190
-[   79.969415]  ? __pfx___device_attach_driver+0x10/0x10
-[   79.970270]  driver_probe_device+0x1f/0x90
-[   79.970976]  __device_attach_driver+0x89/0x130
-[   79.971734]  bus_for_each_drv+0x86/0xe0
-[   79.972412]  __device_attach+0xb6/0x1d0
-[   79.973078]  device_initial_probe+0x40/0x60
-[   79.973791]  bus_probe_device+0x3d/0xa0
-[   79.974453]  device_add+0x4f0/0x6c0
-[   79.975068]  __devm_create_dev_dax+0x18b/0x3f0
-[   79.975830]  devm_create_dev_dax+0x21/0x40
-[   79.976530]  __dax_pmem_probe+0x1c3/0x200
-[   79.977244]  dax_pmem_probe+0xe/0x20
-[   79.977867]  nvdimm_bus_probe+0x89/0x250
-[   79.978566]  call_driver_probe+0x24/0xf0
-[   79.979242]  really_probe+0xb6/0x310
-[   79.979868]  __driver_probe_device+0x87/0x190
-[   79.980618]  device_driver_attach+0x47/0xb0
-[   79.981336]  bind_store+0x76/0xc0
-[   79.981922]  kernfs_fop_write_iter+0x152/0x200
-[   79.982715]  vfs_write+0x276/0x520
-[   79.983323]  ksys_write+0x6b/0xe0
-[   79.983900]  do_syscall_64+0xa6/0x470
-[   79.984543]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
-
-
-also - 
-
-[    4.426995] BUG: kernel NULL pointer dereference, address: 0000000000000090
-[    4.428266] #PF: supervisor read access in kernel mode
-[    4.428266] #PF: error_code(0x0000) - not-present page
-[    4.428266] PGD 0 P4D 0
-[    4.428266] Oops: Oops: 0000 [#1] SMP DEBUG_PAGEALLOC PTI
-[    4.428266] CPU: 6 UID: 0 PID: 1 Comm: swapper/0 Not tainted 7.3.0-rc5-01065-g45f4c1453c
-[    4.428266] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.16.3-0-ga6ed6b701f04
-[    4.428266] RIP: 0010:__set_pfnblock_flags_mask.constprop.0+0x3d/0x110
-[    4.428266] Code: 84 e3 00 00 00 48 8b 17 48 89 d1 48 c1 ea 37 83 e2 07 48 c1 e9 3a 48 8d 14 52 40
-[    4.428266] RSP: 0000:ffffc9000001b770 EFLAGS: 00010246
-[    4.428266] RAX: 0000000000140000 RBX: 0000000000140000 RCX: 0000000000000020
-[    4.428266] RDX: 0000000000000000 RSI: 0000000000000001 RDI: ffffea0005000000
-[    4.428266] RBP: 0000000000180000 R08: ffff8880093e1600 R09: 0000000000000040
-[    4.428266] R10: 0000000000000001 R11: 0000000000000000 R12: 0000000000000001
-[    4.428266] R13: 0000000000000000 R14: 0000000000180000 R15: 0000000000190000
-[    4.428266] FS:  0000000000000000(0000) GS:ffff8880f8722000(0000) knlGS:0000000000000000
-[    4.428266] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[    4.428266] CR2: 0000000000000090 CR3: 0000000003aac001 CR4: 0000000000172ef0
-[    4.428266] Call Trace:
-[    4.428266]  <TASK>
-[    4.428266]  pageblock_migratetype_init_range.constprop.0+0x50/0x90
-[    4.428266]  memmap_init_zone_device+0x2fb/0x380
-[    4.428266]  pagemap_range+0x272/0x590
-[    4.428266]  memremap_pages+0x125/0x210
-[    4.428266]  ? lockdep_hardirqs_on+0x7d/0x100
-[    4.428266]  devm_memremap_pages+0x21/0x70
-[    4.428266]  dev_dax_probe+0x1db/0x300
-[    4.428266]  dax_bus_probe+0x6f/0xa0
-[    4.428266]  call_driver_probe+0x24/0xf0
-[    4.428266]  really_probe+0xb6/0x310
-[    4.428266]  ? __pfx___device_attach_driver+0x10/0x10
-[    4.428266]  __driver_probe_device+0x87/0x190
-[    4.428266]  ? __pfx___device_attach_driver+0x10/0x10
-[    4.428266]  driver_probe_device+0x1f/0x90
-[    4.428266]  __device_attach_driver+0x89/0x130
-[    4.428266]  bus_for_each_drv+0x86/0xe0
-[    4.428266]  __device_attach+0xb6/0x1d0
-[    4.428266]  device_initial_probe+0x40/0x60
-[    4.428266]  bus_probe_device+0x3d/0xa0
-[    4.428266]  device_add+0x4f0/0x6c0
-[    4.428266]  __devm_create_dev_dax+0x18b/0x3f0
-[    4.428266]  devm_create_dev_dax+0x21/0x40
-[    4.428266]  __dax_pmem_probe+0x1c3/0x200
-[    4.428266]  dax_pmem_probe+0xe/0x20
-[    4.428266]  nvdimm_bus_probe+0x89/0x250
-[    4.428266]  call_driver_probe+0x24/0xf0
-[    4.428266]  really_probe+0xb6/0x310
-[    4.428266]  ? __pfx___driver_attach+0x10/0x10
-[    4.428266]  __driver_probe_device+0x87/0x190
-[    4.428266]  ? __pfx___driver_attach+0x10/0x10
-[    4.428266]  driver_probe_device+0x1f/0x90
-[    4.428266]  __driver_attach+0xd7/0x200
-[    4.428266]  bus_for_each_dev+0x79/0xc0
-[    4.428266]  bus_add_driver+0x127/0x250
-[    4.428266]  driver_register+0x59/0x100
-[    4.428266]  ? __pfx_dax_pmem_init+0x10/0x10
-[    4.428266]  do_one_initcall+0x59/0x3a0
-[    4.428266]  do_initcalls+0xdd/0x1b0
-[    4.428266]  kernel_init_freeable+0x16f/0x2b0
-[    4.428266]  ? __pfx_kernel_init+0x10/0x10
-[    4.428266]  kernel_init+0x1f/0x1d0
-[    4.428266]  ret_from_fork+0x244/0x280
-[    4.428266]  ? __pfx_kernel_init+0x10/0x10
-[    4.428266]  ret_from_fork_asm+0x1a/0x30
-[    4.428266]  </TASK>
-
-
-- I am hitting this issue on x86 kvm itself (and also on PowerPC)
-- I am able to hit the issue with the following extra qemu params:
-    -m 2G,slots=4,maxmem=16G
-    -object memory-backend-file,id=mem1,mem-path=/tmp/nvdimm.img,size=2560M,share=on -device nvdimm,id=nvdimm0,memdev=mem1,label-size=256M,addr=0x100000000
-
-    # then once the system comes up
-    ndctl disable-region region0
-    ndctl init-labels all
-    ndctl enable-region region0
-
-    ndctl create-namespace -r region0 -t pmem -m raw -s 256M
-    ndctl create-namespace -r region0 -t pmem -m devdax -M mem -a 1G -s 2G 
-
-I am still debugging this issue - but from the logs it looks like that
-some struct page was never initialized which caused the VM_BUG_ON().
-
-Can you take a look at this once?
-
-Thanks!
--ritesh
-
-
+>
+> What are your thoughts about a change like this?
+>
+> diff --git a/drivers/gpu/drm/bridge/simple-bridge.c b/drivers/gpu/drm/bridge/simple-bridge.c
+> index 3fba7002322e..41b00a44983a 100644
+> --- a/drivers/gpu/drm/bridge/simple-bridge.c
+> +++ b/drivers/gpu/drm/bridge/simple-bridge.c
+> @@ -171,6 +171,7 @@ static int simple_bridge_probe(struct platform_device *pdev)
+>  {
+>  	struct simple_bridge *sbridge;
+>  	struct device_node *remote;
+> +	u32 de;
+>
+>  	sbridge = devm_drm_bridge_alloc(&pdev->dev, struct simple_bridge,
+>  					bridge, &simple_bridge_bridge_funcs);
+> @@ -212,6 +213,19 @@ static int simple_bridge_probe(struct platform_device *pdev)
+>  	sbridge->bridge.of_node = pdev->dev.of_node;
+>  	sbridge->bridge.timings = sbridge->info->timings;
+>
+> +	if (!sbridge->bridge.timings &&
+> +	    !of_property_read_u32(pdev->dev.of_node, "data-enable-active", &de)) {
+> +		struct drm_bridge_timings *timings;
+> +
+> +		timings = devm_kzalloc(&pdev->dev, sizeof(*timings), GFP_KERNEL);
+> +		if (!timings)
+> +			return -ENOMEM;
+> +
+> +		timings->input_bus_flags = de ? DRM_BUS_FLAG_DE_HIGH :
+> +						DRM_BUS_FLAG_DE_LOW;
+> +		sbridge->bridge.timings = timings;
+> +	}
+> +
+>  	return devm_drm_bridge_add(&pdev->dev, &sbridge->bridge);
+>  }
+>
