@@ -1,90 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-250.mta1.migadu.com [95.215.58.250])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78EB2501F4E;
-	Wed, 14 Oct 2026 12:55:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF47F4ED1BC
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:55:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.250
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791982516; cv=none; b=EO7zIzYMqkE1R966YnrGbqMxl4VKJnnsuKn3iwdmxXQP4IdEH4uYprvTYwlVatkBDNF4iQtfXyYvfzGLGbpYjhfeprU6hXoKYXNZDjEoRg+taTaEyZkieC7FDtWmjqKJ34kvF45SFG16tj7AH9GPOu7ASYo5raXQi12rC5FAHDI=
+	t=1791982525; cv=none; b=CFsfv8sUROB09vcymJRFHmDFsgUmkycWruieiAYn8uern0xt54k+361cbB+x/PRCgcbB4yXMOphGq2IqXVpf3yzgxLKCAoBzPDl6+QGqcXl31G0YH10rrMsAMwo4/xtu79Ic1Dc+n8qVa4WdT1yrfOjsLkz5BlJpUkxP0XO7B2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791982516; c=relaxed/simple;
-	bh=BMjUE31zh5IYCpI+XkO02Kt9gmDncIdsDyz/c5SzQxQ=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=HffyfDcZQlwaOQ3up0e+292y+4MIlnf/AbzFOOvwf9gGC5kBVVQE1aK31XRSJO08EQmKPXxCOIpbv17sNxq1z4sK84PQBqbKGdA/C6eN6UuZsDotWfMMpq6QrUVGOFSJ24SJjGx5qPRIHCovBt2aceUpTEUBazaw6y5WcWQPd4k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EXVZusJd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791982525; c=relaxed/simple;
+	bh=pJBToGHsJMC6/kg5jWs+Mtib+z5TjGaiaQJZnJjpmkk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Dtnv5IxVt9ru7ykLZ8WKsk6v7BzJTfqL2Tg+k7PHcEVsK4xeiezMAsGbomAFlFtQUVo+PEYvElfC12C7EVlzMvIJGVFeM5eVN5LVTm4cF14ztBxH4nZJMHcaOHYGyeq7mnsryKBWbO2GK4/FhToZO0yb8MaecYN5+gzSI64vxow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=WPaBA/Hw; arc=none smtp.client-ip=95.215.58.250
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EXVZusJd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E83E1F000FF;
-	Wed, 14 Oct 2026 12:55:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791982508;
-	bh=v0sGdjZ05LZsvsf2jNfCbObVfnO6ofStPoiOND3H/m0=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=EXVZusJdnctO2PoK8ieQKPllZg+fDaPeF/1lvXZPaxtQ4RCuq8r8iJ/BlYMfocAsI
-	 96WyJiBh1KcgPwynNEJ4MAhNgRGaEf8JggYeXFsxlhc2rZMqng7H+/kdtD6zYKfa5G
-	 q6zhgyM8RWCq+ibOYq8/czb9PJXwMDsHjCmeCnn11s/gs43eNc6nmmQ5eGcrmt7cv4
-	 S45mqHrgH2CDrPDZ55fOvww3B1bMawMPeX7aTUM7qq9H+J0EnwB0wgjFkpIXTnPcUU
-	 DiNMXyXhcYWyvi9S+5Sk14J5YOLH6OM5hHcDRK4rTd1efd4NuhlyaHkAMMFyhIzIt2
-	 f5zAhsp6CoEWQ==
-From: Mark Brown <broonie@kernel.org>
-To: Carlos Jones <carlosjr.jones@analog.com>
-Cc: Laxman Dewangan <ldewangan@nvidia.com>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Sowjanya Komatineni <skomatineni@nvidia.com>, linux-spi@vger.kernel.org, 
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261002085540.1625-1-carlosjr.jones@analog.com>
-References: <20261002085540.1625-1-carlosjr.jones@analog.com>
-Subject: Re: [PATCH] spi: tegra114: assert CS GPIO for every transfer in a
- message
-Message-Id: <179193000521.1606900.15408525415805469016.b4-ty@b4>
-Date: Tue, 13 Oct 2026 23:20:05 +0100
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="WPaBA/Hw"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=pJBToGHsJMC6/kg5jWs+Mtib+z5TjGaiaQJZnJjpmkk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791982513; v=1; x=1792587313;
+ b=WPaBA/HwgY+tZeMAg6kf+GOwzWUpq9ktnmYc9UmzX87qeVgLYJgJ4j8HMnDwqh5iRAqLuOXN
+ WUPG9uFRz2OdgMsZ5MiKFu7xaTGj/GmqAsZMXOS9Ixv2sKKXjwqrSz7PeKfCu4qS2t3Kd6sRChp
+ s6RoZ+duXicG38/1/q5bU1gY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 8a582e26eeccef1c;
+	Wed, 14 Oct 2026 12:55:10 +0000
+X-Mizu-Trace-ID: 8a582e26eeccef1c
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>
+Cc: Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	Quentin Perret <qperret@google.com>,
+	Fuad Tabba <tabba@google.com>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] KVM: arm64: Per-vCPU TLB and I-cache flush in pKVM
+Date: Wed, 14 Oct 2026 13:55:08 +0100
+Message-Id: <20261014125510.2928306-1-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.39.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1136; i=broonie@kernel.org;
- h=from:subject:message-id; bh=BMjUE31zh5IYCpI+XkO02Kt9gmDncIdsDyz/c5SzQxQ=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLOV6/c6nH56DqTmx5nAnPU7zeIzOcuPBHXtaHBz/iwz
- 6R5GxJDO0pYGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjCRth8M3/QcD7JUxCzn+3w0
- 29F7xtuIC7efeQtYKOxQsBHf9Y2zj+F/nYsh241t4V89fQJu65+5b6a/d8GCijleOww1r/+xP+r
- PDAA=
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
 
-On Fri, 02 Oct 2026 16:55:40 +0800, Carlos Jones wrote:
-> spi: tegra114: assert CS GPIO for every transfer in a message
+Hi folks,
 
-Applied to
+Since 6.14, protected and non-protected pKVM guests run on the
+hypervisor's VMID. The host no longer flushes a CPU's TLBs and I-cache
+when a different vCPU of the same VM is loaded there, so vCPUs of one
+guest can hit each other's entries. This series adds the flush at EL2.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.3
+An earlier version of these patches was in Will's pKVM base series in
+2022 [1], but didn't make it into its later versions.
 
-Thanks!
+This series is based on kvmarm/next because the hyp VM is allocated with
+hyp_alloc() there, and the per-CPU array it adds is allocated the same
+way.
 
-[1/1] spi: tegra114: assert CS GPIO for every transfer in a message
-      https://git.kernel.org/broonie/spi/c/8980bc573ae2
+Based on kvmarm/next (dd0bc00e3e920).
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Cheers,
+/fuad
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+[1] https://lore.kernel.org/all/20220519134204.5379-1-will@kernel.org/
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+Fuad Tabba (2):
+  KVM: arm64: Track physical CPU number at EL2
+  KVM: arm64: Ensure TLBs and I-cache are private to each vCPU in pKVM
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+ arch/arm64/include/asm/kvm_hyp.h       |  3 +++
+ arch/arm64/kvm/arm.c                   |  3 +++
+ arch/arm64/kvm/hyp/include/nvhe/pkvm.h |  3 +++
+ arch/arm64/kvm/hyp/nvhe/hyp-main.c     |  8 ++++++++
+ arch/arm64/kvm/hyp/nvhe/hyp-smp.c      |  2 ++
+ arch/arm64/kvm/hyp/nvhe/pkvm.c         | 21 ++++++++++++++++++---
+ 6 files changed, 37 insertions(+), 3 deletions(-)
 
-Thanks,
-Mark
+
+base-commit: dd0bc00e3e9201fd49b62ff9cc07890c89003afe
+-- 
+2.39.5
 
