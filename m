@@ -1,146 +1,217 @@
-Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com [209.85.217.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F9EF27AC31
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:25:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4978535DA7B
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:26:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791991522; cv=none; b=ChdAq0WXuyWSjje31e6xx03FPVO7LhF4z1woKapgoGZACKekV9lf1XvrVmK3BJNJsyUZJk9ZVYYdl57Nm6uXxG8tvwt8/wsBbqoaN1WUNXbk+BKKEv4fsdVce8wrAbWnumnwug4eWtUtpd5JU32X/lxTTHkjWgz8ux0JSrDI6uA=
+	t=1791991570; cv=none; b=tz6MflEUkugFa+5Hlb8g4OR6R1rPKa0fyxJOFEd1IlxjsvC4/c4Gp1MDZ7TqOJfxkpDuhjSXP2nilr5wWozs0JyNhg5wH0r3aLrO/8Kn9y6zQ7IrttQpblsqDIhVqIHczUhMBXJpk0bkzEo/pBE6BOh8e8GrQsBE5ciurDgP4Do=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791991522; c=relaxed/simple;
-	bh=4xtlwMXyWzq87oKXlTSUTSJUcCXtxizVzZJcF/3R7OM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SfKEBL8Sai1ld1NIMopiOXJfn7n1KqRVp8OZT4lNSmwRclquGtJymtwbeEM7VWuVlOxKuzKaNObV9Ufh3jgYPOFezm8R+rqn/PyLb2WmninYPr2tPAPiwejGhQQJChGggo2p+XIGUOCFlPF9o0FaCCXEu7MdrZgzjaXKmzt4UGk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OvV3QGR4; arc=none smtp.client-ip=209.85.217.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791991570; c=relaxed/simple;
+	bh=MgNox4Md7ZzWyjo6WySC3eO5hUras1nROqxjZW1sgXg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Ym7wA0xTxx3pJHCYu/gCA/T/h91Tp0orsiSDqhmnzkxCYLwn0ZxXOaISElAABfEl9GCJHzbgpOsMj/0Fi1Gs9DlW5qo1yCbgufQGwxc2sQfaFy77wCr+4HPh1drM1747rcNacs/2mFXd25fPhc1ww3jf4dQ6lCM07FQiInvSpQw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Mv+lG2Xn; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kgM+n7EK; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OvV3QGR4"
-Received: by mail-vs1-f45.google.com with SMTP id ada2fe7eead31-7c8b520c640so183491137.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:25:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Mv+lG2Xn";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kgM+n7EK"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EF4DFd4167045
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:26:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	NsI9BnJ1GJjPhVfcszodjRSmPz6tQ6Lvgi/KHCWFPcQ=; b=Mv+lG2Xn0yvc7mVg
+	WjDJCKrCrk9uZ0cB7HC72HGG5aoyl+qfKpM3gsd8wQmpwbBioydx2u2Nnn0hBnmR
+	S3zmtoD6Q6s1sTICoSXo5M4PY/4hT2z3OrZWGt8uT6vmLb0akIUFQ3m/uPOsw3xE
+	WQYFJpMBHuL33FkWpiIvGi25FCN73iSMcbTw7Qwb/YBLFgFRo4x0lijAF9Ea0JwC
+	MFsinWuCDrWcLSBmRoT63Wf7hidJzsKZe74UwPUnwUWcNfNWPM2/Vc1A+XEgCglA
+	aLZMRJO956+v+tbx4TS4clcizd3ItlkEzPjqPNn64Edvvu03jWOKgsk5pXZhaVXW
+	dW4qeA==
+Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hac2302sg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:26:08 +0000 (GMT)
+Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5e97167fb2eso23200e0c.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:26:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791991520; x=1792596320; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xZlacUVzzy4HBA3NrxiUhpJFwP6Wb2PV4OZMdQ09R7I=;
-        b=OvV3QGR4FZThAftPriNMh0Z49gdzBDi90bON/J2qGK4x6casf1MCH7iu0i1QXdMSA8
-         BFyJfzLwcxt3JPev9LG1y+5VFqIIjSghbVMKzuB5xyqs4/68DP4kv6fVzv83zMymDsRX
-         1qrn+koBA5ex4K3dDF0QYhHc56uAqHiRM6OIDLgzhtp1jpswVE9dKA5VU43IH4PR4PxM
-         G3t9zI2cftnG/bVhkAMewxJOTecsfyxbw+/gLlhrTs/IEh+CI69jHmYi+lNLiJtZg/+m
-         4J3ogY8xF8roffMtybaOz/QyRuHixaK1iSrl7cPnIt/uMsOcnuoy/Z+UdshEdh0pdDjY
-         Z9HQ==
+        d=oss.qualcomm.com; s=google; t=1791991567; x=1792596367; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NsI9BnJ1GJjPhVfcszodjRSmPz6tQ6Lvgi/KHCWFPcQ=;
+        b=kgM+n7EKgFf50zQb1+OL6yxHLgF5FJ7YuRKglacOURShhPN1+TvylAoL+wt7gZ7Xwc
+         qm+72wZ66peucYwXE4FbO6Hg5dzADOx5Wy6mkl/ELxs0uoS7ygIePvJgYQVQGpJxYhOJ
+         0K0RU85NCE07ulraYL6h+6nVzuSJYMCWp67nq4/nSqz6/eMNvJYh6r1Pn/K6fAmVF3hQ
+         4YYepst4dFiOJDjH0hHwCpcH9hiFvD6uZlK8hGQNNhQHuTj+iTZteFuJNC6U1Py8Yjod
+         Ab1tmX4acv/NlHSo3Kh98Ph15oAT53aj+8wcltzxrOiIN3g+nEliwCenqn3VvT2xLDQV
+         wx1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791991520; x=1792596320;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1791991567; x=1792596367;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xZlacUVzzy4HBA3NrxiUhpJFwP6Wb2PV4OZMdQ09R7I=;
-        b=VkE1ZKQwc5LEASws5bAJC32/YzB27krWsRTSEAokYz6STHdgSUnfT03kKhC6cGVnwb
-         t50mHnguff3bMemp0GiFwkeeGM+7jfP162W2/uaN04xGJJ+ip9Gir580VPuhYMKkdbV/
-         pWNCEUWUCBxC0QN9LWFT9mjClQOu4T3Xv91pDdFZT13oKCOcK62QKvDIfr4EKLlKRlp6
-         bfgNJ5c2tBIRuWttGrv9/eWplJDS+sq66BXuUZXWGohwK8z5+MwS10mtOdGLA7EWuIjU
-         c/ZzN4z32se0QXf/bV7m63C7jgyseud8YvxVwVhJgpw+YfxKpZsj6GulpTfz4pc3arq/
-         EQpw==
-X-Forwarded-Encrypted: i=1; AKwUvBw9RSubZCvuVXGgE3kjxbGtisKPkU1WkBcfu54Sx08uaD/OvpBp0h1Ykb/A85yEDRM64TSS0zHh4PmDlyo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLuLc/KDqweVRVIn8Z8roPWTSBabwVV8LEd4QQWMCmRDyq35b9H
-	MFAjfqPVPF2zoFARRdcbYp2GaUUWJwnk+K3so93x5bI+xLPvTFLq7aU3
-X-Gm-Gg: AYBFou3zgkGOTHX4H89hjBcf0Yf6u5LaZ0h7/VLrKq2jA8tqyH0XLQksIdeBeZ1roqJ
-	kRyGYbFAdsqitirp6H9jnp7j+tY+MAyGzgq8tkXg2c4tsBJDldNPSomIETwg2v7+bVOZ+d3yDRe
-	Tr07V1KyHRuRMr/sPMhvrumdCm5k5t0KkqftCv3o+QrKtRyQu+Q3nr3dMer9EfCLC0JQb+784O1
-	a0NnUhXkrlxo9cN/zE5JUxCPcvPauJ19G7Pc7HbrmKXki799ALcmdcAhjYmkdu8I34OGbVADdjU
-	uFuZwjFg5v4lDibCcmngmzUqt5V+MHUWarDtzmpoMUCIo3/WaOVtOMcl/tynLq9lOu81qRpdStO
-	bColYCIg/8+WVLHcZITU+h+ZpLnIkAuS23nk+dvR4Hk26MszmZFQxyira77SeQHDkvsVKvTUqRy
-	86sonWa9j++ToyqgaN2ad/grgdEPAPO07qV+6Y6no5HfrN/XXt7KczgTAfMEP4kozGjvHZQE1OR
-	hiwJuqXyE2/NIaV4lhRHrM1Q4DB7VEoxpXQn0wp2vygq3eO8jHd1Ig+SPD9e6KeyiA6PZhtRm/5
-	TLTNJGGtZw6gO3WFV4jfz15lCHLVcW6aKf/SoZMBOec/LCbx
-X-Received: by 2002:a05:6102:4193:b0:7a7:12b0:fd03 with SMTP id ada2fe7eead31-7cb50ad7b90mr3825371137.0.1791991519989;
-        Wed, 14 Oct 2026 08:25:19 -0700 (PDT)
-Received: from debian-t14-gen1-fuhrysteve.ts.fuhry.app (235.sub-75-230-129.myvzw.com. [75.230.129.235])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97b5e5b1sm54887516d6.18.2026.10.14.08.25.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 08:25:19 -0700 (PDT)
-From: "Stephen J. Fuhry" <fuhrysteve@gmail.com>
-To: linux-input@vger.kernel.org
-Cc: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	"Stephen J. Fuhry" <fuhrysteve@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] HID: input: ignore the battery of Keychron keyboards over Bluetooth
-Date: Wed, 14 Oct 2026 11:25:05 -0400
-Message-ID: <20261014152505.2523337-1-fuhrysteve@gmail.com>
-X-Mailer: git-send-email 2.47.3
+        bh=NsI9BnJ1GJjPhVfcszodjRSmPz6tQ6Lvgi/KHCWFPcQ=;
+        b=OFg1S0OmpjdzwDO23J0AJ9bO6eQ4dms9W8snpNPQhLHQnxFw1Xs0Fq050iejqcjH5a
+         W0v9h2zVU2S9OdA/ESgi5udTroB/U13/Siig1NXvDeQa7guwCkZHvcGiC4wBcu81S2JW
+         bnjlkCoGBWOK7nq1YcuVpou8FI5G4G9lEtnGB/8AOnYW1n0iGpAWO6Ts33ibQEL/vPRG
+         s0HJCKx4fSjaNCo5e73lW+oYMSMnLZGC8lknXanwE6i1Zph4j25v/u0Cj08OfI/f9FzE
+         apDXNAbKn6xQUHQ0wiceiGfu+5Dm8sqFrM0jTJEzlo+nguR8wC4x3TkPl6T/PG2L97lb
+         DOFw==
+X-Forwarded-Encrypted: i=1; AKwUvBwBjcmjWz2k9Q/DMR8MTw0LKmzjKx3/XoTzO0dlj2Y9m4MHabCxljPyn14a5thvT1epysqcnKJOrJZStMY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKdChNU8K1Idp045ri/Og9EZwpOwmIzqJ2ZQa6CpIR7LhGSHjGm
+	enFRmXLRO1BZFZvcrg4saOBfgqaDZisCg/ciuG7SkWZOXgSMJ3rh25nswghTTEJ3Kg2rTyLAiuu
+	ODAnaa9ETqXfDRpWulQ1uQZ8STlkVjZJeITSxx2skH65v+AuEr/0hjRPeGjq7/jSEsh86ipvRXL
+	Q=
+X-Gm-Gg: AYBFou3ngkcGdgV4HmsLipzLfOnZFL2zMN5ISeKdYDDSgFvR/NBgwrRMrV0mzbhOBul
+	iqqCnziC8rxAd6u3M0PBNqJ628AtUYRxJBk/j2V4OxNSgYuSmFFj2nPGJs7e5u/zbO8e3O5Eo4P
+	ERt3WbjU5ecx2040ePR38D/7BV1e8LlUsFZTnhplzm+30eC8q5vXoR4QXZy0c4Vy48cusD/VexQ
+	LVcSamj+Jg8C86bOcyCqkPuSOceZgPdadmksAZsH1oVUaCulXJtyeUAni5g2urCAs9kkAhIKE2n
+	cEDM0UBb1+BPbqBzLEHfObq6d/ZfoVdjc+JfTi5Y6HyFIxBBuQKKRi+Zs5shZkT46t4GAosbKdr
+	XQolGwVS2622R9CTCbkJSKQ==
+X-Received: by 2002:a05:6122:6857:10b0:5e9:6763:368a with SMTP id 71dfb90a1353d-5e9676339a6mr1252129e0c.2.1791991567225;
+        Wed, 14 Oct 2026 08:26:07 -0700 (PDT)
+X-Received: by 2002:a05:6122:6857:10b0:5e9:6763:368a with SMTP id 71dfb90a1353d-5e9676339a6mr1252091e0c.2.1791991566556;
+        Wed, 14 Oct 2026 08:26:06 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b20383a22dsm1272817a12.6.2026.10.14.08.26.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 14 Oct 2026 08:26:04 -0700 (PDT)
+Message-ID: <6c9937a6-88c3-4e5f-85a3-73d929d3ba01@oss.qualcomm.com>
+Date: Wed, 14 Oct 2026 17:26:00 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 07/16] clk: qcom: Add clock-owned GenPD DVFS
+ aggregation
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
+        Ulf Hansson <ulfh@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Mike Tipton <mike.tipton@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+        driver-core@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org
+References: <20261014-topic-qc_clk_dvfs-v1-0-3041b788e9f7@oss.qualcomm.com>
+ <20261014-topic-qc_clk_dvfs-v1-7-3041b788e9f7@oss.qualcomm.com>
+ <ygwhik5t6w74xcqz4igmb6t5esmjjgrmtwqqqmo4doj34t7rpu@jkngx4v76rxg>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <ygwhik5t6w74xcqz4igmb6t5esmjjgrmtwqqqmo4doj34t7rpu@jkngx4v76rxg>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=PYJqFShd c=1 sm=1 tr=0 ts=6acf9f10 cx=c_pps
+ a=wuOIiItHwq1biOnFUQQHKA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=LsIF7cSu6wHuaSuSEXIA:9 a=QEXdDO2ut3YA:10
+ a=XD7yVLdPMpWraOa8Un9W:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA2MSBTYWx0ZWRfX+IlhaKxkFHFO
+ 2GF+B/O6KHHs2fvpJNJN3XPEyGFkfb5Uy+GIbrsY5gw1VvHMEwzG+YkpwmTb9jmQc8uHWM3vf3P
+ xp/N50nEYtyeheyDe2/0ojtUpSo7fHg=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA2MSBTYWx0ZWRfX0FedFjInkMBf
+ N0wJLqmBFCaELr6wDzaXa5FWf/eP4uvoHz9gAh9Iz5zrlLZsgmMRCINL4BvQLBAQM0gf9d2dXmc
+ 3E2rXgU/fMrN/fu9P9uIdFZJXnYkKU3OkYFyaaEbhL4QCNhZnQl34o9QC1PNKDc3HdPYKYX+2TU
+ BJd8SlA2M/U52YYvPvXFKDfYQGl+O5R09ecZW4BdQufeAVPXjyc+vIcPl7IyXnkl2W1OHNtB/fT
+ lFpRHH0meH+BTshOelPNO92sHwl2sZ8IJ4YCWuekKCgqlttKXcXXrjoB3vE/Ig+isySTxBfI4om
+ cFuC7JuSvdnLOfGezRaRnpTZW00T3X+Z9wpHO0q7Vs8zLqVFrwFYTVKGv4KGDj6trwZUHCs4e/j
+ QaEgbo4Ar+CMrQwkOZEUzIWe4gFpVvWjOFe/87HLGbjV09Mf+XV+C7tr401JiMcXRezpKfMGeoJ
+ q7sgG+5tS/11AuDpNRg==
+X-Proofpoint-GUID: ZY89PVkGKQEGUfL26tVKUUklpNqqImTP
+X-Proofpoint-ORIG-GUID: ZY89PVkGKQEGUfL26tVKUUklpNqqImTP
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 bulkscore=0 clxscore=1015 priorityscore=1501
+ suspectscore=0 phishscore=0 malwarescore=0 impostorscore=0 adultscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610140061
 
-Keychron keyboards identify as Apple's wired aluminium keyboard, rev B
-ANSI (05ac:024f), when connected over Bluetooth. hid-apple has bound
-that ID over Bluetooth since commit ebe0b42a4252 ("HID: apple: Add
-support for Keychron K1 wireless keyboard"). The Keychron K8 tested
-here does the same, whichever position its Mac/Windows switch is in.
+On 10/14/26 4:36 PM, Dmitry Baryshkov wrote:
+> On Wed, Oct 14, 2026 at 02:19:07PM +0200, Konrad Dybcio wrote:
+>> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>>
+>> Clocks on Qualcomm SoCs need a minimum power rail performance state to
+>> operate at a given frequency. We currently leave this to clock
+>> consumers, so a driver has to know which power domains supply both the
+>> clock and its parents. This ties knowledge of the clock tree to
+>> individual consumers and doesn't protect other users that prepare or
+>> change the same clock without making those power requests.
+> 
+> Why would they prepare or change the same clock without making power
+> requests? If it's a legitimate user of the clock, it should have an OPP
+> table. If it's not, it should have a separate API to set the clock via a
+> legitimate user / aggregator.
 
-The report descriptor declares a battery, so hid-input creates a
-power_supply node for it. The keyboard never answers the battery
-feature report. Every read of the node blocks for the full 5 second
-uhid timeout and then returns -ENODATA:
+That's the entire problem that motivated this series. The consumer
+doesn't know what it needs on Qualcomm platforms. The power
+requirements are that of the clock controller's, not of that device's.
 
-  $ time cat .../power_supply/hid-<addr>-battery/capacity
-  cat: ...: No data available
-  real    0m5.10s
+> I see one usecase where this would help though. If the clocks use
+> different power domains and the corners on one of the domains don't
+> match voltage on the other domain. E.g. it's not infrequent that the PLL
+> (powered by MX) requires performance vote change at a different
+> frequency than the rest of the clock tree.
 
-Anything that enumerates devices pays this on every pass. With the
-keyboard connected, "udevadm info --export-db" took 10 to 26 seconds;
-with it disconnected, 0.11 seconds. KDE's Solid library enumerates
-devices on the GUI thread, so Dolphin and the Plasma panel froze for the
-same 10 to 26 seconds. upower already gives up on the device and does
-not list it.
+Correct
 
-0x024f is a wired-only Apple product, so a Bluetooth device using it is
-not a genuine Apple keyboard. Ignore its battery so the node is never
-created. AVOID_QUERY would stop the blocking read, but the K8 does not
-send the battery in its input reports either. The node would then stay
-at its initial capacity of 0 with status Unknown, which looks like an
-empty battery.
+[...]
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Stephen J. Fuhry <fuhrysteve@gmail.com>
----
-Tested on 7.2.6 (Debian trixie-backports base) on a ThinkPad T14
-Gen 3 with a Keychron K8 paired over Bluetooth: no battery node is
-created and "udevadm info --export-db" takes 0.12 s with the keyboard
-connected. The keyboard types normally and hid-apple still binds it.
+>> Move these requirements into the clock provider and aggregate the votes
+>> per power domain. Keep the highest level needed by prepared clocks and
+>> in-progress rate or parent changes so that one clock can't withdraw
+>> another clock's requirement. Use separate virtual GenPD devices for
+>> these votes and controller register access so their power requirements
+>> can be managed independently.
+> 
+> The biggest question at this point would be the locking and lock
+> nesting. What is the expected order of operations? Currently it's
+> limited to pmdomains, but for some of the (older) platforms clock
+> supplies are expressd as the normal regulators rather than pmdomains.
 
-I have only the K8 to test. If another Keychron model on this ID does
-answer the battery report, this hides its battery level. I do not know
-whether any does.
+The Qualcomm case is easy - RPMH is *always* reachable, so the
+pmdomain provider needs no clocks itself. For the other cases,
+"patches welcome".
 
- drivers/hid/hid-input.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+[...]
 
-diff --git a/drivers/hid/hid-input.c b/drivers/hid/hid-input.c
-index edd6bbf..380ff8a 100644
---- a/drivers/hid/hid-input.c
-+++ b/drivers/hid/hid-input.c
-@@ -381,6 +381,15 @@ static const struct hid_device_id hid_battery_quirks[] = {
- 	{ HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_ELECOM,
- 		USB_DEVICE_ID_ELECOM_BM084),
- 	  HID_BATTERY_QUIRK_IGNORE },
-+	/*
-+	 * Keychron keyboards in Bluetooth mode reuse the product ID of
-+	 * Apple's wired aluminium keyboard. They declare a battery but never
-+	 * answer the battery feature report, so each read blocks for the full
-+	 * uhid timeout and then fails with -ENODATA.
-+	 */
-+	{ HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_APPLE,
-+		USB_DEVICE_ID_APPLE_ALU_REVB_ANSI),
-+	  HID_BATTERY_QUIRK_IGNORE },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_SYMBOL,
- 		USB_DEVICE_ID_SYMBOL_SCANNER_3),
- 	  HID_BATTERY_QUIRK_IGNORE },
--- 
-2.47.3
+>> +static unsigned int
+>> +qcom_clk_dvfs_aggregate(struct qcom_clk_dvfs_rail_voter *rail_voter)
+>> +{
+>> +	struct qcom_clk_dvfs_vote *vote;
+>> +	unsigned int level = 0;
+>> +
+>> +	list_for_each_entry(vote, &rail_voter->votes, node)
+>> +		level = max(level, vote->level);
+>> +
+>> +	return max(level, rail_voter->safety_floor_level);
+> 
+> I guess you want to avoid having too many voters, but would it be
+> possible to have one voter per 'signficant' clock and let GenPD itself
+> aggregate all the votes?
 
+What does "significant" mean here?
+
+Konrad
