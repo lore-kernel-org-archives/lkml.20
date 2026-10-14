@@ -1,72 +1,90 @@
-Received: from out203-205-221-205.mail.qq.com (out203-205-221-205.mail.qq.com [203.205.221.205])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 622793E3156;
-	Wed, 14 Oct 2026 06:48:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 841AD414A27;
+	Wed, 14 Oct 2026 06:48:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791960512; cv=none; b=CFtGh0gdj2zMJYmm5jF6Q1Us1QfqPsEyGM3/PaEb0j65q+lzCzFZADmY7kHIQSp266OyHKLrI7iVaKNJj4H27/HgpxU2NNmo7o/agvgbsOeY0scpSLB7d/uoCxez5vX6MCcIjybcNePvQc7mFawC4ssnJ8Ti/4+mCYbfrYjNlM8=
+	t=1791960539; cv=none; b=dwkWeD6BE5RMb5mu0OYF6jEtVi6M4PrPhNjS1pxQbG1EdPEFsGCAWkQE/LGLdw8yWm6qlFz1Gp+eiZvyCmsDCb3yBVcYQDRh13o7C1dSrxBPipEoi4t030xlBi2tbZHsXyqlHL19x79X8BxyNLH2/SZlD4d82iCOLDxJi+IUFXY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791960512; c=relaxed/simple;
-	bh=e5thbHDIas4UZ0dc2RK5yYennvkn/22hrPyHBBO6PZI=;
-	h=From:To:Cc:Subject:Mime-Version:Content-Type:Date:Message-ID:
-	 References:In-Reply-To; b=ccnt+ELJqKdtH6VB5eHbzQp8I+gpczQzJ7NnOYQk2fS7XlCt8Fo67tBW5zjWvJu94LHspRneER+HQmoMLisCsaLNt0FA1L7ojvJzijTLRoR/DQ2Yxxd91IfssXy9a/naTJ5KEQ/L9oYxF/L1LT61FQ0a6x1eQwfCF/kKWDN3E+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=xo7lfztc; arc=none smtp.client-ip=203.205.221.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1791960539; c=relaxed/simple;
+	bh=4sRv9LlDt/QFQt2J2hCMrxYjfnDkaQpVRSNLST+xGsY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cq2grQcxwCXTc1c3Zc0ub+9k4TWShwZic7FH8Wu5lGQkvggXTXqCZTEoa2RK2k2ap8Ryd5nahgZzRMfEzAGkNvJySJIGgjflTTBGmKfckZlqqrFHiOg/cp4HqTW3/jAUDN22s3xenpJ6ApRXF9Pavos0d5GXenrhTlY1hCdsoUQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bc11fH8U; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="xo7lfztc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1791960502; bh=e5thbHDIas4UZ0dc2RK5yYennvkn/22hrPyHBBO6PZI=;
-	h=From:To:Cc:Subject:Date:References:In-Reply-To;
-	b=xo7lfztcynIaycOjzrsrRLKc9Wmt36IqF0mooy4VRBsQhLh1ZtzPJvOgtdRIj5g4x
-	 hM/U2kqlLWNPTkCoEJa3bacKUUi9KMGqAoriEfA9sEDYglC7tMol/CdUOfVZd4mQDz
-	 8TMsIt3wjdI8wYzsJqQfyHeXZeUN4jT0GiOmBYyU=
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-X-QQ-XMAILINFO: NqaMgNSdKQxyqHk0HsSnwvpqT2pF3wjU5cgvlf5hAQWOpwbh5ip6E8y5CzVjBk
-	 YJlxfNJ7QRFX0fobsBHf2699V8ixGQ3aD1GclqhTx/zNRPSmSO7hGtjfGDSXtmT5uyHLAYA549q3H
-	 XvIAwqzOl2Daf6DqsfBW0l3z2MLmJVUTz92Pk2h53W/gGR7e4h5CUurTzdxcXZ23RQ+uLCnWlzQVt
-	 kYHIgaZU5arl5Jtq6SxRvAC0BWRvTWdhDpqkKvHXMF1iEIFiB8L+CgrZRjMcA/Cqq61sVv82o6McR
-	 lVF87jmv2kjYnV+/ITpjjsxqYmEp4OBG7fJwb+uM6HKtRVanEG0rwExZzmebJU73jvSOxeMuQWYk4
-	 ZJw5ka5jnwhr5m+mQ7PSpRTftQPrWbtTX1QbkpGlu3bqXqZbXAwp4rxKe/4PgPerCsOUxZAJqoxDf
-	 u6V9cNuy7m0rXrjiP6YDKBQdVrSXou0UiqOpm6qsZH250H8hwXscYXSxBANrw2YtDW+4As7/BAb+l
-	 bz2W4HtzA29EhrBRdQ9cHAg0MMUt68qI1EytSQ77xwqAaS58MsqBZ5EpMzuRTs1nfJSvkjMvy251I
-	 5TKI+dXHx2riFkWbsi/UjQw9KEK20UeZPsKC4ZzNHRFX3566OjRhTiK8f6ge5INaMQ4k8gLrT+E3h
-	 CLxLN85w+kKHn0edNhhDTif2LM61P+6BW+kHF6wI2o/NtZUYRVa5F1Ii0oSenWqsJ/5TQALmCljZ0
-	 4u4Ysz12OouxgjIxLqOHnibyZsTdeKGavn3QGKz1EOoN2Sr/2jIhFVmnO8EfMJJnVItOiAepDhCyC
-	 hoyKvK+ATL+nCyNtMdnzVtIXOKlsuGLgNuUmxWgIjdlwQiDxkVIFh45Y3kmFjj419Jry2z/9ip4I+
-	 YRbHHlRXhfZBqq3EevjOLS9Pl3SBVLHQ+zGXJou2vbkmgeXH60jGc/znZ7hGyqE6JHb5W7I0ddSt8
-	 GiTqoIAeDqLyE7jkgA8veBqYiccYsdHxQQqBK/BxN37sDUTjtKCfatpwu7tjgq+PYWe5webfSvRf3
-	 nlXrukGv36T1zWOY7BA0Gmw3oMnAXmH/dl7wEetBSZg54KW4=
-From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
-To: "=?utf-8?B?TWFyYyBLbGVpbmUtQnVkZGU=?=" <mkl@pengutronix.de>
-Cc: "=?utf-8?B?VmluY2VudCBNYWlsaG9s?=" <mailhol@kernel.org>, "=?utf-8?B?SGVpa28gU3R1ZWJuZXI=?=" <heiko@sntech.de>, "=?utf-8?B?RGF2aWQgUy4gTWlsbGVy?=" <davem@davemloft.net>, "=?utf-8?B?V29sZmdhbmcgR3JhbmRlZ2dlcg==?=" <wg@grandegger.com>, "=?utf-8?B?T2xpdmVyIEhhcnRrb3Bw?=" <socketcan@hartkopp.net>, "=?utf-8?B?a2VybmVs?=" <kernel@pengutronix.de>, "=?utf-8?B?bGludXgtY2Fu?=" <linux-can@vger.kernel.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, "=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?c3RhYmxl?=" <stable@vger.kernel.org>
-Subject: Re: [PATCH net v2 0/3] can: fix bus-off restart during device close
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bc11fH8U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF58B1F000FF;
+	Wed, 14 Oct 2026 06:48:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791960538;
+	bh=3s3KwabcJwIRXUmI/Y+Bqws+Jo8G1XOlJIz1X+GBsuk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bc11fH8U74i7RrUlQ5KqwGTUchjhVugnDivsPsLyeQXmbjKrmtwUGhVN3PbhPBeiL
+	 cfQwruNYWI399jvmwJuI4th66Dr2RcqTzpQqjd87UvGubXC/RFzAr65qTeQUfIwnT8
+	 eQIdwPhtoHrRuL0Ye2AzAJkYXXUoTuYT4h0FyVcXKUgFyxh2ojogGBROtpO0EJfP3L
+	 yiQvRzVhfq/0/tKNaYipcoS0ggRQnDpATrx8LGcqx5Yz4jJmcj4LvmkudZDPlVagXm
+	 luzSTJxdiDLzwl/uLkZvjkMWKOKj+CTezDg/kxRjaNrg3hFcfvyuOI+UV/RBcUjLrI
+	 Qt9w6iJ0THlXg==
+Date: Wed, 14 Oct 2026 06:48:54 +0000
+From: Tzung-Bi Shih <tzungbi@kernel.org>
+To: Satyam Gupta <sgsatyam@google.com>
+Cc: Scott Collyer <scollyer@google.com>, Benson Leung <bleung@chromium.org>,
+	Gwendal Grignou <gwendal@chromium.org>,
+	Guenter Roeck <groeck@chromium.org>,
+	chrome-platform@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] platform/chrome: cros_ec_sensorhub: Modify clock
+ drift estimation
+Message-ID: <as8l1oKtNsIwNHWr@google.com>
+References: <20260723163838.1698125-1-sgsatyam@google.com>
+ <amiBVdd1KvxbW5Ul@google.com>
+ <20261013105713.1369546-1-sgsatyam@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-Date: Wed, 14 Oct 2026 14:48:20 +0800
-X-Priority: 3
-Message-ID: <tencent_F71C128E473402A41153FC3E9BD269826509@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-References: <tencent_82C93561D200C84C24608C80049C23EEF80A@qq.com>
-	<20261014-solid-slug-of-tempering-22b862-mkl@pengutronix.de>
-In-Reply-To: <20261014-solid-slug-of-tempering-22b862-mkl@pengutronix.de>
-X-QQ-mid: xmsezb41-0t1791960500t25ydy0as
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261013105713.1369546-1-sgsatyam@google.com>
 
-SGkgTWFyYywKCj4gRllJOiBUaGUgdGhyZWFkaW5nIG9mIHlvdXIgc2VyaWVzIGlzIGJyb2tl
-biwgZHVlIHRvIHdyb25nL2NoYW5nZXMKPiAiTWVzc2FnZS1JRCIuCgpUaGFua3MgZm9yIHRo
-ZSBwb2ludGVyLCBhbmQgc29ycnkgYWJvdXQgdGhlIGJyb2tlbiB0aHJlYWRpbmcuCgo+IFlv
-dSBjYW4gdXNlIHRoZSBiNCAid2ViIHN1Ym1pc3Npb24iIGluc3RlYWQ/IEl0IGJ5cGFzc2Vz
-IGFueSBtYWlsIHN5c3RlbQo+IGNvbXBsZXRlbHkuCgpJJ2xsIHRyeSB1c2luZyB0aGUgYjQg
-d2ViIHN1Ym1pc3Npb24gZW5kcG9pbnQgZm9yIHRoZSBuZXh0IHJldmlzaW9uLgoKQmVzdCBy
-ZWdhcmRzLApDdW5oYW8gTHU=
+On Tue, Oct 13, 2026 at 10:56:50AM +0000, Satyam Gupta wrote:
+> On Tue, Jul 28, 2026 at 10:15:52AM +0000, Tzung-Bi Shih wrote:
+> > > This CL makes 5 specific changes to the clock drift estimation algorithm
+> > 
+> > Since these are 5 distinct logical changes, shouldn't they be separated into
+> > a 5-patch series?
+> 
+> Although the v3 commit description listed the adjustments as 5 bullet points,
+> they are tightly coupled parts of a single fix to support sensor batching in
+> the timestamp filter without breaking intermediate states:
+> 
+> - Extending TS_HISTORY_BORED_US from 0.5s to 2.0s so the filter survives 1-2s
+>   batch flush intervals requires the 10x dx ODR/mode-change reset and slope
+>   clamping; otherwise, transitions between active streaming and batching (which
+>   previously exceeded the 0.5s timeout) mix into the same filter history.
+> - The 10x dx check (which reads state->x_history[1] when history_len > 1)
+>   depends directly on the loop start index fix: previously, with
+>   `i = state->history_len - 1`, the loop did not run when `history_len == 1`,
+>   leaving `x_history[1]` unpopulated when `history_len` became 2.
+> - Dropping strictly past timestamps instead of clamping them to `last_ts`
+>   prevents post-reset backward ticks from being mistaken for same-timestamp
+>   batches by `cros_ec_sensor_ring_spread_add()`.
+> 
+> I have reworded the commit message in v4 to explain how these pieces work
+> together as a single cohesive change rather than a numbered list of unrelated
+> items.
 
+I'm not convinced.  I think they should still separate into 5 patches and
+form a series.
+
+> > On a related note, is [1] still relevant?  Should we disregard it?
+> > 
+> > [1] https://lore.kernel.org/all/20260720110405.2127011-1-sgsatyam@google.com
+> 
+> Yes, [1] ("platform/chrome: cros_ec_sensorhub: Fix AP/EC TS wrap") is still
+> relevant — it addresses 32-bit EC timestamp rollover across deep AP suspend.
+
+Please resend or include it in the same series.
