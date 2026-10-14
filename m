@@ -1,158 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB77274650;
-	Wed, 14 Oct 2026 05:53:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D74163783D5;
+	Wed, 14 Oct 2026 05:55:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791957241; cv=none; b=FUyoZpVVM1LC8b5rPxYJCN7U+eqiQ0S8OOj3Ff+GhDOpFr60K1dnYlMqoXaDuHbom1sZsi3iaFe4xjdyf/vY7KgejIpsZLztK5usguMemXwzLJQRg11TymzRmsol9Gt6GrqzeyK+P+KDz6kdN05XDKG9yR3J6OxcitR1AMzSNYg=
+	t=1791957328; cv=none; b=ULP0hW9EIxcQHU6n5sJfMa++Xh2T0djeZbOl3o4oT+NNi9rCHx7cu2q3VT6yyRetNDI6qF6xNVn5jQszcWkOWRMcO5XbH0uzPet7VfptrW6ie/Jw90b77AXkxDvf1z/maadaq6H9Z22TN3EmTGb2gYOZUJ4414SomBKhBO66Fow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791957241; c=relaxed/simple;
-	bh=vVm0FOajQFffyOs0LAnfx8dJlsrzh7gYl7hBe69/Txw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GJ280F0EgJb9SZhDdyanoSZ3p6DUpQaW/3ftmwuGb+Uw3dpW5OgjVdLcC1TfiqJP9G5FONyswgVbHjXWtKK+W4xOp65hgW14ZCcHRCsCSs4Hludm2Iujm1gvSNMj/DL2yXqiLTarV8CN1w3cp1HGcY9yvOuddjIFSb8KXSStXI0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fXHagODU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791957328; c=relaxed/simple;
+	bh=xMusnSmq7X17FmO88nGfTxeBvxXs0FBIyvelidrhwwI=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=XopTn6Bjn2yUZ5KtSFj7e6thED6+AiLGL/40IZubgbO1rjq43svFN3FAZDOF5N6UmQXB3gSV9TMVddKN5NFjYkBkJlCSsQk52GGRiww7iKZ5KUj4rXhEn5pwpf+dIjRdYJv2WESaPiXhS68GAq0koQPnP/3yWouSWubBqLMgndo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Y0EWY5an; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=iLYpj8rt; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=FgxF3GWk; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=s58Obshm; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fXHagODU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 328711F00893;
-	Wed, 14 Oct 2026 05:53:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791957239;
-	bh=71Y0wmRhfQg16pu9dm9O0XbJTlde/Ki76IIpjRJ4LFs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=fXHagODUU/0RicdM2mmGG65XnJqRRYTPzANomdVj5K0Tgwer3aNTP9K7qs7ynba3Q
-	 LoWJyfeEsrdUncF4PFOrICh+fq3kS2mekPpbWXs/PvCzwSKoPNQSp6DvywTHigxg/K
-	 0LBpNybgYtJrOTyQX+VQugHRG95m2nOD86GGraVViTsZcWOqg55m5oXXR69E54HqN/
-	 qf2VxHps3wzP5MH4dXFT73/bGI3Xe7o1zAuCGmdigyEooLb9rus207h54wPbENv2JC
-	 DHq3+sRhv91JYWl8zN/sLl64pda6haTV0LKjIOhO0p1f68PMoUINF63KiFvVfM1ZaP
-	 FKEq2eBL3vzFg==
-Message-ID: <a8a10c4b-993d-4cd4-9e99-fe7b0eff5597@kernel.org>
-Date: Wed, 14 Oct 2026 07:53:51 +0200
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Y0EWY5an";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="iLYpj8rt";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="FgxF3GWk";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="s58Obshm"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id DAF2421E6C;
+	Wed, 14 Oct 2026 05:55:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791957325; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tFYtpA/Cs8aARD1jOtOIy8DQlx2RowLARWyS7E4L59A=;
+	b=Y0EWY5anBrqxX2+gGjXSrR01bhCfFcXK1QFGbdpBLfdrQ3YdpYVJ6ZcVPWmjZiraEZVEOp
+	TMHDZ4YJ2uKjiKlXFiCAhoPkWmAbF5NHqh1I1b24IEaz3sd1K6rHvpARdl5aAEN6Y8AvIu
+	LRN9yMBcGDQdykpL+HdbfYek3xvaGfI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791957325;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tFYtpA/Cs8aARD1jOtOIy8DQlx2RowLARWyS7E4L59A=;
+	b=iLYpj8rtnWY+rrM5HhVrHy3ePreybAZdAuDPaEtvzEs7Uw/qcQq8JxTz+RXVIYiUwFqAT1
+	xPfXPkwp4aB8jJBg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791957324; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tFYtpA/Cs8aARD1jOtOIy8DQlx2RowLARWyS7E4L59A=;
+	b=FgxF3GWkGhm28TiC8nTeytz8xCdSM1GuKYLFJc4cNLG2b98WBQSzIpNcodGsSeWyjF5nlQ
+	PWf6901Wh3uonh7Dd3Z5+NZlafy2J7aKxAOU7Wj+Nfb1AI07FM9lBsqCFYGQSYxuuB0+LN
+	+w2YLLW97zSvXpo64cvH0iaOkd3v1mQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791957324;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tFYtpA/Cs8aARD1jOtOIy8DQlx2RowLARWyS7E4L59A=;
+	b=s58ObshmHr+9AlQY5w+jwo+nikbvBMHeRMnZcM0SP5bmfrf/reYBNW+0crMz+6bcn1FQRu
+	CB3XHZRfPci8jUAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 49F1E1368E;
+	Wed, 14 Oct 2026 05:55:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id qUYTCEwZz2r2EgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 14 Oct 2026 05:55:24 +0000
+Date: Wed, 14 Oct 2026 07:55:23 +0200
+Message-ID: <87jynkg71w.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Gergo Koteles <soyer@irl.hu>
+Cc: Shenghao Ding <shenghao-ding@ti.com>,
+	Kevin Lu <kevin-lu@ti.com>,
+	Baojun Xu <baojun.xu@ti.com>,
+	Sen Wang <sen@ti.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Philipp Oster <philippdev5396@outlook.de>,
+	Georg Wenzel <g.wenzel@gmail.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org
+Subject: Re: [PATCH v2 0/2] ALSA: hda/tas2781: Skip invalid TAS2563 UEFI calibration data
+In-Reply-To: <cover.1791895478.git.soyer@irl.hu>
+References: <cover.1791895478.git.soyer@irl.hu>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 3/4] arm64: dts: imx8mp-skov-revc: convert to overlays
-To: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- =?UTF-8?Q?S=C3=B8ren_Andersen?= <san@skov.dk>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
-References: <20261012-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v10-0-0906e57486a3@pengutronix.de>
- <20261012-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v10-3-0906e57486a3@pengutronix.de>
- <20261013-musical-brown-mamba-ff87a8@quoll> <87v774j0z8.fsf@pengutronix.de>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <87v774j0z8.fsf@pengutronix.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Flag: NO
+X-Spam-Score: -1.80
+X-Spam-Level: 
+X-Spamd-Result: default: False [-1.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com,outlook.de];
+	FREEMAIL_CC(0.00)[ti.com,perex.cz,suse.com,outlook.de,gmail.com,vger.kernel.org,alsa-project.org];
+	RCVD_TLS_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
 
-On 14/10/2026 07:38, Steffen Trumtrar wrote:
+On Tue, 13 Oct 2026 15:02:19 +0200,
+Gergo Koteles wrote:
 > 
 > Hi,
 > 
-> On 2026-10-13 at 09:31 +02, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+> Georg Wenzel experienced a regession with TAS2563 amplifiers. His laptop 
+> lacks proper calibration data, and due to a bug, the driver failed to 
+> apply them in the v6.16.x. That's why they worked.
 > 
->> On Mon, Oct 12, 2026 at 08:30:32AM +0200, Steffen Trumtrar wrote:
->>> The i.MX8MP Skov RevC jutouch 10" and Tian 7" variants are pretty
->>> similar, apart from the Display and touch controller.
->>>
->>> Move the common bindings to imx8mp-skov-revc-touch.dts and convert both
->>> variants to use overlays applied on this base version.
->>>
->>> Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
->>> ---
->>>  arch/arm64/boot/dts/freescale/Makefile             |  5 ++
->>>  .../imx8mp-skov-revc-jutouch-jt101tm023.dtso       | 38 ++++++++++
->>>  .../dts/freescale/imx8mp-skov-revc-tian-g07017.dts | 81 ----------------------
->>>  .../freescale/imx8mp-skov-revc-tian-g07017.dtso    | 40 +++++++++++
->>>  ...h-jt101tm023.dts => imx8mp-skov-revc-touch.dts} | 26 +++----
->>>  5 files changed, 91 insertions(+), 99 deletions(-)
->>>
->>> diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
->>> index 475e1ad9116e1..7c1b61249778e 100644
->>> --- a/arch/arm64/boot/dts/freescale/Makefile
->>> +++ b/arch/arm64/boot/dts/freescale/Makefile
->>> @@ -707,6 +707,11 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revb-lt6.dtb
->>>  dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revb-mi1010ait-1cp1.dtb
->>>  dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-bd500.dtb
->>>  dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-hdmi.dtb
->>> +
->>> +imx8mp-skov-revc-jutouch-jt101tm023-dtbs += imx8mp-skov-revc-touch.dtb \
->>> +	imx8mp-skov-revc-jutouch-jt101tm023.dtbo
->>> +imx8mp-skov-revc-tian-g07017-dtbs += imx8mp-skov-revc-touch.dtb \
->>> +	imx8mp-skov-revc-tian-g07017.dtbo
->>>  dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-jutouch-jt101tm023.dtb
->>>  dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-tian-g07017.dtb
->>>  dtb-$(CONFIG_ARCH_MXC) += imx8mp-toradex-smarc-dev.dtb
->>> diff --git
->>> a/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt101tm023.dtso
->>> b/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt101tm023.dtso
->>> new file mode 100644
->>> index 0000000000000..33ddd08a7adb5
->>> --- /dev/null
->>> +++ b/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt101tm023.dtso
->>
->> I do not understand this. This is a board, so not an overlay.
+> The amplifiers operate even without calibration data, so the calibration 
+> setup can be skipped if the data is invalid.
 > 
-> yes, that's what I did up until v4. New board with new dts.
+> The first patch simplifies error paths in the tas2563_save_calibration() 
+> function.
 > 
-> - Link to v4: https://patch.msgid.link/20260706-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v4-0-dfc0c8827c02@pengutronix.de
+> The second patch skips the zero UEFI calibration data as it is not 
+> necessary to apply.
 > 
-> The boards are all very similar apart from the touch panel, but they are all "real" boards and don't share a SOM, so dtsi is also not correct.
+> The previous patch for this problem
+> 3bc4fc135ec7 ("ALSA: hda/tas2781: Enable bass speakers support")
+> should be removed/reverted.
 > 
+> Gergo Koteles (2):
+>   ALSA: hda/tas2781: Assign total_sz at the end of the function
+>   ALSA: hda/tas2781: Skip invalid TAS2563 UEFI calibration data
 
-So why this is not a DTS?
+Applied with the revert of the previous fix to for-next branch now.
 
-Best regards,
-Krzysztof
+
+thanks,
+
+Takashi
