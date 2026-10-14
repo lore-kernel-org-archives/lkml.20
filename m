@@ -1,250 +1,146 @@
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com [209.85.217.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91E465540AD
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:24:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F9EF27AC31
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:25:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791991488; cv=none; b=p0urgaup5tOeHuYXc7yZH8vdb4SyRHZ2dxXRRtm/6N2EnXHaVa8H3WF/WyQUwwlisep4Qf3JnCoyK6EPihJn7bM7fZwkXrbWyB3ICpXYW2zOqPnlg3TYXbnVcKuw+IKAMKd20l0I41aEfN34l6zOQ2Hwc0HL+SKVVlYYoBx063I=
+	t=1791991522; cv=none; b=ChdAq0WXuyWSjje31e6xx03FPVO7LhF4z1woKapgoGZACKekV9lf1XvrVmK3BJNJsyUZJk9ZVYYdl57Nm6uXxG8tvwt8/wsBbqoaN1WUNXbk+BKKEv4fsdVce8wrAbWnumnwug4eWtUtpd5JU32X/lxTTHkjWgz8ux0JSrDI6uA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791991488; c=relaxed/simple;
-	bh=BBI0XcpPkSK55EQflgt1Amfesy8fbmHDO9s7ArZKsO8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lqW5qZGFnU4Ct1uVGLLG6w6NPNRF0Ja+m0AVjOKpVguUgLalY2+zMsB1nB3OKUZP0aFAd4BrRTzXM8pphUshpwJY710HFSoYoPrr203/FOBSdnFSH2Z0dn/jjTegTRC+xVcLMyYwLR8LoazK010J2jdY4JXoBp2zxgWgMT1qXk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V2EUGsof; arc=none smtp.client-ip=209.85.215.171
+	s=arc-20240116; t=1791991522; c=relaxed/simple;
+	bh=4xtlwMXyWzq87oKXlTSUTSJUcCXtxizVzZJcF/3R7OM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SfKEBL8Sai1ld1NIMopiOXJfn7n1KqRVp8OZT4lNSmwRclquGtJymtwbeEM7VWuVlOxKuzKaNObV9Ufh3jgYPOFezm8R+rqn/PyLb2WmninYPr2tPAPiwejGhQQJChGggo2p+XIGUOCFlPF9o0FaCCXEu7MdrZgzjaXKmzt4UGk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OvV3QGR4; arc=none smtp.client-ip=209.85.217.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V2EUGsof"
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cc1d57602e8so1752331a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:24:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OvV3QGR4"
+Received: by mail-vs1-f45.google.com with SMTP id ada2fe7eead31-7c8b520c640so183491137.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:25:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791991485; x=1792596285; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wmGqVNpq2PdWl+heL73MWMPJF6Ks87RHIfNcYC7eCSU=;
-        b=V2EUGsofJlOKUuCaBTZZVQ6pMFFXY+ESh0ItzMX4oDsSGwamS9yKKTcv5/02/aNNYL
-         kBTj7lWLr76YsPE209DQ63AhJYTWvyCSA3YJ3vWLlySoXqUgK5jRH8qMxIZRDgxopPSe
-         jMh9KIcf7801SMuqEmzox6fjxuGGQSTENm3FsyzOwTFqbJsYgF5DDqMJTnvsRBcTOxqp
-         VRCeMEHLed3koNrnt0Dk9XS8186rZY1wXHYi9Y3DNtK/AIX8Jt2ACCM3VPLImf/sDiWj
-         2gl9TsG0ulZIkRv38UycVF1YzwrjV9iJB5ds+32jovYaih8c6Q3kqMjYJp6a3BQd7Etw
-         2OZQ==
+        d=gmail.com; s=20251104; t=1791991520; x=1792596320; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xZlacUVzzy4HBA3NrxiUhpJFwP6Wb2PV4OZMdQ09R7I=;
+        b=OvV3QGR4FZThAftPriNMh0Z49gdzBDi90bON/J2qGK4x6casf1MCH7iu0i1QXdMSA8
+         BFyJfzLwcxt3JPev9LG1y+5VFqIIjSghbVMKzuB5xyqs4/68DP4kv6fVzv83zMymDsRX
+         1qrn+koBA5ex4K3dDF0QYhHc56uAqHiRM6OIDLgzhtp1jpswVE9dKA5VU43IH4PR4PxM
+         G3t9zI2cftnG/bVhkAMewxJOTecsfyxbw+/gLlhrTs/IEh+CI69jHmYi+lNLiJtZg/+m
+         4J3ogY8xF8roffMtybaOz/QyRuHixaK1iSrl7cPnIt/uMsOcnuoy/Z+UdshEdh0pdDjY
+         Z9HQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791991485; x=1792596285;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wmGqVNpq2PdWl+heL73MWMPJF6Ks87RHIfNcYC7eCSU=;
-        b=vlaNWnhmzElyNOIrtVMBocaRCN+R0wupjQiiRskt9/dfp6XTPIG7Xktt/DYooXJf3I
-         44pEIzZnDWUJudxGzLQGQXv888RrSPgRAhEcZHyg8KcQ4ue1t4i3xyHr9gZvuUTPvxAH
-         8UzfUokWz23BiSAtcNkGTnGQceJVMXaA8K5rAcqjVLAIO2uGKR6CbIZh+1iDqdK7gGkd
-         hj/6m0a14itNcYudQYtOJ9XgKMMV4LkJbZSvebfQbHNKGIvJyTeu3G1ZFq/8anUvyWAr
-         0a2REKcRRQbLopX8hKvk7/A3ueyS+4tXHkMDn4U5TL7auw15oKtCd2Kj00eNCn6A94Ks
-         eVXw==
-X-Forwarded-Encrypted: i=1; AKwUvBygNEEguwrjtJ4SMb8nod3KaLsxdZ0MJDWcO2oTdEf15GuLsCRVgwkxStpPmAQ+odXPbuMuvpYtCqg3TTo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJXNVNFH0Ld1YK4Z/iXCjAdzvmrjWOT4ZttPMbx1+A/3hi3P6fa
-	2bOIrUWSt96Q/DGntsU0/utqDDHBlyQW/R7hN0U9YHiYRpHr9z+ngPfI
-X-Gm-Gg: AYBFou25KVIPYj6qPXatuRdaTKXxo3qNNkanzFmMMZjsSLdFVtgU3jjoa+raQo57XVw
-	k4cnWYRAkDBVL7EZuFJFRA7J+GPqTfqL8eUriHVF6Mtvm/5fXGdIbNtbZlXz7BsWm5oQ523NIK6
-	H+e1xojPyfhDgv2jE+MozsXPQ7kjQx9GwRXz97rf4GGmt4HcJ1D+QcR8k9+88D2XOA5uMGKNBRD
-	CIgT0DgnwXPx2tBET6mOqWPIQqoVmn9WZl5D1+w6yTTxEI/c8A0XWlrXMKf4b0+gRLN/Jr9/Xcx
-	9hs+Yx+L0MjBPAZWsLHgBvzVDsLbYkvmUjgyx9p0BQ6o3sXIttUE+kZ3IWx2WwQX0UV82kwrbMo
-	5upIaevbpFzcpVJAlFUH+Hva8OR8zwTlBsw2SwWL96+tu3uEjsHnmp/1IhX2/LzN8UMsFAqJqe9
-	LNOKme2vk7uXf/oQnl8kuUwmLlh47QPHDwSXv0YBN29UexzQXepNkZbyFZ3/pDNl8mPMR0He7/L
-	yDc1pQqtRrywZe/yCjn21ej+6IeLkgtNS1c2b3Wxw6dqgOFIsAcLXEuOt14uXXhUUEB+LP4tqtF
-	PxAw22rEPbFxt5E=
-X-Received: by 2002:a17:90b:3a48:b0:3ab:413:49b6 with SMTP id 98e67ed59e1d1-3ab3a79a2d8mr14082334a91.41.1791991484697;
-        Wed, 14 Oct 2026 08:24:44 -0700 (PDT)
-Received: from localhost.localdomain ([180.182.24.11])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac5f27d573sm5151816a91.11.2026.10.14.08.24.41
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 14 Oct 2026 08:24:42 -0700 (PDT)
-From: Joonho Lee <mynameisjune111@gmail.com>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	linux-sound@vger.kernel.org,
+        d=1e100.net; s=20260707; t=1791991520; x=1792596320;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xZlacUVzzy4HBA3NrxiUhpJFwP6Wb2PV4OZMdQ09R7I=;
+        b=VkE1ZKQwc5LEASws5bAJC32/YzB27krWsRTSEAokYz6STHdgSUnfT03kKhC6cGVnwb
+         t50mHnguff3bMemp0GiFwkeeGM+7jfP162W2/uaN04xGJJ+ip9Gir580VPuhYMKkdbV/
+         pWNCEUWUCBxC0QN9LWFT9mjClQOu4T3Xv91pDdFZT13oKCOcK62QKvDIfr4EKLlKRlp6
+         bfgNJ5c2tBIRuWttGrv9/eWplJDS+sq66BXuUZXWGohwK8z5+MwS10mtOdGLA7EWuIjU
+         c/ZzN4z32se0QXf/bV7m63C7jgyseud8YvxVwVhJgpw+YfxKpZsj6GulpTfz4pc3arq/
+         EQpw==
+X-Forwarded-Encrypted: i=1; AKwUvBw9RSubZCvuVXGgE3kjxbGtisKPkU1WkBcfu54Sx08uaD/OvpBp0h1Ykb/A85yEDRM64TSS0zHh4PmDlyo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLuLc/KDqweVRVIn8Z8roPWTSBabwVV8LEd4QQWMCmRDyq35b9H
+	MFAjfqPVPF2zoFARRdcbYp2GaUUWJwnk+K3so93x5bI+xLPvTFLq7aU3
+X-Gm-Gg: AYBFou3zgkGOTHX4H89hjBcf0Yf6u5LaZ0h7/VLrKq2jA8tqyH0XLQksIdeBeZ1roqJ
+	kRyGYbFAdsqitirp6H9jnp7j+tY+MAyGzgq8tkXg2c4tsBJDldNPSomIETwg2v7+bVOZ+d3yDRe
+	Tr07V1KyHRuRMr/sPMhvrumdCm5k5t0KkqftCv3o+QrKtRyQu+Q3nr3dMer9EfCLC0JQb+784O1
+	a0NnUhXkrlxo9cN/zE5JUxCPcvPauJ19G7Pc7HbrmKXki799ALcmdcAhjYmkdu8I34OGbVADdjU
+	uFuZwjFg5v4lDibCcmngmzUqt5V+MHUWarDtzmpoMUCIo3/WaOVtOMcl/tynLq9lOu81qRpdStO
+	bColYCIg/8+WVLHcZITU+h+ZpLnIkAuS23nk+dvR4Hk26MszmZFQxyira77SeQHDkvsVKvTUqRy
+	86sonWa9j++ToyqgaN2ad/grgdEPAPO07qV+6Y6no5HfrN/XXt7KczgTAfMEP4kozGjvHZQE1OR
+	hiwJuqXyE2/NIaV4lhRHrM1Q4DB7VEoxpXQn0wp2vygq3eO8jHd1Ig+SPD9e6KeyiA6PZhtRm/5
+	TLTNJGGtZw6gO3WFV4jfz15lCHLVcW6aKf/SoZMBOec/LCbx
+X-Received: by 2002:a05:6102:4193:b0:7a7:12b0:fd03 with SMTP id ada2fe7eead31-7cb50ad7b90mr3825371137.0.1791991519989;
+        Wed, 14 Oct 2026 08:25:19 -0700 (PDT)
+Received: from debian-t14-gen1-fuhrysteve.ts.fuhry.app (235.sub-75-230-129.myvzw.com. [75.230.129.235])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97b5e5b1sm54887516d6.18.2026.10.14.08.25.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 08:25:19 -0700 (PDT)
+From: "Stephen J. Fuhry" <fuhrysteve@gmail.com>
+To: linux-input@vger.kernel.org
+Cc: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
 	linux-kernel@vger.kernel.org,
-	linux-api@vger.kernel.org
-Subject: [RFC PATCH v3 2/2] ALSA: pcm: refresh capture pointers in the drain action
-Date: Thu, 15 Oct 2026 00:24:39 +0900
-Message-ID: <rfc-v3-core-capture-drain-2.cf2e307fcac34b6a@gmail.com>
-In-Reply-To: <rfc-v3-core-capture-drain-0.cf2e307fcac34b6a@gmail.com>
-References: <rfc-core-capture-drain-0.112c40f0e9284eaa@gmail.com> <rfc-core-capture-drain-2.112c40f0e9284eaa@gmail.com> <8733u8g0kh.wl-tiwai@suse.de> <87y0c0el29.wl-tiwai@suse.de> <core-drain-linked-lock-reply.cf2e307fcac34b6a@gmail.com> <rfc-v3-core-capture-drain-0.cf2e307fcac34b6a@gmail.com>
+	"Stephen J. Fuhry" <fuhrysteve@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] HID: input: ignore the battery of Keychron keyboards over Bluetooth
+Date: Wed, 14 Oct 2026 11:25:05 -0400
+Message-ID: <20261014152505.2523337-1-fuhrysteve@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Capture drain decides whether to retain unread data from the cached
-hardware pointer. A final subperiod can be omitted if the driver has
-advanced without a period notification or another pointer query.
+Keychron keyboards identify as Apple's wired aluminium keyboard, rev B
+ANSI (05ac:024f), when connected over Bluetooth. hid-apple has bound
+that ID over Bluetooth since commit ebe0b42a4252 ("HID: apple: Add
+support for Keychron K1 wireless keyboard"). The Keychron K8 tested
+here does the same, whichever position its Mac/Windows switch is in.
 
-Refresh each running capture pointer in snd_pcm_do_drain_init(), with
-the normal drain action holding the stream and linked-group locks.
-Allow pointer accounting to return an error without issuing a nested
-XRUN or drain-complete action. Guard both the driver XRUN sentinel and
-the stop-threshold path; otherwise a linked drain can recursively enter
-the group stop action while its member locks are held.
+The report descriptor declares a battery, so hid-input creates a
+power_supply node for it. The keyboard never answers the battery
+feature report. Every read of the node blocks for the full 5 second
+uhid timeout and then returns -ENODATA:
 
-Let drain init own the stop: an update error ends that member in SETUP,
-while a successful update retains available capture frames in DRAINING.
-Ordinary pointer queries and period notifications retain their existing
-XRUN and drain-completion actions.
+  $ time cat .../power_supply/hid-<addr>-battery/capacity
+  cat: ...: No data available
+  real    0m5.10s
 
-Suggested-by: Takashi Iwai <tiwai@suse.de>
-Link: https://lore.kernel.org/all/8733u8g0kh.wl-tiwai@suse.de/
-Link: https://lore.kernel.org/all/87y0c0el29.wl-tiwai@suse.de/
-Assisted-by: LLM
-Signed-off-by: Joonho Lee <mynameisjune111@gmail.com>
+Anything that enumerates devices pays this on every pass. With the
+keyboard connected, "udevadm info --export-db" took 10 to 26 seconds;
+with it disconnected, 0.11 seconds. KDE's Solid library enumerates
+devices on the GUI thread, so Dolphin and the Plasma panel froze for the
+same 10 to 26 seconds. upower already gives up on the device and does
+not list it.
+
+0x024f is a wired-only Apple product, so a Bluetooth device using it is
+not a genuine Apple keyboard. Ignore its battery so the node is never
+created. AVOID_QUERY would stop the blocking read, but the K8 does not
+send the battery in its input reports either. The node would then stay
+at its initial capacity of 0 with status Unknown, which looks like an
+empty battery.
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Stephen J. Fuhry <fuhrysteve@gmail.com>
 ---
- sound/core/pcm_lib.c    | 34 ++++++++++++++++++++++++----------
- sound/core/pcm_local.h  |  2 ++
- sound/core/pcm_native.c | 10 ++++++++--
- 3 files changed, 34 insertions(+), 12 deletions(-)
+Tested on 7.2.6 (Debian trixie-backports base) on a ThinkPad T14
+Gen 3 with a Keychron K8 paired over Bluetooth: no battery node is
+created and "udevadm info --export-db" takes 0.12 s with the keyboard
+connected. The keyboard types normally and hid-apple still binds it.
 
-diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
-index de952f639d3b..2bb24d7dd2a1 100644
---- a/sound/core/pcm_lib.c
-+++ b/sound/core/pcm_lib.c
-@@ -206,8 +206,9 @@ void __snd_pcm_xrun(struct snd_pcm_substream *substream)
- 
- #endif
- 
--int snd_pcm_update_state(struct snd_pcm_substream *substream,
--			 struct snd_pcm_runtime *runtime)
-+static int do_pcm_update_state(struct snd_pcm_substream *substream,
-+			       struct snd_pcm_runtime *runtime,
-+			       bool notify)
- {
- 	snd_pcm_uframes_t avail;
- 
-@@ -216,12 +217,14 @@ int snd_pcm_update_state(struct snd_pcm_substream *substream,
- 		runtime->avail_max = avail;
- 	if (runtime->state == SNDRV_PCM_STATE_DRAINING) {
- 		if (avail >= runtime->buffer_size) {
--			snd_pcm_drain_done(substream);
-+			if (notify)
-+				snd_pcm_drain_done(substream);
- 			return -EPIPE;
- 		}
- 	} else {
- 		if (avail >= runtime->stop_threshold) {
--			__snd_pcm_xrun(substream);
-+			if (notify)
-+				__snd_pcm_xrun(substream);
- 			return -EPIPE;
- 		}
- 	}
-@@ -233,6 +236,12 @@ int snd_pcm_update_state(struct snd_pcm_substream *substream,
- 	return 0;
- }
- 
-+int snd_pcm_update_state(struct snd_pcm_substream *substream,
-+			 struct snd_pcm_runtime *runtime)
-+{
-+	return do_pcm_update_state(substream, runtime, true);
-+}
-+
- static void update_audio_tstamp(struct snd_pcm_substream *substream,
- 				struct timespec64 *curr_tstamp,
- 				struct timespec64 *audio_tstamp)
-@@ -283,8 +292,12 @@ static void update_audio_tstamp(struct snd_pcm_substream *substream,
- 	runtime->driver_tstamp = driver_tstamp;
- }
- 
--static int snd_pcm_update_hw_ptr0(struct snd_pcm_substream *substream,
--				  unsigned int in_interrupt)
-+/*
-+ * Call with the stream lock held.  With notify=false the caller handles
-+ * stopping the stream, so pointer errors must not start a nested action.
-+ */
-+int snd_pcm_update_hw_ptr0(struct snd_pcm_substream *substream,
-+			   bool in_interrupt, bool notify)
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	snd_pcm_uframes_t pos;
-@@ -322,7 +335,8 @@ static int snd_pcm_update_hw_ptr0(struct snd_pcm_substream *substream,
- 	}
- 
- 	if (pos == SNDRV_PCM_POS_XRUN) {
--		__snd_pcm_xrun(substream);
-+		if (notify)
-+			__snd_pcm_xrun(substream);
- 		return -EPIPE;
- 	}
- 	if (pos >= runtime->buffer_size) {
-@@ -490,13 +504,13 @@ static int snd_pcm_update_hw_ptr0(struct snd_pcm_substream *substream,
- 
- 	update_audio_tstamp(substream, &curr_tstamp, &audio_tstamp);
- 
--	return snd_pcm_update_state(substream, runtime);
-+	return do_pcm_update_state(substream, runtime, notify);
- }
- 
- /* CAUTION: call it with irq disabled */
- int snd_pcm_update_hw_ptr(struct snd_pcm_substream *substream)
- {
--	return snd_pcm_update_hw_ptr0(substream, 0);
-+	return snd_pcm_update_hw_ptr0(substream, false, true);
- }
- 
- /**
-@@ -1906,7 +1920,7 @@ void snd_pcm_period_elapsed_under_stream_lock(struct snd_pcm_substream *substrea
- 	runtime = substream->runtime;
- 
- 	if (!snd_pcm_running(substream) ||
--	    snd_pcm_update_hw_ptr0(substream, 1) < 0)
-+	    snd_pcm_update_hw_ptr0(substream, true, true) < 0)
- 		goto _end;
- 
- #ifdef CONFIG_SND_PCM_TIMER
-diff --git a/sound/core/pcm_local.h b/sound/core/pcm_local.h
-index ecb21697ae3a..12bb6e75329a 100644
---- a/sound/core/pcm_local.h
-+++ b/sound/core/pcm_local.h
-@@ -28,6 +28,8 @@ int pcm_lib_apply_appl_ptr(struct snd_pcm_substream *substream,
- int snd_pcm_update_state(struct snd_pcm_substream *substream,
- 			 struct snd_pcm_runtime *runtime);
- int snd_pcm_update_hw_ptr(struct snd_pcm_substream *substream);
-+int snd_pcm_update_hw_ptr0(struct snd_pcm_substream *substream,
-+			   bool in_interrupt, bool notify);
- 
- void snd_pcm_playback_silence(struct snd_pcm_substream *substream,
- 			      snd_pcm_uframes_t new_hw_ptr);
-diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index defbb2977efe..91ae46de3521 100644
---- a/sound/core/pcm_native.c
-+++ b/sound/core/pcm_native.c
-@@ -2094,6 +2094,8 @@ static int snd_pcm_do_drain_init(struct snd_pcm_substream *substream,
- 				 snd_pcm_state_t state)
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
-+	int err;
-+
- 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
- 		switch (runtime->state) {
- 		case SNDRV_PCM_STATE_PREPARED:
-@@ -2119,8 +2121,12 @@ static int snd_pcm_do_drain_init(struct snd_pcm_substream *substream,
- 		if (runtime->state == SNDRV_PCM_STATE_RUNNING) {
- 			snd_pcm_state_t new_state;
- 
--			new_state = snd_pcm_capture_avail(runtime) > 0 ?
--				SNDRV_PCM_STATE_DRAINING : SNDRV_PCM_STATE_SETUP;
-+			err = snd_pcm_update_hw_ptr0(substream, false, false);
-+			if (err < 0)
-+				new_state = SNDRV_PCM_STATE_SETUP;
-+			else
-+				new_state = snd_pcm_capture_avail(runtime) > 0 ?
-+					SNDRV_PCM_STATE_DRAINING : SNDRV_PCM_STATE_SETUP;
- 			snd_pcm_do_stop(substream, new_state);
- 			snd_pcm_post_stop(substream, new_state);
- 		}
+I have only the K8 to test. If another Keychron model on this ID does
+answer the battery report, this hides its battery level. I do not know
+whether any does.
+
+ drivers/hid/hid-input.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/drivers/hid/hid-input.c b/drivers/hid/hid-input.c
+index edd6bbf..380ff8a 100644
+--- a/drivers/hid/hid-input.c
++++ b/drivers/hid/hid-input.c
+@@ -381,6 +381,15 @@ static const struct hid_device_id hid_battery_quirks[] = {
+ 	{ HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_ELECOM,
+ 		USB_DEVICE_ID_ELECOM_BM084),
+ 	  HID_BATTERY_QUIRK_IGNORE },
++	/*
++	 * Keychron keyboards in Bluetooth mode reuse the product ID of
++	 * Apple's wired aluminium keyboard. They declare a battery but never
++	 * answer the battery feature report, so each read blocks for the full
++	 * uhid timeout and then fails with -ENODATA.
++	 */
++	{ HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_APPLE,
++		USB_DEVICE_ID_APPLE_ALU_REVB_ANSI),
++	  HID_BATTERY_QUIRK_IGNORE },
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_SYMBOL,
+ 		USB_DEVICE_ID_SYMBOL_SCANNER_3),
+ 	  HID_BATTERY_QUIRK_IGNORE },
 -- 
-2.54.0 (Apple Git-157)
+2.47.3
+
