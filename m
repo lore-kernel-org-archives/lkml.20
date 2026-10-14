@@ -1,155 +1,121 @@
-Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [85.215.255.84])
+Received: from out30-112.freemail.mail.aliyun.com (out30-112.freemail.mail.aliyun.com [115.124.30.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F0484F4733;
-	Wed, 14 Oct 2026 10:58:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.84
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791975535; cv=pass; b=X0zHsJL0Lu2QinrukosL7nNJS8i99c2unlkKKKHtE46N+x06HKcmHRJ8JuPvUMcGfkms8mIHymjl5PFWZGLT+TnUPK4P7/i6HzPB/2pxvw3ZYY9P5y34HBFygPADcFLPIn20HazJ4Mysk04XlDIv6368PYKJALDJmXow8aphIq0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791975535; c=relaxed/simple;
-	bh=i77e+wBiWi8FqvuuJeUW9AWeITiuJSztxl7rR9SlHBk=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=c6WXE8mHW6x8HiLShEts6qWW1aWcLxJWBj9OAp1C+2DW/AJH3c33E7A3YfMb8vk5Xt6BLOtGuwL81wnuJMQIiDVmBVZKbsD3MQc3/x3iafopXpmccLtbb5iLWntFTC946nDFS0nftrtzAl2RxGRIu5G2bHTNQKLyJbXLn46R8BA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de; spf=none smtp.mailfrom=iokpp.de; dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=mDWjPhU5; dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=mza393iE; arc=pass smtp.client-ip=85.215.255.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E954412276
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:58:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.112
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791975544; cv=none; b=p99nqS0ViU2EXRDCgQXDUgiBmpNGngRZBthPKKGE7MguxLdIM0dG97bO70QB1MfKIqRuzlc/0e59pJmmpMzrvI6TAEaYBnfb2JawYCU19IPqwuB5nNR2JhjEmV0EXysukXxYY4W21SwZhiAJVVbCUUvAHxXfK3DPw/OXZIkb6s0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791975544; c=relaxed/simple;
+	bh=417w7jdr8/JtcTR9w5nwo2+nrWj9hzZx+/UzqdkcbhE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=VW1LAujMQzUS2VT2ORVmFzN5DJrryFq9yHSnvnFidyJzHltlDphqUBtgnipbAJG6VmY2YTm8LL5ql2LMeCifQROBg7yFJlqft6f9Yi1FBzkaQuwUTWzS/NQxGLfSdrkVs3uDIXCQUSWd+QoohCPuXqf8escNMKyjcVCacCTHRzQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=h0/IMugg; arc=none smtp.client-ip=115.124.30.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="mDWjPhU5";
-	dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="mza393iE"
-ARC-Seal: i=1; a=rsa-sha256; t=1791975523; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=OA1ZxccYceiWPQRn4RfeedxzDtdGhYXZ98aj3Rp5ixpOOmQmYnLeATWtLR65N18c1s
-    +MdS4TNx+K9mWxOYAl6/TKzxNxfGPkniQCt3KKBJzG9nc1xluBNyc8unqdwoJtJpYeKF
-    muJsQAtk1vH3jrZhQZfieXUz8vJ+mUBMkspIECloQltnLTpXE0jbN2tbbzvQj2Z3oWOQ
-    XpycyiakhYgsKu5cp3+JqWZiH0PeJqRhf9M6dIlLVZ9jcN0Yuq+e2KqzFzkkcNcIuGB+
-    FkQ/smYV5NV8zOyMh+Xty6dJoevo4Wp0O70C9hUmRNCUQj5XqAs2QuG+v366EOuxVGB7
-    b6ig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1791975523;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=i77e+wBiWi8FqvuuJeUW9AWeITiuJSztxl7rR9SlHBk=;
-    b=mEuxMPAlzyIm632nodxxENzRGrfDBIXf7AJdVn/EvMYdoXqEGcHohS7h2pqFRapXMD
-    FpRearoEexw8wRmGlTCgenw2wlGuCRz3XwD4PLM0mO2DR7fW5lv9x7KdJPnYZdiEuX3P
-    gPprvQrFkQDpDeoXxI4kKIG2nxLHvelCMDYnoMOtWgqE3DapYC51nJP8MHJ1vPpLUr8z
-    e4dmOWfTdORF5B06ovDkJczeqLgagMLTPyv1HxxwYj6bPDELcyD1Hmprkf7hgR7AiuHu
-    LMFxou9uhUlzZ+knd0XgZWPbxpuuDrSHSkVi1adYF2N3Wm649oOhXgx46TizGTz/B5P9
-    O5Og==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo02
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1791975523;
-    s=strato-dkim-0002; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=i77e+wBiWi8FqvuuJeUW9AWeITiuJSztxl7rR9SlHBk=;
-    b=mDWjPhU5+ZfHnvBR3UBil4JsiC0OwcXULLsrd9/XFQlXkiiyrjxa2mI9VZEhABWgiC
-    O0kBJIQgazWJ21kitiD+9t+/m9DXICGCLyBVYBM5fY9B50FQMC+DWLoY7xdLQFGHhaIr
-    0Gd6dlS0ZWESMabl+U4Zp0w9Mjqs3RfNvchW8giAhdUaOQEOZiXpVGmRF+SLSaIIMWbZ
-    aiMWW3p1xBsmER+IFCEVwciy6mZba9l6nF/Xcm1dXdMiaqK7h8WD8t8l7TEwMbpA4PAJ
-    xVCbU5+Qb72LCIMM9QPVKJxSh86DAw2H23HAjT8b/5R0eckI2MiIZqYuvsj3bZ2ci1A0
-    YhiQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1791975523;
-    s=strato-dkim-0003; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=i77e+wBiWi8FqvuuJeUW9AWeITiuJSztxl7rR9SlHBk=;
-    b=mza393iEpO8uOfC+eFAI+vNsxnbP1+Q/iyTSTKjs4CboahGLWZl/bOPVIk0agqUEwS
-    ZsjCgbZ2/zs1PBSTzdCQ==
-X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0DBslXBtZUxPOub3IZuk"
-Received: from [10.176.237.108]
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id z831ad29EAwg3jF
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Wed, 14 Oct 2026 12:58:42 +0200 (CEST)
-Message-ID: <1502975d00e9344bf33b5d1ed23501699895998e.camel@iokpp.de>
-Subject: Re: [PATCH 3/3] scsi: ufs: core: Clear stale UIC result byte before
- peer DME retries
-From: Bean Huo <beanhuo@iokpp.de>
-To: Stanley Jhu <stanleyjhu@google.com>, "Martin K. Petersen"
- <mkp@kernel.org>,  "James E.J. Bottomley"
- <James.Bottomley@HansenPartnership.com>
-Cc: powenkao@google.com, Alim Akhtar <alim.akhtar@samsung.com>, Bart Van
- Assche <bvanassche@acm.org>, Bean Huo <beanhuo@micron.com>, Peter Wang
- <peter.wang@mediatek.com>, linux-scsi@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Wed, 14 Oct 2026 12:58:41 +0200
-In-Reply-To: <20261013102913.948718-4-stanleyjhu@google.com>
-References: <20261013102913.948718-1-stanleyjhu@google.com>
-	 <20261013102913.948718-4-stanleyjhu@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="h0/IMugg"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1791975537; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=q3somswdShAOyMSlpC93YH8hrkAIpb7NJfgX6GZayW4=;
+	b=h0/IMugglzkyThX4r4AA/UW1v3ENQCzPtIZRt0J2yrHF26SfFKoVixkT6OQDB69lwZBC7fayzWWCNXY0spqPgZnquSZwBX06U2BzqnSV0pIBAKpbITWSp7/7Wl+JtC3WkajmFHRH6z7OlP2XhYwUNlWmBzUgVHp1QIf+BISpf+A=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R211e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XComWrS_1791975536;
+Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XComWrS_1791975536 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 14 Oct 2026 18:58:57 +0800
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Heming Zhao <heming.zhao@suse.com>
+Cc: Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ocfs2: validate the xattr tree root of an indexed xattr block
+Date: Wed, 14 Oct 2026 18:58:56 +0800
+Message-Id: <20261014105856.2909777-1-joseph.qi@linux.alibaba.com>
+X-Mailer: git-send-email 2.39.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, 2026-10-13 at 18:29 +0800, Stanley Jhu wrote:
-> Peer DME get and set retry a failed attempt with the same struct
-> uic_command. UIC completion ORs the ConfigResultCode into
-> argument2[7:0], and nothing clears it before the next attempt. Once an
-> attempt fails, every retry keeps reporting that error code, even when
-> the device returns success, so a transient failure becomes a hard
-> failure after three retries. Each such retry also triggers the
-> WARN_ON_ONCE() in ufshcd_dispatch_uic_cmd().
->=20
-> Clear the result byte before each attempt.
->=20
-> Fixes: 64238fbd15ea ("scsi: ufs: add retries to dme_peer get and set
-> attribute")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
-> ---
-> =C2=A0drivers/ufs/core/ufshcd.c | 2 ++
-> =C2=A01 file changed, 2 insertions(+)
->=20
-> diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-> index bcc2512bf34b..9adb3b576e28 100644
-> --- a/drivers/ufs/core/ufshcd.c
-> +++ b/drivers/ufs/core/ufshcd.c
-> @@ -4398,6 +4398,7 @@ int ufshcd_dme_set_attr(struct ufs_hba *hba, u32
-> attr_sel,
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0int retries =3D UFS_UIC_C=
-OMMAND_RETRIES;
-> =C2=A0
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0do {
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0uic_cmd.argument2 &=3D ~MASK_UIC_COMMAND_RESULT;
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0/* for peer attributes we retry upon failure */
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0ret =3D ufshcd_send_uic_cmd(hba, &uic_cmd);
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0if (ret)
-> @@ -4465,6 +4466,7 @@ int ufshcd_dme_get_attr(struct ufs_hba *hba, u32
-> attr_sel,
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0}
-> =C2=A0
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0do {
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0uic_cmd.argument2 &=3D ~MASK_UIC_COMMAND_RESULT;
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0/* for peer attributes we retry upon failure */
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0ret =3D ufshcd_send_uic_cmd(hba, &uic_cmd);
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0if (ret)
+ocfs2_validate_xattr_block() checks an xattr block's signature, blkno,
+generation and suballocator fields, and for a non-indexed block the entry
+array it carries.  An indexed block is passed straight through, so the
+extent list in its xattr tree root is never looked at.
 
-Stanley,
+Both fields that describe the list are bounded.  The two places that
+create a root set l_count from ocfs2_xattr_recs_per_xb() and nothing
+rewrites it, and the insert path asserts in ocfs2_rotate_leaf() that
+l_next_free_rec stays within l_count.  Check both when the block is
+first read, so a root that disagrees with the block size, or claims more
+records than it has room for, is caught before anything indexes into
+l_recs[].
 
-AI Sashiko comment on arg3 should not happen on a spec compliant ufshci
-controller, since arg3 is an input for dme_set, arg2 indeed has an output b=
-yte
-for every command, but restoring arg3 in the set loop would be cheap safety
-enhancement, but up to you:
+An empty root is deliberately not rejected.  Emptying the tree leaves it
+that way: ocfs2_rm_xattr_cluster() removes one extent per transaction,
+and the last one ends in ocfs2_truncate_rec(), whose closing
+ocfs2_rotate_tree_left() reaches ocfs2_remove_empty_extent() on the
+depth-zero root and takes l_next_free_rec to zero.  That transaction
+commits before ocfs2_xattr_free_block() frees the block, and before
+ocfs2_xattr_remove() clears i_xattr_loc, in two later transactions, so a
+crash in between leaves an orphan inode pointing at an xattr block whose
+root has no extents.  Both readers already cope with it:
+__ocfs2_xattr_index_block_find() answers -ENODATA, and
+ocfs2_iterate_xattr_index_block() returns without iterating.
 
-for me this patch is ok:
+Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+---
+ fs/ocfs2/xattr.c | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
-Reviewed-by: Bean Huo <beanhuo@micron.com>
+diff --git a/fs/ocfs2/xattr.c b/fs/ocfs2/xattr.c
+index 18d920b30602..b2bd06083a14 100644
+--- a/fs/ocfs2/xattr.c
++++ b/fs/ocfs2/xattr.c
+@@ -491,6 +491,7 @@ static int ocfs2_validate_xattr_block(struct super_block *sb,
+ 				      struct buffer_head *bh)
+ {
+ 	int rc;
++	struct ocfs2_extent_list *el;
+ 	struct ocfs2_xattr_block *xb =
+ 		(struct ocfs2_xattr_block *)bh->b_data;
+ 
+@@ -573,6 +574,30 @@ static int ocfs2_validate_xattr_block(struct super_block *sb,
+ 							 region_offset);
+ 	}
+ 
++	/*
++	 * An indexed xattr block carries the root of the xattr tree.  Its
++	 * record count is fixed by the block size and l_next_free_rec never
++	 * exceeds it.  A zero l_next_free_rec is valid: emptying the tree on
++	 * the inode deletion path leaves the root with no extents.
++	 */
++	el = &xb->xb_attrs.xb_root.xt_list;
++
++	if (le16_to_cpu(el->l_count) != ocfs2_xattr_recs_per_xb(sb)) {
++		return ocfs2_error(sb,
++				   "Xattr tree root #%llu has invalid l_count %u (expected %u)\n",
++				   (unsigned long long)bh->b_blocknr,
++				   le16_to_cpu(el->l_count),
++				   ocfs2_xattr_recs_per_xb(sb));
++	}
++
++	if (le16_to_cpu(el->l_next_free_rec) > le16_to_cpu(el->l_count)) {
++		return ocfs2_error(sb,
++				   "Xattr tree root #%llu has l_next_free_rec %u past the end of its list (l_count %u)\n",
++				   (unsigned long long)bh->b_blocknr,
++				   le16_to_cpu(el->l_next_free_rec),
++				   le16_to_cpu(el->l_count));
++	}
++
+ 	return 0;
+ }
+ 
+-- 
+2.39.3
 
