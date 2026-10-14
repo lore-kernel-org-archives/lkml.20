@@ -1,38 +1,38 @@
 Received: from shared-aoh59.rev.nazwa.pl (shared-aoh59.rev.nazwa.pl [85.128.243.59])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8087447728D;
-	Wed, 14 Oct 2026 20:06:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FC344457C9;
+	Wed, 14 Oct 2026 20:06:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.128.243.59
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792008388; cv=none; b=FgJhElhiXyYdFCt6mu5EehuxEMFhN/a4vzjxxPAsao3YJLnl2wPAUNhK/3De0FdMQmycwiq2+wdk/7Ze+lpBpDjmKMUrHswL0Q1wPrVmEpNWDfhvJZQIPTRZaNNieUy1SpqQdEEWYo6jmdbenRnPBdJxoa2kd+klHFfEVQ3DJ/g=
+	t=1792008396; cv=none; b=lMBOpRmtU7esGjqs6n1J3kjvy1kiJaTIdOoBUoL/l9rtVGuWxw5sC8pUGgg52RbI/e1kFPZzLhjzZahJp9Uj2GMeRYcVYcHsb+4UFwHKq7Tar2Vi1b7mbX/2LwPitMC+eno766nOsUFlfmylYN8REZwYBGsmgoN+wL6lnVm+96g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792008388; c=relaxed/simple;
-	bh=BM9PAc3YLpTdHYpu9vHSr3Fk3KgPq/7GeFRld1k+x5g=;
+	s=arc-20240116; t=1792008396; c=relaxed/simple;
+	bh=T1fDisrsXnpHwDpcsIajQNo1HqgvlNZ/iwQrk6pRNUI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cOIQB2oQFNlBnsaOfOLzgJI/6icgRWEZzgj7MRYu6O+GyjCRPN2hSFOOVmh26dlvugOKrxzCwkmozheRa0/s9zYa/phFr097HlekXZEtazDSTY2jfhdWe22+uWXvCjfOLLObgY+QeVBiXfwNJcSRuH0SEkFhzaqx4PlHiGe0MtQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=asmblr.net; spf=pass smtp.mailfrom=asmblr.net; dkim=pass (2048-bit key) header.d=asmblr.net header.i=@asmblr.net header.b=l0J5agph; arc=none smtp.client-ip=85.128.243.59
+	 MIME-Version:Content-Type; b=N0Emj3wZ2cHhS5HMIEW9Pnp+ZSQvAPXb1mBdBj8f9YhF8EN8LgcYwDGakdTzG0Jzmbz1QiNAHsZT16PuVH65i/KBca8/McjUhseQjtjkqt5UhfREHauNU4w33Yn8FOXoo5MfowlDb6B8fUJTUV1FjIdiSvKq1EAyLYYrCzy7ba4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=asmblr.net; spf=pass smtp.mailfrom=asmblr.net; dkim=pass (2048-bit key) header.d=asmblr.net header.i=@asmblr.net header.b=mYAT42sJ; arc=none smtp.client-ip=85.128.243.59
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=asmblr.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asmblr.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=asmblr.net header.i=@asmblr.net header.b="l0J5agph"
+	dkim=pass (2048-bit key) header.d=asmblr.net header.i=@asmblr.net header.b="mYAT42sJ"
 X-Virus-Scanned: by amavisd-new using ClamAV (2)
 X-Spam-Flag: NO
 X-Spam-Score: -0.625
 X-Spam-Level: 
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=asmblr.net;
-	s=1706450368.internal; t=1792008377;
-	bh=GwsSNEed0q8frz+j+qKqe3ZlvMr6jRP/RpCCGHjfpJs=;
+	s=1706450368.internal; t=1792008378;
+	bh=+c9J74pPyeQT7T0uRaJkgFdwoZYZGnRPWS92v1Y33xk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=l0J5agphRVxdfuJ+vzXpGTo9J0k3HW7j9sqaFUE6Eh0f1f5/EhSr4XaYI4tbntMsB
-	 par19XEA/k0eVqZ8pFhaRC5turvVuw3A2OS26KAhwdQ6O+zVaqEOjPyA1jQU6tpENQ
-	 rdQC5OfKRSGKGLLpUrjBuJB5sDdVfKYwXkXnXa7sNLZ3MaQ0pHgQxz2dlRZgOmj3lk
-	 +hDG+yTPO009T4vsVYCBas/faH3EteDOqEQqvt0BQz2VxqTHYKjENRs9VHns+2WHDy
-	 r6mdEIpc5BuhI4n9U7gVZW2/0LR11wLieI3x+JQQ58bmuEcb4MoNRMNn6C4QZ0ek1E
-	 yhmZ+HGgjpHQw==
+	b=mYAT42sJSoYfZTRidJfyt3meCcGXAtTvpNuhpBuFfrSGWmt9/FN+csMLJQ/I+1LXE
+	 utCqs3CM+TZxeKB2bVPPeWrmD5WgZlNjtpOgh6PmnSXpBjN4WHQ/u7ic3DD9RomSZN
+	 LVyapnx0CiMpBFjWmdVnRoWcm7uTqOLQOzvKA+8y+BDUToTBwnIKzVZb0vicqo6Lzf
+	 fnSdzYLp4osqO1qkMTqQIzOtM5iELuH8ZLJYph2KLUkMYd75hA6Fi6vbAErXx/rBf1
+	 F76o3zuq2hpt3xPV5xA4LA3Z+VwfjdSvDdidIOsTSXbeglTEFY6/ReeCP4uGyxhj4E
+	 ezimc+FOVQ+nQ==
 Received: from milkyway (91-150-221-36.dynamic.play.pl [91.150.221.36])
-	by server753313.nazwa.pl (Postfix) with ESMTP id 71A5F1BC50B;
-	Wed, 14 Oct 2026 22:06:17 +0200 (CEST)
+	by server753313.nazwa.pl (Postfix) with ESMTP id 32B051BC50D;
+	Wed, 14 Oct 2026 22:06:18 +0200 (CEST)
 From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?= <amade@asmblr.net>
 To: linux-sound@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
@@ -41,9 +41,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Takashi Iwai <tiwai@suse.com>,
 	Liam Girdwood <lgirdwood@gmail.com>,
 	=?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?= <amade@asmblr.net>
-Subject: [PATCH 3/8] ASoC: soc-topology-test: Check return value of kunit_device_register()
-Date: Wed, 14 Oct 2026 22:06:03 +0200
-Message-ID: <20261014200608.118770-4-amade@asmblr.net>
+Subject: [PATCH 5/8] ASoC: soc-ac97: Fix error handling in snd_soc_new_ac97_component()
+Date: Wed, 14 Oct 2026 22:06:05 +0200
+Message-ID: <20261014200608.118770-6-amade@asmblr.net>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261014200608.118770-1-amade@asmblr.net>
 References: <20261014200608.118770-1-amade@asmblr.net>
@@ -56,35 +56,34 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Call to kunit_device_register() can fail. Check return result of
-register call. While at it introduce helper variable so that if it fails
-put_device is called on properly initialized variable.
+If call to snd_soc_ac97_init_gpio() fails, proper removal procedure
+should mirror snd_soc_free_ac97_component() behaviour and call
+device_del() before put_device().
 
-Fixes: e57cdff0ddc4 ("ASoC: topology: Replace fake root_device with kunit_device in tests")
+Fixes: 9bf5c3d11f1f ("ASoC: ac97: add gpio chip")
 Signed-off-by: Amadeusz Sławiński <amade@asmblr.net>
 ---
- sound/soc/soc-topology-test.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ sound/soc/soc-ac97.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/soc-topology-test.c b/sound/soc/soc-topology-test.c
-index bcfb52061133..8df845a196fe 100644
---- a/sound/soc/soc-topology-test.c
-+++ b/sound/soc/soc-topology-test.c
-@@ -24,8 +24,12 @@ static struct device *test_dev;
+diff --git a/sound/soc/soc-ac97.c b/sound/soc/soc-ac97.c
+index 5f81e3606655..5c573c8dc249 100644
+--- a/sound/soc/soc-ac97.c
++++ b/sound/soc/soc-ac97.c
+@@ -241,10 +241,12 @@ struct snd_ac97 *snd_soc_new_ac97_component(struct snd_soc_component *component,
  
- static int snd_soc_tplg_test_init(struct kunit *test)
- {
--	test_dev = kunit_device_register(test, "sound-soc-topology-test");
--	test_dev = get_device(test_dev);
-+	struct device *dev;
-+
-+	dev = kunit_device_register(test, "sound-soc-topology-test");
-+	if (IS_ERR(dev))
-+		return PTR_ERR(dev);
-+	test_dev = get_device(dev);
- 	if (!test_dev)
- 		return -ENODEV;
+ 	ret = snd_soc_ac97_init_gpio(ac97, component);
+ 	if (ret)
+-		goto err_put_device;
++		goto err_del_device;
  
+ 	return ac97;
+ 
++err_del_device:
++	device_del(&ac97->dev);
+ err_put_device:
+ 	put_device(&ac97->dev);
+ 	return ERR_PTR(ret);
 -- 
 2.56.0
 
