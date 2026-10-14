@@ -1,142 +1,60 @@
-Received: from mta0.migadu.com (out-183.mta0.migadu.com [91.218.175.183])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4CC0363090
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 02:48:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.183
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D868E363090;
+	Wed, 14 Oct 2026 02:49:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791946114; cv=none; b=kk4E5H17EEI15etsQW30/nB1AIyNug4VXjj+u35ia5VQcOErblemzTU4Wsy8hUAAK0EcyfFP80YP5YslfX1oeDZXRZC7RCrvEz0PiAQpNfkOBpToFvbicdoxjkiFpbY4yb01if0EaXOawRGGHEPfpEskk4xC2sr7yg05Oz1X6oQ=
+	t=1791946143; cv=none; b=qfc2V361cLIEiXJ00ujDFkGXB4vpgH/y957oubGB4zrpYX8R8m+7ls5JWJp+XMxx48j2KXgif4oqBA8uBUHO6ctdne8dgJ1WqAhftMAYRdIUUCwjlFMLcRrzVUKFrNJ+80X6O8VTqNp2E0t2NGZk4fr1Vm1N88eeJjsDswNApdE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791946114; c=relaxed/simple;
-	bh=2kHoms2QSSahMaMVeqUufPLoRe85ZbbkTBqAyiaowT8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Xv6/FPTZ4FkhbSAAoDanHcOyt1n70ayuq6m99rSzky6/otOoRLEJp5CAG3noGyMtoq1prkueajqmywqAd+nZLhzIPTdl1uSbqmVxNM9TkdoiIojEhSMYNVZUKyQIZtHC7xg37hTr3xu/TZ7Rg0C6Iu8ppMqIiox149LeDF1dSts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Kk02qkMV; arc=none smtp.client-ip=91.218.175.183
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791946143; c=relaxed/simple;
+	bh=RNbKNRS527FLzE3xL8s+PwAPD/cNMkxUwLI3NRRTkxs=;
+	h=To:Cc:Subject:From:In-Reply-To:Message-ID:References:Date:
+	 MIME-Version:Content-Type; b=GO30A9VFSvunm3bCTHlFRuuUIiTebaIhYnEmBXnUu6AJvFnadS7+wr1+AtM8beYJZasrbWQe/inOgiofIeVQ88J5Mw+hWBqNabPzskGy7R9+MEuFt/4AbcD6wBUeXw0Zexu/lhfmRDxd/So9AMw7w+jK4P5ekMGlGPT0mJPTkMA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YBfw1nxe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Kk02qkMV"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=2kHoms2QSSahMaMVeqUufPLoRe85ZbbkTBqAyiaowT8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791946109; v=1; x=1792550909;
- b=Kk02qkMV1wnrYkoj8hoDrlMuw8WCNtXDUrHdEpkGmbHIkqWbFf4lOt7+YT2Z2U/xiEFZxaco
- Szv5SlUvGoU/TgfbXb77JE9WqN1LAWpUwpm01sGDtvHp4qmbOyQhrmIkFcP32mgL1VDBypSK8rF
- IXSbv//6P6ONuIu0/0/IqgtA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e25af03395e5a192;
-	Wed, 14 Oct 2026 02:48:29 +0000
-X-Mizu-Trace-ID: e25af03395e5a192
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <c9799efb-a002-4925-959f-c9a2b883d85b@linux.dev>
-Date: Wed, 14 Oct 2026 10:48:19 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YBfw1nxe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D34E1F000FF;
+	Wed, 14 Oct 2026 02:49:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791946142;
+	bh=VhItWomDTz+JfgqkqvE4Z8m4XK0vlJdjPRhQGuVtbE8=;
+	h=To:Cc:Subject:From:In-Reply-To:References:Date;
+	b=YBfw1nxekSA90YNOSggNZ0nNtfcZ6BtZw4MYYld3cnps0sT4lZZ0FU403OsZfUL72
+	 p0Tm5GTBHwSQbEXP+386yyYGOeZ9UrE12eW+CuvDJlAs+28Q9hUQAxV3oLnuBTot8w
+	 3/rt0Wa4SDOpoKoVhJn1eqK2lzK7ONxycIEfQS65bDIuzj+5ITIGl8i6i0AbduuIsD
+	 /Lu48u9IF+O7+rJqsduqrGfq0iYtuZnVGyzlUJBu4CMstuu2DQTj3pzjnBDw5tTFYy
+	 OyqRAVR26Uh2YLDgILl6FvHCMsC20ZT4ZAWTv50adWaQvOjeqCGNHDsAKPck9ZuhHm
+	 KEXn9ho15Df5w==
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: "Martin K. Petersen (Oracle)" <mkp@kernel.org>,  Can Guo
+ <can.guo@oss.qualcomm.com>,  linux-arm-msm@vger.kernel.org,
+  linux-scsi@vger.kernel.org,  linux-kernel@vger.kernel.org,  Manivannan
+ Sadhasivam <mani@kernel.org>,  "James E.J. Bottomley"
+ <James.Bottomley@HansenPartnership.com>
+Subject: Re: [PATCH v1 1/1] scsi: ufs: ufs-qcom: Don't define variable in
+ the middle of the code
+From: "Martin K. Petersen" <mkp@kernel.org>
+In-Reply-To: <20261013095924.959455-1-andriy.shevchenko@linux.intel.com>
+Message-ID: <yq1pkxdf148.fsf@mail.kernel.org>
+References: <20261013095924.959455-1-andriy.shevchenko@linux.intel.com>
+Date: Tue, 13 Oct 2026 22:49:00 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm: vmscan: don't count per-node proactive reclaim as
- memory pressure
-To: Vernon Yang <vernon2gm@gmail.com>, akpm@linux-foundation.org,
- david@kernel.org, kasong@tencent.com, qi.zheng@linux.dev,
- shakeel.butt@linux.dev, baohua@kernel.org, axelrasmussen@google.com,
- yuanchu@google.com, weixugc@google.com, baoquan.he@linux.dev,
- hannes@cmpxchg.org, mhocko@kernel.org, ljs@kernel.org,
- roman.gushchin@linux.dev, dave@stgolabs.net
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Vernon Yang <yanglincheng@kylinos.cn>, stable@vger.kernel.org
-References: <20261012022917.1102467-1-vernon2gm@gmail.com>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <20261012022917.1102467-1-vernon2gm@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
 
+Andy,
 
-On 10/12/2026 10:29 AM, Vernon Yang wrote:
-> From: Vernon Yang <yanglincheng@kylinos.cn>
-> 
-> When the cgroup has no memory pressure at all, writing to
-> /sys/devices/system/nodeX/reclaim triggers proactive reclaim on
-> NUMA node, causing increase in the writer cgroup's memory PSI.
-> 
-> Due to this reclaim is performed in the context of the write(),
-> accounted as memory pressure on the writer, like
-> commit e22c6ed90aa9 ("mm: memcontrol: don't count limit-setting reclaim
-> as memory pressure"). This is unexpected, the similar scenarios (e.g.
-> senpai) will continue to occur, only this time it is for the
-> /sys/devices/system/nodeX/reclaim knob.
-> 
-> The Documentation/ABI/stable/sysfs-devices-node documentation also
-> notes that "This interface is equivalent to the memcg variant."
-> 
-> This patch unifies the semantics of the memcg and node interfaces:
-> per-node proactive reclaim is no longer counted as memory pressure,
-> and the per-node proactive reclaim interface no longer produces
-> phantom pressure.
-> 
-> I ran demo[1] that performs per-node proactive reclaim 10000 times
-> in qemu, writer cgroup memory.pressure as follows:
-> 
-> without patch:
-> 
-> some avg10=31.53 avg60=13.42 avg300=3.31 total=10602985
-> full avg10=31.53 avg60=13.42 avg300=3.31 total=10602985
-> 
-> with patch:
-> 
-> some avg10=9.59 avg60=3.41 avg300=0.81 total=2686221
-> full avg10=9.59 avg60=3.41 avg300=0.81 total=2686221
-> 
-> [1] https://github.com/vernon2gh/app_and_module/tree/main/reclaim_node_psi
-> 
-> Fixes: b980077899ea ("mm: introduce per-node proactive reclaim interface")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
-> ---
-> V1 -> V2:
-> - Check `sc->proactive` to differentiate between proactive reclaim or
->    page allocation. (Thanks Barry)
-> 
-> V1 : https://lore.kernel.org/linux-mm/20261005062236.564210-1-vernon2gm@gmail.com/
-> ---
->   mm/vmscan.c | 6 ++++--
->   1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/mm/vmscan.c b/mm/vmscan.c
-> index 91295070ca33..2e9ca5e4c741 100644
-> --- a/mm/vmscan.c
-> +++ b/mm/vmscan.c
-> @@ -7994,7 +7994,8 @@ static unsigned long __node_reclaim(struct pglist_data *pgdat,
->   					   sc->gfp_mask);
->   
->   	cond_resched();
-> -	psi_memstall_enter(&pflags);
-> +	if (!sc->proactive)
-> +		psi_memstall_enter(&pflags);
->   	delayacct_freepages_start();
->   	fs_reclaim_acquire(sc->gfp_mask);
->   	/*
-> @@ -8011,7 +8012,8 @@ static unsigned long __node_reclaim(struct pglist_data *pgdat,
->   	memalloc_noreclaim_restore(noreclaim_flag);
->   	fs_reclaim_release(sc->gfp_mask);
->   	delayacct_freepages_end();
-> -	psi_memstall_leave(&pflags);
-> +	if (!sc->proactive)
-> +		psi_memstall_leave(&pflags);
->   
->   	trace_mm_vmscan_node_reclaim_end(sc->nr_reclaimed, NULL);
->   
+> While the C11 allows us to define variables in the code, we do not
+> do this style (see more at [1]). Move the declaration to the top of
+> the function.
 
-LGTM.
-
-Reviewed-by: Ridong Chen <ridong.chen@linux.dev>
-Thanks.
+Applied to 7.4/scsi-staging, thanks!
 
 -- 
-Best regards
-Ridong
-
+Martin K. Petersen
