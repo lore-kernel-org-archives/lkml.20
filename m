@@ -1,87 +1,59 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7C86346AC5;
-	Wed, 14 Oct 2026 06:30:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C476937CD2C
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:30:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791959454; cv=none; b=lfIRvWvtFP6P6cGRqCQde01TqSTE5TY7h5kC7+UsmfHXQ6jpSvvzMqj88VzJM6rEX+HrXP/Zq1G5P8jzL5HyxJ1uhyPZENpsKHHfDB5/RaCtjiEfdKOEKdjFgt6M0ZgJGsCg5MgVGKQQDyQgOsPbT5wY/88/K9pCxS5gaZa8vp8=
+	t=1791959459; cv=none; b=dvuDyuRHokAJNEDyjj69jYJ0ZqGLx9G6IlTwpObW08fgzRt5y6VwOSVmrJFp/Mka/ioZG/o7anABlBqmbIyBp+3GXLMLFBtY5OhydUTmmDBNWJ4NM3SZqZ6c7EexNiSWobP7LOzx9nd+Fe9PxQGSgxQtDpTJVEYhaeVn1dlt1uc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791959454; c=relaxed/simple;
-	bh=O7S/PivgorR9gwvIx958BdtTZiVLwTnQwr1GR2IjtWc=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=o7Bv9YNI7UVClE+CfwfefrRpI40cYjIfHj+6TIs0T+LvtyU64gf27585RZvGXun6LogIbX9CG1SDchbPNO786WCaCrYi/U/MLOTarGw+M/B2u2xXwWr1Tyll8oWO6hYArBewNhqd9/57vEps3Ogc02WaxTtIZCn/vs5+g1701jg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ELbns02/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791959459; c=relaxed/simple;
+	bh=rAqJBY8dv5+WMP3CBfvKTe8EJH3Fbbv74cbOG+BQnvc=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=A9YeYy+dozv9pRFaJH4+QGouxNI1FI7vPFaK0NYFsB5FrQ4fsCBcO366nL1COvOcFpYBKn50+wGzKVkMvwkigjs144l7ECbZlaT71KiG1KnoqDYHZ5h4gutbnmEl93wBgI1Z9hyqaMYz3nSGq8cKIDAKXblDLQMTtxLKNbzQBbo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TPgp40P3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ELbns02/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8C641F000FF;
-	Wed, 14 Oct 2026 06:30:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TPgp40P3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE71F1F000FF;
+	Wed, 14 Oct 2026 06:30:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791959453;
-	bh=O7S/PivgorR9gwvIx958BdtTZiVLwTnQwr1GR2IjtWc=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=ELbns02/HWQnEJhvmKnomE/ctBLg6COCyF4VfcGn74tCWhiFG2RPCdZ254m/xNgwb
-	 MSE+ocde7fkGG6LqM0ABtBd/7eiihoTuUxuKl22F+mz/52s2FVdK5MpJu/FcDf3L5P
-	 SGAkclQ5GYq8rCrJqtYbhr71OOeysS1YcFK20FZp1tqfYfn9/3E8EoNaB1AvGw2wdm
-	 vt1ol72FyDr3zB5Ue7Ruw0cHVVHdDi8ciehXwbIyiAUxs785eMyMqnJluifZImSjft
-	 +gSdb7o8Spq/hxGyq4A2FpABOUUThvyAECC+xHl0i0Zt0ROYhomb/03ul5LUphpal/
-	 qrDrG8gRf0ZtA==
-From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
-To: James Hilliard <james.hilliard1@gmail.com>, netdev@vger.kernel.org,
- Paolo Abeni <pabeni@redhat.com>, Jakub Kicinski <kuba@kernel.org>, Magnus
- Karlsson <magnus.karlsson@intel.com>, Maciej Fijalkowski
- <maciej.fijalkowski@intel.com>, Stanislav Fomichev <sdf@fomichev.me>,
- Simon Horman <horms@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Jesper Dangaard Brouer
- <hawk@kernel.org>, John Fastabend <john.fastabend@gmail.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>
-Cc: bpf@vger.kernel.org, Eric Dumazet <edumazet@kernel.org>, "David S.
- Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org, James
- Hilliard <james.hilliard1@gmail.com>
-Subject: Re: [PATCH net v3] xsk: freeze deferred pool teardown without
- blocking unregister
-In-Reply-To: <20261013-xsk-suspend-teardown-v3-1-2d6be7602947@gmail.com>
-References: <20261013-xsk-suspend-teardown-v3-1-2d6be7602947@gmail.com>
-Date: Wed, 14 Oct 2026 08:30:49 +0200
-Message-ID: <87ik3494km.fsf@all.your.base.are.belong.to.us>
+	s=k20260515; t=1791959458;
+	bh=rAqJBY8dv5+WMP3CBfvKTe8EJH3Fbbv74cbOG+BQnvc=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=TPgp40P3n/o2tfHr/KQ3IaoR5s3Bsi2GjmugWz9MjAp9qcM/qZ3mR9iSkh3MTMwji
+	 HsCp/nDA+8bqHKpNQ/dUepGTwqec2Y3XICiMS5Fjy9IF+3Ts2qXS3u/f4dKYS2AT/f
+	 UZtduNTiJkHbV4egLYb7QhTvVK/+gPOpySvxGdgEJwUL6iit8U1zsolEiTJuEvSC+Y
+	 kAqxhYCsxdMPwcnkST2mY2g+oFvBn5F33F7mvhMzKo1q6HBrwhkSqbCbTxAVWgcvLd
+	 M43GinIwAyaeZRmS+R/1x5oexZZAAOLTS0snN2u2IXwN9ER1xGnLUOeKM2SMhwCLHt
+	 AO48c61WIV3JA==
+Message-ID: <24e13ed7-d1d3-4c3c-ae3e-8734c519b87e@kernel.org>
+Date: Wed, 14 Oct 2026 14:30:55 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, linux-erofs@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] MAINTAINERS: erofs: add dev branch to git tree entry
+To: xiang@kernel.org
+References: <20261010070623.1766952-1-chao@kernel.org>
+ <asqt-vM6LOPyqz_p@XiangdeMacBook-Pro.local>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <asqt-vM6LOPyqz_p@XiangdeMacBook-Pro.local>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-James Hilliard <james.hilliard1@gmail.com> writes:
+On 10/11/26 05:28, Gao Xiang wrote:
+> BTW, could we request sashiko folks adding erofs mailing list
+> to their review list as well?
+Done, FYI, it mutes by default, so we need to check review comment in
+UI(sashiko.dev) by ourself, let me know if you want receiving review
+emails whenever there is result.
 
-> Deferred pool destruction calls ndo_bpf() under RTNL. system_wq is
-> not frozen during system sleep, so that callback can run after a
-> device has suspended and gated its clocks. Use system_freezable_wq
-> so running destruction finishes before device suspend and new work
-> waits until process thaw.
->
-> Keep assigned pools visible to NETDEV_UNREGISTER independently of
-> the socket list. A released socket has already left that list, but
-> its final pool put can queue destruction after workqueues freeze.
-> A resume-time unregister would then wait for a device reference
-> whose release cannot run until the resume completes.
->
-> Track assigned pools per netdev with netdev operations locking and detach
-> remaining pools after the notifier socket walk, including copy-mode pools.
-> This also covers leased queues without scanning pools from unrelated
-> devices or network namespaces. Remove the entry on assignment failure and
-> normal teardown. The deferred worker still owns the pool and later observ=
-es
-> the cleared device pointer, avoiding a second driver detach or put.
->
-> The lifetime problem was identified by code inspection of the deferred
-> release and system-sleep paths.
->
-> Fixes: 1c1efc2af158 ("xsk: Create and free buffer pool independently from=
- umem")
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+https://sashiko.dev/#/?list=org.ozlabs.lists.linux-erofs
 
-Thanks, James!
-
-Reviewed-by: Bj=C3=B6rn T=C3=B6pel <bjorn@kernel.org>
+Thanks,
