@@ -1,63 +1,62 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AECB152269E
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:29:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A30C5221D2
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:29:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791984590; cv=none; b=ouxaLQADiWFeQUhH3ILCvgYNUpztBhRAdf1JiknHbxesNNi3ea3UwpXwIkmqGggf7DSIs9+yohqcaQTytRG27Mv2Kr1DaNYEJRYhMqpmYNKZroWGFMpuK4K4x1NBd44gQAlK0jOeOqPl0lVaBQvFDKLnVOiPgJamCyYaF42mMCk=
+	t=1791984595; cv=none; b=kVJHYi+SHLAboI6BM+b1wFCJS5UGhOWWAWi1C9ozcZOho/BbmyaKF9tgm3g1Uiw6cJ0YExTwuF0/aCJnWnVTq+VsN8qJk/tGibrQgu9DeNo9X+JwOKgRMn9tC2oU6o4KiQRhjvBcKeZijkxXd3nN/jE/Z/CO+YYnHNCQytfo8iA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791984590; c=relaxed/simple;
-	bh=JcFjC1oELyQhI2B2WWv3WSwa6cOV++RVZT6UO0YaazQ=;
+	s=arc-20240116; t=1791984595; c=relaxed/simple;
+	bh=DTuogrC0MmgPnPiOj6X0jndc3vH4rmMZreMpKLTo4+w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GykgE/Erxb7ANqGI7s7U3CyvyMwffBpFSaHC6IRA8H0idHQCEFDt7WQr6ZhAhpmwKtr1D7jVUIeDr3USNtiYtLxVDUlmJR2iPhsrJaDh9/blZVKUUqAP6kCPJFHSUfJ4OYJVsa4Ux3hyHrvA9SvSTz5gwsrmelWX7/HNG0Y/M6w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=PYb1M6OS; arc=none smtp.client-ip=209.85.128.50
+	 MIME-Version; b=sBgd1eW69sWQ2sQJZ1buk6Rw7zvk3HPoVt+HolBKGIxdbriwG4pOeNwxTgLZktAqExnjAE5Qm5zVCRg2dZQnqx9Whz6CrLnh8TbCIr+0lYfyolhD4NbBkeDk7CF/h15pTXir57sQdnoeT3wtvfvw3+MUQkR3SBJZkDGlX75d9f0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=P6eDx3sa; arc=none smtp.client-ip=209.85.128.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="PYb1M6OS"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49e71fc84bbso3931315e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:29:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="P6eDx3sa"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a1810f8855so2504145e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:29:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1791984581; x=1792589381; darn=vger.kernel.org;
+        d=suse.com; s=google; t=1791984583; x=1792589383; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=CtRLr/iHSkVEBt4O/jB/cckYl17eeDc6+WxF7ZkRI6E=;
-        b=PYb1M6OS7Cz/EB1QANSpj6Dx+0thO0CdupUGoTta2OynfgpieiSG+plehcOP+1N+lT
-         hvBx+e/EDEYkEhqUrK/LZL7Noe4p2jvJF+civLMIT4HCh7BgppnXxGG2IEmEh2GVj90O
-         ekrqmyTJ4fH6XhWoNBn5LJku1zWpvKF0h2KlKZ7S/1bNQNqvcSTG4YTQiLR2I+A0Dpzb
-         gOAnaS/R3ibmOi62dtE9csxGLtyA4/O/FG8o2+1/IFvWJ2M2AQ1V8w/twmHQspqnP8zz
-         nt3ZxxIqNayTvM4HW3tJyEz9UHzbktaVh0TPBiLIh90KOyWhYKfUgu/KZyCInB/vEmr8
-         hxZQ==
+        bh=EOqfIQkUtLocoWm4GjQwg3XTJaw51CuYlR5SOgYz1t8=;
+        b=P6eDx3sa/7zeGlEiBIFt5u4BFwj3cEEz0vQscVGpDTacxrmxBb3fYN9WsBnkqLlTn4
+         55vJ0v/QQmbWRWKUiYb+MgnNk+ATXbtDK0W7bdg3+8F6oXpDzgSgXjbvjvOK3IFmnIpz
+         +LtI5gVUeFOirnnEswylLX9VCwARGJVQN5Id8IihR0IDmhbv3c4i1i13/2uAxHjtQrmk
+         WwW2uln/PVXmy3T8b64beEiwgNbhb7SnSv5kcU0x7ZNKr0ePYrN7kZPh0Lm/w8mgZv8E
+         X8f0Q/poiHpcNaJ2NJ6cx4P0bM8gBHGnQX7Rx7uj7oXrWkRra8hPDE0jMil5xoC5RQwH
+         hgLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791984581; x=1792589381;
+        d=1e100.net; s=20260707; t=1791984583; x=1792589383;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CtRLr/iHSkVEBt4O/jB/cckYl17eeDc6+WxF7ZkRI6E=;
-        b=owSWMbjjESF/w24fxKsAQYwcugHZjVVzVLCKtAtNknKWyMNkdMTkJ2sRL9stA4XtMN
-         wIHPsKMFvOQytA1TzdkHii95enGPAEmJTAXDvvpgsguz7WBgAZzaVGKQZQ21ofBLdPaw
-         FAaPvHXIAcNEDUl7qGiS5NEpXBgRgzno0tqhnorCd0y9gYLE6NITiNhkoeCY72qecJh6
-         jokZ7/sR71DFpL04aR5CknxW0mkeEFDBcygfnDUe5kdwkKMfSMt7W/CuUUe4k6dpTUDM
-         yimD1qSCuCt2DWfL27uSSlAar+BxiX4kvOLLE2NQXz6WVbilO0WS/1vdbtSg1adfiV+2
-         c2lg==
-X-Gm-Message-State: AFq9FYJoH0OsSCif1FWLML4XBvtU+siVbN0rgCUiBTJPJcfbVhe07qAj
-	7/ntEOqomsHDyzJqCcmS+i8cd3uUtRwPQML3gIkzRaQ3H7j2jowwgeyOUaA0JUBWbKI=
-X-Gm-Gg: AYBFou1Lxmm0/CVv8UKcUewFYx6GpXX5FTYaFiViwZHQQz1QcZcUJP3Faks7/LJNyqB
-	gy7FhtBhDep9gjZc9MpQxYnLa25zffezFeshhYMU7nYT4/TKOxPCEAK37bx599AguqUMGUs+3l0
-	jAwi8DtC09BfBTtjq2bL+VkZrDE91hb0eMFDY7gQ/sWW2baFgnRFw4Pcg2QElXgx9pLmrMK+HzT
-	y9A6RG+xzJ92DnHsqqxiDSe6xjcWPOeauhiDInIHr6z4FNmvp2uvEcDb5GgZ4vdRyggVA8lAfgD
-	ViKoFEuOytvW7uPfoTGlzX0VKynhbwcXgDlr3vHgDNrrZll3R/rA5ExBUCfX9YLNL+CwT7WicnO
-	CE3mCh7yF2jexPQ/H5G53RSCWI3Dvw/6MxiLdCUNFddPlenr9dN9SukESFJVfzM3g8i0NeSw0QW
-	azJz93xzVEEYrQkKlhcfKhdJFJjS44okxQiJcYscT1xYef0lcXBQbnAh4d75qISOuU+VD2A1aUN
-	9ds7g==
-X-Received: by 2002:a05:600c:8b02:b0:4a0:1973:f05a with SMTP id 5b1f17b1804b1-4a18e47e19fmr336849305e9.2.1791984581509;
-        Wed, 14 Oct 2026 06:29:41 -0700 (PDT)
+        bh=EOqfIQkUtLocoWm4GjQwg3XTJaw51CuYlR5SOgYz1t8=;
+        b=tagh1cDjJhVQ8zWSAXvxUWuSE5BQfT8jFElCWkDcwwzvd5I8YA+03t9fuGE8qCPOIl
+         bwgLO52Y21eTc7t3Zk+zDu6uetHAYo6IZTWG1KgI9N8yt2gXvqO5Vho/Lgl3mKwG+ovB
+         Tom7QPpHHbXj8IEeTitIeZx5Fjk5eAPj16c4lUj7GxM5jeUgduMfPExnTXocFSvkjCnu
+         FXd/w3jxMdjygKDG1KUYiuIez1Xv4liVe86k0K1R61sHqS/I26mjqn05RxNHmicKWaFV
+         +wRDfN9PwI88UeiAPGwCXnRGHobmx/znRTcc76WxQa8RwhiM+NGrQvOu6nEQzW7gaSou
+         H1jA==
+X-Gm-Message-State: AFq9FYKeBShq2ceN4VRIwaCHnHrGiFZPOjB8ejAaNPWc4XQxm/3CMkfs
+	5BjiBMY9mtHn7zd7nH7Rslcpm89nkr37uzF99HOGoHoR7BexMT9qGC0Dj9hirL7/CGY=
+X-Gm-Gg: AYBFou1Ctp/L74BGkHARJtVt9aoWG7Q1KCpdRcGzgn6LGS8VYyW/jTU9sLWidrZ73n1
+	UCLWfFR7UVloeTOHdGH4B8NctEW8hUntCyx09wvy32MZLLte5Ty37wfj434gvwci0hTbzOgBb2O
+	ZtPztGbGQXM2d1/t0+x4gVs1N7wnsrwzdmKl/OqWcyDsT3zgcd6vLs8QxCmWpYN2pczK/nm9Rbn
+	I9B8MVBSpKcF7xOs6R/4qOHuos8+cx/trIqwspU27T9sxMFM4uyl6caxy8veozorJ/eiVH4tSDF
+	Z7bsp+2s2YwCzip5vHwPQTVVfXaEnPpyuPdU+KPwPiEVJ5gcWxvXR9CxTGEAK9bVqzb7E78HnRk
+	dSApXeDlO9oB/oYIdq5FemonxU+7NiEpxtd9Gcd5hwt6/EA6betrtYGrB/YR6N+BkaGrQ7MegP1
+	2thzSq/rh+ALh3cyJ5rcw7PmLPVqbGxCDGpn7R8m+sX3JaY5+BHpWBaQED4H/knXCqTVk=
+X-Received: by 2002:a05:600c:4e45:b0:4a0:13d8:cd0c with SMTP id 5b1f17b1804b1-4a18e47e330mr298610605e9.2.1791984582793;
+        Wed, 14 Oct 2026 06:29:42 -0700 (PDT)
 Received: from localhost ([2001:1ae9:6037:1b01:4005:7ef3:2241:3a83])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48df0f99f0bsm695008f8f.21.2026.10.14.06.29.41
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd04e81bsm360895e9.6.2026.10.14.06.29.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 06:29:41 -0700 (PDT)
+        Wed, 14 Oct 2026 06:29:42 -0700 (PDT)
 From: Petr Tesarik <ptesarik@suse.com>
 To: Thorsten Blum <blum@kernel.org>,
 	Thomas Gleixner <tglx@kernel.org>,
@@ -70,9 +69,9 @@ To: Thorsten Blum <blum@kernel.org>,
 Cc: linux-kernel@vger.kernel.org,
 	x86@kernel.org,
 	Petr Tesarik <ptesarik@suse.com>
-Subject: [PATCH v2 2/3] x86/tsc: Use HZ_PER_KHZ and KHZ_PER_MHZ
-Date: Wed, 14 Oct 2026 15:29:31 +0200
-Message-ID: <20261014132932.1495303-3-ptesarik@suse.com>
+Subject: [PATCH v2 3/3] x86/tsc: Use TSC_CALIBRATE_MULT for the TSC multiplier
+Date: Wed, 14 Oct 2026 15:29:32 +0200
+Message-ID: <20261014132932.1495303-4-ptesarik@suse.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261014132932.1495303-1-ptesarik@suse.com>
 References: <20261014132932.1495303-1-ptesarik@suse.com>
@@ -84,159 +83,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The KHZ macro is ambiguous. Sometimes it is used for conversion between Hz
-and KHz, and sometimes for conversion between KHz and MHz. Use two other
-existing macros to distinguish between them.
+The TSC delta is multiplied by one million to improve precision. This
+multiplication is later undone in calc_hpet_ref() and calc_pmtimer_ref(),
+making it difficult to understand the meaning of the divisor value.
 
-Convert plain 1000 constants to one of the two macros where appropriate.
+Replace the magic constants with a more descriptive macro or calculation.
 
 No functional change intended.
 
 Signed-off-by: Petr Tesarik <ptesarik@suse.com>
 ---
- arch/x86/kernel/tsc.c | 39 +++++++++++++++++++--------------------
- 1 file changed, 19 insertions(+), 20 deletions(-)
+ arch/x86/kernel/tsc.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
 diff --git a/arch/x86/kernel/tsc.c b/arch/x86/kernel/tsc.c
-index 7adab8b614336..7e31acad2b055 100644
+index 7e31acad2b055..b4815fdedf1b5 100644
 --- a/arch/x86/kernel/tsc.c
 +++ b/arch/x86/kernel/tsc.c
-@@ -16,6 +16,7 @@
- #include <linux/timex.h>
- #include <linux/static_key.h>
- #include <linux/static_call.h>
-+#include <linux/units.h>
+@@ -339,6 +339,7 @@ __setup("tsc=", tsc_setup);
  
- #include <asm/cpuid/api.h>
- #include <asm/hpet.h>
-@@ -41,8 +42,6 @@ EXPORT_SYMBOL(cpu_khz);
- unsigned int __read_mostly tsc_khz;
- EXPORT_SYMBOL(tsc_khz);
+ #define MAX_RETRIES		5
+ #define TSC_DEFAULT_THRESHOLD	0x20000
++#define TSC_CALIBRATE_MULT	1000000LL
  
--#define KHZ	1000
--
  /*
-  * TSC can be unstable due to cpufreq or due to unsynced TSCs
-  */
-@@ -393,7 +392,7 @@ static unsigned long calc_pmtimer_ref(u64 deltatsc, u64 pm1, u64 pm2)
+  * Read TSC and the reference counters. Take care of any disturbances
+@@ -373,7 +374,7 @@ static unsigned long calc_hpet_ref(u64 deltatsc, u64 hpet1, u64 hpet2)
+ 		hpet2 += 0x100000000ULL;
+ 	hpet2 -= hpet1;
+ 	tmp = ((u64)hpet2 * hpet_readl(HPET_PERIOD));
+-	do_div(tmp, 1000000);
++	do_div(tmp, FSEC_PER_SEC / HZ_PER_KHZ / TSC_CALIBRATE_MULT);
+ 	deltatsc = div64_u64(deltatsc, tmp);
+ 
+ 	return (unsigned long) deltatsc;
+@@ -392,7 +393,7 @@ static unsigned long calc_pmtimer_ref(u64 deltatsc, u64 pm1, u64 pm2)
  	if (pm2 < pm1)
  		pm2 += (u64)ACPI_PM_OVRRUN;
  	pm2 -= pm1;
--	tmp = pm2 * 1000000000LL;
-+	tmp = pm2 * 1000000LL * HZ_PER_KHZ;
+-	tmp = pm2 * 1000000LL * HZ_PER_KHZ;
++	tmp = pm2 * TSC_CALIBRATE_MULT * HZ_PER_KHZ;
  	do_div(tmp, PMTMR_TICKS_PER_SEC);
  	do_div(deltatsc, tmp);
  
-@@ -640,7 +639,7 @@ static unsigned long quick_pit_calibrate(void)
- 	 * kHz = ((t2 - t1) * PIT_TICK_RATE) / (I * 256 * 1000)
- 	 */
- 	delta *= PIT_TICK_RATE;
--	do_div(delta, i*256*1000);
-+	do_div(delta, i*256*HZ_PER_KHZ);
- 	pr_info("Fast TSC calibration using PIT\n");
- 	return delta;
- }
-@@ -668,7 +667,7 @@ unsigned long native_calibrate_tsc(void)
- 	if (ebx_numerator == 0 || eax_denominator == 0)
- 		return 0;
+@@ -806,7 +807,7 @@ static unsigned long pit_hpet_ptimer_calibrate_cpu(void)
+ 		if (tsc1 == ULLONG_MAX || tsc2 == ULLONG_MAX)
+ 			continue;
  
--	crystal_khz = ecx_hz / 1000;
-+	crystal_khz = ecx_hz / HZ_PER_KHZ;
+-		tsc2 = (tsc2 - tsc1) * 1000000LL;
++		tsc2 = (tsc2 - tsc1) * TSC_CALIBRATE_MULT;
+ 		if (hpet)
+ 			tsc2 = calc_hpet_ref(tsc2, ref1, ref2);
+ 		else
+@@ -1334,7 +1335,7 @@ static void tsc_refine_calibration_work(struct work_struct *work)
+ 		goto restart;
  
- 	/*
- 	 * Denverton SoCs don't report crystal clock, and also don't support
-@@ -696,7 +695,7 @@ unsigned long native_calibrate_tsc(void)
- 		unsigned int eax_base_mhz, ebx, ecx, edx;
- 
- 		cpuid(CPUID_LEAF_FREQ, &eax_base_mhz, &ebx, &ecx, &edx);
--		crystal_khz = eax_base_mhz * 1000 *
-+		crystal_khz = eax_base_mhz * KHZ_PER_MHZ *
- 			eax_denominator / ebx_numerator;
- 	}
- 
-@@ -717,7 +716,7 @@ unsigned long native_calibrate_tsc(void)
- 	 * lapic_timer_period here to avoid having to calibrate the APIC
- 	 * timer later.
- 	 */
--	lapic_timer_period = crystal_khz * 1000 / HZ;
-+	lapic_timer_period = crystal_khz * HZ_PER_KHZ / HZ;
- #endif
- 
- 	return crystal_khz * ebx_numerator / eax_denominator;
-@@ -737,7 +736,7 @@ static unsigned long cpu_khz_from_cpuid(void)
- 
- 	cpuid(CPUID_LEAF_FREQ, &eax_base_mhz, &ebx_max_mhz, &ecx_bus_mhz, &edx);
- 
--	return eax_base_mhz * 1000;
-+	return eax_base_mhz * KHZ_PER_MHZ;
- }
- 
- /*
-@@ -1084,7 +1083,7 @@ static void __init detect_art(void)
- 	cpuid(CPUID_LEAF_TSC, &art_base_clk.denominator,
- 	      &art_base_clk.numerator, &art_base_clk.freq_khz, &unused);
- 
--	art_base_clk.freq_khz /= KHZ;
-+	art_base_clk.freq_khz /= HZ_PER_KHZ;
- 	if (art_base_clk.denominator < ART_MIN_DENOMINATOR)
- 		return;
- 
-@@ -1348,14 +1347,14 @@ static void tsc_refine_calibration_work(struct work_struct *work)
- 		if (abs(tsc_khz - freq) > (tsc_khz >> 11)) {
- 			pr_warn("Warning: TSC freq calibrated by CPUID/MSR differs from what is calibrated by HW timer, please check with vendor!!\n");
- 			pr_info("Previous calibrated TSC freq:\t %lu.%03lu MHz\n",
--				(unsigned long)tsc_khz / 1000,
--				(unsigned long)tsc_khz % 1000);
-+				(unsigned long)tsc_khz / KHZ_PER_MHZ,
-+				(unsigned long)tsc_khz % KHZ_PER_MHZ);
- 		}
- 
- 		pr_info("TSC freq recalibrated by [%s]:\t %lu.%03lu MHz\n",
- 			hpet ? "HPET" : "PM_TIMER",
--			(unsigned long)freq / 1000,
--			(unsigned long)freq % 1000);
-+			(unsigned long)freq / KHZ_PER_MHZ,
-+			(unsigned long)freq % KHZ_PER_MHZ);
- 
- 		return;
- 	}
-@@ -1366,8 +1365,8 @@ static void tsc_refine_calibration_work(struct work_struct *work)
- 
- 	tsc_khz = freq;
- 	pr_info("Refined TSC clocksource calibration: %lu.%03lu MHz\n",
--		(unsigned long)tsc_khz / 1000,
--		(unsigned long)tsc_khz % 1000);
-+		(unsigned long)tsc_khz / KHZ_PER_MHZ,
-+		(unsigned long)tsc_khz % KHZ_PER_MHZ);
- 
- 	clocksource_tsc.flags |= CLOCK_SOURCE_CALIBRATED;
- 
-@@ -1470,20 +1469,20 @@ static bool __init determine_cpu_tsc_frequencies(bool early)
- 		return false;
- 
- 	pr_info("Detected %lu.%03lu MHz processor\n",
--		(unsigned long)cpu_khz / KHZ,
--		(unsigned long)cpu_khz % KHZ);
-+		(unsigned long)cpu_khz / KHZ_PER_MHZ,
-+		(unsigned long)cpu_khz % KHZ_PER_MHZ);
- 
- 	if (cpu_khz != tsc_khz) {
- 		pr_info("Detected %lu.%03lu MHz TSC",
--			(unsigned long)tsc_khz / KHZ,
--			(unsigned long)tsc_khz % KHZ);
-+			(unsigned long)tsc_khz / KHZ_PER_MHZ,
-+			(unsigned long)tsc_khz % KHZ_PER_MHZ);
- 	}
- 	return true;
- }
- 
- static unsigned long __init get_loops_per_jiffy(void)
- {
--	u64 lpj = (u64)tsc_khz * KHZ;
-+	u64 lpj = (u64)tsc_khz * HZ_PER_KHZ;
- 
- 	do_div(lpj, HZ);
- 	return lpj;
+ 	delta = tsc_stop - tsc_start;
+-	delta *= 1000000LL;
++	delta *= TSC_CALIBRATE_MULT;
+ 	if (hpet)
+ 		freq = calc_hpet_ref(delta, ref_start, ref_stop);
+ 	else
 -- 
 2.55.0
 
