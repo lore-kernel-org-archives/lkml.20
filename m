@@ -1,314 +1,170 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3D96F3515C8;
-	Wed, 14 Oct 2026 15:38:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98B3C55C1A2
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:38:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791992328; cv=none; b=A2toFw2432mBQJm26Stx4f5XwcKILk+AOYdv2WYaw/578q/j+nWjj7QKSI2/twlkqLyR+mr6x6dVbBKLG9z+GvcO2/gH1gHHfNwE7miSf3+vnuKNUOgEBAsEoI7vfaZbH2f31siO2NdWVQDjzpA4GepX+dPlNT+Cbdbi9Oqh6CU=
+	t=1791992332; cv=none; b=Tvg8R9T6bXgCCb4/V/yIHuaIc/13hxtKgpj+AXtcKuvbkWY52VFG3SpLK/6eGdIQWu/X7RjwtsZ6ykdnmyy7C73lFF7BYWuwQvpfcfao0Z9mzE/YQFX0YBhd+EzyHPgmwXfc174GW3MPHmGt/iMKuwwf5oCH5mpUViOQfCHhPjQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791992328; c=relaxed/simple;
-	bh=Oiqufe2I/A241rB3raCMpXyOoJ8QvyAZHk4EbPCq3aM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=II9m9jpkXS2E52W1nAFOoxKEcXV4A5hVelnCsMwH0NSuF58Wn+AB9EBkHFzzEDIROAHAX6OIdNQgmtrK79I38Fcq0y6T7scEv0+fppHreHcje7Y/eXx8qlPac7ps3YPpleZWoL6Rw/PLUzEpTI1sFCeEkALmth4M2Odo17xlwrk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=YFOtl9Zf; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791992332; c=relaxed/simple;
+	bh=4BFLoc2Qyd3LlDRrfy6DeHLk7jZhhoPcwhcXm3WiVmk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nXrtWCkRJkxdTKvOVO1qOA3AbzYd7VCQT0d1ZhfIDGh6/jD3//zhOBjF/YEK2R9RVzltgkilBpc128mKWQhIhiJBqIQV+ZB66tmmoYjTd77I2YZgNkNC2ajPF30jrpbir9IAkD5usbksVDhPoSVfmZMKn75+VzUFOpV8CNAeCZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=HJBtKO4B; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="YFOtl9Zf"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5BEC91570;
-	Wed, 14 Oct 2026 08:38:42 -0700 (PDT)
-Received: from [10.33.8.90] (e142021.arm.com [10.33.8.90])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 556913F7B4;
-	Wed, 14 Oct 2026 08:38:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791992325; bh=Oiqufe2I/A241rB3raCMpXyOoJ8QvyAZHk4EbPCq3aM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=YFOtl9Zf+7JSSJkrbK/vmteEdKGYxzDK5DfYraK93ZnOcF3HUPoIigdjVnTneEg4e
-	 mbj2DCykTRzevF6/Shr5vNnqcrnRJ3cMP6ekus/DYC8T1Y04ei5VY44Io1+uigOu3X
-	 d5kWopS0zjWEYx9SFJl8PkH9Bj6e0E9ohar36y6g=
-Message-ID: <23e9b66f-083a-4a77-8214-25f30c08057a@arm.com>
-Date: Wed, 14 Oct 2026 16:38:41 +0100
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="HJBtKO4B"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a1635f7c89so11619595e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:38:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1791992328; x=1792597128; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5Z/ndJCv29t79k2nyqVh+dd/kAn1yNzZHxVFtofaEew=;
+        b=HJBtKO4BZ1CCRbWOn4+IdVzFVP5UfdrXHTmLDYqlZb77Y0IV+H6F8LtTWM6iE1n3HO
+         spF2oukpA2adDLYbrsTLzVmX8hrHSWtyLr6jYOzWse00IrygNJdpggEJQrCLEOed/JSn
+         Lgq7uslVeyxyW8ZhRv30Y+jM5Yp1anWV6gln32B1x7JbGrC94FQZbbGA9hutb7ruYjB/
+         Ti88UOpZkztp+EQb714CwzbLJ4aqVw3S0h/5HDgFVjRsJt2AJw3gs82Vv0FLoRMi11yA
+         A3EZr05g0vOby42eIUXP3USGKzJfxYQx4yh0Iep3KNIcVgh/GcjgM6V6LQjhdD/avE6P
+         WUTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791992328; x=1792597128;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5Z/ndJCv29t79k2nyqVh+dd/kAn1yNzZHxVFtofaEew=;
+        b=UO1B2F1w4b4mKFq5pqcaB31hEVzBKwzhNPsgQuCXQRIsxRIkVHTd4jKc5BdGmbCTCf
+         UHazAKxJkzbQWBXv/tGAswHMS5BEDe+JesdfEgKU5/55RLEZK6uMf0vgoZyjg6efS6k5
+         fX/OW45PDGG5ml7c45EKX45REDyNwHrfqu64jzPzcSs3GzNYdbi6pELU/NfHV1iY+Av1
+         w9EQ5dYzY3DXqlGOxDKdI90edtEXhfV/J7eIOaMOuSyGJbyj6OttgQuZdBWZOwFUTXaM
+         JrjVjYW00O802MJ5Rv9u8mXlOkjNnyAZzim/u8nMcOLks/4TiheH6A3RiKNcd76N2bZR
+         FqAA==
+X-Forwarded-Encrypted: i=1; AKwUvBw980zDT9OZkw/QxCdpDH7B2vcVe9HDk5yuD9v9bGjEL7NSRXiSdM9sMWAOEakyATecWq3i4WWcLEXv+Tw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIY68BqLVKMaVIqXxpVwAhBxCNUAY6TG1HuNpIUCbS5PoaRh/6P
+	6im3GNkRO62PjrQNMcaidPDTCIeXs9R4RexVwfHbSPk4zDY5GmJDazeyOIQb+IzICe8=
+X-Gm-Gg: AYBFou1dqM+g1Gbjoz1LwA5naG+SXoAi29jVn/bUb8wzNJXyhRSHxfF7q7WAKHDjUSj
+	TefnNiwiI61lvYUNANa+mslpC1R+eheZ3T7zX3VEvE88aN6+tY62Zbkt/1gq9iugf+gyMFfPVmX
+	NngLYtP5KO+Q6+S5E5ei5x+UAzeh3UTBsgQw1fQoSCORQISyaIJz6cRIceTbDFbSALujM4ByZeY
+	KMdM5asjuKaAEw4AKxea8xauBzvNcQzcWMTfjGvB1I0b8D8ZId7pm2LwY91mRkEbF8a1/AFhBj5
+	S342ifU7fd2ScDJzi0cMKB1eKQ72SHFvEjn9W5THNgDCkuLSwlzRsk50hVBCuvbQ7kv4rRhHBvn
+	P8XxfAN55DdaIp96d2KrDt9dAMQrHKZmx4zDTzMlxGxW6b1MfXNYz++I6V3FOhq6gsRrFQXGtO5
+	orHVg3CdvzqzRKAjnyKd0RJb/ZOiVpbJ9iVHC9WKk8rs5M/tX1n97wbJtICuTvxDgYB/YETMxZo
+	M9EJ1V6XxM=
+X-Received: by 2002:a05:600c:609a:b0:4a1:7108:c2b6 with SMTP id 5b1f17b1804b1-4a18e4effabmr313776615e9.31.1791992327765;
+        Wed, 14 Oct 2026 08:38:47 -0700 (PDT)
+Received: from pathway.suse.cz ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd68585csm1333085e9.4.2026.10.14.08.38.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 08:38:47 -0700 (PDT)
+Date: Wed, 14 Oct 2026 17:38:44 +0200
+From: Petr Mladek <pmladek@suse.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
+	David Gow <david@davidgow.net>,
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	Kees Cook <kees@kernel.org>,
+	David Laight <david.laight.linux@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	John Ogness <john.ogness@linutronix.de>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/3] hexdump: Allow skipping identical lines
+Message-ID: <as-iBP1781DVuZ7p@pathway.suse.cz>
+References: <20250319-perso-hexdump-v3-0-a6ba3a9f3742@bootlin.com>
+ <as6TIm6xE8Izccb5@black.igk.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] cache: add SMCCC-backed cache invalidate provider
-To: Srirangan Madhavan <smadhavan@nvidia.com>, mark.rutland@arm.com,
- lpieralisi@kernel.org, sudeep.holla@kernel.org, conor@kernel.org,
- jic23@kernel.org
-Cc: catalin.marinas@arm.com, will@kernel.org, aneesh.kumar@kernel.org,
- Souvik.Chakravarty@arm.com, treding@nvidia.com, jonathanh@nvidia.com,
- bence.csokas@arm.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org
-References: <20261013070205.3566865-1-smadhavan@nvidia.com>
- <20261013070205.3566865-3-smadhavan@nvidia.com>
-Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <20261013070205.3566865-3-smadhavan@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <as6TIm6xE8Izccb5@black.igk.intel.com>
 
-Hi,
-
-thanks for adapting this to the SMCCC bus, that part looks good. Some 
-minor things:
-
-On 10/13/26 09:02, Srirangan Madhavan wrote:
-> Add a cache maintenance provider for the cache clean+invalidate interface
-> defined by Arm DEN0028 v1.7.
+On Tue 2026-10-13 22:22:58, Andy Shevchenko wrote:
+> +Cc: KUnit maintainers + Kees
 > 
-> Register the interface attributes function as an SMCCC device and bind the
-> provider through the SMCCC bus. The provider reads the firmware attributes
-> during probe and serializes cache maintenance calls. It handles transient
-> BUSY and RATE_LIMITED responses with bounded retries. It also registers
-> with the generic cache coherency framework used by memregion callers.
+> On Wed, Mar 19, 2025 at 05:08:09PM +0100, Miquel Raynal wrote:
+> > While working on NAND issues, I used print_hex_dump() a lot to compare
+> > data. But I am mostly working on embedded systems where the kernel
+> > messages go through a serial console. Sometimes network support is an
+> > option, sometimes not. Anyway, I often print buffers both in kernel
+> > space and user space to compare them, and they may be full of 0's or
+> > 1's, which means lines are repeated a lot in the output and this is slow
+> > *and* hard to compare.
+> > 
+> > I initially hacked into lib/hexdump.c for my own purpose and just
+> > discarded all the other users, but it felt like this might be a useful
+> > feature for others and decided to make it a public patch.
+> > 
+> > * First patch creates a helper named print_hex() with a prototype
+> >   containing a flags parameter, instead of an entry for the prefix type
+> >   and another entry for the ascii boolean. print_hex_dump() now
+> >   falls back to print_hex().
+> > * Second patch adds a new flag to possibly skip the identical lines.
+> > * Third patch is optional, and adds the offset at which the dump
+> >   finishes in case the last line to be printed would be skipped.
+> > 
+> > The Cc-list, as provided by get_maintainers.pl, was returning 330
+> > e-mail addresses which felt to much, so I ran the script only on the
+> > second patch (the printk/includes/debug/Doc changes). It gave this
+> > Cc-list which sounds more reasonable. Hopefully this is a smart move,
+> > otherwise let me know what you think would be best.
 > 
-> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
-> ---
->   drivers/cache/Kconfig           |  11 +++
->   drivers/cache/Makefile          |   2 +
->   drivers/cache/arm_smccc_cache.c | 161 ++++++++++++++++++++++++++++++++
->   drivers/firmware/smccc/smccc.c  |   5 +
->   4 files changed, 179 insertions(+)
->   create mode 100644 drivers/cache/arm_smccc_cache.c
+> Sorry for the so late response. First of all, a bit of a background
+> development on my side. At some point a few months ago I asked John
+> Ogness to give me a private dive to the printk() guts. He explained
+> to me a lot about ow printk() circular buffer works and that the
+> implementation is nowadays done in the terms of circular buffer library
+> and printk() front-end. This gives a potential to get a clean solution
+> for the testing how printk() actually behaves.
+
+I am curious what printk() features you would like to test.
+
+> The main issue with the
+> real printk() is that the buffer it's using is defined globally and
+> for clean test cases the printk() can't be used. We discussed the way
+> of high-jacking that by linking an object file of printk() implementation
+> to the KUnit test, but it seems quite a tricky if ever achievable exercise.
 > 
-> diff --git a/drivers/cache/Kconfig b/drivers/cache/Kconfig
-> index 1518449d47b5..57fd1823dec5 100644
-> --- a/drivers/cache/Kconfig
-> +++ b/drivers/cache/Kconfig
-> @@ -42,6 +42,17 @@ menuconfig CACHEMAINT_FOR_HOTPLUG
->   
->   if CACHEMAINT_FOR_HOTPLUG
->   
-> +config ARM_SMCCC_CACHE
-> +	bool "Arm SMCCC cache maintenance provider"
-> +	depends on ARM64 && HAVE_ARM_SMCCC_DISCOVERY
-> +	help
-> +	  Enable support for the Arm SMCCC cache clean+invalidate
-> +	  interface as a provider for memory hotplug-like cache
-> +	  maintenance operations.
-> +	  The provider registers only when firmware advertises the
-> +	  SMCCC calls and attributes, so systems without firmware support
-> +	  continue without this registered provider.
-> +
->   config HISI_SOC_HHA
->   	tristate "HiSilicon Hydra Home Agent (HHA) device driver"
->   	depends on (ARM64 && ACPI) || COMPILE_TEST
-> diff --git a/drivers/cache/Makefile b/drivers/cache/Makefile
-> index b3362b15d6c1..55736a032d6f 100644
-> --- a/drivers/cache/Makefile
-> +++ b/drivers/cache/Makefile
-> @@ -4,4 +4,6 @@ obj-$(CONFIG_AX45MP_L2_CACHE)		+= ax45mp_cache.o
->   obj-$(CONFIG_SIFIVE_CCACHE)		+= sifive_ccache.o
->   obj-$(CONFIG_STARFIVE_STARLINK_CACHE)	+= starfive_starlink_cache.o
->   
-> +# Providers below depend on CACHEMAINT_FOR_HOTPLUG.
-> +obj-$(CONFIG_ARM_SMCCC_CACHE)		+= arm_smccc_cache.o
->   obj-$(CONFIG_HISI_SOC_HHA)		+= hisi_soc_hha.o
-> diff --git a/drivers/cache/arm_smccc_cache.c b/drivers/cache/arm_smccc_cache.c
-> new file mode 100644
-> index 000000000000..aca71113eb1c
-> --- /dev/null
-> +++ b/drivers/cache/arm_smccc_cache.c
-> @@ -0,0 +1,161 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (C) 2026 NVIDIA Corporation
-> + *
-> + * Arm SMCCC cache maintenance provider using the cache clean+invalidate
-> + * interface defined by Arm DEN0028 v1.7.
-> + */
-> +
-> +#include <linux/arm-smccc.h>
-> +#include <linux/arm-smccc-bus.h>
-> +#include <linux/cache_coherency.h>
-> +#include <linux/cleanup.h>
-> +#include <linux/container_of.h>
-> +#include <linux/delay.h>
-> +#include <linux/errno.h>
-> +#include <linux/math.h>
-> +#include <linux/minmax.h>
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/nmi.h>
-> +#include <linux/time64.h>
-> +#include <linux/types.h>
-> +#include <linux/wordpart.h>
-> +
-> +#define SMCCC_CACHE_MAX_RETRIES		5
-> +#define SMCCC_CACHE_DEFAULT_DELAY_US	1000UL
-> +#define SMCCC_CACHE_MAX_DELAY_US	20000UL
-> +
-> +struct smccc_cache {
-> +	/* Must be first member */
-> +	struct cache_coherency_ops_inst cci;
-> +	struct mutex lock; /* Serializes SMCCC cache maintenance calls. */
-> +	u64 rate_limit;
-> +	u32 latency_us;
-> +};
-> +
-> +static int smccc_cache_status_to_errno(s32 status)
-> +{
-> +	switch (status) {
-> +	case SMCCC_RET_SUCCESS:
-> +		return 0;
-> +	case SMCCC_RET_NOT_SUPPORTED:
-> +		return -EOPNOTSUPP;
-> +	case SMCCC_RET_INVALID_PARAMETER:
-> +		return -EINVAL;
-> +	case SMCCC_RET_RATE_LIMITED:
-> +		return -EAGAIN;
-> +	case SMCCC_RET_BUSY:
-> +		return -EBUSY;
-> +	default:
-> +		return -EIO;
-> +	}
-> +}
-> +
-> +static unsigned long smccc_cache_delay_us(const struct smccc_cache *cache)
-> +{
-> +	unsigned long delay_us = 0;
-> +
-> +	if (cache->rate_limit)
-> +		delay_us = DIV_ROUND_UP_ULL(USEC_PER_SEC, cache->rate_limit);
-> +
-> +	if (cache->latency_us)
-> +		delay_us = max(delay_us, (unsigned long)cache->latency_us);
+> Meanwhile Kees Cook seems found a nice workaround for the similar use case
+> in his recent patch series [1]. The idea is to register custom console and
+> provide a custom .write() method which is the heart of the solution. On
+> the writer side user prints something which has unique prefix, while the
+> console callback recognises that pattern and checks the rest of the line.
 
-If I understand the spec correctly, then the provided latency value 
-reports the time it takes to execute the call. So this might be used to 
-decide if we can tolerate the blackout time, but I don't think we make 
-this decision in the kernel, or have the interface to do so.
-So I don't think we need to parse this value, or use it for calculating 
-the back-off time, and you can just remove this part.
+I ask because the solution used by Kees seems to be quite complicated
+and unreliable for the given purpose. In particular, printk() does
+only the best effort to flush messages on legacy consoles. And NBCON
+consoles drivers are even offloaded to a kthread by default as
+pointed out by John in the other mail.
 
-> +
-> +	/*
-> +	 * Firmware may advertise neither a rate limit nor a latency hint; use
-> +	 * a small bounded backoff instead of retrying in a tight loop.
-> +	 */
-> +	if (!delay_us)
-> +		delay_us = SMCCC_CACHE_DEFAULT_DELAY_US;
-> +
-> +	return min(delay_us, SMCCC_CACHE_MAX_DELAY_US);
-> +}
-> +
-> +static int smccc_cache_wbinv(struct cache_coherency_ops_inst *cci,
-> +			     struct cc_inval_params *invp)
-> +{
-> +	struct smccc_cache *cache = container_of(cci, struct smccc_cache, cci);
-> +	unsigned long delay_us = smccc_cache_delay_us(cache);
-> +	struct arm_smccc_res res = {};
-> +	int ret;
-> +
-> +	if (!invp->size)
-> +		return -EINVAL;
-> +
-> +	/*
-> +	 * Serialize the full retry sequence. With the default bounds, a caller
-> +	 * may hold the mutex across up to five 20ms backoff sleeps.
-> +	 */
-> +	guard(mutex)(&cache->lock);
-> +
-> +	for (unsigned int i = 0; i < SMCCC_CACHE_MAX_RETRIES; i++) {
-> +		/* Long firmware operations can trigger watchdog checks. */
-> +		touch_nmi_watchdog();
-> +
-> +		arm_smccc_1_1_invoke(ARM_SMCCC_ARCH_CLEAN_INV_MEMREGION,
-> +				     invp->addr, invp->size, 0UL, &res);
-> +
-> +		ret = smccc_cache_status_to_errno((s32)res.a0);
-> +		if (!ret)
-> +			return 0;
-> +
-> +		if (ret != -EBUSY && ret != -EAGAIN)
-> +			return ret;
-> +
-> +		fsleep(delay_us);
-> +	}
-> +
-> +	return ret;
-> +}
-> +
-> +static const struct cache_coherency_ops smccc_cache_ops = {
-> +	.wbinv = smccc_cache_wbinv,
-> +};
-> +
-> +static int smccc_cache_probe(struct arm_smccc_device *sdev)
-> +{
-> +	struct arm_smccc_res res = {};
-> +	struct smccc_cache *cache;
-> +	int ret;
-> +
-> +	arm_smccc_1_1_invoke(sdev->func_id, &res);
+It seems that Kees just want to check some particular printk() calls
+and what messages they print. It might be easier and more reliable
+to redirect printk() to an alternative implementation via a hook
+in vprintk() in kernel/printk/printk_safe.c.
 
-I think you should provide the explicit function ID name here, and not 
-rely on which function exactly is used to probe for the interface's 
-existence.
+The vprintk() function used to redirect printk() by context,
+e.g for recursive messages or NMI. It is much easier with the lockless
+ringbuffer now. But it still does a redirection for kdb_printf().
 
-> +	if ((s32)res.a0)
-> +		return -ENODEV;
-> +
-> +	cache = cache_coherency_ops_instance_alloc(&smccc_cache_ops,
-> +						   struct smccc_cache, cci);
-> +	if (!cache)
-> +		return -ENOMEM;
-> +
-> +	mutex_init(&cache->lock);
-> +	cache->latency_us = lower_32_bits(res.a2);
-> +	cache->rate_limit = res.a3;
+I could even imagine that it could call vprintk_emit() with some
+special facility which would cause redirecting the messages to
+an alternative ring_buffer. Or we could even add a parameter
+for this.
 
-According to the spec you would need lower_32_bits() for a3 as well - if 
-we are going to use this value. But I don't think we need to, see above.
+Anyway, the console machinery is pretty complex and just a best
+effort. It would be better to avoid it unless you really want
+to test the full printk() machinery.
 
-Cheers,
-Andre
-
-> +
-> +	ret = cache_coherency_ops_instance_register(&cache->cci);
-> +	if (ret) {
-> +		mutex_destroy(&cache->lock);
-> +		cache_coherency_ops_instance_put(&cache->cci);
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct arm_smccc_device_id smccc_cache_id_table[] = {
-> +	{ .func_id = ARM_SMCCC_ARCH_CLEAN_INV_MEMREGION_ATTRIBUTES },
-> +	{}
-> +};
-> +MODULE_DEVICE_TABLE(arm_smccc, smccc_cache_id_table);
-> +
-> +static struct arm_smccc_driver smccc_cache_driver = {
-> +	.name = KBUILD_MODNAME,
-> +	.probe = smccc_cache_probe,
-> +	.id_table = smccc_cache_id_table,
-> +};
-> +module_arm_smccc_driver(smccc_cache_driver);
-> +
-> +MODULE_IMPORT_NS("CACHE_COHERENCY");
-> +MODULE_AUTHOR("Srirangan Madhavan");
-> +MODULE_DESCRIPTION("Arm SMCCC cache maintenance provider");
-> +MODULE_LICENSE("GPL");
-> diff --git a/drivers/firmware/smccc/smccc.c b/drivers/firmware/smccc/smccc.c
-> index 5dc768ac4143..5a5d50d17410 100644
-> --- a/drivers/firmware/smccc/smccc.c
-> +++ b/drivers/firmware/smccc/smccc.c
-> @@ -100,6 +100,11 @@ static const struct smccc_device_info smccc_devices[] __initconst = {
->   		.requires_smc   = true,
->   		.device_name    = "arm-rsi",
->   	},
-> +	{
-> +		.func_id        = ARM_SMCCC_ARCH_CLEAN_INV_MEMREGION_ATTRIBUTES,
-> +		.requires_smc   = false,
-> +		.device_name    = "arm-smccc-cache",
-> +	},
->   };
->   
->   static bool __init smccc_probe_smccc_device(const struct smccc_device_info *smccc_dev)
-
+Best Regards,
+Petr
