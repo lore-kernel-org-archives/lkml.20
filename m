@@ -1,167 +1,102 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF4764E36D6
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:16:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB41A4B1268;
+	Wed, 14 Oct 2026 12:16:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791980170; cv=none; b=qY7zDWQKNFnQTb28t4Od/MQ0HplFelEuE29zVnvjvn7fVwcVwSdHZHWGDVuztAS8c9X+f8USEX5DUasecdxxD7CGNStZXTSwTNQtKfGuZ9gHzVPF9vSjmWJ2pGZAD+Wf76kr7N4GSVMexYjOqc4Or8f5cRDI2z707YGtjWXoZg0=
+	t=1791980206; cv=none; b=kpQk5eI+pB+ur5+/CEVHk0P2xmrkh2bu2NFI5nRWvI4FCoCRfcD+SaaulJ5X0u63WACA/JrgpGCv/lTij4EEhbInNf6rKHptI+x2m+/E7cPH1z5QweAlmmF8JmvqkN3f/OMIuGKrkOpSGuADAIr38MuMwOAMwVLv12PW6zKS+dI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791980170; c=relaxed/simple;
-	bh=KQQfKGP3gaA4IHCfke4mkG2Sh9hJChUtdoHtqWoQYAE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=X5r1aYE+Ef6eGszZUL61d1CEONX+yP+YWPCwyW4moPmdHy9dYdhRu64WI0ttDCKjl0gdd5tIX0uEbz+X/O6TAKPkwTqQHMB6FI8ComX4W2LTbTySgD/Q1RpqV3r9Lvpf3Tve9Q0kylP4rpAQWzEy+O3bJh+NS514o2KUHHWXWrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mrahaQjD; arc=none smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791980206; c=relaxed/simple;
+	bh=5/frXZ7UOZQdL6ibWfMYkce8h2DlCNYYPRx3fNHjyYc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oESheDr37f2bStVgrhR54YVG/h2EWPx7/1mjPToKCI5dFCULWgQrOhyihw8WrmJ5lE6o+QKEkVXQIJSeUEHdgpoCdT6B7W7OjSDLQgJfS8bgabkEaXd/lSNIw5vP3ivr4pKXytcoXVaEr9+NFvYPtyhRiEgZQSdojYwuP73v+iQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dyKFVv2R; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mrahaQjD"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48bbb06e746so261552f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 05:16:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791980166; x=1792584966; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mcXAqkrX5GplF7FfZE4ZaylSycLQ0FQ8MQuX8DWBiwI=;
-        b=mrahaQjDFUe26VZZD1iMlfxvrcTpPxTeIx9DrEMnyIQEFnrQkS27fRIwOs25nTq+Qz
-         JK2bxB8s7NcU8Pe/iNu8G+2ecBfxmJU3i4subXYguzv6SQUZUm+Aakjjciq+xHB7R+YV
-         jMKDNAuWpUkeTSl0kq9RwPQkvg+TGJ0r+EdricCJ1cUq1dDGWUsnb4AATOn6JZPooZwL
-         jgeTnWmsT8wWCSR9Ia2HZfPasPbSrRM2KU78nQ7Gk5aFVrYjlnDJHE7WL/2fOnhPQjht
-         0LvKJqPOERHonnykFC5CzrxuP3Zn9CgR+SReXy5IzmSBm3hIH8ZIc3+O5aymoXlprh2J
-         +eUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791980167; x=1792584967;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mcXAqkrX5GplF7FfZE4ZaylSycLQ0FQ8MQuX8DWBiwI=;
-        b=QvIl/MPevNLIaCH9qKw2/j3yp3BawebunwMozExrd2RqN3sF8JiC0+kqgcpYZcS43a
-         xCUPoDG2Y/IJrgZJe3SujF7IjhfoM0lAiBgR9TFHYLyUPmdcj91x73kfjBRi2hdMbAjU
-         0Le90Uwv/Hg1nNngSs3nQ7S9GJnATJG9SEs871KmVZdFQix48fYrPYQnwPtdOaIeSbcm
-         iXsWEY8vWskQbcKIEhvt02R1WCBXQ2Y9or/rO8nbewgQcqMHrpUL8YJgJxLFreWgs9rB
-         mQIkYdj5+olsLZPuSzDRQUjl21DTC4L6DICm/4Lu+jqHFQ0BOzQH0OtJ6Pf7fIjnGWTZ
-         gSgQ==
-X-Gm-Message-State: AFq9FYJYov5/t9aPrlDrStTcW/JM0wbuwMTdAHcgiPKZ4+SOwIyY4ozF
-	n5G+5Pl3bCR/HTmdAg0fMhsVJjAs3krkFmC1iALaSIlHgIHLPWGzvBvM
-X-Gm-Gg: AYBFou2i4EXNao9AT9MQETPMOwKhkXGXzFfOQeWjOCv9PXJDcuVuNYnyxN/ECtdXcvM
-	aCQbTCKQ+MfW3X+nf7HXIK7VxdM3Xn9USS/Ja3pUF7T+qa1hjiPJhQRFRy5qmt9B96/M2yDPTjR
-	AhUGSLI1Ze/K+f4SuZ4P7amr3JPSWAVzg6kZOREUo9jlf3KQAV+sZtSvcdFEKgSQ3gpC7BWlKRi
-	K+zLZSoWIu7aC1J7L88gEVVUzj905MMkYd18XRNo6DrBTudgHcIFASl9xe15Ma5aQ8jycqDgnAc
-	Cg8EaQQJofe1RtaE8A0DU2keVp33xbWHPu8haXTC4fb9Jvhb4+/j8iHRY78tA6xC7Y/vlI+ErlX
-	Tdg/1eFamIV4l55FXoLEQVrwhCWbtCrQcDc8UySg+s+2ETZbe0u+gBgxE+A5k44DIttbOhR9F42
-	cumzvRegG1BEzblQYrp/sgdBRdh9HBPSeIdBhP6xSOXVDdOc1LKqH6TBo5+kuouHM8KL+ZwQQMh
-	jJv7CQNj0EIWDB2Z0Y=
-X-Received: by 2002:a05:6000:11c3:b0:48a:f404:695e with SMTP id ffacd0b85a97d-48dbaaed106mr22506007f8f.50.1791980166578;
-        Wed, 14 Oct 2026 05:16:06 -0700 (PDT)
-Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ac36f9sm11006660f8f.36.2026.10.14.05.16.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 05:16:05 -0700 (PDT)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Lee Jones <lee@kernel.org>,
-	Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	mfd@lists.linux.dev
-Subject: [PATCH v2 3/3 RESEND] mfd: max8907: Convert to use device managed poweroff handler
-Date: Wed, 14 Oct 2026 15:15:44 +0300
-Message-ID: <20261014121544.138958-4-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261014121544.138958-1-clamor95@gmail.com>
-References: <20261014121544.138958-1-clamor95@gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dyKFVv2R"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E62581F000FF;
+	Wed, 14 Oct 2026 12:16:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791980205;
+	bh=ILPfYtQPedwqe7pxPK+WTNwjSrNL2MxBpD5pByW5Pwk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dyKFVv2Rzlyv+dsX53HxsgHCJwNjYCXUOfOIdcC9vhtC2yep/hvlOiCV+u6N/ZMIA
+	 KpPCdBzGRdfz+Ua2BFZIGT8T9Y/MsXS0oyAX0r7+UAAS1l2RvnhEMoeHnJs3CuNuoN
+	 hNflmR/dax2hdz3gbw0mt4A34dtEl9BRJKZ868o8=
+Date: Wed, 14 Oct 2026 14:16:50 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] driver core: fix race between bus_remove_driver() and
+ dev_driver_uevent()
+Message-ID: <2026101409-unkind-ablaze-08a3@gregkh>
+References: <as71DkwHeLGNDsPv@google.com>
+ <2026101444-unnoticed-caliber-21d5@gregkh>
+ <as8dAu4R99pP1GHD@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <as8dAu4R99pP1GHD@google.com>
 
-Replace the legacy global 'pm_power_off' function pointer assignment with
-the devm_register_sys_off_handler() helper.
+On Tue, Oct 13, 2026 at 11:11:33PM -0700, Dmitry Torokhov wrote:
+> On Wed, Oct 14, 2026 at 07:31:19AM +0200, Greg Kroah-Hartman wrote:
+> > On Tue, Oct 13, 2026 at 08:24:20PM -0700, Dmitry Torokhov wrote:
+> > > When a device driver is being removed, bus_remove_driver() removes the
+> > > driver from the bus klist before detaching it from bound devices. If
+> > > dev_driver_uevent() runs concurrently on another CPU, it may acquire the
+> > > bus klist lock after the driver has been removed from the list, read the
+> > > still-valid driver pointer from the device, and access the driver's name
+> > > while bus_remove_driver() proceeds to free the driver structure.
+> > > 
+> > > To close this race window, acquire and immediately release the bus
+> > > drivers klist lock after all devices have been detached. This ensures
+> > > that any in-flight uevent generation that observed the driver pointer
+> > > before device detachment completed finishes reading the driver name
+> > > before the driver structure is destroyed.
+> > > 
+> > > Fixes: 18daa52418e7 ("driver core: fix potential NULL pointer dereference in dev_uevent()")
+> > > Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+> > > ---
+> > > 
+> > > Extremely unlikely to hit so I would not worry about backporting to
+> > > stable.
+> > > 
+> > >  drivers/base/bus.c | 9 +++++++++
+> > >  1 file changed, 9 insertions(+)
+> > > 
+> > > diff --git a/drivers/base/bus.c b/drivers/base/bus.c
+> > > index d17bd91490ee..8b3aaf451e4f 100644
+> > > --- a/drivers/base/bus.c
+> > > +++ b/drivers/base/bus.c
+> > > @@ -830,6 +830,15 @@ void bus_remove_driver(struct device_driver *drv)
+> > >  	driver_remove_file(drv, &driver_attr_uevent);
+> > >  	klist_remove(&drv->p->knode_bus);
+> > >  	driver_detach(drv);
+> > > +
+> > > +	/*
+> > > +	 * Ensure that any concurrent dev_driver_uevent() that observed
+> > > +	 * dev->driver before driver_detach() cleared it, finishes
+> > > +	 * accessing drv->name.
+> > > +	 */
+> > > +	scoped_guard(spinlock, &sp->klist_drivers.k_lock) {
+> > > +	}
+> > 
+> > Shouldn't the compiler just no-op this away into nothing?
+> 
+> It better not. Why would it?
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- drivers/mfd/max8907.c | 32 +++++++++++++++++++++-----------
- 1 file changed, 21 insertions(+), 11 deletions(-)
+Sorry, early morning before my coffee had kicked in, I was thinking a
+simple lock/unlock pair without any data in the middle might be compiled
+away...
 
-diff --git a/drivers/mfd/max8907.c b/drivers/mfd/max8907.c
-index 363ac80c0593b..9c40f0551a8ce 100644
---- a/drivers/mfd/max8907.c
-+++ b/drivers/mfd/max8907.c
-@@ -15,6 +15,7 @@
- #include <linux/mfd/max8907.h>
- #include <linux/module.h>
- #include <linux/of.h>
-+#include <linux/reboot.h>
- #include <linux/regmap.h>
- #include <linux/slab.h>
- 
-@@ -173,19 +174,23 @@ static const struct regmap_irq_chip max8907_rtc_irq_chip = {
- 	.num_irqs = ARRAY_SIZE(max8907_rtc_irqs),
- };
- 
--static struct max8907 *max8907_pm_off;
--static void max8907_power_off(void)
-+static int max8907_power_off(struct sys_off_data *data)
- {
--	regmap_update_bits(max8907_pm_off->regmap_gen, MAX8907_REG_RESET_CNFG,
--			MAX8907_MASK_POWER_OFF, MAX8907_MASK_POWER_OFF);
-+	struct max8907 *max8907 = data->cb_data;
-+	int ret;
-+
-+	ret = regmap_update_bits(max8907->regmap_gen, MAX8907_REG_RESET_CNFG,
-+				 MAX8907_MASK_POWER_OFF, MAX8907_MASK_POWER_OFF);
-+	if (ret)
-+		dev_err(max8907->dev, "failed to restart device!\n");
-+
-+	return NOTIFY_DONE;
- }
- 
- static int max8907_i2c_probe(struct i2c_client *i2c)
- {
- 	struct max8907 *max8907;
- 	int ret;
--	bool pm_off = of_property_read_bool(i2c->dev.of_node,
--					"maxim,system-power-controller");
- 
- 	max8907 = devm_kzalloc(&i2c->dev, sizeof(struct max8907), GFP_KERNEL);
- 	if (!max8907) {
-@@ -204,6 +209,16 @@ static int max8907_i2c_probe(struct i2c_client *i2c)
- 		goto err_regmap_gen;
- 	}
- 
-+	if (device_property_read_bool(&i2c->dev, "system-power-controller") ||
-+	    device_property_read_bool(&i2c->dev, "maxim,system-power-controller")) {
-+		ret = devm_register_sys_off_handler(&i2c->dev, SYS_OFF_MODE_POWER_OFF,
-+						    SYS_OFF_PRIO_DEFAULT,
-+						    &max8907_power_off, max8907);
-+		if (ret)
-+			return dev_err_probe(&i2c->dev, ret,
-+					     "failed to register poweroff handler\n");
-+	}
-+
- 	max8907->i2c_rtc = i2c_new_dummy_device(i2c->adapter, MAX8907_RTC_I2C_ADDR);
- 	if (IS_ERR(max8907->i2c_rtc)) {
- 		ret = PTR_ERR(max8907->i2c_rtc);
-@@ -250,11 +265,6 @@ static int max8907_i2c_probe(struct i2c_client *i2c)
- 		goto err_add_devices;
- 	}
- 
--	if (pm_off && !pm_power_off) {
--		max8907_pm_off = max8907;
--		pm_power_off = max8907_power_off;
--	}
--
- 	return 0;
- 
- err_add_devices:
--- 
-2.53.0
+Still feels odd though I don't have a better idea.
 
+greg k-h
