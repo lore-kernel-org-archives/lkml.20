@@ -1,275 +1,178 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1321837A826
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:11:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791951063; cv=none; b=pLAxJgxdYnLqbZZSav0fa8dov49fwR1Y/K3U04rf5Mel08I+zIXBA4Xtd5AOKxsqzg+aKuV0wL4gyrvst7mbRj0x4lV6sr3wR2D6W8dFLLtmYNI2CvsOWKPSmPghKwPn6e6lhH6LucGWhJ/un0K0V6WKz/rrmwSoCv7nnld/kgw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791951063; c=relaxed/simple;
-	bh=fG6F8KW3//QwM2F9KwqNIGjLe9hz5DHZCbg3uV2d0JQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NCA4wl7dqNFl3OqLi6z6XjT5dkeLymAn8ogSiti6o//3n7h+8sQXM+Wn0Hldvu/YC9j9gSl6J4hkZHe8rH8Lma74sRd/N1GxLsdRZlyzxbsAivF6JijJPdfPwuW70C8+hzjp7g6vUYdxkJAwmJaDBccKNU/QP6GoOfpPr11ImLw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=R0NuLLlk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Dzebd5Z2; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01FCA412266
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:12:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791951161; cv=pass; b=sG1Nmj+RofFn/PjMLub9faJf8NCr3kwFwIszDe7a1h55QwSr6WnbnJThGIMrud+qy8qOJTvUdGY1+PEBtmIoke3UGP8sLDXFPv96HC20AUuTSqoVvL2RUd5AqU6YnqwWgwgSGo+v9dKqGcZUVRNXsz0XvZJHLYu4K1vGXvD17HU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791951161; c=relaxed/simple;
+	bh=l8OShMunAP6CnTzML3fBuG0pGlsaDFB/65p8ok5Q4Lc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=OC+21I+fyau/e5KNlCIKcJA/IraY6zcrfyCfHkVyfJtlmJ2uajXR8Wk76dWP2QXB6umwA7hJxPHPmED6ZFh3NQd3RN766z0ZYwbId4WkQKyg+/wX2M/gHpkxL/3rbHEozxmesq1YFjs5mSBG2TKW4uAMUV2Po6TUuUBEyUPAH2Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SQpxAFcS; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EknhqSZd; arc=pass smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="R0NuLLlk";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Dzebd5Z2"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69E2Cxb71125206
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:11:00 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SQpxAFcS";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EknhqSZd"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69DNCjRZ2088027
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:12:38 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	2tQ/c0uS9hC5Os56HC6aI7TxaXNDLsi+KoptbI4i6IM=; b=R0NuLLlkhxeN/yPD
-	2psNOAKDD8g2at7B3HZwUIGuZnsOQNPddoXeG0VZqy1h2tO7WVSe982vJS0Mg4+q
-	68eYvgxZddQOdD8AlpUqGHAjkpKnm38kJXgnfygwxHdMuPzO0qWENIS9r7hyI7nW
-	yJ06jyakCUj0aSJOOhpKf4pFY5c8QZ/1HQMzBnR35vrg7rhYAY6IWgmluvtmc2nn
-	Eo42Hq2LVj44+JCD4jFtt6Y/WPy/WbOKe8k1IN4FfM6c2m3xEjfLpN2Q/bh6VuCr
-	dIRk4aYYTc7jDyCM6xVc1YVCp6T0Z8k2kuLlmTS065bFtVU8p7l1OyCosFqwT9wY
-	DCE8vQ==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9sg824dp-1
+	:message-id:mime-version:references:reply-to:subject:to; s=
+	qcppdkim1; bh=0IToitMTYp/Rl/u3v1Im6m2B2/IkDFAQrOa2qxOYerA=; b=SQ
+	pxAFcS+1SQ+AskTGAEMjYX4fMsFRgqxpslh90yM7fF594sep6OqAVAwInsXHsgow
+	BL4dDj70qgx0yW/FdzUvYhHMO8SUBiok8zHTz6DSJBKyC0S4es+UWv/sZjUvtB1Q
+	TxV5RCv2MGp+BxeFreqNTpTU7fXT2tpYrpmdEw6b7ZTBhWvN23zZqH0oOurCfQvy
+	G3APDC2Bjgke2qis/y9PITSOfzrkrgKQsfmbESyB0b/xsLDCdGh6NNcuY6CZemZl
+	CrTd8bOlb+4yZjuzD+VH5KQ6O+MpmOgd1goEeBssdRzvh3c8oFP+RtOb4dtVAjRx
+	RRaASqepXNhztxsusPNw==
+Received: from mail-yw1-f198.google.com (mail-yw1-f198.google.com [209.85.128.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9x49gvxv-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:11:00 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-35a4d2e39acso2064052eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 21:11:00 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:12:38 +0000 (GMT)
+Received: by mail-yw1-f198.google.com with SMTP id 00721157ae682-8b0ab72a6e8so30273457b3.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 21:12:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791951157; cv=none;
+        d=google.com; s=arc-20260327;
+        b=i5N4z2X8XTpjLt0hQmyjE9JbyKtR0uLtSRs/zN3otTvcleZsjKu/DdkzS81Bh0DlKJ
+         1m7koH/SJT94qKZV9smSwkiCCJHEkWpnglM+fwM4IRhND5IhLW8PNdmVXyg2huXQmqkM
+         aPkFtVBdgQZty4PfkQAoG9xPdovyIcMbRQPAJ+z4y50sr85Gl9C4Ux6Ioc/H7fVhwdWt
+         N6X+jnXFlBkI7au/zljRVaIs86TLHZvUp+ENJpGr03jgK9lp5NyzNK2F7xd2xdFEtLSH
+         348uf1D66BNW+Zwf/sg3SdJtFPYIH/9mFcDJ74a4ct+B/wuOTmTF2hVoOJ1Iqs52DrSb
+         4o8Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :reply-to:in-reply-to:references:mime-version:dkim-signature;
+        bh=0IToitMTYp/Rl/u3v1Im6m2B2/IkDFAQrOa2qxOYerA=;
+        fh=ntdzv2HoGgjvaZIFcNnZ3pTvxAXbEtv+3saioSlYgVc=;
+        b=lROi2Ow7UCXKd69884DgCrKbYzOF9MhLUo/aXNiGpAx5WZrj54byCCzXUr07Doiulx
+         M7mXV6wDJC2aUS9rPpValbhlobA3F9SRqSM6Qt4a84NhuOv/P01CBE/sTiUu5kVVBIgo
+         t2WEoIGya/N76icyyE6C1dgevB5MS+vAPkNV9ExOzTrogzJ8c8BEbcq8qUc9Kp6qQJc/
+         ncqK8Y1o9Le5vq8cr/qNdPEhEOZ0qxMHoCouAnTsGfmMjPIzFkV4olc0K8KUCyzRVDmU
+         prnt/Wy68SBKyr/c0ZlgqYKzIRXUUbL54kqpdEpTchLfUKp6XYjznr9ycI3z0L2SlWs/
+         7nVQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791951059; x=1792555859; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2tQ/c0uS9hC5Os56HC6aI7TxaXNDLsi+KoptbI4i6IM=;
-        b=Dzebd5Z2Jh5LeiZYU2rNHENpYk+CRb5MfVKSvI3QF/1hyA3QicdV7pKLT1EGbHvdHs
-         0AAKez+QT1QhjVTUAOzXnuaAS3FVHkYoMdnBZhJRprO02bxTtrBgMRyysbGIyXVK6PwR
-         vi0kZHjh6vChdsZiB93kZ4kUE/XQDNQ/gHBiL5XGCInTOY/zkcaQK+5KjaY/Sb18a0eG
-         CVcMu0Osuj5ke/t5Gusu/nE2cxMBSAQUjegBvMYTLllsNPBlrpwDHdNUl4qub2dX/fWO
-         ONPQvFcXTK5NZFjA3yqgv/6sQws2AbeWyJk/lA2AnFm/Lx20bHCeFxhZsCBfWhWDPdvh
-         BBAg==
+        d=oss.qualcomm.com; s=google; t=1791951157; x=1792555957; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=0IToitMTYp/Rl/u3v1Im6m2B2/IkDFAQrOa2qxOYerA=;
+        b=EknhqSZdA02RjdPCdSlEE1sx7b/lKuo/EOOTg4GgHLOtey5qWTpLO/I1+0SlmOhSzY
+         Oe3UP91lqEvde47yCSF1+ITa8aXYeQMjudEfLSCjnI5Rma/l1eAPqgfIFUBzg7tfpJvn
+         K8Vv0TtqJTtrGx0kXDkPoo5CIvxUgjc1eGn6pBB/s10fNK3xO7dPt3nqXFj/LS74tu/m
+         dECyzsMAI/wCFKS6r7H2YWcVgAOYehm//I5LS8q4sWFFvIyBI02uxhbNH0jX+VJierBX
+         laCVYLuTMl9QdG7SmTnuYA3ghwO0udl8ZfF/kMqalrvGWSWt5dWtBMzfvvyvnJpIea6j
+         BhKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791951059; x=1792555859;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2tQ/c0uS9hC5Os56HC6aI7TxaXNDLsi+KoptbI4i6IM=;
-        b=lnW8KbIMZhclNDtHL5E4EXo2ap6whBoXdubONmeuxqn1FlAyttY1Pkn8ASOlyhPRm7
-         fqzIPeTI0mvhqCbAWVZ5tbgknNjP/W0fhU1N8+PzPU9+WUdq5cPNkE7QRMvVpP5UF3Up
-         yhVc/udfxXDbcHX10l0R23m/8HUAsIYuctl2v9Mx2VbAX8bnQYzlDevspx2hVOxanwf9
-         cAFDWxatuqC808s9rkL+Dz4K04sx4dwF+1u96WSfGPF7ArSyUWNzDHYl6pEfpBv8JnuI
-         3E56W8ZqARvUln60zW1BPeNpTcCyASiTSi3YfIy00V1JCekS30M2SElrD64LnPbiFx0X
-         mFWA==
-X-Forwarded-Encrypted: i=1; AKwUvByR0hm8Z5CY3ayUfvEYaXQ+mnpXl5JKPI/l7k9LbX/sDAGcXBBEgFxOSs96p+nPvZfZQIZ2qWsKLkDa91s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKOE1tOb3byqtvx820jf3jsXlshetp5pOLWA08FSjRiOOclt2X0
-	crqc1a2B+N4bThoKpnrc+2PwPq0b5/nBi52Ro4TahBKD3oUyIjKQwA++WrL216CwxdelkevxTIe
-	THE2P02bTgCI82oNpMRorICS85TVwPzW2OhgEUScEwfhb3MvgfBqLsuWHJtw9RJ0HuzA=
-X-Gm-Gg: AYBFou0fPIj5yuZO5uA+LI4Oq26i/YdZ0exKcwFSMLB4xURUDViQRPxzrHpnRif07X6
-	OonvFDvsbDopjgDnjZrGog4PkBuJcZ93qBvYWJ3Tfa6CLbN98OhHRa6cvQ1ko4Sa6+qyr51WeoW
-	xgwhN5O0tTtu452GPIwiPxDzFfQHCB8kvlGK8CZl4uMCvQp6YdwTUygNWNf/BjjAgPBOM1puXrB
-	x+t8UjNKo182ZGSjwHwdCU8Y+w8ULU47CET2D2vdINHbjbi52ayfwnaQUtVFaILMiq3qiwoKjBj
-	g0gVvcySvKHB3K4quBscMW0LJG4rmSLOYoq3sSbGNse3n9LFiB9pfabvDOctH/kcEb2EYXHamIz
-	caK3qXc45ozAGMJVpTMTca5JaLAu1Lg==
-X-Received: by 2002:a05:7300:e9c5:10b0:359:f28:412d with SMTP id 5a478bee46e88-3590f28533cmr16950844eec.36.1791951059347;
-        Tue, 13 Oct 2026 21:10:59 -0700 (PDT)
-X-Received: by 2002:a05:7300:e9c5:10b0:359:f28:412d with SMTP id 5a478bee46e88-3590f28533cmr16950811eec.36.1791951058726;
-        Tue, 13 Oct 2026 21:10:58 -0700 (PDT)
-Received: from [10.219.56.188] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca6d20dsm52191349eec.12.2026.10.13.21.10.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 21:10:58 -0700 (PDT)
-Message-ID: <73949657-9beb-426e-a966-6f990eafa247@oss.qualcomm.com>
-Date: Wed, 14 Oct 2026 09:40:53 +0530
+        d=1e100.net; s=20260707; t=1791951157; x=1792555957;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0IToitMTYp/Rl/u3v1Im6m2B2/IkDFAQrOa2qxOYerA=;
+        b=LWi1BYwL0OaOEZT3eIJCjpsPY3YSNAeq3Vxqdsf/0ASNFBCN8EXCHasosNb1EGIzEI
+         TwA9mtPm8aXKdF/INkc/y563Orx8Vzsr7uaAdWTyYkPzq1i0/SJnR4RF83V5WBZxddjd
+         /vGhczsQbV8L05dabVJhvlX2qGuzR1pHAwDen7TI4CRYk38BHFa7P/fclpi+UIU1q7QQ
+         eaShV+KqRGX3cHahAAWS88d9LGaciVvwdWLfxm0GaeULuOWn7wPZN9QDjA57FcEAfs5w
+         Hy3DAim+VEmlmmNC9fipG+LZx6N8y/PwTTDO7JiP5xi1tH186CXUCcrHDs/QiA8n2S1h
+         lALg==
+X-Forwarded-Encrypted: i=1; AKwUvBzvq8CCAYeym6J/9dqVDB4Yg74GE7TrisEJfhrpKDHRPAH42alce/jhg5gAx/z+VOVCrkMuzPyz2rGdg0w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYImfd1tdX5sBT74b4naZweygHH9XKr7q9A+zORswEfTCRBLdFmF
+	qFhmztjAVJsUDf0PInyqNeM9mlh0+0WQcEGKxPY9Rud7VJ0sYkN14aeO7Xsz30U71hPX0kWt3Ew
+	38nP57//uyBljHIvLJwQnqCaSgK5WuWHYSjRCDNWxZdE8DAPDwLQiGifPzvKQolvNnTxDPyRf8q
+	3+LKV0e+Md4FOtV0RkIqABTUR0gdCFDbVImJ8X2qzXTYjqcHf0BLwu
+X-Gm-Gg: AYBFou13s1iMo1nHcvmypl1UkYVpvW01NYsLBnKLyqsXk5ZNObscpK+kvciRZPd+yNA
+	APirq7pAWoohBZjL6hvU+E4PL878Q+lzXzHq8QMtgKGzfCKqavK2w6NxEIcE5W0snCteKu+Agl9
+	cHlM/oEOaCN2jSj5zS+zKCCRBgAdfoleaDUtrwnvJwL4wTDJ7y1yTUHvCkGzQ=
+X-Received: by 2002:a05:690e:128c:b0:679:8835:a554 with SMTP id 956f58d0204a3-6798835b6f3mr595926d50.94.1791951157122;
+        Tue, 13 Oct 2026 21:12:37 -0700 (PDT)
+X-Received: by 2002:a05:690e:128c:b0:679:8835:a554 with SMTP id
+ 956f58d0204a3-6798835b6f3mr595910d50.94.1791951156684; Tue, 13 Oct 2026
+ 21:12:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] misc: fastrpc: fix init ordering race in rpmsg probe
-To: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>,
-        Srinivas Kandagatla <srini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Thierry Escande <thierry.escande@linaro.org>
-Cc: Bharath Kumar <bkumar@qti.qualcomm.com>,
-        Chenna Kesava Raju <chennak@qti.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        linux-kernel@vger.kernel.org
-References: <20261001-fastrpc-probe-fixes-v1-0-1376d93b8b3e@oss.qualcomm.com>
- <20261001-fastrpc-probe-fixes-v1-2-1376d93b8b3e@oss.qualcomm.com>
-Content-Language: en-US
-From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-In-Reply-To: <20261001-fastrpc-probe-fixes-v1-2-1376d93b8b3e@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: Wgou6TfbREuMYjdTTSoIe9IZwSNY3mRK
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDAxNiBTYWx0ZWRfX1iv5RIkwhpLN
- 4xIihMohfolrZXERY8KS37+sVCajArZ2gz26NP0xHjUE2wGDVecJglja/ITe2211BVFYQYPHqPU
- 5BsRaEF++h5igEfNxQW/4RMxFuIShFA=
-X-Proofpoint-ORIG-GUID: Wgou6TfbREuMYjdTTSoIe9IZwSNY3mRK
-X-Authority-Analysis: v=2.4 cv=PYJqFShd c=1 sm=1 tr=0 ts=6acf00d4 cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=jkHBZFC6afHL268QTXoA:9 a=QEXdDO2ut3YA:10
- a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDAxNiBTYWx0ZWRfXxRLn5tScDUWb
- h+Rwb3c+XVJIwNPlggsM+1iQqXua7Ckr/jZ0GFGSVzy/0/JgBUGK4XvEZ5XhOkLZ4HBfEdFFOxS
- yz4zj5+nUlZUDUJIZeCAuExu/4sJhIgDTarmhNgaDZLK2BN03P4VvNgz6qgHlKLI2otcRIQAcKb
- N5tUsQAl0mlBfzPJR+NL+pMJH+4gGp0p1qX2eJ5aop+v473jOjwF8F/CYcJANhWcRFcUQ9lm4dN
- BPW/l34B8qMuc3lD6uAL+zikW2jlfz5mLVBwvVHWEXa+sVv83zAC22Je4k9Zm94xPlVRUrWD8Vi
- t1D7PXbVomW87NckIAR36f6/o0rFm3N7RuZjYoVyRyhA6HnJKDjJCO02NFC2AcyK53abcMRwV6g
- 6w4HVx6y+A4nr6DXplXBThEHZ0XV3PNVkuvCQ8Xq3b6yBOdtcXnSkhFgloINOI+9l2OMwX3682k
- /YAYoA58OftJ0vNVpPA==
+References: <20260903140031.3684-1-fangyu.yu@linux.alibaba.com>
+In-Reply-To: <20260903140031.3684-1-fangyu.yu@linux.alibaba.com>
+Reply-To: sunilvl@oss.qualcomm.com
+From: Sunil V L <sunilvl@oss.qualcomm.com>
+Date: Wed, 14 Oct 2026 09:42:25 +0530
+X-Gm-Features: AclHuK86voQc4FUtiCdkEZEAZb2HJ7wq0GZX-kU_HOfP197uYVxA3KPb_kIuB4o
+Message-ID: <CAB19ukELrF5wf3vKaPhoCLWmzGDExv1mZQAyEs8K6uq-zxqsKQ@mail.gmail.com>
+Subject: Re: [PATCH v2] ACPI: RIMT: Enable PCI ACS for root complexes mapped
+ to an IOMMU
+To: fangyu.yu@linux.alibaba.com
+Cc: rafael@kernel.org, lenb@kernel.org, pjw@kernel.org, palmer@dabbelt.com,
+        aou@eecs.berkeley.edu, alex@ghiti.fr, guoren@kernel.org,
+        linux-acpi@vger.kernel.org, iommu@lists.linux.dev,
+        linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Authority-Analysis: v=2.4 cv=YJcKWhGx c=1 sm=1 tr=0 ts=6acf0136 cx=c_pps
+ a=g1v0Z557R90hA0UpD/5Yag==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=_K5XuSEh1TEqbUxoQ0s3:22 a=SRrdq9N9AAAA:8 a=EUspDBNiAAAA:8
+ a=N72Xn8VYRMkAawgvMsQA:9 a=QEXdDO2ut3YA:10 a=MFSWADHSvvjO3QEy5MdX:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDAxNiBTYWx0ZWRfXyEqkfnQ2Rg/X
+ BFQf35dNR97JR2OrsWDRNGRNyRefXmqUBo+6qdt+MgBnAzH026KJSIGOBgyKv9fC8RZ/j7blPop
+ n3IRaoOc7iAkTtmQp/4RvDTWuSD9LbO+joMTgft/cZx9ns01jJGzh4CygcAtncRCg9r3C02/c8K
+ kWcua0R542pAoTFRl0B2GJeBQKPY7PoGR93lgKWF5c7U7FAuM28MDvXHm5cJZ3Rlf/d7KddWaiK
+ jrhMLhxRgsF/QKheqFuX9tDli4/uMgRKvkN7zSZKPcQET7w2RZgTl8ma9Spzyx3icjj9kW/QdMv
+ 8S7orCTpKV6/ZHHF8OhuEZztVmRUyOlaHeTMXmSSxm0345m36/7M4yAWgo9KRLtTgL103u6ivTU
+ Tub5hXsMizA8vSSOgoVvdJK8huWUO9u3c9G+4SRYh9uO4omv8fkQqg+oxLlJpOJEVvd+orhcW2X
+ 3Aw7PVy3j3XhFiEKvNA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDAxNiBTYWx0ZWRfXzR9ncfmSmknv
+ mqraClQAGnoPW4Edm1p9PRbQj8YOBAQa/V9gysukYHPhCxYNw2AZCHf3N4yvNPPYIbeThinGvgA
+ A1wNy21hhKQ9dr+APyMpzMHHddC1/fk=
+X-Proofpoint-GUID: DuS2fuoIXYANGA-gXo3De-pJlgfG6gl9
+X-Proofpoint-ORIG-GUID: DuS2fuoIXYANGA-gXo3De-pJlgfG6gl9
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 lowpriorityscore=0 clxscore=1015 suspectscore=0
- spamscore=0 impostorscore=0 malwarescore=0 priorityscore=1501 phishscore=0
+ priorityscore=1501 phishscore=0 clxscore=1015 impostorscore=0 malwarescore=0
+ spamscore=0 suspectscore=0 adultscore=0 lowpriorityscore=0 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140016
 
-On 01-10-2026 16:31, Vinayak Katoch wrote:
-> fastrpc_device_register() calls misc_register() which makes the device
-> node visible to userspace. However, kref_init(), spin_lock_init(),
-> INIT_LIST_HEAD(), dev_set_drvdata() and fastrpc_cb_devices_create()
-> were all called after the switch/misc_register block, leaving a window
-> where userspace can open the device and call fastrpc_device_open() on
-> a partially initialised channel context.
-> 
-> On a concurrent open(), fastrpc_channel_ctx_get() calls kref_get() on
-> a kzalloc-zeroed, never kref_init()'d refcount of 0, triggering:
-> 
->   refcount_t: addition on 0; use-after-free.
->   Call trace:
->    refcount_warn_saturate+0x120/0x148 (P)
->    fastrpc_device_open+0x204/0x258 [fastrpc]
->    misc_open+0xd8/0x1a0
-> 
-> Additionally, fastrpc_cb_devices_create() not having run means
-> sesscount is still 0, so fastrpc_session_alloc() returns NULL and
-> fastrpc_device_open() hits the error path which calls
-> fastrpc_channel_ctx_put() on the already-bogus refcount. This
-> triggers the free callback, kfree()-ing the channel context. A
-> subsequent IRQ-path fastrpc_rpmsg_callback() then dereferences the
-> freed spinlock:
-> 
->   Unable to handle kernel paging request at virtual address ffffcd5841510ca0
->   Internal error: Oops: 0000000096000047 [#1] SMP
->   Call trace:
->    queued_spin_lock_slowpath+0x414/0x5e0 (P)
->    _raw_spin_lock_irqsave+0x74/0x90
->    fastrpc_rpmsg_callback+0x4c/0xf0 [fastrpc]
->    qcom_glink_native_rx+0x6c4/0xf10
->    qcom_glink_smem_intr+0x1c/0x38 [qcom_glink_smem]
->   Kernel panic - not syncing: Oops: Fatal exception in interrupt
-> 
-> Fix by moving all channel context initialisation (kref_init,
-> spin_lock_init, INIT_LIST_HEAD, idr_init, dev_set_drvdata) and
-> fastrpc_cb_devices_create() before fastrpc_device_register(), ensuring
-> the struct is fully ready before the device node is visible to
-> userspace.
-> 
-> Add err_depopulate label in the error path since
-> fastrpc_cb_devices_create() now runs before misc_register(); a
-> fastrpc_device_register() failure must call fastrpc_cb_devices_destroy()
-> to clean up the compute-cb children before freeing data.
-> 
-> Fixes: 3abe3ab3cdab ("misc: fastrpc: add secure domain support")
-> Signed-off-by: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
-Cc: stable for both the fix patches.> ---
->  drivers/misc/fastrpc.c | 43 +++++++++++++++++++++++--------------------
->  1 file changed, 23 insertions(+), 20 deletions(-)
-> 
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index 7ab1cbbf19bb..93d07d28a0f1 100644
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
-> @@ -2614,6 +2614,23 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
->  	data->poll_mode_supported = soc_data->poll_mode_supported ||
->  		of_machine_get_match(fastrpc_poll_supported_machines);
->  
-> +	kref_init(&data->refcount);
-> +	atomic_set(&data->ctx_seq, 0);
-> +
-> +	rdev->dma_mask = &data->dma_mask;
-> +	dma_set_mask_and_coherent(rdev, DMA_BIT_MASK(32));
-> +	INIT_LIST_HEAD(&data->users);
-> +	INIT_LIST_HEAD(&data->invoke_interrupted_mmaps);
-> +	spin_lock_init(&data->lock);
-> +	idr_init(&data->ctx_idr);
-> +	data->domain_id = domain_id;
-> +	data->rpdev = rpdev;
-> +	dev_set_drvdata(&rpdev->dev, data);
-> +
-> +	err = fastrpc_cb_devices_create(rpdev);
-> +	if (err)
-> +		goto err_free_data;
-> +
->  	switch (domain_id) {
->  	case ADSP_DOMAIN_ID:
->  	case MDSP_DOMAIN_ID:
-> @@ -2622,7 +2639,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
->  		data->unsigned_support = false;
->  		err = fastrpc_device_register(rdev, data, secure_dsp, domain);
->  		if (err)
-> -			goto err_free_data;
-> +			goto err_depopulate;
->  		break;
->  	case CDSP_DOMAIN_ID:
->  	case GDSP_DOMAIN_ID:
-> @@ -2630,7 +2647,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
->  		/* Create both device nodes so that we can allow both Signed and Unsigned PD */
->  		err = fastrpc_device_register(rdev, data, true, domain);
->  		if (err)
-> -			goto err_free_data;
-> +			goto err_depopulate;
->  
->  		err = fastrpc_device_register(rdev, data, false, domain);
->  		if (err)
-> @@ -2638,26 +2655,9 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
->  		break;
->  	default:
->  		err = -EINVAL;
-> -		goto err_free_data;
-> +		goto err_depopulate;
->  	}
->  
-> -	kref_init(&data->refcount);
-> -	atomic_set(&data->ctx_seq, 0);
-> -
-> -	rdev->dma_mask = &data->dma_mask;
-> -	dma_set_mask_and_coherent(rdev, DMA_BIT_MASK(32));
-> -	INIT_LIST_HEAD(&data->users);
-> -	INIT_LIST_HEAD(&data->invoke_interrupted_mmaps);
-> -	spin_lock_init(&data->lock);
-> -	idr_init(&data->ctx_idr);
-> -	data->domain_id = domain_id;
-> -	data->rpdev = rpdev;
-> -	dev_set_drvdata(&rpdev->dev, data);
-> -
-> -	err = fastrpc_cb_devices_create(rpdev);
-> -	if (err)
-> -		goto err_deregister_fdev;
-> -
->  	if (data->domain_id == ADSP_DOMAIN_ID && data->sesscount > 0) {
->  		struct fastrpc_session_ctx *last_sess;
->  		struct fastrpc_session_ctx *dup_sess;
-> @@ -2682,6 +2682,9 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
->  	if (data->secure_fdevice)
->  		misc_deregister(&data->secure_fdevice->miscdev);
->  
-> +err_depopulate:
-> +	fastrpc_cb_devices_destroy(rpdev);
-In case of CDSP/GDSP, if secure device register is successful and some
-application opens device, that could result in cctx ref being taken and
-direct kfree(data) might cause problems, can you check that path also?> +
->  err_free_data:
->  	kfree(data);
->  	return err;
-> 
+Hi Rafael,
 
+On Thu, Sep 3, 2026 at 7:30=E2=80=AFPM <fangyu.yu@linux.alibaba.com> wrote:
+>
+> From: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+>
+> Mirror the ACPI IORT solution used on arm64 (see iort_enable_acs())
+> by scanning the RIMT table for PCIe root complex nodes during
+> riscv_acpi_rimt_init(), which runs before ACPI PCI enumeration. If a
+> root complex node's ID mapping points at an IOMMU node, call
+> pci_request_acs() immediately, so pci_acs_enable is already set by
+> the time any PCI device is scanned and pci_enable_acs() runs.
+>
+> Only one call to pci_request_acs() is needed regardless of how many
+> root complexes are found, so track that with a static acs_enabled
+> flag, same as iort_enable_acs() does.
+>
+> Signed-off-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+> Reviewed-by: Sunil V L <sunilvl@oss.qualcomm.com>
+>
+> ---
+> Changes in v2 (Suggested by Sunil):
+>     - Check the RIMT node type in riscv_acpi_rimt_init() and invoke
+>       rimt_enable_acs() only for PCIe root-complex nodes.
+> ---
+>  drivers/acpi/riscv/rimt.c | 58 +++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 58 insertions(+)
+>
+Could you please take this patch via ACPI tree?
+
+Thanks,
+Sunil
