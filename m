@@ -1,170 +1,176 @@
-Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26AC4539763
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:28:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19634541E6D
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:30:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791988120; cv=none; b=I5hTmS4INoPhkEzBe+ApH/P75UgIHC1xvMuuaKce63sZvyj9eQeeWnUGwu2OUD0GJE/J9tnfSHBNMr++c57OVHKxfHq3lOUp1X8n8eeAfx7w/eIWMIEDtZ1nTsp4crZBEiEW6pln1Cc9T1HQc6bEAOKzmU2bYKCM4sVqTfy+FjU=
+	t=1791988209; cv=none; b=oTLWZZ2NRYPw+c/pp64/2jrzThhISQ3VGHco0QZ2gJ5tMYAvQi339axAsdI7cOQBoHdDVQsN2aFfpjXck8H1ZBJD/R1eU5VFSmNScKRv++FbM35pMazEXd/hEWh3aZWDVMxefMKVzqyLFBp0ZXbqlA0W/jbCBdY/1RDBMYFyqtw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791988120; c=relaxed/simple;
-	bh=3Gc27KaESD4Zm5M8W+YEErJ2deocBptMWNskB4QSf8s=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ui2XaqmW1NTbSvjwPsn8O/MuptJdy+JFPj+kCzzzgzJ6RgxIrDtshdLIlm+rTj1OR+pmoWCxhy84O2SCdf004/kWE2PVW3l/ECXEBDCQNM4Mryz4tSa/0lK+lg1XnR9T5uDvUTZzODhtPioudQT+FoHAeIvC4SoNuYNG+QwxvxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=nHaT7scX; arc=none smtp.client-ip=96.67.55.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
+	s=arc-20240116; t=1791988209; c=relaxed/simple;
+	bh=TZu1ogCR9/Yc9VSUls35zP5sygIEbTMRDEQIXAAp7gQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SE21CKSy8vzCzupbzgKlqE4x5UwEK/EOqXjxN1hS6diGTiMZQpyKBsKsCJh4jpJnh5Q+4qekX1yRjwG340GCq5NSmifG1vILBQV5V4f6Jti1/GMQw/TSj9g9X4VPQQzqlmgV8hTPQFRUNEAHHGOr3bG97SzFkjzamk33xs9LTGc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=UV7I4xQF; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="nHaT7scX"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
-	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID; bh=rsATh2NvdfjYssyKDxNkJtZ2YWaOMp/Hif/9TBiSHDk=; b=nHaT7s
-	cXU1WXU6CO3hd6w6vappdCuPeAFBZCKamSkG2eanWhFG5ef7XFK4lpomusUIbqBABgVlsT+XlXteg
-	2mMFrQwqUTSZ9kP3F3MsFx2A46M9MTDc0ndj67/y9ni7/JAghqLwhiddCULH6Q1yu9ZYtETTjkeNO
-	WqIwl2/gjC7jTKra5m8FJ7seZU+T8PpPCqCVXYaxUZb9Vueaa3fHz56WJjILh7DU5BUqAW2ypWDkV
-	gdUF9yM1Esri2XdhHpZmMBTMs/xp+eYfN2JpZuGXTwufa6A/eDVi17XuSoPr8uVW145eIVfTcsiq4
-	ANwzrdEJzrUvdGynMUHv6rgUtkSg==;
-Received: from [2601:18c:8100:a0e0:2541:b86e:2586:d219]
-	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <riel@surriel.com>)
-	id 1xGzxS-00000007OmE-0fd6;
-	Wed, 14 Oct 2026 14:27:54 +0000
-Message-ID: <038db2e68469e74077264a490e104391bdffe35e.camel@surriel.com>
-Subject: Re: [RFC PATCH 2/5] mm/page_alloc: count a merged buddy's pages
- under the merged type
-From: Rik van Riel <riel@surriel.com>
-To: Dev Jain <dev.jain@arm.com>, linux-kernel@vger.kernel.org
-Cc: Andrew Morton <akpm@linux-foundation.org>, Vlastimil Babka	
- <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko	
- <mhocko@suse.com>, Brendan Jackman <brendan.jackman@linux.dev>, Johannes
- Weiner	 <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, Kairui Song
- <kasong@tencent.com>,  Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt
- <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>,  Axel Rasmussen
- <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu
- <weixugc@google.com>,  Baoquan He <baoquan.he@linux.dev>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, David Hildenbrand	 <david@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett"	 <liam@infradead.org>,
- Mike Rapoport <rppt@kernel.org>, linux-mm@kvack.org
-Date: Wed, 14 Oct 2026 10:27:54 -0400
-In-Reply-To: <55f51fb8-9777-424a-b45f-a6a5bd9a4693@arm.com>
-References: <20261007021250.1665929-1-riel@surriel.com>
-	 <20261007021250.1665929-3-riel@surriel.com>
-	 <55f51fb8-9777-424a-b45f-a6a5bd9a4693@arm.com>
-Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
- keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
- eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
- Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
- lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
- dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
- mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
- gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
- r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
- WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
- 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
- Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
- +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
- g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
- KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
- fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
- 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
- G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
- okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
- TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
- cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
- omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
- QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
- c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="UV7I4xQF"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a16c1608faso55149505e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:30:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1791988206; x=1792593006; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EAgEB1RSVFBt/ZrZLJNRHgb7cf1jvPPzS0HkEoz7fIY=;
+        b=UV7I4xQFWgOoskqVx51R4eYMvbNTN8J3uZ2X/CuIba++0BprEAYRdJtnmV0SfqQHl2
+         gS+qz81H+w9rLqubSgnpNvbj5Wm9ebj0AQhui+QGGGlzsYDxEr0KaBUKFMe+0A9NMWqM
+         otN43hCEwRaxfN20gFV/FQPOG0FbSFb8tFXNRCigB7sPBVxG7wxCA+87lAlioqxy7ipk
+         q9nsaXKVTeNCys8a3yCj3oytt/MZYtuf4qo43BST69Etaf4Alq1RXbyftNNlZSyKTkUe
+         wsE+Y1cCJ9jU1sCwj7GCOYHooNgSzhk3rn2nF6NrJwZOpgCP6NY5TvHCqauhu/wK8NSw
+         ob6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791988206; x=1792593006;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EAgEB1RSVFBt/ZrZLJNRHgb7cf1jvPPzS0HkEoz7fIY=;
+        b=g5occRQh0+cN4KCSPn8I0B8XpnKC7VuxEmvNWII0XTmlv4ejeNWT2q+nqKbRJcaecG
+         gMUPj4LfAMe6YKzI3uS2rLKxI22jaXAkbnEZZ2kkfqW9wifbasV+i7xjMX8CzTStobDt
+         e8lF5brt5VrRcOVbQrRt3L3nRldEMQ0clSw1tma73tPF1HXkj5mT9zUFIw6RuT4XQPQ2
+         QwOOKLd7dDPrFT0LebEs/kNfDk1jLvwqkKueukYWMgy8xGUJDjp0/bI2naCHv36XpuZS
+         2DO2azPc5qPHpWC7J9ltKNTz0c93uvs+0xFUxrOYKij5GdE+S/56+xevV02XLKNDAU8W
+         SuUQ==
+X-Forwarded-Encrypted: i=1; AKwUvByBGdY98tDoDO7epzN3t+FGDSKZIzen77y5Dq3AAjIYtsSjmxBdTC7zFt/rDkHLr+nCCHSov/Cx//l3WOs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKRRviBTiQqPL4mh40cjyjxnuKj+TSD3s5Y6kRHSrD/EKT6BCnF
+	p23NZg6l7qjASvccLn07zVamDScfiA0R1btEEZvJoa9uVIO8yIEPxoU+3ltqfE9GPeA=
+X-Gm-Gg: AYBFou1x9r4rGYmFziye3hRjjTqUu8OwIFI5KlJ1ejwZqtnF0NFEiQRB9w4puYuVpNn
+	yNnS2WKJOxszaHnyHCCZIZtkFgZTBwnOlRagszDvQBR1JQ6u63NtnSVn8Gl73Rkdn5ZTUPZ4RT5
+	SLf5KikYlQqsG7mBdlSLWyaz9OrNdwzL4aHYhJFug3zWq5iLbUO4eTh88UkrhpKF8+JajRpWl3B
+	Q5CABcqytM43NUHcveP6lc6qt+Prk+Wr6gYUwP0jvOdmQ8WbBgs8CnkenZDVZLoucG59ScfFTl2
+	54V0/tuIOngt6Unt8euha8uEARogv9MRYUd2FMrK3kXil0u58hZgYzt/yoC2wEsFFZj3tY7Yrb9
+	PuLEfWu9VEKk9BgM47EOsz7bQeRo3NBges3a832TISL3vy06O2IcPEZprB05cZRIYL4T2TKo67C
+	sH/d5mpvzNGeMQEnb2qG10uJK7GXgwfPjtM4s4Uh5DkmVEdg7+54rUr3P5UYEsbY72WUGNbmIfi
+	A==
+X-Received: by 2002:a05:600c:46ca:b0:4a1:7a1e:6910 with SMTP id 5b1f17b1804b1-4a18e48363amr323662825e9.4.1791988206222;
+        Wed, 14 Oct 2026 07:30:06 -0700 (PDT)
+Received: from pathway.suse.cz ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bcf11edfsm4818345e9.3.2026.10.14.07.30.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 07:30:05 -0700 (PDT)
+Date: Wed, 14 Oct 2026 16:30:03 +0200
+From: Petr Mladek <pmladek@suse.com>
+To: Miroslav Benes <mbenes@suse.cz>
+Cc: Andrea Parri <parri.andrea@gmail.com>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Jiri Kosina <jikos@kernel.org>,
+	Joe Lawrence <joe.lawrence@redhat.com>, Song Liu <song@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	live-patching@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, petr.pavlu@suse.com
+Subject: Re: [PATCH] livepatch: Fix races between stack check and module
+ load/unload
+Message-ID: <as-R64i6eT-8FpJt@pathway.suse.cz>
+References: <20261012140546.154730-1-parri.andrea@gmail.com>
+ <alpine.LSU.2.21.2610141410370.16733@pobox.suse.cz>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <alpine.LSU.2.21.2610141410370.16733@pobox.suse.cz>
 
-On Wed, 2026-10-14 at 19:46 +0530, Dev Jain wrote:
->=20
->=20
-> > +++ b/mm/page_alloc.c
-> > @@ -993,6 +993,11 @@ static inline void __free_one_page(struct page
-> > *page,
-> > =C2=A0			account_freepages(zone, 1 << order,
-> > migratetype);
-> > =C2=A0		} else {
-> > =C2=A0			__del_page_from_free_list(buddy, zone,
-> > order, buddy_mt);
-> > +			/* The buddy's free pages join the merged
-> > block's type. */
-> > +			if (unlikely(buddy_mt !=3D migratetype)) {
-> > +				account_freepages(zone, -(1 <<
-> > order), buddy_mt);
-> > +				account_freepages(zone, 1 <<
-> > order, migratetype);
-> > +			}
-> > =C2=A0		}
-> > =C2=A0
->=20
-> MAX_PAGE_ORDER > pageblock_order confuses things so much : (
+On Wed 2026-10-14 14:23:50, Miroslav Benes wrote:
+> Hi Andrea,
+> 
+> Cc+ Petr Pavlu (you can find the whole thread at 
+> https://lore.kernel.org/live-patching/20261012150758.207983-1-parri.andrea@gmail.com/T/#t)
+> 
+> On Mon, 12 Oct 2026, Andrea Parri wrote:
+> 
+> > Unloading a patched module while a livepatch transition is in progress
+> > can crash the kernel in klp_find_ops(), called from the scheduler.
+> > KCSAN reports
+> > 
+> >   BUG: KCSAN: data-race in klp_find_ops / klp_unpatch_func
+> > 
+> >   write (marked) to 0xffff9094c09ece10 of 8 bytes by task 381 on cpu 2:
+> >    klp_unpatch_func+0x1bd/0x280
+> >    klp_unpatch_object+0x6a/0x90
+> >    klp_cleanup_module_patches_limited.cold+0x4a/0xd4
+> >    klp_module_going+0x54/0x80
+> >    __do_sys_delete_module+0x247/0x380
+> >    __x64_sys_delete_module+0x39/0x50
+> >    ...
+> > 
+> >   read to 0xffff9094c09ece10 of 8 bytes by task 146 on cpu 1:
+> >    klp_find_ops+0x55/0x90
+> >    klp_check_and_switch_task+0x228/0x320
+> >    klp_try_switch_task+0xb4/0xc0
+> >    __klp_sched_try_switch+0x9a/0xb0
+> >    __schedule+0x60a/0x1450
+> >    schedule+0x3b/0x100
+> >    schedule_timeout+0xc0/0x160
+> >    ra_target_a_loop+0x97/0xa0 [klp_race_target_a]> >    ...
+> > 
+> > followed by
+> > 
+> >   Oops: general protection fault, probably for non-canonical address
+> >   0xdead000000000110: 0000 [#2] SMP NOPTI
+> >   RIP: 0010:klp_find_ops+0x55/0x90
+> >    ...
+> >    klp_check_and_switch_task+0x228/0x320
+> >    klp_try_switch_task+0xb4/0xc0
+> >    __klp_sched_try_switch+0x9a/0xb0
+> >    __schedule+0x60a/0x1450
+> 
+> Interesting. So to sum it up... you load a live patch which contains a fix 
+> for a module and while the transition is on, you remove the module and it 
+> crashes (btw, I do not think that those traces are necessary here. More 
+> btw, it would be nice to have a human readable changelog instead of what 
+> looks like AI generated description of the patch itself).
+> 
+> How did you find the issue? Is it a real problem in production?
+> 
+> I wonder whether we could just decline delete_module() in this case and 
+> return -EBUSY. It should be a rare operation anyway. Alternatively we 
+> could increase refcounts of all patched modules during a transition and 
+> decrease them after. Petr P., what do you think?
+> 
+> I am not saying we should not do the RCU protection but it feels like a 
+> can of worms a bit so if there is an easier way...
 
-I'm not a fan, either. It trips me up every time.
+I agree that it is a can of worms. This patch is not super complicated.
+It seems that it can't break anything. The bigger problem is whether
+it solves all possible racy accesses. And how to prevent regressions
+in the future.
 
->=20
-> Sashiko raises something:
-> https://sashiko.dev/#/patchset/20261007021250.1665929-1-riel%40surriel.co=
-m
->=20
-> Although feels like it is exaggerating.
+Preventing the module unload during a livepatch transition might
+be one solution. But I am afraid that people might want a better solution
+sooner or later because the transition might never finish, ...
 
-I suppose if we switch the two lines around, doing
-the increment on migratetype before decrementing
-buddy_mt we could avoid that transient underflow?
+I wonder if we could use some more strict locking for the two
+operations, e.g. (raw_)spin_lock. And then use
 
->=20
-> My concern is for systems with a high diff between MAX_PAGE_ORDER and
-> pageblock_order. So on arm64 systems with 64K pagesize but pageblock
-> size as 2M (and PMD size 512M), the pageblock order is 5. We use this
-> configuration to reliably get TLB optimization from contpte size
-> mappings.
->=20
-> Will we then repeatedly overflow the pcpu counter into the zone
-> counter,
-> regressing stuff?
+		if (!raw_spin_trylock(&klp_unpatch_object_lock))
+			return -EBUSY;
 
-The per_cpu_pages struct does not seem to keep
-counts on a per migratetype basis at all. It
-has per migratetype lists, but only one
-pcp->count.
+in klp_check_stack(). Plus take the lock in __klp_unpatch_object().
 
-Also doesn't the pcp only carry order zero
-pages currently?
+Hmm, we could not take the spin_lock around klp_patch_object()
+because it does allocations and might be running for a long time
+when there are many patches objects. But this might be avoided by the
+smp_store_release(&obj->patched, true) trick.
 
-I don't really understand your worry.
+It still might be conceptually easier than making all the
+accesses RCU-safe.
 
->=20
-> Perhaps I am overthinking. Your approach is clean, but perhaps we
-> could
-> also do:
->=20
-> void account_freepages_move(zone, order, buddy_mt, mt)
->=20
-> 	/* PCP-types do not have per-migratetype free counts. */
-> 	if (likely (buddy_mt < MIGRATE_PCPTYPES && mt <
-> MIGRATE_PCPTYPES))
-> 		return;
+What do you think, please?
 
-Wouldn't that throw off the counts when we merge
-e.g. a MIGRATE_UNMOVABLE page with a MIGRATE_MOVABLE
-buddy?
-
-With your test we would only ever do the free count
-adjustment for mismatched types if one of the pages
-was HIGHATOMIC or CMA. That leaves the common case
-without coverage.
-
---=20
-All Rights Reversed.
+Best Regards,
+Petr
