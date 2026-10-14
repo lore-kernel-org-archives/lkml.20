@@ -1,75 +1,40 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from Chamillionaire.breakpoint.cc (Chamillionaire.breakpoint.cc [91.216.245.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D950315D49;
-	Wed, 14 Oct 2026 10:49:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D03DF367B86;
+	Wed, 14 Oct 2026 10:50:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.216.245.30
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791974979; cv=none; b=FwKA88rwrBZORmoEOQAYoS7SZdRz4aoEWlZwuMDDQop2kIinj+9/bHYBTbukGKhYoaJ3pB/kdOTVjHRGMmV3UCWpn/6DiI1eMox5Rz+k3FfHrK1LklMZE5WNF7eIHD3VS2R1UtfR7C3jOA3uzyqGbKy/oJpPy+heXGXGPcu1fgQ=
+	t=1791975021; cv=none; b=tNTLBsLlSzSgYZvqHz3cmEVoX5oeDL9CIpKI7zJJfjwCmq4Eslpoco7p4KvOzGNqZ6dBetMrRgfZi6LEojFaZy/ysPhph3RtFE8GpfKYsoB/LkeRmMjtEc1dp1yJtFIZP+Aj8C+ZWk8lb1hzg9zq3U5E5DMgCbVeGr6qaZNB/mY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791974979; c=relaxed/simple;
-	bh=SYndeIL2OyGAgFcsQ/c8b1TXaO0N4OHAMqKFnt96oV4=;
+	s=arc-20240116; t=1791975021; c=relaxed/simple;
+	bh=oBnL9h29x6KzZ69HBxe0qXU6NDqSpgQLyBM28ynAeGU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=roaDtz4aLxR3FvPwQhhSBlrMhl1FE/zLvE3JizczJgHhVa+kHD02QBRe5/GY8g5fok4XGeKR8MdyHMAFMl5uUYnVqbguHGMWOoEAO8oTR+q+f1gW8Rj+gCdQc2YyGa/lGa1+URs5/+c6GfXSmwfh7nT7AITUPBjjqTuqdI9HcOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Uqjc/fmB; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Uqjc/fmB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791974978; x=1823510978;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=SYndeIL2OyGAgFcsQ/c8b1TXaO0N4OHAMqKFnt96oV4=;
-  b=Uqjc/fmBWX3B+jaQz5XHl3uRYaoMeFzWTWF9QXwti3c9YkglM1aTpnx4
-   79IRXeYbU2AkYyF007C65fdMeUtfMWgoDbeq7feLqfnyRLhI+ZSVEC3rI
-   R7jpII9mn61zTx+/NC3PW66UJu+HpFQtNLWn7u6BYA879hWPL/DjcdcQn
-   PLQvbkTQGNQinjie60Vcdclvq/VvwIMR2FnAS0WCEKD+b/J1bmcEuPTTg
-   QjeN7EITg9t0elArAYq+LHPrQtnlvBfHNldomK+kPRzIkbgxYMvF34zC5
-   EFlqWm8D3jfpslpiw5mxpUeyyI2HW4FPZf4AeIsfMQB0xiAEVzdh2nUxH
-   Q==;
-X-CSE-ConnectionGUID: /eNERzT+TIaPGRk8kXEopw==
-X-CSE-MsgGUID: 0WtaaTIzRamUHrEaTi1CIw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="728330"
-X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="728330"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 03:49:37 -0700
-X-CSE-ConnectionGUID: vhvZ6D5ZTIWyqAVTi2e/Wg==
-X-CSE-MsgGUID: KQ139RqBQFa/9SuURfgOcg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="1345846"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.236])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 03:49:32 -0700
-Date: Wed, 14 Oct 2026 13:49:29 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Borislav Petkov <bp@alien8.de>, Bjorn Helgaas <helgaas@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Maciej Grochowski <Maciej.Grochowski@sony.com>,
-	Nikolas Joshua Britton <nbritton@exabit.io>,
-	Geramy Loveless <gloveless@jqluv.com>,
-	Eric Auger <eauger@redhat.com>,
-	Alexey Fomenko <alexey.fomenko@intel.com>,
-	Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
-	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	LKML <linux-kernel@vger.kernel.org>,
-	Bradley Morgan <brads@mainlining.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Kai-Heng Feng <kaihengf@nvidia.com>, linux-acpi@vger.kernel.org
-Subject: Re: [PATCH v3 8/8] PCI/quirks: Avoid certain address on Genoa systems
-Message-ID: <as9eOZjjRtW7dqAM@ashevche-desk.local>
-References: <81b4f4bf-b721-4b5b-8ddf-d040865f02b2@amd.com>
- <20261013224010.GA1589480@bhelgaas>
- <20261014004321.GBas7QKRYgjdcIPLHb@fat_crate.local>
- <3f578b9f-cdac-4bdb-8f0a-f5b3a48f6622@amd.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=LtdG2Sq0edBNIy9JFhVS7w3Y6/m9ycAegU0No5hZ7A17A3fACkVMXZ/RUFXvcYln/QVBZclItkJLlp8EfZpa3VyhizrTdNngjIbWiVi3f+Hw59elNUjOOj6AeDRGa+r2JwOhsjCciPPJTLzXkfNWNz59j7l7wU7Naye5dov2EU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=strlen.de; spf=pass smtp.mailfrom=strlen.de; arc=none smtp.client-ip=91.216.245.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=strlen.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=strlen.de
+Received: by Chamillionaire.breakpoint.cc (Postfix, from userid 1003)
+	id 4441E60486; Wed, 14 Oct 2026 12:40:43 +0200 (CEST)
+Date: Wed, 14 Oct 2026 12:40:42 +0200
+From: Florian Westphal <fw@strlen.de>
+To: zihan xi <zihanx@nebusec.ai>
+Cc: linux-kernel@vger.kernel.org, netfilter-devel@vger.kernel.org,
+	mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com,
+	vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
+	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
+	vschneid@redhat.com, kprateek.nayak@amd.com, pablo@netfilter.org,
+	phil@nwl.cc, davem@davemloft.net, edumazet@kernel.org,
+	pabeni@redhat.com, horms@kernel.org, kaber@trash.net,
+	jengelh@medozas.de, lukas@wunner.de, vega@nebusec.ai,
+	root@tr0jan.top
+Subject: Re: [PATCH nf v7 1/1] netfilter: nf_dup: preserve duplication guard
+ across NFQUEUE
+Message-ID: <as9cKonuO_37jfA5@strlen.de>
+References: <cover.1791688819.git.zihanx@nebusec.ai>
+ <9c51ddfce3069d585b6c9b87e7e1bf3a3b0a2761.1791688819.git.zihanx@nebusec.ai>
+ <asukIMajFpbzx3PH@strlen.de>
+ <CAANe3eQSU06GJAaaj8Fd=S+THSJn0Eu+1Bt_E=VNZ0=rAQXnBQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,44 +43,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <3f578b9f-cdac-4bdb-8f0a-f5b3a48f6622@amd.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <CAANe3eQSU06GJAaaj8Fd=S+THSJn0Eu+1Bt_E=VNZ0=rAQXnBQ@mail.gmail.com>
 
-On Tue, Oct 13, 2026 at 09:41:48PM -0500, Mario Limonciello wrote:
-> On 10/13/26 19:43, Borislav Petkov wrote:
-> > On Tue, Oct 13, 2026 at 05:40:10PM -0500, Bjorn Helgaas wrote:
-> > > But I'm frankly terrified to touch it because I'm skeptical that two
-> > > more quirks are enough.  I just expect that whatever strategy BIOS
-> > > uses to build these maps is likely to be used on many models.  I do
-> > 
-> > Do we have an explanation why BIOS is doing that shit?
-> > 
-> > Mario?
+zihan xi <zihanx@nebusec.ai> wrote:
+> Hi Florian,
 > 
-> If I was to guess; because Windows allocates MMIO space differently it
-> hasn't been a problem.
-
-Oh, I can confirm this part as I noticed the issue on 64-bit addresses for
-Intel LPSS at some point exactly due to different ways of allocating space for
-the devices for PCI. Id est one is goes upwards (from the start to the end of
-the region), while the other downwards (from the end to the start of the
-region).
-
-> Which begs the question; does Ilpo's series improve things enough that we
-> wouldn't have these problems either?
+> Thanks again for the review. I tested the simpler approach you suggested:
+> extending the local_bh_disable() / local_bh_enable() scope in
+> nf_reinject() to cover hook lookup, hook traversal, and okfn execution.
+> The experiment changed only nfnetlink_queue.c and built successfully
+> against nf.git main at ab699d296e06.
 > 
-> Maybe we should just tail my patches on Ilpos' series and then land them
-> linux-next the very beginning of next cycle and beg everyone who was
-> affected to test linux-next.
+> I ran the IPv6 TEE/NFQUEUE reproducer in a 2-vCPU, 2-GiB QEMU guest
+> in a network namespace owned by a non-initial user namespace, with:
 > 
-> > Btw, Mario, you should replace "Genoa" with "Zen4" everywhere so that it is
-> > more clear to people.
+> QUEUE_COUNT=1
+> PAYLOAD=1
+> TEE_CLONES=1
+> panic_on_oom=0
 > 
-> Ack; if I send mine out on their own I'll adjust.
+> The bounded run reached 68,881 callback iterations in 6.700 seconds and
+> exited normally. No OOM, panic, Oops, BUG, or soft lockup was observed.
+> This was a bounded resource-consumption run, not an OOM or crash test.
+> 
+> The reproducer continued executing the callback loop throughout the
+> bounded run, so extending the BH-disabled region alone does not address
+> this case. It protects against BH interference during nf_reinject(), but
+> it does not preserve current->in_nf_duplicate across the asynchronous
+> NFQUEUE verdict path: the original ip_local_out() or ip6_local_out()
+> call has already returned and cleared the task-local guard before
+> reinjection starts.
 
--- 
-With Best Regards,
-Andy Shevchenko
+Why? You'd store the current->in_nf_duplicate struct nf_queue_entry
+at queue time ("this skb is due to recursion via nf dup").
 
+Then, on reinject, you'd set current->in_nf_duplicate to the
+value stashed in struct nf_queue_entry so that if we were queued earlier
+from the recursion a potential further 'dup' would see current->in_nf_duplicate
+as true and skip next duplication round.
 
+I think one could add a 'DEBUG_NET_WARN_ONCE(current->in_nf_duplicate)'
+in nf_reinject, I don't see how it could be set on function entry.
+
+What did I miss?
