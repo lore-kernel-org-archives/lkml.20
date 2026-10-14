@@ -1,113 +1,193 @@
-Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from gentwo.org (gentwo.org [62.72.0.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F377B485920
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 21:18:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C02D8480DED
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 21:21:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.72.0.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792012713; cv=none; b=QRDo/TyEGp6TJhWz/zEAwm3rOJYq3k1TzMMOn14qe2ZwUlPfw2PnoOK4AzUxcbS0214nUD3VDJsoVvZUlbxFgw0FU+t3wbTzIRtYZjVcEJYWV0rx3c3PewasrgluhRMFJyIBhQrHGzveWuAyjDWDpDC2O6AsXVWv5C7UCNQRfOA=
+	t=1792012898; cv=none; b=WGbhcCQmr+LztDAp/sBoDZI8hRhU6w/k6GRhzJ6W2aY4z8EWW8pQIxartgKL1Gfsp/YEuMfGAgl8snQZURyOCM6QQMtt54J4Jzn/oCSrFL4ltr8uwog5kxcTAlPIouazBIgavzsUnHc1k4UyWaJnX1qjXZf+fo3FpZHcqYUYfl0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792012713; c=relaxed/simple;
-	bh=Y0DvBWI+BZCsUB8TIe1s5HesTMuUsn2dMO58K2fiaZU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dfnFhDuwQYMZAu/Yon6RsgdlipikgwSonfbz8kPZH+/geWTxzcoxQd/9XmlNFl0UAt1gb5VvHqjMkIjl8dNLVvs3elxAvZcem8kf+CX2e2eDWFYQ3IzUvVAJu+9vpHvpdM93FxZQ82MVEwxUh7kbw6oeXcuwe19nMKbzGbw4op8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b/+LZHC0; arc=none smtp.client-ip=209.85.222.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792012898; c=relaxed/simple;
+	bh=Z5sBfGJfFUHq6SrNoKo9ClbQsjhf0q8HrKf8iTnITIY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=OyBQdlxpzE70iHmKiHzazMhTKo6rdPC33cxbapfDtgBaYJ2BJKHsdBfv5MUGXOam9CPnHUkR5eC2zOYITEOX+Sb5pYFsCRkZPlxpGqga3ct179rYFFisfs6e1m+VFTa3NUFRH1NqcSIPnyg4YPt90WsqHIrK41zj6LC0acKCqAA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org; spf=pass smtp.mailfrom=gentwo.org; dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b=S8RvbXiG; arc=none smtp.client-ip=62.72.0.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b/+LZHC0"
-Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-93e706a6ba9so588432485a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:18:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792012711; x=1792617511; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZQvRlCYoMMgwjA+XyVsNGaS2zRGK6+FIJmhvRdNh+DU=;
-        b=b/+LZHC0andF8UMOaAYZITI6ULxKECm3d0ncnJY0PsMLG5bjYzAj4z0gEP7t0Qz+kz
-         FXIpjN6k5hiKbAiR1zT+zkRLQL9yFQRsz6y6Z6lifdWy2EMCA7P7nlD18xkuWMW5lf7y
-         PnCts1jCvB0FDIwisiYjWDCmTN7Kvj283Xw8WR4mhYJ48B7fcR5XC+nTUlxCPYAMN+wB
-         MNXdFs7SQvQVz3OQxNl2c4yZBm5FPJ4gYvhZcy3XR3vukMTcezeUAgpy6UpzNE6OJWU7
-         JeVA8hwk1SyyyANxd2rC/9O5vc3nhnZtbobimBmX/Yk0Ma96Bp3qU838Q+opEjq36PDH
-         /N2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792012711; x=1792617511;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZQvRlCYoMMgwjA+XyVsNGaS2zRGK6+FIJmhvRdNh+DU=;
-        b=DXwkDAWiqdGnR1H56NBzFuiQKizALTW3x4qJdBtIUssBxgglmhUggWdgDCwGxZcnzW
-         UJZwidWvKevmpEaYPC9OIGHs2pIeZJjArjKhh2RgSFMl4qpcvpi45fYp57N+XD9RpgRb
-         l91tV1idTsc5LjCA4AmHTRI1aNHJxluiZa1S+Gw+AzecO9W3Ew4kvpsoIHJuKp0AJN3N
-         PwvmaA5LwgurThXwWIiHpyTC7WsDJ/m/a08cPYbFrrqIz/DVzqqnlP9l2x+bfRK3NoA+
-         UiNPGK1YPF80QLkqEajs4Votf9edc6lRwIgz++NT6bK11/XMUzSrqm0K7Ow1tRzy9MHE
-         g/uQ==
-X-Forwarded-Encrypted: i=1; AKwUvByfGhDggFoE+qiAQS7Tmwaa/PHaJz2ApzI2l/fWMlYVPGCODXDhQqHBbWNVKm04tTymM6zkeIWH2LOnQBQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKOFFbCbchNszVaTaqOK4jN/Dq4yk5hnBx4QLngWvi4YKq3LwEm
-	f3DfH69pntBwKjAQ2FhcYNAWU45nJ5hR5JDrRS9M2R2aAORXRCiG5If66Q9zWQ==
-X-Gm-Gg: AYBFou0tKK77UroQAo7P2IVHXfcRQYmD9vvtiOWjttd//5tGGCkaB64WZviuHOTGlVo
-	PUZNYUsVxw6OuvDyuEywnewZSydPnW+I01d8i7Uxbl65YADNNyeYsHd2telLHKnFF5jHACEtF29
-	QNS43Qv0M0Yse284W3YTI4A6njtaxq02VrYo401F+WJUrwoa3u1nN/7V8IWczIUYHPrmPwpzicL
-	B4FKYDFb5Kvr1ucWU+oVv/pY7M/MQDMf6mTEPiyEGnPJ/hu2sAAMjrvw2KVwKz8ymvXM/I4FTuT
-	W1Ss3cv9lsQO5+l+1XMTz/02KDSNvkRWC7G9lMQWbdCjSUORq/pEtc5IpLX/4+16pHQIAmnZiPw
-	6gINOlvDOiBWN20eGEDVpuQeF3as7ZcaE3zbCFu8aP1y6CzJuKvV5x2LnR8Le1SJSfW0z7zvXHb
-	5eKGB3IJ8utd32uG4SHffOtwxW5LpyzTr0LD7dXuaNGCNrAbxM1QJpbZvE9nRNlVowFN4AaYvyM
-	jj8D4nUv9xPxCt48TKGNpLp
-X-Received: by 2002:a05:620a:4552:b0:93e:5821:2c57 with SMTP id af79cd13be357-93ebd2244d7mr3063691685a.22.1792012710742;
-        Wed, 14 Oct 2026 14:18:30 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef5051c4csm601360685a.29.2026.10.14.14.18.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 14:18:30 -0700 (PDT)
-Message-ID: <14d347be-4ac3-45e4-9b5f-9df2fedcf6dd@gmail.com>
-Date: Wed, 14 Oct 2026 14:18:26 -0700
+	dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b="S8RvbXiG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
+	s=default; t=1792012889;
+	bh=Z5sBfGJfFUHq6SrNoKo9ClbQsjhf0q8HrKf8iTnITIY=;
+	h=From:Date:Subject:To:Cc:From;
+	b=S8RvbXiGBH1mKNLo8BhDXeN4WunjOmaRB5r8L7K4eT+6JBDBY1A9jREoG6Qk93NsC
+	 b0HNNeJt96gDvCLjxf4P5qcwINF307OZw7xI7HwGTHjHeMmZ3Z+8GRtdzMV4Egucrh
+	 a4Q/3HA5/Bm+zWzbXjLe8Kb5ZZmspjtKJSYxf/TY=
+Received: from sut02sys-r112.scc-lab.amperecomputing.com (localhost [127.0.0.1])
+	by gentwo.org (Postfix) with ESMTPS id 98F6040112;
+	Wed, 14 Oct 2026 14:21:29 -0700 (PDT)
+From: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
+Date: Wed, 14 Oct 2026 14:21:02 -0700
+Subject: [PATCH] sched/rt: Remove unreachable migration-disabled push path
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 000/632] 6.18.57-rc2 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20261014123820.008483134@linuxfoundation.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20261014123820.008483134@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261014-sched-rt-dead-md-push-v1-1-5f9757be3c80@gentwo.org>
+X-B4-Tracking: v=1; b=H4sIAD3yz2oC/x3MPQqAMAxA4atIZgNtFRWvIg7aRJvBHxoVQby7x
+ fEb3ntAOQortNkDkS9R2dYEm2fgw7DOjELJ4IyrrLElqg9MGA8kHggXwv3UgL5pxrL2BbvJQGr
+ 3yJPc/7fr3/cDnHMtAGcAAAA=
+X-Change-ID: 20261014-sched-rt-dead-md-push-c88b47c3e2f0
+To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
+ K Prateek Nayak <kprateek.nayak@amd.com>, 
+ Shubhang Kaushik <shubhang@os.amperecomputing.com>, 
+ "Christoph Lameter (Ampere)" <cl@gentwo.org>
+Cc: linux-kernel@vger.kernel.org, 
+ "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792012889; l=4258;
+ i=sh@gentwo.org; s=20251010; h=from:subject:message-id;
+ bh=Z5sBfGJfFUHq6SrNoKo9ClbQsjhf0q8HrKf8iTnITIY=;
+ b=TCYAQYgC7cFcpAIeciy+717vbbYFgMTf1YuFuq0Zodr4w9xLDi/Ko/tbeQhScS6CLnFmJazfq
+ CEVvQgdeATNAw27PN8yKbR58w5vMaxXf6fHJ5BrtCdSXvgu+xi/odF5
+X-Developer-Key: i=sh@gentwo.org; a=ed25519;
+ pk=jc8YIRvxPSyJaBRe5y+a4N0RXKBUEcAh8+OFhlROXPY=
 
-On 10/14/26 05:50, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.57 release.
-> There are 632 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Fri, 16 Oct 2026 12:37:22 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.57-rc2.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+push_rt_task() selects next_task with pick_next_pushable_task().
+That helper does not return migration-disabled tasks.
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENERIC:
+The relevant path is:
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+    push_rt_task()
+      next_task = pick_next_pushable_task()
+      is_migration_disabled(next_task)
+      find_lock_lowest_rq(next_task)
+
+Before the migration-disabled check, rq->lock is held, so the selected
+queued task cannot run and change its migration-disabled state.
+
+find_lock_lowest_rq() can temporarily drop rq->lock. If that happens,
+it rechecks is_migration_disabled(task) after reacquiring the locks and
+rejects the task if it changed state. push_rt_task() then consults
+pick_next_pushable_task() again; it either exits or retries only a task
+returned by that helper.
+
+The migration-disabled branch in push_rt_task() is therefore
+unreachable. Remove it along with the @pull argument, which exists only
+for that branch.
+
+This does not change the migration-disabled handling in pull_rt_task(),
+which uses pick_highest_pushable_task() and retains its existing
+donor-push recovery.
+
+Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
+---
+Tested on 80-core SMP, non-SMT Ampere Altra system:
+
+  - Built and booted with CONFIG_IRQ_WORK=y.
+  - Ran repeated SCHED_FIFO affinity changes among CPUs 78 and 79 with
+    RT_PUSH_IPI enabled and disabled; both runs completed and cleaned
+    up all worker tasks.
+  - With RT_PUSH_IPI enabled, function tracing confirmed repeated
+    execution of rto_push_irq_work_func() via irq_work_single().
+---
+ kernel/sched/rt.c | 48 +++---------------------------------------------
+ 1 file changed, 3 insertions(+), 45 deletions(-)
+
+diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
+index 85303add726df4c2da846c427aab2d627fca9589..f85edc6f896c72d2251b5eb59ee7ffd0e23934f5 100644
+--- a/kernel/sched/rt.c
++++ b/kernel/sched/rt.c
+@@ -1957,7 +1957,7 @@ static struct rq *find_lock_lowest_rq(struct task_struct *task, struct rq *rq)
+  * running task can migrate over to a CPU that is running a task
+  * of lesser priority.
+  */
+-static int push_rt_task(struct rq *rq, bool pull)
++static int push_rt_task(struct rq *rq)
+ {
+ 	struct task_struct *next_task;
+ 	struct rq *lowest_rq;
+@@ -1981,48 +1981,6 @@ static int push_rt_task(struct rq *rq, bool pull)
+ 		return 0;
+ 	}
+ 
+-	if (is_migration_disabled(next_task)) {
+-		struct task_struct *push_task = NULL;
+-		int cpu;
+-
+-		if (!pull || rq->push_busy)
+-			return 0;
+-
+-		/*
+-		 * Invoking find_lowest_rq() on anything but an RT task doesn't
+-		 * make sense. Per the above priority check, curr has to
+-		 * be of higher priority than next_task, so no need to
+-		 * reschedule when bailing out.
+-		 *
+-		 * Note that the stoppers are masqueraded as SCHED_FIFO
+-		 * (cf. sched_set_stop_task()), so we can't rely on rt_task().
+-		 */
+-		if (rq->donor->sched_class != &rt_sched_class)
+-			return 0;
+-
+-		cpu = find_lowest_rq(rq->curr);
+-		if (cpu == -1 || cpu == rq->cpu)
+-			return 0;
+-
+-		/*
+-		 * Given we found a CPU with lower priority than @next_task,
+-		 * therefore it should be running. However we cannot migrate it
+-		 * to this other CPU, instead attempt to push the current
+-		 * running task on this CPU away.
+-		 */
+-		push_task = get_push_task(rq);
+-		if (push_task) {
+-			preempt_disable();
+-			raw_spin_rq_unlock(rq);
+-			stop_one_cpu_nowait(rq->cpu, push_cpu_stop,
+-					    push_task, &rq->push_work);
+-			preempt_enable();
+-			raw_spin_rq_lock(rq);
+-		}
+-
+-		return 0;
+-	}
+-
+ 	if (WARN_ON(next_task == rq->curr))
+ 		return 0;
+ 
+@@ -2078,7 +2036,7 @@ static int push_rt_task(struct rq *rq, bool pull)
+ static void push_rt_tasks(struct rq *rq)
+ {
+ 	/* push_rt_task will return true if it moved an RT */
+-	while (push_rt_task(rq, false))
++	while (push_rt_task(rq))
+ 		;
+ }
+ 
+@@ -2236,7 +2194,7 @@ void rto_push_irq_work_func(struct irq_work *work)
+ 	 */
+ 	if (has_pushable_tasks(rq)) {
+ 		raw_spin_rq_lock(rq);
+-		while (push_rt_task(rq, true))
++		while (push_rt_task(rq))
+ 			;
+ 		raw_spin_rq_unlock(rq);
+ 	}
+
+---
+base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
+change-id: 20261014-sched-rt-dead-md-push-c88b47c3e2f0
+
+Best regards,
 -- 
-Florian
+Shubhang Kaushik (Ampere) <sh@gentwo.org>
+
