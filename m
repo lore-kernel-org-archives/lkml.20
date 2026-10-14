@@ -1,136 +1,140 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A36F248551C
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:32:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7591F2F5313
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:33:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791966778; cv=none; b=Cr0YpGbjyaeFjv2KBVw/tQDVsSw+aV0fXHv1ag/RJcpVYgY8hQlyOwwaOlxquhBpQU8kp37iQQcskqCSQa/JRzhOTDYoQ+VB0YPyz6IOWrVOXcBEOs0nIEIg6XMmdJxYib1vkTkMC06skdYnTXaiUWDEkY2SOG+SIUii62kfoUk=
+	t=1791966820; cv=none; b=pIojraw6YSRPwH9nh0yF4lK/a4Ovwl0JcdGazvvDoHCNpBrheppu9jPDmQrGayIfl6qWQBLhj09LAjreTK5KTbKY+f/bGqQnajVTIFp0QLXoTcGT+Q1Woi+VqWrIYzIGZxQIfqeDzDtwxxAQec43wQME+AmgnFu16X17tI9xBOo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791966778; c=relaxed/simple;
-	bh=QXfv7oHLhUhY9C5cnazY56Fw9rjVwnTel2t+VYCmWpI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=u0/G1yfUpM5vJCHTb0PgzLV5MnKrhXSjWBkFKJRFNffjmVJlOnFUri01ldU6QBDErewj3AVZXcJYWBEOVljsHJiu7I0Y6tL5wy+UGeeV65OpT4qgu/Fo6ij8x9qelgAWjKvYxBmqEvHAHr/EbEceEwlRPZK93AwCrdPNmq6Znrc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V0p4fo56; arc=none smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791966820; c=relaxed/simple;
+	bh=ASu3IcGFyeYmVPuaDkdWQXD8Os9G+pzrChDjE/h2Abc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JuMYbhN+W6tu/i7hyvrMONkBrvAs+e+h1wLCrVOA064euzf4z3n53+immL0MMvIiVRd7ZMh1jEolxGyeJLukJoaDp89bn1qicsefZzvCKskSSG9f6pYpIqL+Pyz9TvYXqE46o0dkEHvNgMLnOyd8ehHS1BZv7TCLOgbpaaUbLLM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=dsBcaX0m; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V0p4fo56"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2e5378b281aso20733975ad.2
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 01:32:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791966776; x=1792571576; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SYPI7OWeVGXSmmHTKBEjUpdac/OQBSSeGCeQqh4Sbw4=;
-        b=V0p4fo56be6NXTnlUp8Wwb+2cLiyQKLYfr7FMIpGGmIpmsr4kTfZJojmvIiir+DUq8
-         G9gs3JvlY85Q0ivwcW3N7ca86GPWnmE3kj0XtxyXsYZxAaaY1RAu4aeCegk/C9NBHBlI
-         LRhLSuekMsDs8X80h8b3+lmnh42EBsoFgGBk45DrqpgcX2RVwYzlAVmgBAn+bJ08M9kG
-         Ccc1OwCK372xlw3Iz8Fs5GsnGvDIbp7CgIt+GqogpjOuUGYG7L/hxr9T6RayQ7AdRBkG
-         ZYnDI/UmyLH4h1jke3Y1MVYiLXOOxYIypewH+vnKQ9pOxKmSRHKbeNiZtXmVZ7XK3JqC
-         wUHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791966776; x=1792571576;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SYPI7OWeVGXSmmHTKBEjUpdac/OQBSSeGCeQqh4Sbw4=;
-        b=NtA5wERpfR0NLVypb3JKpg5+AlvS64liApy+WhcoPuroWDt4eGmfjDpyq96qGE0Wmd
-         mUPh3vbK2HpK/YrgD33KLOyq1/BhWVnJu3kRyub2AadJfybgcHL52OniJIOat3co9kAK
-         F7sgRFXx6cewZkyi4FwPEg5cs6sfAJ4RjqrYCKX13Pp/WCo6eWQKgSjrk4mpzvjpd6KE
-         FsWT7svgn76cKgpcCumjUssnyHzduxllMJEGKZscpf9C+1QqYYHCm3sBlcGXjrVX5OOo
-         apO7vspD/ZxH2S8n9Q5YEeYExSUDT1zEQsAcNR8uHR4L/gJUiJRqBbm8yOr6ZcngsSlP
-         drdg==
-X-Forwarded-Encrypted: i=1; AKwUvBwevsm3v4PMUr+qcZoCG1d7kSwdDp8JbydrqFaCglDT5zY3IUZDDZOLcb+guGiEkJP0wzoptZLqX9AV+84=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK8LW53rOJXZl96VKxB/BJXQS7w8AnrQP7gIYLyytdnj0HNOOIQ
-	27TLNVwvMws/APf6hATKNV3t/DnUD5Ex0l+fbueVVpJrfFhxHUZS/9GDXFonme2B
-X-Gm-Gg: AYBFou1MhplJn2Q+yQUoqeaLr+gVD0lXyLUdHXjyF0JLk01rq74f5CaXspabdbC1W5O
-	E1DsMIikHRJp74VFR1awRs8ALxNkSB+67BPGIKfJh2OA5KircGRv/aLuLPwlcF35pKhgvsyg+GZ
-	2NG6ZBxGmxJAfJt1LcFnvumVEqXOiB6b6ri7MgrAmOxNpFoMPhNlqsAzIjHIT5DWVHdvyoUSFc5
-	YPw3xHTEYSPfsnGY5GMl7Gj6WmjJaUjWkjN7bRYi4CNQKDjjJ8eA2WNRBpA3KFnAe8EReD0hQCK
-	C3t17VHMMMMIETBLSEWKxNxGG4Z5pL4Pjn5m4qKOTcsSEfO65FacRD5n7iFMvtpZ5CfG/OLhD7c
-	b/TFpdLBNwHwUjF+l17Na0V51KzKOc8c055CZCunHoICQd6+TfiU1V9PorSkfKm5C2BSvonUL2v
-	ELeQXgSktCxCaNnKnO22pVDVfLBJvdcVNqr9Hl9W3K+VAprjH2N3aVm9meYF5mgnLGfMau6br6V
-	lWgCmzNRQ==
-X-Received: by 2002:a17:90a:5184:b0:3ac:17c:6e82 with SMTP id 98e67ed59e1d1-3ac15d46137mr3909722a91.45.1791966775821;
-        Wed, 14 Oct 2026 01:32:55 -0700 (PDT)
-Received: from TheRealOne ([2409:40e1:cc:590c:6073:1121:77d0:14c1])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac84dd4907sm61671a91.9.2026.10.14.01.32.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 01:32:55 -0700 (PDT)
-From: Chandradhar Kumar <chandradhar.2003@gmail.com>
-To: David Heidelberg <david@ixit.cz>,
-	Samuel Ortiz <sameo@linux.intel.com>,
-	Michael Thalmeier <michael.thalmeier@hale.at>
-Cc: syzbot+93f169a8e7d66864f800@syzkaller.appspotmail.com,
-	Chandradhar Kumar <chandradhar.2003@gmail.com>,
-	oe-linux-nfc@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net] nfc: pn533: fix slab-out-of-bounds read in pn533_recv_frame()
-Date: Wed, 14 Oct 2026 14:02:36 +0530
-Message-ID: <20261014083239.144506-1-chandradhar.2003@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="dsBcaX0m"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6E0321596;
+	Wed, 14 Oct 2026 01:33:34 -0700 (PDT)
+Received: from [10.164.19.62] (unknown [10.164.19.62])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3BAA13F7B4;
+	Wed, 14 Oct 2026 01:33:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791966817; bh=ASu3IcGFyeYmVPuaDkdWQXD8Os9G+pzrChDjE/h2Abc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=dsBcaX0mp6gvZs61sBhw4L/q40NPdO3Kc7UzRP8R8o9kzYplOo0TELA4mansDr9QY
+	 gVDypdY8MeK7tLUiqaEO54LuxZB5+ugc2XA9+TqKgbXQiqQcv5LDAhz05f/vbjMflO
+	 fXnHzM1uCU0ZQKE0+r4ukFIL9JxHuaSXVrZ0qePg=
+Message-ID: <47c5b406-1298-4e64-84dc-e27910dc5f7c@arm.com>
+Date: Wed, 14 Oct 2026 14:03:29 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 06/10] mm/vmalloc: extract vmap_set_ptes() to
+ consolidate PTE mapping logic
+To: Wen Jiang <jiangwenxiaomi@gmail.com>, akpm@linux-foundation.org,
+ catalin.marinas@arm.com, linux-mm@kvack.org, urezki@gmail.com,
+ will@kernel.org
+Cc: Xueyuan.chen21@gmail.com, ajd@linux.ibm.com, anshuman.khandual@arm.com,
+ baohua@kernel.org, chleroy@kernel.org, david@kernel.org,
+ jiangwen6@xiaomi.com, leo.yan@arm.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, rppt@kernel.org,
+ ryan.roberts@arm.com
+References: <20261002090947.869220-1-jiangwen6@xiaomi.com>
+ <20261002090947.869220-7-jiangwen6@xiaomi.com>
+Content-Language: en-US
+From: Dev Jain <dev.jain@arm.com>
+In-Reply-To: <20261002090947.869220-7-jiangwen6@xiaomi.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-pn533_recv_frame() accesses skb->data to check for ACK frames, dump
-the received frame via print_hex_dump_debug(), and validate the frame
-without first verifying that skb->len contains enough bytes for the
-frame header and payload. When a short or truncated USB packet is
-received, this results in a slab-out-of-bounds read in
-hex_dump_to_buffer() or during frame validation.
 
-Fix this by verifying that skb->len is at least PN533_STD_FRAME_ACK_SIZE
-before checking for an ACK frame, passing skb->len instead of the
-unvalidated rx_frame_size() to print_hex_dump_debug(), and validating
-that skb->len is large enough to hold the frame header and complete
-frame before calling rx_is_frame_valid().
 
-Fixes: 9815c7cf22da ("NFC: pn533: Separate physical layer from the core implementation")
-Reported-by: syzbot+93f169a8e7d66864f800@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=93f169a8e7d66864f800
-Signed-off-by: Chandradhar Kumar <chandradhar.2003@gmail.com>
----
- drivers/nfc/pn533/pn533.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
+On 02/10/26 2:39 pm, Wen Jiang wrote:
+> Extract the common PTE mapping logic from vmap_pte_range() into a
+> shared helper vmap_set_ptes(). This handles both CONT_PTE and regular
+> PTE mappings in a single function, preparing for the next patch which
+> will extend vmap_pages_pte_range() to also use this helper.
+> 
+> No functional change.
+> 
+> Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
+> Tested-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
+> Tested-by: Leo Yan <leo.yan@arm.com>
+> Reviewed-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
+> ---
 
-diff --git a/drivers/nfc/pn533/pn533.c b/drivers/nfc/pn533/pn533.c
-index b0133e51dce9..c730a84f1c62 100644
---- a/drivers/nfc/pn533/pn533.c
-+++ b/drivers/nfc/pn533/pn533.c
-@@ -2193,6 +2193,13 @@ void pn533_recv_frame(struct pn533 *dev, struct sk_buff *skb, int status)
- 		goto sched_wq;
- 	}
- 
-+	if (skb->len < PN533_STD_FRAME_ACK_SIZE) {
-+		nfc_err(dev->dev, "Received a too short frame\n");
-+		dev->cmd->status = -EIO;
-+		dev_kfree_skb(skb);
-+		goto sched_wq;
-+	}
-+
- 	if (pn533_rx_frame_is_ack(skb->data)) {
- 		dev_dbg(dev->dev, "%s: Received ACK frame\n", __func__);
- 		dev_kfree_skb(skb);
-@@ -2200,9 +2207,12 @@ void pn533_recv_frame(struct pn533 *dev, struct sk_buff *skb, int status)
- 	}
- 
- 	print_hex_dump_debug("PN533 RX: ", DUMP_PREFIX_NONE, 16, 1, skb->data,
--			     dev->ops->rx_frame_size(skb->data), false);
-+			     skb->len, false);
- 
--	if (!dev->ops->rx_is_frame_valid(skb->data, dev)) {
-+	if (skb->len < PN533_STD_FRAME_HEADER_LEN + PN533_STD_FRAME_TAIL_LEN ||
-+	    skb->len < dev->ops->rx_header_len ||
-+	    skb->len < dev->ops->rx_frame_size(skb->data) ||
-+	    !dev->ops->rx_is_frame_valid(skb->data, dev)) {
- 		nfc_err(dev->dev, "Received an invalid frame\n");
- 		dev->cmd->status = -EIO;
- 	} else if (!pn533_rx_frame_is_cmd_response(dev, skb->data)) {
--- 
-2.56.0
+Reviewed-by: Dev Jain <dev.jain@arm.com>
+
+
+>  mm/vmalloc.c | 36 +++++++++++++++++++++++++++---------
+>  1 file changed, 27 insertions(+), 9 deletions(-)
+> 
+> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+> index fb757d95bde25..72ec1b48a76de 100644
+> --- a/mm/vmalloc.c
+> +++ b/mm/vmalloc.c
+> @@ -92,6 +92,29 @@ struct vfree_deferred {
+>  static DEFINE_PER_CPU(struct vfree_deferred, vfree_deferred);
+>  
+>  /*** Page table manipulation functions ***/
+> +
+> +/*
+> + * Try contiguous mappings at the PTE level for arches which support them, and if
+> + * requested by the caller. Fall back to PAGE_SIZE mappings otherwise.
+> + *
+> + * Return: mapping size.
+> + */
+> +static __always_inline unsigned long vmap_set_ptes(pte_t *ptep,
+> +		unsigned long addr, unsigned long end, u64 pfn,
+> +		pgprot_t prot, unsigned int max_page_shift)
+> +{
+> +	unsigned long size;
+> +
+> +	size = arch_vmap_pte_range_map_size(addr, end, pfn, max_page_shift);
+> +	if (size != PAGE_SIZE) {
+> +		pte_set_huge(ptep, addr, PFN_PHYS(pfn), prot, size);
+> +		return size;
+> +	}
+> +
+> +	set_pte_at(&init_mm, addr, ptep, pfn_pte(pfn, prot));
+> +	return PAGE_SIZE;
+> +}
+> +
+>  static int vmap_pte_range(pmd_t *pmd, unsigned long addr, unsigned long end,
+>  			phys_addr_t phys_addr, pgprot_t prot,
+>  			unsigned int max_page_shift, pgtbl_mod_mask *mask)
+> @@ -100,6 +123,7 @@ static int vmap_pte_range(pmd_t *pmd, unsigned long addr, unsigned long end,
+>  	u64 pfn;
+>  	struct page *page;
+>  	unsigned long size;
+> +	unsigned int nr_pages;
+>  
+>  	if (WARN_ON_ONCE(!PAGE_ALIGNED(end - addr)))
+>  		return -EINVAL;
+> @@ -120,15 +144,9 @@ static int vmap_pte_range(pmd_t *pmd, unsigned long addr, unsigned long end,
+>  			BUG();
+>  		}
+>  
+> -		size = arch_vmap_pte_range_map_size(addr, end, pfn, max_page_shift);
+> -		if (size != PAGE_SIZE) {
+> -			pte_set_huge(pte, addr, PFN_PHYS(pfn), prot, size);
+> -			pfn += PFN_DOWN(size);
+> -			continue;
+> -		}
+> -		set_pte_at(&init_mm, addr, pte, pfn_pte(pfn, prot));
+> -		pfn++;
+> -	} while (pte += PFN_DOWN(size), addr += size, addr != end);
+> +		size = vmap_set_ptes(pte, addr, end, pfn, prot, max_page_shift);
+> +		nr_pages = PFN_DOWN(size);
+> +	} while (pte += nr_pages, pfn += nr_pages, addr += size, addr != end);
+>  
+>  	lazy_mmu_mode_disable();
+>  	*mask |= PGTBL_PTE_MODIFIED;
 
