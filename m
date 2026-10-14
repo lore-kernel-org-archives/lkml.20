@@ -1,114 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0B6D49BD73;
-	Wed, 14 Oct 2026 20:01:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BA0C38F230;
+	Wed, 14 Oct 2026 20:02:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792008120; cv=none; b=UVqPZhWRzbHCFX482IiFEXWtZnrbo06/JmLnhMncNYpqXFlG7/LhYF4h8Yss3SEu3+4dCt0yXADb8iMkdJz0em210NqVC98r3Lo/DUOFDNBn3vBVv8Mr6tmfGgdvgz8jU6ySjns3VkshdPj3E4dS/yaLLIdbxCYM3vdRV8px0UA=
+	t=1792008178; cv=none; b=u77OXvgXYUUQNqSYJJv0DQRpAgNOhFGnSbI+90YHrtNgMYjBP4nBJRq1cpyB0rzxizj6bDbi+ucs/kBGtdDAaVQaO+dYae0nosYLMKxddosHij7NtCBHE9iM7OGdYnbHuAfupFjX+RV4N3HAl0Q877Jl4l3418qEwSqIFLE4H3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792008120; c=relaxed/simple;
-	bh=WOPCz5R4ZL7IugFNyoW7miShFa6Nxm0w+91VWMGWwPY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HqQLeVKU2gdzwJic4vvI9GJHrs74CXcwFbxhQDsYyId7YAAE3Rg4NxCPteoqj93TFzPoQQS0M9S563OBkCWUWJGtD9KMOuJTryTaNjKB2yDZ+7Nvy+S//1oSmsp4cFpN+tVEJwEEiRH2sjZAYjVqS4Q7hN8Vc0jewGkXco8bFV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dR2lxZ4z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792008178; c=relaxed/simple;
+	bh=herUBcKN5sV6lWEohmV4av5FMJDC4ZqTgDybP/BD1Bc=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=E2h226q+2ZN/W1elhqeT3RiXYhZ0tH77abOFQk8++eWxv0UJ/wdsVUsJQY9Tmi2TtoQNzNFYqkLPSEJLHduICCMP1GlFkga427u1OFg2IZs21MHt4NnYDpaZEOjOsNdEWD12shxBbW+FlilMMRkzKtqsek6rAD8FIj3DVOEddX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=1p/SYUoi; arc=none smtp.client-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dR2lxZ4z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA59C1F000C5;
-	Wed, 14 Oct 2026 20:01:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792008119;
-	bh=LUquCq1+GBaxmyjWgHuN6jZLbjQlFxwQdoCrwmLyUH4=;
-	h=From:To:Cc:Subject:Date;
-	b=dR2lxZ4zl4C43mGxRS//XxnQX/C4ROHjUBQO5F2OSQ84Otm5DNLvMFvhjhE/ra3KO
-	 Q14sonVrp4alSV3RPIXc5bjANyJAdUFVHP3dzbyqseeLRs+U8F3cEGcU4KXyczNDj4
-	 vqeS2k1mWBpbsGyzEGP4VZ4jQpbqd3rD7awUGT1OuFtFunXP+4jFn2OA3aDrE+T+lz
-	 T1WQwdvgTxCw5fueu2hMbI9HjhF/gMFWz0XPPXKcGQCa18rKrVLGi4xDa4E+7bKQFB
-	 KuKWe8UuSNXSbc2y+bKM3lclTSlm5qvwCVSmMuWha7XJ4pOx1w7NgzXeESv9zzSEua
-	 1TO9vtsfPdQGQ==
-From: Sasha Levin <sashal@kernel.org>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Peter Zijlstra <peterz@infradead.org>
-Cc: Sasha Levin <sashal@kernel.org>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] selftests/rseq: select only implemented architecture variants
-Date: Wed, 14 Oct 2026 16:01:57 -0400
-Message-ID: <20261014200157.1365258-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="1p/SYUoi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1792008177; x=1823544177;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=herUBcKN5sV6lWEohmV4av5FMJDC4ZqTgDybP/BD1Bc=;
+  b=1p/SYUoiB3Z7uapZQ4ObkkBvM/hVumlZ6uCqEuuQk+VimPPWN7UqVSE9
+   zsCSjmiS/ah1AeD92R3WX3x1ykMjZLR/sr/JA56GuMSMqISZOh6ssEfN/
+   aXAuJnRMlJ1DLvvyeUO/qMzI3DQCpBLNH4S4Onwit81pbGBXprI9XKqfu
+   qU21rpggbcBGXFmC5NUQmRS30WnEzKyAeiMuR/vW5KTlQBL/fLT4rPehm
+   tT7v6bvl0Hdh9Cn/j/s+59lfSZ6CEn1xB+hCwmElvFTDXwYz08VjV+Zz6
+   otYK670JaxDSArDL1lJN6Kj8sbDOeFFKgL1E/CFOM9y04EvTqDXCqxLbf
+   Q==;
+X-CSE-ConnectionGUID: RLfPQW6IQ1eYbMesvt4Z2w==
+X-CSE-MsgGUID: KEuVrUxjROSB5VwviA3vjw==
+X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
+   d="scan'208";a="64109435"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 13:02:56 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.87.72) by
+ chn-vm-ex4.mchp-main.com (10.10.87.33) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.49; Wed, 14 Oct 2026 13:02:56 -0700
+Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Wed, 14 Oct 2026 13:02:53 -0700
+Date: Wed, 14 Oct 2026 22:02:53 +0200
+From: Daniel Machon <daniel.machon@microchip.com>
+To: Thomas Fourier <fourier.thomas@gmail.com>
+CC: Iyappan Subramanian <iyappan@os.amperecomputing.com>, Keyur Chudgar
+	<keyur@os.amperecomputing.com>, Quan Nguyen <quan@os.amperecomputing.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo
+ Abeni <pabeni@redhat.com>, "open list:NETWORKING DRIVERS"
+	<netdev@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net-next] drivers: net: xgene: Fix dma_unmap_single() size
+Message-ID: <20261014200253.boklssmfbnwairjy@DEN-DL-M70577.microsemi.net>
+References: <20261014084817.41805-2-fourier.thomas@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20261014084817.41805-2-fourier.thomas@gmail.com>
 
-The rseq headers implement a limited set of targets, and only the
-little-endian ARM, arm64 and RISC-V variants. Building the suite for
-LoongArch or for the unsupported endian variants fails in the
-architecture dispatch of rseq.h.
+Hi Thomas,
 
-Ask the target compiler which architecture it builds for before
-selecting the tests and scripts, so that unsupported targets build,
-install and emit an empty runlist through the ordinary lib.mk rules.
-Pass USERCFLAGS to the probe as well, since lib.mk expands the
-generated program lists before it appends USERCFLAGS to CFLAGS, and
-filter out only the linker options that the preprocessor would warn
-about. If the compiler cannot be run, select the tests so that the
-build fails instead of turning the problem into an empty suite.
+> In xgene_enet_refill_pagepool(), the skb->data is dma-mapped with length
 
-This does not add LoongArch support and does not address the remaining
-compiler-specific build failures on supported targets.
+To me, it looks like the mapping happens in xgene_enet_refill_bufpool() and not
+xgene_enet_refill_pagepool().
 
-Fixes: ccba8b64452b ("rseq/selftests: Provide Makefile, scripts, gitignore")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- tools/testing/selftests/rseq/Makefile | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
+> len which is set to XGENE_ENET_STD_MTU which equals 1536. However, in
+> xgene_enet_delete_bufpool(), the same buffer is unmapped with length
+> XGENE_ENET_MAX_MTU which is 9600. This may erroneously unmap other
+> DMA buffers or cause other issues.
+> 
+> Change unmap length to XGENE_ENET_STD_MTU.
+> 
+> Fixes: 6e434627bce2 ("drivers: net: xgene: fix: Add dma_unmap_single")
 
-diff --git a/tools/testing/selftests/rseq/Makefile b/tools/testing/selftests/rseq/Makefile
-index aba6317f6cb8e..6875ab493ed74 100644
---- a/tools/testing/selftests/rseq/Makefile
-+++ b/tools/testing/selftests/rseq/Makefile
-@@ -18,10 +18,22 @@ LDLIBS += -lpthread -ldl
- # still track changes to header files and depend on shared object.
- OVERRIDE_TARGETS = 1
- 
--TEST_GEN_PROGS = basic_test basic_percpu_ops_test basic_percpu_ops_mm_cid_test \
-+comma := ,
-+RSEQ_ARCH_SUPPORTED = $(shell printf '\043if defined(__x86_64__) || defined(__i386__) || \
-+	defined(__ARMEL__) || defined(__AARCH64EL__) || \
-+	defined(__PPC__) || defined(__mips__) || defined(__s390__) || \
-+	defined(__or1k__) || (defined(__riscv) && __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__)\n1\n\043endif\n' | \
-+	$(filter-out -fuse-ld=%,$(CC)) $(filter-out -L% -Wl$(comma)%,$(CFLAGS) $(USERCFLAGS)) \
-+	-E -P -x c - || echo 1)
-+
-+TEST_GEN_PROGS = $(if $(filter 1,$(RSEQ_ARCH_SUPPORTED)),$(RSEQ_TEST_GEN_PROGS))
-+TEST_GEN_PROGS_EXTENDED = $(if $(filter 1,$(RSEQ_ARCH_SUPPORTED)),$(RSEQ_TEST_GEN_PROGS_EXTENDED))
-+TEST_PROGS = $(if $(filter 1,$(RSEQ_ARCH_SUPPORTED)),$(RSEQ_TEST_PROGS))
-+
-+RSEQ_TEST_GEN_PROGS = basic_test basic_percpu_ops_test basic_percpu_ops_mm_cid_test \
- 		 param_test_benchmark param_test_mm_cid_benchmark
- 
--TEST_GEN_PROGS_EXTENDED = librseq.so \
-+RSEQ_TEST_GEN_PROGS_EXTENDED = librseq.so \
- 	param_test \
- 	param_test_compare_twice \
- 	param_test_mm_cid \
-@@ -31,7 +43,7 @@ TEST_GEN_PROGS_EXTENDED = librseq.so \
- 	slice_test \
- 	check_optimized
- 
--TEST_PROGS = run_param_test.sh run_syscall_errors_test.sh run_legacy_check.sh run_timeslice_test.sh
-+RSEQ_TEST_PROGS = run_param_test.sh run_syscall_errors_test.sh run_legacy_check.sh run_timeslice_test.sh
- 
- TEST_FILES := settings
- 
+That commit mapped and unmapped with XGENE_ENET_MAX_MTU. At that point, there
+was no mismatch. I think the mismatch came with:
 
-base-commit: 4eb2586bd40db27d77cc5b724ca9386ed0c71d53
--- 
-2.53.0
+Fixes: a9380b0f7be8 ("drivers: net: xgene: Add support for Jumbo frame")
 
+> Signed-off-by: Thomas Fourier <fourier.thomas@gmail.com>
+> ---
+>  drivers/net/ethernet/apm/xgene/xgene_enet_main.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/ethernet/apm/xgene/xgene_enet_main.c b/drivers/net/ethernet/apm/xgene/xgene_enet_main.c
+> index 507db46daf2b..2ddcbf27014e 100644
+> --- a/drivers/net/ethernet/apm/xgene/xgene_enet_main.c
+> +++ b/drivers/net/ethernet/apm/xgene/xgene_enet_main.c
+> @@ -185,7 +185,7 @@ static void xgene_enet_delete_bufpool(struct xgene_enet_desc_ring *buf_pool)
+>  
+>  			raw_desc = &buf_pool->raw_desc16[i];
+>  			dma_addr = GET_VAL(DATAADDR, le64_to_cpu(raw_desc->m1));
+> -			dma_unmap_single(dev, dma_addr, XGENE_ENET_MAX_MTU,
+> +			dma_unmap_single(dev, dma_addr, XGENE_ENET_STD_MTU,
+>  					 DMA_FROM_DEVICE);
+>  		}
+>  	}
+> -- 
+> 2.53.0
+> 
+
+/Daniel
