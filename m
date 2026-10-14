@@ -1,94 +1,94 @@
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1CA1368D5E
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 03:28:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC4C830D410
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 03:29:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.49
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791948531; cv=pass; b=J1u5Vv2pB3IjVLifk4pnsNnrTiiZg5lvaE7VHfcfUHp03pvsohjeeLh1kLHY1AOW6RJlEnySQhaRTI2/4IbO2sRK0jnuIhvF8kTrAbZLRef+VuDiZ9Wxnu2jGk648ruW+mkbWp1pXqLnJrUjEoINfD+37h1z3FHR3dXuJnhmQfg=
+	t=1791948555; cv=pass; b=fWqHaxeeeLW0fqxOOKyZkpVQYIzvu6R4ROceomL/jTdI/v7ptCM6El2TAUNKTGCVnhCFkYm/xf+n9DClGRtkAKMcZuH/3pXXL1HxGi+j8fUA5g1c0QnCrn9e1tnIY+z3fg/9casgNG8bcLjlwEChCWiAjO8n/SqEJaPSsGQ6stU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791948531; c=relaxed/simple;
-	bh=uu2BgegW6iIK5zC2oRBUHQ5g8vV1itfviPQErYL/pDw=;
+	s=arc-20240116; t=1791948555; c=relaxed/simple;
+	bh=y8f3NArIgEMVykQ8UPcZVmembmuVMbH9zJsVPQ/zXO0=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Kr1etXVohvdtkm+6Cm+PI8O9X5qXOIdE1tQSBDKCTjdVFJvAV9mj1SfltxBaD/7B2agE/WiUU5IuK/lmpvxo1CnqTVWfqAEPYWEJ4pRjxjaJtbg8F0if6Gsh1SH70F7eQrfh9yyj56aYa8wzgxph+JI8VIp5Q6AMkPlaN1oxt2E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gdHUzIEu; arc=pass smtp.client-ip=209.85.208.50
+	 To:Cc:Content-Type; b=Bp9Gk8B33Vyt2RnC27J2E2D/t0CHa7n92y/ls6UCEShuW8C7TFRwlaLzUBmArMtDKn+2SYOho8XPqdDQjUOSEWB4HngBa7edwBXMNTWdjrC5xLLDckoUNJE/fhvUxlzsNbUfseqXjMYXZpf9//MgEJulmc63p7wZWxMbx53nByU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m9D9wcfh; arc=pass smtp.client-ip=209.85.208.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gdHUzIEu"
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b1ab2ad719so4380332a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 20:28:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791948528; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m9D9wcfh"
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6aa9164072cso5292139a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 20:29:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791948552; cv=none;
         d=google.com; s=arc-20260327;
-        b=kMJZuHk7JDsWJwh5UVUZQvCYFSQMWRvUBJjVBbM0sP8Ybo97g5p7dmG0LKjk4ovdEz
-         p95f7N8pFAZbe3a4g7tvPiQcZZlyZcJDmvqv38j3hbppqFV6jYsFb1N8IxcbkOfao5WQ
-         CPfJ/xDtzj6P2eNj4QQ4iMbeou8CwJJBR5kIqRZ+4YfxwxaobA39a9ZqjzNXJ2xEaQp6
-         dKDf5BDfjygFMao00qhrnODDIHRr3aJCnvx6bgOlP5Ne1+iBRtyfsxnuQCn+LyPU2gmi
-         F6X68NnemolzVb/MXeEF/LP2zb8jG10qwQGNjqPm6Lk+hrjHc06RZmiTZ8TgI4DcU3L5
-         35fA==
+        b=N14LzGxSl2JyEkwsNURj715pQsGk7okYpPKG8ywOqT9BBy7ghAxsGNk/4rCKzYBD3m
+         1LexIMKc6EQdrFMOlohwNwI2pkj+KsQRn4yTVtGePBKOc9ToxFCWANwn+Uvu+km66YRF
+         pZdfm0yk9OiTCDOZOaIkta6Ogq2CntBO4IBxoJKZ0tW5eZYwH+hoGfrJDX9X2X3LDkoL
+         JX/7Sz2nGe+63a2vMJ0DsN4MROCKkpJs8o4/+Wla/5xXkl6rZ3dAVLucvNqXo2HdyHV9
+         p2ylgvdOjVdL/+C7KBebvUyV1Daiq/myOi3NjeRB6i7YBZaO/TycG6yEYVC1V83j3wsY
+         6DQg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=HnAtWY3LwsXAyH/LIq5+W3HHx9lo3GsZAUzviRy9PaI=;
-        fh=JyWjDmNg2jKwNIEYxN3S+SbC+8hJwDX2vD8BjmO0940=;
-        b=OtslcfcAUJQsiB2XZpfcl+Ii8xjNv8okhmTqqVkLJ10jPMSMvzgzIk/0YdlHRauFQc
-         LnxbmNqRjY8O1D8y7I75DeqAGGQoYa32PWOx+Gvqn1SkwR/KRjy/7/AbTV5cozbaVWoA
-         XQ4SbWBx3bNiODQTYFi8fThKtX0cc2mQyCamUkAOxMsKEeHULKxswyfTIDauq1Q32LUk
-         1q8Mm+5nLrY6sBzyrGUAeWHUf/8HGL/DRJQnFkgHGLfzLbO2oLY1IqnePTM5DlA+h9OQ
-         BYFakl+MY/lu8ImU/wS/UVy1ehe+djI/3Wob07M6Gmj36hkgwbdooV2Es8l07ZukkhSd
-         qb9A==;
+        bh=4KsaoaK9H/7EPqTqddbEdGkjTfIPX78T4YiSu6f0Mn0=;
+        fh=VA0HL4KTk+sryfjKsTt9RxP4bWNm2Oj6Kd/fqe+xJeA=;
+        b=KdvBmU81JJrmN2XFqy+ss9z7kMFAWD6Azsz+oaGXwzUErkEtaHlB3hVZqNQSJL47uj
+         ua06NZxd7PT93Mu/9C0wllWtJ44CqGZIteWFlUvKO7wcPoxmX57MdjtliSPxDJxqagMt
+         Dsv+tBUWaMPXwQK2xKjWLfu9XsbqbBbeUngOOTLBWukbBupzlbyzcLpn0IVZNG1U97RY
+         IolP/xqTm1V69D4EIQBseS1RTgTvi4DsVI1AYT8ufx5uK/Lw1otTIXl+Zz0Cf2H8r+Le
+         Do8trKCM8RSVC6Xy85+6GPUeu7lzYmbJeVj27wKMBVLNEPnm+D/pLcDsU7M3lK6z7ohh
+         pNLg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791948528; x=1792553328; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791948552; x=1792553352; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=HnAtWY3LwsXAyH/LIq5+W3HHx9lo3GsZAUzviRy9PaI=;
-        b=gdHUzIEuyXyBaXFjVe17M4i4Iydm5v+SsGEl/RloS23Zjf/WIaNMyo0ATOXbKHa7sS
-         OyZL/iTw6og+Yu+v839i0c9Al6uBoIB1LiX9sNEB+0Bb1O0NsYMul64UB49E9DG8UA6l
-         cdtTmIaVRNHrdhwZ5UV4Q4cwR2yXbbWPK9BOdCH78OzUd1CEOS1OVqiZgWasRxnbdfyf
-         rUFam7uNhE3V0/HXdsBHDX6FQBWHr3KnlspQO1JrCoM4Lr1ZM2dsQodPLmjPqyFFnPh+
-         GzDyz+Z0lKEO1TQ2wN4geg/3ySMSuJoVC9O7b0oHvCoGwBfKcbx+7jEgN550I2MhYgZe
-         QaSQ==
+        bh=4KsaoaK9H/7EPqTqddbEdGkjTfIPX78T4YiSu6f0Mn0=;
+        b=m9D9wcfhF0gbsRXTQbkoIAZaZqIQIDZsm3R/Kb7hrGALKSqcdTnfZ08BRegEdjApjN
+         MFJZYVQwzeVMLroFh5ltBP7/ypyNFOFRLF+yZepDJ4VOZmEM58KlMi1OFhFGtuZm3pZP
+         GqwPfxnjGDXthvzcO7Z4Du08GImFVZAPUEelNmMJemseq5w2SoobNpxLS2YEumRh5mMs
+         Q/ykb/B6gotBJaV9UXYoqVly2eNFcSv6Bf5iEhzcpKWN/eys2mcOhBxf8ugUD0RJwRMb
+         fY5Cbn/xCXid3fhvAr3T9bjvWZzrcnwYacaYjkVKZbmknMqYR5VxXvXdXY7F5FaUuCyH
+         ywDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791948528; x=1792553328;
+        d=1e100.net; s=20260707; t=1791948552; x=1792553352;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=HnAtWY3LwsXAyH/LIq5+W3HHx9lo3GsZAUzviRy9PaI=;
-        b=inUlzW7uNMnE3egbor7sH/Tt7pn5S6eBb6PL3MRkF0pcC03Mphj2Cn8MPok1sucqWT
-         8WTLYm+5YaVVi7h4ZgFuqsbJq64bUG/U9mufdZMK6OEzyAIBObtJ4kQlxMuFrt0X8zym
-         w3kBKJSFaL4V0Nm3IsqAcxJtd8skzLLcN4XI3PKycFReBOwoD8FSwSkOWTwuW+3rkcZx
-         0PZjq1SoGgTBawmj/dP11ecH9WG3kJFZFqx/QqIsZdb9BFG4h5u7nbUFg2LrTbI1EMyx
-         3INJaQwIBLsH+ZqVdxnqnSQgjM8wmNJcqnSyJuJkrKP5UzcvDXYhumcqVHCjj4JhShsI
-         Va7g==
-X-Forwarded-Encrypted: i=1; AKwUvBzDSkXX6vfbte/Ndb86nlgdiuvHupjLYif5dYI+m6BF765HXddTaSqN8kDyXY2MLHD4e/WVND0L49f+AcI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIsh3eD6rYzL0eZU7LlU+WfDvBBDFf6lSGtPS3VV6vypkM7jvfX
-	yZGKTTp+3kO70HMNIALVOiZdEnKBEBPfQ3jA8lO+XqmwUaXNS7a4iPFgO1Na4E/AvdBDD2tzFA9
-	iP37hRVTRCDkIvayIdG26IlXc5bePt3YfRPz/LA0=
-X-Gm-Gg: AYBFou3r9jIGlzAVayOzW5mw2Olh92TMSiYlAjXX7cN1Op4xqXzCwgve4dgE5Mq218w
-	pyAf6jXECuXCShp8VliDKiG9AW5aaEkW6if8I2IF4rC9m07hOnTrlqMDaPppqikqouPhDE0EPaG
-	aXBhRFi7ymQctzzxpYKv3vxIka6Dp6uHGXViwIhRkJ2c3enLovUPF3D1gJUEAsYNR83T9iZDZ2g
-	onTO3mvcKJ2yFha4tBy5IznyYaFI1/2PtTSa2smSJeyPwOV59uZWQa1ZcajJL7AKNmk5lGqJaW5
-	rShFmFU7HVK/7yKDFBvtCODikhXeOPfLulp2JbQ5/t7ZEaYTA94IZr29
-X-Received: by 2002:a05:6402:3241:b0:6b1:c355:c7aa with SMTP id
- 4fb4d7f45d1cf-6b1c355ce43mr4215020a12.0.1791948527663; Tue, 13 Oct 2026
- 20:28:47 -0700 (PDT)
+        bh=4KsaoaK9H/7EPqTqddbEdGkjTfIPX78T4YiSu6f0Mn0=;
+        b=m/BfFikafCIqR8D8p+eiT/L2lQUcR5yeaOuUzuFNkFTWuKG6HRAvZEZuBUE33354Hr
+         m40bQGP12LLvXyvAjkyY547Sd1jT66ce7PCSxzcX60l3jUH0qszT3KzgwLW+w2SWZFZK
+         cGcFr4AGto9PuFVQZV5DuMjpZvJ1c8htde5xoJChUoPX6dftAGzU33x3j5FMFY3O7QeC
+         NcNyLMWbSJ46ltGWEPBrPdVYgTtD32yZ/OM8A3b9VhTp1sVleJJ8NXwA7AUZcVIzQ9KP
+         yae6jIYsF3zDUEy52rEU6AwiWGUVwAxIiX86PQ9NZfcQ8NFrVajEONHcv461nyFnYXAx
+         U+ew==
+X-Forwarded-Encrypted: i=1; AKwUvBxjh6YSuGPCzSztCexdmoYUEowW19ZklllFx1/FLjcvtxLrcywHXwTkAucO7afgWTmk4+6+1x/l8+12Ey4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI7SlUwm9uLgAJB2mW6XGQpQIzmm4+iPEn2Uz6tpHrmhG7Ruo2h
+	TnqGvOYZnIKar5x3kvk+FnKbiXT5fa3skeqoF9/s+kuIV7cLMgHX/OHjPTRrAU+9go+Jzmm4WSB
+	Aet9uQcXQjPJAwGfTGDb/rAMkOLrYOzQ=
+X-Gm-Gg: AYBFou2Ok2zpXOsSTg1zZo0+CjQzRvKGMgJd0NrornMCZaxLHsgj5AOWHVAYLYDu5PJ
+	g9JCpW7tHaHJWfdJw/4SocfvIWZBigMOCPB8azXY3MaczNr74BrJrt9uyrUFUAhYrkVidELvtsR
+	cAUPxFifCSiQ7vYnrFfVc4dboPmyn2EaVYxaIP+EwndKtZSsNY8YSnvrftfJsKJD3ycwZWoVVDY
+	BlkCPA2Blmwjkd/f4jf8emRiQxFk2/IhAZdl60DWTjEsyjkUauH08nDCgn+p+SJHtCiDfomMn8p
+	iFDwqE+0Y6Sy3EX+v88/0OgWO73vCBMIQMxAvdZ3Ks06m0zLryKKgY+z
+X-Received: by 2002:a05:6402:448d:b0:6ac:c1fc:8a98 with SMTP id
+ 4fb4d7f45d1cf-6b17c28e3camr12080163a12.42.1791948551636; Tue, 13 Oct 2026
+ 20:29:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261010102813.25460-1-qiang.zhang@linux.dev>
-In-Reply-To: <20261010102813.25460-1-qiang.zhang@linux.dev>
+References: <20261010083107.15086-1-qiang.zhang@linux.dev>
+In-Reply-To: <20261010083107.15086-1-qiang.zhang@linux.dev>
 From: KunWu Chan <kunwu.chan@gmail.com>
-Date: Wed, 14 Oct 2026 11:28:36 +0800
-X-Gm-Features: AclHuK-V8vTFUQbxf7lHlHszzHIzi2AYahgPeKaVtg8w781-TTWwAZSX2kI8ohU
-Message-ID: <CAN_Opa9r3BiT+=gE-sR8A9xmAZfA0AKZ0M05_+JZ7hrcXWR6=w@mail.gmail.com>
-Subject: Re: [PATCH] doc: Update recent SRCU API additions to whatisRCU.rst
+Date: Wed, 14 Oct 2026 11:28:59 +0800
+X-Gm-Features: AclHuK9wwJHzzzqurxhjL6sACS69pspDCcm-93pfiE3cU9MYx9jyO3qr0weTxdo
+Message-ID: <CAN_Opa86yuhp19Mafu61KbSUr6C8YGeFqG2DSfMJhzuST58B=w@mail.gmail.com>
+Subject: Re: [PATCH] tools/rcu: Add new APIs to rcu-updaters.sh
 To: Zqiang <qiang.zhang@linux.dev>
 Cc: paulmck@kernel.org, frederic@kernel.org, neeraj.upadhyay@kernel.org, 
 	joelagnelf@nvidia.com, urezki@gmail.com, boqun@kernel.org, 
@@ -98,59 +98,67 @@ Content-Transfer-Encoding: quoted-printable
 
 Reviewed-by: Kunwu Chan <chentao@kylinos.cn>
 
-On Sat, Oct 10, 2026 at 6:28=E2=80=AFPM Zqiang <qiang.zhang@linux.dev> wrot=
+On Sat, Oct 10, 2026 at 4:31=E2=80=AFPM Zqiang <qiang.zhang@linux.dev> wrot=
 e:
 >
-> The commit 'dab06d6f9379 ("srcutree: Add an atomic Tree SRCU")'
-> introduces some new APIs:
+> The following commit introduces some new APIs:
 >
-> srcu_read_lock_atomic
-> srcu_read_unlock_atomic
-> synchronize_srcu_atomic
-> DEFINE_SRCU_ATOMIC
-> DEFINE_STATIC_SRCU_ATOMIC
-> init_srcu_struct_atomic
+> commit 'dab06d6f9379 ("srcutree: Add an atomic Tree SRCU")'
+> commit '8df13f01608e ("rcu: Add full-sized polling for cond_sync_exp_full=
+()")'
+> commit 'd96c52fe4907 (rcu: Add polled expedited grace-period primitives)'
 >
-> This commit therefore update thems to whatisRCU.rst.
+> synchronize_srcu_atomic(), cond_synchronize_rcu_expedited() and
+> cond_synchronize_rcu_expedited_full().
+>
+> Sample output when running rcutorture:
+>
+> @counts[synchronize_srcu]: 48
+> @counts[synchronize_rcu_expedited]: 74
+> @counts[synchronize_rcu]: 102
+> @counts[poll_state_synchronize_rcu_full]: 443
+> @counts[call_rcu]: 2498
+> @counts[synchronize_srcu_atomic]: 8717
+> @counts[poll_state_synchronize_srcu]: 14849
+>
+> @counts[call_srcu]: 22
+> @counts[synchronize_rcu]: 103
+> @counts[start_poll_synchronize_rcu]: 1093
+> @counts[cond_synchronize_rcu_expedited]: 5339
+> @counts[cond_synchronize_rcu_expedited_full]: 5375
+> @counts[synchronize_rcu_expedited]: 8134
+> @counts[get_state_synchronize_rcu_full]: 17248
+> @counts[get_state_synchronize_rcu]: 17266
+> @counts[call_rcu]: 119168
+>
+> This commit therefore add thems to rcu-updaters.sh script.
 >
 > Signed-off-by: Zqiang <qiang.zhang@linux.dev>
 > ---
->  Documentation/RCU/whatisRCU.rst | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
+>  tools/rcu/rcu-updaters.sh | 3 +++
+>  1 file changed, 3 insertions(+)
 >
-> diff --git a/Documentation/RCU/whatisRCU.rst b/Documentation/RCU/whatisRC=
-U.rst
-> index e6767baff2d3..75c50f2f6d79 100644
-> --- a/Documentation/RCU/whatisRCU.rst
-> +++ b/Documentation/RCU/whatisRCU.rst
-> @@ -1209,11 +1209,13 @@ SRCU::
->         srcu_read_lock_nmisafe          start_poll_synchronize_srcu
->         srcu_read_unlock_nmisafe        start_poll_synchronize_srcu_exped=
-ited
->         srcu_read_lock_notrace          poll_state_synchronize_srcu
-> -       srcu_read_unlock_notrace
-> +       srcu_read_unlock_notrace        synchronize_srcu_atomic
->         srcu_down_read
->         srcu_up_read
->         srcu_down_read_fast
->         srcu_up_read_fast
-> +       srcu_read_lock_atomic
-> +       srcu_read_unlock_atomic
->         guard(srcu)()
->         scoped_guard(srcu)
->         srcu_read_lock_held
-> @@ -1229,8 +1231,11 @@ SRCU: Initialization/cleanup/ordering::
->         DEFINE_STATIC_SRCU
->         DEFINE_SRCU_FAST        // for srcu_read_lock_fast() and friends
->         DEFINE_STATIC_SRCU_FAST // for srcu_read_lock_fast() and friends
-> +       DEFINE_SRCU_ATOMIC
-> +       DEFINE_STATIC_SRCU_ATOMIC
->         init_srcu_struct
->         init_srcu_struct_fast
-> +       init_srcu_struct_atomic
->         cleanup_srcu_struct
->         smp_mb__after_srcu_read_unlock
->
+> diff --git a/tools/rcu/rcu-updaters.sh b/tools/rcu/rcu-updaters.sh
+> index 8a5df3f22550..a0f03a144f6a 100755
+> --- a/tools/rcu/rcu-updaters.sh
+> +++ b/tools/rcu/rcu-updaters.sh
+> @@ -34,6 +34,7 @@ bpftrace -e 'kprobe:kvfree_call_rcu,
+>              kprobe:synchronize_rcu_tasks_trace,
+>              kprobe:synchronize_srcu,
+>              kprobe:synchronize_srcu_expedited,
+> +            kprobe:synchronize_srcu_atomic,
+>              kprobe:get_state_synchronize_rcu,
+>              kprobe:get_state_synchronize_rcu_full,
+>              kprobe:start_poll_synchronize_rcu,
+> @@ -44,6 +45,8 @@ bpftrace -e 'kprobe:kvfree_call_rcu,
+>              kprobe:poll_state_synchronize_rcu_full,
+>              kprobe:cond_synchronize_rcu,
+>              kprobe:cond_synchronize_rcu_full,
+> +            kprobe:cond_synchronize_rcu_expedited,
+> +            kprobe:cond_synchronize_rcu_expedited_full,
+>              kprobe:start_poll_synchronize_srcu,
+>              kprobe:poll_state_synchronize_srcu,
+>              kprobe:rcu_gp_init
 > --
 > 2.17.1
 >
