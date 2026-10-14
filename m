@@ -1,112 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F9D255C1CE
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:40:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 930ED55C314;
+	Wed, 14 Oct 2026 15:40:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791992439; cv=none; b=WeQatDUPMDyUqOPb6AO66+Mmb3JF6M1oMYoljyeWFlXVP7O6l+1YeLDhcqTYB9m6I7xXeTQa9kZNlpoH6gtMXXg3p5ThMViXohJY8Yx0fggJUSc5nnAfYgZp6U5638l27WfuYRZJkMj4RHUSMbGMWNHw35nNlQtvQBGZj6RMaOg=
+	t=1791992448; cv=none; b=BMTGE6tOdczSKSoTHTxUNR6XPm+Z1VW/wta+aZo6I5zQC0Sgc0XZkOUhOGL7ObJm//sM4ShFD3pGEAenG0qRDx4amNV/TOGYi8DBvhXenaUyk0BKDHGe4YZAgIy2kNCZYZIsTqpYmwQiTKZAVsNJqxAYIS5V5I77nEiRRj9b/Jo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791992439; c=relaxed/simple;
-	bh=ZiAPS13SBViJAeGyjA9BX7XuQ8gbRdx6U669BmENfBw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=dnLQ2i9NMRWBAayX5BxWG2EJ2/Y/2y08MPlThFRnSI7GdjcwMqxZDuGa9vTFU6WJBBgrpSx23+W0mWNQNaAoxNjC3EJwuLp+tzWkzZlxCjPShinKoI+S4fE578ZeHk3ZBm/HvbdqIHCwLSfvEJzNwmzIpkkaaGDkZENqtkiE3qE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N4QGpUVY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791992448; c=relaxed/simple;
+	bh=VGR1U2Q2yccirOzCq9j3N28WgaHfxLVicd4wih2+iuU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LDDFSe2buwSQ9uKQJFn5f2TXec8SpjE5VVPid/i0RvNgciBN+5nHNhwhzVdoBHqOrxGHr1HRj0ZNobEuj+I+yNXTBQCLboSYgpom2vqXa7Gj8DXPtkEeQCJAFolK6RwHiFF2g28U9ddh9Js4X9/9TyqZ5/LCIEf5nSvB1esdJUw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=B4W8y2qm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N4QGpUVY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2F7C1F000CE
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:40:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791992436;
-	bh=OoiplF2AF1BX9cQRvAuQTa3Gh84ToZoBDZYkpiO4u6g=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=N4QGpUVY7JlCMsbdfS2MvPexL/n56AMj/1mnUspFfFODeQqNLQMN2UMFbmf+pVf+n
-	 6Zkz3pvH+GOSptbajKkVtglCaOb8Hu/8apexGCk1EllDt1BGw9Qn5f7nggcHbQtofI
-	 54L5Ru9NmLhmFJAci98fmuR5bT6Wuzb6QbCSvp5fCNmShIVL+i7lz24WdeVJslKXr3
-	 vBSF6ewDKeiA4QjPqttCZNlaZrp3Zy1Pvj6ceVUzdDW0G7/IDowpp2/UDaqQ8cperz
-	 wY9xQfKGMr5MNigvu35y/U5vFvP6EMe0EI7+AA1tn9bFLTZuaz3Hch8DjfyX8ZV6Si
-	 cwXBrxEL9N4mw==
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5bcbb82dbadso482200e87.2
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:40:35 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx+B6lXEyvHKMd1OLqwhePvlHnos9yRML/sTkIjOmcQmGHLHo8qdQ9LNf0SdY814H2UtX9kJwKdP3paSnA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKF6j7Icxl6mZuyqOFrEE+tdR/LINlqoe2hsYtsqVi9W4VEhXtv
-	dcGbpFhowPa9svbeHUBm+L0jM2ZOc21Nw8YQKhlh+szkvkDm3vHPdf8x7FL3e2LIL8vtvbInKGh
-	h9KpGDrz6OM/FbDDvq0h2vkoUB9G/xaU=
-X-Received: by 2002:a05:6512:1255:b0:5b8:f52b:8135 with SMTP id
- 2adb3069b0e04-5bcde6bf6b1mr5978934e87.17.1791992434324; Wed, 14 Oct 2026
- 08:40:34 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="B4W8y2qm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 583E41F000C4;
+	Wed, 14 Oct 2026 15:40:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791992444;
+	bh=TFFzJPKCak8bHUbu3iKW1Dv5/m+pJOET/smJpVdcZ+U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=B4W8y2qmOuRfnq0tsJTTXypfj3XI403SWtfCpe+a4YPuetyEBeqaTsAsJtnvw0IGT
+	 zV9yGgGaH6a+ffY29XjThxzA4i4lptCsWNqTAf7i31JNge8pmfdxmTGFwOzUoQ2i0L
+	 wgL3oDV0WCrdsUKTapHCLDD/HzLgdz1cl7bzdSxg=
+Date: Wed, 14 Oct 2026 17:40:49 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Phil Rosenthal <phil@phil.gs>
+Cc: Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Johan Hovold <johan@kernel.org>,
+	"linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: [PATCH v2] serial: core: Shut down a running console port before
+ removing it
+Message-ID: <2026101433-refuse-unbiased-4b63@gregkh>
+References: <20261013-serial-console-remove-v2-1-2eca1a92c10d@phil.gs>
+ <2026101326-outmatch-regular-f8ae@gregkh>
+ <61E0B380-1646-4770-BF37-E1E4329FEE86@phil.gs>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261014132703.93355-1-aliamemis@disroot.org> <24b2e368-f0bb-484c-bf88-b9ce3125180f@oss.qualcomm.com>
- <20261014150537.121547-1-aliamemis@disroot.org> <8be1a245-6061-4f86-9223-0da18d5e423a@oss.qualcomm.com>
-In-Reply-To: <8be1a245-6061-4f86-9223-0da18d5e423a@oss.qualcomm.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Wed, 14 Oct 2026 17:38:24 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0hVszW7+hb6OT_ffBhpV4bz6jpNn93rYq+EkT5qYypxFQ@mail.gmail.com>
-X-Gm-Features: AclHuK9RzTMB30DOSPm5PKW2yUA0YUKVt7Xq-VwNIHUydXb0MjJaUSsggHSRKGc
-Message-ID: <CAJZ5v0hVszW7+hb6OT_ffBhpV4bz6jpNn93rYq+EkT5qYypxFQ@mail.gmail.com>
-Subject: Re: [PATCH 0/3] ACPI: Serialize battery methods and INT3403 _TMP
-To: Hans de Goede <johannes.goede@oss.qualcomm.com>
-Cc: =?UTF-8?Q?Ali_Ahmet_Memi=C5=9F?= <aliamemis@disroot.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
-	Lukasz Luba <lukasz.luba@arm.com>, Armin Wolf <W_Armin@gmx.de>, Rong Zhang <i@rong.moe>, 
-	Charis Stratakis <c.stratakis@proton.me>, linux-acpi@vger.kernel.org, 
-	linux-pm@vger.kernel.org, acpica-devel@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <61E0B380-1646-4770-BF37-E1E4329FEE86@phil.gs>
 
-On Wed, Oct 14, 2026 at 5:30=E2=80=AFPM Hans de Goede
-<johannes.goede@oss.qualcomm.com> wrote:
->
-> Hi,
->
-> On 14-Oct-26 17:05, Ali Ahmet Memi=C5=9F wrote:
-> > On Wed, Oct 14, 2026 at 03:45:10PM +0200, Hans de Goede wrote:
-> >> Hmm, I wonder if we should export the lock added in patch 1/3 and
-> >> then also take that in the ACPI EC interrupt handler ?
-> >>
-> >> The ACPI code already uses a threaded IRQ handler for both EC GPIO
-> >> IRQs and GPEs so sleeping in the handler should be ok.
-> >
-> > Sleeping is fine, but the interrupt handler completes the EC
-> > transactions, so taking the lock there would deadlock an exclusive
-> > _BST.  Doing it in acpi_ec_event_processor() where the _Qxx methods
-> > are evaluated, works though.
->
-> Ack, doing it there sounds good to me.
+On Tue, Oct 13, 2026 at 04:42:47PM +0000, Phil Rosenthal wrote:
+> On Tue, Oct 13, 2026 at 06:12:52PM +0200, Greg Kroah-Hartman wrote:
+> > Is this the same as:
+> > 	https://patch.msgid.link/20261003163337.45577-1-igorpetindev@gmail.com
+> > ?
+> 
+> Yes, it's the same bug and the same fix. I hadn't seen Igor's patch when I
+> sent mine, sorry for the noise. His is in tty-testing already, so
+> please drop mine.
+> 
+> > Why does that commit set a field and this change does not?  Which is
+> > correct?
+> 
+> Both work. Clearing port->console isn't needed for the fix, and it does
+> no harm. uart_shutdown() doesn't look at that flag. It is only read in
+> tty_port_shutdown_locked() and tty_port_close(), on the last close of a
+> tty, and by this point any open tty has been hung up, so
+> tty_port_close_start() returns before either is reached.
+> serial_core_add_one_port() sets the flag again when the line is reused.
+> 
+> The other difference is that Igor's patch calls uart_shutdown() only if
+> tty_port_initialized(), as my v1 did. Sashiko's review of my v1 pointed
+> out that a console port removed while suspended is not initialized but
+> still has its suspended flag set and its transmit buffer allocated, and
+> uart_shutdown() would clear both. That needs the device to go away
+> between system suspend and resume, and I haven't found a way to test
+> it. If you want it covered I can send a patch on top of Igor's commit
+> that drops the tty_port_initialized() check.
 
-+1
+That would be nice, thank you.
 
-> > With the brightness key queries also
-> > running the \GTST copy, 283 of 891 _BST reads were broken without it
-> > and 0 of 804 with it.
->
-> Nice :)
-> >> I'm just thinking that if we're going to do this it would be nice to
-> >> cover the bko221065 UCSI case too.
-> >
-> > UCSI and _Qxx alone aren't enough there.  I emulated the ECMT users
-> > from the 83DR tables and the EC helpers kept waiting up to ~680 ms of
-> > their 1 s timeout behind GBMD/SBMC until the ideapad methods were
-> > exclusive too.
-> >
-> >> Note this is something which can be done on top of this set.
-> >
-> > I can send a series on top of this one for the EC queries, UCSI and
-> > ideapad if that sounds good.
->
-> That sounds great, thank you so much for looking into this.
-
-+1
-
-> We should probably ask the reporters of bko221065 to test
-> the 2 series combined and see if this finally closes that issue
-> for real.
-
-Yes, this sounds like a good idea.
+greg k-h
