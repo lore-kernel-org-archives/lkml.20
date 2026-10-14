@@ -1,93 +1,86 @@
-Received: from 4.mo576.mail-out.ovh.net (4.mo576.mail-out.ovh.net [46.105.42.102])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A4814718DD
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 20:06:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.105.42.102
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 811FF47140F;
+	Wed, 14 Oct 2026 20:10:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792008424; cv=none; b=mx0Hyyq2orQPrPG5dkfDHatTeKA4QkSZAAdQXyhvyOG6VXVKqnL7FoS2ldHcGC0Dvd4V9P7aMi0G6qen26F2TSijwRdld1zbxFeTjAtr9J/Z2AvyfZBKDge73HsiMeAT6OrW9yqc9G9AMolQ2nmooXhSlMU15XZHLdzDYQ30D6U=
+	t=1792008654; cv=none; b=Yx6DjEFiJAJ/yW+/PftlqsNVb4Csilq0kkm5jX9ogOjb+1vmbRsHDEAkwxIkcXDlPgAN1GJvC9hiH3SVBSbbe0m3L8o8//5Ns59m4FgdEIGNy9uTrLK6nLI2WIHVZBirRlRjw6mnR4N2CT7t86JSdmyqVFthj5jGoX06wBz550M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792008424; c=relaxed/simple;
-	bh=TYtYdXUsdW2Bgbj0of1rrpHBCaxBL/WJU5cUe8oRie0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uwrYyxNLNcIUN8MGe6jGnSRpVCG4Q+3T2XlwyD60PnSVibQif7W5iAHiDg2iBRaKZuWcReHJXFZtLEFSrPJq5nDJVTDhJm3Ml1PrPUQdcHNubNE149BPOcNe9gGrn35fm9FE6UiY61wBiy0TE5yism8+u1bjC8V6qrtimGxxp4M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sk2.org; spf=pass smtp.mailfrom=sk2.org; dkim=pass (2048-bit key) header.d=sk2.org header.i=@sk2.org header.b=JZGYR0wT; arc=none smtp.client-ip=46.105.42.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sk2.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sk2.org
+	s=arc-20240116; t=1792008654; c=relaxed/simple;
+	bh=98ixtdieNVSxLdi3j8zLKklQttSuSaHvek0k00xCMJY=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=blfb8xZLYJGinE9wA0yq1XW2O2hqzOqq3a2Wp9hd4HTmp6ci7uigFiP2v2ft0cQvwAF3K3nCQknEMRcsRxpCnKsiBlIZlGmiTKyyZgds2b6k5b1BEeVlD5fw++hL2SxxG197DNUxoqN4aJ0Bm4IEVKbtetAcQ8pxeIBO46roZUE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UQI676WI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sk2.org header.i=@sk2.org header.b="JZGYR0wT"
-Received: from director7.ghost.mail-out.ovh.net (unknown [10.110.43.246])
-	by mo576.mail-out.ovh.net (Postfix) with ESMTP id 4j4cBc0Pp9z5wgK
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:30:32 +0000 (UTC)
-Received: from ghost-submission-5474cd94dc-54jct (unknown [10.108.54.179])
-	by director7.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 7331AC00EC;
-	Wed, 14 Oct 2026 16:30:31 +0000 (UTC)
-Received: from sk2.org ([37.59.142.96])
-	by ghost-submission-5474cd94dc-54jct with ESMTPSA
-	id 4JDAECeuz2o+bwAArWaaig
-	(envelope-from <steve@sk2.org>); Wed, 14 Oct 2026 16:30:31 +0000
-Authentication-Results:garm.ovh; auth=pass (GARM-96R0019bfdabee-4663-4810-a2e9-75780c991234,
-                    58F39AC3C6885B12E77626CC8F19CB2AA97F92B4) smtp.auth=steve@sk2.org
-X-OVh-ClientIp:82.65.25.201
-From: Stephen Kitt <steve@sk2.org>
-To: "Theodore Ts'o" <tytso@mit.edu>,
-	Andreas Dilger <adilger.kernel@dilger.ca>
-Cc: Stephen Kitt <steve@sk2.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	linux-ext4@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] docs: ext4 filesystems can be converted to 64-bit
-Date: Wed, 14 Oct 2026 18:29:20 +0200
-Message-ID: <20261014162921.450235-1-steve@sk2.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UQI676WI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F9C31F000C4;
+	Wed, 14 Oct 2026 20:10:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792008653;
+	bh=BgEgQi7zMz79xeupwXBhijVhnT9szJ81zBDVyBsvSQg=;
+	h=Date:From:To:Cc:Subject:Reply-To;
+	b=UQI676WIjOWbQh8okbqBUrtWWcpPnrEo/MXH6IiFivwmnkeOKa97GOOQoGECvQcYd
+	 1DSTLe2ZzfCDrz7QxImMJFBn6PupmL9HALnUB7EBjRp8880AIdORftPpIhj1PMk7JT
+	 nZztub1hHGPK3PFkfzR6Rl3NKQ4mssy3aVC/FDIFwa8SEDZP98ouBRZ5/UKBJKfzW/
+	 fDTbR5pdxBtH0Sd4/ssrFkrBrheldtHPJZKVO6jHZWaKpUbPHhfWcvFq/kwMvTjGr/
+	 KKDwHj7JWMeRID07WDhNANkXR20Uh7hvLtd5UlAl54B0+O1sR18KQFEXgr5LZ17n9k
+	 QaRca2cCLbbIQ==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id CA991CE0C87; Wed, 14 Oct 2026 13:10:52 -0700 (PDT)
+Date: Wed, 14 Oct 2026 13:10:52 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: =?iso-8859-1?Q?Sebasti=E1n?= Peyrott <speyrott@gmail.com>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Mark Brown <broonie@kernel.org>, linux-next@vger.kernel.org
+Subject: [BUG] clamp() low limit 0 greater than high limit points[1] - 1
+Message-ID: <fda0e59f-20e1-4a94-a714-288940dcdd37@paulmck-laptop>
+Reply-To: paulmck@kernel.org
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-x-ovh-tracer-id: 12549280362310800188
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTE2ROnsvz6nYESn2a7zLbxr24oglCetlVnnSwmt8gG9OTrPLyD073GyTBAZ+3atAZgXrmc2O1v9yXD+aQMy1hAr+VWNKeu6ETP0OaaUG+XZ3UJUNRQcjKo8kT5xHebSskkbXXRgq4L1RXxs7DUWV5IoxU3ZD32mIDS/QeITQcwtn8/3U3Og1RVCytHCYe/xBNW8w+rpX7ETnOX2fBYgpReZPZfqgo27Oo2iw+NOQv7O1baWE6TAFBpfrLvSKyb5/Sxxb2T33U77Aks3UQq2fm+z2Ln/lAwUVAAJ92oYz2f9ZkYoiOXofO91WZdeS3y0C3I7UCzmb9ETqFLH2U7jKvRFDz6FsMDyQYRGfFuTHcvPX3cezbDUR2ShjLNnzq8HAahxSddAlhqUqUDiYh3vmZJ7dE5QBI4S2U1nH44vE/N/9cfS1l34aeO/kMdEfP72RaDOiMSAEEWZmvQRDU6tJpnFCOWP03edIRkC8pQ50YWmD+gTrmpIIgh/sDFUeBhDoidOqUR3eXM28DdNFIFDRE+RiTQN1tgeouztxZwlf97jxP6ZlJLi1LRzSzoDSu6dm3Wn/lIx0Q3RS3Zb8FqXUYuPM0Yf4/zDlCU6BqVKIB1LA+lX4FWwQUub9ze6oOHI1JxPNNcFBOk45Kqcw4GlTSAGgauIjxrEZf1MxJd0jdqdfA
-DKIM-Signature: a=rsa-sha256; bh=bMGDprWDfvd4xUWzv9mBDwkTiIxwCEOXyHkVqN5mtQE=;
- c=relaxed/relaxed; d=sk2.org; h=From; s=ovhmo304764-selector1;
- t=1791995432; v=1;
- b=JZGYR0wTGI0ehWgWaMs9Cmhu/DWAOk+xrOa8tejBOPFjE00Ff4/wFo3z3+PMJfEx1eSbVvy4
- gD7Uzm+aRkRWIrpjRrvAxJQkJ6+o4YaZnvI0B0EfzZ0geSf7faQih69MyDyJqIqm3s6sGpgJQ7V
- IKfVID+lgg92rNKDxB+immNrFWZ0lRhBZWZvSYzLGgj98I1BJXWHht9AKzP7bok3NxHVqX5yKQo
- rYxSmFkUGtMO3Q/f7EiT6/zLcOJZJ3SjdP98WEpskvb/Z3liAey0tauMpioHp4WNKop/zAgIvEi
- T9ikpDwyGdOPrh+y+XbwXsSru8Qg+e6FwYGKRG58LcHBQ==
 
-Since commit fe12931 ("resize2fs: convert fs to and from 64bit mode")
-in e2fsprogs, which shipped in version 1.43, resize2fs can convert
-filesystems from 32-bit to 64-bit and back, so the mention in the
-checksum documentation that this is impossible is obsolete. This fixes
-that.
+Hello!
 
-Signed-off-by: Stephen Kitt <steve@sk2.org>
----
- Documentation/filesystems/ext4/checksums.rst | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Recent -next trees have failed allmodconfig builds with the following
+build error:
 
-diff --git a/Documentation/filesystems/ext4/checksums.rst b/Documentation/filesystems/ext4/checksums.rst
-index e232749daf5f..51a2150a1bf8 100644
---- a/Documentation/filesystems/ext4/checksums.rst
-+++ b/Documentation/filesystems/ext4/checksums.rst
-@@ -10,9 +10,9 @@ of October 2012 the only supported algorithm is crc32c. Some data
- structures did not have space to fit a full 32-bit checksum, so only the
- lower 16 bits are stored. Enabling the 64bit feature increases the data
- structure size so that full 32-bit checksums can be stored for many data
--structures. However, existing 32-bit filesystems cannot be extended to
--enable 64bit mode, at least not without the experimental resize2fs
--patches to do so.
-+structures. ``resize2fs`` in ``e2fsprogs`` 1.43 or later can be used to
-+convert filesystems from 32-bit to 64-bit and back (using the ``-b``
-+and ``-s`` options).
- 
- Existing filesystems can have checksumming added by running
- ``tune2fs -O metadata_csum`` against the underlying device. If tune2fs
--- 
-2.56.0
+drivers/hwmon/minisforum-um780xtx.c: In function ‘um780xtx_sys_point_temp_store’:
+  HDRTEST usr/include/linux/hash_info.h
+././include/linux/compiler_types.h:702:45: error: call to ‘__compiletime_assert_727’ declared with attribute error: clamp() low limit 0 greater than high limit points[1] - 1
+  702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+      |                                             ^
+././include/linux/compiler_types.h:683:25: note: in definition of macro ‘__compiletime_assert’
+  683 |                         prefix ## suffix();                             \
+      |                         ^~~~~~
+././include/linux/compiler_types.h:702:9: note: in expansion of macro ‘_compiletime_assert’
+  702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+      |         ^~~~~~~~~~~~~~~~~~~
+./include/linux/build_bug.h:40:37: note: in expansion of macro ‘compiletime_assert’
+   40 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
+      |                                     ^~~~~~~~~~~~~~~~~~
+./include/linux/minmax.h:188:9: note: in expansion of macro ‘BUILD_BUG_ON_MSG’
+  188 |         BUILD_BUG_ON_MSG(statically_true(ulo > uhi),                            \
+      |         ^~~~~~~~~~~~~~~~
+./include/linux/minmax.h:195:9: note: in expansion of macro ‘__clamp_once’
+  195 |         __clamp_once(type, val, lo, hi, __UNIQUE_ID(v_), __UNIQUE_ID(l_), __UNIQUE_ID(h_))
+      |         ^~~~~~~~~~~~
+./include/linux/minmax.h:231:32: note: in expansion of macro ‘__careful_clamp’
+  231 | #define clamp_val(val, lo, hi) __careful_clamp(typeof(val), val, lo, hi)
+      |                                ^~~~~~~~~~~~~~~
+drivers/hwmon/minisforum-um780xtx.c:203:25: note: in expansion of macro ‘clamp_val’
+  203 |                 value = clamp_val(value, 0, points[1] - 1);
+      |                         ^~~~~~~~~
 
+I must confess to being unsure what fix would be appropriate when
+points[1] is zero or negative.
+
+Help?
+
+							Thanx, Paul
