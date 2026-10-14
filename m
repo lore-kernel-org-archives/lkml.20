@@ -1,76 +1,77 @@
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3DAC409136
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 03:46:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC8F2330B07
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 03:47:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791949597; cv=none; b=J60EXU2BOtZq8XjjDB+jx8JD6kuoIRxR10nGY3G9rL+FsTQddBxBggO4BJvEd/4SA0f5MXP/9HLZ5q3YtLkkcBMdVG6ebvMPIMYyuvC9Vyc2U9jp5XuMrMyqFWbvVvbIH1maA5r4/swt4Fh8FBV+66VaQ1fvYYfvpZeOSUpg200=
+	t=1791949643; cv=none; b=sLyqcA9co0/3qJpWDBvwqH140nU5ZRgwmtdwNcCxWmVarEmCMUJSraqCPkWjTLXToxk5TYfHdFlywQlF+IALqBud9hqT1NZQWWfHbHEMgFwP3dgmFs4KMJSEAbHxXg0AxgbFIGKCIUDG6GVizAJDCAzFV2ZtykbzeDoFNqh+P38=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791949597; c=relaxed/simple;
-	bh=2nQGm0SV0Z6NzDcRAYWzHyPW7ZSNwX8KBK/mssNbLlw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=DY0PWdpB9sIIRJtJfrrOr3oNjhiOG6IVrl/C3df3gNjakj3nKdS6CZjBXhRZ9oW6rjvj2cNIORo6rBraNwiit4GEDc7ls1ln5QNxAetP/JTd4DSJpfBysYne2NIdIdwUCrWDLZ9WGdqAb+V77zYT/c6HNvo9NHAWz+8h1jHwD8Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dcoKFfAC; arc=none smtp.client-ip=209.85.215.176
+	s=arc-20240116; t=1791949643; c=relaxed/simple;
+	bh=HS1wHWsDOr6aHX0hoYpK3rAOrYOi2Hl0QD71HWWO310=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=Pq90zl5Vqo25q0TTvD1luQflhQHd6ekbYIaEyj/i1ntfFOtXk7OAHDxJ1SY/Um3lpUQmN0uj/trtcBVf/G2wNsadc/pS8Ll1dDJwB0UVOv683klpYiwP3glyoF+bthvnIKoBq3D+cU+GYzb5krZTrwZ2O49/NEulytgukTv9Cu4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X6DJaF9n; arc=none smtp.client-ip=209.85.215.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dcoKFfAC"
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cd5d2dafeccso1421224a12.2
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 20:46:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X6DJaF9n"
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cd6028ff33fso1325580a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 20:47:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791949595; x=1792554395; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791949641; x=1792554441; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=OMsUnlH498VEzFDwKMOMwmbF5NXX7koG+hTNIxSkTzI=;
-        b=dcoKFfACy9eqRxwxJg59uLvlunGA5lvhsvvQszWgqo0gc34MmofZAaXNYO9sbk4azM
-         usKFkn6owTku3EhD9+YfAMne9D76RBontgCL3PvN1pXv+AJdD8zWmjg/mqpevG8XmZ3m
-         FfmvHeypluSur829cN41dvdwdZORLEjJ3oF+D25VDSOnZZac/ma2T2o6eC54OxVTp5ZP
-         p5SfOxuagpwx5If3kVHC4fzYsFmeybJSNQHASpgF2l/oRrykXsuCGFq8Fm3RSNJI2JBC
-         ZfhZKZ3ecfTcymwiJJexliFskJDIfrcH7ybnuy21sPaIBTdnll7ou7TZUUduiM3Ro/tz
-         xV5w==
+        bh=hg3Ib/3SZ5QgDJKkzlM/abstX2kfUMwhE6cPvMDLrDw=;
+        b=X6DJaF9nWEsn71527cRQxCyyjQH78bNPywvztZP9KnObx22NfvGFblmCv6lDLZEyUq
+         5as9hyZb8OTboiaW2YqGA7CLZTlZaij58ckPAA2FZhEpF4R9Q2LQYNKkGCqhB4iSbD69
+         wGMk16L37TwEH6ihrGSgQ1WrMWKwP/qVJpsHmVJYMZlVuOrqYiJZ3R5+hF4Nhn3xWAlP
+         3V0SMhCMbRhK636SD5FmlL0/mB3+etJBjaTX2t5o1YgoPLZkwTLIfwU/9RgGRzoO+72U
+         KIeclRceaKlgq6ZLu8526/KAna6GJulGBPA5Sr8S8o5tHYkeae4+v5fOYIyQaWlhWuUZ
+         71jw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791949595; x=1792554395;
+        d=1e100.net; s=20260707; t=1791949641; x=1792554441;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=OMsUnlH498VEzFDwKMOMwmbF5NXX7koG+hTNIxSkTzI=;
-        b=R8amFnDIzbM+pQUFmbKc3YkIeVjaoQRWlnwG7nm7MTCRHvpXPYfIZXx5m2f0W/FKaU
-         tmwSqHN6Uj9ALdX5NrnTF+z7xVEInt1d3PYoHbeeYK3+0ND3QzKecP8pkVrlIwVIy4oA
-         lRuykpb5EloZyr4LHNtdOS/hUO79hVCSn5N/5telxmoMf6Ade4o6V0ZdAByzMnB22YIJ
-         AMqBoi1YrXAQq7KFsyM94wE8+at1RR8z8813y/yhVDVNckXXt7TMXvIzMRrhfonRZIA1
-         im321wA7tEUnUoZsl3Ps5Rk6i7fMEsl+CjJRl53g1uF/RkwiXHsmi+8T0mBJWmorWv34
-         NYsQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzcPLOVeRSB2xct0BwDsbvSYLN9n1cuBFze6fnGx8dYXX2ZUfelpleQ0aMlKsJwFmyZKBTSji5M6FGa31A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKP8KwdqJTxFyyx3xA8EmdF8dNbC6JN3BLodvPkQN+vGHEnKByO
-	t0ReJmi1vSrMYHpBn8npPVMlJQ12SpD05bgHJqxGgY2QLQD9tzCdfw6eQ71VVarj
-X-Gm-Gg: AYBFou3+i6lBUHSQFZ++STQDGMWeuw6EaY7dn6/V+uHiPchyEwrCiLRNVrI6YeN1f+/
-	Bnxzqn9XAN+Fxjn6IO5mKgatpL/J0dYwPFAjitEMniOCKLK1YbP+hQB1tBKreKMHbPC/ZDN7zVh
-	yQ5XoSeA9FjWYetbtc/hXAE25juqcKOeNRQoAKCqsNvMOXG+kBiFjVf4BF9AzgfSJ9WZk3NPeaE
-	Zl/JSRpfB5H1/4TetzBC4gQvU1lffTMvkFPMmcjDG9pEe6yxdpFdggakAdCsnIq14sjGAu34WjC
-	bqfoABMJVYi/H/9fpjS/GB5hAO9yw1TEloxG5sBY6xuNlNvHsZPdzk4JzvKK0HbRwczxsbppTdr
-	tPMbRBoIkKUZyd9nTFNoCH3Dr01I3vf3MHLoULP6ZGMfteUC/5vpQO+6CGKfUtGapFQZCQCVmGy
-	CkzRZTQI8Gl8a0pTG6TZdnWDztEhYCyGbJ2dLfrxAqZipiqhecw3sTOyI7vgdRMyy3nw==
-X-Received: by 2002:a17:90b:1a82:b0:39d:f08e:e6e7 with SMTP id 98e67ed59e1d1-3ab3a35a068mr12230516a91.9.1791949594986;
-        Tue, 13 Oct 2026 20:46:34 -0700 (PDT)
+        bh=hg3Ib/3SZ5QgDJKkzlM/abstX2kfUMwhE6cPvMDLrDw=;
+        b=h/g6/tQKGb94JeovVQyqzy3J1LO4PV2FUmd/sXs2JkeHKo/PNTId+w4YagFeK8r3J9
+         eY1tLmXF86eHpasA2KGhMccvxzaJNzFQNAHV9Ydv8tVI8wbt9Q011hGaeCoNJlTtV+Az
+         lHlUEYJuRbdUeRTmskM9WOvX9QBFzKPbt/jAVg3vxiAJQbuQtK/etBNhuPxPcYyqNCn8
+         USX/ndrmvBZtWc54JETYXpdaq8Y4Zq4hYhSQv0ea7q3tqnLAIWPIpo3JtlyOGcirdZ0j
+         EPU+mgdhmOdmJz2mzoXPJ7gYVvGfkK9I971afNVUDifXE/idt5u3ofnurABRrP05Er9k
+         dszA==
+X-Forwarded-Encrypted: i=1; AKwUvByGolF9zC0Pgzquv98Rz1oTK/QJh8dH+iWMeBexdn9UahG/dK5mpLOxndAh5Umapo8IuEewlb1cDhq3noA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIDhITE6cljYJwR05gXKQEfwZJE+cbbOLvp44CijXWn0DdJ9/Lp
+	jZCt2CZQjkXZ0fOO7KECGbi8tpE3QJsSejfvAC7FKm6pVC1hEw0gVOPr
+X-Gm-Gg: AYBFou2/HLvll158cm4i8uoJ3U6oWCJqvPdRiikD2YD41DFvjFAzFRy8YooGjLd5OiZ
+	1A89MCaOU4ZQ75IHcHWZzKe5xOENBig86GEp8mEL4bLxvByx0YWXoYZGYfnK5FbrOr2YaVEtE+/
+	DAc8/N+cMUxTBmJJZmglWFaeGT9ePp6HtsCl+Uk26tyvy47MShxL9tjU0KfEItdiv0CVLGfo1BM
+	+GWzYuO2u4sJM8B0M4vwkXEvsrX4CQBHWoyCdyhctHwtxs1tr7FK/5t1/hzHn/n4s53l72M3cVu
+	grtIe2EogugoHVccvMOJDQc/feNMvUz0VXWj3+XpxDiUmHBfUYBLCAMwYjk3uS+aw3/Wy3GfMyY
+	6NWZeNeOY9854vfVViLJCWrD3lR4iH9LMxyGKOr0LBnP3ESFQs9+LXnaWv7b9GhJbwmmc2IBRHB
+	8JuQSyh7FiBwa4Iwyl6V8A80KNjL8nZlBU3EHIUo0VFqBNGxPtSackRLKhxQNw39+nNQ==
+X-Received: by 2002:a17:90b:1e49:b0:3ab:e588:c29a with SMTP id 98e67ed59e1d1-3abe588faf0mr7144466a91.6.1791949641023;
+        Tue, 13 Oct 2026 20:47:21 -0700 (PDT)
 Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac5f05083fsm2532188a91.1.2026.10.13.20.46.30
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac5f24af99sm2423518a91.8.2026.10.13.20.47.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 20:46:34 -0700 (PDT)
+        Tue, 13 Oct 2026 20:47:20 -0700 (PDT)
 From: Cen Zhang <zzzccc427@gmail.com>
 To: mark@fasheh.com,
 	jlbec@evilplan.org,
 	joseph.qi@linux.alibaba.com,
-	heming.zhao@suse.com
+	heming.zhao@suse.com,
+	tao.ma@oracle.com
 Cc: ocfs2-devel@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	baijiaju1990@gmail.com,
 	jjzuming@gmail.com,
 	zzzccc427@gmail.com
-Subject: [PATCH] ocfs2: dlmfs: Hold l_lock through the unlock wakeup
-Date: Wed, 14 Oct 2026 11:46:27 +0800
-Message-Id: <pm-ocfs2-objects-candidate-0055-v4-c1574edc9949e3a22edf@gmail.com>
+Subject: [PATCH] ocfs2: Pin refcount trees before dropping the lookup lock
+Date: Wed, 14 Oct 2026 11:47:15 +0800
+Message-Id: <pm-ocfs2-objects-candidate-0037-v4-9f1a261dfbc341721689@gmail.com>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -81,164 +82,212 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The user_lock_res embedded in a DLMFS inode must remain alive until the
-final unlock AST finishes accessing it. user_unlock_ast() clears
-USER_LOCK_BUSY under l_lock, but releases that lock before calling
-wake_up() on the embedded l_event. user_dlm_destroy_lock() waits only
-for BUSY to clear, so it can return before the callback's last access.
+A refcount tree returned to ocfs2_lock_refcount_tree() must stay alive
+until that caller releases its operation reference. However,
+ocfs2_get_refcount_tree() returns the cached pointer after dropping
+osb_lock, and the caller only takes its kref afterwards. The registry
+reference does not protect this gap from concurrent removal.
 
-With the native userspace stack, fs/dlm dispatches the unlock AST
-asynchronously. Unlinking an attached lock with no remaining local
-holders can therefore reach the following order while the parent domain
-stays mounted:
+This can happen when another node frees a refcount root and reuses its
+block with a different generation while this mount retains the old
+cached tree. Two local operations on different inodes sharing the new
+root, such as data CoW and an external xattr update, can then look up
+the same stale tree. Their inode locks are independent, and both the
+REFCOUNT DLM lock and rf_sem are acquired after the first operation
+reference.
 
-  Unlink and inode release          Native unlock AST
-  ------------------------          -----------------
-  submit final unlock
-                                    clear BUSY under l_lock
-                                    release l_lock
-                                    delay before wake_up()
-  observe BUSY clear under l_lock
-  return from the destroy wait
-  unlink and evict the child
-  RCU callback frees the inode
-                                    wake_up(&lockres->l_event)
+The following ordering is possible, with no other operation references:
 
-The initial condition check in wait_event() can succeed without joining
-the waitqueue. The callback holds no inode reference, and keeping the
-parent domain alive avoids disconnect draining the callback workqueue.
-The delayed wakeup then accesses freed inode storage, causing a
-use-after-free in waitqueue locking.
+  Data CoW                         Xattr update
+  --------                         ------------
+  Look up the old tree under
+    osb_lock, then drop osb_lock
+                                   Look up the same tree and take a kref
+                                   Acquire the tree locks and read the
+                                     new on-disk generation
+                                   Erase the old tree under osb_lock
+                                   Unlock and drop the operation kref
+                                   Drop the registry kref, freeing tree
+  Take a kref through the
+    freed tree pointer
 
-Keep l_lock held through wake_up(), as ocfs2_unlock_ast() already does.
-user_check_wait_flag() takes the same lock, so teardown cannot observe
-the cleared BUSY flag until the wakeup has finished. The callback and
-its wrappers do not access the lock resource after this final unlock.
-The waitqueue lock is released before wait_event() tests BUSY, so
-extending the critical section does not invert their lock order.
+The final kref_get() accesses freed rf_getcnt storage, and subsequent
+accesses in ocfs2_lock_refcount_tree() also use the freed allocation.
+
+Take the operation reference in ocfs2_get_refcount_tree() before
+releasing osb_lock, including when an insertion loses to another lookup.
+Removal must acquire the same lock, so it cannot drop the registry
+reference before the lookup has pinned the tree. Keep the existing
+unlock and error path puts. The two callers that already hold the
+refcount tree lock keep their borrowed lookup behavior and do not
+acquire an extra reference.
 
 KASAN report as below:
 
-    BUG: KASAN: slab-use-after-free in _raw_spin_lock_irqsave+0x3d/0x60
-    Read of size 1 at addr ffff888117dc93c0 by task kworker/u17:0/871
+    BUG: KASAN: slab-use-after-free in ocfs2_lock_refcount_tree+0x94a/0x9b0
+    Read of size 4 at addr ffff888117212820 by task python3/497
 
-    CPU: 2 UID: 0 PID: 871 Comm: kworker/u17:0 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy)
-    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-    Workqueue: dlm_callback dlm_callback_work
+[Kernel and hardware identification omitted.]
+
     Call Trace:
      <TASK>
      dump_stack_lvl+0x93/0xd0
      print_report+0xce/0x630
-     ? _raw_spin_lock_irqsave+0x3d/0x60
+     ? ocfs2_lock_refcount_tree+0x94a/0x9b0
      ? srso_alias_return_thunk+0x5/0xfbef5
      ? __virt_addr_valid+0x20e/0x420
-     ? _raw_spin_lock_irqsave+0x3d/0x60
+     ? ocfs2_lock_refcount_tree+0x94a/0x9b0
      kasan_report+0xe0/0x110
-     ? _raw_spin_lock_irqsave+0x3d/0x60
-     ? _raw_spin_lock_irqsave+0x3d/0x60
-     __kasan_check_byte+0x36/0x50
-     lock_acquire+0x113/0x300
-     ? __pfx_pmbd_probe_hit_cookie+0x10/0x10
-     ? pmbd_probe_hit_cookie+0xee/0x1c0
-     _raw_spin_lock_irqsave+0x3d/0x60
-     ? __wake_up_common_lock+0x27/0xb0
-     __wake_up_common_lock+0x27/0xb0
-     user_unlock_ast+0x21a/0x490
-     ? __pfx_user_unlock_ast+0x10/0x10
+     ? ocfs2_lock_refcount_tree+0x94a/0x9b0
+     ocfs2_lock_refcount_tree+0x94a/0x9b0
+     ? __pfx_ocfs2_lock_refcount_tree+0x10/0x10
      ? srso_alias_return_thunk+0x5/0xfbef5
-     ? process_one_work+0x7c8/0x1b40
-     fsdlm_lock_ast_wrapper+0xf2/0x130
-     dlm_do_callback+0x2e9/0x6c0
-     ? __pfx_fsdlm_lock_ast_wrapper+0x10/0x10
-     process_one_work+0x9a8/0x1b40
-     ? __pfx_process_one_work+0x10/0x10
+     ? ocfs2_refcount_cow+0x3b6/0xd90
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __kmalloc_cache_noprof+0x28d/0x610
+     ? ocfs2_refcount_cow+0x3b6/0xd90
+     ocfs2_refcount_cow+0x410/0xd90
+     ? __pfx_ocfs2_refcount_cow+0x10/0x10
+     ? __pfx___might_resched+0x10/0x10
+     ? down_write+0x11a/0x1f0
+     ? __pfx_down_write+0x10/0x10
+     ? ocfs2_inode_unlock+0x1a9/0x260
+     ? __pfx_ocfs2_inode_unlock+0x10/0x10
+     ? ocfs2_file_write_iter+0x1413/0x1d30
+     ocfs2_file_write_iter+0x157b/0x1d30
+     ? __pfx_ocfs2_file_write_iter+0x10/0x10
      ? lock_acquire+0x190/0x300
+     ? __x64_sys_pwrite64+0x1b7/0x220
+     ? __pfx___might_resched+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? security_file_permission+0x26/0x80
+     ? srso_alias_return_thunk+0x5/0xfbef5
      ? lock_is_held_type+0x8f/0x100
+     vfs_write+0x639/0x1010
+     ? __pfx_ocfs2_file_write_iter+0x10/0x10
+     ? lock_vma_under_rcu+0x154/0x4a0
+     ? __pfx_vfs_write+0x10/0x10
+     ? lock_release+0x121/0x290
      ? srso_alias_return_thunk+0x5/0xfbef5
-     worker_thread+0x65c/0xe40
-     ? __pfx_worker_thread+0x10/0x10
-     kthread+0x351/0x460
+     __x64_sys_pwrite64+0x1b7/0x220
+     ? __pfx___x64_sys_pwrite64+0x10/0x10
+     ? irqentry_exit+0xbe/0x820
      ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork+0x659/0x940
-     ? __pfx_ret_from_fork+0x10/0x10
+     ? trace_hardirqs_on_prepare+0x11d/0x150
      ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __switch_to+0x74f/0xf70
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork_asm+0x1a/0x30
-     </TASK>
-
-    Allocated by task 492:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     __kasan_slab_alloc+0x89/0x90
-     kmem_cache_alloc_lru_noprof+0x205/0x5c0
-     dlmfs_alloc_inode+0x2a/0x50
-     alloc_inode+0x69/0x230
-     new_inode+0x23/0x1a0
-     dlmfs_get_inode+0x47/0x2d0
-     dlmfs_create+0x18f/0x2f0
-     lookup_open+0x88f/0x13e0
-     path_openat+0x95e/0x2020
-     do_file_open+0x21e/0x470
-     do_sys_openat2+0xf4/0x1b0
-     __x64_sys_openat+0x136/0x1e0
      do_syscall_64+0x114/0x620
      entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-    Freed by task 0:
+[Register dump omitted.]
+
+     </TASK>
+
+    Allocated by task 491:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     __kasan_kmalloc+0xaa/0xb0
+     __kmalloc_cache_noprof+0x28d/0x610
+     ocfs2_allocate_refcount_tree+0x49/0x1a0
+     ocfs2_create_refcount_tree+0x5d7/0x1630
+     ocfs2_attach_refcount_tree+0x57d/0x1100
+     __ocfs2_reflink.isra.0+0x1c4/0x1940
+     ocfs2_reflink+0x501/0x9b0
+     ocfs2_reflink_ioctl+0x6b2/0x920
+     ocfs2_ioctl+0x538/0x640
+     __x64_sys_ioctl+0x163/0x1d0
+     do_syscall_64+0x114/0x620
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+    Freed by task 498:
      kasan_save_stack+0x33/0x60
      kasan_save_track+0x14/0x30
      kasan_save_free_info+0x3b/0x60
      __kasan_slab_free+0x5f/0x80
-     kmem_cache_free+0x242/0x580
-     dlmfs_free_inode+0x25/0x60
-     i_callback+0x4b/0x80
-     rcu_core+0x6be/0x1ed0
-     handle_softirqs+0x1fa/0x8d0
-     __irq_exit_rcu+0x113/0x1e0
-     irq_exit_rcu+0xe/0x20
-     sysvec_apic_timer_interrupt+0x6c/0x80
-     asm_sysvec_apic_timer_interrupt+0x1a/0x20
-
-    Last potentially related work creation:
-     kasan_save_stack+0x33/0x60
-     kasan_record_aux_stack+0xa7/0xc0
-     __call_rcu_common.constprop.0+0x80/0x280
-     destroy_inode+0x131/0x1b0
-     evict+0x543/0x9f0
-     iput+0x680/0xb80
-     filename_unlinkat+0x36d/0x660
-     __x64_sys_unlinkat+0xb0/0x110
+     kfree+0x308/0x580
+     ocfs2_lock_refcount_tree+0x672/0x9b0
+     ocfs2_xattr_set+0x72c/0x2530
+     ocfs2_xattr_user_set+0xaf/0xf0
+     __vfs_setxattr+0x143/0x1b0
+     __vfs_setxattr_noperm+0x112/0x5b0
+     __vfs_setxattr_locked+0xfe/0x2b0
+     vfs_setxattr+0x13c/0x370
+     do_setxattr+0x128/0x170
+     filename_setxattr+0x147/0x190
+     path_setxattrat+0x1ac/0x260
+     __x64_sys_setxattr+0xcb/0x140
      do_syscall_64+0x114/0x620
      entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-    The buggy address belongs to the object at ffff888117dc92c0
-     which belongs to the cache dlmfs_inode_cache of size 1464
-    The buggy address is located 256 bytes inside of
-     freed 1464-byte region [ffff888117dc92c0, ffff888117dc9878)
+    The buggy address belongs to the object at ffff888117212800
+     which belongs to the cache kmalloc-1k of size 1024
+    The buggy address is located 32 bytes inside of
+     freed 1024-byte region [ffff888117212800, ffff888117212c00)
 
-[Physical-page and shadow-memory dumps omitted.]
+[Page and memory dumps omitted.]
 
-Fixes: cbe0e331fdbd ("ocfs2_dlmfs: Enable the use of user cluster stacks.")
+Fixes: 374a263e790c ("ocfs2: Add refcount tree lock mechanism.")
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 Assisted-by: LLM
 
 ---
-diff --git a/fs/ocfs2/dlmfs/userdlm.c b/fs/ocfs2/dlmfs/userdlm.c
-index 617c92e7b925..60653db7b411 100644
---- a/fs/ocfs2/dlmfs/userdlm.c
-+++ b/fs/ocfs2/dlmfs/userdlm.c
-@@ -253,9 +253,9 @@ static void user_unlock_ast(struct ocfs2_dlm_lksb *lksb, int status)
- 
- 	lockres->l_flags &= ~USER_LOCK_BUSY;
- out_noclear:
--	spin_unlock(&lockres->l_lock);
--
-+	/* Complete the wakeup before a BUSY waiter can free lockres. */
- 	wake_up(&lockres->l_event);
-+	spin_unlock(&lockres->l_lock);
+diff --git a/fs/ocfs2/refcounttree.c b/fs/ocfs2/refcounttree.c
+index 3e9cccf06e48..4f13b5a6faa7 100644
+--- a/fs/ocfs2/refcounttree.c
++++ b/fs/ocfs2/refcounttree.c
+@@ -375,8 +375,10 @@ ocfs2_allocate_refcount_tree(struct ocfs2_super *osb, u64 rf_blkno)
+ 	return new;
  }
  
- /*
++/* Callers without the refcount tree lock must request a reference. */
+ static int ocfs2_get_refcount_tree(struct ocfs2_super *osb, u64 rf_blkno,
+-				   struct ocfs2_refcount_tree **ret_tree)
++				   struct ocfs2_refcount_tree **ret_tree,
++				   bool get_ref)
+ {
+ 	int ret = 0;
+ 	struct ocfs2_refcount_tree *tree, *new = NULL;
+@@ -433,6 +435,8 @@ static int ocfs2_get_refcount_tree(struct ocfs2_super *osb, u64 rf_blkno,
+ 	new = NULL;
+ 
+ out:
++	if (get_ref)
++		ocfs2_refcount_tree_get(tree);
+ 	*ret_tree = tree;
+ 
+ 	osb->osb_ref_tree_lru = tree;
+@@ -506,14 +510,12 @@ int ocfs2_lock_refcount_tree(struct ocfs2_super *osb,
+ 	struct ocfs2_refcount_block *rb;
+ 
+ again:
+-	ret = ocfs2_get_refcount_tree(osb, ref_blkno, &tree);
++	ret = ocfs2_get_refcount_tree(osb, ref_blkno, &tree, true);
+ 	if (ret) {
+ 		mlog_errno(ret);
+ 		return ret;
+ 	}
+ 
+-	ocfs2_refcount_tree_get(tree);
+-
+ 	ret = __ocfs2_lock_refcount_tree(osb, tree, rw);
+ 	if (ret) {
+ 		mlog_errno(ret);
+@@ -2355,7 +2357,8 @@ int ocfs2_decrease_refcount(struct inode *inode,
+ 		goto out;
+ 	}
+ 
+-	ret = ocfs2_get_refcount_tree(OCFS2_SB(inode->i_sb), ref_blkno, &tree);
++	ret = ocfs2_get_refcount_tree(OCFS2_SB(inode->i_sb), ref_blkno,
++				      &tree, false);
+ 	if (ret) {
+ 		mlog_errno(ret);
+ 		goto out;
+@@ -2590,7 +2593,7 @@ int ocfs2_prepare_refcount_change_for_del(struct inode *inode,
+ 	BUG_ON(!ocfs2_is_refcount_inode(inode));
+ 
+ 	ret = ocfs2_get_refcount_tree(OCFS2_SB(inode->i_sb),
+-				      refcount_loc, &tree);
++				      refcount_loc, &tree, false);
+ 	if (ret) {
+ 		mlog_errno(ret);
+ 		goto out;
