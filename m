@@ -1,96 +1,92 @@
-Received: from mx1.secunet.com (mx1.secunet.com [62.96.220.36])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D05723002AB;
-	Wed, 14 Oct 2026 07:38:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.96.220.36
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACF8D48AE16
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:39:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791963508; cv=none; b=utjU2a1bUc6jtj5ieV8D9GFvttbGkMx+PWVL2P4X56i8eJ2TLAehInP04FRpzgylr/b8EmbfMbKF5ati7p5J2w24jHoMcZDpwOXcxeIkXPi7qRI5W6pdchR7FotqwyvE8trcR8gqu8W5F+x/IMl4zHFsVVF4ho4GfAzhevi6PqM=
+	t=1791963557; cv=none; b=rE6o/Uwq3nFn3AXN07l2y0ZM6ye4s2I+EBw51XF7DI55KvLrYp57vQK3T+7qeCvLPaEf9byEPmKaMf2sU/2Xpj/b1rik4KknM3gBzZz3/CMLM+u0cpT6RjPqPJy4mQEI9KEnQXLuzfo/Tq7J2nP2RqguWysXD7Ywl8w8AvBXNow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791963508; c=relaxed/simple;
-	bh=vj1fm0p62yUErMUNpojScfEgVw4chzyYOjGeEZckTTE=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oyFjWt4GOmpZ9QtM7Ov/EWJowZ5urpkPMBDbTvzvIwGX/nDewN0qkbEfK0qwBtzmchmLJBTP43YWF6lRL0FrI/kTRMl0vQ3uvUROSgm+S7LGfPBSXmpVHIMTw+RjZvp0qxxdG1zCO/TuJUBlnZ4b7p9grhZHM/UOr+8iO4O7ipQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=secunet.com; spf=pass smtp.mailfrom=secunet.com; dkim=pass (2048-bit key) header.d=secunet.com header.i=@secunet.com header.b=MpXUWcIW; arc=none smtp.client-ip=62.96.220.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=secunet.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=secunet.com
+	s=arc-20240116; t=1791963557; c=relaxed/simple;
+	bh=OGqY9OeuSuI0aEthSsiU7JsrWFGKoAcXGOm0ksXcQTg=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IWoYbjek+8mfBa0jrJx5faVeqoNfOS6p+2ThprnDM+JwNHbfdDfx48y0YDYoOGzyfoj3QnjKwuk3QyK+npbobEB2n8Hm4lBei29PNZeGysoJf7jQQKWBvxhZYTj5RnKF9wj87oPI2Km5eT+nuksQItEeSIRiTJtQhiozbm6XhmM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WqRkRRom; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=secunet.com header.i=@secunet.com header.b="MpXUWcIW"
-Received: from localhost (localhost [127.0.0.1])
-	by mx1.secunet.com (Postfix) with ESMTP id 3A47920743;
-	Wed, 14 Oct 2026 09:38:16 +0200 (CEST)
-X-Virus-Scanned: by secunet
-Received: from mx1.secunet.com ([127.0.0.1])
- by localhost (mx1.secunet.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id PG0rncvwrFvd; Wed, 14 Oct 2026 09:38:15 +0200 (CEST)
-Received: from EXCH-01.secunet.de (rl1.secunet.de [10.32.0.231])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mx1.secunet.com (Postfix) with ESMTPS id 8A7DF201C7;
-	Wed, 14 Oct 2026 09:38:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.secunet.com 8A7DF201C7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secunet.com;
-	s=202301; t=1791963495;
-	bh=1jnFWsYQSFZML/4PrDpytW5QHfSmkatmYDGHzSZn6B4=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:From;
-	b=MpXUWcIWUWFnRlFfAHm2p+pOR3enzkwbpPW1WYudZ2KINEf/j5LnHHoULnMph/PHp
-	 xBXbIh4+WLNA9KleJNqxgy9M/Pr4IUFxgdgZBm8XM+Va1skrUc+7W2xHAwSznynAwv
-	 6nfkaAa28D9RK+wSMKEfLK7Y+wTdyUDUUHN8qi+PEsn7SqGVQV89YnYMKH493rOZgI
-	 l9blCOCQKJIC4vbTrK6Owem6OEdHknlKw78FJvaxpVshFgS7yTogJTmWcHP+ce7Ig1
-	 1YW2lPayDozLQfSOTIj1Ku08BfCfWAvGe3psA5zXLwUx+rc2iaBwhqPE8FEF7uFg2+
-	 hODYHNpHA/nFA==
-Received: from secunet.com (10.182.7.193) by EXCH-01.secunet.de (10.32.0.171)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 14 Oct
- 2026 09:38:14 +0200
-Received: (nullmailer pid 1274379 invoked by uid 1000);
-	Wed, 14 Oct 2026 07:38:13 -0000
-Date: Wed, 14 Oct 2026 09:38:13 +0200
-From: Steffen Klassert <steffen.klassert@secunet.com>
-To: Shubham Antil <shubham@octane.security>
-CC: <netdev@vger.kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>, "David
- S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
- Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
-	<horms@kernel.org>, <linux-kernel@vger.kernel.org>, Giovanni Vignone
-	<gio@octane.security>
-Subject: Re: [PATCH ipsec v2] xfrm: zero-initialise km_event in the
- replay-notify path
-Message-ID: <as8xZWxejylzr4lx@secunet.com>
-References: <20261007075807.70009-1-shubham@octane.security>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WqRkRRom"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6053D1F0089D
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:39:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791963555;
+	bh=OGqY9OeuSuI0aEthSsiU7JsrWFGKoAcXGOm0ksXcQTg=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=WqRkRRomO92WDiOUWic+S1zHuVNhXsWSqhTlNhkdarMyTWSgdXSEKVpoFMKUT4usk
+	 XUv8PpKBAUMM6AJl2xktCaqgYC12xkTJQvFn2v1THERUM0W2tXYkba4Lj55kBYj+Ac
+	 5C87fGKNhL860wPdWdqDtVbLoFUeD6toPIMc+3HvWKQ7FLIYZ/mT3jF4egkVCKG0QG
+	 WJ5YQV/oeau4uugnNfeKQz+6SSDba1pMWUsneUuVr1skiU3ju4hzL204tnmnoRmMli
+	 oP7bX8upeOJAIr0OXqet5ynKIT3t3G5P5h3DXO0ebIzteQGtw+Havul+HG0PZwtiN7
+	 TCW9BfnBWh49Q==
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5bcb1f1358aso2612581e87.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 00:39:15 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBy2+AqEoKta3oJdKusdfe1n7z9jrX8SnKlx++X766/6CrIsP/1fwxGFYDPyRbdgTGmX+dM656PCCxjcXhQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKZsDdvY0kN+9TJF6SvDEKX87JIwNa+DdTU6bGUBNk9C0ITw0I7
+	CX9g4b+tL1yR01iAXEOJ/1+BIuymzaD5LX2f22YV9dmGMTjKwvO2wmqSjGa1TupThpRN70vEEb9
+	nisG5TrLRkgWqy2mIEu1111CqBXETTbooG410Ohsg7w==
+X-Received: by 2002:a05:6512:401e:b0:5b8:ef11:922d with SMTP id
+ 2adb3069b0e04-5bcde6cae88mr4673476e87.39.1791963554104; Wed, 14 Oct 2026
+ 00:39:14 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 14 Oct 2026 00:39:12 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 14 Oct 2026 00:39:12 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <5e221ba3-fea2-4663-80a9-94fdd5135e89@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261007075807.70009-1-shubham@octane.security>
-X-ClientProxiedBy: EXCH-03.secunet.de (10.32.0.183) To EXCH-01.secunet.de
- (10.32.0.171)
+References: <20261013-qce-fix-self-tests-v10-0-57162a38a554@oss.qualcomm.com>
+ <20261013-qce-fix-self-tests-v10-14-57162a38a554@oss.qualcomm.com> <5e221ba3-fea2-4663-80a9-94fdd5135e89@kernel.org>
+Date: Wed, 14 Oct 2026 00:39:12 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MdqwrTGVtnZuVUsn8onTMxxhbysVfUPtmABL2a1Avd2_A@mail.gmail.com>
+X-Gm-Features: AclHuK_y_qSg5r7k-9srjbMx_1U4_7rx7a-kKL338uumbIkGOujVoeMBFDNQ3IU
+Message-ID: <CAMRc=MdqwrTGVtnZuVUsn8onTMxxhbysVfUPtmABL2a1Avd2_A@mail.gmail.com>
+Subject: Re: [PATCH v10 14/14] arm: multi_v7_defconfig: enable the Qualcomm
+ Crypto Engine core driver
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, brgl@kernel.org, 
+	linux-arm-kernel@lists.infradead.org, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Pankaj Patil <pankaj.patil@oss.qualcomm.com>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Thara Gopinath <thara.gopinath@gmail.com>, Herbert Xu <herbert@gondor.apana.org.au>, 
+	"David S. Miller" <davem@davemloft.net>, Stanimir Varbanov <svarbanov@mm-sol.com>, 
+	Eneas U de Queiroz <cotequeiroz@gmail.com>, Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>, 
+	Eric Biggers <ebiggers@kernel.org>, Demi Marie Obenour <demiobenour@gmail.com>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Russell King <linux@armlinux.org.uk>, Abel Vesa <abelvesa@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Oct 07, 2026 at 01:28:07PM +0530, Shubham Antil wrote:
-> xfrm_replay_notify(), xfrm_replay_notify_bmp() and
-> xfrm_replay_notify_esn() declare a struct km_event on the stack and
-> initialise only its .event and .data.aevent fields, leaving .seq and
-> .portid uninitialised. build_aevent() then builds the XFRM_MSG_NEWAE
-> message with those fields:
-> 
->   nlmsg_put(skb, c->portid, c->seq, ...)
-> 
-> so the netlink header of a replay event carries uninitialised stack
-> values rather than defined ones. This was confirmed at runtime rather
-> than by inspection alone: the .seq and .portid carried in that header
-> hold values that nothing in the replay path assigns.
-> 
-> The request-driven paths set these header fields from the requester
-> (xfrm_get_ae() / xfrm_new_ae()); only the kernel-originated replay path
-> leaves them unset. Zero-initialise the event so the header fields are 0,
-> the correct value for a kernel-originated notification.
-> 
-> Fixes: f8cd54884e67 ("[IPSEC]: Sync series - core changes")
-> Reported-by: Giovanni Vignone <gio@octane.security>
-> Assisted-by: Claude:claude-opus-4-8
-> Signed-off-by: Shubham Antil <shubham@octane.security>
+On Wed, 14 Oct 2026 08:19:23 +0200, Krzysztof Kozlowski <krzk@kernel.org> said:
+> On 13/10/2026 11:57, Bartosz Golaszewski wrote:
+>> The QCE core driver should be enabled by default as it binds to the qce
+>> device node and scales down the interconnects if no child auxiliary
+>> driver is using the IP. Add it to the multi_v7_defconfig. Disable the
+>> crypto part of the driver by default.
+>
+> Missing use case/hardware (see maintainer profile).
+>
+>>
+>> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>> Tested-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+>> Tested-by: Pankaj Patil <pankaj.patil@oss.qualcomm.com>
+>
+> Drop fake tests. You cannot execute defconfig on the device.
+>
 
-Patch applied, thanks a lot!
+Ah, dang it. Sorry, didn't verify b4's actions.
+
+Bart
