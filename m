@@ -1,92 +1,97 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 20A725304BC;
-	Wed, 14 Oct 2026 15:23:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E29155293F
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:24:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791991408; cv=none; b=AK6IMgLSj1jYya+g41D6shXH+CpRdnVUg3rDKzNryQcgUy/uXP7zFhlQi3FOvLJVyW5p6JnedxSG9SVdbzpCnT6YdvOC7jH20+gTwlZGuOTNyxR1qXqZSq74R2jwX+uJZ6yCyiBg66S136pYDBA1rxg+Ti7dPB3TDlRAGWW9TKc=
+	t=1791991462; cv=none; b=U4BA+niBPOWjZCT6ZrtvoWutkTVJjUkO+8v/CUKrc1xRfI6i6cCbBvmPuYAuvmbwcDfdks5W/zmjrW7G8S3PoVBu2E2ENWL8UDrMqMeqBf9jrLGZvQkFUK2bRdaClVs8fB1mWJjwnxfktpyhIzPvVGxohuvSJTS/A30bZLD3veA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791991408; c=relaxed/simple;
-	bh=1DLWRMbZyOAA0rVioqQfDUzvKGaVa837pvjO2TrdaZE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mcSfQgzxsLW1PSZnjoH0/kWxsj3Qt97LTXL9FgNd9H35WNX1srb+Clm+PqkzWUEJMwzRq5A/6tbtmaw58da1Oweo7Eio1SobBDkR7APJCNJN9bRLzWQzV6kABiCLTc13rh0wvBu2QWDvxBIjpXwszVQQ/6/7fPQww2jfyQUoArQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=BiwEjp9u; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791991462; c=relaxed/simple;
+	bh=AuomWEZX4AZzaXCJpww4x5u2oFWJ1CWj9oyE8+TmNiA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=T1kSWO2IJWns3Ie4CE73PW/9gJofx0N135LWT57w2KzvgmVvwJ/AaG/uFv6qzY9FHuVprMpsUefLRX01HO7m/gzOCxL6luhod0tBEZee1E5Qp4eAYKZeBsuNKIYi8Z+Pg9tos3BmHpwuj+Zorp09TDrml+O2sw8WOPBtFdRb8jk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=tim4LgQF; arc=none smtp.client-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="BiwEjp9u"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DF9B61570;
-	Wed, 14 Oct 2026 08:23:21 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 32C683F7B4;
-	Wed, 14 Oct 2026 08:23:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791991405; bh=1DLWRMbZyOAA0rVioqQfDUzvKGaVa837pvjO2TrdaZE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=BiwEjp9uaNUxIi5ciO5EDAG5qEO3ENWk/lYMARr7Uggqz/ut2q3CTw8kTspOFi1zo
-	 lHQZGmwZP0ZENsvMT+FmZV5rbyvIcKrLhkmCA8C0J04SvgcNDM5XXlrPenFvd6Mrkj
-	 BUk3lDOPxmpqk7uJw7yqDFTdYVgi5JOvXJrteTiw=
-Date: Wed, 14 Oct 2026 16:23:20 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: "Christoph Lameter (Ampere)" <cl@gentwo.org>,
-	Ankur Arora <ankur.a.arora@oracle.com>,
-	Haris Okanovic <harisokn@amazon.com>, linux-kernel@vger.kernel.org,
-	linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-pm@vger.kernel.org, bpf@vger.kernel.org, arnd@arndb.de,
-	will@kernel.org, akpm@linux-foundation.org, mark.rutland@arm.com,
-	ast@kernel.org, rafael@kernel.org, daniel.lezcano@linaro.org,
-	memxor@gmail.com, zhenglifeng1@huawei.com,
-	xueshuai@linux.alibaba.com, rdunlap@infradead.org,
-	david.laight.linux@gmail.com, broonie@kernel.org,
-	joao.m.martins@oracle.com, boris.ostrovsky@oracle.com,
-	konrad.wilk@oracle.com, ashok.bhat@arm.com
-Subject: Re: [PATCH v15 12/16] cpuidle/poll_state: Wait for need-resched via
- tif_need_resched_relaxed_wait()
-Message-ID: <as-eaNfjOAUnfvVF@arm.com>
-References: <20260831202251.305046-1-ankur.a.arora@oracle.com>
- <20260831202251.305046-13-ankur.a.arora@oracle.com>
- <178908146776.2725577.2613699832033292946.b4-review@b4>
- <878q58z2ej.fsf@oracle.com>
- <3e8bda45-0aa7-d0be-8aad-dab95902dcde@gentwo.org>
- <as9EospGcR2e1mpO@arm.com>
- <20261014130306.GK2009045@noisy.programming.kicks-ass.net>
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="tim4LgQF"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2e934449bb0so7623565ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:24:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791991461; x=1792596261; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Oe+0IhcD+dLnpRRZ2AO6uP7D6+WkqiUo4+grQwp5VRM=;
+        b=tim4LgQFznfakpE7Q77lOgtffIurbEZsGhEFewaNF64KSC5GqyLjgjbO/XaX49kEpC
+         06tvI1hVJrCeUJIgInYdmPDsvtcQavZkZujTr2lYOH7iOTrifuVFP3mM/25GKISS2Uei
+         Dai+m8DxizKQh7uqa8qX4ph3W62gRn7K9CrEQlLkh3GMEJVdl6JuPIYaNHCrPLTQk+OD
+         LaObQwB2CuhtdAkeoihpH2QrwLWvFPXfX42zBQeZRqLzdT2nhD68PoUlhBA6OzNxMWq6
+         wIufLcNo3vHG4UQbWF0YTDQquqeF69nXx5TiXC5PVPzDs6DedGU8aMgsv6jGMWF1SVEc
+         DWrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791991461; x=1792596261;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Oe+0IhcD+dLnpRRZ2AO6uP7D6+WkqiUo4+grQwp5VRM=;
+        b=sK55kYyoYmA6EvVdTDgWS4i1x5igsEKN5pQ1KryzeVYAGhohcM/3CmO9bOLUtLR9Py
+         eCNWbS1eCiaszAtJ6+/1gzIC/ZE4NKgJJ6lNrHBBHQmLAHKwyC1GV1hOZPuT3oaTka19
+         8Bg8ZNpj9PsbSWnP5z2gGrxpjAjQdKdPupPkOwiOmb0Owuw2/WKFObwa/q5RhnS6hoUO
+         g/i8ENYZxKtoITFivE1eDmjlPlYY5aLSOiHJwT9HL8PsjNBak8UIlL20uK01o4FrNb6T
+         Tt+wzX92sP8/AdIf0vaDFcOMaLfkJZX2LQalrLg04kn/oGVgd5fjAqnUf9rv8gh+2EJo
+         28sA==
+X-Forwarded-Encrypted: i=1; AKwUvBzSCt4KsKHiAsTvJC7UM5gTPlFqICfWa8n71WL/6kPS/jYRVbuN3NfzjObXJXuJADaTbfss91oa0/KrsSs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKxREC1XGeSh5UcHlh00f83oVF2z4LqUstlvQ3DQK6kwJbmbJqu
+	WHoSmJLPzx3iLRrJC7K76bOeEax9/Su6JHWTyG9TVuN1djlbjaIu6kKVsUtryBBxoEQ=
+X-Gm-Gg: AYBFou2h6UEy/DPlO/kg8YHE/XvKW98rd383r1RItQrgZ+R5i4MBE2RP8xowfuXlpmJ
+	YkAcTggJ76+bRDBmU0u0pkP40xNZfuUAeEeUhbEZzArj8536SIXOgrfGBO25PLyqVUKzhWQGtR6
+	rx2PNsu86B507+oHOitYFtjBJLg6HEb4sK0hRJDIWUy/tvF6oYQEEDZaIG1d289gVv43OOBlIiw
+	Pux1kd7UKobTLL6oc/HqwBcAGiyq80YnYUNiFWUeS28m+166R6JXMrYDSm1ZiOOPFcrvgTu++7n
+	5KJsDRP/AHq165qxVapvUfWWWJaPxfYdIwVWercSrM8FUUHIhuVxaMckrG/zK/fu6LFVdfxziyL
+	f8weEDKq32GuN95Rk2zo8TkqtRBcrnxL3zz3+XBwgIJgZvl8mMkqMRlZyYEa/vGeGQM1JTeIQo5
+	wZNDf7yotxd00XVLTr7ivSR601uZQUXZEDVM9X1clK401l80SYB9+2Xl5jXYqOB/JIePxNYKMrt
+	V3vBs0e3f8azSZjWqP0
+X-Received: by 2002:a17:902:c94b:b0:2e6:dcce:8222 with SMTP id d9443c01a7336-2e842f389cbmr147131975ad.57.1791991460638;
+        Wed, 14 Oct 2026 08:24:20 -0700 (PDT)
+Received: from localhost.localdomain ([2406:5900:1044:110c:1c49:61ee:8c8:3f4c])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8421b298dsm69536815ad.33.2026.10.14.08.24.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 08:24:20 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: "Martin K . Petersen" <mkp@kernel.org>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: Re: [PATCH v2 0/2] scsi: mvumi: bound two firmware-supplied lengths
+Date: Thu, 15 Oct 2026 00:24:08 +0900
+Message-ID: <20261014152408.3637388-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261013173145.3412863-1-yhlee@isslab.korea.ac.kr>
+References: <20261013173145.3412863-1-yhlee@isslab.korea.ac.kr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261014130306.GK2009045@noisy.programming.kicks-ass.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 14, 2026 at 03:03:06PM +0200, Peter Zijlstra wrote:
-> On Wed, Oct 14, 2026 at 10:00:18AM +0100, Catalin Marinas wrote:
-> > It
-> > would also be nice to get some acks from the atomic infrastructure
-> > maintainers.
-> 
-> That'd be Mark and me I suppose. I don't see anything substantial
-> happening, just plumbing the new function.
+Please drop this series.  It is superseded by
 
-Thanks!
+  [PATCH v5 0/6] scsi: mvumi: bound the values the firmware supplies
+  <20261014151914.3632701-1-yhlee@isslab.korea.ac.kr>
+  https://lore.kernel.org/linux-scsi/20261014151914.3632701-1-yhlee@isslab.korea.ac.kr/
 
-> Now, I really rather dislike timeout based schemes, but given we have
-> users, I suppose this does improve things. We should however be weary of
-> new ones I suppose.
+Both patches are 1/6 and 2/6 of that series, unchanged except for a
+READ_ONCE() in 2/6.  The series also carries the handshake size patch I
+posted separately and three more bounds that a full pass over the driver's
+firmware-supplied values turned up.
 
-There's some arm64 precedent in commit ebababcd0372 ("rqspinlock:
-Hardcode cond_acquire loops for arm64"). This one went in without any of
-the arm64 maintainers' ack and we've since been trying to come up with a
-generic interface instead of reverting it. It was fixing a bug where
-arm64 smp_cond_load_acquire() does not evaluate cond_expr unless the
-pointer is also written by another CPU. Arguably the bug was in the
-rqspinlock code for not using a plain cpu_relax() loop.
-
-Anyway, we had several incarnations of this series, some with a default
-timeout but others objected to it (Arnd and Rafael IIRC), hence the
-proposal here that pleased most people (not all though ;)).
-
--- 
-Catalin
+Sorry for the two threads; one series is easier to review and easier to
+pick up.
