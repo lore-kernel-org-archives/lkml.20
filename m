@@ -1,104 +1,92 @@
-Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 383124E021E;
-	Wed, 14 Oct 2026 17:04:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C9F75592E0;
+	Wed, 14 Oct 2026 17:05:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791997496; cv=none; b=Z7IRRtF4TKMsAuwzIKoQo265H2p3cHtsC1jX7ISOkKJXRVAZXvCfvwh5Z/OGV/pEkapAr924VRi2k3jqxUTbCIoE0zLRZqskXmltwuEnwf1UGsohRtWC49KxP/dEMDvUdLbicuT8SqjWGeTM/bT7R/nfLUhWf0oBpvMNFGKxCvM=
+	t=1791997503; cv=none; b=iBYWFwgo1ojdD7l7h39uFL2OJUP8TAR56DzQxsJtF3TO5Z0dBOJ/UGhATrlBvPDVshxQqtnTwhFROZ5GIv8yHO71xYs98KcmkgV41sbu8CV5GUGZAtvzEiISP9JXggocPdLYhOscYeUMC1d5wHDeziIPEEVqrHfGbs/XbZyIsqM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791997496; c=relaxed/simple;
-	bh=3jb2boGuaaGeg3KOFfbz5MaXkmJy8PjgFOTO3y/NYjw=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=Ck7EySZ+BHc3ErP+lcFurzsH6tV5GG6txPh0GZLdjE/OcfneYxK/ArbcBddLDdGZfRU844hTgnRicJhfFLa4KnYLnH+qcxTYfM2inroVSS+bdCPGqUfipGmOEv4+ytkr/UGWAFpY9Cow0mBF/45nCgW5jB1BB83TyDcsFTphIhc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=qv06QBle; arc=none smtp.client-ip=45.79.88.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
+	s=arc-20240116; t=1791997503; c=relaxed/simple;
+	bh=lMjIZh/tGS1pgeh9x0Y8QhxqxxoA3y0STPrZtjZmPV8=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=VYsGzQ24fT2zPpmKAAXLwMz5Iai6Ab0lMUSdhzRFExi9Zga65M0NJ/L50sBLO3E6rL9E8ZrRPbvFLPa1cDadEc1OiMR/7/tbctyL87nvkBJ91xGgjoUxAPYd5OMSWuqkvCLirEJkoEb8eqogr/wtWIqK9wnUJtBEJVpFk196rpE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UcoHHM7Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="qv06QBle"
-DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 3A5F6408FF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
-	t=1791997494; bh=RCjxRI/1UucUHvaeIcUViXUqt5p8iwVPM2SzBLBHxOU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=qv06QBleGDAIMEstOLuVTvUNPvAoaZhcuiqKiPrg04DAM3o0TmiEB89KwASpFbZge
-	 kEoC0jy1t+h16V4ahw1xi9W+hOooLwfUIJVod4Za5E6+N69nL+NfQTCgRLAWKoZ/OJ
-	 Gb/CapkaBBp1Az4RsLAxlMw6IhkVuWtgsjyse7sPHVqp8AN6wF6mmnZ0NKcqUrAA3z
-	 2HjSYpKLNwFAxmUbYJegpuEYN31OTm0dJ/NNZGv2MF5BsUJCHPLf2wN9X8VeXWWJ9v
-	 5C2L7hfF9GEXsBjddW/70CZ1RvUy0vTfEoLC49zX94saqLwU+Ra/o68d1jJKd2IsQq
-	 bmOThBNvn6Grw==
-Received: from localhost (unknown [IPv6:2601:280:4600:814::1fe])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by ms.lwn.net (Postfix) with ESMTPSA id 3A5F6408FF;
-	Wed, 14 Oct 2026 17:04:54 +0000 (UTC)
-From: Jonathan Corbet <corbet@lwn.net>
-To: Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org
-Cc: Randy Dunlap <rdunlap@infradead.org>, Shuah Khan
- <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org,
- linux-mm@kvack.org, x86@kernel.org
-Subject: Re: [PATCH] docs: kernel-parameters: don't mix cmdline options &
- build options
-In-Reply-To: <20261003213508.96424-1-rdunlap@infradead.org>
-References: <20261003213508.96424-1-rdunlap@infradead.org>
-Date: Wed, 14 Oct 2026 11:04:53 -0600
-Message-ID: <87bj8ww6ve.fsf@trenco.lwn.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UcoHHM7Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 092C01F000CA;
+	Wed, 14 Oct 2026 17:05:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791997502;
+	bh=1m60YDqNW+LLDiN0gAY1o7wtInSpKM/VAZpHsdkBTVA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=UcoHHM7Yy9jQQo/s9LaDO1/kIlF5g0BUErFbhH+e1Txk5hY46odghehSF+eS32/iR
+	 GPj/5l/pp4VUtNLzqDfQvmIPai4BzknaaUCrIBh0+LF29Do48ZvVN5TlpEcqITw+cW
+	 kbU/waPp9nl5BszSOnN/R0rm99UFjWeb+NyuVccmIfVpGACotQUxX6IrvbO11H4L3D
+	 gJO+qgDs5GDZ8rXeFdka9MiZ1GFSc0tdfJqf4ycRhs1CA25fVDSFh+JM70DbuxhVVI
+	 sk9CVJCaPz2TXDcMx39c6DNo2jo/prFEtfNGkQCFlj9Xg+jdpZpNRkMqLUe0CVCQEu
+	 Vg18hvbm7ttGw==
+Date: Wed, 14 Oct 2026 12:05:00 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+Cc: bhelgaas@google.com, alex@shazbot.org, skhan@linuxfoundation.org,
+	jkoolstra@xs4all.nl, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] PCI: quirks: Fix out-of-bounds MMIO read in
+ nvme_disable_and_flr()
+Message-ID: <20261014170500.GA1638946@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260903164615.5744-1-raizudeen.kerneldev@gmail.com>
 
-Randy Dunlap <rdunlap@infradead.org> writes:
+On Thu, Sep 03, 2026 at 10:16:15PM +0530, Mohamad Raizudeen wrote:
+> In nvme_disable_and_flr(), the PCI bar is mapped using
+> NVME_REG_CC + sizeof(cfg) which is (0x14 + 4 = 0x18 bytes)
+> 
+> However, the function later reads the controller status from
+> NVME_REG_CSTS - offset 0x1C, which is outside the mapped 0x18 byte
+> boundary. This violates the API contract.
+> 
+> Fix this by increasing the mapping size to include NVME_REG_CSTS. Also
+> change sizeof(cfg) to sizeof(u32) to make the intent clearer.
+> 
+> Fixes: ffb0863426eb9 ("PCI: Disable Samsung SM961/PM961 NVMe before FLR")
+> Signed-off-by: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
 
-> Some kernel command line descriptions mix, mingle, or conflate an
-> optional part of the command line with the build options that are
-> applicable to those command line options.
->
-> Specifically, a few command line options that use "KMG" to specify
-> a memory size mix that string with build options like "X86,EARLY".
-> These should be separate fields although they are both enclosed in
-> square brackets, so separate the conflated fields.
->
-> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Applied to pci/misc for v7.4, thanks for the reminder!
+
 > ---
-> Cc: Jonathan Corbet <corbet@lwn.net>
-> Cc: Shuah Khan <skhan@linuxfoundation.org>
-> Cc: linux-doc@vger.kernel.org
-> Cc: linux-mm@kvack.org
-> Cc: x86@kernel.org
->
->  Documentation/admin-guide/kernel-parameters.txt |    8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
->
-> --- linux-next-20260930.orig/Documentation/admin-guide/kernel-parameters.txt
-> +++ linux-next-20260930/Documentation/admin-guide/kernel-parameters.txt
-> @@ -4080,8 +4080,8 @@ Kernel parameters
->  			like Grub2, otherwise '$' and the following number
->  			will be eaten.
+> Changes in v3:
+> - Changed sizeof(cfg) to sizeof(u32) to decouple it from the mapping
+>   size as suggested by Alex Williamson.
+> - Updated the commit message to use "violates the API contract" instead
+>   of "undefined behavior" to avoid overstating the risk.
+> 
+> Link for v1: https://lore.kernel.org/all/20260817092448.4395-1-raizudeen.kerneldev@gmail.com/T/
+> Link for v2: https://lore.kernel.org/all/20260903040049.5460-1-raizudeen.kerneldev@gmail.com/T/
+> 
+>  drivers/pci/quirks.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+> index b09f27f7846f..06436a96db30 100644
+> --- a/drivers/pci/quirks.c
+> +++ b/drivers/pci/quirks.c
+> @@ -4090,7 +4090,7 @@ static int nvme_disable_and_flr(struct pci_dev *dev, bool probe)
+>  	if (probe)
+>  		return 0;
 >  
-> -	memmap=nn[KMG]!ss[KMG,EARLY]
-> -			[KNL,X86] Mark specific memory as protected.
-> +	memmap=nn[KMG]!ss[KMG]
-> +			[KNL,X86,EARLY] Mark specific memory as protected.
->  			Region of memory to be used, from ss to ss+nn.
->  			The memory region may be marked as e820 type 12 (0xc)
->  			and is NVDIMM or ADR memory.
-> @@ -4371,11 +4371,11 @@ Kernel parameters
->  			Enable printing debug information related to MTRR
->  			registers at boot time.
+> -	bar = pci_iomap(dev, 0, NVME_REG_CC + sizeof(cfg));
+> +	bar = pci_iomap(dev, 0, NVME_REG_CSTS + sizeof(u32));
+>  	if (!bar)
+>  		return -ENOTTY;
 >  
-> -	mtrr_chunk_size=nn[KMG,X86,EARLY]
-> +	mtrr_chunk_size=nn[KMG]		[X86,EARLY]
->  			used for mtrr cleanup. It is largest continuous chunk
->  			that could hold holes aka. UC entries.
->  
-> -	mtrr_gran_size=nn[KMG,X86,EARLY]
-> +	mtrr_gran_size=nn[KMG]		[X86,EARLY]
->  			Used for mtrr cleanup. It is granularity of mtrr block.
-
-Applied, thanks.
-
-jon
+> -- 
+> 2.53.0
+> 
