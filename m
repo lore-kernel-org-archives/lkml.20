@@ -1,286 +1,239 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B8184C9E01
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:21:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792002101; cv=none; b=F8HCpLVCmboq8DVhmLseft2cpTHA65c3fRHA+eXlCoP38z2QIuYCm6V+cO7ulfnhCjiklVJtm79mGcLqvUPvK9rITZpAiRM8rfMgu916TRCZM6U8bBVqQTenCcIgc57CFYG1Yup1VLVK04OwTErxv9uYgYmMxrvz0o6xqemzOI8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792002101; c=relaxed/simple;
-	bh=duRXU1e3xEsOIbmXxoz71kRuUhOpCKkqzA1WNFsYDCU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LybUd6ohADqAA9vfNMMEA45j4GG4kWu4SeWnPd826qsY1CrE5FwXE459pkH2DuSAFZ62UsHebFelOwylVNwhq89PcnpcFitLAbJ7MMZY+uZvaUpFKKRgxK8+DTLU/c+aiS3uuqEKZQHe3YbNe5Id/gO6V4qIpLyu2tiWSmmoeRM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WNIR9du4; arc=none smtp.client-ip=209.85.221.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44EA440756E
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:23:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792002191; cv=pass; b=otm6GiYcOmtcvdHV9ALw/q9BZdMcJ5VDEWy+AAK/j1mOy4r0xR299FqWZl8XgLDgQp0cv0z08iuH7psxB0wnnYRAzMe3YfQSDeGlPfid7ZLuJ59ofW0dihjj3C2SL1n/pfEQgwo2mCT9hxyH1WfpGEwgbj+nwvuofGajfRhSdK4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792002191; c=relaxed/simple;
+	bh=daC6Np6jItX8zMXhvHljrTUGGtEHMDpaRWwp+FcyC8c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jyftHye0uQ9x4Db2vvzgXG8FVpa8ckqFUyE+pskXfUn6dGtpo/a1OurfEVLHDUm3IupPNYE+KCTIkxb/vJyCgZoY/aKZhHTMZUT0a0YsvLLGHjEIi8Nw45st7qBC9hD+zj/0ow5ftzBqEM8vC5neyEXSUYcyHLyru7ni6NJJ8wk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=incjS1a2; arc=pass smtp.client-ip=209.85.208.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WNIR9du4"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48af4d4e61fso3266246f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:21:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="incjS1a2"
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b1aa36fc0eso44320a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:23:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792002188; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ltOTZJ41+uAPKQB6jqr9f/kx4b64WrycpyUOEoWGacxqB0pXPog7rtezQ2yjhewRvg
+         IDk+X62jrYamlUWfGvZncwg0VzBazIqljDc9ik/upWmmoY8ONmaXs+m1NAyTuLb7tX0m
+         KABw4lpyPVcShq5QIpca6s1ocXRzlooVznrQcH0OPF2kL1rqnTMkDW+ZrHTzJy8BncoP
+         TyHsOtbfmVyZr9CM0IRYjAJZ/aiPxEaEFb9qfdJZ9tjz1QtwIdvIrxSdNWL4IQ+keYPQ
+         KYE+CDPNMaO0/ilfZaLIeLEsrHpZ2HFiTJ46qLc+62/sOXves6SSVXqGaoTIL3xIAGBB
+         WckQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=3cIDC3M1HgJGR6Kt8HLb6Rz3q+5uL2WMcMIITpCwQMU=;
+        fh=HkDMdxF6HIOAC6/440YREfEeFIPLLwgNB/UbCs4w2F0=;
+        b=KuMbCQLVT5G4EnP6t8haVv3FPNPI6S0tWjbLl0ZsxIyb+fNhx/zo6qU4U16ul+xZn+
+         bN+loR09QpMFCWhgs0fWelGRoqoGF/BFcbt6k/SRdKrYU/wj8AxhHZEjxiFBv5RSJuX+
+         iqQyeYeqKpqRHjH3JIjrAgF/mPeaS799wNnyMvd60bD7/LQrqKEzxaA+9gd0Cmw2vtUc
+         LE+AePZDNxAZP3VkzL1gCpMTW56/NKUczgbCdETFygdjk5s4i3IEaiGdTAaFJu8L/ohS
+         QYoy+xj7LpckiW6RZtrNbn9J96cD752pZ7d7l6i+b0hhiMfQ3mfs8PHnrChpf7q18yH6
+         /row==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792002097; x=1792606897; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4xRifw5Znr1rS1Ach/CyZd8ItZHTFRvDxHBIuSRskJ0=;
-        b=WNIR9du4F/0d0FKKhM563ZLvT9rVhELL7vMhw68RoSXD10EhZaKgyn1EKDTplcfgqW
-         J8pP4gVB8UjOJR2zzpTLBpwgAbnbxiqPF189fFIeai+ZtRA2TNZSH1Y5Gzkx7yNrbvWT
-         WdqkE5MnD5+QTMH3oMc+7iwtSZuN9EGiSWBNCsnxQ4mcTUvhy0loGL7V19b6yJICYOgS
-         Kxn8uODnj6rcFi4YFWvo/n28/cbOhVqjvnQ6eiYws3Z0CzfMdjBkHongsF2Vpe4NqHUj
-         tmt/OEpNcYDYUR7fbwSPQC6hJnlRcKmefDmgikjYBUqh3joHHguTAIWORN2YtX6/lZUs
-         aHzw==
+        d=google.com; s=20251104; t=1792002188; x=1792606988; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3cIDC3M1HgJGR6Kt8HLb6Rz3q+5uL2WMcMIITpCwQMU=;
+        b=incjS1a267HQlQbT37P51deaIfHJf8JYZjPX5DsWTRbpLkJRfhonQH+pOBNNabTi3s
+         Y7fuuJ4Ilp55+41tjMX+YxKpcY033qUaC1VyRL73dCTXGxxVHneuAIUWiEz4Hs8rdIPq
+         o1u2oGGFOTbLhq1nFe52CerUNc6mC7WHNxMUelwgXb3Xan0xNMXu4EVbpn03qqAb+MfZ
+         snIgE59LlWTUid/FhCpwQjtzEW8SGh5Y3tnPaweCEe0reTY1uqv46wG4/l3FLp+NGmwR
+         2hQItU5V+R4baabQfEaFu/INpK/V9QDIju9yM/T6jKkCMMlg8TAQiAXnixNorgSfQohg
+         TYWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792002097; x=1792606897;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4xRifw5Znr1rS1Ach/CyZd8ItZHTFRvDxHBIuSRskJ0=;
-        b=zYt9x1QxcfDMb+LPKlfgoEfR6tzeSpREuc2+VpR7UoqGHwhHpN/svjAGt37iweR7A9
-         FQHBINlqFXpDi5Adt0FCGWevDXUvDmAAf/kftoMrigtjwH4TA3bgAc/HpVEmhAPXvuh4
-         j/17oQz3it79zjFqqnn+xyoqfoChr0Khco7xm7O/jAfYhbxslBUs2Deu7/fsjRQ4P3pb
-         iXtRM7QR+t+MDdGNrJzCMSm0qZ+SafXDcqMPlCKBRUPIp92DSvN+XBtRm6phVhkBmTnr
-         Z9NMxfUMdx62q/LB1wCVYEzoI0SqxXsOeFpXzL0g/MhSa2C8aYpM5jv88S6xU2tMjmgn
-         aeTw==
-X-Gm-Message-State: AFq9FYIgV/SWRpiiY0FTsdx9NY74X91YD3Yli6X98y027AqrA5SRNVk1
-	s3ol1599z8pvzBBXOuuvR9R0pVRUNd7/rINyIg/8OaJUH/WYRye42WuH
-X-Gm-Gg: AYBFou1QSNRJZlibVq1zusapNSEwt7eT+YJX6VvUHXZ2RS43gy5bUsAPFQkyVSS0PDA
-	zOe097VNyaOdEvo70yzjy0MsPId38AzBoLCxVSHkuNtigIUvLJ6cjT0Li+fHpE+M4/O4ya6PmIc
-	9cdJt1VcXcWsVJsKxWVJzMtulZtoWEadRQGnSICRj4E9Rn9ZsWXGDNpke1RjJSF5vvZGPthyetk
-	xsar42emrBZMELwiuCXoIxna3pI12fFf1fv8bBZFwXUj41f6N0bJCrZVAkD5DXtp286Xm1xLhuI
-	jEcLkdjhaIBUMACCp8GoG0vWMau9lmodMNORlMzvscAY6T4hS3L+8cmr4uy8OiPejFvC3o+9Tqt
-	XIuYyDMgdf3nq6rL6JFzFn/ThpZ3w0qVKdhr2QZNXLDWAFK/oIhq8o4LwICXQwaDfp3NGWu9NM7
-	zfVm6sNmx6rNPssceig9DsOlD1hYqcwxonOsFJTSBC8Fudiyw0h5KcYhu19YX35ToPugf3EPEb/
-	w==
-X-Received: by 2002:a05:6000:2912:b0:48b:5e2:52dd with SMTP id ffacd0b85a97d-48dbace9d5cmr30844029f8f.11.1792002097068;
-        Wed, 14 Oct 2026 11:21:37 -0700 (PDT)
-Received: from Huaiwei2200.nb.int ([92.43.82.96])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bc6ddcsm13082271f8f.52.2026.10.14.11.21.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 11:21:36 -0700 (PDT)
-From: Oleksandr Suvorov <cryosay@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	Oleksandr Suvorov <cryosay@gmail.com>
-Subject: [PATCH v2] soc: qcom: cmd-db: bound database walks to the mapped region
-Date: Wed, 14 Oct 2026 21:21:16 +0300
-Message-ID: <20261014182121.3624604-1-cryosay@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20260707; t=1792002188; x=1792606988;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3cIDC3M1HgJGR6Kt8HLb6Rz3q+5uL2WMcMIITpCwQMU=;
+        b=Dus9azKCeFAwV88zMVP/p5FSDjN0NpnjAngVSTQ45dKb5UIqn+9P4+OQ88tRZ45MpO
+         NjNWG7H31IqpjoUjHOUBQtapNeZo+1iFo39De9PsI8/wcCU7bKoU+l46v7kCMzWLGV/a
+         r/xyM1ZPVoGO5Nbuhspc3pwlh76mNdDoLInNSL6gZonO05oau0qx668chKcy2IWa7l2c
+         ql/9IHBfFbZ8nM8XWpm/k5kzaX21HijkCBYZIXRxTvBPagPJ+ubui0OW1UFU5q046fAI
+         m8oizA74BlOOc3H+pUwB/KhpEmrlMhC9rj/gBULOo1EVPMup78EoEKBXX9Ibdwjh2Wla
+         6BZw==
+X-Forwarded-Encrypted: i=1; AKwUvByYRM19UHY83yAJdfyXlCO2YSnGnFRGpIJgHoNBhjlpbV8hiEkhlreBnj2otbMDDdaFmIdpudqXmxEobNo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLHqtluVhhSmsYUZ0gXuKJuevHPfik8nN2f09zO5Ji+D6uk53zh
+	aA1KhAKY2OsOzkEa1inbSzoCXN7tKvohimzkWHW3nw3fDBUwembTvQofqfwzZgF0N/wr8ap7mKw
+	81zd/uc8676llrqVofnuEyiBQEuOjgj25Zulenj2P
+X-Gm-Gg: AYBFou1aMc3M1fl5foFTTzXMubkW/Lx1zwxHeFOXeblr/CJ8/Hq6AHaaeLa5nEXotHh
+	vK9hPXH8Hy5rps26L6zKnZ/+C5HTuL4mtcLw1LrBNp14rdk0t6Ln/E6ogK6Gy/tD5jAEeDHLkwr
+	1BhyOnmRDuTmkHwAs5ZnsJLfG/Z3VF67cF/V0fB+50lARi1zbAEbP7TbiJORwTecyRtR3wDe8Ue
+	5CpCuZ7DxBQ7bS12UYU5Y465daMtrWEoWjA259lEDrfeBmZHJrbSmecVzAEzzAy2lwOm+TM6LOU
+	fUG0RHv7y5XkDDO6XVyDhGgJ7cvdyFquFVOT8c7P0Ygh7UCW27osKlY=
+X-Received: by 2002:a05:6402:3041:10b0:6a9:d188:2374 with SMTP id
+ 4fb4d7f45d1cf-6b2095cb26bmr60699a12.1.1792002187767; Wed, 14 Oct 2026
+ 11:23:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-4-yosry@kernel.org>
+In-Reply-To: <20261012233638.2546339-4-yosry@kernel.org>
+From: Jim Mattson <jmattson@google.com>
+Date: Wed, 14 Oct 2026 11:22:53 -0700
+X-Gm-Features: AclHuK_dYKWxgMdHL-LfYRKVT3UfIDrazaPSYDC3-1DeyQV983cJnvDOicujLDg
+Message-ID: <CALMp9eT9xOFKSFnOg5OeXgmXV0pr-4-yJdBFFMORPx22BgHnHw@mail.gmail.com>
+Subject: Re: [PATCH v3 03/27] KVM: VMX: Generalize VPID allocation to be vendor-neutral
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The command DB is read from a reserved memory region mapped with the
-size given in the device tree. The per-slave entry count and header
-offset, and each entry's data offset and length, are taken from the
-blob and used without checking them against the size of that mapping.
+On Mon, Oct 12, 2026 at 4:36=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrot=
+e:
+>
+> In preparation for sharing with SVM, generalize the VMX VPID allocation
+> code and move it to common code as a TLB tags allocator. Parameterize
+> the TLB tags allocator by the number of tags, and allocate the bitmap
+> dynamically. Opportunisitcally use guards to acquire the lock instead of
 
-cmd_db_get_header() walks rsc_hdr->cnt entries for every slave when an
-ID is not found, and cmd_db_read_aux_data() and the debugfs dump return
-or print len bytes at a blob-supplied offset. A count or offset that
-reaches beyond the mapping makes these read outside it.
+s/Opportunisitcally/Opportunistically/
 
-Keep the mapped size from probe and add cmd_db_in_bounds() to check a
-range against it. Skip a slave whose entry array is out of range,
-return -EINVAL from cmd_db_read_aux_data() for out-of-range data, and
-mark such entries in the debugfs dump. Warn once for the first two.
+> spin_{lock/unlock}().
+>
+> Keep the number of allowed tags capped at VMX's hardware cap, to avoid
+> allocating a huge bitmap if L0 advertises a huge number of ASIDs to an
+> L1 KVM. Realistically, the number of actual hardware ASIDs wouldn't be
+> that large so there is no benefit.
+>
+> Initialize the TLB tags allocator during hardware setup/unsetup, and
+> reserve tag=3D0 during initialziation, similar to how VPID=3D0 is current=
+ly
 
-Also reject a region smaller than struct cmd_db_header, since the magic
-and the slave headers are read from it, and set the size before
-cmd_db_header becomes visible to callers, so a lookup never sees a
-header with a zero size.
+s/initialziation/initialization/
 
-Signed-off-by: Oleksandr Suvorov <cryosay@gmail.com>
+> reserved in the VMX-specific bitmap during hardware setup.
+>
+> Allow nr=3D0 to allow allocating all ASIDs to SEV on AMD without failing
+> hardware setup, if at all possible, in which case any tag allocation
+> fails (SEV won't use the tag allocator).  The number of tags includes
+> tag=3D0, which is not usable. The interface is a little confusing in that
+> regard, but this will be changed soon when reserved tags are explicitly
+> introduced.
+>
+> Keep allocate_vpid() and free_vpid() as wrapper that check enable_vpid
+> to avoid checking at all callsites, and add init_vpids() and
+> destroy_vpids() to wrap init/destroy calls as well.
+>
+> No functional change intended.
 
----
+I don't think that's really true. If it is, then you failed. For
+example, the new -ENOMEM when the bitmap can't be dynamically
+allocated.
 
-Changes in v2:
-- Reject a region smaller than struct cmd_db_header in probe, as
-  suggested in review
+> Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+> ---
+>  arch/x86/kvm/mmu.h     |  8 +++++
+>  arch/x86/kvm/mmu/mmu.c | 78 ++++++++++++++++++++++++++++++++++++++++++
+>  arch/x86/kvm/vmx/vmx.c | 40 +++++-----------------
+>  arch/x86/kvm/vmx/vmx.h | 28 ++++++++++++---
+>  4 files changed, 119 insertions(+), 35 deletions(-)
+>
+> diff --git a/arch/x86/kvm/mmu.h b/arch/x86/kvm/mmu.h
+> index 2ae7f9ed4cf86..de79e002edf8f 100644
+> --- a/arch/x86/kvm/mmu.h
+> +++ b/arch/x86/kvm/mmu.h
+> @@ -410,4 +410,12 @@ static inline bool kvm_is_gfn_alias(struct kvm *kvm,=
+ gfn_t gfn)
+>  {
+>         return gfn & kvm_gfn_direct_bits(kvm);
+>  }
+> +
+> +typedef unsigned int kvm_tlb_tag_t;
+> +
+> +int kvm_init_tlb_tags(unsigned int nr);
+> +void kvm_destroy_tlb_tags(void);
+> +kvm_tlb_tag_t kvm_alloc_tlb_tag(void);
+> +void kvm_free_tlb_tag(kvm_tlb_tag_t tag);
+> +
+>  #endif
+> diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+> index aadd5bdc2c97a..97d49247d9d82 100644
+> --- a/arch/x86/kvm/mmu/mmu.c
+> +++ b/arch/x86/kvm/mmu/mmu.c
+> @@ -8178,6 +8178,84 @@ void kvm_mmu_pre_destroy_vm(struct kvm *kvm)
+>                 vhost_task_stop(kvm->arch.nx_huge_page_recovery_thread);
+>  }
+>
+> +static struct {
+> +       spinlock_t      lock;
+> +       unsigned long   *bitmap;
+> +       unsigned int    nr;
+> +} tlb_tags;
 
- drivers/soc/qcom/cmd-db.c | 89 ++++++++++++++++++++++++++++++---------
- 1 file changed, 70 insertions(+), 19 deletions(-)
+Can we statically initialize this to avoid the call to spin_lock_init()?
 
-diff --git a/drivers/soc/qcom/cmd-db.c b/drivers/soc/qcom/cmd-db.c
-index 3f1eee784387..84ef7c166d93 100644
---- a/drivers/soc/qcom/cmd-db.c
-+++ b/drivers/soc/qcom/cmd-db.c
-@@ -4,6 +4,8 @@
-  * Copyright (c) 2024, Qualcomm Innovation Center, Inc. All rights reserved.
-  */
- 
-+#define pr_fmt(fmt) "cmd-db: " fmt
-+
- #include <linux/bitfield.h>
- #include <linux/debugfs.h>
- #include <linux/kernel.h>
-@@ -108,6 +110,24 @@ static bool cmd_db_magic_matches(const struct cmd_db_header *header)
- }
- 
- static struct cmd_db_header *cmd_db_header;
-+static size_t cmd_db_size;
-+
-+/*
-+ * Check that a [addr, addr + len) range lies entirely within the mapped
-+ * command DB region. The slave and entry headers carry offsets and counts
-+ * supplied by firmware, so a walk derived from them has to be validated
-+ * before it is dereferenced.
-+ */
-+static bool cmd_db_in_bounds(const void *addr, size_t len)
-+{
-+	const void *start = cmd_db_header;
-+	const void *end = start + cmd_db_size;
-+
-+	if (addr < start || addr > end)
-+		return false;
-+
-+	return len <= (size_t)(end - addr);
-+}
- 
- static inline const void *rsc_to_entry_header(const struct rsc_hdr *hdr)
- {
-@@ -147,6 +167,7 @@ static int cmd_db_get_header(const char *id, const struct entry_header **eh,
- 	const struct rsc_hdr *rsc_hdr;
- 	const struct entry_header *ent;
- 	int ret, i, j;
-+	u16 cnt;
- 	u8 query[sizeof(ent->id)] __nonstring;
- 
- 	ret = cmd_db_ready();
-@@ -161,7 +182,13 @@ static int cmd_db_get_header(const char *id, const struct entry_header **eh,
- 			break;
- 
- 		ent = rsc_to_entry_header(rsc_hdr);
--		for (j = 0; j < le16_to_cpu(rsc_hdr->cnt); j++, ent++) {
-+		cnt = le16_to_cpu(rsc_hdr->cnt);
-+		if (!cmd_db_in_bounds(ent, (size_t)cnt * sizeof(*ent))) {
-+			pr_warn_once("slave %d entries are outside the database\n", i);
-+			continue;
-+		}
-+
-+		for (j = 0; j < cnt; j++, ent++) {
- 			if (memcmp(ent->id, query, sizeof(ent->id)) == 0) {
- 				if (eh)
- 					*eh = ent;
-@@ -209,15 +236,24 @@ const void *cmd_db_read_aux_data(const char *id, size_t *len)
- 	int ret;
- 	const struct entry_header *ent;
- 	const struct rsc_hdr *rsc_hdr;
-+	const void *data;
-+	u16 ent_len;
- 
- 	ret = cmd_db_get_header(id, &ent, &rsc_hdr);
- 	if (ret)
- 		return ERR_PTR(ret);
- 
--	if (len)
--		*len = le16_to_cpu(ent->len);
-+	ent_len = le16_to_cpu(ent->len);
-+	data = rsc_offset(rsc_hdr, ent);
-+	if (!cmd_db_in_bounds(data, ent_len)) {
-+		pr_warn_once("aux data of %s is outside the database\n", id);
-+		return ERR_PTR(-EINVAL);
-+	}
- 
--	return rsc_offset(rsc_hdr, ent);
-+	if (len)
-+		*len = ent_len;
-+
-+	return data;
- }
- EXPORT_SYMBOL_GPL(cmd_db_read_aux_data);
- 
-@@ -273,8 +309,9 @@ static int cmd_db_debugfs_dump(struct seq_file *seq, void *p)
- 	int i, j;
- 	const struct rsc_hdr *rsc;
- 	const struct entry_header *ent;
-+	const void *data;
- 	const char *name;
--	u16 len, version;
-+	u16 cnt, len, version;
- 	u8 major, minor;
- 
- 	seq_puts(seq, "Command DB DUMP\n");
-@@ -307,14 +344,23 @@ static int cmd_db_debugfs_dump(struct seq_file *seq, void *p)
- 		seq_puts(seq, "-------------------------\n");
- 
- 		ent = rsc_to_entry_header(rsc);
--		for (j = 0; j < le16_to_cpu(rsc->cnt); j++, ent++) {
-+		cnt = le16_to_cpu(rsc->cnt);
-+		if (!cmd_db_in_bounds(ent, (size_t)cnt * sizeof(*ent))) {
-+			seq_puts(seq, "(entries out of range)\n");
-+			continue;
-+		}
-+
-+		for (j = 0; j < cnt; j++, ent++) {
- 			seq_printf(seq, "0x%05x: %*pEp", le32_to_cpu(ent->addr),
- 				   (int)strnlen(ent->id, sizeof(ent->id)), ent->id);
- 
- 			len = le16_to_cpu(ent->len);
-+			data = rsc_offset(rsc, ent);
- 			if (len) {
--				seq_printf(seq, " [%*ph]",
--					   len, rsc_offset(rsc, ent));
-+				if (cmd_db_in_bounds(data, len))
-+					seq_printf(seq, " [%*ph]", len, data);
-+				else
-+					seq_puts(seq, " [out of range]");
- 			}
- 			seq_putc(seq, '\n');
- 		}
-@@ -340,8 +386,8 @@ static const struct file_operations cmd_db_debugfs_ops = {
- 
- static int cmd_db_dev_probe(struct platform_device *pdev)
- {
-+	struct cmd_db_header *header;
- 	struct reserved_mem *rmem;
--	int ret = 0;
- 
- 	rmem = of_reserved_mem_lookup(pdev->dev.of_node);
- 	if (!rmem) {
-@@ -349,19 +395,24 @@ static int cmd_db_dev_probe(struct platform_device *pdev)
- 		return -EINVAL;
- 	}
- 
--	cmd_db_header = devm_memremap(&pdev->dev, rmem->base, rmem->size, MEMREMAP_WC);
--	if (IS_ERR(cmd_db_header)) {
--		ret = PTR_ERR(cmd_db_header);
--		cmd_db_header = NULL;
--		return ret;
--	}
--
--	if (!cmd_db_magic_matches(cmd_db_header)) {
--		dev_err(&pdev->dev, "Invalid Command DB Magic\n");
--		cmd_db_header = NULL;
-+	if (rmem->size < sizeof(*header)) {
-+		dev_err(&pdev->dev, "Command DB region is too small\n");
- 		return -EINVAL;
- 	}
- 
-+	header = devm_memremap(&pdev->dev, rmem->base, rmem->size, MEMREMAP_WC);
-+	if (IS_ERR(header))
-+		return PTR_ERR(header);
-+
-+	if (!cmd_db_magic_matches(header)) {
-+		dev_err(&pdev->dev, "Invalid Command DB Magic\n");
-+		return -EINVAL;
-+	}
-+
-+	/* The size must be valid before callers can see the header */
-+	cmd_db_size = rmem->size;
-+	cmd_db_header = header;
-+
- 	debugfs_create_file("cmd-db", 0400, NULL, NULL, &cmd_db_debugfs_ops);
- 
- 	device_set_pm_not_required(&pdev->dev);
----
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
-branch: 20261013-fix-cmd-db
+... tlb_tags =3D {
+        .lock =3D __SPIN_LOCK_UNLOCKED(tlb_tags.lock),
+};
 
--- 
-2.53.0
+> +
+> +int kvm_init_tlb_tags(unsigned int nr)
+> +{
+> +       /*
+> +        * Limit the number of TLB tags to VMX's hardcoded maximum of 0x1=
+0000
+> +        * to avoid wasting memory for the bitmap in the unlikely scenari=
+o the
+> +        * CPU supports an inordinate number of ASIDs (on AMD).  If users=
+pace
+> +        * wants to concurrently run tens of thousands of vCPUs, they'll =
+likely
+> +        * need a solution that works for both Intel and AMD.
+> +        */
+> +       const unsigned int MAX_NR_TLB_TAGS =3D VMX_NR_VPIDS;
+> +
+> +       if (!nr)
+> +               return 0;
+> +
+> +       if (nr > MAX_NR_TLB_TAGS) {
+> +               pr_warn_once("Number of TLB tags capped (%u instead of %u=
+)\n",
+> +                            MAX_NR_TLB_TAGS, nr);
+> +               nr =3D MAX_NR_TLB_TAGS;
+> +       }
+> +
+> +       tlb_tags.bitmap =3D bitmap_zalloc(nr, GFP_KERNEL);
+> +       if (!tlb_tags.bitmap)
+> +               return -ENOMEM;
+> +
+> +       /*
+> +        * 0 is the host's TLB tag for both VMX's VPID and SVM's ASID, an=
+d is
+> +        * returned on failed allocations (e.g. no more tags left).
+> +        */
+> +       __set_bit(0, tlb_tags.bitmap);
+> +
+> +       tlb_tags.nr =3D nr;
+> +       spin_lock_init(&tlb_tags.lock);
+> +       return 0;
+> +}
+> +EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_init_tlb_tags);
+> +
+> +void kvm_destroy_tlb_tags(void)
+> +{
+> +       bitmap_free(tlb_tags.bitmap);
+> +       tlb_tags.bitmap =3D NULL;
 
+For consistency and future-proofing, it might be wise to clear tlb_tags.nr =
+here.
+
+> +}
+> +EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_destroy_tlb_tags);
