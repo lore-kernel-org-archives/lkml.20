@@ -1,137 +1,303 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+Received: from va-1-111.ptr.blmpb.com (va-1-111.ptr.blmpb.com [209.127.230.111])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1475424655
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:38:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F152B3168EF
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:40:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791959918; cv=none; b=ZoZCMQqV93PQ/r3gGqc2dlyBSII3eDzEbDzRvNaawER1wDFnx0Hxvvh17JDQtpkLq2qUHTpe4gIzndhhzIA8DayVg510Fz9w0SFiaP2/q4XVviUCxgtg8wZ27hw034t/DoViXtgPUmMZ2bfj6/YyAOQuLiUcwd7YeudWRJdwUug=
+	t=1791960020; cv=none; b=Oq4xhFsWwEISkNGFrtc5bCtpIUBpkNd1dxYM5duiD5q+pXbZZUOEr9ZNCBFB3xd45VK10TdLCZrcIVdz/0wVqjXNqap5V42R7BSX8n2IXeJj0ERIgX0XA3dlPPZ8BWKBlOnKFLb/p96lD9GkiCjDxEguQJ5Rs6izp0WKZkVjqAg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791959918; c=relaxed/simple;
-	bh=SKywH8MNPdivYCGdEihmGK/lbFOotmv3FlQiIRwxB38=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LbcUNHhkHi7PL3KqyVRM7PrWZe+7GAypcZ08lLDFKczJOheqMFJe0czczJBlcywye8frE2KkP+oCrkd+vKPB2NnBh/lTneIAMkP3Rb6aiOux32QlPCf0XdMDc/msH8LTGfc/uYGEih8l9ioquFiU067tzriXKqFE6nMAxrtRQlE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FgVBtJ9j; arc=none smtp.client-ip=209.85.210.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791960020; c=relaxed/simple;
+	bh=C0XcoC87yW/++8AJXGOxW05GqKZ6gqXm6NsTqB0339Y=;
+	h=Date:Mime-Version:In-Reply-To:References:Message-Id:To:
+	 Content-Type:Cc:From:Subject; b=KTUuPMfJXDGdo4Epb/1/607lMdfcdmYE4oFzUnXAH8ENa/R6f2pJHSVuFKLWElg/170Nv5SuIDf4iKgCp1/zEAqkRnaUIHgVWkr4PQjxWPNYyEAlWv5LJtE+wD0X0vndxfIbEFOgajBNgSxrxjGPaPc0jVystextGpY14XeE46k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=XiV83qdJ; arc=none smtp.client-ip=209.127.230.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FgVBtJ9j"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8897e83332fso2490955b3a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:38:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791959916; x=1792564716; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nNh/M3sOC7N/J+QZXKtdURAz2jbnsRv3OJdxTJpbjNA=;
-        b=FgVBtJ9jCXmdaP5e3WAWbfof7fN7N51BmddrCgDw7cFxTdijC0Q/XwO0C4D1dgXw9a
-         sd1t16LLhaNYYjcngY/Sx4+iiCxRvjToJ0zzj3ebYiVDPrqQgefXcolGWSh6bOs8du/c
-         JHNIphpyNCVF0AdepgS4yii2MW5R34qCAhUA3UARxpmXR5Bshc/yURzE9yIUiAu35g8k
-         PDzqeUuslZ5xM/twWMrmegNzdoTfEPeDLLMyFAaeeVmdCD57I79iZFRGkbfqJggSaAHR
-         g4yasJuzG8zk21NIePzy9ypVImvdZDBCAmaih7TRiWEchoDdRb04gzJ2a62ZeMPiyaPu
-         z5Nw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791959916; x=1792564716;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nNh/M3sOC7N/J+QZXKtdURAz2jbnsRv3OJdxTJpbjNA=;
-        b=r4E9nLfKb3+IQ8Uz3ISnsXUJHYiYxHG+eisUVQjhugnyBzIxOOqnWYc2K/3OzfW3sD
-         CF/5Tue4y1IwY0xc2qm7incgXKv5iL5Aqm/RgZUbss138tEm8YuHOAZv74tPg/Ur8Vs1
-         kWZeiqZxu7UddUa7fnQWlQRtPKzy3oT80t667j7Mw5SCGNaoQ7Fy0YWeBsx1Z86KUDRB
-         IFXmZ6t5AxsBssv1OTny+irqy0tyGTORt0I4cVNxEnSXT9PgvSlciI9AUX4T2qvBwDqv
-         q7hrMVsFsV7YQdNwL44j5yfSrdpI+jZRnwPrB3YTDkbOm9NGYH/UHzxTtXMSrdTiwEVJ
-         ViHA==
-X-Forwarded-Encrypted: i=1; AKwUvByw6b59TPxvOdphKYXL18tBv+KXITLp6gLv7fIJ8GFT/rji7GQi8tOMAJYbO926SBAjrA6yzHfe7CQz8dA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK6GSnadxgDj7K3kM1eyWccN9uQEiVAoupBNFjO3YByMDqeqks7
-	wzhaFDo97jBe2frTG40o402wTtF7/qQYZvaZu+5V+jiypBcGHZqJtgiW
-X-Gm-Gg: AYBFou39T+3XBiHFyDMB0JrgSTZuweEh+W0Dd04V/7LyJf0KDwOhTFCJcmhQ2O8XQts
-	2IA96aSeK0spsDJmpGYBhhNYoq4iLXf4WtxvNekVUdhrpbafOYpdnw/ru6FNe0pOy2l7n7VfRnr
-	/SmDYXbL5G1wAORtv3KBOMeovT55iuMiJX02T0AvlOoxZvk81a0ZQ71fAWVxIfYi8B9Y3N//UN6
-	z3lrpNozDgi0/fUO0HesaQS7EU318oR4UG1LVJuMwLvTDDKWqDeXB9QrSyKBD5pjnOXXN5oKAGh
-	gMRXYrnU55jg+Sm0pHG86/44sSpOXRMPzf8eJsbMdhQKD1ALQx0990HktitjtmCKAFyWt24N3Dn
-	R3IoYsfjxwj9mvEl90AZ1408/NVYJLyaCddYJ61eAVrH3fYdFVfIqiThoCZI7+S5yE9sFclzLWp
-	Y09wCNNq+FxMv+36XJ4lFzU7r58peN+HAVFQuqBlmWR0hrsG3jKS1ZiP97nwiAxkqj8+Q0QXg=
-X-Received: by 2002:a05:6a20:a120:b0:3d3:ad6e:9ce1 with SMTP id adf61e73a8af0-3e16bd54a69mr8958658637.15.1791959916302;
-        Tue, 13 Oct 2026 23:38:36 -0700 (PDT)
-Received: from gmail.com ([2a03:2880:7ff:4d::])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89d802a4314sm701933b3a.11.2026.10.13.23.38.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 23:38:35 -0700 (PDT)
-Date: Tue, 13 Oct 2026 23:38:26 -0700
-From: Narcisa Vasile <narcisav.kernel@gmail.com>
-To: Tariq Toukan <tariqt@nvidia.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org,
-	Paolo Abeni <pabeni@redhat.com>,
-	Akiva Goldberger <agoldberger@nvidia.com>,
-	Gal Pressman <gal@nvidia.com>, Leon Romanovsky <leon@kernel.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	linux-rdma@vger.kernel.org, Mark Bloch <mbloch@nvidia.com>,
-	Moshe Shemesh <moshe@nvidia.com>,
-	Saeed Mahameed <saeedm@nvidia.com>
-Subject: Re: [PATCH net-next] net/mlx5: Add reset_prepare and reset_done
- callbacks
-Message-ID: <as8jYneJ32Hl++uj@gmail.com>
-References: <20261011094809.790798-1-tariqt@nvidia.com>
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="XiV83qdJ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1791960007; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=EwuNqo0+XHPwZDaTi39gy+CiCLpMn+EunsNZ/8hw9/Y=;
+ b=XiV83qdJI5+J3HFUS6LMfBVVTOP338pX0Is/EZSIVi6EGM0HNiRLoiYoY9/3IEBposbUPb
+ Q6FcIgPJx66kjauXVhBQxLtxzCyC1GZsqvpFvh8qf/b/U+SEBgPSCYsTNsM0be3L+JppUd
+ LDhZo2MpO0n7X/5LAgEg3IGZ/WM3UAMYBnl/aycXdJS61WAgijJ5+Iz4IB8jStRZKN6ZBR
+ FlUVkJJtSzqOFcAsFQm1IpAWovaabGM3hyrFn3KDCVkGthDEzMHLF0dLnBlgoRA75mX2zr
+ tUHWYOCv6VephUJlH7N+n1tuKuLkYgo7hn871X8Wd2LkMRgbTmLnXSvc8gCnVg==
+Date: Wed, 14 Oct 2026 14:39:54 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261011094809.790798-1-tariqt@nvidia.com>
+Mime-Version: 1.0
+User-Agent: Mozilla Thunderbird
+In-Reply-To: <70ea8ee6-6fc5-4209-8cee-362da37f5035@kernel.org>
+References: <20260930064308.58159-1-lizhe.67@bytedance.com> <arzVaC2IYkqSb0_U@gmail.com> <9a7c026e-f5f2-40e0-84aa-919c988cc136@bytedance.com> <2b4571c5-8e51-4c91-9d88-11929f200875@kernel.org> <asjVUa6XBZ8ti-0_@gremlin> <70ea8ee6-6fc5-4209-8cee-362da37f5035@kernel.org>
+Message-Id: <86de1ee5-be14-4123-b372-b4691cea8e67@bytedance.com>
+X-Lms-Return-Path: <lba+26acf23c5+051143+vger.kernel.org+lizhe.67@bytedance.com>
+Content-Transfer-Encoding: quoted-printable
+To: "David Hildenbrand (Arm)" <david@kernel.org>, 
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Original-From: Li Zhe <lizhe.67@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+Cc: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, 
+	<akpm@linux-foundation.org>, <muchun.song@linux.dev>, 
+	<osalvador@suse.de>, <linux-mm@kvack.org>, 
+	<linux-kernel@vger.kernel.org>
+From: "Li Zhe" <lizhe.67@bytedance.com>
+Subject: Re: [PATCH] mm/hugetlb: avoid recursive i_mmap_rwsem in PMD sharing
 
-On Sun, Oct 11, 2026 at 12:48:09PM +0300, Tariq Toukan wrote:
-> From: Akiva Goldberger <agoldberger@nvidia.com>
-> 
-> Currently, the mlx5_core driver registers only the error_detected,
-> slot_reset and resume PCI error handlers. Add the reset_prepare and
-> reset_done callbacks, which are triggered by the PCI core before and
-> after a PCI reset, respectively. These callbacks let mlx5 quiesce and
-> restore device resources and commands around a PCI reset, so the driver
-> no longer relies on the reset happening while the device is otherwise
-> idle.
-> 
-> Additionally, add a device flag to indicate when a PCI reset is in
-> progress to serialize PCI reset flows with other reset flows, namely FW
-> reset. This flag also indicates to the reset_prepare and reset_done
-> callbacks when to do a full unload/reload of the driver. When the
-> callbacks are triggered by the hot-reset FW reset method, they leave the
-> teardown and reload to the FW reset.
-> 
-> Signed-off-by: Akiva Goldberger <agoldberger@nvidia.com>
-> Reviewed-by: Moshe Shemesh <moshe@nvidia.com>
-> Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
+On 10/10/26 2:05 AM, David Hildenbrand (Arm) wrote:
+> On 10/9/26 13:52, Lorenzo Stoakes (ARM) wrote:
+>> On Mon, Oct 05, 2026 at 11:25:01AM +0200, David Hildenbrand (Arm) wrote:
+>>>> David mentioned that Oscar was planning to send a proper fix for this
+>>>> issue, so I will wait for that patch instead of moving forward with th=
+is
+>>>> trylock fallback approach.
+>>> @Lorenzo, if Oscar is too busy, I guess we can paste the overall idea f=
+or the
+>>> fix here as well (publicly)?
+>> Yeah I don't see why not! I don't think there's anything that needs to b=
+e
+>> private here.
+> Li, see below, can you work with the below?
+>
+>
+> ----8<----
+>  From 9e1c0676ea6c9cbcabf91cd8badf81a9d88fd3ef Mon Sep 17 00:00:00 2001
+> From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+> Date: Wed, 29 Jul 2026 18:33:08 +0100
+> Subject: [PATCH] fix
+>
 > ---
->  
-> +static void mlx5_pci_reset_prepare(struct pci_dev *pdev)
+>   mm/hugetlb.c | 103 +++++++++++++++++++++++++++++++++++++++------------
+>   1 file changed, 79 insertions(+), 24 deletions(-)
+>
+> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+> index e93c4d2456aa..88ff2c4ad483 100644
+> --- a/mm/hugetlb.c
+> +++ b/mm/hugetlb.c
+> @@ -5077,6 +5077,79 @@ static void move_huge_pte(struct vm_area_struct *v=
+ma, unsigned long old_addr,
+>   	spin_unlock(dst_ptl);
+>   }
+>
+> +/* Returns last address processed */
+> +static unsigned long prealloc_or_move_page_tables(struct vm_area_struct =
+*vma,
+> +		struct vm_area_struct *new_vma, unsigned long old_addr,
+> +		unsigned long new_addr, unsigned long len, unsigned long sz,
+> +		unsigned long last_addr_mask, struct mmu_gather *tlb,
+> +		bool is_prealloc)
 > +{
-> +	mlx5_drain_health_wq(dev);
-> +	mlx5_unload_one(dev, false);
-> +	mlx5_pci_disable_device(dev);
-This disables bus-mastering, after which pci_save_state snapshots it in
-the disabled state. reset_done() re-enables it but the snapshot remains
-stale.
-
-If a FW error later triggers the sw recovery through mlx5_pci_slot_reset(),
-the stale snapshot is re-applied with pci_restore_state().
-Would this disable bus mastering again and block the driver recovery?
-Should pci_set_master(pdev); and pci_restore_state(pdev); be reordered
-in mlx5_pci_slot_reset()?
+> +	unsigned long old_end =3D old_addr + len;
+> +	struct hstate *h =3D hstate_vma(vma);
+> +	struct mm_struct *mm =3D vma->vm_mm;
+> +	pte_t *src_pte, *dst_pte;
+> +
+> +	hugetlb_vma_assert_locked(vma);
+> +
+> +	for (; old_addr < old_end; old_addr +=3D sz, new_addr +=3D sz) {
+> +		src_pte =3D hugetlb_walk(vma, old_addr, sz);
+> +		if (!src_pte) {
+> +			old_addr |=3D last_addr_mask;
+> +			new_addr |=3D last_addr_mask;
+> +			continue;
+> +		}
+> +		if (huge_pte_none(huge_ptep_get(mm, old_addr, src_pte)))
+> +			continue;
+> +
+> +		if (is_prealloc) {
+> +			if (!huge_pte_alloc(mm, new_vma, new_addr, sz))
+> +				break;
+> +			continue;
+> +		}
+> +
+> +		if (huge_pmd_unshare(tlb, vma, old_addr, src_pte)) {
+> +			old_addr |=3D last_addr_mask;
+> +			new_addr |=3D last_addr_mask;
+> +			continue;
+> +		}
+> +
+> +		dst_pte =3D hugetlb_walk(new_vma, new_addr, sz);
+> +		if (!dst_pte)
+> +			break;
+> +
+> +		move_huge_pte(vma, old_addr, new_addr, src_pte, dst_pte, sz);
+> +		tlb_remove_huge_tlb_entry(h, tlb, src_pte, old_addr);
+> +	}
+> +
+> +	return old_addr;
 > +}
 > +
-> +static void mlx5_pci_reset_done(struct pci_dev *pdev)
+> +/* Returns true if preallocation succeeded across range, otherwise false=
+. */
+> +static bool prealloc_hugetlb_page_tables(struct vm_area_struct *vma,
+> +		struct vm_area_struct *new_vma, unsigned long old_addr,
+> +		unsigned long new_addr, unsigned long len, unsigned long sz,
+> +		unsigned long last_addr_mask)
 > +{
-> +	err = mlx5_pci_enable_device(dev);
-> +	if (err) {
-> +		mlx5_core_err(dev, "%s: mlx5_pci_enable_device failed, err = %d\n",
-> +			      __func__, err);
-nit: mlx5_core_err already prints __func__
-> +		goto clear_pci_reset_flag;
-> +	}
+> +	unsigned long old_end =3D old_addr + len;
+> +	unsigned long addr_end;
+> +
+> +	addr_end =3D prealloc_or_move_page_tables(vma, new_vma, old_addr, new_a=
+ddr,
+> +			len, sz, last_addr_mask, NULL, /*is_prealloc=3D*/true);
+> +
+> +	return addr_end >=3D old_end;
+> +}
+> +
+> +/* Returns last processed address. */
+> +static unsigned long __move_hugetlb_page_tables(struct vm_area_struct *v=
+ma,
+> +		struct vm_area_struct *new_vma, unsigned long old_addr,
+> +		unsigned long new_addr, unsigned long len, unsigned long sz,
+> +		unsigned long last_addr_mask, struct mmu_gather *tlb)
+> +{
+> +	i_mmap_assert_write_locked(vma->vm_file->f_mapping);
+> +	return prealloc_or_move_page_tables(vma, new_vma, old_addr, new_addr,
+> +			len, sz, last_addr_mask, tlb, /*is_prealloc=3D*/false);
+> +}
+> +
+>   int move_hugetlb_page_tables(struct vm_area_struct *vma,
+>   			     struct vm_area_struct *new_vma,
+>   			     unsigned long old_addr, unsigned long new_addr,
+> @@ -5088,9 +5161,9 @@ int move_hugetlb_page_tables(struct vm_area_struct =
+*vma,
+>   	struct mm_struct *mm =3D vma->vm_mm;
+>   	unsigned long old_end =3D old_addr + len;
+>   	unsigned long last_addr_mask;
+> -	pte_t *src_pte, *dst_pte;
+>   	struct mmu_notifier_range range;
+>   	struct mmu_gather tlb;
+> +	bool preallocated;
+>
+>   	mmu_notifier_range_init(&range, MMU_NOTIFY_CLEAR, 0, mm, old_addr,
+>   				old_end);
+> @@ -5106,30 +5179,12 @@ int move_hugetlb_page_tables(struct vm_area_struc=
+t *vma,
+>   	last_addr_mask =3D hugetlb_mask_last_page(h);
+>   	/* Prevent race with file truncation */
+>   	hugetlb_vma_lock_write(vma);
+> +	preallocated =3D prealloc_hugetlb_page_tables(vma, new_vma, old_addr,
+> +			new_addr, len, sz, last_addr_mask);
+>   	i_mmap_lock_write(mapping);
+> -	for (; old_addr < old_end; old_addr +=3D sz, new_addr +=3D sz) {
+> -		src_pte =3D hugetlb_walk(vma, old_addr, sz);
+> -		if (!src_pte) {
+> -			old_addr |=3D last_addr_mask;
+> -			new_addr |=3D last_addr_mask;
+> -			continue;
+> -		}
+> -		if (huge_pte_none(huge_ptep_get(mm, old_addr, src_pte)))
+> -			continue;
+> -
+> -		if (huge_pmd_unshare(&tlb, vma, old_addr, src_pte)) {
+> -			old_addr |=3D last_addr_mask;
+> -			new_addr |=3D last_addr_mask;
+> -			continue;
+> -		}
+> -
+> -		dst_pte =3D huge_pte_alloc(mm, new_vma, new_addr, sz);
+> -		if (!dst_pte)
+> -			break;
+> -
+> -		move_huge_pte(vma, old_addr, new_addr, src_pte, dst_pte, sz);
+> -		tlb_remove_huge_tlb_entry(h, &tlb, src_pte, old_addr);
+> -	}
+> +	if (preallocated)
+> +		old_addr =3D __move_hugetlb_page_tables(vma, new_vma, old_addr,
+> +			new_addr, len, sz, last_addr_mask, &tlb);
+>
+>   	tlb_flush_mmu_tlbonly(&tlb);
+>   	huge_pmd_unshare_flush(&tlb, vma);
+> --
+> 2.55.0
+
+Hi David,
+
+I thought more about the case where the destination page table was
+preallocated as a shared PMD.
+
+I do not think the current move_huge_pte() handles that case very well. The
+reason is that it assumes the destination PTE is not part of a shared PMD
+page table: it clears the source PTE and then installs that PTE into the
+destination. That works when the destination PMD page table is not shared,
+because the source removal and destination install have a net-zero effect o=
+n
+rmap and hugetlb accounting.
+
+If the destination PTE belongs to a shared PMD, that assumption does not
+hold. In that case, I think we should leave the shared destination page
+table untouched and treat the operation as a source-side unmap. Otherwise
+move_huge_pte() either writes through a shared page table or skips the
+source-side unmap accounting. That can make the rmap, hugetlb count and
+folio release handling inconsistent with the actual PTE update.
+
+So I think the change should be roughly:
+
+
+---
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+@@
+ =C2=A0static void move_huge_pte(struct vm_area_struct *vma, unsigned long=
+=20
+old_addr,
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 unsigned long new_addr, p=
+te_t *src_pte,
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 pte_t *dst_pte, unsigned =
+long sz)
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 unsigned long new_addr, p=
+te_t *src_pte,
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 pte_t *dst_pte, struct mm=
+u_gather *tlb,
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 unsigned long sz)
+ =C2=A0{
+ =C2=A0 =C2=A0 =C2=A0struct hstate *h =3D hstate_vma(vma);
++=C2=A0 =C2=A0 bool dst_shared =3D hugetlb_pmd_shared(dst_pte);
+ =C2=A0 =C2=A0 =C2=A0struct mm_struct *mm =3D vma->vm_mm;
++=C2=A0 =C2=A0 struct folio *folio =3D NULL;
+ =C2=A0 =C2=A0 =C2=A0pte_t pte;
+
+ =C2=A0 =C2=A0 =C2=A0pte =3D huge_ptep_get_and_clear(mm, old_addr, src_pte,=
+ sz);
++=C2=A0 =C2=A0 tlb_remove_huge_tlb_entry(h, tlb, src_pte, old_addr);
++
++=C2=A0 =C2=A0 if (dst_shared) {
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (pte_present(pte)) {
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 folio =3D page_folio(pte_page(pt=
+e));
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (huge_pte_dirty(pte))
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 folio_mark_dirty(f=
+olio);
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 hugetlb_count_sub(pages_per_huge=
+_page(h), mm);
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 hugetlb_remove_rmap(folio);
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 }
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 goto unlock;
++=C2=A0 =C2=A0 }
+
+ =C2=A0 =C2=A0 =C2=A0/* Existing non-shared destination path remains unchan=
+ged. */
+ =C2=A0 =C2=A0 =C2=A0set_huge_pte_at(mm, new_addr, dst_pte, pte, sz);
+
++unlock:
+ =C2=A0 =C2=A0 =C2=A0...
++
++=C2=A0 =C2=A0 if (folio)
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 tlb_remove_page_size(tlb, folio_page(folio, 0)=
+,
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0folio_size(folio));
+ =C2=A0}
+---
+
+
+Does this sound like the right direction to you? If so, I will fold this
+into the next version.
+
+Thanks,
+Zhe
