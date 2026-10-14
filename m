@@ -1,131 +1,148 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82972560AAD
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:43:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D6015625EB;
+	Wed, 14 Oct 2026 16:43:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791996210; cv=none; b=ZdF6Nwx5k0XvPXzfLvYPHc0oWBMMOlIwdZfXLX/OIptF4yaR8OwO9FXdHdJg5d9sfdnd+Jlvws9PYF63JTsVY0nWJBVnMXSXvP9ppjDwPSOejK8MljL1Oa6X8JkTNvjzN6hfoIn9Zyw0hEdKTr3cQU4ica0Mr8bFcrGF+mfX4qs=
+	t=1791996210; cv=none; b=YtUwJ/5p0A7TzOHuUQFvoWgf3LfrpE+maRRH/2KhfDWPoxnXxywrhjtUvHBbR0/0kzB8QPmt4fqSn2zknsfuB7v6i/T1NltJ90YhCwS/ambJKg7VNxDr7a3zLR7JOM2jmn7jBtftHLe9aGYM4gYjKjHSSplNG+ZNft33L7nbPok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791996210; c=relaxed/simple;
-	bh=inWFXH/4gvwDDJShSxb1UbDeXwomoSCtPfVrGbG9V30=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BlmSTe3wnpB7tBwx5PKnd2ZTn2rYxix2Uiqrlr0a7ObCUKTot9bpnO7MYbJuhQepx671a1bbzcO4UxWKe3hrxApmZEq1J1O0LepOjXM/GEIEgAga9POwgmnWxb2KJyehK+rFBXunaJ7SmGpVkw/NdKikWf55WFA/K0reK0PEsYY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E1NM3HAv; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=xV3YYzgiHKNYv4ZsS8U0n7c7XhEmcNEyuf7arRai0qE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=PXE5XjCc5l0uA9t45jZw50pojNjGwSMxfN8laTMvky6USAUQbUg7eorUgNYxbGNmu35+bq+EsPcxhI+l3FaYPQYdQrF+QiSEZznmIqPU2vBmyKBEUYJkcV/yysUvkqDKhlOLl5CYNI+82hquEt0SyxDTr+6sstyp3lfA4syBG4g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TOD/ewOb; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E1NM3HAv"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a16c1608faso57221915e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:43:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791996207; x=1792601007; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MprqRVTku8rnnoqrNidogE79Hh/sbjcVtJHMk6QO0CA=;
-        b=E1NM3HAvhNi9WchZCxi00OWvzNXWTS2u9u46iCZ3ECQeHnpGaWCZkd2cly+63fqf9N
-         vCRSfhbNX4pSk9hS9CdsqxtJ9Ct3kD9jrt77wBkSBXF+cbMZ9YyJCbxsApFjfxGwVHkQ
-         9mI97SUREXrgYZjUWhNcorUK/AhUkfbW+kAiYYRCscCCfVyE99IvI5Lvc+isggf0hntX
-         ILRq77IJjxILg2lW57G4jEGwEYrprjfZgboCuATbf849dHnvs/BT/5NTChKw9SrVwSYC
-         ojaj/o0+U59n8OjEQVffo6tw80KC9ygURz8nKf7xjhnzzmTKJzZNJFGetkIgcLFaC/NG
-         GqFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791996207; x=1792601007;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MprqRVTku8rnnoqrNidogE79Hh/sbjcVtJHMk6QO0CA=;
-        b=TXmchxKL2KIBbFTM5m7irOlcv1FIsQH5AxSLniHgZ+tXOwPxxfmGUVck7MXrt0OMvp
-         9aFLOuU1wjsfOnv1kms/imsqOVNPS+PPsaEQHEMaGCePkYPms3F0IgeEq1s8FPx1CKay
-         4g96w4I+iBabKizIU6rvCnv1CXO2dS46KR04pAzFGqhlTCzjwx84HEQTGwN5L+BdvU22
-         l5s2tJhxCajVr/oEapSvBofP/0X7kh13vriik/xsmK7mY27fgmAewBBOU2IV5WdCrezu
-         Rs9/nWSIwTXx27dB0uw41IAo2RUBJsuj+k9YB/7aU7ivza/j5lgFSMijI2KnxtTSooHh
-         q6lw==
-X-Forwarded-Encrypted: i=1; AKwUvBxmgHiNFF0x5Nh0psvc5DmD+pISp9oonebx4CDy2PGKsnfrDDxuF4RshuUvQppbhLM7Vz/AEbNtZ2nagl0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKVGSvKyHvdDSyvcCXqPzM9k5BZy8SlQ0ZhS+DlwvgvWqn5kHVM
-	rHXxEhWkV2SPBU/1hbyCpWBr+13Syzc3Bzmn/AIhNBlThaFigQpjb3Jp
-X-Gm-Gg: AYBFou26Acpve0pgqOgHhacCo2usAYVJ5PkTYGwRhUaLDToJVj5rMwoLsTz0yBA3ujJ
-	gl1W9U8q1jNmky+OzXW2dSHOwbp7YNmFgbTUQv9HWwQo/7OKeNY6HfIIrjnAAxRYYaOn6ibUf+c
-	rfrvgIpuEBbIAzaZ1JWR/vFPQUVqg1TPEM4ooKU8DduygfKnsPVPhdg1R5V6NVR8J52FjpxUN0c
-	QffnKHPc28Tuo3040JTzdW+uyeueJn0lzp0YrjDJismqfA7hWJGZkbYRXvwVPLF6/WnqmqURmVI
-	6/LTcjDDWNaX7k2jNuSXziusvQcdpstbTS6+6GoE0bGLXWwrMTsNRFtMGmXoadCLINdvFidfK3k
-	V9B/IWptDxO2VGDK2dMS8tKJb5wTljRP61XyVQBGoJIVCxuqoK9++lDFz/vjj3vf1URzsqklqW3
-	C36hjZ5TO18QxnFLGp4G3puGDANEMv+4UnQzbrvve4gY0O4ID4F1+sAa/CX2+8j1abqkeVx60zM
-	whQgTghvNPrUY0bFex/B5mYTSK5lrZgkVQE62988D0bwAxQb2S53Tq/B1TzgDfS8DcbigkHBLJc
-	QO6og+qZma19v2CYcGzOgF8YSb+Fdo03Gvy2DYw3hnQ1xjHh
-X-Received: by 2002:a05:600c:83cf:b0:4a1:ac66:604b with SMTP id 5b1f17b1804b1-4a1ac666a65mr120408565e9.1.1791996206748;
-        Wed, 14 Oct 2026 09:43:26 -0700 (PDT)
-Received: from ?IPV6:2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c? ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd640be0sm4751135e9.1.2026.10.14.09.43.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 09:43:24 -0700 (PDT)
-Message-ID: <7d3c3cc3-5c7b-4d28-82d8-2cdb5e010c29@gmail.com>
-Date: Wed, 14 Oct 2026 17:43:20 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TOD/ewOb"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B60B0C2BCC7;
+	Wed, 14 Oct 2026 16:43:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791996209;
+	bh=xV3YYzgiHKNYv4ZsS8U0n7c7XhEmcNEyuf7arRai0qE=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=TOD/ewObUfVCU7M2AN5PF+bNlZ2Ksh2xs1e3QLIhS1UIrFXcKartL+ctPKPCXV0Oy
+	 R2ca7BXa4YB6iryJcXqWgduSPjZlVYmL3DNrmwoD3zWYHbJ6JyGODg01vJyLhLWjoN
+	 weydsL3rDlOdP/s5pvQlyVxuRpk9giP79+3UxJXZjnJH5DDGS11/DBluklWnE2u95d
+	 ccs9iWOkyk/QG6OGaNrfTnwzdxpjp7mzBBSUM0V+7e6gZe2p1QmyMBrkaRBpDe+rCL
+	 hGE4jUn19h/V2KfhchRGUpx5sxhizgJ/5wPrXyvdgiqxhLHMdxC0GIToLXNImACp8f
+	 ya6unDeUJnjjA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9170ACC6B2D;
+	Wed, 14 Oct 2026 16:43:29 +0000 (UTC)
+From: Phil Rosenthal via B4 Relay <devnull+phil.phil.gs@kernel.org>
+Date: Wed, 14 Oct 2026 12:43:29 -0400
+Subject: [PATCH] serial: core: Shut down a suspended port on removal
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 04/13] block: introduce dma map backed bio type
-To: Christoph Hellwig <hch@lst.de>
-Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-nvme@lists.infradead.org,
- linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Keith Busch <kbusch@kernel.org>, Sagi Grimberg <sagi@grimberg.me>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Andrew Morton <akpm@linux-foundation.org>, Jens Axboe <axboe@kernel.dk>,
- Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
- Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
- William Power <william.power@intel.com>,
- Matthew Brost <matthew.brost@intel.com>, Alasdair Kergon <agk@redhat.com>,
- Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
- Benjamin Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev
-References: <cover.1791975048.git.asml.silence@gmail.com>
- <39b964cf7510f42755188563da63d3d5acaf2aa9.1791975048.git.asml.silence@gmail.com>
- <20261014131554.GA16467@lst.de>
-Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <20261014131554.GA16467@lst.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261014-serial-remove-suspended-v1-1-fda644ab5f89@phil.gs>
+X-B4-Tracking: v=1; b=H4sIADCxz2oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDA0MTXZD6xBzdotTc/LJU3eLS4oLUvJTUFN2URHNz46RkI4uUZFMloO6
+ CotS0zAqwydGxtbUARzE2PGkAAAA=
+X-Change-ID: 20261014-serial-remove-suspended-da773bc28dc5
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Igor Putko <igorpetindev@gmail.com>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ stable@vger.kernel.org, Phil Rosenthal <phil@phil.gs>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791996209; l=3532;
+ i=phil@phil.gs; s=20260718; h=from:subject:message-id;
+ bh=yrEleuf8PDdDURngAqAjAHzp6HlswgNm82AG2coKGik=;
+ b=WIVLdFyRwPAk6R38h+U3YX1ARJdv/nYj/MQzysE1oPHuXitVhz/MT8sSoNwSqP2A+nc/ZLyKm
+ pwhp+y3ABi/AUG1wa6hLv33oD1ZsEZBfxhAboOtVD4TAB/KrJy+4SwY
+X-Developer-Key: i=phil@phil.gs; a=ed25519;
+ pk=08BMg1YPtTS5NnKn5I1Mq1ra3MdAg49Awe6OjrC59fs=
+X-Endpoint-Received: by B4 Relay for phil@phil.gs/20260718 with auth_id=881
+X-Original-From: Phil Rosenthal <phil@phil.gs>
+Reply-To: phil@phil.gs
 
-On 10/14/26 14:15, Christoph Hellwig wrote:
-> On Wed, Oct 14, 2026 at 12:02:02PM +0100, Pavel Begunkov wrote:
-...>>   	case REQ_OP_DISCARD:
->> diff --git a/block/blk-mq.c b/block/blk-mq.c
->> index e929f94b25c7..1b7f8cbbda8b 100644
->> --- a/block/blk-mq.c
->> +++ b/block/blk-mq.c
->> @@ -3150,6 +3150,12 @@ void blk_mq_submit_bio(struct bio *bio)
->>   		goto queue_exit;
->>   	}
->>   
->> +	if (unlikely(op_is_dmabuf(bio->bi_opf) &&
->> +		bdev_has_integrity_csum(bio->bi_bdev))) {
->> +		bio_endio_status(bio, BLK_STS_NOTSUPP);
-> 
-> Wrong indentation, conditions are never indented the same level as
-> the following code block, even with the weirdest preferences.
-> 
-> /me note the patch from Anuj on the list actually got this right..
+From: Phil Rosenthal <phil@phil.gs>
 
-I had to split Anuj's patch in two, should've butchered it
-while hand applying. I'll follow up on that unless Jens
-already applied the change.
+Commit 810d467c11f0 ("serial: core: shut down initialized port on
+removal") calls uart_shutdown() from serial_core_remove_one_port() only
+if the port is initialized.  A port that is removed while suspended is
+not: uart_suspend_port() clears its initialized flag, sets its suspended
+flag and keeps its transmit buffer.  Nothing clears the flag or frees
+the buffer on removal, so both stay in the line's uart_state.
 
-> Otherwise looks good:
-> 
-> Reviewed-by: Christoph Hellwig <hch@lst.de>
+If the line is reused, the next uart_resume_port() for the new port
+finds the suspended flag set and starts the port up although nobody has
+opened it.  If the uart_driver is unregistered instead, the buffer is
+leaked, as uart_unregister_driver() does not free it.
 
+Call uart_shutdown() whether or not the port is initialized.  For a port
+that is not initialized it leaves the hardware alone, and it always
+clears the suspended flag and frees the transmit buffer.
+
+Fixes: 810d467c11f0 ("serial: core: shut down initialized port on removal")
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/r/sashiko-outbox-164404@kernel.org
+Assisted-by: LLM sparse
+Signed-off-by: Phil Rosenthal <phil@phil.gs>
+---
+Greg asked for this as a follow-up to 810d467c11f0 in the thread on my
+duplicate of that fix [1].
+
+Tested in a QEMU guest on tty-next 8db79ea07a67 with KASAN.  To remove
+a port while it is suspended, a test module registers a polled 8250
+platform port, which becomes the console, and after the port has been
+opened and closed it calls serial8250_suspend_port(), as a system
+suspend would, and then removes the port.  It prints the line's
+uart_state before and after removal:
+
+  810d467c11f0 alone (on tty-next 36844ea19656):
+    before removal: initialized=0 suspended=1 xmit_buf=allocated
+    after removal:  initialized=0 suspended=1 xmit_buf=allocated
+
+  With this patch:
+    before removal: initialized=0 suspended=1 xmit_buf=allocated
+    after removal:  initialized=0 suspended=0 xmit_buf=NULL
+
+The cases 810d467c11f0 fixes still pass: an 8250_pci port with INTx
+unbound after its console was opened and closed (IRQ freed, rebinding
+restores the console and getty), and a polled MMIO console port removed
+after being opened and closed.  A port held open across removal and a
+console that was never opened also still work.  W=1, sparse and
+checkpatch --strict are clean.
+
+Not tested: removal during a real system suspend.  What happens on a
+reused line at the next resume is from reading the code.
+
+[1] https://lore.kernel.org/r/2026101433-refuse-unbiased-4b63@gregkh
+
+AI assistance: an LLM coding assistant (Claude, model claude-opus-5-5,
+in Claude Code) wrote the patch and the test module, and built and ran
+the test kernels.  I reviewed it.
+---
+ drivers/tty/serial/serial_core.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
+index 9eea8d1a0e8a0e60d8af9b56c917954f5dc45f0e..a234217487d3718ae5e9c533112c2020a3aca946 100644
+--- a/drivers/tty/serial/serial_core.c
++++ b/drivers/tty/serial/serial_core.c
+@@ -3246,9 +3246,7 @@ static void serial_core_remove_one_port(struct uart_driver *drv,
+ 
+ 	scoped_guard(mutex, &port->mutex) {
+ 		port->console = false;
+-
+-		if (tty_port_initialized(port))
+-			uart_shutdown(NULL, state);
++		uart_shutdown(NULL, state);
+ 	}
+ 
+ 	/*
+
+---
+base-commit: 8db79ea07a67b126c773da6efdc00066000daeb8
+change-id: 20261014-serial-remove-suspended-da773bc28dc5
+
+Best regards,
 -- 
-Pavel Begunkov
+Phil Rosenthal <phil@phil.gs>
+
 
