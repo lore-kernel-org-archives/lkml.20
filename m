@@ -1,91 +1,207 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C518D55D876;
-	Wed, 14 Oct 2026 16:36:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40FAE55D876
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:36:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791995776; cv=none; b=tUVFBVfMdD/cRDo9uRIKMC4ftEUhzX45B/NDOmPvSWoEDMvZo+oQfMd0RtWInSuM3kUDvSV4w6bl9w/daAVblAkjsrIRsflb2qYSTMuwtwFLYQ+APwbibppExH9KWmu0EzMnENjG7RrPPytMWdcf7hIH43+Ug8rd6EzCNLx/tVY=
+	t=1791995780; cv=none; b=hLdOfrBfybmVa0yf5/Ha6Txx6ci86DuZltGDiEG3oeN/zpM0zFLDZuEN9lKJgyFZC+BVRZ9FR5+Rlb4rIssXy6NpTUDhRscc4l1J2XznarHw/hKi2MY2gbdv5q4SGrM+uxsrzbRPRnHiuCWhWkPHoDV/kSE9HHB+rO9owOCxWn8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791995776; c=relaxed/simple;
-	bh=KMD7Towbunxb3x83kvj/jlmrKN5cUKVMsO6ERTpi9Wg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sTYvnAtVW4x1kcPnDdXy3+0ekCP7NqrVNzjYGCqy5Em6xqeb1HhvoFKmlxkKVyxgseJ69fNcxUeW4TjAuBAHMKaDHv6+Plbr8aEsHAIu1ZqLmvc5ktEdEQ1D0LaJ18xfmfHLLqhgLxDPz85IyrBxJxRnUBZV77r9AH+ddsVmBG8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MflMOJU3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791995780; c=relaxed/simple;
+	bh=PklsOs09Vlf82YwgBbtSpUmzn87NUh90iD+8UJYGK3w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rkPOZwdr94UcWrpbX2rlp/KfcmcfZkiZorc/BtnCY0TEPPVY/XKaXzTwMvyDJzGwZNvvIJiLFf81mxKrqzgmy0M/OtseE/EjHwegytuSiD/eyAl8OfHKMnrSQD/pSuoDxkj/nCwEJYM/XVbCVnY+inQJm8+H/uhi3Nznmrqal3A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NTMjNEvY; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Y6TTLrhV; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MflMOJU3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 409121F000C4;
-	Wed, 14 Oct 2026 16:35:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791995775;
-	bh=Xe9rAmILOBAL5qEj1m6Rs0cQGMnFcSwviGw+I+tsq5w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MflMOJU3bk3HTx5E7LUnFFqipXcK3PLvRbYVWE3DAujLB3A1pXCXiq9xHaowtrCy7
-	 AjtOoVn1r1aqkfe2T0GR90AIHVRy7RuUIZ48zl8jG2KBqzpuNvHcUOYa6g2AapxTHF
-	 mXTm95TzOTXQ+QjdFVvo8cDYEj1f46B+dWAr8QTvqBLJl+tfhwFMZVgoGvrlUjSio3
-	 YhOI4GlwscYjapvN0pgu2FKrEV7gDnrELztWh7aROP+6Ug97kKJJU4lY8vteV54ga5
-	 HM619bjWjlR7lGv/t6c5RLO4fYGQbsBg1OTwI9HNaevoJj65PVCUQRewQJ0YBgmtxj
-	 PaXqN8FpNMICg==
-Date: Wed, 14 Oct 2026 18:35:50 +0200
-From: Eric Biggers <ebiggers@kernel.org>
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: keyrings@vger.kernel.org, Brendan Higgins <brendan.higgins@linux.dev>,
-	David Gow <david@davidgow.net>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Rae Moar <raemoar63@gmail.com>,
-	Ryota Sakamoto <sakamo.ryota@gmail.com>,
-	Kuan-Wei Chiu <visitorckw@gmail.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Kir Chou <note351@hotmail.com>, Petr Mladek <pmladek@suse.com>,
-	Dmitry Antipov <dmantipov@yandex.ru>,
-	Guan-Chun Wu <409411716@gms.tku.edu.tw>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:KERNEL UNIT TESTING FRAMEWORK (KUnit)" <linux-kselftest@vger.kernel.org>,
-	"open list:KERNEL UNIT TESTING FRAMEWORK (KUnit)" <kunit-dev@googlegroups.com>,
-	Linus Torvalds <torvalds@linux-foundation.org>
-Subject: Re: [PATCH] lib/tests: kunit for associative array
-Message-ID: <20261014163550.GA327771@quark>
-References: <20261014160144.1835860-1-jarkko@kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NTMjNEvY";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Y6TTLrhV"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EFMi541682649
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:36:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	qZE4atZVuUnxe4gh8yTrME7HVReQ6qljuMq3IYiqA/Q=; b=NTMjNEvYqdTCrKll
+	f6XgOd60FLUu0XdMAj4D7IwL++ZnvVk0xw3E9JzHsXJ5cLwEOOQq3ip4lcEj3Qsz
+	FQjLfPpM9zxfgv3zGMEYeSPgpIfndEwxOrtxSneycTU/s2FeHk06HmPPMYTlx3Ma
+	VorPWR5d7vtllaxOSeBTeEsBifuxva5XOLjtdg/zpLiQ7g7soCORo+i8zsJMNwgG
+	YxXHxU7XBSeSJsREwCIvF6zEhvS6aRW9IHeaoxldVxCCf5PaiaNXBVxwvpYdbwWi
+	wKzzxsCyVjL0f6aT2QyitUg1BKR992QBb+EQK4OC9L9HmcVsqp7eFdoRNUTkUea2
+	QRN/qA==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hacb009km-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:36:18 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93df7a9466bso49937885a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:36:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791995777; x=1792600577; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qZE4atZVuUnxe4gh8yTrME7HVReQ6qljuMq3IYiqA/Q=;
+        b=Y6TTLrhVhlcXX5WZmRZbeD6ohqU2i5YpE2EAkHLJkWSYXHJlhj1ZxDkK2zEVvXkrTq
+         EJieSrUjxDLNFGdXgePJXqBPQrqPD9fUXEQDe562osZrld9t67GJTQjJFMbMj59QI1dI
+         5yHYC6trTqFSVCKpPmGvHfo131p5rgeDTDd+DOu5oz7EeenYq95dkvwWhK6EwQtVxgFD
+         D/J5hojQImNhJ7w6Wi/SkRLbWAlCJwU8CG4eWP+3rnShOuGy3O//XNhZrTusDXNZ/bFP
+         ciT2qy/n+0ewDoBd0LITtkfD9WdFB5LJdbVGWL18tZ+spR5a0YmsgMfd67z+O9n0vwJs
+         8duQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791995777; x=1792600577;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qZE4atZVuUnxe4gh8yTrME7HVReQ6qljuMq3IYiqA/Q=;
+        b=pYJJJot4LQ7NVph8PPt3lvTzN6UNSX9JcpbZzaUxrtzMO0mEGcNdHDILcR1v8Q69Kf
+         TL8GkjVzwNpuRlknvHtn8KbhUtjFvhcHb0ydTc+lclcAfnBBBd3gpJaOvkI2iQM4gmA7
+         velZyBx49Kh+VqQr6P0pedA8XfjhlCcrtTSepRqN/tvtK6RGGlPiHni9M9opTU0KFSux
+         7ek55M5V0Y6/WXR95boWFPuI/4Cy7zbq4eVmTGmaXEwmsN19C2jUvdLrqzQ/ENKSEVMI
+         4JRoKPhZ56lWkdZlO3vu2IAicevy2gcBjhApPA1rXXnMvMFpk3KUTVsfVk5bVI4yQtz3
+         JKag==
+X-Forwarded-Encrypted: i=1; AKwUvBzHcvdiCRf/AO+/SudMRJazTr2nXT/ycI8eP7tsnnCLOm4u9iXvzea8mXkcX6aWfv83XRtyFstPhawrGDg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKXhsMKDxCe5UDGY7bBdARxN1gOrwd7R9I3SCyeWp3tAsry17wN
+	/H+PcGoAPivzMJUmOX7iPLG97h0HE6N3wfTD0gR0XyMEpVV1ognY+bE7TmgEA4Brz2dxQPFXO6h
+	g8JiKi/dEmC71NPUxzEmbHZeQzNBbjW/DYvA7zUlNM5X003GwBt9w6Vu6Mxdn7SU64fU=
+X-Gm-Gg: AYBFou0gWMPQVsUZ87015yDfdNCZFRzwGmNWytYGc5mNgbIztnfSoJnTq/6BzKKkrAl
+	w2mJGMbJoBo9RMxN2aMns/RoW3jguilxdpFDpHhf27whkORKcOSFE3EVntj/DkPqWG6dUhKr2Wq
+	BKK3dUeaS4IgOehZI23Dvc9eXvkE8erkbSSttWnuH6HHTv38Fl4VaPkkU5fZXkLNke1Hv+8IPP6
+	oAIJ9rXQHOFS1NXwBfPdbkJHO32h0C5xibnaFZzw2xl0M0RmZiXO5nYO7A4n8Wj0bZlwdNfWvDg
+	BS2uKp7+BTShyg2OcksIvDn892RxPwzGCCUGWSiRbhDX+yLUw6LOqzZG3oDsW88Rzf0ynqkRAfb
+	aw2+J52L7VU77U5tkuZq5dA==
+X-Received: by 2002:a05:620a:3186:b0:939:8bc:8826 with SMTP id af79cd13be357-93ebd10c0e2mr3128587085a.2.1791995777352;
+        Wed, 14 Oct 2026 09:36:17 -0700 (PDT)
+X-Received: by 2002:a05:620a:3186:b0:939:8bc:8826 with SMTP id af79cd13be357-93ebd10c0e2mr3128568885a.2.1791995775873;
+        Wed, 14 Oct 2026 09:36:15 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b20386327csm1289977a12.18.2026.10.14.09.36.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 14 Oct 2026 09:36:14 -0700 (PDT)
+Message-ID: <b4c0761b-34f2-42ad-97e7-ab34ae776281@oss.qualcomm.com>
+Date: Wed, 14 Oct 2026 18:36:06 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261014160144.1835860-1-jarkko@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] dt-bindings: usb: snps,dwc3: Fix downstream port
+ numbering
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+        Chen-Yu Tsai <wenst@chromium.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Felipe Balbi <balbi@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, linux-usb@vger.kernel.org,
+        devicetree@vger.kernel.org, Kevin Hilman <khilman@baylibre.com>,
+        Jerome Brunet <jbrunet@baylibre.com>,
+        Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+        Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
+        Neal Gompa <neal@gompa.dev>, Joel Stanley <joel@jms.id.au>,
+        Andrew Jeffery <andrew@codeconstruct.com.au>,
+        Ryan Chen <ryan_chen@aspeedtech.com>,
+        Billy Tsai
+ <billy_tsai@aspeedtech.com>,
+        Michal Simek <michal.simek@amd.com>, Frank Li <Frank.Li@nxp.com>,
+        Sascha Hauer <s.hauer@pengutronix.de>,
+        Pengutronix Kernel Team <kernel@pengutronix.de>,
+        Fabio Estevam <festevam@gmail.com>,
+        Peter Griffin
+ <peter.griffin@linaro.org>,
+        =?UTF-8?Q?Andr=C3=A9_Draszik?=
+ <andre.draszik@linaro.org>,
+        Tudor Ambarus <tudor.ambarus@linaro.org>,
+        Heiko Stuebner <heiko@sntech.de>,
+        Alim Akhtar <alim.akhtar@samsung.com>,
+        Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+        Masami Hiramatsu <mhiramat@kernel.org>, Yixun Lan <dlan@kernel.org>,
+        Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+        Minda Chen <minda.chen@starfivetech.com>,
+        Shyam Pandey <radhey.shyam.pandey@amd.com>,
+        Wei Yang <yangwei1@eswincomputing.com>,
+        Senchuan Zhang <zhangsenchuan@eswincomputing.com>,
+        Hang Cao <caohang@eswincomputing.com>, Li Jun <jun.li@nxp.com>,
+        Peng Fan <peng.fan@nxp.com>, Roy Luo <royluo@google.com>,
+        Yang Xiwen <forbidden405@foxmail.com>,
+        Ahmad Zainie <wan.ahmad.zainie.wan.mohamad@intel.com>,
+        Robert Marko <robert.marko@sartura.hr>, Xu Yang <xu.yang_2@nxp.com>,
+        Wesley Cheng <quic_wcheng@quicinc.com>,
+        Stanley Chang <stanley_chang@realtek.com>,
+        Ze Huang <huang.ze@linux.dev>, Aswath Govindraju <a-govindraju@ti.com>,
+        Roger Quadros <rogerq@kernel.org>,
+        linux-arm-kernel@lists.infradead.org,
+        linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
+        asahi@lists.linux.dev, linux-aspeed@lists.ozlabs.org,
+        imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-rockchip@lists.infradead.org,
+        linux-riscv@lists.infradead.org, spacemit@lists.linux.dev
+References: <20261014082037.1774672-1-wenst@chromium.org>
+ <20261014082037.1774672-3-wenst@chromium.org>
+ <7020a7a6-332e-4fd0-a659-d82eb768614c@linaro.org>
+ <CAGXv+5G1kgyumbj7wGf6rPFbg3spSO0zYmEkn-hZT4qUdJbytA@mail.gmail.com>
+ <03375a31-0ac6-47a4-b0dc-6327080e1622@linaro.org>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <03375a31-0ac6-47a4-b0dc-6327080e1622@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=VKpIDNPX c=1 sm=1 tr=0 ts=6acfaf82 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=KKAkSRfTAAAA:8 a=auHUQpDKApYGa_LtnhgA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA2NiBTYWx0ZWRfX2OpbHBS0aGrS
+ MJkUemMMKEyqpiLkfE3awvSTsTSR737Y9pHt7RghzuY0q46BAJdn+Snh0Nw0RurCxIJKTIAgFIg
+ Gcy6zMwr5gbdGmRhwvf1lz5OvE3rzwE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA2NiBTYWx0ZWRfXzXvW/578vKnl
+ ZfmKCUWrQkpsFi/bVgy5NxdBOB/PMDINSoQKlZSSlempclHcQSRMqi8+Y4yCu6/RR723PnLboXn
+ 53n9eUfFwXkqr/kalB86oTlQODt07GM9PkM+OcSrGbVh7kqrw+ZI9g7MHZaQicrchazjx0AsvpE
+ 7+07HUUryqtWtd2vuuEM7GoztxJ36JuFAIE2pAASk+Z8gAsMVVgM5q/6Ut7KvtslMuivzHg2uDY
+ 92blaDBO96Rv3XS2gbQmoteeAvs3MDDLPxF5SMkTi4nofATbivyOci/wrYR6VvbOhflVo+jA/8E
+ qRRKoHd6voHfe+Qqnxo7VydLVV2GTNB+ufgiXMUNB2QWtKYap+gC27XdJ4F5KiCjkUoVa4ycmYt
+ 2+gpL5QNhoj7x6HoEh3MXp1MU8H+lVptvw4NkYps5qJ2eLp12be/FsOOXbuy3GTeQ+qan1luxAJ
+ AsB99PiEIz7liKPGgDQ==
+X-Proofpoint-ORIG-GUID: B9McjzI5Sm8NvrkbJLsAlCYBZlUAV50x
+X-Proofpoint-GUID: B9McjzI5Sm8NvrkbJLsAlCYBZlUAV50x
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 spamscore=0 clxscore=1015 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140066
 
-On Wed, Oct 14, 2026 at 07:01:38PM +0300, Jarkko Sakkinen wrote:
-> This is a kunit test for lib/assoc_array.c, which maintains a shadow model
-> across assoc_array operations, and checks its integrity after every
-> operation.
-> 
-> I wrote a draft version so that I could properly test 'assoc-array-fixes'
-> tag at Linus' tree, and spent today rewriting a new more polished version
-> with as good description as I could possibly could on how the seeded test
-> keys were cherry-picked. Along the way I also tweaked the numbers to be
-> a bit less messier set than in my original version.
-> 
-> The transcripts that follow were executed with this command-line:
-> 
->     ./tools/testing/kunit/kunit.py run --raw_output assoc_array
-> 
-> With 'assoc-array-fixes' commits and its subsequent tag iterations all
-> eight tests pass, and without them all of them fail.
-> 
-> Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+On 10/14/26 11:44 AM, Neil Armstrong wrote:
+> On 10/14/26 11:29, Chen-Yu Tsai wrote:
+>> On Wed, Oct 14, 2026 at 5:28 PM Neil Armstrong
+>> <neil.armstrong@linaro.org> wrote:
+>>>
+>>> On 10/14/26 10:20, Chen-Yu Tsai wrote:
+>>>> The DWC3 controller can operate in host mode. It does so with a XHCI
+>>>> compliant host controller. The XHCI has two downstream ports, one for
+>>>> HS and one for SS. USB downstream ports start from 1, not 0.
 
-Would this effort (and Linus's effort) be better spent on converting
-keyrings to use an rhashtable?
+[...]
 
-keyrings is the only user of assoc_array.  So if it's made to use
-something else, assoc_array (all 1724 lines of it!) can just be deleted.
 
-I understand assoc_array.c was intended to be for general use.  But
-clearly that hasn't happened in the 13 years it's been in the kernel.
-Keyrings has always been its only user.  All other kernel code needing a
-map data structure uses something else.
+>> IMHO having consistent numbering across controller types would be
+>> better. This avoids making the USB core and hub code deal with more
+>> exceptions, and also easier to understand and write device trees.
+> 
+> I was in the impression the port number not necessarily reflects
+> an actual physical numbering, and can be a logical number we would
+> then map in the kernel.
+> 
+> I don't see any issue here having base 0 for the bindings and then
+> converting it to base 1 for the XHCI port numbering.
 
-- Eric
+I thought base1 comes from the USB spec and not just XHCI?
+
+Konrad
