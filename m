@@ -1,253 +1,178 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E91C3F7898;
-	Wed, 14 Oct 2026 16:12:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CDE3E3F824B
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:12:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791994331; cv=none; b=MEG1TaickFGJIADdVW4SSluwFOn77B1tGHxwJ++txAmpZcyv/4QvvEE6QgSA8lI2fu1Lpw1QubvrWXPEA1dN4yk3OiN6GH/3IXxoC/OJndgisXvsyCaVez9Oc2uqAO86BU+27qCyuLX/dZ4ez4/lbilftichkAMu4wt/ZCuegJo=
+	t=1791994349; cv=none; b=FixbYNQsm75IKXeOU1CISAYG3GuLDgaxHoo+fSq4/qKqZ+ck0OCxZyYlxYJZEglzLlATE9Wi8z/awaws80cXKJZPeCPpYMd62eIgRU7S3BkUYE4lTB790F0k4GG3ci9WDuzE356x920s3/JjlJsXIGFKnvvWrZm8ZNhYpEi6tQg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791994331; c=relaxed/simple;
-	bh=klA4hH8Mv1mbt/DzIuieB2Q6V4hh+j4fK1qgn3pllcI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rEWV/KVXhL7WVe0M6jwUi4du8mNYa3iaKpXPNhpNEp0edi80O23yWBHtygWoLbTrSSWUWkLgEf/08UZ57mfIjDJc2mV05YBE7WzhFgBjgvSw10Myu2GKepgopTSlk9Vt5DLOjgzeCuZKyyM6lYPclJLF8oEXFx4/qdXOSP59j3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=WCgs8tda; arc=none smtp.client-ip=117.135.210.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791994349; c=relaxed/simple;
+	bh=rnsG3A+ee6yo9tquFGuRos2grmFPPE6Si2Pxkstm0DE=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=pwhg3mhEcwTHvzt/jUz8weDBkP4wblOMt7YDjJy/YwQjptmD2x8MnF/waNdNidQlC8Yt0SGeO4dvapKm/4EUqTC4D+8gYFLb76h94FNO8jmtGgQ30x83Sc6yDQgVQxtlmRq6YSXxnD52EOpF4MUpI5kxe7+Eg0dGL0fCWED/1KQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=N81THiN0; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="WCgs8tda"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version:
-	Content-Type; bh=vD0NYzUJsJFaZFVryPBxGWUgQmiZpnh4TV1Ps+d5RWQ=;
-	b=WCgs8tda2Zv3PJklFz49gflNOSls4Nw3b2RM6byorIje9pe6uAET/yiQWqxWPp
-	cohxrQuKqfE1YCTdmbT8r2CJ1jqUx8ivQERWioe1+Lgsz6g2c7LGUiV2CUpXnQ8t
-	Rxp5OplJfLjsWG8nmfiK8M8PsVtKVena+1pNz5lE8eA9k=
-Received: from fedora (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3v15Gqc9qxM0iAA--.40892S4;
-	Thu, 15 Oct 2026 00:09:56 +0800 (CST)
-From: Ju Nan <junan76@163.com>
-To: junan76@163.com,
-	antonio.borneo@foss.st.com,
-	bigeasy@linutronix.de,
-	linusw@kernel.org
-Cc: alexandre.torgue@foss.st.com,
-	arnd@arndb.de,
-	clrkwllms@kernel.org,
-	lee@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev,
-	linux-stm32@st-md-mailman.stormreply.com,
-	mcoquelin.stm32@gmail.com,
-	mfd@lists.linux.dev,
-	rostedt@goodmis.org,
-	u.kleine-koenig@pengutronix.de
-Subject: [PATCH v4 2/2] pinctrl: stm32: program the EXTI mux from .alloc instead of .activate
-Date: Thu, 15 Oct 2026 00:09:18 +0800
-Message-ID: <20261014160917.139241-4-junan76@163.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261014160917.139241-2-junan76@163.com>
-References: <20261014160917.139241-2-junan76@163.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="N81THiN0"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A1CF5152B;
+	Wed, 14 Oct 2026 09:12:11 -0700 (PDT)
+Received: from [10.57.88.29] (unknown [10.57.88.29])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5CD533F871;
+	Wed, 14 Oct 2026 09:12:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791994334; bh=rnsG3A+ee6yo9tquFGuRos2grmFPPE6Si2Pxkstm0DE=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+	b=N81THiN0VHhdwIy2kqW3CcQqEOPZGi30TGe6mtPP+C8E++GPpqHY6l7YyglwbtVON
+	 08n03BhQzeezLC8jQbHxmE7RsUURvtP/HTlh+JlYmxaC3i7vI1x9ENCXloW/WW6C3y
+	 lDwHvh9RapyMF6RNMvPfF51K+/ouJBZFb7MDeyL0=
+Message-ID: <4ce12bff-9532-4b27-98f2-a807bbccfaf7@arm.com>
+Date: Wed, 14 Oct 2026 17:12:05 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: [PATCH] sched: Account blkio delay independently of delayed dequeue
+From: Christian Loehle <christian.loehle@arm.com>
+To: Zhan Xusheng <zhanxusheng1024@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>
+Cc: Balbir Singh <bsingharora@gmail.com>, Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Valentin Schneider <vschneid@redhat.com>, Josh Snyder <joshs@netflix.com>,
+ linux-kernel@vger.kernel.org, Zhan Xusheng <zhanxusheng@xiaomi.com>
+References: <20261014081731.1068794-1-zhanxusheng@xiaomi.com>
+ <fab66e31-7c7e-4a81-be59-1a4c1458ff43@arm.com>
+Content-Language: en-US
+In-Reply-To: <fab66e31-7c7e-4a81-be59-1a4c1458ff43@arm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3v15Gqc9qxM0iAA--.40892S4
-X-Coremail-Antispam: 1Uf129KBjvJXoW3Ww4rJw4fKryrZry8ZF4fZrb_yoWxtr1rpF
-	W3XrsIyrsxX3WrZa4DtF4jvF9Ika92y3ZrGw1DtayxZrn0vrn5t3WSqFyxuFWjkF97J3ZI
-	vF45tryUua1DZaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEVyIbUUUUU=
-X-CM-SenderInfo: pmxqt0ixw6il2tof0z/xtbC0xQOv2rPqVQckwAA3h
+Content-Transfer-Encoding: 7bit
 
-stm32_gpio_domain_activate() writes the EXTI interrupt multiplexer
-through a regmap obtained from the generic syscon driver. The irq core
-calls .activate from __setup_irq() with the raw desc->lock held, so this
-happens in a raw atomic section. regmap-mmio sets fast_io, and syscon
-does not ask for a raw spinlock, so the regmap is protected by a
-spinlock_t. On PREEMPT_RT that is a sleeping lock, which must not be
-taken there. lockdep reports it as soon as a GPIO interrupt is
-requested:
+Starting blkio delay accounting in __block_task() ties the interval to
+removal from the runqueue. With EEVDF delayed dequeue, this misses the
+initial part of an I/O sleep, or the entire sleep if the task wakes
+before it is dequeued. Final dequeue can also run in another task's
+context, causing delayacct_blkio_start() to timestamp the wrong task.
 
- [ BUG: Invalid wait context ]
- 7.1.13 #7 Not tainted
- -----------------------------
- kworker/u8:1/29 is trying to lock:
- (syscon:117:(&syscon_config)->lock){....}-{3:3}, at: regmap_lock_spinlock
- other info that might help us debug this:
- context-{5:5}
- 5 locks held by kworker/u8:1/29:
-  #0: ((wq_completion)async){+.+.}-{0:0}, at: process_one_work
-  #1: ((work_completion)(&entry->work)){+.+.}-{0:0}, at: process_one_work
-  #2: (&dev->mutex){....}-{4:4}, at: __device_attach_async_helper
-  #3: (&desc->request_mutex){+.+.}-{4:4}, at: __setup_irq
-  #4: (&irq_desc_lock_class){-...}-{2:2}, at: __setup_irq
+Start accounting in try_to_block_task(), when the current task commits
+to blocking, before delayed dequeue or proxy execution can retain it on
+the runqueue. End accounting when clearing is_blocked, including queued
+wakeups and the proxy execution paths that let the current task continue.
 
-The driver was already aware of running in atomic context there: it uses
-the _in_atomic() hwspinlock primitives around the very same access. The
-syscon lock is the one lock in that section it does not control.
-
-Program the mux from .alloc instead, which runs in a sleepable context.
-That callback already owns this resource: it reserves the mux line in
-pctl->irqmux_map under irqmux_lock, so writing the value it just claimed
-is a natural fit, and the value only depends on the bank.
-
-Nothing requires the mux to be reprogrammed at interrupt startup time:
-the domain has no .deactivate, .free() only releases the irqmux_map bit
-without touching the registers.
-
-Keep the access inside the existing irqmux_lock section rather than
-after it. hwspin_lock_timeout_in_atomic() deliberately skips the local
-lock that the other hwspinlock modes take, so its caller is responsible
-for disabling preemption and for excluding other local contexts; every
-other hwspinlock user in this driver relies on bank->lock for that.
-irqmux_lock plays the same role here, and it also turns the mux
-reservation and the mux write into a single critical section. Nesting
-the regmap spinlock_t inside irqmux_lock, itself a spinlock_t, is what
-the wait-context checker expects.
-
-Note that this bounds the semaphore hold time on !PREEMPT_RT only. On
-PREEMPT_RT spinlock_t disables neither interrupts nor preemption, so the
-hardware semaphore can be held across a preemptible section and a
-coprocessor contending for it may poll for an unbounded time. That is
-not introduced here: bank->lock is a spinlock_t too, so every existing
-hwspinlock user in this driver behaves the same way on PREEMPT_RT.
-Removing that exposure requires the EXTI mux regmap to be raw-spinlock
-based, which the syscon core does not currently offer, and is left for a
-separate change.
-
-While moving the code, release the mux reservation when the hwspinlock
-cannot be taken, which the .activate callback had no way of doing.
-
-Reported-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
-Closes: https://lore.kernel.org/all/20220202174430.pf37tt6lua2op3gc@pengutronix.de/
-Signed-off-by: Ju Nan <junan76@163.com>
+Reported-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+Closes: https://lore.kernel.org/r/20261014081731.1068794-1-zhanxusheng@xiaomi.com
+Fixes: 152e11f6df29 ("sched/fair: Implement delayed dequeue")
+Signed-off-by: Christian Loehle <christian.loehle@arm.com>
 ---
-The issue mentioned by Antonio in v3 cannot happen: irqmux_lock is held
-while irqmux_map is checked, so PB5 cannot write the mux once PA5 has
-claimed the line. I tested it on the same STM32 board:
+ kernel/sched/core.c  | 27 +++++++++++++++++----------
+ kernel/sched/sched.h |  4 +---
+ 2 files changed, 18 insertions(+), 13 deletions(-)
 
-1. add a fake device in dts:
-
-&i2c5{
-
-hdmi-transmitter@39 {
-	compatible = "sil,sii9022";
-...
-	interrupts = <14 IRQ_TYPE_EDGE_FALLING>;
-	interrupt-parent = <&gpioa>;
-...
-};
-
-fake-hdmi-transmitter@40 {
-	compatible = "sil,sii9022";
-...
-	interrupts = <14 IRQ_TYPE_EDGE_FALLING>;
-	interrupt-parent = <&gpiob>;
-...
-};
-};
-
-2. hack the sii902x driver so that the second and later instances only
-   call request_irq() and return 0 from .probe.
-
-3. dmesg result:
-
-# dmesg | grep -i error
-[    2.107147] stm32_rtc 5c004000.rtc: probe with driver stm32_rtc failed with error -110
-[    5.439201] GPT: Use GNU Parted to correct GPT errors.
-[    9.333158] sii902x 0-0040: error -EINVAL: request_irq(0) 0x0 sii902x_interrupt [sii902x] 0-0040
-# dmesg | grep -i "irq line"
-[    9.324176] stm32mp157-pinctrl soc:pinctrl@50002000: irq line 14 already requested.
-# uname -a
-Linux fsmp1a 7.1.13 #7 SMP PREEMPT Wed Oct 14 19:26:21 CST 2026 armv7l GNU/Linux
-
-The second instance (0-0040) fails to map its interrupt: .alloc refuses
-the line with "irq line 14 already requested", so the mux is never
-written for GPIOB. client->irq is then left at 0, and the hacked probe
-fails with "-EINVAL: request_irq(0)".
-
----
- drivers/pinctrl/stm32/pinctrl-stm32.c | 46 +++++++++++----------------
- 1 file changed, 19 insertions(+), 27 deletions(-)
-
-diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.c b/drivers/pinctrl/stm32/pinctrl-stm32.c
-index e71651d4fad4..b5f9091bd990 100644
---- a/drivers/pinctrl/stm32/pinctrl-stm32.c
-+++ b/drivers/pinctrl/stm32/pinctrl-stm32.c
-@@ -600,30 +600,6 @@ static int stm32_gpio_domain_translate(struct irq_domain *d,
- 	return 0;
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 1fe40de6ebe3..824c8278d2fc 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -636,7 +636,7 @@ int task_llc(const struct task_struct *p)
+  *
+  * p->is_blocked <- { 0, 1 }:
+  *
+- *   is set by try_to_block_task() and cleared by ttwu_do_wakeup() and tracks
++ *   is set by try_to_block_task() and cleared by unblock_task() and tracks
+  *   if the task is blocked. Traditionally this would mirror p->on_rq, however
+  *   due things like DELAY_DEQUEUE and PROXY_EXEC, this can diverge.
+  *
+@@ -3737,12 +3737,20 @@ ttwu_stat(struct task_struct *p, int cpu, int wake_flags)
+ 		__schedstat_inc(p->stats.nr_wakeups_sync);
  }
  
--static int stm32_gpio_domain_activate(struct irq_domain *d,
--				      struct irq_data *irq_data, bool reserve)
--{
--	struct stm32_gpio_bank *bank = d->host_data;
--	struct stm32_pinctrl *pctl = dev_get_drvdata(bank->gpio_chip.parent);
--	int ret = 0;
--
--	if (pctl->hwlock) {
--		ret = hwspin_lock_timeout_in_atomic(pctl->hwlock,
--						    HWSPNLCK_TIMEOUT_MS);
--		if (ret) {
--			dev_err(pctl->dev, "Can't get hwspinlock\n");
--			return ret;
--		}
++static inline void unblock_task(struct task_struct *p)
++{
++	if (p->is_blocked && p->in_iowait)
++		delayacct_blkio_end(p);
++
++	p->is_blocked = 0;
++}
++
+ /*
+  * Mark the task runnable.
+  */
+ static inline void ttwu_do_wakeup(struct task_struct *p)
+ {
+-	p->is_blocked = 0;
++	unblock_task(p);
+ 	WRITE_ONCE(p->__state, TASK_RUNNING);
+ 	trace_sched_wakeup(p);
+ }
+@@ -3839,10 +3847,8 @@ ttwu_do_activate(struct rq *rq, struct task_struct *p, int wake_flags,
+ 		en_flags |= ENQUEUE_RQ_SELECTED;
+ 	if (wake_flags & WF_MIGRATED)
+ 		en_flags |= ENQUEUE_MIGRATED;
+-	else if (p->in_iowait) {
+-		delayacct_blkio_end(p);
++	else if (p->in_iowait)
+ 		atomic_dec(&task_rq(p)->nr_iowait);
 -	}
--
--	regmap_field_write(pctl->irqmux[irq_data->hwirq], bank->bank_ioport_nr);
--
--	if (pctl->hwlock)
--		hwspin_unlock_in_atomic(pctl->hwlock);
--
--	return ret;
--}
--
- static int stm32_gpio_domain_alloc(struct irq_domain *d,
- 				   unsigned int virq,
- 				   unsigned int nr_irqs, void *data)
-@@ -645,10 +621,27 @@ static int stm32_gpio_domain_alloc(struct irq_domain *d,
- 	if (pctl->irqmux_map & BIT(hwirq)) {
- 		dev_err(pctl->dev, "irq line %ld already requested.\n", hwirq);
- 		ret = -EBUSY;
--	} else {
--		pctl->irqmux_map |= BIT(hwirq);
-+		goto unlock;
-+	}
-+
-+	pctl->irqmux_map |= BIT(hwirq);
-+
-+	if (pctl->hwlock) {
-+		ret = hwspin_lock_timeout_in_atomic(pctl->hwlock,
-+						    HWSPNLCK_TIMEOUT_MS);
-+		if (ret) {
-+			dev_err(pctl->dev, "Can't get hwspinlock\n");
-+			pctl->irqmux_map &= ~BIT(hwirq);
-+			goto unlock;
-+		}
- 	}
  
-+	regmap_field_write(pctl->irqmux[hwirq], bank->bank_ioport_nr);
-+
-+	if (pctl->hwlock)
-+		hwspin_unlock_in_atomic(pctl->hwlock);
-+
-+unlock:
- 	spin_unlock_irqrestore(&pctl->irqmux_lock, flags);
- 	if (ret)
- 		return ret;
-@@ -683,7 +676,6 @@ static const struct irq_domain_ops stm32_gpio_domain_ops = {
- 	.translate	= stm32_gpio_domain_translate,
- 	.alloc		= stm32_gpio_domain_alloc,
- 	.free		= stm32_gpio_domain_free,
--	.activate	= stm32_gpio_domain_activate,
- };
+ 	activate_task(rq, p, en_flags);
+ 	wakeup_preempt(rq, p, wake_flags);
+@@ -4415,10 +4421,8 @@ int try_to_wake_up(struct task_struct *p, unsigned int state, int wake_flags)
  
- /* Pinctrl functions */
+ 		cpu = select_task_rq(p, p->wake_cpu, &wake_flags);
+ 		if (task_cpu(p) != cpu) {
+-			if (p->in_iowait) {
+-				delayacct_blkio_end(p);
++			if (p->in_iowait)
+ 				atomic_dec(&task_rq(p)->nr_iowait);
+-			}
+ 
+ 			wake_flags |= WF_MIGRATED;
+ 			psi_ttwu_dequeue(p);
+@@ -6762,6 +6766,9 @@ static bool try_to_block_task(struct rq *rq, struct task_struct *p,
+ 
+ 	p->is_blocked = 1;
+ 
++	if (p->in_iowait)
++		delayacct_blkio_start();
++
+ 	/*
+ 	 * We check should_block after signal_pending because we
+ 	 * will want to wake the task in that case. But if
+@@ -6934,7 +6941,7 @@ find_proxy_task(struct rq *rq, struct task_struct *donor, struct rq_flags *rf)
+ 		if (!mutex) {
+ 			clear_task_blocked_on(p, mutex);
+ 			if (task_current(rq, p)) {
+-				p->is_blocked = 0;
++				unblock_task(p);
+ 				return p;
+ 			}
+ 			goto deactivate;
+@@ -6970,7 +6977,7 @@ find_proxy_task(struct rq *rq, struct task_struct *donor, struct rq_flags *rf)
+ 			 */
+ 			__clear_task_blocked_on(p, NULL);
+ 			if (task_current(rq, p)) {
+-				p->is_blocked = 0;
++				unblock_task(p);
+ 				return p;
+ 			}
+ 			goto deactivate;
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index 4c25fbe84fb5..638c7709654a 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -3072,10 +3072,8 @@ static inline void __block_task(struct rq *rq, struct task_struct *p)
+ 	if (p->sched_contributes_to_load)
+ 		rq->nr_uninterruptible++;
+ 
+-	if (p->in_iowait) {
++	if (p->in_iowait)
+ 		atomic_inc(&rq->nr_iowait);
+-		delayacct_blkio_start();
+-	}
+ 
+ 	ASSERT_EXCLUSIVE_WRITER(p->on_rq);
+ 
 -- 
-2.56.0
-
+2.34.1
