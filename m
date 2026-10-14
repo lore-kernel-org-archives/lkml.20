@@ -1,166 +1,146 @@
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56B48563288
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:37:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F58B4CEE52
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:39:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792006678; cv=none; b=WW3dMgC/ZZvC/b6WNI60rQ8ytTyWbGY6YLVsYDs9Wb2CEv/k3MrcXrU+cwMThx4jj316mSEC7wPfV0H0y1aJLH6gvJzLfhbZ/77BmGuoA+u0N2ps4sGorxhyhLYs31Z1usLZLHShWLtNteInilGRjUOrnMlMG0uoH3DjTkUBfN0=
+	t=1792006792; cv=none; b=gfr2p2xZPukgtPCt5REruTTYP1WDmJ5ogXSwRDQVFDl+yzLBSZRtOEr5TGpp2kBqwCOubaWp4fp955qgSsXmsoNad7n28NH6BpAR/F/vEeC6LVlxKeg4swI7RvguAkU6khTqJow6wFnr+Rhs2UVFaUeSmJeipRUyR3kYKsLWwag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792006678; c=relaxed/simple;
-	bh=ObMYjck/H6XcNs75oCe1fV8PVDjoFJCKP174W+DH64A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=L7szPmcEyDpJ/OZ8jFMPTXQTLitPOOehc9gqtad8bSdggWt9h/IaNW36svJEPpsWr57G+brtNVDf1yvQwk9p1tT7lUNLrEcWU0KSucGk/Fi4ZmDGsMMunkQOcicoqXnnEMsRtWWz2MDTweTZ/QAvISoHlVKsSFVU7KP8beZ7AYU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=EFTK90m1; arc=none smtp.client-ip=74.125.82.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	s=arc-20240116; t=1792006792; c=relaxed/simple;
+	bh=qSGlkJ/tiRxSKCByNYHm8CeLHYrmmbBMOlrabqcMMZ0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=N+yjgX9jIbDYvXAc2wYl94O7jfo+SxhFxsOawpaf1YoxnkrZVT2di7dmZ8L/OYUCFMF2cIiG1x2Uvc0wc8Kp+qxwz99rg4TH81dZ8AzFSFle8bl4Em0c+jzjIvjLGIHkoHiLvJaIlf2+PrLLEXGXszAPZhjNnA+BFt/RcPjBAOg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RpJnlKIK; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="EFTK90m1"
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-35f1f76ea84so14385eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:37:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RpJnlKIK"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a171b677d2so28304975e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:39:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1792006675; x=1792611475; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
+        d=gmail.com; s=20251104; t=1792006790; x=1792611590; darn=vger.kernel.org;
+        h=content-type:mime-version:references:in-reply-to:message-id:date
          :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=wSKDNnQRNy2/8dHJazcEc+4Vg6sKgqf+FQWePTpfAZ4=;
-        b=EFTK90m1xWk6P7yvztdOccA+zN4Q5O923N0RQv7838NxeBOSTzKl86I8KABtBQ+TkF
-         z7u/x4fFaTEXM4Yhg7gD+pu2zXpKyw1BLkXOPOVtmOgWo1NuXcDj4ETGP4lk0fRsC3Gr
-         ZPRMKdxZesOA32TcFaft8r/JtpPCP7FGFefFoq0EQ7G/GbjGGzbcrr4/WI/G+c284NBe
-         19YwT9Y94lxt6YsY73FupdNdl63zfc9E9BHE4s01D8W1MN/omM0aP8XhgO2HB5YGn0aU
-         3JWCNhD4JodGr6Pf+aezZKaJFrQhYHlq+h9Z/KGNrLsRo1lKY4SBKmSPbujyLf/y0e1b
-         Wu9Q==
+        bh=qSGlkJ/tiRxSKCByNYHm8CeLHYrmmbBMOlrabqcMMZ0=;
+        b=RpJnlKIK5zyAHIJKcOysLqwJ2yRLmh67WM2HyW0SR/SkSvpE4HbzUTgLhlQKt0kxnT
+         sg/rs1ppt2QxutLCOeDR6BQOIEyYUMEGER19GLBzPCP9ZoBihIPy1N1y3McJbXy8GMJC
+         2aj+ywQU7jOjF3yvTqjOPmK3sl5cY8kbizqfHsNMex3H7qozdBBZxk1wMdv0IZYP6b6j
+         eeuQDJL/uj58scz3CkrzOoQCkl0tNjAqE2AFItIGoSqR7STIiGX2ZmNf5dlNnbdelupg
+         oMi/cb784l8WiUyVsrhMNb/i1G+fbvSNxjI89n0q5Oa6IbKm63Uol/WeVk3UOqLrwguY
+         oTng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792006675; x=1792611475;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
+        d=1e100.net; s=20260707; t=1792006790; x=1792611590;
+        h=content-type:mime-version:references:in-reply-to:message-id:date
          :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=wSKDNnQRNy2/8dHJazcEc+4Vg6sKgqf+FQWePTpfAZ4=;
-        b=K7oHTaDiS8hSXMgvR8hzsSl8gjgKclHu5+qRa12DWWhhPzxakUsVcB2zgxnETPA9V1
-         QMAEDypcSafHTk7uc/d4/z8lT83VYMQ842+a2NkHfHdFMqXj8xzT2p8skBitVNTrLHUr
-         2vWW2Ij3BBT1wvVbYQlo48wuyDlKurTrE+6QrAa1QJd06EsVsXZslmpLqJgp6aPlL5qt
-         YxCQTxxxX1rNVSlz6LMAlEgBz9U9vpmXD0DID3zS8dcv5F8yxmjbMBSdXVAJG+TiD933
-         c6pUC1Eu/zylxf2oBHNLj46tL4JELH2w3YSvSsUjq01JKVj+qrCD8Rx00lqvy3LdXcMp
-         L35A==
-X-Forwarded-Encrypted: i=1; AKwUvBz50UWbr08touavnwyImVFczD8JbfKhMoYjmgKs0+H9P1R8npbm7Huz0tET4kQeO3hE55SlwIEW/RyLUbA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLVIy1RSIdzLq0AmZAdNfGJNbnoSDw87Y4iAXIvaaba06DuZ7gG
-	AsGHQgplNeQ4rGT3jL8+5nLgJZ0nhjDnVT5BBofRp+QEBCGQsccxIt2n2a0oRrMVQ8w=
-X-Gm-Gg: AYBFou1jvbUFDpvYxoSlyAsw6yT5UDDXhpXq8lJETUL5JstUocjPFkFFXzjahysDjye
-	0vRGNaZ0FuzBDrsYht9DvkaSS/8nI+6w8mXq30L3jEThkQ/G6KcBEqvsWz4SV9JXyJNLJOPIir7
-	str99JJKlb+8APrM7nxI1t9ZS4YXQuLKJHn1/PEwmgSXfh4OYXDIJQXFoXvCGP0gcWctdn3A3Yl
-	/P4ykMJVLepk8psYZLThnxjIsHLv2fB7Z+SfkGkTz6c6+9yGlXzF1E0yLJ/Y7E6kr14SlzYI4pA
-	SOz5lyVscYwuOybIG071d6aQtDQFAJkWE5/PejfGxvYR1kKASTJak/9SMBO7VhSIbCEDs5VJBmw
-	I1i1s7+3NBMukVp+lMcgKcr6VkE6d9SiQ+zSvWiGby6Obz9yKVYM4fbrxtguXwNoowf2BxhHAty
-	SLOmQRNJhMjrAaMRwhBA47PPFgWFEIlRc4Ext9zr/GdoR42fqO4WUAx6nxxbsLBpQwCGZXCOgSf
-	ONh5zIW9E6tTLOmSuoK1VU5NySTOAdpYSGNpbEKrU4aypcYpb+T3rTbW2xYVLt4lz8BgsE=
-X-Received: by 2002:a05:7300:fc0a:b0:351:7ec1:a92c with SMTP id 5a478bee46e88-3537e11c9c5mr23889883eec.28.1792006675265;
-        Wed, 14 Oct 2026 12:37:55 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:39d1:d8de:aae7:23dd])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca0e64csm60589703eec.10.2026.10.14.12.37.53
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 14 Oct 2026 12:37:54 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: broonie@kernel.org,
-	daniel.baluta@nxp.com,
-	kai.vehmanen@linux.intel.com,
-	lgirdwood@gmail.com,
-	liam.r.girdwood@intel.com,
-	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	perex@perex.cz,
-	peter.ujfalusi@linux.intel.com,
-	pierre-louis.bossart@linux.dev,
-	ranjani.sridharan@linux.intel.com,
-	sound-open-firmware@alsa-project.org,
-	tiwai@suse.com,
-	vijendar.mukunda@amd.com,
-	yung-chuan.liao@linux.intel.com
-Subject: [PATCH 6.6.y] ASoC: SOF: Intel: hda-dai: Ensure DAI widget is valid during params
-Date: Wed, 14 Oct 2026 15:37:51 -0400
-Message-ID: <20261014193751.25230-1-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
+        bh=qSGlkJ/tiRxSKCByNYHm8CeLHYrmmbBMOlrabqcMMZ0=;
+        b=1bU9XE1caUlSUww0NFCc+5O0zhSNu+i3/pez61g6AYhsOa6NHuwawQ2ZopSp9RorFG
+         T0wcrBaCt6HGfduOO6Sxya1I2gVEFbCwnSFW462TujUjyJEavxYO5S66KLekxHWwZzGd
+         Gu5uNvS9gqs+/2OmF5+F9fTgl1Xb4mk+gIRzjXnHTo+fo+8DTwvFp+ajuIKkpDcshcaA
+         NuPbxaWHsP3LCQQIGvjm8NMbvj0iKI2JA8uN9dNywLEGFkIZpCCJeXjhiM+jIM+qwgcJ
+         gQUPlwlDKvP5qmZsrHeqnIVdsBNCJpDRpouQ/TBCL303WdHdmP3nmjb9w3FyeLWs70z0
+         7dbA==
+X-Forwarded-Encrypted: i=1; AKwUvByWBn3pp4JxGQa18/xoKhOagrT8zsj2nYK91jjnP4JAYn+1xceJzIVZbFzGN3XNie5/JH5isz2a/vN+TIs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYILedNgpnzO3mYsvNo8bC+ADIJ/ITQEIBFTVlLeMWgAZE8sizmd
+	r4mDLQ+LNrRpf7UBSPqZKrnjTp+x1fmY493414TsuAJCIo+CUq+gxvfq
+X-Gm-Gg: AYBFou2QICCmGckpnwe3Vz79GcaPppLUT73fIxppuTYj70ypY7yMCsJCYLjf6xXlsVs
+	oICy6tg/Y3GmXNZ9iCDGUNt15BJNt+cHrA63dFIAK31PqZWROujgfgMJ8vvElawS9Iiup5d3YVM
+	oek+oKAmWe5mk7G1Sd6VjahR8ahVSYHBsmCkPkCDisa1GLGXcnVdmr4fIzVlhay4RQOJfg59Fwy
+	EkrMPaajKAZMS85R60DKGhxMR8kbgBiQckTyhClHiPtGarAdh1NhJCsFpNX58R5Q4R1t9zcM1dw
+	WDqtuvX6qI0E2pt2wBSxNeSbH6ACqhxkqYZRwRDb+HeuIniQ08Tp7yXxMmL2dkmTA1NUb9NonLB
+	n5fjhzNaMkGb9MaUeWZ7GuvfAUt8MukRSxCiQ5dyXPibQmyWSSKBbLkRNkKzvukakMPRlvM2y0g
+	ni8Y7hjPcCFkhsJOud2V5mGbu2os42YL2Okc1AfFRubcvUWNdmkkDTEjYNTwowGNC3+L6Zxmh+C
+	o3p9FyV2rvUNNX2XAFrRiLhXweTJUO82A93t/KWoezNCZj21dBW
+X-Received: by 2002:a05:600c:34d4:b0:4a0:108:3b54 with SMTP id 5b1f17b1804b1-4a18e4d67d6mr324712255e9.32.1792006789573;
+        Wed, 14 Oct 2026 12:39:49 -0700 (PDT)
+Received: from silicon.doe.home (91.141.74.240.wireless.dyn.drei.com. [91.141.74.240])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd67b125sm10387095e9.3.2026.10.14.12.39.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 12:39:48 -0700 (PDT)
+From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+To: linux-arm-kernel@lists.infradead.org,
+ Navid Ghahremani <ghahramani.navid@gmail.com>
+Cc: arnd@arndb.de, krzk@kernel.org,
+ Navid Ghahremani <ghahramani.navid@gmail.com>,
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org
+Subject:
+ Re: [PATCH v2 06/24] clk: zte: Add ZX279128S CRM clock and reset driver
+Date: Wed, 14 Oct 2026 21:39:42 +0200
+Message-ID: <86bpNzKYRniAzc8v_5Lpqg@gmail.com>
+In-Reply-To: <20261014072109.1759502-7-ghahramani.navid@gmail.com>
+References:
+ <20261014072109.1759502-1-ghahramani.navid@gmail.com>
+ <20261014072109.1759502-7-ghahramani.navid@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; boundary="nextPart0ktEb2oPSPiRPHnKcsrTTw";
+ micalg="pgp-sha256"; protocol="application/pgp-signature"
 
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
+--nextPart0ktEb2oPSPiRPHnKcsrTTw
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
+From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+Date: Wed, 14 Oct 2026 21:39:42 +0200
+Message-ID: <86bpNzKYRniAzc8v_5Lpqg@gmail.com>
+In-Reply-To: <20261014072109.1759502-7-ghahramani.navid@gmail.com>
+MIME-Version: 1.0
 
-[ Upstream commit 569922b82ca660f8b24e705f6cf674e6b1f99cc7 ]
-
-Each cpu DAI should associate with a widget. However, the topology might
-not create the right number of DAI widgets for aggregated amps. And it
-will cause NULL pointer deference.
-Check that the DAI widget associated with the CPU DAI is valid to prevent
-NULL pointer deference due to missing DAI widgets in topologies with
-aggregated amps.
-
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Liam Girdwood <liam.r.girdwood@intel.com>
-Link: https://patch.msgid.link/20241203104853.56956-1-yung-chuan.liao@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Assisted-by: LLM
-[ Backport to 6.6.y: Keep the NULL-widget checks in
-  sdw_hda_dai_hw_params() and sdw_params_stream(). Omit the extra check
-  in the newer IPC4 CPU-DAI aggregation loop, which this target lacks. ]
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
----
 Hi,
 
-Please consider this backport of the fix for CVE-2024-58012 to 6.6.y.
+Am Mittwoch, 14. Oktober 2026, 09:20:46 Mitteleurop=C3=A4ische Sommerzeit s=
+chrieb=20
+Navid Ghahremani:
+> Support the top CRM and low-speed peripheral clock controllers of the
+> ZTE ZX279128S SoC. Implement custom reset controller ops mapping
+> logical reset IDs to internal hardware register offsets, and provide
+> CRM2 clock gating and reset controller support for PCIe.
+>=20
+> Signed-off-by: Navid Ghahremani <ghahramani.navid@gmail.com>
 
-The two NULL-widget guards are identical to upstream; the additional IPC4
-CPU-DAI aggregation-loop guard is omitted because 6.6.y has no
-corresponding loop.
+The comments I sent for v1 still apply to v2 I think.
 
-The complete fix is already present in 6.12.y, 6.18.y and 7.2.y.
+Please try to reuse the infrastructure in place for zx29. Ideally clk-
+zx279128s.c should be just static data and a minimalistic _probe function t=
+hat=20
+invokes zx_clk_common_probe().
 
-Build-tested only as part of a cumulative 6.6.y series: x86_64 objects
-(allmodconfig, CONFIG_WERROR=y); no runtime testing.
+The drivers/clk/zte code is upstream in linux-next already. The MFD and res=
+et=20
+parts are still missing though.
 
-Thanks,
-Artem Dinaburg
+--nextPart0ktEb2oPSPiRPHnKcsrTTw
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
 
- sound/soc/sof/intel/hda-dai.c |    6 ++++++
- sound/soc/sof/intel/hda.c     |    5 +++++
- 2 files changed, 11 insertions(+)
+-----BEGIN PGP SIGNATURE-----
 
-diff --git a/sound/soc/sof/intel/hda-dai.c b/sound/soc/sof/intel/hda-dai.c
-index a3d0b6d721aaf6fa47d58053b6eead49af4e94d8..f541cd0fe78a40c85e37d90937dae77cf0fa429b 100644
---- a/sound/soc/sof/intel/hda-dai.c
-+++ b/sound/soc/sof/intel/hda-dai.c
-@@ -454,6 +454,12 @@ int sdw_hda_dai_hw_params(struct snd_pcm_substream *substream,
- 	struct snd_sof_dev *sdev;
- 	int ret;
- 
-+	if (!w) {
-+		dev_err(cpu_dai->dev, "%s widget not found, check amp link num in the topology\n",
-+			cpu_dai->name);
-+		return -EINVAL;
-+	}
-+
- 	ret = non_hda_dai_hw_params(substream, params, cpu_dai);
- 	if (ret < 0) {
- 		dev_err(cpu_dai->dev, "%s: non_hda_dai_hw_params failed %d\n", __func__, ret);
-diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
-index 15e6779efaa3bcc9e0dc16e6a92271930eba7a0f..aa3f9c961173715507b35e236d996f2751774ea3 100644
---- a/sound/soc/sof/intel/hda.c
-+++ b/sound/soc/sof/intel/hda.c
-@@ -102,6 +102,11 @@ static int sdw_params_stream(struct device *dev,
- 	struct snd_soc_dapm_widget *w = snd_soc_dai_get_widget(d, params_data->substream->stream);
- 	struct snd_sof_dai_config_data data = { 0 };
- 
-+	if (!w) {
-+		dev_err(dev, "%s widget not found, check amp link num in the topology\n",
-+			d->name);
-+		return -EINVAL;
-+	}
- 	data.dai_index = (params_data->link_id << 8) | d->id;
- 	data.dai_data = params_data->alh_stream_id;
- 
+iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmrP2n4bFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMywyAAoJED0TvMhUTxoiBHoP/1/qah26RVyfGWoIo5XU
+a6m6WDESfjpMjuAWlMdAaFxD3xPutu+BcnejO8nU8S3CdKLnNWsPSD13zwk7ZvMS
+HsNdJaATkvR148jd3JdikQsrg6X9GIm9OISzJY2aL+wbABR3eR3OeL9Yfe6O8oer
+J7hteZN+T7YrhJbrfUtJ67wnfQyzrT0U4asJM1ieL7/wqX8tcu0ATRm/h/dg95Rt
+Eku6mMHUTqq8dt9+p0wxYFD6F62iI+6x/f0Ka2I0Ywewd5g5SD5aODyMHf9R96mc
+Ps1dE1quyR+FrmT2Pi9H5efSftynT+96E0y8Uwtj9l86DPvSVJ6DYluyE0ARPdpY
+OMSJt2X2WSAaY0rz9MMUTy9/qLGk7w/VB4Jdkhrc9CNk5cB1r3Z0fWRG9s2xrJIP
+UszhDfMwrYRUapevh6YMMSedDOP4SGF4d/HNQhf2ihgx1fT8npIAB2QnRhBmf0Hp
+wTp82GN/2FzU9NCtOqpqxStEQJgBMIi8+JlD5SrixgbU6MTzvw4ZQaIXWKAknIGu
+rIlKqu9JHYDhTKPGS6tNLwMJ8Xv0EXVRXQlHzNlUDFdDQIV2DIUQr7XU3C1B1rzK
+vq2zCuf7xEsTxe3WbMh3OEgGl5LhApkkPG3ehDf7qL87DWw8ES9gVc8dnamjvy07
+Cp5RQIo+S9rHalad5WqiGt6+
+=93mx
+-----END PGP SIGNATURE-----
+
+--nextPart0ktEb2oPSPiRPHnKcsrTTw--
+
+
+
