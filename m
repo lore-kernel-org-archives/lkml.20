@@ -1,705 +1,699 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69FA937B018
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:01:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9590D3A5E87;
+	Wed, 14 Oct 2026 16:01:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791993676; cv=none; b=FdRSLGAdrigfwsRFCHihQYio1sycRcGsMrngxDC/ZSTmX71tGkmPyypdwZdvGJ6mUYywSymosdC1CEG9d9Mw3UnI4e7AkZi2YFn0ncKDHTSJG60lT0p/OmXQ1Dsi91DNPIkLnEMVQnEAzRvMY/1D9bnsxyI3uyYRb3P2ScEHNMU=
+	t=1791993720; cv=none; b=WsNI5xoHQxhxgsJiUdlQOkJmRcm+hfnf5C+6kvnxjEO/jXxNKZnlauqv7INJK5bpqhiESP5qnKxi+FNRimuD7k4VBNvpqtmGtWLFpnE5+mK2ujQHU+LsDBjQJGugvMrl32bU1AkuJlOKVfK/9UelDWlgJMNMDw6jIqlrysDb8Pg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791993676; c=relaxed/simple;
-	bh=7xNfBcx3j8ZQ6OgpNEsIGeBTzCja5U6Vo9xw0gJ1OtI=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=C9qWQL3VrKsGMb6VyWr9GQa6enASEl+zkzJRD9EzR/ufQfvJ5nq/P7FXyc30R8r8zZ1AB0allHyiNSt2yGoDraaEOXJ4XrQSFcPAJkNQewiDSc6Isnd9X5aR2GRB2osZyOvOm5siQ+ZSd4ADbsQBNvGBCkmGSmXb5sqxoTbLBY4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bTuK2RWf; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791993720; c=relaxed/simple;
+	bh=j44yq0zaHhmcG8C94wliOaeox3WE86EMI6gQSQIzK+0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NDIMC1ZnSRQXR5Tk6B6cbQhXk9VHtTc61V/Pv9KUAu54AHx8aP1fcZ3NhDz6G9Yoem+CBAyLKYZtsJR/IyQbZCvG5EJn3VTOx4KS6XztrHqnlzmL7mfzp16EpIQA3yDEvvr+EorkF/CD/WikczShW8Hif1RRTYfinNpS6QE8Qfw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cD8TrTh6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bTuK2RWf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791993673; x=1823529673;
-  h=date:from:to:cc:subject:message-id;
-  bh=7xNfBcx3j8ZQ6OgpNEsIGeBTzCja5U6Vo9xw0gJ1OtI=;
-  b=bTuK2RWf5ZPvRmv7UHKBBnBJV4IgqGJ8toRmctuBXn1N+qL5icMIG4Yk
-   4bDw34yJVs2QI5+XKOqBgUQUSGLBzyz2CoXgCHxM2sO4dXxOQZDaH0md8
-   QcuL0PPY1d0OixsbhV0ttyOlEcVWyw2K3djfheYPjroaA4uRii1NWejFY
-   WSZTn3Y+wzLl6Ue1nLB4/Gy+9OcN9Zs9qhRIxZdJY0i3KKQ2ovDSibw3/
-   LGzTa9++uD5y+jOyeeqWjklLWr/bw3iLXeW7461g6hckW+g3ffhusDW0w
-   Nuym5SrY+pGPOTgoWxzM4jDxYLIQwelGTi72a4OFyd27nATgz0FDolarG
-   g==;
-X-CSE-ConnectionGUID: PdViOKY8RrutO2cHw3JEZQ==
-X-CSE-MsgGUID: SBc0NVFGS1uoh8/mcIePVQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="644502"
-X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
-   d="scan'208";a="644502"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 09:01:13 -0700
-X-CSE-ConnectionGUID: DMpq4fjzQ5OFE1l8ZGhvDA==
-X-CSE-MsgGUID: fyicKvGpQgaXSvCFPlHaPA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
-   d="scan'208";a="1823743"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa006.fm.intel.com with ESMTP; 14 Oct 2026 09:01:11 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xH1Ph-00000000ErL-0Jnt;
-	Wed, 14 Oct 2026 16:01:09 +0000
-Date: Thu, 15 Oct 2026 00:00:23 +0800
-From: kernel test robot <lkp@intel.com>
-To: "x86-ml" <x86@kernel.org>
-Cc: linux-kernel@vger.kernel.org
-Subject: [tip:x86:core] BUILD SUCCESS
- 41d1119e2f8577b4bd01d31321c6761af9140ce7
-Message-ID: <202610150020.aTzq4e6C-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cD8TrTh6"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 9B7C01F000C4;
+	Wed, 14 Oct 2026 16:01:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791993718;
+	bh=onZOSGBZ2q+IAeaj4lhP92AA9KPucyMX6J+jm+4IGyw=;
+	h=From:To:Cc:Subject:Date;
+	b=cD8TrTh6WIiVAbFJq3uThix78gOnhiFEecE7XT3Q3/2rTgdDSG1Mny6T0BYmmNlGX
+	 SyNTHLaextatJCyeFcUVAvzBTQatb8CuL0ixV4IkOPKiiAWaN7h3VfRVlFDKdMzXh4
+	 D/LwC9onMV1wA0zCp3kKWoTRvTPT+pClsflddPybP94eFEQ70kjC5P0fpy4aBtq2zN
+	 M7TN4pzCysCEz9OwJHu5xMo7bdh9n8sAxGO0SqvDeEzDR9ZdByuWugo6ZM4QE3tor4
+	 /zqXOIgQ5FFoqRLaNxY9f4bVG38jy+ziqkZ8lwLTiltK8BFvnElPZ1wNbax9AJ2wY2
+	 bxY2AHtWSO1iw==
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: keyrings@vger.kernel.org,
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <david@davidgow.net>
+Cc: Jarkko Sakkinen <jarkko@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Rae Moar <raemoar63@gmail.com>,
+	Ryota Sakamoto <sakamo.ryota@gmail.com>,
+	Kuan-Wei Chiu <visitorckw@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Kir Chou <note351@hotmail.com>,
+	Petr Mladek <pmladek@suse.com>,
+	Dmitry Antipov <dmantipov@yandex.ru>,
+	Guan-Chun Wu <409411716@gms.tku.edu.tw>,
+	linux-kernel@vger.kernel.org (open list),
+	linux-kselftest@vger.kernel.org (open list:KERNEL UNIT TESTING FRAMEWORK (KUnit)),
+	kunit-dev@googlegroups.com (open list:KERNEL UNIT TESTING FRAMEWORK (KUnit))
+Subject: [PATCH] lib/tests: kunit for associative array
+Date: Wed, 14 Oct 2026 19:01:38 +0300
+Message-ID: <20261014160144.1835860-1-jarkko@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git x86/core
-branch HEAD: 41d1119e2f8577b4bd01d31321c6761af9140ce7  x86/kcfi: Emit the FineIBT paranoid "cs" prefix as a byte
+This is a kunit test for lib/assoc_array.c, which maintains a shadow model
+across assoc_array operations, and checks its integrity after every
+operation.
 
-elapsed time: 1368m
+I wrote a draft version so that I could properly test 'assoc-array-fixes'
+tag at Linus' tree, and spent today rewriting a new more polished version
+with as good description as I could possibly could on how the seeded test
+keys were cherry-picked. Along the way I also tweaked the numbers to be
+a bit less messier set than in my original version.
 
-configs tested: 628
-configs skipped: 144
+The transcripts that follow were executed with this command-line:
 
-The following configs have been built successfully.
-More configs may be tested in the coming days.
+    ./tools/testing/kunit/kunit.py run --raw_output assoc_array
 
-tested configs:
-alpha                              allnoconfig    gcc-16.1.0
-alpha                             allyesconfig    gcc-16.1.0
-alpha                                defconfig    gcc-16.1.0
-alpha                randconfig-r2100-20261014    gcc-8.5.0  cocci
-alpha                randconfig-r2104-20261013    clang-22   cocci
-alpha                randconfig-r2105-20261013    gcc-8.5.0  cocci
-alpha                randconfig-r2106-20261013    clang-22   cocci
-alpha                randconfig-r2110-20261012    gcc-10.5.0 cocci
-alpha                randconfig-r2308-20261014    gcc-14.3.0 sparse
-alpha                randconfig-r2309-20261012    gcc-12.5.0 sparse
-alpha                randconfig-r2309-20261013    clang-24   sparse
-arc                               allmodconfig    clang-24
-arc                                allnoconfig    gcc-16.1.0
-arc                               allyesconfig    clang-24
-arc                                  defconfig    gcc-16.1.0
-arc                   randconfig-1000-20261014    clang-17
-arc                   randconfig-1001-20261014    clang-17
-arc                   randconfig-2000-20261012    gcc-16.1.0
-arc                   randconfig-2000-20261013    gcc-8.5.0
-arc                   randconfig-2000-20261014    gcc-10.5.0
-arc                   randconfig-2001-20261012    gcc-16.1.0
-arc                   randconfig-2001-20261013    gcc-8.5.0
-arc                   randconfig-2001-20261014    gcc-10.5.0
-arc                  randconfig-r2102-20261013    clang-24   cocci
-arc                  randconfig-r2102-20261014    gcc-8.5.0  cocci
-arc                  randconfig-r2107-20261013    clang-22   cocci
-arc                  randconfig-r2109-20261013    clang-24   cocci
-arc                  randconfig-r2110-20261013    gcc-8.5.0  cocci
-arc                  randconfig-r2200-20261012    gcc-16.1.0 smatch
-arc                  randconfig-r2200-20261013    gcc-13.4.0 smatch
-arc                  randconfig-r2300-20261013    gcc-8.5.0  sparse
-arc                  randconfig-r2301-20261012    gcc-11.5.0 sparse
-arc                  randconfig-r2301-20261013    gcc-12.5.0 sparse
-arc                  randconfig-r2310-20261012    gcc-12.5.0 sparse
-arm                                allnoconfig    gcc-16.1.0
-arm                               allyesconfig    clang-24
-arm                                  defconfig    gcc-16.1.0
-arm                   randconfig-1000-20261014    clang-17
-arm                   randconfig-1001-20261014    clang-17
-arm                   randconfig-1002-20261014    clang-17
-arm                   randconfig-1003-20261014    clang-17
-arm                   randconfig-2000-20261012    gcc-16.1.0
-arm                   randconfig-2000-20261013    gcc-8.5.0
-arm                   randconfig-2000-20261014    gcc-10.5.0
-arm                   randconfig-2001-20261012    gcc-16.1.0
-arm                   randconfig-2001-20261013    gcc-8.5.0
-arm                   randconfig-2001-20261014    gcc-10.5.0
-arm                  randconfig-r2101-20261013    clang-24   cocci
-arm                  randconfig-r2104-20261013    gcc-8.5.0  cocci
-arm                  randconfig-r2107-20261012    gcc-11.5.0 cocci
-arm                  randconfig-r2107-20261012    gcc-9.5.0  cocci
-arm                  randconfig-r2109-20261013    clang-24   cocci
-arm                  randconfig-r2111-20261013    gcc-14.3.0 cocci
-arm                  randconfig-r2202-20261013    gcc-8.5.0  smatch
-arm                  randconfig-r2306-20261012    gcc-12.5.0 sparse
-arm                  randconfig-r2307-20261013    clang-19   sparse
-arm                  randconfig-r2308-20261013    clang-24   sparse
-arm                  randconfig-r2311-20261012    gcc-12.5.0 sparse
-arm                  randconfig-r2311-20261013    gcc-13.4.0 sparse
-arm64                             allmodconfig    clang-24
-arm64                              allnoconfig    gcc-16.1.0
-arm64                                defconfig    gcc-16.1.0
-arm64                 randconfig-1000-20261014    gcc-16.1.0
-arm64                 randconfig-1001-20261014    gcc-16.1.0
-arm64                 randconfig-1002-20261014    gcc-16.1.0
-arm64                 randconfig-1003-20261014    gcc-16.1.0
-arm64                 randconfig-2000-20261012    gcc-16.1.0
-arm64                 randconfig-2000-20261013    gcc-9.5.0
-arm64                 randconfig-2000-20261014    gcc-16.1.0
-arm64                 randconfig-2001-20261012    gcc-16.1.0
-arm64                 randconfig-2001-20261013    gcc-9.5.0
-arm64                 randconfig-2001-20261014    gcc-16.1.0
-arm64                randconfig-r2101-20261012    gcc-15.2.0 cocci
-arm64                randconfig-r2101-20261014    gcc-11.5.0 cocci
-arm64                randconfig-r2103-20261013    clang-24   cocci
-arm64                randconfig-r2104-20261014    gcc-10.5.0 cocci
-arm64                randconfig-r2105-20261014    gcc-8.5.0  cocci
-arm64                randconfig-r2108-20261012    gcc-15.2.0 cocci
-arm64                randconfig-r2111-20261012    gcc-11.5.0 cocci
-arm64                randconfig-r2200-20261013    gcc-8.5.0  smatch
-arm64                randconfig-r2201-20261012    gcc-10.5.0 smatch
-arm64                randconfig-r2201-20261013    gcc-11.5.0 smatch
-arm64                randconfig-r2303-20261012    clang-24   sparse
-arm64                randconfig-r2305-20261012    clang-24   sparse
-arm64                randconfig-r2305-20261013    gcc-12.5.0 sparse
-arm64                randconfig-r2305-20261014    clang-24   sparse
-arm64                randconfig-r2306-20261013    gcc-10.5.0 sparse
-arm64                randconfig-r2307-20261012    gcc-16.1.0 sparse
-arm64                randconfig-r2309-20261013    clang-19   sparse
-arm64                randconfig-r2311-20261012    gcc-12.5.0 sparse
-arm64                randconfig-r2311-20261013    clang-24   sparse
-csky                              allmodconfig    gcc-16.1.0
-csky                               allnoconfig    gcc-16.1.0
-csky                                 defconfig    gcc-16.1.0
-csky                  randconfig-1000-20261014    gcc-16.1.0
-csky                  randconfig-1001-20261014    gcc-16.1.0
-csky                  randconfig-2000-20261012    gcc-16.1.0
-csky                  randconfig-2000-20261013    gcc-9.5.0
-csky                  randconfig-2000-20261014    gcc-16.1.0
-csky                  randconfig-2001-20261012    gcc-16.1.0
-csky                  randconfig-2001-20261013    gcc-9.5.0
-csky                  randconfig-2001-20261014    gcc-16.1.0
-csky                 randconfig-r2101-20261013    gcc-12.5.0 cocci
-csky                 randconfig-r2106-20261012    gcc-14     cocci
-csky                 randconfig-r2106-20261014    gcc-10.5.0 cocci
-csky                 randconfig-r2111-20261012    gcc-10.5.0 cocci
-csky                 randconfig-r2111-20261013    gcc-10.5.0 cocci
-csky                 randconfig-r2200-20261012    gcc-10.5.0 smatch
-csky                 randconfig-r2201-20261014    gcc-14.3.0 smatch
-csky                 randconfig-r2300-20261013    gcc-16.1.0 sparse
-csky                 randconfig-r2302-20261012    clang-24   sparse
-csky                 randconfig-r2303-20261013    gcc-16.1.0 sparse
-csky                 randconfig-r2304-20261013    gcc-16.1.0 sparse
-csky                 randconfig-r2306-20261012    gcc-12.5.0 sparse
-csky                 randconfig-r2309-20261014    gcc-14.3.0 sparse
-hexagon                           allmodconfig    gcc-16.1.0
-hexagon                            allnoconfig    gcc-16.1.0
-hexagon                              defconfig    gcc-16.1.0
-hexagon               randconfig-1000-20261014    clang-18
-hexagon               randconfig-1001-20261014    clang-18
-hexagon               randconfig-2000-20261012    gcc-16.1.0
-hexagon               randconfig-2000-20261013    gcc-9.5.0
-hexagon               randconfig-2000-20261014    gcc-16.1.0
-hexagon               randconfig-2001-20261012    gcc-16.1.0
-hexagon               randconfig-2001-20261013    gcc-9.5.0
-hexagon               randconfig-2001-20261014    gcc-16.1.0
-hexagon              randconfig-r2101-20261013    clang-24   cocci
-hexagon              randconfig-r2102-20261012    clang-24   cocci
-hexagon              randconfig-r2102-20261013    clang-24   cocci
-hexagon              randconfig-r2103-20261013    clang-21   cocci
-hexagon              randconfig-r2103-20261013    clang-24   cocci
-hexagon              randconfig-r2103-20261014    gcc-11.5.0 cocci
-hexagon              randconfig-r2107-20261013    clang-24   cocci
-hexagon              randconfig-r2109-20261012    clang-24   cocci
-hexagon              randconfig-r2110-20261012    gcc-14     cocci
-hexagon              randconfig-r2301-20261013    gcc-8.5.0  sparse
-hexagon              randconfig-r2304-20261014    clang-24   sparse
-hexagon              randconfig-r2305-20261012    clang-24   sparse
-i386                              allmodconfig    clang-22
-i386                               allnoconfig    gcc-16.1.0
-i386                              allyesconfig    clang-22
-i386        buildonly-randconfig-1000-20261014    gcc-14
-i386        buildonly-randconfig-1001-20261014    gcc-14
-i386        buildonly-randconfig-1002-20261014    gcc-14
-i386        buildonly-randconfig-1003-20261014    gcc-14
-i386        buildonly-randconfig-1004-20261014    gcc-14
-i386        buildonly-randconfig-1005-20261014    gcc-14
-i386                                 defconfig    gcc-16.1.0
-i386                  randconfig-1000-20261014    clang-22
-i386                  randconfig-1001-20261014    clang-22
-i386                  randconfig-1002-20261014    clang-22
-i386                  randconfig-1003-20261014    clang-22
-i386                  randconfig-1004-20261014    clang-22
-i386                  randconfig-1005-20261014    clang-22
-i386                  randconfig-1006-20261014    clang-22
-i386                  randconfig-2000-20261012    gcc-16.1.0
-i386                  randconfig-2000-20261013    gcc-8.5.0
-i386                  randconfig-2000-20261014    gcc-10.5.0
-i386                  randconfig-2001-20261012    gcc-16.1.0
-i386                  randconfig-2001-20261013    gcc-8.5.0
-i386                  randconfig-2001-20261014    gcc-10.5.0
-i386                  randconfig-2100-20261012    clang-22   cocci
-i386                  randconfig-2100-20261013    gcc-14     cocci
-i386                  randconfig-2100-20261014    gcc-13     cocci
-i386                  randconfig-2101-20261012    clang-22   cocci
-i386                  randconfig-2101-20261013    gcc-14     cocci
-i386                  randconfig-2101-20261014    gcc-13     cocci
-i386                  randconfig-2102-20261012    clang-22   cocci
-i386                  randconfig-2102-20261013    gcc-14     cocci
-i386                  randconfig-2102-20261014    gcc-13     cocci
-i386                  randconfig-2103-20261012    clang-22   cocci
-i386                  randconfig-2103-20261013    gcc-14     cocci
-i386                  randconfig-2103-20261014    gcc-13     cocci
-i386                  randconfig-2104-20261012    clang-22   cocci
-i386                  randconfig-2104-20261013    gcc-14     cocci
-i386                  randconfig-2104-20261014    gcc-13     cocci
-i386                  randconfig-2105-20261012    clang-22   cocci
-i386                  randconfig-2105-20261013    gcc-14     cocci
-i386                  randconfig-2105-20261014    gcc-13     cocci
-i386                  randconfig-2200-20261012    clang-22   smatch
-i386                  randconfig-2200-20261013    gcc-14     smatch
-i386                  randconfig-2200-20261014    clang-22   smatch
-i386                  randconfig-2300-20261012    gcc-14     sparse
-i386                  randconfig-2300-20261013    gcc-14     sparse
-i386                  randconfig-2300-20261014    clang-22   sparse
-i386                  randconfig-2301-20261012    gcc-14     sparse
-i386                  randconfig-2301-20261013    gcc-14     sparse
-i386                  randconfig-2301-20261014    clang-22   sparse
-i386                  randconfig-2302-20261012    gcc-14     sparse
-i386                  randconfig-2302-20261013    gcc-14     sparse
-i386                  randconfig-2302-20261014    clang-22   sparse
-i386                 randconfig-r2100-20261012    clang-24   cocci
-i386                 randconfig-r2100-20261013    clang-24   cocci
-i386                 randconfig-r2102-20261013    clang-24   cocci
-i386                 randconfig-r2104-20261013    gcc-10.5.0 cocci
-i386                 randconfig-r2110-20261013    clang-24   cocci
-i386                 randconfig-r2110-20261014    gcc-10.5.0 cocci
-i386                 randconfig-r2111-20261013    clang-22   cocci
-i386                 randconfig-r2111-20261014    gcc-8.5.0  cocci
-i386                 randconfig-r2305-20261013    clang-22   sparse
-i386                 randconfig-r2307-20261012    gcc-12.5.0 sparse
-i386                 randconfig-r2308-20261012    gcc-16.1.0 sparse
-i386                 randconfig-r2308-20261013    gcc-9.5.0  sparse
-i386                 randconfig-r2310-20261012    gcc-12.5.0 sparse
-i386                 randconfig-r2311-20261012    clang-22   sparse
-loongarch                         allmodconfig    clang-24
-loongarch                          allnoconfig    gcc-16.1.0
-loongarch                            defconfig    clang-24
-loongarch             randconfig-1000-20261014    clang-18
-loongarch             randconfig-1001-20261014    clang-18
-loongarch             randconfig-2000-20261012    gcc-11.5.0
-loongarch             randconfig-2000-20261013    gcc-11.5.0
-loongarch             randconfig-2000-20261014    gcc-8.5.0
-loongarch             randconfig-2001-20261012    gcc-11.5.0
-loongarch             randconfig-2001-20261013    gcc-11.5.0
-loongarch             randconfig-2001-20261014    gcc-8.5.0
-loongarch            randconfig-r2100-20261013    gcc-12.5.0 cocci
-loongarch            randconfig-r2101-20261012    clang-24   cocci
-loongarch            randconfig-r2101-20261013    clang-24   cocci
-loongarch            randconfig-r2104-20261014    gcc-8.5.0  cocci
-loongarch            randconfig-r2106-20261012    gcc-10.5.0 cocci
-loongarch            randconfig-r2106-20261013    gcc-8.5.0  cocci
-loongarch            randconfig-r2110-20261012    gcc-11.5.0 cocci
-loongarch            randconfig-r2110-20261013    gcc-14.3.0 cocci
-loongarch            randconfig-r2111-20261014    gcc-10.5.0 cocci
-loongarch            randconfig-r2201-20261012    clang-20   smatch
-loongarch            randconfig-r2201-20261013    clang-24   smatch
-loongarch            randconfig-r2300-20261013    gcc-12.5.0 sparse
-loongarch            randconfig-r2302-20261012    clang-24   sparse
-loongarch            randconfig-r2306-20261013    clang-24   sparse
-m68k                              allmodconfig    gcc-16.1.0
-m68k                               allnoconfig    gcc-16.1.0
-m68k                              allyesconfig    clang-24
-m68k                                 defconfig    clang-24
-m68k                 randconfig-r2100-20261013    clang-24   cocci
-m68k                 randconfig-r2101-20261012    clang-24   cocci
-m68k                 randconfig-r2103-20261013    gcc-12.5.0 cocci
-m68k                 randconfig-r2107-20261013    gcc-8.5.0  cocci
-m68k                 randconfig-r2107-20261014    gcc-10.5.0 cocci
-m68k                 randconfig-r2108-20261013    clang-24   cocci
-m68k                 randconfig-r2109-20261013    gcc-12.5.0 cocci
-m68k                 randconfig-r2200-20261014    gcc-9.5.0  smatch
-m68k                 randconfig-r2201-20261012    gcc-13.4.0 smatch
-m68k                 randconfig-r2201-20261013    gcc-16.1.0 smatch
-m68k                 randconfig-r2302-20261012    clang-24   sparse
-m68k                 randconfig-r2305-20261012    clang-24   sparse
-microblaze                         allnoconfig    gcc-16.1.0
-microblaze                        allyesconfig    gcc-16.1.0
-microblaze                           defconfig    clang-24
-microblaze           randconfig-r2101-20261014    gcc-8.5.0  cocci
-microblaze           randconfig-r2105-20261014    gcc-10.5.0 cocci
-microblaze           randconfig-r2108-20261012    clang-24   cocci
-microblaze           randconfig-r2108-20261012    gcc-13.4.0 cocci
-microblaze           randconfig-r2109-20261012    gcc-15.2.0 cocci
-microblaze           randconfig-r2200-20261012    gcc-15.2.0 smatch
-microblaze           randconfig-r2300-20261012    clang-24   sparse
-microblaze           randconfig-r2301-20261013    gcc-16.1.0 sparse
-microblaze           randconfig-r2302-20261012    gcc-11.5.0 sparse
-microblaze           randconfig-r2307-20261013    clang-24   sparse
-microblaze           randconfig-r2308-20261012    gcc-12.5.0 sparse
-microblaze           randconfig-r2309-20261012    gcc-16.1.0 sparse
-microblaze           randconfig-r2310-20261014    gcc-14.3.0 sparse
-mips                               allnoconfig    gcc-16.1.0
-mips                              allyesconfig    gcc-16.1.0
-mips                           ath79_defconfig    gcc-16.1.0
-mips                 randconfig-r2100-20261012    clang-24   cocci
-mips                 randconfig-r2103-20261014    gcc-8.5.0  cocci
-mips                 randconfig-r2105-20261013    gcc-10.5.0 cocci
-mips                 randconfig-r2106-20261013    gcc-10.5.0 cocci
-mips                 randconfig-r2110-20261013    gcc-10.5.0 cocci
-mips                 randconfig-r2111-20261013    clang-24   cocci
-mips                 randconfig-r2201-20261014    clang-24   smatch
-mips                 randconfig-r2202-20261013    clang-24   smatch
-mips                 randconfig-r2300-20261013    gcc-8.5.0  sparse
-mips                 randconfig-r2301-20261013    gcc-8.5.0  sparse
-mips                 randconfig-r2302-20261013    gcc-8.5.0  sparse
-mips                 randconfig-r2304-20261012    clang-24   sparse
-mips                 randconfig-r2307-20261014    gcc-14.3.0 sparse
-mips                 randconfig-r2310-20261013    gcc-10.5.0 sparse
-nios2                              allnoconfig    clang-24
-nios2                                defconfig    clang-24
-nios2                 randconfig-1000-20261014    clang-18
-nios2                 randconfig-1001-20261014    clang-18
-nios2                 randconfig-2000-20261012    gcc-11.5.0
-nios2                 randconfig-2000-20261013    gcc-11.5.0
-nios2                 randconfig-2000-20261014    gcc-8.5.0
-nios2                 randconfig-2001-20261012    gcc-11.5.0
-nios2                 randconfig-2001-20261013    gcc-11.5.0
-nios2                 randconfig-2001-20261014    gcc-8.5.0
-nios2                randconfig-r2102-20261014    gcc-11.5.0 cocci
-nios2                randconfig-r2103-20261012    clang-24   cocci
-nios2                randconfig-r2105-20261012    gcc-11.5.0 cocci
-nios2                randconfig-r2106-20261013    gcc-14.3.0 cocci
-nios2                randconfig-r2107-20261012    gcc-10.5.0 cocci
-nios2                randconfig-r2108-20261012    clang-24   cocci
-nios2                randconfig-r2111-20261013    gcc-8.5.0  cocci
-nios2                randconfig-r2201-20261013    gcc-8.5.0  smatch
-nios2                randconfig-r2202-20261013    gcc-11.5.0 smatch
-nios2                randconfig-r2300-20261012    clang-24   sparse
-nios2                randconfig-r2302-20261013    clang-22   sparse
-nios2                randconfig-r2305-20261013    gcc-8.5.0  sparse
-nios2                randconfig-r2308-20261013    gcc-13.4.0 sparse
-nios2                randconfig-r2311-20261012    gcc-16.1.0 sparse
-nios2                randconfig-r2311-20261013    clang-19   sparse
-openrisc                           allnoconfig    clang-24
-openrisc                    de0_nano_defconfig    gcc-16.1.0
-openrisc                             defconfig    gcc-16.1.0
-openrisc             randconfig-r2100-20261013    clang-24   cocci
-openrisc             randconfig-r2104-20261012    gcc-14     cocci
-openrisc             randconfig-r2108-20261014    gcc-11.5.0 cocci
-openrisc             randconfig-r2201-20261013    gcc-15.2.0 smatch
-openrisc             randconfig-r2310-20261012    gcc-16.1.0 sparse
-openrisc             randconfig-r2310-20261013    gcc-13.4.0 sparse
-parisc                             allnoconfig    clang-24
-parisc                            allyesconfig    clang-17
-parisc                               defconfig    gcc-16.1.0
-parisc                randconfig-1000-20261014    clang-22
-parisc                randconfig-1001-20261014    clang-22
-parisc                randconfig-2000-20261012    gcc-11.5.0
-parisc                randconfig-2000-20261013    gcc-11.5.0
-parisc                randconfig-2000-20261014    gcc-8.5.0
-parisc                randconfig-2001-20261012    gcc-11.5.0
-parisc                randconfig-2001-20261013    gcc-11.5.0
-parisc                randconfig-2001-20261014    gcc-8.5.0
-parisc               randconfig-r2105-20261012    gcc-9.5.0  cocci
-parisc               randconfig-r2106-20261013    gcc-8.5.0  cocci
-parisc               randconfig-r2108-20261013    clang-24   cocci
-parisc               randconfig-r2108-20261014    gcc-8.5.0  cocci
-parisc               randconfig-r2110-20261012    gcc-9.5.0  cocci
-parisc               randconfig-r2111-20261012    gcc-9.5.0  cocci
-parisc               randconfig-r2201-20261012    gcc-16.1.0 smatch
-parisc               randconfig-r2202-20261012    gcc-10.5.0 smatch
-parisc               randconfig-r2202-20261014    gcc-12.5.0 smatch
-parisc               randconfig-r2305-20261013    gcc-16.1.0 sparse
-parisc               randconfig-r2311-20261013    gcc-10.5.0 sparse
-parisc64                          alldefconfig    gcc-16.1.0
-parisc64                             defconfig    clang-24
-powerpc                            allnoconfig    clang-24
-powerpc                       pasemi_defconfig    gcc-16.1.0
-powerpc               randconfig-1000-20261014    clang-22
-powerpc               randconfig-1001-20261014    clang-22
-powerpc               randconfig-2000-20261012    gcc-14
-powerpc               randconfig-2000-20261013    gcc-14
-powerpc               randconfig-2000-20261014    clang-22
-powerpc               randconfig-2001-20261012    gcc-14
-powerpc               randconfig-2001-20261013    gcc-14
-powerpc               randconfig-2001-20261014    clang-22
-powerpc              randconfig-r2103-20261012    clang-24   cocci
-powerpc              randconfig-r2106-20261012    gcc-9.5.0  cocci
-powerpc              randconfig-r2107-20261013    gcc-10.5.0 cocci
-powerpc              randconfig-r2107-20261014    gcc-8.5.0  cocci
-powerpc              randconfig-r2110-20261013    clang-22   cocci
-powerpc              randconfig-r2110-20261013    gcc-8.5.0  cocci
-powerpc              randconfig-r2300-20261014    clang-24   sparse
-powerpc              randconfig-r2302-20261013    gcc-16.1.0 sparse
-powerpc              randconfig-r2303-20261012    clang-24   sparse
-powerpc              randconfig-r2305-20261012    gcc-11.5.0 sparse
-powerpc              randconfig-r2305-20261013    gcc-8.5.0  sparse
-powerpc              randconfig-r2309-20261012    clang-22   sparse
-powerpc64             randconfig-1000-20261014    clang-22
-powerpc64             randconfig-1001-20261014    clang-22
-powerpc64             randconfig-2000-20261012    gcc-14
-powerpc64             randconfig-2000-20261013    gcc-14
-powerpc64             randconfig-2000-20261014    clang-22
-powerpc64             randconfig-2001-20261012    gcc-14
-powerpc64             randconfig-2001-20261013    gcc-14
-powerpc64             randconfig-2001-20261014    clang-22
-powerpc64            randconfig-r2106-20261013    clang-24   cocci
-powerpc64            randconfig-r2109-20261012    gcc-13.4.0 cocci
-powerpc64            randconfig-r2109-20261013    clang-21   cocci
-powerpc64            randconfig-r2109-20261013    clang-24   cocci
-powerpc64            randconfig-r2300-20261012    gcc-11.5.0 sparse
-powerpc64            randconfig-r2300-20261013    clang-22   sparse
-powerpc64            randconfig-r2301-20261014    clang-24   sparse
-powerpc64            randconfig-r2304-20261012    gcc-11.5.0 sparse
-powerpc64            randconfig-r2306-20261014    gcc-14.3.0 sparse
-powerpc64            randconfig-r2307-20261013    clang-24   sparse
-powerpc64            randconfig-r2309-20261013    clang-24   sparse
-powerpc64            randconfig-r2310-20261013    clang-24   sparse
-riscv                             allmodconfig    clang-24
-riscv                              allnoconfig    clang-24
-riscv                             allyesconfig    clang-24
-riscv                                defconfig    gcc-16.1.0
-riscv                 randconfig-1000-20261014    clang-18
-riscv                 randconfig-1001-20261014    clang-18
-riscv                 randconfig-2000-20261012    gcc-14.3.0
-riscv                 randconfig-2000-20261013    gcc-15.2.0
-riscv                 randconfig-2000-20261014    gcc-16.1.0
-riscv                 randconfig-2001-20261012    gcc-14.3.0
-riscv                 randconfig-2001-20261013    gcc-15.2.0
-riscv                 randconfig-2001-20261014    gcc-16.1.0
-riscv                randconfig-r2102-20261012    clang-24   cocci
-riscv                randconfig-r2102-20261012    gcc-15.2.0 cocci
-riscv                randconfig-r2103-20261012    gcc-15.2.0 cocci
-riscv                randconfig-r2111-20261013    gcc-8.5.0  cocci
-riscv                randconfig-r2202-20261012    clang-24   smatch
-riscv                randconfig-r2307-20261013    gcc-13.4.0 sparse
-riscv                randconfig-r2308-20261013    gcc-10.5.0 sparse
-riscv                randconfig-r2310-20261013    clang-24   sparse
-s390                              allmodconfig    clang-17
-s390                               allnoconfig    clang-24
-s390                           debug_defconfig    gcc-16.1.0
-s390                                 defconfig    gcc-16.1.0
-s390                  randconfig-1000-20261014    clang-18
-s390                  randconfig-1001-20261014    clang-18
-s390                  randconfig-2000-20261012    gcc-14.3.0
-s390                  randconfig-2000-20261013    gcc-15.2.0
-s390                  randconfig-2000-20261014    gcc-16.1.0
-s390                  randconfig-2001-20261012    gcc-14.3.0
-s390                  randconfig-2001-20261013    gcc-15.2.0
-s390                  randconfig-2001-20261014    gcc-16.1.0
-s390                 randconfig-r2100-20261012    gcc-13.4.0 cocci
-s390                 randconfig-r2100-20261013    clang-21   cocci
-s390                 randconfig-r2104-20261012    gcc-11.5.0 cocci
-s390                 randconfig-r2105-20261012    gcc-14     cocci
-s390                 randconfig-r2105-20261013    gcc-14.3.0 cocci
-s390                 randconfig-r2106-20261014    gcc-8.5.0  cocci
-s390                 randconfig-r2108-20261013    gcc-12.5.0 cocci
-s390                 randconfig-r2109-20261013    clang-24   cocci
-s390                 randconfig-r2111-20261012    gcc-14     cocci
-s390                 randconfig-r2200-20261013    clang-24   smatch
-s390                 randconfig-r2200-20261014    gcc-8.5.0  smatch
-s390                 randconfig-r2202-20261012    gcc-14.3.0 smatch
-s390                 randconfig-r2302-20261013    gcc-12.5.0 sparse
-s390                 randconfig-r2304-20261012    clang-24   sparse
-s390                 randconfig-r2304-20261013    gcc-8.5.0  sparse
-s390                 randconfig-r2306-20261012    clang-22   sparse
-s390                 randconfig-r2307-20261013    gcc-10.5.0 sparse
-s390                 randconfig-r2309-20261012    gcc-12.5.0 sparse
-s390                 randconfig-r2310-20261012    clang-22   sparse
-s390                 randconfig-r2311-20261013    clang-24   sparse
-s390                 randconfig-r2311-20261014    gcc-14.3.0 sparse
-sh                                allmodconfig    gcc-16.1.0
-sh                                 allnoconfig    clang-24
-sh                                allyesconfig    clang-17
-sh                          ap325rxa_defconfig    gcc-16.1.0
-sh                                   defconfig    gcc-14
-sh                    randconfig-1000-20261014    clang-18
-sh                    randconfig-1001-20261014    clang-18
-sh                    randconfig-2000-20261012    gcc-14.3.0
-sh                    randconfig-2000-20261013    gcc-15.2.0
-sh                    randconfig-2000-20261014    gcc-16.1.0
-sh                    randconfig-2001-20261012    gcc-14.3.0
-sh                    randconfig-2001-20261013    gcc-15.2.0
-sh                    randconfig-2001-20261014    gcc-16.1.0
-sh                   randconfig-r2101-20261013    clang-24   cocci
-sh                   randconfig-r2104-20261013    gcc-8.5.0  cocci
-sh                   randconfig-r2105-20261013    gcc-8.5.0  cocci
-sh                   randconfig-r2109-20261012    clang-24   cocci
-sh                   randconfig-r2300-20261012    clang-24   sparse
-sh                   randconfig-r2301-20261012    clang-24   sparse
-sh                   randconfig-r2306-20261013    gcc-9.5.0  sparse
-sh                   randconfig-r2309-20261013    gcc-9.5.0  sparse
-sh                            se7619_defconfig    gcc-16.1.0
-sh                           urquell_defconfig    gcc-16.1.0
-sparc                              allnoconfig    clang-24
-sparc                                defconfig    gcc-16.1.0
-sparc                 randconfig-1000-20261014    clang-24
-sparc                 randconfig-1001-20261014    clang-24
-sparc                 randconfig-2000-20261012    gcc-8.5.0
-sparc                 randconfig-2000-20261013    gcc-16.1.0
-sparc                 randconfig-2000-20261014    gcc-14.3.0
-sparc                 randconfig-2001-20261012    gcc-8.5.0
-sparc                 randconfig-2001-20261013    gcc-16.1.0
-sparc                 randconfig-2001-20261014    gcc-14.3.0
-sparc                randconfig-r2100-20261012    gcc-15.2.0 cocci
-sparc                randconfig-r2103-20261013    clang-24   cocci
-sparc                randconfig-r2107-20261013    gcc-8.5.0  cocci
-sparc                randconfig-r2108-20261013    clang-24   cocci
-sparc                randconfig-r2110-20261014    gcc-8.5.0  cocci
-sparc                randconfig-r2303-20261013    gcc-8.5.0  sparse
-sparc                randconfig-r2303-20261014    clang-24   sparse
-sparc                randconfig-r2304-20261013    clang-22   sparse
-sparc                randconfig-r2306-20261012    gcc-16.1.0 sparse
-sparc                randconfig-r2306-20261013    clang-19   sparse
-sparc                randconfig-r2306-20261013    gcc-13.4.0 sparse
-sparc64                              defconfig    gcc-14
-sparc64               randconfig-1000-20261014    clang-24
-sparc64               randconfig-1001-20261014    clang-24
-sparc64               randconfig-2000-20261012    gcc-8.5.0
-sparc64               randconfig-2000-20261013    gcc-16.1.0
-sparc64               randconfig-2000-20261014    gcc-14.3.0
-sparc64               randconfig-2001-20261012    gcc-8.5.0
-sparc64               randconfig-2001-20261013    gcc-16.1.0
-sparc64               randconfig-2001-20261014    gcc-14.3.0
-sparc64              randconfig-r2100-20261013    clang-24   cocci
-sparc64              randconfig-r2105-20261013    clang-24   cocci
-sparc64              randconfig-r2200-20261012    clang-20   smatch
-sparc64              randconfig-r2200-20261013    clang-24   smatch
-sparc64              randconfig-r2301-20261012    clang-24   sparse
-sparc64              randconfig-r2303-20261012    gcc-11.5.0 sparse
-sparc64              randconfig-r2303-20261013    clang-22   sparse
-sparc64              randconfig-r2304-20261013    gcc-12.5.0 sparse
-sparc64              randconfig-r2311-20261013    gcc-9.5.0  sparse
-um                                allmodconfig    clang-17
-um                                 allnoconfig    clang-24
-um                                allyesconfig    gcc-16.1.0
-um                                   defconfig    gcc-14
-um                              i386_defconfig    gcc-14
-um                    randconfig-1000-20261014    clang-24
-um                    randconfig-1001-20261014    clang-24
-um                    randconfig-2000-20261012    gcc-8.5.0
-um                    randconfig-2000-20261013    gcc-16.1.0
-um                    randconfig-2000-20261014    gcc-14.3.0
-um                    randconfig-2001-20261012    gcc-8.5.0
-um                    randconfig-2001-20261013    gcc-16.1.0
-um                    randconfig-2001-20261014    gcc-14.3.0
-um                   randconfig-r2101-20261013    clang-21   cocci
-um                   randconfig-r2102-20261013    clang-24   cocci
-um                   randconfig-r2102-20261013    gcc-12.5.0 cocci
-um                   randconfig-r2103-20261012    gcc-13.4.0 cocci
-um                   randconfig-r2104-20261013    clang-24   cocci
-um                   randconfig-r2106-20261012    gcc-11.5.0 cocci
-um                   randconfig-r2108-20261013    clang-21   cocci
-um                   randconfig-r2109-20261014    gcc-8.5.0  cocci
-um                   randconfig-r2200-20261013    clang-17   smatch
-um                   randconfig-r2202-20261012    clang-17   smatch
-um                   randconfig-r2302-20261014    clang-24   sparse
-um                   randconfig-r2303-20261013    gcc-12.5.0 sparse
-um                   randconfig-r2307-20261012    clang-22   sparse
-um                   randconfig-r2308-20261013    clang-19   sparse
-um                   randconfig-r2310-20261013    clang-19   sparse
-um                   randconfig-r2310-20261013    gcc-9.5.0  sparse
-um                            x86_64_defconfig    gcc-14
-x86_64                             allnoconfig    clang-24
-x86_64      buildonly-randconfig-1000-20261014    clang-22
-x86_64      buildonly-randconfig-1001-20261014    clang-22
-x86_64      buildonly-randconfig-1002-20261014    clang-22
-x86_64      buildonly-randconfig-1003-20261014    clang-22
-x86_64      buildonly-randconfig-1004-20261014    clang-22
-x86_64      buildonly-randconfig-1005-20261014    clang-22
-x86_64                               defconfig    gcc-14
-x86_64                                   kexec    clang-22
-x86_64                randconfig-1006-20261014    gcc-14
-x86_64                randconfig-1007-20261014    gcc-14
-x86_64                randconfig-1008-20261014    gcc-14
-x86_64                randconfig-1009-20261014    gcc-14
-x86_64                randconfig-1010-20261014    gcc-14
-x86_64                randconfig-1011-20261014    gcc-14
-x86_64                randconfig-1012-20261014    gcc-14
-x86_64                randconfig-1013-20261014    gcc-14
-x86_64                randconfig-1014-20261014    gcc-14
-x86_64                randconfig-1015-20261014    gcc-14
-x86_64                randconfig-1016-20261014    gcc-14
-x86_64                randconfig-1017-20261014    gcc-14
-x86_64                randconfig-2000-20261012    gcc-14
-x86_64                randconfig-2000-20261013    gcc-14
-x86_64                randconfig-2000-20261014    clang-22
-x86_64                randconfig-2001-20261012    gcc-14
-x86_64                randconfig-2001-20261013    gcc-14
-x86_64                randconfig-2001-20261014    clang-22
-x86_64                randconfig-2100-20261012    clang-22   cocci
-x86_64                randconfig-2100-20261013    clang-22   cocci
-x86_64                randconfig-2100-20261014    clang-22   cocci
-x86_64                randconfig-2101-20261012    clang-22   cocci
-x86_64                randconfig-2101-20261013    clang-22   cocci
-x86_64                randconfig-2101-20261014    clang-22   cocci
-x86_64                randconfig-2102-20261012    clang-22   cocci
-x86_64                randconfig-2102-20261013    clang-22   cocci
-x86_64                randconfig-2102-20261014    clang-22   cocci
-x86_64                randconfig-2103-20261012    clang-22   cocci
-x86_64                randconfig-2103-20261013    clang-22   cocci
-x86_64                randconfig-2103-20261014    clang-22   cocci
-x86_64                randconfig-2104-20261012    clang-22   cocci
-x86_64                randconfig-2104-20261013    clang-22   cocci
-x86_64                randconfig-2104-20261014    clang-22   cocci
-x86_64                randconfig-2105-20261012    clang-22   cocci
-x86_64                randconfig-2105-20261013    clang-22   cocci
-x86_64                randconfig-2105-20261014    clang-22   cocci
-x86_64                randconfig-2200-20261012    gcc-14     smatch
-x86_64                randconfig-2200-20261013    gcc-13     smatch
-x86_64                randconfig-2200-20261014    clang-22   smatch
-x86_64                randconfig-2300-20261012    gcc-14     sparse
-x86_64                randconfig-2300-20261013    gcc-14     sparse
-x86_64                randconfig-2300-20261014    clang-22   sparse
-x86_64                randconfig-2301-20261012    gcc-14     sparse
-x86_64                randconfig-2301-20261013    gcc-14     sparse
-x86_64                randconfig-2301-20261014    clang-22   sparse
-x86_64                randconfig-2302-20261012    gcc-14     sparse
-x86_64                randconfig-2302-20261013    gcc-14     sparse
-x86_64                randconfig-2302-20261014    clang-22   sparse
-x86_64               randconfig-r2102-20261013    clang-21   cocci
-x86_64               randconfig-r2104-20261012    gcc-10.5.0 cocci
-x86_64               randconfig-r2105-20261012    gcc-10.5.0 cocci
-x86_64               randconfig-r2107-20261012    gcc-14     cocci
-x86_64               randconfig-r2109-20261014    gcc-11.5.0 cocci
-x86_64               randconfig-r2202-20261013    gcc-14     smatch
-x86_64               randconfig-r2202-20261014    clang-22   smatch
-x86_64               randconfig-r2301-20261013    clang-22   sparse
-x86_64               randconfig-r2302-20261013    gcc-8.5.0  sparse
-x86_64               randconfig-r2303-20261013    gcc-8.5.0  sparse
-x86_64               randconfig-r2304-20261012    clang-24   sparse
-x86_64               randconfig-r2304-20261013    gcc-8.5.0  sparse
-x86_64               randconfig-r2306-20261013    clang-24   sparse
-x86_64               randconfig-r2308-20261012    clang-22   sparse
-x86_64               randconfig-r2308-20261013    clang-24   sparse
-x86_64                                rhel-9.4    clang-22
-x86_64                            rhel-9.4-bpf    clang-22
-x86_64                            rhel-9.4-bpf    gcc-14
-x86_64                           rhel-9.4-func    clang-22
-x86_64                     rhel-9.4-kselftests    clang-22
-x86_64                          rhel-9.4-kunit    clang-22
-x86_64                          rhel-9.4-kunit    gcc-14
-x86_64                            rhel-9.4-ltp    clang-22
-x86_64                            rhel-9.4-ltp    gcc-14
-x86_64                           rhel-9.4-rust    clang-22
-x86_64                           rhel-9.4-rust    clang-22
-xtensa                             allnoconfig    clang-24
-xtensa                randconfig-1000-20261014    clang-24
-xtensa                randconfig-1001-20261014    clang-24
-xtensa                randconfig-2000-20261012    gcc-8.5.0
-xtensa                randconfig-2000-20261013    gcc-16.1.0
-xtensa                randconfig-2000-20261014    gcc-14.3.0
-xtensa                randconfig-2001-20261012    gcc-8.5.0
-xtensa                randconfig-2001-20261013    gcc-16.1.0
-xtensa                randconfig-2001-20261014    gcc-14.3.0
-xtensa               randconfig-r2100-20261014    gcc-11.5.0 cocci
-xtensa               randconfig-r2101-20261012    gcc-13.4.0 cocci
-xtensa               randconfig-r2102-20261012    gcc-13.4.0 cocci
-xtensa               randconfig-r2104-20261012    gcc-9.5.0  cocci
-xtensa               randconfig-r2104-20261013    gcc-14.3.0 cocci
-xtensa               randconfig-r2105-20261013    clang-22   cocci
-xtensa               randconfig-r2107-20261013    gcc-14.3.0 cocci
-xtensa               randconfig-r2301-20261012    clang-24   sparse
-xtensa               randconfig-r2303-20261012    clang-24   sparse
-xtensa               randconfig-r2307-20261013    gcc-9.5.0  sparse
-xtensa               randconfig-r2309-20261013    gcc-10.5.0 sparse
-xtensa               randconfig-r2309-20261013    gcc-13.4.0 sparse
+With 'assoc-array-fixes' commits and its subsequent tag iterations all
+eight tests pass, and without them all of them fail.
 
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+---
+ lib/Kconfig.debug             |  15 +
+ lib/tests/Makefile            |   1 +
+ lib/tests/assoc_array_kunit.c | 570 ++++++++++++++++++++++++++++++++++
+ 3 files changed, 586 insertions(+)
+ create mode 100644 lib/tests/assoc_array_kunit.c
+
+diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
+index 6b24a2c89b84..3e8d3852f53c 100644
+--- a/lib/Kconfig.debug
++++ b/lib/Kconfig.debug
+@@ -2857,6 +2857,21 @@ config HASHTABLE_KUNIT_TEST
+
+ 	  If unsure, say N.
+
++config ASSOC_ARRAY_KUNIT_TEST
++	tristate "KUnit test for assoc_array" if !KUNIT_ALL_TESTS
++	depends on KUNIT
++	default KUNIT_ALL_TESTS
++	select ASSOCIATIVE_ARRAY
++	help
++	  This builds the assoc_array KUnit test suite.
++	  It tests the basic functionality of the API defined in
++	  include/linux/assoc_array.h.
++
++	  For more information on KUnit and unit tests in general please refer
++	  to the KUnit documentation in Documentation/dev-tools/kunit/.
++
++	  If unsure, say N.
++
+ config LINEAR_RANGES_TEST
+ 	tristate "KUnit test for linear_ranges"
+ 	depends on KUNIT
+diff --git a/lib/tests/Makefile b/lib/tests/Makefile
+index 3cac3b63a752..107e16b4ebc1 100644
+--- a/lib/tests/Makefile
++++ b/lib/tests/Makefile
+@@ -4,6 +4,7 @@
+
+ # KUnit tests
+ CFLAGS_bitfield_kunit.o := $(DISABLE_STRUCTLEAK_PLUGIN)
++obj-$(CONFIG_ASSOC_ARRAY_KUNIT_TEST) += assoc_array_kunit.o
+ obj-$(CONFIG_BASE64_KUNIT) += base64_kunit.o
+ obj-$(CONFIG_BITOPS_KUNIT) += bitops_kunit.o
+ obj-$(CONFIG_BITFIELD_KUNIT) += bitfield_kunit.o
+diff --git a/lib/tests/assoc_array_kunit.c b/lib/tests/assoc_array_kunit.c
+new file mode 100644
+index 000000000000..aeaab366daac
+--- /dev/null
++++ b/lib/tests/assoc_array_kunit.c
+@@ -0,0 +1,570 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (C) 2026 Jarkko Sakinen
++ *
++ * This is a model based test and has a model invariant that is called after each
++ * and every operation accessing an associative array.
++ */
++
++#include <kunit/test.h>
++#include <linux/assoc_array.h>
++#include <linux/bitmap.h>
++#include <linux/rcupdate.h>
++#include <linux/refcount.h>
++#include <linux/slab.h>
++
++#define ASSOC_ARRAY_TEST_NR_KEYS	64
++#define ASSOC_ARRAY_TEST_STOP_AFTER	5
++#define ASSOC_ARRAY_TEST_STOP_STATUS	123
++
++/*
++ * As a quick remainder, these are the basic building blocks of an associative
++ * array:
++ *
++ * - struct assoc_array_node: a tree node representing a nibble of the search
++ *   key.
++ * - struct assoc_array_shortcut: a tree node representing a sequence of nibbles
++ *   shared by multiple search keys with no divergence among them.
++ *
++ * The keys in array will be created in order in tests, and is a constructed in
++ * a way that splits reach the level 8:
++ *
++ * - 0..16:  Share prefix 0x21 at levels 0 and 4.
++ * - 17:     Splits root shortcut at level 4.
++ * - 18..34: Share chunk 0.
++ * - 35:     Splits shortcut at chunk boundary.
++ * - 36..46: Share prefix 0xbeef at levels 0..12.
++ * - 47:     Splits shortcut at level 8.
++ * - 48..63: Distinct leaves at level 0.
++ *
++ * The numbers were picked partly based on trial and error, and partly trying to
++ * find smallest possible numbers reaching the level 8.
++ */
++static const unsigned long assoc_array_test_keys[ASSOC_ARRAY_TEST_NR_KEYS * 2] = {
++	0x0000000000000121UL, 0x0000000000000000UL,
++	0x0000000000000221UL, 0x0000000000000000UL,
++	0x0000000000000321UL, 0x0000000000000000UL,
++	0x0000000000000421UL, 0x0000000000000000UL,
++	0x0000000000000521UL, 0x0000000000000000UL,
++	0x0000000000000621UL, 0x0000000000000000UL,
++	0x0000000000000721UL, 0x0000000000000000UL,
++	0x0000000000000821UL, 0x0000000000000000UL,
++	0x0000000000000921UL, 0x0000000000000000UL,
++	0x0000000000000a21UL, 0x0000000000000000UL,
++	0x0000000000000b21UL, 0x0000000000000000UL,
++	0x0000000000000c21UL, 0x0000000000000000UL,
++	0x0000000000000d21UL, 0x0000000000000000UL,
++	0x0000000000000e21UL, 0x0000000000000000UL,
++	0x0000000000000f21UL, 0x0000000000000000UL,
++	0x0000000000001021UL, 0x0000000000000000UL,
++	0x0000000000001121UL, 0x0000000000000000UL,
++	0x0000000000000001UL, 0x0000000000000000UL,
++	0xdeadbeefcafebabeUL, 0x0000000000000010UL,
++	0xdeadbeefcafebabeUL, 0x0000000000000020UL,
++	0xdeadbeefcafebabeUL, 0x0000000000000030UL,
++	0xdeadbeefcafebabeUL, 0x0000000000000040UL,
++	0xdeadbeefcafebabeUL, 0x0000000000000050UL,
++	0xdeadbeefcafebabeUL, 0x0000000000000060UL,
++	0xdeadbeefcafebabeUL, 0x0000000000000070UL,
++	0xdeadbeefcafebabeUL, 0x0000000000000080UL,
++	0xdeadbeefcafebabeUL, 0x0000000000000090UL,
++	0xdeadbeefcafebabeUL, 0x00000000000000a0UL,
++	0xdeadbeefcafebabeUL, 0x00000000000000b0UL,
++	0xdeadbeefcafebabeUL, 0x00000000000000c0UL,
++	0xdeadbeefcafebabeUL, 0x00000000000000d0UL,
++	0xdeadbeefcafebabeUL, 0x00000000000000e0UL,
++	0xdeadbeefcafebabeUL, 0x00000000000000f0UL,
++	0xdeadbeefcafebabeUL, 0x0000000000000100UL,
++	0xdeadbeefcafebabeUL, 0x0000000000000110UL,
++	0xdeadbeefcafebabeUL, 0x0000000000000001UL,
++	0x000000000001beefUL, 0x0000000000000000UL,
++	0x000000000002beefUL, 0x0000000000000000UL,
++	0x000000000003beefUL, 0x0000000000000000UL,
++	0x000000000004beefUL, 0x0000000000000000UL,
++	0x000000000005beefUL, 0x0000000000000000UL,
++	0x000000000006beefUL, 0x0000000000000000UL,
++	0x000000000007beefUL, 0x0000000000000000UL,
++	0x000000000008beefUL, 0x0000000000000000UL,
++	0x000000000009beefUL, 0x0000000000000000UL,
++	0x00000000000abeefUL, 0x0000000000000000UL,
++	0x00000000000bbeefUL, 0x0000000000000000UL,
++	0x00000000000000efUL, 0x0000000000000000UL,
++	0x0000000000001000UL, 0x0000000000000000UL,
++	0x0000000000001001UL, 0x0000000000000000UL,
++	0x0000000000001002UL, 0x0000000000000000UL,
++	0x0000000000001003UL, 0x0000000000000000UL,
++	0x0000000000001004UL, 0x0000000000000000UL,
++	0x0000000000001005UL, 0x0000000000000000UL,
++	0x0000000000001006UL, 0x0000000000000000UL,
++	0x0000000000001007UL, 0x0000000000000000UL,
++	0x0000000000001008UL, 0x0000000000000000UL,
++	0x0000000000001009UL, 0x0000000000000000UL,
++	0x000000000000100aUL, 0x0000000000000000UL,
++	0x000000000000100bUL, 0x0000000000000000UL,
++	0x000000000000100cUL, 0x0000000000000000UL,
++	0x000000000000100dUL, 0x0000000000000000UL,
++	0x000000000000100eUL, 0x0000000000000000UL,
++	0x000000000000100fUL, 0x0000000000000000UL,
++};
++
++struct assoc_array_test_object {
++	unsigned long key[2];
++	unsigned long value;
++	refcount_t usage;
++};
++
++static unsigned long assoc_array_test_get_key_chunk(const void *index_key, int level)
++{
++	const unsigned long *key = index_key;
++	int chunk = level / ASSOC_ARRAY_KEY_CHUNK_SIZE;
++
++	return chunk < 2 ? key[chunk] : 0;
++}
++
++static unsigned long assoc_array_test_get_object_key_chunk(const void *object, int level)
++{
++	const struct assoc_array_test_object *obj = object;
++
++	return assoc_array_test_get_key_chunk(obj->key, level);
++}
++
++static bool assoc_array_test_compare_object(const void *object, const void *index_key)
++{
++	const struct assoc_array_test_object *obj = object;
++
++	return !memcmp(obj->key, index_key, sizeof(obj->key));
++}
++
++static int assoc_array_test_diff_objects(const void *object, const void *index_key)
++{
++	const struct assoc_array_test_object *obj = object;
++	const unsigned long *key = index_key;
++	int i;
++
++	for (i = 0; i < ARRAY_SIZE(obj->key); i++) {
++		unsigned long diff = obj->key[i] ^ key[i];
++
++		if (diff)
++			return i * ASSOC_ARRAY_KEY_CHUNK_SIZE + __ffs(diff);
++	}
++
++	return -1;
++}
++
++static void assoc_array_test_free_object(void *object)
++{
++	struct assoc_array_test_object *obj = object;
++
++	if (refcount_dec_and_test(&obj->usage))
++		kfree(obj);
++}
++
++static const struct assoc_array_ops assoc_array_test_ops = {
++	.get_key_chunk = assoc_array_test_get_key_chunk,
++	.get_object_key_chunk = assoc_array_test_get_object_key_chunk,
++	.compare_object = assoc_array_test_compare_object,
++	.diff_objects = assoc_array_test_diff_objects,
++	.free_object = assoc_array_test_free_object,
++};
++
++struct assoc_array_test_model {
++	struct kunit *test;
++	struct assoc_array array;
++	unsigned long values[ASSOC_ARRAY_TEST_NR_KEYS];
++	bool present[ASSOC_ARRAY_TEST_NR_KEYS];
++	int nr_present;
++};
++
++struct assoc_array_test_iter {
++	const struct assoc_array_test_model *m;
++	DECLARE_BITMAP(visited, ASSOC_ARRAY_TEST_NR_KEYS);
++	int count;
++	int bad;
++};
++
++static void assoc_array_test_model_release(void *data)
++{
++	struct assoc_array_test_model *m = data;
++
++	assoc_array_destroy(&m->array, &assoc_array_test_ops);
++	rcu_barrier();
++}
++
++static int assoc_array_test_model_iterate(const void *object, void *data)
++{
++	const struct assoc_array_test_object *obj = object;
++	struct assoc_array_test_iter *it = data;
++	int i;
++
++	it->count++;
++	for (i = 0; i < ASSOC_ARRAY_TEST_NR_KEYS; i++) {
++		if (!assoc_array_test_compare_object(obj, &assoc_array_test_keys[i * 2]))
++			continue;
++		if (it->m->present[i] && obj->value == it->m->values[i] &&
++		    !__test_and_set_bit(i, it->visited))
++			return 0;
++		break;
++	}
++
++	it->bad++;
++	return 0;
++}
++
++static void assoc_array_test_invariant(struct assoc_array_test_model *m)
++{
++	struct assoc_array_test_iter it = { .m = m };
++	const struct assoc_array_test_object *obj;
++	int i;
++
++	KUNIT_EXPECT_EQ(m->test, m->array.nr_leaves_on_tree, m->nr_present);
++
++	for (i = 0; i < ASSOC_ARRAY_TEST_NR_KEYS; i++) {
++		obj = assoc_array_find(&m->array, &assoc_array_test_ops,
++				       &assoc_array_test_keys[i * 2]);
++		if (!m->present[i]) {
++			KUNIT_EXPECT_NULL(m->test, obj);
++			continue;
++		}
++
++		KUNIT_EXPECT_NOT_NULL(m->test, obj);
++		if (obj)
++			KUNIT_EXPECT_EQ(m->test, obj->value, m->values[i]);
++	}
++
++	KUNIT_EXPECT_EQ(m->test,
++			assoc_array_iterate(&m->array, assoc_array_test_model_iterate, &it),
++			0);
++	KUNIT_EXPECT_EQ(m->test, it.count, m->nr_present);
++	KUNIT_EXPECT_EQ(m->test, it.bad, 0);
++}
++
++static struct assoc_array_test_model *assoc_array_test_model_create(struct kunit *test)
++{
++	struct assoc_array_test_model *m;
++	int ret;
++
++	m = kunit_kzalloc(test, sizeof(*m), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, m);
++	m->test = test;
++	assoc_array_init(&m->array);
++
++	ret = kunit_add_action_or_reset(test, assoc_array_test_model_release, m);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++	assoc_array_test_invariant(m);
++
++	return m;
++}
++
++static void assoc_array_test_model_insert(struct assoc_array_test_model *m,
++					  int i, unsigned long value)
++{
++	struct assoc_array_edit *edit;
++	struct assoc_array_test_object *obj;
++
++	obj = kzalloc_obj(*obj, GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(m->test, obj);
++	memcpy(obj->key, &assoc_array_test_keys[i * 2], sizeof(obj->key));
++	obj->value = value;
++	refcount_set(&obj->usage, 1);
++
++	edit = assoc_array_insert(&m->array, &assoc_array_test_ops, obj->key, obj);
++	if (IS_ERR_OR_NULL(edit)) {
++		kfree(obj);
++		KUNIT_FAIL_AND_ABORT(m->test, "insert failed: %ld", PTR_ERR(edit));
++	}
++	assoc_array_apply_edit(edit);
++
++	if (!m->present[i]) {
++		m->present[i] = true;
++		m->nr_present++;
++	}
++	m->values[i] = value;
++
++	assoc_array_test_invariant(m);
++}
++
++static void assoc_array_test_model_delete(struct assoc_array_test_model *m, int i)
++{
++	struct assoc_array_edit *edit;
++
++	edit = assoc_array_delete(&m->array, &assoc_array_test_ops,
++				  &assoc_array_test_keys[i * 2]);
++	KUNIT_ASSERT_FALSE(m->test, IS_ERR(edit));
++
++	if (edit)
++		assoc_array_apply_edit(edit);
++	if (m->present[i]) {
++		m->present[i] = false;
++		m->nr_present--;
++	}
++
++	assoc_array_test_invariant(m);
++}
++
++static void assoc_array_test_model_clear(struct assoc_array_test_model *m)
++{
++	struct assoc_array_edit *edit;
++
++	edit = assoc_array_clear(&m->array, &assoc_array_test_ops);
++	KUNIT_ASSERT_FALSE(m->test, IS_ERR(edit));
++
++	if (edit)
++		assoc_array_apply_edit(edit);
++
++	memset(m->present, 0, sizeof(m->present));
++	m->nr_present = 0;
++
++	assoc_array_test_invariant(m);
++}
++
++static void assoc_array_test_model_destroy(struct assoc_array_test_model *m)
++{
++	assoc_array_destroy(&m->array, &assoc_array_test_ops);
++	assoc_array_init(&m->array);
++
++	memset(m->present, 0, sizeof(m->present));
++	m->nr_present = 0;
++
++	assoc_array_test_invariant(m);
++}
++
++static void assoc_array_test_model_fill(struct assoc_array_test_model *m)
++{
++	int i;
++
++	for (i = 0; i < ASSOC_ARRAY_TEST_NR_KEYS; i++)
++		assoc_array_test_model_insert(m, i, i);
++}
++
++struct assoc_array_test_gc_ctx {
++	bool (*keep)(const struct assoc_array_test_object *obj, void *data);
++	void *data;
++};
++
++static bool assoc_array_test_model_gc_filter(void *object, void *data)
++{
++	struct assoc_array_test_object *obj = object;
++	struct assoc_array_test_gc_ctx *ctx = data;
++
++	if (!ctx->keep(obj, ctx->data))
++		return false;
++	refcount_inc(&obj->usage);
++	return true;
++}
++
++static void assoc_array_test_model_gc(struct assoc_array_test_model *m,
++				      bool (*keep)(const struct assoc_array_test_object *obj,
++						   void *data),
++				      void *data)
++{
++	struct assoc_array_test_gc_ctx ctx = { .keep = keep, .data = data };
++	int i, ret;
++
++	ret = assoc_array_gc(&m->array, &assoc_array_test_ops,
++			     assoc_array_test_model_gc_filter, &ctx);
++	KUNIT_ASSERT_EQ(m->test, ret, 0);
++
++	for (i = 0; i < ASSOC_ARRAY_TEST_NR_KEYS; i++) {
++		if (m->present[i]) {
++			struct assoc_array_test_object obj = {
++				.value = m->values[i],
++			};
++
++			memcpy(obj.key, &assoc_array_test_keys[i * 2], sizeof(obj.key));
++
++			if (!keep(&obj, data)) {
++				m->present[i] = false;
++				m->nr_present--;
++			}
++		}
++	}
++
++	assoc_array_test_invariant(m);
++}
++
++static void assoc_array_test_model_cancel_insert(struct assoc_array_test_model *m,
++						 int i, unsigned long value)
++{
++	struct assoc_array_edit *edit;
++	struct assoc_array_test_object *obj;
++
++	obj = kzalloc_obj(*obj, GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(m->test, obj);
++	memcpy(obj->key, &assoc_array_test_keys[i * 2], sizeof(obj->key));
++	obj->value = value;
++	refcount_set(&obj->usage, 1);
++
++	edit = assoc_array_insert(&m->array, &assoc_array_test_ops, obj->key, obj);
++	if (IS_ERR_OR_NULL(edit)) {
++		kfree(obj);
++		KUNIT_FAIL_AND_ABORT(m->test, "insert failed: %ld", PTR_ERR(edit));
++	}
++	assoc_array_cancel_edit(edit);
++	kfree(obj);
++
++	assoc_array_test_invariant(m);
++}
++
++static void assoc_array_test_model_cancel_delete(struct assoc_array_test_model *m, int i)
++{
++	struct assoc_array_edit *edit;
++
++	edit = assoc_array_delete(&m->array, &assoc_array_test_ops,
++				  &assoc_array_test_keys[i * 2]);
++	KUNIT_ASSERT_FALSE(m->test, IS_ERR(edit));
++
++	if (edit)
++		assoc_array_cancel_edit(edit);
++
++	assoc_array_test_invariant(m);
++}
++
++static void assoc_array_test_model_cancel_clear(struct assoc_array_test_model *m)
++{
++	struct assoc_array_edit *edit;
++
++	edit = assoc_array_clear(&m->array, &assoc_array_test_ops);
++	KUNIT_ASSERT_FALSE(m->test, IS_ERR(edit));
++
++	if (edit)
++		assoc_array_cancel_edit(edit);
++
++	assoc_array_test_invariant(m);
++}
++
++static int assoc_array_test_stop_iterator(const void *object, void *data)
++{
++	int *count = data;
++
++	if (++(*count) == ASSOC_ARRAY_TEST_STOP_AFTER)
++		return ASSOC_ARRAY_TEST_STOP_STATUS;
++
++	return 0;
++}
++
++static void assoc_array_test_model_iterate_stop(struct assoc_array_test_model *m)
++{
++	int count = 0;
++
++	KUNIT_EXPECT_EQ(m->test,
++			assoc_array_iterate(&m->array, assoc_array_test_stop_iterator, &count),
++			ASSOC_ARRAY_TEST_STOP_STATUS);
++	KUNIT_EXPECT_EQ(m->test, count, ASSOC_ARRAY_TEST_STOP_AFTER);
++
++	assoc_array_test_invariant(m);
++}
++
++static bool assoc_array_test_keep_even(const struct assoc_array_test_object *obj, void *data)
++{
++	return !(obj->value & 1);
++}
++
++static bool assoc_array_test_keep_none(const struct assoc_array_test_object *obj, void *data)
++{
++	return false;
++}
++
++static void assoc_array_test_fill_and_drain(struct kunit *test)
++{
++	struct assoc_array_test_model *m = assoc_array_test_model_create(test);
++	int i;
++
++	assoc_array_test_model_fill(m);
++
++	for (i = ASSOC_ARRAY_TEST_NR_KEYS - 1; i >= 0; i--)
++		assoc_array_test_model_delete(m, i);
++}
++
++static void assoc_array_test_replace(struct kunit *test)
++{
++	struct assoc_array_test_model *m = assoc_array_test_model_create(test);
++	int i;
++
++	assoc_array_test_model_fill(m);
++
++	for (i = 0; i < ASSOC_ARRAY_TEST_NR_KEYS; i++)
++		assoc_array_test_model_insert(m, i, i + ASSOC_ARRAY_TEST_NR_KEYS);
++}
++
++static void assoc_array_test_collapse(struct kunit *test)
++{
++	struct assoc_array_test_model *m = assoc_array_test_model_create(test);
++	int i;
++
++	assoc_array_test_model_fill(m);
++
++	for (i = ASSOC_ARRAY_TEST_NR_KEYS - 1; i >= 16; i--)
++		assoc_array_test_model_delete(m, i);
++
++	for (i = 16; i < 32; i++)
++		assoc_array_test_model_insert(m, i, i * 2);
++}
++
++static void assoc_array_test_iterate_stop(struct kunit *test)
++{
++	struct assoc_array_test_model *m = assoc_array_test_model_create(test);
++
++	assoc_array_test_model_fill(m);
++	assoc_array_test_model_iterate_stop(m);
++}
++
++static void assoc_array_test_gc(struct kunit *test)
++{
++	struct assoc_array_test_model *m = assoc_array_test_model_create(test);
++
++	assoc_array_test_model_fill(m);
++	assoc_array_test_model_gc(m, assoc_array_test_keep_even, NULL);
++	assoc_array_test_model_gc(m, assoc_array_test_keep_none, NULL);
++}
++
++static void assoc_array_test_cancel(struct kunit *test)
++{
++	struct assoc_array_test_model *m = assoc_array_test_model_create(test);
++
++	assoc_array_test_model_fill(m);
++
++	assoc_array_test_model_delete(m, 0);
++	assoc_array_test_model_cancel_insert(m, 0, 999);
++	assoc_array_test_model_cancel_delete(m, 1);
++	assoc_array_test_model_cancel_clear(m);
++}
++
++static void assoc_array_test_clear(struct kunit *test)
++{
++	struct assoc_array_test_model *m = assoc_array_test_model_create(test);
++
++	assoc_array_test_model_fill(m);
++	assoc_array_test_model_clear(m);
++	assoc_array_test_model_fill(m);
++}
++
++static void assoc_array_test_destroy(struct kunit *test)
++{
++	struct assoc_array_test_model *m = assoc_array_test_model_create(test);
++
++	assoc_array_test_model_fill(m);
++	assoc_array_test_model_destroy(m);
++	assoc_array_test_model_fill(m);
++}
++
++static struct kunit_case assoc_array_test_cases[] = {
++	KUNIT_CASE(assoc_array_test_fill_and_drain),
++	KUNIT_CASE(assoc_array_test_replace),
++	KUNIT_CASE(assoc_array_test_collapse),
++	KUNIT_CASE(assoc_array_test_iterate_stop),
++	KUNIT_CASE(assoc_array_test_gc),
++	KUNIT_CASE(assoc_array_test_cancel),
++	KUNIT_CASE(assoc_array_test_clear),
++	KUNIT_CASE(assoc_array_test_destroy),
++	{}
++};
++
++static struct kunit_suite assoc_array_test_suite = {
++	.name = "assoc_array",
++	.test_cases = assoc_array_test_cases,
++};
++
++kunit_test_suites(&assoc_array_test_suite);
++
++MODULE_LICENSE("GPL");
++MODULE_DESCRIPTION("KUnit test for assoc_array");
 --
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.47.3
+
