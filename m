@@ -1,166 +1,120 @@
-Received: from mail-4323.protonmail.ch (mail-4323.protonmail.ch [185.70.43.23])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D11AF50B8B4
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:01:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.23
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C2C64D0CC5
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:02:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791982919; cv=none; b=V+s+aEzkkNsUYWbxLHH0XEeYVg8HhLWX06XX6l+1Yg8JI3pkXsoOGhFPTkZRhwa+ztVtHRjtfHPPoFEZnLWZrbZNiVY9rLaJMhREmLmtiUbOUxi4D8NQvtjD8YU9U17YZmGAcDwdsOLe+gkOy++aOKyv25W3AdkH/xbpQ6Kf8GQ=
+	t=1791982958; cv=none; b=MfKQ8UoZCEngjD3kB7q7xab5tBsMcqPGski4fGNxu4MNMfUlxeehEvSPRbUxw4TUEe9yI3hDlCsTEka8H8Ol0IvVx7brFiI4dodkmeRsj6jdMnWJYtaxzQFOdLFBwPD/5ad7SqKr/olXgMQ1SS8NaRtfsF3KX40Dh+sP4g8bnSs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791982919; c=relaxed/simple;
-	bh=QxnuotfL6OA5AWjvRVfw9V3d+pUNeZ4eWbidEiMYbUk=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=cXP6YLjz0ErG9xkOA3ho6ROL2UYfR77LDzjAVhcO5WXHG7PSUWsvIEOU+t/cmY/ylbIYeXRbfSK8tDXXTInFudZCI/PdKQ/iN54XBhHhF3UOmRJ+izREMM0l3osJ4ZK1CFOvLXhcWw3iwICDYAfcBCqgKNfzjtMhdeTMT+HFcRw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=optocloud.no; spf=pass smtp.mailfrom=optocloud.no; dkim=pass (2048-bit key) header.d=optocloud.no header.i=@optocloud.no header.b=al6+Q7Z4; arc=none smtp.client-ip=185.70.43.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=optocloud.no
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=optocloud.no
+	s=arc-20240116; t=1791982958; c=relaxed/simple;
+	bh=KXyvJPLF/vSAM/caa10lK9dv/v9bPIPN3s2KWGEGFA0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=WC0mSc42nJ1oB/FkwVDBMl4j5Zx6eWHp8aT7P2PhgwOFvkff2VTo0RZedKNnj6o0FZ/xfrnfUG49PWp6N146jr/yuJdbZNEGFYR9UNKyWI3559zcbUJ4dtsmT7oWkQ4sa7m2yEvKfuA6d4b6p203ft0gxCLEJ+T2LzeU6QFZ+5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=Osn5aoT8; arc=none smtp.client-ip=209.85.218.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=optocloud.no header.i=@optocloud.no header.b="al6+Q7Z4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=optocloud.no;
-	s=protonmail; t=1791982908; x=1792242108;
-	bh=cdjVAUgtMonI2bwIq12N0u76ImAwxdqlAkmP6wMoH6E=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=al6+Q7Z4zfoY5LvsybghcP9N0yevo43x+2PEhfAAUjPupFRJ8ikAFVbfo6VEftu8o
-	 MFDaOa+TXH2ICXg+oclR6omRfWgBIBxnqbW6vr3NwqzTbgEI18+tVSqcz+5DpBqt5P
-	 Exr/TfNS8nUVF93BgBUb/NhaP+8WmHt4aRPtL/eHgK0LQ0LNBko/0lnxnylQtPs0oJ
-	 XRA7FakBDfC8LpSLqhOjIDjASLdpVAZBilKYEhQQPJm1h0AU6UvUVl/AxmC9dQ9e1G
-	 TbrwsjVC+fkYS1O7kOAgZyiIOmP5hRc7TlxpIcCm7zZGN/nSb5xZJmag+meYBYOARV
-	 f8anxkKvs8W7g==
-Date: Wed, 14 Oct 2026 13:01:39 +0000
-To: Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>
-From: =?utf-8?Q?Eirik_B=C3=B8e?= <contact@optocloud.no>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, Yazen Ghannam <yazen.ghannam@amd.com>, Avadhut Naik <avadhut.naik@amd.com>, Qiuxu Zhuo <qiuxu.zhuo@intel.com>, "x86@kernel.org" <x86@kernel.org>, "linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: [PATCH v4] x86/mce: Reset stale per-bank state between bank scans
-Message-ID: <kUFp15ffSyDl005h7gLuz1YQ_jDrCgR96A_Q5mxzpXl2BmMNfFHo8hivkv7Qx6NZ6M__9iM0s2nFwDnjcBO_wcJ9-jHHIp8IrgfylJ0av6k=@optocloud.no>
-Feedback-ID: 192797588:user:proton
-X-Pm-Message-ID: 45bd941e8e135777a6b3901e563c8fb16efa6fda
+	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="Osn5aoT8"
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c2e7131b94eso375426866b.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:02:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=konsulko.com; s=google; t=1791982955; x=1792587755; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vxyKhbcbGfXBX8NmJ5hn58Jy3BwI4hVbi59p47lfNoI=;
+        b=Osn5aoT89xgl6N1me3v/pIUPzTPAhP7pc9lzs7Tby6k0o7XgnRvQ4h0GjKmuyRxwBJ
+         eGj57wr+WmGsxxGdXYnm3dq2H4sej96PXIZ2wegskGvGt8UljnQWzYQ6mlCaZG/9RvXj
+         JQTYwQEgGUjPjNZcXphcrDz9Z04w4vgW1cdpQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791982955; x=1792587755;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vxyKhbcbGfXBX8NmJ5hn58Jy3BwI4hVbi59p47lfNoI=;
+        b=s4ufbBBoCirR2EvlzZ/vCko+sLKdEZKqRVo4gpIeglRNj6m3KY5b+W8nXn8uU8VG3f
+         8/+kqDBNCjZ9fhRII7kPKgfI3D1gKS6yj+qoSQqsthZEPDzHVIjkxcTHPQ7hVUIcww0K
+         tDUwljizjasjJuN2peh2K9KUb7rve8UHL+XAn8pxrxzegXEKYRkjSSDa7RUFuZcopEE0
+         X2FZBSsVgFV+VhoJIIjLwCwFN905Nz12HV7d0N84x7Aw8Vyb+4nd8yXKytm8hVn/vA8N
+         6/Gu+Im+DBHUd5OAihV2hIz3HvwUnSXI6l86YTrlmhiFY4ZpC9UJciACIagWXcvKHSt2
+         KTEw==
+X-Gm-Message-State: AFq9FYI8zPmbc19bMIMcafb0rl5UFmr4WjGRfU7eRKcjstJlRXq20CQ0
+	KZqVbmxBrRLJRnIavytlqgq5uOuxDss90yie6MAdAqk6Kk1/psWwBhL5O0tLHV4zNxieaaenyBK
+	a5Igf
+X-Gm-Gg: AYBFou2fOwde5m9YCHWPx7+E70mhXm3CtBORgdMLyEBSBVQeL2J5iSPQ0k3eWPvG/rF
+	RJtwiVeWMjDET6oTklcZSuhAFdm/a140pz0cZSgdduHI+YVo5rbhatq28v5fi360RLPvIbo/IMR
+	nczLJt7ZEe10xAWyAx7MIKiQ+rOmLH/bES03A3KRaNJzrlK5v7IAS/z64q0eefa403CySHHXuqo
+	BJnq8E/n0kqFFE/F/C61f//i4DQsnI6hv+W2M8wK/rjxLU+yNEIFMXwiiUK7eWHduhLEBITbiWd
+	At4gIhZugy6SLQKsLvi+Hb8RikPxsCsT63hocg/sNpBr7QGdfCdw++ZLKfrs4CnReoFeAbphdu9
+	HyIpZ5STH7m8FAHmiQcFqAdrmhYYW+qhxxZCzPHcdf9dIeiXX0XRXjf1qV653OBl1Jp0gPsGWbb
+	UaDWQjhNulPuGKyuKWYyp5lFCFKrceTNUR3rJ1fIbh8gGI5Ugf7C0Jzq3lieMZOpSuJLAXdTJs4
+	Cz1AoQzUANwQjiMjqu/ytIQ4Q==
+X-Received: by 2002:a17:907:3e8c:b0:c29:519b:3aee with SMTP id a640c23a62f3a-c31a7125b30mr1550342066b.33.1791982954660;
+        Wed, 14 Oct 2026 06:02:34 -0700 (PDT)
+Received: from tone.k.g (lan.nucleusys.com. [92.247.61.126])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ab5b03sm12608292f8f.30.2026.10.14.06.02.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 06:02:33 -0700 (PDT)
+From: Petko Manolov <petko.manolov@konsulko.com>
+To: linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	dinguyen@kernel.org,
+	arnemaximilian.richter@draeger.com,
+	martynas.grybauskas@draeger.com,
+	Petko Manolov <petko.manolov@konsulko.com>
+Subject: [PATCH v9 0/3] arm: dts: altera: add Draeger M48 CPU board
+Date: Wed, 14 Oct 2026 16:02:23 +0300
+Message-ID: <20261014130228.2780803-1-petko.manolov@konsulko.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Eirik B=C3=B8e <git@optocloud.no>
+Adding the device trees for “Dräger M48 on NXP i.MX6 (Q) and Intel/Altera
+SoCFPGA Cyclone V” board variant.  It has both (the SoC and FPGA) on the
+same carrier and they are cross-monitoring each other.  The SoCFPGA boots
+independently off qspi flash.
 
-machine_check_poll() and __mc_scan_banks() reuse a single
-struct mce_hw_err across the whole bank scan. The record is zeroed
-once before the loop; each iteration then resets only MISC and ADDR.
-Four more fields are written conditionally inside the loop and never
-cleared again, so a later bank inherits them.
+This is the SoCFPGA devicetree part.
 
-On SMCA, mce_read_aux() writes SYND and synd1/synd2 only when
-MCI_STATUS_SYNDV is set, so a bank without SYNDV is printed with the
-syndromes of an earlier bank in the same scan. Decoders are expected
-to ignore them when SYNDV is clear, so the stale values are cosmetic.
+news for v9:
 
-A stale m->kflags has two effects on a later bank:
+  - remove the name property from the memory node;
+  - fix a typo in a comment;
+  - attached phy-specific skew properties to dedicated mdio phy sub-node;
+  - add Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-  - smca_should_log_poll_error() sets MCE_CHECK_DFR_REGS when an
-    error was taken from MCA_DESTAT. A later bank with ADDRV then
-    reads MCx_DEADDR instead of MCA_ADDR, and amd_clear_bank()
-    returns before clearing MCA_STATUS, so that bank is logged a
-    second time.
+now in v8:
 
-  - mce_default_notifier() prints only when m->kflags is empty, so
-    unless print_all is set, a bank that inherits the bit is not
-    printed by the notifier chain.
+  - modified draeger,m48 to draeger,socfpga-48 because it is more consistent;
+    with its other imx counterparts imx6q-m48 and imx6dl-m48;
+  - dropped gpio3 and gpio4 bindings;
 
-Factor the per-bank clearing into mce_clear_hw_err_fields() and call
-it from both loops. Reset the vendor union as a whole so later
-additions are covered.
+new in v7:
 
-Found by code inspection; not reproduced on hardware.
+  - replaced module with board as this seems to be confusing to some;
+  - add Acked-by: Conor Dooley <conor.dooley@microchip.com> tag;
 
-Fixes: db819d60f672 ("x86/mce: Add support for new MCA_SYND register")
-Fixes: d4fca1358ea9 ("x86/MCE/AMD: Add support for new MCA_SYND{1,2} regist=
-ers")
-Fixes: 7cb735d7c0cb ("x86/mce: Unify AMD DFR handler with MCA Polling")
-Suggested-by: Yazen Ghannam <yazen.ghannam@amd.com>
-Signed-off-by: Eirik B=C3=B8e <git@optocloud.no>
----
+Petko Manolov (3):
+  dt-bindings: vendor-prefixes: add Draeger AG
+  dt-bindings: arm: altera: add Draeger M48 dual-cpu board
+  arm: dts: altera: add Draeger M48 CPU Module
 
-Notes (amlog):
-    Changes since v3:
-    - Dropped v3 1/2; mce_clear_hw_err_fields() covers it, so this is a
-      single patch (Yazen)
-    - Reset the vendor union in one step instead of synd1/synd2 by name
-      (Yazen)
-    - Aligned the assignments on '=3D' (Yazen)
-    - Picked up db819d60f672 as a third Fixes: from the dropped patch
-    - Dropped Yazen's Reviewed-by; it was given on the dropped patch
-    - Rebased onto current master
-   =20
-    Changes since v2:
-    - Squashed the synd1/2 and ->kflags resets into one patch, with the
-      ->kflags reset in the helper (Yazen)
-    - ->kflags now cleared in __mc_scan_banks() too
-    - Subject prefix x86/mce/amd: -> x86/mce:
-   =20
-    Changes since v1:
-    - Dropped Cc: stable (Yazen)
-    - Added mce_clear_hw_err_fields() (Yazen)
-    - Reset all of ->kflags instead of just MCE_CHECK_DFR_REGS (Yazen)
+ .../devicetree/bindings/arm/altera.yaml       |   1 +
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ arch/arm/boot/dts/intel/socfpga/Makefile      |   1 +
+ .../socfpga/socfpga_cyclone5_draeger_m48.dts  | 100 ++++++++++++++++++
+ 4 files changed, 104 insertions(+)
+ create mode 100644 arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
 
- arch/x86/kernel/cpu/mce/core.c | 21 +++++++++++++++++----
- 1 file changed, 17 insertions(+), 4 deletions(-)
+-- 
+2.47.3
 
-diff --git a/arch/x86/kernel/cpu/mce/core.c b/arch/x86/kernel/cpu/mce/core.=
-c
-index 39f238952e14..6df932c53e8e 100644
---- a/arch/x86/kernel/cpu/mce/core.c
-+++ b/arch/x86/kernel/cpu/mce/core.c
-@@ -653,6 +653,21 @@ static struct notifier_block mce_default_nb =3D {
- =09.priority=09=3D MCE_PRIO_LOWEST,
- };
-=20
-+/*
-+ * These fields are only filled in conditionally, so clear them before eac=
-h
-+ * bank to stop a bank inheriting the previous bank's values.
-+ */
-+static noinstr void mce_clear_hw_err_fields(struct mce_hw_err *err)
-+{
-+=09struct mce *m =3D &err->m;
-+
-+=09m->misc     =3D 0;
-+=09m->addr     =3D 0;
-+=09m->synd     =3D 0;
-+=09m->kflags   =3D 0;
-+=09err->vendor =3D (union vendor_info){ };
-+}
-+
- /*
-  * Read ADDR and MISC registers.
-  */
-@@ -806,8 +821,7 @@ void machine_check_poll(enum mcp_flags flags, mce_banks=
-_t *b)
- =09=09if (!mce_banks[i].ctl || !test_bit(i, *b))
- =09=09=09continue;
-=20
--=09=09m->misc =3D 0;
--=09=09m->addr =3D 0;
-+=09=09mce_clear_hw_err_fields(&err);
- =09=09m->bank =3D i;
-=20
- =09=09barrier();
-@@ -1345,8 +1359,7 @@ __mc_scan_banks(struct mce_hw_err *err, struct pt_reg=
-s *regs,
- =09=09if (!mce_banks[i].ctl)
- =09=09=09continue;
-=20
--=09=09m->misc =3D 0;
--=09=09m->addr =3D 0;
-+=09=09mce_clear_hw_err_fields(err);
- =09=09m->bank =3D i;
-=20
- =09=09m->status =3D mce_rdmsrq(mca_msr_reg(i, MCA_STATUS));
-
-base-commit: 4056b3c9d3c92ea45955641dbafeb9b960e146ef
---=20
-2.56.0
-
-Cheers,
-Eirik B=C3=B8e
