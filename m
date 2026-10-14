@@ -1,87 +1,36 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-73.mta1.migadu.com [95.215.58.73])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3608C4119F9
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:24:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0E3640D588
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:24:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.73
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791951894; cv=none; b=IYZaSnnpEpgHejkZDhHLqN6Sfo2JlfMTt5vy9qRcfR+ac/mTCkMmHfPlGPui47S9/QUyyUQ9mA3bO9ROrFukzJkujgZAVckRtbWCz/lqHiXc/nqCxYkY2Ld7KyWHxxdLmHtXWuY0s3wil81cAOoLHcRouwwoeBf4m35t/ZgQf+g=
+	t=1791951899; cv=none; b=i1cLNCQRTDgcFfbZQPj5U8ANGuEc6dkiH8sxb/09hl0HH9K1OvPTgVGTxrKz2y7hkMG2hel16ZUsmuQjSLHj6iw9oqUApx6vc6eF5/jHNhRTOl2hzusIo1UYvDl33TXjX26DhbqozJmG+mbQ1A/iX5V4du/QzCqwxRmNPSge5mY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791951894; c=relaxed/simple;
-	bh=uX2IrYZKuunh5Ay8wtG5R15VefK9qebescjFxGpBE28=;
+	s=arc-20240116; t=1791951899; c=relaxed/simple;
+	bh=tOKfQbBfrehty/qW3pINrljOFcxIODGYHAtE2STWOrY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hfhWf2dAjkDklbVAX7ylMAWyjWHej4bVGcqKTESqusOwmnOJHXNREVLuBXonaTym3pKAYE+0jAxrzfWOe5H3eHGfkXw2IIBwkUD8ifQ9zOxEZBoYetyhiwEQlgdIAP+8S1vJDvMOTNsOXTFn6Con4R/5vwePQXro15rD0KDaoN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mfBIXI1u; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=d/gg43Oy; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=ton9GLtw5dgc+/Gm/tN60ftIgMNxDx2Aor9o7lztPlYRjOxYL3WGGXpBZyfspFZQ3CiOY5DZH9P03LXba7cNhVAimnf/NWag1sxgROMWvnuSAKnHOasdmmQRZeUiFuzmxevAw8c7r5McOVlU3zaGQtQyZmglD1arMQHliqPMDMk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gd0b7toG; arc=none smtp.client-ip=95.215.58.73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mfBIXI1u";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="d/gg43Oy"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69DL9pMh1402906
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:24:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	R/YWOWusTmnn9Tx8/iLnPWjpANYDhhlrDY+RymDC9lQ=; b=mfBIXI1uLAOYHNpx
-	M+pskrgQQbpJj/+60jNFLzZFxHw2r6RDPCnEYQak0C68FqNpjyua8eynX8SGcd1Y
-	2J1k4+K/t/BHMHnNSVt94VWd+zjp21ADu/+gT5GHSxkze+TVoAJ8ZcEJUegyUcj3
-	l02tjV+K80HtT6WpkHCz8hJA1pNAkGFI0embeDgtOOxCvfUQQ4c9lcW5zqnNjbim
-	+IIDJbRdlgftjP27N4Ac7M+zpCtJs+D/UR8kPP45vYPVDrD5gR3xqxJhNmnwyIgi
-	K4kI1TWbCLNx+Vt70sIiD4gGFEtC25wsPGiQD9gMthErtmViPMA3SxZL1fMU3msx
-	O1ZOMA==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9psk30q4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:24:52 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3ac77c3ff6aso111883a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 21:24:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791951891; x=1792556691; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=R/YWOWusTmnn9Tx8/iLnPWjpANYDhhlrDY+RymDC9lQ=;
-        b=d/gg43OyQJIyLQJ4aba4T5jNV4ea758iHy66fF/nH8LLj2KfCNUHNREkHxifmGvqKT
-         VRNCeBb60ZbgI8uheCRTIVLFGbwQAiD7wIvL+z2wsQUKxFIQZCAx+Nzoo1HZATZBG/In
-         /j4zZ2PyktfeXg7ojU4cxl7+cKNp2DjVZHb9rL1jewPuV60mK4SzbrTyxwuXkID4u9GN
-         JWcTTAwL5N235gL+1OIEtc1wdB4OidvcqwtT98iIuhzvwPau2URpK+GbHS8MvUXpi4eP
-         +nKo8am43xlIUmON7+2+yqh1CUdDxCiBpaNsJGaAuxp4rv+PX6ShGRqcY42alT/pXmxW
-         RKJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791951891; x=1792556691;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=R/YWOWusTmnn9Tx8/iLnPWjpANYDhhlrDY+RymDC9lQ=;
-        b=mGmvCtqvDrytPFGpmLYdsuA9OcYRCtDjWX4enLqyWFLfKxzw4TXLb9JJoMNhmGrsmi
-         5HhgJfvs8gnZfPkzRKI35xGjN4EDmmgqh3kAk7AJl7hvAXNo7Aj5FWZr2wD0bPTEcNkP
-         TVeTPfyPVnUY4m8EPPZONafr385+qCxJPsqyfFaS251slk5MA6vMNtQlABZQNXtDum2v
-         dQEBCDAAydovorqRj5SWQMOeH3jvwQmoZ+BU1jdUTuub+H2u05Y4jBTPpfk46ONL9tX/
-         hlElvZSNnCfLAdJ3uF0jp3ssmta17O72m/FTNFh2IaJ9fHZFwkZQSWKV5S+8NsjfUW/V
-         bAqA==
-X-Forwarded-Encrypted: i=1; AKwUvBwPzMYEntcENfiUr7JGNH8TsvEPvkakPlDkU1UeQvvyU+QROxVPlx0LB0UJrBX1pYY4H9Z90xfq1vjs2Uk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI/h0lXwtPQkdHhipt5gj9B5peWzevOS4Xr3oGN/0iEbF2Nu0at
-	AmUcHiQD5Muwg0Prt1EgWYGRKAh3MWQHPjMD+egUTnFEzRJHsPisLHIsVq7kRYzsZsE0Aaqb6bZ
-	QatXl4dJn9tff6tPUFKg6e7SiHbLnsnKMsDQhZU+ijmI4XnMxt8oQqxpG2Ra7XD7IEPA=
-X-Gm-Gg: AYBFou3LyTLHems1pfE4XHUpW/6srfuEV+wrKRUrpG7RDgWb5awARSXhxQ+Z/5EaOFd
-	fqMcyAnCCUoPNJK3Pv6OUJlFRp/hJ5IzrBi3u489kL3qL68tIge/1dYhBn35THFFnsqiQjJz99y
-	3RCSBbY3S88wBdAiuMU15RvdmAgEGqx+wvfglP9/sWFZQxYzmoMmadWCWZA/UwJaEPw0s6XeZYY
-	jO75rT0JhfJMTg0eStdSPcRZKqSQEev4hbDFrvJkVIz/SohLyHIo5uBXp+Gzxvq2r0JryuRDPwf
-	Hf2CTRq1UvLEvyQyxw8XQwshLJNFdtAH7J2vaE0jAQNGeYD6+m8QyGlxbfJ2ofexh/sWdUaBiuJ
-	DmowiG1RMVHStApvTDCvC3On9ZkxnPZi21v6s6jNsqgcWxmwTIhvBSzw6/A3tx3z4CHCSwkyw
-X-Received: by 2002:a17:90b:35cc:b0:3a5:147a:3b63 with SMTP id 98e67ed59e1d1-3ab3a33db36mr12329608a91.8.1791951890967;
-        Tue, 13 Oct 2026 21:24:50 -0700 (PDT)
-X-Received: by 2002:a17:90b:35cc:b0:3a5:147a:3b63 with SMTP id 98e67ed59e1d1-3ab3a33db36mr12329579a91.8.1791951890405;
-        Tue, 13 Oct 2026 21:24:50 -0700 (PDT)
-Received: from [10.133.33.242] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac63279277sm860530a91.1.2026.10.13.21.24.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 21:24:49 -0700 (PDT)
-Message-ID: <252e86f2-9663-4ac7-a19e-6056b44e769b@oss.qualcomm.com>
-Date: Wed, 14 Oct 2026 12:24:38 +0800
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gd0b7toG"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=tOKfQbBfrehty/qW3pINrljOFcxIODGYHAtE2STWOrY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791951895; v=1; x=1792556695;
+ b=gd0b7toGmMGQDvpmBBvyyF3R02lD9xSMO1zWSRXnAw8D/oooqnqMObDHfg1IX5NEjYH/NXYN
+ qsZYwebFpj2UQBi/rq86Egs3R9oaLkH8uquYbANSiOxaploED0AS76bAvyGzNGBObjZK9Pv5le7
+ N3DdpIyQIeXZ70vIDXn6rQwU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 967b8fc28b66cba3;
+	Wed, 14 Oct 2026 04:24:55 +0000
+X-Mizu-Trace-ID: 967b8fc28b66cba3
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <75a46520-0771-4a50-ba77-ba815dfb6bac@linux.dev>
+Date: Wed, 14 Oct 2026 12:24:44 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,209 +38,73 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 04/11] cpufreq: Initialize kobj_type release callback in
- ondemand and conservative governors
-To: Ian Rogers <irogers@google.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        "Rafael J . Wysocki" <rafael@kernel.org>,
-        Danilo Krummrich
- <dakr@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
-        Kees Cook <kees@kernel.org>, Nathan Chancellor <nathan@kernel.org>
-Cc: Nick Desaulniers <ndesaulniers@google.com>,
-        Bill Wendling <morbo@google.com>,
-        Justin Stitt <justinstitt@google.com>,
-        Jonathan Corbet <corbet@lwn.net>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        Christophe Leroy <chleroy@kernel.org>,
-        Nayna Jain <nayna@linux.ibm.com>,
-        Yoshinori Sato <ysato@users.sourceforge.jp>,
-        Rich Felker <dalias@libc.org>,
-        John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-        Viresh Kumar <viresh.kumar@linaro.org>,
-        David Teigland
- <teigland@redhat.com>,
-        Alexander Aring <aahringo@redhat.com>, Juergen Gross <jgross@suse.com>,
-        Stefano Stabellini
- <sstabellini@kernel.org>,
-        Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-        Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Richard Weinberger <richard@nod.at>,
-        Zhihao Cheng <chengzhihao1@huawei.com>,
-        Felix Kuehling <Felix.Kuehling@amd.com>,
-        Alex Deucher <alexander.deucher@amd.com>,
-        =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
-        driver-core@lists.linux.dev, llvm@lists.linux.dev,
-        linux-hardening@vger.kernel.org, linux-doc@vger.kernel.org,
-        linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org,
-        linux-pm@vger.kernel.org, linux-acpi@vger.kernel.org,
-        gfs2@lists.linux.dev, xen-devel@lists.xenproject.org,
-        linux-s390@vger.kernel.org, linux-mtd@lists.infradead.org,
-        amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
-        linux-kernel@vger.kernel.org, zhongqiu.han@oss.qualcomm.com
-References: <20261013223946.1836757-1-irogers@google.com>
- <20261013223946.1836757-5-irogers@google.com>
+Subject: Re: [PATCH v1] mm: unqueue deferred split folios outside the lruvec
+ lock
+To: Barry Song <baohua@kernel.org>, joannelkoong@gmail.com
+Cc: akpm@linux-foundation.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, david@kernel.org, ljs@kernel.org,
+ liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
+ mhocko@suse.com, hannes@cmpxchg.org, qi.zheng@linux.dev,
+ shakeel.butt@linux.dev, roman.gushchin@linux.dev, muchun.song@linux.dev,
+ ziy@nvidia.com, baolin.wang@linux.alibaba.com, ryan.roberts@arm.com,
+ usama.arif@linux.dev, hughd@google.com
+References: <20261013221307.850803-1-joannelkoong@gmail.com>
+ <20261014030737.2102-1-lance.yang@linux.dev>
+ <CAGsJ_4wxKQK=caM6a_AqJArGyJdBgq_=i=gSNjiVePkGBZHnpg@mail.gmail.com>
 Content-Language: en-US
-From: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-In-Reply-To: <20261013223946.1836757-5-irogers@google.com>
+From: Lance Yang <lance.yang@linux.dev>
+In-Reply-To: <CAGsJ_4wxKQK=caM6a_AqJArGyJdBgq_=i=gSNjiVePkGBZHnpg@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: nx0f5BDvN-Vk0ZaVyASPEzLuKOYrAyru
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDAxNyBTYWx0ZWRfX5ZD8UGwn0jtD
- sD5qGw6h3DFjpVjtr+tp7L2miD+xOtH5jkCEI6JlLuDUkKhAjjlGV0iiF8p1T+sXFsFGAi8iYnu
- 4+BDinLZfwK5pTsGTACeQFAhVdYBbuU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDAxNyBTYWx0ZWRfX6gHK3BKx54AS
- FkjmN76EU/S06Zw+YT2xnTHkPT5uo+YXD+XOLS2McaHQsJViQithVPED+pxYs5mhifMD7E7rgN1
- l8rVWM1qLb+ky2GGyuIsblphXK/ln6giJ5zDSLSGpEaekYPBtLKgysuw38QC9H5gkNxVJIb2GFf
- Q4X4Cr6Afsa4e29ZV+QHY837KJWc2/bxkZWdvNi+FppdV2jXqjkS+aIFvStSOQQ6tURwWD70F0c
- DyjiTzgj7G3BpuO2AXUT3I1//rFreGaCsaIdHcotuhNZMrWcu6XIBlLp0EZej8OZD6/YsHu39DD
- JKR2CLq2LdblZg+L6aCdtdrl6BOnUiV0wCNuCRWTPI+66Y5zuBG6emz8g0qCXYeCjYuy6u1Eoop
- xjHGEkoynDe1Qw6vcbrx6rYLPgut59D/IBnbTl8Rqp6L4BKQlXaesPb374kW30sTpWAKb6zb4fi
- iD+PYF8GOX+6sGvOsZA==
-X-Authority-Analysis: v=2.4 cv=cbJHPXDM c=1 sm=1 tr=0 ts=6acf0414 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=1XWaLZrsAAAA:8 a=Stt4M9KXtKJ5ZbChFzoA:9 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-GUID: nx0f5BDvN-Vk0ZaVyASPEzLuKOYrAyru
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 lowpriorityscore=0 phishscore=0 adultscore=0 impostorscore=0
- suspectscore=0 spamscore=0 malwarescore=0 bulkscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140017
+Content-Transfer-Encoding: 8bit
 
-Hi Ian,
 
-Thanks a lot for the patch.
 
-On 10/14/2026 6:39 AM, Ian Rogers wrote:
-> Export cpufreq_dbs_data_release() and set .kobj_type.release in the
-> ondemand and conservative governors so their gov_attr_set kobjects have
-> a valid release callback, matching cpufreq_ governor_dbs.
-
-Commit a85ee6401a47 ("cpufreq: governor: Use kobject release() method to
-free dbs_data") has already addressed the missing release callback
-issue(it adds the missing cpufreq_dbs_data_release() function.), with 
-its Fixes tag pointing to c4435630361d.
-
-Besides, "matching cpufreq_ governor_dbs." seems to be a typo?
-
+On 2026/10/14 11:13, Barry Song wrote:
+> On Wed, Oct 14, 2026 at 11:07 AM Lance Yang <lance.yang@linux.dev> wrote:
+>>
+>>
+>> On Tue, Oct 13, 2026 at 03:13:07PM -0700, Joanne Koong wrote:
+>>> move_folios_to_lru(), folio_batch_move_lru() and folios_put_refs() call
+>>> folio_unqueue_deferred_split() on folios where the refcount has dropped
+>>> to zero. In these paths, folio_unqueue_deferred_split() is called with
+>>> the lruvec lock often held (move_folios_to_lru() always holds it and
+>>> folio_batch_move_lru()/folios_put_refs() usually hold it for every folio
+>>> in the batch except the first). However, it's not needed to hold the
+>>> lruvec lock.
+>>>
+>>> The lruvec lock protects folio->lru and the reclaim LRU lists whereas
+>>> the deferred split queue lives on folio->_deferred_list in
+>>> deferred_split_lru. The deferred_split_lru is a list_lru with its own
+>>> per-memcg per-node lock.
+>>>
+>>> There are already other existing callers that call
+>>> folio_unqueue_deferred_split() without holding the lruvec lock (eg
+>>> __folio_put(), shrink_folio_list(), __folio_migrate_mapping(), ...).
+>>>
+>>> Add folio_batch_unqueue_deferred_split() and use it in
+>>> move_folios_to_lru(), folio_batch_move_lru(), and folios_put_refs() to
+>>> unqueue each batch of zero-refcount folios from the deferred split list
+>>> after the lruvec lock is released and before
+>>> mem_cgroup_uncharge_folios(). This helps shorten the lruvec lock's
+>>> critical sections, which run with IRQs disabled and are highly
+>>> contended.
+>>
+>> Nice work! Thanks!
+>>
+>> BTW, have you seen measurable overhead from unqueueing deferred split
+>> folios under the lruvec lock?
+>>
+>> Any before/after numbers for this change, including the cost of the extra
+>> pass over the batch?
 > 
-> This prepares for annotating struct kobj_type::release with
-> __require_explicit_initialization.
-
-It would be better to use "cpufreq: governor:" as the subject prefix.
-
+> I recall Joanne mentioning some data on this in the link below. Is that right?
 > 
-> Fixes: c4435630361d ("cpufreq: governor: New sysfs show/store callbacks for governor tunables")
+> https://lore.kernel.org/linux-mm/CAJnrk1a2PpUGTsCgS7jct2KET4K2zAL+_h+te8G1MaU9bXs99w@mail.gmail.com/
 
-Since a85ee6401a47 ("cpufreq: governor: Use kobject release() method to
-free dbs_data") has already fixed the missing release callback issue,
-current cpufreq patch 4/11 seems to only move the release callback
-initialization to the static initializer in preparation for 11/11. The
-same callback is already set at runtime in cpufreq_dbs_governor_init(),
-so there is no functional change or bug fix here. Should we drop the
-Fixes tag?
+Thanks, Barry! Yes, those numbers answer my question about the
+observed overhead :)
 
-So, at least for cpufreq, the issue described in the cover letter
-doesn't seem to exist, right?
+Joanne, have you rerun that benchmark with this patch? I'd be
+interested in the before/after runtime and lruvec lock wait.
 
-"Patches 2-10 fix 10 struct kobj_type definitions where dynamically
-allocated kobjects, ksets, or enclosing structures were either leaked on
-kobject_put() or freed prematurely before kobject release"
-
-
-> Assisted-by: Antigravity:gemini-3.1-pro
-> Signed-off-by: Ian Rogers <irogers@google.com>
-> ---
->   drivers/cpufreq/cpufreq_conservative.c | 5 ++++-
->   drivers/cpufreq/cpufreq_governor.c     | 3 ++-
->   drivers/cpufreq/cpufreq_governor.h     | 1 +
->   drivers/cpufreq/cpufreq_ondemand.c     | 5 ++++-
->   4 files changed, 11 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/cpufreq/cpufreq_conservative.c b/drivers/cpufreq/cpufreq_conservative.c
-> index 0b32ae28ec85..38c3bd5bf75a 100644
-> --- a/drivers/cpufreq/cpufreq_conservative.c
-> +++ b/drivers/cpufreq/cpufreq_conservative.c
-> @@ -316,7 +316,10 @@ static void cs_limits(struct cpufreq_policy *policy)
->   
->   static struct dbs_governor cs_governor = {
->   	.gov = CPUFREQ_DBS_GOVERNOR_INITIALIZER("conservative"),
-> -	.kobj_type = { .default_groups = cs_groups },
-> +	.kobj_type = {
-> +		.release = cpufreq_dbs_data_release,
-> +		.default_groups = cs_groups,
-> +	},
-
-Nit: In that case, may I know can we also remove the following runtime
-assignment from cpufreq_dbs_governor_init() as below:
-
-gov->kobj_type.release = cpufreq_dbs_data_release;
-
-
->   	.gov_dbs_update = cs_dbs_update,
->   	.alloc = cs_alloc,
->   	.free = cs_free,
-> diff --git a/drivers/cpufreq/cpufreq_governor.c b/drivers/cpufreq/cpufreq_governor.c
-> index 710d93ec89b5..97b64985927d 100644
-> --- a/drivers/cpufreq/cpufreq_governor.c
-> +++ b/drivers/cpufreq/cpufreq_governor.c
-> @@ -404,7 +404,7 @@ static void free_policy_dbs_info(struct policy_dbs_info *policy_dbs,
->   	gov->free(policy_dbs);
->   }
->   
-> -static void cpufreq_dbs_data_release(struct kobject *kobj)
-> +void cpufreq_dbs_data_release(struct kobject *kobj)
->   {
->   	struct dbs_data *dbs_data = to_dbs_data(to_gov_attr_set(kobj));
->   	struct dbs_governor *gov = dbs_data->gov;
-> @@ -412,6 +412,7 @@ static void cpufreq_dbs_data_release(struct kobject *kobj)
->   	gov->exit(dbs_data);
->   	kfree(dbs_data);
->   }
-> +EXPORT_SYMBOL_GPL(cpufreq_dbs_data_release);
->   
->   int cpufreq_dbs_governor_init(struct cpufreq_policy *policy)
->   {
-> diff --git a/drivers/cpufreq/cpufreq_governor.h b/drivers/cpufreq/cpufreq_governor.h
-> index 73b8ed7cfaae..c03d067f42eb 100644
-> --- a/drivers/cpufreq/cpufreq_governor.h
-> +++ b/drivers/cpufreq/cpufreq_governor.h
-> @@ -148,6 +148,7 @@ static inline struct dbs_governor *dbs_governor_of(struct cpufreq_policy *policy
->   }
->   
->   /* Governor callback routines */
-> +void cpufreq_dbs_data_release(struct kobject *kobj);
->   int cpufreq_dbs_governor_init(struct cpufreq_policy *policy);
->   void cpufreq_dbs_governor_exit(struct cpufreq_policy *policy);
->   int cpufreq_dbs_governor_start(struct cpufreq_policy *policy);
-> diff --git a/drivers/cpufreq/cpufreq_ondemand.c b/drivers/cpufreq/cpufreq_ondemand.c
-> index 9942dbb38dae..7386d043c665 100644
-> --- a/drivers/cpufreq/cpufreq_ondemand.c
-> +++ b/drivers/cpufreq/cpufreq_ondemand.c
-> @@ -374,7 +374,10 @@ static struct od_ops od_ops = {
->   
->   static struct dbs_governor od_dbs_gov = {
->   	.gov = CPUFREQ_DBS_GOVERNOR_INITIALIZER("ondemand"),
-> -	.kobj_type = { .default_groups = od_groups },
-> +	.kobj_type = {
-> +		.release = cpufreq_dbs_data_release,
-> +		.default_groups = od_groups,
-> +	},
->   	.gov_dbs_update = od_dbs_update,
->   	.alloc = od_alloc,
->   	.free = od_free,
-
-
--- 
-Thx and BRs,
-Zhongqiu Han
+Cheers, Lance
