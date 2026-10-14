@@ -1,110 +1,113 @@
-Received: from mta1.migadu.com (out-73.mta1.migadu.com [95.215.58.73])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0E3640D588
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:24:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.73
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 571F82C21D0;
+	Wed, 14 Oct 2026 04:25:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791951899; cv=none; b=i1cLNCQRTDgcFfbZQPj5U8ANGuEc6dkiH8sxb/09hl0HH9K1OvPTgVGTxrKz2y7hkMG2hel16ZUsmuQjSLHj6iw9oqUApx6vc6eF5/jHNhRTOl2hzusIo1UYvDl33TXjX26DhbqozJmG+mbQ1A/iX5V4du/QzCqwxRmNPSge5mY=
+	t=1791951957; cv=none; b=On9/YzLQVGzOd3mahYx03Tb6A0Gfl07fGy97xSMcKmgWrzlv12SlM8bOD98I05YL/SyVy8MjEdE73Tt4bQsYgGxYTjt22pxsMLeK9EG4nxOO9xPhhHP20p55KlAw9CAwLG+Unk0TLlAfmNlcA+PhtBHbrcjneGecKTpVsDF/L50=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791951899; c=relaxed/simple;
-	bh=tOKfQbBfrehty/qW3pINrljOFcxIODGYHAtE2STWOrY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ton9GLtw5dgc+/Gm/tN60ftIgMNxDx2Aor9o7lztPlYRjOxYL3WGGXpBZyfspFZQ3CiOY5DZH9P03LXba7cNhVAimnf/NWag1sxgROMWvnuSAKnHOasdmmQRZeUiFuzmxevAw8c7r5McOVlU3zaGQtQyZmglD1arMQHliqPMDMk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gd0b7toG; arc=none smtp.client-ip=95.215.58.73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791951957; c=relaxed/simple;
+	bh=bO48CuVt6th8bZN2UDCZmC2Y8Qh61nEaDFqg08Ble70=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=A7gUVyRLVmBBtc1CJdNEevZfkIhiAdK/7fQ6zLr4OUEgpZSCKzFeRMjAgfz+cDsFshXFDSma6pcSlhWG5d2zvrlmHO+bEYjG0PXGs/NIOutJFCkN0Vv16/vKm4Ctp+PEWbZf5+kVOmL+q0VezWjvjAEA2N169iu9eYt3gqDuWOU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=jx38zYxl; arc=none smtp.client-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gd0b7toG"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=tOKfQbBfrehty/qW3pINrljOFcxIODGYHAtE2STWOrY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791951895; v=1; x=1792556695;
- b=gd0b7toGmMGQDvpmBBvyyF3R02lD9xSMO1zWSRXnAw8D/oooqnqMObDHfg1IX5NEjYH/NXYN
- qsZYwebFpj2UQBi/rq86Egs3R9oaLkH8uquYbANSiOxaploED0AS76bAvyGzNGBObjZK9Pv5le7
- N3DdpIyQIeXZ70vIDXn6rQwU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 967b8fc28b66cba3;
-	Wed, 14 Oct 2026 04:24:55 +0000
-X-Mizu-Trace-ID: 967b8fc28b66cba3
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <75a46520-0771-4a50-ba77-ba815dfb6bac@linux.dev>
-Date: Wed, 14 Oct 2026 12:24:44 +0800
+	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="jx38zYxl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1791951954;
+	bh=ezH3BpnQanjd396/pJFVbraHVmeO2RYUq/rewNmkX/w=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=jx38zYxlVJq+fURXvDTVIjpMc3kQMeuzyvm21VcaoLzwhrVLp5C6gehwdETw4GbsN
+	 O2AUWtH1WUsETNtNlQFYw4/IZep9GcThydDBEdaDUeWGf/1dNYxLcKsp4V+5DREuf/
+	 KL5NWuXdV9xIkQAr8VKNk3kOY5M9sBVMO//WUaROVBmGf+5sRqXnnyNKBzJRavAZMH
+	 ZBFSiXSsngK2AEYMrRUhjeQrHlb6dGx2OripQ8ev4zVCsseb246uhevEGjaHRSE8a8
+	 1jHUfIlZGlFNll0jqlOF1RrU7yfy16ovVPiuQvq3qJI0j3/rdCR3O93Xk6hWkMfGFc
+	 0UxUxOrKdOGNQ==
+Received: from [10.157.79.237] (49-255-141-98.sta.ip.vocus.au [49.255.141.98])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id C131D6CEE0;
+	Wed, 14 Oct 2026 12:25:52 +0800 (AWST)
+Message-ID: <50b4bfd4754351f49ef79c0542276d32a7409ba1.camel@codeconstruct.com.au>
+Subject: Re: [PATCH net-next v2 6/7] net: mctp: usblib: Add initial kunit tx
+ tests
+From: James Lee <james@codeconstruct.com.au>
+To: netdev-bot+sashiko@kernel.org
+Cc: jk@codeconstruct.com.au, matt@codeconstruct.com.au,
+ andrew+netdev@lunn.ch, 	davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, 	kees@kernel.org,
+ gustavoars@kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Date: Wed, 14 Oct 2026 12:25:50 +0800
+In-Reply-To: <178893260401.219967.13741401547777040850@kernel.org>
+References: 
+	<20260903-dev-mctp-usb-lib-test-v2-6-313cf15e0b56@codeconstruct.com.au>
+	 <178893260401.219967.13741401547777040850@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] mm: unqueue deferred split folios outside the lruvec
- lock
-To: Barry Song <baohua@kernel.org>, joannelkoong@gmail.com
-Cc: akpm@linux-foundation.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, david@kernel.org, ljs@kernel.org,
- liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
- mhocko@suse.com, hannes@cmpxchg.org, qi.zheng@linux.dev,
- shakeel.butt@linux.dev, roman.gushchin@linux.dev, muchun.song@linux.dev,
- ziy@nvidia.com, baolin.wang@linux.alibaba.com, ryan.roberts@arm.com,
- usama.arif@linux.dev, hughd@google.com
-References: <20261013221307.850803-1-joannelkoong@gmail.com>
- <20261014030737.2102-1-lance.yang@linux.dev>
- <CAGsJ_4wxKQK=caM6a_AqJArGyJdBgq_=i=gSNjiVePkGBZHnpg@mail.gmail.com>
-Content-Language: en-US
-From: Lance Yang <lance.yang@linux.dev>
-In-Reply-To: <CAGsJ_4wxKQK=caM6a_AqJArGyJdBgq_=i=gSNjiVePkGBZHnpg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
 
+> [Severity: Low]
+>=20
+> Is completing the transfer inline here consistent with the documented
+> ops->send contract?
+>=20
+> include/linux/usb/mctp-usb.h says, for struct
+> mctp_usblib_tx_ops::send:
+>=20
+> 	/* Start a USB TX for @data. On returning success, the
+> implementation
+> 	 * must arrange for mctp_usblib_tx_send_complete() to be
+> called at some
+> 	 * later point (eg., on urb completion).
+> 	 */
+>=20
+> mctp_usblib_test_tx_send() instead calls
+> mctp_usblib_tx_send_complete()
+> (which runs mctp_usblib_tx_stats_update() and
+> mctp_usblib_tx_ctx_free())
+> and then returns 0, so the tx context is already freed at the point
+> success is reported.=C2=A0 The only in-tree implementer,
+> mctp_usb_out_complete() in drivers/net/mctp/mctp-usb.c, completes
+> asynchronously from URB completion.
+>=20
+> Nothing breaks today: mctp_usblib_tx_send() reads ctx->tx->ops.send,
+> buf
+> and ctx->len before the call and only returns the result, and both
+> send
+> sites in mctp_usblib_tx_push() touch the context afterwards only
+> under
+> if (rc).=C2=A0 But if the library ever legitimately inspects the context
+> after
+> a successful ->send(), this harness would report it as a KASAN
+> use-after-free in the test rather than a driver bug.
+>=20
+> Would it be better to either record the context and complete it after
+> the
+> push returns, or to relax the header comment to explicitly allow
+> synchronous completion?
+>=20
+There is no "instead". The documented function is called. Inspecting
+the context after a send would not be legitimate. This appears to be a
+false positive.
 
-On 2026/10/14 11:13, Barry Song wrote:
-> On Wed, Oct 14, 2026 at 11:07 AM Lance Yang <lance.yang@linux.dev> wrote:
->>
->>
->> On Tue, Oct 13, 2026 at 03:13:07PM -0700, Joanne Koong wrote:
->>> move_folios_to_lru(), folio_batch_move_lru() and folios_put_refs() call
->>> folio_unqueue_deferred_split() on folios where the refcount has dropped
->>> to zero. In these paths, folio_unqueue_deferred_split() is called with
->>> the lruvec lock often held (move_folios_to_lru() always holds it and
->>> folio_batch_move_lru()/folios_put_refs() usually hold it for every folio
->>> in the batch except the first). However, it's not needed to hold the
->>> lruvec lock.
->>>
->>> The lruvec lock protects folio->lru and the reclaim LRU lists whereas
->>> the deferred split queue lives on folio->_deferred_list in
->>> deferred_split_lru. The deferred_split_lru is a list_lru with its own
->>> per-memcg per-node lock.
->>>
->>> There are already other existing callers that call
->>> folio_unqueue_deferred_split() without holding the lruvec lock (eg
->>> __folio_put(), shrink_folio_list(), __folio_migrate_mapping(), ...).
->>>
->>> Add folio_batch_unqueue_deferred_split() and use it in
->>> move_folios_to_lru(), folio_batch_move_lru(), and folios_put_refs() to
->>> unqueue each batch of zero-refcount folios from the deferred split list
->>> after the lruvec lock is released and before
->>> mem_cgroup_uncharge_folios(). This helps shorten the lruvec lock's
->>> critical sections, which run with IRQs disabled and are highly
->>> contended.
->>
->> Nice work! Thanks!
->>
->> BTW, have you seen measurable overhead from unqueueing deferred split
->> folios under the lruvec lock?
->>
->> Any before/after numbers for this change, including the cost of the extra
->> pass over the batch?
-> 
-> I recall Joanne mentioning some data on this in the link below. Is that right?
-> 
-> https://lore.kernel.org/linux-mm/CAJnrk1a2PpUGTsCgS7jct2KET4K2zAL+_h+te8G1MaU9bXs99w@mail.gmail.com/
 
-Thanks, Barry! Yes, those numbers answer my question about the
-observed overhead :)
+> [Severity: Low]
+>=20
+> Do the assertions in this test actually observe either of the two
+> properties named in the comment?
+Seemingly.
 
-Joanne, have you rerun that benchmark with this patch? I'd be
-interested in the before/after runtime and lruvec lock wait.
+> [Severity: High]
+>=20
+> Does this static_assert() compile?
+Yes.
 
-Cheers, Lance
