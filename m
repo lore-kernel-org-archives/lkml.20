@@ -1,68 +1,100 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5591D4BF949;
-	Wed, 14 Oct 2026 11:25:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92BD012F585;
+	Wed, 14 Oct 2026 11:25:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791977133; cv=none; b=Z8aRcu8FFqXD4z4aQUK28BE0/DiS71JMeycWO/VJsvuAn55KV53ePoj/QlIW29usbUVta+xttP35coRiW9akjL89kC5FiO3sDVl1VZW/PC02kQtBP5x268Tf93ArThVFQ2rmxQpm/MwwFJ050PYL4jXbJKF+9FWzLm6svyiKHP4=
+	t=1791977151; cv=none; b=KEd96Qw8VTwpV7BTr7qwyBmdyQJ3WsXcmL8NyMEoA90nUodlIX5Cz8oLZa8oNpVQUBmS2drOwLhQIgcsQq5THRV2fR52hs9+9gAdiJgaFAS3TFisivX9WONZPioRbapV09SAZSxzzQFumvDzZ08Ab/x7Mv0Vuo1la6KZpPv9XJM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791977133; c=relaxed/simple;
-	bh=IOXuADb4afen7zNJXQF61Bxu+j539tGD4ROIqw21Z/8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SiEYMdwm4/JWgim3vp4oq0AN4hac4R4JQoAijn6qw8Z1qc/23vTj+D76CXaToNCaKrdJiz7CIxjnMMoi5nwZn1iitrzcvBxg7cGneQDLGDcu0LZ/+eFJ1lnQ53E6UlzUUMyy/85WhVAPvu4/ci0vL6v2x2mnRSR2CMcwpRJaT+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cJYyk2/W; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791977151; c=relaxed/simple;
+	bh=oOREu23JJHbA6Zu7YbD7/cWRc3qYv+PmEAH1EsrxXPI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pJifP03rtqF1hwnrt2aMmk56VAQjTGPUnFu+zGmJ3BFvlYV22ewLqG0XVhWRePijAJwCkyUvgGGTrx41K9EUfaUG1FYvW7+ttU/1KxvGV4UJrGwNDOqSkpFLEi62GCavILG+SQpu8lh3+cA2KPbEZzM7k5AjlDgl6ib9WhqCVVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jCPkXxaf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cJYyk2/W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E002E1F000FF;
-	Wed, 14 Oct 2026 11:25:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jCPkXxaf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 608351F000FF;
+	Wed, 14 Oct 2026 11:25:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791977131;
-	bh=fHVDW+jUX+tKqVbvfQATwTLnX0a6WAuAqIrF+8CjxJM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cJYyk2/W0V1+w7nSWu/WRNGKJbxaC3AxXWnjyVKFF8kgTWOSZHM4pU3ZQFkq55Pjm
-	 1ZaEb1uNipgU5Exb7SUmipY7N+UrWgRWvMD4kYgamZgfGj7WnNfFITTgwVwj1n3Xmk
-	 CsdXnXUmA+/v0/qnEQ5uU7vVsiIp77ue6UlwZcK4Tt+NgZrOCFZSXIWgSMmAvY4GUp
-	 isFvwWXq/tRVDo5kVxSIbf8W0hyMCocGjqqgnBpg0jDru41to5hKMBdY/gDLYA7RdB
-	 56vl5wgIbhrlLR6HGGevkfhoJyzU3bqG1TSEpIwiEwT6PqfS3GCQL0cfCA7EVMnW1+
-	 ATPW9e7TmTb5A==
-Date: Wed, 14 Oct 2026 13:25:27 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Juerg Haefliger <juerg.haefliger@canonical.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: arm: qcom: Document HP EliteBook 6 G1q
-Message-ID: <20261014-frisky-vivacious-dormouse-d4b40c@quoll>
-References: <20261013-add-elitebook-6-dts-v1-0-f22e67fc7f9d@canonical.com>
- <20261013-add-elitebook-6-dts-v1-1-f22e67fc7f9d@canonical.com>
+	s=k20260515; t=1791977150;
+	bh=8CdH2/cgXpSNGpOP+3xFwnPUW1IiBkjXh0lWbPTJ1iE=;
+	h=From:To:Cc:Subject:Date;
+	b=jCPkXxaf4AtQRbmirXUtTxsR/xUdAVFYEiYGd7xuZ+H9kyj9ktH51Dr6XC4Xdfyq4
+	 YB+V/+LEY4zqh5wVQA2bjOTULUyX92q3gbPYeLEOUuOLWNOOba8rhuWpMKSuylVgtl
+	 UmsQWzvWuy7BxEl9w1yGq6Gx3TEM6kgDH16W/9WAv3TTiBC8XD0EiKc10Iu+DX0W6d
+	 Xs1CmgXplxMdz3srKPbUvJxWz1DnxtZn6D7pvg4MMAoHsKPSEQW0WEHr7Po0r1BaIy
+	 yLk8vwrrV2OiAU1Db75isNZwDB9TWlt6pxLI15APbSWXREVQMnNn3eHx3NRa4rLi94
+	 c/vA5rAQ7V4ug==
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v3] dt-bindings: serial: snps-dw-apb-uart: Add Synaptics sl2610 uart
+Date: Wed, 14 Oct 2026 19:05:46 +0800
+Message-ID: <20261014110546.415-1-jszhang@kernel.org>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261013-add-elitebook-6-dts-v1-1-f22e67fc7f9d@canonical.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 13, 2026 at 04:40:56PM +0200, Juerg Haefliger wrote:
-> Add a compatible for the HP EliteBook 6 G1q 14 inch Notebook Next Gen AI
-> PC, based on the Qualcomm Snapdragon X1P42100 SoC.
-> 
-> PDF link: https://www8.hp.com/h20195/v2/GetDocument.aspx?docname=c09121784
+Add the compatible for the UARTs of the Synaptics SL2610, which are
+compatible with the Synopsys DesignWare APB UART.
 
-I think this is usually "Datasheet:" or just "Link:".
+Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+---
 
-> 
-> Signed-off-by: Juerg Haefliger <juerg.haefliger@canonical.com>
-> ---
->  Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
->  1 file changed, 1 insertion(+)
+since v2:
+ - collect Acked-by tag
+ - rebase on the latest tty-testing
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+since v1:
+ - use sl2610 instead of sl261x
+ - send as a separate patch
 
-Best regards,
-Krzysztof
+ .../devicetree/bindings/serial/snps-dw-apb-uart.yaml | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
+index 86dc25919311..e2ca126d58ba 100644
+--- a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
++++ b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
+@@ -34,7 +34,16 @@ allOf:
+       properties:
+         resets:
+           minItems: 2
+-    else:
++
++  - if:
++      not:
++        properties:
++          compatible:
++            contains:
++              enum:
++                - starfive,jh7110-uart
++                - syna,sl2610-uart
++    then:
+       properties:
+         resets:
+           maxItems: 1
+@@ -80,6 +89,7 @@ properties:
+               - starfive,jh7100-hsuart
+               - starfive,jh7100-uart
+               - starfive,jh7110-uart
++              - syna,sl2610-uart
+               - ti,tda54-uart
+               - ultrarisc,dp1000-uart
+           - const: snps,dw-apb-uart
+-- 
+2.53.0
 
