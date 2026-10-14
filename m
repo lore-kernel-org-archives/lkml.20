@@ -1,150 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ABCE44F563;
-	Wed, 14 Oct 2026 19:12:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98843468C39
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:12:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792005148; cv=none; b=H46DfHOHvta/pLEs5/M+qbmmzAl8NcwUsLWGXegF1c7m0oDU9/Yhc6IfpQZi7yy4KonCN6wwkvNiiYeJX94ySzd596O2geMReXWGqWSotI5B/DRTpPmLXLgSGTNVTPpXsJ5G2HturtiDzQ/XgUfgcfGgpJG7zwVDC0buq1nWNaw=
+	t=1792005164; cv=none; b=VwuiI17aq1MKk/k8+7i3FvCgJzjLf3Twnojnat7qkVl/5NdOXU/ovI0KqzFRWotulNgxv7llACI0mhGNs9kP/dcV8F1+jbgNxaqha8eYiHznb4B3ZTOyByMFGe4+GxkZM1rsXWKyPZyNg0SB0wEob+t4KFuX/D/s7PKERym7tWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792005148; c=relaxed/simple;
-	bh=PhrFgxAyb5Wdn5xkWs0bigFi1PPwop1LsrGEQiyc4g4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Uv3z8QUqwfkzeIm5WEtn5X/rVTN8sLNt9J0Fg8IvmfjYhupyegJaruHO6x6lBiwkpqXBoprOQQMxVKgmqt1RCOyA42XVtvI7Q720Ih5XmhQGP8PSrzhHmjUSFGeVW6dOK+TIg3yXA7zo0KV520Pm7jUHOI+cjTaph+YPXDwf0xY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WRbzJX9/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792005164; c=relaxed/simple;
+	bh=pRta59JtulZeIsykJD35tM5ia0Lq/sCYG19PMeRfN3w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uhkmkp8K6V16gFve0YZSiFDO8RYFMC2E1bsaluA3OoZDIcoyHY94Qc1CL1LDIMc0ElfYNXgd92SY7Eg7esZWBiLDwT8stfVnXZuXnTu6MsjhONRNeZqbzpw4sux+sLTUfk1wwYSHj66+s4UVhM+iIEi0VKwFXG/t/2V86wyDclg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=faJxll+V; arc=none smtp.client-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WRbzJX9/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 283221F000C4;
-	Wed, 14 Oct 2026 19:12:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792005146;
-	bh=sy51dZnwp63qodB69dzwmoIWn3ZCJ4Oue2+ZkfODJOQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WRbzJX9/UI0iMSHjtQ92PNv3XZnhstPDKvD9dPgRFxetsXjqCIDgCIW9QIjncwRN7
-	 q8BNbmEaZTLNdPWvMpabTPcOlOEJxzkMSjxWpig3MzLMOURcgq7X9S6/OELHo7Ks6z
-	 YmvuI8JwT4ZE7lN90ch7XhvSVq1XH4GYLrNUVDcQIb5ZV4YpbGvY3zf5ylMEL8IwFO
-	 SN4i14bsdmTaZy4TyMMCZa2PKtVcve/NuMF1UgcJd3y8dJoLagne706fXx6aIxJsmi
-	 VmgNz2qbbeApxkuVLkikck8kM0oZCRLxd9ePdCftSTBzwatTsvbV0r4iQIj0ND6BJ8
-	 +1wZNDtBEe8tQ==
-Date: Wed, 14 Oct 2026 20:12:20 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Cc: Maulik Shah <maulik.shah@oss.qualcomm.com>,
-	Rob Herring <robh@kernel.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH 2/3] pmdomain: Add support for system-suspend-only states
-Message-ID: <20261014-prudent-mini-duck-377cb6@sudeepholla>
-References: <20261005-s2idle_state-v1-0-3c402c66f388@oss.qualcomm.com>
- <20261005-s2idle_state-v1-2-3c402c66f388@oss.qualcomm.com>
- <20261006-romantic-stalwart-seriema-90e71d@sudeepholla>
- <CAPx+jO-T_0KT3GytYu8w6QvrhXFQNZQzR496RL=McU6rnMtnPA@mail.gmail.com>
- <20261009-frisky-rottweiler-from-avalon-6c409e@sudeepholla>
- <CAPx+jO-_aY5pMnWyy1hAs1WRmfW33vc317jdtBsEXYBoHsPfxA@mail.gmail.com>
- <20261009-skilled-mature-bittern-2206fc@sudeepholla>
- <CAPx+jO87gkTumF=Tg=UPWpJO6O-CRF4njT2KxQ3f=4nF5m7GiQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="faJxll+V"
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-3535a54bed9so1951329eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:12:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1792005161; x=1792609961; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pRta59JtulZeIsykJD35tM5ia0Lq/sCYG19PMeRfN3w=;
+        b=faJxll+VuILK77EN3dLjSVc/kLOpn+vXNlgBT9DMQgMJQ3GJe5pw6V9j4fwMnL6Kpd
+         0uBC0pMI/pCzrZJMTUf31Zn/hX9vcejhP/vK6kwscIoWP62XvnG2NEmvQjMhvxSt360D
+         MKxdsOVTJnn4oxkuOy74WxlZItXYgAvaXZ4FkC36DjvgOM2gA/+X+HS4XuzVm8gn+gpr
+         FXDdv0OGAV/7B6S7UhSch0g78FdkTFoNrEyGt6vGt4EeKajpz2cTNr+1gvljQ7Axy8Tn
+         ibXqlQTvJ3zuhZqUxVv8MKd8fVHNeuNaHpxNEdpcxK+atcI4HHbtbmSIMeNXiggzYkGA
+         wsvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792005161; x=1792609961;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pRta59JtulZeIsykJD35tM5ia0Lq/sCYG19PMeRfN3w=;
+        b=SXKVcgVJ6dB4WpOb40zG/Fh1CME3exAn7GE+G2Cdq8KgcQqkO8HuBUjhchNPpclMh6
+         TLmhizCKAr5TEULf/Is+NkznIykDGW2KwEDjg22xkc3oDG9hVaJCtTJAqYc4+43cFTZw
+         luIHwlXZ78yxrKoJW6LStSb7KxY2Zs99ekTX3qefTzPuCZOeaQi3jS/2Wa3voI0TN0Jw
+         9YLFZip3hgabT3WjK95hlHIqa0XebZZtwQa1Z8gtAoBTPotLelE9wsh8i/fM1GW2J0IP
+         8RDT70u483pvRGkFSH+OwSpumsUPT8n9dblNWJnnhqhLrZgMkUhEtvxp5luu0VlV57Ba
+         1XBg==
+X-Forwarded-Encrypted: i=1; AKwUvBx9P5AfA1hwx1sbkH+GKuyl6y4Dgahww+KFE3RqzeesUtpWyyohlphKe3pUhlge489EPAEsjZFy+rv64QU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLkJCbI5loYkHJgP3+EifXnQSQgBOojWdvPK52USpFIaGIDiHyE
+	5XJM5J9UDsXPXKF8bHFZgmFKI63jk2OTRU+6kIeX2AQd9/C6PUo8tjNUq2+4VoGw4ZE=
+X-Gm-Gg: AYBFou06PSdQrj3AFQ+G5yW5abPjHFnRNIAcPJ0d/K2hCAasevlXPxUz4EhJr2LlAmX
+	jMfqkM5Ag++bRHIOcbHgVFi6ND6zIfigsodfCAvkkgsOV22lbqAp8wRv7SxTzFxsUWct+2R5j9q
+	r9YDrnXbhmxKRztwMKmu/4LkyIbumVgdenCyJqt3Do6sHJC8CDC0QpEaXoaLMGiTzl7844s7gh/
+	MlULAtz2dfqnvzliKLf08KFeSVJ8PSeKeCkB9caIw4LRvzEeus4Wun9B3U3OPufYWEUizVjDQ68
+	7Z6WPK5+N87lUCJ7gOPOyjguQzvWRZXQf15+6pvNNoQPDK1Y81TB1WQvJ4/sMOucTBVJrMBj3Cj
+	VVoJi5OHOcq8J6tmtxwwLCmeHL/4JlF5dCIQP/KPunPjORTTu2MUwWqYuGQNFzhr32eNnrdZMhI
+	FY1rlbqMxnndXbGxB3ZSo/fDPFdcrKcoI5PLCOepcgfhjIDKgQ5QKpY1UbzFmiZQ6sgkaxEVfeM
+	JrqmA6efhBZ1YC897fb+g5h7c7R5rQv8pWgl4Tfw0sIC7MbBzYmoujVvNvTvsKui+ppI2I=
+X-Received: by 2002:a05:7300:caa:b0:35c:ceb0:8bf9 with SMTP id 5a478bee46e88-35cceb09059mr9595489eec.38.1792005161316;
+        Wed, 14 Oct 2026 12:12:41 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:39d1:d8de:aae7:23dd])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb2fd33sm54329888eec.28.2026.10.14.12.12.39
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 14 Oct 2026 12:12:40 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: axboe@kernel.dk,
+	cel@kernel.org,
+	hare@kernel.org,
+	hch@lst.de,
+	kbusch@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-nvme@lists.infradead.org,
+	neil@brown.name,
+	sagi@grimberg.me
+Subject: [PATCH 6.6.y 0/2] CVE-2025-38264: backport fix series
+Date: Wed, 14 Oct 2026 15:12:34 -0400
+Message-ID: <20261014191236.23696-1-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAPx+jO87gkTumF=Tg=UPWpJO6O-CRF4njT2KxQ3f=4nF5m7GiQ@mail.gmail.com>
 
-On Tue, Oct 13, 2026 at 12:11:36PM +0200, Ulf Hansson wrote:
-> On Fri, Oct 9, 2026 at 5:27 PM Sudeep Holla <sudeep.holla@kernel.org> wrote:
-> >
-> > On Fri, Oct 09, 2026 at 04:26:38PM +0200, Ulf Hansson wrote:
+Hi,
 
-[...]
+Please consider this backport series for CVE-2025-38264 to 6.6.y.
 
-> > > If that's the case, besides that the cluster PM domain topology must
-> > > be modelled accordingly, the display device should be hooked up to the
-> > > cluster PM domain it belongs to.
-> > >
-> >
-> > Ah, I thought that's the way the whole domain-idle was modelled as we
-> > started this OSI discussion a decade ago with an example of CPU clusters
-> > sharing power domains with some other devices. I am surprised if that is
-> > not the case already 🙁.
-> 
-> It works fine today, I was just trying to explain how it works,
-> considering the use case that you brought up.
->
+Apply the patches in this order:
+1. llist: add interface to check if a node is on a list. (prerequisite)
+2. nvme-tcp: sanitize request list handling (fix)
 
-Ah OK, good to hear. For once, it sounded like that's not the case. My bad.
+Patch 1 adds llist helpers to mark an unused node, test its membership,
+and restore the unused state after dequeue.
 
-> >
-> > > Beyond that, it's the corresponding display driver that becomes
-> > > responsible for what should happen during system suspend. If the
-> > > screen needs to stay on it may need to call device_set_awake_path()
-> > > for the display device - unless it's a decision for user space that
-> > > can control the behaviour for the display device via its sysfs node.
-> > > If things are managed accordingly, genpd_finish_suspend() may decide
-> > > to keep the corresponding PM domain powered on during system suspend.
-> > >
-> >
-> > But the s2idle and s2ram anyways suspends all the devices, so they need
-> > to vote in for the power domains to be turned off. If they are supposed
-> > to stay on, the system enters the state it can based on the other votes.
-> >
-> > > The above said, $subject patch doesn't change any of this. It only
-> > > allows us to use more states (deeper), which are limited to system
-> > > suspend (s2idle).
-> > >
-> >
-> > Still not convinced, if all devices are plugged in to the power domain
-> > hierarchy correctly and the domain-idle states represent or carries
-> > the entire system power domain topology, we shouldn't need this extra
-> > information. Having it make cause issues when it conflicts with the
-> > topology information IMO.
-> 
-> No, it's still not sufficient to model the power domain hierarchy correctly.
-> 
-> These "system states" are special since they require additional
-> coordination in FW/HW, to take into account votes not directly
-> controlled by Linux.
-> 
+Patch 2 initializes and resets NVMe/TCP request-list membership and
+rejects R2T processing while the request remains queued. The code changes
+in both patches are identical to upstream.
 
-But if Linux doesn't control, some other entity would vote and until then
-the system shouldn't enter that state. Without knowing that it is system
-state, will the kernel be unable to choose that state as it hidden vote
-is invisible/not tracked ? I trying to understand why if Linux chooses
-that system level state as part of idle loop, the platform can't downgrade
-if all the voting requirements are not met. I am struggling with that
-and want to make sure we are not working around a broken firmware.
+The complete fix is already present in 6.12.y, 6.18.y and 7.2.y.
 
-Sorry for being pedantic, but some real example would help to understand
-it IMO.
+Build-tested only as part of a cumulative 6.6.y series: x86_64 objects
+(allmodconfig, CONFIG_WERROR=y); no runtime testing.
 
-> I realize that the description in patch1 should be extended a bit to
-> explain this better. In principle, we can compare this with the PSCI
-> SYSTEM_SUSPEND support. The difference would be that PSCI
-> SYSTEM_SUSPEND is limited to support only one state, while the
-> $subject series would allow us to support multiple.
-> 
+An LLM assisted with preparing these backports.
 
-I understand that part. SYSTEM_SUSPEND is sort of platform co-ordinated
-once the requirement for entering is met.
-
-> In regards to ACPI. I think this is as simple as comparing it with the
-> list of ACPI S-states.
-> 
-
-I need to check if we use ACPI S-states via S2Idle which is the case with
-this patch set I assume.
-
--- 
-Regards,
-Sudeep
+Thanks,
+Artem Dinaburg
