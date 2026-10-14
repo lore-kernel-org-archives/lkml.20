@@ -1,280 +1,80 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C010525A7B;
-	Wed, 14 Oct 2026 13:34:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ED49527583;
+	Wed, 14 Oct 2026 13:34:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791984867; cv=none; b=glJdy+4bHk+W6BRi1jns2OI+FaY20PLgmNYN4FtfvpIvLao2KnEG59YO1F7boVi0QV/R3AA9cflN0VA9LcHa650cpWqHtP2zxHBmink0istFarKTg6U2sva8W5E4Gq8RjbgppXZg4nvI9Sgb+WbZATxXxeR2RwyyBBq9fDHE5bk=
+	t=1791984872; cv=none; b=Meh6n5MtyPcmqKaAbBLfeviaD0WZSHqvp8wlEZ/3aRI3uxsG+pCI9FxfzFhUr385YfvIfgdcYDF+ujCwLtWWX4/sGP0vDSahfba82byW/la92LuDHGpa/KQijypUPcab7LiGjqoVxCtvnF/QRyeP9BZP2enXLg0ggKDAHgrO4F8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791984867; c=relaxed/simple;
-	bh=oyxNS4Uqlp3Uca3tD2rWQajWG6XGYQB27CUWletsSlY=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YcvewzmEU/KdB3hyM5aNEhmf+aT9iOLYacxJ3Fq6VzIU3kSVzzNCa/G4568AbKBosPrABZ1lNT/2Mk5rBKSx2GjgYbdaaFe5lRXZkIPPM4AQV//7S1y5bm8GT+5vprTAYamQu3G+HYOxGjgDgJ02pFmp8fZfAGiy1tVz4pkqwIU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=euj6GWmH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791984872; c=relaxed/simple;
+	bh=lEKCRx7hK7j5m6NDEekE2ZI2bUyezmm8XOYLEPhICR8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=oGyrHV94eFtSVKpXL8UCyyrfSGHSTSwJFxfZW8vIHBKDbB6nXEEYJzsb5oXmHND3yxbU5c1H7kdiTJcwZAGDr9wwzXAGigSlKJAGEAJTGwVxbFFlsxbLsTmDPUSEUa5IMI3PuMHxlaxrf/8ZU3yMhUFMtR2vEXl1g61+j0HtEFk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H6NqJWrb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="euj6GWmH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73CCC1F00893;
-	Wed, 14 Oct 2026 13:34:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H6NqJWrb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2A6F1F0089C;
+	Wed, 14 Oct 2026 13:34:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791984852;
-	bh=xlbe4IDve5sVa3bicBDrKckx0LdiPpTCwmNH0wErMrk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=euj6GWmHlaz7C/KEd7JCVSEhRJsOzvJDpdVYhnxnG+iJZKo6DPq5lnGN0OZs32nlm
-	 KWrnCmPNVBakogEapCVV7u8jH3HXd3iYSX4Extyjed3dbHCo0UnPFon6iiCEz15UWE
-	 gN5B+2iOa3o8Sh3ksxwvpFEkzQRiRcglwdg9uQw42kgbUubYWVZ732cOBBlPFxHi6t
-	 m5bFEP7JlgicNJ6pDlMUMf67OJ134IlNZFOf55XgfzMs5DXY7jBgCdSVFFzY8F4I2q
-	 LX7ZOjzU0ox34ZDPpucyLxxDkHoWckTA9vl8SFOn4dTWIv/XsRvFtneiDkZPF3ANNC
-	 c21G3FKmH1Bfw==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xGz7R-00000002tLm-48r5;
-	Wed, 14 Oct 2026 13:34:10 +0000
-Date: Wed, 14 Oct 2026 14:34:09 +0100
-Message-ID: <86se281k4u.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Oliver Upton <oupton@kernel.org>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Andre Przywara <andre.przywara@arm.com>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Fuad Tabba <tabba@google.com>
-Subject: Re: [PATCH v2 0/2] KVM: arm64: vgic-its: Fix LPI double mapping and DISCARD
-In-Reply-To: <20261013143338.815377-1-fuad.tabba@linux.dev>
-References: <86tsmp20ne.wl-maz@kernel.org>
-	<20261013143338.815377-1-fuad.tabba@linux.dev>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	s=k20260515; t=1791984864;
+	bh=XZV9wpLaB7GSx4PtVOFkB/b4sfjtm/46M63tFH45CRE=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=H6NqJWrbi7Q7UOF7JBoq4heJwKmi5w7AjaTmDd58ZIIUNVtOrN2VWklG92FxN2PQV
+	 KYFvWpkK3ajLvCvw92WLcZQE5vZW+auWA1y3ysCoZPeODAXuQod/WKSAa9c0UpXDeY
+	 3/gR/kXCiLH3pP0H1EUhaFk/jTJeipIPiIMl2B6ple+GGz1cH7XfoJ41iNwpQEKboh
+	 ZVzSa2ul5RtabFmxnPDHmBCbEY+NKGutX0l99DzpzhT90o8pDCevIjnitpvrVPptiP
+	 IWIuxJYV+CeYsopFayTEvpgGpAjnW0rzNSBKX55JYZjc+s6mM2RNKuS/QINWvefxCp
+	 Wz19rT3phBcYQ==
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Semih Baskan <strst.gs@gmail.com>, Bjorn Helgaas <helgaas@kernel.org>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Ray Jui <rjui@broadcom.com>, 
+ Scott Branden <sbranden@broadcom.com>, 
+ =?utf-8?q?Rafa=C5=82_Mi=C5=82ecki?= <rafal@milecki.pl>, 
+ =?utf-8?q?Rafa=C5=82_Mi=C5=82ecki?= <zajec5@gmail.com>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Rosen Penev <rosenp@gmail.com>, 
+ Rani Hod <rani.hod@gmail.com>, bcm-kernel-feedback-list@broadcom.com, 
+ linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>
+In-Reply-To: <20261013220421.1588051-1-bhelgaas@google.com>
+References: <20261013220421.1588051-1-bhelgaas@google.com>
+Subject: Re: [PATCH v4 0/2] PCI: iproc-bcma: Use EROM instead of devicetree
+Message-Id: <179198485820.77319.12457284951144723062.b4-ty@b4>
+Date: Wed, 14 Oct 2026 19:04:18 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, oupton@kernel.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, andre.przywara@arm.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, tabba@google.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.16.0
 
-On Tue, 13 Oct 2026 15:33:38 +0100,
-Fuad Tabba <fuad.tabba@linux.dev> wrote:
+
+On Tue, 13 Oct 2026 17:04:19 -0500, Bjorn Helgaas wrote:
+> This is a combination of these two patches:
 > 
->
+>   [PATCH v3] PCI: iproc: Use the EROM outbound window on BCMA
+>   https://lore.kernel.org/all/20260807160526.379-1-strst.gs@gmail.com
+> 
+>   [PATCH] PCI: iproc: Use pci_alloc_host_bridge() on BCMA
+>   https://lore.kernel.org/all/20260912043626.437-1-strst.gs@gmail.com
+> 
 > [...]
-> > Is the hack below what you are asking for? I can't tell. If it isn't,
-> > please post your own version.
-> 
-> Almost: it's missing a request check between the IN_GUEST_MODE store and
-> the flush. Without it, a halt that reads OUTSIDE_GUEST_MODE just before
-> the store doesn't wait for the vCPU, which then loads the LPI into an
-> LR, takes the early exit on KVM_REQ_SLEEP and folds the LPI back after
-> DISCARD has cleared it. That's the outcome in the first litmus test's
-> exists clause. With the debug hooks forcing it on QEMU, the guest takes
-> the discarded LPI in every run with your diff, and in none with this on
-> top:
-> 
-> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-> index f1449b0..896bc76 100644
-> --- a/arch/arm64/kvm/arm.c
-> +++ b/arch/arm64/kvm/arm.c
-> @@ -1329,11 +1329,29 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
->  		 */
->  		smp_store_mb(vcpu->mode, IN_GUEST_MODE);
->  
-> +		/*
-> +		 * Don't load the LRs with a request pending:
-> +		 * kvm_arm_halt_guest() doesn't wait for a vCPU it reads
-> +		 * as OUTSIDE_GUEST_MODE.
-> +		 */
-> +		if (ret <= 0 || kvm_vcpu_exit_request(vcpu, &ret)) {
-> +			isb(); /* Ensure work in x_flush_hwstate is committed */
-> +			if (kvm_vcpu_has_pmu(vcpu))
-> +				kvm_pmu_sync_hwstate(vcpu);
-> +			if (unlikely(!irqchip_in_kernel(vcpu->kvm)))
-> +				kvm_timer_sync_user(vcpu);
-> +			smp_store_release(&vcpu->mode, OUTSIDE_GUEST_MODE);
-> +			local_irq_enable();
-> +			preempt_enable();
-> +			continue;
-> +		}
-> +
->  		kvm_vgic_flush_hwstate(vcpu);
->  
->  		kvm_pmu_update_vcpu_events(vcpu);
->  
-> -		if (ret <= 0 || kvm_vcpu_exit_request(vcpu, &ret)) {
-> +		/* kvm_vgic_flush_hwstate() can make a request when nested */
-> +		if (kvm_vcpu_exit_request(vcpu, &ret)) {
->  			isb(); /* Ensure work in x_flush_hwstate is committed */
->  			if (kvm_vcpu_has_pmu(vcpu))
->  				kvm_pmu_sync_hwstate(vcpu);
-> 
 
-I don't think this is right. Yes, it probably does enough request
-checks that we end-up with not getting it completely wrong, but the
-issues are that:
+Applied, thanks!
 
-- we have state change before we evaluate the requests
+[1/2] PCI: Expose devm_pci_alloc_host_bridge_release()
+      commit: 4e93e052afad91ad28e8343d3777c1e5ab8c24d2
+[2/2] PCI: iproc: Use the EROM outbound window on BCMA
+      commit: 694a9f52a937f272d8aa6e845765e37118c10e17
 
-- we mix request generation and state change in a single helper
-
-and we should be able to fix that so that there is only a single
-request checking point in the whole entry sequence.
-
-I ended-up with a much bigger change, which really needs to be split
-in two:
-
-- untangle state generation and requests: this means that the
-  maintenance interrupt generation and the request. The request
-  generating stuff must happen before being IN_GUEST_MODE and request
-  checking.
-
-- the flushing must happen later on, once we don't look back anymore
-  and have committed to entering the guest.
-
-This, in turn, simplifies the "shit, I must rollback all the previous
-changes as I can't enter the guest and must handle a request instead"
-horror.
-
-Another bug fix is that we now generate the maintenance interrupt
-before deciding whether to generate a request switching from L2 to L1
-as we have a pending interrupt.
-
-Thoughts?
-
-	M.
-
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index 0576c2022ef57..3fa9e158f0be1 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -1321,10 +1321,6 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
- 
- 		local_irq_disable();
- 
--		kvm_vgic_flush_hwstate(vcpu);
--
--		kvm_pmu_update_vcpu_events(vcpu);
--
- 		/*
- 		 * Ensure we set mode to IN_GUEST_MODE after we disable
- 		 * interrupts and before the final VCPU requests check.
-@@ -1334,18 +1330,19 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
- 		smp_store_mb(vcpu->mode, IN_GUEST_MODE);
- 
- 		if (ret <= 0 || kvm_vcpu_exit_request(vcpu, &ret)) {
--			vcpu->mode = OUTSIDE_GUEST_MODE;
- 			isb(); /* Ensure work in x_flush_hwstate is committed */
--			if (kvm_vcpu_has_pmu(vcpu))
--				kvm_pmu_sync_hwstate(vcpu);
- 			if (unlikely(!irqchip_in_kernel(vcpu->kvm)))
- 				kvm_timer_sync_user(vcpu);
--			kvm_vgic_sync_hwstate(vcpu);
-+			smp_store_release(&vcpu->mode, OUTSIDE_GUEST_MODE);
- 			local_irq_enable();
- 			preempt_enable();
- 			continue;
- 		}
- 
-+		kvm_vgic_flush_hwstate(vcpu);
-+
-+		kvm_pmu_update_vcpu_events(vcpu);
-+
- 		kvm_arch_vcpu_ctxflush_fp(vcpu);
- 
- 		/**************************************************************
-@@ -1356,7 +1353,6 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
- 
- 		ret = kvm_arm_vcpu_enter_exit(vcpu);
- 
--		vcpu->mode = OUTSIDE_GUEST_MODE;
- 		vcpu->stat.exits++;
- 		/*
- 		 * Back from guest
-@@ -1390,6 +1386,12 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
- 
- 		kvm_arch_vcpu_ctxsync_fp(vcpu);
- 
-+		/*
-+		 * All the state has been synchronised, let advertise
-+		 * we're outside of the guest.
-+		 */
-+		smp_store_release(&vcpu->mode, OUTSIDE_GUEST_MODE);
-+
- 		/*
- 		 * We must ensure that any pending interrupts are taken before
- 		 * we exit guest timing so that timer ticks are accounted as
-diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-index b191365d97cc2..41f3def0eecae 100644
---- a/arch/arm64/kvm/nested.c
-+++ b/arch/arm64/kvm/nested.c
-@@ -2046,6 +2046,9 @@ void check_nested_vcpu_requests(struct kvm_vcpu *vcpu)
-  *
-  * What follows is some slop to (1) react to exception routing / masking and (2)
-  * preserve the pending SError state across translation regimes.
-+ *
-+ * Also look generate the maintenance interrupt state, and finally check
-+ * that if we need to take an interrupt targetting the guest hypervisor.
-  */
- void kvm_nested_flush_hwstate(struct kvm_vcpu *vcpu)
- {
-@@ -2054,6 +2057,11 @@ void kvm_nested_flush_hwstate(struct kvm_vcpu *vcpu)
- 
- 	if (unlikely(vcpu_test_and_clear_flag(vcpu, NESTED_SERROR_PENDING)))
- 		kvm_inject_serror_esr(vcpu, vcpu_get_vsesr(vcpu));
-+
-+	vgic_v3_nested_update_mi(vcpu);
-+
-+	if (vgic_state_is_nested(vcpu) && kvm_vgic_vcpu_pending_irq(vcpu))
-+		kvm_make_request(KVM_REQ_GUEST_HYP_IRQ_PENDING, vcpu);
- }
- 
- void kvm_nested_sync_hwstate(struct kvm_vcpu *vcpu)
-diff --git a/arch/arm64/kvm/vgic/vgic.c b/arch/arm64/kvm/vgic/vgic.c
-index 5cf5a1ef86cdd..7061b4ab206c9 100644
---- a/arch/arm64/kvm/vgic/vgic.c
-+++ b/arch/arm64/kvm/vgic/vgic.c
-@@ -1152,7 +1152,7 @@ void kvm_vgic_flush_hwstate(struct kvm_vcpu *vcpu)
- 	 *
- 	 *   We do that by placing a request to ourselves which will
- 	 *   abort the entry procedure and inject the exception at the
--	 *   beginning of the run loop.
-+	 *   beginning of the run loop (see kvm_nested_flush_hwstate()).
- 	 *
- 	 * - Otherwise, do exactly *NOTHING* apart from enabling the virtual
- 	 *   CPU interface. The guest state is already loaded, and we can
-@@ -1162,16 +1162,10 @@ void kvm_vgic_flush_hwstate(struct kvm_vcpu *vcpu)
- 	 * maintenance interrupt state, as it may fire.
- 	 */
- 	if (vgic_state_is_nested(vcpu)) {
--		if (kvm_vgic_vcpu_pending_irq(vcpu))
--			kvm_make_request(KVM_REQ_GUEST_HYP_IRQ_PENDING, vcpu);
--
- 		vgic_v3_flush_nested(vcpu);
- 		return;
- 	}
- 
--	if (vcpu_has_nv(vcpu))
--		vgic_v3_nested_update_mi(vcpu);
--
- 	DEBUG_SPINLOCK_BUG_ON(!irqs_disabled());
- 
- 	vgic_flush_state(vcpu);
+Best regards,
 -- 
-2.47.3
+மணிவண்ணன் சதாசிவம்
 
 
--- 
-Without deviation from the norm, progress is not possible.
