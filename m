@@ -1,60 +1,60 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD02F252917;
-	Wed, 14 Oct 2026 00:17:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D7A21A6839
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 00:17:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791937026; cv=none; b=icQPL5pGKzyZiPYip25aYb+qf5SP61IkblpqxXmhzAMtysyQ9c39eh4aEioPpQP/7rYP4xVnU2gvsZ3fz+HRfx50kilrEI4JuGwDSVs3ChLPPzB33krBwtifNuXwbCDi59uDg5dgH/L4KtTIYYeN9Uk0yEzMbWGOvcayNomgKNw=
+	t=1791937042; cv=none; b=VsE+6RNu7LJBF7sGMht/g5JZx2YjupROiovJsYCpVnc8h+ABkEO+7zvZH2F3nkRzpORz7Mk9uDnsfNgVqxL195GboFL7AhAms0z4dDUX/aVHWwj1IPWVoUk7h1vJ/m9vF7K4A4vp/8fr2PgAM5ijiFVYDQdnZGaipYlUYHEiL54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791937026; c=relaxed/simple;
-	bh=58tTh9a47JzFEcKQxD5aujR2nU/s0ipIdjg158I53cU=;
-	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=XR2dD/kCuKDMRxmcjk5XjOVVDtKSEbeAQK2J9rAQb+vTc/5o2+WJyqkjnYZ5vbe6w1ke14n6JF3VlKs9nU6iOGpSnFmVF/DTCjcawvqJGvf4+L1ZeAvdRC2q/vOf13FblYAlJYXWFP8f0rXiThZmh+QnEYfgCDVta+PA5NIIyGg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tnth1lnR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791937042; c=relaxed/simple;
+	bh=U4eko34j2kHWY5uQ8HqHDmo/OimXt/RopoKfotWepOo=;
+	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=qgA0UK/YjWR4NAZq7BFux4nudfeNvgWvG8oFkPSKdkwItPOBXHrxxTE/Z415uF3FMU21zwlu9XQaFF6K4IgO8mzLUwoNSuugM5vrey1R8iDqzDSqSAxUTwEClcj4acTBOS2Jx1F8reqkEAZ5fXjumDQflNrzFyMVm0f7mWkQndU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B1ieXKse; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tnth1lnR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 821E61F000FF;
-	Wed, 14 Oct 2026 00:17:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B1ieXKse"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42B3F1F000FF;
+	Wed, 14 Oct 2026 00:17:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791937024;
-	bh=DmuFcx1leEsBIrgsAmOI36pFpv5ge7Aq6ZGscy7IVWw=;
+	s=k20260515; t=1791937039;
+	bh=+jN4yvdpy+6MMcXlRD/7k3Z94tcypTN0X3S9kaL12mM=;
 	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=Tnth1lnRPeZWcAvSNvbEfORblkubfBdHyxxu35rWK0MopSOCbgI8adjC4LBW9nqzt
-	 GFrQQHGjUY0u21f74y5zLB8yx9Xt1axbOLq2JA7EOPC3f/hEcxQBBplj3kQ0gNu62Z
-	 GtBa/znNKBUhhHNOrcq48B0r8928JdRVUvv4cdhXrYP4gH/CDEu4a8mWyVQAXNLUaB
-	 dgEOIRsCpZ7moPBJQRPFsGfBxhTeuxMYqeMuA83B8EwbPHAVkwTyqv4VCqe9Uo8PW7
-	 gNKwvw32DogHN0UE89+P8Bi8JpRKYzqfudWS5evRcJfwi75raCHMgXYvS4BuOPQpDZ
-	 l1R19OgFT9dcw==
+	b=B1ieXKsenGGKs2TZO0ZM3ya17KxQ1OpcBvtjsAhB98csE/u86LE37Mt36luFyIkQQ
+	 pw8Sts1cPRd8J5oipEE1VAgAUYwZ8b5QynbJgjIBEwE+z7BFUS2bpAy+eLGlHwi0ZI
+	 T2kxj7Xpu+CjBRaXQsjIrOrfJXUkzpUxcG4QpC1CkC5YD3qKfQ/hYqGpxNCzwx8SKF
+	 mpeIqFaSOamlnnxcj7ooBLj/DvchliEb7HbetU/GpKzlBMe4L2fInVx6KJvAZ7AiEm
+	 bP4KcZSUuwi7MVqdxu7zsouLzuTEr7l1r0JEpANfhLMGvbMgQnq9aH0aDVBJTauNoQ
+	 JWxWeMllsTo7g==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 773B139E8A57;
-	Wed, 14 Oct 2026 00:17:04 +0000 (UTC)
-Subject: Re: [GIT PULL] KVM fixes for Linux 7.3-rc8 or final
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A2B439E8A57;
+	Wed, 14 Oct 2026 00:17:19 +0000 (UTC)
+Subject: Re: [GIT PULL] bootconfig: Fixes for v7.3-rc7
 From: pr-tracker-bot@kernel.org
-In-Reply-To: <20261012172419.138525-1-pbonzini@redhat.com>
-References: <20261012172419.138525-1-pbonzini@redhat.com>
-X-PR-Tracked-List-Id: <kvm.vger.kernel.org>
-X-PR-Tracked-Message-Id: <20261012172419.138525-1-pbonzini@redhat.com>
-X-PR-Tracked-Remote: https://git.kernel.org/pub/scm/virt/kvm/kvm.git tags/for-linus
-X-PR-Tracked-Commit-Id: e90ab3669181c6469e3647ef2b30ae408275f496
+In-Reply-To: <20261014082058.e42e2b558ebb712bfc0f28fc@kernel.org>
+References: <20261014082058.e42e2b558ebb712bfc0f28fc@kernel.org>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <20261014082058.e42e2b558ebb712bfc0f28fc@kernel.org>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git bootconfig-fixes-v7.3-rc7
+X-PR-Tracked-Commit-Id: a1ddc2721467fb68241372db77657fd0dcf6cda5
 X-PR-Merge-Tree: torvalds/linux.git
 X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 03741bcea0a9ec4c8f386fd5c6051c1a14070240
-Message-Id: <179193702302.1530094.14094330381307114827.pr-tracker-bot@kernel.org>
-Date: Wed, 14 Oct 2026 00:17:03 +0000
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: torvalds@linux-foundation.org, linux-kernel@vger.kernel.org, kvm@vger.kernel.org
+X-PR-Merge-Commit-Id: ca3e345926b00bd59106c1bf2022b1daf4164a67
+Message-Id: <179193703777.1530094.5151385769231539743.pr-tracker-bot@kernel.org>
+Date: Wed, 14 Oct 2026 00:17:17 +0000
+To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, Sasha Levin <sashal@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, linux-kernel@vger.kernel.org
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 
-The pull request you sent on Mon, 12 Oct 2026 19:24:19 +0200:
+The pull request you sent on Wed, 14 Oct 2026 08:20:58 +0900:
 
-> https://git.kernel.org/pub/scm/virt/kvm/kvm.git tags/for-linus
+> git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git bootconfig-fixes-v7.3-rc7
 
 has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/03741bcea0a9ec4c8f386fd5c6051c1a14070240
+https://git.kernel.org/torvalds/c/ca3e345926b00bd59106c1bf2022b1daf4164a67
 
 Thank you!
 
