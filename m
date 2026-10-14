@@ -1,179 +1,109 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03F7B3C456B;
-	Wed, 14 Oct 2026 20:38:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC2DC3FD955;
+	Wed, 14 Oct 2026 20:39:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792010336; cv=none; b=sIigbkiTTcDR/PpkJh7z34NjN3BJRh+Ji4A4JwBJ8MtnAKo8vNqKG82P0mcafJHgWWnpAqnZ2SYwSbz3UOyQl5wqW6MIpuUzG+ljg60Dt3YjagURSEsUVncaOf+WHQaR5jlPm/gFcif+52oaCfUtVmssIwoUUCc6dI6BuSF6MPU=
+	t=1792010355; cv=none; b=dCMcD+6CjMYpTJMVZEly6dMGPtaoH2j4wKB5ZC5Nr491qMjmnh5xUTMInj5LsMfRaYdnGBkYm9c42kVuwEY/tO+KVFxp0a9JzFp2tkx9vJHlGt9Gtx6FygClRnlnznzxHmxvbG4gF+VB3ktGLijnHM5Q33RlEamteLK1asO4Z/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792010336; c=relaxed/simple;
-	bh=Ght/aBzy4llCz6EMP8auv1XpvupCUpViG+bXTIZP3qk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uO9Liz7qNFshdIVvwzQC680mohIefZqwSsFRfMDVBr/igQuiv8Rprfo5RE9W8SE166DS6Vwr3k4Ozfy4fERqqSu7eCzpJDIpdlkLwwRD9wJAF8OjD8Lk5h2FHUzKoQdxi5vHzv5RNFoG3B2xkGy66wnT9FyqrtqC/qBqo+bKOOo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=xD7cx5hO; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
+	s=arc-20240116; t=1792010355; c=relaxed/simple;
+	bh=COt3GvWqWgF0CxI9plDeQb5zlZ9CoK/iukULf+JUTd8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=n1cC8gF7qjoM+IWgJ6BPM3j9fyxhRAQjqj3YFTTOlK0ALzkpkNqR6mYHCLJmeddaalhkga8HenPf54aypPO1rl+4Gi6DrRjgYoslOrsFfOe21MFO/NvpdPlwRVuTMkMQPZlAu06kBsBkG9cHfFdwQjDP0i8INnLuBlT+IRSox6c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OnRqdUej; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="xD7cx5hO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
-	s=201707; t=1792010330;
-	bh=3Terinl8SuwfSYjw1hUDkfwIQWKWVy1NH/KsV7THaRI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=xD7cx5hOso7zpoKz9w0MCwp2erAQ266sRA3Daej6urcADyMwOfxP0ElO1XJcMp8Pz
-	 Ca5m8lKXvuU3U+Y8WCNGSlsbwncz+8686EtyTWM9KihCTuWAqmFoR5uJ3Kumv2xqFR
-	 /4dI+G5UnweWCDPPc/MY0UzriL+3nweWEEw8UbVpigliGLmYKn4DgUI2Qr3HbLPFvQ
-	 LdfOIb4pAhLoLmgUqXsic+24UWzDlqf+UeIgBBVwisiaqViswaM+78/UTSBbR6gLtY
-	 5WpiyBZoyQ7n4vXTuLDKRBeiicDA4B6/UOvyiNIjXMzGMwV1jaqauXA0wPHhXi5/yr
-	 ZshaFLBqn0HHw==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	by mail.ozlabs.org (Postfix) with ESMTPSA id 4j4jhy41Mrz4w91;
-	Thu, 15 Oct 2026 07:38:41 +1100 (AEDT)
-Message-ID: <0bd00c26-4f53-4387-86be-99f0c37fa47c@ozlabs.org>
-Date: Wed, 14 Oct 2026 21:38:38 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OnRqdUej"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 590B4C2BCF5;
+	Wed, 14 Oct 2026 20:39:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792010355;
+	bh=COt3GvWqWgF0CxI9plDeQb5zlZ9CoK/iukULf+JUTd8=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=OnRqdUeje8h7xcsJrIWm4dgO6n/hNW17viy2Nzy87dNFsiI1cfChmAmD6QpUXHsoa
+	 dVkc6gsS4TwWl769C+MA+/BEiwfpBDHyi0UEOVpJonnKhiba2IReecOiP99qGOx143
+	 VXUWaWoQL/HbYK5qmAra/jCe+o8bAWyC9rGJM2ijxxVG85Sw6JD/b/xnhDhIi6GbBE
+	 lrjtUHy6150ZRU/fUJDrPPVMiXvCF5c3s+HHXYWKGfcH2Hea9rmtgWuvQhIWQ/RBlb
+	 IolWh+E6AQgPx78DL3G7K8kEifqND/K5ev4X4X0ApDR+AfidJszsB5hPMHx/wjpUG+
+	 f/sOXhS7hoMyQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 34B74CC6B2D;
+	Wed, 14 Oct 2026 20:39:15 +0000 (UTC)
+From: Vladimir Kukharenko via B4 Relay <devnull+vladimir.genproof.com@kernel.org>
+Subject: [PATCH 0/2] lib/crypto: chacha: Handle lengths of 2 GiB or more on
+ 32-bit arm and MIPS
+Date: Wed, 14 Oct 2026 20:34:20 +0000
+Message-Id: <20261014-libcrypto-chacha-32bit-2gib-v1-0-e0719ca0be89@genproof.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 8/9] vfio/pci: Support mmap() of a VFIO DMABUF
-Content-Language: en-GB
-To: Alex Williamson <alex@shazbot.org>, Alex Mastro <amastro@fb.com>
-Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Kevin Tian <kevin.tian@intel.com>, Pranjal Shrivastava <praan@google.com>,
- Longfang Liu <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
- David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
- <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org
-References: <20261006193643.76330-1-matt@ozlabs.org>
- <20261006193643.76330-9-matt@ozlabs.org>
- <20261013171347.54e856c7@shazbot.org>
-From: Matt Evans <matt@ozlabs.org>
-In-Reply-To: <20261013171347.54e856c7@shazbot.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAE3nz2oC/zWN227CMBAFfyXyc428tpOQqKr4D8SDL2t3C0nAN
+ qgV4t8xl0r7MtqjmSvLmAgzG5srS3ihTMtcAT4a5r7NHJGTr8ykkB0I0PxA1qW/Y1l4/dfjSlo
+ qXEayvDUKW1SdER2wajgmDPT7tG93L85n+4OuPJTvRcLTuWbLa8YmzNk8s2Pz+V+FVnZCr5RUC
+ gQHjpZixJQ3e0wzHlZLil8PnTUZuVumicrYaBF0HwwIAx4G1+ug1waUH3or0cLg22AHtfZsd7v
+ dAVdR8MAIAQAA
+X-Change-ID: 20261014-libcrypto-chacha-32bit-2gib-5a3e5e36a061
+To: Eric Biggers <ebiggers@kernel.org>, 
+ "Jason A. Donenfeld" <Jason@zx2c4.com>, Ard Biesheuvel <ardb@kernel.org>
+Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org, 
+ Vladimir Kukharenko <vladimir@genproof.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792010354; l=1694;
+ i=vladimir@genproof.com; s=20261012; h=from:subject:message-id;
+ bh=COt3GvWqWgF0CxI9plDeQb5zlZ9CoK/iukULf+JUTd8=;
+ b=rnntLP2QYnFZTNLD0UoAJH+5N82xB9Y7wkvlKAyjJogo7+gLjT1eGgZHZSfqMxSU84345q47Q
+ +cvgDd+YaR9DXMeWRNqIYZDj/OTr3obKCf6qGcBhKWqNd2UzOwlcVWW
+X-Developer-Key: i=vladimir@genproof.com; a=ed25519;
+ pk=EqOzBSKBgFn7ExzKj5f9T8u+1yTrGVlLBwf3fj/sdHM=
+X-Endpoint-Received: by B4 Relay for vladimir@genproof.com/20261012 with
+ auth_id=1169
+X-Original-From: Vladimir Kukharenko <vladimir@genproof.com>
+Reply-To: vladimir@genproof.com
 
-Hi Alexes,
+On 32-bit arm (the scalar code) and 32-bit MIPS, the ChaCha assembly
+treats the length as signed, so lengths of 2 GiB or more are still
+mishandled after "lib/crypto: chacha: Use size_t length", since size_t
+is 32 bits there.
 
-On 14/10/2026 00:13, Alex Williamson wrote:
-> On Tue,  6 Oct 2026 20:36:36 +0100
-> Matt Evans <matt@ozlabs.org> wrote:
-> 
->> A VFIO DMABUF can export a subset of a BAR to userspace by fd; add
->> support for mmap() of this fd.  This provides another route for a
->> process to map BARs, in which the process can only map a specific
->> subset of a BAR represented by the exported DMABUF.
->>
->> mmap() support enables userspace drivers to safely delegate BAR
->> sub-ranges to other processes by sharing a DMABUF fd, without having
->> to share the (omnipotent) VFIO device fd with them.
->>
->> Since the main VFIO BAR mmap() is now DMABUF-aware, the new mmap() reuses
->> the existing vm_ops.
->>
->> The lifecycle of an exported DMABUF remains decoupled from that of the
->> device fd it came from, i.e. the device fd could be closed with DMABUF
->> VMAs present, meaning a fault on a VMA could happen concurrently with
->> vfio_pci_dma_buf_cleanup().
->>
->> To deal with this scenario, the fault handler now temporarily takes a
->> VFIO device registration to ensure the vdev remains valid, and then
->> vdev locks can be taken.
-> 
-> This sounds like potentially measurable overhead if something is
-> slamming the fault handler where huge-fault is not supported or active.
-> Have you considered a fast path for the internal dmabuf where the
-> lifecycle is constrained?
+Patch 1 makes the arm assembly use unsigned conditions.  The MIPS
+assembly relies on the sign of the remaining length, so patch 2 instead
+limits each call to 1 GiB from C.
 
-Good question, I did think about this (rationale below) though ended up 
-trying to keep this function simpler/easier to reason about.  I can have 
-another look.
+This applies on top of
+https://lore.kernel.org/r/20261014152604.323310-1-ebiggers@kernel.org
+Feel free to fold these into your series instead.
 
-< long info, as AlexM and I were talking about this offline >
+Tested with the lib/crypto KUnit tests in QEMU on arm (Cortex-A7 and
+Cortex-A15) and 32-bit MIPS, plus a temporary 2 GiB test on the
+Cortex-A7 and QEMU user mode runs of the MIPS assembly.
 
-The position of your comment sounds like the device registration was 
-part of the concern, but can you clarify please?  I think it's more that
-..._fault() now takes dmabuf->resv plus vdev->dmabuf_lock (on top of the 
-pre-existing vdev->memory_lock) rather than the device registration. 
-The device registration refcount should be cheap (like, not block or 
-contend beyond the atomic op), and wasn't the bit I worry about.  :)
+An LLM review found these bugs; I used an LLM-based assistant to write
+the patches and reviewed its work.
 
-The overhead is the single thread "this function does more stuff", plus 
-the scenario of threads both concurrently faulting.
+---
+Vladimir Kukharenko (2):
+      lib/crypto: arm/chacha: Handle lengths of 2 GiB or more in scalar code
+      lib/crypto: mips/chacha: Handle lengths of 2 GiB or more
 
-What's the baseline/fast path?  With an internal/VFIO mmap DMABUF we'd 
-at least need vdev->dmabuf_lock for its status, then the existing 
-memory_lock for existing reasons.  But once you have memory_lock then 
-(aside from the access cost of the atomic op) the new dmabuf_lock will 
-be cheap/uncontended in the absence of a blitz of concurrent exports. 
-(Export vs fault is a new performance dependency.)
+ lib/crypto/arm/chacha-scalar-core.S |  8 ++++----
+ lib/crypto/arm/chacha.h             |  2 +-
+ lib/crypto/mips/chacha-core.S       |  8 ++++----
+ lib/crypto/mips/chacha.h            | 20 +++++++++++++++++++-
+ 4 files changed, 28 insertions(+), 10 deletions(-)
+---
+base-commit: 40f47fa10a1d19c74f48a13d97b2eb19d5fb938d
+change-id: 20261014-libcrypto-chacha-32bit-2gib-5a3e5e36a061
+prerequisite-message-id: <20261014152604.323310-1-ebiggers@kernel.org>
+prerequisite-patch-id: f66d78884d3d0cf68e1efc9635c084c6b700352f
+prerequisite-patch-id: 64c39ea52fe4e25501701ffa262fb3525af29f0b
 
-[ Aside: when adding vdev->dmabuf_lock it occured that we could revisit 
-the tests in vfio_pci_vmf_insert_pfn() that require memory_lock, and 
-remove that lock from the fault path:  e.g. if we know a DMABUF isn't 
-revoked then that implies vdev->bars_revoked = false, and that should 
-already be in sync with pm_runtime_engaged, __vfio_pci_memory_enabled() 
-...  I haven't traced this all through. ]
+Best regards,
+--  
+Vladimir Kukharenko <vladimir@genproof.com>
 
-The one I worry about more is dmabuf->resv; if there are importers and 
-fencing then this'll now hold up behind them.  (But this is only for 
-explicit DMABUFs, and feels like the price you pay with P2P.  This won't 
-happen for internal/VFIO mmap DMABUFs.)
-
-My gut concern is mostly the straight-line cost of Taking More Locks, 
-rather than that they will be hugely more contended in the threaded case 
-(where threads will already interfere via memory_lock, and taking 
-dmabuf_lock under that is Unlikely to also contend).  Well, and
-dmabuf->resv.
-
-But I don't have measurements of this; more complex will obviously cost 
-more, though we don't yet know whether it's prohibitive or noise.
-
-I'd rather not split this function before it's a problem, so to speak, 
-as it'll be slightly more complicated.  What I'd do:  introduce a flag 
-to vfio_pci_dma_buf to indicate "was internal/external export" then use 
-this to do extra synchronisation, or avoid it for a VFIO mmap VMA. 
-(priv->file != NULL is more or less that, but might be cleaner with a flag.)
-
-Hmm.  I'll hack up a test to try to measure the relative overhead of 
-VMA faults before/after (modulo access to meaningful HW).
-
-> Hopefully we can get those selftests included to avoid regressions.
-
-We'll post more tests separately (there're some extra requirements, e.g. 
-"real devices"/device access to work through).  The existing tests go 
-some way regarding avoiding existing VFIO fd mmap() regressions.  The 
-liability of not bringing the DMABUF-mmap tests into this series is just 
-on that feature, at least.
-
-If anyone has tested this series (whether to see existing VFIO works, or 
-to try the new DMABUF-mmap/revoke) that would be great to know.  AlexM 
-and I have some ideas for further testing internally too.
-
-> Overall, I'm not finding too much to pick on in this series, but it
-> also hasn't collected much in the way of reviews.  For a fundamental
-> change like this, I hope we can get more eyes on it.  Thanks,
-
-I'm glad, I feel it's in a good state now.
-
-100% agree needs more eyes.  FWIW Kevin and Praan reviewed ~all of v5, 
-though I dropped their R-Bs because all of the patches have in some way 
-changed.  (Though most of the changes are very small, am a stickler for 
-process.)  Please, if they or others have time for another pass... <:-)
-
-
-Many thanks,
-
-
-Matt
 
