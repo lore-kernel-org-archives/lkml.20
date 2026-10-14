@@ -1,133 +1,176 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD41D34D38B;
-	Wed, 14 Oct 2026 02:37:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AC6B33998
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 02:38:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791945482; cv=none; b=CPsYH2k50AcMzqkNTmiyypwCkFmLphQDXrKegGN2/JFdNrx/5l7/Ic7myKMh0/xOAKuJMwzWfvwQdl998AkBKWTPsq5U6OunkkO9vy7jmfUlGE9+w2kIksMPu/JxDUqY/2Q3QmOAPWg6g50lJESoyBweVf688lGEol0LYhIyPXY=
+	t=1791945538; cv=none; b=Kgi5y0zoCIu7qgt/bHaJKQODKY1dJzSSOyi85u/QqBgWV6yd12V4jIJGU7ulo/qPmPl6SibdQ4n6igkRehwSI+8UXtTTI164jCebFAyK9xyF/DmJxHpAuP9ubjkGrWuq02HDmwe50F1CNzS/QlEAozrHJPG+ET2CBdkITKmrqQk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791945482; c=relaxed/simple;
-	bh=scJ+EWsWMxUow6/2SUGfnwaqxnKcMze8D+4kJaJJdmc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Deakz0kmWqx8jBRUwUYqPkFAF2Wk8W2Tn8kozzIGTRKGOvNugsL1cA20JFLHfhzdq6gWECM1mInktSfzEIzst+KpRtOKR5M2uecbYKLuLwPDf11Xso36tfJNkMf93gXHXp4GHufl1YMvIMFUsUMGFqgYn6TwICxu+Moi+zYIW8Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ZvF+1RLz; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791945538; c=relaxed/simple;
+	bh=ScelcZyE52ZQd8lA4ACXuwYHHmFqpRNhs5nb7pATNtM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=O54GEw7xcvHn7Se37RH2XCIys32PmRusSivoZ2BI8LdygPLZd0h9sSmDiLIoYqtA4SXtAEO/O1ff4GMUZ1ldYI5vBkG87RrEaJdcKLaCEwIfC5yHGO191VuWDaQ6+GBWuwpV9p9U31JiahO5Q6gJySf96wMjZj2H7A2/1M7thgY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=uGeFObiI; arc=none smtp.client-ip=209.85.160.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ZvF+1RLz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=I0
-	w+qZkGD3asKEmiLpBeCWvDurwKWMq+2vM6Ay/ZnHU=; b=ZvF+1RLzH+dlgPXviw
-	sjDvUcER0GwG71Ir+DQztMb+G3s6DfbNddHBivONf1voBLrVvTAB70LfuMWVXXwy
-	/zZ+FZMazTFEwQpNU5oKDgEZnu1K2drBf7le0qbsVudS1uVWFFKqYEZXW3WzDV5x
-	Aem58wsYHhx4h+iYbAaTG616s=
-Received: from colol4bi5.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3PxPv6s5qhGmrEQ--.895S2;
-	Wed, 14 Oct 2026 10:37:36 +0800 (CST)
-From: Binbin Deng <18983559317@163.com>
-To: dsterba@suse.com,
-	mason@kernel.org
-Cc: linux-btrfs@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="uGeFObiI"
+Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-5352a876d5aso47716781cf.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:38:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1791945536; x=1792550336; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=81rgxI9/Er4yjHtl/CLpwDXbGoyatzgl1W8u9x4gaMM=;
+        b=uGeFObiINLfqftF5nht5CHrSapcKy+LW/RBD6bqkxCPwUkzTjc5EPRw0UcLma52IOy
+         8kqEZDMTPk9O95FuNdA/R2K7NQwUzUR64Wag6M10t/VuG8LBUewCbOOl4IRlnKdnCcIt
+         DjWEhBfmNbXly/g3H5QaPW3Z3k8Bm4914X72W7SqhOpol9xKw/8bdzcFaTCMzboI3tcm
+         qPIYE01tbkU2+DQTMKdY6/RISSETnh09xnGLaocDI5XBoejNd00UuVDU1bG58n2i+rIs
+         MN3H+QOtOHoM3Ly9IcahRtFkOVgbTofgRgDEUDowIDE3isLsivhdrvyPdD7fEiTL7rNz
+         T0/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791945536; x=1792550336;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=81rgxI9/Er4yjHtl/CLpwDXbGoyatzgl1W8u9x4gaMM=;
+        b=KIEfFTufyfsM/7RYZ6s5owGZGdPe1Tlx9VWAj2Wwpj9m1PaAMGP2sEKt9Va+HDQ2PV
+         ErZFFvnNdrBzsGqaNABs6asCha0bpvTDmnd2G0r2BtTg38K3bslS8L0vNHgPKxNJzlNK
+         tggIMV3oTXIscKBAUXHgKSubZCPe37uOsbWevmajT2PxhxEzmLjcluI0bL6IXa3RnUeN
+         RJDGG2u1Fpe42ACSVeSZp4C5PIcmmvv0QChRHE2qas32kfzsgDfKo4VNvu1NzoAj/eUn
+         sweVxI6fqExSYrPXBtzaymbBx6fLpr7q+RQOuCfT4wskKWW6WzR47DyTuTm9taIPeq7/
+         a1iQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxfad/l9Kzm+l0OxQoB/fCPzYI8NJsbMtYH0lWXFwachKkAlJsXI46LWTIKzCIZIdoJ/Cx+wHg1AzMSOio=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKOI+92aruUxSMGUqH5SF1TY/K6tBgd6hCIYTqaMv1hDWImDG5h
+	ZYuQ3fbWPSrLgVerA/eGWXHroLZdVrObZn+ov+U4hTywZzg+Q5cwePE2tU3fWNVVUlQbw/79dx9
+	SXBrkSQ==
+X-Gm-Gg: AYBFou0G/3qSvg6er7qpYgHIfQbH/1dxpIuEKFnE8zH6jIn3fZCvyUzF0Xj+eMhzYt5
+	6jlOInOi06Td5826/nW3ojj3I/lHKgBIBz77MyhKgsfYnyeKSmSiKcR0PEQNagdPfjy9tV4kymA
+	SBy6sWqIYxhpZi3uDIKLqewolzYahtEyS95GbyAvhNjMk/VJrBV+s+R7CDVbsui5oxIGq0gHZCl
+	SK1bb04z6qPkScgxpbmhyzEnjSdOcW/6bGG0OxdX+6XEC7I/fkiVM+5iJo/2Ydl6t8bpw3FQbSE
+	wW5vkuz5Od1l1pu/WOrvLcjm6QdmlY+LnPYJ1ReiECiDL1iTtqPJ6eHIbxuyehf58RyiqBqVjon
+	tro/FOftZfbzJ6otiSGY9BwBOoGie+sVK7uXS+tjaE5o4EP4tSI4mW6ppj2JYLt3pm9aLmP9yzs
+	1fv2l9oIICfRV47DrkvcBb5Wzpcvh19SJJ5yKZ/oarE0zG2Xpgm7OinjA5ubf93exYmpD0RMg=
+X-Received: by 2002:a05:622a:2483:b0:534:b7b2:6353 with SMTP id d75a77b69052e-5359fdcab5bmr204146021cf.56.1791945536079;
+        Tue, 13 Oct 2026 19:38:56 -0700 (PDT)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210::4791])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5359b7c0214sm116472561cf.25.2026.10.13.19.38.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 19:38:54 -0700 (PDT)
+Date: Tue, 13 Oct 2026 22:38:51 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Johan Hovold <johan@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	driver-core@lists.linux.dev, linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Binbin Deng <18983559317@163.com>,
-	Qu Wenruo <quwenruo.btrfs@gmx.com>,
-	Daniel Vacek <neelx@suse.com>
-Subject: [PATCH v3] btrfs: wait for a grace period before freeing a new device
-Date: Wed, 14 Oct 2026 10:37:33 +0800
-Message-ID: <20261014023733.266854-1-18983559317@163.com>
-X-Mailer: git-send-email 2.43.0
+	Mario Peter <mario.peter@leica-geosystems.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] driver core: take parent lock on deferred probe
+Message-ID: <9803935c-11d9-48a0-8d4c-95c478a724a8@rowland.harvard.edu>
+References: <20261013140615.1226992-1-johan@kernel.org>
+ <DM3WA69YX6WE.2Q4DY9MIU7A0L@kernel.org>
+ <ba24846a-7403-4bb1-a0cb-869cf1d44e05@rowland.harvard.edu>
+ <DM40HVOBKMFI.3W1DK371ZWI80@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3PxPv6s5qhGmrEQ--.895S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxAF4kGw13KF45ZrW5ZF4fKrg_yoW5Aw15pr
-	9Iga45JFWDJr1kAr4xCw429r1rX39Y9ayayrn7Kr4I9a4fJ34Yvry0k34UuasxCrWrJFyU
-	Za4jywn8Ja1jyw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U3u4UUUUUU=
-X-CM-SenderInfo: jprymmytvvmjmrxbiqqrwthudrp/xtbC4BBFKWrO6vDNDwAA3g
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DM40HVOBKMFI.3W1DK371ZWI80@kernel.org>
 
-KASAN reports a slab-use-after-free in btrfs_statfs() walking
-fs_devices->devices. btrfs_init_new_device() publishes the new device
-with list_add_rcu() and can fail afterwards, for example with -ENOSPC
-in init_first_rw_device() when a user with CAP_SYS_ADMIN adds a device
-that is too small to a seeding filesystem mounted read-only. The error
-path removes the entry with list_del_rcu() and frees the object in
-btrfs_free_device() without waiting for a grace period, while
-btrfs_calc_avail_data_space() and btrfs_ioctl_fs_info() keep reading
-the device list under rcu_read_lock().
+On Tue, Oct 13, 2026 at 11:01:16PM +0200, Danilo Krummrich wrote:
+> On Tue Oct 13, 2026 at 9:11 PM CEST, Alan Stern wrote:
+> > On Tue, Oct 13, 2026 at 07:43:08PM +0200, Danilo Krummrich wrote:
+> >> On Tue Oct 13, 2026 at 4:06 PM CEST, Johan Hovold wrote:
+> >> > +void bus_probe_device_deferred(struct device *dev)
+> >> > +{
+> >> > +	if (dev->parent && dev->bus->need_parent_lock)
+> >> > +		device_lock(dev->parent);
+> >> 
+> >> This looks like it has the same potential UAF as the other patch.  It's quite
+> >> unfortunate we need the whole need_parent_lock thing just for USB.  IIUC the
+> >> main reason USB needs this is because interface devices share resources of USB
+> >> devices and we need to keep the locking order to avoid inversions, right?  Is
+> >> there more to this from the USB side of things?
+> >
+> > That's pretty much it.
+> >
+> >> I think we can probably do something like this
+> >> 
+> >> 	struct device *parent = NULL;
+> >> 
+> >> 	scoped_guard(device, dev) {
+> >> 		if (dev->p->dead)
+> >> 			return;
+> >> 	
+> >> 		if (dev->bus->need_parent_lock)
+> >> 			parent = get_device(dev->parent);
+> >> 	}
+> >> 
+> >> to avoid the problem, but it's still a bit ugly.
+> >> 
+> >> > +	__bus_probe_device(dev);
+> >> > +	if (dev->parent && dev->bus->need_parent_lock)
+> >> > +		device_unlock(dev->parent);
+> >> > +}
+> >
+> > Wouldn't it be simpler just to make each USB interface take a reference 
+> > to its parent device?  And likewise for USB devices, if needed?
+> 
+> The driver core already holds a reference count of the parent between
+> device_add() and device_del(), which is where a "parent" is technically defined.
+> But the deferred retry can extend beyond device_del().
 
-BUG: KASAN: slab-use-after-free in btrfs_statfs+0x11af/0x14a0
-Read of size 8 at addr ffff8880096be858 by task poc/252
-Call Trace:
- <TASK>
- dump_stack_lvl+0x53/0x70
- print_report+0xd0/0x630
- ? __pfx__raw_spin_lock_irqsave+0x10/0x10
- ? filename_lookup+0x1a9/0x540
- ? btrfs_statfs+0x11af/0x14a0
- kasan_report+0xce/0x100
- ? btrfs_statfs+0x11af/0x14a0
- btrfs_statfs+0x11af/0x14a0
- statfs_by_dentry+0x117/0x1e0
- user_statfs+0xac/0x130
- ? __pfx_user_statfs+0x10/0x10
- __do_sys_statfs+0x80/0xe0
- ? __pfx___do_sys_statfs+0x10/0x10
- do_syscall_64+0xf9/0x540
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+There could be another reference that extends all the way to the child's 
+release.
 
-Allocated by task 256:
- kasan_save_stack+0x33/0x60
- kasan_save_track+0x14/0x30
- __kasan_kmalloc+0x8f/0xa0
- __kmalloc_cache_noprof+0x158/0x370
- btrfs_alloc_device+0xad/0x3e0
- btrfs_init_new_device+0x3e8/0x36e0
- btrfs_ioctl+0x150d/0x6c20
- __x64_sys_ioctl+0x134/0x1c0
- do_syscall_64+0xf9/0x540
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> USB interfaces already take an additional reference to their USB device in
+> usb_set_configuration() and drop it in usb_release_interface(), so they should
+> already be protected against this particular UAF.
+> 
+> The issue concerns a USB device and its parent hub's USB device.  (This makes me
+> wonder whether probing a USB device actually requires the parent USB HUB
+> device's lock to be held, or whether this is just a consequence of sharing the
+> same usb_bus_type?)
 
-Freed by task 256:
- kasan_save_stack+0x33/0x60
- kasan_save_track+0x14/0x30
- kasan_save_free_info+0x3b/0x60
- __kasan_slab_free+0x43/0x70
- kfree+0x121/0x380
- btrfs_init_new_device+0x4a0/0x36e0
- btrfs_ioctl+0x150d/0x6c20
- __x64_sys_ioctl+0x134/0x1c0
- do_syscall_64+0xf9/0x540
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+The latter.
 
-Fix by waiting for an RCU grace period after the device is removed
-from the list and before it is freed.Place the synchronize_rcu() after
-dropping the mutexes and before the `error_trans` label.
+> In theory a USB device could also keep a reference count to its parent, but then
+> the driver core code would rely on an implementation detail of its users; I'd
+> prefer not to make driver core's access to dev->parent depend on references
+> maintained by individual subsystems.
+> 
+> I'd even go a step further any say that if subsystems try to keep this pointer
+> valid beyond what's guaranteed by the driver core, they should do this with a
+> separate bus specific pointer.  The reason is that otherwise the lifetime and
+> ownership definition of this pointer does not depend on API contracts, but on
+> individual implementation details, which is a very common source for all kinds
+> of bugs.
 
-Fixes: 1f78160ce1b1 ("Btrfs: using rcu lock in the reader side of devices list")
-Signed-off-by: Binbin Deng <18983559317@163.com>
-Reviewed-by: Qu Wenruo<quwenruo.btrfs@gmx.com>
-Reviewed-by: Daniel Vacek<neelx@suse.com>
----
- fs/btrfs/volumes.c | 1 +
- 1 file changed, 1 insertion(+)
+I was going to suggest that the driver core could acquire and release 
+these extra references automatically for devices on a bus with 
+need_parent_lock set, but it looks like that can't be done because the 
+bus_type might not yet be set when device_initialize() runs.
 
-diff --git a/fs/btrfs/volumes.c b/fs/btrfs/volumes.c
-index 85ea9c5d4536..2693dacd1da7 100644
---- a/fs/btrfs/volumes.c
-+++ b/fs/btrfs/volumes.c
-@@ -3168,6 +3168,7 @@ int btrfs_init_new_device(struct btrfs_fs_info *fs_info, const char *device_path
- 	btrfs_update_per_profile_avail(fs_info);
- 	mutex_unlock(&fs_info->chunk_mutex);
- 	mutex_unlock(&fs_info->fs_devices->device_list_mutex);
-+	synchronize_rcu();
- error_trans:
- 	if (trans)
- 		btrfs_end_transaction(trans);
--- 
-2.43.0
+However, is there any real reason why the driver core wouldn't want to 
+guarantee that dev->parent will be a valid pointer up until the time 
+when dev is released?  For every device that has a parent, not just USB?
 
+On the other hand, there's something a bit weird about this whole thing.  
+The problem arises when you want to probe a device whose parent has been 
+deleted.  Isn't there some sort of protection to prevent that from ever 
+happening?  I mean, doesn't deleting a device imply that all its 
+descendants have been (or are in the process of being) deleted?  And of 
+course, deleting and probing are mutually exclusive -- they can't race, 
+right?
+
+Alan Stern
