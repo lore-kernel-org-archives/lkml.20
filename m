@@ -1,112 +1,62 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A1AB37C90B;
-	Wed, 14 Oct 2026 18:07:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD4F85616AE;
+	Wed, 14 Oct 2026 18:08:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792001279; cv=none; b=nbuaUGpenui8bbHfx7CJ8cMIE3/kf68Lg56OnrSPIvITShZZPSyec6I1FHopc4dUpDClzKP97qz4d8sQCCVdH+V9YoYsCCh5C/Cs6c2aIE085d9stNp4Cor52MFQTMNSOR3Vdyc5bfY/wpWsyHsl1ZPLuiX860oYMA5v7bLkaJQ=
+	t=1792001310; cv=none; b=CXpc54yla8EqbrNZC+DjDojGMaf4hkMQWbPVNd/9HhHajO6Aw3k4pV08DRol1VkgWRjFwizfpxJIYTf+6r9NvnwimsP/g4E2dYE9D70u/BvPoP6cYFhHWeYio8j2mFy9pZKreTvik9JEBPK9svKoBngjC9XM+MvUuEiH/XJYthw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792001279; c=relaxed/simple;
-	bh=y+Nd+kuMcNDghQJ+k5iJOCUpJlukDHtSE4PiH33+90U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HGDvNoB3j8Oxe/L3+fAV8bVgBjcxLmxn0gDREo79xRryXtV3hOwmDfeF65fMs77MS5J14MkEVbrpnzr5Kc19Win5imfhcOkXN83M4NrMjTn1w3Ozc6PWQxS4PzM38UWjQdv8gOIqa+KtdI0r1LtizenEJCI5Wb0rxAIpE9kMNl4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=G3P/Joh8; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
+	s=arc-20240116; t=1792001310; c=relaxed/simple;
+	bh=O9QAb4cT19cQrmU9QK3dbb4DiRCzx0j6VWtrSOzT/YA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fa6ySRjP/RKojeYWj4CH6WQKRMiGdX/2THBZ9G4XJBVjpquPBuFKa4M8tFCOTdI6hYPosgyEUMxWOqyUpQktkrt4ZK8RnK6l4e07YHWUkR14h34HQIyQddSH5+G9uDVEnjtPSmQszY4xsK+/kXCXOlZIcGJjCdi2nxR+LrhAqeo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cfx0G1dR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="G3P/Joh8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
-	s=201707; t=1792001275;
-	bh=DBsylmieXlH7jN4lQzs3+azlJUaS53ZlHvjnKa/pZyU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=G3P/Joh8VxsWKZD77wjVjEsdrEuCe0iMj5OoD+01Tc4snAwR0d0ut2CGkYADYIVWO
-	 lVd3paktWgKEkNFfCS04XvlDnw9WXH6ROInP1ff43Unn3dN2s6jGQLj3Y8/CLt/Msk
-	 6hbpzuGQ5lvJQW2Lii1rTzFnibHWD3vW3pHbmjhhaxQFlyt/ui4tRbNU/JPW0mXamJ
-	 lotdYno1jCLuv2jbaY0cSWgxE5d39w0RS+qczN9qArNLXkR96A0igpzLbjtkHtXGdK
-	 pMyiWuQTz9WB/VYpj62fiSVbURyvFTF85lIr7NbPrDnfh1kg8rzS1tKDwltF6piA5I
-	 AN+3ZbullBfyA==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(Client did not present a certificate)
-	by mail.ozlabs.org (Postfix) with ESMTPSA id 4j4fLr3nYgz4wDf;
-	Thu, 15 Oct 2026 05:07:48 +1100 (AEDT)
-Message-ID: <2d454220-61e1-48e2-8515-112393ffb3ad@ozlabs.org>
-Date: Wed, 14 Oct 2026 19:07:46 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cfx0G1dR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E14711F000C4;
+	Wed, 14 Oct 2026 18:08:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792001308;
+	bh=Au3LNpF2hUg5xkBv3JpQ9J5GcYVRPUaLDT906GDhkkQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Cfx0G1dRgMNLo0iM3NmZK8XJOB2BFB9HB4XAZm0dcHDa39O3+PHvzqLD+bFFbZ5XU
+	 CO7Cvf+BUhrG9mV7cn9u+hrPuXP5VGFZgB+JW4lSyJ/79un/CNw2OoS3rS9NeAXBdY
+	 KBiK6ueSPHbeqs7Ulq9QKAVs7zlOofpLMMe8zDevqAWKGpUBjXcdog+fNRpb4Ew8xR
+	 ndbdaLOj7y9/miUYnBDNf2jauFsA0g5hqHF6Nc4K7yyExEwdubwQ49mXtQsOr+vPD3
+	 QLbXVnyS1B7I1U/nFfIEo0ItJU+PXB21lkkZo+ZzkoxQaD8ksQtoMow96sgO0IeWLI
+	 StkcXiA5nGoAQ==
+Date: Wed, 14 Oct 2026 19:08:26 +0100
+From: Harry Yoo <harry@kernel.org>
+To: Tal Zussman <tz2294@columbia.edu>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Muchun Song <muchun.song@linux.dev>, cgroups@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] mm: memcontrol: remove mod_memcg_page_state()
+Message-ID: <as_FB6P5YAhc7B1A@thinkstation>
+References: <20261014-memcg-unused-page-helpers-v1-0-240b37c53831@columbia.edu>
+ <20261014-memcg-unused-page-helpers-v1-1-240b37c53831@columbia.edu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 7/9] vfio/pci: Clean up BAR zap and revocation
-Content-Language: en-GB
-To: Alex Williamson <alex@shazbot.org>
-Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Alex Mastro <amastro@fb.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Kevin Tian <kevin.tian@intel.com>,
- Pranjal Shrivastava <praan@google.com>, Longfang Liu
- <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
- David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
- <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org
-References: <20261006193643.76330-1-matt@ozlabs.org>
- <20261006193643.76330-8-matt@ozlabs.org>
- <20261013171352.1c467040@shazbot.org>
-From: Matt Evans <matt@ozlabs.org>
-In-Reply-To: <20261013171352.1c467040@shazbot.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014-memcg-unused-page-helpers-v1-1-240b37c53831@columbia.edu>
 
-On 14/10/2026 00:13, Alex Williamson wrote:
-> On Tue,  6 Oct 2026 20:36:35 +0100
-> Matt Evans <matt@ozlabs.org> wrote:
->> diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
->> index cb0e4865d110..986852b1d44f 100644
->> --- a/drivers/vfio/pci/vfio_pci_core.c
->> +++ b/drivers/vfio/pci/vfio_pci_core.c
->> @@ -1337,13 +1338,18 @@ static int vfio_pci_ioctl_reset(struct vfio_pci_core_device *vdev,
->>   	 * have NoSoftRst-, the reset function can cause the PCI config space
->>   	 * reset without restoring the original state (saved locally in
->>   	 * 'vdev->pm_save').
->> +	 *
->> +	 * The zap is done after making the device accessible in D0,
->> +	 * because a DMABUF importer could access the device as part
->> +	 * of its revocation cleanup.
+On Wed, Oct 14, 2026 at 01:08:20PM -0400, Tal Zussman wrote:
+> The last caller was removed in commit c466412c73c3 ("mm: memcontrol:
+> switch to native NR_VMALLOC vmstat counter"). Remove it.
 > 
-> Nit, s/zap/revoke/
+> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+> ---
 
-Doh, done.  Also cleaning up a "zap/revoke" in the 
-vfio_pci_dev_set_hot_reset chunk.
+Looks good to me,
+Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
 
-Thanks
-
-
-Matt
-
-
-> 
-> Thanks,
-> Alex
-> 
->>   	 */
->>   	vfio_pci_set_power_state(vdev, PCI_D0);
->>   
->> -	vfio_pci_dma_buf_move(vdev, true);
->> +	vfio_pci_revoke_bars(vdev);
->> +
->>   	ret = pci_try_reset_function(vdev->pdev);
->>   	if (__vfio_pci_memory_enabled(vdev))
->> -		vfio_pci_dma_buf_move(vdev, false);
->> +		vfio_pci_unrevoke_bars(vdev);
->>   	up_write(&vdev->memory_lock);
->>   
->>   	return ret;
-> 
-
+-- 
+Cheers,
+Harry / Hyeonggon
