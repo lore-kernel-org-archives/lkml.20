@@ -1,179 +1,93 @@
-Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-51.mta0.migadu.com [91.218.175.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 409B23DB65A;
-	Wed, 14 Oct 2026 16:05:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 806153DB651
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:06:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791993935; cv=none; b=ij2bYlsJ4NoZ5EE/wse/n2OJ0Ok7DX19L0XPlQ+M9QxwrO1X8t3ez6GWrkqtzsPcVoGwcN8vBqyEcrMNVMcgCqsw3YQGcWpzA1AOE0Jl9Tozu5XXlfadA6ZK/WA18XnbB23e3Y4/piVGoe5cE/Ql/grAUkW+Gub916GJ2KNqCmg=
+	t=1791993969; cv=none; b=SErWCnw/1oWdZKGgSJlT8O3rOO5uWBazrxDIe+snxJGUVM7p9q74FHu6LCIlc0jl6ij1a0oVBfLPjJB7QaZ2UDz5yD4sLS8p4O7CLATik0/3b6y8Td/6uoKxAmfTvCjGKwWGS60dVU3ndqbrY83cjypv1Ctbk41YGPcrZE9invY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791993935; c=relaxed/simple;
-	bh=TvVa8VD1/jSgIE5rJZj/6VyTJ2z2mRr4KL+bt64zyp4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nehNNw3+P/bNq+hiJOFtJqxlSBbGQEYS0u6Ac3ElljAL5o0BoCL6DDhoyOHuNkRoTqmBkoiTbw4fTXbJMGHgK9fWRQaU99FgM5/WfX2IN1WvA4YdfAM6Gu5inKJ9P2uhe8N9M9GqsQb0UbFcYkHJrw8RsZHxxnhosiYfYVQ+a9s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=g7h5Tw52; arc=none smtp.client-ip=216.40.44.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1791993969; c=relaxed/simple;
+	bh=Ke8/Rh7e75umDrgNFQd+uBhuuNnz5z+dEUkUPgAImPk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=djWjRjDdAvc628WuKuHC0PZ0+jyO8L9n1vFcBfcJkd4SFFur7eKq2gWemTdeWov48haCfqK9JAZI0qZyGLgE2pZPE5FfwcxINmRZuR20yIIDsIe8i6URZ8wS1VWdjBXAFGc42iOSZVyVZt0D0tEVoc9YlPvQLV7A8NM7K1wEDsc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FwaBZg2e; arc=none smtp.client-ip=91.218.175.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="g7h5Tw52"
-Received: from omf14.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay02.hostedemail.com (Postfix) with ESMTP id ED5B012065D;
-	Wed, 14 Oct 2026 16:05:26 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf14.hostedemail.com (Postfix) with ESMTPA id D8B2C34;
-	Wed, 14 Oct 2026 16:05:22 +0000 (UTC)
-Date: Wed, 14 Oct 2026 12:05:24 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner
- <tglx@kernel.org>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Frederic Weisbecker <frederic@kernel.org>, Clark Williams
- <clrkwllms@kernel.org>, Boqun Feng <boqun@kernel.org>, Lyude Paul
- <lyude@redhat.com>, Joel Fernandes <joelagnelf@nvidia.com>, Alexander
- Potapenko <glider@google.com>, Marco Elver <elver@google.com>, Jonathan
- Corbet <corbet@lwn.net>, Bradley Morgan <brads@mainlining.org>,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-rt-devel@lists.linux.dev, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, "Mukesh Kumar Chaurasiya (IBM)"
- <mkchauras@gmail.com>
-Subject: Re: [PATCH v6] softirq: Preserve interrupt context during IRQ exit
-Message-ID: <20261014120524.5e6e6efe@gandalf.local.home>
-In-Reply-To: <20261011060742.30584-1-kmehltretter@gmail.com>
-References: <20261011060742.30584-1-kmehltretter@gmail.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FwaBZg2e"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Ke8/Rh7e75umDrgNFQd+uBhuuNnz5z+dEUkUPgAImPk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791993963; v=1; x=1792598763;
+ b=FwaBZg2eq3VhmsBTg9fp+TgUc+hVxRwtrbL08KUSyDZQz+t272ehLbGesowe40gOETm1o+Lp
+ 0KjUZ3KdC1ZZGEksiLNdmsd51PUT0KA/FHqHhC76L5Lwukg1swCXHX8ihGcLHhFyQbm7Gs9/5bq
+ uCCFfF27YeICVpirSAdsS8Xw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id cba1a5ea51b66b58;
+	Wed, 14 Oct 2026 16:06:03 +0000
+X-Mizu-Trace-ID: cba1a5ea51b66b58
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 14 Oct 2026 09:06:00 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Michal Hocko <mhocko@suse.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Muchun Song <muchun.song@linux.dev>, Tejun Heo <tj@kernel.org>, 
+	Meta kernel team <kernel-team@meta.com>, cgroups@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH for-7.5 4/5] memcg: avoid queuing high_work from reclaim
+Message-ID: <as97Nzob4XuzO9Ss@linux.dev>
+References: <20261010210957.1350874-1-shakeel.butt@linux.dev>
+ <20261010210957.1350874-5-shakeel.butt@linux.dev>
+ <as9p2uFqCQprwdnI@tiehlicka>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout07
-X-Rspamd-Queue-Id: D8B2C34
-X-Stat-Signature: 4ytci1imuk6j68rhem6xiqeus5bpcii4
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18kNUPpWgNdwoIYJtq6y1/YSNUaniTWa2Q=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=wgnkwS81DfcOH3m8SDI9jB+FxQMIwgwNYQYXq22rC+g=; b=g7h5Tw52Bk8d79HZYF2VBj+bjy7gLs+wPGWbBfXgn1TdVukCGhWCITdKnZ7MLmPsvXhBTjd2L/5fio6w1DIVwVEYwSKLEr0itAiFVPzU/6wuo6lSe3e6E+SLHsow0eF3/oa9py0wNCLLL7mSXB6mOA1uIsj2N25pd4fmFZEecco=
-X-HE-Tag: 1791993922-392996
-X-HE-Meta: U2FsdGVkX1/GohG4bVfb6S1Vt0LfBt9h+d0r0pWOzdtSqJCxoHdavacBAITVFOr6RWFwqXh92ZPryF7AY/lYJIeqz0QmZfun7Z0X7V0FI1H0wwigS9LVXo6RnEilfvgv1fe1EDRV5Cl6T2+4FaPxmnKX3aen8ZGs7Omm21udh4XN4/oBIy5GWT+8SFRrtwDr4jf57UaR18qSaAPZohWYhRPeZ0P1zrPZb/uK9LZ33X22NhTMBxoiOwtsJnUZx+IWyMN825jI8vBLdMvFEEEeJaaNT7Gim7H21R6ClvffLpvg4yVGaPoYoOsk/0uhc1fQ2JqerFIuacs6aXfgms4AOIaLG5NuDKl7sZINXwj/6cBrLKHZ8Uj9+VTEWtnUp8BGRHoYWZC/17jnNwIzsQ+ZoXUqkSRifuHy+ohhvSkto5OZs8fYPxKNh8y2XZnksULd0t7m9gZDxqlmPzFXMlDuxgpDRhN5S5gh4EKAwcF5lOs=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <as9p2uFqCQprwdnI@tiehlicka>
 
-On Sun, 11 Oct 2026 08:07:42 +0200
-Karl Mehltretter <kmehltretter@gmail.com> wrote:
+On Wed, Oct 14, 2026 at 01:39:06PM +0200, Michal Hocko wrote:
+> On Sat 10-10-26 14:09:56, Shakeel Butt wrote:
+> > Kernel threads and remote chargers use high_work when memory.high is
+> > exceeded. Their allocations during reclaim can also charge memory,
+> > for example when zswap stores a page.
+> > 
+> > Without a check, the high_work worker can queue itself from its own
+> > reclaim. The pending bit is cleared before high_work runs, so each run
+> > can queue another run.
+> 
+> What does that mean really? Does this delays the actual run?
 
-> __irq_exit_rcu() removes HARDIRQ_OFFSET from preempt_count() before
-> the IRQ exit work. On the outermost IRQ exit, with no NMI or softirq
-> state remaining, this makes context checks report task context. The
-> softirq-dispatch, timer-wakeup and tick-exit checks account for the early
-> decrement, but other code reached in this window sees the wrong context:
-> 
->   - ftrace, perf and the ring buffer record task context and use the
->     task recursion and context slots.
->   - KCSAN attributes accesses to the interrupted task. KMSAN uses and
->     changes the interrupted task's KMSAN context. KCOV and the printk
->     caller id see a task.
->   - On PREEMPT_RT can_spin_trylock() and local_trylock() reject hard
->     interrupt context to avoid interfering with PI when the interrupted
->     task is blocked on a lock. Those checks do not reject calls made in
->     this window. BPF programs attached to sched_waking or sched_wakeup
->     can reach the trylock path through kmalloc_nolock().
->   - An oops kills the interrupted task instead of ending in "Fatal
->     exception in interrupt".
-> 
-> The early decrement predates git. No failure caused by this
-> misclassification is known. lockdep is unaffected because
-> lockdep_hardirq_exit() is the last operation in irq_exit().
-> 
-> Keep HARDIRQ_OFFSET until the end of __irq_exit_rcu(), including
-> tick_irq_exit(). Softirq handlers must run in BH context, so replace
-> HARDIRQ_OFFSET with SOFTIRQ_OFFSET while they run and restore it
-> afterwards. Use one raw counter update for each transition to preserve
-> the preemption disable location recorded by irq_enter_rcu(), and update
-> lockdep explicitly. Detect IRQ exit with in_hardirq() in
-> softirq_handle_begin() because __do_softirq() can be reached through
-> do_softirq_own_stack() and cannot take an argument.
-> 
-> Adjust the exit checks for HARDIRQ_OFFSET still being present. Use
-> irq_count() == HARDIRQ_OFFSET for softirq dispatch, as in irq_enter_rcu().
-> Use hardirq_count() == HARDIRQ_OFFSET for the timer thread wakeup and
-> tick_irq_exit(). NMI exits use a separate path. An IRQ nested in an NMI
-> has an extra HARDIRQ_OFFSET from NMI entry, so it is excluded too. The
-> timer thread check must ignore softirq_count() to allow wakeups when an
-> IRQ interrupts softirq processing or a BH-disabled section. The timer
-> thread handles all pending softirqs, including any raised during its
-> wakeup.
-> 
-> A softirq raised from a tracepoint on the final preempt_count_sub()
-> waits for the next interrupt exit and can trigger NOHZ tick-stop
-> warnings. Handling that instrumentation case does not justify a check
-> on every interrupt exit. A tracepoint on tick_irq_exit() can also raise
-> a softirq after the normal softirq handling has finished.
-> 
-> The number of counter updates and interrupt time accounting are
-> unchanged. The preemptoff tracer now reports the interrupt and subsequent
-> softirq processing as one section. With nofuncgraph-irqs, function graph
-> tracing also skips the IRQ exit work, including the __do_softirq() frame.
-> 
-> Suggested-by: Peter Zijlstra <peterz@infradead.org>
-> Link: https://lore.kernel.org/r/20260813130826.GW687043@noisy.programming.kicks-ass.net
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> ---
-> 
-> Changes in v6:
-> - Keep HARDIRQ_OFFSET through tick_irq_exit() and use
->   hardirq_count() == HARDIRQ_OFFSET for its nesting check (Frederic).
-> - Update entry.rst to document NOHZ handling before the final
->   preemption-count decrement.
-> - Test in_hardirq() directly in softirq_handle_begin() (Frederic).
-> - Drop the in_nmi() test from the timer thread wakeup condition
->   (Frederic). NMI entry adds HARDIRQ_OFFSET, so the equality check
->   excludes IRQs nested in an NMI.
-> - Drop the earlier Reviewed-by tags pending reconfirmation of the
->   tick_irq_exit() behavior change.
-> 
-> Testing:
-> QEMU IRQ-exit probes (v5/v6):
-> 
->                                                         v5          v6
->   Tick-exit calls (hardirq/total)                   0/5553   5339/5339
->   Tick-exit function-graph records                    5555           0
->   KMSAN selections (task/total)             427205/3492324   0/2992433
-> 
-> The two tick-exit rows count tick_nohz_irq_exit(); function-graph
-> tracing used nofuncgraph-irqs. Captures had timer activity and zero
-> trace loss.
-> Each KMSAN kernel passed all 28 KUnit tests; those tests generated all
-> KMSAN reports.
-> 
-> Additional testing covered 67 guest boots and 10 kernel/softirq.o builds
-> across five architectures, including RT/non-RT stress, KCOV
-> configurations and 600-second rcutorture.
-> The KCSAN probe deliberately triggered reports to check IRQ-exit
-> context.
-> 
-> Matched configurations of the unpatched base and v6 were compared on
-> Pi 400, Pi 500+, BeagleV Ahead, AMD/KVM and UP ARMv6 Pi 1B+. Pi 500+ and
-> AMD tick-exit traces confirmed hardirq context with v6 and zero trace
-> loss. The NOHZ_FULL tick stopped on both versions on Pi 500+ and BeagleV
-> Ahead. Pi 1B+ base/v6 workloads completed without reported errors.
-> 
-> On physical SAM9X75 (cpuidle-at91), base/v6 tick-exit traces showed
-> hardirq flags in 0/556 and 540/540 calls, with 558 and zero
-> function-graph records under nofuncgraph-irqs. Both kernels showed idle
-> and Ethernet activity, with zero trace loss.
-> 
-> On Pi 500+, accounted CPU time exceeded wall time under intermittent
-> workloads on both the unpatched base and v6. No v6-specific regression
-> was established.
-> 
+It will not delay the actual charge request. This mainly means that we keep
+enqueing the high reclaim work even from high reclaim context and can
+potentially keep wasting CPU if high reclaim is not very successful.
 
-LGTM.
+>  
+> > Skip memory.high enforcement for charges from task context with
+> > PF_MEMALLOC set when they would use high_work. This covers kernel
+> > threads and remote charges. The memory is still charged. Interrupt
+> > charges keep their current path.
+> > 
+> > In a VM with incompressible zswap data, the worker queued itself 163 times
+> > without this check.
+> > 
+> > Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+> 
+> The patch itself looks OK. I am wondering whether we can unify the check
+> with the existing one which forces the allocation through in main
+> charging path.
 
-So this handles the transition between hard irq and softirq?
+The force charge (and ENOMEM) paths bypass the memory.high enforcement
+altogether. Only successful charges (done_restock label) goes through
+memory.high enforcement. So, even if we move this check in try_charge_memcg, it
+will still be a separate check before calling high enforcement function. I think
+this check is very high_work specific and better to be in the high enforcement
+function.
 
-I wish there was a way to get preempt count updated earlier on entering a
-hard irq so I can get rid of the transition bit in the trace recursion. As
-there's still places that can trigger a trace in the hard irq before
-preempt count is updated.
 
--- Steve
