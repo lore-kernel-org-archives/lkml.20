@@ -1,173 +1,409 @@
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D8EC4F0546
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:17:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.179
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791991044; cv=pass; b=jp50nqf8/NNkLalIZmlSXIqxcoy/8Fz5ivGh4mMSQaZp521f8Xlhpx8MzrSAKTDMMff7h2swRV9hNgQIQAJQR5kcfd3SJb7q1WZIzQjEucfpxwalLzl1xsSbN2grJC6bsq33Gf53P6ChadGlcn/8sYWpeW12PXs3ELwj6NCXfbU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791991044; c=relaxed/simple;
-	bh=jLB54/QzegPM53gETkuOD8YqbMdS4BgCNjOmDHesM9o=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01EC14F30E3
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:17:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791991059; cv=none; b=pIsLEFY1R9v5P6mr3P8r1awR6WE3weDr/i6Bh6b0M/Vdi3BWos0d6+DsRjgSqk7f7weA+JrbKMmr80b96HPrj+l4puZdBZ7PfsMmCRAY/IHcsoI/Z6/3dvhSXR4fZXb2cUqvlpoAn4ws+6xWtWdRHIfI7hyMT4qDcVkORMMMmEw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791991059; c=relaxed/simple;
+	bh=vNerpuuZLI7loM8/rKJpG2hQ/ndg9Py+tx+BsMldyWA=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cGu8qXs/KB55fBXdHFO2O12RSac2TacrOsdY7FJ80jVh6A9gZHRtlsu8Q1idyFzpM/Zzagk6j9n2GX95HJHs9CFi/sWrd7vPlImoXa1oS0oKPsKEHxWj1Sj/rg/cvWn0e6bHU8EZ8eeEuMXN6pNNNmIgWnuE2Yz033E35k1OUBo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G82B7O4q; arc=pass smtp.client-ip=74.125.82.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=YvW3Ub3YMORF5562tGGGIWymulp+JWXDmklMQP/iMN/f2/iCVI4JzhXAU/XKM/Hlv9YpQjmth6JiU0UYn20zeSLOkgbGYYRNrihLWXUloqMiNrjPIZMbGLGsGSmT6msr7CYamQnYIpUgXBozSniWaMU1jZZMXgooAGTa1QDb/l4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VqCGFG0F; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G82B7O4q"
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-35179d0747fso331363eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:17:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791991042; cv=none;
-        d=google.com; s=arc-20260327;
-        b=pmZAiqcxGeeCc/n+Zx4ipFCszKui7JOe0SoOKc+eSMdCUK20amqULuFobTkyZ2hfNB
-         ZWkAINANa+C81ttp5v2zrD0HvgiYVfkhIIcSMZpu1PXA6EVNqsH1zdIJZuWU+HPSSjGv
-         H4xhZmi/H0taKVDaX4uJiopGjYUeGi+XsF80pOwoCHTDv/ccSsoV2EMxgjh5jVJ7Tpl4
-         qetwh5/AQpa0mzX3bE9ZlUBCYWVRC27pnKd0tcV7vyHNW44fZb4kJtvdTeXytpFC2jf0
-         PBy12Yhz1YEbtgd8W8h0cA7d7yqjpEB8IK+gsqHJzU7U1ae9PE7rLBR76izNhTd4op5w
-         7G1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=MP15FskDIroB85P/ZsRhtMZULyczrJXp5CoRckGiRdk=;
-        fh=P2BUKmkJbmDWu4gE5NaKlvfkP32W1r6VDx6JlxupeyY=;
-        b=eS1Fk7R34sRH0/DiQ0a1Ruf3zc9jiKyFZBynWR/66e6ENYUOW4GfjgQ1VtW4qP8IvV
-         U0SJKOHh2YvfkLG7lDL86QZckF/8DOZwLluI4Hhv/YZA+zo5YdwmaQU3zk4maTLq+uwT
-         sAv7+Em25Zz0lDeAl2OKFn64dgJZIz/lJt09BplRiRJK9kwhZfiHiIz1ccRxDJKa/O6i
-         zdNsy8bfN7+4iRsUyIn+qCrznv68BpxD0h0zdCyFY463kpWeJR4DhENeCwYxB5Tz1sh+
-         aP9HEv+cyi+fGo3kkArmUQn4lHrmcQsGzOCmzEX0iT6pQSGBW46kuPijNGbvUowDkCPS
-         uwHQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791991042; x=1792595842; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MP15FskDIroB85P/ZsRhtMZULyczrJXp5CoRckGiRdk=;
-        b=G82B7O4qlhAas663oEBg/eVJgLP3F6EOIf4z716H7cYBYUGE1MtPlALyOc/twSEVtv
-         uS6FgvQK/XlJnWRu8NIfAo8LxAqy3ToAskngR3gpV9h+9EosivWEkNyEsEYKMX0a5iqy
-         GgauRt5lbg5N9dw+ALnEXfOATzIbyebtH6UVTM2Ba6f3hfCCaCW38Y0OQ5ge38p/OA9W
-         oilXtVYAO8VZhvi1L9AbDJhgSa/hoALgbwhLSJwZ0pFJATqb1PYD2exXBKQHhFaiDOEc
-         B0w0xNgeMZMomxASe3L0v7yB3T/EgV6kj9l73M4z/WGZaToPStvp++IuWkyrRGwdU4Qy
-         mirg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791991042; x=1792595842;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MP15FskDIroB85P/ZsRhtMZULyczrJXp5CoRckGiRdk=;
-        b=KmZOn1BF1+Efjpas+1JYKu0XgRbHgMT8sIq8jHQrkZgShFti/fXXhbI4LMaapgzl1B
-         AoGcExItGcSxWndvsR+Rs6QrEEuzGRTj0qetXJFueevfNScC0x49EX/QiUSOWyT6gr3P
-         Qab4iYd8y7vtdwXpeDS+v3PoyPD4ZCrPXpnerN+LD1FgkUe6baCcOMBl299OhWmTwR6E
-         2wxM1qI2Ap6j3JpHlZop1CgEI7DZYbpO/hmBeqwKTb9RL0oicdp4HG3G+h8lLbPQAMO+
-         Z35FdnD8WWYJuDOW2dEBaT127XqxpWxe2Zfrsu1dOwqt2rgHQv810tMZhGyK+jRz6Dn9
-         z6aA==
-X-Forwarded-Encrypted: i=1; AKwUvBw7HTZlepNq5QIvD7VYmayAvFmtYDGENynDK77pb7okC+Kec1X7Y9XdXNmznC/GX+OB85imO8T6MHE8jDQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLbZ6JzCeCTYVLARtDRN2EhM9GMcCdtPqkdO2wFm1dgdbzEPNMs
-	jHRnFUtFAXBdCvph5BSX3qGybY8NsQclccQpJmQiMh+7uAINyXQkwMwOZuWMGgueswXhUzlyIhh
-	l8Rz6sDkJFFsaT6yJWEMHK1nxDM4fMZE=
-X-Gm-Gg: AYBFou0KyhaVC7/iejvqrvaD8MJJt7KGn0iPWD3V9Tsi8ahY/lftoaeCRksygqyLV28
-	bguhhIUm+SAnRS27CP4P3LakWH+kgVDBwUeqYQqsgoEqp8ko0/g9RrGuLOt7E23v+UMorffEXOm
-	JLVuh5R4jb7Wo7R9uj1q8Ptb3qqznYWYHCWR8ZJEBQH/MSUYaQDD8MmTne8jh0NVCzRXV3Xjmtw
-	PpWlWHsVRywzFN+A3U91kay6Smm8w6iJTIy8iqiYgKmSD9ys88nE+ztXcJPnlJ2rfxZDUHkSHlx
-	VMaWyMJgV2nMXHqXKZESsr9fw8T6ax8zgyxXWavQywQ5Lb92lSlOKog69MAfqgDUqyMc/rd6KVF
-	qMuoIOjk5Dqv8jfaLyUSv0Tya7ZV8GfjYgMDQv3HJ/g==
-X-Received: by 2002:a05:701b:4515:20b0:144:fd17:3b21 with SMTP id
- a92af1059eb24-16a4e2f6033mr31922651c88.0.1791991041918; Wed, 14 Oct 2026
- 08:17:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VqCGFG0F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C1ED1F000C7
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:17:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791991057;
+	bh=TGg9zLBzBGi2zH1vsZ4XSrJ5/M5hqhcjBRGfXtJNFlo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=VqCGFG0FjtcUuILwpPuGdgHtuCcBWADJQSszoq4KNyqk+L4Liax3tsJJQFJZYSKRJ
+	 D6qyT4hX2CUbDHcf2zbFpS+nDHPAIgBxFZectfIWi+E6FSl8w6VI7ARC3HUAJ+N+XU
+	 309UyiyWVkx5scKU8zQiT8PXJYzEhQXRdhNgt5pM2PuEpj270Affsx1oD5Os6RD7Lg
+	 32Qa1w1Ol53KMIvzB7Dq5VURnvmuLRVxl0e9ssf9pGcLKOPWT2Diqeh9dZZr2f/mov
+	 qKVPxYOkGtwsAiRIv5cUG76DEfeO8ciB47l62LJy3sJtvwWBBq3ezv4JMiD9rFJDrL
+	 cvoM0S2rLWalw==
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c350db5a761so549902766b.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:17:37 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByvQbgbgVot5yzxqTh2OEjI6VUlmVBQuej3Pcz596IDimeTMWVVnlovqJTJHtw7s4dLaWQazUiaBKWXYQE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJzNUqQyT2EghUcJVIGuRMAoGsry0nJ0Jkx35qjbTNXyS63T+ZX
+	Sk/6/pVPAopqkhvLjd9I+0STPU6OOBh1D1OGttiJhXPN5er41g40HTvZlyDTvbn1AU+iwJShAqE
+	yOyVUy5DRPtmzO9Pjgkq7e93R6wlfoyA=
+X-Received: by 2002:a17:907:1997:b0:c2d:c98f:4824 with SMTP id
+ a640c23a62f3a-c31aa057064mr1511236766b.30.1791991056352; Wed, 14 Oct 2026
+ 08:17:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261014073228.2095339-1-thnkslprpt@gmail.com>
-In-Reply-To: <20261014073228.2095339-1-thnkslprpt@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 14 Oct 2026 11:17:08 -0400
-X-Gm-Features: AclHuK9RTzCxHcsg5D_RZu9qnWTIP8aQ_tciSx9Ychi7L8Go00NiqggSGvOxZjg
-Message-ID: <CADnq5_OVC0GgZfiKA1yoW3zJXtTK7Wx+TnPQjQE7xW2FkbMSKg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: propagate errors when forcing SMU11 clock levels
-To: Avi Weiss <thnkslprpt@gmail.com>
-Cc: Kenneth Feng <kenneth.feng@amd.com>, Alex Deucher <alexander.deucher@amd.com>, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	Lijo Lazar <lijo.lazar@amd.com>, amd-gfx@lists.freedesktop.org, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20261008182814.27450-1-kanchanapsridhar2026@gmail.com>
+ <20261008182814.27450-6-kanchanapsridhar2026@gmail.com> <as7JC8o2kggiq_ss@google.com>
+ <CACpmpofXMGBP70Rn7jHLwOF38GRKMUGoW3rb1Jp2SPH7ygKcfw@mail.gmail.com>
+In-Reply-To: <CACpmpofXMGBP70Rn7jHLwOF38GRKMUGoW3rb1Jp2SPH7ygKcfw@mail.gmail.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Wed, 14 Oct 2026 08:17:24 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zOEcGmg8eVttu41htugnng0ahnVQbubiJfxVH+GfDe47Q@mail.gmail.com>
+X-Gm-Features: AclHuK-ehxXi7A0e1gRS8w_1Qe3FwN4I9eAdtlth0BvoDqVKzvl-jH6zB_7Y6xQ
+Message-ID: <CAO9r8zOEcGmg8eVttu41htugnng0ahnVQbubiJfxVH+GfDe47Q@mail.gmail.com>
+Subject: Re: [PATCH v1 5/8] mm: zswap: Store the folio's node id in the zswap_entry.
+To: "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
+Cc: hannes@cmpxchg.org, nphamcs@gmail.com, chengming.zhou@linux.dev, 
+	akpm@linux-foundation.org, linux-mm@kvack.org, herbert@gondor.apana.org.au, 
+	davem@davemloft.net, linux-crypto@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, rientjes@google.com, willy@infradead.org, 
+	senozhatsky@chromium.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Applied.  Thanks!
-
-On Wed, Oct 14, 2026 at 8:56=E2=80=AFAM Avi Weiss <thnkslprpt@gmail.com> wr=
+On Tue, Oct 13, 2026 at 6:17=E2=80=AFPM Kanchana P. Sridhar
+<kanchanapsridhar2026@gmail.com> wrote:
+>
+> On Tue, Oct 13, 2026 at 5:18=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wr=
 ote:
+> >
+> > On Thu, Oct 08, 2026 at 11:28:11AM -0700, Kanchana P. Sridhar wrote:
+> > > When storing a folio in zswap, save the folio's node id in the zswap
+> > > entry instead of relying on the zswap_entry being allocated on the sa=
+me
+> > > node. This enables optimizations such as batch allocation of zswap
+> > > entries for large folios using kmem_cache_alloc_bulk() that does not
+> > > support specifying a node id.
+> > >
+> > > The size of the zswap_entry remains unchanged as 'referenced' is lump=
+ed
+> > > in with the 'length' (as it doesn't need a full unsigned int anyway).
+> > >
+> > > Suggested-by: Nhat Pham <nphamcs@gmail.com>
+> > > Suggested-by: Yosry Ahmed <yosry.ahmed@linux.dev>
+> > > Signed-off-by: Kanchana P Sridhar <kanchana.p.sridhar@intel.com>
+> > > Signed-off-by: Kanchana P. Sridhar <kanchanapsridhar2026@gmail.com>
+> > > ---
+> > >  mm/zswap.c | 23 +++++++++++------------
+> > >  1 file changed, 11 insertions(+), 12 deletions(-)
+> > >
+> > > diff --git a/mm/zswap.c b/mm/zswap.c
+> > > index ca513a9f89e3..c2731d3acb2c 100644
+> > > --- a/mm/zswap.c
+> > > +++ b/mm/zswap.c
+> > > @@ -194,6 +194,7 @@ static struct shrinker *zswap_shrinker;
+> > >   *              writeback logic. The entry is only reclaimed by the =
+writeback
+> > >   *              logic if referenced is unset. See comments in the sh=
+rinker
+> > >   *              section for context.
+> > > + * nid - NUMA node id of the page for which this is the zswap entry.
+> > >   * pool_idx - id of the zswap_pool that the entry's data is in.
+> > >   * handle - zsmalloc allocation handle that stores the compressed pa=
+ge data
+> > >   * objcg - the obj_cgroup that the compressed memory is charged to
+> > > @@ -201,8 +202,11 @@ static struct shrinker *zswap_shrinker;
+> > >   */
+> > >  struct zswap_entry {
+> > >       swp_entry_t swpentry;
+> > > -     unsigned int length;
+> > > -     bool referenced;
+> > > +     struct {
+> > > +             unsigned int length:31;
+> > > +             bool referenced:1;
+> > > +     };
+> > > +     int nid;
+> >
+> > This will increase the size of the struct now with pool_idx, right?
 >
-> navi10_force_clk_levels() and sienna_cichlid_force_clk_levels()
-> return success when a DPM frequency lookup or soft frequency range
-> update fails. smu_force_smuclk_levels() then records the requested
-> clock mask even though the operation failed.
+> I was gathering the struct size with the struct {unsigned int
+> length:31; bool referenced:1} as suggested in v14, for my before/after
+> comparisons:
 >
-> Return the helper error from both callbacks instead to improve
-> observability. No obvious reason to clobber the return values here.
+> before:
+> struct zswap_entry {
+>         swp_entry_t                swpentry;             /*     0     8 *=
+/
+>         struct {
+>                 unsigned int       length:31;            /*     8: 0  4 *=
+/
 >
-> Fixes: db439ca21b81f ("drm/amd/powerplay: add function force_clk_levels f=
-or navi10")
-> Fixes: b455159c05313 ("drm/amdgpu/powerplay: add initial swSMU support fo=
-r sienna_cichlid (v2)")
-> Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
-> ---
->  drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c         | 6 +++---
->  drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c | 2 +-
->  2 files changed, 4 insertions(+), 4 deletions(-)
+>                 /* Bitfield combined with next fields */
 >
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gp=
-u/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> index f8ca5eb9adc6..2d05088619f6 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> @@ -1439,15 +1439,15 @@ static int navi10_force_clk_levels(struct smu_con=
-text *smu,
+>                 bool               referenced:1;         /*    11: 7  1 *=
+/
+>         };                                               /*     8     4 *=
+/
+>         int                        nid;                  /*    12     4 *=
+/
+>         u8                         pool_idx;             /*    16     1 *=
+/
 >
->                 ret =3D smu_v11_0_get_dpm_freq_by_index(smu, clk_type, so=
-ft_min_level, &min_freq);
->                 if (ret)
-> -                       return 0;
-> +                       return ret;
+>         /* XXX 7 bytes hole, try to pack */
 >
->                 ret =3D smu_v11_0_get_dpm_freq_by_index(smu, clk_type, so=
-ft_max_level, &max_freq);
->                 if (ret)
-> -                       return 0;
-> +                       return ret;
+>         long unsigned int          handle;               /*    24     8 *=
+/
+>         struct obj_cgroup *        objcg;                /*    32     8 *=
+/
+>         struct list_head           lru;                  /*    40    16 *=
+/
 >
->                 ret =3D smu_v11_0_set_soft_freq_limited_range(smu, clk_ty=
-pe, min_freq, max_freq, false);
->                 if (ret)
-> -                       return 0;
-> +                       return ret;
->                 break;
->         case SMU_DCEFCLK:
->                 dev_info(smu->adev->dev, "Setting DCEFCLK min/max dpm lev=
-el is not supported!\n");
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/dr=
-ivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> index b42897e7c066..4ef3863fae1a 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> @@ -1460,7 +1460,7 @@ static int sienna_cichlid_force_clk_levels(struct s=
-mu_context *smu,
->         }
+>         /* size: 56, cachelines: 1, members: 7 */
+>         /* sum members: 49, holes: 1, sum holes: 7 */
+>         /* last cacheline: 56 bytes */
+> };
 >
->  forec_level_out:
-> -       return 0;
-> +       return ret;
->  }
+> after:
+> struct zswap_entry {
+>         swp_entry_t                swpentry;             /*     0     8 *=
+/
+>         struct {
+>                 unsigned int       length:31;            /*     8: 0  4 *=
+/
 >
->  static int sienna_cichlid_populate_umd_state_clk(struct smu_context *smu=
-)
+>                 /* Bitfield combined with next fields */
 >
-> base-commit: 4056b3c9d3c92ea45955641dbafeb9b960e146ef
-> --
-> 2.43.0
+>                 bool               referenced:1;         /*    11: 7  1 *=
+/
+>         };                                               /*     8     4 *=
+/
+>         int                        nid;                  /*    12     4 *=
+/
+>         long unsigned int          handle;               /*    16     8 *=
+/
+>         struct obj_cgroup *        objcg;                /*    24     8 *=
+/
+>         struct list_head           lru;                  /*    32    16 *=
+/
+>         u8                         pool_idx;             /*    48     1 *=
+/
 >
+>         /* size: 56, cachelines: 1, members: 7 */
+>         /* padding: 7 */
+>         /* last cacheline: 56 bytes */
+> };
+>
+> And decided to go with the placement in patch 7, since it also
+> separates out members by compress/decompress path accesses. pool_idx
+> is set once, and never changes. Further, moving pool_idx to the end
+> gets rid of holes.
+
+Please look at the layout I pasted (quoted below). Your patch
+increases the struct size from 48 bytes to 56 bytes, undoing the
+optimization introduced by pool_idx. We need to pack length, pool_idx,
+and referenced in a single u32 to keep the size constant.
+
+FWIW, moving pool_idx to the end just trades holes for padding, I am
+not sure if that's necessarily an improvement.
+
+>
+> >
+> > Before you patch on x86_64:
+> >
+> > struct zswap_entry {
+> >         swp_entry_t                swpentry;             /*     0     8=
+ */
+> >         unsigned int               length;               /*     8     4=
+ */
+> >         bool                       referenced;           /*    12     1=
+ */
+> >         u8                         pool_idx;             /*    13     1=
+ */
+> >
+> >         /* XXX 2 bytes hole, try to pack */
+> >
+> >         unsigned long              handle;               /*    16     8=
+ */
+> >         struct obj_cgroup *        objcg;                /*    24     8=
+ */
+> >         struct list_head           lru;                  /*    32    16=
+ */
+> >
+> >         /* size: 48, cachelines: 1, members: 7 */
+> >         /* sum members: 46, holes: 1, sum holes: 2 */
+> >         /* last cacheline: 48 bytes */
+> > };
+> >
+> > After:
+> >
+> > struct zswap_entry {
+> >         swp_entry_t                swpentry;             /*     0     8=
+ */
+> >         struct {
+> >                 unsigned int       length:31;            /*     8: 0  4=
+ */
+> >
+> >                 /* Bitfield combined with next fields */
+> >
+> >                 bool               referenced:1;         /*    11: 7  1=
+ */
+> >         };                                               /*     8     4=
+ */
+> >         struct {
+> >                 unsigned int               length:31;            /*    =
+ 0: 0  4 */
+> >
+> >                 /* Bitfield combined with next fields */
+> >
+> >                 bool                       referenced:1;         /*    =
+ 3: 7  1 */
+> >
+> >                 /* size: 4, cachelines: 1, members: 2 */
+> >                 /* last cacheline: 4 bytes */
+> >         };
+> >
+> >         int                        nid;                  /*    12     4=
+ */
+> >         u8                         pool_idx;             /*    16     1=
+ */
+> >
+> >         /* XXX 7 bytes hole, try to pack */
+> >
+> >         unsigned long              handle;               /*    24     8=
+ */
+> >         struct obj_cgroup *        objcg;                /*    32     8=
+ */
+> >         struct list_head           lru;                  /*    40    16=
+ */
+> >
+> >         /* size: 56, cachelines: 1, members: 7 */
+> >         /* sum members: 49, holes: 1, sum holes: 7 */
+> >         /* last cacheline: 56 bytes */
+> > };
+> >
+> > I think we want to reorder the fields. We can probably also avoid the
+> > bitfield if the maximum page size is 64K (is it?)
+>
+> It seems on ARM64, the max page size is 64K, however on PPC, it can be
+> 256K. So it appears we need at least 18 bits on currently supported
+> architectures.
+
+In this case unfortunately we need to stick with bitfields. We should
+probably add a build-time assertion that the width of length is enough
+to cover PAGE_SIZE.
+
+> If you agree with the pool_idx placement to be moved to the end as
+> proposed in patch 7, I can try and optimize this further, by limiting
+> the "unsigned int length:18", if you think this makes sense.
+
+I don't think we can put pool_idx to the end and keep the struct size
+constant. For length, yeah let's use the minimum number of bits needed
+and add an assertion, so that the free to use bits are obvious.
+
+>
+> >
+> > struct zswap_entry {
+> >         swp_entry_t                swpentry;             /*     0     8=
+ */
+> >         u16                        length;               /*     8     2=
+ */
+> >         u8                         pool_idx;             /*    10     1=
+ */
+> >         bool                       referenced;           /*    11     1=
+ */
+> >         int                        nid;                  /*    12     4=
+ */
+> >         unsigned long              handle;               /*    16     8=
+ */
+> >         struct obj_cgroup *        objcg;                /*    24     8=
+ */
+> >         struct list_head           lru;                  /*    32    16=
+ */
+> >
+> >         /* size: 48, cachelines: 1, members: 8 */
+> >         /* last cacheline: 48 bytes */
+> > };
+> >
+> >
+> > >       u8 pool_idx;
+> > >       unsigned long handle;
+> > >       struct obj_cgroup *objcg;
+> > > @@ -672,14 +676,8 @@ static int zswap_enabled_param_set(const char *v=
+al,
+> > >  * lru functions
+> > >  **********************************/
+> > >
+> > > -static inline int entry_to_nid(struct zswap_entry *entry)
+> > > -{
+> > > -     return page_to_nid(virt_to_page(entry));
+> > > -}
+> > > -
+> > >  static void zswap_lru_add(struct zswap_entry *entry)
+> > >  {
+> > > -     int nid =3D entry_to_nid(entry);
+> > >       struct mem_cgroup *memcg;
+> > >
+> > >       /*
+> > > @@ -696,19 +694,18 @@ static void zswap_lru_add(struct zswap_entry *e=
+ntry)
+> > >       rcu_read_lock();
+> > >       memcg =3D obj_cgroup_memcg(entry->objcg);
+> > >       /* will always succeed */
+> > > -     list_lru_add(&zswap_list_lru, &entry->lru, nid, memcg);
+> > > +     list_lru_add(&zswap_list_lru, &entry->lru, entry->nid, memcg);
+> > >       rcu_read_unlock();
+> > >  }
+> > >
+> > >  static void zswap_lru_del(struct zswap_entry *entry)
+> > >  {
+> > > -     int nid =3D entry_to_nid(entry);
+> > >       struct mem_cgroup *memcg;
+> > >
+> > >       rcu_read_lock();
+> > >       memcg =3D obj_cgroup_memcg(entry->objcg);
+> > >       /* will always succeed */
+> > > -     list_lru_del(&zswap_list_lru, &entry->lru, nid, memcg);
+> > > +     list_lru_del(&zswap_list_lru, &entry->lru, entry->nid, memcg);
+> > >       rcu_read_unlock();
+> > >  }
+> > >
+> > > @@ -1449,9 +1446,10 @@ static bool zswap_store_page(struct folio *fol=
+io, long index,
+> > >  {
+> > >       swp_entry_t page_swpentry =3D folio_swap_entry(folio, index);
+> > >       struct zswap_entry *entry, *old;
+> > > +     int nid =3D folio_nid(folio);
+> > >
+> > >       /* allocate entry */
+> > > -     entry =3D zswap_entry_cache_alloc(GFP_KERNEL, folio_nid(folio))=
+;
+> > > +     entry =3D zswap_entry_cache_alloc(GFP_KERNEL, nid);
+> >
+> > We don't need to allocate the entry on the same node anymore, should we
+> > drop this and let the slab allocator handle it as it sees fit?
+>
+> Was this a recent change? I see the folio_nid(folio) on my version of
+> mm-unstable as of 10-3-2026. Let me check, and yes, allowing the slab
+> allocated handle this is probably a good idea.
+
+We allocate the entry on the same node to avoid having to store nid in
+the zswap entry (see entry_to_nid()). If we store it, then there's no
+need to allocate on the node.
+
+>
+> Along the same lines, I have been working on replacing zsmalloc with
+> direct SLAB allocations for the zswap compressed data storage and see
+> very promising results: memory savings and latency improvements. I
+> will submit an RFC shortly.
+
+Keep in mind that zsmalloc is movable memory, while slab memory isn't.
+Zsmalloc may also be less likely to make a new allocation in the store
+path. There are other considerations beyond memory overhead and
+latency here.
+
+>
+> >
+> > >       if (!entry) {
+> > >               zswap_reject_kmemcache_fail++;
+> > >               return false;
+> > > @@ -1466,6 +1464,7 @@ static bool zswap_store_page(struct folio *foli=
+o, long index,
+> > >        * to an unrelated live pool.
+> > >        */
+> > >       entry->pool_idx =3D pool->idx;
+> > > +     entry->nid =3D nid;
+> > >
+> > >       old =3D xa_store(swap_zswap_tree(page_swpentry),
+> > >                      swp_offset(page_swpentry),
+> > > --
+> > > 2.39.5
+> > >
