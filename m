@@ -1,44 +1,44 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C91118B0A;
-	Wed, 14 Oct 2026 03:25:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72EBD3A0E86;
+	Wed, 14 Oct 2026 03:25:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791948329; cv=none; b=hwZ8bRhEpnZqy2NQd9gYuc/XftZk0MlrjAAqNUMuM33ChnvHFFNFqcJ3cbRqxfz/GAzyrKl8Vg5KUA50xRkYagYFdYHA1HJ0xrqtOLsMvuUyk7AW0pkLdqwbtqL/+QQAtuGLD8MNo1PuP2gIKQEnRLPH8pEczGVTRYHDXe4t4gg=
+	t=1791948330; cv=none; b=LNNmeNRV0cVN4Kl2L+qN2DJtcVI1jDazY/WxkXET68K39kdwqLL7hf4iaLfs8w0c48qyoV0vvSD/gDEq/Lep4pGKt5roagm2+x4RT3aLXttrRDIJ2FRNFSbAWK5vFDFnCgHS6wqYqHA1G3N0NTJWxUs1R+EvjfRwYt/g2Y3OGX4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791948329; c=relaxed/simple;
-	bh=OFR4Pjp8WUygRoKjfEgyt8Ifoodf4tE7tdqWqLUuPwo=;
+	s=arc-20240116; t=1791948330; c=relaxed/simple;
+	bh=SVyjVHAMbYnhX6CQYSaH9KFh2KjLKhN2Ue8FRgH+b60=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZhMHytmifXwIVYw4/X5rYPyVG3Mg///Lk0MnkFzheu+M6Ns5w2tsJng/qJ8ZCEtoJLMfyxqmn2a72zpIvjpzvBt+HKEjcx2ApodOXIEQOR/0Ek5XhL//gmsZK3spgbmrEGeRC7u7gg/eZQB8ok9gBqhxFhluJwiBFhooN7FmMvM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=YIjTK9B2; arc=none smtp.client-ip=220.197.31.3
+	 MIME-Version; b=rv1VVIxIRLoK3lVZ7uxYTimqNDNOSIxfKrV+d9s+g6nOAaYXhLYfcpylIzQkIAKSd2WLPX7ayzPsw8ZFKNVq+XDU2jPQpbYvteoEIvQuBCDiilYkId8E+zxIOijGOflaiuHXHdU1Ww97GAtfDWy6pIVdhsQnY+oUl65wm8S9GXs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=pzyZ4c8O; arc=none smtp.client-ip=117.135.210.5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="YIjTK9B2"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="pzyZ4c8O"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Nc
-	LWlGI/FjqHPvUv/HcE6GWKC4EhGB+rMDPm3ATOLOc=; b=YIjTK9B20le2zoka2X
-	UaWQ0NYhbfMsDQ38oI8lodN/uzvyv5YHfByfOPhXqVkH/0+HsUGgajOBwMlW70Ps
-	zioBsHyaWS//54Z/W5ELlfaZEUrUl1+5DlVOiepeeDhD2LZ6aQTFkxHcGmRVzaQA
-	AyFdCx3r90tw4WT4JZo9yIW94=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=QE
+	PSUS0RnCaIOeM02caBuDz3DEL5Un3QuljGJ3QU6oY=; b=pzyZ4c8OKKdJIMbnG+
+	153tOp2oJ8cgJPxUvliwgGA0+buSlFN5+q7A7oq6Gf95yjMLIc1fre2dyMZpenCT
+	Ajes3CNx6F+4PHq481JEj3Vp1soaybegjTS5kgG/oOnxrh6Vao1S8nAV07w9CQtf
+	CHKJVvngmLK1bit/rI78Tpvbk=
 Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD3v88G9s5quKBFEQ--.27196S9;
-	Wed, 14 Oct 2026 11:24:59 +0800 (CST)
+	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD3v88G9s5quKBFEQ--.27196S5;
+	Wed, 14 Oct 2026 11:24:57 +0800 (CST)
 From: Pengpeng Hou <hppiscas@163.com>
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>
 Cc: Pengpeng Hou <hppiscas@163.com>,
 	Jaroslav Kysela <perex@perex.cz>,
 	Takashi Iwai <tiwai@suse.com>,
-	Guennadi Liakhovetski <g.liakhovetski@gmx.de>,
-	patches@opensource.cirrus.com,
+	"Fang, Yang A" <yang.a.fang@intel.com>,
+	Yong Zhi <yong.zhi@intel.com>,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Charles Keepax <ckeepax@opensource.cirrus.com>
-Subject: [PATCH v2 7/9] ASoC: wm8978: restore safe state after resume errors
-Date: Wed, 14 Oct 2026 11:24:50 +0800
-Message-ID: <20261014032452.13456-8-hppiscas@163.com>
+Subject: [PATCH v2 3/9] ASoC: nau8825: restore safe state after resume errors
+Date: Wed, 14 Oct 2026 11:24:46 +0800
+Message-ID: <20261014032452.13456-4-hppiscas@163.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20261014032452.13456-1-hppiscas@163.com>
 References: <20261014032452.13456-1-hppiscas@163.com>
@@ -49,97 +49,95 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3v88G9s5quKBFEQ--.27196S9
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXryxAr4fKF45Cr1fJr4rGrg_yoW5tr4xpF
-	ZakFs8Kr4vqr4SvFyayw48ZFWFkFZ3tF4rAasrK34xAw15Arn29r1rKFyjvFWDWFs5Grn7
-	Zr1jv34jkFyDZaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pirMaOUUUUU=
-X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbC7gsO1mrO9gu6ngAA3A
+X-CM-TRANSID:_____wD3v88G9s5quKBFEQ--.27196S5
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZw15Aw4xCF45GF43Xr1DZFb_yoW5uryxpr
+	Z3GrZYq3yfXF48CFyFyr48XFnYkrWfKF47AwnxK3yDX3W5Cry8WFn5Jr1UZFWDtryUKF9r
+	XF47J3yxGr15C3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRbB_UUUUUU=
+X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbC7QkO1mrO9gnDDQAA3p
 
-wm8978_resume() ignores cache replay, bias restoration and PLL update
-results, allowing subsequent resume steps to run after a failed operation.
+nau8825_resume() ignores regcache_sync() failure before continuing
+dependent resume operations. Restore cache-only mode, leave the cache
+dirty, and return the replay error before those operations.
 
-Stop at the first failure and request SND_SOC_BIAS_OFF on the error path.
-Bias OFF intentionally preserves PLL power, so also clear the power
-register as system suspend does. Keep the original failure if rollback
-reports another error. Restore cache-only mode and mark the cache dirty
-so later accesses do not write through a partially restored device.
-Re-enable write-through before a later replay attempt. A positive
-update_bits() result means that
-bits changed, not an error.
+Do not start crosstalk protection or enable its IRQ after a failed
+replay.
 
-The bias callback currently does not propagate every register write error;
-the rollback is therefore best-effort, not a claim of verified hardware
-power-down. The ASoC wrapper continues its established best-effort resume.
+ASoC still marks the component resumed when the callback reports failure.
+Track the suspend-owned IRQ disable so another suspend does not increment
+the disable depth again after a failed resume. A later successful resume
+releases that one disable reference. This does not add automatic retry or
+change the framework's best-effort card resume policy.
 
 The issue was found by our static-analysis tool and manually reviewed.
 
-Fixes: 0d34e91596ef ("ASoC: add a WM8978 codec driver")
+Fixes: 4454a8378be5 ("ASoC: nau8825: add pm function")
 Assisted-by: gpt 5
 Signed-off-by: Pengpeng Hou <hppiscas@163.com>
 ---
 Changes since v1:
 - restore cache-only mode and dirty state on replay failure
-- restore bias OFF on the error path, as Charles requested
-- also turn off PLL power, matching system suspend rather than bias OFF alone
-- preserve positive update_bits() success
+- keep suspend-owned IRQ disables balanced across failed resume cycles
 - send as one correctly threaded series, as Mark requested
 
 Previous series:
 https://lore.kernel.org/all/20260906034321.86080-1-hppiscas@163.com/
 
- sound/soc/codecs/wm8978.c |   31 +++++++++++++++++++++++++++----
- 1 file changed, 27 insertions(+), 4 deletions(-)
+ sound/soc/codecs/nau8825.c |   17 ++++++++++++++---
+ sound/soc/codecs/nau8825.h |    1 +
+ 2 files changed, 15 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/codecs/wm8978.c b/sound/soc/codecs/wm8978.c
-index 258bc9f88f520e4de034393d39317e07e731d1ad..f5d3f26cc21790a8dfc4bf909a5fc5d56ba8f577 100644
---- a/sound/soc/codecs/wm8978.c
-+++ b/sound/soc/codecs/wm8978.c
-@@ -952,17 +952,40 @@ static int wm8978_resume(struct snd_soc_component *component)
+diff --git a/sound/soc/codecs/nau8825.c b/sound/soc/codecs/nau8825.c
+index 63d927f3140902e179bd491f757f4c47e8c314b1..11c548b99ea6d758ba3843090ee65b3d9f8f8245 100644
+--- a/sound/soc/codecs/nau8825.c
++++ b/sound/soc/codecs/nau8825.c
+@@ -2683,7 +2683,10 @@ static int __maybe_unused nau8825_suspend(struct snd_soc_component *component)
  {
- 	struct wm8978_priv *wm8978 = snd_soc_component_get_drvdata(component);
- 	struct snd_soc_dapm_context *dapm = snd_soc_component_to_dapm(component);
-+	int ret, err;
+ 	struct nau8825 *nau8825 = snd_soc_component_get_drvdata(component);
  
- 	/* Sync reg_cache with the hardware */
--	regcache_sync(wm8978->regmap);
-+	regcache_cache_only(wm8978->regmap, false);
-+	ret = regcache_sync(wm8978->regmap);
-+	if (ret)
-+		goto restore_off;
+-	disable_irq(nau8825->irq);
++	if (!nau8825->suspend_irq_disabled) {
++		disable_irq(nau8825->irq);
++		nau8825->suspend_irq_disabled = true;
++	}
+ 	snd_soc_dapm_force_bias_level(nau8825->dapm, SND_SOC_BIAS_OFF);
+ 	/* Power down codec power; don't suppoet button wakeup */
+ 	snd_soc_dapm_disable_pin(nau8825->dapm, "SAR");
+@@ -2701,12 +2704,20 @@ static int __maybe_unused nau8825_resume(struct snd_soc_component *component)
+ 	int ret;
  
--	snd_soc_dapm_force_bias_level(dapm, SND_SOC_BIAS_STANDBY);
-+	ret = snd_soc_dapm_force_bias_level(dapm, SND_SOC_BIAS_STANDBY);
-+	if (ret)
-+		goto restore_off;
- 
--	if (wm8978->f_pllout)
-+	if (wm8978->f_pllout) {
- 		/* Switch PLL on */
--		snd_soc_component_update_bits(component, WM8978_POWER_MANAGEMENT_1, 0x20, 0x20);
-+		ret = snd_soc_component_update_bits(component,
-+						    WM8978_POWER_MANAGEMENT_1,
-+						    0x20, 0x20);
-+		if (ret < 0)
-+			goto restore_off;
+ 	regcache_cache_only(nau8825->regmap, false);
+-	regcache_sync(nau8825->regmap);
++	ret = regcache_sync(nau8825->regmap);
++	if (ret) {
++		regcache_cache_only(nau8825->regmap, true);
++		regcache_mark_dirty(nau8825->regmap);
++		return ret;
++	}
+ 	nau8825->xtalk_protect = true;
+ 	ret = nau8825_sema_acquire(nau8825, 0);
+ 	if (ret)
+ 		nau8825->xtalk_protect = false;
+-	enable_irq(nau8825->irq);
++	if (nau8825->suspend_irq_disabled) {
++		nau8825->suspend_irq_disabled = false;
++		enable_irq(nau8825->irq);
 +	}
  
  	return 0;
-+
-+restore_off:
-+	err = snd_soc_dapm_force_bias_level(dapm, SND_SOC_BIAS_OFF);
-+	if (err)
-+		dev_err(component->dev, "Failed to restore bias OFF: %d\n", err);
-+	/* Bias OFF preserves PLL; system suspend turns it off as well. */
-+	err = snd_soc_component_write(component, WM8978_POWER_MANAGEMENT_1, 0);
-+	if (err)
-+		dev_err(component->dev, "Failed to disable PLL: %d\n", err);
-+	regcache_cache_only(wm8978->regmap, true);
-+	regcache_mark_dirty(wm8978->regmap);
-+	return ret;
  }
- 
- /*
+diff --git a/sound/soc/codecs/nau8825.h b/sound/soc/codecs/nau8825.h
+index 2abfbb5184da80f3637f06d57a7564fbf1c7574c..8238570ed48c2b147a4a1a0d7061603f8b9b4835 100644
+--- a/sound/soc/codecs/nau8825.h
++++ b/sound/soc/codecs/nau8825.h
+@@ -502,6 +502,7 @@ struct nau8825 {
+ 	struct semaphore xtalk_sem;
+ 	int sw_id;
+ 	int irq;
++	bool suspend_irq_disabled;
+ 	int mclk_freq; /* 0 - mclk is disabled */
+ 	int button_pressed;
+ 	int micbias_voltage;
 
 base-commit: 8ef28aef33f2d5da6959ad6b579ec3cfccc009f6
 
