@@ -1,69 +1,34 @@
-Received: from mail-oa1-f51.google.com (mail-oa1-f51.google.com [209.85.160.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A814856854A
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:33:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEA1052D2C9;
+	Wed, 14 Oct 2026 18:34:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792002840; cv=none; b=kvIXeDONRbS/qzWvuHMVsQLXe3qvXsuKAh9OBIftt9857bh1dEWmit51KwP4mrbVZnVVdWaZ7AjIku1punG4iGs/5gHnNxWCGbGlP0ORBg+IdqkSU4J3KwVTrHoCGONaiACwJOLAAT2hQUxXsN3LAbXt6DHt2N8tKetHE9L9ckM=
+	t=1792002886; cv=none; b=GgCL4GDUho886Rw7DeYBSMaedLwL0m9wgsLDOYV6LsU/CJLaBCrQ7ry/xrxMgM19VYLjtT2OnzrOVISQMwjW4XQ3zIVhSjeUto1/VXx1O02LW3u+h20KVHnIhIAhpUTDPoxjol+BFTGmjVs6qj0VDR6h4O5qwYJrtrtiD2TRK7I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792002840; c=relaxed/simple;
-	bh=/sDi7HIsx/bYASmJoVclnjRDXtNkZuaHYuJuvQyPZQM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=VQjHy9R7XhpfEERcxAEwzQtEcvd0D1S2aByf1OsWQojmJEsoVk0KZPXCcPZalMQKp6sy9GDi7EZbHPqZxXq6TWe9plaZJwlOg0tnCwlN6VvCn6vtP1gj0Ee5lfuEM2qhz4NDrhOwcRmXgfTi31ur2sYGAUagpKtSwItZCM+NFo0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PeTdbXt4; arc=none smtp.client-ip=209.85.160.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792002886; c=relaxed/simple;
+	bh=BkD6Y/HalsjYwf57ZhS64XjHmYuqd0mBJqkuOfKzqG0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=G9sz0bm8/MSk8xsEA3kuySqwOR0E58ARW2/x/TWbbXokSxmE7RgYI+jiKhtk4twJRqKbg2CZlX61rH7hy3ejs2so15qJri4ThFb5sp3hEg0X8MCF7CbsS3G+r99F+dRBopC/bjAVheXfLW7wnlLizVJOF5j4oN1l4jjamqZbXuA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fHdY2vAd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PeTdbXt4"
-Received: by mail-oa1-f51.google.com with SMTP id 586e51a60fabf-486f013db83so1192194fac.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:33:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792002837; x=1792607637; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=8Z2E7pmsMMG7kkmYzB5uMqTLRrXawygd2jz4XpEAkRM=;
-        b=PeTdbXt4Kdp0lPPTVTEPWXc6A4IA44zQcKj++T9dbsBUwACEYCpBXTAdLEsIRDHsur
-         FCYouaIH0oXsHwgD5GnVgJis/8+btipTICwz0YdH90BPHFVnPX8PWDdt77XruFZEFH6K
-         8dZ5cTYvgnJ0ChAA2Q80l+DotAWej41P56QwIFiKDJsSln3IX5zVV6S5E2E9LsUgwdTU
-         YoU6PH36nzzghs5Ir4ksN/jzZk/E9Ep5Zb65tc0s7JcO66zX+kWpfH0TaQTRmeQhb9J8
-         zD+fhCON+hrUgGlK3V1bxwtmbLtbMDccQEdYulSgQCRefdQexwnlalTpk4tHlxQ7tXgs
-         mLHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792002837; x=1792607637;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=8Z2E7pmsMMG7kkmYzB5uMqTLRrXawygd2jz4XpEAkRM=;
-        b=J1oQSZ5lWTRNQa+uLBZEoOZ9ju5Tgs395T0xhQPwnvuKduyDuXNIECvEpV4RzTjQ9A
-         G7eetNoQJRjgOzdkjZR1+33rz4exxSVnpxqHhW+jXKEnUzmKu4POQ93EMj1KoIdr+kpA
-         UuqP+H/ZMkb5KD66PIC/Z81XugQWmuXBqJ6aIeoozpnQDKJwu6Xg0MsYOXk8FYE53K9n
-         vZHx/E51S6PI+QntP0mk5BNakQrQBlR2Yg+XpsPOBZv9BbYx66D9slFexBPMi13piM+6
-         2nqcYz65CvqDlh7UnmaP4RukWBu4CuEv1hUvblIdm593qf/uZqyRMRvZrre9cUf2kbxp
-         cp9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxg14rIFAblWLSex9UiM7OKTYh/2XuVaK4oo4ItxDBuKjGLncpwBE0oteB26LGK2kalAF2uroKQEahUaKs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIYaVxt2NaUlCf0EhqbrpZhNhCbu2upDpdtFN0WYyaBiGCzsps9
-	WKUtjzcYivpHiRoL4BMkZwLkMJL0h1HE+7/2rFBDibeCzDPOZ81pCMAa
-X-Gm-Gg: AYBFou3C/RoqBpQAuAr6SE6pmYGMDxrp8drS7ooQYQa40/sS25lBRSBD/F+maD6BC2b
-	DgYEz1DV1bbfz3xdTcxQRJi0MYSrb3S7KAQcrrU/H+6ZBLrwfLdzoOA8Mz2bAHWWIqBhce1shbC
-	mU0n0ehVfnXlggygRkY+xAdFV6AFhMpQzq1Mq4oUByYZBpaeMpRf1wOucW9LiAiPCneWMyRS1Wq
-	BDBAGd/jET7MEwAU9rJNRnRLojm2VtNTamDdw6T20ACNSH0WYmRQts/wljvU2LmRmOL8pXTHrnA
-	6ThPUofzcPp3dfg68sQWd4V4O6oIvoDzs4v+D7frmR5j/R8LSNDeN4wFoA7Hd2ZPcTiZnOlK4US
-	SIwVnsAbpgrE23M2m1aSGYM9nk5tqBM9xrfYNAQV6gbme1E0m/Tw516T1xltTwo42djt43UPLDj
-	sIoSogx4Ocr9qI4EhilHRjaElRNIrzTSorefcRgNIrCzbDhQRRtcqoT8uPdRxmEYUGdHYqyLAOj
-	/4RRTi+OEJcutHMlCjtQNKnY/kam8tMAYldZMoh8dy0Fuh0o3erdM127mu9B0Zq4yNtlOQVrd6D
-	hGAW6qv45iAKOQE832m8p1S5gbveB0fkeQWHsJFaNjWzfp4egqcQHvy4jbQPUyHwYQbn1qvYXnv
-	+rASt1b5p27MupmPw0VN8
-X-Received: by 2002:a05:6871:2e81:b0:488:b68c:681a with SMTP id 586e51a60fabf-4a2a88cf33dmr13119867fac.38.1792002837397;
-        Wed, 14 Oct 2026 11:33:57 -0700 (PDT)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a6dfbca439sm2609137fac.8.2026.10.14.11.33.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 11:33:55 -0700 (PDT)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Wed, 14 Oct 2026 12:33:48 -0600
-Subject: [PATCH net v4] xsk: freeze deferred pool teardown without blocking
- unregister
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fHdY2vAd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E49B1F000C4;
+	Wed, 14 Oct 2026 18:34:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792002885;
+	bh=3LdUyDK01DQtoFjrGZ/bknkjNppQ8Sk8UdpqBq/9h0s=;
+	h=From:Date:Subject:To:Cc;
+	b=fHdY2vAdxwRHcOMrmHw0tMpWucDoeb7pkiGpEg1hggSyl9bvxP0hE/UermQFqYHxS
+	 ZuoztCR38h9schyLvMfzp8hCojRB6VhIHKC6Z+A8NaA7y77qlR5i4FmJo/7qBgkYfq
+	 AzQfQL+pcOBBh9bsca9YG0AoARe15urQ42RsBpElKOnAXWvZmBro9FjkoUDgWQBCqP
+	 zVdbwqXFX2SORT1kULtEJkE/dmBJcPiA1Yn2LIhuSTB94aT6smbYRLjlfLl1BLZKJ0
+	 bLPUHetJRvsS+E5mn5CMOwHkKVb/M8VyDaBJ40kiWSrqBF7d8FcTlZ8WMMOiMEy9P+
+	 U73NJQLFGX1Tg==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Wed, 14 Oct 2026 20:34:28 +0200
+Subject: [PATCH v2] mm: fix address wraparound when scanning large folio
+ PTEs
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,246 +36,160 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261014-xsk-suspend-teardown-v4-1-27795582e4a3@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NQQ7CIBAF0Ks0rMUMQ23BlfcwLpBOlWhpA7XWm
- N5dwsIYE13++Zn3nyxScBTZtniyQJOLrvcplKuC2bPxJ+KuSZkhYAVaAp/jhcdbHMg3fCQTmv7
- uuQZstSpBWS1Zeh0CtW7O7J55GtkhHc8ujn145KlJ5Oq/OgkuuKmsscqChCPtTp1x17XtuwxO+
- EYEwOYHggnBRtWIqi0l6m9EfiBC/kBkRqoj1RWgLutPZFmWF2BgPkxHAQAA
-X-Change-ID: 20260930-xsk-suspend-teardown-902f98408c93
-To: netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>, 
- Jakub Kicinski <kuba@kernel.org>, 
- Magnus Karlsson <magnus.karlsson@intel.com>, 
- Maciej Fijalkowski <maciej.fijalkowski@intel.com>, 
- Stanislav Fomichev <sdf@fomichev.me>, Simon Horman <horms@kernel.org>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Jesper Dangaard Brouer <hawk@kernel.org>, 
- John Fastabend <john.fastabend@gmail.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>
-Cc: bpf@vger.kernel.org, Eric Dumazet <edumazet@kernel.org>, 
- "David S. Miller" <davem@davemloft.net>, 
- =?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?= <bjorn@kernel.org>, 
- linux-kernel@vger.kernel.org, Jason Xing <kerneljasonxing@gmail.com>, 
- James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261014-folio_pte_scan_range-v2-1-00cf9bbaa364@kernel.org>
+X-B4-Tracking: v=1; b=H4sIADPLz2oC/4WNQQ6CMBBFr0JmbU0LkYgr70EIKdMBRklLpkg0h
+ LsLeACXL3n//QUiCVOEW7KA0MyRg98gPSWAvfUdKXYbQ6rT3GiTqTYMHOpxojqi9bUcDuZoTYF
+ 4pcLBNh2FWn4f2bL6cXw1D8Jpb+1Gz3EK8jl+Z7N7fy5mo4zCi3aY6abNrbs/STwN5yAdVOu6f
+ gHIdRFYywAAAA==
+X-Change-ID: 20261013-folio_pte_scan_range-c6ca19cc8e9d
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Ying Huang <huang.ying.caritas@gmail.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Barry Song <baohua@kernel.org>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Chuanhua Han <hanchuanhua@oppo.com>, 
+ Mike Rapoport <rppt@kernel.org>, Kiryl Shutsemau <kas@kernel.org>, 
+ Kyle Zeng <kylebot@openai.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Lance Yang <lance.yang@linux.dev>, 
+ "David Hildenbrand (Arm)" <david@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4955; i=david@kernel.org;
+ h=from:subject:message-id; bh=BkD6Y/HalsjYwf57ZhS64XjHmYuqd0mBJqkuOfKzqG0=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLOn7bzuPw7lznL52h1+/dgZqaVHXNO9d05fPf0663L7
+ b7aCHf+7ChlYRDjYJAVU2QJCr5v8PLlutpqNz5mmDmsTCBDGLg4BWAiXhMY/gfe7TERiHqrwPL4
+ 8YRd9bn8DTdtbY7b7P2jE7zP6FX4us2MDC9OnV915VGwncbp9Vvn3GEqbC3itvPrlXeewH/LNXp
+ KMgsA
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-Deferred pool destruction calls ndo_bpf() under RTNL. system_wq is
-not frozen during system sleep, so that callback can run after a
-device has suspended and gated its clocks. Use system_freezable_wq
-so running destruction finishes before device suspend and new work
-waits until process thaw.
+numa_rebuild_large_mapping() and do_swap_page() can be tricked into
+generating an address wraparound, crashing the kernel. All that's required
+is to map a tail page of a large folio close enough to the start/end of
+the address space to e.g., make
 
-Keep assigned pools visible to NETDEV_UNREGISTER independently of
-the socket list. A released socket has already left that list, but
-its final pool put can queue destruction after workqueues freeze.
-A resume-time unregister would then wait for a device reference
-whose release cannot run until the resume completes.
+	unsigned long addr_start = addr - (nr << PAGE_SHIFT);
 
-Track assigned pools per netdev with netdev operations locking and detach
-remaining pools after the notifier socket walk, including copy-mode pools.
-This also covers leased queues without scanning pools from unrelated
-devices or network namespaces. Remove the entry on assignment failure and
-normal teardown. The deferred worker still owns the pool and later observes
-the cleared device pointer, avoiding a second driver detach or put.
+to wrap around.
 
-The lifetime problem was identified by code inspection of the deferred
-release and system-sleep paths.
+Let's fix it by providing a better helper, folio_scan_range(), that
+takes care of staying within VMA and page table boundaries while
+handling possible wraparounds.
 
-Fixes: 1c1efc2af158 ("xsk: Create and free buffer pool independently from umem")
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-Reviewed-by: Björn Töpel <bjorn@kernel.org>
-Reviewed-by: Jason Xing <kerneljasonxing@gmail.com>
-Acked-by: Stanislav Fomichev <sdf@fomichev.me>
+There are some nasty details, like not being able to use pmd_addr_end()
+in this context. Add some helpful comments for these cases.
+
+Reported-by: Kyle Zeng <kylebot@openai.com>
+Fixes: d2136d749d76 ("mm: support multi-size THP numa balancing")
+Fixes: 508758960b8d ("mm: swap: entirely map large folios found in swapcache")
+Cc: stable@vger.kernel.org
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
-Assisted-by: Codex:gpt-6-astra
-
-Changes in v4:
-- Drop the redundant ASSERT_RTNL() in xp_assign_dev() and the extra
-  operations-lock assertion in xp_clear_dev_all(), as requested by
-  Stanislav Fomichev.
-- Add the Reviewed-by tags from Björn Töpel and Jason Xing and the
-  Acked-by tag from Stanislav Fomichev.
-- Link to v3: https://patch.msgid.link/20261013-xsk-suspend-teardown-v3-1-2d6be7602947@gmail.com
-
-Changes in v3:
-- Protect the per-netdev pool list with netdev operations locking, as
-  requested by Stanislav Fomichev and Björn Töpel.
-- Assert operations locking for copy-mode assignment too, and share a
-  locked detach helper so unregister holds the lock across the pool walk.
-- Rebase onto current net.
-- Link to v2: https://patch.msgid.link/20261005-xsk-suspend-teardown-v2-1-2d87228f4329@gmail.com
-
 Changes in v2:
-- Track assigned pools per netdev instead of scanning a global pool list.
-- Keep deferred releases visible across queue changes and queue leases.
-- Rebase onto current net.
-- Link to v1: https://patch.msgid.link/20260930-xsk-suspend-teardown-v1-1-a6cac8c030be@gmail.com
+- s/folio_scan_pte_range/folio_pte_range/
+- Add more comments + improve existing ones.
+- Link to v1: https://patch.msgid.link/20261013-folio_pte_scan_range-v1-1-c50dc30bf6ad@kernel.org
 ---
- include/linux/netdevice.h   |  5 +++++
- include/net/xsk_buff_pool.h |  3 +++
- net/xdp/xsk.c               |  5 +++++
- net/xdp/xsk_buff_pool.c     | 46 +++++++++++++++++++++++++++++++++++++--------
- 4 files changed, 51 insertions(+), 8 deletions(-)
+ mm/memory.c | 50 ++++++++++++++++++++++++++++++++++++--------------
+ 1 file changed, 36 insertions(+), 14 deletions(-)
 
-diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
-index 3cff2174dc03..ac257221c7c5 100644
---- a/include/linux/netdevice.h
-+++ b/include/linux/netdevice.h
-@@ -2545,6 +2545,11 @@ struct net_device {
- 	/* protected by rtnl_lock */
- 	struct bpf_xdp_entity	xdp_state[__MAX_XDP_MODE];
+diff --git a/mm/memory.c b/mm/memory.c
+index 1f5d5f7d39cd2..fa29d7a8d0c20 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -4933,6 +4933,34 @@ static void check_swap_exclusive(struct folio *folio, swp_entry_t entry,
+ 	} while (--nr_pages);
+ }
  
-+#ifdef CONFIG_XDP_SOCKETS
-+	/** @xsk_pools: assigned AF_XDP pools, ops protected */
-+	struct hlist_head	xsk_pools;
-+#endif
-+
- 	u8 dev_addr_shadow[MAX_ADDR_LEN];
- 	netdevice_tracker	linkwatch_dev_tracker;
- 	netdevice_tracker	watchdog_dev_tracker;
-diff --git a/include/net/xsk_buff_pool.h b/include/net/xsk_buff_pool.h
-index a7df573784fd..02e89350faf9 100644
---- a/include/net/xsk_buff_pool.h
-+++ b/include/net/xsk_buff_pool.h
-@@ -48,6 +48,8 @@ struct xsk_buff_pool {
- 	struct device *dev;
- 	struct net_device *netdev;
- 	struct list_head xsk_tx_list;
-+	/* Assigned pools, including deferred releases; ops protected. */
-+	struct hlist_node dev_node;
- 	/* Protects modifications to the xsk_tx_list */
- 	spinlock_t xsk_tx_list_lock;
- 	refcount_t users;
-@@ -119,6 +121,7 @@ bool xp_put_pool(struct xsk_buff_pool *pool);
- void xp_clear_dev(struct xsk_buff_pool *pool);
- void xp_add_xsk(struct xsk_buff_pool *pool, struct xdp_sock *xs);
- void xp_del_xsk(struct xsk_buff_pool *pool, struct xdp_sock *xs);
-+void xp_clear_dev_all(struct net_device *dev);
- 
- /* AF_XDP, and XDP core. */
- void xp_free(struct xdp_buff_xsk *xskb);
-diff --git a/net/xdp/xsk.c b/net/xdp/xsk.c
-index 33475b180ea6..781ba46eb152 100644
---- a/net/xdp/xsk.c
-+++ b/net/xdp/xsk.c
-@@ -2145,6 +2145,11 @@ static int xsk_notifier(struct notifier_block *this,
- 			mutex_unlock(&xs->mutex);
- 		}
- 		mutex_unlock(&net->xdp.lock);
-+		/*
-+		 * A released socket is no longer on xdp.list. Its pool can still
-+		 * hold a device reference on the frozen release workqueue.
-+		 */
-+		xp_clear_dev_all(dev);
- 		break;
- 	}
- 	return NOTIFY_DONE;
-diff --git a/net/xdp/xsk_buff_pool.c b/net/xdp/xsk_buff_pool.c
-index 9d2d94f1fb75..0ebd4d46f7ab 100644
---- a/net/xdp/xsk_buff_pool.c
-+++ b/net/xdp/xsk_buff_pool.c
-@@ -172,7 +172,7 @@ int xp_assign_dev(struct xsk_buff_pool *pool,
- 	u32 frame_size;
- 	int err = 0;
- 
--	ASSERT_RTNL();
-+	netdev_assert_locked_ops_compat(netdev);
- 
- 	force_zc = flags & XDP_ZEROCOPY;
- 	force_copy = flags & XDP_COPY;
-@@ -204,6 +204,11 @@ int xp_assign_dev(struct xsk_buff_pool *pool,
- 	pool->cached_need_wakeup = XDP_WAKEUP_TX;
- 
- 	dev_hold(netdev);
++/*
++ * Get the address range in which a folio might be mapped, assuming its pages
++ * are mapped consecutively and the folio page at the given idx is mapped at
++ * the given address.
++ */
++static void folio_pte_range(const struct folio *folio,
++		const struct vm_area_struct *vma, unsigned long addr,
++		unsigned long idx, unsigned long *start, unsigned long *end)
++{
++	/* Stay within the page table and VMA boundaries. */
++	const unsigned long pmd_start = addr & PMD_MASK;
++	const unsigned long pmd_end = pmd_start + PMD_SIZE;
++	const unsigned long lower = max(pmd_start, vma->vm_start);
 +	/*
-+	 * Socket removal precedes the final pool put. Keep the pool visible to
-+	 * NETDEV_UNREGISTER even while release work is waiting for process thaw.
++	 * We cannot use pmd_addr_end(), as it does not clamp reliably. To
++	 * avoid wraparounds, compute using the inclusive end.
 +	 */
-+	hlist_add_head(&pool->dev_node, &netdev->xsk_pools);
- 
- 	if (force_copy)
- 		/* For copy-mode, we are done. */
-@@ -244,7 +249,6 @@ int xp_assign_dev(struct xsk_buff_pool *pool,
- 	bpf.xsk.pool = pool;
- 	bpf.xsk.queue_id = queue_id;
- 
--	netdev_assert_locked_ops_compat(netdev);
- 	err = netdev->netdev_ops->ndo_bpf(netdev, &bpf);
- 	if (err)
- 		goto err_unreg_pool;
-@@ -265,6 +269,8 @@ int xp_assign_dev(struct xsk_buff_pool *pool,
- 		err = 0; /* fallback to copy mode */
- 	if (err) {
- 		xsk_clear_pool_at_qid(netdev, queue_id);
-+		hlist_del(&pool->dev_node);
-+		pool->netdev = NULL;
- 		dev_put(netdev);
- 	}
- 	return err;
-@@ -287,19 +293,39 @@ int xp_assign_dev_shared(struct xsk_buff_pool *pool, struct xdp_sock *umem_xs,
- 	return xp_assign_dev(pool, dev, queue_id, flags);
- }
- 
-+static void __xp_clear_dev(struct xsk_buff_pool *pool)
-+{
-+	struct net_device *netdev = pool->netdev;
++	const unsigned long upper = min(pmd_end - 1, vma->vm_end - 1) + 1;
++	const unsigned long offset = idx << PAGE_SHIFT;
 +
-+	netdev_assert_locked_ops_compat(netdev);
-+	xp_disable_drv_zc(pool);
-+	xsk_clear_pool_at_qid(netdev, pool->queue_id);
-+	hlist_del(&pool->dev_node);
-+	pool->netdev = NULL;
-+	dev_put(netdev);
++	/*
++	 * Avoid start/end addresses wrapping by not adding/subtracting more
++	 * than the lower/upper limits would allow.
++	 */
++	*start = addr - min(addr - lower, offset);
++	*end = addr + min(upper - addr, folio_size(folio) - offset);
 +}
 +
- void xp_clear_dev(struct xsk_buff_pool *pool)
+ /*
+  * We enter with either the VMA lock or the mmap_lock held (see
+  * FAULT_FLAG_VMA_LOCK), and pte mapped but not yet locked.
+@@ -5121,16 +5149,15 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
+ 	address = vmf->address;
+ 	ptep = vmf->pte;
+ 	if (folio_test_large(folio) && folio_test_swapcache(folio)) {
+-		int nr = folio_nr_pages(folio);
+-		unsigned long idx = folio_page_idx(folio, page);
+-		unsigned long folio_start = address - idx * PAGE_SIZE;
+-		unsigned long folio_end = folio_start + nr * PAGE_SIZE;
++		const int nr = folio_nr_pages(folio);
++		const unsigned long idx = folio_page_idx(folio, page);
++		unsigned long folio_start, folio_end;
+ 		pte_t *folio_ptep;
+ 		pte_t folio_pte;
+ 
+-		if (unlikely(folio_start < max(address & PMD_MASK, vma->vm_start)))
+-			goto check_folio;
+-		if (unlikely(folio_end > pmd_addr_end(address, vma->vm_end)))
++		folio_pte_range(folio, vma, address, idx, &folio_start,
++				&folio_end);
++		if (unlikely((folio_end - folio_start) >> PAGE_SHIFT != nr))
+ 			goto check_folio;
+ 
+ 		folio_ptep = vmf->pte - idx;
+@@ -6280,16 +6307,11 @@ static void numa_rebuild_large_mapping(struct vm_fault *vmf, struct vm_area_stru
+ 				       struct folio *folio, pte_t fault_pte,
+ 				       bool ignore_writable, bool pte_write_upgrade)
  {
- 	struct net_device *netdev = pool->netdev;
+-	int nr = pte_pfn(fault_pte) - folio_pfn(folio);
++	const unsigned long idx = pte_pfn(fault_pte) - folio_pfn(folio);
+ 	unsigned long start, end, addr = vmf->address;
+-	unsigned long addr_start = addr - (nr << PAGE_SHIFT);
+-	unsigned long pt_start = ALIGN_DOWN(addr, PMD_SIZE);
+ 	pte_t *start_ptep;
  
--	if (!pool->netdev)
-+	if (!netdev)
- 		return;
+-	/* Stay within the VMA and within the page table. */
+-	start = max3(addr_start, pt_start, vma->vm_start);
+-	end = min3(addr_start + folio_size(folio), pt_start + PMD_SIZE,
+-		   vma->vm_end);
++	folio_pte_range(folio, vma, addr, idx, &start, &end);
+ 	start_ptep = vmf->pte - ((addr - start) >> PAGE_SHIFT);
  
- 	netdev_lock_ops(netdev);
--	xp_disable_drv_zc(pool);
--	xsk_clear_pool_at_qid(pool->netdev, pool->queue_id);
--	pool->netdev = NULL;
-+	__xp_clear_dev(pool);
- 	netdev_unlock_ops(netdev);
--	dev_put(netdev);
-+}
-+
-+void xp_clear_dev_all(struct net_device *dev)
-+{
-+	struct xsk_buff_pool *pool;
-+	struct hlist_node *next;
-+
-+	netdev_lock_ops(dev);
-+	hlist_for_each_entry_safe(pool, next, &dev->xsk_pools, dev_node)
-+		__xp_clear_dev(pool);
-+	netdev_unlock_ops(dev);
- }
- 
- static void xp_release_deferred(struct work_struct *work)
-@@ -337,7 +363,11 @@ bool xp_put_pool(struct xsk_buff_pool *pool)
- 
- 	if (refcount_dec_and_test(&pool->users)) {
- 		INIT_WORK(&pool->work, xp_release_deferred);
--		schedule_work(&pool->work);
-+		/*
-+		 * Teardown calls ndo_bpf(), which may need powered hardware.
-+		 * RTNL alone does not exclude the device's system PM callbacks.
-+		 */
-+		queue_work(system_freezable_wq, &pool->work);
- 		return true;
- 	}
- 
+ 	/* Restore all PTEs' mapping of the large folio */
 
 ---
-base-commit: 513444cc62e231a11c9b15ea88de0890da9b2b4f
-change-id: 20260930-xsk-suspend-teardown-902f98408c93
 
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
+base-commit: 634cbf5b794b734c78631b92e381cfc85f357bbe
+
+change-id: 20261013-folio_pte_scan_range-c6ca19cc8e9d
+
+--
+
+Cheers,
+
+David
 
