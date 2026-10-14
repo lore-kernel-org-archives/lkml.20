@@ -1,50 +1,62 @@
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BB01253B73;
-	Wed, 14 Oct 2026 13:18:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A04305477E;
+	Wed, 14 Oct 2026 13:19:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791983923; cv=none; b=EoJC1QopbJbwjNMJ7iUPGZmYKpr2L8O4i0P2JwjZoZpUwjdlZU+r6+BEvT/hf3uOBigwiVXwn+bIoZlJu3GR38bylsBYlsYAUCKdiJSkdsdOtlJg7MiuafvBSovbqLWrT4C345ud7WUVG4OTxNNj9BOD7njTZrxoDHpewL7nK48=
+	t=1791983943; cv=none; b=DcvwL50xjOjGqo8x5MgohSgMsz+6SSwCIBnR5NSN2jjaiNjEytoxstQc/aGD2Diy6E1xmPFH1nC7xjs9pANU++c+RR/Eefn6yojGi7kxNjTNz1hBrbK/GIIv4NoQNQbzjaG8TKTtXP7VJvqA+jH0sxlL7hN5sfNrNsPM1QrIMH4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791983923; c=relaxed/simple;
-	bh=UxHIDRhGTSoqCxV+45lew0JBRv2hQYbXgPMRNAonVB4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XLOx1HDgBfC0g02QTjpZj1LhvOs92GB1Yh7JPWEXR6MgwOmb/2y0y5HJpWEaeNQlbiZg9ImGGFKCXsK/Jf8VpdpePKHtO8sUHdveIPR97n6B4CsjpbBh7AZU42dT8ZpB+IuYKcJ9ID5+WSgSxrbsXrV8pWhjOUZGUjdBxt9WMPA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=lqptv0jR; arc=none smtp.client-ip=216.40.44.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1791983943; c=relaxed/simple;
+	bh=Zxe5MTtnwFsGViRD4DP5kK2cenvHB/ZdaWLOUl6Zcek=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=vBokvot0Q321QOZAKLKpdNmje6XLV/lKZum1022EzxfHi9PVg5AtB3NU/b0eX4Utys/6kATteuUN1rOv/K7IXk8RtnhyK5SLEYbjvwmESlK0fw6QFgKqIljIrLeTtkT5F6uL+K1Ww3m36JSddPSEFju3ljz7+DKKo+aBe21Eays=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=j4DzETxe; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="lqptv0jR"
-Received: from omf10.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay04.hostedemail.com (Postfix) with ESMTP id 508171A0545;
-	Wed, 14 Oct 2026 13:18:40 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf10.hostedemail.com (Postfix) with ESMTPA id EB73F32;
-	Wed, 14 Oct 2026 13:18:37 +0000 (UTC)
-Date: Wed, 14 Oct 2026 09:18:39 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: =?UTF-8?B?6auY57+U?= <gaoxiang17@xiaomi.com>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>, Vincent Donnefort
- <vdonnefort@google.com>, Xiang Gao <gxxa03070307@gmail.com>, Donggeun Yoo
- <donggeunyoo.kernel@gmail.com>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Lorenzo Stoakes <ljs@kernel.org>, gao xu
- <gaoxu2@honor.com>, =?UTF-8?B?5Y2w6Zev?= <yinchuang1@xiaomi.com>,
- "linux-trace-kernel@vger.kernel.org" <linux-trace-kernel@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [External Mail]Re: [PATCH v4 1/2] tracing: add ring-buffer
- memory usage statistics in tracefs
-Message-ID: <20261014091839.11488a0c@gandalf.local.home>
-In-Reply-To: <51b25b1c996d4412a0c43d94acea98df@xiaomi.com>
-References: <20260916063322.472172-1-gaoxiang17@xiaomi.com>
-	<20260921113047.1152602-1-gaoxiang17@xiaomi.com>
-	<20260921113047.1152602-2-gaoxiang17@xiaomi.com>
-	<arJNSjKsJ3bK40dH@google.com>
-	<20260924102755.02084435309be26f664e3333@kernel.org>
-	<arTlRPvmR54Fa71o@google.com>
-	<20260925100908.66c46353e5a2abeb73b1e15a@kernel.org>
-	<cb0090dd1ad84a5b833e9323fd2b05d5@xiaomi.com>
-	<51b25b1c996d4412a0c43d94acea98df@xiaomi.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="j4DzETxe"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791983942; x=1823519942;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=Zxe5MTtnwFsGViRD4DP5kK2cenvHB/ZdaWLOUl6Zcek=;
+  b=j4DzETxemIym+gA4Qka9ugRlHQDcdhslSiMakIl6LT5SmC88v7VZIIxV
+   8bLbD9YzWHExkuyH226AjzKBJ7Vgexxm9TUsh4vKasyAWiWJokllkAYBO
+   CfB+OiFAvPQS9/79P3HMJPbyRLoFHAkNmnzOQefY9wECArjByqLuf0LPx
+   v7zx8QBPxEG25PmLneoD/qBsnDTmd+vkK32HQ+GVQcfGHq3w4pXlLW2zt
+   VbGvnUK4jf7PRC69dPrlGy89feU0gl7YB91ekCchJNIG+Vud9Ltk8F4Vo
+   tFAX0l33JICN5y89mO4n8tkyPQVMLC983/HFeM0pl5vsghJVvg0k72A11
+   Q==;
+X-CSE-ConnectionGUID: hsU8dcUrTrGRMMGDheYzow==
+X-CSE-MsgGUID: eahi1pvzSKCK31a1vz1JVg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="733419"
+X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
+   d="scan'208";a="733419"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 06:19:01 -0700
+X-CSE-ConnectionGUID: uK0P0PX6R4+iMbbMvl8UUw==
+X-CSE-MsgGUID: G8L1jrsRTQelF5LeOY8YWQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
+   d="scan'208";a="3272378"
+Received: from ksatya-dev.iind.intel.com ([10.190.229.72])
+  by fmviesa011.fm.intel.com with ESMTP; 14 Oct 2026 06:18:58 -0700
+From: Satyanarayana K V P <satyanarayana.k.v.p@intel.com>
+To: kvm@vger.kernel.org
+Cc: Satyanarayana K V P <satyanarayana.k.v.p@intel.com>,
+	=?UTF-8?q?Micha=C5=82=20Winiarski?= <michal.winiarski@intel.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Yishai Hadas <yishaih@nvidia.com>,
+	Shameer Kolothum <skolothumtho@nvidia.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Alex Williamson <alex@shazbot.org>,
+	intel-xe@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] vfio/xe: Add CRI and NVL device IDs
+Date: Wed, 14 Oct 2026 18:48:50 +0530
+Message-ID: <20261014131849.157593-2-satyanarayana.k.v.p@intel.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,32 +64,47 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Rspamd-Server: rspamout06
-X-Stat-Signature: 4mqesbzrwybkzrd3ditp5i3m5pquri6g
-X-Rspamd-Queue-Id: EB73F32
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18n1tzfdVUcPJES0KjT05JvwotcyiF1foQ=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=UxHIDRhGTSoqCxV+45lew0JBRv2hQYbXgPMRNAonVB4=; b=lqptv0jRUa4kIU75zVip2RlJfwunNGpCS1qcgKsOqX5RQzQm2g2TTIHm6h18dk/40ZmhmEjQ+X+sKDLkwq3js7n7TXXy0dcEWvhdOwqLP0vZNndmmEZR8Y/9/bbwSN9WpXSsYLeC/7J65ETc1vIQVK1ztC4GcF+55n1kO6Z9kIA=
-X-HE-Tag: 1791983917-361532
-X-HE-Meta: U2FsdGVkX1+1FoA5VafthlmUpfhBlCLCODCACTCoObyU2lr68OEOGffAr5KzCzyWg8rp8nA7aY9vWtDSIEpqh33/eeNUYVuEFa3PTuxW5sC7DWCdUwSjuOJnPxC0SW2Yv2zA4LEjyBg/z/p1rf39Hilm1p0cWwN44VdJX0YrK8Bqfk3ihOfi8+uHl6vZ4GqNEzSQ210S7s4v2YWoQdxremZNEbJCsjx6a4ZXiBPTG4G4XNhHUUuF8A1DR2jpGUV2f6Qbx+y1v/2n07TjPpanzLs6tOcj+MK/NpCI3uMw5+d6r4Al0zb1GYO/0BEX3pTtIIKzMJas5rbV79M4+GI2pVj04NM6qdZE
+Content-Transfer-Encoding: 8bit
 
-On Wed, 14 Oct 2026 12:32:07 +0000
-=E9=AB=98=E7=BF=94 <gaoxiang17@xiaomi.com> wrote:
+Crescent Island (CRI), Nova Lake-S (NVL-S) and Nova Lake-P (NVL-P)
+support SR-IOV in the Xe driver. Add their PCI IDs to the xe-vfio-pci
+device table, so that the generated vfio_pci module aliases allow
+userspace to select this variant driver for their VFs.
 
-> Hi, steven.
->=20
+Also reordered the table entries.
 
-I haven't ignored this more than I ignored the other 600 patches in my
-queue ;-)
+Signed-off-by: Satyanarayana K V P <satyanarayana.k.v.p@intel.com>
+Cc: Michał Winiarski <michal.winiarski@intel.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Yishai Hadas <yishaih@nvidia.com>
+Cc: Shameer Kolothum <skolothumtho@nvidia.com>
+Cc: Kevin Tian <kevin.tian@intel.com>
+Cc: Alex Williamson <alex@shazbot.org>
+Cc: kvm@vger.kernel.org
+Cc: intel-xe@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/vfio/pci/xe/main.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-I've been traveling since September 15th and due to conferences and
-vacation I basically took off 3 weeks of kernel maintainership. Last
-Saturday I started going through my backlog.
+diff --git a/drivers/vfio/pci/xe/main.c b/drivers/vfio/pci/xe/main.c
+index cbff5af385ef..8f1237751d51 100644
+--- a/drivers/vfio/pci/xe/main.c
++++ b/drivers/vfio/pci/xe/main.c
+@@ -574,9 +574,12 @@ static void xe_vfio_pci_remove(struct pci_dev *pdev)
+ }
+ 
+ static const struct pci_device_id xe_vfio_pci_table[] = {
++	INTEL_BMG_IDS(INTEL_PCI_VFIO_DEVICE),
++	INTEL_CRI_IDS(INTEL_PCI_VFIO_DEVICE),
++	INTEL_NVLS_IDS(INTEL_PCI_VFIO_DEVICE),
++	INTEL_NVLP_IDS(INTEL_PCI_VFIO_DEVICE),
+ 	INTEL_PTL_IDS(INTEL_PCI_VFIO_DEVICE),
+ 	INTEL_WCL_IDS(INTEL_PCI_VFIO_DEVICE),
+-	INTEL_BMG_IDS(INTEL_PCI_VFIO_DEVICE),
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(pci, xe_vfio_pci_table);
+-- 
+2.53.0
 
-I'm focusing on fixes before I get to updates. But your patch is still in
-my queue.
-
-Thanks for your patience on this matter ;-)
-
--- Steve
