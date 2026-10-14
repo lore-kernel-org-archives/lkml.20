@@ -1,203 +1,150 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012033.outbound.protection.outlook.com [52.101.48.33])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D6A04EC65A;
-	Wed, 14 Oct 2026 10:47:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.33
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791974862; cv=fail; b=OCjtI0sEBdLvJYWA+YK0nWihmHF+ftlcN3SjXZOF8X089Duo5i4E4rQpgnVry/R2Yx6UbISSP/GVt9es1QcELPIA7llhnYLtpKPedaJnT9hpiR4sSUAxi7a7fWxeyKvMQjxtfaBBRboSYH5Pv0fyfsYv12C1d9PD9A3WBX4klGc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791974862; c=relaxed/simple;
-	bh=odoFGYOou8mhidm5ZHPeyIVTuK8dpOX8IWOfLY6CrAs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=kkghOd8drQtsRqdnjt9wAbKjhQZhR3flSVP+UQaPeHpE+Mq3T9X5lWqbhforycTMfpnMJz0irFPmGPFGLpWlJ+tlqdyj5UcR5iJW/7dxCFEn1Xo5Za6wnQQGzvRbaqWiu7OzY0rn5Z6UA5ubJDtjsMaRBWlwVGxFe2zyJxB6gmQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=BITawuU2; arc=fail smtp.client-ip=52.101.48.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C93D4E50C6;
+	Wed, 14 Oct 2026 10:47:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791974878; cv=none; b=Hv+CGq2rf1/OmGa7oQqjhaHyENCki6RyOmucD/d+JeGu4tU2hwgccfqntzVV7WOYIs2gvTVCiWwTiFsHGMnZj6Rt4GwXobNcMu3ojehlIa8lyl9sOwyRX6dxVX6lZXK9SOYOCljszXIPzK/kVHWKWB1VAGKll9gZXrMwYfTLwaY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791974878; c=relaxed/simple;
+	bh=B4oMK5PPoQ/7iFKZhyBkpgDPK0Rlz3dUJnUw8x00xm8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BuoSoBA5lNmn0eCq9Z5cFld063PNkfQL6qm684tAv6CxtkspNqRfYMJ+J+/PasaC7IvPU1PK37FsBLJZ2ceHycvZfz9vXUYYUn3nfj9Gr7AiumR3nI4CO6O7lichikJnN+S6byYAz3RFp0bK09Yu1v3QKxQtrermFc5cQ2rJ2h8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V3c1dj6j; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="BITawuU2"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iST8GBE3CWjPP/iqQtgVPefYniVkk85AlIbLXIjpE4rtAcu1/KpzesqTq9tcyMqDKoPjB2zdpa/5WUSd7BrGC/shLOyoEXG8rEtzhCL8QXkMe8vRM0HJIVzcR1XcQZccZiHv38NdidpimUvkXZ+NHdbKEGCUwK/hTu3QRMp9SAXtPQZAGCOe0Lr8zXGLG5AflVc+Z4ICL+x3G8DT/xWaO2zi6XtEKiidfUMTbg2HsINlJ16lIbWzT0vV16+45pwnrKrFLQTILPphcfl8NShNLmYOS/PHQvEi4L/o8EbARH2G1ZP9+V8IjHoowm+02NM/WVaRnmcH59gtNDrS78gTCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ynIcakyXNPj7GTaffTTuB8SROeqKRqQJ4CUaitfYUS0=;
- b=OE7C2gGKP7s4SIx4IO9+MmFs0h9rUb88OZJZEVyh8k35ts99Yuh7knTlOWQUKgKRIcYgN6tUZQPgRfkWZ5qa3Efm6PGY73Wx5PhWgNt0BKsS3kC/5hg4tWvWSCpoeBk87GG0E6/8Hj3vq//4Frh2qmR3ssUj/0kOjSl66tigRu7iQ18RhcV9i6MItS4ZFnxRy3ZuoYpAW5bzZm8aQzoVa7fHLuBDI9n47iVDPYMhvaGi3Cmea/3/43154P0iW8u3/JGr8DiTuzpxj26++t4gkW4R6VvKx92bw+Mbzkq42MbGLwyS7Z4BMmBnrcZGRXAPEk16PJpyNJbmibiYLH4FNg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.233) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ynIcakyXNPj7GTaffTTuB8SROeqKRqQJ4CUaitfYUS0=;
- b=BITawuU2amVoepwOz0+l+vCWNbkDK5yjZchFuZFvR7lf+PA5byXZ/7pCCmKLkPgveGQLBL1IWibLgf3IPNYjVJl5LL3rjp+VhT9LTJ/BgQ/VVEDrPZZ9C3UXMhDdsi9DocByIVjO8irbc8rdgCWarl0HkZlfItILA7Kb/+byPde/KB6kA2IybPCCvr7oqMZKFFUEjFwpK5Uc4+OW5F1IOawucoXPgE/4/TKCIwE0IlUq7dafGYo5r4Rj0GSKQVjVn//4PGFo6iRdrPiiBUZ7Lx5jt/m1tQmg9aa+lxqQvYrMb4prEgQhus6XP1MolPALrV9zg5TCaUlEvutjj74dJg==
-Received: from CY5PR17CA0024.namprd17.prod.outlook.com (2603:10b6:930:17::33)
- by CH2PR12MB9496.namprd12.prod.outlook.com (2603:10b6:610:27e::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Wed, 14 Oct
- 2026 10:47:37 +0000
-Received: from CY8PEPF00000050.namprd05.prod.outlook.com
- (2603:10b6:930:17:cafe::af) by CY5PR17CA0024.outlook.office365.com
- (2603:10b6:930:17::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Wed, 14
- Oct 2026 10:47:37 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.118.233) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.233 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.233; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.233) by
- CY8PEPF00000050.mail.protection.outlook.com (10.167.247.53) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Wed, 14 Oct 2026 10:47:37 +0000
-Received: from drhqmail203.nvidia.com (10.126.190.182) by mail.nvidia.com
- (10.127.129.6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 14 Oct
- 2026 03:47:25 -0700
-Received: from drhqmail202.nvidia.com (10.126.190.181) by
- drhqmail203.nvidia.com (10.126.190.182) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Wed, 14 Oct 2026 03:47:25 -0700
-Received: from [10.135.59.1] (10.127.8.10) by mail.nvidia.com (10.126.190.181)
- with Microsoft SMTP Server id 15.2.2562.49 via Frontend Transport; Wed, 14
- Oct 2026 03:47:22 -0700
-From: Edward Srouji <edwards@nvidia.com>
-Date: Wed, 14 Oct 2026 13:47:04 +0300
-Subject: [PATCH rdma-next] IB/IPoIB: Cancel normal flush work on device
- stop
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V3c1dj6j"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71E891F000FF;
+	Wed, 14 Oct 2026 10:47:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791974877;
+	bh=IApCsci3eSqyBIQ6NmzUaRZb+6TUkOs0tii8wwaDBSI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=V3c1dj6j+QKYfnIwQZERyfqrqe+FaHIfB5HHYjPoP0iAFKmlB58XPIiLTt7NQv26o
+	 yonRlVYITgy21176x66blhL5AkAMa4TvRkno2/XqbkwC4dW+W2w9Th1e2iAaTYz62R
+	 oPN0TwNKKF3PtMljvjL+I3HZ3z104drFV04P0LLPTptEmJ4UozFh2kNDweXk3D+IMz
+	 8ZsKrBAhfHbDg4V7X7Dw484s50jmdVeTVmRXrtoxpHIqHtHFglgHNeTAxDUYatjQBh
+	 74V+mBmqbH4/BnuZ5RuS/qTv1y1HKtQchEiMx8HGnSeSfsfyWbzJurQWFQcsRbCn5I
+	 3zsBoR4hgDM4w==
+Message-ID: <75c229ef-ae41-4072-9c90-98d4779c52bf@kernel.org>
+Date: Wed, 14 Oct 2026 12:47:45 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261014-ipoib-cancel-work-v1-1-6c0faac016b8@nvidia.com>
-X-B4-Tracking: v=1; b=H4sIAKddz2oC/x3MTQqEMAxA4atI1gba4g96FXFR26jBmVbSYRTEu
- 1tcfov3LkgkTAn64gKhPyeOIUOXBbjVhoWQfTYYZRqtdIW8R57Q2eDog0eUDbWvTTO3qradg9z
- tQjOf73MA8V+Lgc4fjPf9APqlQxxuAAAA
-X-Change-ID: 20261014-ipoib-cancel-work-1d526f705a9c
-To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, "Roland
- Dreier" <rolandd@cisco.com>
-CC: <linux-rdma@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Carolina
- Jubran" <cjubran@nvidia.com>, John Popplewell <john.popplewell@nmc2.ai>,
-	Cosmin Ratiu <cratiu@nvidia.com>, Edward Srouji <edwards@nvidia.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791974842; l=3378;
- i=edwards@nvidia.com; s=20251029; h=from:subject:message-id;
- bh=zxviG3HaJ2NTMkP2uM+WzKxJ6WYQHlq33U6aLSdsLtc=;
- b=1VpwwToC4SRye7scJKcrz92/GOidvt82NZ7hgWrfiCj2KHQ/bLdpLkbq6KkSS0SOsYGRl8IBV
- q7OTvMP8FgaC7GB6u+hZN0q9VO3iFpHUywMR5FtpFWkhy5YkVP6qWte
-X-Developer-Key: i=edwards@nvidia.com; a=ed25519;
- pk=VME+d2WbMZT5AY+AolKh2XIdrnXWUwwzz/XLQ3jXgDM=
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY8PEPF00000050:EE_|CH2PR12MB9496:EE_
-X-MS-Office365-Filtering-Correlation-Id: 113887d3-ff35-4d7d-d450-08df29e08ff6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|36860700016|82310400026|56012099006|11063799006|261009223027099003|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	PrPzuHdjWgy+dxALc8/Qgrc3quoAKiVnh6lCnTZ1onpSUIGDYj69kgbVTtxwUTHejCxrMgkqECQmIWMky9qoNaJAKwheWu7YE7dlPfX00LDjFYmyld306SbXHp85QzIx/a0cBW8TYdUCmCr4gkuCGrMS/sFMTu9Wx4TAjX7oUXRck/rwMJ7J3HQSs0daMH9I79lnnQtMEy+3s+Z80aQfFm6hGxR5MJrFZIckAOUwCiAWCR3Ro8Sx1M9MslIpqYwjxJKQZfg0eaXaC1yYQF8b/GqvOCqB++JOF3o2W8nSyU5HuVa9rnTwdWoni5mCmFnK76MGP6BZseiaxErlCA5/zDeNQ7FH1+3p+nVGhtvZMOJRWUaUSvZwtRgrShFCPeI7H/kv+dgPtAyvAE+1NqIrs2Ko2fBPCUC69zVXmSThkEwWlnvlZubDboFRpZd4C6NyYjA4gCeEWRZ+qeghWQZ0PDW96th4nAssz58d18bv157511EEY1RiZ1FyREgqVPqn4jdG+9+4BYNxxn3a02yZ06JXmwDdi4fIkAe3urYIb8gveoRx0HGKkpQ6e3vO0gaC4nXVDsYRSL15RPgd9oShtJZva3pczvpkkmYTL3JXSxcqisEtFOyEOv9NN+bDhYptljpUQ2jqxzLDjgjCEyeE/KOK+SfxxEEcnpWSTvyDKWQjkAx/FtmN//kMbxtpT7nxM2NoOPGkYtae8cKSNM+RGg==
-X-Forefront-Antispam-Report:
-	CIP:216.228.118.233;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(36860700016)(82310400026)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	1LSjL8fhB6dwAcf9kJNpH5+FqmGsV7Iz74eYNag0o02eP9pEFEWaFyGeG8Zs9coOZn/FB6kozlsoqNRoJzgB/64ovL9gOybCvszexORH7usAhYo2Yi3TRJN0KFUxMA+UolTnsTrTZYEZEtlsF3/Cgu/u0lBCEN6U8TxPbxMVq4wpq0kodjRZ1smgNQNOsa0IRPWVSy5TGr1UNqDfqllRZDUtHBg2NZL5CvLj+s86DIZdD3Am+0PUDz/pjbd0k06qtHbK4mhVgQ2gy7rj28rRbfYx8rW/wTAtYT5ErkHgp2XB4D+q/aDPsjxwouIE/QsA7rK7QQIPNi7f1inl0F5qLGFnqRbYNIarU7+8PrH1woxWKYOjEQMIWKHJ7bFUnv2uuEHJw0iPB2tf3aRf3PcyOPvyTylW8E6fDTcSXnZglGubYtVsYSP9lcjhGIFFUcOS
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 10:47:37.3381
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 113887d3-ff35-4d7d-d450-08df29e08ff6
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.233];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY8PEPF00000050.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB9496
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC: DMA_PMD 00/22] DMA_PMD: PMD_SIZE-backed IO buffer pools
+To: Robin Murphy <robin.murphy@arm.com>, Luigi Rizzo <lrizzo@google.com>
+Cc: Luigi Rizzo <rizzo.unipi@gmail.com>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Christoph Hellwig <hch@lst.de>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Vlastimil Babka <vbabka@kernel.org>, "David S . Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, Danilo Krummrich
+ <dakr@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Willem de Bruijn <willemb@google.com>, Kuniyuki Iwashima
+ <kuniyu@google.com>, Joshua Washington <joshwash@google.com>,
+ Harshitha Ramamurthy <hramamurthy@google.com>,
+ Saeed Mahameed <saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>,
+ Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ Alexander Lobakin <aleksander.lobakin@intel.com>,
+ Michael Chan <michael.chan@broadcom.com>,
+ Pavan Chebbi <pavan.chebbi@broadcom.com>, iommu@lists.linux.dev,
+ netdev@vger.kernel.org, linux-mm@kvack.org, driver-core@lists.linux.dev,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261003212241.3432303-1-lrizzo@google.com>
+ <0cc1cac1-a500-489b-9c1b-b49598b5550b@kernel.org>
+ <CAMOZA0JaiKsRgDdjHkL_N+MshhcyLSv+cT9SzEbNsC_sumHvOw@mail.gmail.com>
+ <b31efcd5-149c-4edf-81a2-1744d363c390@kernel.org>
+ <4fda41ed-741b-4c5f-ae83-e3ea5a447441@arm.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <4fda41ed-741b-4c5f-ae83-e3ea5a447441@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Carolina Jubran <cjubran@nvidia.com>
+On 10/13/26 12:42, Robin Murphy wrote:
+> On 12/10/2026 8:43 pm, David Hildenbrand (Arm) wrote:
+>> On 10/12/26 16:45, Luigi Rizzo wrote:
+>>> On Mon, Oct 12, 2026 at 3:51 PM David Hildenbrand (Arm)
+>>> <david@kernel.org> wrote:
+>>>
+>>> I had to call it something... an earlier prototype used the name IOMMU_2M,
+>>> but I didn't want to suggest that the design was limited to 2M (it is not).
+>>>
+>>> Aside from the name, the _current_ prototype restricts to 2M allocations,
+>>> exactly because too large units are expensive and wasteful.
+>>>
+>>> In the code, decoupling the allocation size from the PMD size is trivial.
+>>
+>> Yeah, we should do that.
+>>
+>> We should probably just find a way to describe that this is a POOL that focuses
+>> on physical contiguity in some configured granularity.
+> And since it's intended for DMA we could call it dma_pool and oh look it already
+> exists...
 
-ipoib_ib_dev_flush_normal() can race with ipoib_stop() because the normal
-flush work does not run under RTNL.
+Heh, I did have "DMA_POOL" in mind when writing my reply.
 
-Before commit a77a57a1a22a ("IPoIB: Fix deadlock on RTNL in
-ipoib_stop()"), ipoib_stop() flushed ipoib_workqueue after clearing
-IPOIB_FLAG_ADMIN_UP and before calling ipoib_ib_dev_down(). This ensured
-that any in-flight flush work completed before ipoib_ib_dev_down()
-performed the final clear of IPOIB_FLAG_OPER_UP.
+> 
+> Sure the current implementation is capped at PAGE_SIZE for allocation (and thus
+> mapping too), but I don't see why that couldn't just be made more flexible.
 
-After that commit removed the workqueue flush to avoid a deadlock with
-workqueue tasks taking RTNL, a normal flush can continue running
-concurrently with ipoib_stop() after IPOIB_FLAG_ADMIN_UP has been
-cleared.
+That intuitively sounds like the right direction.
 
-The flush may observe IPOIB_FLAG_ADMIN_UP set and continue running while
-ipoib_stop() clears IPOIB_FLAG_ADMIN_UP and brings the device down. The
-flush can then call ipoib_ib_dev_up() and set IPOIB_FLAG_OPER_UP again
-after the device has already been stopped:
-
-  flush_normal (ipoib_workqueue)    ipoib_stop() (RTNL held)
-  ------------------------------    ------------------------
-  test_bit(ADMIN_UP) == 1
-                                    clear_bit(ADMIN_UP)
-                                    ipoib_ib_dev_down()
-                                      clear_bit(OPER_UP)
-  ipoib_ib_dev_up()
-    set_bit(OPER_UP)
-
-This leaves the interface with ADMIN_UP clear and OPER_UP set. During
-device removal, ipoib_ndo_uninit() waits in destroy_workqueue() while
-holding RTNL, while ipoib_mcast_carrier_on_task() may keep retrying
-rtnl_trylock() as long as OPER_UP remains set, resulting in a deadlock.
-
-Cancel the normal flush work from ipoib_stop() after clearing
-IPOIB_FLAG_ADMIN_UP and before bringing the device down. A pending normal
-flush is canceled, while an already running flush is allowed to finish
-before ipoib_ib_dev_down() performs the final transition to OPER_UP
-clear.
-
-Only the normal flush needs this synchronization. The heavy flush is
-already serialized with ipoib_stop() by RTNL, while the light flush does
-not bring the device back up and therefore cannot recreate this race.
-
-Fixes: a77a57a1a22a ("IPoIB: Fix deadlock on RTNL in ipoib_stop()")
-Reported-by: John Popplewell <john.popplewell@nmc2.ai>
-Signed-off-by: Carolina Jubran <cjubran@nvidia.com>
-Reviewed-by: Cosmin Ratiu <cratiu@nvidia.com>
-Signed-off-by: Edward Srouji <edwards@nvidia.com>
----
- drivers/infiniband/ulp/ipoib/ipoib_main.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/infiniband/ulp/ipoib/ipoib_main.c b/drivers/infiniband/ulp/ipoib/ipoib_main.c
-index 6c14246befb1f96483a1c634e533a60c0b171fdb..f0b72d65fdeb71fd1b9680b90342a5a756bcac1d 100644
---- a/drivers/infiniband/ulp/ipoib/ipoib_main.c
-+++ b/drivers/infiniband/ulp/ipoib/ipoib_main.c
-@@ -230,6 +230,13 @@ static int ipoib_stop(struct net_device *dev)
- 
- 	clear_bit(IPOIB_FLAG_ADMIN_UP, &priv->flags);
- 
-+	/* Normal flush runs without RTNL and may bring the device back
-+	 * up. Cancel it before the device down transition.
-+	 * Heavy flush is already serialized by RTNL and must not be
-+	 * waited on here while RTNL is held.
-+	 */
-+	cancel_work_sync(&priv->flush_normal);
-+
- 	netif_stop_queue(dev);
- 
- 	ipoib_ib_dev_down(dev);
-
----
-base-commit: d37e98844afea39a9614cac0de837701263c90f7
-change-id: 20261014-ipoib-cancel-work-1d526f705a9c
-
-Best regards,
 -- 
-Edward Srouji <edwards@nvidia.com>
+Cheers,
 
+David
