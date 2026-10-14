@@ -1,217 +1,139 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E46B50B8BE
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:02:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D346B50C2B7
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:02:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791982965; cv=none; b=SLYkc/9MQ7eZyTil0h/zSmm3Y1hYAui6DIaHZ3kcrdVRhlN5bY/JJgTd4ymeI597uROn5XIwuVlYeEqJ5JiC1Jk36j6+Pu717Cf/zStpxnL5AX4ELTH3goIAuXsriRgqQDW6dtJVJwJUoY/dAfZ8A1kXe8rTrqPtYU/MvGSssj8=
+	t=1791982976; cv=none; b=A4gpceVfr0dfbnR5rCNseYpXi0zALjJZ8HcdO1FmRGrxf+EgGq06Wdll0IG/SVPRnxo4QhCt37Dj5COwrn4sLh8notNgkwhi5tftB8/ioJxbLyqhS7U4nMcIqp7dOzOMkWBd/44Mc6j8qTbAv1jz2Uiz1dikglmEeiyDYDAHTtQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791982965; c=relaxed/simple;
-	bh=4FdlLBJoqpDFYA6HjvNHnqM5yD09QQJ4fKl32c09zsI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lK1YS5gjHTw01+mTjwLJEajZFG8Hh1a2MUJvc6LFG2qKslQKCCF9ZXrT9cRtzIiepRjdDPvR2zQi66gZD6dMgwqkVLuRVEz7f2ssehXWgwyc2itRgLcyknhd/QUX99u28k0UPMgF8dE1itn8F4JeUaeTHpyKRwgjiPp1VuCJwxQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=LB2lEkVI; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
+	s=arc-20240116; t=1791982976; c=relaxed/simple;
+	bh=+ykcXLkofymWRd52it0fOc+h3cXzH/rkltUSBHqL56o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YNdSmW9EotsBzsRdlRqx320bSRIqKUE4bk+QQ9zEkrwKsnjMyPcn7suQa5exlpgsPr59xAQYcWJQ7yU2tyzTl+dYhvJyqIhPHWOc68t5HF/VYZPGCgVJCMmGDu9YA7fxUgW+mOcrPyj7LrCCoW1yUjYJkOFdCCVu5tTWwLC0cH0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=CDuyBdWI; arc=none smtp.client-ip=209.85.160.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="LB2lEkVI"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a180fbeef5so37202105e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:02:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="CDuyBdWI"
+Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-5350cc60b51so57138611cf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:02:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=konsulko.com; s=google; t=1791982959; x=1792587759; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TzolvO3m4kvSEWLa664TtxJM99Sg9wbekRZaNIqbzEU=;
-        b=LB2lEkVI8SSDysZgU2wVSUFE9yLba3GLpVQj+D+iTyDLN5z4u0VCHPY+GnXw/bhIDj
-         WGT7WqoHpZH2ifQR1y/IvvjfxsIIqD3eTZXt7d70Ukiul9ihnCP38lY3bRNoa25ASkbo
-         WGeyIbwe3MI/QQw7wkPFT2Sd9Xr8PetJHPulo=
+        d=gourry.net; s=google; t=1791982971; x=1792587771; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=c+g+JcQ9fBuosfYzKHFrjP1VpW5rAUzuZgfEvkBjq+A=;
+        b=CDuyBdWIix5TuqbxWqvVs4W/nAVlCh3sVbL31A3axH9tlngOrG93wvMa9Rz71vP+Rs
+         bKUx5AAHhkMBS/9o2QIWA0hIcdHK6TJZyHol+rwTe5skZZUg3OZ23SgOnvagd3DFLHQ7
+         TOBGZGoi+PuEW/QBRO9e+uI7/V1R0Vh6/OyJaKYNqSKBi/rq5Nn4HugV/E3pMBwjkWR6
+         aunY/ff3ZUOXyWI7kPDVaWY+dayTocJqoi+AVQ8gHWa/I3+UAM5uWqxrcuGeJUaZWITC
+         P7Qp2uTBJqLnQUmdZjHpLhtSsxq9C3+IxhYb1h04MYCWDMYvSQaUZD78/NxMsYdtKiSx
+         eGyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791982959; x=1792587759;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TzolvO3m4kvSEWLa664TtxJM99Sg9wbekRZaNIqbzEU=;
-        b=0YJ09hFgioQahc2EpsjPBSwhMgeRMe0EwdLJEy7/+TyVOSpRcr5f+C3GDnMqyUCZ6Z
-         iH1NksQvPAFcMktGSRbvSA7Mn0bOOZcoYv93gxKrF1JvUdPhZPXyVPgCs0jNNDQS+TPa
-         MKuZiKCLEqpEjIL7e54YoOe7a1g2xtQuP3DiI5MOu9vYz7l9XB8MtK81J9kLG0F972ok
-         iX1XKUHAsqxLszggW9z2aUBpTW2ySbZZDxxmvfbHtsoFP/UPpzVvaZvCMCNi2assFdlq
-         MIGdIHe4gHwAe4PR1xT2YvFxa3/Zo8myJvkeAbsalDtqRErWZ7v/Sh9KAvfTVmb7hrfX
-         Jq5Q==
-X-Gm-Message-State: AFq9FYIZKDr6pbjnW8wmvrMJlKuNe+nqSGwMtvRrUccCKIIa9fzI+IrR
-	Jdxy/CZbW2JEcAeAo9R2Ef4SK3Q+TXDK3qIhjTZOz+RjSbCnVCE+YNeEIshxcyBLtRoYhzBdY12
-	xoOaN
-X-Gm-Gg: AYBFou0QOBaguqzBWVZIWVUxHyabSWtSF7oAowy01hXYc6dJgp2uGbAMfJ0MbBoJk9v
-	E1JitJbARL/0gPMXWkDzZEchTicemsULhKoWrehg08nskSKD9ZBiPEOODp4CUQSrbpT/Sgh1lma
-	dYb+Fdim+Zpfy5vhV9HnKflglr4SSUSEYXYE7FNpqHAsya/tOGxgPZT6aRWV/8dBijBTMt0lViM
-	dLT0kr94BhrjTRr7jFo7x0imR8jK7ZYQlaSloEbW8OAvtCgYo3Z6Z5x9cniCMbRpxU6GTJfQlcM
-	kcTMyQLXKw8+397yzUvKx1D7Fr6mwMSeBPJUOAZUEkasXPpbHiz/ofIRZ1LsYY4nVDL3IY0gQHf
-	dLx+OkrQoxR/p8sadrYDFJoIRCNGb9xzJaaqZbIxz8eBErXDCvZP8U57B5CHZTSl4eSc1rcFRbh
-	j9qoakxCi8Ky3mi7YaRNRFyGgwCWiEBvhCFtGmJ3y3a6apvDnOCT6WT+HRUOrKLKJaU2FhDRcqO
-	owxiiBYQBdBxWI=
-X-Received: by 2002:a05:600c:820d:b0:4a1:65d2:7912 with SMTP id 5b1f17b1804b1-4a18e47b302mr284953305e9.8.1791982959485;
-        Wed, 14 Oct 2026 06:02:39 -0700 (PDT)
-Received: from tone.k.g (lan.nucleusys.com. [92.247.61.126])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ab5b03sm12608292f8f.30.2026.10.14.06.02.37
+        d=1e100.net; s=20260707; t=1791982971; x=1792587771;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=c+g+JcQ9fBuosfYzKHFrjP1VpW5rAUzuZgfEvkBjq+A=;
+        b=r5H1uGA1wXmRl8KL6c8ARyH00YDeFPw591pKPp29olV03Z5IESxYl0r2C4zBjt1R8h
+         0Qzl0QzyymKtQG4N1VcsEUK2vSd1lMzTicZPgD8iEi4p6wEFHSHQ/rZANjpVtnd/vsrU
+         squg9qqONTyn8DpNKwpOgl0+boSRSqthjesiIo7z6mLhjq2C2qFJjxLD4QiYqKSTOH9L
+         vXJNtk6Rico4tKRosg2kpiUYkBseWZBZNqCV+O4LtxcBS4sBM8F9ylcfNt/NBQRS7RI1
+         ix7JmCDl/LDS0LEEhCWymzaQoJ52Heeo0Lt6Fny5E1+BMlXJopTM3HFcAgfAhE53UopD
+         uzUw==
+X-Forwarded-Encrypted: i=1; AKwUvBwooow8RoFPtOUWxiX3b0Q9jb1M39hqXCUMgnyhC4OhOx2eaSpYYc46Nuyaj/jUvdEOkqzOZv4mPk0Wz94=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKJY5UEDTbnKRIgWeVFgkCTm8hwYfSCjPeSZcsB6p0H3sRjSvrK
+	d1LQXzMevITEu90yEq1XUlQ9cYdqzl2dB92SrYb5juQwEADg6ILrjcFtq2fTVfXGsJw=
+X-Gm-Gg: AYBFou2GxQ1N47EF/PTDhe6bU1+4JRmTAA/VcUPTiUpZSH/XVKEqpFjAP2I9shCW61M
+	/zcw2bDQqacAPJUEKqpv7IoL+KO6BiJnWnNadbsFiPxuusx9emTGSUObluyIg9t1lbxlTCiDNOV
+	1XUkucCz7MJZrEQgkyJI5V7zV1lJiamqqSy9/cN0jBzfScuLuRCbIw+mR7YB0Fk9gtlZTTKiGj6
+	foK35oqrTdyXHIlHvPoA8Y8J2dXZTfx5yYgoNe7sFMfeYuGwSWebOO/tv0xuqCaA9joASiGtLFA
+	4EjyERGclIfTSUVHHktrFOOFoFE7XQ0+75kAujmTeiOs++2qV2nmZZwW1A2Fp3WBffBrovDegy3
+	NiHYC9d4onPikU582lXjP4cjUPVQNZNGwLxQMbRzHJ6Xf6ueTSUx80S/s/J2ClQVxu+Lvwm/f0w
+	bUeu8IX7ypBkH6QhlmGyIeLBeF8D267saOQ9EGB44r3dGgYHlDA/EH46bcDzqUUW5xyuUcceyXp
+	wDiZAgEUflqhKHVjlMKz+LFe0+eixioh7SH6rEr3ztBRWEDa0hRzbs=
+X-Received: by 2002:a05:622a:e14e:20b0:535:b506:11c8 with SMTP id d75a77b69052e-535b5062ea3mr142869471cf.46.1791982969440;
+        Wed, 14 Oct 2026 06:02:49 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5359b76b030sm124693521cf.17.2026.10.14.06.02.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 06:02:38 -0700 (PDT)
-From: Petko Manolov <petko.manolov@konsulko.com>
-To: linux-kernel@vger.kernel.org
-Cc: devicetree@vger.kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	dinguyen@kernel.org,
-	arnemaximilian.richter@draeger.com,
-	martynas.grybauskas@draeger.com,
-	Petko Manolov <petko.manolov@konsulko.com>
-Subject: [PATCH v9 3/3] arm: dts: altera: add Draeger M48 CPU Module
-Date: Wed, 14 Oct 2026 16:02:26 +0300
-Message-ID: <20261014130228.2780803-4-petko.manolov@konsulko.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261014130228.2780803-1-petko.manolov@konsulko.com>
-References: <20261014130228.2780803-1-petko.manolov@konsulko.com>
+        Wed, 14 Oct 2026 06:02:47 -0700 (PDT)
+Date: Wed, 14 Oct 2026 09:02:45 -0400
+From: Gregory Price <gourry@gourry.net>
+To: Li Zhe <lizhe.67@bytedance.com>
+Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, 
+	joshua.hahnjy@gmail.com, ziy@nvidia.com, mingo@redhat.com, peterz@infradead.org, 
+	mgorman@suse.de, riel@redhat.com, juri.lelli@redhat.com, 
+	vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org, 
+	bsegall@google.com, vschneid@redhat.com, kprateek.nayak@amd.com, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH 1/6] sched/numa: clear fault locality state on execve
+Message-ID: <as98SA5yfBaeI4oj@gourry-fedora-PF4VCD3F>
+References: <20261014094347.99157-1-lizhe.67@bytedance.com>
+ <20261014094347.99157-2-lizhe.67@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014094347.99157-2-lizhe.67@bytedance.com>
 
-M48 is a heterogeneous board made by Draeger that is based on two
-independent cpus, that are monitoring each other.  One of them is
-imx6, the other is Altera SoCFPGA Cyclone 5.  The latter is booting
-independently off qspi.
+On Wed, Oct 14, 2026 at 05:43:42PM +0800, Li Zhe wrote:
+> task_numa_free(p, false) is used by execve() to reset NUMA balancing
+> state without freeing p->numa_faults, because concurrent readers may
+> still observe the task.
+> 
 
-This one adds the DT for the Altera SoCFPGA part of M48.
+Is a process that exec()'s going to run long enough to actually collect
+any real numa fault data?
 
-Signed-off-by: Petko Manolov <petko.manolov@konsulko.com>
----
- arch/arm/boot/dts/intel/socfpga/Makefile      |   1 +
- .../socfpga/socfpga_cyclone5_draeger_m48.dts  | 100 ++++++++++++++++++
- 2 files changed, 101 insertions(+)
- create mode 100644 arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
+> the retained p->numa_faults array, but leaves the current-window buffer
+> half and p->numa_faults_locality unchanged. Those are also NUMA fault
+> feedback consumed by task_numa_placement() and update_task_scan_period(),
+> so a newly executed image can inherit stale fault feedback from the old
+> image.
 
-diff --git a/arch/arm/boot/dts/intel/socfpga/Makefile b/arch/arm/boot/dts/intel/socfpga/Makefile
-index 8df0976da01c..cdcea11abdfa 100644
---- a/arch/arm/boot/dts/intel/socfpga/Makefile
-+++ b/arch/arm/boot/dts/intel/socfpga/Makefile
-@@ -11,6 +11,7 @@ dtb-$(CONFIG_ARCH_INTEL_SOCFPGA) += \
- 	socfpga_arria10_mercury_aa1_st1_emmc.dtb \
- 	socfpga_arria10_mercury_aa1_st1_qspi.dtb \
- 	socfpga_arria10_mercury_aa1_st1_sdmmc.dtb \
-+	socfpga_cyclone5_draeger_m48.dtb \
- 	socfpga_cyclone5_mercury_sa1_pe1_emmc.dtb \
- 	socfpga_cyclone5_mercury_sa1_pe1_qspi.dtb \
- 	socfpga_cyclone5_mercury_sa1_pe1_sdmmc.dtb \
-diff --git a/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
-new file mode 100644
-index 000000000000..bc1909126e19
---- /dev/null
-+++ b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
-@@ -0,0 +1,100 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ *  (C) Copyright 2020 Draeger and Licensors, info@draeger.com
-+ */
-+#include "socfpga_cyclone5.dtsi"
-+
-+/ {
-+	model = "Draeger M48 Cyclone V SoC";
-+	compatible = "draeger,socfpga-m48", "altr,socfpga-cyclone5", "altr,socfpga";
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	memory@0 {
-+		reg = <0x0 0x40000000>;
-+	};
-+
-+	aliases {
-+		/* this allow the ethaddr uboot environment variable contents
-+		 * to be added to the gmac0 device tree blob.
-+		 */
-+		ethernet0 = &gmac0;
-+	};
-+};
-+
-+&gmac0 {
-+	status = "okay";
-+	phy-mode = "rgmii";
-+	phy-handle = <&ethphy>;
-+
-+	mdio0 {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		compatible = "snps,dwmac-mdio";
-+
-+		ethphy: ethernet-phy@0 {
-+			reg = <0>;
-+			rxc-skew-ps  = <1860>;
-+			rxd0-skew-ps = <0>;
-+			rxd1-skew-ps = <0>;
-+			rxd2-skew-ps = <0>;
-+			rxd3-skew-ps = <0>;
-+			rxdv-skew-ps = <0>;
-+			txc-skew-ps  = <900>;
-+			txd0-skew-ps = <0>;
-+			txd1-skew-ps = <0>;
-+			txd2-skew-ps = <0>;
-+			txd3-skew-ps = <0>;
-+			txen-skew-ps = <0>;
-+		};
-+	};
-+};
-+
-+&gpio0 {
-+	status = "okay";
-+};
-+
-+&gpio1 {
-+	status = "okay";
-+};
-+
-+&gpio2 {
-+	status = "okay";
-+};
-+
-+&i2c0 {
-+	status = "okay";
-+	clock-frequency = <100000>;
-+
-+	eeprom_mac: eeprom@50 {
-+		compatible = "atmel,24c08";
-+		reg = <0x50>;
-+		pagesize = <16>;
-+	};
-+};
-+
-+&mmc0 {
-+	status = "okay";
-+};
-+
-+&qspi {
-+	status = "okay";
-+
-+	flash: flash@0 {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		compatible = "micron,n25q256a", "jedec,spi-nor";
-+		reg = <0>;
-+
-+		/* chip select */
-+		spi-max-frequency = <100000000>;
-+		m25p,fast-read;
-+		cdns,read-delay = <4>;
-+		cdns,tshsl-ns = <50>;
-+		cdns,tsd2d-ns = <50>;
-+		cdns,tchsh-ns = <4>;
-+		cdns,tslch-ns = <4>;
-+	};
-+};
--- 
-2.47.3
+I'm not sure this actually corrects much unless you have a long running
+program that eventually exec()'s - and even then it seems like this all
+self-corrects within a couple seconds.
 
+Do you have some clear reproduction that makes an obvious wrong effect,
+or was this just some static analysis?
+
+It's "not wrong", but I'm trying to understand what impact this actually
+has.
+
+> The non-final path clears p->total_numa_faults and the averaged half of
+> 
+> Clear the whole retained p->numa_faults array and p->numa_faults_locality
+> together in the non-final reset path.
+> 
+> Fixes: 04bb2f947505 ("sched/numa: Adjust scan rate in task_numa_placement")
+> Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
+> ---
+>  kernel/sched/fair.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index 57360f5cdde4..1053437933ee 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -4177,8 +4177,9 @@ void task_numa_free(struct task_struct *p, bool final)
+>  		kfree(numa_faults);
+>  	} else {
+>  		p->total_numa_faults = 0;
+> -		for (i = 0; i < NR_NUMA_HINT_FAULT_STATS * nr_node_ids; i++)
+> -			numa_faults[i] = 0;
+> +		memset(p->numa_faults_locality, 0, sizeof(p->numa_faults_locality));
+> +		memset(numa_faults, 0, sizeof(*numa_faults) *
+> +		       NR_NUMA_HINT_FAULT_BUCKETS * nr_node_ids);
+>  	}
+>  }
+>  
+> -- 
+> 2.20.1
