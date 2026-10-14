@@ -1,111 +1,192 @@
-Received: from mta1.migadu.com (out-154.mta1.migadu.com [95.215.58.154])
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA88E39185C
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:41:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.154
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791996092; cv=none; b=vFjkqES01VPE+i1Wa4BdU7Pu6aASveDTeVkXUc6O1oi56sld7rJCcSvlwircxV8GxT1C2XMyBGSdFcI4qcWSfNnnrHQ/xb905yns8uTTeaod0o8Y4h67nuG/tsT8FiLp/W/q9aYjk6G1Gv0vdnqor0iO53wZFaHiudpW6ycgdsU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791996092; c=relaxed/simple;
-	bh=kQ75PMv+BY9OnLoeEVPyFqxTAPL+KhKo+I77xMhcgcc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LvWwmPPsLcy4IVKwTzEA+yW8Ql03tOKkW2KEMb8Q03vU8D2R+5M7MboJPbCFW6NesSHAejrD+oh16o6hIIhLONqKJeWr1szjnE5S0t0Cj0ZL6MBRukbEiG21uXSmFx3H2+1soY7mJIM8kgBrWdGcwEqQQ1cws6N/VzGnGA7JLvw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=MsOieU8G; arc=none smtp.client-ip=95.215.58.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69F26560ADC
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:41:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.174
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791996101; cv=pass; b=Wrneu7LICWHbURcLuhECE9WNE6qpKHUEoJtlfT7YC6lE5MqpMhnOYs6Pnzirbk0USRF8TTbZId5Iqpis1Nq0DUKS2l0aYlPHvBVBA5CGJcwu0Pg/3o4RjL9CpT3Pg/hJldRyiFvCbFkJsgXHbnKesURROT8BBFUgNRTch3SFf64=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791996101; c=relaxed/simple;
+	bh=3mwSDPTFjJGkaatL1Lo6Mh8o6JdUk3CgZRH07sGguXo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=a5lta3BKxoD45/kdQhjnfNzBF079UCz3i5kQw2R9bnvBNvKtoRinI84Le0IuKOlXJHQuCmOBTG+MpUiWKSI2bnDRzvkQCr6H2E9ebpxEF1L3c/FFKOClD1FARVglSRnXMwgqBp0VNxd/1VxFdElWe6gnNBeEm5j11dRS8W6L3ss=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=PSHV793O; arc=pass smtp.client-ip=209.85.160.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="MsOieU8G"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=kQ75PMv+BY9OnLoeEVPyFqxTAPL+KhKo+I77xMhcgcc=;
- c=simple/simple; d=packett.cool;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791996088; v=1; x=1792600888;
- b=MsOieU8GejELPQB8oXQZ702KEehwpVk1NSUAGj509KZOkxXo5eNCJepaJ/YuteKifIZQYZkI
- LAOlwOis9kUDG7Nmyg3M19OQIHYRwjOeuVG2GmHB3aF3yB3J0vLmSncpSBgfV6fjZ6qrd+60w6F
- ob9OFUTVW8QwncRsah8TiUOe/JxE3ouS3l/2ax47QVaUjqJwhwF/m/ywYMoFxM7wMAuy94qe3/h
- hleDlYsc2Sjcch8KM51WPNmB3Bn1BYxS0II3bJS2+TZRzDKBCaZgZ0CrUnTLF6d4ekOedWJ4VZR
- 7wBQPdJVxe4CD6D80pW1aUKuwL/fd+awHvVz8j2qHHLQw==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 454a9d4a808200d2;
-	Wed, 14 Oct 2026 16:41:28 +0000
-X-Mizu-Trace-ID: 454a9d4a808200d2
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <12d14e1d-8355-4b3b-9eef-bd5e90dfd19f@packett.cool>
-Date: Wed, 14 Oct 2026 13:41:19 -0300
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="PSHV793O"
+Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-535f598d126so605731cf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:41:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791996098; cv=none;
+        d=google.com; s=arc-20260327;
+        b=IPulXofANld55mDeLsvqN51AKYDysTEDD86Z+6QeHGwF4OSzoi2Kb7C2W2E90CiSkK
+         aTFg0qbhgxS6ARev+hS5DSxkDQiDbfj8PibXnNhD5Brv5PVYU1h+sod4XaoPjVymL3rI
+         3cp/bIYKicz0/NOynZuMFKq2nc8I2g8l5qtLVCtjwQa3ul6geilfRr1PNVTvo5Qx37J4
+         8S0U5IZlv97SlNOsmkyo0qWOLfv4eRcsvFDSUjyvTZjnPsWb2XCRYlYB2MfppNj+Hyk+
+         F3x+NSTv6vopL7K6fKES1iBI8Tp2/EmHhbsOYB4HH0xKcTwXQstvkACYwq+l2aTPJj8h
+         1TJQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=NIItl0pCQ/aBq2U1h8kgQBz3yZb99mdO46VMaoMNnUw=;
+        fh=w/dZv6buZ6sbfGk7L0vdp1wg0icuD5LYquPms/Uxm2k=;
+        b=PBwY8T3l+fraQNzsAbAe9pT3rXAF8ZAsAsNRNv+4bY1hwrlybAvgsYsnkHT7/cPHgm
+         T5ZBRiplMlLAvHpVn+J3uOJyAZKLRtXheFeWSm2NgyH4mnUz1wGewUnYBe2c8I8wC1QX
+         7WycRfPjRourmPkn74qwFqY3PzyTimvrEbjymth5eNsoBD1bQYN7n9xzJm/CCl1Miv3a
+         rI9EQLVFkB0VUvrY5PetUjdfds1TWAkmuXIKkGuVHTi1Ew9d9dKkwT9LixJDb4SZdOqU
+         B+0b6CjgKLainqOlLQvhSMiQIyH+QCURsvMW5nAbLqb2VycQ8bwl0FoqPECwJNwA8im8
+         dp0g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791996098; x=1792600898; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NIItl0pCQ/aBq2U1h8kgQBz3yZb99mdO46VMaoMNnUw=;
+        b=PSHV793O39//GSS5VtLaFYRrP0SGllChdzMcn6ZGcDyfZ85ESv9NC8wIeCl/dvte/B
+         dACE9DAz46lhiOh3K4PgqRYjBoyujnaqj0SJuXq9MCwdaPNnp90m6KVWLbODsv7i4ZYr
+         yFwFt6qr3namaz5gqvVnzSO0GsNnRQ0Gft/WEhYzn74CabNzDwt4mRqcA+DpejTUraFe
+         5aElp6XMeYVuzhWachsTF+v4P39+XqDFPKsQpnofV9TWkL+dZ9x3Xv15S5VHyWP74hk+
+         fUmrxBEg51fkCKz8184kICpKtFLDn908ULKD9tL8rqzKD+xoFKnzUH0iorhDJNfxtpkB
+         uPsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791996098; x=1792600898;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NIItl0pCQ/aBq2U1h8kgQBz3yZb99mdO46VMaoMNnUw=;
+        b=JY8OHQBZydIgi/r+utcmOTpJCE8HEUXFr8bpGhUoFWLxIjlpZLeSWjLO6AA9Cvfb7W
+         0u27Pdx95ZzRQsIpYKwkIsQCPWciLb5ism9U9oOb1Kv5E5Q1QfaA8tr3+x0BFAjDTNXh
+         ee0Rwt+NaYfsEQA3DAsKOHH2vu3vT3H/F6chjUbTYr6SBuDMM+m7tLDgm958W3vnr/1Z
+         CrAsvninMwWr/0/0dEfH1A/hRi7NZByIJEL/CzgDLm7dZ4TtojH3R5k69uma9a7M16Mu
+         h2hl/xqp38JTyzJy4vvnMNkm9XeBXmgwcy18nkJ3mx6wCGktXzTOdYeDKvEeU3uZagBy
+         R6hQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzU3JwUQDZiU0rOQTaiKVOyhnrFl7uLjVCva/WQE4+ByfcZAeXEu7pYLEwYengVqBUkPAYyjxwiGb16a9M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLncB3Ajz2t8MwlmMLRI6YwbdqgkxyumoFtZsUQsO+eE3fX9NNs
+	8mw0lZSFNEnU+XzcT1lG7pLSyC0IyzQ6jtZtg6vxX6sbor/ZcWujPfmkAHhkjB64v3tNal88Cuu
+	G1aD1Na38L7Tj39dPTM4r5eNsmGwesp6O/N2hsRu0
+X-Gm-Gg: AYBFou26O+o0Ipl2Bgcgj+TJ/s4gYr9/Jiv3ndwVUkNl0c79mW50i7LhFU7sf0A6k9G
+	/9FgrlWlsHOZdndJt+zinAd4pCZQijUmxNqMZXyi9FMhcyLuOUckd8kmmSD4LdHeWJwH2s4qgk5
+	lZCsq2vwqVbNG6OZ580Lq6Z7ZqYJIxJioKFKeraF5TQuOTOh8XUANyAH4WBkp0SDhk0WKESkWto
+	R43gUWJeuCis2+AA3J7d1tuMLa1XBi/BX3P6G8rojAJDIT1MLKia3avFNJvFG/ohXNUPJ0QOZe3
+	YhqglujF844v/2Pj85sAMPWYSY8LFjT8kjh006ua0wUnjneQrTSfhwRiQhyiRkvoGlVK9c5AXLi
+	2fYk7y1zFCA==
+X-Received: by 2002:a05:622a:1108:b0:533:9746:9a86 with SMTP id
+ d75a77b69052e-5360573c96fmr14813151cf.5.1791996097367; Wed, 14 Oct 2026
+ 09:41:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] arm64: dts: qcom: talos: Make the ADSP remote heap
- no-map
-To: Jianping Li <jianping.li@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- ekansh.gupta@oss.qualcomm.com, quic_chennak@quicinc.com
-References: <20261014083820.468-1-jianping.li@oss.qualcomm.com>
-Content-Language: en-US
-From: Val Packett <val@packett.cool>
-In-Reply-To: <20261014083820.468-1-jianping.li@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20261013223946.1836757-1-irogers@google.com> <2026101425-why-boring-4f2d@gregkh>
+ <202610140932.5F9CFCE5@keescook>
+In-Reply-To: <202610140932.5F9CFCE5@keescook>
+From: Ian Rogers <irogers@google.com>
+Date: Wed, 14 Oct 2026 09:41:25 -0700
+X-Gm-Features: AclHuK8_g-YOJgMR77fEpf5RTsveF4u_ERdXz6lvoN6wh_uF7KP8ZsaUSV1ti8A
+Message-ID: <CAP-5=fVLWh4uay2HGy6DOpZmtTr5WAd-TehAkN+P-pQgq_BZhg@mail.gmail.com>
+Subject: Re: [PATCH 00/11] kobject: Require explicit initialization of struct kobj_type::release
+To: Kees Cook <kees@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J . Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+	Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+	Christophe Leroy <chleroy@kernel.org>, Nayna Jain <nayna@linux.ibm.com>, 
+	Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Viresh Kumar <viresh.kumar@linaro.org>, 
+	David Teigland <teigland@redhat.com>, Alexander Aring <aahringo@redhat.com>, 
+	Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Heiko Carstens <hca@linux.ibm.com>, 
+	Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
+	Christian Borntraeger <borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, 
+	Richard Weinberger <richard@nod.at>, Zhihao Cheng <chengzhihao1@huawei.com>, 
+	Felix Kuehling <Felix.Kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>, 
+	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	driver-core@lists.linux.dev, llvm@lists.linux.dev, 
+	linux-hardening@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-acpi@vger.kernel.org, gfs2@lists.linux.dev, 
+	xen-devel@lists.xenproject.org, linux-s390@vger.kernel.org, 
+	linux-mtd@lists.infradead.org, amd-gfx@lists.freedesktop.org, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/14/26 5:38 AM, Jianping Li wrote:
-
-> The ADSP remote heap is declared as a reusable CMA pool. FastRPC
-> assigns the entire region to the DSP through qcom_scm_assign_mem()
-> during probe without allocating the pages from CMA. Consequently,
-> the pages remain available for movable HLOS allocations even after
-> HLOS access to the region has been revoked.
+On Wed, Oct 14, 2026 at 9:37=E2=80=AFAM Kees Cook <kees@kernel.org> wrote:
 >
-> On Talos, GPU stress testing triggers a synchronous external abort
-> when zram accesses pages within the ADSP remote heap.
+> On Wed, Oct 14, 2026 at 07:36:41AM +0200, Greg Kroah-Hartman wrote:
+> > On Tue, Oct 13, 2026 at 03:39:35PM -0700, Ian Rogers wrote:
+> > > Clang supports the 'require_explicit_initialization' attribute on str=
+uct
+> > > fields to enforce that the field is explicitly initialized when an
+> > > aggregate object is constructed, emitting -Wuninitialized-explicit-in=
+it
+> > > (enabled by default) if the field is omitted.
+> > >
+> > > Following discussion at the Linux Plumbers Conference [1], this serie=
+s
+> > > introduces __require_explicit_initialization in
+> > > include/linux/compiler_attributes.h and applies it to
+> > > struct kobj_type::release.
+> >
+> > Cool, sorry I missed that talk.
 >
-> Replace reusable with no-map to prevent the region from being reused
-> for normal kernel allocations and exclude it from the kernel's
-> standard memory mapping.
+> Yeah, I'm really liking these compile-time checks. :)
 >
-> Fixes: b0b51a5f1911f ("arm64: dts: qcom: talos: Add memory-region for audio PD")
-> Link: https://lore.kernel.org/all/20260424-talosaudio-v3-1-9e2ad5d78a2e@oss.qualcomm.com/
-> Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
-> ---
->   arch/arm64/boot/dts/qcom/talos.dtsi | 2 +-
+> >
+> > > As Documentation/core-api/kobject.rst notes:
+> > >   "One important point cannot be overstated: every kobject must have =
+a
+> > >   release() method, and the kobject must persist (in a consistent sta=
+te)
+> > >   until that method is called. If these constraints are not met, the =
+code
+> > >   is flawed."
+> > >
+> > > Annotating struct kobj_type::release caught 30 struct kobj_type
+> > > definitions across the tree that omitted .release:
+> > > - Patches 2-10 fix 10 struct kobj_type definitions where dynamically
+> > >   allocated kobjects, ksets, or enclosing structures were either leak=
+ed on
+> > >   kobject_put() or freed prematurely before kobject release (risking =
+a
+> > >   use-after-free when CONFIG_DEBUG_KOBJECT_RELEASE=3Dy).
+> > > - Patch 11 annotates struct kobj_type::release with
+> > >   __require_explicit_initialization and explicitly sets .release =3D =
+NULL
+> > >   (with explanatory comments) on the remaining legacy struct kobj_typ=
+e
+> > >   definitions whose kobjects are static, per-CPU, or embedded in devm=
+- or
+> > >   parent-managed structures.
+> >
+> > Sounds great, but let's fix up the users before adding the attribute.
+> > Looks like some of these need another version so it might take a bit of
+> > time to get them all merged.
+>
+> I'd really like to have the attribute available, and I've got at least
+> one user I can apply today that don't require fix-ups (seq_file), so
+> if Miguel is okay with it, I'd like to snag patch 1 and send it with
+> my seq_file "first user" for this coming merge window so it's available
+> starting with v7.4-rc1, and we don't end up needing to wait 10 weeks for
+> other subsystems to be able to use it. And the kobj fixups can continue
+> in parallel. Does that sounds okay?
 
-This also applies to: glymur, agatti, sm8250, kodiak, sm8750.. (at least 
-those I've found by grepping for the adsp_rpc_remote_heap_mem label)
+I'm happy with that. I'm working to address/incorporate the other
+feedback for a v2 of this series, but I can drop individual patches
+that have already been merged. Thanks, everyone, for the positive
+reception in getting this landed, I plan to follow up with patch
+series for the other uses I found.
 
-I've been hitting the SEA on a kodiak phone (sm7325-motorola-dubai) 
-constantly with just light everyday usage:
+Thanks!
+Ian
 
-Internal error: synchronous external abort: 0000000096000010 [#1]  SMP
-CPU: 7 UID: 10000 PID: 26485 Comm: pool-24 Tainted: G   M    W         
-7.3.0-rc6-next-20261009-uwu+ #167 PREEMPT(full)
-Tainted: [M]=MACHINE_CHECK, [W]=WARN
-Hardware name: motorola Motorola Edge 30 (Tianma)/Motorola Edge 30 
-(Tianma), BIOS 2026.07-gca7686425f32-dirty 07/01/2026
-pstate: 60400005 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-pc : clear_page+0x30/0x70
-lr : prep_new_page+0x94/0x178 ...
-Call trace:
-  clear_page+0x30/0x70 (P)
-  get_page_from_freelist+0x1bd8/0x1c00
-  __alloc_frozen_pages_noprof+0x1cc/0x3f8
-  alloc_pages_mpol+0x124/0x210
-  vma_alloc_folio_noprof+0x124/0x200
-  vma_alloc_zeroed_movable_folio+0x3c/0x50
-  do_pte_missing+0x9e0/0xf80
-  ...
-
-
-This no-map does seem to fix it.
-
-
-Thanks,
-~val
-
+> --
+> Kees Cook
