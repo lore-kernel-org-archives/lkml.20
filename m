@@ -1,73 +1,190 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8058318EC1;
-	Wed, 14 Oct 2026 15:12:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791990769; cv=none; b=G2EWmRVqJhmglZM4cZMRp5B1eX4YO4aJuF/PWKfh/0CD7frUMTku3/7A6OIIWZ7XZq4xXnTHn+QCTlpEgAVJID1xjdIKPEFlOHcpD/ZRznghpSe25KA1Ir83zfTm/LOArJvjJV6BhezT4jtLm8qljIT3qsC6v+z/dtYXcuSmpt4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791990769; c=relaxed/simple;
-	bh=zvpmhm+BAUlfIVJ/6Kp9ShG7pA3G2q65FWBMzuTisWM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=b4z8rjSQDypjObdSbh41IiGac25uPO0FAuSPQUvBnVRqw93CPdlXTRpRu6Aqr1dfWtoz1BtiIPXK6cIrWxWlcFrmKA2J2ZWuckb6gM0InSIvvHFblaLeAEoPgsY8ZGFgyBqO24Umgay7YZCsNTt00A0qA/ImRlwEz4KCy5wfFIw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bk8Q20yI; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E6CD539760
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:12:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791990774; cv=pass; b=MWUDLraRCY7C5ThF2+Tnb5Y9lKK4ZU1D/vUP5XdvvCr0vzT5OfIhcbvPjy5BiAojIEPWkYrhViUyTZ+UepLT/p7AbnvLxCfEt1lZN40COGpbDhwfBEcUxHTckkJpebvaVLoJNo02L04o1zepmG2F4l84p0xI30CBEmaQJYMkQuw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791990774; c=relaxed/simple;
+	bh=S5zs7o+IvJ94PTcJ859wDkqWMdgUCMYMIGrDaQPMmSA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=sqhhuVjFEe3w+7fMRKYUqNaR9XyKndzO8WTV5o3UsowcXkkAE5ilrJTBaDhJBJ3DmcHVElSWBO3gI6jPcMwVgHyR4/WPAe5+FnOP1XXeif9gAKGecWVHd3N1w15qKXSmqeIFdXfJ5f2WctQNldg/oT3rvQGJuSeeV7BpZl7ZsDE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DXfwA3nj; arc=pass smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bk8Q20yI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89D021F000C4;
-	Wed, 14 Oct 2026 15:12:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791990768;
-	bh=R4WIaVmgxMJzlsaERAlBqwLuDwVcuzfSzsQMDWtKV3E=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Bk8Q20yIyNo5kG5rdz8OFJOYxT0iGkJjAbNCy33IR7ytZQ1nCJmUjw4qjEVhWP4NF
-	 1SgQv6NjYAH1VtEdzJ36+Dym7Viyj5jbunKCLwHtJW+7sYWFk5ECZHWj+GKo07RWbh
-	 FrmjMZJnXX9M4KMwYg1c1IpRJUK61pf5NMXO9jSsAhhlQIivuNMyrELUDmdrB6Dx5V
-	 lwq6U1neqn6DODYTC0iKszN0X1PHy5qkZxKbdkT/UWjnaFoVLN84BXa4MeG9KalUGW
-	 K/CF/+SVIpo6Z0Az3ih0hqiaT305jofPPL6YhWmD6e7sXmOHqruSNRk8jmeN/en5Yb
-	 WJLHOnoGVPEsA==
-From: netdev-bot+sinfo@kernel.org
-To: Rand Deeb <rand.sec96@gmail.com>
-Cc: Edward Cree <ecree.xilinx@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Eric Dumazet <edumazet@kernel.org>,
- "David S . Miller" <davem@davemloft.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
- netdev@vger.kernel.org, linux-net-drivers@amd.com,
- linux-kernel@vger.kernel.org, deeb.rand@confident.ru,
- lvc-project@linuxtesting.org, shda@confident.ru
-Subject: Re: [PATCH net] sfc: fix NULL pointer dereference in
- efx_tc_flower_replace_foreign()
-Date: Wed, 14 Oct 2026 15:12:47 +0000
-Message-ID: <179199076705.408196.17037934984445050727@kernel.org>
-In-Reply-To: <20261014145800.726-1-rand.sec96@gmail.com>
-References: <20261014145800.726-1-rand.sec96@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DXfwA3nj"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48c4d870d54so2698140f8f.2
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:12:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791990771; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PBKpi7Yc2FdQhBIx7o/xWf9Q2eJm0RVWrlW1fL3ClApRFQf3Z2RCv6um08femb2IZD
+         FDvtjETwzLFOQgru/Ey8SPiiNFMmY1IvFbkyMeEjuGKl+ACAJjJXdNE8hANR59JV+arx
+         WfNPyCYux1n6inb+9FuVYqIVGbKaDah5rGgeLr9F/q8VAxYAbEf+HIOyhF8ypYomNoLV
+         tNRm35aeCwSkMhUcSc8bSya+cBVNQjgXDjeKU7h04I7osNiDOMYzGFv1wkWEH6FrxitC
+         WSYv/fs6KRf3IDu2Sh7R1rbx658Mrhx/7LNSkfFmuLlCTp+Bcd+se8sqvbNDBaqivySH
+         BDMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=WUSTZfpPOOhjEr0q1WimSib8kVLmZYK9NAgp2MPe0uQ=;
+        fh=y4NsRwzahSYKOU4yQX89dx7JIp25juBSaSrpoFT6VM8=;
+        b=KywhjDrHilufd++PjwBjP/IyFX+S0B5HEFFGaQoem/iodQAgLHC9CcL/27yErJ9vlm
+         bGVb/2v1efNdJuFDBK14iX//Bj3weODF8YuTPHxVKEcEwkhZmZAECkpCWZGeV4Iy4nOQ
+         lAHW9X4yZemAfu6iBTFNLlQtb8qDoaMhwewCRpkqVLRh7XFpT+Joeuy25bTnxajW3aiM
+         mOzQD/5U1CwqkEDAnXNDvpaPl2hj8+sfXabQoNOe1OH7MOg5DJ6qDx4SI2dcdTPcnIZ/
+         Cc2wmzaGNqKhrOAgoxVXpl/rXWVzNm1emx0KtbLkmEzcnYrVG3LaepbsjlsgZbUJmDnw
+         8K/Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791990771; x=1792595571; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WUSTZfpPOOhjEr0q1WimSib8kVLmZYK9NAgp2MPe0uQ=;
+        b=DXfwA3njbnanK1S+51Hx1cy4UO9CZ0e2Oa4rvzBS+JGEYkWcmjEkvDq+GR1ZTJxFG6
+         Oj0EJKJ8bqP+3ok2+Wv85blS/YJh7EES4pYWOqBVUqzyYNVE9ILJovS2AINGN+jgv5pN
+         kInj8WcsUElThf793hZrtbeANVHIhdQBFlm437b7Kj9PUPhIt+sNJktS6FYBm+YEIc+V
+         jjV9seGNTnk4gP/SHPSzhClmtYryZgyjGb83Jmyfwr/trylUPQhQxcnVZ2f1cwApss1P
+         gDGyDuuLZTuus0hnJyC5zHKL48wkJDff9u+ansoalKQRes4I/vvI82ixp54YABQmQISU
+         HTFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791990771; x=1792595571;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WUSTZfpPOOhjEr0q1WimSib8kVLmZYK9NAgp2MPe0uQ=;
+        b=JIjSZd4mbH3qRHfFkofilqwxRL5I0xZ71m/Hj4PoF2rf31xsfhesMUqUB3t4e8GIsi
+         Zwl5ltcv5Nhc0NplHTDJvKxb/b3IWlJUYORbMxTHJl4BZgCGlly8cWwgOsSFmXqm3Bj9
+         CzqduPFuZ2r8adW6nGjtFduS6nWC2HRXdpxBY20WG+jNq+fBIVWz9YlJ31+2eBHQ0SzQ
+         INz3Rfv8oTtA8BWe6EtfY0Gztu3jpb9/k+vuuhvPusHQIhPsOjXrNlwYEJLj8LirBndz
+         Ijb+4bq1uEqOhOS57uD30Ni8s6GjheOFEc5eTJ+kG+2y5+tLFtYIhkSGriRWHhOWO57t
+         f1yw==
+X-Forwarded-Encrypted: i=1; AKwUvBxYlaM762iasK4fNFJLeWUihQP6Agf5bJg3TzdxVF8cg8O6eyVhGm3+W+QENJ+7lbcHh6rHSL7nzJp9w3c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYImZXJj0KKA9SHw14v8arjlLtOxjCaCo4axD0jG9YhqKt0cjz6m
+	D70lAsV5x6b/OE7bt2gk1talY7GKpO3jq8ua+soEoxD3B99aCas7raA3lbDXR/675aT58/3p1s0
+	NovvZ8k+tyo+hhlgiYEC5jubbkIJSgwA=
+X-Gm-Gg: AYBFou0/hPr8vbskDkV9QpySSqEbmluJJdlsqU38Xb3b75TwMj6Y2aOU+ExCTHyzuSy
+	/PdVONRARQQ38uOAngu3MDq9ZJ6sShKk78z87GuAezXCxLaKn4bBXpQ+l9zJcPBaVeVCAWTQzoR
+	EeBvW4+z5DyTPF42CiUOrlRr06Socw/JHhykVn0Zzu9NOJyd12xJ+o+eUaGKYUdyQBPBnGqw0Nc
+	kcHtzPG7HANLUHLK01oIWy/GCXoKpb6VtG7lhW0MnxEkccYzYNqASzkuuI1X0qJKwDCDYuA29vL
+	dSQVQlp2Tw+Ivz0tr/9YDTEpiSsi6vJ3x+wF0yaa5OPyxGgx6TP7fTareoX/MNdzpCc4tQ8U0uN
+	g+bjfQqcenYY1xnGnueG2/KBwY5TKefKGwtpsycQ5SfoY5nTiYyvJZ3kkPuabcfphNGKaLoUuTb
+	WR6152RCCd
+X-Received: by 2002:a05:6000:2085:b0:488:7496:15b5 with SMTP id
+ ffacd0b85a97d-48dbacf126amr30278767f8f.47.1791990771057; Wed, 14 Oct 2026
+ 08:12:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20261009184122.1378797-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20261009184122.1378797-9-prabhakar.mahadev-lad.rj@bp.renesas.com> <as5LQ6zFzkft2zNJ@ashevche-desk.local>
+In-Reply-To: <as5LQ6zFzkft2zNJ@ashevche-desk.local>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Wed, 14 Oct 2026 16:12:24 +0100
+X-Gm-Features: AclHuK_fe1o3s5DtDV5FGIwilMVE-kQkfjxo_HHCOHYJ4usL-K9N52nyOxeW19E
+Message-ID: <CA+V-a8vV80UfHtfrxMFDk_UFH04F=evyAqTvHEMSOiRNTJd+Kw@mail.gmail.com>
+Subject: Re: [PATCH v2 8/8] iio: adc: rzt2h: Add support for RZ/V2H(P) SoC
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>, 
+	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Magnus Damm <magnus.damm@gmail.com>, linux-iio@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Prabhakar <prabhakar.csengg+renesas@gmail.com>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi!
+Hi Andy,
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Thank you for the review.
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
+On Tue, Oct 13, 2026 at 4:16=E2=80=AFPM Andy Shevchenko
+<andriy.shevchenko@intel.com> wrote:
+>
+> On Fri, Oct 09, 2026 at 07:41:22PM +0100, Prabhakar wrote:
+>
+> > Add support for the ADC found on the Renesas RZ/V2H(P) SoC, which share=
+s
+> > the RZ/T2H ADC IP but differs in channel count, sampling, calibration a=
+nd
+> > resolution support.
+> >
+> > The RZ/V2H(P) ADC provides 8 channels, has a fixed conversion time of
+> > 20 ADCLK cycles, does not support calibration, and supports selectable
+> > 12-bit and 8-bit conversion resolution.
+>
+> ...
+>
+> > +static int rzt2h_adc_write_scale(struct iio_dev *indio_dev,
+> > +                              struct iio_chan_spec const *chan,
+> > +                              int val, int val2)
+> > +{
+> > +     struct rzt2h_adc *adc =3D iio_priv(indio_dev);
+> > +     unsigned int i;
+> > +     u64 scale;
+> > +     u32 rem;
+> > +
+> > +     if (!(adc->chip_info->features & RZT2H_ADC_FEATURE_RES_SELECT))
+> > +             return -EINVAL;
+> > +
+> > +     for (i =3D 0; i < chan->num_ext_scan_type; i++) {
+> > +             scale =3D (u64)RZT2H_ADC_VREF_mV * NANO >>
+> > +                     chan->ext_scan_type[i].realbits;
+> > +             if (div_u64_rem(scale, NANO, &rem) =3D=3D val && rem =3D=
+=3D val2)
+> > +                     break;
+>
+> Hmm... AFAICT we can use multiplication as the result of the division is =
+just
+> used to compare.
+>
+Agreed, I will drop it.
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+> > +     }
+> > +     if (i =3D=3D chan->num_ext_scan_type)
+> > +             return -EINVAL;
+> > +
+> > +     /* The scan type changes with the resolution. */
+> > +     IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
+> > +     if (IIO_DEV_ACQUIRE_FAILED(claim))
+> > +             return -EBUSY;
+> > +
+> > +     adc->resolution =3D i;
+> > +
+> > +     return 0;
+> > +}
+>
+> ...
+>
+> > +     ret =3D reset_control_assert(adc->rstc);
+> > +     if (ret)
+> > +             pwrseq_enable(adc->pwrseq);
+> >
+> > -     return reset_control_assert(adc->rstc);
+> > +     return ret;
+>
+> Hmm... If it was added in the previous patches, add with unfolded check a=
+nd
+> explain in the comments that the code done this way to avoid churn in the
+> future changes.
+>
+Ok while adding reset support I will check the return value to avoid this c=
+hurn.
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+Cheers,
+Prabhakar
