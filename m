@@ -1,129 +1,187 @@
-Received: from sienna.cherry.relay.mailchannels.net (sienna.cherry.relay.mailchannels.net [23.83.223.165])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 970C51F3B85;
-	Wed, 14 Oct 2026 01:57:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.83.223.165
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B47E01F3B85;
+	Wed, 14 Oct 2026 01:59:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791943064; cv=none; b=okrbedoPs14athB9hFVgR1CK03DQX1C7kVFXXe8m5NLFwxta2V0obd4z7aIDc757LBiOmU1/NEvoKxKcMKUTcKAyacYoCjtR/9wCxTJwHVLcTIhyASh8Zze+xszZ3oLDtPJmW1ItYawj2n5BWnpGZVPCtupIwUuPjqFJ1OuaKeM=
+	t=1791943161; cv=none; b=PRdz8Glvd5HmRBQvhT2QiHTzL7ueEaCczPahiX41vHmmCgV2UN+U8QEpqCgb7Cu+tQ4FoiRTQzUMCTiY3yDoJtseINu3XKIbhlGDbPiInnZpxI7UmW7LWy4LJ/TT7IQNNM6/BWRUepDAjTQHOEkwDe96tIrTGBktW8GQhY7SDog=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791943064; c=relaxed/simple;
-	bh=fyw82BLndg6/WQBOHwYrXwE0y9S/x4Z6+FObr0qSdGI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=j2uP1zhYcP+PVemTQj698OL3nRajNDyXWy6d8zxJrpksDof7w4i6MHj4ValnzFzAQaDGYCoRCI9dZj1Ood1ZOrOm9LPrVsex0PIwy1136534LchEV8Ooc8iTV2Em8gg8t6gRK48MNxxKBEbItzER0Hvgx01CugkJIItIpn01oSk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net; spf=fail smtp.mailfrom=stgolabs.net; dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b=O4PFNrHZ; arc=none smtp.client-ip=23.83.223.165
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=stgolabs.net
+	s=arc-20240116; t=1791943161; c=relaxed/simple;
+	bh=yp44U3CTZ5DsK3GUM+LruQNdIDVedDrXoM0mpjSozXs=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ezpA7Wuy/mfeITgTBgX/5FSUYtshENBixB3VHH9NRIJ4fPhMViMO+L9PngXF/S/fft8SVeUbWVyh58Ykk1vTGIKU8kxN6QdUb7VhgdiJF1Rlm2vfA5TJLI7lkdNq37QZBLhqe87Qcw19iuNOsx47N20m5BzSBsWZMmKevLxhDt0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y6UcFYmd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b="O4PFNrHZ"
-X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
-	by relay.mailchannels.net (Postfix) with ESMTP id 1483A802859;
-	Wed, 14 Oct 2026 01:57:43 +0000 (UTC)
-Received: from pdx1-sub0-mail-a233.dreamhost.com (100-100-76-207.trex-nlb.outbound.svc.cluster.local [100.100.76.207])
-	(Authenticated sender: dreamhost)
-	by relay.mailchannels.net (Postfix) with ESMTPA id 91BEC801F84;
-	Wed, 14 Oct 2026 01:57:42 +0000 (UTC)
-X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
-X-MC-Relay: Neutral
-X-MailChannels-SenderId: dreamhost|x-authsender|dave@stgolabs.net
-X-MailChannels-Auth-Id: dreamhost
-X-Lettuce-Hysterical: 487017015431fa2c_1791943062921_3482747084
-X-MC-Loop-Signature: 1791943062921:3076111395
-X-MC-Ingress-Time: 1791943062921
-Received: from pdx1-sub0-mail-a233.dreamhost.com (pop.dreamhost.com
- [64.90.62.162])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
-	by 100.100.76.207 (trex/8.0.2);
-	Wed, 14 Oct 2026 01:57:42 +0000
-Received: from offworld (unknown [76.167.199.67])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: dave@stgolabs.net)
-	by pdx1-sub0-mail-a233.dreamhost.com (Postfix) with ESMTPSA id 4j4DqT4N0dz103x;
-	Tue, 13 Oct 2026 18:57:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stgolabs.net;
-	s=dreamhost; t=1791943062;
-	bh=PJx7TZW9+kimKvarDE0TO3lpMXWCfB4VRf+TlpXGmsM=;
-	h=Date:From:To:Cc:Subject:Content-Type;
-	b=O4PFNrHZ48QFxoepfDuTZ/Q2T4t8X4TAgPC70WzPJ139X7hQVuiEOR04lKT5RcZ/5
-	 O4ftgNHFnVgDlvOjvVmh+RSGoXA1H20G5rXKhql5vbP+dtkH4cUdxmdar6RsqOpq/L
-	 U1Mm0F5vTZEEk6Vd8dDO3q6PKnx+w3r9nF+6NseuItlB0xw+uG6stSh1O55racBdII
-	 5TLL7KHpfFHFcTQiS4C6UxwNrp5INk30d/Kfc6svctwoAsP7g7cV0y8nnF6WaPMhkz
-	 S2t4e9AxuWHNYOrSkCXWb6enkFVS4vtn4xfe5BUeL9ShWj4aCwGrWagYVMcaROkVGK
-	 n6NUUFGRVWQyQ==
-Date: Tue, 13 Oct 2026 18:57:38 -0700
-From: Davidlohr Bueso <dave@stgolabs.net>
-To: Richard Cheng <icheng@nvidia.com>
-Cc: jic23@kernel.org, dave.jiang@intel.com, alison.schofield@intel.com,
-	vishal.l.verma@intel.com, iweiny@kernel.org, ming.li@zohomail.com,
-	kaihengf@nvidia.com, kobak@nvidia.com, newtonl@nvidia.com,
-	kristinc@nvidia.com, linux-cxl@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: Re: [PATCH v8 3/4] cxl/region: Start unmapped poison scan at the
- committed decoder boundary
-Message-ID: <20261014015738.eelvhtdm3nzh3jh3@offworld>
-References: <20260922101129.52794-1-icheng@nvidia.com>
- <20260922101129.52794-4-icheng@nvidia.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y6UcFYmd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 722F21F000FF;
+	Wed, 14 Oct 2026 01:59:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791943160;
+	bh=kawrkzhFyj9yV3XlykGBmt/LBNk1s9fbUDf5Qjez1pY=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Y6UcFYmdpqYwYSSRtNG+xfeScFwh/UDGZROvC8G28l/WPGdqjFiwXsxfDSg/arcoI
+	 hcUEYYKZydK8C6oTiPZXkto919qEYKD0r0ZJFFjc+zOXWUZm62qilB7NpzR6MyQ/sc
+	 TZ6njX0HhJDmZK3g2VkRxSAEzmSfWgOoXAP08hfCbw/jssJA6Q5PVyBBtG4jyl7fNo
+	 MXnAGGtWGmw/tcxVcxKhophhooiXfzqoEv95/cds52r90k7Py/fBl7sXIsHSacLW0Z
+	 3bxCBGqvW5ua3UuLXERYgbRT84FOTmetQed133DiXCz42ufgOM87FrdB7W+tlxBkqj
+	 J3zqljMP8C6XQ==
+Subject:
+ Re: [PATCH net v2] igc: only strip RX timestamp header from first buffer
+From: netdev-bot+sashiko@kernel.org
+To: p@1g4.org
+Cc: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
+ intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, aleksandr.loktionov@intel.com,
+ maciej.fijalkowski@intel.com, avigailx.dahan@intel.com,
+ stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Wed, 14 Oct 2026 01:59:18 +0000
+Message-ID: <179194315897.434549.3743742848544230715@kernel.org>
+In-Reply-To: <20261013010854.4068874-1-p@1g4.org>
+References: <20261013010854.4068874-1-p@1g4.org>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20260922101129.52794-4-icheng@nvidia.com>
-User-Agent: NeoMutt/20220429
 
-On Tue, 22 Sep 2026, Richard Cheng wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
->poison_by_decoder() stops at the last committed decoder and records the
->handoff in ctx->offset, but cxl_get_poison_unmapped() ignores it and
->starts after the highest DPA allocation instead. Allocation exist for
->uncommitted decoders too, so their DPA is skipped by both phases and
->poison there is never reported. Resume the scan at ctx->offset, and scan
->later partitions in full, restoring the pre-rewrite behavior.
->
->Fixes: be5cbd084027 ("cxl: Kill enum cxl_decoder_mode")
->Reviewed-by: Dave Jiang <dave.jiang@intel.com>
->Reviewed-by: Alison Schofield <alison.schofield@intel.com>
->Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
->Signed-off-by: Richard Cheng <icheng@nvidia.com>
+Critical: 0 · High: 2 · Medium: 0 · Low: 0
 
-Reviewed-by: Davidlohr Bueso <dave@stgolabs.net>
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
->---
-> drivers/cxl/core/region.c | 7 ++-----
-> 1 file changed, 2 insertions(+), 5 deletions(-)
->
->diff --git a/drivers/cxl/core/region.c b/drivers/cxl/core/region.c
->index 042356c71ed7..4869cdd6a3d4 100644
->--- a/drivers/cxl/core/region.c
->+++ b/drivers/cxl/core/region.c
->@@ -2931,7 +2931,6 @@ static int cxl_get_poison_unmapped(struct cxl_memdev *cxlmd,
-> {
-> 	struct cxl_dev_state *cxlds = cxlmd->cxlds;
-> 	const struct resource *res;
->-	struct resource *p, *last;
-> 	u64 offset, length;
-> 	int rc = 0;
->
->@@ -2944,10 +2943,8 @@ static int cxl_get_poison_unmapped(struct cxl_memdev *cxlmd,
-> 	 */
-> 	for (int i = ctx->part; i < cxlds->nr_partitions; i++) {
-> 		res = &cxlds->part[i].res;
->-		for (p = res->child, last = NULL; p; p = p->sibling)
->-			last = p;
->-		if (last)
->-			offset = last->end + 1;
->+		if (i == ctx->part)
->+			offset = ctx->offset;
-> 		else
-> 			offset = res->start;
-> 		length = res->end - offset + 1;
->-- 
->2.43.0
->
+- [High] The patch fixes the TSIP length underflow only in
+  igc_clean_rx_irq().
+- [High] In igc_clean_rx_irq(), the new condition `if (!skb &&
+  igc_test_staterr(rx_desc, IGC_RXDADV_STAT_TSIP))` uses `!skb` to mean…
+
+--
+
+igc: only strip RX timestamp header from first buffer
+
+This patch changes igc_clean_rx_irq() so the 16-byte inline RX timestamp
+header is only stripped when no skb is in progress. Before, a continuation
+buffer shorter than 16 bytes could underflow the unsigned length and
+produce a skb fragment of almost 4 GiB.
+
+> diff --git a/drivers/net/ethernet/intel/igc/igc_main.c b/drivers/net/ethernet/intel/igc/igc_main.c
+> index 1fb5f3cbe93c5..41b293dc10c3a 100644
+> --- a/drivers/net/ethernet/intel/igc/igc_main.c
+> +++ b/drivers/net/ethernet/intel/igc/igc_main.c
+> @@ -2639,7 +2639,8 @@ static int igc_clean_rx_irq(struct igc_q_vector *q_vector, const int budget)
+>  
+>  		pktbuf = page_address(rx_buffer->page) + rx_buffer->page_offset;
+>  
+> -		if (igc_test_staterr(rx_desc, IGC_RXDADV_STAT_TSIP)) {
+> +		if (!skb &&
+> +		    igc_test_staterr(rx_desc, IGC_RXDADV_STAT_TSIP)) {
+
+[Severity: High]
+Is !skb a reliable first-buffer test when an XDP program is attached?
+
+Suppose the XDP program returns a non-PASS verdict (CONSUMED, TX or
+REDIRECT) for the first, non-EOP buffer of a multi-descriptor frame. No skb
+gets built, and the loop moves on with skb still NULL:
+
+		/* fetch next buffer in frame if non-eop */
+		if (igc_is_non_eop(rx_ring, rx_desc))
+			continue;
+
+On the next continuation descriptor, !skb is still true, so the TSIP branch
+subtracts IGC_TS_HDR_LEN again. If that continuation holds fewer than 16
+bytes, size wraps.
+
+The wrapped size then goes to xdp_prepare_buff(), and the continuation is
+run through XDP as a new frame with data_end before data. On XDP_PASS, both
+igc_build_skb() and igc_construct_skb() compute:
+
+	unsigned int size = xdp->data_end - xdp->data;
+
+That comes out to about 4 GiB:
+
+- igc_build_skb() passes it to __skb_put(). On PAGE_SIZE >= 8192,
+  igc_get_rx_frame_truesize() also wraps to a tiny truesize, so
+  napi_build_skb() would place skb_shared_info inside the packet data.
+- igc_construct_skb() turns it into a fragment of almost 4 GiB. That looks
+  like the same corrupted skb the commit message describes.
+
+Can this be reached from the wire? On PAGE_SIZE >= 8192, igc_set_rx_mode()
+never clamps RLPML:
+
+#if (PAGE_SIZE < 8192)
+	if (adapter->max_frame_size <= IGC_MAX_FRAME_BUILD_SKB)
+		rlpml = IGC_MAX_FRAME_BUILD_SKB;
+#endif
+	wr32(IGC_RLPML, rlpml);
+
+So the hardware still accepts jumbo frames even though XDP limits the MTU to
+1500, and with XDP the ring uses 3072-byte buffers. A remote frame that
+leaves 1 to 15 bytes in the second descriptor would hit this.
+
+Would it be safer to track start-of-frame explicitly, or to drop the rest of
+the frame's descriptors after a non-PASS verdict? Another option is to
+reject size < IGC_TS_HDR_LEN before the subtraction.
+
+>  			ctx.rx_ts = pktbuf;
+>  			pkt_offset = IGC_TS_HDR_LEN;
+>  			size -= IGC_TS_HDR_LEN;
+
+[Severity: High]
+The same unchecked subtraction is still present in the AF_XDP zero-copy
+path. igc_clean_rx_irq_zc() strips the header from every descriptor with
+TSIP set. There is no first-buffer gate and no size check:
+
+		if (igc_test_staterr(desc, IGC_RXDADV_STAT_TSIP)) {
+			ctx->rx_ts = bi->xdp->data;
+
+			bi->xdp->data += IGC_TS_HDR_LEN;
+			...
+			size -= IGC_TS_HDR_LEN;
+		} else {
+			ctx->rx_ts = NULL;
+		}
+
+		bi->xdp->data_end = bi->xdp->data + size;
+
+Can zero-copy frames span descriptors at MTU 1500?
+igc_configure_rx_ring() programs the XSK frame size through
+IGC_SRRCTL_BSIZEPKT(), which is (x) / 1024. With 2048-byte chunks the frame
+size is 1792, so the hardware buffer becomes 1 KB.
+
+igc_xdp_enable_pool() only checks:
+
+	if (frame_size < ETH_FRAME_LEN + VLAN_HLEN * 2) {
+
+That accepts 1792 without allowing for the 1 KB rounding or the 16-byte
+inline timestamp, even though the comment there says frames should not
+span multiple buffers.
+
+On 4K pages RLPML is IGC_MAX_FRAME_BUILD_SKB. A received frame of about
+1009 to 1023 bytes, plus the timestamp header, would leave 1 to 15 bytes in
+a second descriptor.
+
+The reproduction in the commit message suggests TSIP is set on such
+continuation descriptors. If so, size wraps here and data_end ends up about
+4 GiB past the XSK chunk.
+
+Wouldn't that let the XDP program's packet bounds checks pass for offsets
+past the chunk? On XDP_REDIRECT, it would also report a bogus length to the
+XSK socket.
+
+Should igc_clean_rx_irq_zc() get a similar fix? Should
+igc_xdp_enable_pool() also account for the 1 KB SRRCTL granularity and the
+inline timestamp?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261013010854.4068874-1-p%401g4.org
