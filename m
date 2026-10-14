@@ -1,158 +1,89 @@
-Received: from esa1.hc1455-7.c3s2.iphmx.com (esa1.hc1455-7.c3s2.iphmx.com [207.54.90.47])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EF523D7A01;
-	Wed, 14 Oct 2026 07:40:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.54.90.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EA84411A08;
+	Wed, 14 Oct 2026 07:41:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791963627; cv=none; b=EuSdOi5M4tiHb12kiVofARK768oHn0NyPXRLNlflYkKgidhCABdTko6Xr4BCC+P9ZTd+jeBqSbMBFSZY7cSb8hk3phLYB8UJldjxcEoRpJmLvzplSdopBQu3ieufwq4ByOVDV4mxqSGqgXOzqgK4dNjXGQtQ3jwslbfghJOOKS0=
+	t=1791963666; cv=none; b=k+jt0nstCfnSL3GWKStGiNuHTbgXaMWZ2bRg4FHlDFDjqICA1IIgpvAr9tZ/Wwgp2k9yhwALFBsvMZJBYL8vaHgVq4PL1gZbqBK3aujkjKUmME+Bo15AvTfaN1YZFzCH702sk4mfZOzvo6xiBdRVWNs2QmGlFQf4JSZkYQrvboo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791963627; c=relaxed/simple;
-	bh=8DNqwTDkyG/HzDA3Nlvx/HSSupKQoyoupiHktAu3TRQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ce0QmjmJlAobpFkMvIGrYxmheNRhjl2HpG1ETmXDvIkSPGv6at5E5eeQo4zTi0SlNgULYlofyfyBgjExWruSpsTINaWI+dwF8CaN7F6azZSwKVDUYSXXG44x9CVI/vVpZSm9+TqGsE74ZP1NEuEPhZeUhsBLaCPxxZX28bQz1U8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com; spf=pass smtp.mailfrom=fujitsu.com; dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b=bP1w0Tdf; arc=none smtp.client-ip=207.54.90.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b="bP1w0Tdf"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
-  t=1791963632; x=1823499632;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=8DNqwTDkyG/HzDA3Nlvx/HSSupKQoyoupiHktAu3TRQ=;
-  b=bP1w0TdfEimOYI7Q9WtUMKwZ+GgVT2ebtI12TYDyRcefpKbmHLeK9OGV
-   wfUvon/07o6Yqe1mhyJdk9XvfszgFYhLHmnsp7m++kFS3YasrQDPPS84I
-   22nb+3nkB1VE0dTsr8tbR5znKCYtABl9VGxqKQf5iPT0RO93dzjxyoelH
-   xCdnUH27dAEkUV5D66jI5Bp6iIaaEPMeFVzbw+iCpZ/TrusFaC1WpmDgX
-   x5YViXtRtLhYUPmB59HY2HLzu7s4bjHK/ZEL+SVRY9DEtVglDelrpee++
-   Q+GpS8PEfxnCcihfof5V7sqDDgcYrEHyI7R4zI0U8ox+OK6TiA5/JIiG9
-   Q==;
-X-CSE-ConnectionGUID: YrjmsRJFTGGoTgakHAVB6g==
-X-CSE-MsgGUID: nUADrrfVTQuct8uRexfxYQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="258142034"
-X-IronPort-AV: E=Sophos;i="6.27,157,1786978800"; 
-   d="scan'208";a="258142034"
-Received: from gmgwnl01.global.fujitsu.com (HELO mgmgwnl01.global.fujitsu.com) ([52.143.17.124])
-  by esa1.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 16:40:29 +0900
-Received: from az2nlsmgm1.o.css.fujitsu.com (unknown [10.150.26.203])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mgmgwnl01.global.fujitsu.com (Postfix) with ESMTPS id B787D7A49;
-	Wed, 14 Oct 2026 07:40:23 +0000 (UTC)
-Received: from az2uksmom4.o.css.fujitsu.com (unknown [10.151.22.204])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by az2nlsmgm1.o.css.fujitsu.com (Postfix) with ESMTPS id 6FDD4C013DA;
-	Wed, 14 Oct 2026 07:40:23 +0000 (UTC)
-Received: from sm-arm-grace07 (unknown [10.124.178.20])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by az2uksmom4.o.css.fujitsu.com (Postfix) with ESMTPS id 66FEA402666;
-	Wed, 14 Oct 2026 07:40:18 +0000 (UTC)
-Date: Wed, 14 Oct 2026 16:40:15 +0900
-From: Itaru Kitayama <itaru.kitayama@fujitsu.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Paolo Bonzini <pbonzini@redhat.com>, Shuah Khan <shuah@kernel.org>,
-	Oliver Upton <oupton@kernel.org>, Ben Horgan <ben.horgan@arm.com>,
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
-	kvm@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Subject: Re: [PATCH v8 0/3] KVM: selftests: arm64: Improve diagnostics from
- set_id_regs
-Message-ID: <as8x38o9taXgKZym@sm-arm-grace07>
-References: <20260929-kvm-arm64-set-id-regs-aarch64-v8-0-58aabe2c2fac@kernel.org>
+	s=arc-20240116; t=1791963666; c=relaxed/simple;
+	bh=7kgrn7vfHp/HBxFtKq6zzrmLScv3BCcSWbbxPL7Jk+k=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=urRhGaEWZmA1NDDhnoS3dRJEyNB/kzw4lIGURQAU9koEUGoH9wE6U9ucojveyKD/BBvtrbKyS0U/102HlkMbjAqDap7XzCzaLnpkkzuwXB5L7E5ymNAIMCAZcu0it58+tVLs3f6JveVQxTfS5ydjdNQ7DVTWeQB1ZrR+jEI+iH4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DFCD1F000FF;
+	Wed, 14 Oct 2026 07:41:00 +0000 (UTC)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260929-kvm-arm64-set-id-regs-aarch64-v8-0-58aabe2c2fac@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 00/13] PCI: brcmstb: Stop using chip numbers for
+ conditions
+From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+To: Jim Quinlan <james.quinlan@broadcom.com>
+Cc: linux-pci@vger.kernel.org, Nicolas Saenz Julienne <nsaenz@kernel.org>, 
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, 
+ bcm-kernel-feedback-list@broadcom.com, jim2101024@gmail.com, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-rpi-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>
+In-Reply-To: <20260911233541.1650895-1-james.quinlan@broadcom.com>
+References: <20260911233541.1650895-1-james.quinlan@broadcom.com>
+Date: Wed, 14 Oct 2026 13:10:52 +0530
+Message-Id: <179196365204.38040.9410252322524941418.b4-reply@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1340;
+ i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
+ bh=7kgrn7vfHp/HBxFtKq6zzrmLScv3BCcSWbbxPL7Jk+k=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBqzzIHwOTKlLdlXCO0vyzNfsIbHoswX7ANZ93im
+ FhbPPswv96JATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCas8yBwAKCRBVnxHm/pHO
+ 9VEoCACCjI0ALyCvEGCcqiXLR3pl3wf31kJVuI+1gEqK552ByK3YAP/JgjPB4YaSIozzPR71AB0
+ 5ABBNbCFqf/Yhm1CA7QL6gWJKmnPQbdI5yAKUoUB/WGfFZNZ/Ro3ZzfimeWChAigM/uhA0jdVfx
+ xbc2U9N9hAfFsYTOJ0rX1Na+zksF0T42df8A9VZPK6D0u9+uFixz9fNGIazG1gjQW6YJkU/CJ3h
+ 89LCF2umlegZx0FWBCSYVzzLxVfLhhFDp2iVoSyjQaLXTEMBodT2/PPWp7vqkftDAn/XdKmklUz
+ U1aOzHipDdx3JSIdoBLJwYaExJJdUOCzoRbmVbsPRfy6hL/L
+X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-Hi Mark,
-On Tue, Sep 29, 2026 at 05:16:51PM +0100, Mark Brown wrote:
-> While debugging issues related to aarch64 only systems I ran into
-> speedbumps due to the lack of detail in the results reported when the
-> guest register read and reset value preservation tests were run, they
-> generated an immediately fatal assert without indicating which register
-> was being tested. Update these tests to non-fatally report a standard
-> kselftest result per register, making it much easier to see what the
-> problem being reported is.
+On 2026-09-11 19:35 -0400, Jim Quinlan wrote:
+> Much of the brcmstb PCIe driver code does (essentially) this:
 > 
-> A similar issue exists with the validation of the individual bitfields
-> in registers due to the use of immediately fatal asserts. Update those
-> asserts to be standard kselftest reports.
+>         if (pcie->chip == 0x1234 || pcie->chip == 0x5678) {
+>                 /* ... */
+>         }
 > 
-> Signed-off-by: Mark Brown <broonie@kernel.org>
-> ---
-> Changes in v8:
-> - Convert another assert.
-> - Link to v7: https://patch.msgid.link/20260901-kvm-arm64-set-id-regs-aarch64-v7-0-7b065b0bda9a@kernel.org
+> when it should instead do this:
 > 
-> Changes in v7:
-> - Rebase onto v7.3-rc1.
-> - Link to v6: https://patch.msgid.link/20260719-kvm-arm64-set-id-regs-aarch64-v6-0-724287f5f108@kernel.org
+>         if (behavior_xyz(pcie)) {
+>                 /* ... */
+>         }
 > 
-> Changes in v6:
-> - Rebase onto v7.2-rc3.
-> - Drop changes to handling of aarch32 related registers on 64 bit only
->   systems, an in kernel solution is preferred for those.
+> This series does the above.  In addition, some other minor improvements are
+> added in the hopes of making the code more readable.
+> 
 
-I’ve reproduced the set_id_regs failure under QEMU with kvm-arm.mode=nested on 
-a host that supports AArch32. KVM advertises the NV-capable L1 vCPU as AArch64-only, 
-but aa32_id_visibility() still permits the inner KVM to expose ID_DFR0_EL1.CopDbg = 0xa 
-to the selftest vCPU. The test expects zero because it skips setting expected 
-values for AArch32 ID registers.
+Thanks for doing this! Those checks were quite ugly.
 
-In v6 you mentioned preferring an in-kernel solution. What did you have in mind, 
-given that changing the value returned by GET_ONE_REG may affect the userspace ABI?
+> Jim Quinlan (13):
+>   PCI: brcmstb: Remove redundant const specifier for struct fields
+>   PCI: brcmstb: Use flags u32 instead of bools
+>   PCI: brcmstb: Add Broadcom quirks macro
+>   PCI: brcmstb: Declare and assign quirk OB_WIN_32BIT_ADDR
+>   PCI: brcmstb: Declare and assign quirk OB_WIN_MAXSZ_128MB
+>   PCI: brcmstb: Declare and assign flag IS_BMIPS
+>   PCI: brcmstb: Declare and assign quirk 32BIT_PCI_OPS
+>   PCI: brcmstb: Declare and assign quirk NO_RGR1_TIMER
+>   PCI: brcmstb: Declare and assign quirk EARLY_PERST_ASSERT
+>   PCI: brcmstb: Declare and assign quirk PERST_PCIE_REV_CUTOFF
 
-Thanks,
-Itaru.
+I'll apply the first 10 patches as I see some comment from Florian on patch 10
+and Sashiko's comment on patch 11. You can send a follow up series addressing
+those comments.
 
-> - Use a define to count the non-test_regs registers.
-> - Link to v5: https://patch.msgid.link/20260317-kvm-arm64-set-id-regs-aarch64-v5-0-a60f2b956e22@kernel.org
-> 
-> Changes in v5:
-> - Rebase onto v7.0-rc1.
-> - Link to v4: https://patch.msgid.link/20260106-kvm-arm64-set-id-regs-aarch64-v4-0-c7ef4551afb3@kernel.org
-> 
-> Changes in v4:
-> - Correct check for 32 bit ID registers.
-> - Link to v3: https://patch.msgid.link/20251219-kvm-arm64-set-id-regs-aarch64-v3-0-bfa474ec3218@kernel.org
-> 
-> Changes in v3:
-> - Rebase onto v6.19-rc1.
-> - Link to v2: https://patch.msgid.link/20251114-kvm-arm64-set-id-regs-aarch64-v2-0-672f214f41bf@kernel.org
-> 
-> Changes in v2:
-> - Add a fix for spurious failures with 64 bit only guests.
-> - Link to v1: https://patch.msgid.link/20251030-kvm-arm64-set-id-regs-aarch64-v1-0-96fe0d2b178e@kernel.org
-> 
-> ---
-> Mark Brown (3):
->       KVM: selftests: arm64: Report set_id_reg reads of test registers as tests
->       KVM: selftests: arm64: Report register reset tests individually
->       KVM: selftests: arm64: Make set_id_regs bitfield validity checks non-fatal
-> 
->  tools/testing/selftests/kvm/arm64/set_id_regs.c | 130 ++++++++++++++++++------
->  1 file changed, 98 insertions(+), 32 deletions(-)
-> ---
-> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-> change-id: 20251028-kvm-arm64-set-id-regs-aarch64-ebb77969401c
-> 
-> Best regards,
-> --  
-> Mark Brown <broonie@kernel.org>
-> 
+- Mani
+
