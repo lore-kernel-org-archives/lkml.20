@@ -1,121 +1,116 @@
-Received: from mta0.migadu.com (out-67.mta0.migadu.com [91.218.175.67])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A817F12F585
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:31:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.67
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 994CA47B438;
+	Wed, 14 Oct 2026 11:31:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791977506; cv=none; b=EoP53oN93Me2mq1Pz+4sc9MFLmEzECagQl2chherbzXXWDMbPlM85nUUY3szpEeG/Fd0bcResMHuxPzyI7dULncw6jTgckcJd4Eq9L7cruPqWr7MdBxF55Hm6Ezi4Mi7wpp8nl0p1anR0xYXJpN9/m0X7W/btuLQdUPUddZwVXA=
+	t=1791977508; cv=none; b=nR5qRUMs9VikJrcjMSjLPTia6JoSiIttz8u4gxYx/iXB2O3dRkYaQtCvIqTFOL2wlAOLS9DZQNs2bbE3RhsrZABNTphf5rsPm5QTtv+lK17f2dO77PThOA8ClIFiz8Z4/wv0OOZBQXiORYeDn8LQb5ID84Mw3Fm2uee4xCNec48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791977506; c=relaxed/simple;
-	bh=00nVKVTPaYWz3INyxq/SritoKgZREtUBG4wGIzclx6A=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version; b=GvRdcBiayZMGQqI2JhoHb9jYWZHcBjF16dJjHvaSYdkp8j0BTxClJmmxnmtK1HoSr3slPPVX6tPa7jeyy/UFcFMMfEr2NclcqmVzwBbFsontj/7vviM6psTdIQNYEiQucv8kxv1M/lDvWeHD4i5dO8It5K8o/ve5K3qnvjbTX+U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=kzRsHqrX; arc=none smtp.client-ip=91.218.175.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791977508; c=relaxed/simple;
+	bh=nTBmp+u3pbe++eU1eHOPJ4iNuXEkbtH5djz9SXvGHY4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ltYxydO3wNq2JJME2w7lf3Y3bGrj0kgigNGnnbdtj0Ch+uLUU7YFOsj13VLJ1Ni6CfcD7eImxSuiDEpcz4NidFGc/PFPxCb63sui01Glr1VBYwEy0an2YHcWAsFk8fyQbcOEseY6hdkrlvHzzHwglONnQ6Po6ED9AlsQJDyvjbs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WMiLNbeK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="kzRsHqrX"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=00nVKVTPaYWz3INyxq/SritoKgZREtUBG4wGIzclx6A=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791977502; v=1; x=1792582302;
- b=kzRsHqrX8QEttM0rLMzyUYtQSSeaSBr2n6XCpsIpJgxFeBNkzSTOX4VfB8kvR11Hlg/UnZFz
- gVnprbxjq4zY7AzqkO5xl4CNL3Eygo/VcmWhOPGV0uuxS/Q+l5Jgi1TkY4n/lhOoZDOGsN0CVo3
- 3+zlsp2Au1kavDc3bbGce7os=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id e5216cf033832cf1;
-	Wed, 14 Oct 2026 11:31:42 +0000
-X-Mizu-Trace-ID: e5216cf033832cf1
-X-Migadu-Flow: FLOW_OUT
-From: KaFai Wan <kafai.wan@linux.dev>
-To: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Shuah Khan <shuah@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
-	Leon Hwang <leon.hwang@linux.dev>,
-	KaFai Wan <kafai.wan@linux.dev>,
-	Menglong Dong <menglong8.dong@gmail.com>,
-	Mykyta Yatsenko <yatsenko@meta.com>,
-	Feng Jiang <jiangfeng@kylinos.cn>,
-	=?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
-	Puranjay Mohan <puranjay@kernel.org>,
-	Vineet Gupta <vineet.gupta@linux.dev>,
-	Mykola Lysenko <mykolal@fb.com>,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	llvm@lists.linux.dev
-Subject: [PATCH bpf-next v2 0/7] selftests/bpf: Fix selftests failures with LLVM 23
-Date: Wed, 14 Oct 2026 19:30:36 +0800
-Message-ID: <20261014113043.640435-1-kafai.wan@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WMiLNbeK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 805D71F0089E;
+	Wed, 14 Oct 2026 11:31:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791977507;
+	bh=vw+7jQrUaW6gQiLHDSoehx2M6m/ImpU4GodAzQiW9Vw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WMiLNbeKnSwA/rEcgg2XRD74LUjkwxfflgDR+/8QGukGsQ0P3Pvk125N0cGv/cSVo
+	 85UPNcZIg5iMZIh5g9EQOW8tEFcUW2UPJft46xiHDjAWc8+CFwO1BHbTPZtCanZSDq
+	 bQVAQW4Zamz7zuiaLvUQGcb18jlqHXZHyP6RmhJgn5O3cBKfJV1xuf8Jg7P3iHyPpR
+	 oSuA7Q/1RT5pyoSFIKXzjI2Iq4co+6pf3JWSjx+lQBHjIOL0MfBd+o5Xp6WOUWnCcp
+	 uPc40qj2MGPeeJrKF42lESnwOqPuyc6S9CvFr+2AvV34wDANvGi08ZHxJIUJJ/L7xK
+	 q70avl+tBMRGA==
+Date: Wed, 14 Oct 2026 13:31:43 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
+	Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+	Marijn Suijten <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Krishna Manikandan <quic_mkrishn@quicinc.com>, 
+	Abel Vesa <abelvesa@kernel.org>, Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/3] dt-bindings: display: msm: Add INT2 GDSC to
+ Kaanapali DPU
+Message-ID: <20261014-elated-hasty-coot-ae3485@quoll>
+References: <20261014-msm_gdsc2-v3-0-f1ed69014416@oss.qualcomm.com>
+ <20261014-msm_gdsc2-v3-1-f1ed69014416@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261014-msm_gdsc2-v3-1-f1ed69014416@oss.qualcomm.com>
 
-Building with clang/LLVM 23 breaks several selftests. Patches #1 to #4 fix
-those failures.
+On Wed, Oct 14, 2026 at 12:38:16PM +0800, Yongxing Mou wrote:
+> Kaanapali (SM8850) has two display GDSCs. CORE_GDSC supplies shared
+> MDSS hardware and most of the DPU, while INT2 GDSC supplies the
+> VIG2/VIG3/DMA5 source pipes. Without INT2 GDSC, these source pipes
+> remain inaccessible.
+> 
+> Describe CORE and INT2 as power domains of the DPU device, matching
+> the hardware partitioning. INT2 only supplies DPU-local source pipes,
+> while CORE also remains attached to the parent MDSS device because it
+> supplies shared MDSS hardware. DPU performance-state votes on CORE are
+> propagated through the genpd hierarchy to its parent MMCX domain.
+> 
+> Restrict the two-domain schema to the Kaanapali DPU compatible, so other
+> platforms sharing qcom,sm8650-dpu.yaml retain the existing single
+> power-domain constraint.
+> 
+> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/display/msm/dpu-common.yaml | 19 +++++++++++++++++--
+>  .../bindings/display/msm/qcom,kaanapali-mdss.yaml   |  4 +++-
+>  .../bindings/display/msm/qcom,sm8650-dpu.yaml       | 21 +++++++++++++++++++++
+>  3 files changed, 41 insertions(+), 3 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/msm/dpu-common.yaml b/Documentation/devicetree/bindings/display/msm/dpu-common.yaml
+> index 3f953aa5e694..19b791a857b5 100644
+> --- a/Documentation/devicetree/bindings/display/msm/dpu-common.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/dpu-common.yaml
+> @@ -25,8 +25,7 @@ properties:
+>    interrupts:
+>      maxItems: 1
+>  
+> -  power-domains:
+> -    maxItems: 1
+> +  power-domains: true
 
-The following self-tests also fail under specific invocations of
-test_progs:
+No, widest constraints always stay here. Look at other bindings.
 
-- ./test_progs -t prog_tests_framework/test_fail -v
- test_prog_tests_framework:FAIL:skip_cnt_check
- unexpected skip_cnt_check: actual 0 != expected 2
+>  
+>    operating-points-v2: true
+>    opp-table:
+> @@ -53,4 +52,20 @@ required:
+>    - operating-points-v2
+>    - ports
+>  
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: qcom,kaanapali-dpu
 
-- ./test_progs -t prog_tests_framework_expected_msgs -v
- Caught signal #11!
+There is no such compatible. Open this file and point me to it. Why are
+you adding this compatible to common schema? Is there any prior art
+doing something like this?
 
-- ./test_progs -t prog_tests_framework_compare_text -v
- Caught signal #11!
+Best regards,
+Krzysztof
 
-Patches #5 to #7 fix these.
-
-Changes in v2:
- - Collect the selftest fixes from the two patches in v1
-   patches: #1, #5, #6 and #7.
- - Add three new patches: #2, #3 and #4.
-
-Changes in v1:
- - https://lore.kernel.org/bpf/20261012135624.2749743-1-kafai.wan@linux.dev/T/
- - https://lore.kernel.org/bpf/20261012140202.2754552-1-kafai.wan@linux.dev/T/
-
----
-KaFai Wan (7):
-  bpf: Determine freplace staticness from BTF linkage
-  selftests/bpf: Fix stack_arg precision backtracking log expectation
-  selftests/bpf: Fix stack arg pruning test JOIN log expectation
-  selftests/bpf: Use _exit() in uprobe_multi_test clone-ed child
-  selftests/bpf: Fix prog_tests framework subtest count checks
-  selftests/bpf: Skip expected_msgs subtests when stdout is not saved
-  selftests/bpf: Skip compare_text subtest when stdout is not saved
-
- kernel/bpf/verifier.c                         |  3 +-
- .../selftests/bpf/prog_tests/exceptions.c     |  2 +-
- .../bpf/prog_tests/prog_tests_framework.c     | 34 ++++++++++++++-----
- .../bpf/prog_tests/uprobe_multi_test.c        |  4 +--
- .../selftests/bpf/progs/stack_arg_precision.c |  4 +--
- .../selftests/bpf/progs/verifier_stack_arg.c  |  4 +--
- 6 files changed, 34 insertions(+), 17 deletions(-)
-
--- 
-2.43.0
