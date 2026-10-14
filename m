@@ -1,125 +1,126 @@
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 992F04A99B7
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 20:45:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7923E47F3DA
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 20:46:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792010750; cv=none; b=ESKsGAiNEbzfzR64BUptSLArQN7p0xSuOi8Zi7OVdeQtLuDp1pdnSgbGQSIQxKSsw5U4yZMjFEAFVdwnjihwWslzK5edCwqXPwv1YkQ9pJ/KfpAHQxG+joUqKvHSKxKj9cV3RnbhCTesXYv1Jp+nuSxNpm3D4lhpB9NsAf+JzW8=
+	t=1792010800; cv=none; b=hWGVp4MFY0UKUfnrpZHW334Y39PQcxegvgVzujQB1kPBtAtA4Veor0Yfe/1Nvkxq1ysCQwpm1PtP+OJzo8r66tYjuvsjD10VuvMNRrDwmbfc6+ePKQmm54fkl172dA64rtIzszb8LSTslqD0jzUXSGInxZZbwmCIVSd6WG9YIJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792010750; c=relaxed/simple;
-	bh=6t1NbTe7Rxkbmhyic1T1cl3e0qURPytIKl63sDRVLjs=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=PpTFPEgdOnxtK7QqsV+1XccYGKhSAueSoDQ2oOqzt5GbKnBUG2RfR4ztLBEhnvKRjoqAcgpZ1ew9A0nSS0rgTIp0N4rUWl/jgXgVxy8a1YJbMT9Q2sN4ql94xU9SWEDAUkJOtdE9NKMEIUskMmmSmC1GFGVqgFfP78aNAO6ujHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s2lAqvXV; arc=none smtp.client-ip=74.125.82.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792010800; c=relaxed/simple;
+	bh=+ZrykYisplv6ihmUa30REc3yl058My87vK/8HY05NOs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Jf8aPN0fwy6HhdzJSoNubNgeUJnR0cEFZ0Rgny6RF0NCRUTkVKdE8eTEAEFYNYp1VfCGXB7EeT6vxP0uS++Avy1R/XQHxfl6InxiBxEQ+y7O1oSNGdy8yqVf6p9TP37rWqas/GzxQdspErJUjcEYrZZ0sElYn5SbTQJCE6+REJY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c6DEXWQf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s2lAqvXV"
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-3282db206d3so3921077eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:45:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792010749; x=1792615549; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=w+VXnodruUJPl19jPfHLhxfJZGqvtsAgNI1YLQhK2Rc=;
-        b=s2lAqvXVGaxHRoVoHOG2frUYVzGr+9fU9EONXKvUC2B9+qqBwQpbocWlkAmnoRH7hI
-         3+yBNWHZuAI9xYsac5GEckGFpDj6l5MuCyplwYsw+w3beIQ1p9Msiw8sBLkZadSBW3db
-         TScLah9nQ21VWjhz+jgFC/4mba5JEoU2PdY/AOcnZ/ZgG3DMYcUI5VzjyM2KFawzz0qD
-         CnfxjnSywTArlQ1hshDW7r54zMD14NXQP3eOI9mEW5meWFpmECmj169P7pR9r5H2Q/xC
-         RdVrh+gnMowTkpAw0XI+BMFbX1nu+1IiQA/M0qO981ALUIVyYRogNU+U7WH1RGiUoH7V
-         WkDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792010749; x=1792615549;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=w+VXnodruUJPl19jPfHLhxfJZGqvtsAgNI1YLQhK2Rc=;
-        b=cCEL4nhwKnxgrgxnnKU5eNqWzH+KAcmU6lKz2yopwpObrZ4PgX+zstzk40UVPYjfwp
-         wyInHT2fii7FXkKixRyhz5ZoM+24e9UzF/CZYBgph3C/jvTpQDIJnktZaD5W6+LA5aho
-         /MNs2x96tMdQKHZLsqiX40KvD8Fo0XcL4nPcq9pv0P4AgefJ1719oKMYVPIEbo5uFa8+
-         iiU7qYsV8il1GaSB5uUrpYQK1jXiTrsL+Sl5lWC5FEJ9KOlP2RZ4pW7ly21BsIqPmcBt
-         4knCtUSWSxvN48K+iVhK0kcLWZt+4EY5J0gte9ZGq8uk1nWfukwsePfe0eOP8/6/d9ow
-         YEjQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw9NCQsa/BTrGr24W4Lyw51qEA65LbYyWx+WJCL2bOS109tNoSj83Ao3IKHRLxzEr92yaV6g9XdTc/YfAU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYItqxo14RCRdxqEQ84q9Cu50C0+O1srYgLwHZy2VvBZEAXXX2+l
-	bXSu3f330nTS3t5giycNsx0Qo0bW2gALRJ54LzJhbWGUDFEVxCwwptCh
-X-Gm-Gg: AYBFou3TggVqfMO2J+0i7LwVuBh6iuHFiCZCY1n8d4GUfFKW88KIny0fwmj5BA7NwS1
-	+sE8EVZaZInN2tInYmAVMMzxJmuyZoO2KldNJVIMToJXPEilV0qag4yI0s0eHtYye1vxnbfJ0N1
-	c3aYNYQOMbgSkaBf14EI97wuKwX8qHcLBh9aXgW02+QkoSTN7qBXNPGkTcI+yz9sPFAdVJ1pLSp
-	J+69MGLGU5h8FUoOaUDoq1K3kbS0qVgdvWz2MOaQFhqMReLzqlmsNyFKQNYxlMvSttiLMaky4rp
-	RqwrLN3Sy0AP9xd7HESEm8ILCvdd7Fyvxz/TKcQQqcyghETkHREnVyDqA3vqLKqyAW6v03hM7jZ
-	vOTpvBTClPtVcJ3X3yjFYoKI8mJUXhKCe0frRHO1eBLu1T9WBCyEiLcuVoBl5mPyc8ceWzF9aME
-	ASw+0/II8H6PTKQCqBVTWvDj4EpOZQ6IJpqIsGi1M5mtXgbC69hWgNDP4SCE8Qa8c0qN3ppqWZx
-	dFbLeaeq92aagIUU5B6wRUXblcF
-X-Received: by 2002:a05:693c:821a:b0:35c:813a:1c81 with SMTP id 5a478bee46e88-35c813a23b6mr8461466eec.18.1792010748588;
-        Wed, 14 Oct 2026 13:45:48 -0700 (PDT)
-Received: from hp-OMEN-Laptop-15-en0xxx.. ([122.172.84.6])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-353810403e9sm57109957eec.2.2026.10.14.13.44.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 13:45:48 -0700 (PDT)
-From: Jayaraj Devaraj <jayarajdmit@gmail.com>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-	Linus Walleij <linusw@kernel.org>
-Cc: Vladimir Zapolskiy <vz@mleia.com>,
-	Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
-	linux-gpio@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Jayaraj Devaraj <jayarajdmit@gmail.com>
-Subject: [PATCH] gpio: lpc32xx: check devm_gpiochip_add_data() return value
-Date: Thu, 15 Oct 2026 02:13:31 +0530
-Message-Id: <20261014204331.15383-1-jayarajdmit@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c6DEXWQf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 299351F000CB
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 20:46:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792010799;
+	bh=BOFXdtlLJRQYMv76Rgndlsjsm+9tUOiWDlM1kttoyjI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=c6DEXWQfVGokGZ9CK9fvFUarx2vlpofDu5HZHLOpqf6xCyYjLf0uqQkloauiJw8dE
+	 gW6Rbsel1roRQZeatWFTIDafi5MoF0MKr3blHEzWknrPMekFnPlKdSpRQZzZ3KVKFR
+	 i2eLbJRcJKZKczi9f+QirwOLqGh5Uiy3swk5aj/fIJphLd+NghwNa6wxO1hJ/hGHV6
+	 JJJxnYZTCtIs47pPG3JJOdG6PQyt1FofSUddaX6PvClGABAqvm07sp6Et+LOIKTqvF
+	 Mx10GgqzqLlEaLYCM7P4L5IkaurRxP4TP8/QV+ztAhIVSPViMOt71WPYCyJwfDAxDB
+	 1K1/gpsHCfenQ==
+Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-917d595138fso5309346d6.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:46:39 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwGs3Oy+BtJoWXbNL1PLew7oBjWtRMstQeJUU0t23MVi7wU3oMWOUxatQ5Av9Hj6d8c213GUBMOZPJnT7U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL9iYuZyH+TShFGt31fBYMNS+BxCE0yqZL7TufjIj5DL9/tVeWR
+	VB+PNV6HVDCVkbC9am7Q8Uzwj313JovPKV6iKIX+4aScG1iiE5+z1BOPi93HsChKh2FfzehHS1N
+	D0I5Otrn4ylACViMLLyqBFyvfu/1ExKQ=
+X-Received: by 2002:a05:620a:370c:b0:93e:7944:b874 with SMTP id
+ af79cd13be357-93ebd244676mr2716481385a.33.1792010798449; Wed, 14 Oct 2026
+ 13:46:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261013035201.2809924-11-senozhatsky@chromium.org> <20261014153603.1365617-1-zhangbo56@xiaomi.com>
+In-Reply-To: <20261014153603.1365617-1-zhangbo56@xiaomi.com>
+From: Barry Song <baohua@kernel.org>
+Date: Thu, 15 Oct 2026 04:46:27 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4wuPCPR0DnbrLp7ebdO=Oih6K_yP4XxwETKQ+3U+THVjg@mail.gmail.com>
+X-Gm-Features: AclHuK96raYTD1_AYOBRwPY6SYxU3fp-WrN3O5LVPixrw0o-dNEHuRIoMVnayBo
+Message-ID: <CAGsJ_4wuPCPR0DnbrLp7ebdO=Oih6K_yP4XxwETKQ+3U+THVjg@mail.gmail.com>
+Subject: Re: [PATCH v3 10/11] zram: use rw_semaphore for decompression streams
+To: Bo Zhang <zhangbo0325@gmail.com>
+Cc: senozhatsky@chromium.org, akpm@linux-foundation.org, bgeffon@google.com, 
+	minchan@kernel.org, richardycc@google.com, linux-kernel@vger.kernel.org, 
+	linux-block@vger.kernel.org, linux-mm@kvack.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-lpc32xx_gpio_probe() registers each gpio chip with
-devm_gpiochip_add_data() but ignores the return value. If registering
-a chip fails, probe still returns 0, so the driver binds with a chip
-missing and no error is reported.
+On Wed, Oct 14, 2026 at 11:36=E2=80=AFPM Bo Zhang <zhangbo0325@gmail.com> w=
+rote:
+>
+> Following up on the RFC thread [1]: Sergey pointed me at this series as
+> the reworked version of the by-direction split I had tested, so I applied
+> patches 9 and 10 and re-ran the same A/B. Big improvement.
+>
+> [1] https://lore.kernel.org/lkml/20261012123328.1138059-1-zhangbo56@xiaom=
+i.com
+>
+> Setup as before: real Android device (MemTotal ~7.7GB, zram ~8GB), cycle
+> 20 apps through fg/bg to force swap-out/in, 8 rounds, reboot before each.
+> Same trylock instrumentation on the stream locks across all builds. For
+> patch 10, "read contended" =3D dpin_contended + dexcl_contended. Decompre=
+ss
+> ("read") is the swap-in path, which is what matters for us.
+>
+> I use decompress acquire count (swapped-in pages) as the comparability an=
+chor
+> instead of swap volume, which stays within ~20% across builds.
+>
+>                       baseline   preempt-disable   9 + 10
+>   read contended      24,749     406               1,959
+>   read wait_ns total  239.8 s    3.78 s            ~12 s
+>   read wait_ns max    757 ms     51.7 ms           72-96 ms
+>   read acquire        3,948,150  4,305,078         3,510,610
+>
+> Decompression on 9+10 splits into:
+>   shared (stateless backend, single-page): 76.7% -> down_read never
+>       blocked (dpin_contended =3D 0)
+>   exclusive (cross-page object): 23.3% -> excl_lock, ~1,959 contended
+>
+> - 9+10: read contention -92%, total wait ~-95%, worst case 757ms -> ~90ms=
+.
+>   The rwsem does the heavy lifting: ~77% of swap-in decompressions now ru=
+n
+>   concurrently with zero pin contention - exactly the reader-vs-reader
+>   queuing we were hitting. Clear win over the two-mutex split.
 
-Check the return value, print an error naming the failing chip and
-return the error code. Chips registered earlier in the loop are devm
-managed and are removed automatically on failure.
+Nice to see such a significant improvement from Sergey's patchset!
 
-Signed-off-by: Jayaraj Devaraj <jayarajdmit@gmail.com>
----
- drivers/gpio/gpio-lpc32xx.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+> - Residual contention is all on the exclusive path, mostly cross-page
+>   objects (which need the ->local_copy bounce), not a specific backend -
+>   lzo-rle single-page objects all go shared.
+> - preempt-disable still shows the lowest read contention (406). It covers
+>   the other half of the root cause (holder preempted/migrated while
+>   holding the stream), so the two are complementary rather than
+>   competing: 9+10 removes reader-vs-reader queuing structurally, and the
+>   ~90ms tail that remains on 9+10 is the preempt/migrate effect.
 
-diff --git a/drivers/gpio/gpio-lpc32xx.c b/drivers/gpio/gpio-lpc32xx.c
-index 37fc54fc7385..014eb8bc70da 100644
---- a/drivers/gpio/gpio-lpc32xx.c
-+++ b/drivers/gpio/gpio-lpc32xx.c
-@@ -510,7 +510,7 @@ static int lpc32xx_of_xlate(struct gpio_chip *gc,
- 
- static int lpc32xx_gpio_probe(struct platform_device *pdev)
- {
--	int i;
-+	int i, ret;
- 	void __iomem *reg_base;
- 
- 	reg_base = devm_platform_ioremap_resource(pdev, 0);
-@@ -524,8 +524,12 @@ static int lpc32xx_gpio_probe(struct platform_device *pdev)
- 			lpc32xx_gpiochip[i].chip.of_gpio_n_cells = 3;
- 			lpc32xx_gpiochip[i].reg_base = reg_base;
- 		}
--		devm_gpiochip_add_data(&pdev->dev, &lpc32xx_gpiochip[i].chip,
--				  &lpc32xx_gpiochip[i]);
-+		ret = devm_gpiochip_add_data(&pdev->dev, &lpc32xx_gpiochip[i].chip,
-+					     &lpc32xx_gpiochip[i]);
-+		if (ret) {
-+			dev_err(&pdev->dev, "failed to register gpio chip %d: %d\n", i, ret);
-+			return ret;
-+		}
- 	}
- 
- 	return 0;
--- 
-2.34.1
+is it due to the case that sg_is_last() is false, local_copy is needed?
 
+bool zcomp_shared_decomp(struct zcomp *comp, struct scatterlist *sg)
+{
+        /*
+         * Shared decompression is only safe when the backend has no
+         * mutable per-stream decompression context and the object is
+         * contained within a single page (no ->local_copy bounce needed).
+         */
+        return !comp->ops->create_dctx && sg_is_last(sg);
+}
+
+Also, with either deflate or zstd, create_dctx() will
+always be present. So, what algorithm are we actually testing?
+What happens if we switch to zstd?
+
+Best Regards
+Barry
