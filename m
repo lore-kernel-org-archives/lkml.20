@@ -1,77 +1,77 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E69264C651E
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:39:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF3502E7398;
+	Wed, 14 Oct 2026 12:39:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791981565; cv=none; b=soy2tjX9mjKdBrkMTiCvSc0lhkN9O2cZAoV+fRi0VHFL+iRFTBqFi4kaeK9M2ukJR56rOGnB4GC8aa5aPF22Zz0UBcJSYDjrR3eYcVHoBS7kgRDWlMyNnNLdRH4g9mgXGNoVaA0eCMr3A1ipUAAw3K/BgGei5TMewrX1Hcx3A5E=
+	t=1791981597; cv=none; b=TJAWNCpmOJnPCN337frGRWz2Ps53OEi/telOMMvBEaIzTEeoN9mSNrk6ZYAPmHOYa/Rav8SAmRyO0aE8fORcsYl6GZH1DLf4niRiDH+Da564rb4C/SissCI63yhvu3QzRP/GQHs29P8NokWULnUXkzDENnYOElj3QPqvtgUihWo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791981565; c=relaxed/simple;
-	bh=7Kk0CxwEtjzYkojvCKWxzAP67CgEdO67ClErl6G2Ym4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Tw5JchO+OywzeCeAXuq+++QdSIf/SK3YVH0id2OARKNb4e7On5cagskt7M5UaRfCaeAr40dUEPGqIH1QAq4VLYr7VhqR3ObDAdyMrn7nt8dNbfr/Y8+5JruGlz+RVrBzr5+PPKzUWgiVNh4oDElLAvGTRTNNISuBTbfUyVR/eYw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aO69Pm3o; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791981597; c=relaxed/simple;
+	bh=9H2UCmqYOHM22VUfW9qwY8hZNIDd/S7m+w0HuPyY2SU=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=NisNWI8Utx9FO7+xN1MvGKUQVD4y9krA7dtAcZZQH0GBdaXDagOuNDB0Mtzjpvp5gjhMk4X3Z1wis8MmP6U7BCvHPxoGaUBcA9tIT3bdjwy1RQnw+c8Rd81SaQ4QzVkpXy2TP2bpoM5y8OB0MLizU5QaQEYGFrrwxgOUCMCXaNw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f0rdiRJA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aO69Pm3o"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD6241F00899
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:39:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f0rdiRJA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 910701F000FF;
+	Wed, 14 Oct 2026 12:39:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791981564;
-	bh=Knf75Ls2vrIpkylWUr/pvbXb19RPsFAB0AeEvO/u/KE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=aO69Pm3orR74eKnDwFMNan/luuWNO7WGE9hfDknGgP47EDc2T5jPGbbZhnA852w9F
-	 xy37hDBw7Kp5L/NbHjSkMmxq5gBJBROv0CTxDgc3ZyUWyTcjonU5y97mtmaiVEXSQf
-	 WtR2f9TfOpbZT/AkY9E2FQeyDSYK6S3RXwTKMNHtZG09r1/BQjRivCLDZkNOI+NnhD
-	 hT5acDpAp0hz6O8mexoA1DIdoWbnyofqjlw4NK8zUu84kqAF0SX7JcAwF99jB2Kq7a
-	 Mp6Tw1TaP1UM+kBGv1pBbfBS6nxBfs8xMTLS859QZfjnPzah+tenYouIdiVlg07dgP
-	 AZ/C31ZKmeU+A==
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c33bb2f3e6cso172100066b.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 05:39:24 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzhI9j0hobARF+43JS3Dr4TmnYOiC5Qp9OEIJSIfkFcc7pfM+RZxkHZnRVgXrpHr43az+KDoqEuriwpthY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJFzAPUVowQ8W2AZfiMns4NAiAN+yrUz6ruk6osN7JbmuReCtyn
-	X04jd4pdWyCSBTZxqkFU2KVMb18AxBP4WBzmRLsRHOlO/CE6j+wjq5utp6xoawgseplxtwANX4r
-	gpVFqn3Y1us3kcKmt/zD8hHZPpFeUJTk=
-X-Received: by 2002:a17:907:96a6:b0:c31:5c2b:9e4b with SMTP id
- a640c23a62f3a-c31a9fcf341mr1694753366b.9.1791981563351; Wed, 14 Oct 2026
- 05:39:23 -0700 (PDT)
+	s=k20260515; t=1791981596;
+	bh=fSLYrImSeP5OZxk3Y2QxKlVVF88b+H4K44wWDBQCcaQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=f0rdiRJATNtxiO//qKH+BCHCe19IHsFy8ayrgFDzdvRLyIwGsMwRYHT2chta66BD6
+	 jge35w0hc//PaJgickEPhXSwDpDhkBqu1v5pb2MIC1D4q2zSwxoW62fmkVq8sxdTnE
+	 qbzdc/ptGSUtSHlWtJxwT/2dVQGmVFzpx+K2/BwIzYK0lhRVdXMMFnA1+X/EblzUKY
+	 a+ijnhfLoGIMIISM3a8hbsuwdRCoTsH2JlT9Se4MNOK4yRPDV00IKw8ur4+4NEtJ3c
+	 MoKmGWapwWDtQVuQvSCFIWrzixsOh4UZlq7CzVb/03jypgflB4B7NJRIzHxyICO9l6
+	 //3kkWDvfvYnQ==
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+ Siddartha Mohanadoss <smohanad@codeaurora.org>, 
+ linux-arm-msm@vger.kernel.org, linux-pci@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Guangshuo Li <lgs201920130244@gmail.com>
+Cc: stable@vger.kernel.org
+In-Reply-To: <20260916090126.2963064-1-lgs201920130244@gmail.com>
+References: <20260916090126.2963064-1-lgs201920130244@gmail.com>
+Subject: Re: [PATCH] PCI: qcom-ep: deinitialize endpoint on remove
+Message-Id: <179198157973.38040.12670241698172958938.b4-ty@b4>
+Date: Wed, 14 Oct 2026 18:09:39 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261013145846.56415-1-charsyam@gmail.com>
-In-Reply-To: <20261013145846.56415-1-charsyam@gmail.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Wed, 14 Oct 2026 21:39:10 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd9oz1EgU_+wscBQtQhy2OvY0aTLD+qspgWuxG_wUXN0XA@mail.gmail.com>
-X-Gm-Features: AclHuK9ycT3hqCHux-rWwKW7hmgl-GX0VeiRBI-Vic7dBTJo9x-xz8Sv84ssuYQ
-Message-ID: <CAKYAXd9oz1EgU_+wscBQtQhy2OvY0aTLD+qspgWuxG_wUXN0XA@mail.gmail.com>
-Subject: Re: [PATCH 0/2] ntfs: handle block device cache flush in fsync paths
-To: DaeMyung Kang <charsyam@gmail.com>
-Cc: Hyunchul Lee <hyc.lee@gmail.com>, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=313;
+ i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
+ bh=QDazMUlgKBIpMdh4YUwrz6pBiQs3lsx2LKM34uB7VXw=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBqz3gSXYXvXTMJSVSYK44vv9+OYRwjKz8iErSsF
+ MmYDadDFsyJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCas94EgAKCRBVnxHm/pHO
+ 9b3dB/9Whr73EIn0wph97mjdQ4AqncsP+ZlkZxYmBdjaaz5RiMlrYWNnLjiXoBTI46hLB572ZSZ
+ VBzUFU+37FThZDERkZKRhf3jMN5p9ycZnGoKDiRkmUUvCy7kb9QpDdF+UJ3Kyf5otuAHM/ZgCwF
+ Rd0KgDTpDH2S4p6y7WwFEl0gKN1hhRYMpfVZsY26mbNCb3Yqw9LPR0H1AKwvSsRf9u9I1tpYhUm
+ jLq/ArHiiHQIR/0XDAFQFhWm/ZjNzSCjoHi/vfkpg/j/dM+ei4DYDpaCBQ1b8xmrKA7FIoZ6QfW
+ 5TtTxf5ok46/u7Z86ZSbg9KFAl6N2SfNxpUobD0rU5aAEJRt
+X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-On Tue, Oct 13, 2026 at 11:58=E2=80=AFPM DaeMyung Kang <charsyam@gmail.com>=
- wrote:
->
-> Regular-file fsync currently ignores a block device cache flush failure,
-> while directory fsync never issues a cache flush. Both can report success
-> without ensuring that the data and metadata reached stable storage.
->
-> The first patch returns and logs flush failures from regular-file fsync.
-> The second adds a flush to directory fsync and reports its failure. The
-> syncfs path already handles flush errors.
->
-> QEMU blkdebug injected -EIO for flush_to_disk on ntfs-next at
-> 04fb910da2c8. Before these changes, both file and directory fsync
-> returned success while syncfs returned -EIO. With the respective fixes,
-> both fsync calls return -EIO. A kretprobe confirmed the flush failures.
->
-> DaeMyung Kang (2):
->   ntfs: report block device flush failures from fsync
->   ntfs: flush the block device when syncing a directory
-Applied them to #ntfs-next.
-Thanks!
+
+On Wed, 16 Sep 2026 17:01:26 +0800, Guangshuo Li wrote:
+> PCI: qcom-ep: deinitialize endpoint on remove
+
+Applied, thanks!
+
+[1/1] PCI: qcom-ep: deinitialize endpoint on remove
+      commit: 817c16e46609d60c22679d9145a39e28b1f6e164
+
+Best regards,
+-- 
+மணிவண்ணன் சதாசிவம்
+
+
