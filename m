@@ -1,45 +1,45 @@
-Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com [113.46.200.221])
+Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6565C3B47EE
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40F6B3ABD90
 	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:09:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.221
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791958199; cv=none; b=VoUFtWLdow+p7OdA1PaaJqk4suSpW471qyKzfh9HHiCnanAyNRy8hxdQ2KcxANTuyCeAQevuRmWV3SyZ1bJnvOIv+2sHrtytxbazfZDvFA7dV2w38J+eDdfeGTJOk2wXguYGUQ6nnRb9nqVd2vn/ALAGpGzTq+Nme719cM+s+wU=
+	t=1791958199; cv=none; b=qNOHX09TJAlrFGrthc1UVugKx7BkgStlIrEYVdrx3pIrt7lMSJNHdxm4UYwv740ukm8zMlsgu2MgnJ+aqPJpQJ72/STzLfY/sN1b6l1Wou4GaxJ4+2FlG5gb9Kl+EnlNeP8qpxy8P3AJtyqY7kTaDW+D+40PSyncFqFe+PwWaik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791958199; c=relaxed/simple;
-	bh=6KbgZ6ZC53ynJIskscr49r/AcWSlPztIjmAQZpZN/1c=;
+	bh=X1qbS8zwhIk06wcbK8R5Pphjza9tBbJrdWZBp1YA6Ck=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AexFlvGJx7/4gLvybaXHVNdiGmzRTF2ESgER8hmKgv6Jq7ew+hOQ5MJJEuHu9roXznC5o4ugniNC8oEnjDsbXm9nh8HcUb1Ar+RwPD6E2a1L5VV9f6u2EBLG2w2qCQ2AMcthsw3pT/KJZdTi7S2RsTLvvnXD+bp5pakSA3aaL0A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=kFxwD+jv; arc=none smtp.client-ip=113.46.200.221
+	 MIME-Version:Content-Type; b=cic1Ca7laaQV2ukZN1EWRxhQyPPM9T6ECZ0jjNFZKR374vHnmPA+OQb3T3SCpDUifgpcRMy2/bMiCNUdY3w888xWVZADPl03e9Zwd/idIcBS3P4lMLvudRnYZPa8tSQxg5W3opomk0Q049pphV6m3R4u5+V281cBwu5ClAsz5sY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=Ia+QpVAZ; arc=none smtp.client-ip=113.46.200.216
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="kFxwD+jv"
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="Ia+QpVAZ"
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=HU+Eb4UZtw6L9Gsa9JY/F8hNcQZDUPWTRzMQNp41osI=;
-	b=kFxwD+jvBhurmi0BfsXBtIMbWcpgOX2OxN5te0ouEHcjkH6yGw1+zTcwTIvlHRjCpJX/q0mCL
-	aVei36jKBKCOVwO+7h8dcGb2wXyGgFvUHzoKKEN46gv8gPPDh2m4whiVAZhO61vkGlBgtI1MwkG
-	ytl80vIysMoRrl2JiG29ANA=
-Received: from mail.maildlp.com (unknown [172.19.162.144])
-	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4j4L8L1c1tzRhQs;
-	Wed, 14 Oct 2026 13:57:38 +0800 (CST)
+	bh=2WFJG9cJcmAhOhk8siaFmZKVTzgJRkbhQt/87zzm9xQ=;
+	b=Ia+QpVAZ8ls+iWJKbgMxrR4kuv0fjjxd4gXOdoNoVYpsqUIfwBT464tflHRY+dRtmX6Y51wYy
+	5MfhemvS3AiRrrRCk2aa38NirM2Tafbv2KQTLj45TJec5B6LlEnEQG5P/UtzijhWaGexPWs7qkG
+	cjmdHGCzup43SwgIq/sfo14=
+Received: from mail.maildlp.com (unknown [172.19.162.197])
+	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4j4L8B4xrjz1T4LX;
+	Wed, 14 Oct 2026 13:57:30 +0800 (CST)
 Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
-	by mail.maildlp.com (Postfix) with ESMTPS id 8E2A04056D;
-	Wed, 14 Oct 2026 14:09:52 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id DB9AC4057D;
+	Wed, 14 Oct 2026 14:09:51 +0800 (CST)
 Received: from huawei.com (10.50.85.155) by whupemo200011.china.huawei.com
  (7.152.185.179) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 14 Oct
- 2026 14:09:51 +0800
+ 2026 14:09:50 +0800
 From: Zhihao Cheng <chengzhihao1@huawei.com>
 To: <richard@nod.at>, <ext-adrian.hunter@nokia.com>
 CC: <linux-mtd@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
 	<chengzhihao1@huawei.com>, <yangerkun@huawei.com>, <yi.zhang@huawei.com>
-Subject: [PATCH 2/2] ubifs: tnc_delete: Don't update collapsed znodes if memory allocation fails
-Date: Wed, 14 Oct 2026 14:02:52 +0800
-Message-ID: <20261014060252.3531356-3-chengzhihao1@huawei.com>
+Subject: [PATCH 1/2] ubifs: tnc_delete: Don't free zero-branch znodes if memory allocation fails
+Date: Wed, 14 Oct 2026 14:02:51 +0800
+Message-ID: <20261014060252.3531356-2-chengzhihao1@huawei.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20261014060252.3531356-1-chengzhihao1@huawei.com>
 References: <20261014060252.3531356-1-chengzhihao1@huawei.com>
@@ -54,110 +54,166 @@ Content-Type: text/plain
 X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
  whupemo200011.china.huawei.com (7.152.185.179)
 
-A collapsed znode is updated with 'znode->parent = NULL' before calling
-insert_old_idx(), if a memory allocation failure happens, there will
-exists non-root znode(without parent) in TNC, which leads a null-ptr-def
-problem for TNC traversing, the details shown as:
+The freed zero-branch znodes won't be removed from TNC if a failure
+(eg. mem alloc in insert_old_idx_znode) happens in tnc_delete, then
+TNC traversing could access the freed znodes, the details shown as:
 
  file: consists of many data nodes, TNC is:
-                   znode_A (lv 2)
-  	     /                         \
-       znode_B (lvl 1)              znode (lv 1)
-        /             \                 |
-    znode_C(lv 0)...znode(lv 0)     znode (lv 0)
-     |   |     |     |       |          |
-  ino_1 ino_f dent dn_0 ... dn_i      dn_i+1
+                       znode_A (lv 2)
+		 /                       \
+         znode (lv 1)                 znode_B (lv 1)
+	  /        \                      |
+    znode(lv 0)...znode(lv 0)         znode_C (lv 0, child_cnt = 1)
+    |    |    |    |	  |               |
+ ino_1 ino_f dent dn0...dn_i-1		dn_i
 
-     P1
-  truncate(file, 0)
-   ubifs_setattr
-    ubifs_jnl_truncate
-     ubifs_tnc_remove_range
-      tnc_delete // dn_* are removed
-       do-while
+    P1
+ truncate(file, dn_i-1)
+  ubifs_setattr
+   ubifs_jnl_truncate
+    ubifs_tnc_remove_range
+     tnc_delete // dn_i is removed, znode_C->child_cnt becomes 0
+      do-while
+       kfree(znode_C)
+       ENOMEM = insert_old_idx_znode(c, znode_B)
+       return
+      znode->zbranch[i] = znode->zbranch[i + 1] // skip,
+      // znode_C is still in TNC
 
-  the TNC looks like:
-          znode_A (lv 2, parent = NULL)
-		|
-	  znode_B (lvl 1, parent = znode_A)
-		|
-	  znode_C (lv 0, parent = znode_B)
-	  |     |     |
-	ino_1 ino_f dent
+ the TNC looks like:
+                       znode_A (lv 2)
+		 /                       \
+         znode (lv 1)                 znode_B (lv 1)
+	  /        \                      |
+    znode(lv 0)...znode(lv 0)         znode_C (lv 0, child_cnt = 0, freed)
+    |    |    |    |	  |
+ ino_1 ino_f dent dn0...dn_i-1
 
-  tnc_delete will collapse the tree:
-  // while (znode->child_cnt == 1 && znode->level != 0)
-   // round 1
-   zp = znode_A
-   znode_B = get_znode(c, znode_A, 0)
-   znode_B->parent = NULL
-   znode_B->iip = 0
-   insert_old_idx
-   c->zroot = znode_B
-   kfree(znode_A)
-   // round 2
-   zp = znode_B
-   znode_C = get_znode(c, znode_B, 0)
-   znode_C->parent = NULL
-   znode_C->iip = 0
-   ENOMEM = insert_old_idx
-    return
-   c->zroot = znode_C // skip
+     P2
+ drop_caches_sysctl_handler
+  shrink_slab
+   ubifs_shrink_scan
+    shrink_tnc_trees
+     shrink_tnc
+      ubifs_tnc_levelorder_next
+       access znode_C // UAF
 
-  the TNC looks like:
-          znode_B (lv 1, parent = NULL)
-		|
-	  znode_C (lv 0, parent = NULL)
-	  |     |     |
-	ino_1 ino_f dent
+The root cause is that zero-branch znodes freeing & znode->zbranch is not
+atomic, which could be interrupted by the insert_old_idx_znode() failure,
+fix it by freeing znodes after all insert_old_idx_znode() callers success.
+The znodes collapsing won't meet the problem if insert_old_idx() fails,
+because znode is freed after updating c->zroot, the TNC traversing won't
+access a freed znode.
+Notice: we add new field 'fnext' in struct ubifs_znode to trace to be
+freed znodes. Because tnc_delete and do_commit could race, the members
+parent/cnext/cparent can not be reused. Importing a stack array to record
+znodes is also not recommended, becase the UBIFS_MAX_LEVELS*sizeof(ptr)
+becomes 4096, which may cause the compiler to complain.
 
-      P2
-  umount
-   kill_ubifs_super
-    ubifs_put_super
-     ubifs_umount
-      destroy_journal
-       ubifs_tnc_close
-        ubifs_destroy_tnc_tree
-	 ubifs_destroy_tnc_subtree
-	  znode_C = ubifs_tnc_postorder_first
-	  if (zn == znode) // false, zn = znode_C, znode = znode_B
-	  zn = ubifs_tnc_postorder_next(c, znode_C) // zn = NULL
-	  for (n = 0; n < zn->child_cnt; n++) // null-ptr-def !
-
-The root cause is that zroot & znode->parent updating is not atomic,
-which could be interrupted by the insert_old_idx() failure, fix it by
-making zroot & znode->parent updating together.
-
-Reproducer is https://bugzilla.kernel.org/show_bug.cgi?id=222130.
+Reproducer is https://bugzilla.kernel.org/show_bug.cgi?id=222129.
 
 Fixes: 1e51764a3c2a ("UBIFS: add new flash file system")
 Signed-off-by: Zhihao Cheng <chengzhihao1@huawei.com>
 ---
- fs/ubifs/tnc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ fs/ubifs/tnc.c   | 40 +++++++++++++++++++++++++++++++---------
+ fs/ubifs/ubifs.h |  2 ++
+ 2 files changed, 33 insertions(+), 9 deletions(-)
 
 diff --git a/fs/ubifs/tnc.c b/fs/ubifs/tnc.c
-index 679afddadf82..c9480d963e4c 100644
+index 776e6bc6a00d..679afddadf82 100644
 --- a/fs/ubifs/tnc.c
 +++ b/fs/ubifs/tnc.c
-@@ -2611,14 +2611,14 @@ static int tnc_delete(struct ubifs_info *c, struct ubifs_znode *znode, int n)
- 			znode = dirty_cow_znode(c, zbr);
- 			if (IS_ERR(znode))
- 				return PTR_ERR(znode);
--			znode->parent = NULL;
--			znode->iip = 0;
- 			if (c->zroot.len) {
- 				err = insert_old_idx(c, c->zroot.lnum,
- 						     c->zroot.offs);
- 				if (err)
- 					return err;
- 			}
-+			znode->parent = NULL;
-+			znode->iip = 0;
- 			c->zroot.lnum = zbr->lnum;
- 			c->zroot.offs = zbr->offs;
- 			c->zroot.len = zbr->len;
+@@ -2514,8 +2514,9 @@ int ubifs_tnc_add_nm(struct ubifs_info *c, const union ubifs_key *key,
+ static int tnc_delete(struct ubifs_info *c, struct ubifs_znode *znode, int n)
+ {
+ 	struct ubifs_zbranch *zbr;
+-	struct ubifs_znode *zp;
++	struct ubifs_znode *zp, *zn;
+ 	int i, err;
++	struct ubifs_znode free_head = { .fnext = NULL };
+ 
+ 	/* Delete without merge for now */
+ 	ubifs_assert(c, znode->level == 0);
+@@ -2543,7 +2544,7 @@ static int tnc_delete(struct ubifs_info *c, struct ubifs_znode *znode, int n)
+ 	 * This was the last zbranch, we have to delete this znode from the
+ 	 * parent.
+ 	 */
+-
++	zn = &free_head;
+ 	do {
+ 		ubifs_assert(c, !ubifs_zn_obsolete(znode));
+ 		ubifs_assert(c, ubifs_zn_dirty(znode));
+@@ -2554,15 +2555,20 @@ static int tnc_delete(struct ubifs_info *c, struct ubifs_znode *znode, int n)
+ 		atomic_long_dec(&c->dirty_zn_cnt);
+ 
+ 		err = insert_old_idx_znode(c, znode);
+-		if (err)
++		if (err) {
++			zn = free_head.fnext;
++			while (zn) {
++				struct ubifs_znode *next = zn->fnext;
++
++				zn->fnext = NULL;
++				zn = next;
++			}
+ 			return err;
++		}
++
++		zn->fnext = znode;
++		zn = znode;
+ 
+-		if (znode->cnext) {
+-			__set_bit(OBSOLETE_ZNODE, &znode->flags);
+-			atomic_long_inc(&c->clean_zn_cnt);
+-			atomic_long_inc(&ubifs_clean_zn_cnt);
+-		} else
+-			kfree(znode);
+ 		znode = zp;
+ 	} while (znode->child_cnt == 1); /* while removing last child */
+ 
+@@ -2575,6 +2581,22 @@ static int tnc_delete(struct ubifs_info *c, struct ubifs_znode *znode, int n)
+ 			znode->zbranch[i].znode->iip = i;
+ 	}
+ 
++	/* Free zero-branchs znodes. */
++	zn = free_head.fnext;
++	while (zn) {
++		struct ubifs_znode *next = zn->fnext;
++
++		zn->fnext = NULL;
++		if (zn->cnext) {
++			__set_bit(OBSOLETE_ZNODE, &zn->flags);
++			atomic_long_inc(&c->clean_zn_cnt);
++			atomic_long_inc(&ubifs_clean_zn_cnt);
++		} else {
++			kfree(zn);
++		}
++		zn = next;
++	}
++
+ 	/*
+ 	 * If this is the root and it has only 1 child then
+ 	 * collapse the tree.
+diff --git a/fs/ubifs/ubifs.h b/fs/ubifs/ubifs.h
+index 00db0d19a85e..c3ae7c2625a4 100644
+--- a/fs/ubifs/ubifs.h
++++ b/fs/ubifs/ubifs.h
+@@ -761,6 +761,7 @@ struct ubifs_zbranch {
+  * @parent: parent znode or NULL if it is the root
+  * @cnext: next znode to commit
+  * @cparent: parent node for this commit
++ * @fnext: next znode to free
+  * @ciip: index in cparent's zbranch array
+  * @flags: znode flags (%DIRTY_ZNODE, %COW_ZNODE or %OBSOLETE_ZNODE)
+  * @time: last access time (seconds)
+@@ -780,6 +781,7 @@ struct ubifs_znode {
+ 	struct ubifs_znode *parent;
+ 	struct ubifs_znode *cnext;
+ 	struct ubifs_znode *cparent;
++	struct ubifs_znode *fnext;
+ 	int ciip;
+ 	unsigned long flags;
+ 	time64_t time;
 -- 
 2.52.0
 
