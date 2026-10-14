@@ -1,60 +1,68 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D868E363090;
-	Wed, 14 Oct 2026 02:49:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECDEB374190;
+	Wed, 14 Oct 2026 02:49:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791946143; cv=none; b=qfc2V361cLIEiXJ00ujDFkGXB4vpgH/y957oubGB4zrpYX8R8m+7ls5JWJp+XMxx48j2KXgif4oqBA8uBUHO6ctdne8dgJ1WqAhftMAYRdIUUCwjlFMLcRrzVUKFrNJ+80X6O8VTqNp2E0t2NGZk4fr1Vm1N88eeJjsDswNApdE=
+	t=1791946156; cv=none; b=QwKAoV8gnrkOE/1lUGBHTRYmuCJe4W86I1bVuBpmvYWCJQDsDsOqmmHobZIwFE+JFp1IkP7hdqtQY8rKa0d18pJlb4ftCduORF3Dl4VN7y8SmpBKr6SgfUBskiJrKKmumTJ7HbSKshc8pKs2Stm6aM2W4KNpE7eKMTLc2/HK71w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791946143; c=relaxed/simple;
-	bh=RNbKNRS527FLzE3xL8s+PwAPD/cNMkxUwLI3NRRTkxs=;
-	h=To:Cc:Subject:From:In-Reply-To:Message-ID:References:Date:
-	 MIME-Version:Content-Type; b=GO30A9VFSvunm3bCTHlFRuuUIiTebaIhYnEmBXnUu6AJvFnadS7+wr1+AtM8beYJZasrbWQe/inOgiofIeVQ88J5Mw+hWBqNabPzskGy7R9+MEuFt/4AbcD6wBUeXw0Zexu/lhfmRDxd/So9AMw7w+jK4P5ekMGlGPT0mJPTkMA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YBfw1nxe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791946156; c=relaxed/simple;
+	bh=FPVtKNFKhs74PqTgnsdli633r0wWfPveVqPiAJd1qh4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Rgwwxv2F06FWZQIWjUgAUWjP8sjOrYyZoRp0EHUmFo9BRYle1tetR41kfdPBitfLdHq234dAtibZ7x2ei507rALjwj3TrSFrWDVZByS/8J4ot0LjX4q6/zE5ylCMbAge6sqop1+FEgH9TpIIeZvlm7mXw06+jO4u7xKlMMF5W18=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=heomhiLq; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YBfw1nxe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D34E1F000FF;
-	Wed, 14 Oct 2026 02:49:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791946142;
-	bh=VhItWomDTz+JfgqkqvE4Z8m4XK0vlJdjPRhQGuVtbE8=;
-	h=To:Cc:Subject:From:In-Reply-To:References:Date;
-	b=YBfw1nxekSA90YNOSggNZ0nNtfcZ6BtZw4MYYld3cnps0sT4lZZ0FU403OsZfUL72
-	 p0Tm5GTBHwSQbEXP+386yyYGOeZ9UrE12eW+CuvDJlAs+28Q9hUQAxV3oLnuBTot8w
-	 3/rt0Wa4SDOpoKoVhJn1eqK2lzK7ONxycIEfQS65bDIuzj+5ITIGl8i6i0AbduuIsD
-	 /Lu48u9IF+O7+rJqsduqrGfq0iYtuZnVGyzlUJBu4CMstuu2DQTj3pzjnBDw5tTFYy
-	 OyqRAVR26Uh2YLDgILl6FvHCMsC20ZT4ZAWTv50adWaQvOjeqCGNHDsAKPck9ZuhHm
-	 KEXn9ho15Df5w==
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: "Martin K. Petersen (Oracle)" <mkp@kernel.org>,  Can Guo
- <can.guo@oss.qualcomm.com>,  linux-arm-msm@vger.kernel.org,
-  linux-scsi@vger.kernel.org,  linux-kernel@vger.kernel.org,  Manivannan
- Sadhasivam <mani@kernel.org>,  "James E.J. Bottomley"
- <James.Bottomley@HansenPartnership.com>
-Subject: Re: [PATCH v1 1/1] scsi: ufs: ufs-qcom: Don't define variable in
- the middle of the code
-From: "Martin K. Petersen" <mkp@kernel.org>
-In-Reply-To: <20261013095924.959455-1-andriy.shevchenko@linux.intel.com>
-Message-ID: <yq1pkxdf148.fsf@mail.kernel.org>
-References: <20261013095924.959455-1-andriy.shevchenko@linux.intel.com>
-Date: Tue, 13 Oct 2026 22:49:00 -0400
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="heomhiLq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=FP
+	VtKNFKhs74PqTgnsdli633r0wWfPveVqPiAJd1qh4=; b=heomhiLqq1o/PGrMGf
+	R87EqtgVgKU0TnZTg3QRQTVpxmDokOow2YJIq6mKC2kNbHQZsKaCGjc4h/UvO8Rd
+	b1uQZ/aA4s2qWt/QhiISv5GpN3J87R2k7y4YbXZZMxP9vbMh9wSe3KBF5cV1so7x
+	a9JDpQQxsTA2NuWEJl8EoeS1M=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3_8Jq7c5qLnY1Eg--.43334S2;
+	Wed, 14 Oct 2026 10:48:11 +0800 (CST)
+From: Pengpeng Hou <hppiscas@163.com>
+To: glaubitz@physik.fu-berlin.de
+Cc: kmehltretter@gmail.com,
+	geert@linux-m68k.org,
+	ysato@users.sourceforge.jp,
+	dalias@libc.org,
+	linux-sh@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	hppiscas@163.com
+Subject: Re: [PATCH] sh: Use generic OHCI platform provider symbol
+Date: Wed, 14 Oct 2026 10:48:08 +0800
+Message-ID: <20261014024808.78150-1-hppiscas@163.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <2ccce813ce4d615af2ca880da19501deaa562c22.camel@physik.fu-berlin.de>
+References: <20260624081926.12426-1-pengpeng@iscas.ac.cn> <CAMuHMdVkL629ps2mmD3XRXM-BYWXZ-6GQGM7tKf6vEvhK--LBg@mail.gmail.com> <20260920031112.98903-1-hppiscas@163.com> <2ccce813ce4d615af2ca880da19501deaa562c22.camel@physik.fu-berlin.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3_8Jq7c5qLnY1Eg--.43334S2
+X-Coremail-Antispam: 1Uf129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjfU5LvtUUUUU
+X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbC7QzkrWrO7WyQeAAA3l
 
+Hi Adrian,
 
-Andy,
+Please use Karl's v2:
+https://lore.kernel.org/all/20260905145225.88518-1-kmehltretter@gmail.com/
 
-> While the C11 allows us to define variables in the code, we do not
-> do this style (see more at [1]). Move the declaration to the top of
-> the function.
+It carries the same symbol replacements, rebased, with the requested
+Fixes tag and Geert's Reviewed-by. I have no additional changes to make
+and will not send a competing revision.
 
-Applied to 7.4/scsi-staging, thanks!
+Thanks to Karl for picking it up, and to you for collecting it.
 
--- 
-Martin K. Petersen
+Regards,
+Pengpeng
+
