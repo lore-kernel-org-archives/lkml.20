@@ -1,438 +1,176 @@
-Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6D994F68C3;
-	Wed, 14 Oct 2026 11:58:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.117.225.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68A604A2049
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:59:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791979103; cv=none; b=AZ/VYgLqhH9rljgLX/iMwqzjTpdxquGxqwSLlkahkv7R57Y2ImyXnQrBd5ZrSXjX/J4ea7mtRNvH2P590Gsm8amsjT+vxQNiLzEWmrrEzILQhn6PP7Mgc0gpnACQXgBlVD9+PyyqRNbSTuM+yKDndIrAKBIoM/sOgpv8YcgnbdA=
+	t=1791979171; cv=none; b=FrvI2+EPGR0JKuMx1RKN/c1FqQiHmtIYDZJMoC2xYzlQVdZ/SJbQ1ypmIaS6zx3PSYHShbah7K0Wi9lOgOZwchbKoZdcBQoflQ7EGIBMCJQKrLNKSGD8xWep4LFITx9rqsJi2RdxQUJIRwHYONTPqdEV65HDDDmbWWE5v+DXzBk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791979103; c=relaxed/simple;
-	bh=obgUcPag99aYczZt/zoXOTqJKJ2o3uHSBqIAWhgEeVE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=SYYZmUryIx7sA+uSecWUJydMeb//AC2NMvwz2zTKcrILVD7Yzcm7ZIW+hGzLYw4kLGYvOeRi5+14pkpPI6/wkqE/8cKC/Hk+iQxjtg/HDCu+pzhCIYUW2is10RXRZgbow+YavFzbbNUU2piJtruub7tH1kocq7956nMMu8ZhpQM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com; spf=pass smtp.mailfrom=virtuozzo.com; dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b=XDOIZV9V; arc=none smtp.client-ip=130.117.225.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
+	s=arc-20240116; t=1791979171; c=relaxed/simple;
+	bh=4yOusH5q1NIC2nd1oSTIsHSlVu1J3DzSXZ1Kg6T47co=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=meQU2VuhNDDyG8fb/1c7xXagoIqughtHr1cktNQlXRMXKpQln64oWb5Z6IZyx98QuaZiBiyAwrf83XE+fmfD728L8TgG4yPGpB5gQIgGha2dFJhMFXnSw/BF9ImPtiJhX1mvAVEeyyuWFY5ROOovv4yI4VCqFaVMtqRyD2httH0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZPxdFCpr; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=c36Pzscv; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b="XDOIZV9V"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=virtuozzo.com; s=relay; h=Message-Id:Content-Type:MIME-Version:Subject:Date
-	:From; bh=AQuWHFrsafps3vZ2+dWNxf6KEa+2dvzoz5lME1tRtAw=; b=XDOIZV9V/MlfHVaqTkk
-	hz4m0yRabibao6aEX3VFluzfLMIx39vR6hEU4ncsxMQrbMryUpW6RtyJWmLRTTUiogbUe3i095/G8
-	rko6UrngWRL67w47YwoJYxbvSDqS59KDaKe9RZOOYoPS6r/3DQXWDN3ygEewrDXwZj5Apd10khNR7
-	eojVeVViXq+dAqGt5ls3/hNqoL2pJmipnqovwu9l8Ozm/3wdyD65wFmZCDVen22H0TUlNvY421xMo
-	4fTbJIX1sx91oSjB2GMC+b8vh2fj+9NNPy+uhRAO2VISoXuZ4U3PkamljcbM2AOECv5qCKnk0MVUQ
-	5kE/uMIebxmMNqw==;
-Received: from ch-demo-asa.virtuozzo.com ([130.117.225.8] helo=f0.sw.ru)
-	by relay.virtuozzo.com with esmtp (Exim 4.96)
-	(envelope-from <khorenko@virtuozzo.com>)
-	id 1xGxYx-0020d1-1Z;
-	Wed, 14 Oct 2026 13:57:59 +0200
-From: Konstantin Khorenko <khorenko@virtuozzo.com>
-Date: Wed, 14 Oct 2026 13:57:53 +0200
-Subject: [PATCH] mm/huge_memory: recheck a special PMD under the lock in
- copy_huge_pmd()
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZPxdFCpr";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="c36Pzscv"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EBbATb2685707
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:59:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=/uCRlVMAqy7eCFuaj3wXxfur
+	qUD1vtPw5DJJFNPzZNQ=; b=ZPxdFCprxjrbe+0gJiTbbQYm8m4KelF3UKil1fTa
+	zVD/qs9Y9uDpNHoq43qJUGDF7ye+VGTxb9+TcY+0rlj1Gds3R9i2qmFpDHv56JXP
+	IHS926sjbQxiccn+xZXTSwdUkN2AUdwpWQjUME6Lkquyx1zdlCQmOTSYVnA/X83W
+	0OcLm7TdT0he3d7IY6EWRRK+A4WG5YLV07nQBs4BZ+SxKxYqY/DId/8kl3RZdcCb
+	kH4H2epvDKN9adqcQ+TnMmjNu/A0oIq60fBu6x9Fvdisu90c72caNARBJHUfBwkv
+	L9vhW3YwXOG4nFZ65iQ9ZeTAyojF+2eloPGF3poXRxvpvg==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ha46u1d61-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:59:28 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93caa0ce0cdso34011485a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:59:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791979167; x=1792583967; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/uCRlVMAqy7eCFuaj3wXxfurqUD1vtPw5DJJFNPzZNQ=;
+        b=c36PzscvGASzA02pXJ0cx6vYMqZRhq9x960FWrclS1yAqIOEMqDA3g9+jMuc1lFUar
+         yAlTyWhE7lVtJIieyn79aUX8PGfBpKf8+Rg82AjSQ8ddKXeMLeGOg9w/QD4RXfvZKz0I
+         p3KRUDGctGM+ffQah4QCQ8LVEmVm5LEFkdRshSs7B4VJKu2nBCpBkxiwodQI/8Qlx7tg
+         +tGQMGh/gzZX5YdBjIda6Rf14TFOX1rs18l/t6tQ7IlW9nUL+jtaffyPDjn8cxc8ZRg1
+         LEicFE3Bna4GA3fQp24cbeqxsn0WYh15T2zTza5upylS8BbUjg450eA2y8Vpl6ne3bxl
+         IdNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791979167; x=1792583967;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/uCRlVMAqy7eCFuaj3wXxfurqUD1vtPw5DJJFNPzZNQ=;
+        b=GEMV6iJGpJYmS764kREo72wRnSdd8NQhplFlgVmkIeMQZwGsIZ96WNGrMhUyB1nwZS
+         BCMzAzKsVYkFuxfujOLrGDynVsOJXoA+JYri1eElZ4PIfXG9R/8lSn4IT3PdM+xpiwk1
+         eUVi1ZzEYCRlnxGv3O0FNNaEt/2wf09xfPOHF0nEWoOK9WCIPj5qgN+I1r5KJlrBkcLB
+         FQ+mTmKz/R7Rf9uY0LudoH2GPqDFArDt6fpysey6idacIr5HirCYSs6kJpEBCoB3JxYe
+         C2x0/z1Aa2e7GipiQKMnhFMLwFlMpbPnZSqOX5kUPttMElnTfvQghEoOM1EcbnnT6Ilh
+         aUXw==
+X-Forwarded-Encrypted: i=1; AKwUvBxrTMYT4V0AR6DnO2tIYsv4nCvlbaeBIx6XihMAPysGBWfQzmvP+WwW3cJo20jX3tvqspZ5lzMU9sXG4rw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI3mdbKA6+tCsj7FqmttIpDgXH9ox0yCXid2rYxyhFKf7wy6234
+	fmLrr7bzlZwaue2ULUrupnS+KIFX00WbZ+ziDjb7k86p3LI3vhH+85/nAG0KnvIrAp+bUsZcvEg
+	+z3cBPZYKpC+RbpgD4GY55SuWFTXc6qZrDX23ODthsN4sxr2w5aZHiK7QD4AHwuv6OlI=
+X-Gm-Gg: AYBFou3f8/OX2vuTNMj0KMfux81CwGhR1EZTltZK/gXt8+Mm55f9RJwWTHslcKO0vlV
+	4Gx9hF2hO6ltPzqxz/1XI8EaYWQDW9RkkiwSbdBnyGT4Ui1am5QySKRhoUV3pBIzDee2716HpUe
+	zwwrcz9dvVi0XFgzJoXdrJ/LFQqBzHPfr+9q+qxzTeA3f3l0L9nZWQleDoWPzs0cDkrDfasGXuV
+	wWrwSnRb0NldyhcPNJQts8TWUqIwt4Otfp3Q6O3JASHJaT/LKDuVXK2jq86LawxZBdxG/+/z1bk
+	YkEU9wxnzXKaBKKXDrUgzCVhulGiumBZiRY7nFa9Vj1piGnSbXvgeZ11LX4XxjHUDXRQJxkVR6j
+	xQRJiS7WmatelFG9J
+X-Received: by 2002:a05:620a:17aa:b0:93c:c162:1260 with SMTP id af79cd13be357-93ebd24a4camr2496251085a.38.1791979167397;
+        Wed, 14 Oct 2026 04:59:27 -0700 (PDT)
+X-Received: by 2002:a05:620a:17aa:b0:93c:c162:1260 with SMTP id af79cd13be357-93ebd24a4camr2496246685a.38.1791979166650;
+        Wed, 14 Oct 2026 04:59:26 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.215])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a199e5db12sm348705555e9.2.2026.10.14.04.59.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 04:59:25 -0700 (PDT)
+Date: Wed, 14 Oct 2026 14:59:24 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] clk: qcom: gcc-eliza: Use retention for PCIe power
+ domains
+Message-ID: <e255ml7kf2pyjnw4k3ssi3jp4hkovw7x62cln6n3xbf7tz5q7y@ijqwv75233a6>
+References: <20261011-eliza-pcie-gdsc-retention-v1-1-9349dba7e0b6@oss.qualcomm.com>
+ <273f7f8c-e24d-4322-a418-4fd5ed84b0bd@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v1-1-d225c60bc316@virtuozzo.com>
-X-B4-Tracking: v=1; b=H4sIAEBuz2oC/yWNyw6DIBAAf8XsuZsIIdr2V5rGyLIIfQgBNTbGf
- y+2x5nDzAaZk+cM12qDxIvPPowFxKkCcv04MHpTGGQtG1ELhVphTBxxyVNIKNTlrFqkED+dmwf
- u4ttgYnJMT8yRyfcvPJw2tmWrGyFJQomXhvXrb3y7/znP+sE0HTfY9y9d7WK0mgAAAA==
-X-Change-ID: 20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-bdf7efb612c2
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Peter Xu <peterx@redhat.com>
-Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org, 
- =?utf-8?q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>, 
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>, 
- stable@vger.kernel.org, Konstantin Khorenko <khorenko@virtuozzo.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=13569;
- i=khorenko@virtuozzo.com; h=from:subject:message-id;
- bh=obgUcPag99aYczZt/zoXOTqJKJ2o3uHSBqIAWhgEeVE=;
- b=owEBbQKS/ZANAwAKAVGWCkf5YVwqAcsmYgBqz25HMkTtVwo963YjiCmGweeAyiFLhT9BXO1vK
- kF6dH8j7uWJAjMEAAEKAB0WIQRWD23IPcXT0GO9CCxRlgpH+WFcKgUCas9uRwAKCRBRlgpH+WFc
- Ki+oD/0ZDO42djVfzoSzty+pW8gaxR8jNvr8zvrzkPa56QcC7ZWr4/TZec0wmo8vUUYk2Hggiz8
- QFQYR6hgsE7o7Y4SpU6D/XPdbZFciPFu4m+/4cR+/AZVSWkj1YKomTAu+FZO3lTWE4vS85NGdBg
- A3jLq9dAVH3j2RyBR+nj4PGAHXaA8lxC+2+IZOU8JTAYPSvOJhfFvMEJOAp2J7eaZQH4DafwvQz
- R/xnoqPIH7MNsMS4WYa2rqpymuwU5A/xuyZ/d7s+4bEanbkwiknrITsFLoSM1NxwzsiWIKnr4gq
- XKtlMhf23fdMMN4i9NFGnr4alFXlDbpSeQHMJQWUtppTGguy4HqdPC5s4hSOVMR5sW6EuDFzwtR
- fXslgU54jX/AxGtf6URySr/PQTxrbp2UzAfy56K6o2+0oOzWu8Ww7/FafM08sEMr+zYmsUSLXU6
- Brw/x+knkhb3VCqllR3kesX2xAUgJv4RJXD446TnpIithrU3SkHv7dGdEo9BH7TthPzo0bPeOg2
- 912R+CJqiQW3poOf4pF5+Yi/hsPJ8LJmQNjpdX0Dz5flkKIAEbF5uZgOwSfkoscA/mWm5vYXe9t
- dxMdny95i52JULF7i+VaajMkDbmdHRSgUsijIcBq6ouerSiceZuTO8oy6wEYF8LvjDHYCYA+KhS
- dqYa/gjAaZwyIkA==
-X-Developer-Key: i=khorenko@virtuozzo.com; a=openpgp;
- fpr=560F6DC83DC5D3D063BD082C51960A47F9615C2A
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <273f7f8c-e24d-4322-a418-4fd5ed84b0bd@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA0NyBTYWx0ZWRfX2kBJq3SiVfzy
+ SeMYXZIf62sAfQKKIAdGPRIWwidyzj15ZAHNmKgy75Xew0KNh3o8w4NESIKPiHjJdnX/SJa8xQm
+ aSohhj0tVt+XLFFGT3XhHvZRMvcO/7s=
+X-Proofpoint-GUID: lbUjnxciNzqFuf7B0sddEei_sJFhewgh
+X-Authority-Analysis: v=2.4 cv=Y6ttIReN c=1 sm=1 tr=0 ts=6acf6ea0 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=Rt3kCFFBWhWisHNmluDamg==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=gJZM9B_m1BTaeA-VxdEA:9 a=CjuIK1q_8ugA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA0NyBTYWx0ZWRfX0B0L4LUqpYnF
+ ZTexK6t9BSrtzPfmZlj7GzeFRvWaojX5x43Nq/ToJ1mGVk8j1IzFenCovPc1PBajmVM/Rvd1iQl
+ vGAzZSM3j7sy4uyR8X/BYpjBHL6rwswH/DAOH6ABvFK/K9XLrUC/UiyOguVx+q8w25MwbJchC1r
+ QAu2tVapPoZH6LHNi/tP6STRXZOU9uEMT02QN8r5c0O3tPxmLnSLKsOY2IZFlndt2WA3eV+eWA5
+ Z/w3Aciy5ruJw3JK3EH0OjGeL7J0XU3Gj0y1MIjE7u3DxnDOCCIcjuf/szMBn9E9jrzoslqQ0vg
+ nC7pVFnR5dAtKYfEnVMeXLb3XaFrKXQ+06lErhnx82mFAU1BK6pYFNh1dJ6aDFmB0QR4eJcxOLz
+ +yJLABUxMHzoa6DFNMMZpP+b1Dcw67Po5IL6PeH1sHj6OW9/y4me1M97ZhoB0ktJ9IoFYCftvkW
+ HaV0vkQYhmxJ+wyzWUw==
+X-Proofpoint-ORIG-GUID: lbUjnxciNzqFuf7B0sddEei_sJFhewgh
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 adultscore=0 phishscore=0
+ lowpriorityscore=0 clxscore=1015 spamscore=0 suspectscore=0 bulkscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610140047
 
-copy_huge_pmd() reads the source PMD without the page table lock and,
-for a special PMD, installs that value in the child without reading it
-again under the lock. The comment says the PMD cannot change while the
-mmap lock is held for write, but unmap_mapping_range() does not take
-the mmap lock: it zaps under i_mmap_rwsem and the PMD lock.
+On 26-10-12 14:58:43, Jagadeesh Kona wrote:
+> 
+> 
+> On 10/12/2026 1:29 AM, Abel Vesa wrote:
+> > When resuming from system suspend on Eliza CQS EVK, gcc_pcie_0_gdsc
+> > gets stuck off when powering back on, preventing the system from resuming.
+> > 
+> > Use retention for all four PCIe GDSCs, as on SM8550, to preserve their
+> > state across suspend and allow the system to resume.
+> > 
+> > Fixes: 3d356ab4a1ec ("clk: qcom: Add support for Global clock controller on Eliza")
+> > Assisted-by: LLM
+> > Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> > ---
+> >  drivers/clk/qcom/gcc-eliza.c | 8 ++++----
+> >  1 file changed, 4 insertions(+), 4 deletions(-)
+> > 
+> 
+> 
+> Hi Abel,
+> 
+> Using PWRSTS_RET_ON keeps the GDSC forever ON after first enable and the GDSC never
+> collapses.
+> 
+> For similar issue on Lemans (pcie_0_gdsc gets stuck off when powering back on), picking
+> the below changes from PCIE side helped to power ON the GDSC properly without any issue.
+> 
+> https://lore.kernel.org/all/20260728-hotplug_pci-v1-1-d1f38cfb9122@oss.qualcomm.com/
+> https://lore.kernel.org/all/20260729071514.859778-1-manivannan.sadhasivam@oss.qualcomm.com/
+> 
+> Can you please try if above changes are helping on Eliza also?
 
-dup_mmap() links the child VMA into the file's i_mmap tree right after
-the parent's VMA before copying the page tables, so a zap visits the
-parent first and the child second. When the zap clears the parent PMD
-after fork has read it, and passes the child before fork installs the
-copy, the child keeps a mapping the zap was meant to remove.
+Thanks for the hint. Mani's patch (v2) is already upstream, so just enabling
+CONFIG_HOTPLUG_PCI_PCIE did the trick. 
 
-Drivers that map special PMDs with vmf_insert_pfn_pmd() rely on that
-zap. vfio-pci zaps its BARs when the device memory is disabled or the
-device is reset, so that userspace gets SIGBUS instead of reaching
-disabled MMIO; a stale child mapping still reaches it. drm_gem_shmem
-zaps the mappings of a purged object and then truncates its shmem
-pages; a stale child mapping points to the freed pages.
+Suspend/resume works fine now on Eliza, so this patch can be ignored then.
 
-Read the PMD again under the lock. The zap clears the parent PMD under
-the same lock, so either the recheck finds it empty, or the copy is in
-place before the zap reaches the child, which then removes it. If the
-PMD is no longer a present special entry, return -EAGAIN: the source
-mmap and VMA write locks keep faults out, so only a zap can have
-cleared it, and copy_pmd_range() then skips the empty PMD. Otherwise
-copy the value read under the lock. pmd_same() would be the wrong
-test: threads of the parent can still set the accessed and dirty bits,
-and -EAGAIN on a present huge PMD makes copy_pmd_range() clear it as a
-bad PMD.
-
-Fixes: bc02afbd4d73 ("mm/fork: accept huge pfnmap entries")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
----
-The window is short: the zap has to clear the parent's PMD and pass
-the child's VMA between fork's lockless read and its taking the page
-table locks. I have not hit it without help, but a delay in that
-window makes it reproducible with vfio-pci, and the patch closes it.
-
-Setup: v7.3-rc7, KVM guest with 4 vCPUs and no IOMMU, the guest's QXL
-device bound to vfio-pci in no-IOMMU mode, BAR0 of 64 MB mapped with
-PMDs. The reproducer below forks while a second thread clears
-PCI_COMMAND_MEMORY through the vfio config region after a random
-delay; the child waits for the write to finish and reads one byte of
-each 2 MB of the BAR. A child that reads anything without SIGBUS kept
-a stale mapping.
-
-  kernel                  delay in window  forks   stale children
-  7.3-rc7                 none             20900   0
-  7.3-rc7                 2 ms             150     128
-  7.3-rc7 + this patch    none             10600   0
-  7.3-rc7 + this patch    2 ms             400     0
-
-The delay is an mdelay(2) right after pmdp_get_lockless() in the
-special-PMD branch of copy_huge_pmd(), switched on by a test-only
-debugfs knob. The rows without it ran on the same test kernels with
-the knob at 0, except 5000 patched forks that ran on this patch alone.
-The revoke started after a random delay of up to 0.2, 1 or 3 ms
-(max_delay_us 200, 1000, 3000). A counter in the test-only hunk
-confirmed that the forks copied the BAR as PMDs, and in the last 200
-patched forks with the delay the recheck returned -EAGAIN 183 times.
-
-panthor and mshv_vtl map special PMDs with vmf_insert_pfn_pmd() as
-well.
-
-copy_huge_pud() reads the source entry under the lock already, and
-the PTE level does too, so only the PMD path needs the recheck.
-
-Reproducer. It writes the BAR as a control and reads it with the
-memory disabled, which is harmless for QXL VRAM in a guest; do not
-point it at a BAR that holds device registers. Build with
-"gcc -O2 -pthread -o fork_revoke fork_revoke.c", run as root with the
-device bound to vfio-pci; arguments: BDF, iterations, BAR index, max
-revoke delay in microseconds, e.g. "./fork_revoke 0000:00:02.0 100 0
-3000".
-
-    // SPDX-License-Identifier: GPL-2.0
-    /*
-     * Fork while vfio-pci revokes a BAR mapped with huge PMDs.
-     *
-     * The parent maps a BAR of a vfio-pci device and faults it in. A second
-     * thread disables the device memory through the command register, which
-     * makes vfio-pci zap all BAR mappings, while the main thread forks. Once
-     * the memory is disabled, every access to the BAR must raise SIGBUS. A
-     * child that can still read a BAR chunk kept a mapping the zap removed.
-     *
-     * usage: fork_revoke <domain:bus:dev.fn> [iterations [bar [max_delay_us]]]
-     *
-     * The revoke starts after a random delay of up to max_delay_us, so that it
-     * lands at different points of fork.
-     */
-    #define _GNU_SOURCE
-    #include <errno.h>
-    #include <fcntl.h>
-    #include <limits.h>
-    #include <pthread.h>
-    #include <sched.h>
-    #include <setjmp.h>
-    #include <signal.h>
-    #include <stdint.h>
-    #include <stdio.h>
-    #include <stdlib.h>
-    #include <string.h>
-    #include <unistd.h>
-    #include <sys/ioctl.h>
-    #include <sys/mman.h>
-    #include <sys/wait.h>
-    #include <linux/pci_regs.h>
-    #include <linux/vfio.h>
-
-    #define SZ_2M	(2UL << 20)
-
-    static int dev;
-    static off_t cfg_off;
-    static int go_pipe[2], done_pipe[2];
-    static volatile uint32_t *shared;	/* [0]: iteration whose revoke finished */
-    static unsigned long iter;
-    static unsigned int max_delay_us;
-    static sigjmp_buf jb;
-
-    static void die(const char *what)
-    {
-    	fprintf(stderr, "%s: %s\n", what, strerror(errno));
-    	exit(2);
-    }
-
-    static int device_fd(const char *bdf)
-    {
-    	char path[PATH_MAX], link[PATH_MAX], *group_id;
-    	int container, group, noiommu;
-    	ssize_t len;
-
-    	snprintf(path, sizeof(path), "/sys/bus/pci/devices/%s/iommu_group", bdf);
-    	len = readlink(path, link, sizeof(link) - 1);
-    	if (len < 0)
-    		die("iommu_group");
-    	link[len] = 0;
-    	group_id = strrchr(link, '/') + 1;
-    	snprintf(path, sizeof(path), "/dev/vfio/%s", group_id);
-    	noiommu = access(path, F_OK);
-    	if (noiommu)
-    		snprintf(path, sizeof(path), "/dev/vfio/noiommu-%s", group_id);
-    	container = open("/dev/vfio/vfio", O_RDWR);
-    	group = open(path, O_RDWR);
-    	if (container < 0 || group < 0)
-    		die(path);
-    	if (ioctl(group, VFIO_GROUP_SET_CONTAINER, &container) ||
-    	    ioctl(container, VFIO_SET_IOMMU,
-    		  noiommu ? VFIO_NOIOMMU_IOMMU : VFIO_TYPE1v2_IOMMU))
-    		die("vfio container");
-    	return ioctl(group, VFIO_GROUP_GET_DEVICE_FD, bdf);
-    }
-
-    static void set_memory(int on)
-    {
-    	uint16_t cmd;
-
-    	if (pread(dev, &cmd, 2, cfg_off + PCI_COMMAND) != 2)
-    		die("read PCI_COMMAND");
-    	cmd = on ? cmd | PCI_COMMAND_MEMORY : cmd & ~PCI_COMMAND_MEMORY;
-    	if (pwrite(dev, &cmd, 2, cfg_off + PCI_COMMAND) != 2)
-    		die("write PCI_COMMAND");
-    }
-
-    static void *revoker(void *arg)
-    {
-    	unsigned long i;
-
-    	while (read(go_pipe[0], &i, sizeof(i)) == sizeof(i)) {
-    		if (max_delay_us)
-    			usleep(random() % max_delay_us);
-    		set_memory(0);
-    		shared[0] = i;
-    		if (write(done_pipe[1], &i, sizeof(i)) != sizeof(i))
-    			die("done pipe");
-    	}
-    	return NULL;
-    }
-
-    static void sigbus(int sig)
-    {
-    	siglongjmp(jb, 1);
-    }
-
-    /* Number of 2MB chunks of the BAR that can be read without SIGBUS. */
-    static unsigned long readable(volatile uint8_t *bar, size_t size)
-    {
-    	volatile unsigned long n = 0;
-    	volatile size_t off;
-
-    	for (off = 0; off < size; off += SZ_2M) {
-    		if (sigsetjmp(jb, 1))
-    			continue;
-    		(void)bar[off];
-    		n++;
-    	}
-    	return n;
-    }
-
-    int main(int argc, char **argv)
-    {
-    	unsigned long iterations = argc > 2 ? strtoul(argv[2], NULL, 0) : 1000;
-    	unsigned int index = argc > 3 ? atoi(argv[3]) : 0;
-    	struct vfio_region_info cfg = { .argsz = sizeof(cfg),
-    					.index = VFIO_PCI_CONFIG_REGION_INDEX };
-    	struct vfio_region_info bar = { .argsz = sizeof(bar), .index = index };
-    	unsigned long stale_children = 0, stale_chunks = 0, n;
-    	volatile uint8_t *map;
-    	pthread_t thread;
-    	size_t size, off;
-    	uint8_t *resv;
-    	int status;
-    	pid_t pid;
-
-    	if (argc < 2) {
-    		fprintf(stderr, "usage: %s <bdf> [iterations [bar [max_delay_us]]]\n",
-    			argv[0]);
-    		return 2;
-    	}
-    	max_delay_us = argc > 4 ? atoi(argv[4]) : 0;
-    	signal(SIGBUS, sigbus);
-    	dev = device_fd(argv[1]);
-    	if (dev < 0)
-    		die("device fd");
-    	if (ioctl(dev, VFIO_DEVICE_GET_REGION_INFO, &cfg) ||
-    	    ioctl(dev, VFIO_DEVICE_GET_REGION_INFO, &bar))
-    		die("region info");
-    	if (!(bar.flags & VFIO_REGION_INFO_FLAG_MMAP) || bar.size < SZ_2M) {
-    		fprintf(stderr, "BAR %u: no mmap or smaller than 2MB\n", index);
-    		return 2;
-    	}
-    	cfg_off = cfg.offset;
-    	size = bar.size & ~(SZ_2M - 1);
-
-    	/* A 2MB aligned address lets vfio-pci map the BAR with huge PMDs. */
-    	resv = mmap(NULL, size + SZ_2M, PROT_NONE,
-    		    MAP_PRIVATE | MAP_ANONYMOUS | MAP_NORESERVE, -1, 0);
-    	if (resv == MAP_FAILED)
-    		die("reserve");
-    	resv = (uint8_t *)(((uintptr_t)resv + SZ_2M - 1) & ~(SZ_2M - 1));
-    	map = mmap(resv, size, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_FIXED,
-    		   dev, bar.offset);
-    	if (map == MAP_FAILED)
-    		die("mmap BAR");
-    	shared = mmap(NULL, 4096, PROT_READ | PROT_WRITE,
-    		      MAP_SHARED | MAP_ANONYMOUS, -1, 0);
-    	if (shared == MAP_FAILED)
-    		die("shared page");
-
-    	/* Control: without a revoke the child reads what the parent wrote. */
-    	set_memory(1);
-    	for (off = 0; off < size; off += SZ_2M)
-    		map[off] = (uint8_t)(off / SZ_2M) ^ 0x5a;
-    	pid = fork();
-    	if (!pid) {
-    		for (off = 0; off < size; off += SZ_2M)
-    			if (map[off] != ((uint8_t)(off / SZ_2M) ^ 0x5a))
-    				_exit(1);
-    		_exit(0);
-    	}
-    	if (pid < 0 || waitpid(pid, &status, 0) != pid ||
-    	    !WIFEXITED(status) || WEXITSTATUS(status)) {
-    		fprintf(stderr, "control: child does not see the parent's BAR\n");
-    		return 2;
-    	}
-    	printf("BAR %u: %zu MB, %lu iterations, revoke delay < %u us\n",
-    	       index, size >> 20, iterations, max_delay_us);
-
-    	/* Premise: with the memory disabled the BAR cannot be read. */
-    	set_memory(0);
-    	n = readable(map, size);
-    	set_memory(1);
-    	if (n) {
-    		fprintf(stderr, "memory disabled, parent still reads %lu chunks\n", n);
-    		return 2;
-    	}
-
-    	if (pipe(go_pipe) || pipe(done_pipe))
-    		die("pipe");
-    	if (pthread_create(&thread, NULL, revoker, NULL))
-    		die("thread");
-
-    	for (iter = 1; iter <= iterations; iter++) {
-    		set_memory(1);
-    		for (off = 0; off < size; off += SZ_2M)
-    			(void)map[off];
-    		if (write(go_pipe[1], &iter, sizeof(iter)) != sizeof(iter))
-    			die("go pipe");
-    		pid = fork();
-    		if (pid < 0)
-    			die("fork");
-    		if (!pid) {
-    			while (shared[0] != iter)
-    				sched_yield();
-    			n = readable(map, size);
-    			_exit(n > 255 ? 255 : n);
-    		}
-    		if (read(done_pipe[0], &n, sizeof(n)) != sizeof(n))
-    			die("done pipe");
-    		if (waitpid(pid, &status, 0) != pid || !WIFEXITED(status))
-    			die("child");
-    		if (WEXITSTATUS(status)) {
-    			stale_children++;
-    			stale_chunks += WEXITSTATUS(status);
-    		}
-    	}
-    	set_memory(1);
-    	printf("children with a stale BAR mapping: %lu of %lu (%lu 2MB chunks)\n",
-    	       stale_children, iterations, stale_chunks);
-    	return stale_children ? 1 : 0;
-    }
----
- mm/huge_memory.c | 23 ++++++++++++++++-------
- 1 file changed, 16 insertions(+), 7 deletions(-)
-
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 1e5d68acf62a5..fcea98f0d8865 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -1965,13 +1965,22 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
- 		src_ptl = pmd_lockptr(src_mm, src_pmd);
- 		spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
- 		/*
--		 * No need to recheck the pmd, it can't change with write
--		 * mmap lock held here.
--		 *
--		 * Meanwhile, making sure it's not a CoW VMA with writable
--		 * mapping, otherwise it means either the anon page wrongly
--		 * applied special bit, or we made the PRIVATE mapping be
--		 * able to wrongly write to the backend MMIO.
-+		 * The mmap and VMA write locks of the source keep faults
-+		 * out, but unmap_mapping_range() does not take the mmap
-+		 * lock and may have cleared the pmd since the lockless
-+		 * read. Let copy_pmd_range() skip it then.
-+		 */
-+		pmd = pmdp_get(src_pmd);
-+		if (unlikely(!pmd_present(pmd) || !pmd_special(pmd))) {
-+			spin_unlock(src_ptl);
-+			spin_unlock(dst_ptl);
-+			return -EAGAIN;
-+		}
-+		/*
-+		 * Make sure it's not a CoW VMA with writable mapping,
-+		 * otherwise it means either the anon page wrongly applied
-+		 * special bit, or we made the PRIVATE mapping be able to
-+		 * wrongly write to the backend MMIO.
- 		 */
- 		VM_WARN_ON_ONCE(vma_is_cow_mapping(src_vma) && pmd_write(pmd));
- 		goto set_pmd;
-
----
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
-change-id: 20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-bdf7efb612c2
-
-Best regards,
---  
-Konstantin Khorenko <khorenko@virtuozzo.com>
-
+Thanks,
+Abel
