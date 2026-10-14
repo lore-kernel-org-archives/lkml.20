@@ -1,60 +1,50 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68827305688;
-	Wed, 14 Oct 2026 01:27:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 218C02EEE75;
+	Wed, 14 Oct 2026 01:27:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791941256; cv=none; b=FCwsGw2edFJH8XcI0Emjvlsy11XwFVmZ0eTlG3FGUY3HZSe9Fwqw1wqvEN2sx3lejIVT5QDbnAjGTiwm3Zql2MDgRgEWovuuDGQ+6jbLz45Fb/WfV+FXztBRYfvt2XUCKeyi/hEUsD3KhO2mP48CcT2o37WL8+KgFwmzQqlHaew=
+	t=1791941265; cv=none; b=fVjdkwYHXBdWpYeN0n6KsfOALFFO3Rhh7ZBkm8kUwD/9fVWAQcnmmecdueMl+gtI+EL2ZluMiufDC69BosXtO78IE/7yZyHDJTj6yfnsVzNDPPDcHNSKheyJWPnhCiaSwiz/8VrjJb+f/RBIhdVTxGlVkRDBx0vOELanC7HGakg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791941256; c=relaxed/simple;
-	bh=BeF7t50VIAYyEFyHz6rbHRV2qdZeOldbYFI0fGqz7Eg=;
+	s=arc-20240116; t=1791941265; c=relaxed/simple;
+	bh=DDODb8L9vExy+gESUK9lMiTfPlQfxXisU4hAA4oT2S4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IwjnDjjWXPGg1UVJ+aiga88X2vVW/ZJ28rO4pCUIVVaszB3xEz1PVbPLemFhbcFHRmPP5jcnYiBF+Q7fRMPh26fwjrxL//yVxlgLKbgEdbF0icWiNaBeM/BiHTS+ax9SPXMfVWXEDjAoiTB5RvBiWzfauDp/BBXKrHRnv9PgjDo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YTGfUKZH; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=AJHdIghEenYKqKn2oBs2MgbHBlm+/ECAkANpeiCLT4XErTI9UPQzxfGT03BronJzXX4VSoZ6p6Rs6xZkAz3ULn8gorPJZm0Mey9WkBFlXZe0iADQsUc2FWihYOCFjZ11m+xmxN/g2631dItJiM8oAs91CRoeE9SUeGx4Z5+zfRc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OEidWyfG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YTGfUKZH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E094C1F00893;
-	Wed, 14 Oct 2026 01:27:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OEidWyfG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87B291F00893;
+	Wed, 14 Oct 2026 01:27:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791941255;
-	bh=qb8BkgwT4vlOEWEXbd4/b2JsR4d2BUdSEBvb02wZRPc=;
+	s=k20260515; t=1791941263;
+	bh=CnvCQKb/Fl89d0FC9NpXpZbzIMX73JQDMnMO+GLMxxE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YTGfUKZHsRqwuV+jITTUREwKgk9SxzRgxW1cyuh/bpygwZo7THVrk3b9YR4N5M1KZ
-	 4uMaYGlm0LIV8nm6h4slsJIKXO4CgGWEhHPMPx5X7BA4xOy2fDtGAKZiPd70I8yu7r
-	 TBAZXyMDyf8Vboem8mh6eBp/flhFeDfAEqTqi7j4ILHPiaVxsNM2/hB0XC9ZFxVrAm
-	 Z6U4D+kLehgaDd3ltKA+sssoGsD0cwycQRc83BXHmmx+NmIzE1d26WDurNl7WJjLY1
-	 IlQNlZN9y8m2z5fDIT9uuGC0t6U5hYrVixGi2sm/89o7tCVHsnr/OR0y/vGZlE3Sx8
-	 /IZJ5oiFEuuag==
+	b=OEidWyfGo3yio8aoR7s1A/hPv3O5CjxScN7ahHERWZZw6yQm+dvsUsxc3mRvcDojA
+	 rkKFQk8U8HVKVZH4LICRNBS4zLvReip2Lh9lZLW7cGzzBTB4wFq7dkAiaQdTjV1l1x
+	 hAJzf6Jd9gnenpSuskBZcFk/xmx9whVZz6dSa3gsJUgX4lQG2Ct0NjGEtu6I/sOxY/
+	 Yrndu9hBvxVO3EYinxh6d8Fm831Gy01t/Of3ntv2ckW/NKZK9599V2k4sLo3iqeLMJ
+	 uSQVttM3U8cFOy/ikcp2egtvn4hGJqR9ikeFp/1RIRL8y0AVYxdTNvrRyYy/hhYdUT
+	 EhoOoCArib8vw==
 From: Sasha Levin <sashal@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	stable@vger.kernel.org,
-	patches@lists.linux.dev,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
+	Kalle Valo <kvalo@kernel.org>,
+	Jeff Johnson <jjohnson@kernel.org>,
+	Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
+	Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>,
+	ath12k@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	torvalds@linux-foundation.org,
-	akpm@linux-foundation.org,
-	linux@roeck-us.net,
-	shuah@kernel.org,
-	patches@kernelci.org,
-	lkft-triage@lists.linaro.org,
-	pavel@nabladev.com,
-	jonathanh@nvidia.com,
-	f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com,
-	rwarsow@gmx.de,
-	conor@kernel.org,
-	hargar@microsoft.com,
-	broonie@kernel.org,
-	achill@achill.org,
-	sr@sladewatkins.com,
-	Brett A C Sheffield <bacs@librecast.net>
-Subject: Re: [PATCH 6.18 000/621] 6.18.57-rc1 review
-Date: Tue, 13 Oct 2026 21:27:04 -0400
-Message-ID: <2026-10-13-1-daily-reply-0014-6-18-rc1-krb5-link-failure@kernel.org>
+	Artem Dinaburg <artem@trailofbits.com>
+Subject: Re: [PATCH 6.6.y 2/2] wifi: ath12k: copy M3 firmware when reusing the buffer
+Date: Tue, 13 Oct 2026 21:27:13 -0400
+Message-ID: <2026-10-13-1-daily-reply-0023-ath12k-m3-reuse-2of2-hold@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <as4kGIjqjrKzu0O0@auntie.librecast.net>
-References: <as4kGIjqjrKzu0O0@auntie.librecast.net>
+In-Reply-To: <20261012165925.32575-3-artem@trailofbits.com>
+References: <20261012165925.32575-3-artem@trailofbits.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -63,13 +53,13 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Build failing on amd64:
->
-> /usr/x86_64-pc-linux-gnu/binutils-bin/2.47/ld: vmlinux.o: in function `gss_krb5_get_mic_v2':
-> (.text+0xfc2762): undefined reference to `crypto_krb5_get_mic'
+> This fixes my 6.6.y backport of upstream commit 05090ae82f44 ("wifi:
+> ath12k: check M3 buffer size as well whey trying to reuse it"). There is
+> no corresponding upstream commit, because upstream never had this bug.
 
-Thanks for the report. The krb5 patches in the queue need a select of
-CRYPTO_KRB5 that was missing. Queued for 6.18.
+Holding this series until we have an Acked-by or Reviewed-by on 2/2 from
+Baochen Qiang or Jeff Johnson. It is a stable-only fix with no upstream
+equivalent, so I'd like an ath12k maintainer to look at it first.
 
 -- 
 Thanks,
