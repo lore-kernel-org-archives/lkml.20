@@ -1,172 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f6.google.com (mail-pz2-f6.google.com [74.125.228.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 756B93EEAE2;
-	Wed, 14 Oct 2026 16:33:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B197D55C338
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:33:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791995619; cv=none; b=BnrefsWd2StCERtcszjvu4SkTv4ze9QooMeIT7Q0284J7rpPYIn82bRcOfJEZgieTUOFuD9KX3dHlL5s1TyUODNNdwwxbVLmUN02RTYTcQ/2tZZaZrJpk39bxkwhjqYbzgkghEMlt9El3viVUdErO75qlJH8XD1X2Y9KQLxdX7c=
+	t=1791995640; cv=none; b=IrQcgQGaolsfT8GTcK91FGRwzOJKQu5E6T8N3WErW17rtj9bh79MDguYgJbGpL6XQuJbgcd1rm7jI+EqRXiObsuSokcmSu1hZo2tJIcAbARe+U0D27lLk35ETeWnUpBwLYOtRAor5Wdgv03KwoLmq8pzLu750K4sFZFyM7dOXSs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791995619; c=relaxed/simple;
-	bh=BaS0+qjIvI6Uk3WcpOyYLai8GuB3JQvo8rsHC8OIUug=;
+	s=arc-20240116; t=1791995640; c=relaxed/simple;
+	bh=03prvWYuPM9S8kmgrWoC3fCmFozkGleIo9XhNkVgCtI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=l0575gj1YmDAWB6vEaXOSf1g9NcbLsT2kQKmPflNaojzIPrc6qfadMT8YpNVfDOScQLW+kkE3BmPc2VIrKMoKSzRPhZrWmR2upFp8tq1orelMDTG38plU+T676sWh3kIBs7Zwp+m3zfXwduF/hTb5hsmzLBs+Y+M1iDfRCx8dC0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VBSFI+GS; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=od1ODIx2Z8pVyFApgiwLAFDmdx5sXeTluMBhoVlEUyF8JB+CfFp6EuG8cfq3QA/xeIFdZxp9KeBRyEDFkZnboEGMhVJiPQBHgqYo6i8g0/o1WY5OjjI7f8SFxy3HH1F9SqLSwQ69Y5zToU+U1fzGAvY3xMysVq36x6INOWs/KuQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pd7irBGa; arc=none smtp.client-ip=74.125.228.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VBSFI+GS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE07A1F000C4;
-	Wed, 14 Oct 2026 16:33:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791995618;
-	bh=hcW6ngQGbiEdWjLMA3uMxUFQ5wn2/yx80RMHMPv3Cnc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VBSFI+GSQ9vOqX42H30ft0vMSsO9216xBijfKCOUh0Am5s3XO5xnR3QJ6wDxfEf8y
-	 etdgxNnJuvWLKLblPr+M0JCQJKv1EYG18yr1qo+zy/xDRxQt1HROiiKrJCHwRKrEwd
-	 leKsk2um9QgK+nLr3gCIqRJ05FRt5gDHRQXIQoYI6TjcRgZd0jxrfjXimNx5Fricx0
-	 BnFGT7oQ1W9SA2z5uYIzxpWXZc91ca4KVCdPFYNmEzh07LZ94cv+tuNujRk3/IrOGa
-	 23Xd+PsmsKg/X4wRKceJfb+x+4xh2qOBUQjINV89MkXC4B9FkukexkiDaRjtpN0Xjp
-	 rM6mLWEQciXwA==
-Date: Wed, 14 Oct 2026 17:33:32 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
-Cc: "alex@ghiti.fr" <alex@ghiti.fr>,
-	"anup@brainfault.org" <anup@brainfault.org>,
-	"aou@eecs.berkeley.edu" <aou@eecs.berkeley.edu>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"daniel.lezcano@kernel.org" <daniel.lezcano@kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	Djordje Todorovic <Djordje.Todorovic@htecgroup.com>,
-	"inochiama@outlook.com" <inochiama@outlook.com>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
-	"palmer@dabbelt.com" <palmer@dabbelt.com>,
-	"pjw@kernel.org" <pjw@kernel.org>,
-	"radu@rendec.net" <radu@rendec.net>,
-	"robh@kernel.org" <robh@kernel.org>,
-	"tglx@kernel.org" <tglx@kernel.org>,
-	"vladimir.kondratiev@mobileye.com" <vladimir.kondratiev@mobileye.com>
-Subject: Re: [PATCH 3/9] dt-bindings: riscv: Add MIPS Boston board compatible
-Message-ID: <20261014-defection-tiny-3e653ce56e60@spud>
-References: <20260915-woof-ducktail-5e2f52bc5762@spud>
- <3d13e372-80da-44bb-845c-14f5022e326a@htecgroup.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pd7irBGa"
+Received: by mail-pz2-f6.google.com with SMTP id 41be03b00d2f7-cc790c60953so252204a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:33:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791995639; x=1792600439; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Gzw9aMKz/xODwzz6jPerfVV+ZDaTeiwtt+GIjli64uI=;
+        b=Pd7irBGaIfGk47A4W8byWcdXxiyBIqvKEbA9YhOh3SRQ6mJyIKIRRLuIPMYQAvnKMs
+         TiiQbQe1X9LW8PMlgREmTed2G73VpjPu9b/hQC6M7174NlPobQQvYC7JbWww84NvkGVc
+         jaPpkkunMPeYYbs7LRpYE1NB3orJeiitk5w+ztYeo5vRK1StrQIIlrqN8LPbbwn/q7pl
+         LyTa9PdacwnhwmfVzvAYeCHjMCxA/kI1BexjubiZ4KYMJIByLay2i2hNOuiNpYiGNnZr
+         oredyfHyKPao1I1MMDdfl/UgbblGTGEjrFSK49edHqKhn/nAtTq070F5HAFN7V6SOwU9
+         2M8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791995639; x=1792600439;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Gzw9aMKz/xODwzz6jPerfVV+ZDaTeiwtt+GIjli64uI=;
+        b=USUPRrmEFMKzurcp5ZSbsvq/1uutUuE6fmtywS1sPYtMrJd37xqokFv0sOeZlrDi6U
+         MZvw+trkiPaHJPGswb66aj49GFSci7wfmXdq+1lToahV/H9z7RLUGgM6WQqVl8aE0gVQ
+         5JIXZ18pJ6xjIwlACKsSKxriO2Tq/fP5Z0yg2QFy/bs8pbSACyumEBZf6+CzshaGG7D/
+         q9JNJF7HvvJX9JcvQpcgsHUb8JhZy4NT7bKQCReuERuu/eDrTqLBQcPZUXAmUOJFvCnz
+         KmU8Xm280DW66G0Vk2q3HriHAJA7o90pvRnL+/yC/STHo6Fi1vIY7eGul2gbS80PwLby
+         VjgQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxf7mOuux17w8z53/Ffg35Dx9+Pq/maX3OrMpQCVxVbMnkgLM/XA/rlLpu771y5nO7g8CcOnvQlSyz9jjM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLVRn+JQg5SkKTEesGHL+hLHTdcc/zGzBgkcyd0NQ6w5p7cga59
+	k9m6LLZi3pKFybzi/iHcPgK2CirXKjSxK0F+Epjt0gGMe8xr1r+GswC7
+X-Gm-Gg: AYBFou037Ii5OltJMosb/dkR3MJd/BenRZK9p+guYt1iHlTaHCJTVVBmv73ZUMziUyl
+	dSiQ/1K0ZjOlipaMzxlpQ9O+kbT2wBMKeI5P5fedEF2Euem3k06SPcgR6euTDuF2yYge2G/hpV0
+	48NHRNDisC4H9AJPccuRyTI0ZzqxGCx8ePzjLcurVQBEC/8eRTwHLmWPH4xI9jdSZa0wBBdo7xu
+	HwqN6u747BssogY+WzwH5NeQGYFOvT91ixtrd4tQCA0YPW5SbvXKow47oZHCVory8ja1fWCPLjr
+	9X9dOEX8+juwMZYYOWxyzCXf5unYdiPTQ4ZKu6mHpsaW+PZ1l0Cyml+TNQbGLwWYQdJ0fgc9W89
+	j8obp09cqbUvK85qfK3zH3fUrECRY+g8kEigBuTh+p2fmsOag4ukuBWjuYpmgSnDVpJyw8w5x55
+	YORvFLMsXqQLOv83G2jH53IM6eHpqA4+w1gq0cC7sVnhSszoCU/YIwOlOvBoaDAf0H
+X-Received: by 2002:a05:6a00:8c4:b0:891:a63c:df97 with SMTP id d2e1a72fcca58-897c6443681mr15560946b3a.15.1791995639007;
+        Wed, 14 Oct 2026 09:33:59 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:59::])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89d80511d47sm1291926b3a.54.2026.10.14.09.33.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 09:33:58 -0700 (PDT)
+Date: Wed, 14 Oct 2026 09:33:38 -0700
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+To: Mina Almasry <almasrymina@google.com>
+Cc: Jakub Kicinski <kuba@kernel.org>, David Wei <dw@davidwei.uk>, 
+	Pavel Begunkov <asml.silence@gmail.com>, Taehee Yoo <ap420073@gmail.com>, 
+	Stanislav Fomichev <sdf@fomichev.me>, Paolo Abeni <pabeni@redhat.com>, 
+	Kaiyuan Zhang <kaiyuanz@google.com>, Bobby Eshleman <bobbyeshleman@meta.com>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, linux-media@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
+	Sumit Semwal <sumit.semwal@linaro.org>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+	Nikolay Aleksandrov <razor@blackwall.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Tariq Toukan <tariqt@nvidia.com>, Kaifeng Wang <kaifengw@google.com>
+Subject: Re: [PATCH net v2 1/4] net: devmem: unmap dma_buf synchronously on
+ queue uninstall
+Message-ID: <as-uBvRisS7HxLHJ@devvm7509.cco0.facebook.com>
+References: <20261012174300.2338784-1-almasrymina@google.com>
+ <20261012174300.2338784-2-almasrymina@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ZuVNUU8McGEtDGb7"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <3d13e372-80da-44bb-845c-14f5022e326a@htecgroup.com>
+In-Reply-To: <20261012174300.2338784-2-almasrymina@google.com>
 
---ZuVNUU8McGEtDGb7
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 10/12, Mina Almasry wrote:
+> When a bound net_device is unregistered while userspace still holds a
+> netlink or TCP socket reference on a devmem binding,
+> mp_dmabuf_devmem_uninstall() clears binding->dev to NULL so
+> netdev_nl_sock_priv_destroy() will not touch the unregistered
+> net_device, but leaves the dma_buf attachment mapped until
+> __net_devmem_dmabuf_binding_free() runs later on socket close.
+> 
+> Because dma_buf_attach() does not take a reference on dma_dev, device
+> removal frees dma_dev while the attachment is still mapped. Closing the
+> netlink socket afterwards triggers a slab use-after-free in
+> dma_unmap_sg_attrs():
+> 
+>   BUG: KASAN: slab-use-after-free in dma_unmap_sg_attrs+0x76/0x2b0
+>   Read of size 8 at addr ffff88810fae64b0 by task kworker/3:1/53
+>   Workqueue: events __net_devmem_dmabuf_binding_free
+>   Call Trace:
+>    dma_unmap_sg_attrs+0x76/0x2b0
+>    unmap_udmabuf+0x8e/0x100
+>    dma_buf_unmap_attachment+0x145/0x330
+>    dma_buf_unmap_attachment_unlocked+0x96/0x130
+>    __net_devmem_dmabuf_binding_free+0x156/0x2e0
+>   Freed by task 9:
+>    kfree+0x1b8/0x550
+>    nsim_bus_dev_release+0xe/0x60
+>    device_release+0xcf/0x250
+> 
+> Add net_devmem_dmabuf_binding_unmap() serialized under binding->lock
+> and null out binding->sgt and binding->attachment after unmapping so
+> unmapping is idempotent across queue uninstall and deferred binding
+> destruction. Call it synchronously when the last bound RX queue is
+> uninstalled in mp_dmabuf_devmem_uninstall(), except when a leased
+> queue is unleased: the physical device is still registered and, if
+> restarting its queue failed, may still be using the binding.
+> 
+> The same use-after-free happens when the netlink socket is closed
+> before the device is removed but RX tokens or the pending release work
+> keep the binding alive. Such bindings are no longer installed on any
+> queue and were already erased from net_devmem_dmabuf_bindings. Keep
+> bindings in net_devmem_dmabuf_bindings until they are freed, hide
+> unbound ones from TX lookups with an xarray mark, and on
+> NETDEV_UNREGISTER clear binding->dev of unbound RX bindings for the
+> device and unmap them, unless the device is a virtual device leasing
 
-On Wed, Oct 14, 2026 at 01:16:16PM +0000, Aleksa Paunovic wrote:
-> Hi Conor,
-> On 9/15/26 19:58, Conor Dooley wrote:
-> > On Mon, Sep 14, 2026 at 03:55:51PM +0200, Aleksa Paunovic via B4 Relay =
-wrote:
-> >> From: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
-> >>
-> >> Document the MIPS Boston board compatible with a P8700 bitfile.
-> >>
-> >> Co-developed-by: Djordje Todorovic <djordje.todorovic@htecgroup.com>
-> >> Signed-off-by: Djordje Todorovic <djordje.todorovic@htecgroup.com>
-> >> Signed-off-by: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
-> >> ---
-> >>  Documentation/devicetree/bindings/riscv/gf.yaml | 27 ++++++++++++++++=
-+++++++++
-> >>  1 file changed, 27 insertions(+)
-> >>
-> >> diff --git a/Documentation/devicetree/bindings/riscv/gf.yaml b/Documen=
-tation/devicetree/bindings/riscv/gf.yaml
-> >> new file mode 100644
-> >> index 0000000000000000000000000000000000000000..060910c9b04f482aee6f08=
-f8f72232acbad118bb
-> >> --- /dev/null
-> >> +++ b/Documentation/devicetree/bindings/riscv/gf.yaml
-> >> @@ -0,0 +1,27 @@
-> >> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> >> +%YAML 1.2
-> >> +---
-> >> +$id: http://devicetree.org/schemas/riscv/gf.yaml#
-> >> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> >> +
-> >> +title: GlobalFoundries MIPS SoC-based boards
-> >> +
-> >> +maintainers:
-> >> +  - Djordje Todorovic <djordje.todorovic@htecgroup.com>
-> >> +  - Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
-> >> +
-> >> +description:
-> >> +  GlobalFoundries MIPS SoC-based boards
-> >> +
-> >> +properties:
-> >> +  $nodename:
-> >> +    const: '/'
-> >> +  compatible:
-> >> +    oneOf:
-> >> +      - description: Boston FPGA development board with a MIPS P8700 =
-bitfile
-> > I'm not convinced that this is specific enough at all.
-> > I have absolutely no idea from this description if there's even a
-> > specific FPGA involved here - this could mean a bitstream used on an Al=
-tera
-> > platform or a Xilinx one, with totally different contents.
-> I'll document this in v2. FWIW it's the identical board as [1], just with=
- a=A0
-> different bitstream.=A0
-> > I'm only happy with FPGA bitstream content being supported if it is
-> > versioned strictly and matches with some clear and obvious releases from
-> > the vendor.
-> I'll see if I can find one for v2. A version identifier would also work
-> as a SoC-specific fallback, since it's the SoC that's bitstream content i=
-n our case.
-> I'm not sure anything's public though. If not, I'd keep the board compati=
-ble=A0
-> without a fallback (if possible).=A0
+[..]
 
-It's worth mentioning that this is the standard that we've discussed for
-platforms on riscv, because of the nature of riscv and the ability of
-anyone to create bitstreams for custom "SoCs" running on FPGAs.
-It doesn't have to be public what a version actually means, but it must
-be there.
+> queues, for the same reason as above. net_devmem_lock serializes that
+> walk with the final free.
 
-Thanks,
-Conor.
-
-> >  I cannot even find this board by googling it, let alone find
-> > clear information about what this could correspond to.
-> >
-> >> +        items:
-> >> +          - const: gf,mips-p8700-boston
-> > "items: - const" is the same as just having "const".
-> Will fix in v2.
-> >  SoC-specific
-> > fallback is also missing, although in this case it'll be tricky to have
-> > a meaningful one.
->=20
-> Links:
-> [1] https://github.com/torvalds/linux/blob/master/arch/mips/boot/dts/img/=
-boston.dts
->=20
-> Best regards,
-> Aleksa
-
---ZuVNUU8McGEtDGb7
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCas+u3AAKCRB4tDGHoIJi
-0pLpAP9N1JZ12C4zPZ9JHCuy9rcliYJRD7OR/fTGBhZGCPVYzQD/eewiEPg8Uct/
-aJiVbVje9Air05SwkTur0ax9CQzOeg0=
-=Qud7
------END PGP SIGNATURE-----
-
---ZuVNUU8McGEtDGb7--
+Can you explain net_devmem_lock a bit more? In
+net_devmem_dev_unregister, why can you not net_devmem_lookup_dmabuf and
+then rely on the binding->lock? The rest looks good, but the
+new lock seems a bit excessive?
