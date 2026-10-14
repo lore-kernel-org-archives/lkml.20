@@ -1,81 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793069459;
-	b=WrQ84uZJlBZ301kMefHwjwMEaxpW8RNDNkme6oCND5Dt3ux79guKw7IxlA3TGVAlq0HD
-	 zss4iBNYlx4Eyzdu5S+tdKZtwHIdVTh3jnL7WK8ZHvFhFCAzK4hV6tttqiye5wGPWayQx
-	 XAwOFy9tCK1NCI+sVMn2hUJ2hsreBxh8xGSetLSPfivwFjfCvlcOafi2KWOvIVOthbwaS
-	 Jo3tqJ76nuUC0SmTQ4KPQMfj/tNj6kSANjSdEoaZI8G02HF0H0jeU5womD+QBGmoxe2d1
-	 09/Snu25MZFmdVEM4OLGatSd5LvJ8n7StvhgoagdHWzd1jYgj8hqn9rgK8aprl7itWg==
+	t=1793069471;
+	b=kAsGOfbhB+aqISoN2mO0TtVWSf+KNiXu4Uu8gFo5oXjFLB0CQ4s7Xx/VHMvhhjP+93/t
+	 Dv+RbvaXdP+tz8YS/1FlZfQVtB1yFeNAUybZLm8/9FciK8+dQE1LWtat++sXKLW9Pp3/Y
+	 zQoxjmuBziFxukrhPv2VpY/NMoaq1XT/IkvbwXtWseUnRwNMopcjQdBOS4YntQleHugBd
+	 pZIeggaKYa67ObOwoNZ9UaUJwDrklygYK6wo4BSYPnV+NfVLbIYMnS/AN041QFEl934nb
+	 /isNEHfUL+sdO75n9Hyl7c+yBvUjbKcebPArJdbeO+oDwU9wAd/cyMxtwpUcXp0IJKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793069459;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793069471;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 To:Cc:Message-ID:In-Reply-To:References:From:Date:Subject;
-	bh=eK+WYOUFELHHjea/x0NYiMCaugcTpDunS7GxJSBv5co=;
-	b=xpPa7imdnsYrcVvQSw1uA4gYHh36sW6mx565399XHrkRfJ/yVWQ7zvjEYP1n9FxLds6W
-	 gsYTK/S8YmVAZruYyiG2CWw3wN7+s0vf7CUmnNlqZNnyV0sWgoiyH/htSwfpOnzjGkhqU
-	 3sy2Rr5xPDgSnnrBlgfNNNJ1c/rQbtZ/ihTkwROWzXapPI2/ktY4/Zusjz5xp0vV1B+4z
-	 zqrjgF8P8UnkkWbKmqq4uXIN1jfScF3xAqT++FZxNUvEPh7KJyu0X5DsHNU0sqYnG01KA
-	 J+WQzS3FGSxz2X338hIHVptnKSyOv8ewaL46Dz3uIMmiYH8GQH95Nfsgj7af4Px1XZw==
+	bh=LYzIw2h63C7TJ7EZ3aau0el7NfxeZ14SAIQjRaCB+n0=;
+	b=qv8h+Kam5KJoW/pEoVuSzjMNOj7yNC3m2QfAwge4GvJ14L/4rMyJ9VBE8s/NXCckxs5d
+	 Xlkd2ntJV5FtIDdwJEh6W/nbeEE0WQxG7FD2uPXRlbR3h9rhEmOgI4/CZkoyfhF7E5X7M
+	 7GCa4YXWEYmVV2fPMeWsBE2QXGork89c8RZhNd5VBzFNrE0Wbz34q2kk3K1rjGnHNr0GF
+	 7fKCzSCuJHW+t4E0td5huYiU10hcTrkKKWtx1geM0LfRQuT3LwO1h4wVCX+hDcERZxykX
+	 Cry8Z+7EdjAIL0SVQNDd3CtDYPwrbIM3YElZVZdRQLr52pi09UC+aZ9zX1Xg8KFJOYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VFoYJa03;
-	arc=none smtp.remote-ip=209.85.216.48
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dHVMlYiV;
+	arc=none smtp.remote-ip=209.85.216.50
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71E7D606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:50:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71E7D606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5BA9606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:51:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5BA9606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VFoYJa03
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3ad47c246f8so340598a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:50:59 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dHVMlYiV
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3ad6499e88fso541739a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:51:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793069459; x=1793674259; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1793069470; x=1793674270; darn=vger.kernel.org;
         h=subject:date:from:references:in-reply-to:message-id:cc:to:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=eK+WYOUFELHHjea/x0NYiMCaugcTpDunS7GxJSBv5co=;
-        b=VFoYJa03ilUbofE0jNoZ9YmZxV9rormaKeZkCxpOyO1ERKeRWbNuUPgyDTMAwCSqGG
-         9xHorPDHGNChsMYh2uinruRGJ0QsHxRSLq9q2dE12TO7sY6Hj9HUOdS4WxfvrjvHE5ZO
-         WX60R3P1k3s4WKJliyq/ICieZqt2aQSLEqlG8xrv2eZinjW4jvLKTazuyxvfnAa/0sfz
-         RtukRxEWs2rpfvYfFzBCIi8A+toabrx6tvv92Uqhd9WVj5jykUnwn16G+FEZYHayVFPL
-         FGfU6ILt70urw0lVhdUS2MGdPqxxPf8nudWLoe7JN/z3pynYMRspo4YNQTX/nhJkPDh0
-         UZwQ==
+        bh=LYzIw2h63C7TJ7EZ3aau0el7NfxeZ14SAIQjRaCB+n0=;
+        b=dHVMlYiV0HTDZdxGWizwLohev8WvIys6fcn8S2ZfUGoHWSXoqj2+T422EoMgrvxE9w
+         BHk6wUnnyFNHSp8iFbRfcPOv6bRAvfY32ZUFe2Xda56jrOXzKGiHHWG31Pq1NGaKlaxd
+         eq+DXle5XLjO2oIa8sDB0Z2GIttTaZdtBn8yNOvKPfHxa5myGihCass2DPWZjCd56wmt
+         AsuzsDkU2PlRUccTETcU3MJ4L+wQE5ZWNNcTSyuOf8cCYHMgquf57ss8ZW0OP3MSIP3G
+         H8MNAwsdb36OH+0+Pqm3wyrhngmz+AkNMYmor6LfT0l5tzIROV5qWJZCjeY3Xzoj3eDH
+         /CRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793069459; x=1793674259;
+        d=1e100.net; s=20260707; t=1793069470; x=1793674270;
         h=subject:date:from:references:in-reply-to:message-id:cc:to:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=eK+WYOUFELHHjea/x0NYiMCaugcTpDunS7GxJSBv5co=;
-        b=NWOpGC20YM1oTecFCw/Tlk6fKVppQBFK9gSABfE/exe+oLu9/DJpkYvqIFjDD3EuBq
-         sJdwxcxuPSy3Qgf/iynBrAesmJ/rfp8abskmm7mNy4TBtoj4HpeswfjEvT8ly8O/FQCz
-         83J6/i5v2JHKPnMZi3n1QdAase0Qj7zIqulCJeDI+QamgJCsrI0r1LjoTHqeZCMckmj0
-         FqIzls06HTVEvhYjFoBj1gzwk+toVj+5LcRqxKVphaX92fgIBA0Vp4lhVCneHdaVB/hI
-         5GYmO3c4az/Nset50sbpo/LyuFsoMTk4YoMG9N/dscxQ9Mj48epiGmtZ5RnrpyF9mUqW
-         2ZSQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx/pyOPqsg4cCYMUakApSjWRppaOuXLgIMMfHkiP8IubzYGWDdAbqR2boEmAjuNoLVTjefe7RjMFfFZMj8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK4C9QItO6gKDYnS54ph55XpnnUb5+nhq0oMKlzB1/aqYEtNhzM
-	A0E7AWbqQgURhzYpBlPvly/7aKZYxRvqZffWUNJgJpF37bh74a53zCuQ
-X-Gm-Gg: AYBFou2ScBTE1hpaAqPrvFa9a4k3dvAwenRzilN4LrnTMbEdY5YCquIE38ytilnwAW3
-	VVKd5v8prnQPJ8wITCgVhG8fZmq1zuYm6G3AbzI3wHdgjeoWkB6M9BCGcY3I5b7BhtV4hPCNtE6
-	v0cGUpy77yq2Wwx192MaCXyI0k7igV3VX+oRgDfgNj/hPBbyn3LV+SL0pUYE2/6r8IAc4iZme8t
-	R3gTRY0MgGY75K/xIol0WuaAQcPrXJZuX6onm0Q268kK6WMzRyAUSJySw6+fXPWoHpi9/pyQc44
-	pTLcFBsSnh6qS5EIF1UcKfVuwqEjC5diiYBWsR6k9NogG94MbUQwSDhuEO28gvVncreeNO1mHyf
-	Z71JdTSaDgql7Uo2cb1z91Wi7pOMM3jiVzp6TjJ3SL/9AGxj07df48gh7poqR/x6KQ1MBaJVzvk
-	QVDMXN70vE2l1Lfxjy7h1v9XNxSthk6y5MWeqRdgSlLAucYOXFXVWqGMRYjsJjMWH7QVxCEYKSq
-	2GFfdiEQ6cgOAj0RtbzVUSGfPumKr7nlLMy4+El4GFPBWYfMvEbaQebSGn1YCSeKgm0KZX5wjZK
-	KhzYS6KrdNKyEB/xvFsEnm0Ub6+pHtjoDlaKLrLcbaIH0XZ/GOrj55LVPUuWC5SRMeRLCv8=
-X-Received: by 2002:a17:90b:2e10:b0:3a8:1759:2217 with SMTP id 98e67ed59e1d1-3ade9e52430mr12674925a91.2.1793069458756;
-        Mon, 26 Oct 2026 19:50:58 -0700 (PDT)
+        bh=LYzIw2h63C7TJ7EZ3aau0el7NfxeZ14SAIQjRaCB+n0=;
+        b=izJljFuSyhbjPaZYFk4N4bSKYxVphSHQY1/PyJK1k/Jmxsa/2FdAojGx/sdCOZrzmH
+         TS9a7CAS4skm+5DvHS7kYwBXuepTgV0nDsZFJCeVisqJ6tm8ZKxTSLUxUtk7tw87hcWU
+         omwgiDGkf0eDLzdQQRbUDQPL3T8rUOYy2/AKs9VD2xaNnAwF69WFLywdRZDGpq2xD5RZ
+         ISknW/EvCzeRxhVw+6RE7RJZjEEeMXpZZ10qfhZ+NVluNEAEPdVc41+dFsR6UP6BunCO
+         ajzoMHSCaPJZDLkifvg2at7NSK3BLIwjFFPeVzKJZgoU388HeO8KXSf9fLWWs7jGzWpP
+         14Gw==
+X-Forwarded-Encrypted: i=1; AKwUvBxfouzw+O9q4kBeIVJKuTB/Ep9qNqMdMqX9UBmbXBElSuZ2Bb94nhuZT1XjTY3PmRr151bfhGpDktmnx0Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIDfmxCZJCrbHaesjXaEf9bjPrI+f6esqx9sOdDX5e+7YMdtVPG
+	AzghVbb4FTZK6Jq2JB4AhUdlkvga/Kh/pFQ5xgaVfN24+ZUWUp4w+7Oa
+X-Gm-Gg: AYBFou0qL4wvf8oZGi4MGZafl6R8j26Td4h+CpZq7GyQZZpo5RLc8t1Ye6lNbMA4qv9
+	zPgYn6LbpjMtHAAdVeb+5lwsMIwvabLosOhLHsvagMUM42G6N83wxAcRdh3BeZDwoTTv3sYrLZ/
+	iMrjbvwQbUqK4JnLnTRB/En8eoSYZhrkFMpy2V88jGPTK+0GkISg9KykZTMZAUjAMHCNDvuLBVf
+	T5rugEzfFnqDcI1M1PY/8f/pqX+Gz7rUGklpPYnlBIyDRilWpmZYVSmLwd7rq4EpuATcLPuWLz8
+	0qQwfWOZDhCfgkLSV2WkWI4hdEm5auXRYWJNrQcypAqH7HYRf7eUhxuzd90J1w0PIWfNf/DkG97
+	jE0D7C62xqb05lX4wzeQcUwA0U0qyvaZUtqNlpNzgedPKDW1Qke+HKP7/dhT7OU2BxXlCSP7dem
+	eILDIlFVH+/k6/K1zqQhZ+a5/PI4uk/OXGcS/Grw5HMIO9Xp+1EMlDUXIOjGfgD22x2SK9BuR19
+	bySaNuyT10G6c9ya9trzcZ0pJq6g85cR+DcbSJBczyP7pCA1ZiAazJdQo4EUyCmYeruUo5XWiJm
+	Vrr3W5TxEnJowX1D6BUfQ21ZIo6wKZKLEFeiNZA3zdocsI6BtS6rpHctiSpot9N1qEkrLMI=
+X-Received: by 2002:a17:90b:2ecc:b0:3ac:e6a:1af5 with SMTP id 98e67ed59e1d1-3adea1f17fdmr12335096a91.2.1793069469769;
+        Mon, 26 Oct 2026 19:51:09 -0700 (PDT)
 Received: from msg ([188.253.120.77])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8ccc90d74sm2052536a12.20.2026.10.26.19.50.53
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adeb82761esm6930676a91.0.2026.10.26.19.51.04
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 26 Oct 2026 19:50:58 -0700 (PDT)
+        Mon, 26 Oct 2026 19:51:09 -0700 (PDT)
 To: netdev@vger.kernel.org
 Cc: steffen.klassert@secunet.com,
 	chopps@labn.net,
@@ -88,13 +88,13 @@ Cc: steffen.klassert@secunet.com,
 	dsahern@kernel.org,
 	idosch@nvidia.com,
 	linux-kernel@vger.kernel.org
-Message-ID: <20261027105031.19928-2-q.h.hack.winter@gmail.com>
+Message-ID: <20261027105031.19928-3-q.h.hack.winter@gmail.com>
 In-Reply-To: <20261027105031.19928-1-q.h.hack.winter@gmail.com>
 References: <20261027105031.19928-1-q.h.hack.winter@gmail.com>
 From: Qihang <q.h.hack.winter@gmail.com>
-Date: Wed, 14 Oct 2026 21:17:00 +0800
-Subject: [PATCH net v7 1/3] xfrm: use skb->dev before dropping the reference
- held across async
+Date: Wed, 14 Oct 2026 21:17:12 +0800
+Subject: [PATCH net v7 2/3] xfrm: set the address family before the early
+ invalid-state drop
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,69 +104,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 
-The skb->dev reference that is held across an async resumption is
-released before skb->dev is used, on two exits of xfrm_input():
+The early drop in xfrm_input() for a state that is no longer valid runs
+while family is still AF_UNSPEC, so xfrm_rcv_cb() cannot find the
+afinfo and the receive callback is never invoked for such a packet.
+Set the family from the state before the check so that the drop path
+dispatches the callback like every other drop does.
 
-  - the drop path runs the receive callbacks after the reference is
-    dropped; xfrmi_rcv_cb() reads skb->dev->ifindex, so it can race a
-    concurrent teardown of the device
-  - the decaps success exit calls gro_cells_receive() after the
-    reference is dropped; gro_cells_receive() reads skb->dev
+This is also a prerequisite for releasing the tunnel device reference
+on that drop path in the next patch: without a family, the release
+cannot tell an ip_tunnel from an ip6_tnl.
 
-Use skb->dev first and drop the reference afterwards in both cases,
-matching what the transport exit already does.
-
-The early drop for a state that is no longer valid releases the
-reference on its own; let the drop label handle that reference too.
-
-Fixes: 1c428b038400 ("xfrm: hold dev ref until after transport_finish NF_HOOK")
+Fixes: 4ce3dbe397d7 ("xfrm: Fix xfrm_input() to verify state is valid when (encap_type < 0)")
 Cc: stable@vger.kernel.org
 Signed-off-by: Qihang <q.h.hack.winter@gmail.com>
 ---
-v7:
-- also move the reference drop below gro_cells_receive() in the decaps
-  success exit, which used skb->dev after the reference was dropped
-  (found by the netdev AI review).
-
- net/xfrm/xfrm_input.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ net/xfrm/xfrm_input.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/net/xfrm/xfrm_input.c b/net/xfrm/xfrm_input.c
-index 5ed87d51392a5..cfd5cea033127 100644
+index cfd5cea033127..ab391258a5028 100644
 --- a/net/xfrm/xfrm_input.c
 +++ b/net/xfrm/xfrm_input.c
-@@ -496,7 +496,7 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
- 					       LINUX_MIB_XFRMINSTATEINVALID);
+@@ -487,6 +487,7 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
+ 				      encap_type == UDP_ENCAP_ESPINUDP))) {
+ 		x = xfrm_input_state(skb);
+ 		xfrm_proto = x->type ? x->type->proto : nexthdr;
++		family = x->props.family;
  
- 			if (encap_type == -1)
--				dev_put(dev);
-+				async = 1;
+ 		if (unlikely(x->km.state != XFRM_STATE_VALID)) {
+ 			if (x->km.state == XFRM_STATE_ACQ)
+@@ -500,8 +501,6 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
  			goto drop;
  		}
  
-@@ -747,9 +747,10 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
- 			sp->olen = 0;
- 		if (skb_valid_dst(skb))
- 			skb_dst_drop(skb);
-+		/* gro_cells_receive() reads skb->dev. */
-+		gro_cells_receive(&gro_cells, skb);
- 		if (async)
- 			dev_put(dev);
--		gro_cells_receive(&gro_cells, skb);
- 		rcu_read_unlock();
- 		return 0;
- 	} else {
-@@ -779,9 +780,9 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
- drop_unlock:
- 	spin_unlock(&x->lock);
- drop:
-+	xfrm_rcv_cb(skb, family, xfrm_proto, -1);
- 	if (async)
- 		dev_put(dev);
--	xfrm_rcv_cb(skb, family, xfrm_proto, -1);
- 	kfree_skb(skb);
- 	return 0;
- }
+-		family = x->props.family;
+-
+ 		/* An encap_type of -2 indicates reconstructed inner packet */
+ 		if (encap_type == -2)
+ 			goto resume_decapped;
 -- 
 2.54.0 (Apple Git-157)
 
