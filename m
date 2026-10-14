@@ -1,129 +1,107 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D9591D9A66
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:02:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 331BE1D9A66;
+	Wed, 14 Oct 2026 06:02:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791957740; cv=none; b=sQNW4JL/2N7/RQX5g2bccZVKgCwq9fh23qHapqOn6nQ3A2MdAA5UF91KXTozRzkcjrTqdWQQ5Pv9vOn+rDPDonIJN1r+yKwHsxx0ptDSb9WtZzmjrADqFc31LBoXf55iyyrf254xhQo0ZhNXt/oky2FP4rFJS1fUWRT7F0GRoVU=
+	t=1791957771; cv=none; b=SxNSqAowursnQH+gZNLRRlEB0HSso/PwqKl6ubAbOWTdoZG9lkYmFP7Hk1Npwj8jmO3cMqZf7xz6+fxvS4CFg2BJkxNU7aPU2zM4+e+t4g29SDZ1EIbasdz5hhmst1p1nfcZAKYeIJ8QE6gKEHR0V6AP0HbwU1RD9XhKhGhs+C0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791957740; c=relaxed/simple;
-	bh=NzUuIXQnPqKxjmVowDKFUAH5aj7tvNlvr0pmtvbb7Js=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=pugk7UktebxDWVC7GlCUJKhRlrepPhyJW07zG52iyIz1JUzjcAgpsYSqpBnow5m70ARghHTQaFRkgM2ymK20t6ntMvp3O9xOncjQuoae6gqdpKDXM0XQMAx0JxootHrwpIWos2ISaeC8+RN3A+OkBu89gByZ1IsURVB0NFOnnNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=2+65GIWB; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=PCNeA3VA; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1791957771; c=relaxed/simple;
+	bh=apB+CCNmmj5PykOfXdfLni7NehzQcXSALn7GneS2rG8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UdEMIvChlAeqd0iqF9MYQtJRWNybLyyV/gujOI36VU788Q1JlGQuMGn6uMBDgL2nrC0wMnNCFrmBGlvY+NbtfKNt2EVtZHdP1+nbJ+IDkIpBj16KjiRBOun4gTrzeLeBUoAwR1OReSNPWFFjGB4LJrepUI8EwQo0MMbO6H331w8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=reh3EPjm; arc=none smtp.client-ip=115.124.30.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="2+65GIWB";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="PCNeA3VA"
-From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1791957737;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=si3mE0eRKr/xYwk7ohydIp+CfI4jcCVfH5Df7/z8yWA=;
-	b=2+65GIWBbmH2MKPWbnZD77itcuBDd4BAX7KlKqeCjHvaxCeJirzoUXxl5qFDY5SRCm+me2
-	pAMxaAm1vHXDZi7kDVcmEYoSMqKmkbYfiFDguWKWPMoabHYMRP1Oic+AeJkz/p9OtiW2EX
-	B039yOHG+cwC0i8LUKiWX1Vzjz2PzeLW0xUdv4wFBB+TSlbzSDqWUlAWw9DW2TIKqe5A4w
-	waYBPq+Oljl8f78GRRjPhAP/SC7s/oQcJMAjz9AbkcMd523fR6pLfcWwziUi4J9ozdsj0M
-	QK5UwyUk175dWQSfMjmGlJPFBBTtYdTi2SNnbsswQkr7/oNhEnIRrt1VZ93kIw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1791957737;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=si3mE0eRKr/xYwk7ohydIp+CfI4jcCVfH5Df7/z8yWA=;
-	b=PCNeA3VAYZkl4o5Vm0VlYeF5x1OF/Snk+2v53eKQvu+3IxTowRfzTzgjaa5ifQay8usn1P
-	9fJDE+7lt73ek1Ag==
-Date: Wed, 14 Oct 2026 08:02:01 +0200
-Subject: [PATCH] riscv: vdso: Don't use && to chain compound cmd
- definitions
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="reh3EPjm"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1791957765; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=9BIscm2cTTBNlc9P4KV7eUnjnf4F0Y6UQu2TU1+hhSQ=;
+	b=reh3EPjmmP0ATGMx3tdU85PVBPkJA2d9P5dQXJuumoYd0q/MPh+0P7KwswuD3Ik6yrCPdw2zs8sxRDjwrcE7zPbJ7jDZlpb27EWsOSyTxI66EZwrd3P+3sUu4/0D98r8TWy/dreT17pawSvrgaLbMOpYWuIyvHe+8RDo9wS7HKw=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R191e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=17;SR=0;TI=SMTPD_---0XCo3AyK_1791957763;
+Received: from 30.74.144.153(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XCo3AyK_1791957763 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 14 Oct 2026 14:02:44 +0800
+Message-ID: <5848db18-9de3-437b-9967-162ced4f8cb9@linux.alibaba.com>
+Date: Wed, 14 Oct 2026 14:02:43 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261014-riscv-vdsold-errors-v1-1-91392fe3dba0@linutronix.de>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y3MQQqDQAyF4atI1gYcqQpepbgYTMYGimMTHQri3
- R3U5ffg/TsYq7BBX+ygnMQkzhmuLGD8+HliFMqGuqpbV7kXqtiYMJHFLyGrRjUM1PqOukDsG8j
- PRTnI/6q+h9vKvy3H12c8jhOG0MHKegAAAA==
-X-Change-ID: 20261014-riscv-vdsold-errors-fd6a7d7fdea5
-To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Nam Cao <namcao@linutronix.de>, kernel test robot <lkp@intel.com>, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791957734; l=3205;
- i=thomas.weissschuh@linutronix.de; s=20240209; h=from:subject:message-id;
- bh=NzUuIXQnPqKxjmVowDKFUAH5aj7tvNlvr0pmtvbb7Js=;
- b=D7n2aTRp2Af4DwkdGPo99Hjfd7afTlubcas/CJEhoxRCfH/PTyFvkGNjGP1bGCn1fexobIHIo
- YZ2KAco2wpAAke5i2JHJvC7K5W997mIEPIdiKAsRuS8zRHTW6VDTCwB
-X-Developer-Key: i=thomas.weissschuh@linutronix.de; a=ed25519;
- pk=pfvxvpFUDJV2h2nY0FidLUml22uGLSjByFbM6aqQQws=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm: fix address wraparound when scanning large folio PTEs
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Ying Huang <huang.ying.caritas@gmail.com>,
+ Barry Song <baohua@kernel.org>, Ryan Roberts <ryan.roberts@arm.com>,
+ Chuanhua Han <hanchuanhua@oppo.com>, Kiryl Shutsemau <kas@kernel.org>,
+ Kyle Zeng <kylebot@openai.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261013-folio_pte_scan_range-v1-1-c50dc30bf6ad@kernel.org>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20261013-folio_pte_scan_range-v1-1-c50dc30bf6ad@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The vDSO linking consists of multiple commands executed as part of a
-single kbuild 'cmd'. Currently these commands are chained with shell
-'&&' operators to make sure that the later commands are only executed
-when the earlier ones succeeded. However kbuild already provides this
-early abort by using 'set -e' before each command invocation.
-Furthermore the '&&' chaining prevents the 'set -e' from promoting the
-failure of a single command to a failure of the overall command.
 
-If one of the subcommand fails, kbuild will not notice and continue the
-build, potentially leading to confusing follow-up errors.
 
-Switch to plain ';' based sequences over '&&' ones.
+On 10/13/26 8:30 PM, David Hildenbrand (Arm) wrote:
+> numa_rebuild_large_mapping() and do_swap_page() can be tricked into
+> generating an address wraparound, crashing the kernel. All that's required
+> is to map a tail page of a large folio close enough to the start/end of
+> the address space to e.g., make
+> 
+> 	unsigned long addr_start = addr - (nr << PAGE_SHIFT);
+> 
+> to wrap around.
+> 
+> Let's fix it by providing a better helper, folio_pte_scan_range(), that
+> takes care of staying within VMA and page table boundaries while
+> handling possible wraparounds.
+> 
+> Reported-by: Kyle Zeng <kylebot@openai.com>
+> Fixes: d2136d749d76 ("mm: support multi-size THP numa balancing")
+> Fixes: 508758960b8d ("mm: swap: entirely map large folios found in swapcache")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
 
-Reported-by: kernel test robot <lkp@intel.com>
-Link: https://lore.kernel.org/oe-kbuild-all/202610131613.BpOi6VPp-lkp@intel.com/
-Signed-off-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
----
-Best viewed with 'git show --word-diff --word-diff-regex=.'
----
- arch/riscv/kernel/compat_vdso/Makefile | 4 ++--
- arch/riscv/kernel/vdso/Makefile        | 6 +++---
- 2 files changed, 5 insertions(+), 5 deletions(-)
+Thanks for the fix.
 
-diff --git a/arch/riscv/kernel/compat_vdso/Makefile b/arch/riscv/kernel/compat_vdso/Makefile
-index 24e37d1ef7ec..c4ed74dfe998 100644
---- a/arch/riscv/kernel/compat_vdso/Makefile
-+++ b/arch/riscv/kernel/compat_vdso/Makefile
-@@ -63,8 +63,8 @@ include/generated/compat_vdso-offsets.h: $(obj)/compat_vdso.so.dbg FORCE
- # The DSO images are built using a special linker script
- # Make sure only to export the intended __compat_vdso_xxx symbol offsets.
- quiet_cmd_compat_vdsold = VDSOLD  $@
--      cmd_compat_vdsold = $(COMPAT_LD) $(ld_flags) $(COMPAT_LD_FLAGS) -T $(filter-out FORCE,$^) -o $@.tmp && \
--                   $(OBJCOPY) $(patsubst %, -G __compat_vdso_%, $(compat_vdso-syms)) $@.tmp $@ && \
-+      cmd_compat_vdsold = $(COMPAT_LD) $(ld_flags) $(COMPAT_LD_FLAGS) -T $(filter-out FORCE,$^) -o $@.tmp; \
-+                   $(OBJCOPY) $(patsubst %, -G __compat_vdso_%, $(compat_vdso-syms)) $@.tmp $@; \
-                    rm $@.tmp
- 
- # actual build commands
-diff --git a/arch/riscv/kernel/vdso/Makefile b/arch/riscv/kernel/vdso/Makefile
-index c023046a3fd7..d2ebdc048efb 100644
---- a/arch/riscv/kernel/vdso/Makefile
-+++ b/arch/riscv/kernel/vdso/Makefile
-@@ -97,7 +97,7 @@ include/generated/$(vdso_offsets): $(obj)/$(vdso_so_dbg) FORCE
- # The DSO images are built using a special linker script
- # Make sure only to export the intended __vdso_xxx symbol offsets.
- quiet_cmd_vdsold_and_check = VDSOLD  $@
--      cmd_vdsold_and_check = $(LD) $(CFI_FULL) $(ld_flags) -T $(filter-out FORCE,$^) -o $@.tmp && \
--                   $(OBJCOPY) $(patsubst %, -G __vdso_%, $(vdso-syms)) $@.tmp $@ && \
--                   rm $@.tmp && \
-+      cmd_vdsold_and_check = $(LD) $(CFI_FULL) $(ld_flags) -T $(filter-out FORCE,$^) -o $@.tmp; \
-+                   $(OBJCOPY) $(patsubst %, -G __vdso_%, $(vdso-syms)) $@.tmp $@; \
-+                   rm $@.tmp; \
-                    $(cmd_vdso_check)
+>   mm/memory.c | 43 +++++++++++++++++++++++++++++--------------
+>   1 file changed, 29 insertions(+), 14 deletions(-)
+> 
+> diff --git a/mm/memory.c b/mm/memory.c
+> index 1f5d5f7d39cd2..a3823010aa981 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -4933,6 +4933,27 @@ static void check_swap_exclusive(struct folio *folio, swp_entry_t entry,
+>   	} while (--nr_pages);
+>   }
+>   
+> +/*
+> + * Get the address range in which a folio might be mapped, assuming its pages
+> + * are mapped consecutively and the folio page at the given idx is mapped at
+> + * the given address.
+> + */
+> +static void folio_pte_scan_range(const struct folio *folio,
+> +		const struct vm_area_struct *vma, unsigned long addr,
+> +		unsigned long idx, unsigned long *start, unsigned long *end)
+> +{
+> +	/* Stay within the page table and VMA boundaries. */
+> +	const unsigned long pmd_start = addr & PMD_MASK;
+> +	const unsigned long pmd_end = pmd_start + PMD_SIZE;
+> +	const unsigned long lower = max(pmd_start, vma->vm_start);
+> +	const unsigned long upper = min(pmd_end - 1, vma->vm_end - 1) + 1;
 
----
-base-commit: 4056b3c9d3c92ea45955641dbafeb9b960e146ef
-change-id: 20261014-riscv-vdsold-errors-fd6a7d7fdea5
-
-Best regards,
---  
-Thomas Weißschuh <thomas.weissschuh@linutronix.de>
-
+I also agree with Barry and Lorenzo's suggestion to use the more 
+readable pmd_addr_end() helper. With Lorenzo's comments addressed, feel 
+free to add:
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
