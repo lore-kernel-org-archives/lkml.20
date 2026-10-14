@@ -1,213 +1,171 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6357747ACE7
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:10:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E14214F55DD
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:10:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.173
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791976225; cv=pass; b=szxAe/rhychZWLPbcyH59LFvUFpWlwMKvdXkQx9poY3Xi5L9Lo4S6/f2tfNw8N/iy/awAQYAVNbZvMkSqQk/GcnN2whtCzU3OxY/9c/8/QYJjhOiUqJAeQFakpl6QNKmIEaqhvSdvlYuUu5gfdrsMs1iaVM5en0imiTEpT4IQ2A=
+	t=1791976230; cv=pass; b=eiTQdCfV0z2A819y/jhfA1T4dey/hYNBZTFWD+DUqFjiz+q3pH1aOmaLpE5ijRNFevhrkx+Nwt1CNGQ7KjQqYAwNADiqTPIMhcNq4ZOj0AKxCFt8Fejw5G+aMG0+NlqrQ3YQXq4AOHJ+lGhi1EnmumJy78awyrBEjSLZdeqnRqE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791976225; c=relaxed/simple;
-	bh=v92a07kZ9pv1iZ0gl/XUWpQyf6mAsKw5gJ3QL1iN71k=;
+	s=arc-20240116; t=1791976230; c=relaxed/simple;
+	bh=9DHQFxO3nsBulx/2xMbN/Yydkkg79eWl+cOzJbIkWyU=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oG4/vXfHK7g/WYu/atqcpcVNvoLzat4nIEYHHM5LmJVpO0A+tOmjPXnDkyMajdFDaggzeV12XdySiBes3zfJcBQFEh+aIz+rcFYokd0atr9qjTEPIrsYV01W7N3XzOrLTWfJOtVouP3G55340tiIIqqAarWVPvBuLrYunl9jGO8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I5FGxH+0; arc=pass smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=mq11YMSA0P6v4ccPxiUiUzLBKPDKsNBz3pGvAvtAXCRAewXFLPmicrjeMbArl2yTvNmIrfkKbrpcMdBPYazpXXH9sjieST/x7a+4jMUXvZequct4kV54D/eNGUWrEcHev0sK3t2nAkAG+VpIIYnpHEPSR2v0Mn7AoL2Y48PDHk4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=W0BAwgTi; arc=pass smtp.client-ip=209.85.208.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I5FGxH+0"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48af27fe287so392870f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:10:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791976222; cv=none;
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="W0BAwgTi"
+Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3a75f960be3so10906011fa.2
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:10:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791976227; cv=none;
         d=google.com; s=arc-20260327;
-        b=QZNzT0N5zeGLoj7C944B6zRiPToM7wvI6er702xZJ6MAUB+s2uM/xHu2pIkZssagTC
-         kPkQlMrQLG3fPGAorELkkNR0O4+uqBYG4Xl48bJ5sp2Q7lM4Ss5CrmaxqeWPY0lHyal3
-         F6eUCvPJqwyH0lssgfAR50wbJZ7eLnpch6oFvKUBWEglWdkJ5gOLpCLRDLH2GjnbWBbu
-         9lvucGJaRCgohYSccU/lG6fOSBw/6YepsmOtbakNi2IayQful52hDYPbvSg5wGVvKPIH
-         Z1pG+NC2A8uHSKTHmcD2mCKv4mAEpwZ+igidLGQ1xHz104GMG8yhL8fMP8p+mAaWpDBj
-         KTWg==
+        b=elZ6Z7xrbTdZ7plpCauH7VFZvwqH1bxchgS7KgFACmWqNd9q0vN0zsSfVYtRXeQJMd
+         SunPKG03G/YnFARr+hMugavWupaafI9Fv29CIPMJjcqFViCB7t6QB/rdMtbd0CMob8jh
+         iqHTOZvpU/uIiyEGYaMAwN5qCEfcdiBahW1TAzwrXQV2tngcE6wv3aNALR8Nz0FwB8lq
+         6uqmoT02iOp7XRQwOX+nxVK0gYc6qQsRwDWuq+JGzLPzAFKp4SOQZT4aDjsQS9YKMOMk
+         lJUtitsFnFCgTKhyePKWvJUBLKILNSAn+bSQ1ajntIuJkdUZpWhrZUmRhIytC7Pe9Jec
+         gFrQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=sUDJh128qN21U/Zac0vqYWgqSkXm0ycHDE5s6YgcYz8=;
-        fh=6R2qZ+piMKJKqLWaHDoctBjUq9roPEZokhV/BL21GBI=;
-        b=ruNFaPOh4qDu5uMIjY2FgqV2BTi5WUSyJosBGxspQLnTpG2BkXpED+Ca6UkFcd+2IN
-         2O1Wbc15SIdWdeiruOHbLUie5ADSrmw2YN7khPEuBBjVOz4qLFS2z3GbieJ/BBhg0Us7
-         0gdP9ARmHClJduJEwNrU9J9r7ke7eV3FJbOhuIfVXp6+bZOuJUXT3CnlVm1MbmoDyLP1
-         9+6HwfOq7W+fpCM9/aiI8/dQ7eKDVV/ZeufqVoF7Du6z564XCPedQo7jRw2SFowGvvXE
-         dlaG1H+q5Wc65W985zoCaxcfqhYA1V5waZF5zy49qEZg6oAB4Qxa53zp4sy60iMWERVt
-         E7pw==;
+        bh=9DHQFxO3nsBulx/2xMbN/Yydkkg79eWl+cOzJbIkWyU=;
+        fh=tb1ZsAT7yidgoteMIPewYGOnPxfYCnC+qC4iugCbg7Y=;
+        b=er+cES32y6j3TSjs0OgGYsGpl15go8GzJIDUPUhesnRD9B//K2CZ3sLxC1ElTKHpzu
+         bo0sSRFbLrc8hhyitYXC759P0KlNU05hwyU+Ruqf+Atuy2+6zr1lOLX3ROlSloBhNJFF
+         gR/S1ZGnyRDpNbP2Z1cxNx1ISOqJwE1vxC0XPr+GnoOsUI9idLVyu7Jb46tSZ9Wbvc1G
+         gxvyF7pIyez/Qyc5qTeBnKJGgjA5B3caXtKttoICBL9d+v9eEbgaeaKaZUkdrG2FzFNi
+         pS1JFgvhTZ4RwwwyOu8fbUrUHtdFbnepSXxCpjQ+TfoKAwnokOTcdi0r45bvZGuQPYbp
+         Fa4Q==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791976222; x=1792581022; darn=vger.kernel.org;
+        d=nebusec.ai; s=google; t=1791976227; x=1792581027; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=sUDJh128qN21U/Zac0vqYWgqSkXm0ycHDE5s6YgcYz8=;
-        b=I5FGxH+0z/Prn267fHkf+CyaJZA71gU35He0ty4Jj8o1IQIU4skBDiCxFLNaTQV1qz
-         ZaS6WC4lH6k3BHebs0XORvU9LBHcvmvhhjlz5ZvgJvsabdyy3Q+jpRV/29Ec/yi6qmVR
-         HzvtKtQ31N6H7q/WoTlkYbizhPbJ0NNeCsE/THeiPtn3Lh+YRIpyskDBa1greRZ5kwF0
-         sOXKkyJ2rX6oyDchG4MuNxTLPm2ln/7Ziv6Snrk2VHz1WCuWH2eaQ2UU05/goTsQXcMo
-         ZEiFzJ8kbHy30crHme205EmvIMbGzulm5J45rQzIt7tx03Frnp6w11vA9IsOwNUnDPxy
-         T1Fw==
+        bh=9DHQFxO3nsBulx/2xMbN/Yydkkg79eWl+cOzJbIkWyU=;
+        b=W0BAwgTiyUUJP5ogTDoSEenxyJ9805hbARINt1UQM0buBtr7JkNCdu5hBDXhxWomHw
+         pyApLeMXJQGPNS2DOU3oh5J2Vtxfy5j1wMAcPm+Re65QkKzq2NjaVTuF047NUZubWrZf
+         Lj4suRHPRFib9ayNxFku8BkUKDUT0RajRsvB3VDg+1IK1fOhgC3FdQFVg+KG1bGZEv6H
+         5MUPDESRHrMb8A0PZ/qGLeBH90GeyBzyqXFZ8kuXoqmEPA5aUW8dXNOHuwmdtQ9ZKMDw
+         71zbub/jIxFxOZEYq+tUFZvA2OMYpmmR9tpPWx079Xrtujl4sVJO6tO8GdpIfn4QmlPy
+         jIhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791976222; x=1792581022;
+        d=1e100.net; s=20260707; t=1791976227; x=1792581027;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=sUDJh128qN21U/Zac0vqYWgqSkXm0ycHDE5s6YgcYz8=;
-        b=Rgyy4351xxpQ6mjWRWHREVX21XTRqgUdPiExTVtdZMHdC1ZV08ZslVkjDj9qjLPTtq
-         W+ukin2PPpUxWlCDZmfWbOinJZ6yKwwF+yj5AtbA6W0/Jv4fzvlIdObJrhsm7J34rSib
-         YVpDtgt3Vjlf0DVA/j5Ee5V/Bi/rC+LmEkkLD5Vf/ITnr2G7JpOsI86mx+5MMeFI4E3I
-         t4SMzqFYsdNJ3oPIT5Pj8OEhh3mbVex32Zd2rSEfcVtiowIZK2E4Pu1he8ZHaR241nxZ
-         a1jANNzc6kUpxqfTPwJq6s2tE9zb97c+Vn9ySk6v/P6mOYlGQ401PFktOZZ8fU3BJZUX
-         iEig==
-X-Forwarded-Encrypted: i=1; AKwUvBxuCxtqwNPFHdf7xe3FD/Z3sykx8ZbPuJQhsKphYiFlNea+bdwDhY7vVtEg9X6ATGZRzrPhXN7qnjZbleo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKP0QhFWUX/7Ulq8Q8yogA3b2L+OGqvpXr0HQg2u/U9jBUJDjwH
-	eUO9n9/yPqMow2LABUnhdbOy518HsXZzZhCx3k6uEuSJ7hMiAaiGfjBdansKrFy7SB+wSlsW1Jt
-	0jn4B5miXi1XPA39oKKiSk63huN6zvWQ=
-X-Gm-Gg: AYBFou02A03qZceB2+lSIFR0n1rBSX8+Zuj+eaM/QQ5Wlc4O4Wx/mgRyr1rQgHOASqw
-	r6FVctjpUO091RRRLfRypR7cGtvn/lTQhSGmUaFooUHBf3/GD4j8IZVb/8x3RUGhzl8Fdkbe0zr
-	eiC1Pc0fzxwneCgcZOFcC2hKvd1rT2yIrxUFVw3AOzjN9xPeMfaPH8n+fi5D9N3iWytF/5dMxi0
-	95mlZ3sbxHs00L5/6zWMJdDmkWwbptIdVHakx138NsLjJ5xRpzKzVJfUXtI4nyLyv1zytQhz3bR
-	cAVS2cIZ+mb/MicCVjE5YKJCWjrwW4tCn0x+jRFw+NMfFzcRj7z4FFaKImUa4kfvmzFU6zeaXZs
-	fwMJKdScY4vENkIFDdDeB7VsZURmUTbFVLHkKhS4ERq6cBRVGf9QBv8uPExVBY214fo4sg3XFog
-	BOMwXI3wdV
-X-Received: by 2002:adf:e004:0:20b0:487:88b:4681 with SMTP id
- ffacd0b85a97d-48dba9db07cmr22258882f8f.10.1791976222256; Wed, 14 Oct 2026
- 04:10:22 -0700 (PDT)
+        bh=9DHQFxO3nsBulx/2xMbN/Yydkkg79eWl+cOzJbIkWyU=;
+        b=j6ei6lcZxikUMfU4m68ItFOp3SFhjQbDngMVAmP1/jttxYtm5KirW+C9LwOrRCaOGD
+         fKelocyewtlZhodUYB3zxeJHXayDGncljuD7vVSjVriYLIbTKVEbv+Q7cMXXVxGFIhUJ
+         ryxxkk8lUUDgngG3hlG0J2CG03qUeGzFNJM6Ek9lgvTvZWT/M8SOxW56W7o7vX7y7Wve
+         fXAX4p43mDKTd3ZTXabbNXw9vfyAkMMq4wBXO+1aDSL0cXHJbwOrSTIgND/UgYhUEalJ
+         a3Oa/1gf9SzmqsCe6AnJQkIHoR8IZEDxlBT1urAf++DNYB4PCXwjMXtFaZG9V6ZSQAEQ
+         eEPw==
+X-Gm-Message-State: AFq9FYIMzBWTmuSpR7j0EqzKVlceTHpfPgs5t34sygayjx2S9tVKdKFC
+	PLZoOSC/eREMWUM2ehi/JFSt7ZDMtWwGveAruMNV1frbXg71QyAxl1G6eRfTffzszuTj/ZEMpXL
+	ZgtW2UsFDhzZQXOaWRYvw78MPsgevNUGWzDDgxj35T24=
+X-Gm-Gg: AYBFou3SsjdxI4Xys6gtsVQK6IRdIWcvv5NYpk5qeI70WhBZZ3oVvP19OToTItYT/Gb
+	0ovODCfFwQ21fd8Jg0t3AhTl/TgNpNp5dVJP8m1Vm+2lSWIROwfE8lcQa7gAppn9u8JpAjqy1xi
+	HNAL+QDXkG/UINXmrtmo0UMdRf/7AjfzsYLjbM42IzyFZbT7x9PkIbl0/fXUARR/VPB7qwdhdAM
+	mMxmgWg9bCWkkZQ9IJPJ6KJ1844rA+Vocx6IPYfcqR5easLgf3aUDTXfnkVLoQEKmpTiLP7Lb9B
+	18sCOIjw+2DtX5pNYBXSvRfU77hKmwpbHXSS44RLW1gwPlqaPJhlO2uerqHC9nX50ij3avRdIzO
+	7sE+qZ9ENQQ==
+X-Received: by 2002:a2e:b8cb:0:b0:3a6:687e:9cfa with SMTP id
+ 38308e7fff4ca-3a9c5384d1dmr38367951fa.18.1791976226868; Wed, 14 Oct 2026
+ 04:10:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261006-miic-validate-dtb-v3-v3-0-68617b3dca5c@reliablecontrols.com>
- <20261006-miic-validate-dtb-v3-v3-1-68617b3dca5c@reliablecontrols.com>
-In-Reply-To: <20261006-miic-validate-dtb-v3-v3-1-68617b3dca5c@reliablecontrols.com>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Wed, 14 Oct 2026 12:09:56 +0100
-X-Gm-Features: AclHuK_AtxgKnhvGzHMnS03oYn804x_h6ChuS1hEcf2qg0FXvn7x9yZA8Od0Jgc
-Message-ID: <CA+V-a8u-Sa7zwYRDvwzQB0N4GT4kAz8fj2fJX1dZCNx3Gz85Wg@mail.gmail.com>
-Subject: Re: [PATCH net-next v3 1/2] net: pcs: rzn1-miic: Update port
- numbering for RZ/T2H
-To: khendry@reliablecontrols.com
-Cc: =?UTF-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@bootlin.com>, 
-	Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
-	Russell King <linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, linux-renesas-soc@vger.kernel.org, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <cover.1791688819.git.zihanx@nebusec.ai> <9c51ddfce3069d585b6c9b87e7e1bf3a3b0a2761.1791688819.git.zihanx@nebusec.ai>
+ <asukIMajFpbzx3PH@strlen.de> <CAANe3eQSU06GJAaaj8Fd=S+THSJn0Eu+1Bt_E=VNZ0=rAQXnBQ@mail.gmail.com>
+ <as9cKonuO_37jfA5@strlen.de>
+In-Reply-To: <as9cKonuO_37jfA5@strlen.de>
+From: zihan xi <zihanx@nebusec.ai>
+Date: Wed, 14 Oct 2026 19:10:13 +0800
+X-Gm-Features: AclHuK-36coDSsBSb9oeL5ElBY9SYxeXCeQt02viiLEFj8h4JKJohFPJ1jlVmf0
+Message-ID: <CAANe3eTxmR36NS5_CqMiqu_WRQtmyepEB=TG=Sj368t1Ppa5_Q@mail.gmail.com>
+Subject: Re: [PATCH nf v7 1/1] netfilter: nf_dup: preserve duplication guard
+ across NFQUEUE
+To: Florian Westphal <fw@strlen.de>
+Cc: linux-kernel@vger.kernel.org, netfilter-devel@vger.kernel.org, 
+	mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com, 
+	vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org, 
+	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, 
+	kprateek.nayak@amd.com, pablo@netfilter.org, phil@nwl.cc, davem@davemloft.net, 
+	edumazet@kernel.org, pabeni@redhat.com, horms@kernel.org, kaber@trash.net, 
+	jengelh@medozas.de, lukas@wunner.de, vega@nebusec.ai, root@tr0jan.top
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 6, 2026 at 5:48=E2=80=AFPM Kyle Hendry via B4 Relay
-<devnull+khendry.reliablecontrols.com@kernel.org> wrote:
+On Wed, Oct 14, 2026 at 6:40=E2=80=AFPM Florian Westphal <fw@strlen.de> wro=
+te:
 >
-> From: Kyle Hendry <khendry@reliablecontrols.com>
+> zihan xi <zihanx@nebusec.ai> wrote:
+> > Hi Florian,
+> >
+> > Thanks again for the review. I tested the simpler approach you suggeste=
+d:
+> > extending the local_bh_disable() / local_bh_enable() scope in
+> > nf_reinject() to cover hook lookup, hook traversal, and okfn execution.
+> > The experiment changed only nfnetlink_queue.c and built successfully
+> > against nf.git main at ab699d296e06.
+> >
+> > I ran the IPv6 TEE/NFQUEUE reproducer in a 2-vCPU, 2-GiB QEMU guest
+> > in a network namespace owned by a non-initial user namespace, with:
+> >
+> > QUEUE_COUNT=3D1
+> > PAYLOAD=3D1
+> > TEE_CLONES=3D1
+> > panic_on_oom=3D0
+> >
+> > The bounded run reached 68,881 callback iterations in 6.700 seconds and
+> > exited normally. No OOM, panic, Oops, BUG, or soft lockup was observed.
+> > This was a bounded resource-consumption run, not an OOM or crash test.
+> >
+> > The reproducer continued executing the callback loop throughout the
+> > bounded run, so extending the BH-disabled region alone does not address
+> > this case. It protects against BH interference during nf_reinject(), bu=
+t
+> > it does not preserve current->in_nf_duplicate across the asynchronous
+> > NFQUEUE verdict path: the original ip_local_out() or ip6_local_out()
+> > call has already returned and cleared the task-local guard before
+> > reinjection starts.
 >
-> The port numbers on the RZ/T2H are documented as 0 to 3. Update the info
-> structure and change the member name to miic_port_last to be more accurat=
-e.
+> Why? You'd store the current->in_nf_duplicate struct nf_queue_entry
+> at queue time ("this skb is due to recursion via nf dup").
 >
-> This value was being used as the number of miic registers when setting
-> default values. Add logic to get the total port count and loop over that.
+> Then, on reinject, you'd set current->in_nf_duplicate to the
+> value stashed in struct nf_queue_entry so that if we were queued earlier
+> from the recursion a potential further 'dup' would see current->in_nf_dup=
+licate
+> as true and skip next duplication round.
 >
-> Signed-off-by: Kyle Hendry <khendry@reliablecontrols.com>
-> ---
->  drivers/net/pcs/pcs-rzn1-miic.c | 16 ++++++++++------
->  1 file changed, 10 insertions(+), 6 deletions(-)
+> I think one could add a 'DEBUG_NET_WARN_ONCE(current->in_nf_duplicate)'
+> in nf_reinject, I don't see how it could be set on function entry.
 >
-Reviewed-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> What did I miss?
 
-Cheers,
-Prabhakar
+Hi Florian,
 
-> diff --git a/drivers/net/pcs/pcs-rzn1-miic.c b/drivers/net/pcs/pcs-rzn1-m=
-iic.c
-> index 3aa513467060..31716241b58f 100644
-> --- a/drivers/net/pcs/pcs-rzn1-miic.c
-> +++ b/drivers/net/pcs/pcs-rzn1-miic.c
-> @@ -222,7 +222,7 @@ enum miic_type {
->   * @index_to_string: String representations of the index values
->   * @index_to_string_count: Number of entries in the index_to_string arra=
-y
->   * @miic_port_start: MIIC port start number
-> - * @miic_port_max: Maximum MIIC supported
-> + * @miic_port_last: MIIC port last number
->   * @sw_mode_mask: Switch mode mask
->   * @reset_ids: Reset names array
->   * @reset_count: Number of entries in the reset_ids array
-> @@ -240,7 +240,7 @@ struct miic_of_data {
->         const char * const *index_to_string;
->         u8 index_to_string_count;
->         u8 miic_port_start;
-> -       u8 miic_port_max;
-> +       u8 miic_port_last;
->         u8 sw_mode_mask;
->         const char * const *reset_ids;
->         u8 reset_count;
-> @@ -485,7 +485,7 @@ struct phylink_pcs *miic_create(struct device *dev, s=
-truct device_node *np)
->
->         miic =3D platform_get_drvdata(pdev);
->         of_data =3D miic->of_data;
-> -       if (port > of_data->miic_port_max || port < of_data->miic_port_st=
-art) {
-> +       if (port > of_data->miic_port_last || port < of_data->miic_port_s=
-tart) {
->                 put_device(&pdev->dev);
->                 return ERR_PTR(-EINVAL);
->         }
-> @@ -523,6 +523,7 @@ EXPORT_SYMBOL(miic_destroy);
->  static int miic_init_hw(struct miic *miic, u32 cfg_mode)
->  {
->         u8 sw_mode_mask =3D miic->of_data->sw_mode_mask;
-> +       int num_ports;
->         int port;
->
->         /* Unlock write access to accessory registers (cf datasheet). If =
-this
-> @@ -538,7 +539,10 @@ static int miic_init_hw(struct miic *miic, u32 cfg_m=
-ode)
->         miic_reg_writel(miic, MIIC_MODCTRL,
->                         ((cfg_mode << __ffs(sw_mode_mask)) & sw_mode_mask=
-));
->
-> -       for (port =3D 0; port < miic->of_data->miic_port_max; port++) {
-> +       num_ports =3D miic->of_data->miic_port_last -
-> +               miic->of_data->miic_port_start + 1;
-> +
-> +       for (port =3D 0; port < num_ports; port++) {
->                 miic_converter_enable(miic, port, 0);
->                 /* Disable speed/duplex control from these registers, dat=
-asheet
->                  * says switch registers should be used to setup switch p=
-ort
-> @@ -825,7 +829,7 @@ static struct miic_of_data rzn1_miic_of_data =3D {
->         .index_to_string =3D index_to_string,
->         .index_to_string_count =3D ARRAY_SIZE(index_to_string),
->         .miic_port_start =3D 1,
-> -       .miic_port_max =3D 5,
-> +       .miic_port_last =3D 5,
->         .sw_mode_mask =3D GENMASK(4, 0),
->         .init_unlock_lock_regs =3D true,
->         .miic_write =3D miic_reg_writel_unlocked,
-> @@ -841,7 +845,7 @@ static struct miic_of_data rzt2h_miic_of_data =3D {
->         .index_to_string =3D rzt2h_index_to_string,
->         .index_to_string_count =3D ARRAY_SIZE(rzt2h_index_to_string),
->         .miic_port_start =3D 0,
-> -       .miic_port_max =3D 4,
-> +       .miic_port_last =3D 3,
->         .sw_mode_mask =3D GENMASK(2, 0),
->         .reset_ids =3D rzt2h_reset_ids,
->         .reset_count =3D ARRAY_SIZE(rzt2h_reset_ids),
->
-> --
-> 2.43.0
->
->
->
+I understand your suggestion now: save current->in_nf_duplicate in
+struct nf_queue_entry when the packet is queued, then restore it before
+nf_reinject() resumes hook traversal. I had focused on the BH-scope
+change and missed this state-preservation approach.
+
+I'll prototype this simpler direction, add the suggested
+DEBUG_NET_WARN_ONCE(current->in_nf_duplicate) check at nf_reinject()
+entry, and verify the flag's lifetime and cleanup, including requeueing
+and all exit paths.
+
+This approach is intended to address the IPv4/IPv6 duplication guard.
+nft_dup_netdev uses a separate netdev xmit recursion counter, so
+I'll review that path independently.
+
+Best regards,
+Zihan
