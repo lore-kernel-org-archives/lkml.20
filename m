@@ -1,173 +1,130 @@
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98BEA3F58E0
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:26:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 402FF53445B
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:27:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791995170; cv=none; b=ncxr9uo6iGqpDiyAH4oEBCwrg92tSwV+St4qNZeMQ7bv6cgZ2Ym3tpAaXy8isURQYXEBTR4tr6vun6YHBbOgmSD2u3pIRpZbBysD17mbQzH9xBEg/q5JBa2qD+KNczFb0X0n+/LjYRfu9tysoS6A2iz9nJOZxpKXErxsvb/Y7lE=
+	t=1791995237; cv=none; b=iZDIpufhHlyGPia8rPWRRgg1KbGFnxF3IFUxsLdWwkAuEIcnLIV5l6ByDyxZDMVW5Mqqmmg/Iy1VS7UwdzAr7iB9KdiEows2o5PoDpkzEk8tkAT7ntbJj0jXDk6eZsaB/7oHTQvoQ+RJcIDf/BaJzK9wNPwAWPXO9k8a/KSBYwc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791995170; c=relaxed/simple;
-	bh=lLX4tFGPYI6KAFJ/R5NlT85vFU/9YOCKKgwjxdQV++c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Wip0yAmWaLs9PJo77B2jmBMeieZMIWFiBL/6H+VwMPMKtpmc4UuGGtE73h9Qy4pjr/UlCyP55rMGEEEwloix+lPb8gfVvTOFYL3mcna9iqbpGZdoyX9Bmmb/EnWJYNRrymC5XZFEHx50qxMFawwchBTiPDpfBRLKUPCe28DWc5I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=FAhkfvC4; arc=none smtp.client-ip=209.85.208.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1791995237; c=relaxed/simple;
+	bh=c0yy33joFZEmbfuIHCPnHt1VOe6qCnqOzWFCVZq4LCs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UCCvoG9nqM7zcz4FOSeqUq4SK9lVslHDQE1v4/KzwNh94lquZJU1F/vfY//TI3gYtotfNXdGA1ZmfoldGBm58X70+ymonGDbX/PyyBObSte0h9vxbGKOyVnoi1Qq3aTlFgsswIgCtilRlMTSaxfD6KuZbpsMzGE4VN096bSvQA4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fIP6YiS5; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="FAhkfvC4"
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6acb57c2b88so1577424a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:26:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fIP6YiS5"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a021c809e3so41887755e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:27:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1791995166; x=1792599966; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PCdj5PANVocN1j51viXw7MkFpoeK7XeNk1w2hTLnH5E=;
-        b=FAhkfvC4oaOZF3H4LiwhHO0BXQRDlRvhdh/3MwfPKxpWRWDdSfcYKPzFprDeLCww0y
-         BAxROfMsIyp07vutSG4hzGEobrz9/MchE0SOKP1jPOttiZw4Vb1nMCLhh6WSrLROQIS8
-         LVg4McZPWMd5v0qZ2uVp3QhGAuY+/iCGJ5Hhg=
+        d=gmail.com; s=20251104; t=1791995234; x=1792600034; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yniGqF21dTRj7u5IQTGNCDiFri0/FKhl7euVY4lavmk=;
+        b=fIP6YiS5uBOn9iL0/HAZVL2wLYrKAifvwzGM+6us1I/ZjA504WxZgauawr3Pty8zuX
+         aKY+wARShGpyIOsRDKxDCbZ1srN7xXo5DXt/DBDwD4Tf/DpkkLti+Cj282L6+Jh1Eszz
+         zaP6tersBa1u8KftitQZjTLfUNKexurjBwnvEPNxd1Cv9Hxdf9axwsE9SiMTg0QDtWum
+         8gom47fmpbg/Ail2PaN5l1VTNrHLGtz53kh8a1ni7k8i8X51Qtq8PR9ql5RlRSF7QyVd
+         9TYbng32CdWBQIj8pH5LGOc7lZJ2lBAX0AfJmJrxk+Mc6MGhCIHCcwCZojJuJnGvggxY
+         zMnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791995166; x=1792599966;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=PCdj5PANVocN1j51viXw7MkFpoeK7XeNk1w2hTLnH5E=;
-        b=lhVlNhmS51Jc7NY3YG3b9gyhmM7A9c/RrE+PDVDCRfPcWT87e2zTdPfVjketQQy006
-         +1nN7RZw+ooVGpbJDreVxlntEsLLjYgZt7HYtvNzi8/4i9zgNQoVAp+BZd6zMKqWy2Sp
-         L4leF4NQ8MzEbgNSMr1brg81M8rZRCVe8HUjFEL5qAaUhsyjM3OJfK33VgbaBwX4RG5b
-         1DasreT+q7XKL5ID9S2cThZL24Ixhr7RN4WOWfX9BuLBmxRZ9NgldmTeU7EfMMowWEpV
-         avCjY+BZQtujo6ZiqO015JgRSkTaEiVv3ZvLaJXNTq3Bqa3UD//pC3n0H0AL/amMzDzb
-         F/VQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzywjxJwOECFrfWCFWDTVB3vtZwS4ZWIsW0OV97GfzVjN6fIyuuA/eDdJZHZ3GNJHX3RYP9dl0AkGTHsQU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLe/ol2Zi3JDUFiPlDX3nE8m5+Krl4t8Jti+VPLEZt0VcU4V1+R
-	PbGyr4kvBpRaLFB6wegsMmkoH0198oPT2LR9QZil7D9SkS3liKQ9SHpYqmMie4MmmIvzBQ3WYrc
-	b/MAL0tg=
-X-Gm-Gg: AYBFou2t1YzFTrUn5DrDYFG/Nine8gIHoL8Vfo14CvfZJEwacSpGI6cfiaFCySrHzM4
-	wQO+dmGnR8QVNgxmmj9H+AESAq1/xWeZJ6S848/IZVtNI94qK4HpssIZgaEUSF99wMPrmevUrim
-	TIYwgHZ0JoZ7becoT4cVEBMMoKMhj/M2SuQVBuy+DIxcty2a/QXp2uF+8jCIrh2h801UxhesbDm
-	To0MRnDQZDUvKmFPREvOk/EDBVNsRM+v8w5TT31filcWo2szu4GfQtP0yKPDWa8OTNGTrRqI3Vp
-	v5GDI6k4Qir9GSzqmu+uoKjJQpXA2mp0HUFqhzkHvzSwyOofwAsrsaAW0j3HwlG699zZlV7RIpD
-	Np9JF9JpCbil4HnCiieeSte5Lelrdn1Ss/VRXL1LvTxSHUyalYJH2eentxHx4j0WGgjh6d7MI55
-	bzhW15BI3wnt/YF0Kpb+vHJj6Bguzu0LwQ19vwhNGQqLwgJFB50v6PlsDsyAX87/8gxUgJ4LIEc
-	KTPcb/xRogjgZiTJRuLZcZ2WehfHjeKHU/fvmUTv2FwmsRW
-X-Received: by 2002:a17:907:7246:b0:c2e:7daa:23e2 with SMTP id a640c23a62f3a-c31aa0dd74amr1603768566b.48.1791995165641;
-        Wed, 14 Oct 2026 09:26:05 -0700 (PDT)
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com. [209.85.218.47])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3ed9b33006sm3341066b.32.2026.10.14.09.26.00
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 09:26:04 -0700 (PDT)
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c31a34de844so177631266b.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:26:00 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByI7qTyqc774IgzWMOvjfwByJqZGIB8vIY5JPSrepLYL7AYhA4iLJclPEKItsaPiUsYrPtqlJLP95i4LlI=@vger.kernel.org
-X-Received: by 2002:a17:907:3f12:b0:c2b:ca9c:1379 with SMTP id
- a640c23a62f3a-c31aa04ac69mr1609899266b.28.1791995160582; Wed, 14 Oct 2026
- 09:26:00 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791995234; x=1792600034;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yniGqF21dTRj7u5IQTGNCDiFri0/FKhl7euVY4lavmk=;
+        b=Rvc5XUjc+09P3bw65RYQ4F0Ux4mQZCBTVf3inhYRCsWLwTBiCFARFXSJyoQXDl0pam
+         OwKDMEaQKlDH3mnRi2/MC8P4l6zMS9zGWlVzfFMQ1Mf6EjmYFk04/bNVvTR/EE94pdAH
+         PvsMliMcamaUvf617NqOqzHxV/I4DeDyX4fgkoIkb7yDfFyWb07UjrhEU0fye2bAWJj7
+         VsVeNeB4VxYKMu64c05UqDOELGYRrgGa9qyH6gCLBTrsy+J+gNysXuUyvdDM+QZ6WNIS
+         r2IhyOENO1oohs4azLcBwxtBZPVOvWjAKT+4an1skQJ6ytc2PVTrUS7ZzUsdoyYy5mqf
+         1fhw==
+X-Forwarded-Encrypted: i=1; AKwUvBz7udrNdAUYedM5g7cNLA+t6RC+naStAINMfhRc2Zq/WoCLGYoQgr2iJ8hTPWtJ6Ns5nRMJvgiyiOlh2ew=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJBpBlpA6CstWhkNT1/F6u++3AhFZoAWxwBHCtMtb+XA7/sHBTM
+	X1AMOrG8SWxlakSMc4r3WEWDcUgqqodqAW/y0oCbLvJyQ7PSM7hA8SLA
+X-Gm-Gg: AYBFou2280/VMDlrwbV4DMxmvtaC4/JP73TcIKvrwml4FGFn0wp6rhpoVAqCNXCJHnj
+	2Lo4D0AlymEjk9Kb+Z+KtUP5JFguAOD0jtEkIUP/QDBGRbT6LVh8/EYogvRSZYbFKxxsD/SGsEw
+	ajQXyoKs71mSeuR8WzkZV1+OgoAcEV+DtbRuC62kLnPCV90MV29JC2+cuUT/RX3p5DQeD35Hax+
+	hJsSY5TbzbLdOoal8IVBN0F/Gi/tEmrvxMN0Sz6VVtRDcegszeKggyAK56Fjbid/j0qn4OqQ8ZM
+	gM9zvmjj9AB7yWG7cyBJSjPAPSTeaIbouc3zOcrw5UJvFVLif8faaaAcNmtn3iI92mybNgzHxQk
+	Ecrr4B2BmRNPGrertjaMNkWiC6ggM1qPWw2IMgxK25iU307rqHMfZKlUPEq/TrhXaqQoNVz+8Ao
+	CmnA4kueIwJT/K263BWsdN6MsxFkmla3BWEASRwcNk1A2lhgCapE/YzwNOqYs5EnNleIJ7nqosL
+	naKlttXhqhHfr1ftb3yWEDtMg==
+X-Received: by 2002:a05:600c:820d:b0:4a1:65d2:7912 with SMTP id 5b1f17b1804b1-4a18e47b302mr298262975e9.8.1791995234315;
+        Wed, 14 Oct 2026 09:27:14 -0700 (PDT)
+Received: from localhost.localdomain ([188.190.249.216])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0aaabc3sm13076890f8f.16.2026.10.14.09.27.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 09:27:14 -0700 (PDT)
+From: Vladyslav Tymoshchuk <tvlad744@gmail.com>
+To: Srinivas Kandagatla <srini@kernel.org>,
+	Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Zhang Jiaxi <Z1529105815@outlook.com>,
+	Johan Hovold <johan@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	linux-sound@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Vladyslav Tymoshchuk <tvlad744@gmail.com>
+Subject: [PATCH 0/3] ASoC: qcom: qdsp6: report the position of a drained buffer
+Date: Wed, 14 Oct 2026 19:26:59 +0300
+Message-ID: <20261014162703.10172-1-tvlad744@gmail.com>
+X-Mailer: git-send-email 2.45.1.windows.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAHk-=wjLjgfwgSZ1RDk4YdNFcV0ntosMO5AmBoHD76Zb3HFY7Q@mail.gmail.com>
- <as690Xcu7FxIDYjf@thinkpad> <CAHk-=wiak+h+d2tZ5W_MwRzatUP=hJKn7cpGjDxArG-gwgHLXg@mail.gmail.com>
- <as9-2cIuGuXwE2Oa@pedro-suse.tail5790ac.ts.net>
-In-Reply-To: <as9-2cIuGuXwE2Oa@pedro-suse.tail5790ac.ts.net>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Wed, 14 Oct 2026 09:25:43 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wgkoAuxNXga29nQ8w7GxdqR+4vPAUhPsbfp+gzKrb9EgA@mail.gmail.com>
-X-Gm-Features: AclHuK_pD_yiJ_EL5fvXHW6fwc0LStnp8MOP0VvBwqqfrNX1h2hGyUqQEybsEuE
-Message-ID: <CAHk-=wgkoAuxNXga29nQ8w7GxdqR+4vPAUhPsbfp+gzKrb9EgA@mail.gmail.com>
-Subject: Re: Improve page refcount scalability
-To: Pedro Falcato <pfalcato@suse.de>
-Cc: Kiryl Shutsemau <kirill@shutemov.name>, Harry Yoo <harry@kernel.org>, 
-	David Hildenbrand <david@kernel.org>, Ilya Gladyshev <ilya.gladyshev@linux.dev>, 
-	Matthew Wilcox <willy@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Luis Chamberlain <mcgrof@kernel.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Linux-MM <linux-mm@kvack.org>, 
-	"Paul E. McKenney" <paulmck@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Wed, 14 Oct 2026 at 06:59, Pedro Falcato <pfalcato@suse.de> wrote:
->
-> On Tue, Oct 13, 2026 at 06:01:15PM -0700, Linus Torvalds wrote:
-> >
-> > So there's effectively three different things working together:
-> >
-> >  - mark a folio PG_rcu_free only when it's hot and keeps being accessed
-> >
-> >    (See commits dabc522cee5b: "mm: have folio_mark_accessed() return
-> > whether the folio is hot" and  bb5908b733a1: "mm/filemap: set
-> > PG_rcu_free on the folios that reads keep coming back to" for details
-> > - both are pretty tiny and not really all that complicated)
->
-> I'm not sure this is a good criteria for checking whether a folio should
-> be RCU-ified.
+Since commit a93dad6f4e6a ("ASoC: q6apm-dai: make use of
+q6apm_get_hw_pointer") q6apm-dai reports one frame less than the
+position of the last buffer the DSP returned, and commit 44432315444c
+("ASoC: qcom: q6asm-dai: use q6asm_get_hw_pointer") did the same in
+q6asm-dai. When the application stops feeding a playback stream, the
+position never reaches appl_ptr: ALSA never sees the underrun, the
+stream stays RUNNING without period interrupts, and drain ends on its
+timeout with -EIO. On a OnePlus Pad 3 (SM8750) this left PipeWire's
+PCM stuck for hours after a stall.
 
-So my argument really is that there is almost no downside to marking a
-page for RCU freeing.
+Patch 1 wraps the q6apm position to 0 at the end of the ring, as before
+a93dad6f4e6a. Patch 2 resets the q6apm hw pointer on prepare, which
+a93dad6f4e6a also stopped doing. Patch 3 is patch 1 for q6asm-dai.
 
-Yes, it delays the freeing, but it really doesn't make it very
-expensive - and it does make reading it noticeably cheaper.
+Patches 1 and 2 are tested on SM8750 (numbers in patch 1). Patch 3 is
+compile-tested only; a test on a Q6ASM board (RB3, RB5) and on x1e or
+sc8280xp for patches 1 and 2 would be very welcome.
 
-I'll argue that PG_rcu_free is cheaper than just marking a page
-accessed, much less having a dirty page. A page that got marked
-accessed is *also* going to make freeing it more expensive: it makes
-it go through the LRU lists one more round, and you're effectively
-delaying the freeing of that page. On an average machine these days,
-it means that that page will be delayed to happen after many other
-gigabytes of pages. But nobody even blinks an eye at *that*, do they?
+The RFC "ASoC: qcom: q6apm: correct PCM formats and error handling" by
+Zhang Jiaxi [1] touches the same hw pointer, in graph_callback() (4/4
+"recover PCM from failed data receipts"). The two do not conflict:
+that series changes when the hw pointer is published, this one how it
+is turned into a position and when it is reset, and that series
+applies on top of this one on sound/for-next without conflicts.
 
-And it's not even *remotely* the problem that a dirty page is, because
-while it requires that "wait for RCU", it won't cause the kinds of
-fundamental problems that IO causes with writeback.
+The analysis, the patches and this text were drafted with an AI
+assistant (Claude, see Assisted-by); I reviewed them and ran the tests
+described in the patches.
 
-So marking pages PG_rcu_free isn't "no cost", but it's a real upside
-if it keeps getting read, and the cost isn't actually that bad
-compared to things people don't even give a second thought to.
+[1] https://lore.kernel.org/r/SY5PR01MB10600B2BE812BAA1B0FA501B4A1932@SY5PR01MB10600.ausprd01.prod.outlook.com
 
-> - you don't need that many accesses to get an active, referenced folio. LRU
-> batching makes it a little harder, but not by much.
+Vladyslav Tymoshchuk (3):
+  ASoC: qcom: q6apm-dai: wrap the position of a full ring to 0
+  ASoC: qcom: q6apm: reset the hw pointer with the fragment queue
+  ASoC: qcom: q6asm-dai: wrap the position of a full ring to 0
 
-I thing it needs  six accesses with the current mglru and default
-settings as it goes from "not referenced at all" through the lru
-generations and then finally hits the "no more generations => it is
-hot".
+ sound/soc/qcom/qdsp6/q6apm-dai.c | 12 ++++++++----
+ sound/soc/qcom/qdsp6/q6apm.c     |  1 +
+ sound/soc/qcom/qdsp6/q6asm-dai.c |  7 +++----
+ 3 files changed, 12 insertions(+), 8 deletions(-)
 
-Sure, if you don't do mglru you hit that final stage already on the
-fourth access as it walks through "referenced", "active / ref
-cleared", "active / ref set" and "no more stages => it is hot hot".
 
-But if you read the same page six (or even just four) times, it's
-clearly somethign that keeps getting accessed. So "mark it for RCU and
-fast accesses in the future" doesn't sound at all aggressive,
-considering how low the cost is.
+base-commit: 8ef28aef33f2d5da6959ad6b579ec3cfccc009f6
+-- 
+2.43.0
 
-> - rewinding along a folio doesn't tell you much other than the reader
-> went back, for some reason. It's also natively racy so funny things like
-> multiple pread()'s to the same fd can easily confuse this mechanism into
-> marking this as hot.
-
-Multiple poread()s to the same folio is exactly the case we want to trigger.
-
-Can you make a load that marks pages active without those pages being
-useful? Absolutely. But if somebody does that intentionally, they only
-have themselves to blame if the end result doesn't perform well.
-
-And if you don't do it intentionally, you have to *work* at it. The
-read() logic already treats "continue from the same spot" as not being
-a new access. So you really have to *actively* do silly things to
-cause a page to be marked accessed six times.
-
-Or - and hear me out - that page really was accessed several times and
-should be marked for fast accesses. No?
-
-> How many pages (as a %) are you seeing as marked PG_rcu_free across a boot/
-> realistic workload?
-
-I haven't actually checked outside of "a normal boot doesn't cause
-even a single accelerated RCU period". But I'll go reboot into a clean
-kernel and see what a kernel compile does.
-
-               Linus
