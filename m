@@ -1,136 +1,142 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-183.mta0.migadu.com [91.218.175.183])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B2281E5018;
-	Wed, 14 Oct 2026 02:47:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4CC0363090
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 02:48:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.183
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791946051; cv=none; b=qpEoGN8s0IyL1S/pWOkU9SzFgJ1dGglqh3U45rN2ARHW8Ov8YxBGnjhd4wjujMPstdJywJmqcpDHbjDopiol+XLhNqdxZThiK9G/hcSH3CkYFtXwbnNFyjfVCEhUW51FdNocipkQCHfBBnZH9G4NXxAXkC98IXeRyKFRVN9eR4k=
+	t=1791946114; cv=none; b=kk4E5H17EEI15etsQW30/nB1AIyNug4VXjj+u35ia5VQcOErblemzTU4Wsy8hUAAK0EcyfFP80YP5YslfX1oeDZXRZC7RCrvEz0PiAQpNfkOBpToFvbicdoxjkiFpbY4yb01if0EaXOawRGGHEPfpEskk4xC2sr7yg05Oz1X6oQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791946051; c=relaxed/simple;
-	bh=bU47t5azK/M7N5ZkIsA0t+/wEEAt4+XV8/3+W4p/3YA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=dZZwSSAerckaZjDMj3xgzYu/c0tk00uJoKH+mWNoRV+HpnevMIkDxcnXwme4lrmXADAwU3cGXD578+LyvFhu0XHFTMtAgDy4Vl8hK80bxcxplEmoi4NjL4IiQCDDhWTBOR+USKjh+EiaEK+zlZuC6GKVP/7zMU/yBee3r4eOW3Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Gs0Y6MT6; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791946114; c=relaxed/simple;
+	bh=2kHoms2QSSahMaMVeqUufPLoRe85ZbbkTBqAyiaowT8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Xv6/FPTZ4FkhbSAAoDanHcOyt1n70ayuq6m99rSzky6/otOoRLEJp5CAG3noGyMtoq1prkueajqmywqAd+nZLhzIPTdl1uSbqmVxNM9TkdoiIojEhSMYNVZUKyQIZtHC7xg37hTr3xu/TZ7Rg0C6Iu8ppMqIiox149LeDF1dSts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Kk02qkMV; arc=none smtp.client-ip=91.218.175.183
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Gs0Y6MT6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=an
-	ruDG1Od+mlES8g/2ElYftNeL5m7dyUazrMLwBBX3k=; b=Gs0Y6MT6RlGL46T4xo
-	K8eEJMiHOcQ/qm9YQsBvs6V1y6MMqBMxUZB5WG0GGO1MklNCQHS0kBDAHzuUYeEJ
-	6qO2ei0JJfbCFhK5WOU1jOMv46mvJry7wSM/HwNbanyadK5VmYBe1i5L585o3Ao0
-	kYfxApcEpp2/rNYB3sEGq5JXM=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgDHX1YS7c5qceXuEQ--.32271S2;
-	Wed, 14 Oct 2026 10:46:44 +0800 (CST)
-From: Wei Tao <taowei@kylinos.cn>
-To: jhs@mojatatu.com,
-	jiri@resnulli.us,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: horms@kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wei Tao <taowei@kylinos.cn>
-Subject: [PATCH net] net/sched: cls_fw: allow filter replace without re-specifying mask
-Date: Wed, 14 Oct 2026 10:45:48 +0800
-Message-Id: <20261014024548.37874-1-taowei@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Kk02qkMV"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=2kHoms2QSSahMaMVeqUufPLoRe85ZbbkTBqAyiaowT8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791946109; v=1; x=1792550909;
+ b=Kk02qkMV1wnrYkoj8hoDrlMuw8WCNtXDUrHdEpkGmbHIkqWbFf4lOt7+YT2Z2U/xiEFZxaco
+ Szv5SlUvGoU/TgfbXb77JE9WqN1LAWpUwpm01sGDtvHp4qmbOyQhrmIkFcP32mgL1VDBypSK8rF
+ IXSbv//6P6ONuIu0/0/IqgtA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e25af03395e5a192;
+	Wed, 14 Oct 2026 02:48:29 +0000
+X-Mizu-Trace-ID: e25af03395e5a192
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <c9799efb-a002-4925-959f-c9a2b883d85b@linux.dev>
+Date: Wed, 14 Oct 2026 10:48:19 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgDHX1YS7c5qceXuEQ--.32271S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZF1kXF1xXry8Cw4DArWxtFb_yoW5Cr1DpF
-	1rK3WUGFsrtFyjgrWkJw1kK34a9rs3JryxuF10k34SyrZIgF4FqrWI9ayfW3yUGFZ7Ca42
-	qFs0q3y5W39rArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jtGYdUUUUU=
-Sender: cs_taowei@163.com
-X-CM-SenderInfo: xfvb3tprzhxqqrwthudrp/xtbC4RTOEGrO7RQCgAAA30
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] mm: vmscan: don't count per-node proactive reclaim as
+ memory pressure
+To: Vernon Yang <vernon2gm@gmail.com>, akpm@linux-foundation.org,
+ david@kernel.org, kasong@tencent.com, qi.zheng@linux.dev,
+ shakeel.butt@linux.dev, baohua@kernel.org, axelrasmussen@google.com,
+ yuanchu@google.com, weixugc@google.com, baoquan.he@linux.dev,
+ hannes@cmpxchg.org, mhocko@kernel.org, ljs@kernel.org,
+ roman.gushchin@linux.dev, dave@stgolabs.net
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Vernon Yang <yanglincheng@kylinos.cn>, stable@vger.kernel.org
+References: <20261012022917.1102467-1-vernon2gm@gmail.com>
+From: Ridong Chen <ridong.chen@linux.dev>
+In-Reply-To: <20261012022917.1102467-1-vernon2gm@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The fw classifier keeps the fwmark mask in the fw_head shared by all
-filters of a tcf_proto instance, so the mask is a property of the head
-and not of the individual filter: it is set when the head is created
-and cannot be changed by a filter that is being replaced.  Nevertheless
-fw_set_parms() rejects such a replace with -EINVAL whenever the head
-mask is not the default 0xFFFFFFFF and the mask is not repeated on the
-command line:
 
-  # tc qdisc add dev lo clsact
-  # tc filter add dev lo ingress prio 1 handle 1/0xffff fw classid 1:10
-  # tc filter replace dev lo ingress prio 1 handle 1 fw classid 1:20
-  RTNETLINK answers: Invalid argument
 
-The same happens for tc filter change, which calls fw_set_parms() on the
-existing filter as well.
+On 10/12/2026 10:29 AM, Vernon Yang wrote:
+> From: Vernon Yang <yanglincheng@kylinos.cn>
+> 
+> When the cgroup has no memory pressure at all, writing to
+> /sys/devices/system/nodeX/reclaim triggers proactive reclaim on
+> NUMA node, causing increase in the writer cgroup's memory PSI.
+> 
+> Due to this reclaim is performed in the context of the write(),
+> accounted as memory pressure on the writer, like
+> commit e22c6ed90aa9 ("mm: memcontrol: don't count limit-setting reclaim
+> as memory pressure"). This is unexpected, the similar scenarios (e.g.
+> senpai) will continue to occur, only this time it is for the
+> /sys/devices/system/nodeX/reclaim knob.
+> 
+> The Documentation/ABI/stable/sysfs-devices-node documentation also
+> notes that "This interface is equivalent to the memcg variant."
+> 
+> This patch unifies the semantics of the memcg and node interfaces:
+> per-node proactive reclaim is no longer counted as memory pressure,
+> and the per-node proactive reclaim interface no longer produces
+> phantom pressure.
+> 
+> I ran demo[1] that performs per-node proactive reclaim 10000 times
+> in qemu, writer cgroup memory.pressure as follows:
+> 
+> without patch:
+> 
+> some avg10=31.53 avg60=13.42 avg300=3.31 total=10602985
+> full avg10=31.53 avg60=13.42 avg300=3.31 total=10602985
+> 
+> with patch:
+> 
+> some avg10=9.59 avg60=3.41 avg300=0.81 total=2686221
+> full avg10=9.59 avg60=3.41 avg300=0.81 total=2686221
+> 
+> [1] https://github.com/vernon2gh/app_and_module/tree/main/reclaim_node_psi
+> 
+> Fixes: b980077899ea ("mm: introduce per-node proactive reclaim interface")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
+> ---
+> V1 -> V2:
+> - Check `sc->proactive` to differentiate between proactive reclaim or
+>    page allocation. (Thanks Barry)
+> 
+> V1 : https://lore.kernel.org/linux-mm/20261005062236.564210-1-vernon2gm@gmail.com/
+> ---
+>   mm/vmscan.c | 6 ++++--
+>   1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index 91295070ca33..2e9ca5e4c741 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -7994,7 +7994,8 @@ static unsigned long __node_reclaim(struct pglist_data *pgdat,
+>   					   sc->gfp_mask);
+>   
+>   	cond_resched();
+> -	psi_memstall_enter(&pflags);
+> +	if (!sc->proactive)
+> +		psi_memstall_enter(&pflags);
+>   	delayacct_freepages_start();
+>   	fs_reclaim_acquire(sc->gfp_mask);
+>   	/*
+> @@ -8011,7 +8012,8 @@ static unsigned long __node_reclaim(struct pglist_data *pgdat,
+>   	memalloc_noreclaim_restore(noreclaim_flag);
+>   	fs_reclaim_release(sc->gfp_mask);
+>   	delayacct_freepages_end();
+> -	psi_memstall_leave(&pflags);
+> +	if (!sc->proactive)
+> +		psi_memstall_leave(&pflags);
+>   
+>   	trace_mm_vmscan_node_reclaim_end(sc->nr_reclaimed, NULL);
+>   
 
-The check only makes sense for a newly created filter, where the mask
-has to be spelled out so that a filter cannot silently match on a
-non-default mask inherited from the existing head.  A filter that is
-being replaced already shares the head mask and inherits it unchanged,
-so the check can be skipped for it.
+LGTM.
 
-Tell the two cases apart with a new "new_filter" argument to
-fw_set_parms(), which fw_change() sets only when it creates a filter,
-and report the error through extack instead of failing silently.
+Reviewed-by: Ridong Chen <ridong.chen@linux.dev>
+Thanks.
 
-Fixes: b4e9b520ca5d ("[NET_SCHED]: Add mask support to fwmark classifier")
-Signed-off-by: Wei Tao <taowei@kylinos.cn>
----
- net/sched/cls_fw.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
-
-diff --git a/net/sched/cls_fw.c b/net/sched/cls_fw.c
-index a462b262719c..f1b648a11e7c 100644
---- a/net/sched/cls_fw.c
-+++ b/net/sched/cls_fw.c
-@@ -204,7 +204,8 @@ static const struct nla_policy fw_policy[TCA_FW_MAX + 1] = {
- 
- static int fw_set_parms(struct net *net, struct tcf_proto *tp,
- 			struct fw_filter *f, struct nlattr **tb,
--			struct nlattr **tca, unsigned long base, u32 flags,
-+			struct nlattr **tca, unsigned long base,
-+			bool new_filter, u32 flags,
- 			struct netlink_ext_ack *extack)
- {
- 	struct fw_head *head = rtnl_dereference(tp->root);
-@@ -229,8 +230,10 @@ static int fw_set_parms(struct net *net, struct tcf_proto *tp,
- 		mask = nla_get_u32(tb[TCA_FW_MASK]);
- 		if (mask != head->mask)
- 			return err;
--	} else if (head->mask != 0xFFFFFFFF)
-+	} else if (head->mask != 0xFFFFFFFF && new_filter) {
-+		NL_SET_ERR_MSG(extack, "Mask must be provided for new filter");
- 		return err;
-+	}
- 
- 	if (tb[TCA_FW_CLASSID]) {
- 		f->res.classid = nla_get_u32(tb[TCA_FW_CLASSID]);
-@@ -291,7 +294,8 @@ static int fw_change(struct net *net, struct sk_buff *in_skb,
- 			return err;
- 		}
- 
--		err = fw_set_parms(net, tp, fnew, tb, tca, base, flags, extack);
-+		err = fw_set_parms(net, tp, fnew, tb, tca, base, false,
-+				   flags, extack);
- 		if (err < 0) {
- 			tcf_exts_destroy(&fnew->exts);
- 			kfree(fnew);
-@@ -340,7 +344,7 @@ static int fw_change(struct net *net, struct sk_buff *in_skb,
- 	f->id = handle;
- 	f->tp = tp;
- 
--	err = fw_set_parms(net, tp, f, tb, tca, base, flags, extack);
-+	err = fw_set_parms(net, tp, f, tb, tca, base, true, flags, extack);
- 	if (err < 0)
- 		goto errout;
- 
 -- 
-2.33.0
+Best regards
+Ridong
 
