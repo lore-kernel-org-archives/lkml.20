@@ -1,182 +1,159 @@
-Received: from smtp10.goneo.de (smtp10.goneo.de [85.220.189.106])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3F5C560ADF;
-	Wed, 14 Oct 2026 17:39:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.220.189.106
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DFA953D0DB
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:39:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791999591; cv=none; b=Y6oYdBoCS9xgKskYhW0hPeI/PssBhbOz5os+NXsKPqWLCDx1aUsuMpuCleqqgdGquq9yv+tc/ILzlaoF/Mc1yJLeiVVjLyiMt/kOenKl66jL0WyeBFtdZiqSN7Oq7QH1HLkzdVvXrq9dfOrADaP+nx9XYjxd5n38jUh17LcGieo=
+	t=1791999592; cv=none; b=tQZJaB4oKY1RUY7bbwBlSJVMR/4tqkuVpVEDrKOdgSlhX2RkYTvYmzPNnaUXKVYvModqKNrBbp/3i6lGLZSxnQs3VvoIe4gOfbbSquXWkO0iQa07BAEoe8PJMCId/h+xejV0U3CLz/8JrJMphi91AA3Cc1lZ2UeHqTokqXSp+Ks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791999591; c=relaxed/simple;
-	bh=PWNslq6VHLLM9Raaxzt2s9AFImzZnA3PhRA0Eb7CG4U=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qTARUr6dRh62UDqVuh8AerC4senSeW+wwAy0IexplTPoaFTQbeAvTAyxY+/PSgM7fID8YELkZRkeFIbIW7dIbM2HRZVI9XUF6bVY+5NS03V2A6Or4hNiDkA8rcSW/SZNQNf0TsbyvQfR0zhvFrb7iOjNQZKXG8eMmwN3ZCvAcW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tk154.de; spf=pass smtp.mailfrom=tk154.de; dkim=pass (2048-bit key) header.d=tk154.de header.i=@tk154.de header.b=T/nWsEJg; arc=none smtp.client-ip=85.220.189.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tk154.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tk154.de
+	s=arc-20240116; t=1791999592; c=relaxed/simple;
+	bh=oluG7xcmeITa8FLe+FfnkX9ip9PZfkSG9lEZJ8KGjgU=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=kFdjXoW+5/yaZK9JOy6cZR/uKq1WPDRg9cUEfU54uHW2NZ+ch4eex5riLpcEEtc++945GRGsrW03Boea6VzyoJuttTX75qoaaEyeWifA3W7eFyGdwEq4PKosVIpUhwmWNdkqLhiS/R/ZSx62zhopQLZtVm0p4LL6Ccu7Wag6MVs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=FHNmFEda; arc=none smtp.client-ip=74.125.82.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tk154.de header.i=@tk154.de header.b="T/nWsEJg"
-Received: from hub2.goneo.de (hub2.goneo.de [85.220.129.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by smtp10.goneo.de (Postfix) with ESMTPS id A45AA24037A;
-	Wed, 14 Oct 2026 19:31:52 +0200 (CEST)
-Received: from hub2.goneo.de (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by hub2.goneo.de (Postfix) with ESMTPS id 61C342404E3;
-	Wed, 14 Oct 2026 19:31:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tk154.de; s=DKIM001;
-	t=1791999110;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=1HZIxrWp3/KeLWyxpicEoOuGfRyQwXuNYgUtQ/r5qmo=;
-	b=T/nWsEJgyVAgLW1RU/83O6crSqi68iRUW8Zf3em44EB1h+8E/SKzLUbzBMkIrFH4PxanDG
-	JKHWKTZItEgvn3aupY0SIuBgYZk9s630IaiXMIgrr4Em6JET6XksTNwuaStAYzAgppHqdp
-	4FnBDON3Wk+CvzZU+Sv7IjEC3HmxUTxCmOn+WjPlpVQ2t+Pc4bKHyz71zuBYIZVEUm07Z3
-	TO+zJwS/rRcSGdQOgDgyOY92sF43vaxH0qPIRZni3qTx0aPtCKdLJrNS+Dd0arMAuJWtph
-	+wgEKwruYQofeTi0+TJTCJQ9U55QOkn6W3HavtGUqRViqJ64bGBBV+9xuIcl0w==
-Received: from Til-Notebook.meshlab (unknown [195.37.88.189])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by hub2.goneo.de (Postfix) with ESMTPSA id 781C024040A;
-	Wed, 14 Oct 2026 19:31:47 +0200 (CEST)
-From: Til Kaiser <mail@tk154.de>
-To: netdev@vger.kernel.org
-Cc: Til Kaiser <mail@tk154.de>,
-	stable@vger.kernel.org,
-	Ido Schimmel <idosch@nvidia.com>,
-	Petr Machata <petrm@nvidia.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	Vadim Pasternak <vadimp@mellanox.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net] mlxsw: Initialize register query payloads
-Date: Wed, 14 Oct 2026 19:31:17 +0200
-Message-ID: <20261014173117.26305-1-mail@tk154.de>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="FHNmFEda"
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-351788121cfso8087996eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:39:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791999586; x=1792604386; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZGiIOUHQmkHQqIV3kW/XLCzmw9OTAtIO2OAegBC+Ifc=;
+        b=FHNmFEdaFVAAwfxyBF5krWrJu13XCissowIJqWrMICvPl5PEeTU0cJaYSVOmNA9lxr
+         +ebIVidCQrXE51Fho28NGbl54s2qxcLUZXJgW+WyKzMh9bN0H5tarQ0mgq2M6tyPmpoK
+         vl5+J/6lf49VnX3loQNt93gnfqu2OtNiQVvPZqZJ2o0BPqucGSAccSHcTMxKBeJtUUhB
+         faJnmCUaIEr5Qxh6V9dd7bJWODBIEHOfE/RE+bVfOTvz/MXNbSEntHuxqMduzHGxB1eB
+         cEhuXbwAbZq1GaceScL0Ez9XoLjgXv8ueZ3UWjjHqef73iFxn2FeHRrJP8OCbWoVuCyW
+         CVJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791999586; x=1792604386;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZGiIOUHQmkHQqIV3kW/XLCzmw9OTAtIO2OAegBC+Ifc=;
+        b=N9fzRXYH20nssPglnrWRew5yU+erbIrLl5X1leqRpTGA/viBLfKHx34geqPKyyNqCT
+         llsq8P8F05zDW84TJBjyrdpicECykQ3ejJZuOrg4A5ONhhdHnujOTz/odEKmlqOzvexC
+         DokpsqiynaRwYR1mYN/3Hia2/aux27wy2nJDTet11btK9B/XXUjOcCNcX5dRi+MuswHT
+         Ax0fq0opgAnvt60EU3yukBEcRn1cJurYBzmA2ptsr5BInXZ3UWOMlplqx1B9JQX/96H/
+         v1vR5bcChJ9oZfDeKJZ1f4p406AdLpuB9+lVL1+Fdgm3cTZQHiBoMMiFPP0Mr/B/maqH
+         p4bA==
+X-Forwarded-Encrypted: i=1; AKwUvBwt0UhicJwgWhnT6SQR6G6iXEaFcKAciqF+wxEcIDOjadPv2WePsq8JVdED4PMDsW0LlIKShg30e3rYWsg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKE5jBKUNlA3IRbVy1+jLJMkr/Y6Oxlxn5jz5K4MuYpmDlJv9Vn
+	006UFJ1A3NSOYXMnSHzY5aZRcVNmpLAW5a2xlgn5icD/U73HR1a9pcxkiIdNXVGLaNo6o3L+AXB
+	z9qe5Gd9LW6gtZ88FjsJz7JnJyA==
+X-Received: from dycno2.prod.google.com ([2002:a05:7301:1442:b0:351:7d2d:e1d7])
+ (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:693c:20c3:10b0:35c:afc2:a752 with SMTP id 5a478bee46e88-35cafc2a8acmr6893595eec.7.1791999585721;
+ Wed, 14 Oct 2026 10:39:45 -0700 (PDT)
+Date: Wed, 14 Oct 2026 17:37:14 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-UID: 4a72b7
-X-Rspamd-UID: 89885c
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
+Message-ID: <20261014173945.373295-1-almasrymina@google.com>
+Subject: [PATCH net-next v3 0/6] net: unify symmetric netmem and page_pool refcounting
+From: Mina Almasry <almasrymina@google.com>
+To: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-rdma@vger.kernel.org, bpf@vger.kernel.org
+Cc: Mina Almasry <almasrymina@google.com>, Ayush Sawal <ayush.sawal@chelsio.com>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Tariq Toukan <tariqt@nvidia.com>, Simon Horman <horms@kernel.org>, 
+	Steffen Klassert <steffen.klassert@secunet.com>, Herbert Xu <herbert@gondor.apana.org.au>, 
+	Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
+	John Fastabend <john.fastabend@gmail.com>, Sabrina Dubroca <sd@queasysnail.net>, 
+	Eric Biggers <ebiggers@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Aleksandr Loktionov <aleksandr.loktionov@intel.com>, Petr Machata <petrm@nvidia.com>, 
+	"=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?=" <u.kleine-koenig@baylibre.com>, Jakub Raczynski <j.raczynski@samsung.com>, 
+	Wang Zhan <wang.zhan@smartx.com>, Willem de Bruijn <willemb@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-MFGD register queries can exhaust EMAD retries and leave Mellanox
-Spectrum switches stuck during boot or shutdown when running OpenWrt
-built with GCC 15.
+netmems (pages and net_iovs) have two independent refcounts: a non-pp
+refcount (page._refcount or binding->ref) governing backing memory
+lifetime, and pp_ref_count governing recycling within a page_pool while
+page_pool holds a single backing non-pp reference. SKBs with
+pp_recycle=1 own pp_ref_count references on page_pool fragments; SKBs
+with pp_recycle=0 own non-pp references.
 
-An example failure is shown below with the second line wrapped:
+Core helpers currently mix these two refcounts asymmetrically:
+skb_frag_ref() always increments the non-pp refcount via get_netmem(),
+whereas skb_frag_unref() decrements pp_ref_count when skb->pp_recycle
+is set. Any path that refs a fragment on a pp_recycle=1 SKB (or unrefs
+with a hardcoded recycle=false) increments one counter and decrements
+the other, leaking the backing memory while underflowing pp_ref_count
+(e.g., IP-TFS [1], skb_split(), skb_shift(), and cloned SKB uncloning).
+Unclear core APIs also led drivers and ULPs to open-code pp_ref_count
+manipulations or add one-off helpers like skb_pp_frag_ref().
 
-  EMAD retries (5/5) (tid=9b544fc100001f35)
-  EMAD reg access failed (tid=9b544fc100001f35,reg_id=90f0(mfgd),
-                          type=query,status=0(operation performed))
+Unify fragment refcounting into symmetric pairs where each layer clearly
+specifies which refcount it touches:
 
-On an SN2100, the failure occurs during driver teardown on reboot.
-On an SN3420, it occurs while probing mlxsw_spectrum during boot.
+- Non-PP refcount: get/put_page(), get/put_net_iov(), get/put_netmem()
+- PP refcount:     napi_pp_get/put_page()
+- SKB netmem:      skb_netmem_ref/unref(netmem, recycle)
+- SKB fragment:    skb_frag_ref/unref(skb, f)
 
-The register query API transmits the supplied payload to the device
-before replacing it with the response. Both MFGD callers pass an
-uninitialized stack buffer, so the request contains arbitrary register
-field values and reserved bits. This makes the request depend on stack
-contents and compiler code generation.
+Found by code inspection while reviewing [1] and confirmed with the KUnit
+tests in patch 6; not observed in production. Driver and ULP call-site
+changes are compile-tested only.
 
-Initialize both MFGD query buffers in the firmware fatal event
-configuration and reporter test paths. The initialization has been
-confirmed to eliminate the boot and shutdown hangs on both switches.
-The subsequent read-modify-write still preserves the other fields
-returned by the device.
+Link: https://lore.kernel.org/netdev/xfrm-iptfs-pp_ref_count-underflow-v4-1-912fa72106f0@secunet.com/ [1]
 
-Also initialize the FORE fan fault query and the MOGCR mirroring policer
-base query, which pass entirely uninitialized payloads. Restore the MTMP
-query initialization in the temperature history reset path, where only
-the slot and sensor index fields are set before querying the register.
-
-This follows commit 5b0907407e7f ("mlxsw: core: Zero payload buffers for
-couple of registers"), which initialized other query payloads after a
-firmware field length bug caused firmware to consume uninitialized data.
-
-Fixes: 7d83ee111008 ("mlxsw: core: Introduce fw_fatal health reporter")
-Fixes: 2c6a33cd334b ("mlxsw: core: Extend hwmon interface with fan fault attribute")
-Fixes: 4039504e6a0c ("mlxsw: spectrum_span: Allow setting policer on a SPAN agent")
-Fixes: b890ad418e1f ("mlxsw: core_hwmon: Extend internal structures to support multi hwmon objects")
-Cc: stable@vger.kernel.org
-Signed-off-by: Til Kaiser <mail@tk154.de>
 ---
- drivers/net/ethernet/mellanox/mlxsw/core.c          | 4 ++--
- drivers/net/ethernet/mellanox/mlxsw/core_hwmon.c    | 4 ++--
- drivers/net/ethernet/mellanox/mlxsw/spectrum_span.c | 2 +-
- 3 files changed, 5 insertions(+), 5 deletions(-)
+v3:
+- Linearize straddling output segments in skb_segment() when frag_list
+  SKBs mix pp_recycle flags instead of clearing NETIF_F_SG, and add a
+  KUnit regression test (Sashiko).
+- Link to v2: https://lore.kernel.org/netdev/20261012082148.1698596-1-almasrymina@google.com/
 
-diff --git a/drivers/net/ethernet/mellanox/mlxsw/core.c b/drivers/net/ethernet/mellanox/mlxsw/core.c
-index 308d8a94865f..42e9689d7f35 100644
---- a/drivers/net/ethernet/mellanox/mlxsw/core.c
-+++ b/drivers/net/ethernet/mellanox/mlxsw/core.c
-@@ -2001,7 +2001,7 @@ mlxsw_core_health_fw_fatal_test(struct devlink_health_reporter *reporter,
- 				struct netlink_ext_ack *extack)
- {
- 	struct mlxsw_core *mlxsw_core = devlink_health_reporter_priv(reporter);
--	char mfgd_pl[MLXSW_REG_MFGD_LEN];
-+	char mfgd_pl[MLXSW_REG_MFGD_LEN] = {0};
- 	int err;
- 
- 	/* Read the register first to make sure no other bits are changed. */
-@@ -2022,7 +2022,7 @@ mlxsw_core_health_fw_fatal_ops = {
- static int mlxsw_core_health_fw_fatal_config(struct mlxsw_core *mlxsw_core,
- 					     bool enable)
- {
--	char mfgd_pl[MLXSW_REG_MFGD_LEN];
-+	char mfgd_pl[MLXSW_REG_MFGD_LEN] = {0};
- 	int err;
- 
- 	/* Read the register first to make sure no other bits are changed. */
-diff --git a/drivers/net/ethernet/mellanox/mlxsw/core_hwmon.c b/drivers/net/ethernet/mellanox/mlxsw/core_hwmon.c
-index 30f172ce822c..a5e7aee730d6 100644
---- a/drivers/net/ethernet/mellanox/mlxsw/core_hwmon.c
-+++ b/drivers/net/ethernet/mellanox/mlxsw/core_hwmon.c
-@@ -120,7 +120,7 @@ static ssize_t mlxsw_hwmon_temp_rst_store(struct device *dev,
- 			container_of(attr, struct mlxsw_hwmon_attr, dev_attr);
- 	struct mlxsw_hwmon_dev *mlxsw_hwmon_dev = mlxsw_hwmon_attr->mlxsw_hwmon_dev;
- 	struct mlxsw_hwmon *mlxsw_hwmon = mlxsw_hwmon_dev->hwmon;
--	char mtmp_pl[MLXSW_REG_MTMP_LEN];
-+	char mtmp_pl[MLXSW_REG_MTMP_LEN] = {0};
- 	unsigned long val;
- 	int index;
- 	int err;
-@@ -177,7 +177,7 @@ static ssize_t mlxsw_hwmon_fan_fault_show(struct device *dev,
- 			container_of(attr, struct mlxsw_hwmon_attr, dev_attr);
- 	struct mlxsw_hwmon_dev *mlxsw_hwmon_dev = mlxsw_hwmon_attr->mlxsw_hwmon_dev;
- 	struct mlxsw_hwmon *mlxsw_hwmon = mlxsw_hwmon_dev->hwmon;
--	char fore_pl[MLXSW_REG_FORE_LEN];
-+	char fore_pl[MLXSW_REG_FORE_LEN] = {0};
- 	bool fault;
- 	int err;
- 
-diff --git a/drivers/net/ethernet/mellanox/mlxsw/spectrum_span.c b/drivers/net/ethernet/mellanox/mlxsw/spectrum_span.c
-index ae63d549b542..d54fe5e61296 100644
---- a/drivers/net/ethernet/mellanox/mlxsw/spectrum_span.c
-+++ b/drivers/net/ethernet/mellanox/mlxsw/spectrum_span.c
-@@ -1720,7 +1720,7 @@ static int mlxsw_sp2_span_init(struct mlxsw_sp *mlxsw_sp)
- static int mlxsw_sp2_span_policer_id_base_set(struct mlxsw_sp *mlxsw_sp,
- 					      u16 policer_id_base)
- {
--	char mogcr_pl[MLXSW_REG_MOGCR_LEN];
-+	char mogcr_pl[MLXSW_REG_MOGCR_LEN] = {0};
- 	int err;
- 
- 	err = mlxsw_reg_query(mlxsw_sp->core, MLXSW_REG(mogcr), mogcr_pl);
+v2:
+- Clear NETIF_F_SG in skb_segment() when frag_list SKBs mix pp_recycle
+  flags (patch 4).
+- Export skb_shift() via EXPORT_SYMBOL_IF_KUNIT() to fix the
+  CONFIG_NET_TEST=m modpost error reported by NIPA (patch 6).
+- Reset mac_header before skb_segment() and check skb_clone() results in
+  KUnit (Sashiko), and extend KUnit coverage to compound tail pages,
+  skb_try_coalesce(), TCP devmem recvmsg, skb_zerocopy() rollbacks,
+  skb_split()/skb_shift() edge cases, and mixed pp_recycle frag_list GSO.
+- Note how the issues were found and tested (netdev-bot), and add
+  Assisted-by tags.
+- Link to v1: https://lore.kernel.org/netdev/20261010083935.3274178-1-almasrymina@google.com/
 
-base-commit: 513444cc62e231a11c9b15ea88de0890da9b2b4f
+Mina Almasry (6):
+  netmem: rename __get/__put_netmem() to get/put_net_iov()
+  net: skbuff: add napi_pp_get_page() and use it in tcp_recvmsg_dmabuf()
+  net: skbuff: replace skb_page_unref() and __skb_frag_unref() with
+    skb_netmem_unref()
+  net: skbuff: replace __skb_frag_ref() with symmetric skb_netmem_ref()
+  net: skbuff: use skb_frag_ref() in skb_try_coalesce()
+  net: kunit: test netmem, page_pool, and skb frag refcounting
+
+ .../chelsio/inline_crypto/ch_ktls/chcr_ktls.c |    2 +-
+ drivers/net/ethernet/marvell/sky2.c           |    2 +-
+ drivers/net/ethernet/mellanox/mlx4/en_rx.c    |    2 +-
+ drivers/net/ethernet/sun/cassini.c            |    4 +-
+ drivers/net/veth.c                            |    2 +-
+ include/linux/skbuff_ref.h                    |   64 +-
+ include/net/netmem.h                          |   24 +-
+ net/core/net_test.c                           | 1222 +++++++++++++++++
+ net/core/skbuff.c                             |  157 ++-
+ net/ipv4/esp4.c                               |    4 +-
+ net/ipv4/tcp.c                                |    6 +-
+ net/ipv6/esp6.c                               |    4 +-
+ net/tls/tls_device.c                          |    2 +-
+ net/tls/tls_device_fallback.c                 |    2 +-
+ net/tls/tls_strp.c                            |    2 +-
+ net/xfrm/xfrm_iptfs.c                         |    3 +-
+ 16 files changed, 1387 insertions(+), 115 deletions(-)
+
+
+base-commit: 05b5019b01fb9443b09ae4ed34af1135a80a84c8
 -- 
-2.55.0
+2.56.0.212.g129ede20d9-goog
 
