@@ -1,65 +1,69 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C335656510C
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:34:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BB7E56854B
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:34:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791999268; cv=none; b=La04UlLNV8/VTlsA87uFLal18KpYzLMWj91DJCmHolENbhM3R0163ZVIg+pGog+5fy5JLSJ5zwnFOT8uXe1evj0c9bdhL8/ShV0V04SyuusV2gc5r83qjMNct5s7eUhOJEbvAeKLVt6TdDvFc6087Pg9hUUmmGGyfk+aUp/COpg=
+	t=1791999270; cv=none; b=fSRGRKOQGDwhZP71r2qy/BzR6e/6ylvCvsuS+EvxxohZwZyVgco9MOJ7GJuNv3dqYtLOlkI/BuWWFeLBMydn23LenFp8oNeCbaKwz6gKAudTaFDKJH+XNzZRXdJwpBhrvAm83kMzlODu1r1nkfLCXeHi26hg1dmWB3WbRUl+zz0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791999268; c=relaxed/simple;
-	bh=UmwoUy2RLKROTQa9nLKvk2PAEQc/mPogh9co6DXStm4=;
+	s=arc-20240116; t=1791999270; c=relaxed/simple;
+	bh=tEaYoaokfTDeC+YTWR3V+2BkXiRgjSARyNOHEZYlDSM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=HxdK+0RbfEiCPjWDZ1O/Yos4STFxxGN9/h6x4+Zv+2Yvq4PRZxu8rM+AoG4/LdCf67FFo8pa0/pnb4+hg8fdMvw1iUMFDPch3Hmpfx2y93YBv0ZE214Dpt8y1Ua13mGIYY7DFmBCofGO0rIXtZrxV9PjnbbOByyu1ggoDbe9Xrw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=intelfx.name; spf=pass smtp.mailfrom=intelfx.name; dkim=pass (1024-bit key) header.d=intelfx.name header.i=@intelfx.name header.b=bvzGbVmm; arc=none smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=intelfx.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intelfx.name
+	 In-Reply-To:To:Cc; b=JP7BGYNHLs5gBLnRPy17LBgYG7qfc01BwdC2mkohGfSs9iUyJgwCPhB0X8l67At2zjEJvDHmB34X0jlOJM3Z3MvjkLqXeU+2/eH1MeSt8V8Ax6XYbRXWhhh0bwNFtSrCqLVcLosDA1+UHRbP+dV0EOc9S9gegLlytptvFzi5t4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kTr/V+Sb; arc=none smtp.client-ip=209.85.218.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=intelfx.name header.i=@intelfx.name header.b="bvzGbVmm"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48c6955a7c3so1250363f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:34:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kTr/V+Sb"
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c3ee49054ecso10661766b.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:34:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=intelfx.name; s=google; t=1791999259; x=1792604059; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791999263; x=1792604063; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=j1nJDWDOJGAldhZBmhrDDp81nykTikheSxGLMobXSOw=;
-        b=bvzGbVmmTCBjN1yHm0OW7eSQHeMD9Y5PfDdTkgBA86yLd7rARPD0+ubPtXPMH1a+pS
-         y5hQg+mCUMIVBr7LZ2rnrfuEcA+ec4v0QU7VUVfqOI2+5dd4bxM4rwIQdAgpA8N3AcoP
-         y/IMI4jffCjlTUj6ZXGq7rRa6Fp2nZ3QF/LAs=
+        bh=4o314AkdT/hGMbAfrRQAXUHtm0eSAGgqeibTH2FdEkQ=;
+        b=kTr/V+SbgjAUKvRfsrnQ5vhDid2r9OpinKSRPvLTq+WTha/2X+8BT1ItxSN4POf5nk
+         Y2HWWhSdO/3JP8S8ktee9XFHXo4RHBubEZJK6ON60cK6iz8QpleKHpniuwJbVbrCWASO
+         QgkFJ/CND7QJBHFSEP9Teuffmd75T6Utl/s+aBSd2n0qUUuHBs3kHd2wWWTRixyLp0Yn
+         wUohuTW1KXLaqygx7bQmM1f2Bv59yoUfz0hcUhbB+0+bdnLVd17NoURLgkG9ZNyzTKOV
+         2wdqu6Sa26o79Va8fNGyL833xN0BnrnzLUlbln7OZsxU/mtfZQbFK47I2aX4l9i72DTz
+         h3rA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791999259; x=1792604059;
+        d=1e100.net; s=20260707; t=1791999263; x=1792604063;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=j1nJDWDOJGAldhZBmhrDDp81nykTikheSxGLMobXSOw=;
-        b=cRZtir/GTYG9VBRu/OYHVxZDvcBa2H0/4EkKTC61+kTON9jNYnCIV7mMQbXUXnxQff
-         +Xg4BqIDw93AYBbmDqgxyXZJ0SB/3FWsQCfkw9fduqond+sBPqakGHSVc3ODOObBwlte
-         pNApHdDB8dCvqRCgjZ+2yBsJ6o9m1jcgbzZ1ZFcnCGsmoSuot1DmnB6p+62F4yI8VnyO
-         cSmyVC5wDaGvQkbjynpG9oDtHmDbRzfLi7mz8khxkpTcNQqakrFYPXCFZsn1oXuogyP9
-         8+2uDs5WDS/Mpwf4Khgx1VVJpsI03kISoEXWl9clxxF9GMt/P5Pk1uRb6GRSw6cQaZFp
-         8kmQ==
-X-Forwarded-Encrypted: i=1; AKwUvByIF5UkhWzu20nu9AYZDXm2TZszvWop8igwW+KGTkqNh7SVD+4gbVje+gAUiHhQ+XJGETPcrcD7HtWzsA8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIGKB4ap1BbkBQDUpsz4aWsHiv5iyga2+hULFfc6zT7kw21hXhH
-	JRPE9Uikhhg7W0PxK5AUrNWvry4m+lLcJn7yWY1Ey8R2aaD1NOX9rSUDHTW1jJw/xF0=
-X-Gm-Gg: AYBFou20NBVX+vW4MBYzIJbo1Jx3r+4Lf+LuwNFTHOZVBQYh5SC0/a1fNws9RYNmjFJ
-	Iz7Vk9P4hf3qpdEtQa/I/0j7T8S6Z2Zrd2sLPKx8M+VrENCHFlKHzFEnHM76GOEj+rBqLOwmx3o
-	oAYSR+7GOeZNO2J3mihGyKJpnj50cFbjQcB8Suj1JG4x+kq/T6KtgsD8waZtSnNNlkD5wqGYeaW
-	R57ih8cz4evPEcbDm3kRWIBUDKDAM0BVUGb/3d2paDDNSMX7mq0fJSSXSaJE0SEpOChPQ/6BnEb
-	LeAfHF1w0kjWrGqxunR+h6wQcvgkmizbdLAVQneuj6vFD/5N3q1/ODxGwpAvDcgYbajL68sd8Yg
-	IRtkERakHRrUvLDYdAdFV3YlkJAgf6QsX3TOHG3wdcefY4YAHvpbdeRyGEhveFX3QvHQNZNfVEc
-	h2gSMInn9vhOIvioI2hTDWBdJzyXw3c1XP3hfNyelzlcqLv5M2aL4/BM6i
-X-Received: by 2002:a05:6000:188a:b0:48b:b1a1:a002 with SMTP id ffacd0b85a97d-48dbacf561dmr34815477f8f.24.1791999258718;
-        Wed, 14 Oct 2026 10:34:18 -0700 (PDT)
-Received: from localhost ([2a00:1358:e0ce:6800::3db])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de7273a0esm8994724f8f.29.2026.10.14.10.34.18
+        bh=4o314AkdT/hGMbAfrRQAXUHtm0eSAGgqeibTH2FdEkQ=;
+        b=Q0y4mhWn2UPw0fLiL34oduURhsDSL+UTEBUMoj3C1RVDgFqRGaYmNUwN1Lpobjg0GJ
+         1QcGbLiyD3Yya9XZjzdv00b/BL0qFIOWrBxtaTSHAvSWZnZAZBjj5FQ6QzYVq6PwQL9J
+         9cgc/byJQMNK3Xh/m37M2NHxtiqX70+LUfpMrDjPu1rNbczdYJ+CuG1R7wtTYhRynG6x
+         pzQVB8bEzNjcd7eeP3TjaDPjJBtdbwLoptnbskkPckl1Rac+XkoqpcAYAqLtDAvvgiHx
+         CF6jEebsHYqt21tRzu/Y0oxVeMrH1NDUrkNIODM/GGREdFmKrbZltv/sInIXAFuVVvOw
+         yY3w==
+X-Forwarded-Encrypted: i=1; AKwUvBw66c3wDkTKRxMKLOlyZIuAQzaukjhu92tQeT0wYmKuCEUzUI/u/WzqwVxl1pcZBDMAw35hXfK/HBLE5Zo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI+8OKMKNToR1SoN/ZieVqxn86LqsMqQ5bCv3hYA/DyXoeo44jN
+	5GOYgN0o6+YatNKxiDqcXSPFD8oFSMf3QvledRv08OqUQcOOreR9lyJxV+Jrqyif
+X-Gm-Gg: AYBFou2sZ4SEGDfuKKDvB/mNcePcrmBBT+D9L4/C88Z4WCpQxZ+eEKpZcC5YDN47DBI
+	uGqtOgdz9m/oqiCyQmw0wcV2hUVx8qIOyRp4dR+g5MWuQ+e3v6rBgoxeBm/2e8enU055b0eydUB
+	/lZE1IGYyb+wm2eXV1WLZxNE4OTN855NTDdhZTa10dZzjI4Hwjss2nHAjZukOI1014P5/qA0zzM
+	aqsZoisLs7i/u/L9LZZPVuy/+YM+pe6w6q1266mPaS68HQJtJ3l8XP1KFccf8gLd5Eev/LXTW0i
+	3ToqqX8Tk1dScBX+1+6MgimytTbbvgpomIPVkqVwUpsB4yiCUBRbTLsMUrEsIO3QM6+a/lz7URC
+	OeTM3uO0j3/k8zka6brEy8EhUMav4zsKLb95tbcJJdccTTkYbnM2RbApMJ9Q7a1dxcPHdbSGoqo
+	YCBim0anUmmppVRS1Uf3LqXktXKBXkyxH6NF1m5z3pCKZ40nYhqALq95Ea8vdHzdLzFcvc4cQa8
+	ERouhgJhlaOFDNc
+X-Received: by 2002:a17:907:3d4a:b0:c26:22ae:b66b with SMTP id a640c23a62f3a-c31a9fa1d4amr1618151866b.15.1791999263151;
+        Wed, 14 Oct 2026 10:34:23 -0700 (PDT)
+Received: from [127.0.1.1] ([2001:4bb8:148:f08c:65a8:f8e5:f310:5a71])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3ed963cecesm9381366b.21.2026.10.14.10.34.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 10:34:18 -0700 (PDT)
-From: Ivan Shapovalov <intelfx@intelfx.name>
-Date: Wed, 14 Oct 2026 20:34:07 +0300
-Subject: [PATCH 1/4] perf: zstd: zstd_decompress_stream ->
- zstd_decompress_buffer
+        Wed, 14 Oct 2026 10:34:22 -0700 (PDT)
+From: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+Date: Wed, 14 Oct 2026 19:34:05 +0200
+Subject: [PATCH v3 06/11] hwmon: chipcap2: disable device after hwmon
+ teardown
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -68,91 +72,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-perf-zstd-v1-1-9652727886fa@intelfx.name>
-References: <20261014-perf-zstd-v1-0-9652727886fa@intelfx.name>
-In-Reply-To: <20261014-perf-zstd-v1-0-9652727886fa@intelfx.name>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>, Nick Terrell <terrelln@fb.com>, 
- David Sterba <dsterba@suse.com>
-Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Ivan Shapovalov <intelfx@intelfx.name>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2632; i=intelfx@intelfx.name;
- h=from:subject:message-id; bh=UmwoUy2RLKROTQa9nLKvk2PAEQc/mPogh9co6DXStm4=;
- b=LS0tLS1CRUdJTiBQR1AgTUVTU0FHRS0tLS0tCgpvd0did012TXdDVVdHM2x2aGVTbFF6Mk1wO
- VdTR0xMTzd4Vks4STdSL0x4K3dtb2Uxc2Q4M3B5WE0rZEwvRGxWCituaU4ySlU3dWVVaE4rVjNk
- NVN5TUloeE1jaUtLYkxzdmo4dDdOSGNDVXFIUERma3dzeGhaUUlad3NERktRQVQKcVhuSHlMREp
- vVm5lKzMvc2Y2WW5iUWFTN0wrZXFmSHVjVFRmWEJjWG1mUlFlT24xMTlLTURITmlNK1AwUGh4VQ
- pPNmkxVitUM1ZCYXJTS0c2d20vWGY5NytlUHJVcm03alNRd0EKPUlOQ0sKLS0tLS1FTkQgUEdQI
- E1FU1NBR0UtLS0tLQo=
-X-Developer-Key: i=intelfx@intelfx.name; a=openpgp;
- fpr=04DEA27EEF682F17083D892295D5D5F5A5A5E5E5
+Message-Id: <20261014-chipcap2_locks-v3-6-27ebfc2c5b9e@gmail.com>
+References: <20261014-chipcap2_locks-v3-0-27ebfc2c5b9e@gmail.com>
+In-Reply-To: <20261014-chipcap2_locks-v3-0-27ebfc2c5b9e@gmail.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Javier Carrasco <javier.carrasco.cruz@gmail.com>, stable@vger.kernel.org
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791999252; l=1970;
+ i=javier.carrasco.cruz@gmail.com; s=20260924; h=from:subject:message-id;
+ bh=tEaYoaokfTDeC+YTWR3V+2BkXiRgjSARyNOHEZYlDSM=;
+ b=DU00AsHpqm60m8y8hn5WeCDWjaGzKIjb8MGXi6ooaNx0rRcHilmSsoGZ7KWf9UAzL0l6yheJ/
+ A7xJ9vTetJfDZJb90s6FWyJegpqVQY+TFNRvSerHuL7jvfKy2eo0DYh
+X-Developer-Key: i=javier.carrasco.cruz@gmail.com; a=ed25519;
+ pk=VV+hcMoOj1Sx6xSiY0W/FZNAskGZe2AagSMVj0PsmAs=
 
-Existing zstd_decompress_stream() function is a misnomer. Rename that
-to zstd_decompress_buffer() to free the name for a future _actual_
-streaming decompression function.
+cc2_remove() disables the device while the device-managed hwmon device is
+still registered. A concurrent sysfs callback can then enable the device
+after it has been disabled during removal.
 
-Signed-off-by: Ivan Shapovalov <intelfx@intelfx.name>
+Register a device-managed disable action before registering the hwmon
+device, so devres unregisters the hwmon device before disabling the
+physical device.
+
+Fixes: 3af350929e75 ("hwmon: Add support for Amphenol ChipCap 2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
 ---
- tools/perf/util/compress.h | 4 ++--
- tools/perf/util/tool.c     | 2 +-
- tools/perf/util/zstd.c     | 2 +-
- 3 files changed, 4 insertions(+), 4 deletions(-)
+ drivers/hwmon/chipcap2.c | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
 
-diff --git a/tools/perf/util/compress.h b/tools/perf/util/compress.h
-index ec6c38129e248..e7aa89d31fc6f 100644
---- a/tools/perf/util/compress.h
-+++ b/tools/perf/util/compress.h
-@@ -57,7 +57,7 @@ ssize_t zstd_compress_stream_to_records(struct zstd_data *data, void *dst, size_
- 				       ssize_t process_header(void *record, size_t dst_size,
- 							      size_t data_size));
+diff --git a/drivers/hwmon/chipcap2.c b/drivers/hwmon/chipcap2.c
+index 21dc6db27c40..654f6420da7a 100644
+--- a/drivers/hwmon/chipcap2.c
++++ b/drivers/hwmon/chipcap2.c
+@@ -152,6 +152,11 @@ static void cc2_disable(struct cc2_data *data)
+ 	}
+ }
  
--size_t zstd_decompress_stream(struct zstd_data *data, void *src, size_t src_size,
-+size_t zstd_decompress_buffer(struct zstd_data *data, void *src, size_t src_size,
- 			      void *dst, size_t dst_size);
- #else /* !HAVE_ZSTD_SUPPORT */
++static void cc2_disable_action(void *data)
++{
++	cc2_disable(data);
++}
++
+ static int cc2_cmd_response_diagnostic(struct device *dev, u8 status)
+ {
+ 	int resp;
+@@ -744,6 +749,10 @@ static int cc2_probe(struct i2c_client *client)
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Failed to get IRQs\n");
  
-@@ -82,7 +82,7 @@ ssize_t zstd_compress_stream_to_records(struct zstd_data *data __maybe_unused,
++	ret = devm_add_action_or_reset(dev, cc2_disable_action, data);
++	if (ret)
++		return ret;
++
+ 	ret = cc2_request_data_ready(data, dev);
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Failed to request ready irq\n");
+@@ -762,13 +771,6 @@ static int cc2_probe(struct i2c_client *client)
  	return 0;
  }
  
--static inline size_t zstd_decompress_stream(struct zstd_data *data __maybe_unused, void *src __maybe_unused,
-+static inline size_t zstd_decompress_buffer(struct zstd_data *data __maybe_unused, void *src __maybe_unused,
- 					    size_t src_size __maybe_unused, void *dst __maybe_unused,
- 					    size_t dst_size __maybe_unused)
- {
-diff --git a/tools/perf/util/tool.c b/tools/perf/util/tool.c
-index 25c9b378aa163..d7956cd75c26d 100644
---- a/tools/perf/util/tool.c
-+++ b/tools/perf/util/tool.c
-@@ -101,7 +101,7 @@ static int perf_session__process_compressed_event(const struct perf_tool *tool _
- 		goto err_decomp;
- 	}
- 
--	decomp_size = zstd_decompress_stream(session->active_decomp->zstd_decomp, src, src_size,
-+	decomp_size = zstd_decompress_buffer(session->active_decomp->zstd_decomp, src, src_size,
- 				&(decomp->data[decomp_last_rem]), decomp_len - decomp_last_rem);
- 	if (!decomp_size) {
- 		munmap(decomp, mmap_len);
-diff --git a/tools/perf/util/zstd.c b/tools/perf/util/zstd.c
-index d98014902f012..af113660d1ce0 100644
---- a/tools/perf/util/zstd.c
-+++ b/tools/perf/util/zstd.c
-@@ -104,7 +104,7 @@ ssize_t zstd_compress_stream_to_records(struct zstd_data *data, void *dst, size_
- 	return -1;
- }
- 
--size_t zstd_decompress_stream(struct zstd_data *data, void *src, size_t src_size,
-+size_t zstd_decompress_buffer(struct zstd_data *data, void *src, size_t src_size,
- 			      void *dst, size_t dst_size)
- {
- 	size_t ret;
+-static void cc2_remove(struct i2c_client *client)
+-{
+-	struct cc2_data *data = i2c_get_clientdata(client);
+-
+-	cc2_disable(data);
+-}
+-
+ static const struct i2c_device_id cc2_id[] = {
+ 	{ .name = "cc2d23" },
+ 	{ .name = "cc2d23s" },
+@@ -801,7 +803,6 @@ static struct i2c_driver cc2_driver = {
+ 		.of_match_table = cc2_of_match,
+ 	},
+ 	.probe		= cc2_probe,
+-	.remove		= cc2_remove,
+ 	.id_table = cc2_id,
+ };
+ module_i2c_driver(cc2_driver);
 
 -- 
-2.55.0.8.g37e2a0019f
+2.43.0
 
