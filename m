@@ -1,29 +1,29 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7C883CF1E5;
-	Wed, 14 Oct 2026 09:53:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D679E4E4C45;
+	Wed, 14 Oct 2026 09:53:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791971604; cv=none; b=r+cP2CxiuoIWnTogwKCi8EMKXoMlX/qx6Bk8/Leev0/j+HH0L0gd7I2xtt4DvMggZ+YGg7oUajZAl/SMguneDUP2SBdxMfFFOAcmNih0rIiQCkVd7c6rSqNnsvfhrIhut3U7WLL0eN31Ec7k4MNBmT0MIXFzcNdyBwfiMyvvRBE=
+	t=1791971606; cv=none; b=rMUHaKwJ2QxqnLGsFTeFOvqoOd5KZAeQxpntNVIq6araY6zuDZgy8urzs/2q0pm/BSZotNFHxm17EuuGgexAchxRQrvbgThDS4JZotnu73xGGuKvv+4D31hK3n2O9dBmp4ufdT9s5SVzniZYnC6IzEiDbiefkG34aVu4o+jJTp0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791971604; c=relaxed/simple;
-	bh=biPtmC0wOFMGfWl9M/PsEX6DOpe2VvgmQEmZJgJUhrU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NMCFkZcGEAdRRJwDWAGKcafQF4C6ctNv6zhyoGAPBgu1Kulqfhh4OrKONl8Xs3t3SfbLCdUiX8OhQfXXZ8ZIA7F98UfMrIEdwBjk9xPKay5kgyC85KOIB8WrArqoMPBelRQzLV1g9GLJGinaqObsBspO2sbrsUWzjN4dd64bSOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=j/iRy6Hg; arc=none smtp.client-ip=117.135.210.5
+	s=arc-20240116; t=1791971606; c=relaxed/simple;
+	bh=YPWP1DqJ8x22UjHIkyCmAIQgzVIpuia3ZNAjHQ3wTdI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MMPoAorTNE89iaav/Z8AlWje8YnR14VXhlY0VmRLSEYDzDi4Lvq1fR41eoNvf2vBEPSPBXBQfjamb5HFb0b3OddfJV/Q6a/DK5JCxNql8Ys+ZrVCeJ5fr7a8WW9QyvMSnAWVn1LkJuKOtIRmLmUKJj3cHEGx0Y6eiRLf5eIPpm4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=S7MePvHT; arc=none smtp.client-ip=220.197.31.5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="j/iRy6Hg"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="S7MePvHT"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=nj
-	il1zqbwsx3R7+HXKM6YsB1392h9RcOPNgYxsO1yKc=; b=j/iRy6HgRoWPCvfRRV
-	g0u3x5Y4FnZbesFrH3r7CNz1szgPhvuZx2bVI8ots++53TKgNpTRGkreDrO3satZ
-	QWzMSmxfLV14iIwULyHks3N5uBrt5qmvOKEFPGr8BpeX6+Tor8PpgN1rbqVytH9c
-	glC1f/KUaPkVik5/OJmFMDBng=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=F2
+	42g82W3O6vWGqoJI+u5Yy93g3q8kIls99pfxxpGhQ=; b=S7MePvHTClKgRgZ8jl
+	8xDhCm8KM4tT5l88d3HiGayeIY5XEgvg0EEZtBOOq7FC5knERK/gwbxOLxUn/a0D
+	+A7gvppjHq37t23RpXAXYyVUe8WS7jcnQKmakKlknvCIeVsILDXCeTl2QX3N+taS
+	M+DeHrv8ehbE0wOCBmz/MVjXQ=
 Received: from localhost (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wAnTvTnUM9q6kpbEQ--.10126S2;
-	Wed, 14 Oct 2026 17:52:40 +0800 (CST)
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wDnr17mUM9qHkpbEQ--.65245S2;
+	Wed, 14 Oct 2026 17:52:39 +0800 (CST)
 From: Hui Su <sh_def@163.com>
 To: elver@google.com,
 	dvyukov@google.com
@@ -34,9 +34,9 @@ Cc: kasan-dev@googlegroups.com,
 	workflows@vger.kernel.org,
 	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 1/4] kcsan: add targeted watchpoint matching
-Date: Wed, 14 Oct 2026 18:52:35 +0900
-Message-ID: <20261014095238.2132580-2-sh_def@163.com>
+Subject: [RFC PATCH 0/4] kcsan: add targeted watchpoint sampling
+Date: Wed, 14 Oct 2026 18:52:34 +0900
+Message-ID: <20261014095238.2132580-1-sh_def@163.com>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -45,114 +45,83 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wAnTvTnUM9q6kpbEQ--.10126S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCw15XF4fCry5tFWxJr4xZwb_yoW5ZFyDpF
-	yDKryrJ398XFWavF43A3WDZr1rGw1kGry7tFWxC39293W5Kr9ag34kWr9rtF4jgrZF9F15
-	GFZ8ArZ5CrWUJ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jb8n5UUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6QjcPGrPUOjT4QAA3u
+X-CM-TRANSID:_____wDnr17mUM9qHkpbEQ--.65245S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxuF48WrWfJF1rXFWrJw1UWrg_yoWrXr4Dp3
+	95KrWrGrWUJrWftrZ3A3WUZFyrW3ykJF4UAF1xJrWDZwn0gFyaqr10qw1jyayUKrn3CF15
+	X3W0yry8W3yUA3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jbvtAUUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6gfbO2rPUOe26gAA3D
 
-Add target state and a static key to KCSAN. When a target is set, only
-non-atomic instrumented accesses containing that address are eligible for
-watchpoint setup. Other accesses do not consume the skip interval. Keep
-report filtering independent from target matching.
+Hi,
 
-Signed-off-by: Hui Su <sh_def@163.com>
----
- kernel/kcsan/core.c  | 37 +++++++++++++++++++++++++++++++++++++
- kernel/kcsan/kcsan.h | 10 ++++++++++
- 2 files changed, 47 insertions(+)
+While investigating a low-frequency scheduler access around `calc_load_idx` in
+`kernel/sched/loadavg.c`, I found that KCSAN's per-CPU `kcsan.skip_watch`
+interval can make focused reproduction difficult. Unrelated instrumented
+accesses on the same CPUs may consume the interval before execution reaches a
+known suspicious address. This is a limitation in focused-debugging control;
+the proposal leaves the default sampling policy unchanged.
 
-diff --git a/kernel/kcsan/core.c b/kernel/kcsan/core.c
-index 2db82661cd60..2a58a3a53adb 100644
---- a/kernel/kcsan/core.c
-+++ b/kernel/kcsan/core.c
-@@ -12,10 +12,12 @@
- #include <linux/delay.h>
- #include <linux/export.h>
- #include <linux/init.h>
-+#include <linux/jump_label.h>
- #include <linux/kernel.h>
- #include <linux/list.h>
- #include <linux/minmax.h>
- #include <linux/moduleparam.h>
-+#include <linux/mutex.h>
- #include <linux/percpu.h>
- #include <linux/preempt.h>
- #include <linux/sched.h>
-@@ -108,9 +110,40 @@ static atomic_long_t watchpoints[CONFIG_KCSAN_NUM_WATCHPOINTS + NUM_SLOTS-1];
-  */
- static DEFINE_PER_CPU(long, kcsan_skip);
- 
-+static DEFINE_STATIC_KEY_FALSE(kcsan_target_key);
-+static DEFINE_MUTEX(kcsan_target_lock);
-+static unsigned long kcsan_target_addr;
-+
- /* For kcsan_prandom_u32_max(). */
- static DEFINE_PER_CPU(u32, kcsan_rand_state);
- 
-+void kcsan_target_set(unsigned long addr)
-+{
-+	unsigned long old;
-+
-+	mutex_lock(&kcsan_target_lock);
-+	old = READ_ONCE(kcsan_target_addr);
-+
-+	if (!old && addr) {
-+		/* Publish the address before enabling the fast-path branch. */
-+		WRITE_ONCE(kcsan_target_addr, addr);
-+		static_branch_enable(&kcsan_target_key);
-+	} else if (old && !addr) {
-+		/* Disable the fast-path branch before invalidating the target. */
-+		static_branch_disable(&kcsan_target_key);
-+		WRITE_ONCE(kcsan_target_addr, 0);
-+	} else if (old && addr) {
-+		WRITE_ONCE(kcsan_target_addr, addr);
-+	}
-+
-+	mutex_unlock(&kcsan_target_lock);
-+}
-+
-+unsigned long kcsan_target_get(void)
-+{
-+	return READ_ONCE(kcsan_target_addr);
-+}
-+
- static __always_inline atomic_long_t *find_watchpoint(unsigned long addr,
- 						      size_t size,
- 						      bool expect_write,
-@@ -277,6 +310,10 @@ should_watch(struct kcsan_ctx *ctx, const volatile void *ptr, size_t size, int t
- 	if (is_atomic(ctx, ptr, size, type))
- 		return false;
- 
-+	if (static_branch_unlikely(&kcsan_target_key))
-+		return kcsan_target_matches(READ_ONCE(kcsan_target_addr),
-+					    (unsigned long)ptr, size);
-+
- 	if (this_cpu_dec_return(kcsan_skip) >= 0)
- 		return false;
- 
-diff --git a/kernel/kcsan/kcsan.h b/kernel/kcsan/kcsan.h
-index ae33c2a7f07e..2a36813c3a76 100644
---- a/kernel/kcsan/kcsan.h
-+++ b/kernel/kcsan/kcsan.h
-@@ -25,6 +25,16 @@ extern unsigned int kcsan_udelay_interrupt;
-  */
- extern bool kcsan_enabled;
- 
-+void kcsan_target_set(unsigned long addr);
-+unsigned long kcsan_target_get(void);
-+
-+static __always_inline bool
-+kcsan_target_matches(unsigned long target, unsigned long addr,
-+		     size_t size)
-+{
-+	return size && target >= addr && target - addr < size;
-+}
-+
- /*
-  * Save/restore IRQ flags state trace dirtied by KCSAN.
-  */
+Setting `kcsan.skip_watch=0` removes the interval globally and can make
+watchpoint setup much more frequent for all eligible accesses. The existing
+debugfs whitelist and blacklist filter which reports are emitted after
+watchpoint selection; they do not select which addresses may set up a
+watchpoint. There is currently no runtime control to focus setup attempts on
+one known address while leaving unrelated accesses out of that selection.
+
+This RFC adds an optional single-address target to the KCSAN debugfs
+interface. When enabled, a non-atomic access is eligible to set up a watchpoint
+only when its byte range contains the target address. Matching accesses bypass
+the normal `kcsan.skip_watch` interval; nonmatching accesses neither set up a
+watchpoint nor consume that interval. The target can be specified as an address
+or a kallsyms symbol, including `module:symbol`; `target=off` restores normal
+sampling. A static key guards the disabled path.
+
+Patch 1 adds single-address target matching and the static-key-guarded runtime
+state. Patch 2 exposes address and symbol targets through debugfs, patch 3
+tests the matching semantics, and patch 4 documents the interface and its
+performance implications. The standalone integration module used for runtime
+checks is local and is not included in the series.
+
+Testing:
+- x86_64 GCC and Clang `bzImage modules` builds completed, and the candidate's
+  built-in KCSAN selftest passed 4/4. Runtime validation recorded setup
+  activity for exact-address and `module:symbol` targets, none for a
+  nonmatching target, and normal sampling after `target=off`.
+- In a separate motivating loadavg run, targeting `calc_load_idx` produced a
+  KCSAN report involving `calc_global_load()` and `calc_load_nohz_start()`. A
+  separate upstream run with the default `skip_watch=4000` did not report
+  those locations during its test window.
+- Across 10 rounds of 1,000,000 accesses, medians were `24.549 ns/access`
+  upstream, `24.654 ns/access` with targeting disabled, and `26.981 ns/access`
+  with an enabled nonmatching target. The disabled-path results were
+  indistinguishable at this measurement granularity. A separate 10-round,
+  10,000-access hot-match run measured `81.1 us/access`: every matching
+  access enters `kcsan_setup_watchpoint()`, so this includes setup slow-path
+  work and represents focused debugging rather than normal use.
+
+Questions for discussion:
+1. Is address-targeted watchpoint sampling a useful primitive for focused
+   KCSAN debugging?
+2. Should matching accesses bypass the normal `kcsan.skip_watch` interval, as
+   proposed here, or should targeted mode retain its own sampling interval?
+3. Is the existing KCSAN debugfs file an appropriate interface for configuring
+   a single target?
+
+Hui Su (4):
+  kcsan: add targeted watchpoint matching
+  kcsan: add debugfs target control
+  kcsan: add targeted watchpoint selftest
+  docs: kcsan: document targeted watchpoint sampling
+
+ Documentation/dev-tools/kcsan.rst | 17 ++++++++++++++
+ kernel/kcsan/core.c               | 37 +++++++++++++++++++++++++++++++
+ kernel/kcsan/debugfs.c            | 28 ++++++++++++++++++++++-
+ kernel/kcsan/kcsan.h              | 10 +++++++++
+ kernel/kcsan/selftest.c           | 29 ++++++++++++++++++++++++
+ 5 files changed, 120 insertions(+), 1 deletion(-)
+
+
+base-commit: 4056b3c9d3c92ea45955641dbafeb9b960e146ef
 -- 
 2.55.0
 
