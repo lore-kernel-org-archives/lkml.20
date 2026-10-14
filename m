@@ -1,168 +1,416 @@
-Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010013.outbound.protection.outlook.com [52.101.46.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5CF256C645
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:35:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.43
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792002943; cv=none; b=JLZww4Go6jpZ0qa9K3uJZIEE+UBclAbTrj9vY9rBa7KoCVvNMPLOmST2nH2uY0rVLSFsCVEBdSofjCI4UDGJgfuspeIskoTnfo0SdCcymsvS3zdXB9n50jxbMDmZeiJSPPQJtCxDMXv5X5Oo6+CTP2QkwC89DRj5AKthu64uBos=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792002943; c=relaxed/simple;
-	bh=88113piBjDKcd3BEuRd6GgwtB1S5y5KxGWl0ypNsWv4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QZVpZjAB07XHBLTmrYk0rlzyxAYC8f4uIMeAPQEiRdeKRNOLhbDO0BIisBqTvY4Gr09AD4r7n7Gbsk9WT6bqhn5k8QrFx6ijP6i/hlUEMSUA6mGU1F2JIfj+bnWA72EQlksmLI0CyJdwaWiaWBVkedyLC3eY53nS7CaaqUD+dGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L589kPJx; arc=none smtp.client-ip=209.85.210.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36EA0379C32
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:37:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792003026; cv=fail; b=mkvlmme82MSWT8/7Gx71vAQGOLHJE5BU0gViDPQNoHl+EnsZuC3gTjKoDtNt1lGHCOHUAnYPBMuGacStz6EOBLxWoLVr2oUNmEp1Mtn9k574qQDD9Gek8I4wUYJFB055P1axU3STHS6ZOSQwyt1NS7flupoD1X7OjhgN3Ymxhn8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792003026; c=relaxed/simple;
+	bh=+Y33W7Lca8GVei/T94gY9OlQ0uNDdbaK2YSiFoQDh/k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=EkqO3xvtWPJKvYBEiaQ7AzkWY9Kh2fHVX+FmWkPMREkjTH7KLQnD5yIXpR5bX9KBXSXcMFbYDNs8HbT70iaA7n2UwEmXZnm8ZfspBK8Tm5IaRe7Y7/zEom+yk9OFoMLOfgXIOoHr8jMw1S+C/SY2UVdv9Zj+kI/vWdtTptn87+Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=sJ/xq4/i; arc=fail smtp.client-ip=52.101.46.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L589kPJx"
-Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-81c5aac8478so3266957a34.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:35:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792002937; x=1792607737; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3ypJpkmQRRV1BQV0ur1VLkim3Ln3Ci6KGz+PKJeDImg=;
-        b=L589kPJxyheOJFrvFaoRURnSnMITeqEYw9FgvGBCIuMyAognpD/woXdNB1jSOy+qQn
-         FU5Ad9gAE1rqDASwH0biN/TCgug7yDzfT1BLStpBPRfLpstuLSA35cJuMaoMiy4i0M5O
-         t7nQ0QDMRA1sL84gpakJbRb3BIvJAGWr6l6ASdN9zv7P8VlgT34L9ek3bSO5gMhQk5Xu
-         Obm03cvARQWXotvwUafLzxIA6CftKoZEvABw3gJZh/NPZy5S/3xyI7GxD4cdAf4vqYiV
-         KJVuqTGPPcZszc0R0H2ANZIqC6R7akTugSI85GX1ApoYdTj8Qg4guqHzIw/rx75+2eru
-         tWWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792002937; x=1792607737;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3ypJpkmQRRV1BQV0ur1VLkim3Ln3Ci6KGz+PKJeDImg=;
-        b=CKaBJBQ/i3Ar4EkLYHrC2Dwdnvarxtxv7gg3ldYykZGG8xU5K/78Uvz3x7lWqTcj6z
-         U9BX4j1TIXpQ0bEtEDTNNFAubPq0ru053sEm0PSXCFusTuqG+5F0uB+wnR08s3gKtYmd
-         ca8nmldPFrJmHMIe8PYCx74lMWbHvGjyWbtMcb2pPGKCgstvt+9crV/EOvyBuKWLGg2W
-         31+d7jMnca9zYab5C/tDiwiA/7GnPlip26Izt7GmxDuypyNRWX0RKMVzvWcQTLxAMaf1
-         0heVfGq+ruq7OLv5OZyVXwGzGyAtfGCfH6YlaWH9Fn37vn/0aZknTi8ADB2zLsp7Fclm
-         KNcA==
-X-Forwarded-Encrypted: i=1; AKwUvBwIZVC3D/fvGJ4LmmDSkgC+dbiYFZAXVqVTp9xHAkUz9defZ9LNGeN30ww+ZYAXvIc+8AlgE+LapczSiEY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIUF8kPSOIQh+DpXQqCVvxX6Al1zb64gxOqIiHxjceJiW4OcT/Q
-	qrskE3cBRPfHy1EMrIvp9XFLS8G4sc7rQ31ph5/BrMGNTJOPQoLIgKQ9
-X-Gm-Gg: AYBFou3dMrvxyb9C5LzCXLsA8xWDlyoiikf+4+DEoA7WE25V1Xsgl5zRUHFfCm+VrZU
-	p7GnLIoLX9egcv+RtGhEOqG+MunZ4goe5XJYJ6w7zmgGReS/DR85sk8xJ3vY7TJq8o2LbZSnt+P
-	yJp/6vRoPaFyrMSb0qcVonSsGSMNI9AjINAbbe/PpDlTKJMtj/pAVw9FvG87LdcvPMBccqtf8y+
-	CJVHaWRTKWjANSthRh5h32i3Ix98/s2ZRrClhuzhPVkQXhqu+Zs6HoHoY/MUJ/NmSFSuOND5EbK
-	vc2Riq6L9JoEB+R05xFNXSbJxda1PCaCJlF0NMfZkIlrEPwQ6oWFru8G3ADVhuDkHlkufOcfdzT
-	mhmzcUoOIa4dr3zKqbHB9p19K3OwYkYIU899Z6UXTKvg+rYVgPWYQbjcg5KaUxFZsAHSzF+2hCd
-	8u4JkYlJe+CAeJxbYQ+5atLKHQ2Ozk0tmOn29oDrbBTJwO0pUUw3cGEjiPbweyQ7iEZfSkpTz2U
-	xrr6+l/UzbOJyT5ICGXC9+INpgBbdLzfugi+fRbcyzfVsMbLxE9sO+DbvfC4qKRT2yH0+lduPwv
-	rI6qOPZsXcmKgg==
-X-Received: by 2002:a05:6808:6c8e:b0:4f3:e98f:fa19 with SMTP id 5614622812f47-50c57695fe4mr15959952b6e.61.1792002937206;
-        Wed, 14 Oct 2026 11:35:37 -0700 (PDT)
-Received: from MaquinaLab.. ([187.14.248.87])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-50c0c5fe7d0sm17325426b6e.2.2026.10.14.11.35.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 11:35:35 -0700 (PDT)
-From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-To: Andre Przywara <andre.przywara@arm.com>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Yixun Lan <dlan@gentoo.org>,
-	Enzo Adriano <enzo.adriano.code@gmail.com>,
-	linux-gpio@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFT] pinctrl: sunxi: Fix A733 withstand programming
-Date: Wed, 14 Oct 2026 15:35:16 -0300
-Message-ID: <20261014183516.172060-1-vinicius.eduardo.pedrosa@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261014001334.54dcf0b5@ryzen.lan>
-References: <20261013142351.771229-1-andre.przywara@arm.com> <20261013172427.328177-1-vinicius.eduardo.pedrosa@gmail.com> <20261014001334.54dcf0b5@ryzen.lan>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="sJ/xq4/i"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iRsjXhdtlamz0USv9gpFN4RE17t6GUTt9WExEa42qTVMcg0Nr549kxdrC8n81S7gfXmbVnjfKMuzVRsvyX3NauI5rtUAtV5qGKtHNN2aqUAM1dunqE/zBL1wKmXiVdDHi69y3VKPX7MBFMGBcJYM/cpEUlRCIj9BjlMG+BewzlXpNFZ/5Cih/0OZw+TsGZthEyMY7dlWLPV334Vs5S21JVL2ZjYigYItLjve+rf8trIW0eo3wKi9r7jUqQSNBcka/vTZwmYeFlcQs0CO7/BeMECMsDyAbmL7BfyuJaEP87KFjGHgTT6ARn1xtuNBT4pYtlxkmh05oyymiilEtLwRSg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MyMfqintm8aj2Sui2MH/QR2TVt+KD2frPLFxGIglsQQ=;
+ b=nPlPbPA/xBzg1kMOMiDPt9NZmHfk1Y1fhHLF8k15/8nzGWiWQjk2UnjfDAU9V9WaO1DMc/BrskNrD3fh33tVwOSWGJRjeudUBKQPJhRGHsZqsZIaCvw84qjsw7SwJ+ejclIvbv56/J+MZJyIng56Ph3LN4cC2waM5nqv4te+YuorBdS4L0oomh8ZZLymwwu2/j0olwuvtr2XX3OHyo6NB/IQqTJ64ACiK2/qTw6HQKIeTcGXUN7c42c9lUIFIuGrttO971+pZGNric36oBMppB88y4R4RQii4TyBM1hb1DoYbUF+4/8WX2P8vJ18oJrZKOYyi5ehGpoZTjofMvAXGQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MyMfqintm8aj2Sui2MH/QR2TVt+KD2frPLFxGIglsQQ=;
+ b=sJ/xq4/ijpw4XGUjLbFfPpK722bawFCcLFHcY96r1ruY9NkmKcXX+rI2+mH+h4fIKCADqh0eJ4w6Z1v1YoGP+pRIeFajl7YPDUnCNwEI6+xVXwkZWiqnUawq/5k+xLth9IC7Cab3sapT9tEGcuSeUzhQbMaO0dcYlLjtPG/OHEE=
+Received: from PH7P221CA0014.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:32a::8)
+ by MW6PR12MB8705.namprd12.prod.outlook.com (2603:10b6:303:24c::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Wed, 14 Oct
+ 2026 18:36:50 +0000
+Received: from CY8PEPF00000057.namprd21.prod.outlook.com
+ (2603:10b6:510:32a:cafe::ac) by PH7P221CA0014.outlook.office365.com
+ (2603:10b6:510:32a::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Wed, 14
+ Oct 2026 18:36:48 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CY8PEPF00000057.mail.protection.outlook.com (10.167.247.20) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.0 via Frontend Transport; Wed, 14 Oct 2026 18:36:47 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 14 Oct
+ 2026 13:36:40 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Wed, 14 Oct 2026 13:36:39 -0500
+Message-ID: <ebcf212e-fadf-8661-565e-bb7b63afc46a@amd.com>
+Date: Wed, 14 Oct 2026 11:36:45 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH V4 19/19] accel/amdxdna: Implement runtime suspend and
+ resume support
+Content-Language: en-US
+To: David Zhang <yidong.zhang@amd.com>, <quic_jhugo@quicinc.com>,
+	<karol.wachowski@linux.intel.com>, <max.zhen@amd.com>, <ogabbay@kernel.org>,
+	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+CC: <sonal.santan@amd.com>, <mario.limonciello@amd.com>
+References: <yidong.zhang@amd.com>
+ <20261009225343.3079074-1-yidong.zhang@amd.com>
+ <20261009225343.3079074-20-yidong.zhang@amd.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <20261009225343.3079074-20-yidong.zhang@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY8PEPF00000057:EE_|MW6PR12MB8705:EE_
+X-MS-Office365-Filtering-Correlation-Id: e0fc15f1-3b82-4b4b-e81d-08df2a221a86
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|82310400026|36860700016|1800799024|261009223327099003|56012099006|10067099003|11063799006|4143699003|261009220027099003|261009223027099003|22082099003|18002099003|261009221227099003|261009221727099003;
+X-Microsoft-Antispam-Message-Info:
+	0KTxrWhcnxTZPds2IRVdOBDwcKIiBH3UGA1yru0WCgoZzbL/6nliArmp9sEQBrOiuq1izRFPD4i67t/wLcOrAFeMrilVxVG2oxdEm7+B4+VC1lzt9Ilw0V2zb5cvy2zjsahedvt3uqbIpyGp1rebOcLMZL4SxdCDh1sOVIACRoIHBVuHNzMudwlb+bOtmQ4oMmbnubrr6YUdWWp4tHB4bdleD2muOP0QoCuB1ayPmeOfpkd5oIkVE22Vu/P3ayjO40F9fbgxkFlEBCLaGjMsZBauh+/7gMUHOcDC2Vy+k1GMO8fsoT/iY/XNy3Pg91jEXqTzBmTuFhOiIH+7RKyKE11SBf0wfmRIHjnkfdei4SuTwVMWWRjAl9L6jxtvYvewtOUIcQVriw4839tCSDPSdtNy+lqKpbr9OX6v1F+52HKEc/5N49Sy7xi9noswp4TdMX/2Ps7Cap9kngd/dxVGbtL8p2qr3GvWHSTnraJKqOsBvU28xg5XbJnTlhlayScnyhMEHNoPU3/881wedsvoVBZNZlvpe381HCulDMxf/y4+JbQTwq2Fdn7Rx3m95gUsg3AteUH269+cPgb0IBtgCIaYtrhF7UUVRqCrV9YL3YhZzeXK6izLQY8TfWjO9LCv7p1izNIba169SU8n1WDfH5DgjUc5/cgaSYXC56TNl6AXzwdBUvFybHjTTOkMLZbfeG20iDmVE4Cpo1rmXZ7zkQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(82310400026)(36860700016)(1800799024)(261009223327099003)(56012099006)(10067099003)(11063799006)(4143699003)(261009220027099003)(261009223027099003)(22082099003)(18002099003)(261009221227099003)(261009221727099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	nEk/OvZd7Z3C9T/fGYDG/CwZmSSBRYBodtjL6DOWI+kX19Qs5Jnx+ut8MqFJDINE/bZ94dFjADidICNQfM4or/O2PIriCjNH7GWXkJiMKCjQ34qUqxtNH6dMUHja17I6KJvZM2kkVNJTOHrfZbpotWfwFbPnnhuqWALnaS+n/+zw6NfIPGHCTMO3QWu5EpGBWwRtT4M9UW3yM74DRnwUChkpkQIQrRVCTKbMpJ1SMvyhG5NU1XpiQR16RxVpFrj26vKKO9xXLVnHh2qVClaEngTY01DjJeie5/WCv9MaZudAm3ZNa7aa2a3ha2pPdt7jeV3+kRrKJ79OPth8VMi5qqac3/UogPMobb+0Z30yeK/4XLz2wtNcsCl1smeUkFemp5hzNfxrSWhGCz22cNWS3rSgB3gYTlxYHkkn/A3TlFGWYTE+n+DTzLtUZoH//zWn
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 18:36:47.1313
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e0fc15f1-3b82-4b4b-e81d-08df2a221a86
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY8PEPF00000057.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8705
 
-Hi Andre,
 
-On Wed, 14 Oct 2026, Andre Przywara wrote:
+On 10/9/26 15:53, David Zhang wrote:
+> Add runtime suspend/resume for the AIE4 classic device by using its
+> system suspend/resume handlers.
+>
+> Runtime suspend returns -EBUSY for a device without runtime_suspend,
+> so the PM core keeps it active instead of entering an error state.
+>
+> A context suspended by runtime PM makes the command wait return
+> -EAGAIN. Resume the device in the wait ioctl and wait again, so a
+> command wait does not fail because of power management.
+>
+> Wrap .driver.pm and the AIE4 PM callbacks with pm_ptr(), so they are
+> discarded when CONFIG_PM is disabled.
+>
+> Signed-off-by: David Zhang <yidong.zhang@amd.com>
+> ---
+>   drivers/accel/amdxdna/aie2_pci.c        |  2 ++
+>   drivers/accel/amdxdna/aie4_ctx.c        | 10 +++++-
+>   drivers/accel/amdxdna/aie4_pci.c        |  4 +++
+>   drivers/accel/amdxdna/amdxdna_ctx.c     | 47 ++++++++++++++++++-------
+>   drivers/accel/amdxdna/amdxdna_pci_drv.c |  4 +--
+>   drivers/accel/amdxdna/amdxdna_pci_drv.h |  2 ++
+>   drivers/accel/amdxdna/amdxdna_pm.c      | 34 ++++++++++++++++++
+>   drivers/accel/amdxdna/amdxdna_pm.h      |  2 ++
+>   8 files changed, 90 insertions(+), 15 deletions(-)
+>
+> diff --git a/drivers/accel/amdxdna/aie2_pci.c b/drivers/accel/amdxdna/aie2_pci.c
+> index 690ad035463c..a3866e8933e6 100644
+> --- a/drivers/accel/amdxdna/aie2_pci.c
+> +++ b/drivers/accel/amdxdna/aie2_pci.c
+> @@ -1221,6 +1221,8 @@ const struct amdxdna_dev_ops aie2_ops = {
+>   	.fini = aie2_fini,
+>   	.resume = aie2_hw_resume,
+>   	.suspend = aie2_hw_suspend,
+> +	.runtime_resume = aie2_hw_resume,
+> +	.runtime_suspend = aie2_hw_suspend,
+>   	.get_aie_info = aie2_get_info,
+>   	.set_aie_state = aie2_set_state,
+>   	.hwctx_init = aie2_hwctx_init,
+> diff --git a/drivers/accel/amdxdna/aie4_ctx.c b/drivers/accel/amdxdna/aie4_ctx.c
+> index a2b6b0fa2934..a3f0a69b93b7 100644
+> --- a/drivers/accel/amdxdna/aie4_ctx.c
+> +++ b/drivers/accel/amdxdna/aie4_ctx.c
+> @@ -22,6 +22,7 @@
+>   #include "amdxdna_mailbox.h"
+>   #include "amdxdna_mailbox_helper.h"
+>   #include "amdxdna_pci_drv.h"
+> +#include "amdxdna_pm.h"
+>   
+>   #define CTX_INVALID_ID			(~0U)
+>   #define CTX_INVALID_DOORBELL		AMDXDNA_INVALID_DOORBELL_OFFSET
+> @@ -377,10 +378,14 @@ int aie4_hwctx_init(struct amdxdna_hwctx *hwctx)
+>   	if (ret)
+>   		goto destroy_lock;
+>   
+> -	ret = aie4_hwctx_create(hwctx);
+> +	ret = amdxdna_pm_resume_get_locked(xdna);
+>   	if (ret)
+>   		goto umq_fini;
+>   
+> +	ret = aie4_hwctx_create(hwctx);
+> +	if (ret)
+> +		goto suspend_put;
+> +
+>   	priv->job_work_q = alloc_ordered_workqueue("aie4_job_%d_%d", 0,
+>   						   client->pid, hwctx->fw_ctx_id);
+>   	if (!priv->job_work_q) {
+> @@ -388,12 +393,15 @@ int aie4_hwctx_init(struct amdxdna_hwctx *hwctx)
+>   		ret = -ENOMEM;
+>   		goto destroy_ctx;
+>   	}
+> +	amdxdna_pm_suspend_put(xdna);
+>   
+>   	XDNA_DBG(xdna, "hwctx %d.%d init completed", client->pid, hwctx->fw_ctx_id);
+>   	return 0;
+>   
+>   destroy_ctx:
+>   	aie4_hwctx_destroy(hwctx, AIE4_HWCTX_NORMAL);
+> +suspend_put:
+> +	amdxdna_pm_suspend_put(xdna);
+>   umq_fini:
+>   	aie4_hwctx_umq_fini(hwctx);
+>   destroy_lock:
+> diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
+> index 70a052ab5f77..60140c3927a2 100644
+> --- a/drivers/accel/amdxdna/aie4_pci.c
+> +++ b/drivers/accel/amdxdna/aie4_pci.c
+> @@ -1041,6 +1041,7 @@ static int aie4_classic_init(struct amdxdna_dev *xdna)
+>   	if (ret)
+>   		goto free_work_buf;
+>   
+> +	amdxdna_pm_init(xdna);
+>   	return 0;
+>   
+>   free_work_buf:
+> @@ -1064,6 +1065,7 @@ static void aie4_vf_fini(struct amdxdna_dev *xdna)
+>   
+>   static void aie4_classic_fini(struct amdxdna_dev *xdna)
+>   {
+> +	amdxdna_pm_fini(xdna);
+>   	aie4_classic_hw_stop(xdna->dev_handle);
+>   	aie4_free_fw_log_buffer(xdna->dev_handle);
+>   	aie4_free_work_buffer(xdna->dev_handle);
+> @@ -1408,4 +1410,6 @@ const struct amdxdna_dev_ops aie4_classic_ops = {
+>   	.set_aie_state		= aie4_set_state,
+>   	.resume			= pm_ptr(aie4_classic_resume),
+>   	.suspend		= pm_ptr(aie4_classic_suspend),
+> +	.runtime_resume		= pm_ptr(aie4_classic_resume),
+> +	.runtime_suspend	= pm_ptr(aie4_classic_suspend),
+>   };
+> diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/amdxdna/amdxdna_ctx.c
+> index 608b86fe8f6b..f4004630dc1b 100644
+> --- a/drivers/accel/amdxdna/amdxdna_ctx.c
+> +++ b/drivers/accel/amdxdna/amdxdna_ctx.c
+> @@ -761,13 +761,32 @@ int amdxdna_drm_submit_cmd_ioctl(struct drm_device *dev, void *data, struct drm_
+>   	return -EINVAL;
+>   }
+>   
+> +static int amdxdna_hwctx_wait_cmd(struct amdxdna_client *client,
+> +				  struct amdxdna_drm_wait_cmd *args)
+> +{
+> +	struct amdxdna_dev *xdna = client->xdna;
+> +	struct amdxdna_hwctx *hwctx;
+> +	int ret, idx;
+> +
+> +	idx = srcu_read_lock(&client->hwctx_srcu);
+> +	hwctx = xa_load(&client->hwctx_xa, args->hwctx);
+> +	if (!hwctx) {
+> +		XDNA_DBG(xdna, "PID %d failed to get ctx %d", client->pid, args->hwctx);
+> +		ret = -EINVAL;
+> +	} else {
+> +		ret = xdna->dev_info->ops->cmd_wait(hwctx, args->seq, args->timeout);
+> +	}
+> +	srcu_read_unlock(&client->hwctx_srcu, idx);
+> +
+> +	return ret;
+> +}
+> +
+>   int amdxdna_drm_wait_cmd_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+>   {
+>   	struct amdxdna_client *client = filp->driver_priv;
+>   	struct amdxdna_dev *xdna = to_xdna_dev(dev);
+>   	struct amdxdna_drm_wait_cmd *args = data;
+> -	struct amdxdna_hwctx *hwctx;
+> -	int ret, idx;
+> +	int ret;
+>   
+>   	XDNA_DBG(xdna, "PID %d ctx %d timeout set %d ms for cmd %llu",
+>   		 client->pid, args->hwctx, args->timeout, args->seq);
+> @@ -775,22 +794,26 @@ int amdxdna_drm_wait_cmd_ioctl(struct drm_device *dev, void *data, struct drm_fi
+>   	if (!xdna->dev_info->ops->cmd_wait)
+>   		return -EOPNOTSUPP;
+>   
+> -	idx = srcu_read_lock(&client->hwctx_srcu);
+> -	hwctx = xa_load(&client->hwctx_xa, args->hwctx);
+> -	if (!hwctx) {
+> -		XDNA_DBG(xdna, "PID %d failed to get ctx %d", client->pid, args->hwctx);
+> -		ret = -EINVAL;
+> -		goto unlock_ctx_srcu;
+> +	ret = amdxdna_hwctx_wait_cmd(client, args);
+> +	if (ret == -EAGAIN) {
+> +		/*
+> +		 * Suspended by power management before the command completed.
+> +		 * Resume the device, which reconnects the context, and wait
+> +		 * again. Take the PM reference outside hwctx_srcu: runtime
+> +		 * resume takes dev_lock, which hwctx destroy holds across
+> +		 * synchronize_srcu().
+> +		 */
+> +		ret = amdxdna_pm_resume_get(xdna);
+> +		if (ret)
+> +			return ret;
+> +		ret = amdxdna_hwctx_wait_cmd(client, args);
+> +		amdxdna_pm_suspend_put(xdna);
+>   	}
+>   
+> -	ret = xdna->dev_info->ops->cmd_wait(hwctx, args->seq, args->timeout);
+> -
+>   	XDNA_DBG(xdna, "PID %d ctx %d cmd %lld wait finished, ret %d",
+>   		 client->pid, args->hwctx, args->seq, ret);
+>   
+>   	trace_amdxdna_debug_point(current->comm, args->seq, "job returned to user");
+>   
+> -unlock_ctx_srcu:
+> -	srcu_read_unlock(&client->hwctx_srcu, idx);
+>   	return ret;
+>   }
+> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/amdxdna/amdxdna_pci_drv.c
+> index f5f7831c4e80..cb78f145ffa1 100644
+> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
+> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
+> @@ -465,7 +465,7 @@ static void amdxdna_remove(struct pci_dev *pdev)
+>   
+>   static const struct dev_pm_ops amdxdna_pm_ops = {
+>   	SYSTEM_SLEEP_PM_OPS(amdxdna_pm_suspend, amdxdna_pm_resume)
+> -	RUNTIME_PM_OPS(amdxdna_pm_suspend, amdxdna_pm_resume, NULL)
+> +	RUNTIME_PM_OPS(amdxdna_pm_runtime_suspend, amdxdna_pm_runtime_resume, NULL)
+>   };
+>   
+>   static int amdxdna_sriov_configure(struct pci_dev *pdev, int num_vfs)
+> @@ -484,7 +484,7 @@ static struct pci_driver amdxdna_pci_driver = {
+>   	.id_table = pci_ids,
+>   	.probe = amdxdna_probe,
+>   	.remove = amdxdna_remove,
+> -	.driver.pm = &amdxdna_pm_ops,
+> +	.driver.pm = pm_ptr(&amdxdna_pm_ops),
+>   	.sriov_configure = amdxdna_sriov_configure,
+>   };
+>   
+> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.h b/drivers/accel/amdxdna/amdxdna_pci_drv.h
+> index 505477b4a292..4d047cf3d981 100644
+> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.h
+> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.h
+> @@ -57,6 +57,8 @@ struct amdxdna_dev_ops {
+>   	void (*debugfs_init)(struct amdxdna_dev *xdna);
+>   	int (*resume)(struct amdxdna_dev *xdna);
+>   	int (*suspend)(struct amdxdna_dev *xdna);
+> +	int (*runtime_resume)(struct amdxdna_dev *xdna);
+> +	int (*runtime_suspend)(struct amdxdna_dev *xdna);
+>   	int (*sriov_configure)(struct amdxdna_dev *xdna, int num_vfs);
+>   	int (*hwctx_init)(struct amdxdna_hwctx *hwctx);
+>   	void (*hwctx_stop)(struct amdxdna_hwctx *hwctx);
+> diff --git a/drivers/accel/amdxdna/amdxdna_pm.c b/drivers/accel/amdxdna/amdxdna_pm.c
+> index b1fafddd7ad5..7d7bc965342d 100644
+> --- a/drivers/accel/amdxdna/amdxdna_pm.c
+> +++ b/drivers/accel/amdxdna/amdxdna_pm.c
+> @@ -37,11 +37,40 @@ int amdxdna_pm_resume(struct device *dev)
+>   	return ret;
+>   }
+>   
+> +int amdxdna_pm_runtime_suspend(struct device *dev)
+> +{
+> +	struct amdxdna_dev *xdna = to_xdna_dev(dev_get_drvdata(dev));
+> +	int ret = -EBUSY;
+> +
+> +	guard(mutex)(&xdna->dev_lock);
+> +	if (xdna->dev_info->ops->runtime_suspend)
+> +		ret = xdna->dev_info->ops->runtime_suspend(xdna);
+> +
+> +	XDNA_DBG(xdna, "Runtime suspend done ret %d", ret);
+> +	return ret;
+> +}
+> +
+> +int amdxdna_pm_runtime_resume(struct device *dev)
+> +{
+> +	struct amdxdna_dev *xdna = to_xdna_dev(dev_get_drvdata(dev));
+> +	int ret = -EOPNOTSUPP;
+> +
+> +	guard(mutex)(&xdna->dev_lock);
+> +	if (xdna->dev_info->ops->runtime_resume)
+> +		ret = xdna->dev_info->ops->runtime_resume(xdna);
+> +
+> +	XDNA_DBG(xdna, "Runtime resume done ret %d", ret);
+> +	return ret;
+> +}
+> +
+>   int amdxdna_pm_resume_get(struct amdxdna_dev *xdna)
+>   {
+>   	struct device *dev = xdna->ddev.dev;
+>   	int ret;
+>   
+> +	if (!pm_runtime_enabled(dev))
+> +		return 0;
+> +
+>   	ret = pm_runtime_resume_and_get(dev);
+>   	if (ret) {
+>   		XDNA_ERR(xdna, "Resume failed: %d", ret);
+> @@ -55,6 +84,10 @@ void amdxdna_pm_suspend_put(struct amdxdna_dev *xdna)
+>   {
+>   	struct device *dev = xdna->ddev.dev;
+>   
+> +	if (!pm_runtime_enabled(dev))
+> +		return;
+> +
+> +	pm_runtime_mark_last_busy(dev);
+This should be removed. mark_last_busy is called by put_autosuspend.
+>   	pm_runtime_put_autosuspend(dev);
+>   }
+>   
+> @@ -66,6 +99,7 @@ void amdxdna_pm_init(struct amdxdna_dev *xdna)
+>   	pm_runtime_set_autosuspend_delay(dev, AMDXDNA_AUTOSUSPEND_DELAY);
+>   	pm_runtime_use_autosuspend(dev);
+>   	pm_runtime_allow(dev);
+> +	pm_runtime_mark_last_busy(dev);
 
-> So PortB has no supply of its own, instead it's always supplied by
-> VCC-IO. [...] Which somewhat means that this is broken there as well?
+This should be removed.
 
-You're right about shared VCC-IO. A523/T527 may have a similar issue:
-the vendor driver maps PB/PH to the shared VCC-IO bit, while mainline
-uses per-bank offsets. I haven't checked the A523 manual or observed a
-failure there.
+Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
 
-> What do you mean with "the board's SEL value"? That's not the SoC reset
-> value, is it? So who programs that value, and why?
-
-Vendor boot0 writes `0x01155550` when `0x03000024[2:0] == 1`, printing
-"board gpio withstand voltage auto mode". This isn't the documented
-reset value.
-
-On my Cubie A7Z, I also measured SEL without vendor boot0 or SCP:
-
-- Cold FEL, no SD: `0x0aaaa69a` (PC/PF in AUTO).
-- Experimental SPL/TF-A/U-Boot SD boot, at the U-Boot prompt:
-  `0x0aaaa6aa` (only PF in AUTO).
-
-SID+0x210 bit 10 is set. The BootROM code uses it to select AUTO for
-boot ports, although my SPL also sets PF to AUTO.
-
-> So this means you hacked the register in the vendor kernel, for the
-> sake of an experiment? [...] uses register 0x70 to switch PortF to 1.8V?
-
-Yes, I deliberately changed SEL from U-Boot before booting vendor 5.15.
-The BSP switches PF for 1.8 V UHS via `0x70` without updating SEL. The
-SDR104 timeouts with fixed 3.3 V are consistent with that.
-
-> So can you say whether you observed a real problem with either the
-> current (broken) code, or with one the fixes?
-
-No functional failure with current mainline. I found the mismatch by
-chance while comparing the manual and registers. The investigation was
-preventive, not prompted by a failure.
-
-> Thanks for the confirmation, and just curious where this revB
-> restriction came from, originally?
-
-Initially, excessive caution: I only had a revB board and B-version BSP
-descriptor. Further investigation shows that vendor U-Boot and Linux use
-opposite `POW_VAL` polarities across silicon versions, while boot0
-enables AUTO only on version B. This suggests revision-dependent
-behavior, but doesn't prove SEL encoding differs.
-
-> Did you find any recommendation? IIRC manuals for other SoCs did
-> recommend one or the other method.
-
-No explicit recommendation in the A733 manual. Its prose calls `10`
-adaptive, while the encoding table identifies `01` as AUTO. Revision
-differences might explain this, but that's still an inference.
-
-Given this, I'd return to the `BIAS_VOLTAGE_NONE` approach from my
-initial report for both A733 controllers, with a separate A733-R
-descriptor and A523-R unchanged. This supersedes my later PB/AUTO fixups
-and PL/PM programming. I wouldn't write `01` unconditionally without
-evidence for other revisions.
-
-Without vendor boot0, `GPIO_POW_VAL` indicates 1.8 V for PG/PJ/PD while
-SEL remains fixed at 3.3 V. My DT doesn't use these banks, so there's no
-demonstrated failure. NONE leaves that limitation in place but avoids an
-unqualified write. AUTO could be version-gated if needed.
-
-For A733-R, the separate descriptor also avoids inheriting the A523-R
-`CTL_INV` path through offset `0x344`.
-
-My mission-critical background sometimes makes me overly cautious, so
-feel free to call me out when I'm complicating things.
-
-Thanks,
-Vinicius
+>   	pm_runtime_put_autosuspend(dev);
+>   }
+>   
+> diff --git a/drivers/accel/amdxdna/amdxdna_pm.h b/drivers/accel/amdxdna/amdxdna_pm.h
+> index 3d26b973e0e3..02beef6448f1 100644
+> --- a/drivers/accel/amdxdna/amdxdna_pm.h
+> +++ b/drivers/accel/amdxdna/amdxdna_pm.h
+> @@ -10,6 +10,8 @@
+>   
+>   int amdxdna_pm_suspend(struct device *dev);
+>   int amdxdna_pm_resume(struct device  *dev);
+> +int amdxdna_pm_runtime_suspend(struct device *dev);
+> +int amdxdna_pm_runtime_resume(struct device *dev);
+>   int amdxdna_pm_resume_get(struct amdxdna_dev *xdna);
+>   void amdxdna_pm_suspend_put(struct amdxdna_dev *xdna);
+>   void amdxdna_pm_init(struct amdxdna_dev *xdna);
