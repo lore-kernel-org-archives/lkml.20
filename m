@@ -1,80 +1,63 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52A2155C1B2;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD16854CF53;
 	Wed, 14 Oct 2026 15:44:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791992682; cv=pass; b=Xc9c+4qa9ogOSYXJcWxHe1eL5g6OdobF2uehJ7udAIPgw/jlB4j7e41MGmHeI4Yt6/lbkT/nDjbUNJLVM4hCBjy9jmN5mz4sfWsfR+9mr+4pOI+Ngo0+UbFjfX7cYPPGAkVAozWNCbq9ClTgwiwPTUgi10pMz+1OF4ViYLFOIMI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791992682; c=relaxed/simple;
-	bh=LeYMDJHwvTtxyxIShwDrupv5/VDAmKk/4qfp2Eu+u2w=;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791992683; cv=none; b=XVzaZSS7HPiHmJXfBzS83pK2BQ5ooDSRAJJhQ5CRtLzSW8HV67KShW6RMBpdCqZu0fA50guqq4/5LP4JpGWP4mYhtG5U5/vxkK63d60q1Ibi3fQB5YMaP3DB4+x/xVyJvfAu57WdPeUh9ZF+dodp2Vw+ntwYdamFbejBJahSJsM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791992683; c=relaxed/simple;
+	bh=ee3HOAFL0P0jox8iP9bxIKxiNhmxLqoULAoki9pz+kc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pXCzsCsu00m8L0lWm73lXCyyJHzjj/OpKYgYw8ZrIsu+yZyaSf6n7QnqhI7gRjaFUBK+dUclT7dcV5FZQa6IJPjSt4hDw36vsh9PSUe/gsphTDZc4sJ/NcS2JhLj/fSMb/MM1mlm43uXBkhyoE9P7mEvrHcKh4yNo/k5D7IUptE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=YW0Znjpf; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	 MIME-Version; b=O7HOvql8241uA45Oc8Z4s4lldGBuAXnMC7JR35bYqKqR7w2hH+oMSFsKVmKxKalCBejssPbSUvv/KXSsI0pqaGZWjeUtcia73h8VzWhOLAlquxbzqTLUoyn+6HwETrDI4qiGq/ZEOho2WVtqtfBKjYn+8Wl0sBxC/uqX9VfHN0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=yKdCKilB; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="YW0Znjpf"
-Received: from dude04.red.stw.pengutronix.de (dude04.red.stw.pengutronix.de [IPv6:2a0a:edc0:0:1101:1d::ac])
-	(Authenticated sender: relay-from-dude04.red.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 1E52E201B6D;
-	Wed, 14 Oct 2026 17:44:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1791992677;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mrO9onTy7802HQJJ5sLpmxfpUxHCbFTVXsckDEIeA3g=;
-	b=YW0Znjpflt+PHTEmsKcSkfZz7tTJl5c7eatpVVpBD7EyG6nNqZUh3vXdAptv+v1J5Q8nPU
-	I1zUaNFVbUHnU5UBoQ/Ln+JNEARRG/sTQYA2RkTAd5WP5V/gD+V6kqj/AOgZIXY6Hd24T8
-	odeo9NpOpUk/ZiLHnfFF/h9doT6akNtVmyURJEPP+fbGxqds6k9lR7ihX90VNb2LJRwOlT
-	iDJRwdT8gpQspkXsfEHueS2EUvL3uLqVjb2o65sjrFeaihgAsXyGxi9urtJ50da8olr7pW
-	LaUl5CADuzqAja9bpCCUwssd0Y+CglGIIdteu/PbAiih5LUp0i+tfraEWJ5WuA==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1791992677; a=rsa-sha256;
-	cv=none;
-	b=E3PNA1MgbysCWy7IUxpLeRLM+4MqZmeh0WTeYrca0Yex/7TGauFn8GPx5BzjlI6j46FI24
-	R0uVI+OxGv8xxTVvj3AIUDMWaG5AGwtOlCOVCsyApuslEeueAM1tabYXsz2FNXH4IJV8GD
-	H8C3UEfJczWnLwF0imfRKYTsAfeNElHba7bgFw2+TJi+76wFshboqq/N+ngESh+lOxsChI
-	p5GzkhIyE6RH+FXENflRxuuevz1v5dU9SzmR0Ha2I1zjORw19b2zQZepK4OBvhw6WZpaai
-	HMMUFk6ctoGFrsEPVcxFr3vzfrf1E1fUInmexv8R0oe3ZQ6VympmfNNYNcobzQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-dude04.red.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1791992677;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mrO9onTy7802HQJJ5sLpmxfpUxHCbFTVXsckDEIeA3g=;
-	b=TuxocBao1GgSKa3PxYJWl0yA7pdGjopsIN1RsBWXOTLmo3P9MSyK146jN2IrT/WrNWVUJx
-	cDuvux9B/FPs2z+ntkPTOnlKJ/sVLVo3DYKgX9tBmGdGTfbSFK7x3ndR5NibAd+hlDerFi
-	mf7AJyFiWSpOeFtH1GFUI/t0qmMVlqmzrM0LcyyfRmaJ4gezNbD6hG+DRJ443qfo1j+4FV
-	BgEbKPchpGTuJiAAkJBAto0cIearIsZDef8qiKo1ZVeK2dLwgBTCasL5dCOoGU5G05FFZA
-	Pneg/gvkteP6ewRhtcEfzJRCR5eWl5Qp4MbodDhcaQnxSb35ZvZZuP5p5NCriQ==
-Received: by dude04.red.stw.pengutronix.de (Postfix, from userid 1058)
-	id 0E1FB381CD2; Wed, 14 Oct 2026 17:44:37 +0200 (CEST)
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-To: Robin van der Gracht <robin@protonic.nl>,
-	Oliver Hartkopp <socketcan@hartkopp.net>,
-	Marc Kleine-Budde <mkl@pengutronix.de>,
-	Shuah Khan <shuah@kernel.org>
-Cc: Oleksij Rempel <o.rempel@pengutronix.de>,
-	kernel@pengutronix.de,
-	linux-can@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="yKdCKilB"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id D09E1C6344E;
+	Wed, 14 Oct 2026 15:45:33 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id A93FA60368;
+	Wed, 14 Oct 2026 15:44:37 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AFF37103288F3;
+	Wed, 14 Oct 2026 17:44:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791992672; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=VBfHMzzjsF2QZ2WH+O6Wg6esVJdcuEzWNofUfba/9bk=;
+	b=yKdCKilBwcGKPO1ahATh2ZQaF0NYodtOU0mFP+pnw1LY+K9xDVbRBeBV47SNZkgtA/eBUX
+	djmo1Zj36UY+nLRirIQjp/QHuo1tVU6sX/xs2C5XLVoe3D3Dq016eUv9/Mgb9Z4pK7VFt5
+	6ECZqOMqXCtnnMJK8bQA7aD7qfXY2ckzrvDV04kqKhTPou2HdBznRdBs+J59t8ApV+6RVo
+	27hStNFTR92d4LJvkpa3w/3x4/izuzXjT2bjmMy/ooKq2WCQYpJIBQuvwuykoojtW1yVZe
+	kEPNLd2wsoEKnnXVVHTxE8vsNprGs0+c3jn0Hv3zGWMPh355/j3ShshxQs2ZBw==
+From: Paul Cercueil <paul.cercueil@bootlin.com>
+To: Pratyush Yadav <pratyush@kernel.org>,
+	Michael Walle <mwalle@kernel.org>,
+	Takahiro Kuwano <takahiro.kuwano@infineon.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Mark Brown <broonie@kernel.org>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Cc: Kees Cook <kees@kernel.org>,
+	Tony Luck <tony.luck@intel.com>,
+	"Guilherme G . Piccoli" <gpiccoli@igalia.com>,
+	linux-mtd@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	=?UTF-8?q?Alexander=20H=C3=B6lzl?= <alexander.hoelzl@gmx.net>,
-	Quchaosheng <quchaosheng000406@163.com>,
-	Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-Subject: [PATCH can-next v1 2/8] selftests: can: add J1939 base functional tests
-Date: Wed, 14 Oct 2026 17:44:28 +0200
-Message-ID: <20261014154435.3577983-3-o.rempel@pengutronix.de>
+	linux-spi@vger.kernel.org,
+	Bharat Bhushan <bbhushan2@marvell.com>,
+	Sunil Kovvuri Goutham <sgoutham@marvell.com>,
+	Tanmay Jagdale <tanmay@marvell.com>,
+	Paul Cercueil <paul.cercueil@bootlin.com>
+Subject: [PATCH v3 6/7] spi: cadence-xspi: Add support for panic writes
+Date: Wed, 14 Oct 2026 17:43:00 +0200
+Message-ID: <20261014154301.157755-7-paul.cercueil@bootlin.com>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261014154435.3577983-1-o.rempel@pengutronix.de>
-References: <20261014154435.3577983-1-o.rempel@pengutronix.de>
+In-Reply-To: <20261014154301.157755-1-paul.cercueil@bootlin.com>
+References: <20261014154301.157755-1-paul.cercueil@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,246 +65,165 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Add a functional selftest for the SAE J1939 socket interface. It runs two
-CAN_J1939 sockets (a sender and a receiver) over a vcan interface and
-checks payload integrity across the transport-size transitions: single
-frame (PDU1), Transport Protocol, Extended Transport Protocol, the exact
-size boundaries around those transitions, and single-frame and BAM
-broadcast (PDU2).
+From: Tanmay Jagdale <tanmay@marvell.com>
 
-Declare j1939_tests.h as a local header dependency and enable
-CONFIG_CAN_J1939 in the test config.
+Advertise support for panic writes. When a memory op is received with
+the 'panic' flag set, the driver will then work without relying on
+interrupts and without sleeping.
 
-Assisted-by: LLM
-Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+Signed-off-by: Tanmay Jagdale <tanmay@marvell.com>
+Co-developed-by: Paul Cercueil <paul.cercueil@bootlin.com>
+Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
 ---
- tools/testing/selftests/net/can/.gitignore    |   1 +
- tools/testing/selftests/net/can/Makefile      |  10 +-
- tools/testing/selftests/net/can/config        |   1 +
- .../selftests/net/can/test_j1939_base.c       | 160 ++++++++++++++++++
- .../selftests/net/can/test_j1939_base.sh      |   5 +
- 5 files changed, 175 insertions(+), 2 deletions(-)
- create mode 100644 tools/testing/selftests/net/can/test_j1939_base.c
- create mode 100755 tools/testing/selftests/net/can/test_j1939_base.sh
 
-diff --git a/tools/testing/selftests/net/can/.gitignore b/tools/testing/selftests/net/can/.gitignore
-index 764a53fc837f..0ab563fe9ddf 100644
---- a/tools/testing/selftests/net/can/.gitignore
-+++ b/tools/testing/selftests/net/can/.gitignore
-@@ -1,2 +1,3 @@
- # SPDX-License-Identifier: GPL-2.0-only
- test_raw_filter
-+test_j1939_base
-diff --git a/tools/testing/selftests/net/can/Makefile b/tools/testing/selftests/net/can/Makefile
-index e2092c289109..cf4bd2461a6c 100644
---- a/tools/testing/selftests/net/can/Makefile
-+++ b/tools/testing/selftests/net/can/Makefile
-@@ -4,10 +4,16 @@ top_srcdir = ../../../../..
+Notes:
+    v2: - Don't enable interrupts if doing a panic write
+        - Use a new cdns_readl_poll() macro that will resolve to calling
+          readl_relaxed_poll_timeout_atomic() when doing a panic write, or
+          readl_relaxed_poll_timeout() otherwise.
+        - Drop cdns_xspi->panic_write. We don't actually need to check it in
+          cdns_xspi_is_dll_locked(), because this code is never called in
+          the kernel panic path.
+    
+    v3: No change
+
+ drivers/spi/spi-cadence-xspi.c | 52 ++++++++++++++++++----------------
+ 1 file changed, 27 insertions(+), 25 deletions(-)
+
+diff --git a/drivers/spi/spi-cadence-xspi.c b/drivers/spi/spi-cadence-xspi.c
+index 2a2a40bf0a4c..a7fd715c45d5 100644
+--- a/drivers/spi/spi-cadence-xspi.c
++++ b/drivers/spi/spi-cadence-xspi.c
+@@ -287,6 +287,10 @@
+ #define GENERIC_CMD_REG_3_NEEDED(len)		(len > 7)
+ #define GENERIC_CMD_REG_2_NEEDED(len)		(len > 3)
  
- CFLAGS += -Wall -Wl,--no-as-needed -O2 -g -I$(top_srcdir)/usr/include $(KHDR_INCLUDES)
- 
--TEST_PROGS := test_raw_filter.sh
-+LOCAL_HDRS := j1939_tests.h
++#define cdns_readl_poll(addr, val, cond, delay_us, timeout_us, can_sleep) \
++	((can_sleep) ? readl_relaxed_poll_timeout(addr, val, cond, delay_us, timeout_us) \
++		     : readl_relaxed_poll_timeout_atomic(addr, val, cond, delay_us, timeout_us))
 +
-+TEST_PROGS := \
-+	test_raw_filter.sh \
-+	test_j1939_base.sh \
+ enum cdns_xspi_stig_instr_type {
+ 	CDNS_XSPI_STIG_INSTR_TYPE_0,
+ 	CDNS_XSPI_STIG_INSTR_TYPE_1,
+@@ -353,40 +357,33 @@ struct cdns_xspi_dev {
+ 	int current_xfer_qword;
+ };
  
- TEST_FILES := j1939_lib.sh
+-static int cdns_xspi_wait_for_controller_idle(struct cdns_xspi_dev *cdns_xspi)
++static int cdns_xspi_wait_for_controller_idle(struct cdns_xspi_dev *cdns_xspi, bool sleep)
+ {
+ 	u32 ctrl_stat;
  
--TEST_GEN_FILES := test_raw_filter
-+TEST_GEN_FILES := \
-+	test_raw_filter \
-+	test_j1939_base \
+-	return readl_relaxed_poll_timeout(cdns_xspi->iobase +
+-					  CDNS_XSPI_CTRL_STATUS_REG,
+-					  ctrl_stat,
+-					  ((ctrl_stat &
+-					    CDNS_XSPI_CTRL_BUSY) == 0),
+-					  100, 1000);
++	return cdns_readl_poll(cdns_xspi->iobase + CDNS_XSPI_CTRL_STATUS_REG,
++			       ctrl_stat, !(ctrl_stat & CDNS_XSPI_CTRL_BUSY),
++			       100, 1000, sleep);
+ }
  
- include ../../lib.mk
-diff --git a/tools/testing/selftests/net/can/config b/tools/testing/selftests/net/can/config
-index 188f79796670..52a186bd1055 100644
---- a/tools/testing/selftests/net/can/config
-+++ b/tools/testing/selftests/net/can/config
-@@ -1,3 +1,4 @@
- CONFIG_CAN=m
- CONFIG_CAN_DEV=m
- CONFIG_CAN_VCAN=m
-+CONFIG_CAN_J1939=m
-diff --git a/tools/testing/selftests/net/can/test_j1939_base.c b/tools/testing/selftests/net/can/test_j1939_base.c
-new file mode 100644
-index 000000000000..59f1448b7fb2
---- /dev/null
-+++ b/tools/testing/selftests/net/can/test_j1939_base.c
-@@ -0,0 +1,160 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
-+/*
-+ * J1939 base functional selftests.
-+ *
-+ * Run two SOCK_DGRAM/CAN_J1939 sockets (a sender and a receiver) over a vcan
-+ * interface and verify payload integrity across the transport-size transitions:
-+ * a single frame (PDU1), Transport Protocol, Extended Transport Protocol, the
-+ * exact boundaries between them, and single-frame and BAM broadcast (PDU2).
-+ *
-+ * The vcan interface is set up by the caller (see test_j1939_base.sh); its name
-+ * is passed via the CANIF environment variable.
-+ */
-+#include <errno.h>
-+
-+#include "kselftest_harness.h"
-+#include "j1939_tests.h"
-+
-+#define SA_TX			0x80
-+#define SA_RX			0x90
-+#define PGN_PDU1		0x0ab00	/* PF 0xab (< 240): destination specific */
-+#define PGN_PDU2		0x0feee	/* PF 0xfe (>= 240): broadcast */
-+
-+FIXTURE(j1939_base)
-+{
-+	int ifindex;
-+	int tx;
-+	int rx;
+ static bool cdns_xspi_is_stig_ready(struct cdns_xspi_dev *cdns_xspi, bool sleep)
+ {
+ 	u32 ctrl_stat;
+ 
+-	return !readl_relaxed_poll_timeout
+-		(cdns_xspi->iobase + CDNS_XSPI_CTRL_STATUS_REG,
+-		ctrl_stat,
+-		((ctrl_stat & BIT(3)) == 0),
+-		sleep ? MRVL_XSPI_POLL_DELAY_US : 0,
+-		sleep ? MRVL_XSPI_POLL_TIMEOUT_US : 0);
++	return !cdns_readl_poll(cdns_xspi->iobase + CDNS_XSPI_CTRL_STATUS_REG,
++				ctrl_stat, !(ctrl_stat & BIT(3)),
++				MRVL_XSPI_POLL_DELAY_US,
++				MRVL_XSPI_POLL_TIMEOUT_US, sleep);
+ }
+ 
+ static bool cdns_xspi_is_sdma_ready(struct cdns_xspi_dev *cdns_xspi, bool sleep)
+ {
+ 	u32 ctrl_stat;
+ 
+-	if (readl_relaxed_poll_timeout
+-	    (cdns_xspi->iobase + CDNS_XSPI_INTR_STATUS_REG,
+-	     ctrl_stat,
+-	     (ctrl_stat & CDNS_XSPI_SDMA_TRIGGER),
+-	     sleep ? MRVL_XSPI_POLL_DELAY_US : 0,
+-	     sleep ? MRVL_XSPI_POLL_TIMEOUT_US : 0)) {
++	if (cdns_readl_poll(cdns_xspi->iobase + CDNS_XSPI_INTR_STATUS_REG,
++			    ctrl_stat, (ctrl_stat & CDNS_XSPI_SDMA_TRIGGER),
++			    MRVL_XSPI_POLL_DELAY_US, MRVL_XSPI_POLL_TIMEOUT_US,
++			    sleep)) {
+ 		return false;
+ 	}
+ 
+@@ -557,14 +554,14 @@ static int cdns_xspi_send_stig_command(struct cdns_xspi_dev *cdns_xspi,
+ 	int ret;
+ 	int dummybytes = op->dummy.nbytes;
+ 
+-	ret = cdns_xspi_wait_for_controller_idle(cdns_xspi);
++	ret = cdns_xspi_wait_for_controller_idle(cdns_xspi, !op->panic_write);
+ 	if (ret < 0)
+ 		return -EIO;
+ 
+ 	writel(FIELD_PREP(CDNS_XSPI_CTRL_WORK_MODE, CDNS_XSPI_WORK_MODE_STIG),
+ 	       cdns_xspi->iobase + CDNS_XSPI_CTRL_CONFIG_REG);
+ 
+-	if (cdns_xspi->irq >= 0)
++	if (cdns_xspi->irq >= 0 && !op->panic_write)
+ 		cdns_xspi->set_interrupts_handler(cdns_xspi, true);
+ 	cdns_xspi->sdma_error = false;
+ 
+@@ -595,23 +592,23 @@ static int cdns_xspi_send_stig_command(struct cdns_xspi_dev *cdns_xspi,
+ 
+ 		cdns_xspi_trigger_command(cdns_xspi, cmd_regs);
+ 
+-		if (cdns_xspi->irq >= 0) {
++		if (cdns_xspi->irq >= 0 && !op->panic_write) {
+ 			wait_for_completion(&cdns_xspi->sdma_complete);
+ 			if (cdns_xspi->sdma_error) {
+ 				cdns_xspi->set_interrupts_handler(cdns_xspi, false);
+ 				return -EIO;
+ 			}
+-		} else if (!cdns_xspi_is_sdma_ready(cdns_xspi, true)) {
++		} else if (!cdns_xspi_is_sdma_ready(cdns_xspi, !op->panic_write)) {
+ 			return -EIO;
+ 		}
+ 
+ 		cdns_xspi->sdma_handler(cdns_xspi);
+ 	}
+ 
+-	if (cdns_xspi->irq >= 0) {
++	if (cdns_xspi->irq >= 0 && !op->panic_write) {
+ 		wait_for_completion(&cdns_xspi->cmd_complete);
+ 		cdns_xspi->set_interrupts_handler(cdns_xspi, false);
+-	} else if (!cdns_xspi_is_stig_ready(cdns_xspi, true)) {
++	} else if (!cdns_xspi_is_stig_ready(cdns_xspi, !op->panic_write)) {
+ 		return -EIO;
+ 	}
+ 
+@@ -1195,6 +1192,10 @@ static int cdns_xspi_transfer_one_message_b0(struct spi_controller *controller,
+ }
+ #endif
+ 
++static const struct spi_controller_mem_caps cdns_xspi_mem_caps = {
++	.panic_write = true,
 +};
 +
-+FIXTURE_SETUP(j1939_base)
-+{
-+	self->tx = -1;
-+	self->rx = -1;
-+	J1939_SETUP_IFINDEX(self);
-+}
-+
-+FIXTURE_TEARDOWN(j1939_base)
-+{
-+	if (self->tx >= 0)
-+		close(self->tx);
-+	if (self->rx >= 0)
-+		close(self->rx);
-+}
-+
-+/*
-+ * Set up a receiver bound to (rx_addr, pgn) and a sender bound to SA_TX and
-+ * connected to (tx_dst, pgn). Any pair opened by a previous call is closed
-+ * first. Returns 0 on success, -1 otherwise.
-+ */
-+static int pair_up(FIXTURE_DATA(j1939_base) *self, uint8_t rx_addr,
-+		   uint8_t tx_dst, pgn_t pgn, int bcast)
-+{
-+	int flags = bcast ? J1939_OPEN_BCAST : 0;
-+
-+	if (self->tx >= 0) {
-+		close(self->tx);
-+		self->tx = -1;
-+	}
-+	if (self->rx >= 0) {
-+		close(self->rx);
-+		self->rx = -1;
-+	}
-+
-+	self->rx = j1939_open_flags(self->ifindex, J1939_NO_NAME, rx_addr, pgn,
-+				   flags);
-+	if (self->rx < 0) {
-+		fprintf(stderr, "# open rx failed: %d\n", errno);
-+		return -1;
-+	}
-+
-+	self->tx = j1939_open_flags(self->ifindex, J1939_NO_NAME, SA_TX,
-+				   J1939_NO_PGN, flags);
-+	if (self->tx < 0) {
-+		fprintf(stderr, "# open tx failed: %d\n", errno);
-+		return -1;
-+	}
-+
-+	if (j1939_connect(self->tx, self->ifindex, tx_dst, pgn)) {
-+		fprintf(stderr, "# connect tx failed: %d\n", errno);
-+		return -1;
-+	}
-+
-+	return 0;
-+}
-+
-+/*
-+ * Send a deterministic payload of the given size on tx and verify it is
-+ * received byte for byte on rx. Returns 0 on success, -1 otherwise.
-+ */
-+static int roundtrip(FIXTURE_DATA(j1939_base) *self, size_t size)
-+{
-+	uint8_t *tx_buf;
-+	int rc;
-+
-+	tx_buf = malloc(size);
-+	if (!tx_buf) {
-+		fprintf(stderr, "# alloc failed\n");
-+		return -1;
-+	}
-+	fill_pattern(tx_buf, size);
-+
-+	rc = send_recv_verify(self->tx, self->rx, tx_buf, size,
-+			      J1939_RECV_TIMEOUT_MS);
-+	if (rc)
-+		fprintf(stderr, "# round-trip failed at size %zu, errno %d\n",
-+			size, errno);
-+
-+	free(tx_buf);
-+	return rc;
-+}
-+
-+/* single frame (<= 8 bytes), unicast PDU1. */
-+TEST_F(j1939_base, single_frame_pdu1)
-+{
-+	ASSERT_EQ(pair_up(self, SA_RX, SA_RX, PGN_PDU1, 0), 0);
-+	EXPECT_EQ(roundtrip(self, 8), 0);
-+}
-+
-+/* Transport Protocol (9 .. 1785 bytes), unicast. */
-+TEST_F(j1939_base, tp_roundtrip)
-+{
-+	ASSERT_EQ(pair_up(self, SA_RX, SA_RX, PGN_PDU1, 0), 0);
-+	EXPECT_EQ(roundtrip(self, 128), 0);
-+}
-+
-+/* Extended Transport Protocol (> 1785 bytes), unicast. */
-+TEST_F(j1939_base, etp_roundtrip)
-+{
-+	ASSERT_EQ(pair_up(self, SA_RX, SA_RX, PGN_PDU1, 0), 0);
-+	EXPECT_EQ(roundtrip(self, 2000), 0);
-+}
-+
-+/* exact size boundaries around single / TP / ETP transitions. */
-+TEST_F(j1939_base, size_boundaries)
-+{
-+	static const size_t sizes[] = { 8, 9, 1785, 1786 };
-+	size_t k;
-+
-+	for (k = 0; k < ARRAY_SIZE(sizes); k++) {
-+		ASSERT_EQ(pair_up(self, SA_RX, SA_RX, PGN_PDU1, 0), 0);
-+		EXPECT_EQ(roundtrip(self, sizes[k]), 0)
-+			TH_LOG("failed at boundary size %zu", sizes[k]);
-+	}
-+}
-+
-+/* single-frame broadcast, PDU2. */
-+TEST_F(j1939_base, single_frame_broadcast_pdu2)
-+{
-+	ASSERT_EQ(pair_up(self, SA_RX, J1939_NO_ADDR, PGN_PDU2, 1), 0);
-+	EXPECT_EQ(roundtrip(self, 8), 0);
-+}
-+
-+/* BAM (broadcast transport). */
-+TEST_F(j1939_base, bam_broadcast)
-+{
-+	ASSERT_EQ(pair_up(self, SA_RX, J1939_NO_ADDR, PGN_PDU2, 1), 0);
-+	EXPECT_EQ(roundtrip(self, 128), 0);
-+}
-+
-+J1939_TEST_MAIN();
-diff --git a/tools/testing/selftests/net/can/test_j1939_base.sh b/tools/testing/selftests/net/can/test_j1939_base.sh
-new file mode 100755
-index 000000000000..3cd2b14a74bb
---- /dev/null
-+++ b/tools/testing/selftests/net/can/test_j1939_base.sh
-@@ -0,0 +1,5 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0
-+
-+J1939_TEST_PROG=test_j1939_base
-+source "$(dirname "$0")/j1939_lib.sh"
+ static int cdns_xspi_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+@@ -1315,6 +1316,7 @@ static int cdns_xspi_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	host->num_chipselect = 1 << cdns_xspi->hw_num_banks;
++	host->mem_caps = &cdns_xspi_mem_caps;
+ 
+ 	ret = devm_spi_register_controller(dev, host);
+ 	if (ret) {
 -- 
 2.47.3
 
