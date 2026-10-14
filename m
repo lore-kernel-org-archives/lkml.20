@@ -1,267 +1,121 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-84.mta1.migadu.com [95.215.58.84])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A858250EC17
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:19:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791983955; cv=pass; b=Pk0iQYESMvKaZaLpOp/cWwNP0gbhhd66uZ1ImToXxrrr626H8PFk8xXfNqVMpmr0RJWRzpT2Boa6QE6/Mp3XMxa6+wurBq6fHa7hEfqCDqyZnok//NWg3/3DrAMKhf/xfq4uF//cQDUaVYcApDyw4NgrdGh401uKacEnTfqIabg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791983955; c=relaxed/simple;
-	bh=YpT2Qe/T2mt0iT4P8ZgElxgZygQNwPCoUxNvE7UC/eA=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B89630FC0F
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:19:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.84
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791983956; cv=none; b=Xx0FvVgWhMKO8hAKIf5Qn7EjGcQ8ri5pDG96BaaCzDjsS/M09c04Co6aMjgF8rBlMfyeg8+gCcBNsBAW30G/RkIdlxJSxL+5A2Q+wVwv2UNMNhXRJ3d8vbbCJVS6XZl8WT5AtsmdsBZHom+Zrm+MQno4685BIcLtdo7njsJfOkk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791983956; c=relaxed/simple;
+	bh=aTzHnXwYVJUGpYRSUlHI4kXeHhU4f+c16/CqGgZrLhs=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bx5dOt+fyVfIWH6U7Uy5CUbKI4VloczvN3P35tt6mAwTShMkoWuucytJzXS2Gjoa1XtbJ0mg+ave3qqPMlkHEN1kVxjz8e1ZWtf+UqvYz+WDqnuLwuPcu0zDJgzoBsRjYCEbG+87FlT/ZtJUse9x/6SyXjuxUa/an+B3tdow4oU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RaokhI9l; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OoiN7LAn; arc=pass smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 To:Cc:Content-Type; b=ehXcsUG2nM0poiNOQyZYizFtcEez0LTasByt5jE6QKy0HaCt5PhzUatI9FQn1lotPmc4Vo7fMIif23MmQ5m1ytxZTP5tOs8LnkeRp4mxmvf611Rqkr8a4R3XSWwnyiQHdUx8Y4VEHKcZYGjZAjxThNk2acJy7dtTYBYx4872l94=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=l2sqI0gV; arc=none smtp.client-ip=95.215.58.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RaokhI9l";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OoiN7LAn"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EBXarN2686071
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:19:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	AbyY7L02Rxh26+8dxarTEhQrgLb4aPc0R4YmO2fQi8o=; b=RaokhI9lpwfZtctk
-	tnFXGMM4pdXprSGnRtJD1ew/HugC+VIzM6H8hM0jzHZRwth5cykuIATE/54nIMdw
-	hbzL5Aq0lg/zvV1UoDQWgzkWAu68bbdE/u88OfcGyQJlhaEM7YNDj2hxoUlRo5Jj
-	C113myqrV2HSinCyZoOLTFmns3LIZCA3IjOpXKlzcBZfZ64/FaWUmDmONRDoyL5F
-	QvgNyBNyrUtRmNQDApW/qZL5c/l78h/Iz0aeIQf/Q2eIYL7dgU/iqihNfjgFemkh
-	hRN34Ef/+BbXlgyPaOlivZ7YxNqg3ASdYLPnwla5ottWMvBXETXyWR3G7gE6ADBV
-	Unm2oQ==
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ha46u1qv3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:19:11 +0000 (GMT)
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4cc89e86e4dso6738263b6e.2
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:19:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791983951; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RfqOYojE1xjFMBiRNkXupQTZQAFeytNY60erUqG1ELRmAlv1uv1Omja4lObzEywfsN
-         X/zwUbjG5eY7vVgZmkZfJDAlcLJLT2L1imhMmJBe5s7OO1y22uOJJ5EO4aP75KlTyQq9
-         Zu+uhGYO0pOv3VFwABI0IZ8K9mMgwHL0N9a7g7HiBMCR8DTcaXyOS2BYkdcoM5geViNI
-         iWDXOV/NcbWsszOSGpEVkYFKeVMl47GNk6r0P/c1Dj0Ai1P2ZEZ0p3f7+c+rWpWCbNbH
-         j0oKmsQ5b5+TRE5xtWcF9rJt5/qP7A8hqLch9tMps7KNpWLKjggh4D1EZkeVn+SXCA4N
-         voGA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=AbyY7L02Rxh26+8dxarTEhQrgLb4aPc0R4YmO2fQi8o=;
-        fh=z6QFte9ZD7hl2X61J5ZKpWcM2XMlbclP0jEVFNhByGU=;
-        b=TC3ilnnlCF7fjif0y1aBbs3hFqNUNtdru8p8AWA93A1EmvG4UR0uim5PWzsLedCkVA
-         NHvKW1jPKipzcufoS2mwmlmGtCPxs2J4M4zT8dNvc3VPkuf42wr7HDOhpAOnnfHJF3ZB
-         qq5bjyqPJUYILvhucG1oGmao5+Vc9IszD/HaoipjYPpz7GB9VsfvL/CqlIlJ/gDQo2CH
-         65r+cp0njRMmojM3WkdskWM+Fvc7y6fWPh6DCm1dxB5OBKRl14ldnq3CeHgHeev0xWAO
-         xO/dUUxSbCfBuDbj+XCM9e+ceGxH6e3GAarEUY/n7Y25g9TkEF4ciGwSytIQm3xPVYOy
-         qTdw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791983951; x=1792588751; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=AbyY7L02Rxh26+8dxarTEhQrgLb4aPc0R4YmO2fQi8o=;
-        b=OoiN7LAnnjXiQdTqj+NsoDCFizO4djPAcbVdP7Nx28gM42XLXpve1MOPKK58kIYXQT
-         pNbO2OyT3ImxuFhdY893dkQefTgFEoq6HecEte5AmDApDhvPcOP8bxXb6nwnXk7to2LH
-         LNhw/pR8nCQ+c7rR0V0tqxcpSJmtoZ6VyeT+K2RWScCW7plq1VgzVMXI0qpCRS/GH0TQ
-         sJSHMBDb/haKHchBS5ah+QBcW2bjxrdpInUsenTCmFEDICIH7Ot6DQBEbMcmivyvAU38
-         xEY5+wgVFQLfM2e/c/Yq+5h+T0EJPu4IJWZqGuBB+k09M/6D4HTcCm921SJRCyMGEczt
-         MLVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791983951; x=1792588751;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AbyY7L02Rxh26+8dxarTEhQrgLb4aPc0R4YmO2fQi8o=;
-        b=Mhd5ZLaq0x8hZ+mnBUAsmjAi34srciqPExydRYtfoHixh+6em4VFfDZ9mrPJn3EihR
-         I8R8KbX4JeZ2I9FN1TxJ/eyQrGItRGQmgxraZqcP1WTZRsujg/p578XXzRPBjKdvVxkA
-         vaHU1NYlG7OvXROa+hQzooLqDmDWggNB3FLtnwnFM2ESkAyx74aMFPXhPTF8pE+5Nd6M
-         fAVljsXfzBSsparpDSemc/9Rfftl6xI1IaLkhelatBqjXD5BjakVRkXGKVSuV5EyibLC
-         li+EUl2XFxW/AsXieWRz5vn5FjJABLE5hbPhCEVppGccUOGzZlCxYs2pcyTVfGUYueAv
-         cmjQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw9MlON/kXRPZ9hKTsx5JM8Tp/ZYcjmGwkYLSR+ufE3WWddKaD2AMOOI536fG42urqqwwU3ErzYQckyp5Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLVbrCy+uyyfNnX8uoMvtql7PS/A8lz7zBOQPisFX8KgKJZ5Av+
-	uKVZBHCUtQMVf+hmWVYXdAC/WYDin3jHLBfj8L0OyyxOZbFMvOMDO7U8oW3MwoEdAoBAmsREvee
-	5QOASMPCL0Byze0FEzhwwVUDuD+nxoLgs/P5Faopc51B4dQARrEZfZj96EzNOHMlr7Mz7uzuNT6
-	9QV+a84RiQt3YamQtIOppRoA2BwmiF7yod7zH9gVIaMg==
-X-Gm-Gg: AYBFou18jHSj6bxlreA2Os1cRuQKLzxRgxsmV/9Mci+mz3HTpBUIQDZP2Bu4HVClSgY
-	A9neaqZSqLURoUgsDC/IwItRlALBlCECuNNWcCgOdkzR04qchkTGlbOmgqJAUz68GGH7HhARMVz
-	CAEtCf26N2WuauMtnFuy9LrAFdOaVDolPaY4ZCBl7xogyT/P+m6QzHNSmpWU8rNpqhUkECAOeJX
-	GXa2vcihsrf7UwSln1wZmC4Bx1hzbReX5RhUqbz7nOais+NJeRl2mI2OrUbF31jMsQ2FsaquMKk
-X-Received: by 2002:a05:6808:3203:b0:50a:6fcf:d287 with SMTP id 5614622812f47-50c5804970cmr14735557b6e.37.1791983950989;
-        Wed, 14 Oct 2026 06:19:10 -0700 (PDT)
-X-Received: by 2002:a05:6808:3203:b0:50a:6fcf:d287 with SMTP id
- 5614622812f47-50c5804970cmr14735512b6e.37.1791983950378; Wed, 14 Oct 2026
- 06:19:10 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="l2sqI0gV"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=aTzHnXwYVJUGpYRSUlHI4kXeHhU4f+c16/CqGgZrLhs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791983948; v=1; x=1792588748;
+ b=l2sqI0gVDLqyjo7Ydfx83k366mjtNPddcu92n4s239BwY3r82qn1s1bzfYnUmMNQXiZoXj5n
+ JcH7AKOgEHcyazJwSVEoL5NQnXhaYUE4hrYBK5Ude1rGEuVh0hUtgfZ4v2m9P45FMN1hK3giymp
+ ebTrLQseurgCdFu9AtfvUStM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id adfdbaf63f15495d;
+	Wed, 14 Oct 2026 13:19:08 +0000
+X-Mizu-Trace-ID: adfdbaf63f15495d
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5bcf03d95b8so28632e87.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:19:08 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByqm3zool9wrnuNOyI8SJztQcfjveDqb3SLfYbM5axtxoXvQYjf+CaLIYidRlu41uu3iZyXcWLkhf4ttXg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLogV4djUO/YRUzfP77wInngn8xo8Jjn3A3kZzjq6/xyzId295T
+	IQ00VxK4ocoUYAQHosuQOjOfmU5MNkxa+vwH0Vp/Ng5nxZMg9ZDe5COt7Vs2ZGLr33Yo1hKADwb
+	H4Tip9nHNvsUpLpS5JCeBfaapC5gI1rGm1VXry4F1
+X-Received: by 2002:a05:6512:1352:b0:5bc:f0ab:1f39 with SMTP id
+ 2adb3069b0e04-5be35a3ccc9mr104769e87.2.1791983945579; Wed, 14 Oct 2026
+ 06:19:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261013-cci-imp-v2-0-6873326b44a3@oss.qualcomm.com>
- <20261013-cci-imp-v2-1-6873326b44a3@oss.qualcomm.com> <d39189f9-e9fe-4019-9b64-c4d7c0694c4c@nxsw.ie>
-In-Reply-To: <d39189f9-e9fe-4019-9b64-c4d7c0694c4c@nxsw.ie>
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Wed, 14 Oct 2026 15:18:58 +0200
-X-Gm-Features: AclHuK_Mz1Imq5hkpEYTlM0BjO4RGLxYs653XPdMkpOfKA6siGSGzQJSVK3xg4Q
-Message-ID: <CAFEp6-1pYGy-TdQCY0pK8Nir3fg1hun_0pfdmH+j45sHZd8vnA@mail.gmail.com>
-Subject: Re: [PATCH v2 1/6] i2c: qcom-cci: Factor out write command queue programming
-To: "Bryan O'Donoghue" <bod.linux@nxsw.ie>
-Cc: Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
+References: <20260605153248.2412064-1-weilin.chang@arm.com> <20260605153248.2412064-2-weilin.chang@arm.com>
+In-Reply-To: <20260605153248.2412064-2-weilin.chang@arm.com>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Wed, 14 Oct 2026 14:18:29 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTwK092o8YZjV0vzBDLSY=cesOvhqj39zDd1MF-toOVTwA@mail.gmail.com>
+X-Gm-Features: AclHuK-D4V7-XOOYkcs71Ak9kbmSkq3X3DlhkeEjLZk_QZspZkb75DxTMMqKDzg
+Message-ID: <CA+EHjTwK092o8YZjV0vzBDLSY=cesOvhqj39zDd1MF-toOVTwA@mail.gmail.com>
+Subject: Re: [PATCH 1/2] KVM: arm64: Replace memslot_is_logging() with kvm_slot_dirty_track_enabled()
+To: Wei-Lin Chang <weilin.chang@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, Marc Zyngier <maz@kernel.org>, 
+	Oliver Upton <oupton@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Gavin Shan <gshan@redhat.com>, Leo Soares Passos <Leo.Bras@arm.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA1MiBTYWx0ZWRfXx5S4rxY/ZEHq
- SHW+V+9syZhonH6yIoJBy7x5QSD4toObWMrXgb8MY05UvwoT1uq7U6Vf/CXP8Ie0QeeX+zkyRCw
- 9pKadSwJ2UzEmdylBgLqa/vzu+XT9Wg=
-X-Proofpoint-GUID: TZG-70lfqblGHaYNVxmAK-CiEcL80-i9
-X-Authority-Analysis: v=2.4 cv=Y6ttIReN c=1 sm=1 tr=0 ts=6acf814f cx=c_pps
- a=AKZTfHrQPB8q3CcvmcIuDA==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8 a=PJnx2EBGx5yzlk0kfSEA:9
- a=QEXdDO2ut3YA:10 a=pF_qn-MSjDawc0seGVz6:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA1MiBTYWx0ZWRfXwOEOa6YLJNYL
- d7UVzYScT6nM21HU12kAL7ZRubQ6y3drBmstOSGC4y/PWCcXlSe1NBhPqtEfdVp59bUpZWzm1QA
- 8I3LnU8LwV1AYkjhRxvmnOdp4vimPz6K3EX/Kvq0waKpd3guvVD3mE0+dExMuTmre3EqKbmNcew
- eyX8LLnos28n1ohRhDU16e0Jv08IuRR+hztm/nR2XH+91FJe6AUuRWvzGJc32Ro9PAkhQMZUwFx
- OTZk5qaLNwJCOW5AnKtuF4yQhwyHYyExpdahD/Ngq24ahadAZDYC7Hnk4droaCXueB5JUljsAhF
- Jzz9B6n/TCpAcVAEspcEfwXcyyjwuZ3HUkGPEc4XyFi4gLm4BXf8vgPna8ZFacuZYa0ZtSq8Caq
- wWOUCM8XMDleffTDo7vkBfqxNzVNwTvz4CsvuOL4SwsoGRST7rYbV4Mh7kzoJ4KjAUhBiYzbE9y
- OZPta9k0XnCLFMUNLfA==
-X-Proofpoint-ORIG-GUID: TZG-70lfqblGHaYNVxmAK-CiEcL80-i9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 adultscore=0 phishscore=0
- lowpriorityscore=0 clxscore=1015 spamscore=0 suspectscore=0 bulkscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610140052
 
-On Wed, Oct 14, 2026 at 2:53=E2=80=AFPM Bryan O'Donoghue <bod.linux@nxsw.ie=
-> wrote:
->
-> On 13/10/2026 11:30, Loic Poulain wrote:
-> > Factor out write-command queueing into a dedicated helper and replace
-> > the manual byte-to-word packing code with iowrite32_rep().
-> >
-> > The resulting code is easier to follow and will be reused by
-> > upcoming burst-write support.
-> >
-> > Also add a sanity check on the write buffer length, which should
-> > already be validated by the caller/I2C-core.
-> >
-> > Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> > ---
-> >   drivers/i2c/busses/i2c-qcom-cci.c | 41 +++++++++++++++++++++---------=
----------
-> >   1 file changed, 22 insertions(+), 19 deletions(-)
-> >
-> > diff --git a/drivers/i2c/busses/i2c-qcom-cci.c b/drivers/i2c/busses/i2c=
--qcom-cci.c
-> > index d509dc1c14700d9c199d67df19082bae4f1ae470..3304760411082b72e10e529=
-a2bd66361e100fa06 100644
-> > --- a/drivers/i2c/busses/i2c-qcom-cci.c
-> > +++ b/drivers/i2c/busses/i2c-qcom-cci.c
-> > @@ -77,6 +77,9 @@
-> >   #define CCI_I2C_WRITE               9
-> >   #define CCI_I2C_READ                10
-> >
-> > +#define CCI_I2C_WRITE_WC     3
-> > +#define CCI_I2C_WRITE_NWORDS(len) DIV_ROUND_UP((len) + 1, sizeof(u32))
-> > +
-> >   #define CCI_I2C_REPORT_IRQ_EN       BIT(8)
-> >
-> >   enum {
-> > @@ -485,42 +488,42 @@ static int cci_i2c_read(struct cci *cci, u16 mast=
-er,
-> >       return 0;
-> >   }
-> >
-> > +static void cci_i2c_load_write(u8 *buf, u16 len, void __iomem *loadq)
-> > +{
-> > +     u32 cmd[CCI_I2C_WRITE_WC] =3D { };
-> > +
-> > +     if (WARN_ON(len >=3D CCI_I2C_WRITE_WC * sizeof(u32)))
-> > +             return;
->
-> Why not trap this and return the error - cci_i2c_write() has a result cod=
-e.
+Hi Wei-Lin,
 
-Because this condition should never occur, the I2C core is expected to
-enforce the transfer length limit through our max_write_len quirk
-before the request reaches the driver. This check is purely paranoid
-and is not expected to trigger even in normal error-handling paths.
-Not returning errors keeps the behavior aligned with the previous
-version, though we could have catched this issue earlier in i2c_write
-and return from there...
+On Fri, 05 Jun 2026 16:32:47 +0100, Wei-Lin Chang <weilin.chang@arm.com> wrote:
+> When checking whether a memslot has dirty logging enabled, the
+> KVM_MEM_LOG_DIRTY_PAGES flag is the source of truth. Previously we were
+> using memslot_is_logging() which only tests dirty bitmap and did not
+> consider dirty ring. This was not detected because
+> KVM_CAP_DIRTY_LOG_RING_WITH_BITMAP was introduced together with KVM
+> arm64 dirty ring, and users need to enable it to ensure dirty
+> information is not lost for the case of VGIC LPI/ITS table changes.
 
->
-> > +
-> > +     cmd[0] =3D CCI_I2C_WRITE | len << 4;
-> > +     memcpy((u8 *)cmd + 1, buf, len);
-> > +     iowrite32_rep(loadq, cmd, CCI_I2C_WRITE_NWORDS(len));
-> > +}
-> > +
-> >   static int cci_i2c_write(struct cci *cci, u16 master,
-> >                        u16 addr, u8 *buf, u16 len)
-> >   {
-> > -     u8 queue =3D QUEUE_0;
-> > -     u8 load[12] =3D { 0 };
-> > -     int i =3D 0, j, ret;
-> > +     void __iomem *loadq =3D cci->base + CCI_I2C_Mm_Qn_LOAD_DATA(maste=
-r, QUEUE_0);
-> > +     int ret;
-> >       u32 val;
-> >
-> >       /*
-> >        * Call validate queue to make sure queue is empty before startin=
-g.
-> >        * This is to avoid overflow / underflow of queue.
-> >        */
-> > -     ret =3D cci_validate_queue(cci, master, queue);
-> > +     ret =3D cci_validate_queue(cci, master, QUEUE_0);
-> >       if (ret < 0)
-> >               return ret;
-> >
-> >       val =3D CCI_I2C_SET_PARAM | (addr & 0x7f) << 4;
-> > -     writel(val, cci->base + CCI_I2C_Mm_Qn_LOAD_DATA(master, queue));
-> > +     writel(val, loadq);
-> >
-> > -     load[i++] =3D CCI_I2C_WRITE | len << 4;
-> > -
-> > -     for (j =3D 0; j < len; j++)
-> > -             load[i++] =3D buf[j];
-> > -
-> > -     for (j =3D 0; j < i; j +=3D 4) {
-> > -             val =3D load[j];
-> > -             val |=3D load[j + 1] << 8;
-> > -             val |=3D load[j + 2] << 16;
-> > -             val |=3D load[j + 3] << 24;
-> > -             writel(val, cci->base + CCI_I2C_Mm_Qn_LOAD_DATA(master, q=
-ueue));
-> > -     }
-> > +     cci_i2c_load_write(buf, len, loadq);
-> >
-> >       val =3D CCI_I2C_REPORT | CCI_I2C_REPORT_IRQ_EN;
-> > -     writel(val, cci->base + CCI_I2C_Mm_Qn_LOAD_DATA(master, queue));
-> > +     writel(val, loadq);
-> >
-> > -     return cci_run_queue(cci, master, queue);
-> > +     return cci_run_queue(cci, master, QUEUE_0);
-> >   }
-> >
-> >   static int cci_xfer(struct i2c_adapter *adap, struct i2c_msg msgs[], =
-int num)
-> >
-> > --
-> > 2.34.1
->
->
+I ran into the same bug while testing the arm64 KVM_PRE_FAULT_MEMORY
+series, and then found that you'd already fixed it.
+
+It might be worth mentioning the impact in the commit message: with
+the ring and no bitmap, a logged memslot still gets block mappings, so
+guest writes to most of a block are never logged and a migration can
+copy stale memory. That would also make the case for a Cc: stable.
+
+> Note that memslot_is_logging() also treats a memslot as not logging if
+> KVM_MEM_READONLY is set, hence a memslot with both dirty logging and
+> read only would be seen as not logging for memslot_is_logging(), but
+> logging for kvm_slot_dirty_track_enabled(). This allows a read only
+> mapping of size > PAGE_SIZE to be built when memslot_is_logging() is
+> used, leading to a better read performance compared to
+> kvm_slot_dirty_track_enabled(). However memslots that have both
+> KVM_MEM_LOG_DIRTY_PAGES and KVM_MEM_READONLY set do not really make
+> sense as dirty logging is essentially nop for a read only memslot, so
+> this shouldn't affect real workloads much.
+
+FWIW, I'd go with Leo's suggestion of keeping the KVM_MEM_READONLY
+check, so those memslots keep their block mappings.
+
+[...]
+> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+[...]
+> @@ -2084,7 +2079,7 @@ static int user_mem_abort(const struct kvm_s2_fault_desc *s2fd)
+>          * and a write fault needs to collapse a block entry into a table.
+>          */
+>         memcache = get_mmu_memcache(s2fd->vcpu);
+> -       if (!perm_fault || (memslot_is_logging(s2fd->memslot) &&
+> +       if (!perm_fault || (kvm_slot_dirty_track_enabled(s2fd->memslot) &&
+>                             kvm_is_write_fault(s2fd->vcpu))) {
+
+FYI, this no longer applies to kvmarm/fixes or kvmarm/next, where the
+condition now ends in memslot_is_logging() ||
+is_protected_kvm_enabled().
+
+I tested the series on v7.3-rc7 (with that conflict resolved) in QEMU,
+with dirty_log_test changed to back the memslot with THP. In ring-only
+mode it fails on the first iteration without the series and passes
+with it. I'll send the test change later.
+
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+Tested-by: Fuad Tabba <fuad.tabba@linux.dev>
+
+Cheers,
+/fuad
