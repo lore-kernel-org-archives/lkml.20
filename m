@@ -1,69 +1,139 @@
-Received: from out28-50.mail.aliyun.com (out28-50.mail.aliyun.com [115.124.28.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-247.mta1.migadu.com [95.215.58.247])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F278532E12E;
-	Wed, 14 Oct 2026 01:30:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09DAF1E5018
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 01:30:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.247
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791941417; cv=none; b=G0KAIYZ4DskDnUqLbI7ogyAL0BHbLF7flODfIOryhcnhIWFj3hTYKcWwg3GDEAIWmivaFlAfKRcrSg4xFi1mancB13hTcxDXPEEV1TO6rel2GR/NecHnAwwETXtxeYzm9oAJHXegQoadcFbfaTAYC+0Jp+uRh3lWRwFY0IDRPkA=
+	t=1791941461; cv=none; b=YgU+kdCEzj4EimCkeMEPgdlnN5hdrRJH7E2la7ytUe8nvYmJaNVc5aBJxnlAhaYFQYjxjDjwWSWacuHZ7ZaemxP+V0cZi/L0b3DoxLZlZodpsCuuNSqtSLty3+r3zM5Y6MNa2lPD4rwhcOQLYwDcqJffEuM5XHFv25ODf5fp2wM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791941417; c=relaxed/simple;
-	bh=5XKjbVUj5f8dMa8hnGe4ZN5QFJG29y/OV31q8kODYb4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cIaqUNyOX6jBXGxqNz3kdkTLkHuYJCj4sVChcG66cpwwaBhevQOm4LTNDOToqDlaZ0eB7H22lfLqFazDvYWOgK++nVNSWj3LbmUtYgt91fbodYLxbKn6EepYauKO4JC2cR7r8gVSPB8w/VdQiFgfHczj1EQAQ91i3BUz9FyLnZU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=115.124.28.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.183254|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0412798-0.000810369-0.95791;FP=16709473490824910421|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037031241;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=18;RT=18;SR=0;TI=SMTPD_---.jcDxmDH_1791941409;
-Received: from 10.10.26.192(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jcDxmDH_1791941409 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Wed, 14 Oct 2026 09:30:10 +0800
-Message-ID: <a0bf071c-7728-4ac7-b8e6-676e87d47ede@motor-comm.com>
-Date: Wed, 14 Oct 2026 09:30:08 +0800
+	s=arc-20240116; t=1791941461; c=relaxed/simple;
+	bh=5ROt2655uPgI977PSMUmpSlu+2sAipPFwrJ1t+HxYEo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IiNiylrgs2jUsGRBbwCzTdCnw8dOdpnPQEHo8Jlh2C3jqFOWrg0/NrpsPGoszRsA1qKa99BaHU2Dw+erU+1XhX4laRRxrpusgXSUPC+qe3tF84NLwTqxrs9oi6l36+LVe/h/vZZMjtk4dOaeJ+N5IEKGXaxEszFVdRCtpMH6Y+U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ScbTqj69; arc=none smtp.client-ip=95.215.58.247
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ScbTqj69"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=5ROt2655uPgI977PSMUmpSlu+2sAipPFwrJ1t+HxYEo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791941457; v=1; x=1792546257;
+ b=ScbTqj6977N0M+TFrc7aOMq0QtOCFzCqsar6DizDZ8OLRua3ipU5zr4QYPNQwrovmdxmpJq+
+ iAk08MPk3gG5UICLkRQcnLoX/ynb0qO+/Z5xNy1s26CratQRQL1dr4L4/CKmwkEc8BhfmrKFJYz
+ jSFVRmvRQJlvp9v1XEnsEWjA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 7d27739f63868d36;
+	Wed, 14 Oct 2026 01:30:34 +0000
+X-Mizu-Trace-ID: 7d27739f63868d36
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 14 Oct 2026 09:30:29 +0800
+From: Baoquan He <baoquan.he@linux.dev>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Chris Li <chrisl@kernel.org>, Nhat Pham <nphamcs@gmail.com>,
+	Kairui Song <ryncsn@gmail.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Yosry Ahmed <yosry@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Barry Song <baohua@kernel.org>,
+	YoungJun Park <youngjun.park@lge.com>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+	Rik van Riel <riel@surriel.com>, Gregory Price <gourry@gourry.net>,
+	Wenchao Hao <haowenchao22@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Tejun Heo <tj@kernel.org>,
+	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Kunwu Chan <kunwu.chan@linux.dev>,
+	Meta kernel team <kernel-team@meta.com>,
+	Linux Memory Management List <linux-mm@kvack.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	linux-doc@vger.kernel.org,
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+Message-ID: <as7bNVNRkLx0JYqO@MiWiFi-R3L-srv>
+References: <5fdb3777-95a2-48f9-bb38-aa4ba3c96a81@kernel.org>
+ <CAKEwX=MuW6q354nB3tyFTM8d3ox7LRaqcSfUxeATR=Sop5mZPw@mail.gmail.com>
+ <5ca344de-bc34-4a9b-ab85-f553811a1d9c@kernel.org>
+ <CAKEwX=N05iOC4hmiyTt5OxjAsOfU7_V8xGfmK_RgUyrKtuyUTA@mail.gmail.com>
+ <CAMgjq7DJwGCHCAchcfi2Kcu+XHx2YnKXDj53e0t2kpG_GSejkQ@mail.gmail.com>
+ <aqgMCIOFi0dKx_6L@fedora>
+ <CACePvbVMFA9N0nQers=sOnSXGbNhtNE0ewq47AJEH5Cr8imQXA@mail.gmail.com>
+ <CAKEwX=OMYhUs3tt7jUzEzxsOW3yA2JmzpwwxVBP2eZuHOFu=vw@mail.gmail.com>
+ <CACePvbUMjRgK=dQzLjECgBXaUtQSPdAnBXL1Y4=Kh5d15swYvQ@mail.gmail.com>
+ <5c8a2b7b-b76d-4bba-92e1-ec3d66794273@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v23 3/3] net: phy: Add driver for Motorcomm Quad
- 2.5GbE phy
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, hkallweit1@gmail.com, linux@armlinux.org.uk,
- Frank.Sae@motor-comm.com, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- ming.xu@motor-comm.com, xiaolin.xu@motor-comm.com,
- jianmin.wang@motor-comm.com
-References: <20260930194513.663575-1-kyle.switch@motor-comm.com>
- <20260930194513.663575-4-kyle.switch@motor-comm.com>
- <174750c5-0ded-4c26-a103-4d905f8c6dc6@lunn.ch>
-Content-Language: en-US
-From: Kyle Switch <kyle.switch@motor-comm.com>
-In-Reply-To: <174750c5-0ded-4c26-a103-4d905f8c6dc6@lunn.ch>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <5c8a2b7b-b76d-4bba-92e1-ec3d66794273@kernel.org>
 
+On 10/05/26 at 01:06pm, David Hildenbrand (Arm) wrote:
+> On 9/22/26 15:38, Chris Li wrote:
+> > On Mon, Sep 21, 2026 at 8:56 AM Nhat Pham <nphamcs@gmail.com> wrote:
+> >>
+> >> On Fri, Sep 18, 2026 at 11:50 PM Chris Li <chrisl@kernel.org> wrote:
+> >>> No that time slot is too late for Asia developers. I don't think we
+> >>> should use that time slot for swap alignment.
+> >>>
+> >>> We should find a time slot more friendly to Asia.
+> >>
+> >> Any time slot would have that kind of problem. We're spread out across
+> >> the globe.
+> >>
+> >> Let's just use a standardized time slot we have for MM alignment sessions.
+> > 
+> > There are more swap maintainers in Asia than in the US + Europe, at
+> > least based on the maintainer file. Please be more inclusive. If the
+> > alignment is done without key stakeholders, it miss the point.
+> > 
+> > Sigh, we can't even align on a time slot.
+> > 
+> > In that case, let's keep discussing on the mailing list. At least it
+> > is accessible to every one.
+> 
+> Looking at the mailing list, that approach doesn't seem to work.
+> 
+> Finding a time slot that makes US, Europe and Asia happy is ... tricky.
+> 
+> 1 AM is certainly unpleasant.
+> 
+> US vs. Asia is also tricky, but doable.
+> 
+> China 8AM vs. US West Coast 5PM?
+> 
+> China 9AM vs. US West Coast 6PM?
+> 
+> (Europe is 2AM vs. 3AM, who besides me from Europe would join?)
 
-On 10/13/26 10:13, Andrew Lunn wrote:
->> +static int yt8824_config_utp_init_paged(struct phy_device *phydev)
->> +{
->> +	/* enable nibble */
->> +	ctrl = FIELD_PREP(YT8824_U0_U1_ENABEL_ODD_PREAMBLE, 3);
->> +	mask = YT8824_U0_U1_ENABEL_ODD_PREAMBLE;
-> ENABLE.
->
->> +	/* 2.5G template tone */
->> +	ctrl = FIELD_PREP(YT8824_POWER_SAVIE, 0x83);
->> +	mask = YT8824_POWER_SAVIE;
-> Is this meant to be SAVE?
+Hi David,
 
-yes. sorry for the spelling mistakes. In the next version, I'll check 
-the spelling
+Thanks for the suggestion and for organizing this meeting. Both time
+slot is fine to me.
 
-of all macros added earlier.
+I also support collecting the concerns or issues people care about in
+advance and discussing them during the meeting.
 
->
-> 	Andrew
+Thanks
+Baoquan
