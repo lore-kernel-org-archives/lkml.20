@@ -1,93 +1,166 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25F5E2EB5B8;
-	Wed, 14 Oct 2026 01:52:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FDC4175A5
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 01:53:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791942754; cv=none; b=Dp0INZB3eEKbfatVrAE6aTNv9q1SpZEgWnIAnZ9qhllBbfCHuLPNVdpbXfzk0/arcvPsMYKDQskRkVUDppCu3PHseMOuGiENlGc3leQHrWioKTzc1YGKA7NvN9tNG5E9YFx0Ojq2nGEaeyc8q9IfntlYlA/m9ZA4jyxhDSSMrsw=
+	t=1791942837; cv=none; b=RaALWvw2HZfYjz+zengQxhJ1Vzi0y1xgSKu3TbfZo5eArdHmlNcvepsuRWWb3fAsyH4wfPh4JEBFUiGkqsA9AfB11j0v9CPBSO/nDXCwClNsaoe9FuTwgnjOA+yJkZBBU4rGODp72zGu8EoQY5jlEMkLb5uSeJHwFjTAlRlDSN8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791942754; c=relaxed/simple;
-	bh=5+MsJQXbAeKJj33FjbkZ9YHFqOeF9BJmJUF2H4kJ6eA=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=K3Cf+C/jwZCViZFxschm8vrK4wm6++CmIM7wyxHWvwYF5qByVxoMiNsvyUgZpiufBgktEno/DXn3rIK6GgjmN4ovbhIGJaClSXtVM4wScqIbJG0jvtQr98pvF5kRo/raRv3iNRHPb9qx22PFNsY6JgzGshqdLm8RxcoFigNr7DY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=tfSw98zu; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1791942837; c=relaxed/simple;
+	bh=etzMKFfxyaLbRaq/gDzTndGUtAYGsuuIZao4GHbqgps=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VyXE/qDHTfvQ+AybLJeMb0BKwxRsA8xG5paiq7bu5ef7gUmS2qFQKHNXMw1iQcz96D1EQUvdnQQXFJC8o3y+Q7LhzIIC4sPvji8cfRHdHSKb/fP62LqxAz97VZMob8FbuE6QFT20DIRFUNBNRZGVTruaqmy5tEuwXvG6TayTW2I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Ng993Nf0; arc=none smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="tfSw98zu"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 69E1qPEK11182857, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1791942746; bh=LRwYYEuk3EfpjDIL8wyGO8ywDYnlmQSQbc7TDOHmZRo=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=tfSw98zutn/sM+WDQfiDfNbHsb9HEpBJYtlrSP3dZias0yIouqIYV6C6OfNmg6AKG
-	 FxLb8PpbWFS79xbh8L2zWvzZYRW4NuxJymAUpeeLW/rwd9ruMegJJOy4lLFEhbUjVP
-	 hqOxM/BTYhcMmvydJVL2No9yAguH0UWjDLbRLSDE9WR2ViM6LR1hvUuEHNk4c1/3D3
-	 kALxceWbN1IKY9Vy1kXbBsuphs0ku/IWuPiwvqu7SF5r0AwWIOarIK941hA3oS3ItL
-	 o06RHSS4giDmexxvFzbjnVm4c+TFgA6w0yFzysTYVDva59oXS2nMtpskoGqmLtEasV
-	 BEN05STUjbv3w==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 69E1qPEK11182857
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Wed, 14 Oct 2026 09:52:26 +0800
-Received: from RTKEXHMBS01.realtek.com.tw (172.21.6.40) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Wed, 14 Oct 2026 09:52:26 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS01.realtek.com.tw (172.21.6.40) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Wed, 14 Oct 2026 09:52:26 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Wed, 14 Oct 2026 09:52:26 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Abdurrahman Karadag <abdurrahmankaradag19@gmail.com>,
-	"linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>
-CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH rtw-next v2] wifi: rtw88: pci: wake the TX queues when the
- rings are reset
-Thread-Topic: [PATCH rtw-next v2] wifi: rtw88: pci: wake the TX queues when
- the rings are reset
-Thread-Index: AQHdWO4MPV0dG/pKrEyzZWvhd4YBNrb5eb7AgAINFoCAAMEoQA==
-Date: Wed, 14 Oct 2026 01:52:25 +0000
-Message-ID: <c15cbcb38aed477ab8d4c06ce30b174d@realtek.com>
-References: <02b86ed0d0814f009cb5ca83bae343c7@realtek.com>
- <20261013220839.39149-1-abdurrahmankaradag19@gmail.com>
-In-Reply-To: <20261013220839.39149-1-abdurrahmankaradag19@gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Ng993Nf0"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48bbb06e746so2095080f8f.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:53:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1791942834; x=1792547634; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=q7gohh3C0jcN6dr3Ss+1kwQpdA+0WCudV85EOEZosuw=;
+        b=Ng993Nf0WUvmyTmfVIKWAs6ecuvJ9QdDY97lTjrfIl/Rj/QaaQaNRVNObepxP1jzqk
+         /n+W40RwImKIN78o/zftXddwDgSaXDoTl66g08EHTSmHyG65c0/lWZ+P6D9NKYYZj7Xb
+         +G2jk3oVImpQ/s3QpJckxyASP74fcfJqNEQuX78rQg//HeFXs7P+qxZ0/B1RDVfpTTqo
+         s7R91/Bvp2/hqoYDOwAB1vbM5+NIqIAKxn4gHULzehsFwpunbmRGJddezStObscgtSuN
+         MkMJrZsyjMaYAGuukFxXAksFNxOdCfk625ud6iF8wG4qySEJdwN8JIURVg3nqQUhOPU9
+         LasQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791942834; x=1792547634;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=q7gohh3C0jcN6dr3Ss+1kwQpdA+0WCudV85EOEZosuw=;
+        b=jmXMlcFYPh//zED1FU3O/c0qWW8WSt32j2dI1NI5nFv/GvMnGmiQocoNdS5Wj5vQcg
+         VzhPzuQgQ63H95TYgEdXHYQvMjrZmuHk/8eTHCXzmPyAH/eE3JArbJvfPpZDrcarDeUH
+         WVeWyyzxPx7Pn942/F8AOVvmx6MSogzz+U0bOnbo16vuq24MqF+Nco22Eg/siYzEY/A3
+         5k759GpkOJlLh516bRhlmGwfNkIe+LVJ7UBd3GhT/N/EoCACAQfLICbf/EQyL8H4X/YK
+         LYpezsirr77/6X6lmuG5ib5Z0Css5eiFx+veT3bdLQvTrg7JmiZw5/AZs/Amonlkl1zU
+         bCIw==
+X-Forwarded-Encrypted: i=1; AKwUvByiXRd0NXXIXsFz3Tu3nlPr92mizp/+RMyZg0bjK4fOH4xOIoJaowmcDA9CSDcVRjvNcyYc4r04Whzx3oQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLyhpZqKoA8i6npSy0pQXeYtoVrPwqalSBigquH11CnBhIubrBd
+	0loZH9rsBGu9INB1Gc6qCL6F6JjnCXShRcXGnmzTpHsjD1TNqTb8Sf719v5BpmplaA==
+X-Gm-Gg: AYBFou056hHDedy1UmuNlJ79Nx+cLS+E49YN9T07BSf+GIZdfLh78yzw/CSls6cK0nM
+	X6TUUozA1BP8/G0CS1MXr8YDOee3cEYYIdWI81/kbrTZllXSMs5Pk7IH45fl2pnp+2Dknb7d7Yy
+	tfab6xX5c6DSr1ZxACwJB91EG1QIEyxh+0bKwvD4dUuOkSrxDqc2LphX3EDdYL4sEa4ANUhlFP5
+	+1ekDX5U3efqq37E8WaiN+gIeqeBUesywXA1qV6kNX7rRikPi6GpZgACsK+B7Y7T5R/FvZdWgRA
+	KtSJtoF2zPNpyjaXp0/nQa/O9J9pCLeeF60auWsag+HgwMjXC8kvnqaOx/BuayUPDw7d4cnoZX3
+	MgWViIcoeakqcTGcYRezL2A+3cxznsN2yGCumewVN7PGIJYoUP0Wzotajqptk1LKht6taG2vDNB
+	42lewU+74x/t05DvpCCVGZ1fxHvdn/UyULsz2EKRMBP9FONZmzQ1FwSRP5aTebXAf+C2he+B/eu
+	68+b3++Va5hYZ0mbZmZHC1OyieY+0F91qj9Tki1s5Uu7+FzYOCmU0k=
+X-Received: by 2002:a05:600c:3f0c:b0:4a1:6517:ccf1 with SMTP id 5b1f17b1804b1-4a18e47a844mr298659345e9.9.1791942833797;
+        Tue, 13 Oct 2026 18:53:53 -0700 (PDT)
+Received: from localhost ([2a07:de40:b240:0:2ad6:ed42:2ad6:ed42])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a1b2e9791csm19754185e9.1.2026.10.13.18.53.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 18:53:53 -0700 (PDT)
+From: Wei Gao <wegao@suse.com>
+To: Frederic Weisbecker <frederic@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Thomas Gleixner <tglx@kernel.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Jens Axboe <axboe@kernel.dk>,
+	io-uring@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wei Gao <wegao@suse.com>
+Subject: [PATCH v1] sched/cputime: Preserve iowait accounting across waking interrupts in dyntick-idle
+Date: Wed, 14 Oct 2026 01:52:58 +0000
+Message-ID: <20261014015258.13967-1-wegao@suse.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Abdurrahman Karadag <abdurrahmankaradag19@gmail.com> wrote:
-> I also left ring->queue_stopped alone. It stays set until the first
-> completion after the restart, which clears it, and rtw_pci_tx_write()
-> does not read it before stopping a queue, so a stale value costs nothing.
-> I can clear it in rtw_pci_reset_trx_ring() if you would rather the driver
-> state did not claim a stop that is gone.
+In liburing's test suite, the test/iowait.t test case intermittently fails
+with:
+    iowait diff too small: 48
+    test 1 failed
+on tickless systems where IRQ time accounting (CONFIG_IRQ_TIME_ACCOUNTING)
+is not enabled.
 
-I re-think ring->queue_stopped and restart work. I feel the flow should be
+Commit 7198e3927a14 ("sched/cputime: Handle idle irqtime gracefully")
+optimized dyntick-idle cputime accounting by avoiding pausing idle
+accounting on IRQ entry when IRQ time accounting is disabled.
 
-1. fw/hw asked to restart -> rtw_fw_recovery_work() -> __fw_recovery_work()
-2. __fw_recovery_work()
-2.1. I think here should call ieee80211_stop_queues() to stop all TX queues
-2.2. __fw_recovery_work() resets most driver states, but doesn't reset ring=
-->queue_stopped.
-     I think we can reset it (but not call ieee80211_wake_queues() if resta=
-rting) by
-     rtw_pci_stop() -> rtw_pci_dma_release()
-3. rtw_reconfig_complete()
-   call ieee80211_wake_queues() as you did in v3.
+However, this causes iowait time to be erroneously accounted as
+CPUTIME_IDLE if the task waiting for I/O is woken up inside the interrupt
+handler (such as the 1-second timeout hrtimer in liburing's test/iowait.t):
 
-I'll discuss above flow internally, and give back to you.=20
+1. In test/iowait.t, a read request is submitted on an empty pipe and
+   io_uring_wait_cqe_timeout() is called with a 1-second timeout. Because
+   current->in_iowait is set, rq->nr_iowait on the CPU is incremented
+   to 1. When the CPU enters tickless idle, the periodic scheduler tick
+   is stopped.
+2. When the 1-second timeout expires, the hrtimer interrupt fires.
+   Because irqtime is disabled, kcpustat_irq_enter() does not pause idle
+   accounting.
+3. Inside the interrupt handler, io_cqring_timer_wakeup() calls
+   wake_up_process(). In ttwu_do_activate(), waking up the task immediately
+   decrements rq->nr_iowait from 1 to 0 before the CPU has exited idle.
+4. When the CPU returns from the interrupt and calls tick_nohz_idle_exit()
+   -> kcpustat_idle_stop() to settle the elapsed tickless idle duration,
+   it checks:
+       iowait = nr_iowait_cpu(smp_processor_id()) > 0;
+   Because rq->nr_iowait was already decremented by ttwu_do_activate(),
+   this evaluates to false. As a result, the entire 1-second idle duration
+   spent waiting for I/O is credited to CPUTIME_IDLE instead of
+   CPUTIME_IOWAIT, causing diff < 50 and failing the test.
 
-Ping-Ke
+Fix this by checking nr_iowait_cpu() in kcpustat_irq_enter(). If the CPU is
+currently in iowait, pause and settle the elapsed time to CPUTIME_IOWAIT
+before the interrupt handler runs. On kcpustat_irq_exit(), resume
+accounting if it was paused.
+
+Fixes: 7198e3927a14 ("sched/cputime: Handle idle irqtime gracefully")
+Signed-off-by: Wei Gao <wegao@suse.com>
+---
+ kernel/sched/cputime.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/sched/cputime.c b/kernel/sched/cputime.c
+index 06bddaa738e5..e8b56433c61c 100644
+--- a/kernel/sched/cputime.c
++++ b/kernel/sched/cputime.c
+@@ -496,7 +496,8 @@ void kcpustat_irq_enter(u64 now)
+ 	struct kernel_cpustat *kc = kcpustat_this_cpu;
+ 
+ 	if (!vtime_generic_enabled_this_cpu() &&
+-	    (irqtime_enabled() || vtime_accounting_enabled_this_cpu()))
++	    (irqtime_enabled() || vtime_accounting_enabled_this_cpu() ||
++	     nr_iowait_cpu(smp_processor_id()) > 0))
+ 		kcpustat_idle_stop(kc, now);
+ }
+ 
+@@ -510,9 +511,13 @@ void kcpustat_irq_exit(u64 now)
+ 	 * need to pause nohz accounting. Resume nohz accounting as long
+ 	 * as the irqtime config is enabled to handle case where irqtime
+ 	 * accounting got runtime disabled in the middle of an IRQ.
++	 *
++	 * Also resume accounting if it was paused on IRQ enter due to
++	 * iowait.
+ 	 */
+ 	if (!vtime_generic_enabled_this_cpu() &&
+-	    (IS_ENABLED(CONFIG_IRQ_TIME_ACCOUNTING) || vtime_accounting_enabled_this_cpu()))
++	    (IS_ENABLED(CONFIG_IRQ_TIME_ACCOUNTING) || vtime_accounting_enabled_this_cpu() ||
++	     !kc->idle_elapse))
+ 		kcpustat_idle_start(kc, now);
+ }
+ 
+-- 
+2.55.0
 
