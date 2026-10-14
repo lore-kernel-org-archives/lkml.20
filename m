@@ -1,147 +1,120 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4C85E5427FA;
-	Wed, 14 Oct 2026 14:14:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D838B3C1985;
+	Wed, 14 Oct 2026 14:15:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791987294; cv=none; b=RgvCFJfSFRvdvI3cKpTPdsYF9DDsPXJdV2fT/tRKLYFslqnFFQRiwtZ0NIKSUrgsPtPWmkOVzDmg53tmN4i95gShCSqD9ghrXq7ECnQoTV1PEOBLtLQFiibZTnCyZj/ucMt66OtdhFUIJuyzoTPA0lNg59nQgdIiI7zI90LIFRE=
+	t=1791987355; cv=none; b=ZcJvMzVFfVq1Eqnzai8f9lPQwHt+q1qfLAE2iAcBnuyNnsRzOVqScF1yQdqqAzVPnqpWv+GULWG66v/R7FCTxsvlZmnEj4oOLQCxi63oWfpiBUAVTYzWsogLvkuHve1YdEWkLxg2iByf4Q7sSx1aJ27m+h+z8X4zoT6H7SCo/gs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791987294; c=relaxed/simple;
-	bh=LDLT23fIL3Vnuqvwb6RQ16bO8CIzq4ggp+SHdh/yJ08=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZKPTf4odAy4m8s59GpFbb8hwdVrEdwbIRXsH6HijJeBTwl+VF9is5zP5r91LrzKJ4MJm/iJfpv8dMu8ceylMjFKpkVaLoRmKPW+R4r+xchrq/usl5loKl9YPOIOjclyDjU8lNw0dEsbEVojMQy1fA34O0RfCLzRk3S8h5Kp8JxA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=fkLRL1VY; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791987355; c=relaxed/simple;
+	bh=yFy8jKNEVD5aCWcbmOASnsJk2pCrcuWkNIOMU0IPEjE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qC5o/3izM9v0huhlfP+yBXzdf24rlpbEYtY2lUJMQzAuvrHrrRXz8VDUq2ncS25uqtjdEP13qwIaEA9ySp6jHrTMpyk8y5cTSv9uhtg0KZI2LBHR/7hKnb1/ynSL7g3pivPD9FO1wiKw9Gmi33eVvhr3ZLf/AdlT5weQvtYfe9A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B5r8eGWH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="fkLRL1VY"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 018FE1570;
-	Wed, 14 Oct 2026 07:14:43 -0700 (PDT)
-Received: from [10.0.128.106] (e127648.arm.com [10.0.128.106])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DFC683F673;
-	Wed, 14 Oct 2026 07:14:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791987286; bh=LDLT23fIL3Vnuqvwb6RQ16bO8CIzq4ggp+SHdh/yJ08=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=fkLRL1VY54gikhsUiI2B08JovTDr16GKwY4ByahW05VMCnBzsHhuJUdNA8Qpmt6L9
-	 R2a7DU+O2weDRvhgsrZP0d1vwfAZeQ5xF0qw3/Eea/A0dSLkx1QJYRpM5v1ZjDvaKt
-	 Mz0lvPcL+Qp1BGaRFvwt+SLyL4opFDRo9U5qc+kw=
-Message-ID: <48eb633d-9fbe-4299-8d10-e7686acf5a3f@arm.com>
-Date: Wed, 14 Oct 2026 15:14:41 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B5r8eGWH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 500FB1F00ADB;
+	Wed, 14 Oct 2026 14:15:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791987354;
+	bh=cNm60TBpTyZut0H523+N0q+d3z2GKFPS8cxZLfYPT1w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=B5r8eGWHgk+I1TEgATWXTG7eRgO5lv1UuLPysWJwcZ5TgCFhyiY+iQJ3b4OWhctz8
+	 HjFRhWGMJaqlTiIb4x4Z1470K2eQikWj1CUgrzMVr4vR2sjdWZfMR+yluK4U6EIvAv
+	 agaqKU+wls3CmY89Q0qfHst1rxilBmujnW4H64imNeYQogt/AOYSpHlYJVZlvabXvl
+	 fLxyFhKrDOuC8rsu43D2t2SQYH6jgElObDeKZ4og5to8LK92WUcpo3gx9mxzmZQ5AA
+	 cBTHPdOc+k/150CvsLjga5sPYxHfhPxMl3+nXopjIAk6uWK/cwhhwOurxwP4YhHwEe
+	 4aPBQiVlCUDmg==
+Date: Wed, 14 Oct 2026 15:15:46 +0100
+From: Mark Brown <broonie@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Theodore Tso <tytso@mit.edu>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Sasha Levin <sashal@kernel.org>, corbet@lwn.net,
+	skhan@linuxfoundation.org, rdunlap@infradead.org,
+	federico.vaga@vaga.pv.it, apw@canonical.com, joe@perches.com,
+	workflows@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Justin Stitt <justinstitt@google.com>,
+	Carlos Maiolino <cem@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+	Jori Koolstra <jkoolstra@xs4all.nl>,
+	Brian Foster <bfoster@redhat.com>,
+	Christoph Hellwig <hch@infradead.org>,
+	David Disseldorp <ddiss@suse.de>,
+	Jani Nikula <jani.nikula@intel.com>, Jens Axboe <axboe@kernel.dk>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>
+Subject: Re: [PATCH] docs: remove Assisted-by references
+Message-ID: <289112f3-41bf-4673-acb3-667bac48a76b@sirena.org.uk>
+References: <20261009083137.3-1-sashal@kernel.org>
+ <0914a106-bacf-4d95-854a-bfeefbff62a4@kernel.org>
+ <asz9AeFe3CutP73z@gremlin>
+ <20261013123132.GC4214@killaraus.ideasonboard.com>
+ <as4pAEnLd4H68W4W@gremlin>
+ <20261013131243.GM56180@killaraus.ideasonboard.com>
+ <as4xMnT8a75pIw9v@gremlin>
+ <as7uqZn9rQ52USwy@mit.edu>
+ <as-Dwg8DcEOYMXki@gremlin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] sched/cputime: Preserve iowait accounting across
- waking interrupts in dyntick-idle
-To: Wei Gao <wegao@suse.com>, Frederic Weisbecker <frederic@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>
-Cc: Thomas Gleixner <tglx@kernel.org>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
- Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
- K Prateek Nayak <kprateek.nayak@amd.com>, Jens Axboe <axboe@kernel.dk>,
- io-uring@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261014015258.13967-1-wegao@suse.com>
-Content-Language: en-US
-From: Christian Loehle <christian.loehle@arm.com>
-In-Reply-To: <20261014015258.13967-1-wegao@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="fbxWzeNq4nV8olKM"
+Content-Disposition: inline
+In-Reply-To: <as-Dwg8DcEOYMXki@gremlin>
+X-Cookie: Live free or die.
 
-On 10/14/26 02:52, Wei Gao wrote:
-> In liburing's test suite, the test/iowait.t test case intermittently fails
-> with:
->     iowait diff too small: 48
->     test 1 failed
-> on tickless systems where IRQ time accounting (CONFIG_IRQ_TIME_ACCOUNTING)
-> is not enabled.
-> 
-> Commit 7198e3927a14 ("sched/cputime: Handle idle irqtime gracefully")
-> optimized dyntick-idle cputime accounting by avoiding pausing idle
-> accounting on IRQ entry when IRQ time accounting is disabled.
-> 
-> However, this causes iowait time to be erroneously accounted as
-> CPUTIME_IDLE if the task waiting for I/O is woken up inside the interrupt
-> handler (such as the 1-second timeout hrtimer in liburing's test/iowait.t):
-> 
-> 1. In test/iowait.t, a read request is submitted on an empty pipe and
->    io_uring_wait_cqe_timeout() is called with a 1-second timeout. Because
->    current->in_iowait is set, rq->nr_iowait on the CPU is incremented
->    to 1. When the CPU enters tickless idle, the periodic scheduler tick
->    is stopped.
-> 2. When the 1-second timeout expires, the hrtimer interrupt fires.
->    Because irqtime is disabled, kcpustat_irq_enter() does not pause idle
->    accounting.
-> 3. Inside the interrupt handler, io_cqring_timer_wakeup() calls
->    wake_up_process(). In ttwu_do_activate(), waking up the task immediately
->    decrements rq->nr_iowait from 1 to 0 before the CPU has exited idle.
-> 4. When the CPU returns from the interrupt and calls tick_nohz_idle_exit()
->    -> kcpustat_idle_stop() to settle the elapsed tickless idle duration,
->    it checks:
->        iowait = nr_iowait_cpu(smp_processor_id()) > 0;
->    Because rq->nr_iowait was already decremented by ttwu_do_activate(),
->    this evaluates to false. As a result, the entire 1-second idle duration
->    spent waiting for I/O is credited to CPUTIME_IDLE instead of
->    CPUTIME_IOWAIT, causing diff < 50 and failing the test.
 
-So reading the test, the reason this doesn't fail constantly (on a non-isolated
-machine) is the massive margins?
-It pins the io_uring_wait_cqe_timeout() to CPU0 with either in_iowait=1 or
-in_iowait=0.
-It then asserts after 1s that CPU0 got: 
-a) for in_iowait=0 at most +10 iowait units (<10% CPU time)
-b) for in_iowait=1 at least +50 iowait units (>50% CPU time)
-So a) would fail on too many unrelated iowaits, b) would fail on unrelated
-runnable tasks.
+--fbxWzeNq4nV8olKM
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-I don't think validating the per-task in_iowait setting via the CPU aggregate
-is really feasible FWIW.
+On Wed, Oct 14, 2026 at 02:42:09PM +0100, Lorenzo Stoakes (ARM) wrote:
+> On Tue, Oct 13, 2026 at 11:23:53PM -0400, Theodore Tso wrote:
 
-> 
-> Fix this by checking nr_iowait_cpu() in kcpustat_irq_enter(). If the CPU is
-> currently in iowait, pause and settle the elapsed time to CPUTIME_IOWAIT
-> before the interrupt handler runs. On kcpustat_irq_exit(), resume
-> accounting if it was paused.
-> 
-> Fixes: 7198e3927a14 ("sched/cputime: Handle idle irqtime gracefully")
-> Signed-off-by: Wei Gao <wegao@suse.com>
-> ---
->  kernel/sched/cputime.c | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
-> 
-> diff --git a/kernel/sched/cputime.c b/kernel/sched/cputime.c
-> index 06bddaa738e5..e8b56433c61c 100644
-> --- a/kernel/sched/cputime.c
-> +++ b/kernel/sched/cputime.c
-> @@ -496,7 +496,8 @@ void kcpustat_irq_enter(u64 now)
->  	struct kernel_cpustat *kc = kcpustat_this_cpu;
->  
->  	if (!vtime_generic_enabled_this_cpu() &&
-> -	    (irqtime_enabled() || vtime_accounting_enabled_this_cpu()))
-> +	    (irqtime_enabled() || vtime_accounting_enabled_this_cpu() ||
-> +	     nr_iowait_cpu(smp_processor_id()) > 0))
->  		kcpustat_idle_stop(kc, now);
->  }
->  
-> @@ -510,9 +511,13 @@ void kcpustat_irq_exit(u64 now)
->  	 * need to pause nohz accounting. Resume nohz accounting as long
->  	 * as the irqtime config is enabled to handle case where irqtime
->  	 * accounting got runtime disabled in the middle of an IRQ.
-> +	 *
-> +	 * Also resume accounting if it was paused on IRQ enter due to
-> +	 * iowait.
->  	 */
->  	if (!vtime_generic_enabled_this_cpu() &&
-> -	    (IS_ENABLED(CONFIG_IRQ_TIME_ACCOUNTING) || vtime_accounting_enabled_this_cpu()))
-> +	    (IS_ENABLED(CONFIG_IRQ_TIME_ACCOUNTING) || vtime_accounting_enabled_this_cpu() ||
-> +	     !kc->idle_elapse))
->  		kcpustat_idle_start(kc, now);
->  }
->  
+> > I think we're going about this the wrong way.  What we want is high
+> > quality contributions.  If they are high quality, who cares if they
+> > are AI-generated or not?
 
+> Recently 2 people sent 1,000 patches over 2 hours. Care to check each and
+> every patch for 'quality'? :) Only the beginning.
+
+And, crucially, unlike what would have tended to happen in the past with
+mass patch sending a lot of the time the patches tend not to be
+repetitive patches fixing the same issue in the same way in many places
+like are seen when someone has a shiny new static check.
+
+> > I also suspect it should be possible to use something like Jev or some
+> > other System One LLM to help with an initial prioritization for the
+> > patch, and then have that prioritization be set in patchwork.  Each
+
+> Using AI to detect AI right now works, who knows in the future. But that's
+> an arms race which we'll eventually lose. Which also costs money...
+
+Reports I've seen from other areas suggest a noticable false positive
+rate even with the current stuff.
+
+--fbxWzeNq4nV8olKM
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrPjpEACgkQJNaLcl1U
+h9ASvggAhblOCoLUXEoPxwVvyi6GB2/D+t/3E8S5ENJTY1ft2fg1LoCQvTof7acG
+DAY2yJIwnh+UaQaXvPaMQ4cDYxe5wpFi01EJiEtHD/GeClmOZL706bPCDcdDKPuM
+i2/bpQk1OXRW0Vf7MhJqmW0drHKGTUrtmfPS3VFXplQWOlfQTXMC8kM0QhDmP2Jr
+BNvTAN4fbi198ILQ6GnrTvDXok+3LROl0GGkDrqEF9od5dJ9mWq2VUhzUEdFaHAW
+cVHIhXp7tvzTUNvEB5tbwCHEcf9LCRWnW1BKK/8ahokm6vlsbWLfVOHG6bDsorIC
+PGxdCTv47f4Poh/rpam8XmBZvYEKfw==
+=ZdWd
+-----END PGP SIGNATURE-----
+
+--fbxWzeNq4nV8olKM--
