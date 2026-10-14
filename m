@@ -1,75 +1,75 @@
-Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
+Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B75AE282F29
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 02:10:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A38C3043CF
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 02:10:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791943836; cv=none; b=m40dTZxcHkMwulvWopd6/AY52IxbFJT1THURNlVQw9/3Yb749EkcgeCCAkTuiM9lCtEAug7YiGJMmIk6KlNHcQVWEyNlvQHihv/odW4BK98jRXvNjckeLcym8HlWGMXYL/Vk+7dhOA3qSCiR+yszWiJmnVglyaOCHnbeVBCaK+M=
+	t=1791943843; cv=none; b=ja5vjvhf9nib6TsphdD5TOMH+korG6RSyYnMSCTeVmBUsG4PPQYeWT9Ij5ceu6Gkry7Hsg00TJh3PbdizsNPoI57FBz7zTZJn73vEJSe/7tBcGbAGhG1GIR0mwjMLxsQGFGsC3z++IcVQd8KhBeRg35Jl098OB52QXnm/Ium85I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791943836; c=relaxed/simple;
-	bh=KtaEU7sj2PuGXbpfM+LYFyZ89q0BnTG4FcH/WMxLoic=;
+	s=arc-20240116; t=1791943843; c=relaxed/simple;
+	bh=V01dN7/IfsEO5pHq2duFtB/TRqL+3S234iS50A0mA8c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BnsPmiokS8QtFxl2qjO9Lnhk85o6pTpU8wyk/0vE2mchgokoqKL0VLzX/7VL7D95y9geQFtTQJ0urg2mMcgKveUzNc/+j2dkbLVDnVif7Sn7g+fEE7aLyk5e26D5afsQstpiTxCsa4j89vPyknd3mYGs45qiOOC13Mlm/UCi/ZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W+hhKPxc; arc=none smtp.client-ip=74.125.224.44
+	 MIME-Version; b=JyhFhObwcaiCHm92gqt+2B1qgS6E941fg7kZP3dJGcPLR3de/xYS2UQxgSZtwZJQa6TvYON5tNGwU+y/pRcgmeppz+Ajj9da/1Lobr2Rn022h/dJ8+VDy2sBZdGdGSzxqv2MayFczPMCy4AX+qJI3C7/7JV0Po7BhDlUdnHuaZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=khiVaIq7; arc=none smtp.client-ip=209.85.128.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W+hhKPxc"
-Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-6798c43a3d6so95548d50.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:10:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="khiVaIq7"
+Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-8b0ca1ebc8bso209377b3.2
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:10:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791943834; x=1792548634; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791943841; x=1792548641; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=cRjP8gjRhD2hEIgMLkkzEH7pxode4Ix444M49K9RQmA=;
-        b=W+hhKPxcYsH8ndYoCGFNnvzAYAGVoT1AMS0vbdF8gvMuVBr8U6GQ8z5e/CaH9jCuob
-         5b0xMclUhqtzHRiu54phDUip2DNmgcBt+oM6v4hCCnRNlR6EZ2BOCIeBvITCgLbJF/Yp
-         tPMoQK9TRIoXkGJBPw1UpAIQivN/+/OFC/QjPpj9cvsDfVDXUTajqxwr4XQ9RmLzcjeT
-         ExUAk74kSucSSgbeaQiXGJF6bEMaY9t5VpzHfRdu7jxcTfqCfgjmT+rGgPn4w96hRrmJ
-         sa+XIQhsdDcNZSPyXgR4KlXC5QvJtzcvnoqDleoBFmz9V4ovrgpoXq7TnaM6R9D852/U
-         aT4g==
+        bh=D0p3i0gAxxSlQHkl/PX1ueeB867F3mj3/aOjUbLcnjU=;
+        b=khiVaIq781TOIXCYQdfhI0zo1v06OwgDwQ+AfU7re7r/EI0nliwzLSk/d1Xsw0ESMj
+         S+wDyDj8jYlQ3RtzYoihSHwNiO6ChGAd2dIEJRRHKncKlcL9ZU6Bl/HElxOxZdVVWKrO
+         3/bxfFnR+N5R25W5IaQrZADN6vdmkrVaIsGMYKwNCAp/vZ2V8kgiYbQ5WQ6ojEj2thp4
+         rCXqMQcM+TvaR8Kq57tZxFyqPA0yADjkx+BVEPby0hpePPdeuH4LeFGIHjz0JevaHvS+
+         Scf3Vb3fo3A2lYAayzQISW3k79nQkVc4Pe1W3oLyggNJBtEgeV6G/kp9lBuxj4EG8D2a
+         3Zog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791943834; x=1792548634;
+        d=1e100.net; s=20260707; t=1791943841; x=1792548641;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cRjP8gjRhD2hEIgMLkkzEH7pxode4Ix444M49K9RQmA=;
-        b=Y+6OjQvS1wQavrOuL7I7Kjuf+wly082Mj51tgZOzg6Czv455cWwXbxa8WtaZzhwiOW
-         ffEMhroq/mqJnpNKvIMNbt1yGtqmwr9/jup9NWLEE5wrtE1RLAwSEgJ78tPLzZvd7+qM
-         yXUOGwXwutdaUaYT0NRMDR0wMBZ3UoF13VaYoKG44+X0P6le1DZTE2ZVmDkUDovI3c5k
-         zs3O8/PHMHRIL+MOQAIMtKF4hb0BTkH7FUexMSE10M2XkRztrwJB/+LKlYI0L5d9Q2MX
-         X5AXhRa7ZO8MlrA48+dcCsMDTgayuhkp8IeSRkqWOxbOlPntNKiP4kjMUnPAsEflTBCI
-         1JYw==
-X-Forwarded-Encrypted: i=1; AKwUvBxgiJ2F18iINnoYypl47vJ08f1WtOZh9y5FCV/fadgyJWVUoZ9OC1mNP4+V+0kmDtn6+wb7IdxQ99KVX58=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKDZxIIv3IhwO4cUAn8H3oG/lrWKsX3UMkBd+9kEL1EdFpWsaL2
-	F0AgBWba6/gZnSoXLUgOQwVSxCkMHmGp7pvjoEm0ItuVtTqxHorzCoT3ZbqYjg==
-X-Gm-Gg: AYBFou3bfNG0q4h/baYbUDUC9AWAHAHW3Yoft55YKJrxzwUHA0ZdOvGtg2xNMGqKdGY
-	6hggyHtW1UI31Zx+Zw/Qa+zD3oSDNAUikau49oNLwdhWkGMNR26iZwizCtOXQLbsRRXK4/9OXme
-	Cvf2lTBrJrsdsrl1abon6fBW0ZsHcbZOP11MB2wwBHE8UUXHwhDJpxJJGUFxVJLnVm7526sxmTf
-	+0tqV+2x7VPVFp5uyiwmqocs+YKZGElLXA+/GXyjKR6u+818aZyLyL7I0s6alQ2H73UBOGcMhfH
-	FcDDlDTpGBeBVZFpMPjwuVtn4jgraRYLqw9w8luNnfiRx1ns9aF8D8nodZuRUajzBegelm3/DKI
-	1lxWEqbT1aIC3tpcHDb7pfVHZB0G6kBWznMI1blmxTDwZTpmMl5kieOWTsv7R0kt7eUsO+bJYLE
-	P2qKplomSUbzrn/tCqkoBgHAH6wA4kyUnqESDuhYqLiLhwCtjuEmmyfirtuUFhnTWxzfPfdY3JD
-	bbz05QAZwdMtJHVD1kXkiKNCErxV9CH
-X-Received: by 2002:a53:ac94:0:b0:677:d477:b9f9 with SMTP id 956f58d0204a3-6793632c3e2mr4573867d50.142.1791943833687;
-        Tue, 13 Oct 2026 19:10:33 -0700 (PDT)
+        bh=D0p3i0gAxxSlQHkl/PX1ueeB867F3mj3/aOjUbLcnjU=;
+        b=fI+sG+LWizmC9jHgfcvxtHjV2LcFZgkwbj+GxJ0dG9/cbf/qb4IHBPH8N9ymckPOxy
+         6VzfRuXFdrIU9Ghm2YQbiCBTbsG0DLZPn089+Ok4CTS14BFOL4Bb3e2q/wB4xfBR193U
+         UuA9qKO5JSA+xAXYESiTXfqdFHhHnTBdwW4723PP10kfs3QHf5RObr6N5lo0xZ7Udfem
+         ImxjOQTuKgGnOs0LM7N1Cu+oZl39L/AAD8tAHdx+rhK8uSoCsOERmLpBZYAl+348m8wp
+         5E/IgZcXHHSpwR2Dxx56J8yhhrCIfo1xkq0gJw6N5GBjK/q9oqaOjcY2DDaiD6mLVeDO
+         R7fA==
+X-Forwarded-Encrypted: i=1; AKwUvBybdTa1/jjoJyEiNrDiieDkh6AS+EHLbCLLWlohxzfuHpnHmIodSDN5gJ/wb3quzVePTHGd0ljmgZj8z68=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI/fk2Mc1Fj5/oS6zEkTE3HkL2vXqqFuT+kpLownWl1NQ+JM1+G
+	0z6sjq0fdrARxDIAJaTjscCbLqx6RTdiB4MoXnySkNeWbpGy01Um1olF
+X-Gm-Gg: AYBFou3TqgN+O+5QlJ0F0Iqt4hXyElI/MfOGvZtqYsM9/FfLOPmVXteOgK/cHjkBuWG
+	1Jn8tAfcHa72SZy9sTXEO93GkGn5OMsofmCiM3yFflApZcLTUSSpBEtqEZBr0MUS+6KM6fy6f3M
+	gMrhoGct3OSbyaC435ga4iZU0/CjSHoACJ89Zu5tIsdyH/wurGyGTGhTsJqQR0rgfRIkoDSnez2
+	1jGI2yCzv729O4nZJA8cwypY/s7b2jJBTPJalGjJLYBGQfIEcN5Xgj4AR+W7pxIarrQo5x7xI6B
+	eipm7yhM/vb0aqAWJGV/zpbjYJL7gMfL6T5tyzZUqkz2aprQ2sQnwHIqfdwvKX8PDNydQllvKny
+	SqOhMdyYezeGRp9mYtYZXNqcfKgD09hSL9Sgw6vucQ5ykO/xX84ixKRuwym1EgwWZRVoaysv4hx
+	FIAAxTfnnI1pSxWh6XTG5fG6eygLqawSrLPlGkW60lMBMebc0ddFLYGNuPoQ7Jb6qwsMYUnFzAZ
+	2h9r94h8sASSroNbkSzYRoat05BEpFM
+X-Received: by 2002:a05:690c:dc6:b0:89b:6beb:1149 with SMTP id 00721157ae682-8b07ee94aa8mr53781347b3.54.1791943841047;
+        Tue, 13 Oct 2026 19:10:41 -0700 (PDT)
 Received: from localhost ([2600:1702:d60:1bc0::46])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67986ab3554sm529677d50.20.2026.10.13.19.10.31
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b07f1ecbfbsm50290417b3.23.2026.10.13.19.10.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 19:10:33 -0700 (PDT)
+        Tue, 13 Oct 2026 19:10:40 -0700 (PDT)
 From: Matt Turner <mattst88@gmail.com>
 To: Magnus Lindholm <linmag7@gmail.com>
 Cc: richard.henderson@linaro.org,
 	linux-kernel@vger.kernel.org,
 	linux-alpha@vger.kernel.org
-Subject: Re: [PATCH v7 4/5] alpha: decode and acknowledge Tsunami system machine checks
-Date: Tue, 13 Oct 2026 22:10:19 -0400
-Message-ID: <20261014021020.3842132-2-mattst88@gmail.com>
+Subject: Re: [PATCH v7 5/5] alpha: decode Clipper environmental events and retain console logs
+Date: Tue, 13 Oct 2026 22:10:20 -0400
+Message-ID: <20261014021020.3842132-3-mattst88@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261013211551.991723-5-linmag7@gmail.com>
-References: <20261013211551.991723-1-linmag7@gmail.com> <20261013211551.991723-5-linmag7@gmail.com>
+In-Reply-To: <20261013211551.991723-6-linmag7@gmail.com>
+References: <20261013211551.991723-1-linmag7@gmail.com> <20261013211551.991723-6-linmag7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,33 +79,58 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 On Tue, Oct 13, 2026 at 23:15 +0200, Magnus Lindholm wrote:
-> +	/*
-> +	 * Table 10-42 selects the ECC fields whenever CRE or UECC is set.
-> +	 * Mixed ECC/PCI bits do not establish which error occurred first.
-> +	 */
+> Remove the redundant silent first pass now that every valid environmental
+> notification is reported.
 
-10.2.5.6 says the register freezes on the first error and only LOST
-can be set afterwards. So mixed bits were detected together, and
-ordering does not come into it.
+The silent pass only existed in v6, so this is a change between
+versions. It belongs below the --- line.
 
-> +	/* HRM 10.2.5.7: PERRMASK gates latching, not just notification. */
-> +
-> +	/* Preserve each chip's transaction and the NXM source before clearing. */
+> +#  define EL_TYPE__REGATTA__TSUNAMI_PCHIP0_EXTENDED	(6)
+> +#  define EL_TYPE__REGATTA__TSUNAMI_PCHIP1_EXTENDED	(7)
 
-The first comment is not attached to any code, and the changelog
-already makes the point. I would drop it.
+Where are these two types and their register layout described? I could
+not find them in the 21272 HRM or the ES40 Service Guide.
 
-Table 10-43 gives the PERRMASK reset value as 0, all errors disabled,
-and Linux never writes it, so all of the PERROR handling here depends
-on what SRM programs. What does PERRMASK read on your ES40?
+> +static int
+> +clipper_process_environment(struct el_common *header, int print)
 
-> +	draina();
-> +	tsunami_clear_errors(&live);
+With the silent pass gone, the only caller passes print = 1 and ignores
+the return value. Both can go.
 
-10.2.5.6 warns that PERROR read before the error reaches DRIR can
-come back with INV set. On a 670 or 630 that races with a new Pchip
-error we would acknowledge it with INV set and lose the transaction,
-along with the 660 that would have reported it. I would leave the
-Pchips alone outside 660/620.
+> +		if (packet->class != EL_CLASS__HEADER || packet->revision != 1)
+> +			return false;
 
-Reviewed-by: Matt Turner <mattst88@gmail.com>
+el_process_header_subpacket() prints the frame name and, for event and
+halt frames, the timestamp. This scanner prints nothing for the
+wrapper, so a decoded log no longer says when the error happened, and
+the halt code is dropped too. Please print them here as well.
+
+> +		default:
+> +			return false;
+
+Your changelog says the ES40 record is class 5, type 4, which lands
+here. So on the one machine this ran on, the log is never decoded or
+cleared, and each boot dumps up to 1 KiB of hex per CPU. Please split
+the scanner into its own patch so the environmental decode does not
+wait on it.
+
+> +	for (i = 0; i < dump; i++) {
+> +		if (!(i & 15))
+> +			printk("%s  %04zx:", err_print_prefix, i);
+> +		printk(KERN_CONT " %02x", data[i]);
+> +		if ((i & 15) == 15 || i + 1 == dump)
+> +			printk(KERN_CONT "\n");
+> +	}
+
+print_hex_dump() does this:
+
+	print_hex_dump(err_print_prefix, "  ", DUMP_PREFIX_OFFSET, 16, 1,
+		       data, dump, false);
+
+> +static struct el_subpacket_handler tsunami_subpacket_handler =
+> +	SUBPACKET_HANDLER_INIT(EL_CLASS__REGATTA_FAMILY, tsunami_process_subpacket);
+
+Nothing reaches this. tsunami_console_log() calls the function
+directly, and the handler list is only walked from
+cdl_check_console_data_log(), err_ev7.c and err_marvel.c. Drop the
+registration and the three functions can be __init.
