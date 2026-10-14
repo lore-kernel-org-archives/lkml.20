@@ -1,68 +1,69 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84D08566C73
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:54:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8312E568554
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:54:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792000484; cv=none; b=DEj/QnmwWVfw0BB8j8GGbjXPs1dAmigNgBMPXfk8TUiyEu78mdjA1GsGRQQqDP/IEckJ6wlZao02Gv56qkU0ZNXeEsPi/qZUUpaz1P4lMkodHLA5wVFA/CUDia+YcgATMz/H0YdRaEQImXjtUWPF3RUNsBv+ELjlPUV52WbsgRA=
+	t=1792000486; cv=none; b=dSt/7MIR7q/iXKSaLC7HmnSKdwtxr/OLuxpjPETVaHbQiCupvcKP6ySRFsjyJKzXShDT3tDUIsD3Oy1inLA5ZC5DJ6EB0awodhHPFoUrLMqSHx3DtDtOvqPOP4RGMLja6N/V0SeszwvbkSG+VBk1YZpvuuqLlxHXmK221HrfQ8A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792000484; c=relaxed/simple;
-	bh=LDcbTNir62rV20SGZG1KYPB/lL6RsAH2wL+Y3BnGfRQ=;
+	s=arc-20240116; t=1792000486; c=relaxed/simple;
+	bh=4roB2H7cNDjO/LXIqC2XOjpQcaxJKWSUGDnr1sFA2T8=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nkl8fON4pjiIof7hAyjtyiZ/ubQuWHdnIk09HIOfNnBngjn7c/T9eSDMUzi0QfNvN0orjN8dBW22TOSp0JXZu5WwZvUMnaOMzmd7VSx5z3i89kPWWcKFBwB+3jF7A6Uiw0+baHZPqstbnmG3uZ3UiXkZ6yrSYxMNR9ABk+0ZpfY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=pbyIaDkk; arc=none smtp.client-ip=209.85.128.47
+	 In-Reply-To:To:Cc; b=GohmgRvUIucRewNmXH/MiOqNLmRlUYMik32q6nfguqruomhz3HeBDhAXsxXWZ/PXS09g3Wz18DuRtRzMMPn7wS+xhBPZJ2WZewAHZUL50rJjcHCPMpIIXaYEQqc3ryS9MLBiR+elgjbjDD1ymRZCJf8WU53/29wRb2t5yyyz+C0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=ln2MSmme; arc=none smtp.client-ip=209.85.128.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="pbyIaDkk"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49ff680331aso14565985e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:54:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="ln2MSmme"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a02753c04fso24400145e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:54:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1792000479; x=1792605279; darn=vger.kernel.org;
+        d=raspberrypi.com; s=google; t=1792000482; x=1792605282; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=A11ELgzrLJMDPQP6jv4hsgi3W8J+7I8K+Xp7zfgIt1I=;
-        b=pbyIaDkkb08bkvSaWp97zTs8tueqDvFXNDY8977PIDq/EOthm2fAVfIx1cvU8gYFb3
-         EAwPa1IyQLv06T8n8QTlNtpg7nR6uk56YD1O1zP5QK6CCcHvItorvL3PXewWHRFGwtf1
-         bohk+NKr9B1IkXH6GEAAjW+Q23hMkBNN9aqvbmefIWzI2f1qWjxdfzEYUox9CWYxKRu5
-         jAku7y8vDOoccK27gj00Ujty6qooGKKaR42UeI/Ua2T9jMxuvWm0crRtjALUbqNw+DMc
-         EctzeLz8ZL2suC+YGFwYXKV+OnJxRv5dVmC+NlU+0niTzc7UNiJ62KVMH3v/sIX2888y
-         pVqA==
+        bh=0UtlNA1xvJFzZ9phCn25F8LpQNd1vSbWT52wzAm7fk4=;
+        b=ln2MSmme8lhDgQpY0Jsb3vvD/4tVM6BZEEGywrKdnvqw0XeiR/jCrBL5jb3S/KFggt
+         nDPSFIUxSKvgJ6ul5nbzR/zXHE7051yq72YaTgWq/iecwv0Pc6AGhOPFDKaHPmUNVxU3
+         TZZE01Lic2tPdi7BYB0Meg1deGFuFvauP7MxjE+Mt7DGoxrOj2GQ+GMdm9q5xn9K+Upd
+         T/e7T0eCkJtHzlWx+auuMl2bPHB7L1X3aXIB7nwJyOhzieVPz52es2GstddpTB29E3jA
+         UMM7j99UUhYn8MjpvY55RdJsYWj/0FtRv1KT91SpsoONKl2BItLR8iZbmtc8E1ewH6YX
+         WszA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792000479; x=1792605279;
+        d=1e100.net; s=20260707; t=1792000482; x=1792605282;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=A11ELgzrLJMDPQP6jv4hsgi3W8J+7I8K+Xp7zfgIt1I=;
-        b=SrxSVu2p8oWeEpFIvQeXa0DuH5GFzCbVi/sV7ViRtVKKq9GzuaZ7I8ICTcnr5njvhU
-         7jpeytLjgF6KnT7SF9qJ8Vwzf2aOEQKvTz8KKe3STvlRTlZekZOzw2bOntrPFVPbSiim
-         v4VZMSRQgyFeU6YwJ5iGULlbMg+kJIW2SfNm40xM4dLp3zTWQCkY+uP2AdYUr+8JuhES
-         MMHvnA4+vw5r4/nXMu0+YLTzxeb6a48BsgTp9Uq7OALKqlHr7KtEL4WnWyv7IW9QZF3+
-         mdL0QbgzYVwZwvew3ezyBoUPHLFNJX+8uEyZLmH0bSD6jYSK3JRT2n5eVoV5yjA8seAD
-         ZCNg==
-X-Forwarded-Encrypted: i=1; AKwUvBwoDLy1XY9etxEb3FUne2KjtI0oslGaYUlGxFLv6/mm/BrrKJl9I6KZVxYg2Z9Nnc6i8GT8266/Qj9axg4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKyBST5DtvpiaGZOFh09aEWGU9P/9P3rDwXTmugjbJw7H91jq+u
-	CU1aU4iLBPW3JADiNAEs/pNec84uamJT3jmk+01l54HqqeQXe7ZHf0S+Eb7sR2R7FhM=
-X-Gm-Gg: AYBFou0xUVqe61wPD3e5zlDjk1qgyLvVl6U4+zFDSlyr+95UuPSJKqajpywSC509wlt
-	U0hTUdJLP9iZuVvyty3hFKEYjsrPY6yTD6mReQWFtE6jaUkk5sVU7t2ZmbLUu4WwJZfuarb/A9A
-	SA1w8NIiPbOxvO+ZsDzmtDGVkvDQPwXnBnnuTJrdLls+P1776q7KwxjRkluqL7WAmWdaqro8ytm
-	ooi5nx26CTOvTqc0zfbEkVHTAPiLgOF15SpnJxyh7gfiiavkumZmyaP6fo8brD8/WTfAjuAr6FR
-	o59wgybCQoHmbwawuw6SzuLun+CPaO8DQNvKI8FD5gORFQTNTeWrCJ988izYIaVAeGTuSwQjhFQ
-	7wawbLTLYuUq5iGOhbZlM53N91ygPA8Hs/eA/YWzZpobcxybvCCsvmBF/7CtXZLQDReq9Ed6slq
-	9w5eTry9p55Sv57bIDNoaMjv5VKf4z2InBlDVXWFn5rt+OmsVqGWWL4oAkHbnJssZeWU6mbwkOA
-	VDvgAXSd9HJkfeoMIFx1dtZySTvl9F3yZbVcErdP/+4CHzBSpI=
-X-Received: by 2002:a05:600c:620f:b0:49f:dc71:e609 with SMTP id 5b1f17b1804b1-4a18e499874mr312463525e9.20.1792000478126;
-        Wed, 14 Oct 2026 10:54:38 -0700 (PDT)
+        bh=0UtlNA1xvJFzZ9phCn25F8LpQNd1vSbWT52wzAm7fk4=;
+        b=ZMFItiRf0WiRqs6+ptQgpk9jGV8Antxmh7g0Ie26Y43Vnfvxs63JyZISZeNfO8zTFb
+         PYUQYjxwOMGinTmxSagXamoaKdYBf+1p6TvAHH5Bc4gHy27IruwP+ZpQZsoOCI2+cw+4
+         wvKUSqpvVy2FZD9QA5ekT1Vj90l/0C4NoyQHCGsjGz4UDq17HhL+MB03PrdHLVTK4d6h
+         WgF/icWqksqbhIAoRE8PnRqJV7uEXVXcxrtT5J9KWlfPnbCBTdcAXiGX2RmK8H4CAMlN
+         gYV3svDQNkABXYnIyhuV5/s8bezfD1+uSWafFc82AGmM7v52NfY1dA6jNFghe+SLDVPF
+         ryAw==
+X-Forwarded-Encrypted: i=1; AKwUvBxO0vLjd0MJogC4ran/bc173nVhnngBELMIOPQa+dYggVV6Un2wP7IONQipmrwNUpzNDVUfYnWAaU9JPP4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKIyg8jjT9XvF67l/VWhhmIQXDTDbxkEBmlpD1KfXzIAPCaYwJ0
+	a3cDiZFuUaPZJ0zLMgO6WN3T3go/QacrJPB85TLcT4qISCu+6hDiLEZ2nPCccCNDAro=
+X-Gm-Gg: AYBFou2glSFqx/mu7ByQ5fe45vvse5Bmx9TF8nOeyz8uZPt3aDNRvB2n5EaO4GQ4WtX
+	KX5lrdS3fi9cevpKRKljzKzpuIlo6qkdi/w2FdWsQZByrrU2guJ9PeGV9Jfa9x3wNw1qkug7+OQ
+	ULj7JCXelcvX8VFDJshVQtE8nFQ+u7v9a662pPELKYc68pW4G3tDNaPNyrU4K6T7ZU7/cuzojS/
+	ju41xtq7+RpOMS+FONKzqWknnJec6fUYdR3e0yWps5ONPizdGe6CbRJ6sEZ8CXhdDFvHFx207La
+	vd3KTghfy0B+auGmPAeaCukWAFxOr9eOtYH5pjzouzXeaOB4rMoTvhaJVjYi/n6cgpvmthN7yr6
+	s7hapg2hrabELF5dk2P0t5pLS1rnLitSEh6H2Rxnc+t6VOGzoAJNnTRK8LQvfcXfkNZlZ7uPmMf
+	zOCK42OplLDYcMJdRQ7dbNRBfme8UJIHMGnxWK43ZY+Uzv8TMdRxdVQ/Gs+AR6e1Tt059774ZyD
+	gqBEXT4mkU65vbeYuFe2rE2hxWViwAqXuRFprMezxTdA1FWWg==
+X-Received: by 2002:a05:600c:1909:b0:4a0:159b:d283 with SMTP id 5b1f17b1804b1-4a18e4d5412mr370442525e9.30.1792000481482;
+        Wed, 14 Oct 2026 10:54:41 -0700 (PDT)
 Received: from [127.0.1.1] ([2a00:1098:3142:e::8])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a1bd986095sm8188395e9.7.2026.10.14.10.54.37
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a1bd986095sm8188395e9.7.2026.10.14.10.54.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 10:54:37 -0700 (PDT)
+        Wed, 14 Oct 2026 10:54:41 -0700 (PDT)
 From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Wed, 14 Oct 2026 18:54:30 +0100
-Subject: [PATCH v3 09/14] media: sony-starvis2: Add support for IMX662
+Date: Wed, 14 Oct 2026 18:54:33 +0100
+Subject: [PATCH v3 12/14] media: sony-starvis2: Only update bits for window
+ mode
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,7 +72,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-media-starvis2-v3-9-c958362b5d06@raspberrypi.com>
+Message-Id: <20261014-media-starvis2-v3-12-c958362b5d06@raspberrypi.com>
 References: <20261014-media-starvis2-v3-0-c958362b5d06@raspberrypi.com>
 In-Reply-To: <20261014-media-starvis2-v3-0-c958362b5d06@raspberrypi.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
@@ -85,205 +86,40 @@ Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
  devicetree@vger.kernel.org, Dave Stevenson <dave.stevenson@raspberrypi.com>
 X-Mailer: b4 0.14.1
 
-IMX662 is a 1080p Starvis 2 sensor that follows the same programming
-pattern as IMX678, so add it to the newly parameterised common
-driver.
+IMX585 requires bit 4 of the WINMODE register (0x3018) to be
+set, whilst the bottom nibble selects between all-pixel and
+window mode.
+
+Switch to using cci_update_bits so that only the bottom nibble
+is updated, thereby working on all supported Starvis2 sensors.
 
 Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 ---
- drivers/media/i2c/sony-starvis2.c | 155 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 155 insertions(+)
+ drivers/media/i2c/sony-starvis2.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/media/i2c/sony-starvis2.c b/drivers/media/i2c/sony-starvis2.c
-index 4fade8671bb5..2bba3217cb04 100644
+index b6c08729bc3c..86f740e10402 100644
 --- a/drivers/media/i2c/sony-starvis2.c
 +++ b/drivers/media/i2c/sony-starvis2.c
-@@ -8,6 +8,8 @@
-  * Currently supported are:
-  * IMX678: Diagonal 8.86 mm (Type 1/1.8) CMOS image sensor with 8.40 M effective
-  *         pixels.
-+ * IMX662: Diagonal 6.45mm (Type 1/2.8) CMOS image sensor with 2.12 M effective
-+ *         pixels.
-  *
-  * Copyright (C) 2026 Ideas On Board Oy.
-  *
-@@ -661,6 +663,136 @@ const struct starvis2_variant imx678_variant_def = {
- 	.hmax_min_pixel_array = 550,
- };
+@@ -88,6 +88,7 @@
  
-+static const struct cci_reg_sequence imx662_common_regs[] = {
-+	{ CCI_REG8(0x3444), 0xac },
-+	{ CCI_REG8(0x3492), 0x08 },
-+	{ CCI_REG8(0x3b00), 0x39 },
-+	{ CCI_REG8(0x3b23), 0x2d },
-+	{ CCI_REG8(0x3b45), 0x04 },
-+	{ CCI_REG8(0x3c0a), 0x1f },
-+	{ CCI_REG8(0x3c0b), 0x1e },
-+	{ CCI_REG8(0x3c38), 0x21 },
-+	{ CCI_REG8(0x3c44), 0x00 },
-+	{ CCI_REG8(0x3cb6), 0xd8 },
-+	{ CCI_REG8(0x3cc4), 0xda },
-+	{ CCI_REG8(0x3e24), 0x79 },
-+	{ CCI_REG8(0x3e2c), 0x15 },
-+	{ CCI_REG8(0x3edc), 0x2d },
-+	{ CCI_REG8(0x4498), 0x05 },
-+	{ CCI_REG8(0x449c), 0x19 },
-+	{ CCI_REG8(0x449d), 0x00 },
-+	{ CCI_REG8(0x449e), 0x32 },
-+	{ CCI_REG8(0x449f), 0x01 },
-+	{ CCI_REG8(0x44a0), 0x92 },
-+	{ CCI_REG8(0x44a2), 0x91 },
-+	{ CCI_REG8(0x44a4), 0x8c },
-+	{ CCI_REG8(0x44a6), 0x87 },
-+	{ CCI_REG8(0x44a8), 0x82 },
-+	{ CCI_REG8(0x44aa), 0x78 },
-+	{ CCI_REG8(0x44ac), 0x6e },
-+	{ CCI_REG8(0x44ae), 0x69 },
-+	{ CCI_REG8(0x44b0), 0x92 },
-+	{ CCI_REG8(0x44b2), 0x91 },
-+	{ CCI_REG8(0x44b4), 0x8c },
-+	{ CCI_REG8(0x44b6), 0x87 },
-+	{ CCI_REG8(0x44b8), 0x82 },
-+	{ CCI_REG8(0x44ba), 0x78 },
-+	{ CCI_REG8(0x44bc), 0x6e },
-+	{ CCI_REG8(0x44be), 0x69 },
-+	{ CCI_REG8(0x44c0), 0x7f },
-+	{ CCI_REG8(0x44c1), 0x01 },
-+	{ CCI_REG8(0x44c2), 0x7f },
-+	{ CCI_REG8(0x44c3), 0x01 },
-+	{ CCI_REG8(0x44c4), 0x7a },
-+	{ CCI_REG8(0x44c5), 0x01 },
-+	{ CCI_REG8(0x44c6), 0x7a },
-+	{ CCI_REG8(0x44c7), 0x01 },
-+	{ CCI_REG8(0x44c8), 0x70 },
-+	{ CCI_REG8(0x44c9), 0x01 },
-+	{ CCI_REG8(0x44ca), 0x6b },
-+	{ CCI_REG8(0x44cb), 0x01 },
-+	{ CCI_REG8(0x44cc), 0x6b },
-+	{ CCI_REG8(0x44cd), 0x01 },
-+	{ CCI_REG8(0x44ce), 0x5c },
-+	{ CCI_REG8(0x44cf), 0x01 },
-+	{ CCI_REG8(0x44d0), 0x7f },
-+	{ CCI_REG8(0x44d1), 0x01 },
-+	{ CCI_REG8(0x44d2), 0x7f },
-+	{ CCI_REG8(0x44d3), 0x01 },
-+	{ CCI_REG8(0x44d4), 0x7a },
-+	{ CCI_REG8(0x44d5), 0x01 },
-+	{ CCI_REG8(0x44d6), 0x7a },
-+	{ CCI_REG8(0x44d7), 0x01 },
-+	{ CCI_REG8(0x44d8), 0x70 },
-+	{ CCI_REG8(0x44d9), 0x01 },
-+	{ CCI_REG8(0x44da), 0x6b },
-+	{ CCI_REG8(0x44db), 0x01 },
-+	{ CCI_REG8(0x44dc), 0x6b },
-+	{ CCI_REG8(0x44dd), 0x01 },
-+	{ CCI_REG8(0x44de), 0x5c },
-+	{ CCI_REG8(0x44df), 0x01 },
-+	{ CCI_REG8(0x4534), 0x1c },
-+	{ CCI_REG8(0x4535), 0x03 },
-+	{ CCI_REG8(0x4538), 0x1c },
-+	{ CCI_REG8(0x4539), 0x1c },
-+	{ CCI_REG8(0x453a), 0x1c },
-+	{ CCI_REG8(0x453b), 0x1c },
-+	{ CCI_REG8(0x453c), 0x1c },
-+	{ CCI_REG8(0x453d), 0x1c },
-+	{ CCI_REG8(0x453e), 0x1c },
-+	{ CCI_REG8(0x453f), 0x1c },
-+	{ CCI_REG8(0x4540), 0x1c },
-+	{ CCI_REG8(0x4541), 0x03 },
-+	{ CCI_REG8(0x4542), 0x03 },
-+	{ CCI_REG8(0x4543), 0x03 },
-+	{ CCI_REG8(0x4544), 0x03 },
-+	{ CCI_REG8(0x4545), 0x03 },
-+	{ CCI_REG8(0x4546), 0x03 },
-+	{ CCI_REG8(0x4547), 0x03 },
-+	{ CCI_REG8(0x4548), 0x03 },
-+	{ CCI_REG8(0x4549), 0x03 },
-+	{ STARVIS2_REG_WDMODE, 0x00 },
-+	{ STARVIS2_REG_MDBIT, 0x01 },
-+	{ STARVIS2_REG_XXS_DRV, 0x00 },
-+};
-+
-+static const u16 imx662_min_hmax_2lane[] = {
-+	[STARVIS2_LINK_FREQ_297MHZ] = 1980,
-+	[STARVIS2_LINK_FREQ_360MHZ] = 1980,
-+	[STARVIS2_LINK_FREQ_445MHZ] = 1188,
-+	[STARVIS2_LINK_FREQ_594MHZ] = 990,
-+	[STARVIS2_LINK_FREQ_720MHZ] = 990,
-+	[STARVIS2_LINK_FREQ_891MHZ] = 990,
-+	[STARVIS2_LINK_FREQ_1039MHZ] = 990,
-+	[STARVIS2_LINK_FREQ_1188MHZ] = 990,
-+};
-+
-+const struct starvis2_variant imx662_variant_def = {
-+	.name = "imx662",
-+	.id_reg = CCI_REG16_LE(0x4d1c),
-+	.id_mask = 0x3ff,
-+	.id_value = 0x296,
-+	.native_area = {
-+		.top = 0,
-+		.left = 0,
-+		.width = 1937,
-+		.height = 1101,
-+	},
-+	.active_area = {
-+		.top = 0,
-+		.left = 0,
-+		.width = 1936,
-+		.height = 1096,
-+	},
-+	.pixel_rate = 222750000,
-+	.pix_per_clk = 3,
-+	.common_regs = imx662_common_regs,
-+	.num_common_regs = ARRAY_SIZE(imx662_common_regs),
-+	.vmax_default = 1136,
-+	.hmax_min_link_freq = imx662_min_hmax_2lane,
-+	.hmax_min_pixel_array = 990,
-+};
-+
- struct starvis2_model_info {
- 	enum starvis2_type type;
- 	const u32 *codes;
-@@ -691,6 +823,26 @@ static const struct starvis2_model_info imx678_autodetect_info = {
- 	.auto_detect_mono = &imx678_aamr_info,
- };
+ /* Crop */
+ #define STARVIS2_REG_WINMODE		CCI_REG8(0x3018)
++#define STARVIS2_REG_WINMODE_MASK	0x0f
+ #define STARVIS2_REG_PIX_HST		CCI_REG16_LE(0x303c)
+ #define STARVIS2_REG_PIX_HWIDTH		CCI_REG16_LE(0x303e)
+ #define STARVIS2_REG_PIX_VST		CCI_REG16_LE(0x3044)
+@@ -1458,7 +1459,8 @@ static int starvis2_program_window(struct starvis2 *starvis2,
+ 	int ret = 0;
  
-+static const struct starvis2_model_info imx662_aaqr_info = {
-+	.type = STARVIS2_COLOR,
-+	.codes = codes_bayer,
-+	.num_codes = ARRAY_SIZE(codes_bayer),
-+	.variant = &imx662_variant_def,
-+};
-+
-+static const struct starvis2_model_info imx662_aamr_info = {
-+	.type = STARVIS2_MONOCHROME,
-+	.codes = codes_monochrome,
-+	.num_codes = ARRAY_SIZE(codes_monochrome),
-+	.variant = &imx662_variant_def,
-+};
-+
-+static const struct starvis2_model_info imx662_autodetect_info = {
-+	.variant = &imx662_variant_def,
-+	.auto_detect_colour = &imx662_aaqr_info,
-+	.auto_detect_mono = &imx662_aamr_info,
-+};
-+
- static const char * const starvis2_supply_name[] = {
- 	"avdd",  /* Analog (3.3V) supply */
- 	"dvdd",  /* Digital Core (1.1V) supply */
-@@ -1518,9 +1670,12 @@ static const struct dev_pm_ops starvis2_pm_ops = {
- };
- 
- static const struct of_device_id starvis2_of_match[] = {
-+	{ .compatible = "sony,imx662-aamr", .data = &imx662_aamr_info },
-+	{ .compatible = "sony,imx662-aaqr", .data = &imx662_aaqr_info },
- 	{ .compatible = "sony,imx678-aamr", .data = &imx678_aamr_info },
- 	{ .compatible = "sony,imx678-aaqr", .data = &imx678_aaqr_info },
- 	/* for non-conforming DTs that rely on runtime check */
-+	{ .compatible = "sony,imx662", .data = &imx662_autodetect_info },
- 	{ .compatible = "sony,imx678", .data = &imx678_autodetect_info },
- 	{ /* sentinel */ }
- };
+ 	cci_write(starvis2->cci, STARVIS2_REG_ADDMODE, 0x00, &ret);
+-	cci_write(starvis2->cci, STARVIS2_REG_WINMODE, 0x04, &ret);
++	cci_update_bits(starvis2->cci, STARVIS2_REG_WINMODE,
++			STARVIS2_REG_WINMODE_MASK, 0x04, &ret);
+ 	cci_write(starvis2->cci, STARVIS2_REG_PIX_HST,
+ 		  crop->left - starvis2->variant->active_area.left, &ret);
+ 	cci_write(starvis2->cci, STARVIS2_REG_PIX_HWIDTH, crop->width, &ret);
 
 -- 
 2.34.1
