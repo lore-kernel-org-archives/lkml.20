@@ -1,222 +1,312 @@
-Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45D194F4733;
-	Wed, 14 Oct 2026 11:35:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.113
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 801CB3C1D7B;
+	Wed, 14 Oct 2026 11:36:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791977740; cv=none; b=Ov4qNAO1Sb7t5Lbh5/8KKekU/0jdztLfnPCWIs0IAoDmgeAfSw3kOWiFl4sb+moeD5L4zwbcjZvby5Ppc896SyNlfJ0ZRkhI/sfUmEczrRCei6Uz6Jo/eEofByxKVvVSToeN1yogR+TMIUlc83c2ZQCuMl4oyM2bx2xNUZUyZMg=
+	t=1791977773; cv=none; b=njBcflOqo86Bso3iQ8ZXg7/nDXIIDz+d+VsjhGh4QUTeS+e6qwGBaG0FbikPDAnPTzfK+YkPZYQaEOrY2BmX3TeGLOy467bagawQJSYbrLqCbwggZ9YAoS5wyzH94Jc621uolkSsRcakeLcsCTxqrR71Ny+OZasl70VLNNTynlk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791977740; c=relaxed/simple;
-	bh=YzQrws3cLlLYUgtkhpXZIVzl9mn420mmIaC3N+ZTMYg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RiQsIEytvgQYlGOW05MB8MZWajOgvv4hks6rK7DzXDGhp4Yxuyl72OdR1f6VcY1AcQFGiHGgmpS212W3yvRPHUNzE2rcWYAwHeDDhRc9RHdK0k3GAtWL++i8ZSJAP7TI9FtdXPVjQXg1oLYw6pR/6XtwSL/sWQA0akq3tiW4w+Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=Kfh5GH9n; arc=none smtp.client-ip=115.124.30.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1791977773; c=relaxed/simple;
+	bh=G3+BwTQMQIIo+pZvUQsXZ2mhLhJzgxm9PN6ac1jR4Z0=;
+	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=EjLZ5Bq3LDqrZyK3bIV91PoJAA+/UQztcok3F2aMAquqqbDz4EVoqkFwUpwfettaeIJy2WKLEwBWAVKUWTFMDwMskGa5/jC8dazbMqamW/O98sUL9mMmJNg4pAMWKnxN1npdgs7byqkry6bVOFLcGyQ+8ZH8zAcrxXmMCwOIXzw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=SfBdOf0Z; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="Kfh5GH9n"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1791977721; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=LaXLkq4nvqGUZBye+MscSQKhm486xblmTZx4IvgRIsE=;
-	b=Kfh5GH9notgzS8Wl9CHIMg3ScWp/jnhj8Yh+FW/eTOjhN6UK3P43cywmiN8v7AQ2Z6uQHMoqzMsygvuINPfvzQbyD+n+/jkrP4xm8AM2FP6/4UJ9Td7EEHbTFUVwO762+TxqzP6r9JErvq4eQRaRnfoMev15yUBCWD4ZBzD9MZg=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R201e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=12;SR=0;TI=SMTPD_---0XCoyVFu_1791977720;
-Received: from 30.221.146.92(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XCoyVFu_1791977720 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 14 Oct 2026 19:35:21 +0800
-Message-ID: <0da71b58-170b-4bb9-b103-6450bbb9fd61@linux.alibaba.com>
-Date: Wed, 14 Oct 2026 19:35:19 +0800
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="SfBdOf0Z"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1791977777; x=1823513777;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=G3+BwTQMQIIo+pZvUQsXZ2mhLhJzgxm9PN6ac1jR4Z0=;
+  b=SfBdOf0Z7mTqJdVJxSZQhvaUJKbYS1Cy99wRvV4QowHoKggbbRxIvo8d
+   Bct9xEO7fD0s40xTZvhQDoKmQCVljYn3uiTLi2PCKzMe0Vn8tjc2IpRPt
+   7QB5AuMqqRvgmMAGx/7Kv6S90LE6hvkvvqNCanoRIM63azc8Qqepsg0s1
+   xX5kPnuqFUPZoMjsh+YsmR5mDCoOWa+nIqttY1+di5fAJ9NKOmm3d3MbQ
+   5c/U6vb90BH1Q2Uop5J/8wpVlAobFp/RfVpzy6gj6xblhtI+J6CTRlbfx
+   pP/MPpEcdNVMWJzpTfqu0OhUQJqSJI7G1cOxILy8UaiEAdIjg9Mn6whla
+   g==;
+X-CSE-ConnectionGUID: z9bJHHOMQZaV62hi/jbfKQ==
+X-CSE-MsgGUID: eMmMYA9QSTa0veDcAuUJ3w==
+X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
+   d="scan'208";a="296439960"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 04:36:16 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.87.152) by
+ chn-vm-ex2.mchp-main.com (10.10.87.31) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.49; Wed, 14 Oct 2026 04:36:09 -0700
+Received: from DEN-DL-M77643.microsemi.net (10.10.85.11) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Wed, 14 Oct 2026 04:36:05 -0700
+Message-ID: <c30e7704a5f0bbc7c064bd78c09effc79a9e755c.camel@microchip.com>
+Subject: Re: [PATCH net-next v14 9/9] net: dsa: lan9645x: add port statistics
+From: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
+To: <netdev-bot+sashiko@kernel.org>
+CC: <UNGLinuxDriver@microchip.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
+	<davem@davemloft.net>, <kuba@kernel.org>, <pabeni@redhat.com>,
+	<horms@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>, <woojung.huh@microchip.com>, <linux@armlinux.org.uk>,
+	<Steen.Hegelund@microchip.com>, <daniel.machon@microchip.com>,
+	<geert+renesas@glider.be>, <magnus.damm@gmail.com>, <edumazet@kernel.org>,
+	<richardcochran@gmail.com>, <linux-kernel@vger.kernel.org>,
+	<netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-renesas-soc@vger.kernel.org>
+Date: Wed, 14 Oct 2026 13:36:05 +0200
+In-Reply-To: <179180428793.434549.2970303377957273063@kernel.org>
+References: <20261008-dsa_lan9645x_switch_driver_base-v14-9-3d2a72661213@microchip.com>
+	 <179180428793.434549.2970303377957273063@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ocfs2: Cancel quota sync work before freeing quota info
-To: Cen Zhang <zzzccc427@gmail.com>, Andrew Morton <akpm@linux-foundation.org>
-Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com,
- chao@kernel.org, jack@suse.cz, ocfs2-devel@lists.linux.dev,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- baijiaju1990@gmail.com, jjzuming@gmail.com
-References: <pm-ocfs2-objects-candidate-0052-v3-b4904bd6c85daf033adf@gmail.com>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <pm-ocfs2-objects-candidate-0052-v3-b4904bd6c85daf033adf@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+
+On Mon, 2026-10-12 at 11:24 +0000, netdev-bot+sashiko@kernel.org wrote:
+> EXTERNAL EMAIL: Do not click links or open attachments unless you know th=
+e content is safe
+>=20
+> Thank you for your contribution! Sashiko AI review found 3 potential
+> issue(s) to consider.
+>=20
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 2
+>=20
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>=20
+> - [Medium] lan9645x_stats_get_stats64() counts bad frames in
+>   rtnl_link_stats64.rx_packets.
+> - [Low] In lan9645x_stats_get_stats64(), rx_errors is the sum
+>   c[SCNT_RX_SHORT] + c[SCNT_RX_JABBER] + c[SCNT_RX_CRC] +=E2=80=A6
+> - [Low] __lan9645x_stats_view_idx_hw_read() selects the port with
+>   lan_wr(SYS_STAT_CFG_STAT_VIEW_SET(idx), lan9645x, SYS_STAT_CFG).
+>=20
+> --
+>=20
+> net: dsa: lan9645x: add port statistics
+>=20
+> This commit adds port statistics support to the lan9645x DSA driver. A
+> delayed work polls the 32-bit hardware counters every 3 seconds and
+> accumulates them into 64-bit software counters. The counters are exposed
+> through ethtool -S, the standard ethtool stats groups and get_stats64, wi=
+th
+> the pMAC counters summed into the aggregate source.
+>=20
+> > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c b/driv=
+ers/net/dsa/microchip/lan9645x/lan9645x_stats.c
+> > new file mode 100644
+> > index 0000000000000..a21afb4d98532
+> > --- /dev/null
+> > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c
+> > @@ -0,0 +1,854 @@
+>=20
+> [ ... ]
+>=20
+> > +static void lan9645x_stats_update_counter(u64 *sw, u32 hw)
+> > +{
+> > +     if (hw < (*sw & U32_MAX))
+> > +             *sw +=3D (u64)1 << 32; /* value has wrapped */
+> > +
+> > +     *sw =3D (*sw & ~(u64)U32_MAX) + hw;
+> > +}
+> > +
+> > +static int __lan9645x_stats_view_idx_hw_read(struct lan9645x *lan9645x=
+,
+> > +                                          enum lan9645x_view_stat_type=
+ vtype,
+> > +                                          int idx)
+> > +{
+>=20
+> [ ... ]
+>=20
+> > +     lan_wr(SYS_STAT_CFG_STAT_VIEW_SET(idx), lan9645x, SYS_STAT_CFG);
+>=20
+> [Severity: Low]
+> What happens to the counters if this lan_wr() fails?
+>=20
+> lan_wr() returns void and only does WARN_ON_ONCE(regmap_write(...)), so
+> this function never sees a failed STAT_VIEW select. The SYS_CNT window
+> read by the lan_bulk_rd() calls below is the same for every port. If the
+> reads still succeed, buf holds the counters of the previously selected
+> port.
+>=20
+> __lan9645x_stats_view_idx_transfer() then passes those values through
+> lan9645x_stats_update_counter() into the requested port's shadow. If the
+> wrong value is larger, the shadow takes it. On the next correct poll,
+> this check:
+>=20
+>         if (hw < (*sw & U32_MAX))
+>                 *sw +=3D (u64)1 << 32; /* value has wrapped */
+>=20
+> adds 2^32. That counter then stays about 4G too high until the next
+> setup.
+>=20
+> lan9645x_stats_clear_view() has the same unchecked write:
+>=20
+>         lan_wr(SYS_STAT_CFG_STAT_VIEW_SET(idx) |
+>                SYS_STAT_CFG_STAT_CLEAR_SHOT_SET(groups),
+>                lan9645x, SYS_STAT_CFG);
+>=20
+> If that write is dropped, the poll for !CLEAR_SHOT passes at once and a
+> clear that never happened is reported as success. That case looks
+> harmless, since the shadow later takes the uncleared hardware value.
+>=20
+> ocelot_port_update_stats() follows the same pattern, and every other
+> lan_wr() in this driver also ignores write errors. Fixing this would
+> probably mean having the helper return the regmap_write() result.
+>=20
+> > +
+> > +     /* Each region for this index contains counters which are at sequ=
+ential
+> > +      * addresses, so we can use bulk reads to ease lock pressure a bi=
+t.
+> > +      */
+> > +     for (int r =3D 0; r < vstats->num_regions; r++) {
+> > +             region =3D vstats->regions[r];
+> > +             err =3D lan_bulk_rd(&vstats->buf[region.cnts_base_idx],
+> > +                               region.cnt, lan9645x,
+> > +                               SYS_CNT(region.base_offset));
+>=20
+> [ ... ]
+>=20
+> > +void lan9645x_stats_get_stats64(struct lan9645x *lan9645x, int port,
+> > +                             struct rtnl_link_stats64 *stats)
+> > +{
+>=20
+> [ ... ]
+>=20
+> > +     stats->rx_bytes =3D c[SCNT_RX_OCT] + c[SCNT_RX_PMAC_OCT];
+> > +
+> > +     stats->rx_packets =3D c[SCNT_RX_SHORT] +
+> > +                         c[SCNT_RX_JABBER] +
+> > +                         c[SCNT_RX_SZ_64] +
+> > +                         c[SCNT_RX_SZ_65_127] +
+> > +                         c[SCNT_RX_SZ_128_255] +
+> > +                         c[SCNT_RX_SZ_256_511] +
+> > +                         c[SCNT_RX_SZ_512_1023] +
+> > +                         c[SCNT_RX_SZ_1024_1526] +
+> > +                         c[SCNT_RX_SZ_JUMBO] +
+> > +                         c[SCNT_RX_LONG] +
+> > +                         c[SCNT_RX_PMAC_SHORT] +
+> > +                         c[SCNT_RX_PMAC_FRAG] +
+> > +                         c[SCNT_RX_PMAC_JABBER] +
+> > +                         c[SCNT_RX_PMAC_SZ_64] +
+> > +                         c[SCNT_RX_PMAC_SZ_65_127] +
+> > +                         c[SCNT_RX_PMAC_SZ_128_255] +
+> > +                         c[SCNT_RX_PMAC_SZ_256_511] +
+> > +                         c[SCNT_RX_PMAC_SZ_512_1023] +
+> > +                         c[SCNT_RX_PMAC_SZ_1024_1526] +
+> > +                         c[SCNT_RX_PMAC_SZ_JUMBO] +
+> > +                         c[SCNT_RX_PMAC_LONG];
+>=20
+> [Severity: Medium]
+> Should rx_packets include the error counters?
+>=20
+> The rtnl_link_stats64 documentation in include/uapi/linux/if_link.h
+> describes rx_packets as "Number of good packets received by the
+> interface". It describes rx_errors as "Total number of bad packets
+> received on this network device".
+>=20
+> SCNT_RX_SHORT, SCNT_RX_JABBER and SCNT_RX_LONG, plus their pMAC
+> versions, are added to both rx_packets and rx_errors. Each runt, jabber
+> and oversize frame is therefore counted as good and as bad.
+>=20
+> The SZ_* buckets also seem to include CRC-errored frames. The v5
+> changelog removed rx_crc from rx_packets "as they are already counted in
+> SZ_* buckets". So rx_packets ends up counting every frame received.
+>=20
+> This also does not match FramesReceivedOK in
+> lan9645x_stats_get_eth_mac_stats(), which is UC + MC + BC. The two
+> standard interfaces would report different good RX counts for the same
+> port.
+>=20
+> ocelot_port_get_stats64() uses a similar formula. Is that the intended
+> meaning of rx_packets for this new driver?
+>=20
+> Separately, c[SCNT_RX_PMAC_FRAG] is added to rx_packets but not to
+> rx_errors, while c[SCNT_RX_PMAC_SHORT] is added to both. The comment in
+> lan9645x_stats_get_rmon_stats() says SCNT_RX_PMAC_FRAG counts runts with
+> an invalid CRC.
+>=20
+> Should SCNT_RX_PMAC_FRAG go into rx_errors too, or be removed from
+> rx_packets? This has no effect until MAC merge sends traffic to the pMAC.
+>=20
+
+Dismissed, intended.
+
+As for v14, this follows mscc/ocelot, which computes rx_packets the
+same way. The hardware has no good-frames-only octet counter, rx_oct
+counts octets in good and bad frames, so rx_bytes cannot follow the
+uapi description either. rx_packets is made to count the same frames
+rx_bytes counts octets for: the size buckets cover good and bad frames
+from 64 bytes up to MAXLEN, and short, fragment, jabber and long frames
+fall outside that range, so every received frame is counted once. Bad
+frames are also reported in rx_errors.
+
+FramesReceivedOK is the 802.3 good frame count and is meant to differ,
+as it does in ocelot, where it is the sum of the green counters.
+
+SCNT_RX_PMAC_FRAG is the size class below 64 bytes for pMAC runts with
+an invalid CRC, so it belongs in rx_packets next to the size buckets.
+Its frames are already in rx_errors through SCNT_RX_PMAC_CRC, which
+counts CRC errors at any frame size, in the same way a frame of 64
+bytes or more with a bad CRC sits in a size bucket and in
+SCNT_RX_CRC. Adding it to rx_errors would count those runts twice.
 
 
 
-On 10/14/26 11:43 AM, Cen Zhang wrote:
-> OCFS2 quota info owns dqi_sync_work and must outlive both its timer
-> and qsync_work_fn(). ocfs2_local_free_info() frees that owner without
-> cancelling the work, relying on the quota suspend/disable wrappers.
-> 
-> Loading quotas on a read-only to read-write remount can successfully
-> queue the work in ocfs2_global_read_info() and then fail while attaching
-> a dquot to an existing inode in add_dquot_ref(). The quota core unwinds
-> that failure directly through dquot_disable(), bypassing the OCFS2
-> wrapper:
-> 
->   Remount task (s_umount write)        Timer/workqueue
->   ocfs2_global_read_info()
->     schedules dqi_sync_work
->   add_dquot_ref() returns an error
->   dquot_disable()
->     ocfs2_local_free_info()
->       frees oinfo
->                                      delayed-work timer expires
->                                      qsync_work_fn() reads oinfo
-> 
-> The timer core can then write to the freed embedded timer, or
-> qsync_work_fn() can read oinfo->dqi_gqinode before its s_umount trylock.
-> The outer ocfs2_disable_quotas() cleanup skips the failed type because
-> dquot_disable() has already cleared its loaded state.
-> 
-> Cancel dqi_sync_work synchronously at the start of
-> ocfs2_local_free_info(), before dropping the global inode or freeing any
-> owner state. The work is initialized whenever read_file_info() succeeds.
-> dquot_disable() holds s_umount for write, so the callback skips its quota
-> scan via down_read_trylock() and can finish without waiting for teardown.
-> The synchronous cancel also handles its self-rearm.
-> 
-> KASAN report as below:
-> 
->     BUG: KASAN: slab-use-after-free in __run_timers+0x9e9/0xa10
->     Write of size 8 at addr ffff888111b0aad0 by task swapper/3/0
-> 
->     Call Trace:
->      <IRQ>
->      dump_stack_lvl+0x93/0xd0
->      print_report+0xce/0x630
->      ? __run_timers+0x9e9/0xa10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __virt_addr_valid+0x20e/0x420
->      ? __run_timers+0x9e9/0xa10
->      kasan_report+0xe0/0x110
->      ? __run_timers+0x9e9/0xa10
->      __run_timers+0x9e9/0xa10
->      ? __pfx___run_timers+0x10/0x10
->      ? __lock_acquire+0x5a3/0x2140
->      ? __pfx_do_raw_spin_lock+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      timer_expire_remote+0xfa/0x160
->      ? __pfx_timer_expire_remote+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? trace_hardirqs_on+0x18/0x160
->      tmigr_handle_remote_up+0x4ba/0x9d0
->      ? __pfx_tmigr_handle_remote_up+0x10/0x10
->      ? tmigr_handle_remote+0x21a/0x340
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? lock_release+0xc8/0x290
->      ? __pfx_tmigr_handle_remote_up+0x10/0x10
->      __walk_groups_from+0x5a/0x160
->      tmigr_handle_remote+0x24f/0x340
->      ? __pfx_tmigr_handle_remote+0x10/0x10
->      ? lock_acquire+0x190/0x300
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? lock_release+0xc8/0x290
->      run_timer_softirq+0x222/0x270
->      ? __pfx_run_timer_softirq+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? lockdep_hardirqs_on_prepare+0xb8/0x1a0
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      handle_softirqs+0x1fa/0x8d0
->      ? __pfx_handle_softirqs+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? _raw_spin_unlock+0x23/0x40
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __hrtimer_rearm_deferred+0x1fb/0x5d0
->      __irq_exit_rcu+0x113/0x1e0
->      irq_exit_rcu+0xe/0x20
->      sysvec_apic_timer_interrupt+0x6c/0x80
->      </IRQ>
->      <TASK>
->      asm_sysvec_apic_timer_interrupt+0x1a/0x20
->      ? ct_kernel_exit.constprop.0+0xc5/0xf0
->      ? do_idle+0x3ae/0x650
->      default_idle+0x9/0x10
->      default_idle_call+0x6c/0xb0
->      do_idle+0x3ae/0x650
->      ? cpuhp_online_idle+0x9c/0xb0
->      ? __pfx_do_idle+0x10/0x10
->      ? __entry_text_end+0x1020f6/0x1020f9
->      ? lockdep_hardirqs_on_prepare+0xeb/0x1a0
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? trace_hardirqs_on+0x18/0x160
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      cpu_startup_entry+0x54/0x60
->      start_secondary+0x223/0x2d0
->      ? __pfx_start_secondary+0x10/0x10
->      common_startup_64+0x13e/0x158
->      </TASK>
-> 
->     Allocated by task 523:
->      kasan_save_stack+0x33/0x60
->      kasan_save_track+0x14/0x30
->      __kasan_kmalloc+0xaa/0xb0
->      __kmalloc_cache_noprof+0x28d/0x610
->      ocfs2_local_read_info+0x181/0x1580
->      dquot_load_quota_sb+0x69e/0x11c0
->      dquot_load_quota_inode+0x227/0x3e0
->      ocfs2_enable_quotas+0x27c/0x520
->      ocfs2_reconfigure+0x964/0xd00
->      reconfigure_super+0x3ca/0xa70
->      path_mount+0x141e/0x1e80
->      __x64_sys_mount+0x24b/0x2d0
->      do_syscall_64+0x114/0x620
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> 
->     Freed by task 523:
->      kasan_save_stack+0x33/0x60
->      kasan_save_track+0x14/0x30
->      kasan_save_free_info+0x3b/0x60
->      __kasan_slab_free+0x5f/0x80
->      kfree+0x308/0x580
->      ocfs2_local_free_info+0x47b/0x800
->      dquot_disable+0x5d9/0x17a0
->      dquot_load_quota_sb+0xd3c/0x11c0
->      dquot_load_quota_inode+0x227/0x3e0
->      ocfs2_enable_quotas+0x27c/0x520
->      ocfs2_reconfigure+0x964/0xd00
->      reconfigure_super+0x3ca/0xa70
->      path_mount+0x141e/0x1e80
->      __x64_sys_mount+0x24b/0x2d0
->      do_syscall_64+0x114/0x620
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> 
->     The buggy address belongs to the object at ffff888111b0a800
->      which belongs to the cache kmalloc-1k of size 1024
->     The buggy address is located 720 bytes inside of
->      freed 1024-byte region [ffff888111b0a800, ffff888111b0ac00)
-> 
-> Host details, register and page dumps omitted.
-> 
-> Fixes: 1a6152d36dee ("quota: propagate error from __dquot_initialize")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-
-Looks fine.
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-
-> Assisted-by: LLM
-> 
-> ---
-> diff --git a/fs/ocfs2/quota_local.c b/fs/ocfs2/quota_local.c
-> index 76e7dd5aecc8..a2ce25a33607 100644
-> --- a/fs/ocfs2/quota_local.c
-> +++ b/fs/ocfs2/quota_local.c
-> @@ -840,6 +840,9 @@ static int ocfs2_local_free_info(struct super_block *sb, int type)
->  	int mark_clean = 1, len;
->  	int status = 0;
->  
-> +	/* Quota-core error paths can bypass ocfs2_disable_quotas(). */
-> +	cancel_delayed_work_sync(&oinfo->dqi_sync_work);
-> +
->  	iput(oinfo->dqi_gqinode);
->  	ocfs2_simple_drop_lockres(OCFS2_SB(sb), &oinfo->dqi_gqlock);
->  	ocfs2_lock_res_free(&oinfo->dqi_gqlock);
+> > +
+> > +     stats->multicast =3D c[SCNT_RX_MC] + c[SCNT_RX_PMAC_MC];
+> > +
+> > +     stats->rx_errors =3D c[SCNT_RX_SHORT] +
+> > +                        c[SCNT_RX_JABBER] +
+> > +                        c[SCNT_RX_CRC] +
+> > +                        c[SCNT_RX_LONG] +
+> > +                        c[SCNT_RX_PMAC_SHORT] +
+> > +                        c[SCNT_RX_PMAC_JABBER] +
+> > +                        c[SCNT_RX_PMAC_CRC] +
+> > +                        c[SCNT_RX_PMAC_LONG];
+> > +
+> > +     stats->rx_length_errors =3D c[SCNT_RX_JABBER] +
+> > +                               c[SCNT_RX_LONG] +
+> > +                               c[SCNT_RX_PMAC_JABBER] +
+> > +                               c[SCNT_RX_PMAC_LONG];
+> > +
+> > +     /* SCNT_RX_CRC counts CRC errors, alignment errors and RX_ER even=
+ts at
+> > +      * any frame size, so a short frame with a bad CRC is counted her=
+e.
+> > +      */
+> > +     stats->rx_crc_errors =3D c[SCNT_RX_CRC] + c[SCNT_RX_PMAC_CRC];
+>=20
+> [Severity: Low]
+> Is a jabber frame counted twice in rx_errors?
+>=20
+> This comment says SCNT_RX_CRC counts CRC errors "at any frame size". The
+> v12 changelog describes SCNT_RX_JABBER as "the too-long-with-bad-CRC half
+> of the event".
+>=20
+> If both are true, an oversize frame with a bad FCS increments both
+> SCNT_RX_CRC and SCNT_RX_JABBER. rx_errors above adds the two together.
+>=20
+> If the hardware keeps these two counters disjoint, is the "any frame
+> size" wording in this comment accurate?
+>=20
+> --
+> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
+set/20261008-dsa_lan9645x_switch_driver_base-v14-0-3d2a72661213%40microchip=
+.com
 
