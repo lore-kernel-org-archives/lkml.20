@@ -1,56 +1,56 @@
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5CAD4A0921
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:43:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5782249480E
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:43:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791963809; cv=none; b=C/kj8UVwdYt5SXf4zafZA1RKPALcUwQ3yckuBjef06QiYLDq8j60STJmgvt2kxFxqQnStRNZTMGG0D7Ch/n7dy1xljWDE82xeTHMYVp7sirLvDKxgw7W0vBNp2k0wmfmYMn0O1m+qjgXiZuFwWRV0Tk1IvUneA57lgLy/yUvT5I=
+	t=1791963813; cv=none; b=aUIdayfMWE+x0ypbfm2xy5yWwKW7akqPpP9WxD/a+KU7IFVrvmRzdFhbICcwFGUmQdL8kpytTzAKqPM3BmzNIntrG8OJAJwU3dnE/XscGurqH1J4B5sPehIAgHKHdcdSb9f7ZueguarihVcbgpOZ5etenjajj63Uoqidx60Al/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791963809; c=relaxed/simple;
-	bh=q2PL2vePUklEmddiLMgWc/Ln0csc7jhX90wTdyoQybg=;
+	s=arc-20240116; t=1791963813; c=relaxed/simple;
+	bh=zyjkF5/Ad5t7CvGI5FdYL+hX0iTuykURhhzBTr3tqM0=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=Q66Kxb5Yf6leXLH6DY3YOoxjk78MotC+ZApinWRLu2TeR1keor5B1z4earsd7GIGpGTYc6LXb39gAN1nqakgPXdKna+exlv+RDn+DPQNMnLpQjJNfL1Z3TCzWEgY/laKaIx8O0l2w9nBXvE08mENnr7EMK1W11KtOUWVscL2o5U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--sgsatyam.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=uScHBXQC; arc=none smtp.client-ip=209.85.215.199
+	 To:Cc:Content-Type; b=jOMl1iOq0UW7n6ji6CwWr+cM/r9O+CsSLjHz0deWFlNlOCKxjdUnzgB72BsswHjV0Gt4lzxuNzssW2Y6XIQ7Lk/NpNfDIZukrHSTpKcWalcgD3vXxPmgSjDhKaIjJlJvfBlQKXwbYwiM3Dcrhs9hWSut8YokcdjVD45vyA83UKI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--sgsatyam.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UZrWNsSg; arc=none smtp.client-ip=209.85.215.198
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--sgsatyam.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="uScHBXQC"
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc1b6f65dacso2395598a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 00:43:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UZrWNsSg"
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cd0e92d64a1so3193576a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 00:43:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791963799; x=1792568599; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1791963802; x=1792568602; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=iE803xvF5DCZNZJ4RTJFrJ5qnTrfN/7AQyo9x/BPF/Y=;
-        b=uScHBXQCXMwkqb0bUXYkuvF9GHia9HjyjOpjOQT/1PNFrthXMyAJ7R9Elgz6DWqGHL
-         XPAkdCaWvqJOvqHQVFrLmisjzm3v3BT3TxLEdfLIyRt9ZUbcLJlGrZIFzNqhQKPeDFEp
-         53q6yEQL29b0C3hzkMD5G2mvM4Zl2uVOQN5FvH3HCkV6wqYzrM+sPmBpV0AqDm6IlstN
-         COsyDLSWCqhYu+BgVZw+cX+j7p4MJSftB1TACZkYPJOEtvRGqyl+nO20MgXG7da5tnTf
-         s4hBBVh6Su0FTefxXO59fTbYrkeYoLzKDTcoFcW77vbZlfGh+gwfDqKcIjokn21hzpDe
-         7C7A==
+        bh=oIVt9BVi0XguXmpf1bgGCA61KaaAxHBBXKE+OEWvgQo=;
+        b=UZrWNsSgGKA++exm/EY5MBPJJEl0wjaxv7ag8SrMadrLRdm+wy8sakWXEErR1IG24k
+         QSE06CPwJPObebkPAYHE3ufj1v3Qfm0plnf+UdwkV1kqt0fDY3cmPfBxLa+G8MYLHCkK
+         dIdtmX8C1dzb8xR3M9T2CoDVfKVi1NvLfMA6yfNa4/7ZzmPansOqhTPPs1q429J9JWiC
+         YqtBmoKekO1Ttnoe8WSsLQHgn0fYBiX0jkAMcHHf0vM3Y6kYmQ7/ij8JTSe5p+6dEqVu
+         YDvj/yfKfTYbmp/+H5OeMOrwwucRy96QmEBOWjKlxrNs5IMdQUt61j3vPpbF7/YDtQz6
+         YsYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791963799; x=1792568599;
+        d=1e100.net; s=20260707; t=1791963802; x=1792568602;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=iE803xvF5DCZNZJ4RTJFrJ5qnTrfN/7AQyo9x/BPF/Y=;
-        b=ojXdzziXuRJU1kWF4VvUouB6Ix7Q0MZzpGlKLSGPLhK4ZUDfR39baSWFAOQPgQm2ix
-         DpuIYVpXyor3Z+HWe1nSuvJd+wlHL4/+H+SxrZDBdUNGSlzG8LPK0et38ZCFDS8bGfXt
-         23hOAQi11Xz6pe9UGd1YUCk1z6U8b+USiw4KOBF3VWwMBf2STmYUcBoGSNzAJeMjWmGY
-         7FxrPMgKFMlQL+yRC/tQSgxSlsmRJBtNClxzkCV3oym8fW15cbVgRDZVZr025eeuEn3+
-         je543S3X94hd0SgNeCwF2AkHEqf/w98efrMWrSAGz5Q39HHy8QKrY92QdNxQRiiqAN+h
-         Aqxg==
-X-Forwarded-Encrypted: i=1; AKwUvByoWCP8oq6YmoVGaHXiIlLuumArYCEehqy59J0hHBCmw6EmfrCdAykNQGI+lluc6XDsXuy80u/Eb7gRdTw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI5lKOTS30pyAYpI/449bxtBLvYE6UqelcrOqNzFK0J+lGQhvYQ
-	nfxNqU9VxW2azP7MSb+PGam7LrMk4rn9Zv3f8xmXYWzW1np7oFMeIxffwXzD2/yjeCywQU4EoTz
-	GjxlSIsB0X28lWA==
-X-Received: from pfbhx9.prod.google.com ([2002:a05:6a00:8989:b0:888:29d2:ca0d])
+        bh=oIVt9BVi0XguXmpf1bgGCA61KaaAxHBBXKE+OEWvgQo=;
+        b=jy9wPwBJnwJki/qYbwYnYMSFPc7E+vF99LJX4pwSPIdQ9B7Bh2InBKQ+rXJVhMAWrC
+         F5rcabxwhCPKPHpWyPTlYkDK8TpISWnuv24Jk37qpRfU7nV9YEGhvT6WFC/xH7bbu69A
+         QC48fcV8QkOrIWGTHXnf8OC8CAnLwms9FchhpA7tpLEUGI2YNBvFmVaRW16ilF10RTLH
+         q5HEj/pH1fFT4/Fs6eqAyTMeDU55P4t/sUPtRfm11T03Q5WKxjJUpsFTCcJ6jhqMMUmM
+         B+buTW234ZqkNh37Atnx43KnNZGlSAY+5y+7AOSfRIqtPkvxHxA8Tvp4JPEWrzGUjoHV
+         FfJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy+GVgWkFaGpcbVv5talx9LuPpM+vrfKhutglGgWoVv2vfmNKyCGQeEsGur/J2qHD5qpz02HnvVVwdSkSc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKukpy7a3U6kRn1+qt+LH0CndVCvuXHtgWg04zuZEIQtIfjQqVE
+	r5tHRh5PJhdXISASbJ4rm9oTbyEm82f4bremMyVoRhD146yvcf5Lo6dnQABI/aJ09VrsBF7Fk/E
+	w9KMe8XjzBLjb4A==
+X-Received: from pgct3.prod.google.com ([2002:a05:6a02:5283:b0:cc7:e894:d737])
  (user=sgsatyam job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a21:7314:b0:3e1:2180:4262 with SMTP id adf61e73a8af0-3e16bfcb62emr12351052637.59.1791963798576;
- Wed, 14 Oct 2026 00:43:18 -0700 (PDT)
-Date: Wed, 14 Oct 2026 07:43:02 +0000
+ 2002:a05:6a21:329c:b0:3de:6172:e340 with SMTP id adf61e73a8af0-3e1650179efmr10226180637.38.1791963801984;
+ Wed, 14 Oct 2026 00:43:21 -0700 (PDT)
+Date: Wed, 14 Oct 2026 07:43:03 +0000
 In-Reply-To: <20261014074306.2500909-1-sgsatyam@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,9 +60,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20261014074306.2500909-1-sgsatyam@google.com>
 X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261014074306.2500909-3-sgsatyam@google.com>
-Subject: [PATCH v5 2/6] platform/chrome: cros_ec_sensorhub: Fix TS filter
- history shift index
+Message-ID: <20261014074306.2500909-4-sgsatyam@google.com>
+Subject: [PATCH v5 3/6] platform/chrome: cros_ec_sensorhub: Clamp clock drift
+ slope to MAX_DRIFT_PPM
 From: Satyam Gupta <sgsatyam@google.com>
 To: Benson Leung <bleung@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>
 Cc: Guenter Roeck <groeck@chromium.org>, Gwendal Grignou <gwendal@chromium.org>, 
@@ -72,47 +72,49 @@ Content-Type: text/plain; charset="UTF-8"
 
 From: Scott Collyer <scollyer@google.com>
 
-When propagating timestamp filter history entries in
-cros_ec_sensor_ring_ts_filter_update(), starting the shift loop at
-state->history_len - 1 skips shifting x_history[0] into x_history[1]
-when history_len < CROS_EC_SENSORHUB_TS_HISTORY_SIZE. Conversely,
-starting unconditionally at state->history_len would overrun the array
-once the buffer is full.
+Temporary interrupt jitter spikes during sensor batching can produce
+extreme instantaneous drift slopes (exceeding 20,000 Parts Per Million
+(PPM)) that corrupt the timestamp median filter history and cause Out Of
+Order (OOO) sensor events.
 
-Bound the loop starting index with min_t(int, state->history_len,
-CROS_EC_SENSORHUB_TS_HISTORY_SIZE - 1) so new entries shift existing
-elements properly while dropping the oldest element when full.
+Clamp the calculated drift slope m within +/- MAX_DRIFT_PPM (5000 PPM)
+so the filter can track expected clock frequency drift across both
+Integrated Sensor Hub (ISH) and standalone Embedded Controller (EC)
+configurations (which can drift by ~2,500 PPM when running on an
+independent crystal/PLL), while rejecting large interrupt jitter spikes.
 
 Signed-off-by: Scott Collyer <scollyer@google.com>
 Signed-off-by: Satyam Gupta <sgsatyam@google.com>
 ---
- drivers/platform/chrome/cros_ec_sensorhub_ring.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/platform/chrome/cros_ec_sensorhub_ring.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/drivers/platform/chrome/cros_ec_sensorhub_ring.c b/drivers/platform/chrome/cros_ec_sensorhub_ring.c
-index cc038af59218..6975592c6b05 100644
+index 6975592c6b05..ea70847c8792 100644
 --- a/drivers/platform/chrome/cros_ec_sensorhub_ring.c
 +++ b/drivers/platform/chrome/cros_ec_sensorhub_ring.c
-@@ -259,7 +259,7 @@ cros_ec_sensor_ring_ts_filter_update(struct cros_ec_sensors_ts_filter_state
- 	s64 m; /* stored as *M_PRECISION */
- 	s64 *m_history_copy = state->temp_buf;
- 	s64 *error = state->temp_buf;
--	int i;
-+	int i, start;
+@@ -22,6 +22,8 @@
  
- 	/* we trust b the most, that'll be our independent variable */
- 	x = b;
-@@ -277,7 +277,9 @@ cros_ec_sensor_ring_ts_filter_update(struct cros_ec_sensors_ts_filter_state
- 		state->history_len = 0;
+ /* Precision of fixed point for the m values from the filter */
+ #define M_PRECISION BIT(23)
++#define MAX_DRIFT_PPM 5000LL
++#define MAX_M ((s64)(MAX_DRIFT_PPM * M_PRECISION / 1000000))
  
- 	/* Move everything over, also update offset to all absolute coords .*/
--	for (i = state->history_len - 1; i >= 1; i--) {
-+	start = min_t(int, state->history_len,
-+		      CROS_EC_SENSORHUB_TS_HISTORY_SIZE - 1);
-+	for (i = start; i >= 1; i--) {
- 		state->x_history[i] = state->x_history[i - 1] + dx;
- 		state->y_history[i] = state->y_history[i - 1] + dy;
+ /* Only activate the filter once we have at least this many elements. */
+ #define TS_HISTORY_THRESHOLD 8
+@@ -271,6 +273,12 @@ cros_ec_sensor_ring_ts_filter_update(struct cros_ec_sensors_ts_filter_state
+ 		return; /* we already have this irq in the history */
+ 	dy = (state->y_history[0] + state->y_offset) - y;
+ 	m = div64_s64(dy * M_PRECISION, dx);
++	/*
++	 * Clamp the calculated slope to a realistic range (+/- 5000 ppm).
++	 * Temporary large jitter spikes can produce huge slopes (e.g. +/- 20000 ppm)
++	 * that would otherwise corrupt the median filter history.
++	 */
++	m = clamp(m, -MAX_M, MAX_M);
  
+ 	/* Empty filter if we haven't seen any action in a while. */
+ 	if (-dx > TS_HISTORY_BORED_US)
 -- 
 2.56.0.385.gd3acb90ef8-goog
 
