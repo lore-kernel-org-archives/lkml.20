@@ -1,132 +1,148 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DE0E48551D
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 21:59:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792015148; cv=none; b=mckaG+/tHb9XIeG2GH9Ry6lEysiZRGnBnQCSaLKgBIzu2dxzERi+thiQeY42qgfo5nGMGeMl6aHC4WgeF0HRKfyr9TD/PtM1hnrQXLp3ArjjE3N0IIen4HixnUlcmWBDNI8rcYMAfHx3JUe+RYL6sjk4pcNGmQTWwSRIOSWvi8g=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792015148; c=relaxed/simple;
-	bh=lVVVSYdqUQHEhiWkMmwbDnl8vMUmQFMlde93Alzh5Uk=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G5M9fhn9+X4TkBM3WFjJXAy8DmD2WL00xpbei/V4nVU8pBsU8tRMwbzmwkd4O6q4iqrCIgSc2G+Jk5GoZZllFJu5YXagWtVOip3e8Kf21X35kMb10p2OuRmPg1F9Igkq6GE8Un0Bb0P7UU56bMR9DVJsILUrsMKrepX6bXOyDWo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CEFzft3C; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D149835677D
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:00:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792015230; cv=pass; b=NmW6YO1e451FGDYsYaQZ3bMrWIIam39Bk/7AhHghGa0LLgTqbVxz5qOyOdThvn3/WZYvmL25KSokwhEAGoTbedKPATTMl4KknNgzpm4Gmv+Wxi8MFNPWxJNzK+2rQbktjtV8cTdXFi7vlpATGhGaiQj+4G8esYRtS+TrCxvelwI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792015230; c=relaxed/simple;
+	bh=/emYiK4WsQd1Xqtv4k4lCJqP5pFnFmHRgERYuuippP4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=hnHopMlQT2XnjV79aDUYY3bnalWsLnYfByijEy9fnIf9lxH8vIeckDg+dHKNSdDcbKx3Sy1e1rEDfcrxu985lWoviYzgBSh7EfScU/YykOE5y30STFAvNaFyA93bB3vyPPYcOVWD6ikQT2QKb29y+UaUzmaW/xjIS+ony+KxPt0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=sAi7Vyps; arc=pass smtp.client-ip=209.85.208.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CEFzft3C"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49ff680331aso16320175e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:59:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="sAi7Vyps"
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b1b12de661so483a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:00:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792015227; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GatnEGbmPafFWgjwAWGzxRiQkxubfm7NRfYiwdzsyr4wZjzejB2Cd/t3uhQB4+It50
+         PlS03XJGZQRkR4oJOKgEafEmc7p56YEsDi9VhcOljO7OznMyNtqjHbisNOMeXLWGSJNK
+         CZHUQ0cXskvQVSMsHziPMWITqHpal4fAMsRjgJmWOmJlCN4UFXOLXFod/H5wOjfdnbIX
+         pmZZn40wYM/0W36JY9TDWlJVU6/cFVzydkUsGJiYTve7HpBV+7V8eQIBE/Y++QzinKnL
+         aDPz6MSkYlbQarDvu/wQN5DJF7KiXFaQ+yTm2c/q//DXfzjBt5rDCF57gU4bdCAFQ4D5
+         gP+w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=6OebQYdvKbMgqOD64fFAkplCh9Qs+Q7ZSU1pBW6WnQI=;
+        fh=ZlYL8nptEceqmn4KlwOotcq8jv2t9cv8MNatun3NrSk=;
+        b=o3RbiNL3I1EKLMXcXJyq7QJIZDGLXhZ8ohNJWZtvK/aAmKTVuIVx/GBExuiIpz6M6J
+         zw9lYXtpHf1Cu/u6zDPNYKNOhtaUpEUpZl7iq6lhRUZWmpnarXD03i/zIcFUEQrbVma5
+         Fc1fQX6uIHNQ1uPa335n0ZVTi8iuIQyhHmtcWrwJ9eYMGnnCKACwJ0KY/cocb3H+v/j/
+         f3BDvQFIyFkq8owsiFSLYKj7XrHfdfzMwqyz82/kgOHLOYM+lvicKn0d1O+aP0ODi1c1
+         3V8FIHh0ynVI++rrwOd++ARkWrRS6VpGRj+d6z2zrfOEyg+SmUAK1G5krtFY/l2TGj42
+         acYQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792015145; x=1792619945; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+        d=google.com; s=20251104; t=1792015227; x=1792620027; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ti2mUXDOBJkgxGD4GenKqWSBX8JAxIFlYVCE3uNCcx0=;
-        b=CEFzft3CbjBh1vQH2RxGCr8zN/+KtCzpchOJJf+SXJ6NSo8/r0unKNsed4OVKigw0Y
-         TOlke2jVS/hjiybj7PPkrnQdWPJ3gb0ijJOBmfLDvBzWN00E04z58bm940ATZfxE/ZZ4
-         HpQt0+ZYocHQA4TWH2JGD+thzPmROvTshNI5yq1UrDUpvZG0UNNgDrP71Uf7jfuGRktG
-         Gkm5bHyrPW8OQdpoeNPL1E58nJOA7A9GiYXdtKlkMfiQKhUbMiFn/V+V/BC+a9Ss5jMD
-         wmTwTd0EHfTQ0Xpfnbzr0V5WFWKGiTe1ihNSRbCTfmZa2w1fwteUAeRe36tZ2sgKrAWJ
-         uOwA==
+        bh=6OebQYdvKbMgqOD64fFAkplCh9Qs+Q7ZSU1pBW6WnQI=;
+        b=sAi7VypsVRrJ+RNmUu4WLKIiFhSRL7S6w8wt6k4aiqv8clYay4M7LOf926+A9Gih8H
+         GHtbz7MIeNQ9AKIdCSVk0abgQGLTKvYy5CpUo14Oeat+L1x7ru++eWYpwx6QfINS4tHl
+         hUSyCAhKxCyBKpIuNyz8f3R6PJSWnKjAL6jymC+KtgdpKp6uRzuGK/9rHkxb0rRqX3Zl
+         VChH3754bPkgHEfH6TYXgAPwdtLh1TJrFanw0OdgE/NzZP9EfACCuM7hXVwGWo8dgl4O
+         MtkHoJsYDhsoQj2+Ua7HkJMnsn8FLRdUrVJYl607NWpchwI1n4jjganINMCp/HyHFhrT
+         zxaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792015145; x=1792619945;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1792015227; x=1792620027;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ti2mUXDOBJkgxGD4GenKqWSBX8JAxIFlYVCE3uNCcx0=;
-        b=qtpgAzXYxJcvTiEmSNPntok9PP23aMtDXIRK1d34RSXfNqdisncJAE3wgRFctBniH7
-         nhK6tv2MRr2omIRKs0gAv1+QoTunewSixWZeVooXtTnKHF0vC4Ovd+DIJWUqqup0F/X6
-         QpgOJFav6F2mrGqSL0H4Q4zeOf91/UfPkunHSMiy7bO7pz0SyrR3rytqSafPpFINhJZy
-         U9hMbC2dCd2bBrZNzx5phY60f/O3IhEr7FhHmSTJ4mVEJea1mTveIjv8hkym5HtBIcPG
-         es/XfeBBisIJW9jGdx6Ysh1BDX4hmx86a1Et5D09DVN+siErd60fU5Ix/5nWUHe6dnjN
-         frng==
-X-Forwarded-Encrypted: i=1; AKwUvBzEUVe0jCUVXFm/C8AksBluLHL6f33MtxKTI9zPIVfLzS+BU11zXcCUK6agcUbsV7SZT5qRD6vU2H7/GvY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIrDQf2x7/eNf3Zs7fz28eqiZ7p+HXlKXWZVLL7kpGycX6+KU6p
-	JFxXK21ZbwS92aa6q5glv6ZYmQMpe8GhWobswP4gkVRWJly198duACgDTWnlwg==
-X-Gm-Gg: AYBFou1Y/iWR/YJ6/oH0jgFusdWLdHuJb+EH62GGXev1anG6xIIrDuiyswghRXlz6Nz
-	d0Fs02GiMgNy0PapLm6TsK9fw80xzNVLZmUhZ1F8ncV3tIihIxtWzPkR16huJODouyPy+TczFDb
-	03YCdlPscw9d2gOse3B3zFGZpZZ0MH0O4pRPScQaTLa63vXxBg1ocECxPSv8zP6TQ/4fmnacG45
-	y1TtbCQ9v3432VX28eWcQO1asexztdcepgTTVd7upAap8vevZSSTCH3/Rm4HLZn36XZqUnBCqJl
-	KwVe+Mq3pUpx/Vcsq4TyO+5sXBGzq9u6H4gzidhE1uvgsIVDv3qlxvGG5MkYyIM5tyMhJPlmA3Z
-	Df52Uf0G9PmMJ8pozyutsNNmQ9egRsNVOs9ZOp4DYvmtOl+3dWndybWOBIt7eANED0hsobMTP40
-	HbChZ20UwTHg34nepXpApBeWBe6lLzW018JDDrAA73gOYB+6hHRBpuQSzM+g==
-X-Received: by 2002:a05:600c:4e89:b0:4a0:12d7:4c88 with SMTP id 5b1f17b1804b1-4a18e4ac77amr380628185e9.30.1792015144752;
-        Wed, 14 Oct 2026 14:59:04 -0700 (PDT)
-Received: from krava ([176.74.159.170])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd993f34sm22742055e9.11.2026.10.14.14.59.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 14:59:04 -0700 (PDT)
-From: Jiri Olsa <olsajiri@gmail.com>
-X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
-Date: Wed, 14 Oct 2026 23:59:02 +0200
-To: Leon Hwang <leon.hwang@linux.dev>
-Cc: bpf@vger.kernel.org, Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Quentin Monnet <qmo@kernel.org>, Shuah Khan <shuah@kernel.org>,
-	Mykyta Yatsenko <yatsenko@meta.com>,
-	Avinash Duduskar <avinash.duduskar@gmail.com>,
-	Anton Protopopov <a.s.protopopov@gmail.com>,
-	Amery Hung <ameryhung@gmail.com>, Jordan Rife <jordan@jrife.io>,
-	Rong Tao <rongtao@cestc.cn>, Eyal Birger <eyal.birger@gmail.com>,
-	Pu Lehui <pulehui@huawei.com>, Jingguo Tan <tanjingguo@huawei.com>,
-	Lin Ma <malin89@huawei.com>, linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH bpf-next v2 00/21] bpf: Add tracing_multi link support
- for bpf progs
-Message-ID: <as_7Jgy_sdTE9M5O@krava>
-References: <20261012154024.29423-1-leon.hwang@linux.dev>
+        bh=6OebQYdvKbMgqOD64fFAkplCh9Qs+Q7ZSU1pBW6WnQI=;
+        b=sEjOS1kDhNQA5MDNwbcq0JlGJkZsjdQIyKMPUARLEE2JBKEKN+rVZDmPLB2XpwF2xn
+         rb5hjU+ORkzd6BhDGkdWTVUguQMa1ZKUbTKcfJdGo+q/bi3/BfcDUZIYjHoBS+26AlBv
+         OBt7OlWGc+ZFWs89wgHeID9EuNy/Pe3NnwJAWZ6xWRnVaHzrmwcQ1lcnOmysqtysvcrT
+         Y7Ij+amiM1i1Am6G3gdwAcTyCqLK6KSrNwMm9qaRTkS4CfqYe5CzeJrdFY/H6ztI8fUO
+         GqbfS2IP17Fgyt5pDGdpDOw6I+YRvH7vArM/MRaKrp0zWn34tVDlGGPyCX++pvUeTU3a
+         ZESg==
+X-Forwarded-Encrypted: i=1; AKwUvBw7XjiQOA3KqWPvy/eZrJsVVPe2k4V0TUqrP+mEsDdKTwdzSK91+3A95XF5JiwRLiDZnagl9KGH220J158=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIyO6AHaJN6jXieIXCtuJIik9fIyvQc+Y0fwOJWrAfR0VAPiT1n
+	3SVCnwYSUpoFwfmRkXW8nB3KQuinjCw+VrV2ilcfPSU4YbPBCEyP4V5Z0FEGAJjhnqbr2Zpoh5o
+	eV1J1mQTxOg5XwqNn0CyS9x4rFIOF6HKwzYBrKBFn
+X-Gm-Gg: AYBFou2eMugODn1U1DUZtaT8FQRlGJ9vFD8kghkAYD3fsz15oV7owOFx0Yay1tXCsUB
+	/J2h7u1O3MdNMh2uxcTxwZk3B2LHyye1LBEr6Bwasg1XHHVhuM9mzDK9plKxCZM1AqZErrIKS43
+	uvf+dCYT/rK/Qutplv6wLHxFZ1rvuUCSBd6CW7fSsxq6RzQnFSmwlbqIaP1pfRUW1z+EtCqCtMH
+	+4Jaci2dBLDKZuK+thtGDhL7Jru+eqqVaYGNIVMMuVluCCYCKosbazK8p8m1furdaKYpXEaQ5tI
+	6Y5iO7+NfLSzaMojwcZmpbd+2lM0rBD1sc/4mFFAgKChouNZB08AoWMjhJvKl4pong==
+X-Received: by 2002:a05:6402:424c:20b0:6ae:188e:e119 with SMTP id
+ 4fb4d7f45d1cf-6b20aad4720mr18371a12.9.1792015226706; Wed, 14 Oct 2026
+ 15:00:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012154024.29423-1-leon.hwang@linux.dev>
+References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-6-yosry@kernel.org>
+In-Reply-To: <20261012233638.2546339-6-yosry@kernel.org>
+From: Jim Mattson <jmattson@google.com>
+Date: Wed, 14 Oct 2026 15:00:14 -0700
+X-Gm-Features: AclHuK_0kBrRqooEuDpz6sx48p3ynl5vzugVYTkfuTyIPrqM8TsV36JOMpwehkA
+Message-ID: <CALMp9eSWazT=0tXKvGb9UNWBv62di33QgugQHOa+Bo2sq0qUCQ@mail.gmail.com>
+Subject: Re: [PATCH v3 05/27] KVM: SVM: Add helpers to set/clear ASID flush in VMCB
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 12, 2026 at 11:40:02PM +0800, Leon Hwang wrote:
-> Similar to the tracing_multi link support for kernel functions [1], add
-> support for bpf progs.
-> 
-> With this support, I'll be able to enhance the function-graph feature of
-> bpfsnoop [2]. It will trace all bpf progs, including their subprogs, to
-> draw a full function call graph including bpf prog call sites.
-> 
-> The attachment could speed-up when there are hundreds of targets. For
-> example, on high CPU core count servers, it probably runs 200 tc-bpf
-> progs as Kubernetes CNI, and each tc-bpf prog might have 4 subprogs.
-> Hence, there will be 1000 targets to trace for bpfsnoop's function-graph
-> feature.
-> 
-> With tracing_multi link support for bpf progs, bpfsnoop will be able to
-> attach to all targets quickly.
-> 
-> When attaching to 1000 targets, fentry.multi is much faster than fentry
-> on a 16c16g QEMU VM on an AMD EPYC 9745 server.
-> 
-> ./bench tracing-multi-attach-progs
-> Setting up benchmark 'tracing-multi-attach-progs'...
-> tracing-multi-attach-progs: prepared 1000 identical BPF program targets
-> tracing-multi-attach-progs: fentry created and attached 1000 programs/links in 338.171ms
-> tracing-multi-attach-progs: fentry.multi created one program and attached one 1000-target link in 47.345ms
-> tracing-multi-attach-progs: fentry.multi creation/attachment speedup is 7.14x
+On Mon, Oct 12, 2026 at 4:36=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrot=
+e:
+>
+> Introduce set/clear helpers to set tlb_ctl to
+> TLB_CONTROL_FLUSH_ASID or TLB_CONTROL_DO_NOTHING. Incoming changes will
+> eliminate the use of TLB_CONTROL_FLUSH_ALL_ASID except as a fallback
+> when FLUSHBYASID is not available, so the helpers will create a common
+> path for this.
 
-it's faster, but the original attachment is under 1s,
-so not really a problem imo
+No functional change intended? :)
 
-I guess the api is better for your use case, like having
-less file descriptors open ?
+>
+> Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+> ---
+>  arch/x86/kvm/svm/nested.c |  2 +-
+>  arch/x86/kvm/svm/sev.c    |  2 +-
+>  arch/x86/kvm/svm/svm.c    |  4 ++--
+>  arch/x86/kvm/svm/svm.h    | 10 ++++++++++
+>  4 files changed, 14 insertions(+), 4 deletions(-)
+>
+[ ... ]
+> diff --git a/arch/x86/kvm/svm/svm.h b/arch/x86/kvm/svm/svm.h
+> index 6d0242966dc87..ba5077b9838c0 100644
+> --- a/arch/x86/kvm/svm/svm.h
+> +++ b/arch/x86/kvm/svm/svm.h
+> @@ -480,6 +480,16 @@ static inline void vmcb_set_gpat(struct vmcb *vmcb, =
+u64 data)
+>         vmcb_mark_dirty(vmcb, VMCB_NPT);
+>  }
+>
+> +static inline void vmcb_set_flush_asid(struct vmcb *vmcb)
+> +{
+> +       vmcb->control.tlb_ctl =3D TLB_CONTROL_FLUSH_ASID;
+> +}
+> +
+> +static inline void vmcb_clr_flush_asid(struct vmcb *vmcb)
 
-jirka
+The name of this function makes it sound like the inverse of
+vmcb_set_flush_asid(), which it isn't. Maybe vmcb_clr_tlb_ctl()?
+
+> +{
+> +       vmcb->control.tlb_ctl =3D TLB_CONTROL_DO_NOTHING;
+> +}
+> +
+>  static __always_inline struct vcpu_svm *to_svm(struct kvm_vcpu *vcpu)
+>  {
+>         return container_of(vcpu, struct vcpu_svm, vcpu);
+> --
+> 2.56.0.385.gd3acb90ef8-goog
+>
