@@ -1,149 +1,155 @@
-Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 758FD4A64E6;
-	Wed, 14 Oct 2026 07:44:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=119.15.109.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7514248EBE4
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:44:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791963896; cv=none; b=KALwUXwIL7vuWmojQv6CB8N+5qX/eTvN/rFveBhe+UgDJepUo57y5gkqWCi69MBTY1Ome2kFBcewSFHmp6dqLrEtSfBHT0SRG17i0x3VTPbB4C1LJCvhWj7dMjcEBUi3me4aLswN58g5rjGTvnNeSUCCcbYDUTLYawh3k0VyMlg=
+	t=1791963898; cv=none; b=JQVvsnuhgJEsQctG9DoF1aYt2uo7BhsZrnNOXhFb4p+dVfnxz6vz6f65lfZTEz6r2kMNhlniLCYxTC0b/RBTh+068oVTM+I/Mf8lppetfOjQy0C6jQ7E/Ni5boesVsmMaH3nddBc5kq0Ng0yNw1HGhq74KFZ2JIVp9xe+PqylnU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791963896; c=relaxed/simple;
-	bh=AIOwMD7uWo9mxLB+ZQET8AjnNoEuMIzH5PHXXq9IMjs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TgaQ3D9H2iUNPrvt+xsc4Irl2HcWMnGBRtHmw9BxiwEjtJxFWJaE124tUM/1JDe3MoXyJSIHludRWBP8wYx6gCWcXH/ZztJwtDS+NAGt24lZdJAAVNNKII30RAfb3lqHF+KpRI1JHeD9sX+AdNcfxYcGMNDhEKYH13oGi/Plt0E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org; spf=pass smtp.mailfrom=d-silva.org; dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b=Uugl7KvK; arc=none smtp.client-ip=119.15.109.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
+	s=arc-20240116; t=1791963898; c=relaxed/simple;
+	bh=ItyqLzzNqKIz9/WZkUdqVNNjbdF6zEB7a4IomTdFgTk=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=AE0fL6DIKhcFzPI4ypoVzq463eAcqellKLCwAfbQqVr06CCFnnfNLl7ZeD4Isi5eLltYYyLb5DZYs3W2O7/R/wsZIXKqjWTal29T1PA06xysoAESl+UHalnRyl1eQx3bET2k3CodjC3hcMs2lhpKoy+MvLuHYMUkR0GUwSNQI8k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BmgoEC3d; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b="Uugl7KvK"
-Received: from Hawking.lan (hawking.lan [10.0.1.4])
-	by www.nmnhosting.com (Postfix) with ESMTP id 9AA96410C6;
-	Wed, 14 Oct 2026 18:44:34 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1791963874;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Hjzpk6a3mqBTWStm2Fe0DCvkPNH60JzZVwgIkpu2EGk=;
-	b=Uugl7KvKnFEEP28WYCS2FBbNUw/4eFUTxuNZFtMMPZAsFEo3g6thirOiLSyKDK7yY3BHny
-	J3q+69+CShDAqETb4fGBaN4uNG1AabrqOavnaa8iFtGF0FHJK1elF4XWc+Je2wmeT7+jpe
-	8LNVs0gyTAZ9B/2zbBRMrBr2nG0K6rkyt377ejTKh8KAln8kUI5swIQRTIQrvqfHGmph9q
-	jiwhSWECZLXf4PsDj5f0uU9R12PtHwHYlgvg9oE0MF2NK1EmfFkNyY2L/idgk8YVKX6wRv
-	96pW4TbURI4I0u/Wi85vhanExQSyhzrgp04biWCvHZZFCzK7CnPyaYNCBbKTng==
-X-GPT-Reason: legitimate; the email is a technical software patch
-	for the Linux kernel (rtw88 wifi driver) sent from a known personal
-	domain (d-silva.org) to a mailbox likely intended for such content;
-	the content is purely technical, containing a git diff and specific
-	error handling logic; there are no marketing, phishing, or suspicious
-	links present; and the sender identity (Alastair D'Silva) matches
-	the "From" domain and the "Signed-off-by" field.
-From: Alastair D'Silva <alastair@d-silva.org>
-To: linux-wireless@vger.kernel.org,
-	Ping-Ke Shih <pkshih@realtek.com>,
-	Kalle Valo <kvalo@kernel.org>
-Cc: Luka Gejak <luka.gejak@linux.dev>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Alastair D'Silva <alastair@d-silva.org>,
-	stable@vger.kernel.org
-Subject: [PATCH rtw-next v6 1/4] wifi: rtw88: sdio: Handle allocation and read errors in rtw_sdio_rxfifo_recv
-Date: Wed, 14 Oct 2026 18:44:23 +1100
-Message-ID: <20261014074426.2183095-2-alastair@d-silva.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261014074426.2183095-1-alastair@d-silva.org>
-References: <20261014074426.2183095-1-alastair@d-silva.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BmgoEC3d"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791963890; x=1823499890;
+  h=date:from:to:cc:subject:message-id:mime-version:
+   content-transfer-encoding;
+  bh=ItyqLzzNqKIz9/WZkUdqVNNjbdF6zEB7a4IomTdFgTk=;
+  b=BmgoEC3dYdchn2otmNQxNtyEZdqkD5/OmsI+JE02viQiKMQOI80jIOGk
+   pdmRoqsA6L04Kk3x6iSyIO/0cazRLvGJG0wHwAPcRj7E6/5DrtdScfqfm
+   AuD/Rwy1+RqGc4tvpGCs+nifk4bFICF7qvOYyiRMDs9idtoRJ1J2ik+ka
+   HylN9505ms2JYt7zHuM8uCyKHvVV3G0/95ZgpAngXa+obHZwrtmMIn1yx
+   AgMMskJRE4SPzlHumM7QgWmmdh29tjrRjqj3ePbiQzvF4ml757tpR1RIF
+   7UDcT355PdtPVZnzTN+2mIqBWBka2GastFICBLSAbet70TOwIuuaxp8C/
+   A==;
+X-CSE-ConnectionGUID: ti0xNIAbThaYPhedCn3A4A==
+X-CSE-MsgGUID: Tqx93CwxRSWbR8hAC9Xexg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="606398"
+X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
+   d="scan'208";a="606398"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 00:44:50 -0700
+X-CSE-ConnectionGUID: IG2lFGmDRtqBtr8KtSvKJg==
+X-CSE-MsgGUID: 8XCZXUJmT+SjpliY3wYy6g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
+   d="scan'208";a="1464043"
+Received: from igk-lkp-server01.igk.intel.com (HELO d0de6c2a75a7) ([10.211.93.152])
+  by fmviesa002.fm.intel.com with ESMTP; 14 Oct 2026 00:44:48 -0700
+Received: from kbuild by d0de6c2a75a7 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xGtfJ-00000000AxH-3v5k;
+	Wed, 14 Oct 2026 07:44:45 +0000
+Date: Wed, 14 Oct 2026 09:44:21 +0200
+From: kernel test robot <lkp@intel.com>
+To: =?utf-8?Q?"=C5=A0erif?= Rami" <ramiserifpersia@gmail.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.de>
+Subject: sound/usb/usx2y/us144mkii.c:27:12: warning: 'index' defined
+ but not used
+Message-ID: <202610140933.w19JjDF4-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-When dev_alloc_skb() or rtw_sdio_read_port() fails, rtw_sdio_rxfifo_recv()
-returns without reading data. Because it returned void, the caller still
-counted rx_len against the loop budget while leaving data stranded in the
-FIFO.
+Hi =C5=A0erif,
 
-Return an error code from rtw_sdio_rxfifo_recv() on failure and break out
-of the receive loop in the caller immediately.
+First bad commit (maybe !=3D root cause):
 
-Fixes: 65371a3f14e7 ("wifi: rtw88: sdio: Add HCI implementation for SDIO based chipsets")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Acked-by: Ping-Ke Shih <pkshih@realtek.com>
-Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
-Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
----
- drivers/net/wireless/realtek/rtw88/sdio.c | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git =
+master
+head:   4056b3c9d3c92ea45955641dbafeb9b960e146ef
+commit: 0ec417aa85467c6fad0563621b74868be0faf00d ALSA: usb-audio: Add infra=
+structure for TASCAM US-144MKII
+date:   1 year, 2 months ago
+config: loongarch-randconfig-r2111-20261014 (https://download.01.org/0day-c=
+i/archive/20261014/202610140933.w19JjDF4-lkp@intel.com/config)
+compiler: loongarch64-linux-gcc (GCC) 12.5.0
+reproduce (this is a W=3D1 build): (https://download.01.org/0day-ci/archive=
+/20261014/202610140933.w19JjDF4-lkp@intel.com/reproduce)
 
-diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wireless/realtek/rtw88/sdio.c
-index dc2fd0f8f9ff..e39284b71837 100644
---- a/drivers/net/wireless/realtek/rtw88/sdio.c
-+++ b/drivers/net/wireless/realtek/rtw88/sdio.c
-@@ -1349,7 +1349,7 @@ static void rtw_sdio_rx_skb(struct rtw_dev *rtwdev, struct sk_buff *skb,
- 	ieee80211_rx_irqsafe(rtwdev->hw, skb);
- }
- 
--static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
-+static int rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
- {
- 	struct rtw_sdio *rtwsdio = (struct rtw_sdio *)rtwdev->priv;
- 	const struct rtw_chip_info *chip = rtwdev->chip;
-@@ -1366,12 +1366,12 @@ static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
- 
- 	skb = dev_alloc_skb(bufsz);
- 	if (!skb)
--		return;
-+		return -ENOMEM;
- 
- 	ret = rtw_sdio_read_port(rtwdev, skb->data, bufsz);
- 	if (ret) {
- 		dev_kfree_skb_any(skb);
--		return;
-+		return ret;
- 	}
- 
- 	while (true) {
-@@ -1380,7 +1380,7 @@ static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
- 					   &pkt_stat, &rx_status);
- 		if (ret) {
- 			dev_kfree_skb_any(skb);
--			return;
-+			return ret;
- 		}
- 
- 		pkt_offset = pkt_desc_sz + pkt_stat.drv_info_sz +
-@@ -1416,11 +1416,14 @@ static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
- 		skb_reserve(skb, curr_pkt_len);
- 		rx_len -= curr_pkt_len;
- 	}
-+
-+	return 0;
- }
- 
- static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
- {
- 	u32 rx_len, hisr, total_rx_bytes = 0;
-+	int ret;
- 
- 	do {
- 		if (rtw_chip_wcpu_8051(rtwdev))
-@@ -1431,7 +1434,9 @@ static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
- 		if (!rx_len)
- 			break;
- 
--		rtw_sdio_rxfifo_recv(rtwdev, rx_len);
-+		ret = rtw_sdio_rxfifo_recv(rtwdev, rx_len);
-+		if (ret)
-+			break;
- 
- 		total_rx_bytes += rx_len;
- 
--- 
-2.53.0
+If you fix the issue in a separate patch/commit (i.e. not just a new versio=
+n of
+the same patch/commit), kindly add following tags
+| Fixes: 0ec417aa8546 ("ALSA: usb-audio: Add infrastructure for TASCAM US-1=
+44MKII")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610140933.w19JjDF4-lkp@i=
+ntel.com/
 
+All warnings (new ones prefixed by >>):
+
+   In file included from include/linux/irqflags.h:19,
+                    from include/linux/spinlock.h:59,
+                    from include/linux/kfifo.h:40,
+                    from sound/usb/usx2y/us144mkii.h:7,
+                    from sound/usb/usx2y/us144mkii.c:7:
+   arch/loongarch/include/asm/percpu.h:20:4: error: #error compiler support=
+ for the model attribute is necessary when a recent assembler is used
+      20 | #  error compiler support for the model attribute is necessary w=
+hen a recent assembler is used
+         |    ^~~~~
+>> sound/usb/usx2y/us144mkii.c:27:12: warning: 'index' defined but not used=
+ [-Wunused-variable]
+      27 | static int index[SNDRV_CARDS] =3D SNDRV_DEFAULT_IDX;
+         |            ^~~~~
+
+
+vim +/index +27 sound/usb/usx2y/us144mkii.c
+
+dee1bcf28a3dd13 =C5=A0erif Rami 2025-08-14  12 =20
+dee1bcf28a3dd13 =C5=A0erif Rami 2025-08-14  13  /**
+dee1bcf28a3dd13 =C5=A0erif Rami 2025-08-14  14   * @brief Module parameters=
+ for ALSA card instantiation.
+dee1bcf28a3dd13 =C5=A0erif Rami 2025-08-14  15   *
+dee1bcf28a3dd13 =C5=A0erif Rami 2025-08-14  16   * These parameters allow u=
+sers to configure how the ALSA sound card
+dee1bcf28a3dd13 =C5=A0erif Rami 2025-08-14  17   * for the TASCAM US-144MKI=
+I is instantiated.
+dee1bcf28a3dd13 =C5=A0erif Rami 2025-08-14  18   *
+dee1bcf28a3dd13 =C5=A0erif Rami 2025-08-14  19   * @param index: Array of i=
+ntegers specifying the ALSA card index for each
+dee1bcf28a3dd13 =C5=A0erif Rami 2025-08-14  20   * device. Defaults to -1 (=
+automatic).
+dee1bcf28a3dd13 =C5=A0erif Rami 2025-08-14  21   * @param id: Array of stri=
+ngs specifying the ALSA card ID for each device.
+dee1bcf28a3dd13 =C5=A0erif Rami 2025-08-14  22   *            Defaults to "=
+US144MKII".
+dee1bcf28a3dd13 =C5=A0erif Rami 2025-08-14  23   * @param enable: Array of =
+booleans to enable or disable each device.
+dee1bcf28a3dd13 =C5=A0erif Rami 2025-08-14  24   *                Defaults =
+to {1, 0, ..., 0} (first device enabled).
+5c8c10796e274d1 =C5=A0erif Rami 2025-08-14  25   * @param dev_idx: Internal=
+ counter for the number of TASCAM devices probed.
+dee1bcf28a3dd13 =C5=A0erif Rami 2025-08-14  26   */
+dee1bcf28a3dd13 =C5=A0erif Rami 2025-08-14 @27  static int index[SNDRV_CARD=
+S] =3D SNDRV_DEFAULT_IDX;
+dee1bcf28a3dd13 =C5=A0erif Rami 2025-08-14  28  static char *id[SNDRV_CARDS=
+] =3D SNDRV_DEFAULT_STR;
+dee1bcf28a3dd13 =C5=A0erif Rami 2025-08-14  29  static bool enable[SNDRV_CA=
+RDS] =3D { 1, [1 ...(SNDRV_CARDS - 1)] =3D 0 };
+dee1bcf28a3dd13 =C5=A0erif Rami 2025-08-14  30  static int dev_idx;
+dee1bcf28a3dd13 =C5=A0erif Rami 2025-08-14  31 =20
+
+:::::: The code at line 27 was first introduced by commit
+:::::: dee1bcf28a3dd13ddb2e9200407864f73e9c4d63 ALSA: usb-audio: Add initia=
+l driver for TASCAM US-144MKII
+
+:::::: TO: =C5=A0erif Rami <ramiserifpersia@gmail.com>
+:::::: CC: Takashi Iwai <tiwai@suse.de>
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
