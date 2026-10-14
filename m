@@ -1,185 +1,114 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 339D152758E
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:45:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 581E15326C4;
+	Wed, 14 Oct 2026 13:47:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791985517; cv=none; b=ulJIFjz/pZ3PUUubGbqi+PgkC5XIi0UGxoKatMu0X3/WRYNDs+hWpUS5FM6IWGhk0ZFt9VajvuTnUK8PBoNmqT6l4Gpf4XsPqcV1wLRM7LMnssbLaIyuymdDsKXm4afb3tJZvo3lglnlrUzbyKS/xvcsjs5gq9pHtxonqZkawGc=
+	t=1791985646; cv=none; b=U1OGzdicZ1daP6WypdBBQIM0OJhp/KjvkklNhYddVzL88HlocdcajHgMXkKibSH9rhvf5aDncoXrYLpRAn1YjbGunAESqDI1isp/OBBVo5IgmAZRWPhmMFCLD6thzRRKaKHchKbK1qtxCEu6WqO8e4GgzjimDwco5kh+/IkAJ9w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791985517; c=relaxed/simple;
-	bh=2eik+EK4C3BWVrmrUDhcQ5ZFi8ccW6MMSJf+dkVWE3Y=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=iS1KKl9wg/RtLmEM7o6Am1Pm6koxOWRhcDtJDCoIMPDPeXI4PvSCx0iRGBeP6scbCdE7MmRyoZU91rZPGmM33JbeD/w0F/TdciWU8YqI6M3q58h4EUHsJEgkdW6NfBV7BaVgPJjJMWRyXAIATUXGUae5BrKP11DHiQwprUgTngc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=I3ll0JsS; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fC3A7r/k; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791985646; c=relaxed/simple;
+	bh=6ASFf07XweXSERXGnO7twNJTmQ8Y8HezJlmn/kBZMII=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HbAbOcTy3fw4t5SS8Mnv4fTmNV0J7+Wi6f5tI/uIjEmLMDbs4OaepQUcBaPR8ERp7RIAbOIUCkFkOaff1e1moUnpP8JrYEquDlUsC47HU5G6v6L2AaL13II+LKmWWhoAaGCamheVhcEOT4G3mSl9B0jyJHbo2t5iEQVTP8gy6xI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=boO1QOH1; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=IZqfWmao; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="I3ll0JsS";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fC3A7r/k"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EARDcD466354
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:45:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	QilNlIsY/JXTPlSp11Ew6P38xt9C05//jzUyoswKc8M=; b=I3ll0JsSee5/pLf+
-	2iYXqQIqlF7Y7lwhqeVFo1CcwbvlO5l3Da68kuTYdockb9wNlgD/Gzl4AwJ7w7g8
-	LH6W9LXMK/zhMGVLowNUNDeZH40ab6HSn301YcVDGWXJTtPlqByhl8GfpUf3J7PB
-	UvFdhLF7Sr4oVHA7TnbjqEXHavDlVMfOSjyM24XdNTcmh7k03is4mWa/oiBlRYNO
-	6ZpvJ+TI7QuPB2Z+C8vuTNTLXpAZhkXyFBZzrXgSKRp7iQd5z0vf5+NlkcW4XRGr
-	0JtPSKLNFdI+w/99NpZz1IyIZwNQKFXYJLTDN45OdJYcCRKMlPsXrYfLs9ztYlku
-	tEZYCQ==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ha80crr2f-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:45:15 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93cb7f9bb86so839626385a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:45:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791985514; x=1792590314; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QilNlIsY/JXTPlSp11Ew6P38xt9C05//jzUyoswKc8M=;
-        b=fC3A7r/kvLE6iohODWVYXB1/X6gnPNXDtxLLrV3lgkI78GKoOdFR/xYo7grZZ7pTcu
-         zewkdt9hpyByrlISk2nhS7yHPTjs8wLe7SdiPu50JuMt/xu59QhyYg8SS75mM8tGUAL3
-         lWPQO0454X9P9SZUq1kR6D3IzKIgFR1Peq1BVBiopeYhsQhDrjyhmzP6huQiPYKmzizn
-         ig+C95JrYSV6uPeIuh4Oe2sCvRJA12WKwt3uU5LP/DzPUDoqkeUEnGCdFtRESJ8KK3Rx
-         AdQoZuAK0mJWs6QRLugn7Zl5fu9jOsC4IdEaMAKbIOJrAu8/e8Y2y8BWMjSJGwFFGEBT
-         Yo1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791985514; x=1792590314;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QilNlIsY/JXTPlSp11Ew6P38xt9C05//jzUyoswKc8M=;
-        b=PrgTQ73qw1GPb29MKbN9tIKLULGpjv068VbElC3dpvb+JE2ic6riS+YbjMiBNtPHhh
-         isxV48M7sleMbDVW7jAoLAI+xOPjLHhh8n0wWhhG+CrMiP/aCqcYJEPfnuItoniDiPnu
-         2h/ART5BV9mFrs+FxO3u5yCnaDuGms2Gq+ElPao8vNObx2mboPI7oKRBj6UVvIXUf541
-         aEGQqY37jcojVcT+Ik3/cCXitmDWFZvYf2E6ZUu1BFNNNG+/c/hUqgGj9KloxF670UpD
-         X1FCKb4zABafg3GVuzZi9M0NKlkUVcFk+gb5vHAu8C+rnbky2vyvrZOU50CwqY23yrT0
-         p1fw==
-X-Forwarded-Encrypted: i=1; AKwUvByGGBYq5pAp7F62fP3ZUOEWtq8Nfx0IBuUXdWPEv4Tt6iaMXxAwNUaB/9ghWhaK/T+5gC1J4dwnon3E7yg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK0s6Lrcnxa5B6zPghunmCZurc0dPAr/3ky7eRjNZdfAk/u4E5x
-	IJFf5KRlwoeMP7kSGwLzMb/qHni+5lelMhPcw81YczqaV1H13+2pcK6IIx0Cg+HSrFzgKU88Ih7
-	QI5mj/GjzuE4JdMlpeVGpxth1kZsW0+SPy6pdfHCq8nHzv/1zmn50uGNl/+4959SlEXo=
-X-Gm-Gg: AYBFou3wCBqJTlEwyXCuDe3HcyhoohC8E04pGeO342KYs5ZODR3nlsgKnMMsXl6mFVN
-	0b4ZFujGWMBDGaPSWJTH7UVaDNOH6p67CCGXqKyl8K3RIcB/BPPDqBAcND08k9/wOPM09nGXwl/
-	6mHi2tNTMGYxEWZVz+nMtKj60P4gII46DQ1wQH7tARolRuYi78npZarvtjOcVY6g8NwpHM9AuHo
-	mHGoBkyXRtixxY5unXp22+3XQbaU11pUyefqOQIO/XmhDEsiO5gZLAdp6lOrEgGKKW/4dtOfehQ
-	n1wyepGgNTMZacshL4/TM9MDQFYUqjbiaKqTo1xvQvLc+YstD5z9sQ2a3eT2L+ylIetMln4zXV6
-	YmtSAcaOo3K2cb0UXXNybUQd8rNi+OlKbaf0tEwgPcwoHL28UVWv3vx304RxvqHiXQzw3HV5Ic8
-	APYssgwJ8qNOeDfb3RHs47EZlRxHiyG+rUw62sgvtVPaKLagn1AZpLpjQPFx1YovDaSg==
-X-Received: by 2002:a05:620a:2a0f:b0:93b:d7a0:d9e1 with SMTP id af79cd13be357-93ebd2445b1mr2514970385a.59.1791985514365;
-        Wed, 14 Oct 2026 06:45:14 -0700 (PDT)
-X-Received: by 2002:a05:620a:2a0f:b0:93b:d7a0:d9e1 with SMTP id af79cd13be357-93ebd2445b1mr2514960385a.59.1791985513405;
-        Wed, 14 Oct 2026 06:45:13 -0700 (PDT)
-Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec? (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl. [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9ac924dsm721471166b.70.2026.10.14.06.45.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 06:45:12 -0700 (PDT)
-Message-ID: <24b2e368-f0bb-484c-bf88-b9ce3125180f@oss.qualcomm.com>
-Date: Wed, 14 Oct 2026 15:45:10 +0200
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="boO1QOH1";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="IZqfWmao"
+Date: Wed, 14 Oct 2026 15:47:18 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1791985640;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1uVgl9VYfCbdSHLAssk4hvktk7d7dQKYFOwGQqB2NYo=;
+	b=boO1QOH1cBIu7/DEtSP8qOicZRXgqc0B3025RrJrJiD+5eTuR6cBBmANJQiQrOtoyIWKMF
+	i8dl5wZ67J9vEPw6UFsR38Cc70G6JbDCn4H9BuBpGmVQXetydRz0PIyuK3Br8dS3RKcf7r
+	CzQJQnJHFrdH/mchTJa18kpcx9aWx1xiRtiDD03UiTcbRc8sWXpOT9e/TIjDTwffqPcf6I
+	NuAx1dv9xy5Vv8IGZs7oJlBs4q4dDSUOhjEOupPrJ/4pqDwg6TbPEO0KaGogK/7g7z6J2i
+	4iL+SrrNM/u3QQ1iaWi14xPVMlqzfekNSwjwHopgeT9vb3ymgK/iNOji4GU9fg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1791985640;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1uVgl9VYfCbdSHLAssk4hvktk7d7dQKYFOwGQqB2NYo=;
+	b=IZqfWmaoyGoHLcJIbk9Xj/hGNsfvedsiTtoUeI+aH3a8qcMqFIdR8qOyER3Eqac+Fqmp4r
+	CibG956GlCHZrbDA==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Xin Xie <xiexinet@gmail.com>
+Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	horms@kernel.org, andrew+netdev@lunn.ch, shuah@kernel.org,
+	kees@kernel.org, petr.wozniak@gmail.com, qingfang.deng@linux.dev,
+	fmaurer@redhat.com, luka.gejak@linux.dev, xiaoliang.yang_1@nxp.com,
+	skhawaja@google.com, liuhangbin@gmail.com, stable@vger.kernel.org,
+	sdf.kernel@gmail.com,
+	syzbot+fbf74291c3b7e753b481@syzkaller.appspotmail.com
+Subject: Re: [PATCH net v7 2/4] net: hsr: preserve submission order without a
+ forwarding lock
+Message-ID: <20261014134718.YGcKmfB9@linutronix.de>
+References: <20261009201324.17-1-xiexinet@gmail.com>
+ <20261009201324.17-3-xiexinet@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans de Goede <johannes.goede@oss.qualcomm.com>
-Subject: Re: [PATCH 0/3] ACPI: Serialize battery methods and INT3403 _TMP
-To: =?UTF-8?Q?Ali_Ahmet_Memi=C5=9F?= <aliamemis@disroot.org>,
-        "Rafael J . Wysocki" <rafael@kernel.org>
-Cc: Len Brown <lenb@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-        Armin Wolf <W_Armin@gmx.de>, Rong Zhang <i@rong.moe>,
-        Charis Stratakis <c.stratakis@proton.me>, linux-acpi@vger.kernel.org,
-        linux-pm@vger.kernel.org, acpica-devel@lists.linux.dev,
-        linux-kernel@vger.kernel.org
-References: <20261014132703.93355-1-aliamemis@disroot.org>
-Content-Language: en-US, nl
-In-Reply-To: <20261014132703.93355-1-aliamemis@disroot.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA1NCBTYWx0ZWRfXz94CUZ/YWwoo
- xK+oWFjcR/RM8aEWnuxc3fMjZH1a4NLrIzGRSaWH9bEt47Pwtn+71YuIqt+SLydQ6TY+LDJHX4L
- mEk1TFK157eJZZNo9a0sphn56aO9AZI=
-X-Proofpoint-GUID: JknAFYJtCiuQ6JwBGR7RIzSLHh2le_kB
-X-Proofpoint-ORIG-GUID: JknAFYJtCiuQ6JwBGR7RIzSLHh2le_kB
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA1NCBTYWx0ZWRfX/zoct50lxzq4
- n9SC5aHjIfN8S2q27Jrc0qDdx1sb3NJaqln9110u/OU6Z/JHNMflZs1CaPAOt4+ObJgE9kMZGI8
- gz8LlPa2ymbt963wKZZG6NryFzRnNoRbEk/+MeMy8w+jC55tukC8HbDUIgXY2TSL2QyG/MDjboj
- h09fkxAVAEmTzDEx1p2zup4BpGFaGoSBWRPWRV3WWdO8BuVRT/JbYFeSyB3gMCPF6LfpocWfjeq
- ivI23bc2EU+zoGOzvfxZjIHKpiamUrJbUgCPdsYCSR9NGs627hz5hHwoGA4R6MtLqtrzWsr2pAa
- qespZVaoeVuE9bwaOu21nAX3YJ5Sizc9Xh31YawhF5SGXKxjlTTs1CPudnyQSIvh4cCLkc/dj08
- 3TZbShnTsyx1Ho5NKs4cA/9qNBalVTM5TtkFSktPySpfswHm4U0bwmGvbNcMsgybuwFmyjh96vv
- 9LLbHwMzNM92YzzHPRA==
-X-Authority-Analysis: v=2.4 cv=JegpPkKV c=1 sm=1 tr=0 ts=6acf876b cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
- a=pGLkceISAAAA:8 a=jSlZZTkqHIX6knNQi3kA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 phishscore=0 suspectscore=0 priorityscore=1501
- bulkscore=0 lowpriorityscore=0 impostorscore=0 spamscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140054
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261009201324.17-3-xiexinet@gmail.com>
 
-Hi,
+On 2026-10-09 22:13:22 [+0200], Xin Xie wrote:
+> Holding seqnr_lock across dev_queue_xmit() serializes numbering and
+> submission, but creates transmit-lock dependencies that can deadlock
+> stacked HSR devices. Merely shrinking the lock to the counter lets
+> one CPU send frame N after another has sent N+1; old HSR peers discard
+> the late N as stale.
 
-On 14-Oct-26 15:26, Ali Ahmet Memiş wrote:
-> As discussed in [1], add exclusive variants of acpi_evaluate_object()
-> and acpi_evaluate_integer() and use them for the battery methods and
-> INT3403 _TMP, which interleave badly on ThinkPad P1 Gen2 and P53.
+What are stacked HSR devices? Looking from the setup in the referenced
+report this is a bridge device attached to a HSR ring. 
+An announce frame is sent and this goes to hsr_dev_xmit(). This does not
+look like a normal setup. Is this something you use or is this something
+the bot came up with?
 
-Thank you for your work on this!
-
-> UCSI (bko221065) is not converted.  There the contention is on a
-> firmware AML mutex that _Qxx EC queries also take, which a wrapper
-> around acpi_evaluate_object() cannot cover, and Rong's notification
-> merging in 7.3 already reduces it on the battery side.
-
-Hmm, I wonder if we should export the lock added in patch 1/3 and
-then also take that in the ACPI EC interrupt handler ?
-
-The ACPI code already uses a threaded IRQ handler for both EC GPIO
-IRQs and GPEs so sleeping in the handler should be ok.
-
-Note this is something which can be done on top of this set. I'm just
-thinking that if we're going to do this it would be nice to cover
-the bko221065 UCSI case too. Rong's notification changes do not fix
-the race, they just make it a bit harder to hit, but users are still
-hitting it just less frequent.
-
-Regards,
-
-Hans
-
-
-
-
-
+> Use one consumer for master TX, interlink RX and internally generated
+> supervision frames. An idle caller processes its own input inline;
+> contended inputs wait in a FIFO drained by one BH work item. Allocate
+> sequence numbers only when the consumer executes a frame, and submit
+> it to every lower before numbering the next frame. The short counter
+> lock is released before forwarding.
 > 
-> [1] https://lore.kernel.org/all/CAJZ5v0gS4agVUkCO6M=VW4Wi2y1-s+k23bpzmX9aAZ0Rsv4z9Q@mail.gmail.com/
+> Limit queued inputs to 1024 jobs and 8 MiB, reserving capacity for
+> internal supervision. Carry transmit recursion depth across deferred
+> execution, cancel the worker and purge the queue on teardown, and count
+> queue drops once through core per-CPU statistics. LAN A/B reception
+> stays synchronous and tagged frames retain their received numbers.
+> The ordering guarantee is per-lower submission, not physical wire
+> order across multiple TX queues.
 > 
-> Ali Ahmet Memiş (3):
->   ACPI: utils: Add exclusive AML evaluation helpers
->   ACPI: battery: Evaluate battery methods exclusively
->   thermal: intel: int340x: Evaluate _TMP exclusively
-> 
->  drivers/acpi/battery.c                        | 17 +++---
->  drivers/acpi/utils.c                          | 56 +++++++++++++++++--
->  .../int340x_thermal/int340x_thermal_zone.c    |  3 +-
->  include/acpi/acpi_bus.h                       |  8 +++
->  4 files changed, 71 insertions(+), 13 deletions(-)
-> 
-> 
-> base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+> On PREEMPT_RT, high-priority load preempted both the inline consumer
+> and BH worker while another CPU continued to enqueue inputs. All
+> 2118 inputs completed without drops; the finite data workload
+> completed 4.07 seconds after the load ended.
 
+This looks very complex and I am not a big fan of it. I would prefer to
+break lock chain early assuming the setup is valid/ sane (see above).
+
+The ID by itself can be assigned with an atomic_inc() but then you don't
+have the transmit ordering. So you introduce the workqueue for the
+ordering which is ugh. I'm not sure how this works if you get
+submissions from two CPUs given the lock is gone and the workqueue is
+per-CPU.
+
+> Reported-by: syzbot+fbf74291c3b7e753b481@syzkaller.appspotmail.com
+> Link: https://syzkaller.appspot.com/bug?extid=fbf74291c3b7e753b481
+> Fixes: 06afd2c31d33 ("hsr: Synchronize sending frames to have always incremented outgoing seq nr.")
+> Fixes: 430d67bdcb04 ("net: hsr: Use the seqnr lock for frames received via interlink port.")
+> Signed-off-by: Xin Xie <xiexinet@gmail.com>
+
+Sebastian
