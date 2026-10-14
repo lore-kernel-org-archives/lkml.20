@@ -1,258 +1,173 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40D8552E042
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C83A4E36C8
 	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:35:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791984931; cv=none; b=fo44FhVkZxy15oZXcMEZRqPTwq+H5EW6qK+Lts2fEYAgE+olj1VklqHf2Ly/MhXVBqG+1oSqqALZ/LknD/99M2PtJ0qRh82Zsx/Oo73eXMggMsHPztqkwEq9/2EhjEPDY5E+Ap61EHBtva9Q3IccTQSwoIDEYLWiPygadSIsCog=
+	t=1791984932; cv=none; b=VJ5HOaRU9lCD397afGz69ry5rCQCIcVbRbZLbF/AriWckTDURgBtAYejkKOwCpRO6wV2QbGduOyu8T70B3thL/c3aloCSyXc3ZS9FsgvGqvY+Wstb6+MoSCsSjZfWsLs/lsQA7vEkuQG1Nf1+zogAmSiAuyYRH+d49Vzh7zzz1w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791984931; c=relaxed/simple;
-	bh=aB/aUqi9pUDXYoeosi8ibg5RtaOs9N6espCUqkY+dwY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=GwDnI1+WVySFp4M6jytjwX7qfxcqR4fw+uyDgINOgMxWE3Nma/G2qAeUqPaadVp1gqO+sQ2ZiQavjqxpk5Lv5sgH/z5Xfftu7+cf5H4qfJFLTbo6OavynY/LeqLU1hv/3weyTTUr3QKeZ/BXt9uZtlTVq30IgDQ1NNeBnse/Ijg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=HQMRlJr6; arc=none smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1791984932; c=relaxed/simple;
+	bh=IlpqbHrz26EweNTVebA5NYWFDrcc+dfp5s1FMniEugU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hfInNj2dLsUMcmrYbVm+LA7ih5cQ+1zRfgQofvVv5OT85ONEM4E+8VA2i6epzWSLnvQM3XvFeqmAjSbGG2ppXWPHylQAXQeHE+gkKuM/Sr9CTnehPhbIdOkqQfP7NSu9c1DIXpY81oMxO+qaZ264MOAnTvKy9yYkrMjOKZ6ybFA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YSt/rCap; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=C6jgNpt1; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="HQMRlJr6"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48c6955a7c3so1141371f8f.1
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YSt/rCap";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="C6jgNpt1"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EDPbG73018180
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:35:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=3oJjtNP80ClUlRJQPIJ5xMzy
+	E/SdWULvgaeOPu3tEZU=; b=YSt/rCap38oBSiDonvSoUHWYieDW7AA788/GQYdp
+	XLSfI7xGEpPtB4boX8OLXzQDk+fVeGUQ7VGylvdw5mgsvd9T/NLoAD3NtZz5ZzP6
+	3wnXds0whZCrHtYV0mWJeCYyHLhzb3sCEgiXlkbBhTZoxbvHWKcUQx63iEvUjaZh
+	F/V7B4RRVZgCvCVQY9FnsUCjgsEQ19i9Pnp30oJncktV7Z877VVQlLA1zzTtyGVs
+	faOK1oX1MzhSSMddM/HEB4wZF8JNZe87v87lecWDb+i1UKYMjSp/BC2bNZmk5Mpa
+	und//Lrbq3Z41nSs6BTvUMWOv5BqGngNkO1wphfdKQe7cA==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9s2b4hpt-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:35:23 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-9104eedb5b0so12868586d6.0
         for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:35:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1791984922; x=1792589722; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=J16Lw6qXYObY2qJP+E/pNTxVqsLsb6thBdxPaIOsqSg=;
-        b=HQMRlJr6Z9zh7VxIaE12MzbNPkOCiDhms5BW577NNF7RmnYSoJihb2feyEL/KCHsIO
-         ybDuCRa5PaWaegpyKMP2N0P240AoDVIaq4bg+UUAnetnyesra7r0pIKz4RS9BmByRHOu
-         9HfI3APT+1ARKtmavbX+HhmAt9FhxuGvp7p3/el6jIPtxDPZApoXE2lFXDsdNNcOjsTr
-         mME1SDNj1E/qVcDtu/Xk3AQ6LS5IiDVLGKP4ViJniqvMS1OgO75NsqSSEmeQ7rFc1GfB
-         VssGJj/x3ruEF97d221fL95x4aOA8+cPlSQlkOXLkL17Mebp8lR6isEdugc+fOSSCceI
-         mA4A==
+        d=oss.qualcomm.com; s=google; t=1791984922; x=1792589722; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3oJjtNP80ClUlRJQPIJ5xMzyE/SdWULvgaeOPu3tEZU=;
+        b=C6jgNpt1DWcLNRj4vqBChWiM5uMqjGW3n964BSYPPd/HvSoiIidMFNCVV3yPjInPDU
+         CLp1WRvOH2VEv37kDSOfUEHXoTp6zjL8SwU/cWqdkJXRh7fim4KHGD87PjBFuU5Pqf2v
+         odQLkQuSof9aJ0vFwtMbC2XVucu0Z3YpYhaO8XiANrIRRk74LKYQpfpaJG/1K+NHWcXC
+         PWzw3VljDykEEby+dYb39YVz6nj/G9D3rVsGhOPROLoCxJ348HHtxCJNNKslCy+NdhPf
+         fro5zB/UmqOglw2CM0rLSGPSHrAybyGEyZtGF+Oem0p78BDgYEF3LNIbOJ/n+nmddkAU
+         ZjhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1791984922; x=1792589722;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=J16Lw6qXYObY2qJP+E/pNTxVqsLsb6thBdxPaIOsqSg=;
-        b=0X837SNmhD51jMZabW/8jGXqKk/fzKKE1UvwUFdleXqY1/UFH3E2JkW8V6Z6stbIkk
-         w/MDr3AtLcE2ciZeUrwiFIWbSOmPkCWf4EnmaEz2UeLapqG5k/VbR4PE2F/fyPAtBEvL
-         cb5dUVxLmR0WSku/JtpHXH+C4TCon7XkpM4anMts0OVVtsc5ll00d/AifevRsbaSuNFI
-         x4LRF4T59Mc5JgM0cV/zdaJ6yGrpyxkrPL2DrP2oIwvnev9uwwD8fFy/7O86JOsr/chB
-         VxlU12lALlad62bVeNAl0sWfGem6YQFhQ+cDv1XPs5Wul2lBLaXz69MAxhihrXvuh/Ns
-         eE+g==
-X-Forwarded-Encrypted: i=1; AKwUvBygelNOP+ubb9vJFlVvYwRTlxT+oiw3vLkw/hkhBlHh8+v55nMW7SRYR/r1WQQ3bO7DU6BXzOORGtzsMB4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIBRLDdG27XE54J3jD67wcuF8AilGceXbyDo9nkDjZWL2T7BQMW
-	TwAK7GNxGGeJzWvaPBsz/hc+7gyZHgC3xtb6AoD1Q2LXtK6XRWV2MAnbBWVf+lcBAUc=
-X-Gm-Gg: AYBFou1eIRQtvcmg7GEo70+K70ZFYttkYt4iqED5NvLVXTCVMP0ADWRWmho3fbVD4Tt
-	D5oB8ati+QO1OECQAzvIoqz04f5PtDHBtl5ZueB9LZrc7k8y3egOZfLvRKu+qNIMkfIaR0xjc03
-	7MCvYC+QFrOZyRa2I/j+kGnOrod7Qt6HLWV+DZYVHjEzWIKcm+kbnMaeJbgzbDVOD2oDZEPLoj2
-	2yxthG1q6mipBayPQokt4BiP3o8TZo/Ci1LC9jXiE0ctOmBoCTlvI2f/Z02ENjN4Pbq78FCR2pB
-	JGwUAeRz6URsbS9K1TlX/Hzz02qx6o15KFBu1IgnD/qddFr8FBkqCrt+V2s6MgSOG3sXRN1GdyA
-	JhXdIvMwrgkXNCw6ltNk4Kij1H3BiDx7PmmqKPcvRvnL2w/RtEJl47agaZdZMjm1iqY5tTCuJyl
-	5Wuv+KoMyiixAzwPUM2WhAYlQVvyHwgstzGQN40ON3GXZkYTMiRTjCO9AZpLOGu6paLMq9ikzkq
-	MBW9SN4xFtUfeDLVbRQ5uGcnPidT8K/EVTeEWc2RBbYWslF8AYU6HPRdLAAzJVMwseD06ZhvJls
-	GIq7fQ==
-X-Received: by 2002:a05:600c:154c:b0:49f:ce78:3562 with SMTP id 5b1f17b1804b1-4a18e4a9159mr339549795e9.19.1791984921673;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3oJjtNP80ClUlRJQPIJ5xMzyE/SdWULvgaeOPu3tEZU=;
+        b=UD/9cOVeZeIDpQhyk4VPFDJqjMjLVFN8BSjj1LJTpYimZ76nI1WKDEB3mqqHQCdG7A
+         C5cGlzVoNYJmJ0F70yCQElbfDXAyditaLkk/jVOUP8YAUB5+mFaHNcJBBzK5mbBiilgt
+         hlWRexKxh97h4h1kCoMVvTjaDnnhr9SwT9tqQ9nr30O1HmV3796ASWtrHos3BoIYula4
+         6hlyjFqXIH32FiEO+jEPNegXcPxmdUm3RJNl48HOC92aSuXBCw7wPbGGTIzpUq4z6LD+
+         a8AL1Irhn9CKqLoWF301XBxtzcSeJCOFM08bg5w+enah3APwdv0CwrYvCEP5wLKvyP90
+         zyRQ==
+X-Forwarded-Encrypted: i=1; AKwUvByevopcn3MoR1Ug5K+eZWbK8ixPUBEHsH0QI/FOtk5TI2hmWy/gyBdxcH8Cqsr5pxVhTFsur2qI6i8m6H4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJXNye7DWDvW61RM+gMXYEvQS8/Wm+Yoo5jR146bE2OGkM21RN8
+	iGZsq6ew6cp+ryO9JNdY2FKSTtxRqBhq6qH9RPMsgWh0X7WsA9uBnBNlH2arA0vfapKdXdMQTdB
+	SvFr5KiBSx9piLhtScxHEzETg9Xcg31fQyJwUw0wwaTLJjkIfXcQm9NHiBWFEdkYchsY=
+X-Gm-Gg: AYBFou3MlND1Jh34PT74nUfFHu1Q8AdUp0/c13LtUMtomy+BlysHaSm1Ls77L74n0pC
+	By8i6KHFg7aOTiglj0XMGIo/jqKyJgop1kvHRHWnohz4yyXqghXMRhI1qdRZaAbSOVB1dGa5hEw
+	YNfsy7Zx1qa52Bo48TEjOkMhQSIEIE+43M2sSAiqyrazMENX8/VEqdrRutBZh7qebln6OKyr30E
+	psZIF+apu+Iu2zC+YOGQyUOQAZ445VPiZO6rTaOAlFdLmEh6ccff9rm0dP4ZIJ8/2KJFFcX3Eve
+	VG8XfkTrxSQq4PDr5SAqMyuMGDMODaMDoOtaDyVJY0BxTBuIZOtNS2gr/MVdGNZ+6ZY2RHzl5Ka
+	wmlh4HDIv+o2LeDITnffgJOF4XZx53Gu+rWLfFTsl2vwRL0yAek4rOfyseEzz7HNsrsRwOpGDVq
+	6mMNn//YesZyoC
+X-Received: by 2002:a05:620a:471e:b0:93f:5ac:14b1 with SMTP id af79cd13be357-93f05ac16cfmr236550685a.67.1791984922422;
+        Wed, 14 Oct 2026 06:35:22 -0700 (PDT)
+X-Received: by 2002:a05:620a:471e:b0:93f:5ac:14b1 with SMTP id af79cd13be357-93f05ac16cfmr236544685a.67.1791984921806;
         Wed, 14 Oct 2026 06:35:21 -0700 (PDT)
-Received: from zovi.suse.cz (dynamic-2a00-1028-838d-271e-8e3b-4aff-fe4c-a100.ipv6.o2.cz. [2a00:1028:838d:271e:8e3b:4aff:fe4c:a100])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48defca3fd0sm1778176f8f.15.2026.10.14.06.35.20
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5be33d857d9sm662845e87.49.2026.10.14.06.35.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 06:35:21 -0700 (PDT)
-From: Petr Pavlu <petr.pavlu@suse.com>
-To: Luis Chamberlain <mcgrof@kernel.org>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>
-Cc: Aaron Tomlin <atomlin@atomlin.com>,
-	John Fastabend <john.fastabend@gmail.com>,
-	linux-modules@vger.kernel.org,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3] module: Add stubs.c for CONFIG_MODULES=n module_put_and_kthread_exit()
-Date: Wed, 14 Oct 2026 15:34:10 +0200
-Message-ID: <20261014-module-stubs-v3-1-319f2a7d4a55@suse.com>
-X-Mailer: git-send-email 2.55.0
+        Wed, 14 Oct 2026 06:35:20 -0700 (PDT)
+Date: Wed, 14 Oct 2026 16:35:18 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
+        Ulf Hansson <ulfh@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Mike Tipton <mike.tipton@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+        driver-core@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH RFC 03/16] OPP: Retry failed default single-clock
+ transitions
+Message-ID: <xkiu74kv2biofdix25gimmxxzqfqyocsq3wvdriqj7zscpynv4@us3hib36vops>
+References: <20261014-topic-qc_clk_dvfs-v1-0-3041b788e9f7@oss.qualcomm.com>
+ <20261014-topic-qc_clk_dvfs-v1-3-3041b788e9f7@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Change-ID: 20260918-module-stubs-dccefe41dace
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014-topic-qc_clk_dvfs-v1-3-3041b788e9f7@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=RPQmjIi+ c=1 sm=1 tr=0 ts=6acf851b cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
+ a=3h-aFR46GQ2hTHGVm7IA:9 a=CjuIK1q_8ugA:10 a=iYH6xdkBrDN1Jqds4HTS:22
+X-Proofpoint-GUID: VyF3sJFf6ERKB9oUhsWPFdCkoeJb0zVa
+X-Proofpoint-ORIG-GUID: VyF3sJFf6ERKB9oUhsWPFdCkoeJb0zVa
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA1NCBTYWx0ZWRfXxZpIms1bAuZi
+ zCeG64b9CJa6myIUCFqUOV0yROtlGYVwURhIvjbUZhc4LXVqEhP83Z8T9HJA/hxRDDl9FZk/HRJ
+ d4kOGw7Sost6w7x6kPsd0YKGKNNzCNpRJvpwQH4CauBIHQfvJGRxM42XSXg0fi0WQdMz94dIO/8
+ v4Dvr4KUxiyzF3Jciefy1SP05ct2gzjaSw8ThI3FlJ7x5zJMewLRu6vTtA8xN2jY5N31VIyzuRW
+ Zjz5TkD1uunz4faX+7nowlOR/GIb4iGlS+xcOuc7Z+w3gofvAShOexKo5wYKfvGBLwMxyf+XNR/
+ 3cZYJclkc1G24DcZjSQf9KPZ68R42ZRAMVQgYPoHyaSBjZPVDYjdWnmUpfqANPBwKQimwYQmcWo
+ lalym1NVuu/yPiBhXCJO4+tw4lajS3j5LyS5nB8qov9+zGRp/FRmr5aHtwqFcKdX/m3il/qKxv/
+ z2widdULLiKn6B5C1mg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA1NCBTYWx0ZWRfX9bPwcTSabZI8
+ 6A8QqbjYNSnp2fJAIg6+65xrLYvhIipuWow+K6F3YyDC18pt16Nmx4Td3qiLDOkTkQQvmwKi0Fk
+ xrGMOKxEZKlGfIiHiEHpK401S5V5/tw=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 priorityscore=1501 clxscore=1015 malwarescore=0
+ phishscore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140054
 
-Module-related stubs for CONFIG_MODULES=n can normally live in
-linux/module.h. This works well when the stub does nothing or simply
-returns a constant. However, some non-module implementations may be more
-expensive, either because they have a real implementation or because they
-require additional dependencies to be pulled into linux/module.h. This
-header appears in roughly 15k #include directives across the kernel, so it
-should avoid bringing in unnecessary definitions.
+On Wed, Oct 14, 2026 at 02:19:03PM +0200, Konrad Dybcio wrote:
+> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> 
+> A failed OPP transition need not leave the clock at the last successful
+> OPP's frequency. If hardware changed before the error, the default
+> single-clock path can subsequently skip a necessary retry because its
 
-Specifically, linux/module.h defines module_put_and_kthread_exit() as an
-alias for kthread_exit() when CONFIG_MODULES=n. That in turn requires
-linux/kthread.h, even though linux/module.h otherwise has no need for it.
-Note that linux/module.h currently doesn't include linux/kthread.h and
-requires its users to pick it up through other paths, which is itself not
-quite right.
+What is a necessary retry? Shouldn't it be: try, rollback if it fails?
 
-Introduce kernel/module/stubs.c to hold such stubs, built only for
-CONFIG_MODULES=n. This mirrors kernel/time/posix-stubs.c, which is used for
-CONFIG_POSIX_TIMERS=n.
+> cached OPP matches the request. It can also choose voltage and dependency
+> ordering relative to the wrong operating point.
+> 
+> Treat an incomplete transition as dirty and use the observed clock rate
+> to establish retry direction. Do not trust same-OPP or same-rate
+> shortcuts, or allow table disable, until the state has been reconciled.
+> 
+> Limit this to the default single-clock path: custom callbacks can have
+> additional state which cannot be recovered from a clock-rate readback.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> ---
+>  drivers/opp/core.c | 72 +++++++++++++++++++++++++++++++++++++++++++++++-------
+>  drivers/opp/opp.h  |  2 ++
+>  2 files changed, 65 insertions(+), 9 deletions(-)
+> 
 
-Define module_put_and_kthread_exit() in both CONFIG_MODULES configurations
-to call __module_put_and_kthread_exit() and add a CONFIG_MODULES=n
-implementation of that function to kernel/module/stubs.c. Since
-__module_put_and_kthread_exit() is now implemented even when
-CONFIG_MODULES=n, remove the corresponding '#ifdef CONFIG_MODULES' from the
-noreturn_deny BPF list.
-
-Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
-Reviewed-by: Aaron Tomlin <atomlin@atomlin.com>
----
-kernel/module/stubs.c should also be used for add_taint_module() [1] in the
-future.
-
-[1] https://lore.kernel.org/linux-modules/a79a6a06-cc48-4036-882d-95e9b4cc01cf@suse.com/
----
-Changes in v3:
-- Mark __module_put_and_kthread_exit() as __retain so it can always be
-  referenced by the BPF noreturn_deny set.
-- Link to v2: https://patch.msgid.link/20261002-module-stubs-v2-1-a0d8c6ad1738@suse.com
-
-Changes in v2:
-- Remove the unnecessary include of internal.h in stubs.c.
-- Remove the unnecessary EXPORT_SYMBOL(__module_put_and_kthread_exit) in
-  stubs.c.
-- Link to v1: https://patch.msgid.link/20260922-module-stubs-v1-1-abe465a24879@suse.com
----
- include/linux/module.h |  9 +++------
- kernel/Makefile        |  2 +-
- kernel/bpf/verifier.c  |  2 --
- kernel/module/Makefile |  4 ++++
- kernel/module/main.c   |  1 +
- kernel/module/stubs.c  | 16 ++++++++++++++++
- 6 files changed, 25 insertions(+), 9 deletions(-)
-
-diff --git a/include/linux/module.h b/include/linux/module.h
-index 96cc98568eea..4c7bd7f9f889 100644
---- a/include/linux/module.h
-+++ b/include/linux/module.h
-@@ -658,10 +658,6 @@ static inline bool within_module(unsigned long addr, const struct module *mod)
- /* Search for module by name: must be in a RCU critical section. */
- struct module *find_module(const char *name);
- 
--extern void __noreturn __module_put_and_kthread_exit(struct module *mod,
--			long code);
--#define module_put_and_kthread_exit(code) __module_put_and_kthread_exit(THIS_MODULE, code)
--
- #ifdef CONFIG_MODULE_UNLOAD
- int module_refcount(struct module *mod);
- void __symbol_put(const char *symbol);
-@@ -850,8 +846,6 @@ static inline int unregister_module_notifier(struct notifier_block *nb)
- 	return 0;
- }
- 
--#define module_put_and_kthread_exit(code) kthread_exit(code)
--
- static inline void print_modules(void)
- {
- }
-@@ -879,6 +873,9 @@ static inline void module_for_each_mod(int(*func)(struct module *mod, void *data
- }
- #endif /* CONFIG_MODULES */
- 
-+void __noreturn __module_put_and_kthread_exit(struct module *mod, long code);
-+#define module_put_and_kthread_exit(code) __module_put_and_kthread_exit(THIS_MODULE, code)
-+
- #ifdef CONFIG_SYSFS
- extern struct kset *module_kset;
- extern const struct kobj_type module_ktype;
-diff --git a/kernel/Makefile b/kernel/Makefile
-index 1e1a31673577..08a94594975d 100644
---- a/kernel/Makefile
-+++ b/kernel/Makefile
-@@ -58,7 +58,7 @@ obj-y += liveupdate/
- obj-y += dma/
- obj-y += entry/
- obj-y += unwind/
--obj-$(CONFIG_MODULES) += module/
-+obj-y += module/
- 
- obj-$(CONFIG_KCMP) += kcmp.o
- obj-$(CONFIG_FREEZER) += freezer.o
-diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index 72a3f5998dd2..be70f10e4968 100644
---- a/kernel/bpf/verifier.c
-+++ b/kernel/bpf/verifier.c
-@@ -20417,9 +20417,7 @@ BTF_ID(func, __ia32_sys_exit_group)
- BTF_ID(func, __kunit_abort)
- BTF_ID(func, kunit_try_catch_throw)
- #endif
--#ifdef CONFIG_MODULES
- BTF_ID(func, __module_put_and_kthread_exit)
--#endif
- #ifdef CONFIG_X86_64
- BTF_ID(func, __x64_sys_exit)
- BTF_ID(func, __x64_sys_exit_group)
-diff --git a/kernel/module/Makefile b/kernel/module/Makefile
-index 50ffcc413b54..72fd2972eacf 100644
---- a/kernel/module/Makefile
-+++ b/kernel/module/Makefile
-@@ -7,6 +7,7 @@
- # and produce insane amounts of uninteresting coverage.
- KCOV_INSTRUMENT_main.o := n
- 
-+ifeq ($(CONFIG_MODULES),y)
- obj-y += main.o
- obj-y += strict_rwx.o
- obj-y += kmod.o
-@@ -23,3 +24,6 @@ obj-$(CONFIG_KGDB_KDB) += kdb.o
- obj-$(CONFIG_MODVERSIONS) += version.o
- obj-$(CONFIG_MODULE_UNLOAD_TAINT_TRACKING) += tracking.o
- obj-$(CONFIG_MODULE_STATS) += stats.o
-+else
-+obj-y += stubs.o
-+endif
-diff --git a/kernel/module/main.c b/kernel/module/main.c
-index d0e1e0bd2ad0..a8bf803afa81 100644
---- a/kernel/module/main.c
-+++ b/kernel/module/main.c
-@@ -60,6 +60,7 @@
- #include <linux/codetag.h>
- #include <linux/debugfs.h>
- #include <linux/execmem.h>
-+#include <linux/kthread.h>
- #include <uapi/linux/module.h>
- #include "internal.h"
- 
-diff --git a/kernel/module/stubs.c b/kernel/module/stubs.c
-new file mode 100644
-index 000000000000..290a93eb1eb0
---- /dev/null
-+++ b/kernel/module/stubs.c
-@@ -0,0 +1,16 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+
-+#include <linux/compiler_types.h>
-+#include <linux/kthread.h>
-+#include <linux/module.h>
-+
-+/*
-+ * Implementation of __module_put_and_kthread_exit() for CONFIG_MODULES=n.
-+ * Retain the function even when it has no callers, so it can be referenced by
-+ * the BPF noreturn_deny set.
-+ */
-+void __noreturn __retain __module_put_and_kthread_exit(struct module *mod,
-+						       long code)
-+{
-+	kthread_exit(code);
-+}
-
----
-base-commit: 93f51579e7df248780214094418f205253383cc5
-change-id: 20260918-module-stubs-dccefe41dace
+-- 
+With best wishes
+Dmitry
