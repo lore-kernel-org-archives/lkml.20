@@ -1,416 +1,283 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010013.outbound.protection.outlook.com [52.101.46.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com [209.85.161.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36EA0379C32
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:37:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 734D83BCD3A
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:39:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.51
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792003026; cv=fail; b=mkvlmme82MSWT8/7Gx71vAQGOLHJE5BU0gViDPQNoHl+EnsZuC3gTjKoDtNt1lGHCOHUAnYPBMuGacStz6EOBLxWoLVr2oUNmEp1Mtn9k574qQDD9Gek8I4wUYJFB055P1axU3STHS6ZOSQwyt1NS7flupoD1X7OjhgN3Ymxhn8=
+	t=1792003188; cv=pass; b=tSAjQoJzSmyMgl3qpFY4DvgHgatAT0oSM+w2Bk2pRA13VMbxntMDDFMyjNkp/rPgTiH+aoD8gwzmYIxVPyZqkgjS08RiF0BH5mJaAZ7j3iQEb9qqsRtUcPA4MVbBSQ6QyRKiX/U70nNMhtOojxBCUbUsxMGxpGMs+8RkNSK2TPQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792003026; c=relaxed/simple;
-	bh=+Y33W7Lca8GVei/T94gY9OlQ0uNDdbaK2YSiFoQDh/k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=EkqO3xvtWPJKvYBEiaQ7AzkWY9Kh2fHVX+FmWkPMREkjTH7KLQnD5yIXpR5bX9KBXSXcMFbYDNs8HbT70iaA7n2UwEmXZnm8ZfspBK8Tm5IaRe7Y7/zEom+yk9OFoMLOfgXIOoHr8jMw1S+C/SY2UVdv9Zj+kI/vWdtTptn87+Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=sJ/xq4/i; arc=fail smtp.client-ip=52.101.46.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1792003188; c=relaxed/simple;
+	bh=Hi3oLimrk06HY77N752dV/sqU29cIiskVgmmFoM1BrY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=NxcOTpVBOKY85NvIn2XlEUZSHhUyc0TQJLz9dEtCOaGewoonuVzY9CPBlfT+RtdoZOkCjehfyCAktdvBCtuuMQKzMf2XLzJlAiR4+RZtO9yF9KnvY5kMnBYKIm/KRDHh2SG9Sve6Dsd7SH6MAiul7VcT9eXHEvXzw9C8ATxvbqc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LlGT/VHy; arc=pass smtp.client-ip=209.85.161.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="sJ/xq4/i"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iRsjXhdtlamz0USv9gpFN4RE17t6GUTt9WExEa42qTVMcg0Nr549kxdrC8n81S7gfXmbVnjfKMuzVRsvyX3NauI5rtUAtV5qGKtHNN2aqUAM1dunqE/zBL1wKmXiVdDHi69y3VKPX7MBFMGBcJYM/cpEUlRCIj9BjlMG+BewzlXpNFZ/5Cih/0OZw+TsGZthEyMY7dlWLPV334Vs5S21JVL2ZjYigYItLjve+rf8trIW0eo3wKi9r7jUqQSNBcka/vTZwmYeFlcQs0CO7/BeMECMsDyAbmL7BfyuJaEP87KFjGHgTT6ARn1xtuNBT4pYtlxkmh05oyymiilEtLwRSg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MyMfqintm8aj2Sui2MH/QR2TVt+KD2frPLFxGIglsQQ=;
- b=nPlPbPA/xBzg1kMOMiDPt9NZmHfk1Y1fhHLF8k15/8nzGWiWQjk2UnjfDAU9V9WaO1DMc/BrskNrD3fh33tVwOSWGJRjeudUBKQPJhRGHsZqsZIaCvw84qjsw7SwJ+ejclIvbv56/J+MZJyIng56Ph3LN4cC2waM5nqv4te+YuorBdS4L0oomh8ZZLymwwu2/j0olwuvtr2XX3OHyo6NB/IQqTJ64ACiK2/qTw6HQKIeTcGXUN7c42c9lUIFIuGrttO971+pZGNric36oBMppB88y4R4RQii4TyBM1hb1DoYbUF+4/8WX2P8vJ18oJrZKOYyi5ehGpoZTjofMvAXGQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MyMfqintm8aj2Sui2MH/QR2TVt+KD2frPLFxGIglsQQ=;
- b=sJ/xq4/ijpw4XGUjLbFfPpK722bawFCcLFHcY96r1ruY9NkmKcXX+rI2+mH+h4fIKCADqh0eJ4w6Z1v1YoGP+pRIeFajl7YPDUnCNwEI6+xVXwkZWiqnUawq/5k+xLth9IC7Cab3sapT9tEGcuSeUzhQbMaO0dcYlLjtPG/OHEE=
-Received: from PH7P221CA0014.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:32a::8)
- by MW6PR12MB8705.namprd12.prod.outlook.com (2603:10b6:303:24c::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Wed, 14 Oct
- 2026 18:36:50 +0000
-Received: from CY8PEPF00000057.namprd21.prod.outlook.com
- (2603:10b6:510:32a:cafe::ac) by PH7P221CA0014.outlook.office365.com
- (2603:10b6:510:32a::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Wed, 14
- Oct 2026 18:36:48 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CY8PEPF00000057.mail.protection.outlook.com (10.167.247.20) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.0 via Frontend Transport; Wed, 14 Oct 2026 18:36:47 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 14 Oct
- 2026 13:36:40 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Wed, 14 Oct 2026 13:36:39 -0500
-Message-ID: <ebcf212e-fadf-8661-565e-bb7b63afc46a@amd.com>
-Date: Wed, 14 Oct 2026 11:36:45 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LlGT/VHy"
+Received: by mail-oo1-f51.google.com with SMTP id 006d021491bc7-6dd8e918218so193635eaf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:39:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792003186; cv=none;
+        d=google.com; s=arc-20260327;
+        b=AbL/VI3VPaQVARE7g7M7XBektKEaGc32i5Yoy4S6+Mu5TLWEAHY3BA31n1+0HfSweT
+         Gdur0I9XEqokzl5XYvKccPEUj88+9XNSeaH7QMceZv15mVr/g6ts/DmLyYXn3QP8k2JN
+         IZZmlCk3ejR+zLWSM+SHtCBhQ60QEe2LGGnv3tY4loOKfgbx7IGF1yU8MeimEsYfNPpc
+         6dGhIQrmB/JmSVKbVlbuNaw2KkfdRmhlrNexP8UCC3P9KNCUp9OXgT6hr9JFk4l/hvSH
+         i9Q+U5JDZNPgXpVLtjOuMWjanpfaoyMU5YrWn534V9jgTBTF+/zWXjbmtx23ziLI5V3i
+         4LSA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=nfJLxdiTo6vJhA+TJkzuS9wIdOWg1+Cfb8ilaZ5iWJU=;
+        fh=RXKK1IPn0Xjtsl7S7st9NIZGtQb3KAmEcC70g6t+RN4=;
+        b=YFy7Jsd5KrvXE74yVGwZ+4WdjlCI1AI0wVGcL5/ifIAkE0QtkX+m/UWO8dhrdBxtjr
+         5mlogDUtyNs6cnE9jqG16WQvWXNJ7pvpRuhA2pa7OythetQLaCYrB/BNY0XI7m1AHczj
+         747KzW0gNkCL6fhQL35g/TjEwYuvvWV3nyuAAYDmNyrWhnAtoCDURRQl5kvcfx6RIW4e
+         FCU1ygV2gmkxUuBA4+lRDAgBvJxpJbU9gAb3HGoWoNw0HY1PjUwEuz7K6Uv06JQxK9jO
+         LRiEY33NzCON3RvP44j2w4aWoYEBYAvYGhXO63Wv2qfPsJn9UdX2oS4lmLoMdRLQOl4D
+         x61w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792003186; x=1792607986; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nfJLxdiTo6vJhA+TJkzuS9wIdOWg1+Cfb8ilaZ5iWJU=;
+        b=LlGT/VHyAgrN/IdTQ6Ev9lBxxjVLPU7IvPw+3n8w/2oSZdb4C4GhiwCyYdc05MHGCW
+         DIGRLng1bIT0K8ka2XlxR1z46Ab/bu8D3U3/nuCUNIDNA95ZU7v+coVJye3gTrtA8AD9
+         Uv1G/uJm79zKmnNd0k+TGg471AH+FOZmqyOBlcAcOMzvU7crgj6Tnc3u5+AcPHBp9fTM
+         TylteBLo+YMZlD7WH0+71IMu8/mABZyGEYwCAKeccW2uD0Vn6seyXJ7YTZnDcQivMpkG
+         98BbtWtL1eFgGwe/hcSHdFOIZf1k211IhdoNQDpDKdHxO90/TK6Q5MP3YjSNwwEC1VMy
+         blLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792003186; x=1792607986;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nfJLxdiTo6vJhA+TJkzuS9wIdOWg1+Cfb8ilaZ5iWJU=;
+        b=qenxK/BA0PhIe9db3qFAYm6yvIZC2JfuiABRjMXeZWpZkwAHnqhSeVuJVguhpKPM2v
+         VpRIzI16c1eroS9sWPjO/4GYVjx8gxyrdRS8zo19M6KnAsVOiMnEKrSnaix/lN8d1cBx
+         O4XciLnZMaDJbPc4mRcuxVDKDlnb6HV4jE/4dS5horlwcuOlyelezMOk7ILKxElcHltl
+         dH8Js4kfamQX90s+NcKbC6o3x1+IvNbA09AIUIr1MNsWv1xRZmaWNQgz//nRDFezCOVV
+         SFg/rEOy0Rjk3YAeL3q1kdNb5RIe6crG8Q/X32NzihHggoSKk1X7wHjzY5Kp3R78/kBh
+         Sreg==
+X-Forwarded-Encrypted: i=1; AKwUvBzn3hFhYNcHJwNWS1ItsgAsrmn2MrB1//6IBai+igg4aRtXZkxrl1ZjJCrRMSANPcIiQXBv2nG8dFGpXtk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKdqNuK182WJ/8MDcqbSjG33iBtVmjdXjMISNp9fOWlmuTmimK0
+	Y9joR4yjYPEPzOWOr4gfXV8pO9x1xKLw2AxYXk+oTxgRU6Tzx86lvzzvO7PneHbhk0U6plSAB+X
+	bDc6eIIYG3twdsRY3fnd4DGlHXldmwL4=
+X-Gm-Gg: AYBFou0MqKFVD9lhcGcnpFmylLRyqSfEOE099qs2NEHxkJwsxPQspoSdtMxAXP+uPev
+	cxWmStQ0kQE5ctYkMe1E5PEw7fmjfIJbIxAH1AgK0V/JOZtT+TxXP/lKOdQcsRRCiQ8YHwqD51u
+	4Yt4Q+IUxisrZiMmBvRoJXCN/MMPw0xkOzxvP1VZ+al2OpSj8UCPBxHstI11Hmwm+HmAn6VUTPJ
+	6NSg4nhXLNlM93I6Z0Piyulb+sQl6LlyfZSA4cMyDHQVTf4K6prhzXt+3XyEC7QGi/PlPIgmtmp
+	0aWdCvKtjBaLTM4i5sG+yae+jd1JMWO3ZuF8gzrqXUlfgT7DvDlPYKwbGm7GfoTZlJXxWSw=
+X-Received: by 2002:a05:6808:50a8:b0:4e8:9e40:a0dc with SMTP id
+ 5614622812f47-50c41108624mr24831152b6e.1.1792003186157; Wed, 14 Oct 2026
+ 11:39:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH V4 19/19] accel/amdxdna: Implement runtime suspend and
- resume support
-Content-Language: en-US
-To: David Zhang <yidong.zhang@amd.com>, <quic_jhugo@quicinc.com>,
-	<karol.wachowski@linux.intel.com>, <max.zhen@amd.com>, <ogabbay@kernel.org>,
-	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-CC: <sonal.santan@amd.com>, <mario.limonciello@amd.com>
-References: <yidong.zhang@amd.com>
- <20261009225343.3079074-1-yidong.zhang@amd.com>
- <20261009225343.3079074-20-yidong.zhang@amd.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <20261009225343.3079074-20-yidong.zhang@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY8PEPF00000057:EE_|MW6PR12MB8705:EE_
-X-MS-Office365-Filtering-Correlation-Id: e0fc15f1-3b82-4b4b-e81d-08df2a221a86
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|82310400026|36860700016|1800799024|261009223327099003|56012099006|10067099003|11063799006|4143699003|261009220027099003|261009223027099003|22082099003|18002099003|261009221227099003|261009221727099003;
-X-Microsoft-Antispam-Message-Info:
-	0KTxrWhcnxTZPds2IRVdOBDwcKIiBH3UGA1yru0WCgoZzbL/6nliArmp9sEQBrOiuq1izRFPD4i67t/wLcOrAFeMrilVxVG2oxdEm7+B4+VC1lzt9Ilw0V2zb5cvy2zjsahedvt3uqbIpyGp1rebOcLMZL4SxdCDh1sOVIACRoIHBVuHNzMudwlb+bOtmQ4oMmbnubrr6YUdWWp4tHB4bdleD2muOP0QoCuB1ayPmeOfpkd5oIkVE22Vu/P3ayjO40F9fbgxkFlEBCLaGjMsZBauh+/7gMUHOcDC2Vy+k1GMO8fsoT/iY/XNy3Pg91jEXqTzBmTuFhOiIH+7RKyKE11SBf0wfmRIHjnkfdei4SuTwVMWWRjAl9L6jxtvYvewtOUIcQVriw4839tCSDPSdtNy+lqKpbr9OX6v1F+52HKEc/5N49Sy7xi9noswp4TdMX/2Ps7Cap9kngd/dxVGbtL8p2qr3GvWHSTnraJKqOsBvU28xg5XbJnTlhlayScnyhMEHNoPU3/881wedsvoVBZNZlvpe381HCulDMxf/y4+JbQTwq2Fdn7Rx3m95gUsg3AteUH269+cPgb0IBtgCIaYtrhF7UUVRqCrV9YL3YhZzeXK6izLQY8TfWjO9LCv7p1izNIba169SU8n1WDfH5DgjUc5/cgaSYXC56TNl6AXzwdBUvFybHjTTOkMLZbfeG20iDmVE4Cpo1rmXZ7zkQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(82310400026)(36860700016)(1800799024)(261009223327099003)(56012099006)(10067099003)(11063799006)(4143699003)(261009220027099003)(261009223027099003)(22082099003)(18002099003)(261009221227099003)(261009221727099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	nEk/OvZd7Z3C9T/fGYDG/CwZmSSBRYBodtjL6DOWI+kX19Qs5Jnx+ut8MqFJDINE/bZ94dFjADidICNQfM4or/O2PIriCjNH7GWXkJiMKCjQ34qUqxtNH6dMUHja17I6KJvZM2kkVNJTOHrfZbpotWfwFbPnnhuqWALnaS+n/+zw6NfIPGHCTMO3QWu5EpGBWwRtT4M9UW3yM74DRnwUChkpkQIQrRVCTKbMpJ1SMvyhG5NU1XpiQR16RxVpFrj26vKKO9xXLVnHh2qVClaEngTY01DjJeie5/WCv9MaZudAm3ZNa7aa2a3ha2pPdt7jeV3+kRrKJ79OPth8VMi5qqac3/UogPMobb+0Z30yeK/4XLz2wtNcsCl1smeUkFemp5hzNfxrSWhGCz22cNWS3rSgB3gYTlxYHkkn/A3TlFGWYTE+n+DTzLtUZoH//zWn
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 18:36:47.1313
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e0fc15f1-3b82-4b4b-e81d-08df2a221a86
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY8PEPF00000057.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8705
+References: <20261012-netcons-fixes-next-v2-1-ac8ec4c62edb@gmail.com> <179191204261.434549.8984165771561140450@kernel.org>
+In-Reply-To: <179191204261.434549.8984165771561140450@kernel.org>
+From: Gustavo Luiz Duarte <gustavold@gmail.com>
+Date: Wed, 14 Oct 2026 19:39:35 +0100
+X-Gm-Features: AclHuK9H5B8TXm5v5mDMBoKGdofCkC_RwhygYwsXkWt2btKwSIv0kBCAj4jxGFY
+Message-ID: <CAGSyskXLys0G5MzhnRjGzLBFcsGfWUwJbBSxOezL+1UpPqc2NA@mail.gmail.com>
+Subject: Re: [PATCH net-next v2 1/2] netconsole: avoid printing partially
+ updated target attributes
+To: netdev-bot+sashiko@kernel.org
+Cc: leitao@debian.org, andrew+netdev@lunn.ch, davem@davemloft.net, 
+	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Tue, Oct 13, 2026 at 6:20=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wro=
+te:
+>
+> Thank you for your contribution! Sashiko AI review found 3 potential
+> issue(s) to consider.
+>
+> Critical: 0 =C2=B7 High: 2 =C2=B7 Medium: 0 =C2=B7 Low: 1
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>
+> - [High] In drivers/net/netconsole.c, local_mac_show() still takes no
+>   lock.
+> - [High] dev_name_show() still races with netconsole_netdev_event()
+>   writing np.dev_name, even though the commit message says this race is=
+=E2=80=A6
+> - [Low] The commit fixes a user-visible race: configfs *_show() callbacks
+>   can return torn values while a store or the netdev notifier updates=E2=
+=80=A6
+>
+> --
+>
+> netconsole: avoid printing partially updated target attributes
+>
+> This patch makes the netconsole configfs *_show() callbacks take
+> dynamic_netconsole_mutex, so they no longer return values that a
+> concurrent store has only partly updated. dev_name_show() also takes
+> target_list_lock to serialize against the NETDEV_CHANGENAME update in
+> netconsole_netdev_event().
+>
+> > Reported-by: Sashiko <netdev-bot+sashiko@kernel.org>
+> > Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260814-ne=
+tcons_ipv6-v3-7-bc0915e8c75f@gmail.com
+> > Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928-ne=
+tcons-fixes-v1-0-bb5ffe5e698a%40gmail.com
+> > Signed-off-by: Gustavo Luiz Duarte <gustavold@gmail.com>
+>
+> [Severity: Low]
+> Should this have a Fixes: tag?
+>
+> The unlocked readers in dev_name_show(), remote_mac_show() and
+> local_mac_show() date back to commit 0bcc1816188e ("[NET] netconsole:
+> Support dynamic reconfiguration using configfs").
+>
+> The family/address tearing in local_ip_show() and remote_ip_show() comes
+> from the more recent inet_addr/family rework (commits 46b3f9e7e761,
+> 56ddc8d48e75 and f6e96d72f64a).
+>
+> > diff --git a/drivers/net/netconsole.c b/drivers/net/netconsole.c
+> > index 267254f046de9..953a1da071862 100644
+> > --- a/drivers/net/netconsole.c
+> > +++ b/drivers/net/netconsole.c
+> > @@ -859,7 +859,20 @@ static ssize_t release_show(struct config_item *it=
+em, char *buf)
+> >
+> >  static ssize_t dev_name_show(struct config_item *item, char *buf)
+> >  {
+> > -     return sysfs_emit(buf, "%s\n", to_target(item)->np.dev_name);
+> > +     struct netconsole_target *nt =3D to_target(item);
+> > +     unsigned long flags;
+> > +     int ret;
+> > +
+> > +     dynamic_netconsole_mutex_lock();
+> > +     /* Hold target_list_lock to prevent racing against
+> > +      * netconsole_netdev_event() changing np.dev_name.
+> > +      */
+> > +     spin_lock_irqsave(&target_list_lock, flags);
+> > +     ret =3D sysfs_emit(buf, "%s\n", nt->np.dev_name);
+> > +     spin_unlock_irqrestore(&target_list_lock, flags);
+>
+> [Severity: High]
+> Does target_list_lock cover every place where netconsole_netdev_event()
+> changes np.dev_name?
+>
+> It covers the NETDEV_CHANGENAME strscpy(). For NETDEV_UNREGISTER,
+> NETDEV_RELEASE and NETDEV_JOIN, though, the notifier drops
+> target_list_lock before it cleans up the target:
+>
+> netconsole_netdev_event()
+>     spin_unlock_irqrestore(&target_list_lock, flags);
+>     mutex_unlock(&target_cleanup_list_lock);
+>     ...
+>     netconsole_process_cleanups_core()
+>         mutex_lock(&target_cleanup_list_lock);
+>         netcons_release_dev(nt)
+>             do_netpoll_cleanup(&nt->np);
+>             if (bound_by_mac(nt))
+>                 memset(&nt->np.dev_name, 0, IFNAMSIZ);
+>         spin_lock_irqsave(&target_list_lock, flags);
+>         list_move(&nt->list, &target_list);
+>
+> The memset in netcons_release_dev() runs with only RTNL and
+> target_cleanup_list_lock held. Neither dynamic_netconsole_mutex nor
+> target_list_lock is held, so the new dev_name_show() has no lock in
+> common with this writer.
+>
+> MAC-bound targets do show up in configfs. A netconsole=3D cmdline target
+> bound by MAC is exposed through populate_configfs_item(), and
+> netpoll_setup() fills np.dev_name from ndev->name.
+>
+> For such a target, can the sysfs_emit() here still copy a partly zeroed
+> name?
 
-On 10/9/26 15:53, David Zhang wrote:
-> Add runtime suspend/resume for the AIE4 classic device by using its
-> system suspend/resume handlers.
->
-> Runtime suspend returns -EBUSY for a device without runtime_suspend,
-> so the PM core keeps it active instead of entering an error state.
->
-> A context suspended by runtime PM makes the command wait return
-> -EAGAIN. Resume the device in the wait ioctl and wait again, so a
-> command wait does not fail because of power management.
->
-> Wrap .driver.pm and the AIE4 PM callbacks with pm_ptr(), so they are
-> discarded when CONFIG_PM is disabled.
->
-> Signed-off-by: David Zhang <yidong.zhang@amd.com>
-> ---
->   drivers/accel/amdxdna/aie2_pci.c        |  2 ++
->   drivers/accel/amdxdna/aie4_ctx.c        | 10 +++++-
->   drivers/accel/amdxdna/aie4_pci.c        |  4 +++
->   drivers/accel/amdxdna/amdxdna_ctx.c     | 47 ++++++++++++++++++-------
->   drivers/accel/amdxdna/amdxdna_pci_drv.c |  4 +--
->   drivers/accel/amdxdna/amdxdna_pci_drv.h |  2 ++
->   drivers/accel/amdxdna/amdxdna_pm.c      | 34 ++++++++++++++++++
->   drivers/accel/amdxdna/amdxdna_pm.h      |  2 ++
->   8 files changed, 90 insertions(+), 15 deletions(-)
->
-> diff --git a/drivers/accel/amdxdna/aie2_pci.c b/drivers/accel/amdxdna/aie2_pci.c
-> index 690ad035463c..a3866e8933e6 100644
-> --- a/drivers/accel/amdxdna/aie2_pci.c
-> +++ b/drivers/accel/amdxdna/aie2_pci.c
-> @@ -1221,6 +1221,8 @@ const struct amdxdna_dev_ops aie2_ops = {
->   	.fini = aie2_fini,
->   	.resume = aie2_hw_resume,
->   	.suspend = aie2_hw_suspend,
-> +	.runtime_resume = aie2_hw_resume,
-> +	.runtime_suspend = aie2_hw_suspend,
->   	.get_aie_info = aie2_get_info,
->   	.set_aie_state = aie2_set_state,
->   	.hwctx_init = aie2_hwctx_init,
-> diff --git a/drivers/accel/amdxdna/aie4_ctx.c b/drivers/accel/amdxdna/aie4_ctx.c
-> index a2b6b0fa2934..a3f0a69b93b7 100644
-> --- a/drivers/accel/amdxdna/aie4_ctx.c
-> +++ b/drivers/accel/amdxdna/aie4_ctx.c
-> @@ -22,6 +22,7 @@
->   #include "amdxdna_mailbox.h"
->   #include "amdxdna_mailbox_helper.h"
->   #include "amdxdna_pci_drv.h"
-> +#include "amdxdna_pm.h"
->   
->   #define CTX_INVALID_ID			(~0U)
->   #define CTX_INVALID_DOORBELL		AMDXDNA_INVALID_DOORBELL_OFFSET
-> @@ -377,10 +378,14 @@ int aie4_hwctx_init(struct amdxdna_hwctx *hwctx)
->   	if (ret)
->   		goto destroy_lock;
->   
-> -	ret = aie4_hwctx_create(hwctx);
-> +	ret = amdxdna_pm_resume_get_locked(xdna);
->   	if (ret)
->   		goto umq_fini;
->   
-> +	ret = aie4_hwctx_create(hwctx);
-> +	if (ret)
-> +		goto suspend_put;
-> +
->   	priv->job_work_q = alloc_ordered_workqueue("aie4_job_%d_%d", 0,
->   						   client->pid, hwctx->fw_ctx_id);
->   	if (!priv->job_work_q) {
-> @@ -388,12 +393,15 @@ int aie4_hwctx_init(struct amdxdna_hwctx *hwctx)
->   		ret = -ENOMEM;
->   		goto destroy_ctx;
->   	}
-> +	amdxdna_pm_suspend_put(xdna);
->   
->   	XDNA_DBG(xdna, "hwctx %d.%d init completed", client->pid, hwctx->fw_ctx_id);
->   	return 0;
->   
->   destroy_ctx:
->   	aie4_hwctx_destroy(hwctx, AIE4_HWCTX_NORMAL);
-> +suspend_put:
-> +	amdxdna_pm_suspend_put(xdna);
->   umq_fini:
->   	aie4_hwctx_umq_fini(hwctx);
->   destroy_lock:
-> diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
-> index 70a052ab5f77..60140c3927a2 100644
-> --- a/drivers/accel/amdxdna/aie4_pci.c
-> +++ b/drivers/accel/amdxdna/aie4_pci.c
-> @@ -1041,6 +1041,7 @@ static int aie4_classic_init(struct amdxdna_dev *xdna)
->   	if (ret)
->   		goto free_work_buf;
->   
-> +	amdxdna_pm_init(xdna);
->   	return 0;
->   
->   free_work_buf:
-> @@ -1064,6 +1065,7 @@ static void aie4_vf_fini(struct amdxdna_dev *xdna)
->   
->   static void aie4_classic_fini(struct amdxdna_dev *xdna)
->   {
-> +	amdxdna_pm_fini(xdna);
->   	aie4_classic_hw_stop(xdna->dev_handle);
->   	aie4_free_fw_log_buffer(xdna->dev_handle);
->   	aie4_free_work_buffer(xdna->dev_handle);
-> @@ -1408,4 +1410,6 @@ const struct amdxdna_dev_ops aie4_classic_ops = {
->   	.set_aie_state		= aie4_set_state,
->   	.resume			= pm_ptr(aie4_classic_resume),
->   	.suspend		= pm_ptr(aie4_classic_suspend),
-> +	.runtime_resume		= pm_ptr(aie4_classic_resume),
-> +	.runtime_suspend	= pm_ptr(aie4_classic_suspend),
->   };
-> diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/amdxdna/amdxdna_ctx.c
-> index 608b86fe8f6b..f4004630dc1b 100644
-> --- a/drivers/accel/amdxdna/amdxdna_ctx.c
-> +++ b/drivers/accel/amdxdna/amdxdna_ctx.c
-> @@ -761,13 +761,32 @@ int amdxdna_drm_submit_cmd_ioctl(struct drm_device *dev, void *data, struct drm_
->   	return -EINVAL;
->   }
->   
-> +static int amdxdna_hwctx_wait_cmd(struct amdxdna_client *client,
-> +				  struct amdxdna_drm_wait_cmd *args)
-> +{
-> +	struct amdxdna_dev *xdna = client->xdna;
-> +	struct amdxdna_hwctx *hwctx;
-> +	int ret, idx;
-> +
-> +	idx = srcu_read_lock(&client->hwctx_srcu);
-> +	hwctx = xa_load(&client->hwctx_xa, args->hwctx);
-> +	if (!hwctx) {
-> +		XDNA_DBG(xdna, "PID %d failed to get ctx %d", client->pid, args->hwctx);
-> +		ret = -EINVAL;
-> +	} else {
-> +		ret = xdna->dev_info->ops->cmd_wait(hwctx, args->seq, args->timeout);
-> +	}
-> +	srcu_read_unlock(&client->hwctx_srcu, idx);
-> +
-> +	return ret;
-> +}
-> +
->   int amdxdna_drm_wait_cmd_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
->   {
->   	struct amdxdna_client *client = filp->driver_priv;
->   	struct amdxdna_dev *xdna = to_xdna_dev(dev);
->   	struct amdxdna_drm_wait_cmd *args = data;
-> -	struct amdxdna_hwctx *hwctx;
-> -	int ret, idx;
-> +	int ret;
->   
->   	XDNA_DBG(xdna, "PID %d ctx %d timeout set %d ms for cmd %llu",
->   		 client->pid, args->hwctx, args->timeout, args->seq);
-> @@ -775,22 +794,26 @@ int amdxdna_drm_wait_cmd_ioctl(struct drm_device *dev, void *data, struct drm_fi
->   	if (!xdna->dev_info->ops->cmd_wait)
->   		return -EOPNOTSUPP;
->   
-> -	idx = srcu_read_lock(&client->hwctx_srcu);
-> -	hwctx = xa_load(&client->hwctx_xa, args->hwctx);
-> -	if (!hwctx) {
-> -		XDNA_DBG(xdna, "PID %d failed to get ctx %d", client->pid, args->hwctx);
-> -		ret = -EINVAL;
-> -		goto unlock_ctx_srcu;
-> +	ret = amdxdna_hwctx_wait_cmd(client, args);
-> +	if (ret == -EAGAIN) {
-> +		/*
-> +		 * Suspended by power management before the command completed.
-> +		 * Resume the device, which reconnects the context, and wait
-> +		 * again. Take the PM reference outside hwctx_srcu: runtime
-> +		 * resume takes dev_lock, which hwctx destroy holds across
-> +		 * synchronize_srcu().
-> +		 */
-> +		ret = amdxdna_pm_resume_get(xdna);
-> +		if (ret)
-> +			return ret;
-> +		ret = amdxdna_hwctx_wait_cmd(client, args);
-> +		amdxdna_pm_suspend_put(xdna);
->   	}
->   
-> -	ret = xdna->dev_info->ops->cmd_wait(hwctx, args->seq, args->timeout);
-> -
->   	XDNA_DBG(xdna, "PID %d ctx %d cmd %lld wait finished, ret %d",
->   		 client->pid, args->hwctx, args->seq, ret);
->   
->   	trace_amdxdna_debug_point(current->comm, args->seq, "job returned to user");
->   
-> -unlock_ctx_srcu:
-> -	srcu_read_unlock(&client->hwctx_srcu, idx);
->   	return ret;
->   }
-> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-> index f5f7831c4e80..cb78f145ffa1 100644
-> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
-> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-> @@ -465,7 +465,7 @@ static void amdxdna_remove(struct pci_dev *pdev)
->   
->   static const struct dev_pm_ops amdxdna_pm_ops = {
->   	SYSTEM_SLEEP_PM_OPS(amdxdna_pm_suspend, amdxdna_pm_resume)
-> -	RUNTIME_PM_OPS(amdxdna_pm_suspend, amdxdna_pm_resume, NULL)
-> +	RUNTIME_PM_OPS(amdxdna_pm_runtime_suspend, amdxdna_pm_runtime_resume, NULL)
->   };
->   
->   static int amdxdna_sriov_configure(struct pci_dev *pdev, int num_vfs)
-> @@ -484,7 +484,7 @@ static struct pci_driver amdxdna_pci_driver = {
->   	.id_table = pci_ids,
->   	.probe = amdxdna_probe,
->   	.remove = amdxdna_remove,
-> -	.driver.pm = &amdxdna_pm_ops,
-> +	.driver.pm = pm_ptr(&amdxdna_pm_ops),
->   	.sriov_configure = amdxdna_sriov_configure,
->   };
->   
-> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.h b/drivers/accel/amdxdna/amdxdna_pci_drv.h
-> index 505477b4a292..4d047cf3d981 100644
-> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.h
-> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.h
-> @@ -57,6 +57,8 @@ struct amdxdna_dev_ops {
->   	void (*debugfs_init)(struct amdxdna_dev *xdna);
->   	int (*resume)(struct amdxdna_dev *xdna);
->   	int (*suspend)(struct amdxdna_dev *xdna);
-> +	int (*runtime_resume)(struct amdxdna_dev *xdna);
-> +	int (*runtime_suspend)(struct amdxdna_dev *xdna);
->   	int (*sriov_configure)(struct amdxdna_dev *xdna, int num_vfs);
->   	int (*hwctx_init)(struct amdxdna_hwctx *hwctx);
->   	void (*hwctx_stop)(struct amdxdna_hwctx *hwctx);
-> diff --git a/drivers/accel/amdxdna/amdxdna_pm.c b/drivers/accel/amdxdna/amdxdna_pm.c
-> index b1fafddd7ad5..7d7bc965342d 100644
-> --- a/drivers/accel/amdxdna/amdxdna_pm.c
-> +++ b/drivers/accel/amdxdna/amdxdna_pm.c
-> @@ -37,11 +37,40 @@ int amdxdna_pm_resume(struct device *dev)
->   	return ret;
->   }
->   
-> +int amdxdna_pm_runtime_suspend(struct device *dev)
-> +{
-> +	struct amdxdna_dev *xdna = to_xdna_dev(dev_get_drvdata(dev));
-> +	int ret = -EBUSY;
-> +
-> +	guard(mutex)(&xdna->dev_lock);
-> +	if (xdna->dev_info->ops->runtime_suspend)
-> +		ret = xdna->dev_info->ops->runtime_suspend(xdna);
-> +
-> +	XDNA_DBG(xdna, "Runtime suspend done ret %d", ret);
-> +	return ret;
-> +}
-> +
-> +int amdxdna_pm_runtime_resume(struct device *dev)
-> +{
-> +	struct amdxdna_dev *xdna = to_xdna_dev(dev_get_drvdata(dev));
-> +	int ret = -EOPNOTSUPP;
-> +
-> +	guard(mutex)(&xdna->dev_lock);
-> +	if (xdna->dev_info->ops->runtime_resume)
-> +		ret = xdna->dev_info->ops->runtime_resume(xdna);
-> +
-> +	XDNA_DBG(xdna, "Runtime resume done ret %d", ret);
-> +	return ret;
-> +}
-> +
->   int amdxdna_pm_resume_get(struct amdxdna_dev *xdna)
->   {
->   	struct device *dev = xdna->ddev.dev;
->   	int ret;
->   
-> +	if (!pm_runtime_enabled(dev))
-> +		return 0;
-> +
->   	ret = pm_runtime_resume_and_get(dev);
->   	if (ret) {
->   		XDNA_ERR(xdna, "Resume failed: %d", ret);
-> @@ -55,6 +84,10 @@ void amdxdna_pm_suspend_put(struct amdxdna_dev *xdna)
->   {
->   	struct device *dev = xdna->ddev.dev;
->   
-> +	if (!pm_runtime_enabled(dev))
-> +		return;
-> +
-> +	pm_runtime_mark_last_busy(dev);
-This should be removed. mark_last_busy is called by put_autosuspend.
->   	pm_runtime_put_autosuspend(dev);
->   }
->   
-> @@ -66,6 +99,7 @@ void amdxdna_pm_init(struct amdxdna_dev *xdna)
->   	pm_runtime_set_autosuspend_delay(dev, AMDXDNA_AUTOSUSPEND_DELAY);
->   	pm_runtime_use_autosuspend(dev);
->   	pm_runtime_allow(dev);
-> +	pm_runtime_mark_last_busy(dev);
+This might happen, though quite unlikely and it has limited impact:
+printing a truncated device name.
+The fix would be taking target_list_lock around the memset in
+netcons_release_dev().
+I'm not convinced it is worth it, but happy to spin another revision
+if someone thinks otherwise.
 
-This should be removed.
+>
+> Two options that look possible: take target_cleanup_list_lock in
+> dev_name_show(), following the dynamic_netconsole_mutex ->
+> target_cleanup_list_lock -> target_list_lock order that
+> drop_netconsole_target() already uses. Or do the memset in
+> netcons_release_dev() under target_list_lock.
+>
+> > +     dynamic_netconsole_mutex_unlock();
+> > +
+> > +     return ret;
+> >  }
+> >
+>
+> [ ... ]
+>
+> > @@ -906,7 +933,14 @@ static ssize_t local_mac_show(struct config_item *=
+item, char *buf)
+> >
+> >  static ssize_t remote_mac_show(struct config_item *item, char *buf)
+> >  {
+> > -     return sysfs_emit(buf, "%pM\n", to_target(item)->remote_mac);
+> > +     struct netconsole_target *nt =3D to_target(item);
+> > +     int ret;
+> > +
+> > +     dynamic_netconsole_mutex_lock();
+> > +     ret =3D sysfs_emit(buf, "%pM\n", nt->remote_mac);
+> > +     dynamic_netconsole_mutex_unlock();
+> > +
+> > +     return ret;
+> >  }
+>
+> [Severity: High]
+> This patch leaves local_mac_show(), just above this hunk, without any
+> locking:
+>
+> static ssize_t local_mac_show(struct config_item *item, char *buf)
+> {
+>         struct net_device *dev =3D to_target(item)->np.dev;
+>         static const u8 bcast[ETH_ALEN] =3D { 0xff, 0xff, 0xff, 0xff, 0xf=
+f, 0xff };
+>
+>         return sysfs_emit(buf, "%pM\n", dev ? dev->dev_addr : bcast);
+> }
+>
+> It loads np.dev with no lock, no RCU read section and no netdev
+> reference, then dereferences dev->dev_addr.
+>
+> enabled_store() sets and clears np.dev through netcons_netpoll_setup()
+> and netconsole_process_cleanups(). process_resume_target() sets and
+> clears it too. Both run under dynamic_netconsole_mutex.
+>
+> The notifier also clears np.dev, without that mutex:
+>
+> netconsole_netdev_event()
+>     netconsole_process_cleanups_core()
+>         netcons_release_dev()
+>             do_netpoll_cleanup()
+>                 netdev_put(np->dev, &np->dev_tracker);
+>                 np->dev =3D NULL;
+>
+> If netconsole holds the last reference on a device that is being
+> unregistered, netdev_run_todo() can free the net_device after this put.
+>
+> Can a reader that already loaded dev then read dev->dev_addr from freed
+> memory?
 
-Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
-
->   	pm_runtime_put_autosuspend(dev);
->   }
->   
-> diff --git a/drivers/accel/amdxdna/amdxdna_pm.h b/drivers/accel/amdxdna/amdxdna_pm.h
-> index 3d26b973e0e3..02beef6448f1 100644
-> --- a/drivers/accel/amdxdna/amdxdna_pm.h
-> +++ b/drivers/accel/amdxdna/amdxdna_pm.h
-> @@ -10,6 +10,8 @@
->   
->   int amdxdna_pm_suspend(struct device *dev);
->   int amdxdna_pm_resume(struct device  *dev);
-> +int amdxdna_pm_runtime_suspend(struct device *dev);
-> +int amdxdna_pm_runtime_resume(struct device *dev);
->   int amdxdna_pm_resume_get(struct amdxdna_dev *xdna);
->   void amdxdna_pm_suspend_put(struct amdxdna_dev *xdna);
->   void amdxdna_pm_init(struct amdxdna_dev *xdna);
+This is being addressed in
+https://lore.kernel.org/all/20261012-netcons-fixes-v3-2-1aac85ed7665@gmail.=
+com/
