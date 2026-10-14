@@ -1,229 +1,277 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011019.outbound.protection.outlook.com [52.101.70.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A905539784;
-	Wed, 14 Oct 2026 13:58:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.19
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791986325; cv=fail; b=Beh2mAE+k3OYR5CzLqvvimV8WDoHMB5tFHsa9wxdHVhLGopQbPeq1qgQYIPLGaCSS5bnYu5HZWQpgJ0uIPmZmYJYaeiwJvkNlAmNG9eUUMIZh0IikQfULCQG4jRJs8tXn6vIuSqd63CfHILNgVZdq82EZ+IUTz7CIDHyGPdBtgg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791986325; c=relaxed/simple;
-	bh=R8k+5wpzQ8qtXbSs8OrrGJ1cxsQsru8afdjshshliz4=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=Ej9Bcq3mmqj2uLRS4mA34XVEhrZSlT7gKY4ioue05Ep9Cyv6A4Oq/6wAa3SvCiJZPE8fA9XObqKsLoYN1wa5KDiOIakD31qhQcQYTTAx8PlGxZ0hi8rCsBJJWjyFVft8KEqs19F4etIwngrujboOYba5Ms7sf5h3YSrMJ4bGAsU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=pmE5+0yW; arc=fail smtp.client-ip=52.101.70.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20F035372DC
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:59:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791986362; cv=none; b=WGSMh+NfMzRoMwkpH81pZ1LCU0rbixott3WWIm/X8E/hgSo07cdvUhpS5rwYgbG9kSDbSu+mKxCV+HZmP8BTd9F1iX7k8khF3xsyUzKu8ekgyVUTm65z3UW09z7JtQg0jBR7uupu2gfXfVtRc442xy+K3sUJwrmfi0KwIkObhFU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791986362; c=relaxed/simple;
+	bh=u8nI6RUiJpsiBQHtG/0K/h1A1islmGidSAIrZ5+7LJU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GBiqKIz8K65wuBy47lh8h7v/I1THbKCw5pCX5shmW17MloS3/zHvGBjb9GcN9YuTYbpfNtW9f1fz86HDLtuOPdzzJ74nephUT2+yKddtnqB0SlkpAsYmGUN8YRlVJZ9zOvOUPzweMcGAbePJ1algQNapNlC0+ccJt6PuA7qp09c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=aoydswlI; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=rHLzpzZL; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=VbW0CPzv; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=zfdSq5CA; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="pmE5+0yW"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GqLwLiyIZUBPJfZXLRgZH/1Dj3O2AWAj5QUjtoKcaLnQBwa+fVh2CxvT++ZZhUO5fWq5LqGUyx8I8tCQDGGat2XwNX4TxkhgeJj/EX0/8FxwxsTqK9IabIa9Q0fDSp/tyXCe+on7tvkFY+N1qtUlHzDeIs+QRGKOHACIdL0N57m5NMugCyRwhVlZJYyr4P1qoIjBu1oub7hucY+Sqlz14/ODHROa21y1Gn94KU6O9S6AFW+0Dosl+y8vQgmiQbI4E+oI9d1SagHyBQLGDSVmGViFqpTNSO6/RdlRv5RD9yDBodBn+t76G/TWEDkxG4lSuBhkt+3I1/cDN9Ykfmh3NQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=c/k8qz+GNdrrDh3g/6gwpZURo/XFJ37hK0QK0vHZq04=;
- b=Cwhen4XMSwe9pd0djRb/qniOQXmQavUG5jiGq85y+5ZAPewv2mO4nBN7ua6xDiOapFCXQttTGMaxy00EiXqrTseB7sTwKxxxT58FWVFjU02zFC5yBzl+MSOm2lCmszoY2rPqKbeAAYG1XPttR/n86NwDeJk+N4MmhpfoLjotlM+tWrGQ5HCkF32iKjqdEQMFHY30GLI5VGK/b3a9csLF22tZ5aaxfasNataxC6hEfJOb0Chn+itq9ZfAE3QuURT0QHYaU4vaWRUZlWJfAN0CGqrD5LxjULflsqrAattwIsmavW+0uNOgvV+aZ6OqqH8EMqWARtbjW2QPytS+vuwTyA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=c/k8qz+GNdrrDh3g/6gwpZURo/XFJ37hK0QK0vHZq04=;
- b=pmE5+0yWVCvm5zJE8H4XdDeZUwJSyArJ63qPtMtYpXKb34S/Y40Owp1BP6LEFWnEtWp/0o5wr5uN4FOuPXsyyCNq2EmYkDckfwxi6fnEkLx2RjecHTuHKG4UnZZ8d7OT4eCjs2hvWfw+lgt31gYd0YixukUH/12LH7aHHy1c395umiEeTGvvW5lOj53p5hv79YKSIGOUDsIxffRCUkA7r5rrpW70JcUoe+7uu3hOxelN0gG1MXNx523P0wQsqVfdC/3Jhvyg+yFIr+BoyBFRjSYftDNWGovKs56zvM3U5UDa1/GnuqHKFaZp2ZWhpCcj8Fw7k8M3r7fywTwDeu7e/Q==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MIYPR04MB12551.eurprd04.prod.outlook.com (2603:10a6:290:78::24)
- by ZR6PR04MB642384.eurprd04.prod.outlook.com (2603:10a6:910:e1::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Wed, 14 Oct
- 2026 13:58:34 +0000
-Received: from MIYPR04MB12551.eurprd04.prod.outlook.com
- ([fe80::d6bc:8ad8:510:5fd7]) by MIYPR04MB12551.eurprd04.prod.outlook.com
- ([fe80::d6bc:8ad8:510:5fd7%6]) with mapi id 15.21.0522.012; Wed, 14 Oct 2026
- 13:58:34 +0000
-Message-ID: <fa3a025b-0d82-42df-a4cc-e144d6a97b20@oss.nxp.com>
-Date: Wed, 14 Oct 2026 16:58:30 +0300
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 07/12] dt-bindings: ufs: Add NXP S32N79 UFS host
- controller
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: NXP S32 Linux Team <s32@nxp.com>, Alim Akhtar <alim.akhtar@samsung.com>,
- Avri Altman <avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>,
- Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
- Ajay Neeli <ajay.neeli@amd.com>, Manivannan Sadhasivam <mani@kernel.org>,
- Pedro Sousa <pedrom.sousa@synopsys.com>, Hannes Reinicke <hare@suse.de>,
- Joao Pinto <Joao.Pinto@synopsys.com>, linux-scsi@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, clizzi@redhat.com, aruizrui@redhat.com,
- eballetb@redhat.com, echanude@redhat.com
-References: <20261013103003.373156-1-larisa.grigore@oss.nxp.com>
- <20261013103003.373156-8-larisa.grigore@oss.nxp.com>
- <20261014-valiant-goose-of-revolution-efec17@quoll>
-Content-Language: en-US
-From: Larisa Ileana Grigore <larisa.grigore@oss.nxp.com>
-In-Reply-To: <20261014-valiant-goose-of-revolution-efec17@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0015.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:c8::7) To MIYPR04MB12551.eurprd04.prod.outlook.com
- (2603:10a6:290:78::24)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="aoydswlI";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="rHLzpzZL";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="VbW0CPzv";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="zfdSq5CA"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id DD8761F7D0;
+	Wed, 14 Oct 2026 13:59:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791986353; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MRD+QKcyqfM9Pv+rOJxIpDN876c6GfSlGejxFlLIlBc=;
+	b=aoydswlI2mgw2zSs1IjgfWcq9Dd+m/5OX7smTydDzTU2aDoFSfFCerr7JrNn9T4FiejXWu
+	O5VoliZyARAQAFi0Vg3lKCQLFHGFW1twg9+rv5PRAhwWICS0czHV8lY17dKfrP8Y1kIeqf
+	fP7aDx0szOM5/ne6fmf0qU3TvG3ErIE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791986353;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MRD+QKcyqfM9Pv+rOJxIpDN876c6GfSlGejxFlLIlBc=;
+	b=rHLzpzZLbZrtvR1/Bpo5XaKNrnriGQf5DLq11dEh6iRcMajKQCIv/jYjQPsxf3kTeHt59+
+	htVepw7E8NMdrfBQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791986352; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MRD+QKcyqfM9Pv+rOJxIpDN876c6GfSlGejxFlLIlBc=;
+	b=VbW0CPzvQHTYdlbr1mSztMbI+ZWSryhJghj95LY7e8ozoxgG/zcRZS8Sd3Ksg8eH67k7NZ
+	c/BdeeZaoPg4C8NE65hWEp4E1qD/OJSI8vCxEK5Laf+Q6h8kcx8ETyLkhYuObsb5L5f5gb
+	qsj3y+t/iVS63CcJOe1BhPOXTJJPpwQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791986352;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MRD+QKcyqfM9Pv+rOJxIpDN876c6GfSlGejxFlLIlBc=;
+	b=zfdSq5CAoWDudq7YnfiTKHfD6EW3+HBJcVKcYyR0Z/XMHFJF3kBrG42IYD24BIZK//bjho
+	Bw4aJZ+39p8G8UAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F0C4F133F1;
+	Wed, 14 Oct 2026 13:59:11 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id GX0ELq+Kz2oBXgAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Wed, 14 Oct 2026 13:59:11 +0000
+Date: Wed, 14 Oct 2026 14:59:10 +0100
+From: Pedro Falcato <pfalcato@suse.de>
+To: Linus Torvalds <torvalds@linux-foundation.org>, 
+	Kiryl Shutsemau <kirill@shutemov.name>
+Cc: Harry Yoo <harry@kernel.org>, David Hildenbrand <david@kernel.org>, 
+	Ilya Gladyshev <ilya.gladyshev@linux.dev>, Matthew Wilcox <willy@infradead.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Linux-MM <linux-mm@kvack.org>, 
+	"Paul E. McKenney" <paulmck@kernel.org>
+Subject: Re: Improve page refcount scalability
+Message-ID: <as9-2cIuGuXwE2Oa@pedro-suse.tail5790ac.ts.net>
+References: <CAHk-=wjLjgfwgSZ1RDk4YdNFcV0ntosMO5AmBoHD76Zb3HFY7Q@mail.gmail.com>
+ <as690Xcu7FxIDYjf@thinkpad>
+ <CAHk-=wiak+h+d2tZ5W_MwRzatUP=hJKn7cpGjDxArG-gwgHLXg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MIYPR04MB12551:EE_|ZR6PR04MB642384:EE_
-X-MS-Office365-Filtering-Correlation-Id: a9655d5f-caa9-4ae0-d430-08df29fb3cc9
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|23010399003|19092799006|1800799024|7416014|376014|366016|18002099003|22082099003|10067099003|11063799006|4143699003|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
- Efp6tx20ho4myXD/3SNbjyPTqAZO9n+pztgqmphhwrAYu6qsGnPhfvt0EnSOThrxm510hQKMeWor+tVRdN1JW8TkAyJcFkuq68Thri1/sYtg6PWNTgsunnBAxIG4e6r8FNkyGv7FoX6Mrhw5PGUkUfj8wWdRY+ZOVLglbAxzl+3Y367yQRcYPzAIOOgxxsIexBAn2E3rdmNOxETg6I2ba7OoYqYqJZThtbGPVJKGB5tpYI+kfaL7HSLmRyD1pG9OKUO/7q+usPVGAparaCkRhrMtAxUI4A/HMOl2WhRa6fcNfCXGOHWPyoEiNtjSjSj5ONakCwVVoyodvsTUE64KlQo7ko4rURslHsH7hHWSZAb7RS0hgVyOM0vbkEOPnb9dtyKwtcta09BJfn14pnWZA7bm2pBbRzx6inM3hGR1NCb2iEhisspK9nE7CSatr5PyhuESpgwMvSfldNpLOTW0NPFbb2DYb81h06YLAujRJIe6GAUjAfIkSiZYhAAFoRIjk3KUBxPCBK7xE9XEA3BezhIFoALThayOMwHMGPSrTeacqkUF/AvlNbyZAx9MIuwPt9OGrfbmnBFlZF3m6igED9IdfzibcESdf5/G9PTGFGuJh8nfcq6swqdyt63erLPkKDnpj+7UfHLig9pPaw+rmkDBgKBNwT8pBPpq7X/K4iE=
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MIYPR04MB12551.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(1800799024)(7416014)(376014)(366016)(18002099003)(22082099003)(10067099003)(11063799006)(4143699003)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?eFNRdythODA4TzVpNDNOTUdUZzQ4cTJGK2I1dHltaHhjcnFqQWF6OWw5OW5R?=
- =?utf-8?B?TWpINk5VRDQ3RVh1dlFDMlhZeG9VcnNvQ0I0RFFqN0VoWWJaY1VqdFhuRFNE?=
- =?utf-8?B?K3FIL0dLRVBJWUFTdGJrK1ZESVNWT3NoUjBDRkxRbmliZ0pwL3N6a2FXT3pN?=
- =?utf-8?B?R0RrQmtxNG9mMHVIOWxwN0EzUlVpd1p1aUdpZGJHTFRpL2ZSRzVONG9wWHNq?=
- =?utf-8?B?VnpMcVBkR2I5NVJCK0ZOdHQyczJkWDdUbmVCZWo3ZnVxVmxHcDFNMFNTTml5?=
- =?utf-8?B?Z2lxZmpveU15d0RzMWxKT1RDenUwd29Eb3FvcTFuTmNEakJSZlMrYVdWdTV4?=
- =?utf-8?B?UFJWODluNG8rUTIvTGpURHEzcFRIU25ZS0NIeXYrNit2QjhYQVp4eHV4TFZG?=
- =?utf-8?B?WTdyTFFIZklINjVKeUlmM1dCaGtkTUV2T015eXcvcnFPZzRFUDdrVHlDUXow?=
- =?utf-8?B?KzY1YldTNW03Rjl2anAxNXd5dWpqVGJTa2xwT2tGb0I4T2FDZ2ZtNThGT2lS?=
- =?utf-8?B?Nk04VDR5amlVNUpQOXl1aXJXTHIzL0Z3NVg0alhsNFFGVzJxdTJMKytmZTdv?=
- =?utf-8?B?dGYxUEwwQ1UyaW9HaGZVU3p0VzErL2EyR0R6UWR3SS9PWWNoTUo0YzFpVGRR?=
- =?utf-8?B?MUtoeFdhNXhCZ3ZnQlFsQ3dIcXhxbUt2YmliSGNwNUdudnBZTG1YcEU3T2hL?=
- =?utf-8?B?TlRXMUgrcCsyUGFGUjM2NFlzbjMwejV6cVNEb0kxR2NIWEdnZFJoODV5cWR4?=
- =?utf-8?B?cDd6Qk55ZEl4Z1dVQXVsOEJPdnRoNlJyMFlkWGIwVWlrWmsvcVVOTEJQa2d5?=
- =?utf-8?B?Unh0dHZERHhOT2NvV3o3Wk1idnppZGtJM0RsRUlZVFVaZDg3V0lNcmF3ODFO?=
- =?utf-8?B?czdrY2JWWE93YjVxRHBnTzJ3cW5UK3RqVWtNdTFJQ0MrMjN3ajdvK2Q4d09y?=
- =?utf-8?B?Rzg3UzdZN25lRWdkdWo1Yi9hZ2JxNlNYZVZpTy92R0FQLzJyMGYwRm84Ukpt?=
- =?utf-8?B?d21qVzhkRForTUVzM0N4bHNsMDBFVkFoa0dnOTdKWHVDekJqTnN6cjJZdFhM?=
- =?utf-8?B?Z1F0TXJtNVE1MU04S0lYZytOeWRzTFVSOWVCZXoxZ0dEMnQvZzhZSGZpaXZP?=
- =?utf-8?B?ZmxPTFE1bGthVnJ1dHV4UnlhcThPRWhTbWgvTzJkb205bGZJZmRmblFEZTFm?=
- =?utf-8?B?Wk00SFpZeis4eTBkN3QvTzZpaUNiL0VybDFPS1pWMkJ4NFA4TUhRYTZrOVNv?=
- =?utf-8?B?YUM4TzBjamRHaG92Yk5KMzJDRzRXSnd6blVyVExVektKb1RVcklVNnVGaG1y?=
- =?utf-8?B?YitaTUxET2h5YnNJNkp4bWV2aFlNVVhlYkpVOVIxcTg0NTlSWURQT1JaU0U3?=
- =?utf-8?B?cEpSZFFQYVJobEg2ejVrSEJXaStzb251ZjJXTmgwcWg3dUZseWp0Y2gyaFQz?=
- =?utf-8?B?NDdJbTI5RFE0WGswZm1wMTh3Y2NZams3SVFjM09sZ1FEOXNNWmp6TmZHcFdF?=
- =?utf-8?B?T2c4eHBNT3hrdnRoVHpvKzdVYlVXZlRrOTB3WlgvTlRDTHB4VWMyN0diMlB3?=
- =?utf-8?B?MjVSOGVoRlZQZTY2SWtxUm1WT25ZeTJSUXpiN2s1bkZRYndTdi9Od2d3NW12?=
- =?utf-8?B?UXJmSGp6a1lCcDQyMWtic2ZzTjhBM3A3OWlZc25uZnlwRUFEY2RwQUxCVXlr?=
- =?utf-8?B?cERBUktpcUo5Z09zVWFHaUNjaC8vQ0w0dlMrNURGRE1hdzBhY2hkaVp2aHcz?=
- =?utf-8?B?TmRtTk83WjVodS9mck9zQXFubEdOdEdaZjZNeGR6M05PY2w2RVZuQkRBdWpP?=
- =?utf-8?B?NDFoY2RFaFJuZEN0dS8vc0VTZWxFTlovRmJQbzNDejJqeVBsWkFUeUpkWDd6?=
- =?utf-8?B?dFpHelE2dm1qN282NlNzZ1g2bHlxUU9lak5yazk3alE4R3krdklDT0dFVkxK?=
- =?utf-8?B?Vy9Tenl2MXNlekpUalZCVTZlQUVEdXJ6VHFMdEpBdk5IV0hheUZZN0tuRDBs?=
- =?utf-8?B?OVoxKzBzY1Job1ozUjJiUFptVmU1Y2grTWlMdVA3TzEvWVNGNzJ4QmtDUllw?=
- =?utf-8?B?cXVnMTYrQnVCY2NKMGoyWjhhTmxXeHo3UGRsa3VWSktEVCsyOFljbHhlZnhh?=
- =?utf-8?B?UTQzcVArN3JRWFY1K3htWFVaQzlnNGZWNE05bXdNMTJKNy9NSXZoOHo2OHNK?=
- =?utf-8?B?NXVUcG9wWHlITzF0c0xkS05DTVpEYm1xSWVQWGNLVjA1OUZFMEZyRkg4Mldr?=
- =?utf-8?B?Q0ZjTWswY2xwWG1Pc0h3ZkNyTUkwMkUvWWYzUVdXWXRPNlFYa0w3d3pmaUkx?=
- =?utf-8?B?cTl3RjdDNE8vSjdBWHFQU1gwQjAvVUlVc2VPS3JTa1pHMXBEa09XZz09?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a9655d5f-caa9-4ae0-d430-08df29fb3cc9
-X-MS-Exchange-CrossTenant-AuthSource: MIYPR04MB12551.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 13:58:34.4344
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0xnZBQFZwfCQORw8BI7WADji7KLCkO1aOIZqomCyM8zFeiGVxrGHe5q9VcjTrKxovY4ZVkktmBoWRJEHvMO8+A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZR6PR04MB642384
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAHk-=wiak+h+d2tZ5W_MwRzatUP=hJKn7cpGjDxArG-gwgHLXg@mail.gmail.com>
+X-Spam-Flag: NO
+X-Spam-Score: -4.30
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo];
+	TO_DN_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
 
-On 10/14/2026 2:10 PM, Krzysztof Kozlowski wrote:
-> On Tue, Oct 13, 2026 at 12:29:58PM +0200, Larisa Grigore wrote:
->> +  clocks:
->> +    maxItems: 1
->> +
->> +  clock-names:
->> +    items:
->> +      - const: core
+On Tue, Oct 13, 2026 at 06:01:15PM -0700, Linus Torvalds wrote:
+> On Tue, 13 Oct 2026 at 17:10, Harry Yoo <harry@kernel.org> wrote:
+> >
+> > There should be a limitation on how much memory can be submitted to RCU
+> > by the page cache, otherwise will be a corner case where we have too
+> > much unreclaimable memory waiting for the RCU subsystem to free them.
 > 
-> I don't get why you added the clock-names.
+> There is. In fact, I tried it a few different ways... It's not quite
+> what you suggest, but try it out.
 > 
-Hello Krzysztof,
-
-The properties, `clock-names` and `operating-points-v2`, are needed to 
-let the generic UFS platform code discover and manage the controller clock.
-
-`ufshcd_parse_operating_points()` uses `clock-names` to create the 
-corresponding `struct ufs_clk_info` entry and populate 
-`hba->clk_list_head`. The UFS core then uses this list to manage the 
-clock, including enabling and disabling it during suspend and resume. 
-Without this information, the clock would need to be handled separately 
-by the S32N79 variant driver.
-
-The OPP table contains one operating point with `opp-hz = <0>`. This is
-intentional and follows the semantics documented in `ufs-common.yaml`:
-
-   If clock frequency in the array is "0" then it is assumed that the
-   frequency is set by the parent clock or a fixed rate clock source.
-
-On S32N79, the clock rate is configured by an entity outside Linux. 
-Linux does not program or scale this rate.
-
-A similar pattern is used by the `amd,versal2-ufs` binding. It describes 
-a single clock named `core` together with `freq-table-hz = <0 0>`.
-
-Best regards,
-Larisa
-
->> +
->> +required:
->> +  - compatible
->> +  - reg
->> +  - reg-names
->> +  - clocks
->> +  - clock-names
->> +  - operating-points-v2
+> > For the same reason, when a process tries to create RCU-delay-freed
+> > pages much faster than RCU can free memory, the kernel needs to limit
+> > that.
 > 
-> Your opp-table is empty, so requiring such property looks like wrongly
-> written driver.
+> That was actually my initial approach - making the places that set the
+> PG_rcu_delay bit throttle themselves when there were lots of such
+> pages in flight.
 > 
->> +
->> +allOf:
->> +  - $ref: ufs-common.yaml
->> +
->> +unevaluatedProperties: false
->> +
->> +examples:
->> +  - |
->> +    ufshc@4ac80000 {
->> +        compatible = "nxp,s32n79-ufshc";
->> +        reg = <0x4ac80000 0x1000>, <0x4ac40000 0x1000>;
->> +        reg-names = "ufshc", "scm";
->> +        interrupt-parent = <&irqsteer_coss>;
->> +        interrupts = <211>;
->> +        clocks = <&clks 0x92>;
->> +        clock-names = "core";
->> +        operating-points-v2 = <&ufs_opp_table>;
->> +
->> +        ufs_opp_table: opp-table {
->> +            compatible = "operating-points-v2";
->> +
->> +            opp-0 {
->> +                opp-hz = /bits/ 64 <0>;
+> Except I worried about slowing down simple things like truncating big
+> files: particularly since I believe firmly that slowing that down is
+> the *wrong* thing to do from a memory pressure standpoint, because
+> you'd be slowing down the very thing that is actively freeing pages -
+> it's just that it then takes a (short) while for those pages to get to
+> a usable state.
 > 
-> Best regards,
-> Krzysztof
-> 
+> So what I did instead was to actively then expedite RCU when there
+> were a lot of pages in flight.
 
+Right, this makes sense.
+
+> 
+> That worked quite well, but it hit a problem when you had lots of CPUs
+> doing it: since an RCU quiet period needs to happen on *each* CPU, you
+> still end up wanting to at some point wait for things: you need to
+> synchronize not _one_ thread freeing things, but synchronize across
+> all the CPU's.
+> 
+> But again: the good part really is that this "lots and lots of pages
+> in flight" only happens when there are literally lots and lots of
+> pages that are very much about to be free'd. So you are in a fairly
+> good position when it happens, you just need to *understand* the
+> position you are in.
+> 
+> So the other part is to come at the issue from the other end: when you
+> have trouble allocating pages, but see that there are a ton of pages
+> in flight due to PG_rcu_free, you basically do the same thing from the
+> other end, and do synchronize_rcu_expedited().
+> 
+> And in testing, that worked really well under even insane loads where
+> concurrent hole punching or truncate calls would generate gigabytes of
+> PG_rcu_free activity each second.
+> 
+> Now, it turns out that Kiryl also suggested another approach to the
+> pages becoming PG_rcu_free in the first place: instead of being able
+> to easily trigger gigabytes of such free pages by just truncating a
+> large file - which marked all those pages PG_rcu_free whether that was
+> useful or not - the current version actually comes at *that* the other
+> way too: mark only pages that are hot and are *worth* the PG_rcu_free
+> treatment (because they get read over and over again) with PG_rcu_free
+> in the first place, so that you don't generate that flood of
+> RCU-free'd pages in the first place, and now the PG_rcu_free flood is
+> in a way throttled by the *use* of said pages.
+> 
+> So there's effectively three different things working together:
+> 
+>  - mark a folio PG_rcu_free only when it's hot and keeps being accessed
+> 
+>    (See commits dabc522cee5b: "mm: have folio_mark_accessed() return
+> whether the folio is hot" and  bb5908b733a1: "mm/filemap: set
+> PG_rcu_free on the folios that reads keep coming back to" for details
+> - both are pretty tiny and not really all that complicated)
+
+I'm not sure this is a good criteria for checking whether a folio should
+be RCU-ified. Namely:
+- you don't need that many accesses to get an active, referenced folio. LRU
+batching makes it a little harder, but not by much.
+- rewinding along a folio doesn't tell you much other than the reader
+went back, for some reason. It's also natively racy so funny things like
+multiple pread()'s to the same fd can easily confuse this mechanism into
+marking this as hot.
+
+How many pages (as a %) are you seeing as marked PG_rcu_free across a boot/
+realistic workload?
+
+> 
+>  - proactively expedite RCU grace periods when there are a lot of of
+> pages pending
+> 
+>    (See commit 2ce8df4627fe: "mm: expedite the grace period when a CPU
+> has many deferred frees")
+> 
+>  - teach the page allocator about the outstanding pages ratehr that failing
+> 
+>    (See commit 82fc13ff3a1e mm: "count the pages waiting for a grace
+> period and free them before OOM")
+> 
+> and it really does seem to work quite smoothly. But it's not like I
+> can guarantee it's perfect.
+> 
+> All those commits are fairly trivial. Of the ones listed above, that
+> "count the pages waiting for a grace period and free them before OOM"
+> is the biggest by far, but it's not really particularly complex or
+> subtle.
+> 
+> The actual biggest patches in the series are:
+> 
+>  - 65401f4102b9 ("mm/filemap: read from the page cache without folio
+> references")
+> 
+>    This really is not very big or complicated, although it *does* have
+> subtle ordering issues with i_size as pointed out by Kiryl. It's
+> mostly really just a simplified version of my patch from two and a
+> half years ago. And it's simplified because now the RCU freeing makes
+> everything more natural.
+> 
+>  - df0b133495c9 ("mm: free PG_rcu_free folios only after an RCU grace period")
+> 
+>    This is the one that actually runs on the page freeing side and
+> adds a page that is marked PG_rcu_free to a list and sets up the whole
+> RCU machinery (ok, there are actually two per-cpu lists: the 'pending'
+> list and the 'batch' list, and a RCU grace period will free the
+> current batch and move the pending list to be the next batch - not
+> rocket science).
+> 
+> and even those "big" patches aren't really all that big. Both are less
+> than 200 lines of code, and while I wouldn't call either of them
+> _trivial_, both are very much doing one clear thing and there's
+> nothing really *strange* about them either.
+> 
+> So it's ten patches, none of them particularly hairy. I really would
+> encourage you to just take a look and take it for a try.
+> 
+> Now, I *will* say that obviously RCU-freeing pages is an absolutely
+> conceptually *enormous* change to the VM. But it's in no way at all a
+> new thing: we've been doing the same thing for kmalloc() for decades.
+
+Well, yes, but generally you have a lot more memory pinned as page cache
+than kmalloc. In my current laptop (fairly standard desktop system) that
+ratio is about 20x (more page cache than slab).
+
+In any case, I was fairly interested in the problem back then, but I don't
+think a solution that may fundamentally alter the VM system is worth it. At
+least until we can find an actual real-world use case where performance
+substancially changes (i.e not a microbenchmark). Until then, these patches
+look to be more trouble than they're worth.
+
+Regarding the RCU'ing, I'm wondering if we could find a similar system where
+some type of RCU stability exists, but without delaying the actual frees to
+RCU. Like TYPESAFE_BY_RCU, but for folios (where they keep their order and
+some other interesting properties like direct map status, (un)acceptability)
+such that the old solution would be more palatable. In any case, talk is cheap,
+and I definitely have no code :)
+
+(or, and this is another random idea that is currently not feasible due to
+$raisins, but the folio refcount could be sharded per-cpu or so; this should
+avoid most contention at the expense of the (relatively) rare truncate/reclaim
+path)
+
+-- 
+Pedro
