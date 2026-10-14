@@ -1,46 +1,46 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012070.outbound.protection.outlook.com [40.93.195.70])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012032.outbound.protection.outlook.com [52.101.48.32])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6350446075;
-	Wed, 14 Oct 2026 21:34:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C53F1E0DE8;
+	Wed, 14 Oct 2026 21:34:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.32
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792013685; cv=fail; b=rQxXJG2xhDANIn/ervnM2wWr0fzY6bHi9zZJdLIC95m/rBF7YDcDMIoRCG37s6o92/yZhPGXcphfQkmxZd69S4Goa+MWD5asWs/oyvHqEKkzMwtLUhu1LKbaAq8H7/HMZvJXYJVS1dahn2lw0xIwt8WFTveLzcHX0yofXGf2jKg=
+	t=1792013688; cv=fail; b=YxnnnLz1rdKqiA5OIXaEZ1hUgIouqDt/QDgc8AdxUgvd+1pLQL1/e62OcvsxCyEn/42btF68LgsaJqp1Yicc06SY5G9gX4DKq398USK98YCUF9U4GZQWMdyKowc54Z2F8gS7/wL1V/mwheNuOI/sfaPCuAxvcfmp4gvnvm57R1o=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792013685; c=relaxed/simple;
-	bh=NfGU/TG9kABSWtaamOCXRC8FlJnXoZFwQeS36F924vw=;
+	s=arc-20240116; t=1792013688; c=relaxed/simple;
+	bh=1ttWX8tVcHphbluLtb8hnCOYuwKOtmoAtVTWT6NRno4=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kLwZSkRgz9D+5ArE+5QiCFoMAg8+y07933Yefg7jfCC2zc5wa1N9cZuBGzEeZkJ6HnskV1hwPyJFP4DjPrDgxtg3fuTzzShMIyBrtDYs5ZmdJXqRcpwvaQXbjRfhHqF97kmQEyHnPMKOUIqVFpS3/flFkfiUzAwFiKZBDH6UYQg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=OCLG3sU8; arc=fail smtp.client-ip=40.93.195.70
+	 MIME-Version:Content-Type; b=kYAkUyJ5QdsLsTJWMlICxxzVZRvNb6uH37dS+AZkSl9+KnkP5MvJ7Xnz01FjMFmaXey3VKoO0g6AOwz8GqKDejTjxC6ZRp8/oNO4pllQZDhx2YXpgzzaEn45ku2QuanvCTs4aaiKu/rEt/IYAPSGWbgExFcr2a1Vq5fZgpOmzpc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=1JgeqHza; arc=fail smtp.client-ip=52.101.48.32
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="OCLG3sU8"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="1JgeqHza"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YslJ4KVRYzaD0xQFPocmcmNgy09Uxd7YoX6b781bu8PPAsWIqr2q6alCqT2F3q/WOLFJOtxTh+ExTVfFLjbbaf3t2vds5d0XczVoi1quG1oDiEjJRwDzWzT1whk9qIC8uBtZJJGQmqywy364Rcn+YbQ5zdkb4HL9GafW1shPuHmYbVNtTlueFJZxsf1NeyWS7S4tikYzyjX4dn49sVhV67mQHzzHimk5QQt3N2s3Ze6HXFTq0qnngYhPUoVQzJ26zbumE828uqR3+9vvQR55b7F6rOyvwuMpcffbtd7UtM8pucaeO9O8zQ1bqrdoBgvaTwk7QuUNvZCDFIMrrJH7rw==
+ b=fv7mc0ph59rO2xCBjmhlgCvcG0czfuSG/D/+d9VODULlWLx0G4DPMqQtZ2pOE0eM22H9RnJuaoy3D5Y8mjqt5m9ZSO1g7eevk1DonSRnI6TV7LJuxGI4+NmOwZVQYQFzIkNoOJgEU32vpXmYbtds9xU20kbHjwhmsXvXYdcQ/+NUK401ZQs2KggCvW4Egeg1SedmZM5JbYGdawZv2yCchLsO8nNCauDnkOQ4lAx7kr8J9nnTGuA9L9940rCXE3CXAlE33gJjswe46ylVBcD2JBzi9Uc5B3YqRs3yp+T8Pt/pZCUFUWDX84JRjTMMhJfwAiuwKT7MO+aA9SupWsXu7Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gXvrMgctduVssVwvXdF+DAJWr+bP1CJlVJvxYYnnVsc=;
- b=fAeHfIrfU2lZh8IretB50mePGOPPAtHEIgwT5BI3uSktlKkHVeLRKgvJOcP4qD3805FOo5qBm7bBxs9mIY3oYcFgg/jLeT18nSppQJ5x/STfH022SuXe/PXTZzc551VXRCZxVHJVoZu+58oB0gHenN1HAXafgQcNuu8mayXpSfMJJkdznCSnfEWdJo6KnAe/1MGeqULNlQPKsSUls/PyExPcWiXsnciutiai98+oxUw1S1IOGUrPQGXNZh3g8PmRNAbjj3tMeSQPgpUAHTZ+RFAvipIwWV9z+aYg/EwOIYB6MYeagyEhVLYqSz+Juib8u5arcOCGokDQ4BE9Z2UQwQ==
+ bh=ygEfqZkKdYLvH5PzfILD+BlJxPDngifIuZOGwDu9kek=;
+ b=mXcWpLd03itFojMRt0wjNYgavQtV8hrDy4swCXROs2HZQnd3ok/8JkxlUJJcg1u/64RGg1nsMp8k4lxnRfImTdFFp5gbbwoNIKbexXZQXUw446M6IqpT1RT0YdSU7+pNwXPxbxS3qhSqIh0AOPkXoUK8FrFMW9uqg7TVpG17M3Zn9ndPAXYiXZ9FgWeqdLzqaYsfj4Jtr7HQfTNUvdJXdlnLIUACajgfyOQkfxEG1N8cLMgEeKvZEIrUK8h+j/9ZDVFgi0UyRV4ZiTgyAvyp2yoSh8ZKg337lJLxDci2sYUk0cCspjqvoH7exw30kRHYKIpvA0TMV4zByc8tBybIPQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gXvrMgctduVssVwvXdF+DAJWr+bP1CJlVJvxYYnnVsc=;
- b=OCLG3sU8bUnDyZGBTsP2HTAXtGTSdNE/2PHWaTrYybw9tLs8tIQpE+zZT/WBJw+kpzm6xNKm+yCnEEl9Ciz9qRXro6MVx4NQ6IHQa4u1q9oQlQtixtYt0dxevcK9UzEUKVosPcYX8aLcDQFNxVZ/P1WGYMLioZ2GXoa2kdZeSuw=
-Received: from SJ2PR07CA0003.namprd07.prod.outlook.com (2603:10b6:a03:505::26)
- by SA3PR12MB9180.namprd12.prod.outlook.com (2603:10b6:806:39b::18) with
+ bh=ygEfqZkKdYLvH5PzfILD+BlJxPDngifIuZOGwDu9kek=;
+ b=1JgeqHzaN6kTxQ2p7ovakYKYa/alzvQkoGZIKubRVACYXQCAz8bqKRqeMvZU7Y7cOmXtr+/LggadFw3fwD4EzmqUzcJXXfcH+m7MqhQfKso5R9opqL/bCXFvF2IOYRfhulZ+rkGd/uMwt220GvRXIMPSTqBgzMChakbhkrV9QQc=
+Received: from SJ2PR07CA0008.namprd07.prod.outlook.com (2603:10b6:a03:505::8)
+ by MW4PR12MB7381.namprd12.prod.outlook.com (2603:10b6:303:223::14) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Wed, 14 Oct
- 2026 21:34:40 +0000
+ 2026 21:34:33 +0000
 Received: from SJ5PEPF000001E9.namprd05.prod.outlook.com
- (2603:10b6:a03:505:cafe::66) by SJ2PR07CA0003.outlook.office365.com
- (2603:10b6:a03:505::26) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:a03:505:cafe::1f) by SJ2PR07CA0008.outlook.office365.com
+ (2603:10b6:a03:505::8) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Wed,
- 14 Oct 2026 21:34:40 +0000
+ 14 Oct 2026 21:34:32 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,14 +50,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb08.amd.com (165.204.84.17) by
  SJ5PEPF000001E9.mail.protection.outlook.com (10.167.242.197) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Wed, 14 Oct 2026 21:34:40 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ 15.21.522.6 via Frontend Transport; Wed, 14 Oct 2026 21:34:32 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 14 Oct
- 2026 16:34:27 -0500
+ 2026 16:34:23 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 14 Oct
+ 2026 16:34:22 -0500
 Received: from xsjblevinsk51.xilinx.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Wed, 14 Oct 2026 16:34:26 -0500
+ Transport; Wed, 14 Oct 2026 16:34:21 -0500
 From: Ben Levinsky <ben.levinsky@amd.com>
 To: <jassisinghbrar@gmail.com>, <andersson@kernel.org>,
 	<mathieu.poirier@linaro.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
@@ -65,9 +69,9 @@ To: <jassisinghbrar@gmail.com>, <andersson@kernel.org>,
 CC: <michal.simek@amd.com>, <linux-remoteproc@vger.kernel.org>,
 	<devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
 	<linux-kernel@vger.kernel.org>, <ben.levinsky@amd.com>, <tanmay.shah@amd.com>
-Subject: [PATCH 5/6] dt-bindings: remoteproc: Add RPMsg resources to AMD BRAM rproc
-Date: Wed, 14 Oct 2026 14:34:25 -0700
-Message-ID: <20261014213426.2957480-6-ben.levinsky@amd.com>
+Subject: [PATCH 1/6] remoteproc: amd_mbv_bram: Bound device name formatting
+Date: Wed, 14 Oct 2026 14:34:21 -0700
+Message-ID: <20261014213426.2957480-2-ben.levinsky@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261014213426.2957480-1-ben.levinsky@amd.com>
 References: <20261014213426.2957480-1-ben.levinsky@amd.com>
@@ -81,93 +85,60 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001E9:EE_|SA3PR12MB9180:EE_
-X-MS-Office365-Filtering-Correlation-Id: a84cb955-51e6-4988-1bab-08df2a3af463
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001E9:EE_|MW4PR12MB7381:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9bf3c622-a1b4-4868-c62c-08df2a3aefba
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|376014|7416014|1800799024|10067099003|18002099003|22082099003|11063799006|261009223027099003|56012099006;
+	BCL:0;ARA:13230040|376014|23010399003|7416014|36860700016|1800799024|82310400026|56012099006|11063799006|261009223027099003|10067099003|18002099003|22082099003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	WYssfyAwxQ7yWdMmbALdHp4xj1khq+3yE/w+YZs5IoolnxA1BPAgim4qLHvV8vaVSW1Bssa1VHOBMDvgEqXskmZmqOFzM8itx/wVVSoppBKE41ihD2dFimmhEovgmpfs6UqST4ExMScp0G7jfBGO1JJ5urRix40H5chyw4emFgzafQxAEy8NGxZOcaDfOp8CgPniOdqzunI6y9TMmUYGek9JsAeVxjQ14BDoVs1vhDgQncNjek/+M5YoZzSpUBvH6rwIhAE/df3ZSvSjA4vPjIPi1Zc9XZa2c80irbYSDaJGYMmQW+IIIowFRj+fQeXvn4UmkZTg6irHaC2L/9Xrhn/3BdwoWTE/Nmma8ddWnq+UPv8LwPENea3zxpRjiYf3LVgoOvLbVQ4BwbFNiOFJI4EnBp/ye9i3RXFCJpyqcGvaFGas+5vWn/bkHngR2xTu+e5zcEiS/4ER2ZZEj/I3aG9KZX3oLCprPMLNrhouC/UocMvKZIeDBQ0gyfHtusvVtA+Ph1eOsxnesXTG7W8yS4aXai41WnA3q5TgA8h3iM5djt5VzqW/nPjC74qAEXyz9gaTAUh6jXB5yE+dFA/Phcb9V6ryN8uoN/sBk9QizkGPa0OX8gDH0KZm9tlmNaR4mjexpGftUDTrAvxo7SL9pwVg1lOTt6jnP0lQ5Ai3LhKkOmjUNqEP+98e+7TxDsgz7A1zOzu7pSHaUCm2zDo9wA==
+	pYsjq0MpETRdqmCRa8h5bIfbr77cI7MsIgJjfcs0KxpskTS+C4tVImabTl2lUKZCe5l1xrZrgljQBHUuiL2fRBe4OnCuKBaa2vHgy7Wi26jXEIICAjAB5r05yEz/0amS95CWFMJKfES3VN7joB2+yjbN8WUOnM4bZMRdZPtAAt32MVeN+1fP3Nl06Aysd6DBPRDIfClBmGF+k2n4glvFZvAIR67SUjuCmnIuaW40lkdYsURUQKbuIz7reGS4JKKdJONguso85Mf1LhkA7fZ81g116GD6wkibt53v+hCvRMGF8SlbPMDVLyBDXMawFS59xSGrS4+99DGhSwsn3Dk5OQFTEblLEtlmqOd6zPMzKzIs3NP4bQMokKHfKeiREYfJOszMgdro3yyLQ712QUtnS4qhPEtExrgBrRzm+UDXugncB0LW57D7BnXYHTxEX7slsOIgIy9cwe3CUJdPrlCfBMB0Ns7ozEuTgvqY7SrZfpE4LWaGkj0gAqLUJC04bEIRuLbetSireDyeyqVqYj9cjNR7EglcWR4IRHbAwHN7UHiUvfzMPGVr41hQ/CA8ilXrXTLBshadkt6IPJ5N7r1zlghZoNISyyJ6VvVQedLZmPfZ6aWiKQE2u8qLRNj27t85LWl3YnblQo+hG1FwMUEnUF8k3UkCCJFdL6vixRlugqOqt6eifuiLAtwSiMt2JnT9eE4VlMmzlfjBkBZUnN2a4w==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(376014)(7416014)(1800799024)(10067099003)(18002099003)(22082099003)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(36860700016)(1800799024)(82310400026)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	tTGXw9I/BiPfeOFEmN8csMT+P9aNz27iItra4Ne9095z6bRzevvs/e/mTxy082/ajL1R0YiLpmPYq1tGFQ7r83LAtjsJecOTpUQtU/mACdest5rndKpEPQFmBqYfIBKVFlTtkUikIneYdOEtSGIgqPC6NEWPzViFbvFHiH2nHJU/4gWZYIpd2bpffr4n3IYwCt3iexuXeOQVqh6KKBll47GocNdxwLYurj/E4jLonJcNWpYUkAXEfSZU3m45Zllh4Yy7p8W+5++3AcBezR4Dlhd/7vH1yid9cH8GnnhqbA0MbVwZNyGEYPautpqTR2hqUkfS/bv5IkdBd73i9uoHRYMNu6zeaKqTZiF7lbX3PsvlWYnmWfE1yinNHa3VvPjYy4uimTpA6c20w+XK/YdAJjb15KF/+ud1lmyAukeSNyOuZyFFw1uGM0De2WR+JNOR
+	INQLdoosDKkF/hXUcpodXvBOCY0u81OOsC6y2ZzhZ0WMS1l8VzuwZZgqx2bByR32QuSuca/NpndlI2T8BmxxThJxLjzmnUTLk+WjO0rIjbk4VHdi2AZqgn9odPt25JczQppN4tV5Oi2uIS4GxgM7DbZXVPK3igFwXmbiGOZ1Eh46yEkjzTKRUwNA6q6W8eHa4mFxBHXvhFXViHUDFuZzfpygNw4T9AfFjexG2ovXw9jE/1RNCTx8dE26ZfTjqUoH6F5Xa/qAV48F6l1hliwXnKDEWkQjEEkop9j+FaM8SXZqMKATtcEJpArCFy4IdMzRRV/4kATDxVc00mXTFVAHfnxfArs4Q6VyXGtSfmLeyvn4s/ac4oVkbhncJwlcrYyhyyPLQf/pAClfOyHeSZSOlZ6cdNrsK2WnNAyxfFHgAvhVoAyadELvxxE74jBbDLGF
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 21:34:40.5206
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 21:34:32.7645
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a84cb955-51e6-4988-1bab-08df2a3af463
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9bf3c622-a1b4-4868-c62c-08df2a3aefba
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	SJ5PEPF000001E9.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9180
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7381
 
-Describe the optional mailbox channels and named reserved-memory
-regions used for RPMsg communication with a BRAM-based MicroBlaze
-remote processor.
+rproc_mem_entry_init() interprets its name argument as a printf format
+string. Passing the device name directly allows percent conversions in a
+DT-derived platform device name to consume nonexistent variadic arguments.
 
-The three named memory regions provide the two virtio vrings and the
-shared RPMsg buffer pool. Firmware and its loaded resource table remain
-in the executable BRAM described by reg.
+Pass the device name through a constant format so it is always handled as
+data. Limit the formatted name to 31 characters to match the space
+available in rproc_mem_entry::name while leaving room for its terminating
+null byte.
 
-Assisted-by: LLM sparse
+Fixes: f87b4998994e ("remoteproc: Add AMD MicroBlaze/V BRAM-based remote processor driver")
+Reviewed-by: Tanmay Shah <tanmay.shah@amd.com>
 Signed-off-by: Ben Levinsky <ben.levinsky@amd.com>
 ---
- .../bindings/remoteproc/amd,bram-rproc.yaml   | 31 +++++++++++++++++++
- 1 file changed, 31 insertions(+)
+ drivers/remoteproc/amd_mbv_bram_rproc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/remoteproc/amd,bram-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/amd,bram-rproc.yaml
-index c0359f447ea8..daff8e615ab6 100644
---- a/Documentation/devicetree/bindings/remoteproc/amd,bram-rproc.yaml
-+++ b/Documentation/devicetree/bindings/remoteproc/amd,bram-rproc.yaml
-@@ -84,6 +84,33 @@ properties:
-     description:
-       GPIO specifier controlling the soft-core reset input.
+diff --git a/drivers/remoteproc/amd_mbv_bram_rproc.c b/drivers/remoteproc/amd_mbv_bram_rproc.c
+index e4a103cf8455..6cf33c7b7e64 100644
+--- a/drivers/remoteproc/amd_mbv_bram_rproc.c
++++ b/drivers/remoteproc/amd_mbv_bram_rproc.c
+@@ -72,7 +72,7 @@ static int amd_bram_rproc_prepare(struct rproc *rproc)
+ 				   resource_size(&res), da,
+ 				   rproc_mem_entry_ioremap_wc,
+ 				   rproc_mem_entry_iounmap,
+-				   dev_name(priv->dev));
++				   "%.31s", dev_name(priv->dev));
+ 	if (!mem)
+ 		return -ENOMEM;
  
-+  mboxes:
-+    maxItems: 2
-+
-+  mbox-names:
-+    items:
-+      - const: tx
-+      - const: rx
-+
-+  memory-region:
-+    maxItems: 3
-+
-+  memory-region-names:
-+    items:
-+      - const: vdev0vring0
-+      - const: vdev0vring1
-+      - const: vdev0buffer
-+
-+dependentRequired:
-+  mboxes:
-+    - mbox-names
-+  mbox-names:
-+    - mboxes
-+  memory-region:
-+    - memory-region-names
-+  memory-region-names:
-+    - memory-region
-+
- required:
-   - compatible
-   - reg
-@@ -101,5 +128,9 @@ examples:
-       clocks = <&pl_clk>;
-       firmware-name = "firmware.elf";
-       reset-gpios = <&gpio0 0 GPIO_ACTIVE_LOW>;
-+      mboxes = <&mbv_mbox0 0>, <&mbv_mbox0 1>;
-+      mbox-names = "tx", "rx";
-+      memory-region = <&mbv_vring0>, <&mbv_vring1>, <&mbv_vdev0buffer>;
-+      memory-region-names = "vdev0vring0", "vdev0vring1", "vdev0buffer";
-     };
- ...
 -- 
 2.34.1
 
