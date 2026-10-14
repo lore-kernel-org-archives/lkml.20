@@ -1,104 +1,92 @@
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A8A9376490;
-	Wed, 14 Oct 2026 13:31:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 606CD531B1C;
+	Wed, 14 Oct 2026 13:31:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791984677; cv=none; b=GCjJ4kkKQN/2BdwVkv1hpLnKRuAOeqHGz2ikFF/rh+5MjLUoLH5blVcFJS0k1MhBn5upahEI2wm5eSwRkIorV1EdLE+xDVKdM8k/UgW7cxMQjw4kpxl/Cg6XevKkgfV8hPGl+7dwajEJveYZ0AEA64W5EWJPFGbUTb3yX9IzDN8=
+	t=1791984696; cv=none; b=WmFD+g1MpXmpm85UhfzMbE4DuO+ICPTdSbVKmuj3OF3jQ7arzuY9Zy7cNJYtu6t0luXZiXipNZ0BwsPUj3flrbPxQqowc7+GGNd1wUIcdfgfd+pqpK35swf6a+2kGabg6k+GnGZsLefz1uSOv5eiIJeUbl+hJlnkmDl/ZCuAo2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791984677; c=relaxed/simple;
-	bh=HJZ5MJgxunIkRLWvc+jLcJkipmTsNFq8aI446pdfw+4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ozPNp4Mjcrui4mIAn7HxZEoy+x5d3jc+8B5bck12M6N5qHK1zu6thvqxs781wlsvEaWEo0DljryIgnQnJmpgL6YPqT4eQ0UV9PewVEi71H3lc+yvxRu+Lhp9grBTimBg/bJk17eviaVBtgVmslIbw1tMUDZR87KiFYkVd1uNIkg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=3ZWGrcJI; arc=none smtp.client-ip=199.89.1.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	s=arc-20240116; t=1791984696; c=relaxed/simple;
+	bh=iVXDdi+LbaWE4pulO6pirqv1Ke4rUwj4L6ZghTo/N20=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fp62UsIYeNiQF0bR6PNZ1BVgRU7drbVGpzhenOa3uOeB5LsSzOHGO4zXP2ahD5bGsFjliKgPavyELt+vmHS9fMY5RJv6+2J+GnkHpQYN+6pgMb3oPQwDRo4eLtxkEC2HlQiEoPbCFalMJ9AXU9fSiqKljjj3Jurgqu7xkoIFTjA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uda0z0UG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="3ZWGrcJI"
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4j4XCV3nv2z1XM4Tn;
-	Wed, 14 Oct 2026 13:31:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1791984657; x=1794576658; bh=cULsbpL4/ypKr+b68EUXjCd8
-	bXVDfuRvjPXfSXjEzpw=; b=3ZWGrcJInZgri4227+zHAIEdnus5zn0z6LYL4scC
-	gfLrwOfWV8HJGLAOnu3jOl2Sw111b0dGAi0MZePronT8fIuHPrIvVx1MpOdyzFmT
-	KX8GARuMLp/edex9APL7R24aairirPi9QBkKilarynx34y4iC4Nl1++fELWKivo4
-	mjgw4HFN0vwJRYjj0V+ZM0B5dbrLATb9h3bmVIV6Zt+EH13X6+q5OQyVgMLCUBYn
-	1ce90hdU+hvyCLaxtQ3He94XRk4oVHdndO+sr+Kg5rg+8IgFKCe71ur/CxBLYGOo
-	1PWmkJqhos0dQqvjzqxSb8L1B+CdgVLH+2Bfh5C8quC8vQ==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id IJ_-2R3aBdpI; Wed, 14 Oct 2026 13:30:57 +0000 (UTC)
-Received: from [192.168.51.14] (c-24-6-239-25.hsd1.ca.comcast.net [24.6.239.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4j4XCN3s84z1XM4Tl;
-	Wed, 14 Oct 2026 13:30:56 +0000 (UTC)
-Message-ID: <e3706904-3b53-41bf-b8c0-48ac4d2e2cf5@acm.org>
-Date: Wed, 14 Oct 2026 06:30:55 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uda0z0UG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA40D1F00899;
+	Wed, 14 Oct 2026 13:31:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791984691;
+	bh=pdFwGDO0y5LNxHzplUr7H2rcasbgHL5eYyB7H6l6Hhc=;
+	h=From:To:Cc:Subject:Date;
+	b=Uda0z0UG+irMpty13cruypPuAua5PbmeRoGdDA9W0fGCLWEdcQajL+OVzL+RGQXnH
+	 0gkVBZIMTJikogwNmv3EL2rENgMdRIlilMbHBd5XGY807iI6nxUq6LSmagJ+QTo6mQ
+	 u8ug357cXXEXlYMj/6L4YKaezkI1rX9L6D+nw/+2VNRugMNzwx+WomHUEJySPW3SK5
+	 bh+p5HlsFzeIBRd2cVe7RicBgGxvT9XE78Xp7flVl8mlqx/o3EkRAd0JgJawhvJaOT
+	 Id5n/9zrH/rWutiR4RUvfJMHgu/UiCJfYXtvfATG5BBw1UCYfuSp26PghkzntD36d8
+	 qEv2g6pgDmSvg==
+Received: from johan by xi.lan with local (Exim 4.99.5)
+	(envelope-from <johan@kernel.org>)
+	id 1xGz4q-00000005qCU-2Su0;
+	Wed, 14 Oct 2026 15:31:28 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Johan Hovold <johan@kernel.org>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	Mario Peter <mario.peter@leica-geosystems.com>,
+	driver-core@lists.linux.dev,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/3] driver core: parent lock fixes
+Date: Wed, 14 Oct 2026 15:31:06 +0200
+Message-ID: <20261014133109.1392265-1-johan@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] scsi: ufs: bsg: Clear the UIC result byte before
- sending UIC commands
-To: Stanley Jhu <stanleyjhu@google.com>, "Martin K. Petersen"
- <mkp@kernel.org>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: powenkao@google.com, Alim Akhtar <alim.akhtar@samsung.com>,
- Bean Huo <beanhuo@micron.com>, Peter Wang <peter.wang@mediatek.com>,
- linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261013102913.948718-1-stanleyjhu@google.com>
- <20261013102913.948718-3-stanleyjhu@google.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20261013102913.948718-3-stanleyjhu@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/13/26 3:29 AM, Stanley Jhu wrote:
-> ufs_bsg_request() passes the user-supplied UIC argument2 unchanged,
-> including the result byte (bits 7:0) that only the host controller
-> writes. A non-zero value triggers the WARN_ON_ONCE() in
-> ufshcd_dispatch_uic_cmd() and corrupts the reported result. Found by
-> syzkaller.
-> 
-> Clear the result byte before sending the command.
-> 
-> Fixes: e77044c5a842 ("scsi: ufs-bsg: Add support for uic commands in ufs_bsg_request()")
-> Fixes: 9fb4c793223b ("scsi: ufs: core: Complain if UIC argument 2 is invalid")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
-> ---
->   drivers/ufs/core/ufs_bsg.c | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/ufs/core/ufs_bsg.c b/drivers/ufs/core/ufs_bsg.c
-> index dab1f05aff38..331ead0403a1 100644
-> --- a/drivers/ufs/core/ufs_bsg.c
-> +++ b/drivers/ufs/core/ufs_bsg.c
-> @@ -179,6 +179,7 @@ static int ufs_bsg_request(struct bsg_job *job)
->   		break;
->   	case UPIU_TRANSACTION_UIC_CMD:
->   		memcpy(&uc, &bsg_request->upiu_req.uc, UIC_CMD_SIZE);
-> +		uc.argument2 &= ~MASK_UIC_COMMAND_RESULT;
->   		ret = ufshcd_send_bsg_uic_cmd(hba, &uc);
->   		if (ret)
->   			dev_err(hba->dev, "send uic cmd: error code %d\n", ret);
+Mario Peter reported that USB interfaces may be probed without holding
+the parent USB device lock during asynchronous and deferred probe.
 
-Shouldn't invalid inputs be rejected rather than trying to correct these?
+This series addresses both cases, while fixing a long-standing
+use-after-free issue with the parent lock implementation stemming from
+the fact that the driver core does not necessarily hold a reference to
+the parent device when taking its lock.
 
-Thanks,
+Johan
 
-Bart.
+
+Changes in v2:
+ - fix the parent lock UAF issue (new patch)
+ - include my update of Mario's fix as it also depends on the UAF fix [1]
+
+
+[1] https://lore.kernel.org/all/20261013140408.1226841-1-johan@kernel.org/
+
+
+Johan Hovold (2):
+  driver core: fix parent lock use-after-free on USB disconnect
+  driver core: take parent lock on deferred probe
+
+Mario Peter (1):
+  driver core: take parent lock in async device attach
+
+ drivers/base/base.h        |  1 +
+ drivers/base/bus.c         | 32 +++++++++----
+ drivers/base/dd.c          | 92 +++++++++++++++++++++-----------------
+ drivers/usb/core/driver.c  |  1 -
+ drivers/usb/core/message.c |  1 +
+ include/linux/device.h     |  5 +++
+ include/linux/device/bus.h |  3 --
+ 7 files changed, 81 insertions(+), 54 deletions(-)
+
+-- 
+2.55.0
+
