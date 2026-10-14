@@ -1,121 +1,100 @@
-Received: from mail-qk2-f5.google.com (mail-qk2-f5.google.com [74.125.230.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5ED23B6343
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:52:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2084E312836;
+	Thu, 15 Oct 2026 14:53:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792075981; cv=none; b=PVslzMzT0P6hbIDB+EOfhwjR8OsISkA3UWtAQw4rns3NWKsFGa51UCgkC++B/iYatYDOHlmqh4CfkQRshlOdRV1wjioU4H5OiGzuCUorwldV7vqu+vqcb6qdjErPyNJz1UTfRdT10cttwyCS7Ly3E2n+NxH5fAIu8XkeWuWAGLM=
+	t=1792075984; cv=none; b=ArYUTOK0dxOTcrZJln4dlGC8y709r3xWT8uDomNNgC5gTrFyFGPMLmAwsxteWX3xf53p6EYVNKbgD3s3Tbagu+PFS5D5X3wDh2hnVP4CSHlu+6VDyG/ZI7uDCSrhCVYo/PJs245+J+n+Vmp5JNVag+26xxSmOpEL0Zn1sGKRwkE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792075981; c=relaxed/simple;
-	bh=R+lQIQY3eRefZFRtmkfz2M5VPtTBdh7wpJqwrh185z0=;
-	h=From:To:Cc:Subject:Date:Message-ID; b=C47bLaOgScI+mF2Uoludb3Wm5sa343B79Rxj3k9RyKRSCxyE7O5Q2YI9zBSBGauKKB6oM3hZGuTXYVW7OUBuciXnZHrwuzO3eJLjUEUNA+YyD2CL3kNrxni1itmNIXhpcTaQ/H7TNJmGjOiDEIy1l5rV7tmOPb/50FWWI+7MSsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ITXd0o1f; arc=none smtp.client-ip=74.125.230.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792075984; c=relaxed/simple;
+	bh=FDgQwQDx9X6hfNwWrS6YouXRNLOlFWf+sGEb3qmKyOg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=S+RPqXEfloH7be+L7JF44JTpF6pPmTv5kLnT3zsa5Mxhcs+4xdhNgnKJZNsBRF4Sb5PbilBr2VzgSIaSiUZc7vMfaRuxIL9ZjAyX0ozbmk2bNQ8LnJ2bKuYwiQpNG6nQxK6dCYO1mqMVHWMDlUUZjVXkSOu+NPeFHPB9nKoAO+4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nlm4MbwY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ITXd0o1f"
-Received: by mail-qk2-f5.google.com with SMTP id d75a77b69052e-5337b59ef7fso32484151cf.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:52:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792075977; x=1792680777; darn=vger.kernel.org;
-        h=message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XdRcwxlD3pWCchI2KWHsVI/091IqM4MFlf7NS18N65o=;
-        b=ITXd0o1fEClwlJqH1jImI3nXkmIofqkSkZtrJkzv1i8TR96tpLIwdeK4cuwIiLTCOJ
-         iEMw9le3Hfz15mr6X6vI+TIZ8QTnkkfr+VQMSkCRxKxSiiAMPS3wuV6rk9RHygQwHwGs
-         9qihWF87JdoZv4WxRJKTqCrshBhC5KsCPaYH14AMOpKgb6fPG9ATDSYPCfsisVlGVn0P
-         qwxAxHmuyz8JzVsfef/tSjP1oiYqvwlmTLxkFglTX4Eo1ge4y1Limz8HtY4QgCwreyCh
-         4+a9XIYLXIN4TOKnJXWfcuW8UcZjvmSdptpnpOAj0MllquvZrJIJoBfINuLkpxWk8xXN
-         P5KA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792075977; x=1792680777;
-        h=message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XdRcwxlD3pWCchI2KWHsVI/091IqM4MFlf7NS18N65o=;
-        b=h8WRXK/cyAHkrVmUtXkDeojrqFW84DLRQkGdleKFmL/lc1WOHA0MLHmb9l+CZcgwA2
-         IHyN1EfqBb+lXWqlhjiC7ChuoWs9/M2KdgTJrgQ5q1CwH9kIrhKc4013L+HuS9EoIEX4
-         uR1m5vwiWZ20/AQPawhpi+COY+voqXO3HRSzrcJ6Y/gedNOOLOALvr99lm/T3smjd4/v
-         toOAHUY1F98gFTngrpIgsgI6tp3mBTxp6uwW4iNeA3HLi8I3s3DmWoGPvBjDwtOZ9HpT
-         juwuVgFct4wOmhaoSvCvgAt3QHOU9TUBOTgbfOSuWYqLzLwgjnylU1RIxSdgxHmddep5
-         +3Yg==
-X-Forwarded-Encrypted: i=1; AKwUvBxkB5JEN+AI0I9IqETW/SOnFq6LdzkdzJbE5XAEGagS1ZjYMtJqhLMbFwxbNqHCemxIGT9TRLexOpWCchE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI1iOgUogOQX2OEhXX3k6a9t1IAZIBVAEclFHpIlecqAik8B4tC
-	hqx/AcbBJcLCe/SQ1RSiHoSsl1Dyb4X2JwWKa//or2L18ExtUDWU2Lc8
-X-Gm-Gg: AYBFou3ac7urZOAza/UIFpIMPRhoKX0GhPWTZwaUT7WD5DpzfNSs55xpTmc9tM8xWRt
-	J1bKEBpwmNMVAy8J5zUBPZ5TX4i3MmuMjkse2Qn44y90xLMcVdYmOv3VsDSfXEvYCw2m/UYYnzc
-	qBRijeJv4roflHoDwX++ZLJyLEb1Q4yBaFu6OwzK4F3fAHSUnXMj4GC83JqsyXyRsMUI/Y73cdo
-	cHeHjAqSdZ1WeXxYsj1nm2nQUXd40qfQ3npFhjxZvjVTApoDXigOvHRD5qdyS+A9EPQMZE/q3mL
-	kRLGHbm+w+yLAcCmHSD7/O0Q+KKjAYpcKZWUMWOD9T481gSsfuHAg4seCqlRf4aG/TehnjzfJPd
-	I9d+Dj9sjBUn4rhSCYfaX4hWGDqX2V95TdC8xNchzBJOyP0qu9y0+HL7v6FM59Y4uppOyQ/BkA7
-	NgvZwNmtQwFlPmjmq5FHpPLBmQtMKXzI/XYOtou1nfGzEgBI/bG7emcOjWXVINieYOgeSHjZ9Lh
-	u/lr86LBfUogn9n
-X-Received: by 2002:a05:622a:e19c:20b0:535:cd9e:bfc8 with SMTP id d75a77b69052e-535cda027f6mr141795071cf.77.1792075977484;
-        Thu, 15 Oct 2026 07:52:57 -0700 (PDT)
-Received: from [10.131.15.42] ([115.200.102.144])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-536127c62d3sm27173261cf.15.2026.10.15.07.52.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 07:52:57 -0700 (PDT)
-From: Aveline Noir <jm5905938@gmail.com>
-To: SJ Park <sj@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, damon@lists.linux.dev,
-    linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] mm/damon/stat: avoid 32-bit overflow in idle percentiles
-Date: Thu, 15 Oct 2026 22:52:04 +0800
-Message-ID: <179207592479.3.11595453180868898703@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nlm4MbwY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 826EC1F000C4;
+	Thu, 15 Oct 2026 14:53:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792075982;
+	bh=d4y6q7zwRfmUR8ctlN1+xywNu0uVLilrBEtFSc91IVs=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=Nlm4MbwY0tmgK7J6My0jedEXE/lp65C5M7H8OC0DVTjcHvgabrDjZwscRq2Q8N7Uw
+	 Z/aEGutci3h/M7Hhxc19qvpeJQrLo1Ov623FzEGOtbYM/WW06id38kKBq99rrAzfyR
+	 w7mI0eWvAigsfrV8XnlTQSiittaNRn0NDPDCTvtGpPNrVDLbk6EAI9G+v4RTljBzh/
+	 jaBZP1jCEXEpNFg4YIisRkWyc7URMwqKJmbg/1e/CckrnHe4snOgGb6Ts6o6D5+HQk
+	 JftCVqB7DsZFv6oJstTeV6GE6ZQ2cR0Lb1BxXWoDQR4YvRYRj78z7Q5UPRfY/QnEHf
+	 aC4jEtIOH8kRQ==
+From: Mark Brown <broonie@kernel.org>
+To: Weibin Liu <liuwb@xiaopeng.com>
+Cc: pthombar@cadence.com, wsadowski@marvell.com, linux-spi@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260929081146.41041-1-liuwb@xiaopeng.com>
+References: <20260929081146.41041-1-liuwb@xiaopeng.com>
+Subject: Re: [PATCH 0/2] spi: cadence-xspi: two memory-safety fixes in the
+ slave-DMA paths
+Message-Id: <179199270795.228143.15856421072994575885.b4-ty@b4>
+Date: Wed, 14 Oct 2026 16:45:07 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1733; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=FDgQwQDx9X6hfNwWrS6YouXRNLOlFWf+sGEb3qmKyOg=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLIuvDg91+tHYdml9eqn9P69+j3n8qG72Rt3HS2Um6ewQ
+ +RqxfJIxY5SFgYxLgZZMUWWuCzul/Ulr9fwHVzYBjOHlQlkCAMXpwBM5PYsRoY1h3UquFYc4PJc
+ obdwkuaLq0EFM5i/vQsvyzjYy/bRZmsew/9KYf/Ss+EV/pP7Np7V6jBr+C9xObe+bMGc7u3eG7f
+ dusgAAA==
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On 32-bit, accounted_bytes * 100 can wrap before division by total_sz.
-Some entries in memory_idle_ms_percentiles then keep their old values
-instead of being updated.
+On Tue, 29 Sep 2026 16:11:43 +0800, Weibin Liu wrote:
+> spi: cadence-xspi: two memory-safety fixes in the slave-DMA paths
+> 
+> While reviewing the slave-DMA handling of the Cadence XSPI driver I
+> found two ways in which memory the SPI core handed to the driver can be
+> overrun:
+> 
+>   1/2 both SDMA handlers copy the byte count reported by SDMA_SIZE_REG
+>       without checking it against the requested transfer length; a
+>       device reporting more bytes than were programmed makes the
+>       handlers walk past the end of the transfer buffers
+> 
+> [...]
 
-For example, a 256 MiB i386 QEMU guest reported p0=19200 ms, but p50 and
-p100 were both zero.
+Applied to
 
-Cast accounted_bytes to u64 before multiplying and use div64_ul() for
-the division. Compute the percentage once per region.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.4
 
-Link: https://lore.kernel.org/r/CANOyQmHad1vamnZT12M5yPrJ69==Pt1U0+MGw6u0MuNtr-DRCw@mail.gmail.com
-Signed-off-by: Aveline Noir <jm5905938@gmail.com>
----
-This is against mm-new ad9f2d463666. With the fix, the original test
-reports p0=p50=p100=19200 ms. The i386 kernel build, x86_64 W=1 stat.o
-build and external arithmetic checks passed.
+Thanks!
 
-I also ran 38 before/after VM tests and 20 same-image controls. Throughput
-was close overall, but median kdamond CPU rose by 0.0053 and 0.0221
-percentage points of one guest CPU for stream and sparse, respectively.
-Some pairs had 5.91% lower throughput or 15.49% higher scan P99. So I can't
-yet tell whether these differences come from the patch.
+[1/2] spi: cadence-xspi: reject SDMA transfers larger than the requested length
+      https://git.kernel.org/broonie/spi/c/ea9854a169e9
+[2/2] spi: cadence-xspi: fix stack buffer overflow in the Marvell b0 path
+      https://git.kernel.org/broonie/spi/c/ef9690269999
 
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
- mm/damon/stat.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-diff --git a/mm/damon/stat.c b/mm/damon/stat.c
-index b05b68f73e10..eccd372810d0 100644
---- a/mm/damon/stat.c
-+++ b/mm/damon/stat.c
-@@ -114,7 +114,7 @@ static void damon_stat_set_idletime_percentiles(struct damon_ctx *c)
- {
- 	struct damon_region **sorted_regions, *region;
- 	int nr_regions;
--	unsigned long total_sz, accounted_bytes = 0;
-+	unsigned long total_sz, accounted_bytes = 0, percentile;
- 	int err, i, next_percentile = 0;
- 
- 	err = damon_stat_sort_regions(c, &sorted_regions, &nr_regions,
-@@ -124,7 +124,8 @@ static void damon_stat_set_idletime_percentiles(struct damon_ctx *c)
- 	for (i = 0; i < nr_regions; i++) {
- 		region = sorted_regions[i];
- 		accounted_bytes += region->ar.end - region->ar.start;
--		while (next_percentile <= accounted_bytes * 100 / total_sz)
-+		percentile = div64_ul((u64)accounted_bytes * 100, total_sz);
-+		while (next_percentile <= percentile)
- 			memory_idle_ms_percentiles[next_percentile++] =
- 				damon_stat_idletime(region) *
- 				(long)c->attrs.aggr_interval / USEC_PER_MSEC;
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
