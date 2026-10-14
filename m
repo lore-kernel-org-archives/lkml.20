@@ -1,87 +1,70 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F38CB4349A2
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:07:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8EAF4349A2
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:08:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791968876; cv=none; b=SkxBw+5fXWWfytjCiRucq0kw4D/FHq2/tx4dIrG2HT//TqGWbaIsM1/ZbgazPG70nPw2z1JiIskHrGdQxI45VVbDHNW+C7kbCCAH5u+jHncX+CAcsEttZFPABVwD2AgUIMP5rHG65mMzE4VjeRmDH9IJnoSJPnkXsF8A9NyE6qk=
+	t=1791968887; cv=none; b=UM+9WAdUYhG+MDiEXpgc1fhyvR+iGonSuzNqH91p8dKeZ3Gr2kyZtxxskujpbNG1kMds+aZ++2AZT/LnYY3PBOoMYEl9/gYASelHiaT0/anzTUFnEkcyTAwybMZKM8TIAlYSj7ZNrJek+FWioTgzvkN0bp5BgQPsm1vqcyPiOA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791968876; c=relaxed/simple;
-	bh=06KZMJIUNQXNJCVFnyzCSETXB+/y83nIx03PP6KGwaI=;
+	s=arc-20240116; t=1791968887; c=relaxed/simple;
+	bh=lKiPfEj4GiFsESIXSMABmEWrbzmHHHXncq9jkZ21n/U=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Qo1kvRmup75lbri1e750eeOLQTLS/tR+V9VTDrz5a8XgORViMKgK7of4EYevRcikuLqSz2ReZQv8yXBJnZqaLrUuU+8UlLrzSLxLCVwaInsu43HxrvS5T+EHP45U7icK0mZy8wXaifZr3M1PXcB3lw3wKMneXt+7XsrDGeOESk0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=IgCudtpR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=J2vnH0rB; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=s+A9GfmvVDhoVZO5wvf40HgqA/UBkDktmNS4WGdTpuYb/5qtaazY7A+ULj8gwpbVtbOLTY9l8Brc/MUeDcMNQ3BLf/UMW1J1N5ubbi7iOOtYY5E9kZeDynBdO5vFmmyyV6ejQYCy1ZrHevh211MzO/7qO+NbqAGmkSin3UbiveI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nxIIv81S; arc=none smtp.client-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="IgCudtpR";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="J2vnH0rB"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69E8mVF33000890
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:07:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	6zlTHd6uM8BqPWwLPK41RlbISKxDZBLk/378P/d6aGg=; b=IgCudtpRokW5kSot
-	h6RcaAfvScD2Bi646rXfNsZlexthrCAzPvjhUCzgGqzOwamJOuqpyBGTufeLNU5K
-	zT0pUpjW2QGYZ+slRAbS9db6a8wODXgZ1ar8HP7l6C0107LJKgE4mT8xINNQfRuf
-	K9nMqWQgaq9ntX1BWlLPUCVtUHgZR/9B+X3/pMT7dg7QsTe9o4+FWpWoMATbVJEy
-	mCTzFQh2z4vjKOYhxaZwUNlGbPxXeTfVck4ytaxdZSLo6+1U3IYfpDaEqhpTw1SJ
-	NUUuDqVylKD/RH2AYNEAwplY2NjJgbV4fKX/Cig7YZ1Dad4ySvbdWeRC0CTlhstn
-	TPdp5w==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9sbeu5gn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:07:54 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92eebb130dcso69193485a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 02:07:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nxIIv81S"
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c2055573c8cso468728566b.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 02:08:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791968873; x=1792573673; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791968884; x=1792573684; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6zlTHd6uM8BqPWwLPK41RlbISKxDZBLk/378P/d6aGg=;
-        b=J2vnH0rB+NCdCZtK5Lzd7Wx35Wq9tb2afq+Qbpbg0G8kqhE96Th5Hiyk0RUtvF04ra
-         vDe2kWuzA9hdHLWl2H78otEolUx0fFz5L8C6K0Jv/lC1oaFX8nWGM+cwhQsCyB1k6eWS
-         btPnzmwXxj3z1AXP0MsKgm4VTMvRn9tHh/Ey7AbmAoadU/TkHR95XtDnTkNwYwWYKiSx
-         rcDnqPHQVtuy7phPiuqtPAF0red9xHxjpwiMwr0aaIJLObngpIhvGmntbFf/Lrz/WU1U
-         eKHa8UlQBvTmHw5B0EW24zGp0lL8lI9EAM8KW1wdFHEm+vAfHV1ZljiSNkAZP0693LMV
-         8TeQ==
+        bh=X6jLRvEdFUZOs356gfPWUV5PoYZmQs3hOKeg53YuPxY=;
+        b=nxIIv81SyOUgNpr+UQvGbuCSoGYUXLwmsdeoSLIaqys3RpkLZeGHhHt2Amhli+1Ifz
+         nQDK3nd1B/ZtW98dn57o6x7oA5LnZv975rHuDm9EyVxRfHyQBKty6jsQrIO46YSPURw7
+         yD1CvR9skpiiIFR3k54lELHAez5LGmmstKwHM4zW73xlzf3IE30eiEXBERnvEPfHynlk
+         Uog0x62Wkb4g7tozgkrtd3/ZjOhEBnW2AIN3UhbpamRXP5AFyEae2j3hm+F++g2mOj6L
+         +gpULllYbrIJQToqseJDzoINy8/DTxv2pc4VQV0TNgFcJZUcanCAZMVGOV4pM20aZq4M
+         XoHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791968873; x=1792573673;
+        d=1e100.net; s=20260707; t=1791968884; x=1792573684;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6zlTHd6uM8BqPWwLPK41RlbISKxDZBLk/378P/d6aGg=;
-        b=hvimlRvaDwGS8QzgdqkYs/kD35UUUpP+sDnNgGw6DkIU5RlzHUzV6iB2Yl6V8itvi0
-         5LP4F0zsFh6tEi+iRMku5ZwFAl2U80vZ4k0a9esK/Xavm06I/E11z/nLSHhtw1seCwET
-         Tj7Mf/5sLnyo/Josr9tOwDTW1dv8zeXEYDNoplWvQs9laj6ubcwY9RvacyL2WI6qzxEP
-         6yY9QT4XTqOPWg0Cj3lwJBOciRegBV+IOFAPyYGAVDbGV16z3YzMT7w5mOKdVEkkwl+j
-         iEXZhCQWmWZteUwKIGodgk+F8LBIEsQchacVMS2i5hnPC15vqClfsyvRtY0K/mnFZDPH
-         saWw==
-X-Forwarded-Encrypted: i=1; AKwUvByq8jW7sSBYsAzqkAiAsXJLnHZ+VfQu9rJVEVa1e2aXbq6qhtr7w2lAtpqBBo2CvSgduj8zESbnGWFhcCk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKjouQfOIeln25ZrOgQwJEr5mycQvWrijvas/ul0BRhoZqCioMe
-	pJr2ullyg7nvjjk0OKU5y46ObC1uYPunYYxpGow/r7ChvD5/FHd3ZbAvUjf8qdXokPLp7LLMNVT
-	IaM8l7pm2/msA3LR3BvkA9iRuGInCbjDVRSyu8azydBzlkLovKD/1ysxmP7R9g5X7t8k=
-X-Gm-Gg: AYBFou3QAtx7rO3osm8eNCY/sgetv/OXKxiiNlW0GFT6Ta+8IS+9GYKqtHpnyWnydFg
-	4PEtnDOH1nCZqa1/iNRXM3sYOau5n669MvWkJMzkKwMUYzzKGRyIvWzC7NbWK5th7ivZ1H13La6
-	ee+7lf+eNvNbzT7B602aVVSnBr0ytDutiG29Pyyk5IS1TDqImuo9MbEQW87xBVbgiVQUdixY67T
-	sZ1lz1N74obX0imOxJW4lk3PtSSOMjcgzAb9iyt+W0ZAnodAtuubOku/WaanaGJ5JbDEvXnCJTh
-	F3D9yUC3S4FS3FIYQThvaaz7Vboud5CabAQebHyJ90sGEVU93lOddPn7LNGvh1sqF2+KzDvH12o
-	CDdQCv7cYT8snIHyCX7oRIw==
-X-Received: by 2002:a05:620a:2b4e:b0:93e:6d87:4f69 with SMTP id af79cd13be357-93ebd1e4d57mr2654566685a.3.1791968872947;
-        Wed, 14 Oct 2026 02:07:52 -0700 (PDT)
-X-Received: by 2002:a05:620a:2b4e:b0:93e:6d87:4f69 with SMTP id af79cd13be357-93ebd1e4d57mr2654562585a.3.1791968872201;
-        Wed, 14 Oct 2026 02:07:52 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9a3bbe2sm680030466b.27.2026.10.14.02.07.49
+        bh=X6jLRvEdFUZOs356gfPWUV5PoYZmQs3hOKeg53YuPxY=;
+        b=sK6Oe/OYWpEvg8IMhyRTq28znIuv2OKWjdxNh0zRK6VYBPXWBUNtOaBVTutEEVlNjN
+         9Bz7qtH44lFL1CkjwcukT0hMa21q/3mcH01flZzoxlpG9PsDfwKiYsvBvtrdzNZneVGM
+         1Vqyk5ftiQmLaAkMmVvrUT1F9KSjkVoE0jHGTZ1MS3Lip8EKwFFCKDCFEzMVzk9fG99b
+         ZxHXChnsn7CiUgt+JIOVwJzSsuT28W3eKZXnrYlw0JZooZuHJAILnmvmlSGY0a1QHvam
+         fpDY0Mouo+erpQ3rHlYvJ7eIkvBp5xxQocVCLZZrqkUeRauXfiBw0mh3keEUgl0FjG9i
+         GOXg==
+X-Forwarded-Encrypted: i=1; AKwUvByCCXVJSKu4b3+r6TV1JvJWe4Iqn+KuJYB/XL419zZh6kmh1B/ZUYXKt2jO5kkAB91IN061PApg+0oJXXk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLRFF4G1lHuWfhHPJBeYPe63XQuJgNVDuOvQ/4j7qwcH6bmjlJp
+	H12sMhlsaKFf/T+4ECIdo/s8JvLIfbB4sAzPtZungxL8bLgeZYgDVn5Y
+X-Gm-Gg: AYBFou27m0MZRRB2QXCQrgRIP5ZS7iwQC/BtWyZb9oFi2LTEybW0TgNWdkXy9q+qxCN
+	93tPt0+VkVxRxO2B55DyLttWh+DBpu9G1O6TSJIBf8pbBcfAR+TTghU+ZLb55pMGmTowBwlTWmN
+	3tax+nrwUUwV1RMZG5wR33lkulW/32INY7ZBKUpl/qDsm+tIYHdHxk3/n3JJKIFkFBG+hn1JQnM
+	oVjfFAYX2Xo2kD/J78yDKiZ6ouf9GYtzvfP0VYx7RJ0W+r0l1f0JoRFoqtNoulP07a1yokFxE0h
+	bxBwZcFzcldO7mlmuKtq00ExNXNMegIPviQYPK6YtLe3mxR9qYLXxi5DzqogZj7PmBbsb+cxFM5
+	EzBKjIi3AFzJ57wHmG2f0a5naHSbSZUJ9+Gp5UOjXMv121Dc8RcnUPmF7C0lvOCtaKbNwYR9a2X
+	z8Ue2Jyv7BARA6bFt6paLaPeLmrr7fELjzsIOP20iKQYIGdAdAus50pt/QDwArB0xL39zWMgHj7
+	DjTD9f7TNA1fHaXBPqzygW2nNKNg40OKdxzWVaJi6xBzPv5voU0WYC5Qqr1jyWA8Dqg5+JnM0zB
+	lSnon6DPK2IHPe28MQUV/9Vqm40ItBe5XTTH8glN7AKe6qJqDuV6FbHrR2pWJaLGXMNICvZ55wz
+	doNpRm+00pVHCII70K9DcrGzYYn+wcilh9Q==
+X-Received: by 2002:a17:907:a310:b0:c2e:4e08:19ab with SMTP id a640c23a62f3a-c31a9afb4b9mr1447672966b.16.1791968883457;
+        Wed, 14 Oct 2026 02:08:03 -0700 (PDT)
+Received: from [192.168.100.100] (87-205-15-91.static.ip.netia.com.pl. [87.205.15.91])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3b7ee45694sm25010166b.34.2026.10.14.02.08.02
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 02:07:51 -0700 (PDT)
-Message-ID: <eb33f0ed-f8f8-40cd-a2b2-69591619b13c@oss.qualcomm.com>
-Date: Wed, 14 Oct 2026 11:07:49 +0200
+        Wed, 14 Oct 2026 02:08:03 -0700 (PDT)
+Message-ID: <ab4a8b2c-0274-4423-8d10-04e7efb6c120@gmail.com>
+Date: Wed, 14 Oct 2026 11:08:02 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,69 +72,110 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] arm64: dts: qcom: talos: Make the ADSP remote heap
- no-map
-To: Jianping Li <jianping.li@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        ekansh.gupta@oss.qualcomm.com, quic_chennak@quicinc.com
-References: <20261014083820.468-1-jianping.li@oss.qualcomm.com>
+Subject: Re: [PATCH net v2 2/2] net/sched: taprio: do not replay missed
+ entries in advance_sched()
+To: Vinicius Costa Gomes <vinicius.gomes@intel.com>,
+ Jamal Hadi Salim <jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>, Vladimir Oltean
+ <vladimir.oltean@nxp.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ syzbot+e044a9b6370ed8ca9737@syzkaller.appspotmail.com
+References: <20261009123309.284193-1-krystianmkaniewski@gmail.com>
+ <20261009123309.284193-3-krystianmkaniewski@gmail.com>
+ <87ik36lee9.fsf@intel.com>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261014083820.468-1-jianping.li@oss.qualcomm.com>
+From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+In-Reply-To: <87ik36lee9.fsf@intel.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: Ekwlvjev_BR0QRZeZ9GVlgTeLqIMCCyV
-X-Proofpoint-GUID: Ekwlvjev_BR0QRZeZ9GVlgTeLqIMCCyV
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDAzNiBTYWx0ZWRfX/twyfa0HOQyW
- m1QapYgkntooMVYC/LdSbvv0ItpbCOkNtuF0DajaBjkFTRRjdt0yNuukU+4nz4uO/R8wM8E0jNL
- E4draJmmDVyzn4mlve8y/pflbax7/jnjq3IsRPd6k1ZD/0cidonm82BYIhpnppb7cCbnKVnpNtv
- 2We9urKQy1v/Nxsy1dW66RkgXSK2KGcTBNE7Bf0Ldqs0nIF9Mi0PNiB+L59SNCkTIGd0vCv0YoC
- EEsVlnwXDXIGdnzQlcHdk3x6ur1rO+ZKMJA6c/8DEzlKYqcxTlIV7mP0T+v5gN9jixUGksKlab/
- GGcL1qMfaynWGVS523NxG6Ksy06+Hw/pRWBIC8WkrDU0vL+38va/1GywEPt76zRzRPuK+DbZKTQ
- thOvbvwxDL8jNk5yHilxC8ggDWbsZmIMIEDf2JrN0JvoOSDjCtNEZzoeLJOHKaFF4oh5/1Heu8Y
- GatAyfo605LgRZavbjg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDAzNiBTYWx0ZWRfX/lUCOPZ3+yF+
- WqBhu6LeEbDNBz0ZKvs6eoxXPvrA8eXuFpICrqJkE3CBDDyhBvEjiG+0/m56wJnmlrKGz8by1kV
- WnUbt/qBCxsYmGAJtTERcI9A1rvytzk=
-X-Authority-Analysis: v=2.4 cv=U7AHnuru c=1 sm=1 tr=0 ts=6acf466a cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=xGTFGipD0v4Ncps-x_sA:9 a=QEXdDO2ut3YA:10
- a=zZCYzV9kfG8A:10 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 malwarescore=0 lowpriorityscore=0
- adultscore=0 impostorscore=0 bulkscore=0 phishscore=0 suspectscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610140036
 
-On 10/14/26 10:38 AM, Jianping Li wrote:
-> The ADSP remote heap is declared as a reusable CMA pool. FastRPC
-> assigns the entire region to the DSP through qcom_scm_assign_mem()
-> during probe without allocating the pages from CMA. Consequently,
-> the pages remain available for movable HLOS allocations even after
-> HLOS access to the region has been revoked.
-> 
-> On Talos, GPU stress testing triggers a synchronous external abort
-> when zram accesses pages within the ADSP remote heap.
-> 
-> Replace reusable with no-map to prevent the region from being reused
-> for normal kernel allocations and exclude it from the kernel's
-> standard memory mapping.
-> 
-> Fixes: b0b51a5f1911f ("arm64: dts: qcom: talos: Add memory-region for audio PD")
-> Link: https://lore.kernel.org/all/20260424-talosaudio-v3-1-9e2ad5d78a2e@oss.qualcomm.com/
-> Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
-> ---
+On 10/13/26 00:53, Vinicius Costa Gomes wrote:
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Hi Vinicius,
 
-Konrad
+Thanks for the review, and for the Ack on patch 1.
+
+>>  struct taprio_sched {
+>> @@ -902,8 +909,19 @@ static bool should_change_schedules(const struct sched_gate_list *admin,
+>>  	 * plus the amount that can be extended would fall after the
+>>  	 * next schedule base_time, we can extend the current schedule
+>>  	 * for that amount.
+>> +	 *
+>> +	 * cycle_time_extension is an unbounded signed value from netlink, so
+>> +	 * clamp the sum instead of letting it wrap. A wrap would make this
+>> +	 * test non-monotonic in end_time, and advance_sched() relies on it
+>> +	 * being monotonic to check it once after catching up instead of once
+>> +	 * per skipped entry.
+>>  	 */
+>> -	extension_time = ktime_add_ns(end_time, oper->cycle_time_extension);
+>> +	if (oper->cycle_time_extension > 0 &&
+>> +	    end_time > KTIME_MAX - oper->cycle_time_extension)
+>> +		extension_time = KTIME_MAX;
+>> +	else
+>> +		extension_time = ktime_add_ns(end_time,
+>> +					      oper->cycle_time_extension);
+>>
+> 
+> This one I could argue that it could be in a separate patch. As the
+> wrapping could cause issues even before these changes, no?
+> 
+
+Yes. With an extension larger than KTIME_MAX minus the end time, the sum
+becomes negative and should_change_schedules() ignores the extension.
+That is independent of the stall. I can move the clamp to a separate 
+patch with a Fixes tag for c25031e99344 ("taprio: Add support
+for cycle-time-extension"), before the advance_sched() change which
+relies on it.
+
+get_interval_end_time() has the same addition on the txtime-assist path.
+I can cover that path in the same  patch as well. Would you like me to
+do it? 
+>> +	struct sched_entry *entry, *found = NULL;
+>> +	ktime_t cycle_start = sched->start_time;
+>> +	s64 offset, entry_end = 0, elapsed = 0;
+>> +
+>> +	if (ktime_after(now, cycle_start)) {
+>> +		s64 periods = div64_s64(ktime_sub(now, cycle_start),
+>> +					sched->period);
+>> +
+>> +		cycle_start = ktime_add_ns(cycle_start,
+>> +					   periods * sched->period);
+>> +	}
+>> +	offset = ktime_sub(now, cycle_start);
+>> +
+>> +	/* The offset is less than one period, so an entry which ends after
+>> +	 * @now is found at the latest at the entry which reaches the end of
+>> +	 * the cycle, or at the last entry. A schedule has at least one entry,
+>> +	 * so the loop always sets found.
+>> +	 */
+>> +	list_for_each_entry(entry, &sched->entries, list) {
+>> +		entry_end = min_t(s64, elapsed + entry->interval,
+>> +				  sched->cycle_time);
+>> +		if (offset < entry_end ||
+>> +		    list_is_last(&entry->list, &sched->entries)) {
+>> +			found = entry;
+>> +			break;
+>> +		}
+>> +		elapsed = entry_end;
+>> +	}
+>> +
+>> +	*start = ktime_add_ns(cycle_start, elapsed);
+>> +	*end = ktime_add_ns(cycle_start, entry_end);
+>> +	sched->cycle_end_time = ktime_add_ns(cycle_start,
+>> sched->cycle_time);
+> 
+> Having this side effect here was unexpected. I think this would make
+> more sense outside this function.
+> 
+
+Agreed. I can make taprio_entry_at() return the cycle end through an
+extra output argument and have advance_sched() store it explicitly in
+oper->cycle_end_time. The helper could then take the schedule as const.
+
+I can wait for the rest of your review of this patch before sending v3
+
+-- 
+Krystian Kaniewski
