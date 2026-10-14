@@ -1,212 +1,416 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010063.outbound.protection.outlook.com [52.101.46.63])
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3041313E2C;
-	Wed, 14 Oct 2026 12:33:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.63
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791981221; cv=fail; b=Ptp4y2RLh4FBdhaC3cLbxl1y15peTupnzAZ2094Nms38rZeIvDPuDZMoR3aToOm7UE0FTDIzma9/Da/vz70i4V0Yl93I16jmPOaB4tjlnzbSNgN9LhxyVj4d09wnL7Uerjogu6zdhWc7kEljfwY32GalrKIEDnQMIvhQ2J0yYlY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791981221; c=relaxed/simple;
-	bh=qNwGvmM9KHBYncxYePUdUpcIo9R3d2hrzLViYSYOe1I=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=CeOv6hQ/RjlIu9JyQljjl9Yo9EPkMPwcfsTbzNFDz7964a0Eb1FqqmyufV4cvSFCoCvZlFTnCtwkR/kY56XLgMxmm6JqD8tLBKcQqgss3GPMb2756g5VpsiJolGAn9Mh0jAJEWPEBvpigPk7KnlMFo06RqY+MvpMQwonW0iNGQw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Epifzy4s; arc=fail smtp.client-ip=52.101.46.63
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA5C64C1512;
+	Wed, 14 Oct 2026 12:35:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791981313; cv=none; b=NvZZ79qj03KttHqVB4+OZZ7lmlHtF5U+oJTANuyxkLUoMxdBHhuSZFA2lZ2e7QbjQ6IAjB09YWNRrvVdM/D43sZoOCkEAJGgGf2AUH4rAReVbHz6NZUgFTHLH5ETtbXq6OgnsA9TarDIxiAKKl7zC9ZWvYf91kxr6z+9zjOAaJw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791981313; c=relaxed/simple;
+	bh=0AkDMeQD6/VjrX56ncWAfVnO24iSFNw/Yc8eC00oXyA=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=MS5yb5aCvNWmwj0fcKTUpKLGKx3AMHJTr3a5+3zBXChxUOovFqnccwsIVrnO0QvzToC6toNQzQvb4bhkqqHbzcqWek7w81TdyfKg2q0/x8HafFJ+NAbVJKqAVJpAuDCpo0alGV6Aq5lsxOr38Mfai4FUjcngEb2mFQR2e9xgb+M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=PEsyjnDv; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Epifzy4s"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HL32y1WdZnSVNSQFZuoadFRe7ebZdqbJLsQr72hMCFP2hVRMcq8IOtzl0L3x3xlR5cRxu8NhB0K55DJZL3rtQTrizXuocXlw5ovkOq8zRXdzjNfXZSWRNp6KMbPEBh2nIuO4oVuoEF91F+v0zTr1cTaarplJG2ztAhYYxptz0gXHA6H7WH0a7ayJqzTF2V/Z3sZ+k+H8oVnt9I2qD2kWrL9GHubFLUpL5fc1GvvA2fm9ObIkM9o+qFQdh3NXVBvURbVrjYK/IRbL17Tk4Q/XLq7wjbF/828dpdPmETG17HE6K1aeoVKNQ1mhm9NRiCuOLX2HY6d+tCoMpJArPKJDxw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xvxkm4rSNh7RtMSRGfkfRa7xPJlWbYJjmFytknBiwyQ=;
- b=agiZoGzIPc1WcUdFumH0iuMpPUAPRQZnhCOd+qbRqjTOoP0dC+i9Xy03euuFX9TuaIPvxtLq+/7s+w70mSdfjg5oO8rHzmsq+mrbFcS510dciPvROprV3Vo6YAZBS9qeFnX+UQk/w1w9M03klkflbr+7Q1yft7GKjFvSh8SInc5bFkDCWeR67tyaXfpVXOj01uYCQYDO6lcdBkCvHZSyDdsA3n9gOsV/mzDanzABemzZ/tkcZbAjNC0EezjXVYo3UfgY2o3YTqMbxDC0vL+QwQmIuIZd52It6bohGulqyEl40gglqBke643aPKUi0T7sVCTB1EUi8ExxL7qF1I16aA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xvxkm4rSNh7RtMSRGfkfRa7xPJlWbYJjmFytknBiwyQ=;
- b=Epifzy4ss602yRqv1zmIbZGvQr8UbZ2c5BPrI37TUKqjgQ7b/RM9TZ5HjQiHYkAjkRIXA3Z6kjqCxMez1pR5t9ldGIpv+Me8JxXairoH0aARJsqWA7W9lbpkPyrld40ef2HErlUhxNyNog+4DGBJFwBMkGVvyYrYfcDOHeadCXv3YxjLCzpctvGgmrpHX4j2Z3BuGrgXG3cKCdPdQPqMHUhOQ5XBz5EVnEBtKvJAi4vKEBShxytnpNp7lJFJTMXx2TnMz/e5JJqQLdH5DUObDCL9it9v6tBSRNFeVqfVJcKXdAucHa1S32UGbFdR+/VkPgNwoEnBwCX4ML8MQDvNzg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH1PR12MB9647.namprd12.prod.outlook.com (2603:10b6:610:2b0::10)
- by LV8PR12MB9690.namprd12.prod.outlook.com (2603:10b6:408:296::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Wed, 14 Oct
- 2026 12:33:35 +0000
-Received: from CH1PR12MB9647.namprd12.prod.outlook.com
- ([fe80::228c:766a:191d:77b2]) by CH1PR12MB9647.namprd12.prod.outlook.com
- ([fe80::228c:766a:191d:77b2%3]) with mapi id 15.21.0522.012; Wed, 14 Oct 2026
- 12:33:35 +0000
-Message-ID: <ff7cd77d-a7c6-42ec-a1bc-3790aee8b727@nvidia.com>
-Date: Wed, 14 Oct 2026 14:33:28 +0200
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH net v2 0/4] net: devmem: fix RX and TX binding teardown on
- device unregistration
-To: Mina Almasry <almasrymina@google.com>, Jakub Kicinski <kuba@kernel.org>,
- David Wei <dw@davidwei.uk>, Pavel Begunkov <asml.silence@gmail.com>,
- Taehee Yoo <ap420073@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>,
- Paolo Abeni <pabeni@redhat.com>, Kaiyuan Zhang <kaiyuanz@google.com>,
- Bobby Eshleman <bobbyeshleman@meta.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Nikolay Aleksandrov <razor@blackwall.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Tariq Toukan <tariqt@nvidia.com>,
- Kaifeng Wang <kaifengw@google.com>
-References: <20261012174300.2338784-1-almasrymina@google.com>
-Content-Language: en-US
-From: Dragos Tatulea <dtatulea@nvidia.com>
-In-Reply-To: <20261012174300.2338784-1-almasrymina@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0057.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:93::17) To CH1PR12MB9647.namprd12.prod.outlook.com
- (2603:10b6:610:2b0::10)
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="PEsyjnDv"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4j4Vyr23mFzMlTH;
+	Wed, 14 Oct 2026 14:35:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1791981300;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=deI6tRQ3FBGqgf5VLrNCIzeDLo8uR0T/R2GhdiHbgig=;
+	b=PEsyjnDveHgEGz6sTplxOjMmvpcUgyxRYPtDZ0CtqKD1uV4YZIv/jEDDqTeOT8w/DRqJmj
+	1iw6VDB3vWUPqBbhJ3C27sf33T97t74lvpyqZ7sEAE57IkAOUXB9EjILmBLyAXb/RSCirM
+	fBbCbwn9eSNoAViH48ZdNCnSp1M0V0rySxXNHSnA5v4kiiHmVesC8/7DGTgLPmr6cyoGxt
+	AX3KvQtnWgJwq6/qn/RzTC4YSByjbSg0O9P+IQA5iTvSCxvyNBATujaosmwO3iiCmWKQqS
+	B2n1gO3y+RWhSMaI9A9m2RhGynCe7RK0HcVPPbLtZMUwkmRyANXV/k2KuFVt+w==
+Message-ID: <dfa05908286b5e5684ea0002dde1ee99627154a4.camel@mailbox.org>
+Subject: Re: [PATCH] Docs/admin-guide/mm/damon/lru_sort: fix grammar and
+ stlye
+From: Manuel Ebner <manuelebnerli@mailbox.org>
+To: SJ Park <sj@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
+	 <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett"
+	 <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport
+	 <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko
+	 <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+	 <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	damon@lists.linux.dev, linux-mm@kvack.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Wed, 14 Oct 2026 14:34:51 +0200
+In-Reply-To: <20261014003258.142926-1-sj@kernel.org>
+References: <20261014003258.142926-1-sj@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PR12MB9647:EE_|LV8PR12MB9690:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1dfe72f8-912c-4284-6793-08df29ef5d8a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|23010399003|7416014|366016|56012099006|11063799006|5023799004|261009223027099003|10067099003|18002099003|22082099003|6133799003|921020;
-X-Microsoft-Antispam-Message-Info:
-	NbNeZXCm+gdHwETjAqi4vvt6koUpcvJqYKyVHnLfJbKrxWS8Aqj6051aHWPeuqkkTLGHUrdH3gMMWvNj2VV1R44FjVUtQXZLQPLEyKEtL3pI0Vu5QypDWs/HvqwCfl15BZGpzzNCRNkpiZjloV6hP1JvhZguXwUGT91kd5QL6EKscFnumpt4aJ4XDPw2D4mC66yoU1qUYLM1WYSR6vOiR0F5MIdGEw9avM8xg+sPilOMkQKDEbG5vMXQvn49pcZmYElMgy4OulF0/tRq3Pj8ci2/ToKsy6yCmpuhxWO18/s1CGnD4mEaKzCEZhRhOeDIHDVFwKn8UOlxIVDDi2eIHff3HcKdZedY+cdw+RH8X5h0OgDXcFbMj2E6MwopRpEHwrbQpxy+sjjhDMZVQlQnaQtgdJbgbgl4hC5vUvfa1tE7bmeWuHMwxbjDePe7O7xzgU97UYt3QCCmG8uA95BuKe2Jkps0vSRy8Z6FZ69uPDmpqqMh07UoMesx2m4iDXRzUY62IoKqorJ+JesgS2pEQAASFKfXiV2msJ+W28Vi6q3oY0+H5pw2xU/UH85CRzDymAlDJGoJMUmokt1xEZJUZvhGiEJi3DHEB1rWNt+/6epOKZSAK+r02OXWdAB2C3xV8yG4lr69BaBvN80YuSVV0qfQVYYAK9G5K7WZg+Wg0WeENNSwccjXBT67VFCHlkOnV1pUjEzzFOX7ZR1+agWbWA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH1PR12MB9647.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(7416014)(366016)(56012099006)(11063799006)(5023799004)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?c1RTUTFSQVZOUU5hU0kvNU9GNTREeVY4RGM4SVJTalBnRHF1SEJFZGwxb3Ni?=
- =?utf-8?B?VlhnUmhmTEZ5d3NlelcvU3hON01JQjkwdll1V2h2ZEhlcU8vdDk3ZE1Sc0d1?=
- =?utf-8?B?Tys0aFNsNzN0YlNDcDFkYnJRcFpZeU9jSWZjNzZhUmtwRDRIcFlQQ1pPOXVx?=
- =?utf-8?B?Q1BnUlI0emNEWmlOODlzTE5PanZLOWNJcEJ4aDk0OHpHWjh0cDdxMmdqNG9F?=
- =?utf-8?B?VDBlUmQzTTF4VlgrWk9rWVV1SEwrdlpSa05rUVhJOUdMdmdBUDhlellVM3JN?=
- =?utf-8?B?VW1kcHROWEZvQUVJK01oY3A3OXdRRXp3Vm1Sd2F6Q3NHbGM4dVh2azRocVRM?=
- =?utf-8?B?SDJtVkhQNHQ0UXRPUXRHQmxnMWxvNjFoaXhQTTZvaStqWjBQU2U5Zk5uYmQ4?=
- =?utf-8?B?RWlmd2daOVhLMXovTjFYYnN5Q0ZRNEVIa04xMUtkdzVBZ3o4VitnN1E3c1Ni?=
- =?utf-8?B?ME1Vakl1STl1ZkRPV2pnQ3VJU1cxM0Myd01rNUx1OUVSd0pMVEZUOXFJcVZI?=
- =?utf-8?B?blAzeUVFa1VFU3BKTVRaMkdLVXdmRmdWak55U3duOW1pQ1JlOVlxSjF0cHZ3?=
- =?utf-8?B?MVdzay9sT3hXakpRZE5FOWROcTVCb3RMT3lUdnoydzZvNzJIdkt3WW5WdkpU?=
- =?utf-8?B?a3RaN3k4L3RoWVJ4LzFXYkY2ZFZaYnhwb1hxRTM3L252TmdzeCtRekRNQ05G?=
- =?utf-8?B?a3p3c05jSmROZGk1VS9IZ3VBOUdTWXV5YUZPYVNiVE5KVFhWYkIxWWQ5b2M3?=
- =?utf-8?B?Z3UrMThLQW5yakNIYVdXbmd4aFRlQkUvOTFMTS9penEwUS9vT1lCZDl6Y1lW?=
- =?utf-8?B?bkp3UGhtRjlEWFlLcDJQTlI3QUJsejA4bVlzbE50SWduaEZSOTVVVnI0NmRF?=
- =?utf-8?B?UzU1a1phZzEvWDBoNDZNamtpc0x2dlF1T1NNbTZvMnJuRzFUUXZsOGlmNVdv?=
- =?utf-8?B?b2M1SjJRU05pQVpNb1lzSUlQeVpyM0dud056bGJVVElGNFQvc2l2V0JtaFlN?=
- =?utf-8?B?UkhzQVRlVFJoUVkwNktTUTdERkY1NlNUbGowL1ZFZjBLcXdEM2JnK3M4Q05S?=
- =?utf-8?B?Y1MwTTVtalVPOHBHdWtUL3JNb1ZUNFcyZGJTZkJzcGRVYnQ5cmd5TUJrdmJj?=
- =?utf-8?B?V015ZGk1MDZhMzhuTkpXMTRkOVdWeUsvVHV2WEQ5Y1E2T1pzL211V01FNmJp?=
- =?utf-8?B?NG1mY0Y1L3YrS3VsOHVqWER1eVg3UTF0aFN0RkxTVXJtQXEwcFdCN21rZG1t?=
- =?utf-8?B?akJ4QWlIUnI3MWh1Z1ZkQXVUeHJGMFJSbExkMC9md21JcEhxWmUrZHRkV2ZS?=
- =?utf-8?B?R1Q5SVJGK0o4OHFQREJRWFErdDNzcWFkMFErVkJ3RXRscGVuN3FXVDdvV1VX?=
- =?utf-8?B?Wituelcvdk5HTCszRXMxMlRTY1l4czFQd0EzZUhBcEhEM2xIVzA1d3VMbGNh?=
- =?utf-8?B?V1MzaDVaMkFLbyszQlQyU0FiOVZ0bTI4c1JMdHF3bTF1NGY4R3VhT0NzbnNo?=
- =?utf-8?B?YnVoWW4vcTlLWlo3T1IvQnpaQkRrZzNXVEJGcnhlQnBSVFFaQjh5M1dncmFx?=
- =?utf-8?B?REh6V3ZZMG9vZW1TSHpSWmZEd1dyMDhtK3pjR2tQZ3FuQjU5bmFreHZHTXZh?=
- =?utf-8?B?MGpQbDdBeWdSc0tKb2hoRE5mQjhXaTcxVmRxcDNVb0Y3S2h6bWdITlNFNld2?=
- =?utf-8?B?UkxtRHFVaGJFNWVyb1ROR3NacTRxaGVRNld2Smh4TWhDWE9aM2RQZFFjcm1h?=
- =?utf-8?B?cElsTGh3VXZ0Q1JWL05zR2QyNzkxeHlPUGd0RWEvOHdEV0RhejBqMC9xOHdN?=
- =?utf-8?B?VGN5ZlF1OUpsenZTN3JZdHU5VmpCVjhGTE5YWlFFYWdpa2dUWnFLeTJRWGMx?=
- =?utf-8?B?eDBGSnVsOHNtQ0p4dytyc2toRGk4SU4rSFJ6TWZRRStHVzJ6UVF4bXJlQzI1?=
- =?utf-8?B?UUxyY2hzNmV2d3dxaStta0VMaG5oQ1BOdTlsbjMrcFJaUS9LSUpIakl4YTYv?=
- =?utf-8?B?QWFPNFJXTzZqMWQ3TllSdFQ1Qzc3TXp1ZTJDOFJUWkdlbHpHaitWV0lHR3Ex?=
- =?utf-8?B?U2RNQUZhMEtUNnFKS1pDbnpUKzh4aXM0dExDYjR3SkkwNVloYlo3Snkra2Qy?=
- =?utf-8?B?V1J0TG9PRlNwRTdFSTJkczNlQVpTeXVvOXkyQ0phb1crdHVZa2FGS0h1MVE4?=
- =?utf-8?B?d3Q2Sjk1dTQ1WWQ2Mm4wYUEzcmZWT0R2NUFuaVdyMFVQcWlzbldTWHFHaWd0?=
- =?utf-8?B?RUUwTTRCb1lVeDZwM0VLcGVGc0E2SXBRRVpwWmJtOXoyQXhTTC8yRGI4MHli?=
- =?utf-8?B?RGtlSGovNlkxV3dwT1hIVFFHaXhTSXplZmpLUnRObldHRkRYODlvdz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1dfe72f8-912c-4284-6793-08df29ef5d8a
-X-MS-Exchange-CrossTenant-AuthSource: CH1PR12MB9647.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 12:33:35.5387
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LaM9HOonUnyNMJhYfSPtVd1jzrGW0g/WrFjJ8OU1J/zAKrT3ho9OQUYY/HJAN8jhrKujrT5dzP5u+zaIdCPnTg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9690
+X-MBO-RS-META: ko86gy8rzxz8iyf6ysb7mp1kfuurbwa6
+X-MBO-RS-ID: 94973415d2ae5663d4b
 
+Hi SJ,
 
+On Tue, 2026-10-13 at 17:32 -0700, SJ Park wrote:
+> Hi Manuel,
+>=20
+> On Tue, 13 Oct 2026 21:13:27 +0200 Manuel Ebner <manuelebnerli@mailbox.or=
+g> wrote:
+>=20
+> > mention 'least-recently-used' AKA lru at the beginning
+>=20
+> I think the readers would know what LRU means, and therefore
+> 'least-recently-used' is not needed.
 
-On 12.10.26 19:42, Mina Almasry wrote:
-> Fix two device-unregistration lifecycle bugs in devmem TCP bindings and
-> add netdevsim support plus selftests covering both RX and TX device
-> unregistration:
-> 
-> 1. net: devmem: unmap dma_buf synchronously on queue uninstall
->    Synchronously unmap and detach binding->attachment under binding->lock
->    when the last RX queue is uninstalled in mp_dmabuf_devmem_uninstall(),
->    and unmap RX bindings that were already unbound on NETDEV_UNREGISTER,
->    preventing slab-use-after-free in dma_unmap_sg_attrs() when the binding
->    is freed after dma_dev.
-> 
-> 2. net: devmem: detach TX bindings on NETDEV_UNREGISTER
->    Extend net_devmem_dev_unregister() to fully detach and unmap TX
->    bindings when binding->dev unregisters, or clear binding->vdev alone
->    when only a virtual device unregisters while binding->dev lives.
-> 
-> 3. netdevsim: support devmem RX and TX bindings
->    Enable PP_FLAG_DMA_MAP | PP_FLAG_ALLOW_UNREADABLE_NETMEM, 64-bit DMA mask
->    on nsim_bus_dev, and NETMEM_TX_DMA on netdevsim so devmem RX/TX bindings
->    can be exercised in software selftests.
-> 
-> 4. selftests: net: add devmem RX and TX netdev unregister tests
->    Add devmem_bind_rx_unregister_check and devmem_bind_tx_unregister_check
->    to tools/testing/selftests/net/nl_netdev.py.
-> 
-> Cc: Tariq Toukan <tariqt@nvidia.com>
-> Cc: Kaifeng Wang <kaifengw@google.com>
-> 
-> ---
-> v2:
-> - 1/4: Don't unmap when a leased queue is unleased. Keep bindings in
->   net_devmem_dmabuf_bindings until freed, hidden from TX lookups by an
->   xarray mark, and unmap unbound RX bindings on NETDEV_UNREGISTER. Update
->   the binding->lock and binding->ref comments. (Sashiko)
-> - 2/4: Detach TX bindings from the same net_devmem_lock-protected walk,
->   which now also covers unbound TX bindings, and clear the LIVE mark
->   instead of erasing the ID. The walk no longer uses RCU or takes
->   binding references (Stanislav).
-> - Link to v1: https://lore.kernel.org/netdev/20261010025532.839559-1-almasrymina@google.com/
-> 
-> Mina Almasry (4):
->   net: devmem: unmap dma_buf synchronously on queue uninstall
->   net: devmem: detach TX bindings on NETDEV_UNREGISTER
->   netdevsim: support devmem RX and TX bindings
->   selftests: net: add devmem RX and TX netdev unregister tests
-> 
->  drivers/net/netdevsim/bus.c              |   1 +
->  drivers/net/netdevsim/netdev.c           |  21 ++--
->  net/core/devmem.c                        | 121 ++++++++++++++++++++---
->  net/core/devmem.h                        |  10 +-
->  net/core/netdev-genl.c                   |   1 +
->  tools/testing/selftests/net/nl_netdev.py | 108 +++++++++++++++++++-
->  6 files changed, 236 insertions(+), 26 deletions(-)
-> 
-> 
-> base-commit: 4f6ac74fa594a918d41255c941256e1d51592d3b
+I'm probably one of the few that doesn't know. I didn't think of the whole =
+picture.
+You are right.
 
-Went through the series and it looks good to my feeble human brain:
+>=20
+> > set as -> set to
+>=20
+> This commit message is using incomplete sentences and describing only a f=
+ew of
+> changes.=C2=A0 Please make it to use complete sentences and cover all cha=
+nges.
 
-Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
+Will do.
 
-I am biased though because I need Mina's code to add support for
-unbinding the dma device for data-direct.
+>=20
+> >=20
+> > Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+> > ---
+> > =C2=A0.../admin-guide/mm/damon/lru_sort.rst=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 | 51 ++++++++++---------
+> > =C2=A01 file changed, 26 insertions(+), 25 deletions(-)
+> >=20
+> > diff --git a/Documentation/admin-guide/mm/damon/lru_sort.rst b/Document=
+ation/admin-guide/mm/damon/lru_sort.rst
+> > index 0c04d238ed..3b6d122887 100644
+> > --- a/Documentation/admin-guide/mm/damon/lru_sort.rst
+> > +++ b/Documentation/admin-guide/mm/damon/lru_sort.rst
+> > @@ -4,8 +4,9 @@
+> > =C2=A0DAMON-based LRU-lists Sorting
+> > =C2=A0=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D
+> > =C2=A0
+> > -DAMON-based LRU-lists Sorting (DAMON_LRU_SORT) is a static kernel modu=
+le that
+> > -aimed to be used for proactive and lightweight data access pattern bas=
+ed
+> > +DAMON-based least-recently-used-lists (short LRU-lists) Sorting
+> > +(DAMON_LRU_SORT) is a static kernel module that aims to be used
+> > +for proactive and lightweight data access pattern based
+>=20
+> As I mentioned above, I don't think the above change is needed.
 
-Thanks,
-Dragos
+K
+
+> > =C2=A0(de)prioritization of pages on their LRU-lists for making LRU-lis=
+ts a more
+> > =C2=A0trustworthy data access pattern source.
+> > =C2=A0
+> > @@ -17,7 +18,7 @@ systems, LRU lists are normally not proactively sorte=
+d but partially and
+> >  As page-granularity access checking overhead could be significant on h=
+uge
+
+Is this huge as in big or huge pages. For the latter I would put it: ``huge=
+ page``-systems
+or `huge page`-systems.
+
+> >  systems, LRU lists are normally not proactively sorted but partially a=
+nd
+> > =C2=A0reactively sorted for special events including specific user requ=
+ests, system
+> > =C2=A0calls and memory pressure.=C2=A0 As a result, LRU lists are somet=
+imes not so
+> > =C2=A0perfectly prepared to be used as a trustworthy access pattern sou=
+rce for some
+> > -situations including reclamation target pages selection under sudden m=
+emory
+> > +situations including reclamation of target pages selection under sudde=
+n memory
+> > =C2=A0pressure.
+>=20
+> I cannot find what's wrong with the original sentence.=C2=A0 Could you ex=
+palin?
+> Also, I think the updated sentence is rather easier to misread.
+
+It's two long sentences, thus (I think) hard to understand. I _rewrote_ it =
+this way:
+
+As page-granularity access checking overhead could be significant on huge s=
+ystems,
+LRU lists are normally not fully nor proactively sorted but rather partiall=
+y=20
+and reactively sorted for special events.  These events include specific us=
+er requests,
+system calls and memory pressure.  As a result, LRU lists are sometimes not
+suitable to be used as a trustworthy access pattern source. These situation=
+s=C2=A0
+including reclamation target page selection under sudden memory pressure.
+
+Please note:
+  target pages selection
+->target page selection
+
+> > =C2=A0
+> > =C2=A0Because DAMON can identify access patterns of best-effort accurac=
+y while
+> > @@ -28,9 +29,9 @@ pattern source with low and controlled overhead.
+> > =C2=A0How It Works?
+> > =C2=A0=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > =C2=A0
+> > -DAMON_LRU_SORT finds hot pages (pages of memory regions that showing a=
+ccess
+> > +DAMON_LRU_SORT finds hot pages (pages of memory regions that show acce=
+ss
+> > =C2=A0rates that higher than a user-specified threshold) and cold pages=
+ (pages of
+>=20
+> rates that "are" higher?
+... that show access rates that are higher ...
+and=20
+
+>=20
+> > -memory regions that showing no access for a time that longer than a
+> > +memory regions that show no access for a time that longer than a
+
+... show no access for a duration that is longer than a=20
+
+Then ack.
+
+> > =C2=A0user-specified threshold) using DAMON, and prioritizes hot pages =
+while
+> > =C2=A0deprioritizing cold pages on their LRU-lists.=C2=A0 To avoid it c=
+onsuming too much
+> > =C2=A0CPU for the prioritizations, a CPU time usage limit can be config=
+ured.=C2=A0 Under
+> > @@ -63,10 +64,10 @@ enabled
+> > =C2=A0
+> > =C2=A0Enable or disable DAMON_LRU_SORT.
+> > =C2=A0
+> > -You can enable DAMON_LRU_SORT by setting the value of this parameter a=
+s ``Y``.
+> > -Setting it as ``N`` disables DAMON_LRU_SORT.=C2=A0 Note that DAMON_LRU=
+_SORT could do
+> > +You can enable DAMON_LRU_SORT by setting the value of this parameter t=
+o ``Y``.
+> > +Setting it to ``N`` disables DAMON_LRU_SORT.=C2=A0 Note that DAMON_LRU=
+_SORT could do
+> > =C2=A0no real monitoring and LRU-lists sorting due to the watermarks-ba=
+sed activation
+> > -condition.=C2=A0 Refer to below descriptions for the watermarks parame=
+ter for this.
+> > +condition.=C2=A0 Refer to below descriptions of the watermarks paramet=
+er for this.
+> > =C2=A0
+> > =C2=A0commit_inputs
+> > =C2=A0-------------
+> > @@ -74,9 +75,9 @@ commit_inputs
+> > =C2=A0Make DAMON_LRU_SORT reads the input parameters again, except ``en=
+abled``.
+> > =C2=A0
+> > =C2=A0Input parameters that updated while DAMON_LRU_SORT is running are=
+ not applied
+> > -by default.=C2=A0 Once this parameter is set as ``Y``, DAMON_LRU_SORT =
+reads values
+> > +by default.=C2=A0 Once this parameter is set to ``Y``, DAMON_LRU_SORT =
+reads values
+> > =C2=A0of parameters except ``enabled`` again.=C2=A0 Once the re-reading=
+ is done, this
+> > -parameter is set as ``N``.=C2=A0 If invalid parameters are found while=
+ the
+> > +parameter is set to ``N``.=C2=A0 If invalid parameters are found while=
+ the
+> > =C2=A0re-reading, DAMON_LRU_SORT will be disabled.
+> > =C2=A0
+> > =C2=A0Once ``Y`` is written to this parameter, the user must not write =
+to any
+> > @@ -86,37 +87,37 @@ violate this rule, the kernel may exhibit undefined=
+ behavior.
+> > =C2=A0active_mem_bp
+> > =C2=A0-------------
+> > =C2=A0
+> > -Desired active to [in]active memory ratio in bp (1/10,000).
+> > +Desired active to (in)active memory ratio in bp (1/10,000).
+>=20
+> I think use of brackets is also fine.=C2=A0 Let me know if I'm missing so=
+mething.
+
+There is 2x (de)prioritization, 6x [de]prioritizations, 2x[in]active and a =
+few more in the
+file. They are all fine by themself, but not mixed. [] or ()?
+
+>=20
+> > =C2=A0
+> > =C2=A0While keeping the caps that set by other quotas, DAMON_LRU_SORT a=
+utomatically
+> > =C2=A0increases and decreases the effective level of the quota aiming t=
+he LRU
+> > -[de]prioritizations of the hot and cold memory resulting in this activ=
+e to
+> > -[in]active memory ratio.=C2=A0 Value zero means disabling this auto-tu=
+ning feature.
+> > +(de)prioritizations of the hot and cold memory resulting in this activ=
+e to
+> > +(in)active memory ratio.=C2=A0 Value zero means disabling this auto-tu=
+ning feature.
+>=20
+> Ditto.
+>=20
+> > =C2=A0
+> > =C2=A0Disabled by default.
+> > =C2=A0
+> > =C2=A0autotune_monitoring_intervals
+> > =C2=A0-----------------------------
+> > =C2=A0
+> > -If this parameter is set as ``Y``, DAMON_LRU_SORT automatically tunes =
+DAMON's
+> > +If this parameter is set to ``Y``, DAMON_LRU_SORT automatically tunes =
+DAMON's
+> > =C2=A0sampling and aggregation intervals.=C2=A0 The auto-tuning aims to=
+ capture meaningful
+> > =C2=A0amount of access events in each DAMON-snapshot, while keeping the=
+ sampling
+> > -interval 5 milliseconds in minimum, and 10 seconds in maximum.=C2=A0 S=
+etting this as
+> > -``N`` disables the auto-tuning.
+> > +interval to 5 milliseconds in minimum, and to 10 seconds in maximum.=
+=C2=A0 Setting this
+> > +to ``N`` disables the auto-tuning.
+> > =C2=A0
+> > =C2=A0Disabled by default.
+> > =C2=A0
+> > =C2=A0filter_young_pages
+> > =C2=A0------------------
+> > =C2=A0
+> > -Filter [non-]young pages accordingly for LRU [de]prioritizations.
+> > +Filter (non-)young pages accordingly for LRU (de)prioritizations.
+>=20
+> Ditto.
+>=20
+> > =C2=A0
+> > =C2=A0If this is set, check page level access (youngness) once again be=
+fore each
+> > -LRU [de]prioritization operation.=C2=A0 LRU prioritization operation i=
+s skipped
+> > +LRU (de)prioritization operation.=C2=A0 LRU prioritization operation i=
+s skipped
+>=20
+> Ditto.
+>=20
+> > =C2=A0if the page has not accessed since the last check (not young).=C2=
+=A0 LRU
+> > =C2=A0deprioritization operation is skipped if the page has accessed si=
+nce the
+> > =C2=A0last check (young).=C2=A0 The feature is enabled or disabled if t=
+his parameter is
+> > -set as ``Y`` or ``N``, respectively.
+> > +set to ``Y`` or ``N``, respectively.
+> > =C2=A0
+> > =C2=A0Disabled by default.
+> > =C2=A0
+> > @@ -235,7 +236,7 @@ max_nr_regions
+> > =C2=A0Maximum number of monitoring regions.
+> > =C2=A0
+> > =C2=A0The maximum number of monitoring regions of DAMON for the cold me=
+mory
+> > -monitoring.=C2=A0 This can be used to set upper-bound of the monitorin=
+g overhead.
+> > +monitoring.=C2=A0 This can be used to set the upper-bound of the monit=
+oring overhead.
+> > =C2=A0However, setting this too low could result in bad monitoring qual=
+ity.=C2=A0 Please
+> > =C2=A0refer to the DAMON documentation (:doc:`usage`) for more detail.=
+=C2=A0 1000 by
+> > =C2=A0defaults.
+> > @@ -268,7 +269,7 @@ This parameter is for setting and getting the :ref:=
+`address unit
+> > =C2=A0
+> > =C2=A0``monitor_region_start`` and ``monitor_region_end`` should be pro=
+vided in this
+> > =C2=A0unit.=C2=A0 For example, let's suppose ``addr_unit``, ``monitor_r=
+egion_start`` and
+> > -``monitor_region_end`` are set as ``1024``, ``0`` and ``10``, respecti=
+vely.
+> > +``monitor_region_end`` are set to ``1024``, ``0`` and ``10``, respecti=
+vely.
+> > =C2=A0Then DAMON_LRU_SORT will work for 10 KiB length of physical addre=
+ss range that
+> > =C2=A0starts from address zero (``[0 * 1024, 10 * 1024)`` in bytes).
+> > =C2=A0
+> > @@ -291,22 +292,22 @@ If DAMON_LRU_SORT is enabled, this becomes the PI=
+D of the worker thread.=C2=A0 Else,
+> > =C2=A0nr_lru_sort_tried_hot_regions
+> > =C2=A0-----------------------------
+> > =C2=A0
+> > -Number of hot memory regions that tried to be LRU-sorted.
+> > +Number of hot memory regions that try to be LRU-sorted.
+>=20
+> that were tried to be ?
+
+Ack. Now I know why it's in the past.
+
+> > =C2=A0
+> > =C2=A0bytes_lru_sort_tried_hot_regions
+> > =C2=A0--------------------------------
+> > =C2=A0
+> > -Total bytes of hot memory regions that tried to be LRU-sorted.
+> > +Total bytes of hot memory regions that try to be LRU-sorted.
+>=20
+> that were tried to be ?
+
+Ack.
+
+>=20
+> > =C2=A0
+> > =C2=A0nr_lru_sorted_hot_regions
+> > =C2=A0-------------------------
+> > =C2=A0
+> > -Number of hot memory regions that successfully be LRU-sorted.
+> > +Number of hot memory regions that are successfully LRU-sorted.
+>=20
+> that were ?
+
+Ack.
+
+>=20
+> > =C2=A0
+> > =C2=A0bytes_lru_sorted_hot_regions
+> > =C2=A0----------------------------
+> > =C2=A0
+> > -Total bytes of hot memory regions that successfully be LRU-sorted.
+> > +Total bytes of hot memory regions that are successfully LRU-sorted.
+>=20
+> that were ?
+
+Ack.
+
+>=20
+> > =C2=A0
+> > =C2=A0nr_hot_quota_exceeds
+> > =C2=A0--------------------
+> > --=20
+> > 2.55.0
+>=20
+>=20
+> Thanks,
+> SJ
+
+Thanks for the feedback
+ Manuel
