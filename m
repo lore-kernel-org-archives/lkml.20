@@ -1,155 +1,113 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+Received: from sonic312-21.consmr.mail.bf2.yahoo.com (sonic312-21.consmr.mail.bf2.yahoo.com [74.6.128.83])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AAEE3F484D
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:22:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792016523; cv=pass; b=eQjBvQm+FwX0Gm8igWaCpywMyBiWLJv2ZXQm+RY4DcpTp/+H5b2Q1h8DlBaF/obZ+K+hW0ZMzNnTmfaTled6OEYB18iHe9M0mlPS+5pY2XYtRYj51prtTFRm10wszW0LVeyHnqyN6d+NGCjdL5J8rruC5YgoTy/nN8q35Bg9yPU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792016523; c=relaxed/simple;
-	bh=W0LyutHRq4/XTAFmwy2p1eN0RVHG+QvoaRK1lZkjFD0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ht4hcQY6j34zGR+Yuk+scOwRJk7znPNiBKNTmRDUGr5sc9FZefiVbzCFVrZP1He+mAuJdc7TCJhwAoC8ExCvxiFpI1AjTE1O1UYTS+psFxIZ/4fm+ow3SLF1AAtNCghER2Oa1hElkBK64AYpbybUg3xZ6L9WEt74jgAUBwJZllw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bo5VleIv; arc=pass smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6A00485511
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:22:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.6.128.83
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792016541; cv=none; b=PQP8Sjtxp3rYCn044k3AkyYyIbXk8uaKjHg2uGMZZPKrto/JjUTzL7Uu/FjQ7ZO8OPY70+FzXa6ws6blQgj8EbZYeRC95EnDz1C4zabNNnvj0GxCIzDgydWwoe3NKwuyUaHn/1/U5TrzX96cReGkBzuYRzJSl2u6ESMJcZP5D6I=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792016541; c=relaxed/simple;
+	bh=22rh2zgvVwGy0yPhA7ZVRYDeOghFgS9cVi3/wmOGsXs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ujcAQl7LtDW+zNxZHqrbcB7DJqPffFIdlNSib8SRHXOQe0UpN0NE+nHSPEw3z4ggFhtNR8yutpMzyYqjWyfaT3X3c3lLRGwwWvA8UPdNOf6VNvH/PUp/vGi91aodo0wcMaF5ilONS1GCw8MKTDeMqXTwGHyqOOfqKRBnUtxuoXk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=dhgEoOVR; arc=none smtp.client-ip=74.6.128.83
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bo5VleIv"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-486e8faff03so2017596f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:22:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792016520; cv=none;
-        d=google.com; s=arc-20260327;
-        b=P9hdvIRk8EngYIsca2UWYlNntTV7Wj47ghqmmCDpNlRJFLTp4gAYhdMToi1zUx7xEt
-         aVmA7FTOWMfnLMcMC6gGaqxMYcqNx96PkgePr+KVtJThxIi18+o+yWBo9xyazKYbdJH4
-         o8SJsKkDnXn7aUbnQ4/aUk8EZbaKxw9tT9iQxaMJWxErLcuC+BncFA1bRqcetbeAdVlI
-         YD1d62mK8gIyixjprDCtdVfKrNj5eSmR8/xoeGFZFw5qeAMQklbp1f+jGEF4kkznsQPU
-         7rMqRJhkBoqCuYDXMGjGLD1qoLSGsa6s1mTQQiUPsbJOKGeiVelE8JXvMmTBzfU6ayCW
-         wFvw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=U8QQjN27s0Pot0JCVcrmzcvPmF+Pv8lSLqLgVFGNeaI=;
-        fh=2YPcb8K6KqcI/ixARDriHGzEB8/NfrF+VTmALaZGX/U=;
-        b=id9kQL1IdI3NJppOBWRibzaLS6qFnSRnVbKdf9hKulOFzCrCG63GubJTkstJ19UsCc
-         FHtIW33WEOZWIOyiPcZ9HsDD/a3Ib3nkRdv5mAQ3RhlFc+NgGtucHvxudecuDXtoS+9I
-         x5YWYxkmsLEAHXtFNo/MvUFDlx0mXkr+kxnYM8Ej15RqgWUdAGLHbdOeRe/H8iV5FaQJ
-         zoGi0ckyWVt2SGMydhhIKo2hkVQfUDeIclOpTq5UC5YvrM8dZgl2P3KNdk9GNSjUy7wo
-         5h547t5onbBDPL1B0j+rmblHUxuAEYl8l9rIj97s2M0UdMh/4PokLXsliVjn+1gvKmjt
-         p4qA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792016520; x=1792621320; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=U8QQjN27s0Pot0JCVcrmzcvPmF+Pv8lSLqLgVFGNeaI=;
-        b=bo5VleIv7V4nY8VbAmNp5PveYqGjiPqyh37uN+1k4dJPcVju5QOfIwWmvCL5sH1V8P
-         jH/E4CIUhadsEt6uhlNi78ZY9zXQl82CJ9Tsd2AN/6p+N4AHhKqqWY94tKesceaMtf8R
-         P03jYcrKDmPCa4xOH+/yHSMSu6pPbbtUlY6W7qrQoHU6dcT5UXwJV6WmzThyDSNCB3vk
-         CLX4CEi0juIj1pXQ8aFQ9ot02GXC0q9V9Kie/yKaQbP+q4GWgSrKJv9jX+iqfO6ngXOH
-         4nAY5Dgrn3GaAgxarq4xOaMzdslscH23ATalr6u6JVHL4OPXrv2odJPT25lpgNEmkJam
-         bn4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792016520; x=1792621320;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=U8QQjN27s0Pot0JCVcrmzcvPmF+Pv8lSLqLgVFGNeaI=;
-        b=0qDxLqPZaTFSEjk21QcgebZIGGj7Kdj7C/i+G0902TlIFl/F/g0fKE/q/QorIodzF1
-         xNDXNdtZnCHX1/go+YZVoccoCY1yWY4UJxzxXINlpci4V2bTupuOjKNO9MuuBaeHqW/T
-         6qUxHFT3XeSnQNaOLJ/s2goLTXhg0RXDLBcRURvxqf7Ss0dk6gGV4r7j5lfb3WnW8GQk
-         UsI6fhN20sswg0Wxx1bkXzc6BVDuj4xT64qRtke5r2spWJuPOg71WKv87RQr+SAhGpdr
-         /dW8yZTSPUDjfJi8Hu3NKS5I4hquFEmvVeJoQQ8yet+Da2MydNaaPCFbA5ooXqCpvewn
-         N7Zg==
-X-Forwarded-Encrypted: i=1; AKwUvBxr1sUbyHRja3JInFeFdLCQvArED/R3eDLTA6hhlRQcHmmLGzYFYD1CqPBHiber+YL/hcV2Ne3q4QbZTi4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYImUuLNClvDrvya7RCEZ/d6GO+9gndLiX6HLyYzxWSv7PXfh+Ku
-	2weq6FFiu/fq//RYeTqINeyQNw72/EhUl5KGfzbVdSS+j2RGVZ1LRBcpW5xAp1Qrkk8Jzu+rND3
-	RNYTXEDm7e74RSiPr3aukQiphtcOj7S8=
-X-Gm-Gg: AYBFou3EdRuwvJRXNAkrDevQtjfHpDMbyzMKtPqeDbe9OqiEyzmTFVA/z6Q+z5PQ+38
-	i/iRIp/IE1fM2gRM3ql/Nv/hxWALLiSiOuyh39Wz8A6h0JMSAnfWcJ/AXwJ+7sYHDLoo5RBRDx7
-	6Jfbwe51KyMuTKxkZ7phr5E21YV/Ri3TWztbzSduXvZ/Lu17InmTz/qosEwAAH0ft6q4rbc6YHP
-	eG5j7f9HbCox6Plg9gR3NEegXnky2KWhKn0c3m7ZcPlehyDZtZJtt4juleCNfo0YBE2oKVqJrYg
-	eLYqDRdIhG0/nL596eDj2OvayM5ZfDd2/hTn6E0Ft3j2/eNjNgLqqa92CcPAgyE/XeA6+p7mbmN
-	Pa1tn3R+XhbbA4q2E7XN57x7nAWlaRl/LQ+Ym2w==
-X-Received: by 2002:adf:fad1:0:b0:487:342:d142 with SMTP id
- ffacd0b85a97d-48dbacf59d2mr23574589f8f.44.1792016520219; Wed, 14 Oct 2026
- 15:22:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="dhgEoOVR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792016539; bh=2lyXd+fDqFFVLb6Ux/gSobPldVCnGppznjAjTuiEp9E=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=dhgEoOVRuyt9//viM2epKHsGOdj3qrXt4ufEuH6wUYTWBkjsjP8tgt13XImw+rteGILo7TSwcvf1Qr2E7UDPgCjotcEOG2yADOavDj6ildUTkwJIhHZnZ/+CdNITuLdUhbPRBkyvke4gCB+J4LkE4os14hPdl8zGWmIjB5fz9KTNpCcOxcDNKb/dsTqb/PTL59rxXdRq7KlGg9EhNBTPl6dsOwBLx7UlGDRvktoQ4FdE+m7/AmT0Cb69/icStlmrdSpLmqm0OhMyZmSQsx17TugZItp2SbVoDgRZ8GJY3QhzNTtIRH64B/CYbrUGM69gNwE6lpz5bQFJiNBEEHP8Gg==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792016539; bh=WXXSV5xRL912FatuJBGWMMtObZrG0NjUQyHQ3bBi2Uu=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=seuQ9Mi0pp5l4pXS6VBeWe4Cw2xuWVPEe2ftBlZtp6ctbavadd3MYLQLKLYqhHI2EarW0E5qKSNXgo+yDbNXLHnEtU9XCuBzZhuSpAITE06S0mV9YNBKIvCk/3ICRWCiRXdarPk0jFj1yBUcj4GpBhktSqVho6tX6DQ/c7UNZA4qDnWhDVc9GZz1LYdvMMuF9he5RNyjA4KgndaP8dAvXiOpiM5OY2bpZWcnXmyGl+l1D9oGYpifc47+XlCxg0G2B4p7HrHenE2v4zWYcAD1dcOp4cyPkUaZbIDf8MnkQQj9ycq8DCPNCdCjJ6eoBfrQXZqIqGOoE5deg27fOf+JfQ==
+X-YMail-OSG: Z0seP64VM1mTHVwywJ6FSoq5MxYNK3XDe9L1ZdGx9MG70I3B1z7wJfecdIXA_DO
+ CyM7oMXTBqp2MPvqXxEdHgEAAtoB.HmcCX15pwYRoMc85YIJ.BRHaU_NJWmIbxNIuiYvYwbIJ8LB
+ 09cgF.ARaczmGQqwC.xGGcQcuv0hymNbzqMi9JJWNKRTjCDPPZLVNj73CsrBhyMIL00hDH4DmIJp
+ 30CDP8seQcz.VcJ1DDRS3A2Vio3lNPZ1t4CGB9kcxrHw_.mG81bJojvBrejh7aE9XCfz4Fe9fAbW
+ Kl.hCoFBbi3IFbcsewtLcKIQHKJpzxexy5c1V_lRiDgpfG8CDQYjuAGN6uZTl5wDWS.mBxjqdl_f
+ ZUZRR_8xAcUxGfgOO3dya36vlXT3gsSSPdEuxU8EhGfPjVLarFGohnhaXPuTXdyoLdAk.SQSRXIN
+ TfyxYAIiGOlQIiXWEzA8RbYo9OMZHRkBpeQj8URuGbh8bAre4VqQ_okxtdwcH1wTEhJ0MTGH5XPo
+ COlQvU4YUZUMeHWAJhic9hxxtLX8fxc8JYv1UoHwOSNmVb63iYNQCcZvQiBAMYfORXyu_.kBkmWa
+ UbZ23IGZt50LYqqqPWWq9gnaSgGj7pw1VrkSqYl2o.Tee3LW0gPE2ueiYzzWX0rUs7Qyx0KZD.0O
+ KzPjqW5cPnkpyhR9ynJlvqmIQeAc4BZrrAjAKsFDUCAVc.MVronAQ0K32fFvD1j.HXHRz231gTBC
+ 0c.WTik96to67Wh9yeMkf1YL.qeYSWCBOdkuNtX2TonCxa7Zk.4s89TqMPRns0OvomPRWMwmz0lH
+ iMqytBP_qJLdqAhX1yKV4mCIX1nVrzqQKOIRwJy8SsL5S0AsPJjxc74AUJBNzhbh46KuPAOT34JC
+ eBKczRjDyo.q1f9j6CCFTD2wPdys0qJng8pz3jroE0FR6oyGvVfwySkK6c0GJCQsOhYu7wzlzMQ2
+ EkePQRJGa6qkcvew32ppE6RfBKRqav0_RxZAssGvQt_ZTgj8xhH7Jox48qnvV524dJhAToa8x2Br
+ SYToK8W4Pi.MvkTLnGHOq6X_G0U3GqaW2CGjW.sT3UrIkd2EkuukF9a..pKkwF1Mjky51KvYnt.y
+ 9Ul5hvIyi501V4oEDjUDwllgDQrz8AfheebZ_ck72u1q41kz8gp1_qGtH5_GdU50PWPduFHitzRV
+ M.m5bk0P2L4bOQtBZPcNw6YhOrAgbuVTdbWEhx3lBnM8cFVpmjUH1yXRGZzSlsDxuH0U8zjUTsku
+ YApNhvNdPdvybNpJ9K9p3xrTx8vTH1hCIKTjQglapyI2xy6hg7aYAGVV8FlwQN7hqAOWfiTlQeKp
+ d_vbOjAsRe3wGoq9QQNquayFy28Z2ucUyjC0Hpiq6KXytlmTPdRc8B.6PPDtpkNK2zqwfwAQDA7p
+ qI1lC5CIcZyF5VQq5m_mN0ca0OIE5kj9MUabfMDSFuGb9WjUy4mVcBWkrceyR5C9y67dC6F.OvJQ
+ M5bAJ8C9BOICglfw4Rxri6AUsptAMKPp8YrRhtqiRx6fbRHQuWNYzZblRMExKyXAHV0I57Oy3ORu
+ PBA6wxxH3nuVtyzkFLNCu4BYPhs4grRu6rTJ0hODSXVcFhb_892D8eO0yYb4PKxNQaLKDq0oMCUQ
+ vie_qqk.8Ss72yZpkw5iShLVpD4kzNLPuHEvvshhog6oIyG3Y3zca.imgDDJxVltnIfFO7W7E2lr
+ I62XPDDGrE6_NJqvhCtFcwQEJYNLPVGpQ32Imk4DwvoHH3Cq6NP.miZKLqJSEoI5PjwqW9QUpmJQ
+ yCaydd8d.W.Wta5JF9ZJUCl2K0BrSpaBxvFGU68SgRVSiTG7wHaWrKeFpYlqeDY2kLNoE9vpE6PY
+ 3_qOkxRNaERDnq3kUJPI7VG1dcqhXRkMAQx4XkfwUYF7sTMDXOlnlkqpLtxSjjqMpyNVwIb0gyBf
+ zIFa1dpTAuhfISrn92W3TJqTWlyGUikw9Da5t58c7A806AkX3jK8lGGthLAVwrZuMMyuJlFHHR0w
+ EeCVJsrP1HqtPsSFqH7CbparmmfBbh5AJ2OsHz9msEJ3l2Nn5lHxhF5_TKqD94cje5xq5yXzmRgG
+ 7QDk.I9EYgFaGuE.dLXKYzeUNWh15zcnZUkq2q6WVVLGMokdJd4FrNDb2K6d7HuBSW5VM9I3TmyI
+ JIKdxjDcsQPWeGX_Ginf30XDTzhD9Mrfyy.LDeaoT7CaeAwPpDp6_prxKxoRFshWqKqQokxZ1SVc
+ oVIup8x8zrbK5Wa3IAN2KAuuBxncsIoJJFA--
+X-Sonic-MF: <deaner92@yahoo.com>
+X-Sonic-ID: 06a2b5b5-4991-40c2-827a-2f8435ac73d7
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic312.consmr.mail.bf2.yahoo.com with HTTP; Wed, 14 Oct 2026 22:22:19 +0000
+Received: by hermes--production-bf1-6d6877594b-mcfwx (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 13145d99c0856444ce8fdd200f288c70;
+          Wed, 14 Oct 2026 22:22:16 +0000 (UTC)
+Message-ID: <c4c3cfb5-1933-484a-8ad4-acff8dacd178@yahoo.com>
+Date: Wed, 14 Oct 2026 16:22:10 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261013221307.850803-1-joannelkoong@gmail.com> <b90ec4b6-e0a4-4f46-aa3b-b1a3a08570c9@kernel.org>
-In-Reply-To: <b90ec4b6-e0a4-4f46-aa3b-b1a3a08570c9@kernel.org>
-From: Joanne Koong <joannelkoong@gmail.com>
-Date: Wed, 14 Oct 2026 15:21:48 -0700
-X-Gm-Features: AclHuK_tUcdkEvV4W4vq6H3QP4SX_X0yPFMq0-te8p6YxVgvDdJo3929XLEFj8I
-Message-ID: <CAJnrk1aroGboovN=VVSkODEvcGxkAOaDmg_dh1NyqDkTjwF4Uw@mail.gmail.com>
-Subject: Re: [PATCH v1] mm: unqueue deferred split folios outside the lruvec lock
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Muchun Song <muchun.song@linux.dev>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Ryan Roberts <ryan.roberts@arm.com>, 
-	Barry Song <baohua@kernel.org>, Usama Arif <usama.arif@linux.dev>, 
-	Lance Yang <lance.yang@linux.dev>, Hugh Dickins <hughd@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] staging: greybus: Remove unused header declaration
+ to_fw_mgmt_connection
+To: Julia Lawall <julia.lawall@inria.fr>
+Cc: Viresh Kumar <vireshk@kernel.org>, Johan Hovold <johan@kernel.org>,
+ Alex Elder <elder@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, outreachy@lists.linux.dev,
+ greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20261014171342.97160-1-deaner92.ref@yahoo.com>
+ <20261014171342.97160-1-deaner92@yahoo.com>
+ <377d4e4f-93bd-6634-c3c5-1113f5057e2@inria.fr>
+Content-Language: en-US
+From: Jeremy Clifton <deaner92@yahoo.com>
+In-Reply-To: <377d4e4f-93bd-6634-c3c5-1113f5057e2@inria.fr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Mailer: WebService/1.1.26740 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
 
-On Wed, Oct 14, 2026 at 2:31=E2=80=AFAM David Hildenbrand (Arm)
-<david@kernel.org> wrote:
->
-> > @@ -177,14 +190,10 @@ static void folio_batch_move_lru(struct folio_bat=
-ch *fbatch, move_fn_t move_fn)
-> >                *
-> >                * We're bypassing normal cleanup. Clear flags that are n=
-ot
-> >                * applicable to dead folios.
-> > -              *
-> > -              * Since the folio may be part of a huge page, unqueue fr=
-om
-> > -              * deferred split list to avoid a dangling list entry.
-> >                */
-> >               if (is_lru_add && folio_ref_freeze(folio, 1)) {
-> >                       __folio_clear_active(folio);
-> >                       __folio_clear_unevictable(folio);
-> > -                     folio_unqueue_deferred_split(folio);
-> >                       fbatch->folios[i] =3D NULL;
-> >                       folio_batch_add(&free_fbatch, folio);
-> >                       continue;
-> > @@ -201,6 +210,11 @@ static void folio_batch_move_lru(struct folio_batc=
-h *fbatch, move_fn_t move_fn)
-> >
-> >       /* Cleanup filtered dead folios. */
-> >       if (is_lru_add) {
-> > +             /*
-> > +              * Since the folios may be part of a huge page, unqueue t=
-hem
-> > +              * from the deferred split list to avoid a dangling list =
-entry.
-> > +              */
->
-> In general, this lgtm, thanks. I am confused about this existing comment =
-you are
-> moving.
->
-> folios being *part of* a huge page? Huh? A folio might represent a huge p=
-age,
-> but what does the "part of" thing mean here.
->
-> Is it simply "Dequeue any large folios" ?
+On 10/14/26 1:13 PM, Julia Lawall wrote:
+> 
+> 
+> On Wed, 14 Oct 2026, Jeremy Dean Clifton wrote:
+> 
+>> commit 3228900f80c2
+>> ("staging: greybus: Remove unused function 'to_fw_mgmt_connection'")
+> 
+> What is this?
+> 
 
-Agreed, I'll reword this to "Unqueue any large folios from the
-deferred split queue to avoid a dangling list entry once the folios
-are freed".
+This is the previous commit that did not remove the prototype of the 
+function it removed. I'll include a sentence explaining what this commit 
+info is here for.
+>>
+>> Function header declaration needs to be removed after it's declaration.
+> 
+> it's -> its
+> 
 
-Thanks,
-Joanne
+This is a grammar and semantic error on my part. First, you are correct 
+about 'its.'
+Second, the word 'declaration' is truly not correct here. It would read 
+better as 'definition.'
+
+"Function header declaration needs to be removed after definition removal."
+
+Submitting v2 with corrections.
+
+Jeremy
