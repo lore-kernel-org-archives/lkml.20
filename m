@@ -1,62 +1,64 @@
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 649004DDB35
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:02:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D86E4E021B
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:02:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791979342; cv=none; b=trvvIs+EZcG0H5Y/9yltgp4nW8W65DlcviWzZg2oxTpM+jtksm6sZB63K1VuFxVYN2lYxPsrWgiZcHJhkyFHCfb1T2oDWblmV0uc1NINHlLIDLgtOr94+pOAx7Hre5S8hWrXO9wI6NYz2DLeryfvBSC1Jy7DpqyUz7v9eWMTgo0=
+	t=1791979344; cv=none; b=SK93eh7ZfIlfaxM0NBCU5N952aVvlS80vifZfSYdcus0Lxrl+I5aTx7DXisdTE3fLdiDhEoyt367bmj0hq41CaCXi6ePxI2FEObrVoo5XKZDPQeN7JXaI3j71J4udzFbReSly8AO7ozITmYnuZD0hDMthyrFcVBQBMNWumfq1oA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791979342; c=relaxed/simple;
-	bh=ew6C9tF0Hto4FCznXsHAlkcnPGFhEf22Z2CTdUK92UA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Obkr2IIDrBJEZ1V5K2jxYQ8oAEDHRSt5mKtvn7FVrlLVMzogbgzLahxJITlDS9yJSq1y2k6enEybOWwxYA19VJAntSPolFseMc1Lew970SvZqzkyhrOE9s5qRGe87BQkjztxGGDWZEB4MSyGLiMZgIQW8DqSeM+llU6gs3MO/W0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aixumOY7; arc=none smtp.client-ip=209.85.208.54
+	s=arc-20240116; t=1791979344; c=relaxed/simple;
+	bh=Ozuozbtj6LfsPDwMAW4dI0Sb+PiNErmQOZoRSLelEJY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=S3w/3K00WQFbVL1vknex/Y+ohjtemHlZkXhb9X2ljLJI+w4JUXpUr0Vi0/TRz32fjvI2KsDA89zlkFSAqgVYmuMafegpREZu6G1lJsSZR6CcOnGTSpgJ84PIUQSU1RuBsHC++vg7jIEINI35shPzPJrCx2ijIlomZCUFCb9eyzE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VAizohZ3; arc=none smtp.client-ip=209.85.221.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aixumOY7"
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b1aa29e06bso1325495a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 05:02:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VAizohZ3"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48c4649b3aaso2579747f8f.2
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 05:02:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791979338; x=1792584138; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hfsJvhoEFG+uWSyTw8uJ33oKmHT7ytqNaOzPZrQir/U=;
-        b=aixumOY7nnXWzJbjk4sjmVUDbx7viJW1FlqyrKZVXqJ/UC/+cbbMXPk00KtgKpv21p
-         D7KGY/amn1M0XetyKWmo4OQrhdbYJcgn8DRIDb8nllS5xMQyk7Qi+36t9ef+R0UP9fov
-         0yDOLY5NdtOdkwTmtsMqBlsz+ZXZtqz+iYGgoJny2vaOyNYV/znibMwde4taW9l1YThq
-         B0yTvdTp4c9Mu8/nAym/mWkzDJz4RD4FX477xFeoKq9Lvfvggkxx6RFSmzI4aFvuPpGT
-         R+Fr5wRtXAtygc2aVNXRa4HcmN60dlVL+3lBVBfEa7sacVJuQi6kDL2tvM2uyQDKXWHl
-         YKFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791979338; x=1792584138;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791979341; x=1792584141; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=hfsJvhoEFG+uWSyTw8uJ33oKmHT7ytqNaOzPZrQir/U=;
-        b=QlrSpvC7BqX8YOOrOax1gwATcCp8HIR4wesB71xwH50lcA7FQ04Nd40bRbzXuL97gQ
-         ThLDsttT4wrMq5ln6eJvKX9gwQG7zc4tVg7OIyeIDuQsGotOBoSQslLNAl9qNrY0pcpP
-         5UohJzruEmlo+IRJcs+meeRljS60GcPxWBX1hi5iKlQPBqCAHe4WRL4wFu8HbArmJsJD
-         aCsgnwcpEsoUVP8eVIPutsZlNREQcEqpphJ5wYt2h75vdaXP8jHYNGR/PLDU/XnqxQnL
-         yTDIneFRGeYJJ6g1ghP7oL5AqCPDRBcG2DpIfkDHuzJ5oG3gnLUJ49LgRkmtHu983t7G
-         YkBw==
-X-Forwarded-Encrypted: i=1; AKwUvBz7Cp393fWeRcjI8jYLcYZk5X4MB26nko6lSwyjQkksMhB4N4NvEAZAbvyyiu/3lFjQ3iizqyKf4fCCDZY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL18BHHxqET7RI9Wxt3j2yy5k0doBAdGVsne/VPOmE92HwDq+71
-	EWGksd1deRJ3l2e+MKjQvGfn42YUNBgw1TsShZJeEbBQ2j+TYQPbauAm
-X-Gm-Gg: AYBFou2hOaT6UkVLSSu1DtrFbbkWVtLJSNhpdybucbPBC/UDsmr40/BXDHDuoH2vzmE
-	qcRp8r5aTvebPOLQbuRtOuCihGgMS0txTjEXF0oROPqBfUeD1vu4Y/Fvcy9e+vROhnahwWdAdLK
-	GNcONFn9tSdO1NQmldqhERSFcrMTCTM9D037LrkBRLXqeDaZdSCucfumYEe8ccQUMKZcPuXVd1x
-	KS6V4hTsoTrPeFp8JHKqhh4AA2r+RE9Q+USJVwl6gAlblf2MRO4NU4c/7RFx7urGgwiSDocySlG
-	m1GtXR3VSo5rE/J1M753FZueOEODE96eqHd8tDqbcjslwjWrVQL2XAisf3cAuwyyuy7J22xTm8W
-	YPcNNaejdTjpDfDM6hUZDtd8zEQsVke3dmAXCXuvme2vkZN2+0WoKhbKtgX+7YQRitiUVHSg4Sn
-	trISTJDP1yDHJfV3Wrft8YtFW6UR9nspeVeLdDgTvL1Z1bAzGK2P0Hw3eK2elXxFwQmZtf2fXqm
-	BoVjWW++GwhuEzyiWLoSfTtopLWlg==
-X-Received: by 2002:a05:6402:c1d9:b0:6b1:b9da:2047 with SMTP id 4fb4d7f45d1cf-6b1b9da412bmr5434409a12.16.1791979337314;
-        Wed, 14 Oct 2026 05:02:17 -0700 (PDT)
+        bh=Smt7P+dI2+cpPcIZaQuGziRkglc3TS/v4IRgNdviKKw=;
+        b=VAizohZ3RgdSunrV3TWa+4Uln/a2w2kR0s8OtMyYXWtMAdJO3XKm+Xs10vlX/drIFY
+         vImr1f5drTmrMy5x3c7T5oAh+9dhSqg2hjeHlJukfgwgFy9PVnDOCopqr7nvvaFrp3rs
+         Vtjp5dGPYWA4HmUy1kx0q46pYacNlDVQnUbQ3xyhIBZiv8utUzHp5uqKMu2SnpDN7NrW
+         eF+HSjMipnrIsdMKVdwGz/+UDhCnKgahHBMkwHcGN0WFiMeXudbuTbmCO3dupcyovGPm
+         tuFhQS3/nD80eaHBmG1HlalLnxZSCu5dT/BiAZ0PvdFvDGPEiJKuJJLsCbvWmievMHaD
+         j26g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791979341; x=1792584141;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Smt7P+dI2+cpPcIZaQuGziRkglc3TS/v4IRgNdviKKw=;
+        b=RglN43rFWjE8ZF2xMV+30G0n6/nLKDUtY+leS1fWHMZOFLxTxhf2z5sOFB1aBzcWSb
+         tXXFKME74v4NuJ9YUejlktyz1h4/pqzyTLApYJJShPrwHvKJRUtkaTiJkND4ZVJC3bL9
+         v022gNbnndRZKYAeQr0VRzUbkLXLVLFy+YrHj5bvruBI0Ww5/fO+QkwCxzeFC8LKtXk4
+         lFyx8hkFz5ajT4JDzUwTGqL3p1tYEfkBuhbMjkTV/nSk0bGoNwpicJeoVIAAACMVWNpD
+         9ThWlmWySy1gDyonB3r3k3Rcuz7FC4ipOeeLJV215fJYrrSO9Ka1pKcB1tNjvJED5J3F
+         /WlQ==
+X-Forwarded-Encrypted: i=1; AKwUvByRo7D93HieQi9l9ibiph65s5asz0yHTDfMDre4K+bgJB6bk54qkAvvrW8XY+lmIrgSK6h6wuJLvYIv2Ls=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLSmz7h0TLuKXY/hjRN6PL/k6JCbrtdsulNXXf7QOZaVprg1rhz
+	/AjZOvoK5l4l4GVP4EeEG8Mqofkaxgl1KnWGMvYzURbOd3PMhr5v12AQ
+X-Gm-Gg: AYBFou3qEm8YQ/XQlnOLaEGiQQ3f08FdmVYPC7fCCFlzkY11jUAIcr1SkceZEpv19bI
+	bUN2keXy8jAmIa3cSuKBv3mO5aN7gTOf57yz1h8MveBUHyV2fq65AkBUu3VNQixEkM0z+cvQPmR
+	vCHCSrKdHj30NXntWuh3mO4X6n5pF12QX619rJt/T6pUcP1OnBu7qJWuptBpmdxrBOXx8/cvGHH
+	bn98J0BQR6Qk4xQEEhUrx2ppt7ZPcqujE58tEh4UZ2e5ATNa4SB3lgIGyrlHZDViWkNLt9nzE94
+	To1zl1Vpk3NyiS6l11DnHqYpd3GLxTCM6Qve8RbeL5ZUkkmbVkNHi9p2sx4UzoMV4PG53D/MEyJ
+	4qpStKvRX0V8Cw6vdMixFTEQfsZtBaANVY4aS2AmlwExNLIE+R25E7XfvjiGvSBbWheTN6sxtK2
+	J4QZRsCfZ/p73flKZnKEX7XKke3XHhHP4d/mTs+BE9x1u44sLkltayNcvVSy3uy2akoZ0+4x1QP
+	oIqhjZlOTLZ7s42Kf0=
+X-Received: by 2002:a5d:6f14:0:b0:48d:ee59:3a30 with SMTP id ffacd0b85a97d-48dee593eefmr2149183f8f.22.1791979340477;
+        Wed, 14 Oct 2026 05:02:20 -0700 (PDT)
 Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ac36f9sm10937057f8f.36.2026.10.14.05.02.15
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ac36f9sm10937057f8f.36.2026.10.14.05.02.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 05:02:16 -0700 (PDT)
+        Wed, 14 Oct 2026 05:02:19 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
@@ -72,10 +74,12 @@ Cc: linux-sound@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-tegra@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/2] ASoC: tegra: Support WM8994 by machine driver
-Date: Wed, 14 Oct 2026 15:01:46 +0300
-Message-ID: <20261014120148.126160-1-clamor95@gmail.com>
+Subject: [PATCH v2 1/2] ASoC: dt-bindings: nvidia,tegra-audio: Document WM8994 CODEC
+Date: Wed, 14 Oct 2026 15:01:47 +0300
+Message-ID: <20261014120148.126160-2-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261014120148.126160-1-clamor95@gmail.com>
+References: <20261014120148.126160-1-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,31 +88,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add Wolfson Microelectronics WM8994 codec support to the Tegra ASoC
-machine driver. The WM8994 codec is found on devices like LG Optimus 2X
-(P990/star) and Samsung Captivate Glide (SGH-i927).
+Add dt-binding for WM8994 CODEC.
 
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
-Changes in v2:
-- added missing dapm widgets
-- added owner into snd_soc_tegra_wm8994
-- fix jack detection disable and place it behind check
-- change copyright comment style to C++
----
-
-Svyatoslav Ryhel (2):
-  ASoC: dt-bindings: nvidia,tegra-audio: Document WM8994 CODEC
-  ASoC: tegra: Support WM8994 by machine driver
-
- .../sound/nvidia,tegra-audio-wm8994.yaml      | 110 +++++++++++
- sound/soc/tegra/Kconfig                       |  10 +
- sound/soc/tegra/Makefile                      |   2 +
- sound/soc/tegra/tegra_asoc_machine.c          |   2 +
- sound/soc/tegra/tegra_wm8994.c                | 175 ++++++++++++++++++
- 5 files changed, 299 insertions(+)
+ .../sound/nvidia,tegra-audio-wm8994.yaml      | 110 ++++++++++++++++++
+ 1 file changed, 110 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8994.yaml
- create mode 100644 sound/soc/tegra/tegra_wm8994.c
 
+diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8994.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8994.yaml
+new file mode 100644
+index 0000000000000..d2c317f831ced
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8994.yaml
+@@ -0,0 +1,110 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/nvidia,tegra-audio-wm8994.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: NVIDIA Tegra audio complex with WM8994 CODEC
++
++maintainers:
++  - Svyatoslav Ryhel <clamor95@gmail.com>
++
++allOf:
++  - $ref: nvidia,tegra-audio-common.yaml#
++
++properties:
++  compatible:
++    items:
++      - pattern: '^[a-z0-9]+,tegra-audio-wm8994(-[a-z0-9]+)+$'
++      - const: nvidia,tegra-audio-wm8994
++
++  nvidia,audio-routing:
++    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
++    description: |
++      A list of the connections between audio components.
++      Each entry is a pair of strings, the first being the connection's sink,
++      the second being the connection's source. Valid names for sources and
++      sinks are the pins (documented in the binding document),
++      and the jacks on the board.
++    minItems: 2
++    items:
++      enum:
++        # Board Connectors
++        - Headphone Jack
++        - Int Spk
++        - Earpiece
++        - Line Out
++        - Mic Jack
++        - Int Mic
++        - Internal Mic 1
++        - Internal Mic 2
++        - FM Radio
++
++        # CODEC Pins
++        - SPKOUTLP
++        - SPKOUTLN
++        - SPKOUTRP
++        - SPKOUTRN
++        - HPOUT1L
++        - HPOUT1R
++        - HPOUT2P
++        - HPOUT2N
++        - LINEOUT1P
++        - LINEOUT1N
++        - LINEOUT2P
++        - LINEOUT2N
++        - IN1LN
++        - IN1LP
++        - IN2LN
++        - IN2LP:VXRN
++        - IN1RN
++        - IN1RP
++        - IN2RN
++        - IN2RP:VXRP
++        - DMIC1DAT
++        - DMIC2DAT
++        - MICBIAS1
++        - MICBIAS2
++
++required:
++  - nvidia,i2s-controller
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/tegra20-car.h>
++    #include <dt-bindings/gpio/gpio.h>
++
++    sound {
++        compatible = "lg,tegra-audio-wm8994-star",
++                     "nvidia,tegra-audio-wm8994";
++        nvidia,model = "LG Optimus 2X WM8994";
++
++        nvidia,audio-routing =
++                "Headphone Jack", "HPOUT1L",
++                "Headphone Jack", "HPOUT1R",
++                "Int Spk", "SPKOUTLN",
++                "Int Spk", "SPKOUTLP",
++                "Earpiece", "HPOUT2N",
++                "Earpiece", "HPOUT2P",
++                "IN2RN", "MICBIAS2",
++                "IN2RN", "Mic Jack",
++                "IN1LN", "MICBIAS1",
++                "IN1LN", "Internal Mic 1",
++                "IN1RN", "MICBIAS1",
++                "IN1RN", "Internal Mic 2";
++
++        nvidia,i2s-controller = <&tegra_i2s1>;
++        nvidia,audio-codec = <&wm8994>;
++
++        nvidia,hp-det-gpios = <&gpio 51 GPIO_ACTIVE_HIGH>;
++        nvidia,mic-det-gpios = <&gpio 27 GPIO_ACTIVE_HIGH>;
++        nvidia,ext-mic-en-gpios = <&gpio 57 GPIO_ACTIVE_HIGH>;
++        nvidia,coupled-mic-hp-det;
++
++        clocks = <&tegra_car TEGRA20_CLK_PLL_A>,
++                 <&tegra_car TEGRA20_CLK_PLL_A_OUT0>,
++                 <&tegra_car TEGRA20_CLK_CDEV1>;
++        clock-names = "pll_a", "pll_a_out0", "mclk";
++    };
 -- 
 2.53.0
 
