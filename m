@@ -1,338 +1,206 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012067.outbound.protection.outlook.com [52.101.43.67])
+Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011055.outbound.protection.outlook.com [52.101.125.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91315359A8B;
-	Wed, 14 Oct 2026 10:07:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.67
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1286A4A6CF2;
+	Wed, 14 Oct 2026 10:08:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.55
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791972462; cv=fail; b=XXVkOyefp0F7kPihTvN2hoTfzJU2x7We8pDKCV+avJNH1XAk/Eh9ihwwaPq4FpXVaLl912QvY5zKQ5hp+uzGd5PpqabunzkV3CTqPuV3HAU8Ah+G+HrLgDwk/pI2jozgAfuZ1VCdgKo8aRVGOyq0nTjlgB8i/4Ecx1gFS8Wy/bQ=
+	t=1791972540; cv=fail; b=WnNBfTGfg2K8O3ylYAH0YYhn+28eaNGT4lsCkHM05HdiQpQSUqPHpbXCJTgCXC6Nqo3vgN4AnVk42pOBAd96Kj64/R4lUSFV/qWHkQSd6rvELuKNOtlET11dVcPmuHMvY79By4ABXf6RP7v4pnQyPvDNn2gdT9jAXm/l+yA+nTc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791972462; c=relaxed/simple;
-	bh=RfCdcIg14+YBUG/cs17Zs/yJa52fNO4ffsv6lm3OLbk=;
-	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=DlfXfFfxJfadJ5xw3VP4ojLVwXX6IYhxIVmTWiZgkh+m9PocPkPv3m7JL5HJk1T7clrG0ju/yftAiByUa2AZrLFe2CErECmlBGOu1rXQGUDy4JM/joo5y/q6qe8QkP64zRLIsGhXcBAvk3ZTMi4SMUWVuakwKDqlCuMvfun6VPw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=c5jVfFE6; arc=fail smtp.client-ip=52.101.43.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	s=arc-20240116; t=1791972540; c=relaxed/simple;
+	bh=nOTOZF5cIdVSN+CimDfBjEJU0L8Jx5vFuZmlvCx7vvY=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=HHvOUQwzUcLr+UONZ10zX9canPWgDEtCYplPhsXbXw1HbRmA+ar1coeFlv/nIHcJABUJoMbQ5sWEJ6sIeVZBkAz7iPcFbWToutTWMyt5BXDntmneyrRowNHbMbQLH0OR/8iU+Y94RA/C4iqQphoBip2K01TgbpNwHaFCfBdZJnw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=jUx5KEw7; arc=fail smtp.client-ip=52.101.125.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="c5jVfFE6"
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="jUx5KEw7"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tpLZEnSoHQMAd6KRO9e1mezxbTOebkybRkZnVGlI9M72vdcGtNnaQegNapDfsnGy6lgtTExs3Ozqtz8BzJSQjHTafpXRacSNdesdMWpPJ6YALeQOuqu678W+KuFdTBvpRyx+5mHAq+/hfdyB1mAsa6RMWfAzxtcvRvYcZb8MSS7SDKy02scjxTCBa9N060015Ax/aO7IuqCWiKqU6EgWSWHti6PM/peeFKYu9zcfhrP1PRvFjLS8enBxavEk15Bhy0+dN4HfzkR8t9hAyeQj27nEilum1hT0a22n3Ty7h2rr18cBsKHxT7Wx0tj5iSAwlzIDYCuMNvEbTCRBRL+MuA==
+ b=axGLDq4xetc7ncLb5oOnzJ3QNsaq2yLyj+wBLK3tajMZY0j1N5YuGXH8cWg4IYmCj0138s3DjZ8efXBcpxWpKe/MTc4WVROIvezEVOfp7vMB/9idE7drBMOZamE3LxH5vEe4AtSQHdq2uBP0VhOdweQPD/o3RBcON6CbgAPrJrDGPL/HFwAzD31uNKK3ly0BzQL02Bngxv57lU+K8aUvwyJfIQsc4qjwrwJ2wwPRrVla9+LRME0eA2wGW1ekeqada6uIO2jsAkcuXO5sbVOn9RZUTVk7Hy7PBHQaT7lPMAdxsb2xeHxWuaCsv88UPDXWD9Nr8vefNlup1UNlbtOGgw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XSz/+BnjQYgbijbHrwe+bRqrS/QzOKRHyeoICSuw/es=;
- b=QdS8+M9PVrlb4EPZ24kTjkzSYLUEGlquxh2K9DJwIQe9Utu5T11XEhEzI17hzMPQW1ysNw6mf/V0WSxlS5h8mNfw0A08YZAx90ZyKP4ROc4Ki16gRqYbMt/dIR6YzGCymANLw3evVyVRjAHT14Y450XpIZDwrzCdr7s1X0QKUxBpGFv22xCYReVaGH0TnlBhb34DbXVDZ2eILJJZjmWVB1J3dYCRzUIMwJuahEW5Y16Q7yNq6gytG8l1BVZYacPdtlw+B7CpLv6VtrFlSOy8BCdVlrrWwaqczzjVza2+HZS30vlf3EHmjlSftMrTmv5AuM8brFGPotzNyW3cJdLteg==
+ bh=w5hdg3dFTihw1DnBAllAQMLXhgH6s+12Psf+rVwP+nY=;
+ b=t2LwobpANHcyWFzjga+cMlNFU8FU8BX/k4na45tDbmav1RXMqXLH6Wx/M3WkFtu+h620r5RONVqclYtVlT7VHiNt+s2bTxXAzxwxpiEKAdZlYUJEpWVP4oaPjgOIua0gJMdhNj3HVZZSbpMzR8Rd44Gb5QuclzV9xsy5pr6tGycJglwwwiNhW0ueFL+FWTtC4QdIwVxZPVOP7pSjK4SN2IeGUYGFZbBCh1NeItdYAXABKtyGHjy3L0D8Em9NZVtfBUR8Ygd9JCiLF5ITb7yBwe2RqQBghggo9C40OTIzaLDQ2b+74Dv6j3l7dXDcwcjakm9zXmVpN55H+80kPSH51A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XSz/+BnjQYgbijbHrwe+bRqrS/QzOKRHyeoICSuw/es=;
- b=c5jVfFE66lgtOcTdpz+Zoz4Erzj+H1AfazSxHpcgHR+r4czzO9TdmNH3FyX2RME7w4z0ly42/f2blPSaKrDmJZamp717h7rauaZIFSEtn05EBNbOAv1mvMinZVTQ7YPRvQ2JsamIeTMUXuYzXEH+rnsmCbH4+hVzuMue16xUT5mTEyfWTC9JWqdHA4CnqXOP/lcJu/QjMpcQ0UduSTMxIHzjZVl2PGEj8MCUJc4+yRGV+vrs8P1Uv33gvl09KXo30qS7Riex4uErniEdctL8oAXxsxxV+5l2Ayney9sN2/J8v0zONc498tbUDih4fbT1IjHpPSKj+patalofYy/N+A==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from SAWPR03MB989178.namprd03.prod.outlook.com
- (2603:10b6:806:4d3::18) by DM6PR03MB5194.namprd03.prod.outlook.com
- (2603:10b6:5:24c::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Wed, 14 Oct
- 2026 10:07:37 +0000
-Received: from SAWPR03MB989178.namprd03.prod.outlook.com
- ([fe80::433c:5b4a:9497:d73e]) by SAWPR03MB989178.namprd03.prod.outlook.com
- ([fe80::433c:5b4a:9497:d73e%3]) with mapi id 15.21.0522.011; Wed, 14 Oct 2026
- 10:07:37 +0000
-From: Mahesh Vaidya <mahesh.vaidya@altera.com>
-To: Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof Wilczynski <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>
-Cc: Dinh Nguyen <dinguyen@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Marc Zyngier <maz@kernel.org>,
-	subhransu.sekhar.prusty@altera.com,
-	mahesh.vaidya@altera.com,
-	linux-pci@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Radu Rendec <radu@rendec.net>
-Subject: [PATCH] PCI: altera: Convert root port IRQ to a requested handler
-Date: Wed, 14 Oct 2026 18:07:23 +0800
-Message-Id: <20261014100723.1643089-1-mahesh.vaidya@altera.com>
-X-Mailer: git-send-email 2.25.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI2PR01CA0005.apcprd01.prod.exchangelabs.com
- (2603:1096:4:191::23) To SAWPR03MB989178.namprd03.prod.outlook.com
- (2603:10b6:806:4d3::18)
+ bh=w5hdg3dFTihw1DnBAllAQMLXhgH6s+12Psf+rVwP+nY=;
+ b=jUx5KEw7wX8TKNokqpIGu4AiYdTPtJ5gaWNG8IgrU58Rr4JMDTbqEV7Zwu5A9WRy+0DjihBaPsH8kNrOUDN35u6En9IamxQE/HMFyq7CEN34L2kx3fUmMQtxzVYC40iohcB5YPGa+eEvP0+caRPMqhiHj+xpbDZj47ci2hhOgWc=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by OSCPR01MB14951.jpnprd01.prod.outlook.com (2603:1096:604:3aa::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Wed, 14 Oct
+ 2026 10:08:54 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%6]) with mapi id 15.21.0496.021; Wed, 14 Oct 2026
+ 10:08:54 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, Tommaso Merciai
+	<tomm.merciai@gmail.com>, Prabhakar Mahadev Lad
+	<prabhakar.mahadev-lad.rj@bp.renesas.com>
+CC: "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	Au Dang <au.dang.jx@renesas.com>, Thomas Gleixner <tglx@kernel.org>, Radu
+ Rendec <radu@rendec.net>, Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: RE: [PATCH] irqchip/renesas-rzv2h: Preserve TIEN state in
+ rzv2h_tint_set_type()
+Thread-Topic: [PATCH] irqchip/renesas-rzv2h: Preserve TIEN state in
+ rzv2h_tint_set_type()
+Thread-Index: AQHdW8LS9jwUABy5uEu9aunZjt/+TLb8z24w
+Date: Wed, 14 Oct 2026 10:08:54 +0000
+Message-ID:
+ <TY3PR01MB11346E75A9CF528A328CBB7CC869D2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20261014095927.635132-1-tommaso.merciai.xr@bp.renesas.com>
+In-Reply-To: <20261014095927.635132-1-tommaso.merciai.xr@bp.renesas.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|OSCPR01MB14951:EE_
+x-ms-office365-filtering-correlation-id: 1869ef28-4b89-4745-a2c0-08df29db272b
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|18002099003|10067099003|22082099003|261009223027099003|38070700021|11063799006|56012099006;
+x-microsoft-antispam-message-info:
+ Q4viHZWEq9vn/aSoaYFgX/ZlLf2Sk8Tg9eZDAdvXz4wufW8nHqGVGCLFUtsKemL++MIopLMQgJbE6wkp0R/Gf/7UNVteFctjDp6D5fh1gJbnO7hLDBpTzVzLhlpF/BSY8UJo7fj8AuiwQ1iMcboy70gmsp+9sNyVuBcxjtxN4eVE5Q5n9Wtq+/+S5rED9e3C7wsNiHZm6+7wvGFR1ZzqWBlzjMA3fmUMC3tfECMi/OTudPfCvBWlKUVrCnwtbL+9GIIWMHQH5Nnb4LISifiX6iJW1IdIWSyp27g0n4Vqk3KhPw00AYQscw1WeYUOd8nlITafjiZV75ZylGcdS09NJtErYQTxdOwtQwnz8llSpOKpXRHC4w4+eNAxbI+LPgkPqPp1az5zhy+NalfoyCt/P6xMK0eM5Cdnut1IF8/yMvhsZB1px9R2RjOWdmytUIcl7rL4ZXl/ZkaUANwSTh9midDUyb8YWPtKJilHFiEnsdnZdJY55AtB7fgm2oLelRBaS04nTKV6vCOOIuUpAt7ZPkFx+y+DqicG/NHrlssT/f92nkp6O728lgRNuy2UQ/Hfr3BcpP1FvmR2lG3NYuh6f+AmyBMLjodej9AVQjhTdofxWdFWACF5cKGcZrS9hq6sqoUW/wCJIGHlJZkhgK6BfprFgV6qRYKLxvYLyUBQn7QWR4+1onWOwaqYpLSMxFUxSc+esDhhAMsr1yaOXkblP3zPyKy/DNbTTa9nMYF8tMY=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(18002099003)(10067099003)(22082099003)(261009223027099003)(38070700021)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?Lz2Z7bKivmmDcZ0JFvB9LYhDSfQh9q6234Pvtxvm0J9azwj06QG8w/eonrpH?=
+ =?us-ascii?Q?kCoiJNHpdGYZqUGKGWxoVF6G8YTwe7hjWXmttShB0hBK6ll4lk54RxJ9LGkW?=
+ =?us-ascii?Q?jo6IADQTGy8xKxLPp5oaLXihpRo99JmCpoCjHPioVvAHpLUrPLRgSWAgu02j?=
+ =?us-ascii?Q?Cu0Gy3fx4Me5l6Qhw0AxKkOXdzpfvBMTa9uHyVRLNq1bY6J9kRy/1rSA0m5/?=
+ =?us-ascii?Q?pQTy+4d/DUdALImRpb/ixBVtUsqZ/37fnQS2TgYr2a1twXYellrBaAXNGA/9?=
+ =?us-ascii?Q?GPDqtdufBOrSBwxbsWCcwhRU3R2c++CtWyXc7Yu38cQLq44C10TdE2Dho1Ot?=
+ =?us-ascii?Q?IOTcCSfQK+EVNWdwoYRPIuH+JQhtSKB6WLqYdNB6vfS1w5FZcqJp3quOzfkf?=
+ =?us-ascii?Q?OvCMkqgFqostRCE+Bnu7DhwfHgSiAqW9McnbbxoRCaufqkZBundmCUo++o/P?=
+ =?us-ascii?Q?UnrQgXRHf91Bw11zejOUq4SXVcXom9xpCCO6HfLDEhCGRcsBAlIPNpERChNy?=
+ =?us-ascii?Q?UpN63TUnYyFvgf0bqqUoTDkvEFaWDyALyC47DK8aSwI1vuSZCnLE3TFRXk89?=
+ =?us-ascii?Q?HcDnrUjGkbo9aHwcT90sLGwmBt46rKyFJdQ8zBB6FmZfi0z7iSxYmqmiqy1P?=
+ =?us-ascii?Q?HZDIQipxRSs3l/d/6TjfpDpjdRMYANFWKjmm2/4mQbddbNaSPO4toyzPHO8I?=
+ =?us-ascii?Q?/v+KypqJ45HoHQ7Nsw7ia1IAu4bUDKXo9EsIXKb3gNUIcA4ywaMu+5RHJMyp?=
+ =?us-ascii?Q?pIq/bnaU4z2XKydBFoqI1PdqW94/2oxRAokBMs88jXzuW236jgHBLyYchPfK?=
+ =?us-ascii?Q?Pier8cphF1GXI2dgGatZ1PqNDYBCf9tu/cifE/dEyV8jrTp7jG31EaHXmLAX?=
+ =?us-ascii?Q?tlApRG2Op2JTq2DbM2Q+TP9qtcaGiYOh31eLnektDOStZM1qZEnVvymMMtDP?=
+ =?us-ascii?Q?bMNLX3qkXgvDhKxssL3UQOhJITmU8Ru4pxV58KWZuWXgk0klGBrnQdk6suOo?=
+ =?us-ascii?Q?jWYGvyF3S7HSdK/GhvjaV58w5zZ2LbIBvRSQdB8RATB6LTMBMwSpzMMSsxHt?=
+ =?us-ascii?Q?zpl4gAOimQGGc3UkBdvXfq1WFGX+R1modXB4Z1qiOxrwqmuttewgdubtN1zS?=
+ =?us-ascii?Q?hZclPnW8RNko1U2ETZE7WM+0yndqvay1+9p97vACD0aS3vPgTicRnQd1TlwU?=
+ =?us-ascii?Q?rBeD/RerFGwzUjt5mH/YKhzZTSe0srhEBHduIXr0zzrBn0IJGixD8bzzrAdQ?=
+ =?us-ascii?Q?83qQ1Pj7ufaTaPKCK+ZHn4IffxOh5vSVlPX1Fo+FH/V7hNwSbcqmsgcsrZiM?=
+ =?us-ascii?Q?wfTL/DZeishRULXDCFdRScmxBedM7xm5PZwGeB6Dn/9HljJBZDd/xbJ7/byV?=
+ =?us-ascii?Q?B+aXu2JQzcQKl4ycMoIvKmCBLxxOhNzk86J8SUq3vMQ/SNfF7fiUDetg+YP9?=
+ =?us-ascii?Q?XrI1BV53O0a3Lo4Jt8xt5XmmjuB4kgkwtdIPgKIiBATNFjPT6/kvG0zhYyp1?=
+ =?us-ascii?Q?Kh+Qg0UWerKngDRKiGuR5UMLOoTWrQqQAe9EML57RloH/TvzFoxqijoheM5e?=
+ =?us-ascii?Q?MFqxweh9ClJZvruD5tXD1NEnMl0wS5AKIrkX2G6KoML6hiS0QDiv2jTvoiLF?=
+ =?us-ascii?Q?4Ip0eiGgxUInbODDspzGERC5GbeQ0pSaa9uivDVmxBPQQU7WAs/VEDlqvZvU?=
+ =?us-ascii?Q?yU7GDf5XsZlopPHc+tWo62mewhC1QMWnINeeY9o+zZKV6cAC3er3GryvgkpW?=
+ =?us-ascii?Q?VwomNKxjpw=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SAWPR03MB989178:EE_|DM6PR03MB5194:EE_
-X-MS-Office365-Filtering-Correlation-Id: 881ea6af-e12c-4357-377d-08df29daf96a
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|7416014|1800799024|23010399003|376014|13003099007|55112099003|261009220027099003|261009223027099003|18002099003|56012099006|261009223327099003|5023799004|11063799006|261009221227099003|261009221727099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	3gyHoryd1jLlgRBpHW2VcSDiL9egZ5y4cfoV5gzcTB9pK6P9gLa7aX2GVqLnZVWnEJ6kirr6xrxLB1SvazQPj711QD2XMrhr/l1lA6GMOpafv+lrq3kdpwTfJZU402arnpv2tHnaHnXPd2T4TPddh51BwY5NvbvWk1PFM/Hi5FdGyxu9ne/YypqPospRfntpK5cvOqq8W4RX7XuMsCbYx72w7wh1yuE8jBu4zaVdaJG6qa2+wQLEgD36Jon/AN6bUPgmLAvkuvMwIdyb+UGVi3bhmyFG65Jw66C2p+FIxleRs/lA2D0WIQl2BVeFTgSTsHzV9YjfThqltQo5bCOYKo/WNAZhop8HW4R+Qdlzc7JzqgZo1R8v4ec9KPvkT1QlLobUHz4yL3hmFleOh2qRu5CrzVRt0IuPPa1nMg8iUHXzsyl+JWpf6+4egaEd7/ZyKQ5nlK9IKzY9AwKVXwqusDaXgAaANLG3TyZgP21X1/bjIT22s6iNIce95POLlQPPIyCME9z0J8TvFdxI9MXC0uxyUOMXnhvcR6Xx29WGcjOD0I2+0drXZlnfrYtNfAUCGl2EZ+B559JWD2n00FhPjDzAAfxsy0Jg0aXDNNKrr/rhYDvV3EvBohFxeGty2XoV
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SAWPR03MB989178.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(1800799024)(23010399003)(376014)(13003099007)(55112099003)(261009220027099003)(261009223027099003)(18002099003)(56012099006)(261009223327099003)(5023799004)(11063799006)(261009221227099003)(261009221727099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?VLTtmsfJyFaVZ9hRj1/1SGjz9NgFene4p6ra7H3Jt0o9l5sP5+/IWQGuJTYt?=
- =?us-ascii?Q?YFLNgTTeS0fy9xWgm4IpHnt0oyyXhYHsLlxW1Fj6+CrGVK6hU+9M8z3b+UYl?=
- =?us-ascii?Q?1hMlrQT0SxwRjtx4ZghAJ88mu4HnfGdXtKMXJldl3XDx16PmjeLzjgShQ+kk?=
- =?us-ascii?Q?f37QpiSMqvWfK7iyH5mKqQNTj1t1g+LEHVZa0Bg/arQ5ZjowTzKcBZ77t9Jq?=
- =?us-ascii?Q?cWVrKeaR1JSRTq1rpx9KY1ckr8xDdLVu1kQCiiw7Iex+CeRbNSVbwxEGrbwG?=
- =?us-ascii?Q?hHbLCUI3eax9LMTDZUww8JElcildoGhQIwbEmrEHqfc8Hpl5N2VaEXVu1tLF?=
- =?us-ascii?Q?vW1YPY8gailJOR297M/TgTLCQZrjpQsLobawv8wNo3B0okQfowLKCEKMJn6m?=
- =?us-ascii?Q?lu396bWeNgECRw1+he41soeXnXetfT7XapvIwZdLv9A5agE7S3dz8aA9z3a+?=
- =?us-ascii?Q?7umyO3enAS/J8t70T02LxVlp1OAhk9cEabT2BtDT/zFTwJJwwGzr6jLRVvap?=
- =?us-ascii?Q?akBekWPPzJ+nj11+dIpH3hQSpNMsAcqICKVyQB23Jch2WYt7UhCYUdOuLW5W?=
- =?us-ascii?Q?t+jILNcyg8MXAWZPzZE3RLhHXjaM+UrSsQI+t/mSmMcG/y2mr7YtI6YaoxfE?=
- =?us-ascii?Q?LAFgpOLHZsh412XE0k2H35FrD5nPt3TXmfKMyX45OInLoXlK2hUpcjO20BGi?=
- =?us-ascii?Q?ZvHvddZMfbO0diChoB6TRgiIdke7XdpjzFmVTYHo7bysTrN36sAj2Yt8Gl/5?=
- =?us-ascii?Q?C6RlBbGxJvsw/r9zuVIAskv0jnDI8+RB2Ya8yZ+Z4WzOG6dY+crqACOVPbXa?=
- =?us-ascii?Q?wRHGInmgBAnZ5YfX/4aaW7JOfvKKI789UPP+4pdKUPFKWRDe9afQVkKb8gt+?=
- =?us-ascii?Q?8oMQeZ8Mxqsi9pSEygTfTxjIwEPXkN+4GB5Y+RT7Ly9Sy86eF+JEhKuxsRZi?=
- =?us-ascii?Q?pamGYABSkHb6iagvyZ2mPn+5RlQFJW/faxdVZpTfHE0Nvn6vQVoEDUmW/j/h?=
- =?us-ascii?Q?iZRIWM2DRV1/jIv+kQZqoJc7aWWmpt2HjEv2ybGtZmSi4EDsNTq2boDrzFHD?=
- =?us-ascii?Q?KaFuFHk8wL84gh3ldHTTJ5hv5g90ivQq1TfAbk+dCdfbVsgjbCrDT6+9Beey?=
- =?us-ascii?Q?wunxAOal4q65iQs3FPMupOqeccvoCrrvE51huuhizofW1rSjvkQMEuf+jrdZ?=
- =?us-ascii?Q?rtzB0O+wHjParJHOO6pMnETwKLbqYRzOlA7i/YHMQH0nSwC13eRezpbX6Vpv?=
- =?us-ascii?Q?jWtm/FJb5xkSsbF5VCccS8nw7e8uK4PVmMh0pvdnjU8VRf6Tirq2MyxdTFBR?=
- =?us-ascii?Q?qBrjzedSWQllnWTLy/WhWnFYsfJvZpdXWf7KHYhSGEUTut8voSWw8qRItXez?=
- =?us-ascii?Q?+IxuD7Trhyb4EvduqEZpuBNG3WurrRDRjRTTNF44hAZrvsuy4SsC5xCAzjDc?=
- =?us-ascii?Q?u8RQLDBNb3Y+B5CWyrACv+O+ZgP1vACjuFqxZVkGQtxSj79FYt8FOadjq96L?=
- =?us-ascii?Q?fYyOT2TfY3rhYchRQD7z7Et+QMFJbhVuBO+3TGRYev388+yYBsImmNdZXCiW?=
- =?us-ascii?Q?aAncklcpHWxfFvEb6CWilZHk6QZg5kTChl6gTYplM69ocXZynhRQ2Itu7NK7?=
- =?us-ascii?Q?qvSF9wYoRDh1I9PC65ry3ccblvOfnulgk+WDxj26TBSayyzy65FjIlXOlxDz?=
- =?us-ascii?Q?6cvTU0uUroF5sOy1TfWgJEDG4bXWNIeL+Sj3LL0LF3w+lrIHxM6on2awvT0X?=
- =?us-ascii?Q?LlbOBRVQ8g=3D=3D?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 881ea6af-e12c-4357-377d-08df29daf96a
-X-MS-Exchange-CrossTenant-AuthSource: SAWPR03MB989178.namprd03.prod.outlook.com
+X-OriginatorOrg: bp.renesas.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 10:07:37.5058
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1869ef28-4b89-4745-a2c0-08df29db272b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Oct 2026 10:08:54.1089
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Symq/8HukdaWO/unyzJXR+rKVf1HM1uZX9lU/Qrc2Ml39j+iVfGV5oeyAV2UI4SOAFyctcY+9fNPU33Qj0DMypXfQkwLOVIGAJ4khU6vn2g=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB5194
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: VvY3o0lMmfgCVk1hmu0lHmU0FMoPkQX724HPjlSFfNKQzyQ4mJOOgxxEOShkeer0GgZ4kekdEPvFk0UTIkg3sFaN/0f4q26Iz42wRMHQjHY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSCPR01MB14951
 
-altera_pcie_irq_teardown() removes the chained handler before removing
-the INTx domain. Removing the handler prevents new invocations, but does
-not wait for one already running on another CPU. Such a handler can
-therefore access pcie or pcie->irq_domain after they have been freed.
+Hi Tommaso,
 
-Chained handlers bypass handle_irq_event(), so synchronize_irq() cannot
-rely on IRQD_IRQ_INPROGRESS and may return without waiting if the parent
-irqchip does not report IRQCHIP_STATE_ACTIVE.
+Thanks for the patch.
 
-Convert the chained handler to a requested hard IRQ. Request it only
-after creating the INTx domain and call free_irq() before removing the
-domain. free_irq() then synchronizes against any in-flight handler.
+> -----Original Message-----
+> From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> Sent: 14 October 2026 10:59
+> Subject: [PATCH] irqchip/renesas-rzv2h: Preserve TIEN state in rzv2h_tint=
+_set_type()
+>=20
+> From: Au Dang <au.dang.jx@renesas.com>
+>=20
+> rzv2h_tint_set_type() clears TIEN while switching the TINT source and the=
+n unconditionally sets it again,
+> enabling the interrupt even if it was disabled before the call.
+>=20
+> Restore the previous TIEN state instead of forcing it on.
+>=20
+> Cc: stable@vger.kernel.org
+> Fixes: 0d7605e75ac2 ("irqchip: Add RZ/V2H(P) Interrupt Control Unit (ICU)=
+ driver")
+> Signed-off-by: Au Dang <au.dang.jx@renesas.com>
+> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
 
-Use IRQF_NO_THREAD because generic_handle_domain_irq() requires hardirq
-context. Use IRQF_NO_SUSPEND to preserve the suspend behavior of the
-previous chained cascade. Request and free the IRQ explicitly because
-automatic devres cleanup happens after remove() returns.
+Reviewed-by: Biju Das <biju.das.jz@bp.renesas.com>
 
-Fixes: ec15c4d0d5d2 ("PCI: altera: Allow building as module")
-Reported-by: Bjorn Helgaas <bhelgaas@google.com>
-Link: https://lore.kernel.org/linux-pci/20260430204330.3121003-3-mahesh.vaidya@altera.com/
-Suggested-by: Dinh Nguyen <dinguyen@kernel.org>
-Assisted-by: ChatGPT:GPT-5
-Signed-off-by: Mahesh Vaidya <mahesh.vaidya@altera.com>
----
-This converts the driver as Dinh proposed in [1], where sashiko raised
-the use-after-free while Bjorn was considering 7a94138caeb2 ("PCI:
-altera: Fix resource leaks on probe failure") for backport. Dinh offered
-to write the conversion there; we agreed I would send it, since I have
-V2 and V3 hardware to test it on.
+Cheers,
+Biju
 
-[1] https://lore.kernel.org/linux-pci/20260430204330.3121003-3-mahesh.vaidya@altera.com/
-
-Note for reviewers, on IRQF_NO_SUSPEND:
-
-Converting the parent from a chained handler to a requested one changes
-its suspend behavior, because suspend_device_irqs() skips chained
-descriptors. I used IRQF_NO_SUSPEND to preserve the existing behavior
-rather than change it in a fix. I would appreciate confirmation from the
-IRQ maintainers that this is the right call. The alternative is to omit
-the flag and accept the behavior change.
-
-Tested on Stratix 10 (V2) with an igb-driven Ethernet endpoint using
-INTx and on Agilex 7 (V3, M-series R-tile) with an NVMe endpoint using
-INTx. On both, INTx delivery remained correct under sustained load with
-no spurious interrupts reported, and repeated driver bind/unbind cycles
-with interrupts in flight produced no warnings and no crashes. V1 shares
-altera_pcie_isr() with V2, so the converted handler is identical there,
-but I have no Cyclone V hardware to confirm it.
-
-On backporting: I have not added Cc: stable because the conversion
-affects all three supported generations and V1 remains untested. If you
-would prefer this to accompany 7a94138caeb2 into stable, I can send
-targeted backports.
-
- drivers/pci/controller/pcie-altera.c | 78 ++++++++++++++++------------
- 1 file changed, 45 insertions(+), 33 deletions(-)
-
-diff --git a/drivers/pci/controller/pcie-altera.c b/drivers/pci/controller/pcie-altera.c
-index 8ef56e2fabcf..c5a67aa3be79 100644
---- a/drivers/pci/controller/pcie-altera.c
-+++ b/drivers/pci/controller/pcie-altera.c
-@@ -9,7 +9,7 @@
- #include <linux/bitfield.h>
- #include <linux/delay.h>
- #include <linux/interrupt.h>
--#include <linux/irqchip/chained_irq.h>
-+#include <linux/irq.h>
- #include <linux/irqdomain.h>
- #include <linux/init.h>
- #include <linux/module.h>
-@@ -123,7 +123,7 @@ struct altera_pcie_ops {
- 			   unsigned int devfn, int where, int size, u32 *value);
- 	int (*ep_write_cfg)(struct altera_pcie *pcie, u8 busno,
- 			    unsigned int devfn, int where, int size, u32 value);
--	void (*rp_isr)(struct irq_desc *desc);
-+	irqreturn_t (*rp_isr)(int irq, void *data);
- };
- 
- struct altera_pcie_data {
-@@ -796,19 +796,15 @@ static const struct irq_domain_ops intx_domain_ops = {
- 	.xlate = pci_irqd_intx_xlate,
- };
- 
--static void altera_pcie_isr(struct irq_desc *desc)
-+static irqreturn_t altera_pcie_isr(int irq, void *data)
- {
--	struct irq_chip *chip = irq_desc_get_chip(desc);
--	struct altera_pcie *pcie;
--	struct device *dev;
-+	struct altera_pcie *pcie = data;
-+	struct device *dev = &pcie->pdev->dev;
-+	irqreturn_t handled = IRQ_NONE;
- 	unsigned long status;
- 	u32 bit;
- 	int ret;
- 
--	chained_irq_enter(chip, desc);
--	pcie = irq_desc_get_handler_data(desc);
--	dev = &pcie->pdev->dev;
--
- 	while ((status = cra_readl(pcie, P2A_INT_STATUS)
- 		& P2A_INT_STS_ALL) != 0) {
- 		for_each_set_bit(bit, &status, PCI_NUM_INTX) {
-@@ -819,34 +815,33 @@ static void altera_pcie_isr(struct irq_desc *desc)
- 			if (ret)
- 				dev_err_ratelimited(dev, "unexpected IRQ, INT%d\n", bit);
- 		}
-+		handled = IRQ_HANDLED;
- 	}
--	chained_irq_exit(chip, desc);
-+
-+	return handled;
- }
- 
--static void aglx_isr(struct irq_desc *desc)
-+static irqreturn_t aglx_isr(int irq, void *data)
- {
--	struct irq_chip *chip = irq_desc_get_chip(desc);
--	struct altera_pcie *pcie;
--	struct device *dev;
-+	struct altera_pcie *pcie = data;
-+	struct device *dev = &pcie->pdev->dev;
- 	u32 status;
- 	int ret;
- 
--	chained_irq_enter(chip, desc);
--	pcie = irq_desc_get_handler_data(desc);
--	dev = &pcie->pdev->dev;
--
- 	status = readl(pcie->hip_base + pcie->pcie_data->port_conf_offset +
- 		       pcie->pcie_data->port_irq_status_offset);
- 
--	if (status & CFG_AER) {
--		writel(CFG_AER, (pcie->hip_base + pcie->pcie_data->port_conf_offset +
--				 pcie->pcie_data->port_irq_status_offset));
-+	if (!(status & CFG_AER))
-+		return IRQ_NONE;
- 
--		ret = generic_handle_domain_irq(pcie->irq_domain, 0);
--		if (ret)
--			dev_err_ratelimited(dev, "unexpected IRQ %d\n", pcie->irq);
--	}
--	chained_irq_exit(chip, desc);
-+	writel(CFG_AER, (pcie->hip_base + pcie->pcie_data->port_conf_offset +
-+			 pcie->pcie_data->port_irq_status_offset));
-+
-+	ret = generic_handle_domain_irq(pcie->irq_domain, 0);
-+	if (ret)
-+		dev_err_ratelimited(dev, "unexpected IRQ %d\n", pcie->irq);
-+
-+	return IRQ_HANDLED;
- }
- 
- static int altera_pcie_init_irq_domain(struct altera_pcie *pcie)
-@@ -881,7 +876,12 @@ static void altera_pcie_disable_irq(struct altera_pcie *pcie)
- static void altera_pcie_irq_teardown(struct altera_pcie *pcie)
- {
- 	altera_pcie_disable_irq(pcie);
--	irq_set_chained_handler_and_data(pcie->irq, NULL, NULL);
-+
-+	/*
-+	 * free_irq() waits for any in-flight parent handler, so it can no
-+	 * longer dispatch through pcie->irq_domain below.
-+	 */
-+	free_irq(pcie->irq, pcie);
- 	irq_domain_remove(pcie->irq_domain);
- }
- 
-@@ -1034,12 +1034,19 @@ static int altera_pcie_probe(struct platform_device *pdev)
- 	}
- 
- 	/*
--	 * The chained handler uses pcie->irq_domain, so set it only after the
--	 * INTx domain has been created.
-+	 * The handler demultiplexes into pcie->irq_domain, so request the IRQ
-+	 * only after the INTx domain has been created. IRQF_NO_THREAD keeps it
-+	 * in hardirq context, which generic_handle_domain_irq() requires, and
-+	 * IRQF_NO_SUSPEND keeps the cascade available across suspend as the
-+	 * chained handler was.
- 	 */
--	irq_set_chained_handler_and_data(pcie->irq,
--					 pcie->pcie_data->ops->rp_isr,
--					 pcie);
-+	ret = request_irq(pcie->irq, pcie->pcie_data->ops->rp_isr,
-+			  IRQF_NO_THREAD | IRQF_NO_SUSPEND, dev_name(dev),
-+			  pcie);
-+	if (ret) {
-+		dev_err(dev, "Failed to request IRQ %d\n", pcie->irq);
-+		goto err_remove_domain;
-+	}
- 
- 	if (pcie->pcie_data->version == ALTERA_PCIE_V1 ||
- 	    pcie->pcie_data->version == ALTERA_PCIE_V2) {
-@@ -1067,6 +1074,11 @@ static int altera_pcie_probe(struct platform_device *pdev)
- err_teardown_irq:
- 	altera_pcie_irq_teardown(pcie);
- 
-+	return ret;
-+
-+err_remove_domain:
-+	irq_domain_remove(pcie->irq_domain);
-+
- 	return ret;
- }
- 
--- 
-2.34.1
+> ---
+>  drivers/irqchip/irq-renesas-rzv2h.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/irqchip/irq-renesas-rzv2h.c b/drivers/irqchip/irq-re=
+nesas-rzv2h.c
+> index 1a4703a353e9..485c3eea7632 100644
+> --- a/drivers/irqchip/irq-renesas-rzv2h.c
+> +++ b/drivers/irqchip/irq-renesas-rzv2h.c
+> @@ -420,9 +420,9 @@ static void rzv2h_clear_tint_int(struct rzv2h_icu_pri=
+v *priv, unsigned int hwirq
+> static int rzv2h_tint_set_type(struct irq_data *d, unsigned int type)  {
+>  	u32 titsr, titsr_k, titsel_n, tien;
+> +	u32 titsr_cur, tssr_cur, tien_cur;
+>  	struct rzv2h_icu_priv *priv;
+>  	u32 tssr, tssr_k, tssel_n;
+> -	u32 titsr_cur, tssr_cur;
+>  	unsigned int hwirq;
+>  	u32 tint, sense;
+>  	int tint_nr;
+> @@ -477,6 +477,8 @@ static int rzv2h_tint_set_type(struct irq_data *d, un=
+signed int type)
+>  		if (tssr_cur =3D=3D tint && titsr_cur =3D=3D sense)
+>  			goto set_parent_type;
+>=20
+> +		tien_cur =3D tssr & tien;
+> +
+>  		tssr &=3D ~(ICU_TSSR_TSSEL_MASK(tssel_n, priv->info->field_width) | ti=
+en);
+>  		tssr |=3D ICU_TSSR_TSSEL_PREP(tint, tssel_n, priv->info->field_width);
+>=20
+> @@ -489,7 +491,7 @@ static int rzv2h_tint_set_type(struct irq_data *d, un=
+signed int type)
+>=20
+>  		rzv2h_clear_tint_int(priv, hwirq);
+>=20
+> -		writel_relaxed(tssr | tien, priv->base + priv->info->t_offs + ICU_TSSR=
+(tssr_k));
+> +		writel_relaxed(tssr | tien_cur, priv->base + priv->info->t_offs +
+> +ICU_TSSR(tssr_k));
+>  	}
+>  set_parent_type:
+>  	return irq_chip_set_type_parent(d, IRQ_TYPE_LEVEL_HIGH);
+> --
+> 2.54.0
 
