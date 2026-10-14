@@ -1,206 +1,150 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4369F361960;
-	Wed, 14 Oct 2026 06:52:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D883470440;
+	Wed, 14 Oct 2026 06:53:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791960781; cv=none; b=g7NjNNbELr/Bp6OL/OZOzOC3mVMO7wHHu7C7cyIsXDN/RqGsOoeLz6D1ZLiDUgpJ2mobm8Q/STbhbEfqlLYWUT4M21JI1TOO64S5/9vS+IHbBmSfUDxYieyBh1V3ed0v9MJm5gR9FndE3BvUshQ1OXGN1rMnC9yOGH+4l2Hqd6c=
+	t=1791960823; cv=none; b=qytxWHJrky1Db2iA5/wz9RGa4aFyo4fJhw2wMt0iBdGz6OnD+FBLHjFD7uRvxk/EoooPqs4ymYpe4Ze0hk6dZmXdLXrtmMEy5exsH4jpDTvLTJDO0+BaIuimWkkwM4FyVVF8DKoNrk4+/vDwJ5HqNCeEgf+2jB8f+EWbQxgBqJY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791960781; c=relaxed/simple;
-	bh=kvjDjhwBqEIHq59YMfhEgAZVWWGxX4WxE1hAwWgLpfI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=K+8h72rpdOJbFs6FJat32WKHU1UfzA5aaAECgUWmRaG3LsvLO3hJGLkNluDjGxQ+2h657CCtBuGYvhe2GYaJZLmA4MBAmbmN0eK0JZ0KUC6I2mL9zUrXLIxWRKQY045Mum1qqAa4QcUBUxjLVT1Jo25BQRuIQo2kJAzf8iCGUNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Waj8/XzH; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791960823; c=relaxed/simple;
+	bh=vUhnZUtdmLV9q06YA7VkscacArSwV5TONeRE7br2Tcc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=FvQz4PRMI8pqaOFo/GX0Os8YJdLKUNuHRHd+H3TLBQCqlzSpStsLjpToXNlH8Ch0WoYywx1bVbZfs2WNtEXhot+H0X2OSkw+ex721srV7tgvwI69G7sMhX9MOMCY/ShpWMMsm5XgRn3s0wlCbjju9ihcPJDvM0R1wz4yzUfyaxY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QBXHFm77; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Waj8/XzH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=TnNnbmu9YS7sz+a4d+0CADyh+jpQYkGZAne9eMQmnk4=;
-	b=Waj8/XzHQxCH9EQsDAWp/c31srgUtnbnD764g/uY6O+wrR0ijoUq/NL2PAlOPa
-	MqBoemKPiDALPlGR7UXEcc0h2DJqyGPrJVt0S7pSMDAcjFevzWrJYhy0IqL9+OJ8
-	Sq+o9gPzEbCrZP6479Vc6K2H1dAPue9JznjzFd0Li7nKc=
-Message-ID: <40c740d4-d316-41af-a878-837615947380@163.com>
-Date: Wed, 14 Oct 2026 14:52:37 +0800
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QBXHFm77"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69E1KTUl3018226;
+	Wed, 14 Oct 2026 06:53:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=76x5BANBRdx+TLukl/w886xv7sRQ4xFdFFo
+	8W5Qasz8=; b=QBXHFm77fbt9/1kVh1B5B78Z6QZnnUNesJsELBTr2NmxswNUQ8Z
+	JQo7wUNTKTtknwUsVi2XgAkKGVtKhczQKPBGMCdQoxJ6Vr4cPtzE+1SU0tjEPqsm
+	AiLXi60CqLzYym+wlserUEToxXjv3otjdUnRSW9CVB70zGNrHi8xRGNf6RxdeZQJ
+	Bmc6vo5r1Y/rn8NDxickAd2s9Ye3SWxu8Z2/lLrxf8QDrxEtA+DblDjvCP77Tcwl
+	8CH1aWDorWfF/OPOTTyrgV9IDlfDCOj6UENJbfXSYsHWpd+xW5MWpsGUtRL9A28H
+	2j/Tkl9Uaq2qCHG4qzpxtj9eH2kFk+sl4Tg==
+Received: from aptaippmta01.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com [103.229.16.4])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9s2b2w78-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 14 Oct 2026 06:53:26 +0000 (GMT)
+Received: from pps.filterd (aptaippmta01.qualcomm.com [127.0.0.1])
+	by APTAIPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69E6rOtL3699658;
+	Wed, 14 Oct 2026 06:53:24 GMT
+Received: from cse-cd01-lnx.ap.qualcomm.com (smtphost-taiwan.qualcomm.com [10.249.136.33])
+	by APTAIPPMTA01.qualcomm.com (PPS) with ESMTPS id 69E6rOxm3699644
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 14 Oct 2026 06:53:24 +0000 (GMT)
+Received: by cse-cd01-lnx.ap.qualcomm.com (Postfix, from userid 4531182)
+	id 2239420B2E; Wed, 14 Oct 2026 14:53:23 +0800 (CST)
+From: Le Qi <le.qi@oss.qualcomm.com>
+To: Support Opensource <support.opensource@diasemi.com>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+        Cezary Rojewski <cezary.rojewski@intel.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+        kernel@oss.qualcomm.com, srinivas.kandagatla@oss.qualcomm.com,
+        Le Qi <le.qi@oss.qualcomm.com>
+Subject: [PATCH v1] ASoC: codecs: da7213: Get MCLK in I2C probe
+Date: Wed, 14 Oct 2026 14:53:21 +0800
+Message-Id: <20261014065321.740850-1-le.qi@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] PCI: dwc: Describe DWC PCIe fields with full masks and
- FIELD_PREP()
-To: bhelgaas@google.com, lpieralisi@kernel.org, kwilczynski@kernel.org,
- mani@kernel.org, jingoohan1@gmail.com
-Cc: robh@kernel.org, a-garg7@ti.com, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260930013842.82476-1-18255117159@163.com>
-Content-Language: en-US
-From: Hans Zhang <18255117159@163.com>
-In-Reply-To: <20260930013842.82476-1-18255117159@163.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:PygvCgDX32G1Js9qKCEUEg--.36534S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3Jr15Wr4rZFyUGF1ruw1fCrg_yoWxKw13p3
-	W3JaySya1UtFsxuw1Ik3Z5G3W3XrnrArWDX3yv9w1xKFs3Zrn7WF409a95trs7ZFWIqF1U
-	Kr4qy34xWFW5AwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U53kNUUUUU=
-X-CM-SenderInfo: rpryjkyvrrlimvzbiqqrwthudrp/xtbC7BZF6GrPJrZ3dAAA3h
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Authority-Analysis: v=2.4 cv=RPQmjIi+ c=1 sm=1 tr=0 ts=6acf26e7 cx=c_pps
+ a=nuhDOHQX5FNHPW3J6Bj6AA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8 a=zcUq8rBnXXZ2IMOIndQA:9
+X-Proofpoint-GUID: 1AfuzB3xtLKn_FLN4_nn_jyrTGRN90zj
+X-Proofpoint-ORIG-GUID: 1AfuzB3xtLKn_FLN4_nn_jyrTGRN90zj
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDAyNyBTYWx0ZWRfX5se+Ajvu1PTT
+ A/q+fL2hgHcH2S2txTmTkJMaT8b1M20PxNilYAxICr4enqhopuJqMXtfWt2l69lmKo1eE6mXGch
+ DtSRNeyAza1kGOmW2Kg20PEy4dGUuLPRqaslw/pPPjx0kMQKey8sgmcXu6Xv09TCWYg5DiR7UNw
+ ZHSv8MFzudHqF96K4RImoKoQlxmK8fvnITHCEVTz7/gIYu1RHTBkQJ1D807FE3rMvEOBgCOhhLx
+ xm0CshOqjhlQ9rVCiDHqh+73Twm6rLQtIXI7/Cquf0RPP5mRJtlp/bcCZWFOwiJmwHln8Lmt9AK
+ AASH48oVODlYtnUc2M6jKT5BoOlZE8j0u+h+SSamvfOqEIgH2LW0cQvtWTfE7qbkmg+YA3j/Wlg
+ 0VhJ9fzGEr8P6UEe/IicUgRwzMakwU2qK+367w8LQ7in7KOZTtyWDWfCI39rUQWIVtBf1MWGWNx
+ VMiz76KL6BscXngO7mg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDAyNyBTYWx0ZWRfX/1w4QhBNnc4j
+ Uc6Ouw/eV1VlD6vG+3QGIyDwIbDherIM0J+71q42B2FNgO3VZxEXhdhe8IBjzm9H3PnQVbXkmRy
+ b8DchJqT1omURSpr80G2GL2bSkSYwUE=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 priorityscore=1501 clxscore=1011 malwarescore=0
+ phishscore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140027
 
-Hello Mani,
+With deferrable card binding, a card that fails to bind is retried only
+when a new ASoC component is registered. da7213 requests its MCLK in the
+component probe callback, so if the clock provider registers late, the
+card bind defers and the provider's later registration never triggers
+a rebind, leaving the sound card unregistered.
 
-Could you please handle this patch for me? It was suggested by Bjorn 
-last time.
+Request MCLK in the I2C probe instead, so a missing clock defers the
+codec driver probe through the driver core before the component is
+registered.
 
-Best regards,
-Hans
+Fixes: 42d99857d6f0 ("ASoC: core: Move all users to deferrable card binding")
+Signed-off-by: Le Qi <le.qi@oss.qualcomm.com>
+---
+ sound/soc/codecs/da7213.c | 23 +++++++++++++----------
+ 1 file changed, 13 insertions(+), 10 deletions(-)
 
-
-On 9/30/26 09:38, Hans Zhang wrote:
-> Several DWC PCIe register fields are described with a shift macro next
-> to their mask, or with only a shift and the field width implied by the
-> value written.  Document the field position and width in a single full
-> mask and use FIELD_PREP() to encode it.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Hans Zhang <18255117159@163.com>
-> ---
-> - Based on the controller/dwc branch.
-> ---
->   .../pci/controller/dwc/pcie-designware-ep.c   |  2 +-
->   drivers/pci/controller/dwc/pcie-designware.h  | 12 ++++------
->   drivers/pci/controller/dwc/pcie-tegra194.c    | 22 +++++++++----------
->   3 files changed, 16 insertions(+), 20 deletions(-)
-> 
-> diff --git a/drivers/pci/controller/dwc/pcie-designware-ep.c b/drivers/pci/controller/dwc/pcie-designware-ep.c
-> index 0262d85ed390..198823f105c5 100644
-> --- a/drivers/pci/controller/dwc/pcie-designware-ep.c
-> +++ b/drivers/pci/controller/dwc/pcie-designware-ep.c
-> @@ -1077,7 +1077,7 @@ int dw_pcie_ep_raise_msix_irq_doorbell(struct dw_pcie_ep *ep, u8 func_no,
->   	if (!ep_func || !ep_func->msix_cap)
->   		return -EINVAL;
->   
-> -	msg_data = (func_no << MSIX_DOORBELL_PF_SHIFT) |
-> +	msg_data = FIELD_PREP(MSIX_DOORBELL_PF_MASK, func_no) |
->   		   (interrupt_num - 1);
->   
->   	dw_pcie_writel_dbi(pci, MSIX_DOORBELL, msg_data);
-> diff --git a/drivers/pci/controller/dwc/pcie-designware.h b/drivers/pci/controller/dwc/pcie-designware.h
-> index aea474ad803c..1ff6ed1f9f0b 100644
-> --- a/drivers/pci/controller/dwc/pcie-designware.h
-> +++ b/drivers/pci/controller/dwc/pcie-designware.h
-> @@ -85,9 +85,7 @@
->   /* Common Clock N_FTS */
->   #define  PORT_AFAC_CC_N_FTS(n)		FIELD_PREP(PORT_AFAC_CC_N_FTS_MASK, n)
->   #define  PORT_AFAC_ENTER_ASPM		BIT(30)		/* ASPM L1 Entry Control */
-> -#define  PORT_AFAC_L0S_ELS		24		/* L0s Entrance Latency shift */
->   #define  PORT_AFAC_L0S_ELM		GENMASK(26, 24)	/* L0s Entrance Latency mask */
-> -#define  PORT_AFAC_L1_ELS		27		/* L1 Entrance Latency shift */
->   #define  PORT_AFAC_L1_ELM		GENMASK(29, 27)	/* L1 Entrance Latency mask */
->   
->   #define PORT_LINK_CTRL			0x710		/* Port Link Control Register */
-> @@ -161,7 +159,6 @@
->   #define  GEN3_CTRL_EQ_PHASE_2_3		BIT(9)		/* Equalization Phase 2 and Phase 3 */
->   #define  GEN3_CTRL_RXEQ_RGRDLESS_RXTS	BIT(13)
->   #define  GEN3_CTRL_GEN3_EQ_DISABLE	BIT(16)		/* Equalization Disable */
-> -#define  GEN3_CTRL_RATE_SHADOW_SEL_SHIFT 24		/* Rate Shadow Select shift */
->   #define  GEN3_CTRL_RATE_SHADOW_SEL_MASK	GENMASK(25, 24)	/* Rate Shadow Select mask */
->   
->   #define GEN3_EQ_CTRL			0x8A8		/* Gen3 EQ Control */
-> @@ -230,7 +227,7 @@
->   #define ATU_UPPER_LIMIT			0x020
->   
->   #define MSIX_DOORBELL			0x948
-> -#define  MSIX_DOORBELL_PF_SHIFT		24
-> +#define  MSIX_DOORBELL_PF_MASK		GENMASK(28, 24)
->   
->   /*
->    * eDMA CSRs. DW PCIe IP-core v4.70a and older had the eDMA registers accessible
-> @@ -278,15 +275,14 @@
->   #define RAS_DES_EVENT_COUNTER_CONTROL	0x8
->   #define EVENT_COUNTER_ALL_CLEAR		0x3
->   #define EVENT_COUNTER_ENABLE_ALL	0x7
-> -#define EVENT_COUNTER_ENABLE_SHIFT	2
-> -#define EVENT_COUNTER_EVENT_SEL_MASK	GENMASK(7, 0)
-> -#define EVENT_COUNTER_EVENT_SEL_SHIFT	16
-> +#define EVENT_COUNTER_ENABLE_MASK	GENMASK(4, 2)
-> +#define EVENT_COUNTER_EVENT_SEL_MASK	GENMASK(23, 16)
-> +#define EVENT_COUNTER_GROUP_SEL_MASK	GENMASK(27, 24)
->   #define EVENT_COUNTER_EVENT_Tx_L0S	0x2
->   #define EVENT_COUNTER_EVENT_Rx_L0S	0x3
->   #define EVENT_COUNTER_EVENT_L1		0x5
->   #define EVENT_COUNTER_EVENT_L1_1	0x7
->   #define EVENT_COUNTER_EVENT_L1_2	0x8
-> -#define EVENT_COUNTER_GROUP_SEL_SHIFT	24
->   #define EVENT_COUNTER_GROUP_5		0x5
->   
->   #define RAS_DES_EVENT_COUNTER_DATA	0xc
-> diff --git a/drivers/pci/controller/dwc/pcie-tegra194.c b/drivers/pci/controller/dwc/pcie-tegra194.c
-> index 8c610212a180..285a38178da8 100644
-> --- a/drivers/pci/controller/dwc/pcie-tegra194.c
-> +++ b/drivers/pci/controller/dwc/pcie-tegra194.c
-> @@ -622,10 +622,10 @@ static inline u32 event_counter_prog(struct tegra_pcie_dw *pcie, u32 event)
->   
->   	val = dw_pcie_readl_dbi(&pcie->pci, pcie->ras_des_cap +
->   				RAS_DES_EVENT_COUNTER_CONTROL);
-> -	val &= ~(EVENT_COUNTER_EVENT_SEL_MASK << EVENT_COUNTER_EVENT_SEL_SHIFT);
-> -	val |= EVENT_COUNTER_GROUP_5 << EVENT_COUNTER_GROUP_SEL_SHIFT;
-> -	val |= event << EVENT_COUNTER_EVENT_SEL_SHIFT;
-> -	val |= EVENT_COUNTER_ENABLE_ALL << EVENT_COUNTER_ENABLE_SHIFT;
-> +	val &= ~EVENT_COUNTER_EVENT_SEL_MASK;
-> +	val |= FIELD_PREP(EVENT_COUNTER_GROUP_SEL_MASK, EVENT_COUNTER_GROUP_5);
-> +	val |= FIELD_PREP(EVENT_COUNTER_EVENT_SEL_MASK, event);
-> +	val |= FIELD_PREP(EVENT_COUNTER_ENABLE_MASK, EVENT_COUNTER_ENABLE_ALL);
->   	dw_pcie_writel_dbi(&pcie->pci, pcie->ras_des_cap +
->   			   RAS_DES_EVENT_COUNTER_CONTROL, val);
->   	val = dw_pcie_readl_dbi(&pcie->pci, pcie->ras_des_cap +
-> @@ -661,8 +661,8 @@ static int aspm_state_cnt(struct seq_file *s, void *data)
->   			   EVENT_COUNTER_ALL_CLEAR);
->   
->   	/* Re-enable counting */
-> -	val = EVENT_COUNTER_ENABLE_ALL << EVENT_COUNTER_ENABLE_SHIFT;
-> -	val |= EVENT_COUNTER_GROUP_5 << EVENT_COUNTER_GROUP_SEL_SHIFT;
-> +	val = FIELD_PREP(EVENT_COUNTER_ENABLE_MASK, EVENT_COUNTER_ENABLE_ALL);
-> +	val |= FIELD_PREP(EVENT_COUNTER_GROUP_SEL_MASK, EVENT_COUNTER_GROUP_5);
->   	dw_pcie_writel_dbi(&pcie->pci, pcie->ras_des_cap +
->   			   RAS_DES_EVENT_COUNTER_CONTROL, val);
->   
-> @@ -680,8 +680,8 @@ static void init_host_aspm(struct tegra_pcie_dw *pcie)
->   							PCI_EXT_CAP_ID_VNDR);
->   
->   	/* Enable ASPM counters */
-> -	val = EVENT_COUNTER_ENABLE_ALL << EVENT_COUNTER_ENABLE_SHIFT;
-> -	val |= EVENT_COUNTER_GROUP_5 << EVENT_COUNTER_GROUP_SEL_SHIFT;
-> +	val = FIELD_PREP(EVENT_COUNTER_ENABLE_MASK, EVENT_COUNTER_ENABLE_ALL);
-> +	val |= FIELD_PREP(EVENT_COUNTER_GROUP_SEL_MASK, EVENT_COUNTER_GROUP_5);
->   	dw_pcie_writel_dbi(pci, pcie->ras_des_cap +
->   			   RAS_DES_EVENT_COUNTER_CONTROL, val);
->   
-> @@ -715,9 +715,9 @@ static void init_host_aspm(struct tegra_pcie_dw *pcie)
->   	/* Program L0s and L1 entrance latencies */
->   	val = dw_pcie_readl_dbi(pci, PORT_AFAC);
->   	val &= ~PORT_AFAC_L0S_ELM;
-> -	val |= (pcie->aspm_l0s_enter_lat << PORT_AFAC_L0S_ELS);
-> +	val |= FIELD_PREP(PORT_AFAC_L0S_ELM, pcie->aspm_l0s_enter_lat);
->   	val &= ~PORT_AFAC_L1_ELM;
-> -	val |= (pcie->aspm_l1_enter_lat << PORT_AFAC_L1_ELS);
-> +	val |= FIELD_PREP(PORT_AFAC_L1_ELM, pcie->aspm_l1_enter_lat);
->   	val |= PORT_AFAC_ENTER_ASPM;
->   	dw_pcie_writel_dbi(pci, PORT_AFAC, val);
->   }
-> @@ -881,7 +881,7 @@ static void config_gen3_gen4_eq_presets(struct tegra_pcie_dw *pcie)
->   
->   	val = dw_pcie_readl_dbi(pci, GEN3_CTRL);
->   	val &= ~GEN3_CTRL_RATE_SHADOW_SEL_MASK;
-> -	val |= (0x1 << GEN3_CTRL_RATE_SHADOW_SEL_SHIFT);
-> +	val |= FIELD_PREP(GEN3_CTRL_RATE_SHADOW_SEL_MASK, 0x1);
->   	dw_pcie_writel_dbi(pci, GEN3_CTRL, val);
->   
->   	val = dw_pcie_readl_dbi(pci, GEN3_EQ_CTRL);
-> 
-> base-commit: 4996364a46e738cc455f5fa9b8b09f2f3348bcc9
+diff --git a/sound/soc/codecs/da7213.c b/sound/soc/codecs/da7213.c
+index 923b997efbc4..4990feaa8259 100644
+--- a/sound/soc/codecs/da7213.c
++++ b/sound/soc/codecs/da7213.c
+@@ -2091,16 +2091,6 @@ static int da7213_probe(struct snd_soc_component *component)
+ 
+ 	pm_runtime_put_sync(component->dev);
+ 
+-	/* Check if MCLK provided */
+-	da7213->mclk = devm_clk_get_optional(component->dev, "mclk");
+-	if (IS_ERR(da7213->mclk))
+-		return PTR_ERR(da7213->mclk);
+-	if (da7213->mclk)
+-		/* Do automatic PLL handling assuming fixed clock until
+-		 * set_pll() has been called. This makes the codec usable
+-		 * with the simple-audio-card driver. */
+-		da7213->fixed_clk_auto_pll = true;
+-
+ 	/* Default infinite tone gen, start/stop by Kcontrol */
+ 	snd_soc_component_write(component, DA7213_TONE_GEN_CYCLES, DA7213_BEEP_CYCLES_MASK);
+ 
+@@ -2229,6 +2219,19 @@ static int da7213_i2c_probe(struct i2c_client *i2c)
+ 
+ 	mutex_init(&da7213->ctrl_lock);
+ 
++	/* Check if MCLK provided */
++	da7213->mclk = devm_clk_get_optional(&i2c->dev, "mclk");
++	if (IS_ERR(da7213->mclk))
++		return dev_err_probe(&i2c->dev, PTR_ERR(da7213->mclk),
++				      "failed to get mclk\n");
++	if (da7213->mclk)
++		/*
++		 * Do automatic PLL handling assuming fixed clock until
++		 * set_pll() has been called. This makes the codec usable
++		 * with the simple-audio-card driver.
++		 */
++		da7213->fixed_clk_auto_pll = true;
++
+ 	pm_runtime_set_autosuspend_delay(&i2c->dev, 100);
+ 	pm_runtime_use_autosuspend(&i2c->dev);
+ 	pm_runtime_set_active(&i2c->dev);
+-- 
+2.34.1
 
