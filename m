@@ -1,73 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41CD24FDE66;
-	Wed, 14 Oct 2026 12:55:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3E3F4FDE66
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:56:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791982559; cv=none; b=PeVxqnYIH69qEuOUoVumUPBvFr0BtOc0Y9cyAYrQ52mEV/Rz4EX4/smB3CrOdNmgehQvMcztyxWPJqLL6BLxAoRxN+Xb1gAyJ+0mYWT6Rxzb6CaJUeZdX/1hdO9ZY5VonWUKb8wxT746GCDoe6Rtz0qnscjSceJYuASSE4dwWAQ=
+	t=1791982576; cv=none; b=JjWlJu7Egv8U1NGFN4nGXrzATAYTzJNFa+FMhZN5nb3pzYnCLJ6cRtTBFeDQb60I4Bc9eWsyRe51hI9TLpjWWX+XrTSV3UBt2Sml32tuAhPKoBVzlKQsieQgAGggaN8ONlNR0n0CW9dRYVucOindoRVbBQX9jtJ5gqlsAMOebA4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791982559; c=relaxed/simple;
-	bh=Frc+ADQTxRwKDWaoqMQMlUJQ/gCXB8qyIs31/48aD70=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=neFK3EVPY6YENd8PfyO/ZN2DpJzXnIVPCbfx2BYzyRMP1IZZLXd002yRsByyQhjy1bQjq9nGVxLde0uqeE4crPEAAb62zL8C+FXnp6WdZXF3lk5T6pIN+ZfE81FYOMuQJxlqYjfs4WD92Og4A8KPrY85HiebGciByw2mXzGfdgA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nU0EpuY/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791982576; c=relaxed/simple;
+	bh=QiRLY2I+dmsB482w65tPwSwtUHXEciYXGaPwGUm8SWI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mBcLBxmHIkXW/Q3LMPJUiOEQn6vHt6A94K1V/eJu7TqL+Y2fJTcYG6R0D44YDD6pDfgMivDw7F9XJqT3SWzPMwpKieeVWGpIIB+C6Mt8aT9FzVUpdneOCdakcaqA7TypNnQL1F3DrsT7e01Jhx2neo2yEPTBiHckWfsPPRuUSUE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XVOjvUa7; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nU0EpuY/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 833B81F000FF;
-	Wed, 14 Oct 2026 12:55:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791982550;
-	bh=80POjU5WP6ctS0DqN7hA/63JAQ8Agh1hTny2C1kJcvk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nU0EpuY/kqEhj+nazoEHySQdye5JYzC0oIB7AKCgy2yFvJAIv/w1LKpxCR91DIMUH
-	 O06iVjInkJ+n696hC9U+oaKotdNxWOSdqCGJfOG1ydvsZelUspwK9KwfY4YV+VS3/g
-	 LXna5DBYL97tLRU9C7ufDYGL1RSTxyaZj4aHpDmYVxGC9TRFW7PnI/mah797Me1LK5
-	 Q6AyXMeGQy5Al3VZLeUbIf8TASLsmCG2TB9mAwGOSIkPntTwOmP+yFhIn75+xLdKib
-	 s0g6sPiEucXZEv84OFtxbA8XNyxLbiY5i0/zF9mBvxqLjjEQc386TUTNM0EqBy9cV1
-	 Dlc3Op7DZVq+A==
-From: netdev-bot+sinfo@kernel.org
-To: Tariq Toukan <tariqt@nvidia.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org,
- Paolo Abeni <pabeni@redhat.com>, Dragos Tatulea <dtatulea@nvidia.com>,
- Gal Pressman <gal@nvidia.com>, Joe Damato <joe@dama.to>,
- Leon Romanovsky <leon@kernel.org>, open list <linux-kernel@vger.kernel.org>,
- linux-rdma@vger.kernel.org, Mark Bloch <mbloch@nvidia.com>,
- "Nabil S. Alramli" <dev@nalramli.com>,
- Rahul Rameshbabu <rrameshbabu@nvidia.com>, Saeed Mahameed <saeedm@nvidia.com>,
- Yael Chemla <ychemla@nvidia.com>
-Subject: 
- Re: [PATCH net 0/3] net/mlx5e: Fix CQE moderation mode reporting and control
-Date: Wed, 14 Oct 2026 12:55:49 +0000
-Message-ID: <179198254904.320699.16853742213486052764@kernel.org>
-In-Reply-To: <20261014124704.1017782-1-tariqt@nvidia.com>
-References: <20261014124704.1017782-1-tariqt@nvidia.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XVOjvUa7"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a02667ccebso29675795e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 05:56:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791982566; x=1792587366; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Bx/fbzAbqnMStJvOu8HgXW+2ghzJGQTHCrd7OHKmmSY=;
+        b=XVOjvUa7ZASY5dL5iHBo/QH6lFnoatRxhenGNDroHwXeb30D1orzq7/5ShpfgxZrqp
+         vtvqAo0NVs6hWg38jORx9kXEH/uaoRAaz2UMcPsVBEFO5e7Xr/feveZV7tBPiGznCgXt
+         lTTtIOOeZXToXiHPeHjQ9fuq1rC9puDPNGeL2GWg1SYdFbdJeizZFwnWqduabDQoxXiQ
+         L+6jxhdpvnW9hPTXi81UCWWdLpikGb8x3harMfXTHKZxkGeGxvOWgDz4gh6m21xMy5J4
+         MVKrpgNoDQ6Pb6bBCdee/d4T5tWGgxnxncIL3jbbZEwDjdWStgffZVI+zbd+PTljec39
+         1slA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791982566; x=1792587366;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Bx/fbzAbqnMStJvOu8HgXW+2ghzJGQTHCrd7OHKmmSY=;
+        b=UCFBRZ16wlaeSKY2eyMy7rnpJujGyn6Wc4cs+GDe322mhruvHjWW5kmQqUTuj7+T8a
+         H2O7OeLqPT48Fz32Dypem82Rmjafm9WLAFdM1wfzUri1Hvs+D8rnrXSXCs0kOXP4PQRG
+         1ifMhil8bXdwARU/yggquTNIrCj/dln5RTRTllCFHwpdpbshxzgzr7m1vAoI81HAp8/d
+         AJQ4Zz9uk0CnMGz8wi5UWvEIjbbjgmJ6prX/vDJrgVEp7vzCBUC+Jf6BHc5pZiiXFaQq
+         yN2oswd/jtbcomr9OCfDk+HXdHPUYr4w+40leV2BbQS99P9Lfz3L7PvN4K6TvwCe85QQ
+         b67Q==
+X-Forwarded-Encrypted: i=1; AKwUvByHvWkqA3Em1yEAURHPcKSdxSU8B/0dsmPQmSebxepBAV0nVk7TCbcf2SNrSMVXFB9K2O9DBap8xfPFss8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIKI14Ta2wwm51h33ink3FBN7RMD3+LGgYcXntY0ERgsxnpYV5f
+	vAzLjrw0549KkjrLSY6cR+BSkP4ngrr/uuf55c87vTKetZ51zk/Qvic4
+X-Gm-Gg: AYBFou1hrXbeR/B3feZW6UXnbe0xoqJeYWXZM5MCpqhfZ5DoixthnRun3v1WoAhXoxA
+	dvFtxDfZmz5kVsRhcProms8/FS6erzH681Gbtwvrze40O0GEoStin6zMWfl7glG0/RpI+RtVmcW
+	02uQ0BbyQF1QMiu9khvs553DcC8NvniLwZ3K6kpIDn/ah4emOGCOPk/t/OTEnux52wY8JG3GVTi
+	lgDx7au1o+8C9BvF0hkGZE6/G6GKGWsEOKRhjx2MtdwJHo2PciWU60OLzC9HYcHhzp5M/HrroyK
+	xy8WcxgY/00TDJsXPR2VRh38Z5Fgin/H3fcx+ECKhS58n/n9PAZU+35nC25EmD7hD4CskNnnOIk
+	0Hio3f/IqtxdG37o5Ii+JDpCKAM649qyFLKM4LP0G2F3Zigo/LGAfKYZUvIzMvluuc6MC0epFDi
+	v0KwhwUWANMgw+EfIRHQoHYKW7cRfUfIXFAlvlGw8cBDzjn+ob+spPkUyXvggyeYmPHtKBtQWNC
+	UuR1HuoUhz9ynIWneZjloRxmXUUkd1omX9o5VsavR1czS25tvkMWhuTgggVOHU=
+X-Received: by 2002:a05:600c:4fc1:b0:49d:2536:402e with SMTP id 5b1f17b1804b1-4a19a9cf1e6mr200322795e9.30.1791982565922;
+        Wed, 14 Oct 2026 05:56:05 -0700 (PDT)
+Received: from nixos-office (29.pool92-59-2.dynamic.orange.es. [92.59.2.29])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de7003982sm8989089f8f.8.2026.10.14.05.56.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 05:56:04 -0700 (PDT)
+Sender: Julian Braha <julian.braha@gmail.com>
+From: Julian Braha <julianbraha@gmail.com>
+To: maddy@linux.ibm.com
+Cc: chleroy@kernel.org,
+	mpe@ellerman.id.au,
+	npiggin@gmail.com,
+	ritesh.list@gmail.com,
+	sshegde@linux.ibm.com,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	Julian Braha <julianbraha@gmail.com>
+Subject: [PATCH v2] powerpc/Kconfig: limit the PPC_85xx DATA_SHIFT range to STRICT_KERNEL_RWX
+Date: Wed, 14 Oct 2026 13:55:53 +0100
+Message-ID: <20261014125553.2280686-1-julianbraha@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi!
+On PPC_85xx, enabling DEBUG_PAGEALLOC without STRICT_KERNEL_RWX activates
+the DATA_SHIFT range of 20..24, but since the PAGE_SHIFT default is
+outside the range (12), kconfig adjusts it to 20, causing 1mb alignment
+instead of 4kb. However, the larger alignment is only needed for the
+separate kernel permissions provided by STRICT_KERNEL_RWX.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Since PPC_85xx uses page poisoning for DEBUG_PAGEALLOC and does not
+support KFENCE, let's restrict this range to STRICT_KERNEL_RWX.
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
+This out-of-range default was found by kconfirm, a static analysis tool
+for Kconfig.
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+Signed-off-by: Julian Braha <julianbraha@gmail.com>
+---
+Changes since v1:
+- add range for STRICT_KERNEL_RWX=n and DEBUG_PAGEALLOC=y
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+Link to v1:
+https://lore.kernel.org/all/20261011113108.539470-1-julianbraha@gmail.com/
+---
+ arch/powerpc/Kconfig | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/arch/powerpc/Kconfig b/arch/powerpc/Kconfig
+index c3b6cd655606..09e6027389b2 100644
+--- a/arch/powerpc/Kconfig
++++ b/arch/powerpc/Kconfig
+@@ -896,7 +896,8 @@ config DATA_SHIFT
+ 	default 24 if STRICT_KERNEL_RWX && PPC64
+ 	range 17 28 if (STRICT_KERNEL_RWX || DEBUG_PAGEALLOC || KFENCE) && PPC_BOOK3S_32
+ 	range 14 23 if (STRICT_KERNEL_RWX || DEBUG_PAGEALLOC || KFENCE) && PPC_8xx
+-	range 20 24 if (STRICT_KERNEL_RWX || DEBUG_PAGEALLOC || KFENCE) && PPC_85xx
++	range 20 24 if STRICT_KERNEL_RWX && PPC_85xx
++	range PAGE_SHIFT 24 if !STRICT_KERNEL_RWX && PPC_85xx
+ 	default 22 if STRICT_KERNEL_RWX && PPC_BOOK3S_32
+ 	default 18 if (DEBUG_PAGEALLOC || KFENCE) && PPC_BOOK3S_32
+ 	default 23 if (STRICT_KERNEL_RWX || DEBUG_PAGEALLOC || KFENCE) && PPC_8xx && \
+-- 
+2.55.0
+
