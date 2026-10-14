@@ -1,278 +1,167 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D82D820DD51
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 01:17:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791940672; cv=none; b=K/YB2fH2dz3+FKJTHAYOv071TjdVtOhOqMcOlBmY/5rvQk69YpI27SjFprrJuKU8uxH53iGtHiEJmgLSgI2MOYoA8C8YWtDnkW+galVHXTYWszGvzHQ3oNV7PiKUHP68AUXda+5VM91kMY6BLyyNzXEmqquXsW02o9IDLMaBcEE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791940672; c=relaxed/simple;
-	bh=dTeaZTYjh3Da0EGl3MZT03sejCIC00zGRC7FFkABpZQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qXV9TEJ+zg6gozLb1wZQEMpC62eRmQ5kXVpMBKXGwjebWxkyDEcPKdJ1ibd5KJ0/e+aKgtzoQhulySwNZl3GEMwg+NZ3UTo3uepsBLd7rnj/lTxzAL+lErjxozm/nqXRWmn8nJXxDdvV0dGjd5jSfG1ORERJvXZf7+fLvnFP5zw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ph5O351+; arc=none smtp.client-ip=209.85.215.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1A73288D0
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 01:17:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.172
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791940680; cv=pass; b=tVwzIr2GK0pvFXhyc6FB/F97/ZykehGxYYLeSoEj2mNGoN5+4Fne0X4DAX0E/jyJntUOBdnZzJjGOyQG9gkk2c+hyNvPVtMZ3A96FNLmo4JDWxVPqNZ/aRO5FdFh7FbptWn+T/dKw1IT+h+xpmLk38aV5jH0cTEL/mBGQ6ojYww=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791940680; c=relaxed/simple;
+	bh=Mx8pOrR7NuAhI6a7ZnAXwffRXaDHMNA286y6u6ETCWQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dMVT9uIILB7HHZmSfZPqea00eVOsBT6R7yAYPrYw7QgOiEgc7MMZJM64nt1wFBk3CI3JYgZgyYMqx021wkF2lKLJPSe+H8vD+pNkk5KvcCi7IbZ+seGxIlob2fO0/1mGNvn8xqL8ZyIo5MndKpkUbHJ0Tn4FX9u6RgKNeMfqPLs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NnazHBUh; arc=pass smtp.client-ip=209.85.215.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ph5O351+"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cbedd5aece4so2688883a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:17:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NnazHBUh"
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc4aa0246b7so1586439a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:17:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791940678; cv=none;
+        d=google.com; s=arc-20260327;
+        b=q9Pr/ChRgQpZ08B6CyoqtHnWWXo/jhtyPE3y/+yzg3+BRvMT+VXl8YQTDHIWfSj5aB
+         o8VmZa66SWM+UqMPRCVm+/Lbz0Zo93uwDBj9iTkQ2B6V9nyYEMvMEypGADQoScKiyedU
+         rpuFJLochnBqa9m+9oKQtuy5yeDGqZGuzojeEOIzQWBL+hLCcgjme53p3MRiAbDhxIRJ
+         c+1nayIMbqtFf0TAMGu5gw8Yn4Fipt8gT3cmDQ6FULQLpm62YOOY1cUMH+B7yh/vcYnu
+         1cDKCPhawqtL7nPhW4mA37oT+h6M9TWigjnS6J74nHD4v3bn/klNUs4/5UbvTNusqAyy
+         8ovA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=jDmST7kAhWIJHCguqYIGPuaIfAHg6uPk1l3Ttc4Z6Hk=;
+        fh=8zOefxsg0wnnz11LDbLMf1Xo0j85KJS62qRr1zXu2oQ=;
+        b=sjyB4+EeoBPpJiuteiMHsjoUYWVx7MeEQQ3snaF3sNZA4/84WirX6BjLEAWO6eDFmK
+         8ESUZoKoEjC4wHcNZOU8sZcSpiL5UX68RsCNly5x7d52tYGboOBr+/gQzjmV5ZP0m35m
+         HoZFN+RGsPPc/QnboWY8znfSjgVvIrM5n/UKzGw59lrvye7Bqo+1CpC9m5rOeEIuvh67
+         knCFanAM8bVpokxPDROGoR+GZiWB1ZTHLa5Sk54www59vw8FYIw5MX3u3ma0MAbHhcl0
+         OHwEtgu6QvcqE6CV1vVN0pqhoAF4NIunjQjydV3nfSgrUBnXgHUYW2OAEw0s4Qc2sCIq
+         FF+g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791940670; x=1792545470; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KaUwbOoWaVCKFdXaFwbJuanAHleTOgajImBJaewsajc=;
-        b=ph5O351+rZAor2+Y+7yoIaSTEY+7mQTScy6hw2yFhnSUi+lXiZDlY4OsJxe5qiRUer
-         1wzWQqJe8c4iCWqkZDFs6up2KDkPjtIYbLrEEkR5o8a26WHIds4iJgiqGgwaNLbNmnU7
-         Hwtu0/ADA6iopFUZa6s+o0qEFXBDfZVFXI7FIKbJvedpsBbYkXGCCzwr7EYrnHZMoFo6
-         ig5vdfLDllySJ7vYsCnpYm+SsPbaNZrObt5S6ZTOb568PC58imOiinZJdK18S6pDD5t0
-         20zTid0gpn5VK7beik3yuVgyFvFhjBEDTzSwM9riTOF4N1D1bcd9hjwSDV9etCUCUZNX
-         GMPg==
+        d=gmail.com; s=20251104; t=1791940678; x=1792545478; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jDmST7kAhWIJHCguqYIGPuaIfAHg6uPk1l3Ttc4Z6Hk=;
+        b=NnazHBUhnMzRroXrKKL1OXMaxJT0nO7epnxwNXNtDY5cHhqa6D5MAzjytzbXbl2K1i
+         cK927cmnp/GEDNgm/UC/buVpScS7JxEOVEbG+nOBN60VJXR7FUsb4w22GCpgtyW3JKLG
+         P36Veqmd3W6mEzjLWu/E6ChFTJEh0W5ErOGGVt1/rbsqsW1kRXy/kpDw/r7+PQCYINqw
+         3sw7Knd8QYFurjEkFLuPoCQAcjRoxOMKSQYij0GYGgPGVDlx6kH+byx1DM0mIQc3XTLK
+         u2MYomsZia04C3cbGIWUtAkNAknQWvJGZOz5pu7Td4hwwyVMUcwrkJs3WK4kTOfgFlEx
+         uMSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791940670; x=1792545470;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KaUwbOoWaVCKFdXaFwbJuanAHleTOgajImBJaewsajc=;
-        b=ZfwhWPNjzDhFp2JBjPtj2PK64VwkjydMIl870Lbegv9JeIJroVTQfB2CgV+Wb7q99V
-         8XKg7vm+TQj3WZAO9dIhVkWlFUgSnmFz8rfV7qpMrTsYC58tvwPL7VToLcz74ScDqPyu
-         0B+U+tFVyd3HySaVENWG5gcVQ00EfYq7bjtSIMk+XGrnzwrEqYxvOiIZBkLBYsTu1EFQ
-         ROVbUOmgzbwzLnkc+ZTEPtPNKkzB/ywL8cckboiFNNkFQvZek/j9lh7CguL54WsCdqGP
-         GjTPpY8fwWy7l/ms+Yr0MeJajpef/yRt/M/KvEDaxLXNaWWYpOt+dueeRRelVwqT4n7F
-         +Xmw==
-X-Forwarded-Encrypted: i=1; AKwUvByiTpmZB7szM+MOreO2VnIWWgI50umRE1ljJV7in5kvbusBo0SemB6FaFC4pLttMqCwK8qbGBlror70t9o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIS7WdQ81tAoZRgpa6PHmGM3taI7Y1YQ18yT1AUKTgTa9ttFw7K
-	Ct6LTLZAH9IE1Gj4jcxGe/TTbmawHO52h4RgK5jG+qegycWo2YYng6q8
-X-Gm-Gg: AYBFou2uPNMQ61gYJGMFNNCkTs2xMXzYmr6FdepNUwQxbvMtuksf9Mka8aSzxIMbHJj
-	veNth1Z9fGf2BXR1LecwVpWRcCbDS2c9N2JzdiZI7fBrCUoFdzO1BEXUvKMkJwJsMxCfwXas2Pt
-	EQJAemoIPLBHNPLgE3AmwsbfrKbVA0MOiIT6RzCyFUfpTYglRt2zCzy2UxBG4TP3AjpbT9R9C4U
-	W3y5Q2PIMUTAfniJGbM33TpEkAUgg/7tmrHu3MSh0/rD8zdbD5d6PIFISE62E/MWU6/+2jyRrqt
-	4KZmHsYOD/qkOj5zxD0M6ajWESFdHWQWZlAKxc6Od+M0FOJ2Fh+dDhJgq8MkzR9MM9d2J2s3MK3
-	yFSshmecix8a8RLQuPajGR+a84Dh5s0NtfWKaxQZPukkwLMzv0Hm5EimoYwOKUIThuioTv3NKWi
-	zStn1GbCMf9JBxZ/hCqU0sRdNeqUsGeW1vJI328SqJZriuK4yUiK86rUojT2SCbnZnxuJRJQf1H
-	EOgBnVG40V6kOyOdLgqzAzc+80JmrL1qZK9jEd5o1BrqNYJRgk/BWPrG3eM+gCg2QNWNRvbWNAv
-	yTzLjUDwReI+ooT+LemzI/68fR0/JJsJ6VPBRwQfzsN66PZC
-X-Received: by 2002:a17:90a:d006:b0:3a0:c31d:80c with SMTP id 98e67ed59e1d1-3ab3a953313mr6789233a91.9.1791940670112;
-        Tue, 13 Oct 2026 18:17:50 -0700 (PDT)
-Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.172])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac60064254sm1842593a91.4.2026.10.13.18.17.46
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 13 Oct 2026 18:17:49 -0700 (PDT)
-From: Yu Zhang <yuz08559@gmail.com>
-To: "Martin K . Petersen" <martin.petersen@oracle.com>
-Cc: linux-scsi@vger.kernel.org,
-	target-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mike Christie <michael.christie@oracle.com>,
-	Dmitry Bogdanov <d.bogdanov@yadro.com>,
-	stable@vger.kernel.org,
-	Yu Zhang <yuz08559@gmail.com>
-Subject: [PATCH] scsi: target: tcm_loop: fix tl_nexus use-after-free on concurrent nexus drop
-Date: Wed, 14 Oct 2026 11:17:39 +1000
-Message-ID: <20261014011739.45941-1-yuz08559@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20260707; t=1791940678; x=1792545478;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=jDmST7kAhWIJHCguqYIGPuaIfAHg6uPk1l3Ttc4Z6Hk=;
+        b=EXhIPJUIZQ43H+4dx921qgG2u+xKBXSy542LM2SRGbUy+FbdPu1yT6NbyGUsk+2jrZ
+         cwM3lBqYxp0dZR4x5iN1r4qDYM/n4f3XUk7pVpFOljoJ3G84hPNQzsf03uaw/vnr3YWl
+         kI7rHGjQrkelYSelF+rS2rJwREnZmsdT2KH34Yvx3pcl2FGV8QNd4v58t+OHwRfdwWPE
+         OA405Im5RkeH8ioW7CPltDI+zm353jisnwW9LeU9FsXzsimaCATYUd6s36tUQgvgFvZK
+         U2tk1hP1h8LEquWQ2Hcgp81V1MCOKsC+Qa4AJppNygoiYNaBbxZbV1KMYcHWlWhDFyW8
+         yQMQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy2B+tLvBHec4Tyh2OQkxHMD9Kuq5DeZeu3/qAh4XXxeWXA8HcCuw1ErNybhg4jdgJZWZEkZUWHVgh8jb4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJUt7PqHJ85HyiIfQJTDnGZIpxQAVQFBhEy5wuUeDicUZTmFvcN
+	C0LlKxaOtbSrjTSjmK9KVCI8YjdhE6pHFWoqXd4zL0JFmIEtnulkGkPWmDrSXpREO8CX1YsQiQq
+	BavfCtW9tdZYm8yEPRzLSQ3tTnNwb8vg=
+X-Gm-Gg: AYBFou0AN005qTa+NmbLOjKOgZmfjVnS68Uu6RxO3FVTupiBp2LZ+kH7N1+DCfZq06b
+	RTzYKfUvrItN7RJt121ZA/lv1O4tCuIX+hLeYh1V90+/4uhh0BUyXfMd1rHbtq/WicfLB/pasoG
+	k7BG3+2CnJ0hcNDjrHJVu8dSrTsMkIahaISyx2aPyvXdvHm4vDCrnNPQbYcgFCiOF4mBttLQQAE
+	EcuYznlDUUGVuHVqaB1HLBiaq8/lKE+Wjnp7XNhLQTcpNemQNEIjHVN/n3dlKe2+INFhdiP1pW3
+	AKPMZKjPEdgeFO4QPIppb9NxCnd0ZpoUmQa6oTe3+EDgxRFDl9V98nPK9S++m2FyU3g1Y5p310o
+	hjM6CWXedMLYSb4Yy7XdT9+vflEvaOC2A695qaw==
+X-Received: by 2002:a17:90b:518f:b0:3a4:b0a1:c7ed with SMTP id
+ 98e67ed59e1d1-3ab3a90e667mr11772541a91.13.1791940678077; Tue, 13 Oct 2026
+ 18:17:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261013220421.1588051-1-bhelgaas@google.com> <20261013220421.1588051-3-bhelgaas@google.com>
+In-Reply-To: <20261013220421.1588051-3-bhelgaas@google.com>
+From: Semih Baskan <strst.gs@gmail.com>
+Date: Wed, 14 Oct 2026 04:17:46 +0300
+X-Gm-Features: AclHuK_e12mFZYv6Pnb8WSqKFNBAW2cZiwmazllPkVxW3EceBwkTGRAJSzPTr38
+Message-ID: <CAAsRjRng=D-kP3pakPA=M5k-znYbTj3gz-RGiajnxhS3ymz8sg@mail.gmail.com>
+Subject: Re: [PATCH v4 2/2] PCI: iproc: Use the EROM outbound window on BCMA
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Manivannan Sadhasivam <mani@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Ray Jui <rjui@broadcom.com>, 
+	Scott Branden <sbranden@broadcom.com>, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>, 
+	=?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, Arnd Bergmann <arnd@arndb.de>, 
+	Rosen Penev <rosenp@gmail.com>, Rani Hod <rani.hod@gmail.com>, 
+	bcm-kernel-feedback-list@broadcom.com, linux-pci@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Bjorn Helgaas <bhelgaas@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-tcm_loop keeps the per-TPG I_T nexus in tl_tpg->tl_nexus with no lock,
-refcount or RCU protection.  The configfs control path that creates and
-destroys it is not serialized: configfs runs concurrent ->store() calls
-in parallel (configfs_write_iter() only holds a per-open-file
-buffer->mutex, and flush_write_buffer() takes frag_sem for read), so two
-writers to the nexus attribute, or a writer racing the transport_status
-or nexus show attribute, all touch tl_nexus concurrently.
+On Tue, Oct 13, 2026 at 05:04:21PM -0500, Bjorn Helgaas wrote:
+> The PCIe outbound window base on Northstar depends on the PCIe Gen2 core
+> revision. Revision 0x01 uses 0x08000000, 0x40000000 and 0x48000000 for
+[...]
 
-A nexus created without linking a LUN has tl_tpg_port_count == 0, so
-tcm_loop_drop_nexus() ("echo NULL > .../nexus") passes its port-count
-guard and frees the nexus (target_remove_session() + kfree()) with no
-lock held.  Two concurrent drops therefore both read the same tl_nexus,
-both pass the guard, and both free the same se_session -> use-after-free
-/ double free.  The sibling fabric drivers vhost_scsi and xen-scsiback
-serialize the equivalent nexus create/drop/show with a per-TPG
-tv_tpg_mutex; tcm_loop has no such lock.
+Thanks for combining them.
 
-KASAN, two concurrent "echo NULL > .../loopback/<wwn>/tpgt_1/nexus"
-(nexus created, no LUN linked), reproduces in seconds:
+Signed-off-by: Semih Baskan <strst.gs@gmail.com>
+Tested-by: Semih Baskan <strst.gs@gmail.com>
 
-  BUG: KASAN: slab-use-after-free in transport_free_session+0x12f/0x3f0
-  Call Trace:
-   transport_free_session+0x12f/0x3f0
-   tcm_loop_drop_nexus+0x85/0xf0
-   tcm_loop_tpg_nexus_store+0x392/0x580
-   configfs_write_iter+0x1a7/0x250
-  Allocated by task 3008:  ... tcm_loop_tpg_nexus_store <- configfs_write_iter
-  Freed by task 3010:      ... tcm_loop_drop_nexus <- configfs_write_iter
+Tested on an Asus RT-N18U (BCM47081, PCIe core rev 0x01) with both
+patches on OpenWrt's 6.18.55, which carries 767012397976 as a backport,
+driver built in. bcma0:7 enumerates the BCM4360 with the same window,
+BARs and IRQ as OpenWrt's current image (an earlier version of this
+patch), and bcma0:8/9 print the two expected warnings (DT 0x20000000
+and 0x28000000 against EROM 0x40000000 and 0x48000000). I did not
+build it as a module.
 
-Add a per-TPG tl_nexus_mutex and take it around every control-path
-access to tl_nexus: tcm_loop_make_nexus(), tcm_loop_drop_nexus(),
-tcm_loop_tpg_nexus_show() and the transport_status "offline" path that
-dereferences tl_nexus->se_sess.  tcm_loop_drop_nexus() clears tl_nexus
-under the mutex and only releases/frees the session after dropping it,
-so a racing control-path caller either observes the live nexus under the
-lock or sees NULL and bails -- it can no longer free it a second time.
+For the commit log, here is a version that describes the bcma and
+platform side, in case it helps:
 
-The I/O submission path (tcm_loop_target_queue_cmd(), tcm_loop_issue_tmr())
-reads tl_nexus without the mutex and is left unchanged: it can run in
-atomic context, and it is already serialized against drop by
-tl_tpg_port_count plus SCSI-midlayer draining (a live scsi_device keeps
-tl_tpg_port_count > 0, which makes tcm_loop_drop_nexus() return -EPERM).
+    PCI: iproc: Use the EROM outbound window on BCMA
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Yu Zhang <yuz08559@gmail.com>
-Tested-by: Yu Zhang <yuz08559@gmail.com>
----
- drivers/target/loopback/tcm_loop.c | 44 +++++++++++++++++++++++-------
- drivers/target/loopback/tcm_loop.h |  3 +++
- 2 files changed, 37 insertions(+), 10 deletions(-)
+    The PCIe outbound window base on Northstar depends on the PCIe Gen2
+    core revision. Revision 0x01 uses 0x08000000, 0x40000000 and
+    0x48000000 for controllers 0 to 2, revision 0x07 (NS-B0) uses
+    0x08000000, 0x20000000 and 0x28000000. Broadcom's own driver branches
+    on the core revision for this reason. The enumeration ROM reports the
+    base for the revision present, and bcma provides it as addr_s[0].
 
-diff --git a/drivers/target/loopback/tcm_loop.c b/drivers/target/loopback/tcm_loop.c
-index 1111111..2222222 100644
-@@ -672,14 +672,18 @@
- 	struct tcm_loop_nexus *tl_nexus;
- 	int ret;
- 
-+	mutex_lock(&tl_tpg->tl_nexus_mutex);
- 	if (tl_tpg->tl_nexus) {
- 		pr_debug("tl_tpg->tl_nexus already exists\n");
--		return -EEXIST;
-+		ret = -EEXIST;
-+		goto out;
- 	}
- 
- 	tl_nexus = kzalloc_obj(*tl_nexus);
--	if (!tl_nexus)
--		return -ENOMEM;
-+	if (!tl_nexus) {
-+		ret = -ENOMEM;
-+		goto out;
-+	}
- 
- 	tl_nexus->se_sess = target_setup_session(&tl_tpg->tl_se_tpg, 0, 0,
- 					TARGET_PROT_DIN_PASS | TARGET_PROT_DOUT_PASS,
-@@ -687,12 +691,15 @@
- 	if (IS_ERR(tl_nexus->se_sess)) {
- 		ret = PTR_ERR(tl_nexus->se_sess);
- 		kfree(tl_nexus);
--		return ret;
-+		goto out;
- 	}
- 
- 	pr_debug("TCM_Loop_ConfigFS: Established I_T Nexus to emulated %s Initiator Port: %s\n",
- 		 tcm_loop_dump_proto_id(tl_hba), name);
--	return 0;
-+	ret = 0;
-+out:
-+	mutex_unlock(&tl_tpg->tl_nexus_mutex);
-+	return ret;
- }
- 
- static int tcm_loop_drop_nexus(
-@@ -701,17 +708,23 @@
- 	struct se_session *se_sess;
- 	struct tcm_loop_nexus *tl_nexus;
- 
-+	mutex_lock(&tpg->tl_nexus_mutex);
- 	tl_nexus = tpg->tl_nexus;
--	if (!tl_nexus)
-+	if (!tl_nexus) {
-+		mutex_unlock(&tpg->tl_nexus_mutex);
- 		return -ENODEV;
-+	}
- 
- 	se_sess = tl_nexus->se_sess;
--	if (!se_sess)
-+	if (!se_sess) {
-+		mutex_unlock(&tpg->tl_nexus_mutex);
- 		return -ENODEV;
-+	}
- 
- 	if (atomic_read(&tpg->tl_tpg_port_count)) {
- 		pr_err("Unable to remove TCM_Loop I_T Nexus with active TPG port count: %d\n",
- 		       atomic_read(&tpg->tl_tpg_port_count));
-+		mutex_unlock(&tpg->tl_nexus_mutex);
- 		return -EPERM;
- 	}
- 
-@@ -719,10 +732,14 @@
- 		 tcm_loop_dump_proto_id(tpg->tl_hba),
- 		 tl_nexus->se_sess->se_node_acl->initiatorname);
- 	/*
--	 * Release the SCSI I_T Nexus to the emulated Target Port
-+	 * Clear tl_nexus under tl_nexus_mutex so a concurrent drop/show/
-+	 * transport_status store cannot observe or free it a second time,
-+	 * then release and free the session after dropping the lock.
- 	 */
--	target_remove_session(se_sess);
- 	tpg->tl_nexus = NULL;
-+	mutex_unlock(&tpg->tl_nexus_mutex);
-+
-+	target_remove_session(se_sess);
- 	kfree(tl_nexus);
- 	return 0;
- }
-@@ -737,12 +754,16 @@
- 	struct tcm_loop_nexus *tl_nexus;
- 	ssize_t ret;
- 
-+	mutex_lock(&tl_tpg->tl_nexus_mutex);
- 	tl_nexus = tl_tpg->tl_nexus;
--	if (!tl_nexus)
-+	if (!tl_nexus) {
-+		mutex_unlock(&tl_tpg->tl_nexus_mutex);
- 		return -ENODEV;
-+	}
- 
- 	ret = snprintf(page, PAGE_SIZE, "%s\n",
- 		tl_nexus->se_sess->se_node_acl->initiatorname);
-+	mutex_unlock(&tl_tpg->tl_nexus_mutex);
- 
- 	return ret;
- }
-@@ -861,11 +882,13 @@
- 	}
- 	if (!strncmp(page, "offline", 7)) {
- 		tl_tpg->tl_transport_status = TCM_TRANSPORT_OFFLINE;
-+		mutex_lock(&tl_tpg->tl_nexus_mutex);
- 		if (tl_tpg->tl_nexus) {
- 			struct se_session *tl_sess = tl_tpg->tl_nexus->se_sess;
- 
- 			core_allocate_nexus_loss_ua(tl_sess->se_node_acl);
- 		}
-+		mutex_unlock(&tl_tpg->tl_nexus_mutex);
- 		return count;
- 	}
- 	return -EINVAL;
-@@ -923,6 +946,7 @@
- 	tl_tpg = &tl_hba->tl_hba_tpgs[tpgt];
- 	tl_tpg->tl_hba = tl_hba;
- 	tl_tpg->tl_tpgt = tpgt;
-+	mutex_init(&tl_tpg->tl_nexus_mutex);
- 	/*
- 	 * Register the tl_tpg as a emulated TCM Target Endpoint
- 	 */
-diff --git a/drivers/target/loopback/tcm_loop.h b/drivers/target/loopback/tcm_loop.h
-index 3333333..4444444 100644
-@@ -2,6 +2,7 @@
- #include <linux/types.h>
- #include <linux/device.h>
- #include <target/target_core_base.h> /* struct se_cmd */
-+#include <linux/mutex.h>
- 
- #define TCM_LOOP_VERSION		"v2.1-rc2"
- #define TL_WWN_ADDR_LEN			256
-@@ -39,6 +40,8 @@
- 	struct se_portal_group tl_se_tpg;
- 	struct tcm_loop_hba *tl_hba;
- 	struct tcm_loop_nexus *tl_nexus;
-+	/* Serializes tl_nexus accesses on the configfs control path */
-+	struct mutex tl_nexus_mutex;
- };
- 
- struct tcm_loop_hba {
--- 
-2.43.0
+    Commit 767012397976 ("ARM: dts: BCM5301X: Describe PCIe controllers
+    fully"), in v7.1, gave the controllers in bcm-ns.dtsi a ranges
+    property with the revision 0x07 values. bcm-ns.dtsi is shared by
+    every Northstar SoC. The DT ranges cause two problems for this
+    driver:
+
+      1) devm_pci_alloc_host_bridge() parses and requests the DT ranges,
+         then the driver adds the EROM window and requests the list a
+         second time, so every controller fails to probe with -EBUSY.
+
+      2) The DT window itself is only correct on revision 0x07. On
+         revision 0x01, controllers 1 and 2 get an address the hardware
+         does not decode, and the first MMIO access to a BAR takes an
+         imprecise external abort.
+
+    The window comes from the EROM and the interrupt from bcma. Allocate
+    the bridge with pci_alloc_host_bridge() and free it through a devm
+    action, so the PCI core no longer parses and requests the DT ranges,
+    and request only the EROM window. The driver still reads the DT
+    ranges for one check: if the DT describes a memory window that
+    differs from the EROM one, it prints a warning, so a wrong dts shows
+    up instead of being ignored. The driver works whether or not the DT
+    describes a window.
+
+    The same commit also added compatible = "brcm,iproc-pcie", so these
+    nodes now match pcie-iproc-platform. With CONFIG_PCIE_IPROC_PLATFORM
+    enabled, the default on ARCH_BCM_IPROC, that driver binds them first.
+    It takes the DT window as it is, so that path needs a separate fix
+    either way. This patch fixes configurations with PCIE_IPROC_PLATFORM
+    disabled, such as OpenWrt's.
+
+    Fixes: 767012397976 ("ARM: dts: BCM5301X: Describe PCIe controllers fully")
+    Cc: stable@vger.kernel.org
