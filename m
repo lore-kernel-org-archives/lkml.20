@@ -1,306 +1,174 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010010.outbound.protection.outlook.com [52.101.85.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA87F2F49F6
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 03:16:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791947817; cv=none; b=RUmy+DbOLUIiTMP6XCZOJplVCt0jsn2+HzHd6a31LbJ6FxKSOFP2gFd8ZHomgsiVXMpdiP0xoW33ZdblkjpiY7kC2QLlli1ruLjfwLJgVrvpREBJzgJjZmEnOBclTqqssio69rcufmt8wKj8vYI3u+QD1QAubBJBo+XTG5Ve2vU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791947817; c=relaxed/simple;
-	bh=ZMzPAf0YBzK40prTUOQm123Z+YZ/64Z7k78dqS3V0NA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QmVa0fRMkSv9nX9gvmS1lp/opo3RVBvOcnp37i+GopmBNZudLnjxCCG+SgCTTJVeqrPHLQfg+4P7yO+nctLVKQMpgK4P4LMv7G1jw0hbIB26dvTabt8oE9S2MBar/P1NrZPVPOE6lZJZjR/BzYrgaJuF2cR8OQpOIs32G/uhN5M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=NbEdq29a; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7D2118B0A;
+	Wed, 14 Oct 2026 03:17:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.10
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791947868; cv=fail; b=APBMFhITEK3n2Y3iziTxVAnFKORuBHbDKPR/p9ZUBuc/rtTz6o44uzxErmWzNK5jgaR54HLlFaK3ZZNV3xBHlk+KTB6QhdFi2xucBHWqfb1YB2crL40xAELES5zj2a8KnqEkOwQQSn7Ss5WAbRrIEvA/7gZHry3lmrGdVCdoPP4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791947868; c=relaxed/simple;
+	bh=HrXJweVyqGY8PMwJYn+Z447iu+/0+Ha/NuBX4IY6egA=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=a3bEod+rObPS4AbeROhXOSNav0QlhMRU4BPekDpaNBu5DjsolAq/0E7HM2xxBS790h/h4GWxiAqouungE/ovcZ9RHN7SPr558hEnwAuw9/T1y/b0s2lUyIVSQK7E3BQkgeHYZD/ZajtQ0DL4afHDqUUJwu66V0UBPzErsxaZQIs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=FukwMs5c; arc=fail smtp.client-ip=52.101.85.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="NbEdq29a"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69DM0oDY1775031;
-	Wed, 14 Oct 2026 03:16:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=vfjXev
-	xmmjpEfgjWMFTXwdTqXsK/H4tcoFH11uvIfLA=; b=NbEdq29aHj18kt8RqSm4qt
-	g8IaKSPczksIyPIM3sdVRW0UpzhyJp+La0K9phvfvutUxfzOwV6LsVbxcn76YyLl
-	7UWDW5bHfyNk2cVWg5ubg248K3v3XCbTZO5hXx9sjLwcEeqqOz6UC14eQ87bzDrV
-	O40bLSkIOS9ymR1a6WOz7S6RVTIfC8Vj31zpw9GMvnggXIYngkWtdlcvGFX+4haA
-	hCO544wHGmXsUTOBgTS3czGy+6GxOtY/j5oJFdOzB84Jk7ohdHIvSYKk4sQEoL8R
-	TUn3H44qp9tJrUNL/BecnSppJFUvVrFjqJBvzUzRFBdEK1Vo/YhbgEiJlbPtchIg
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dwj1qdk-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 14 Oct 2026 03:16:20 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69E1sECD2709272;
-	Wed, 14 Oct 2026 03:16:20 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h816h5f77-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 14 Oct 2026 03:16:20 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69E3GFkI43188556
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 14 Oct 2026 03:16:16 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id DD99E2004E;
-	Wed, 14 Oct 2026 03:16:15 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id ACCB52004B;
-	Wed, 14 Oct 2026 03:16:12 +0000 (GMT)
-Received: from [9.124.213.187] (unknown [9.124.213.187])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 14 Oct 2026 03:16:12 +0000 (GMT)
-Message-ID: <5f107344-7ddf-402e-809c-7229ff6fb6d5@linux.ibm.com>
-Date: Wed, 14 Oct 2026 08:46:11 +0530
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="FukwMs5c"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=B9lEVvDgYYmxMfeYB8rxEywFZY8N8Ujt7oRL+OYJnlA3oJ5gSTTKr/rFxJxNkqqviCQ3FrfSxK+CWoT6Lwb/zHJzNJyTMBetBcHfytswrh9PG/Mv/lRe1vOAR/9sSPJ+XK+PQ6nlDrY7YKZCOo4iZymRfR4FCBRN/XhHvBMv9tk6ZqOh40jw4gTMV4Y6NJofmJADLzg+Xw/b7zqBbg7yNAtAPc06pgruX8+mA8KNdcx9tr336gzmIfiJIczgQTKWxqUMbVJWgibM3rWzxmM+PzpYtQmb4C+kXmxAewryt3I5NcazdccA//H6MnoMQitj4CcBd2GXsYlHTW58r8jU7A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7kL8oBs/1JPwv1vs8iPTM+H3vHOob8w+C+Ebxc7ulJk=;
+ b=PtrEx2l6Q/IhcrtAXbsxvQHvn3DkXagd5E6uXLMLmvL2Xx/kWuhk/lP10P6HMpf05H3QmXirxX7h3r4Un5gSdNoRlrGDZ6eAHZ5aXJIwFv1w6/ks83fbMcdsqiEIoXuM/hk384b0F85BdGFKeeSksn3SWULGaa+y7LDAhtwXD5+ObUr/G7bQo42HnvdgXrjgJU3TEOA5pgkF63k7wh8kK5qyrLVSJBDd+s0X+7YSmQ/qDCp5wyTC5dHwDjIkpjwfXOyjSzf+tRrbIwinnCy/wkqoe7n3DV2XgIDXO7X4ipIAbCS+fJqciuzhWrSb7xcZSL7HTxgDSD3MRX7dZl8EBQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7kL8oBs/1JPwv1vs8iPTM+H3vHOob8w+C+Ebxc7ulJk=;
+ b=FukwMs5co0TsVm1Qjnwn8EDCw+ZAStWsrK5eFWtL0IRtTFUyYL68CIgo2IqcAzgd6LfxyyT/+SmIRBdCF+nh3dDtp+HRTW6oywNnGE/mqPwQK19N59D/ivnn2EQblYtoVizHDP9mFxZmx/5Y3C0fDutu6OWWZlNWo6w6VselhbJrNtZpYjaN9ygpTLQPN70X6orn5DUE79X0puYkH8cdhpw5oxBHaKOn0fx2TOCqJW+DalYRhDbLbpMVYnl3wN7MdYw927+PngVr83A/5JdsaP9UTIhm7tDCMUk2vqkmT2CBdRGkrlzGDfYpGotDZwTtnI5CBYKjdQ83LgSzFwuv9A==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SAVPR12MB999143.namprd12.prod.outlook.com
+ (2603:10b6:806:4e5::21) by DS7PR12MB5909.namprd12.prod.outlook.com
+ (2603:10b6:8:7a::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Wed, 14 Oct
+ 2026 03:17:41 +0000
+Received: from SAVPR12MB999143.namprd12.prod.outlook.com
+ ([fe80::219e:6553:2ec0:3761]) by SAVPR12MB999143.namprd12.prod.outlook.com
+ ([fe80::219e:6553:2ec0:3761%4]) with mapi id 15.21.0496.021; Wed, 14 Oct 2026
+ 03:17:41 +0000
+Message-ID: <b4aa46a5-dd8a-4520-8574-d008a3877f28@nvidia.com>
+Date: Wed, 14 Oct 2026 11:17:29 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH nf-next v3 1/3] net/mlx5e: Ignore FLOW_ACTION_PRIORITY on
+ flowtable offload
+To: Julius Bairaktaris <julius@bairaktaris.de>, pablo@netfilter.org,
+ fw@strlen.de
+Cc: phil@nwl.cc, netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+ netdev@vger.kernel.org, lorenzo@kernel.org, nbd@nbd.name,
+ matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, corbet@lwn.net,
+ rdunlap@infradead.org, skhan@linuxfoundation.org, linux-doc@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, saeedm@nvidia.com, leon@kernel.org,
+ tariqt@nvidia.com, mbloch@nvidia.com, linux-rdma@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261004171636.3545085-1-julius@bairaktaris.de>
+ <20261004171636.3545085-2-julius@bairaktaris.de>
+Content-Language: en-US
+From: Jianbo Liu <jianbol@nvidia.com>
+In-Reply-To: <20261004171636.3545085-2-julius@bairaktaris.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SI2PR02CA0022.apcprd02.prod.outlook.com
+ (2603:1096:4:195::23) To SAVPR12MB999143.namprd12.prod.outlook.com
+ (2603:10b6:806:4e5::21)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] powerpc/topology: Introduce llc_override debugfs
-To: Tim Chen <tim.c.chen@linux.intel.com>
-Cc: christophe.leroy@csgroup.eu, linux-kernel@vger.kernel.org,
-        ritesh.list@gmail.com, kprateek.nayak@amd.com, yu.c.chen@intel.com,
-        vineethr@linux.ibm.com, vincent.guittot@linaro.org,
-        srikar@linux.ibm.com, npiggin@gmail.com, mpe@ellerman.id.au,
-        maddy@linux.ibm.com, linuxppc-dev@lists.ozlabs.org,
-        peterz@infradead.org
-References: <20261012102037.2477378-1-sshegde@linux.ibm.com>
- <0cbd60fcf328ffcb317739f60d327da3af6145f1.camel@linux.intel.com>
- <dfd8312d-a59c-4480-b054-d94d2e66110e@linux.ibm.com>
- <4d0f2f4631f2f836bb1aec140c2c8e3e11d7ba20.camel@linux.intel.com>
-Content-Language: en-US
-From: Shrikanth Hegde <sshegde@linux.ibm.com>
-In-Reply-To: <4d0f2f4631f2f836bb1aec140c2c8e3e11d7ba20.camel@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDAxMiBTYWx0ZWRfX6i56fBXqo8DT
- jGPA/utDhheJL89A5rOScXi3plxsfDP1opIPD8n2RHxhB48JuSOaYRVSHMZ1Hfas5tZoqQ85Mm1
- jmSjrXmb2eV1EFftGmEogVGYCDwkU2X/Z00ccFOVSRTNhwmaxEQbfJt7dFio04ND1maO5dFvODX
- WIw2bkNEQYBqEDiz8YspY9KEXVGldaxXlfbxaZMB9+BfJyIRb1AeFU0h9BkmBR5IeChZj8PaM5d
- hz52lm6ula03kHuzTHQarZW7biyGp0jwRYIfACiyXFHyWc9ktUzRTQuVvfZQpOFVBpaWjHZPfA6
- 6tFX8WLJVG4b1GacNL40dsHZf7TnbSdmRQ31lyBwT+cTWNJDob6h8OzhOm5aj9/YucCxfT15zb+
- uFPj1g8y/qZgFKvsy9/bzT5TXVuZp9/Qb0xW7QEv9dxyMDBSTymXRlTz79gH4AvAd4XZQ5Wz9n9
- 6CrbHIBQTRxguX2ye/Q==
-X-Proofpoint-GUID: E5reA7hJtXl3dRwHFJCbCN9ZNuvHwB7e
-X-Proofpoint-ORIG-GUID: T8XHE_d19YmQUy8zpn2yaoosPKieZ6Y1
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDAxMiBTYWx0ZWRfX4ZBCkDXv0Z+O
- 4TNCvWkysTAVQ6sEFFrGZb+V0/rUsOSrjkg3Fn2QRw/q2BfmdB8zzPrsqvy9OFjWmMeuUdAKrpJ
- 2tqtJcpFQ+2KeHlx6f1Jwau4k90jypY=
-X-Authority-Analysis: v=2.4 cv=btHZl0ai c=1 sm=1 tr=0 ts=6acef405 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=LSd69HplV2GyPLOmy40A:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 phishscore=0 impostorscore=0 adultscore=0
- lowpriorityscore=0 priorityscore=1501 clxscore=1015 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610140012
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SAVPR12MB999143:EE_|DS7PR12MB5909:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5dc0b751-8545-4b35-ea38-08df29a1b4c1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|366016|1800799024|376014|23010399003|56012099006|4143699003|11063799006|22082099003|18002099003|6133799003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	kA8f/qsQS36PB7mSdciJr1MEQjR9QaammDV/YaeJZ0bk4Luia2GQREKKY6e+kw6LlWWoWPYyanzIYbORr0MBh69CxV6LMmN3peVwVw2/uXmHbO2r4FeumSa4t4ULwN1mnaGNx+f0FpaTVXaB0QiAB4mEUWviKyCcCd2H8Ccyn/GybmgfCrjhpddbRZJZdO57OLE7EIQTazVqVoSw7JIiKc2POw+2bNmP+/UzfU7hiquldjJfel0LXHclYdGPdfe+FQAeSG29Yc2302DJzDwGLuXtd1TT9DKVjvXO4Q90YkeuLVeRUsuTo58w5daURiJVKdWQnInRwbjDCGJlN0i68B5K+wG9XYmmpL1wAoUBc35s14ndYpUn2ymgg4jhIABFW8dmTP/OuG9He0W86TQOOv3DOw5FBH2XWO9cIhvc+Epis1F4BvbpOwqTunndsShlVfYN6F6+MqWb+x/lU/gHko8B46AellhYGB6GQ5RxhgNiPGtNWhrdZxLxtLJ0fEQ82qNIrFGvN7KHFub28JHepbwQuhoytmxWYPNYX2CLNOSDRh6eIBwHMkMGrlHqWEJFYblrSrzGOocAi4yTQ6sNmCO9ggFnZOfsz5BZr4MnKkKYDf80eMNDyY9JXq4uzsGCBTV8tw55bHK/HCsx26husA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SAVPR12MB999143.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(1800799024)(376014)(23010399003)(56012099006)(4143699003)(11063799006)(22082099003)(18002099003)(6133799003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?djJWTEtkTUMwU3IxWTRwTHZ4dy9mU3RzOEZ4L0NQN2lnc05NMjJ1S0xpM2d6?=
+ =?utf-8?B?MFF0M1pMUDNZZkhvbi9jbUJnSnBNYm1ZbHJTcGRmbi9obG9jUU5idnUrWkNN?=
+ =?utf-8?B?SVVjaitHYW5JbklaRVE2L0JOL2p0SGM4TU02dkxWbEZENU1wVzUvTFZESmFK?=
+ =?utf-8?B?YmNUZ0QzOWlUdFJoMUlObVlpRStERXdBd3c0VTIvWFZLdDlFNDhtcU1TakQx?=
+ =?utf-8?B?WlgvMTJLMGk1bXdTTExqYmd6VDJ4UmNCbFY0bXhGaEVMNThjeTYrY254Sk1w?=
+ =?utf-8?B?a3NweS9ydW5DNXByR1FqS1ZHYlpMUWY5T2pUcmV2NkpISTN5TnFsY0tsSWpz?=
+ =?utf-8?B?S0NBYUxseG9nNElyRWxiNjI5YXJ5VUx4TmR5dTFWV3hSNUZWK0ZTM2ljbkcw?=
+ =?utf-8?B?N0IxNXpTL0JIZG8zTUJBYUJxRERIOGlZcERLMFY0dTFhMTFNN2VPOVVkNzNs?=
+ =?utf-8?B?bmVtYUh4c1B3QlNjNEttWmdMTmx5d2hYamI3N0R5Y0NHK25TdGFqMlc0Mmhq?=
+ =?utf-8?B?M3N3bGVHc0RYQ1M1TzlUaFVvY0pUUCtTSTYxa0g2YUNHR3U5OHRjcHo3cERT?=
+ =?utf-8?B?eDQwVHdjK2UvZTVOcGNRdGRoT2dqVnVEOUFKMERHUCtYeG5sSk13SVhESElt?=
+ =?utf-8?B?bG1IVTFLSVBZQkZzYTRhN1JuK1J3b3pIelRQNHdIUTJkV0ZBaVkzYjdzR2Mx?=
+ =?utf-8?B?L1VmV2xhYXhQYVR2a1RKanMrUy9LSmk1TWVQZFZVWDRlZCtlUUZZMnpVRjlx?=
+ =?utf-8?B?QWF5cno5Nk9POVVBdW4yaEQ5T1pVMWZnRGhCMGttYlFETDRRTXl1cFUreHFT?=
+ =?utf-8?B?Sk81NnVmYXRzVmlwc0Vna1pVcGhwZ1FobjYvOGlsaUN3SW5SNXE0aHhQY09D?=
+ =?utf-8?B?VE05cEtZN2lxbHpLY3JHVUR3WEQ3Z1ZOVXJWZEFyOTc2WXE5aXJiUWUzYmxJ?=
+ =?utf-8?B?MG1ObzB5ZFJOUUVzYjc3RWZPTVlHQ0JVM3c0THJiR0NMb1JvZ0J6UjlWZ295?=
+ =?utf-8?B?OGJoMjVPcU90RXVhaUJEbEJjcVNzRnVQb2FsL1ZBNTVnZXQ2ZHE4SER1MzlN?=
+ =?utf-8?B?emd0dm82YVdVVVR4amE4OHZqS2QvV1B6MTNYQ2lxMElRbk5za2RQYm5XUXM1?=
+ =?utf-8?B?MWIyaUtsYXVKa1gzNVBRcUxGOUZSL1RySXRFRHdGQ0FCbEVFcGZ2Yk9pOWla?=
+ =?utf-8?B?MGFEWE5vdHkxUDBiejVaMnlseHJLMkRGVklHdXNqYW5INldTL0VQOGNReWlO?=
+ =?utf-8?B?UDdYUkVDMUp2NUZwS1gxTlo1M1V0WTZiNGlYVVR1Mkd6MGxYdDc1TEM3S2J4?=
+ =?utf-8?B?Wm1YZnlOcFppQlpiSGdOZnc4cWovVFJsT1VqaUczUys4b0pmT3UwdTIrT0JL?=
+ =?utf-8?B?Q2oyM1RoaWU3VElQeDZPYkFKdTR1Z3VzNDR3bGJGNHpLWnd6WnFPbGwwT0tW?=
+ =?utf-8?B?ZktnbXVmVU9EZlZVYkNOREQwYktueTdDRm5yZ3o0bHFCT3JkazFqTG16N1c5?=
+ =?utf-8?B?UmZxMzcvQ21TcFlrVDFZazV0ckdrRE1VWTZvclpQL0RFdlB1NklMSXZzRXBF?=
+ =?utf-8?B?QnhpNXVBdDl2Snl5ZlpBSWtKcXN5U1ZieWRYbTZ1bHFWYXArSmJWUnB0VjQ3?=
+ =?utf-8?B?REpoUmxtaFNOaUlha1lMMGVRUVlpNzVRWlI3L0JybVZHa082am95b080bG1p?=
+ =?utf-8?B?S3oyT05oNHFFWmt1Y0V5WnpMblVLQzhCVkprQk4wZ0VHZnFOVEFkeFdPcnd5?=
+ =?utf-8?B?L1V0aFdhSXo0NUhjR1hiQWJpSWtQazYzRVhHS2VrODhCUUEzVXlFR3F3MFBI?=
+ =?utf-8?B?czRtSmZ1OU9XOXp2T2RTQkYrNWtBS0FVZlAxUGJHT0lnbCtuZG5YZmR5OHdN?=
+ =?utf-8?B?OHdOTU9SaUV2cDlBaTlCaVFadytveG96MnlUY0ljd3h6OHhvUTIzWDVBenla?=
+ =?utf-8?B?OVd4MUJLSGM2dVRmUEl2Z3JUakJva1NUS3d1M1d1cTBlYkdZT1VtNWxCR0lm?=
+ =?utf-8?B?YUNlZnZnSHJ5L2YwWFFZYklwMXhEdS96L0JWTnpNR3BWaDhMQThpTFQxRWVK?=
+ =?utf-8?B?dUtrQzNiM3hPZWhCS2ZVR1JYUW5HMGoxWHlNaWVEZnNPTDhKbU96WDFlMVd2?=
+ =?utf-8?B?L09uMG1pdTNncUhTYnBvS2VzV3RoelZocUlCRWRFVURSbEdpeXlwU1ZXNW95?=
+ =?utf-8?B?aUtOdFZtSUJ0dXYvbUpLUUFwQTd0cVZLSUg2OExIQjAwNWs1MWdvTEtrSlFx?=
+ =?utf-8?B?UjhjOTNBTmNzNmxKTDFtSjRpaVJ4c2haem1zeW1LT1lDMmc0bEdqeVJOVERK?=
+ =?utf-8?B?VE9UMDZidVhjUjJCbDE4WUovbzN5VEVIckhNUWZrRzZQa093ZURwUT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5dc0b751-8545-4b35-ea38-08df29a1b4c1
+X-MS-Exchange-CrossTenant-AuthSource: SAVPR12MB999143.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 03:17:41.0156
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ADuRsCGrOiriwqV0vWjcxR1hNuzm0gqdRffuL7ryKcXnwmwidk503AdJTK3X4oUhbdn2aKF/j9tJEoJ9tk0D6A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5909
 
 
 
-On 10/14/26 2:14 AM, Tim Chen wrote:
-> On Tue, 2026-10-13 at 15:28 +0530, Shrikanth Hegde wrote:
->>
+On 10/5/2026 1:16 AM, Julius Bairaktaris wrote:
+> The next patch makes the flowtable emit FLOW_ACTION_PRIORITY for flows
+> with a non-zero skb->priority, which on IPv4 includes the priority
+> ip_forward() derives from the TOS by default. mlx5 would reject these
+> rules and stop offloading flows it offloads today.
 > 
-> [snip]
-> 
->>
->> One way to fix it is with a change like below.
->> But more thoughts after the patch.
->>
->> ---
->>    arch/powerpc/include/asm/topology.h |  7 +------
->>    arch/powerpc/kernel/smp.c           | 23 +++++++++++++++++++++++
->>    include/linux/sched.h               |  2 +-
->>    kernel/sched/topology.c             |  7 +++++++
->>    4 files changed, 32 insertions(+), 7 deletions(-)
->>
->> diff --git a/arch/powerpc/include/asm/topology.h b/arch/powerpc/include/asm/topology.h
->> index 44ec416fa489..f4555632e692 100644
->> --- a/arch/powerpc/include/asm/topology.h
->> +++ b/arch/powerpc/include/asm/topology.h
->> @@ -135,12 +135,7 @@ struct cpumask *cpu_coregroup_mask(int cpu);
->>    const struct cpumask *cpu_die_mask(int cpu);
->>    int cpu_die_id(int cpu);
->>    
->> -/*
->> - * Points to where the LLC is. On power9 this will point at CACHE
->> - * domain, On others it will point to SMT domain. In all cases
->> - * cpu_l2_cache_mask points to where LLC is
->> - */
->> -#define arch_llc_mask(cpu)     cpu_l2_cache_mask(cpu)
->> +const struct cpumask *arch_llc_mask(int cpu);
-> 
-> You will need to add
-> #define arch_llc_mask arch_llc_mask
+[...]
+> +	/* The eswitch does not apply skb->priority to flowtable flows. */
+> +	if (mlx5e_is_ft_flow(parse_state->flow))
+> +		return 0;
 
-Yes.
+The handler is only in tc_acts_fdb[] and only accepts flowtable flows,
+so NIC mode and tc flower rules are rejected as before. Looks good.
 
-> here.
-> 
-> Otherwise kernel/sched/topology.c looks for a macro:
-> 
->    # ifndef arch_llc_mask
->    #define arch_llc_mask(cpu) cpu_coregroup_mask(cpu)
->    # endif
-> 
-> With the #define gone, the generic code falls back to
-> cpu_coregroup_mask().
-> 
->>    
->>    #ifdef CONFIG_PPC64
->>    #include <asm/smp.h>
->> diff --git a/arch/powerpc/kernel/smp.c b/arch/powerpc/kernel/smp.c
->> index 6a4ee7d3b8e5..139c54fc3e2d 100644
->> --- a/arch/powerpc/kernel/smp.c
->> +++ b/arch/powerpc/kernel/smp.c
->> @@ -1864,6 +1864,28 @@ void __noreturn arch_cpu_idle_dead(void)
->>    
->>    #endif
->>    
->> +/*
->> + * Points to where the LLC is. On power9 this will point at CACHE
->> + * domain, On others it will point to SMT domain. In all cases
->> + * cpu_l2_cache_mask points to where LLC is.
->> + *
->> + * If there is llc_override debug knob, return appropriate mask
->> + */
->> +const struct cpumask *arch_llc_mask(int cpu)
->> +{
->> +	switch (READ_ONCE(llc_override)) {
->> +	case LLC_OVERRIDE_SMT:
->> +		return cpu_smt_mask(cpu);
->> +	case LLC_OVERRIDE_MC:
->> +		return cpu_coregroup_mask(cpu);
->> +	case LLC_OVERRIDE_PKG:
->> +		return cpu_die_mask(cpu);
->> +	case LLC_OVERRIDE_DISABLED:
->> +	default:
->> +		return cpu_l2_cache_mask(cpu);
->> +	}
->> +}
->> +
-> 
-> The mask here has to match the span of the highest SD_SHARE_LLC
-> domain, and there seems to be some mismatches.
->                                                                                 
-> - PKG: On power pc, seems like cpu_die_mask() returns
->    cpu_coregroup_map when coregroups are
->    supported,
-> 
-> 	if (has_coregroup_support())
-> 		return per_cpu(cpu_coregroup_map, cpu);
-> 	else
-> 		return cpu_node_mask(cpu);
-> 
->    so this is the MC span while sd_llc sits at PKG. It
->    should be cpu_node_mask(), the same as tl_pkg_mask().
-> 
+The comment says what the code does, but the consequence is worth a line
+in the commit message. Because the action is ignored, the priority only
+reaches packets still on the software fast path, where
+nf_flow_offload_forward() sets skb->priority. Once the flow is offloaded
+to the FDB, mlx5 forwards it without touching skb->priority, so the
+offloaded packets do not carry it. Refusing the flow to honor the
+priority would keep it in software, so ignoring the action and keeping
+the offload is the better tradeoff, it is just not obvious from the code.
 
-facepalm :/
+I checked this on ConnectX-7: with the series the priority-carrying 
+flows stay offloaded to the FDB like plain flows, and without patch 1/3 
+they fallback to software.
 
-> - SMT: patch 3 adds SD_SHARE_LLC only to MC/PKG, so for "smt" the
->    flags are as before. I think it is possible for P9 to have
->    shared_caches between two cores:
-> 
->    /*
->     * P9 has a slightly odd architecture where pairs of cores share an L2 cache.
->     * This topology makes it *much* cheaper to migrate tasks between adjacent cores
->     * since the migrated task remains cache hot. We want to take advantage of this
->     * at the scheduler level so an extra topology level is required.
->     */
-> 
->    the CACHE level also has SD_SHARE_LLC, and highest_flag_domain() picks it, so sd_llc spans
->    cpu_l2_cache_map. shared_caches is only set when that map is wider
->    than the core's threads, e.g. a P9 core pair sharing an L2:
-> 
->      CPU:               0 1 2 3 | 4 5 6 7
->      cpu_smt_mask():    core A  | core B
->      sd_llc (CACHE):    0-7
-> 
->    The ids follow cpu_smt_mask(), so 0-3 and 4-7 get different ids
->    while sd_llc and sd_llc_size cover all eight, and
->    cpus_share_cache(0, 4) is false, which is incorrect.
-> 
+Nit: "prio" already means flow table priority in mlx5; skbedit_prio
+would be clearer. Not a blocker.
 
-Yes. I doubt anyone wants to try this experiment on Power9.
-But yes, functionally updating the flags is needed.
-
-@srikar,
-That is also the reason for having the disabled. By default on P9,
-llc will be at CACHE domain. But, one may want to experiment with =smt
-which i doubt anyone will ever do.
-
-
->>    int arch_update_cpu_topology(void)
->>    {
->>    	if (READ_ONCE(llc_override_changed)) {
->> @@ -1923,6 +1945,7 @@ static ssize_t llc_override_set(struct file *file, const char __user *ubuf,
->>    		pr_info("sched LLC override set to %s. Rebuilding sched domains\n",
->>    			llc_override_str[override]);
->>    
->> +		sched_reset_llc_id();
-> 
-> The reset here seems racy without taking cpus_read_lock, and taking
-> sched_domains_mutex for each CPU and you could have a cpu hot plug event
-> or cpu set rebuild in between.
-> 
-> That's why I would go with the boot parameter. The llc ids are assigned once,
-> with the right mask, so there is nothing to reset or rebuild, no
-> change to kernel/sched/, and everything stays in arch/powerpc. Since
-> this is an experiment knob, needing a reboot to change it is a small
-> cost, and every run starts from a clean state.
-> 
-> Tim
-
-
-Yes. That is what i prefer at this moment too. It will be cleaner.
-Only thing is, need to get the masks right in different domains.
-
-> 
->>    		rebuild_sched_domains();
->>    	}
->>    
->> diff --git a/include/linux/sched.h b/include/linux/sched.h
->> index 7b91cae4a59c..4d7e2ee841a9 100644
->> --- a/include/linux/sched.h
->> +++ b/include/linux/sched.h
->> @@ -2505,5 +2505,5 @@ extern void migrate_enable(void);
->>    #endif /* MODULE */
->>    
->>    DEFINE_LOCK_GUARD_0(migrate, migrate_disable(), migrate_enable())
->> -
->> +void sched_reset_llc_id(void);
->>    #endif
->> diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
->> index dd2b1d70ec9d..63c9bca4c5eb 100644
->> --- a/kernel/sched/topology.c
->> +++ b/kernel/sched/topology.c
->> @@ -3087,6 +3087,13 @@ void sched_domains_free_llc_id(int cpu)
->>    	sched_domains_mutex_unlock();
->>    }
->>    
->> +void sched_reset_llc_id(void)
->> +{
->> +	int cpu;
->> +
->> +	for_each_online_cpu(cpu)
->> +		sched_domains_free_llc_id(cpu);
->> +}
->>    /*
->>     * Build sched domains for a given set of CPUs and attach the sched domains
->>     * to the individual CPUs
-
+Reviewed-by: Jianbo Liu <jianbol@nvidia.com>
