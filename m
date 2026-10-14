@@ -1,252 +1,177 @@
 Received: from va-1-114.ptr.blmpb.com (va-1-114.ptr.blmpb.com [209.127.230.114])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ADD04E5350
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:45:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C32C457E65
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:46:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.114
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791971154; cv=none; b=UEoZ3HFFaSIWFYgKF9E05pYp3PZRIcxLOTG711khMk38zKpidMqYl/fcAX/ZvgaP8kV/Lxrv7tGBQU6Uzuky+SQCTjfE1KIzRreuawoH5lki3ICDInfkzO319Gx6RARpWt7QxojJXEDPDmGBlsTJ4ji2DzCh2YDgH2loU/fy5d0=
+	t=1791971185; cv=none; b=HGSDHKht+KlpDKvSpvd4ihM+/chLgjEgrvUhSUOknkZ/21SpyyPj9v1ka3laT/8bAg5H6GvA4B5SxEYZ1xs9ygMoKMJBw5O9rUPdq3c0gUnEKn/x6l6hzTx1x2LR4CDkmkQOcjJl7omganUtyu7q/EVKD1MwvFT6tpAMCyJgrU4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791971154; c=relaxed/simple;
-	bh=UuTDZykY1DR8yjqNS48cPNFHrb48dRUznDlo5zj/+rc=;
-	h=In-Reply-To:Subject:Date:Message-Id:Content-Type:References:To:Cc:
-	 From:Mime-Version; b=kYWXEu7RaSe3s5Kpm7h9RQ94OdgcWPElCpn5ydFkZvdNQEXncmShigonyG/xFDvv5X9ySAHFIVcm59ShKIkolisWkXKJd73qX+lcHEfJ6TUZOVvDhMN912kLGssh0PZo9AHRS3Gc0s/Wdyqel/cIJT3k+6eM6OXYZWJohOb+cb8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=HIkL+ZdS; arc=none smtp.client-ip=209.127.230.114
+	s=arc-20240116; t=1791971185; c=relaxed/simple;
+	bh=pPMR4Q8xaGvS7SttOwlONotpEI9RRoO0t+V8f8ieag8=;
+	h=To:In-Reply-To:From:Subject:Message-Id:Mime-Version:Date:
+	 References:Cc:Content-Type; b=hHQEFgkuALU+laLZH1I2cTo0JAMe9uKDIXbIX8dvB92zAbB/qXC2vOpPNG0vYm5gE8Ic2OIqm1beb8sL4Z70IVxAcalTikH9Ve6LKuS+nZGFvnRDGgoPRD7aNCwkRnm+os3P/FcI3UVScwte0OiW/WmG08ZgGWThTdT/Xu9e4Uk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=NmOPoufl; arc=none smtp.client-ip=209.127.230.114
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="HIkL+ZdS"
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="NmOPoufl"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1791971147; h=from:subject:
+ s=2212171451; d=bytedance.com; t=1791971173; h=from:subject:
  mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
  mime-version:in-reply-to:message-id;
- bh=5cjoSrIIljOIInwRxHyN89H7Srl+gGPS+IjzpyYAnwk=;
- b=HIkL+ZdSxmwBtu7okcdRns5fwXsFRyI+u8xX0JAaGFTq9O7JN8E92ha3/Z48Swyudxva+Y
- YL2UuFN/33wkUZeD7ofjMGSjV324sDnY9oqkCEb8WMLoKjye3EhkHQyVPLaSI2Mwvi6XQi
- 4WdpRkh6l1/NERnHnXBz8kTl5bRsjDgcFKTSzMg3oPPn9WIvO0QvzHp5W/nPUNu2xWudh9
- hKh5falYiUYuv1tjm9wKMzL/HwNdLfikpvlANBrb1ToP1E8HFeJ5vFStuOD40NarU1tnNJ
- U2Jr+7rWSnl+dojThkCCfHJkmBr1QKEZTEtyu5FyaxqG10+fZbviMYN0nofEyw==
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20261014094347.99157-1-lizhe.67@bytedance.com>
-Subject: [PATCH 3/6] sched/numa: fix scan-period adjustment for shared faults
-Date: Wed, 14 Oct 2026 17:43:44 +0800
-Message-Id: <20261014094347.99157-4-lizhe.67@bytedance.com>
-X-Lms-Return-Path: <lba+26acf4f49+4e0a7b+vger.kernel.org+lizhe.67@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-References: <20261014094347.99157-1-lizhe.67@bytedance.com>
+ bh=5g9Mw8eoznlsynpSJ6z9deMC+OBzAzCqHJiI3+n9U7c=;
+ b=NmOPouflIqEqOH2cP2X61xIj0lD7N1IcWwvu9ZWYCWbEVxWJkKWHNVAcUivyBsCDWBraID
+ gfIhKANvNLEeJyrIsOiOtqgZwHw2VYRJCTZJqahRE9GsTy89NAaJ85gWM29cHTRn20rQdS
+ 4KZjgfqBr6r2T4eDu9VKcwsk6ljqbi5WV37HJpzm3dIGFXVgbn8XeSBRPUHRM5NqJxeE88
+ nobiGYrzgFqAAWP9S3li0Sq64nitxSilDh6mFaoyLQmayg6UowdnzTtATAohMr2KcocsKt
+ Wvye9PH3L9IPP7Q6/ePdrzPJUe2Zgh+AvFuusSdx06FBHIvkmranlahIbxlIdg==
+X-Lms-Return-Path: <lba+26acf4f62+db2148+vger.kernel.org+lizhe.67@bytedance.com>
 To: <akpm@linux-foundation.org>, <david@kernel.org>, <ljs@kernel.org>, 
 	<gourry@gourry.net>, <joshua.hahnjy@gmail.com>, <ziy@nvidia.com>, 
 	<mingo@redhat.com>, <peterz@infradead.org>, <mgorman@suse.de>, 
 	<riel@redhat.com>, <juri.lelli@redhat.com>, <vincent.guittot@linaro.org>, 
 	<dietmar.eggemann@arm.com>, <rostedt@goodmis.org>, <bsegall@google.com>, 
 	<vschneid@redhat.com>, <kprateek.nayak@amd.com>
-Cc: <linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<linux-mm@kvack.org>, "Li Zhe" <lizhe.67@bytedance.com>
+X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20261014094347.99157-1-lizhe.67@bytedance.com>
+X-Original-From: Li Zhe <lizhe.67@bytedance.com>
+Content-Transfer-Encoding: 7bit
 From: "Li Zhe" <lizhe.67@bytedance.com>
+Subject: [PATCH 4/6] sched/numa: make free-space tiering promotion bypass configurable
+Message-Id: <20261014094347.99157-5-lizhe.67@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-X-Original-From: Li Zhe <lizhe.67@bytedance.com>
-Content-Transfer-Encoding: 7bit
+Date: Wed, 14 Oct 2026 17:43:45 +0800
+References: <20261014094347.99157-1-lizhe.67@bytedance.com>
+Cc: <linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<linux-mm@kvack.org>, "Li Zhe" <lizhe.67@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
 
-Commit 37ec97deb3a8 ("sched/numa: Slow down scan rate if shared faults
-dominate") intended to slow scanning when either shared or local faults
-dominate, and to speed scanning up only when many private faults are on
-remote memory pages.
+Memory tiering normally promotes any recently accessed slow-tier page if
+the target fast-tier node has enough free space. This preserves the
+existing policy of filling available fast memory before relying on
+hotness and rate-limit control.
 
-The implementation uses the private-fault ratio as the slow-scan signal.
-That makes private-dominated samples slow scanning, while
-shared-dominated samples can still fall through to the speed-up path.
-That does not match the stated intent.
+That is not always the desired policy. Some workloads may intentionally
+place memory across CXL-attached memory and DRAM to use aggregate memory
+bandwidth. With the free-space bypass, cold one-shot accesses and bursts
+of hot accesses can refill the fast tier and pull the workload away from
+that distribution whenever DRAM has free space.
 
-Replacing the private ratio with a shared ratio fixes the
-shared-dominated case, but the scan-period code still only has separate
-locality and sharing ratios. Those ratios cannot distinguish a window
-with many remote shared faults and only a few remote private faults from
-one with substantial remote private faults.
+Add kernel.numa_balancing_promote_free_space_bypass. It defaults to 1,
+preserving the existing behavior. When cleared, enough free space in the
+target fast-tier node no longer bypasses the normal hotness and
+rate-limit controls.
 
-Track faults that are both remote and private, and only speed up scanning
-when that signal is large enough. This keeps local or shared samples
-slowing scanning and avoids extra hinting overhead when the remote
-activity is mostly shared.
-
-Fixes: 37ec97deb3a8 ("sched/numa: Slow down scan rate if shared faults dominate")
 Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
 ---
- include/linux/sched.h | 17 ++++++++---
- kernel/sched/fair.c   | 68 ++++++++++++++++++++++---------------------
- 2 files changed, 48 insertions(+), 37 deletions(-)
+ Documentation/admin-guide/sysctl/kernel.rst | 16 ++++++++++++++
+ include/linux/mmzone.h                      |  5 ++---
+ kernel/sched/fair.c                         | 23 +++++++++++++++------
+ 3 files changed, 35 insertions(+), 9 deletions(-)
 
-diff --git a/include/linux/sched.h b/include/linux/sched.h
-index d35ae49a991f..1be7a9ba7553 100644
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
-@@ -832,6 +832,16 @@ struct task_ipi_mask {
- struct task_ipi_mask { };
- #endif
+diff --git a/Documentation/admin-guide/sysctl/kernel.rst b/Documentation/admin-guide/sysctl/kernel.rst
+index ffea61d448eb..4a035b18aff4 100644
+--- a/Documentation/admin-guide/sysctl/kernel.rst
++++ b/Documentation/admin-guide/sysctl/kernel.rst
+@@ -765,6 +765,22 @@ will be limited to be no more than the set value.
+ A rule of thumb is to set this to less than 1/10 of the PMEM node
+ write bandwidth.
  
-+#ifdef CONFIG_NUMA_BALANCING
-+enum numa_faults_locality {
-+	NUMA_FAULT_REMOTE,
-+	NUMA_FAULT_LOCAL,
-+	NUMA_FAULT_MIGRATE_FAIL,
-+	NUMA_FAULT_REMOTE_PRIVATE,
-+	NR_NUMA_FAULT_LOCALITY,
-+};
-+#endif
++numa_balancing_promote_free_space_bypass
++========================================
 +
- struct task_struct {
- #ifdef CONFIG_THREAD_INFO_IN_TASK
- 	/*
-@@ -1422,11 +1432,10 @@ struct task_struct {
++Controls whether memory tiering promotion may bypass the normal
++hint-fault hotness check and promotion rate limit when the target
++fast-tier node has enough free space.
++
++The default value is 1.  In this mode, if the fast tier has enough free
++space, recently accessed slow-tier pages can be promoted without the
++hotness check or the promotion rate limit, so the kernel can fill
++available fast-tier capacity.
++
++When set to 0, enough free space no longer bypasses these controls.
++A slow-tier page must pass the normal hotness and rate-limit checks before
++promotion.
++
+ oops_all_cpu_backtrace
+ ======================
  
- 	/*
- 	 * numa_faults_locality tracks if faults recorded during the last
--	 * scan window were remote/local or failed to migrate. The task scan
--	 * period is adapted based on the locality of the faults with different
--	 * weights depending on whether they were shared or private faults
-+	 * scan window were remote/local, remote private, or failed to migrate.
-+	 * The task scan period is adapted based on those fault patterns.
+diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
+index 94f9c3ff5416..5d583b17dfa2 100644
+--- a/include/linux/mmzone.h
++++ b/include/linux/mmzone.h
+@@ -297,9 +297,8 @@ enum node_stat_item {
  	 */
--	unsigned long			numa_faults_locality[3];
-+	unsigned long			numa_faults_locality[NR_NUMA_FAULT_LOCALITY];
- 
- 	unsigned long			numa_pages_migrated;
- #endif /* CONFIG_NUMA_BALANCING */
+ 	PGPROMOTE_CANDIDATE,
+ 	/**
+-	 * Not rate-limited (NRL) candidate pages for those can be promoted
+-	 * without considering hot threshold because of enough free pages in
+-	 * fast-tier node.  These promotions bypass the regular hotness checks
++	 * Not rate-limited (NRL) candidate pages that are promoted through the
++	 * free-space bypass. These promotions bypass the regular hotness checks
+ 	 * and do NOT influence the promotion rate-limiter or
+ 	 * threshold-adjustment logic.
+ 	 * This is for statistics/monitoring purposes.
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 76532b8202dc..ec8a6bfeb2c7 100644
+index ec8a6bfeb2c7..2e11107bf5ca 100644
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -3675,10 +3675,10 @@ static void numa_group_count_active_nodes(struct numa_group *numa_group)
+@@ -134,6 +134,8 @@ static unsigned int sysctl_sched_cfs_bandwidth_slice		= 5000UL;
+ #ifdef CONFIG_NUMA_BALANCING
+ /* Restrict the NUMA promotion throughput (MB/s) for each target node. */
+ static unsigned int sysctl_numa_balancing_promote_rate_limit = 65536;
++/* Preserve the existing default of using free fast-tier space eagerly. */
++static unsigned int sysctl_numa_balancing_promote_free_space_bypass = 1;
+ #endif
  
- /*
-  * When adapting the scan rate, the period is divided into NUMA_PERIOD_SLOTS
-- * increments. The more local the fault statistics are, the higher the scan
-- * period will be for the next scan window. If local/(local+remote) ratio is
-- * below NUMA_PERIOD_THRESHOLD (where range of ratio is 1..NUMA_PERIOD_SLOTS)
-- * the scan period will decrease. Aim for 70% local accesses.
-+ * increments. The more local or shared the fault statistics are, the higher
-+ * the scan period will be for the next scan window. If the private remote
-+ * ratio reaches NUMA_PERIOD_SLOTS - NUMA_PERIOD_THRESHOLD, the scan period
-+ * will decrease. Aim for 70% local or shared accesses.
-  */
- #define NUMA_PERIOD_SLOTS 10
- #define NUMA_PERIOD_THRESHOLD 7
-@@ -3693,11 +3693,13 @@ static void update_task_scan_period(struct task_struct *p,
- 			unsigned long shared, unsigned long private)
- {
- 	unsigned int period_slot;
--	int lr_ratio, ps_ratio;
-+	int lr_ratio, sr_ratio, rp_ratio, ratio;
- 	int diff;
+ #ifdef CONFIG_SYSCTL
+@@ -157,6 +159,15 @@ static const struct ctl_table sched_fair_sysctls[] = {
+ 		.proc_handler	= proc_dointvec_minmax,
+ 		.extra1		= SYSCTL_ZERO,
+ 	},
++	{
++		.procname	= "numa_balancing_promote_free_space_bypass",
++		.data		= &sysctl_numa_balancing_promote_free_space_bypass,
++		.maxlen		= sizeof(unsigned int),
++		.mode		= 0644,
++		.proc_handler	= proc_douintvec_minmax,
++		.extra1		= SYSCTL_ZERO,
++		.extra2		= SYSCTL_ONE,
++	},
+ #endif /* CONFIG_NUMA_BALANCING */
+ };
  
--	unsigned long remote = p->numa_faults_locality[0];
--	unsigned long local = p->numa_faults_locality[1];
-+	unsigned long remote = p->numa_faults_locality[NUMA_FAULT_REMOTE];
-+	unsigned long local = p->numa_faults_locality[NUMA_FAULT_LOCAL];
-+	unsigned long remote_private =
-+		p->numa_faults_locality[NUMA_FAULT_REMOTE_PRIVATE];
- 	unsigned long locality_faults = local + remote;
- 	unsigned long type_faults = private + shared;
- 
-@@ -3708,7 +3710,8 @@ static void update_task_scan_period(struct task_struct *p,
- 	 * migration then it implies we are migrating too quickly or the local
- 	 * node is overloaded. In either case, scan slower
- 	 */
--	if (!locality_faults || !type_faults || p->numa_faults_locality[2]) {
-+	if (!locality_faults || !type_faults ||
-+	    p->numa_faults_locality[NUMA_FAULT_MIGRATE_FAIL]) {
- 		p->numa_scan_period = min(p->numa_scan_period_max,
- 			p->numa_scan_period << 1);
- 
-@@ -3721,40 +3724,36 @@ static void update_task_scan_period(struct task_struct *p,
- 	/*
- 	 * Prepare to scale scan period relative to the current period.
- 	 *	 == NUMA_PERIOD_THRESHOLD scan period stays the same
--	 *       <  NUMA_PERIOD_THRESHOLD scan period decreases (scan faster)
-+	 *       <  NUMA_PERIOD_THRESHOLD scan period may decrease if the
-+	 *                            remote-private signal is strong enough
- 	 *	 >= NUMA_PERIOD_THRESHOLD scan period increases (scan slower)
- 	 */
- 	period_slot = DIV_ROUND_UP(p->numa_scan_period, NUMA_PERIOD_SLOTS);
- 	lr_ratio = (local * NUMA_PERIOD_SLOTS) / locality_faults;
--	ps_ratio = (private * NUMA_PERIOD_SLOTS) / type_faults;
-+	sr_ratio = (shared * NUMA_PERIOD_SLOTS) / type_faults;
-+	rp_ratio = (remote_private * NUMA_PERIOD_SLOTS) / locality_faults;
-+	ratio = max(lr_ratio, sr_ratio);
- 
--	if (ps_ratio >= NUMA_PERIOD_THRESHOLD) {
-+	if (ratio >= NUMA_PERIOD_THRESHOLD) {
- 		/*
--		 * Most memory accesses are local. There is no need to
--		 * do fast NUMA scanning, since memory is already local.
-+		 * Most memory accesses are local or shared. Local faults do not
-+		 * need fast scanning; shared faults may just be moved elsewhere by
-+		 * other tasks.
- 		 */
--		int slot = ps_ratio - NUMA_PERIOD_THRESHOLD;
--		if (!slot)
--			slot = 1;
--		diff = slot * period_slot;
--	} else if (lr_ratio >= NUMA_PERIOD_THRESHOLD) {
--		/*
--		 * Most memory accesses are shared with other tasks.
--		 * There is no point in continuing fast NUMA scanning,
--		 * since other tasks may just move the memory elsewhere.
--		 */
--		int slot = lr_ratio - NUMA_PERIOD_THRESHOLD;
-+		int slot = ratio - NUMA_PERIOD_THRESHOLD;
- 		if (!slot)
- 			slot = 1;
- 		diff = slot * period_slot;
- 	} else {
- 		/*
--		 * Private memory faults exceed (SLOTS-THRESHOLD)/SLOTS,
--		 * yet they are not on the local NUMA node. Speed up
--		 * NUMA scanning to get the memory moved over.
-+		 * Only speed up scanning when enough faults are both private
-+		 * and remote. Mixed windows dominated by shared remote faults
-+		 * should not create extra hinting overhead.
- 		 */
--		int ratio = max(lr_ratio, ps_ratio);
--		diff = -(NUMA_PERIOD_THRESHOLD - ratio) * period_slot;
-+		if (rp_ratio >= NUMA_PERIOD_SLOTS - NUMA_PERIOD_THRESHOLD)
-+			diff = -(NUMA_PERIOD_THRESHOLD - ratio) * period_slot;
-+		else
-+			diff = 0;
- 	}
- 
- 	p->numa_scan_period = clamp(p->numa_scan_period + diff,
-@@ -3906,8 +3905,8 @@ static void task_numa_placement(struct task_struct *p)
- 	p->numa_scan_seq = seq;
- 	p->numa_scan_period_max = task_scan_max(p);
- 
--	total_faults = p->numa_faults_locality[0] +
--		       p->numa_faults_locality[1];
-+	total_faults = p->numa_faults_locality[NUMA_FAULT_REMOTE] +
-+		       p->numa_faults_locality[NUMA_FAULT_LOCAL];
- 	runtime = numa_get_avg_runtime(p, &period);
- 
- 	/* If the task is part of a group prevent parallel updates to group stats */
-@@ -4262,11 +4261,14 @@ void task_numa_fault(int last_cpupid, int mem_node, int pages, int flags)
- 	if (migrated)
- 		p->numa_pages_migrated += pages;
- 	if (flags & TNF_MIGRATE_FAIL)
--		p->numa_faults_locality[2] += pages;
-+		p->numa_faults_locality[NUMA_FAULT_MIGRATE_FAIL] += pages;
- 
- 	p->numa_faults[task_faults_idx(NUMA_MEMBUF, mem_node, priv)] += pages;
- 	p->numa_faults[task_faults_idx(NUMA_CPUBUF, cpu_node, priv)] += pages;
--	p->numa_faults_locality[local] += pages;
-+	if (!local && priv)
-+		p->numa_faults_locality[NUMA_FAULT_REMOTE_PRIVATE] += pages;
-+	p->numa_faults_locality[local ? NUMA_FAULT_LOCAL :
-+				 NUMA_FAULT_REMOTE] += pages;
+@@ -2816,11 +2827,10 @@ static inline bool cpupid_valid(int cpupid)
  }
  
- static void reset_ptenuma_scan(struct task_struct *p)
+ /*
+- * For memory tiering mode, if there are enough free pages (more than
+- * enough watermark defined here) in fast memory node, to take full
+- * advantage of fast memory capacity, all recently accessed slow
+- * memory pages will be migrated to fast memory node without
+- * considering hot threshold.
++ * For memory tiering mode, if the target fast memory node has enough free
++ * pages, recently accessed slow memory pages can bypass the normal hotness
++ * check and rate limit so the fast tier can be filled. The bypass can be
++ * disabled by numa_balancing_promote_free_space_bypass.
+  */
+ static bool pgdat_free_space_enough(struct pglist_data *pgdat)
+ {
+@@ -2941,7 +2951,8 @@ bool should_numa_migrate_memory(struct task_struct *p, struct folio *folio,
+ 		long nr = folio_nr_pages(folio);
+ 
+ 		pgdat = NODE_DATA(dst_nid);
+-		if (pgdat_free_space_enough(pgdat)) {
++		if (sysctl_numa_balancing_promote_free_space_bypass &&
++		    pgdat_free_space_enough(pgdat)) {
+ 			/* workload changed, reset hot threshold */
+ 			pgdat->nbp_threshold = 0;
+ 			mod_node_page_state(pgdat, PGPROMOTE_CANDIDATE_NRL, nr);
 -- 
 2.20.1
