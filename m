@@ -1,337 +1,111 @@
-Received: from out30-112.freemail.mail.aliyun.com (out30-112.freemail.mail.aliyun.com [115.124.30.112])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0787533590
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:11:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C38924E0216
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:11:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791987108; cv=none; b=V7kTlxq0kiEKrbdV2ShW/ynWoy4lhkAmFcqQFbnKEIo52GLeWWs5RHSHi41NdlB5zNaC1P7Lf1hIFzb0NU9aqWXuMm4deyg6kCdsNnGGAQsmLhx0juLHjcE71atPQ/L+AONGAcz3Lm9JQL7/sZryBlrf1Mvps76ZOMthSqSKBC0=
+	t=1791987114; cv=none; b=BkoB9ElUN++gH5lmyLJlB6pt0vMirTYWRAS+lR5LnfZQ2Z/aZL5QATzPFnbBur5BrVZmJ8qiLEhYTtevje6OMSfodId++d5KAjXnGbgObrzCAkkQ4/Pq2A1H/hIAwvTD4vNX/GE/OpVqknM3A2zsh1uz9ah1BI8BvIta/FqHDcc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791987108; c=relaxed/simple;
-	bh=GREiAX0XTRRzYDdshwynjkxzWH1m9oXEZo3HT0HeWus=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=mSTHO1gm08zmmcz0fpAqJtE0/qrSX1owcfYdhbtiGw/0b4J1FCrBgIU5HbmuIsYaBAOgNfZu8z1J+JQGRXU/Lc/UfVRkacvBgFjqsQvgoTw/5qnNOSrdIqUxnLKm1TiKGGA0uCR4teXr/jhEsVrpE7LafN4eFJVSkKixtqg8dvs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=e9WWLZ4a; arc=none smtp.client-ip=115.124.30.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1791987114; c=relaxed/simple;
+	bh=7jzAi5BeAdIkl4iAKTAGSm/TF0jcqPfEo0j91lbmFbQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=XqJIKRC4iU11/pKnbIHzDwT+0SLQ7tr9zMUWf4VJsIAMmHbunmK339izUdk6GzP0R0pAWAc20J3tE7X+/w3+/Rm3TKoDS9Kq3vH5pTr5jvGP74q8yqqW32itcGO+TgVyj8V0t4thLGV44gdNHEXnN6zp5OiSal8vCu4AurMr6A4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=DO13oonX; arc=none smtp.client-ip=209.85.160.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="e9WWLZ4a"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1791987098; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=UMeQJiIhi3N1WM7pDeMhvff+GLRFDhHq1z1NCwRI5vo=;
-	b=e9WWLZ4aTk9H6MEaVyldlZeZAPgRY+Z/XWREWPV22SBttjqN4uS6rtrBtXF8aJca8+URrmbri1Bnt6r3kUb0AMQUpBKR0czKRmxWsIue88Sme642nnAOSa/o4TqcJUdQKTcz/R1TwajJ8ZevSKz0cs2Qo4TBAOkM6C0bFv3Ndfs=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R841e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=20;SR=0;TI=SMTPD_---0XCp41.4_1791987095;
-Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XCp41.4_1791987095 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 14 Oct 2026 22:11:36 +0800
-From: fangyu.yu@linux.alibaba.com
-To: tomasz.jeznach@linux.dev,
-	joro@8bytes.org,
-	will@kernel.org,
-	robin.murphy@arm.com,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	jroedel@suse.de,
-	zong.li@sifive.com,
-	andrew.jones@oss.qualcomm.com,
-	jgg@nvidia.com,
-	jgg@ziepe.ca,
-	gsh517025@gmail.com
-Cc: fangyu.yu@linux.alibaba.com,
-	guoren@kernel.org,
-	iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	kvm-riscv@lists.infradead.org
-Subject: [RFC PATCH v2 1/4] iommupt: Add replace_leaf to atomically swap a leaf OA
-Date: Wed, 14 Oct 2026 22:11:21 +0800
-Message-Id: <20261014141124.48569-2-fangyu.yu@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <20261014141124.48569-1-fangyu.yu@linux.alibaba.com>
-References: <20261014141124.48569-1-fangyu.yu@linux.alibaba.com>
+	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="DO13oonX"
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-53505bc6524so11690011cf.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:11:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=toxicpanda.com; s=google; t=1791987109; x=1792591909; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=x2RGY30pvB7iMJWThep4HkKVXtai7MDyDWpebau2fPg=;
+        b=DO13oonX+1CrHYNmZtjM3EtGCM8K97VNrfHrc4jTQkU8jBO/VDnSlCCheYj964xOhS
+         uCvtc0LKGq+A80vLGX/9XptZzNpb4miukyAKctio3qg2Lo/FPfnys7RlCgHxWBeFpmnA
+         y/uy31Nli7LKkgfNm7V+b1b4XdxZRNN2eOYJGU0xq5S4ubO6MUY5CUaaIWYAJgx3FEgw
+         dkEZzhNl2v7Gj/kEGcHPLc0CKCTTqkrX4RoJgcVLTJM5YDBDcd2eKLO+0waK1QEKppFe
+         Nn3j/C9pofPrRfgjtd90LSClFJ+/wR4zvhKEKXTJXwfIF5GBfYDRbwBpx0H8/VfB0EAW
+         ocEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791987109; x=1792591909;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=x2RGY30pvB7iMJWThep4HkKVXtai7MDyDWpebau2fPg=;
+        b=v1I6C04eIyNWL+sY8wOu9TwM9S6sCnTt3dhuD764hb8on+QAt0hj/V7E+OK57J/qF6
+         OrYPw5ZsqoG5wBjrwir+z9XVvrgHR5V14OXvDX7MIrvWqGiDfDU86S1bAxQ5uwnkO3Ot
+         CtuhSJNY4yeVwbVm7V1N66Xa+KdCxgtD0bTWuu/5SDtBfQnU/AZEfg+TzL0lpHb8SxEp
+         V9r2j9dob3e9o6cPio5H2Yr4Bu68+zsBSv/Z3uDDe4sBEzkCD8Mk2jGe9+Bm/zmFJiD+
+         BjEn6Kshv65/a8568O14viylUZ6Qs+nIdR/qkGg5lr8IE+reoHqxcltxnwv5Efs/c2MK
+         Lckg==
+X-Forwarded-Encrypted: i=1; AKwUvBy5yxYImXsXLVTXjNpGzrRSslVASPJbV41v9VNhXwdc3A5rUtkLp/AHyOpCHBE8S7QuciVbIHVqeEc47RU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLzXmw0co+LcfS5/PBDMNeCDw12mAjCKHf3D60iTWF2ptJhxJYj
+	GkmLqlDDu+FlYJzn4g0pwSNB3+xLbu6prOUGdWzVckxd18tf3z09bK3dBQbWqEM57oI=
+X-Gm-Gg: AYBFou1hhX+4fa/QquGWbxbsthvIJW7CzsE2YcabW8Ni84v0ynknZMDv6TYfsnbZMDA
+	WXuJSZ/Zn+VbaQuXTa3m8UlTx+V4YB11D2dFiE3zp4jvs5KLaSrJPNglRrDvClzeTZGzflhKz5M
+	f2C0zFZBuYARtpkpyFkrNe7nFULQyiAxXhOnFKzTTPZrvY3vfOnVwiz1U4N7ZOYQJNzPPoPAV2j
+	ud4GOfRIyZuZ0OwEto4ABumiS5R5Zp71qYuPNw0soUhm5Ne/zP4K/FcXMiSMWhck4yN82i5H+mD
+	GXr7PAp9KdgB9YyXX3et9FMGL62Fo+qVBEZCziupqSGbrJVx/ZBF7k7gQt827eEkiByp/8diLtq
+	GfMyWQ1XZ/Bhxgq7TlvSKIfzfjgaX5+pi5KIHbQo9P2S1aVsanN61YczzhmJOVfO9COPpzMPeu5
+	M7DcPA08EX7Hm5o6azGK6momHaP3NjLoLUHgdAFth5znqZMjl5jw5+oiYHMeiON5InmjKGKZpRD
+	iMESFjKphZurcY=
+X-Received: by 2002:a05:622a:2283:b0:533:8dbc:1fb5 with SMTP id d75a77b69052e-5359d6a1cd7mr244555751cf.4.1791987107502;
+        Wed, 14 Oct 2026 07:11:47 -0700 (PDT)
+Received: from toxicpanda.com ([153.61.196.242])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ba3d63c70sm34481076d6.43.2026.10.14.07.11.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 07:11:46 -0700 (PDT)
+From: Josef Bacik <josef@toxicpanda.com>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
+ Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>,
+ Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>,
+ NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>,
+ Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>,
+ Mina Almasry <almasrymina@google.com>, Kaiyuan Zhang <kaiyuanz@google.com>,
+ Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH net v2] net: skbuff: make skb_copy_and_csum_bits() report
+ unreadable frags
+Date: Wed, 14 Oct 2026 14:04:45 +0000
+Message-ID: <179198668564919.2.10323410751655182155@toxicpanda.com>
+In-Reply-To: <20261014135154.05de968e@pumpkin>
+References: <20261013-b4-skb-segment-nosg-unreadable-v2-1-6c28d8ffa51e@toxicpanda.com>
+ <20261014135154.05de968e@pumpkin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
-From: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+On Wed, Oct 14, 2026 at 01:51:54PM +0100, David Laight wrote:
+> Can't you use that fact that the csum function should only return
+> either 0 or ~0 and use the other value to indicate an error.
+>
+> ISTR this coming up before with the 'copy_to/from_user_and_csum' code.
 
-Some users need to repoint a leaf entry to a different physical page
-without ever making the IOVA non-present. RISC-V IRQ forwarding without
-an MSI page table maps the guest IMSIC page in the second-stage domain
-and must follow the page when a vCPU's VS-file host page moves; an
-unmap/map sequence would leave a window where device MSI writes fault.
+skb_copy_and_csum_bits() returns an unfolded __wsum starting from 0, so
+0 is a valid result today.  It would work if it started from ~0 the way
+csum_and_copy_from_user() does, since that doesn't change the folded
+result and the sum can never come out as 0.
 
-Add a pt_entry_replace_oa() format op that atomically swaps the OA
-stored in a leaf entry that fits in a single PTE word via cmpxchg,
-validating that the entry still holds the expected old OA, and a
-pt_iommu_riscv_64_replace_leaf() export that walks to the leaf. Formats
-that cannot do this atomically do not provide the op, following the
-pt_iommu_fmt_hw_info() pattern. Covered by a kunit case checking the
-granule and superpage swaps, stale OA rejection, and missing
-translation.
+But this is one of those "you have to know the behavior of the function
+to use it properly." Explicit errors are always better, it removes
+ambiguity and creates cleaner and less error prone code. I'm happy to
+change it to start with ~0 as well to add the extra protection, but
+explicit errors are always best. Thanks,
 
-Signed-off-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
----
- drivers/iommu/generic_pt/fmt/riscv.h      | 47 ++++++++++++++++
- drivers/iommu/generic_pt/iommu_pt.h       | 65 +++++++++++++++++++++++
- drivers/iommu/generic_pt/kunit_iommu.h    |  7 +++
- drivers/iommu/generic_pt/kunit_iommu_pt.h | 54 +++++++++++++++++++
- include/linux/generic_pt/iommu.h          |  4 ++
- 5 files changed, 177 insertions(+)
-
-diff --git a/drivers/iommu/generic_pt/fmt/riscv.h b/drivers/iommu/generic_pt/fmt/riscv.h
-index 2f4838eb44af..38c837805df0 100644
---- a/drivers/iommu/generic_pt/fmt/riscv.h
-+++ b/drivers/iommu/generic_pt/fmt/riscv.h
-@@ -27,6 +27,7 @@
- 
- #include <linux/bitfield.h>
- #include <linux/container_of.h>
-+#include <linux/errno.h>
- #include <linux/log2.h>
- #include <linux/sizes.h>
- 
-@@ -272,6 +273,52 @@ static inline bool riscvpt_dirty_supported(struct pt_common *common)
- }
- #define pt_dirty_supported riscvpt_dirty_supported
- 
-+/**
-+ * pt_entry_replace_oa() - Atomically replace the OA stored in a leaf
-+ * @pts: Table entry to change
-+ * @old_oa: OA the entry must currently translate to
-+ * @new_oa: OA to store in the entry
-+ *
-+ * Atomically swap the OA stored in a single PTE word leaf entry, keeping
-+ * every other bit of the entry unchanged. The entry must currently translate
-+ * to @old_oa so a stale view of the table is detectable. Both @old_oa and
-+ * @new_oa must be aligned to the size the entry translates. Entries that do
-+ * not fit in a single PTE word, such as contiguous entries, are rejected.
-+ *
-+ * Return: 0 on success, -EAGAIN if the entry changed concurrently, -EADDRINUSE
-+ * if the entry does not translate to @old_oa, -EOPNOTSUPP if the entry spans
-+ * multiple PTE words, -EINVAL if an argument is malformed.
-+ */
-+static inline int riscvpt_entry_replace_oa(struct pt_state *pts,
-+					   pt_oaddr_t old_oa,
-+					   pt_oaddr_t new_oa)
-+{
-+	pt_riscv_entry_t *tablep =
-+		pt_cur_table(pts, pt_riscv_entry_t) + pts->index;
-+	pt_riscv_entry_t old = pts->entry, new;
-+	unsigned int oasz_lg2 = pt_table_item_lg2sz(pts);
-+	u64 ppn = (u64)new_oa >> PT_GRANULE_LG2SZ;
-+
-+	/* Only a leaf entry that fits in a single PTE word can be replaced. */
-+	if (pt_entry_num_contig_lg2(pts))
-+		return -EOPNOTSUPP;
-+
-+	if (oalog2_mod(old_oa, oasz_lg2) || oalog2_mod(new_oa, oasz_lg2) ||
-+	    ppn > FIELD_MAX(RISCVPT_PPN))
-+		return -EINVAL;
-+
-+	/* The leaf must still hold the OA the caller expects to replace. */
-+	if (pt_entry_oa(pts) != old_oa)
-+		return -EADDRINUSE;
-+
-+	new = (old & ~(pt_riscv_entry_t)RISCVPT_PPN) |
-+	      FIELD_PREP(RISCVPT_PPN, ppn);
-+	if (!try_cmpxchg64(tablep, &old, new))
-+		return -EAGAIN;
-+	return 0;
-+}
-+#define pt_entry_replace_oa riscvpt_entry_replace_oa
-+
- /* --- iommu */
- #include <linux/generic_pt/iommu.h>
- #include <linux/iommu.h>
-diff --git a/drivers/iommu/generic_pt/iommu_pt.h b/drivers/iommu/generic_pt/iommu_pt.h
-index 3d1fdf1e81d8..5e296992c4df 100644
---- a/drivers/iommu/generic_pt/iommu_pt.h
-+++ b/drivers/iommu/generic_pt/iommu_pt.h
-@@ -375,6 +375,71 @@ static int __maybe_unused NS(set_dirty)(struct pt_iommu *iommu_table,
- 	return pt_walk_range(&range, __set_dirty, NULL);
- }
- 
-+#ifdef pt_entry_replace_oa
-+struct pt_replace_leaf_args {
-+	pt_oaddr_t old_oa;
-+	pt_oaddr_t new_oa;
-+};
-+
-+static int __replace_leaf(struct pt_range *range, void *arg,
-+			  unsigned int level, struct pt_table_p *table)
-+{
-+	struct pt_state pts = pt_init(range, level, table);
-+	struct pt_replace_leaf_args *args = arg;
-+
-+	switch (pt_load_single_entry(&pts)) {
-+	case PT_ENTRY_EMPTY:
-+		return -ENOENT;
-+	case PT_ENTRY_TABLE:
-+		return pt_descend(&pts, arg, __replace_leaf);
-+	case PT_ENTRY_OA:
-+		return pt_entry_replace_oa(&pts, args->old_oa, args->new_oa);
-+	}
-+	return -ENOENT;
-+}
-+
-+/**
-+ * replace_leaf() - Atomically replace the OA stored in a leaf entry
-+ * @domain: Table to manipulate
-+ * @iova: IO virtual address to locate the leaf
-+ * @old_oa: OA the leaf must currently translate to
-+ * @new_oa: OA to store in the leaf
-+ *
-+ * Locate the leaf entry translating @iova and atomically swap its stored OA
-+ * from @old_oa to @new_oa, leaving the entry attributes unchanged. HW
-+ * walking the table concurrently observes either the old or the new OA. The
-+ * caller must invalidate any translation caches before assuming HW no longer
-+ * observes the old OA.
-+ *
-+ * Context: There is no internal locking. The caller must serialize this with
-+ * any concurrent map/unmap touching @iova, as with map_range().
-+ *
-+ * Returns: 0 on success. -EAGAIN indicates the entry changed concurrently,
-+ * retry. -ENOENT if @iova has no translation. -EADDRINUSE if the leaf does
-+ * not translate to @old_oa. -EOPNOTSUPP if the leaf does not fit in a single
-+ * PTE word, such as a contiguous entry.
-+ */
-+int DOMAIN_NS(replace_leaf)(struct iommu_domain *domain, dma_addr_t iova,
-+			    phys_addr_t old_oa, phys_addr_t new_oa)
-+{
-+	struct pt_iommu *iommu_table =
-+		container_of(domain, struct pt_iommu, domain);
-+	struct pt_replace_leaf_args args = {
-+		.old_oa = old_oa,
-+		.new_oa = new_oa,
-+	};
-+	struct pt_range range;
-+	int ret;
-+
-+	ret = make_range(common_from_iommu(iommu_table), &range, iova, 1);
-+	if (ret)
-+		return ret;
-+
-+	return pt_walk_range(&range, __replace_leaf, &args);
-+}
-+EXPORT_SYMBOL_NS_GPL(DOMAIN_NS(replace_leaf), "GENERIC_PT_IOMMU");
-+#endif
-+
- struct pt_iommu_collect_args {
- 	struct iommupt_pending_gather pending;
- 	/* Fail if any OAs are within the range */
-diff --git a/drivers/iommu/generic_pt/kunit_iommu.h b/drivers/iommu/generic_pt/kunit_iommu.h
-index 22c9e4c4dd97..d52b82c9942c 100644
---- a/drivers/iommu/generic_pt/kunit_iommu.h
-+++ b/drivers/iommu/generic_pt/kunit_iommu.h
-@@ -16,6 +16,13 @@
- int pt_iommu_init(struct pt_iommu_table *fmt_table,
- 		  const struct pt_iommu_table_cfg *cfg, gfp_t gfp);
- 
-+#ifdef pt_entry_replace_oa
-+#define pt_iommu_replace_leaf \
-+	CONCATENATE(CONCATENATE(pt_iommu_, PTPFX), replace_leaf)
-+int pt_iommu_replace_leaf(struct iommu_domain *domain, dma_addr_t iova,
-+			  phys_addr_t old_oa, phys_addr_t new_oa);
-+#endif
-+
- /* The format can provide a list of configurations it would like to test */
- #ifdef kunit_fmt_cfgs
- static const void *kunit_pt_gen_params_cfg(struct kunit *test, const void *prev,
-diff --git a/drivers/iommu/generic_pt/kunit_iommu_pt.h b/drivers/iommu/generic_pt/kunit_iommu_pt.h
-index ece1c9b8c55d..8707d55418d3 100644
---- a/drivers/iommu/generic_pt/kunit_iommu_pt.h
-+++ b/drivers/iommu/generic_pt/kunit_iommu_pt.h
-@@ -427,6 +427,57 @@ static void test_mixed(struct kunit *test)
- 	check_iova(test, start, oa, len);
- }
- 
-+#ifdef pt_entry_replace_oa
-+static void test_replace_leaf(struct kunit *test)
-+{
-+	struct kunit_iommu_priv *priv = test->priv;
-+	struct pt_range range = pt_top_range(priv->common);
-+	pt_vaddr_t va = range.va + priv->smallest_pgsz * 256;
-+	phys_addr_t pa = log2_set_mod(priv->test_oa, 0,
-+				      priv->smallest_pgsz_lg2);
-+	phys_addr_t new_pa = log2_set_mod(priv->test_oa + priv->smallest_pgsz,
-+					  0, priv->smallest_pgsz_lg2);
-+	int ret;
-+
-+	do_map(test, va, pa, priv->smallest_pgsz);
-+
-+	/* The leaf OA can be swapped in place */
-+	ret = pt_iommu_replace_leaf(&priv->domain, va, pa, new_pa);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	check_iova(test, va, new_pa, priv->smallest_pgsz);
-+
-+	/* A stale old OA is detected */
-+	ret = pt_iommu_replace_leaf(&priv->domain, va, pa, pa);
-+	KUNIT_ASSERT_EQ(test, ret, -EADDRINUSE);
-+
-+	/* A not-present IOVA reports -ENOENT */
-+	ret = pt_iommu_replace_leaf(&priv->domain, va + priv->smallest_pgsz,
-+				    pa, new_pa);
-+	KUNIT_ASSERT_EQ(test, ret, -ENOENT);
-+
-+	do_unmap(test, va, priv->smallest_pgsz);
-+
-+	if (!(priv->safe_pgsize_bitmap & SZ_2M))
-+		return;
-+
-+	/* A leaf at a higher level can be swapped in place too */
-+	va = ALIGN(va, SZ_2M);
-+	pa = log2_set_mod(priv->test_oa, 0, ilog2(SZ_2M));
-+	new_pa = log2_set_mod(priv->test_oa + SZ_2M, 0, ilog2(SZ_2M));
-+	do_map(test, va, pa, SZ_2M);
-+
-+	ret = pt_iommu_replace_leaf(&priv->domain, va, pa, new_pa);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	check_iova(test, va, new_pa, SZ_2M);
-+
-+	/* A stale old OA is detected */
-+	ret = pt_iommu_replace_leaf(&priv->domain, va, pa, pa);
-+	KUNIT_ASSERT_EQ(test, ret, -EADDRINUSE);
-+
-+	do_unmap(test, va, SZ_2M);
-+}
-+#endif
-+
- static struct kunit_case iommu_test_cases[] = {
- 	KUNIT_CASE_FMT(test_increase_level),
- 	KUNIT_CASE_FMT(test_map_simple),
-@@ -435,6 +486,9 @@ static struct kunit_case iommu_test_cases[] = {
- 	KUNIT_CASE_FMT(test_random_map),
- 	KUNIT_CASE_FMT(test_pgsize_boundary),
- 	KUNIT_CASE_FMT(test_mixed),
-+#ifdef pt_entry_replace_oa
-+	KUNIT_CASE_FMT(test_replace_leaf),
-+#endif
- 	{},
- };
- 
-diff --git a/include/linux/generic_pt/iommu.h b/include/linux/generic_pt/iommu.h
-index 2eed9b78f56c..e9042b509013 100644
---- a/include/linux/generic_pt/iommu.h
-+++ b/include/linux/generic_pt/iommu.h
-@@ -254,6 +254,10 @@ struct pt_iommu_cfg {
- 	int pt_iommu_##fmt##_read_and_clear_dirty(                             \
- 		struct iommu_domain *domain, unsigned long iova, size_t size,  \
- 		unsigned long flags, struct iommu_dirty_bitmap *dirty);        \
-+	/* Only defined by formats whose fmt header has pt_entry_replace_oa */ \
-+	int pt_iommu_##fmt##_replace_leaf(struct iommu_domain *domain,         \
-+					  dma_addr_t iova, phys_addr_t old_oa, \
-+					  phys_addr_t new_oa);                 \
- 	int pt_iommu_##fmt##_init(struct pt_iommu_##fmt *table,                \
- 				  const struct pt_iommu_##fmt##_cfg *cfg,      \
- 				  gfp_t gfp);                                  \
--- 
-2.50.1
-
+Josef
