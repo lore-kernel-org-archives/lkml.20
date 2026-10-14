@@ -1,104 +1,149 @@
-Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch [79.135.106.112])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com [209.85.221.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46E7D6AD4;
-	Wed, 14 Oct 2026 06:22:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B2061D9A66
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:22:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791958938; cv=none; b=keJE6FPyIm5s8uLX2x9vhcMTq/j1/ga49U74bM7at1N6ZaVXBKs7Zay46bdI5n/lb6cawt6LgwAH2FbfktC4RJq3mzXUWNguAFdv3LwP6IWipQkMbjXd+cWzgJvK+zfxhdKbAQwIDHq13Cgngzm0LQGl47LRHsbwFbwtJvIbW44=
+	t=1791958966; cv=none; b=DisT49nSQhyCoQyt7056oyX1rCmeftmSPNw8SdiCUKRqpaL+8oCZPma6ZftfIBiEW5th9ZxKH4shm5yI2d21fLQ0COpseydie1xWk7R+vj+C9znwGzy5NZrF4nYe28s6/7t+JMuRaxVmfuPE+Dg5FKNvXr5MLcJijdRVJWmVT0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791958938; c=relaxed/simple;
-	bh=zVFOwxbB3E4WyNM5PAk+G90lPh5f8tZUn++eTVfJwfI=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=co3tHbT3F0mNfMzbVItgKOFJ0/I8YEJx9S6dFDnZ9uMR10ulVEGPYG0CX2iTHyHiR0FdaCvnJh1exDprPlviaXM6myjGOUgmGjSt6v2msRQ4EkSWLL3bWnS93wSOE483rE745Y5UO3JhVJ9LyNWfGjWBEtwUu6Rf+t9ZcSWrD/o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=qiTnqKh0; arc=none smtp.client-ip=79.135.106.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	s=arc-20240116; t=1791958966; c=relaxed/simple;
+	bh=do92hy/gYZbdz5nneCsyDYR1q7QVkrDjd6qDQep//8M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gJ1fBkQVpZdnjekMpT+MjDjTX/ehbY5nYAcib4S0roemURi1gbtf6ICvsPfTpvAP6nbBUnYPIQd8/bGlTRUXt/1jXUomdk8Er71d1kzXW8NeeT72NVDiD/fQQwzgHYuomC5wCREBBwj25eT44une0uBtzql06O1yxsWPMQoeDNM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dUBsaLay; arc=none smtp.client-ip=209.85.221.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="qiTnqKh0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1791958923; x=1792218123;
-	bh=QoFk0sTVo+1didJCGcFzVD80StcHCyEnGCJt5nv+Nxc=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=qiTnqKh08A+3nCtQvFvhuuGPh2MRmLW9VQgSxgOplQqA6qCtdaSOQLSDTl1PZ3N3Q
-	 mZmdhMR0SQbGbfHYMlHjEDU9unGbRigHWgviXLWc7jagtdd5b4Tep0c3F6ztdVeDKu
-	 PCsBYtK697Mj+PKOUuxjeUDkE2jj4vtVciJ46lhArtRuYH/ZruTCgs0/EVWMTJkDsB
-	 2580wIc5WaoWgVeoqqrjaEkXwDt7aanur0uYxfUprprpTFsAUv9ksmoJvwv/EvgPAw
-	 IDmzak27Q02OvXW22CivKpOje1kb3L8NA4ibv0HdqEu2NwcBVA3poKC0KA4yzgVyyE
-	 8k8nc9wL1tk2w==
-X-Pm-Submission-Id: 4j4LhT2NWzz1DDXY
-From: Esben Haabendal <esben@geanix.com>
-To: "Jonathan Cameron" <jic23@kernel.org>
-Cc: "Lars-Peter Clausen" <lars@metafoo.de>,  "Rob Herring"
- <robh@kernel.org>,  "Krzysztof Kozlowski" <krzk+dt@kernel.org>,  "Conor
- Dooley" <conor+dt@kernel.org>,  "Martin Kepplinger" <martink@posteo.de>,
-  "Sean Nyekjaer" <sean@geanix.com>,  "David Lechner"
- <dlechner@baylibre.com>,  Nuno =?utf-8?Q?S=C3=A1?= <nuno.sa@analog.com>,
-  "Andy Shevchenko"
- <andy@kernel.org>,  "Martin Kepplinger"
- <martin.kepplinger@theobroma-systems.com>,  "Christoph Muellner"
- <christoph.muellner@theobroma-systems.com>,  <linux-iio@vger.kernel.org>,
-  <devicetree@vger.kernel.org>,  <linux-kernel@vger.kernel.org>,
-  <stable@vger.kernel.org>
-Subject: Re: [PATCH v10 03/10] iio: accel: mma8452: Fix runtime PM bugs in
- mma8452_read()
-In-Reply-To: <20261011131946.16bf4ef2@jic23-hlaptop>
-References: <20260928-mma8452-open-drain-v10-0-b906fb408386@geanix.com>
-	<20260928-mma8452-open-drain-v10-3-b906fb408386@geanix.com>
-	<GeX7K7CYF-lXclqwIekwHIBfSYzjYsnqvMmrM3rjseabSeadIpRDZWUszx0kgtCHnqd7h3ivbFEbn5Q7Go1oBQ==@protonmail.internalid>
-	<20261011131946.16bf4ef2@jic23-hlaptop>
-Date: Wed, 14 Oct 2026 08:22:00 +0200
-Message-ID: <87bj8wn6nr.fsf@geanix.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dUBsaLay"
+Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-5e9528732b4so1850303e0c.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:22:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791958963; x=1792563763; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bNeVzBoSGqY6hcBV8+qLl98g4CfL7+apV6kO7AyiGhc=;
+        b=dUBsaLayT3Y1T0b5xzUIlLwPec5GTQv2pnG/hKNlj2MAWb/EOZzfvKPiA0PxjemR+Y
+         aiGDykSl2GImGC6v7Y2hb5UChQMq63Wu9IQ+4eo9HkJoyAEeSn12vBDfhOzwQMynW920
+         1TY3dZ/6gw9huD06Kd4vb9gfvuAgkPYyxFMlwUULmTHmBfDWCVDFCd0mfSc5qCKnRIij
+         5UVX5jFpw3NJ90J6Wx7A9y4I7DgiSHcVJtr5L6hWKZ0MeMPsxZLOJi+DQunsTf6sUXl9
+         2b+lyjKfn/r4Id+kkFrFABStI0sVmHJdZkuzGCtgMYQscP/sK4OuvyUizUbUXgYmUmKM
+         LhLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791958963; x=1792563763;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bNeVzBoSGqY6hcBV8+qLl98g4CfL7+apV6kO7AyiGhc=;
+        b=oYMhLdQZzR8b1V4/68KrnKjthxfUrtprm0+9rFp7rxowc689RNv+DpiTnYFKBsyoCs
+         lNZX2OSjFezhjlbF+k6Rj5wjRzdZgGgsZP2I5QBWD68U9FLsoCfF+HQ2E6ffE2ZwnRNC
+         1qIFnWwNzoa/LM0ci90Y3qnafWjEJzud/+6JB6bTM3TpeZT14F6ZPApb5+35EIV4aeuv
+         jZwieA1gqAT1GAdsCiRvT/UPx9UX9dJjVlsZsNd28eSTzS/Tr2d2riRugzYVhRoqYUOI
+         c5qaM5ljlhE4IPZIlbIMGzvAqBEroITJRE+djIbwggfzMpqBqZ++qXKn8z1nGnZJLooh
+         OKgA==
+X-Forwarded-Encrypted: i=1; AKwUvBzfLwCzYnpm46TDID/UsBEgEmjfUvJuiYjIdXgpgSpz3IoLuTp/vmKF3MRHcxqE3XSnXKecBk5HQza+Y9Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJP5fTJPkA2VSgg09WFxFs/r+BtAPh8sPZfH1f/ZAiS35/9jhYR
+	8ZFhPBRVaTXjgN/YP/cuftDhX9/n4EYXoSZoo3R4Q2rHgvrvGNvSZ9JugR2NaEu8
+X-Gm-Gg: AYBFou0X9GkprhtdCjypN7YyFlVh3yLfhSl3EYwFGvxI4Ga4fUgWMwLJtFhj8jlASAx
+	oybNNtutEfiFPMO2xgJ1HJiqO4t67DGZe5SsScnGA30D+KJUrIAVyvncaIeiimlfoZYXmwse31b
+	XQdn999CuQr7jaUKznXiUEymVmr8Q8Sw1X6EBrjaUJqBMSpvHou/v1O6KwH+vleYXHqxI4b299L
+	SpTfzcHUpIt48QAhnFAIY+RSfNv84yq27Jodwe/NNx9iBVPmAT7YV4bxGieMqMjUumgDyooatpE
+	Ll/ZmfComRZ4ZqUcz4Y+3AEvltSOPFabvBrOhC6Y76LLmIgLXRIJiYmGjdJ5Guyo8xZO2WsMF3G
+	Ivh0aqQZ2NgedQOI9VVN58M2so4F8fNQnZaNeZTKwTFbUsgI96vCVRAkejo8Qke1jMlO7OjtAyo
+	kW5++wpqpwDcpdywVq4+HHr2+4MDiPuzLORJv0zzpq/IKz8aFzS9iV/Km8Ih2QSUYWD88R9sO+B
+	GKU3Do0igN2wuPMDxOwBFOziAPfmcoJe8aUIQIDcXSi
+X-Received: by 2002:a05:6122:181e:b0:5de:655e:404e with SMTP id 71dfb90a1353d-5e91f4d2596mr5521407e0c.15.1791958962957;
+        Tue, 13 Oct 2026 23:22:42 -0700 (PDT)
+Received: from DESKTOP-1E7V4GR.lan ([190.177.140.173])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5e93683455csm7783845e0c.13.2026.10.13.23.22.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 23:22:42 -0700 (PDT)
+From: Cristian Papa <pcristian292@gmail.com>
+To: nbd@nbd.name
+Cc: lorenzo@kernel.org,
+	ryder.lee@mediatek.com,
+	shayne.chen@mediatek.com,
+	sean.wang@mediatek.com,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Cristian Papa <pcristian292@gmail.com>
+Subject: [PATCH] wifi: mt76: mt7603: discard power-save loopbacks after wakeup
+Date: Wed, 14 Oct 2026 03:22:25 -0300
+Message-ID: <20261014062225.9238-1-pcristian292@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-"Jonathan Cameron" <jic23@kernel.org> writes:
+A station wakeup drains its power-save queue once, while frames
+redirected by the PSE can still be waiting on the MCU RX ring. Processing
+those loopbacks after the wakeup queues them for an already awake station
+and sets the driver's buffered indication again. The stale frames remain
+queued until another service period or sleep/wake transition drains them.
 
-> On Mon, 28 Sep 2026 10:26:19 +0200
-> Esben Haabendal <esben@geanix.com> wrote:
->
->> When runtime PM support was added [1], the implementation in mma8452_read()
->> was done incorrectly, as it calls mma8452_drdy() before ensuring runtime pm
->> has set the device active, so it can cause read from STATUS register while
->> device is suspended/off. At the same time, the return value from
->> i2c_smbus_read_i2c_block_data() was discarded, and the function would
->> return the value returned from pm_runtime_put_autosuspend() instead.
->>
->> When the latter bug described above was fixed [2], another bug was
->> introduced, as mma8452_read() would now leak the runtime PM reference
->> counter when i2c_smbus_read_i2c_block_data() failed.
->>
->> This commit corrects this mess.
->>
->> [1] commit 96c0cb2bbfe0 ("iio: mma8452: add support for runtime power management")
->> [2] commit 5bdff291d20c ("iio: accel: mma8452: handle I2C read error(s) in mma8452_read()")
->>
->> Fixes: 96c0cb2bbfe0 ("iio: mma8452: add support for runtime power management")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Esben Haabendal <esben@geanix.com>
->
-> I suppose not directly relevant to this patch but that
-> set_runtime_pm_state() helper is definitely not helping.
-> I'd follow up with ripping that out and calling the two runtimme
-> pm calls directly.  Then you would be trivially able to use
-> ACQUIRE_RUNTIME_PM() etc to reduce complexity in places like this.
+Check ps_sleeping under ps_lock before buffering a loopback, and publish
+the buffered indication under the same lock. The wakeup's state change
+and queue drain use that lock too, so late frames cannot repopulate the
+queue or leave a stale buffered indication after the wakeup.
 
-I have this queued up pending the merge of this series.
+Discard late frames rather than retransmitting their old sequence and
+packet numbers after newer traffic or a wakeup BAR. This loses the late
+frame; it does not recover delivery. Use the station's sleep state, not
+the temporary hardware PS bypass used during U-APSD service periods.
 
-> In more recent drivers I've always pushed back against that
-> sort of helper precisely because it stops other sensible refactors.
->
-> In general that also follows the common pattern of not checking for
-> errors in the put as that trips up on things like !CONFIG_PM and
-> is generally not that useful!
->
-> Jonathan
+Fixes: c8846e101502 ("mt76: add driver for MT7603E and MT7628/7688")
+Assisted-by: LLM
+Signed-off-by: Cristian Papa <pcristian292@gmail.com>
+---
+Based on Linux master 4056b3c9d3c92ea45955641dbafeb9b960e146ef.
+The ps_sleeping field comes from mt76 commit 276db249c20a, corresponding
+to Linux commit 636a883e2fee ("wifi: mt76: mt7603: restore hardware PS
+buffering after a service period"). Older trees need that prerequisite.
 
-/Esben
+Testing: extracted C functions from the unmodified base reproduce both a
+late queue insertion and a buffered-notification race in a host harness.
+The candidate passes these cases and controls for sleeping U-APSD clients,
+frame formats, queue limit and malformed frames under ASan/UBSan. MMIO,
+mac80211 services and locks are modeled. The changed source builds as a
+MIPS object with W=1 and -Werror against Linux 6.18.44/backports 7.2.
+
+Tested on MT7603E (TP-Link Archer XR500v, mt76 backported to Linux
+6.18.44): a phone on the 2.4 GHz AP went through three 60 s screen-off/wake
+cycles with a 1 Hz ping from the AP running throughout (about 8 minutes).
+All 474 pings were answered, the phone never reassociated, and there were
+no resets or kernel warnings. This exercises the power-save path under
+traffic but does not demonstrate the late-loopback race itself, since no
+counter records discarded late frames.
+
+AI assistance: Codex reviewed the late-loopback path, proposed the change,
+prepared the patch text, and implemented/ran host regression checks after
+being asked to review pending power-save fixes and their upstream fit.
+
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7603/dma.c b/drivers/net/wireless/mediatek/mt76/mt7603/dma.c
+--- a/drivers/net/wireless/mediatek/mt76/mt7603/dma.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7603/dma.c
+@@ -72,7 +72,6 @@
+ 	}
+ 
+ 	skb->priority = tid;
+-	ieee80211_sta_set_buffered(sta, tid, true);
+ 
+ 	val = le32_to_cpu(txd[0]);
+ 	val &= ~(MT_TXD0_P_IDX | MT_TXD0_Q_IDX);
+@@ -80,6 +79,13 @@
+ 	txd[0] = cpu_to_le32(val);
+ 
+ 	spin_lock_bh(&dev->ps_lock);
++	/* The wake-up may have drained psq before this loopback arrived. */
++	if (!msta->ps_sleeping) {
++		spin_unlock_bh(&dev->ps_lock);
++		goto free;
++	}
++
++	ieee80211_sta_set_buffered(sta, tid, true);
+ 	__skb_queue_tail(&msta->psq, skb);
+ 	if (skb_queue_len(&msta->psq) >= 64) {
+ 		skb = __skb_dequeue(&msta->psq);
