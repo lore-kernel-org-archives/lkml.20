@@ -1,68 +1,52 @@
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F266566C59
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:34:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.54
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 03C88566C60;
+	Wed, 14 Oct 2026 17:34:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791999264; cv=none; b=rZzJVh8dz4ItGe5pAg9T4acpF3WAI0wz73MNwOAUBj0ax3B22OfqWtwsSUH1hR9Uo2ilT6i4erxARs4nsRHIxwEQrc+a9l6JWGGYWXsXxwONXC4RBN45YeMaSHk3ZJGlRuHo8Grd3ZqR+9VUBR8FOa1+x9spxa3c5JcEburOS+k=
+	t=1791999264; cv=none; b=JJRzEgNJKhTYHA8boT0MLJEF0+aW6IksS0qVmKIrMkbO4h4pJHjI+sYia71lmECtjeWe0lyxfKeL+xpjSUl0DM+Zi8VKH49HsItugkkdwk5vDHjClbixTsyQip3MRC8QZMNivMMUDxatFXXIe6fn9taYgI297kmgSk90OI3vLMU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791999264; c=relaxed/simple;
-	bh=gi41Zz3zDE0TLM6PlJVKgZhPae/Sjlrnf+I/moH9ljs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=dPvZJFBGGGUCJo1kRlTsUxEdNQgRYowwaPO9ZiaCQclJVcEYLnNxr1lFk4+cEfG/0T35eBwFxXynOiOtWToHhsdTN1hC56wY3r+SsGPSegYo7kdZ2kgMqV5IxwdPRNA32A14Xxc1iL5lj+9Mbx1yfo16Fp+WlkSLrM2UkRSW9Sk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Uj6HBSW2; arc=none smtp.client-ip=209.85.218.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=DIazYOznxkvMQfk8MPg8hYekx/1bKJszrWi9fi0un7U=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=IeYcD49ox6Mp1X+kS1QFcTkp8mu14Y97AxA/e2wo2cZVWhA2JwRd3WLG1soblFC5u4zo+qHIOH/+R7EBI97d+TWlUi+wt1aj4DkdcP7GiI2s/9NmIaQvnM9741VjhWgomiwyb2kCi+mY7mDDRZ4PWbmtEIRSrha5DE3BfLE0sng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=CcC6aZc+; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Uj6HBSW2"
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c2dc63f8d8aso776807266b.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:34:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791999259; x=1792604059; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=l6DNgDZcPLM+u9NKiSG5ngG40YZRJno2c69YEg3krWw=;
-        b=Uj6HBSW2Yyftmh4qdpBHFjmAyJ+WGEvZ9t0oN6iG0t119cyKaxhkRORyCe88Kc3WFS
-         X36oNNJpqEN/jPjdinn6E1MoUvdLX1l2Mxmd4Pil4F7kR3JaDOhhjz9r3qMe8t3Cpu31
-         dRfGkkCwARuzmqwRxCrWSIKWBz42OkgSc+tgVl6LnpSvGsO6JQuCpi1G6EY4zffIoT6V
-         gcVlHk8KcmlY8sBjblmMo/2RHk5d36x9W3ghrgn606sztXpnWMTqYKoJRv6uRX3YAcJ5
-         61QdmShA9x7NxksyRurbmcffYjaz2S9ZWmtkanJgDMt1tSEmxIwcWgUbEsrW+9ziNyTY
-         0ltQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791999259; x=1792604059;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=l6DNgDZcPLM+u9NKiSG5ngG40YZRJno2c69YEg3krWw=;
-        b=m9nXkuQ5qKfiJvLc+T1I/QtR0IXSItIFhgKuUjYxcLZWOH/0Bw93haOygS+K9/Bxbo
-         7nZqwEVLFllQEIi+zR+LDNn/cKzpDkVkP3SgY5VCojyr+nKaj1s7ix7KPPa8e+FMFM2b
-         gfMliXm8PKuDtIPyO9NrM1C7ZGhUtmL/kfpFRnaopaOzVIYzJDkDH+YerZc6TOvZNdJS
-         EADvwwNWBdhstD57+1b+hkKrXnI61kftQjsNxEy/w+mqLibIbpB7W4FVlKdOb0OsDdZW
-         Lrcjm/+W2mDzZp6bcheWJ++yppavqhm2qs95t7kwPdnhuwa9uQQJh7Sm/8k3xRgXPA/W
-         BtOg==
-X-Forwarded-Encrypted: i=1; AKwUvBxn75hR1fVRQvgbaIsO5Gh3Gj0vvkzV+YurvSsQqPCxSFNgFSVa1lmvA3Np6DypXy6e7RmMIcsCXGWfE6M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJbPBaL4Vevq+4+yA1TLo24DIQZkgdtkxzQYpusEdLnP3lnGSz5
-	K6/hWJIf96DsW+l5WYu+LgAc5BRpuHSynE1xq8pefj8yE7bz7rzDaTQ0
-X-Gm-Gg: AYBFou3n+lpaqECxQt94p/OKXCE+2oSeXMKjXKKridwyBpBczXnle8jFA7KtkT2S3GB
-	hoGFIdouTDJ9ACD5QlGhRgTXcuM9ul0id4l4cwdRErf57Ky0dm/YO2SQU+KW5ZsMvIspmlenqmd
-	W/guS4UG9fzZGBN3ZZTgMGnm/WtSnUmaMgKsXm0EXIIsAmZb49rxXBPTkjAP6mxHTF6XRxXF85M
-	eXCgbXyvc+7/6vNW5jje9KLQuEvnPiZa3UXkz9Wzn5MzHs7AqUvvYGYzMqNPucmgBK+l9bC7Gww
-	Pop71uQUPO3wSuY3tsWb4BRVyuaR4ALmO6ASQ9aKWLL5dxlrtRoxFxel/isSmgbqXnGCF89/Wlq
-	ko1diwPb9NHOP+QJWpVh6U9vrqjoH/JDopCItHMtDRykqWQGowiYCmqNFTAtRHV4/VccnOrUjrh
-	GJV/6vvQoPTA0pNwL0hodEJ5dUj1dg3WwBcdIFVPHFxlZ44sw+HtQ5im+1g0savbvYTnh5ei0H0
-	uuvDRcZFxTMAG9yu/fzXxmZHCQ=
-X-Received: by 2002:a17:906:1011:10b0:c34:c5e8:1dd2 with SMTP id a640c23a62f3a-c34c5e82199mr623673566b.24.1791999258387;
-        Wed, 14 Oct 2026 10:34:18 -0700 (PDT)
-Received: from [127.0.1.1] ([2001:4bb8:148:f08c:65a8:f8e5:f310:5a71])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3ed963cecesm9381366b.21.2026.10.14.10.34.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 10:34:17 -0700 (PDT)
-From: Javier Carrasco <javier.carrasco.cruz@gmail.com>
-Date: Wed, 14 Oct 2026 19:34:02 +0200
-Subject: [PATCH v3 03/11] hwmon: chipcap2: fix be16 handling
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="CcC6aZc+"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BE5F914BF;
+	Wed, 14 Oct 2026 10:34:16 -0700 (PDT)
+Received: from gaia.lan (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D85993F7B4;
+	Wed, 14 Oct 2026 10:34:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791999260; bh=DIazYOznxkvMQfk8MPg8hYekx/1bKJszrWi9fi0un7U=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=CcC6aZc+pLZLMc8Y2jvkWWDjqs+zPuhkdYidj89BVesRheQhseYiYw9GUHke29Y1u
+	 2pk8EArvyX4RFNe5wFv6QVk2DpA/T0wdwCdQ2nrpjE5wxm0V9V0a6H6txpUJqgG09p
+	 OM/DW9lIYgAkS/9gnGs2FWxvbFxD0Wnv9GV2rzi0=
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Will Deacon <will@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Mark Rutland <mark.rutland@arm.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Mark Brown <broonie@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/4] arm64: sysreg: Bring field definitions in line with the spec
+Date: Wed, 14 Oct 2026 18:34:13 +0100
+Message-ID: <179199925311.3163994.15808107527690275071.b4-ty@b4>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261013130247.4135515-1-fuad.tabba@linux.dev>
+References: <20261013130247.4135515-1-fuad.tabba@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,81 +54,25 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-chipcap2_locks-v3-3-27ebfc2c5b9e@gmail.com>
-References: <20261014-chipcap2_locks-v3-0-27ebfc2c5b9e@gmail.com>
-In-Reply-To: <20261014-chipcap2_locks-v3-0-27ebfc2c5b9e@gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Javier Carrasco <javier.carrasco.cruz@gmail.com>, stable@vger.kernel.org
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791999252; l=2005;
- i=javier.carrasco.cruz@gmail.com; s=20260924; h=from:subject:message-id;
- bh=gi41Zz3zDE0TLM6PlJVKgZhPae/Sjlrnf+I/moH9ljs=;
- b=Pa7vuoPzoVXhpbxszG5LXuyA4iAWV9CbQAGUcd5kxNa6Zkabhl59h+H8nVlhIEIGBEQiZ4LrG
- 8fQNjMe0G92AZc/aCIeKhp9IkOd0+YwgztKUeg24ZmRN8OqURjLP28a
-X-Developer-Key: i=javier.carrasco.cruz@gmail.com; a=ed25519;
- pk=VV+hcMoOj1Sx6xSiY0W/FZNAskGZe2AagSMVj0PsmAs=
+Content-Transfer-Encoding: 8bit
 
-The driver currently only works correctly on little-endian
-architectures when writing 16-bit register values.
+On Tue, 13 Oct 2026 14:02:43 +0100, Fuad Tabba wrote:
+> Fixes to definitions in the sysreg file that don't match the current
+> spec: three wrong enum values, two misspelt field names, and fields the
+> architecture has dropped, including leftovers from FEAT_TME. The last
+> patch also removes the BRBE driver's check on two more such
+> fields (BRBINFx_EL1.T and LASTFAILED), the only functional change in
+> the series.
+> 
+> [...]
 
-Use i2c_smbus_write_word_swapped() for writes and get_unaligned_be16()
-for reads to correctly handle the ChipCap 2's big-endian data format
-on all architectures.
+Applied to arm64 (for-next/sysreg), thanks!
 
-Fixes: 3af350929e75 ("hwmon: Add support for Amphenol ChipCap 2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
----
- drivers/hwmon/chipcap2.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/hwmon/chipcap2.c b/drivers/hwmon/chipcap2.c
-index 8102b6851d3d..aec4adf98658 100644
---- a/drivers/hwmon/chipcap2.c
-+++ b/drivers/hwmon/chipcap2.c
-@@ -21,6 +21,7 @@
- #include <linux/interrupt.h>
- #include <linux/irq.h>
- #include <linux/module.h>
-+#include <linux/unaligned.h>
- #include <linux/regulator/consumer.h>
- #include <linux/mod_devicetable.h>
- #include <linux/property.h>
-@@ -260,8 +261,7 @@ static int cc2_write_reg(struct cc2_data *data, u8 reg, u16 val)
- 	if (ret < 0)
- 		goto disable;
- 
--	cpu_to_be16s(&val);
--	ret = i2c_smbus_write_word_data(data->client, reg, val);
-+	ret = i2c_smbus_write_word_swapped(data->client, reg, val);
- 	if (ret < 0)
- 		goto disable;
- 
-@@ -311,7 +311,7 @@ static int cc2_read_reg(struct cc2_data *data, u8 reg, u16 *val)
- 	if (ret != CC2_EEPROM_DATA_LEN)
- 		return ret < 0 ? ret : -EIO;
- 
--	*val = be16_to_cpup((__be16 *)&buf[1]);
-+	*val = get_unaligned_be16(&buf[1]);
- 
- 	return cc2_read_command_status(data->client);
- }
-@@ -351,10 +351,10 @@ static int cc2_data_fetch(struct i2c_client *client,
- 
- 	switch (type) {
- 	case hwmon_humidity:
--		*val = cc2_rh_convert(be16_to_cpup((__be16 *)&data[0]));
-+		*val = cc2_rh_convert(get_unaligned_be16(&data[0]));
- 		break;
- 	case hwmon_temp:
--		*val = cc2_temp_convert(be16_to_cpup((__be16 *)&data[2]));
-+		*val = cc2_temp_convert(get_unaligned_be16(&data[2]));
- 		break;
- 	default:
- 		return -EINVAL;
-
--- 
-2.43.0
-
+[1/4] arm64: sysreg: Fix three incorrect enum values
+      https://git.kernel.org/arm64/c/af0010f29610
+[2/4] arm64: sysreg: Fix the names of two misspelt fields
+      https://git.kernel.org/arm64/c/5fee8b920a06
+[3/4] arm64: sysreg: Mark fields the architecture dropped as RES0
+      https://git.kernel.org/arm64/c/cbaca3920f64
+[4/4] perf: arm_brbe: Remove the check for TME transaction states
+      https://git.kernel.org/arm64/c/4a90fba44e3b
