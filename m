@@ -1,247 +1,128 @@
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47EA648E0D3
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 20:24:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 772FB4908A6
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 20:25:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792009486; cv=none; b=myNguJEbMA8ahvRxfhjO6hkzRyOaFc5QqxqDLYSiEqMFfyEmkSB8TcFNFHfzfSbLb9VVCDQ4UUwvmytN64shYAcWNHnHNLn4DPB2mCPv/PXYQTlB1cb0+g32G5Tq0bRZBplXRRriw2+HAnnhXpgfPhappFVX+38tNh6yNhJ+oDo=
+	t=1792009504; cv=none; b=of4jr9nY8D2631V6m7VCo9l/1ohDkCoth4Vy3NuK6cn9u/CJLbW1emXOJOJcXKgp4jA+QdgHBVDA8l/pB6WTE0s6IFA6W84UPJy8m3yK0Tw38FqThU6u/rHlstjkx11qOXQUq2UEmxhV84k3qpzyYtm09o/UIRmb6Jh1S73zwr4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792009486; c=relaxed/simple;
-	bh=8Y0NdDCiXwsCqs84YEB0iN+ue6zlIreIYv69VZZdj6o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=j54gV0EHseILtcXc0Rxzy25tp7dNu+qKxrdfQf+JCQDMdPkB2WP0gePJ8Ejkcm0D0pzHPYqEBAOf6nbSPpWdMxf8yNU5r3PcZSQUcU7htVWoewajot4M7VSfr/89eLIqkyX7Fl8zbfDizdIySVGqqHdUzlawXOvpzGmnm6HCv9E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=dy5hDiey; arc=none smtp.client-ip=209.85.222.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	s=arc-20240116; t=1792009504; c=relaxed/simple;
+	bh=nW/2CYUliCpoe36rO5FycOqU8CpMiHRemZxrB0wzElM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=TD5oYWDTnBtxpHijibIYZcXwBRbZJ2qLA7ukSc/JtOPDpFaLP4ngzEz4eucuqrRKZxO075o4XskUS0BHFEj+8cL+XIiv2zsuvIII3CbNr9LRwQcgPZcSvFUPT5x86/EV7V3kDhZKPWd7sHNYrsJTocM47cI2PkP/n8MNTdZx8q8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Lf8tveLM; arc=none smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="dy5hDiey"
-Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-93ece7a73b9so575831885a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:24:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Lf8tveLM"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48870973bddso2729337f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:25:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1792009483; x=1792614283; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AZpHrF8jH8WXu6WIXCauYQ4g5rjWW4oCNhs7abbw/eA=;
-        b=dy5hDiey5/zTUojPi7BecClRfz26cM2FqMI5Bblc/wSv+JRfQVgFcj4bkJwTo4nRru
-         jEGGoReOmP6c4GJIc+e3ls4jear0+m5DTxPP2ksf4bmjIoyvbAesiEXL07dut1J4gPvT
-         JXCnNoSs0F9ogr4XCXZ0Aif6hc97gU9BCxvTRxU75F6U5w/kLXlSPMZPepCBha/OvlvO
-         zjp4+21LAIBRmKv+DYMav9DiOS/o5Cp+yPskrwCSpbPWRqAysFIDTcHFhxeARLpCXaIO
-         8FpDrDz9ot4EeBwRyFMh5nfH0oJVozobnDOp0vaVsZixf4T7Kh8pr5sOmRwEkplYFYOg
-         HiXg==
+        d=gmail.com; s=20251104; t=1792009502; x=1792614302; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4L9YzOnth9DsCZixyFf9BkVDmJ4QHvH7yn8J2G8kxV0=;
+        b=Lf8tveLMp10X8aWoR9M+p2I/13SqdLcF3VK2MBoyupTZt3rVV2gZJWMvREr4FiJcEw
+         BgAWqFosNOqKarUtvLZs0vwH28YT0sfjOHcwctjKvFzEMJeEko9jxbkLtkuX1l3MmbKp
+         k5684USAWaLPvF0hkw7Z+h2aHHT3NKUqctVy3OfJKl0B0QxRyxuvIgFPy1HxvOyuJAhU
+         bXdjmF19gVocHCTLay+wA2k/UqYz4arSuHxZLRXWvxrcAdjvpXe8yjNzv5/Bi3ujFAD4
+         k4BIm9AGBdCQvPrxQs37dT4d48Sxee+zD+pX4HHJXQFkZ7fiWmxF84eE5kYFKU42ifwe
+         0G+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792009483; x=1792614283;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=AZpHrF8jH8WXu6WIXCauYQ4g5rjWW4oCNhs7abbw/eA=;
-        b=oZ0k9AEaFpvPzF4hzLqiXpYHp8rIF7r3EXhhJhaB2hbOt7AmFrCEH4VyT7tPWiupNS
-         qxsjtaSVzTEXiI4xVGZXJQ6EGJgu2treaoEs0xZKvK1FzbN5zZfLRX3JpTF8aNmJ+x4N
-         au+W81jxA/zUpGsX/KvYV3UIpi/QPEZkYo+/Th75QfbT5Ct4o9g/XoNiWju5WrtWky3J
-         vMAyPhtol2YrKADAVGPFt8TlcMoGrecOH2w2Bqm+KDKPVSSa6IDs51gUhwevCC3B7f6/
-         hAGj86UQvxDyHvgUUpHfEEhdLxSFnYQlvz0XMqnAeE7zHRzPcSyZjs4h1KDksDmH09tl
-         p86w==
-X-Forwarded-Encrypted: i=1; AKwUvBzIl+67SstIcGVZD0HW4kuhRJjWTYu7Qr7gg8jwasZbeamq34z6yXEYgk/4MYmSxzUuYKEtcOjWUQAxr7U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKbjVRAbZj2JcMRZjm5sjmF+ISoD/rteuhVL8enE8S0rHa4Dg/S
-	ImlAAV7uN1mbyTCWV9anlzN4yhe0qEpgaac0KeXr2WLedApKaEvD/viw2s84mN9qq4E=
-X-Gm-Gg: AYBFou0Wb8LECgbQ4Z2477I1tBH3Ou5Wq6lTIj7RyfwvmIhMRHeVxneicEBQZF0UXct
-	5jev6b7X9ZCfRXpc0DAUuHJQD0nt2dVCJPrOSa+4Ez7SYx1MSyfP/caM19DAQLZL5NrHnaT7nnt
-	h6i2rh267lXjhMPlZXtVjByka6gTxywfWCt2Yi7yjEp/G+EUqo+2pPZYmdnqy0L9QHJhtfGIZ89
-	P2gydePkUAW2p9Lzmdr7QwUAsk/K6LsF9PCRNmmWJI+zlpe6H89+964VSlh/aG7dx4PEpXFnSZh
-	OBY2qUnlZrwtZK66iW1hL5wsJAVZxYn96oI8mYdC1zgcM8FvNivT7hXlFpvB7MKwb5DPGaM3K4D
-	zabE4oclx9XGDAx+0MjHWQQg93d6G5q5CuuZz0D7E+7zx/YDLcxvqv0197YRarKY5VitGwOjDD7
-	GVLbbow5a5dqG1mSHD8umpsdO6+svE2c3u0UkrFBIJOVKP9vGZZr5Jaj/9TqUMWTH12WV8
-X-Received: by 2002:a05:620a:a0cd:20b0:93e:c12c:f149 with SMTP id af79cd13be357-93ec12d0893mr1925202885a.83.1792009482638;
-        Wed, 14 Oct 2026 13:24:42 -0700 (PDT)
-Received: from localhost ([2603:7001:f100:5081:9526:3c0:45cc:5ac6])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef4f49861sm582813585a.4.2026.10.14.13.24.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 13:24:40 -0700 (PDT)
-Date: Wed, 14 Oct 2026 22:24:35 +0200
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Kairui Song <ryncsn@gmail.com>
-Cc: Chris Li <chrisl@kernel.org>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Baoquan He <baoquan.he@linux.dev>, Nhat Pham <nphamcs@gmail.com>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Yosry Ahmed <yosry@kernel.org>, Muchun Song <muchun.song@linux.dev>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Barry Song <baohua@kernel.org>,
-	YoungJun Park <youngjun.park@lge.com>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
-	Rik van Riel <riel@surriel.com>, Gregory Price <gourry@gourry.net>,
-	Wenchao Hao <haowenchao22@gmail.com>,
-	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Tejun Heo <tj@kernel.org>,
-	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Kunwu Chan <kunwu.chan@linux.dev>,
-	Meta kernel team <kernel-team@meta.com>,
-	Linux Memory Management List <linux-mm@kvack.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	linux-doc@vger.kernel.org,
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-Message-ID: <20261014202435.GB371161@cmpxchg.org>
-References: <5ca344de-bc34-4a9b-ab85-f553811a1d9c@kernel.org>
- <CAKEwX=N05iOC4hmiyTt5OxjAsOfU7_V8xGfmK_RgUyrKtuyUTA@mail.gmail.com>
- <CAMgjq7DJwGCHCAchcfi2Kcu+XHx2YnKXDj53e0t2kpG_GSejkQ@mail.gmail.com>
- <aqgMCIOFi0dKx_6L@fedora>
- <CACePvbVMFA9N0nQers=sOnSXGbNhtNE0ewq47AJEH5Cr8imQXA@mail.gmail.com>
- <CAKEwX=OMYhUs3tt7jUzEzxsOW3yA2JmzpwwxVBP2eZuHOFu=vw@mail.gmail.com>
- <CACePvbUMjRgK=dQzLjECgBXaUtQSPdAnBXL1Y4=Kh5d15swYvQ@mail.gmail.com>
- <5c8a2b7b-b76d-4bba-92e1-ec3d66794273@kernel.org>
- <CACePvbVTnCOh51jvEpkDJ32idvCubgN1eHBps6vESjhVC8E_aQ@mail.gmail.com>
- <CAMgjq7D_=_4ZsCWJYywpZhPtg+YeH8o=ymRrV3sQ_58G6rs0sg@mail.gmail.com>
+        d=1e100.net; s=20260707; t=1792009502; x=1792614302;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4L9YzOnth9DsCZixyFf9BkVDmJ4QHvH7yn8J2G8kxV0=;
+        b=wKX4V9QxGd4o30pD8KZQzys9ViZHp1ShkUkDRvywESaEB0gEt3d7Dp0Oiu2SrjzSNd
+         aPoA3mET2urTobzfN+DsppYVcTbXMpOC86KyVbZsh/GGM5krTdk7FO+v22wLbUyTt41T
+         7D07U90M4nvX3doGtLGTv/Jt6hPNRyQeEo+D54mPzTj6+bjRKR1KIDK1l7Or8i5gVUYq
+         0wsUjSDv4Bkjd975aLJNgFX0pYXlFFHLMy234g1RUcoGLEhZesxgvKdEjMYfozB1DTzA
+         C/d1NFX9nZBHSZWxZdkydcFwYJxq/FW4vm3/2naDV2u7tH6vp4mZj58xGaXIGiST7CLq
+         qRRA==
+X-Forwarded-Encrypted: i=1; AKwUvBzwg0XaHKrM0Q3tg8aN3/Qd1yFiaLQCzveufaK9oN7ZmPFKaXb1tEkK1Y9vbeATa5MO4B+x27JUYqYuRWo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLPz0SobuwdG4qGm7TSxftbc9ipuf2t1qOZZYdo0qn/GBplufx/
+	+Zx7PGUwl5ByYQLn3lez9Iqf0MixJRweCNJeCaDnHKFoc4I/znYOFMTo
+X-Gm-Gg: AYBFou0etpcewZnJpeWVYG1xOqt33j0rjxWbSHsvTPh/Dt/+4pFkSMW0bVj2hmyjx3a
+	Ni3lVEx+8qxm+TvGMFRHN3FwYekOehEvFCbnTXrY2S3OBzjs0LBFuOwUDmkl3YjuM/3dHGZZ7zU
+	Bdxt0mimjmvwxf0ImotjQv7yoLkIU8nqVKvgu0bm4EwTnMh9ZoTDVV+ti219K3e6X8TF2zZjddb
+	MRZJMzC3B4ojzzKobX7AmCQS3lAWCCffaT/3QWW2qn2lG3/Lmu7so7daGTSpTom93zb6y2GRZ2r
+	deDLV9jFCf/rmcK975CSnX2PsvlFOGNTjdxaNMvdtvl2qS3URc+t4N19NZmMiec/xtF2XnuhWXf
+	DYt0OSCov+f2iWiylAljwmM9Kh2+UqjcdVBX4nPs4hdE6ASgxAJVOUqtDgzoNMkF/58ImFuPIZj
+	0FYKu7xvIQdSL8taP0rRL3cj+24P/YwFz/RWYy0+zAqo522qhDkXpeAzWqPzdxd8h6KoJJFEs9d
+	uH+cDXx/IOrGcSqduCC
+X-Received: by 2002:a05:6000:dd1:b0:487:13a9:80d with SMTP id ffacd0b85a97d-48dbaae342fmr27653662f8f.10.1792009501573;
+        Wed, 14 Oct 2026 13:25:01 -0700 (PDT)
+Received: from foxbook (bez186.neoplus.adsl.tpnet.pl. [83.28.37.186])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ab4f34sm14448527f8f.28.2026.10.14.13.25.00
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Wed, 14 Oct 2026 13:25:01 -0700 (PDT)
+Date: Wed, 14 Oct 2026 22:24:55 +0200
+From: Michal Pecio <michal.pecio@gmail.com>
+To: Sean Rhodes <sean@starlabs.systems>
+Cc: Ulf Hansson <ulfh@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Ricky Wu
+ <ricky_wu@realtek.com>, Lee Jones <lee@kernel.org>, Roger Tseng
+ <rogerable@realtek.com>, Dan Carpenter <error27@gmail.com>, Jisheng Zhang
+ <jszhang@kernel.org>, linux-mmc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] misc: rtsx_usb: avoid USB I/O in runtime
+ autosuspend
+Message-ID: <20261014222455.10595a68.michal.pecio@gmail.com>
+In-Reply-To: <CABtds-1kHYrA_RtTtUh0jmx7jC6=08vDce5pREWhtv_cxGAgAA@mail.gmail.com>
+References: <cover.1783352430.git.sean@starlabs.systems>
+	<7acac70a471452a6ccf23b7ccc557f3c3861e0ad.1783352430.git.sean@starlabs.systems>
+	<20261005103011.03175826.michal.pecio@gmail.com>
+	<CABtds-3t+ECCPeFShq__iNa9niRAge=WOED4cHtNZAFVw6kPzw@mail.gmail.com>
+	<20261013142737.7b10a5b0.michal.pecio@gmail.com>
+	<CABtds-0s8Co-qWk0xm=R1pdz3JyV_GyaiwYzgxS9g2tFwtHRzg@mail.gmail.com>
+	<20261013143836.76ad7bf4.michal.pecio@gmail.com>
+	<CABtds-1kHYrA_RtTtUh0jmx7jC6=08vDce5pREWhtv_cxGAgAA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAMgjq7D_=_4ZsCWJYywpZhPtg+YeH8o=ymRrV3sQ_58G6rs0sg@mail.gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Suren, if you've not been following this, there is a question you
-might be best equipped to answer below.
-
-On Thu, Oct 15, 2026 at 01:17:21AM +0800, Kairui Song wrote:
-> On Tue, Oct 13, 2026 at 1:27 PM Chris Li <chrisl@kernel.org> wrote:
-> > I understand that you have some face-to-face discussions at the
-> > conference. Do we have a list of what has been aligned and what is
-> > pending to discuss? We should have an agenda to avoid repeating
-> > already aligned items.
+On Tue, 13 Oct 2026 14:48:54 +0100, Sean Rhodes wrote:
+> > For the record, I have no issues with wakeup on insertion when the
+> > reader is suspend.  
 > 
-> Right, from my perspective, here are the following key points we can
-> discuss further in the incoming meeting (most of them are not fully
-> concluded yet):
+> I do, but only on Meteor Lake
+
+Sounds like an unrelated USB bug.
+
+> >  The problem is when it goes to suspend with a card already
+> > inserted and doesn't wake.  
 > 
-> 1. A limitation for the logical size: from my side, there are real
-> usages for a global non-memcg limitation of the non-physical swap
-> space: e.g. thin VMs as containers/pods with no cgroup limitations
-> inside but which need in-VM memory compression and a proper limitation
-> to avoid thrashing; or low-end devices/desktops that want global
-> (root) limitations. And also, Android have a limitation on the ZRAM
-> size (well for this one I'm not from Android team though so that's
-> just my personal development experience with Android, enlarging the
-> ZRAM size on several Phone swill cause serious junky of Apps due to
-> over compression).
+> I can't replicate this at all; my "bunch" are all fine (glk through
+> arl, and cezanne through phoenix)
 
-Android monitors psi to kill on excessive pressure. This should
-capture thrashing from over compression.
+Host shouldn't matter in principle. Reproduction is simple:
 
-Suren is CC'd, we should get his opinion.
+echo 'module usbcore +p' >/proc/dynamic_debug/control
+# remove the card
+# in less than one second, this appears
 
-> Nhat is concerned that exposing the sizing allows users to tune it and
-> potentially misconfigure the system. However, I think a user with root
-> permission should be fully aware of what they are doing or they can
-> easily mess up the system in many ways and swap limitation is a very
-> minor concern to me.
-> 
-> I think the requirement for a logical non-cgroup limitation is strong,
-> but the discussion hasn't concluded on the implementation method.
-> Perhaps something like a Kconfig combined with an interface or command
-> line? More ideas are welcome.
+[38244.954611] usb 10-1: kworker/0:0 timed out or killed on ep2in len=0/8
+[38244.956547] mmc0: card 0260 removed
 
-I agree that overcommit control can be useful. But there are setups
-that implement pressure-based policies and do utilization monitoring
-just fine from userspace; they have no need for logical overcommit
-bounds inside the kernel itself. *Defaulting* to a static limit and/or
-making a choice mandatory seems like a mistake to me. It would make
-more sense to treat this as a related but separate problem.
+# MMC host is suspended and polling stops
+# for two seconds, card insertion will go unnoticed
+# the reader enters suspend with a card inserted
 
-I'm happy to brainstorm solutions. But we should be open to discussing
-this from scratch - userspace monitoring; an extension of
-/proc/sys/vm/overcommit_* etc.
+[38247.021374] usb 10-1: usb auto-suspend, wakeup 1
 
-> 2. Charging: If you consider memory.swap is physical only then indeed
-> we should not charge it, however, user are already doing that for
-> years so this is a behavior change and we are also pushing memsw into
-> memcgv2 as a interface to limit the logical memory usage of a
-> container. So charging of the logical space is useful, how to handle
-> that is tricky though.
-> 
-> From our usage, this should at least not block adding memsw or
-> anything similar for memcgv2, even if you want more customized cgroup
-> accounting, we need to charge it into some counter (a page counter,
-> not just a statistic) in some way.
+# removing the card wakes it up
 
-A path for memsw in cgroup2 is generally unlikely, actually. It was
-intentionally split into separate memory and swap counters and not
-forward-ported as a combined control.
+[38250.163400] hub 10-0:1.0: state 7 ports 4 chg 0000 evt 0002
+[38250.174416] usb 10-1: usb wakeup-resume
 
-Like I said, we should discuss overcommit control from scratch as an
-orthogonal issue. I'm happy to do this and help find a solution. But I
-want to get out of repeating that this is not compatible with cgroup2.
-
-> 3. Swapoff: This was discussed again too, as vswap was trying to
-> remove it. I think the concern is mostly about maintenance,
-> performance, and practicality. From my perspective it's a critical
-> component both for preventing minor or major faults before predictable
-> high traffic arrives, or for operations/debugging, and for releasing
-> the swap metadata to rule out any potential swap / page fault effect.
-> There are concerns about maintenance or suggestions to use MADV, while
-> I'll be happy to explore and improve the current in-kernel
-> implementation of swapoff later if needed but removing it is a really
-> bad idea in my view.
-
-Here too I think we should be open about discussing the problem and
-what a solution could look like.
-
-"Swapoff" seems to presume the virtual space in the shape of a
-manageable swapfile through standard interfaces.
-
-A separate knob to clear out the vswap space would accomplish the same
-functionality without pulling in the entire swapfile interface e.g.
-
-> 4. Writeback: No doubt we all agree that we definitely should have
-> writeback support, Nhat's concern is that we should handle the case
-> where some cgroup doesn't need zswap/compression and ensure that works
-> well.
-
-+1
-
-> 5. Interface: Given the issues above, what should the interface look
-> like (swapfile, sysfs, /proc, etc.) and how should multiple
-> (non-physical) swapfiles be used? Nothing much is discussed about this
-> part though. I've heard users mention the use case of multiple
-> compression swap spaces, but I don't have a use case for that myself,
-> so I don't have many comments.
-
-+1
-
-It would be good to collect usecases first. Interfaces are forever and
-we shouldn't add them on speculation.
-
-> 6. The one part that I think we can and should agree on it shat the
-> implement approach: at this point I think VM_SPARSE is the right
-> direction, Nhat is concerned about the testing on it, and I think we
-> can have more data for that, and collabration is highly encouraged. I
-> previously conducted many tests on everything posted from both sides,
-> will try to post more on this too.
-
-Here I think we're actually least aligned.
-
-The VM_SPARSE implementation requires a static size, and prior
-discussion has made it clear that we actually have no consensus on how
-to pick reasonable values - be it in the kernel or in userspace.
-
-The xarray proposal requires none of these choices or interfaces, and
-nobody has been able to show that it's actually a performance concern.
+Regards,
+Michal
