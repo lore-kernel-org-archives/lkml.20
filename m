@@ -1,346 +1,336 @@
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010041.outbound.protection.outlook.com [52.101.193.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85B783E024B
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:26:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791998779; cv=none; b=CV5nPX3aWMs11o5memfBsIyRY+Jfb/90CPyOOP5ww9OQFo+SEGa7h28F5p61aTRVJ46Tq1O9QeoJaJnzyMQaS6UnnzdcM4JRJu00V2tai/GQQ2TAWSYUzgZ0rGhvJUAZ0605uNKnSophYgJJserqfJh2ckBCYwNotkCRhfXjxVg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791998779; c=relaxed/simple;
-	bh=WyPFSQzlcPsM7bEg65zgmEDipP6f4nXL0yMbSWA5h84=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=kRgfdAzPPaCJlXgiVzb+itRxhpmoVQftMYvaUEcVqSYWn/Ho1Pxnfw4qRrOCrtHtNmg2B95ltbLvO9woLoJ3JLXnekG+1a8brhXeFaWsvgUvPRihInsrqdsUVl1rowgPglFBb13KfBm771c9rgSPbmMXXDhN1iuQs/Q7md9HwaU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g6xltyem; arc=none smtp.client-ip=209.85.210.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 134863FFABF;
+	Wed, 14 Oct 2026 17:28:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791998916; cv=fail; b=sp6iw6i0pdvNuER5pdkm/dIjIIeASbbZGmVs9mZFJTWld2FjcRfuiZPIxcHPlKFtrrMuRzaAxi7/0z9/DOBNdqmocimXZa9T8OVevwZtgbbxULQo6lJtYEptYRzK7+oOC10HVQPXXAI4CIf/4MmLYP9WKkk5vpyQGQ0UEZCSKWc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791998916; c=relaxed/simple;
+	bh=Zaxu+xs8/TLfPPS7FJyy+3Izl3KVky4IwKpL0eBNGT4=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=i9gw0xF3mMY7ft8lhJENiuq96ALdnAq0Yz6rvSV8r+TJBciocKYT7Ug3rsosGJiOxuLjmY3jxEX6f0iBhZ3rhttGxpnLP8WLHpbm5Bj4tVXncVK006aaB37swK0/zu0bwu7QVreYy8+6fD/YGWMh0YpCMG6FQoBJ+oBIgYdMjHA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=F2izcVJz; arc=fail smtp.client-ip=52.101.193.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g6xltyem"
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-88834d30002so2190629b3a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:26:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791998778; x=1792603578; darn=vger.kernel.org;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=WyPFSQzlcPsM7bEg65zgmEDipP6f4nXL0yMbSWA5h84=;
-        b=g6xltyemoesbxQ3OqIiTgQlkBFOTXRvi+8OhuhQmCecZcFUQe3Kw6wI6IkYWEaAjUp
-         Cg1mTFBiuj4i47WMRf+O54F3dCXlBe0zFusblAr973LRntzxbHe3WwK2px2PO2nNHt7C
-         pXhdiJWt7PljbqdVWcqOf/ilFgCVxXBNza0fTdH+e7FFVd1IQtuvR7iaRYUrfKVLFAQ/
-         bGsQHVJ0GuqM1nxtZ4mV8slfJHXI94kJVTCPHULzDaDwUY5rWmW3k45pl83jfNkmaSg7
-         POs56Nb+PxEXQnUIx+Y0CESHRG3JwCiX9HuTkbRuVzKfZ7ZDv9SI2Eyn7TGvEkHwYgUB
-         6Fcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791998778; x=1792603578;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WyPFSQzlcPsM7bEg65zgmEDipP6f4nXL0yMbSWA5h84=;
-        b=fo2vnEGMuesbGer4n5kXRZnMLxvhnkPnSekPQre2k+rN7oroBwquP/8kJGboFLR1LS
-         rrwlq0jZKy0HjwSljdIbY8z+5BKPV+ZQkJDTGt7UM/imxeEMxOHLauNJV9M54WK0tGht
-         loPPdxS4ttXWtlPRsBC44y92ebpR+N19LT/2+zwJ51CoPvulOcs+98aXMlmkRc/XoJ4d
-         sfjZ2vdDE11xJA6fiN0VdQBpPU1x81bcsYlMFEoRho+JU2tnyqDLI/tVICx1QI0q/loe
-         Fj8f9BkrI4Q6TnDrgu4y3Lw2dIqLywDe9XWbgmk2uv+UZ7PL0A0jDyWXKqnh8uRez1S7
-         wtTw==
-X-Forwarded-Encrypted: i=1; AKwUvBwCq9R/m2ZmFSAiOaBX/971ky8UhEHgS9wLDED+2/qFH95fjZkzLcjNVG0CH9+fBpjKJ+868I8qUzu3Yc8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLWY/CUEpd0qypqn8T6Km6ppabEk8AC6AxK4CbCSCJlyGaZWWsL
-	5Mc6TBKDa9fqB7NUVWEp5joo0QdlwdKeZwHvv5UUh/uX2kBL9+2AuVF2
-X-Gm-Gg: AYBFou289JiBlzOw19yzWYMstzC2+XWeobc6biQR31Kr8KBpw9RMpqGEZe6iZ0c7uH4
-	Ydoo4Hw4kArs753QQsOIkHu0i61GzBoUr+WWmCQQKotKR3p8iZtG8cRHk/G7oig3wQdxu6fW9wI
-	WzjXd87QfuZSIx9Oj0E4Alr5kyT2byuv4N7HQJ236Uf5NFSnMA56eG3mGONevHkiMBefkSfwL6G
-	n3o+IYRU03nuwREBPM5yk+csvT4u4Mu7Yd1p1Tkem9QfFPLv5g5TIUtirtXCAEO8KC3fHutza5T
-	kYfo6BYcceWusivqRD8tHtfBNAU2/tAD6S91QsQkKqWILbOfPXmUAg9NflLJQFZyDLZPGBowVJk
-	eqUmReple84XhyIkL5a/ARNCXKS6MRAMPYoKFjDSPTyzJVSWrVGtmPEcEjQLz5Nco6qj7geAiZW
-	nhkCQ5yzw0279DaUHiN5ig3yYvY8WBrw5U1o6dHxQgbQiYcaWDUmVRWPPt6QlpnAVl
-X-Received: by 2002:a05:6a20:734b:b0:3e1:9071:acdd with SMTP id adf61e73a8af0-3e19071d800mr10023078637.35.1791998777510;
-        Wed, 14 Oct 2026 10:26:17 -0700 (PDT)
-Received: from smtpclient.apple ([2a05:dfc1:8bc4:feda::11])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89d803cc9f0sm1402553b3a.29.2026.10.14.10.26.13
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 14 Oct 2026 10:26:16 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="F2izcVJz"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kPKnyWCpQPbyNgBhI9wjbSy1vAr9qhe/QeM/PNDY9vVHE4L2ISwQL3L/uX9Z+ipM0HN4R8d8WH0IjS/SLPUcI+dX3SasgrKZhvPmtAEi/T15KWUeG9wgKI03V9/bvsSVQdeoeqk74ZbuZdUd9xpHuXk/zfaHWhaANhujaFQF3STVqtLYHrYRDT5tpW3bAvDE+B2Qqd2D22hYFLT4+KGqqMsfJD0tMXEGCQg8XgMhlOPpTq8T1LziPaEdiSnwgzRksG62Hs3yrb3ejl7WRyXRf0zlqXlEdYv8IpGb54s9kA0lSwhqdetE1LXNEJUdT1cgHMEJRAKUpdfvy3sflqWdQQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9zQo6auwQ99hZR3tkVJxqkOS0P8kXOvtGnZ2F3nStuk=;
+ b=fQLAnFYUqYa4TCcul6ZoY6wL3ckmZZm9Xmn3rUag4hkaDW+VwwZtymBy9+IYZhye5xWTTthhXbO14MPLbf2hM9LZbeW4PFbW5xG9KjbYD6nST1izQoV5xp0yTtdDN6Iwoc6zauu6kSdioJUczC9trGwsVJ8Q7HB75vaVxh4LB4IG2uEMpdrCQldTOs6bj2K+o2ajBYIBwIzIxwo6Uw+mGeb4XJFKo2oxo5RXPhRVAC3LfVLz5ULHLITvfGtT+B2wwg1FL0SDwVk9rIt2KVEX1ICxSY5fvr2jBPV1iuHgV4Sv7Vf7JLIceCDiznaNew2N+/U5V1x3qNTpIxT83FbHfw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9zQo6auwQ99hZR3tkVJxqkOS0P8kXOvtGnZ2F3nStuk=;
+ b=F2izcVJzIjTuCC1rFOQMwT1SrhLNlfIJsH5UPWqlwM0XHWVg6k6UBNQ5izeMd8PWsK+Qbg4mp8KxagGeDmOqWyJBrY4huNy+F3VwDe0Hr8qcnAW++BI+PsOveKr7i60A3vHvfNcUsvPS6cozmH/VuQwZt84H7IZyqxWpyLk4GpoQ+eIGog3c5XA38lMLV8vnZuzTJYC1wCwghW9rv5GtTFBLZdoG7Qn+6yJJL0KWoVhd6G5BySekVykqFBop7cK9xqrxDVyZm1NsPCBZ+fiVy4ahBEAKUSwQiCxtsV5QhZ8sx8fM1JIK3+MOiSCgUmxOr5mJNs886gBHoKgt1fx29g==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH1PR12MB9647.namprd12.prod.outlook.com (2603:10b6:610:2b0::10)
+ by PH8PR12MB7447.namprd12.prod.outlook.com (2603:10b6:510:215::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Wed, 14 Oct
+ 2026 17:28:25 +0000
+Received: from CH1PR12MB9647.namprd12.prod.outlook.com
+ ([fe80::228c:766a:191d:77b2]) by CH1PR12MB9647.namprd12.prod.outlook.com
+ ([fe80::228c:766a:191d:77b2%3]) with mapi id 15.21.0522.012; Wed, 14 Oct 2026
+ 17:28:25 +0000
+Message-ID: <8584c31e-fd93-4f1a-9929-e71c5d9ccd0f@nvidia.com>
+Date: Wed, 14 Oct 2026 19:28:16 +0200
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [RFC: DMA_PMD 00/22] DMA_PMD: PMD_SIZE-backed IO buffer pools
+To: Luigi Rizzo <lrizzo@google.com>, Luigi Rizzo <rizzo.unipi@gmail.com>,
+ Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Christoph Hellwig <hch@lst.de>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Vlastimil Babka <vbabka@kernel.org>, David Hildenbrand <david@kernel.org>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, Danilo Krummrich
+ <dakr@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Willem de Bruijn <willemb@google.com>, Kuniyuki Iwashima
+ <kuniyu@google.com>, Joshua Washington <joshwash@google.com>,
+ Harshitha Ramamurthy <hramamurthy@google.com>,
+ Saeed Mahameed <saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>,
+ Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ Alexander Lobakin <aleksander.lobakin@intel.com>,
+ Michael Chan <michael.chan@broadcom.com>,
+ Pavan Chebbi <pavan.chebbi@broadcom.com>, iommu@lists.linux.dev,
+ netdev@vger.kernel.org, linux-mm@kvack.org, driver-core@lists.linux.dev,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261003212241.3432303-1-lrizzo@google.com>
+Content-Language: en-US
+From: Dragos Tatulea <dtatulea@nvidia.com>
+In-Reply-To: <20261003212241.3432303-1-lrizzo@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0156.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a2::17) To CH1PR12MB9647.namprd12.prod.outlook.com
+ (2603:10b6:610:2b0::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
-Subject: Re: [PATCH v2] sched/cache: Remove the old cache group footprint on
- exec
-From: Jemmy Wong <jemmywong512@gmail.com>
-In-Reply-To: <as99ta0PWAuYROp0@three-body>
-Date: Thu, 15 Oct 2026 01:25:52 +0800
-Cc: Jemmy Wong <jemmywong512@gmail.com>,
- Chen Yu <yu.c.chen@intel.com>,
- tim.c.chen@linux.intel.com,
- Ingo Molnar <mingo@redhat.com>,
- Peter Zijlstra <peterz@infradead.org>,
- Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Steven Rostedt <rostedt@goodmis.org>,
- Ben Segall <bsegall@google.com>,
- Mel Gorman <mgorman@suse.de>,
- Valentin Schneider <vschneid@redhat.com>,
- K Prateek Nayak <kprateek.nayak@amd.com>,
- linux-kernel@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <1174BE6F-35AC-4BBA-BD36-661B6FEC0794@gmail.com>
-References: <20261010111612.31345-1-jemmywong512@gmail.com>
- <aspT_A1vl-RwKmoP@chenyu-dev>
- <32BC7D58-C1C9-4B24-857B-7433F19606A8@gmail.com>
- <as99ta0PWAuYROp0@three-body>
-To: Chen Yu <chen.yu@linux.dev>
-X-Mailer: Apple Mail (2.3901.200.71.1.16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PR12MB9647:EE_|PH8PR12MB7447:EE_
+X-MS-Office365-Filtering-Correlation-Id: cee8ed33-c83b-4a81-c6b7-08df2a188da9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|1800799024|366016|376014|23010399003|921020|56012099006|11063799006|261009223027099003|10067099003|22082099003|18002099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	WHDcgCEWzJkPrqq20DZDeJl45jpjkxTcIefoS0OJetAZqU1JDeHmRkEA9J1JzEwllj749VARwtmK071Td+OUmtNbd5K9/03sn7Dhv1xZrZ5G7i/88ud1v56oztYl5GNYaS4m7Fm8OltURzv7i8qSaZrrh/xwGSoNNRRjFMl8rDdJuR4ehFmtPGY6JdjgFvhfZ/IYkjxAWguwwGomsXsdDC44jVixzAy7W3yf3r6Z4NmFO9ldBN4kUvLkrD863SjCyXOu821PyRrNu5z02pwndIQHDbabbRVCm465orT5qS8WhKhFNhDBmmsF6ybJZZdDm7hCYqPiBUu1qjWO1jOkdiQdA1DCe0FarEjJNgze8BHmuFrxrk49x15WVYBaDAtwae26H1rOkADTW2pZsgt28wJ9asc4V05B6WmzPnEuFb5Lzo/h04B59ovBORpDoppWFBgpEsy0ElAxTWAmsNk1d9Mi6G8US4pkWqZR2fKOujZM/A8zo3kdF95wAYPGvIgzK5BpZUrnWnAqVP1K+74PkjyZTWXgslc40lOlmp4oPMBr4B1oK4pwiRIXmAuA8eJGhDNlYYj/y5NqjlVPSy6MbUIjmN9nJcw3f1OaSoLaiI/aTBLpj/he1JaiBcBfsU/wz9yYHJ92UltkLgqkttTkmR/adTeiyMtkQ5/E3MVi37bzr56/jqxkYzi9vBv3mluYlGPlZq95KDVEBL0Lmhe24g==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH1PR12MB9647.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(366016)(376014)(23010399003)(921020)(56012099006)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TTFlVndZYjZva09QS2ZheVA4NFFlWGFXWm9IZkxYV0xPY0t2Tng3M2xUQWg5?=
+ =?utf-8?B?ZHFzeTFqSEpCSFRrNFlUcWt4OEwxdkdHT3p4ZWxPYnRGejVRVjAyRmE0emV5?=
+ =?utf-8?B?em90L2xPaXJNZUVQdFpva2Zva0ptaHhXenNacGtzbnNtSXpjV3A1aWdQdENm?=
+ =?utf-8?B?NndmcGhTOUYrMUs5cGVwY3VORE94UzFndjZYdURWZjZTRXJjbFhEWkJ6Mnpz?=
+ =?utf-8?B?SDNEZXAyTmkxbXhwMWdKQk5xdTArZ3hoN00rUnQyZ25raVlMS0c3WmptaGdH?=
+ =?utf-8?B?cnVqL1pYRDFhY0FKK0RHMnpTZzlML3VYbUtHeERELzVaNzI1M2Nka2ZIdVhy?=
+ =?utf-8?B?LzNjT3FiSG1oRjNaa3JiWXhuM05VZGhvdjdnY21LSWlWV2g0TWhZT281MW5V?=
+ =?utf-8?B?ajRJUXh5cFYrejhma1NBSXJKR05NS1JsRXhhRjR6SWxmd3AvK2t5b0VHS2NN?=
+ =?utf-8?B?STFsNzdTeEhmcVF0OWptKzZ2ZmZUMWttamdreENYY1d2a3B6RVQyaTVtVXpm?=
+ =?utf-8?B?Z2MxaGRxZVMxK0lrcXBqSkQzZGNiTndtNktmTzFBa2MrMCswUkh2ZUMwYWF3?=
+ =?utf-8?B?dUtPbTh2UFhFWnRveEM3dUNwc2RRdmNqcVBEWko0QW45ZXlCbzJwQ0FZRG84?=
+ =?utf-8?B?clFza0s0OU9Sa3J2TXdWMkwzSjRwcG5RT25TQ3QxbWFaTkR4VmZYcmdrRmFD?=
+ =?utf-8?B?MGMxY2YvbU96UHlMUVo5cHlIN05TZ0FZVUdpc2F0dFUyMlZSbUxXLzNHNngv?=
+ =?utf-8?B?Y1JCU3ZodHpaUDduNC9wMElyUTROYkFCRysrMUJOVHM0blVSWDYvNTV0S3Ro?=
+ =?utf-8?B?NDM0Q2ZSUmlhR2tLc29SUDQrNitpYmNhY2c1OThvVVpWRGZnYklIMmVheTdx?=
+ =?utf-8?B?QmhLMlJvdmJxdm5hQnBNSnhUNnI4Z28yVm13OXZuejU1RlhwQklCNzZOMGZu?=
+ =?utf-8?B?bCt6ZVdubWpwZzJFaWx4d2l4d2c3cU1YdnV1WjNZSWc0MHFMVDNRVUxaaVN6?=
+ =?utf-8?B?TGtGSTdtMDZYcHZ6cUxYbFcwNWlKb3JwdXdWU1pDNHdsRllZRlNBc0xqd3Yw?=
+ =?utf-8?B?NXZ6cVF6eEtJZG1JOHZ3Y3E1VHRiUkRrTHowRG1WY0UrdFJJZjV0K1NST0dN?=
+ =?utf-8?B?WmszSWc5YXEza1NwS0pnT1pGM3YveEZDY3kyWTROajVKZE1jbHpEUCtKUGpo?=
+ =?utf-8?B?ZHdmUGpvU05sTnB1VTcxWG9KSmhBa1NrTjBUN2poalpRaFlwSEx0dFlLVUY5?=
+ =?utf-8?B?UjdqeHhwVzVBbEhPVlUvZnRSYmVNU2dXU09tellhTFkxdDVDZEdkWWcvcmNx?=
+ =?utf-8?B?MmJ0bGZoZ1V2T1ZRUHczUHl2VzBDMmQ1QkNYRi95UzIzL003OUU5S3ZFVmg0?=
+ =?utf-8?B?aHlRM0xNdm94bE5WWUlJaVZZbXRWbGxBZjNwb2hZY0RxQUk0aWhlcEFub09E?=
+ =?utf-8?B?N0dIVFRZL3UwOS9PYnJ5aGRUQ3hqVXlrVDJLL04vSFYzQTM1djBYQStOS2ow?=
+ =?utf-8?B?L3pLT0RWL2l4Q1RMQkZPZlBUSVREZllhT1R3UGVXM2g3eHBUNFJZSTJ0WTJK?=
+ =?utf-8?B?aEhYVnpORHlQUnRiUmlGakRMcVhYVHVUN081NlAxMFpSbEQ4cVBzcWJNTUdr?=
+ =?utf-8?B?NWM1YnZMNkNPNnNGdHBxTDBlY2JvWjB5MUR0RHNzWTI4VEkzM29WWkRzazZT?=
+ =?utf-8?B?YnZPOXhZOHh5MVk5cWk0ZGRpV1VOZmpIYTZNaW9HWGVxalNndmplTjJLWEtG?=
+ =?utf-8?B?aVc0RnkvcGtPQkJLN2Y0Z3pQMm1oVjVmR3pKUkwzMmk4ZndjN3UzZm5tbWdz?=
+ =?utf-8?B?NjZYM2p0MnlCRmkyYVdnbERRdk03UDJEeERtNHUxLzQvYi9SNE5obS90c25p?=
+ =?utf-8?B?QzU1elZXaGs3Umc4S3h5VnJDZXVVVlZwR09EbCtLcmk1UWtJSEsyd05uTmF3?=
+ =?utf-8?B?QWUrWDRyU1NpNTh0YlN3N1F2VlJDSnkvMmdmd21mS2dsWVpqWmFWdU9DbHZu?=
+ =?utf-8?B?RG9ZMU1OcllEckFrd2h3M3IrZWRic0tSWFJ4TEFHUzVZSWl2TTd6THM5ZUMw?=
+ =?utf-8?B?Zy9FWW1sRk1TWUdTbW9zanlhamd1ajJ6ZjVDUmh3MnlhUXZuVWY4dkZ4dEN4?=
+ =?utf-8?B?YlhEYUh3NSthY2t0U1JzL1ZnZjEwVXhnZ2tVQnNJREdhVWMyOFRtNTVScllZ?=
+ =?utf-8?B?blZIWmVHSFYrYjZtUnRjWm90NElmczFidDdBS1JVM1M2UzhoMFl4OTZWSHBK?=
+ =?utf-8?B?Vi9OSXdORlF1cGw5c3dZZ05zaDRpa2Z6azU1Z01McHB6UktvbHFwbnpWQTd2?=
+ =?utf-8?B?eGFDdkVJMWgxb01Oekp2UGNhRFFEVmY0MkEzZ2JiRFV3U3lYT2krQT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cee8ed33-c83b-4a81-c6b7-08df2a188da9
+X-MS-Exchange-CrossTenant-AuthSource: CH1PR12MB9647.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 17:28:25.6506
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jVM56snw1CO5qN98Evi1gsNXrsRJZT+R+KFGs3aagD4cTw/C+2q5E/16Kdj+CCKXHJE/gtvah9pD0b81M/+l/w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7447
 
+Hi Luigi,
 
-> On Oct 14, 2026, at 9:03=E2=80=AFPM, Chen Yu <chen.yu@linux.dev> =
-wrote:
+On 03.10.26 23:22, Luigi Rizzo wrote:
+> Here is a subsystem called DMA_PMD on which I would like feedback on
+> architecture, possible enhancements, or kernel components that could be
+> reused to avoid duplication.
+> 
+> I think it can be extremely useful for those affected by the HW/SW overhead
+> of IOMMU (especially IOTLB thrashing, see [1]), or confidential computing,
+> or preemptable VMs.
+> 
+> The (not too exaggerated) pitch line is
+> 
+> DMA_PMD has the performance of identity, guarantees that only IO buffers
+> can ever have active IOMMU or IOTLB mappings, removes the bounce buffer
+> overhead in confidential computing and preemptable VMs, and integrates
+> smoothly with existing kernel APIs.
+> 
+> === ARCHITECTURE
+> 
+> DMA_PMD was initially designed to address IOTLB thrashing (details in [1]),
+> but turned out to also resolve nicely the strict IOMMU overhead, and avoid
+> the bounce buffer overhead in preemptible VMs and Confidential Computing.
+> 
+> It works by combining several known techniques:
+> 
+> - transparently feed allocators of device memory (skb_page_frag_refill(),
+>   dma_alloc_attrs(), pagepool, ...) with DMA_PMD pages, i.e. physically
+>   contiguous PMD_SIZE (2MB) pages mapped via PDE_SIZE IOMMU entries
+> 
+> - heavy recycling of DMA_PMD pages (like pagepool) and lazy IOMMU unmapping
+>   (like DMA-FQ), BUT:
+> 
+> - like strict IOMMU (DMA), safely release memory back to the kernel only
+>   after destroying all of its IOMMU mappings and a synchronous IOTLB flush
+> 
+> - on allocation, DMA_PMD pages can be configured to be pinned in the host
+>   (hence suitable for preemptible VMs) and/or unencrypted (hence suitable
+>   for Confidential Computing), removing the need for bounce buffers
+> 
+> - there are global and per-device optin /sys/device/.../dma_pmd_*
+>   and /proc/sys/net/core/tx_enable_dma_pmd
+> 
+> NIC drivers can typically use dma_pmd with no modifications for rings,
+> tx buffers, rx buffers (if they use pagepool), and rx headers. For tx
+> headers, almost all drivers need changes (see later patches in the series)
+> to implement cheap bounce buffers and avoid individual 4K mappings.
+> 
+> The series has the following main components:
+> 
+> - a sparse array (similar to pageblock_flags) to quickly attach metadata
+>   to a 2MB page without fiddling with the struct page. Cost is 128B per 2MB
+>   page used as an IO buffer, totally negligible.
+> 
+> - dma_pmd_pool, a replacement for alloc_pages() that can be instantiated
+>   per-CPU or per receive queue. It handles the split of PMD_SIZE pages
+>   into order-N blocks, handles dma_map and unmap, and aggressively recycles
+>   entries. It is used to feed skb_page_frag_refill(), pagepool, and
+>   receive buffers for drivers that do not use pagepool.
+>   See [2] for "WHY NOT PAGEPOOL FOR TX AND EVERYTHING"
+> 
+> - dma_pmd_arena, is another allocator backed by DMA_PMD pages and
+>   is used exclusively as the backend for dma_alloc_attrs().
+>   Used for longer-lived allocations (descriptor/completion rings,
+>   rx and tx header buffers)
+> 
+> - glue code to hook DMA_PMD into pagepool [2], skb_page_frag_refill(),
+>   dma_alloc_attrs(), dma_map/unmap...
+> 
+> - per-driver patches, where necessary (e.g. tx header buffers [3])
+> 
+> === PERFORMANCE BENEFITS
+> 
+> Your mileage may vary. Enabling the IOMMU may have no throughput
+> impact, until it does when some system components (bus, IOTLB, CPU)
+> become overloaded.  Aside from throughput reduction, one interesting
+> parameter is the effectiveness of the IOTLB. Here is a sample of SMMU
+> performance counters for a large ARM system with 2x200G NICs doing
+> bidirectional traffic:
+> 
+>     === DMA-FQ MODE (total throughput ~440Gbps)
+>     25,757,488      smmuv3_pmcg_*/event=0x80/   IOTLB lookups
+>     16,634,941      smmuv3_pmcg_*/event=0x81/   IOTLB  misses
+> 
+>     === DMA_PMD on top of strict DMA (total throughput ~745Gbps)
+>     22,693,218      smmuv3_pmcg_*/event=0x80/   IOTLB lookups
+>         30,536      smmuv3_pmcg_*/event=0x81/   IOTLB  misses
+>     (not a mistake, also lookups went down despite the higher rate
+>     because the tx side can use larger segments)
+> 
+> The 2MB mappings made IOTLB misses almost non existent, because
+> the working set is reduced by a factor of ~512.
+>        
+> Note, the code has more verbose comments than I would like.
+> Several of them are there to avoid Sashiko getting confused and
+> flagging false positives.
+> 
+> === NOTES
+> 
+> [1] IOMMU IMPACT AND IOTLB THRASHING
+> This is documented in more detail in Documentation/core-api/dma-pmd.rst
+> but the compact version is below.
+> 
+> There are three main costs involved with using the IOMMU:
+> - CPU cost for dma map/unmap
+> - CPU cost and latency for synchronous IOTLB flush (required for strong security)
+> - IOTLB thrashing, shows up dramatically when the IO access pattern
+>   exceeds the IOTLB size, and IOMMU page walks slow down bus activity
+>   up to a point where we see over 30..60% throughput reduction just for
+>   this reason.  Some relevant references
+> 
+>   https://lore.kernel.org/all/4b42f2eb-dc29-153e-ace9-5584ea2e5070@redhat.com/
+>   https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10280580/
+> 
+> Specifically, NICs access 4 or more pages per packet (descriptor queue,
+> completion queue, rx or tx header, one or more buffers), with very little
+> locality especially for data buffers and tx headers. Each queue has 1-4K
+> entries, a fast NIC uses 16 or more queues per direction, so just the
+> data buffers cover 32..128K pages. Using 4KB mappings makes the IOTLB
+> ineffective, as shown by the performance counters shown earlier.
+> 
+> [2] WHY NOT PAGEPOOL FOR TX AND EVERYTHING
+> There is some overlap between pagepool and dma_pmd_pool in that both
+> implement a cache, but pagepool is missing some important features:
+> 
+> - pagepool does not handle splitting 2M pages in smaller chunks, or
+>   the mappings. That would need to be implemented (and is what dma_pmd_pool does)
+> 
+> - pagepool's provided pages cannot be cleanly managed by
+>   get_page()/put_page(), which is what all the consumers of
+>   skb_page_frag_refill(). Fixing that would require dozen of changes
+>   with high risk of missing some paths.
+> 
+> - even for the receive path, a provider for pagepool has more restrictions
+>   than alloc_pages-supplied memory, so if I wanted to wrap dma_pmd_pool
+>   as a provider I would have needed changes to the provider interface.
+> 
+> - pagepool requires a device at allocation time, which is not known when
+>   skb_page_frag_refill() runs, hence the IOMMU mappings cannot be handled
+>   at allocation time.
+> 
+> - page_pool_alloc_pages assumes a single NAPI consumer with BH disabled,
+>   whereas skb_page_frag_refill() runs from a preemptive context.
+> 
+> - and last not least, we need to handle the dma_alloc_attrs() allocations
+>   which don't match pagepool API
+> 
+> Of course all of the above could be modified, but the complexity
+> would be similar to that of implementing dma_pmd_pool, and with a
+> huge risk of breaking existing functionality or missing some path.
+> 
+> [3] DRIVER CHANGES
+> 
+> Most drivers need no change for rings, transmit buffers, or receive buffers
+> (if they use pagepool). Tx headers are generally mapped on the fly and
+> that is enough to trigger IOTLB thrashing, so most drivers need a small
+> change to implement very cheap tx bounce buffers backed by DMA_PMD pages.
+> 
+> We could avoid the bounce buffers using DMA_PMD for the skb->head region,
+> but that memory is contiguous to skb_shinfo so it would be exposed to
+> IO device access, which may be undesirable for security.
+> 
 
-[=E2=80=A6]
+Thanks for the RFC. Here are my notes (some points rephrase what was already
+said):
 
-> The minor issue is that the goal of sched_cache_replace_grp() was to =
-serve as a
-> helper for dealing with sched_cache_group pointer assignment, so we =
-don't want to
-> interfere with its members' values, such as footprint. If you can =
-reuse
-> sched_cache_footprint_update() in sched_cache_exit_mm() and =
-sched_cache_exec_mmap(),
-> that would make the code cleaner for future maintenance. Do you have =
-any reason
-> to keep the current form?
->=20
-> Could you please send a formal patch? I'll launch a test with your =
-patch applied.
-> The only concern is that we convert the raw READ/WRITE_ONCE into =
-atomic write,
-> which might impact performance.
->=20
-> thanks,
-> Chenyu
+- On CoCo VMs it seems that the only way to opt in the IOMMU optimization is to
+  also opt in the copy avoidance which is not always desirable.
 
-Hi Chenyu,
+- Having the pool generic opens up more visibility from the untrusted host
+  side. Having device based pools at least isolates one device's memory from
+  the rest of the system.
 
-I originally put the subtraction in sched_cache_replace_grp()
-so both exec and exit share it (and the CONFIG_NUMA_BALANCING
-guard stays in one place).
-
-I tried moving it into the two callers as you suggested
-(patch attached). That required several small helpers to hide
-the config guards and reuse the old group pointer, which
-fragmented the code more than expected for this small bit of
-accounting.
-
-I agree a pure pointer-assignment helper should not touch the
-footprint. I now think it is better to change its responsibility:
-rename it to sched_cache_switch_grp(): have it subtract the
-task's contribution from the old group, publish the new pointer,
-and return the old group for the caller to put. This keeps the
-leave-group accounting and NUMA guard centralized.
-
-Would you be comfortable with that approach? I'll send a formal
-v3 once we settle this. Thanks for offering to test, especially
-the performance impact of the atomic updates.
+- Also, device driver could help with provisioning just the right amount of
+  memory that is needed. And per device control also means that probably
+  you don't need to map everything RW to the IOMMU.
 
 Thanks,
-Jemmy
+Dragos
 
 
-diff --git a/include/linux/sched.h b/include/linux/sched.h
-index d35ae49a991f..4a02a47c988e 100644
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
-@@ -2412,7 +2412,8 @@ struct sched_cache_group {
-unsigned long epoch;
-u64 nr_running_avg;
-unsigned long next_scan;
-- unsigned long footprint;
-+ /* Sum of the member tasks' accounted footprints, in pages. */
-+ atomic_long_t footprint;
-int cpu;
-refcount_t refcnt;
-struct rcu_head rcu;
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 57360f5cdde4..4d635bb28f18 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -1483,6 +1483,7 @@ static bool exceed_llc_capacity(struct =
-sched_cache_group *grp, int cpu)
-#ifdef CONFIG_NUMA_BALANCING
-unsigned long llc, footprint;
-struct sched_domain *sd;
-+ long fp;
-int scale;
-
-guard(rcu)();
-@@ -1497,7 +1498,9 @@ static bool exceed_llc_capacity(struct =
-sched_cache_group *grp, int cpu)
-* excluded.
-*/
-llc =3D sd->llc_bytes;
-- footprint =3D READ_ONCE(grp->footprint);
-+ fp =3D atomic_long_read(&grp->footprint);
-+ WARN_ON_ONCE(fp < 0);
-+ footprint =3D max(fp, 0L);
-
-/*
-* Scale the LLC size by 256*llc_aggr_tolerance
-@@ -1677,7 +1680,7 @@ int mm_init_sched(struct mm_struct *mm,
-grp->cpu =3D -1;
-grp->next_scan =3D jiffies;
-grp->nr_running_avg =3D 0;
-- grp->footprint =3D 0;
-+ atomic_long_set(&grp->footprint, 0);
-refcount_set(&grp->refcnt, 1);
-/*
-* The update to grp->pcpu_sched should not be reordered
-@@ -1719,6 +1722,27 @@ DEFINE_FREE(sched_cache_group_put, struct =
-sched_cache_group *,
-#define rcu_deref_sched_cache_grp(tsk) \
-rcu_dereference_check((tsk)->sched_cache_grp, (tsk) =3D=3D current)
-
-+static inline void sched_cache_footprint_update(struct =
-sched_cache_group *grp,
-+ long delta)
-+{
-+ if (grp && delta)
-+ atomic_long_add(delta, &grp->footprint);
-+}
-+
-+static inline void sched_cache_footprint_update_task(struct task_struct =
-*p,
-+ long delta)
-+{
-+ sched_cache_footprint_update(rcu_deref_sched_cache_grp(p), delta);
-+}
-+
-+static inline void sched_cache_footprint_drop(struct sched_cache_group =
-*grp,
-+ struct task_struct *p)
-+{
-+#ifdef CONFIG_NUMA_BALANCING
-+ sched_cache_footprint_update(grp, -(long)p->total_numa_faults);
-+#endif
-+}
-+
-static struct sched_cache_group *sched_cache_replace_grp(struct =
-task_struct *p,
-struct sched_cache_group *new)
-{
-@@ -1780,6 +1804,7 @@ void sched_cache_exec_mmap(struct task_struct *p, =
-struct mm_struct *mm)
-* the old one. @p is current and the only writer of its own pointer.
-*/
-old =3D sched_cache_replace_grp(p, =
-sched_cache_group_get(mm->sched_cache_grp));
-+ sched_cache_footprint_drop(old, p);
-sched_cache_group_put(old);
-}
-
-@@ -1787,19 +1812,7 @@ void sched_cache_exit_mm(struct task_struct *p)
-{
-struct sched_cache_group *grp =3D sched_cache_replace_grp(p, NULL);
-
--#ifdef CONFIG_NUMA_BALANCING
-- /*
-- * Subtract this task's footprint from the group before dropping the
-- * reference, so the group footprint converges as its threads exit.
-- * Unlocked for performance; clamp to avoid underflow.
-- */
-- if (grp && p->total_numa_faults) {
-- unsigned long fp =3D READ_ONCE(grp->footprint);
-- unsigned long sub =3D min(fp, p->total_numa_faults);
--
-- WRITE_ONCE(grp->footprint, fp - sub);
-- }
--#endif
-+ sched_cache_footprint_drop(grp, p);
-sched_cache_group_put(grp);
-}
-
-@@ -2189,6 +2202,9 @@ void init_sched_mm(struct task_struct *p)
-static inline void account_mm_sched(struct rq *rq, struct task_struct =
-*p,
-s64 delta_exec) { }
-
-+static inline void sched_cache_footprint_update_task(struct task_struct =
-*p,
-+ long delta) { }
-+
-void init_sched_mm(struct task_struct *p) { }
-
-static void task_tick_cache(struct rq *rq, struct task_struct *p) { }
-@@ -3883,14 +3899,13 @@ static int preferred_group_nid(struct =
-task_struct *p, int nid)
-static void task_numa_placement(struct task_struct *p)
-__context_unsafe(/* conditional locking */)
-{
-- struct sched_cache_group __maybe_unused *grp;
-int seq, nid, max_nid =3D NUMA_NO_NODE;
-unsigned long max_faults =3D 0;
-unsigned long fault_types[2] =3D { 0, 0 };
-+ unsigned long old_faults =3D p->total_numa_faults;
-unsigned long total_faults;
-u64 runtime, period;
-spinlock_t *group_lock =3D NULL;
-- long __maybe_unused new_fp;
-struct numa_group *ng;
-
-/*
-@@ -3965,36 +3980,6 @@ static void task_numa_placement(struct =
-task_struct *p)
-ng->total_faults +=3D diff;
-group_faults +=3D ng->faults[mem_idx];
-}
--#ifdef CONFIG_SCHED_CACHE
-- /*
-- * Per task p->numa_faults[mem_idx] converges,
-- * so the accumulation of each task's faults
-- * converges too - Given the number of threads,
-- * it cannot overflow an unsigned long.
-- * Racy with concurrent updates from other threads
-- * sharing this mm. Acceptable since footprint is a
-- * heuristic and occasional lost updates are tolerable.
-- *
-- * If a task exits, its corresponding footprint must
-- * be subtracted from p->sched_cache_grp->footprint,
-- * otherwise the footprint will not converge: the
-- * exiting thread's footprint remains unchanged/undecayed.
-- * See exit_mm().
-- *
-- * Lost updates and unsynchronized subtraction
-- * in exit_mm() can cause footprint + diff to
-- * go negative. Clamp to zero to prevent the
-- * unsigned footprint from wrapping.
-- */
-- scoped_guard(rcu) {
-- grp =3D rcu_dereference(p->sched_cache_grp);
--
-- if (grp) {
-- new_fp =3D (long)READ_ONCE(grp->footprint) + diff;
-- WRITE_ONCE(grp->footprint, max(new_fp, 0L));
-- }
-- }
--#endif
-}
-
-if (!ng) {
-@@ -4017,6 +4002,8 @@ static void task_numa_placement(struct task_struct =
-*p)
-max_nid =3D preferred_group_nid(p, max_nid);
-}
-
-+ sched_cache_footprint_update_task(p, p->total_numa_faults - =
-old_faults);
-+
-if (max_faults) {
-/* Set the new preferred node */
-if (max_nid !=3D p->numa_preferred_nid)
---
-2.54.0 (Apple Git-157)
 
 
 
