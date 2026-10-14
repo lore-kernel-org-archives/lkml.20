@@ -1,631 +1,375 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EED04CEE43;
-	Wed, 14 Oct 2026 09:18:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE92C47534D;
+	Wed, 14 Oct 2026 09:18:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791969530; cv=none; b=aow1gdgxBZ/JkPS7V8g/9iuBO/66P/oi3CR78zak55ZvD/mWMm+p7OdQfGAb8II6twI8+crXMFMPmn95yJC6Jwrl+uYaTWq2e7c4g6k4oxVOPQZrLfY0Rr6TAm2viqLw3ZSxJ2KdEfy7RDK76Zv6z/CR834i0zEdxpj7aRmA8+c=
+	t=1791969541; cv=none; b=qudZ5r68pPFf0O9WwWaPD4lUOTrpxrwSsEIIAeGRrVzt2BCP1erpqeUMIcQukNLySD0VbcFUTh0zL8xIcrt/R5Wq7mGjbwIFuDQ3hCcGPZNlpVAs+cFZ1a7lHBp6mpzEU30k7D5/79GXTTUKNFxQr87hf21zajKT8V0RW0WV+gQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791969530; c=relaxed/simple;
-	bh=P7qbmzh1LYFrPtr7KweeJUCQFY0zP13Gu0g1VS0SicY=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=YWmxd3S15fa1lhjgFSmwkALG78HQDBwaVPqME/Vyf9MCM8wFU2j4DPA8ravvPF0XcmpPCGj6wLi4yfijfEhUO12VtYEGKq/TyzofGg+iNkX4ji0XT3GQQeP/9scTV4qijmL06TA/dxZHh/FTs5hqst++pRM7rRe8fnXer3Ym1L0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MhhMsbHb; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791969541; c=relaxed/simple;
+	bh=oXP9RfQP7ZCXetexWkZleaNten6hptnRIwVEnY8cRNQ=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=h6X87v4h1taA3XY8faz3mRZFjct7ey1w9DZpkSMsm/oyvwOcKrsDnPYFqc/AFTAxRdSNAC8XiaOue4B1xcWtotsvMZa//txyQ7mDMrasHsE+YCRW6jEOqw6M7qo/IF7p0Epx6kuX4V7qXnwrKzpia81+6LpVGMEVzjmzDLOlmfM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l5CF0ojV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MhhMsbHb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791969528; x=1823505528;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=P7qbmzh1LYFrPtr7KweeJUCQFY0zP13Gu0g1VS0SicY=;
-  b=MhhMsbHb2b+w4oOJFHX77zeGt5IdRgtalGfc0Jmks7kFDJppOkVvl3o+
-   VijRjDwWN5S6QsAJSmDvpMOBL6WSFTTmCB2bW4epM6uzg0OdEdhgK80Wz
-   eQQv3hwrD0TwlSjhtboG5louSh9oV9DHLwAYp2v1Ni0NarpPUXahosmb8
-   ObQ7DtjM8EoY99X1TWLHVb/PxVknAi0KLLowA9QrC+tPG0+fkBwp1XQlF
-   +e4qTkRhG7XEavlPe4soc0fCogtCuzGthoviqVePeawEj+FsHTZs/3L2J
-   KAVoM12S9JVINPPSAZfnmLcTTH5vfeZthb3HmvaGt59sNFOTC7jlkrqM2
-   w==;
-X-CSE-ConnectionGUID: A0F6JIU3QAKboMXkHnC6tQ==
-X-CSE-MsgGUID: XaQ1LnedQz6ChmhdA81WmA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="596317"
-X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="596317"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 02:18:46 -0700
-X-CSE-ConnectionGUID: iupfWSW4Q86IPTvuMXtlHQ==
-X-CSE-MsgGUID: anFHiJGJRC+58n1TO/Cu9Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="1348116"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.234])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 02:18:35 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Wed, 14 Oct 2026 12:18:31 +0300 (EEST)
-To: Jordan Brough <jordan@brough.org>, "Rafael J. Wysocki" <rafael@kernel.org>
-cc: Len Brown <lenb@kernel.org>, Corentin Chary <corentin.chary@gmail.com>, 
-    "Luke D. Jones" <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>, 
-    Hans de Goede <hansg@kernel.org>, Antheas Kapenekakis <lkml@antheas.dev>, 
-    Matthew Garrett <mjg59@srcf.ucam.org>, 
-    =?ISO-8859-15?Q?Pali_Roh=E1r?= <pali@kernel.org>, 
-    Armin Wolf <W_Armin@gmx.de>, Jonathan Woithe <jwoithe@just42.net>, 
-    Mark Pearson <mpearson-lenovo@squebb.ca>, 
-    "Derek J. Clark" <derekjohn.clark@gmail.com>, 
-    Ike Panhc <ikepanhc@gmail.com>, 
-    Henrique de Moraes Holschuh <hmh@hmh.eng.br>, 
-    Matan Ziv-Av <matan@svgalib.org>, Nikita Kravets <teackot@gmail.com>, 
-    =?ISO-8859-15?Q?Joaqu=EDn_Ignacio_Aramend=EDa?= <samsagax@gmail.com>, 
-    Joshua Grisham <josh@joshuagrisham.com>, 
-    Jeremy Soller <jeremy@system76.com>, 
-    System76 Product Development <productdev@system76.com>, 
-    Azael Avalos <coproscefalo@gmail.com>, 
-    =?ISO-8859-15?Q?Thomas_Wei=DFschuh?= <linux@weissschuh.net>, 
-    Benson Leung <bleung@chromium.org>, Guenter Roeck <groeck@chromium.org>, 
-    Sebastian Reichel <sre@kernel.org>, linux-acpi@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>, platform-driver-x86@vger.kernel.org, 
-    ibm-acpi-devel@lists.sourceforge.net, chrome-platform@lists.linux.dev, 
-    linux-pm@vger.kernel.org
-Subject: Re: [PATCH v3 1/3] ACPI: battery: add acpi_ prefix to the battery
- hook API
-In-Reply-To: <20260930222650.1883805-2-jordan@brough.org>
-Message-ID: <3cd06bed-83bd-425a-387b-f1d3b073cb47@linux.intel.com>
-References: <20260930222650.1883805-1-jordan@brough.org> <20260930222650.1883805-2-jordan@brough.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l5CF0ojV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF97A1F000FF;
+	Wed, 14 Oct 2026 09:18:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791969539;
+	bh=5oVNaqQ+9r1SeT3IMoMHRZ4Nb1DIjFvbxB0+bWgzA6I=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=l5CF0ojVCLTDgHLpmAED527CpABejMd+LQIOm5pSYLeaA+Wdyb4YX79Af6waL5VU+
+	 HwPCU2uscbMysOcFhlm4cyVUOTqmPRHzWWYHbDetLG04gUWbksI6oK6/cuLgqz3qNA
+	 LPBkS1mRsTwlf+mEHj7cj6RDbLky8ZZyqOvo6d/SmzydQcu+SKsd9EJ9gpU1ee7nyV
+	 WwLK7BGqH04Ied4ANUWOepddr0DC1RrTvUwyZiufqjcsR9pxiCYzCunHX1RpoRKfmh
+	 B6/pqvPcRIM85LJvs2VPFE84tbByn0JgbwGIty2ISmC9s0S/rtKXmeYC3v3mrn9G/b
+	 wXI6xyijqqNkA==
+Subject: Re: [PATCH net v3] net: tun: fix race condition between tun_attach
+ and tun_get_user with XDP
+From: netdev-bot+sashiko@kernel.org
+To: xietangxin@h-partners.com
+Cc: willemdebruijn.kernel@gmail.com, jasowangio@gmail.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, huyizhen2@huawei.com,
+ gaoxingwang1@huawei.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Wed, 14 Oct 2026 09:18:58 +0000
+Message-ID: <179196953831.434549.15573271551678509284@kernel.org>
+In-Reply-To: <20261013083739.862074-1-xietangxin@h-partners.com>
+References: <20261013083739.862074-1-xietangxin@h-partners.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-926118878-1791969511=:1157"
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Thank you for your contribution! Sashiko AI review found 5 potential
+issue(s) to consider.
 
---8323328-926118878-1791969511=:1157
-Content-Type: text/plain; charset=ISO-8859-15
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+Critical: 0 · High: 2 · Medium: 3 (2) · Low: 0
 
-On Wed, 30 Sep 2026, Jordan Brough wrote:
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-> Rename battery_hook_register(), battery_hook_unregister() and
-> devm_battery_hook_register() to acpi_battery_hook_register(),
-> acpi_battery_hook_unregister() and devm_acpi_battery_hook_register(), so
-> that the exported ACPI battery hook API has a consistent namespace, and
-> update all in-tree callers.
->=20
-> No functional change.
->=20
-> Signed-off-by: Jordan Brough <jordan@brough.org>
+- [High] The fix is incomplete: tun_xdp_one() still has the sequence the
+  Fixes: commit added.
+- [High] The new detached check is a lockless time-of-check/time-of-use
+  test, so it does not close the race it targets.
+- [Medium] The commit message presents the new `if
+  (unlikely(tfile->detached)) { err = -EBUSY; goto free_skb; }` in…
+- [Medium] Fix (b) uses `tfile->detached` as a publish flag: clearing it
+  is meant to tell readers that real_num_rx_queues has already grown.
+- [Medium] net: tun: incomplete fix leaves detached fd race unhandled in
+  non-XDP/non-NAPI fallback path
 
-Acked-by: Ilpo J=E4rvinen <ilpo.jarvinen@linux.intel.com>
+Pre-existing issues:
+- [Medium] This problem wasn't introduced by this patch, but writes on a
+  detached, non-NAPI queue that skip the new guard still record the…
+- [Medium] This problem wasn't introduced by this patch, but
+  tun_set_real_num_queues() (drivers/net/tun.c:526-530) discards the…
 
-With one known caveat! There's c72dd9994952 ("platform/x86: add Acer=20
-battery control driver") in the pdx86 tree so if Rafael takes this like he=
-=20
-proposed in his reply to patch 2, that needs to be handled during merge.
+--
 
---=20
- i.
+net: tun: fix race condition between tun_attach and tun_get_user with XDP
 
-> ---
->  drivers/acpi/battery.c                       | 30 ++++++++++----------
->  drivers/platform/x86/asus-wmi.c              |  4 +--
->  drivers/platform/x86/ayaneo-ec.c             |  2 +-
->  drivers/platform/x86/dell/dell-laptop.c      |  4 +--
->  drivers/platform/x86/dell/dell-wmi-ddv.c     |  2 +-
->  drivers/platform/x86/fujitsu-laptop.c        |  4 +--
->  drivers/platform/x86/huawei-wmi.c            |  4 +--
->  drivers/platform/x86/lenovo/ideapad-laptop.c |  4 +--
->  drivers/platform/x86/lenovo/thinkpad_acpi.c  |  4 +--
->  drivers/platform/x86/lenovo/wmi-other.c      |  4 +--
->  drivers/platform/x86/lg-laptop.c             |  4 +--
->  drivers/platform/x86/msi-ec.c                |  4 +--
->  drivers/platform/x86/oxpec.c                 |  2 +-
->  drivers/platform/x86/samsung-galaxybook.c    |  3 +-
->  drivers/platform/x86/samsung-laptop.c        |  4 +--
->  drivers/platform/x86/system76_acpi.c         |  4 +--
->  drivers/platform/x86/toshiba_acpi.c          |  4 +--
->  drivers/platform/x86/uniwill/uniwill-acpi.c  |  2 +-
->  drivers/power/supply/cros_charge-control.c   |  2 +-
->  include/acpi/battery.h                       |  7 +++--
->  20 files changed, 50 insertions(+), 48 deletions(-)
->=20
-> diff --git a/drivers/acpi/battery.c b/drivers/acpi/battery.c
-> index 8599949f8786..306bb2088ca6 100644
-> --- a/drivers/acpi/battery.c
-> +++ b/drivers/acpi/battery.c
-> @@ -821,7 +821,7 @@ static LIST_HEAD(acpi_battery_list);
->  static LIST_HEAD(battery_hook_list);
->  static DEFINE_MUTEX(hook_mutex);
-> =20
-> -static void battery_hook_unregister_unlocked(struct acpi_battery_hook *h=
-ook)
-> +static void acpi_battery_hook_unregister_unlocked(struct acpi_battery_ho=
-ok *hook)
->  {
->  =09struct acpi_battery *battery;
-> =20
-> @@ -838,7 +838,7 @@ static void battery_hook_unregister_unlocked(struct a=
-cpi_battery_hook *hook)
->  =09pr_info("hook unregistered: %s\n", hook->name);
+This patch reorders tun_attach() so that tfile->tun is published, and a
+detached tfile is re-enabled, only after tun_set_real_num_queues() has
+updated real_num_rx_queues. It also adds a tfile->detached check to the
+skb_xdp branch of tun_get_user(). The goal is to stop a stale queue index
+from reaching netif_get_rxqueue() through do_xdp_generic().
+
+> diff --git a/drivers/net/tun.c b/drivers/net/tun.c
+> index 242899f7fd071..dcab0aba6705c 100644
+> --- a/drivers/net/tun.c
+> +++ b/drivers/net/tun.c
+
+[ ... ]
+
+> @@ -811,11 +808,16 @@ static int tun_attach(struct tun_struct *tun, struct file *file,
+>  	 * initialized tfile; otherwise we risk using half-initialized
+>  	 * object.
+>  	 */
+> -	if (publish_tun)
+> -		rcu_assign_pointer(tfile->tun, tun);
+>  	rcu_assign_pointer(tun->tfiles[tun->numqueues], tfile);
+>  	WRITE_ONCE(tun->numqueues, tun->numqueues + 1);
+>  	tun_set_real_num_queues(tun);
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but tun_set_real_num_queues()
+ignores both return values:
+
+static void tun_set_real_num_queues(struct tun_struct *tun)
+{
+	netif_set_real_num_tx_queues(tun->dev, tun->numqueues);
+	netif_set_real_num_rx_queues(tun->dev, tun->numqueues);
+}
+
+On a registered device, netif_set_real_num_rx_queues() calls
+net_rx_queue_update_kobjects(). If rx_queue_add_kobject() fails there
+(for example with -ENOMEM), it returns before dev->real_num_rx_queues is
+updated.
+
+tun_attach() still publishes the tfile with queue_index set to the old
+numqueues and returns success. With an XDP program attached, could a later
+write() then reach netif_get_rxqueue() with index == real_num_rx_queues and
+hit the same WARN_ONCE? The reordering in this patch doesn't affect that
+path.
+
+> +	if (publish_tun)
+> +		rcu_assign_pointer(tfile->tun, tun);
+> +
+> +	if (tfile->detached) {
+> +		tun_enable_queue(tfile);
+> +		tun_napi_enable(tfile);
+> +	}
+
+[Severity: Medium]
+Is there enough memory ordering here for fix (b)? Clearing tfile->detached
+now tells readers that real_num_rx_queues has already grown. On re-attach
+the stores are:
+
+tun_attach()
+  tun_set_real_num_queues()
+    netif_set_real_num_rx_queues()
+      dev->real_num_rx_queues = rxq;     /* plain store */
+  rcu_assign_pointer(tfile->tun, tun);   /* unchanged value on re-attach */
+  tun_enable_queue()
+    tfile->detached = NULL;              /* plain store */
+
+The smp_store_release() in rcu_assign_pointer() orders earlier accesses
+only against that one store. Nothing stops the later detached = NULL store
+from becoming visible before the real_num_rx_queues store. On TUNSETQUEUE
+re-attach, the release also writes the pointer value readers already have.
+
+On the reader side, tun_get_user() loads tfile->detached with a plain
+access, with no READ_ONCE() or smp_load_acquire(). A control dependency
+does not order the later load of dev->real_num_rx_queues in
+netif_get_rxqueue().
+
+On a weakly ordered CPU such as arm64, can a reader see detached == NULL
+together with the old real_num_rx_queues while queue_index already has the
+new value, and still hit the WARN? KCSAN would also flag these unannotated
+concurrent accesses.
+
+Would this need a release/acquire pair on detached, or a check inside the
+RCU section that the detach path already waits for?
+
+>  out:
+>  	return err;
 >  }
-> =20
-> -void battery_hook_unregister(struct acpi_battery_hook *hook)
-> +void acpi_battery_hook_unregister(struct acpi_battery_hook *hook)
->  {
->  =09mutex_lock(&hook_mutex);
->  =09/*
-> @@ -847,13 +847,13 @@ void battery_hook_unregister(struct acpi_battery_ho=
-ok *hook)
->  =09 * adding a new battery.
->  =09 */
->  =09if (!list_empty(&hook->list))
-> -=09=09battery_hook_unregister_unlocked(hook);
-> +=09=09acpi_battery_hook_unregister_unlocked(hook);
-> =20
->  =09mutex_unlock(&hook_mutex);
->  }
-> -EXPORT_SYMBOL_GPL(battery_hook_unregister);
-> +EXPORT_SYMBOL_GPL(acpi_battery_hook_unregister);
-> =20
-> -void battery_hook_register(struct acpi_battery_hook *hook)
-> +void acpi_battery_hook_register(struct acpi_battery_hook *hook)
->  {
->  =09struct acpi_battery *battery;
-> =20
-> @@ -874,7 +874,7 @@ void battery_hook_register(struct acpi_battery_hook *=
-hook)
->  =09=09=09 * hooks.
->  =09=09=09 */
->  =09=09=09pr_err("hook failed to load: %s", hook->name);
-> -=09=09=09battery_hook_unregister_unlocked(hook);
-> +=09=09=09acpi_battery_hook_unregister_unlocked(hook);
->  =09=09=09goto end;
->  =09=09}
-> =20
-> @@ -884,22 +884,22 @@ void battery_hook_register(struct acpi_battery_hook=
- *hook)
->  end:
->  =09mutex_unlock(&hook_mutex);
->  }
-> -EXPORT_SYMBOL_GPL(battery_hook_register);
-> +EXPORT_SYMBOL_GPL(acpi_battery_hook_register);
-> =20
-> -static void devm_battery_hook_unregister(void *data)
-> +static void devm_acpi_battery_hook_unregister(void *data)
->  {
->  =09struct acpi_battery_hook *hook =3D data;
-> =20
-> -=09battery_hook_unregister(hook);
-> +=09acpi_battery_hook_unregister(hook);
->  }
-> =20
-> -int devm_battery_hook_register(struct device *dev, struct acpi_battery_h=
-ook *hook)
-> +int devm_acpi_battery_hook_register(struct device *dev, struct acpi_batt=
-ery_hook *hook)
->  {
-> -=09battery_hook_register(hook);
-> +=09acpi_battery_hook_register(hook);
-> =20
-> -=09return devm_add_action_or_reset(dev, devm_battery_hook_unregister, ho=
-ok);
-> +=09return devm_add_action_or_reset(dev, devm_acpi_battery_hook_unregiste=
-r, hook);
->  }
-> -EXPORT_SYMBOL_GPL(devm_battery_hook_register);
-> +EXPORT_SYMBOL_GPL(devm_acpi_battery_hook_register);
-> =20
->  /*
->   * This function gets called right after the battery sysfs
-> @@ -928,7 +928,7 @@ static void battery_hook_add_battery(struct acpi_batt=
-ery *battery)
->  =09=09=09 */
->  =09=09=09pr_err("error in hook, unloading: %s",
->  =09=09=09=09=09hook_node->name);
-> -=09=09=09battery_hook_unregister_unlocked(hook_node);
-> +=09=09=09acpi_battery_hook_unregister_unlocked(hook_node);
->  =09=09}
->  =09}
->  =09mutex_unlock(&hook_mutex);
-> @@ -961,7 +961,7 @@ static void __exit battery_hook_exit(void)
->  =09 * need to remove the hooks.
->  =09 */
->  =09list_for_each_entry_safe(hook, ptr, &battery_hook_list, list) {
-> -=09=09battery_hook_unregister(hook);
-> +=09=09acpi_battery_hook_unregister(hook);
->  =09}
->  =09mutex_destroy(&hook_mutex);
->  }
-> diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-=
-wmi.c
-> index a65090429ca7..c274f456863c 100644
-> --- a/drivers/platform/x86/asus-wmi.c
-> +++ b/drivers/platform/x86/asus-wmi.c
-> @@ -1681,14 +1681,14 @@ static void asus_wmi_battery_init(struct asus_wmi=
- *asus)
->  =09asus->battery_rsoc_available =3D false;
->  =09if (asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_RSOC)) {
->  =09=09asus->battery_rsoc_available =3D true;
-> -=09=09battery_hook_register(&battery_hook);
-> +=09=09acpi_battery_hook_register(&battery_hook);
->  =09}
->  }
-> =20
->  static void asus_wmi_battery_exit(struct asus_wmi *asus)
->  {
->  =09if (asus->battery_rsoc_available)
-> -=09=09battery_hook_unregister(&battery_hook);
-> +=09=09acpi_battery_hook_unregister(&battery_hook);
->  }
-> =20
->  /* LEDs ****************************************************************=
-*******/
-> diff --git a/drivers/platform/x86/ayaneo-ec.c b/drivers/platform/x86/ayan=
-eo-ec.c
-> index 41a24e091248..3ba87bd16c9a 100644
-> --- a/drivers/platform/x86/ayaneo-ec.c
-> +++ b/drivers/platform/x86/ayaneo-ec.c
-> @@ -493,7 +493,7 @@ static int ayaneo_ec_probe(struct platform_device *pd=
-ev)
->  =09=09data->battery_hook.add_battery =3D ayaneo_add_battery;
->  =09=09data->battery_hook.remove_battery =3D ayaneo_remove_battery;
->  =09=09data->battery_hook.name =3D "Ayaneo Battery";
-> -=09=09ret =3D devm_battery_hook_register(&pdev->dev, &data->battery_hook=
-);
-> +=09=09ret =3D devm_acpi_battery_hook_register(&pdev->dev, &data->battery=
-_hook);
->  =09=09if (ret)
->  =09=09=09return ret;
->  =09}
-> diff --git a/drivers/platform/x86/dell/dell-laptop.c b/drivers/platform/x=
-86/dell/dell-laptop.c
-> index 89e85c7f7132..cad2bd06f28a 100644
-> --- a/drivers/platform/x86/dell/dell-laptop.c
-> +++ b/drivers/platform/x86/dell/dell-laptop.c
-> @@ -2446,13 +2446,13 @@ static void __init dell_battery_init(struct devic=
-e *dev)
->  =09battery_supported_modes =3D battery_get_supported_modes();
-> =20
->  =09if (battery_supported_modes !=3D 0)
-> -=09=09battery_hook_register(&dell_battery_hook);
-> +=09=09acpi_battery_hook_register(&dell_battery_hook);
->  }
-> =20
->  static void dell_battery_exit(void)
->  {
->  =09if (battery_supported_modes !=3D 0)
-> -=09=09battery_hook_unregister(&dell_battery_hook);
-> +=09=09acpi_battery_hook_unregister(&dell_battery_hook);
->  }
-> =20
->  static int __init dell_init(void)
-> diff --git a/drivers/platform/x86/dell/dell-wmi-ddv.c b/drivers/platform/=
-x86/dell/dell-wmi-ddv.c
-> index f8903ced461b..6f0504d7519e 100644
-> --- a/drivers/platform/x86/dell/dell-wmi-ddv.c
-> +++ b/drivers/platform/x86/dell/dell-wmi-ddv.c
-> @@ -972,7 +972,7 @@ static int dell_wmi_ddv_battery_add(struct dell_wmi_d=
-dv_data *data)
->  =09data->eppid_attr.attr.mode =3D 0444;
->  =09data->eppid_attr.show =3D eppid_show;
-> =20
-> -=09return devm_battery_hook_register(&data->wdev->dev, &data->hook);
-> +=09return devm_acpi_battery_hook_register(&data->wdev->dev, &data->hook)=
-;
->  }
-> =20
->  static int dell_wmi_ddv_buffer_read(struct seq_file *seq, enum dell_ddv_=
-method method)
-> diff --git a/drivers/platform/x86/fujitsu-laptop.c b/drivers/platform/x86=
-/fujitsu-laptop.c
-> index ea543deef68f..96e74c4fdb29 100644
-> --- a/drivers/platform/x86/fujitsu-laptop.c
-> +++ b/drivers/platform/x86/fujitsu-laptop.c
-> @@ -267,7 +267,7 @@ static int fujitsu_battery_charge_control_add(struct =
-device *dev)
->  =09=09return -ENODEV;
-> =20
->  =09priv->charge_control_supported =3D true;
-> -=09battery_hook_register(&battery_hook);
-> +=09acpi_battery_hook_register(&battery_hook);
-> =20
->  =09return 0;
->  }
-> @@ -277,7 +277,7 @@ static void fujitsu_battery_charge_control_remove(str=
-uct device *dev)
->  =09struct fujitsu_laptop *priv =3D dev_get_drvdata(dev);
-> =20
->  =09if (priv->charge_control_supported)
-> -=09=09battery_hook_unregister(&battery_hook);
-> +=09=09acpi_battery_hook_unregister(&battery_hook);
->  }
-> =20
->  /* Hardware access for LCD brightness control */
-> diff --git a/drivers/platform/x86/huawei-wmi.c b/drivers/platform/x86/hua=
-wei-wmi.c
-> index d6aaf14d66a5..8cc0e900e984 100644
-> --- a/drivers/platform/x86/huawei-wmi.c
-> +++ b/drivers/platform/x86/huawei-wmi.c
-> @@ -512,7 +512,7 @@ static void huawei_wmi_battery_setup(struct device *d=
-ev)
->  =09=09return;
->  =09}
-> =20
-> -=09battery_hook_register(&huawei_wmi_battery_hook);
-> +=09acpi_battery_hook_register(&huawei_wmi_battery_hook);
->  =09device_create_file(dev, &dev_attr_charge_control_thresholds);
->  }
-> =20
-> @@ -521,7 +521,7 @@ static void huawei_wmi_battery_exit(struct device *de=
-v)
->  =09struct huawei_wmi *huawei =3D dev_get_drvdata(dev);
-> =20
->  =09if (huawei->battery_available) {
-> -=09=09battery_hook_unregister(&huawei_wmi_battery_hook);
-> +=09=09acpi_battery_hook_unregister(&huawei_wmi_battery_hook);
->  =09=09device_remove_file(dev, &dev_attr_charge_control_thresholds);
->  =09}
->  }
-> diff --git a/drivers/platform/x86/lenovo/ideapad-laptop.c b/drivers/platf=
-orm/x86/lenovo/ideapad-laptop.c
-> index 8213524504ee..1d90d4591641 100644
-> --- a/drivers/platform/x86/lenovo/ideapad-laptop.c
-> +++ b/drivers/platform/x86/lenovo/ideapad-laptop.c
-> @@ -2197,8 +2197,8 @@ static int ideapad_check_features(struct ideapad_pr=
-ivate *priv)
->  =09=09=09priv->battery_hook.remove_battery =3D ideapad_battery_remove;
->  =09=09=09priv->battery_hook.name =3D "Ideapad Battery Extension";
-> =20
-> -=09=09=09err =3D devm_battery_hook_register(&priv->platform_device->dev,
-> -=09=09=09=09=09=09=09 &priv->battery_hook);
-> +=09=09=09err =3D devm_acpi_battery_hook_register(&priv->platform_device-=
->dev,
-> +=09=09=09=09=09=09=09      &priv->battery_hook);
->  =09=09=09if (err)
->  =09=09=09=09return err;
->  =09=09}
-> diff --git a/drivers/platform/x86/lenovo/thinkpad_acpi.c b/drivers/platfo=
-rm/x86/lenovo/thinkpad_acpi.c
-> index 1661f070c571..eb5ad18855db 100644
-> --- a/drivers/platform/x86/lenovo/thinkpad_acpi.c
-> +++ b/drivers/platform/x86/lenovo/thinkpad_acpi.c
-> @@ -10021,13 +10021,13 @@ static int __init tpacpi_battery_init(struct ib=
-m_init_struct *ibm)
->  =09=09=09=09=09battery_quirk_table,
->  =09=09=09=09=09ARRAY_SIZE(battery_quirk_table));
-> =20
-> -=09battery_hook_register(&battery_hook);
-> +=09acpi_battery_hook_register(&battery_hook);
->  =09return 0;
->  }
-> =20
->  static void tpacpi_battery_exit(void)
->  {
-> -=09battery_hook_unregister(&battery_hook);
-> +=09acpi_battery_hook_unregister(&battery_hook);
->  }
-> =20
->  static struct ibm_struct battery_driver_data =3D {
-> diff --git a/drivers/platform/x86/lenovo/wmi-other.c b/drivers/platform/x=
-86/lenovo/wmi-other.c
-> index fbb32bf404f2..0450634ac1dd 100644
-> --- a/drivers/platform/x86/lenovo/wmi-other.c
-> +++ b/drivers/platform/x86/lenovo/wmi-other.c
-> @@ -946,7 +946,7 @@ static void lwmi_om_psy_ext_init(struct lwmi_om_priv =
-*priv)
->  =09priv->battery_hook.name =3D "Lenovo WMI Other Battery Extension";
->  =09priv->bh_registered =3D true;
-> =20
-> -=09battery_hook_register(&priv->battery_hook);
-> +=09acpi_battery_hook_register(&priv->battery_hook);
->  }
-> =20
->  /**
-> @@ -960,7 +960,7 @@ static void lwmi_om_psy_remove(struct lwmi_om_priv *p=
-riv)
->  =09if (!priv->bh_registered)
->  =09=09return;
-> =20
-> -=09battery_hook_unregister(&priv->battery_hook);
-> +=09acpi_battery_hook_unregister(&priv->battery_hook);
->  =09priv->bh_registered =3D false;
->  }
-> =20
-> diff --git a/drivers/platform/x86/lg-laptop.c b/drivers/platform/x86/lg-l=
-aptop.c
-> index 36ad1e269443..e788671307c4 100644
-> --- a/drivers/platform/x86/lg-laptop.c
-> +++ b/drivers/platform/x86/lg-laptop.c
-> @@ -1053,7 +1053,7 @@ static int acpi_probe(struct platform_device *pdev)
->  =09if (ret)
->  =09=09goto out_platform_device;
-> =20
-> -=09battery_hook_register(&battery_hook);
-> +=09acpi_battery_hook_register(&battery_hook);
-> =20
->  =09return 0;
-> =20
-> @@ -1068,7 +1068,7 @@ static void acpi_remove(struct platform_device *pde=
-v)
->  {
->  =09sysfs_remove_group(&pf_device->dev.kobj, &dev_attribute_group);
-> =20
-> -=09battery_hook_unregister(&battery_hook);
-> +=09acpi_battery_hook_unregister(&battery_hook);
->  =09platform_device_unregister(pf_device);
->  =09pf_device =3D NULL;
->  =09platform_driver_unregister(&pf_driver);
-> diff --git a/drivers/platform/x86/msi-ec.c b/drivers/platform/x86/msi-ec.=
-c
-> index 566dfc73cb67..cb30a1d5b546 100644
-> --- a/drivers/platform/x86/msi-ec.c
-> +++ b/drivers/platform/x86/msi-ec.c
-> @@ -1428,13 +1428,13 @@ static int __init msi_ec_init(void)
->  =09if (result < 0)
->  =09=09return result;
-> =20
-> -=09battery_hook_register(&battery_hook);
-> +=09acpi_battery_hook_register(&battery_hook);
->  =09return 0;
->  }
-> =20
->  static void __exit msi_ec_exit(void)
->  {
-> -=09battery_hook_unregister(&battery_hook);
-> +=09acpi_battery_hook_unregister(&battery_hook);
->  }
-> =20
->  MODULE_LICENSE("GPL");
-> diff --git a/drivers/platform/x86/oxpec.c b/drivers/platform/x86/oxpec.c
-> index 34bb17fca148..318f194e72b5 100644
-> --- a/drivers/platform/x86/oxpec.c
-> +++ b/drivers/platform/x86/oxpec.c
-> @@ -956,7 +956,7 @@ static int oxp_platform_probe(struct platform_device =
-*pdev)
->  =09=09return PTR_ERR(hwdev);
-> =20
->  =09if (oxp_psy_ext_supported()) {
-> -=09=09ret =3D devm_battery_hook_register(dev, &battery_hook);
-> +=09=09ret =3D devm_acpi_battery_hook_register(dev, &battery_hook);
->  =09=09if (ret)
->  =09=09=09return ret;
->  =09}
-> diff --git a/drivers/platform/x86/samsung-galaxybook.c b/drivers/platform=
-/x86/samsung-galaxybook.c
-> index 99f72b204a51..a4f7dbb76214 100644
-> --- a/drivers/platform/x86/samsung-galaxybook.c
-> +++ b/drivers/platform/x86/samsung-galaxybook.c
-> @@ -549,7 +549,8 @@ static int galaxybook_battery_threshold_init(struct s=
-amsung_galaxybook *galaxybo
->  =09galaxybook->battery_hook.remove_battery =3D galaxybook_battery_remove=
-;
->  =09galaxybook->battery_hook.name =3D "Samsung Galaxy Book Battery Extens=
-ion";
-> =20
-> -=09return devm_battery_hook_register(&galaxybook->platform->dev, &galaxy=
-book->battery_hook);
-> +=09return devm_acpi_battery_hook_register(&galaxybook->platform->dev,
-> +=09=09=09=09=09       &galaxybook->battery_hook);
->  }
-> =20
->  /*
-> diff --git a/drivers/platform/x86/samsung-laptop.c b/drivers/platform/x86=
-/samsung-laptop.c
-> index 710f3d5bf84c..43fa1dc2773c 100644
-> --- a/drivers/platform/x86/samsung-laptop.c
-> +++ b/drivers/platform/x86/samsung-laptop.c
-> @@ -1142,8 +1142,8 @@ static int __init samsung_battery_hook_init(struct =
-samsung_laptop *samsung)
->  =09=09samsung->battery_hook.add_battery =3D samsung_battery_add;
->  =09=09samsung->battery_hook.remove_battery =3D samsung_battery_remove;
->  =09=09samsung->battery_hook.name =3D "Samsung Battery Extension";
-> -=09=09retval =3D devm_battery_hook_register(&samsung->platform_device->d=
-ev,
-> -=09=09=09=09=09=09    &samsung->battery_hook);
-> +=09=09retval =3D devm_acpi_battery_hook_register(&samsung->platform_devi=
-ce->dev,
-> +=09=09=09=09=09=09=09 &samsung->battery_hook);
->  =09}
-> =20
->  =09return retval;
-> diff --git a/drivers/platform/x86/system76_acpi.c b/drivers/platform/x86/=
-system76_acpi.c
-> index dd7b1b07c316..33968b61f0b2 100644
-> --- a/drivers/platform/x86/system76_acpi.c
-> +++ b/drivers/platform/x86/system76_acpi.c
-> @@ -288,12 +288,12 @@ static struct acpi_battery_hook system76_battery_ho=
-ok =3D {
-> =20
->  static void system76_battery_init(void)
->  {
-> -=09battery_hook_register(&system76_battery_hook);
-> +=09acpi_battery_hook_register(&system76_battery_hook);
->  }
-> =20
->  static void system76_battery_exit(void)
->  {
-> -=09battery_hook_unregister(&system76_battery_hook);
-> +=09acpi_battery_hook_unregister(&system76_battery_hook);
->  }
-> =20
->  // Get the airplane mode LED brightness
-> diff --git a/drivers/platform/x86/toshiba_acpi.c b/drivers/platform/x86/t=
-oshiba_acpi.c
-> index a0b8060836d0..4cc879bc267a 100644
-> --- a/drivers/platform/x86/toshiba_acpi.c
-> +++ b/drivers/platform/x86/toshiba_acpi.c
-> @@ -3301,7 +3301,7 @@ static void toshiba_acpi_remove(struct platform_dev=
-ice *pdev)
->  =09}
-> =20
->  =09if (dev->battery_charge_mode_supported)
-> -=09=09battery_hook_unregister(&battery_hook);
-> +=09=09acpi_battery_hook_unregister(&battery_hook);
-> =20
->  =09if (toshiba_acpi)
->  =09=09toshiba_acpi =3D NULL;
-> @@ -3566,7 +3566,7 @@ static int toshiba_acpi_probe(struct platform_devic=
-e *pdev)
->  =09 * set, this must be done after toshiba_acpi is assigned.
->  =09 */
->  =09if (dev->battery_charge_mode_supported)
-> -=09=09battery_hook_register(&battery_hook);
-> +=09=09acpi_battery_hook_register(&battery_hook);
-> =20
->  =09return 0;
-> =20
-> diff --git a/drivers/platform/x86/uniwill/uniwill-acpi.c b/drivers/platfo=
-rm/x86/uniwill/uniwill-acpi.c
-> index 7a2eeaec4c96..d76695c2c765 100644
-> --- a/drivers/platform/x86/uniwill/uniwill-acpi.c
-> +++ b/drivers/platform/x86/uniwill/uniwill-acpi.c
-> @@ -2165,7 +2165,7 @@ static int uniwill_battery_init(struct uniwill_data=
- *data)
->  =09data->hook.add_battery =3D uniwill_add_battery;
->  =09data->hook.remove_battery =3D uniwill_remove_battery;
-> =20
-> -=09return devm_battery_hook_register(data->dev, &data->hook);
-> +=09return devm_acpi_battery_hook_register(data->dev, &data->hook);
->  }
-> =20
->  static int uniwill_notifier_call(struct notifier_block *nb, unsigned lon=
-g action, void *dummy)
-> diff --git a/drivers/power/supply/cros_charge-control.c b/drivers/power/s=
-upply/cros_charge-control.c
-> index e0f168624807..1901bbcffd73 100644
-> --- a/drivers/power/supply/cros_charge-control.c
-> +++ b/drivers/power/supply/cros_charge-control.c
-> @@ -315,7 +315,7 @@ static int cros_chctl_probe(struct platform_device *p=
-dev)
->  =09if (ret < 0)
->  =09=09return ret;
-> =20
-> -=09return devm_battery_hook_register(dev, &priv->battery_hook);
-> +=09return devm_acpi_battery_hook_register(dev, &priv->battery_hook);
->  }
-> =20
->  static const struct platform_device_id cros_chctl_id[] =3D {
-> diff --git a/include/acpi/battery.h b/include/acpi/battery.h
-> index c93f16dfb944..08c7e37996bf 100644
-> --- a/include/acpi/battery.h
-> +++ b/include/acpi/battery.h
-> @@ -18,8 +18,9 @@ struct acpi_battery_hook {
->  =09struct list_head list;
->  };
-> =20
-> -void battery_hook_register(struct acpi_battery_hook *hook);
-> -void battery_hook_unregister(struct acpi_battery_hook *hook);
-> -int devm_battery_hook_register(struct device *dev, struct acpi_battery_h=
-ook *hook);
-> +void acpi_battery_hook_register(struct acpi_battery_hook *hook);
-> +void acpi_battery_hook_unregister(struct acpi_battery_hook *hook);
-> +int devm_acpi_battery_hook_register(struct device *dev,
-> +=09=09=09=09    struct acpi_battery_hook *hook);
-> =20
->  #endif
->=20
---8323328-926118878-1791969511=:1157--
+> @@ -1960,6 +1962,11 @@ static ssize_t tun_get_user(struct tun_struct *tun, struct tun_file *tfile,
+>  		struct bpf_prog *xdp_prog;
+>  		int ret;
+>  
+> +		if (unlikely(tfile->detached)) {
+> +			err = -EBUSY;
+> +			goto free_skb;
+> +		}
+> +
+
+[Severity: Medium]
+Does the fallback delivery branch need the same protection? On an fd
+opened without IFF_NAPI and with no XDP program, the skb is delivered
+through tun_rx_batched() or netif_rx(). The napi_enabled branch
+rechecks tfile->detached under queue->lock, but this branch has no
+detached check at all.
+
+The new check above does run in this case, because skb_xdp stays 1
+when tun->xdp_prog is NULL. However, it is a plain load taken before
+rcu_read_lock(). synchronize_net() in __tun_detach() does not wait for
+a writer that has passed the check but has not yet entered the RCU
+section:
+
+CPU 1 (write, no XDP, no NAPI)    CPU 0 (TUNSETQUEUE detach)
+sees detached == NULL
+<preempted>
+                                  __tun_detach()
+                                    numqueues--
+                                    tun_disable_queue()
+                                    synchronize_net()
+                                    tun_set_real_num_queues()
+rcu_read_lock()
+tun_rx_batched()
+  skb_record_rx_queue(skb, tfile->queue_index)
+  netif_receive_skb()
+    get_rps_cpu()
+      // index >= real_num_rx_queues -> WARN_ONCE
+
+The detached tfile keeps its old queue_index. If it was the last
+active queue, that index now equals the reduced real_num_rx_queues.
+When RPS is configured, get_rps_cpu() does the same check as
+netif_get_rxqueue():
+
+	if (unlikely(index >= dev->real_num_rx_queues)) {
+		WARN_ONCE(dev->real_num_rx_queues > 1,
+
+So path 3 from the commit message can still trigger the same warning
+when real_num_rx_queues > 1, and a panic with panic_on_warn. The
+netif_rx() branch reaches get_rps_cpu() the same way.
+
+Could the detached check be done inside the rcu_read_lock() section
+that covers delivery instead? That would cover every branch, not just
+skb_xdp, and would order it against synchronize_net() in
+__tun_detach().
+
+[Severity: Medium]
+Should this check apply only when an XDP program is attached? It runs
+before tun->xdp_prog is read, and skb_xdp doesn't mean that an XDP program
+will run. tun_get_user() initializes it to 1:
+
+	int skb_xdp = 1;
+
+and tun_build_skb() also sets it to 1 when there is no program:
+
+	if (hdr->gso_type || !xdp_prog) {
+		*skb_xdp = 1;
+
+So with no XDP program at all, every write() on a queue detached with
+TUNSETQUEUE(IFF_DETACH_QUEUE) now fails with -EBUSY. Before this patch, a
+non-NAPI tun accepted those writes, and only the napi_enabled branch
+returned -EBUSY.
+
+The behavior is also inconsistent. With a native XDP program attached,
+small non-GSO writes built by tun_build_skb() get *skb_xdp = 0. They skip
+this check and are still delivered on the detached queue through
+tun_rx_batched().
+
+The commit message describes this as an XDP fix. If only the XDP case is
+intended, could the check move inside the if (xdp_prog) block? If the
+wider change is intended, should the commit message going to stable say
+so?
+
+These drops also jump to free_skb, which skips
+dev_core_stats_rx_dropped_inc(), so they aren't counted anywhere.
+
+[Severity: High]
+Does this lockless check close the race? The queue_index load and the
+detached load both happen before local_bh_disable() and rcu_read_lock(),
+so nothing orders them against detach or re-attach:
+
+tun_get_user()
+    skb_record_rx_queue(skb, tfile->queue_index);   /* load 1 */
+    ...
+    if (unlikely(tfile->detached))                  /* load 2 */
+    ...
+    local_bh_disable();
+    rcu_read_lock();
+    ...
+    do_xdp_generic()
+
+For path 3 in the commit message (detach):
+
+CPU 1 (write)                     CPU 0 (TUNSETQUEUE detach)
+records queue_index = N-1
+sees detached == NULL
+                                  __tun_detach()
+                                    numqueues--
+                                    tun_disable_queue()
+                                    synchronize_net()
+                                    tun_set_real_num_queues()
+                                      real_num_rx_queues = N-1
+rcu_read_lock()
+do_xdp_generic()
+  netif_get_rxqueue()
+  // N-1 >= N-1 -> WARN
+
+CPU 1 isn't inside an RCU read-side section yet, so synchronize_net()
+doesn't wait for it.
+
+For path 2 (re-attach), the reader loads queue_index before detached, but
+tun_attach() stores them in the opposite order. Take queues A0 B1 C2 D3.
+Detach D (its queue_index stays 3), then detach C (real_num_rx_queues
+becomes 2):
+
+CPU 1 (write on D's fd)           CPU 0 (re-attach D)
+loads queue_index = 3
+                                  tfile->queue_index = 2
+                                  real_num_rx_queues = 3
+                                  tfile->detached = NULL
+loads detached == NULL
+do_xdp_generic()
+  netif_get_rxqueue()
+  // 3 >= 3 -> WARN
+
+This only relies on program order, so it can happen on x86 too.
+
+A tfile that was never detached has the same problem. __tun_detach()
+renumbers the remaining ntfile under consumer_lock:
+
+		ntfile->queue_index = index;
+
+tun_get_user() reads queue_index without that lock and outside RCU, so a
+writer on ntfile can record the old numqueues - 1 and then see the reduced
+real_num_rx_queues. The detached check doesn't cover this case.
+
+Would queue_index have to be read and validated (or recorded) inside the
+same RCU/BH section as do_xdp_generic() to close these windows?
+
+[Severity: High]
+Does tun_xdp_one() need the same guard? The Fixes: commit 3fe260e00cd0
+added skb_record_rx_queue() before do_xdp_generic() in both tun_get_user()
+and tun_xdp_one(). This patch adds the detached check only to
+tun_get_user():
+
+drivers/net/tun.c:tun_xdp_one() {
+    ...
+	skb_record_rx_queue(skb, tfile->queue_index);
+
+	if (skb_xdp) {
+		ret = do_xdp_generic(xdp_prog, &skb);
+    ...
+}
+
+skb_xdp is set there when xdp_prog is non-NULL and gso->gso_type is
+non-zero. vhost-net reaches this path through:
+
+vhost_tx_batch()   /* .type = TUN_MSG_PTR */
+  tun_sendmsg()
+    tun_get(tfile)  /* succeeds, tfile->tun not cleared when clean=false */
+    tun_xdp_one()
+      skb_record_rx_queue(skb, tfile->queue_index)
+      do_xdp_generic()
+        netif_get_rxqueue()
+
+Could a vhost-net GSO frame on a queue that was just detached with
+TUNSETQUEUE (path 3), or one being re-attached (path 2), still trigger the
+netif_get_rxqueue() WARN?
+
+Keeping detached non-NULL during re-attach only helps readers that check
+it. tun_xdp_one() checks detached only in the napi_enabled branch, after
+XDP has already run.
+
+[Severity: Medium]
+This is a pre-existing issue, but writes on a detached non-NAPI queue that
+skip this guard still record the stale queue_index and pass the skb to the
+stack. With native XDP attached, a non-GSO frame built by tun_build_skb()
+(*skb_xdp = 0) that returns XDP_PASS goes to tun_rx_batched():
+
+	skb_record_rx_queue(skb, tfile->queue_index);
+	netif_receive_skb(skb);
+
+When RPS is in use, get_rps_cpu() has the same check:
+
+	if (unlikely(index >= dev->real_num_rx_queues)) {
+		WARN_ONCE(dev->real_num_rx_queues > 1,
+
+Can that WARN_ONCE fire when real_num_rx_queues > 1 and the detached
+queue's index is beyond the reduced count? Because the new check rejects
+most detached writes made without XDP, the native-XDP build_skb path is
+the one that still gets here.
+
+>  		local_bh_disable();
+>  		rcu_read_lock();
+>  		xdp_prog = rcu_dereference(tun->xdp_prog);
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261013083739.862074-1-xietangxin%40h-partners.com
