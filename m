@@ -1,161 +1,166 @@
-Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1433C511E92;
-	Wed, 14 Oct 2026 14:54:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.117.225.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA04D52CCED
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:55:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791989696; cv=none; b=GnWnsECL8tGxyq2s8G+NRZ7O10+Gn0csjCnZv+/SdHPzNtaelB088zM+JrnZTYQr/9WPoV7mMOI9pw516RrG+lxJLM0GE9d3sQ+KDdlIZ7NiuS07j3lqUX3PiolFNVYKsA3UrJ3/svqcwb1784+1f8LxNEEn3gMHK1D2NDpbfgg=
+	t=1791989713; cv=none; b=L7je+8xErBMEIwFx8GUtP6O4gaDLalR+LoVw2W6w0qj8zh0FjRMjpaJn0P2ZX5UlXjQvtkoV4U8qulOx1cLeITJQbnzGcusYgJ7hPwNXhCU85GmAvbsR6ijsGSGX65qClNpsJx8v0nxOcfcT1aJLqlB8LkxrYYk5+B1qeeGZV3w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791989696; c=relaxed/simple;
-	bh=P7bZzj6xenUe0m/5paemzVVbu3YzPqLx/omzZ2oOYjY=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=RhbNmAyDZIt25fJZnasBB8Rr9Xzfce00OkhtrdWaDw0u077JlXp7b3xVyPzsBlb0GEIqfJPyubFDflzCD2AELMuyYZcH5KSHjDW8o5fABRYPHyCNFAx/qwjY4ygV49TcIm+c5/37sJvvn0hLsV5jGLmfAagGsk8cnI1YmT50MSQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com; spf=pass smtp.mailfrom=virtuozzo.com; dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b=qJx9Q5tH; arc=none smtp.client-ip=130.117.225.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
+	s=arc-20240116; t=1791989713; c=relaxed/simple;
+	bh=QakIRovc0TVKNQht6OlwetbBWzG2d5kDs2PKBQl9iiE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=drtw8a6YuzFjfyK4rV1GcbgIZ00pDCXxFuCBq3TapMrX2/zCzr+kFVClCFo9cfFCUz9BhoQWQhSTQldNT1v43btUJqF0dAvJ2UZwQzj67rZDtzBqmsO3veY4rvjKwgov+WmlVDtsZ7QvkK6ELBghD7USDlbMkTHMFzcnYHCKwo8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=LrcgccZx; arc=none smtp.client-ip=209.85.160.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b="qJx9Q5tH"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=virtuozzo.com; s=relay; h=Content-Type:MIME-Version:Message-Id:Date:Subject
-	:From; bh=P3u7wh650LQfC5H/99kzz2RW5fV3h9goli82zS1rnFs=; b=qJx9Q5tH7HAmimq0tac
-	a1qF2+b1lPhXgXAN+odgQUbZhu0fRyDkrolwub/lJvCqSg2Y/xAhp/9zPXtKWJ+oG3RODqM6+qL+c
-	Ulodr9TAdjkzi2363AcTlMnr41nlbH7QEN6aZq/TqsGyp6mM2F18f2vDExdjxoM3m7Hy5HoB0gP+u
-	AmSv3ckR6Mj8dRyU2flx6EjWvNosHQqzFG6cNw7gRkCBorrob8m+jjpIcmS53yMs4cSygEYWDGhUr
-	zdcMxgj6kCm25aE/K0+M9BXcwjcSMUXmfiuf/soAPLdYoyasiHEYSqYH7hp4p4wB0kXseD5hec0HL
-	ZzCG01EnOdIWavg==;
-Received: from ch-demo-asa.virtuozzo.com ([130.117.225.8] helo=f0.sw.ru)
-	by relay.virtuozzo.com with esmtp (Exim 4.96)
-	(envelope-from <khorenko@virtuozzo.com>)
-	id 1xH0Jx-005Oui-24;
-	Wed, 14 Oct 2026 16:54:41 +0200
-From: Konstantin Khorenko <khorenko@virtuozzo.com>
-Subject: [PATCH v2 0/2] mm/shrinker: make per-memcg shrinker units cheaper
-Date: Wed, 14 Oct 2026 16:54:36 +0200
-Message-Id: <20261014-b4-prep-vstor-144715-size-shrinker_info_unit-to-a-power-of-two-v2-0-51af2aedbe6c@virtuozzo.com>
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="LrcgccZx"
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-534e6545939so3938101cf.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:55:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1791989705; x=1792594505; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9QCcIHMwt8UPRdNjGegrJCBOmv89ai6OoP2efzt4zBg=;
+        b=LrcgccZxx7Jgo7dxHC5DuhhrIsOKmo7SwS+IJNdqVv9Iy44+RmxIxC/EozGO2vYn4R
+         9Tub8V/n4o+i1pvwVqbTm0GAp4VDbte/G8d/j1cyz97gkWrX44OmO3i216W1GDVrBreT
+         8eK3F4iDYQIqO6Wyn0EfcFZQOnJcyCKVBfsjWBOq+XbNLjNHcChSnnEShmV+JM3gUJHw
+         qV2Fo1+87Rm5Xa83p6xzlknu0okEXglg9Mclb7+x+rL/oM8nDCcYrsakrKt54QObMYr5
+         HajQlG36eUanTwfhKH9d4Rw4kl67bD5LqEYE+sA+8ZOa0ES8KgrdbYUzyCjVHCf9qGCx
+         2XXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791989705; x=1792594505;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9QCcIHMwt8UPRdNjGegrJCBOmv89ai6OoP2efzt4zBg=;
+        b=0DkMfbSlaV5CcMpKE6VWTe8ApBavhCUwYFPkvM5yROrnA6hsUMUs2PavF51WW73igt
+         LJkIXI8nHlAlssRNaIB3dxk77xAzpKnkhYDYct/8dJl5Fcj7jVVJHY3SANW+d4X4QJ+A
+         0mdNdWAmK3IIniyvvjUhX9obITfa05VtM54yJXcHJ7EXBW5iNKSEWV9qTXPHexD3CSxS
+         IBrVJs/HhfZArr5YhNS5ov5T7c5LN8DgeDzd/lpIosT9m09LoHKr0X6FRSw3eqenuqQk
+         2cX4ImlDFgtZOHEDe40NTy1a74JnuxG1A3/oaJEhTWR8lkCPW8BiWUf237dvSdt88kdg
+         OQ8g==
+X-Forwarded-Encrypted: i=1; AKwUvBws1rFiVVrrBsC4VmLQa2mFQXjzjXxAMbH2jqdzvqGhIzBfj70Qs1LUcViO6OtvVUWI4zwyyRdgAFEWINo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKkyLrc1o4FhcRQC2bH5hj4R/78sBYbaHEl+Fo7ZhzVzhe7msKS
+	M+KtSWMJ7MUf539vdadYCUn6XGwqdvk5u6CGYo33W+eVSXZz0b5H+X3+1BzYhYVpQeUihuTzG/3
+	ZNkoHg74=
+X-Gm-Gg: AYBFou3J9wOMNC0eYtbj62R9L8LmDgblMaduMphalBwKUF4naj1vymGVkJpKkzCYyRK
+	f2LzRAw4jy/6ObvV8gcD49s0N87BYpNOvCSvs7BZuxMrAwKQSboiYDOc1dEyIqG7C79bKWB6XbD
+	9k1GdmbQYdSEPcyyhnitytVlnhFvzchoky+IO+K1+rrFf5WvGh29bHaO5hgQICK4TmXNsHy0lJb
+	f5bycZRoK8mGMo44vyzQ+oO5VlfIHO7DsAzn1NPkEykBV9xT1U/TFoc7DF8Elvm7dqyWsTCtVg1
+	oPYSvZdyH8XlqXOYRoPbqZHg5pihghzj2gOVCVf1hupdsBiCcEmpyU+EifHdymraEGW5hQb5RRS
+	wlTybE7EoU59wKaMa3o0g2b9G1KRQtjC3j3mxV/KZDZHNO/zDJuVocsaOc0sBL579DnK9HBMhyQ
+	dcN6GHttLUHP4peGkhj0ckfxfhWCu9lO6rf3++L2MQ/DdXV9WK0akycK0P/OltX9Alx5+Va6w=
+X-Received: by 2002:ac8:5cd4:0:b0:535:70ff:58b with SMTP id d75a77b69052e-5359fb26794mr248817971cf.38.1791989705320;
+        Wed, 14 Oct 2026 07:55:05 -0700 (PDT)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5359b755c35sm126150641cf.15.2026.10.14.07.55.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 14 Oct 2026 07:55:04 -0700 (PDT)
+Message-ID: <b8a8ca4f-c575-448a-baea-4b9f82f15e39@riscstar.com>
+Date: Wed, 14 Oct 2026 09:55:03 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: interrupt-controller: introduce
+ toshiba,tc9564-msigen.yaml
+To: Krzysztof Kozlowski <krzk@kernel.org>, Conor Dooley <conor@kernel.org>
+Cc: tglx@kernel.org, radu@rendec.net, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, p.zabel@pengutronix.de, mohd.anwar@oss.qualcomm.com,
+ lorenzo.bianconi@oss.qualcomm.com, danielt@kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Daniel Thompson <daniel@riscstar.com>
+References: <20261012190245.3988619-1-elder@riscstar.com>
+ <20261012190245.3988619-2-elder@riscstar.com>
+ <20261013-coexist-sixtyfold-cc6614086d3a@spud>
+ <20261014-eminent-normal-lynx-3ebba3@quoll>
+ <c5af1a40-e498-4855-8797-2663db83b9e6@kernel.org>
+Content-Language: en-US
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <c5af1a40-e498-4855-8797-2663db83b9e6@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAKyXz2oC/6WOQQ6CMBBFr2K6dkxbENSV9zDEFJzKaOyQtlTFc
- HdB4wlcvuTnv/cSAT1hELvFS3hMFIjdBHq5EE1r3BmBThMLLXWhpFJQ59B57CCFyB5UnpdqDYE
- GhNB6clf0R3KWj72jCJHBQMd39MAW4p1hazXKPFNFZqyYJNOXpccn4FB9OfT1BZs4W+dFS7Pp+
- SlMat79YvS/MUmBhLUpC7nJtlldmn0iH3seBl41fBPVOI5vuN/FjiIBAAA=
-X-Change-ID: 20261011-b4-prep-vstor-144715-size-shrinker_info_unit-to-a-power-of-two-9f2e043163af
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>, 
- Roman Gushchin <roman.gushchin@linux.dev>, 
- Muchun Song <muchun.song@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, 
- Michal Hocko <mhocko@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- cgroups@vger.kernel.org, Konstantin Khorenko <khorenko@virtuozzo.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4231;
- i=khorenko@virtuozzo.com; h=from:subject:message-id;
- bh=P7bZzj6xenUe0m/5paemzVVbu3YzPqLx/omzZ2oOYjY=;
- b=kA0DAAoBUZYKR/lhXCoByyZiAGrPl6+giO1vNLKnE0JUz6x2xvAw5F7PR9zZPadnJOpiYheQ7
- okCMwQAAQoAHRYhBFYPbcg9xdPQY70ILFGWCkf5YVwqBQJqz5evAAoJEFGWCkf5YVwqNuUP/2bQ
- ZRHFWIngqp3/NabYDeC7TuMQ/rgqDhD8NArNt9RJBVZEMCoMBtJfmS9qxcbo2KxlacGORBY9QaN
- T3187tvugLUdKueY5p5VWl1jvT0mF+KYvSB+oaRWifR43W9e8PHumScNzsg9EC8GXTY+QClUfmw
- +7OTXCHmMpgYGzJ9lQyiRM2H4x1o0kg99ckpyAKtCrgFkOzDoeaG8PwxG0Fe2H3UNR2jo89VjkC
- 8wh5pZDrjcE8n69+cBASaN7KrLlLbcT1+oSGj3z0gU7Kv2cK4nIpEBU5zMVn63lBT/8mQ8f3eQ1
- sR+eQktV8aaIZlIF0gtpEAMUGXr8AIdD+2ie6YTq7eSFhzGDu+K0k1ztxyCmgtMKldO1gXSnUG3
- aVWV3PGevrLAjeF+YNOWpc96aEDeG6dKsM4HdT9tTIwrQHbXQCTW3fharhqonUe6lhbwNXyBcxB
- R5SSzMIsGalwZmq3FlZvjz4MacO3Hp6ZnYNqNqoiMGFzBRYMgloG0FOFNu2D1HAAbQoMowUo0U1
- Q3DVk9rITSOHlgokZQjr0edMHEqNP/QeViLvYk/iVSERiMhHa0wRbLjvp55uhY6okU921jZTEJ2
- LE/NCkpIw7hPfxmWvaY/MjZFW3hXlSn1uG0qWSE7Vge8P7o8/IALSmANSp1hUxrb83kOPppeFKt
- S1r8v
-X-Developer-Key: i=khorenko@virtuozzo.com; a=openpgp;
- fpr=560F6DC83DC5D3D063BD082C51960A47F9615C2A
 
-Every memory cgroup allocates, per NUMA node, one shrinker_info_unit
-per 64 memcg-aware shrinker ids up to shrinker_nr_max, whether or not it
-ever charges an object to those shrinkers. Every superblock registers
-such a shrinker, so the cost is
+On 10/14/26 5:22 AM, Krzysztof Kozlowski wrote:
+>> I still do not understand why do we need to describe the inner wirings
+>> of the tc9564 device. So far I found no posting of DTS showing proper
+>> usage of it on the host. Without proper usage, what is the point exactly
+>> to describe the inner specifics of tc9564?
+> And as shown here:
+> https://lore.kernel.org/all/20261012152408.3729237-5-elder@riscstar.com/
+> 
+> there is no single user of any of this (this=reset, clock, irqchip
+> probably and more) in upstreamed patches.
+> 
+> I am getting tired to keep discussing it, so next time instead of words,
+> please post CODE which is the argument - who uses any of these devices
+> you keep adding.
 
-  memory cgroups x NUMA nodes x shrinker_nr_max / 64 x 1 KiB
+I'll take a break from my in-order responses to messages, and will
+respond to this first.
 
-because the unit is 520 bytes and comes from kmalloc-1k.
 
-Page cache reclaim does not make this go away:
+Our ultimate goal is to support the two DWMAC interfaces attached
+to PCIe functions within the TC9564.  This is a complex SoC which
+interfaces with the host via an upstream PCIe switch port, and
+incorporates an embedded PCIe endpoint with two functions.
 
-- Live cgroups keep their units until they are removed.
-- The units are not charged to any memcg, so memory.max does not see
-  them and a delegated subtree creates cgroups at the host's expense.
-- A dying cgroup keeps its units until the last reference to it is
-  dropped, for instance by cgroup writeback, a swap entry or a socket.
-  Nothing reclaims it for the sake of the units, and MemAvailable
-  counts them as unreclaimable.
-- shrinker_nr_max never comes down: after a burst of mounts every new
-  cgroup pays for the peak until reboot.
-- Both factors grow with the number of workloads on the host.
+Based on your request, I will plan to send *all* of the code that's
+required for DWMAC support for review later today and tomorrow.  I
+have been pacing myself (in part not to inundate the lists with
+patches).
 
-Patch 1 lets a unit cover BITS_PER_LONG - 1 ids so it fills a 512-byte
-slot exactly: half the memory, nothing else changes.
 
-Patch 2 allocates a unit only when the cgroup gets a list on that
-shrinker's list_lru, which is where map bits are set: a cgroup pays for
-the shrinkers it holds objects of, not for every superblock on the host.
-The units stay uncharged, but how many a cgroup makes the host allocate
-is now bounded by the shrinkers it uses. The unit pointer array in
-shrinker_info still grows with shrinker_nr_max, at 8 bytes per 63 ids
-per node. Patch 2 relies on commit fafaeceb89a5 ("mm: switch deferred
-split shrinker to list_lru") and is not meant for stable.
+A block diagram representing the TC9564 SoC is included in this
+devicetree binding:
 
-On a host running a few hundred containers (45000 memory cgroups, most
-of them dying, shrinker_nr_max 52480, 4 nodes) the units took 145 GB of
-377 GB.
+  
+https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc.git/commit/?h=char-misc-next&id=ed0a1c1eaa376e11cf8c97d898f2811b8ded322f
 
-Reproducer without containers: 48 CPUs, 4 nodes, v7.3-rc6, fresh boot
-per kernel. 8000 tmpfs mounts raise shrinker_nr_max to 8064, then 2000
-empty memory cgroups are created. Active objects added to the 512-byte
-and 1-KiB kmalloc caches, and slab per cgroup:
+That explains (and attempts to show) that devices (including clock
+and reset functionality) use PCI endpoint BARs for access to their 
+registers.  Other IP blocks shown are an address translation unit,
+a block of SRAM, two XGMAC interfaces, and an MSI generator for
+each of the two embedded PCI functions.
 
-                  objects added       slab per cgroup
-  base            1011518 x 1024 B    548 KB
-  + patch 1       1023787 x  512 B    289 KB
-  + patches 1-2       136 x  512 B     42 KB
 
-The 42 KB left is the same on all three: the memcg's own structures and
-8 KB of shrinker_info pointer arrays at this shrinker_nr_max. A cgroup
-that looks up names on two filesystems gets 8 units (4 KB) with both
-patches, and so does each ancestor that had none. Writing a page of a
-file in each cgroup and removing the cgroups keeps the same amounts
-pinned by the 2000 dying cgroups until the cache is dropped.
+To show the final DTS file, I have squashed the working code I have
+and refer you here, starting at line 994:
 
-Tested with selftests/cgroup test_kmem and test_memcontrol, a check that
-memory.reclaim reaches 140 ext4 superblocks with consecutive shrinker
-ids, and unit installs from 64 cgroups racing with 3000 mounts that keep
-growing shrinker_nr_max. On a kernel with lockdep, KASAN and DEBUG_VM the
-same runs leave nothing in dmesg. test_memcg_sock fails there now and
-then, with and without the series: memory.stat's sock counter is not
-flushed yet when the test compares it with memory.current.
+  
+https://github.com/riscstar/linux/blob/18d7146c807a6264388c919391b77a795612e342/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts#L994
 
----
-Changes in v2:
-- Patch 1: check the unit size with BUILD_BUG_ON(!is_power_of_2())
-  in shrinker_unit_alloc() instead of an open-coded static_assert()
-  in the header (Muchun Song).
-- Link to v1: https://patch.msgid.link/20261012-b4-prep-vstor-144715-size-shrinker_info_unit-to-a-power-of-two-v1-0-5a7608393b7a@virtuozzo.com
 
----
-Konstantin Khorenko (2):
-      mm/shrinker: size shrinker_info_unit to a power of two
-      mm/shrinker: allocate the per-memcg shrinker units on demand
+Note that this exposes many internal details of the SoC, which
+Krzysztof objected to here:
+  
+https://lore.kernel.org/lkml/fbeac5ba-a28d-4d34-8d23-4946aef515ea@kernel.org/
 
- include/linux/memcontrol.h |   2 +
- include/linux/shrinker.h   |   6 +-
- mm/list_lru.c              |   6 ++
- mm/shrinker.c              | 163 ++++++++++++++++++++++++++++++++++++---------
- 4 files changed, 146 insertions(+), 31 deletions(-)
----
-base-commit: a5ebb76233b79db01e82e061173cb73c6d2b5c6b
-change-id: 20261011-b4-prep-vstor-144715-size-shrinker_info_unit-to-a-power-of-two-9f2e043163af
+I responded, explaining some history on this code and asking
+for clarification on criteria for when it's acceptable to
+describe chip internals in devicetree, but received no answer.
 
-Best regards,
---  
-Konstantin Khorenko <khorenko@virtuozzo.com>
 
+The PCI endpoint bus enables a PCI endpoint to be treated as
+a *bus* that provides access to multiple peripherals, rather
+than as a simple single-peripheral device.  This goes well
+beyond the capability of the PCI enumeration process to
+discover the nature of the hardware, leveraging devicetree as
+a hardware description language to describe the organization
+within a complex chip.
+
+I understand the desire to consider the PCI endpoint (function)
+as the boundary for devicetree descriptions.  But I also see
+great benefit from viewing the SoC as a subsystem in itself,
+whose IP blocks and connections between them are described
+using devicetree.
+
+					-Alex
