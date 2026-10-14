@@ -1,112 +1,178 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 61D15515985;
-	Wed, 14 Oct 2026 13:17:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791983881; cv=none; b=b/4pwyarI2cG5y+nqoV/Ayk9BaXNwmxKdV0Yj8VGfT088x5yc8QXtbdN53hMVu3DCL6pGl2I44Jo4WOAVbttBhTGqE6ujGDxj+QBFa45hCvDhFu0GNi9Om29RLLuuvIs8S+uZgCqMqYBiL0nWzCqLviz1WREqu/yjzzSucuBXMU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791983881; c=relaxed/simple;
-	bh=7/FIc0ur08hSo+pDZOn/0zDBG4tLVroepAjeja9v7CE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sMMPrLwEn32QDqbAbgzYZxxWmNbRz6WnkdhT/cs/iIgEZtsLa5ZI9WPet//50hPPY3iOehEa6KzD+igOIUhEJMM3rm8y/W4zbW6IqmaZo5yUZPsd1LjhDbwCvMJXE+SfNsNpQRbYJ1RDXZOegJ5MNwN9C0gDUaR/dG/4UZmzxk0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=m6URe+kW; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11023085.outbound.protection.outlook.com [52.101.72.85])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2BA95477E;
+	Wed, 14 Oct 2026 13:18:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.85
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791983910; cv=fail; b=LWynN8b+BtL91S/dVM3sblB/YDOkX0mgh76Ia4FxDRX49T/lamKy90uK0hwhlNhveGa3Ec0zKU+fhhMh8C9mWABfq/3oFwCFg5tgtCKJqHT+DOKLof5gsEj+SXSbHJHmq7NI+JEfUpTtwImOEYuXfqVVPBjRNDpUYy4CF20s3uI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791983910; c=relaxed/simple;
+	bh=42lVt2MIds8yKfySSWMIFQ7rGrYp4D/1wUfZOdHPD18=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=RHyN8vjXZXy34J8omb9SK/iZT/vW0oMAKFoaaKapayAjLD8kdqCrh85lSE1seihRF4OS4i4ZmeGDelp8/I3IBQt1Gjdc20SJ4QdCmaTubOsbaMQV8rluWbYaUNiHqv0T0SV7o6bJL9L/R/yK/8Mtv9VRGRS8YJ02YU9dPjPufvY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com; spf=pass smtp.mailfrom=virtuozzo.com; dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b=tNGgUaNc; arc=fail smtp.client-ip=52.101.72.85
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="m6URe+kW"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 10EF31570;
-	Wed, 14 Oct 2026 06:17:55 -0700 (PDT)
-Received: from [10.0.128.106] (e127648.arm.com [10.0.128.106])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3C4673F7B4;
-	Wed, 14 Oct 2026 06:17:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791983878; bh=7/FIc0ur08hSo+pDZOn/0zDBG4tLVroepAjeja9v7CE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=m6URe+kWdZ+B8+kEXuv1pgdWER0BsH63HWLFBBPyZ1WWFzSTED0s1yB1vKt433SAA
-	 z4B6qIwWET5CDac5ZzzJ8FRBPGHYyReibYTjvxZXkZd+Sc+CApC5mtEq4IRBKUtq7a
-	 g5f3Z2kBj4O7Uy8vbNPEs2K5IM3T9V3VDUS4Gx98=
-Message-ID: <002a3200-81ae-43b3-860f-64135c28438c@arm.com>
-Date: Wed, 14 Oct 2026 14:17:52 +0100
+	dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b="tNGgUaNc"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jTc90a+SfTE4fgUT8ZUWSGtOvjWo6kTZTSbKvga7UwEuIGLl+Oj2aYNA1v4PIxeSqfaV942PU5elRFyWV+IR89obXvdUgufD6prdAN1gO3SiuiXuaOy7HD/RQ2yi4AWg7ezbqJWbwaJjHG0afCxBO6ahLBF4e5N4Ye0TMaW3YNz9gn6tCoUGjNuCvAdUyQz+IMgD47WC7/HrOy8YqhFVKAvCQr2it7C6sauayeSXjppT+6gVrqvXvelUvLJ88B3q6AHqOQRPkm7qia34lenS7/Js7nVjfig+nD1Qb8P2LwPY4RwDjzqZFyq/NJsgDm/15AiQN6nML3C16EJxTFXodw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=16I7Gnlehp4rtQgca/20zMUSGtwWYLFnOQWH6uyrbAo=;
+ b=Ba6Zf4CiMZpns1FN15TxR0mIsi88xFxwWUFw4zAPED987/tsCHMnDwCych3uRKkHdNqtLjNiuDAIzbTKblAElnSHTNgiP5rif4pCVLBBWAIG7q14CMn9DYxMdP2GnZ/g5Gep4plZTGDoo9U7jkQfKqNJtiTnne8SX3fwE5TUFRPaYrYI19V+t1CLO6ocv+uQ8ukMh74Aw0Qv5nHwarHEGfm30YjV/7nY7AIzjgnTjtZanUkChsHbP2geLwBVacGCR84pQBGzZHBvGyGGfMNPJGsV8h8nSa0kNHHpzv988cbIljSh5H3RginvjKpvhsHX5Nc58IaBCjHZnrr2cFTGUA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=virtuozzo.com; dmarc=pass action=none
+ header.from=virtuozzo.com; dkim=pass header.d=virtuozzo.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=virtuozzo.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=16I7Gnlehp4rtQgca/20zMUSGtwWYLFnOQWH6uyrbAo=;
+ b=tNGgUaNc8W8e/opjNd7hcls6GHD51/YFuSckYVQVMfIrpskhTUOvwO/Ek5TvhEXoSf1d6yyJeoPmaxQU3GXoUl4x/Y1KYiU77IMvOtWdtK49DvNbsaE4lPMO+Ww0Ul8Z7eB9ixT3NN0b2zeEge+G59Ui1D/XcKcVdnNKcNleKP7M+kCVn3BwFjAVy1hDsQ+TvRmtCiAsBmo0CY+JKgiHt6R0ULDw8OMAtAo0dF+9xwkhoqu2mzFDHmzAlMjP3IOuZZ+zcZzKXCHDk38xSO16ai4wF+TGdwYpvhncCltFR7EVhHciwtCrhVGiP7lUuaIJDFTvZ4jGPcVkVrz/6W8AiQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=virtuozzo.com;
+Received: from PA6PR08MB10708.eurprd08.prod.outlook.com
+ (2603:10a6:102:3c7::20) by ZR6PR08MB999901.eurprd08.prod.outlook.com
+ (2603:10a6:910:d2::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.11; Wed, 14 Oct
+ 2026 13:18:26 +0000
+Received: from PA6PR08MB10708.eurprd08.prod.outlook.com
+ ([fe80::1999:c6db:dc55:494a]) by PA6PR08MB10708.eurprd08.prod.outlook.com
+ ([fe80::1999:c6db:dc55:494a%5]) with mapi id 15.21.0522.011; Wed, 14 Oct 2026
+ 13:18:26 +0000
+Message-ID: <723a480e-1aa2-4e06-a5b5-38948a8b50d5@virtuozzo.com>
+Date: Wed, 14 Oct 2026 15:18:24 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] mm/shrinker: size shrinker_info_unit to a power of
+ two
+To: Qi Zheng <qi.zheng@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, cgroups@vger.kernel.org
+References: <20261012-b4-prep-vstor-144715-size-shrinker_info_unit-to-a-power-of-two-v1-0-5a7608393b7a@virtuozzo.com>
+ <20261012-b4-prep-vstor-144715-size-shrinker_info_unit-to-a-power-of-two-v1-1-5a7608393b7a@virtuozzo.com>
+ <c2d25c25-2fd4-4bb5-a021-3cdf23e493d0@linux.dev>
+Content-Language: en-US, ru, sr
+From: Konstantin Khorenko <khorenko@virtuozzo.com>
+In-Reply-To: <c2d25c25-2fd4-4bb5-a021-3cdf23e493d0@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0047.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:92::14) To PA6PR08MB10708.eurprd08.prod.outlook.com
+ (2603:10a6:102:3c7::20)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] sched/cputime: Preserve iowait accounting across
- waking interrupts in dyntick-idle
-To: Peter Zijlstra <peterz@infradead.org>, Wei Gao <wegao@suse.com>
-Cc: Frederic Weisbecker <frederic@kernel.org>, Ingo Molnar
- <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Thomas Gleixner <tglx@kernel.org>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
- Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
- K Prateek Nayak <kprateek.nayak@amd.com>, Jens Axboe <axboe@kernel.dk>,
- io-uring@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261014015258.13967-1-wegao@suse.com>
- <20261014124934.GE4121339@noisy.programming.kicks-ass.net>
-Content-Language: en-US
-From: Christian Loehle <christian.loehle@arm.com>
-In-Reply-To: <20261014124934.GE4121339@noisy.programming.kicks-ass.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA6PR08MB10708:EE_|ZR6PR08MB999901:EE_
+X-MS-Office365-Filtering-Correlation-Id: 46b3de81-b7a5-440e-168a-08df29f5a192
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|56012099006|4143699003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	pQllWE4gLaAXpvliRIi+a+F7fbSEniOMDYEC6Fpn9/HaJo67NziN6vnqZ/u4lNEMUeyBaqQYTf5EkvYYCb9kXFOUaIS79S0ZCdzpJMpcADnt+BJpV/B0O+Emfa+Yv7AZT0MxaeT7CCdNQeT+uDDaykohk4SZgoNtrj8IRvNHJ4LhJSiEcRaqZW8QcTPmdcpuQdBI0Fgu/KKhiqbjUmUonMR+0nX0R/RroiT0UpfsrXMaSfgqhBd9QwikTCjCqcG+2kXBg6mkPKGcEDhYMRnwnrLqOZrMMJZKszfDLYYonnfJjekekWjzlUtsDnDDb9w1bdXfYddU34b0oEP1qKUQc31aa9D2k+IbLP+FCJasBDkF1aD1WndTc7IdPo3YAJ28ueeuEoUnCyyhlEHY5zAa5zIZs2Gv24mngE9+0F+z2Lyl1YZzWmvMyoa0t0U9MNAF1YLpBrCB3Bgmlkz92s8RtT/7w3LPyjyWKlbA85PYCcnDZlU62PjA7EtdbslW/1Jnro2LjDsbZI2On0WZvqcStmmq1pFtTMxMIkrLmcNbl5cF/gPt0WApueQGvgTdAMdO63bZo4mttk9RTmHMzuJdpA7ELlCDwwgEfQsY+J3Z4PxrkUpWyG1uaAZq76A6hCwb10FgZW6QZRZ2ydva3suRSACxucR662MA5T3GSU08Mto=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA6PR08MB10708.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MWQvRGwyZEV3TVJVMnFrS0h3MFlWZ1VieGxsY0VpK0VnVE5GcFFXQ1NpRldm?=
+ =?utf-8?B?ckVoQTVYZVRielcrbDRDcHhBYlV2NXd3cUpmd1ZHcUVZQTNtME95M0hILzQ1?=
+ =?utf-8?B?cFROMnZ5Z1F6ZDErU3BWTEFrMnVjQzFxVEd4MUtPamN1bHFIVW9EKzJQcmUz?=
+ =?utf-8?B?djF4QnQvTXFqamx2Z0pBbkM2Z2xDQURaTUREY1gxY0pXbFdmREVYSE9TT3Az?=
+ =?utf-8?B?VVFNdkNqRFJkU2xNUDRvOXR6cVVwcVdhNTJGSnZZaEhGRHhvQVpYTWowMGNO?=
+ =?utf-8?B?WUJwYUZHV1J1TTNRT0pNQzJxUDczRkM1VU1Ga2ZHYnA4eENZK3E0bmc0QkxJ?=
+ =?utf-8?B?aERrUFB4Vm9yZnRhQmgvczkyZTQ0L2NoTnZ6TDVCRmpGaGNDdDNJOEdJSHM3?=
+ =?utf-8?B?TlFvY0pVWFJFOFFHd1F5RE5vdU9GU1NJb1FlajJuYWRPWGkwdXR2VnlZN2ZK?=
+ =?utf-8?B?eHBxWGJEKy9xWCtxYlFwSDhuT1pteWNBclJjZkRMOVUwTjNxNzhWR2pUeTMw?=
+ =?utf-8?B?Ri93K09QQUtDK2YvUWdKdFVkTzFINk1aSVVrMG9DYzUvRCt1NS9BUy9tRTdS?=
+ =?utf-8?B?Q1JPZDVFZno1MG5RVWtCMjBUUkdNbDBmeGk4enk5UjdDVXBFemlUbXJPdWR3?=
+ =?utf-8?B?VjdMbFR1QVZOcFNZL3NPQkptbFpiMThFWEQ5WGE4dVhaZmFrWFFVMmZGTVRG?=
+ =?utf-8?B?S2x6b2xwUkVEZHpZdEx5RXRFSmNya2ZLTS9uYTYxT0IxNlFsV0ZnQ295RGta?=
+ =?utf-8?B?VExPVmFsd2N0OVB2RnpxMko4ck9SNkFTN0ZOU203T2JORUZJRGkzbGR0bGhj?=
+ =?utf-8?B?TThENHZONkh5MktNZlBQNWhRTW94OHMrUXZvQldBazFjMUlpZFRoYUtVM0lG?=
+ =?utf-8?B?VHpERno0bGRYU3daQld0MUdZTHdFUWJaUWFUeWdmaUx1RFZyb0ZZMTVXdmFq?=
+ =?utf-8?B?V2lJUGV6TW52MXNQbDUvQlczWFhteEhuSzdIaVpuWHRoUUF5akx4RjVRRFEz?=
+ =?utf-8?B?NHhaM0svc0YrRnB2bWlVSUhVTHN6VEF3bDVvSkRVTjFKUGduWWFUVkJNamhF?=
+ =?utf-8?B?bEs2cjNXZERZV01Ya0dXZVMvcFpkR1ZUTHg0WEFUZGM3NGpOWkZPVDVtQkNj?=
+ =?utf-8?B?bUwwbXRXdVQyd3FMV21hSStGVXBGNlpGb2p2Q0RtaEc1Kzl0NEVnZ0RYbmNi?=
+ =?utf-8?B?ZGJvU05RMVFsWXk1bys2Uys4V3pCMjdVb1Fvd09FanJGQWc5eXRqYzZOZ2M1?=
+ =?utf-8?B?dDFnOWJETjBBZ0xWb2Y2VDlERWdWTGdVc002ai82TG1ocXV4YTNLc3VhUFFO?=
+ =?utf-8?B?RGVlMUg5bmdseklOd1p6WENwMU1NNHZmUldGZDluQjNZNUI2Ym1FTlU2Mmdw?=
+ =?utf-8?B?czBvT2R0ZmRCaGxkUUxiaDR3L0NpdzFhWmFjaWlHOVVQYktkOFNIbS9CcnFn?=
+ =?utf-8?B?ZmxwZ1RScEFnT1Z3YklQQU1YcTFoUUw2eVNLeE1lZmZnTFNzWTVXNlF6K04z?=
+ =?utf-8?B?bkV2QnpHZURQZjFsMDVIaHlaMkFiMnRDVHNiQml5V2U3WHhYNjd2all5UXRr?=
+ =?utf-8?B?MGo4d3BmR252QzIzMmNLdjJ6Mk83UFhVRWtaM0tOaXVWTERrWTB0ZVkrUjVj?=
+ =?utf-8?B?TCtXUi9tSDQ5YVVMUmNRSDIvQ1YrTjl5MVlhaVRpVlVhT1ZTRVQ1Ry9CWFJR?=
+ =?utf-8?B?NjF3WThCaVlTdnduc3BidndUWTBxeW5UU2p5Sys0YU4xbHhyQlR6dnFvMWNI?=
+ =?utf-8?B?UWNUcGoxcW9PTnhVMmtMZERYMkIwbWdDMDA5VnB6c1N2YVk1UTBaS1lUSktu?=
+ =?utf-8?B?UDhPKzB0dDR5VlkyMzI0Q1ZEZW5WRlhad2Q2WlZKeU1Ra2txSCtXL1BCSW5Q?=
+ =?utf-8?B?WmtLdU1FMUFzUnBYMEo1R1pYdElUd0dpTHVMMkV3djEra3ZHdXRpN2V2dlBj?=
+ =?utf-8?B?KzZxQ0lnVE1BS3hVU3Q0bmo3dkJuK1lpQW56bVFhM2JBdnhmSWhhc0hDUDF4?=
+ =?utf-8?B?b2pzTWRoaWtpeU1BbXgreHN6alMyMThzbGFRL2d2RVhZcTlYZy9QYm9CMEw2?=
+ =?utf-8?B?ZXlRdTVLYzc5eThieElXdFpCRjZMS2FjR1JEQjVoL2Q1bDRNaTAzQ0k1YzNG?=
+ =?utf-8?B?dk10eUxyeHk1RnpNSHpEOWs3b2s4ckxIdytBQTJSK2g5MjBhNUFKYmhxbEox?=
+ =?utf-8?B?NHdMZzNtWFg2TW15VEFlSTBNRWRXZk9iNGhSdEpKSkFaRzNMYXBzcHA1cXBu?=
+ =?utf-8?B?dW95NVNMWVcrTUhXTnhUZGpETFZINU15QkQ0My9RQVNaZmkyVE1xQVNob3hj?=
+ =?utf-8?B?SVBQZFhva2QwaTJRZnZ2Q3c4MWZCL1JWeGY0UjQ0RDBqaTZxa2ZjUT09?=
+X-OriginatorOrg: virtuozzo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 46b3de81-b7a5-440e-168a-08df29f5a192
+X-MS-Exchange-CrossTenant-AuthSource: PA6PR08MB10708.eurprd08.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 13:18:26.5401
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0bc7f26d-0264-416e-a6fc-8352af79c58f
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RaWC/HV9vAgkUAzO+oR8MNHWtjWAFknPTscIbtD/F2AaR9iquHyGB4pR4YEuie0C8BU+OhziDPEOmtfCjMLhXQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZR6PR08MB999901
 
-On 10/14/26 13:49, Peter Zijlstra wrote:
-> On Wed, Oct 14, 2026 at 01:52:58AM +0000, Wei Gao wrote:
->> In liburing's test suite, the test/iowait.t test case intermittently fails
->> with:
->>     iowait diff too small: 48
->>     test 1 failed
->> on tickless systems where IRQ time accounting (CONFIG_IRQ_TIME_ACCOUNTING)
->> is not enabled.
+On 10/13/26 04:52, Qi Zheng wrote:
+> On 10/13/26 3:02 AM, Konstantin Khorenko wrote:
+>> Every memory cgroup allocates, per NUMA node, one shrinker_info_unit
+>> for every SHRINKER_UNIT_BITS shrinker ids up to shrinker_nr_max. The
+>> unit holds BITS_PER_LONG atomic_long_t of deferred work, a power of
+>> two, plus the one-word bitmap of shrinkers with objects charged to the
+>> cgroup. That word takes the unit just past the power of two, to 520
+>> bytes on 64-bit, so every unit comes from kmalloc-1k and almost half of
+>> it is padding.
 >>
->> Commit 7198e3927a14 ("sched/cputime: Handle idle irqtime gracefully")
->> optimized dyntick-idle cputime accounting by avoiding pausing idle
->> accounting on IRQ entry when IRQ time accounting is disabled.
+>> The units are allocated when the cgroup goes online and freed when it is
+>> freed, so a dying cgroup keeps them until the last reference to it is
+>> gone. Their number is the number of memory cgroups, times the NUMA
+>> nodes, times shrinker_nr_max / SHRINKER_UNIT_BITS. shrinker_nr_max is
+>> the peak number of memcg-aware shrinkers registered at once, and every
+>> superblock registers one, so a host that mounts many filesystems and
+>> runs many cgroups carries the padding as unreclaimable slab, and keeps
+>> paying it for new cgroups after the mounts are gone.
 >>
->> However, this causes iowait time to be erroneously accounted as
->> CPUTIME_IDLE if the task waiting for I/O is woken up inside the interrupt
->> handler (such as the 1-second timeout hrtimer in liburing's test/iowait.t):
+>> Let a unit cover one id less than a word holds. The bitmap still fits
+>> one word, and nr_deferred[] plus that word add up to BITS_PER_LONG
+>> longs, so the unit fills a power-of-two kmalloc slot exactly and, on
+>> 64-bit, the memory taken by units halves, for about one unit more in
+>> BITS_PER_LONG.
+>> round_up() in expand_shrinker_info() needs a power-of-two step and
+>> becomes roundup(); the other uses of SHRINKER_UNIT_BITS are divisions,
+>> modulos and multiplications that do not care. Assert the unit size at
+>> build time, since the layout depends on it.
 >>
->> 1. In test/iowait.t, a read request is submitted on an empty pipe and
->>    io_uring_wait_cqe_timeout() is called with a 1-second timeout. Because
->>    current->in_iowait is set, rq->nr_iowait on the CPU is incremented
->>    to 1. When the CPU enters tickless idle, the periodic scheduler tick
->>    is stopped.
->> 2. When the 1-second timeout expires, the hrtimer interrupt fires.
->>    Because irqtime is disabled, kcpustat_irq_enter() does not pause idle
->>    accounting.
->> 3. Inside the interrupt handler, io_cqring_timer_wakeup() calls
->>    wake_up_process(). In ttwu_do_activate(), waking up the task immediately
->>    decrements rq->nr_iowait from 1 to 0 before the CPU has exited idle.
->> 4. When the CPU returns from the interrupt and calls tick_nohz_idle_exit()
->>    -> kcpustat_idle_stop() to settle the elapsed tickless idle duration,
->>    it checks:
->>        iowait = nr_iowait_cpu(smp_processor_id()) > 0;
->>    Because rq->nr_iowait was already decremented by ttwu_do_activate(),
->>    this evaluates to false. As a result, the entire 1-second idle duration
->>    spent waiting for I/O is credited to CPUTIME_IDLE instead of
->>    CPUTIME_IOWAIT, causing diff < 50 and failing the test.
->>
->> Fix this by checking nr_iowait_cpu() in kcpustat_irq_enter(). If the CPU is
->> currently in iowait, pause and settle the elapsed time to CPUTIME_IOWAIT
->> before the interrupt handler runs. On kcpustat_irq_exit(), resume
->> accounting if it was paused.
-> 
-> Using nr_iowait_cpu() is fundamentally never a fix. It is rolling a dice
-> and liking random numbers. See the comment that goes with that function.
-> 
-Speaking of, that comment is stale, menu doesn't use that heuristic anymore.
-FWIW the remaining aggregated nr_iowait users seem to be accounting/reporting.
-(cpufreq still uses it, but it comes directly from p->in_iowait).
-Given they are exported (/proc/stat procs_blocked and something in s390) I don't
-see how we can remove this entirely but at least nr_iowait_cpu() as opposed
-to cpu_has_iowait() could be refactored. The issues are obviously the same still.
-I'll send a patch.
+>> Assisted-by: LLM
+>> Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
+>> ---
+<skipped>
 
-Peter, if you see a path to ever retire iowait (or at least the CPU iowait for now),
-I'm more than happy to sink some time into it...
+> 
+> Acked-by: Qi Zheng <qi.zheng@linux.dev>
+
+Qi, thank you for the review!
+
+> 
+> Thanks,
+> Qi
+> 
+> 
+> 
+
