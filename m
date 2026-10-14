@@ -1,107 +1,192 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B327C55C319;
-	Wed, 14 Oct 2026 16:20:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6A1B55D875
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:20:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791994842; cv=none; b=N63A0kyxBQCIv6cwjzA0Qp0mpBLS2zPr5CuazWykZFhlxPtHXvkjFtgn8XeLpSocDQErnkh0iu/zpcye+zzXSpiP9EBLw+kEQCUKh7AHBl8SXQtemz3tpfEd+y4AYAb03ewPUfDmOitXJ/jJWzmtnADLe0j9sAQr3WDLGpBHQuY=
+	t=1791994847; cv=none; b=RJ3Q/qCetoXfpnTR7SCmiNaeDjenOBagsXeLTb7uTyhms4wdgb4i/H6HOACq2DtDePcRE9iYA31qv/Ccq/3vXZ4Y9FYteyTS7+9vuImPYuqQxWJ922LblkzXe9vVvOi6DfK4H+Uh/WRuIUaBTzgQRYqSH7JwhIgOBzsjFq/J3hY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791994842; c=relaxed/simple;
-	bh=BA63DfBqD4GX5KxgTBNJ4SlIgSApddIn/Z38iRlmodg=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=ATPA+sahH8ROhlIiRoltPpm3BCjvjZDubUs7LAWQjZZe34QU3qzLOR0LoyQBPcbcF89sVbVvFxh4lWy4VJ6KunvG0ztG98l6MaF3R3qDrkBcffGmEoYa7XFO14h209vsmd+mGrh5acDi9lVJGkV91ciHba8fVrtM/7bilUdp+Mw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b3fIAepR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791994847; c=relaxed/simple;
+	bh=KOpW9NL741Wqf6CDHthraNjLF873jIDlBdmDkXr6AkU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=QdmPNVU+AFuqDk7etuvRyu+Gm8zAdbqM+T04wrSncytaLzdbGHLj+j4gxvlWWDBdNsSGOkRYEQBXiib91SxnMdOCIpJB246BOfkOP1C7irgeetTPCLcVLhXEN17KxOpciZ95940+57qJ1KNCLJuXCilcEhA9vkdCcao1fQw//p4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KRDDZ5dL; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b3fIAepR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB3C01F000C4;
-	Wed, 14 Oct 2026 16:20:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791994837;
-	bh=MouLh1BUaaXNAJgSChZQtUApspyT7f0na2hcEZ8x2zw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=b3fIAepRjqRno40hkJXSaxFeB18+ySFdMAmtna6JYJcjqCpZrk+ZFncMG4LszWzhs
-	 VJD0YSXGVVYigRGZhCAzqQf89vNidvKGIGGfblV0Dd3V3U6TflZO0CBW5H8NJ1N7ok
-	 VsIZ0RQQ7J8uhlc9Me1VWahq6snn9zf8pmzhyE6IWgxAJYtt/w1BEnOD74f5XAOcp0
-	 RRWGpyVHrl6y4gPa1pq5FfXmjSe7gmdclDrEXNh8FVWgV4ob+9p+S8ovl2kE9Jkf7j
-	 1q68H43vr7nG8oJym2MbewUDInnxTl4tDnBuTRe4ksepHuN840W23vb8uDUEZ6GR9f
-	 IN6UZ5OwqA8Ig==
-Message-ID: <sashiko-outbox-171521@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/2] pinctrl: stm32: Fix the unit of the hwspinlock
- timeout
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ju Nan" <junan76@163.com>
-Cc: linux-gpio@vger.kernel.org, linux-rt-devel@lists.linux.dev, mfd@lists.linux.dev, linux-kernel@vger.kernel.org, lee@kernel.org
-In-Reply-To: <20261014160917.139241-3-junan76@163.com>
-References: <20261014160917.139241-2-junan76@163.com>
- <20261014160917.139241-3-junan76@163.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 14 Oct 2026 16:20:36 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KRDDZ5dL"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-486e8faff03so1902957f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:20:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791994844; x=1792599644; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EjI1AUhEkeYaz5+gj/BBEQM/J50SQrXWS0m/4fb/0T0=;
+        b=KRDDZ5dLvmQxVaWSv1xKVRejl6KzvnurMd7QKx5jrQMfTm1sHb+NW2H/JooVv7dMCk
+         Pb2c9vwVkMr/qnYP9JaLq5XF1Tb27ltBNF20hbCk3qYvitN4ylM70f1TEqd0EWag1V9M
+         FGUfSWa+kkvneTXncAGQfqaSVHhFDsrMQz3yeYC2ZTdMUfCi96lYMgjB0iXYA89xuwq3
+         Gr3jh14dnflPLRoqu6oIRlPH+tHu/VWGTCgm+pKmAbYXMlo7KxMxwDuxu126gu9qnU4l
+         +5uO41RXaYbb7UQrHaaNvyKPXvAZG8hTPxVPvz/tvP+7TqHdmywvyph0dfVTqbSjt6uy
+         cMbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791994844; x=1792599644;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EjI1AUhEkeYaz5+gj/BBEQM/J50SQrXWS0m/4fb/0T0=;
+        b=baQulzBXs/Yze1sNwKv3T2pITyYa8T0Gxp9ion34T9xLRyH6n8TsZTa9J1EPq/kvoh
+         scEVw9BI7iEXdVoGpS6mRY466kbVGaqqX4XRF3yJ8i1SK4LBXsSpzp507T6RyJMJ+R3d
+         GOjUgul6/IvxvnAfXYrZdy4q9Md2ndiy4BxCU4b/CGasVUmlFj2fXxPoQVnp760hGKff
+         NNBxuSvlSgAg7P2qP4k/B2bNqWbi+pIZAppppHeNn8oN8bmdNI0rgjn4iwx/BdLShFBv
+         AmiHQz+GKGji4LRUFfpbFsTyeydD3FwlM7ZRs7f7TvrDTYA88WDUcjoLj4E/0j5LEfPW
+         4Qxg==
+X-Forwarded-Encrypted: i=1; AKwUvBzaVW8Ek+fni5PGi07VxnNTeFj2x+TJYZ1YqNx8H3CTIOsLbbXMshdXkukF1Fx0ilFo2mzFN6VQdnR5teY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ1oR/DiKi1K76oKwDBBoeo3DRImsuvYxpuHl0IXRQcJERJDtid
+	ls6lrpvvs6mhbOMozijOrYgtnE6Gn7mMgWXTfOblzzjzBoQ9kA44ajqs
+X-Gm-Gg: AYBFou0PC3wt9JtzlyqWZdEfZipUAL45kQF6NI1aLuhq/vOvK/y9m6zfH+7atO6TVLF
+	IIJoYMyEtBdoTlTR+oc/q4rDxknGl3VvvRdEqOOJr+eivMQrsiXB1Z2rqrl6RD4eL5xQs+cGcHQ
+	NK7Qsz3y7A+JzUVSVYjU5X2AMPZU0cXaweIrL4dmpZYLL0ayYgLnLFnTO1uyqU7ybOY6adtLNLa
+	C9AGGBseYoUjdSYtfd0Ma7SFrC7VS+B3teCsp7n+L8A3tD2HdtCsHVLSdTfctc+v7YqUdrt4eFP
+	T7l+82cXV4D/Fs3/1a6WulN1ORM9kBs5wweKFvgplNIDtjez3+KhYb/6oIN1t33ioBPuttMjQRL
+	bzwScjgxuwuljlJ8KigjVH3ZTqpdqGOMCBMB65C/j2devzfmf/pfHsmrmqkGooswhIeVWn0Jzz8
+	F0+Qj7BFhM2zAQE3oB8zZpsAlBGRFKfowMwtoZY/nIQuubUd0oliEzO6Tr30JTf+qCMOi7WRLNQ
+	SMnKfE6kAo0cbzvpTJuKukTildOKaQs+uwk
+X-Received: by 2002:adf:ed50:0:b0:48c:7caa:12cd with SMTP id ffacd0b85a97d-48dbaae379dmr21487148f8f.22.1791994843601;
+        Wed, 14 Oct 2026 09:20:43 -0700 (PDT)
+Received: from localhost.localdomain ([188.190.249.216])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de7273a0esm8545727f8f.29.2026.10.14.09.20.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 09:20:37 -0700 (PDT)
+From: Vladyslav Tymoshchuk <tvlad744@gmail.com>
+To: Birk Skyum <birk.skyum@pm.me>
+Cc: Vladyslav Tymoshchuk <tvlad744@gmail.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	linux-bluetooth@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] Bluetooth: hci_qca: Reset the in-band sleep state on power off
+Date: Wed, 14 Oct 2026 19:20:24 +0300
+Message-ID: <20261014162025.3733-1-tvlad744@gmail.com>
+X-Mailer: git-send-email 2.45.1.windows.1
+In-Reply-To: <179163212446.46972.2306254853726299632@pm.me>
+References: <179163212446.46972.2306254853726299632@pm.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] pinctrl: stm32: same-CPU starvation with HWLOCK_IN_ATOMIC on PREEM=
-PT_RT
---
+Hi Birk,
 
-commit 635cf6ace8c829d5e8fd3222bc79311f9ac07fc2
-Author: Ju Nan <junan76@163.com>
+On Sat, 10 Oct 2026 11:35:26 +0000, Birk Skyum wrote:
+> qca_power_off() cuts the power of the controller but leaves the host
+> side of the in-band sleep (IBS) protocol as it was. tx_ibs_state and
+> rx_ibs_state are initialised in qca_open() only, so a controller that
+> qca_setup() powers on again meets whatever state the last session ended
+> in.
 
-pinctrl: stm32: Fix the unit of the hwspinlock timeout
+I ran into the same bug from another side, on a OnePlus Pad 3 (SM8750,
+WCN7880 on UART at 8 Mbaud with IBS), and came to the same fix in the
+same place, so here is a second trigger and some test numbers.
 
-This commit updates the hardware spinlock timeout parameter passed to
-hwspin_lock_timeout_in_atomic(). It modifies the timeout constant name and
-changes its value from microseconds to milliseconds across the stm32 pinctrl
-driver to match the expected API units.
+The second trigger is HCI_IBS_TX_AWAKE rather than WAKING:
+qca_hci_shutdown() deletes the IBS timers and then sends the
+pre-shutdown command, which goes through qca_enqueue() and arms
+tx_idle_timer again for 2 s. If the device is opened again within those
+2 s, the host still believes the controller is awake and sends the
+frames after the new setup without an HCI_IBS_WAKE_IND, while the
+freshly booted controller starts asleep. The commands right after the
+setup get through, the first one after the controller has gone to sleep
+breaks the link:
 
-> diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.c b/drivers/pinctrl/stm3=
-2/pinctrl-stm32.c
-> --- a/drivers/pinctrl/stm32/pinctrl-stm32.c
-> +++ b/drivers/pinctrl/stm32/pinctrl-stm32.c
-[ ... ]
-> @@ -946,7 +946,7 @@ static int stm32_pmx_set_mode(struct stm32_gpio_bank =
-*bank,
-> =20
->  	if (pctl->hwlock) {
->  		err =3D hwspin_lock_timeout_in_atomic(pctl->hwlock,
-> -						    HWSPNLCK_TIMEOUT);
-> +						    HWSPNLCK_TIMEOUT_MS);
+  Bluetooth: hci0: Frame reassembly failed (-84)
+  Bluetooth: hci0: Opcode 0x0c56 failed: -110
+  Bluetooth: hci0: crash the soc to collect controller dump
 
-[Severity: High]
-Does calling hwspin_lock_timeout_in_atomic() here cause a same-CPU starvati=
-on
-issue on PREEMPT_RT?
+It shows up with "btmgmt power off" followed by "power on" within 2 s,
+and on every boot of a board without local-bd-address when user space
+sets the address with MGMT Set Public Address right after registration
+(the unconfigured controller is powered down after its setup and up
+again well within the 2 s). The stale idle timer can also queue an
+HCI_IBS_SLEEP_IND in the middle of the next setup, which is what
+df1e5c51492f was about.
 
-Because hwspin_lock_timeout_in_atomic() uses the HWLOCK_IN_ATOMIC mode,
-it implements the timeout by busy-waiting via udelay() and assumes preempti=
-on
-is disabled by the caller.
+> +	/* A controller that loses power is asleep when it comes back. */
+> +	timer_delete(&qca->wake_retrans_timer);
+> +	timer_delete(&qca->tx_idle_timer);
+> +	qca->tx_ibs_state = HCI_IBS_TX_ASLEEP;
+> +	qca->rx_ibs_state = HCI_IBS_RX_ASLEEP;
+>  	spin_unlock_irqrestore(&qca->hci_ibs_lock, flags);
 
-However, on PREEMPT_RT, spin_lock_irqsave(&bank->lock) acquires an rt_mutex
-which leaves preemption enabled.
+I agree with what the Sashiko review pointed out [1]: without _sync a
+timer callback that is already waiting for hci_ibs_lock still runs
+after the unlock, and ws_awake_device/ws_awake_rx can queue a wake
+indication after the reset. As both timer callbacks take hci_ibs_lock,
+the _sync variants have to be called outside of it. This is what I
+have been testing (on bluetooth-next):
 
-If thread A acquires pctl->hwlock and is preempted, and thread B on the
-same CPU subsequently acquires a different bank's lock and attempts to acqu=
-ire
-this shared pctl->hwlock, thread B will busy-wait.
+	/* From this point we go into power off state. But serial port may
+	 * still be open, stop queueing the IBS data.
+	 */
+	spin_lock_irqsave(&qca->hci_ibs_lock, flags);
+	set_bit(QCA_IBS_DISABLED, &qca->flags);
+	spin_unlock_irqrestore(&qca->hci_ibs_lock, flags);
 
-Since thread B loops in a busy-wait for the entire 1ms timeout, thread A is
-starved and cannot run to release the hardware lock, resulting in a guarant=
-eed
-spurious -ETIMEDOUT failure for thread B.
+	/* The controller loses the IBS state with its power and comes back
+	 * with both sides asleep, as qca_open() assumes. Stop the IBS work and
+	 * timers, drop what they queued and start over from there.
+	 */
+	cancel_work_sync(&qca->ws_awake_device);
+	cancel_work_sync(&qca->ws_awake_rx);
+	timer_delete_sync(&qca->wake_retrans_timer);
+	timer_delete_sync(&qca->tx_idle_timer);
 
->  		if (err) {
->  			dev_err(pctl->dev, "Can't get hwspinlock\n");
->  			goto unlock;
-[ ... ]
+	spin_lock_irqsave(&qca->hci_ibs_lock, flags);
+	qca_flush(hu);
+	qca->tx_ibs_state = HCI_IBS_TX_ASLEEP;
+	qca->rx_ibs_state = HCI_IBS_RX_ASLEEP;
+	spin_unlock_irqrestore(&qca->hci_ibs_lock, flags);
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014160917.1392=
-41-2-junan76@163.com?part=3D1
+All callers of qca_power_off() can sleep, and the work items do not
+call it, so there is no wait cycle. The flush moves after the waits,
+so it also drops what the work and the timers queued in the meantime.
+
+Sashiko also suggested Fixes: and Cc: stable, with df1e5c51492f. I
+would point Fixes: further back:
+
+Fixes: 3e4be65eb82c ("Bluetooth: hci_qca: Add poweroff support during hci down for wcn3990")
+Cc: stable@vger.kernel.org
+
+3e4be65eb82c is where the IBS state started to outlive the power of the
+controller; the AWAKE case exists since then, and df1e5c51492f made the
+WAKING case permanent. Mentioning the AWAKE trigger in the commit
+message would help too.
+
+Test numbers, five quick power cycles each (power on within 2 s of the
+power off, then a scan): 4 of 5 fail without the change, with commands
+timing out ("Opcode 0x2042 failed: -110"), and 0 of 5 with the code
+above. With it, user space also sets the address at boot without having
+to wait for the 2 s first, and it is now in the kernel I use on this
+tablet every day. I have not tried your v1 as posted; I expect it to
+cover my case as well most of the time, but I have only tested the form
+above.
+
+Would you fold this into a v2? I am happy to test it on this board and
+give my Tested-by there. If you would rather not, I can send it as a
+separate patch with your Reported-by, whichever you and the
+maintainers prefer.
+
+Thanks,
+Vladyslav
+
+[1] https://netdev-ai.bots.linux.dev/sashiko/#/patchset/179163212446.46972.2306254853726299632%40pm.me
+
+(I used an AI assistant, Claude, for the analysis and to draft this
+mail; the tests ran on my device.)
