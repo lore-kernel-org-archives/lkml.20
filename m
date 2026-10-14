@@ -1,123 +1,179 @@
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 015F6556BAA
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:19:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.182
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 70900556BBD
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:19:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791991188; cv=none; b=R138H9pDJzGeajGIDo33D3Wu7/WwPYFm/DcW4Vdf3Q51lvLCfwaagiM8+N+uBNHcZGQ0OGf0uDhh61r1zYKrHC/hmfM67yBZFTO5QRaeCj1dSxE/nSyHk17+lXWdYvRqwzyMH6xVhIlfs1faEcJKP8S9ZhzD4biNG1wawpVME0s=
+	t=1791991189; cv=none; b=HV0+vr174jY4uBaqTddtPyEY6FoXVgZb+3GpGn//44nogcWNVyoBGLshvCVViFPeeiUI/dPMjQnIRGEhpOE7oYgWiRFcle5qAnW0jZS2rl/wv+C76xX4KyrF5tRC5pDSn5Vm7xJHD2jLLM0bSnZaOkIZbvuYMY42TQ7WbVUpaPU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791991188; c=relaxed/simple;
-	bh=zZ4wrRNrUSlbAIRtWsrlzRF+70WmEZHyaWAMWVXvwfU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kgl3MqOWZdGvS491hK1TjrP2bW+ozEzhcc2a0Chm2BQMe+GHhAXQFR7zKKVbhgL9OSlZlvXhng9kVystqeLh6uyI9YrbjoepLzzNyNCP0xdGV7pmS2QdkEXX35dqLWGA6LuPSA74ePj3J6QX+cQ7ndcD7TWgqcqw1vfUeMIQ+o8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=S9URo2nF; arc=none smtp.client-ip=209.85.215.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1791991189; c=relaxed/simple;
+	bh=G2zxJe7GkogARtt1gntYhVDlCaUhHR/DtdzwRUUPBoU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UFMI4Je1QZp2bRu3F1ZTM25c9SaA8XyL43hdfddbBVErH9PRKgwhttDo7Oiu2YtRkb0BsGGV3sAP8VoPFFx3qlw4fmXQF+F1VeXaY1SiJgxiTY7zdlsZPgeeGdEg6wjM2ThlnpMSYPdmGVB2elgSJFSbS5aqWUme5h+IarDRQlM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ekmv/T98; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="S9URo2nF"
-Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cd6028ff33fso1667201a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:19:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791991186; x=1792595986; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Yt2lnf8MDVtM059brPwM3fIP69zsoLXWM8Qr1rtqseg=;
-        b=S9URo2nF+0CudypIdTX8NSiWbxYibg0NZRPOoDJ0CkmdEqJM2erLo8sQIKCivKxMeO
-         stSFfiQwn9ejRT1d0cSqePf5sxOJ8uHoamXflm++N8Y+Pny7l5n89jT8wfPBuZwkwRmG
-         UNzGGaf/+bnZT815K2gPa6HC9e1PcKdhxMj48qkIMaTqy9y1Mr36+ZuPZhYrtKrXDO8W
-         M+rG/D8MzJcCNLs6tzGG4W/cNVHAYCeqbB46P+nD8zxDpF2uA/OT6lolHRADuh5Yn/Jc
-         ls0S2DwgpdvgeulzUyufP0rU3h38ML6CTBJFPewN3O0xFLxDRilIQ2g64l9cPzDBJNhD
-         VLFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791991186; x=1792595986;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Yt2lnf8MDVtM059brPwM3fIP69zsoLXWM8Qr1rtqseg=;
-        b=2ovyePZSPirUM+R6/Uq74knZxgo71/+0+49XU8ZcvWRN52bNqBXT5uc1Z5hbAWp6jH
-         4t2/Zcsgc7U2Nez5KKH+2uDC/dJAzvehStz5s2k8dWvACT0D5nm/R6r8IgGdYJqhLf5O
-         cg24jd1tg77tsFbKsYHFgoBWfEtv0iqwiiPc5naeObzSFNxneGYB+LmBRULCV19E5E8N
-         2jD/EK3yxsiCe2P8NyT1IGjMTzh3CIOhkr+EypasgEbMrDece0ySYR9u3nItEe/K3rVD
-         he3acR81K77o/5WXfBKTQFSxcIZp3F2mrMes7knKEjMAiga41Ly8b+E62qMLhSDu13e1
-         VMlw==
-X-Forwarded-Encrypted: i=1; AKwUvByA76R0jcJdy0oZSNBRhxzmlSDhxLApXw+KED7FYEWE9zCa2TrU/KJQM2FK/P33xYl5hEYtkWOBsvaoOOI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLkoBNGkWyXHzgf6hq/gxt59pMbMZQNgqjvdRCYmkacM1vuOWCy
-	9MgUGhUddQq5AGdAWHhlXyFtaKHqyo4MkKl+p5ropzEXuIp0/RhrJftx5PRloSgub9c=
-X-Gm-Gg: AYBFou2KEZ7rXIgw5Z+UCs71vXIsnJKnriDcfWnAR3HGwrf1HSzU36HnzKuh2qE8NOF
-	bjj4Yf5+A2qEDIkWkzlaxbUv/FQEAS2qQf9WZ0tTXRTImWjc9TmzmgaApH0WSz6k+sIitKfwJTJ
-	IxFhCgvWG6m/J8fokJasj1Cd+XVBAGlG7mMgQbX4Yil6fECAXB1TTB85qXAUy11on9o6XcmltwK
-	g8cz8O8UWwegjqUKbG1mxCKBJpDNEkycogcGwwlETsXY4sPGBjmFr+PMwVOwPKtYfXa3tAaN3s1
-	/8OQSHOY76q3g/shkuyvVsgfqLegrpAQk28NEdmBNvvJUcEiyLWm5+JxRuK7hIy75xVGXtGCXer
-	7kvILuWh5AK9JvtP9Znql0QAomFczQ8mR/sVaJ4xmhMzcH8+++zaNNiWS2fnzFiLOk75HYyf7x+
-	IS9gt1fx3aT9gCgDLortErM068En/gHHc+0Pu/OWbgStz7aTwEiWpuKigCwEk8VU6mDF3Q9GCkq
-	5r0tTMitoe8kGfhek3ocMnd9AdiJflM
-X-Received: by 2002:a17:90b:574c:b0:3ac:83c1:2c0 with SMTP id 98e67ed59e1d1-3ac83c10467mr1056621a91.64.1791991186183;
-        Wed, 14 Oct 2026 08:19:46 -0700 (PDT)
-Received: from localhost.localdomain ([2406:5900:1044:110c:1c49:61ee:8c8:3f4c])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac8d40e7f3sm622450a91.5.2026.10.14.08.19.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 08:19:45 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: "Martin K . Petersen" <mkp@kernel.org>,
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	yhlee@isslab.korea.ac.kr
-Subject: [PATCH v5 6/6] scsi: mvumi: widen the flush cache loop counter
-Date: Thu, 15 Oct 2026 00:19:14 +0900
-Message-ID: <20261014151914.3632701-7-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261014151914.3632701-1-yhlee@isslab.korea.ac.kr>
-References: <20261014151914.3632701-1-yhlee@isslab.korea.ac.kr>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ekmv/T98"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3A90A1570;
+	Wed, 14 Oct 2026 08:19:41 -0700 (PDT)
+Received: from [10.164.19.62] (unknown [10.164.19.62])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B3D203F7B4;
+	Wed, 14 Oct 2026 08:19:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791991184; bh=G2zxJe7GkogARtt1gntYhVDlCaUhHR/DtdzwRUUPBoU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=ekmv/T98bpIvaHBhsd3Np8JFa4AXGh0U8naVNgmgRHhXbADZG08EVfjO+LBvGzXaW
+	 5HWbLznXThc2VrsN8RGBFCjQCcWCSFXQysQtIzsh84Fn6B6l7KGfLOUAQwQdnOBfeM
+	 PkWzuET0KheocgrkI7o5YrHPLaG0q34frAxnaCJw=
+Message-ID: <7b547b9b-3b30-4486-87ba-c9ff0e2dab56@arm.com>
+Date: Wed, 14 Oct 2026 20:49:36 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 2/5] mm/page_alloc: count a merged buddy's pages under
+ the merged type
+To: Rik van Riel <riel@surriel.com>, linux-kernel@vger.kernel.org
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Brendan Jackman <brendan.jackman@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+ Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>,
+ linux-mm@kvack.org
+References: <20261007021250.1665929-1-riel@surriel.com>
+ <20261007021250.1665929-3-riel@surriel.com>
+ <55f51fb8-9777-424a-b45f-a6a5bd9a4693@arm.com>
+ <038db2e68469e74077264a490e104391bdffe35e.camel@surriel.com>
+Content-Language: en-US
+From: Dev Jain <dev.jain@arm.com>
+In-Reply-To: <038db2e68469e74077264a490e104391bdffe35e.camel@surriel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-mvumi_flush_cache() walks the targets with an unsigned char counter while
-the bound it compares against, mhba->max_target_id, comes from the u16
-max_devices_support field of the firmware handshake page.  A controller
-reporting 256 or more devices makes the counter wrap back to zero before
-it ever reaches the bound, so the loop never ends.  mvumi_flush_cache()
-runs from the shutdown, suspend and remove paths, so the firmware can
-wedge any of them.
 
-Give the counter the type of the bound.  It is assigned to
-frame->device_id, a u16, so nothing truncates it again, and target_map
-holds round_up(max_target_id, 8) / 8 bytes, which covers every index the
-wider counter produces.  That last part needs the earlier patch in this
-series: without the reset check it adds, max_target_id can grow past the
-bitmap it was allocated for, and the wider counter would then walk further
-past it than the narrow one could.
 
-Fixes: f0c568a478f0 ("[SCSI] mvumi: Add Marvell UMI driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
----
- drivers/scsi/mvumi.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+On 14/10/26 7:57 pm, Rik van Riel wrote:
+> On Wed, 2026-10-14 at 19:46 +0530, Dev Jain wrote:
+>>
+>>
+>>> +++ b/mm/page_alloc.c
+>>> @@ -993,6 +993,11 @@ static inline void __free_one_page(struct page
+>>> *page,
+>>>  			account_freepages(zone, 1 << order,
+>>> migratetype);
+>>>  		} else {
+>>>  			__del_page_from_free_list(buddy, zone,
+>>> order, buddy_mt);
+>>> +			/* The buddy's free pages join the merged
+>>> block's type. */
+>>> +			if (unlikely(buddy_mt != migratetype)) {
+>>> +				account_freepages(zone, -(1 <<
+>>> order), buddy_mt);
+>>> +				account_freepages(zone, 1 <<
+>>> order, migratetype);
+>>> +			}
+>>>  		}
+>>>  
+>>
+>> MAX_PAGE_ORDER > pageblock_order confuses things so much : (
+> 
+> I'm not a fan, either. It trips me up every time.
+> 
+>>
+>> Sashiko raises something:
+>> https://sashiko.dev/#/patchset/20261007021250.1665929-1-riel%40surriel.com
+>>
+>> Although feels like it is exaggerating.
+> 
+> I suppose if we switch the two lines around, doing
+> the increment on migratetype before decrementing
+> buddy_mt we could avoid that transient underflow?
 
-diff --git a/drivers/scsi/mvumi.c b/drivers/scsi/mvumi.c
-index 07cfac9276e7b..090ae79ec8c3a 100644
---- a/drivers/scsi/mvumi.c
-+++ b/drivers/scsi/mvumi.c
-@@ -769,8 +769,9 @@ static unsigned char mvumi_flush_cache(struct mvumi_hba *mhba)
- {
- 	struct mvumi_cmd *cmd;
- 	struct mvumi_msg_frame *frame;
--	unsigned char device_id, retry = 0;
-+	unsigned char retry = 0;
- 	unsigned char bitcount = sizeof(unsigned char) * 8;
-+	unsigned short device_id;
- 
- 	for (device_id = 0; device_id < mhba->max_target_id; device_id++) {
- 		if (!(mhba->target_map[device_id / bitcount] &
--- 
-2.43.0
+That would become a transient overflow. See below.
+
+
+> 
+>>
+>> My concern is for systems with a high diff between MAX_PAGE_ORDER and
+>> pageblock_order. So on arm64 systems with 64K pagesize but pageblock
+>> size as 2M (and PMD size 512M), the pageblock order is 5. We use this
+>> configuration to reliably get TLB optimization from contpte size
+>> mappings.
+>>
+>> Will we then repeatedly overflow the pcpu counter into the zone
+>> counter,
+>> regressing stuff?
+> 
+> The per_cpu_pages struct does not seem to keep
+> counts on a per migratetype basis at all. It
+> has per migratetype lists, but only one
+> pcp->count.
+> 
+> Also doesn't the pcp only carry order zero
+> pages currently?
+> 
+> I don't really understand your worry.
+
+Sorry I was not talking about the pcp list (also, pcp carries
+order 0 till 3?)
+
+In __mod_zone_page_state, we use the per-cpu variable pcp->vm_stat_diff,
+and when it overflows or underflows past a pcp->stat_threshold, we
+push the diff to the global (zone) state.
+
+The reason we do so is to optimize by batching zone operations into
+per-cpu local operations.
+
+My concern is that for large delta, we will always overflow
+or underflow, defeating the purpose of the per-cpu caching.
+
+So on said arm64 systems, we may frequently enter your
+
+if (unlikely(buddy_mt != migratetype)
+
+branch, and if pcp->stat_threshold is not enough, we may repeatedly
+overflow and underflow, defeating this per-cpu optimization.
+
+> 
+>>
+>> Perhaps I am overthinking. Your approach is clean, but perhaps we
+>> could
+>> also do:
+>>
+>> void account_freepages_move(zone, order, buddy_mt, mt)
+>>
+>> 	/* PCP-types do not have per-migratetype free counts. */
+>> 	if (likely (buddy_mt < MIGRATE_PCPTYPES && mt <
+>> MIGRATE_PCPTYPES))
+>> 		return;
+> 
+> Wouldn't that throw off the counts when we merge
+> e.g. a MIGRATE_UNMOVABLE page with a MIGRATE_MOVABLE
+> buddy?
+> 
+
+As you said, in account_freepages(), there is currently
+no conditional based on MOVABLE and UNMOVABLE. So we
+are essentially doing -x and +x, netting to zero.
+
+So we could write my function, make it clear that currently
+this is not needed for the MIGRATE_PCPTYPES, as opposed
+to MIGRATE_CMA and MIGRATE_HIGHATOMIC which have separate
+accounting.
+
+> With your test we would only ever do the free count
+> adjustment for mismatched types if one of the pages
+> was HIGHATOMIC or CMA. That leaves the common case
+> without coverage.
+> 
 
