@@ -1,109 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 570E833556B;
-	Wed, 14 Oct 2026 09:32:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B6A33161A1;
+	Wed, 14 Oct 2026 09:32:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791970329; cv=none; b=ZhK18ZW8oO5elxzxejCW5ukzOeXgiSPH1bshfXf1hOb28pGLYiqzeUrqCTTznGHUzS83K+JfJeoJqFGA7RljlrwTsQWVSZmt1Kl3rs//slv0xGa/NChmKTlBzmxNkPgnkg4mbvTgYlnHLyhbfEvGpplK7/gECcuK9nafX9jMFS4=
+	t=1791970335; cv=none; b=BrFCv6eB50PLOfdb6r9A4rwQf7kc0UMjIB2f/BgAVR/EIiFWUCL6wI4kzzzSdYpd/rGglyJOoQ51b9ybhlMkCQdfefK2mfddaP9KEJXuKrQWyGezdsY1RZcCbRSI3rdF5aNn/EYhTXatQbU308vr6xQaaHhk3TymbCaOMubLPe4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791970329; c=relaxed/simple;
-	bh=J3ZibQyOt8EOgISnWGqIE2j058wGdTalEs7Qvrrjuo8=;
+	s=arc-20240116; t=1791970335; c=relaxed/simple;
+	bh=pQZS8sixfnxW/xgZ/NThWJhEgVuWc07d1+NYjfRnn0M=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kjhkCWas7WcmQe4M6tNUeqphb8I6Vgs0kcznxZ5AlSMMzPgs94b6aSZhurznaxDVybMmcAeKP66sdrM5/fmOLJKY201gGETbqsc+pzGNxBFor5DlWKWKcLIVBYOga4fC3SXxt6zlKkWCHHnLGOJWcvclOpfofdDWi/9GSCfpz1A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LrngTVa1; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=rlfncSlSDt/nggPv9ZD31Ah8HPBDL3Vjym0tdZ+VrwkeyGcBpuZuBJk+CQxHw0AvC59zL26X59oeW4AHH/Gdc2l+iiPqGGLgqgIsAKR+zVdI/eyh1Sb2nh3AaZNU7+RnRjM+QXaEUr3fu5O72eyobLAGfBGUmgoWyfRF3ldqXy4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=OqCNKzQA; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=ZihTNtwF; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LrngTVa1"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 589351F000FF;
-	Wed, 14 Oct 2026 09:32:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791970327;
-	bh=7k4L+XmcqaiR3rYth3e/iXoJ284HcXQrcyi4M9FtnVY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LrngTVa1jUTKYUsoYGUOMDX3+DwPxtZlRrBhAywQRS3C37zmj7O2UnvVUCd03yEJM
-	 VgbZp21hjpAmEC8cGNn4rTLy0bA3e36Kr8tkjL3ocu9F3hbOjLPoVS1X2zYde+w9u0
-	 xVE/Ie1Ew8mpcG/AkMcVaEPuRGzfGlus4EErsDdbIgPy5ew//yHSL/7iI2RFj6q/Ct
-	 zstX53fO+QP4r2hlVKtw/+g3ysfRR6NhWlN+e43F4ZWQCSepsHE3NXs7d2+kKkkr6w
-	 egw5ULdatf7EB6pHcuYb+hvCXeA2syNyi2mQZL3OAXhxQ/v8fHNotkLWLOp7kFo2gE
-	 CGsx+DYUPD4FA==
-Date: Wed, 14 Oct 2026 11:32:05 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	George Moussalem <george.moussalem@outlook.com>, linux-arm-msm@vger.kernel.org, linux-pwm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: pwm: add IPQ5210 binding
-Message-ID: <as9L8IEDMXuAYd4G@monoceros>
-References: <20261008-pwm-v1-1-0b8776398632@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="OqCNKzQA";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ZihTNtwF"
+Date: Wed, 14 Oct 2026 11:32:10 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1791970332;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YkeUl+VzxzT+DO0p6+vHrEGJtJq4KbQpmS3VwXfHTdw=;
+	b=OqCNKzQAWMvJeNNULaq7x0jAcxkLv6bx073o9Jh+hl8JcIVPflBJbxgdOvVsSU2IU75uBq
+	6mcQ38CnYn1ON7ZA1IxmDBt5EeMl1fSta1AgEe18L4/jyaZpMZYm4zZF2lInA/tWf/utmS
+	B3n4zwBtnXrUIi9IrGKSo9yoQsj26azJrimggsqi8owXm2lzLr8nnXc8e+sq6l7j/DsjN4
+	YbC7i3cx3+QmCtp9TpyqTEy4UHVxZBdc6eTZqodl78lkrYLJothmVHXShfHtuZl12o1otL
+	uhdBfI9eZk7NqVeIdlCcroZ+v7DVmE0vbxgi0XUCkn61W45+uiT6nCobHxYALA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1791970332;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YkeUl+VzxzT+DO0p6+vHrEGJtJq4KbQpmS3VwXfHTdw=;
+	b=ZihTNtwFJJdagTDMI+SVex5ythzRyICbOGf6cz08YyfmIBPUXf4nd0hZ1f15IY4XyQBR22
+	OW/MLFNDkbImAfAw==
+From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Sean Young <sean@mess.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] media: pwm-ir-tx: Correct timer calculation
+Message-ID: <20261014112806-018f69f0-f85a-4589-b80c-76936adfd5bf@linutronix.de>
+References: <20261014-media-rc-pwm-ir-tx-v1-1-1ae862427fd2@raspberrypi.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5vstc2aamyuvuzxl"
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20261008-pwm-v1-1-0b8776398632@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261014-media-rc-pwm-ir-tx-v1-1-1ae862427fd2@raspberrypi.com>
 
+On Wed, Oct 14, 2026 at 10:19:54AM +0100, Dave Stevenson wrote:
+> Commit 44d7fb8acdf8 ("media: pwm-ir-tx: Avoid direct access to
+> hrtimer clockbase") converted a loop conditional from
+>                now = timer->base->get_time();
+>        } while (hrtimer_get_expires_tv64(timer) < now);
+> to
+>        while (hrtimer_expires_remaining(timer) > 0);
+> 
+> hrtimer_expires_remaining returns (expires - now), so the
+> change has inverted the condition.
+> 
+> Convert back to follow the original pattern, but using the
+> proper API call.
+> 
+> Fixes: 44d7fb8acdf8 ("media: pwm-ir-tx: Avoid direct access to hrtimer clockbase")
+> Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 
---5vstc2aamyuvuzxl
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] dt-bindings: pwm: add IPQ5210 binding
-MIME-Version: 1.0
+Thanks!
 
-Hello,
+Cc: stable@vger.kernel.org
+Closes: https://github.com/raspberrypi/linux/issues/7678
+Reviewed-by: Thomas Weiﬂschuh <thomas.weissschuh@linutronix.de>
 
-On Thu, Oct 08, 2026 at 02:14:00PM +0530, Varadarajan Narayanan wrote:
-> Add DT binding for the PWM block in Qualcomm IPQ5210 SoC with
-> qcom,ipq6018-pwm as the fallback.
->=20
-> Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.=
-com>
+For the Cc stable see:
+https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html#option-1
+
 > ---
->  Documentation/devicetree/bindings/pwm/qcom,ipq6018-pwm.yaml | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/pwm/qcom,ipq6018-pwm.yaml =
-b/Documentation/devicetree/bindings/pwm/qcom,ipq6018-pwm.yaml
-> index f9f1f652e752..c6b9004dd30e 100644
-> --- a/Documentation/devicetree/bindings/pwm/qcom,ipq6018-pwm.yaml
-> +++ b/Documentation/devicetree/bindings/pwm/qcom,ipq6018-pwm.yaml
-> @@ -15,6 +15,7 @@ properties:
->        - items:
->            - enum:
->                - qcom,ipq5018-pwm
-> +              - qcom,ipq5210-pwm
->                - qcom,ipq5332-pwm
->                - qcom,ipq9574-pwm
->            - const: qcom,ipq6018-pwm
-
-applied to
-
-https://git.kernel.org/pub/scm/linux/kernel/git/ukleinek/linux.git pwm/for-=
-next
-
-as merge window material.
-
-Best regards
-Uwe
-
---5vstc2aamyuvuzxl
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrPTBMACgkQj4D7WH0S
-/k5qpwf/fYRYL3KOYtqsaTbKGMI1tnzLWBoRH7mNKKshjl7O8aGhSqyEk+8QZ6b2
-t8VaFB9Wo4Al5ZCp+q/3MUnwvR93/E5e0J8TNlFkw7sdY0/AeATU3w26c4vDXQde
-9cvZKItIV3wBQEsMPzciWh7APIQOWUjqSVgBw+HgR1w1p7tKbNc1kfrz3wYSbMjA
-xlXR9ryFpWCEAaNttRpFFIVPNe4ZNVSJ2QdS3e4ZGSIgpLADvSzlAkJF8PMCMsaK
-G78MfgR4qlKgmFq534xCvI0SUbqYPcwsGQprvwUIoiXjfGAtkOFuKPGeAR4yekfl
-WCha/w3q1GUFE3B3fOS84Ks675jsOA==
-=Y704
------END PGP SIGNATURE-----
-
---5vstc2aamyuvuzxl--
+> Reported via https://github.com/raspberrypi/linux/issues/7678
+> ---
+>  drivers/media/rc/pwm-ir-tx.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/media/rc/pwm-ir-tx.c b/drivers/media/rc/pwm-ir-tx.c
+> index 047472dc9244..bffdda489950 100644
+> --- a/drivers/media/rc/pwm-ir-tx.c
+> +++ b/drivers/media/rc/pwm-ir-tx.c
+> @@ -138,7 +138,7 @@ static enum hrtimer_restart pwm_ir_timer(struct hrtimer *timer)
+>  		hrtimer_add_expires_ns(timer, ns);
+>  
+>  		pwm_ir->txbuf_index++;
+> -	} while (hrtimer_expires_remaining(timer) > 0);
+> +	} while (hrtimer_get_expires(timer) < hrtimer_cb_get_time(timer));
+>  
+>  	return HRTIMER_RESTART;
+>  }
+> 
+> ---
+> base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
+> change-id: 20261013-media-rc-pwm-ir-tx-971c2ae8cf53
+> 
+> Best regards,
+> -- 
+> Dave Stevenson <dave.stevenson@raspberrypi.com>
+> 
