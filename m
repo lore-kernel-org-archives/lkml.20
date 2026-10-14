@@ -1,609 +1,300 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-161.mta0.migadu.com [91.218.175.161])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F5A855C314;
-	Wed, 14 Oct 2026 15:44:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791992688; cv=pass; b=kPyXa5xVsFR3FQXQaUiW2vh415PJWNHwbzJcoTFVaLUal64EXgF3LuFikXMGy7Exbs0Tmrk1rTjI8LeC4t/RNEQpOaGsMoTHqqlbBbnLLkRiF4XIqvkoIYNqD00sbJBXwb1p1r3PjrFQkbt6mJceJIcBP00DI7w8YGwfNDYrGPs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791992688; c=relaxed/simple;
-	bh=waHwM96mq5sCn+gi+sCE/41KY5T1kztHYAG3OST75H4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tWSh1IWmSulFJ7qVXklwAKhzRO+lg4xPDQMhHWBqoiSztR/DuBbp94zKzedJ044yvx5PmQ6lQKwUXhKu33N+CC5EWMlSYVDIl8Gs5jsCotrZR4TAhE05TlJ67kIWOs4xo0ospQrgHHPegvhNJCgc0tHwf6Vd5u2riUMQCH/KQPY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=HKPXYXVc; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 055EC562619
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:44:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.161
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791992691; cv=none; b=OWoZQqNvhpDqwbY24TnN90KtSRSTqsy5NuMqzOrL6J9YaBgqe8FfGvTTKXmitgGLxB9g+4lKCjYY8Ho226Gw2k99pgELFdb8O088/SMBX9ujCTQXbAVKppJ93Ls5FB+VJR5N5lXgyzlDOpMN9FfV6eptUrlK3+u+gz/oif1WGj8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791992691; c=relaxed/simple;
+	bh=IWz8TrA14wXCf8RgDJH9LfVZ/eamPEvc/gsSPc9D0Bo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YJgUID8fruIkJaepShVJzcx/FiUuuxdx3DxjHxKf6S36YTpkuo7CjXx8jpwbGtalNvz3JXMYqusfSEoEBrkvXDtuE0zxf97ayoQMabMvaDMpG2ePRL4LFG7QjPjxSJQSm68pD0BBdm79oSP1YDLd6u4hOCAW8OtAzMN1WeFEwEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=fyHfYF9H; arc=none smtp.client-ip=91.218.175.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="HKPXYXVc"
-Received: from dude04.red.stw.pengutronix.de (dude04.red.stw.4.pengutronix.de [10.17.1.12])
-	(Authenticated sender: relay-from-dude04.red.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 3C57B202342;
-	Wed, 14 Oct 2026 17:44:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1791992677;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PRmPDnhHFa8lI44IyLRucBBaF4qSYEKhBLI39YR4Its=;
-	b=HKPXYXVc2W3YByoBFyEGaK9XwJgkkj1XktnIZS3no2l6BW8AMs+XG1Y+18NhYPJDgAqm3r
-	Omk/lK6NGWXQD92Dg8xm6CcRQbRT6zVQun1IfE6WkdJSASxC1jtcc5HEQePdHo6RDezNG0
-	UUfdp5c5ekHnU2ITNpjdsayXKmfmVnAFThBVPfIAMkT5Okg6gDXpZs1F+f9zC9xwUDpYMR
-	p3duaBjcidZ1R4Lu48S5U/yIbSkM/O2xfJZ1wQwjIEDvcO52OSWhgb/Lp0peQ0R2ig6Vu5
-	6KAqBOABlAT4V65IGC4+21nILIonwNg0oPt3GluYxjoLghHBT+fLJTJG4vVFQQ==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1791992677; a=rsa-sha256;
-	cv=none;
-	b=VtoXHEUXZgWnryuGGszivryaxqGZ/LI2Q+mOsjlXvQ5Q2WxYZXmWR+B4UGtAUVQQkRjPTG
-	ObkjiNSbC1gbhujCKjisnRMk+TY6nr0PYxtTSWc0GWU5+rsbWh6PyrYH1INlwwgdqq1VoR
-	E0WdSrbiS0G7HJCu6l8PWW+gcTY7ZFnSpb/KsJc9lRnr0QE7jj3grylWDMzJ93zydMmKpH
-	iz1wDcYVYl4EYgaQ9Jp5onMwn7dmSOlKGxd3ZcnMcl8La46q8XShE/s8rpDiybmIM2Ay32
-	i+0jHkLQidvldygu0rcMdUW4Elfq8lUDaUi2DO4ewg8aQvqC51TKFoEFc9FsdQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-dude04.red.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1791992677;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PRmPDnhHFa8lI44IyLRucBBaF4qSYEKhBLI39YR4Its=;
-	b=PKhLVGJaAysGG5uSl3NxZ9JbOwUyhSV0XvtriboSjSsWEfDC/rG1m3aklnweReU97svHzx
-	rxkYWETM18zUtFeRqxV79Hkdr+0BmhlitEgb5CTFB0+1s4B9QnMUd2RTAaICSu6jg03lub
-	u+jpzuwufcDWC9NIARvdwDwAIi4SaPVcWpD9stAkrf6CGYu99lFROD839pBC9a0dvdfzpz
-	Y1RS4wIGZzCICu3fu++cWzn2dEzaCgGC9kUWqjYS/O9WTfQwb4IteImInpjW3x+32Iu757
-	GhCmG5lTTNbLpeJq3GtUti85MrZOrHz1HOITwEl4cIA+jBVgn9WWKYEOi84rbg==
-Received: by dude04.red.stw.pengutronix.de (Postfix, from userid 1058)
-	id 2179938925F; Wed, 14 Oct 2026 17:44:37 +0200 (CEST)
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-To: Robin van der Gracht <robin@protonic.nl>,
-	Oliver Hartkopp <socketcan@hartkopp.net>,
-	Marc Kleine-Budde <mkl@pengutronix.de>,
-	Shuah Khan <shuah@kernel.org>
-Cc: Oleksij Rempel <o.rempel@pengutronix.de>,
-	kernel@pengutronix.de,
-	linux-can@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	=?UTF-8?q?Alexander=20H=C3=B6lzl?= <alexander.hoelzl@gmx.net>,
-	Quchaosheng <quchaosheng000406@163.com>,
-	Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-Subject: [PATCH can-next v1 6/8] selftests: can: add J1939 TP/ETP multi-frame tests against CAN_RAW
-Date: Wed, 14 Oct 2026 17:44:32 +0200
-Message-ID: <20261014154435.3577983-7-o.rempel@pengutronix.de>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261014154435.3577983-1-o.rempel@pengutronix.de>
-References: <20261014154435.3577983-1-o.rempel@pengutronix.de>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="fyHfYF9H"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=IWz8TrA14wXCf8RgDJH9LfVZ/eamPEvc/gsSPc9D0Bo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791992686; v=1; x=1792597486;
+ b=fyHfYF9HnChCb6/0k2VjEefs6pLGzzdYX3jaYS7wCIxRvKNz3VOSjXq5e6aCp6lTnLWuXDJp
+ 4WsKBn7S6wlen5GF+AcMNHubAMsH9lqQBtwMUdwZJMSqNOg3xJ+/ots1ipSenUeyfZqGcCaa4IP
+ 15hFAk7XGU91PIxss8lOo1xs=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id e2f26255d9a7fbec;
+	Wed, 14 Oct 2026 15:44:46 +0000
+X-Mizu-Trace-ID: e2f26255d9a7fbec
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 14 Oct 2026 23:44:38 +0800
+From: Baoquan He <baoquan.he@linux.dev>
+To: Klara Modin <klarasmodin@gmail.com>
+Cc: Baoquan He <hebaoquan@kylinos.cn>, linux-mm@kvack.org,
+	akpm@linux-foundation.org, chrisl@kernel.org, kasong@tencent.com,
+	hannes@cmpxchg.org, nphamcs@gmail.com, baohua@kernel.org,
+	youngjun.park@lge.com, yosry@kernel.org, shikemeng@huaweicloud.com,
+	chengming.zhou@linux.dev, david@kernel.org,
+	linux-kernel@vger.kernel.org, kunwu.chan@gmail.com
+Subject: Re: [PATCH v4 00/14] mm, swap: extendable swap devices (xswap phase
+ I)
+Message-ID: <as-jZpQBQ9mMNqlH@fedora>
+References: <20261003003136.750633-1-hebaoquan@kylinos.cn>
+ <asZt7-8mcxqc1a02@soda.int.kasm.eu>
+ <asylV5YyyaHs8rP3@fedora>
+ <aszb4OgUUCh5JHle@soda.int.kasm.eu>
+ <as4F9wxsMwNsg5_R@fedora>
+ <as4gb7BdnFffV4SI@parmesan.int.kasm.eu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <as4gb7BdnFffV4SI@parmesan.int.kasm.eu>
 
-Add multi-frame transport tests that pair a J1939 socket with a CAN_RAW
-peer. They drive the Transport Protocol (TP) and Extended Transport
-Protocol (ETP) round-trips in both directions. The raw peer answers the
-kernel's RTS/CTS/DPO sequencing, and the reassembled payload is checked
-byte for byte.
+On 10/13/26 at 04:26pm, Klara Modin wrote:
+> Hi Baoquan,
+> 
+> On 2026-10-13 18:20:39 +0800, Baoquan He wrote:
+> > On 10/12/26 at 04:10pm, Klara Modin wrote:
+> > > Hi Baoquan,
+> > > 
+> > > On 2026-10-12 17:16:22 +0800, Baoquan He wrote:
+> ...
+> > > > 
+> > > > Thanks for the comment.
+> > > > 
+> > > > Here xswap.max= is a global boot parameter, while not a per-device or
+> > > > runtie knob. It sets the space space (si->max) of the xswap device
+> > > > at boot and can't change at runtime. So on the two places: the size is
+> > > > a global setting, fixed at boot; the priority is per device, it is in
+> > > > the create interface. They are different things.
+> > > > 
+> > > > The default is 2xRAM. From our earlier discussion, this is the largest
+> > > > size we think is sensible, and in practice I don't think it is not
+> > > > reachable in reality. If a system has swapped out 70% of its memory, and
+> > > > even more at 100%, it is already doubtful that it can still function
+> > > > normally. So 2xRAM is an upper bound, not a target.
+> > > 
+> > > I'm just not sure this is the case. An application could have a
+> > > relatively small working set but a much larger amount of cold memory it
+> > > rarely touches. In my GCC 17 example, I saw even greater ratios later in
+> > > the build process. This is from your previous xswap version where I got
+> > > around the 2x RAM limit by using multiple xswap devices:
+> > > 
+> > > MemTotal:        3966828 kB
+> > > SwapCached:          868 kB
+> > > SwapTotal:      80232412 kB
+> > > SwapFree:       69467760 kB
+> > > Zswap:            792048 kB
+> > > Zswapped:        6342024 kB
+> > > AnonPages:       2072820 kB
+> > > AnonHugePages:      4096 kB
+> > > 
+> > > This is almost 160 % of RAM in zswap and is getting close to the limit
+> > > in practice.
+> > 
+> > OK, thanks a lot for the concrete testing data. It truly is reaching
+> > almost 160% of RAM. However, it's a little different than David's Windows
+> > VMs case. In that case, those VMs's memory could be touched and swapped in
+> > in a distant future. While in your GCC build process, it's running and
+> > costing memory, with 160% of RAM in zswap, it was probably close to
+> > hanging? Wondering how long would it take to finish the build process,
+> > and how long it would take to finish the build proces with e.g 20% RAM
+> > swapped out.
+> 
+> Might be close to hanging, I don't know, but it's definitely under quite the
+> memory pressure (only two AnonHugePages, implying either very fragmented
+> or that they are split after allocation). Worth to note is that it hits
+> the zswap default limit of 20 percent of memory for the compressed pool.
 
-The ETP payload spans several 255-packet blocks. In the receive
-direction, the test checks the kernel-emitted EOMA on the wire (command
-and size, plus the packet count for TP). In the transmit direction the
-kernel sends the RTS, so the test also checks its ETP RTS message-size
-field.
+I see. If so, it may not be a real use case, but only a corner case within
+an experimental environment. Because in that situation it's hard to say
+the system is still functioning normally.
 
-Assisted-by: LLM
-Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
----
- tools/testing/selftests/net/can/.gitignore    |   1 +
- tools/testing/selftests/net/can/Makefile      |   2 +
- .../selftests/net/can/test_j1939_multi.c      | 453 ++++++++++++++++++
- .../selftests/net/can/test_j1939_multi.sh     |   5 +
- 4 files changed, 461 insertions(+)
- create mode 100644 tools/testing/selftests/net/can/test_j1939_multi.c
- create mode 100755 tools/testing/selftests/net/can/test_j1939_multi.sh
+> 
+> > 
+> > > 
+> > > In addition, if I read your writeback series correctly, if data from
+> > > xswap is written back to a block device, the space of the written back
+> > > data cannot be reused in the xswap device (please correct me if I am
+> > 
+> > Yes, you are right. xswap slot need record which backend slot stores its
+> > data, so xswap slot can't be reused in this case.
+> > 
+> > > wrong). For low memory systems, I frequently set aside a lot more swap
+> > > than they have memory. If I do not grow the xswap address space size, I
+> > > could risk it getting full if enough of the block-based swap is used.
+> > 
+> > Got it. Even with normal swap devices, 50% full will trigger swap
+> > reclaiming. 
+> > 
+> > /* Swap 50% full? Release swapcache more aggressively.. */
+> > static inline bool vm_swap_full(void)
+> > {       
+> >         return atomic_long_read(&nr_swap_pages) * 2 < total_swap_pages;
+> > }
+> > 
+> > > 
+> > > Looking at the example again, about 10 GiB of swap is reported as used,
+> > > but some of that is being reported twice (once through xswap and once
+> > > through the backing device) due to being written back (which I still
+> > > think is not so great). In this case, the system has 16 GiB of
+> > > block-based swap, meaning that the default limit would leave the xswap
+> > > device full if even half of it is used through writeback. If I would
+> > > only have a single default-sized xswap device in this example I would
+> > > likely have hit this in practice.
+> > 
+> > I see, so a larger swap space of xswap is expected in this case.
+> 
+> Yes, due to the writeback still needing the slot in xswap I would never
+> want to have less xswap than block-based swap.
+> 
+> Ideally, I would like to not have to take the amount of block-based
+> swap into account when enabling xswap/vswap. A very high default limit
+> would be one way to solve it. Another option could be to automatically
+> create an xswap device with a size equal to the block-based swap device
+> (maybe a mount option?) on swapon, but this feels kind of like a hack to
+> me.
 
-diff --git a/tools/testing/selftests/net/can/.gitignore b/tools/testing/selftests/net/can/.gitignore
-index 3f31fa5b7438..b6bf4c613ba3 100644
---- a/tools/testing/selftests/net/can/.gitignore
-+++ b/tools/testing/selftests/net/can/.gitignore
-@@ -4,3 +4,4 @@ test_j1939_base
- test_j1939_opts
- test_j1939_addr
- test_j1939_wire
-+test_j1939_multi
-diff --git a/tools/testing/selftests/net/can/Makefile b/tools/testing/selftests/net/can/Makefile
-index d80fa114a0cd..559cca255875 100644
---- a/tools/testing/selftests/net/can/Makefile
-+++ b/tools/testing/selftests/net/can/Makefile
-@@ -12,6 +12,7 @@ TEST_PROGS := \
- 	test_j1939_opts.sh \
- 	test_j1939_addr.sh \
- 	test_j1939_wire.sh \
-+	test_j1939_multi.sh \
- 
- TEST_FILES := j1939_lib.sh
- 
-@@ -21,5 +22,6 @@ TEST_GEN_FILES := \
- 	test_j1939_opts \
- 	test_j1939_addr \
- 	test_j1939_wire \
-+	test_j1939_multi \
- 
- include ../../lib.mk
-diff --git a/tools/testing/selftests/net/can/test_j1939_multi.c b/tools/testing/selftests/net/can/test_j1939_multi.c
-new file mode 100644
-index 000000000000..1f27ee58f48c
---- /dev/null
-+++ b/tools/testing/selftests/net/can/test_j1939_multi.c
-@@ -0,0 +1,453 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
-+/*
-+ * J1939 multi-frame wire selftests: TP and ETP against CAN_RAW.
-+ *
-+ * A CAN_RAW socket plays the transport peer and drives the full handshake
-+ * against the kernel J1939 stack over the wire, in both directions: for TP the
-+ * raw side answers RTS/CTS and exchanges DT frames with EOMA; ETP does the same
-+ * with a payload spanning several CTS blocks (DPO windows).
-+ *
-+ * The vcan interface is set up by the caller (see test_j1939_multi.sh); its name
-+ * is passed via the CANIF environment variable.
-+ */
-+#include <errno.h>
-+
-+#include "kselftest_harness.h"
-+#include "j1939_tests.h"
-+
-+#define SA_LOCAL		0x90	/* the J1939 socket under test */
-+#define SA_PEER			0x20	/* the CAN_RAW transport peer */
-+#define PGN_DATA		0x0feef	/* transported message PGN */
-+/*
-+ * Priority for frames this test injects as the CAN_RAW peer; the stack
-+ * does not check it. SAE J1939-21:2001 lists 7 as the TP.CM/TP.DT
-+ * default; the kernel defaults its own J1939 TX to 6 (J1939_PRIO_DEFAULT).
-+ */
-+#define PRIO			7
-+
-+#define TP_CTL			0x0ec00
-+#define TP_DAT			0x0eb00
-+#define ETP_CTL			0x0c800
-+#define ETP_DAT			0x0c700
-+
-+#define TP_CMD_RTS		0x10
-+#define TP_CMD_CTS		0x11
-+#define TP_CMD_EOMA		0x13
-+#define TP_CMD_ABORT		0xff
-+#define ETP_CMD_RTS		0x14
-+#define ETP_CMD_CTS		0x15
-+#define ETP_CMD_DPO		0x16
-+#define ETP_CMD_EOMA		0x17
-+
-+#define TP_SIZE			200
-+#define ETP_SIZE		6000		/* > TP max 1785 (255*7); several blocks */
-+
-+FIXTURE(j1939_multi)
-+{
-+	int ifindex;
-+	int j1939;
-+	int raw;
-+};
-+
-+FIXTURE_SETUP(j1939_multi)
-+{
-+	self->j1939 = -1;
-+	self->raw = -1;
-+
-+	J1939_SETUP_IFINDEX(self);
-+
-+	J1939_SETUP_RAW(self, J1939_RAW_BIG_RCVBUF);
-+}
-+
-+FIXTURE_TEARDOWN(j1939_multi)
-+{
-+	if (self->j1939 >= 0)
-+		close(self->j1939);
-+	if (self->raw >= 0)
-+		close(self->raw);
-+}
-+
-+/*
-+ * Finish a TP/ETP control frame by embedding its data PGN and sending it on the
-+ * control PGN. dat must already hold the command and its command-specific bytes.
-+ */
-+static int send_ctl_frame(int raw, uint8_t prio, pgn_t ctl_pgn, uint8_t da,
-+			  uint8_t sa, uint8_t *dat, pgn_t data_pgn)
-+{
-+	put_pgn(dat, data_pgn);
-+	return send_raw8(raw, prio, ctl_pgn, da, sa, dat);
-+}
-+
-+/* Build and send a TP.CM_RTS: message size, total packets and max packets/CTS. */
-+static int send_tp_rts(int raw, uint8_t prio, pgn_t pgn, uint8_t da, uint8_t sa,
-+		       uint16_t size, uint8_t total_pkts, uint8_t max_cts_pkts)
-+{
-+	uint8_t dat[8];
-+
-+	ctl_dat_init(dat, TP_CMD_RTS);
-+	put_le16(&dat[1], size);
-+	dat[3] = total_pkts;
-+	dat[4] = max_cts_pkts;
-+	return send_ctl_frame(raw, prio, TP_CTL, da, sa, dat, pgn);
-+}
-+
-+/*
-+ * Send a burst of @count DT frames for the block starting at the 1-based packet
-+ * @next, each carrying 7 payload bytes from the matching absolute offset. The DT
-+ * sequence byte differs by protocol: TP numbers packets absolutely across the
-+ * whole message, ETP numbers them 1-based within each DPO block (@seq_relative
-+ * selects the latter). Returns 0 on success, -1 on error.
-+ */
-+static int send_dt_burst(int raw, uint8_t prio, pgn_t dat_pgn, uint8_t da,
-+			 uint8_t sa, unsigned int next, unsigned int count,
-+			 const uint8_t *payload, size_t size, bool seq_relative)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < count; i++) {
-+		unsigned int abs_pkt = (next - 1) + i;
-+		uint8_t seq = seq_relative ? (i + 1) : (abs_pkt + 1);
-+
-+		if (send_dt(raw, prio, dat_pgn, da, sa, seq, payload,
-+			    (size_t)abs_pkt * 7, size))
-+			return -1;
-+	}
-+	return 0;
-+}
-+
-+/*
-+ * Answer each kernel CTS with its DT burst until num_pkts are delivered.
-+ * Returns the largest CTS packet count the kernel requested, or -1 on error.
-+ */
-+static int tp_serve_cts(int raw, uint8_t prio, uint8_t da, uint8_t sa,
-+			const uint8_t *payload, size_t size, unsigned int num_pkts)
-+{
-+	unsigned int sent = 0, max_want = 0;
-+	struct can_frame frame;
-+
-+	while (sent < num_pkts) {
-+		unsigned int want, next;
-+
-+		if (recv_ctl_cmd(raw, J1939_PF(TP_CTL), sa, &frame,
-+				 J1939_RECV_TIMEOUT_MS, TP_CMD_CTS))
-+			return -1;
-+		want = frame.data[1];
-+		next = frame.data[2];		/* 1-based packet number */
-+		if (want > max_want)
-+			max_want = want;
-+		if (send_dt_burst(raw, prio, TP_DAT, da, sa, next, want,
-+				  payload, size, false))
-+			return -1;
-+		sent = next - 1 + want;
-+	}
-+	return (int)max_want;
-+}
-+
-+/*
-+ * Scatter a received DT frame's payload into buf at the offset implied by its
-+ * sequence number. base_pkt is the 0-based absolute packet the 1-based seq is
-+ * relative to (0 for TP, the DPO offset for ETP).
-+ */
-+static void unpack_dt_into(uint8_t *buf, size_t total, unsigned int base_pkt,
-+			   const struct can_frame *frame)
-+{
-+	unsigned int abs_pkt = base_pkt + (frame->data[0] - 1);
-+	size_t off = (size_t)abs_pkt * 7;
-+	size_t n;
-+
-+	/*
-+	 * A bogus sequence number (e.g. data[0] == 0 wrapping abs_pkt) can put
-+	 * off past the buffer; total - off would then underflow size_t into a
-+	 * huge length. Drop such frames instead of overrunning buf.
-+	 */
-+	if (off >= total)
-+		return;
-+	n = total - off;
-+	if (n > 7)
-+		n = 7;
-+	memcpy(buf + off, &frame->data[1], n);
-+}
-+
-+/* Open a TP RX j1939 socket and send the RTS that starts a receive session. */
-+static int tp_rx_open_and_send_rts(int *j1939, int raw, int ifindex,
-+				   unsigned int num_pkts,
-+				   unsigned int max_cts_pkts)
-+{
-+	*j1939 = j1939_open(ifindex, SA_LOCAL, PGN_DATA);
-+	if (*j1939 < 0)
-+		return -1;
-+	return send_tp_rts(raw, PRIO, PGN_DATA, SA_LOCAL, SA_PEER, TP_SIZE,
-+			   num_pkts, max_cts_pkts);
-+}
-+
-+/*
-+ * Shared TP-RX round-trip: open the j1939 socket, drive a full TP receive from
-+ * the raw peer advertising max_cts_pkts per CTS, and verify the reassembled
-+ * payload against the sent pattern. The kernel's largest single-CTS packet
-+ * request is returned via *max_want_out and its EOMA frame via *eoma_out, so
-+ * each caller can assert the specific property it cares about. ASSERT_* cannot
-+ * be used here (the harness jump target lives in the TEST body), so failures
-+ * are reported through the return value. Returns 0 on success, -1 otherwise.
-+ */
-+static int tp_rx_roundtrip(FIXTURE_DATA(j1939_multi) *self,
-+			   unsigned int max_cts_pkts, int *max_want_out,
-+			   struct can_frame *eoma_out)
-+{
-+	uint8_t payload[TP_SIZE], rx_buf[TP_SIZE];
-+	unsigned int num_pkts = J1939_NUM_PKTS(TP_SIZE);
-+	int max_want;
-+
-+	fill_pattern(payload, sizeof(payload));
-+
-+	if (tp_rx_open_and_send_rts(&self->j1939, self->raw, self->ifindex,
-+				    num_pkts, max_cts_pkts))
-+		return -1;
-+
-+	max_want = tp_serve_cts(self->raw, PRIO, SA_LOCAL, SA_PEER,
-+				payload, TP_SIZE, num_pkts);
-+	if (max_want < 0)
-+		return -1;
-+	*max_want_out = max_want;
-+
-+	if (recv_ctl_cmd(self->raw, J1939_PF(TP_CTL), SA_PEER, eoma_out,
-+			 J1939_RECV_TIMEOUT_MS, TP_CMD_EOMA))
-+		return -1;
-+
-+	if (recv_timeout(self->j1939, rx_buf, sizeof(rx_buf),
-+			 J1939_RECV_TIMEOUT_MS) != (int)sizeof(rx_buf))
-+		return -1;
-+	if (memcmp(payload, rx_buf, sizeof(payload)) != 0)
-+		return -1;
-+
-+	return 0;
-+}
-+
-+/*
-+ * TP RX: the CAN_RAW peer transmits a TP message to the J1939 socket.
-+ * raw sends RTS, then answers each CTS from the kernel with DT frames.
-+ */
-+TEST_F(j1939_multi, tp_rx_from_raw)
-+{
-+	unsigned int num_pkts = J1939_NUM_PKTS(TP_SIZE);
-+	struct can_frame frame;
-+	int max_want;
-+
-+	ASSERT_EQ(tp_rx_roundtrip(self, num_pkts, &max_want, &frame), 0)
-+		TH_LOG("TP RX round-trip against the raw peer failed");
-+
-+	/*
-+	 * The kernel (TP receiver) must acknowledge with a well-formed EOMA on
-+	 * the wire: command, the 16-bit message size and the total packet count.
-+	 */
-+	EXPECT_EQ(get_le16(&frame.data[1]), TP_SIZE);
-+	EXPECT_EQ(frame.data[3], num_pkts);
-+}
-+
-+/*
-+ * Start a TP/ETP transmit session from the J1939 socket: open an unbound
-+ * socket, connect to the peer, send the payload and collect the kernel's RTS
-+ * from the raw peer (ctl_pf/rts_cmd select TP or ETP). *j1939 is set even on
-+ * open failure so the fixture teardown can close it. Returns 0 on success, -1
-+ * otherwise; the caller ASSERTs the result.
-+ */
-+static int tx_start_session(int *j1939, int ifindex, const void *payload,
-+			    size_t len, int raw, uint8_t ctl_pf,
-+			    uint8_t rts_cmd, struct can_frame *rts)
-+{
-+	*j1939 = j1939_open(ifindex, SA_LOCAL, J1939_NO_PGN);
-+	if (*j1939 < 0)
-+		return -1;
-+	if (j1939_connect(*j1939, ifindex, SA_PEER, PGN_DATA))
-+		return -1;
-+	if (send(*j1939, payload, len, 0) != (ssize_t)len)
-+		return -1;
-+	return recv_ctl_cmd(raw, ctl_pf, SA_PEER, rts,
-+			    J1939_RECV_TIMEOUT_MS, rts_cmd);
-+}
-+
-+/*
-+ * TP TX: the J1939 socket transmits a TP message to the CAN_RAW peer.
-+ * raw answers the kernel's RTS with a CTS, collects the DT frames and
-+ * acknowledges with EOMA.
-+ */
-+TEST_F(j1939_multi, tp_tx_to_raw)
-+{
-+	uint8_t payload[TP_SIZE], rx_buf[TP_SIZE];
-+	unsigned int num_pkts = J1939_NUM_PKTS(TP_SIZE);
-+	struct can_frame frame;
-+	uint8_t dat[8];
-+	unsigned int got = 0;
-+
-+	fill_pattern(payload, sizeof(payload));
-+	memset(rx_buf, 0, sizeof(rx_buf));
-+
-+	ASSERT_EQ(tx_start_session(&self->j1939, self->ifindex, payload,
-+				   sizeof(payload), self->raw, J1939_PF(TP_CTL),
-+				   TP_CMD_RTS, &frame), 0);
-+	/* The kernel's TP RTS must carry the message size and packet count. */
-+	EXPECT_EQ(get_le16(&frame.data[1]), TP_SIZE);
-+	EXPECT_EQ(frame.data[3], num_pkts);
-+
-+	/* request all packets in one CTS */
-+	ctl_dat_init(dat, TP_CMD_CTS);
-+	dat[1] = num_pkts;
-+	dat[2] = 1;
-+	ASSERT_EQ(send_ctl_frame(self->raw, PRIO, TP_CTL, SA_LOCAL, SA_PEER,
-+				 dat, PGN_DATA), 0);
-+
-+	while (got < num_pkts) {
-+		ASSERT_EQ(recv_for_peer(self->raw, J1939_PF(TP_DAT), SA_PEER, &frame,
-+					J1939_RECV_TIMEOUT_MS), 0)
-+			TH_LOG("missing DT after %u/%u packets", got, num_pkts);
-+		unpack_dt_into(rx_buf, TP_SIZE, 0, &frame);
-+		got++;
-+	}
-+
-+	/* acknowledge with EOMA */
-+	ctl_dat_init(dat, TP_CMD_EOMA);
-+	put_le16(&dat[1], TP_SIZE);
-+	dat[3] = num_pkts;
-+	ASSERT_EQ(send_ctl_frame(self->raw, PRIO, TP_CTL, SA_LOCAL, SA_PEER,
-+				 dat, PGN_DATA), 0);
-+
-+	EXPECT_EQ(memcmp(payload, rx_buf, sizeof(payload)), 0);
-+}
-+
-+/*
-+ * ETP RX: the CAN_RAW peer transmits an ETP message to the J1939 socket.
-+ * The kernel requests blocks with ETP.CTS; raw answers each with a DPO and
-+ * the block's DT frames. The payload spans several 255-packet blocks.
-+ */
-+TEST_F(j1939_multi, etp_rx_from_raw)
-+{
-+	unsigned int num_pkts = J1939_NUM_PKTS(ETP_SIZE);
-+	uint8_t *payload, *rx_buf;
-+	struct can_frame frame;
-+	unsigned int sent = 0;
-+	uint8_t dat[8];
-+
-+	payload = malloc(ETP_SIZE);
-+	rx_buf = malloc(ETP_SIZE);
-+	ASSERT_NE(payload, NULL);
-+	ASSERT_NE(rx_buf, NULL);
-+	fill_pattern(payload, ETP_SIZE);
-+
-+	self->j1939 = j1939_open(self->ifindex, SA_LOCAL, PGN_DATA);
-+	ASSERT_GE(self->j1939, 0);
-+
-+	ctl_dat_init(dat, ETP_CMD_RTS);
-+	put_le32(&dat[1], ETP_SIZE);
-+	ASSERT_EQ(send_ctl_frame(self->raw, PRIO, ETP_CTL, SA_LOCAL, SA_PEER,
-+				 dat, PGN_DATA), 0);
-+
-+	while (sent < num_pkts) {
-+		unsigned int num, next;
-+
-+		ASSERT_EQ(recv_ctl_cmd(self->raw, J1939_PF(ETP_CTL), SA_PEER,
-+				       &frame, J1939_RECV_TIMEOUT_MS,
-+				       ETP_CMD_CTS), 0)
-+			TH_LOG("no ETP CTS after %u/%u packets", sent,
-+			       num_pkts);
-+		num = frame.data[1];
-+		next = get_le24(&frame.data[2]);	/* 1-based */
-+
-+		ctl_dat_init(dat, ETP_CMD_DPO);
-+		dat[1] = num;
-+		put_le24(&dat[2], next - 1);
-+		ASSERT_EQ(send_ctl_frame(self->raw, PRIO, ETP_CTL, SA_LOCAL,
-+					 SA_PEER, dat, PGN_DATA), 0);
-+
-+		/* ETP numbers DT packets 1-based within each DPO block */
-+		ASSERT_EQ(send_dt_burst(self->raw, PRIO, ETP_DAT, SA_LOCAL,
-+					SA_PEER, next, num, payload, ETP_SIZE,
-+					true), 0);
-+		sent = (next - 1) + num;
-+	}
-+
-+	/*
-+	 * The kernel (ETP receiver) must acknowledge with a well-formed ETP EOMA
-+	 * carrying the 32-bit total message size in bytes 1..4.
-+	 */
-+	ASSERT_EQ(recv_ctl_cmd(self->raw, J1939_PF(ETP_CTL), SA_PEER, &frame,
-+			       J1939_RECV_TIMEOUT_MS, ETP_CMD_EOMA), 0)
-+		TH_LOG("no well-formed ETP EOMA from kernel after last DT");
-+	EXPECT_EQ(get_le32(&frame.data[1]), (uint32_t)ETP_SIZE);
-+
-+	ASSERT_EQ(recv_timeout(self->j1939, rx_buf, ETP_SIZE,
-+			       J1939_RECV_TIMEOUT_MS), (int)ETP_SIZE);
-+	EXPECT_EQ(memcmp(payload, rx_buf, ETP_SIZE), 0);
-+
-+	free(payload);
-+	free(rx_buf);
-+}
-+
-+/*
-+ * ETP TX: the J1939 socket transmits an ETP message to the CAN_RAW peer.
-+ * raw requests the data in 255-packet blocks (ETP.CTS); for each block the
-+ * kernel sends a DPO followed by the DT frames, acknowledged by EOMA.
-+ */
-+TEST_F(j1939_multi, etp_tx_to_raw)
-+{
-+	unsigned int num_pkts = J1939_NUM_PKTS(ETP_SIZE);
-+	const unsigned int block = 255;
-+	uint8_t *payload, *rx_buf;
-+	struct can_frame frame;
-+	unsigned int got = 0;
-+	uint8_t dat[8];
-+
-+	payload = malloc(ETP_SIZE);
-+	rx_buf = malloc(ETP_SIZE);
-+	ASSERT_NE(payload, NULL);
-+	ASSERT_NE(rx_buf, NULL);
-+	fill_pattern(payload, ETP_SIZE);
-+	memset(rx_buf, 0, ETP_SIZE);
-+
-+	ASSERT_EQ(tx_start_session(&self->j1939, self->ifindex, payload,
-+				   ETP_SIZE, self->raw, J1939_PF(ETP_CTL),
-+				   ETP_CMD_RTS, &frame), 0);
-+	/* The kernel's ETP RTS must carry the correct 32-bit message size. */
-+	EXPECT_EQ(get_le32(&frame.data[1]), (uint32_t)ETP_SIZE);
-+
-+	while (got < num_pkts) {
-+		unsigned int req = num_pkts - got;
-+		unsigned int next = got + 1;		/* 1-based */
-+		unsigned int i, dpo_num, dpo_off;
-+
-+		if (req > block)
-+			req = block;
-+
-+		ctl_dat_init(dat, ETP_CMD_CTS);
-+		dat[1] = req;
-+		put_le24(&dat[2], next);
-+		ASSERT_EQ(send_ctl_frame(self->raw, PRIO, ETP_CTL, SA_LOCAL,
-+					 SA_PEER, dat, PGN_DATA), 0);
-+
-+		ASSERT_EQ(recv_ctl_cmd(self->raw, J1939_PF(ETP_CTL), SA_PEER,
-+				       &frame, J1939_RECV_TIMEOUT_MS,
-+				       ETP_CMD_DPO), 0)
-+			TH_LOG("no DPO after %u/%u packets", got, num_pkts);
-+		dpo_num = frame.data[1];
-+		dpo_off = get_le24(&frame.data[2]);
-+
-+		for (i = 0; i < dpo_num; i++) {
-+			ASSERT_EQ(recv_for_peer(self->raw, J1939_PF(ETP_DAT),
-+						SA_PEER, &frame,
-+						J1939_RECV_TIMEOUT_MS), 0)
-+				TH_LOG("missing ETP DT %u in block", i);
-+			unpack_dt_into(rx_buf, ETP_SIZE, dpo_off, &frame);
-+		}
-+		got += dpo_num;
-+	}
-+
-+	ctl_dat_init(dat, ETP_CMD_EOMA);
-+	put_le32(&dat[1], ETP_SIZE);
-+	ASSERT_EQ(send_ctl_frame(self->raw, PRIO, ETP_CTL, SA_LOCAL, SA_PEER,
-+				 dat, PGN_DATA), 0);
-+
-+	EXPECT_EQ(memcmp(payload, rx_buf, ETP_SIZE), 0);
-+
-+	free(payload);
-+	free(rx_buf);
-+}
-+
-+J1939_TEST_MAIN();
-diff --git a/tools/testing/selftests/net/can/test_j1939_multi.sh b/tools/testing/selftests/net/can/test_j1939_multi.sh
-new file mode 100755
-index 000000000000..53f473588154
---- /dev/null
-+++ b/tools/testing/selftests/net/can/test_j1939_multi.sh
-@@ -0,0 +1,5 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0
-+
-+J1939_TEST_PROG=test_j1939_multi
-+source "$(dirname "$0")/j1939_lib.sh"
--- 
-2.47.3
+Chris ever suggested this way. With it people can set in /etc/fstab and
+make it take effect during boot. Not sure if people like it.
 
+> 
+> > 
+> > > 
+> > > > 
+> > > > On the max short name: it would set the address space to the largest value
+> > > > the format allows. As you said, that is close to vm.overcommit_memory=1,
+> > > > and it is not a real capacity, so we may not want it as the default.
+> > > > 
+> > > > We keep xswap.max= only for special needs. Otherwise we may not need to
+> > > > change it.
+> > > > 
+> > > > Chris suggested a CONFIG option for the size. While CONFIG is not friendly
+> > > > to distros, you must rebuild the kernel to change it.
+> > > 
+> > > For my use case I would probably prefer a CONFIG option if that is the
+> > > only way. I typically build all my kernels on the same machine and send
+> > > the image either directly or for netboot. Setting the kernel command
+> > > line can be very different depending on the system (Different EFI
+> > > bootloaders, U-Boot and all its vendor versions).
+> > 
+> > From the actual use case and concrete number you provided, the interface
+> > can be adjusted like these:
+> > 1. 
+> > CONFIG_XSWAP_DEFAULT_MAX_PCT=200 
+> > default to 200, or default to the max value?
+> > 
+> > 2. 
+> > xswap.max= can override it. Or a xswap.max=max can be provided?
+> > 
+> > 3.
+> > The sysfs allow people to adjust the max size and priority:
+> > echo  > /sys/kernel/mm/xswap/create
+> > echo max=10G prio=100 > /sys/kernel/mm/xswap/create
+> > 
+> > Could you help comment if they are OK to you, or what is not needed
+> > actually or not good?
+> 
+> I do not mind having both a CONFIG option and a command line option for
+> the default where the latter overrides the first. I also do not mind
+> having the limit in sysfs since I need it to create the xswap device
+> anyway, but having all three together might be a bit extraneous.
+> 
+> However, if this is put in the sysfs it might be good to rethink how it
+> is structured. E.g. do we want to do so much string parsing when we
+> could instead have the limit and priority be separate files? I quite
+> like how NVME target handles this in configfs, where the user creates a
+> directory for the hosts, ports and subsystems and each config option is
+> a separate file inside. So for xswap, the user would mkdir
+> /sys/kernel/mm/xswap/typeN (or whatever) and have a structure inside
+> with something like:
+> typeN
+>  |- enabled # 0/1, which would actually destroy or create the device
+>  |- priority
+>  |- max_size_pct
+>  |- max_size_bytes # where writing to either would override the other
+> 
+> (and only accept changes when not enabled) but this might be more
+> complicated than we need. Even better would be for the defaults to work
+> for everybody since we wouldn't need the knobs, but then we would have
+> to agree on what those defaults should be.
+
+Yes. I ask people around, they are all surprised and say how come 8PB
+is needed. And mobile phone people care about the swap amount, they only
+allow several GBs swapped out to zram with RAM of tens of GBs. 
+
+So how about these:
+
+1.
+CONFIG_XSWAP_DEFAULT_MAX=
+max; 8PB
+size; e.g 10TB
+200%; percentenge of RAM
+defaults to 2xRAM
+
+2.
+xswap.max=
+can override CONFIG_XSWAP_DEFAULT_MAX=
+max; 8PB
+size; e.g 10TB
+200%; percentenge of RAM
+
+3. 
+echo  > /sys/kernel/mm/xswap/create
+defaults to 2xRAM
+The sysfs allow people to adjust the priority:
+echo 100 > /sys/kernel/mm/xswap/create
+
+> > 
+> > > 
+> > > > 
+> > > > By the way, I remember you mentioned you ever did a test making swapped
+> > > > out pages about 110% of system RAM, could you share your testing steps
+> > > > or scripts so that I can give it a shot on my testing system? If it's
+> > > > not convenient, then never mind.
+> > > 
+> > > It's nothing fancy. I just build the Gentoo package for the GCC 17
+> > > pre-release on my RISC-V BPI-F3. As I understand, the pre-release
+> > > sources will also enables some extra debugging and correctness checks
+> > > which will make the build slower and maybe also use more memory. Note
+> > > that I do not see the same memory usage on other arches which is I
+> > > believe due to the implementation of the RISC-V autovectorisation (GCC
+> > > 14 saw a large jump and that was the release which added it). I do add
+> > > configure options --with-matchpd-partitions=20 and
+> > > --with-insnemit-partitions=50 since especially insn-recog.cc tends to be
+> > > huge and the default partition of 10 it will still be quite large.
+> > > 
+> > > My datapoints are from just dumping some fields of /proc/meminfo every
+> > > ten seconds.
+> > 
+> > OK, seems it's not easy to copy from my side. Thank you again for your
+> > detailed testing information and suggestion.
+> 
+> You might be able to do it in a VM, but without hardware acceleration it
+> is likely even slower than the ~18 hours it takes on my BPI-F3 to
+> complete. I use the Gentoo package since it's convenient, but for
+> testing purposes, building from the GCC sources directly would likely be
+> similar.
+> 
+> Another scenario which could potentially benefit from a lot of zswap (or
+> swap in general) would be when suspending processes (i.e. ^Z or kill
+> -SIGSTOP). Their memory would quickly go cold and therefore be swapped
+> out under memory pressure. I have used this sometimes on low memory
+> systems where I have started a build process with too many workers and
+> not wanted to restart it, but am not sure if there are other reasonable
+> use cases of this.
+
+Got it, the build process seems not easy to copy, while the latter one
+sounds doable, I can give it a shot sometime. Thanks a lot for providing
+these valuable information and your patience.
+
+
+Thanks
+Baoquan
