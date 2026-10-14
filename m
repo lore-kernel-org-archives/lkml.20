@@ -1,151 +1,118 @@
-Received: from mail2-relais-roc.national.inria.fr (mail2-relais-roc.national.inria.fr [192.134.164.83])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C4E84756D3
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:16:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.134.164.83
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AACCD2D47F1
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:17:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792005362; cv=none; b=mWdCekN4suxjqvB1Qg28WFR0GqQFXkZfWJoMF5hkJzZDbLbu5pvYtBVqm+yJAkZLXkV9Bzhm2YnLrPlTrNHLPfQRHJlxVwNB9MhMXP+l9vX6p+y/9wLYweA1y4mmVEOkJG+8xRgMG9pOqP+hZdzuIDvs3PsdcqthYEq/nAVswLQ=
+	t=1792005464; cv=none; b=M8IegzrKkOXb2ZFNLlLqetFRLSmVSMLaUO/RzMWq7SWWCaphG4LVQodN4RfgiD/Lm51WEwRHkvQSufBTDBZtZN550OLgq5G+P9C1nB6yf2hPjBPtE2bEpO2/kngLgetS+oewWfAjzWc7nyd/CdigAjT5Hln59qcqpG8webPSles=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792005362; c=relaxed/simple;
-	bh=I9I4EOND5TtH3mV4xT5cLVd8uGjJE3khrYWrEH2r6NU=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=XWl6mdx6/7u2yLSa4l91zN6Fa6SlGEmPlF55qnO7vcD5VrcaJV8EZ5W7mNCAMmjgv0OxblCW46H8iU8Gt5HMbKk2wyJVOW1j3uud/aI81rLtHCJLkrO44ytvATvKkK85w7TAa4VwC7e+0U0spsBBfr452VHhLEJhqaDHjekHORc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr; spf=pass smtp.mailfrom=inria.fr; dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr header.b=nVlqyriL; arc=none smtp.client-ip=192.134.164.83
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inria.fr
+	s=arc-20240116; t=1792005464; c=relaxed/simple;
+	bh=Dry7BOloPec2zHiaJVfGwIFIpZZUOGvDPbabm8O3efk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cdR8TQ+PHhv08tdt+JRenGvTpa5+s/7xXb9dbYRMYh2+cyYYUcsO8RmCjTyeELQ6fGOFgjCkQLJZjiCaHwHhxK7IiLtw6CH78s+08iwjjRGZE6idWmka40c16wRYzVDX0Df7q/Z5wBPkZel7Q5g3ErKxPYRpZzYeTQsuGzwghJ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=Antj8T69; arc=none smtp.client-ip=74.125.82.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr header.b="nVlqyriL"
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="Antj8T69"
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-141395927feso8686595c88.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:17:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=inria.fr; s=dc;
-  h=date:from:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=A+QLA+MTonc5guRorxistBoawFVrCJ1ubobT4AQZVfE=;
-  b=nVlqyriLrRrXhEEmgXSKus1COP9jqN+AelU6dy1XQNGTUXjwA181XFUd
-   stvIjHzv+dxAHFxLemLJZVOlvKKKH9xqTtex4hlxg9wIDOs9micsWHLq6
-   BpjY64848gNKJOfpx98UEZWkbkD3iPWSXvGifMrw+Pxmkv86wmjJL/wMc
-   0=;
-X-CSE-ConnectionGUID: Bx2F/LenQvK9F6HxKL4HEA==
-X-CSE-MsgGUID: gsnCk0vwQcCZp9jkAPNHVg==
-Authentication-Results: mail2-relais-roc.national.inria.fr; dkim=none (message not signed) header.i=none; spf=SoftFail smtp.mailfrom=julia.lawall@inria.fr; dmarc=fail (p=none dis=none) d=inria.fr
-X-IronPort-AV: E=Sophos;i="6.27,158,1787004000"; 
-   d="scan'208";a="300237533"
-Received: from static.host-68-71-1-178.nrbn.ca (HELO hadrien) ([68.71.18.178])
-  by mail2-relais-roc.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 21:15:55 +0200
-Date: Wed, 14 Oct 2026 15:15:54 -0400 (EDT)
-From: Julia Lawall <julia.lawall@inria.fr>
-To: Jeremy Dean Clifton <gservice341@gmail.com>
-cc: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>, 
-    Alex Elder <elder@ieee.org>, johan@kernel.org, gregkh@linuxfoundation.org, 
-    vireshk@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, 
-    linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
-    outreachy@lists.linux.dev
-Subject: Re: [PATCH v2] staging: greybus: replace PTR_ERR() with %pe in error
- messages
-In-Reply-To: <6d881c38-33f7-48e0-88d0-4d16170c24e6@gmail.com>
-Message-ID: <b37cb31e-a9e9-7248-27a-fcb31c5f6e65@inria.fr>
-References: <20261013022402.6322-1-pavankumaryalagada@gmail.com> <2fd23f9b-7eab-4afd-aa77-93a5b9ff0c75@ieee.org> <as6mC7sZnpqIKxN6@user> <6d881c38-33f7-48e0-88d0-4d16170c24e6@gmail.com>
+        d=trailofbits.com; s=google; t=1792005463; x=1792610263; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Dry7BOloPec2zHiaJVfGwIFIpZZUOGvDPbabm8O3efk=;
+        b=Antj8T698Uu8KnoVQxLBNxgUEgu/rx6XfUjDg1Q3Lw7ycXakzrb/b5k9kpyAkjYWrR
+         bYiiTPW4q7fjAQcjnqtEq+nOFs6W4q9fv+5OdSE171nsZqfGWhCzsDkY9QmQnnVFZs0V
+         aP27KKgUyaTQLt4X4VU1jzlSSHXVlXMiisOmGkjyP1tGjW1/UAvHc2hIhwhHG/x3gIya
+         1IlcVhZxe2ejNGWP+J8CZkBTGEYFJrRhe/J8yBFdEuOrETbG4mBi2B3sqC4eFgW/YKIr
+         AewNxP3197uNcVJFMCYLhFjUlut/wYyG0/pFnbsfi0PLFKWW8xRweMM598WpC09qMlEq
+         0ZEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792005463; x=1792610263;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Dry7BOloPec2zHiaJVfGwIFIpZZUOGvDPbabm8O3efk=;
+        b=QpbWS1c4Boy3WaLzYtUoCvXr582JL4UE1IvttEinsiWWukGVX6MWFKmWtFC/vxTpjB
+         l0JVpQhgSokgSPjzVqGLOSbEBlbFJgtt29tZ3ecv8kJvvmq8byRxDRpmg3UQfygxto+8
+         fHXaGGhrOloQ7NXHdFYCRGJsC0cqcVxIjQWeKrDIXE3pgpoB6Vc2CZIhv8bxdOoNKkSv
+         8zkmiE0HhHuzh4d+EbSr0t2vt/S6qkjJ8H2ZPn+OaZ3oPbn5x3JmF9E1llPfydqIQKYn
+         c0Wxb39uEvP+/BCa3RFYCWIH2rfEQdAYI01H26d9yXBIkVwlXuCcvZL/4AykY5FeRLOX
+         LZmg==
+X-Forwarded-Encrypted: i=1; AKwUvBzyo85k3iPHTUC+XTUDfZSdoJywmM6EaiZGeCf2MnRvLGuvBxAZrPn/HsLWz5IeF8PaOaI1qHjCnbteQQ4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLxE0ryIp1RxDy+ggXiYVm1lM+rtas6dpuFsZz/EWDz7jAcxDuz
+	ACsmFmNBIvcKWbAt8Krd4OHTMJyGzltkGRlA3bj/WD74vHh+tHjoOazwy5ZXxLTkHli2qLrPLwv
+	GnQo5Y4rMZg==
+X-Gm-Gg: AYBFou0AhLuBDTHrCJx+KJSTZGiJhUkUEOfi9ooEEBdYK9PtrhNubRr78Z76KHBXAuW
+	B3Vn70heSfx1/DCGFFRUPyFcaykXhV5YavAjwy53Vf6Dl/y+RNaoBSmHdc4RkcRx3D6AnQ4CD9a
+	oKkeDCzTeDj6r61yZzo7AqpeGs5FpXiiDrjT0bdHVN1IWRFIC4ZJbP8j2Mgrqc03oyw/hOwCmx1
+	xXy5PF83Onrfrh/Gg+4l3teG9h38L2yc3o+5/2RhkYA/9qRlgGr1Lbze6S1/pbq7FmuYUC6QQLj
+	tjsXyNfNzQnCEBMzGSf6j6K/U36BsWk+j0criNJXwtgL5WwOQSakrEd+QsJ/pEyu4Eb8jonYJj6
+	1NvpUxSGof2CEGDEQiVLgQV+Fk1g/GtKVAlZ2AuZEmnJVlj4oUcQSEY5XG92gWYvLOhY4G1RiX7
+	ZNfATxP6ocomYAftiutXgfpRFDN/ESpFB938HRBkWQeb7oqVXcHsyv1yj55EzOiiVmYlpqDO+fX
+	lhVW07sjOtwnOb1fgbv/lXzZfoo7S6K1bPWg5CcnG8DrgIMItyJafYWjk/9ABIChF+fYDAn9OqA
+	AbHSvQ==
+X-Received: by 2002:a05:7022:ea8a:b0:165:1f2c:5c1b with SMTP id a92af1059eb24-16a57b0c43cmr23608713c88.4.1792005462662;
+        Wed, 14 Oct 2026 12:17:42 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:39d1:d8de:aae7:23dd])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1746482c978sm28966433c88.13.2026.10.14.12.17.40
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 14 Oct 2026 12:17:41 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	leon@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
+	mbloch@nvidia.com,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	saeedm@nvidia.com,
+	shayd@nvidia.com,
+	tariqt@nvidia.com
+Subject: [PATCH 6.6.y 0/2] CVE-2026-22996, CVE-2026-23035: backport fix series
+Date: Wed, 14 Oct 2026 15:17:35 -0400
+Message-ID: <20261014191738.24034-1-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
+Hi,
 
+Please consider this backport series for CVE-2026-22996, CVE-2026-23035 to
+6.6.y.
 
-On Wed, 14 Oct 2026, Jeremy Dean Clifton wrote:
+Apply the patches in this order:
+1. net/mlx5e: Don't store mlx5e_priv in mlx5e_dev devlink priv (fix)
+2. net/mlx5e: Pass netdev to mlx5e_destroy_netdev instead of priv (fix)
 
-> On 10/13/26 3:43 PM, Yalagada Pavan Kumar wrote:
-> > On Tue, Oct 13, 2026 at 03:11:51PM -0500, Alex Elder wrote:
-> > > On 10/12/26 9:24 PM, pavankumaryalagada@gmail.com wrote:
-> > > > From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
-> > > >
-> > > > Use %pe to print error pointers directly and display their
-> > > > error names.
-> > > >
-> > > > Keep the other PTR_ERR() call because its return value is
-> > > > needed for ret.
-> > > >
-> > > > Signed-off-by: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
-> > >
-> > >
-> > > Generally I think what you're doing is OK.  It looks
-> > > like %pe is better than just %d, because it prints
-> > > the error *name* for the pointer-coded error.
-> > >
-> > > But I have two general questions about this effort:
-> > >
-> > > - There are other places in the Greybus code (even in
-> > >    just the staging source files) where this exact same
-> > >    thing could be done.  Why limit this to "fw-core.c" only?
-> >
-> > I initially limited the change to "fw-core.c" because I was
-> > focusing on the error messages in that file.
-> >
-> > >
-> > > - Do you think that all Greybus error messages should be
-> > >    converted to use %pe (passing ERR_PTR() if necessary)
-> > >    instead of %d for showing the error number?
-> >
-> > Using %pe prints the error name instead of just the
-> > error number, which makes the error messages easier
-> > to understand.
-> >
-> > For example, the current message is:
-> >
-> > 	failed to create download connection (-12)
-> >
-> > with %pe, it becomes:
-> >
-> > 	failed to create download connection (-ENOMEM)
-> >
-> > I think the second message is easier to understand because
-> > it shows the error name instead of just error number.
-> >
-> > I also found other PTR_ERR() calls in Greybus. some of them
-> > are used to return error codes and should remain unchanged.
-> >
-> > For example, in fw-core.c:
-> >
-> > 	if (IS_ERR(connection)) {
-> > 		ret = PTR_ERR(connection);
-> > 		dev_err(&bundle->dev,
-> > 			"failed to create management connection (%pe)\n",
-> > 			connection);
-> > 		goto err_destroy_connections;
-> > 	}
-> >
-> > Here, PTR_ERR(connection) is needed to store the error code in ret
-> > for the error-handling path, while passing connection to %pe makes
-> > the error message more readable.
-> >
-> > >
-> > > I think your suggested change is a net positive, but
-> > > doing it in some spots but not others means it is
-> > > adding a bit of inconsistency.
-> >
-> > I agree that similar cases elsewhere in Greybus are worth
-> > checking to keep error reporting consistent. I will look
-> > at the other Greybus files for cases where using %pe would
-> > be appropriate.
-> >
-> > Would you prefer me to extend this change to the other
-> > relevant Greybus files, or keep this patch focused on
-> > fw-core.c and submit a separate patch for the remaining
-> > changes?
-> Also, you could coordinate something with Julia to use Coccinelle for this.
-> Using regular expressions, you could programmatically find all the places
-> where %pe and connection can be in place of %d or %ld and the return from
-> PTR_ERR().
+Patch 1 stores the netdev for suspend, resume and removal so cleanup
+survives a cleared private-state pointer. The older removal path obtains
+the hardware device from the auxiliary device and unregisters once:
+binding follows successful registration, and the target profile changes
+keep that registration.
 
-Coccinelle could probably be used for finding opportunities.  Modifying
-strings can be a bit awkward, but is not impossible.
+Patch 2 destroys the stored netdev without relying on priv->netdev, which
+profile rollback can clear. Its code changes are identical to upstream.
+Apply both patches after the pending 6.6.y backport of 3d5918477f94
+(net/mlx5e: Fix netif state handling), which fixes registration-failure
+cleanup.
 
-julia
+The complete fix is already present in 6.12.y, 6.18.y and 7.2.y.
 
->
-> Jeremy Clifton
->
->
+Build-tested only as part of a cumulative 6.6.y series on x86_64
+(allmodconfig, CONFIG_WERROR=y), changed objects only; no runtime testing.
+
+An LLM assisted with preparing these backports.
+
+Thanks,
+Artem Dinaburg
