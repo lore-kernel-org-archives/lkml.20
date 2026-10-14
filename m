@@ -1,183 +1,207 @@
-Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AC5242BC23
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:39:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED24D4C14F3;
+	Wed, 14 Oct 2026 22:40:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792017598; cv=none; b=rRfL5CyzIl1T0d15TEmtPu268P0dsdQJ9qXiDjTuZxIT1nD9poW9SyfT5uwLy0KNyxHsEOzqbWCFadoW/eDVWTqTj2LxZ5Lp9dzLJNfkrVlxNCTru2eCEndB60O/9MAJZAh4FmolyXGYcsg7gK2Mxr4vNNOe4nj1kgd9Yj10LZ0=
+	t=1792017648; cv=none; b=eLFYpKUjcF6zM9ZrhXnsPtA5aOIhjYBCxY0Vs6Kbj67BL5yantAIqs8R1JCra2f7dt/17fdpOey1aBFfRF7Jy4DNd1Xms1KpYbll1ObNujV29Xg1jZuo+upz1EXziD2KccE+ry4z59Q+9knUrZ/YL2KKdTZRXB/vfeTihQbaECQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792017598; c=relaxed/simple;
-	bh=F0/PSnK0UYXRQwLpNd8hP6ZKOte9su8aiS8d81Stb/A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KqVONtdZQQZAnsbHVJ662WyhfxEKU/GeATJTa8iUIwnkrPOLRcYkKvvqb2cGZ+QVbcfvKx8VMgvegRJyQC+7CadG+L8PJVhFMC+C+KIrTFF5Bx0E/XVJ0IAJZMplLeICigay3g5HqoTJVTbmGHGDjbS+NF5+5PrDNZqPBqidp3U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NkhdQU4B; arc=none smtp.client-ip=74.125.227.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792017648; c=relaxed/simple;
+	bh=3zMKStu57wu1s210M0wBl0cKlpREHyiuH3D/r7Twb2k=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:To:From:Subject:
+	 References:In-Reply-To; b=YF/2zTPm9pGulprOY4Di2JakZ38dm5MWSvXolBqqH0W9Te2dAP61lyqu0TBL717arHcrpRU+Ss+X30kSkOxQB8QJMBBVXi7GgqUOpmamd8RAJcIvjCJ9g4nUO3UubbbK/ArT0AQamxAPWKanWdwW0VdeonBk6D89ibAwm/QHEOU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AFXKXaju; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NkhdQU4B"
-Received: by mail-pj2-f8.google.com with SMTP id d9443c01a7336-2e93d9c7973so1906295ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:39:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792017596; x=1792622396; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8UyEnW2lOZvazx37QD4Yu1Cl+1Ebx+89Hh4Lc5xhOSk=;
-        b=NkhdQU4BSUgrd2KnOU1fSeIT0KDZl28mboXqjG1uBLY1r1/+3yH48RMQtFwfO3ccOu
-         kj3/AqdjT5QjGvsRjfIbBomr8UxWGwGz1NA6TTeyYwvaXZ5gKS4TIS6/Ww793+AEYSZ/
-         YFKQ6a5nHBfZJNJsbyHDOWm6xRkUkMQk4nS/mGqf/qvzS2oFKnEH9lHtzEqoOv5emqVb
-         5pOP98lBwbxUcRZqjr1Bsxw9xiCn4ce5nP0OCv2QQRrtXgu32aEiMV0jlCuYfG+YTddN
-         arVRRi1wBLb5/4CcJhyIs2pHBu5S8vGcxrigYhpr2IygHIo3B/Sw2AdrXIaAGFg27kbh
-         QYgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792017596; x=1792622396;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=8UyEnW2lOZvazx37QD4Yu1Cl+1Ebx+89Hh4Lc5xhOSk=;
-        b=qrF6i4yhXMWv6sCDT37drFLiW8aMO9fL9Z86o/P3qlAX99UX6VYn38UOmgetkMDVJl
-         Z6BmX0aKM/6nu/ttFQka9G89olSB0PP0xPoTrnv5pJ+yQEOy8jfxTn+xN0ceEYgJp/0N
-         F4hkAXGxNNlXbZIg9o4din8Vbi6BH9iBbgDYsw+sYYrJxdHoRWxAgVVHA+5ptaYC5Roo
-         XkUfJ5qn+DDycIiaCsXi8Mc1yketgv2oe8rXTQb4LssPBE4RN++MDb87jsfK+HUzH5Hy
-         GfyWMMKaj0sPMe8jPzEDuRWnSjo3YcGhwdCw9gg8vAIB/RfaZjXNgtMLVg8EsIt5Kzja
-         qTDg==
-X-Forwarded-Encrypted: i=1; AKwUvBxBgGzXNtMP+rBcN0j+GxcwqBbjDXBuwW9G/uhkqUl2qUWOKvyzxJXHKTIr+zR90vn9qZQByKxH7UUQzpo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKuIz9VHxvmUru13BbiLd2PE8qJUsHIMZxeVMOt0clsMgZ672er
-	QGYB0Zip8Mg9L5b0phfVdopc88GlwQ1tM33Ocm5kCJ6ZBcgrCX7ETxlZ
-X-Gm-Gg: AYBFou1WXtU5qtLD2Sc7b+wKcfv4JONbX1/Iw2eX3K/DLWxAJp2k5wk8WpvtuE7DyLD
-	f7Ii8CVKaEEY9oDgM+NvDO05CLdicQiEQKjLcfN94L6Bz6XR74H36x0Mjy34xBtySCaZJC6abJu
-	AgJR7YDzFxPC+bfcwcxeqw0baUlfO7cPBUIycRinpggh3ok6VlQX9BQFcJ3TG/d0TILSmBPCdVR
-	1XYjdBLiJ81j2dNejz+Kk6W0nzxxJ90jGswjMh8G+HVgOWctvl9vEQNDmkd32/6RgUH4/IjSBe2
-	vq7jlSxEvJmGIDF3NSYIsBfBMbtnDRagVi+NsGYubhbtTEXVMQPTf5I4kXvvJJwcCcVh0hYHj7t
-	QKV8OK0TPnnYLn4u9TOnY0oFL48wpK0FhjgBf+sLDMIEIk0SAffpbcyV/E29EkcHVzRAFT3CCxS
-	f70R4Gwymp46kQpFP6hMktQ5hmAWDz6w3KsbmCoyPybeTBWnKZK9+qCWFi0ZEW+HGM
-X-Received: by 2002:a17:903:1b0c:b0:2e9:3dd0:c8d with SMTP id d9443c01a7336-2e93dd01892mr28961315ad.14.1792017595732;
-        Wed, 14 Oct 2026 15:39:55 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:58::])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8483c3dfcsm72333795ad.24.2026.10.14.15.39.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 15:39:55 -0700 (PDT)
-Date: Wed, 14 Oct 2026 15:39:47 -0700
-From: Stanislav Fomichev <sdf.kernel@gmail.com>
-To: Mina Almasry <almasrymina@google.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-rdma@vger.kernel.org, bpf@vger.kernel.org, Ayush Sawal <ayush.sawal@chelsio.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Tariq Toukan <tariqt@nvidia.com>, 
-	Simon Horman <horms@kernel.org>, Steffen Klassert <steffen.klassert@secunet.com>, 
-	Herbert Xu <herbert@gondor.apana.org.au>, Neal Cardwell <ncardwell@google.com>, 
-	Kuniyuki Iwashima <kuniyu@google.com>, John Fastabend <john.fastabend@gmail.com>, 
-	Sabrina Dubroca <sd@queasysnail.net>, Eric Biggers <ebiggers@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Aleksandr Loktionov <aleksandr.loktionov@intel.com>, Petr Machata <petrm@nvidia.com>, 
-	Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>, Jakub Raczynski <j.raczynski@samsung.com>, 
-	Wang Zhan <wang.zhan@smartx.com>, Willem de Bruijn <willemb@google.com>
-Subject: Re: [PATCH net-next v3 3/6] net: skbuff: replace skb_page_unref()
- and __skb_frag_unref() with skb_netmem_unref()
-Message-ID: <atAEVu_Hife2dWUz@devvm7509.cco0.facebook.com>
-References: <20261014173945.373295-1-almasrymina@google.com>
- <20261014173945.373295-4-almasrymina@google.com>
- <as_yg4hCCfpkukZB@devvm7509.cco0.facebook.com>
- <CAHS8izPDAjfRFCM2LrC7tzVQRkGCcn6zsghEvHJ9FJ1ET9odYg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AFXKXaju"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A751B1F000C4;
+	Wed, 14 Oct 2026 22:40:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792017645;
+	bh=f+z6zAFLCvaCAmCvCFxJcssIZyFfbNiJ0CIpX6Ijf38=;
+	h=Date:Cc:To:From:Subject:References:In-Reply-To;
+	b=AFXKXajuri2XUTwRNmk1+piowUIzxjFgNfzvRHTZhDWB6afoVS8fcTvZw5oWoRffc
+	 iWGhZZiIQ4nwDiDUwIzxiZG5oB/re5tzPDDMvHTiwotPTDL5q3PRklCPm0zH6xo1tc
+	 7x4ekZLEv0uXvnvZaq/jpjhcFXvG/VmJPhD7iOpW9FGPUBN8mpMWpBmgypASl58tc3
+	 AiRwkXnO6Xtu39ozlXGBjDFEdwW7Zuyu67JoTITqHaZQi2TX8ENb5yvLt90Ud8UcFQ
+	 5HY/4aBpBxGtqbo2VZ6GFU2U/RzHY5bGAuuTWZDKXoBbXRyfco57PUFGNiI8ijDo8C
+	 YtRM1VpBklqWw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAHS8izPDAjfRFCM2LrC7tzVQRkGCcn6zsghEvHJ9FJ1ET9odYg@mail.gmail.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 15 Oct 2026 00:40:42 +0200
+Message-Id: <DM4X8JU9PXCU.T51SZD8XO7MG@kernel.org>
+Cc: "Alan Stern" <stern@rowland.harvard.edu>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ "Dmitry Torokhov" <dmitry.torokhov@gmail.com>,
+ <driver-core@lists.linux.dev>, <linux-usb@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, "Mario Peter"
+ <mario.peter@leica-geosystems.com>, <stable@vger.kernel.org>
+To: "Johan Hovold" <johan@kernel.org>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH] driver core: take parent lock on deferred probe
+References: <20261013140615.1226992-1-johan@kernel.org>
+ <DM3WA69YX6WE.2Q4DY9MIU7A0L@kernel.org>
+ <ba24846a-7403-4bb1-a0cb-869cf1d44e05@rowland.harvard.edu>
+ <DM40HVOBKMFI.3W1DK371ZWI80@kernel.org>
+ <as86K1qm1sHtgTFL@hovoldconsulting.com>
+ <DM4N25JXKTQM.3K7TP9HM68KQ2@kernel.org>
+ <as-cW9ZwmMCPcftL@hovoldconsulting.com>
+In-Reply-To: <as-cW9ZwmMCPcftL@hovoldconsulting.com>
 
-On 10/14, Mina Almasry wrote:
-> On Wed, Oct 14, 2026 at 2:25 PM Stanislav Fomichev <sdf.kernel@gmail.com> wrote:
-> >
-> > On 10/14, Mina Almasry wrote:
-> > > Unreferencing a page_pool fragment with recycle=false decrements the
-> > > non-pp backing refcount instead of pp_ref_count, underflowing the page
-> > > refcount when the fragment was owned via page_pool (as on mlx4's RX
-> > > error path). Having both skb_page_unref() and __skb_frag_unref(frag,
-> > > recycle) made it easy for callers to pass hardcoded recycle=false on
-> > > SKB-owned fragments.
-> > >
-> > > Replace skb_page_unref() and __skb_frag_unref() with
-> > > skb_netmem_unref(netmem, recycle), which dispatches to
-> > > napi_pp_put_page() when recycle is true and put_netmem() otherwise:
-> > >
-> > > - Use skb_frag_unref(skb, ...) on SKB-owned fragments in mlx4, sky2,
-> > >   tls_strp, and skb_shift() so unrefs always match skb->pp_recycle.
-> > > - Use put_netmem() directly in tls_device's destroy_record(), which
-> > >   releases raw non-pp page references outside an SKB.
-> > >
-> > > Found by code inspection and confirmed with the KUnit tests added later
-> > > in this series; not observed in production. The mlx4, sky2, and TLS
-> > > call-site changes are compile-tested only.
-> > >
-> > > Assisted-by: LLM
-> > > Signed-off-by: Mina Almasry <almasrymina@google.com>
-> > > ---
-> > > v2:
-> > > - Note how the issue was found and how the change was tested.
-> > > - Link to v1: https://lore.kernel.org/netdev/20261010083935.3274178-4-almasrymina@google.com/
-> > > ---
-> > >  drivers/net/ethernet/marvell/sky2.c        |  2 +-
-> > >  drivers/net/ethernet/mellanox/mlx4/en_rx.c |  2 +-
-> > >  include/linux/skbuff_ref.h                 | 34 +++++++++++-----------
-> > >  net/core/skbuff.c                          |  7 +++--
-> > >  net/ipv4/esp4.c                            |  4 +--
-> > >  net/ipv6/esp6.c                            |  4 +--
-> > >  net/tls/tls_device.c                       |  2 +-
-> > >  net/tls/tls_strp.c                         |  2 +-
-> > >  8 files changed, 29 insertions(+), 28 deletions(-)
-> > >
-> > > diff --git a/drivers/net/ethernet/marvell/sky2.c b/drivers/net/ethernet/marvell/sky2.c
-> > > index 30facdece3e29..1d42a82db8f2b 100644
-> >
-> > [..]
-> >
-> > > --- a/drivers/net/ethernet/marvell/sky2.c
-> > > +++ b/drivers/net/ethernet/marvell/sky2.c
-> > > @@ -2501,7 +2501,7 @@ static void skb_put_frags(struct sk_buff *skb, unsigned int hdr_space,
-> > >
-> > >               if (length == 0) {
-> > >                       /* don't need this page */
-> > > -                     __skb_frag_unref(frag, false);
-> > > +                     skb_frag_unref(skb, i);
-> > >                       --skb_shinfo(skb)->nr_frags;
-> > >               } else {
-> > >                       size = min(length, (unsigned) PAGE_SIZE);
-> > > diff --git a/drivers/net/ethernet/mellanox/mlx4/en_rx.c b/drivers/net/ethernet/mellanox/mlx4/en_rx.c
-> > > index 96f97fa0f5489..fe18606c2ab55 100644
-> > > --- a/drivers/net/ethernet/mellanox/mlx4/en_rx.c
-> > > +++ b/drivers/net/ethernet/mellanox/mlx4/en_rx.c
-> > > @@ -497,7 +497,7 @@ static int mlx4_en_complete_rx_desc(struct mlx4_en_priv *priv,
-> > >  fail:
-> > >       while (nr > 0) {
-> > >               nr--;
-> > > -             __skb_frag_unref(skb_shinfo(skb)->frags + nr, false);
-> > > +             skb_frag_unref(skb, nr);
-> > >       }
-> > >       return 0;
-> > >  }
-> >
-> > These do not support qops and don't advertise devmem tx, so they are not
-> > going to deal with netmems anytime soon, why touch these?
-> >
-> 
-> They're still using page-backed netmems that have 2 refcounts, and
-> frag ref/unref needs to pick the right one. Before they were
-> hardcoding false for the pp-recycle bit, so if a skb->pp_recycle==true
-> here for any reason, this code would hit a ref imbalance. Now after
-> this series both skb_frag_ref and skb_frag_unref do the right thing by
-> checking skb->pp_recycle.
-> 
-> This has nothing to do with net-iovs or devmem.
+On Wed Oct 14, 2026 at 5:14 PM CEST, Johan Hovold wrote:
+> On Wed, Oct 14, 2026 at 04:42:09PM +0200, Danilo Krummrich wrote:
+>> On Wed Oct 14, 2026 at 10:15 AM CEST, Johan Hovold wrote:
+>
+>> > But it's driver core that needs the extra reference. It seems
+>> > reasonable to require that any subsystem that sets a new
+>> > type->need_parent_lock also makes sure that any device of that type
+>> > holds a reference to its parent. And importantly, it's already the cas=
+e
+>> > for the only user of this feature today (i.e. USB interfaces).
+>>=20
+>> Exactly, it is the driver core that needs the extra reference count; for=
+ a field
+>> that is owned by the driver core, and for which the driver core manages =
+its
+>> lifetime.  If it needs an additional reference count for async or deferr=
+ed work
+>> it should obtain the reference count for this scope explicitly.
+>
+> As I've mentioned, it's not just for async or deferred probe. It's also
+> needed when a driver gets added or when probe is triggered through
+> sysfs. The bus iterators only takes a reference to the each device and
+> not their parents before calling __driver_attach() etc.
+>
+>> USB interfaces already holding an additional reference makes the propose=
+d
+>> contract work for today's user, but I'd rather not make that prerequisit=
+e of the
+>> API.  It would push a prerequisite for an implementation detail to the u=
+ser.
+>
+> I understand your concern, but my reasoning is that this feature is only
+> needed when devices are tightly coupled with their parents and where it
+> therefore probably always make sense to pin the parent.
+>
+> Note that the need_parent_lock flag is now set in the device type struct
+> which also holds a pointer to the release function that drops the
+> reference. So it's pretty easy to check any theoretical further users.
+>
+>> Please, let's not add this API contract. Let's have the driver core deal=
+ with
+>> this internally.
+>
+> I can take another look at it, but the alternatives seemed either error
+> prone or a bit icky (e.g. a helper that returns a reference to the
+> parent after checking the dead flag under the device lock).
 
-Ack, I was a bit confused because I was assuming that these are not
-using pp at all, but looks like mlx4 does :-/ And I see you drop
-__skb_frag_unref so these have to be converted anyway...
-And I guess the same for __skb_frag_unref below.. Let me go through the
-rest of the patches and see if anything else catches my eye, thanks!
+I thought some more about this, and since it is only the USB device type us=
+ing
+it it's probably fine for now.  Should we ever gain new users of this API (=
+which
+I do not hope), we can still change it and add something like the diff belo=
+w.
+
+I'd suggest to also add a comment in the USB code, explaining that this
+reference count (also) serves the purpose to fulfill the driver core API
+contract.
+
+diff --git a/drivers/base/base.h b/drivers/base/base.h
+index 3c36a2128f88..8193bf924726 100644
+--- a/drivers/base/base.h
++++ b/drivers/base/base.h
+@@ -101,6 +101,8 @@ struct driver_private {
+  * @async_driver: pointer to device driver awaiting probe via async_probe
+  * @deferred_probe_reason: capture the -EPROBE_DEFER message emitted with
+  *			   dev_err_probe() for later retrieval via debugfs
++ * @deferred_parent_ref: parent reference held until release for device ty=
+pes
++ *			 with &struct device_type.need_parent_lock set.
+  * @device: pointer back to the struct device that this structure is
+  *	    associated with.
+  * @dead: This device is currently either in the process of or has been
+@@ -118,6 +120,7 @@ struct device_private {
+ 	struct list_head deferred_probe;
+ 	const struct device_driver *async_driver;
+ 	char *deferred_probe_reason;
++	struct device *deferred_parent_ref;
+ 	struct device *device;
+ 	u8 dead:1;
+ };
+diff --git a/drivers/base/core.c b/drivers/base/core.c
+index 5daa88fa724a..45050f90294b 100644
+--- a/drivers/base/core.c
++++ b/drivers/base/core.c
+@@ -2641,6 +2641,8 @@ static void device_release(struct kobject *kobj)
+ 	else
+ 		WARN(1, KERN_ERR "Device '%s' does not have a release() function, it is =
+broken and must be fixed. See Documentation/core-api/kobject.rst.\n",
+ 			dev_name(dev));
++	if (p)
++		put_device(p->deferred_parent_ref);
+ 	kfree(p);
+ }
+=20
+@@ -3682,6 +3684,9 @@ int device_add(struct device *dev)
+ 	pr_debug("device: '%s': %s\n", dev_name(dev), __func__);
+=20
+ 	parent =3D get_device(dev->parent);
++	/* Parent locking must remain safe after device_del(). */
++	if (dev->type && dev->type->need_parent_lock)
++		dev->p->deferred_parent_ref =3D get_device(parent);
+ 	kobj =3D get_device_parent(dev, parent);
+ 	if (IS_ERR(kobj)) {
+ 		error =3D PTR_ERR(kobj);
+@@ -3828,6 +3833,7 @@ int device_add(struct device *dev)
+ parent_error:
+ 	put_device(parent);
+ name_error:
++	put_device(dev->p->deferred_parent_ref);
+ 	kfree(dev->p);
+ 	dev->p =3D NULL;
+ 	goto done;
+@@ -4697,6 +4703,10 @@ int device_move(struct device *dev, struct device *n=
+ew_parent,
+ 		goto out;
+ 	}
+ 	old_parent =3D dev->parent;
++	if (dev->type && dev->type->need_parent_lock) {
++		dev->p->deferred_parent_ref =3D get_device(new_parent);
++		put_device(old_parent);
++	}
+ 	dev->parent =3D new_parent;
+ 	if (old_parent)
+ 		klist_remove(&dev->p->knode_parent);
+@@ -4715,6 +4725,10 @@ int device_move(struct device *dev, struct device *n=
+ew_parent,
+ 				if (new_parent)
+ 					klist_remove(&dev->p->knode_parent);
+ 				dev->parent =3D old_parent;
++				if (dev->type && dev->type->need_parent_lock) {
++					dev->p->deferred_parent_ref =3D get_device(old_parent);
++					put_device(new_parent);
++				}
+ 				if (old_parent) {
+ 					klist_add_tail(&dev->p->knode_parent,
+ 						       &old_parent->p->klist_children);
+diff --git a/include/linux/device.h b/include/linux/device.h
+index 7c7682e4dafe..7604060ff99b 100644
+--- a/include/linux/device.h
++++ b/include/linux/device.h
+@@ -85,8 +85,7 @@ int subsys_virtual_register(const struct bus_type *subsys=
+,
+  * the DEVTYPE variable.
+  *
+  * @need_parent_lock:	When probing or removing a device of this type,
+- *			driver core should lock the device's parent. Note that
+- *			the device must hold a reference to its parent.
++ *			driver core should lock the device's parent.
+  */
+ struct device_type {
+ 	const char *name;
