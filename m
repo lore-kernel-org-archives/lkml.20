@@ -1,159 +1,63 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 466B22F30
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 01:08:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63E482F30;
+	Wed, 14 Oct 2026 01:08:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791940118; cv=none; b=eIbJjHkbCviNAZ8yNqrc5oKskMAzjAEO4CPhh/a7SMkXBZefVf1PsMAJgP1qdQJf4p4zroRSh+8QaN5Xn6xC8pBPBSLB1glaCEFVi7MzBgz0o1A4MJZWpVUehl2HuPoWKqzNQyioy/tHD/PTw+WJP2KDQO9gxenVsaDDT0D2mSE=
+	t=1791940123; cv=none; b=AXxlireHeaRKtMUdEzzljdoup/f+yevdcqqcZRXwT4fdhSU2XoRy2dKt5qfSf4KlKGOW4LBsxvgOt58GO9jBGChbMXNgFO4QHnPfk8nWWS6CayPmid90f8eSs0v4rbxEKTlPqcgXGwsmAJ6fKmiNGHN6a5jZfL6iZXQnigy8Mlk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791940118; c=relaxed/simple;
-	bh=F3lpSamUBvOQ+ZfrxrFSyFSAsgz5DPWK1zXhfgBv2UY=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=uCm34ln32gqiV/5PM08XJHAfukFxfFUqpHj6wIZ6131tV3Wnqr27M0ClLCyVTEcTbqAtofzlnka2BBbRxGGSRvsGnmaVB46kOBtVk0e6X9486dc/qyLtzq/MZEatCjj/cw36AAJIhwnw/pO/3p20grIQV3KWQcuBPqRvJ5NQMdo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QtGwtLtv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791940123; c=relaxed/simple;
+	bh=xe5I9USZq0NzjRBC7co1qlXZ3qQwSIdc/rSR/F1oNlQ=;
+	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=eAYYDAu4RFu8qo/k1tzccGFZ0swOUQW3oDdxIfUzkVahGxx/6toVutxC7SJlGRU4kfkRBdr3jTxORAFElNi1dp4TLAdUDTPn8RcXyFdF5LMQBzfabTKJFfss2CP6D/uYfzb/RlvvqSJU/eU2FLwQwWx6PbWTCGjaH61HwxM3Nqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M525/WwW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QtGwtLtv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 327071F000FF;
-	Wed, 14 Oct 2026 01:08:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M525/WwW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 091E21F000FF;
+	Wed, 14 Oct 2026 01:08:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791940116;
-	bh=AGld8ni3JsEFit3fOK2IFMpCl2X2M6ZHt2aF33boT+o=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=QtGwtLtvqK+Eb0KzQEIvCr2G8AqwIJdDGm3SKShUgkkEXslkki6lUbEsZliIxPiQd
-	 dYRqx2azvQJG0EHSASaJ8NPcQS0wZ84O4eBe+6yVDXUhNp4uVo/SdARdMAe6eaEw66
-	 irqwTDckH4BjfeabFvszgpFthr7zoHVx65L9kMfrS3wiVJLNkvNyGg7gixXVxO8z0g
-	 KEviJJn9squLKtnkrLM/LVEDaWtCMQR4R+U0rRCdqYpaM+/I3T6W+nqFdGBrmojuDC
-	 D9+jvNsekgKYmteXVpMwOWmYA3YNhb+FhzS3HO0ez+DvE1nzuxIjmdOLHxcaox6sjQ
-	 tRxMjKV56Qkew==
-Message-ID: <0392781c-0ef7-4cd8-b48c-cde83e09abb4@kernel.org>
-Date: Wed, 14 Oct 2026 09:08:32 +0800
+	s=k20260515; t=1791940122;
+	bh=GRIp7KhwCAi0ClV148cvmSOD3OjIvcolOyiXiMGHIhQ=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=M525/WwWXVoqKvapIlltgdazum+HpzAarUqVCCCe9mNJP/1zLr8O6KWoIGBs2Ljl+
+	 OTutJkmou852zBRUNoJh1JJSqvoh9F3KjlgnkotqqXHokz6pI6APX2ViQILCZYUXCy
+	 Wn2nzgE7T2zJoz+ORCIkuQs5kun69woxqukr5zy62tsMeq6fbLtn3O4pFibUwBnZT4
+	 vQQEeJkaGRJA3c1KXg7HjgjrSIFmqjXq0Z3IvTzyr/E+/mg6azTvTLhCx876wllC3R
+	 5V2KhiIe58zJHDV7edVXHDU6EtsV8lJc++3JrHWG5YYvvlMjrLYYTUV2N7Ta+NlZjj
+	 YwS9Q5tX1r26Q==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F15F739E8A57;
+	Wed, 14 Oct 2026 01:08:41 +0000 (UTC)
+Subject: Re: [GIT PULL] power-supply changes for 7.3-rc
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <as7BWpR9ytU4Ihdd@venus>
+References: <as7BWpR9ytU4Ihdd@venus>
+X-PR-Tracked-List-Id: <linux-pm.vger.kernel.org>
+X-PR-Tracked-Message-Id: <as7BWpR9ytU4Ihdd@venus>
+X-PR-Tracked-Remote: https://git.kernel.org/pub/scm/linux/kernel/git/sre/linux-power-supply.git tags/for-v7.3-rc
+X-PR-Tracked-Commit-Id: 5b4bd13e0552926648a46c2c9a12a24dfaee3715
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: d77bd0d469e1923e587bb919301c0bb29093e30a
+Message-Id: <179194012048.1544263.8307529566537051165.pr-tracker-bot@kernel.org>
+Date: Wed, 14 Oct 2026 01:08:40 +0000
+To: Sebastian Reichel <sre@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- Barry Song <baohua@kernel.org>, Juan Yescas <jyescas@google.com>,
- Daeho Jeong <daehojeong@google.com>, Pengfei Li <lipengfei28@xiaomi.com>,
- Dev Jain <Dev.Jain@arm.com>, David Hildenbrand <David.Hildenbrand@arm.com>,
- linux-kernel@vger.kernel.org, Bo Zhang <zhangbo56@xiaomi.com>,
- Kalesh Singh <kaleshsingh@google.com>, Nanzhe Zhao <nzzhao@126.com>,
- Nanzhe Zhao <zhaonanzhe@xiaomi.com>, Ryan Roberts <Ryan.Roberts@arm.com>
-Subject: Re: [f2fs-dev] [PATCH v4 00/18] f2fs: support & optimize large folios
- for writable files
-To: Jaegeuk Kim <jaegeuk@kernel.org>, Nanzhe Zhao <nzzhao.sigma@gmail.com>
-References: <20261013115621.968742-1-nzzhao.sigma@gmail.com>
- <as58gCX6mzaExhxs@google.com>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <as58gCX6mzaExhxs@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-Hi Jaegeuk,
+The pull request you sent on Wed, 14 Oct 2026 01:40:34 +0200:
 
-On 10/14/26 02:46, Jaegeuk Kim wrote:
-> Hi Nanzhe,
-> 
-> Could you please rebase your patches on top of dev-test?
+> https://git.kernel.org/pub/scm/linux/kernel/git/sre/linux-power-supply.git tags/for-v7.3-rc
 
-Nanzhe rebased the patchset to linux-next, so sashiko can apply & review
-the patchset as expected.
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/d77bd0d469e1923e587bb919301c0bb29093e30a
 
-The gap here is two missing cleanup patches from Zi Yan, please apply them
-into dev-test before applying Nanzhe's one, since it's dev-test, it won't
-cause any conflict w/ linux-next.
+Thank you!
 
-"f2fs: stop using PG_private"
-"f2fs: reject device aliasing without a multi-device configuration"
-
-See https://git.kernel.org/pub/scm/linux/kernel/git/chao/linux.git/log/?h=feature/large_folio
-
-Thanks,
-
-> 
-> https://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs.git/log/?h=dev-test
-> 
-> Note, I applied [0] and [1] already.
-> 
-> On 10/13, Nanzhe Zhao wrote:
->> From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
->>
->> This series supports large folios for most readable/writable files
->> in buffered I/O paths, including normal files, block-layer encrypted
->> files, and atomic files except for inline-data files, compressed files,
->> and quota files.
->>
->> It also extends f2fs_folio_state to coexist with f2fs page-private
->> flags and to handle large folio write path and partial truncate of
->> large folios correctly.
->>
->> Benchmark details can be found in the RFC v2 cover letter [1].
->>
->> Changes in v4:
->> - Rebased onto linux-next next-20261012 (4eb2586bd40d); its f2fs part
->>   is the f2fs dev branch.
->> - Added "f2fs: read i_size once in f2fs_vm_page_mkwrite" as a
->>   prerequisite (also sent separately).
->> - "f2fs: remove mappedtodisk flag usage in mmap write path" is kept as
->>   a prerequisite.
->> - Link to v3: [2]
->>
->> Patches 1 and 2 are prerequisites for the large folio work. They are
->> also posted independently as bug fixes, and are kept in this series to
->> make it self-contained for the sashiko review.
->>
->> Many thanks to Chao and Daeho for your extensive reviews and valuable
->> suggestions!
->>
->> [1] https://lore.kernel.org/r/20260622160830.324455-1-zhaonanzhe@xiaomi.com
->> [2] https://lore.kernel.org/linux-f2fs-devel/20261009161224.4163796-1-zhaonanzhe@xiaomi.com/
->>
->> Nanzhe Zhao (18):
->>   f2fs: read i_size once in f2fs_vm_page_mkwrite
->>   f2fs: remove mappedtodisk flag usage in mmap write path
->>   f2fs: extend folio state for large folio write path
->>   f2fs: carry subpage offset and count in write IO
->>   f2fs: support regular file buffered writes on large folios
->>   f2fs: support atomic file large folios buffered write
->>   f2fs: support large folio writeback
->>   f2fs: account large folio dirty data at block granularity
->>   f2fs: prepare mmap write faults for large folios
->>   f2fs: make GC migration large-folio aware
->>   f2fs: optimize small block size large folio read
->>   f2fs: support partial uptodate large folio read
->>   f2fs: handle partial truncate of large folio dirty subpages
->>   f2fs: wait for folio writeback before ffs_detach_free
->>   f2fs: fix zeroing paths for large folios
->>   f2fs: handle block cloning within the same large folio
->>   f2fs: allow large folio support to writeable files
->>   f2fs: make compressed files compatible with large folio
->>
->>  Documentation/filesystems/f2fs.rst |   10 +
->>  fs/f2fs/checkpoint.c               |   40 +-
->>  fs/f2fs/compress.c                 |    7 +-
->>  fs/f2fs/data.c                     | 1425 +++++++++++++++++++++++++---
->>  fs/f2fs/dir.c                      |    2 +-
->>  fs/f2fs/f2fs.h                     |  173 +++-
->>  fs/f2fs/file.c                     |  252 +++--
->>  fs/f2fs/gc.c                       |   38 +-
->>  fs/f2fs/inline.c                   |    9 +-
->>  fs/f2fs/inode.c                    |    4 +-
->>  fs/f2fs/namei.c                    |    1 +
->>  fs/f2fs/node.c                     |    2 +-
->>  fs/f2fs/segment.c                  |    3 +-
->>  13 files changed, 1706 insertions(+), 260 deletions(-)
->>
->> -- 
->> 2.43.0
->>
->>
->>
->> _______________________________________________
->> Linux-f2fs-devel mailing list
->> Linux-f2fs-devel@lists.sourceforge.net
->> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
-
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
