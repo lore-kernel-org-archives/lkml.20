@@ -1,156 +1,76 @@
-Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFEDF47ACEC
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:14:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1C153ACF14;
+	Wed, 14 Oct 2026 13:14:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791983652; cv=none; b=M9ZL0bVvV/dW+cj/Di4rqn+qyU8s2ieqHYid7EciO6KyFE7Fs/vnJZPOhwQS17Zc0zw6NghhWRLjHb5U93ua1v4GZq8yh0ecvC00lveOjOP2HAeLvqz76yYfcEteTQ4JKpGmachquDVUtRuYUuZlr0AC2RWW2FOyQifUhd19s7Y=
+	t=1791983659; cv=none; b=gy0N6Mg8wqNzoz0zCPtcdhvUhLT9R7HnquVVC+4N+MlunVC3QAwMjXQ0Pi5S1x6Brt2piy2SXHPNraWle6pnTxigOQaXbgZWQ6xolyKFQAGaNwKuuNLUCbVJen8Vm80JeE8U+7GO9RzXOqBemrq7SbA1pCvQYtgIxOqS2PMWId8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791983652; c=relaxed/simple;
-	bh=jsC2pQAyHszwvncz+uoLU1FcBTkldry2Z82F1l4wIEA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bsjQlwjSKIeeTWu0x/Z/D7w2Q5xZiUIn/TlgP15e8UZWTHoDhwY7/wnvF8W0Q1BIOfRGVBJ2h5aiyFEQu9NcXsxIPa78T43ox3ttwgEK/eg4sh8f7RJivMHecuIuPbusQUhYmrB5zZYnC9J7Y+ZcR3Glx2dE8wKNernPTi8nuwM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; arc=none smtp.client-ip=128.30.2.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
-Received: from escalante.csail.mit.edu ([128.52.128.198])
-	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
-	(envelope-from <nickolai@csail.mit.edu>)
-	id 1xGynv-005sVG-1B;
-	Wed, 14 Oct 2026 09:13:59 -0400
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: "Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Nickolai Zeldovich <nickolai@csail.mit.edu>
-Subject: [PATCH v1] mm/mlock: use a long for the page count in mlock_fixup()
-Date: Wed, 14 Oct 2026 09:13:58 -0400
-Message-ID: <20261014131358.780240-1-nickolai@csail.mit.edu>
-X-Mailer: git-send-email 2.53.0
+	s=arc-20240116; t=1791983659; c=relaxed/simple;
+	bh=scxTO8txJo3gaoljr9fQkU1xb5nzMznSl9EJnERHruM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=mZ/s4xbXmAUkwBto3dVKF0RPaGUDCCpWSarInFmcEB8dbNw/ZUPExMMDruoqNnUpJcG1ISvYhZtEirXiEeutGd/EnutYjkju7Bf64HlII0OGL5v1/6xhJFxHrHX/xSuvZopwuxXB9WYwBzXSh6FQ32mQ4DqlI8F+lPYGNQR2wm0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gowA1ETv; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gowA1ETv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5117F1F000FF;
+	Wed, 14 Oct 2026 13:14:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791983658;
+	bh=I7YFVkl+1ZY0Rlco79QQvPL2GmZjYoCSWldgOSgBE0g=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=gowA1ETviZIbeOPX37NjJNoUbu6SKjzQEUpmGJRw//cMc6B6dUz/zMF7EWOxDxNvE
+	 eCx2UVu0C5gJ/vMEGHjbCc6ruoLZW3YcbR4lXb1ox3BVAGaMe6a/ll9rhuuz4SqgJv
+	 sHdsubFdzJjEBsLG/J3m2o4TAz588YPFSlBQkQLVteZF3W8jzGZbIw2mZQpaslSNUS
+	 LP7gHotvN9PmUiWKPfEQK87R/H+KgGyzyqDALntgNb4uDapQvnlIhwMa2qwjLFQIYR
+	 lUXh6ZckrQQNeLSWX8oUt79HGRQtYb8SyrM0n3TVzxbmD38PX3fe5/Y8yNu7nh5n0z
+	 /voxp8/HWnF0g==
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: bharat.kumar.gogada@amd.com, Wentao Liang <vulab@iscas.ac.cn>
+Cc: bhelgaas@google.com, kwilczynski@kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-pci@vger.kernel.org, lpieralisi@kernel.org, michal.simek@amd.com, 
+ robh@kernel.org, thippeswamy.havalige@amd.com, stable@vger.kernel.org
+In-Reply-To: <20260917132459.2153240-1-vulab@iscas.ac.cn>
+References: <20260917132459.2153240-1-vulab@iscas.ac.cn>
+Subject: Re: [PATCH] PCI: xilinx-xdma: Fix device node reference leak in
+ xilinx_pl_dma_pcie_init_irq_domain()
+Message-Id: <179198364237.63727.8742689610493287096.b4-ty@b4>
+Date: Wed, 14 Oct 2026 18:44:02 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=399;
+ i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
+ bh=i3FYOq1i3QlPXoQPHaC61bAAS20NIkq1j8Z6OirDM0k=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBqz4Afqsb4QVGnp++mRm9p8UiFbL4MXqOSS+q06
+ aq2bAoZrmuJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCas+AHwAKCRBVnxHm/pHO
+ 9SFQB/9xhEgM7VvjikxK9eNqB6b94b4qNPxE4sYUYay9NXIP/wPr/h1dJSjmIwiRTDEMg7nM/jI
+ Jq3ylqhnL3W40Tx3C/WQ7x874Glp3YJvSrTRF1L7B9OQfbwp7Yb1MGqSEBQIN2T3nn+fkoJqDZK
+ uCgc1NwPtkZt5mK+i08bw2j/bpign6TtlDfgpSrSysRB/+cPrQKyt2PXYtCil2j3QAHZyo6bDVe
+ qTH7QNul7pqbxfdCkBj4TZN89VCMX19780GXoIQZurrA0k4msPD0heFZe74Rl8LwmX+NdcYXT9J
+ Y4t6S8SB4ivukeK2B9bb0+MMF0h9yyoNqZY7wZfIKLhyxbyQ
+X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-mlock_fixup() adjusts mm->locked_vm, an unsigned long, by the number of
-pages whose VM_LOCKED state it changes, but computes that number in an
-int:
 
-	int nr_pages;
-	...
-	nr_pages = (end - start) >> PAGE_SHIFT;
-	...
-	mm->locked_vm += nr_pages;
+On Thu, 17 Sep 2026 13:24:59 +0000, Wentao Liang wrote:
+> PCI: xilinx-xdma: Fix device node reference leak in xilinx_pl_dma_pcie_init_irq_domain()
 
-When a single VMA range of 2^31 pages (8 TiB with 4 KiB pages) or more
-is locked or unlocked, the count is truncated to 32 bits and then
-sign-extended, so locked_vm is changed by the wrong amount, while
-munmap(), mremap() and the other paths that maintain locked_vm use the
-full unsigned long page count.
+Applied, thanks!
 
-Such a range is reachable on 64-bit architectures with a 47-bit or
-larger user address space (x86_64, arm64 with 48-bit VA, riscv64 Sv48)
-by a task with CAP_IPC_LOCK or a raised RLIMIT_MEMLOCK, which do_mlock()
-checks against the full untruncated length.  It costs nothing with
-MAP_NORESERVE and MLOCK_ONFAULT/MCL_ONFAULT, since then no page is
-populated.  On x86_64, after
+[1/1] PCI: xilinx-xdma: Fix device node reference leak in xilinx_pl_dma_pcie_init_irq_domain()
+      commit: 0346bd527dff238db0acfe8ca6c4dfc6c2ea1c52
 
-	p = mmap(NULL, 8UL << 40, PROT_READ | PROT_WRITE,
-		 MAP_PRIVATE | MAP_ANONYMOUS | MAP_NORESERVE, -1, 0);
-	mlock2(p, 8UL << 40, MLOCK_ONFAULT);
-
-VmLck in /proc/self/status reads 18446744065119617024 kB instead of
-8589934592 kB; munmap() of the region then subtracts the true size and
-leaves VmLck at 18446744056529682432 kB instead of 0.  With 16 TiB,
-locked_vm is not changed at all, VmLck stays 0 kB, and after the task
-drops CAP_IPC_LOCK or lowers RLIMIT_MEMLOCK, mlock(), mmap(MAP_LOCKED)
-and the other mlock_future_ok() and account_locked_vm() users enforce
-RLIMIT_MEMLOCK against that count, so they let the task lock memory
-beyond its limit (or, in the 8 TiB case, refuse every further lock).
-The error persists for the life of the mm; unlocking the range in pieces
-skews it further.  The wrong count is per-mm accounting only: it does
-not change which pages are locked.
-
-The int has been there since before git history (the variable was named
-"pages" until it was renamed in 2.6.28); every other updater of
-locked_vm uses an unsigned long or long count.  Make nr_pages a long,
-which holds the page count of any user range and its negation, so the
-existing sign handling is unchanged.
-
-Found by formal verification of mm/mlock.c against the kernel binary.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Assisted-by: LLM
-Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
----
-
-Notes:
-    Reproducer: the program below, run as root from an initramfs on
-    v7.3-rc7-28-g4056b3c9d3c9 defconfig (LLVM=1) under QEMU, x86_64 (TCG,
-    -cpu max) and riscv64 (virt, -cpu max); a longer version also checks
-    munmap(), a 16 TiB lock and RLIMIT_MEMLOCK enforcement.
-    
-                                           before                   after
-      VmLck after locking 8 TiB            18446744065119617024 kB  8589934592 kB
-      VmLck after munmap() of it           18446744056529682432 kB  0 kB
-      VmLck after locking 16 TiB           0 kB                     17179869184 kB
-      mlock() of 16 pages over a 16-page   succeeds                 ENOMEM
-      RLIMIT_MEMLOCK, CAP_IPC_LOCK dropped
-    
-    // Needs root (or CAP_IPC_LOCK), >= 16 TiB user VA, vm.overcommit_memory != 2.
-    #define _GNU_SOURCE
-    #include <stdio.h>
-    #include <string.h>
-    #include <sys/mman.h>
-    #include <sys/syscall.h>
-    #include <unistd.h>
-    
-    int main(void)
-    {
-    	size_t len = 8UL << 40;		/* 2^31 pages of 4 KiB */
-    	char line[128];
-    	FILE *f;
-    	void *p;
-    
-    	p = mmap(NULL, len, PROT_READ | PROT_WRITE,
-    		 MAP_PRIVATE | MAP_ANONYMOUS | MAP_NORESERVE, -1, 0);
-    	if (p == MAP_FAILED || syscall(SYS_mlock2, p, len, 1 /* MLOCK_ONFAULT */)) {
-    		perror("mmap/mlock2");
-    		return 2;
-    	}
-    	f = fopen("/proc/self/status", "r");
-    	while (fgets(line, sizeof(line), f))
-    		if (!strncmp(line, "VmLck:", 6))
-    			printf("%s", line);	/* expected 8589934592 kB */
-    	return 0;
-    }
-
- mm/mlock.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/mm/mlock.c b/mm/mlock.c
-index 39215a3eab1f..4fb43cddafa8 100644
---- a/mm/mlock.c
-+++ b/mm/mlock.c
-@@ -470,7 +470,7 @@ static int mlock_fixup(struct vma_iterator *vmi, struct vm_area_struct *vma,
- {
- 	const vma_flags_t old_vma_flags = vma->flags;
- 	struct mm_struct *mm = vma->vm_mm;
--	int nr_pages;
-+	long nr_pages;
- 	int ret = 0;
- 
- 	if (vma_flags_same_pair(&old_vma_flags, new_vma_flags) ||
-
-base-commit: 4056b3c9d3c92ea45955641dbafeb9b960e146ef
+Best regards,
 -- 
-2.53.0
+மணிவண்ணன் சதாசிவம்
+
 
