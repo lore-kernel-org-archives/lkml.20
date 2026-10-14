@@ -1,47 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C4CB6AD4;
-	Wed, 14 Oct 2026 04:03:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B016411F90;
+	Wed, 14 Oct 2026 04:03:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791950631; cv=none; b=YFWReT3/UOOpCMpwXE9nBZJMEUJVs5/hXFwTjOBtHzRJvW3ngfzEk4l/+LfzifenEKV9Xkw4AmYeF8b36IFrPFZFG5Ks2aLeZ1phP0OAJTwc4SdXvCsP32C2V+NqmN15kdB66vbZwtkVoM0HuvbWompCb8U/eT/+QDaz2Ou4c5s=
+	t=1791950634; cv=none; b=fL1sdj13KL+7e/ww1358h4OGfBglUpr+RQ5YoBkLUsF52CEKbtro+ae/CqBjSV+8ZHXsYroe9nJGQHRRCJQgd9hrUEHGCDfO5PpCtkh7Y2OObW1/q0F9dbaJrFzdMm00pzPpoT8CYM8zGKSfqEi8TR1ak8fbG6X92+3Imga9rEs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791950631; c=relaxed/simple;
-	bh=ndg1LolXcq5l5x8/yfy1msbnqLW3/XXY6IXQxjjXY4w=;
+	s=arc-20240116; t=1791950634; c=relaxed/simple;
+	bh=FcjLSPhR/pkggo8Ln8Ba+uAEi5Mr3VyEFw+YHTcPPIk=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=iy0GA26j04d7vG12QJ4yQfVBGkxwPSW9iv03UR9ytXsx/5Dwv/MJV1lRObM3T4n6AhqbEC7ghlucpp8uLTUUrXMi20AozLHMlTU/40Abl1iHxs36PwVN8p2s7g4HvsAI4hg5GtkAfxbGCJRvP/tp3kVU5rmh9VsUx/hHaKr76vM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I1mVejlx; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=Zar4CI7607KFJo12C9A8Tt4to4lqMXWosfVjER/9l8ACJcibpokMNfmlOm4XOPixHlTb9OP+bZ5bcCVK8UiiYBsFppbYmLX004kFe1601SLMZ7lpyQsQp7gmX/looJodDJQjLCnIK4Vn7QX0yBQzs6M8ZlBZpXNQM/OQCBojTxU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TGOpXLmQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I1mVejlx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC22B1F000FF;
-	Wed, 14 Oct 2026 04:03:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TGOpXLmQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14FD81F000FF;
+	Wed, 14 Oct 2026 04:03:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791950629;
-	bh=hZ27OHOWlIzHI+9Uvx4Rt+Z3ThNOr+Qo/L+OypEz41g=;
+	s=k20260515; t=1791950632;
+	bh=wyiPssJl3JiX3owHqVugBEFvLmNp9oF1Gy5M6IM+UZU=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=I1mVejlxP9G+exIkBndzljRD+Fg5+7uMvZ2/SsTNKoiP96jFP9+xU8cWuQt+11qEz
-	 0ZbuCEgu3K0elL575rymee8qksUnebiTVwmxKmMPQknAIa4Ryjxs3VsfOuLLxCsnnd
-	 7V2xeETW6EQTqrmHUbh3jLFX+Ge/NOg8gXoOF43e1N0yvfI9R8CZPlkgaDA+yLpEsQ
-	 Pj5NJiXENMogpbJBxz+CYjz2/4/3376HJBROO9JoEVpGxn2LkNZgqV1JeozYXP2ZrC
-	 FBihYS8cxHCQqjf1UKYdIJUSIkwfAlXiY0adLvnfXNY6helDa6W3cxykzYtqWn+2Le
-	 huKsinPCCLHzQ==
-Subject: Re: [PATCH net-next v8 1/3] net: stmmac: dwmac-socfpga: complete
- cross-timestamp on ATSNS
+	b=TGOpXLmQ0KJgjdgQCb97HI1TcEiGlBZq5AqsdiPahJzXjpUcI0pwjDbl1QXpMfzKK
+	 An4GNN/aElsLRdjrh+xPHc3yFN2Uf1DOpjXC1VL2RrsXdeZvk7uOMEihzZGLEMh4NW
+	 Q1k2n6GPCtuXMsa9O8tEv78HJ+KcrLDsfHJYQlPPn06Eo6h/yQCN+kkUz1TxMajun2
+	 CWVc3B0W5AmZmIco5nwZSnxF9l4EXVwkwYBUA99TjEuvyFSIFPyu/M5azP2cCY3CZC
+	 FX7pdlF4V07i17drpC9Y0ntLw0GRJw7MaBnQ69tFrERJxgIYmIHKQpi9tKFkN7baiQ
+	 22h8ryhPzbZyg==
+Subject: Re: [PATCH net] kcm: defer receive parsing when the lower socket's
+ read_sock may sleep
 From: netdev-bot+sashiko@kernel.org
-To: zxyan0222@gmail.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- richardcochran@gmail.com, muhammad.nazim.amirul.nazle.asmade@altera.com,
- rohan.g.thomas@altera.com, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Wed, 14 Oct 2026 04:03:48 +0000
-Message-ID: <179195062830.434549.9772327824261353098@kernel.org>
-In-Reply-To: <20261013033207.1684328-2-zxyan0222@gmail.com>
-References: <20261013033207.1684328-2-zxyan0222@gmail.com>
-X-sashiko-severity: High
+To: rjethwani@purestorage.com
+Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, leitao@debian.org, zirajs7@gmail.com,
+ runyu.xiao@seu.edu.cn, jiayuan.chen@shopee.com, brauner@kernel.org,
+ sagi@grimberg.me, hare@suse.de, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Wed, 14 Oct 2026 04:03:51 +0000
+Message-ID: <179195063165.434549.13463545924832836566@kernel.org>
+In-Reply-To: <20261013033920.2069285-1-rjethwani@purestorage.com>
+References: <20261013033920.2069285-1-rjethwani@purestorage.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -51,10 +49,10 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
+Thank you for your contribution! Sashiko AI review found 1 potential
 issue(s) to consider.
 
-Critical: 0 · High: 2 · Medium: 0 (4) · Low: 0
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -62,285 +60,89 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] net: stmmac: TOCTOU race on STMMAC_FLAG_EXT_SNAPSHOT_EN check
-- [High] net: stmmac: race condition in smtg_crosststamp leaves SMTG
-  reads unprotected
-
-Pre-existing issues:
-- [Medium] intel_crosststamp() in
-  drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c has the same…
-- [Medium] smtg_crosststamp() (drivers/net/ethernet/stmicro/stmmac/dwmac-
-  socfpga.c:310) tests STMMAC_FLAG_EXT_SNAPSHOT_EN before…
-- [Medium] At this commit, the XGMAC/XLGMAC hwif entries use .hwtimestamp
-  = &stmmac_ptp.
-- [Medium] smtg_crosststamp() releases aux_ts_lock (dwmac-socfpga.c:391)
-  before get_smtgtime() reads the system-counter half of the cross-…
+- [Medium] In net/kcm/kcmsock.c, psock_data_ready() now passes every
+  data_ready event on a non-tcp_read_sock lower socket (for example, a…
 
 --
 
-net: stmmac: dwmac-socfpga: complete cross-timestamp on ATSNS
+kcm: defer receive parsing when the lower socket's read_sock may sleep
 
-This patch changes smtg_crosststamp() so that it first waits for the
-PTP_ACR_ATSFC FIFO clear to finish, then polls the ATSNS count in
-XGMAC_TIMESTAMP_STATUS instead of the transient TSIS bit. It also holds
-aux_ts_lock across the whole clear, trigger, poll and drain sequence.
+This commit changes psock_data_ready() so that strp_data_ready() runs
+inline only when the lower socket's read_sock is tcp_read_sock(). Any
+other read_sock, such as kTLS's tls_sw_read_sock(), is now deferred to
+the strparser work via strp_check_rcv(). The goal is to avoid sleeping
+in softirq context.
 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-> index 6d4bc1fe8f751..ee79b74bf21b6 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-> @@ -337,8 +337,18 @@ static int smtg_crosststamp(ktime_t *device, struct system_counterval_t *system,
->  	acr_value = readl(ptpaddr + PTP_ACR);
->  	acr_value |= PTP_ACR_ATSFC;
->  	writel(acr_value, ptpaddr + PTP_ACR);
+> diff --git a/net/kcm/kcmsock.c b/net/kcm/kcmsock.c
+> index 71af69d442f21..381a8f0b792e3 100644
+> --- a/net/kcm/kcmsock.c
+> +++ b/net/kcm/kcmsock.c
 
-[Severity: Medium]
-This is a pre-existing issue and was not introduced by this patch. In
-smtg_crosststamp(), the STMMAC_FLAG_EXT_SNAPSHOT_EN check runs before
-aux_ts_lock is taken, and it is not checked again once the lock is held:
+[ ... ]
 
-	if (priv->plat->flags & STMMAC_FLAG_EXT_SNAPSHOT_EN)
-		return -EBUSY;
-
-	mutex_lock(&priv->aux_ts_lock);
-
-stmmac_enable() sets that flag and programs PTP_ACR under aux_ts_lock:
-
-	priv->plat->flags |= STMMAC_FLAG_EXT_SNAPSHOT_EN;
-
-	/* Enable External snapshot trigger */
-	acr_value |= PTP_ACR_ATSEN(rq->extts.index);
-	acr_value |= PTP_ACR_ATSFC;
-
-A PTP_CLK_REQ_EXTTS enable can finish between the unlocked check and
-mutex_lock(). One way this happens is when both callers are blocked on
-the mutex behind another crosststamp. smtg_crosststamp() then goes on to
-do:
-
-	acr_value &= ~PTP_ACR_MASK;
-
-Does this clear the external ATSEN bit? And does the ATSFC write that
-follows then flush any external snapshots already latched?
-
-If so, EXT_SNAPSHOT_EN stays set and the EXTTS request has already
-returned success, but external events are no longer latched and no error
-is reported. Could the EXT_SNAPSHOT_EN check be moved under aux_ts_lock?
-
-Also, at this commit smtg_crosststamp() does not set
-STMMAC_FLAG_INT_SNAPSHOT_EN, so the shared timestamp_interrupt() could
-drain the FIFO during this window. A later patch in the series, "net:
-stmmac: dwxgmac2: add XGMAC timestamp interrupt support", fixes that
-part. The unlocked EXT_SNAPSHOT_EN check is still there at the end of
-the series.
-
-> -	/* Release the mutex */
-> -	mutex_unlock(&priv->aux_ts_lock);
-
-[Severity: High]
-This isn't introduced by this patch, and the window is narrower than
-before. Still, the system counter half of the cross-timestamp is read
-after aux_ts_lock has been dropped.
-
-The SMTG block latches the ARM arch counter on the GPO0 rising edge
-that smtg_crosststamp() generates. get_smtgtime() then fetches that
-latched value with four separate mdiobus_read() calls, from
-SMTG_TSC_WORD3 down to SMTG_TSC_WORD0. Each MDIO read is serialized
-on its own, but nothing ties the four reads to the trigger that
-produced the value.
-
-Neither ptp_sys_offset_precise() nor get_device_system_crosststamp()
-serializes calls into the getcrosststamp path. Two processes issuing
-PTP_SYS_OFFSET_PRECISE on the same /dev/ptpX, for example phc2sys and
-chronyd, can therefore run smtg_crosststamp() concurrently.
-
-Suppose the first caller has dropped aux_ts_lock but has not finished
-get_smtgtime(). The second caller can take aux_ts_lock, clear the FIFO
-and toggle GPO0 in that window, which relatches the SMTG registers
-under the first caller. The first caller then pairs its PTP device
-time with the second capture, or with words torn across the two
-captures, and still reports success.
-
-That silently breaks the precision PTP_SYS_OFFSET_PRECISE is meant to
-provide. Would it work to move this mutex_unlock() after
-get_smtgtime()? Then the trigger, the FIFO drain and the SMTG read
-would all happen under aux_ts_lock. Holding the mutex across the MDIO
-accesses should be fine, since this path can already sleep. Is there
-any path that takes aux_ts_lock with the MDIO bus lock held?
+> @@ -358,8 +359,19 @@ static void psock_data_ready(struct sock *sk)
+>  	read_lock_bh(&sk->sk_callback_lock);
+>  
+>  	psock = (struct kcm_psock *)sk->sk_user_data;
+> -	if (likely(psock))
+> -		strp_data_ready(&psock->strp);
+> +	if (likely(psock)) {
+> +		struct socket *sock = sk->sk_socket;
+> +
+> +		/* strp_data_ready() calls sock->ops->read_sock() inline from
+> +		 * this softirq callback. A ULP's read_sock, such as kTLS's
+> +		 * tls_sw_read_sock(), may sleep, so hand anything other than
+> +		 * TCP's own to the parser work, which runs under lock_sock().
+> +		 */
+> +		if (likely(sock && sock->ops->read_sock == tcp_read_sock))
+> +			strp_data_ready(&psock->strp);
+> +		else
+> +			strp_check_rcv(&psock->strp);
 
 [Severity: Medium]
-This isn't a bug introduced by this patch, but intel_crosststamp() in
-drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c still has the pattern
-that this patch removes from the socfpga version:
+Will this serialize all KCM-over-kTLS receive processing on a single
+system-wide worker?
 
-dwmac-intel.c:intel_crosststamp() {
+strp_check_rcv() only does queue_work(strp_wq, &strp->work). strp_wq is
+created in strp_dev_init() as an ordered workqueue:
+
+net/strparser/strparser.c:strp_dev_init() {
     ...
-	acr_value |= PTP_ACR_ATSFC;
-	writel(acr_value, ptpaddr + PTP_ACR);
-	/* Release the mutex */
-	mutex_unlock(&priv->aux_ts_lock);
+	strp_wq = create_singlethread_workqueue("kstrp");
     ...
 }
 
-It never waits for the ATSFC clear to complete. It also waits on the
-transient TSIE bit through stmmac_cross_ts_isr():
+So only one strparser work item can run at a time across the whole
+system. KCM psocks, the sockmap strparser in net/core/skmsg.c and
+espintcp in net/xfrm/espintcp.c all share this queue.
 
-	return (readl(priv->ioaddr + GMAC_INT_STATUS) & GMAC_INT_TSIE);
+With this change, every data_ready event on a kTLS-backed psock ends up
+in this path:
 
-After that it reads ATSNS from GMAC_TIMESTAMP_STATUS and drains the aux
-FIFO without holding aux_ts_lock:
+strp_work()
+  do_strp_work()
+    lock_sock()
+    strp_read_sock()
+      tls_sw_read_sock()
+        tls_rx_one_record()   /* sync AEAD decrypt or crypto_wait_req() */
+        tls_read_flush_backlog()
 
-	num_snapshot = (readl(ioaddr + GMAC_TIMESTAMP_STATUS) &
-			GMAC_TIMESTAMP_ATSNS_MASK) >>
-			GMAC_TIMESTAMP_ATSNS_SHIFT;
+While one psock is decrypting or waiting there, do_strp_work() for every
+other strparser instance waits behind it on kstrp.
 
-stmmac_enable() handles PTP_CLK_REQ_EXTTS by taking aux_ts_lock,
-rewriting PTP_ACR and setting ATSFC. Can that flush or re-arm the FIFO
-between the TSIE wait and the drain loop? A stale TSIE, or a FIFO clear
-that is still in progress, could also produce a stale or missing device
-sample.
+Before this patch, the common case ran inline in softirq on the
+receiving CPU, so several sockets could be processed in parallel. kstrp
+was only used for the sock_owned_by_user() and -ENOMEM fallbacks.
 
-If num_snapshot ends up as 0, system->cycles stays 0 and
-get_device_system_crosststamp() returns -EINVAL. So the result is a
-mismatched sample or a spurious error, not uninitialized data.
+Could this add receive latency for unrelated KCM, sockmap and espintcp
+users? Each individual wait is bounded, but a local user who controls
+KCM+kTLS sockets could keep the shared worker busy. Would a per-psock or
+unbound workqueue for this deferred path be a better fit?
 
-Would it make sense to apply the same fix to intel_crosststamp() in a
-follow-up?
-
-> +
-> +	/* Wait for the FIFO clear, so the poll only sees snapshots from
-> +	 * this trigger.
-> +	 */
-
-[ ... ]
-
-> @@ -349,10 +359,14 @@ static int smtg_crosststamp(ktime_t *device, struct system_counterval_t *system,
->  	gpio_value |= XGMAC_GPIO_GPO0;
->  	writel(gpio_value, ioaddr + XGMAC_GPIO_STATUS);
->  
-> -	/* Poll for time sync operation done */
-> -	ret = readl_poll_timeout(priv->ioaddr + XGMAC_INT_STATUS, v,
-> -				 (v & XGMAC_INT_TSIS), 100, 10000);
-> +	/* Poll ATSNS instead of the transient TSIS: the ATSNS count is
-> +	 * the FIFO level and is not cleared by reading the register.
-> +	 */
-> +	ret = readl_poll_timeout(ioaddr + XGMAC_TIMESTAMP_STATUS, v,
-> +				 FIELD_GET(XGMAC_TIMESTAMP_ATSNS_MASK, v),
-> +				 100, 10000);
-
-[Severity: Medium]
-This is a pre-existing issue and was not introduced by this patch. At
-this commit, the shared timestamp ISR does not use this register on
-XGMAC. The XGMAC and XLGMAC entries in hwif.c use:
-
-		.hwtimestamp = &stmmac_ptp,
-
-and timestamp_interrupt() in stmmac_hwtstamp.c reads the dwmac4 offset:
-
-	ts_status = readl(priv->ioaddr + GMAC_TIMESTAMP_STATUS);
-
-GMAC_TIMESTAMP_STATUS is 0xb20, while XGMAC_TIMESTAMP_STATUS is 0xd20
-with ATSNS at GENMASK(29, 25). On XGMAC cores, does the EXTTS ISR read
-an unrelated register both to clear the timestamp status and to get the
-aux FIFO level? That would give wrong or missing EXTTS events.
-
-This looks like it is fixed later in the series by "net: stmmac:
-dwxgmac2: add XGMAC timestamp interrupt support". That patch adds
-dwxgmac2_ptp, whose dwxgmac2_timestamp_interrupt() reads
-XGMAC_TIMESTAMP_STATUS, and switches both XGMAC hwif entries to
-&dwxgmac2_ptp.
-
-[ ... ]
-
-> @@ -375,6 +388,8 @@ static int smtg_crosststamp(ktime_t *device, struct system_counterval_t *system,
->  		read_unlock_irqrestore(&priv->ptp_lock, flags);
->  	}
->  
-> +	mutex_unlock(&priv->aux_ts_lock);
-> +
->  	get_smtgtime(priv->mii, SMTG_MDIO_ADDR, &smtg_time);
->  	system->cycles = smtg_time;
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but the system counter half
-of the cross-timestamp is still read after aux_ts_lock is dropped. The
-SMTG IP latches the ARM arch counter on the GPO0 trigger. get_smtgtime()
-then reads it with four separate MDIO reads:
-
-	ns = mdiobus_read(mii, smtg_addr, SMTG_TSC_WORD3);
-	...
-	ns |= mdiobus_read(mii, smtg_addr, SMTG_TSC_WORD0);
-
-ptp_sys_offset_precise() does not take pincfg_mux, and
-get_device_system_crosststamp() does not serialize get_time_fn. With two
-concurrent PTP_SYS_OFFSET_PRECISE callers, can the second caller take
-aux_ts_lock and toggle GPO0 again before or during the first caller's
-MDIO reads?
-
-In that case the first caller pairs its device timestamp with the second
-capture, or with words torn across the two captures, and still returns
-success.
-
-Before this patch the mutex was dropped even before the GPO0 trigger, so
-the window was wider then. Would moving mutex_unlock() after
-get_smtgtime() close the remaining window?
-
-[ ... ]
-
-> @@ -337,8 +337,18 @@ static int smtg_crosststamp(ktime_t *device, struct system_counterval_t *system,
->  	acr_value = readl(ptpaddr + PTP_ACR);
->  	acr_value |= PTP_ACR_ATSFC;
->  	writel(acr_value, ptpaddr + PTP_ACR);
-> -	/* Release the mutex */
-> -	mutex_unlock(&priv->aux_ts_lock);
-> +
-> +	/* Wait for the FIFO clear, so the poll only sees snapshots from
-> +	 * this trigger.
-> +	 */
-> +	ret = readl_poll_timeout(ptpaddr + PTP_ACR, acr_value,
-> +				 !(acr_value & PTP_ACR_ATSFC), 10, 10000);
-> +	if (ret) {
-> +		mutex_unlock(&priv->aux_ts_lock);
-> +		netdev_err(priv->dev, "%s: Failed to clear snapshot FIFO\n",
-> +			   __func__);
-> +		return ret;
 > +	}
 >  
->  	/* Trigger Internal snapshot signal. Create a rising edge by just toggle
->  	 * the GPO0 to low and back to high.
-
-[Severity: High]
-This isn't introduced by this patch, but there is still a hole at the
-top of smtg_crosststamp(). The commit message says aux_ts_lock is now
-held across the whole sequence so a concurrent PTP_CLK_REQ_EXTTS
-request cannot interfere. However, the STMMAC_FLAG_EXT_SNAPSHOT_EN test
-that returns -EBUSY runs before mutex_lock(&priv->aux_ts_lock), and it
-is not repeated once the lock is held.
-
-stmmac_enable() sets STMMAC_FLAG_EXT_SNAPSHOT_EN and writes
-PTP_ACR_ATSEN(rq->extts.index) | PTP_ACR_ATSFC into PTP_ACR under
-aux_ts_lock. So this interleaving looks possible:
-
-  smtg_crosststamp()           stmmac_enable(EXTTS, on)
-  flag check passes
-                               mutex_lock(aux_ts_lock)
-                               set EXT_SNAPSHOT_EN
-                               set ATSEN(n) | ATSFC in PTP_ACR
-                               mutex_unlock(aux_ts_lock)
-                               return 0
-  mutex_lock(aux_ts_lock)
-  acr_value &= ~PTP_ACR_MASK
-  set ATSEN(int_snapshot_num)
-  set ATSFC
-
-Doesn't that drop the external ATSEN bit? And doesn't the ATSFC write
-that follows flush any external snapshots already latched? Nothing
-restores the external trigger afterwards. EXT_SNAPSHOT_EN stays set,
-so later crosststamp calls return -EBUSY. Meanwhile the EXTTS request,
-which already returned success, silently stops producing events.
-
-Could the EXT_SNAPSHOT_EN check be moved after mutex_lock(), with an
-unlock on the -EBUSY path? Then the check and the PTP_ACR update would
-be done under the same lock.
+>  	read_unlock_bh(&sk->sk_callback_lock);
+>  }
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261013033207.1684328-1-zxyan0222%40gmail.com
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261013033920.2069285-1-rjethwani%40purestorage.com
