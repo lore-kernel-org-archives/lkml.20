@@ -1,90 +1,165 @@
-Received: from r3-11.sinamail.sina.com.cn (r3-11.sinamail.sina.com.cn [202.108.3.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52BD8302146
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 01:41:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E678A175A6B
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 01:43:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791942098; cv=none; b=I6WV9m1tauk0ZoKn/xshmTueHhVUp4//gx/qCV6bieIkKDzjxZ6McX1lxVeVadbleedEs6RjclrY2jIIOlwB22x1GLT8mCtDn+mr5I9DpgeD0FiC5JsiknJM+/3eoxuycTQqhg18KC6haqG1UuGpUikjibZ6fHSUbzrRczn6hSo=
+	t=1791942185; cv=none; b=kd6SUB/zKPC5evTaqiHje2nJxw+Oo/qgJxmqFNmNWRlh23eWqforA+yV8AvmgUf3kCggQMnhAWqCUcF3Ni4ViNyxyc6MQT2JLXmIvX/jJA5uL31uFhDDSR1NEBvFZHV7Zll2x7kCRpAXPewk8kf0AlpMd0JJWhUtJfa+aO1J7Rc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791942098; c=relaxed/simple;
-	bh=bCaUzIelB9WpZwF/pwMwTNqan3Z0wPcZ2evd+e1nY4E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KYDOlTd8kg85Y1MYSHOmogssbTEgtQBQrbB3cCV3LqUy3LYk0pTYjotl1z2m5e/MlhaibF7AIh0SaWzsw220hvrtfpdciHCw+rbm4Gq23EIk2OJZoikP7DHyLysRvYclWnJ31TwENzOuAGEw0ea2ioKFbch4uU43SFIpXHO1b5Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=JbzSKmni; arc=none smtp.client-ip=202.108.3.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	s=arc-20240116; t=1791942185; c=relaxed/simple;
+	bh=hytu7B9kAsC4vJOL6a40CEFHUauXSXd526P/SgVqgmU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NKJv//N27jb0X0dJWTCrp4luticZ6+0ZwsdB2X0If12AvNA9pVB5Lal7hY6L2H90NSS5Hc3d/tHLg0u0vOtK2sXt1eCN1uQzVuvjH5IpeT1a+aqYj010uxZjGISjl7TQIhubSqGSXAtjg7Hb4qVs3OD+xRfHiJlfNezSVCgWCAs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TqQNQgrT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="JbzSKmni"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1791942094;
-	bh=Gukd+7qBDkCL0LwJkx1bGcwYtROGaDWytHz0r2JFleE=;
-	h=From:Subject:Date:Message-ID;
-	b=JbzSKmniJVAA9CnbW+dTXOK6MSIOaz03h3PuzPjG6QBj4CBto4wJiDOjG+b4HOAAh
-	 EKq1abq/gLIJCOMMG9j2RhEvEEWjTaQluWEf22NyGeIlaCmpcdkqXPEP0Dsgzmf0lY
-	 q/cxqba5XjGV/4Sn/+03cFMSCV3rnWWpX5/OZyWY=
-X-SMAIL-HELO: localhost.localdomain
-Received: from unknown (HELO localhost.localdomain)([114.249.62.194])
-	by sina.com (10.54.253.34) with ESMTP
-	id 6ACEDDC100004107; Wed, 14 Oct 2026 09:41:25 +0800 (CST)
-X-Sender: hdanton@sina.com
-X-Auth-ID: hdanton@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=hdanton@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=hdanton@sina.com
-X-SMAIL-MID: 3659906291904
-X-SMAIL-UIID: 3E8AF85D807741DB8AE66A308ECF1F7E-20261014-094125-1
-From: Hillf Danton <hdanton@sina.com>
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-Cc: David Airlie <airlied@redhat.com>,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	Gurchetan Singh <gurchetansingh@chromium.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	syzbot+1b129b44597a126d2d79@syzkaller.appspotmail.com,
-	dri-devel@lists.freedesktop.org,
-	virtualization@lists.linux.dev
-Subject: Re: [PATCH] drm/virtio: share one vbuf cache across all devices
-Date: Wed, 14 Oct 2026 09:41:10 +0800
-Message-ID: <20261014014112.515-1-hdanton@sina.com>
-In-Reply-To: <bf25fc38-95d7-4cb5-b0ee-6afe1488e5e7@collabora.com>
-References: 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TqQNQgrT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01F721F000FF;
+	Wed, 14 Oct 2026 01:43:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791942183;
+	bh=tnB1R60CVpPwZn+HnZfst5yiiD+KHeL0wsgAMHC34QQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TqQNQgrToLbt3B/o2WllcvRFtKcxRiSlMPc9J+h/rsW/4sYIFhgNapemmzNvtMNgR
+	 b/PS1IoLU/jcrOCPaVLQhPR6R1YCpdHZjwRmltKUNLcZXtuLPmg5rgeKDA6Qxs3P/j
+	 Iwxz3zS1NXdVAV7VG0YTRCyayo72xslSXVU8xRm256oJy3ZIjj6VA/BXBNAPpJkgBs
+	 q5A8b6W80vYw2WjX7cNEbW/nV0oznutqzzxgZ49fxh+JOhKkcqbhQTLNTjn5p4Biuq
+	 fp/jMd4rO3hJmRaqwhRpeaFNyuE5iM/b1eFWPx4JDliqdYaRf0f6Gf9JI0MaRidqek
+	 8PXj3sMfEmVqg==
+Date: Wed, 14 Oct 2026 01:43:00 +0000
+From: Jaegeuk Kim <jaegeuk@kernel.org>
+To: Chao Yu <chao@kernel.org>
+Cc: Nanzhe Zhao <nzzhao.sigma@gmail.com>,
+	linux-f2fs-devel@lists.sourceforge.net,
+	Barry Song <baohua@kernel.org>, Juan Yescas <jyescas@google.com>,
+	Daeho Jeong <daehojeong@google.com>,
+	Pengfei Li <lipengfei28@xiaomi.com>, Dev Jain <Dev.Jain@arm.com>,
+	David Hildenbrand <David.Hildenbrand@arm.com>,
+	linux-kernel@vger.kernel.org, Bo Zhang <zhangbo56@xiaomi.com>,
+	Kalesh Singh <kaleshsingh@google.com>, Nanzhe Zhao <nzzhao@126.com>,
+	Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
+	Ryan Roberts <Ryan.Roberts@arm.com>
+Subject: Re: [f2fs-dev] [PATCH v4 00/18] f2fs: support & optimize large
+ folios for writable files
+Message-ID: <as7eJJRyJk61kuf1@google.com>
+References: <20261013115621.968742-1-nzzhao.sigma@gmail.com>
+ <as58gCX6mzaExhxs@google.com>
+ <0392781c-0ef7-4cd8-b48c-cde83e09abb4@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0392781c-0ef7-4cd8-b48c-cde83e09abb4@kernel.org>
 
-On Fri, 9 Oct 2026 20:39:54 +0300 Dmitry Osipenko wrote:
->27.09.2026 07:09, Nguyen Ngoc Thang пишет:
->> On Sun, 27 Sep 2026, Hillf Danton wrote:
->>> What is unclear -- why is kmalloc failing to work in 2026?
->> 
->> kmalloc isn't failing. The failure is in kmem_cache_create(): the driver
->> creates a dedicated cache with a fixed global name for each device, so a
->> second probe while the first drm_device is still alive (release is
->> deferred by an open /dev/fbN) trips the duplicate-name check.
->> 
->> Your question made me look at whether the dedicated cache is needed at all.
->> A vbuf is sizeof(struct virtio_gpu_vbuffer) + 96 + 24 = 216 bytes, which
->> lands in kmalloc-256 anyway, so the cache buys nothing over kzalloc()/kfree().
->> Dropping it also removes the lifetime problem entirely and needs no
->> module-level state.
->> 
->> I'll send a v2 that switches the kmem_cache_zalloc() calls and
->> kmem_cache_free() to kzalloc()/kfree() and deletes the cache setup and
->> teardown.
->> 
->> Thanks,
->> Nguyen Ngoc Thang
->
-> kmem_cache is used by GPU drivers to avoid kmalloc stalls in a
-> latency-sensitive job-submission code path.
->
-This makes no sense before showing the stall, given my failure of locating
-the lore page where the tglx dude was taught a few years back (by Mathew
-Wilcox?) that the percpu page is faster that thought.
+On 10/14, Chao Yu wrote:
+> Hi Jaegeuk,
+> 
+> On 10/14/26 02:46, Jaegeuk Kim wrote:
+> > Hi Nanzhe,
+> > 
+> > Could you please rebase your patches on top of dev-test?
+> 
+> Nanzhe rebased the patchset to linux-next, so sashiko can apply & review
+> the patchset as expected.
+> 
+> The gap here is two missing cleanup patches from Zi Yan, please apply them
+> into dev-test before applying Nanzhe's one, since it's dev-test, it won't
+> cause any conflict w/ linux-next.
+> 
+> "f2fs: stop using PG_private"
+> "f2fs: reject device aliasing without a multi-device configuration"
+> 
+> See https://git.kernel.org/pub/scm/linux/kernel/git/chao/linux.git/log/?h=feature/large_folio
+
+Per offline sync, they're going to go through MM tree. Please rebase on f2fs tree.
+
+> 
+> Thanks,
+> 
+> > 
+> > https://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs.git/log/?h=dev-test
+> > 
+> > Note, I applied [0] and [1] already.
+> > 
+> > On 10/13, Nanzhe Zhao wrote:
+> >> From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+> >>
+> >> This series supports large folios for most readable/writable files
+> >> in buffered I/O paths, including normal files, block-layer encrypted
+> >> files, and atomic files except for inline-data files, compressed files,
+> >> and quota files.
+> >>
+> >> It also extends f2fs_folio_state to coexist with f2fs page-private
+> >> flags and to handle large folio write path and partial truncate of
+> >> large folios correctly.
+> >>
+> >> Benchmark details can be found in the RFC v2 cover letter [1].
+> >>
+> >> Changes in v4:
+> >> - Rebased onto linux-next next-20261012 (4eb2586bd40d); its f2fs part
+> >>   is the f2fs dev branch.
+> >> - Added "f2fs: read i_size once in f2fs_vm_page_mkwrite" as a
+> >>   prerequisite (also sent separately).
+> >> - "f2fs: remove mappedtodisk flag usage in mmap write path" is kept as
+> >>   a prerequisite.
+> >> - Link to v3: [2]
+> >>
+> >> Patches 1 and 2 are prerequisites for the large folio work. They are
+> >> also posted independently as bug fixes, and are kept in this series to
+> >> make it self-contained for the sashiko review.
+> >>
+> >> Many thanks to Chao and Daeho for your extensive reviews and valuable
+> >> suggestions!
+> >>
+> >> [1] https://lore.kernel.org/r/20260622160830.324455-1-zhaonanzhe@xiaomi.com
+> >> [2] https://lore.kernel.org/linux-f2fs-devel/20261009161224.4163796-1-zhaonanzhe@xiaomi.com/
+> >>
+> >> Nanzhe Zhao (18):
+> >>   f2fs: read i_size once in f2fs_vm_page_mkwrite
+> >>   f2fs: remove mappedtodisk flag usage in mmap write path
+> >>   f2fs: extend folio state for large folio write path
+> >>   f2fs: carry subpage offset and count in write IO
+> >>   f2fs: support regular file buffered writes on large folios
+> >>   f2fs: support atomic file large folios buffered write
+> >>   f2fs: support large folio writeback
+> >>   f2fs: account large folio dirty data at block granularity
+> >>   f2fs: prepare mmap write faults for large folios
+> >>   f2fs: make GC migration large-folio aware
+> >>   f2fs: optimize small block size large folio read
+> >>   f2fs: support partial uptodate large folio read
+> >>   f2fs: handle partial truncate of large folio dirty subpages
+> >>   f2fs: wait for folio writeback before ffs_detach_free
+> >>   f2fs: fix zeroing paths for large folios
+> >>   f2fs: handle block cloning within the same large folio
+> >>   f2fs: allow large folio support to writeable files
+> >>   f2fs: make compressed files compatible with large folio
+> >>
+> >>  Documentation/filesystems/f2fs.rst |   10 +
+> >>  fs/f2fs/checkpoint.c               |   40 +-
+> >>  fs/f2fs/compress.c                 |    7 +-
+> >>  fs/f2fs/data.c                     | 1425 +++++++++++++++++++++++++---
+> >>  fs/f2fs/dir.c                      |    2 +-
+> >>  fs/f2fs/f2fs.h                     |  173 +++-
+> >>  fs/f2fs/file.c                     |  252 +++--
+> >>  fs/f2fs/gc.c                       |   38 +-
+> >>  fs/f2fs/inline.c                   |    9 +-
+> >>  fs/f2fs/inode.c                    |    4 +-
+> >>  fs/f2fs/namei.c                    |    1 +
+> >>  fs/f2fs/node.c                     |    2 +-
+> >>  fs/f2fs/segment.c                  |    3 +-
+> >>  13 files changed, 1706 insertions(+), 260 deletions(-)
+> >>
+> >> -- 
+> >> 2.43.0
+> >>
+> >>
+> >>
+> >> _______________________________________________
+> >> Linux-f2fs-devel mailing list
+> >> Linux-f2fs-devel@lists.sourceforge.net
+> >> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
+> 
