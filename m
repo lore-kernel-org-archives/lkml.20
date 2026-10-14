@@ -1,65 +1,65 @@
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1CAC5349BF
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:50:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB428534451
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:50:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791985850; cv=none; b=C1ODSWbNltotPnp05uSZJmFkPmBgv2s7HLvOhwq9KYaS12rft/yuKctUBbYyPJmff5fjF20PZUv4veId3fhcMqf01f/OJTxoFm3DuLOxFCkDibFdXB4I9sT0Tx0/nrzieN10fKfELqLsN4rGsqDa4j+BcmZhRVO3m5X54xGU0Jw=
+	t=1791985853; cv=none; b=fycFtq5Xq9FscEJbR6CtxEp5q4MVoeh8yYsGb2YJnreROv0TgWD7QxJB726abJm5XAP8QhY0o1CUBnnWYf+Beh2Eo6aFCihZXih4eKMtbYwdO8m33L9nhG1ZZAg/JRa/qTdnJ7Udndlb+kYCtpVhkVe36dBM4dNIHbcu4b7s81I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791985850; c=relaxed/simple;
-	bh=vwviTOqU7S++2QMkBIB4dchgin2HVlP3bJdPWYSRyTo=;
+	s=arc-20240116; t=1791985853; c=relaxed/simple;
+	bh=tu2tYZzl9bAVy42LPDn/IsMLcN0GmWFX/zfgksuzl3U=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Y9q3qPyPm2dQ3r4Ttq//PiquNDr1LKDuDkZYI0TnJLGfZj3FbJ6dOlAwa6JiGTA+9YThXLy8/f9lh1NIV7Rl9a31adUJuLZa3T8ZcUO3OVCiYPa3DNQxBaQ5Pz0/iAd+Pg7y1nhOZU6w+b+sYVeLoWrJEZUP5Tdp0G30klHUAWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vl0qhODz; arc=none smtp.client-ip=209.85.215.170
+	 MIME-Version; b=g05NfQYc937As7UuqKUe23iJdEVgWYF4Fk5+fnJnqJ+o4vp63q8CyjWcQgh1gcbeH32DwgbQYnIY3LjyE6M/3QM7lB5dQwj5tF8Onkw5xYmTlgk4qwIU+qletUHKjVccr+zGKV1U4tF1Rp0wGNh6hTrfurQG8KDqP249I6vmIcI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cehHIxQt; arc=none smtp.client-ip=209.85.210.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vl0qhODz"
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cc4ca696de6so2256122a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:50:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cehHIxQt"
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-887fb6c0ad1so180436b3a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:50:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791985848; x=1792590648; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791985851; x=1792590651; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=24RQVoLsUurrQma53DK6RaZwJpCvuTQH/vyoxxKrEHQ=;
-        b=Vl0qhODzkgJWelo3NlSLfquvl9g8uZq1AXghQoMKBXc+D3MYxdKbauTt5wkf21V4NF
-         JdvbqCMJHLMC2ZJcTuG+ADReIrqnJ+OXql8ZiY7xJgWloLiMBK5kOi91R+MMlSbImhxR
-         iylWTbCafrEvoyqneA7YRpao1GyLiqlez8LJdCgDq8mOnKQZmSvNZdpm+6y+/JMlVSNS
-         9a7K8TfHQs2c4HZxIxK2v1qJa1hZCrGoyCg4bRTnS5nCYzmbvfj5gJ76YRZDd+XPColJ
-         YaXffSGpagxUY1s+SjszHn8s71pYVxBsW2z11Y7gYxREl05GVTeLRd69cwHUTFqGvqC8
-         uTRg==
+        bh=9N60FEJPn+sUP2TONC0z9cgEmKUwGGHP2BKqTLaIgb8=;
+        b=cehHIxQtkhAr0hkuAtJndKSiyw8t+Ae9ZO+W2CUQVxrllp5GMOzQnuOl7B57Hq4Dlr
+         4LreW54rpSqOBG4e6ZwfqhCfy4NvqvPcVQuqiPyi/4hJ9UGfuOSViUMOkLn/McPQxE35
+         dKHMtI1p23klegd/ZHXtmlvHkMWroIK10hJCUFrTv6Dn/DF5y4ReNLNiM8TOlvdnKEFK
+         +fNi9saH/ERj3ljOFgB1GHEaGJgEqjGqB77KxUaYDwGXeTLEikcj5UBdinGBzux8k2wc
+         KTqUvgseM+ShVKd03cTPNaYNsWzggkDHzsjJs4v09+XTATqWs71muoZOSNWx+4awRrle
+         /olQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791985848; x=1792590648;
+        d=1e100.net; s=20260707; t=1791985851; x=1792590651;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=24RQVoLsUurrQma53DK6RaZwJpCvuTQH/vyoxxKrEHQ=;
-        b=bUXq7vyICvejh+AbCk226C9hbgl+CNNJDVb5kVivXg3tJhl2uZ8+PDZKQyrbj2HfNZ
-         CAOe+NGz3PdHxkl/aWLk10P6CYQC70RdS7Q60KSRYajeenveF56KgVwrqVjVqNr5f8tV
-         GjoezpE00eCAMJTjnOQl+B1qdR00Hy1ZTv7x7eiI9BBv/uC/hUGwa2pPnlRL6qMTQ5SY
-         suaJLTDiSgItwzoUQvjjinroTvqCsMicYDq811Ogeo7/xolf6wLG7XKtavoMObbLUey6
-         NDRLr5L95c7eBac0apyf5nkGBBIdaKZxByQCk25IgcAgWX0cwY5AQW7UiKv2tXOd7oRq
-         z25A==
-X-Forwarded-Encrypted: i=1; AKwUvBw4ffTMcBZpkJXV5okXEewdGBdLb4WHZ2sRmNvW2j6CYcMhDjZKADuVy8vJbvNqn02HMsqJfo5sccFXKkk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLL4tD5wOb5hJS4Sy2ZAqPyjwgIuPWslYQPNsV1BtNo3VJPg5pk
-	BuchfNrHdUX9GywK2EKmDW1W9+pILfRWNlt42sl/G0w/TgbB14aEWJ2E
-X-Gm-Gg: AYBFou1+RrALahj+8Ll1KqFWWYX3D9Zvp8AWITR+1e8EX86PDL2IUbEOtTecCPKCooy
-	L5oJ71eVwsavlt+bpQvNNtaJVVLceoQ8EsIXoF9onsPA0PdhEuwH9FMwfrVfpOslsPikLkfsA2m
-	iWsVGzy84XKrmTuyJJeMhjHZTLoyfAgWUF7CCyLEI4f35axWfchkkQgem6ZFCyZGJ7fy7VEs1EK
-	OgJfKFIWoiCxEABVgpFg6FmRbOijT0U87UZ2o7FCIECkGBmzqMcGuM04zlYqzdBvFYUVNkpXwOB
-	gv3ub3wnyXSX65mHVE9DYXrxXFKi+gdY+Yzwx59vPvkUExN/RZ73f6GgSZp+WVk+Hj316jH/JmP
-	xBDNVM8j307gupeI2G+DKVdht17A+sex2ozGdFfCUIMgCmUctxiip2QUh4JDGik68hlQkGTnj9d
-	zeSCjCCIJ6jopbvznyfhH4xTpHzUf/cuyrFYor+BWVlel1Y2ulGsaadcSSzsdCLNCO9IiC5fSnr
-	wGrQCPEs6gdQBiRo83Uu2A5yPJUeEXhEiav6KXtjrmf7+65d49y2AW/krD8nifIP5WUIR+HVhKa
-	c3GYmEUr1ABuJIA5TlDuj43KoYEwShdYupdfSRU10G5cXA==
-X-Received: by 2002:a05:6a21:3289:b0:3e1:c2e4:217a with SMTP id adf61e73a8af0-3e1c2e434a6mr5231397637.69.1791985847807;
-        Wed, 14 Oct 2026 06:50:47 -0700 (PDT)
+        bh=9N60FEJPn+sUP2TONC0z9cgEmKUwGGHP2BKqTLaIgb8=;
+        b=VIk/9dwx/V+7MV6SPJl8JDXjkxtYJ3AxkQF3yVtMgTD9wLaqHM1WeknQ5jrmG1FyM/
+         jWAM+dzvosNo0XRQxG3i569XMS2rJmkdtZ0LhN18Vzm3j9Ni5hKyT2jxLCwlVloS6KMQ
+         Ur5LYK537oT6cUaI0ML8ceWyEoRHniuxsQHDHt/eeAC/xMrT8CmgGt+AVB4erdRfoJJ9
+         ZYe2L/0zbCh+NzITBvrdwYfwXZaPJW9aZNiLX4T7aZXXe37cVTsvmomIeIyQifR2/IfB
+         NYwcYuIqT/4fYVtGBrJB0/K1ZaC+RQ9xDlwVVGNCJZM8pb1BJwYrBNKB6SDkyZNGGBv5
+         W7Dw==
+X-Forwarded-Encrypted: i=1; AKwUvBzDES1I58pMqURGSz1TJc/sidFSYuIiACJ0AZjW3EJWNiouzTdXvSVfWNu89Xb5S8WoFTwTUSve5rNjuD8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIHmHZq8r7ixdDL9Iuo+V7W5r+oLg2SD+Hq4ldGjvCAinWWHm/D
+	mkM4h6kqwrMqe6ZicCoQokp2jQO6ivtMzSpPgUJ1zwZsp/aT/tFUhfeF
+X-Gm-Gg: AYBFou2CQL37Oo5KLfpdyfa512imFpuYyt3JiSTmkFY/moc5XTAXUw0gfl1at7EaHcu
+	pOfTj6qzaJ/XA0lvmBJsbjbmVbFULiKmoHkE5drSCXBS7XJARf+adOkMILiYN4fG+chwTkPWFYE
+	NxSur4uMkAr9HJtxwwisvYrytCD68JaRmgI40s6djyD8pN0CsqQNsilRZG5/r0gZym2GNX2csnE
+	y4kzzOoTIPkTHXY5rQEoimfTbjRNL1XwbpcxxAe+92zq6FOo6b5iOvYIHetA2rxMhhu4eoVarg+
+	1GUrAVfuk8bEx/oLoYiz3NLHL3SfWdAD+/D9iOV7f/1xcrzvkVhyS8r1k6TpFy6JFagh38k853z
+	9ZFqx+glRc2m+YGVN/oVgGhq9ZI8zGlGzMg6YxnYIFTYb5sQdDNBrHD4I3mBl33yKdpSPn/PxHN
+	eDNjjQMDcCg66l9Xj0pmVAs93a+sT7lY0gpsrYJsSBQBqajy6/Fk0IE7RVKior+KTAx2LOZeolh
+	1RkzAVbqnQnXb2NnO3aRscRObgKjKgBPNQPFKxbw8fYGty0JPD3fPtj5ACMzajbE4PMlHyDnaI7
+	BRuskyS9ldnv2lgC/V+mDFyB78ugVsvas7BXT00XfSFAVA==
+X-Received: by 2002:a05:6a00:928b:b0:882:26ea:cd56 with SMTP id d2e1a72fcca58-897c73f3112mr13158156b3a.35.1791985851084;
+        Wed, 14 Oct 2026 06:50:51 -0700 (PDT)
 Received: from NB150512.ADVANTECH.CORP (2001-b011-6c00-3d72-751d-cebe-164a-ae70.dynamic-ip6.hinet.net. [2001:b011:6c00:3d72:751d:cebe:164a:ae70])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89d804e514bsm1168418b3a.41.2026.10.14.06.50.43
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89d804e514bsm1168418b3a.41.2026.10.14.06.50.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 06:50:46 -0700 (PDT)
+        Wed, 14 Oct 2026 06:50:50 -0700 (PDT)
 From: Hsieh Hung-En <hungen3108@gmail.com>
 To: dianders@chromium.org,
 	neil.armstrong@linaro.org,
@@ -74,9 +74,9 @@ Cc: jagan@amarulasolutions.com,
 	airlied@gmail.com,
 	simona@ffwll.ch,
 	Hsieh Hung-En <hungen3108@gmail.com>
-Subject: [PATCH 1/3] drm/panel: feiyang-fy07024di26a30d: Use mipi_dsi_*_multi() functions
-Date: Wed, 14 Oct 2026 21:50:26 +0800
-Message-ID: <20261014135028.1438841-2-hungen3108@gmail.com>
+Subject: [PATCH 2/3] drm/panel: raydium-rm68200: Use mipi_dsi_*_multi() functions
+Date: Wed, 14 Oct 2026 21:50:27 +0800
+Message-ID: <20261014135028.1438841-3-hungen3108@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261014135028.1438841-1-hungen3108@gmail.com>
 References: <20261014135028.1438841-1-hungen3108@gmail.com>
@@ -89,105 +89,82 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 Replace the deprecated MIPI DSI DCS helpers with their _multi variants,
-as suggested in Documentation/gpu/todo.rst. Also convert
-mipi_dsi_dcs_write_buffer() for consistency.
+as suggested in Documentation/gpu/todo.rst.
 
-In prepare(), the first failed command prevents subsequent DSI transfers
-and its error is returned, as before. The new helper also logs the error.
+In prepare(), use mipi_dsi_msleep() to skip delays after a failed
+command, preserving the existing error handling. The helpers also
+log command failures.
 
 In unprepare(), clear accum_err between commands so that ENTER_SLEEP_MODE
-is still attempted if SET_DISPLAY_OFF fails, preserving the original
-error handling behavior.
+is still attempted if SET_DISPLAY_OFF fails. The helpers now log failures
+at error level instead of warning level.
 
-In disable(), ignore SET_DISPLAY_OFF errors to allow drm_panel_disable()
-to clear panel->enabled, avoiding a stale enabled state after the panel
-is powered off. This follows commit 00efe8a68565 ("drm/panel:
-ronbo-rb070d30: Ignore DCS errors in disable()"). Command failures
-remain logged by the helper.
+Leave the initialization sequence unchanged, as converting its write
+helpers would change error handling. This is addressed in the next patch.
 
 Signed-off-by: Hsieh Hung-En <hungen3108@gmail.com>
 ---
- .../drm/panel/panel-feiyang-fy07024di26a30d.c | 35 +++++++++++--------
- 1 file changed, 21 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/panel/panel-raydium-rm68200.c | 27 ++++++++-----------
+ 1 file changed, 11 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c b/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c
-index c1d8ca5ca6e1..24934b9d430b 100644
---- a/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c
-+++ b/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c
-@@ -46,7 +46,7 @@ static const struct feiyang_init_cmd feiyang_init_cmds[] = {
- static int feiyang_prepare(struct drm_panel *panel)
+diff --git a/drivers/gpu/drm/panel/panel-raydium-rm68200.c b/drivers/gpu/drm/panel/panel-raydium-rm68200.c
+index c535dc931903..971d075bb060 100644
+--- a/drivers/gpu/drm/panel/panel-raydium-rm68200.c
++++ b/drivers/gpu/drm/panel/panel-raydium-rm68200.c
+@@ -232,15 +232,13 @@ static int rm68200_unprepare(struct drm_panel *panel)
  {
- 	struct feiyang *ctx = panel_to_feiyang(panel);
--	struct mipi_dsi_device *dsi = ctx->dsi;
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
- 	unsigned int i;
+ 	struct rm68200 *ctx = panel_to_rm68200(panel);
+ 	struct mipi_dsi_device *dsi = to_mipi_dsi_device(ctx->dev);
+-	int ret;
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
+ 
+-	ret = mipi_dsi_dcs_set_display_off(dsi);
+-	if (ret)
+-		dev_warn(panel->dev, "failed to set display off: %d\n", ret);
++	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+ 
+-	ret = mipi_dsi_dcs_enter_sleep_mode(dsi);
+-	if (ret)
+-		dev_warn(panel->dev, "failed to enter sleep mode: %d\n", ret);
++	/* Attempt to enter sleep mode even if display off failed. */
++	dsi_ctx.accum_err = 0;
++	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
+ 
+ 	msleep(120);
+ 
+@@ -258,6 +256,7 @@ static int rm68200_prepare(struct drm_panel *panel)
+ {
+ 	struct rm68200 *ctx = panel_to_rm68200(panel);
+ 	struct mipi_dsi_device *dsi = to_mipi_dsi_device(ctx->dev);
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
  	int ret;
  
-@@ -81,44 +81,51 @@ static int feiyang_prepare(struct drm_panel *panel)
- 		const struct feiyang_init_cmd *cmd =
- 						&feiyang_init_cmds[i];
+ 	ret = regulator_enable(ctx->supply);
+@@ -275,19 +274,15 @@ static int rm68200_prepare(struct drm_panel *panel)
  
--		ret = mipi_dsi_dcs_write_buffer(dsi, cmd->data,
-+		mipi_dsi_dcs_write_buffer_multi(&dsi_ctx, cmd->data,
- 						FEIYANG_INIT_CMD_LEN);
--		if (ret < 0)
--			return ret;
- 	}
+ 	rm68200_init_sequence(ctx);
+ 
+-	ret = mipi_dsi_dcs_exit_sleep_mode(dsi);
+-	if (ret)
+-		return ret;
++	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+ 
+-	msleep(125);
++	mipi_dsi_msleep(&dsi_ctx, 125);
+ 
+-	ret = mipi_dsi_dcs_set_display_on(dsi);
+-	if (ret)
+-		return ret;
++	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
+ 
+-	msleep(20);
++	mipi_dsi_msleep(&dsi_ctx, 20);
  
 -	return 0;
 +	return dsi_ctx.accum_err;
  }
  
- static int feiyang_enable(struct drm_panel *panel)
- {
- 	struct feiyang *ctx = panel_to_feiyang(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
- 
- 	/* T12 (video & logic signal rise + backlight rise) T12 >= 200ms */
- 	msleep(200);
- 
--	return mipi_dsi_dcs_set_display_on(ctx->dsi);
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+
-+	return dsi_ctx.accum_err;
- }
- 
- static int feiyang_disable(struct drm_panel *panel)
- {
- 	struct feiyang *ctx = panel_to_feiyang(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
- 
--	return mipi_dsi_dcs_set_display_off(ctx->dsi);
-+	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-+
-+	/*
-+	 * Returning an error would leave panel->enabled set, causing the
-+	 * next enable to be skipped even after unprepare powers off the panel.
-+	 * The helper above already logs any command failure.
-+	 */
-+	return 0;
- }
- 
- static int feiyang_unprepare(struct drm_panel *panel)
- {
- 	struct feiyang *ctx = panel_to_feiyang(panel);
--	int ret;
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
- 
--	ret = mipi_dsi_dcs_set_display_off(ctx->dsi);
--	if (ret < 0)
--		dev_err(panel->dev, "failed to set display off: %d\n", ret);
-+	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
- 
--	ret = mipi_dsi_dcs_enter_sleep_mode(ctx->dsi);
--	if (ret < 0)
--		dev_err(panel->dev, "failed to enter sleep mode: %d\n", ret);
-+	/* Attempt to enter sleep mode even if display off failed. */
-+	dsi_ctx.accum_err = 0;
-+	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
- 
- 	/* T13 (backlight fall + video & logic signal fall) T13 >= 200ms */
- 	msleep(200);
+ static int rm68200_get_modes(struct drm_panel *panel,
 -- 
 2.43.0
 
