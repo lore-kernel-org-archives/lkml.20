@@ -1,163 +1,201 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2098.outbound.protection.partner.outlook.cn [139.219.17.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BAD74F5DF1
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:04:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791975900; cv=none; b=jnQ2KZjm/phexdwBG4HVgzwDMO1o3Lq5A9B7mzXbz8MgkCSzOln7BuFFbPKPzoZfkqrTSdpH5DRhM/XHzpqKFvLDw7vrFR0V2WoEQQlaHbe4QIzujCRzuG7n9PJ4DpX70XP77Fu0QxVEBAaiVseN8X4vLTYEluzIC6VKAjDXkIA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791975900; c=relaxed/simple;
-	bh=Z3h816ZXGxVD4csE8LYPHv1WBDy5zaS6dsqoEyjpLBQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=exx6NJBuk23llQM/i5EWUll7Thxw/a6vXqCa2SUIhNJhZBvBRlYoZpUL6CpqliT4b8M6PGuiUlegtfo9CEKsDVZeEH1k3IHvUrQbD4ptxHpQUIo3h3gP9ICABYkiRZgefvvHC6FvMpwpELqZswSyV/tiPAs69L0OULpduLMo7oA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ehh42rNz; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Qe5Baexx; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ehh42rNz";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Qe5Baexx"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69E6899s2516002
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:04:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	FNulU2JiXUoxqitj0tDF9NlTQTZRzx8RpIvKK9xWQ+8=; b=ehh42rNz+TnsrvSN
-	W7q6pgy/4ifYFAd5GvgGL+diTEULLtTvql+Q0VnzYU5IyrbfqY+YwOP8ZxknrdMp
-	eF3NJSU2yW74LRUc7O6fuUW9f+xEpnjBH84ERJV2YdcI9d3nIjjs0bPD76mKHEEP
-	zoMFmvOWtqoXaM1vtpDw9/Qr4xA4+3yY1qAOXp09KMAZ6Dj0h0DjALQfX8Ip/UNL
-	7CLFd1+WRV7bUBNyKH24NGhkB1YuG2yEAZF63Vkcp+MQxerYB90FSGrSjU6bfT8P
-	8THc5W/8r5K+5vIdbIp7yp6bFoawm8lN77iIFMmyrO3YJi7LP8YR2XOzyJ4M15M0
-	aai+aQ==
-Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ha470974e-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:04:52 +0000 (GMT)
-Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-7c1fd351530so124452137.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:04:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791975892; x=1792580692; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FNulU2JiXUoxqitj0tDF9NlTQTZRzx8RpIvKK9xWQ+8=;
-        b=Qe5BaexxWo6EPoWxE22OOIj+cv9kZY/SMyV0Hh7+ts24l82vwiF0Odong2/KBvaHQ1
-         Ot/e/aWBvWXE50uzjBvzE4XxfLxrV0RMf4ps5ngO5bA3ugMNBUdnn98DKftVRh3tKO9O
-         INZj4vQDWakipiy5Y989KfoTsKr7OCIF8jSFGQ/MhVaOd0qHgrDQkeLGBCN/XUsp6zbO
-         CPnJKzdvP3uABz2KLatBTbIlRNL07VUckiqX8Artf7t139HfZVeUJapPLJVyxmRZbKhG
-         esF22SBfx9Q7pkQvBZcJsMjFC3DT5nXsSrbSJfD02BaAxi6YTYaa6IkhdzR43hkYW0dS
-         yOOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791975892; x=1792580692;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FNulU2JiXUoxqitj0tDF9NlTQTZRzx8RpIvKK9xWQ+8=;
-        b=cpvfzSo1p89MeOEfcPNQrUzTFTYkVLmMiez6kM1dHNVFmOerEaEznVoGf/Z5KRP6js
-         5lTzpcRF0Ex0nORlhgm5PtMu5BOcUWYvktZd/1xgzyviZ2S6jqGj1Z2yFdEPJ+vigPU5
-         JZE9wVhLWBZH7297ZY7kZ/4Gf4VLUnuujG8Q1qWWF4BCcgSP8l4HRjAJiQCeBlGYexPK
-         ns8ljkg2phJc7zhENgrwn3RLd7PWn7/cpIFtw0M58MgYL9cS/uDDVfFulibb4La7xoRm
-         O4ha06yrYnqRl9c2m/x+8a8EQAohfgNkOwuGXKUy/PS2bh2WY1J8rg/ZnpNOyd2xaoAT
-         6jaw==
-X-Forwarded-Encrypted: i=1; AKwUvBwJxcQn7X5kzLNHB/cpizu1uaVDoDcrbrdQCeEi/jGNxM75Ey1NRQJxrbDj/VPnajmb/VGQtZOGEMn3WqA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ9P5bc+KzMufjU0De5yQCZgWtDuPCUcfDeL8KlnHBm0yYA/wvm
-	JgBnbncr2ykMT3LKGTcSh6ybx09xfqtJdwMB9StgZfr9Lsv6cZ+fdNaXmXy7rjQLcVmHTOyFy6F
-	Bg7f1geeoEeZ90ae1FYvld9MWktjZ1tF70cUVu2VUs+T6zkv5InqkTylnRl9kBxI4XE0=
-X-Gm-Gg: AYBFou15K7pF+zEAC+AdfcSp4Zi8blad0IAlnE+sy3FIszlV5FpbohqM1wOmBUlkO1J
-	nqZbZkf7J63FXxpZ6K9FoFZ8/8sqplFb5cqeKjG1hh01ecy1eTdo/HTxmpGbt2pgvvINjzobGJo
-	hrEOSDoPvkz3zRai9PThoqDw4QnWqWXUSwctKdXElHRUDsPthyd4pvISYzXH/Id2gP7Op/QSokd
-	QxdwPTYfXveCOK176ZBm6nL2o27gv3YimuuO+85qDQ8PhT8X4NaXoZq2cT4BUNR3F3He6jc+CAN
-	kPlPM9PZL3vJmSix6s4O59s/OCcPNgdM3mNCLuQf+2UWVQW7IKoHtmjNzkj514ep3ribEVHyK67
-	lC4a0MVcr9m2EwawK4/454g==
-X-Received: by 2002:ac5:c54a:0:b0:5d1:9e07:8db1 with SMTP id 71dfb90a1353d-5e91f2b155bmr3325067e0c.1.1791975892310;
-        Wed, 14 Oct 2026 04:04:52 -0700 (PDT)
-X-Received: by 2002:ac5:c54a:0:b0:5d1:9e07:8db1 with SMTP id 71dfb90a1353d-5e91f2b155bmr3325050e0c.1.1791975891839;
-        Wed, 14 Oct 2026 04:04:51 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9762af5sm700056066b.1.2026.10.14.04.04.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 04:04:51 -0700 (PDT)
-Message-ID: <9fcbc293-2b5e-4b52-9854-a9afc39dc946@oss.qualcomm.com>
-Date: Wed, 14 Oct 2026 13:04:48 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF8E64F4D1A;
+	Wed, 14 Oct 2026 11:04:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.98
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791975903; cv=fail; b=Ol/fkIs/L8AnoMdKClU3T0CewnY1P2gy4uRVPNkQ19sogDQJbY75nDQD95E6De2UvBqMSierIxe3vBWoRwHPDvLjygET2Y/VtviDDnHhIU6fTiLB3kh9qlo8Scfsmgb4LcWhMIptRTRqUjqlYJk9aISzAwWR4GFdLtF2VOXfXwQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791975903; c=relaxed/simple;
+	bh=LpvsZTTaJeFiiP+goxdNfgK/CRt/efwWqyJhUTsZ63k=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=dyd7Vncq8h+6jCFnZXSFQpcELetwPI8qBBHuMD9FcXfA+uGBfoFk+GmEjAN7gFE58Ye4Jqmz4YrbRHyiUq9P7ZSOhbcJzGI5Bfy2zlK+VtBrnpPhZPlm+mPywwtWtHjMY7fFtN9Lm6RKIPcaXER0rJu2sQtMV1+dqQrprEC1PHI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=mJqxnAsK+i7AS4sSztRTkE02nwYl/++uBSPjYDP/s0mXU95TOX4oWRbO/f02qhhJDiijdmpBRNg825dJvKXyjdZFiRZu3j7L5puCDvJWiPrYGUAjR6ng8OS90dl6CFirfGUReQSX3Z1UmGkI2kVg/Mx6HgwYhRq/jB66LoVu5sRhSCkSWFAs5hjLPZTu52JOfeMM+PRZx0ulKG5IPeO1ipRxjHHAxlnzBVYSu5NYC52xwbMksStUHTIMBB+7hgG+S+H6PYIBQxdTJML2pw5nXFCdlgL6nNpjOl+R8EgNjXK4aQoJDRnYuIRXJTeqf3GzND/dmZogvsjfojQ/nYv//w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vmnlrMrx8U/VqLEO1eGI3ZxDZKIp0J4cViH1Cps2EKw=;
+ b=Xomq4d1h94QSGhLqCcg/hiHD33u4LFSmPoF5CwoUYNOvyo8vsIV5vWfYRYdMZBCzXC/uFKZD3Klo98A7hYvtnZmjBWy23BHAWSdwf+Pe58j74UXvoINTvSI/H+GI97IwCbIxE9zVh3/T44fFK/fZmv1/IP8axxwLNNI/7ktBQvSP2ajdEFKA1/+E1KcSEB+vp6evoZbcA+Amq7FLYTSjvN2Dp8CgXvWuaWAMZalWWTTR1rbCqA27zHmi1vj1BsSP4Rl7v7uKMGuOKY6DGBOrsASb3+EJhv86hIbEG3SLXrC0FUswrx5G7hTqusIMdXNQblgtX7fDXQxHSCgnXQTTmw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:7::10) by NT0PR01MB1069.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:3::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Wed, 14 Oct
+ 2026 11:04:36 +0000
+Received: from NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn
+ ([fe80::be4a:d29e:5188:b37e]) by
+ NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn ([fe80::be4a:d29e:5188:b37e%3])
+ with mapi id 15.21.0522.012; Wed, 14 Oct 2026 11:04:36 +0000
+From: Hal Feng <hal.feng@starfivetech.com>
+To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor@kernel.org>,
+	Emil Renner Berthing <emil.renner.berthing@canonical.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Paul Walmsley <pjw@kernel.org>,
+	Albert Ou <aou@eecs.berkeley.edu>
+Cc: Hal Feng <hal.feng@starfivetech.com>,
+	linux-pwm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v23 0/2] Add OpenCores PTC PWM support
+Date: Wed, 14 Oct 2026 19:04:27 +0800
+Message-ID: <20261014110429.52762-1-hal.feng@starfivetech.com>
+X-Mailer: git-send-email 2.43.2
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: NT0PR01CA0020.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:c::16) To NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:7::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] usb: dwc3: support two connectors sharing one HS data
- bus
-To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Thinh Nguyen <Thinh.Nguyen@synopsys.com>, linux-usb@vger.kernel.org
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261013102927.1141696-1-xiaqinghuan@mail.ustc.edu.cn>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261013102927.1141696-1-xiaqinghuan@mail.ustc.edu.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA0NCBTYWx0ZWRfX/PxbdLWG79Jp
- xli/F8RzDF4vnkcc03fDne+a6JNN8LxrNIKEvfwmKDtIWjGJKqKpkPsACnJL6LrB9weHuXamkSe
- cJm2UeeWsQ+U9aaNUcFLzFCp18MCTs6Y13eXSRBeGQnJ/IVMc20xaC8knOnVhNg0e/MdEyHSV3C
- cZaqonUxlXA0nJVDKhfq93agQ95yNVCBmk/yOiiCpSqNhS2VNbhDFwlc4OGzWpeyZsrofMX4U2g
- OOsGMLZqIBuTjcE0r9yewQ+Ejvm4dodc3ZoGhuTU5mmaGOSJf4YPlDeXV8r1XA73xx1TwG8p7hK
- sJyITFClIp/pGkIuTNhD5nCtEasl6+qmDVDBP1I5jjsf2PeEZZ3rhDlS2gYfDcr11wiQbbLziGT
- Gi7LnZ/MVYS3ouBX23swCsJ5OwQ26XAtLv5qtm+wJI7tQoITseQN71jIOp4/Qb2DsK4kxjrqG9q
- asQKhpZ7ECPiRwaBGrA==
-X-Proofpoint-GUID: WD1b1WyKJcYVhEyeW0bShRcJ-TEUNL29
-X-Authority-Analysis: v=2.4 cv=P6avFSAu c=1 sm=1 tr=0 ts=6acf61d4 cx=c_pps
- a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=hm8Rrv06on9B903gwGAA:9 a=QEXdDO2ut3YA:10 a=gYDTvv6II1OnSo0itH1n:22
-X-Proofpoint-ORIG-GUID: WD1b1WyKJcYVhEyeW0bShRcJ-TEUNL29
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA0NCBTYWx0ZWRfX0rGDC9MvjkEc
- AoFxwGyoNsIcRo0Ka4JM9l+dN9Pxjej1lmyNwAp6oThZ1kzzWSdAyVtWy0zBfu1pPMfS6ld3u1E
- Qn0kdUUH1I7SRMEZkAc+1G3iXmlkNe0=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 bulkscore=0 lowpriorityscore=0 priorityscore=1501 adultscore=0
- suspectscore=0 clxscore=1015 impostorscore=0 malwarescore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140044
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: NT0PR01MB1102:EE_|NT0PR01MB1069:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6fbf237e-e26c-44e4-bc66-08df29e2ef3d
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|7416014|366016|52116014|23010399003|38350700014|56012099006|261009223027099003|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	qaNAQgrI4dDnpCpZSxl7YxcF6T8nWz7iPk19nkJnWrX8htFAmrwItoCQmp6jAHDvo/tfPCXi4t0ibsJC1BMaQSEBKol4H+frSON2kGRtvNRb0fBNoNaBT9OS2KiBwCmTvrjENIPaBf8Fgri8u+ponmtm7YaBXCLEkNKrPhh6KeXdqAvozBL1RtPjOUWxwQtoAnw3W1GJDVnJ0SXxbvZ47MNAoJx564jNd6V41Z65cfLZrjPSI662ppAq5RbDt/Yo4ED4Yh4xsl3isq97VLZlxBfPk/uXWSJWa8/+pKVnJwk5IJDv4Uv1ljuFdKuN511rtx7mYWUFatquKesYQb1lu27xZz6kqBRkpPiHYDYnix1CsMtzpwQrPT7/4zHfOofjSKXMo/1tvkG9HfpEpfNxijV+ZnQw8hyR/RV0nDeENQ2gI5LOrmdEHCrgb4QHbovmPX/yxP7K9OxKzXhr6I4VH5uXAMsK1Zwl2Cqnk37Q1l3MkYrKxyRvMYzgTYNmNfgzaFd87VcKElDY9lbpCgXVFC9i53XiO1Brlb+sFamJCDhLUzu+hBwSq3coJ+1TuxAX
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(366016)(52116014)(23010399003)(38350700014)(56012099006)(261009223027099003)(10067099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?2srpBQzTOajDzZVzBPIvBBmsg4CI5NMHPck7oGWXuLIjcUUkTBWsqeFwBf5e?=
+ =?us-ascii?Q?cnTmf6MYUYrSkbIKqU64it+X6nmFPz2lLRnyhmt+q8/9letGywPT9t07+gz1?=
+ =?us-ascii?Q?drxtDYN3s2gsBME+vkiK2FpeTYV7BwpuVSTdUK8WG+fQ1k2dZjbzWy3Htel0?=
+ =?us-ascii?Q?WsV6DHnkiVJYcWgj8VvISLiJjRNLiBn4VH0bv78xytNTeqxz5huRaAuV7EmZ?=
+ =?us-ascii?Q?oMDxESH1n7a4WhiO8u5tsNOfC7C6aj//ZBZEjc7mtZudgmlJoNffkntTa8xg?=
+ =?us-ascii?Q?fwrRZApUQStoIQU8hD7iFeeh8uKvKB3f4xbj6H+QcxTptnttlhJi0NwCld92?=
+ =?us-ascii?Q?p6DDk4tHHB1T83/sBzh3pSIFPONWniZZGsG99StVApRc84zlhzotJq1pYB/1?=
+ =?us-ascii?Q?JJn2yazpUKJqtCFP+vK0jmzWcggLH3GAzBk/Z9tnH3YDnC65d0ZDT1Gt8fcy?=
+ =?us-ascii?Q?fzRP+2hxWLluidulvjyzxF+7ft/X3Gn6hH3FFAhFjOgCNFV+nYvycCHJqxqO?=
+ =?us-ascii?Q?fJ3SI6qnyoN2umx2j929Ajx/6rBhU4XthKPT/F+nJi5UUmpvqY+pn0pgRway?=
+ =?us-ascii?Q?eAI99BH+swzj552W+tZVjI0CLXPeBuVvB3FjJSU/rh1zGl2nHJNcanqxZUUF?=
+ =?us-ascii?Q?o90hPQPs+tRX3hzD6ZI/9itOYnG8bPH6lduaYzB9WckFxiE1mLs3rYMVGMRm?=
+ =?us-ascii?Q?6CeMEpWkq9EVjvL2ik5VaT0l5acA/o5FDMasNjfPDTzRxGjkQIeSNCvBFQLR?=
+ =?us-ascii?Q?y+KodvBwamA+EqevQbJb/FBhr70QD27vJ7fMuwY/oUjpO/3JGe5vcOXc+vdP?=
+ =?us-ascii?Q?GN+V/6SNhq/YZmSN1xCY6xOEgSYdpCDGcIV4CgEd4OeeYtWiYMbVplFBgW6J?=
+ =?us-ascii?Q?MsRfqOZkNw7XazrW41XrSsnbAn0oqmKH3EECRIiX5yjn827MUo9M864TbZ7s?=
+ =?us-ascii?Q?oDbh8nLZksFTizhnxM5iquPKFpGQrRHLXlIb9V/7EvJLiTQbdlNdeuJrWEcT?=
+ =?us-ascii?Q?rUKluNmeWfn08Ieqgrna2zHkUB1dOE3KNOIBB5X5i5jKBIwJvG5FhQya5Rjf?=
+ =?us-ascii?Q?mThLsDc5pnS3jBqjY/QRWn7wBLN5LvwT59P1Wj5FT7U4k2Ir/597fcTxFx1H?=
+ =?us-ascii?Q?AxwYNBNAlmThjPxkZqx3w1iv6ko1rj+KKkrXdHU+kjZ68aEwN3nByYRYlM9R?=
+ =?us-ascii?Q?UpeOuHSLLXD4u9sh6EMyy/XpMVXLr9E8z8WjHw4D4t3is1kBkngkLXAdHtK6?=
+ =?us-ascii?Q?jJn8U+n8fePV/8x3fjn6FnTEQVIU8HRffQmpw1V/DiMjYjCUCIX1QF9zDtGb?=
+ =?us-ascii?Q?vd2WWDV086mBQsaHTop0O5752MkXmGJhy5ntaZbM0vdiLZiOC6htdn5ZMsbA?=
+ =?us-ascii?Q?B4vFDGC+oRPg7iZ9wKAMkx3yJfuqg01Q6eJGSvCXwjHQCy8M1WNqQyY0acUn?=
+ =?us-ascii?Q?d1EY1YqRbgy1Zr+FWlYjrs4SoPeQGUDJAwSn0cdVy8kOlCSbHUlACautPDRo?=
+ =?us-ascii?Q?H/BsnBkItFN7+7kZY8lyCcrpBx9odDIn7rAXQ3A5utuKqARgOMlBPEmWQfr3?=
+ =?us-ascii?Q?Jlyw+/EGeUD0IDiEQOPgFCtS5rlzUnLe/DfV6UR3VR03o5hWttaswq0fgGuc?=
+ =?us-ascii?Q?Fq002mXQtBcVW11qL24+CJzlNk2rfvC/f9j1S7SFHmOVPDV+B8YnYoGJa6jz?=
+ =?us-ascii?Q?QxhIaqaYFz8F/ZAjjCod/e6GuQ6OFcLn4fZn4joHYIPWxkW50PDO19hA8GrO?=
+ =?us-ascii?Q?60CbCvEJmoFBk/KFuFGi+PCv5O9uLuo=3D?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6fbf237e-e26c-44e4-bc66-08df29e2ef3d
+X-MS-Exchange-CrossTenant-AuthSource: NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 11:04:36.5063
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AVfaUjwLKsuGZS77rIcFaJCOJBKCpPyUgCoZk4biUlcZpyUE746aSko5n73xmNYQYavV9jCjUebaqFqDeIJr0aGln0UVAkVc05ZFM59OoFY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: NT0PR01MB1069
 
-On 10/13/26 12:29 PM, Qianhui Xu wrote:
-> From: Xu Qianhui <xiaqinghuan@mail.ustc.edu.cn>
-> 
-> Some boards wire the High Speed data lines of a single DWC3 controller to
-> two receptacles and select between them with a GPIO, while the SuperSpeed
-> lanes stay per connector.  This series makes such a design usable:
-> 
->   - patch 1 documents "usb-psy-name", a property the dwc3 glue drivers
->     already parse but which the bindings never described;
-> 
->   - patch 2 describes the two-connector HS data path: "port-select-gpios"
->     plus a "ports" node whose connector endpoints carry "mux-state" (the
->     logical port-select level of that connector) and "usb-role-switch";
-> 
->   - patch 3 adds the driver side: one role switch per connector, mutual
->     arbitration between them, and a data-path switch performed after the
->     previous host/gadget instance has been torn down.
-> 
-> Single-connector designs are unaffected: the mux path is only taken when
-> "port-select-gpios" is present.
-> 
-> This work was developed on the Qualcomm SM8750 (Lenovo TB322FC) tablet;
-> the board device tree is not upstream yet, so no in-tree user is switched
-> over by this series.
+Add OpenCores PTC PWM driver which is used in StarFive
+JH7100/JH7110/JHB100 SoC.
 
-This is an incredibly strange setup. Are you sure it's actually how it's
-wired up?
+I will maintain this pwm module in place of William.
 
-Are there any hubs or other devices connected inline?
+Changes since v22:
+- Drop patch 2 since it is already merged.
+- Drop the starfive,jhb100-pwm compatible from the dt-bindings, as the pwm
+  module of JHB100 SoC differs slightly from the OpenCores PTC PWM module
+  in polarity handling. The support for JHB100 SoC will be added in a
+  separate patch.
+- Move the polarity check later in .apply().
+- Add comments for keeping the reference when the pwm is already enabled.
+- Rebase on linux-next.
 
-Konrad
+Changes since v21:
+- Allow non-zero duty cycles shorter than one clock tick to round down to
+  zero.
+- Drop the .free() callback to preserve the PWM hardware state after
+  pwm_put().
+- Update the comment.
+
+Changes since v20:
+- Fix 0% duty cycle support.
+
+Changes since v19:
+- Drop the oneOf construct in dt-bindings.
+- Address Sashiko AI review comments for the OpenCores PWM driver.
+  In ocores_pwm_apply(), handling disable requests first, then calculating
+  and validating period/duty for enable requests before taking a runtime
+  PM reference or touching the hardware registers.
+
+Changes since v18:
+- Address Sashiko AI review comments for the OpenCores PWM driver.
+- Fix runtime PM usage count handling on probe, error paths, PWM release
+  and driver teardown.
+- Reject period or duty cycle values below the hardware minimum.
+- Restore PWM registers across system sleep resume.
+- Return the real error from devm_pwmchip_alloc().
+- Preserve bootloader-configured PWM state during probe and keep runtime
+  PM active if the PWM is already enabled.
+- Use synchronous runtime PM put before possible teardown.
+
+Changes since v17:
+- Simplify the code. Make it more readable.
+- Restructure the driver to register the pwm chip for one pwm channel,
+  because each OpenCores PTC IP core only supports one PWM channel.
+  Drop starfive compatibles.
+  Add patches to fix the dt-bindings and device tree.
+- Support runtime pm and system sleep pm.
+- Disable the pwm module and reset the pwm counter before updating the
+  period and duty cycle.
+- Improve the descriptions.
+- Update the dt-bindings maintainer to Hal Feng.
+
+History:
+v22: https://lore.kernel.org/all/20260810030714.48100-1-hal.feng@starfivetech.com/
+v21: https://lore.kernel.org/all/20260701074442.7714-1-hal.feng@starfivetech.com/
+v20: https://lore.kernel.org/all/20260629063601.63917-1-hal.feng@starfivetech.com/
+v19: https://lore.kernel.org/all/20260615155759.129210-1-hal.feng@starfivetech.com/
+v18: https://lore.kernel.org/all/20260515054723.25024-1-hal.feng@starfivetech.com/
+v17: https://lore.kernel.org/all/20250106103540.10079-1-william.qiu@starfivetech.com/
+
+Hal Feng (2):
+  dt-bindings: pwm: opencores: Update compatibles, examples and
+    maintainers
+  pwm: Add OpenCores PTC PWM driver
+
+ .../bindings/pwm/opencores,pwm.yaml           |   5 +-
+ MAINTAINERS                                   |   6 +
+ drivers/pwm/Kconfig                           |  12 +
+ drivers/pwm/Makefile                          |   1 +
+ drivers/pwm/pwm-ocores.c                      | 299 ++++++++++++++++++
+ 5 files changed, 320 insertions(+), 3 deletions(-)
+ create mode 100644 drivers/pwm/pwm-ocores.c
+
+
+base-commit: 1fffefb00cc0b0da1f2ae24e3d33364530ea6515
+-- 
+2.43.2
+
