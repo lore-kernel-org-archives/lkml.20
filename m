@@ -1,112 +1,114 @@
-Received: from sonic314-14.consmr.mail.bf2.yahoo.com (sonic314-14.consmr.mail.bf2.yahoo.com [74.6.132.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 439F54C9E0C
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:22:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.6.132.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27A24312836;
+	Wed, 14 Oct 2026 22:24:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792016576; cv=none; b=WuQxArnrBtqK9gANqqR8JPHjH7+dUPxxR2LYLxaAtFukXTPFB9mtTCwgyXTac39JyQveAoy4+XVNrTXhxZQZ/OEn0wUhMckFcIWm70FOPtHDqL5fQUYorD0AGJEft97HoRvhS0eFj7TJTm5RAQUC13/LnMgO0UpAgR1enPfynzo=
+	t=1792016653; cv=none; b=ngh81PUzgvQps8yMMIaqkuO5omYLdPYkjm1AFTFYAmDcoSEUbt7pfziMSMqqRDRppsRD8Wpilh3pNzb2IyKCcD613yo3fo1Ku0G/up6PtZEx4UZZ4GSesMFadwE5evHiamR1v27PrFv5J0QYzT0SDhVXcop+OE90zSrO/LvAyF4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792016576; c=relaxed/simple;
-	bh=JV6Plj3R0iHBSfI0LE4ZZk1iaGp0QitK5wRces+OM+Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:References; b=BkLZFlOzEP+7p+QrGb/kg77u3fyCHhVOtWnjReLg+8M84zUB0Cue+ZDt8u38CPof4O8MGjk9Vv1kTwXd4ROeUZstJdrqpMiv/qakKx59sEOGI5d5tXWZjIMsTd18Lh8wDVd9iYyczdgKPzrZL9iunsKTGVgGY3ww74muaRR2XqI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=HH22UHJd; arc=none smtp.client-ip=74.6.132.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	s=arc-20240116; t=1792016653; c=relaxed/simple;
+	bh=FOrWl+3hKVM3E0yFnK8y0KiAl+sD05mmhgu1G+jz7iY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=cPrr7ce80uRZpGGDJTQFFDc4qmq9tLhq48RvMEdpmAa3+nIVNOoaB9+ouQ+hlhupPCdBgDHkWAqWJ4h6Ekcv7yQEw2d4dZwkXT/F88Sb31QKlivmAaVPdQpvXWE/DJWZ9u/vCllJURPN4YNs+NU4UxUXrpo04nx/EYrmhaAQODE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=h5hb5Sgq; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="HH22UHJd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792016574; bh=g6oy0nU/YnirXHZOdkgWO+qlky6gP3LJ7xGc7jBOseY=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=HH22UHJdI3Zpp++LzaOiulIT3DNOj6Xg5BSQdQ6sYee0MLw84idipcXMLwA3i9d/7nUZ11Gq7p0Kcdr/Wotp4thKq5Ku8fsX0D4m+ironu0qZWV6FKqF7Kz9+pbJl6QyEy21wCA2pqA2jEQEzzweBWUNgh48UG9yuTFCsmSlUREvgrk36HOoGgwmPetcnWVOVVIbQVwcP4Mazzx1lG3iJoPFJmObYcsSXOifCZRsl7ZGK6lEX70lL++tbT5YJ1xyYkJguLDQmkJvcee/v2n6DaM1FwKOF9lNUBCJuzY3CiPiaWoSl2OhQ45+HaXlTKYEbyauUEDOoyD44XLVwoX3wQ==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792016574; bh=eaWNO/jDNfkIOtEnoIAjqVvesfLEfSXaHcs6r7gDHea=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=F/Qdizc6lrmtgeyTXf7nDcPocIOZjnEExkt+QQPLJsfJvBbsfMdgajwVdsqX+vj+UlfjPo5JsdS2f34ScWyq0rbPlah4ceOUwOcawoGlbQQ+qoA7JJQ0qsxyg6yXWTCy8sY3ctv5cUaAxU/+6iV3e7sgMKqAAwx9j78gOdW1DDNies9MT+pZL+rL17BBXHtr9OTzxf4n1o/HlrY66Babmatg5OhvmS2aay1i5/jXnzS5SxGSX1Dlhf+bECGDAYmHt0AcBwZdUDmPDYuHpt3y2vEyQ587ZQ9LSGzqQHqptwGYfaWEVN4zNYSsXuF/Rmm8SaSkivNlzR8xyHUwIWeEYA==
-X-YMail-OSG: NcctO3UVM1mnvi7IdEwp26wNAtqNmkrbv.u9.LiBy..HxKoYWhu1O0zo7lfGroQ
- tb8vDfW0kEQJwwx6YqLO0sXPJiN9W4bmQg3Q5SgyNY727csfOgdCT944dacYjzCxrxJnAgYJYll3
- 6ALZ2FBiXr_L.epGoyeCPkf_P_zVi_K6K9icsg9mfhjdoWE_CiEugDW0ncEUNtPY5tZDsMC7NTlR
- MIheON2z1V3feRLQdZhIGVNPPFVabTyovDTi8bUEqpmEafcs3.k.HqflNmOtWqoQjHhoOttphrLT
- fgKPJAPGDL0e_3oJ28cOg2lZMys979TNd2WaWQQrqdmxP0hLaa.OsqsFIDDLpJiiAU9nqlksD1AW
- RrjKQt3G6Vn644vZgnPYwiMBGcNHpmvpdfttgNl3kAmWKx2jchznHCYWop7Z8RZSX0houb_YzfPv
- MkTtw3unHKIHET8fPM06q.SwLcu.n1VFk.Sw0PjzzqSK_tsvS7bPEJfmg8cMse.gnrh2hhRgTNTj
- sNYytJO6yo3Wrwr65YHyOfcHhsnpH6YxIX9evu7sqyHkOk5fjf4286_nnbdTq7areFi9iTjCXxMD
- s8rZ1Ijmv7QlTJEKOaF8AEuURBEyfVvxmpMMlQEfus.MrN4H82TQ.mnUVOwqLGPhltAvOQXTlFQL
- Xa9ue3TSVMfI9aph2rSs6VcrptxRIm78nKfRCpI57HULeXm_f_Gg48ErE1H6KPoZ6lgVbEyxfr5F
- hBXebomv4rcM9OAK278py_gKX0ueWDFiKO9bkkzDxFsMmd6y2V5EEoPMIz2a3DKP0VjCnwI2Az72
- 4.kYFg5Nl1aa19k8mUDrFYdJnMD_jhw7yM1rGWyTAs5ZAbZIQxgoAB.ZniPKmVhOZDZYFaAgBCZC
- POl10jhJX.xWSuA9i8hDROWxRLiMaW9KJYKIWlk0k1rFOAvtA1h5YPqUq8WsjW.qu.XrU21NCZlG
- hnPepdBb1pYlLCICOftpDFVWKWDZLyuYEVp.9XSLls96vqJFSLZZfxt8iQqpEEcpKJc.9ZcoFnGH
- eCtLyAdAFt9Q49cHA1WXR_2Zb6E.KMeAEpq0QYGUVgK0ce_kb0oJnr4koU5F5ShnBzuoyOqwEOP2
- zxUsvesK9rKoaVXWpgznuSsnHV6fzwDYdYa9iYzQzFwA4xoTEMsaJKRaHj8NiMCwfBR8t2nu9uc1
- s5LzeakEUdrARPOH2QZcAPPcuz4tK_E7c9cY.HsvTrMDKRug86N9bahfMpbi6bg52DwwbOupeaDE
- xighv2z9lyrt43prIP_u.CVQ9ipkJSuBvvpSQWz3bVa0_WV5w.FySrMZ9w9PHtpyiJ5OEU.I6J8G
- CBNCrub7.Qt3JNqaf6HLtdgXpPsCCgbGRydqBtium8srY9_JnxQu_009RqezYQK4vjKqS6FFs1Dh
- ygCA5ykQrfSwokzzxNku2IO9bM2E7r3kCeTUgYT7nEK9pL4m18Kzaa61ZY5ksfkoPJ0b1eEjuY_3
- 8L4GIntcjfNLuOUBawkyO9oxXePb4RlKHcHxYweonB49IqbXX7xnUL9FytsBVYIGSJ7XqMNrqpY4
- OTZo4rVYUXsV6Wc8UPJejyjdjtve3QFsvcdw4AeUlMZkMoJYhq0eXpsGCTVrVUBH611yqh7_NQ8D
- Z4hFRvYUusVy2Hd24dgULDuk.YWnROSij6ovZ5DUCSGCsI_q9M.SZWbjelppVrLl68LUtOwxLsfo
- H8YzO0mE74oJVC.468q30z3eny0e7VRbMrZ5ga_g0MYdne0LSBUbPw2n7Up2qCUfHuFH9ETQLw1m
- R_dzOOw3cWoC1DeWQNaqRPE2YALpD0yEU8JI8Dp0ndSzW4NDTGlSPm0ve7.jYA51dms8guy_FqaA
- v7oLkvwaqEqRxOe1gynqHFl0XuLQs66psPlX7igZI81uArAgw2GKwDp45Yfsg3sN123mDIkcKRf0
- hIbrg1oBnYsi47pDci8m5whOTYV1lLOSbjYF2ojBS31W4Feq68trJ10in8R1d.ec3od0l9CDVfTa
- 6bqOQXf3r8jUOA7_7tOOUJoH5a6iH0Ny2blWevCDVEdChTWBCYdHqP60TVwKPLM6c_YjfBlKBFq6
- chlSW55DWeJgZtlAyjgvfC8xaGFyX.ybOXjM2_0dAk_0mnwwhLYV.cRZ6YkcMZ_TzRvTKewoBMoz
- xRbCGdBWlXKKKr8Hk0_jhTm6Vs3vHaa5l5FZet4L3a3pDrlWKX97C9H0H50.5bb.UCL8zFJ1Hdbk
- ux5klvY2yv1aEkLJGzhd2k1wdlbQWuVk4OyTt86ynnImaajaJJ6DdBgOaD7kWia4xicI-
-X-Sonic-MF: <deaner92@yahoo.com>
-X-Sonic-ID: 07c27ad4-72c0-429c-9b2c-098160be6176
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic314.consmr.mail.bf2.yahoo.com with HTTP; Wed, 14 Oct 2026 22:22:54 +0000
-Received: by hermes--production-bf1-6d6877594b-5ssw4 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 77450296e97a96797f2c934e50296e27;
-          Wed, 14 Oct 2026 22:22:49 +0000 (UTC)
-From: Jeremy Dean Clifton <deaner92@yahoo.com>
-To: Viresh Kumar <vireshk@kernel.org>,
-	Johan Hovold <johan@kernel.org>,
-	Alex Elder <elder@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: outreachy@lists.linux.dev,
-	Jeremy Dean Clifton <deaner92@yahoo.com>,
-	greybus-dev@lists.linaro.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] staging: greybus: Remove unused header declaration to_fw_mgmt_connection
-Date: Wed, 14 Oct 2026 17:42:48 +0000
-Message-ID: <20261014174248.97561-1-deaner92@yahoo.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="h5hb5Sgq"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=g3hYliZa2aN88Wi7FBg1RWhJwDGu2cojpb/JM8a2nCg=; b=h5hb5Sgq/Hwc5jCisdJ6kG3e3u
+	PcTTrpVXvyfCiWsopiT5yvIR17HeBtenXWEvMH+7cWmsQmKqKih6Tdp3v6BRPG3oz3NNxijrGC5Fu
+	ki3XCJ+CqrhOeL/3JzoX+TvDuuebgZ3umydWDOyB2Aa5C2SjcRzjG4+iVtiXy2jPX6xnucSo167Ya
+	k/KXlMkZ6rgW6Pr8+aHprRtJfbehp/QTM8rIRXZ+8rg+CKIeYNW4jlF5BDHIAOx1IjExJFmaSGk4E
+	13SD0sP/rDL1NfUEAPQDGfsnO03dAYVHsbgJ6/kQndMaSqDKBvK+qdT9WaSavYGnlfWIlbKOHIT8p
+	tsrIOhkQ==;
+Received: from [151.115.150.205] (port=36162 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1xH7OE-000000083Go-3On1;
+	Thu, 15 Oct 2026 00:24:02 +0200
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>
+Cc: linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	stable@vger.kernel.org
+Subject: [PATCH] crypto: essiv: fix use-after-free in AEAD path
+Date: Wed, 14 Oct 2026 22:23:51 +0000
+Message-ID: <20261014222351.2930674-1-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-References: <20261014174248.97561-1-deaner92.ref@yahoo.com>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-Previous commit removing a function definition did not remove the
-function prototype.
+The request that ESSIV submits to its wrapped AEAD transform may
+finish before crypto_aead_encrypt() or crypto_aead_decrypt() returns.
+In case this happens, essiv_aead_done() calls aead_request_complete()
+on the original ESSIV request, which can end up freeing the request
+before essiv_aead_crypt() resumes, creating a UAF:
 
-commit 3228900f80c2 ("staging: greybus: Remove unused function
-'to_fw_mgmt_connection'")
+  BUG: KASAN: slab-use-after-free in essiv_aead_crypt+0x8e6/0x950
+  Read of size 8 at addr ffff888102af1360 by task init/66
 
-Function header declaration needs to be removed after definition
-removal.
+Keep the temporary assoc pointer in a local variable before submitting
+that request.
 
-There is no definition of this function nor is there any place where it
-is called.
-
-Signed-off-by: Jeremy Dean Clifton <deaner92@yahoo.com>
+Fixes: be1eb7f78aa8 ("crypto: essiv - create wrapper template for ESSIV generation")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
 ---
-v2: Fix grammar and spelling in commit message.
+ crypto/essiv.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
- drivers/staging/greybus/firmware.h | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/staging/greybus/firmware.h b/drivers/staging/greybus/firmware.h
-index 5d2564462ffc..04a67d2d5b8f 100644
---- a/drivers/staging/greybus/firmware.h
-+++ b/drivers/staging/greybus/firmware.h
-@@ -22,7 +22,6 @@
- /* Firmware Management Protocol specific functions */
- int fw_mgmt_init(void);
- void fw_mgmt_exit(void);
--struct gb_connection *to_fw_mgmt_connection(struct device *dev);
- int gb_fw_mgmt_request_handler(struct gb_operation *op);
- int gb_fw_mgmt_connection_init(struct gb_connection *connection);
- void gb_fw_mgmt_connection_exit(struct gb_connection *connection);
+diff --git a/crypto/essiv.c b/crypto/essiv.c
+index a47a3eab6935..d85136feaf3b 100644
+--- a/crypto/essiv.c
++++ b/crypto/essiv.c
+@@ -189,6 +189,7 @@ static int essiv_aead_crypt(struct aead_request *req, bool enc)
+ 	int ivsize = crypto_aead_ivsize(tfm);
+ 	int ssize = req->assoclen - ivsize;
+ 	struct scatterlist *src = req->src;
++	u8 *assoc;
+ 	int err;
+ 
+ 	if (ssize < 0)
+@@ -247,11 +248,12 @@ static int essiv_aead_crypt(struct aead_request *req, bool enc)
+ 				  essiv_aead_done, req);
+ 	aead_request_set_crypt(subreq, src, req->dst, req->cryptlen, req->iv);
+ 
++	assoc = rctx->assoc;
+ 	err = enc ? crypto_aead_encrypt(subreq) :
+ 		    crypto_aead_decrypt(subreq);
+ 
+-	if (rctx->assoc && err != -EINPROGRESS && err != -EBUSY)
+-		kfree(rctx->assoc);
++	if (assoc && err != -EINPROGRESS && err != -EBUSY)
++		kfree(assoc);
+ 	return err;
+ }
+ 
 -- 
-2.43.0
+2.47.3
 
