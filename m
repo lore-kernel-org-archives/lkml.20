@@ -1,127 +1,289 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2D7974EA367
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:13:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791972815; cv=none; b=fslHE4F5y+ldis4HTRYwum9PZ7QkxuS2uUIc8c/eSc+IwsO3qQeBfxeMhEu++Yo2v9Y7NYB3vjdcwt2PQu4sbwYX0gxMfmBolSEww9sxClStw9rpDPbLfmW47pGKWgo2BjAm1UeiRnPNO5YTP0gEj/4E9zJJf1V3m0GwQnkDC7w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791972815; c=relaxed/simple;
-	bh=U0HDjjBQ1wZStGbPImReFidE4VOJi6igE3YQoFYCuS0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=h/GCQ8vyzkfSg+X3QhXJnHg9LDay27a+PrRKY3U2jZxtGPcvf33s9qoR56R2vog3I02ocTVUEKgu010qJPjgDspPcUf8ycAJNHyqziO0CjTcX6swFvlY1NvN0VhVH0voLgDzLgUZ9K+M80Fjnw4fGaBoSie4mdVaZRqGFrTsyVQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=GzIBGRC8; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA1194EB845
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:14:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791972895; cv=pass; b=jj8SlheIHNJeKJ6aBvp5++qmysIKd+GG6WrGhTUky0NWuv0tKFN5NEgEa5icz8hquXe8d1/AIbiG/hKSCt3QI1OyEKsGyrTWmCtBTzvUX9aemXFxGEToBGIHyK3CchTolxz+fXLwDczZcz+T4T0fIDsugmew/sha/KPH3Cktks4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791972895; c=relaxed/simple;
+	bh=+23UWhQI/KNob9ARYWQiZhgyqTCPgnw2PPmhgS8i4i4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=kKp5NeLwVGM+GV6odzxjaEkbtpsgjwjkYtAfD2AnyTv+Z2ZqNS0uLdDqd8dQCf5woYGdHoFFUkPpZsMk3+kgUeCAksPVcQlxXNpVUAB1g8VPhKct/q86ZoM25/qDoMBXNJsQEdLiB05T5AjiLG1UaYMI9i8y6IEZZDQ/jmHchyA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=DVUCih7v; arc=pass smtp.client-ip=209.85.128.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="GzIBGRC8"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0315C153B;
-	Wed, 14 Oct 2026 03:13:29 -0700 (PDT)
-Received: from [10.57.9.28] (unknown [10.57.9.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0B22E3F673;
-	Wed, 14 Oct 2026 03:13:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791972812; bh=U0HDjjBQ1wZStGbPImReFidE4VOJi6igE3YQoFYCuS0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=GzIBGRC8wuOEsqZgPFOh5C1Hwiga39S2JNj6kDzRTPrTtTd9pdUSC5Qptl0M/6c8T
-	 JG65pzO9uSv3RJAvLIvsRzfJgWS+4+MRONAV5O+4q/y8M2Cgr+B5UOLMhOQzNdA1Yo
-	 9v0tcX0nmJ6r+R8s28aAyT4u9Zho2F359P+pimP0=
-Message-ID: <c17df5ea-3f62-47f5-9de8-8ce3dc74eada@arm.com>
-Date: Wed, 14 Oct 2026 11:13:29 +0100
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="DVUCih7v"
+Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-8ab432273c5so33834537b3.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 03:14:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791972888; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cl9MYibKfQFJNmKLWZ7ibm/LpeRQjrZpH3RtkaVXRneq+gWhvxzzL9inhBjU1i6442
+         dME9tHNS7+7NHBFGP6BJGi5RK++Vw3RblxMauuPYUPolxn6nQMDcqAYnC/OpQPDE0QOg
+         izLQZUUoVwYVaLe6o9lniY9c3pGHxZ4szc3rNhadwJe13PW4dQ+t+lQAjzeZnTpUyekD
+         GPgcECINbooIDbXR7R8sFkc4tL8U0mz4ZjPbXUUg/4yvqu8gQ6gW+p9y+Wy1JMPO96pu
+         u6NPivaIYG5/DUsqZoyrsWND/J9chSwrRez0y3Pftfurv2VbPrqTu+zOfBNsv620tl11
+         Rnpw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Edwfse8WHzu9gP6zUwwr3O8TIa4a9hek/bDZw8bIzFg=;
+        fh=794YsHKBb/l3yTbjBXaFA43z+T/6muz/GL6nrEeIHqc=;
+        b=nRCx/SAluzZnlBEK4K8ExFtKCpekyHQgB3lsLWOKutrCdFJeaHlTwByQi7N7NucCv9
+         3X86P9Z85YU1EGUhDrF4n4Y9V+8U9Ow9XQRJkqfRYAvsvrzzxitUDwfUl3Pd57+vv7Cr
+         8fpE08eiKyw3fPen9eBAYqTb7aXqsO+aKROjum629D9yor87eJcm0v/KlziIfSKyvYxE
+         oWZ276ecTTRbGz8P+IrtbrCP3eppc+tICGRwWLUTgQWOg8UxKi5E0NveYwIV8fTBlGHS
+         al01uTb0pYB6eNg9IWmvhCspb1P7leDtDvUkaIv5vnhjV6s/eVGOX0f2UF2q5UlifZUC
+         u3ng==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1791972888; x=1792577688; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Edwfse8WHzu9gP6zUwwr3O8TIa4a9hek/bDZw8bIzFg=;
+        b=DVUCih7vNeIhW21lbUpw4HMdRhEzMdpSwSuksriltCOFGkI6CPNRMwRnOwFmoks8EO
+         fXS6hOrp8pKVwr80zT8wquzsSv/uYurHrUrLfZ3ZOePeeZSTvhqz2MN9HrXBDGVnIatN
+         pmIOzxAD6br8tYQC46lTAtJFMFMM/E+rrcs1Q=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791972888; x=1792577688;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Edwfse8WHzu9gP6zUwwr3O8TIa4a9hek/bDZw8bIzFg=;
+        b=xqC4sw4RRjMOS3BkiEDSJ4kDspr6hZgi4WX+8ildvdZm3Kg0fnZiRnGQngnX5Xiws3
+         hxJN51qJ3nAMJ0Gn4KI3dlQfiV16bYfI8oyLPaTrwU0s9I6jR8VBZWXXvUvB0l6Fi2nA
+         2iHj+LptNeeeySEFayxiUs9k2rXG+Qn0Kag69BsQErcSXBQA8knHK1JywxrH/ZETaOxD
+         +pk4hpjRTohaseLs+BoZ3syfIMHfTHnyiC3Y6e3Hd0BHm2Kt+10zYmS6LduI8XCb5na5
+         peK5TJcQFCOQIkVMDdoaKOgK+HribehiQcRBqAaSaTLOGx6U3FueRMzYBWJU2hzWyy2L
+         ojMw==
+X-Forwarded-Encrypted: i=1; AKwUvBy4COM/BXbAhXKKaY/ApcmPFxma4OJpuz1t9ZaJbSnn6JitCVTdwDCSxqMaZ25uO7O4jDNamHXihvXjGBw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ2cc7NAzF0sjoYD5m4wjKy1a4FqoAF3xRY72qhbLf6DyKYAaK5
+	580QWQ6y4O+5dh/eahQiqYpkx+0xvaXkIcgTp8M9+H8GnH/jCYSNHUaNKc6OjyO/7sO6tvIYRQY
+	BK6hA3nGFbF+5xy1bhVBOjK8uo8JKZ4KdxLowEx8JxiUcI09fxc6DOw==
+X-Gm-Gg: AYBFou1AlzEb3w6uIgRQlccGWqLnOVbQiQkKkLbvmQgjBs18VLFhjBaIwOcHQyXie7d
+	emSCLY30/1meDkQiS6e/GEEavBqouDgQe3JfS/wzcZw2+3Xjz+ib8mMXLYsqVF0EnCATZpDw6GU
+	Nh020xSyCE/m34tS/JOzXK9og6L4WkXr1oGvZ+bJlq3reCXovCezAu7WA3FNlyxPy+EM6Pmdoq4
+	KdQAa8vkt8oUGFrhV+aYEqv1KmWeFpLQ7StnKcQzHJwsDf7KE4HHoEQgSGxvz11rWacbDEPnEsi
+	vRonfrlOvuH9PVC0/P2GrXTWCYLBiSR1C/PafD21LIf1HS23xF5mh/4l
+X-Received: by 2002:a05:690e:1206:b0:677:ac49:ebc4 with SMTP id
+ 956f58d0204a3-67936a424f4mr7759702d50.67.1791972888459; Wed, 14 Oct 2026
+ 03:14:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] arm64: rsi: Correct type of realm_config::hash_algo
-Content-Language: en-GB
-To: Catalin Marinas <catalin.marinas@arm.com>,
- Kohei Enju <enju.kohei@fujitsu.com>
-Cc: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Sami Mujawar <sami.mujawar@arm.com>, Steven Price <steven.price@arm.com>,
- "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
-References: <20261014-cca-b4-rsi-fix-hash_algo-type-rebase-v2-1-6cb0ae13c8c1@fujitsu.com>
- <as9RFRuhlGL1mZbz@arm.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <as9RFRuhlGL1mZbz@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261014082037.1774672-1-wenst@chromium.org> <20261014082037.1774672-3-wenst@chromium.org>
+ <7020a7a6-332e-4fd0-a659-d82eb768614c@linaro.org> <CAGXv+5G1kgyumbj7wGf6rPFbg3spSO0zYmEkn-hZT4qUdJbytA@mail.gmail.com>
+ <03375a31-0ac6-47a4-b0dc-6327080e1622@linaro.org>
+In-Reply-To: <03375a31-0ac6-47a4-b0dc-6327080e1622@linaro.org>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Wed, 14 Oct 2026 19:14:37 +0900
+X-Gm-Features: AclHuK8K2ha0wfmSqlf_vB5Bnq5oR8A0v5D4YSyisrVXA9HcSK0AnBminp1imug
+Message-ID: <CAGXv+5H+ZZXnZKB4EzXP0O9f4YGHBHsz3YCRyRJgX9V6RW1eug@mail.gmail.com>
+Subject: Re: [PATCH 2/2] dt-bindings: usb: snps,dwc3: Fix downstream port numbering
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Felipe Balbi <balbi@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+	Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Sven Peter <sven@kernel.org>, 
+	Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>, Joel Stanley <joel@jms.id.au>, 
+	Andrew Jeffery <andrew@codeconstruct.com.au>, Ryan Chen <ryan_chen@aspeedtech.com>, 
+	Billy Tsai <billy_tsai@aspeedtech.com>, Michal Simek <michal.simek@amd.com>, 
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	Peter Griffin <peter.griffin@linaro.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	Tudor Ambarus <tudor.ambarus@linaro.org>, Heiko Stuebner <heiko@sntech.de>, 
+	Alim Akhtar <alim.akhtar@samsung.com>, Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Yixun Lan <dlan@kernel.org>, 
+	Troy Mitchell <troy.mitchell@linux.spacemit.com>, Minda Chen <minda.chen@starfivetech.com>, 
+	Shyam Pandey <radhey.shyam.pandey@amd.com>, Wei Yang <yangwei1@eswincomputing.com>, 
+	Senchuan Zhang <zhangsenchuan@eswincomputing.com>, Hang Cao <caohang@eswincomputing.com>, 
+	Li Jun <jun.li@nxp.com>, Peng Fan <peng.fan@nxp.com>, Roy Luo <royluo@google.com>, 
+	Yang Xiwen <forbidden405@foxmail.com>, 
+	Ahmad Zainie <wan.ahmad.zainie.wan.mohamad@intel.com>, 
+	Robert Marko <robert.marko@sartura.hr>, Xu Yang <xu.yang_2@nxp.com>, 
+	Wesley Cheng <quic_wcheng@quicinc.com>, Stanley Chang <stanley_chang@realtek.com>, 
+	Ze Huang <huang.ze@linux.dev>, Aswath Govindraju <a-govindraju@ti.com>, 
+	Roger Quadros <rogerq@kernel.org>, linux-arm-kernel@lists.infradead.org, 
+	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	asahi@lists.linux.dev, linux-aspeed@lists.ozlabs.org, imx@lists.linux.dev, 
+	linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, 
+	spacemit@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 14/10/2026 10:53, Catalin Marinas wrote:
-> Thanks for respinning.
-> 
-> On Wed, Oct 14, 2026 at 11:43:23AM +0900, Kohei Enju wrote:
->> The RMM specification defines RsiHashAlgorithm as an 8-bit type, but
->> realm_config::hash_algo is currently declared as unsigned long.
->>
->> There are currently no upstream users of this field, so the mismatch
->> does not cause an observable issue today. However, a proposed series
->> adding support for Realm measurement registers uses this field and
->> exposes a bug caused by the incorrect type.
-> 
-> It should be clear the bug is in the RMM implementation. The patch here
-> is more like defensive programming when the RMM doesn't honour the
-> interface and zero the unused bits. I can fix the text when applying.
-> 
->> Change hash_algo to u8 to match the RMM specification while preserving
->> the size and layout of struct realm_config.
->>
->> Link: https://lore.kernel.org/all/20260413084957.327661-4-sami.mujawar@arm.com/
->> Signed-off-by: Kohei Enju <enju.kohei@fujitsu.com>
->> ---
->> Changes in v2:
->> - Drop the inner union and padding around hash_algo (Catalin)
->> - Link to v1: https://patch.msgid.link/20260929-cca-b4-rsi-fix-hash_algo-type-rebase-v1-1-6932cf0aa605@fujitsu.com
-> 
-> In theory we could add a fixes tag for reference but not worth cc
-> stable.
-> 
-> Fixes: b880a80011f5 ("arm64: rsi: Add RSI definitions")
-> 
->> ---
->>   include/linux/arm-smccc-rsi.h | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/include/linux/arm-smccc-rsi.h b/include/linux/arm-smccc-rsi.h
->> index fddb77986f70..cca881ddfdba 100644
->> --- a/include/linux/arm-smccc-rsi.h
->> +++ b/include/linux/arm-smccc-rsi.h
->> @@ -128,7 +128,7 @@ struct realm_config {
->>   	union {
->>   		struct {
->>   			unsigned long ipa_bits; /* Width of IPA in bits */
->> -			unsigned long hash_algo; /* Hash algorithm */
->> +			u8 hash_algo; /* Hash algorithm */
->>   		};
->>   		u8 pad[0x200];
->>   	};
-> 
-> Suzuki, are you ok with this patch?
+On Wed, Oct 14, 2026 at 6:44=E2=80=AFPM Neil Armstrong
+<neil.armstrong@linaro.org> wrote:
+>
+> On 10/14/26 11:29, Chen-Yu Tsai wrote:
+> > On Wed, Oct 14, 2026 at 5:28=E2=80=AFPM Neil Armstrong
+> > <neil.armstrong@linaro.org> wrote:
+> >>
+> >> On 10/14/26 10:20, Chen-Yu Tsai wrote:
+> >>> The DWC3 controller can operate in host mode. It does so with a XHCI
+> >>> compliant host controller. The XHCI has two downstream ports, one for
+> >>> HS and one for SS. USB downstream ports start from 1, not 0.
+> >>
+> >> Is there something in index 0 we will need to define at some point ?
+> >
+> > On the host side, no. Downstream ports start at 1.
+> >
+> > On the device mode side, I believe the numbers are completely made up.
+> >
+> >> Using 0 as base for numbering in DT isn't incompatible with the USB
+> >> spec using base 1 for numbering,
+> >
+> > But you end up with diverging numbering schemes, and it diverges
+> > from other USB controllers, particularly XHCI, which DWC3 embeds.
+> >
+> > And it also differs from the numbering currently used for directly
+> > connected onboard devices (like hubs), which use or expect the USB
+> > numbering scheme.
+> >
+> > Sure we can make DWC3 "special", drop inclusion of usb-hcd.yaml,
+> > and duplicate the section for onboard devices. On Linux, we can
+> > add some more code to xhci_find_raw_port_number() to make an
+> > exception for DWC3 controllers.
+> >
+> > Also, usb_of_get_connect_type() is already broken for DWC3 based
+> > controllers that only describe the HS connection but not the SS
+> > connection. usb_of_get_connect_type() currently doesn't call
+> > usb_hcd_find_raw_port_number() so both HS and SS get mapped to port 1,
+> > which wouldn't be in the DT since HS is currently port@0. But even if
+> > it did, SS would get mapped to port 2 anyway.
+> >
+> >
+> > IMHO having consistent numbering across controller types would be
+> > better. This avoids making the USB core and hub code deal with more
+> > exceptions, and also easier to understand and write device trees.
+>
+> I was in the impression the port number not necessarily reflects
+> an actual physical numbering, and can be a logical number we would
+> then map in the kernel.
+>
+> I don't see any issue here having base 0 for the bindings and then
+> converting it to base 1 for the XHCI port numbering.
+>
+> Each controller (Host, Device, OTG) will have it's own numbering anyway,
+> so using the XHCI numbering only sounds a bad idea TBH.
 
-Yep, looks good to me.
+OK. So we keep the port numbering, which is different from the embedded
+device numbering, even for the same dual role controller? See below.
 
-> 
-> As a separate patch, we need to add some static_assert() for the offsets
-> and the size of the realm_config structure. We do this in
-> arm-smccc-rmi.h already.
+I hope you see why I think it is confusing.
 
-I was going to suggest that and possibly rename the "pad" to sizers. For
-now this is fine, but would be good to do that when we add the newer
-  fields for RSI v2.0
+> >
+> >>> Reconcile the downstream port numbering with the common USB host
+> >>> binding, renumbering the downstream port numbers from 0 and 1 to
+> >>> 1 and 2.
+> >>>
+> >>> This is non-backwards compatible, however it won't break current
+> >>> major implementations:
+> >>>
+> >>> - dwc3 "gadget mode" in Linux kernel only requires a connection to be
+> >>>     present; it doesn't matter which port it is
+> >>>     - dwc3 "host mode" OF graph connections aren't supported yet [1]
+> >>> - FreeBSD doesn't use the OF graph for anything
+> >>> - U-boot doesn't use the OF graph for USB
+> >>> - OpenBSD doesn't support dwc3, only the XHCI in dwc3, and doesn't us=
+e
+> >>>     the OF graph for USB
+> >>> - coreboot doesn't use the OF graph for anything
+> >>> - Zephyr doesn't support dwc3
+> >>> - TF-A doesn't use the OF graph for anything
+> >>> - EDK2 doesn't support dwc3 and doesn't support OF graph
+> >>> - OP-TEE doesn't support dwc3 and doesn't support OF graph
+> >>>
+> >>> [1] WIP to tie OF graph port node to USB port device
+> >>>
+> >>> Fixes: a33113f73693 ("dt-bindings: usb: snps,dwc3: document HS & SS O=
+F graph ports")
+> >>> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+> >>> ---
+> >>> It is unclear to me whether the HS/SS numbering is fixed for all dwc3
+> >>> variants. I checked Allwinner H616 and Rockchip RK3588 and they both
+> >>> have HS as port 1 and SS as port 2.
+> >>>
+> >>> This also doesn't cover a potential "multi-port" DWC3 implementation,
+> >>> which Qualcomm seems to have.
+> >>
+> >> It breaks the current Qualcomm numbering on numerous boards.
+> >
+> > Yes. It breaks _everyone_ using the current numbering in the sense that
+> > they are no longer valid, but should not affect actual usage.
+>
+> Older DT are supposed to be working on new kernels, you will break ABI
+> and will break usage if the port numbering is enforced to enabled embedde=
+d
+> hubs for example.
+
+On that front, embedded hubs already require you to use the USB numbering.
+
+If you write
+
+    dwc3 {
+        hub@0 {
+            compatible =3D "usb0123,abcd";
+            reg =3D "0";
+        };
+    };
+
+It won't match anything. The current USB HCD binding doesn't prevent you
+from using port 0, but the kernel won't tie the USB device to it, even
+if it is a single port USB controller. As I mentioned, USB downstream
+ports start at 1, even for root hubs that only have 1 downstream port.
+
+The kernel also doesn't check if the compatible property is correct, but
+that is a separate issue. Maybe it should though, so people can see that
+their DT is incorrect, like if they swapped HS and SS ports for a USB 3.x
+hub.
 
 
-> 
-> There's a similar realm_params structure in arm-smccc-rmi.h but,
-> IIUC, the hash_algo there is written by the kernel, so unsigned long is
-> fine.
+ChenYu
 
-Correct. It is an input to the RMM.
 
-Reviewed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-
-Cheers
-Suzuki>
-
+> Neil
+>
+> >
+> > This comment refers to "multiport" controllers from Qualcomm [1], which
+> > would have ports beyond 1 and 2.
+> >
+> > [1] https://lore.kernel.org/all/20240420044901.884098-8-quic_kriskura@q=
+uicinc.com/
+> >
+> >
+> >>> ---
+> >>>    Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml | 4 ++=
+--
+> >>>    1 file changed, 2 insertions(+), 2 deletions(-)
+> >>>
+> >>> diff --git a/Documentation/devicetree/bindings/usb/snps,dwc3-common.y=
+aml b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
+> >>> index 6c0b8b653824..4b6304bd2ec1 100644
+> >>> --- a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
+> >>> +++ b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
+> >>> @@ -410,11 +410,11 @@ properties:
+> >>>          property is used.
+> >>>
+> >>>        properties:
+> >>> -      port@0:
+> >>> +      port@1:
+> >>>            $ref: /schemas/graph.yaml#/properties/port
+> >>>            description: High Speed (HS) data bus.
+> >>>
+> >>> -      port@1:
+> >>> +      port@2:
+> >>>            $ref: /schemas/graph.yaml#/properties/port
+> >>>            description: Super Speed (SS) data bus.
+> >>>
+> >>
+>
