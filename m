@@ -1,109 +1,109 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8B8B22D0C72
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:37:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D48F3282F1D
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:37:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791974279; cv=none; b=mc6bG9c8ZzNNBU4VtgY7EmWPwVQwYyxzTDu2pXLRBsbV/YKAbR6KuWiqkhzq7+StcUwa7R4pUizZMx9DeL/qESdXykq2RFrDsjCucWc4AciqFaXlpDWH/LXUtXJ0A8yK/To/Z4NzrIL/UTZsXxnXWA3SMzxRxa9ms5hdn8G6Jgk=
+	t=1791974280; cv=none; b=XdfrH3SIr6tVa5A4vLetas6pNekH+qShbHT6W6iV1lyzY81pqEOUq0vb727c4WIgRhwYQG+ydOIWDz3nmPLVgdU08fbeYNReRBPT1gKU9hpNKXx6KNhjOc1WYmesAHQitziJjmT7zOgf43x+FhbPRXKzHKQDpfjQzLMHYL7iVLM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791974279; c=relaxed/simple;
-	bh=/MnWgXNTxPKay1llKhn8TqQ5Q2KXZDxnnN/liLDqiSs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VGzROc60seCTfLWL2lYMnLxpNc1Wqq1f5H2o/OS36r6GOxBW7YOWyFw0bnTfQrCYm4c1rAJAc43x9X1x3Pk/SXgMhLs/KI2Xk+tE0L7W3iyW8BzpluTRu8VohUI/s6e3iHmkaVfmOx8uIHJJMIeNTsFXx9c1dizNFYfMdYgK3O4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=tUx9lWKS; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791974280; c=relaxed/simple;
+	bh=Oi1iJJy/wZFo6YtPMtG25HC0jZZG39GT5ePp6+VE8X8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=UoKJdg7bFBRtmZWOCQdTp/COwDK7MgmIA7klDWzTc5UplXN56btKf6izo6H/3bItBtHOnE/Joj/5igjAJFcB7MDyuPOrlnTNNgbVs8axEYhCcnJlGQUz85F2ZtHp9QYYMgq7QyMXZmKD88UA6rTptmwntv+UeLWRKSAFXjNeHfM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=eH2YmlMy; arc=none smtp.client-ip=203.254.224.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="tUx9lWKS"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A2FA31595
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 03:37:54 -0700 (PDT)
-Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id B76AF3F673
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 03:37:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791974277; bh=/MnWgXNTxPKay1llKhn8TqQ5Q2KXZDxnnN/liLDqiSs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=tUx9lWKSpYYeY8E5L2dA+v0rFqE8+jKubOIEz1RDUhz6BUnMXZOvA72xANhtL02dj
-	 DbMgA8MvvOiQnATCx8zlFgJRbNhIS8gSB5gUYWiljyr199N6QOAB/zsDXBT069YMQ0
-	 ookl/NngjFtMQ879X5UBsVZdX3A/mZj6hSFhcl4k=
-Date: Wed, 14 Oct 2026 11:37:53 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Akash Goel <akash.goel@arm.com>
-Cc: boris.brezillon@collabora.com, steven.price@arm.com,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-	maarten.lankhorst@linux.intel.com, mripard@kernel.org,
-	tzimmermann@suse.de, airlied@gmail.com, daniel@ffwll.ch, nd@arm.com
-Subject: Re: [PATCH v2 2/2] drm/panthor: Remove redundant
- drm_gem_create_mmap_offset() call from BO_MMAP_OFFSET ioctl
-Message-ID: <as9bgUPg8FJh2AR5@e142607>
-References: <20261013125433.26432-1-akash.goel@arm.com>
- <20261013125433.26432-2-akash.goel@arm.com>
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="eH2YmlMy"
+Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261014103755epoutp02200165738213d26a460940b13e710a42~eXxvpT8612993729937epoutp02C
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:37:55 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261014103755epoutp02200165738213d26a460940b13e710a42~eXxvpT8612993729937epoutp02C
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1791974275;
+	bh=Oi1iJJy/wZFo6YtPMtG25HC0jZZG39GT5ePp6+VE8X8=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=eH2YmlMyp8sTioqvvoSDnAA5h6FZ7V41ySvOKzLCI3Yo/5PzPAZbHkPZW+f41WLa4
+	 gnWpKgwTiV7YDq6I9ZD92QkrEYAyow0Hi/uV6OQoiAMjxLd6C83QPiBn4JEhWWI6YW
+	 cpP7vi7pudXwRM41LS5KmqDZHLpndEeD3SuS0y24=
+Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
+	epcas5p1.samsung.com (KnoxPortal) with ESMTPS id
+	20261014103754epcas5p17759f988e65b8fb98c5d3dabe4b36b05~eXxvIxKti0931609316epcas5p1C;
+	Wed, 14 Oct 2026 10:37:54 +0000 (GMT)
+Received: from epcas5p4.samsung.com (unknown [182.195.38.92]) by
+	epsnrtp03.localdomain (Postfix) with ESMTP id 4j4SMj6tSSz3hhT3; Wed, 14 Oct
+	2026 10:37:53 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+	epcas5p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261014103753epcas5p29ae76c8fbf4f9486878d98f380630b2e~eXxt6CkAq2032420324epcas5p2r;
+	Wed, 14 Oct 2026 10:37:53 +0000 (GMT)
+Received: from [107.122.5.126] (unknown [107.122.5.126]) by
+	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261014103751epsmtip227ffdc939b21bbb6ff6f8bc054260cea~eXxrv1Pev0552405524epsmtip2N;
+	Wed, 14 Oct 2026 10:37:50 +0000 (GMT)
+Message-ID: <01675986-ace4-4392-a3ed-ff1d7bdac535@samsung.com>
+Date: Wed, 14 Oct 2026 16:07:49 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261013125433.26432-2-akash.goel@arm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] usb: dwc3: gadget: Prevent EP resource conflicts
+ during StartTransfer
+To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Cc: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"jh0801.jung@samsung.com" <jh0801.jung@samsung.com>, "dh10.jung@samsung.com"
+	<dh10.jung@samsung.com>, "akash.m5@samsung.com" <akash.m5@samsung.com>,
+	"hongpooh.kim@samsung.com" <hongpooh.kim@samsung.com>,
+	"eomji.oh@samsung.com" <eomji.oh@samsung.com>, "h10.kim@samsung.com"
+	<h10.kim@samsung.com>, "shijie.cai@samsung.com" <shijie.cai@samsung.com>,
+	"alim.akhtar@samsung.com" <alim.akhtar@samsung.com>,
+	"muhammed.ali@samsung.com" <muhammed.ali@samsung.com>,
+	"thiagu.r@samsung.com" <thiagu.r@samsung.com>, "pritam.sutar@samsung.com"
+	<pritam.sutar@samsung.com>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>
+Content-Language: en-US
+From: Selvarasu Ganesan <selvarasu.g@samsung.com>
+In-Reply-To: <as7ZHFpqLz623QQt@vbox>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20261014103753epcas5p29ae76c8fbf4f9486878d98f380630b2e
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-542,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261007020654epcas5p1d6f8d2d6f5215abcec7d6c6f90b8b8c6
+References: <CGME20261007020654epcas5p1d6f8d2d6f5215abcec7d6c6f90b8b8c6@epcas5p1.samsung.com>
+	<asWmW1jmzedIV5SP@vbox> <ff5d6900-374b-44d8-967f-0af16ae53437@samsung.com>
+	<98f16da0-5e24-4dd1-8f9f-79a1a5e7656c@samsung.com> <asbJfaj5OIhHBunD@vbox>
+	<bc43e3f5-ba0c-4f91-b765-ee35021bf089@samsung.com> <asglyrMYkopr3EOz@vbox>
+	<0a2bc277-3977-46cd-9759-ba273b5c2c4d@samsung.com> <as2N1JlPnpKBYcsb@vbox>
+	<a8021139-a675-4875-b437-7e837d5433b1@samsung.com> <as7ZHFpqLz623QQt@vbox>
 
-On Tue, Oct 13, 2026 at 01:54:33PM +0100, Akash Goel wrote:
-> This commit removes the call to drm_gem_create_mmap_offset() from
-> the BO_MMAP_OFFSET ioctl handler. The call was redundant and didn't
-> have any effect as file offset range is allocated unconditionally
-> at the BO creation time.
-> 
-> v2:
-> - New patch
-> 
-> Suggested-by: Boris Brezillon <boris.brezillon@collabora.com>
-> Signed-off-by: Akash Goel <akash.goel@arm.com>
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+On 10/14/2026 6:57 AM, Thinh Nguyen wrote:
+> On Tue, Oct 13, 2026, Selvarasu Ganesan wrote:
+>> I mean 'not recover here' is the failure to clear the
+>> DWC3_EP_END_TRANSFER_PENDING flag upon cable reconnection, caused by a
+>> missing command completion from the prior connection.
+> Right. Resetting the endpoint flags on controller restart will cover
+> that.
+>
+>> Sure we can use dwc3_schedule_err_recovery(), and thanks for the suggestion.
+>>
+> I can prepare the fix patches based on our discussion. It would be great
+> if you can test them.
 
-Best regards,
-Liviu
+Sure, Thanks for your support.
 
-> ---
->  drivers/gpu/drm/panthor/panthor_drv.c | 6 +-----
->  1 file changed, 1 insertion(+), 5 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-> index 1ca8aedd83f4..dc8d0191aef4 100644
-> --- a/drivers/gpu/drm/panthor/panthor_drv.c
-> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
-> @@ -1081,7 +1081,7 @@ static int panthor_ioctl_bo_mmap_offset(struct drm_device *ddev, void *data,
->  	struct drm_panthor_bo_mmap_offset *args = data;
->  	struct panthor_gem_object *bo;
->  	struct drm_gem_object *obj;
-> -	int ret;
-> +	int ret = 0;
->  
->  	if (args->pad)
->  		return -EINVAL;
-> @@ -1096,10 +1096,6 @@ static int panthor_ioctl_bo_mmap_offset(struct drm_device *ddev, void *data,
->  		goto out;
->  	}
->  
-> -	ret = drm_gem_create_mmap_offset(obj);
-> -	if (ret)
-> -		goto out;
-> -
->  	args->offset = drm_vma_node_offset_addr(&obj->vma_node);
->  
->  out:
-> -- 
-> 2.25.1
-> 
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+Thanks,
+Selva
+>
+> Thanks,
+> Thinh
