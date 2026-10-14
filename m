@@ -1,396 +1,92 @@
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FEBC493D3A
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:08:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52ADC3CF699;
+	Wed, 14 Oct 2026 09:09:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.217
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791968928; cv=none; b=eUVPbDfoiwCnAsUABAnGu4gVkFt8HJCT4nZ9Ong4ShSBEDSrTmAwZDmVyea5bBA+MssJLeOFrqCxvdiYZgGtmrwNTCf0YhntY5BZjOEESBMGrLETorbe1TY/RIT3D79HMm7g1I2H/JN1DVuFnixEYnNlzHkJH+lgVKbuy/OBmSo=
+	t=1791968985; cv=none; b=sxol5VWn17Q7yJtIzK0QOnx61yNpswSwjYFktrhvqGUyTGcT+0bKIFU7MKlZBoit1ROnoh/Na3HiG/GBu0ytznQZJKiMTxRIsewF0OlZ4veC7LMprXEZcZ+puSpa32zSoBiKqn8T2UdmhzAf5PQ+Gqx3nQR73OFmpPjKWOkcjMs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791968928; c=relaxed/simple;
-	bh=Pe0ZjbdtqJ34ZuVR03sAPd5IzlevgH/YKkeJWSISC6o=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=Jo4WwtBetFX3LH+weq26dPPoCwCaHIlPYfqNUvtAnCBpKgphuJBJV9NRoR48/Udz8DmcT38rZecfA5JZ/i9l/8HuhCODC8mYgyqQBdrwRYDzgFSQeKArmvv6j5bz+Ld29jjZbG71nMBYKbo2VYTiIiNfeKeLLFichRGO0hQcMi0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=dsLW9XuG; arc=none smtp.client-ip=209.85.128.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	s=arc-20240116; t=1791968985; c=relaxed/simple;
+	bh=LQPoX7EPmkdAzwVamHD//69tuFHWP7+KPzBw6sxHqS4=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Iz0/l9Eb72c1uSkJ/PP98O+qJ7/+4oJ1DGJZ7bPr/tJAXY0eEbKA9rehwWOGCXKuRH1rkwsn0u7SnLtuOssNZL1jfxweQ9Ovll2ZHSGtRbqFPtByiBjqz5JQCdfSlYzaEn8/aO5SHrJQ4BWZ/keM9LSZMwSxr+kWsBxreWuccq0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=5TafZdWK; arc=none smtp.client-ip=113.46.200.217
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="dsLW9XuG"
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a1813fea7dso59399295e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 02:08:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791968924; x=1792573724; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:mime-version:date:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=yNj7ZKyhQnUw2YiRQPZiQ8batYyqgFaaTZueylCQvsE=;
-        b=dsLW9XuG/DeE68KAR7F4sVocsyqLIQiH1ZSZwd46BeVrvJIy7NmhSKSlWwS3ejXVTb
-         SafRhXjFLrtYSFeLsUAmge5NCI0EY1Et6PWxyoKydmuqFUk/a8rfgDF6FGQL2IWnkkb4
-         EgTkqSWINSDTvioACOYDyezrQjCDcwfvDm8f52l7n6ndiUrtCbB2GzPk5hbSDA8y+lX5
-         36mbbjoLNGxLuI7fX8kpe953cnQpacthReLTp+Q+dBw/LD72d7b1svQLjIBPJDYJpZ+m
-         oP94Bos4i2cYh547TP5YRQ2gBx3RDD7JP8OwAEH4g33+wdS92sVHhYA1T3t6J00kf8KV
-         4Arw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791968924; x=1792573724;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:mime-version:date:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yNj7ZKyhQnUw2YiRQPZiQ8batYyqgFaaTZueylCQvsE=;
-        b=oUWJ6urvT8VQG68wIKddY1SiuJZ/dPJvB3JShpYWYvr4kJs9JrcDT1l9goC5MQl2kO
-         nJpx4H4TmTE52yjhYcgIHDqVFVtNCXkAr5wPADE1UidnwU3LzRRJhvomytCVmriblQqi
-         y9CBbjee3QEOMs75FZFvza51Te12+zIo7PBu8MtaeCz17NX7MHgMzupnphlFF9ijJ5N6
-         63ybfmgJb0XfQNEtJ2A6GM470lPNRoriD1HJ9MZ+ti3wyDj24JNLJ9zYoM5NJ6755QDC
-         QAXQHdmRGWjSzHjn8sBLiEJDylihVN/cJZ5cj6ntopGsa7OpTHZq/7Q9/45S8D3rQpLE
-         pEtw==
-X-Forwarded-Encrypted: i=1; AKwUvBzJ2G6/jojcj4kKxyh+KT/mfa7OqqHWIM32oKvlzC/qGDyLyWc6dIz37Nem3+pomjxcOBNS1Ko1LYbCx8c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLOpWSkT8ezIZZ0jsMWxrywAskJ/J5a9DM5gjk2SByZOCMTeLCf
-	GQCgQWqobeU0Mfh70VQ+aY4ReE6qrjb+oXI+CrOEI5APVOF+H3TQolJQt9vWfVpIhNFtIeT4OPS
-	pjyp1+7rAzKPtIdXHww==
-X-Received: from wmbfl25.prod.google.com ([2002:a05:600c:b99:b0:4a1:84d4:a0a3])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600d:644f:10b0:4a1:9661:14b5 with SMTP id 5b1f17b1804b1-4a196611aa3mr173490095e9.29.1791968923883;
- Wed, 14 Oct 2026 02:08:43 -0700 (PDT)
-Date: Wed, 14 Oct 2026 09:08:35 +0000
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="5TafZdWK"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=x3EsdaRvMyKuQsUzQnjljfbRPAeeeJAXvtQiAWUd2x8=;
+	b=5TafZdWKIXlBi1nRlDXbcwbfutsUMyBNFsvtqbFtk1iBcfIzrYaxAhFDR64HfvbONw22zJUpn
+	kRrEn7E/+TsvKVbRPQdhmQTWejV02QSGbXnunv0f9147bpUdw7BzKFEUv7j8/vIBe+jzXtVdKlp
+	g5AzFte4oTLvmYGshB8b/wc=
+Received: from mail.maildlp.com (unknown [172.19.162.197])
+	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4j4Q8154zGzcZxr;
+	Wed, 14 Oct 2026 16:57:37 +0800 (CST)
+Received: from whupemp100012.china.huawei.com (unknown [7.152.185.135])
+	by mail.maildlp.com (Postfix) with ESMTPS id 6228E40591;
+	Wed, 14 Oct 2026 17:09:40 +0800 (CST)
+Received: from huawei.com (10.67.174.121) by whupemp100012.china.huawei.com
+ (7.152.185.135) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 14 Oct
+ 2026 17:09:39 +0800
+From: Yao Yiqi <yaoyiqi3@huawei.com>
+To: <deller@gmx.de>, <tzimmermann@suse.de>, <simona@ffwll.ch>
+CC: <dri-devel@lists.freedesktop.org>, <linux-fbdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH 2/2] fbcon: Retry rotated font allocation after failure
+Date: Wed, 14 Oct 2026 08:51:02 +0000
+Message-ID: <20261014085102.497789-2-yaoyiqi3@huawei.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261014085102.497789-1-yaoyiqi3@huawei.com>
+References: <20261014085102.497789-1-yaoyiqi3@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAJJGz2oC/42NQQ6CMBBFr0Jm7Zi2KqauvIdhoXUKjcJgB1BCe
- ncrJ3D5XvLfX0AoBhI4FQtEmoIE7jKYTQGuuXY1YbhnBqNMqZXeYRxlwDfHx2ukkVBmGahFHz5
- 48FYZ5azy5gh530fKem1fqsxNkIHjvF5N+mf/qU4aNZIlV+qS9srczjVz/aSt4xaqlNIX4J17+ MMAAAA=
-X-Change-Id: 20261013-rust-workqueue-system-fix-5f9020c90f27
-X-Developer-Key: i=aliceryhl@google.com; a=openpgp; fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
-X-Developer-Signature: v=1; a=openpgp-sha256; l=11650; i=aliceryhl@google.com;
- h=from:subject:message-id; bh=CkEMDYS0ZHIn6s4iXVju+TtmXA2gfi7ZtLcTMIzMHRA=;
- b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBqz0aW65VWY1xCuEZuW8ormD1K6TIrIczojfZ0L
- VzKcwtQHgOJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCas9GlgAKCRAEWL7uWMY5
- RnRLD/9H11TwmmzHgRvlQlSqjuunj+IQ1FKVL0hGu7og+VjQSiHWjUiWabf0zEo7x0wqvl1pGfc
- q5obfkqvb5kDzFMWIWS86MTMNdbUGruTRX6E0rWWtd2fHGayWYQtEcNo07Z5TOuLNcRV8fV7GNw
- YEkcsxtnnlJnaX2hfwTXk8HNLYKrU8cvhzuPYT357FVw2iFjwgofaJ4rJCUi01Rcbsx5trtqmKg
- VH6/LzzdpxWt8VTiPvoJUzo7mdG5Cr/CklJCsVO5sYKg4Vr6/mevHIu5Zy+PzGFbWrroCLYYOiY
- u1eB8r1vj2Cnr9mZP+VAkhyC3t5hryhit/OQy0e88FxOrFkPVg8rN2hYqIyOqgeM/d2keWjTAJe
- Sako/dPl894Dn+T6FpGXwFpNy5Ng5nqljD3kbm3gwm5LvjFLEFcDgdp5hjNEOY3PLzJf4LkE5mb
- 6YL5LNBjPMS95wCbmmOPkRgpgQ1GuNZGBrGc27x31ZPRllMlzZ+uNhxY9V/qEqKqFj26o5j3iqg
- OAx/a+V5pt57ZCF7mD1gy8wpHRuCQGu6FKn56/KDsXi/Ra8Tigrps3bAJJH+1MxSqGoTZbw60D3
- lSKuZX2aHguaDDdQ6CB7n+dc5gF5aO5nXympMXPLVrseIHqugVa/qwbtvNfIN/iSNqpAQG3X+E7 Tl3MNmaArJKSlQg==
-X-Mailer: b4 0.14.3
-Message-ID: <20261014-rust-workqueue-system-fix-v2-1-c018b8f870f9@google.com>
-Subject: [PATCH v2] rust: workqueue: replace deprecated system_wq with system_{percpu,dfl}_wq
-From: Alice Ryhl <aliceryhl@google.com>
-To: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	"=?utf-8?q?Bj=C3=B6rn_Roy_Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	"=?utf-8?q?Onur_=C3=96zkan?=" <work@onurozkan.dev>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>, 
-	Dongliang Mu <dzm91@hust.edu.cn>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Carlos Llamas <cmllamas@google.com>, Marco Crivellari <marco.crivellari@suse.com>, 
-	rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Alice Ryhl <aliceryhl@google.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ whupemp100012.china.huawei.com (7.152.185.135)
 
-From: Danilo Krummrich <dakr@kernel.org>
+fbcon_rotate_font() records the font and rotation it is about to handle in
+par->rotated.fontdata and par->rotated.buf_rotate before calling
+font_data_rotate(). If that allocation fails it clears par->rotated.buf,
+but the cached font/rotation state already looks up to date, so the next
+call takes the early-out and never retries. The rotated putcs/cursor ops
+keep returning early on the NULL buffer and the console stays blank until
+the font or the rotation is changed, even once memory is available again.
 
-system_wq is deprecated and triggers a runtime warning:
+Also test par->rotated.buf in the early-out so a failed allocation is
+retried the next time fbcon_rotate_font() runs.
 
-	[    0.857414] workqueue: work func ...WorkItemPointerKy0_E3runB7_ enqueue=
-d on deprecated workqueue. Use system_{percpu|dfl}_wq instead.
-
-Replace system() with system_percpu() and system_dfl(), to match the
-previous behavior of the deprecated system() and convert doc examples
-and tests to system_dfl().
-
-system_unbound_wq is deprecated in the same way, in favor of
-system_dfl_wq. Since system_unbound() has no users, just remove it as
-well.
-
-Fixes: 64d8eae3f895 ("workqueue: Add warnings and fallback if system_{unbou=
-nd}_wq is used")
-Signed-off-by: Danilo Krummrich <dakr@kernel.org>
-Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
-Reviewed-by: Boqun Feng <boqun@kernel.org>
-Reviewed-by: Dongliang Mu <dzm91@hust.edu.cn>
-Signed-off-by: Alice Ryhl <aliceryhl@google.com>
+Fixes: e4ef723d8975 ("fbcon: Avoid OOB font access if console rotation fails")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
 ---
-This patch was previously sent as part of other workqueue series [1][2].
-However it's a fix that is independent of those series, so it's sent on
-its own here.
+ drivers/video/fbdev/core/fbcon_rotate.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-[1] https://lore.kernel.org/all/20260726223613.1242940-3-dakr@kernel.org
-[2] https://lore.kernel.org/all/20260807165252.3849875-2-dakr@kernel.org
----
-Changes in v2:
-- Also remove system_unbound(), which is deprecated in the same way
-  and has no users. (Gary)
-- Collect Reviewed-by from Boqun and Dongliang.
-- Link to v1: https://lore.kernel.org/r/20261013-rust-workqueue-system-fix-=
-v1-1-e9ec616e402b@google.com
-
-Changes since [2]:
-- Rebase on v7.3-rc7 and also convert the new SpinLockIrq KUnit test,
-  which calls workqueue::system() and otherwise fails to build.
-- Add Fixes: tag for the commit that made system_wq warn.
-- Collect Reviewed-by from Daniel.
----
- Documentation/rust/testing.rst                    |  2 +-
- Documentation/translations/zh_CN/rust/testing.rst |  2 +-
- drivers/android/binder/process.rs                 |  4 +-
- rust/kernel/sync/completion.rs                    |  2 +-
- rust/kernel/sync/lock/spinlock.rs                 |  2 +-
- rust/kernel/workqueue.rs                          | 52 ++++++++++++-------=
-----
- 6 files changed, 33 insertions(+), 31 deletions(-)
-
-diff --git a/Documentation/rust/testing.rst b/Documentation/rust/testing.rs=
-t
-index e3943aceceb9..73046523a9a2 100644
---- a/Documentation/rust/testing.rst
-+++ b/Documentation/rust/testing.rst
-@@ -97,7 +97,7 @@ operator are also supported as usual, e.g.:
-=20
- 	/// ```
- 	/// # use kernel::{spawn_work_item, workqueue};
--	/// spawn_work_item!(workqueue::system(), || pr_info!("x\n"))?;
-+	/// spawn_work_item!(workqueue::system_dfl(), || pr_info!("x\n"))?;
- 	/// # Ok::<(), Error>(())
- 	/// ```
-=20
-diff --git a/Documentation/translations/zh_CN/rust/testing.rst b/Documentat=
-ion/translations/zh_CN/rust/testing.rst
-index 6747d0012991..fdd88fa2fe40 100644
---- a/Documentation/translations/zh_CN/rust/testing.rst
-+++ b/Documentation/translations/zh_CN/rust/testing.rst
-@@ -93,7 +93,7 @@ KUnit =E6=B5=8B=E8=AF=95=E5=8D=B3=E6=96=87=E6=A1=A3=E6=B5=
-=8B=E8=AF=95
-=20
- 	/// ```
- 	/// # use kernel::{spawn_work_item, workqueue};
--	/// spawn_work_item!(workqueue::system(), || pr_info!("x\n"))?;
-+	/// spawn_work_item!(workqueue::system_dfl(), || pr_info!("x\n"))?;
- 	/// # Ok::<(), Error>(())
- 	/// ```
-=20
-diff --git a/drivers/android/binder/process.rs b/drivers/android/binder/pro=
-cess.rs
-index 5372bfbd93b3..de5bca7f9fc7 100644
---- a/drivers/android/binder/process.rs
-+++ b/drivers/android/binder/process.rs
-@@ -1728,7 +1728,7 @@ pub(crate) fn release(this: Arc<Process>, _file: &Fil=
-e) {
-         if should_schedule {
-             // Ignore failures to schedule to the workqueue. Those just me=
-an that we're already
-             // scheduled for execution.
--            let _ =3D workqueue::system().enqueue(this);
-+            let _ =3D workqueue::system_percpu().enqueue(this);
-         }
-=20
-         drop(binderfs_file);
-@@ -1745,7 +1745,7 @@ pub(crate) fn flush(this: ArcBorrow<'_, Process>) -> =
-Result {
-         if should_schedule {
-             // Ignore failures to schedule to the workqueue. Those just me=
-an that we're already
-             // scheduled for execution.
--            let _ =3D workqueue::system().enqueue(Arc::from(this));
-+            let _ =3D workqueue::system_percpu().enqueue(Arc::from(this));
-         }
-         Ok(())
-     }
-diff --git a/rust/kernel/sync/completion.rs b/rust/kernel/sync/completion.r=
-s
-index 35ff049ff078..1771bfc0ade2 100644
---- a/rust/kernel/sync/completion.rs
-+++ b/rust/kernel/sync/completion.rs
-@@ -38,7 +38,7 @@
- ///             done <- Completion::new(),
- ///         }), GFP_KERNEL)?;
- ///
--///         let _ =3D workqueue::system().enqueue(this.clone());
-+///         let _ =3D workqueue::system_dfl().enqueue(this.clone());
- ///
- ///         Ok(this)
- ///     }
-diff --git a/rust/kernel/sync/lock/spinlock.rs b/rust/kernel/sync/lock/spin=
-lock.rs
-index aafc80125f59..92ad133262b6 100644
---- a/rust/kernel/sync/lock/spinlock.rs
-+++ b/rust/kernel/sync/lock/spinlock.rs
-@@ -450,7 +450,7 @@ fn run(this: Arc<Self>) {
-     fn spinlock_irq_condvar() -> Result {
-         let testdata =3D Test::new()?;
-=20
--        let _ =3D workqueue::system().enqueue(testdata.clone());
-+        let _ =3D workqueue::system_dfl().enqueue(testdata.clone());
-=20
-         // Let the updater know when we're ready to wait
-         let mut state =3D testdata.state.lock();
-diff --git a/rust/kernel/workqueue.rs b/rust/kernel/workqueue.rs
-index 7e253b6f299c..a872f9fffb90 100644
---- a/rust/kernel/workqueue.rs
-+++ b/rust/kernel/workqueue.rs
-@@ -67,7 +67,7 @@
- //! /// This method will enqueue the struct for execution on the system wo=
-rkqueue, where its value
- //! /// will be printed.
- //! fn print_later(val: Arc<MyStruct>) {
--//!     let _ =3D workqueue::system().enqueue(val);
-+//!     let _ =3D workqueue::system_dfl().enqueue(val);
- //! }
- //! # print_later(MyStruct::new(42).unwrap());
- //! ```
-@@ -121,11 +121,11 @@
- //! }
- //!
- //! fn print_1_later(val: Arc<MyStruct>) {
--//!     let _ =3D workqueue::system().enqueue::<Arc<MyStruct>, 1>(val);
-+//!     let _ =3D workqueue::system_dfl().enqueue::<Arc<MyStruct>, 1>(val)=
-;
- //! }
- //!
- //! fn print_2_later(val: Arc<MyStruct>) {
--//!     let _ =3D workqueue::system().enqueue::<Arc<MyStruct>, 2>(val);
-+//!     let _ =3D workqueue::system_dfl().enqueue::<Arc<MyStruct>, 2>(val)=
-;
- //! }
- //! # print_1_later(MyStruct::new(24, 25).unwrap());
- //! # print_2_later(MyStruct::new(41, 42).unwrap());
-@@ -171,13 +171,13 @@
- //! /// This method will enqueue the struct for execution on the system wo=
-rkqueue, where its value
- //! /// will be printed 12 jiffies later.
- //! fn print_later(val: Arc<MyStruct>) {
--//!     let _ =3D workqueue::system().enqueue_delayed(val, 12);
-+//!     let _ =3D workqueue::system_dfl().enqueue_delayed(val, 12);
- //! }
- //!
- //! /// It is also possible to use the ordinary `enqueue` method together =
-with `DelayedWork`. This
- //! /// is equivalent to calling `enqueue_delayed` with a delay of zero.
- //! fn print_now(val: Arc<MyStruct>) {
--//!     let _ =3D workqueue::system().enqueue(val);
-+//!     let _ =3D workqueue::system_dfl().enqueue(val);
- //! }
- //! # print_later(MyStruct::new(42).unwrap());
- //! # print_now(MyStruct::new(42).unwrap());
-@@ -1024,20 +1024,32 @@ unsafe impl<T, const ID: u64> RawDelayedWorkItem<ID=
-> for ARef<T>
- {
- }
-=20
--/// Returns the system work queue (`system_wq`).
-+/// Returns the system per-cpu work queue (`system_percpu_wq`).
- ///
- /// It is the one used by `schedule[_delayed]_work[_on]()`. Multi-CPU mult=
-i-threaded. There are
- /// users which expect relatively short queue flush time.
- ///
- /// Callers shouldn't queue work items which can run for too long.
--pub fn system() -> &'static Queue {
--    // SAFETY: `system_wq` is a C global, always available.
--    unsafe { Queue::from_raw(bindings::system_wq) }
-+#[inline]
-+pub fn system_percpu() -> &'static Queue {
-+    // SAFETY: `system_percpu_wq` is a C global, always available.
-+    unsafe { Queue::from_raw(bindings::system_percpu_wq) }
-+}
-+
-+/// Returns the system default (unbound) work queue (`system_dfl_wq`).
-+///
-+/// Workers are not bound to any specific CPU, not concurrency managed, an=
-d all queued work items
-+/// are executed immediately as long as `max_active` limit is not reached =
-and resources are
-+/// available.
-+#[inline]
-+pub fn system_dfl() -> &'static Queue {
-+    // SAFETY: `system_dfl_wq` is a C global, always available.
-+    unsafe { Queue::from_raw(bindings::system_dfl_wq) }
- }
-=20
- /// Returns the system high-priority work queue (`system_highpri_wq`).
- ///
--/// It is similar to the one returned by [`system`] but for work items whi=
-ch require higher
-+/// It is similar to the one returned by [`system_percpu`] but for work it=
-ems which require higher
- /// scheduling priority.
- pub fn system_highpri() -> &'static Queue {
-     // SAFETY: `system_highpri_wq` is a C global, always available.
-@@ -1046,26 +1058,16 @@ pub fn system_highpri() -> &'static Queue {
-=20
- /// Returns the system work queue for potentially long-running work items =
-(`system_long_wq`).
- ///
--/// It is similar to the one returned by [`system`] but may host long runn=
-ing work items. Queue
--/// flushing might take relatively long.
-+/// It is similar to the one returned by [`system_percpu`] but may host lo=
-ng running work items.
-+/// Queue flushing might take relatively long.
- pub fn system_long() -> &'static Queue {
-     // SAFETY: `system_long_wq` is a C global, always available.
-     unsafe { Queue::from_raw(bindings::system_long_wq) }
- }
-=20
--/// Returns the system unbound work queue (`system_unbound_wq`).
--///
--/// Workers are not bound to any specific CPU, not concurrency managed, an=
-d all queued work items
--/// are executed immediately as long as `max_active` limit is not reached =
-and resources are
--/// available.
--pub fn system_unbound() -> &'static Queue {
--    // SAFETY: `system_unbound_wq` is a C global, always available.
--    unsafe { Queue::from_raw(bindings::system_unbound_wq) }
--}
--
- /// Returns the system freezable work queue (`system_freezable_wq`).
- ///
--/// It is equivalent to the one returned by [`system`] except that it's fr=
-eezable.
-+/// It is equivalent to the one returned by [`system_percpu`] except that =
-it's freezable.
- ///
- /// A freezable workqueue participates in the freeze phase of the system s=
-uspend operations. Work
- /// items on the workqueue are drained and no new work item starts executi=
-on until thawed.
-@@ -1078,7 +1080,7 @@ pub fn system_freezable() -> &'static Queue {
- ///
- /// It is inclined towards saving power and is converted to "unbound" vari=
-ants if the
- /// `workqueue.power_efficient` kernel parameter is specified; otherwise, =
-it is similar to the one
--/// returned by [`system`].
-+/// returned by [`system_percpu`].
- pub fn system_power_efficient() -> &'static Queue {
-     // SAFETY: `system_power_efficient_wq` is a C global, always available=
-.
-     unsafe { Queue::from_raw(bindings::system_power_efficient_wq) }
-@@ -1097,7 +1099,7 @@ pub fn system_freezable_power_efficient() -> &'static=
- Queue {
-=20
- /// Returns the system bottom halves work queue (`system_bh_wq`).
- ///
--/// It is similar to the one returned by [`system`] but for work items whi=
-ch
-+/// It is similar to the one returned by [`system_percpu`] but for work it=
-ems which
- /// need to run from a softirq context.
- pub fn system_bh() -> &'static Queue {
-     // SAFETY: `system_bh_wq` is a C global, always available.
-
----
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
-change-id: 20261013-rust-workqueue-system-fix-5f9020c90f27
-
-Best regards,
---=20
-Alice Ryhl <aliceryhl@google.com>
+diff --git a/drivers/video/fbdev/core/fbcon_rotate.c b/drivers/video/fbdev/core/fbcon_rotate.c
+index 6cdbc96eeca6..6b148e0e81e6 100644
+--- a/drivers/video/fbdev/core/fbcon_rotate.c
++++ b/drivers/video/fbdev/core/fbcon_rotate.c
+@@ -21,7 +21,9 @@ int fbcon_rotate_font(struct fb_info *info, struct vc_data *vc)
+ 	unsigned char *buf;
+ 	int ret;
+ 
+-	if (par->p->fontdata == par->rotated.fontdata && par->rotate == par->rotated.buf_rotate)
++	if (par->p->fontdata == par->rotated.fontdata &&
++	    par->rotate == par->rotated.buf_rotate &&
++	    par->rotated.buf)
+ 		return 0;
+ 
+ 	par->rotated.fontdata = par->p->fontdata;
+-- 
+2.34.1
 
