@@ -1,156 +1,219 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58D0240BCCB
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:46:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791967591; cv=none; b=DMAaEaiNR+pe6V1k+OCHQwk5lnJNIC2dW8Ow0hS1EKQiCZKCUT1SSxtCha5PXvNQXADmijcP1l131xE4eMMqksS9Njs27Ew5eVLRGtXEJjj+do308Z7Mq2ZQL0rQidHo3T06p2YvB+nNVFC3uG0gXR/LtjVu3u+V1ONU6Cl6CoI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791967591; c=relaxed/simple;
-	bh=VAmOCcySXayrvceVNgYYbOmGKQT4ami3zg9s6voroO0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eQ3KGsz51TTYZm7uTj816suKbRIJQgf/ZyGEUZNMnWYnw/SnSNwpRkaQSuW591uxlDi/JRyLBDauVIEPdb5HFV3XrqFhxvSHFU8MFOmC6b4VpDsmpjADL+zQDH5U/yXl72ZOH7WB7xfsoBjzMP764W1QaDGuWrHpcqvrqwVT+T8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LXTEl0qG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dFXW1Qpc; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60E134B95C2
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:47:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791967635; cv=pass; b=urRV5aUq8JzZpdZeZEJEulVS5Q/yZEiPy/TexTxhJd+OIb07d7PptdxR5OpK1XqtuEonoJlOSzzxNWrjMJw6qNWyHoQBzuroVjmWwAmLIDASVmuUoqQlgdLLEqI3r06scgbckC1RcCcAd+8sVnU5n6ajy4NzGHmDIvfDJVezkHM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791967635; c=relaxed/simple;
+	bh=RjRSgudujTroQGX/lGqhIyzTeeSkjfjsxwTHk0iInF8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=G5Glec5iYaF+hflENZOydEFxyVadTLqYBO7KBEQvioa9eKgA82JBHrNgt+WkAJ/SCZTNplPX0oZUwjBTHd9yH7WIzgf5vz+Env0j1vHrNnJxoTmCEaIB7AwzrCkzui5HshHZlVNJrmmdvXDEpRgj1vFEvQP1u+/gsGftgcLT8kM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hdjopkf/; arc=pass smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LXTEl0qG";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dFXW1Qpc"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69E4ellT806697
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:46:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	n/JTgj+H37JU0my3KapaCzRfHeWwoSIT1jabPUib3zo=; b=LXTEl0qGZk4zW1Kk
-	oaNJ581xTUXwP9gV7tFCygFSw4MB6EOPl6WqArlWYAwhMjTl0IedI4aUcQk3vivq
-	Q/Yce/hyJV3NnVmhdf8TPFn8DkEHB4HfLltnBrSCXjjlkViddToddf/F7gUQfKiH
-	qUb9qAOS//9JBSXVsl2LTrWXyyf81FMkjwU4tjwkvF2jZvAM96LOl+6ywAOWf4x/
-	8ILLpU41x83l1/Q4usSrs6yLLYC5xc/8wWzH3/ljlAFysb1z4Yyf679VagjROwJH
-	SGFfdgo3eXJcar8GC5Dh//SP330JZrVBn4+9wiq4hvaHSKoUBIikTBvUNuVXrqLq
-	Q37c+w==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9ud6ajdk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:46:28 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-917aacb7abcso10490946d6.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 01:46:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hdjopkf/"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a17baef589so6085255e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 01:47:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791967628; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YYKS5Cbx2nQAU6v8HsgYA8lL5alKdreevbdJrNSrOXkEK0aEN29BCYpgS7WRz37g1c
+         vkE886jeJRuarMcdeEHVQgtQvUlZHcmx0Mlv/WgT0qpsx/eznRmnHm6MezTzy0W23+8E
+         kKAQINR4tMrDJwP8GCvkNE0DQN4Nys2hQgCSqV/29V7gQ+KN1cHSaEoHzui4Vx8F1rff
+         U0yxu4ZwupiwqHWJbvSYfNdOXUJZwJe+jN99Mt9l1zHTXqYmzvzuGQhacaVWSU/8tnnF
+         goYs9MMfIdZgEo9xI87lHOr4iz6P38wxXpCQ0lqGR8ZMmDYMGB5CQpFpaAm5Vm0zH0Nr
+         1hDA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=0cYhJsFY6GItBPWieM4stDAK2l4sudXXbycAkGrr3pY=;
+        fh=AK4+qgTeQ+t8yGnO/WazNvS3jPfR7rvpZtlLzo79J3U=;
+        b=H0HS6bvfqrUTTBwx3FEP2ij07P5zFGasQil48H3c0IfORZv2Eo9GER9OnpyNwFs2l9
+         /OsIfQND5usnRISwQxbZIaqeG9hHB40pwXLrdJhtAlvOYtoqN6MD804+orHH22PWVxE5
+         o3LYrXGoEZ+2Sz5hMpP1OP5rlBzkdkaKn8Wd5D8nkcP03JqwHneshoHybgVGomd1XEz2
+         x4h0ZoUmeY+MzmHR8wSZaGlibdTE+bFsxe3rciVKsGxv1CMjVph4BEjNWWezb60FS2Dp
+         TI9aVm9y/DRl9WclHado3rSzHUbsAE9caBM5ioCCOMxPUrNulEuz0RibnxB6wbJf2Xux
+         zz8A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791967587; x=1792572387; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1791967628; x=1792572428; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=n/JTgj+H37JU0my3KapaCzRfHeWwoSIT1jabPUib3zo=;
-        b=dFXW1Qpc/D6nS2iQ4WdD0JL3MZewMYKmJS6wH/dkuttN3M5FIMfAcowpYCJTPFrKqx
-         WMY1yuzsO1/kxF6dvlTt0iVhQxMTf6Rpl79l9LkL8go+h3E5hzgwJcMs+nXDk+EZLBjn
-         bh2AFSR2hFYXvIPWCJ8p7sCfjYBYvcaFXpWH8i39ACDcMX3JmYVBeBMCy9CUnVBWWfsx
-         DtYJuYclFCSKFS1tL0BQ72FSNXRj15+knINQR5AYdxusgoaCZI1EoRSWHv582QBPfKjH
-         6SrNPU/sGU4lfHqyroNd+lT/qDsuuf8dG49tsP7VUSPg9NZLtjHz3ukSBgmiWZoOupY3
-         u+sg==
+        bh=0cYhJsFY6GItBPWieM4stDAK2l4sudXXbycAkGrr3pY=;
+        b=hdjopkf/W39t/1BjKq7m19zUq05ktnYY/QcxIIEu3manjo6G/zXhSjMTKvxL1V7ml+
+         35T79dI1uVubQ74QaU5pDfe6PxQul5Ru9fWxRHVnpTJCpgnDQIFPwEzPJIXS8QCa0Mqs
+         QeRL9mZrlH63Uh/ZcDXiGDOmPOSosJ2kP/rxR3GLIBbpc0cRi8CjgHxVo6/uuXi4sj0r
+         8jVzKORbH2tw5mvAZyNFNgFfCGe4dWX0nl9nT/F/nRkvMDdvw+11eJEWco2oCYAhi47l
+         t9xIUvYRW/ncrSnFRECe1wlQ0/dgSp4fyOq2LmU2yo225P0xuo/bsGFEL1IHCjIL3raV
+         huTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791967587; x=1792572387;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=n/JTgj+H37JU0my3KapaCzRfHeWwoSIT1jabPUib3zo=;
-        b=zqqiw0zXIsVrYrBb4BeHkm2d/TBxVuM8lvKpMgHDjgESg7LWrcqr5dyPbHLl8rUG9R
-         JSu7DznoPlMOnx3GUFC+BpuBQEjldjt6C91LxJMBdIheeLr4jZuMv6f54DaD7OXC2ySd
-         aEYGLP0C1gaRBG/LK5a8DdTfM1zo2YlkuINB5RTXoVCQjb/fxSZEuv8KWFVO2rpZ5Y+8
-         dYU9oneYSNgO0eawKzyUj3UYyzJkqSeXVEOfC5BbL/4CWE9GT2IG65sTZKNRF1FRUmaP
-         xflgdqriEZJ9QfIZloc6BK8qe6Mqq6K4ioJ/GXB9/1RdukYZNmvke92gVBhv/XjlwCbl
-         qmMQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzSxs3unKNNKFsXvtZ5XP6DWgmw9bFEw0Z/Qskd1KrBXWR98YrsMQJiqC2Epsls37Kk6ROR1jBNfAbbKXw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLIpBSdEK0EArr9CHpSgmCD3MGfhroncojuBgfq8RlAZmiHA9MD
-	NuP1PTnkIpwAN+JV/j+ynW3DVonhuRfRgQLX7Q/ADrBeBPuWoB7RaNpyQtxleaYVlU0LUyoqbax
-	N+gEufE+oCsI9hHquTlwN841IT0joMphid4G0vUI8FUSh5EbRVjrwdQ51Ec3+5qbholc=
-X-Gm-Gg: AYBFou3Jm3oRHPCdNev1HPLvHpRArJPcN/0BK6av0hrZ7mWBLv+psWR0rfztasi99V1
-	rL+OZDK4AlECgpLkyURBlrrNmGqJYEG6Y4y6nSLoqHuV0NuME6f6QrBK+m5PppAGSccQY+8hQTG
-	w0T/5RBt1w6Y3btCVlownJof5N6IkZKUZjPDijHfM/7HD41BNmuP2foLA4CL9j8+Z1wDF2NROi7
-	Hem3CSEzI9WZIoWPbmMCPA4Eklqo+2e8HSC7T2Bupxc01z2cPwDnn1BvdiDRsiv6Wpjl0ZKDiiK
-	W/fhFmDbU08olBB9D9SvXPiduPV8xizrvOZDc+4TMitCKglpOM3ZtobLBJ5TsZghBWqLXr9OAlg
-	yR5+unVZTaCrGgLg3ynztEQ==
-X-Received: by 2002:a05:620a:8017:b0:93e:5a3f:ac13 with SMTP id af79cd13be357-93ebcd2bc8fmr2556742885a.0.1791967587496;
-        Wed, 14 Oct 2026 01:46:27 -0700 (PDT)
-X-Received: by 2002:a05:620a:8017:b0:93e:5a3f:ac13 with SMTP id af79cd13be357-93ebcd2bc8fmr2556741385a.0.1791967587018;
-        Wed, 14 Oct 2026 01:46:27 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b2038aa1aesm853559a12.32.2026.10.14.01.46.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 01:46:26 -0700 (PDT)
-Message-ID: <d6c62256-1fde-4995-bd32-38c25e59ff4f@oss.qualcomm.com>
-Date: Wed, 14 Oct 2026 10:46:22 +0200
+        d=1e100.net; s=20260707; t=1791967628; x=1792572428;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=0cYhJsFY6GItBPWieM4stDAK2l4sudXXbycAkGrr3pY=;
+        b=xpMEpJQmZtQjPfSRQmXVIfPs+D/rUmQTqqb7eWbcaCTZ4oUTD6XyywRX78Y8Oy22hR
+         bPRmGJbeNX734hNOg7sCBFIhPp0EN/eJlqULfQsHztjEjG2LHDlhX1dKJqSIV0XYTron
+         zdWEnkdjashTsVEp1Mwu8BTTAUpmD3eckZsnwb5bNQRPQMJVR1iDhlsmgaQkS5yZLgnF
+         eAaMqg3L92Ac/L05N3caxKRpTIUqWqvW1tbAhZR6TbrHiA85MxTcOS/QYbPEsfGasCsa
+         JcfjGNQql30Ia8mvWdsZRilD67S2DlIytpiJsE/a80CDSE9nsbUvTqreHyk5AF0jky1N
+         1POw==
+X-Forwarded-Encrypted: i=1; AKwUvByyqzsl9BezIxMY6iWDr83iBNMPx4SJg7PuBYak/tgA/W2y5pj4AuKO2STfok9/pfDoWs2LBB20aHR2+zE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJu16kadvegYk4Q4D8V1ikmzQK4VBN90xMVWmEhyNpduv+G8m/V
+	OhfEJm57H5oE0q8r5oZL+qMq3Acxc6yt4gYm7m01TawD8gqQ2KbuWEEPhO6BgRwcCB4cgAFrT8+
+	1hLzEIiyS9+2KcfjR6St85M9hGJW6/G0=
+X-Gm-Gg: AYBFou1UrkkaWsDg/8OL80/sRj/jmGIPvTM/hogOp/tygNpd3zSzj8L9/l7L4B4r0+6
+	ze1xVoM8JDpqJ3ioS35m0iwS2reicIgJJ1x4boB0ndksJuJnjZcxgFwUkAy7xYw/re8mHE1FoQB
+	RyKLb2RZhTpRQJAWhLBbnvZKD/ZkHFtc5DBhKF85iSzGAzmawqQrJKy+NP+95IX54fXyRYqlFnc
+	ZarImIiIWZv2J323E7yUa4xZEKdoPCNSVM0YpvZj998od4Zs0bMWC9mQikffz4NGMs2eCKSQrp7
+	p7gLRF+xcQoylgKx4Ve9sHbGW5DGefYrnxLezzuKWxqnEVOzO7exrG7j3A==
+X-Received: by 2002:a05:600c:83c4:b0:4a1:7367:5395 with SMTP id
+ 5b1f17b1804b1-4a18e446f4amr296569785e9.2.1791967627867; Wed, 14 Oct 2026
+ 01:47:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: sdm845: Route the SPMI interrupt
- through the PDC
-To: yoxcu <mick@yoxcu.de>, Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261013203749.3078262-1-mick@yoxcu.de>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261013203749.3078262-1-mick@yoxcu.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: mghx1y289hx_O2du10gvmY477rjV9Yy0
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDAzNCBTYWx0ZWRfX3YYQ/V07shtO
- NztxwA39qmoBP8VwScbITQspEeOxR1mKihSgywMFrrhvYl58tQ3z1lyt6VYrtWA/pHDFec9uB6Y
- 4i8QfSjP4YtFo31Yvd/yDlGUIHVyaEU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDAzNCBTYWx0ZWRfX7lIM2CSqgvk7
- nZXLwXIa3JmWr3c62TyBeN6Hu+r1lh7CT74Teay5yLqCrxwdSxu5GGwCdhgQqnFHkW+LpiZHRHH
- TqOSL+OapDAYHp1b5GivSvMxRE3PafYrKKEAnhXaNK+7sENVp6/Gkb5vJmOW5sxftTynK+Tc2cZ
- xOk21OTwL39ChKE8ANn51gojXj6g7A0iAAYQG+Hz02/xdbbER5fgqqvBCY4OshOJYkWCk99K9a/
- yLyWsveY3vDb+C9YAHO6zF09U1ZsDdU9d7yGIZnxDBCd0G75hlxhi9itw93krNcvB4L4fBSpUYw
- Yb3rAfKxz/cKKjqstXAdSwSnIxC8s9+TKtPCkJUJe5vO9VGF4fEljAKBm47XwLfJ18qscGxVdvk
- lZ/YI/rww2392GhtCiRmo24f2oO6JpDfJdfdqswVrA/g45mrKtaODILNNZhUWD3umtkl+M98BG2
- qcYb41zRTh0X/RTxeMw==
-X-Authority-Analysis: v=2.4 cv=fJ6sTpae c=1 sm=1 tr=0 ts=6acf4164 cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=FxBUbxoBbJN2jJ9NEDIA:9 a=QEXdDO2ut3YA:10
- a=1HOtulTD9v-eNWfpl4qZ:22
-X-Proofpoint-GUID: mghx1y289hx_O2du10gvmY477rjV9Yy0
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 lowpriorityscore=0 malwarescore=0
- suspectscore=0 adultscore=0 impostorscore=0 phishscore=0 bulkscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610140034
+References: <20261002090947.869220-1-jiangwen6@xiaomi.com> <20261002090947.869220-2-jiangwen6@xiaomi.com>
+ <7b3c3a39-4cf3-430d-9fd3-ba83e5175e72@arm.com>
+In-Reply-To: <7b3c3a39-4cf3-430d-9fd3-ba83e5175e72@arm.com>
+From: Wen Jiang <jiangwenxiaomi@gmail.com>
+Date: Wed, 14 Oct 2026 16:46:55 +0800
+X-Gm-Features: AclHuK-bFuc3dEYGYwD4zSgb8fq4NoGf2OiM-E1K3hrsnLGY-8dDIYkDzN8S8fw
+Message-ID: <CAHKocdFOoDhjcuWXJatQ-AbSXyXuV+Q=sA1-iGiGrp7vhHZMBQ@mail.gmail.com>
+Subject: Re: [PATCH v10 01/10] arm64/mm: add pte_set_huge() and pte_clear_huge()
+To: Dev Jain <dev.jain@arm.com>
+Cc: akpm@linux-foundation.org, catalin.marinas@arm.com, linux-mm@kvack.org, 
+	urezki@gmail.com, will@kernel.org, Xueyuan.chen21@gmail.com, 
+	ajd@linux.ibm.com, anshuman.khandual@arm.com, baohua@kernel.org, 
+	chleroy@kernel.org, david@kernel.org, jiangwen6@xiaomi.com, leo.yan@arm.com, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linuxppc-dev@lists.ozlabs.org, maddy@linux.ibm.com, mpe@ellerman.id.au, 
+	npiggin@gmail.com, rppt@kernel.org, ryan.roberts@arm.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 10/13/26 10:37 PM, yoxcu wrote:
-> From: Michael Auer <mick@yoxcu.de>
-> 
-> The SPMI arbiter interrupt (PMIC RTC alarm, power key, charger) goes
-> directly to GIC SPI 481. In CX collapse the GIC does not detect
-> interrupts, so only interrupts routed through the PDC can wake the SoC.
-> 
-> SPI 481 is PDC pin 1. Route the interrupt through the PDC, as sc7180,
-> sm8250 and sc8280xp already do.
-> 
-> On a OnePlus 6 in CX collapse, a 60 s RTC alarm did not end s2idle. The
-> phone slept for 456 s, until the modem woke it. With this change the
-> alarm wakes it on time (after 62 s), and the power key wakes it too.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Michael Auer <mick@yoxcu.de>
-> ---
+On Wed, 14 Oct 2026 at 14:03, Dev Jain <dev.jain@arm.com> wrote:
+>
+>
+>
+> On 02/10/26 2:39 pm, Wen Jiang wrote:
+> > vmap installs PTE-level block mappings (PTE_CONT on arm64) by reusing
+> > set_huge_pte_at() and huge_ptep_get_and_clear(), which are HugeTLB
+> > helpers gated by CONFIG_HUGETLB_PAGE. This makes the feature silently
+> > unavailable on CONFIG_HUGETLB_PAGE=n kernels and couples mm/vmalloc.c to
+> > HugeTLB internals it does not otherwise need.
+> >
+> > Add pte_set_huge()/pte_clear_huge() to arm64, joining the existing
+> > pmd_set_huge()/pud_set_huge() family in mm/mmu.c. They build on
+> > __set_ptes() and __get_and_clear_full_ptes() directly, so they do not
+> > depend on CONFIG_HUGETLB_PAGE.
+> >
+> > There is no caller yet: mm/vmalloc.c is converted later in this series,
+> > once the generic fallbacks are in place.
+> >
+> > Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
+> > Reviewed-by: Barry Song <baohua@kernel.org>
+> > ---
+> >  arch/arm64/include/asm/pgtable.h |  6 ++++++
+> >  arch/arm64/mm/mmu.c              | 23 +++++++++++++++++++++++
+> >  2 files changed, 29 insertions(+)
+> >
+> > diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
+> > index 6000905a2e865..9b762eb68cff0 100644
+> > --- a/arch/arm64/include/asm/pgtable.h
+> > +++ b/arch/arm64/include/asm/pgtable.h
+> > @@ -1978,6 +1978,12 @@ static inline void clear_young_dirty_ptes(struct vm_area_struct *vma,
+> >
+> >  #endif /* CONFIG_ARM64_CONTPTE */
+> >
+> > +#define __HAVE_ARCH_PTE_SET_HUGE
+> > +void pte_set_huge(pte_t *ptep, unsigned long addr, phys_addr_t phys,
+> > +               pgprot_t prot, unsigned long size);
+> > +#define __HAVE_ARCH_PTE_CLEAR_HUGE
+> > +pte_t pte_clear_huge(pte_t *ptep, unsigned long addr, unsigned long size);
+> > +
+> >  #endif /* !__ASSEMBLER__ */
+> >
+> >  #endif /* __ASM_PGTABLE_H */
+> > diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
+> > index 79d90226fd5dc..ae2f15618c97d 100644
+> > --- a/arch/arm64/mm/mmu.c
+> > +++ b/arch/arm64/mm/mmu.c
+> > @@ -1912,6 +1912,29 @@ int pmd_clear_huge(pmd_t *pmdp)
+> >       return 1;
+> >  }
+> >
+> > +void pte_set_huge(pte_t *ptep, unsigned long addr, phys_addr_t phys,
+> > +               pgprot_t prot, unsigned long size)
+> > +{
+> > +     unsigned long pfn = __phys_to_pfn(phys);
+> > +     pte_t pte = pte_mkcont(pfn_pte(pfn, prot));
+> > +     unsigned int nr = size >> PAGE_SHIFT;
+> > +
+> > +     VM_WARN_ON(!IS_ALIGNED(size, CONT_PTE_SIZE));
+> > +     VM_WARN_ON(!IS_ALIGNED(addr, CONT_PTE_SIZE));
+> > +     VM_WARN_ON(!IS_ALIGNED(pfn, CONT_PTES));
+> > +
+> > +     /* For vmap, there is no valid -> valid transition */
+> > +     VM_WARN_ON(pte_valid(__ptep_get(ptep)));
+> > +
+> > +     __set_ptes(&init_mm, addr, ptep, pte, nr);
+> > +}
+> > +
+> > +pte_t pte_clear_huge(pte_t *ptep, unsigned long addr, unsigned long size)
+> > +{
+> > +     return __get_and_clear_full_ptes(&init_mm, addr, ptep,
+> > +                                      size >> PAGE_SHIFT, 0);
+> > +}
+>
+> I think we should have the same VM_WARN_ON() checks here, as for
+> pte_clear_huge(), in addition to also warning for
+> current->mm != &init_mm.
+>
+> We should make it clear that pte_clear_huge() gets called only for
+> kernel mappings, and the range we operate on is definitely an aligned
+> CONT range - which is why we do not go through get_and_clear_full_ptes ->
+> contpte_get_and_clear_full_ptes, and possibly contpte_try_unfold(), but
+> directly use __get_and_clear_full_ptes.
+>
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Hi Dev,
 
-Konrad
+I'll add the alignment VM_WARN_ON() checks to pte_clear_huge() to
+match pte_set_huge().
+
+Regarding the current->mm != &init_mm check: these functions don't take
+an mm parameter -- &init_mm is hardcoded in the function body.
+current->mm would never equal &init_mm in practice: for user processes it
+points to the process's own mm, and for kernel threads it is NULL.
+So VM_WARN_ON(current->mm != &init_mm) would always fire.
+
+The existing hugetlb helpers that vmalloc used before this decoupling
+(huge_ptep_get_and_clear -> get_clear_contig) also take mm as a
+parameter
+and don't check current->mm either -- the caller simply passes &init_mm.
+
+How about adding a comment to make the "kernel mapping only" intent
+more explicit?
+Something like:
+
+ pte_t pte_clear_huge(pte_t *ptep, unsigned long addr, unsigned long size)
+ {
++       /* Kernel mappings only */
++
++       VM_WARN_ON(!IS_ALIGNED(size, CONT_PTE_SIZE));
++       VM_WARN_ON(!IS_ALIGNED(addr, CONT_PTE_SIZE));
++
+        return __get_and_clear_full_ptes(&init_mm, addr, ptep,
+                                         size >> PAGE_SHIFT, 0);
+ }
+
+Thanks,
+Wen
