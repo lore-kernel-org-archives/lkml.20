@@ -1,46 +1,46 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010029.outbound.protection.outlook.com [52.101.201.29])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012021.outbound.protection.outlook.com [40.93.195.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4E474EFFCF;
-	Wed, 14 Oct 2026 10:20:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.29
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 426004F4CF1;
+	Wed, 14 Oct 2026 10:20:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.21
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791973231; cv=fail; b=mCgIuI/EL4UZhFc4R1D84/yaJxAf4JyjbnxOMZIfuFLxW7gYAChbUL5prUDb1TDAW49CVo1YOQg7EOPRFaVoV96DKbFlkE+8WkSz/hpqojKsF1i6nOjMpaMXZ+eJw3xViEmGa5l3w9Sw0r7fEaVvwHs3BuPsNJz7DLJ+VRp2vKc=
+	t=1791973232; cv=fail; b=DIRXJ6CHZo1/ULIJ7jJk0I3ntMPFDkIbq4uc6Yg/AEhbRIJ5x58yJ4tahy2VIqCO79U5QdVkyi56zZ1XncCVcXqk3JlOnhj3gmWMu6Ol7nObHPUwj8qBzcMF1Kq8n9iGdMoLeqwqrzb1iP3e/yxANhp0Iq3oMU26oZn/SCB0Dc8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791973231; c=relaxed/simple;
-	bh=tWWBxRxWqD7CEyA+zpsbr+VkvhQwkrX0YvXtl/ya4pI=;
+	s=arc-20240116; t=1791973232; c=relaxed/simple;
+	bh=RJf270KOsZqGtRTGmzFA0PRteiVrVwEYACiVInu4qUg=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hYgSHcDT8vcGcVQ8RVck2/W/n5BYUzqepXhFegMnHHndnSK7YU0gTX9rn560h9HXAsjo35PooBCSxG5YvaQYLs6mh0LBCdO0cWIllV2l/LnaswE6pl4/8YXcInIuIYwG9kagU/Mwdw/y1LM7cNXTbcvQNTjJMcVzlY0SWO7eO3U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=sihTc3u+; arc=fail smtp.client-ip=52.101.201.29
+	 MIME-Version:Content-Type; b=O8TNXBIVhcmWQAJnEG7q1utPD7GoI9ieh7CuZrLYZ+ozuQFAZYO9EZDlEYEv945X3Q/TjzATC8Hn22D0wIldHsaRHc1NPhAYx/ZMe1oJh0mrYuJ7rA6wGDWqIV4Tb0+/lxRJG+8M6hfwm2uraDgHkuNkD9YUg7tAzvb/b6FsDIk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=AYc3+mqo; arc=fail smtp.client-ip=40.93.195.21
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="sihTc3u+"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="AYc3+mqo"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BTpi/9kPfsN/4/CviReFBxK6kJKs5KjswuTLRDV+faNA4J64Vj2Mz5/00GK8uTn0kg/MU4C9Z0Zf9icIGwgmDVpGBVvRkX3h8bXILiCrvSwEc7oh4vtjfNrtfrL9rHLTRRX5WzQwl5QKwdhPsDLoA5t4F8xTBpdxE+kDyRLqidXUIQR41+Ht/VIcF8ECFuulUu65yCY5cOQ7lokxDX1oHevbbkMDJbHjo8FnDvkAcYxCXeVQ73ZW5xpeBxhn20U7BuqC1Urni1lCUYQTr8unAvaUZWidgpUT0+QU1ycv6vWNPm90tcRZLWlOSZ/nsFRJgzVfdFVdzYm2X+HPnAuImw==
+ b=UElvutDsEoU9X2xBYklGMRIILBsm6wVuayH1PlysI6C7J5nPnwUAirpLWlCgKdxIvrsRValmPP3MvsD5Yn52gVn5OoeY/lZqOH/49uLn5BBQULt/DQtPxGZ4UJygJNx0wYcIQAC2kAVQPa+5Ug8pVliErHLb+AlYD04Zw5+uQukCqdzTephuUIBAqhn38/Tc/bKYrGDsf4C+pSqqyR+f8Gh3pnuRMF39n91rXYNq/03KTeNctivIA3scO3PDrdkoJBgbc3Wyb8WfbT/AjrVzr7r6ehhngWWuvKBr9CPDNCPH5hb4rkYP9GliIwDnc37P+bQkDrlPmndUVztXnb1DXA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WC3+dgMuAPV0dVD+o9GkZOO0UoofpWeKaE+7sVTyIlk=;
- b=U3F0AQ4RRWP+x4EzOzT9a2Qy1bjF6grWKzEvdez89A7mPBhkiWsRxJoX5ohxGH+ayUF4CCrmE6DF13K5RFPoyfnZflTSsPN5YFaRKKp7eik7l49JRuPWwj71ZfGVk7SUA+GltKpzNS5wXWLvcfLRDi/wQwe1vcI38fI2QWmH/9O33iI1DfMZzv3fXVcIdUtewkMu0xZR12SX6hORJn7WZA6tx+cXHrR+B/0igW09maQ21r8f55MStSGOVMobKjf2dT9W4UfPiLKYvfJ4zb+WNLdg+maBCjb+VxfMbrOMCJHCfnyaefJlMq1xw6Ukq2ASrRAaUwsxswSXVWqP9tgLXQ==
+ bh=jk3uKBqqMdrXg51aR71N7qZGo68EbVXi8zWAHS1yb9w=;
+ b=WOCM8+Ax9J1u4hr0SbQpa/LEN0zEXpDboNvwDmFV0Ndxi49fY5VZspbMKnnuzFo2icTJxs70vtUKEZp6jx94dYoM8yBDoD9cHwFHaoUBKcthiKfn55oiuUq1el7v9hRwwuNNPQ9ugxMeb5Zqwy8vkQxNZzKlKcIeDIqJ3ybykvSUl9QJSgYoDa8ZShdpKoT/vn21y+Kov6fk7Udf7MRo0quhYeMsQndpqecZriBkyAmbjmnBdOADozaXUVtZoDa4EA4dsB4v3H0qwF02JYDFxEPVwn1Ii82UXt0ZEtY6SS17fRcBU31PBXhX++35qeFZ1JApo7Py/+AG53hA9QATtg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WC3+dgMuAPV0dVD+o9GkZOO0UoofpWeKaE+7sVTyIlk=;
- b=sihTc3u+3y42/sSnYBBjxrxNIQEGOnvnOQwI1HlGFxFl6pg2ej1OlXN+b9taGGmR1p1ZJ0pwXsLiVDg8AbIa4t+bMdASXYO5i/0qifuF0jBrbB72edj+q9SsSxZTclu9rue5HxcHzXdy+g9TQDNj7oNHxDNdB1n5a6hVv0F2M7s=
-Received: from BN9PR03CA0415.namprd03.prod.outlook.com (2603:10b6:408:111::30)
- by DM4PR12MB5913.namprd12.prod.outlook.com (2603:10b6:8:66::22) with
+ bh=jk3uKBqqMdrXg51aR71N7qZGo68EbVXi8zWAHS1yb9w=;
+ b=AYc3+mqoe0Xie1wZnnxPaJCtqYa45DQsMjTzIZMS0eztcujEBmHo33K1QdR9kGI0JyI4UppQVElxIt00l4Kk6mM5wqGcUvN5N6faVVaVI+xFID104dfV1biZqx8z9KDmbu71MVydWPSsq00Z62BUB7R5rguAt9jN4q1T755B/80=
+Received: from BN1PR10CA0009.namprd10.prod.outlook.com (2603:10b6:408:e0::14)
+ by CH0PR12MB8508.namprd12.prod.outlook.com (2603:10b6:610:18c::10) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Wed, 14 Oct
- 2026 10:20:21 +0000
-Received: from BN2PEPF00004FC0.namprd04.prod.outlook.com
- (2603:10b6:408:111:cafe::98) by BN9PR03CA0415.outlook.office365.com
- (2603:10b6:408:111::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Wed, 14 Oct
+ 2026 10:20:16 +0000
+Received: from BN2PEPF00004FBE.namprd04.prod.outlook.com
+ (2603:10b6:408:e0:cafe::aa) by BN1PR10CA0009.outlook.office365.com
+ (2603:10b6:408:e0::14) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Wed, 14
- Oct 2026 10:20:20 +0000
+ Oct 2026 10:20:16 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,16 +48,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF00004FC0.mail.protection.outlook.com (10.167.243.186) with Microsoft
+ BN2PEPF00004FBE.mail.protection.outlook.com (10.167.243.184) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Wed, 14 Oct 2026 10:20:20 +0000
+ 15.21.522.6 via Frontend Transport; Wed, 14 Oct 2026 10:20:15 +0000
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 14 Oct
- 2026 05:20:13 -0500
+ 2026 05:20:03 -0500
 Received: from amd-System-Product-Name.amd.com (10.180.168.240) by
  satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53
- via Frontend Transport; Wed, 14 Oct 2026 05:20:09 -0500
+ via Frontend Transport; Wed, 14 Oct 2026 05:19:59 -0500
 From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 To: <broonie@kernel.org>
 CC: <alsa-devel@alsa-project.org>, <lgirdwood@gmail.com>, <perex@perex.cz>,
@@ -68,9 +68,9 @@ CC: <alsa-devel@alsa-project.org>, <lgirdwood@gmail.com>, <perex@perex.cz>,
 	<Vijendar.Mukunda@amd.com>, <Poojitha.N@amd.com>,
 	<linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
 	<sound-open-firmware@alsa-project.org>
-Subject: [PATCH 13/13] ASoC: SOF: amd: register SoundWire alt_machines for ACP7.B
-Date: Wed, 14 Oct 2026 15:46:32 +0530
-Message-ID: <20261014101817.1240200-14-Vijendar.Mukunda@amd.com>
+Subject: [PATCH 11/13] ASoC: SOF: amd: add alt_machines for ACP7.F SOF SoundWire
+Date: Wed, 14 Oct 2026 15:46:30 +0530
+Message-ID: <20261014101817.1240200-12-Vijendar.Mukunda@amd.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20261014101817.1240200-1-Vijendar.Mukunda@amd.com>
 References: <20261014101817.1240200-1-Vijendar.Mukunda@amd.com>
@@ -84,34 +84,34 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FC0:EE_|DM4PR12MB5913:EE_
-X-MS-Office365-Filtering-Correlation-Id: ac3061e7-a130-461d-4dd6-08df29dcc081
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBE:EE_|CH0PR12MB8508:EE_
+X-MS-Office365-Filtering-Correlation-Id: 289594a0-a9d4-40e7-4ac5-08df29dcbd95
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|1800799024|23010399003|82310400026|376014|10067099003|261009223027099003|11063799006|18002099003|22082099003|56012099006;
+	BCL:0;ARA:13230040|36860700016|23010399003|376014|1800799024|82310400026|56012099006|261009223027099003|11063799006|10067099003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	vs/pRR/z41JDpKYqEzrmRaWzOwifUFiIIgPN4KkR4wzFEUAIjRZ7kG13AcoCPJGYg+TDRht/XCft26xpjZDg5zda2sJ/v9LuBJe4JHmB4GcDc7hehr0BqguAdX/zCrfDhR0V66TmZlmFm2dPoRlRKzh2QuvPTbbZuJ2dRbc+Au45bB6fZLhCVoopnHQX6AAKpplf6aUrz9KhwbZxJY4ZgXoAD43FtLJ0CaGHk2/D0/jDiIerfwBX4mwvubZeWXoFOp8pdpamiidAD/4DxeWGucKFmsOKcEM9FwtR8Jy26/LThGvR2ep0JIK1fxqRy8MSyV4XdS1EsN43uwBudDVy+qCvv/tl7DMMZTQy3p04RmKc4JU4Rbczi1guGOAP6xV6VKoMfKK+hHFgj+jE9eOn4yDsZvVbpQ7CqRwd5TnSpcTr4THP0dSbBjo1M3bNkKO1AGmpRGsQwuhzQljykKzGJ+BClCKc/KJpHuz/TXi35dncqRVXF1DkFbqclXd+8mgx0hJ6Y2bEA+ZE/QVrK+E9mLxkKWzs9ubfZtwjC4Dn1CGjU9WyonVI7wsECo5PhGA06ZXNDgvQecm3HDdnPIocor7cnWEU+6bhtVVL4KyCYPNHZdtzOzNSc2jRlk15RDchxNgXK+oLlRZO4iI4qENXnNcTrhXVn0QFQdmoXMhxVr55u8X9HCVdg9WWAIliTgwnV1c60UWUJWs06g0Bja9adw==
+	YkQbGe4rthRBAFcqr6OyRiBW7QapYyufiarq66f0WN1stNf5dqgOQKCuSacJTnln539DR1qZVGrKio0LCG/p6rovvT83lG4gFec2gFoCT73FltqBk3x7YSMr2ELA1Qjdo6wS9aY5Tap3lSXEEAMOPr6TIWMAgfXSJDr800Peewojjsl3/BctUZGysYbeq/DzB3rZxauf96VJzrzGROIdtTQESjSABl3je0Fj14g3RAWQYBtJAng9MiA//dmbd5hndqi/o3cdT0nY1TgRrymadkFKcgYcvu7lJWqmGDZax34ZESUI9Z1gK8TqP6z8zI9fzAzaSHMFQv4keHz6AbsQayXwsIlDkbo2gW+UY3VNLnSMeYghIBEexGKGfz3X4Dn4l1MOimjKUyrirtsQhiSp0LBn+VbGBqjPrIIoeh6bgw4GxS9w4AkGiUhGbf5apKTqDwtqhBaAFUS+fsP//QEnw7o+YOcVztOlm7F0Oo2+Fmkks4GRuVwznzw6Uthw1hrijGh+aeftn7nN+BjMOrFobmnKNVF6YZkQlLaUaSPeLcZ5XgWpjLYrOyBK7qVQOwJrDFdRhNdUDqGXyl+DZjBZXaeRQhyAIybwtty7m2bccsAVpRa1BYQovLQ+FNkCdNe/8f5TOHX9K61Lk99jhcLiw8UiYfKqJQfrVTHrrknH6lLwahn3qnB4YxuvcB0PMgB+upSTMXrQEdCPSCC8xArS4A==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(23010399003)(82310400026)(376014)(10067099003)(261009223027099003)(11063799006)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(376014)(1800799024)(82310400026)(56012099006)(261009223027099003)(11063799006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	U2sPcQEOTBJZgMYkjKDXi/LmGVqxYfLY+HLJC1mAfLthaLJgo/Duoy86apBX7BM1jvZk3uaO1zfUVAUgwBr452fIwO0PmTga+dathCLAEzYJmeY1D8Si8zUvpqiet2YthcVrF9a9UvHPF+4y/GLgEvfenm4ooy2xJTZk+ZmdwWsBNZDFgzy7KOYu85Asc8jeTsKVR0/lgAHUx2RA+z7cWUcqjkCPg7QlGbv/6qxl0Cf4zQBhfGqhr5stJjmGXDrXjrVdfdgeQtLxc5aLLqMIBKjFrLSSlCHI1+K1Tc2X+THWXoz6ZLuj0UetAcC+n4d4/5ca6IU8Nh1kwliCTV0yNIT0yqbgXmgHZlIh0rM36RT2zPRT382hgLyg0r7kNHM/j9PKnVip+HKINjBCJ1Sf67MnVCk71xMkB/8WV0mlN5aRq07tNopUAeV00WVKpmiL
+	zAzYRoOaubSzCwVkQN86XMUgEgz1YDKta8fMoLuKdKaB0pNKeamk33tQ2P9ilMqsi0L/kgHuktFmCCaryqnftqSdwFuuLi7WzkoJmAmM9akgbykZcyujAdpgu+hT7H7KoB35tCjvhBDNJ5+2loJrUv7/RCZwiR0T5wy3W4OaOPdGhJrDSpP3X9UdQ3GlHwPcVPQBrzEsxOIM9mbZ6ngTW2PiPvWpvUA6N+u0d4+XsoBPhWbg13K/rU0ilFIWNjMgnQxTJGg/Pgwt39rWkLFsJ1Su+XYss46YX2tdhnRGGhCg0tymvFLvKFSFoxOyAVUKC8WrZounrh0O6CX26l6aCMlvXz1cb4wer8K4+U+//b2oRYBW6V+232rFRdfx8kyVyJppZylcqwpftVKSH8xIe5kAESwc1wKOc0mqdi0+AcqLUQ9HHOkTIYzYJ9BjC4Dd
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 10:20:20.8735
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 10:20:15.9687
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ac3061e7-a130-461d-4dd6-08df29dcc081
+X-MS-Exchange-CrossTenant-Network-Message-Id: 289594a0-a9d4-40e7-4ac5-08df29dcbd95
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF00004FC0.namprd04.prod.outlook.com
+	BN2PEPF00004FBE.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5913
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8508
 
-Register snd_soc_acpi_amd_acp7b_sof_sdw_machines as alt_machines in
-the ACP7.B SOF device descriptor so that the SOF core selects the
-SoundWire machine driver when ADR devices are detected on ACP7.B
+Register snd_soc_acpi_amd_acp7f_sof_sdw_machines as alt_machines in
+the ACP7.F SOF device descriptor so that the SOF core selects the
+SoundWire machine driver when ADR devices are detected on ACP7.F
 platforms.
 
 Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
@@ -120,14 +120,14 @@ Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
  1 file changed, 1 insertion(+)
 
 diff --git a/sound/soc/sof/amd/pci-acp7x.c b/sound/soc/sof/amd/pci-acp7x.c
-index 2999dc6d72a63..6aa16d1a12b95 100644
+index 5a21ab8ebb4b9..2999dc6d72a63 100644
 --- a/sound/soc/sof/amd/pci-acp7x.c
 +++ b/sound/soc/sof/amd/pci-acp7x.c
-@@ -47,6 +47,7 @@ static const struct sof_amd_acp_desc acp7b_chip_info = {
+@@ -89,6 +89,7 @@ static const struct sof_amd_acp_desc acp7f_chip_info = {
  
- static const struct sof_dev_desc acp7b_desc = {
- 	.machines		= snd_soc_acpi_amd_acp7b_sof_machines,
-+	.alt_machines		= snd_soc_acpi_amd_acp7b_sof_sdw_machines,
+ static const struct sof_dev_desc acp7f_desc = {
+ 	.machines		= snd_soc_acpi_amd_acp7f_sof_machines,
++	.alt_machines		= snd_soc_acpi_amd_acp7f_sof_sdw_machines,
  	.resindex_lpe_base	= 0,
  	.resindex_pcicfg_base	= -1,
  	.resindex_imr_base	= -1,
