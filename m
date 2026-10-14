@@ -1,208 +1,139 @@
-Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010042.outbound.protection.outlook.com [52.101.229.42])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D88D2489895;
-	Wed, 14 Oct 2026 10:04:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791972279; cv=fail; b=gl2VcseYC6xuNbisHZ/yOFfJKMxVQhp9RRzhmzjfC8d4bQeST4agdG+/+xl3pyGlvTNC0YTGeO2E87sBgA5AG+/FcbbW1S23mYLHta5VXANAlfR1OcVl2iVvnF8eDCQpoSdsX+PGv13GTzUP/h4Q3mgQBoQefD+/YLIKXIytGtc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791972279; c=relaxed/simple;
-	bh=SimMBpdTYw8Ht2RYBsTqMmBCw0yuvD4rHRLv8XjGLGQ=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=dLHFSajtPUfp9e7wNjEq1XLmA5cIk4EjzdxefzEfbYDzRO1iaEWpX8dItnBGUco0SFSkPL+Inw4zB9U070sFbYNFv4GmkrSCsGJG7Zoy0upSY6JfITDZ64tYCApnOuY/Y+nWqRpf94ltmxm/JWozLgFY6J6s30cwCVuy7rBbJ9E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=W5QMICgZ; arc=fail smtp.client-ip=52.101.229.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 333044EDCC0
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:04:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791972284; cv=none; b=kzPQj5E1lPfi2DV7PB7o0zeSla0RPhKZdX54jyqn2KLuuaduI+L+PUf6N7/ru7f618okp1MsUMtxS+iLSAgUOJOPSWx9QlOUuybqeBQo2v8fpcx0i55xJwB8jUxxUz3aCrsvAPjeVfpUTYblKk6lTfjPtkZZTnv11z0gUsf1vxc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791972284; c=relaxed/simple;
+	bh=xKoZbrsEpZl7WHOwhRzJwVxlIDXvatXmrwIqVWMRm3Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nnhjlz7rMXY+dy412RMdkRBcngg/UGOhaTkjHW2EZP3Ro7pertbLATcp11Pd9sFVAqr0PWSORbDhAq0q7jM80X1ag1caprluDcazLkEOpQ8Nnktq1kJfJPE9rnEmGqULVvDC10X+L0VfX0gRx2XBv1LfZkAdcBuBaa79yV9tNqQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Qzhorth1; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=LZZ7I68l; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="W5QMICgZ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wTYyt326nb9h1t0u0lnZOqMpT2ZxGY+tvyR6cKa/43QEi2VGW2kGQ9u3PRXoLBmPQGHuCI71moj2pVdhyjXIiwe/xM27JdkYkWPqwCt0y42J4zCtZD+xq+jXRnLfdOOVLkSTq/aC+lkFZ+0B5dEJ8O7jCVGKuXmDd1ZeSh/8+BCbu1Vn6U8th0A9/nWmo3SjboCg0Y2AOaygv/j5g7Fp5cfPK8waunmh3+fW7d+X3F+3/0rJCN/Q+rxNSZmweSt4m8iWFqZAJqQQ9D30k09cqXYg7BOaab27KYb0yjcxYfa29m6FCjuopdqwAlqUJtuqhodjKIVr3/iOcXI3QUS9Jg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=e4/YZ51VMpeGZYT0eOQpoZx3CrGbfjR4s/3xUDsTn3Q=;
- b=djamcz8bv0pBNoj9a29tMhCn0FtnkUMH4V0QM3lkjJGjeDgFCNkg2D2hqPD9k9F6YhTLBIOmNqDi/uuPpKA5/U3zvFzsYtV6mbTGye6mMlL7sUNXRLzgU0en4yX+h5TvqFRO7gmAYjj0SmOzloniS8ozM+ofvaymGiui6SVL/qcOmv4HjqMuHqQZl4thQSZ2HOGVZOYBAf1Q2BGrHC+LlkhO2GdNefGi/n11vaQqfF2Iv8QKdZzddVPMCKkyFgH5HRek+npbAr0aC8eMGXMsScH3TbNbSzh7jfJbb7OvRLiiArrHp5VC6nV8jFeNC2ox974WOqjgfvCSgOkvKj0iYA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=e4/YZ51VMpeGZYT0eOQpoZx3CrGbfjR4s/3xUDsTn3Q=;
- b=W5QMICgZobgpYmzbDQSRPVb2fToDFEMUOqk9mf709ZhHj/zufmsOAYL12dxMDQKw8fcqUN1V+bUodeca6LrYOJkVbLvk5M1QFYG2cRndPl46EXN+70Ox/9wV4X2uxyW8Y/vU/ag+GicliiHJ4D2RFAwMUagXTc+mSj+RtJdYQaQ=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by OS3PR01MB6742.jpnprd01.prod.outlook.com (2603:1096:604:115::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Wed, 14 Oct
- 2026 10:04:35 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de%6]) with mapi id 15.21.0496.021; Wed, 14 Oct 2026
- 10:04:35 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, Tommaso Merciai
-	<tomm.merciai@gmail.com>, Prabhakar Mahadev Lad
-	<prabhakar.mahadev-lad.rj@bp.renesas.com>
-CC: "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	Au Dang <au.dang.jx@renesas.com>, Thomas Gleixner <tglx@kernel.org>, Radu
- Rendec <radu@rendec.net>, Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: RE: [PATCH] irqchip/renesas-rzv2h: Preserve TIEN state in
- rzv2h_tint_set_type()
-Thread-Topic: [PATCH] irqchip/renesas-rzv2h: Preserve TIEN state in
- rzv2h_tint_set_type()
-Thread-Index: AQHdW8LS9jwUABy5uEu9aunZjt/+TLb8z0MA
-Date: Wed, 14 Oct 2026 10:04:34 +0000
-Message-ID:
- <TY3PR01MB11346DAF990D6988FDEA9D7E5869D2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <20261014095927.635132-1-tommaso.merciai.xr@bp.renesas.com>
-In-Reply-To: <20261014095927.635132-1-tommaso.merciai.xr@bp.renesas.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|OS3PR01MB6742:EE_
-x-ms-office365-filtering-correlation-id: e3440b8c-f5ee-4d1c-4a3d-08df29da8ca0
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|23010399003|376014|366016|38070700021|56012099006|11063799006|10067099003|261009223027099003|18002099003|22082099003;
-x-microsoft-antispam-message-info:
- 94vufMS3XK/yVt6iDekf8cyegh5XreRPX4cACVF4/2In31xULsfE45OACXBu3zIaBU1mR4fb5xD+OleUD9fGI8KJUif/T6eeMtxqxNcHUs23s+ljd24Xw//dTaapmVPjXZj8j6TL5v29bmw65jx+agnjsOotUMoqpxKI1dfakdwigodRO3JmSsdVGuY79dq96LmyYCwW3LIyVG9vlGirFJ4t6cntIc3FLNLt6xJKn46nhKww8gAfsJElet+KW3df4Gcn8CWiW80XS0LTZrfvG8Hy2zF6xN4+Qdm8B2qkzXLu+Zv7d4WUUBBPRj5r0oRLWFl7mcYxJbkAfvShFyxP738ysJyh2LU5YzKb7Fm0FeUfN0m3PokASma4BWqWrE8pNqwn3smIEUCiHnWWrJkpHPom4Bdqd9+vasGDR/CFDA5avka265U0XULXxXdJYk97CM4WIiSC07OMuPuBc0O06YF1tp49vdImGfcYAQi9/tKnv9nyHnC+oLaMDaxmP6ToemOEZmjiQ9GZTXKUsAMTzHzYPvPP1MeybIhz1gG4LqJuLI+e7xJ8SSIo859546mK5PuI6IoYiH2RUCqJh1x48zn46/rQ+uCCI6ve2tMfprS2d9JM55QYviHj8DkVNKeh2gXqaakDaZ17efa2WEvv54b5FdZPE03B+4vCVXodqNqVcvD146apjyiGMcWUXp/n3dMP7LMzWSBVcNQQhKY/Gm/kLAt7z1UyMlNSGOv9WcA=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(38070700021)(56012099006)(11063799006)(10067099003)(261009223027099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?m7eBj8njB2XroBX3ViAXxY3IJyraI8mzzICDRKGuYgmIH3NLrRNZRUUX3bup?=
- =?us-ascii?Q?boVytUxBhr95N470ZoneTZPu2dfjHaU0IClmY7cf8LKAgyk3t7b9cDkogdNo?=
- =?us-ascii?Q?ARIdqB6XWTluk8B50mQ/5HxD+67XoocmNjpLTV1UiIVWvW/7jfam8QbdlkLI?=
- =?us-ascii?Q?rzU9nrT3KO85eBlQRTcmzAKS9s3H61T1BVkaOW5YvWudeeONxJ2l00EkV6ru?=
- =?us-ascii?Q?Ri24mY30X2Vr0nuQ7M+LhlQ9/PJL8tfUacCFM7Iv3QAfBZHC5NWpmR5lFfgF?=
- =?us-ascii?Q?EdMpkC7u6MjfoP7OOeO/0uN6YWQuBFcAuD/AUkotvN4tY/a9ytDGd+SUVh/R?=
- =?us-ascii?Q?hGleP9xpO2tu7Qqqa+41eJAjCUqi3+vIsxQKUMedgI04hqCSXJZPKw6W9BoV?=
- =?us-ascii?Q?iScGNVHx5UqjAr8nQmshjuCSN6FJUZ8p6ANpEgRT0H7gI1cGU8v7psA7YCaq?=
- =?us-ascii?Q?OwR+NIsnE1iUcjLAmY4p8jqXi/NY7+snCxFiefA0dIyNhPOZZIpYFFVj+aAh?=
- =?us-ascii?Q?T3Jw5VhGtWZcBzizd3zF+X83r85BFCkcWy0a6DrBtVa8HnxDO+nxpNtXgmwL?=
- =?us-ascii?Q?aKn5dGQ9K9dqH9uy220IRd/nhw1gmEmFhMIQB0X4HUes1KsEyMCt//fiYHzF?=
- =?us-ascii?Q?r5Y3gRu8WkCPCqCv6+wy4o+cga9zpm34f73Lac/6lvgeSIlNYBGbTSzUj0lp?=
- =?us-ascii?Q?OvLIiBMNRzf31bG87ktQcPwg+VuK3nnirwa1K+8OqYKLVz0RdxWUHnJL11oq?=
- =?us-ascii?Q?EqSnBxmay19o5HflIojMB68kPSc0TqGGpDXRFJZDQ7Usg8cIbq+A3aup8cBf?=
- =?us-ascii?Q?9Y8fHe+2dly58FHaQPCAeKTNvWw+mklLTLjlz7v8jR4VyyA0hueZxO/JsQND?=
- =?us-ascii?Q?MTcSZ8/U7M7bFjs2xrM/tkawAsTmQuwcs2aAg2iKiY5lPDB/Su/m1zh5BtSK?=
- =?us-ascii?Q?GtVGaX86BSJnH1XK6NNTbU9NQgu/B7wVjPEQw8MGxHxMOjwnCLUT/oNe0DuC?=
- =?us-ascii?Q?rwigmCSvlnezvWX/X3nlpqwB9QvV3OOMtdPePR0stDKkysTGDWk7yQq3c1pI?=
- =?us-ascii?Q?BRDMZMS3LJZciBWh2ygf7Ub+TqqsI4XXI3jexn6BOrBEOL9OrorAGsvvlJev?=
- =?us-ascii?Q?EsdpAJEU3CT3+dQq0B0qCWXVeM5LQz6yFfz6lLrpQTHI9YCNAQIGY4R2wAH6?=
- =?us-ascii?Q?u1rFG7f/69fg0nCG42BAtnWtFZrfeMPfun0kchaphO4qjXJyNkzIGQDUSS8r?=
- =?us-ascii?Q?0CLLWUdm1bWqrpkWH+koFMF7G1M7VJI9yQMl6etvazZrfX47oy0mvb0g7hxL?=
- =?us-ascii?Q?tqUBOweusg2K68RNBJuJYYGdHQez27PTepFzZgh7GYQ1U4uWpq9ndLqz+5QJ?=
- =?us-ascii?Q?wqrZ9a/Mb9VUXPvvtvybDdcafP7Ki22OV0TlxKnbt32Ns4gxN9xeJ3+1NGQc?=
- =?us-ascii?Q?sKRklg+dDxIh5IDAgAHGfz2T5PV12IbCDrN12VYCsjAwQDlzKutHvmGJ3Uod?=
- =?us-ascii?Q?VTGbhaBmTVw7fZCKl5q6f0+PQomBk5/xzJGHBTqdK9q36JH2I2elDufB9Fne?=
- =?us-ascii?Q?rzteQ9FJkrJ0qMH00ItEN9Ned0Oc+Jz0nDM8gOSbr1GQuZMB9vEd/xBO2vs1?=
- =?us-ascii?Q?eAnaqJnKVoB+e+NGSpWlmCkZPEuc0UDX/ti2RAJBUxCGKHCNQ8aUaS5ObRqF?=
- =?us-ascii?Q?O0bO6mTux89D4WCyq998+O/kZ4iV24MCXEllfOvlotRyhjsqq2GNGnlBfr7D?=
- =?us-ascii?Q?VVDXpvG5FQ=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Qzhorth1";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="LZZ7I68l"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791972282;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XemIgLfXAXsX5F5DvdAMtcb2KhZv0+MaaLg/MSFJqAo=;
+	b=Qzhorth1tFIAoFWmA9GB16Be1JJ3ZBgV/WxstIOFGBLj7yoA5H7qX2mg3Iu2Ek8y3Z2Ldl
+	D/dISWOa0p7v3Gl2O78fukk0mrPh69oVY/bjgiILCuhfpCEoOgLXg4Blgz3ji3oZ6GJalM
+	0XDC+JC+AqNugOMF8eB9ah74On1F6iA=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-609-JwhNeEDNMEaCSC1wPMRaBw-1; Wed, 14 Oct 2026 10:04:40 +0000
+X-MC-Unique: JwhNeEDNMEaCSC1wPMRaBw-1
+X-Mimecast-MFC-AGG-ID: JwhNeEDNMEaCSC1wPMRaBw_1791972279
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a1b11e7837so9015775e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 03:04:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1791972279; x=1792577079; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XemIgLfXAXsX5F5DvdAMtcb2KhZv0+MaaLg/MSFJqAo=;
+        b=LZZ7I68ldkj3iSwSrPBlqlAYfN1L+tOgruyR2PKLAX796uVuMKta9ndcpM4O0A1Mx1
+         Jrh/KkTK7G55tFERV/NIXkgqGuIuZMJHiz5KVw/peJIlJU7qX/sDlgJJjq8kTxvXYpNE
+         O13qBCOE+IPVyaIVilSKDQ3mLfVo7xhUWVkrAC8K1E6IPftL+X72ATJYThhcwulci9wJ
+         spM+cBUqKCOhDE+tp8q2nCEt/fvn5sZZ+I0BpsYTRb4JK5oFWAjU3nfc64azqzAFG23v
+         5KwGcnodHwaXG3sbG6YCFg1oZScI88u0f9U4UmcWP5NAlylbh10jrmSDYbxAZLHpij1x
+         7v8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791972279; x=1792577079;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XemIgLfXAXsX5F5DvdAMtcb2KhZv0+MaaLg/MSFJqAo=;
+        b=iN53J6/OpYf9Makt4UN6siEG9s7rulkxzQnH+tED2DUrzLUCiwghDq1FMrJIbI8szG
+         wRH3rtwsiufDAkawQOx4bKaeQflhSIybOs57Yv9f/OfR+1Kdjo/gMCCSAdTU5z5qCDEC
+         aINAgiKS3ZIS6y1mySTmgdLehtAJhYT+54nbvz8lbAL89wcGSOhQErrBWbENm2PnIJ0F
+         izpAOOzXgsItW3q1tN776qIR53WJkdU4/MGmSya/LccGvi1PmR45m8jqUIOiXCIprJXi
+         lvfF15P/f2XrF/Lc6AvlaL/ME3BNjGoaGvcTA5A33565sJz+PJ3OFO4s624FPbAB5xrU
+         XuNw==
+X-Forwarded-Encrypted: i=1; AKwUvBw/U046UaiDKFDK/lRq21xXcPU5u7SAgbmoRnAw7Tdovg2yyb3VgXuZr421QXn72KieD1vVK30P9kPrz60=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI8yZLDUwT65T5Ujv1e2vsZnTLKbPpSn/tuAPp2eRyfF/sIkDIw
+	CLTfwt3dPDZ6TxWmKp2NUzytWZgn7/qCy1RmPvmR2fK47ggXu+wfwsTXHbBv+ILB4tmNLuC8aI4
+	22XW/eUQKbf74aF48RhLsDLVYWHDesibeJ1joijKCEFLy+XFSNzLWZY5CQuff1hX+ZQ==
+X-Gm-Gg: AYBFou3oX5Kt3Uf+zLj5P8duuqmkDA//VfsiQt2g0OTun24IDXxT9qytGeMXA2w9nZC
+	JrLhpi7FwKbqKLt8X6928N2Bkyp50Wxz12ae1QaofRRFi8jsl3pRhXAhyhwZYm2++s5NCNZiWJ9
+	cBDU8UwhpmypVnuFCoEcRhI0/o86eLTA/UY7uJ0/AAOk2NP0aYXxNmTPXne/JtjslbaRsSnLni7
+	hhDoTJp2ZYVBDdgyrEqrGHWTCjJoOLpV6Ob6lHC4ULvBC326AcWcSnr7qv1p+sa5geXEzs9ae7g
+	uf+szrtVhn8IGQiH75LGPO5o78eV3ryXzpc1Y1cJtqgFrArD5H5nLghC4oZ6G7xJwqFa0yI2sPF
+	FLZIsMLkzzHhmfc/9QciIYqc46rORBVnK2mircCcm7VIPx47DOSSjnE8Y2ZrDKLNnxLy3jj6L+w
+	==
+X-Received: by 2002:a05:600c:6383:b0:4a1:a6e0:4ce4 with SMTP id 5b1f17b1804b1-4a1a6e04d7cmr101285135e9.33.1791972279238;
+        Wed, 14 Oct 2026 03:04:39 -0700 (PDT)
+X-Received: by 2002:a05:600c:6383:b0:4a1:a6e0:4ce4 with SMTP id 5b1f17b1804b1-4a1a6e04d7cmr101284465e9.33.1791972278755;
+        Wed, 14 Oct 2026 03:04:38 -0700 (PDT)
+Received: from [192.168.188.234] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf3e044sm419838595e9.14.2026.10.14.03.04.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 14 Oct 2026 03:04:38 -0700 (PDT)
+Message-ID: <3d3b9f10-e3e8-4d50-b543-0d451cb07598@redhat.com>
+Date: Wed, 14 Oct 2026 12:04:36 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e3440b8c-f5ee-4d1c-4a3d-08df29da8ca0
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Oct 2026 10:04:34.8728
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: o0Ts5gz1jVEyeoyrWVIgOaneFwo1a2YTD1w+OSTb5rMuD/TVAAMPOH4DzNhcG6jc/HzqRnXUWpqx1GpF0CYvUwxLWAAqoKJ7s4rKXk3TfAE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB6742
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v6 0/3] net: phylink: wait for a PHY that probes
+ after the MAC
+To: Aleksei Sviridkin <f@lex.la>
+Cc: Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>,
+ Heiner Kallweit <hkallweit1@gmail.com>, Vladimir Oltean <olteanv@gmail.com>,
+ netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Conor Dooley <conor@kernel.org>,
+ Florian Fainelli <f.fainelli@gmail.com>,
+ "Chester A. Unal" <chester.a.unal@arinc9.com>,
+ Daniel Golle <daniel@makrotopia.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+References: <aa01ab1c-da2c-4638-816b-f535b635379b@redhat.com>
+ <20261013151233.2474217-1-f@lex.la>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20261013151233.2474217-1-f@lex.la>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi=20
+On 10/13/26 17:12, Aleksei Sviridkin wrote:
+> On 10/13/26 09:53, Paolo Abeni wrote:
+>> The above looks like a significant amount of complexity for OoT driver,
+>> and I understand it could be solved with a different kconf?
+> 
+> The PHY driver is in mainline, air_en8811h. Only the board's device
+> tree lives in OpenWrt.
+> 
+> A config change can avoid it, but it is expensive here. Building
+> air_en8811h in is not enough, since it loads its firmware with
+> request_firmware_direct() from the root filesystem, which is not mounted
+> yet when the switch probes. It also needs CONFIG_EXTRA_FIRMWARE with
+> 144 KB of blobs, in a kernel that OpenWrt shares between every board
+> of the subtarget.
+> 
+> Is that the expected answer for a board like this one, or would you
+> take a smaller change in phylink?
+To me this series still looks too much churn for something that has
+alternative options. I would like to hear a 2nd opinion from Russell,
+Andrew or Heiner.
 
-> -----Original Message-----
-> From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> Sent: 14 October 2026 10:59
-> To: Tommaso Merciai <tomm.merciai@gmail.com>; Prabhakar Mahadev Lad <prab=
-hakar.mahadev-
-> lad.rj@bp.renesas.com>
-> Cc: linux-renesas-soc@vger.kernel.org; Biju Das <biju.das.jz@bp.renesas.c=
-om>; Au Dang
-> <au.dang.jx@renesas.com>; Thomas Gleixner <tglx@kernel.org>; Radu Rendec =
-<radu@rendec.net>; Fabrizio
-> Castro <fabrizio.castro.jz@renesas.com>; linux-kernel@vger.kernel.org; st=
-able@vger.kernel.org; Tommaso
-> Merciai <tommaso.merciai.xr@bp.renesas.com>
-> Subject: [PATCH] irqchip/renesas-rzv2h: Preserve TIEN state in rzv2h_tint=
-_set_type()
->=20
-> From: Au Dang <au.dang.jx@renesas.com>
->=20
-> rzv2h_tint_set_type() clears TIEN while switching the TINT source and the=
-n unconditionally sets it again,
-> enabling the interrupt even if it was disabled before the call.
->=20
-> Restore the previous TIEN state instead of forcing it on.
->=20
-> Cc: stable@vger.kernel.org
-> Fixes: 0d7605e75ac2 ("irqchip: Add RZ/V2H(P) Interrupt Control Unit (ICU)=
- driver")
-> Signed-off-by: Au Dang <au.dang.jx@renesas.com>
-> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> ---
->  drivers/irqchip/irq-renesas-rzv2h.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/irqchip/irq-renesas-rzv2h.c b/drivers/irqchip/irq-re=
-nesas-rzv2h.c
-> index 1a4703a353e9..485c3eea7632 100644
-> --- a/drivers/irqchip/irq-renesas-rzv2h.c
-> +++ b/drivers/irqchip/irq-renesas-rzv2h.c
-> @@ -420,9 +420,9 @@ static void rzv2h_clear_tint_int(struct rzv2h_icu_pri=
-v *priv, unsigned int hwirq
-> static int rzv2h_tint_set_type(struct irq_data *d, unsigned int type)  {
->  	u32 titsr, titsr_k, titsel_n, tien;
-> +	u32 titsr_cur, tssr_cur, tien_cur;
->  	struct rzv2h_icu_priv *priv;
->  	u32 tssr, tssr_k, tssel_n;
-> -	u32 titsr_cur, tssr_cur;
->  	unsigned int hwirq;
->  	u32 tint, sense;
->  	int tint_nr;
-> @@ -477,6 +477,8 @@ static int rzv2h_tint_set_type(struct irq_data *d, un=
-signed int type)
->  		if (tssr_cur =3D=3D tint && titsr_cur =3D=3D sense)
->  			goto set_parent_type;
->=20
-> +		tien_cur =3D tssr & tien;
-> +
->  		tssr &=3D ~(ICU_TSSR_TSSEL_MASK(tssel_n, priv->info->field_width) | ti=
-en);
->  		tssr |=3D ICU_TSSR_TSSEL_PREP(tint, tssel_n, priv->info->field_width);
->=20
-> @@ -489,7 +491,7 @@ static int rzv2h_tint_set_type(struct irq_data *d, un=
-signed int type)
->=20
->  		rzv2h_clear_tint_int(priv, hwirq);
->=20
-> -		writel_relaxed(tssr | tien, priv->base + priv->info->t_offs + ICU_TSSR=
-(tssr_k));
-> +		writel_relaxed(tssr | tien_cur, priv->base + priv->info->t_offs +
-> +ICU_TSSR(tssr_k));
->  	}
->  set_parent_type:
->  	return irq_chip_set_type_parent(d, IRQ_TYPE_LEVEL_HIGH);
-> --
-> 2.54.0
+/P
 
