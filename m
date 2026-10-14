@@ -1,63 +1,80 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD16854CF53;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C31D55D895;
 	Wed, 14 Oct 2026 15:44:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791992683; cv=none; b=XVzaZSS7HPiHmJXfBzS83pK2BQ5ooDSRAJJhQ5CRtLzSW8HV67KShW6RMBpdCqZu0fA50guqq4/5LP4JpGWP4mYhtG5U5/vxkK63d60q1Ibi3fQB5YMaP3DB4+x/xVyJvfAu57WdPeUh9ZF+dodp2Vw+ntwYdamFbejBJahSJsM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791992683; c=relaxed/simple;
-	bh=ee3HOAFL0P0jox8iP9bxIKxiNhmxLqoULAoki9pz+kc=;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791992682; cv=pass; b=trRCveDKhszTfuvVdmtf+wAER+N0oe1bdDsMUniG8H0VX/xjPndWwkvdPKlTcPhuSavzzW8dSZ8sp7KiEDfgrU9etecSAkeQECLDOFMgiT/6SiLUkM0DoemobpxOK3oB9tEcYT1jlraga3gRqwho+Cl4h3cKMCgHRL2ssfyxYzk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791992682; c=relaxed/simple;
+	bh=qz6/MQm80SbuNM3A8i61ctkYwMubUAHIDb6ptEs5ai8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=O7HOvql8241uA45Oc8Z4s4lldGBuAXnMC7JR35bYqKqR7w2hH+oMSFsKVmKxKalCBejssPbSUvv/KXSsI0pqaGZWjeUtcia73h8VzWhOLAlquxbzqTLUoyn+6HwETrDI4qiGq/ZEOho2WVtqtfBKjYn+8Wl0sBxC/uqX9VfHN0o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=yKdCKilB; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	 MIME-Version; b=P8XUd2VR6tgdTuX+6gXrBceLJkvOVpLfn2l5DjzW/A6je3uKh/zo+eRohRYOtmNsc+KgKx44h7Z6M7ovaWh6AstUSNA4jDrlsKv45wQ76j7KQ1QlBIUaPrw9tF5YI7HbY2cR5hqRA94keP4D8l5BCuR3I7vyGDr/lFupaXVNO1U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=LmyS0Vzy; arc=pass smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="yKdCKilB"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id D09E1C6344E;
-	Wed, 14 Oct 2026 15:45:33 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id A93FA60368;
-	Wed, 14 Oct 2026 15:44:37 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AFF37103288F3;
-	Wed, 14 Oct 2026 17:44:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791992672; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=VBfHMzzjsF2QZ2WH+O6Wg6esVJdcuEzWNofUfba/9bk=;
-	b=yKdCKilBwcGKPO1ahATh2ZQaF0NYodtOU0mFP+pnw1LY+K9xDVbRBeBV47SNZkgtA/eBUX
-	djmo1Zj36UY+nLRirIQjp/QHuo1tVU6sX/xs2C5XLVoe3D3Dq016eUv9/Mgb9Z4pK7VFt5
-	6ECZqOMqXCtnnMJK8bQA7aD7qfXY2ckzrvDV04kqKhTPou2HdBznRdBs+J59t8ApV+6RVo
-	27hStNFTR92d4LJvkpa3w/3x4/izuzXjT2bjmMy/ooKq2WCQYpJIBQuvwuykoojtW1yVZe
-	kEPNLd2wsoEKnnXVVHTxE8vsNprGs0+c3jn0Hv3zGWMPh355/j3ShshxQs2ZBw==
-From: Paul Cercueil <paul.cercueil@bootlin.com>
-To: Pratyush Yadav <pratyush@kernel.org>,
-	Michael Walle <mwalle@kernel.org>,
-	Takahiro Kuwano <takahiro.kuwano@infineon.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Mark Brown <broonie@kernel.org>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Cc: Kees Cook <kees@kernel.org>,
-	Tony Luck <tony.luck@intel.com>,
-	"Guilherme G . Piccoli" <gpiccoli@igalia.com>,
-	linux-mtd@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="LmyS0Vzy"
+Received: from dude04.red.stw.pengutronix.de (dude04.red.stw.4.pengutronix.de [10.17.1.12])
+	(Authenticated sender: relay-from-dude04.red.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 2FC92201F04;
+	Wed, 14 Oct 2026 17:44:37 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1791992677;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dkR8HBcbgFqaNrkNAMX+CuL+Pc92QLmewtfTX3Z9TMk=;
+	b=LmyS0VzyAGnRF16+rG4Hbwqkn7rQOb+ku6Pmz+feCvuiHU7NKKjw7pwMh7rLuB3bywd0hL
+	ZaEtAcoCsLmL+jPOD5FhdWroXZ4cjcArarGhTKUrrR9sFA0aVTud99Z0z9aMp6Vm/l0BQj
+	dleJHmcZJWWKpkvlYJ5JoY8c4yYkgknKcsDlVvNFEtcBgUdtlF2iFtgSM8u2fWjErJjjM5
+	hmAm7DDanl8/tigARHZ2G3gGn5VuwvnYcMpL1FIo/N5fyNEDsImDm4gU/E6VaKk3hnX6BB
+	679C6JUWnrS4FVRA8XvtinS/af0j+a/kmtiVkhSee5By4zGkbdBRPbD8vGi2uA==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1791992677; a=rsa-sha256;
+	cv=none;
+	b=TxjUMt49mj0NIvMCn5quBc0nKTtW/M94aHuJD2aUdjpiqWUoOrL+i9uZH450vWxAf5xFDu
+	u+yEt2qZ0mXwARt+FzlCx+Ib2z9ERXB/ZLfuQzMXhpWEp75VOOobVfnITKIk0vl0XHqquN
+	rZOg1Z3C3jxFuZT61uX+LYXlnYDojKQl5KQeobiZi1gX3zBvn3G53eQORnhZG07Xsh5mcc
+	+b4XPvAfWIX3LzwGlbAsgybLoQWmeHya+ISD0t7F7MAeOlZ41iR4an7aR71xmdREDpDP9S
+	6SORSmXiDaPM6gfQtJXh67dQV8Ce319CBfw40uQXiFe7ld0mzPFLZF5FLx4fHg==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-dude04.red.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1791992677;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dkR8HBcbgFqaNrkNAMX+CuL+Pc92QLmewtfTX3Z9TMk=;
+	b=gl7PKG2s07OBOD8kj8TINbe1d2OSxcPBMeWg2i6Fo3gQ9OVSGhklAdB64zahwEe5mBYYDi
+	8bWX1wPvS5c0P1iaFHCx4EqerUA2EVDKydFyDBuMbUW0sm65OuRvuQSwWq/5AXiq5fkV3q
+	ol4bZjnu7dZnEXRNscDarkxTK980DKvZy1NCYyTzhh5ovW9vuGaIuoCTnQ6OuuGqhxaJyn
+	N/hb8TwGZWI1LQqLiQINOybBGCuHXR75+kmwrhaflaeSShecR0fdAoXChlQAhq2rUFewdW
+	sucDQSG6otcPv/gMO0zCoR8QWOUcT7/RUBnwejKBAKLxuJO8qNoBUjlySrUIgg==
+Received: by dude04.red.stw.pengutronix.de (Postfix, from userid 1058)
+	id 181E338786B; Wed, 14 Oct 2026 17:44:37 +0200 (CEST)
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: Robin van der Gracht <robin@protonic.nl>,
+	Oliver Hartkopp <socketcan@hartkopp.net>,
+	Marc Kleine-Budde <mkl@pengutronix.de>,
+	Shuah Khan <shuah@kernel.org>
+Cc: Oleksij Rempel <o.rempel@pengutronix.de>,
+	kernel@pengutronix.de,
+	linux-can@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-spi@vger.kernel.org,
-	Bharat Bhushan <bbhushan2@marvell.com>,
-	Sunil Kovvuri Goutham <sgoutham@marvell.com>,
-	Tanmay Jagdale <tanmay@marvell.com>,
-	Paul Cercueil <paul.cercueil@bootlin.com>
-Subject: [PATCH v3 6/7] spi: cadence-xspi: Add support for panic writes
-Date: Wed, 14 Oct 2026 17:43:00 +0200
-Message-ID: <20261014154301.157755-7-paul.cercueil@bootlin.com>
+	linux-kselftest@vger.kernel.org,
+	=?UTF-8?q?Alexander=20H=C3=B6lzl?= <alexander.hoelzl@gmx.net>,
+	Quchaosheng <quchaosheng000406@163.com>,
+	Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+Subject: [PATCH can-next v1 4/8] selftests: can: add J1939 addressing and concurrency tests
+Date: Wed, 14 Oct 2026 17:44:30 +0200
+Message-ID: <20261014154435.3577983-5-o.rempel@pengutronix.de>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261014154301.157755-1-paul.cercueil@bootlin.com>
-References: <20261014154301.157755-1-paul.cercueil@bootlin.com>
+In-Reply-To: <20261014154435.3577983-1-o.rempel@pengutronix.de>
+References: <20261014154435.3577983-1-o.rempel@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -65,165 +82,410 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-From: Tanmay Jagdale <tanmay@marvell.com>
+Add a selftest for J1939 NAME-based addressing and address claiming:
+binding and reading back a NAME, the source address seen on the wire,
+NAME-addressed transfers (with a forged Address Claimed), the Address
+Claimed a socket emits, and address-claim conflicts where the contender
+with the higher NAME loses and the one with the lower NAME keeps the
+address. It also runs several concurrent transport sessions as a stress
+check.
 
-Advertise support for panic writes. When a memory op is received with
-the 'panic' flag set, the driver will then work without relying on
-interrupts and without sleeping.
+The NAME is serialized onto the wire byte-wise (put_name) so the tests
+behave the same on big- and little-endian hosts.
 
-Signed-off-by: Tanmay Jagdale <tanmay@marvell.com>
-Co-developed-by: Paul Cercueil <paul.cercueil@bootlin.com>
-Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
+Assisted-by: LLM
+Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
 ---
+ tools/testing/selftests/net/can/.gitignore    |   1 +
+ tools/testing/selftests/net/can/Makefile      |   2 +
+ .../selftests/net/can/test_j1939_addr.c       | 336 ++++++++++++++++++
+ .../selftests/net/can/test_j1939_addr.sh      |   5 +
+ 4 files changed, 344 insertions(+)
+ create mode 100644 tools/testing/selftests/net/can/test_j1939_addr.c
+ create mode 100755 tools/testing/selftests/net/can/test_j1939_addr.sh
 
-Notes:
-    v2: - Don't enable interrupts if doing a panic write
-        - Use a new cdns_readl_poll() macro that will resolve to calling
-          readl_relaxed_poll_timeout_atomic() when doing a panic write, or
-          readl_relaxed_poll_timeout() otherwise.
-        - Drop cdns_xspi->panic_write. We don't actually need to check it in
-          cdns_xspi_is_dll_locked(), because this code is never called in
-          the kernel panic path.
-    
-    v3: No change
-
- drivers/spi/spi-cadence-xspi.c | 52 ++++++++++++++++++----------------
- 1 file changed, 27 insertions(+), 25 deletions(-)
-
-diff --git a/drivers/spi/spi-cadence-xspi.c b/drivers/spi/spi-cadence-xspi.c
-index 2a2a40bf0a4c..a7fd715c45d5 100644
---- a/drivers/spi/spi-cadence-xspi.c
-+++ b/drivers/spi/spi-cadence-xspi.c
-@@ -287,6 +287,10 @@
- #define GENERIC_CMD_REG_3_NEEDED(len)		(len > 7)
- #define GENERIC_CMD_REG_2_NEEDED(len)		(len > 3)
+diff --git a/tools/testing/selftests/net/can/.gitignore b/tools/testing/selftests/net/can/.gitignore
+index 427eed83e49e..7ca63a19472c 100644
+--- a/tools/testing/selftests/net/can/.gitignore
++++ b/tools/testing/selftests/net/can/.gitignore
+@@ -2,3 +2,4 @@
+ test_raw_filter
+ test_j1939_base
+ test_j1939_opts
++test_j1939_addr
+diff --git a/tools/testing/selftests/net/can/Makefile b/tools/testing/selftests/net/can/Makefile
+index 24a57edb912c..6e4176a1b985 100644
+--- a/tools/testing/selftests/net/can/Makefile
++++ b/tools/testing/selftests/net/can/Makefile
+@@ -10,6 +10,7 @@ TEST_PROGS := \
+ 	test_raw_filter.sh \
+ 	test_j1939_base.sh \
+ 	test_j1939_opts.sh \
++	test_j1939_addr.sh \
  
-+#define cdns_readl_poll(addr, val, cond, delay_us, timeout_us, can_sleep) \
-+	((can_sleep) ? readl_relaxed_poll_timeout(addr, val, cond, delay_us, timeout_us) \
-+		     : readl_relaxed_poll_timeout_atomic(addr, val, cond, delay_us, timeout_us))
+ TEST_FILES := j1939_lib.sh
+ 
+@@ -17,5 +18,6 @@ TEST_GEN_FILES := \
+ 	test_raw_filter \
+ 	test_j1939_base \
+ 	test_j1939_opts \
++	test_j1939_addr \
+ 
+ include ../../lib.mk
+diff --git a/tools/testing/selftests/net/can/test_j1939_addr.c b/tools/testing/selftests/net/can/test_j1939_addr.c
+new file mode 100644
+index 000000000000..8b1b093f0839
+--- /dev/null
++++ b/tools/testing/selftests/net/can/test_j1939_addr.c
+@@ -0,0 +1,336 @@
++// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
++/*
++ * J1939 addressing and concurrency selftests.
++ *
++ * Cover NAME-based addressing and address claiming: binding a NAME and reading
++ * it back, the bound source address appearing in the CAN id, a sender reaching a
++ * peer by NAME, address-claim contention where the lower NAME wins, and a stress
++ * run of many concurrent transport sessions.
++ *
++ * The vcan interface is set up by the caller (see test_j1939_addr.sh); its name
++ * is passed via the CANIF environment variable.
++ */
++#include <stdio.h>
++#include <stdlib.h>
++#include <unistd.h>
++#include <string.h>
++#include <errno.h>
++#include <sys/wait.h>
 +
- enum cdns_xspi_stig_instr_type {
- 	CDNS_XSPI_STIG_INSTR_TYPE_0,
- 	CDNS_XSPI_STIG_INSTR_TYPE_1,
-@@ -353,40 +357,33 @@ struct cdns_xspi_dev {
- 	int current_xfer_qword;
- };
- 
--static int cdns_xspi_wait_for_controller_idle(struct cdns_xspi_dev *cdns_xspi)
-+static int cdns_xspi_wait_for_controller_idle(struct cdns_xspi_dev *cdns_xspi, bool sleep)
- {
- 	u32 ctrl_stat;
- 
--	return readl_relaxed_poll_timeout(cdns_xspi->iobase +
--					  CDNS_XSPI_CTRL_STATUS_REG,
--					  ctrl_stat,
--					  ((ctrl_stat &
--					    CDNS_XSPI_CTRL_BUSY) == 0),
--					  100, 1000);
-+	return cdns_readl_poll(cdns_xspi->iobase + CDNS_XSPI_CTRL_STATUS_REG,
-+			       ctrl_stat, !(ctrl_stat & CDNS_XSPI_CTRL_BUSY),
-+			       100, 1000, sleep);
- }
- 
- static bool cdns_xspi_is_stig_ready(struct cdns_xspi_dev *cdns_xspi, bool sleep)
- {
- 	u32 ctrl_stat;
- 
--	return !readl_relaxed_poll_timeout
--		(cdns_xspi->iobase + CDNS_XSPI_CTRL_STATUS_REG,
--		ctrl_stat,
--		((ctrl_stat & BIT(3)) == 0),
--		sleep ? MRVL_XSPI_POLL_DELAY_US : 0,
--		sleep ? MRVL_XSPI_POLL_TIMEOUT_US : 0);
-+	return !cdns_readl_poll(cdns_xspi->iobase + CDNS_XSPI_CTRL_STATUS_REG,
-+				ctrl_stat, !(ctrl_stat & BIT(3)),
-+				MRVL_XSPI_POLL_DELAY_US,
-+				MRVL_XSPI_POLL_TIMEOUT_US, sleep);
- }
- 
- static bool cdns_xspi_is_sdma_ready(struct cdns_xspi_dev *cdns_xspi, bool sleep)
- {
- 	u32 ctrl_stat;
- 
--	if (readl_relaxed_poll_timeout
--	    (cdns_xspi->iobase + CDNS_XSPI_INTR_STATUS_REG,
--	     ctrl_stat,
--	     (ctrl_stat & CDNS_XSPI_SDMA_TRIGGER),
--	     sleep ? MRVL_XSPI_POLL_DELAY_US : 0,
--	     sleep ? MRVL_XSPI_POLL_TIMEOUT_US : 0)) {
-+	if (cdns_readl_poll(cdns_xspi->iobase + CDNS_XSPI_INTR_STATUS_REG,
-+			    ctrl_stat, (ctrl_stat & CDNS_XSPI_SDMA_TRIGGER),
-+			    MRVL_XSPI_POLL_DELAY_US, MRVL_XSPI_POLL_TIMEOUT_US,
-+			    sleep)) {
- 		return false;
- 	}
- 
-@@ -557,14 +554,14 @@ static int cdns_xspi_send_stig_command(struct cdns_xspi_dev *cdns_xspi,
- 	int ret;
- 	int dummybytes = op->dummy.nbytes;
- 
--	ret = cdns_xspi_wait_for_controller_idle(cdns_xspi);
-+	ret = cdns_xspi_wait_for_controller_idle(cdns_xspi, !op->panic_write);
- 	if (ret < 0)
- 		return -EIO;
- 
- 	writel(FIELD_PREP(CDNS_XSPI_CTRL_WORK_MODE, CDNS_XSPI_WORK_MODE_STIG),
- 	       cdns_xspi->iobase + CDNS_XSPI_CTRL_CONFIG_REG);
- 
--	if (cdns_xspi->irq >= 0)
-+	if (cdns_xspi->irq >= 0 && !op->panic_write)
- 		cdns_xspi->set_interrupts_handler(cdns_xspi, true);
- 	cdns_xspi->sdma_error = false;
- 
-@@ -595,23 +592,23 @@ static int cdns_xspi_send_stig_command(struct cdns_xspi_dev *cdns_xspi,
- 
- 		cdns_xspi_trigger_command(cdns_xspi, cmd_regs);
- 
--		if (cdns_xspi->irq >= 0) {
-+		if (cdns_xspi->irq >= 0 && !op->panic_write) {
- 			wait_for_completion(&cdns_xspi->sdma_complete);
- 			if (cdns_xspi->sdma_error) {
- 				cdns_xspi->set_interrupts_handler(cdns_xspi, false);
- 				return -EIO;
- 			}
--		} else if (!cdns_xspi_is_sdma_ready(cdns_xspi, true)) {
-+		} else if (!cdns_xspi_is_sdma_ready(cdns_xspi, !op->panic_write)) {
- 			return -EIO;
- 		}
- 
- 		cdns_xspi->sdma_handler(cdns_xspi);
- 	}
- 
--	if (cdns_xspi->irq >= 0) {
-+	if (cdns_xspi->irq >= 0 && !op->panic_write) {
- 		wait_for_completion(&cdns_xspi->cmd_complete);
- 		cdns_xspi->set_interrupts_handler(cdns_xspi, false);
--	} else if (!cdns_xspi_is_stig_ready(cdns_xspi, true)) {
-+	} else if (!cdns_xspi_is_stig_ready(cdns_xspi, !op->panic_write)) {
- 		return -EIO;
- 	}
- 
-@@ -1195,6 +1192,10 @@ static int cdns_xspi_transfer_one_message_b0(struct spi_controller *controller,
- }
- #endif
- 
-+static const struct spi_controller_mem_caps cdns_xspi_mem_caps = {
-+	.panic_write = true,
++#include "kselftest_harness.h"
++#include "j1939_tests.h"
++
++#define SA_TX			0x80
++#define SA_RX			0x90
++#define NAME_TX			0x00000000c0ffee01ULL
++#define NAME_RX			0x00000000c0ffee02ULL
++#define PGN_TEST		0x0ab00
++#define STRESS_N		8	/* arbitrary test tuning */
++#define STRESS_SIZE		128	/* arbitrary test tuning */
++#define ACLAIM_SETTLE_US	300000	/* settle: empirical, not spec */
++
++/* Open a J1939 socket bound to (name, sa, pgn). */
++static int j1939_open_name(int ifindex, name_t name, uint8_t sa, pgn_t pgn)
++{
++	return j1939_open_flags(ifindex, name, sa, pgn, 0);
++}
++
++/*
++ * Inject an Address Claimed message (PGN 0xee00, global destination) for the
++ * given source address and NAME via a raw socket, so the kernel learns the
++ * NAME <-> address mapping. The kernel does not claim addresses itself.
++ */
++static int forge_address_claim(int raw, uint8_t sa, name_t name)
++{
++	uint8_t nb[8];
++
++	put_name(nb, name);
++	if (send_raw8(raw, J1939_PRIO_DEFAULT, J1939_PGN_ADDRESS_CLAIMED,
++		      J1939_NO_ADDR, sa, nb))
++		return -1;
++	/* give the kernel RX path a moment to process the claim */
++	usleep(ACLAIM_SETTLE_US);
++	return 0;
++}
++
++/* One independent transport-protocol round-trip; returns 0 on success. */
++static int stress_child(int ifindex, uint8_t sa_tx, uint8_t sa_rx)
++{
++	uint8_t tx_buf[STRESS_SIZE];
++	int tx, rx, rc = 1;
++
++	fill_pattern(tx_buf, sizeof(tx_buf));
++
++	rx = j1939_open_name(ifindex, J1939_NO_NAME, sa_rx, PGN_TEST);
++	tx = j1939_open_name(ifindex, J1939_NO_NAME, sa_tx, J1939_NO_PGN);
++	if (rx < 0 || tx < 0)
++		goto out;
++	if (j1939_connect_name(tx, ifindex, J1939_NO_NAME, sa_rx, PGN_TEST))
++		goto out;
++
++	if (send_recv_verify(tx, rx, tx_buf, sizeof(tx_buf),
++			     J1939_RECV_TIMEOUT_MS) == 0)
++		rc = 0;
++out:
++	if (rx >= 0)
++		close(rx);
++	if (tx >= 0)
++		close(tx);
++	return rc;
++}
++
++FIXTURE(j1939_addr)
++{
++	int ifindex;
++	int tx;
++	int rx;
++	int raw;
 +};
 +
- static int cdns_xspi_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
-@@ -1315,6 +1316,7 @@ static int cdns_xspi_probe(struct platform_device *pdev)
- 	}
- 
- 	host->num_chipselect = 1 << cdns_xspi->hw_num_banks;
-+	host->mem_caps = &cdns_xspi_mem_caps;
- 
- 	ret = devm_spi_register_controller(dev, host);
- 	if (ret) {
++FIXTURE_SETUP(j1939_addr)
++{
++	self->tx = -1;
++	self->rx = -1;
++	self->raw = -1;
++
++	J1939_SETUP_IFINDEX(self);
++}
++
++FIXTURE_TEARDOWN(j1939_addr)
++{
++	if (self->tx >= 0)
++		close(self->tx);
++	if (self->rx >= 0)
++		close(self->rx);
++	if (self->raw >= 0)
++		close(self->raw);
++}
++
++/* bind with a NAME and read it back with getsockname(2). */
++TEST_F(j1939_addr, name_bind_getsockname)
++{
++	struct sockaddr_can addr = {};
++	socklen_t len = sizeof(addr);
++
++	self->tx = j1939_open_name(self->ifindex, NAME_TX, SA_TX, J1939_NO_PGN);
++	ASSERT_GE(self->tx, 0)
++		TH_LOG("bind with NAME failed: %d", errno);
++
++	ASSERT_EQ(getsockname(self->tx, (struct sockaddr *)&addr, &len), 0);
++	EXPECT_EQ(addr.can_addr.j1939.name, NAME_TX);
++	EXPECT_EQ(addr.can_addr.j1939.addr, SA_TX);
++}
++
++/* the bound source address is used as source address on the wire. */
++TEST_F(j1939_addr, source_sa_on_wire)
++{
++	uint8_t buf[8] = {};
++	struct can_frame frame;
++	int ret;
++
++	self->raw = open_raw(self->ifindex);
++	ASSERT_GE(self->raw, 0);
++
++	/* static source address: no address claim needed to transmit */
++	self->tx = j1939_open_name(self->ifindex, J1939_NO_NAME, SA_TX,
++			      J1939_NO_PGN);
++	ASSERT_GE(self->tx, 0);
++	ASSERT_EQ(j1939_connect_name(self->tx, self->ifindex, J1939_NO_NAME,
++				SA_RX, PGN_TEST), 0);
++
++	ASSERT_EQ(send(self->tx, buf, sizeof(buf), 0), (int)sizeof(buf));
++
++	ret = recv_timeout(self->raw, &frame, sizeof(frame), J1939_RECV_TIMEOUT_MS);
++	ASSERT_GT(ret, 0);
++	EXPECT_EQ((int)J1939_ID_SA(frame.can_id), SA_TX)
++		TH_LOG("source address on wire is 0x%02x, expected 0x%02x",
++		       (unsigned int)J1939_ID_SA(frame.can_id), SA_TX);
++}
++
++/*
++ * NAME based addressing reaches the socket bound to that NAME.
++ *
++ * The peer must have claimed its address before it is reachable by NAME, so
++ * inject an Address Claimed message for (SA_RX, NAME_RX) first. The sender
++ * uses a static source address and resolves the destination by NAME.
++ */
++TEST_F(j1939_addr, name_addressing)
++{
++	uint8_t tx_buf[8] = { 1, 2, 3, 4, 5, 6, 7, 8 };
++	uint8_t rx_buf[8];
++
++	/* static receiver on SA_RX; the forged claim maps NAME_RX -> SA_RX */
++	self->rx = j1939_open_name(self->ifindex, J1939_NO_NAME, SA_RX, PGN_TEST);
++	ASSERT_GE(self->rx, 0);
++
++	self->raw = open_raw(self->ifindex);
++	ASSERT_GE(self->raw, 0);
++	ASSERT_EQ(forge_address_claim(self->raw, SA_RX, NAME_RX), 0)
++		TH_LOG("failed to inject address claim: %d", errno);
++
++	self->tx = j1939_open_name(self->ifindex, J1939_NO_NAME, SA_TX,
++			      J1939_NO_PGN);
++	ASSERT_GE(self->tx, 0);
++	ASSERT_EQ(j1939_connect_name(self->tx, self->ifindex, NAME_RX,
++				J1939_NO_ADDR, PGN_TEST), 0)
++		TH_LOG("connect to peer NAME failed: %d", errno);
++
++	ASSERT_EQ(send(self->tx, tx_buf, sizeof(tx_buf), 0),
++		  (int)sizeof(tx_buf))
++		TH_LOG("send to peer NAME failed: %d", errno);
++	ASSERT_EQ(recv_timeout(self->rx, rx_buf, sizeof(rx_buf),
++			       J1939_RECV_TIMEOUT_MS), (int)sizeof(tx_buf));
++	EXPECT_EQ(memcmp(tx_buf, rx_buf, sizeof(tx_buf)), 0);
++}
++
++/* many concurrent transport-protocol sessions run without corruption. */
++TEST_F(j1939_addr, stress_concurrent_sessions)
++{
++	pid_t pids[STRESS_N];
++	int i, failed = 0;
++
++	for (i = 0; i < STRESS_N; i++) {
++		pids[i] = fork();
++		ASSERT_GE(pids[i], 0);
++		if (pids[i] == 0)
++			_exit(stress_child(self->ifindex, 0x40 + i, 0x20 + i));
++	}
++
++	for (i = 0; i < STRESS_N; i++) {
++		int status;
++
++		if (waitpid(pids[i], &status, 0) < 0 ||
++		    !WIFEXITED(status) || WEXITSTATUS(status) != 0)
++			failed++;
++	}
++
++	EXPECT_EQ(failed, 0)
++		TH_LOG("%d of %d concurrent sessions failed", failed, STRESS_N);
++}
++
++#define SA_CLAIM		0x50
++#define SA_DST			0x60
++#define NAME_CLAIM		0x00000000c0ffee10ULL
++#define NAME_LOWER		0x00000000c0ffee00ULL	/* higher priority */
++#define NAME_HIGHER		0x00000000c0ffee20ULL	/* lower priority */
++
++/*
++ * Claim an address the way j1939acd would: bind a NAME to an address and send
++ * an Address Claimed message, then wait for the claim to settle. Returns the
++ * (still open) socket on success.
++ */
++static int claim_addr(int ifindex, name_t name, uint8_t sa)
++{
++	uint8_t nb[8];
++	int s;
++
++	s = j1939_open_flags(ifindex, name, sa, J1939_NO_PGN, J1939_OPEN_BCAST);
++	if (s < 0)
++		return -1;
++
++	put_name(nb, name);
++	if (j1939_sendto(s, nb, 8, ifindex, J1939_NO_NAME, J1939_NO_ADDR,
++			 J1939_PGN_ADDRESS_CLAIMED) != 8) {
++		close(s);
++		return -1;
++	}
++
++	usleep(ACLAIM_SETTLE_US);	/* settling time */
++	return s;
++}
++
++/* Send a single data frame from a socket to (SA_DST, PGN_TEST). */
++static int send_data(int s, int ifindex)
++{
++	uint8_t data[8] = {};
++
++	return j1939_sendto(s, data, sizeof(data), ifindex, J1939_NO_NAME,
++			    SA_DST, PGN_TEST);
++}
++
++static bool match_addr_claimed(canid_t id, const void *ctx)
++{
++	(void)ctx;
++	return J1939_ID_PF(id) == J1939_PF(J1939_PGN_ADDRESS_CLAIMED) &&
++	       J1939_ID_SA(id) == SA_CLAIM;
++}
++
++/* sending an Address Claimed message puts it on the wire and claims. */
++TEST_F(j1939_addr, address_claim_send)
++{
++	struct can_frame frame;
++
++	self->raw = open_raw(self->ifindex);
++	ASSERT_GE(self->raw, 0);
++
++	self->tx = claim_addr(self->ifindex, NAME_CLAIM, SA_CLAIM);
++	ASSERT_GE(self->tx, 0)
++		TH_LOG("address claim failed: %d", errno);
++
++	/* the Address Claimed frame must have appeared on the wire */
++	EXPECT_EQ(recv_match(self->raw, ACLAIM_SETTLE_US / 1000, &frame,
++			     match_addr_claimed, NULL), 0)
++		TH_LOG("no Address Claimed frame seen on the wire");
++
++	/* with the address claimed, the socket can transmit */
++	EXPECT_EQ(send_data(self->tx, self->ifindex), 8)
++		TH_LOG("transmit from claimed address failed: %d", errno);
++}
++
++/*
++ * Shared address-claim arbitration setup for the win/lose conflict tests.
++ * Claim SA_CLAIM with NAME_CLAIM, confirm we own it, then let a contender with
++ * @contender claim the same SA. On success stores the result of transmitting
++ * after the contention in *tx_ret (errno is left as that send set it) and
++ * returns 0; returns -1 if any setup step failed. Each caller asserts its own
++ * win/lose outcome on *tx_ret.
++ */
++static int ac_conflict_probe(FIXTURE_DATA(j1939_addr) *self, name_t contender,
++			     int *tx_ret)
++{
++	self->raw = open_raw(self->ifindex);
++	if (self->raw < 0)
++		return -1;
++	self->tx = claim_addr(self->ifindex, NAME_CLAIM, SA_CLAIM);
++	if (self->tx < 0)
++		return -1;
++
++	/* baseline: we own the address and can transmit */
++	if (send_data(self->tx, self->ifindex) != 8)
++		return -1;
++
++	/* let the contender claim our SA */
++	if (forge_address_claim(self->raw, SA_CLAIM, contender))
++		return -1;
++
++	*tx_ret = send_data(self->tx, self->ifindex);
++	return 0;
++}
++
++/* a higher-priority competing claim takes the address away from us. */
++TEST_F(j1939_addr, ac_conflict_lose)
++{
++	int tx_ret;
++
++	/* a contender with a lower NAME (higher priority) claims our SA */
++	ASSERT_EQ(ac_conflict_probe(self, NAME_LOWER, &tx_ret), 0);
++
++	/* we must have lost the address */
++	EXPECT_LT(tx_ret, 0)
++		TH_LOG("transmit still succeeded after losing the address");
++	EXPECT_EQ(errno, EADDRNOTAVAIL);
++}
++
++/* a lower-priority competing claim does not take our address. */
++TEST_F(j1939_addr, ac_conflict_defend)
++{
++	int tx_ret;
++
++	/* a contender with a higher NAME (lower priority) must not win */
++	ASSERT_EQ(ac_conflict_probe(self, NAME_HIGHER, &tx_ret), 0);
++
++	EXPECT_EQ(tx_ret, 8)
++		TH_LOG("lost the address to a lower-priority claim");
++}
++
++J1939_TEST_MAIN();
+diff --git a/tools/testing/selftests/net/can/test_j1939_addr.sh b/tools/testing/selftests/net/can/test_j1939_addr.sh
+new file mode 100755
+index 000000000000..e611fe211c6d
+--- /dev/null
++++ b/tools/testing/selftests/net/can/test_j1939_addr.sh
+@@ -0,0 +1,5 @@
++#!/bin/bash
++# SPDX-License-Identifier: GPL-2.0
++
++J1939_TEST_PROG=test_j1939_addr
++source "$(dirname "$0")/j1939_lib.sh"
 -- 
 2.47.3
 
