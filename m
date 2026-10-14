@@ -1,61 +1,98 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 795934F5E0B
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:15:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A86001FDA61;
+	Wed, 14 Oct 2026 11:16:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791976542; cv=none; b=rPllc+PLUOA3bLAR7XsSLsVIfgBezmv4t1xM8LQroLCi2r56O/TfPoWwV0oAvHxTPBLAfJg2v6wntBTKGpT4QRf9T+9b0ZhQdkY7/ArICknkGy01JBA0w5yC2nG/oK/Ycw8tajbjk6Wj1MlTvtAB41B0hdyCKdjjz5UOH9XB22s=
+	t=1791976569; cv=none; b=WHNtif1ZD9owDgIplEzlCRmhWgG69DhyYvI6Md0KJo3rxuIb09hxfezB3GhyI717UTt1kUncDDHWy82IZy3o9NKWq7F2MiL8GrUl0dXayfsyx4GZjxLOJ+81xky4AwILTpEA7YvLIp07h/x+qDHsYxh8J38H/mOFLlUnc7quI0I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791976542; c=relaxed/simple;
-	bh=j6XmnRPFaTc417Vced2hGEhxNBqNTBJnc+n3ZEzyvK0=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=PjFLfEWOm/1cKy1qOmO2qSQWgZcVprNbx8NsWqxW6x4DdFw3SGL8vFFIRDW6R5f+gSAw/EHIf9/erhy0KaR+dF8uPn+Rf3L/L+lls5zDikGL2HuYhpyASiehkFBrt8uZlpDQBYhTA0dD9Pcb8B9GjYuGm6sqUq0Df6o3Mmthomo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4f2040e10d8so4084109b6e.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:15:41 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791976540; x=1792581340;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=j6XmnRPFaTc417Vced2hGEhxNBqNTBJnc+n3ZEzyvK0=;
-        b=krqRJUR3vJy3nGjcGRn6zk10EChpHrQoJmzW3TlKZ2QT3OJx/lmXEUloIsiWTt3Yxq
-         Mzu9Jv1GKIR42JbHVoi9rCdmnaY6vQuePc6yD0j6XpsgAXfQjl3doIymS3zEycSB3BwW
-         HDRkdrHedyXN76FwCieDSGbPwY/TRh/9seNNNI4lMV3gAPpfHpykTVbPCqYMsG5zmf7w
-         ehXpYsCVHyKsrAbnQNvEwIl8IQ/EjtPU6xsngnyZerxY9Qii0R+oUktPbfOYinQTYoO/
-         vQcDJY4YtpwpxFCH4A8cFWyWrsS7JIMMSzhBUEE+7teTbzqrvGsIPkvNtrlSOBwY0aAl
-         df3Q==
-X-Gm-Message-State: AFq9FYLb7+HNoyUVx5HYRYgQEe4xE/t+i1NfwpDM4jIj2LL2gd37065d
-	piju3wnVlqd1ozfUjpLO4njIr+OGtQm4NT7RLnEUaRDHuAdCLypvQBFsRpn5kQQOH3eT/rQ6YQU
-	S/JBZ0RYGvRTIZq8fx1XuuOPaIXtle6/Kahpnb76lkaV0V8R2EioQHZWOY0w=
+	s=arc-20240116; t=1791976569; c=relaxed/simple;
+	bh=ANIAZeCI49ncIAOn1Qx2otz/JAKnr5/P8kBp6eTpMrU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Rw75xOiCoX+DcbQjCWp5duGopNoQbm55BunPFNyijpEnpKIBHNy7ifZpXRETecaws6f5zQzymzivbr4riO2V0+z27iIdCw/Xx7OPT03Twa5oaWHch9YkXceme9C5+IcBCXLcsnqWmbkQ5SalGIt58szzDztmOYjrvCnqtRPyp8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=SytKuFCW; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="SytKuFCW"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C1C801595;
+	Wed, 14 Oct 2026 04:16:04 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DED1B3F673;
+	Wed, 14 Oct 2026 04:16:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791976568; bh=ANIAZeCI49ncIAOn1Qx2otz/JAKnr5/P8kBp6eTpMrU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=SytKuFCWS+BbRIFJTXkQLfw8lOGTZHvB7LP2L+hrcByURwa4n8cmYCnHTAqG9KcT6
+	 kkb20HoZ6AKC7ZODxhIn717hTrduKf7droq6LEwt5N1zJi8e9VJiq+vY7WDBzefPmS
+	 zzDS/ENefiLXAXptt1riIpAx5vKzOvyssCvRQrpg=
+Date: Wed, 14 Oct 2026 12:16:04 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: Breno Leitao <leitao@debian.org>
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>, Ard Biesheuvel <ardb@kernel.org>,
+	linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	"sami.mujawar@arm.com" <Sami.Mujawar@arm.com>
+Subject: Re: [PATCH] firmware: efi: add a separate timeout for UpdateCapsule()
+Message-ID: <as9kdBzoGNEEj0Gi@e129823.arm.com>
+References: <20260903113238.2291844-1-yeoreum.yun@arm.com>
+ <960e985e-b338-4648-a29b-1f8a31e00599@app.fastmail.com>
+ <apl_29t7Jxr2mv9C@e129823.arm.com>
+ <44097058-9fdc-4e9f-a277-d63e3876b035@app.fastmail.com>
+ <23ce2fb0-1002-409f-bb84-f592db9d0b89@app.fastmail.com>
+ <apmFpUvkRBgMdOH2@e129823.arm.com>
+ <aqkGohQYChzkBPZ7@e129823.arm.com>
+ <b6602c6e-4c77-4dcf-8683-95b5c8fc4693@app.fastmail.com>
+ <aqwO0EdIwzBQlnmW@e129823.arm.com>
+ <asjQqEKdF6YiMXxU@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:30a2:b0:4f9:6758:8139 with SMTP id
- 5614622812f47-50c4ed3ce6amr19332487b6e.14.1791976540396; Wed, 14 Oct 2026
- 04:15:40 -0700 (PDT)
-Date: Wed, 14 Oct 2026 04:15:40 -0700
-In-Reply-To: <6acad256.a150a118.27e199.0030.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6acf645c.38256f13.2006af.0115.GAE@google.com>
-Subject: Forwarded: inconsistent lock state in x25_kill_by_neigh (2)
-From: syzbot <syzbot+300375dfd44665f063a6@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <asjQqEKdF6YiMXxU@gmail.com>
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+> On Thu, Sep 17, 2026 at 05:01:20PM +0100, Yeoreum Yun wrote:
+> > > > Could there be any issues with doing it this way, or would there be
+> > > > a better approach?
+> > > >
+> > > 
+> > > Would it make sense to simply have different limits for UpdateCapsule() and
+> > > for everything else? How much longer than 2 minutes do you need in the
+> > > typical case?
+> > 
+> > Although the time required to complete a firmware update depends onthe platform
+> > and other factors, such as whether the capsule contains a single firmware image
+> > or multiple images, it is generally reasonable to expect the update to complete
+> > within 10 minutes.
+> > 
+> > If, for some reason, an update is expected to take longer than 10 minutes,
+> > the sysfs interface for configuring capsule_update_timeout would be useful.
+> > 
+> > This would allow the timeout to be adjusted as needed, for example to
+> > 15 minutes, before capsule update. 
+> 
+> In this case, if you have a worker that takes 10-15 minutes, will not 
+> the workqueue stall kick in ?
 
-***
+Hi Breno,
 
-Subject: inconsistent lock state in x25_kill_by_neigh (2)
-Author: neganhat@gmail.com
+Sorry for the late reply. I was on holiday.
 
-#syz test: upstream 24a19b953e2a
+If the default value of 30 seconds is used, it would trigger the workqueue
+stall warning. However, AFAIK, wq_watchdog_thresh is configurable, and
+platforms where the operation is expected to take longer than 30 seconds
+should configure it accordingly.
+
+What I want to tell is  capsule update timeout should be configurable
+depending on the use case, rather than hardcoded at least.
+
+Thanks.
+
+
+-- 
+Sincerely,
+Yeoreum Yun
