@@ -1,122 +1,121 @@
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F018147DD50
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:04:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A11F2480DED;
+	Wed, 14 Oct 2026 08:05:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791965098; cv=none; b=uT3e/lXw9mEbO04Ic/8ZUEPEheCWRdgT8P9EXY6Xll9s2I2/QZTdtyABlVZNwCeBvDjXLEnLXPOeh2WB0Ibw65CLUOXmriMNbqOXuZUvxYlrZXpbqESwzpiG7KnfjpnZvO9uz6hgXObHvwXUMtYqOTxhqCxYkvN3UlkSSdG4mdA=
+	t=1791965112; cv=none; b=gED6+JDJjuZqrIuc1a/XaAXv6p4ZvKm42YsPHj2TuMRa9rWh+qW/fdI7L/2a7Fqqko5IEVR1FGpkEues49FaRaGgJoCa2TNd4XB9BHjLW9G/ILb35+S7lR5lmuxOcqJATtg054nPFVd863hM8uJ44Kx9ONx3VObb+0Fm1eFVkcg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791965098; c=relaxed/simple;
-	bh=qRhR1LL6foT4QhkBCJiTLRkaPKNeIrNbHQtNKCf7+HE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=XTvqL/KlW0YcM11BqJhKFQteuBgVkX569p/WINK356MnfjhuqvXtIWQAs7+f42z4rMIYdj0rpt/se9Zl7Ht4yu4zXkqCvC2q8p+KGWW+oGox4LXMNdgpkfOAxrklI/TPyKYW8W3N35hqos9ViLsgHaB+uwUQjhgnMkwQZrvjlas=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=sYLTXX4j; arc=none smtp.client-ip=210.118.77.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1791965112; c=relaxed/simple;
+	bh=I37h8tli3u2cUswjNi8bGkFErCKEFwbjTdiH8F64x4Q=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:From:To:
+	 References:In-Reply-To; b=nas06GVrXvwiFmp3m3hw0dOIqV4G065nBfNYmzBT7YHqAboZyZFiqpicnlOK/tAhCMf7YfoVL1uBPGchZ6HRIbnw6+79udzWSjUcIfWainruh7lsz17l0h/6iN4/55mspiXa6OA07f1IPKYSqEIhqB8BZCoYbF8OaVWBEoKLrBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=DsNz3MYU; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="sYLTXX4j"
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261014080453euoutp02f424d59046a22d3f6bdf77f7a65ab582~eVsIf9-I-0445904459euoutp02C
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:04:53 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261014080453euoutp02f424d59046a22d3f6bdf77f7a65ab582~eVsIf9-I-0445904459euoutp02C
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1791965093;
-	bh=bUro6dOpqOZkLgIwXsmgcxwmdXRb9oPBkMDddypWdxI=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=sYLTXX4jX0eYOunJVd7rJnsGiRdr/zInUJvJvtB7yc1gEsBQ1ynQSIKyUFV89jmFf
-	 sVFhthw9dIdWYVU4hd7rNd/SA2RFvqQ25zBRPzrPpt/ieBN1HKnx0RocMHbtnPtOwU
-	 4aRhWNg+R1wYx61CXgLOAGFSToXFE4S9/AjVYvHA=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261014080453eucas1p158cc49f0c63d9419059a2228a44c0a76~eVsIQsCC52533225332eucas1p1G;
-	Wed, 14 Oct 2026 08:04:53 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261014080452eusmtip2b271c365d5fbcb7f579007b96b7e0073~eVsHlyttp2605826058eusmtip2i;
-	Wed, 14 Oct 2026 08:04:52 +0000 (GMT)
-Message-ID: <15f70a45-a754-488c-8ba3-9e63bb956033@samsung.com>
-Date: Wed, 14 Oct 2026 10:04:52 +0200
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="DsNz3MYU"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 97486C63440;
+	Wed, 14 Oct 2026 08:06:04 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id B65A660368;
+	Wed, 14 Oct 2026 08:05:08 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 987BD1032852B;
+	Wed, 14 Oct 2026 10:05:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791965107; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=q9eklIDiJSWQCPdkn0nXsZc5X/aS57OChnWV3Hi6Tjo=;
+	b=DsNz3MYUacZKjDJ0RiSUgChGjReJvGGkEL6wjrhrs7WipFL+eJq1QfIrngnQHKlovAUaD2
+	ZpFdhhwHt3No6J7WbaVQEf5/sEmOHSILYcM6H9Gr74BT9CIjIpADYGudnU1sVSiUZXUKcx
+	wF50RH1FhGKnQ5ZCX7RENJN6JNTD33Y5jv5l425gN9adF1f/4hut0ikA1nd7hGqw94U4Nu
+	CecnWHZigTRKGxHYmUIb8ijE56HspQ6zGw5KyZX/BPIBvkhlMbEmc8mSDYNU/A+TBVuHQE
+	6TeoZHZhc4ob4vORYUJ8JQwpd8Zu2Lb6BGEWGdXoJFNvwm6GcWPfpg6meYz2OA==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH v2 2/2] of: reserved_mem: allocate and map the
- reserved_mem array early
-To: Wandun <chenwandun1@gmail.com>, linux-mm@kvack.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Mike Rapoport <rppt@kernel.org>, Rob Herring <robh@kernel.org>, Saravana
-	Kannan <saravanak@kernel.org>, Oreoluwa Babatunde
-	<oreoluwa.babatunde@oss.qualcomm.com>, Andrew Morton
-	<akpm@linux-foundation.org>
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <42cdc3f4-95f7-4efa-be23-b3fafae84109@gmail.com>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261014080453eucas1p158cc49f0c63d9419059a2228a44c0a76
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261008152450eucas1p1d5517eadc2c1d684ff6d4ddc010f6331
-X-EPHeader: CA
-X-CMS-RootMailID: 20261008152450eucas1p1d5517eadc2c1d684ff6d4ddc010f6331
-References: <20261008152403.766439-1-m.szyprowski@samsung.com>
-	<CGME20261008152450eucas1p1d5517eadc2c1d684ff6d4ddc010f6331@eucas1p1.samsung.com>
-	<20261008152403.766439-3-m.szyprowski@samsung.com>
-	<a8ac6daa-e721-4cba-bef3-3333643db23d@gmail.com>
-	<81d6c6be-d03b-4fa8-be30-1425c4d1ad40@samsung.com>
-	<42cdc3f4-95f7-4efa-be23-b3fafae84109@gmail.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 14 Oct 2026 10:05:03 +0200
+Message-Id: <DM4EM3OM2GQ8.3IWQMARN78YRV@bootlin.com>
+Subject: Re: [PATCH bpf-next] selftests/bpf: Use its own netns in
+ flow_dissector_skb_less_direct_attach
+Cc: <bpf@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+From: =?utf-8?q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>
+To: "Qiliang Yuan" <odys.yuan@gmail.com>, "Alexei Starovoitov"
+ <ast@kernel.org>, "Daniel Borkmann" <daniel@iogearbox.net>, "Andrii
+ Nakryiko" <andrii@kernel.org>, "Eduard Zingerman" <eddyz87@gmail.com>,
+ "Kumar Kartikeya Dwivedi" <memxor@gmail.com>, "Martin KaFai Lau"
+ <martin.lau@linux.dev>, "Song Liu" <song@kernel.org>, "Yonghong Song"
+ <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>, "Emil
+ Tsalapatis" <emil@etsalapatis.com>, "Ihor Solodrai"
+ <ihor.solodrai@linux.dev>, "Shuah Khan" <shuah@kernel.org>, "Stanislav
+ Fomichev" <sdf@fomichev.me>,
+ =?utf-8?b?QWxleGlzIExvdGhvcsOpIChlQlBGIEZvdW5kYXRpb24p?=
+ <alexis.lothore@bootlin.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261008-selftests-bpf-flow-dissector-netns-v1-1-5d9889aaad84@gmail.com>
+In-Reply-To: <20261008-selftests-bpf-flow-dissector-netns-v1-1-5d9889aaad84@gmail.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 10.10.2026 08:40, Wandun wrote:
-> On 10/9/26 19:27, Marek Szyprowski wrote:
->> On 09.10.2026 04:16, Wandun wrote:
->>> On 10/8/26 23:24, Marek Szyprowski wrote:
->>>> Get rid of the static, limited-size reserved_mem array and replace it
->>>> with array allocated by memblock_alloc_raw() and accessed through a
->>>> temporary early_memremap() mapping. Such mapping is needed for some
->>>> architectures (like ARM64), where linear map is not yet available during
->>>> early boot scan. Having a single, writeable array with all reserved
->>>> regions removes the need to perform two step initialization introduced
->>>> by commit 8a6e02d0c00e ("of: reserved_mem: Restructure how the reserved
->>>> memory regions are processed"), so all regions can be processed
->>>> directly during the early scan again.
->>> One concern about the ordering here: the new memblock_alloc_raw() for the
->>> reserved_mem array runs *before* the static ("reg") regions are reserved,
->>> so the array can be allocated from inside one of them which makes the
->>> subsequent static region reservation fail.
->> Well, that's what Sashiko already reported. It will be trivial to process
->> 'static' regions before doing the reserved_mem allocation, but this in turn
->> returns us to the point of not being able to handle their reservation
->> failures. I wonder what's worse...
-> Indeed, every option has its pros and cons.
+On Thu Oct 8, 2026 at 4:02 PM CEST, Qiliang Yuan wrote:
+> test_flow_dissector_skb_less_direct_attach() and
+> test_flow_dissector_skb_less_indirect_attach() each create a netns to run
+> in, and test_progs may run the two at the same time.
 >
-> Could we reconsider the approach from my v2 series [1]:
-> record the nodes whose early reservation failed in an reserve_failed_nodes
-> array, and have the late scan skip them.
+> Both name their netns flow_dissector_skb_less_indirect_attach_ns. When
+> the two tests overlap, one of them fails to create or open the netns, or
+> loses it to the cleanup of the other one.
 >
-> As I understand it, this handles the vast majority of cases. And if
-> the number of failed nodes exceeds the reserve_failed_nodes array size,
-> the system is already misbehaving and the DTS configuration itself
-> needs to be revisited; even in that case, the v2 approach behaves exactly
-> the same as the current code, so nothing gets worse.
-Frankly speaking I would only keep the information if any of the early reservation
-failed or not and just print information that "Early reservation of some memory
-regions failed - system might be unstable, please fix Your device-tree". I see no
-point over-engineering this more for no visible benefit.
+> Name the netns of the direct attach test after that test.
+>
+> Fixes: 2b044dd186f0 ("selftests/bpf: re-split main function into dedicate=
+d tests")
+> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
 
-I will send v3 of this patchset with such assumption.
-> Also, IIUC, setting a memblock flag may split memblock regions, and since
-> memblock cannot resize before paging_init(), that would increase the chance
-> of a panic.
-The memblock flags are already set for each reserved region, so adding one more
-flags probably won't increase significantly the number of memblock entries.
-Adjacent regions with same flags are already being merged by the memblock layer,
-so many adjacent reserved regions might be covered by a single memblock entry.
+Indeed, faulty copy-paste when the original test has been split, thanks
+for the fix.
 
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+Reviewed-by: Alexis Lothor=C3=A9 (eBPF Foundation) <alexis.lothore@bootlin.=
+com>
+
+> ---
+>  tools/testing/selftests/bpf/prog_tests/flow_dissector.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/tools/testing/selftests/bpf/prog_tests/flow_dissector.c b/to=
+ols/testing/selftests/bpf/prog_tests/flow_dissector.c
+> index fb48926814647..f6fefb14cda3c 100644
+> --- a/tools/testing/selftests/bpf/prog_tests/flow_dissector.c
+> +++ b/tools/testing/selftests/bpf/prog_tests/flow_dissector.c
+> @@ -706,7 +706,7 @@ void test_flow_dissector_skb_less_direct_attach(void)
+>  	struct bpf_flow *skel;
+>  	struct netns_obj *ns;
+> =20
+> -	ns =3D netns_new("flow_dissector_skb_less_indirect_attach_ns", true);
+> +	ns =3D netns_new("flow_dissector_skb_less_direct_attach_ns", true);
+>  	if (!ASSERT_OK_PTR(ns, "create and open netns"))
+>  		return;
+> =20
+>
+> ---
+> base-commit: e1d84a37cba984388988d2f1ddc84561413f0db2
+> change-id: 20261008-selftests-bpf-flow-dissector-netns-c347cf31e5f1
+>
+> Best regards,
+
+
+
+
+
+--=20
+Alexis Lothor=C3=A9, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
