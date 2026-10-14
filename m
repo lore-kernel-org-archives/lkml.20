@@ -1,317 +1,438 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011067.outbound.protection.outlook.com [52.101.62.67])
+Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24A421B87C0;
-	Wed, 14 Oct 2026 11:58:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.67
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791979097; cv=fail; b=UsOKROiyp+oMt8ivQfnTWPMm93CxaYyBt3DUWNsYjy12cVtVXoqvA5xM1VZTllw1fMWqnJCxsH5RarYgF6kmNLNOYHAWvtuLW3jzvUO0jvGt7jKHXQ5pl6FPKrQcC6r+Trv9Q2Kr2ryVfS3LRu9i2VEIJYEe6BLvnl6ySNbJl/c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791979097; c=relaxed/simple;
-	bh=/TvARWW6MmhMB/DWEQv1FAW60Qr5Mewya6JGvlPPd1A=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=HrT2edz5UIWhw467G/CEX1yF+Bwqat6ZA5zLlUnnbP3Udm6EQWcsM4jaHCNHPG8Jy0mQKjleasSsxqU5GfizOtC269VEaZmHdoZHZSmhcrNRS9nAHY/rMD0qnxN4rRkGTXHiqJFXiac+A3o0hCVSMgVgCbjXz4DmEHsyNdKmNF4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=cn8dX02/; arc=fail smtp.client-ip=52.101.62.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6D994F68C3;
+	Wed, 14 Oct 2026 11:58:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.117.225.111
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791979103; cv=none; b=AZ/VYgLqhH9rljgLX/iMwqzjTpdxquGxqwSLlkahkv7R57Y2ImyXnQrBd5ZrSXjX/J4ea7mtRNvH2P590Gsm8amsjT+vxQNiLzEWmrrEzILQhn6PP7Mgc0gpnACQXgBlVD9+PyyqRNbSTuM+yKDndIrAKBIoM/sOgpv8YcgnbdA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791979103; c=relaxed/simple;
+	bh=obgUcPag99aYczZt/zoXOTqJKJ2o3uHSBqIAWhgEeVE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=SYYZmUryIx7sA+uSecWUJydMeb//AC2NMvwz2zTKcrILVD7Yzcm7ZIW+hGzLYw4kLGYvOeRi5+14pkpPI6/wkqE/8cKC/Hk+iQxjtg/HDCu+pzhCIYUW2is10RXRZgbow+YavFzbbNUU2piJtruub7tH1kocq7956nMMu8ZhpQM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com; spf=pass smtp.mailfrom=virtuozzo.com; dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b=XDOIZV9V; arc=none smtp.client-ip=130.117.225.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="cn8dX02/"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=u5tbqPh2zRyztSUFr3KhcwU8+hqCI2QDp+amTgijksX0jf8u1H1ZAgKNgfgSgF6kA3+dRwPUNsYb8obe7BJkqubfcVycT9QD1WhPqWev9MU0quTXgk9JpSbkArh3IlOgCTFJEiyVswC9PnOgaDjZ8mr0km9pmbQJCIGiQUFSB/9PybCnT7ChfoBaehqVVV9uJsYNwssJR5kqFHgAZAR5/Va0LvuvF4n28z0f+0YIjSoojaEz6R2RBXt7w5MO62ZxzEu5WNBREaHGkRR3cFxpjJxkrsz3aDkfuE6yZFdC/YqMcB72AioISYqx4lfislQNUEzOT0/S2tSuFwDeMMqgDQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UHdPqSUcqgLSNS3LqmkavxtvXJJDfxz/6ciwVSqehNY=;
- b=b14hisTyIOmnvMve4vkGtcuObO4/PFAYNkdprHmFtbkKmalPe0DWxVJ07u5S2aK30pQj7kQ2ykTjojKIaittLtVOhTwVAWmH3nCmVJXFctMtLsyPdzi0TbgitheIEUn1WkDdNQx3EY2sF364vF5txSgj8hquhKKx6aYAVamygCWl87gWgjeud5PtZl21nl7qG3YZb+Thtkqby9vt4NOwpJ7u83yrbTNnno5lr89sSBB3fQLxhShZNa5ED2sxAdisU+J2G45pX3kGV9MedAGrNoXpDQCuWZzh70G+FbQCEdwi2nsHa84B2BSHk4UVIg/7x2R0eEWsiP3hG4dqCQh1LA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UHdPqSUcqgLSNS3LqmkavxtvXJJDfxz/6ciwVSqehNY=;
- b=cn8dX02/xeVXoeb7MuVUisNkjomfHRs60dfTsfCkuCx3jpl7ITV8hBQ4PyqvY1wzeqEmdNWP7JKUoOADCPujQA52u+7pjtrEk4NsfJMIc8m5dUXX3GLF+BKq5ldB6hVOKyABClYnM4R+/PNSt82ZcBp47qMkvhWat7t3eTHS8pY=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from LV5PR12MB9779.namprd12.prod.outlook.com (2603:10b6:408:301::14)
- by LV1PR12MB999327.namprd12.prod.outlook.com (2603:10b6:408:3f8::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Wed, 14 Oct
- 2026 11:58:05 +0000
-Received: from LV5PR12MB9779.namprd12.prod.outlook.com
- ([fe80::8ac8:e862:8ae9:9287]) by LV5PR12MB9779.namprd12.prod.outlook.com
- ([fe80::8ac8:e862:8ae9:9287%5]) with mapi id 15.21.0522.012; Wed, 14 Oct 2026
- 11:58:05 +0000
-Message-ID: <5c2d1d75-b416-484d-9895-78b863c1c599@amd.com>
-Date: Wed, 14 Oct 2026 13:57:39 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] firmware: scmi: Make SCMI arch independent
-To: Palmer Dabbelt <palmer@dabbelt.com>, sudeep.holla@kernel.org
-Cc: cristian.marussi@arm.com, linux-kernel@vger.kernel.org, monstr@monstr.eu,
- git@amd.com, vincent.guittot@linaro.org, Souvik.Chakravarty@arm.com,
- alexs@kernel.org, andy@kernel.org, brgl@kernel.org, bmasney@redhat.com,
- dlechner@baylibre.com, dzm91@hust.edu.cn, festevam@gmail.com,
- Frank.Li@nxp.com, linux@roeck-us.net, jic23@kernel.org, corbet@lwn.net,
- lenb@kernel.org, lgirdwood@gmail.com, linusw@kernel.org,
- lukasz.luba@arm.com, broonie@kernel.org, mturquette@baylibre.com,
- nuno.sa@analog.com, pavel@kernel.org, peng.fan@nxp.com,
- kernel@pengutronix.de, p.zabel@pengutronix.de, rafael@kernel.org,
- s.hauer@pengutronix.de, skhan@linuxfoundation.org, sboyd@kernel.org,
- ulfh@kernel.org, viresh.kumar@linaro.org, si.yanteng@linux.dev,
- arm-scmi@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-hwmon@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-pm@vger.kernel.org
-References: <mhng-8AE63289-05A8-49D5-B38A-F5AA1D56C2E8@Palmers-Mini.rwc.dabbelt.com>
-Content-Language: en-US
-From: Michal Simek <michal.simek@amd.com>
-Autocrypt: addr=michal.simek@amd.com; keydata=
- xsFNBFFuvDEBEAC9Amu3nk79+J+4xBOuM5XmDmljuukOc6mKB5bBYOa4SrWJZTjeGRf52VMc
- howHe8Y9nSbG92obZMqsdt+d/hmRu3fgwRYiiU97YJjUkCN5paHXyBb+3IdrLNGt8I7C9RMy
- svSoH4WcApYNqvB3rcMtJIna+HUhx8xOk+XCfyKJDnrSuKgx0Svj446qgM5fe7RyFOlGX/wF
- Ae63Hs0RkFo3I/+hLLJP6kwPnOEo3lkvzm3FMMy0D9VxT9e6Y3afe1UTQuhkg8PbABxhowzj
- SEnl0ICoqpBqqROV/w1fOlPrm4WSNlZJunYV4gTEustZf8j9FWncn3QzRhnQOSuzTPFbsbH5
- WVxwDvgHLRTmBuMw1sqvCc7CofjsD1XM9bP3HOBwCxKaTyOxbPJh3D4AdD1u+cF/lj9Fj255
- Es9aATHPvoDQmOzyyRNTQzupN8UtZ+/tB4mhgxWzorpbdItaSXWgdDPDtssJIC+d5+hskys8
- B3jbv86lyM+4jh2URpnL1gqOPwnaf1zm/7sqoN3r64cml94q68jfY4lNTwjA/SnaS1DE9XXa
- XQlkhHgjSLyRjjsMsz+2A4otRLrBbumEUtSMlPfhTi8xUsj9ZfPIUz3fji8vmxZG/Da6jx/c
- a0UQdFFCL4Ay/EMSoGbQouzhC69OQLWNH3rMQbBvrRbiMJbEZwARAQABzSlNaWNoYWwgU2lt
- ZWsgKEFNRCkgPG1pY2hhbC5zaW1la0BhbWQuY29tPsLBlAQTAQgAPgIbAwULCQgHAgYVCgkI
- CwIEFgIDAQIeAQIXgBYhBGc1DJv1zO6bU2Q1ajd8fyH+PR+RBQJn8lwDBQkaRgbLAAoJEDd8
- fyH+PR+RCNAP/iHkKbpP0XXfgfWqf8yyrFHjGPJSknERzxw0glxPztfC3UqeusQ0CPnbI85n
- uQdm5/zRgWr7wi8H2UMqFlfMW8/NH5Da7GOPc26NMTPA2ZG5S2SG2SGZj1Smq8mL4iueePiN
- x1qfWhVm7TfkDHUEmMAYq70sjFcvygyqHUCumpw36CMQSMyrxyEkbYm1NKORlnySAFHy2pOx
- nmXKSaL1yfof3JJLwNwtaBj76GKQILnlYx9QNnt6adCtrZLIhB3HGh4IRJyuiiM0aZi1G8ei
- 2ILx2n2LxUw7X6aAD0sYHtNKUCQMCBGQHzJLDYjEyy0kfYoLXV2P6K+7WYnRP+uV8g77Gl9a
- IuGvxgEUITjMakX3e8RjyZ5jmc5ZAsegfJ669oZJOzQouw/W9Qneb820rhA2CKK8BnmlkHP+
- WB5yDks3gSHE/GlOWqRkVZ05sUjVmq/tZ1JEdOapWQovRQsueDjxXcMjgNo5e8ttCyMo44u1
- pKXRJpR5l7/hBYWeMlcKvLwByep+FOGtKsv0xadMKr1M6wPZXkV83jMKxxRE9HlqWJLLUE1Q
- 0pDvn1EvlpDj9eED73iMBsrHu9cIk8aweTEbQ4bcKRGfGkXrCwle6xRiKSjXCdzWpOglNhjq
- 1g8Ak+G+ZR6r7QarL01BkdE2/WUOLHdGHB1hJxARbP2E3l46zsFNBFFuvDEBEACXqiX5h4IA
- 03fJOwh+82aQWeHVAEDpjDzK5hSSJZDE55KP8br1FZrgrjvQ9Ma7thSu1mbr+ydeIqoO1/iM
- fZA+DDPpvo6kscjep11bNhVa0JpHhwnMfHNTSHDMq9OXL9ZZpku/+OXtapISzIH336p4ZUUB
- 5asad8Ux70g4gmI92eLWBzFFdlyR4g1Vis511Nn481lsDO9LZhKyWelbif7FKKv4p3FRPSbB
- vEgh71V3NDCPlJJoiHiYaS8IN3uasV/S1+cxVbwz2WcUEZCpeHcY2qsQAEqp4GM7PF2G6gtz
- IOBUMk7fjku1mzlx4zP7uj87LGJTOAxQUJ1HHlx3Li+xu2oF9Vv101/fsCmptAAUMo7KiJgP
- Lu8TsP1migoOoSbGUMR0jQpUcKF2L2jaNVS6updvNjbRmFojK2y6A/Bc6WAKhtdv8/e0/Zby
- iVA7/EN5phZ1GugMJxOLHJ1eqw7DQ5CHcSQ5bOx0Yjmhg4PT6pbW3mB1w+ClAnxhAbyMsfBn
- XxvvcjWIPnBVlB2Z0YH/gizMDdM0Sa/HIz+q7JR7XkGL4MYeAM15m6O7hkCJcoFV7LMzkNKk
- OiCZ3E0JYDsMXvmh3S4EVWAG+buA+9beElCmXDcXPI4PinMPqpwmLNcEhPVMQfvAYRqQp2fg
- 1vTEyK58Ms+0a9L1k5MvvbFg9QARAQABwsF8BBgBCAAmAhsMFiEEZzUMm/XM7ptTZDVqN3x/
- If49H5EFAmfyXCkFCRpGBvgACgkQN3x/If49H5GY5xAAoKWHRO/OlI7eMA8VaUgFInmphBAj
- fAgQbW6Zxl9ULaCcNSoJc2D0zYWXftDOJeXyVk5Gb8cMbLA1tIMSM/BgSAnT7As2KfcZDTXQ
- DJSZYWgYKc/YywLgUlpv4slFv5tjmoUvHK9w2DuFLW254pnUuhrdyTEaknEM+qOmPscWOs0R
- dR6mMTN0vBjnLUeYdy0xbaoefjT+tWBybXkVwLDd3d/+mOa9ZiAB7ynuVWu2ow/uGJx0hnRI
- LGfLsiPu47YQrQXu79r7RtVeAYwRh3ul7wx5LABWI6n31oEHxDH+1czVjKsiozRstEaUxuDZ
- jWRHq+AEIq79BTTopj2dnW+sZAsnVpQmc+nod6xR907pzt/HZL0WoWwRVkbg7hqtzKOBoju3
- hftqVr0nx77oBZD6mSJsxM/QuJoaXaTX/a/QiB4Nwrja2jlM0lMUA/bGeM1tQwS7rJLaT3cT
- RBGSlJgyWtR8IQvX3rqHd6QrFi1poQ1/wpLummWO0adWes2U6I3GtD9vxO/cazWrWBDoQ8Da
- otYa9+7v0j0WOBTJaj16LFxdSRq/jZ1y/EIHs3Ysd85mUWXOB8xZ6h+WEMzqAvOt02oWJVbr
- ZLqxG/3ScDXZEUJ6EDJVoLAK50zMk87ece2+4GWGOKfFsiDfh7fnEMXQcykxuowBYUD0tMd2
- mpwx1d8=
-In-Reply-To: <mhng-8AE63289-05A8-49D5-B38A-F5AA1D56C2E8@Palmers-Mini.rwc.dabbelt.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: VIUP296CA0044.AUTP296.PROD.OUTLOOK.COM
- (2603:10a6:800:34b::15) To LV5PR12MB9779.namprd12.prod.outlook.com
- (2603:10b6:408:301::14)
+	dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b="XDOIZV9V"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=virtuozzo.com; s=relay; h=Message-Id:Content-Type:MIME-Version:Subject:Date
+	:From; bh=AQuWHFrsafps3vZ2+dWNxf6KEa+2dvzoz5lME1tRtAw=; b=XDOIZV9V/MlfHVaqTkk
+	hz4m0yRabibao6aEX3VFluzfLMIx39vR6hEU4ncsxMQrbMryUpW6RtyJWmLRTTUiogbUe3i095/G8
+	rko6UrngWRL67w47YwoJYxbvSDqS59KDaKe9RZOOYoPS6r/3DQXWDN3ygEewrDXwZj5Apd10khNR7
+	eojVeVViXq+dAqGt5ls3/hNqoL2pJmipnqovwu9l8Ozm/3wdyD65wFmZCDVen22H0TUlNvY421xMo
+	4fTbJIX1sx91oSjB2GMC+b8vh2fj+9NNPy+uhRAO2VISoXuZ4U3PkamljcbM2AOECv5qCKnk0MVUQ
+	5kE/uMIebxmMNqw==;
+Received: from ch-demo-asa.virtuozzo.com ([130.117.225.8] helo=f0.sw.ru)
+	by relay.virtuozzo.com with esmtp (Exim 4.96)
+	(envelope-from <khorenko@virtuozzo.com>)
+	id 1xGxYx-0020d1-1Z;
+	Wed, 14 Oct 2026 13:57:59 +0200
+From: Konstantin Khorenko <khorenko@virtuozzo.com>
+Date: Wed, 14 Oct 2026 13:57:53 +0200
+Subject: [PATCH] mm/huge_memory: recheck a special PMD under the lock in
+ copy_huge_pmd()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV5PR12MB9779:EE_|LV1PR12MB999327:EE_
-X-MS-Office365-Filtering-Correlation-Id: 62b01f14-a808-4bcb-7e97-08df29ea678a
-X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|23010399003|376014|366016|1800799024|56012099006|261009223027099003|11063799006|10067099003|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	YHAqEhdXNFmeospNOUrGoz4ieKFmQ2q8AuPHUMertfAKYbs2OddBlq8ouu9iUucPkEKeHU458zQUNEf/eUTNTtOMoKkQdoDFDsbuh32JrkLKN4GZ3wzXXiIpjZSUWa46kmRDlJZGtZfEBpmBEd3ZUcZWpIo/UXGXkbF5PfmDL2iLije/7cL39vRLPT4IZ+HImHI8RtuSDuVZHbf3GkOxGyGL+j/IfwHJsauSQSseHE/VA4V1oJ28Wkx95XT06PbO231e8aQR3PlxO8w7t16nmn/Cn3SJXdOpWJV1JApr0vp6ii5nPrh6zkHJx/bnTUlmtK2yoKWXc8vYl3XyyzOBYXtD9EQmRdpXnXtC60/vqdNlQuuM41c44WMR713pbyWsFGpSCEO8JzkdQC5UrMA4U/RdFZg8pbx3WrjOde0MU2gEBifOlElR2+kwlzx2Gw2YcEytrNU0IkADvnKwRYdh2HOddSQi7ZBQAx3QwNc4ewcx9t83adh7ZwlhylQWt2rv7gQGSS+Ce0d5S/Bd1qvduc4uX0DKa3L95iQEG9SVmmvKJpjT+O1DbA4qxn+aG22/fUQ49ZsCZh3gbGPM8U+SsgMP3EKNJOwuqOZejq4xXB74cb1FcStyz+EFTeP/ykBp4ShxsC5OXAaRY7mLNOxGQZKppjDfSnBnnZTukbkWTwg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV5PR12MB9779.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(376014)(366016)(1800799024)(56012099006)(261009223027099003)(11063799006)(10067099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RjFXNWp4SDBWMU5Fd3FISk1hV2ZJbGVWaDBXVGQ4b2RNcU5oWDFIbFpIcVk2?=
- =?utf-8?B?ZE81blZlUmpRd1BJNXhPTExIY1NXNXI4WXhLbHZ6OFhYSVJFZTlnUjkrbzJB?=
- =?utf-8?B?UUlOWlBYcnMweWRrditQYzVYSWJxcG1oaElSNUt6SEhFaU9Rd3BvMWpWbFl1?=
- =?utf-8?B?K3NqakZ4cWFxYjQvc2U4MlpBcHB3QXFDZzZFdk40dlZROVJ1cGZBdGFqZmRa?=
- =?utf-8?B?THFqbFJ2NlRoU3pmKzFVQk56YnRQMElkc1h3eVVKdkl0WTNnSzVzVVkwMmZ3?=
- =?utf-8?B?SCsrVG40N1JKQkhLV21rdDNDU0hIL3RLZEVlRTdmMjJRZzdNN1Jla25OZ29U?=
- =?utf-8?B?WEZlNC85Z3lWcVI4TkUvUUdiWGFHRDIyNmJZWitsZUY0dmt2djc4NjhXVWJV?=
- =?utf-8?B?RzhLY1lhSDhCNkJSRXp0eTZQc3NXVVUwUFZBTUxzbVIxZlBWQURFU2VsWDl3?=
- =?utf-8?B?L1ZEbVVCSklXeGYyamhpUmszR2MwSFQ5SjBDcndCVEl3bW15eXA0TGQzV2VK?=
- =?utf-8?B?SkFzeDNEMnh5czZtWHpNRzBDdnFuZURwSDlUNUFTZWdwNkZ5NllYWVI1dEhj?=
- =?utf-8?B?azU4MWhwM1UvS0JaV1FMUEZGVTZCbjRBbmQ4TTRhT0IwODBNNjJjVE4vdGVy?=
- =?utf-8?B?NXlvb2kzL3k0Mmg1YlI0VWdkTk1pWHpZR1FVTWlib3JGNm44cFI2czY1VVl2?=
- =?utf-8?B?VjZxR2U5WGdpZ21OelJUNlFSQlR3LzZNUTR4S0QzRU5td0wxWVZiTmlaT3dX?=
- =?utf-8?B?U0Z6dGtRb0o0TGxQNVpoT3lkWXdOTWtMYlBkZ3JjNmZKL09sd2ZkWEZVb2FO?=
- =?utf-8?B?UDVpbFVUTnM2T2JodkxQc3AyQ3J5bGIzMkFScWRGcTB4aUJpdU5kYStvVy9s?=
- =?utf-8?B?WjJFSVN3ME5wL0IrR0lRMkRCVVpxQ0ZOOW10UjNKTlZldEg2dGs2eUcvMUs0?=
- =?utf-8?B?dFF3c0kzUS96bWhWazBTL0JZNDlPeEFabVlOckVBb1doNFJvbW5jNU9Bd0VF?=
- =?utf-8?B?SjBkaFZVenArdEJDUGFpeThpd29lNXlDQWkvS2cwZ1F2VG5FUE9MT3d5OExB?=
- =?utf-8?B?cmVpMlZMZTg0UEZVSEo4TllTT2VGTGtHcEt2YmV5MDBpVHhrVFgwS0t6Qk0w?=
- =?utf-8?B?NGFTMllkQ0ZBTjZ1RmpiZHRidHVKNUJpbktnUTN2dVhVdXlxRFpnMjhvUHk1?=
- =?utf-8?B?M0FrMi9XTnRwNDU2UGVtRmdSRjhpOHVwbkJsQjdUbTlKazBvYjVSZEFNSHlY?=
- =?utf-8?B?cTk3L2xxSEdDTU90ZVRqL0hvNjVsVnF3M0Ryckh6NitIbzZrTzNwNUlUTlU3?=
- =?utf-8?B?bkl2dlJlVkZUMzcxK3VFamZ2c0svS0pIZGNtWXVGQmRrRnVjM1hQUnp1YVRX?=
- =?utf-8?B?Z2s5dWtRT2t3Mmx5YjdYY1NmTTBlZlZyN0p0TmtaOUpjcmNLWGh6bzUvVEpw?=
- =?utf-8?B?K1ZXOGZWTUIyUEJIclJndEgxL25UaktMRU1BSmplbTNLa1NkUkdqZWkyZ3c3?=
- =?utf-8?B?Ni9VS3BRZ01DM1NtcVNVT1Vsd2RQK2p4UWxlQURYYjF0RHFWNW1XdnFWT2tV?=
- =?utf-8?B?b0dUY3VPSzhhTUNVSldDem9PTCtUY1pWODFndWgrbk9UYUVwWVozY0lsa2RF?=
- =?utf-8?B?bjdjbmt6aWRQZGJMWFZwSUdja2ExMkNyNURpRS9sOTBJcXBqT2VnRUNOU0Fz?=
- =?utf-8?B?Y0NJbHNWMXlVRmc5ZE5vQyszWk1BYVdyb1AxdE5FZnR5MDFXQitXOTFTcWxV?=
- =?utf-8?B?R1h1a1J2d3lqdDk1UDIrb2ppejV1bVVoa2RFY3I2RmZVRTRqOTBYbDVYYTRr?=
- =?utf-8?B?di8ySHVyU3RadTFHVW5rbWF2ZXlhY3dRZWg2bTR0LzVzUHFyV0tGU0t0Y3Zr?=
- =?utf-8?B?ZTlVUTFQU3NEOVhTTzdVTElSZENxdVQ3M3U0aDhIQVBBR1ovNVM1SlZrVzZT?=
- =?utf-8?B?S3JadGdtNXh3TEV6ellkajd6R1Q5L2hzdmRnL3UrWjA3aWF1VS91MnQvOVk4?=
- =?utf-8?B?TnhmR2lSVmRqK21rVTMxTkN5Z0NTdTdPakVHOUptR2FJcUNhdmFDTDdpZHVs?=
- =?utf-8?B?UFVvb2p4c21YaDZZYmh1bjFScnJaTTdMZk9kMmpQV3poUFlXUTIyZG12c2la?=
- =?utf-8?B?VStZOW9UbGxUQ1F0NjZneUMrd0VUR0JGdmtTaWIwM1gwajdJY2QrV1ovWjh5?=
- =?utf-8?B?QkZhZmNhL0ViSXc4ZmpieHRaQzZPZzFuaFp0VUZDanpuenBNbWxLTjk1alYr?=
- =?utf-8?B?bzJFa0pNNUFUWlpzOVFFVG16dEVtWCtFaldGd2trd2lOa3g2Mm50U3g3Tzd6?=
- =?utf-8?Q?SiSAsoKfwOj35xLzI5?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 62b01f14-a808-4bcb-7e97-08df29ea678a
-X-MS-Exchange-CrossTenant-AuthSource: LV5PR12MB9779.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 11:58:04.9464
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3UXrRhcy/rcFhMldGyRKQRu7YLK8NjXQC2cO6uwUKjT/JdZhG6MuJKanzsYZJLDj
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV1PR12MB999327
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v1-1-d225c60bc316@virtuozzo.com>
+X-B4-Tracking: v=1; b=H4sIAEBuz2oC/yWNyw6DIBAAf8XsuZsIIdr2V5rGyLIIfQgBNTbGf
+ y+2x5nDzAaZk+cM12qDxIvPPowFxKkCcv04MHpTGGQtG1ELhVphTBxxyVNIKNTlrFqkED+dmwf
+ u4ttgYnJMT8yRyfcvPJw2tmWrGyFJQomXhvXrb3y7/znP+sE0HTfY9y9d7WK0mgAAAA==
+X-Change-ID: 20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-bdf7efb612c2
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Peter Xu <peterx@redhat.com>
+Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org, 
+ =?utf-8?q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>, 
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>, 
+ stable@vger.kernel.org, Konstantin Khorenko <khorenko@virtuozzo.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=13569;
+ i=khorenko@virtuozzo.com; h=from:subject:message-id;
+ bh=obgUcPag99aYczZt/zoXOTqJKJ2o3uHSBqIAWhgEeVE=;
+ b=owEBbQKS/ZANAwAKAVGWCkf5YVwqAcsmYgBqz25HMkTtVwo963YjiCmGweeAyiFLhT9BXO1vK
+ kF6dH8j7uWJAjMEAAEKAB0WIQRWD23IPcXT0GO9CCxRlgpH+WFcKgUCas9uRwAKCRBRlgpH+WFc
+ Ki+oD/0ZDO42djVfzoSzty+pW8gaxR8jNvr8zvrzkPa56QcC7ZWr4/TZec0wmo8vUUYk2Hggiz8
+ QFQYR6hgsE7o7Y4SpU6D/XPdbZFciPFu4m+/4cR+/AZVSWkj1YKomTAu+FZO3lTWE4vS85NGdBg
+ A3jLq9dAVH3j2RyBR+nj4PGAHXaA8lxC+2+IZOU8JTAYPSvOJhfFvMEJOAp2J7eaZQH4DafwvQz
+ R/xnoqPIH7MNsMS4WYa2rqpymuwU5A/xuyZ/d7s+4bEanbkwiknrITsFLoSM1NxwzsiWIKnr4gq
+ XKtlMhf23fdMMN4i9NFGnr4alFXlDbpSeQHMJQWUtppTGguy4HqdPC5s4hSOVMR5sW6EuDFzwtR
+ fXslgU54jX/AxGtf6URySr/PQTxrbp2UzAfy56K6o2+0oOzWu8Ww7/FafM08sEMr+zYmsUSLXU6
+ Brw/x+knkhb3VCqllR3kesX2xAUgJv4RJXD446TnpIithrU3SkHv7dGdEo9BH7TthPzo0bPeOg2
+ 912R+CJqiQW3poOf4pF5+Yi/hsPJ8LJmQNjpdX0Dz5flkKIAEbF5uZgOwSfkoscA/mWm5vYXe9t
+ dxMdny95i52JULF7i+VaajMkDbmdHRSgUsijIcBq6ouerSiceZuTO8oy6wEYF8LvjDHYCYA+KhS
+ dqYa/gjAaZwyIkA==
+X-Developer-Key: i=khorenko@virtuozzo.com; a=openpgp;
+ fpr=560F6DC83DC5D3D063BD082C51960A47F9615C2A
 
+copy_huge_pmd() reads the source PMD without the page table lock and,
+for a special PMD, installs that value in the child without reading it
+again under the lock. The comment says the PMD cannot change while the
+mmap lock is held for write, but unmap_mapping_range() does not take
+the mmap lock: it zaps under i_mmap_rwsem and the PMD lock.
 
+dup_mmap() links the child VMA into the file's i_mmap tree right after
+the parent's VMA before copying the page tables, so a zap visits the
+parent first and the child second. When the zap clears the parent PMD
+after fork has read it, and passes the child before fork installs the
+copy, the child keeps a mapping the zap was meant to remove.
 
-On 10/14/26 13:52, Palmer Dabbelt wrote:
-> On Fri, 10 Jul 2026 01:59:04 PDT (-0700), sudeep.holla@kernel.org wrote:
->> On Fri, Jul 10, 2026 at 10:46:15AM +0200, Michal Simek wrote:
->>>
->>>
->>> On 7/10/26 10:38, Sudeep Holla wrote:
->>>> On Fri, Jul 10, 2026 at 09:42:09AM +0200, Michal Simek wrote:
->>>>>
->>>>>
->>>>> On 7/10/26 09:35, Sudeep Holla wrote:
->>>>>> On Fri, Jul 10, 2026 at 09:03:32AM +0200, Michal Simek wrote:
->>>>>>>
->>>>>>>
->>>>>>> On 7/9/26 17:56, Cristian Marussi wrote:
->>>>>>>> On Thu, Jul 09, 2026 at 03:27:00PM +0200, Michal Simek wrote:
->>>>>>>>> On heterogenious systems like AMD/Xilinx FPGA there is a need to talk to
->>>>>>>>> SCMI server from different architectures than ARM that's why remove
->>>>>>>>> ARM/ARM64 Kconfig dependency with also remove ARM from description and
->>>>>>>>> rename folder to reflect it.
->>>>>>>>
->>>>>>>> While I understand dropping the dependency on ARM (I always wanted to do
->>>>>>>> that and test if it worked at all on some otehr archs with QEMU), I am
->>>>>>>> not sure about the whole renaming party ? why is needed just for
->>>>>>>> cosmetic reasons ? it is at the end an arm originated protocol so I dont
->>>>>>>> see it as a being wrong to be named as such even though used by other
->>>>>>>> archs...I have not really strong opinion on this...
->>>>>>>
->>>>>>> I have been in CC on U-Boot RPMI patches which got to my attention because
->>>>>>> I don't want to have another interface for MB-V(riscv-) running in
->>>>>>> programmable logic and have another server in the system doing the same
->>>>>>> thing.
->>>>>>>
->>>>>>
->>>>>> Ah that's interesting. I wasn't aware of that. I still agree with the move
->>>>>> in principle, but how does that align with these:
->>>>>>
->>>>>> drivers/clk/clk-rpmi.c
->>>>>> drivers/irqchip/irq-riscv-rpmi-sysmsi.c
->>>>>> include/linux/mailbox/riscv-rpmi-message.h
->>>>>> drivers/mailbox/riscv-sbi-mpxy-mbox.c(Should be fine as it is just transport)
->>>>>
->>>>> I am having separate discussion on u-boot mailing list about RPMI and it's
->>>>> usage on non riscv architectures because one raised argument was that it is
->>>>> community driver spec compare to SCMI which is owned by ARM. But IMHO only
->>>>> for riscv.
->>>>>
->>>>
->>>> IIRC in LPC 2024, we did discuss opening up SCMI so that RISCV could use it as
->>>> is instead of copying quite a lot from SCMI for RPMI in some closed groups.
->>>>
->>>> Here is the summary we got from couple of RISC-V vendors at the time:
->>>> "
->>>> RPMI is comparable to Arm SCMI, but it includes RISC-V-specific services such
->>>> as HART State Management, CPPC, Management Mode, and RAS Agent. The SBI MPXY
->>>> extension enables secure and non-secure system partitions to exchange RPMI
->>>> messages, allows an M-mode RPMI transport to be shared with S-mode, and lets
->>>> hypervisors virtualize RPMI for guests or VMs.
->>>>
->>>> RPMI development is already well advanced, with much of the client-driver work
->>>> implemented in OpenSBI. Supervisor software can access selected RPMI services
->>>> through SBI MPXY. A permissively licensed reference implementation, librpmi,
->>>> is also available for platform vendors.
->>>>
->>>> RPMI was created after evaluating Arm SCMI, mainly to support RISC-V-specific
->>>> requirements.
->>>> "
->>>>
->>>> I didn't pursue it any further following some of these followup discussions
->>>> post LPC 2024.
->>>
->>> interesting. It looks like that they even didn't try to ARM about it.
->>>
->>>>
->>>>>>
->>>>>> Now I feel we need some alignment before making $subject move.
->>>>>>
->>>>>>> Based on that we had discussed about it with Vincent and Souvik (we missed
->>>>>>> you there) about using SCMI on non ARM platform and both of them didn't see
->>>>>>> the concern to be marked as ARM only protocol.
->>>>>>> Truth is that some of protocols have ARM in description, file names, etc but
->>>>>>> some of them not. That's why I think it is good time to sync it up and
->>>>>>> enable
->>>>>>> running this protocol on other SOCs.
->>>>>>>
->>>>>>>> ... my concern really is ... wont this full scale rename simply generate
->>>>>>>> a lot of un-needed churn for future fixes and/or backporting ?
->>>>>>> I don't think it is going to be a big problem because it is just git mv
->>>>>>> which git is able to gracefully handle.
->>>>>>>
->>>>>>
->>>>>> Otherwise it may end up being unnecessary churn though I completely agree
->>>>>> with the git/backporting aspects. Just don't want to churn things up until
->>>>>> we have some plan and further changes/users of this move.
->>>>>
->>>>> As I wrote above AMD/Xilinx platform with SCMI server where ARM RPU/APUs
->>>>> (with multiple VMs) and Microblaze-V in programmable logic acting as
->>>>> separate agents is going to be the first user. And for being able to run
->>>>> SCMI on Linux running on Microblaze-V I need enable SCMI on non ARM
->>>>> architecture.
->>>>>
->>>>
->>>> Ah OK, if the plan is to just use SCMI as is and having "ARM/arm" name is
->>>> a blocker, then sure we can get that done. Hope you are aware of and already
->>>> considered some of the RISC-V specifics listed above and ruled out any of
->>>> those as concerns to use SCMI on RISC-V platforms.
->>>
->>> I know that we can't maintain SCMI and RPMI servers running on the same chip
->>> doing the same things. We don't have space for it and make no sense to
->>> duplicate testing on it too.
->>>
->>
->> That is very valid and compelling reason to re-use and agree with your
->> assessment. If you can make it work, go for it 😉.
-> 
-> Ya, it'd be great if we could stop duplicating specs in RISC-V land,
-> it's just a big time sink.  So
-> 
-> Acked-by: Palmer Dabbelt <palmer@dabbelt.com>
-> 
-> if that helps any.
+Drivers that map special PMDs with vmf_insert_pfn_pmd() rely on that
+zap. vfio-pci zaps its BARs when the device memory is disabled or the
+device is reset, so that userspace gets SIGBUS instead of reaching
+disabled MMIO; a stale child mapping still reaches it. drm_gem_shmem
+zaps the mappings of a purged object and then truncates its shmem
+pages; a stale child mapping points to the freed pages.
 
-After rc1 I will send new patch series with more patches to clean this.
-Will keep you in CC.
+Read the PMD again under the lock. The zap clears the parent PMD under
+the same lock, so either the recheck finds it empty, or the copy is in
+place before the zap reaches the child, which then removes it. If the
+PMD is no longer a present special entry, return -EAGAIN: the source
+mmap and VMA write locks keep faults out, so only a zap can have
+cleared it, and copy_pmd_range() then skips the empty PMD. Otherwise
+copy the value read under the lock. pmd_same() would be the wrong
+test: threads of the parent can still set the accessed and dirty bits,
+and -EAGAIN on a present huge PMD makes copy_pmd_range() clear it as a
+bad PMD.
 
-Thanks,
-Michal
+Fixes: bc02afbd4d73 ("mm/fork: accept huge pfnmap entries")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
+---
+The window is short: the zap has to clear the parent's PMD and pass
+the child's VMA between fork's lockless read and its taking the page
+table locks. I have not hit it without help, but a delay in that
+window makes it reproducible with vfio-pci, and the patch closes it.
+
+Setup: v7.3-rc7, KVM guest with 4 vCPUs and no IOMMU, the guest's QXL
+device bound to vfio-pci in no-IOMMU mode, BAR0 of 64 MB mapped with
+PMDs. The reproducer below forks while a second thread clears
+PCI_COMMAND_MEMORY through the vfio config region after a random
+delay; the child waits for the write to finish and reads one byte of
+each 2 MB of the BAR. A child that reads anything without SIGBUS kept
+a stale mapping.
+
+  kernel                  delay in window  forks   stale children
+  7.3-rc7                 none             20900   0
+  7.3-rc7                 2 ms             150     128
+  7.3-rc7 + this patch    none             10600   0
+  7.3-rc7 + this patch    2 ms             400     0
+
+The delay is an mdelay(2) right after pmdp_get_lockless() in the
+special-PMD branch of copy_huge_pmd(), switched on by a test-only
+debugfs knob. The rows without it ran on the same test kernels with
+the knob at 0, except 5000 patched forks that ran on this patch alone.
+The revoke started after a random delay of up to 0.2, 1 or 3 ms
+(max_delay_us 200, 1000, 3000). A counter in the test-only hunk
+confirmed that the forks copied the BAR as PMDs, and in the last 200
+patched forks with the delay the recheck returned -EAGAIN 183 times.
+
+panthor and mshv_vtl map special PMDs with vmf_insert_pfn_pmd() as
+well.
+
+copy_huge_pud() reads the source entry under the lock already, and
+the PTE level does too, so only the PMD path needs the recheck.
+
+Reproducer. It writes the BAR as a control and reads it with the
+memory disabled, which is harmless for QXL VRAM in a guest; do not
+point it at a BAR that holds device registers. Build with
+"gcc -O2 -pthread -o fork_revoke fork_revoke.c", run as root with the
+device bound to vfio-pci; arguments: BDF, iterations, BAR index, max
+revoke delay in microseconds, e.g. "./fork_revoke 0000:00:02.0 100 0
+3000".
+
+    // SPDX-License-Identifier: GPL-2.0
+    /*
+     * Fork while vfio-pci revokes a BAR mapped with huge PMDs.
+     *
+     * The parent maps a BAR of a vfio-pci device and faults it in. A second
+     * thread disables the device memory through the command register, which
+     * makes vfio-pci zap all BAR mappings, while the main thread forks. Once
+     * the memory is disabled, every access to the BAR must raise SIGBUS. A
+     * child that can still read a BAR chunk kept a mapping the zap removed.
+     *
+     * usage: fork_revoke <domain:bus:dev.fn> [iterations [bar [max_delay_us]]]
+     *
+     * The revoke starts after a random delay of up to max_delay_us, so that it
+     * lands at different points of fork.
+     */
+    #define _GNU_SOURCE
+    #include <errno.h>
+    #include <fcntl.h>
+    #include <limits.h>
+    #include <pthread.h>
+    #include <sched.h>
+    #include <setjmp.h>
+    #include <signal.h>
+    #include <stdint.h>
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <string.h>
+    #include <unistd.h>
+    #include <sys/ioctl.h>
+    #include <sys/mman.h>
+    #include <sys/wait.h>
+    #include <linux/pci_regs.h>
+    #include <linux/vfio.h>
+
+    #define SZ_2M	(2UL << 20)
+
+    static int dev;
+    static off_t cfg_off;
+    static int go_pipe[2], done_pipe[2];
+    static volatile uint32_t *shared;	/* [0]: iteration whose revoke finished */
+    static unsigned long iter;
+    static unsigned int max_delay_us;
+    static sigjmp_buf jb;
+
+    static void die(const char *what)
+    {
+    	fprintf(stderr, "%s: %s\n", what, strerror(errno));
+    	exit(2);
+    }
+
+    static int device_fd(const char *bdf)
+    {
+    	char path[PATH_MAX], link[PATH_MAX], *group_id;
+    	int container, group, noiommu;
+    	ssize_t len;
+
+    	snprintf(path, sizeof(path), "/sys/bus/pci/devices/%s/iommu_group", bdf);
+    	len = readlink(path, link, sizeof(link) - 1);
+    	if (len < 0)
+    		die("iommu_group");
+    	link[len] = 0;
+    	group_id = strrchr(link, '/') + 1;
+    	snprintf(path, sizeof(path), "/dev/vfio/%s", group_id);
+    	noiommu = access(path, F_OK);
+    	if (noiommu)
+    		snprintf(path, sizeof(path), "/dev/vfio/noiommu-%s", group_id);
+    	container = open("/dev/vfio/vfio", O_RDWR);
+    	group = open(path, O_RDWR);
+    	if (container < 0 || group < 0)
+    		die(path);
+    	if (ioctl(group, VFIO_GROUP_SET_CONTAINER, &container) ||
+    	    ioctl(container, VFIO_SET_IOMMU,
+    		  noiommu ? VFIO_NOIOMMU_IOMMU : VFIO_TYPE1v2_IOMMU))
+    		die("vfio container");
+    	return ioctl(group, VFIO_GROUP_GET_DEVICE_FD, bdf);
+    }
+
+    static void set_memory(int on)
+    {
+    	uint16_t cmd;
+
+    	if (pread(dev, &cmd, 2, cfg_off + PCI_COMMAND) != 2)
+    		die("read PCI_COMMAND");
+    	cmd = on ? cmd | PCI_COMMAND_MEMORY : cmd & ~PCI_COMMAND_MEMORY;
+    	if (pwrite(dev, &cmd, 2, cfg_off + PCI_COMMAND) != 2)
+    		die("write PCI_COMMAND");
+    }
+
+    static void *revoker(void *arg)
+    {
+    	unsigned long i;
+
+    	while (read(go_pipe[0], &i, sizeof(i)) == sizeof(i)) {
+    		if (max_delay_us)
+    			usleep(random() % max_delay_us);
+    		set_memory(0);
+    		shared[0] = i;
+    		if (write(done_pipe[1], &i, sizeof(i)) != sizeof(i))
+    			die("done pipe");
+    	}
+    	return NULL;
+    }
+
+    static void sigbus(int sig)
+    {
+    	siglongjmp(jb, 1);
+    }
+
+    /* Number of 2MB chunks of the BAR that can be read without SIGBUS. */
+    static unsigned long readable(volatile uint8_t *bar, size_t size)
+    {
+    	volatile unsigned long n = 0;
+    	volatile size_t off;
+
+    	for (off = 0; off < size; off += SZ_2M) {
+    		if (sigsetjmp(jb, 1))
+    			continue;
+    		(void)bar[off];
+    		n++;
+    	}
+    	return n;
+    }
+
+    int main(int argc, char **argv)
+    {
+    	unsigned long iterations = argc > 2 ? strtoul(argv[2], NULL, 0) : 1000;
+    	unsigned int index = argc > 3 ? atoi(argv[3]) : 0;
+    	struct vfio_region_info cfg = { .argsz = sizeof(cfg),
+    					.index = VFIO_PCI_CONFIG_REGION_INDEX };
+    	struct vfio_region_info bar = { .argsz = sizeof(bar), .index = index };
+    	unsigned long stale_children = 0, stale_chunks = 0, n;
+    	volatile uint8_t *map;
+    	pthread_t thread;
+    	size_t size, off;
+    	uint8_t *resv;
+    	int status;
+    	pid_t pid;
+
+    	if (argc < 2) {
+    		fprintf(stderr, "usage: %s <bdf> [iterations [bar [max_delay_us]]]\n",
+    			argv[0]);
+    		return 2;
+    	}
+    	max_delay_us = argc > 4 ? atoi(argv[4]) : 0;
+    	signal(SIGBUS, sigbus);
+    	dev = device_fd(argv[1]);
+    	if (dev < 0)
+    		die("device fd");
+    	if (ioctl(dev, VFIO_DEVICE_GET_REGION_INFO, &cfg) ||
+    	    ioctl(dev, VFIO_DEVICE_GET_REGION_INFO, &bar))
+    		die("region info");
+    	if (!(bar.flags & VFIO_REGION_INFO_FLAG_MMAP) || bar.size < SZ_2M) {
+    		fprintf(stderr, "BAR %u: no mmap or smaller than 2MB\n", index);
+    		return 2;
+    	}
+    	cfg_off = cfg.offset;
+    	size = bar.size & ~(SZ_2M - 1);
+
+    	/* A 2MB aligned address lets vfio-pci map the BAR with huge PMDs. */
+    	resv = mmap(NULL, size + SZ_2M, PROT_NONE,
+    		    MAP_PRIVATE | MAP_ANONYMOUS | MAP_NORESERVE, -1, 0);
+    	if (resv == MAP_FAILED)
+    		die("reserve");
+    	resv = (uint8_t *)(((uintptr_t)resv + SZ_2M - 1) & ~(SZ_2M - 1));
+    	map = mmap(resv, size, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_FIXED,
+    		   dev, bar.offset);
+    	if (map == MAP_FAILED)
+    		die("mmap BAR");
+    	shared = mmap(NULL, 4096, PROT_READ | PROT_WRITE,
+    		      MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+    	if (shared == MAP_FAILED)
+    		die("shared page");
+
+    	/* Control: without a revoke the child reads what the parent wrote. */
+    	set_memory(1);
+    	for (off = 0; off < size; off += SZ_2M)
+    		map[off] = (uint8_t)(off / SZ_2M) ^ 0x5a;
+    	pid = fork();
+    	if (!pid) {
+    		for (off = 0; off < size; off += SZ_2M)
+    			if (map[off] != ((uint8_t)(off / SZ_2M) ^ 0x5a))
+    				_exit(1);
+    		_exit(0);
+    	}
+    	if (pid < 0 || waitpid(pid, &status, 0) != pid ||
+    	    !WIFEXITED(status) || WEXITSTATUS(status)) {
+    		fprintf(stderr, "control: child does not see the parent's BAR\n");
+    		return 2;
+    	}
+    	printf("BAR %u: %zu MB, %lu iterations, revoke delay < %u us\n",
+    	       index, size >> 20, iterations, max_delay_us);
+
+    	/* Premise: with the memory disabled the BAR cannot be read. */
+    	set_memory(0);
+    	n = readable(map, size);
+    	set_memory(1);
+    	if (n) {
+    		fprintf(stderr, "memory disabled, parent still reads %lu chunks\n", n);
+    		return 2;
+    	}
+
+    	if (pipe(go_pipe) || pipe(done_pipe))
+    		die("pipe");
+    	if (pthread_create(&thread, NULL, revoker, NULL))
+    		die("thread");
+
+    	for (iter = 1; iter <= iterations; iter++) {
+    		set_memory(1);
+    		for (off = 0; off < size; off += SZ_2M)
+    			(void)map[off];
+    		if (write(go_pipe[1], &iter, sizeof(iter)) != sizeof(iter))
+    			die("go pipe");
+    		pid = fork();
+    		if (pid < 0)
+    			die("fork");
+    		if (!pid) {
+    			while (shared[0] != iter)
+    				sched_yield();
+    			n = readable(map, size);
+    			_exit(n > 255 ? 255 : n);
+    		}
+    		if (read(done_pipe[0], &n, sizeof(n)) != sizeof(n))
+    			die("done pipe");
+    		if (waitpid(pid, &status, 0) != pid || !WIFEXITED(status))
+    			die("child");
+    		if (WEXITSTATUS(status)) {
+    			stale_children++;
+    			stale_chunks += WEXITSTATUS(status);
+    		}
+    	}
+    	set_memory(1);
+    	printf("children with a stale BAR mapping: %lu of %lu (%lu 2MB chunks)\n",
+    	       stale_children, iterations, stale_chunks);
+    	return stale_children ? 1 : 0;
+    }
+---
+ mm/huge_memory.c | 23 ++++++++++++++++-------
+ 1 file changed, 16 insertions(+), 7 deletions(-)
+
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 1e5d68acf62a5..fcea98f0d8865 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -1965,13 +1965,22 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+ 		src_ptl = pmd_lockptr(src_mm, src_pmd);
+ 		spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
+ 		/*
+-		 * No need to recheck the pmd, it can't change with write
+-		 * mmap lock held here.
+-		 *
+-		 * Meanwhile, making sure it's not a CoW VMA with writable
+-		 * mapping, otherwise it means either the anon page wrongly
+-		 * applied special bit, or we made the PRIVATE mapping be
+-		 * able to wrongly write to the backend MMIO.
++		 * The mmap and VMA write locks of the source keep faults
++		 * out, but unmap_mapping_range() does not take the mmap
++		 * lock and may have cleared the pmd since the lockless
++		 * read. Let copy_pmd_range() skip it then.
++		 */
++		pmd = pmdp_get(src_pmd);
++		if (unlikely(!pmd_present(pmd) || !pmd_special(pmd))) {
++			spin_unlock(src_ptl);
++			spin_unlock(dst_ptl);
++			return -EAGAIN;
++		}
++		/*
++		 * Make sure it's not a CoW VMA with writable mapping,
++		 * otherwise it means either the anon page wrongly applied
++		 * special bit, or we made the PRIVATE mapping be able to
++		 * wrongly write to the backend MMIO.
+ 		 */
+ 		VM_WARN_ON_ONCE(vma_is_cow_mapping(src_vma) && pmd_write(pmd));
+ 		goto set_pmd;
+
+---
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+change-id: 20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-bdf7efb612c2
+
+Best regards,
+--  
+Konstantin Khorenko <khorenko@virtuozzo.com>
 
