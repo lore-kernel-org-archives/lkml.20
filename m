@@ -1,147 +1,137 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011054.outbound.protection.outlook.com [40.93.194.54])
+Received: from fhigh-a2-smtp.messagingengine.com (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FBD64B1468;
-	Wed, 14 Oct 2026 11:49:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791978550; cv=fail; b=FNRK6dYAuE0ax4YHkTJ7JEO0CsaezabzBHe1V+xhMSVkyvfszB1xIKRs3NacCbFLwJvqaCdvdHBgCsFhSAuiX4W9YZWwiNE3dxb4fFGWI8uH12T8FZzzNGLtnSFwofYTSYVK5l8beN+ZyBqXvQrlYLpy+jwG3TEHgp02gAj6C5U=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791978550; c=relaxed/simple;
-	bh=uUgMeSo5cFaiN44gHjtusgY+9qBSh/lrSo2ki28xhSw=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=lILrGQ6Jb4C4/mW74zTXcXCURJj9SYI1VK+3TnYKNE8MoGmFMqTXyTrU/MTAmFVkTnAVl6d/6Kg22UpGZz5KNH7sJTjrvBxROfjN3Pz3B8vfbNlx3/++YTue8Ca1/tR/tNcWoo0MwlXIR4bUTNyo9ypp70MWxVQ77VTgqdFylAM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=LtobhNwS; arc=fail smtp.client-ip=40.93.194.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA3CA4CE695
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:49:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.153
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791978554; cv=none; b=U+fZ1VX9R2PX7FflgI/gxWL/Tl/lNdGGBqttCL5mO5d+JIvHBjxqWQxo3z0nxquTd+/IpAFzKeZbnJEB+gJDUhyiijhGeOJMNWsViNURnNRlbqJmz54eVxgsnh5Yrf8Ii9VoPBL44san8P7C8uDbaj3yD+UquKPZK+ws/OIGmBk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791978554; c=relaxed/simple;
+	bh=z8r4MRtUi0LNk7lRzCoa0ekWmE4fhmo2OSQMOtBUgZ4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cvcs7dcle19iLeVbj8swaTX7HrFpnVZUcmwtmDqvQr32d1t6I7g7u/GfPEdbT6hwgxDgb8rEy0nI8xPh8waoqNawMW7XeJBUpRQApvF67X+yQ4MzVik3rS8nnp9xqz9xU9pIcH7Wu4DrS0Jor0F0TuSQuQIRZ7cbhyph5NCryGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=N23a4QPq; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=SsJpoFog; arc=none smtp.client-ip=103.168.172.153
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="LtobhNwS"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DzuLgECYoKvo7zR8aHyPl6S/ZHn7oDpM5Sb8c1siBUe343o3BYL+wp0XjPCiJN36sIeYLjWVKQbv10AQDJs/C/P8S1NX6QfZpDvykubSRExBaIv7k2HDFTE0Q3pLOlWHwsEAhxbDDO1/lON/awmQntmSwZSbZ77WIxM1n7oDk0keET9+lR72gNY5qNsVapRrL1K1bp5jdU3yTjG4AXAkUQjnMq0TL8t3D4JwNLh+SW3Rd/nR1xIyx/4pLHkH5QROL+Og7+Ensd0fgAWCB7GOMpMiWkLWF8FYqFgDLi76JY6qgRndlYIqzMF/0J9i15pnuCd6T3HMEkBg7XDYh5NNTw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uUgMeSo5cFaiN44gHjtusgY+9qBSh/lrSo2ki28xhSw=;
- b=yw8iTVv3XPfoUBWwWdd+/7RJjGO1kum191mjtJbwwdki+DxFkhJBSf0CRf5DwCN3KEzMcZqmcfiMMewwUfq36A1XRH9bR3F8Mw1rvINn2FaAk7K8U4v1uKzXBxOTdlqEnGPEbospCLx9riecnfh3jZYOXkUERgfay87zSbRB5gHMEOhc4ndljEeHc4aEsXFgwJg8d9HFH3QnkLbBnhChbhno9f+09RKrpcZsgvtbblf2WfGjhbVvjz6LI813ygMjsz+5A5D4V6J6VS35+d0ZR4d9kjZb00ncGQK2TUdgSy6IJw/MCvR6Nkys6FbG4wxNJaGZe4NU20mZgKYKKWHD0w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uUgMeSo5cFaiN44gHjtusgY+9qBSh/lrSo2ki28xhSw=;
- b=LtobhNwSDwGczfryUfRBkHm60+elgfA6y02eeqJ9lwmfdwWIsouDVf6P6FB3QvaCRIzdFwGECFDfldxR7nTf/qV2JsVRXkFv7gWceTRaBS9FAFgRhinKEQXNglP3MGlFVapuaKKoAC1jaTFXxbuKxwXP/xMsUBo1oVRwbpVsSRQ=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS2PR12MB9567.namprd12.prod.outlook.com (2603:10b6:8:27c::8) by
- IA0PPF0C93AC97B.namprd12.prod.outlook.com (2603:10b6:20f:fc04::bc7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Wed, 14 Oct
- 2026 11:49:00 +0000
-Received: from DS2PR12MB9567.namprd12.prod.outlook.com
- ([fe80::636:1b52:24ca:d7e5]) by DS2PR12MB9567.namprd12.prod.outlook.com
- ([fe80::636:1b52:24ca:d7e5%4]) with mapi id 15.21.0522.011; Wed, 14 Oct 2026
- 11:49:00 +0000
-Message-ID: <031c7453-9652-4573-9de0-5db2a795562c@amd.com>
-Date: Wed, 14 Oct 2026 17:21:00 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 00/10] ASoC: SOF/amd: ACP7.B support and ASP carveout
- firmware loading
-To: Mark Brown <broonie@kernel.org>
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com, perex@perex.cz,
- tiwai@suse.com, yung-chuan.liao@linux.intel.com,
- Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com,
- venkataprasad.potturu@amd.com, Syed.SabaKareem@amd.com,
- Mario.Limonciello@amd.com, Richard.Gong@amd.com, Poojitha.N@amd.com,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- sound-open-firmware@alsa-project.org
-References: <20261014100902.1215212-1-Vijendar.Mukunda@amd.com>
- <a22f2a9b-3bb9-40d0-80d6-4ce36758c4f5@sirena.org.uk>
-Content-Language: en-US
-From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-In-Reply-To: <a22f2a9b-3bb9-40d0-80d6-4ce36758c4f5@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PNYP287CA0089.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:2b6::6) To DS2PR12MB9567.namprd12.prod.outlook.com
- (2603:10b6:8:27c::8)
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="N23a4QPq";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="SsJpoFog"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id BAB9E14000AE
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:49:06 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Wed, 14 Oct 2026 07:49:06 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm2; t=1791978546; x=1792064946; bh=ljC1EWPWgR
+	PS5tUHzsiAKUkPoihH7ZlQU23a6W9iHaM=; b=N23a4QPqTIewXlHX9ZszNsRyaq
+	KDk5THBTQPf9OLUHbQc4Wcehe6S3A5fym5r9fd00o6BowcsFoKaW73aIRdgD3P2z
+	KJ6S8KGY94vChChxK2cen2ijs2J4GzhMaGTUIEvJWd3/swgXoYJwCJjx2jSY/xAU
+	NB3RMwsDSZLm0Q/lssr9ouH0USAR9cgCZJaNREfQk9cg/ZSCtSnEg890ne2X7cNB
+	FfdPh6CTBNHc+vWXWOINYtrFDgNXyxk/ORhQ74/kzA4qgI1cdhkoMM4cLTJx08WN
+	Zvl4UIqJ9LbM4JXJIhjmia4+V9g+1Mcb9w/Ua1jsh5FAAvdIieN9t0WBqutQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1791978546; x=1792064946; bh=ljC1EWPWgRPS5tUHzsiAKUkPoihH7ZlQU23
+	a6W9iHaM=; b=SsJpoFogEkA+tO5b/0cjDz3BuyNIbNkn6CUDHXdwGSYbQm4dyP/
+	MjiJ/XTLWnKJQLCh5ZE6E973SrPLUgs5GY6/CKurl49HTF8Vv2bQ6UWiRuChBdel
+	cNTHVJRdNy5TwG/A1mkLjam8u+guR4qT0N80B+8p3P3TVOEz5c8nFYw+n4YEbSwd
+	smhZ7TiNDnG7h48eWJEUoYfC4FmVVUQ+GEUj6nBzyCuBGqZflvMxX8eqEa/LL4Dh
+	cgRDBz31kxqcVLTGoW5UEl6FonwU+TZRRlLglyd+5ojgmHc4cz/wfa50v0ZYBrtC
+	in4iVNOKlctHg9efklSL2EN+EmWcgAt7dQA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=kroah.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791978546; d=kroah.com;
+	mf=PGdyZWdAa3JvYWguY29tPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:qT9yqEN7YzlRUG/FPC88mbpo6A85vMIAiC7yo4Rs+vOVak/
+	2tL7yzg3Ylmx/kX0WCr3dPqPcbNVd8Yfn9X8eisFE5JRjnHS+T1r9I/m2mVWcYL4
+	BWuc3yyR6MYYFttHbnXfKig9SNJwQA9CJUfFLsifG1IKgRcT6Wq/YrUV4DppJAtm
+	JbAfnHh/R/Gf1zfVOD714iBsy1qV5XCAWyfRWWKCYaxK5i2rJNaWVeFMRxuiPszT
+	QQvYPOL6pboRDWE1HuwX1vcx6Wyg8FkRVIT3OlHDubu/IyaC9KYD3iZhApLD++Id
+	a+P8iw2yLeHfHVl/Db+fmAGpp3uGJ3LaRUgsvbw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:NXqvzbL0EcVKcRouoKFLpRAfiCZ+PZx2mcFB+LVfxPc=:z8r4MRtUi0LNk7lRzCoa0ekWmE4fhmo2OSQMOtBUgZ4=;
+X-ME-Sender: <xms:MmzPameWf_PJcdl_rjQhk9uJ5MSlJqRy8becgbBDPU0YnwvLad5Q4w>
+    <xme:MmzPanxj-Z1HmhJsPZQcGKoXtDYrDhH5WB0keUdbAdKzBJgMGgqeg2R3PUDEimiVQ
+    1iIaBLeroS3jov8d0yF-o7AYmeL9GEVYvJUqmrVI_Rj3q8FnRw>
+X-ME-Received: <xmr:MmzPanLOi6t4eNWWsTgrDhEO5zHSmIG_u5EUciwgD-k1UxSWBq4BMnU9UGu4wSUUrMBzLDisQ15IpB9OSa9R60Z99S6T3HzuKrut4qLLJLI>
+X-ME-Proxy-Cause: dmFkZTFVeTgRVt8VgVVuURS2y6F5bHP7SB45kgAV0kCKhyd9ylXqJwTwTvQiC9dcAZHsZi
+    Gzm+qOu5tvWIrxHx2wabEmTkbqM3P3tmYKUrsv7fKbngo2A1CSxt1+W66E2w1AOMbrw/44
+    /DuO2vurJ8PdA2BlrizzP1+17Z0exNBIjKuR9CJMOeG+yPX3kdWzUtl3bEqrCMbrbuZxy5
+    cU+BCGpxGF+D2a3Lzk1jE6/Hg13tLZBeYPZ24aKitB/vGGmHm2my/WeQPKXFqm41W9y9o/
+    kfkwBDUcCHEKKwmVv44NAqBrqms/zQWhszG1mXfU503Umoc16Scr+LVhmzcnElsrlXmNbZ
+    BN1xzR/L1QALRiRIjjHKeILJP7hk9NR8fi8urAlsL9Yd2pFIj8XJK+0NRkRVR2a2fe9OoG
+    ZF81uS6E6JhxsXj5yph4xU5G5mp19UrX327WpmCrqzx8tIaxSmSNIawn5VwQRpSHBklzz1
+    ILOMwSTlm/7HoUS1MHj53utuHYOWZyKjoYwU71JW3QwQ0LsCi4iKJ+OmZVCKEE+9MSK2Me
+    A4XL5Xv0UZIi7x59RGNs0slviFZqKmZOQ12s/noV1wu4Z9X7zmW9vnQ30EnhC2j4TVn9g/
+    1uCH5NVMk475dW0YKgrrQbLhEIZKMLYPJhc0ic7kgV06ei1s7iagcR6OyABA
+X-ME-Proxy: <xmx:MmzPaguyzIagqBPJK5lCiOS5dYZqijTcxVuZoo9GyqP4_yb7f_alQA>
+    <xmx:MmzPapQ4kw1vl1-10HVBMG9rqVy5oclyB43tFIoCmZufAEphrt4AoA>
+    <xmx:MmzPahRNemxzYHX6tOPYjDaGK6uMu4i6d4-XzAYAxNZpONHSzcoSyg>
+    <xmx:MmzPalrlvu2b7OMy9N5m2x1n8TWAro6x-B-_RoTejnfL3bzLJyXTug>
+    <xmx:MmzPankJpyqJwFusYsMiEFrgPhGGozDou4tKMQ4Z9rScsNlGDDrzGRMf>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 14 Oct 2026 07:49:05 -0400 (EDT)
+Date: Wed, 14 Oct 2026 13:49:10 +0200
+From: Greg KH <greg@kroah.com>
+To: vienna-0FFH <viennaoffh@gmail.com>
+Cc: Alexander Aring <aahringo@redhat.com>,
+	David Teigland <teigland@redhat.com>, gfs2@lists.linux.dev,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	syzbot+04dfbd15d442517e713a@syzkaller.appspotmail.com
+Subject: Re: [PATCH] dlm: don't warn when closing a node without a connection
+Message-ID: <2026101400-roman-landmass-d03e@gregkh>
+References: <20261014090237.395-1-viennaoffh@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PR12MB9567:EE_|IA0PPF0C93AC97B:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1196a510-64d3-41d7-e274-08df29e922b9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|10067099003|261009223027099003|4143699003|11063799006|18002099003|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	b6DSCquS4MfIvZvqhJSkKgrx4RazbRqf750xHBX0TSUZ4I2HFRWiIKyasL8OmG75Sw0Q79j2/3NSmrCxQLI+kkcQAmGS/oaN8Kv4FBH+Cq9xSlvLRt3kyJQrVrnEETETT9zUANNbmss+aAC+0q46NZxoDsJDT02wk5XtyffjT2yYr6KCKDXMkea4f1MJkTMbrTuqGA59lahkGhsxqhGEMyyhPyRo1lmZpI1qJ2jgEhrm3nW2YxBEVwXDrpNbf5cOh3yDxDy1R83OiKIk/Zz8JD5hyjJKU1hlg0U2qrTXLjqpNmRM/+5W0GDmtibTgGjtsSMVpW+KUSqp312NFcCiT68Nar89ovxAGwBN+8WMjuTf+lqeq51YmFgWM9UyuNqUAzD6SYDnYTG97whIoEluQgkVbVmLwtSLENMDQWdPm/Rtx3K5bW2pIhc2hl+w+RwMY5HT7FTMDSu0TqALkALB5Ued6UBnUK0UO2DOeYBX+VwyJWvzwwWK4uSjOekgaI2sLHn195KTCSoqk2nxiChl+bBqDD9GuhbWzk487EDiZ3dacmYDR+kBsJ/De9MVi/PbRnClu3YTloubiEAUx1gP6VCptetjrBiTB/1M737mPeA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS2PR12MB9567.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(10067099003)(261009223027099003)(4143699003)(11063799006)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?V3paUzF6dnhLVktTVjBZQ2pCZ09iS1ZFM24vbmI1YkxPM0djTEQ0ZEt6NE4r?=
- =?utf-8?B?d1ovQkEveVh2SE4zNXFvRUtqN0dKbG83VVErZUJpa0RRN3JRdUJxUlY1TktE?=
- =?utf-8?B?eHBsR3J4WlVUTHUzcFY2V3MrQm1yUGI3NjlsYzJKMmh1cTNTbFFLc2JMUC9s?=
- =?utf-8?B?emJ0U3htcG5peVIyVDdRdFlyOGF5OSt0NFRLNWFjQ0ZyVEpYU3RKWjFEZFhK?=
- =?utf-8?B?aTJUK0F4MGlqSWNERmwxUnJDNzBiUWRzWnVwSWVmM3BNUkVEOWVCek10am9h?=
- =?utf-8?B?dU1IM2VLVndQWWNVM0pLRWtCTG1WVFBBeGdTdmNmUmFkTjM0NGI5ODk4djZv?=
- =?utf-8?B?blhIbm00RG5GM0kzTzhIUW9BcXU1SGFCcW9lNWVtbURrNnF6KzlxejEvUmR5?=
- =?utf-8?B?d2kzODMrUld6MjNseXdPK1Bxa0FWdzNpK2RuZkxSdTYrdGlISndDVmp1VUth?=
- =?utf-8?B?c3ZiMm5ZTGFMalVLOWwyUGx6SEtzR2x0SEIrQjhiUmlHZDh2M1VYVDc4TmhQ?=
- =?utf-8?B?TlNkWElSSm1SQ1A5MkRQdEhheUwwWDQ2VTQ3cU91UkU5MXJaTDM3R24rdkd3?=
- =?utf-8?B?MXdDK2oxeTQxaHlMU2tjQ3JrMk54b0ZEaUxCVW9qZk5lU09EWGtXMHMrUUtK?=
- =?utf-8?B?dVllU2NRQ0JSVG5mSzY4bVB6Z2J6ekpoaHNicVh0dFJFbDRTUzV0cTlPRVFy?=
- =?utf-8?B?Sjczc1BuRTJ6d25Md0hnMm5Yd1VCLzIvamxQazZyMldqRkduVk1Rb3lrcFRL?=
- =?utf-8?B?TUxra1N5bE1UT1lnSEZlN2p5Tm9jRmFHLzhodWFMNVVoQkY1eFNWTjBvNm5Y?=
- =?utf-8?B?UnE0THlrWDR0ZlhuaklvclE3TEVubGxyWklEYTNTbzJLbU5IeVVDSSt3eVpm?=
- =?utf-8?B?WUlsbUovdWV4eXpIWEJQSHR5c2FZQWNzU0QrQWNJVytrU0c2NDVaOE5FUC9L?=
- =?utf-8?B?OGt1YkdVVUUrR0tjRWlaMFBqYWl6cUo5VFNheUZyakRxcFVNN1VHMXZXSnlj?=
- =?utf-8?B?Uk9YTklhTUNKc3VMQkI3MTFHdHNxYkw0RGdveHhxcy9CTkh1OE1JdmZqRFY5?=
- =?utf-8?B?UmFKUkJhTkx3bEg1b0RVR0VSSDhESlRoeFpUZEZoSVNxeVErb0psVjAxQWFj?=
- =?utf-8?B?VGVLdTJRa2ViSE5kcitoTXNXNWQ2SWdsRURNTUpyblBsRHRRZElISmtXUHZu?=
- =?utf-8?B?aUo4dy9PVFZ4alFrSW03L0dSYmNpQnpqbVYxRFl0bGt0UEZwcWhoZ0F5b2Qv?=
- =?utf-8?B?M1k3N0c4bDBUbFVIQVdzcE4vcE5qeGl2eVcvRFZuMU51TGRyMUNGVjgzNkht?=
- =?utf-8?B?TStiNjhkQkxHRjZnVjdtQTl4aitic1h4Szlmd3VLRUlIK0R6SHk4MVpWTGFZ?=
- =?utf-8?B?L0JvNnhNcUNsNThPZFcvclFJOWswQWZlL2RnS0lvLzZJRTJrQlVYVHdjc3hs?=
- =?utf-8?B?VFV3VzJSRDVTd0NReGZRLy9CU3BPNlJ0NmVkdSs4STZPZDRrakdLQiszcDhX?=
- =?utf-8?B?MXprS2FxTjZ0TFNHNjJ6bFNrVEExbkFLTVk1NzNTOUl3RmxwMXFSODNLK2Nz?=
- =?utf-8?B?Wk1yOHJ6dlRJYlk0OS9sN2k4azhtbmgrVUF4YzBmM05JbHlnMC9nN1RlOFBs?=
- =?utf-8?B?RzBnanJ2cm1ibXR4ckhUN2RjV09FV1U2YnZTcEtURjVraHhUci9lTXdqaGp4?=
- =?utf-8?B?YTRCdzM3U3JFZi9NWWNSZXh4LzBuOWVZcXhNWGhSQW50YnF2RWV6TUdUT0Vp?=
- =?utf-8?B?anQ1OGdVL3ZtUTJnWmFYMm5DU1VpbmJWNE5TYXlWVkZkejBTUWRabDMyUmxr?=
- =?utf-8?B?WXNQTWhYSEJ2UGFZbUJaelpQUlM1T01UbkJZSWY4bFpwTE44THk2RUNudHdC?=
- =?utf-8?B?ZWh4Q2NQUnVscEJtd0MyOUxlMk96UkFyaUFjZmtVSjhOc0FvZi9IbDM5VllW?=
- =?utf-8?B?NTVHdDNUQXo4dkRvZ080NlB1VVN4MlhucjBpbU5vYWRPaHFkZDh5TmtXelpv?=
- =?utf-8?B?UEhqUGZOM2ZuakdEMHJCT3pjN0RVS0NXOGdoeTI3KytVZ25NTzRFMkpHblIx?=
- =?utf-8?B?L2dzRVFNSjJRYU90bCtGK29PRGxvQ0E3RFdDSlJRcXRkWXcwR3VMRVhORE1B?=
- =?utf-8?B?cWEyeUdIVUxpWEhobGliSEdTTTZ0M2dsQnlQUHAycVNEZWoya01FM3pFWW1T?=
- =?utf-8?B?ME9ZTXNXcWF5SkZuM1hJU2Zhd3o0bnZGSkJoRmtYRE1yY3c4dmVzaGFhc2d0?=
- =?utf-8?B?M3dya0JreFFITVlmVWhPc1R0TVhteWZrYWR1MFFKZlFHbFN2eXBLTkIrayti?=
- =?utf-8?B?SERSNVBpS0RvZlRIOUR1QTlUNEVUVXl1eW8vVzRhWlBqUzNIR3dndz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1196a510-64d3-41d7-e274-08df29e922b9
-X-MS-Exchange-CrossTenant-AuthSource: DS2PR12MB9567.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 11:49:00.0353
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bN++hWO9kwLl6ZUQ8k6eI4StZ1N/uCoAoozpCMvHYArgPBdIzBhNCQ2iqn5svsejhd6pXGsPYNyjBscu1UpYog==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPF0C93AC97B
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014090237.395-1-viennaoffh@gmail.com>
 
-On 14/10/26 16:14, Mark Brown wrote:
-> On Wed, Oct 14, 2026 at 03:29:08PM +0530, Vijendar Mukunda wrote:
->> This series adds ACP7.B platform support to the AMD SOF driver stack
->> and implements the ASP-authenticated firmware load path required by
->> both ACP7.B and ACP7.F.
-> v1 is already in my CI queue, can you send an incremental change with
-> the new stuff in here.
-Posted an incremental patch set on top of v1.
-https://lore.kernel.org/alsa-devel/20261013154644.3788064-1-Vijendar.Mukunda@amd.com/T/#m6b17b469c043e46ee50a3a85903324c896c81c4e
+On Wed, Oct 14, 2026 at 05:02:37PM +0800, vienna-0FFH wrote:
+> Opening and closing a configfs comm entry without ever configuring an
+> address for it triggers the following warning:
+> 
+>   mkdir /sys/kernel/config/dlm/cluster
+>   mkdir /sys/kernel/config/dlm/cluster/comms/1
+>   rmdir /sys/kernel/config/dlm/cluster/comms/1
+> 
+>   dlm: closing connection to node 1
+>   ------------[ cut here ]------------
+>   !con
+>   WARNING: fs/dlm/lowcomms.c:1455 at dlm_lowcomms_close+0x12d/0x470, CPU#1
+> 
+> Since commit 6f0b0b5d7ae7 ("fs: dlm: remove dlm_node_addrs lookup list")
+> the lowcomms connection has the same lifetime as the configfs comm
+> entry, but a connection is only created when an address is configured
+> via the addr attribute. Removing a comm entry for which no address was
+> ever set up is valid and the resulting close call has simply nothing
+> to do, so it must not warn.
+> 
+> Reported-by: syzbot+04dfbd15d442517e713a@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=04dfbd15d442517e713a
+> Fixes: 6f0b0b5d7ae7 ("fs: dlm: remove dlm_node_addrs lookup list")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: vienna-0FFH <viennaoffh@gmail.com>
 
+Real name is needed please.
 
+thanks,
+
+greg k-h
