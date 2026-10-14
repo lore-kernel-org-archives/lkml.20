@@ -1,124 +1,129 @@
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com [209.85.210.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83718388379
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:03:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792001025; cv=pass; b=MtWXb5wiQwaC0SXAdTQ1FS35oFDsqddG3sZ2UvjlOs8sEIBjSS5i9d0V6ht+auwCqrMD7BM+Sv8BDqH8XkQ6Rv7wvtJ0+DOpOAD6+Yd5Wd9XMjdFIhbOas1m/RprqlW1jVbTXJvbvOtdBO9XoR3p1v44D4IHW8ybjY0fLA6fsDQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792001025; c=relaxed/simple;
-	bh=MhDppYGzsiVCGdjJkBU3XBy2GgBPhJwEk72ztJ4p2+0=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3949353E313
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:04:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.48
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792001064; cv=none; b=Ndi1Tkv5yqOJFsz2uTf98U35hw/OHms98JpfNmxZR5x2NL8ovgiA/qZap6TVGF+VyFM+LJYVPRFpwe1T7toRZSb6hRT3OiasRzDmTGIV5eInEgAoHlHd+yG4WCFDoHeAGfyJFic/2LutHi8Xq2v93ku935LahgNOKOaC6uQzZ1I=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792001064; c=relaxed/simple;
+	bh=4ZfibqtjyVHs6vICgBrtNWhVZNaukgTijrvi4R5y9Ew=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=u19ocAc9PfQW1wKj9uqFmAaEqk2ECg2ov6p05MdXCrgiCxrk2lSEf35iMft6rAFWdtGaMiwEqWdst+aGfz5tOC3cZx1mzZwtawWT4dkf15U4FcQiDN2Q5USTq8pYZHenmVgABkyTwcBitFYAUBvBPuniqLHvxDfzXex3qZESp8s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=Zn0klXuS; arc=pass smtp.client-ip=165.173.180.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=bGH7albGYPzFmbJBguV4lhkrBu+Gj1M5PGf//c75E6EZxA3hHyFWlyOPCWMCIxPwAdruP5mvF44S3kstv9KNWbze6lYiT4Xd1VtpUJEnLVa8ZOo7MKjD8Ebz1h/V6Iy3YTnwGYltaONJjlLAmQcX2PceUVWukhQ365GZf2aBa4A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=dqSna4Ob; arc=none smtp.client-ip=209.85.210.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="Zn0klXuS"
-ARC-Seal: i=1; a=rsa-sha256; t=1792001004; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=jqWn29pBLN5f5+3ILfi9EtntgCNHEhrsHz0mY46mJICxw/Q7bNpH/cTQc7ZRoCJpKaQ4H5Ou4ii7HfBJMixOUdlfz+bzcdQLFO+BW7yYE8hj+UgwQuzG9S9u6OyZxuo1tn3z2/izigunZMXNqzcYvPAaIlU4s6naOmNGFpt4zGM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1792001004; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=BPScAGTP2dI9y+1B671zdS/5etpFnAG8cKrd+sZATm8=; 
-	b=JqZzJXzztWOQ8TH7kX57rIp5+qTG+TzGAJT0bRexDmrRfKs5gWRnICKvkaBLktKDvlBooMC7BEY9Q+tmW7pe9HhmKt1fDXAGcrLtBKajuZhJ1Hv/UpGMRh0eu/n/r4N9ui+Wq3T2j0jAscwqEpY3/gUccmY+qG2MSh6/jVosdrA=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
-	dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792001004;
-	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
-	bh=BPScAGTP2dI9y+1B671zdS/5etpFnAG8cKrd+sZATm8=;
-	b=Zn0klXuSOOBf3l4KcDwiOZNBQ5sihqcI7yT2AUD4CQp0Yj9s4lEqO980gRhu4GY9
-	jMwDf3b0TrhvnYrLP7/nzk6XZ6LaYOeTm1HHJaHYL++p0dvc323hJWA8kBguYqRps3P
-	NRfGQqx+PhcJTBe1gD+8otzsGbWEd6eO0Cq6k12s=
-Received: by smtp.zohomail.com with SMTPS id 1792001002372843.1310964349625;
-	Wed, 14 Oct 2026 11:03:22 -0700 (PDT)
-Date: Wed, 14 Oct 2026 19:03:17 +0100
-From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
-To: Christian Hewitt <christianshewitt@gmail.com>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>, 
-	Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <daniel@ffwll.ch>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/panfrost: reset the Amlogic GXM GPU on runtime resume
-Message-ID: <as_A5ygwMkEgGeP4@sobremesa>
-References: <20260930125629.2691968-1-christianshewitt@gmail.com>
- <179184031154.1056803.12154076398577087527.b4-review@b4>
- <6B9C57A7-8BE5-461B-B44B-EF91FC2D2D93@gmail.com>
+	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="dqSna4Ob"
+Received: by mail-ot1-f48.google.com with SMTP id 46e09a7af769-8266c388b67so3757466a34.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:04:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=openai.com; s=google; t=1792001062; x=1792605862; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Sre2Q8d9osDFJ2pO/rFODA9M0mfR2oBhyc/Yo4XzZZQ=;
+        b=dqSna4ObfE0OweD5yMSvF8FNwmzD6BnXgPiC+qXK8tHB9iOj693tqHvbFgHkD5PxFT
+         GZ7LIZqs7P6en2S9uj3AbEmPqBArTLy2MXulzqPojQpm34B08r8cQx9e9DjBSeJY6xvu
+         UsH3rUgiti9aCTfHRbUpi7woAKyOoe00OaVio=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792001062; x=1792605862;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Sre2Q8d9osDFJ2pO/rFODA9M0mfR2oBhyc/Yo4XzZZQ=;
+        b=KqAL1ZXj1dJtnTmiTX9gt7ijNZu29HlZf9cBDOM03E/5EwUvoTMjRDPqcH+EzbIMt8
+         U2xrwZwM3yQEUog3QMADdXbY3n3KrsSGoPq929oyMSqOiwKWbXQp3sOKlzo1Qp5fxmVW
+         gxwQhxKPdbwHj/yBPOmMiC7c4EoLhf0l8pRhMD5bBFdkr52wN4SO3riHdO5ys8zKOK76
+         Aa3a3B7QBRHRvt+BgRhluFNBkfZiHTmyrOCTxupCzRfjVvD9OHa0q3c62vKXa+Pypjss
+         8itcpFzm37lpaQ9Lc7swxXOdZm/ZbTvSu+iyDEtV25oMQdMDCAvkymaKNjQBfrcSFbTn
+         OQ4g==
+X-Forwarded-Encrypted: i=1; AKwUvBxQ5GCpMwRlSzxLnhFsL7FDRRQeD8wFVc7OBnvxMh9S8GoJwOHWvbABxfz7k15oDaZtm1x1Quw+BE8Z3U8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKpJxZcvy8HDS4cm9wr4ujDP7sfA+IhD50IgFUx66phm7XObdXL
+	lws6xnQDWZX7ovaVmO7rHiN13/RnnadI17HlFyYFr6AJleTSRcemgDzGTqi6qbQVBvw=
+X-Gm-Gg: AYBFou38zzoqLvff6xR2/jEaW/Vk6CrmxO3z+W90BXX9c+u0PrnJuWcMUw3bFhAs5u9
+	JbukH7rMVCEB7nG+TQNFKq+ZkpbHXNmIyc9DCvD/9uI9FpwxkG5xgkCgJHWJFRwSXNpttEJGKru
+	/OR9frQbEoj16Uq4l0O0Au5VT3B1rE73SJTh/x+hOVjCaiBWznQmH3rQUqTN9fZfEq/gAxTqtMI
+	i5JbDwfLEdm/taddCRSCFDQvgQRPXVp1KcD/OTbaN3vBVxZVO07NBJZ8x0Y9hQUEK79ADKESJBq
+	lFOLvIsahcpj8fyLClfo+OtwETspFjgalEUPrgBmbGG5/GUgs534hTr6I+6LAYcLg4IAyNWTgS8
+	kH/l3CRx7T/NlRN585PqlpnNI3DZfNy2u/obebAzxFsl2OSHQhzYcoUaq6NVcr4zsYdPXG3a9dP
+	LLThrH8xuuHG+esZu9HIlSZdnWhBENCu2kheJxntIx5pxxcPU8c8YU8FfdX3HwCZ5m/1P9kfD/j
+	OQH1OMnnStaiMGWgTphockikSmrn4o9UHZs7Hg/0KV4mudFxANQrQ==
+X-Received: by 2002:a05:6830:6f8f:b0:821:8e71:1bb5 with SMTP id 46e09a7af769-830963f4818mr16941700a34.14.1792001062029;
+        Wed, 14 Oct 2026 11:04:22 -0700 (PDT)
+Received: from com-75606 ([199.47.143.7])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-83039076dc3sm17027951a34.14.2026.10.14.11.04.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 11:04:21 -0700 (PDT)
+Date: Wed, 14 Oct 2026 11:04:17 -0700
+From: Kyle Zeng <kylebot@openai.com>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>,
+	Miaohe Lin <linmiaohe@huawei.com>,
+	Lokesh Gidra <lokeshgidra@google.com>,
+	"Liam R. Howlett" <liam@infradead.org>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/userfaultfd: only allocate anon_vma in CoW mappings
+Message-ID: <as_EIRMinCdl1zOx@com-75606>
+References: <20261014-copy_hugetlb_page_range-v1-1-5b68e03fe7fe@kernel.org>
+ <as99gyi-NUprRK6e@gremlin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <6B9C57A7-8BE5-461B-B44B-EF91FC2D2D93@gmail.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/291.982.13
+In-Reply-To: <as99gyi-NUprRK6e@gremlin>
 
-Hi Christian,
-
-On 13.10.2026 09:02, Christian Hewitt wrote:
-> > On 13 Oct 2026, at 1:25 am, Adrián Larumbe <adrian.larumbe@collabora.com> wrote:
-> > 
-> > On Wed, 30 Sep 2026 12:56:29 +0000, Christian Hewitt <christianshewitt@gmail.com> wrote:
-> >> After its first runtime suspend, every power-off of the Mali-T820 in
-> >> Amlogic GXM SoCs times out and floods the log with shader, tiler and L2
-> >> power transition timeouts. Following a soft reset the cores report not
-> >> ready but PWRTRANS never clears, however long the driver waits.
-> > 
-> > Would you mind building the driver from the latest drm-misc-next and testing
-> > whether this is still the case? Today I merged a patch series with a fix
-> > for a long-standing bug that prevented the device from going into suspension
-> > because of mismanagement of the PM refcount. It might be that what you report
-> > as an issue triggered by power transitions is something altogether different.
+On Wed, Oct 14, 2026 at 03:51:22PM +0100, Lorenzo Stoakes (ARM) wrote:
+> On Wed, Oct 14, 2026 at 01:53:11PM +0200, David Hildenbrand (Arm) wrote:
+> > As uffd_lock_vma() is part of the same lookup machinery and
+> > also contains a misleading VM_SHARED check, change that one as well
+> > directly for consistency.
 > 
-> I’d tested with the v12 iteration of your series in my amlogic-7.3.y [0] tree
-> before generating the patch I submitted. I’ve now tested with v15 (as merged)
-> and other recent panfrost patches you submitted (which v15 depends upon) and
-> with this patch reverted, and the timeout issue with T820 remains. I also saw
-> a splat that I wasn’t seeing with the v12 iteration [1].
+> OK, I think that one isn't _strictly necessary_, but while we're there,
+> worth doing too, clearly.
 > 
-> [0] https://github.com/chewitt/linux/commits/amlogic-7.3.y
-> [1] https://paste.libreelec.tv/desertic-cataleya.log
-
-Turns out I was wrong about having easy access to a Khadas VIM2, so whatever I try to
-gather about the existing bug must come from these logs. I see one very interesting
-warning in [1]:
-
-WARNING: drivers/gpu/drm/panfrost/panfrost_device.c:490 at panfrost_exception_name+0x1c/0x30 [panfrost], CPU#0: swapper/0/0
-
-Something's causing the GPU to report a fault whose status code is at
-present not documented in the driver.
-
-I think that, because this seems like an SoC integration issue, and because of the unknown
-exception being reported by the GPU, we should have some further input from an Amlogic SoC
-subsystem maintainer, and also Steven Price himself.
-
-> After reinstating this patch on v15 + dependencies dmesg is clean again [2].
+> We should also go through and convert the remaining !VM_SHARED checks ->
+> vma_is_cow_mapping() too if possible, but that's a follow up, obviously!
 > 
-> [2] https://paste.libreelec.tv/leptosomatic-cherlyn.log
+> >
+> > A follow-up cleanup will stop taking the hugetlb_vma_lock_read(src_vma)
+> > lock in copy_hugetlb_page_range() entirely. Further, the usage of
 > 
-> >> The transitions complete normally when the GPU comes out of a hardware
-> >> reset, as it does at probe. Use runtime PM with reset and clock control
-> > 
-> > panfrost_device_reset() is always called as part of the PM runtime resume
-> > operation, so I'm assuming what you mean here is that reset control is
-> > deasserted at runtime resume when the SoC supports it
+> Hmm really? Is it possible to do that without the hugetlb lock?
 > 
-> I’m firmly at the hobbyist end of kernel contributors and I’m not able to
-> technically explain the patch Claude created. It’s entirely possible that it
-> pokes around in the right area of code but is not the correct fix, but I lack
-> the knowledge to dig further without explicit guidance. I can also give you
-> remote access to a Khadas VIM2 board if that would be easier or useful?
+> It'd be good in general if we could get rid of that lock as a whole :) but maybe
+> dreaming.
 > 
-> Christian
+> > VM_SHARED in userfaultfd code should be cleaned up later to focus on
+> > CoW vs. non-CoW mappings.
+> 
+> I think also anywhere else in the kernel where this is done. An audit on that in
+> general would be useful!
+> 
+> >
+> > Reported-by: Kyle Zeng <kylebot@openai.com>
+> > Fixes: 867a43a34ff8a ("userfaultfd: use per-vma locks in userfaultfd operations")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> 
+> This LGTM, thanks for handling this!
+> 
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> 
+> --
+> Cheers, Lorenzo
 
-Adrian Larumbe
+I ran the patch through my system and did not find any issues with this
+patch. Thanks for addressing this!
+
+Reviewed-by: Kyle Zeng <kylebot@openai.com>
