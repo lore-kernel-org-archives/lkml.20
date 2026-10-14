@@ -1,155 +1,84 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D74163783D5;
-	Wed, 14 Oct 2026 05:55:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ADAD3783D5
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 05:58:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791957328; cv=none; b=ULP0hW9EIxcQHU6n5sJfMa++Xh2T0djeZbOl3o4oT+NNi9rCHx7cu2q3VT6yyRetNDI6qF6xNVn5jQszcWkOWRMcO5XbH0uzPet7VfptrW6ie/Jw90b77AXkxDvf1z/maadaq6H9Z22TN3EmTGb2gYOZUJ4414SomBKhBO66Fow=
+	t=1791957483; cv=none; b=OhWlvTJVF2ecmUTtIrgxmJyiD44Ms6mNseo8r0ULMf23ZZx4qIUGJI2vAQ2XdRzeoyUmnc9NIJBlNHUQ3zneq+gngjKhLjomO7aVSgrW/0CBzPRMMWVpZE4bhFuadC4SnWTLP8zzbFjThMZ6vD/mFGuik5m9o2IGaGw1XR+fp/U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791957328; c=relaxed/simple;
-	bh=xMusnSmq7X17FmO88nGfTxeBvxXs0FBIyvelidrhwwI=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XopTn6Bjn2yUZ5KtSFj7e6thED6+AiLGL/40IZubgbO1rjq43svFN3FAZDOF5N6UmQXB3gSV9TMVddKN5NFjYkBkJlCSsQk52GGRiww7iKZ5KUj4rXhEn5pwpf+dIjRdYJv2WESaPiXhS68GAq0koQPnP/3yWouSWubBqLMgndo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Y0EWY5an; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=iLYpj8rt; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=FgxF3GWk; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=s58Obshm; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1791957483; c=relaxed/simple;
+	bh=mHvINIZNyIF2nEW22ULGyBJnEMk0OfKt7s7RsyXUitk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bgBt4BdOKXAx4bczFzvYTaa056x0Gai5KCfJTcsGQYTTlENjWi1f7FMr+CtsB0aJN7ZxQlKy0asSuiG936My9NmTWVXNMY6s/H4UPVlR1hOYM5m1A/teArgD/zf2yd29tEIW9VIlMRHgINiQpksKrC3EBb4KOWVh73gACCozs/0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; dkim=pass (2048-bit key) header.d=outgoing.csail.mit.edu header.i=@outgoing.csail.mit.edu header.b=jsLlTMXg; arc=none smtp.client-ip=128.30.2.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Y0EWY5an";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="iLYpj8rt";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="FgxF3GWk";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="s58Obshm"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id DAF2421E6C;
-	Wed, 14 Oct 2026 05:55:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791957325; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tFYtpA/Cs8aARD1jOtOIy8DQlx2RowLARWyS7E4L59A=;
-	b=Y0EWY5anBrqxX2+gGjXSrR01bhCfFcXK1QFGbdpBLfdrQ3YdpYVJ6ZcVPWmjZiraEZVEOp
-	TMHDZ4YJ2uKjiKlXFiCAhoPkWmAbF5NHqh1I1b24IEaz3sd1K6rHvpARdl5aAEN6Y8AvIu
-	LRN9yMBcGDQdykpL+HdbfYek3xvaGfI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791957325;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tFYtpA/Cs8aARD1jOtOIy8DQlx2RowLARWyS7E4L59A=;
-	b=iLYpj8rtnWY+rrM5HhVrHy3ePreybAZdAuDPaEtvzEs7Uw/qcQq8JxTz+RXVIYiUwFqAT1
-	xPfXPkwp4aB8jJBg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791957324; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tFYtpA/Cs8aARD1jOtOIy8DQlx2RowLARWyS7E4L59A=;
-	b=FgxF3GWkGhm28TiC8nTeytz8xCdSM1GuKYLFJc4cNLG2b98WBQSzIpNcodGsSeWyjF5nlQ
-	PWf6901Wh3uonh7Dd3Z5+NZlafy2J7aKxAOU7Wj+Nfb1AI07FM9lBsqCFYGQSYxuuB0+LN
-	+w2YLLW97zSvXpo64cvH0iaOkd3v1mQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791957324;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tFYtpA/Cs8aARD1jOtOIy8DQlx2RowLARWyS7E4L59A=;
-	b=s58ObshmHr+9AlQY5w+jwo+nikbvBMHeRMnZcM0SP5bmfrf/reYBNW+0crMz+6bcn1FQRu
-	CB3XHZRfPci8jUAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 49F1E1368E;
-	Wed, 14 Oct 2026 05:55:24 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id qUYTCEwZz2r2EgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 14 Oct 2026 05:55:24 +0000
-Date: Wed, 14 Oct 2026 07:55:23 +0200
-Message-ID: <87jynkg71w.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Gergo Koteles <soyer@irl.hu>
-Cc: Shenghao Ding <shenghao-ding@ti.com>,
-	Kevin Lu <kevin-lu@ti.com>,
-	Baojun Xu <baojun.xu@ti.com>,
-	Sen Wang <sen@ti.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Philipp Oster <philippdev5396@outlook.de>,
-	Georg Wenzel <g.wenzel@gmail.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	alsa-devel@alsa-project.org
-Subject: Re: [PATCH v2 0/2] ALSA: hda/tas2781: Skip invalid TAS2563 UEFI calibration data
-In-Reply-To: <cover.1791895478.git.soyer@irl.hu>
-References: <cover.1791895478.git.soyer@irl.hu>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=outgoing.csail.mit.edu header.i=@outgoing.csail.mit.edu header.b="jsLlTMXg"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=outgoing.csail.mit.edu; s=test20231205; h=Content-Transfer-Encoding:
+	Content-Type:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:
+	MIME-Version:Sender:Reply-To:Content-ID:Content-Description:Resent-Date:
+	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=3lrknLW5y4akh4ysEcAiAVU/GpJHM5ZHBlTirOF66NE=; t=1791957481; x=1792821481; 
+	b=jsLlTMXg9D2XrySKPrbsg3UufXUzqhXkq2OBxU01aLPYvBy3YFZ+9t8MSjwW/95XnDetQi2gj4e
+	vDEOxTJJi/9IfWH8wOi2Pv7xHLX5b3d5zAgqdtQ7hxMby1bHrkQospX1rqtyNG7onOqR04TzHyZhu
+	zhliUzrkvUv51vXFCVV6M3907ltIajH5v1RWEUrX2MKL3NoL/pLhVTaWuNWkLae+Vshi2IUj4k/pa
+	lNPlm5w/pTSzopsKJdf9aEff5xN48qWewyeW/gtuAM4W3UBt+dYRNYYSewZovbRXoqaOs4nvUNWLN
+	7mcEfUPiHpNAsMYZUqySGVbkAQYxCuNDOR8w==;
+Received: from mail-dl1-f44.google.com ([74.125.82.44])
+	by outgoing2021.csail.mit.edu with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.95)
+	(envelope-from <nickolai@csail.mit.edu>)
+	id 1xGrzu-004WiZ-Cf
+	for linux-kernel@vger.kernel.org;
+	Wed, 14 Oct 2026 01:57:54 -0400
+Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-16ad92569b5so3654123c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 22:57:54 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzY7a8ka7FuXg6avUGZdcxKiY2mLHqzv+qlqxGo/FxeVLEI1JsB7kbacOp90ljBEGLQJ1cRTpuvVE7++4s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYImuk06CHrLXP+gAUp+IiZxXz+sKxBDvZ90ynm3Snbd/ijWlRSS
+	0/8KKxmUDU6Tdmhp8bz/EfocIDpoXsJyREkD9BPKjzat1zU6Bt0njcCudNW9ud732C+Po9+oFv2
+	2RCZqMqK/5HqtcWXRojVFMkvaugSJyI4=
+X-Received: by 2002:a05:701b:4508:10b0:154:fa0b:6df1 with SMTP id
+ a92af1059eb24-16a5e49d6c9mr18358639c88.37.1791957473445; Tue, 13 Oct 2026
+ 22:57:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Flag: NO
-X-Spam-Score: -1.80
-X-Spam-Level: 
-X-Spamd-Result: default: False [-1.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com,outlook.de];
-	FREEMAIL_CC(0.00)[ti.com,perex.cz,suse.com,outlook.de,gmail.com,vger.kernel.org,alsa-project.org];
-	RCVD_TLS_ALL(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+MIME-Version: 1.0
+References: <20261009221957.760606-1-nickolai@csail.mit.edu>
+ <20261010155110.764010-1-nickolai@csail.mit.edu> <as8FTtH7yzeKCpE7@xhacker>
+In-Reply-To: <as8FTtH7yzeKCpE7@xhacker>
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Date: Wed, 14 Oct 2026 01:57:41 -0400
+X-Gmail-Original-Message-ID: <CADGQE7EUNKbWUyr4thAs2XqCaykjjWByfvcRVGD2GWdBUT_UUQ@mail.gmail.com>
+X-Gm-Features: AclHuK8Z3adooWzqDYNqaJpR4xFHG0X3uEiFJENAdhdcUonFyJbNwabOncI3VwA
+Message-ID: <CADGQE7EUNKbWUyr4thAs2XqCaykjjWByfvcRVGD2GWdBUT_UUQ@mail.gmail.com>
+Subject: Re: [PATCH v3] riscv: Fix icache flush being skipped for a second mm
+ mapping an exec folio
+To: Jisheng Zhang <jszhang@kernel.org>
+Cc: linux-riscv@lists.infradead.org, pjw@kernel.org, palmer@dabbelt.com, 
+	aou@eecs.berkeley.edu, alex@ghiti.fr, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 13 Oct 2026 15:02:19 +0200,
-Gergo Koteles wrote:
-> 
-> Hi,
-> 
-> Georg Wenzel experienced a regession with TAS2563 amplifiers. His laptop 
-> lacks proper calibration data, and due to a bug, the driver failed to 
-> apply them in the v6.16.x. That's why they worked.
-> 
-> The amplifiers operate even without calibration data, so the calibration 
-> setup can be skipped if the data is invalid.
-> 
-> The first patch simplifies error paths in the tas2563_save_calibration() 
-> function.
-> 
-> The second patch skips the zero UEFI calibration data as it is not 
-> necessary to apply.
-> 
-> The previous patch for this problem
-> 3bc4fc135ec7 ("ALSA: hda/tas2781: Enable bass speakers support")
-> should be removed/reverted.
-> 
-> Gergo Koteles (2):
->   ALSA: hda/tas2781: Assign total_sz at the end of the function
->   ALSA: hda/tas2781: Skip invalid TAS2563 UEFI calibration data
+On Wed, Oct 14, 2026 at 12:50=E2=80=AFAM Jisheng Zhang <jszhang@kernel.org>=
+ wrote:
+> Now the patch looks better. I only have one concern: RV32 doesn't have
+> native atomic64, so falls back to generic atomic64 implementation which
+> disables local irq, takes spin lock, then does the operation, unlock,
+> restore local irq, so I'm not sure whether overhead for RV32 is too
+> heavy or not. However, I have no other better solution for RV32.
 
-Applied with the revert of the previous fix to for-next branch now.
+One option would be to disable this optimization on RV32 (i.e., undo
+01261e24cfab on RV32, by calling flush_icache_all() as before, and
+keep the optimization with the icache_gen fix on RV64).  This might be
+a reasonable trade-off, if RV32 tend to be relatively small, and the
+many-core machines that benefit from this optimization are RV64.
 
-
-thanks,
-
-Takashi
+Nickolai.
