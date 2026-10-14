@@ -1,91 +1,64 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 328001DF980;
-	Wed, 14 Oct 2026 13:04:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BA6251A15C;
+	Wed, 14 Oct 2026 13:04:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791983072; cv=none; b=PbyFSJMK4LG6iQJKEZs+Zgx7dMIn0kAcTnfh2dPKjpCsF0Qb+qlOVRj28oe22Tj8JwML4ywistSm7564tCeYI0/l0O9AfYlR+gYc8eCaZU5GlznVGQ21RXWq9c6xUqAgsLEN3VYUpqI0SvjRDxHIHr1GkNu9/9ZyL72emlCl1HY=
+	t=1791983082; cv=none; b=Shde1nFasXZjqEileL9jefrTFhEtmTHfbsnT0KBKda4xsSg5znKTCvQ1Q4O4DR63QzyLO+D+jGWmvtQ71MJU1BvAKjBwHRt8yPEACf4vijcctL8BEXpXmjXu3hWiu3Owp//3Xw8p93yZw5rxyJ/aliObbHhNrOycKkcxMEsITo4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791983072; c=relaxed/simple;
-	bh=DfdG8Mv3+zufx8SrlKKlpFST8xc1hAD2q3bZ3e6KRPc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=V+3O2yI8vIwphj/FNdGh2VyCYVmMUxRpxCMs5UoclGCqyFaIGR0VjyjMIg2vht6FWKcYU7ct8kojovqAMBWfQmYaauFYTZPEQL9Ye7K2rCcwfMPfusRILh4XUJlZqOZOCPDXsJeU+wSW6cpY+EsmpqSWAppbU20r+3G4hy7NBGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y0n7EgOf; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y0n7EgOf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7B3B1F000FF;
-	Wed, 14 Oct 2026 13:04:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791983070;
-	bh=PGYA60mHnTCioRjOgFXdMUTLxHyhzPZTPJY/+n4H04A=;
-	h=From:Date:Subject:To:Cc;
-	b=Y0n7EgOfFva5Ex6qRYM1AWszr3H1j/kRXd+Y1uV0yRYqNKbBogTslSrGDCb73OMc+
-	 3lvZv4xPxXZbR105xlHsa04m13L9OP3Vl3EL7pai/EcWhPt9fipd5F/ILPNxT17hJM
-	 Q7wJ9KDUbGblyFqESc+ZQdisJTYPDLKgIgMd1+ojZh9YWDPPgSp8kaeKG07I97FC0h
-	 UtQQICFMJeShVovNdXAVQ6gisMaDOdMVZAT19oE7bUrRAbRA5sdFt8DaK1TESZ+76N
-	 +J3T+O6GF62tB5efsDeloyKLIYKgbX6Ielyu1Cr8G04apLtBIL0GYGRBh5mc7Ln/bu
-	 UMxbjZxwnkMMQ==
-From: Mark Brown <broonie@kernel.org>
-Date: Wed, 14 Oct 2026 14:03:33 +0100
-Subject: [PATCH] selftests: lib.mk: Don't fail install if no modules were
- built
+	s=arc-20240116; t=1791983082; c=relaxed/simple;
+	bh=gBjlekfpMc4N91Ydpew9O0OccHaYqyn10sO1zmjnbMo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uj+f7Xtx7iMsoWBhtqS4mzvmldFKZSfAU7WUufx3j9WQTNhPJfMLpR825PkT0r4gQMjS18DpU3ZCOUxIDoOMTp00KV7ouIglm2aistyDuoZkEIC5q6/uiP8EHkmtHftQguhMPaeVYsm17pfFQkpRQFfxFUBUdM3g0F40Hwi5djE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 28EE868C4E; Wed, 14 Oct 2026 15:04:32 +0200 (CEST)
+Date: Wed, 14 Oct 2026 15:04:31 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: Andrea Parri <parri.andrea@gmail.com>
+Cc: Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Keith Busch <kbusch@kernel.org>, linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 2/5] nvmet: zns: don't leak stale memory in zone
+ management receive
+Message-ID: <20261014130431.GA15622@lst.de>
+References: <20261012141239.156408-1-parri.andrea@gmail.com> <20261012141239.156408-3-parri.andrea@gmail.com> <20261013142554.GC14759@lst.de> <20261014110001.95212-1-parri.andrea@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-kselftest-lib-no-modules-v1-1-e4f7208dcb56@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAKV9z2oC/yXMQQ6CMBBA0auQWTsJhQDqVYwLOx10tLamU4wJ4
- e4WWL7F/zMoJ2GFczVD4q+oxFBgDhXQ4xbujOKKoamb3tSmxZeyHzNrRi8WQ8R3dJNnRXt0Q0c
- DdSdqoeSfxKP8tvXlulsn+2TK6w+W5Q/U0onzfAAAAA==
-X-Change-ID: 20261013-kselftest-lib-no-modules-b8d75c7c59c3
-To: Shuah Khan <shuah@kernel.org>
-Cc: linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Mark Brown <broonie@kernel.org>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1324; i=broonie@kernel.org;
- h=from:subject:message-id; bh=DfdG8Mv3+zufx8SrlKKlpFST8xc1hAD2q3bZ3e6KRPc=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLO197uOTrNdauldgw7a43B6tC4Vz+2NRikJuVG1XdHB
- F99VLO7o5SFQYyLQVZMkSUui/tlfcnrNXwHF7bBzGFlAhnCwMUpABOZc4ORoeXKAdOZvHnf9mi5
- 3ZNm7+F4u7HpTUfBrxnlG47+T5tu9Zzhf9n7m8n7Pl8LsLgv3Jl9M/1igC7flQdFSekZpREZG5+
- 28wIA
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014110001.95212-1-parri.andrea@gmail.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-The install rule for TEST_GEN_MODS_DIR copies *.ko from the directory
-with rsync which fails if there are no modules, for example because the
-directory's Makefile skipped building them. Only run rsync if there is
-something to install. This currently affects the livepatch suite but it
-seems sensible to fix here for added robstness.
+On Wed, Oct 14, 2026 at 01:00:00PM +0200, Andrea Parri wrote:
+> On Tue, Oct 13, 2026 at 04:25:54PM +0200, Christoph Hellwig wrote:
+> > On Mon, Oct 12, 2026 at 04:12:29PM +0200, Andrea Parri wrote:
+> > > Tested over the loop, tcp, rdma and fc transports with a zoned
+> > > null_blk namespace: before this patch, zone reports carried stale bytes
+> > > and a data length larger than NUMD was accepted; with it, reports are
+> > > fully initialized and such a length fails with Data SGL Length Invalid.
+> > 
+> > Can you wire up the reproduce in blktests?
+> 
+> Sure.  Following Documentation/process/security-bugs.rst I had only
+> offered the reproducers on request; since you'd like them in blktests,
+> I'll post them to linux-block shortly, unless you'd rather have them
+> off-list until the fixes are merged.  One test covers this patch, and
+> two more cover the fc and NUMD patches of this series.
 
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- tools/testing/selftests/lib.mk | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I would not consider anything relating nvme except for userspace API
+a security issue.  The protocols are clearly not designed for and/or
+advertised for untrusted networks.
 
-diff --git a/tools/testing/selftests/lib.mk b/tools/testing/selftests/lib.mk
-index f02cc8a2e4ae..7841bd4239c7 100644
---- a/tools/testing/selftests/lib.mk
-+++ b/tools/testing/selftests/lib.mk
-@@ -155,7 +155,7 @@ endef
- 
- define INSTALL_MODS_RULE
- 	$(if $(INSTALL_LIST),@mkdir -p $(INSTALL_PATH)/$(INSTALL_LIST))
--	$(if $(INSTALL_LIST),rsync -a --copy-unsafe-links $(INSTALL_LIST)/*.ko $(INSTALL_PATH)/$(INSTALL_LIST))
-+	$(if $(wildcard $(INSTALL_LIST)/*.ko),rsync -a --copy-unsafe-links $(INSTALL_LIST)/*.ko $(INSTALL_PATH)/$(INSTALL_LIST))
- endef
- 
- define INSTALL_RULE
-
----
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
-base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm master
-change-id: 20261013-kselftest-lib-no-modules-b8d75c7c59c3
-
-Best regards,
---  
-Mark Brown <broonie@kernel.org>
+Just to make it clear, that's not to say we don't want these fixed,
+but they are considered robustness fixes and not security issues.
 
