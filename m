@@ -1,37 +1,36 @@
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0454948CD52;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 047AC4A64E6;
 	Wed, 14 Oct 2026 22:05:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792015513; cv=none; b=bA6hNXbRLf8nKn0O1BiHgE3ekQIR+Q/lqBAbPvWwHtZHuRxi+4QSldKrFjzA+6rhBt9AzL/wQNPbGWzvsJJximAEDtG2f0zxxtaFXNtsAKhAoRhEaGuyeBpYspwATJgIYudyuHTzH8cdVPO6DbR7qP45QteF1ZwMqN6lJZ5XMwE=
+	t=1792015514; cv=none; b=lqVscuY9TrOsl5AO21DJHHROdNufVfXggcIbFcsz50arYoUlQNa6D6R1CYo/CNtAGlz0wW/j3bAazMlSzAs7OhC/5d4BG9Jzm+/jzH2fKhecXP9ZxpzI0CH3qgd9YK2cQRKpoPqRG4B9YXccOvwYyZAan2HL1DnhDyrfdNWlQtE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792015513; c=relaxed/simple;
-	bh=JIQYfSl4FHO7RBWGs+X9PTpxL/QlAOxSwIT/tiEcNng=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=oHFrMPs5QoeKnKCWcMbGRcQR23dMW06LLmlJise0r+c76y9KMHgV61jrTRm2cM56sQGRUTg0avHhWeg62NToIA3lsv5Iba35APnRqmCiwRAJQeXJLzGxsniY6w3lHtg47w2sFMOxWf5Lv3eOJ04Fh3bluCzjEL3vh5xy4/NanNI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=ROGSwJ/Z; arc=none smtp.client-ip=90.155.50.34
+	s=arc-20240116; t=1792015514; c=relaxed/simple;
+	bh=V1iTvCXW2pTewaGpcZtipqZJZe+75afBE3Xt9YmkWPs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=FVQFNfnwGPY+sPTEbpPw7DBNUrvbfFQ/OCgdqFsH2DJf+qGGR48KaZW36B5MagFhN1X0mv3u4vLc8U5mnLuPyHMtfZG/OCl1O9GGCH83ON8wV27ar6DUE1Ch4N4iGTv/TdgmwZXLZKXvQ6Hf3uVdrEEv5j/r8V3Pm1BJLul3nL8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=D8nLODs4; arc=none smtp.client-ip=90.155.50.34
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="ROGSwJ/Z"
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="D8nLODs4"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:
-	To:From:Reply-To:Content-ID:Content-Description;
-	bh=Fqo6lpO9UQiTdCHFymA7Pg1AUf+HpjLRc+2WggDizO8=; b=ROGSwJ/Zwo93tKsUpT/4CllhMY
-	8y/ahO9V9IBxe83K7sYx8zxjaQYkshOXt2zubpvIhmdvkGzNBxxXLnw2GNQyuUh/gwT4GQesIqHv2
-	QqCu8vQxaAXYFxdBHedR/mcutEtM+wuL65W4LUuMeTt/g62pr2L7134Ao9Ewl2O8fAABUPJV+DYmo
-	FC6gbtGq1E/ZEA3YHzeDRGBuL93O2uaip1k+LWWhFaPEg2NdFs6vB7VG41rt0ybLkci5eLuE2CeSg
-	07FoIbG7um+Y0+toFra1jxD9EQb43AtzBjr+czrfSJ2kiOOfUcq5crQ9cq/hRANc3xnFUdMkfFiBJ
-	7Btqyj1w==;
+	Content-Type:MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:
+	Content-ID:Content-Description:In-Reply-To:References;
+	bh=1vwpDJ4914ok9gUhOxc71djJYebqKElYUPJ1ysR1XRc=; b=D8nLODs4n4LUKhMWlouaZbHMkJ
+	OC9lUm3RxeZF2IHxaiP9O5Yt3FkbmL7+9aQ+4x8jqK35Hut98u7FkHAvu/2UAJJ+7X+BMwBjwngaL
+	mOY5KFOmTH+nCGInIFOGME0QymJPjlsTwnjdAA8Tn3cuyE3AbB0PcXvmgvahzuWpg+SwxY+9TwihX
+	NXAscbfV7I2qAUw4V8jB6A8zBw+ZjuPYjz4AolAWJ5Nsrq1Cd0HAkfb07CGA0lB162KSmwJRLk4Fx
+	T1+E89DCwMeh+fsy98f6bptDZpRztBjE++aqs64XuY41yCNOsGkMOl71DFrN4fQ5e4CQkAchmAFKJ
+	sJm7uNew==;
 Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
 	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xH75x-00000007ibu-0Ez5;
-	Wed, 14 Oct 2026 22:05:09 +0000
+	id 1xH75w-00000007ibe-1hcT;
+	Wed, 14 Oct 2026 22:05:08 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xH75w-00000002AyB-3dJ7;
+	id 1xH75w-00000002AxQ-0dNG;
 	Wed, 14 Oct 2026 23:05:08 +0100
 From: David Woodhouse <dwmw2@infradead.org>
 To: kvm@vger.kernel.org
@@ -43,12 +42,10 @@ Cc: linux-kernel@vger.kernel.org,
 	Vitaly Kuznetsov <vkuznets@redhat.com>,
 	Fred Griffoul <fgriffo@amazon.co.uk>,
 	David Woodhouse <dwmw@amazon.co.uk>
-Subject: [PATCH v2 11/11] KVM: selftests: Add Xen evtchn vs memslot-update race test
-Date: Wed, 14 Oct 2026 23:05:07 +0100
-Message-ID: <20261014220508.518772-12-dwmw2@infradead.org>
+Subject: [PATCH v2 00/11] KVM: x86/xen: Don't drop event deliveries which race memslot updates
+Date: Wed, 14 Oct 2026 23:04:56 +0100
+Message-ID: <20261014220508.518772-1-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261014220508.518772-1-dwmw2@infradead.org>
-References: <20261014220508.518772-1-dwmw2@infradead.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,218 +59,107 @@ X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-Race a guest EVTCHNOP_send loop against a host thread which deletes
-and recreates the shared_info memslot. Delivery which hits the update
-window now returns -EAGAIN and the hypercall is re-executed; if KVM
-instead waited in the vCPU's exit-handling context — under vcpu_run's
-kvm->srcu read section — it would deadlock against
-kvm_swap_active_memslots() waiting out that reader, and this test
-livelocks within seconds.
+Sashiko analysis and torture testing of the upcoming conversion of the
+gfn_to_pfn_cache from rwlock to atomic SRCU¹ highlighted a pre-existing
+problem: refreshing a cache can fail while a memslot is briefly marked
+KVM_MEMSLOT_INVALID during a memslot update. The Xen event channel and
+timer delivery paths silently dropped events when they hit that window.
 
-Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-Assisted-by: LLM
----
+Return -EAGAIN from __kvm_gpc_refresh() to distinguish the transient
+case from a genuinely unbacked GFN, and add a retry loop for the common
+case callers which can just wait for the memslot update to complete, as
+well as dealing with the corner cases which can't:
+
+ - The Xen attribute ioctls wait, so userspace never sees the
+   transient state.
+
+ - Timer delivery leaves ->arch.xen.timer_pending set and retries from
+   kvm_xen_inject_timer_irqs() on the next vCPU entry.
+
+ - The guest's own EVTCHNOP_send hypercall runs under vcpu_run's
+   kvm->srcu read section — the very reader the memslot update is
+   waiting for — so it cannot wait. Leave the hypercall uncompleted
+   without advancing RIP, so the guest re-executes it. This is how
+   Xen itself restarts preempted hypercalls.
+
+Patch 3 steps the hypercall page MSR write out of the vCPU's kvm->srcu
+read section around xen_lock, so an ioctl waiting out a memslot update
+while holding that lock cannot deadlock it.
+
+Patches 7-10 are pulled forward from the SRCU series because they stand
+alone:
+
+ - Three from Sean², extracting vcpu_info delivery into a separate
+   helper and taking the shared_info and vcpu_info pages out of dirty
+   tracking. Rebased: his series had first converted the GPC locks to
+   read_trylock(), which this one doesn't carry.
+
+ - Requesting the guest TLB flush from record_steal_time() itself, as
+   a standalone cleanup in preparation for converting that to GPC.
+
+The final patch adds a selftest racing a guest EVTCHNOP_send loop
+against a tight memslot delete/recreate loop. Tested with that and
+xen_shinfo_test; an instrumented run showed 10 of its 4000 sends
+hitting the update window and re-executing.
+
+Based on kvm/next (d4b7fb647204).
+
+v2: https://git.infradead.org/?p=users/dwmw2/linux.git;a=shortlog;h=refs/heads/gpc-eagain-v2
+ - Take kvm->srcu around the kvm_gpc_check() loop and the wallclock
+   write in kvm_xen_shared_info_init(), which had lost it.
+ - New patch 3: don't block on xen_lock within the vCPU's kvm->srcu
+   read section (three-way deadlock against a waiting ioctl and a
+   memslot update). Document the rule at the lock's definition.
+ - On -EINVAL (deactivated shared_info, or an invalid port), clear
+   timer_pending but keep timer_expires: a halted vCPU would
+   otherwise spin aborting its own block, and the event is still
+   reported as pending through KVM_XEN_VCPU_GET_ATTR.
+ - Drop the wait argument from kvm_xen_inject_timer_irqs(); neither
+   caller may wait.
+ - Extend the KVM_GET_DIRTY_LOG note in api.rst to the vcpu_info area.
+ - Teach lockdep that the wait functions as a synchronize_srcu(), so
+   it reports any lock held across it which a kvm->srcu read section
+   can take.
+ - Comment fixes; drop a leftover cosmetic hunk.
+
+Thanks to the Sashiko review bot for finding three of those on v1.
+
+v1: https://git.infradead.org/?p=users/dwmw2/linux.git;a=shortlog;h=refs/heads/gpc-eagain
+    https://lore.kernel.org/kvm/20261013204824.454208-1-dwmw2@infradead.org/
+
+¹ https://git.infradead.org/?p=users/dwmw2/linux.git;a=shortlog;h=refs/heads/gpc-srcu-v2
+² https://lore.kernel.org/kvm/20260529165114.748639-1-seanjc@google.com/
+
+David Woodhouse (8):
+  KVM: pfncache: Return -EAGAIN for a lookup which hits an invalid memslot
+  KVM: pfncache: Add a 'wait' argument to the refresh and activate functions
+  KVM: x86/xen: Don't block on xen_lock within the vCPU's kvm->srcu section
+  KVM: x86/xen: Wait out memslot updates in the Xen attribute ioctls
+  KVM: x86/xen: Don't lose the timer event when delivery fails transiently
+  KVM: x86/xen: Retry event channel delivery which races a memslot update
+  KVM: x86: Request the guest TLB flush from record_steal_time()
+  KVM: selftests: Add Xen evtchn vs memslot-update race test
+
+Sean Christopherson (3):
+  KVM: x86/xen: Extract delivery of event to vCPU into a separate helper
+  KVM: x86/xen: Explicitly tag "shared info" page as never being dirty tracked
+  KVM: x86/xen: Don't dirty track "vCPU info" page
+
+ Documentation/virt/kvm/api.rst                |   5 +-
+ arch/x86/include/asm/kvm_host.h               |   4 +
+ arch/x86/kvm/msrs.c                           |   2 +-
+ arch/x86/kvm/x86.c                            |  28 +-
+ arch/x86/kvm/xen.c                            | 341 ++++++++++++------
+ include/linux/kvm_host.h                      |  27 +-
+ include/linux/kvm_types.h                     |   1 +
  tools/testing/selftests/kvm/Makefile.kvm      |   1 +
- .../kvm/x86/xen_evtchn_memslot_race_test.c    | 178 ++++++++++++++++++
- 2 files changed, 179 insertions(+)
+ .../kvm/x86/xen_evtchn_memslot_race_test.c    | 178 +++++++++
+ .../selftests/kvm/x86/xen_shinfo_test.c       |  11 +-
+ virt/kvm/pfncache.c                           | 137 +++++--
+ 11 files changed, 564 insertions(+), 171 deletions(-)
  create mode 100644 tools/testing/selftests/kvm/x86/xen_evtchn_memslot_race_test.c
 
-diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
-index 96bab7002d39..e7e17d19d6cb 100644
---- a/tools/testing/selftests/kvm/Makefile.kvm
-+++ b/tools/testing/selftests/kvm/Makefile.kvm
-@@ -144,6 +144,7 @@ TEST_GEN_PROGS_x86 += x86/xss_msr_test
- TEST_GEN_PROGS_x86 += x86/debug_regs
- TEST_GEN_PROGS_x86 += x86/tsc_msrs_test
- TEST_GEN_PROGS_x86 += x86/vmx_pmu_caps_test
-+TEST_GEN_PROGS_x86 += x86/xen_evtchn_memslot_race_test
- TEST_GEN_PROGS_x86 += x86/xen_shinfo_test
- TEST_GEN_PROGS_x86 += x86/xen_vmcall_test
- TEST_GEN_PROGS_x86 += x86/sev_dbg_test
-diff --git a/tools/testing/selftests/kvm/x86/xen_evtchn_memslot_race_test.c b/tools/testing/selftests/kvm/x86/xen_evtchn_memslot_race_test.c
-new file mode 100644
-index 000000000000..2b6974d3d464
---- /dev/null
-+++ b/tools/testing/selftests/kvm/x86/xen_evtchn_memslot_race_test.c
-@@ -0,0 +1,178 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * xen_evtchn_memslot_race_test
-+ *
-+ * A guest EVTCHNOP_send whose delivery races a DELETE/re-CREATE of the
-+ * memslot holding the shared_info page. The delivery path runs in the
-+ * vCPU's exit-handling context, under vcpu_run's kvm->srcu read
-+ * section; if it waits there for the memslot update to complete, it
-+ * deadlocks against kvm_swap_active_memslots()'s
-+ * synchronize_srcu_expedited() waiting out that very read section.
-+ * Regression test for that deadlock: KVM must defer the delivery to
-+ * the next guest entry rather than spin in exit context.
-+ *
-+ * The guest sends events in a tight loop; a host thread deletes and
-+ * recreates the shared_info slot in a tight loop. On a broken host
-+ * this livelocks within a second or two (the test then dies by
-+ * timeout); on a fixed host every send eventually delivers and the
-+ * test completes N iterations.
-+ */
-+#include <pthread.h>
-+#include <stdatomic.h>
-+
-+#include "test_util.h"
-+#include "kvm_util.h"
-+#include "processor.h"
-+
-+#include <stdint.h>
-+
-+#define SHINFO_REGION_GPA	0xc0000000ULL
-+#define SHINFO_REGION_SLOT	10
-+
-+#define EVTCHN_PORT		15
-+#define TEST_ITERATIONS		4000
-+
-+#define EVTCHNOP_send		4
-+#define __HYPERVISOR_event_channel_op	32
-+
-+#define XEN_HYPERCALL_MSR	0x40000000
-+
-+#define EVTCHNSTAT_ipi		5
-+
-+struct evtchn_send {
-+	uint32_t port;
-+};
-+
-+static void guest_code(void)
-+{
-+	struct evtchn_send s = { .port = EVTCHN_PORT };
-+	int i;
-+
-+	for (i = 0; i < TEST_ITERATIONS; i++) {
-+		/*
-+		 * The delivery may legitimately fail while the shared_info
-+		 * slot is mid-churn (between DELETE and re-CREATE there is
-+		 * no slot at all, which is -EFAULT, not a transient). The
-+		 * failure mode under test is the vCPU never coming back at
-+		 * all (deadlock -> timeout), not the hypercall rc.
-+		 */
-+		__xen_hypercall(__HYPERVISOR_event_channel_op, EVTCHNOP_send, &s);
-+		GUEST_SYNC(i);
-+	}
-+
-+	GUEST_DONE();
-+}
-+
-+static atomic_bool churn_stop;
-+
-+static void *memslot_churn(void *arg)
-+{
-+	struct kvm_vm *vm = arg;
-+
-+	while (!atomic_load(&churn_stop)) {
-+		vm_mem_region_delete(vm, SHINFO_REGION_SLOT);
-+		vm_userspace_mem_region_add(vm, VM_MEM_SRC_ANONYMOUS,
-+					    SHINFO_REGION_GPA,
-+					    SHINFO_REGION_SLOT, 2, 0);
-+	}
-+	return NULL;
-+}
-+
-+int main(int argc, char *argv[])
-+{
-+	struct kvm_vcpu *vcpu;
-+	struct kvm_vm *vm;
-+	pthread_t thread;
-+	struct ucall uc;
-+	int done = 0;
-+	int r;
-+
-+	int xen_caps = kvm_check_cap(KVM_CAP_XEN_HVM);
-+
-+	TEST_REQUIRE(xen_caps & KVM_XEN_HVM_CONFIG_SHARED_INFO);
-+	TEST_REQUIRE(xen_caps & KVM_XEN_HVM_CONFIG_EVTCHN_SEND);
-+
-+	vm = vm_create_with_one_vcpu(&vcpu, guest_code);
-+
-+	vm_userspace_mem_region_add(vm, VM_MEM_SRC_ANONYMOUS,
-+				    SHINFO_REGION_GPA, SHINFO_REGION_SLOT, 2, 0);
-+
-+	struct kvm_xen_hvm_config hvmc = {
-+		.flags = KVM_XEN_HVM_CONFIG_INTERCEPT_HCALL |
-+			 KVM_XEN_HVM_CONFIG_EVTCHN_SEND,
-+		.msr = XEN_HYPERCALL_MSR,
-+	};
-+	vm_ioctl(vm, KVM_XEN_HVM_CONFIG, &hvmc);
-+
-+	struct kvm_xen_hvm_attr lm = {
-+		.type = KVM_XEN_ATTR_TYPE_LONG_MODE,
-+		.u.long_mode = 1,
-+	};
-+	vm_ioctl(vm, KVM_XEN_HVM_SET_ATTR, &lm);
-+
-+	struct kvm_xen_hvm_attr ha = {
-+		.type = KVM_XEN_ATTR_TYPE_SHARED_INFO,
-+		.u.shared_info.gfn = SHINFO_REGION_GPA / PAGE_SIZE,
-+	};
-+	vm_ioctl(vm, KVM_XEN_HVM_SET_ATTR, &ha);
-+
-+	struct kvm_xen_vcpu_attr vi = {
-+		.type = KVM_XEN_VCPU_ATTR_TYPE_VCPU_INFO,
-+		.u.gpa = SHINFO_REGION_GPA + 0x40,
-+	};
-+	vcpu_ioctl(vcpu, KVM_XEN_VCPU_SET_ATTR, &vi);
-+
-+	/* Loop the port back to this vCPU as an IPI. */
-+	struct kvm_xen_hvm_attr evt = {
-+		.type = KVM_XEN_ATTR_TYPE_EVTCHN,
-+		.u.evtchn.send_port = EVTCHN_PORT,
-+		.u.evtchn.type = EVTCHNSTAT_ipi,
-+		.u.evtchn.flags = 0,
-+		.u.evtchn.deliver.port.port = EVTCHN_PORT,
-+		.u.evtchn.deliver.port.vcpu = vcpu->id,
-+		.u.evtchn.deliver.port.priority = KVM_IRQ_ROUTING_XEN_EVTCHN_PRIO_2LEVEL,
-+	};
-+	vm_ioctl(vm, KVM_XEN_HVM_SET_ATTR, &evt);
-+
-+	r = pthread_create(&thread, NULL, memslot_churn, vm);
-+	TEST_ASSERT(!r, "pthread_create() failed: %d", r);
-+
-+	while (!done) {
-+		vcpu_run(vcpu);
-+
-+		/*
-+		 * In the window where the shared_info slot is fully deleted
-+		 * (between the churn thread's DELETE and re-CREATE), the
-+		 * delivery fails with -EFAULT and the hypercall bounces to
-+		 * userspace as KVM_EXIT_XEN. Complete it with an error
-+		 * result and keep going; the failure mode under test is
-+		 * the vCPU never coming back (deadlock -> timeout), not
-+		 * the hypercall rc.
-+		 */
-+		if (vcpu->run->exit_reason == KVM_EXIT_XEN &&
-+		    vcpu->run->xen.type == KVM_EXIT_XEN_HCALL) {
-+			vcpu->run->xen.u.hcall.result = -EFAULT;
-+			continue;
-+		}
-+
-+		TEST_ASSERT_KVM_EXIT_REASON(vcpu, KVM_EXIT_IO);
-+
-+		switch (get_ucall(vcpu, &uc)) {
-+		case UCALL_SYNC:
-+			break;
-+		case UCALL_DONE:
-+			done = 1;
-+			break;
-+		case UCALL_ABORT:
-+			REPORT_GUEST_ASSERT(uc);
-+		default:
-+			TEST_FAIL("Unexpected ucall %lu", uc.cmd);
-+		}
-+	}
-+
-+	atomic_store(&churn_stop, true);
-+	pthread_join(thread, NULL);
-+
-+	kvm_vm_free(vm);
-+	return 0;
-+}
+base-commit: d4b7fb647204f0c81dfeae2d1a708e4d858e0c94
 -- 
 2.43.0
 
