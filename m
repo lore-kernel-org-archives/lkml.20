@@ -1,146 +1,136 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F58B4CEE52
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:39:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792006792; cv=none; b=gfr2p2xZPukgtPCt5REruTTYP1WDmJ5ogXSwRDQVFDl+yzLBSZRtOEr5TGpp2kBqwCOubaWp4fp955qgSsXmsoNad7n28NH6BpAR/F/vEeC6LVlxKeg4swI7RvguAkU6khTqJow6wFnr+Rhs2UVFaUeSmJeipRUyR3kYKsLWwag=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792006792; c=relaxed/simple;
-	bh=qSGlkJ/tiRxSKCByNYHm8CeLHYrmmbBMOlrabqcMMZ0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=N+yjgX9jIbDYvXAc2wYl94O7jfo+SxhFxsOawpaf1YoxnkrZVT2di7dmZ8L/OYUCFMF2cIiG1x2Uvc0wc8Kp+qxwz99rg4TH81dZ8AzFSFle8bl4Em0c+jzjIvjLGIHkoHiLvJaIlf2+PrLLEXGXszAPZhjNnA+BFt/RcPjBAOg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RpJnlKIK; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF01236DA0A;
+	Wed, 14 Oct 2026 19:41:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792006907; cv=pass; b=bLufYkMVWWHMdc8sfkmTAhYZuBwcgAON25ggUWxoADuJ4CBygCMRCTab147Hl5FFtg/tXOcnf18MeJl5XjogV8zlTs+voWlPfIevL8+EocZSeHOr+PMRKp5BS8T0dwKK4eeu+4ZBwzzLo3cDG3eTnXZjv58QPqYC2d7zICjUkXk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792006907; c=relaxed/simple;
+	bh=3kiqDHXOFYarnpPmrSQ6KreQBzixYm9FgKqGaA3CXMM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=T/BZxEqIQ0bVmIc1khQeKOf2XQ3tXtw/EgH0NeF6SKckmoR3+2d3OrxSeMdgntlH0eIL/mpbuRK4gkYdfFXdBDn73L2vYOb/pJALTVvBQUoXJoRbJMoBNzdeG7JsWUyz+kokycXJLn2CWWpIn1TBD9Sz+QzIiLRmhoV0L+dbCAI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=W0Ubx5QN; arc=pass smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RpJnlKIK"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a171b677d2so28304975e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:39:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792006790; x=1792611590; darn=vger.kernel.org;
-        h=content-type:mime-version:references:in-reply-to:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qSGlkJ/tiRxSKCByNYHm8CeLHYrmmbBMOlrabqcMMZ0=;
-        b=RpJnlKIK5zyAHIJKcOysLqwJ2yRLmh67WM2HyW0SR/SkSvpE4HbzUTgLhlQKt0kxnT
-         sg/rs1ppt2QxutLCOeDR6BQOIEyYUMEGER19GLBzPCP9ZoBihIPy1N1y3McJbXy8GMJC
-         2aj+ywQU7jOjF3yvTqjOPmK3sl5cY8kbizqfHsNMex3H7qozdBBZxk1wMdv0IZYP6b6j
-         eeuQDJL/uj58scz3CkrzOoQCkl0tNjAqE2AFItIGoSqR7STIiGX2ZmNf5dlNnbdelupg
-         oMi/cb784l8WiUyVsrhMNb/i1G+fbvSNxjI89n0q5Oa6IbKm63Uol/WeVk3UOqLrwguY
-         oTng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792006790; x=1792611590;
-        h=content-type:mime-version:references:in-reply-to:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qSGlkJ/tiRxSKCByNYHm8CeLHYrmmbBMOlrabqcMMZ0=;
-        b=1bU9XE1caUlSUww0NFCc+5O0zhSNu+i3/pez61g6AYhsOa6NHuwawQ2ZopSp9RorFG
-         T0wcrBaCt6HGfduOO6Sxya1I2gVEFbCwnSFW462TujUjyJEavxYO5S66KLekxHWwZzGd
-         Gu5uNvS9gqs+/2OmF5+F9fTgl1Xb4mk+gIRzjXnHTo+fo+8DTwvFp+ajuIKkpDcshcaA
-         NuPbxaWHsP3LCQQIGvjm8NMbvj0iKI2JA8uN9dNywLEGFkIZpCCJeXjhiM+jIM+qwgcJ
-         gQUPlwlDKvP5qmZsrHeqnIVdsBNCJpDRpouQ/TBCL303WdHdmP3nmjb9w3FyeLWs70z0
-         7dbA==
-X-Forwarded-Encrypted: i=1; AKwUvByWBn3pp4JxGQa18/xoKhOagrT8zsj2nYK91jjnP4JAYn+1xceJzIVZbFzGN3XNie5/JH5isz2a/vN+TIs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYILedNgpnzO3mYsvNo8bC+ADIJ/ITQEIBFTVlLeMWgAZE8sizmd
-	r4mDLQ+LNrRpf7UBSPqZKrnjTp+x1fmY493414TsuAJCIo+CUq+gxvfq
-X-Gm-Gg: AYBFou2QICCmGckpnwe3Vz79GcaPppLUT73fIxppuTYj70ypY7yMCsJCYLjf6xXlsVs
-	oICy6tg/Y3GmXNZ9iCDGUNt15BJNt+cHrA63dFIAK31PqZWROujgfgMJ8vvElawS9Iiup5d3YVM
-	oek+oKAmWe5mk7G1Sd6VjahR8ahVSYHBsmCkPkCDisa1GLGXcnVdmr4fIzVlhay4RQOJfg59Fwy
-	EkrMPaajKAZMS85R60DKGhxMR8kbgBiQckTyhClHiPtGarAdh1NhJCsFpNX58R5Q4R1t9zcM1dw
-	WDqtuvX6qI0E2pt2wBSxNeSbH6ACqhxkqYZRwRDb+HeuIniQ08Tp7yXxMmL2dkmTA1NUb9NonLB
-	n5fjhzNaMkGb9MaUeWZ7GuvfAUt8MukRSxCiQ5dyXPibQmyWSSKBbLkRNkKzvukakMPRlvM2y0g
-	ni8Y7hjPcCFkhsJOud2V5mGbu2os42YL2Okc1AfFRubcvUWNdmkkDTEjYNTwowGNC3+L6Zxmh+C
-	o3p9FyV2rvUNNX2XAFrRiLhXweTJUO82A93t/KWoezNCZj21dBW
-X-Received: by 2002:a05:600c:34d4:b0:4a0:108:3b54 with SMTP id 5b1f17b1804b1-4a18e4d67d6mr324712255e9.32.1792006789573;
-        Wed, 14 Oct 2026 12:39:49 -0700 (PDT)
-Received: from silicon.doe.home (91.141.74.240.wireless.dyn.drei.com. [91.141.74.240])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd67b125sm10387095e9.3.2026.10.14.12.39.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 12:39:48 -0700 (PDT)
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-To: linux-arm-kernel@lists.infradead.org,
- Navid Ghahremani <ghahramani.navid@gmail.com>
-Cc: arnd@arndb.de, krzk@kernel.org,
- Navid Ghahremani <ghahramani.navid@gmail.com>,
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org
-Subject:
- Re: [PATCH v2 06/24] clk: zte: Add ZX279128S CRM clock and reset driver
-Date: Wed, 14 Oct 2026 21:39:42 +0200
-Message-ID: <86bpNzKYRniAzc8v_5Lpqg@gmail.com>
-In-Reply-To: <20261014072109.1759502-7-ghahramani.navid@gmail.com>
-References:
- <20261014072109.1759502-1-ghahramani.navid@gmail.com>
- <20261014072109.1759502-7-ghahramani.navid@gmail.com>
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="W0Ubx5QN"
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 66001201C8F;
+	Wed, 14 Oct 2026 21:41:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792006898;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hQBqU5bjyvst58Zc94ghtKF7c6DSrihGDVx2Uj/uHQw=;
+	b=W0Ubx5QNFt+5tNCfpIYQ52BsewhQo4t4p5+YiOgoQ+co54MM4YeESJ0TowRE3XAdb0BbKb
+	Ea+gfqMsh7BfSp1hC6DufcCnqQeL4x52wMw7D6JQDSqczErcQ6zLjvz/Z7XYC8ntZYg7eb
+	PuxUE2my2rCu/ApXpkg5EqaOv20xm5E5YDCjUHjhlsK9s1uC8WczPBXGK7djPpSurBlqJm
+	PU39laKcpb4rVjoVtp9duXoWyvVBYXLhIt1mY9WmgYEfrmTrwHv1OWMcO/6KXXrLlks5Mq
+	6cZS6vSPbjnE8PQws+iahHMx32vrMYaF9M+FLKmQRgXuCH7ceVTKJMXzKaO+jA==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792006898; a=rsa-sha256;
+	cv=none;
+	b=RSebYfutT3dLYGHUDo1Gg3wUAcL+TqkcTZ2rOZu22f1s9fzVQyhX9kaSOtdpKpwklce/ZD
+	/1SAkHDagZTT/mXUwoaVJiQ/8E42OU+fIDRowPvU6dxkIJsFAkiMeUr32/UXYN+U1FUUef
+	KFFSIGfyfevQC82HNuLjJpqOvzx2DYsv8ukTsj8DH74F5cTX9/up9yUd5ZWJV7azuLgqw2
+	4pKyly6IaTXbrI0FdIO5F/Zb56Z9BlTbZgRpAufNfSM57QaLwdq4zyaQK6PKxM+0cncJTo
+	cCm129gQwdFNkUtreQB/c9Y95J2MVLjyl/VDX6a0/TK0iDvnH//l4/PdUzdh7A==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792006898;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hQBqU5bjyvst58Zc94ghtKF7c6DSrihGDVx2Uj/uHQw=;
+	b=Vw4ROAOTkz6DkXlDgA+XKY36lBANG1hfuNV2fM7GTzWKO6Cc/PpreS6FRDEkNZMry/oxL2
+	19d+6hq1gWgswDEid7oTuPciqQWh8Dwk/Kx5q60nmmwebkqhuQ7IdbOEsYklbFT6VmPZGx
+	lalY4inVvI2M/HI7Pui0LW0+q2vS3nIn/bODWfcsYuxVRwnM1VvgZgOGHTVWgXwPc4l2tu
+	OLpnzvKiTVLd+tMoB1Yrq4IC1qHxdP3AMcYse21ymRZ15tIWExtXhezQH2grFBTvsn0wA+
+	H0zADIOvNx7xsBQmLYFJP/7QygFhI0I2Sa3rW/LegcaT6yMk/3n5bO+yPRi4OA==
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <ore@pengutronix.de>)
+	id 1xH4r4-005uMh-0w;
+	Wed, 14 Oct 2026 21:41:38 +0200
+Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+	(envelope-from <ore@pengutronix.de>)
+	id 1xH4r4-00000004lyy-0bAo;
+	Wed, 14 Oct 2026 21:41:38 +0200
+Date: Wed, 14 Oct 2026 21:41:38 +0200
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: Carlo Szelinsky <github@szelinsky.de>
+Cc: Kory Maincent <kory.maincent@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Corey Leavitt <corey@leavitt.info>,
+	Jonas Jelonek <jelonek.jonas@gmail.com>,
+	Simon Horman <horms@kernel.org>,
+	Aleksander Jan Bajkowski <olek2@wp.pl>,
+	Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>, netdev-bot+sashiko@kernel.org,
+	sashiko-bot@kernel.org, devicetree@vger.kernel.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v8 0/7] net: pse-pd: decouple controller lookup
+ from MDIO probe
+Message-ID: <as_a8jrU9F45iCk4@pengutronix.de>
+References: <e70bea49-c18a-4d47-9cf5-fd7b8e7675cc@bootlin.com>
+ <20261013090933.3552546-1-github@szelinsky.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPart0ktEb2oPSPiRPHnKcsrTTw";
- micalg="pgp-sha256"; protocol="application/pgp-signature"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261013090933.3552546-1-github@szelinsky.de>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
 
---nextPart0ktEb2oPSPiRPHnKcsrTTw
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-Date: Wed, 14 Oct 2026 21:39:42 +0200
-Message-ID: <86bpNzKYRniAzc8v_5Lpqg@gmail.com>
-In-Reply-To: <20261014072109.1759502-7-ghahramani.navid@gmail.com>
-MIME-Version: 1.0
+Hi Carlo,
 
-Hi,
+On Tue, Oct 13, 2026 at 11:09:33AM +0200, Carlo Szelinsky wrote:
+> On 10/13/26 10:39, Kory Maincent wrote:
+> > On 10/13/26 09:40, Paolo Abeni wrote:
+> >> @Carlo: you should always reply to the AI review, even to point out
+> >> previous discussion on the same point. And you should try to be more
+> >> concise (even in the cover latter, should a repost be needed).
+> >
+> > Indeed, the cover letter should be more concise. It's hard to read like 
+> > that.
+> 
+> Hi Köry, hi Paolo,
+> 
+> Thanks for the feedback. I will reply to the AI review points and make
+> the cover letter shorter.
+> 
+> I am already working on v9, because some of the AI findings are real.
+> So if you don't mind, you may want to wait for v9 before reviewing.
 
-Am Mittwoch, 14. Oktober 2026, 09:20:46 Mitteleurop=C3=A4ische Sommerzeit s=
-chrieb=20
-Navid Ghahremani:
-> Support the top CRM and low-speed peripheral clock controllers of the
-> ZTE ZX279128S SoC. Implement custom reset controller ops mapping
-> logical reset IDs to internal hardware register offsets, and provide
-> CRM2 clock gating and reset controller support for PCIe.
->=20
-> Signed-off-by: Navid Ghahremani <ghahramani.navid@gmail.com>
+If it is possible to split this patch set, please try. it will be easier
+to pass the review.
 
-The comments I sent for v1 still apply to v2 I think.
+Thank you for your work!
 
-Please try to reuse the infrastructure in place for zx29. Ideally clk-
-zx279128s.c should be just static data and a minimalistic _probe function t=
-hat=20
-invokes zx_clk_common_probe().
-
-The drivers/clk/zte code is upstream in linux-next already. The MFD and res=
-et=20
-parts are still missing though.
-
---nextPart0ktEb2oPSPiRPHnKcsrTTw
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmrP2n4bFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMywyAAoJED0TvMhUTxoiBHoP/1/qah26RVyfGWoIo5XU
-a6m6WDESfjpMjuAWlMdAaFxD3xPutu+BcnejO8nU8S3CdKLnNWsPSD13zwk7ZvMS
-HsNdJaATkvR148jd3JdikQsrg6X9GIm9OISzJY2aL+wbABR3eR3OeL9Yfe6O8oer
-J7hteZN+T7YrhJbrfUtJ67wnfQyzrT0U4asJM1ieL7/wqX8tcu0ATRm/h/dg95Rt
-Eku6mMHUTqq8dt9+p0wxYFD6F62iI+6x/f0Ka2I0Ywewd5g5SD5aODyMHf9R96mc
-Ps1dE1quyR+FrmT2Pi9H5efSftynT+96E0y8Uwtj9l86DPvSVJ6DYluyE0ARPdpY
-OMSJt2X2WSAaY0rz9MMUTy9/qLGk7w/VB4Jdkhrc9CNk5cB1r3Z0fWRG9s2xrJIP
-UszhDfMwrYRUapevh6YMMSedDOP4SGF4d/HNQhf2ihgx1fT8npIAB2QnRhBmf0Hp
-wTp82GN/2FzU9NCtOqpqxStEQJgBMIi8+JlD5SrixgbU6MTzvw4ZQaIXWKAknIGu
-rIlKqu9JHYDhTKPGS6tNLwMJ8Xv0EXVRXQlHzNlUDFdDQIV2DIUQr7XU3C1B1rzK
-vq2zCuf7xEsTxe3WbMh3OEgGl5LhApkkPG3ehDf7qL87DWw8ES9gVc8dnamjvy07
-Cp5RQIo+S9rHalad5WqiGt6+
-=93mx
------END PGP SIGNATURE-----
-
---nextPart0ktEb2oPSPiRPHnKcsrTTw--
-
-
-
+-- 
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
