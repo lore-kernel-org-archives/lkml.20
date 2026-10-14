@@ -1,132 +1,115 @@
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A39EC377A96
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 02:53:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9A9F32F75B;
+	Wed, 14 Oct 2026 02:54:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791946412; cv=none; b=d8WVxuTzSGe6GKvehR4zkTybhP3GfzZ/7DCtIarGwsEfcjZTHLN3yz2ykykoadvV8CU8USoXvVfM0kmA/99tWNHe7Xb3b3YUHGYBGAikK0gzhID0F6oZH/KxhVjdc0L+gBLYT9FwK7DPo1sZij9SdgAOJUwvAs0yQeljA0oo6oo=
+	t=1791946442; cv=none; b=bylnP8EZerMZkcGIcmX1YMhcAcDWAte5L3HrFu3j8SndMQTtWqQGNQGvo52+sEeEdon9C7TCrqodvcmneGCnoXnp4dx0+plL3RxXMbm2M7YEzdtdEFztl5auMRAxS9A5nC3bIXOTJvOgpqVt+cJoB49AAd4I6Em+P7E3RgH0veA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791946412; c=relaxed/simple;
-	bh=/Egt3tz5Hs7aeJWjwPyFfGyEMQF3bDb+gjjLGnhPmKw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gOFloyA3lh+PkEPNurGHOJjpZjwzrPapRwTQzsU24tHZxOC3L2QPw12RO9xKu7UK66HlQchEcViivPMrrpqHcrgOMwdaBxWSDkPsTg7FLLZ4+pT7e3aZaRjREkZ46DFzv8zDns+v47L8/OdcsTunS2yfwsu2TB9kiF0LefrKZ6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gt.tech.gov.sg; spf=pass smtp.mailfrom=gt.tech.gov.sg; dkim=pass (1024-bit key) header.d=gt.tech.gov.sg header.i=@gt.tech.gov.sg header.b=Add3QjnX; arc=none smtp.client-ip=74.125.82.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gt.tech.gov.sg
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gt.tech.gov.sg
+	s=arc-20240116; t=1791946442; c=relaxed/simple;
+	bh=UOUMOjQCN34mEMkC15zOKtQhiGH8pPrI/2Hy8y06+LI=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=GT2lfXwIlWEMTxs8yQlWSlo8mJESsSeSaKyLNjRsbuu3q5OXf162SG+nioB5BjhHsKWScJOLCjLQqMts4W32WlwwLTm0Jy0RjkWK1f47t9sigKF71SkP2JXJLMw0pCGQfXz4fW+J+6tukUjfe+SUdu3kIVSJd/GzYHgoP2nYAVE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mugsJNRL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=gt.tech.gov.sg header.i=@gt.tech.gov.sg header.b="Add3QjnX"
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-35cd4e8bdbdso2562135eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:53:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gt.tech.gov.sg; s=google; t=1791946411; x=1792551211; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SsN0OFGAaeGLWTKOy2XE6d+vAOcJRUzLtjGQFjg/b5k=;
-        b=Add3QjnXYaqUvTsMSReWqQanja9fMKIbAa8bauuXutrNcYz37zNKh3tO3i43lqMaKS
-         hvy8fTQfdkUmJwdV/bKde3S6VL3FG9orHJLNgYZ26/YoU27w9Ti9zg3qMIGBSgqc7SFl
-         eGJMiyT8DdrWXf0T3oF6UmtmrkS1+xxrVTPZI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791946411; x=1792551211;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SsN0OFGAaeGLWTKOy2XE6d+vAOcJRUzLtjGQFjg/b5k=;
-        b=FRoBFNOg/05Seh+DT7iIFrB6C5Yn6Pgm2PXyN9YEVi1d2xlkVMh2z6AW/bPmmmEnWF
-         LqjHY+GtAZcRBk1uQYtVl1Vdrkmmq+oKlJIUTMIDfLauU3riY3tUe9+lZApNCPzlz301
-         8vGZEKel9vgw1igmfYdS7vGP6BmIusym064sIXlngYW22rVQjc8RH5Et5h/ULGsR/5RE
-         udx7M4z3d3xBuXDwAmVKunEy0wkUOTk2+p68KqEqho782uwqt68kfqGgS+QvpIhUcdje
-         4ZNFhccvIINVjVuLkwB1cUC0lK+XRrGMAE9//oTHjxJKEjXPE3Z4ooLdiLQAifFkrUJ0
-         0Sew==
-X-Forwarded-Encrypted: i=1; AKwUvBwXZLFLxoBE7nXEQUZ75HK9JaEymuCyMCrZ5MwYghP4waBK8fjfoh3Wx8GOe4zsZab9LvfvQeV4atkvhjA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJMgrobAFyqQAcN4rB4P0ZpRxlyJfyVa6c3FOMMDjmlDuYWcl9d
-	wlwIouLtAsg3zJfjyVmKAU6f5EhdHeN5cfSAxDGmq9btZYZJZ9VW9zb4af2bt0UAr1w=
-X-Gm-Gg: AYBFou3WK8d9aoQ0XE9VD8kzQdmny93sV9GRlm5SkKdwuAzAnIojSKSkve39Rcyot0c
-	1mKZ+GU3kmWHsm6knyGetYBJL6FKWg2cN3qbft3JZE/U+ZAsvROMT70lFnpSZgOKj6kzhLciOmF
-	6X9cyxKJPEd+oX7DFWw+NYItItagivbcTCix/zFiWRRLtxeTj1Ug8kkWnmoYYKW62U5g6/aIqYS
-	/5D+PT25YWHbvzjyfVnQ+xmB4hct7P305iLS8UhpJCJv78WE40WVyXFb9TbfVIWevbQGUhSs1MZ
-	pJw95A2bfq8cueVr1KuY1Z8OGXO4dy6N4bTeZM57yo1j7p2vaUA2jkUfbKSCRPZITpJZmDqsWqd
-	YOBCyb9+g2r24HeLZm5BILz85xF2tS6KAFxWtUFy+x+1YfAybps60KsrbYDrmchEOiC2ykIJ0lU
-	OlKZyWdq1zR1clnZnhvSCd7AZlnt/B35Uc3FC5yYK9elmAkp0sG3TH0dzXe0zRsQA7caiaUDh1L
-	l1X5dVrC8aQP5yYskcXXpB2JZFx
-X-Received: by 2002:a05:7300:2c01:b0:35c:1567:7966 with SMTP id 5a478bee46e88-35c15677c5dmr6988514eec.27.1791946410151;
-        Tue, 13 Oct 2026 19:53:30 -0700 (PDT)
-Received: from LAPTOP-UUUVNN1I.localdomain ([129.126.57.197])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb2fd33sm46522557eec.28.2026.10.13.19.53.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 19:53:29 -0700 (PDT)
-From: Wei Jie Law <law.wei.jie@gt.tech.gov.sg>
-To: Petko Manolov <petkan@nucleusys.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wei Jie Law <98lawweijie@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net 2/2] net: usb: pegasus: check rx pkt_len against the received length
-Date: Wed, 14 Oct 2026 10:53:07 +0800
-Message-ID: <20261014025307.25233-3-law.wei.jie@gt.tech.gov.sg>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261014025307.25233-1-law.wei.jie@gt.tech.gov.sg>
-References: <20261014025307.25233-1-law.wei.jie@gt.tech.gov.sg>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mugsJNRL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A4B51F00893;
+	Wed, 14 Oct 2026 02:53:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791946441;
+	bh=z/36UB7zLZVKfT7/izGBmFoBpzWxmAReGZgGNu4qmXk=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=mugsJNRLnJaf2w3ynSpKL9ypOP8bS2lAQgEjSoSxtF+PaJqFbnVa0vjX2QNRY3NRE
+	 Iap1lQY71KCZjLMhaxAtLVpzMCn/my8g0RCxWFjP29QuxMKWGVlOeiY1km+u8Z4qXV
+	 wH+hQcvVId3PGsz4t7LP7lZzBI5k8/hxQpuBodNNkjnIblwwZQK5i853M5hVofjGr9
+	 Gzvu3aCiCW8k16ZwDBF9XZHEuQC/LVN1KflZF1nmmPVeQE7lAJQJy6QIH2OIBAS6ss
+	 LjILXK3H2P080adjGcjHttNBXh85wUExQ7ELccxO93tJxY8+qOb3i7VzsX5VHB40vH
+	 dMd6VKK2kgz2g==
+Content-Type: multipart/mixed; boundary="===============7992559996201943304=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-Id: <f8c821cc97a2e46cae72802b781429ebbc0e6c4213c6f93e586b77255fa2abf5@mail.kernel.org>
+In-Reply-To: <20261013-fix-lru-node-type-kcsan-v1-1-0b743f5af2f3@gmail.com>
+References: <20261013-fix-lru-node-type-kcsan-v1-1-0b743f5af2f3@gmail.com>
+Subject: Re: [PATCH bpf-next] bpf: Annotate data races on bpf_lru_node type
+From: bot+bpf-ci@kernel.org
+To: nicholasfvelten@gmail.com,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev
+Cc: bpf@vger.kernel.org,linux-kernel@vger.kernel.org,syzbot+1ea4f564bf6f1f3d1dc4@syzkaller.appspotmail.com,nicholasfvelten@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Wed, 14 Oct 2026 02:53:59 +0000 (UTC)
 
-read_bulk_callback() takes the frame length from the device, from the
-receive header on the 0x8513 and from the trailing status bytes on the
-other chips, and only checks it against PEGASUS_MTU before passing that
-many bytes up the stack. A device that sends a short transfer but
-claims a long frame gets the uninitialized remainder of the receive
-skb delivered as packet data.
+--===============7992559996201943304==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Drop frames whose claimed length, plus the 0x8513 header, does not fit
-in the bytes actually received. urb->actual_length never exceeds the
-PEGASUS_MTU sized transfer buffer, so this also covers the existing
-PEGASUS_MTU check.
+> bpf: Annotate data races on bpf_lru_node type
 
-Found by code review with LLM assistance. With an emulated USB device,
-a 101-byte transfer claiming a 1500-byte frame was passed up as a
-1500-byte packet before this change and is dropped after it. The extra
-bytes happened to be zero in that test, so disclosure of actual kernel
-data was not demonstrated.
+TL;DR: Commit message only: it may be inaccurate about the locking for the
+node->type writes, and "the sanity check only feeds a warning" is questionable
+since the check also causes an early return.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Wei Jie Law <law.wei.jie@gt.tech.gov.sg>
+> bpf: Annotate data races on bpf_lru_node type
+
+[ ... ]
+
+> node->type is written under the global l->lock when a node moves between
+> the active, inactive and free lists, and under the per-CPU loc_l->lock
+> when it moves to or from a local list. It is read in two places that do
+> not hold the lock the writer holds:
+
+The commit message says node->type is written under the per-CPU
+loc_l->lock when it moves to or from a local list.  Is that complete for
+the writers this patch converts to WRITE_ONCE()?
+
+The failure path in bpf_common_lru_pop_free() writes node->type after
+taking loc_l->lock has failed:
+
+kernel/bpf/bpf_lru_list.c:bpf_common_lru_pop_free() {
+    ...
+	if (raw_res_spin_lock_irqsave(&loc_l->lock, flags)) {
+		/* ... */
+		WRITE_ONCE(node->type, BPF_LRU_LOCAL_LIST_T_FREE);
+    ...
+}
+
+so no lock is held for that write.  Could the commit message mention
+that this write is safe because the stolen node is not on any list and
+is owned by the current CPU at that point?
+
+[ ... ]
+
+> Both races are benign: the type is a single byte, the sanity check only
+> feeds a warning, and the re-check exists precisely because the value can
+> change concurrently (any change sends the node down the check_lru_list
+> path, which revalidates under l->lock). Mark the two reads with
+
+Is "the sanity check only feeds a warning" accurate?  In
+bpf_lru_list_push_free() the WARN_ON_ONCE() condition also controls an
+early return:
+
+kernel/bpf/bpf_lru_list.c:bpf_lru_list_push_free() {
+    ...
+	if (WARN_ON_ONCE(IS_LOCAL_LIST_TYPE(READ_ONCE(node->type))))
+		return;
+    ...
+}
+
+so the racy value affects control flow and not only the warning.
+
+Would it be more precise to say the race is benign because a concurrent
+writer can only store BPF_LRU_LIST_T_ACTIVE or BPF_LRU_LIST_T_INACTIVE
+for a node being pushed free, so IS_LOCAL_LIST_TYPE() gives the same
+result for any value the read can observe?
+
+
 ---
- drivers/net/usb/pegasus.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-diff --git a/drivers/net/usb/pegasus.c b/drivers/net/usb/pegasus.c
-index 7c7d6b69998f..7bc9312eaa9e 100644
---- a/drivers/net/usb/pegasus.c
-+++ b/drivers/net/usb/pegasus.c
-@@ -520,10 +520,11 @@ static void read_bulk_callback(struct urb *urb)
- 	}
- 
- 	/*
--	 * If the packet is unreasonably long, quietly drop it rather than
--	 * kernel panicing by calling skb_put.
-+	 * If the packet is longer than what was actually received, quietly
-+	 * drop it rather than kernel panicing by calling skb_put or passing
-+	 * up stale buffer contents. count is at most PEGASUS_MTU.
- 	 */
--	if (pkt_len > PEGASUS_MTU - rx_offset)
-+	if (pkt_len + rx_offset > count)
- 		goto goon;
- 
- 	/*
--- 
-2.43.0
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/38500297852
+--===============7992559996201943304==--
