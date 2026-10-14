@@ -1,78 +1,79 @@
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69F8F54EEB2
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:24:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7AC5551986
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:24:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791991480; cv=none; b=gxKpRHQF36XFtBBd0yfiv7Jzsc4h4dFeGFGN+88vz4kiJXm8LE6UL0n9wHPAwpxXF9yY5MiNAITMWjEyx/JSiwrM/FAj0NBELZfSRS+Nky/dPEhu6pnhi+N+z152YKMkxHi0Mdi9BypObdHumaGEwClu+rSZ5iHURm/vaQNuB5M=
+	t=1791991485; cv=none; b=D6P9Jzx2XbLHhIy+J6qtyBjqg0aRHx0KE6WCMTjwZVVkxDsIQEKrAUkMex5aO7ovjmsBzgBdKkJcoqC1+uPShjud1ePkYvotk6Qh6D21dsj+f66WgUXrXKt5sEGjqNlj6iTQoEtj3+hCaf6F+/BfPRk0lLRsA14rDyIZ3KZ03bw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791991480; c=relaxed/simple;
-	bh=wSZ3zwnVBwhfAGt5ifjj+oFVu2p72JS9QMJwu71vpk4=;
+	s=arc-20240116; t=1791991485; c=relaxed/simple;
+	bh=CJI50wcXJ2BCcOVcasSmzvaz+gwwPUSdoPRdsX17WOc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qCJsXSVp9+xnMLVfat+/f1dSshu4Hk/gIe3V+zVb9VJLHWUG88n/UGffTj0eUb9e4rcSIfQawWDEldHAnon/mKWrI9D+3hvTIMo0CHNM8/4dXIeAX/yC7XFDD0/6YGVuhS/Or+fZBKFDL7Vwz3Do52EkeAZGCqExWd/OwtrsONM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QfBE8ICn; arc=none smtp.client-ip=209.85.215.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version:Content-Type; b=BGSyhS9pSiuMCgLZNGDXVdxy1hPmLw/hN9EBhmfHevZlP2ljXmZctO8PiYkn/mJqMgEcJed+sJc0f9MsknstKiciDkFlgJQ2YyMCW+/SAlojR55yfaKtKfplUnb42VOBbamf63Bst9FmewDKlgSDwTzyijKHfrFIZTnt/0PYKLQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=HczcyIm3; arc=none smtp.client-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QfBE8ICn"
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cc4dbcf2b85so577531a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:24:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="HczcyIm3"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-868b3248b2cso3306333b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:24:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791991479; x=1792596279; darn=vger.kernel.org;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791991483; x=1792596283; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=t7IRL6SEiSa3rzeqlbvDCyLB5N7LUmPGMrQiBUcualE=;
-        b=QfBE8ICnBaTlQIr0Ew8EulgJJxMWQQT9rxQSB5J859fwuJcD/OCaK62L9R4xp/udf5
-         yNLrfnHILV6s+dZskFPnkl4JALRizQYL+ubN/tJlcCm2oH0L6q4P5gBNDe4v896lsjZA
-         5RSPqiuplVAaxH7EqehwTjdsQYlfED3WDSEOYAjpqI5fwLUYkIgvs3KpYiaotthaWbDC
-         eW1WuOE15ISxXG73RbwahGFKPtJ9lpSkOrS/XcCW47id0Vn281+iYgaAsJFZslBJvFSN
-         DB/oA3sd1ZCStE5zhEnILwpLHJUQZUFsgH4KRHZJpl3/pdRUbmNUkBjFYWum+POckq6w
-         rcbA==
+        bh=5OkvFTt8xurlOqdzsXBI0/VdI7mHWZJ52WKipIc8xDM=;
+        b=HczcyIm3MWVmySNs2AZGzSS+u13XAxcWoXoaeoFo4Tt2jdwuDZVe3RIA41dDcHeQS8
+         oBG90vvTV47G2g0T2TpkRr8nqyDhcQui5uQiFuZ6Z/9umigpLRDlB3bOZM2DZ//+FTN6
+         5am15r1T8b+0dUADURcoe+bWU9J0CMtLeE1+uxIh3D8k6HjX/s1urS+rNluRYbs5kS58
+         v0S/kGfTHENI89s2B1ZY2hR/P8QoDVoA/NmhFKJK3f+NPych5RrAq2UwhgADJjGSGf35
+         vbHk3DzqrvQ2tt/GDfYyD4XE7feo/chohJSz8Q/IENgBzrXWAPkV1s/x2ZXz2Ho7m9aw
+         3jAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791991479; x=1792596279;
+        d=1e100.net; s=20260707; t=1791991483; x=1792596283;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=t7IRL6SEiSa3rzeqlbvDCyLB5N7LUmPGMrQiBUcualE=;
-        b=IZQHFJSBquXKa86n022qYcv35K1d9dfvtZM2yKeVw6EOGBuyq/zrsVvZtDmw4p+YJE
-         9t+jgT3uuO/KAW4G8dSd8DnTPXbTOrW0+NUQr8cn2WF6hBp61xondyia7aIiqmkn/F6V
-         SG2ZjW92IMXAs4yu1YBu4Jzx+wIWBSC/EpXvLPSdvxY4Lso6HMPZKLcH/FeHRKvnYtq6
-         cNUYv+XqbSlYZyOeAbPoAy/s0eCgqd2/ispTlaJhzPok/Hyo9Dyzgn+B3l1p1BmZHfJ6
-         SDDUfF2dWUK6ncIU1490WkNugY54MYhJiJWOvCa+PmndARUMaU8llHpCXXKqd9tTtuEM
-         705Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzNw4zbXUjf+ClGFq5ZnnwnIqmv7boTxxciT2wWzxN8IxtS1BHC4IdENrlDnFhBya4MZ6NDyGKdTltDzlo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK8vKG+l01VlasqfyD3ZWJCwEt9q/uVKvvFCSeZMYRbRGT5A0sW
-	y8ZT/FzOKIwOHAVMj5ixemlaway7E23DWzIeoQUBbbf9Jv59bFJ6aFmZu8YvYA==
-X-Gm-Gg: AYBFou1sp7I9+grZgZ/Zh67M1BPpw+awF7iq6MASbyxU2RlOQKftch9bEpLm6yeCrGX
-	HTClwHS6yDcovLkU7PsyXYjRjIi2U4xPrfZNqMoWRjBqMWcLFswY7BMo+kczGgrDlq3phrTnRj3
-	/Tur9ELioqVO6cG3wyHi8yX5aBoZGBUbsM63c/TtQY+Bhc+ItL9RrWg0PEj5H8WidLT0c3/e/gX
-	Lne1HaNE1YicIvg36JOkIqYVE554nflKnifQH7zjhK402i976dyM/B1v5nEaFHOPg8k3kqlW0A4
-	AlVIXrlf6IE3XADL5WHGjALQ52rszJOzvq5XMkFYDwnf1ILWGWrUFdNpIhE1ymj9lZOnXuWPSFg
-	i5SJNzwTfUVgDL6SYvidNRQ9GCzH9jGtZjxb9g9fKqrxyEek56pJ0iuKhTb8I1kV7xUnUCbBNt+
-	qi6+HFFZ1CiRQaSGb1kCKgc9mo1gVLxRVE2uzX00lF/xx+a8vMsUBJXZ/Edlkkjy1ZdTjWnpaMQ
-	W1pxNxqM8Sk7jPDpMxBZeisSuiRa9Ek1EwCFWuP+wQLyRoXDUl8WnWuw1xOuYOzuikRMBSTL2HU
-	9jOx+88KMUe/tsY=
-X-Received: by 2002:a17:90b:4c04:b0:3ac:80dc:f40a with SMTP id 98e67ed59e1d1-3ac80dd0188mr1244754a91.16.1791991478624;
-        Wed, 14 Oct 2026 08:24:38 -0700 (PDT)
-Received: from localhost.localdomain ([180.182.24.11])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3d9e08905sm7169469a12.9.2026.10.14.08.24.35
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 14 Oct 2026 08:24:37 -0700 (PDT)
-From: Joonho Lee <mynameisjune111@gmail.com>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	linux-sound@vger.kernel.org,
+        bh=5OkvFTt8xurlOqdzsXBI0/VdI7mHWZJ52WKipIc8xDM=;
+        b=L3agIiNUOOfEddqxOa5fYIWAoyTeRJQzxBCgJmO45lAY5lYbjx4NtPP44uNSdPH+X3
+         sSwE7y1E9n0vYr7NJTxkAxxsD4NIJSQFeDYS9wfq1Z4o3sXuO5953PlKkxOPtmzmY/1f
+         lJRn8FEkaAbulVNh/LIWAOCWMeOgtOunvFhMjpy0OKFMpfB9GqajPwIF6NOaYHAHPWMA
+         +XMrq+VkYbR1k4zxGBCm4YKl0WJGuFXt0YYBXWKoEutgk+ouiGtJS1vyWe42gzrlvegs
+         b3vJQEoZ/+Q3ZFWpNbIncZRgohbE4peZ109ypdGgZE52EgHibeBgNeKqQVOn0QzmfaMk
+         DjZw==
+X-Forwarded-Encrypted: i=1; AKwUvBzm9L8K8Pi8m7aOzgMEbBYutL6rWzMWdLvlIL+o2iv4WJ74Gst7qB3T7piwaTe6bvVofPlX3H9KYWybO14=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI/cfY5QbmH9ZTg0qR5AVI9Nlib3ca48Gi1JP+6wp3UJrlDGkmQ
+	UxGba5ZHdSkQ+jFPkuEAucfldLev57vho+ek73hW9tWAc1Gq6YrKQ3oJKwUXqbq14qU=
+X-Gm-Gg: AYBFou0KjGepHtwwX01+UpvnjlRPWcUoPjGLO6oqLxG+saJHeJKjscohIOWMHzcfwrT
+	bhqyVzo3Mvn9/ilofLqEXaL0aQrkKRfipojhaGvZErt5JZi/0HZAXZZSAufZcqQEwz9KURZPfOs
+	p7AsfD/1yzJjfdR3BfkycTZERPA/UjeZs6dWdtP5HuxeH4Wk8I3k9msq519gw5Vf64dO0iSVlQm
+	H7r6ogQZpplUQtkQlUjwry2PSQV1NTots7S7m1JdR0RfFDNpTXmPubpmRWVAwG91AMl5EVjo3+b
+	cahC7zV1Bvz0zPm5GUdx2qxeFTRptuRmLBwTtq9Hz4dRgNtphFVWSxIRqdlG5I2IWfTRT90HbW7
+	zfcaB0kruBGJ+X/dbr62wyrOlEnfIDeAUoNZr+5eXU2VB2CKN+zQEVr8FuqPLYkuHZjJ+KyFh2O
+	u3wlwgp9x9I/94hTf0Mjuuf9L98UTlwAkBLoWlACqrlGtIMWsTsgVJOd9TBqTYI63bo6hxgDBw0
+	7H9rZUDZLi6nIHGCfY3
+X-Received: by 2002:a05:6a00:c488:b0:899:915:792b with SMTP id d2e1a72fcca58-89909158069mr7435498b3a.54.1791991482981;
+        Wed, 14 Oct 2026 08:24:42 -0700 (PDT)
+Received: from localhost.localdomain ([2406:5900:1044:110c:1c49:61ee:8c8:3f4c])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89d802a42f8sm1299291b3a.10.2026.10.14.08.24.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 08:24:42 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: sashiko-bot@kernel.org,
+	"Martin K . Petersen" <mkp@kernel.org>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-api@vger.kernel.org
-Subject: [RFC PATCH v3 1/2] ALSA: pcm: allow capture reads while draining
-Date: Thu, 15 Oct 2026 00:24:22 +0900
-Message-ID: <rfc-v3-core-capture-drain-1.cf2e307fcac34b6a@gmail.com>
-In-Reply-To: <rfc-v3-core-capture-drain-0.cf2e307fcac34b6a@gmail.com>
-References: <rfc-core-capture-drain-0.112c40f0e9284eaa@gmail.com> <rfc-core-capture-drain-2.112c40f0e9284eaa@gmail.com> <8733u8g0kh.wl-tiwai@suse.de> <87y0c0el29.wl-tiwai@suse.de> <core-drain-linked-lock-reply.cf2e307fcac34b6a@gmail.com> <rfc-v3-core-capture-drain-0.cf2e307fcac34b6a@gmail.com>
+	stable@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: Re: [PATCH v4] scsi: mvumi: reject handshake sizes that overflow the list allocations
+Date: Thu, 15 Oct 2026 00:24:35 +0900
+Message-ID: <20261014152435.3637416-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <sashiko-outbox-171387@kernel.org>
+References: <20261014134104.3528958-1-yhlee@isslab.korea.ac.kr> <sashiko-outbox-171387@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,53 +83,39 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Allow capture transfer calls in DRAINING so already captured tail frames
-remain readable until drain completes.
+Both are real.  Neither is fixed in this version; both are fixed in the
+series that replaces it:
 
-Assisted-by: LLM
-Signed-off-by: Joonho Lee <mynameisjune111@gmail.com>
----
- sound/core/pcm_lib.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+  [PATCH v5 0/6] scsi: mvumi: bound the values the firmware supplies
+  <20261014151914.3632701-1-yhlee@isslab.korea.ac.kr>
+  https://lore.kernel.org/linux-scsi/20261014151914.3632701-1-yhlee@isslab.korea.ac.kr/
 
-diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
-index 4d665b4148d7..de952f639d3b 100644
---- a/sound/core/pcm_lib.c
-+++ b/sound/core/pcm_lib.c
-@@ -2208,13 +2208,17 @@ static int pcm_sanity_check(struct snd_pcm_substream *substream)
- 	return 0;
- }
- 
--static int pcm_accessible_state(struct snd_pcm_runtime *runtime)
-+static int pcm_accessible_state(struct snd_pcm_substream *substream)
- {
-+	struct snd_pcm_runtime *runtime = substream->runtime;
-+
- 	switch (runtime->state) {
- 	case SNDRV_PCM_STATE_PREPARED:
- 	case SNDRV_PCM_STATE_RUNNING:
- 	case SNDRV_PCM_STATE_PAUSED:
- 		return 0;
-+	case SNDRV_PCM_STATE_DRAINING:
-+		return substream->stream == SNDRV_PCM_STREAM_CAPTURE ? 0 : -EBADFD;
- 	case SNDRV_PCM_STATE_XRUN:
- 		return -EPIPE;
- 	case SNDRV_PCM_STATE_SUSPENDED:
-@@ -2320,7 +2324,7 @@ snd_pcm_sframes_t __snd_pcm_lib_xfer(struct snd_pcm_substream *substream,
- 	nonblock = !!(substream->f_flags & O_NONBLOCK);
- 
- 	snd_pcm_stream_lock_irq(substream);
--	err = pcm_accessible_state(runtime);
-+	err = pcm_accessible_state(substream);
- 	if (err < 0)
- 		goto _end_unlock;
- 
-@@ -2388,7 +2392,7 @@ snd_pcm_sframes_t __snd_pcm_lib_xfer(struct snd_pcm_substream *substream,
- 		atomic_dec(&runtime->buffer_accessing);
- 		if (err < 0)
- 			goto _end_unlock;
--		err = pcm_accessible_state(runtime);
-+		err = pcm_accessible_state(substream);
- 		if (err < 0)
- 			goto _end_unlock;
- 		appl_ptr += frames;
+- mvumi_flush_cache(): confirmed.  device_id is an unsigned char and the
+  bound, mhba->max_target_id, comes from the u16 max_devices_support, so a
+  reported count of 256 or more never terminates the loop, and that loop
+  runs from shutdown, suspend and remove.  Fixed by 6/6 of the series,
+  "scsi: mvumi: widen the flush cache loop counter"
+  <20261014151914.3632701-7-yhlee@isslab.korea.ac.kr>, which gives the
+  counter the type of its bound rather than rejecting the value: the rest
+  of the driver already handles counts above 255 -- mvumi_probe_devices()
+  walks it with an int and host->max_id is wider too -- so rejecting would
+  turn away a working configuration.  frame->device_id is a u16 and
+  target_map holds round_up(max_target_id, 8) / 8 bytes, so nothing
+  truncates or overruns after the widening, given the reset check 4/6 adds.
+  6/6 depends on 4/6 for that reason and its commit message says so.
+- mvumi_calculate_checksum(): confirmed.  Fixed by 2/6,
+  "scsi: mvumi: reject an out-of-range handshake frame length"
+  <20261014151914.3632701-3-yhlee@isslab.korea.ac.kr>, which rejects a
+  frame_length that does not fit the handshake page before the checksum
+  walks it.  HSP_MAX_SIZE is 48 and the header is 4 bytes, so a
+  frame_length above 44 is turned away, well below the 256 that makes the
+  counter wrap, and the same patch reads the field once with READ_ONCE() so
+  the checked value is the one used.  The counter width is left alone
+  there, since the input can no longer reach it.
+
+Looking for the rest of this shape turned up three more, all in the series:
+a hotplug event bitmap size that is not held inside the 512-byte event
+buffer (3/6), a response frame tag that is checked on the outbound-list
+frame but used from the copy made afterwards, with a > instead of >= bound
+(5/6), and an inbound or outbound entry size too small to hold the frames
+the driver puts in it (folded into 4/6).
