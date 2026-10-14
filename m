@@ -1,125 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx1.secunet.com (mx1.secunet.com [62.96.220.36])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC5D748F854
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:37:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D05723002AB;
+	Wed, 14 Oct 2026 07:38:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.96.220.36
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791963461; cv=none; b=FYmZV8DaxmgU4PeR3d5AD5hXbSCWBEt0Nqe1NcdfoZkPjyEFdMDMhixCKOydt2Am/3AlYG86VC18CU2WTpr1bm0CDt21I7gNVGAL9dTi10eViyv8jQ/WiMlxiej3p8MDB+17AA3JAgaT/1OmEFiI1URa8y0cNPKnY6XKeOdg2HE=
+	t=1791963508; cv=none; b=utjU2a1bUc6jtj5ieV8D9GFvttbGkMx+PWVL2P4X56i8eJ2TLAehInP04FRpzgylr/b8EmbfMbKF5ati7p5J2w24jHoMcZDpwOXcxeIkXPi7qRI5W6pdchR7FotqwyvE8trcR8gqu8W5F+x/IMl4zHFsVVF4ho4GfAzhevi6PqM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791963461; c=relaxed/simple;
-	bh=2Y9fbE9O7p8liEj4nGLfJ12MalMVV+gFP3WAl48R2RE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BsUOBlEJGoEVIylxRAqZDAyUwdws2scFJ5CwnWtiafbXCKZxirLFpVfXcrAgBN+TTv0gRss5T6hLttBynG5mh4Wy33Vi7qXqtcrpq5ZTQ+g+Xdqx8NXYhbsUCDtjg0JGam/eWGaeHPMnhM4msbHxJJt4B4wYgS+tt7OfW+RbrhY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QCmlq9Rx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791963508; c=relaxed/simple;
+	bh=vj1fm0p62yUErMUNpojScfEgVw4chzyYOjGeEZckTTE=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oyFjWt4GOmpZ9QtM7Ov/EWJowZ5urpkPMBDbTvzvIwGX/nDewN0qkbEfK0qwBtzmchmLJBTP43YWF6lRL0FrI/kTRMl0vQ3uvUROSgm+S7LGfPBSXmpVHIMTw+RjZvp0qxxdG1zCO/TuJUBlnZ4b7p9grhZHM/UOr+8iO4O7ipQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=secunet.com; spf=pass smtp.mailfrom=secunet.com; dkim=pass (2048-bit key) header.d=secunet.com header.i=@secunet.com header.b=MpXUWcIW; arc=none smtp.client-ip=62.96.220.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=secunet.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=secunet.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QCmlq9Rx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 499D81F0089E
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:37:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791963459;
-	bh=GD+/Ha2/u4ZZXBCqFxIO50aJrY9gSr7+woMCBtv2vvw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=QCmlq9RxZwZDnDSaQtL4l5SsOSSVWHNdqYeVB8POHxJJj8qMKyTmGIyowGQhn2g+z
-	 C5apiUXipQI519XKCt1Tpb3q24ONuzrGel99EK6VOcz6+Y+4D4ogZdNan4ivHp6C30
-	 EkGXg4zXnEPGKasmv1/2JsxVyulveXbL/OEijk2jxNLOAeeCSWULY+HL7mibiM5nwO
-	 rVwiuHIp9Awhs7QCLvjyUgeslA/eKklPXVr2+bCSzTtDid3P6Dw6SsvRJ8L+gB1dze
-	 XaAcy/5ntvXjGK7uOTsOmPQ4adW0Imj9tGs3wVRcTEOw5SwJXnsXb1W4HmXCvSPX5o
-	 yAXMPR5NY345Q==
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b1aa2848d2so4709800a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 00:37:39 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx8lUd81/V+44wnBltp9KJ1SNu4A6G9aefwoT/NaJLp6s+a2tlTdY8htXKvkPQipXDxMh2CB+xGBQas2h0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIWAKelXYJ09IaI/XD1oHgrF6FfB5VMGM0DcSaGVVPJ1Yx+hBCn
-	HdWKwkX+oq14ZpspkjHB2L7+/74RNYwYhBU7ClyYfbtFdSrk2T6G+3+h+b9yb7YhM+xyxe5mRCH
-	o7Jqn8us3QLNIKlVuLi10N/u8pn/bpjo=
-X-Received: by 2002:a05:6402:21c9:b0:6b1:d9ac:b757 with SMTP id
- 4fb4d7f45d1cf-6b1d9acc3e6mr4316643a12.6.1791963457821; Wed, 14 Oct 2026
- 00:37:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=secunet.com header.i=@secunet.com header.b="MpXUWcIW"
+Received: from localhost (localhost [127.0.0.1])
+	by mx1.secunet.com (Postfix) with ESMTP id 3A47920743;
+	Wed, 14 Oct 2026 09:38:16 +0200 (CEST)
+X-Virus-Scanned: by secunet
+Received: from mx1.secunet.com ([127.0.0.1])
+ by localhost (mx1.secunet.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id PG0rncvwrFvd; Wed, 14 Oct 2026 09:38:15 +0200 (CEST)
+Received: from EXCH-01.secunet.de (rl1.secunet.de [10.32.0.231])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mx1.secunet.com (Postfix) with ESMTPS id 8A7DF201C7;
+	Wed, 14 Oct 2026 09:38:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.secunet.com 8A7DF201C7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secunet.com;
+	s=202301; t=1791963495;
+	bh=1jnFWsYQSFZML/4PrDpytW5QHfSmkatmYDGHzSZn6B4=;
+	h=Date:From:To:CC:Subject:References:In-Reply-To:From;
+	b=MpXUWcIWUWFnRlFfAHm2p+pOR3enzkwbpPW1WYudZ2KINEf/j5LnHHoULnMph/PHp
+	 xBXbIh4+WLNA9KleJNqxgy9M/Pr4IUFxgdgZBm8XM+Va1skrUc+7W2xHAwSznynAwv
+	 6nfkaAa28D9RK+wSMKEfLK7Y+wTdyUDUUHN8qi+PEsn7SqGVQV89YnYMKH493rOZgI
+	 l9blCOCQKJIC4vbTrK6Owem6OEdHknlKw78FJvaxpVshFgS7yTogJTmWcHP+ce7Ig1
+	 1YW2lPayDozLQfSOTIj1Ku08BfCfWAvGe3psA5zXLwUx+rc2iaBwhqPE8FEF7uFg2+
+	 hODYHNpHA/nFA==
+Received: from secunet.com (10.182.7.193) by EXCH-01.secunet.de (10.32.0.171)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 14 Oct
+ 2026 09:38:14 +0200
+Received: (nullmailer pid 1274379 invoked by uid 1000);
+	Wed, 14 Oct 2026 07:38:13 -0000
+Date: Wed, 14 Oct 2026 09:38:13 +0200
+From: Steffen Klassert <steffen.klassert@secunet.com>
+To: Shubham Antil <shubham@octane.security>
+CC: <netdev@vger.kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>, "David
+ S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
+ Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+	<horms@kernel.org>, <linux-kernel@vger.kernel.org>, Giovanni Vignone
+	<gio@octane.security>
+Subject: Re: [PATCH ipsec v2] xfrm: zero-initialise km_event in the
+ replay-notify path
+Message-ID: <as8xZWxejylzr4lx@secunet.com>
+References: <20261007075807.70009-1-shubham@octane.security>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261014052933.723303-1-cui.tao@linux.dev> <20261014052933.723303-4-cui.tao@linux.dev>
-In-Reply-To: <20261014052933.723303-4-cui.tao@linux.dev>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Wed, 14 Oct 2026 15:37:26 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H5SDKsifd1GwMLU_YMny8PqwHdyuvujrAiuvkALoi3+8A@mail.gmail.com>
-X-Gm-Features: AclHuK9Ksa7VlvS-kSklI6Uruo2KF9go6WI1OnUs-g3EqUPWxpjWce4dC5vPHww
-Message-ID: <CAAhV-H5SDKsifd1GwMLU_YMny8PqwHdyuvujrAiuvkALoi3+8A@mail.gmail.com>
-Subject: Re: [PATCH v3 3/3] LoongArch: KVM: Reject repeated PCH-PIC CTRL_INIT
-To: Tao Cui <cui.tao@linux.dev>
-Cc: maobibo@loongson.cn, gaosong@loongson.cn, zhaotianrui@loongson.cn, 
-	loongarch@lists.linux.dev, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	kernel@xen0n.name, nagachaithanya9911@gmail.com, Tao Cui <cuitao@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20261007075807.70009-1-shubham@octane.security>
+X-ClientProxiedBy: EXCH-03.secunet.de (10.32.0.183) To EXCH-01.secunet.de
+ (10.32.0.171)
 
-Hi, Tao,
+On Wed, Oct 07, 2026 at 01:28:07PM +0530, Shubham Antil wrote:
+> xfrm_replay_notify(), xfrm_replay_notify_bmp() and
+> xfrm_replay_notify_esn() declare a struct km_event on the stack and
+> initialise only its .event and .data.aevent fields, leaving .seq and
+> .portid uninitialised. build_aevent() then builds the XFRM_MSG_NEWAE
+> message with those fields:
+> 
+>   nlmsg_put(skb, c->portid, c->seq, ...)
+> 
+> so the netlink header of a replay event carries uninitialised stack
+> values rather than defined ones. This was confirmed at runtime rather
+> than by inspection alone: the .seq and .portid carried in that header
+> hold values that nothing in the replay path assigns.
+> 
+> The request-driven paths set these header fields from the requester
+> (xfrm_get_ae() / xfrm_new_ae()); only the kernel-originated replay path
+> leaves them unset. Zero-initialise the event so the header fields are 0,
+> the correct value for a kernel-originated notification.
+> 
+> Fixes: f8cd54884e67 ("[IPSEC]: Sync series - core changes")
+> Reported-by: Giovanni Vignone <gio@octane.security>
+> Assisted-by: Claude:claude-opus-4-8
+> Signed-off-by: Shubham Antil <shubham@octane.security>
 
-On Wed, Oct 14, 2026 at 1:30=E2=80=AFPM Tao Cui <cui.tao@linux.dev> wrote:
->
-> From: Tao Cui <cuitao@kylinos.cn>
->
-> KVM_DEV_LOONGARCH_PCH_PIC_CTRL_INIT has no guard against repeated
-> invocation: every call overwrites pch_pic_base and registers the same
-> kvm_io_device on the MMIO bus at the new address, while
-> kvm_pch_pic_destroy() unregisters only one bus range.  After a repeated
-> init, MMIO to the stale ranges computes its register offset against the
-> new base and silently reads 0 / drops writes, and the leftover bus
-> entries persist until the VM is destroyed.
->
-> Reject repeated initialization with -EEXIST, using the initialized
-> state of the kvm_io_device as the indicator.  The MMIO base is only
-> committed after a successful bus registration, and the real
-> registration error is propagated instead of being replaced with
-> -EFAULT.
->
-> Fixes: d206d9514873 ("LoongArch: KVM: Add PCHPIC user mode read and write=
- functions")
-> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
-> ---
->  arch/loongarch/kvm/intc/pch_pic.c | 12 +++++++++---
->  1 file changed, 9 insertions(+), 3 deletions(-)
->
-> diff --git a/arch/loongarch/kvm/intc/pch_pic.c b/arch/loongarch/kvm/intc/=
-pch_pic.c
-> index 51e4a6a39dc0..7979466de729 100644
-> --- a/arch/loongarch/kvm/intc/pch_pic.c
-> +++ b/arch/loongarch/kvm/intc/pch_pic.c
-> @@ -281,16 +281,22 @@ static int kvm_pch_pic_init(struct kvm_device *dev,=
- u64 addr)
->         struct kvm_io_device *device;
->         struct loongarch_pch_pic *s =3D dev->kvm->arch.pch_pic;
->
-> -       s->pch_pic_base =3D addr;
->         device =3D &s->device;
-> +       mutex_lock(&kvm->slots_lock);
-Why move the mutex_lock()?
-
-Huacai
-
-> +       if (s->device.ops) {
-> +               ret =3D -EEXIST;
-> +               goto out;
-> +       }
->         /* init device by pch pic writing and reading ops */
->         kvm_iodevice_init(device, &kvm_pch_pic_ops);
-> -       mutex_lock(&kvm->slots_lock);
->         /* register pch pic device */
->         ret =3D kvm_io_bus_register_dev(kvm, KVM_MMIO_BUS, addr, PCH_PIC_=
-SIZE, device);
-> +       if (!ret)
-> +               s->pch_pic_base =3D addr;
-> +out:
->         mutex_unlock(&kvm->slots_lock);
->
-> -       return (ret < 0) ? -EFAULT : 0;
-> +       return ret;
->  }
->
->  /* used by user space to get or set pch pic registers */
-> --
-> 2.43.0
->
+Patch applied, thanks a lot!
