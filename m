@@ -1,190 +1,259 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8E1F4FB9C3
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:57:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F4664FC339
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:57:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791979038; cv=none; b=j4lzFFTVsk9gt9Q2RZ46gQ3/w1SZJQrjyNq7vKVP7hcJ/Gy8ZdCjM0n597mTx1ekkFoAt1Vrm04qhCoLYvkTnoG9hytBMt6vgweni36JNjgRi36wOOB8VSfHpaXlL1ZheBqY9qss/lfC4DHVpI+P13wzku8HJFcCx4H88+kBjZE=
+	t=1791979042; cv=none; b=o33Rp8JpOa/btdWBjj8WXwIqhj/bcUoZvMT45qmwD84yqiLp1zPI7Slg/9Z6IE3h4pR441+HbMa8AO0D2p0O6zCRphfoaLd2VCmlu7s382RaBZOv7qrCq8XhRE91Gbjf89U00aobN4ILkKZGa6mWjHITrvZTqVC4lZ846v1LABo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791979038; c=relaxed/simple;
-	bh=Gpf/uqA8qhJd0TyJbH8QhW3DTaO8Ge2PGIsjVhn+qFU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iTjr1I4fhWJrKZpZluPNlPg/wJXcVziGY5hrjZr+urTGvLmvGRbsnHBYg9SfxqASYe++5GCNAkqVzaRI60zHhINj25YOr8CN3yuuBglQwAt713fLRDx20e8kepcUFBUIqm8Ac4BmB8VJAsZ9dQGiKkrEZpwXXLkkwTk5Emd8LaA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KjcbA/r/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Cnr4ejiF; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791979042; c=relaxed/simple;
+	bh=UT+gUDWpvYvdUO59q70uyFIuGW+1dknIwp9YCivhP4c=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=PVf3TAEdjye7RWRX10B+nkGXHCx23O7aymMM90m0QgSxuU4QgJvivRABVfcJh7bjK3JS6QuqnWS6n6F037U8sgJAKjqYCDZZTngy15EaBDRFiOIYyuPdjbt0SX0BT2ZohZE51ZH94JMUxMRZmbhsUD3KgCjNf3ztaYxGyVpNdYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aDe5riTH; arc=none smtp.client-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KjcbA/r/";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Cnr4ejiF"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EAJn2I806685
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:57:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	za6RVdO9z4aakw4xD1UPMWmSLRx6d+s98Yp1KFmTp0Y=; b=KjcbA/r/aXrEFGrb
-	JC877QL3ZFq2HyYOOZNEESmeNF32f0qvD+NSwS8o/klAVQFlwHjy42R8Yjf+HNeP
-	E+l1/5Uw4kJ0//x9R4Oa0eoEiPxS7p95HnHIcdLkSisRuFGC7hQS7JG5u8brKhew
-	AT5DPr3tYct2/I89LxGZeteJ2fGmkoXFYqLsvbFjnxwcgFAF8zcTUoBw0+Hdo5bd
-	3q5v1UrHCz1YUiJX38DUTvVtco1e5Ox5khtG9xspPwrobYuQILyM86XmIBStNUZ6
-	0/msSBCh86MSzuAtPPxbp+PzoPasWueNHCBSz6TBr1AZECoHowZ5EC1xeG00TgVz
-	bcEZOQ==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9ud6ba0x-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:57:15 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3ab1e771632so4233316a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:57:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aDe5riTH"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3ab60ff4273so3316910a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:57:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791979035; x=1792583835; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=za6RVdO9z4aakw4xD1UPMWmSLRx6d+s98Yp1KFmTp0Y=;
-        b=Cnr4ejiFc1eOuigahCnqVkD67K8DbOCRFEaZhRu4i3ts0Gk2Fr0tc6Wsr+eIZrOFob
-         o7Kjai9hY01k4hJPSxlEUxYqf532F5kly7dUYQcfPUT//Cm7Ye21pUN47cNC/yuy4VgV
-         k0hE1CghNmg9wOqgy3q3MUJ7THY9lg5kM4iMJ4W7MjksHimFgpy9bc/nfBtwKV0DYo07
-         KDqeLa1ZO9xvCuWQa3664chweoFWqacDeywuH3twpiPWitualM0v4aYTBLTIaHSVTWNe
-         QTpWQWtDNSiOJRm9j6GpzeaBWWGf9JWFvTRYJvYzPAzFS0sVmgFoPLe6YQkf4AtrT+WH
-         i2Ng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791979035; x=1792583835;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791979039; x=1792583839; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=za6RVdO9z4aakw4xD1UPMWmSLRx6d+s98Yp1KFmTp0Y=;
-        b=qJJnR1fbCS6APRRUDvuREbVy5FWkfDwIEE8GxA3zHBEBINsliT+pa1QJw8CR3Ahdpj
-         3LOamkQcdXjymwffttdUrdUXSx3py2vit84CedcCrzk3qsndnBx4uyxdsDHL0Qa7SUvl
-         rNDEJuZQVZ+iN4JkKf+X1zmWCnBeEVUGUoig9qoxmANRPR0sc/NOOjkVnCpm7bwkJb6A
-         k3oXq5vPUpMvf1UcGi57dRamCo0jvK+PjIedj0RD+0WuoTVYofByq6sliLHJTBEBhdtJ
-         z1wxJN0rmbsxCQNzos7zZ367X1uionvnKs0vgvInYpx7viclwiSl5WtWU9bHb4hFTYbf
-         tZ1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwQgwL+zVzrqASd6vH7RR69mugVw0Jj5Jm1+mLqHF9BGG/e920Rd6/+jcYaBpEYp0tQ7qMyehlOJU6Bp6s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKNVkktMB6c5vorW4Hv6KF9BdwVUsYQgTBsWAzKuXdQ2NOppIDi
-	CLIb1M1sP6G7HiEr5fuU+/AFon8CmvwydT5Z/DmAVQiwZKSuKIQUvhe3rPp7WiVb91Mff/51YY2
-	F0IYsNyTMCetOqjJxE2NP+cbyP+BvYAU99Gws1BAuf3sSF5dWmhKYQea7ZvJPQyiAsSw=
-X-Gm-Gg: AYBFou0ze94IZTV4H05bgnKTPEbGv6tp1ynxd6ROE0d2SwjFzJjAEwBCushFrAIPVe+
-	yrfeWEOqHs1ZhTO8PLRnQ9OdgApVkG1f7LueqiD8aMAm3YrHKYkp9fln+MNBRhu8jyTzoDYOQ3n
-	tSagPs6DR3xJiUhwnCnjogVM2X7b+/bSYoQlIqNJlvIyKfBSZrHeChR+6KKWPZXsobC/rzokD4z
-	KG3FyQK3i4fsSZh7m9eY5I7V40Xs6RaqSVGZ5ZFhoSM1oPYS7msTwTOGekBJSydn1XDVOWMn3xE
-	qmqg6wF52bhiZQBclKiegIi5MobExaSnMtJQR2xyDlQBBLJ95d1hg+6kFk4wufsRzMOdrNrhXuZ
-	xHovV90LsEyJOsZUCI/DC8IgyZRjZ
-X-Received: by 2002:a17:90b:3cd0:b0:3ab:b9bb:dc42 with SMTP id 98e67ed59e1d1-3abb9bbdeebmr5193893a91.42.1791979034886;
-        Wed, 14 Oct 2026 04:57:14 -0700 (PDT)
-X-Received: by 2002:a17:90b:3cd0:b0:3ab:b9bb:dc42 with SMTP id 98e67ed59e1d1-3abb9bbdeebmr5193863a91.42.1791979034112;
-        Wed, 14 Oct 2026 04:57:14 -0700 (PDT)
-Received: from [10.92.209.72] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac77441306sm982127a91.2.2026.10.14.04.57.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 04:57:13 -0700 (PDT)
-Message-ID: <4bff5ee4-fae7-40cc-afa4-cf79160d7349@oss.qualcomm.com>
-Date: Wed, 14 Oct 2026 17:27:07 +0530
+        bh=DeRAz8u7YOmHATBxCqeG7zchbKWr3JF2MUxcRFYnHbo=;
+        b=aDe5riTHp27jFVIfMsUREA6JlInM+8kjINyhyZFbJnpTKXbBjcQlk8M5YiuOXwOfm1
+         PKH3qToWErUfd0AsyFi3ZvfL56NmHanHdCeA2g82ZCx9O7bCSndmHXpXOOxC/4ANoW1+
+         emNmmQkqHYL9gtE83Rl68ss3EdCcH8IXd5IdPhXT8+8JavXucJJIr6OII6tZpTXi9Bww
+         uvq41O/4Cd55vwYLkCqIbwia0exgqJRuL4XceF+znVAryjNH2aQsvZUpUdU9DfnMZfyG
+         9WyDXrPghcnfD9p7esvp9HYQLSORyOXxTMg08zHJIg7nv05ObaZIBgh+FKHVo7ct5lIY
+         2G5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791979039; x=1792583839;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DeRAz8u7YOmHATBxCqeG7zchbKWr3JF2MUxcRFYnHbo=;
+        b=G4g5ksYKs9Vh6IM5rMO5/KImpfnMaYzlq+CXPcz69lYjZaY5BLEhsWgxz32lW52ZXD
+         L2cUIKsCtHizkce5cAM7FtWzRakGYtaaqwSh1VDjSqnVmPzhN0pnR3e9Y0YUjZB6hY6P
+         FctOj37kh/gpLYC3S02q6VEIyk3fXnM+8OWRRgKcKdbQsNDuH2IObKMz+7PHEc7LzCyX
+         YE0q0AfSMgmOJAnV1OY9/jh+eQrZfLIRJhMYV8Z9UX/Zr4+z7D6iJsyjS4qWE1vma6Tt
+         jVNUAThpFBh9SlMHJ2hBg8+lGfVjdwbFvS8dUAZgQyLXQGbucGwydz0J0w3Y5qS1Gr4+
+         qn/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxHqngOuOCpCETg9FSCK8zPuoeNslD9lSojupy3h/V+h6WkfqggRTPu/UMJlRkC1ECGx9a5VcgWQZZggQY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLPJ/KBd9EdxgQ/wQf3wwpyIFfCADSxik8++mFHZLbiItCSykpu
+	oYXsX8XlNcDh++VtgIODRHuXnY9lxBShhZI6ozMMlytvoigFzrEEwZf1
+X-Gm-Gg: AYBFou14s5TMbk/2BTIoXajsqtIosNaB1iapsrg4EkL6xX+Eox6xCVJ+38KETzxLpJv
+	+mj4uPG2KXVJ+H/6iYcJ2m9aHT2Vc6I57YbX+Q/4y9MAHLxlPmiS6LnOQvjETScwA9NY3vKKv/s
+	r7OK4r8ZYJxrkj9irXdfb3buCtZlxNm1TUzLIFZB9LMXrAIqA+elEAnmFdaBdLdnSyuOqkNTTW4
+	Y57+rWQO9Z/oMMg3Ns4gg2wke30LWoiYAq3UpwS4bImFj/SI3okzIyso+OJE+gYidjAI5mjimSe
+	lTi24AoHVE4fFasj/F1iURozaZaKRdoYlcbCcFeOzO4uv3Jj5+zxJ/Ldw9FzXHtosqg3jcAAnPx
+	OMsxz6Xvj3lbzGwsyJ8445W9PCf9Hp1r+WoB9nAviGJkG/W2XN8cl+ykRpuaCgjRqUxk8VKE2aB
+	dNlGreB/sE1HXUEZ6zxmYl6MpOMAPo6lj+CGbxyXpW2fHBw9ExPdqkLBU3HH+whgP8SdI+5Q==
+X-Received: by 2002:a17:90b:55c3:b0:3ac:3e42:60a2 with SMTP id 98e67ed59e1d1-3ac3e426341mr4595338a91.33.1791979038286;
+        Wed, 14 Oct 2026 04:57:18 -0700 (PDT)
+Received: from gmail.com ([188.253.12.32])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac5f24b74csm4795691a91.7.2026.10.14.04.57.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 04:57:18 -0700 (PDT)
+From: Jia Jia <physicalmtea@gmail.com>
+To: stefanha@redhat.com,
+	sgarzare@redhat.com
+Cc: mst@redhat.com,
+	jasowangio@gmail.com,
+	eperezma@redhat.com,
+	xuanzhuo@linux.alibaba.com,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	virtualization@lists.linux.dev,
+	kvm@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bobbyeshleman@gmail.com
+Subject: [PATCH net-next v4 4/4] vsock/virtio: defer RX notifications until batch unlock
+Date: Wed, 14 Oct 2026 19:56:40 +0800
+Message-Id: <20261014115640.184286-5-physicalmtea@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261014115640.184286-1-physicalmtea@gmail.com>
+References: <20261014115640.184286-1-physicalmtea@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] arm64: dts: qcom: talos: Add Talos Lyra EVK board
-To: Ruchira Revdekar <ruchira.revdekar@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>,
-        Akash Kumar <akakum@qti.qualcomm.com>,
-        Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>,
-        Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>,
-        Vishnu Saini <vishsain@qti.qualcomm.com>
-References: <20261012-talos-lyra-evk-v2-v2-0-dcc9316ebb59@oss.qualcomm.com>
- <20261012-talos-lyra-evk-v2-v2-3-dcc9316ebb59@oss.qualcomm.com>
-Content-Language: en-US
-From: Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
-In-Reply-To: <20261012-talos-lyra-evk-v2-v2-3-dcc9316ebb59@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: RIbqkAB3vGA6Hpvo_qyDymmdwm4u8fQo
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA0NyBTYWx0ZWRfX/JWrUCAcpNgN
- iDrHVKZEqH91SZ81JnfBEO5rybjyuZVxGT5I0HNj9xj2+GpkrX//DXH8SxQg8i/TX0o66/omlLW
- eXqp+IVIA3ha6LCbsPKkdQ7PPntN1GY=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA0NyBTYWx0ZWRfX42F4QPN9jCmX
- aklPAXrFiXk5AJtcdz/uqMamfIc3ZQYgb2KHjdexM1/ioE6VrO1sC7LJcmo8XyH9zYknGc0zKP+
- muQ+l3Y/A3cy1k+ANtlvQMo39+hT+/bUZ8TSTAnIZ4aJohRmTDlEaoPfT8TZjVb53xoCGy8xZpp
- CNiyRGeD8RewDeDxtvP1z8ay2YkFJEHeCCc53rByTcJZXGYdazFjDq8V1zp2qbynw8HarhbE6Nt
- lXmB2Ear6omuSUyfpGAfHRByNgoZbKOFl3/CnD+vGOaoCbNMB+WWVrqItGvkzj8K83Viua7UVam
- AxBOv1OS2SedGFoXQRFN5l6oaANhDRgb7fE7JGj/YmR4yRunHvvhIWl0gVkOhRelTMwVvtnAh9p
- eiEFtP+c7cgQn8zM6ubG2fSKdO7PNragDvjrCCVq6relHZRIE6J7PRJL1tiTKaDP+2G0B0gTczr
- QaUnMDWHhMRZclQmxGw==
-X-Authority-Analysis: v=2.4 cv=fJ6sTpae c=1 sm=1 tr=0 ts=6acf6e1b cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=42DEVwYdyhcKbSgukHQA:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-GUID: RIbqkAB3vGA6Hpvo_qyDymmdwm4u8fQo
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 lowpriorityscore=0 malwarescore=0
- suspectscore=0 adultscore=0 impostorscore=0 phishscore=0 bulkscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610140047
+Content-Transfer-Encoding: 8bit
 
+An RX batch can make a socket readable while the worker still holds its
+socket lock. Waking a blocking reader then only moves it to waiting for
+the same lock.
 
-On 10/12/2026 11:46 AM, Ruchira Revdekar wrote:
-> From: Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>
->
-> Add the device tree for the Talos Lyra EVK platform which combines
-> the Talos Lyra EVK SoM and Lyra carrier board.
->
-> This device tree adds board-specific peripheral configuration on top
-> of the SoM, including:
->
-> - Native DisplayPort output
-> - GPIO expanders on i2c5
-> - SPI-attached TPM (ST33)
-> - USB host and peripheral controllers
-> - Power and reset keys
->
-> Co-developed-by: Akash Kumar <akakum@qti.qualcomm.com>
-> Signed-off-by: Akash Kumar <akakum@qti.qualcomm.com>
-> Co-developed-by: Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>
-> Signed-off-by: Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>
-> Co-developed-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-> Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-> Co-developed-by: Vishnu Saini <vishsain@qti.qualcomm.com>
-> Signed-off-by: Vishnu Saini <vishsain@qti.qualcomm.com>
-> Tested-by: Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
-> Signed-off-by: Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>
-> Signed-off-by: Ruchira Revdekar <ruchira.revdekar@oss.qualcomm.com>
-> ---
->   arch/arm64/boot/dts/qcom/Makefile           |   1 +
->   arch/arm64/boot/dts/qcom/talos-lyra-evk.dts | 137 ++++++++++++++++++++++++++++
->   2 files changed, 138 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-> index 88230c4e00ea..2f25575e6efe 100644
-> --- a/arch/arm64/boot/dts/qcom/Makefile
-> +++ b/arch/arm64/boot/dts/qcom/Makefile
-> @@ -456,6 +456,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-valve-deckard.dtb
->   dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-mtp.dtb
->   dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-qrd.dtb
->   dtb-$(CONFIG_ARCH_QCOM)	+= talos-evk.dtb
-> +dtb-$(CONFIG_ARCH_QCOM)	+= talos-lyra-evk.dtb
->   
->   talos-evk-el2-dtbs	:= talos-evk.dtb talos-el2.dtbo
->   
-[...]
+Record the existing low-watermark condition and notify once after
+release_sock(). Move the coalesced write-space notification after the
+unlock as well, since both callbacks wake sk_sleep(sk). Deliver
+write-space before data-ready and keep the lookup reference until both
+callbacks complete.
 
-Tested-by: Nirmesh Kumar Singh<nirmesh.singh@oss.qualcomm.com> Thanks,
-Nirmesh
+As with write-space, save the initial sk_data_ready callback and batch only
+while both saved callbacks remain installed. Sockets with replaced
+callbacks retain their per-packet behavior.
+
+The existing psock-marker check also covers a concurrent sockmap attach:
+at most the already admitted packet completes on the native path, and the
+next packet ends the batch.
+
+Signed-off-by: Jia Jia <physicalmtea@gmail.com>
+---
+ include/linux/virtio_vsock.h            |  1 +
+ include/net/af_vsock.h                  |  5 ++--
+ net/vmw_vsock/af_vsock.c                |  1 +
+ net/vmw_vsock/virtio_transport_common.c | 35 ++++++++++++++++++-------
+ 4 files changed, 31 insertions(+), 11 deletions(-)
+
+diff --git a/include/linux/virtio_vsock.h b/include/linux/virtio_vsock.h
+index bf077ee0ded88..f1396ca3ad9b5 100644
+--- a/include/linux/virtio_vsock.h
++++ b/include/linux/virtio_vsock.h
+@@ -288,6 +288,7 @@ struct virtio_transport_rx_batch {
+ 	unsigned int pkts;
+ 	size_t bytes;
+ 	bool write_space_pending;
++	bool data_ready_pending;
+ };
+ 
+ void virtio_transport_recv_pkt_batch(struct virtio_transport *t,
+diff --git a/include/net/af_vsock.h b/include/net/af_vsock.h
+index 9a40960d10cbe..78bab5820f528 100644
+--- a/include/net/af_vsock.h
++++ b/include/net/af_vsock.h
+@@ -64,9 +64,10 @@ struct vsock_sock {
+ 	bool sent_request;
+ 	bool ignore_connecting_rst;
+ 	/*
+-	 * Initial callback, used to identify replacements and deliver deferred
+-	 * write-space notifications.
++	 * Initial callbacks, used to identify replacements and deliver deferred
++	 * notifications.
+ 	 */
++	void (*default_data_ready)(struct sock *sk);
+ 	void (*default_write_space)(struct sock *sk);
+ 
+ 	/* Protected by lock_sock(sk) */
+diff --git a/net/vmw_vsock/af_vsock.c b/net/vmw_vsock/af_vsock.c
+index fe7f49da6c4bc..f40659ec29df0 100644
+--- a/net/vmw_vsock/af_vsock.c
++++ b/net/vmw_vsock/af_vsock.c
+@@ -958,6 +958,7 @@ static struct sock *__vsock_create(struct net *net,
+ 		sk->sk_type = type;
+ 
+ 	vsk = vsock_sk(sk);
++	vsk->default_data_ready = sk->sk_data_ready;
+ 	vsk->default_write_space = sk->sk_write_space;
+ 	vsock_addr_init(&vsk->local_addr, VMADDR_CID_ANY, VMADDR_PORT_ANY);
+ 	vsock_addr_init(&vsk->remote_addr, VMADDR_CID_ANY, VMADDR_PORT_ANY);
+diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
+index f4b5f0230493e..8b62b789b71c5 100644
+--- a/net/vmw_vsock/virtio_transport_common.c
++++ b/net/vmw_vsock/virtio_transport_common.c
+@@ -1588,7 +1588,8 @@ virtio_transport_recv_enqueue(struct vsock_sock *vsk,
+ 
+ static int
+ virtio_transport_recv_connected(struct sock *sk,
+-				struct sk_buff *skb)
++				struct sk_buff *skb,
++				bool *data_ready_pending)
+ {
+ 	struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
+ 	struct vsock_sock *vsk = vsock_sk(sk);
+@@ -1607,7 +1608,13 @@ virtio_transport_recv_connected(struct sock *sk,
+ 			vsock_remove_sock(vsk);
+ 			break;
+ 		}
+-		vsock_data_ready(sk);
++		if (!data_ready_pending) {
++			vsock_data_ready(sk);
++		} else if (!*data_ready_pending &&
++			   (vsock_stream_has_data(vsk) >= sk->sk_rcvlowat ||
++			    sock_flag(sk, SOCK_DONE))) {
++			*data_ready_pending = true;
++		}
+ 		return err;
+ 	case VIRTIO_VSOCK_OP_CREDIT_REQUEST:
+ 		virtio_transport_send_credit_update(vsk);
+@@ -1820,6 +1827,7 @@ virtio_transport_recv_pkt_batchable(struct virtio_transport *t,
+ 	return sk->sk_state == TCP_ESTABLISHED &&
+ 	       sk->sk_type == SOCK_STREAM &&
+ 	       READ_ONCE(sk->sk_prot) == sk->sk_prot_creator &&
++	       READ_ONCE(sk->sk_data_ready) == vsk->default_data_ready &&
+ 	       READ_ONCE(sk->sk_write_space) == vsk->default_write_space &&
+ 	       !sock_flag(sk, SOCK_DONE) &&
+ 	       vsk->transport == &t->transport &&
+@@ -1830,8 +1838,9 @@ virtio_transport_recv_pkt_batchable(struct virtio_transport *t,
+ /*
+  * The caller holds sk's socket lock.  Set @batchable if the socket can remain
+  * locked for another ordinary STREAM/RW packet.  When @batch is non-NULL,
+- * record a default write-space notification for batch finish instead of
+- * delivering it immediately.  Return true if the caller must free @skb.
++ * record default write-space and data-ready notifications for batch finish
++ * instead of delivering them immediately.  Return true if the caller must
++ * free @skb.
+  */
+ static bool
+ virtio_transport_recv_pkt_locked(struct virtio_transport *t,
+@@ -1883,7 +1892,9 @@ virtio_transport_recv_pkt_locked(struct virtio_transport *t,
+ 		kfree_skb(skb);
+ 		break;
+ 	case TCP_ESTABLISHED:
+-		virtio_transport_recv_connected(sk, skb);
++		virtio_transport_recv_connected(sk, skb,
++						batch ?
++						&batch->data_ready_pending : NULL);
+ 		break;
+ 	case TCP_CLOSING:
+ 		virtio_transport_recv_disconnecting(sk, skb);
+@@ -1957,27 +1968,33 @@ EXPORT_SYMBOL_GPL(virtio_transport_recv_pkt);
+ /*
+  * Finish the RX batch.
+  * For a non-empty batch, the caller holds the socket lock acquired with
+- * lock_sock(). Deliver any deferred write-space notification while the lock
+- * is held, then release the lock and the batch's lookup reference.
+- * An empty batch is a no-op.
++ * lock_sock(). Release the lock, deliver any deferred write-space and
++ * data-ready notifications in that order, then drop the batch's lookup
++ * reference. An empty batch is a no-op.
+  */
+ void virtio_transport_rx_batch_finish(struct virtio_transport_rx_batch *batch)
+ {
+ 	bool write_space_pending = batch->write_space_pending;
++	bool data_ready_pending = batch->data_ready_pending;
+ 	struct sock *sk = batch->sk;
+ 
+ 	batch->sk = NULL;
+ 	batch->pkts = 0;
+ 	batch->bytes = 0;
+ 	batch->write_space_pending = false;
++	batch->data_ready_pending = false;
+ 
+ 	if (!sk)
+ 		return;
+ 
++	release_sock(sk);
++
+ 	if (write_space_pending)
+ 		vsock_sk(sk)->default_write_space(sk);
+ 
+-	release_sock(sk);
++	if (data_ready_pending)
++		vsock_sk(sk)->default_data_ready(sk);
++
+ 	sock_put(sk);
+ }
+ EXPORT_SYMBOL_GPL(virtio_transport_rx_batch_finish);
+-- 
+2.53.0
 
