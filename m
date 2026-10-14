@@ -1,112 +1,139 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D2D2315D49
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:37:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 629843C1D7B
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:39:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791977855; cv=none; b=T1gUWRlZhvPoWr7+8KHHZKSKVy7HG+F5rJHCzldWmK11Cx7ek1vq7S0Q3XFec6SH7avuVlZycg2+Nza8ti0VbrOPSXJzgYF7Z+lKPvgkfnyfvdsHeLmE1+qrmhXwhA4e1VisgIpsoalEiLn7TmL8heWb+21ZVsJodyuUd5ohMa4=
+	t=1791977952; cv=none; b=I35Qz4QASeb7y2fAwS7YX3QWvZTEQ4myMEJ0e/awJGmv6qWBnmPvlLBwSBNc7p1I0HBF9LY6iHQ2+/fzqVBPGfNVJg6Y5ko66NEtMcNpX9u+Lmx/OZCAFdDW25opW5xqtcBUP+dmtNd+9mXuf+sfsd8eQgKAz7DdaAdFvycFK8g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791977855; c=relaxed/simple;
-	bh=4m6waPUkhomHnW0R2SZtL391TEfAQDn4Lg/PtkdlnYY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GkMmyADEiQjQW784tPAc3aGkZ6LYBvvgGKJJNeDklCyl4S1Wj2fx9+hKEfTBGRgv5Yy0iSfyKkvcFzpveJW9lb9RPdQ+seu0rZlXaO+eSjUlAVghDkALYoKsSa5+i5xA+q21RO4r1NDl3WyCSg9MqoRTN4sW7WxDUHZT2kL5LxQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=WimA8nXl; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1791977952; c=relaxed/simple;
+	bh=v66k7iNvhOgZZTT++OurcOdJPuTUGSAEJGHO2y8M3rU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KOMk/dT3nMTUKuebPftisUAKJmk/haMgYfB5JuM2ssjaQq2fWgu8Wp5RqWwSCGDwWR/71PQkSqv0EjLWgtn8Lh7nhB+HbNu7LZUHuFtWOxx49OK4Fk/go8M/mBCtLGo8D2h68Dpy7rYDnNDmiJSQUq3Q96QDzdchV+s0+DcqBzg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=EuCo9xyg; arc=none smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="WimA8nXl"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 3CD9CC63443;
-	Wed, 14 Oct 2026 11:38:28 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 4D64760368;
-	Wed, 14 Oct 2026 11:37:32 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E41B010328B3C;
-	Wed, 14 Oct 2026 13:37:19 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791977846; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=V4ymEuqTqyaGq+HF/qthlrZ+HnGnQbv0+xl6gccW0qw=;
-	b=WimA8nXlV/g+Y+ZUIyVT/eGUQPHsoHwQzPZbgc659ZiDq5n/nyjMkKmB2jsahsmpXVBHUP
-	y1WXOeZ1wKwgk3+PYlI4eB6+NWmltzXZNzbCp66isfr3QC2VMC+z6WQKBD8roI+iEaX95N
-	toqaPVbA7yACgD77dKlLz4jiqTb17fQVy/V3wPWUrU/V0b3c9ByJcdYZKXkeq9VOaFVatD
-	+lIN5IIQC3cHqry8fc65sYSF6slJRSPpzw+e3PFRpHrosx3UgmgL7aCXDEAOH5X/op4zVi
-	L9j25MgZLf3mpLJRNOfaH+tnn4VMCddzGSYn4eIOr7MFSwrAFVpBkPMVKTPnwQ==
-Message-ID: <1e6bee3e-a4fd-4cdb-9c42-5cee57e3ed83@bootlin.com>
-Date: Wed, 14 Oct 2026 13:37:19 +0200
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="EuCo9xyg"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48b02b1b4cfso3819089f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:39:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1791977949; x=1792582749; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QUzFoE445IVWsVK4aBCZAsC064TGifdEV4i8h8KnmvQ=;
+        b=EuCo9xygfEBiTcBxlMk7UufNECEPjXsRzRhIlkFlcyZW9nkdHGyJLqxYbYQcUPll6+
+         PIE5avx7EslMoXsk3EPH8vGOSiFUu4UAZIAr+iHJIReUxVYOgRusEWjcmq8YeWWdAZDe
+         CxpUCpNa8Qv1c4eIt7fnimZQTVGANCcD8r28VTZGH0+i617TF0lxbFt3Q9wqp+cC6Gs3
+         3b8OKuvwKeNIJz4aCssSnbY1DYpJpGPheNdmlbHE4XwUDdPi9Uje2gT4VZVrwrZrhead
+         paJD6bdsOTeh3hUbJeisyLekBFUoZnNsR/oeHaWc7ttqrFIZTENWpADEQkBbcj7UM3JV
+         YukQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791977949; x=1792582749;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QUzFoE445IVWsVK4aBCZAsC064TGifdEV4i8h8KnmvQ=;
+        b=UNAyNFm+fxxlt9mTYvY0RucIQbOibP9bwo1y6CyZZuUcM82y6cqw2hOJr9iODvJTix
+         /0fTaJuROq+o/z5H+TcjbElllV4Je2vdvH3YfK3tHPAz7t/j/nCyCygB9uI6FSVXvTmS
+         pHjcMync8+/XL8/9SGT/TDgU3ZVxhoO2K1Bg6GnG1e2pYhuVVjdonu1s85oNkXUQr0Q6
+         F0vnOh1euZROw/VV09CgU0Qk3PjvmvzS+ddJdLA8hyI8uAF+zhdNNQKsNopVo8UZlTCk
+         f8aKcxlzPJG7EZVu+6ZHG2K5LEGaj/9MnKGqTQ3eyLlzF+5UUsEiBVRXXh2fzNzCOUKS
+         nImw==
+X-Forwarded-Encrypted: i=1; AKwUvBzzeZQWax4LFy4UoD6YzLFdPu4fJba4D72FZVdaPymBDDMQ+/evzg1tLEZKr7bfKhO1ekMFicyJVD/OWGM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJEvSkxy7/JArB3U5LWM1ipTA7Z5QGzUZNwDYYDwYh0hSvCXAk7
+	Ljy48zB389goq4jb3kulNBycmKkOPDx2byT1D1o/BQE1+tVvWJaYR3OlR0tDhNuHk3A=
+X-Gm-Gg: AYBFou3iVtxgqq7BGfKVTMqsIJzF5r++1kwdhfbK8p9sGyZ/gGkDi1P5WIJnudbVfQq
+	0NTk56njvknaP8998tCtiDVjjIVhFnosi+a3D13JQrBfjQ3A4ZA4toAE2HjsqoMB/A0CKlyIJpB
+	i8cR6GjINZMpe1XLabAWIg1Ply0SuSSAZErLzoC+Ug3AdZ6cESKwg9gpNofj7E/DrLqOrfLEajr
+	IE/ZHb/dRoHF9p5TUB7PsQf7ZExIpR/VLtwSxPAChQ0p9qryHYlm9QzmRP9jLo6u8UnuOBQnouz
+	+IB2riZBMmzGhUHEBGp7i/TVaX52QJvAaCkLY4sntwJlq9OAXkl6o+xiCcBiFi8aSshv4O2dKjQ
+	MZg9xrJi9HMhcATrHNI53gcoQW25l0SxqOjOx8bAPzUzrfQh8nIws6dBGrDIrpJgC/K5rMzp59V
+	TYvyIwX7L3+ACjFDUUbAxWepy624Wz36u+HaSGOVG8Aav7BhieDBowIR0s3RXAjUXLhY+9Za3a9
+	/5aPdJ+ujLe
+X-Received: by 2002:a05:600c:46ca:b0:4a1:7a1e:6910 with SMTP id 5b1f17b1804b1-4a18e48363amr313361525e9.4.1791977949379;
+        Wed, 14 Oct 2026 04:39:09 -0700 (PDT)
+Received: from localhost (109-81-25-183.rct.o2.cz. [109.81.25.183])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18be97d1esm688508455e9.8.2026.10.14.04.39.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 04:39:07 -0700 (PDT)
+Date: Wed, 14 Oct 2026 13:39:06 +0200
+From: Michal Hocko <mhocko@suse.com>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>, Tejun Heo <tj@kernel.org>,
+	Meta kernel team <kernel-team@meta.com>, cgroups@vger.kernel.org,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH for-7.5 4/5] memcg: avoid queuing high_work from reclaim
+Message-ID: <as9p2uFqCQprwdnI@tiehlicka>
+References: <20261010210957.1350874-1-shakeel.butt@linux.dev>
+ <20261010210957.1350874-5-shakeel.butt@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net 2/3] net: stmmac: free RX resources when TX allocation
- fails
-To: Karl Mehltretter <kmehltretter@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, netdev@vger.kernel.org
-Cc: "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>,
- Stanislav Fomichev <sdf@fomichev.me>, Joao Pinto <Joao.Pinto@synopsys.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Srinivas Kandagatla <srini@kernel.org>,
- Ong Boon Leong <boon.leong.ong@intel.com>, bpf@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <cover.1791958735.git.kmehltretter@gmail.com>
- <e7a5380aabfbc03bd560ab08f37ea255d11d528a.1791958735.git.kmehltretter@gmail.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <e7a5380aabfbc03bd560ab08f37ea255d11d528a.1791958735.git.kmehltretter@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261010210957.1350874-5-shakeel.butt@linux.dev>
 
-Hi,
-
-On 10/14/26 08:27, Karl Mehltretter wrote:
-> alloc_dma_desc_resources() allocates every RX queue before allocating
-> TX queues. If TX allocation fails, its error path only frees TX
-> resources and leaks all RX resources.
+On Sat 10-10-26 14:09:56, Shakeel Butt wrote:
+> Kernel threads and remote chargers use high_work when memory.high is
+> exceeded. Their allocations during reclaim can also charge memory,
+> for example when zswap stores a page.
 > 
-> Free the RX resources after the TX allocator unwinds its queues.
+> Without a check, the high_work worker can queue itself from its own
+> reclaim. The pending bit is cleared before high_work runs, so each run
+> can queue another run.
+
+What does that mean really? Does this delays the actual run?
+ 
+> Skip memory.high enforcement for charges from task context with
+> PF_MEMALLOC set when they would use high_work. This covers kernel
+> threads and remote charges. The memory is still charged. Interrupt
+> charges keep their current path.
 > 
-> Found by inspection. On a BeagleV Ahead (TH1520), forcing TX DMA
-> metadata allocation to fail left the RX cleanup event absent. With this
-> change, both TX and RX resources were released.
+> In a VM with incompressible zswap data, the worker queued itself 163 times
+> without this check.
 > 
-> Fixes: 71fedb0198cb ("net: stmmac: break some functions into RX and TX scopes")
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
 
-Also covered by https://lore.kernel.org/netdev/20261012142458.2845385-1-dinghui1111@163.com/.
-
-Thanks,
-
-Maxime
+The patch itself looks OK. I am wondering whether we can unify the check
+with the existing one which forces the allocation through in main
+charging path.
 
 > ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 ++
->  1 file changed, 2 insertions(+)
+>  mm/memcontrol.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
 > 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 495ff7aef..8fd7d2173 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -2425,6 +2425,8 @@ static int alloc_dma_desc_resources(struct stmmac_priv *priv,
->  		return ret;
+> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> index 3456960cbe68..d1e022e6572f 100644
+> --- a/mm/memcontrol.c
+> +++ b/mm/memcontrol.c
+> @@ -2708,6 +2708,14 @@ static void memcg_enforce_high(struct mem_cgroup *memcg, unsigned int nr_pages,
+>  	bool use_worker = !in_task() || (current->flags & PF_KTHREAD) ||
+>  		!current->mm || !mm_match_cgroup(current->mm, memcg);
 >  
->  	ret = alloc_dma_tx_desc_resources(priv, dma_conf);
-> +	if (ret)
-> +		free_dma_rx_desc_resources(priv, dma_conf);
->  
->  	return ret;
->  }
+> +	/*
+> +	 * Reclaim can charge memory, for example when zswap stores a page.
+> +	 * Don't queue high_work from a reclaiming task, or the
+> +	 * high_work worker could keep queuing itself.
+> +	 */
+> +	if (in_task() && use_worker && (current->flags & PF_MEMALLOC))
+> +		return;
+> +
+>  	/*
+>  	 * If the hierarchy is above the normal consumption range, schedule
+>  	 * reclaim on returning to userland.  We can perform reclaim here
+> -- 
+> 2.53.0-Meta
 
+-- 
+Michal Hocko
+SUSE Labs
