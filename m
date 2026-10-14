@@ -1,76 +1,82 @@
 Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE29480356
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:22:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77C844825BB
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:23:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791962581; cv=none; b=aTYgSnN46hSBmPsdev9dBAaQDkeAS82vS9dZ5xPhA53m9Yhe+EnEyKsjQOlcoDjtyP01BymrItFYUxmiEBCURNQFhUZIJC1+vODnFhrG/Y/J2H/Uti7UwYeAKIh0J0I/xsdRwMlsXZrA1BStRNhBcTatoPWt9/BzMhUCUevDelQ=
+	t=1791962585; cv=none; b=LLiyAMvF6JB7NmluBGWRZM49I2xKQjSbVIci5ysIt5QiuOtCJJ8Yp6OE6We2hnAM1qBfPuQ+T1E3grhlEdxgr7+oLPGsluTMkA2a54ORWpiok9RsJ4o4OTgX1l55al2WOvgkdLJ/cO5fA3jId3RIm+ppO+ZZ/OKzagAbYreO28Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791962581; c=relaxed/simple;
-	bh=Xhkihqud2og6LCnFWmfpnSfcWOi9tGcC+z2Q80GxKSU=;
+	s=arc-20240116; t=1791962585; c=relaxed/simple;
+	bh=KDfB6WzKCxNKnAQO0MMr3WCuaPApE4DDdJllKHW9deE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=e+VjSfhREIXgKDFJVNZDBFmxSIqSLgoRd7AxMLa8rFm/w0xdGGqmAOgtpSX5C9/JozfQkFJM0NN4fwWUCxRgsW7e7pLZH71I34FID7IROOtF9uqfhiap1AukvmD8t3JtZq8bgC9tI3+L7zrPhzhbET8erIB8PiIKtNUt69OHlMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=orzbg4D7; arc=none smtp.client-ip=209.85.221.45
+	 MIME-Version; b=NuQtp+3HZDdLvj+ajbczBe1v7/ifEJ9IQbL0VDX2mjDp5xujw/yOTvir+LPuWN4gkRGJMVfR27Qig6mAKdRrQDp0lCamRkuta8DSohQBsB/G5zwXjzCwGViEvn2FZr2W8LaMiEjC/eYnLPYekF8H5lyZTFwxjxXHoSRXY7KOIjA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r7/S/dau; arc=none smtp.client-ip=209.85.221.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="orzbg4D7"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48c4be28b82so176909f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 00:22:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r7/S/dau"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48deeadb3fdso75390f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 00:23:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791962573; x=1792567373; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791962578; x=1792567378; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mpMUcZsIGQVL/iLIKTF7miuHUmKyHgqyxoFn6S/brv8=;
-        b=orzbg4D7vHrEjkVuHw4aUqiKH25lrgzLeKQicQ5Qxa0BCqxMVYn8kIymEvEB0ubR1K
-         zsiW0w163W+/RdhYOvR/72fi+5515QMbVi1Dr1qlFDHonMhvnpgleBBdNLgOjIY/dMDS
-         ZAUgOp+f9flwDua9/VJKZK7E5ODJGhj9Nfj0bFfojOT5i8msaoyxfCpYZdTJx9SblBkB
-         msPOUNZ2fRqUwkoa7MbjmaVaQNBpxH9Wge0BRpOhpBtPL+fiMfumV+R8/jsLwbmPSjq0
-         g6LIotkFaT/vYfSp5dpPvk/CgqILs75Ud6h2TqRZTfAnTWrs9f6dxk7jT6S0L7vOcGwA
-         jmRg==
+        bh=xDxjmt0bS4RhBRZPFlTXI4Mvp3X2uTTGOkn+NXVrE0c=;
+        b=r7/S/dau52+u2udQx8CeSLih1/F6GxvtoHyatVts/S5W1Ezlm6U8CgoKfpdAN8yvdM
+         A/26hjvUMvFQZJlipaQJCpiAQybtWAVKRBvha0R+9CXd8O6bFJEnNlYF0ualuhTdUSWh
+         P/dBKYbulax6y6XVZHFRa/pZhRze8WecAHHyKHkfidAxidw+7Kw57hXA+XML6IbbKcaH
+         8IhvS/g0hjXX6ngpOrGbKW/8jYMGQgPqKFEq0DFrtuHlUscbJfD1tUU9HagLfXeHhwqZ
+         RY2/+muOdJVeIJbCJREIMZVh3SFnviWB2Ur228EyCTxEekXRBdzhLv+SaVr2dW1vZWRI
+         aUwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791962573; x=1792567373;
+        d=1e100.net; s=20260707; t=1791962578; x=1792567378;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mpMUcZsIGQVL/iLIKTF7miuHUmKyHgqyxoFn6S/brv8=;
-        b=sfUilk/VS6Xo1tgsYxiGrlquzew7th++XkM6p1DU+h+4eUuDzt8vhZA2ePbogeqcF3
-         PHFwEFzaZ67fo2UEX2gDyWMKWxbGiEg/y8HexTLASVALrnJmgc0ijeOImsMJaZINhec6
-         di0Ju3a8KE0StceKsuJphcAwSpXqcQTwhc+cmw2bpRBAirqFMo8cFoFHHiAnGRWbb7B7
-         9+A0jdcYhaexVKhzpoFQb6wh14x5dimpAO7rDmBbiS/R4wCaxEJqBV58FLt3iBiYL15W
-         5H+ph/6gBzRLCR6/p1mGmOqMiRMkpm2IRR49xzjp0uSI5xixQVuMK6LklCFHIc4cuiDB
-         Y2ng==
-X-Forwarded-Encrypted: i=1; AKwUvByuu0M7zjetSalhruv3REpKiKzzArJ8n6AskYx1UhEkaEh2KUQH8ozKu4M3ccQ7a5eMKP30inDoJHtY094=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLncpKVub9yKuJTfmwEnBFMc92RfPtAugIn8b8x6aPxfFOEgiIh
-	ky00frdqaVUzmcNVkjgCoWHYC31VvQZgvPeBXdyZuaxOPSYcYKCSomwW
-X-Gm-Gg: AYBFou1nPo6I6QMxelhz5fKV6j+bKPKIp8RzxnA1R9f16TjKFTvHUFaL8PfMaW7eiE9
-	2YfH9QHVf/KkFmUwKIpz9xvvlLzdLYZqc7gpzVy2+kLSPxxIXevQWd5PVcTmubi6NSSn9dz7P9l
-	B3PiMoa9OJbBQZOgVPfYZoZw08Jgd4lubs89gzv89Ihl9aYv1bm2qSAMcRTp1jL/1oa48ks5vFa
-	xf4GiVfihsRz2CfAX6zM7gaYTzEoJXV6pW7fMEObAhY7r2/5+bRRiJQk2nhmVUDHcfqZQ70/4RE
-	LEgIsCZAzzYGog3jaWZ5dWcfdYiXZjtdm4/lroWPzvKLqZujux1Hes58bsP0TcbaqzNtoyXemWY
-	KA5d0LoMoDzdBOo8t3Jzo/RmXzOhvyOSI+zj9R0iJpk8wmYwhY+OLTcDhv1lNDY/wlJn/k42+/V
-	OhKpQrrbngrGzSLPNjGBv5lipuxC08+mNRvn9n+LNEf9YQbdAZZBLIsmvAbZuS1i4z0p6QZUnd4
-	ltPROfPCuzwmNv0h8Mfq+BxJAQ252q5fYr+CNYPc2sw1ScL3XcJ/ZDJljHUOuChK2eHflFbLiS2
-	dmyOMx9qzSctJ+g1CJJzPDzWmI1U9VGnXZsqSIOsEruwRJZju/E4+HoV8Nks6w==
-X-Received: by 2002:a5d:5d0e:0:b0:48d:eec6:308b with SMTP id ffacd0b85a97d-48deec631ebmr235007f8f.21.1791962572592;
-        Wed, 14 Oct 2026 00:22:52 -0700 (PDT)
+        bh=xDxjmt0bS4RhBRZPFlTXI4Mvp3X2uTTGOkn+NXVrE0c=;
+        b=DqdfPYgBrJ0kQJyISCjqZioWc1wzLp13WbtgRbDm9qJoCHVx4BX2q1ABx/TSlbi7gK
+         BKoGo3+zzdRdLaESe16wjbf1+gnHE3Xh8N3DBu43cORGGbIejLDgNI3xmlw2YWsrx8rt
+         VoP/FXtazKVDsPyxqjx6CRaIds2gboO/Fvc4jO2h4IRxD0WJIGNcSqm7enMsbyvUuFvi
+         SW8I6PYzwCmOty+P8S1kGnXJ+Oi9JXeFus/EX3yLYuC5H0A9pB10rYra8oOtjCoEto5/
+         hwO/flSs7FpncpAabqgJzZ5Ku5AHodSkXUQCRjDF+4vr7AaWCNcygymjJ5DaEnhHoWhg
+         BaJA==
+X-Forwarded-Encrypted: i=1; AKwUvBz7ziyJ/gdi33LONNyBd8ZoLc0yksU31BS7GmFjV65Rl1FGPuGRsQffA+D5JpeQqLiXIO4fEVe6KzI43k4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIx0mZEavkLNTWSfzpjhtCttGVSEK+Fr4VoZXu6vpL7tjqZuR5F
+	z/IB4QD47Z+hc9pH25aYvYLIBFuQHD5ZubOXLv5dZ1EIzoOQc4+D11wR
+X-Gm-Gg: AYBFou01fD75GHYYaZOU6mF0bw4PUJw0LFOt465AYyVWo8zUfAI5NwvFNjZVInmVuA8
+	0WPC5odPjxTIv1bOdpHjowwVPbAm0XcdeMEzCzfcu8qvC03ovcmvdC//8d0Zc4dTP8atitEUYKg
+	gL6b/y3UBQZhwHydcoBwWkf61yazs72Xlu1VdtFCSmbcgKzPMbVaIUmOLwrgRDl6ONW/sapQo7O
+	DWsHE0zgdGRITldBU4bZ/1144FsUqwdixIZuxSS/6D/VyPEbHuM5BP1sJIoSwZB8/MoGNE5OOit
+	nOQz/7VK8kbj95fnodT87hnAI0eOF6nhqaSJV+Xxf7PKTinYRK4eTxH7zsQjA81R4X7kq73fAYL
+	bEJtRzwx/mJEHLxTIGTr/UR7+3f82KS2KCsf82IV0F2fgzOuAHnMwW2EzLRtAPv9xstbzzKXuU/
+	IN8jnIGvDgNRL9NNdS2bB/m3aNUPVak8Pym55pIDl6efly2u7U1QxRnFd5X2h9CFQkzoEONlmGC
+	WRLb0xFalwyThsntSSuyI9B4iaJT0IbhnXhwWra6Oy9VQiiZIlnYeoYEYYcGJRFZt8Y/LLFr3Ih
+	IItiSyBrN+HvbYiy+YBP7Opfjvypdcq+ggq8nKBO9mkqNbdeg6LhVh8g2xi4Og==
+X-Received: by 2002:a05:6000:29c3:b0:48d:7579:1cdf with SMTP id ffacd0b85a97d-48dba9e633bmr15389523f8f.8.1791962578267;
+        Wed, 14 Oct 2026 00:22:58 -0700 (PDT)
 Received: from navid-pc ([2a01:4b00:a856:6220::a11])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de3f7f8b8sm8500933f8f.35.2026.10.14.00.22.51
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de3f7f8b8sm8500933f8f.35.2026.10.14.00.22.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 00:22:52 -0700 (PDT)
+        Wed, 14 Oct 2026 00:22:56 -0700 (PDT)
 From: Navid Ghahremani <ghahramani.navid@gmail.com>
 To: linux-arm-kernel@lists.infradead.org
 Cc: arnd@arndb.de,
 	stefandoesinger@gmail.com,
 	krzk@kernel.org,
 	Navid Ghahremani <ghahramani.navid@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 03/24] ARM: zte: Add ZX279128S platform and CPU hotplug support
-Date: Wed, 14 Oct 2026 08:20:43 +0100
-Message-ID: <20261014072109.1759502-4-ghahramani.navid@gmail.com>
+Subject: [PATCH v2 07/24] dt-bindings: gpio: Add ZTE ZX279128S GPIO controller
+Date: Wed, 14 Oct 2026 08:20:47 +0100
+Message-ID: <20261014072109.1759502-8-ghahramani.navid@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261014072109.1759502-1-ghahramani.navid@gmail.com>
 References: <20261014072109.1759502-1-ghahramani.navid@gmail.com>
@@ -82,260 +88,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Support the dual Cortex-A9 platform, second-CPU startup through
-bootloader SRAM and CPU hotplug. Keep existing ZX297520V3 support
-intact.
+Describe the register-clock consumer and GPIO banks.
 
 Signed-off-by: Navid Ghahremani <ghahramani.navid@gmail.com>
 ---
- arch/arm/mach-zte/Kconfig             |  16 +++
- arch/arm/mach-zte/Makefile            |   4 +
- arch/arm/mach-zte/platsmp-zx279128s.c | 173 ++++++++++++++++++++++++++
- arch/arm/mach-zte/zx279128s.c         |  19 +++
- 4 files changed, 212 insertions(+)
- create mode 100644 arch/arm/mach-zte/platsmp-zx279128s.c
- create mode 100644 arch/arm/mach-zte/zx279128s.c
+ .../bindings/gpio/zte,zx279128s-gpio.yaml     | 53 +++++++++++++++++++
+ 1 file changed, 53 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/gpio/zte,zx279128s-gpio.yaml
 
-diff --git a/arch/arm/mach-zte/Kconfig b/arch/arm/mach-zte/Kconfig
-index d3b404ca48..032079c958 100644
---- a/arch/arm/mach-zte/Kconfig
-+++ b/arch/arm/mach-zte/Kconfig
-@@ -26,4 +26,20 @@ config SOC_ZX297520V3
- 	  Please read Documentation/arch/arm/zte/zx297520v3.rst on how to boot
- 	  the kernel.
- 
-+config SOC_ZX279128S
-+	bool "zx279128s SoC"
-+	default y
-+	select ARM_AMBA
-+	select ARM_GIC
-+	select ARM_GLOBAL_TIMER
-+	select CACHE_L2X0
-+	select CLKSRC_ARM_GLOBAL_TIMER_SCHED_CLOCK
-+	select HAVE_ARM_SCU if SMP
-+	select HAVE_ARM_TWD if SMP
-+	help
-+	  Support for the ZTE (Sanechips) zx279128s SoC, a dual-core
-+	  Cortex-A9 with an L2C-310 cache controller, used in home gateways
-+	  such as the ZTE ZXHN H3600. The second core is started through
-+	  the on-chip SRAM, where the boot loader keeps it waiting.
-+
- endif
-diff --git a/arch/arm/mach-zte/Makefile b/arch/arm/mach-zte/Makefile
-index 1bfe4fddd6..72f518632e 100644
---- a/arch/arm/mach-zte/Makefile
-+++ b/arch/arm/mach-zte/Makefile
-@@ -1,2 +1,6 @@
- # SPDX-License-Identifier: GPL-2.0-only
- obj-$(CONFIG_SOC_ZX297520V3) += zx297520v3.o
-+obj-$(CONFIG_SOC_ZX279128S) += zx279128s.o
-+ifdef CONFIG_SMP
-+obj-$(CONFIG_SOC_ZX279128S) += platsmp-zx279128s.o
-+endif
-diff --git a/arch/arm/mach-zte/platsmp-zx279128s.c b/arch/arm/mach-zte/platsmp-zx279128s.c
+diff --git a/Documentation/devicetree/bindings/gpio/zte,zx279128s-gpio.yaml b/Documentation/devicetree/bindings/gpio/zte,zx279128s-gpio.yaml
 new file mode 100644
-index 0000000000..8285b8fb10
+index 0000000000..132c7126fd
 --- /dev/null
-+++ b/arch/arm/mach-zte/platsmp-zx279128s.c
-@@ -0,0 +1,173 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (C) 2026 Navid Ghahremani <ghahramani.navid@gmail.com>
-+ *
-+ * The boot loader runs from on-chip SRAM.  Its reset code sends every
-+ * core but CPU0 into a loop: wait for an event (WFE), then jump to the
-+ * start of the SRAM, where the boot loader's reset vector leads back to
-+ * the WFE.  To start the second core, replace that vector with a jump to
-+ * secondary_startup and send an event.
-+ *
-+ * To take the second core offline again (CPU hotplug, and kexec, which needs
-+ * it), the core puts the boot loader's vector back and returns to the boot
-+ * loader's loop with the MMU and caches off. That loop is outside the
-+ * kernel's memory, so the core survives the kernel being replaced, and the
-+ * next start works the same way as the first.
-+ */
++++ b/Documentation/devicetree/bindings/gpio/zte,zx279128s-gpio.yaml
+@@ -0,0 +1,53 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/gpio/zte,zx279128s-gpio.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+#include <linux/cacheflush.h>
-+#include <linux/io.h>
-+#include <linux/iopoll.h>
-+#include <linux/of.h>
-+#include <linux/of_address.h>
-+#include <linux/smp.h>
++title: ZTE zx279128s GPIO controller
 +
-+#include <asm/cp15.h>
-+#include <asm/idmap.h>
-+#include <asm/proc-fns.h>
-+#include <asm/smp_scu.h>
-+#include <asm/tlbflush.h>
++maintainers:
++  - Navid Ghahremani <ghahramani.navid@gmail.com>
 +
-+/* ldr pc, [pc, #-4]: jump to the address stored in the next word */
-+#define ZX279128S_JUMP_INSN	0xe51ff004
++description:
++  The ZTE zx279128s has several identical GPIO banks. Each bank has 16
++  lines and is described by its own node.
 +
-+static void __iomem *zx279128s_smp_sram;
-+static phys_addr_t zx279128s_smp_sram_phys;
-+/* the boot loader's vector, as found at boot */
-+static u32 zx279128s_boot_vector[2];
++properties:
++  compatible:
++    const: zte,zx279128s-gpio
 +
-+static int zx279128s_boot_secondary(unsigned int cpu, struct task_struct *idle)
-+{
-+	if (!zx279128s_smp_sram)
-+		return -ENODEV;
++  reg:
++    maxItems: 1
 +
-+	/*
-+	 * Store the address before the instruction: a core that wakes up
-+	 * in between still runs the boot loader's vector and goes back to
-+	 * sleep instead of jumping to a stale address.
-+	 */
-+	writel(__pa_symbol(secondary_startup), zx279128s_smp_sram + 4);
-+	writel(ZX279128S_JUMP_INSN, zx279128s_smp_sram);
++  clocks:
++    maxItems: 1
 +
-+	/* Complete both writes, then wake the core */
-+	dsb_sev();
++  gpio-controller: true
 +
-+	return 0;
-+}
++  '#gpio-cells':
++    const: 2
 +
-+static void __init zx279128s_smp_prepare_cpus(unsigned int max_cpus)
-+{
-+	struct device_node *np;
-+	struct resource res;
-+	void __iomem *scu;
++  gpio-line-names:
++    maxItems: 16
 +
-+	np = of_find_compatible_node(NULL, NULL, "arm,cortex-a9-scu");
-+	if (!np) {
-+		pr_err("zx279128s: no SCU node\n");
-+		return;
-+	}
-+	scu = of_iomap(np, 0);
-+	of_node_put(np);
-+	if (!scu) {
-+		pr_err("zx279128s: cannot map the SCU\n");
-+		return;
-+	}
-+	scu_enable(scu);
-+	iounmap(scu);
++required:
++  - compatible
++  - reg
++  - clocks
++  - gpio-controller
++  - '#gpio-cells'
 +
-+	np = of_find_compatible_node(NULL, NULL, "zte,zx279128s-smp-sram");
-+	if (!np) {
-+		pr_err("zx279128s: no SMP SRAM node\n");
-+		return;
-+	}
-+	if (of_address_to_resource(np, 0, &res)) {
-+		of_node_put(np);
-+		pr_err("zx279128s: no SMP SRAM address\n");
-+		return;
-+	}
-+	zx279128s_smp_sram = of_iomap(np, 0);
-+	of_node_put(np);
-+	if (!zx279128s_smp_sram) {
-+		pr_err("zx279128s: cannot map the SMP SRAM\n");
-+		return;
-+	}
-+	zx279128s_smp_sram_phys = res.start;
-+	zx279128s_boot_vector[0] = readl(zx279128s_smp_sram);
-+	zx279128s_boot_vector[1] = readl(zx279128s_smp_sram + 4);
++additionalProperties: false
 +
-+	/* zx279128s_cpu_die() reads these with its data cache off */
-+	sync_cache_w(&zx279128s_smp_sram);
-+	sync_cache_w(&zx279128s_smp_sram_phys);
-+	sync_cache_w(&zx279128s_boot_vector);
-+}
++examples:
++  - |
++    #include <dt-bindings/clock/zte,zx279128s-crm.h>
 +
-+#ifdef CONFIG_HOTPLUG_CPU
-+typedef void (*phys_reset_t)(unsigned long addr, bool hvc);
-+
-+/*
-+ * If the vector already holds a jump, an earlier kernel started the core
-+ * and did not put the boot loader's vector back: the original is unknown,
-+ * so the core cannot be parked safely.
-+ */
-+static bool zx279128s_cpu_can_disable(unsigned int cpu)
-+{
-+	return zx279128s_smp_sram &&
-+	       zx279128s_boot_vector[0] != ZX279128S_JUMP_INSN;
-+}
-+
-+static void zx279128s_cpu_die(unsigned int cpu)
-+{
-+	phys_reset_t phys_reset;
-+
-+	/* Take out a flat mapping, which keeps the kernel mappings too */
-+	setup_mm_for_reboot();
-+
-+	/*
-+	 * The boot loader's loop executes the vector, which
-+	 * zx279128s_boot_secondary() changes with data writes. Stop caching
-+	 * and predicting instructions, as at power-on, so that the parked
-+	 * core sees the change.
-+	 */
-+	set_cr(get_cr() & ~(CR_I | CR_Z));
-+	__flush_icache_all();
-+	local_flush_bp_all();
-+
-+	/* Clean the caches and leave coherency with the other core */
-+	v7_exit_coherency_flush(louis);
-+
-+	/*
-+	 * Put the boot loader's vector back, instruction word last: the core
-+	 * then wakes up into the boot loader's loop, and zx279128s_cpu_kill()
-+	 * sees that it is about to leave the kernel.
-+	 */
-+	writel_relaxed(zx279128s_boot_vector[1], zx279128s_smp_sram + 4);
-+	writel_relaxed(zx279128s_boot_vector[0], zx279128s_smp_sram);
-+	dsb();
-+
-+	/* Turn the MMU off and continue at the boot loader's vector */
-+	phys_reset = (phys_reset_t)virt_to_idmap(cpu_reset);
-+	phys_reset(zx279128s_smp_sram_phys, false);
-+}
-+
-+static int zx279128s_cpu_kill(unsigned int cpu)
-+{
-+	u32 val;
-+
-+	/* Wait until the dying core has put the vector back */
-+	return !readl_poll_timeout(zx279128s_smp_sram, val,
-+				   val == zx279128s_boot_vector[0], 1000,
-+				   100 * USEC_PER_MSEC);
-+}
-+#endif
-+
-+static const struct smp_operations zx279128s_smp_ops __initconst = {
-+	.smp_prepare_cpus	= zx279128s_smp_prepare_cpus,
-+	.smp_boot_secondary	= zx279128s_boot_secondary,
-+#ifdef CONFIG_HOTPLUG_CPU
-+	.cpu_can_disable	= zx279128s_cpu_can_disable,
-+	.cpu_die		= zx279128s_cpu_die,
-+	.cpu_kill		= zx279128s_cpu_kill,
-+#endif
-+};
-+
-+CPU_METHOD_OF_DECLARE(zx279128s_smp, "zte,zx279128s-smp", &zx279128s_smp_ops);
-diff --git a/arch/arm/mach-zte/zx279128s.c b/arch/arm/mach-zte/zx279128s.c
-new file mode 100644
-index 0000000000..064c76f8ad
---- /dev/null
-+++ b/arch/arm/mach-zte/zx279128s.c
-@@ -0,0 +1,19 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (C) 2026 Navid Ghahremani <ghahramani.navid@gmail.com>
-+ */
-+
-+#include <asm/mach/arch.h>
-+#include <linux/init.h>
-+
-+static const char *const zx279128s_dt_compat[] __initconst = {
-+	"zte,zx279128s",
-+	NULL,
-+};
-+
-+DT_MACHINE_START(ZX279128S, "ZTE zx279128s (Device Tree)")
-+	.dt_compat	= zx279128s_dt_compat,
-+	/* Keep the L2 cache setup of the boot loader and the device tree */
-+	.l2c_aux_val	= 0,
-+	.l2c_aux_mask	= ~0,
-+MACHINE_END
++    gpio@94407000 {
++        compatible = "zte,zx279128s-gpio";
++        reg = <0x94407000 0x40>;
++        clocks = <&lsp0crpm ZX279128S_LSP0_GPIO_PCLK>;
++        gpio-controller;
++        #gpio-cells = <2>;
++    };
 -- 
 2.55.0
 
