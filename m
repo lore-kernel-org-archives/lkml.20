@@ -1,68 +1,76 @@
-Received: from relay.hostedemail.com (smtprelay0016.hostedemail.com [216.40.44.16])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BD934DF4D5;
-	Wed, 14 Oct 2026 12:52:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6E464E432A;
+	Wed, 14 Oct 2026 12:52:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791982370; cv=none; b=cRPDOyTfIZtgzXiP9blaEz7RQ75J1pfrWFrCt8Po6DvWISo+clNctlN8TtI//bWVpIR9Yzy1K96cT08KuobPdwzwszefsZXGA0XW6J2bGVEbk7WEimQc/8GpV+tmEPomI9hsWb8eNYjW/aelFxswKCgyHxn/0OpKgChEXDskJ70=
+	t=1791982379; cv=none; b=EBzcVdbL2E3xvuWpwE+DHLdjalhGms2MVHsKFPU5uJCnZhlJYrSF6EA/rRd3KwFhaMKoe6ImjL2UQUhbqeGvh58RUEcLIYlpPf9U8Y1lVuoY+fqBOEEN5+SjzBTaL+k2Yb5nEJkMjDMIX73WNHH+H8bqWqPRmn7PtsQesgCBy+M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791982370; c=relaxed/simple;
-	bh=3sTwOvgriNAkxKO8TqnSXTOyDdaMDvi2zp31gVBDo10=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=g03Vl3ZYE2GswltXmwCBFcCGZC3VW8DgXs6u8TuqIwnI9l/vFx3aMdpTt4gOy5xu4G/dhazrNpK/Dy/yQHJ0xTxydUh67P+RiarYE12xXeq5YXfBGbDx+85AtET/1yDdb2rp1QAXwHaH8X3apsX3v7EUvkxnobI3UQ7ZpqHt+wI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=TXOGabp1; arc=none smtp.client-ip=216.40.44.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1791982379; c=relaxed/simple;
+	bh=IPfUWD6LEzhnk2YunaaQklJ2otUfpv/fDDLCMcSIbpI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HaUlt0VMDz47VH0m6nz4QgeGFlMMCc8AQuKH3ED/iRbpyEJXHth/aIp95CqLluM0/ItcatBF/ZsZYQ8QffQXsRgB4SFBuqJiYpaHK97bguFaWgy9yRZixP7/5k1Nd4YxeUGNtfvlqQvyANs3sxBDtVgZR0eYKiULLM7El+buBKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=A/L8DwWe; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="TXOGabp1"
-Received: from omf04.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay10.hostedemail.com (Postfix) with ESMTP id 1B5AAC053E;
-	Wed, 14 Oct 2026 12:51:58 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf04.hostedemail.com (Postfix) with ESMTPA id E917420024;
-	Wed, 14 Oct 2026 12:51:55 +0000 (UTC)
-Date: Wed, 14 Oct 2026 08:51:56 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Thorsten Leemhuis <linux@leemhuis.info>, "Masami Hiramatsu (Google)"
- <mhiramat@kernel.org>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, Sang-Heon Jeon <ekffu200098@gmail.com>,
- Linux Next Mailing List <linux-next@vger.kernel.org>, Mark Brown
- <broonie@kernel.org>, Linux kernel regressions list
- <regressions@lists.linux.dev>
-Subject: Re: [PATCH v2 2/4] tools/bootconfig: Consolidate xbc_init() to
- error message wrapper
-Message-ID: <20261014085156.2d888407@gandalf.local.home>
-In-Reply-To: <20261013212351.ce16d411abeb7e710eed5157@linux-foundation.org>
-References: <178913597653.248794.1237187523153227751.stgit@devnote2>
-	<178913599508.248794.10388592925402087434.stgit@devnote2>
-	<1dcf2ee8-02f7-41af-b1f4-bff3a16a2c90@leemhuis.info>
-	<20261013212351.ce16d411abeb7e710eed5157@linux-foundation.org>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="A/L8DwWe"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=hvc2V3oM2jK/anoO6/69ZkcwK/ZYlgwZcHP0MTpy6U4=; b=A/L8DwWencGpuxcWNwuJFUtr8M
+	vfAWBJ4RbgFT2vLUKpXYH7A6Cxda3UVNSAMZNgvohP/aLkLNvbHqYmeCmlCybYr5735dSrDGB9DDs
+	xBL1tG6Q1yVPbgEtOXQHhQpnV+4oeT+ElpJtuyrGCskr+tr2nfGvpzjHqYkdJZE6SmMg=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xGySo-00Aje5-IV; Wed, 14 Oct 2026 14:52:10 +0200
+Date: Wed, 14 Oct 2026 14:52:10 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Navid Ghahremani <ghahramani.navid@gmail.com>
+Cc: linux-arm-kernel@lists.infradead.org, arnd@arndb.de,
+	stefandoesinger@gmail.com, krzk@kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 24/24] ARM: dts: zte: Add ZTE ZXHN H3600 board
+Message-ID: <0386c1dc-5026-4c45-9679-cc6e76f58e36@lunn.ch>
+References: <20261014072109.1759502-1-ghahramani.navid@gmail.com>
+ <20261014072109.1759502-25-ghahramani.navid@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: 1uiir9pnbqo35mdh6tdeds9keo1uq7wn
-X-Rspamd-Server: rspamout08
-X-Rspamd-Queue-Id: E917420024
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1+b3wfe0omgBjnqULDGpD59Hgpzyj3TBEg=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=3sTwOvgriNAkxKO8TqnSXTOyDdaMDvi2zp31gVBDo10=; b=TXOGabp1/Dmh/OCeExlO+kQQquKiOUcZ2WCZEt1lZhyEnW9xorL/NVw3nb+htd5lzdipwsVAdYXcVywUpJr105XRwQWA8+OtBgdWcE1wJwIPaQQ1KJX/cHRv7Z+hN/G7n7ekEACgfwLzsGZLQpRtwgzZBmOUamfwUWKt7E3vJQo=
-X-HE-Tag: 1791982315-44159
-X-HE-Meta: U2FsdGVkX18K9udf/Xf+1EeQJR4TjeojlXlKYgOyGn85AOTsBbVHSimyk4/czDotc757zOhJxy71wEK+AjPVmeGWiA2WvFpZLqLIyCBDVcMt0RiP2OVYsqc315ZXtbQj+0fo7VNDPlw+UMobNqbf5PiZnI62H/cMCxB1d6NpHhooPXShctirds1ZcIh3kNag0CD9hiOAUfVG5YNtBJjH26YZog22lmRvMtvaZIEU8ASDyM1oZu+mCd5nXRM3JPddjDXXIdXLFVz0iXgLQewaHOXhrANetzksFpoAA5qfKdFaQu4+DKwwEjN5JolUAwzdtYxls+dp7nCcYF91KosPpl0IxhZ/9WsvErF/hEnE32mPEBLPlvnaorYL3d7PD1cB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014072109.1759502-25-ghahramani.navid@gmail.com>
 
-On Tue, 13 Oct 2026 21:23:51 -0700
-Andrew Morton <akpm@linux-foundation.org> wrote:
+> +&gmac_port4 {
+> +	label = "wan";
+> +	phy-handle = <&phy8>;
+> +	phy-mode = "gmii";
+> +	nvmem-cells = <&macaddr_tag_1e 1>;
+> +	nvmem-cell-names = "mac-address";
+> +	status = "okay";
+> +};
+> +
+> +&mdio {
+> +	/* the ZX5201 WAN PHY */
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&ext_phy_pins>;
+> +	status = "okay";
+> +
+> +	/* external Sanechips ZX5201; its SerDes answers on address 9 */
+> +	phy8: ethernet-phy@8 {
+> +		reg = <8>;
+> +	};
 
-> I was surprised to see bootconfig patches in the linux-trace tree, but
-> it seems that's where they're hosted.
+You have phy-mode == gmii. Such a PHY does not need a SERDES. We need
+a better understanding of what is actually used here.
 
-That's because the bootconfig patches were originally created to add more
-complex tracing command line options.
-
--- Steve
+	Andrew
