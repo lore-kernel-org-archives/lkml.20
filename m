@@ -1,424 +1,300 @@
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F2FF480DE8
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:19:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791962377; cv=pass; b=G4ITWH4vCge6Uot0RgvkWc/TsIAkz57kQ5OsDDpNtzW9hGYkDnXu2xsyotF6ll8Gw8E7855yPg5kqn1/l09Jb7RO73Fr9y1CPANh3m5UdTnVfhVUhm2JN24KwOdeUy/bw/bxV3UETSHJxyYDzIhNXAJ3W2u59NJ6Cz1iHyePLS0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791962377; c=relaxed/simple;
-	bh=+nKE0aerXq5zcerPMktiueb2dpi7N/wqcFUGs1sFppk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ujTXoYl4e2NblSChM616R4+s6OX3OVtT+hMxqNwfpjBMJ9eLSVleDYFQW1XPKTFnFSNLdEa2t1+tn9mjw3ntabmCaJB6QFkMhkq8dJ2ACRbpCuYRWAa796FAnegKTDoOXGOn7OmawYxHjE/pikZdXqbviOADQK1NkgrwYwPMv9Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=m7Sciar/; arc=pass smtp.client-ip=209.85.208.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1562037BE81;
+	Wed, 14 Oct 2026 07:19:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791962385; cv=none; b=SipcL+0znBhFjvWSQHemjtuFw/Py0ka+2l8kGue04gE8NCy4aKWuCwWk01yGpkMZsslAyEndCfCl5e9D/8jMgTvovUfJstuexMR9J5tqIoYDeMFVnNC00wCoV59iVtangdwE2SxNpW4cEO7+9FEsqCcUIJZ7almfGPFOu1ybQFI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791962385; c=relaxed/simple;
+	bh=OLWvxHlK/pIvDgLktYglhtdP6v0ZNV6ImIyFRtLN7WE=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jOQOSEAGhTvwpwedl343eGXsyr6Qq55bvW3Tb2fEOf2x8gF0A+vF96vAPeu3qc5e8D4usHK/Wllvv0F4lAt82BqOp2NAI1E3s0Ym/KgZAp7oTFjRDZtsn2XYgkx8yduM2PXDUDMQE6T4fT+3Rmbn9hifZZUcwcdd1gGc9mOGvRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=nWkiHJm0; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=dR9RVHVu; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Z/RmM4wJ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=t6dMdoFW; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="m7Sciar/"
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6b1ab2ad719so4599450a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 00:19:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791962374; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hLTjrTfNjS9qPOMpizkU5EUulqoFVW++V/IjttcTSsz4vktdyA0F2w9+HUDkq3odfI
-         HcwWB9FzzSabNPlGS7VZlJJlPX1kjvKVFTQr7lGV6WiZakUKqx7Ipny9Ulchz+ve1kpD
-         eIkWY7VnGuHfettEy1H4f/4V+VxNE4bBy8fW9zFe2clBkgNgpvnB1NU2rj7N5+Lr9A3r
-         7B3lVqJOibsRaDkGcwAS588ETLOPOjXTiz4m4hFMUiFo5jzVvn3ZYy+VgqiU6TcpFZ8P
-         VWpeRvJ/CldQgIsaOlfbcwCOG8iw3JBXAcFd3q8xri684nvZbm4JbEu3CeevX/oqUoYz
-         wBeQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=qbDfcVSYXH9BTPxOSJl5CrroWP8L6dvonpMNak5vQvA=;
-        fh=PsyFn35V2TTyoc3itB7f+2epOn5diKkkpsV/IJDtiFY=;
-        b=j8AvYCe2PHcAMMVVGHRBWIcquGYXHjQx5S3CG7THeS+3osgcIfq8zn8TXF5EJspHTi
-         OXPMoFLwalgxbHGOLOKg4SWsD/pvEf81c/w1mv1dSsBBQR8CL5WqBPKPq6PP15KpJBa6
-         +vcaHWa+jDFeNDZd+0f/Y2XbY96NFqKiHWbui0awa72O4VtrkE38XZMVon8dJtnACXc5
-         7UE0uDDsrMiKz5C6URtuHC7I+bW4R8s2m/rjxoS2NsDWYDSvtzTRBN7Ly1CeUYobv/cR
-         eU+HiUrMWmuQSB2CF8U0Y36gJnsUbe/3HgxbLTtLt7cbfalG327RmPCuz+V9fzIFgcyA
-         hBmg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791962374; x=1792567174; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qbDfcVSYXH9BTPxOSJl5CrroWP8L6dvonpMNak5vQvA=;
-        b=m7Sciar/cWyTeS/n1S+loqRYRbKqCfFETScXUv3KhjhShHT1NtFVmkvV0x8oso9ysT
-         M+npVKiKLO5KkRXITmdQ/MMZxAAzc5cEuPlqeKMcCwOzJ+NNlAViMCjYPZZFrOJjR5KO
-         XS1dSK4yqOrjXy0LDoL1el0Xg9d56Z8OETmi9nbTRDWZ0vaaC/tSp+klfqmV27guQglx
-         SRHyHlrCrsZBwtt0BIEXoFDt3hvbLW4UT8XynB0gI6CyTHprqSwsWXLnDj3ElnJN4cdb
-         vrUSigBDcs9pKePEF7hgXV0rvKh2MeJmV+2QJrcz1mhjBN8qjb6n8eRyWvA8Yppw3gY2
-         3mJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791962374; x=1792567174;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=qbDfcVSYXH9BTPxOSJl5CrroWP8L6dvonpMNak5vQvA=;
-        b=j9Ijvmptmi+LJceijeObvS/2PasjQNhdIswWWqwKIgDTU0EuNPF2f/jzU4c4438G7l
-         JQRIbB1iC3TB34kbr7o9VlMHidkhpgN9krycZo5FQYm+9VAAzmaTXg2g6mV+qNh/XNob
-         6CV3Fxu3I5U0w//QLJdG+La8ILilBXtktdX6ftbOVPC/pIeAwcJBeG1ceWqGu2tao63G
-         LJZ/Ri8JAaXfQhVHmu0St8X896W+fM+sVlKGDJ3PE49sno/HejokqI2WYUzVo//jWtOj
-         p5LbJ9Uv3Mkde+8ygJodOIRjHX4k6iApp/l5iyDfVs74FYMqHvtNq0HyOrs0p8CkQhDh
-         TLzg==
-X-Forwarded-Encrypted: i=1; AKwUvBxo3QsIphuD4+qsZp1ufXX0RTyk3tZu9lT7HoHEK+Hz7lSHEZOMEIHb4rxzLjNi/UJmdJJV2PDNOo12zC4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI9wUGi3fWZu/wXayjP5L8Cbj9jLg9XLYzBVOPYKlPgsYjGc4Gf
-	InV11cYG+79YJQ3ZtGFf14FuRbw+T7beDQ0qGa7IXVS5cgS28M2z1R5HzTd81HBSbDs88jYHs4e
-	K/dcuwsuZ4rOsZBMH7f5IZu/Aw9rsp7/3XgqW5eDe0g==
-X-Gm-Gg: AYBFou1EGvyOy6IDo8yH9xENmachkodP+8caELMoUeb+vaCT87XpPMpCTg/oef/Nk8E
-	nXIHAgbYiWAD2rWR5Uu4OppObbnqBGe2CZZ5zHMx73ATOlVSQETyxVVUDQqhtxHZpPG95Ce1apT
-	+VB9S+fzTC68UoJZ5SxQ/QNn8hfZLWGXwqWo//wdnZxnshlC+c0PeXhCqEdJZxoc8LTeC3iIvPl
-	s91PHYEk3kjXpJ4Xf0xPUQfDf23i2H0vUfpdO0O/VHZWLLfQcMj4VgeplMuuhdz5eMNh7T51JVS
-	+AnWBXAoul80w6kgg9RmX6R/kspSbfxHuM80Hoqq9gPTCXPIo3V9Hgs+b1vwzXgbuKs9d9IAN09
-	awtmKoAf6CJo=
-X-Received: by 2002:a17:907:6095:b0:c34:c5e8:1dc5 with SMTP id
- a640c23a62f3a-c34c5e82123mr828929666b.20.1791962373480; Wed, 14 Oct 2026
- 00:19:33 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="nWkiHJm0";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="dR9RVHVu";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Z/RmM4wJ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="t6dMdoFW"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id CF0D922175;
+	Wed, 14 Oct 2026 07:19:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791962382; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DRYVxI++fS0QZo2yXcnUnT/97oDV2nUc02sQ2k41UyY=;
+	b=nWkiHJm0xPKV/dtM/EB4I1Gizy/eZCNnL8noke2Wyq/YF0XSC078MdQPi/DWQ9bRsidHOv
+	+r7demFyuhsDVB9Y388IqITUmzzuWHi0miEat3a9RWySJfSQZpAbV707lzk8vsOCzjrNQI
+	1K6YJtWUTx9PSOLDhUo42bDd5j6jPVU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791962382;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DRYVxI++fS0QZo2yXcnUnT/97oDV2nUc02sQ2k41UyY=;
+	b=dR9RVHVuszag0VH85goZLUwzGHV6Dd65BvMutQZjQN4IG7sUiPRq5TshTdQSwBqV6eBWGs
+	iUQvbOKtSZeYvmAQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791962381; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DRYVxI++fS0QZo2yXcnUnT/97oDV2nUc02sQ2k41UyY=;
+	b=Z/RmM4wJzxxGIsBo1r+JyHks/3zPPDiQI9IC4qy9LBkDBVdLFuD+bESv/XCa1VUB0ZrtA4
+	g5hFXqxjroMF5W5nFI1AlFffnaVT3rRMPrkcudxxLzx4LEbr5apaqDa6Qr57ei4LlDIbIv
+	Qq3YjZJFwzD3KAblP3HrG8gzCAE+CPE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791962381;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DRYVxI++fS0QZo2yXcnUnT/97oDV2nUc02sQ2k41UyY=;
+	b=t6dMdoFWtDQImGNHeFZV/68MDUWR7gA3LB/c5KTMcRhwgnxv8QOFiBENfP5Xv9jgjHUAdO
+	Zfntefw5jXUxraBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3672F13726;
+	Wed, 14 Oct 2026 07:19:41 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id IlQvAw0tz2oRcAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 14 Oct 2026 07:19:41 +0000
+Date: Wed, 14 Oct 2026 09:19:40 +0200
+Message-ID: <877bjkg35f.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: perex@perex.cz,
+	tiwai@suse.com,
+	sammiee5311@gmail.com,
+	phucduc.bui@gmail.com,
+	kees@kernel.org,
+	thomas.weissschuh@linutronix.de,
+	tglx@kernel.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com
+Subject: Re: [PATCH] ALSA: dummy: Defer hrtimer data freeing until runtime detach
+In-Reply-To: <pm-pmb-9c80f858ccc13b3de84d-v6-d4059ea2910fe5430f5f@gmail.com>
+References: <pm-pmb-9c80f858ccc13b3de84d-v6-d4059ea2910fe5430f5f@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20261002154415.2270586-1-vincent.guittot@linaro.org>
- <20261002154415.2270586-8-vincent.guittot@linaro.org> <a18e6fe1-e14e-46be-9779-3704ab8625a0@linux.ibm.com>
-In-Reply-To: <a18e6fe1-e14e-46be-9779-3704ab8625a0@linux.ibm.com>
-From: Vincent Guittot <vincent.guittot@linaro.org>
-Date: Wed, 14 Oct 2026 09:19:21 +0200
-X-Gm-Features: AclHuK8o97-tByDZxo3ZbCUEwmJUGSdqAopCL1P-qHwY8E-185Z3bC_zZwQQAnI
-Message-ID: <CAKfTPtCh1ZSWudmniet1UoGDAS3cQJYkLTuH-QuubGc8-rxOCw@mail.gmail.com>
-Subject: Re: [PATCH 07/18] sched/fair: Add push task mechanism for fair
-To: Shrikanth Hegde <sshegde@linux.ibm.com>
-Cc: qyousef@layalina.io, christian.loehle@arm.com, pierre.gondois@arm.com, 
-	mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com, 
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, 
-	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, 
-	linux-kernel@vger.kernel.org, lukasz.luba@arm.com, rafael@kernel.org, 
-	linux-pm@vger.kernel.org, tj@kernel.org, void@manifault.com, 
-	arighi@nvidia.com, changwoo@igalia.com, sched-ext@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-1.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_TLS_ALL(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[perex.cz,suse.com,gmail.com,kernel.org,linutronix.de,vger.kernel.org];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -1.80
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-On Mon, 12 Oct 2026 at 16:07, Shrikanth Hegde <sshegde@linux.ibm.com> wrote:
->
-> Hi Vincent,
->
-> Disclaimer:
-> I haven't read the full series yet. I will try to do. Sorry in case i read
-> it wrong.
-> Thought of quickly checking the push path since i had recently worked on it.
->
-> On 10/2/26 9:14 PM, Vincent Guittot wrote:
-> > EAS is based on wakeup events to efficiently place tasks on the system, but
-> > there are cases where a task doesn't have wakeup events anymore or at a far
-> > too low pace. For such situation, we can take advantage of the task being
-> > put back in the enqueued list to check if it should be pushed on another
-> > CPU.
-> >
-> > Add a push task mechanism that enables fair scheduler to push runnable
-> > tasks. EAS will be one user but other feature like filling idle CPUs or
-> > short slice tasks can also take advantage of it.
-> >
-> > Signed-off-by: Vincent Guittot <vincent.guittot@linaro.org>
-> > ---
-> >   kernel/sched/core.c  |   4 +-
-> >   kernel/sched/fair.c  | 163 +++++++++++++++++++++++++++++++++++++++++++
-> >   kernel/sched/sched.h |   7 ++
-> >   3 files changed, 172 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> > index 837dc74c9a8d..18692b752814 100644
-> > --- a/kernel/sched/core.c
-> > +++ b/kernel/sched/core.c
-> > @@ -2553,8 +2553,8 @@ static inline bool is_cpu_allowed(struct task_struct *p, int cpu)
-> >    *
-> >    * Returns (locked) new rq. Old rq's lock is released.
-> >    */
-> > -static struct rq *move_queued_task(struct rq *rq, struct rq_flags *rf,
-> > -                                struct task_struct *p, int new_cpu)
-> > +struct rq *move_queued_task(struct rq *rq, struct rq_flags *rf,
-> > +                         struct task_struct *p, int new_cpu)
-> >       __must_hold(__rq_lockp(rq))
-> >   {
-> >       lockdep_assert_rq_held(rq);
-> > diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> > index f12678850ce2..00078ac7fada 100644
-> > --- a/kernel/sched/fair.c
-> > +++ b/kernel/sched/fair.c
-> > @@ -8179,6 +8179,8 @@ static void dequeue_hierarchy(struct task_struct *p, int flags)
-> >       }
-> >   }
-> >
-> > +static void fair_remove_pushable_task(struct rq *rq, struct task_struct *p);
-> > +
-> >   /*
-> >    * The part of dequeue_task_fair() that is needed to dequeue delayed tasks.
-> >    *
-> > @@ -8195,6 +8197,7 @@ static bool __dequeue_task(struct rq *rq, struct task_struct *p, int flags)
-> >       bool task_delayed = flags & DEQUEUE_DELAYED;
-> >
-> >       clear_buddies(cfs_rq, se);
-> > +     fair_remove_pushable_task(rq, p);
-> >
-> >       update_curr_eevdf(cfs_rq);
-> >       update_entity_lag(cfs_rq, se);
-> > @@ -9799,6 +9802,157 @@ static int find_energy_efficient_cpu(struct task_struct *p, int prev_cpu)
-> >       return target;
-> >   }
-> >
-> > +DEFINE_STATIC_KEY_FALSE(sched_push_task);
-> > +
-> > +static inline bool sched_push_task_enabled(void)
-> > +{
-> > +     return static_branch_unlikely(&sched_push_task);
-> > +}
-> > +
-> > +static bool __check_pushable_fair_task(struct rq *rq, struct task_struct *p)
-> > +{
-> > +     if (!task_on_rq_queued(p))
-> > +             return false;
-> > +
-> > +     if (p->se.sched_delayed)
-> > +             return false;
-> > +
-> > +     if (p->nr_cpus_allowed <= 1)
-> > +             return false;
-> > +
-> > +     return true;
-> > +}
-> > +
-> > +static bool fair_check_pushable_task(struct rq *rq, struct task_struct *p, struct task_struct *next)
-> > +{
-> > +     if (!__check_pushable_fair_task(rq, p))
-> > +             return false;
-> > +
-> > +     return false;
-> > +}
-> > +
-> > +static inline int has_pushable_tasks(struct rq *rq)
-> > +{
-> > +     return !plist_head_empty(&rq->cfs.pushable_tasks);
-> > +}
-> > +
->
-> Should this use static key?
+On Wed, 14 Oct 2026 07:25:31 +0200,
+Cen Zhang wrote:
+> 
+> The hrtimer record must remain alive while a linked PCM action can
+> visit its substream. dummy_pcm_close() frees that record before
+> pcm_release_private() unlinks the substream. runtime->private_data still
+> points to the freed allocation.
+> 
+> With two configured dummy capture substreams linked and the hrtimer
+> backend selected, final close drops the group to SETUP. A surviving
+> peer can then issue PREPARE before the closing substream is unlinked:
+> 
+>   Target close                       Peer PREPARE
+>   snd_pcm_drop(): group -> SETUP
+>   do_hw_free()
+>   dummy_pcm_close(): kfree(dpcm)
+>                                      snd_pcm_action_nonatomic()
+>                                        read-lock snd_pcm_link_rwsem
+>                                      dummy_pcm_prepare()
+>                                        read dpcm->timer_ops
+>   pcm_release_private()
+>     snd_pcm_unlink(): write-lock
+> 
+> PREPARE holds the link read semaphore and the members' buffer mutexes,
+> but driver close holds neither across the free. Unlink's write lock
+> comes too late to protect the record. The ops-pointer read can use freed
+> memory and dispatch through an invalid function pointer. If PREPARE
+> already obtained the record before close, dummy_hrtimer_prepare() can
+> instead write period_time after it has been freed. The report below
+> shows the dispatch-time read and the ensuing fault; it does not show
+> the later write.
+> 
+> Defer freeing the hrtimer record to runtime->private_free. Runtime
+> detach follows unlink, which waits for existing linked PREPARE actions
+> and prevents new ones from visiting the target. Cancel the embedded
+> timer in the destructor before releasing its storage. Register the
+> destructor from the backend free callback so the open error path also
+> releases the record through runtime detach.
+> 
+> KASAN report as below:
+> 
+>     BUG: KASAN: slab-use-after-free in dummy_pcm_prepare+0xb7/0xc0
+>     Read of size 8 at addr ffff888106b35f00 by task alsa_pcm_fixtur/491
+> 
+>     Call Trace:
+>      <TASK>
+>      dump_stack_lvl+0x93/0xd0
+>      print_report+0xce/0x630
+>      ? dummy_pcm_prepare+0xb7/0xc0
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __virt_addr_valid+0x20d/0x410
+>      ? dummy_pcm_prepare+0xb7/0xc0
+>      kasan_report+0xe0/0x110
+>      ? dummy_pcm_prepare+0xb7/0xc0
+>      dummy_pcm_prepare+0xb7/0xc0
+>      snd_pcm_do_prepare+0x71/0xb0
+>      snd_pcm_action_group+0x505/0xb30
+>      snd_pcm_action_nonatomic+0xab/0x150
+>      snd_pcm_common_ioctl+0x1bf5/0x3a50
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? do_vfs_ioctl+0x1f5/0x1280
+>      ? __pfx_do_vfs_ioctl+0x10/0x10
+>      ? ioctl_has_perm.constprop.0.isra.0+0x34f/0x500
+>      ? __pfx_snd_pcm_common_ioctl+0x10/0x10
+>      ? __fput+0x5ba/0xa60
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      snd_pcm_ioctl+0x76/0xb0
+>      ? __pfx_snd_pcm_ioctl+0x10/0x10
+>      __x64_sys_ioctl+0x163/0x1d0
+>      do_syscall_64+0x115/0x6a0
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>     RIP: 0033:0x41ee8d
+>     Code: 04 25 28 00 00 00 48 89 45 c8 31 c0 48 8d 45 10 c7 45 b0 10 00 00 00 48 89 45 b8 48 8d 45 d0 48 89 45 c0 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1a 48 8b 45 c8 64 48 2b 04 25 28 00 00 00
+>     RSP: 002b:00007ffcfa72fb60 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+>     RAX: ffffffffffffffda RBX: 0000000000000004 RCX: 000000000041ee8d
+>     RDX: 0000000000000000 RSI: 0000000000004140 RDI: 0000000000000004
+>     RBP: 00007ffcfa72fbb0 R08: 00007ffcfa72fb98 R09: 0000000000000110
+>     R10: 0000000000000001 R11: 0000000000000246 R12: 00007ffcfa72fcd8
+>     R13: 00007ffcfa72fcf0 R14: 00000000004a8f28 R15: 0000000000000001
+>      </TASK>
+> 
+>     Allocated by task 488:
+>      kasan_save_stack+0x33/0x60
+>      kasan_save_track+0x14/0x30
+>      __kasan_kmalloc+0xaa/0xb0
+>      __kmalloc_cache_noprof+0x251/0x610
+>      dummy_hrtimer_create+0x4a/0x170
+>      dummy_pcm_open+0xe7/0x730
+>      snd_pcm_open_substream+0x926/0x1580
+>      snd_pcm_open+0x28d/0x6d0
+>      snd_pcm_capture_open+0x82/0xe0
+>      snd_open+0x1ec/0x3e0
+>      chrdev_open+0x21f/0x660
+>      do_dentry_open+0x5c8/0x1300
+>      vfs_open+0x87/0x390
+>      path_openat+0x2460/0x3cd0
+>      do_file_open+0x21e/0x470
+>      do_sys_openat2+0xf4/0x1b0
+>      __x64_sys_openat+0x136/0x1e0
+>      do_syscall_64+0x115/0x6a0
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+>     Freed by task 490:
+>      kasan_save_stack+0x33/0x60
+>      kasan_save_track+0x14/0x30
+>      kasan_save_free_info+0x3b/0x60
+>      __kasan_slab_free+0x5f/0x80
+>      kfree+0x307/0x580
+>      dummy_hrtimer_free+0x72/0xe0
+>      dummy_pcm_close+0x9f/0xd0
+>      snd_pcm_release_substream.part.0+0x104/0x310
+>      snd_pcm_release+0x106/0x240
+>      __fput+0x39f/0xa60
+>      fput_close_sync+0xff/0x200
+>      __x64_sys_close+0x8c/0xf0
+>      do_syscall_64+0x115/0x6a0
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>     ==================================================================
+> 
+> Fixes: c631d03c6873 ("ALSA: dummy - Support high-res timer mode")
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+> 
+> ---
+> 
+> diff --git a/sound/drivers/dummy.c b/sound/drivers/dummy.c
+> index 6b0a06e5c87638264e5d22deda1fe4bc028febe7..ae7cef9d74819a68dcf951a21768dccf38c7c4ad 100644
+> --- a/sound/drivers/dummy.c
+> +++ b/sound/drivers/dummy.c
+> @@ -476,13 +476,20 @@ static int dummy_hrtimer_create(struct snd_pcm_substream *substream)
+>  	return 0;
+>  }
+>  
+> -static void dummy_hrtimer_free(struct snd_pcm_substream *substream)
+> +static void dummy_hrtimer_runtime_free(struct snd_pcm_runtime *runtime)
+>  {
+> -	struct dummy_hrtimer_pcm *dpcm = substream->runtime->private_data;
+> +	struct dummy_hrtimer_pcm *dpcm = runtime->private_data;
+>  
+> +	hrtimer_cancel(&dpcm->timer);
+>  	kfree(dpcm);
+>  }
+>  
+> +static void dummy_hrtimer_free(struct snd_pcm_substream *substream)
+> +{
+> +	/* Linked PREPARE can still use the data until unlink. */
+> +	substream->runtime->private_free = dummy_hrtimer_runtime_free;
+> +}
+> +
+>  static const struct dummy_timer_ops dummy_hrtimer_ops = {
+>  	.create =	dummy_hrtimer_create,
+>  	.free =		dummy_hrtimer_free,
 
-Not needed, teh statis key has been test prior calling it
+Hmm, it's not clear how this happens.  It looks like a typical
+obscuration by AI reports...
 
->
-> > +static struct task_struct *pick_next_pushable_fair_task(struct rq *rq)
-> > +{
-> > +     struct task_struct *p;
-> > +
-> > +     if (!has_pushable_tasks(rq))
-> > +             return NULL;
-> > +
-> > +     p = plist_first_entry(&rq->cfs.pushable_tasks,
-> > +                           struct task_struct, pushable_tasks);
-> > +
-> > +     WARN_ON_ONCE(rq->cpu != task_cpu(p));
-> > +     WARN_ON_ONCE(task_current(rq, p));
-> > +     WARN_ON_ONCE(p->nr_cpus_allowed <= 1);
-> > +     WARN_ON_ONCE(!task_on_rq_queued(p));
-> > +
-> > +     /*
-> > +      * Remove task from the pushable list as we try only once after that
-> > +      * the task has been put back in enqueued list.
-> > +      */
-> > +     plist_del(&p->pushable_tasks, &rq->cfs.pushable_tasks);
-> > +
-> > +     return p;
-> > +}
-> > +
-> > +static int
-> > +select_task_rq_fair(struct task_struct *p, int prev_cpu, int wake_flags);
-> > +
-> > +/*
-> > + * See if the non running fair tasks on this rq can be sent on other CPUs
-> > + * that fits better with their profile.
-> > + */
-> > +static bool fair_push_task(struct rq *rq)
-> > +{
-> > +     struct task_struct *next_task;
-> > +     int prev_cpu, new_cpu;
-> > +     struct rq_flags rf;
-> > +     struct rq *cur_rq;
->
-> You likely need below to keep clang's context tracking to be happy.
->
->         context_unsafe_alias(rq);
->
-> > +
-> > +     next_task = pick_next_pushable_fair_task(rq);
-> > +     if (!next_task)
-> > +             return false;
-> > +
-> > +     if (is_migration_disabled(next_task))
-> > +             return true;
->
-> If migration is disabled, then it shouldn't endup on pushable_tasks?
+Basically dummy_hrtimer_sync_stop should handled the hrtimer cancel,
+but maybe the problem is rather its lack at releasing?  If so, the
+patch below should cover instead.
 
-This can happen after it has been added to the list
 
->
-> > +
-> > +     /* We might release rq lock */
-> > +     get_task_struct(next_task);
-> > +
-> > +     prev_cpu = rq->cpu;
-> > +
-> > +     /*
-> > +      * We need to release rq lock and take both task and rq w/o
-> > +      * triggering a deadlock.
-> > +      */
-> > +     raw_spin_rq_unlock(rq);
-> > +
-> > +     cur_rq = task_rq_lock(next_task, &rf);
-> > +
-> > +     /* Task already migrated */
-> > +     if (cur_rq->cpu != prev_cpu)
-> > +             goto skip_push;
-> > +
-> > +     new_cpu = select_task_rq_fair(next_task, prev_cpu, 0);
-> > +
-> > +     /* Task doesn't need to migrate */
-> > +     if (new_cpu == prev_cpu)
-> > +             goto skip_push;
-> > +
-> > +     update_rq_clock(cur_rq);
-> > +     cur_rq = move_queued_task(cur_rq, &rf, next_task, new_cpu);
-> > +
-> > +skip_push:
-> > +     task_rq_unlock(cur_rq, next_task, &rf);
-> > +
-> > +     /* Restore rq state */
-> > +     raw_spin_rq_lock(rq);
-> > +     put_task_struct(next_task);
-> > +
-> > +     return true;
-> > +}
-> > +
-> > +static void fair_push_tasks(struct rq *rq)
-> > +{
-> > +     /* fair_push_task() will return true if it moved a fair task */
-> > +     while (fair_push_task(rq))
-> > +             ;
-> > +}
->
-> Would it better to iterate through the list? This is bit difficult
-> to read at first.
+thanks,
 
-I followed what is done in RT and deadline
+Takashi
 
->
-> In failure cases also, it can return true. No? for example,
-> is_migration_disabled(), It is needed since you need to iterate the
-> rq to see if there is a task to move.
-
-Yes, we skip the current task and continue witht the next one
-
->
-> > +
-> > +static DEFINE_PER_CPU(struct balance_callback, fair_push_head);
-> > +
-> > +static inline void fair_queue_push_tasks(struct rq *rq)
-> > +{
-> > +     if (!sched_push_task_enabled() || !has_pushable_tasks(rq))
-> > +             return;
-> > +
-> > +     queue_balance_callback(rq, &per_cpu(fair_push_head, rq->cpu), fair_push_tasks);
-> > +}
-> > +
-> > +static void fair_remove_pushable_task(struct rq *rq, struct task_struct *p)
-> > +{
-> > +     if (sched_push_task_enabled())
-> > +             plist_del(&p->pushable_tasks, &rq->cfs.pushable_tasks);
-> > +}
-> > +
-> > +static void __fair_add_pushable_task(struct rq *rq, struct task_struct *p)
-> > +{
-> > +     plist_del(&p->pushable_tasks, &rq->cfs.pushable_tasks);
-> > +     plist_node_init(&p->pushable_tasks, p->prio);
-> > +     plist_add(&p->pushable_tasks, &rq->cfs.pushable_tasks);
-> > +}
-> > +
-> > +static void fair_add_pushable_prev(struct rq *rq, struct task_struct *prev, struct task_struct *next)
-> > +{
-> > +     if (sched_push_task_enabled() && fair_check_pushable_task(rq, prev, next))
-> > +             __fair_add_pushable_task(rq, prev);
-> > +}
-> > +
-> >   /*
-> >    * select_task_rq_fair: Select a target runqueue for the task.
-> >    * There are 2 ways to select the target runqueue:
-> > @@ -10272,6 +10426,12 @@ static void put_prev_task_fair(struct rq *rq, struct task_struct *prev, struct t
-> >       cfs_rq->curr = NULL;
-> >       if (se->on_rq)
-> >               __enqueue_entity(cfs_rq, se);
-> > +
-> > +     /*
-> > +      * The previous task might be eligible for being pushed on another cpu
-> > +      * if it is still active.
-> > +      */
-> > +     fair_add_pushable_prev(rq, prev, next);
-> >   }
-> >
-> >   /*
-> > @@ -15379,6 +15539,7 @@ static void set_next_task_fair(struct rq *rq, struct task_struct *p, enum snt_e
-> >               goto repick;
-> >
-> >       clear_buddies(cfs_rq, se);
-> > +     fair_remove_pushable_task(rq, p);
-> >
-> >       if (on_rq)
-> >               __dequeue_entity(cfs_rq, se);
-> > @@ -15423,6 +15584,7 @@ static void set_next_task_fair(struct rq *rq, struct task_struct *p, enum snt_e
-> >
-> >       update_misfit_status(p, rq);
-> >       sched_fair_update_stop_tick(rq, p);
-> > +     fair_queue_push_tasks(rq);
-> >
-> >   repick:
-> >       /*
-> > @@ -15439,6 +15601,7 @@ void init_cfs_rq(struct cfs_rq *cfs_rq)
-> >   {
-> >       cfs_rq->tasks_timeline = RB_ROOT_CACHED;
-> >       cfs_rq->zero_vruntime = (u64)(-(1LL << 20));
-> > +     plist_head_init(&cfs_rq->pushable_tasks);
-> >       raw_spin_lock_init(&cfs_rq->removed.lock);
-> >   }
-> >
-> > diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-> > index e025d2a6c302..74130bd2a2c8 100644
-> > --- a/kernel/sched/sched.h
-> > +++ b/kernel/sched/sched.h
-> > @@ -721,6 +721,8 @@ struct cfs_rq {
-> >               unsigned long   runnable_avg;
-> >       } removed;
-> >
-> > +     struct plist_head       pushable_tasks;
-> > +
-> >   #ifdef CONFIG_FAIR_GROUP_SCHED
-> >       u64                     last_update_tg_load_avg;
-> >       unsigned long           tg_load_avg_contrib;
-> > @@ -3877,6 +3879,8 @@ static inline bool sched_energy_enabled(void) { return false; }
-> >
-> >   #endif /* !(CONFIG_ENERGY_MODEL && CONFIG_CPU_FREQ_GOV_SCHEDUTIL) */
-> >
-> > +DECLARE_STATIC_KEY_FALSE(sched_push_task);
-> > +
-> >   #ifdef CONFIG_MEMBARRIER
-> >
-> >   /*
-> > @@ -4209,6 +4213,9 @@ void move_queued_task_locked(struct rq *src_rq, struct rq *dst_rq, struct task_s
-> >       wakeup_preempt(dst_rq, task, 0);
-> >   }
-> >
-> > +extern struct rq *move_queued_task(struct rq *rq, struct rq_flags *rf,
-> > +                                struct task_struct *p, int new_cpu);
-> > +
-> >   static inline
-> >   bool task_is_pushable(struct rq *rq, struct task_struct *p, int cpu)
-> >   {
->
+-- 8< --
+--- a/sound/core/pcm_native.c
++++ b/sound/core/pcm_native.c
+@@ -2301,6 +2301,8 @@ static int snd_pcm_drop(struct snd_pcm_substream *substream)
+ 	result = snd_pcm_stop(substream, SNDRV_PCM_STATE_SETUP);
+ 	/* runtime->control->appl_ptr = runtime->status->hw_ptr; */
+ 
++	snd_pcm_sync_stop(substream, true);
++
+ 	return result;
+ }
+ 
