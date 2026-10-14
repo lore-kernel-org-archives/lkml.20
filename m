@@ -1,102 +1,67 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49A2A46EF79
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:41:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B510C471CE0;
+	Wed, 14 Oct 2026 06:41:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791960085; cv=none; b=F6c6u/W4S0XOXRUUXhpfpOTDq2GFKRMh0Ky/wrKpnFCFEqZ7O2yttgp0sbP0mbH0hw+l904QdtMTMb/e97YfoyDSJSxDyh8YgVbPTj77hn/NqCJzZqGPjUsl5E0bBInPF/RWAW5vrY20obpk7ZqekW5pVEq4m5Szp3ZJXdmeR70=
+	t=1791960092; cv=none; b=qAmyQ/pNZQqZ0uWAA+RdrtL7TPpHV2VPf5XuP5DKCTiP+MTKTblxnABmFLw9aAfl/Fg+hG68kHxffon9a7pRhU1zPbcI5neAG5AMsxaFZD4/P0kbeVMh0M3nWdxL5OnU4m4TF7kbxm2/6wTxULJRBjfBJ8nO+3IpLNtpPNQUUjg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791960085; c=relaxed/simple;
-	bh=IUYtuubMhhcN1ZF6PNMCch5PozFrAL2XyBYbmMT89QE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IyL3c/PYk7Gn9lYPuyukRgGxaESjcYjYLiWpd1dXZyWbaY2+PbjA4nQIAwN3GumjJvMq61k8VkFrqcNypQHtDUM1GFhwBR8I9j+C/utS+SPyN9bxZR0MtqcBXPF0OjnhtEhMvMW7EtBu3WoG4q5kXQVcVyiltLcXZUmmYFHsZmQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=pU71pD2R; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EF4BMVtB; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791960092; c=relaxed/simple;
+	bh=zeAAk5fQRxZu84wE6h+zhQ90v26LnAn3PE9IRIc7HRE=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=mEr9vzxvYGCPfV/RouDIESND3g0IBaKSZ+6vT1IA/y7gqVgGuQpB62uxunfQT88TfoAGj7ZwibMbjQLhTiQc5luXxw3yEfnXhC03MLDyP6GdwfYdy9odtF5iFtp8GSHLWxaWrAtB82WhijvvPRsPB44sFWzHDBJWGXU/BZt40/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=n6lanTuA; arc=none smtp.client-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="pU71pD2R";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EF4BMVtB"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69E4ebsM806699
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:41:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=6Ps/u3Sf1Zs
-	xovH3oOjCRJifXEv1rKPvAC83aBceATE=; b=pU71pD2R9FOq/dDRpkIqCJeMP3R
-	I//bh7lZbQPLm/JjKt832au5NJ1einmbZSxO3/P0nNc5oVQU185ktQXmTgLQR+fU
-	j670BJ5Oh50aH7MOxXVPeMKmFV7AJ+fm/+yVPOLyK89e6Livrta7DdLhEL35UYQo
-	gYRTOXuEQr8RHWaXqqygm87m+yqJPlBRlN5VUKZDeg0QPkeszztdskIq2lr4sIQZ
-	nYKEH/5tkyl4296j3Q4YQG4jg8te0uleZRcZNJ9XvrOIUlOgfQQyEPDgPKImd2fz
-	KdDy9bx4sW1YWcTRNCllEg3P2xQGCbiA+cLy+SS0mP6wJun+fWlAb989AOQ==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9ud6a1d6-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:41:22 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-887faaedb46so220452b3a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:41:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791960082; x=1792564882; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6Ps/u3Sf1ZsxovH3oOjCRJifXEv1rKPvAC83aBceATE=;
-        b=EF4BMVtB+8we2SMOw7NEpO1e27fLdJLt/uZx/V59eTvmgm7Xpg/5CLulUzV+uTRg/9
-         KT9ANrQwWQRgMm9Fn1p2+M5sv1YnwFIjqWAlwWU0NuN3V6XSqMkMKykFBws7ORjbYfhn
-         Zp1iSKMrjG8jCA20XuLShQ6wI7BWMGbGxmyvJ5jfUmWqHLedoA8ttQ4XXMujD2IaNNc3
-         yOulBuGz54eqHZMOq1iz+6ncv/QwqwuZyWJbXNores0gVZZC9Dw3IUYl8u60KE60eq4P
-         4twfixJBJxmL1YsDkOQQb8V3kLRflmM7sc/eIrht+pPcKgKnS9EXh9rUeht3J8ZPjWPs
-         m8tQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791960082; x=1792564882;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6Ps/u3Sf1ZsxovH3oOjCRJifXEv1rKPvAC83aBceATE=;
-        b=ehU//p/ZWf1qoQ3lEhV+R8l7F7WaiFAsImI6ZAB2u4zMn8fUB12yKttmaLxw2RJ7W0
-         QzdN1o6z0EG3quLEnTMP24scvjyLMVbFrQnLby325s9vn6I3MAcTzmmyhPfKUIiYzxgx
-         iFKbu5Y95Z6YClqMC7H/FukQQexlgbj5+Xvsnn3SvJwI4lnCJ/vfXo9V4wmN2yOgApnm
-         ePRwY6hAiFUsUdhmh2tRu3gUXH/voA2uWdGBjFptTF7aFoOuTybjm13dDR10epLZoMCu
-         ZPxFHpHA72015z+SJ3RulpKOTuSYWM7oaA2o07IDzIr51uXeNxzT8MNSrD//3XyXmOq3
-         YX9g==
-X-Forwarded-Encrypted: i=1; AKwUvBxq4wqn0VnkvJvPB6AXRezTylnQK5JyeJMqvQlY61DOBT5xszwNfrubGtUUSv+BCKkBfgkdLFYsnKu0PPU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKfAY4x8AHfJjfa1YiZ9CpG0I/Dd5RvXNNBiWi+Xx3ymfXKEN5D
-	ElZQjlkzkk0sRwWJ17UJ2b/33bI0ZmLk/EXDaAr+jJHoUYlq9aG4dfhgZnr2IrCZLGjvk2xpIHz
-	Teh5QhYKYlXpiqBd05xpcDZmyVkE0IOOk1mQ6rjwE4axEugsIzDRQwqWcMle20aba40Q=
-X-Gm-Gg: AYBFou33JDhI/2iHKm6Sy4x2VjcqaiCLHgoJ00XRQxVu8pGFl7d0FepGUhcN22HDTDb
-	g1UPv3ZHuaa48GySQDM3atKdeCHCaum6KfR9eDPC6CB909Fh8dhjOrgh7G+FrKGPdAikqb1Y2Y4
-	CBCaJTRf5dyP1cDkcw7t4ezfogn8zguKBmXjqNPf8HSbqtmoX8rvsjPFCGcaFuoJ5UnCRAmcbCX
-	tgeT5tsNq1jOG24YhH/CFVHwlxKGCmR4hWSoQ+VwbTdvexYNWjQtoKBnqCZiXL9KJf7seoLJsce
-	hNUkdL4MS5RGHwf5QPtfEfKOyGDNzg4tSCl1r78ocaYh9+wtyGE1gplsElI3Ul5om8ErViDQUt6
-	5Lkemwrrv7ZOdaSOWmLXsJ1vA6widS5eZUuks1AY8njK+8iuoVlXkyaklRac=
-X-Received: by 2002:a05:6a00:2283:b0:887:3fca:835d with SMTP id d2e1a72fcca58-897c78ddeecmr13638254b3a.29.1791960081471;
-        Tue, 13 Oct 2026 23:41:21 -0700 (PDT)
-X-Received: by 2002:a05:6a00:2283:b0:887:3fca:835d with SMTP id d2e1a72fcca58-897c78ddeecmr13638234b3a.29.1791960081073;
-        Tue, 13 Oct 2026 23:41:21 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89d7f518b8asm733221b3a.2.2026.10.13.23.41.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 23:41:20 -0700 (PDT)
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Dhruvin Rajpura <dhruvin.rajpura@oss.qualcomm.com>,
-        Anandu Krishnan E <anandu.e@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: [PATCH v5 4/7] arm64: dts: qcom: nord: Add the SPMI PMIC arbiter
-Date: Wed, 14 Oct 2026 14:39:49 +0800
-Message-ID: <20261014063953.549379-5-shengchao.guo@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="n6lanTuA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1791960090; x=1823496090;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=zeAAk5fQRxZu84wE6h+zhQ90v26LnAn3PE9IRIc7HRE=;
+  b=n6lanTuAaPXUlRZn7St//1afD5+yXn4RcZZPOC4XqiDCgpZ07XUGb5aW
+   2Mc3rYYRdb+R02iqxQx4y5tik5qglIHXE8ouWwMAkHQOBCTCiNPPHb7xP
+   +RnTdJUmcMSm14lsReYaKrSUTON2dn+iWC8cdrUCeIlh3QK4ECO7uRdwq
+   lYLuhDSkg2TCTTSorJ2CKW8yAULhYSRPghleuoq5JZURq+J8wTJIiyJbI
+   iuBadDmTEHbqAPaIh1T3yKLD8blFFP85kro1dGjJTXcexCRii8vgJzc2o
+   xaOho/G09OKLn4A1wtGMRinjV6TdwUSFRpnyuNL/BA99A9ie3pC/ksI+P
+   Q==;
+X-CSE-ConnectionGUID: +3P3VzgETZSbdDMWzZT9ZA==
+X-CSE-MsgGUID: idNYqyKnTNac87entfaXhA==
+X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
+   d="scan'208";a="65288696"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 13 Oct 2026 23:41:29 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Tue, 13 Oct 2026 23:41:28 -0700
+Received: from che-ll-i67131.microchip.com (10.10.85.11) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Tue, 13 Oct 2026 23:41:21 -0700
+From: Manikandan Muralidharan <manikandan.m@microchip.com>
+To: <pratyush@kernel.org>, <mwalle@kernel.org>,
+	<takahiro.kuwano@infineon.com>, <miquel.raynal@bootlin.com>,
+	<richard@nod.at>, <vigneshr@ti.com>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>, <srini@kernel.org>, <nicolas.ferre@microchip.com>,
+	<alexandre.belloni@bootlin.com>, <claudiu.beznea@tuxon.dev>,
+	<linux@armlinux.org.uk>, <richardcochran@gmail.com>, <linusw@kernel.org>,
+	<arnd@arndb.de>, <aaro.koskinen@iki.fi>, <gregkh@linuxfoundation.org>,
+	<mathieu.dubois-briand@bootlin.com>, <michael@walle.cc>,
+	<linux-mtd@lists.infradead.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<netdev@vger.kernel.org>
+CC: <manikandan.m@microchip.com>
+Subject: [PATCH v8 5/8] nvmem: layouts: add Microchip/SST SFDP EUI layout driver
+Date: Wed, 14 Oct 2026 12:10:09 +0530
+Message-ID: <89aa4ac1eee01e3c425c12367f1e036354787ce8.1790847519.git.manikandan.m@microchip.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261014063953.549379-1-shengchao.guo@oss.qualcomm.com>
-References: <20261014063953.549379-1-shengchao.guo@oss.qualcomm.com>
+In-Reply-To: <cover.1790847519.git.manikandan.m@microchip.com>
+References: <cover.1790847519.git.manikandan.m@microchip.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -104,79 +69,261 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: 31vCbcLtqdrSNcgti95DMu0LP_T5M-lV
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDAyNiBTYWx0ZWRfXyYqRQknfIs03
- mgUToKy0pV6oAMQShl3KPP1rt2RitQvsVPeHH09mAl4FUuPtJdBAGKb0rfB2v06AE+PUd4AcAwc
- DldSXzy86lf5tGfeCFnSYiBbR+x7LEs=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDAyNiBTYWx0ZWRfX8aRiIjQ1puiF
- Hzl+uOMCUg5StGNyoxdNhFUjRBEGHa4i4Fep5ogWK+cl+ggPQmQ3K+HCUgm1tgk3cOWfbjyPOhf
- q9L79ywDBr6s3BNpuFPFtWhk3ITHaguRR5UL5Jw2Btuzv7Xd+sDA0WYwWe4ZfkTAi6iihwELLTc
- imK5pkbgHlklD5a26ig95mUObXhYWK/VQlqiCJ4kQDjMv5C5KmCbfUl/FhSfegfI1+9UhSbQScs
- eweV0fzl9DpRhHw63Ex0NSLB/j+yodh7ai49XxwRHcrLkiyrnoP5xWi/9AYOmL2jcYS0NfuINTf
- unPa8WXA+938Yxf+IIli2eBBLy5VnVu9m3lL2O0/sDYquHcY+1Hf5aFWx4MCBVdfjOcy6BRjbwG
- titjOFlikTcCHFVX8dPL1y5CZ4b6mxznZbba2Rs8hMz0qF0+8xbB8ktZI/eVvKwkEzvk/Bvz9Lk
- YheHvfV2S5VmAvvIaYg==
-X-Authority-Analysis: v=2.4 cv=fJ6sTpae c=1 sm=1 tr=0 ts=6acf2412 cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=pTKKwl7rlpcWqDfdxRsA:9 a=OpyuDcXvxspvyRM73sMx:22
-X-Proofpoint-GUID: 31vCbcLtqdrSNcgti95DMu0LP_T5M-lV
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 lowpriorityscore=0 malwarescore=0
- suspectscore=0 adultscore=0 impostorscore=0 phishscore=0 bulkscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610140026
+Content-Type: text/plain
 
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Add an NVMEM layout that exposes the factory-programmed EUI-48 identifier
+from the Microchip/SST vendor SFDP parameter table (e.g. SST26VF064BEUI)
+as a "mac-address" cell, for use as a network MAC address. The vendor
+table is located at runtime via the SFDP NVMEM device (no offset in DT),
+and a read_post_process callback reverses the LSB-first bytes into
+canonical MAC order. Binds to an "nvmem-layout" node with compatible
+"microchip,sst26vf-sfdp-eui".
 
-Add the SPMI PMIC Arbiter node for the Nord platforms.
-
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Signed-off-by: Manikandan Muralidharan <manikandan.m@microchip.com>
 ---
- arch/arm64/boot/dts/qcom/nord.dtsi | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+ MAINTAINERS                              |   6 +
+ drivers/nvmem/layouts/Kconfig            |  10 ++
+ drivers/nvmem/layouts/Makefile           |   1 +
+ drivers/nvmem/layouts/sst26vf-sfdp-eui.c | 182 +++++++++++++++++++++++
+ 4 files changed, 199 insertions(+)
+ create mode 100644 drivers/nvmem/layouts/sst26vf-sfdp-eui.c
 
-diff --git a/arch/arm64/boot/dts/qcom/nord.dtsi b/arch/arm64/boot/dts/qcom/nord.dtsi
-index 1fb276e498c5..dfbbaf94a7ae 100644
---- a/arch/arm64/boot/dts/qcom/nord.dtsi
-+++ b/arch/arm64/boot/dts/qcom/nord.dtsi
-@@ -1874,6 +1874,28 @@ IPCC_MPROC_SIGNAL_GLINK_QMP
- 			#clock-cells = <0>;
- 		};
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 360977678f70..d39b30a7a09c 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -18001,6 +18001,12 @@ F:	Documentation/devicetree/bindings/sound/atmel,at91-ssc.yaml
+ F:	drivers/misc/atmel-ssc.c
+ F:	include/linux/atmel-ssc.h
  
-+		spmi_bus: spmi@c400000 {
-+			compatible = "qcom,spmi-pmic-arb";
-+			reg = <0x0 0x0c400000 0x0 0x3000>,
-+			      <0x0 0x0c500000 0x0 0x400000>,
-+			      <0x0 0x0c440000 0x0 0x80000>,
-+			      <0x0 0x0c4c0000 0x0 0x10000>,
-+			      <0x0 0x0c42d000 0x0 0x4000>;
-+			reg-names = "core",
-+				    "chnls",
-+				    "obsrvr",
-+				    "intr",
-+				    "cnfg";
-+			interrupts-extended = <&pdc 1 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "periph_irq";
-+			interrupt-controller;
-+			#interrupt-cells = <4>;
-+			#address-cells = <2>;
-+			#size-cells = <0>;
-+			qcom,channel = <0>;
-+			qcom,ee = <0>;
-+		};
++MICROCHIP SST SFDP EUI NVMEM LAYOUT DRIVER
++M:	Manikandan Muralidharan <manikandan.m@microchip.com>
++S:	Maintained
++F:	Documentation/devicetree/bindings/nvmem/layouts/microchip,sst26vf-sfdp-eui.yaml
++F:	drivers/nvmem/layouts/sst26vf-sfdp-eui.c
 +
- 		tlmm: pinctrl@f100000 {
- 			compatible = "qcom,nord-tlmm";
- 			reg = <0x0 0x0f100000 0x0 0xc0000>;
+ Microchip Timer Counter Block (TCB) Capture Driver
+ M:	Kamel Bouhara <kamel.bouhara@bootlin.com>
+ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+diff --git a/drivers/nvmem/layouts/Kconfig b/drivers/nvmem/layouts/Kconfig
+index 5e586dfebe47..855c7db530da 100644
+--- a/drivers/nvmem/layouts/Kconfig
++++ b/drivers/nvmem/layouts/Kconfig
+@@ -26,6 +26,16 @@ config NVMEM_LAYOUT_ONIE_TLV
+ 
+ 	  If unsure, say N.
+ 
++config NVMEM_LAYOUT_SST26VF_SFDP_EUI
++	tristate "Microchip/SST SFDP EUI-48 layout support"
++	help
++	  Say Y here if you want to expose the factory-programmed EUI-48
++	  identifier stored in the Microchip/SST vendor-specific SFDP parameter
++	  table (e.g. SST26VF064BEUI) as NVMEM cells, so that network drivers
++	  can use them as a MAC address.
++
++	  If unsure, say N.
++
+ config NVMEM_LAYOUT_U_BOOT_ENV
+ 	tristate "U-Boot environment variables layout"
+ 	select CRC32
+diff --git a/drivers/nvmem/layouts/Makefile b/drivers/nvmem/layouts/Makefile
+index dd6c6c70b1a9..ab4e996075b2 100644
+--- a/drivers/nvmem/layouts/Makefile
++++ b/drivers/nvmem/layouts/Makefile
+@@ -6,4 +6,5 @@
+ obj-$(CONFIG_NVMEM_LAYOUTS) += fixed-layout.o
+ obj-$(CONFIG_NVMEM_LAYOUT_SL28_VPD) += sl28vpd.o
+ obj-$(CONFIG_NVMEM_LAYOUT_ONIE_TLV) += onie-tlv.o
++obj-$(CONFIG_NVMEM_LAYOUT_SST26VF_SFDP_EUI) += sst26vf-sfdp-eui.o
+ obj-$(CONFIG_NVMEM_LAYOUT_U_BOOT_ENV) += u-boot-env.o
+diff --git a/drivers/nvmem/layouts/sst26vf-sfdp-eui.c b/drivers/nvmem/layouts/sst26vf-sfdp-eui.c
+new file mode 100644
+index 000000000000..641318d6f0af
+--- /dev/null
++++ b/drivers/nvmem/layouts/sst26vf-sfdp-eui.c
+@@ -0,0 +1,182 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * NVMEM layout for the factory-programmed EUI-48 identifier stored in the
++ * Microchip/SST vendor-specific SFDP parameter table (e.g. SST26VF064BEUI).
++ *
++ * The whole SFDP is exposed as a read-only NVMEM device by the SPI NOR core.
++ * This layout locates the Microchip vendor parameter table at runtime and
++ * registers the EUI-48 address as an NVMEM cell, so that a network driver can
++ * consume it as a MAC address. No offset is hardcoded in the device tree.
++ *
++ * Copyright (C) 2026 Microchip Technology Inc. and its subsidiaries
++ *
++ * Author: Manikandan Muralidharan <manikandan.m@microchip.com>
++ */
++
++#include <linux/etherdevice.h>
++#include <linux/minmax.h>
++#include <linux/nvmem-consumer.h>
++#include <linux/nvmem-provider.h>
++#include <linux/of.h>
++#include <linux/unaligned.h>
++#include <uapi/linux/if_ether.h>
++
++/* SFDP header and parameter header, as laid out on the flash. */
++struct sfdp_header {
++	u8 signature[4];
++	u8 minor;
++	u8 major;
++	u8 nph;
++	u8 unused;
++};
++
++struct sfdp_parameter_header {
++	u8 id_lsb;
++	u8 minor;
++	u8 major;
++	u8 length;
++	u8 parameter_table_pointer[3];
++	u8 id_msb;
++};
++
++#define SFDP_SIGNATURE			0x50444653U
++
++#define SFDP_PARAM_HEADER_ID(h)		(((h)->id_msb << 8) | (h)->id_lsb)
++#define SFDP_PARAM_HEADER_PTP(h)	get_unaligned_le24((h)->parameter_table_pointer)
++
++/* Microchip (vendor) parameter table identifier: id_msb << 8 | id_lsb. */
++#define SFDP_MCHP_VENDOR_ID		0x01bf
++
++#define SFDP_MCHP_EUI48_MARKER_OFFSET	0x60
++#define SFDP_MCHP_EUI48_MARKER		0x30
++#define SFDP_MCHP_EUI48_OFFSET		0x61
++
++static int sfdp_eui_read_post_process(void *priv, const char *id, int index,
++				      unsigned int offset, void *buf,
++				      size_t bytes)
++{
++	u8 *data = buf;
++	int i;
++
++	/* SFDP stores the address least-significant octet first; reverse it. */
++	for (i = 0; i < bytes / 2; i++)
++		swap(data[i], data[bytes - 1 - i]);
++
++	if (bytes == ETH_ALEN && !is_valid_ether_addr(buf))
++		return -EINVAL;
++
++	return 0;
++}
++
++static int sfdp_eui_find_vendor_table(struct nvmem_device *nvmem, u32 *ptp)
++{
++	struct sfdp_parameter_header ph;
++	struct sfdp_header hdr;
++	int nph, i, ret;
++
++	ret = nvmem_device_read(nvmem, 0, sizeof(hdr), &hdr);
++	if (ret < 0)
++		return ret;
++
++	if (get_unaligned_le32(hdr.signature) != SFDP_SIGNATURE)
++		return -EINVAL;
++
++	/* The number of parameter headers (NPH) field is zero-based. */
++	nph = hdr.nph;
++
++	for (i = 0; i <= nph; i++) {
++		ret = nvmem_device_read(nvmem, sizeof(hdr) + i * sizeof(ph),
++					sizeof(ph), &ph);
++		if (ret < 0)
++			return ret;
++
++		if (SFDP_PARAM_HEADER_ID(&ph) != SFDP_MCHP_VENDOR_ID)
++			continue;
++
++		*ptp = SFDP_PARAM_HEADER_PTP(&ph);
++		return 0;
++	}
++
++	return -ENOENT;
++}
++
++static int sfdp_eui_add_cells(struct nvmem_layout *layout)
++{
++	struct nvmem_device *nvmem = layout->nvmem;
++	struct device *dev = &layout->dev;
++	struct nvmem_cell_info info = { };
++	struct device_node *layout_np;
++	u32 base = 0;
++	u8 marker;
++	int ret;
++
++	ret = sfdp_eui_find_vendor_table(nvmem, &base);
++	if (ret == -ENOENT) {
++		dev_dbg(dev, "no Microchip SFDP vendor table found\n");
++		return 0;
++	}
++	if (ret)
++		return ret;
++
++	/* The EUI-48 is present only if its marker byte is programmed. */
++	ret = nvmem_device_read(nvmem, base + SFDP_MCHP_EUI48_MARKER_OFFSET,
++				1, &marker);
++	if (ret < 0)
++		return ret;
++	if (marker != SFDP_MCHP_EUI48_MARKER) {
++		dev_dbg(dev, "EUI-48 not programmed (marker 0x%02x)\n", marker);
++		return 0;
++	}
++
++	layout_np = of_nvmem_layout_get_container(nvmem);
++	if (!layout_np)
++		return -ENOENT;
++
++	info.name = "mac-address";
++	info.offset = base + SFDP_MCHP_EUI48_OFFSET;
++	info.bytes = ETH_ALEN;
++	info.np = of_get_child_by_name(layout_np, "mac-address");
++	info.read_post_process = sfdp_eui_read_post_process;
++
++	ret = nvmem_add_one_cell(nvmem, &info);
++	if (ret)
++		of_node_put(info.np);
++	else
++		dev_dbg(dev, "exposed EUI-48 at SFDP offset 0x%x\n", info.offset);
++
++	of_node_put(layout_np);
++
++	return ret;
++}
++
++static int sfdp_eui_probe(struct nvmem_layout *layout)
++{
++	layout->add_cells = sfdp_eui_add_cells;
++
++	return nvmem_layout_register(layout);
++}
++
++static void sfdp_eui_remove(struct nvmem_layout *layout)
++{
++	nvmem_layout_unregister(layout);
++}
++
++static const struct of_device_id sfdp_eui_of_match_table[] = {
++	{ .compatible = "microchip,sst26vf-sfdp-eui" },
++	{}
++};
++MODULE_DEVICE_TABLE(of, sfdp_eui_of_match_table);
++
++static struct nvmem_layout_driver sfdp_eui_layout = {
++	.driver = {
++		.name = "microchip-sst26vf-sfdp-eui-layout",
++		.of_match_table = sfdp_eui_of_match_table,
++	},
++	.probe = sfdp_eui_probe,
++	.remove = sfdp_eui_remove,
++};
++module_nvmem_layout_driver(sfdp_eui_layout);
++
++MODULE_LICENSE("GPL");
++MODULE_AUTHOR("Manikandan Muralidharan <manikandan.m@microchip.com>");
++MODULE_DESCRIPTION("NVMEM layout for the EUI-48 in the Microchip/SST SFDP vendor table");
 -- 
 2.43.0
 
