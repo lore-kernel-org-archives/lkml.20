@@ -1,222 +1,223 @@
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E953C411A0A
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 03:59:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AA5240801E
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 03:59:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791950375; cv=none; b=Eluz8Toawb8MzOmTonPbMCVtoXbDXfj85nQbvBaJqDxcya5knfPTuAX+902Og39KYuVKUIyF24HHacowHOjEogRmnHGSpbcrdsh5MOXPPOLCK/cY7gOcTKwp0MFIamIFnwdu0uBqnLVXeBl12qQuJMAymYm9zt2L/w3pTIFeynU=
+	t=1791950400; cv=none; b=UJma+BK7lCWEFrkuh774u9BlcvPCU0qpbQAj00t9BCd1x1uu3bafwcfwnonPzGeZOsyunIeiPoPYhTJ0yphErXwhLVv4YJ79DNFtq/bP527QL9WwKztRDo906Ug+6wY4JBig9kfqaaxm3O8WXFD+0ZWGzffUor6LF3uHVmvMn08=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791950375; c=relaxed/simple;
-	bh=VmhSKYg91t8FaQOY7PLXlCuiEpMdg/PrBe3jC/5xDCQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gzwMmzb9nZ5OkJiUgoGPZxTzA6kDcaH1SmUf8JD9ferXM6WlrXncPp87Qn7oCD6AYpvwC7gxDHqkwfSDHpnDRxZQHBDrZQAj8alN5jr522cvKpiQ62Bgj+fw9xmdSU1wZo3xZ53U7iMaTACI5rVN0dCjFmZSwQ2J4z1KlgNWUM4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=kqTZnVp1; arc=none smtp.client-ip=209.85.215.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1791950400; c=relaxed/simple;
+	bh=wDWK2HNlsi6fLvrOSl8xuQy7QcV5azN1G+qgRg6pjdA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=jAa+7Ywa/WPW5MvBErn1iDHLyRYy+jNeTsy7rg8ii/sKQxTLGoAXOAvFmwOLAQMrBEWKSNC/Wnx7T869CWFwqBu+X3UCvt5ZS58lkwKF7GMfj2iKqUJNIudoahIA1krN/pZQAq0Txm5TcYdBTxRyFv+BpuYQVACswcpIw7R2f+k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DN3N5ESf; arc=none smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="kqTZnVp1"
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cc7e79c1eaaso1530375a12.2
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 20:59:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DN3N5ESf"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3a4b3ac8fb7so1675212a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 20:59:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1791950373; x=1792555173; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xaAy9NFbsaWAIqgLcyoOERlKyqqeQpYUYBxUTmvTMEc=;
-        b=kqTZnVp15BzlwlEcIFdqDpTLKhQ68pAqOMqfdDbpM1tZP8lGqnJxDxivpVQ4zfYmKh
-         lDw0/zH3cZfx9EBO2+UcYKvTc+FBFXM8r+k+TWzOt57h0f/oblx2DBC5bNGPDBcpYAQT
-         PV6uwSQdl0MVHLdcHqP4y1He8VKGj1jsBuxpTDggfV2OJ/NLhH2F49bxda/RM+bwbdqa
-         bQrrEgK7hallbIXGdgybND/vmm94+gUNSs1QfoMRV8TU7YyrEB0vRdLCUGcIVad8mwdu
-         GwbglmgVEAynIeF9xWjs9wsG7rS14gZ/EOj95hcclTXVf4FByVThtUU0QSulLNCe5ZQ4
-         aL2g==
+        d=gmail.com; s=20251104; t=1791950397; x=1792555197; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=E812qST8XoP2CZq7AeoKIlORhwZhP9bvYGkx9M1/lXM=;
+        b=DN3N5ESfqzL/0/Os/MNWa75CSxrToMV4QlWHn1VLOTN1mcE/6YdXxk0hdFJLwC55xQ
+         /rKbUIsWkCnIV/dEJC9r/FV6GrLB/BgNmA/wO5Uh82B5dTAGfDyCR3v8peJHeAJP5+W4
+         YBO8fL3lK8rXY70fszpCAUTjqffO2JX8eWNVPVAf3ZZevbQfz2K1j5Oy1nJc4gkqPc2U
+         /5fd9zetjzR1rYncu+buyjJStdUlQIiIbRL+IeCSg03bjum2diFFJtGjXtvoylEVAmB8
+         fVdWnkjqNS4npVOzFF8aXj6VXh0qyYqM2/NC0bXZ/yqQvMIlvs21HM7X3rNiTdP/Fz6w
+         RXEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791950373; x=1792555173;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xaAy9NFbsaWAIqgLcyoOERlKyqqeQpYUYBxUTmvTMEc=;
-        b=dhKSE54GtzpASgdqciLr0b2dw/jl/4fYm59ohVqBM+J8o/Rs6KY1xa/0Y0/cZbNUDp
-         Kk2zHS0flIwYM8YlepoUDegwUJmrD6GkPDrEVYX81HxYb6Yuxeyjs4FIgprqOkFQt974
-         G/yPOzWQAWNx4pt6+M56eaJOS0iGKhJTvvVzXWmcZ7OSSsW/0Kx1sNfIAML8/0qEgbZr
-         7/Iy3I0yEo1jI/eW0G1LAE20Vqk5S+5lTBhMU/AcgZOPv2HfwKdfETWXZSY+RqcE6kgq
-         udSj/4ucqtO6g0rdn9r4Ob1M35hVaAc4z4lOKVmI9blyWBFInJZiNBYYK4BUZvaNspdI
-         fqkQ==
-X-Forwarded-Encrypted: i=1; AKwUvBygIPt7EQRjjJ6rQZhDkJM6RftCQFobEAsn4DKtYRBcdu4Qe9dBh5vL326WowPg9/46yGRNemR5VvUuZDo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLiQ6UH2FKrj8nMesk8xEm9eCjrDRgw4ZlNkvxHGTYCrAQc4lqL
-	xy0G0JCkWrq4b8WOFZPesAWSnJPCMFy1u4BrXblkp8CiF31Yb0WHUpEOXL9+wu5xiaU=
-X-Gm-Gg: AYBFou1f2D7/0iehz4lqs4sUJ7zRurvaV1+r9arOlnw8a2b+NWzNPVlFM+/JKPCp9x7
-	7fI+OyJAvoC5mfOm7XMVLFsQ4zZ3Ux3fLkyNfFzGeY+erz3USpi6av5g2bjW2Tu4FCBgeh9vqBm
-	Z+Vhagn/EsRqXTwSK567xtjCeLcY4Q+OWG+VPii3EiKuTBu1NK3SwgLUxKOMRgOZahQAXwjXNUu
-	fb0tA60O1MtTeel3P9XTGvqhDoyP7vBIViA+mpb50le+jJ/bnx67v0wduyzmnFLjXgcRyQS4dyg
-	kTJ5fwoLzcXXoIs4btfDyOnPD2b+eJ8X3sf4zsDTtTvJs08lWDp6ERYJqsa7TbSypi8Za/MJbqq
-	Tvlpf3PmeYO1fzClU+HSrfcC7ot31PgqCnNIfJm7OmpkAm6D4DddccezNuB6+buisf1/9unGidx
-	o8Ga+jT3rENXFGZQYYAJfj7oFz1NGO+NablXNNfpJkfAHp1eiQGvTKorKsXL92/5kZWnIWIZPG8
-	YaONVFH15PIFDyLPmcT
-X-Received: by 2002:a17:90b:384c:b0:3ab:f38:2b43 with SMTP id 98e67ed59e1d1-3ab3ac86fbamr12973731a91.34.1791950373230;
-        Tue, 13 Oct 2026 20:59:33 -0700 (PDT)
-Received: from n232-176-004.byted.org ([36.110.163.103])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac5f24a538sm2492305a91.9.2026.10.13.20.59.29
+        d=1e100.net; s=20260707; t=1791950397; x=1792555197;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=E812qST8XoP2CZq7AeoKIlORhwZhP9bvYGkx9M1/lXM=;
+        b=JDAFnAuY/cBCExUxzU7wk+Cn+Qd4HA8Wgp4WFmwBTQMlyVdly005pOMi7vaMCMTJ1F
+         PZib7j614omwjzNFRWIVFY3mctFG5FSl2DuaTTZpC87MQu+9I7vRE0wr/dT5vM8qRjZW
+         ShcJW6RSJIEeEd8ltIEdEw5a8qZag1nBYZTO+JwKYu2JJXSDPS8x1sUv5yycsyOSD22R
+         TKQE8geynjqzFg06V8sFubkAYlJnfRMakUidlb2MHpTBuMQJi3im6EOsOIa+eOyvDfkW
+         V1ZUhM8wTt+8e1bnOQKyRVdxXDn42hWVxqIvE8GlAFbgKn77Cbrt3QqnZBThNTag9EKb
+         qNHg==
+X-Forwarded-Encrypted: i=1; AKwUvBx3QS62A2yU1AXtJ4kopV6ZzC3yzpsdqZxf4N78PuSDWHCbtJWRHwb/v036RUiQMNONpQZoaR4Zv4KZ+6g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI8r76gFPo7uVNL9XGCvw/4/yc5NK/GmZTlXRyP9nY1YYdui21M
+	Nc/xO8+TslO5eNAqqA3m6lmRM5SnIXmtDxUOGpZ1b9AG/NgUrEsws2vT
+X-Gm-Gg: AYBFou1knwHfjZI7zL6QH+2+GefB80ikCXFGGsVw2CLmCl+xmrPwmhowZVCIaV7rrUf
+	2SPgUxpzjifmvtriYpeSx+2fJhUXOmX6KPcqZSzHlIpxxHftbAIc8FFGe7lqNvTah5rGOF9DGB4
+	K/lJWkqSxIDOMKY0QONNlwCmOUBh/GDTJxQj6CjEJFqslvKacJxH4mHGf4BhStOHHxtLu71afrJ
+	VkOQIIFyi+oWpJgTiXUaxE2rs+UUEXcinyc3wqPdc3/vr8iUswwJJ1msZtr/h/nX3GwvDW4Ez9f
+	PFsLkKCPsBmKAChUyWTeA4r+oI4HN1pM89r/1eM0Bko2hiyoqJLmLLYQd8bA0C/ieth+iIFAP6e
+	td0fHvbGVkpOuBbaSrQRU4FLjy8UwWqcXdOzJFZ+AWo5gFCKh9o43KK29gu4iHDZKqcpjhKTws1
+	XzVyUKwhM4S49/3tzPZNWCSOMWEKktAcrqGyrP8wTIwizCaB86v7WxE3AJA98WJ2EHog==
+X-Received: by 2002:a17:90b:3a48:b0:3ab:413:49b6 with SMTP id 98e67ed59e1d1-3ab3a79a2d8mr12591987a91.41.1791950397256;
+        Tue, 13 Oct 2026 20:59:57 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac5f24b74csm2683575a91.7.2026.10.13.20.59.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 20:59:32 -0700 (PDT)
-From: Muchun Song <songmuchun@bytedance.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>
-Cc: Muchun Song <muchun.song@linux.dev>,
-	Muchun Song <songmuchun@bytedance.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	Helge Deller <deller@gmx.de>,
-	linux-mm@kvack.org,
-	linux-arch@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	linux-mips@vger.kernel.org,
-	linux-parisc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] mm: generalize PUD page table allocation
-Date: Wed, 14 Oct 2026 11:59:10 +0800
-Message-ID: <20261014035910.687847-4-songmuchun@bytedance.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261014035910.687847-1-songmuchun@bytedance.com>
-References: <20261014035910.687847-1-songmuchun@bytedance.com>
+        Tue, 13 Oct 2026 20:59:56 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: perex@perex.cz,
+	tiwai@suse.com,
+	kees@kernel.org,
+	2022090917019@std.uestc.edu.cn,
+	nfraprado@collabora.com,
+	cezary.rojewski@intel.com,
+	cassiogabrielcontato@gmail.com,
+	songxiebing@kylinos.cn,
+	sammiee5311@gmail.com,
+	hemanth.selam@gmail.com
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com,
+	tiwai@suse.de
+Subject: [PATCH v2] ALSA: vmaster: Serialize hook registration with control callbacks
+Date: Wed, 14 Oct 2026 11:59:49 +0800
+Message-Id: <pm-pmb-c2667fb9cc42fbb7943c-v4-b7bc2fe90e950accb3f7@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The generic PUD allocator assumes order-0 page tables and zero-valued empty
-entries. MIPS and LoongArch need pud_init() to install their invalid
-entries. MIPS also uses PUD_TABLE_ORDER to describe the allocation size.
+An HDA virtual-master hook must have its private argument initialized
+before a control callback can invoke it. snd_hda_add_vmaster_hook()
+installs the trampoline through snd_ctl_add_vmaster_hook(), which stores
+master->hook before master->hook_private_data without serialization.
 
-Default PUD_TABLE_ORDER to zero, honor architecture overrides, and invoke
-pud_init() from the generic allocator. MIPS and LoongArch can then drop
-their duplicate helpers and use the generic constructor handling and kernel
-ptdesc marking.
+When a codec with a vmaster mute hook binds to an already registered
+card, snd_hda_gen_build_controls() publishes and initializes the Master
+Playback Switch before installing the hook. A native write that changes
+the switch can then run in the following order:
 
-This also switches their user PUD allocations from GFP_KERNEL to
-GFP_PGTABLE_USER, so they are accounted to the active memory cgroup
-context. Allocations for init_mm continue to use GFP_PGTABLE_KERNEL.
+  1. The codec bind path publishes and initializes the master control in
+     __snd_hda_add_vmaster(), then calls snd_hda_add_vmaster_hook().
+  2. The hook setter stores master->hook, but has not yet stored its
+     private argument.
+  3. SNDRV_CTL_IOCTL_ELEM_WRITE takes controls_rwsem and calls
+     master_put() while the setter remains between those stores.
+  4. master_put() sees the callback and invokes vmaster_hook() with a
+     NULL argument. The trampoline dereferences it before the setter
+     can complete publication.
 
+The write lock held by snd_ctl_elem_write() does not exclude the hook
+setter, so this can cause a NULL pointer dereference. Take the same
+controls_rwsem for writing inside snd_ctl_add_vmaster_hook() so the
+callback and its argument are installed together with respect to
+native control callbacks. Pass the card into the helper and update
+the HDA caller, keeping the lock in the ALSA core. Release it when
+registration returns, before the caller synchronizes the hook.
+
+KASAN report as below:
+
+    Oops: general protection fault, probably for non-canonical address 0xdffffc0000000001: 0000 [#1] SMP KASAN NOPTI
+    KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
+    CPU: 1 UID: 0 PID: 499 Comm: alsa-vmaster-tr Not tainted 7.2.0-rc6-pmb-bt-functional-v1+ #1 PREEMPT(lazy)
+    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+    RIP: 0010:vmaster_hook+0x35/0xb0
+    Code: f5 53 48 89 fb 48 83 ec 08 e8 57 f0 9a fc eb 50 e8 50 f0 9a fc 48 8d 7b 08 48 b8 00 00 00 00 00 fc ff df 48 89 fa 48 c1 ea 03 <80> 3c 02 00 75 59 48 8d 7b 10 48 8b 43 08 48 ba 00 00 00 00 00 fc
+    RSP: 0018:ffff888117647cd0 EFLAGS: 00010212
+    RAX: dffffc0000000000 RBX: 0000000000000000 RCX: ffffffff84e9ff50
+    RDX: 0000000000000001 RSI: 0000000000000000 RDI: 0000000000000008
+    RBP: 0000000000000001 R08: 0000000000000001 R09: 0000000000000001
+    R10: ffffffff89427457 R11: ffff888115ad1d00 R12: ffffffff84e9ff30
+    R13: ffff888114943ca0 R14: 0000000000000000 R15: 0000000000000001
+    FS:  00007fe8167b3780(0000) GS:ffff88826b7e3000(0000) knlGS:0000000000000000
+    CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+    CR2: 0000557c8c2842a8 CR3: 000000011579f005 CR4: 0000000000770ef0
+    PKRU: 55555554
+    Call Trace:
+     <TASK>
+     master_put+0x20e/0x2b0
+     snd_ctl_elem_write+0x37f/0x5e0
+     snd_ctl_ioctl+0x997/0xdd0
+     ? __pfx_snd_ctl_ioctl+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? selinux_file_ioctl+0xaa/0x280
+     ? __pfx_snd_ctl_ioctl+0x10/0x10
+     __x64_sys_ioctl+0x163/0x1d0
+     do_syscall_64+0x115/0x6a0
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+    RIP: 0033:0x7fe8168c291b
+    Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00 00
+    RSP: 002b:00007fffab0cb150 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+    RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 00007fe8168c291b
+    RDX: 00007fffab0cb310 RSI: 00000000c4c85513 RDI: 0000000000000003
+    RBP: 00007fffab0cb310 R08: 0000000000000000 R09: 0000000000000000
+    R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000001
+    R13: 00007fffab0cb1c0 R14: 0000000000000001 R15: 0000557c4f71fd10
+     </TASK>
+    Modules linked in:
+    ---[ end trace 0000000000000000 ]---
+
+Fixes: ee52e56e7b12 ("ALSA: hda - Fix mute-LED fixed mode")
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 Assisted-by: LLM
-Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+
 ---
- arch/loongarch/include/asm/pgalloc.h | 16 ----------------
- arch/mips/include/asm/pgalloc.h      | 15 ---------------
- include/asm-generic/pgalloc.h        | 11 +++++++++--
- 3 files changed, 9 insertions(+), 33 deletions(-)
+Link to v1: https://lore.kernel.org/r/pm-pmb-c2667fb9cc42fbb7943c-v2-d4b95981cdbb696491c5@gmail.com
 
-diff --git a/arch/loongarch/include/asm/pgalloc.h b/arch/loongarch/include/asm/pgalloc.h
-index 1fc9a0751f19..06a36da302d3 100644
---- a/arch/loongarch/include/asm/pgalloc.h
-+++ b/arch/loongarch/include/asm/pgalloc.h
-@@ -8,7 +8,6 @@
- #include <linux/mm.h>
- #include <linux/sched.h>
- 
--#define __HAVE_ARCH_PUD_ALLOC_ONE
- #include <asm-generic/pgalloc.h>
- 
- static inline void pmd_populate_kernel(struct mm_struct *mm,
-@@ -51,21 +50,6 @@ extern pgd_t *pgd_alloc(struct mm_struct *mm);
- #endif
- 
- #ifndef __PAGETABLE_PUD_FOLDED
--
--static inline pud_t *pud_alloc_one(struct mm_struct *mm, unsigned long address)
--{
--	pud_t *pud;
--	struct ptdesc *ptdesc = pagetable_alloc(GFP_KERNEL, 0);
--
--	if (!ptdesc)
--		return NULL;
--	pagetable_pud_ctor(ptdesc);
--	pud = ptdesc_address(ptdesc);
--
--	pud_init(pud);
--	return pud;
--}
--
- #define __pud_free_tlb(tlb, x, addr)	tlb_remove_ptdesc((tlb), virt_to_ptdesc(x))
- 
- #endif /* __PAGETABLE_PUD_FOLDED */
-diff --git a/arch/mips/include/asm/pgalloc.h b/arch/mips/include/asm/pgalloc.h
-index 2f123455e363..4346802e283f 100644
---- a/arch/mips/include/asm/pgalloc.h
-+++ b/arch/mips/include/asm/pgalloc.h
-@@ -13,7 +13,6 @@
- #include <linux/mm.h>
- #include <linux/sched.h>
- 
--#define __HAVE_ARCH_PUD_ALLOC_ONE
- #include <asm-generic/pgalloc.h>
- 
- static inline void pmd_populate_kernel(struct mm_struct *mm, pmd_t *pmd,
-@@ -52,20 +51,6 @@ extern pgd_t *pgd_alloc(struct mm_struct *mm);
- 
- #ifndef __PAGETABLE_PUD_FOLDED
- 
--static inline pud_t *pud_alloc_one(struct mm_struct *mm, unsigned long address)
--{
--	pud_t *pud;
--	struct ptdesc *ptdesc = pagetable_alloc(GFP_KERNEL, PUD_TABLE_ORDER);
--
--	if (!ptdesc)
--		return NULL;
--	pagetable_pud_ctor(ptdesc);
--	pud = ptdesc_address(ptdesc);
--
--	pud_init(pud);
--	return pud;
--}
--
- static inline void p4d_populate(struct mm_struct *mm, p4d_t *p4d, pud_t *pud)
- {
- 	set_p4d(p4d, __p4d((unsigned long)pud));
-diff --git a/include/asm-generic/pgalloc.h b/include/asm-generic/pgalloc.h
-index 68e473908758..cc8445e6078d 100644
---- a/include/asm-generic/pgalloc.h
-+++ b/include/asm-generic/pgalloc.h
-@@ -182,24 +182,31 @@ static inline void pmd_free(struct mm_struct *mm, pmd_t *pmd)
- 
- #if CONFIG_PGTABLE_LEVELS > 3
- 
-+#ifndef PUD_TABLE_ORDER
-+#define PUD_TABLE_ORDER	0
-+#endif
-+
- static inline pud_t *__pud_alloc_one_noprof(struct mm_struct *mm, unsigned long addr)
- {
- 	gfp_t gfp = GFP_PGTABLE_USER;
- 	struct ptdesc *ptdesc;
-+	pud_t *pud;
- 
- 	if (mm == &init_mm)
- 		gfp = GFP_PGTABLE_KERNEL;
- 
--	ptdesc = pagetable_alloc_noprof(gfp, 0);
-+	ptdesc = pagetable_alloc_noprof(gfp, PUD_TABLE_ORDER);
- 	if (!ptdesc)
- 		return NULL;
- 
- 	pagetable_pud_ctor(ptdesc);
-+	pud = ptdesc_address(ptdesc);
-+	pud_init(pud);
- 
- 	if (mm == &init_mm)
- 		ptdesc_set_kernel(ptdesc);
- 
--	return ptdesc_address(ptdesc);
-+	return pud;
+diff --git a/include/sound/control.h b/include/sound/control.h
+index 37e9c545503e..8e24b668d796 100644
+--- a/include/sound/control.h
++++ b/include/sound/control.h
+@@ -289,7 +289,7 @@ snd_ctl_add_follower_uncached(struct snd_kcontrol *master,
+ 	return _snd_ctl_add_follower(master, follower, SND_CTL_FOLLOWER_NEED_UPDATE);
  }
- #define __pud_alloc_one(...)	alloc_hooks(__pud_alloc_one_noprof(__VA_ARGS__))
  
--- 
-2.54.0
-
+-int snd_ctl_add_vmaster_hook(struct snd_kcontrol *kctl,
++int snd_ctl_add_vmaster_hook(struct snd_card *card, struct snd_kcontrol *kctl,
+ 			     void (*hook)(void *private_data, int),
+ 			     void *private_data);
+ void snd_ctl_sync_vmaster(struct snd_kcontrol *kctl, bool hook_only);
+diff --git a/sound/core/vmaster.c b/sound/core/vmaster.c
+index cd3dcaaf9f72..3d57182031d9 100644
+--- a/sound/core/vmaster.c
++++ b/sound/core/vmaster.c
+@@ -463,6 +463,7 @@ EXPORT_SYMBOL(snd_ctl_make_virtual_master);
+ 
+ /**
+  * snd_ctl_add_vmaster_hook - Add a hook to a vmaster control
++ * @card: the card instance
+  * @kcontrol: vmaster kctl element
+  * @hook: the hook function
+  * @private_data: the private_data pointer to be saved
+@@ -470,13 +471,17 @@ EXPORT_SYMBOL(snd_ctl_make_virtual_master);
+  * Adds the given hook to the vmaster control element so that it's called
+  * at each time when the value is changed.
+  *
++ * Takes the card's controls_rwsem lock internally.
++ *
+  * Return: Zero.
+  */
+-int snd_ctl_add_vmaster_hook(struct snd_kcontrol *kcontrol,
++int snd_ctl_add_vmaster_hook(struct snd_card *card, struct snd_kcontrol *kcontrol,
+ 			     void (*hook)(void *private_data, int),
+ 			     void *private_data)
+ {
+ 	struct link_master *master = snd_kcontrol_chip(kcontrol);
++
++	guard(rwsem_write)(&card->controls_rwsem);
+ 	master->hook = hook;
+ 	master->hook_private_data = private_data;
+ 	return 0;
+diff --git a/sound/hda/common/codec.c b/sound/hda/common/codec.c
+index 18838a45e6f7..31e5fad78b0f 100644
+--- a/sound/hda/common/codec.c
++++ b/sound/hda/common/codec.c
+@@ -2025,7 +2025,7 @@ int snd_hda_add_vmaster_hook(struct hda_codec *codec,
+ 	if (!hook->hook || !hook->sw_kctl)
+ 		return 0;
+ 	hook->codec = codec;
+-	snd_ctl_add_vmaster_hook(hook->sw_kctl, vmaster_hook, hook);
++	snd_ctl_add_vmaster_hook(codec->card, hook->sw_kctl, vmaster_hook, hook);
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(snd_hda_add_vmaster_hook);
