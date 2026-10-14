@@ -1,100 +1,84 @@
-Received: from mail-43171.protonmail.ch (mail-43171.protonmail.ch [185.70.43.171])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3BEF1EB1AA
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 23:08:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25EC72FC893
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 23:09:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792019295; cv=none; b=aWsrC/WvQNjaZ89x9G5pSLLDmVLJHDyUaPBBfhoY9R4BRDGFILT9zP2CsPki/9uebzV6dNab+UXrG34Ik0nvsbyLJwBMdrE8GIMQYf1gQDr8cJKh/SA+CTbkpD6OJy/PbrN7lBtolUKk1Ed+Ln0TwWE4cjdVUgzFvi4USBrHxjo=
+	t=1792019353; cv=none; b=N3okT0YyZQ/ME2xEZBGePs3DndDohDD+AQyKp0IoLzYttQS72cLGZjWlpY2hF5MFmJ3C66XzWZd1PXnHf2/u0oiCS/WBDVZMA6K+2DDnfDsQK7OCXr/P/SURNMRaKFM4du9h1/Z42pT+441cDMwC4iAyQJnm5s6V9B+uJm1GSCE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792019295; c=relaxed/simple;
-	bh=Q8vzAYOCPedRRVeG8P4Wpl7qrWkIObLuW5eSmPHiWk8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=h1qlo9Zqb3s8wSmYRaUj2m+s9oUTVx6eGuttOfblowNOrwNkl/qgq/FQc3pJb8o7ZqNAjteu2/DARF3PoXHmyBpPL/UtyZ59JFN3xHBZSsmO105P5JE6QlUaRf4XoGwNDS19Pqqmm+n1jEIEP2gwl+iONufNEFVJ0LW8q+ySqis=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=condado.dev; spf=pass smtp.mailfrom=condado.dev; dkim=pass (2048-bit key) header.d=condado.dev header.i=@condado.dev header.b=GcT/zWZh; arc=none smtp.client-ip=185.70.43.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=condado.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=condado.dev
+	s=arc-20240116; t=1792019353; c=relaxed/simple;
+	bh=gfk+T8P/u+pE/Fhb/Q2Yk7BonKL8voYUqTaS2OXtfc0=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=oU7OChS4/WGBAwdX4k9im9JHdMj5jm4KvZKbhRDIHhpqTwLK0fPr24LdD81rVE88p15sJqGjb3FV4ur650cpiosAwbBGd+I1XqR5IGLWMbErh8el8bLVMulChbuZlIqMkSA6LlBVnri3Upb9pojMjODw19zNwtEMFKnDKH4Roec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=wPW2HHY0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=condado.dev header.i=@condado.dev header.b="GcT/zWZh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=condado.dev;
-	s=protonmail3; t=1792019284; x=1792278484;
-	bh=El9SBpptuGCZ1LMXbmy62xr+IlsRl7SPP1Xmbz8/vrc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=GcT/zWZhglAJaFggjTaPtU445tXpZnDvvsM68ar8NJ2BYuYk7cCcBox4mEOe+0pjM
-	 +njLGYVDzPTjdJqFq/vIfu1XUvi8fpoITC/qBttq8VhE07UMpIo8czGQKY6yxjSPrN
-	 WOY0BdB/8WbyGCi8Kh7Jol8V1dJJpgQafZd9IPtupUQLm/KTp0F6RpMZcANJx7nQ49
-	 OonYvxYisMEgn+RwlXj9VVUSlFw6+IqxXwL5ARmOrmLfITtdJeEKLOKds2y4bc51gW
-	 GrBjhe03MSpw0n4ak4eyIXDGLUke5y1Nh6VlNX0RjJ0riGLD51IjPAfABAQdJLx1oK
-	 /6PjSmNxeGQ0g==
-X-Pm-Submission-Id: 4j4n194ZkTz2ScPL
-From: =?UTF-8?q?Geyslan=20Greg=C3=B3rio?= <gg@condado.dev>
-To: Hui Peng <benquike@gmail.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>
-Cc: =?UTF-8?q?Geyslan=20Greg=C3=B3rio?= <gg@condado.dev>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] perf/core: fix user->locked_vm leak on secondary mmap()
-Date: Wed, 14 Oct 2026 20:07:00 -0300
-Message-ID: <20261014230740.754550-1-gg@condado.dev>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20260921003306.426050-1-benquike@gmail.com>
-References: <20260919221728.3707189-1-benquike@gmail.com> <20260921003306.426050-1-benquike@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="wPW2HHY0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 102F51F000C4;
+	Wed, 14 Oct 2026 23:09:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1792019351;
+	bh=cbmYsA9KrEptMrJ4TWH3Zu5hn3Aq4CSH6awCQPo0RqY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=wPW2HHY0GoMweDWZnBFXZJZVavcyDJP8YNyVymfc6W5aZU6VEOoxj7GOJN1L0eH8R
+	 MauY1JmmqzvI6WJX6rEfJ1ip5JGLPov29C9a8jqeAVE2ZDC6ChTa17LNRWZbO0qf1Z
+	 HRtYpL0p47CIJRiu/CFRK6CFRJsPcrtd1knpcaTk=
+Date: Wed, 14 Oct 2026 16:09:10 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Hui Zhu <hui.zhu@linux.dev>
+Cc: Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, Shakeel
+ Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>, Axel
+ Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei
+ Xu <weixugc@google.com>, Johannes Weiner <hannes@cmpxchg.org>, David
+ Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, Lorenzo
+ Stoakes <ljs@kernel.org>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, Hui Zhu
+ <zhuhui@kylinos.cn>
+Subject: Re: [PATCH v6 0/2] mm/vmscan: fix NR_ISOLATED accounting and
+ throttle MGLRU eviction
+Message-Id: <20261014160910.eeaa24697b614d1b94806d0d@linux-foundation.org>
+In-Reply-To: <cover.1791968227.git.zhuhui@kylinos.cn>
+References: <cover.1791968227.git.zhuhui@kylinos.cn>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, 21 Sep 2026 00:33:06 +0000, Hui Peng wrote:
-> Fix this by only calling perf_mmap_account() when allocating a new ring
-> buffer in perf_mmap_rb() or a new AUX buffer in perf_mmap_aux().
+On Wed, 14 Oct 2026 17:00:22 +0800 Hui Zhu <hui.zhu@linux.dev> wrote:
 
-Same thing I found reading perf_mmap_rb(), and I tested your patch. It
-applies to current mainline (0fcb05b72344) and I confirmed the leak and
-the fix there.
+> The legacy reclaim path has two mechanisms around isolated folios that
+> MGLRU lacks:
+> 
+> 1. NR_ISOLATED_ANON/FILE counters are updated when folios are isolated
+>    from the inactive lists. Compaction's too_many_isolated() relies on
+>    them to decide when to back off. The MGLRU reclaim path never
+>    updates them, so compaction cannot see MGLRU's in-flight isolation.
+> 
+> 2. shrink_inactive_list() throttles direct reclaim via
+>    too_many_isolated() when isolated folios pile up. MGLRU's
+>    evict_folios() isolates folios without any such check, so many
+>    concurrent reclaimers can over-isolate the same (oldest) generation,
+>    leading to unnecessary swapping, thrashing and premature memcg OOM.
+> 
+> Patch 1 fixes the counter accounting in the MGLRU isolation path.
+> Patch 2 adds a per-lruvec throttle, mirroring the legacy behavior but
+> adapted to MGLRU's per-lruvec contention and its dynamic type
+> selection/fallback.
 
-Instead of reading it off an EPERM I measured user->locked_vm directly:
-io_uring buffer registration charges the same counter against
-RLIMIT_MEMLOCK, so the largest buffer that still registers gives the page
-count. x86_64 defconfig under KVM, 2 and 4 vCPUs, each case on its own
-uid. Mapping a buffer three more times and unmapping all of them, pages
-left charged after the last munmap(), before -> after:
+Thanks.  Questions for yourself and maintainers:
 
-  ring, one process           195 -> 0
-  ring, fd handed to workers   195 -> 0
-  AUX area                     192 -> 0
+[1/2] is nice and simple and reviewed.  How about I queue this for
+second week of the upcoming merge window?
 
-The charge follows the event fd, not the mm, so a supervisor that opens
-per-CPU events and lets a worker map them leaks the buffer size on every
-worker restart.
+[2/2] is much more code, isn't reviewed and has a Sashiko whine[*].  So
+I'm thinking this is 7.4-rcX material.
 
-Your reproducer covers the ring buffer, so I ran the AUX path too. With
-no PT/SPE/CoreSight here I used a throwaway test-only PMU (just
-setup_aux/free_aux, enough to drive the accounting); same leak, same fix.
 
-Tested-by: Geyslan Gregório <gg@condado.dev>
+[*] https://sashiko.dev/#/patchset/cover.1791968227.git.zhuhui@kylinos.cn
 
-Worth noting this is independent of Lorenzo's "track the perf mlock gift
-separately" [1]: that keeps perf from starving the other locked_vm users,
-this kills the per-buffer double charge. Both are needed.
 
-The reproducer and test harness were LLM-assisted; the measurements and
-this report are mine.
-
-[1] https://lore.kernel.org/all/20261003-perf-locked-vm-fix-v1-1-d214dcaf0d76@kernel.org/
-
-Thanks,
-Geyslan
