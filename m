@@ -1,419 +1,238 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95E7548A2DD
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:23:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791962594; cv=none; b=G9h3cWhxBJ/Sg9y5noh+7KwC/wVwohjRJO8CEsM1JGmqwwZJBZfrM8g3vMd9fCOJYi2BYtPUPCzdo6M6rK8qF5fOufG8H03j6fRrZc+lM6OJ1OtwAZuk8odWlOCewCt+5HXtf4OVtzArfeobYMTU8LMpqWFSg+poYH1dmVY7z6A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AC39486E6D
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:23:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791962594; cv=fail; b=AqTNx5iDSF/GfUWWurOV5pf9vMAeoR51quIIporp5ksdLK7v7SkTgGZD4DP+lUU6FRl5YjBZeFIegJhSzUiSH98WIEnyBI0tF+IMr+BrFcDWkA5jB7qaDrDHC0jbw09gye1nFpSYv+oEy/Ldqj5dtlaemZAvRAgZyK1H55f86kM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791962594; c=relaxed/simple;
-	bh=ty/CqdGUTnQN4EHyguBSFCp1Dym2vNReK6yStSRaXWQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=O8WmnClmSTi8cr+mfDt2TBuRhYl5QJywwYbdnKtNYU8CzkbDA9wjiC64IzYNQzKJVVipGtSi3fvAL0gkqtPL6FlRQOw/aiIzrEscv0xR8yiz/zrmFDMvCJDppjdYFpyfb0wbdMj7bfmKC1gz7e6Lj1QS38+ya1vMYiN797P4JG8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B4daaPCa; arc=none smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=/D7hJQ7ysAZAHjs8p9zJ0irqjxmaiDIkHkZDr64VJko=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=BqRprE5S0losQBt8IjTKREg+j4996wWsJrGfZTfkCM4HTnek/AEF6zoL4MSbTzWy83IxThRPIo4sk1h660drnirxAd9TqCLGJ5iwO8zZDut7SAd69m5omIEDoqqtw9ew9O9/rZdacgBsvzFR9P/sjUW298DGAsctyR/8CapHL8A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HT3cfMGB; arc=fail smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B4daaPCa"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48b001cd92bso54019f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 00:23:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791962587; x=1792567387; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4AvWz/TY0T7HCNOvJmAbyRi0N/T41F5Dpvz1qDuxVX8=;
-        b=B4daaPCaMAu9UfmMuykSlkUyvn4xpuJEgF9MzfsBc1+mjRgKdDVGHZ0+isfnr4BBiw
-         TmTD8ixhfWgqscJwO+liGEY3FNERZpeYvoGgRrq+w7eHpVwd9HcEKporDSOkFmv7b54b
-         Xo7q6yEHkBBZwtOEphoOKhxozmeJwDhf3D0DwVgBgF2glt9J5C6agAols4q3FmZeSue7
-         C6/goJIFz8VHGmjjhDREV4KbfVT9yZNkBZGKQ+xbyi0foHOkcvUf52YPLjlD4kP/pnz7
-         PeoiIfrCjPY4ul5CaGsPo7wcO1NhwxxDcgGaBZn4ytcsmy4zGWvIEYapnm//bVdaWLAg
-         SxtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791962587; x=1792567387;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4AvWz/TY0T7HCNOvJmAbyRi0N/T41F5Dpvz1qDuxVX8=;
-        b=QfX1qdmxspTSUYMMA7znH41RJjADPnp1dzIncS3h6gZsoJlMhFL7cnaqlT3HeYJIBb
-         rYlS0qMWQSvO/1OMMvF5SrM8/OMPue3oGgzBbgn2qaaTRYrtgAVq16Io764JFAA+wxGN
-         QOsqxpMxBOiGuqhPUe6/L5SHZ/ptwSzXKZgOwKdZvWqxPRJyg+v7mvbMBI0zBpfXgqQl
-         +0nC30Z8AGHVbRgoirUjyZVEenvFKwP2U+qbXz0et01ZIsBRHaYsKMgGpkK7mMiQYPH2
-         oETZDM6Lia/EN/APd2RZ51jpsTxZnodGESMvChfbAkK2+f4HQxGPMzU/djUJK26ht+Z5
-         hfbw==
-X-Forwarded-Encrypted: i=1; AKwUvBwqwmp+ku4RLwwPuVQKC4aYffxvyFaGfvDJBGdZeaG6ciJAidvNiGWD9pdjs+3e/qeVo0un7RMgSib1Zo4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIQFaXAn6VxIdrXHD2sc7+qdqhptA0tnIF0Oz+rBcsfEpm34xcP
-	dLrxLtJM5I8jYaKTezAtPjGDOknPcqCZOwnehizICpAiPdmjvglkaIyh
-X-Gm-Gg: AYBFou1XoVcUMFSgApQVKD4hYLggWT430xPZY9nF0Wzca9aFPHchk/oN5l6/EE3YNMM
-	7eU72xibl7F+eWwqML2ma59gUU4WWk1Y0TpggN0GIcKzWW7gBFmJhzOGH9UXpUY0dcFAa6hAI9Z
-	0HbFPxfGuRWHYF7rpSaCo/W3Cv/qKEw1HIK9r209XBvs1etRDNnAhy/FKradTqXTcNk+fWXnNLN
-	YaL+A9YrnXM+IX1IX0QGurFfTM11AUUHDATg7Asr5IolfucKFoxrqX2maop/FUMopJs2Mw/V7hG
-	tCom2azjqIEjYUg9/O2dKXsv+VWXY1R0cpzffEfgbuch07Sd3KqZql/A5ZzSQtSu5X+fJDkYOe4
-	rjX8b2mavkcPI7fGXYVR0HX/Gf1rFoggS92Y/tozlBirWUdx+VgpuiKhbKgPqjG4kKJz88V1KI2
-	GzLjkgZZ8HxaGNe8Gx+02wEpHyd/Mqb9tG9QgmygFJ/6/GuGEt9uGf3DrBJUAto07n12G5qWCr5
-	VT0jxEFjl1Cp9gnPRu5wXFJcw6CJfW5KTD/T3bgo2J9AFjd3Yh8LDBS19zRhbb8et5B25Y54Nu5
-	U0qIH9OBGO7ozgjd6D0Bk5PK5EduQmj51r0y7ui8N5xs5bPi6i7tLTo2/sSv3A==
-X-Received: by 2002:a05:6000:25c4:b0:48d:db43:4ba3 with SMTP id ffacd0b85a97d-48ddb434e27mr14396343f8f.2.1791962586518;
-        Wed, 14 Oct 2026 00:23:06 -0700 (PDT)
-Received: from navid-pc ([2a01:4b00:a856:6220::a11])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de3f7f8b8sm8500933f8f.35.2026.10.14.00.23.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 00:23:06 -0700 (PDT)
-From: Navid Ghahremani <ghahramani.navid@gmail.com>
-To: linux-arm-kernel@lists.infradead.org
-Cc: arnd@arndb.de,
-	stefandoesinger@gmail.com,
-	krzk@kernel.org,
-	Navid Ghahremani <ghahramani.navid@gmail.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org
-Subject: [PATCH v2 13/24] PCI: dwc: Add ZTE ZX279128S host controller driver
-Date: Wed, 14 Oct 2026 08:20:53 +0100
-Message-ID: <20261014072109.1759502-14-ghahramani.navid@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261014072109.1759502-1-ghahramani.navid@gmail.com>
-References: <20261014072109.1759502-1-ghahramani.navid@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HT3cfMGB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791962590; x=1823498590;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=/D7hJQ7ysAZAHjs8p9zJ0irqjxmaiDIkHkZDr64VJko=;
+  b=HT3cfMGBdXikv3QdBWdZxvUzxRII/P9Nt3UlGK2OTxOUGeWQLpTeyZKc
+   ZOkIxJuzesjehEOuO5vKRiqHiwA/aBu7ZT2VKxwmw2sO8WijIQh4jmEun
+   tTbtWHe9V15SMfzqnVWkxsLbjxZL3b9XiqDJODfY6p4uGSeh4Ejlexim7
+   ZyRRNKz4uA+j3EdXfbfCqBh1o/RPyTG+JqXwsZh0LMuSbNJrFvAIW4oNP
+   B8ne6oZazWL9ENB77xHUyCizRQ9Q7eNoYMQzRFFWj88vsu0kYq5sq/YZc
+   8xUyeamqXYiVt6pEhMKSDw4hoFSEAOL6Y7SkBjR1BLq9ycqtnp39IWYZQ
+   g==;
+X-CSE-ConnectionGUID: Yu2o3egTQtKKcG8UwyW4Dg==
+X-CSE-MsgGUID: C4P1eHfLRDaG9Wy6ABhxXQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="585271"
+X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
+   d="scan'208";a="585271"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 00:23:09 -0700
+X-CSE-ConnectionGUID: t3PoGHMqTOeT31lhoymX9A==
+X-CSE-MsgGUID: ZE548qVRRyKYuFjSztE+Ng==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
+   d="scan'208";a="1460066"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+  by fmviesa005.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 00:23:08 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 14 Oct 2026 00:23:07 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Wed, 14 Oct 2026 00:23:07 -0700
+Received: from PH0PR06CU001.outbound.protection.outlook.com (40.107.208.9) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 14 Oct 2026 00:23:07 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qcJOQMznuCzWzv9b0BDAp25y/wKyyDX8c9s8PW90voRXu7/e8qLDyVqCkW/hBwVnQwTp7vcwNE6moDu3uKT5Yvla01CIacnPTSaI6q/UPGnQGrWV6D1DIJKJlXQbZHZP+AaH3a28zV5aIbKUEZOns4Wrghgv+K0bxln1bMbRh7eWK49c+q2tepsrBASBK1zpWCt96dXgbGnHFJHzTyFZ8IeN7C7UFN/ifRL3SiX0y1+7UF4LEo2ykfuREolzcY55xeJUFO6jNdp4fCueXecXj+Fg5FVHZrDmoKWwya5yqs9aG7I71sf0vKFjwsd/ws/yleB5FpdvVpnD3V7zXoLyiw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/D7hJQ7ysAZAHjs8p9zJ0irqjxmaiDIkHkZDr64VJko=;
+ b=Xh+D5yPp7PGrVCd67Nk1UWWk3SB9hLsuVVokYymnx3LzVR02oakaVqimBg3tg8Hnspdxk5u2PtovUFmcrdEvhM1z+xQ1HmvjHvSfM+3zirbfJbHOG1kj4L89gYC5f5RvdBFQo25EOQJ43TlwOsMWuijBhHgLW/FXJPWJQjN9uF95hGlCbDdOqq3LGvlXStN2ONtg3+Lwoo/PttwfWOJVPtY+/4Hb0g1hFuGXlVYt2DXRDyXJZ8ds0plauRKa1Sa/yYcO2zkhsiodiEjAuorUbpxlOgGo0mp+Gf9eBC1qSYZFGgw5TXJ7Oixi6DkoHgnzbspOOE/T5nasPHwPPt+6xQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from IA3PR11MB9136.namprd11.prod.outlook.com (2603:10b6:208:574::12)
+ by DM4PR11MB5996.namprd11.prod.outlook.com (2603:10b6:8:5f::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Wed, 14 Oct
+ 2026 07:22:59 +0000
+Received: from IA3PR11MB9136.namprd11.prod.outlook.com
+ ([fe80::37b4:37a9:4f3:518b]) by IA3PR11MB9136.namprd11.prod.outlook.com
+ ([fe80::37b4:37a9:4f3:518b%5]) with mapi id 15.21.0522.012; Wed, 14 Oct 2026
+ 07:22:59 +0000
+From: "Duan, Zhenzhong" <zhenzhong.duan@intel.com>
+To: Nikolay Borisov <nik.borisov@suse.com>, "x86@kernel.org" <x86@kernel.org>,
+	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+CC: "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+	"tglx@kernel.org" <tglx@kernel.org>, "mingo@redhat.com" <mingo@redhat.com>,
+	"bp@alien8.de" <bp@alien8.de>, "hpa@zytor.com" <hpa@zytor.com>, "Hansen,
+ Dave" <dave.hansen@intel.com>, "kas@kernel.org" <kas@kernel.org>, "Edgecombe,
+ Rick P" <rick.p.edgecombe@intel.com>, "jgg@nvidia.com" <jgg@nvidia.com>,
+	"nicolinc@nvidia.com" <nicolinc@nvidia.com>, "aik@amd.com" <aik@amd.com>,
+	"aneesh.kumar@kernel.org" <aneesh.kumar@kernel.org>, "seanjc@google.com"
+	<seanjc@google.com>, "pbonzini@redhat.com" <pbonzini@redhat.com>,
+	"yilun.xu@linux.intel.com" <yilun.xu@linux.intel.com>, "Gao, Chao"
+	<chao.gao@intel.com>, "Verma, Vishal L" <vishal.l.verma@intel.com>, "Li,
+ Xiaoyao" <xiaoyao.li@intel.com>, "Tian, Kevin" <kevin.tian@intel.com>, "Peng,
+ Chao P" <chao.p.peng@intel.com>
+Subject: RE: [RFC PATCH 02/15] x86/tdx: Add TDCM hypercall wrapper for TDX
+ Connect
+Thread-Topic: [RFC PATCH 02/15] x86/tdx: Add TDCM hypercall wrapper for TDX
+ Connect
+Thread-Index: AQHdS9q3p3OwHlhwLEuB5opu5u+Cqrb7qCMAgAEGRBCAAAQJAIAACvZg
+Date: Wed, 14 Oct 2026 07:22:59 +0000
+Message-ID: <IA3PR11MB9136840C01273645FFB92D3F929D2@IA3PR11MB9136.namprd11.prod.outlook.com>
+References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
+ <20260924041032.1096569-3-zhenzhong.duan@intel.com>
+ <54846068-d545-4591-b850-2980ce57f40e@suse.com>
+ <IA3PR11MB91362D1D89BF53AE630A9567929D2@IA3PR11MB9136.namprd11.prod.outlook.com>
+ <c5105600-e7e6-4727-8a25-141955bc433c@suse.com>
+In-Reply-To: <c5105600-e7e6-4727-8a25-141955bc433c@suse.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA3PR11MB9136:EE_|DM4PR11MB5996:EE_
+x-ms-office365-filtering-correlation-id: 34db5fb2-7702-472d-2c98-08df29c3f9ae
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|23010399003|1800799024|7416014|376014|366016|10067099003|3023799007|38070700021|11063799006|5023799004|4143699003|18002099003|22082099003|56012099006;
+x-microsoft-antispam-message-info: c7dCzkWPyoYf+gbYww8k/R1XAtpMaikAOwKnkzapl7sV1ZvlHuPKgRg4FfDZQLfiYRm72vJWZl7obcqvNPvS3Rjd8e754DCnOolPRHLQqugUk9nCFlKeouDu3pNxcy44V8NS4jBIH0ZBAq8kaMxJM54YKDo1A4Yg5UDl/sCGboIFUsbh2gIcESoeCY3hsptynC0wNGYtv7T/uewZgAf59ClDO14WCmta32AWnr3zBWdAiqqWCeCNT0Tbj9itu9Drgm5ylaOgxP1n+6Ti3OGHKwCImzia8glkki0MmGjAEj3yCVo7F9CrK4/0xmJidhYKcK/5wrEj4vK0TQnVX2pJAdLETo8fU9mLclSONah6qryIQLQJxVtEw8UQK5QyCss/Yfji3iqftXJCnd5Rxvr+r+1XaxanDpl30GI+RfItSK4wiGAfoFmkstRyc1SFxG97b8W2HcVQEfYicLaIYdUxWYkSLESqmYsw/WSOyKYvcy4VkWZ+NOam8ogGbHmM8SNjw56urTzSHwe0G6+25etEIeRyMErLjhL1bFe1fCkK2nm/lZxob7JVGpMKvbUUwjkj00Svlc7wRFw2mHdTtljl7bmp2/m8Q6iAOAkOShnZifE7uA3BRjwttTw48vVv6+2FlUHqNeeA3RCCJ+HiauesaxXKD3uXKTw7jl96fi33OdHJT9WZegxVl07scXlYNO50yJtn/tVJeBxP7EDInJCVtKnzFPA7a9BKfpuoHAMSxuo=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB9136.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(366016)(10067099003)(3023799007)(38070700021)(11063799006)(5023799004)(4143699003)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?koi8-r?Q?Os/08gCv6IwrNUI0Se7FXlRHufb2Nq5cfVnY7BQfxx8f73cG+xC3v2Eg1ROuhK?=
+ =?koi8-r?Q?NzyWzWObzxpHDGq+CLgHjasWilt04aXSVi1/kPxqQFSm0+sbl9q6tAdH5BD5eF?=
+ =?koi8-r?Q?IOb2PDCykxrJvAPEVq1PfvhA7KYi5JLy1UAnnQdNEtEXGvnWIjxOsqlo2vq1rY?=
+ =?koi8-r?Q?hNBISx+KqhgtAU8Xf1xvgV+UHktszQx3nDf+B1/zjk5cgdd3y+eE9XOIAh3wZM?=
+ =?koi8-r?Q?JFxb4k+hB2bmsyiH3gUyNvG7qUHFPQBCFBJaLS9QwKmgSH1wLtv6wHVfYNp04W?=
+ =?koi8-r?Q?ZjG9CN8WbwyT2CZfB3N9m2sUv9fC23/0kBxkUh69u2XskHQuQ8H7L5cYtFehql?=
+ =?koi8-r?Q?j2s9tcxTW3N9qSBeNWAz2PRFAfVjvbMT3u8tQ1+mEX1HL8Hz1W8gyul3/0tExm?=
+ =?koi8-r?Q?XZSXklVuPhSo//GLbcv2OilfkReaQxajJZVL7R+ih815meCZu4bsQEKw//234y?=
+ =?koi8-r?Q?Mf5q8zesAyQWK2/pwFjf3VW3H98jvALSdL8uE+Ko7fkC1UoCzrp/4iMCRt5stL?=
+ =?koi8-r?Q?fTedm/9CJERoRcUtxqIL3QJT9eZQ0y/fpQj/jLNh34Lv0BnJLJQ2/lzx4KM8Hk?=
+ =?koi8-r?Q?cPSpVtQE26ArCTVsr4EMqiBmyMXKLBY6lWG8i99HMZnEe7oog0df3Ixbvi5GlY?=
+ =?koi8-r?Q?7YcWvgU1rdzoVdXTYe9CEQfYFplkegkABJpFHRJfyWp7jM/2Kiiwxy3bzuD73h?=
+ =?koi8-r?Q?mFceU7g5fqySkvTn1NmlGPKT0ldBJO5pzvDktjK64BR3JeQE5D/VakYbAX+Z+A?=
+ =?koi8-r?Q?lwQ7YiX91SCa4mP5RAOWDsKuChOg59t74mth0kusmIFXGXC9Fw5KUsB5GfIEXG?=
+ =?koi8-r?Q?s88afnEJKOMkUpLdyD4K3i2fkuSJ9WAzl5jYwO3CrZ4NNRPkK2oo6m+349f1w9?=
+ =?koi8-r?Q?GHwlDHm5KIzbrBrniDD/HPNXKfGoUJxQJyuvh4gYSx9QmSc9K2lMpLJ84KKpLt?=
+ =?koi8-r?Q?My/sVsfbY7PjOkOzbbQA+2LoHDzkrnAoDULWyYQ/hOU5g4xohdrIk46pH4IuAe?=
+ =?koi8-r?Q?DqlklQchb80MKSmN84y1ju5L3ShMe8odykky2FhiSNGflbVggpxI2vb9ppEyR6?=
+ =?koi8-r?Q?Z1MYRUgjnMhL8TpOkW0E8r/Zwr+wPVcvTcG3higWFVBPQVF3wD38H+LrZRiNjX?=
+ =?koi8-r?Q?riPzxToOkYuRk0dv7SluwqwjkP6uC26DzBnHUG8zUVQpS2CsiMhlxH/W+DHynn?=
+ =?koi8-r?Q?hShFSHfgsFlre2GkTf4GmruoyGEa4xMgqQH6nYgWor0pDPt/C3d5gg5laV33nE?=
+ =?koi8-r?Q?VR9udjAGnW7B+EOsFCw2Wnme92enz7PeHtdU9PejLTm5GKv8nxc7plAGq4MEXY?=
+ =?koi8-r?Q?HPd80851js3pSLNqwaLcOyf7Q56QNCGLNbEY0iZ+ddoRyGRodY0e850VPPpJaF?=
+ =?koi8-r?Q?1brHz9Q64f9dOdYCKN3C4QPf/LPYqSY6HZ+eTPkEr9imftXtfA/iyFqBzYHLQM?=
+ =?koi8-r?Q?vyxV7wzL6sdZblFimm2hz/wVMVwVIF1Pe4QH3Gy4+RD6Eo5qOUWIPcxTZDW36Z?=
+ =?koi8-r?Q?UemADBCgenD2Tdy2K4wj+wENNhFIUvNzBnR+kdJPN1oiNcawwmLFF3gyvmCsUo?=
+ =?koi8-r?Q?niD68q+MIL6KLGRpDrRtYtPclt5wuMtbzCvUwj3GyN41OBlzz1R9URS9Y2hr1E?=
+ =?koi8-r?Q?Vsga5uF0QTU2CmetiicV4EUkzS0pBv4+9Ll+4NR78682+dwaFON9RFwx/KFP50?=
+ =?koi8-r?Q?VqyYeMmeMV7Aow=3D=3D?=
+Content-Type: text/plain; charset="koi8-r"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Exchange-RoutingPolicyChecked: Ku3d0judOXYPwfr1m1g4+Puq2oZiEkt3ja1u/H4JeVHCPAY5qENg9mX7sjnGw8+5xv0q4q3Uaxu1GRXWNopKbI9dTzQ988aUQf0ISBHOjPdmFjxi3ryOEBJpAe9DUDmv1RhnE+RZd+PdNK4Cob2gt4FvJ37fGbyT6TtTweecfr/T9Ybl3SBpc98ypQdyE+8jlW5MkXpdG32JlHYsuYeXWxHC7K6F8rEnP4YLlkChlr5Zxhi5FmnLp6mX4sTh8RblUw4hkMot2XcnllQFUPrLoAQjDp7Y9UA2sHIRB+bEwtN1qHEjS2g78ebNubqTPnzpmkZvVijrW2M2a6L/wsFAGA==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB9136.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 34db5fb2-7702-472d-2c98-08df29c3f9ae
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Oct 2026 07:22:59.4030
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: SNETowpAVGWxJCAHeRfTAL7rkGCGXuzW0yoIWKLF/3/39ONephVvQJb1ymsPQkq9YQXNy0qNmciGtK1kyW1dyj6Or6FZo+wD1Xp14fNdK6E=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB5996
+X-OriginatorOrg: intel.com
 
-Support the two Synopsys DesignWare PCIe host controllers of the
-ZTE ZX279128S SoC. The driver manages the controller clocks via CCF,
-asserts/deasserts resets via the Reset framework, and manages the
-analog SerDes and PLL via the Generic PHY framework.
 
-Signed-off-by: Navid Ghahremani <ghahramani.navid@gmail.com>
----
- drivers/pci/controller/dwc/Kconfig          |  13 +
- drivers/pci/controller/dwc/Makefile         |   1 +
- drivers/pci/controller/dwc/pcie-zx279128s.c | 273 ++++++++++++++++++++
- 3 files changed, 287 insertions(+)
- create mode 100644 drivers/pci/controller/dwc/pcie-zx279128s.c
 
-diff --git a/drivers/pci/controller/dwc/Kconfig b/drivers/pci/controller/dwc/Kconfig
-index dcfbe7e229..3a4008be84 100644
---- a/drivers/pci/controller/dwc/Kconfig
-+++ b/drivers/pci/controller/dwc/Kconfig
-@@ -577,4 +577,17 @@ config PCIE_ULTRARISC
- 	  By default, this symbol is enabled when ARCH_ULTRARISC is active,
- 	  requiring no further configuration on that platform.
- 
-+config PCIE_ZX279128S
-+	bool "ZTE zx279128s PCIe controller"
-+	depends on ARCH_ZTE || COMPILE_TEST
-+	depends on PCI_MSI
-+	select GENERIC_PHY
-+	select PCIE_DW_HOST
-+	select RESET_CONTROLLER
-+	help
-+	  Say Y here to enable support for the two PCIe host controllers of
-+	  the ZTE zx279128s SoC. They are based on the Synopsys DesignWare
-+	  PCIe IP. On the ZTE ZXHN H3600 they connect the MT7915 Wi-Fi chip.
-+	  The driver only supports legacy INTx interrupts.
-+
- endmenu
-diff --git a/drivers/pci/controller/dwc/Makefile b/drivers/pci/controller/dwc/Makefile
-index d4f88cfc62..379198ebd6 100644
---- a/drivers/pci/controller/dwc/Makefile
-+++ b/drivers/pci/controller/dwc/Makefile
-@@ -35,6 +35,7 @@ obj-$(CONFIG_PCIE_TEGRA194) += pcie-tegra194.o
- obj-$(CONFIG_PCIE_UNIPHIER) += pcie-uniphier.o
- obj-$(CONFIG_PCIE_UNIPHIER_EP) += pcie-uniphier-ep.o
- obj-$(CONFIG_PCIE_VISCONTI_HOST) += pcie-visconti.o
-+obj-$(CONFIG_PCIE_ZX279128S) += pcie-zx279128s.o
- obj-$(CONFIG_PCIE_RCAR_GEN4) += pcie-rcar-gen4.o
- obj-$(CONFIG_PCIE_SPACEMIT_K1) += pcie-spacemit-k1.o
- obj-$(CONFIG_PCIE_STM32_HOST) += pcie-stm32.o
-diff --git a/drivers/pci/controller/dwc/pcie-zx279128s.c b/drivers/pci/controller/dwc/pcie-zx279128s.c
-new file mode 100644
-index 0000000000..592a7f7c4e
---- /dev/null
-+++ b/drivers/pci/controller/dwc/pcie-zx279128s.c
-@@ -0,0 +1,273 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * ZTE zx279128s PCIe host controller
-+ *
-+ * The SoC has two DesignWare PCIe controllers with one lane each. Their
-+ * clocks, resets and PHYs are managed through the CCF, Reset and Generic PHY
-+ * frameworks.
-+ *
-+ * Copyright (C) 2026 Navid Ghahremani <ghahramani.navid@gmail.com>
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/bits.h>
-+#include <linux/clk.h>
-+#include <linux/delay.h>
-+#include <linux/err.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/init.h>
-+#include <linux/io.h>
-+#include <linux/mutex.h>
-+#include <linux/of.h>
-+#include <linux/pci.h>
-+#include <linux/phy/phy.h>
-+#include <linux/platform_device.h>
-+#include <linux/reset.h>
-+
-+#include "pcie-designware.h"
-+
-+/* Controller wrapper ("ctrl" registers) */
-+#define CTRL_CFG		0x000
-+#define CTRL_CFG_EN		BIT(5)
-+#define CTRL_STATUS		0x0dc
-+#define CTRL_STATUS_LTSSM	GENMASK(22, 17)
-+#define CTRL_LTSSM_L0		0x11
-+
-+struct zx279128s_pcie {
-+	struct dw_pcie pci;
-+	void __iomem *ctrl;
-+	struct clk *clk;
-+	struct reset_control *rst;
-+	struct phy *phy;
-+	struct gpio_desc *reset;
-+	struct gpio_desc *enable;
-+};
-+
-+#define to_zx279128s_pcie(x)	container_of(x, struct zx279128s_pcie, pci)
-+
-+/* The board reset lines are shared by both controllers, see host_init */
-+static DEFINE_MUTEX(zx279128s_board_lock);
-+static bool zx279128s_board_released;
-+
-+/* Limit the link to 2.5 GT/s and retrain it, as the vendor firmware does */
-+static void zx279128s_pcie_force_gen1(struct dw_pcie *pci)
-+{
-+	u8 cap = dw_pcie_find_capability(pci, PCI_CAP_ID_EXP);
-+	u32 val;
-+	u16 val16;
-+
-+	if (WARN_ON(!cap))
-+		return;
-+
-+	dw_pcie_dbi_ro_wr_en(pci);
-+
-+	/*
-+	 * With L0s/L1 enabled the H3600 endpoints stop responding, so do not
-+	 * advertise those states or clock power management until their wakeup
-+	 * sequence is understood.
-+	 */
-+	val = dw_pcie_readl_dbi(pci, cap + PCI_EXP_LNKCAP);
-+	val &= ~(PCI_EXP_LNKCAP_SLS | PCI_EXP_LNKCAP_ASPMS |
-+		 PCI_EXP_LNKCAP_CLKPM);
-+	val |= PCI_EXP_LNKCAP_SLS_2_5GB;
-+	dw_pcie_writel_dbi(pci, cap + PCI_EXP_LNKCAP, val);
-+
-+	val16 = dw_pcie_readw_dbi(pci, cap + PCI_EXP_LNKCTL2);
-+	val16 &= ~PCI_EXP_LNKCTL2_TLS;
-+	val16 |= PCI_EXP_LNKCTL2_TLS_2_5GT;
-+	dw_pcie_writew_dbi(pci, cap + PCI_EXP_LNKCTL2, val16);
-+
-+	val16 = dw_pcie_readw_dbi(pci, cap + PCI_EXP_LNKCTL);
-+	val16 &= ~(PCI_EXP_LNKCTL_ASPMC | PCI_EXP_LNKCTL_CLKREQ_EN);
-+	dw_pcie_writew_dbi(pci, cap + PCI_EXP_LNKCTL, val16 | PCI_EXP_LNKCTL_RL);
-+
-+	dw_pcie_dbi_ro_wr_dis(pci);
-+}
-+
-+static int zx279128s_pcie_host_init(struct dw_pcie_rp *pp)
-+{
-+	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
-+	struct zx279128s_pcie *pcie = to_zx279128s_pcie(pci);
-+	int ret;
-+
-+	/*
-+	 * The board lines reset a device that can sit behind both controllers
-+	 * (the MT7915 of the H3600 uses both). The first controller to start
-+	 * resets and releases it; the second must not reset it again.
-+	 */
-+	mutex_lock(&zx279128s_board_lock);
-+	if (!zx279128s_board_released && (pcie->reset || pcie->enable)) {
-+		ret = gpiod_direction_output(pcie->reset, 1);
-+		if (ret)
-+			goto err_unlock;
-+		ret = gpiod_direction_output(pcie->enable, 0);
-+		if (ret)
-+			goto err_unlock;
-+		msleep(100);
-+		ret = gpiod_set_value_cansleep(pcie->reset, 0);
-+		if (ret)
-+			goto err_unlock;
-+		ret = gpiod_set_value_cansleep(pcie->enable, 1);
-+		if (ret)
-+			goto err_unlock;
-+		msleep(200);
-+		zx279128s_board_released = true;
-+	}
-+
-+	ret = phy_init(pcie->phy);
-+	if (ret)
-+		goto err_unlock;
-+
-+	ret = phy_power_on(pcie->phy);
-+	if (ret)
-+		goto err_phy_exit;
-+
-+	ret = reset_control_assert(pcie->rst);
-+	if (ret)
-+		goto err_phy_off;
-+	fsleep(50);
-+	ret = reset_control_deassert(pcie->rst);
-+	if (ret)
-+		goto err_phy_off;
-+
-+	mutex_unlock(&zx279128s_board_lock);
-+
-+	/* Enable the controller, which starts link training */
-+	writel(readl(pcie->ctrl + CTRL_CFG) | CTRL_CFG_EN, pcie->ctrl + CTRL_CFG);
-+
-+	zx279128s_pcie_force_gen1(pci);
-+
-+	return 0;
-+
-+err_phy_off:
-+	phy_power_off(pcie->phy);
-+err_phy_exit:
-+	phy_exit(pcie->phy);
-+err_unlock:
-+	mutex_unlock(&zx279128s_board_lock);
-+	return dev_err_probe(pci->dev, ret, "failed to initialize PCIe\n");
-+}
-+
-+static void zx279128s_pcie_host_deinit(struct dw_pcie_rp *pp)
-+{
-+	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
-+	struct zx279128s_pcie *pcie = to_zx279128s_pcie(pci);
-+
-+	mutex_lock(&zx279128s_board_lock);
-+	reset_control_assert(pcie->rst);
-+	phy_power_off(pcie->phy);
-+	phy_exit(pcie->phy);
-+	mutex_unlock(&zx279128s_board_lock);
-+}
-+
-+/*
-+ * The Wi-Fi on the H3600 uses legacy INTx interrupts. Providing msi_init
-+ * keeps the DWC core from setting up its internal MSI controller, which has
-+ * not been tested on this SoC.
-+ */
-+static int zx279128s_pcie_msi_init(struct dw_pcie_rp *pp)
-+{
-+	return 0;
-+}
-+
-+static const struct dw_pcie_host_ops zx279128s_pcie_host_ops = {
-+	.init = zx279128s_pcie_host_init,
-+	.deinit = zx279128s_pcie_host_deinit,
-+	.msi_init = zx279128s_pcie_msi_init,
-+};
-+
-+static int zx279128s_pcie_start_link(struct dw_pcie *pci)
-+{
-+	zx279128s_pcie_force_gen1(pci);
-+
-+	return 0;
-+}
-+
-+static bool zx279128s_pcie_link_up(struct dw_pcie *pci)
-+{
-+	struct zx279128s_pcie *pcie = to_zx279128s_pcie(pci);
-+	u32 val = readl(pcie->ctrl + CTRL_STATUS);
-+
-+	return FIELD_GET(CTRL_STATUS_LTSSM, val) == CTRL_LTSSM_L0;
-+}
-+
-+static const struct dw_pcie_ops zx279128s_pcie_ops = {
-+	.link_up = zx279128s_pcie_link_up,
-+	.start_link = zx279128s_pcie_start_link,
-+};
-+
-+static int zx279128s_pcie_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct zx279128s_pcie *pcie;
-+	struct resource *res;
-+
-+	pcie = devm_kzalloc(dev, sizeof(*pcie), GFP_KERNEL);
-+	if (!pcie)
-+		return -ENOMEM;
-+
-+	pcie->pci.dev = dev;
-+	pcie->pci.ops = &zx279128s_pcie_ops;
-+	pcie->pci.pp.ops = &zx279128s_pcie_host_ops;
-+
-+	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "ctrl");
-+	pcie->ctrl = devm_ioremap_resource(dev, res);
-+	if (IS_ERR(pcie->ctrl))
-+		return PTR_ERR(pcie->ctrl);
-+
-+	pcie->clk = devm_clk_get_enabled(dev, "pcie");
-+	if (IS_ERR(pcie->clk))
-+		return dev_err_probe(dev, PTR_ERR(pcie->clk),
-+				     "failed to get pcie clock\n");
-+
-+	pcie->rst = devm_reset_control_get_exclusive(dev, "core");
-+	if (IS_ERR(pcie->rst))
-+		pcie->rst = devm_reset_control_get_exclusive(dev, "pcie");
-+	if (IS_ERR(pcie->rst))
-+		return dev_err_probe(dev, PTR_ERR(pcie->rst),
-+				     "failed to get pcie reset\n");
-+
-+	pcie->phy = devm_phy_get(dev, "pcie");
-+	if (IS_ERR(pcie->phy))
-+		return dev_err_probe(dev, PTR_ERR(pcie->phy),
-+				     "failed to get pcie phy\n");
-+
-+	/*
-+	 * Optional board lines to reset and enable endpoints. If already
-+	 * claimed by another controller, treat -EBUSY as already managed.
-+	 */
-+	pcie->reset = devm_gpiod_get_optional(dev, "reset", GPIOD_ASIS);
-+	if (IS_ERR(pcie->reset)) {
-+		if (PTR_ERR(pcie->reset) == -EBUSY)
-+			pcie->reset = NULL;
-+		else
-+			return dev_err_probe(dev, PTR_ERR(pcie->reset),
-+					     "failed to get the reset GPIO\n");
-+	}
-+
-+	pcie->enable = devm_gpiod_get_optional(dev, "enable", GPIOD_ASIS);
-+	if (IS_ERR(pcie->enable)) {
-+		if (PTR_ERR(pcie->enable) == -EBUSY)
-+			pcie->enable = NULL;
-+		else
-+			return dev_err_probe(dev, PTR_ERR(pcie->enable),
-+					     "failed to get the enable GPIO\n");
-+	}
-+
-+	return dw_pcie_host_init(&pcie->pci.pp);
-+}
-+
-+static const struct of_device_id zx279128s_pcie_of_match[] = {
-+	{ .compatible = "zte,zx279128s-pcie" },
-+	{ }
-+};
-+
-+static struct platform_driver zx279128s_pcie_driver = {
-+	.probe = zx279128s_pcie_probe,
-+	.driver = {
-+		.name = "zx279128s-pcie",
-+		.of_match_table = zx279128s_pcie_of_match,
-+		.suppress_bind_attrs = true,
-+	},
-+};
-+builtin_platform_driver(zx279128s_pcie_driver);
--- 
-2.55.0
+>-----Original Message-----
+>From: Nikolay Borisov <nik.borisov@suse.com>
+>Subject: Re: [RFC PATCH 02/15] x86/tdx: Add TDCM hypercall wrapper for TDX
+>Connect
+>
+>
+>
+>On 14.10.26 =C7. 9:19 =DE., Duan, Zhenzhong wrote:
+>>
+>>
+>>> -----Original Message-----
+>>> From: Nikolay Borisov <nik.borisov@suse.com>
+>>> Subject: Re: [RFC PATCH 02/15] x86/tdx: Add TDCM hypercall wrapper for =
+TDX
+>>> Connect
+>>>
+>>>
+>>>
+>>> On 24.09.26 =C7. 7:10 =DE., Zhenzhong Duan wrote:
+>>>> TDX Connect is a TDX feature that enables secure device assignment,
+>>>> allowing a TDX guest to directly interact with TEE-IO capable devices.
+>>>>
+>>>> The TEE-IO Device Control and Management (TDCM) hypercall
+>>>> (TDG.VP.VMCALL<TDCM>, defined in TDX GHCI v2.0 specification) is the
+>>>> primary interface through which a TDX guest issues device management
+>>>> commands to the host. The host processes these commands and returns
+>>>> responses via a shared memory buffer.
+>>>
+>>> This patch contradicts what's going in patch 5. Because you make it
+>>> sound as if TDCM is yet another leaf of VP.VMCALL, but then in patch 5
+>>> you introduce the polling code to read the result. And there is not
+>>> enough information in the changelogs to understand why this added
+>>> complexity is needed. Isn't TDCM handled synchronously by the VMM as th=
+e
+>>> rest of the tdcalls, is it perhaps handled by TDX NRX module?
+>>
+>> TDG.VP.VMCALL<TDCM> is the leaf used to submit a TDCM request. The VMM's
+>> return from that VMCALL acknowledges the request; it does not
+>> necessarily mean the device-management operation has completed. GHCI
+>> defines asynchronous completion for potentially long-running operations.
+>
+>But this is essentially an implementation detail, and currently we don't
+>have the host implementation. In that case this choice must be spelled out=
+.
 
+Oh, we don't make a choice for host implementation. Host may complete the
+operation and set the final status before returning from the VMCALL, or ret=
+urn
+while it is still pending. The guest handles either case: it checks the sta=
+tus after
+the VMCALL and polls with a timeout only if completion is pending.
+
+>
+>>
+>> GHCI describes polling the shared status and event notification as
+>> completion mechanisms. This series uses polling with a timeout; it does
+>> not use event notification. TDCM is not implemented by the NRX module,
+>> although some host-side operations initiated by TDCM may use NRX
+>> internally.
+>
+>Right, those operation falls within the TDX connect spec. And TDCM is
+>just a subset of the VP.VMCALL interface used for tdx connect
+>management, in that sense it's not a "separate entity" i.e a discrete
+>module but just a collection of functionality, implemented in the VMM?
+
+Yes.
