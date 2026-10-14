@@ -1,134 +1,124 @@
-Received: from relay.hostedemail.com (smtprelay0014.hostedemail.com [216.40.44.14])
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A62947F3BD;
-	Wed, 14 Oct 2026 18:04:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19B49503BD8;
+	Wed, 14 Oct 2026 18:05:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792001092; cv=none; b=FB0FF3LwxPfzABChdgISsjilJe/2eOu+Ali8kdb+gOdHeHrEKxdvhnh+gyHGVdgEaRThRwoTP3YLPFxHXxGlErC+Y5Jxvox58vx/TXdGWdoUlxvzhK6iQYlcJ3nQXhyHihtlgM/0088d3Zrc9OuusfSizNaNlDKwZINYNMyPH+I=
+	t=1792001159; cv=none; b=DncmT+8BLC9bsdOXCj49L7uEq9ug+Ik+/eXxRnfNcoT+zYZKCxGE/tqizgBI0RzTPpMN6Os5EQOBQqZqvZwdJZ0qSZHO8GtOUV5IP8qG6jm5/lM8ta+ZOP2WBGp1D7MSUYeCpbX+ak2xmSBj5Fb10/qVRe1DFVDUHSYh6XeXy3Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792001092; c=relaxed/simple;
-	bh=W82k30HwN+QQ9RO4gtpgsHX7igVRhsRCnChkADygNJ8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nVaS4tRLUjl6bWciigtBoccK3G3m1EQxi9kX+3kpzAd48+9tfhwPBcIjM6PwdBp3rZbNK/xsEq/ASYhD+0yaIpVevW6ds4p9LNq39L0e2BHKm4/BrCZx1NHFAt8/Gg3P79CXgM3d0FDBMb6nxmjxdEh9K/0F9GepeLNSjvBuEPo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=MqJPLya9; arc=none smtp.client-ip=216.40.44.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1792001159; c=relaxed/simple;
+	bh=fQn3+84evWcFw8/01U6Ysd+ty6z5WK2oUtlPCaRstQQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aSja7xCAk10ELN4H5BqpmlUQ/ceUi3bK/gvGY1Glq6+XrKH14pgtZvTrE39AlOyAGfMwwLfiPOhPhw7ATCsLP4AJqlZf3RYdmoN3LaKy6zeXZ/lf/u4ZumCQtAqC9MGaZhfR3JRp/KOPqJ1Bmey6l1PEYi5gEljznOjgT+i5BR0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=HhdSgVuZ; arc=none smtp.client-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="MqJPLya9"
-Received: from omf19.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay08.hostedemail.com (Postfix) with ESMTP id 66049140711;
-	Wed, 14 Oct 2026 17:58:31 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf19.hostedemail.com (Postfix) with ESMTPA id 5493620026;
-	Wed, 14 Oct 2026 17:58:29 +0000 (UTC)
-Date: Wed, 14 Oct 2026 14:10:00 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Lee Jones <lee@kernel.org>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Tom Zanussi
- <tom.zanussi@linux.intel.com>, Fengguang Wu <fengguang.wu@intel.com>,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH] tracing/histograms: Verify event_call identity when
- updating synth_event refcount
-Message-ID: <20261014141000.6091c0c5@gandalf.local.home>
-In-Reply-To: <20261014103012.744589-1-lee@kernel.org>
-References: <20261014103012.744589-1-lee@kernel.org>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="HhdSgVuZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+	s=201707; t=1792001154;
+	bh=A/YfHX/3fZumK9vHo0wbkd9nVZibQ7MqdJzxO23iME4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=HhdSgVuZBt417lj3wDa1A+PxkTvAr5bXI0LE/oI7VfZxn5COesZJa5cfaQFFWKpfj
+	 5hfIQqivjglbjEMEwsCSUbSqRxldmtac296JYUBKBGnv51kf318CoSJMYiwslBJ3mr
+	 8mHhJ0saap1EuUqZttcj2x3T3hNno+DL7tmkT1FnQxY3WfK2CD6zya/j2vCtCMUhLn
+	 306i4dWpRYJW/1DHqUwJYlv9Stmrqw2SC+rTClTAEAE+QPRFopgymrduAyUBIKRpAv
+	 Mls9PON2h6YvKoz9d6WupX1Gwf8M1e+ycgRsW1nMRyb+kHhXSBXZao2pbbC0TxMLVL
+	 WwzZM7cP9gkSQ==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	by mail.ozlabs.org (Postfix) with ESMTPSA id 4j4fJT5wqSz4wCt;
+	Thu, 15 Oct 2026 05:05:45 +1100 (AEDT)
+Message-ID: <20051ac9-43d0-4143-88fe-1198ebb6383e@ozlabs.org>
+Date: Wed, 14 Oct 2026 19:05:41 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 1/9] vfio/pci: Remove DMABUF export dependency on
+ vdev->memory_lock
+Content-Language: en-GB
+To: Alex Williamson <alex@shazbot.org>
+Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Alex Mastro <amastro@fb.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Kevin Tian <kevin.tian@intel.com>,
+ Pranjal Shrivastava <praan@google.com>, Longfang Liu
+ <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
+ David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
+ <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+ linux-pci@vger.kernel.org
+References: <20261006193643.76330-1-matt@ozlabs.org>
+ <20261006193643.76330-2-matt@ozlabs.org>
+ <20261013171416.40b00e73@shazbot.org>
+From: Matt Evans <matt@ozlabs.org>
+In-Reply-To: <20261013171416.40b00e73@shazbot.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Stat-Signature: c7qitex5anihzkyxy7cqp9fiht7buprd
-X-Rspamd-Server: rspamout08
-X-Rspamd-Queue-Id: 5493620026
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18dI8PUxHTycJ9hd9Mlw1avj6RZnydDPmc=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=yOOmlqMyv9Qa0HdrnonKwaPW/RrCU/rw3vzXVT/B4b4=; b=MqJPLya9aPbTPs1RJHinniAIeZgEGahk1srFntN8Lo+8m+6SC5qKVAMiHXlvr9SvnMdpnEqiphyx2ZhKQQqogksnbvL/8qzy4aox6hNKVBFzFuh7m8WZa5jlFYp7HPNKgaYzJ/y1tUXPsNKEXU9YnTWTfvKJBinU31AFQfB0jCc=
-X-HE-Tag: 1792000709-806186
-X-HE-Meta: U2FsdGVkX1/Dy2ThiDiLQp7S9YD8klUKHtpq8FAWQW3bH4L/cqCXnX2ZtuctobD3W1quJ7Nm36swoKzY5/hvW9tmCc9sfp3noT8mr7604t5imkqjtgS2ZM6ULPuY34t6p1iojGv9VPSewQyjPYv+Jt7Mw3XHf4KpQ2VAV8CGKn4RpZxpEgAiW3EE4xKk5rk2f4wnn2hFub+8NH2T1kLH2mEyuDfXyTaegSC3Ijoqd7uRXuAFYDliNP9qGtAyITteknwx+xdBxz73pzeBdDpfkBlU79nS8s6rkI6/Yd/XdAvDq8z9H9u0vewngBBOVqaxX6fpA7vIv7IOuvbtQ6lr+x6Fpca538K9
 
-On Wed, 14 Oct 2026 10:30:12 +0000
-Lee Jones <lee@kernel.org> wrote:
+Hi Alex,
 
-> In event_hist_trigger_parse() and hist_unreg_all(), the histogram
-> registration and unregistration paths look up find_synth_event() using
-> trace_event_name(file->event_call) and adjust se->ref if a match is
-> found.
+On 14/10/2026 00:14, Alex Williamson wrote:
+> On Tue,  6 Oct 2026 20:36:29 +0100
+> Matt Evans <matt@ozlabs.org> wrote:
 > 
-> Because find_synth_event() only compares the event basename, registering
-> or removing a histogram on a non-synthetic trace event whose basename
-> matches a synthetic event erroneously modifies the synthetic event's
-> reference count.  If a histogram is registered on the non-synthetic
-> event before the synthetic event is created and removed afterwards,
-> se->ref is decremented without a matching increment, allowing the
-> synthetic event to be freed while an active histogram action still holds
-> a pointer to it.
+>> The VFIO_DEVICE_FEATURE_DMA_BUF export previously used
+>> vdev->memory_lock to protect VFIO's list of exported DMABUFs
+>> (vdev->dmabufs) and their revocation status.  When adding a new
+>> export, memory_lock was taken for write.
+>>
+>> A future commit will refactor DMABUF export into a function used from
+>> mmap(), which would create a new mmap_lock -> memory_lock dependency.
+>>
+>> In preparation, this commit introduces a vdev->dmabuf_lock that
+>> protects the dmabufs list, per-DMABUF revocation state, and a new
+>> bars_revoked flag.  The flag tracks the device-wide BAR revocation
+>> state set via vfio_pci_dma_buf_move() under dmabuf_lock, removing the
+>> test of __vfio_pci_memory_enabled() and dependency on
+>> vdev->memory_lock.
 > 
-> Verify that &se->call matches file->event_call before adjusting se->ref.
+> There's a subtle change here that I'm not sure is worth mentioning, so
+> I'll at least put it on the list for posterity.  The initial revoked
+> state of a newly minted DMABUF is now governed by the device-wide BAR
+> revocation state set via vfio_pci_dma_buf_move().  This is subtly
+> different from the current behavior where the initial state is based on
+> instantaneous BAR accessibility tested under vdev->memory_lock.  Thanks,
+
+Yes right, that's good to capture here.
+
+The new lifecycle is then _only_ coupled to the revocation state both 
+(with this patch) at creation time and (already) thereafter.
+
+We sorta have two mechanisms to track "BARs accessible", via 
+__vfio_pci_memory_enabled() and the changes initiated by 
+vfio_pci_dma_buf_move() (which already exist, but the new
+vdev->bars_revoked flag now tracks).  They shouldn't really differ, i.e. 
+a BAR is accessible or not (whether by CPU or P2P) and we should clean 
+this up in future.  In this patch, creating it from the bars_revoked
+state makes the state consistently set from one place, at least.
+
+Cheers,
+
+
+Matt
+
+
 > 
-> Fixes: 4b147936fa50 ("tracing: Add support for 'synthetic' events")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lee Jones <lee@kernel.org>
-
-Hi,
-
-Thanks for the patch...
-
-> ---
->  kernel/trace/trace_events_hist.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
+> Alex
 > 
-> diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-> index 00a1d8522036..71b240b609ea 100644
-> --- a/kernel/trace/trace_events_hist.c
-> +++ b/kernel/trace/trace_events_hist.c
-> @@ -6807,7 +6807,7 @@ static void hist_unreg_all(struct trace_event_file *file)
->  
->  			se_name = trace_event_name(file->event_call);
->  			se = find_synth_event(se_name);
-> -			if (se)
-> +			if (se && &se->call == file->event_call)
->  				se->ref--;
->  
->  			update_cond_flag(file);
-> @@ -6926,7 +6926,7 @@ static int event_hist_trigger_parse(struct event_command *cmd_ops,
->  		event_trigger_unregister(cmd_ops, file, glob+1, trigger_data);
->  		se_name = trace_event_name(file->event_call);
->  		se = find_synth_event(se_name);
-> -		if (se)
-> +		if (se && &se->call == file->event_call)
->  			se->ref--;
->  		ret = 0;
->  		goto out_free;
-> @@ -6962,7 +6962,7 @@ static int event_hist_trigger_parse(struct event_command *cmd_ops,
->  
->  	se_name = trace_event_name(file->event_call);
->  	se = find_synth_event(se_name);
-> -	if (se)
-> +	if (se && &se->call == file->event_call)
->  		se->ref++;
->   out:
->  	if (ret == 0 && glob[0])
+>> This is a cleanup currently, but allows the future export path to
+>> avoid holding memory_lock under mmap_lock and a therefore avoid a
+>> deadlock scenario (a fault handler attempting to take mmap_lock in a
+>> vfio-pci variant driver thread that holds memory_lock, vs another
+>> thread doing an mmap/export holding them both in the other order).
+> 
 
-Instead of open coding each of these, can we add a new helper function:
-
-struct synth_event *find_synth_event_call(struct trace_event_call *call)
-{
-	struct synth_event *se;
-	const char *name;
-
-	name = trace_event_name(call);
-	se = find_synth_event(name);
-	return se && se->call == call ? se : NULL;
-}
-
-The above can be defined in trace_events_synth.c and exported like
-find_synth_event() is.
-
-Then we can remove the se_name from each of these functions.
-
--- Steve
