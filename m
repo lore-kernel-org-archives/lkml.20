@@ -1,92 +1,165 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F5B52D7DD8;
-	Wed, 14 Oct 2026 21:03:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792011791; cv=none; b=k6T8irF+ZeVWO5RLIa/hELT6fzuC+zNyJRZDNy0VIIIcChSpJ4gccaZOhRvAth+ysT+oVXCXcU6Dt0OZshoAx4YFHRnC+omxrQSkRWt6kBty7fVXI8fCjSQiPWgieNFPhsSXYMP6hjgtNim0asu1PXHkz9IEqnZw1t8betJ9Ado=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792011791; c=relaxed/simple;
-	bh=SqjFtcMUiykXxYPVsn6NLogUDEnJnLN8ZRQiWX6Puok=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=KcwNDTAjWR6B/z2ckhSE4rDSLeOXdjSrEa2szqzCAO2N3j/rL/iZd7wmc9cyNBUmbkICX+CkyBWMlg7UZelgMwomtLBkZPAYvAVxO8aSxiD/3HXcoGpxCmeWyw9onpI8+UF2B7VB0WNMtJxyC4NWTuCl08Jtzuvgr8sRoXt1Eck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=yIkCqM8V; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C0B64A5EB7
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 21:03:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792011799; cv=pass; b=Gza3VNduTPrEHnjT0glPx3hgQ/8I1bq/Zhh9K//vPG7lfaXs4qj51rNSWtvJB0p6M3/4UewBd1BjY7weHEF7Got2WD4cVKRyeSWEUGrHGskbY3vpAVj8YVRIXNt8pm4vuFKDSKX76z872+KmcFnCBZncw8VOfalNVGWdGnQozZU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792011799; c=relaxed/simple;
+	bh=T4Qy6GFRO1ST1QLZrYR/490K2fdT74b4dRkAKQGKFgg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ugunzmiP71wc7Ot/ziYGsIPpwThk8R+Wjgdl5dMVRmjsS0tIPI5y4qOXToZT/Ii8gfRJEV0bGBCTXJBWu6INbL9+Qr9g6EPPo38Y4r00hBrsU2X1n08ZYIqFeZkIfZh1wWG2i6YLQcpP4aQ4UiyeoWl0ZgjY/do1NOAuo556tEE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p6rmrFuo; arc=pass smtp.client-ip=209.85.208.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="yIkCqM8V"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A5F15A158F;
-	Wed, 14 Oct 2026 23:02:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1792011778; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=SqjFtcMUiykXxYPVsn6NLogUDEnJnLN8ZRQiWX6Puok=;
-	b=yIkCqM8VXYULT4KSbksQvh0J7Tj15J46cr34YtosYI+MjN0Qk5769F9P5w48F1OB0hO8NY
-	pNbnddSbAdW7N+NXrJnwhCD1yKwuI+R8VW88csJuiShpMYw7uFaeel2BUQH4vPdQOhYD28
-	yvTpcN52JWnyPulsJ+WwN9zZAtkZ4w+5OowTW6E+7A/S8UYV7yxAvT4LXOAh/L6aB8Vzl4
-	lbDcYE+Hmrw2M7T2zY3ZPtju8277v6m3C2XptLTMAwxS7uQIctI1WXhjCDTxrY+RhrjIPU
-	yXH7MMdMrWrRib0sHpB8eTrNmO9wF+K5NQMpemE2L8DPo7STohPRaJl25S8bOA==
-Date: Wed, 14 Oct 2026 23:02:52 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Jakub Kicinski <kuba@kernel.org>
-CC: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Oleksij Rempel <o.rempel@pengutronix.de>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <Jose.Abreu@synopsys.com>, Saeed Mahameed <saeedm@nvidia.com>,
- Tariq Toukan <tariqt@nvidia.com>, Mark Bloch <mbloch@nvidia.com>,
- Leon Romanovsky <leon@kernel.org>, Dragos Tatulea <dtatulea@nvidia.com>,
- Alexei Lazar <alazar@nvidia.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-rdma@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_net-next_0/3=5D_net=3A_use_skb=5Fs?=
- =?US-ASCII?Q?hare=5Fcheck=28=29_in_loopback_selftest_hooks?=
-User-Agent: Thunderbird for Android
-In-Reply-To: <20261014130618.4c50f817@kernel.org>
-References: <20261007-nb-net-selftest-shared-net-v1-0-458369bfa1ba@tipi-net.de> <20261014130618.4c50f817@kernel.org>
-Message-ID: <BBC0F4F4-AE37-423C-9BC8-4C288D316DA9@tipi-net.de>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p6rmrFuo"
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3a980c01033so11491921fa.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:03:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792011795; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HylO5UbrtnmpeYrB3CCnRLOvqJhUmRUANdTmC+NI3YHaByR86gKzi8OnZtMaKp2uNz
+         DfmSBdlTqC76q48LjZzvzNe/Dtz2nxctYnaiP61kK+KJFHFr/i1RYp6vf4VoGlUIwYU6
+         YJt/+/jbaa3ynfYaMok8wsmFesrc70PVw5i3akuOTBDIS3onK6ib2F/JfvLhLGI88jAr
+         sbGgyB7JDmMiVxfAdekVjBjUrNZalfZAeK8dZL2ihVXdqe78kwtkPqrRDVEgyaMJbFQZ
+         x9MvomWGMoDw0ifsg8GPWXvOO5Y339eXDjZPRItyoiqfYRf8ZYNxp0nW/vo5KZbhgG9b
+         nQog==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=rlL07No56m0cxdKc4fCRf+IU8nDpAMVPkbecBDh9W4s=;
+        fh=S5sUhwmxG6b33jj5CebLRWRIr5R2rtiFmvmD+XG1Zs0=;
+        b=O6uzlZ0N2ubQbz6hVa9v1nZYpvkHkJJnoVeu+niLDs2L9TlpvkH7ma9PF9xfDc2hgh
+         fm8p6ErrO8VemAOd1KNtHOif78wnMjxgc5mm4ctdP85wN5GVHov7HBatBPrItEO3Ujp6
+         tXZnt3KbHBHNK8qS/FgreKeLHAk8rQWsZCmsXhUX2L2Lg8g2NyMo8ZGgEmqSSgeVCiLJ
+         3G66NNsyeEJyPNeUvd0UlAilb9Pt6Rga6VvPA+wfIWH03ul4FD7ixiaC+xvghgWVnUus
+         WQ/aGZDCqOIr56GUOdFBWl3FzU8cINyMizILtrtb4zljt9ceOn2wf8yxngAB+fet7Ej5
+         zLYA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792011795; x=1792616595; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rlL07No56m0cxdKc4fCRf+IU8nDpAMVPkbecBDh9W4s=;
+        b=p6rmrFuook6XBkT1FyUVaG7PnGlClKjiGTvXYwuumOMSAiH4jafl3vEOJ61HeR1fxN
+         SNELFMoFThTXB4mZdndM/Odu1KsgcBNjYjW8AUVxaqbbWHA9Mpz8szL0F7H16JoGnF4o
+         iuVwBA3AOXhkJlLoWFfsslfengH2mXuBDVfVxeUyPVR7HxTQmQ+yLCoopXM6dqxXPEzq
+         oN+HmDJ729Bci836/K5EvPBtcohFR4lpV5pRuiTdHPomhqH25ohiDX1p6dzHREEfTv3E
+         YKJN+8QLk3WRe2tZtrmDoW3qXjXMinZDf2R+OzSsu/zrnG4tqG77ZUpxedV84JusdC1q
+         2hkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792011795; x=1792616595;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rlL07No56m0cxdKc4fCRf+IU8nDpAMVPkbecBDh9W4s=;
+        b=bmpLanIIEL7MvjRjTh05K5BfOASgPQbZa6Ee9Dd22NCy7CjuSvWf7WogEMaK07QmB1
+         dIRg79jKNFNrS6CtJroVLZP763uUMfmkthP567P6HsQpV36VGAHcgRou8v4wiJyYvdbN
+         4hiQFhfNWHYp/9Z/HAnfr7z69f+fbEKafGV8bkMc2i3rulX/QQn1whWvbuTonykCstES
+         SjLWmgKKdPOaVtHsDUzZHtz9JsMXtY5tYCor7q/mVgt+XsFc5ntYzDXIstLkIMpH7Yth
+         Nv9PrEIEtmZR2CLbbSPnsgz30J43yHJUeP5nkpQpGs96wN+ONUEO0jxIPB0BufunWSDH
+         bxew==
+X-Gm-Message-State: AFq9FYID2o9zHZsfth2Y2HMHlRbzAN/1su8O8q/1vVGn4dnoX/ZujD4U
+	bv6e3mHuaYdujiQayjceoVNZqMor3Vved3jPG37mvxWBD2su1jt6QXYmqp6y4mXXCQmKRh6u371
+	Njtb/7XBDtGyhmv8DIR9i1Iqkk5e4aAwPj4WWgcA=
+X-Gm-Gg: AYBFou1LoVnZ119suhaGoqoGzeyHKCebEqXwFe/WV3Uk/yyXWaI7y70Nig9ZPRS0maM
+	vcjU+7V8HtUdaL1C3kyRV0AoUDmiWH1V56m+DGfRuZBXWn0PR854G0/+lDYx2/zKTiWjMgrYY9C
+	vs+W9lSNuOnTA944tK3MiL4dNCJ0vsbonadUqcTfxCMMs8GDN6xMfLQ0XJZ6Q/lv8kIWn7vG9Mr
+	UbDC9FkVUlL/lMTiIci47/gaJuaIeUrUcfNsmd9YvIBkyVaA06JXIKbasO38VEL+u/nH4kJ15cM
+	WTRgZZ0Mqj0MTAZULP5pTx/u9FQK1MUYUd5yT8zchSet8m3ZEmj4Q5JljpO33PGKySUiGROmw4c
+	Eo5DZevq/jMyss+k/JsnojF4KLaBeHTRfAYrexiSiWpJe
+X-Received: by 2002:a05:651c:2221:b0:3a6:58f7:da9a with SMTP id
+ 38308e7fff4ca-3a9c54acd7bmr39702171fa.27.1792011793698; Wed, 14 Oct 2026
+ 14:03:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
+References: <20261014152138.138281-1-daeho43@gmail.com>
+In-Reply-To: <20261014152138.138281-1-daeho43@gmail.com>
+From: Daeho Jeong <daeho43@gmail.com>
+Date: Wed, 14 Oct 2026 14:03:01 -0700
+X-Gm-Features: AclHuK9ssELmbfFeOdtC11wQQOkFMUhWUeAu0fXdFEVJnCmum3r_7J3AOUUwHzg
+Message-ID: <CACOAw_yLf9MDqBdkvhY9rwe=pLjkrGkcrHtAmdsvhcOdU4Zt3Q@mail.gmail.com>
+Subject: Re: [PATCH] f2fs: expose resizable_tail feature via sysfs
+To: linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net, 
+	kernel-team@android.com
+Cc: Daeho Jeong <daehojeong@google.com>, stable@vger.kernel.org, 
+	Daniel Zheng <zhengdaniel@google.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Jakub
++ cc: zhengdaniel@google.com
 
-On October 14, 2026 10:06:18 PM GMT+02:00, Jakub Kicinski <kuba@kernel=2Eo=
-rg> wrote:
->On Wed, 07 Oct 2026 20:29:21 +0200 Nicolai Buchwitz wrote:
->> The loopback selftest hooks can get a shared skb when another handler
->> is bound to the device=2E Linearizing a non-linear frame then hits
->> BUG_ON(skb_shared()) in pskb_expand_head()=2E
->>=20
->> Stumbled over this on RPi CM4 (bcmgenet, with jumbo series applied +
->> WIP selftest patches) with a packet socket open at the same time as
->> running ethtool -t=2E
->>=20
->> stmmac and mlx5 seem to have the same pattern, xgbe already handles
->> shared skbs=2E Patches 2 and 3 are compile tested only=2E
->>=20
->> As the impact is pretty limited and doesn't seem to bother anyone in
->> the wild, I've chosen net-next, but kept the Fixes tags=2E That matches
->> what Paolo suggested during the LPC track=2E
+On Wed, Oct 14, 2026 at 8:21=E2=80=AFAM Daeho Jeong <daeho43@gmail.com> wro=
+te:
 >
->Wonder if we should follow up and rename skb_unshare to skb_unclone_full
->or some such? The "share" in the name is quite confusing for people who
->haven't been around for 10+ years=2E=2E
-
-Makes sense=2E _unclone_full still sounds a bit clonky, but I can't think =
-of a better name right now=2E I will give it a thought and send a follow up=
- :)
-
-Regards,
-Nicolai
+> From: Daeho Jeong <daehojeong@google.com>
+>
+> Userspace has no way to know whether the kernel supports the
+> resizable_tail_secno mount option before mounting. Passing it to a
+> kernel without the support fails the mount with -EINVAL, and checking
+> /sys/fs/f2fs/<disk>/pinned_area_max_secno requires an f2fs instance
+> to be mounted already.
+>
+> Export /sys/fs/f2fs/features/resizable_tail so that userspace can check
+> the support before formatting or mounting a filesystem that relies on
+> resizable_tail_secno, e.g. a filesystem whose tail is going to be shrunk
+> online later.
+>
+> Fixes: c966d29e01bb ("f2fs: support resizable tail section and unify pinn=
+ed allocation")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Daeho Jeong <daehojeong@google.com>
+> ---
+>  Documentation/ABI/testing/sysfs-fs-f2fs | 2 +-
+>  fs/f2fs/sysfs.c                         | 2 ++
+>  2 files changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/Documentation/ABI/testing/sysfs-fs-f2fs b/Documentation/ABI/=
+testing/sysfs-fs-f2fs
+> index c4746c416ac..8df18b5d479 100644
+> --- a/Documentation/ABI/testing/sysfs-fs-f2fs
+> +++ b/Documentation/ABI/testing/sysfs-fs-f2fs
+> @@ -271,7 +271,7 @@ Description:        Shows all enabled kernel features=
+.
+>                 inode_crtime, lost_found, verity, sb_checksum,
+>                 casefold, readonly, compression, test_dummy_encryption_v2=
+,
+>                 atomic_write, pin_file, encrypted_casefold, linear_lookup=
+,
+> -               fserror.
+> +               fserror, resizable_tail.
+>
+>  What:          /sys/fs/f2fs/<disk>/inject_rate
+>  Date:          May 2016
+> diff --git a/fs/f2fs/sysfs.c b/fs/f2fs/sysfs.c
+> index 9749da70089..8b844a8b0bf 100644
+> --- a/fs/f2fs/sysfs.c
+> +++ b/fs/f2fs/sysfs.c
+> @@ -1421,6 +1421,7 @@ F2FS_FEATURE_RO_ATTR(linear_lookup);
+>  #endif
+>  F2FS_FEATURE_RO_ATTR(packed_ssa);
+>  F2FS_FEATURE_RO_ATTR(fserror);
+> +F2FS_FEATURE_RO_ATTR(resizable_tail);
+>
+>  #define ATTR_LIST(name) (&f2fs_attr_##name.attr)
+>  static struct attribute *f2fs_attrs[] =3D {
+> @@ -1592,6 +1593,7 @@ static struct attribute *f2fs_feat_attrs[] =3D {
+>  #endif
+>         BASE_ATTR_LIST(packed_ssa),
+>         BASE_ATTR_LIST(fserror),
+> +       BASE_ATTR_LIST(resizable_tail),
+>         NULL,
+>  };
+>  ATTRIBUTE_GROUPS(f2fs_feat);
+> --
+> 2.56.0.385.gd3acb90ef8-goog
+>
