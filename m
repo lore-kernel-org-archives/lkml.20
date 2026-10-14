@@ -1,68 +1,120 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0956B2EEE75;
-	Wed, 14 Oct 2026 10:48:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 267C44F4D04;
+	Wed, 14 Oct 2026 10:48:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791974922; cv=none; b=R8WZdviAYcef5Q8103zh9jhF4cUkgt9nJ69HjdA+9vBaCbpmBzrENrPV5twa18We16C1s11DR+1pCJ4VczLJryvYRjnO7drhTWZ2wZPVKDUschIo0aWTd/LPtyyJOb0tTGNQc/6zejTbu+1oxjKL4viImJ32KGGDeXTaIS3azMg=
+	t=1791974928; cv=none; b=hLUQgva80Ko/C3UgFn8NZ4//7Bf6kEtKwLLy8Qsct7BuHhVm+iTHEdogFPKoKdukoLUSbwwi4gKpoG+dP7lWjtPhsq3AHdORvRcQLDeA4ieLeS5+u7Xpcq6OUIFyqH9oQfqV1CRhG8WZd4i6f5g2DTI0qm4tLEKF17GyijFkaKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791974922; c=relaxed/simple;
-	bh=QdyQpu2hFChSNt4/Mjsr9hF+BuoJg4ba3p2evjP/Qeg=;
-	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Fkilf3ys2LibeVRVn0Ajs4cSwjJYVXkWGmoWrdIVJzbxoUlBj8VCO5OzV1i/uUCMSNwmLSrSzclC0KZmxqiJdakJljGGM0FGAflavbCbf7bdOJmKfGu9ut9u/2lhweB/e4VqVusTeDB1LmDrALZdBXu2ISpDYTI0ZR/sWEDHSzk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=EUEh3wvS; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1791974928; c=relaxed/simple;
+	bh=xPKEu4TmC0MsURJ7Isp6i7rHEJU3I2oS5F5lxSqbNyY=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=a5XuPXMf52DwZYAiHK7LCN4TEURW/BnwvlYpB55TapOGeCxK5Sk20V/DRlPqvdbC+TfGzDykiM+lRmaHASYmhZ2obwK0SF2yuKOQRT29op2FWMwNwrp29GfOxL9dquqMHv138GWE+WAyWrFHWTmvKuHgPaWQIauBsQ/A7znAASE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZktkPJKR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="EUEh3wvS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1791974919; x=1823510919;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=QdyQpu2hFChSNt4/Mjsr9hF+BuoJg4ba3p2evjP/Qeg=;
-  b=EUEh3wvS0PTZ9u9759drxwZFbPOhPaAYYoRD5tcbiTEkdiPZLDVxZ34P
-   yUDxYYGNQqC7TFixwmD8ei+/QtHB7hxshMk0LRzTXkm2WPpaSKonvgyR3
-   bTx30ZI+SRr7ZfkhaYyQBUU/RxOFY4VYrBf3qiJTicczs8+SFy4taIbWo
-   oB14iTQNq9E50H8Y1Dy+8YjSJXw020s4Qp2SwxD4ba5WuMWjMzGqQ17lc
-   kwm0Y9kHVDeF9V1Yi5Z2r3VqvG8V1KH+g1eqXt8TcSHj3DoDrrRHCdgV9
-   UIskFXV3L6g5ioo19NO2LcBno+lDn1f0fNwN+w61eFNg/+bmrQys7w8iy
-   Q==;
-X-CSE-ConnectionGUID: HFcwCrfnTUOmZMLW62kSbw==
-X-CSE-MsgGUID: ZpwTliLTS2+LCr1mIXE1AQ==
-X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="65300032"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 03:48:38 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
- chn-vm-ex1.mchp-main.com (10.10.87.30) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.49; Wed, 14 Oct 2026 03:48:38 -0700
-Received: from DEN-DL-M77643.microsemi.net (10.10.85.11) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Wed, 14 Oct 2026 03:48:34 -0700
-Message-ID: <01c0303b65b77a9b737d3346bf58feab8408231e.camel@microchip.com>
-Subject: Re: [PATCH net-next v14 5/9] net: dsa: lan9645x: add vlan support
-From: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
-To: <netdev-bot+sashiko@kernel.org>
-CC: <UNGLinuxDriver@microchip.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
-	<davem@davemloft.net>, <kuba@kernel.org>, <pabeni@redhat.com>,
-	<horms@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-	<conor+dt@kernel.org>, <woojung.huh@microchip.com>, <linux@armlinux.org.uk>,
-	<Steen.Hegelund@microchip.com>, <daniel.machon@microchip.com>,
-	<geert+renesas@glider.be>, <magnus.damm@gmail.com>, <edumazet@kernel.org>,
-	<richardcochran@gmail.com>, <linux-kernel@vger.kernel.org>,
-	<netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-renesas-soc@vger.kernel.org>
-Date: Wed, 14 Oct 2026 12:48:33 +0200
-In-Reply-To: <179180428266.434549.5526720693163836060@kernel.org>
-References: <20261008-dsa_lan9645x_switch_driver_base-v14-5-3d2a72661213@microchip.com>
-	 <179180428266.434549.5526720693163836060@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZktkPJKR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DDBD1F00893;
+	Wed, 14 Oct 2026 10:48:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791974926;
+	bh=NB/qLsTfZ3aEmKG51ck6ieOl+XDtU08GyWyG2xFnUoU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ZktkPJKR5FioK2tCP+aWzXkHDtnIPJ7ytb6eZGP9EsqPOHwqHTVazvGt62c9hC0QZ
+	 R2FqYGqFAiSgHqMiP0Fb51FCVYhp+cVy2nk1GhgSh3wUlmB1ZJC19ymZclQ1XTPXkh
+	 NLa79F4xJfA7VeH1Uz0GUhxVlytf+HnYV9W+j8K7M45Hl8xP97cO3wJ/0qykCgTeIc
+	 DUZqE4wDmLoWmvo+7kowFxuz2ob7eGvPDOsZF/HsLIMEpKjo6vYcLC94uwvD7uvZ1s
+	 SwUw0O7JBGhjlIoEB726TUepiHxz94GDP9Hu2BceEbMuapvN4tVFHGQ5cZeusJd5WQ
+	 vt2NQYZVnlgmA==
+Message-ID: <4054d261a8a96c105a45b5b2321086a847f7359e.camel@kernel.org>
+Subject: Re: [PATCH v3] nfsd: prevent a double put of revoked layout stateids
+From: Jeff Layton <jlayton@kernel.org>
+To: Jinpyo Lee <bint4b13@gmail.com>, linux-nfs@vger.kernel.org
+Cc: Chuck Lever <cel@kernel.org>, NeilBrown <neil@brown.name>, Olga
+ Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, Tom
+ Talpey <tom@talpey.com>, 	linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, bobtobabz@gmail.com
+Date: Wed, 14 Oct 2026 06:48:44 -0400
+In-Reply-To: <20261014061218.102648-1-bint4b13@gmail.com>
+References: <3a6b84453aaa75b654155a699d4f85735df9c48d.camel@kernel.org>
+	 <20261014061218.102648-1-bint4b13@gmail.com>
+Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
+ keydata=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
+ QZIQXVeAA+smfTT0tDrisj1U5x6ZB9b3nBg65kc=
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,220 +122,295 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-On Mon, 2026-10-12 at 11:24 +0000, netdev-bot+sashiko@kernel.org wrote:
-> EXTERNAL EMAIL: Do not click links or open attachments unless you know th=
-e content is safe
+On Wed, 2026-10-14 at 15:12 +0900, Jinpyo Lee wrote:
+> nfsd4_free_stateid() finds an admin-revoked layout stateid with
+> find_stateid_locked(), which does not acquire a reference. The layout
+> case drops cl_lock without marking the stateid closed, then stops fence
+> work and calls nfs4_put_stid() without owning a reference. Concurrent
+> disposal can therefore access a freed layout stateid or drop a reference
+> owned by another holder.
 >=20
-> Thank you for your contribution! Sashiko AI review found 3 potential
-> issue(s) to consider.
+> Mark the layout stateid CLOSED under cl_lock. Take a temporary reference
+> before dropping cl_lock and hold it while stopping fence work and
+> draining the remaining layout segments, then release it with the final
+> put. The IDR owns no layout reference.
 >=20
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 2
+> Use cl_lock for the CLOSED update in LAYOUTRETURN as well, matching the
+> common stateid locking rule. Retain ls_mutex through that update and
+> recheck CLOSED under cl_lock after taking ls_mutex in LAYOUTGET, so a
+> stale LAYOUTGET cannot add a segment after the drain. Also make the newly
+> allocated layout stateid the error-path put target.
 >=20
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->=20
-> - [Medium] The commit message says "DSA does not pass
->   SWITCHDEV_ATTR_ID_BRIDGE_VLAN_PROTOCOL to drivers, so an 802.1ad=E2=80=
-=A6
-> - [Low] Concern: the commit message promises VLAN support for VLAN-aware
->   and VLAN-unaware bridges, but at this commit no .port_bridge_join=E2=80=
-=A6
-> - [Low] Concern: runtime VLAN table writes ignore lan9645x_vlan_hw_wr()
->   failures.
->=20
-> --
->=20
-> net: dsa: lan9645x: add vlan support
->=20
-> This patch adds VLAN support to the lan9645x DSA driver. HOST_PVID (4095)
-> is the port VLAN for standalone ports and UNAWARE_PVID (0) is the port VL=
-AN
-> for VLAN-unaware bridge ports. The VLAN table and the per-port VLAN state
-> are serialized with fwd_domain_lock.
->=20
-> > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c b/drive=
-rs/net/dsa/microchip/lan9645x/lan9645x_main.c
-> > index c7de3836e6967..6818b91f4bed2 100644
-> > --- a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
-> > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
->=20
-> [ ... ]
->=20
-> > @@ -296,6 +307,59 @@ static void lan9645x_port_phylink_get_caps(struct =
-dsa_switch *ds, int port,
-> >       lan9645x_phylink_get_caps(ds->priv, port, config);
-> >  }
-> >=20
-> > +static int lan9645x_port_vlan_filtering(struct dsa_switch *ds, int por=
-t,
-> > +                                     bool enabled,
-> > +                                     struct netlink_ext_ack *extack)
-> > +{
-> > +     struct lan9645x *lan9645x =3D ds->priv;
-> > +     struct lan9645x_port *p;
-> > +
-> > +     /* DSA core does not call this for the CPU port */
-> > +     p =3D lan9645x_to_port(lan9645x, port);
-> > +     mutex_lock(&lan9645x->fwd_domain_lock);
-> > +     p->vlan_aware =3D enabled;
-> > +     lan9645x_vlan_port_apply(p);
-> > +     mutex_unlock(&lan9645x->fwd_domain_lock);
-> > +
-> > +     return 0;
-> > +}
->=20
-> [Severity: Medium]
-> The commit message says:
->=20
->   "Only bridge vlan_protocol 802.1Q is offloaded. DSA does not pass
->   SWITCHDEV_ATTR_ID_BRIDGE_VLAN_PROTOCOL to drivers, so an 802.1ad bridge
->   cannot be refused, and the classifier does not honour it."
->=20
-> Is "cannot be refused" accurate? dsa_port_vlan_filtering() in
-> net/dsa/port.c passes the driver's error back to the bridge:
->=20
->     err =3D ds->ops->port_vlan_filtering(ds, dp->index, vlan_filtering,
->                                        extack);
->     if (err)
->         return err;
->=20
-> Could lan9645x_port_vlan_filtering() call br_vlan_get_proto() on the
-> port's bridge and refuse with an extack when the result is not
-> ETH_P_8021Q?
->=20
-> That would cover two cases: turning on vlan_filtering on an 802.1ad
-> bridge, and joining an 802.1ad bridge that already filters, because the
-> join path syncs vlan_filtering through the same callback. Only a
-> vlan_protocol change on a bridge that is already filtering would still
-> get through.
->=20
-> As written, an 802.1ad VLAN-aware bridge is offloaded silently with
-> 802.1Q semantics. lan9645x_vlan_port_apply_ingress() always marks
-> untagged frames as C-tag:
->=20
->     val =3D ANA_VLAN_CFG_VLAN_VID_SET(pvid) |
->           ANA_VLAN_CFG_VLAN_TAG_TYPE_SET(0);
->=20
-> With TAG_TPID_CFG=3D3, those frames would egress tagged with 0x8100, not
-> 0x88a8. C-tagged frames would be classified by their C-VID, not by the
-> pvid.
->=20
-> The tagger already reads br_vlan_get_proto() in
-> lan9645x_xmit_get_vlan_info() in net/dsa/tag_lan9645x.c:
->=20
->     *tag_type =3D (proto !=3D ETH_P_8021Q) ? LAN9645X_IFH_TAG_TYPE_S :
->                                          LAN9645X_IFH_TAG_TYPE_C;
->=20
-> So on such a bridge, would the CPU injection path and the switch
-> datapath disagree? The later "net: dsa: lan9645x: add bridge support"
-> patch also leaves lan9645x_port_vlan_filtering() unchanged.
-
-Right, the next version refuses enabling VLAN filtering in
-port_vlan_filtering() when the bridge vlan_protocol is not 802.1Q, which
-also covers joining a VLAN-aware 802.1ad bridge. That leaves the
-remaining case of a vlan_protocol change on a bridge that already
-filters. This is not handled since DSA does not pass
-SWITCHDEV_ATTR_ID_BRIDGE_VLAN_PROTOCOL.
-
->=20
-> [ ... ]
->=20
-> > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.h b/drive=
-rs/net/dsa/microchip/lan9645x/lan9645x_main.h
-> > index 3a4abedafa2c1..c61efd115aaa4 100644
-> > --- a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.h
-> > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.h
->=20
-> [ ... ]
->=20
-> > @@ -238,6 +255,11 @@ static inline struct lan9645x_port *lan9645x_to_po=
-rt(struct lan9645x *lan9645x,
-> >       return lan9645x->ports[port];
-> >  }
-> >=20
-> > +static inline bool lan9645x_port_is_bridged(struct lan9645x_port *p)
-> > +{
-> > +     return p->lan9645x->bridge_mask & BIT(p->chip_port);
-> > +}
->=20
-> [Severity: Low]
-> This isn't a bug, but at this commit nothing writes bridge_mask and there
-> is no .port_bridge_join, so lan9645x_port_is_bridged() always returns
-> false. The bridged branches in lan9645x_vlan_port_get_pvid() and
-> lan9645x_vlan_port_apply_egress() can't be reached until the later "net:
-> dsa: lan9645x: add bridge support" patch adds lan9645x_port_bridge_join()=
+> Make revoked-stateid disposal idempotent with SC_STATUS_FREED under
+> cl_lock. An in-flight reference can keep an admin-revoked OPEN, LOCK, or
+> DELEG stateid in the IDR after disposal. Restrict
+> nfs40_clean_admin_revoked() to v4.0 clients and skip FREED entries so its
+> retry loop cannot repeatedly select the same stateid or consume reference=
+s
+> owned by other callers. Use FREED rather than CLOSED to guard disposal:
+> delegation recall rejection can set CLOSED before the first disposal call=
 .
 >=20
-> Standalone ports look fine in the meantime. HOST_PVID contains all ports
-> and the CPU, so enabling ANA_VLANMASK drops nothing.
+> Reject FREED stateids in FREE_STATEID and TEST_STATEID as well, so a
+> stateid retained by an in-flight reference returns BAD_STATEID after
+> successful disposal instead of success or ADMIN_REVOKED.
 >=20
-> Could the commit message line "Add VLAN support for VLAN-aware and
-> VLAN-unaware bridges." say that the bridged paths only become active
-> with the bridge support patch?
+> Validation used nfsd-testing at c32fef6c476d. The patched x86_64 kernel
+> and modules were built with GCC 12.2 and booted with Generic KASAN,
+> lockdep, modular NFSD, and pNFS SCSI layout support. Basic NFSv4.2,
+> NFSv4.0, and NFSv3 read/write/unmount smoke tests passed.
 >=20
-> [ ... ]
+> Targeted runs forced concurrent two-slot FREE_STATEID, LAYOUTGET and
+> LAYOUTRETURN overlaps around ls_mutex, and an NFSv4.0 cleaner retry while
+> a READ held an OPEN stateid reference. Stateids were reaped once, stale
+> requests returned BAD_STATEID, and the NFSv4.0 cleaner did not process
+> the NFSv4.1 client. No KASAN, lockdep, refcount, list-corruption, Oops, o=
+r
+> kernel BUG report occurred; kernel taint remained zero.
 >=20
-> > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_vlan.c b/drive=
-rs/net/dsa/microchip/lan9645x/lan9645x_vlan.c
-> > new file mode 100644
-> > index 0000000000000..751da53375368
-> > --- /dev/null
-> > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_vlan.c
-> > @@ -0,0 +1,402 @@
+> The vulnerability research and validation were conducted by members of
+> the Tobabz team as part of the Best of the Best 15th program.
 >=20
-> [ ... ]
+> Fixes: 86b9898920a6 ("NFSD: Handle layout stid in nfsd4_drop_revoked_stid=
+()")
+> Suggested-by: Chuck Lever <cel@kernel.org>
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Jinpyo Lee <bint4b13@gmail.com>
+> ---
+> Changes in v3:
 >=20
-> > +int lan9645x_vlan_port_add_vlan(struct lan9645x_port *p, u16 vid, bool=
- pvid,
-> > +                             bool untagged, struct netlink_ext_ack *ex=
-tack)
-> > +{
+> - Address the v4.0 disposal issue reported by Sashiko and forwarded by
+>   Jeff Layton: claim disposal with FREED under cl_lock and skip FREED
+>   stateids in the admin-revocation scan.
+> - Preserve first-time disposal of delegations already marked CLOSED, and
+>   reject FREED stateids in FREE_STATEID and TEST_STATEID.
+> - Rebase onto nfsd-testing c32fef6c476daa5830f600614657baee59c83339
+>   and add targeted runtime validation.
 >=20
-> [ ... ]
+>  fs/nfsd/nfs4layouts.c | 34 ++++++++++++++++++++++++++++++++--
+>  fs/nfsd/nfs4state.c   | 29 +++++++++++++++++++++++++----
+>  fs/nfsd/pnfs.h        |  6 ++++++
+>  fs/nfsd/state.h       |  6 +++---
+>  4 files changed, 66 insertions(+), 9 deletions(-)
 >=20
-> > +     if (p->chip_port =3D=3D lan9645x->npi)
-> > +             return lan9645x_vlan_cpu_add(p, vid);
-> > +
-> > +     old_vlan =3D lan9645x->vlans[vid];
-> > +     old_pvid =3D p->pvid;
-> > +
-> > +     v =3D lan9645x_vlan_port_modify(p, vid, pvid, untagged);
-> > +     v->portmask |=3D BIT(p->chip_port);
+> diff --git a/fs/nfsd/nfs4layouts.c b/fs/nfsd/nfs4layouts.c
+> index 898776c9d..749ace97e 100644
+> --- a/fs/nfsd/nfs4layouts.c
+> +++ b/fs/nfsd/nfs4layouts.c
+> @@ -312,6 +312,7 @@ nfsd4_preprocess_layout_stateid(struct svc_rqst *rqst=
+p,
+>  		status =3D nfserr_jukebox;
+>  		if (!ls)
+>  			goto out;
+> +		stid =3D &ls->ls_stid;
+>  		mutex_lock(&ls->ls_mutex);
+>  	} else {
+>  		ls =3D container_of(stid, struct nfs4_layout_stateid, ls_stid);
+> @@ -324,6 +325,15 @@ nfsd4_preprocess_layout_stateid(struct svc_rqst *rqs=
+tp,
+>  			goto out_unlock_stid;
+>  	}
+> =20
+> +	/* A new or looked-up stateid may have been closed before ls_mutex. */
+> +	spin_lock(&stid->sc_client->cl_lock);
+> +	if (stid->sc_status & SC_STATUS_CLOSED) {
+> +		spin_unlock(&stid->sc_client->cl_lock);
+> +		status =3D nfserr_bad_stateid;
+> +		goto out_unlock_stid;
+> +	}
+> +	spin_unlock(&stid->sc_client->cl_lock);
+> +
+>  	*lsp =3D ls;
+>  	return 0;
+> =20
+> @@ -537,12 +547,18 @@ nfsd4_return_file_layouts(struct svc_rqst *rqstp,
+>  			nfs4_inc_and_copy_stateid(&lrp->lr_sid, &ls->ls_stid);
+>  		lrp->lrs_present =3D true;
+>  	} else {
+> -		trace_nfsd_layoutstate_unhash(&ls->ls_stid.sc_stateid);
+> -		ls->ls_stid.sc_status |=3D SC_STATUS_CLOSED;
+>  		lrp->lrs_present =3D false;
+>  	}
+>  	spin_unlock(&ls->ls_lock);
+> =20
+> +	if (!lrp->lrs_present) {
+> +		/* ls_mutex prevents a LAYOUTGET from adding another segment. */
+> +		spin_lock(&ls->ls_stid.sc_client->cl_lock);
+> +		ls->ls_stid.sc_status |=3D SC_STATUS_CLOSED;
+> +		spin_unlock(&ls->ls_stid.sc_client->cl_lock);
+> +		trace_nfsd_layoutstate_unhash(&ls->ls_stid.sc_stateid);
+> +	}
+> +
+>  	mutex_unlock(&ls->ls_mutex);
+>  	nfs4_put_stid(&ls->ls_stid);
+>  	nfsd4_free_layouts(&reaplist);
+> @@ -594,6 +610,20 @@ nfsd4_return_all_layouts(struct nfs4_layout_stateid =
+*ls,
+>  	spin_unlock(&ls->ls_lock);
+>  }
+> =20
+> +void nfsd4_return_revoked_layout(struct nfs4_layout_stateid *ls)
+> +{
+> +	LIST_HEAD(reaplist);
+> +
+> +	/*
+> +	 * The caller holds a stateid reference until segment draining ends.
+> +	 * Wait for any LAYOUTGET that passed the CLOSED check.
+> +	 */
+> +	mutex_lock(&ls->ls_mutex);
+> +	nfsd4_return_all_layouts(ls, &reaplist);
+> +	mutex_unlock(&ls->ls_mutex);
+> +	nfsd4_free_layouts(&reaplist);
+> +}
+> +
+>  void
+>  nfsd4_return_all_client_layouts(struct nfs4_client *clp)
+>  {
+> diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
+> index 26d2d56a5..0f1641eab 100644
+> --- a/fs/nfsd/nfs4state.c
+> +++ b/fs/nfsd/nfs4state.c
+> @@ -5849,6 +5849,17 @@ static void nfsd4_drop_revoked_stid(struct nfs4_st=
+id *s)
+>  	struct nfs4_delegation *dp;
+>  	bool unhashed;
+> =20
+> +	/*
+> +	 * In-flight references can keep a disposed stateid in the IDR.
+> +	 * CLOSED alone is not sufficient: a delegation may be closed
+> +	 * before its first call here.
+> +	 */
+> +	if (s->sc_status & SC_STATUS_FREED) {
+> +		spin_unlock(&cl->cl_lock);
+> +		return;
+> +	}
+> +	s->sc_status |=3D SC_STATUS_FREED;
+> +
+>  	switch (s->sc_type) {
+>  	case SC_TYPE_OPEN:
+>  		stp =3D openlockstateid(s);
+> @@ -5867,15 +5878,22 @@ static void nfsd4_drop_revoked_stid(struct nfs4_s=
+tid *s)
+>  	case SC_TYPE_DELEG:
+>  		dp =3D delegstateid(s);
+>  		list_del_init(&dp->dl_recall_lru);
+> -		s->sc_status |=3D SC_STATUS_FREED;
+>  		spin_unlock(&cl->cl_lock);
+>  		nfs4_put_stid(s);
+>  		break;
+>  	case SC_TYPE_LAYOUT:
+>  		ls =3D layoutstateid(s);
+> +		s->sc_status |=3D SC_STATUS_CLOSED;
+> +		/*
+> +		 * The IDR does not own a layout stateid reference. Keep ls
+> +		 * alive while draining worker and segment references below;
+> +		 * the final put releases this temporary reference.
+> +		 */
+> +		refcount_inc(&s->sc_count);
+>  		list_del_init(&ls->ls_perclnt);
+>  		spin_unlock(&cl->cl_lock);
+>  		nfsd4_stop_layout_fence(ls);
+> +		nfsd4_return_revoked_layout(ls);
+>  		nfs4_put_stid(s);
+>  		break;
+>  	default:
+> @@ -7901,6 +7919,8 @@ static void nfs40_clean_admin_revoked(struct nfsd_n=
+et *nn,
+>  		unsigned long id, tmp;
+>  		struct nfs4_stid *stid;
+> =20
+> +		if (clp->cl_minorversion !=3D 0)
+> +			continue;
+>  		if (atomic_read(&clp->cl_admin_revoked) =3D=3D 0)
+>  			continue;
+>  		if (is_client_expired(clp))
+> @@ -7908,7 +7928,8 @@ static void nfs40_clean_admin_revoked(struct nfsd_n=
+et *nn,
+> =20
+>  		spin_lock(&clp->cl_lock);
+>  		idr_for_each_entry_ul(&clp->cl_stateids, stid, tmp, id)
+> -			if (stid->sc_status & SC_STATUS_ADMIN_REVOKED) {
+> +			if ((stid->sc_status & SC_STATUS_ADMIN_REVOKED) &&
+> +			    !(stid->sc_status & SC_STATUS_FREED)) {
+>  				refcount_inc(&stid->sc_count);
+>  				atomic_inc(&clp->cl_rpc_users);
+>  				spin_unlock(&nn->client_lock);
+> @@ -8340,7 +8361,7 @@ static __be32 nfsd4_validate_stateid(struct nfs4_cl=
+ient *cl, stateid_t *stateid)
+>  		return status;
+>  	spin_lock(&cl->cl_lock);
+>  	s =3D find_stateid_locked(cl, stateid);
+> -	if (!s)
+> +	if (!s || s->sc_status & SC_STATUS_FREED)
+>  		goto out_unlock;
+>  	status =3D nfsd4_stid_check_stateid_generation(stateid, s, 1);
+>  	if (status)
+> @@ -8725,7 +8746,7 @@ nfsd4_free_stateid(struct svc_rqst *rqstp, struct n=
+fsd4_compound_state *cstate,
+> =20
+>  	spin_lock(&cl->cl_lock);
+>  	s =3D find_stateid_locked(cl, stateid);
+> -	if (!s || s->sc_status & SC_STATUS_CLOSED)
+> +	if (!s || s->sc_status & (SC_STATUS_CLOSED | SC_STATUS_FREED))
+>  		goto out_unlock;
+>  	if (s->sc_status & SC_STATUS_ADMIN_REVOKED) {
+>  		nfsd4_drop_revoked_stid(s);
+> diff --git a/fs/nfsd/pnfs.h b/fs/nfsd/pnfs.h
+> index 559df0e5b..9b0f17a4d 100644
+> --- a/fs/nfsd/pnfs.h
+> +++ b/fs/nfsd/pnfs.h
+> @@ -75,6 +75,7 @@ struct nfsd4_deviceid_map *nfsd4_find_devid_map(int idx=
+);
+>  #ifdef CONFIG_NFSD_PNFS
+>  void nfsd4_setup_layout_type(struct svc_export *exp);
+>  void nfsd4_return_all_client_layouts(struct nfs4_client *);
+> +void nfsd4_return_revoked_layout(struct nfs4_layout_stateid *ls);
+>  void nfsd4_return_all_file_layouts(struct nfs4_client *clp,
+>  		struct nfs4_file *fp);
+>  void nfsd4_close_layout(struct nfs4_layout_stateid *ls);
+> @@ -93,6 +94,11 @@ static inline void nfsd4_setup_layout_type(struct svc_=
+export *exp)
+>  static inline void nfsd4_return_all_client_layouts(struct nfs4_client *c=
+lp)
+>  {
+>  }
+> +
+> +static inline void nfsd4_return_revoked_layout(struct nfs4_layout_statei=
+d *ls)
+> +{
+> +}
+> +
+>  static inline void nfsd4_return_all_file_layouts(struct nfs4_client *clp=
+,
+>  		struct nfs4_file *fp)
+>  {
+> diff --git a/fs/nfsd/state.h b/fs/nfsd/state.h
+> index 79dfa47b8..924a98af7 100644
+> --- a/fs/nfsd/state.h
+> +++ b/fs/nfsd/state.h
+> @@ -148,9 +148,8 @@ struct nfs4_stid {
+>   * nn->deleg_lock protects sc_status for hashed delegation stateids.
+>   * ->cl_lock protects the bits set as one is disposed of
+>   * (SC_STATUS_CLOSED, SC_STATUS_FREEABLE, SC_STATUS_FREED) and
+> - * sc_status for open and lock stateids. ->st_mutex also protects
+> - * sc_status for open stateids. ->ls_lock protects sc_status for
+> - * layout stateids.
+> + * sc_status for open, lock, and layout stateids. ->st_mutex also protec=
+ts
+> + * sc_status for open stateids.
+>   */
+>  /*
+>   * For an open stateid kept around *only* to process close replays.
+> @@ -161,6 +160,7 @@ struct nfs4_stid {
+>  #define SC_STATUS_REVOKED	BIT(1)
+>  #define SC_STATUS_ADMIN_REVOKED	BIT(2)
+>  #define SC_STATUS_FREEABLE	BIT(3)
+> +/* Disposal has been claimed; in-flight references may still exist. */
+>  #define SC_STATUS_FREED		BIT(4)
+>  	unsigned short		sc_status;
+> =20
 >=20
-> [ ... ]
->=20
-> > +     lan9645x_vlan_hw_wr(lan9645x, vid);
-> > +     lan9645x_vlan_port_apply_ingress(p);
-> > +     lan9645x_vlan_port_apply_egress(p, &info);
-> > +
-> > +     return 0;
-> > +}
->=20
-> [Severity: Low]
-> The return value of lan9645x_vlan_hw_wr() is dropped here. The same
-> happens in lan9645x_vlan_cpu_add(), lan9645x_vlan_cpu_del(),
-> lan9645x_vlan_port_del_vlan() and lan9645x_vlan_set_hostmode(). In each
-> case vlans[vid] is updated and 0 is returned even if the table write
-> timed out.
->=20
-> The comment in lan9645x_vlan_hw_wr() says this is intentional: a timeout
-> most likely means the register bus is dead. Also, the next write for the
-> same VID rewrites the whole entry from the shadow portmask.
->=20
-> If the parent regmap bus can have transient errors, though, would it be
-> better to return the error and restore the old shadow state, as
-> ocelot_vlan_member_add() does? That would keep DSA's refcounted CPU port
-> VLAN state in sync with the hardware.
->=20
-> [ ... ]
->=20
-> --
-> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
-set/20261008-dsa_lan9645x_switch_driver_base-v14-0-3d2a72661213%40microchip=
-.com
+> base-commit: c32fef6c476daa5830f600614657baee59c83339
 
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
