@@ -1,157 +1,366 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011007.outbound.protection.outlook.com [52.101.52.7])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8151D1FDA61;
-	Wed, 14 Oct 2026 10:39:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.7
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791974351; cv=fail; b=Udx2i3jYgXMFP3Md6Hy9V1uu19relPOhzP+JQcQfkFvxRLYzW9n9IXo2fhntLn6LtxvL/GHkC37/SZa4ng3oOuQuLJ62mILPcuYAVFrLA2BL5SPisLDEYO19VUsZRad4m+3jqNUQsX6yjJXD3ic8GvP9HRijKMfmmOSSGlskFvY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791974351; c=relaxed/simple;
-	bh=FSfBWAMnbV2Epx55oDkpI+Mg3Vzn14CM9z/eEs5ApCI=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=epFDvnf39Qfnm8ncJpt5rlnjb4MWimEeuwbtDgZMb2yCYHCvXgWrUgwpAQR38ZrmsDrT1n+7sA4EKRwtANsfAqFH7FGk1JLp3mWmy9dGs6qnhzvIb+T9PYfZmtXGeXsD/SY7ppDKB0woju2ZUU/oPdpH21Zf3v+NbWm3BKUHl2s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=YgWMl5gn; arc=fail smtp.client-ip=52.101.52.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F96548592F;
+	Wed, 14 Oct 2026 10:40:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791974458; cv=none; b=I+6x6DIRezWns2RnThQp5ub3KBqN+Ddbv8waj58CYVVdejaOHsZJU0ncUlhJEAus4pjxn8h9ByuoLvALUeCqpbqAKZ5RP8gqT7PbRl6+pK5yYRahTLmMNaIBqGu7DjVBdyoP92NQsswdLKAuTfLj81tBokJ7apz9wtO1TqdXU2g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791974458; c=relaxed/simple;
+	bh=IzcfgwfK/dbYwDmJS9r2SHQTK6Rqhjeh3z2M2uaOnQ8=;
+	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Kry2xMuTcU3sGVQCpn+zpTm+qkFkR3vziRuJLB7lMVTg0mM7k5Eoq7ZA7DNYMbDD0Xsp/xhf/HWB7UZPDbNH/F4JJs03AsfE5CkekSmfUfBNaIms7YL8f4H8AjpyWCWnsrRFWom6JR5yS2iMVq3mRVMI//XzCEyo/Ngxk2jpWcU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=CtkBxpEh; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="YgWMl5gn"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hZnenJrzwkF8VSAM6vBuQ8MmMuFpyfujJsDPBtH8q2zDXAO8FWHt0FqOuss1jsyrucYjoBPY7vULcAho3hCvQh4KuCvZzFo1UBwohSa0TeaPKxbA43P5JYWZZOBbmTd++3ibmtsUbZqTg4KDisUyGN4cwYSlUCnyHtmLVNHB6OqP78NEXeckJZY66+zN+48pU4YrC1KnF8RAFFQLSTKU8I12eDEF4HHgulDt5fIh1otecS/fGcH3HPU7t8XUmzfpu1sP44yCt82DoF7Ba81Afiyy6OdaS5qTsBGGwF8fTrOiu06EtLQfSu7y5wEXbzBT1+wP9Wl7hACcgyhXd7Kzzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xVNse8SvuN9LcR3FS4GHi3yH8W+eyB29ZWTohpuvapk=;
- b=yu1lCpc14T/TqKUAOQpFpxgOBN+w/iRvVNpP/1tDEi1lYAPUXYLiBHU0NNcO5aqrAyNZwtQgRKwTi+kqEFrJrxpDdVfnOXphFRV7QVlj9b+GlQ9kQmDkyleNfxH8WF0C2iOSnLRDiff1cJ6Davp/HwWh1uLvbVwAkdOU+xjWwUrFa4IPfDPv2tvGko9BwTBwz6cRmlokd8mrs3viI81cDoZ5EWKEEiJ8q2mevqQTRq2FyNcUBDn0N1FSt3v83g7Ze4xJ7uqvu/99xbZv9/jwtK7oBGmZM+/h021Asz6SPJ/BTgmbkYH8zHtuzvx40t5cHNHufMxUVVf6MgvxPrUITg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xVNse8SvuN9LcR3FS4GHi3yH8W+eyB29ZWTohpuvapk=;
- b=YgWMl5gnqMJAUKcD4oq/kogDNL6LL8P0PABVYFEIk5WSYXPJWF66NWCfCPRpIK01nlqci64ja83XQAg/WoGiCxk0l31Y8RW9L8zhBZh6HLU8o++8NW+4Uk9H22FS+dUIFQosXIDDReam4uKw5G1WM5fPAvWh1SDBs6RfE1LBuOrJqasPh2Wm/B+TGj6lyd8TtAOFs+UGDke8qlF1EmZji4kbbbaQobqGA4kcC7HP9BFQjAvfaVJwkYlA9/qYewbekEthJFchFq8Q9NWfXThHWkNGTCYDwyWt3CBz7cTaqx3/iX7dvps5VpfEVXj9KGy1l2gKPcdz5dtmDZV+3zqIuA==
-Received: from SAWPR12MB999267.namprd12.prod.outlook.com
- (2603:10b6:806:55f::17) by CH2PR12MB4229.namprd12.prod.outlook.com
- (2603:10b6:610:a5::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Wed, 14 Oct
- 2026 10:39:05 +0000
-Received: from SAWPR12MB999267.namprd12.prod.outlook.com
- ([fe80::fe35:8a00:d9eb:40f9]) by SAWPR12MB999267.namprd12.prod.outlook.com
- ([fe80::fe35:8a00:d9eb:40f9%4]) with mapi id 15.21.0522.012; Wed, 14 Oct 2026
- 10:39:05 +0000
-From: Ankit Agrawal <ankita@nvidia.com>
-To: Andrea Parri <parri.andrea@gmail.com>, Alex Williamson <alex@shazbot.org>
-CC: Jason Gunthorpe <jgg@ziepe.ca>, Yishai Hadas <yishaih@nvidia.com>, Shameer
- Kolothum Thodi <skolothumtho@nvidia.com>, Kevin Tian <kevin.tian@intel.com>,
-	Jiaqi Yan <jiaqiyan@google.com>, "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] vfio/nvgrace-gpu: Skip PFN registration for empty memory
- regions
-Thread-Topic: [PATCH] vfio/nvgrace-gpu: Skip PFN registration for empty memory
- regions
-Thread-Index: AQHdTQhsT48O9ljgGUuIzOvmQ3TGe7b1tT6AgARURICAAuldjg==
-Date: Wed, 14 Oct 2026 10:39:04 +0000
-Message-ID:
- <SAWPR12MB99926787B53C4FF469A6F3BE7AB09D2@SAWPR12MB999267.namprd12.prod.outlook.com>
-References: <20260925161024.189771-1-parri.andrea@gmail.com>
- <20261009135203.33f3806d@shazbot.org>
- <20261012135842.152928-1-parri.andrea@gmail.com>
-In-Reply-To: <20261012135842.152928-1-parri.andrea@gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SAWPR12MB999267:EE_|CH2PR12MB4229:EE_
-x-ms-office365-filtering-correlation-id: 94d9689c-b844-4758-46c4-08df29df5e8c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|376014|1800799024|23010399003|38070700021|56012099006|261009223027099003|11063799006|4143699003|10067099003|22082099003|18002099003;
-x-microsoft-antispam-message-info:
- B+Twuot7Yejs78gh6gnP5kfou2d9o23+PYHkD0YfR3Z5tFBQwXw16awEvqIZjwMoP34jmPSUijS6ihKNBBqtoQqAo1HpvC1n0ExmTdFNRPdp0vHz+BPqI1S3vxsz4fa8Haj0u97I1rVlHbCiVpayCrbI99FOCKpKSEBx83b0MMhSasaeXlZYE1jkFSy1mrORWI1n84CrFeTkRTrNRTZxnE9hkt2m8DB37/bD2G/jAfadzpL63DzzjUqMCb1UXWa+xF0oQEBTigXm5Ap98m+tVbSy7/xTgHK5Uv1JM4kyBNDHMPOwVj2paYT5NFO/l1/9ezh7KzOhFnGGRVPCtmX1qd7GKDMnIxVuHif9Va4/fzkrhNYcblkZqdM70juRF05uh6jiqZp5vIHOGFDiQ0voZFzh6cs8pfVUx/gXoL5LWihiRvCWS2TH0g/sN37LoSyIKKOGAOl60KRw1mVa86qbZ4gY2zO2ENVv1qb/IVcoU5yHOj2OPs0RDfg1UzFpSYvAMh0eLlwJHFjp9gXM87QXj4sOQhQjFZU1wfmD1z+XkkOLIhtzZzFrA50ptuuV3feF1lFU3Adrr60ZZJUb8oX4H+pYLgDjZxiWcd4d0+MO+N9BKHN4CCnQBgfivO8L1vg1t6IREYoUD1/3SpKyPkx2rtVSsHxnPztp49RQetN7IrOVQX3TWt+bBt6YBK2s9sYthgOm2RihpIlVMLd5eO1zaT5OL508QTfoWWuKNtm6YYk=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SAWPR12MB999267.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(38070700021)(56012099006)(261009223027099003)(11063799006)(4143699003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?EPnT6RfYsMwfE39m+FrheNqtLetmyLCnCsbIRtOjRWBmLm0fV6OO2bKWYy?=
- =?iso-8859-1?Q?mtWTSIYSFKaLfZpnRE+Aarx4aUkqJWTRXyZNJBhJlpQ2jSImh5Du3YgqeF?=
- =?iso-8859-1?Q?OOyxxKsykYgtH/1OVMvZSb98MAXOdFOjnU99xUd65TQSubcNVskewxgt4z?=
- =?iso-8859-1?Q?ugOO2jALXSAOOpBTIsJui75WEzO1Bx4NV821K64kHb4X6AfzjxM4srCClQ?=
- =?iso-8859-1?Q?+nN5gve/+YHWnGxYuOBWOy+7Duly17ODxlQok4ULlrtB5fOC53HJd5s+NX?=
- =?iso-8859-1?Q?tcYKVeafV+8G9p6O92VPdn+vy9zuTtDd4B/eugccY4yVNsDpMjbv7IHTye?=
- =?iso-8859-1?Q?9xI9u1UmorqWD6B6j+RkCmJZyuqnI8YIUUZwt7U7gXHgZzvzEvd89euuxU?=
- =?iso-8859-1?Q?dxLFavJJ+2iXU8sXefa3POUso7wWrK37pmkeEpfJJDo/Arip2aMcpzdqd7?=
- =?iso-8859-1?Q?3nRExpSAu7bQCMlv7kLCJ+q9bwSTJbVrDFXVblxuFMTVKbLlYbwlxYZYFF?=
- =?iso-8859-1?Q?sxtAlm9xuqXf4SzHPHT80t/rSHtLzG22ijwH6Yi+9QCUC8yfLBdKA+F5TQ?=
- =?iso-8859-1?Q?fD1XLCKz06uJDJZt3MajNyFRqtyrsC2xZfiJSP813JNeC0AZWCNR8kAwW4?=
- =?iso-8859-1?Q?SbuIAWPK6bqjxaOYQ5ZCe0OdBRnmRGTkENZrQEq1H15Sm3vpFUc809wQwP?=
- =?iso-8859-1?Q?BIbOlKIfp/++vtHHkVRKFdDpw8VXD9zzoG5/8Dp+fmhbOfXA/EVANhn8eL?=
- =?iso-8859-1?Q?JDbgksquCvA1ohrgLJ+ac1JldlAw0ChfKC3IZyntf/oTPyc47mrhlPHPer?=
- =?iso-8859-1?Q?VixF313C/8WIf20a8ZfaPAMm3K3QrkPLnwEpXGqsHegv7ej5+U9fg3dm0E?=
- =?iso-8859-1?Q?r4nfrqlE2Q8e12iD//wY4vHSeJm9XI+ml1c/N2+HJwo3EsT+RJDsgXKNCS?=
- =?iso-8859-1?Q?VtxEyO2IkmMc58xcarGOBRMr9dm8LiZjTyBELqFngv5+L1S2AlAUTxvXDo?=
- =?iso-8859-1?Q?Xloj8QDwhwGBngVBIK8hPAkQIUFVT7wbeVU0ABdFisTSF7IhgoHwIQenOY?=
- =?iso-8859-1?Q?9cSFCp+CGTbV7FJL1l6+i0E2bxfGFT8kHV3NjeG7xqwPaADEVNmgOqokAt?=
- =?iso-8859-1?Q?P5VJr5sD6W4BI1EDAsnOIfZp5M+9/dDrX1lBn7mTihc2AtsGJnsJIYnCi0?=
- =?iso-8859-1?Q?8LGXjnw3bFQWzOLyCb+8wQQpcpAjhxidIcALy9lNI5NCr1rwwKNvEbyIAy?=
- =?iso-8859-1?Q?lVbFT4WCrR9tMqFX06fFS2p+CO6xdBaAx0p8gliwQg+ihF4t0q8IOZvOxM?=
- =?iso-8859-1?Q?mps8pax3kLDmCRZCYIqcLmPGLfLnoD9S/y0iGmgYiPe3XzrlttDOsc2liu?=
- =?iso-8859-1?Q?+KQRrB5MWmBfrI8CRAz38Nev1ndydgSHGSeivi+M8J+CJoFIMIP12NYiR1?=
- =?iso-8859-1?Q?4Eg1rnpADoPzElfDHf12RM5TVQTVzlG4DCtO3PbcHBtknUNr/JyYtRc5bD?=
- =?iso-8859-1?Q?c27tW1VuU9sIBPejiJXTfPNOu7yJQOyLmpwGm+StnW5eBFp7CKUlO3sxNe?=
- =?iso-8859-1?Q?qHGCo2Mj4qgUiXlLBPPtOpxoM9ukXNhXIKOMBBWV7BuxMwyU+VzIv/o46N?=
- =?iso-8859-1?Q?GdyEWuDxFdTpetq/anWOTia9z+vmKyfMKpm73Ni27YyVjBsMVyPUa8yno1?=
- =?iso-8859-1?Q?ZvVRJORYVC0aZdJIVyJqjuPBPYT/87WtF9cLo3KeWsqa6gcnNCf7Lexomf?=
- =?iso-8859-1?Q?KNLtNiI8OCKmXWNkzWjt4yu5JS9ZIUtyI8MZddEqPNFhmP?=
-Content-Type: text/plain; charset="iso-8859-1"
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="CtkBxpEh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1791974456; x=1823510456;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=IzcfgwfK/dbYwDmJS9r2SHQTK6Rqhjeh3z2M2uaOnQ8=;
+  b=CtkBxpEhhfp2t11G7J+NB43+WlsxbMABl3uCzu/X0+39p+8RCy9dhEMk
+   gymeZ320F793jd+P2a+p6nOjVvJQ7cg0y7sUXfgfiniR6Yv2h/6ry7ufi
+   aTaLE1w6UhrbrPmHC4Mj34MMUa7baiYZo1etEgCfkGY/Bc/rXrsjsgcJp
+   P4ebiSatwjd+0rpGSWsz8haKfPKBXJAWIl8Fyjaq5uJIpPGnpEK6DzvAN
+   Y8rvZQWxauAI8x9kmDa3tCdILh1iuvKom1KvUUfnTbgmBQEM/nabgmKaF
+   ZjT8QllFne/Zlvra2yXG1zQpnITKz/5SmXluAiTa0+M/3R2vkxvkQTS0U
+   g==;
+X-CSE-ConnectionGUID: voNT75EAQq6y2H38VlsPUA==
+X-CSE-MsgGUID: ZDCbUwLpRACt7E8984bZGQ==
+X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
+   d="scan'208";a="75394086"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 03:40:55 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.87.72) by
+ chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.49; Wed, 14 Oct 2026 03:40:54 -0700
+Received: from DEN-DL-M77643.microsemi.net (10.10.85.11) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Wed, 14 Oct 2026 03:40:50 -0700
+Message-ID: <eadf65283d0f700be558ac4c3725de4fb06c085f.camel@microchip.com>
+Subject: Re: [PATCH net-next v14 4/9] net: dsa: lan9645x: add basic dsa
+ driver for LAN9645X
+From: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
+To: <netdev-bot+sashiko@kernel.org>
+CC: <UNGLinuxDriver@microchip.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
+	<davem@davemloft.net>, <kuba@kernel.org>, <pabeni@redhat.com>,
+	<horms@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>, <woojung.huh@microchip.com>, <linux@armlinux.org.uk>,
+	<Steen.Hegelund@microchip.com>, <daniel.machon@microchip.com>,
+	<geert+renesas@glider.be>, <magnus.damm@gmail.com>, <edumazet@kernel.org>,
+	<richardcochran@gmail.com>, <linux-kernel@vger.kernel.org>,
+	<netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-renesas-soc@vger.kernel.org>
+Date: Wed, 14 Oct 2026 12:40:49 +0200
+In-Reply-To: <179180428064.434549.5154143843172991562@kernel.org>
+References: <20261008-dsa_lan9645x_switch_driver_base-v14-4-3d2a72661213@microchip.com>
+	 <179180428064.434549.5154143843172991562@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SAWPR12MB999267.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 94d9689c-b844-4758-46c4-08df29df5e8c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Oct 2026 10:39:05.0182
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 1VqRlW6cs0oCH597t1cVH8p0U/79RiNcNm/xCmEmNuD4VNThErRH0vxy1C+0JKjQO0rydHV1cdEj1PGNIfwvww==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4229
 
-> Agreed, that's a better fix.=A0 For v2 I have:=0A=
->=0A=
->   1/2 gives nvgrace_gpu_pci_core_ops its own open_device, which only=0A=
->=A0=A0=A0calls vfio_pci_core_enable() and vfio_pci_core_finish_enable(),=
-=0A=
->=A0=A0=A0to pair with vfio_pci_core_close_device().=A0 The usemem.memlengt=
-h=0A=
-> =A0 guards from v1 are gone.=0A=
-=0A=
-Thanks Andrea, and Alex for the suggestion. I agree with this approach.=0A=
-=0A=
->=A0 2/2 drops the remaining usemem.memlength check in=0A=
-> =A0nvgrace_gpu_open_device(), since only devices with the ACPI=0A=
-> =A0memory properties reach it now.=A0 Not for stable.=0A=
->=0A=
-> One visible change in fallback mode: open no longer fails when BAR0=0A=
-> cannot be mapped, the same as vfio-pci.=A0 BAR0 was only mapped there for=
-=0A=
-> the readiness check, which fallback mode never runs.=A0 Ankit, please=0A=
-> shout if the fallback path relies on anything else from=0A=
-> nvgrace_gpu_open_device().=0A=
-=0A=
-Yeah, this should be fine. The device missing ACPI entries is not a=0A=
-grace superchip system anyways. So not keeping the special bar0=0A=
-check for the fallback is appropriate.=0A=
-=0A=
-Thanks for fixing this!=0A=
+On Mon, 2026-10-12 at 11:24 +0000, netdev-bot+sashiko@kernel.org wrote:
+> EXTERNAL EMAIL: Do not click links or open attachments unless you know th=
+e content is safe
+>=20
+> Thank you for your contribution! Sashiko AI review found 4 potential
+> issue(s) to consider.
+>=20
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 3
+>=20
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>=20
+> - [Medium] In lan9645x_phylink_mac_link_up()
+>   (drivers/net/dsa/microchip/lan9645x/lan9645x_phylink.c),=E2=80=A6
+> - [Low] lan_rd(), lan_wr() and lan_rmw() in lan9645x_main.h discard
+>   regmap errors.
+> - [Low] On RGMII ports, the MAC delay handling ignores phy-mode.
+> - [Low] Nothing in the tree can bind this driver.
+>=20
+> --
+>=20
+> net: dsa: lan9645x: add basic dsa driver for LAN9645X
+>=20
+> This commit adds a basic DSA driver for the Microchip LAN9645x switch.
+> It covers switch init, named regmaps obtained from a parent device,
+> NPI/CPU/front port setup and phylink MAC configuration. Only the internal
+> CuPHY ports 0-4 and the RGMII ports 7-8 are wired up. The SerDes modes
+> and the MFD parent are left for later series.
+>=20
+> > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c b/drive=
+rs/net/dsa/microchip/lan9645x/lan9645x_main.c
+> > new file mode 100644
+> > index 0000000000000..c7de3836e6967
+> > --- /dev/null
+> > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
+> > @@ -0,0 +1,456 @@
+>=20
+> [ ... ]
+>=20
+> > +static int lan9645x_reset_switch(struct lan9645x *lan9645x)
+> > +{
+> > +     u32 val =3D 0;
+> > +     int err;
+> > +
+> > +     /* The parent must reset the whole chip before instantiating its
+> > +      * children, so the switch core is disabled when we get here. The
+> > +      * sequence below must not run more than once: initializing the
+> > +      * memories on a running core corrupts pointers inside the queue
+> > +      * system, which eventually fills up and stops passing traffic. I=
+f the
+> > +      * core is already enabled the chip was not reset, so skip it.
+> > +      */
+> > +     if (SYS_RESET_CFG_CORE_ENA_GET(lan_rd(lan9645x, SYS_RESET_CFG)))
+> > +             return 0;
+>=20
+> [Severity: Low]
+> What happens here if the regmap_read() under lan_rd() fails? In
+> lan9645x_main.h, lan_rd() only warns and then returns the value it was
+> initialised with:
+>=20
+>     u32 addr, val =3D 0;
+>     ...
+>     WARN_ON_ONCE(regmap_read(lan_tgt2rmap(lan9645x, t, tinst), addr, &val=
+));
+>=20
+>     return val;
+>=20
+> A failed read would look like CORE_ENA=3D0. The CORE_ENA=3D0 / RAM_INIT
+> sequence would then run on a core that may already be enabled. The commen=
+t
+> above says that corrupts pointers inside the queue system. The parent is
+> expected to be SPI based, like ocelot-spi, so bus errors can happen.
+>=20
+> The RAM_INIT write can't be checked either. lan_wr() returns void, and th=
+e
+> self-clearing bit already reads back as 0 if the write was lost.
+>=20
+> The same thing happens in two other places:
+>=20
+>   - lan9645x_set_feat_dis() turns a failed GCB_FEAT_DISABLE read into
+>     num_port_dis =3D 0. That skips the SKU port limit check in
+>     lan9645x_setup().
+>=20
+>   - lan9645x_port_set_maxlen() always returns 0. dsa_user_change_mtu()
+>     therefore raises dev->mtu even when the DEV_MAC_MAXLEN_CFG write
+>     failed.
+>=20
+> Could lan_rd(), lan_wr() and lan_rmw() pass the regmap error back, at lea=
+st
+> on these paths?
+>=20
+> > +
+> > +     lan_wr(SYS_RESET_CFG_CORE_ENA_SET(0), lan9645x, SYS_RESET_CFG);
+> > +     lan_wr(SYS_RAM_INIT_RAM_INIT_SET(1), lan9645x, SYS_RAM_INIT);
+>=20
+> [ ... ]
+>=20
+> > +static int lan9645x_request_target_regmaps(struct lan9645x *lan9645x)
+> > +{
+> > +     const char *resource_name;
+> > +     struct regmap *tgt_map;
+> > +
+> > +     for (int i =3D 0; i < NUM_TARGETS; i++) {
+> > +             resource_name =3D lan9645x_resource_names[i];
+> > +             if (!resource_name)
+> > +                     continue;
+> > +
+> > +             tgt_map =3D dev_get_regmap(lan9645x->dev->parent, resourc=
+e_name);
+> > +             if (IS_ERR_OR_NULL(tgt_map)) {
+> > +                     dev_err(lan9645x->dev, "Failed to get regmap=3D%s=
+\n",
+> > +                             resource_name);
+> > +                     return -ENODEV;
+> > +             }
+>=20
+> [Severity: Low]
+> Does anything in the tree provide these regmaps?
+> lan9645x_request_target_regmaps() needs all 17 named regmaps from
+> dev->parent ("gcb", "qs", ..., "dev0" to "dev8", "qsys", "ana"). If any i=
+s
+> missing it returns -ENODEV. Nothing under drivers/mfd refers to lan9645x
+> or lan96455.
+>=20
+> The commit message says:
+>=20
+>     The MFD driver will come in a later series, because there are
+>     requirements on the number of child devices before a driver qualifies=
+ as
+>     a MFD device.
+>=20
+> Until that lands, the driver cannot probe on any in-tree configuration.
+> Two things can't be tested in-tree:
+>=20
+>   - the regmap naming contract with the parent
+>=20
+>   - the assumption in lan9645x_reset_switch() that the parent has already
+>     reset the chip
+>=20
+> The ocelot_ext driver cited as precedent was merged together with its
+> drivers/mfd/ocelot-spi.c parent.
+>=20
+> Could the parent driver be merged in the same series?
+>=20
+> [ ... ]
+>=20
+> > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_phylink.c b/dr=
+ivers/net/dsa/microchip/lan9645x/lan9645x_phylink.c
+> > new file mode 100644
+> > index 0000000000000..b57beee8329f9
+> > --- /dev/null
+> > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_phylink.c
+> > @@ -0,0 +1,371 @@
+>=20
+> [ ... ]
+>=20
+> > +static void lan9645x_rgmii_dll_config(struct lan9645x_port *p)
+> > +{
+> > +     u32 rx_idx, tx_idx;
+> > +
+> > +     /* DLL register layout:
+> > +      * (N*2):   RGMII_N_RX
+> > +      * (N*2)+1: RGMII_N_TX
+> > +      */
+> > +     rx_idx =3D RGMII_IDX(p->chip_port) * 2;
+> > +     tx_idx =3D RGMII_IDX(p->chip_port) * 2 + 1;
+> > +
+> > +     /* Enable DLL in RGMII clock paths, deassert DLL reset, and start=
+ the
+> > +      * delay tune FSM.
+> > +      */
+> > +     lan_rmw(HSIO_DLL_CFG_DLL_CLK_ENA_SET(1) |
+> > +             HSIO_DLL_CFG_DLL_RST_SET(0) |
+> > +             HSIO_DLL_CFG_DLL_ENA_SET(p->rx_internal_delay) |
+> > +             HSIO_DLL_CFG_DELAY_ENA_SET(p->rx_internal_delay),
+>=20
+> [Severity: Low]
+> Should the MAC delay here depend on the RGMII phy-mode?
+> lan9645x_rgmii_dll_config() enables the RX/TX DLL delays based only on th=
+e
+> rx-/tx-internal-delay-ps values parsed by lan9645x_parse_mac_delay().
+> dsa_port_phylink_create() passes the DT phy-mode unchanged to phylink and
+> the PHY.
+>=20
+> The binding (microchip,lan96455s-switch.yaml) allows 2000 ps for all four
+> RGMII modes, including rgmii-id. Take port 7 or 8 with an external PHY,
+> phy-mode =3D "rgmii-id" and rx/tx-internal-delay-ps =3D <2000>. Both the =
+MAC
+> and the PHY would add 2ns.
+>=20
+> ethernet-controller.yaml says:
+>=20
+>     When the MAC implements the delay, it must
+>     ensure that the PHY does not also implement the same delay. So it
+>     must modify the phy-mode it passes to the PHY, removing the delay it
+>     has added. Failure to remove the delay will result in a
+>     non-functioning link.
+>=20
+> It also says:
+>=20
+>     A value of 2000ps, i.e 2ns, and a phy-mode
+>     of 'rgmii' will not be accepted by Reviewers.
+>=20
+> Should the driver reject this combination, or remove the MAC-added delay
+> from the phy-mode it passes to the PHY?
+>=20
+> [ ... ]
+>=20
+> > +     if (lan9645x_port_is_cuphy(lan9645x, port, interface)) {
+> > +             lan_rmw(CHIP_TOP_CUPHY_PORT_CFG_GTX_CLK_ENA_SET(gtx_clk),
+> > +                     CHIP_TOP_CUPHY_PORT_CFG_GTX_CLK_ENA, lan9645x,
+> > +                     CHIP_TOP_CUPHY_PORT_CFG(p->chip_port));
+> > +     }
+> > +
+> > +     lan_rmw(SYS_PAUSE_CFG_PAUSE_ENA_SET(1),
+> > +             SYS_PAUSE_CFG_PAUSE_ENA,
+> > +             lan9645x, SYS_PAUSE_CFG(p->chip_port));
+> > +
+> > +     /* Flow control */
+> > +     lan_rmw(SYS_MAC_FC_CFG_FC_LINK_SPEED_SET(fc_spd) |
+> > +             SYS_MAC_FC_CFG_FC_LATENCY_CFG_SET(0x7) |
+> > +             SYS_MAC_FC_CFG_ZERO_PAUSE_ENA_SET(1) |
+> > +             SYS_MAC_FC_CFG_PAUSE_VAL_CFG_SET(0xffff) |
+> > +             SYS_MAC_FC_CFG_RX_FC_ENA_SET(rx_pause ? 1 : 0) |
+> > +             SYS_MAC_FC_CFG_TX_FC_ENA_SET(tx_pause ? 1 : 0),
+>=20
+> [Severity: Medium]
+> Can this turn on PAUSE frame transmission on the NPI port? On link up,
+> lan9645x_phylink_mac_link_up() sets PAUSE_ENA to 1 on every port.
+> TX_FC_ENA follows tx_pause, with no exception for lan9645x->npi.
+> lan9645x_npi_port_init() doesn't disable pause on the NPI port either.
+>=20
+> The NPI port has the long prefix extraction header enabled:
+>=20
+> lan9645x_npi_port_init()
+>     lan_rmw(SYS_PORT_MODE_INCL_XTR_HDR_SET(LAN9645X_TAG_PREFIX_LONG) |
+>     ...
+>=20
+> A PAUSE frame sent on the NPI port would get the prefix and IFH like any
+> other extracted frame, so the conduit would not recognise it as PAUSE. Th=
+e
+> port would run in lossless mode while the link partner never honours the
+> pause.
+>=20
+> The DT example in the lan9645x binding gives the NPI port a fixed-link
+> with pause. MAC_SYM_PAUSE is advertised, so phylink resolves
+> tx_pause =3D rx_pause =3D true for the documented example.
+>=20
+> mscc/ocelot uses the same NPI model and had this problem. It was fixed by
+> commit 33cb0ff30cff ("net: mscc: ocelot: don't let phylink re-enable TX
+> PAUSE on the NPI port"). That commit measured CPU termination throughput
+> at 271 Mbit/s before the fix and 926 Mbit/s after.
+>=20
+> felix_npi_port_init() clears SYS_PAUSE_CFG_PAUSE_ENA on the NPI port, and
+> ocelot_phylink_mac_link_up() does:
+>=20
+>     /* Don't attempt to send PAUSE frames on the NPI port, it's broken */
+>     if (port !=3D ocelot->npi)
+>         ocelot_fields_write(ocelot, port, SYS_PAUSE_CFG_PAUSE_ENA,
+>                             tx_pause);
+>=20
+> This also seems to still be the case at the end of the series.
+>=20
+> Should PAUSE_ENA and TX_FC_ENA stay at 0 for lan9645x->npi? And should
+> PAUSE_ENA follow tx_pause on the other ports?
+
+Dismissed, false positive.
+
+In this respect, the chip functions differently from ocelot. The issue has
+been fixed. On lan9645x the MAC formats and transmits PAUSE frames
+itself, after the queue system, so INCL_XTR_HDR does not apply to them
+and they leave the NPI port without the prefix and IFH. Flow control on
+the NPI port works as intended.
+
+PAUSE_ENA only enables the pause request from the queue system to the
+MAC. TX_FC_ENA decides whether the MAC turns it into PAUSE frames, and
+RX_FC_ENA is handled by the MAC on its own. With tx_pause off no PAUSE
+frames are sent and the port tail drops as usual.
+
+
+>=20
+> [ ... ]
+>=20
+> --
+> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
+set/20261008-dsa_lan9645x_switch_driver_base-v14-0-3d2a72661213%40microchip=
+.com
+
