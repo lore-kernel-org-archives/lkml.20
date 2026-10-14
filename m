@@ -1,187 +1,219 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CC5773DD86F
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:14:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 903BB334692;
+	Wed, 14 Oct 2026 06:15:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791958468; cv=none; b=ZiDe/cyJ2PENixRmFf8nNZQMtbrfmdaPmyQ0eOxovA1/l9W5Yg2eTlHuVpy449Ru1rziUSg7OcLCJm9lhooD0rklwHebaevBJoHi/37ftmjKc4D1rlUKs9Ys+tPBHymgFkTYKj2FODDDBfjOLIh16sC3EmQG1TQdD427Q96VOIE=
+	t=1791958521; cv=none; b=LbnD84Q93yVDvy5XOyPF1hh6NzvLJs7uUER56bUYpxGl2FoL4e22oFiK6HCazbAs7cBnIEM0+c2NY86YmO5ejWfifmixkbbBo939284BK0fR4CqET9TLW7om3NVAMefIoyPeAy2TuMaAr6hZ7ORZGzl/CJ3TcgLnrvWViaJAvkA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791958468; c=relaxed/simple;
-	bh=a7qhbNgmdcPYQ6buXTv8OGPWO0Grnhy1fDX5AmFWNhU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jLOgtnxYA5/ldcWc1I3nTH8lBQtQKPOiVz6P3IujtfA5FegWzfxzBfsKs3vHlOn3yXSSq9O2uXvZNKX4dPZg9tBxswye6+kdo19UWjMNZczEn6d2kaAXHPXWlh1kfa2JZcUcUltLm2dnOhvzNxmC8oFyEV7bTZP3+kovzuCCYtw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=iVZjLtZt; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791958521; c=relaxed/simple;
+	bh=84Nq3lZeWPjPrkfggO4wwR0qJjGwAjKkAFbBmQM326o=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=auBf1wF2bSHnZ9YGc+gC/i/pCqNYm5wFfPr5huJBB1sMmBJhuYaD3XU9MbdbTM1NdmPZolkgoI+jqqMUKuC+OWzHsGuJ3YDVNZNJjkLnNslidhAD5jN9teTWTODZJ25EMylPO4XG/M3JtUk1sXbWnY+izIK8YtRRY1lWDEAUAo8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=yw5wwPHM; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=O7YdnDHA; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=yw5wwPHM; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=O7YdnDHA; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="iVZjLtZt"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 59978152B;
-	Tue, 13 Oct 2026 23:14:20 -0700 (PDT)
-Received: from [10.164.19.62] (unknown [10.164.19.62])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0671C3F7B4;
-	Tue, 13 Oct 2026 23:14:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791958463; bh=a7qhbNgmdcPYQ6buXTv8OGPWO0Grnhy1fDX5AmFWNhU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=iVZjLtZtTnUpq+MWM8i1fufHT2ECWkrV3HWNj3WcG/hN9gP+H6H1v93xpCesC3iXX
-	 CQi/6xszKB9Zt761+SEqTqssh9cXgTWtdj2H2ozmWZiK6LvgOQCLvIdI0bH8dhgof8
-	 tc467R1T/ulRHWldWSPWBQMRzgRPRXiY+auEPDBE=
-Message-ID: <c1849f90-58a4-404a-aa01-97b53bd92650@arm.com>
-Date: Wed, 14 Oct 2026 11:44:15 +0530
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="yw5wwPHM";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="O7YdnDHA";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="yw5wwPHM";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="O7YdnDHA"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 56A941F7BD;
+	Wed, 14 Oct 2026 06:15:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791958518; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+iVttZPznqDdv5jLhdlalwWX8aojUPqZWAcRZk9zKiU=;
+	b=yw5wwPHMFXGUtcAQ+4QgOanpn/wbiBbQaH9m9AuvspOzIpEjJ0CPEzBfUMkxuhr9paCi3r
+	RdMYGO72Y5yUixkpv5Nh6ZqsDdDYGmXbRMUOnM4rFKXvqy979cKDRmF7syTKAPhHO1ErXN
+	Y7DUPAwRSyfF/86c8YyEzbPmeMmQpPY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791958518;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+iVttZPznqDdv5jLhdlalwWX8aojUPqZWAcRZk9zKiU=;
+	b=O7YdnDHAnFTiaC9mrIn/kwWsR4tLohFGDkjxtvrCwkyugAC978Sc7yGwEa2AvlC1kAayRq
+	FZQcozrj7Hi3X2DQ==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=yw5wwPHM;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=O7YdnDHA
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791958518; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+iVttZPznqDdv5jLhdlalwWX8aojUPqZWAcRZk9zKiU=;
+	b=yw5wwPHMFXGUtcAQ+4QgOanpn/wbiBbQaH9m9AuvspOzIpEjJ0CPEzBfUMkxuhr9paCi3r
+	RdMYGO72Y5yUixkpv5Nh6ZqsDdDYGmXbRMUOnM4rFKXvqy979cKDRmF7syTKAPhHO1ErXN
+	Y7DUPAwRSyfF/86c8YyEzbPmeMmQpPY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791958518;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+iVttZPznqDdv5jLhdlalwWX8aojUPqZWAcRZk9zKiU=;
+	b=O7YdnDHAnFTiaC9mrIn/kwWsR4tLohFGDkjxtvrCwkyugAC978Sc7yGwEa2AvlC1kAayRq
+	FZQcozrj7Hi3X2DQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7A3731368E;
+	Wed, 14 Oct 2026 06:15:17 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id uzffOfQdz2rdJwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 14 Oct 2026 06:15:17 +0000
+Date: Wed, 14 Oct 2026 08:15:16 +0200
+Message-ID: <87cxtcg64r.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: perex@perex.cz,
+	tiwai@suse.com,
+	kees@kernel.org,
+	2022090917019@std.uestc.edu.cn,
+	nfraprado@collabora.com,
+	cezary.rojewski@intel.com,
+	cassiogabrielcontato@gmail.com,
+	songxiebing@kylinos.cn,
+	sammiee5311@gmail.com,
+	hemanth.selam@gmail.com,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	tiwai@suse.de
+Subject: Re: [PATCH v2] ALSA: vmaster: Serialize hook registration with control callbacks
+In-Reply-To: <pm-pmb-c2667fb9cc42fbb7943c-v4-b7bc2fe90e950accb3f7@gmail.com>
+References: <pm-pmb-c2667fb9cc42fbb7943c-v4-b7bc2fe90e950accb3f7@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 03/10] mm/vmalloc: use pte_set_huge()/pte_clear_huge()
- for PTE-level block mappings
-To: Uladzislau Rezki <urezki@gmail.com>, Wen Jiang <jiangwenxiaomi@gmail.com>
-Cc: akpm@linux-foundation.org, catalin.marinas@arm.com, linux-mm@kvack.org,
- will@kernel.org, Xueyuan.chen21@gmail.com, ajd@linux.ibm.com,
- anshuman.khandual@arm.com, baohua@kernel.org, chleroy@kernel.org,
- david@kernel.org, jiangwen6@xiaomi.com, leo.yan@arm.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, maddy@linux.ibm.com, mpe@ellerman.id.au,
- npiggin@gmail.com, rppt@kernel.org, ryan.roberts@arm.com
-References: <20261002090947.869220-1-jiangwen6@xiaomi.com>
- <20261002090947.869220-4-jiangwen6@xiaomi.com> <asudY_EhrT5fZGmZ@milan>
-Content-Language: en-US
-From: Dev Jain <dev.jain@arm.com>
-In-Reply-To: <asudY_EhrT5fZGmZ@milan>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 56A941F7BD
+X-Rspamd-Action: no action
+X-Spam-Level: 
+X-Spamd-Result: default: False [-2.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[16];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	FREEMAIL_CC(0.00)[perex.cz,suse.com,kernel.org,std.uestc.edu.cn,collabora.com,intel.com,gmail.com,kylinos.cn,vger.kernel.org,suse.de];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+	TAGGED_RCPT(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim]
+X-Spam-Flag: NO
+X-Spam-Score: -2.01
 
-
-
-On 11/10/26 7:59 pm, Uladzislau Rezki wrote:
-> On Fri, Oct 02, 2026 at 05:09:40PM +0800, Wen Jiang wrote:
->> vmap installs PTE-level block mappings by reusing set_huge_pte_at() and
->> huge_ptep_get_and_clear() under #ifdef CONFIG_HUGETLB_PAGE. This makes
->> the feature silently unavailable on CONFIG_HUGETLB_PAGE=n kernels and
->> couples mm/vmalloc.c to HugeTLB internals it does not otherwise need.
->>
->> Now that arm64 and powerpc/8xx provide pte_set_huge() and
->> pte_clear_huge(), add the generic fallbacks next to the existing
->> pmd/pud_set_huge() family and convert vmap_pte_range() and
->> vunmap_pte_range() to the new helpers. The CONFIG_HUGETLB_PAGE guards
->> around the block-mapping paths are dropped, so PTE-level block mappings
->> now also work on CONFIG_HUGETLB_PAGE=n kernels, and mm/vmalloc.c no
->> longer includes <linux/hugetlb.h>.
->>
->> The fallbacks exist only to keep the build working on architectures
->> without PTE-level block mapping support. They are unreachable there:
->> the callers only run when arch_vmap_pte_range_map_size() or
->> arch_vmap_pte_range_unmap_size() return a size other than PAGE_SIZE,
->> which requires an arch implementation. BUILD_BUG() makes that
->> explicit rather than silently doing nothing.
->>
->> Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
->> Reviewed-by: Barry Song <baohua@kernel.org>
->> ---
->>  include/linux/pgtable.h | 29 +++++++++++++++++++++++++++++
->>  mm/vmalloc.c            | 19 ++++++-------------
->>  2 files changed, 35 insertions(+), 13 deletions(-)
->>
->> diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
->> index 8c093c119e5a8..a7fd51fec8a17 100644
->> --- a/include/linux/pgtable.h
->> +++ b/include/linux/pgtable.h
->> @@ -2204,6 +2204,35 @@ static inline int pmd_free_pte_page(pmd_t *pmd, unsigned long addr)
->>  }
->>  #endif	/* CONFIG_HAVE_ARCH_HUGE_VMAP */
->>  
->> +/*
->> + * PTE-level block mappings for vmap.
->> + *
->> + * pte_set_huge() only has to be implemented by architectures whose
->> + * arch_vmap_pte_range_map_size() can return a size other than PAGE_SIZE.
->> + */
->> +#ifndef __HAVE_ARCH_PTE_SET_HUGE
->> +static inline void pte_set_huge(pte_t *ptep, unsigned long addr,
->> +				phys_addr_t phys, pgprot_t prot,
->> +				unsigned long size)
->> +{
->> +	BUILD_BUG();
->> +}
->> +#endif
->> +
->> +/*
->> + * Likewise, pte_clear_huge() only has to be implemented by architectures
->> + * whose arch_vmap_pte_range_unmap_size() can return a size other than
->> + * PAGE_SIZE.
->> + */
->> +#ifndef __HAVE_ARCH_PTE_CLEAR_HUGE
->> +static inline pte_t pte_clear_huge(pte_t *ptep, unsigned long addr,
->> +				   unsigned long size)
->> +{
->> +	BUILD_BUG();
->> +	return __pte(0);
->> +}
->> +#endif
->> +
->>  #ifndef __HAVE_ARCH_FLUSH_PMD_TLB_RANGE
->>  #ifdef CONFIG_TRANSPARENT_HUGEPAGE
->>  /*
->> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
->> index bea9f76ed7e74..fb757d95bde25 100644
->> --- a/mm/vmalloc.c
->> +++ b/mm/vmalloc.c
->> @@ -38,7 +38,6 @@
->>  #include <linux/rbtree_augmented.h>
->>  #include <linux/overflow.h>
->>  #include <linux/pgtable.h>
->> -#include <linux/hugetlb.h>
->>  #include <linux/sched/mm.h>
->>  #include <asm/tlbflush.h>
->>  #include <asm/shmparam.h>
->> @@ -100,7 +99,7 @@ static int vmap_pte_range(pmd_t *pmd, unsigned long addr, unsigned long end,
->>  	pte_t *pte;
->>  	u64 pfn;
->>  	struct page *page;
->> -	unsigned long size = PAGE_SIZE;
->> +	unsigned long size;
->>  
->>  	if (WARN_ON_ONCE(!PAGE_ALIGNED(end - addr)))
->>  		return -EINVAL;
->> @@ -121,17 +120,12 @@ static int vmap_pte_range(pmd_t *pmd, unsigned long addr, unsigned long end,
->>  			BUG();
->>  		}
->>  
->> -#ifdef CONFIG_HUGETLB_PAGE
->>  		size = arch_vmap_pte_range_map_size(addr, end, pfn, max_page_shift);
->>  		if (size != PAGE_SIZE) {
->> -			pte_t entry = pfn_pte(pfn, prot);
->> -
->> -			entry = arch_make_huge_pte(entry, ilog2(size), 0);
->> -			set_huge_pte_at(&init_mm, addr, pte, entry, size);
->> +			pte_set_huge(pte, addr, PFN_PHYS(pfn), prot, size);
->>
-> As far as i understand, X86_64 arches do not use this path. This
-> specifically is only for ARM64 or powerpc. pte_set_huge() makes me
-> thinking about huge-page mappings(PMD/PUD/hugetlb). This helper is
-
-I disagree. All the helpers in hugetlb.c are all "huge" helpers but
-the arch overrides.
-
-It has been a long time since huge mappings have been supported at the PTE
-level, setting it by setting multiple ptes is just an implementation detail.
-
-Similarly, there are CONT-PMD mappings on arm64, we still call them huge mappings,
-it is a matter of implementation that the huge mapping is expressed by setting
-multiple PMDs.
-
- > about mutli page mapping on the PTE level.
+On Wed, 14 Oct 2026 05:59:49 +0200,
+Cen Zhang wrote:
 > 
-> Better naming? pte_set_large()?
+> An HDA virtual-master hook must have its private argument initialized
+> before a control callback can invoke it. snd_hda_add_vmaster_hook()
+> installs the trampoline through snd_ctl_add_vmaster_hook(), which stores
+> master->hook before master->hook_private_data without serialization.
 > 
-> Any thoughts?
+> When a codec with a vmaster mute hook binds to an already registered
+> card, snd_hda_gen_build_controls() publishes and initializes the Master
+> Playback Switch before installing the hook. A native write that changes
+> the switch can then run in the following order:
 > 
-> Other then that:
+>   1. The codec bind path publishes and initializes the master control in
+>      __snd_hda_add_vmaster(), then calls snd_hda_add_vmaster_hook().
+>   2. The hook setter stores master->hook, but has not yet stored its
+>      private argument.
+>   3. SNDRV_CTL_IOCTL_ELEM_WRITE takes controls_rwsem and calls
+>      master_put() while the setter remains between those stores.
+>   4. master_put() sees the callback and invokes vmaster_hook() with a
+>      NULL argument. The trampoline dereferences it before the setter
+>      can complete publication.
 > 
-> Reviewed-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
+> The write lock held by snd_ctl_elem_write() does not exclude the hook
+> setter, so this can cause a NULL pointer dereference. Take the same
+> controls_rwsem for writing inside snd_ctl_add_vmaster_hook() so the
+> callback and its argument are installed together with respect to
+> native control callbacks. Pass the card into the helper and update
+> the HDA caller, keeping the lock in the ALSA core. Release it when
+> registration returns, before the caller synchronizes the hook.
 > 
-> --
-> Uladzislau Rezki
+> KASAN report as below:
+> 
+>     Oops: general protection fault, probably for non-canonical address 0xdffffc0000000001: 0000 [#1] SMP KASAN NOPTI
+>     KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
+>     CPU: 1 UID: 0 PID: 499 Comm: alsa-vmaster-tr Not tainted 7.2.0-rc6-pmb-bt-functional-v1+ #1 PREEMPT(lazy)
+>     Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+>     RIP: 0010:vmaster_hook+0x35/0xb0
+>     Code: f5 53 48 89 fb 48 83 ec 08 e8 57 f0 9a fc eb 50 e8 50 f0 9a fc 48 8d 7b 08 48 b8 00 00 00 00 00 fc ff df 48 89 fa 48 c1 ea 03 <80> 3c 02 00 75 59 48 8d 7b 10 48 8b 43 08 48 ba 00 00 00 00 00 fc
+>     RSP: 0018:ffff888117647cd0 EFLAGS: 00010212
+>     RAX: dffffc0000000000 RBX: 0000000000000000 RCX: ffffffff84e9ff50
+>     RDX: 0000000000000001 RSI: 0000000000000000 RDI: 0000000000000008
+>     RBP: 0000000000000001 R08: 0000000000000001 R09: 0000000000000001
+>     R10: ffffffff89427457 R11: ffff888115ad1d00 R12: ffffffff84e9ff30
+>     R13: ffff888114943ca0 R14: 0000000000000000 R15: 0000000000000001
+>     FS:  00007fe8167b3780(0000) GS:ffff88826b7e3000(0000) knlGS:0000000000000000
+>     CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+>     CR2: 0000557c8c2842a8 CR3: 000000011579f005 CR4: 0000000000770ef0
+>     PKRU: 55555554
+>     Call Trace:
+>      <TASK>
+>      master_put+0x20e/0x2b0
+>      snd_ctl_elem_write+0x37f/0x5e0
+>      snd_ctl_ioctl+0x997/0xdd0
+>      ? __pfx_snd_ctl_ioctl+0x10/0x10
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? selinux_file_ioctl+0xaa/0x280
+>      ? __pfx_snd_ctl_ioctl+0x10/0x10
+>      __x64_sys_ioctl+0x163/0x1d0
+>      do_syscall_64+0x115/0x6a0
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>     RIP: 0033:0x7fe8168c291b
+>     Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00 00
+>     RSP: 002b:00007fffab0cb150 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+>     RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 00007fe8168c291b
+>     RDX: 00007fffab0cb310 RSI: 00000000c4c85513 RDI: 0000000000000003
+>     RBP: 00007fffab0cb310 R08: 0000000000000000 R09: 0000000000000000
+>     R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000001
+>     R13: 00007fffab0cb1c0 R14: 0000000000000001 R15: 0000557c4f71fd10
+>      </TASK>
+>     Modules linked in:
+>     ---[ end trace 0000000000000000 ]---
+> 
+> Fixes: ee52e56e7b12 ("ALSA: hda - Fix mute-LED fixed mode")
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+> Assisted-by: LLM
 
+Applied to for-next branch now.  Thanks.
+
+
+Takashi
