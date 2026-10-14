@@ -1,75 +1,63 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7FA355C1D6
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:44:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 820F855D870
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:44:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791992671; cv=none; b=kufCes0m/FWU4E1ZzzUNOe2m3tV2t4zPAWf/GMhfDunvSSqcS9o4TW76uNYKk6yEnglwSjpu1daRNoaekS/PDFNxpVlU6B4YhBIlOLOUMcx+evcOWZZSrLRVT2xnsZ0+4hGUvU5+fOeerthFtovhYbyG8O3MSnDT7HYDRFe1Vzg=
+	t=1791992674; cv=none; b=N6iqY4A/NgFjZenIpHy/IPEcfbcfsHgERHD/ftgNOGXF5fAjBeLDYDTq668jnNxeeuHlr0mp4ygCr3g7a5Uj4niToem78+ipQLWy6yW7KT/kRvhgIpxT1qy0mD4X+FmVCwglqU8OaNFfZS0YC/oAwSPIqrn1hyuRP/l8zo+fUxg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791992671; c=relaxed/simple;
-	bh=zXOfJVkGourMk1IuHRjPQLpc7OaveEbn9wcmnNP8TJE=;
+	s=arc-20240116; t=1791992674; c=relaxed/simple;
+	bh=2GD9iQ0q0Ryk0Y1hCEDYuwqq89P1KQU2qBZF2vslX5I=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bg0wUoiunX7xiHwoyxv4rCZhFuPrdOQJ0K5L9zwHrGYFP+EIbK29ar1mg02xNxGM+tD2ZR6kum1mh6M6rj0rZowsKLReFinzzSHV8fxvj6mnDMidXlgnyaaAlJlat5zCS89ExEWpaV/3No982OgYo19MLfuei0U1kDShE0PNSVs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KKJ45ai7; arc=none smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=NFfCu0PVUHaxepoAW6pQHUBq/LKiwOiYx9rqdS63pVzCe2mpPrVz6GHILJw8fbhXnTHa6GmQejAU+Eh3/tddcRnf7+Na8Dvw0RK54ceQs8O9r56upkh27a7pL6G2SPuvuFs+knEq7pfq6R3+g7BcLXaQ4iFP/pH8xDcSFRyzlQ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=uD8v375y; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KKJ45ai7"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-398b3c37877so2174946a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:44:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791992668; x=1792597468; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=t1mzg2eBTmUC3buluIr2dQW3TRTEDISyF3jDKMPaMKI=;
-        b=KKJ45ai7+hgdNl6oZKYUGw9NBJTGdUqBZfZgcbowTqOyfV9CnuU0mZyznNpFACN5ms
-         syoM8Jqb0E3+yLPnsAeboYjIdJSODQPMZTD04wI28SFnj/olbkwQd3WsDEjgryXkLSgV
-         cEsTh7AlrFqS5nmznWBerxVLXUKPb/EEO9yrNsW7KldxzgTkszVvapDD9Y7D4NmVCbYx
-         6tmdD4a+tRlOOnU94lkqKZsjcbVU/Ht382jzVaRfXia5RF16dJIq0FxGZ9+V2b9ABgeP
-         vzekwhsLUn2Rk2ft5x0Vq2ICweKFtA6NsDrCBRRwNW13RRCPdxKYqVHUfKhLI3uDGYnQ
-         nI4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791992668; x=1792597468;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=t1mzg2eBTmUC3buluIr2dQW3TRTEDISyF3jDKMPaMKI=;
-        b=hbWL7ynTfz16PfrItxzR5UNvYMtVJxWtp8o56TmAlmrArociWotQ/4gj4vSdETI5rV
-         HzY5IBthwE6FIgZwjo5RKUvrMoRVVPQPT2TMNltMG59P2POkun2Q3XIrhGytDouiYjDq
-         gnNKeiRxq1vfz5xi6i7y9UcuPhwp7XgeqRb17nZGg2qKOAcsCrzqXv3UyBE/8RBN2oNr
-         eWhzEDI94SC7nkg2VwLslFmeHbgNGvajmIwAEZEcLNaQ1vd2Bv4WdWqxIMw8IEp737wF
-         Liu0BLdUn/tsxOYdpyte85UarLAAVW28fecnLtTXBLurE3KlZ4+sE7UxVvYVj1MTpM15
-         TDhA==
-X-Forwarded-Encrypted: i=1; AKwUvBysGvHIuft1CAAc5LT4HAAQQ7fPWFnICAebt36pfRi/XQ/U9H3bHWiSx7zfc4dVFNj55N2Kg8ooufM90oY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJsTnRoIkXox47pzA53tDH2OK2g9P+6G+vQ5xnv18TDbo6a79J6
-	JYJLerRDGwFbojQjlylJYlloAacEVVxYuq74EJqA92+BWCnT5NH+t9Wo
-X-Gm-Gg: AYBFou0CeJPbnJu0hsGhSEcA02/xUeAT7lR7SpOKsC+P126mpvK4dSugA2RTOJnGiop
-	ee2biyioI8ZBC88XWFSmO4i6JNK2uED24Xq3we8Nha08xyMIOkHVTBUBDCM/b8DxEKJAjC0oL0J
-	sWV/aWoHd+C4u7Wpzd8OMSeIbsLNssdKP/uKYt2Wj4LJo8+tuw78c9f1aFzRPTTa4nmuh/+rdOW
-	r9gqNL5wAwcMClcvdjUhb/34vdTbRFD34TrLKxrjlqiFiTVj/2eWddIHcIP4dc4ddzVnWxmKQNj
-	Y/PnbtHzBQTCexeUw/oh0jQRF0OHfwguO4iCH6PlgqaFiGsqKKFpzSlflvwMNyrnTsd5wQD2ExV
-	iHTrU62SmUMf5chVYEO+B3FUPVHAQ+vD7Ys3lsXM4O/OqpBgt9JuBKIiOAVGdmc/ZQFsskzrrfF
-	yOPkvAEcXIhW46Of7TxdGrr5WURj3WReRBjQPd4AuX6ZhfafTLhwhrJ4CgghW4GYeX2vOg/+nS
-X-Received: by 2002:a17:90b:3a48:b0:3a4:acde:1e3b with SMTP id 98e67ed59e1d1-3ab3ab5a652mr14111933a91.13.1791992667531;
-        Wed, 14 Oct 2026 08:44:27 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2a09:bac5:d45b:2e1e::498:19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac5f202d78sm4896722a91.3.2026.10.14.08.44.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 08:44:27 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: Breno Leitao <leitao@debian.org>
-Cc: Tejun Heo <tj@kernel.org>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="uD8v375y"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 978B5C6344E;
+	Wed, 14 Oct 2026 15:45:26 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 92FF060368;
+	Wed, 14 Oct 2026 15:44:30 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 53AA7103289BC;
+	Wed, 14 Oct 2026 17:44:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791992664; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=O3NL8fkErfRFwG+o5fUs2LgXhRTFrJyf5hL+wJ8c3N4=;
+	b=uD8v375ySJi4m+wyAhOk0tJZFCAYruYKj/FsKzKi4F7ppiPZTV5dDp6qRjlrM/GLxBpD6i
+	WKvEbv4Bl4ss6zp9zIGPq72ZZJbzbP422igRxDSa5BHI695w/pY6JnUIu0IeUnonGJYPi4
+	joRr4S4AilFoYNQEtxPF65hAxkI+h1OBsYyNVT8JgTL8LwwW9+b8ROQCNLHdJdIRDxbJ2E
+	QoAzocpf8kphIehTu6Rm+EQ5q9pfm2DWyTruE8tptwK6c9HWJbIeqA0ucqdd3kY1HORQs4
+	b3QDYZ2VSqEEgBqllA+LjKX9DPjOxSQAdzQG7+UGoS1uKg6Y/n7zVs+oU9m/wQ==
+From: Paul Cercueil <paul.cercueil@bootlin.com>
+To: Pratyush Yadav <pratyush@kernel.org>,
+	Michael Walle <mwalle@kernel.org>,
+	Takahiro Kuwano <takahiro.kuwano@infineon.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Mark Brown <broonie@kernel.org>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Cc: Kees Cook <kees@kernel.org>,
+	Tony Luck <tony.luck@intel.com>,
+	"Guilherme G . Piccoli" <gpiccoli@igalia.com>,
+	linux-mtd@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	syzbot+8922e6b8343f70be92e8@syzkaller.appspotmail.com
-Subject: Re: [PATCH v2] workqueue: annotate the lockless nr_running increment racing with need_more_worker()
-Date: Wed, 14 Oct 2026 22:44:23 +0700
-Message-ID: <20261014154423.20915-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261013112905.9673-1-ngocthang2710.1999@gmail.com>
-References: <20261013112905.9673-1-ngocthang2710.1999@gmail.com>
+	linux-spi@vger.kernel.org,
+	Bharat Bhushan <bbhushan2@marvell.com>,
+	Sunil Kovvuri Goutham <sgoutham@marvell.com>,
+	Tanmay Jagdale <tanmay@marvell.com>,
+	Paul Cercueil <paul.cercueil@bootlin.com>
+Subject: [PATCH v3 5/7] spi: cadence-xspi: Add irq-less support
+Date: Wed, 14 Oct 2026 17:42:59 +0200
+Message-ID: <20261014154301.157755-6-paul.cercueil@bootlin.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261014154301.157755-1-paul.cercueil@bootlin.com>
+References: <20261014154301.157755-1-paul.cercueil@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,21 +65,182 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, Oct 14, 2026, Breno Leitao wrote:
-> Isn't it better to annotate the nr_running field in the structure, rather than
-> at reading time?
+From: Tanmay Jagdale <tanmay@marvell.com>
 
-Agreed. The lockless increment is how nr_running is meant to work, so
-the field is the right place for the annotation. v3 marks it
-__data_racy and drops the data_race() in need_more_worker():
+Make the interrupt line optional. If not provided, the driver will
+instead resort to polling registers.
 
-  https://lore.kernel.org/all/20261014154342.20661-1-ngocthang2710.1999@gmail.com/
+This can be useful in itself, but will be used later to support write on
+kernel panic.
 
-The trade-off is that KCSAN now ignores every access to nr_running,
-including the locked ones. If someone later adds a decrement without
-pool->lock, KCSAN won't catch it. I think that's acceptable, because
-the rules are documented right above the field.
+Note the cdns_xspi_is_{sdma,stig}_ready() seem to have moved for no
+reason; they were actually moved out of a conditional compilation block
+(#ifdef CONFIG_64BIT), as they are needed in conf-independent paths now.
 
-Thanks,
-Nguyen Ngoc Thang
+Signed-off-by: Tanmay Jagdale <tanmay@marvell.com>
+Co-developed-by: Paul Cercueil <paul.cercueil@bootlin.com>
+Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
+---
+
+Notes:
+    v2: Make sure we only enable interrupts if not using polling mode
+    
+    v3: No change
+
+ drivers/spi/spi-cadence-xspi.c | 104 ++++++++++++++++++---------------
+ 1 file changed, 58 insertions(+), 46 deletions(-)
+
+diff --git a/drivers/spi/spi-cadence-xspi.c b/drivers/spi/spi-cadence-xspi.c
+index 095bf640b379..2a2a40bf0a4c 100644
+--- a/drivers/spi/spi-cadence-xspi.c
++++ b/drivers/spi/spi-cadence-xspi.c
+@@ -365,6 +365,38 @@ static int cdns_xspi_wait_for_controller_idle(struct cdns_xspi_dev *cdns_xspi)
+ 					  100, 1000);
+ }
+ 
++static bool cdns_xspi_is_stig_ready(struct cdns_xspi_dev *cdns_xspi, bool sleep)
++{
++	u32 ctrl_stat;
++
++	return !readl_relaxed_poll_timeout
++		(cdns_xspi->iobase + CDNS_XSPI_CTRL_STATUS_REG,
++		ctrl_stat,
++		((ctrl_stat & BIT(3)) == 0),
++		sleep ? MRVL_XSPI_POLL_DELAY_US : 0,
++		sleep ? MRVL_XSPI_POLL_TIMEOUT_US : 0);
++}
++
++static bool cdns_xspi_is_sdma_ready(struct cdns_xspi_dev *cdns_xspi, bool sleep)
++{
++	u32 ctrl_stat;
++
++	if (readl_relaxed_poll_timeout
++	    (cdns_xspi->iobase + CDNS_XSPI_INTR_STATUS_REG,
++	     ctrl_stat,
++	     (ctrl_stat & CDNS_XSPI_SDMA_TRIGGER),
++	     sleep ? MRVL_XSPI_POLL_DELAY_US : 0,
++	     sleep ? MRVL_XSPI_POLL_TIMEOUT_US : 0)) {
++		return false;
++	}
++
++	/* Clear the flag */
++	writel(CDNS_XSPI_SDMA_TRIGGER,
++	       cdns_xspi->iobase + CDNS_XSPI_INTR_STATUS_REG);
++
++	return true;
++}
++
+ static void cdns_xspi_trigger_command(struct cdns_xspi_dev *cdns_xspi,
+ 				      u32 cmd_regs[6])
+ {
+@@ -532,7 +564,8 @@ static int cdns_xspi_send_stig_command(struct cdns_xspi_dev *cdns_xspi,
+ 	writel(FIELD_PREP(CDNS_XSPI_CTRL_WORK_MODE, CDNS_XSPI_WORK_MODE_STIG),
+ 	       cdns_xspi->iobase + CDNS_XSPI_CTRL_CONFIG_REG);
+ 
+-	cdns_xspi->set_interrupts_handler(cdns_xspi, true);
++	if (cdns_xspi->irq >= 0)
++		cdns_xspi->set_interrupts_handler(cdns_xspi, true);
+ 	cdns_xspi->sdma_error = false;
+ 
+ 	memset(cmd_regs, 0, sizeof(cmd_regs));
+@@ -562,16 +595,25 @@ static int cdns_xspi_send_stig_command(struct cdns_xspi_dev *cdns_xspi,
+ 
+ 		cdns_xspi_trigger_command(cdns_xspi, cmd_regs);
+ 
+-		wait_for_completion(&cdns_xspi->sdma_complete);
+-		if (cdns_xspi->sdma_error) {
+-			cdns_xspi->set_interrupts_handler(cdns_xspi, false);
++		if (cdns_xspi->irq >= 0) {
++			wait_for_completion(&cdns_xspi->sdma_complete);
++			if (cdns_xspi->sdma_error) {
++				cdns_xspi->set_interrupts_handler(cdns_xspi, false);
++				return -EIO;
++			}
++		} else if (!cdns_xspi_is_sdma_ready(cdns_xspi, true)) {
+ 			return -EIO;
+ 		}
++
+ 		cdns_xspi->sdma_handler(cdns_xspi);
+ 	}
+ 
+-	wait_for_completion(&cdns_xspi->cmd_complete);
+-	cdns_xspi->set_interrupts_handler(cdns_xspi, false);
++	if (cdns_xspi->irq >= 0) {
++		wait_for_completion(&cdns_xspi->cmd_complete);
++		cdns_xspi->set_interrupts_handler(cdns_xspi, false);
++	} else if (!cdns_xspi_is_stig_ready(cdns_xspi, true)) {
++		return -EIO;
++	}
+ 
+ 	cmd_status = cdns_xspi_check_command_status(cdns_xspi);
+ 	if (cmd_status)
+@@ -1052,38 +1094,6 @@ static int cdns_xspi_prepare_transfer(int cs, int dir, int len, u32 *cmd_regs)
+ 	return 0;
+ }
+ 
+-static bool cdns_xspi_is_stig_ready(struct cdns_xspi_dev *cdns_xspi, bool sleep)
+-{
+-	u32 ctrl_stat;
+-
+-	return !readl_relaxed_poll_timeout
+-		(cdns_xspi->iobase + CDNS_XSPI_CTRL_STATUS_REG,
+-		ctrl_stat,
+-		((ctrl_stat & BIT(3)) == 0),
+-		sleep ? MRVL_XSPI_POLL_DELAY_US : 0,
+-		sleep ? MRVL_XSPI_POLL_TIMEOUT_US : 0);
+-}
+-
+-static bool cdns_xspi_is_sdma_ready(struct cdns_xspi_dev *cdns_xspi, bool sleep)
+-{
+-	u32 ctrl_stat;
+-
+-	if (readl_relaxed_poll_timeout
+-	    (cdns_xspi->iobase + CDNS_XSPI_INTR_STATUS_REG,
+-	     ctrl_stat,
+-	     (ctrl_stat & CDNS_XSPI_SDMA_TRIGGER),
+-	     sleep ? MRVL_XSPI_POLL_DELAY_US : 0,
+-	     sleep ? MRVL_XSPI_POLL_TIMEOUT_US : 0)) {
+-		return false;
+-	}
+-
+-	/* Clear the flag */
+-	writel(CDNS_XSPI_SDMA_TRIGGER,
+-	       cdns_xspi->iobase + CDNS_XSPI_INTR_STATUS_REG);
+-
+-	return true;
+-}
+-
+ static int cdns_xspi_transfer_one_message_b0(struct spi_controller *controller,
+ 					   struct spi_message *m)
+ {
+@@ -1276,15 +1286,17 @@ static int cdns_xspi_probe(struct platform_device *pdev)
+ 	}
+ #endif
+ 
+-	cdns_xspi->irq = platform_get_irq(pdev, 0);
+-	if (cdns_xspi->irq < 0)
+-		return -ENXIO;
++	cdns_xspi->irq = platform_get_irq_optional(pdev, 0);
++	if (cdns_xspi->irq < 0 && cdns_xspi->irq != -ENXIO)
++		return cdns_xspi->irq;
+ 
+-	ret = devm_request_irq(dev, cdns_xspi->irq, cdns_xspi_irq_handler,
+-			       IRQF_SHARED, pdev->name, cdns_xspi);
+-	if (ret) {
+-		dev_err(dev, "Failed to request IRQ: %d\n", cdns_xspi->irq);
+-		return ret;
++	if (cdns_xspi->irq >= 0) {
++		ret = devm_request_irq(dev, cdns_xspi->irq, cdns_xspi_irq_handler,
++				       IRQF_SHARED, pdev->name, cdns_xspi);
++		if (ret) {
++			dev_err(dev, "Failed to request IRQ: %d\n", cdns_xspi->irq);
++			return ret;
++		}
+ 	}
+ 
+ #ifdef CONFIG_64BIT
+-- 
+2.47.3
+
