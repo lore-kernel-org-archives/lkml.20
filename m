@@ -1,363 +1,174 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1713E47ACE4;
-	Wed, 14 Oct 2026 08:19:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3555347206C
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:19:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791965953; cv=none; b=KZ31/m3DG54imz2ymWnerR7zfc2wRybjRtg8STyDh7I1QYjcV8fkfAvEXnuLVOZDvmSUq+QFu0k84I5VrjDiXXtvr2pIQnI3J0zuTZIDEWqms1dFv3uSHZLGaLR8Z+uHTxg+XXZQYm5ECrqOA/l9LnZ6zuhxDNgdEVcCMW42b/8=
+	t=1791965971; cv=none; b=C+DwUsnl4gJE/EYPQf0uKKsCnyd1wVyDLT+QTeDlg/S090rj72m+zQNVSmLUZna9RlQ7bTuoP1Q/ZPtbQXhwe55qQajy4bB8VFiwwPXbRH7/TA8mz4Q8MtsvJHgbF7ua1nivGvpXbcwENa9aH0fvxZafR5oxQ3bgfU3pX0/uV7w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791965953; c=relaxed/simple;
-	bh=TnqSYIPvmXi7Jlqp1PlbuouXZFSASkf6zvgyxSZGehc=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=mi+e65v6BjsM16ri2sKND+/xvKn2I88th+n5VT2ZF1t19G6vnleZ/UsUFNpAal7Yl/Z2zcpW9DJO1AOMcNjd2ZGTQIMkfgcr50pjDZ80DXA+5fMu1vuxxZh1DslHeTEb7f3KFGrHodam6arzwMPETwbuqUGWRd+U4ONSMVfFEB0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QZ7OTmlq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791965971; c=relaxed/simple;
+	bh=AF/M2QUc3HS0zAXZvg7CLpXtwc/riRp7CNR+gaWg4ws=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UKCMo0yOxGgi55G/J2pb8ErToKqx/PkRHgobKLz1sHS/8Sk5Xg/T4stm1i/HCdIbwOKdy1iQIrVAYL6YiImsew74Y/49/9HO3rat7BPJ64bOV6BdP8tBqtgMJISI/CWferqDTTeWVryLR858c2Vzs2lOEPpXqdTbSGqZMpBrT6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WAng+t0F; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hdhG1dqY; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QZ7OTmlq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF20E1F00898;
-	Wed, 14 Oct 2026 08:19:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791965949;
-	bh=iMG0H6o2i77Q4MwIy/12e+4FfGXUgFSDm193MMw0c28=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=QZ7OTmlqb/NEfvCt5w2JQZuaCzkWsEmS0L1FfANlUKUrnmTaABEQgFbk3pZ/wEQmO
-	 JfExkIhYBn35z+m+VhO4iAh2aYUsccbhtuNdh4YYsS6SYn5XLo9AomMjotgHrjQcVh
-	 G/fM7qhl8+2oIk/C2/qZacvBiNM+Us5PyiT0HPrOnTpUoKXx5XLY6JJGDbf444lfgS
-	 oRScT1slWmKmTWHq0ik+UHJENtL0SllJ/21SuvqP3jXed3CNVPixUYPjxbHBbzaHxH
-	 ChSLtNjwhGPCR6Oe1r8YvJIsZqzi7GKIYCNTd0jTSWZSfL9tVZsYL1WjIe+GvEJJIA
-	 2PfLrPowtN6RA==
-Subject: Re: [PATCH net v2 3/3] xfrm: transfer the skb->dev reference to the
- input path
-From: netdev-bot+sashiko@kernel.org
-To: q.h.hack.winter@gmail.com
-Cc: netdev@vger.kernel.org, steffen.klassert@secunet.com, chopps@labn.net,
- herbert@gondor.apana.org.au, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, dsahern@kernel.org,
- idosch@nvidia.com, linux-kernel@vger.kernel.org
-Date: Wed, 14 Oct 2026 08:19:08 +0000
-Message-ID: <179196594850.434549.3376029552147276447@kernel.org>
-In-Reply-To: <20261013074610.17808-4-q.h.hack.winter@gmail.com>
-References: <20261013074610.17808-4-q.h.hack.winter@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WAng+t0F";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hdhG1dqY"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69E2RY2p3000901
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:19:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	qF1hH5RPHrSegmpy/X2YYmZ6AEanlyV1H9Uz7n9WGuw=; b=WAng+t0FxI76CvQ/
+	/DKpzWOnE7txhKKnM+yvoKkPopUPuztXagoq8GUOtOhweA8r4ADKMwYTYUiFeMrb
+	G9H85mgZrcLfOr3jf6L2QRmJy5Laja2HbNk4OyyNewlM+7dFoRquqTZ4Qbt6wNDN
+	Hy55gQQraKu4iDc60m0ZYpgBcoMp/1gOHGOOr1UKnBSPPtuhVESqKhdZ0QymHMmD
+	SRqcLGqgLDZ61dYEHfBvKH1kFPyuFxz/F5kFxD53EvMZHQfbzZhBqa6vrwOO6OU4
+	NQdN387amfZIfVybxNmFDRA+a74VT4QwFNSveM+296nbEHpWc1vUL7Rko+w8yFQf
+	Qccx1w==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9sbety2p-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:19:28 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ac450b74b0so2067994a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 01:19:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791965968; x=1792570768; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qF1hH5RPHrSegmpy/X2YYmZ6AEanlyV1H9Uz7n9WGuw=;
+        b=hdhG1dqYzle05R9LcQV+aRe0YTxjPEcxeC0tg43E0Bs71aJcAQzFkg6zKpr1l4Ns5K
+         lhdI3Vwj9nAB+16WZgQLRhAL+6g72TqaM43StvGEsGe2QkyF423Wk+zleINwqrQucnDe
+         ieUy7sNRDjRgF4bSQzg/X/SYaXY+6Q6mT22Ua4F5HjWb4+djG6KWxoJzrvlaizN9EXGT
+         159+2McLA5Vyz8fnwvL5uYXFgL0lUMcSxC7xp25zVX0YnI1HEI5ZLTvMfGze7B37zd/d
+         ACIK2dFP8qtb4LlB7dfGk7jCuef9nqIVOvzGL02N7Yi2tGropu50jDilQ3wASpwJalk1
+         fRVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791965968; x=1792570768;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qF1hH5RPHrSegmpy/X2YYmZ6AEanlyV1H9Uz7n9WGuw=;
+        b=LeamAW8SqhA/ZPnvRlzc+UIrQqJt/jBzCrGCVuJcsC++HwuI3OW+YtIShWLHeytknU
+         aNVhWffB4/+2iimJ7ZsyFu+d/95zpjCMTbPtXm4pUb8UPWqccgHBEFR7F3ZhRVuIkELc
+         nQOTRjJOYC1xzt1glE5x3zt/SYkyeHnQXiIItuiK5q4SZg92yyDWJ6T/H/+d6C/8b2v9
+         O7kj4zLgYZMm/srWGcBEYGgEvpuZF9JBDr7VZgl+cmIguekFcarqOD64TUEOFQr880U2
+         TF1ZpWEKQ+1l7LJGH0obYINDfvlWBIPb4C/jBlib3OT2oiTj6kybexgxXFqz6toQEYvP
+         rScA==
+X-Forwarded-Encrypted: i=1; AKwUvByusL3lirdPMnyGSNRyRK5BcPIoVMnQQ3bjqxhllJxDHlavhZANA6/RHbdDSshmWFAsodFmPc3BVBoPrkw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIyxhGQzyVTaEir4ip9fhkJfSGtp5y0+c9tw2iiXhzsuP6LgDjp
+	3J+D7SOEh9tSlPjvE2tzVogUQzhkHI2J7K3BjAUwpOzIZDftuf1DDmHdbKCe+VQ+OMekjJAk5Z2
+	Dt6VuKqFyRTYO+/pc+HapVC0QdMaRtNeS8loJRnhpcHwpcMNn6xfffredWx/x//MYNn4=
+X-Gm-Gg: AYBFou0CndlmpSROJDCHlh+dXNvTSnDTYzgPMmHHz8hAfFzvRPupjiBVjp5KyJczJCB
+	Fd/18lRqgZ4To9FoXd5/rPAG4h4D/DEJZd1R92SvuCXNtsQ+Aqc4ykBqXj1MkBRiEyjtGsU6jfb
+	fy+d/k4caGcChLqGlicByxmsLyp0HgpJY6Z64bZCzYD1l8ceOGQFIJz2dFrM49UH3pYD2bJIDTd
+	RyccFUsXWVwVsr6+/f4T2pHx/Wsf56asXZZSYYrYGe3nSr3jZzJEHjlnmcEbcyoTy9AVVZvV/Px
+	ZgzTGAa7xz4BLyVRZiLFwHD6uY6Firdt6hrNqYN5EA+n2YxIGa51mmKeFxK5yUs6sSVCpGeC7R2
+	x4bW1bdE1q+Cflh7i4xoml82Jcx8Unk2RBlosXcp6dEsXzhnCEN9ORZdE1Hf42ro=
+X-Received: by 2002:a17:90b:2d86:b0:39d:f4fd:8075 with SMTP id 98e67ed59e1d1-3ab3a60eb9bmr12305271a91.19.1791965967540;
+        Wed, 14 Oct 2026 01:19:27 -0700 (PDT)
+X-Received: by 2002:a17:90b:2d86:b0:39d:f4fd:8075 with SMTP id 98e67ed59e1d1-3ab3a60eb9bmr12305251a91.19.1791965967038;
+        Wed, 14 Oct 2026 01:19:27 -0700 (PDT)
+Received: from [10.133.33.80] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac61171feesm3310846a91.17.2026.10.14.01.19.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 14 Oct 2026 01:19:26 -0700 (PDT)
+Message-ID: <2a6b9567-e07e-40ae-a214-2a4d6bcb29d1@oss.qualcomm.com>
+Date: Wed, 14 Oct 2026 16:19:18 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: shikra: Switch CPU ETMs to MMIO-based
+ probing
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Jie Gan <jiegan@qti.qualcomm.com>
+References: <20260922-fix-etm-probe-issue-on-shikra-v1-1-56d25e9bbe17@oss.qualcomm.com>
+ <3fe1ac52-f69a-4288-88b6-edb5717dd315@oss.qualcomm.com>
+Content-Language: en-US
+From: Jie Gan <jie.gan@oss.qualcomm.com>
+In-Reply-To: <3fe1ac52-f69a-4288-88b6-edb5717dd315@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: yvB2N6NY6qT3z1F35d8sUQDMY577NTbG
+X-Proofpoint-GUID: yvB2N6NY6qT3z1F35d8sUQDMY577NTbG
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDAzMiBTYWx0ZWRfX67eWtUg8Yp2t
+ e1r+P5H918DRB5J5OXA4Hr21d8YsY6aCJWEy1E6gyJdStkhGtFp67UnvEqfgDajSq5/Q322OaXb
+ GkrxP92biVBA3/DlDvA6wDnphopi4IvUE5nIzU7sr/+IBjKeKsA6+2mvc+QCHze5SeGee8Hyiqe
+ YS9gudcpmkwBqzArWYAZ5DoENsru5vvBTf47hLQVI+x/PyFo5EtwuKgL7Dv0odpS057gtsfMxBs
+ e/qPEGG+xghOAYj5zd5BGYyIVdT86HCDI8GQ1YmM4AbgglM+vENIimwPTSrGyGPJKAJqtzu4M42
+ ED1EX2KOHigOhDVLbLu5YbhwJraqteQYwuiDtYUcFVseIL+IoL+BHHWgTGhtJO+yR7p7+pLLBCa
+ NGetPbcVeau27YnnrWLlMu9MGFQ/OwYk03TZC1vb2n9/s4D1Og53ONs80W5WdHbPk+gBIiskzm7
+ hKoKHP9vu4r4FYsYXXA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDAzMiBTYWx0ZWRfX66Sbd1JsT1zk
+ pDjwIOjAKDq6qrqMumBn5JSnnQ2yrOBW8uWg3FngsC3mEg8Bn5pMc3FBr0ePuD1qT5hm2ykTtnb
+ kAov0L4fbu3y/XjNn/aGh8scXNrbQ/U=
+X-Authority-Analysis: v=2.4 cv=U7AHnuru c=1 sm=1 tr=0 ts=6acf3b10 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=Udf1bCXIbt1WAqPULBEA:9 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 malwarescore=0 lowpriorityscore=0
+ adultscore=0 impostorscore=0 bulkscore=0 phishscore=0 suspectscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610140032
+
+
+
+On 10/13/2026 8:38 PM, Konrad Dybcio wrote:
+> On 9/22/26 5:09 AM, Jie Gan wrote:
+>> The etm0-etm3 nodes are declared with "arm,coresight-etm4x-sysreg"
+>> but do not implement self-hosted system-register trace access on
+>> this SoC: ID_AA64DFR0_EL1.TraceVer reads as 0 on the affected CPUs,
+>> so etm4_init_sysreg_access() correctly reports the access mechanism
+>> as unavailable and the ETMv4 driver fails to probe with -EINVAL.
+>>
+>> The CPU ETMs have a memory-mapped aperture, so switch each node to
+>> the standard "arm,coresight-etm4x", "arm,primecell" compatible with
+>> its MMIO reg range.
+>>
+>> Fixes: eed738c6dd0c ("arm64: dts: qcom: shikra: Add coresight nodes")
+>> Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
+>> ---
+> 
+> Do we still need qcom,skip-power-up on new SoCs *with* MMIO access?
+> 
+
+Yes, we need qcom,skip-power-up for all ETM device with or w/o MMIO access.
+
+> GPT has concerns regarding whether we need to add
+> arm,coresight-loses-context-with-cpu>
+
+This logic to be handled by HYP on Shikra SoC, so I didnt enable it in 
+kernel.
+
+This property related to etm register save and restore during pm_notify.
+
+Thanks,
+Jie
+> otherwise lgtm
+> 
+> Konrad
 
-Thank you for your contribution! Sashiko AI review found 6 potential
-issue(s) to consider.
-
-Critical: 0 · High: 4 · Medium: 2 · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] In xfrmi_rcv_cb() (net/xfrm/xfrm_interface_core.c),
-  dev_hold(dev) only runs when skb->dev != xi->dev (line 378-383), but…
-- [High] vti_input() (net/ipv4/ip_vti.c:66) and vti6_input_proto()
-  (net/ipv6/ip6_vti.c:326) always call dev_hold(tunnel->dev).
-- [High] The dev_hold() added in vti_input()/vti6_input_proto() is only
-  released if a receive callback later runs for the same skb.
-- [High] In the decaps and GRO paths, xfrm_input() calls dev_put(tdev)
-  right after gro_cells_receive() returns (net/xfrm/xfrm_input.c:775-777…
-- [Medium] In xfrmi_rcv_cb(), the err==0 call takes the reference
-  (dev_hold(xi->dev), skb->dev = xi->dev) and can still fail afterwards:…
-- [Medium] For a cross-namespace collect_md xfrm interface (xnet true,
-  xi->p.collect_md), xfrmi_rcv_cb() takes dev_hold(xi->dev) and calls…
-
---
-
-xfrm: transfer the skb->dev reference to the input path
-
-This patch has vti_input() and vti6_input_proto() take a reference on the
-tunnel device. xfrmi_rcv_cb() takes one when it installs the device in
-skb->dev. xfrm_input() then releases that reference after the skb has been
-handed to gro_cells_receive() or transport_finish(), and the callbacks
-drop it on their error paths.
-
-> diff --git a/net/ipv4/ip_vti.c b/net/ipv4/ip_vti.c
-> index 3b80929994a00..1964482064c16 100644
-> --- a/net/ipv4/ip_vti.c
-> +++ b/net/ipv4/ip_vti.c
-> @@ -63,6 +63,8 @@ static int vti_input(struct sk_buff *skb, int nexthdr, __be32 spi,
->  
->  		XFRM_TUNNEL_SKB_CB(skb)->tunnel.ip4 = tunnel;
->  
-> +		dev_hold(tunnel->dev);
-> +
->  		if (update_skb_dev)
->  			skb->dev = tunnel->dev;
->  
-
-[Severity: High]
-This hold is unconditional. On the success path, xfrm_input() only
-releases it if skb->dev changed during the call:
-
-net/xfrm/xfrm_input.c:xfrm_input() {
-    struct net_device *dev = skb->dev;
-    ...
-    tdev = skb->dev != dev ? skb->dev : NULL;
-    gro_cells_receive(&gro_cells, skb);
-    if (tdev)
-        dev_put(tdev);
-    ...
-}
-
-What happens if skb->dev already is tunnel->dev when xfrm_input() is
-entered? In that case the skb->dev = dev assignment in vti_rcv_cb()
-changes nothing and tdev stays NULL. The reference taken here would then
-leak for every packet that is delivered successfully.
-
-Nested ESP decapsulated twice by the same VTI looks like one way to get
-there. For a keyless inner packet, ip_tunnel_lookup() can return the same
-tunnel through a wildcard VTI (saddr=daddr=0), the ip_vti0 fallback, or
-matching inner endpoints, because the link is only a preference.
-vti6_tnl_lookup() matches only on addresses plus tnls_wc, so the IPv6 side
-looks the same.
-
-The update_skb_dev branch just below also sets skb->dev = tunnel->dev
-before xfrm_input() runs. No in-tree caller passes true today, but if one
-did, wouldn't every packet leak a reference?
-
-Would ip link del or netns teardown then hang in netdev_wait_allrefs_any()
-on this device?
-
-In this case the new comment in vti_rcv_cb(), "on success it is
-transferred with skb->dev and released by xfrm_input()", doesn't hold.
-xfrmi_rcv_cb() also only takes its reference when skb->dev changes, so
-vti/vti6 and xfrmi follow different rules for the same release check.
-
-[ ... ]
-
-> diff --git a/net/ipv6/ip6_vti.c b/net/ipv6/ip6_vti.c
-> index ab94b3a4ba9c3..a47acae4756c2 100644
-> --- a/net/ipv6/ip6_vti.c
-> +++ b/net/ipv6/ip6_vti.c
-> @@ -322,6 +322,9 @@ static int vti6_input_proto(struct sk_buff *skb, int nexthdr, __be32 spi,
->  		rcu_read_unlock();
->  
->  		XFRM_TUNNEL_SKB_CB(skb)->tunnel.ip6 = t;
-> +
-> +		dev_hold(t->dev);
-> +
->  		XFRM_SPI_SKB_CB(skb)->family = AF_INET6;
->  		XFRM_SPI_SKB_CB(skb)->daddroff = offsetof(struct ipv6hdr, daddr);
->  		return xfrm_input(skb, nexthdr, spi, encap_type);
-
-[Severity: High]
-The reference taken here, and the one in vti_input(), is only dropped if a
-receive callback later runs for this same skb. Is that guaranteed when the
-SA is in IPTFS mode?
-
-iptfs_input() always returns -EINPROGRESS. xfrm_input() then returns
-without calling xfrm_rcv_cb() and without reaching the tdev release:
-
-	err = xfrm_inner_mode_input(x, skb);
-	if (err == -EINPROGRESS) {
-		if (async)
-			dev_put(dev);
-		return 0;
-
-IPTFS then frees the outer skb on several paths that skip the callbacks:
-
-net/xfrm/xfrm_iptfs.c:__input_process_payload() {
-    ...
-	if (defer) {
-		consume_skb(defer);
-    ...
-}
-
-If the original skb is reused for a partial inner packet, it becomes
-xtfs->ra_newskb. That skb is later freed in one of three places:
-
-  kfree_skb() in __iptfs_reassem_done()
-  kfree_skb_reason(skb, SKB_DROP_REASON_FRAG_REASM_TIMEOUT) in
-  iptfs_drop_timer()
-  kfree_skb() in iptfs_delete_state()
-
-iptfs_delete_state() also frees the reorder-window skbs in w_saved with
-kfree_skb().
-
-The inner skbs built by iptfs_alloc_skb() copy dev and the skb extensions
-but not cb. Their tunnel pointer is therefore NULL, and vti_rcv_cb() and
-vti6_rcv_cb() return 1 for them without dropping the outer skb's
-reference.
-
-Could each of these outer packets leak one reference on the VTI device? A
-reassembly timeout after ordinary packet loss looks like enough to trigger
-it. This still seems to be true with the preceding commit "xfrm: iptfs:
-run the receive callbacks before freeing the skb" applied.
-
-[ ... ]
-
-> diff --git a/net/xfrm/xfrm_input.c b/net/xfrm/xfrm_input.c
-> index f293d5e124d47..bdd493f9d877a 100644
-> --- a/net/xfrm/xfrm_input.c
-> +++ b/net/xfrm/xfrm_input.c
-
-[ ... ]
-
-> @@ -767,7 +768,13 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
->  			skb_dst_drop(skb);
->  		if (async)
->  			dev_put(dev);
-> +		/* Release the reference a receive callback left with
-> +		 * skb->dev, after the packet has been delivered.
-> +		 */
-> +		tdev = skb->dev != dev ? skb->dev : NULL;
->  		gro_cells_receive(&gro_cells, skb);
-> +		if (tdev)
-> +			dev_put(tdev);
-
-[Severity: High]
-Has the packet actually been delivered at this point?
-gro_cells_receive() only queues the skb on the per-CPU xfrm gro_cells and
-calls napi_schedule(). The skb is processed later, in
-gro_cell_poll()->napi_gro_receive(), which dereferences skb->dev.
-
-Nothing purges the global xfrm gro_cells when a vti or xfrmi device is
-unregistered. netdev_run_todo() frees the device as soon as
-netdev_wait_allrefs_any() sees the refcount at 1.
-
-Suppose the gro_cell NAPI poll is deferred (to ksoftirqd, on PREEMPT_RT,
-or after a crypto completion in process context). Can a concurrent
-RTM_DELLINK then free the device before gro_cell_poll() touches skb->dev?
-The xfrm_gro branch below drops tdev the same way.
-
-xfrm_trans_queue_net() in this file holds skb->dev across deferred
-delivery:
-
-	if (skb->dev)
-		dev_hold(skb->dev);
-
-This window existed before the patch. However, the commit message says the
-reference is released "once the packet has been delivered" and that
-RTM_DELLINK "now waits for the completion". Neither seems to be true for
-this gro_cells path, which is the tunnel-mode path from the KASAN report in
-the commit message.
-
->  		rcu_read_unlock();
->  		return 0;
->  	} else {
-
-[ ... ]
-
-> diff --git a/net/xfrm/xfrm_interface_core.c b/net/xfrm/xfrm_interface_core.c
-> index 688306bf62c5a..f4859be7ed189 100644
-> --- a/net/xfrm/xfrm_interface_core.c
-> +++ b/net/xfrm/xfrm_interface_core.c
-> @@ -375,11 +375,18 @@ static int xfrmi_rcv_cb(struct sk_buff *skb, int err)
->  
->  	link = skb->dev->ifindex;
->  	dev = xi->dev;
-> -	skb->dev = dev;
-> +	if (skb->dev != dev) {
-> +		/* Reference travels with skb->dev; released by xfrm_input()
-> +		 * after delivery.  Guard makes a re-invocation a no-op.
-> +		 */
-> +		dev_hold(dev);
-> +		skb->dev = dev;
-> +	}
-
-[Severity: High]
-The hold only happens when skb->dev != xi->dev, but the dev_put() added to
-the err branch below always runs. What happens with nested IPsec that
-terminates on the same xfrm interface?
-
-After the outer tunnel-mode SA is decapsulated, skb->dev is the xfrmi
-device. The inner ESP then comes back in through:
-
-xfrm4_rcv()->xfrmi4_rcv()->xfrmi_input()->xfrm_input()
-
-At that point skb->dev == xi->dev, and the secpath is still there because
-the non-xnet scrub does not reset it. xfrmi_lookup() can map the inner SA
-to the same xi, either through a matching if_id or through the
-collect_md_xfrmi fallback:
-
-	xi = rcu_dereference(xfrmn->collect_md_xfrmi);
-	if (xi && (xi->dev->flags & IFF_UP))
-		return xi;
-
-In that case this block takes no hold. Any drop after the inner SA has been
-added to the secpath (replay check, ICV failure, hard lifetime expiry and
-so on) goes through the drop label in xfrm_input():
-
-drop:
-	if (async)
-		dev_put(dev);
-	xfrm_rcv_cb(skb, family, xfrm_proto, -1);
-	kfree_skb(skb);
-
-That reaches the dev_put() below with no matching hold. The same happens
-when the err == 0 call returns -EPERM, -EINVAL or -ENOMEM and the callback
-is called again with err == -1.
-
-Can this underflow the xfrmi refcount by one for every dropped packet? On
-unregister, netdev_wait_allrefs_any() could then return while real holders
-still exist. The "Guard makes a re-invocation a no-op" comment only seems
-true when the first call took the reference.
-
->  
->  	if (err) {
->  		DEV_STATS_INC(dev, rx_errors);
->  		DEV_STATS_INC(dev, rx_dropped);
-> +		dev_put(dev);
->  
->  		return 0;
->  	}
-
-[Severity: Medium]
-Suppose the err == 0 call takes the reference and then fails: -EINVAL for
-a NULL inner mode or -EPERM from xfrm_policy_check() in the xnet case, or
--ENOMEM from metadata_dst_alloc(). The release then depends on the
-err == -1 call from the drop label reaching this dev_put().
-
-That second call repeats xfrmi_lookup() after xfrm_input() has done
-rcu_read_unlock(), and no lock is held between the two calls:
-
-	xi = xfrmi_lookup(xs_net(x), x);
-	if (!xi)
-		return 1;
-
-If the interface is set down (IFF_UP cleared), or deleted through
-xfrmi_dev_uninit()->xfrmi_unlink(), inside that window, the lookup returns
-NULL and the dev_put() is skipped. If the lookup falls back to
-collect_md_xfrmi instead, a different device gets held and put.
-
-Since kfree_skb() does not release skb->dev, is the reference on the
-original device leaked in either case?
-
-[Severity: Medium]
-Can the -ENOMEM path also skip this dev_put() for a cross-netns
-collect_md interface? With xnet true, xfrmi_scrub_packet() runs after the
-hold and resets the secpath:
-
-	if (!xnet)
-		return;
-
-	ipvs_reset(skb);
-	secpath_reset(skb);
-
-Now suppose metadata_dst_alloc() fails:
-
-		md_dst = metadata_dst_alloc(0, METADATA_XFRM, GFP_ATOMIC);
-		if (!md_dst)
-			return -ENOMEM;
-
-The err == -1 call from xfrm_input() then returns early at the top of
-xfrmi_rcv_cb(), because the secpath is gone:
-
-	if (err && !secpath_exists(skb))
-		return 0;
-
-Would the xfrmi reference then never be released?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261013074610.17808-1-q.h.hack.winter%40gmail.com
