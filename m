@@ -1,186 +1,106 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B27547DFA9
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:31:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792017106; cv=none; b=VxUObVuIlj6u73m04xOCUTmhgkVmLEyIG1uBfNLQTFayUl/p0i12bWInueSUjcKbcXnegcFriNbAp11U192Yg89kAaKXqDhqGZEw569321wMYOv9ixv355eLy+F3ksxfKl8AUrosBzBcHx40WziEvhoah0AgvYU8LtBEy2cHyYc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792017106; c=relaxed/simple;
-	bh=e8AVypFcDpfdqFKE+7LYw0E3D2q4xn1i6UyrrzKEcsA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bbSzBdbf3tXsfFMzQQNoyk5cBruOJLFSZOlAhf2uKP0eteCAKTgCx7d8ySkcetRTSG6AWPWlfa+mNkelM6elWWkBDsQOrKrJY9wpIDiSxJWVG0rHsaKZ9tgIAl002ZCtspvsClBLIFWu/KCSE89EyRQNnkpikJxvxvMjTFzZ+4k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tDE2yJAB; arc=none smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F21AA4A8A18
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:32:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792017157; cv=pass; b=N6nf5pOkxIH13tXX2veKJZs6wIoXgue/aSFf/Fo26SNLhAyi9lkx5OoW1qYKTRGS9ZwSIbxLTYZ7XqPm2cJUSh7rVsqkWeCACabVezDLf78LzUI3PA9yz5sh18f/kpqGtaCJniJL9vts6kYi/Bk3M5me05Ju52Y8qH3knuF6vQw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792017157; c=relaxed/simple;
+	bh=4+84p/RrrdzZmA9eMDawKM5I6T2GTBD+KG/Q+hsl6kM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qQ3FK7NtkHlT0kkBHUhgG1tupSFxdujhxDAr7clZ11CmBosAUQmYV/FtViv9nU1eeTkrT4Yy5ucjIPylFmqYAuPH+m6HJpiBBz0u+lwS90FNKX5HQYFP78dJuuqK9lhLZZX0Nptaa2bwVKnnhShq7qJoHJ3hRPoEiOQ6NT6YWtQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=YO7Q3Q8y; arc=pass smtp.client-ip=209.85.208.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tDE2yJAB"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48b09c273caso700242f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:31:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="YO7Q3Q8y"
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6b1aa36fc0eso698a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:32:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792017154; cv=none;
+        d=google.com; s=arc-20260327;
+        b=c5mtn5+J7KTj9NYI0pyrRkLGoMRa3zbucft4HDTpijbU+pOuVQ1l2sDAEMy91h93Ej
+         8lFpiCV194DpL0NpUa1z8rjSf42A5TU6i4swrbF/Z5XH4GcwdEp940bd4DvKR2HJGxX5
+         NfVKjffoUXgbFAjphNibPRxs/Me+dLEcdnR+41mu0uvosR67BAyOwAX3fbItqPZVVggQ
+         GqgYYCBjQwm6ahc2rrE+VKe+wgNcKE8w/chLHi8ONYzMkCEJ6/E3OUjImVbvcRZdoHSs
+         gWWMnwWosJksdPjDefSuz36zvttRPdyHCgAuLS2Y9SHgYfd+OWWDd1cBYeK1jk397NoK
+         lsjg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=4+84p/RrrdzZmA9eMDawKM5I6T2GTBD+KG/Q+hsl6kM=;
+        fh=F1IovP5j4eCiJxi5mnSIg4tGWIER9epmW9BOSO3HE5g=;
+        b=h9RjGOD6+ZGgmJNaLq5WgGRJpXu1kPR+5ayMfDn6uYMsiBmf6N+bOjV/viMhWd66oW
+         3k//Esd3e9i35b1qc6Y1Yov54ehJnsfar7GPKnZ6U/FrQ8UJsqUcpNuprEwrbH0FG0Pq
+         e6KfLgC4ASV5APtC6rP92QOTO7fIAkgDSrI0FfvUOZ10rckJaRe5UAA4GY4jIqDratdk
+         VHRH2sYQoGqpGdQrEmsQ2iy1nfjXvb1bCpzCfLBnN6OZ0rLlpvNWzFFU3sj7RnaZUp6T
+         0QyvF5o1hSgjHyJPq32/4LObUNjFTAJYedC94s+P1oD4Sx+/KCQZsjm1h/FsvSCE5F3i
+         qROA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792017103; x=1792621903; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CzeUoH4s3R1vjJ6KljgBZ8kapLArpobGIe88CwWkAgM=;
-        b=tDE2yJABcesOiY8WErmRXowj5J8AjTQ+03xDLagyOKCXlMsmH+Wos3ugvA9NpkWQSB
-         2Q6CGZ+SpRNKcyRwln9On96EwQ5DG6nJ0Ws5cxnh98W5kwHCXJMi1ZDKkZO7kQqT2fjU
-         E3XN+ftbMs/eGGSJt4wvhknGl6ji1uHm8PaB2u/iujWgHHiD1CFzrWS2+P84jYRwFYda
-         82wn/OsUuAR7c7Rnvb4rmHiRpScCkCU3yMv80wbNiQNUM84bcLLPQoZh8GvTvw9ZzoJV
-         mydzrwtSY8S/UVgLT/PeKUmCuvEKCxWKVdlQwAz/JjaJSavPHXGHr4DYrIcLm7a//pBM
-         SYmQ==
+        d=google.com; s=20251104; t=1792017154; x=1792621954; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4+84p/RrrdzZmA9eMDawKM5I6T2GTBD+KG/Q+hsl6kM=;
+        b=YO7Q3Q8ypaRb+MU4PObCrJGi3EfLi/wDAr+yhPepMXqp4hgVEysmioMT2R3N2ROyFg
+         pJg6jPQK88gA0RH1Eiu+HbbRvDtmXhTG8Al3LIdqPOPCxFeVYjXSODySOhiv4XhLp3YV
+         qcJMz/FWjJoT8o0I0KzONRNyNTXxUEGkRoLDROMqCAhW2oH9GpDmS7KulxhbfoLgIpIS
+         HE983Z5K5vYliffvb+xW8WFV0KeEigkXeYTr+zFnyw+Z+580D2eUwxp2Yd621Xkq1ElK
+         wVX/X4EY/umm8YQSucvCJuDmLJmZN63d5HGXlEJTHBLlp6uiLDiUd4WqaxuxBveHmzV9
+         NEjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792017103; x=1792621903;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CzeUoH4s3R1vjJ6KljgBZ8kapLArpobGIe88CwWkAgM=;
-        b=ATxVhKfEAeUxT25yCVm6xOZFGO7qbtq2loPPcq5i2tyvXxGp/Wt25YSIedbXQo1hR3
-         GxaZltwJp6MZUUdiWdYurGh14CoW+A8likt4zUByqx1ogltkvNzXrItYgVdGwKNeLM1O
-         B5yeclTgLD1x/cHb2ORv8HI0S2GLTccwZpPgyITos7TybZxSo8Q/a1qJ5OBiKDZUZeSo
-         F6Ns6sZSf811JV4Qv5R//L+A0Ek5yDZyMdlXWB8npClwgtjq6gNB+f/dOnRm895AFLrL
-         d6WKbHKtUjY2eddhMkYrT6jEPU3jKHPIZya4On6lcbmwB54uKXjxORsclGdkuoOPjeC0
-         X+LQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxJUsIFwhrpwV/17B9GzIkQOl3aCyryO3jxW58WA9SEOWWLZd+37Ianv8Sb2Gi9WmFWGyJ0dO1dKrkh5c4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL2rQpVm9/lm9DgjUpPs0e3nGWSlfG8xD8IXlSEnQqTkHj/nord
-	6NibPNV7KWirxA9ZYE+dfku+MtM/d+l3oScHVBcDINfr9J+2TO2/Gl0l
-X-Gm-Gg: AYBFou3bt1Sth88KGV+80+CaIhAYoQ8AgxHrqVMvRjjuaXjsctlNsUTygxdPi76S2d7
-	l5cmljsVkJBXLdzmodpm+Xlw+Io3eBNxz7+LbYKs2wNRzgmXwB9dx3Nw6jBbeGzvV1OqptpGx2a
-	PoWipXBd6zRodEPP5+p+fJkApFh2C7DzI+7NFyNoa/zWNYleypIDrbKvvXKHtztGrlkBl3Bvcog
-	wcXQ/6DAWbLtC+x7cMJiJ1UWROWWMX7kkCzxJ0zIy+ZhKh+ouH/FDeswfGg6GNEK+Y8kGWkOZaI
-	p4ZF6p8zWD9nkBq1/MJjZrPa7g+r5B4I1HcS45d4YcvweB6U+5IF0aONETFVN3DQW8QZvM7OzSl
-	Si7NxO6hulD4lFN8WU39NFw1LkZnnSZ0uM0eYBmrPx+tt7zuIujMTHi7aCEJdQ6JfB/prf3+kyv
-	dpCryoEY6cP6Q8wnupq5CO8rUyQ3bpx37maYN5uKHoq1aTLuWMTIAsG5fASW9rwaaE4etIwJxBv
-	NQSdhVBql3QoRYaMtowRukW0w14kXrLp0iuTCo=
-X-Received: by 2002:a05:6000:29d2:b0:48d:f14a:9184 with SMTP id ffacd0b85a97d-48df14a92bcmr2500800f8f.4.1792017103192;
-        Wed, 14 Oct 2026 15:31:43 -0700 (PDT)
-Received: from Nuel20.localdomain ([105.118.9.157])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ac5265sm15620662f8f.41.2026.10.14.15.31.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 15:31:42 -0700 (PDT)
-From: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
-To: linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	mchehab@kernel.org,
-	paulmck@kernel.org,
-	linusw@kernel.org,
-	Julia.Lawall@inria.fr,
-	emmaonana18@gmail.com,
-	rmk+kernel@armlinux.org.uk
-Subject: [PATCH v2] docs: kdoc: handle TRACE_EVENT_FN() family in tracepoint parser
-Date: Wed, 14 Oct 2026 23:31:34 +0100
-Message-ID: <20261014223134.14772-1-emmaonana18@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1792017154; x=1792621954;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4+84p/RrrdzZmA9eMDawKM5I6T2GTBD+KG/Q+hsl6kM=;
+        b=yByjESf/qfSV6tEGgLxt9U3bR9UFLsvO1K7J+jBK6sJglEg/jhdvlsEDEUkzBviBmj
+         IKm121i565to+xzJHdbfakvDTkzCFB6JE9oDT6FZw5rwe24kH+rEAPjOUkpsfPZJVgBS
+         6MsEQgGU1X2/KvpCRdDSJUFGPlDINoAzahI33v6tqr577X/JWq0TiesIkAwAsX1ArTnZ
+         UTdjgcfx087NbP79pWmFdf94Wjf6XdqRXADAFRMeyNdQSHwFV2fivoBEZIgSMU1Mc+Kr
+         BkadUajOA/P0fo254PVmlBhrd7ofsNlMCd9sG6zQr8DlpB6fY5R/NhgwyVY15UPS3XKc
+         XCqg==
+X-Forwarded-Encrypted: i=1; AKwUvBw797TsjMhekW5utVwEmUFMABak20Rl9w/Mfv5zXfLJxRSvfJgjH5KGooTvbBa/8Iv3f+P2KPduahFZLqg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKcJZlBEyIf7mAK+g/0EhLIWvxZ82LX/2fZX1Tbdr0usxT0q7PO
+	7TLmfsBD54r7nA2/9+d/TmNERitclduR0nOo7vDMzik5j/1EcEYV5eNRfK/k2gs2d9sEVfI4Mxj
+	9yCyCD5UfuBtWhRP14LWC7pk02IydxWaCQ6fOCMUz
+X-Gm-Gg: AYBFou2zP0uLay/34Men71I7/iOjCbTTcLnunPOjaKp6doPQfRLZ/f1VKrpadLqAnO8
+	Zq/hS4AyM6XQQQ6UUMaCg9cm0Zc40N6Es2KmnMh04AvjpX1sCkknSszlYJnME0iB/0nmIc/Y7Pv
+	8RIgzxqlN3bnwEQuSoFSxkyQFNufjb/41aOv0xwUNzKLMK1oZx/K4DfAxU6Qd817hRRAGBMYeom
+	MSZDXMZUyWk4w/FJhQfJOgWbXodtvDlgqEVCIJdYmBAJH5DVXmp/x6R8z7ee5c+ZpSvcONLMonO
+	t3TcfSTAtrM6YToarjINqGghUdzCvVmS53T4JFVsd0bGeXoAgVJg6vCZ/ekCEeJZ0g==
+X-Received: by 2002:aa7:c74f:0:b0:6b1:a517:5bce with SMTP id
+ 4fb4d7f45d1cf-6b20ab1840amr67168a12.16.1792017153710; Wed, 14 Oct 2026
+ 15:32:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-6-yosry@kernel.org>
+ <CALMp9eSWazT=0tXKvGb9UNWBv62di33QgugQHOa+Bo2sq0qUCQ@mail.gmail.com>
+ <CAO9r8zPPR9LMtcwhH=D8gJLjmC6800mJdyV+nKT83TnMti7wJw@mail.gmail.com>
+ <CALMp9eTyzxwjKnWXem=dAGiwJsUsArssQTcQhg56HVd+js5pSQ@mail.gmail.com> <CAO9r8zNx-CUVeN8gfhnFxAUP9RBLnLV=eAFHhtW8FqTvhNEXFQ@mail.gmail.com>
+In-Reply-To: <CAO9r8zNx-CUVeN8gfhnFxAUP9RBLnLV=eAFHhtW8FqTvhNEXFQ@mail.gmail.com>
+From: Jim Mattson <jmattson@google.com>
+Date: Wed, 14 Oct 2026 15:32:20 -0700
+X-Gm-Features: AclHuK-V-xCwiQ2XrkH5VqBxQlieInGerpdEGA-cb3DSm8FrVDltIDe8fdS4UGg
+Message-ID: <CALMp9eSmXHbXx9Uov-Vx0=jrsmu-Tz0GYm6nPuaHWvZo3Bzxhg@mail.gmail.com>
+Subject: Re: [PATCH v3 05/27] KVM: SVM: Add helpers to set/clear ASID flush in VMCB
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-kernel-doc fails to parse tracepoint declarations that use
-TRACE_EVENT_FN(), e.g. gpu_power_status:
+On Wed, Oct 14, 2026 at 3:25=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrot=
+e:
+> I would prefer vmcb_set_flush_asid() and vmcb_set_no_flush().
 
-  drivers/gpu/drm/panthor/panthor_trace.h:28 ... Unrecognized
-  tracepoint format ...
-  ... expecting prototype for gpu_power_status(). Prototype was for
-  TRACE_EVENT_FN() instead
-
-tracepoint_munge() only matches TRACE_EVENT(), so the macro name is
-kept as the prototype and the TP_PROTO() arguments leak into the
-parameter list as garbage.
-
-Match TRACE_EVENT_FN(), TRACE_EVENT_FN_COND(),
-TRACE_EVENT_CONDITION() and TRACE_EVENT_SYSCALL() the same way as
-TRACE_EVENT() and list them explicitly at the call site in
-process_proto_function().
-
-Add a regression test for the gpu_power_status declaration.
-
-Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
----
- tools/lib/python/kdoc/kdoc_parser.py | 18 +++++++++++++++++-
- tools/unittests/test_kdoc_parser.py  | 28 ++++++++++++++++++++++++++++
- 2 files changed, 45 insertions(+), 1 deletion(-)
-
-diff --git a/tools/lib/python/kdoc/kdoc_parser.py b/tools/lib/python/kdoc/kdoc_parser.py
-index 80d4245acd17..a65bda3e81b9 100644
---- a/tools/lib/python/kdoc/kdoc_parser.py
-+++ b/tools/lib/python/kdoc/kdoc_parser.py
-@@ -1545,6 +1545,22 @@ class KernelDoc:
-         if r.search(proto):
-             tracepointname = r.group(1)
- 
-+        r = KernRe(r'TRACE_EVENT_FN\((.*?),')
-+        if r.search(proto):
-+            tracepointname = r.group(1)
-+
-+        r = KernRe(r'TRACE_EVENT_FN_COND\((.*?),')
-+        if r.search(proto):
-+            tracepointname = r.group(1)
-+
-+        r = KernRe(r'TRACE_EVENT_CONDITION\((.*?),')
-+        if r.search(proto):
-+            tracepointname = r.group(1)
-+
-+        r = KernRe(r'TRACE_EVENT_SYSCALL\((.*?),')
-+        if r.search(proto):
-+            tracepointname = r.group(1)
-+
-         r = KernRe(r'DEFINE_SINGLE_EVENT\((.*?),')
-         if r.search(proto):
-             tracepointname = r.group(1)
-@@ -1604,7 +1620,7 @@ class KernelDoc:
-                 self.entry.prototype = self.syscall_munge(ln,
-                                                           self.entry.prototype)
-             else:
--                r = KernRe(r'TRACE_EVENT|DEFINE_EVENT|DEFINE_SINGLE_EVENT')
-+                r = KernRe(r'TRACE_EVENT|TRACE_EVENT_FN|TRACE_EVENT_FN_COND|TRACE_EVENT_CONDITION|TRACE_EVENT_SYSCALL|DEFINE_EVENT|DEFINE_SINGLE_EVENT')
-                 if r.search(self.entry.prototype):
-                     self.entry.prototype = self.tracepoint_munge(ln,
-                                                                  self.entry.prototype)
-diff --git a/tools/unittests/test_kdoc_parser.py b/tools/unittests/test_kdoc_parser.py
-index 4baa78ca02b3..04dafae412e4 100755
---- a/tools/unittests/test_kdoc_parser.py
-+++ b/tools/unittests/test_kdoc_parser.py
-@@ -444,6 +444,34 @@ class TestContextLockStruct(GenerateKdocItem):
-         self.assertEqual(entries[0].name, "debugfs_cancellation")
-         self.assertEqual(entries[0].warnings, [])
- 
-+class TestTraceEventFn(GenerateKdocItem):
-+    def test_trace_event_fn_declaration(self):
-+        source = """
-+            /**
-+             * gpu_power_status - called when hardware turns on or off
-+             * @dev: pointer to device
-+             * @shader_bitmap: bitmap
-+             */
-+            TRACE_EVENT_FN(gpu_power_status,
-+                TP_PROTO(const struct device *dev, u64 shader_bitmap),
-+                TP_ARGS(dev, shader_bitmap),
-+                TP_STRUCT__entry(__field(u64, shader_bitmap)),
-+                TP_fast_assign(__entry->shader_bitmap = shader_bitmap;),
-+                TP_printk("%s", __get_str(dev_name)),
-+                my_register, my_unregister
-+            );
-+        """
-+
-+        kernel_doc = KernelDoc(self.config, "test.c", self.xforms)
-+        patcher = patch('builtins.open', new_callable=mock_open,
-+                        read_data=dedent(source))
-+        with patcher:
-+            _, entries = kernel_doc.parse_kdoc()
-+
-+        self.assertEqual(len(entries), 1)
-+        self.assertEqual(entries[0].name, "trace_gpu_power_status")
-+        self.assertEqual(entries[0].warnings, [])
-+
- #
- # Class and logic to create dynamic tests from YAML
- #
--- 
-2.43.0
-
+SGTM
