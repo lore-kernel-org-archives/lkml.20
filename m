@@ -1,87 +1,87 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77764568FDE
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:43:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D4AA563295
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:43:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792003399; cv=none; b=VGFUVH8JKWkYLP7KsZFBDzAaNM1EfoDUwZmuMLb9PiKwNQ28wSGtfGLkPve0KP6ig2tGedm6ApZDEh8Xf7x9tFhikihpnKQd5ssNkXPp54KgHDnfK8/YlS64+raqNZWstl3fvekkldoxrwCmsTSJV8a01mrPRGOX/B5DDL/DSSc=
+	t=1792003441; cv=none; b=Ye9nimHRmtpdFX/SXm27AmsvPT1+kL/hvyQ8pAGNOT1vjlmUOtgx5T+i0LdCwamlM2k+/dp07daIynp4cOLy6wgm4xn13KqOaCBksCEsVHXdD4Jy/Mqbzj/ZWNnuJVmrSljJiV4XtKR3zzmVgvzbEH7nvtgXB6CQSomWyPKmjO4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792003399; c=relaxed/simple;
-	bh=w12UJCXmoPgOejvC7+pwZJ5tYzsSXZ0zhjRwU9QoS48=;
+	s=arc-20240116; t=1792003441; c=relaxed/simple;
+	bh=rhN7Xl4ybJ3ao2Kh2JnV93hRcaxyi4kvyKN7Qa8ymsg=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ke57vJJchPzx0fZlXye2UMuc3wKTcY1SnxdXY+vkFj1pIPgKBS6LpIc9V6+jQsdxPSMZyZBauUTipN/7nb/2jS+bbXhFpAuVtaGlAcsCFvZHAKUamZCElhG7LOzBtCXMLuSevwCvJCStjSmwbWEihOxgbzd22du/t7uvdpV9p1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BrvI99d/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DQgaaGtr; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:Content-Type; b=onIlJvpgWvNLlPhqfWE/z9kdgaxB5DIWKKskG9YhR4boJPxZ6pzAScicJyZOElMke8OQXOK4llAcq3q/2ppOvqNsJ30vNXY3N3OWTWJVhAN8Ik4Ur0jAguFse6IlVLl5hS5k71G/0My+zQDlpeXZUF74Yb+fy6UrarVFlHO8PjI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FGFyLVa0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=J5Ycg7Lq; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BrvI99d/";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DQgaaGtr"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EEb0JY905400
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:43:16 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FGFyLVa0";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="J5Ycg7Lq"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EHRYjx842288
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:43:59 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	s0B3rQH0JRJrNGJlm78wyMsk4h4oAZUsILKGncMUfG0=; b=BrvI99d/BJFRtfGD
-	c1QyR5/4QEJFXnDqRPXcOC7jZq+ocFtb3+eGk078xSQz9QRw13GrAqxI2XXcwSZ8
-	SQdR7JdXJn/KcFZaJ699XFGGQpU4GeX6MKNLk2ujMURbp3KZpWxbeDTdM6qZlYuB
-	rPqN3zBUEQBK/h7QmXMGYuwXpo2Lr3nQLAxk20zM3XfupN+VWM9blPVUMpu2lr8U
-	goBpxoIOidFPNo2PSnmOYZupNrTy+N+xKMYIMwQURhdSWfSVPqJtxjKTuhtImUIQ
-	NA+OrINS/+bhBemyfZQ9PxRfRWIYYbfMGArKAyfzcqdn/2PGpowBPv+aPc3SoLrg
-	MQgwBg==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ha42p33fw-1
+	EmwDMSDSCYwo1aTKvjCAdkeUPmARfw0p8QoK+uQ71J4=; b=FGFyLVa09le7+NYn
+	2alEpnq6AVdRo+RypaWc0mNhCk1flZVe61wK9wxV5OzLf7Ai6c9/NhHZ/GvYegsW
+	kApOxPMwEDrxuhcrxuWvRWQjkLH99Nix90ft6gtJujIPl4DQQwnt1VOWLqjFmgIb
+	P4YB+sTmuPD+cJAXNR1FxrXmTS6LLVkKSjexZq7emY4TJWtNQz4aF2GytS0KmdTJ
+	TYizFXensV8IOVq+pmLXoUU5k2syqnhM+1rrZQYFN8GkKXQ00gO2XMyOtpHWv4LC
+	sAlZsSIN3zDYc7icJyGmBJNdlGTOpl6ax62IoEEeFqdMS1eyG8b6lmmaOzZTkINp
+	1pWU5A==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hae4wraas-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:43:16 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93a082c014aso310026785a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:43:15 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:43:58 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-359b81ad4e8so1905598eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:43:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792003395; x=1792608195; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1792003438; x=1792608238; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=s0B3rQH0JRJrNGJlm78wyMsk4h4oAZUsILKGncMUfG0=;
-        b=DQgaaGtrhprq29zxbrADbg2yLUXfQh+cND0rRQ57EPbjjlBwvjz7GjWyAjbUCm6jRU
-         bz86uoBYKCPWyoKlorRKWxUv5jqBTxCSwH880XYtUztXUyP8tEtnv7mNlQjFVW9iWdTk
-         aIoNtr6Fj/mrwTve8sOIDIKLzfs3lSScErrWqb46h/v3XBBa7Bqg34Mu7kJjstSgIFby
-         LLRkEUkRHT3FkCLztYaQuj87i4dLGLGnyoArNfUaCIfO95xkwDqM8J23P/DsWkR2MUJw
-         KJalXE5ngudSdtB8+k7vSvPbltJZa5wrhE2dr640pIz8t+l7jdmWrETJ93uBFRAx8Hon
-         Z8Hg==
+        bh=EmwDMSDSCYwo1aTKvjCAdkeUPmARfw0p8QoK+uQ71J4=;
+        b=J5Ycg7Lq+lttPOi2g6wz1L1/+11himW+aap3Af8z1IXJiB5QMq4urR6nDka3KSQ0pS
+         vVEDAJf3Q9HYYN6rPrhmnWotoS69oAAR7C/+iFXeLrd16bwqyclDRugjnXF9Xy5FVhnT
+         e0XhWPpUq0mlx568jV4H6EEE5k8j7fhNYn9x0HBc782RXDfLS6wQWd+PqhuM5tFxMCgw
+         HxjivhC/A+r8yP4xpkSZAcdysQenmWHXgrNeB00SQ71RBsZG1KWLzYh6vbAjdTuUt2UB
+         e3hQyZeMsFtTYEYrH48y9Xg2mizQibP8DgrtGPmpbCVlzw4vzDX/WdnVsoS+yUHbnt5Y
+         TYGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792003395; x=1792608195;
+        d=1e100.net; s=20260707; t=1792003438; x=1792608238;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=s0B3rQH0JRJrNGJlm78wyMsk4h4oAZUsILKGncMUfG0=;
-        b=i5IgXpI2PESbfwPjnmfmkEEF8vMEjQctb63kl80i3n/gtTrf1UO8oVrrcTZQEw31a+
-         OUmme5DVG+hydh/OExZoM2bSEjGaSypzFZY/lmOXE8w8rQPC9VpT/KccIRXMjyOhJgZw
-         6Pd1ZnDNnmH0WsV9rNhuTRqeLlyrBp0fr8WR+JCRsWVbbKxfgYWiF7bwaKVSCi+cUI4E
-         nTpQ1RJcigCY9aVJSjgbHlB0Wabl+6YBHAVKRVmIdgrPQ/KEdK/kdx2H0+tgfCClviC4
-         6O6qj+4A3WZKGtvlQtVkHUT98IyqmtwgXblWWpqSXlnXYJ1UChVG90kLO91o2UcNykOP
-         NHjg==
-X-Forwarded-Encrypted: i=1; AKwUvBwyMFzMGl6jEZarMIfpU9ryG9viFFSvTTl1UoiLaDEdeNlCHSCRLjIk/wA5gD+6wiKkhSxj1XebBOmCZPw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJIRXu5kUK2Mkah1aLsY2dJQYUYscVOn83yqE+MWVAEfglLr/Ui
-	y3r2YTo0AwAUjct9d/+svmGgyLT0FJxN3pmobmGeHqIXMcxBNhDYDCKqgNDvp0DH7Iq5mE/WSc1
-	QPRQWQiqFAj8Id0MSxDKag17sBc2DeLFD6I14cYk0z9jvlUutlQAB3F+1cJSb0UDUywo=
-X-Gm-Gg: AYBFou3+FcMzkLxl5tMZtT/E1zREN6hbCEmg0bYtOXsfdTBZ49njP6QoEaXhZ10EQbs
-	sGGGlerzhKI6+BvRpAbO6/bjK0oveIt2e3KpvaVFjadS/SGja29M5fRLCxLpzpk7Jda+2s8sV+Q
-	UEqVUXqTJO9HgZjyshte8UnhKpL0xcJ8JVJ0Af5FCz1Gyk3kXr+i+Vr1eh3IqSWQNQrSgusKWaN
-	lQJCZv1LF3tfnyTRxkzXIz2MqDlifHfVTwh8JS1t7L0o1FLAETOx+llp2FF4mwAWxi4uhRayiEi
-	k/Mn9PKyzNvOGYSeAWsH39KhOZRbaUgGmrmPx1JCrPi93Py8E+554GhzP18yhORraGNyOMamD3q
-	s1+Tc6amMcR2rTGDN0XlzATaDjgeEseH1fNHkO3rCeYR/cVW8s7YYMj0TpcyvwA==
-X-Received: by 2002:a05:620a:448e:b0:93c:65e3:df81 with SMTP id af79cd13be357-93eb95e3948mr2765570085a.13.1792003395155;
-        Wed, 14 Oct 2026 11:43:15 -0700 (PDT)
-X-Received: by 2002:a05:620a:448e:b0:93c:65e3:df81 with SMTP id af79cd13be357-93eb95e3948mr2765566685a.13.1792003394607;
-        Wed, 14 Oct 2026 11:43:14 -0700 (PDT)
-Received: from ?IPV6:2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7? ([2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd993caesm19308895e9.12.2026.10.14.11.43.13
+        bh=EmwDMSDSCYwo1aTKvjCAdkeUPmARfw0p8QoK+uQ71J4=;
+        b=IQa29W9T6lZ3Vc/Hxe14L3HwI2s+oiPzQhM0poRZA4NaBR1amnWE7vX7PNuhEPtYa8
+         +AxO2mL2eCKHbi/RePW6XFxlLlDDUrjGvyg6nXyuCDgi1b1kQkrZfBR+JnPPDfp4aG3C
+         XIVOk1T/N9CM1VGvl05DOgtl3FAVqehdn1hxfOyl5lPkVlZKg7CFvaNL5aH8fNhrYKwl
+         SDmS7/wExToEbFRF24SUoGkgn3sbqoQNq9Z3U2KLcIwgHlWfjlk60e7n4KSThvIuF2Qi
+         dc3iZUIqffReQVP+zcbVHwNDXDvy4/iXOnfIdM1wH8QoBJq+pckD4R+D4iNTrhX/Z37e
+         V0bQ==
+X-Forwarded-Encrypted: i=1; AKwUvByA3UubdzXQwZoFQdBf6h2aWBioyYJ+Neu9zLjLbgPklfjzrCuwLxL3TW2gOFWOcUSW1YVKY4YWdf/NVxU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ3MTZ0ZOoxUgSEC62EwmaGOrqGPVNtQjDcqyCqytVsVhUFZIjI
+	1L5+02+yj/2W37JW4YTzUkX3yTjrfCvIlYjUDDB347q9CZP9Oft1v8Zlmdey5sHaeDsP73gFLFs
+	1sTrhxFCApcyVgsMB0ZobFFjPdQs/+Y9WiHh1+/o4O/ZDPfXAECDiIFTaG1YV9TFhLdU=
+X-Gm-Gg: AYBFou249is8QjhoXNGJoOuhncwhcXPV9iatadGKWxjotR/oA4XnBGoHnPp4SP4+1wU
+	/bCdW06qP4MeLKgWW8T+ju7ZNBZTPOdTncYW3qxgSRofiokJPnVEsAe4uKzSII8kCMNOjfD48Kk
+	RQublu6kkoXg2MhsCZZGPJqXqzYZzJHodkXSd342F2UwA8FRgkR1yRJd9Jmoybw/pmvMNCHIgYx
+	iN4BtbZdQzRvcKljVs1fiMzOWZ1p8fi4KL2h+bgJ5iabuP6fbGHb9zgBNqJyajVucTFXUBoKk3x
+	T6ha/s2I+A5hW/CLnnKMR11xeZx4SWTPc09Oszz5XCgiCbKpcPxkbUzrxPQRZEKGuDQ482CxZRX
+	A+BD6OwIJyZ2nHHJPr1R0T+y7
+X-Received: by 2002:a05:7300:de48:b0:353:82b2:205f with SMTP id 5a478bee46e88-35382b220a7mr20525265eec.16.1792003437555;
+        Wed, 14 Oct 2026 11:43:57 -0700 (PDT)
+X-Received: by 2002:a05:7300:de48:b0:353:82b2:205f with SMTP id 5a478bee46e88-35382b220a7mr20525220eec.16.1792003436865;
+        Wed, 14 Oct 2026 11:43:56 -0700 (PDT)
+Received: from [192.168.1.2] ([223.230.7.28])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb2954bsm57116786eec.26.2026.10.14.11.43.52
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 11:43:13 -0700 (PDT)
-Message-ID: <5874ea6e-4e2f-416e-bcc1-851461c7308b@oss.qualcomm.com>
-Date: Wed, 14 Oct 2026 20:43:12 +0200
+        Wed, 14 Oct 2026 11:43:56 -0700 (PDT)
+Message-ID: <a6332273-045b-4a72-a6c4-a0c6d584532d@oss.qualcomm.com>
+Date: Thu, 15 Oct 2026 00:13:50 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,272 +89,212 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 5/5] clocksource/timer-econet-en751221: Support
- EN751627 without percpu IRQ
-To: Caleb James DeLisle <cjd@cjdns.fr>, linux-mips@vger.kernel.org
-Cc: conor+dt@kernel.org, daniel.lezcano@kernel.org, devicetree@vger.kernel.org,
-        krzk+dt@kernel.org, linux-kernel@vger.kernel.org, naseefkm@gmail.com,
-        robh@kernel.org, tglx@kernel.org, grandmaster@al2klimov.de
-References: <20260918153606.344143-1-cjd@cjdns.fr>
- <20260918153606.344143-6-cjd@cjdns.fr>
+Subject: Re: [PATCH v2 9/9] ASoC: rt5677: restore safe state after resume
+ errors
+To: Pengpeng Hou <hppiscas@163.com>, Liam Girdwood <lgirdwood@gmail.com>,
+        Mark Brown <broonie@kernel.org>
+Cc: Oder Chiou <oder_chiou@realtek.com>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Charles Keepax
+ <ckeepax@opensource.cirrus.com>,
+        ajay.nandam@oss.qualcomm.com
+References: <20261014032452.13456-1-hppiscas@163.com>
+ <20261014032452.13456-10-hppiscas@163.com>
 Content-Language: en-US
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-In-Reply-To: <20260918153606.344143-6-cjd@cjdns.fr>
+From: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+In-Reply-To: <20261014032452.13456-10-hppiscas@163.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA3NCBTYWx0ZWRfXyH+TwAEkM2Cg
- jl1XxHAPgGWL0QvC1M1GgZzwtdMFS9wSjbbG4zhlaNfg4K5QiUugugXS4m8tNH0as8ztgGovLyO
- 3ZG2o6iTxtXojxXEE8i++tTwuVvbnFc=
-X-Proofpoint-ORIG-GUID: DUJR1vnhM-cpYZRqgNtHXgWdWU2Sc2cK
-X-Authority-Analysis: v=2.4 cv=aeb0Dhot c=1 sm=1 tr=0 ts=6acfcd44 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=qzuFoDSjp3ydXB7kr3YA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA3NCBTYWx0ZWRfX/1+F/dQvpPKC
- /CvlIMFJ+JO+2rqPnsx426Zfv2lA1gJsRnPaZAxueQBnbZUFKQ59DbPzepQ+g3U+/HsYMZzRiUf
- IFNiImc4pD4q9iHwpJQUkWlb6EbnnCVwvjbzhI/1ulv53NIl+PRLkBXDQuu/YFYjE0OGfqHZE9i
- Rn6GWgXcYRRDqzf1raeQZl/clu/9WP7EkqWPdfWGRQiq+fVHdx5BI2g71VmyunmwAkqx1Ya46wP
- k4GrGwfP7R6B1ay7F6Q7SrpbTZSEIMo62EEDvrf4lP4USUUjQG6d/urJqALJZ1oAAaeyKkeDTQ8
- 6SxjpPEp7pg+C8b7NsXMJHNZ1iiejGYc0mbFxmpTmtSXiyI/aHJLoKk/e2bBcg6pzxnsTbdAhYZ
- ++c7K6wDjWNc4TlIyb3nglB39PvdA/fKCrEWiropCAHRyfZ1AP4oXRomaxy+3UDNnGPJyEK6kPl
- /sfAQ+aNFgsI7Zzi0AA==
-X-Proofpoint-GUID: DUJR1vnhM-cpYZRqgNtHXgWdWU2Sc2cK
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA3NCBTYWx0ZWRfX0NG/xxifsM9b
+ wJnBTtNlq6wMcwLgSFX8T9cZ11+4dYC4doKczvk/M+E8rjKTB38aNN9mAt/XwqivdsFmdw9GQoy
+ 0+NCyMf3AMjVK8Fggt4/YIG1RoHZEMw=
+X-Proofpoint-ORIG-GUID: _NG9xYhZiy_uWPxH3sHsHWagSWmSTNDq
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA3NCBTYWx0ZWRfX/D5of9WLuHck
+ qOOUtyxH1C83XLSu368s7AfLOcgY728YDK6+USE8d11deA/o8jFiKQfBHHRCPKgx+F3VXTLVwqr
+ adRy/Gid8xfx4ULpzRpo0/32skxLS2kbkG+lcRjtmrs/s405hUIpCAYGuvaDUDmMbAbbCSV9MDX
+ /Z9SiRPEMwgiTC8cDEMxtjMgqLzCjy1GQIlGBNWqV0PZoBYGKtTv423Snin2uJ2D7MVWEzvZ27V
+ pfFYAZLOrO1gz/HMH7LcYAOShb2xdpVpFPOlY735fYsIMBIf8+9dkRFUMTuM8fdyRZ67EXAbMRk
+ O55mI8gGqGJGJKd1zHMkLRWKQojlK+rq8Av89pPNxyQ4/JpiLczBD+g7LoxBvcXjMrnVr7ZWU1F
+ SxgOQko6PkzxXkeyUAfhbrZxRE1QLl//yUbwtOBAgMeU4qJmNPrH/FRpT9kZm5KP1nG81jzcNYa
+ GxPenm507xY/yhYVtzA==
+X-Authority-Analysis: v=2.4 cv=E8BYNqdl c=1 sm=1 tr=0 ts=6acfcd6e cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=yZS14lHB/DhrxgecvCV8gA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=VwQbUJbxAAAA:8 a=Byx-y9mGAAAA:8 a=6hps2vrPUYSZ6LOJPQgA:9 a=QEXdDO2ut3YA:10
+ a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-GUID: _NG9xYhZiy_uWPxH3sHsHWagSWmSTNDq
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
- spamscore=0 priorityscore=1501 malwarescore=0 clxscore=1015 phishscore=0
+ clxscore=1015 impostorscore=0 suspectscore=0 malwarescore=0 spamscore=0
+ bulkscore=0 adultscore=0 priorityscore=1501 lowpriorityscore=0 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140074
 
 
-Hi Caleb,
 
-with the help of a LLM, I got the following two issues with the changes
-
-On 9/18/26 17:36, Caleb James DeLisle wrote:
-> EN751627 is based on the 1004Kc which uses a different interrupt number
-> for each CPU timer. Support both this and the EN751221 which uses a
-> single percpu interrupt.
+On 10/14/2026 8:54 AM, Pengpeng Hou wrote:
+> rt5677_resume() ignores regcache_sync() failure before continuing
+> dependent resume operations. Restore cache-only mode, leave the cache
+> dirty, and return the replay error before those operations.
 > 
-> Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
+> First return physical regmap write errors from the normal-mode write
+> wrapper, which currently discards them, so cache replay can observe bus
+> failures. Restore reset and the optional LDO GPIO on replay failure.
+> Remember that cache restoration is still pending independently of the
+> requested DSP VAD mode: DAPM or controls can change that mode after
+> failed resume. Suppress DSP work while restoration is pending and
+> require replay on the next resume even if VAD has since been requested.
+> After successful replay, preserve the existing MCLK settling delay
+> before restarting requested DSP work. The already-running, retained VAD
+> path and DSP-mode transport are unchanged.
+> 
+> ASoC still marks the component resumed when the callback reports failure.
+> Track the suspend-owned IRQ disable so another suspend does not increment
+> the disable depth again after a failed resume. A later successful resume
+> releases that one disable reference. This does not add automatic retry or
+> change the framework's best-effort card resume policy.
+> 
+> The issue was found by our static-analysis tool and manually reviewed.
+> 
+> Fixes: 0e826e867264 ("ASoC: add RT5677 CODEC driver")
+> Assisted-by: gpt 5
+> Signed-off-by: Pengpeng Hou <hppiscas@163.com>
 > ---
->   drivers/clocksource/timer-econet-en751221.c | 122 ++++++++++++++++----
->   1 file changed, 99 insertions(+), 23 deletions(-)
+> Changes since v1:
+> - restore cache-only mode and dirty state on replay failure
+> - keep suspend-owned IRQ disables balanced across failed resume cycles
+> - propagate the normal-mode transport write result to cache replay
+> - preserve pending cache restoration across changes to the VAD request
+> - keep DSP work paused until replay succeeds, retaining the MCLK delay
+> - send as one correctly threaded series, as Mark requested
 > 
-> diff --git a/drivers/clocksource/timer-econet-en751221.c b/drivers/clocksource/timer-econet-en751221.c
-> index f2c4c1ee0a56..ff86a7edd31d 100644
-> --- a/drivers/clocksource/timer-econet-en751221.c
-> +++ b/drivers/clocksource/timer-econet-en751221.c
-> @@ -21,10 +21,12 @@
->   #define ECONET_MAX_DELTA		GENMASK(ECONET_BITS - 2, 0)
->   /* 34Kc hardware has 1 block and 1004Kc has 2. */
->   #define ECONET_NUM_BLOCKS		DIV_ROUND_UP(NR_CPUS, 2)
-> +#define ECONET_NUM_IRQS			NR_CPUS
+> Previous series:
+> https://lore.kernel.org/all/20260906034321.86080-1-hppiscas@163.com/
+> 
+>   sound/soc/codecs/rt5677.c |   37 ++++++++++++++++++++++++++++++++-----
+>   sound/soc/codecs/rt5677.h |    2 ++
+>   2 files changed, 34 insertions(+), 5 deletions(-)
+> 
+> diff --git a/sound/soc/codecs/rt5677.c b/sound/soc/codecs/rt5677.c
+> index 7b80922236e5818e846d9ecc6e23793e6ae40714..fd1f840d6794ea95b47d803ba4977fdb81e184a9 100644
+> --- a/sound/soc/codecs/rt5677.c
+> +++ b/sound/soc/codecs/rt5677.c
+> @@ -885,6 +885,9 @@ static void rt5677_dsp_work(struct work_struct *work)
+>   	bool enable = rt5677->dsp_vad_en;
+>   	int i, val;
 >   
->   static struct {
->   	void __iomem	*membase[ECONET_NUM_BLOCKS];
-> -	int		irq;
-> +	int		irqs[ECONET_NUM_IRQS];
-> +	bool		is_percpu;
->   	u32		freq_hz;
->   } econet_timer __ro_after_init;
+> +	/* DAPM may request VAD even after component resume has failed. */
+> +	if (READ_ONCE(rt5677->cache_restore_pending))
+> +		return;
 >   
-> @@ -102,6 +104,25 @@ static int cevt_init_cpu(uint cpu)
->   	struct clock_event_device *cd = &per_cpu(econet_timer_pcpu, cpu);
->   	u32 reg;
+>   	dev_info(rt5677->component->dev, "DSP VAD: enable=%d, activity=%d\n",
+>   			enable, activity);
+> @@ -4939,10 +4942,14 @@ static int rt5677_suspend(struct snd_soc_component *component)
 >   
-> +	if (!reg_ctl(cpu)) {
-> +		pr_err("%s: missing address resource for CPU %d\n", cd->name,
-> +		       cpu);
-> +		return -EINVAL;
-> +	}
-> +	if (cd->irq <= 0) {
-> +		pr_err("%s: missing IRQ for CPU %d\n", cd->name, cpu);
-> +		return -EINVAL;
-> +	}
-> +	if (!econet_timer.is_percpu) {
-> +		int ret = irq_force_affinity(cd->irq, cpumask_of(cpu));
-> +
+>   	if (rt5677->irq) {
+>   		cancel_delayed_work_sync(&rt5677->resume_irq_check);
+> -		disable_irq(rt5677->irq);
+> +		if (!rt5677->suspend_irq_disabled) {
+> +			disable_irq(rt5677->irq);
+> +			rt5677->suspend_irq_disabled = true;
+> +		}
+
+Similar to the nau8825 case, should this new suspend_irq_disabled 
+tracking be based on whether the IRQ was successfully requested?
+
+rt5677_init_irq() still sets rt5677->irq = i2c->irq even when
+devm_request_threaded_irq() fails, and probe continues after only 
+logging that error.
+
+Thanks
+Ajay Kumar Nandam
+
+>   	}
+>   
+>   	if (!rt5677->dsp_vad_en) {
+> +		WRITE_ONCE(rt5677->cache_restore_pending, true);
+>   		regcache_cache_only(rt5677->regmap, true);
+>   		regcache_mark_dirty(rt5677->regmap);
+>   
+> @@ -4956,8 +4963,11 @@ static int rt5677_suspend(struct snd_soc_component *component)
+>   static int rt5677_resume(struct snd_soc_component *component)
+>   {
+>   	struct rt5677_priv *rt5677 = snd_soc_component_get_drvdata(component);
+> +	bool restore_cache = !rt5677->dsp_vad_en ||
+> +			     READ_ONCE(rt5677->cache_restore_pending);
+> +	int ret;
+>   
+> -	if (!rt5677->dsp_vad_en) {
+> +	if (restore_cache) {
+>   		rt5677->pll_src = 0;
+>   		rt5677->pll_in = 0;
+>   		rt5677->pll_out = 0;
+> @@ -4967,11 +4977,28 @@ static int rt5677_resume(struct snd_soc_component *component)
+>   			msleep(10);
+>   
+>   		regcache_cache_only(rt5677->regmap, false);
+> -		regcache_sync(rt5677->regmap);
+> +		ret = regcache_sync(rt5677->regmap);
 > +		if (ret) {
-> +			pr_err("%s: failed to set IRQ affinity to CPU %d: %pe\n",
-> +			       cd->name, cpu, ERR_PTR(ret));
+> +			WRITE_ONCE(rt5677->cache_restore_pending, true);
+> +			regcache_cache_only(rt5677->regmap, true);
+> +			regcache_mark_dirty(rt5677->regmap);
+> +			gpiod_set_value_cansleep(rt5677->reset_pin, 1);
+> +			gpiod_set_value_cansleep(rt5677->pow_ldo2, 0);
 > +			return ret;
 > +		}
-> +	}
-> +
->   	pr_debug("%s: Setting up clockevent for CPU %d\n", cd->name, cpu);
->   
->   	reg = ioread32(reg_ctl(cpu)) | ctl_bit_enabled(cpu);
-> @@ -110,7 +131,10 @@ static int cevt_init_cpu(uint cpu)
->   	clockevents_config_and_register(cd, econet_timer.freq_hz,
->   					ECONET_MIN_DELTA, ECONET_MAX_DELTA);
->   
-> -	enable_percpu_irq(cd->irq, IRQ_TYPE_NONE);
-> +	if (econet_timer.is_percpu)
-> +		enable_percpu_irq(cd->irq, IRQ_TYPE_NONE);
-> +	else
-> +		enable_irq(cd->irq);
-
-The new path calls enable_irq() each time a CPU starts, but the hotplug 
-state has no teardown callback to disable it. After an offline/online 
-cycle, the next enable_irq() encounters depth zero and warns about an 
-unbalanced enable.
-The IRQ also remains eligible for migration when its CPU goes offline. 
-Since cevt_interrupt() selects the timer using this_cpu_ptr(), an 
-interrupt migrated to another CPU checks and acknowledges that CPU’s 
-timer rather than the source timer, potentially leaving the source 
-interrupt asserted.
-Add a CPU-offline callback that masks the CPU’s timer interrupt and 
-balances enable_irq() with disable_irq_nosync() before migration.
-
->   	return 0;
->   }
-> @@ -141,19 +165,52 @@ static void __init cevt_init(struct device_node *np)
->   					  CLOCK_EVT_FEAT_C3STOP |
->   					  CLOCK_EVT_FEAT_PERCPU;
->   		cd->set_next_event	= cevt_set_next_event;
-> -		cd->irq			= econet_timer.irq;
-> +
-> +		if (econet_timer.is_percpu)
-> +			cd->irq = econet_timer.irqs[0];
-> +		else
-> +			cd->irq = econet_timer.irqs[i];
-> +
->   		cd->cpumask		= cpumask_of(i);
->   		cd->name		= np->name;
->   
-> -		cevt_dev_init(i);
-> +		/*
-> +		 * Tolerate CPUs that could exist but don't.
-> +		 * Fail in cevt_init_cpu when they try to start.
-> +		 */
-> +		if (reg_ctl(i))
-> +			cevt_dev_init(i);
+> +		WRITE_ONCE(rt5677->cache_restore_pending, false);
+> +		if (rt5677->dsp_vad_en) {
+> +			/* Allow MCLK to settle, as when leaving bias OFF. */
+> +			schedule_delayed_work(&rt5677->dsp_work,
+> +					     msecs_to_jiffies(1000));
+> +		}
 >   	}
->   }
 >   
->   static int __init timer_init(struct device_node *np)
->   {
-> -	int num_blocks = DIV_ROUND_UP(num_possible_cpus(), 2);
-> +	int num_blocks = of_address_count(np);
-> +	int num_irqs = of_irq_count(np);
->   	struct clk *clk;
-> -	int ret;
-> +	int ret, i;
-> +
-> +	econet_timer.is_percpu = of_device_is_compatible(np, "econet,en751221-timer");
-> +
-> +	if (econet_timer.is_percpu && num_irqs != 1) {
-> +		pr_err("%pOFn: EN751221 clock must have 1 IRQ not %d\n", np,
-> +		       num_irqs);
-> +		return -EINVAL;
-> +	}
-> +	if (num_irqs > ARRAY_SIZE(econet_timer.irqs)) {
-> +		pr_err("%pOFn: Too many IRQs max %zd got %d\n", np,
-> +		       ARRAY_SIZE(econet_timer.irqs), num_irqs);
-> +		return -EINVAL;
-> +	}
-> +	if (num_blocks > ARRAY_SIZE(econet_timer.membase)) {
-> +		pr_err("%pOFn: Too many regs: max %zd got %d\n", np,
-> +		       ARRAY_SIZE(econet_timer.membase), num_blocks);
-> +		return -EINVAL;
-> +	}
-> +	if (num_blocks == 0) {
-> +		pr_err("%pOFn: At least one reg block must be provided\n", np);
-> +		return -EINVAL;
-> +	}
-
-The binding requires four interrupts and two register blocks for 
-EN751627, but the driver sizes its resource arrays from NR_CPUS and 
-rejects DTs exceeding those sizes. Consequently, a UP kernel (NR_CPUS=1) 
-or an SMP kernel configured for two CPUs rejects a valid EN751627 DT 
-before registering any timer.
-
-
->   	clk = of_clk_get(np, 0);
->   	if (IS_ERR(clk)) {
-> @@ -164,7 +221,7 @@ static int __init timer_init(struct device_node *np)
->   	econet_timer.freq_hz = clk_get_rate(clk);
->   	clk_put(clk);
+>   	if (rt5677->irq) {
+> -		enable_irq(rt5677->irq);
+> +		if (rt5677->suspend_irq_disabled) {
+> +			rt5677->suspend_irq_disabled = false;
+> +			enable_irq(rt5677->irq);
+> +		}
+>   		schedule_delayed_work(&rt5677->resume_irq_check, 0);
+>   	}
 >   
-> -	for (int i = 0; i < num_blocks; i++) {
-> +	for (i = 0; i < num_blocks; i++) {
->   		econet_timer.membase[i] = of_iomap(np, i);
->   		if (!econet_timer.membase[i]) {
->   			pr_err("%pOFn: failed to map register [%d]\n", np, i);
-> @@ -173,22 +230,32 @@ static int __init timer_init(struct device_node *np)
+> @@ -5021,7 +5048,7 @@ static int rt5677_write(void *context, unsigned int reg, unsigned int val)
+>   			rt5677_dsp_mode_i2c_write(rt5677, reg, val);
 >   		}
+>   	} else {
+> -		regmap_write(rt5677->regmap_physical, reg, val);
+> +		return regmap_write(rt5677->regmap_physical, reg, val);
 >   	}
 >   
-> -	econet_timer.irq = irq_of_parse_and_map(np, 0);
-> -	if (econet_timer.irq <= 0) {
-> -		pr_err("%pOFn: irq_of_parse_and_map failed\n", np);
-> -		ret = -EINVAL;
-> -		goto out_membase;
-> +	for (i = 0; i < num_irqs; i++) {
-> +		econet_timer.irqs[i] = irq_of_parse_and_map(np, i);
-> +		if (econet_timer.irqs[i] <= 0) {
-> +			pr_err("%pOFn: failed mapping irq %d\n", np, i);
-> +			ret = -EINVAL;
-> +			goto out_irq_mapping;
-> +		}
->   	}
->   
-> -	irq_set_status_flags(econet_timer.irq, IRQ_NOAUTOEN);
-> -
-> -	ret = request_percpu_irq(econet_timer.irq, cevt_interrupt, np->name,
-> -				 &econet_timer_pcpu);
-> -
-> -	if (ret < 0) {
-> -		pr_err("%pOFn: IRQ %d setup failed (%d)\n", np,
-> -		       econet_timer.irq, ret);
-> -		goto out_irq_mapping;
-> +	for (i = 0; i < num_irqs; i++) {
-> +		irq_set_status_flags(econet_timer.irqs[i], IRQ_NOAUTOEN);
-> +
-> +		if (econet_timer.is_percpu)
-> +			ret = request_percpu_irq(econet_timer.irqs[i],
-> +						 cevt_interrupt, np->name,
-> +						 &econet_timer_pcpu);
-> +		else
-> +			ret = request_irq(econet_timer.irqs[i], cevt_interrupt,
-> +					  IRQF_TIMER | IRQF_NOBALANCING,
-> +					  np->name, NULL);
-> +
-> +		if (ret < 0) {
-> +			pr_err("%pOFn: IRQ %d setup failed: %pe\n", np,
-> +			       i, ERR_PTR(ret));
-> +			goto out_irq_free;
-> +		}
->   	}
->   
->   	cevt_init(np);
-> @@ -220,9 +287,17 @@ static int __init timer_init(struct device_node *np)
 >   	return 0;
+> diff --git a/sound/soc/codecs/rt5677.h b/sound/soc/codecs/rt5677.h
+> index 876f7674015c2c0a5421feb25a8c80313b18310a..e6e915453f2efbe78c9d2dd3e909397d9ad715ca 100644
+> --- a/sound/soc/codecs/rt5677.h
+> +++ b/sound/soc/codecs/rt5677.h
+> @@ -1788,6 +1788,7 @@ struct rt5677_priv {
+>   #endif
+>   	bool dsp_vad_en_request; /* DSP VAD enable/disable request */
+>   	bool dsp_vad_en; /* dsp_work parameter */
+> +	bool cache_restore_pending;
+>   	bool is_dsp_mode;
+>   	bool is_vref_slow;
+>   	struct delayed_work dsp_work;
+> @@ -1798,6 +1799,7 @@ struct rt5677_priv {
+>   	unsigned int irq_en;
+>   	struct delayed_work resume_irq_check;
+>   	int irq;
+> +	bool suspend_irq_disabled;
 >   
->   out_irq_free:
-> -	free_percpu_irq(econet_timer.irq, &econet_timer_pcpu);
-> +	while (--i >= 0) {
-> +		if (econet_timer.is_percpu)
-> +			free_percpu_irq(econet_timer.irqs[i], &econet_timer_pcpu);
-> +		else
-> +			free_irq(econet_timer.irqs[i], NULL);
-> +	}
->   out_irq_mapping:
-> -	irq_dispose_mapping(econet_timer.irq);
-> +	for (i = 0; i < num_irqs; i++) {
-> +		if (econet_timer.irqs[i] > 0)
-> +			irq_dispose_mapping(econet_timer.irqs[i]);
-> +	}
->   out_membase:
->   	for (int i = 0; i < ARRAY_SIZE(econet_timer.membase); i++) {
->   		if (econet_timer.membase[i]) {
-> @@ -235,3 +310,4 @@ static int __init timer_init(struct device_node *np)
->   }
->   
->   TIMER_OF_DECLARE(econet_timer_hpt, "econet,en751221-timer", timer_init);
-> +TIMER_OF_DECLARE(econet_timer_en751627, "econet,en751627-timer", timer_init);
+>   	int (*set_dsp_vad)(struct snd_soc_component *component, bool on);
+>   };
+> 
+> base-commit: 8ef28aef33f2d5da6959ad6b579ec3cfccc009f6
+> 
+> 
 
