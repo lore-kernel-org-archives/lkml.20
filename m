@@ -1,65 +1,65 @@
 Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95C394DE727
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:35:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71B1B4BD36E
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:35:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791981351; cv=none; b=CNo8MpL7sorl2EBwzDGbdDn5ElkZd5L2nA8rFVcAfMPUxCU54xTyrbuiXk8Uw8rRCpIamxyQmFcr96qIIRLIOtCXqhQ33QnmpaiZWU6p6LOA6FRaLVsfSDnrZvz2mt1ZAG3CMwmkdTSIrfJi2Yzqxk4diZERF8xB5CMKrZge2Qo=
+	t=1791981353; cv=none; b=ppzUFyLE+TA/f8Le+HCdDwyHdXWlqteMShzXNjS/1H+gwkNibSCI3fos3iTzbbtT/1PPymZzCYrpLi3MAx0tT+UAyVolCEE16B1NPGBvN7aV/Ca92O/JRJnqbUaNjugMqJQnQAfL35emt2R+2Uw1Y5oL2SPIcC30VCt4pYwHx7I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791981351; c=relaxed/simple;
-	bh=8yqPK/hBeI+MydFnPwtDEDydcwIdIgN6roHBhwTkxDM=;
+	s=arc-20240116; t=1791981353; c=relaxed/simple;
+	bh=AEeG/YNcximlFUYFtR533gtgDzMfPi0BG6W3Rm8MG7Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PJJthZx1NjOVB/hDa7BDu4fvdDQcsAjAwmiDLmCe3A5j+Lt0qBQKJyP2DdA0ckXQndjwBclR+xBeAL4Bcr+mOvMdyDVkLvs6O4zZl5N5g8briPjEO1h0t+oUZTl29I/TF/ujCqvlDfgaOmR8UMgJjGXmdURHFVVm/U/803KwKcs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gmG0+GP9; arc=none smtp.client-ip=209.85.221.49
+	 MIME-Version; b=GE3Y365S8tOSCh6OYRDZ4LEBoKOuNvK+OYn/uCL8eR3rEyQ/ufkgvD7zTvqL3yBjjGGcx7CSl3noOgV9VEF5BexKWnh7qORu+fSJ7sNQDsnxz/FgipCgAprGhQXCNB+3dQBiFzshDcAZterH8gISVRQOjRLevaxxbQYjE5GytWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jDDu/tP8; arc=none smtp.client-ip=209.85.221.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gmG0+GP9"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48b0946c2c2so2597178f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 05:35:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jDDu/tP8"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48c411d6615so2954849f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 05:35:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791981348; x=1792586148; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791981350; x=1792586150; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=om1ONkc929u95vn1fQ/Nbz6FD0lMp1Ust+GYISd+Hxs=;
-        b=gmG0+GP9TF4Gbrs97mPC86qVXaQW8+AOjzhEmaAswG783yKt2LI5QRexk0v7ewm4B1
-         2nKIwRUvanQgp+SCJJ1jIVinmbCYwx1LTdVGQ6MTd6CqUQzLKSYNDvOIJPobjJYXU2Tf
-         81O0n1BsKTgxPzUdw36vkj8r0bchjY5ZEQ7k/qTRv2Z72/iVoWsx9VlvcSDcLIYVTvjC
-         iVBpxo+CMoogHkxPt2tKdBot4NTdGW+tloLqB+zzY72H2ds9BUDMjxPL7yoiH76XCzDe
-         yGlReax6ae7eF0s6l4VsMtFBYsYlgFXzo/1Bv62+lChaEa9m2UNSiw1bCHyQCv2GKZF6
-         tQkA==
+        bh=GKgGfNoWXQV4tpIVxLenRclK7vXKxa8R7Z63ZilMkDY=;
+        b=jDDu/tP8/2iSgLN1cNqke1ArVNsv/4U3BVa7My/xduOAKTKbnT/jAp/ulksNBpgAbP
+         sz061GPhy3omRUikl2se5DDBOgPXZ0h5T7nTtM82Y+TNa1r9vXGI/Zx40E3/6z/AWafL
+         TxCAeXNktTrVaOiBE2XJkGmV0Ea3Cd/M2Xn8g45GLD75QMOGX86kLFfPK+CCPtTZMl8Q
+         4TdShLFh8MAS3CNP9gs/GFNN0uDaCMEg34dwadLkiYcjukPN6pSrl7UoEPape2CL+7OP
+         +jr5TgNpfcgTPd9UcwUEceN/Me5ZVGQw+dy510dlj1LpxCe8bBTjH4zSHbbSpb4esKNW
+         B5TQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791981348; x=1792586148;
+        d=1e100.net; s=20260707; t=1791981350; x=1792586150;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=om1ONkc929u95vn1fQ/Nbz6FD0lMp1Ust+GYISd+Hxs=;
-        b=yxMtFjbbH0ext0fRmmGpLtPMKBrbyaEJ5tyb5tlVGzXjv0k6sT6YEasEWqdESVZCrl
-         DYWaavYgRmjZO3ZFwZVjJoTAS95z3QmbUNUZVN7S8ha/+rWy092NNhaxFD6+kpQDBO40
-         hTuobJonEmya1IZOUiQVHWcqRqOB0F1m6H/+EyeCp9ztcK7+KGQZJ+NLZY5/UYAeNQ1e
-         8ExAcQlZ9ZpLBLS3P5tTPPmBS4E3FOxX4jSOCZNC6P1EL6GsiBNC03GIjlUluI1qnAKS
-         TauwZ4GCS0qdYqZ8XlypMepIawVH4gYCC/zJ+XhkO9mDeBeah8p9K0mXEaqM+NX5IOcd
-         szMQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwnTZX0wEqalI63y8/7LUDZ15xgP9OhDjXcg/90fwrYsg9xrLSpUyKE8G4LSl3oTL4S3P2i8ARV8fXkbfA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLnQ6MiXypMEK3s5TizbT5xKFHOCkofjrnRREoYcaPw/nGckmWt
-	gNYWVOHm0V0WS+Et5Kf+sIIzcxZKkY+LGnzMSK8+zNkicq0hSg7SlOy+
-X-Gm-Gg: AYBFou2MBNhSSFXuACy5GYX35WNCjTqZ97BbXFkFJoz5yvbhg+9GNtBuUc0jbLVNsCs
-	+jwnT5rxKHgv3WYgjBGOEH6+tR/bKrccEfiynHhHRIhfXeAX7OVAal8NLTzQrydF4g7k4LQCFS6
-	9MDwbmpoVMY86bAAYPQJg58MdaYCUUJmnSlgtU2c9w2aqVtTz4CzLryXtuFCQldu3PxCZlNqrHT
-	5A0SSVGFWK+0/KAgKyiKDZg2CZAa9qkc2iO68smyvLVeuy39HANZdJh2LibwCqyi92pUCbxz3nQ
-	+VhAU7x270gl7xoH7pvsH6U4ircIMuGqmBXqa1l2dcYAi59fT7qDlLZs90BNZKdXcynbmNgMgBS
-	NjVvMhSWJe90U3ERr0FcHSVkq4QnV+SZqnWvqteUoY3ynrUy3/ITNOODnTh8BsfCIhiTOhIsEgf
-	J3xzXaTo+IKQorkSik3Mpm0JX9N/wpXoBjt0nz1MS6chO7FOJU7B2QqGi6JSBZP45R3RSeB/FTD
-	HShncpVCvnMlDEJvSjMGai5GlxahccxxfuVUf8uo/GTWzQryK9E07cMEVUF+7Q=
-X-Received: by 2002:adf:e007:0:20b0:487:8ba:8aa4 with SMTP id ffacd0b85a97d-48dbace50e3mr22564611f8f.38.1791981347653;
-        Wed, 14 Oct 2026 05:35:47 -0700 (PDT)
+        bh=GKgGfNoWXQV4tpIVxLenRclK7vXKxa8R7Z63ZilMkDY=;
+        b=L+P1w/UtPHWu4gU58pslBvQWW2iCeKVTXP7Etke8TsoI8CuW5N/dp6GW01eRxJ//p1
+         +YSgPiRZOPzo+L1ZsnWeLEBD30U+LqGzs86nKuNbvHmkAouDt3L3Dl1m+MM0Hk5a+YWp
+         hGMAyxZ9HJOigIC7ocCqSoKChKvT99zIARhvalb7IMtVzsyuYM/9yCt4VvLXiZrH6vps
+         WIHlFsLUJp6ICgNWUaPE3Ww1b5CXOtQkTfaRUEe8QUqJY65f4eda58AdjsiC15JHIxK4
+         K3mUywfw1OLz2n35jl57IUZmZIeTku8+RIKndL+KtNpizd6eq9LoaT5JoZCzcSDqbB9m
+         a2eQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw87QeJpymLdeJ38ei4wHpnTO6LQPyX/ZV1lKRDuyzeGMewoEQLNW8sroy9v4I93ZJjA8kNDC4zOGMIjt0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLrOIKpnZu7pBxcfixoZF/kj7fcVEfKgoTBfiozwlN+zghByYm7
+	YcTFGIOcP+kDRUAzbqvFPYWfz/19npm9BJr+Irm4UwaVf4bvj5YDz/ta
+X-Gm-Gg: AYBFou10UIGj2j5UOAnbmXNizUBPVjoO4ai2TePkik53dt0I4z5gK+rTNt1guIfOh1s
+	O/SYiCvJjLNVEIeiT6dh8q9FG3C3vXbKi1A21F1GReVlMUrQayXhNjlbWMV6OHT5p9QSj1F1Ii8
+	Vtgi0ohrIrABivXJYqZFC7EL2d50XQ0zO9UQ7G0NopAxErNW+HpcWMNazCoWy2Bu6th9JIaWovc
+	5wqWYeZSY9fIMeFtnA8NhgNTGRe40lkF/3quqiKotU7SNKlHjorXvfEajJJ8qym8iI2ZiE4rjeo
+	PfRawH89tG0Q9rQ+hzZfmG3TmE063JkS3RTaUS1jKHGtxm+haQgh+uKkJJK4861a9alyBRlTv86
+	IhLwyLyYEtkS2cFsB3yOV5D8DRBIVV3e5t7d9OXGb/5DQPQGdVF5wB2NSlu+0bbWNar9GpmN2wT
+	w5FgEnzzeDEV7YXXgwOuGcfnP+/5NklqKgHMlnx0RiPYyrb8HWW0gUhGB8xkHRYQKzkuw5bQ0T6
+	rQ1HlzId7ANMKefnHnvg+ooN17+MoKPB/Afd4uuqraFH0ZhsUdhVEWEFbw60/c=
+X-Received: by 2002:a05:6000:12c7:b0:48b:28e:2f13 with SMTP id ffacd0b85a97d-48dbacffdfdmr22882377f8f.52.1791981349373;
+        Wed, 14 Oct 2026 05:35:49 -0700 (PDT)
 Received: from nixos-office (29.pool92-59-2.dynamic.orange.es. [92.59.2.29])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48ded3874c6sm3003353f8f.18.2026.10.14.05.35.46
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48ded3874c6sm3003353f8f.18.2026.10.14.05.35.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 05:35:47 -0700 (PDT)
+        Wed, 14 Oct 2026 05:35:48 -0700 (PDT)
 Sender: Julian Braha <julian.braha@gmail.com>
 From: Julian Braha <julianbraha@gmail.com>
 To: mark.rutland@arm.com,
@@ -73,9 +73,9 @@ Cc: radu@rendec.net,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Julian Braha <julianbraha@gmail.com>
-Subject: [PATCH v3 1/2] irqchip: gic-v3: only select HAVE_ARM_SMCCC_DISCOVERY on arm64
-Date: Wed, 14 Oct 2026 13:35:38 +0100
-Message-ID: <20261014123539.2259230-2-julianbraha@gmail.com>
+Subject: [PATCH v3 2/2] firmware: smccc: provide stubs when discovery is disabled
+Date: Wed, 14 Oct 2026 13:35:39 +0100
+Message-ID: <20261014123539.2259230-3-julianbraha@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261014123539.2259230-1-julianbraha@gmail.com>
 References: <20261014123539.2259230-1-julianbraha@gmail.com>
@@ -87,11 +87,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ARM_PSCI_FW is always enabled for arm64, and the GICv3 driver only
-uses HAVE_ARM_SMCCC_DISCOVERY to identify the NVIDIA T241, which is
-arm64 anyway.
-
-For ARM_GIC_V3, let's only select HAVE_ARM_SMCCC_DISCOVERY on arm64.
+Add fallbacks for callers to avoid needing #ifdef guards when
+HAVE_ARM_SMCCC_DISCOVERY is disabled (32-bit arm).
 
 Fixes: 35727af2b15d ("irqchip/gicv3: Workaround for NVIDIA erratum T241-FABRIC-4")
 Suggested-by: Marc Zyngier <maz@kernel.org>
@@ -109,22 +106,34 @@ Changes since v1:
 
 Link to v1: https://lore.kernel.org/all/20260801212235.2692694-1-julianbraha@gmail.com/
 ---
- drivers/irqchip/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ include/linux/arm-smccc.h | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/irqchip/Kconfig b/drivers/irqchip/Kconfig
-index a8f8c423b795..31b7e4c90007 100644
---- a/drivers/irqchip/Kconfig
-+++ b/drivers/irqchip/Kconfig
-@@ -37,7 +37,7 @@ config ARM_GIC_V3
- 	bool
- 	select IRQ_DOMAIN_HIERARCHY
- 	select GENERIC_IRQ_EFFECTIVE_AFF_MASK if SMP
--	select HAVE_ARM_SMCCC_DISCOVERY
-+	select HAVE_ARM_SMCCC_DISCOVERY if ARM64
- 	select IRQ_MSI_IOMMU
+diff --git a/include/linux/arm-smccc.h b/include/linux/arm-smccc.h
+index 4de81848fe2e..75f9d3f1723b 100644
+--- a/include/linux/arm-smccc.h
++++ b/include/linux/arm-smccc.h
+@@ -324,6 +324,7 @@ enum arm_smccc_conduit {
+ 	SMCCC_CONDUIT_HVC,
+ };
  
- config ARM_GIC_ITS_PARENT
++#ifdef CONFIG_HAVE_ARM_SMCCC_DISCOVERY
+ /**
+  * arm_smccc_1_1_get_conduit()
+  *
+@@ -363,6 +364,12 @@ s32 arm_smccc_get_soc_id_version(void);
+  * When ARM_SMCCC_ARCH_SOC_ID is not present, returns SMCCC_RET_NOT_SUPPORTED.
+  */
+ s32 arm_smccc_get_soc_id_revision(void);
++#else   /* CONFIG_HAVE_ARM_SMCCC_DISCOVERY */
++#define arm_smccc_1_1_get_conduit()	SMCCC_CONDUIT_NONE
++#define arm_smccc_get_version()		0
++#define arm_smccc_get_soc_id_version()	SMCCC_RET_NOT_SUPPORTED
++#define arm_smccc_get_soc_id_revision()	SMCCC_RET_NOT_SUPPORTED
++#endif	/* CONFIG_HAVE_ARM_SMCCC_DISCOVERY */
+ 
+ #ifndef __ASSEMBLY__
+ 
 -- 
 2.55.0
 
