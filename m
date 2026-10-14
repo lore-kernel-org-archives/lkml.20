@@ -1,90 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 841AD414A27;
-	Wed, 14 Oct 2026 06:48:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B2D539734A;
+	Wed, 14 Oct 2026 06:49:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791960539; cv=none; b=dwkWeD6BE5RMb5mu0OYF6jEtVi6M4PrPhNjS1pxQbG1EdPEFsGCAWkQE/LGLdw8yWm6qlFz1Gp+eiZvyCmsDCb3yBVcYQDRh13o7C1dSrxBPipEoi4t030xlBi2tbZHsXyqlHL19x79X8BxyNLH2/SZlD4d82iCOLDxJi+IUFXY=
+	t=1791960565; cv=none; b=kCG3K7jkJ66UfYHPhPv0vPIdc93rW7lzPl2Ey+XKy7Knb+y4VjA/BCsxXM/LDmZZ5IFzoXUcahlhIK34fRT30HmXqauCkPHbyHqxbgKBxgttINrvzlZpVO578kVhOEs0BTbvzYsKm/0wjWdDqeS0lGjN/LVs2CYX3zuv6E+44Mg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791960539; c=relaxed/simple;
-	bh=4sRv9LlDt/QFQt2J2hCMrxYjfnDkaQpVRSNLST+xGsY=;
+	s=arc-20240116; t=1791960565; c=relaxed/simple;
+	bh=aZrv7adkCiuMGdBtBLWV4dVbDAD7hH2HMFrxJJTQHzc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cq2grQcxwCXTc1c3Zc0ub+9k4TWShwZic7FH8Wu5lGQkvggXTXqCZTEoa2RK2k2ap8Ryd5nahgZzRMfEzAGkNvJySJIGgjflTTBGmKfckZlqqrFHiOg/cp4HqTW3/jAUDN22s3xenpJ6ApRXF9Pavos0d5GXenrhTlY1hCdsoUQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bc11fH8U; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=WirwPaWBNp89nIhOZCyuUSwyn6t9cXAYmejIkKYYjfaTIwoTEQMcoOw5rq7HjQEb8yqc1T7kqFrmt/X+xcK5txsss7Hqeg0OIiiAWtYJojrDfbL2Jq7inDtDyJLs9es6wRg+7U7Gh1lgKS5VvlSnbUWDPZv8iIAV9OdzMehEKmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CZWMifVi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bc11fH8U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF58B1F000FF;
-	Wed, 14 Oct 2026 06:48:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CZWMifVi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAF3C1F00893;
+	Wed, 14 Oct 2026 06:49:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791960538;
-	bh=3s3KwabcJwIRXUmI/Y+Bqws+Jo8G1XOlJIz1X+GBsuk=;
+	s=k20260515; t=1791960563;
+	bh=pncUlMDikQkgCgOkDPW61TO4UY38RFp5paMgtZqftfI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bc11fH8U74i7RrUlQ5KqwGTUchjhVugnDivsPsLyeQXmbjKrmtwUGhVN3PbhPBeiL
-	 cfQwruNYWI399jvmwJuI4th66Dr2RcqTzpQqjd87UvGubXC/RFzAr65qTeQUfIwnT8
-	 eQIdwPhtoHrRuL0Ye2AzAJkYXXUoTuYT4h0FyVcXKUgFyxh2ojogGBROtpO0EJfP3L
-	 yiQvRzVhfq/0/tKNaYipcoS0ggRQnDpATrx8LGcqx5Yz4jJmcj4LvmkudZDPlVagXm
-	 luzSTJxdiDLzwl/uLkZvjkMWKOKj+CTezDg/kxRjaNrg3hFcfvyuOI+UV/RBcUjLrI
-	 Qt9w6iJ0THlXg==
-Date: Wed, 14 Oct 2026 06:48:54 +0000
+	b=CZWMifVizIfG+onbuswr1c2TAaG28Uc/Pqe+dpkFEK9skZH2YvUKUBwTu56PNnCyV
+	 mXa80bxQYLXaVKPCWD0hdwsIS54nMUxE2tivI5v+JS9Ozmdqpkq553fgmnl/Z71/iv
+	 efm3BMkj9VtuCA0SucqjS/XVOdSjDDd9MV9ITl5hYpy3wIcw7OJ9O8pQIK6Vr0ystq
+	 E14P2UXOormnKOqKZmwqN1+A/25yOKG1DuO+JX3HLkGlS3Jw9fLKC28KdbDCFhdpPB
+	 7e7WbZn9LMdzMhCh66x7EJntmuMB9zVNfyI19RoHOTXV1Fy9qxiknW/4hZ87+dgxiN
+	 0YfzZdWDwbtIg==
+Date: Wed, 14 Oct 2026 06:49:20 +0000
 From: Tzung-Bi Shih <tzungbi@kernel.org>
 To: Satyam Gupta <sgsatyam@google.com>
-Cc: Scott Collyer <scollyer@google.com>, Benson Leung <bleung@chromium.org>,
+Cc: Benson Leung <bleung@chromium.org>, Guenter Roeck <groeck@chromium.org>,
 	Gwendal Grignou <gwendal@chromium.org>,
-	Guenter Roeck <groeck@chromium.org>,
+	Scott Collyer <scollyer@google.com>,
 	chrome-platform@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] platform/chrome: cros_ec_sensorhub: Modify clock
- drift estimation
-Message-ID: <as8l1oKtNsIwNHWr@google.com>
-References: <20260723163838.1698125-1-sgsatyam@google.com>
- <amiBVdd1KvxbW5Ul@google.com>
- <20261013105713.1369546-1-sgsatyam@google.com>
+Subject: Re: [PATCH] platform/chrome: cros_ec_sensorhub: Increase
+ MAX_DRIFT_PPM to 5000LL
+Message-ID: <as8l8OYwgCr7rv3k@google.com>
+References: <20261013105806.1371175-1-sgsatyam@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261013105713.1369546-1-sgsatyam@google.com>
+In-Reply-To: <20261013105806.1371175-1-sgsatyam@google.com>
 
-On Tue, Oct 13, 2026 at 10:56:50AM +0000, Satyam Gupta wrote:
-> On Tue, Jul 28, 2026 at 10:15:52AM +0000, Tzung-Bi Shih wrote:
-> > > This CL makes 5 specific changes to the clock drift estimation algorithm
-> > 
-> > Since these are 5 distinct logical changes, shouldn't they be separated into
-> > a 5-patch series?
-> 
-> Although the v3 commit description listed the adjustments as 5 bullet points,
-> they are tightly coupled parts of a single fix to support sensor batching in
-> the timestamp filter without breaking intermediate states:
-> 
-> - Extending TS_HISTORY_BORED_US from 0.5s to 2.0s so the filter survives 1-2s
->   batch flush intervals requires the 10x dx ODR/mode-change reset and slope
->   clamping; otherwise, transitions between active streaming and batching (which
->   previously exceeded the 0.5s timeout) mix into the same filter history.
-> - The 10x dx check (which reads state->x_history[1] when history_len > 1)
->   depends directly on the loop start index fix: previously, with
->   `i = state->history_len - 1`, the loop did not run when `history_len == 1`,
->   leaving `x_history[1]` unpopulated when `history_len` became 2.
-> - Dropping strictly past timestamps instead of clamping them to `last_ts`
->   prevents post-reset backward ticks from being mistaken for same-timestamp
->   batches by `cros_ec_sensor_ring_spread_add()`.
-> 
-> I have reworded the commit message in v4 to explain how these pieces work
-> together as a single cohesive change rather than a numbered list of unrelated
-> items.
+On Tue, Oct 13, 2026 at 10:58:06AM +0000, Satyam Gupta wrote:
+> diff --git a/drivers/platform/chrome/cros_ec_sensorhub_ring.c b/drivers/platform/chrome/cros_ec_sensorhub_ring.c
+> index 20fa47cbee32..a5215955470f 100644
+> --- a/drivers/platform/chrome/cros_ec_sensorhub_ring.c
+> +++ b/drivers/platform/chrome/cros_ec_sensorhub_ring.c
+> @@ -22,7 +22,7 @@
+>  
+>  /* Precision of fixed point for the m values from the filter */
+>  #define M_PRECISION BIT(23)
+> -#define MAX_DRIFT_PPM 200LL
+> +#define MAX_DRIFT_PPM 5000LL
+>  #define MAX_M ((s64)(MAX_DRIFT_PPM * M_PRECISION / 1000000))
+>  
+>  /* Only activate the filter once we have at least this many elements. */
+> @@ -278,7 +278,7 @@ cros_ec_sensor_ring_ts_filter_update(struct cros_ec_sensors_ts_filter_state
+>  	dy = (state->y_history[0] + state->y_offset) - y;
+>  	m = div64_s64(dy * M_PRECISION, dx);
+>  	/*
+> -	 * Clamp the calculated slope to a realistic range (+/- 200 ppm).
+> +	 * Clamp the calculated slope to a realistic range (+/- 5000 ppm).
+>  	 * Temporary large jitter spikes can produce huge slopes (e.g. +/- 20000 ppm)
+>  	 * that would otherwise corrupt the median filter history.
+>  	 */
 
-I'm not convinced.  I think they should still separate into 5 patches and
-form a series.
+Applying: platform/chrome: cros_ec_sensorhub: Increase MAX_DRIFT_PPM to 5000LL
+error: patch failed: drivers/platform/chrome/cros_ec_sensorhub_ring.c:22
+error: drivers/platform/chrome/cros_ec_sensorhub_ring.c: patch does not apply
 
-> > On a related note, is [1] still relevant?  Should we disregard it?
-> > 
-> > [1] https://lore.kernel.org/all/20260720110405.2127011-1-sgsatyam@google.com
-> 
-> Yes, [1] ("platform/chrome: cros_ec_sensorhub: Fix AP/EC TS wrap") is still
-> relevant — it addresses 32-bit EC timestamp rollover across deep AP suspend.
+Until I realized this should apply after [1].
 
-Please resend or include it in the same series.
+NACK, you should either form them a series or squash the fix into [1].
+
+[1] https://lore.kernel.org/all/20261013105753.1370713-1-sgsatyam@google.com
