@@ -1,119 +1,213 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B33E44ED182
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:33:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.175
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791977584; cv=pass; b=SEV4qtmVBiH9h08YNzUtGq3B+v8+SkqTQqAzgfB8Fd+GGk6E1SPqPiiU+oZu5g3Cb77LtXpEXWzQSfdmKJqkCYrZ6JsmeNZU03mvETeXg39GvjtgiiLCQylvVGM9YrDOCVyNc0eaRnKoVHb09HSuYOn8ahGyVr30H8BqD5qeafo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791977584; c=relaxed/simple;
-	bh=12GPgwdr3qj0TkfPxuB7Od/agzSF8FGX9L8FNnB9lOg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PJm0gcU2DjYLvt1oNH9+/0Z2tuIbaDQR32BBk2K97MW6hiVAC3fv7kQWsvnQ5GOnEYAAaVAtpfJaRJOFGaxRzt8d1fhKxT47lR1rLXf7oSZL2o+EgJZaCgqfznTCwfKfPiFD+4Xmd0gvGTMZ7BQdVY1BG2nQ+L+CPIAyuUe7lg4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SsJJ5IHJ; arc=pass smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B0A79460;
+	Wed, 14 Oct 2026 11:33:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791977622; cv=none; b=EC1sTuwN5uXlQZPCOUTCgnJVQprJMFtEEzy4mvOxFfKYej+8wutt9ThKvr4dDDx6xqr9uBZiokKUAMu09trylKDCDB8tAknObitCcgbLQHkwfCnb0feDx9vUDHbmVrDI7oPsFsdyutNsuKF5aK63fF+slP7BqWP6ZAdXWiNkfHE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791977622; c=relaxed/simple;
+	bh=tHNpA5vm1hV5Vdxxa9JWrHalQKkLQHjRt3V/whoWAyE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SK2Kno9WCvSU734MBwyHKZYxv0Jz2Uho13zozIm8N5o7+QexCmqpucKd8iMum/VzXH9H6f9KOqoY92JlL22vckVKcFjcj9W+xUqiTsBa6Br1XgEx4xfcbIX4dRm1Tpry4Gy3T51rKuZGYZEJAzvooSQbhBfOUlPsaFXDnpEIG3A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=M6apc+eh; arc=none smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SsJJ5IHJ"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2e608cd460eso21265045ad.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:33:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791977582; cv=none;
-        d=google.com; s=arc-20260327;
-        b=pOq6E7uC4OvDIdi5ogg71LdsrOvYOyvQRxWt4R0i9DJWr1tTAOat85aCfrqlGy+NSB
-         CQfwBLskf8Ia0O2bR3kxD5AGhNxEFJt+SZqpYiILRdCR24nocHXYIWjw6FgasPXc8qXJ
-         SxRa9VO+reIZGDmq21LnkHzKKyoaoaqpq4/JJ7J1Rqn9tW/5PsiQTXFEXxWmm9WMe80u
-         7a322vGIiv0Nb4q5lIXdiq0lUMEKG4o7VHxY9wp6cQttyNhWQ/QvF1DQFL4uZNG7KfDc
-         OxPalVh71usnAmwwjkJooB83tsRmsOnSQHU09tyuAi+Kc+h8jImZozBD4tI42PTTs+gj
-         n/oQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=xfoExJf5zT7NtUl6j7xed6XbyKrpOGVfx8PomIB2cRg=;
-        fh=IQa4NBjTocZdaJNenEpuys7IVCLD2IEVkbnnjz9mdT0=;
-        b=KUAEZhHvCsvQxY9/G4NEMBqb2kyAWM0c7V9D9pgLY2q1CZnl94AMI1PZ06XBmw1R/T
-         MvW4QE7abyDc6j2wOhFpOauFT4WI6v9raRt0APouDkt9vXrk58BjgS+4MDC3+73jkIGA
-         duil5W4gumQADFOaneMqgzEnq4hSccMnLOwjPbmW72kHeQruVWvU/X/KmjT6Hylm1JiR
-         9sxr7U8sq838ihJxQTrSvYkn8WoE6QJeaYEGX33e0RuLrcO5lA8YLbVXd9HHWM++IJAw
-         5PHukcE0owA+Qha+ggf3euwZ5UYcJKky8MRUfUygLGJ0OHeQzNpwz+Ele6LTDWFo3TFQ
-         Zifg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791977582; x=1792582382; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xfoExJf5zT7NtUl6j7xed6XbyKrpOGVfx8PomIB2cRg=;
-        b=SsJJ5IHJVvYN3OqMbEyzvONiRhLOUCwcl59EpepImMqFowX1Ubj7WQSQSVdF6u+qp1
-         M980aG7tYdA1267LECI4iGH2W0g+0l3rOs08S9wsoZhPdaTxL/NPO2DNKu3wdYXQQ4q2
-         vbvPWuV9ATvNqO8iOyUs/r0an+LBAzC2Ic2a91Qr6v86oTLPShbOp4Pu4fwAS1HuvYTS
-         j+g75Gq8Bkjf790xF6PHZv7ME1sLO6G0aVusA0z0pvgsU0vIfcWQYbIoPVaTfvfmyz9S
-         XBy3gpz1cdFoAVKZcEgQXRj2/IUIKIrTxHAOPn2corJb0m6UfkjbXTay1IC2bPQDt8w2
-         5h7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791977582; x=1792582382;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=xfoExJf5zT7NtUl6j7xed6XbyKrpOGVfx8PomIB2cRg=;
-        b=z5q+FoaPw+JihAEsEekq3EHPHjtCvs2Z7IXZkH18W8RjNKmMSpAAzomOoqBfOaaq+A
-         jMq2bQ48JRaeKSNvdcfvFoQ1ftBlm+AFJ9bgD02zxBGSlA3QYHNwC7zX2x8TtRF0KOsb
-         4I6lS/F2DVQ3iWSnsSVY9Hbl3Tf6QKaN3lf00XTpz9fsaqxm96pKFAzl/BI+Q8b89KGX
-         7XOVUqFab0eTbv+HzjxMQDvS+KH+y8MLQA+zMLHGthIFkileLBTHggw467Cq8LiS5h92
-         lJCHHPJxgFqEE36kNhh6+p9WdOuMn9urIFjVVbp7zekubvhUISUepkLQz3lYCKGT79lE
-         duGQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxbBb9TEiOVNkyv0svQKcQ559jgHkN+V9zo9RFVYn58+RpwOT/ZbqWjh0j8tpy6NC5PTXz9O3Dvl5ICPRA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI2x+sXJNfGzO6ODD7bMnsmXg6S7IRLFKoDGZPAZSBirN8GO+3z
-	fiIX9NLI3qNMfml4lbx90Xfn0nGY09sl5YdL++dT7DkNZ2Dmp9wIx1R7PTxRcTfn+Jv5AgR/AKB
-	YFlPK+IoedUxHprflCiZyTYO0Ot0cTAc=
-X-Gm-Gg: AYBFou3n5gbyGUJ0ZQ1uQND3/LqSaGO2L/wbru8QhQVWdltS3Ra18LqFojzEgeGkppy
-	yY6/TaUSb57oA5oga5KT2XkJc3q159HYs2pSQp5IawJ9dxsC/stTifJHlapb4qLakYFTMoHMd+2
-	88VsPP4iaW9ERhNoTWTzDN4CyrDtxLJ3aFgd/HelMVN7OpFx5cieSbhmmg/M6liEhqrqZjSndHd
-	GxWGr9PactOE0brjTqw05QFVOOz2soRryh1Zzpx2Dj2MgUfU1YYAxOAj8WMbqOKiyPdUBQ3N8vz
-	J9fIGYvfJ1u4g7fyi+hKOK/8Dn1wk/TWKU4156k+zVfisAgv4wrwuKhwjhaZ+RPETSt9uu2M3Li
-	B8WwVBhO+H0JY3OUMZ7nEAdEDgskC5Gvbvubkb0p4tNJtLxcemANsP2ICjSTjP34Gg60=
-X-Received: by 2002:a17:903:1b63:b0:2e7:ff72:203f with SMTP id
- d9443c01a7336-2e842bd0f74mr119079465ad.61.1791977581942; Wed, 14 Oct 2026
- 04:33:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="M6apc+eh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791977621; x=1823513621;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=tHNpA5vm1hV5Vdxxa9JWrHalQKkLQHjRt3V/whoWAyE=;
+  b=M6apc+ehid1JLLwKuyzERqFHXLLyJZgeLKX0wxKu9NiAPC1M1I7olI4c
+   w7crKpDerHX8Xv+Jo5WiRpeTl9kCjFXOcjdR4pKtd6oKEujpEo8bbFrq2
+   cIe6mtwZll078ogsobvHI4MmqOZsghq+B3OiVwlyea6HxJ0AYMXyrrZtx
+   jzBz+IkwUYMX+7deixdacmNaiwvaohWoMorLArF9y9d+4XB7TIhrHMn93
+   eaHBWO9yeSej2cZ1Mar8qI7SvSfLhQKAqMo/nS7Q3sRTcDNeUvjtCH33z
+   AIWiRBdJdwzmNPTyG5pOsDoIvc1FoaYzYjvZUOvHPc+tA344/dgo3C1Kx
+   g==;
+X-CSE-ConnectionGUID: nzfM6U6GQUq8+4TKfzp25A==
+X-CSE-MsgGUID: ebwpjNWZQp66dOB1S5QHXg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="619606"
+X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
+   d="scan'208";a="619606"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 04:33:37 -0700
+X-CSE-ConnectionGUID: 2OiX4ZENRi+ntMyfpq4CEg==
+X-CSE-MsgGUID: 8SUYL8wfQsOTN99XjIOSLA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
+   d="scan'208";a="1322273"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.210])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 04:33:35 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id B311311FBA6;
+	Wed, 14 Oct 2026 14:33:38 +0300 (EEST)
+Date: Wed, 14 Oct 2026 14:33:38 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Cosmin Tanislav <cosmin.tanislav@analog.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: i2c: maxim-serdes: reduce
+ max_des_update_streams() stack usage
+Message-ID: <as9okp5GgBgc5Hlp@kekkonen.localdomain>
+References: <20261014103201.859465-1-arnd@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261006101606.54079-1-phucduc.bui@gmail.com> <179192410143.1606900.17860222773161459120.b4-ty@b4>
-In-Reply-To: <179192410143.1606900.17860222773161459120.b4-ty@b4>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Wed, 14 Oct 2026 18:32:50 +0700
-X-Gm-Features: AclHuK_s2zGX3VihBvP-h606hGOl6LIyL74TJwbiVFCd2fpUtb4C574mAt5YBhc
-Message-ID: <CAABR9nHZ2+AD=-SoAbXSuCMD4UU3VVEQJNEF4w57Z_c6Q1a5vA@mail.gmail.com>
-Subject: Re: [PATCH 0/4] ASoC: mediatek: Return 0 from FE startup on success
-To: Mark Brown <broonie@kernel.org>
-Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Trevor Wu <trevor.wu@mediatek.com>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, cassiogabrielcontato@gmail.com, 
-	Haotian Zhang <vulab@iscas.ac.cn>, Christian Marangi <ansuelsmth@gmail.com>, 
-	Cezary Rojewski <cezary.rojewski@intel.com>, Cyril Chao <Cyril.Chao@mediatek.com>, 
-	Tuo Li <islituo@gmail.com>, Rosen Penev <rosenp@gmail.com>, 
-	Garlic Tseng <garlic.tseng@mediatek.com>, Alexandre Mergnat <amergnat@baylibre.com>, 
-	Dan Carpenter <error27@gmail.com>, linux-sound@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014103201.859465-1-arnd@kernel.org>
 
-Hi Mark,
+Hi Arnd,
 
->
-> Applied to
->
->    https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
->
+On Wed, Oct 14, 2026 at 12:31:33PM +0200, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
+> 
+> The function can break the stack frame warning limit in
+> some configurations:
+> 
+> drivers/media/i2c/maxim-serdes/max_des.c: In function 'max_des_update_streams.isra':
+> drivers/media/i2c/maxim-serdes/max_des.c:2550:1: error: the frame size of 1648 bytes is larger than 1536 bytes [-Werror=frame-larger-than=]
+>  2550 | }
+>       | ^
+> 
+> This is a simple large structure on the stack that shouldn't be
+> there. Move both instances into a dynamically allocated structure
+> instead.
+> 
+> Fixes: 22923bc4512c ("media: i2c: add Maxim GMSL2/3 deserializer framework")
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> ---
+>  drivers/media/i2c/maxim-serdes/max_des.c | 28 ++++++++++++++----------
+>  1 file changed, 17 insertions(+), 11 deletions(-)
+> 
+> diff --git a/drivers/media/i2c/maxim-serdes/max_des.c b/drivers/media/i2c/maxim-serdes/max_des.c
+> index 6b4ffd0e2415..4347ca24b5a1 100644
+> --- a/drivers/media/i2c/maxim-serdes/max_des.c
+> +++ b/drivers/media/i2c/maxim-serdes/max_des.c
+> @@ -2164,7 +2164,7 @@ static int max_des_get_frame_desc_state(struct v4l2_subdev *sd,
+>  					struct v4l2_mbus_frame_desc *fd,
+>  					unsigned int pad)
+>  {
+> -	struct max_des_remap_context context = { 0 };
+> +	struct max_des_remap_context __free(kfree) *context = kzalloc_obj(*context);
+>  	struct max_des_priv *priv = sd_to_priv(sd);
+>  	struct v4l2_subdev_route *route;
+>  	int ret;
+> @@ -2172,7 +2172,10 @@ static int max_des_get_frame_desc_state(struct v4l2_subdev *sd,
+>  	fd->type = V4L2_MBUS_FRAME_DESC_TYPE_CSI2;
+>  	fd->num_entries = 0;
+>  
+> -	ret = max_des_populate_remap_context(priv, &context, state);
+> +	if (!context)
+> +		return -ENOMEM;
+> +
+> +	ret = max_des_populate_remap_context(priv, context, state);
+>  	if (ret)
+>  		return ret;
+>  
+> @@ -2187,7 +2190,7 @@ static int max_des_get_frame_desc_state(struct v4l2_subdev *sd,
+>  		if (ret)
+>  			return ret;
+>  
+> -		ret = max_des_get_src_dst_vc_id(&context, hw.pipe->index, hw.phy->index,
+> +		ret = max_des_get_src_dst_vc_id(context, hw.pipe->index, hw.phy->index,
+>  						hw.entry.bus.csi2.vc, &dst_vc_id);
+>  		if (ret)
+>  			return ret;
+> @@ -2450,18 +2453,21 @@ static int max_des_update_streams(struct v4l2_subdev *sd,
+>  				  u32 pad, u64 updated_streams_mask, bool enable)
+>  {
+>  	struct max_des_priv *priv = v4l2_get_subdevdata(sd);
+> -	struct max_des_remap_context context = { 0 };
+> +	struct max_des_remap_context *context __free(kfree) = kzalloc_obj(*context);
 
-it looks like v2 has already been applied, hasn't it?
+max_des_update_streams() is used in implementing disable_streams()
+sub-device pad op where meaningful error handling isn't possible.
 
-https://lore.kernel.org/all/179138999054.2423942.10212092263791353501.b4-ty@b4/
+It seems there are other ways it can fail but this adds one more.
 
-Best regards,
-Phuc
+The bulk of the struct consists of the vc_ids_map unsigned int array, but
+the maximum value VCs can have is 31. Also the size of unsigned long
+depends on the architecture, so a fixed-size type would be probably a
+better choice.
+
+Also using bit fields instead of bool would save space.
+
+>  	struct max_des_mode_context mode_context = { 0 };
+>  	struct max_des *des = priv->des;
+>  	unsigned int num_pads = max_des_num_pads(des);
+>  	u64 *streams_masks;
+>  	int ret;
+>  
+> -	ret = max_des_populate_remap_context(priv, &context, state);
+> +	if (!context)
+> +		return -ENOMEM;
+> +
+> +	ret = max_des_populate_remap_context(priv, context, state);
+>  	if (ret)
+>  		return ret;
+>  
+> -	ret = max_des_populate_mode_context(priv, &mode_context, state, context.mode);
+> +	ret = max_des_populate_mode_context(priv, &mode_context, state, context->mode);
+>  	if (ret)
+>  		return ret;
+>  
+> @@ -2471,11 +2477,11 @@ static int max_des_update_streams(struct v4l2_subdev *sd,
+>  	if (ret)
+>  		return ret;
+>  
+> -	ret = max_des_set_pipes_phy(priv, &context);
+> +	ret = max_des_set_pipes_phy(priv, context);
+>  	if (ret)
+>  		goto err_free_streams_masks;
+>  
+> -	ret = max_des_set_tunnel(priv, &context);
+> +	ret = max_des_set_tunnel(priv, context);
+>  	if (ret)
+>  		goto err_free_streams_masks;
+>  
+> @@ -2483,7 +2489,7 @@ static int max_des_update_streams(struct v4l2_subdev *sd,
+>  	if (ret)
+>  		goto err_free_streams_masks;
+>  
+> -	ret = max_des_set_vc_remaps(priv, &context, state, streams_masks);
+> +	ret = max_des_set_vc_remaps(priv, context, state, streams_masks);
+>  	if (ret)
+>  		goto err_free_streams_masks;
+>  
+> @@ -2502,7 +2508,7 @@ static int max_des_update_streams(struct v4l2_subdev *sd,
+>  	if (ret)
+>  		goto err_revert_streams_disable;
+>  
+> -	ret = max_des_update_links(priv, &context, state, streams_masks);
+> +	ret = max_des_update_links(priv, context, state, streams_masks);
+>  	if (ret)
+>  		goto err_revert_active_disable;
+>  
+> @@ -2533,7 +2539,7 @@ static int max_des_update_streams(struct v4l2_subdev *sd,
+>  	max_des_update_tpg(priv, state, priv->streams_masks);
+>  
+>  err_revert_links_update:
+> -	max_des_update_links(priv, &context, state, priv->streams_masks);
+> +	max_des_update_links(priv, context, state, priv->streams_masks);
+>  
+>  err_revert_active_disable:
+>  	max_des_update_active(priv, priv->streams_masks, true);
+> 
+
+-- 
+Regards,
+
+Sakari Ailus
