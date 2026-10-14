@@ -1,593 +1,154 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-1-113.ptr.blmpb.com (va-1-113.ptr.blmpb.com [209.127.230.113])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0A623A8739;
-	Wed, 14 Oct 2026 07:17:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26BB01DDC38
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:17:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791962227; cv=none; b=loAT8ZW9tKEEQeqm6AENWpryVbBCzkFs7JIfvEA1goi8yLmpcZUGaJ50ZdB4sYjEuBUTBVtojnsWqbA39NaOSTstsBL2Wb3tVTjYe6FOEXfcPsF9jAvwkNam18l89HG+6ifBkwIH2BIanMr83UYkbrioc4uLfflYeDM85dn1CFs=
+	t=1791962255; cv=none; b=n0wvVa46YukxFf+slybkCBuxZ8R0bqzXP/t4O4+E1G6PCj6oYSvhT/zLlyvMqPUjvaAjoxjkpvTPWYlQo7Q9gxNuv95sCwe5bxFtFgGRI+NLGRbK+JGZpP22p3+8h73PGIXCz45EMgUa/L1MdM765Y6JTbbbRVncxP9ZsFO+LH4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791962227; c=relaxed/simple;
-	bh=lkUvX+wDvxlrxfymv7bHffZIk4oeT5+pK9oEBppTUJQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aY4PeSYn+H+v9F4okDJHk5DwowMZxN5qKT7Ap/iZMDdL5J0Xpzo0JZPA8uRsxrPeN+KBFK9Jy1OI14tJD87mdYGmCleS89H9/hPW5HmbHTztSxr2lnoXQZA3P0mmV/VW4FaX8+U5MBHSkJEmHohpEtEni9YH78odoGPuf+Hoj5U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=C4xdcSXt; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1791962255; c=relaxed/simple;
+	bh=Lyxb/ljVUGIYv53EwfhnyLAOTSAWk4dwq+OTLRvT/mQ=;
+	h=Message-Id:To:From:Subject:Content-Type:References:Date:Cc:
+	 Mime-Version:In-Reply-To; b=RTQC93krp0UXhbJ7wn8ZUf6d4mX8LGOY3580z2D1c6FiA5IltjMkW31m78Z8VTfKUyw+WKNhV3vapxUIJwndfpksoAsYNHCqqf59gycDbVorEPO81ieHyCRGvb0c1tBzw40FpdERBdqjvXhSDbKXMKMCi9VVlfViz+Xn/TsRHHM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=mtUFaRzc; arc=none smtp.client-ip=209.127.230.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="C4xdcSXt"
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="mtUFaRzc"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
-	Content-Type:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=GwHJPQZUtuKCeOkSnuXK1XdvDVMXGuvW2jBkJxpDDDI=; b=C4xdcSXtqPMfrwHqnb46ICQtJK
-	5kVblumdICzGINHeR0jCZ3ls380221mtQCL1Z9rUAl87Po2hTiN3nSAv1MWDl4Lg91ommu9sSl4Bl
-	mhiSYfY5TylInEb9BlyleN36OTSYoPztBUNuj4UX+G6cX8VFjv3hMawYMAfMUSbUD15rdInfZOJvo
-	pF8T0cmn+WN9pWw+kwDGyZ4qFjDABFUI8XgkKh/Za6t6TAj0Yn/w54lShO2iVc+aLEMbb3KZZWXMm
-	cAsHLQNUFhUddVrBCqv5K69LjOOSw52B0gPxiRKDBcF2JGjMK4CX68mGVUyFrchWqHiWqHKDLwQoj
-	cJHnNnxg==;
-Received: from sslproxy02.your-server.de ([78.47.166.47])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xGtEU-000GBv-3A;
-	Wed, 14 Oct 2026 09:17:03 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy02.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xGtEU-000AF0-17;
-	Wed, 14 Oct 2026 09:17:02 +0200
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dong Aisheng <aisheng.dong@nxp.com>
-Cc: Liu Ying <victor.liu@nxp.com>,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux@ew.tq-group.com,
-	Alexander Stein <alexander.stein@ew.tq-group.com>
-Subject: [PATCH v2 3/5] arm64: dts: imx8qxp: Add MIPI-LVDS combo subsystems
-Date: Wed, 14 Oct 2026 09:16:47 +0200
-Message-ID: <20261014071657.118378-4-alexander.stein@ew.tq-group.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261014071657.118378-1-alexander.stein@ew.tq-group.com>
-References: <20261014071657.118378-1-alexander.stein@ew.tq-group.com>
+ s=2212171451; d=bytedance.com; t=1791962242; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=E+A3WkN+ZYsZ0u7Ki+dXZ6v5fK9tVuvIxVUW7XWhzyQ=;
+ b=mtUFaRzciqyOFkuGODvmy0yuwO8iC62nVZ6kcuA4PgUiSSJcSF61iPnpY5k3S8jrAEnABI
+ YBvfBL8V8aRK0bjq6+ewf2saotcbwlWhtEujLoe9XkLeJMUHpoCp5B9lWi8x7VLF6rQbKT
+ 1ktNxQxS4i1ZTNBQY8RTLmv/xRjzZPJWGLJ4uKBrsicEDmTCY65t61HHMw9icqEAjJoLa1
+ qm2DFfchhjEHL2sRlpNQjlJOzXkakENnMMJJpRBef2GiEXD4va+kXFiJY9mNgUsT+IvQmf
+ qqkSR088ZKWyK5Sbnf+J7vWUCS9IXd61hW4qsEdyxpqGVNR0PzYCxyiN8LWfaw==
+Message-Id: <27125190-b343-42c5-889f-c7377084f5d8@bytedance.com>
+User-Agent: Mozilla Thunderbird
+To: "Yafang Shao" <laoar.shao@gmail.com>, "Chen Yu" <yu.c.chen@intel.com>, 
+	"David Hildenbrand (Red Hat)" <david@kernel.org>, <ljs@kernel.org>
+From: "Li Zhe" <lizhe.67@bytedance.com>
+Subject: Re: [PATCH 0/4] sched/numa: Add per-process automatic NUMA balancing control
+Content-Type: text/plain; charset=UTF-8
+References: <20260908122446.56708-1-lizhe.67@bytedance.com> <as3gQ8jfa_6eBf15@chenyu-dev> <CALOAHbBssx9ZHGwebGZCvzT4d_soyjNfZRj4L6gnxHRXtc7eMA@mail.gmail.com>
+X-Original-From: Li Zhe <lizhe.67@bytedance.com>
+Date: Wed, 14 Oct 2026 15:16:54 +0800
+X-Lms-Return-Path: <lba+26acf2c80+9da95d+vger.kernel.org+lizhe.67@bytedance.com>
+Content-Transfer-Encoding: quoted-printable
+Cc: <mingo@redhat.com>, <peterz@infradead.org>, <juri.lelli@redhat.com>, 
+	<vincent.guittot@linaro.org>, <dietmar.eggemann@arm.com>, 
+	<rostedt@goodmis.org>, <bsegall@google.com>, <mgorman@suse.de>, 
+	<vschneid@redhat.com>, <kprateek.nayak@amd.com>, 
+	<linux-kernel@vger.kernel.org>, <linux-fsdevel@vger.kernel.org>, 
+	<linux-doc@vger.kernel.org>, <tim.c.chen@intel.com>, <mkoutny@suse.com>, 
+	<tj@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28152/Tue Oct 13 08:26:14 2026)
+Mime-Version: 1.0
+In-Reply-To: <CALOAHbBssx9ZHGwebGZCvzT4d_soyjNfZRj4L6gnxHRXtc7eMA@mail.gmail.com>
 
-From: Liu Ying <victor.liu@nxp.com>
+On 10/13/26 5:31 PM, Yafang Shao wrote:
+> On Tue, Oct 13, 2026 at 3:52=E2=80=AFPM Chen Yu <yu.c.chen@intel.com> wro=
+te:
+>> On Tue, Sep 08, 2026 at 08:24:42PM +0800, Li Zhe wrote:
+>>> Automatic NUMA balancing is controlled globally through the
+>>> kernel.numa_balancing sysctl and can be influenced indirectly through
+>>> memory policy. That works well as a system default, but it is too coars=
+e
+>>> for workloads where a launcher wants most processes to use the default
+>>> policy while a selected process opts out because it already manages NUM=
+A
+>>> placement or cannot afford the sampling overhead.
+>>>
+>>> A recent per-cgroup proposal tried to address this by adding a
+>>> cgroup-local enable knob plus a NUMA_BALANCING_CGROUP mode where
+>>> balancing was disabled by default and then enabled for selected cgroups
+>>> [1]. The discussion also noted that automatic NUMA balancing already
+>>> operates at task/process granularity, that the knob is not a resource
+>>> control attribute, and that task/process controls such as sched_setattr=
+()
+>>> or prctl() may be a better fit while cgroups and cpusets continue to
+>>> describe workload grouping and placement domains.
+>>>
+>>> There is also prior art from 2023 prctl() proposals [2][3]. Those
+>>> versions used a per-mm mode with disabled/enabled/default states, added
+>>> NumaB_mode to /proc/<pid>/status, and changed the global static key
+>>> handling so a per-process enable could override the global sysctl.
+>>>
+>>> This series takes a more conservative variant to preserve existing
+>>> administrator and workload expectations. Keeping the global sysctl as a
+>>> hard off switch means an administrator can still disable all automatic
+>>> NUMA balancing activity with one knob. Using a weak two-state
+>>> per-process opt-out/allow ABI avoids exposing a "default" state whose
+>>> meaning depends on global policy and is therefore easy to misinterpret.
+>>> Storing the configured mode in signal_struct gives the control explicit
+>>> thread-group semantics and avoids making unrelated non-thread CLONE_VM
+>>> users share the policy merely because they share an mm.
+>>>
+>>> The series implements a per-process interface: a thread group may use
+>>> prctl() to set or get its configured automatic NUMA balancing mode. A
+>>> process can opt out of new periodic NUMA scan scheduling and NUMA
+>>> scheduler accounting, or opt back in. Existing hinting faults and queue=
+d
+>>> work are allowed to drain naturally as the disabled state takes effect.
+>>> When kernel.numa_balancing is 0, a process-local enable request does no=
+t
+>>> override it.
+>>>
+>>> A separate task_struct scheduler snapshot is used by enqueue/dequeue
+>>> accounting so the scheduler can consistently account the state that was
+>>> in effect when a task entered the runqueue. This avoids changing
+>>> historical task accounting while still allowing a process mode change t=
+o
+>>> take effect through the normal dequeue/update/enqueue path.
+>>>
+>>> The series also exposes the process NUMA balancing mode in
+>>> /proc/<pid>/status and documents the new prctl() ABI and its interactio=
+n
+>>> with the global sysctl.
+>>>
+>> Can the global key be extended to tri-state, like the THP settings?
+> IIUC, a BPF-based THP policy is yet to be developed as prctl() doesn't
+> fit some use cases, especially mTHP.
+>
+>> To keep it backward-compatible, echoing 0 and 1 remains the same effect.
+>> The user can also echo always, advise, or never to it.
+>> We have a similar proposal here for cache-aware scheduling[1]
+> We are also experimenting with the LLC-aware scheduler on production
+> servers, and we want to enable it per cgroup rather than globally
+> there as well.  Given the lessons we have learned from THP, what
+> about implementing it as a BPF-based feature from the beginning, so
+> that the semantics can still change when new use cases show up?
 
-The MIPI-LVDS combo subsystems are peripherals of pixel link MSI
-bus in i.MX8qxp display controller subsystem.  Add the MIPI-LVDS
-combo subsystems.
 
-Signed-off-by: Liu Ying <victor.liu@nxp.com>
-Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
----
-Changes in v2:
-* None
+For our use case, Kubernetes or the container runtime would set the NUMA
+balancing attribute via prctl(), and child processes would inherit this
+setting. A per-cgroup approach would also work for us. If maintainers
+prefer per-cgroup control, I am happy to help review your series.
 
- .../boot/dts/freescale/imx8qxp-ss-dc.dtsi     |   4 +
- .../dts/freescale/imx8qxp-ss-mipi-lvds.dtsi   | 443 ++++++++++++++++++
- arch/arm64/boot/dts/freescale/imx8qxp.dtsi    |   3 +
- 3 files changed, 450 insertions(+)
- create mode 100644 arch/arm64/boot/dts/freescale/imx8qxp-ss-mipi-lvds.dtsi
+Thanks,
+Zhe
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8qxp-ss-dc.dtsi b/arch/arm64/boot/dts/freescale/imx8qxp-ss-dc.dtsi
-index 647ee3348f494..9916a06669c87 100644
---- a/arch/arm64/boot/dts/freescale/imx8qxp-ss-dc.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8qxp-ss-dc.dtsi
-@@ -156,10 +156,12 @@ port@1 {
- 
- 				dc0_pixel_link0_mipi_lvds_0_pxl2dpi: endpoint@0 {
- 					reg = <0>;
-+					remote-endpoint = <&mipi_lvds_0_pxl2dpi_dc0_pixel_link0>;
- 				};
- 
- 				dc0_pixel_link0_mipi_lvds_1_pxl2dpi: endpoint@1 {
- 					reg = <1>;
-+					remote-endpoint = <&mipi_lvds_1_pxl2dpi_dc0_pixel_link0>;
- 				};
- 			};
- 
-@@ -211,10 +213,12 @@ port@1 {
- 
- 				dc0_pixel_link1_mipi_lvds_1_pxl2dpi: endpoint@0 {
- 					reg = <0>;
-+					remote-endpoint = <&mipi_lvds_1_pxl2dpi_dc0_pixel_link1>;
- 				};
- 
- 				dc0_pixel_link1_mipi_lvds_0_pxl2dpi: endpoint@1 {
- 					reg = <1>;
-+					remote-endpoint = <&mipi_lvds_0_pxl2dpi_dc0_pixel_link1>;
- 				};
- 			};
- 
-diff --git a/arch/arm64/boot/dts/freescale/imx8qxp-ss-mipi-lvds.dtsi b/arch/arm64/boot/dts/freescale/imx8qxp-ss-mipi-lvds.dtsi
-new file mode 100644
-index 0000000000000..67f5392cfc803
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8qxp-ss-mipi-lvds.dtsi
-@@ -0,0 +1,443 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Copyright 2024 NXP
-+ */
-+
-+#include <dt-bindings/clock/imx8-lpcg.h>
-+#include <dt-bindings/firmware/imx/rsrc.h>
-+
-+/ {
-+	mipi_lvds_0_ipg_clk: clock-mipi-lvds0-ipg {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <120000000>;
-+		clock-output-names = "mipi_lvds_0_ipg_clk";
-+	};
-+
-+	mipi_lvds_1_ipg_clk: clock-mipi-lvds1-ipg {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <120000000>;
-+		clock-output-names = "mipi_lvds_1_ipg_clk";
-+	};
-+};
-+
-+&dc0_pl_msi_bus {
-+	mipi_lvds_0_irqsteer: interrupt-controller@56220000 {
-+		compatible = "fsl,imx-irqsteer";
-+		reg = <0x56220000 0x1000>;
-+		interrupts = <GIC_SPI 59 IRQ_TYPE_LEVEL_HIGH>;
-+		interrupt-controller;
-+		interrupt-parent = <&gic>;
-+		#interrupt-cells = <1>;
-+		clocks = <&mipi_lvds_0_lis_lpcg IMX_LPCG_CLK_4>;
-+		clock-names = "ipg";
-+		fsl,channel = <0>;
-+		fsl,num-irqs = <32>;
-+	};
-+
-+	mipi_lvds_0_csr: bus@56221000 {
-+		compatible = "simple-pm-bus", "syscon";
-+		reg = <0x56221000 0x1000>;
-+		clocks = <&mipi_lvds_0_di_mipi_lvds_regs_lpcg IMX_LPCG_CLK_4>;
-+		clock-names = "ipg";
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		mipi_lvds_0_pxl2dpi: pxl2dpi {
-+			compatible = "fsl,imx8qxp-pxl2dpi";
-+			fsl,sc-resource = <IMX_SC_R_MIPI_0>;
-+			power-domains = <&pd IMX_SC_R_MIPI_0>;
-+			status = "disabled";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+					reg = <0>;
-+
-+					mipi_lvds_0_pxl2dpi_dc0_pixel_link0: endpoint@0 {
-+						reg = <0>;
-+						remote-endpoint = <&dc0_pixel_link0_mipi_lvds_0_pxl2dpi>;
-+						status = "disabled";
-+					};
-+
-+					mipi_lvds_0_pxl2dpi_dc0_pixel_link1: endpoint@1 {
-+						reg = <1>;
-+						remote-endpoint = <&dc0_pixel_link1_mipi_lvds_0_pxl2dpi>;
-+						status = "disabled";
-+					};
-+				};
-+
-+				port@1 {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+					reg = <1>;
-+
-+					mipi_lvds_0_pxl2dpi_mipi_lvds_0_ldb_ch0: endpoint@0 {
-+						reg = <0>;
-+						remote-endpoint = <&mipi_lvds_0_ldb_ch0_mipi_lvds_0_pxl2dpi>;
-+						status = "disabled";
-+					};
-+
-+					mipi_lvds_0_pxl2dpi_mipi_lvds_0_ldb_ch1: endpoint@1 {
-+						reg = <1>;
-+						remote-endpoint = <&mipi_lvds_0_ldb_ch1_mipi_lvds_0_pxl2dpi>;
-+						status = "disabled";
-+					};
-+				};
-+			};
-+		};
-+
-+		mipi_lvds_0_ldb: ldb {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			compatible = "fsl,imx8qxp-ldb";
-+			clocks = <&clk IMX_SC_R_LVDS_0 IMX_SC_PM_CLK_MISC2>,
-+				 <&clk IMX_SC_R_LVDS_0 IMX_SC_PM_CLK_BYPASS>;
-+			clock-names = "pixel", "bypass";
-+			assigned-clocks = <&clk IMX_SC_R_LVDS_0 IMX_SC_PM_CLK_MISC2>;
-+			assigned-clock-parents = <&clk IMX_SC_R_LVDS_0 IMX_SC_PM_CLK_BYPASS>;
-+			power-domains = <&pd IMX_SC_R_LVDS_0>;
-+			status = "disabled";
-+
-+			channel@0 {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				reg = <0>;
-+				phys = <&mipi_lvds_0_phy>;
-+				phy-names = "lvds_phy";
-+				status = "disabled";
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					mipi_lvds_0_ldb_ch0_mipi_lvds_0_pxl2dpi: endpoint {
-+						remote-endpoint = <&mipi_lvds_0_pxl2dpi_mipi_lvds_0_ldb_ch0>;
-+					};
-+				};
-+			};
-+
-+			channel@1 {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				reg = <1>;
-+				phys = <&mipi_lvds_0_phy>;
-+				phy-names = "lvds_phy";
-+				status = "disabled";
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					mipi_lvds_0_ldb_ch1_mipi_lvds_0_pxl2dpi: endpoint {
-+						remote-endpoint = <&mipi_lvds_0_pxl2dpi_mipi_lvds_0_ldb_ch1>;
-+					};
-+				};
-+			};
-+		};
-+	};
-+
-+	mipi_lvds_0_lis_lpcg: clock-controller@56223000 {
-+		compatible = "fsl,imx8qxp-lpcg";
-+		reg = <0x56223000 0x4>;
-+		#clock-cells = <1>;
-+		clocks = <&mipi_lvds_0_ipg_clk>;
-+		clock-indices = <IMX_LPCG_CLK_4>;
-+		clock-output-names = "mipi_lvds_0_lis_lpcg_ipg_clk";
-+		power-domains = <&pd IMX_SC_R_MIPI_0>;
-+	};
-+
-+	mipi_lvds_0_di_mipi_lvds_regs_lpcg: clock-controller@56223004 {
-+		compatible = "fsl,imx8qxp-lpcg";
-+		reg = <0x56223004 0x4>;
-+		#clock-cells = <1>;
-+		clocks = <&mipi_lvds_0_ipg_clk>;
-+		clock-indices = <IMX_LPCG_CLK_4>;
-+		clock-output-names = "mipi_lvds_0_di_mipi_lvds_regs_lpcg_ipg_clk";
-+		power-domains = <&pd IMX_SC_R_MIPI_0>;
-+	};
-+
-+	mipi_lvds_0_pwm_lpcg: clock-controller@5622300c {
-+		compatible = "fsl,imx8qxp-lpcg";
-+		reg = <0x5622300c 0x4>;
-+		#clock-cells = <1>;
-+		clocks = <&clk IMX_SC_R_MIPI_0_PWM_0 IMX_SC_PM_CLK_PER>,
-+			 <&mipi_lvds_0_ipg_clk>,
-+			 <&mipi_lvds_0_ipg_clk>;
-+		clock-indices = <IMX_LPCG_CLK_0>,
-+				<IMX_LPCG_CLK_4>,
-+				<IMX_LPCG_CLK_1>;
-+		clock-output-names = "mipi_lvds_0_pwm_lpcg_clk",
-+				     "mipi_lvds_0_pwm_lpcg_ipg_clk",
-+				     "mipi_lvds_0_pwm_lpcg_32k_clk";
-+		power-domains = <&pd IMX_SC_R_MIPI_0_PWM_0>;
-+	};
-+
-+	mipi_lvds_0_i2c0_lpcg: clock-controller@56223010 {
-+		compatible = "fsl,imx8qxp-lpcg";
-+		reg = <0x56223010 0x4>;
-+		#clock-cells = <1>;
-+		clocks = <&clk IMX_SC_R_MIPI_0_I2C_0 IMX_SC_PM_CLK_PER>,
-+			 <&mipi_lvds_0_ipg_clk>;
-+		clock-indices = <IMX_LPCG_CLK_0>,
-+				<IMX_LPCG_CLK_4>;
-+		clock-output-names = "mipi_lvds_0_i2c0_lpcg_clk",
-+				     "mipi_lvds_0_i2c0_lpcg_ipg_clk";
-+		power-domains = <&pd IMX_SC_R_MIPI_0_I2C_0>;
-+	};
-+
-+	mipi_lvds_0_pwm: pwm@56224000 {
-+		compatible = "fsl,imx8qxp-pwm", "fsl,imx27-pwm";
-+		reg = <0x56224000 0x1000>;
-+		interrupt-parent = <&mipi_lvds_0_irqsteer>;
-+		interrupts = <12>;
-+		clocks = <&mipi_lvds_0_pwm_lpcg IMX_LPCG_CLK_4>,
-+			 <&mipi_lvds_0_pwm_lpcg IMX_LPCG_CLK_0>;
-+		clock-names = "ipg", "per";
-+		assigned-clocks = <&clk IMX_SC_R_MIPI_0_PWM_0 IMX_SC_PM_CLK_PER>;
-+		assigned-clock-rates = <24000000>;
-+		#pwm-cells = <3>;
-+		power-domains = <&pd IMX_SC_R_MIPI_0_PWM_0>;
-+		status = "disabled";
-+	};
-+
-+	mipi_lvds_0_i2c0: i2c@56226000 {
-+		compatible = "fsl,imx8qxp-lpi2c", "fsl,imx7ulp-lpi2c";
-+		reg = <0x56226000 0x1000>;
-+		interrupt-parent = <&mipi_lvds_0_irqsteer>;
-+		interrupts = <8>;
-+		clocks = <&mipi_lvds_0_i2c0_lpcg IMX_LPCG_CLK_0>,
-+			 <&mipi_lvds_0_i2c0_lpcg IMX_LPCG_CLK_4>;
-+		clock-names = "per", "ipg";
-+		assigned-clocks = <&clk IMX_SC_R_MIPI_0_I2C_0 IMX_SC_PM_CLK_PER>;
-+		assigned-clock-rates = <24000000>;
-+		power-domains = <&pd IMX_SC_R_MIPI_0_I2C_0>;
-+		status = "disabled";
-+	};
-+
-+	mipi_lvds_0_phy: phy@56228300 {
-+		compatible = "fsl,imx8qxp-mipi-dphy";
-+		reg = <0x56228300 0x100>;
-+		clocks = <&clk IMX_SC_R_LVDS_0 IMX_SC_PM_CLK_PHY>;
-+		clock-names = "phy_ref";
-+		assigned-clocks = <&clk IMX_SC_R_LVDS_0 IMX_SC_PM_CLK_PHY>;
-+		assigned-clock-parents = <&clk IMX_SC_R_LVDS_0 IMX_SC_PM_CLK_BYPASS>;
-+		#phy-cells = <0>;
-+		fsl,syscon = <&mipi_lvds_0_csr>;
-+		power-domains = <&pd IMX_SC_R_MIPI_0>;
-+		status = "disabled";
-+	};
-+
-+	mipi_lvds_1_irqsteer: interrupt-controller@56240000 {
-+		compatible = "fsl,imx-irqsteer";
-+		reg = <0x56240000 0x1000>;
-+		interrupts = <GIC_SPI 60 IRQ_TYPE_LEVEL_HIGH>;
-+		interrupt-controller;
-+		interrupt-parent = <&gic>;
-+		#interrupt-cells = <1>;
-+		clocks = <&mipi_lvds_1_lis_lpcg IMX_LPCG_CLK_4>;
-+		clock-names = "ipg";
-+		fsl,channel = <0>;
-+		fsl,num-irqs = <32>;
-+	};
-+
-+	mipi_lvds_1_csr: bus@56241000 {
-+		compatible = "simple-pm-bus", "syscon";
-+		reg = <0x56241000 0x1000>;
-+		clocks = <&mipi_lvds_1_di_mipi_lvds_regs_lpcg IMX_LPCG_CLK_4>;
-+		clock-names = "ipg";
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		mipi_lvds_1_pxl2dpi: pxl2dpi {
-+			compatible = "fsl,imx8qxp-pxl2dpi";
-+			fsl,sc-resource = <IMX_SC_R_MIPI_1>;
-+			power-domains = <&pd IMX_SC_R_MIPI_1>;
-+			status = "disabled";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+					reg = <0>;
-+
-+					mipi_lvds_1_pxl2dpi_dc0_pixel_link1: endpoint@0 {
-+						reg = <0>;
-+						remote-endpoint = <&dc0_pixel_link1_mipi_lvds_1_pxl2dpi>;
-+						status = "disabled";
-+					};
-+
-+					mipi_lvds_1_pxl2dpi_dc0_pixel_link0: endpoint@1 {
-+						reg = <1>;
-+						remote-endpoint = <&dc0_pixel_link0_mipi_lvds_1_pxl2dpi>;
-+						status = "disabled";
-+					};
-+				};
-+
-+				port@1 {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+					reg = <1>;
-+
-+					mipi_lvds_1_pxl2dpi_mipi_lvds_1_ldb_ch0: endpoint@0 {
-+						reg = <0>;
-+						remote-endpoint = <&mipi_lvds_1_ldb_ch0_mipi_lvds_1_pxl2dpi>;
-+						status = "disabled";
-+					};
-+
-+					mipi_lvds_1_pxl2dpi_mipi_lvds_1_ldb_ch1: endpoint@1 {
-+						reg = <1>;
-+						remote-endpoint = <&mipi_lvds_1_ldb_ch1_mipi_lvds_1_pxl2dpi>;
-+						status = "disabled";
-+					};
-+				};
-+			};
-+		};
-+
-+		mipi_lvds_1_ldb: ldb {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			compatible = "fsl,imx8qxp-ldb";
-+			clocks = <&clk IMX_SC_R_LVDS_1 IMX_SC_PM_CLK_MISC2>,
-+				 <&clk IMX_SC_R_LVDS_1 IMX_SC_PM_CLK_BYPASS>;
-+			clock-names = "pixel", "bypass";
-+			assigned-clocks = <&clk IMX_SC_R_LVDS_1 IMX_SC_PM_CLK_MISC2>;
-+			assigned-clock-parents = <&clk IMX_SC_R_LVDS_1 IMX_SC_PM_CLK_BYPASS>;
-+			power-domains = <&pd IMX_SC_R_LVDS_1>;
-+			status = "disabled";
-+
-+			channel@0 {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				reg = <0>;
-+				phys = <&mipi_lvds_1_phy>;
-+				phy-names = "lvds_phy";
-+				status = "disabled";
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					mipi_lvds_1_ldb_ch0_mipi_lvds_1_pxl2dpi: endpoint {
-+						remote-endpoint = <&mipi_lvds_1_pxl2dpi_mipi_lvds_1_ldb_ch0>;
-+					};
-+				};
-+			};
-+
-+			channel@1 {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				reg = <1>;
-+				phys = <&mipi_lvds_1_phy>;
-+				phy-names = "lvds_phy";
-+				status = "disabled";
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					mipi_lvds_1_ldb_ch1_mipi_lvds_1_pxl2dpi: endpoint {
-+						remote-endpoint = <&mipi_lvds_1_pxl2dpi_mipi_lvds_1_ldb_ch1>;
-+					};
-+				};
-+			};
-+		};
-+	};
-+
-+	mipi_lvds_1_lis_lpcg: clock-controller@56243000 {
-+		compatible = "fsl,imx8qxp-lpcg";
-+		reg = <0x56243000 0x4>;
-+		#clock-cells = <1>;
-+		clocks = <&mipi_lvds_1_ipg_clk>;
-+		clock-indices = <IMX_LPCG_CLK_4>;
-+		clock-output-names = "mipi_lvds_1_lis_lpcg_ipg_clk";
-+		power-domains = <&pd IMX_SC_R_MIPI_1>;
-+	};
-+
-+	mipi_lvds_1_di_mipi_lvds_regs_lpcg: clock-controller@56243004 {
-+		compatible = "fsl,imx8qxp-lpcg";
-+		reg = <0x56243004 0x4>;
-+		#clock-cells = <1>;
-+		clocks = <&mipi_lvds_1_ipg_clk>;
-+		clock-indices = <IMX_LPCG_CLK_4>;
-+		clock-output-names = "mipi_lvds_1_di_mipi_lvds_regs_lpcg_ipg_clk";
-+		power-domains = <&pd IMX_SC_R_MIPI_1>;
-+	};
-+
-+	mipi_lvds_1_pwm_lpcg: clock-controller@5624300c {
-+		compatible = "fsl,imx8qxp-lpcg";
-+		reg = <0x5624300c 0x4>;
-+		#clock-cells = <1>;
-+		clocks = <&clk IMX_SC_R_MIPI_1_PWM_0 IMX_SC_PM_CLK_PER>,
-+			 <&mipi_lvds_1_ipg_clk>,
-+			 <&mipi_lvds_1_ipg_clk>;
-+		clock-indices = <IMX_LPCG_CLK_0>,
-+				<IMX_LPCG_CLK_4>,
-+				<IMX_LPCG_CLK_1>;
-+		clock-output-names = "mipi_lvds_1_pwm_lpcg_clk",
-+				     "mipi_lvds_1_pwm_lpcg_ipg_clk",
-+				     "mipi_lvds_1_pwm_lpcg_32k_clk";
-+		power-domains = <&pd IMX_SC_R_MIPI_1_PWM_0>;
-+	};
-+
-+	mipi_lvds_1_i2c0_lpcg: clock-controller@56243010 {
-+		compatible = "fsl,imx8qxp-lpcg";
-+		reg = <0x56243010 0x4>;
-+		#clock-cells = <1>;
-+		clocks = <&clk IMX_SC_R_MIPI_1_I2C_0 IMX_SC_PM_CLK_PER>,
-+			 <&mipi_lvds_1_ipg_clk>;
-+		clock-indices = <IMX_LPCG_CLK_0>,
-+				<IMX_LPCG_CLK_4>;
-+		clock-output-names = "mipi_lvds_1_i2c0_lpcg_clk",
-+				     "mipi_lvds_1_i2c0_lpcg_ipg_clk";
-+		power-domains = <&pd IMX_SC_R_MIPI_1_I2C_0>;
-+	};
-+
-+	mipi_lvds_1_pwm: pwm@56244000 {
-+		compatible = "fsl,imx8qxp-pwm", "fsl,imx27-pwm";
-+		reg = <0x56244000 0x1000>;
-+		interrupt-parent = <&mipi_lvds_1_irqsteer>;
-+		interrupts = <12>;
-+		clocks = <&mipi_lvds_1_pwm_lpcg IMX_LPCG_CLK_4>,
-+			 <&mipi_lvds_1_pwm_lpcg IMX_LPCG_CLK_0>;
-+		clock-names = "ipg", "per";
-+		assigned-clocks = <&clk IMX_SC_R_MIPI_1_PWM_0 IMX_SC_PM_CLK_PER>;
-+		assigned-clock-rates = <24000000>;
-+		#pwm-cells = <3>;
-+		power-domains = <&pd IMX_SC_R_MIPI_1_PWM_0>;
-+		status = "disabled";
-+	};
-+
-+	mipi_lvds_1_i2c0: i2c@56246000 {
-+		compatible = "fsl,imx8qxp-lpi2c", "fsl,imx7ulp-lpi2c";
-+		reg = <0x56246000 0x1000>;
-+		interrupt-parent = <&mipi_lvds_1_irqsteer>;
-+		interrupts = <8>;
-+		clocks = <&mipi_lvds_1_i2c0_lpcg IMX_LPCG_CLK_0>,
-+			 <&mipi_lvds_1_i2c0_lpcg IMX_LPCG_CLK_4>;
-+		clock-names = "per", "ipg";
-+		assigned-clocks = <&clk IMX_SC_R_MIPI_1_I2C_0 IMX_SC_PM_CLK_PER>;
-+		assigned-clock-rates = <24000000>;
-+		power-domains = <&pd IMX_SC_R_MIPI_1_I2C_0>;
-+		status = "disabled";
-+	};
-+
-+	mipi_lvds_1_phy: phy@56248300 {
-+		compatible = "fsl,imx8qxp-mipi-dphy";
-+		reg = <0x56248300 0x100>;
-+		clocks = <&clk IMX_SC_R_LVDS_1 IMX_SC_PM_CLK_PHY>;
-+		clock-names = "phy_ref";
-+		assigned-clocks = <&clk IMX_SC_R_LVDS_1 IMX_SC_PM_CLK_PHY>;
-+		assigned-clock-parents = <&clk IMX_SC_R_LVDS_1 IMX_SC_PM_CLK_BYPASS>;
-+		#phy-cells = <0>;
-+		fsl,syscon = <&mipi_lvds_1_csr>;
-+		power-domains = <&pd IMX_SC_R_MIPI_1>;
-+		status = "disabled";
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/freescale/imx8qxp.dtsi b/arch/arm64/boot/dts/freescale/imx8qxp.dtsi
-index eedca1c300d64..268dd63646806 100644
---- a/arch/arm64/boot/dts/freescale/imx8qxp.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8qxp.dtsi
-@@ -34,6 +34,8 @@ aliases {
- 		i2c1 = &i2c1;
- 		i2c2 = &i2c2;
- 		i2c3 = &i2c3;
-+		mipi-dphy0 = &mipi_lvds_0_phy;
-+		mipi-dphy1 = &mipi_lvds_1_phy;
- 		mmc0 = &usdhc1;
- 		mmc1 = &usdhc2;
- 		mmc2 = &usdhc3;
-@@ -351,6 +353,7 @@ map0 {
- #include "imx8qxp-ss-vpu.dtsi"
- #include "imx8qxp-ss-security.dtsi"
- #include "imx8qxp-ss-dc.dtsi"
-+#include "imx8qxp-ss-mipi-lvds.dtsi"
- #include "imx8qxp-ss-adma.dtsi"
- #include "imx8qxp-ss-conn.dtsi"
- #include "imx8qxp-ss-lsio.dtsi"
--- 
-2.55.0
-
+>
+>> In this way, the user does not have to disable NUMA balancing one by one
+>> across the whole system.
+>>
+>> Yafang Shao has a bpf-cgroup based NUMA balancing proposal[2].
+>> Overall I support fine-grained control of NUMA balancing, and I'm curiou=
+s
+>> what the possible setting would be in the production environment, would
+>> something like Kubernetes be responsible for setting the NUMA
+>> balancing attribute via prctl, or as Yafang proposed, leverage cgroup
+>> interface?
+>>
+>> [1] https://lore.kernel.org/lkml/fd341106e7e6cbd2f047656650f43ee87c6633c=
+1.1787955777.git.tim.c.chen@linux.intel.com/
+>> [2] https://lore.kernel.org/lkml/20261012120438.52849-1-laoar.shao@gmail=
+.com/
+>
