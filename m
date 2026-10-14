@@ -1,171 +1,235 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11023111.outbound.protection.outlook.com [40.107.162.111])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7A5B51815C;
-	Wed, 14 Oct 2026 13:25:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.111
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791984328; cv=fail; b=S+sxIsnvml8jZwArVWOHE76TWyDVmuKcdN18gxCGN1V086C3FCH4uky6TYslwg3VzCxA8+YmXQN9AuYFlUcjt7oLj08T24ssKBBsaCDgt7DWJ+D4xkwLyNhrSz5FeZCE7PZJNxVRL9lVXvXKTjZd3P09qAYpB3kyGb6nXD4lYHE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791984328; c=relaxed/simple;
-	bh=EMh2/JtqJXdXDlA99b35W+O5No1jbhuhccl+QhnjNuw=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=RedXLpbUOhnG13zUqFrrs6btgQG6UWSfHR2817GaKoQrBKxbol74zwybEK7DS7ACvyaW4IcbNzbm5hc4sf7w06omPmEP8d1MvBoEpvQCEHXmJjC6uPc4dA1g9cB2Grb3TyEsoNOM/m96NhRPQwZ+BnfUWas/MpjI7zSsCGIJL5Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=htecgroup.com; spf=pass smtp.mailfrom=htecgroup.com; dkim=pass (2048-bit key) header.d=htecgroup.com header.i=@htecgroup.com header.b=bMNzWnkk; arc=fail smtp.client-ip=40.107.162.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=htecgroup.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=htecgroup.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 199D14E36F1
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:25:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791984342; cv=none; b=NvRa9OCJBNanAfUdJaQgM6EBBwU1owEUYCPgBIXZkP0cYKXGXe27hgntbWTbdanidZuK14oomDg3m7wg2NFRCaIIz83kVRJ1bBOxQ9DOa9DPpHyt4pZIUV+rR7zMTNV2UAQWPQYJtV0KZryuVBIQdGTF8LqqSnvrDY4vhHenN44=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791984342; c=relaxed/simple;
+	bh=9NwkIz9a3Ymm3b5eJuU0HgB2zY28SrOdGDMRPlG8Q5w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YCy+6y3FvTb7TDD9mquBQQFch/BrwfLSZPlpvzrnKuyfafj/z7FyYyTKm1lFn9OQcdBC6oNRwcDXg/Vg1MjYJZ6c1TcKnWD84H9ytGWKBIO8holSMKEXU/6yDjjR40TyA6jI+NxKit9BfQRUVcY2gL29HZI5aB8ojzy5tXe7IsE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iPVJjUzD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=htecgroup.com header.i=@htecgroup.com header.b="bMNzWnkk"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iF/o3AtJdaoDYaw8+4L2lpT+OcdtMwExBzOCI6uyNkyuOqY+cnqqzB7+bw3g2L/35sPGGiwfWs8KUA4aWikGD8LlMJxpR1/E/Ik6iGZDLQz13SmozEczAaC0iblsCtzY1A0nucnjTwRuVO/fNjDz4+cdkcIhbyGsSyTfI2xLPQjuW7KHJ8G7u8o2YRN0NeCewQ6JrM6yoiF0nJyGTvwkyKl7i69ujhftlt9VbqPYZ9F0Tq7i6DJ5TpzKislPzY9NM1RlqERO4BXdsi51Z2uy8wyl04fNY6af7vComeAJ9I3QAiRos2h1klf0F/6YoJC60COxLcGcBfy+riA4ihWpfw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EMh2/JtqJXdXDlA99b35W+O5No1jbhuhccl+QhnjNuw=;
- b=IozA/puo31cGXO7jaR0W2UExeVBtiJuhReTPfsrypNf25TWj2IS9Ymc6kG0Yno6NNiFKL8Dpcqb64E3zRhtyX3V0NnedLG/TRs9J0Qc3VuoER44WKy/QS+b4wzKiJ0s1sV8IpA5Grdp/cV1iFIvjl2HYsJImEQXbXzAJvWJNJJSFLepRTG1Q1kJ68LbJUV22bydAIrAgiYEhKoHNrqxC28xuFg/lHew8l+ZOkARlHYV10uixjl7gJo648EqL1ZZPJFS+7hkceOf2VRGVuYD2ltMGZhBosBCdmr7+tjujbtfcPT+vPlq84uTOoq5IvrYhu9xBGymBGPns7fxOS9M2Hg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=htecgroup.com; dmarc=pass action=none
- header.from=htecgroup.com; dkim=pass header.d=htecgroup.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=htecgroup.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EMh2/JtqJXdXDlA99b35W+O5No1jbhuhccl+QhnjNuw=;
- b=bMNzWnkklvawWGrz685Aspg0NJMgawH/n8spSPSqYOpyeOciepGXiIPzD5nlTbZnj5pKFAwdSACapz5+BbSgvh6WxRSZ778/CMbet+X/db7Zocp0lzqoqVTQUzHC21WbvJryq8mgxWCos0DFeqTQDPo97p3aopkcrguWRh3sEs6xHoV4EvA1OyMgecEU28IPjZKlX+YjQVeQxVutPXEW3AtG+DHIqE6ZbtUao+Y/Vka83INgxclQSepAPP6aJEiwia6DEiPbueA0BcGHNlZ8Td5E4wQKkO7dZuISk/RqVS/9PvobrPY0RFb5BgaXQ8CveimnQK+GjFFKMc4PotrN0A==
-Received: from MMZPR09MB547520.eurprd09.prod.outlook.com
- (2603:10a6:190:56::10) by AM8PR09MB5228.eurprd09.prod.outlook.com
- (2603:10a6:20b:3db::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Wed, 14 Oct
- 2026 13:25:23 +0000
-Received: from MMZPR09MB547520.eurprd09.prod.outlook.com
- ([fe80::5b5:f191:1ccc:f9ee]) by MMZPR09MB547520.eurprd09.prod.outlook.com
- ([fe80::5b5:f191:1ccc:f9ee%3]) with mapi id 15.21.0522.012; Wed, 14 Oct 2026
- 13:25:23 +0000
-From: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
-To: "conor@kernel.org" <conor@kernel.org>
-CC: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>, "alex@ghiti.fr"
-	<alex@ghiti.fr>, "anup@brainfault.org" <anup@brainfault.org>,
-	"aou@eecs.berkeley.edu" <aou@eecs.berkeley.edu>, "conor+dt@kernel.org"
-	<conor+dt@kernel.org>, "daniel.lezcano@kernel.org"
-	<daniel.lezcano@kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, Djordje Todorovic
-	<Djordje.Todorovic@htecgroup.com>, "inochiama@outlook.com"
-	<inochiama@outlook.com>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
-	"palmer@dabbelt.com" <palmer@dabbelt.com>, "pjw@kernel.org" <pjw@kernel.org>,
-	"radu@rendec.net" <radu@rendec.net>, "robh@kernel.org" <robh@kernel.org>,
-	"tglx@kernel.org" <tglx@kernel.org>, "vladimir.kondratiev@mobileye.com"
-	<vladimir.kondratiev@mobileye.com>
-Subject: Re: [PATCH 4/9] dt-bindings: interrupt-controller: Add MIPS P8700
- APLIC
-Thread-Topic: [PATCH 4/9] dt-bindings: interrupt-controller: Add MIPS P8700
- APLIC
-Thread-Index: AQHdRFDNLd1amFu260GQWrktre5GJLbP8+gAgC1CZAA=
-Date: Wed, 14 Oct 2026 13:25:23 +0000
-Message-ID: <f32911c4-5bc7-4bae-b23a-8bf7848fc92b@htecgroup.com>
-References: <20260915-mummify-overripe-ed52faf90098@spud>
-In-Reply-To: <20260915-mummify-overripe-ed52faf90098@spud>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=htecgroup.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MMZPR09MB547520:EE_|AM8PR09MB5228:EE_
-x-ms-office365-filtering-correlation-id: a490e558-877f-4106-3ae9-08df29f699fc
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|23010399003|366016|7416014|376014|38070700021|56012099006|11063799006|261009223027099003|260925021911599003|260925021311599003|260925022911599003|10067099003|22082099003|18002099003|6133799003;
-x-microsoft-antispam-message-info:
- tMuJ3hy/aexvlr65kjkxL0XBLQxF37piN3jkmQt0D0ep56wijdXSNwjsDJPz24rOcD4eXG5xR6yaRaKhZuYJp4ENydeUSdGlRcV61EBuogWR4Bq2ZNghjl9aOB6rQtggKXFdb8+tnnKu3NUcQQwSNOqZjYtPzOt7hsFxecRnawI/X0GtQkOknIRxmZsNHfwoTx2w3ZeVkv/m1sP0UkmdvgRYR1uWpgG0EW6rlw9SkbshWecSo+6OuuLAxmG17Z06l083Pm0JI3m/MiTbh7qM46mIQIIqAPWkTrcxZGWonjpA2MNE3msS+i1bXgPoJ1VmhWl3fkUlFv48nxYK0uy30L42vbHz73RvU0J6Fr4o5acYXVsP6xoYkOI9LlqayS62FybFI/tmcEhyJKLdtNiISGUSVvKi/NCMcTpKNmhmRJgtbs+x8QnGTUQAVRl1RYyw51ee66w23quA769I0TRZbQHMBqIsY9QvxBHCa0XiBeHBIL2AyW2bzYzoVv3d11jJildIkC3QC66neoSiwkR1ITCBBB/kQPWLydOcMrTKneYU27VgNE63hwY2dizNW+1VJ68FENxE+7p/zACgrFZR774Kc5Oo+gNE/mTSxnCXN6JiBvYopCdBThYsE7gZemtCH50iUD73/s7ZyAOAPIKerDaE0XoEaI0p8+Stw+hLpwsvkcZNB/1Jm4+Rs11R6ggJKHnn/sYjPGv562AxXPUJGoH66SqotVlOpK13mA6YpB0=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MMZPR09MB547520.eurprd09.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(7416014)(376014)(38070700021)(56012099006)(11063799006)(261009223027099003)(260925021911599003)(260925021311599003)(260925022911599003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?ZytFZ3RxZWhWdmVVS3FycjVMVWpYbG1iS1l0bEFGd2tqd2xsUUZQRzUyWFJo?=
- =?utf-8?B?TFdwMzFpd3hFL2hPNlpxNVAzSjhLajFic0NNd2p2UmNoeVdGdVlMdGxacWpv?=
- =?utf-8?B?QkRFcHR5RlhSNUdzUjB5Wk5UTHhyWmFuVGFZMkNHNTR6WWhPTFk1aWlYOWtl?=
- =?utf-8?B?TXRsTHhkZXFFR2JzbUMwc1M0VldpVTJxRUgzTU9tckJjWHVTRkRPWFAxUEhV?=
- =?utf-8?B?bXg2dUJlYWhTTFJrNUZiQWE0OUxiVVYzT2FiVTlFaHlnR01WRC9Zc2NJSGEr?=
- =?utf-8?B?SDNxSWlxTm1GWmJZckFUd2pjMnVUeUdZYnI4Szd1dHlUM3QreVlaQmlFMmlL?=
- =?utf-8?B?Y0NsWmtrc29yeks4bTlLRTNuaVlQQlpEMHNiRkZpTDlEOThMMUhKaHVlZEhK?=
- =?utf-8?B?UkpZOFRQS3cxNWhJZ3ZIYWYrNnJuUzhUOCtPS0hsSmZjZ0tseFVLbXkwOXNH?=
- =?utf-8?B?TWhKNjllYnVwbExlZkY1WEpsWEFsejRDMmtxL1RDKy9zSEN5Vnl1eXpsZGdM?=
- =?utf-8?B?eE5FbFlxZGFzWkJ4aWxFZHhvd0dzMDY3emVRS1pMS3RJbXVTK1JSQjRRcXdV?=
- =?utf-8?B?YWJ5WndXblY4UGdoeWJjUjVnV2xRUXdjdEdWekE5NVVqYmdnQ0ozUXhNMEY5?=
- =?utf-8?B?aHNzT05Kc1BZTjZYb29CdmtwazF5aE9RLzRnR0h2WFJxM0Y4YWNmM1RnbUhS?=
- =?utf-8?B?TEtyNDVCZkNJeVhHQ050cUR4MzZUT0Zhb25HdUtpTTRERlBBQlQvbE9sdm40?=
- =?utf-8?B?Y0pGTGtoVlpmM0RGdFNJcWFpRWFKWmRVRHFVZXZLSnRhT1NhQVZ4L3ptRjdo?=
- =?utf-8?B?Uzg4cWpZeEpHbExrNEdDbFFCT0tvMGxKSHl3MHJ3a3hRNm5GMzl6QnRpZzYy?=
- =?utf-8?B?bDU1Tmw5Rjl2VjdMUG9HbHdPaE16WjkzdVBCU2REa1dGbXVNWlJKbE5xT21H?=
- =?utf-8?B?RWRpRWhDWXdWMWVucFY2QWtkaXJWQVhVa21pR1F1YmR5b1o3Wk1CbHhTV2tq?=
- =?utf-8?B?dEl1bmp5TDRUd2tUSFhvSEdmWmxxdGI1ZGJqYzRJUVM4SjdOVERYanlWQmlv?=
- =?utf-8?B?Qnd2MElZUFE3UWdrdndMbndnMmxUQ1JyaERwUTh0Y2FGejNxaUJUWWhteVBY?=
- =?utf-8?B?UDkwVjB3ZWozQTJFQ25veS9XOHZsL3hYRFUvWXVYNnJ2OXlPeEpyREZtYWI3?=
- =?utf-8?B?RFRSeENwaVd4cmV2bzFoNG4xYzJ0RWlDOGhkeEs4T2E5RG1HVGt0a1I3cFgr?=
- =?utf-8?B?ZWt3cjRFWXpCYmM4WXBNSzNkTjV5SDE4WjdCRC8xOW45d3JEVWorSHU2RkpH?=
- =?utf-8?B?SzVKcFI1UkNTNFArTmNPMkJMY25VU295alRUMnlTazIvN3VxZ2JIVmFyTjB6?=
- =?utf-8?B?WjUyVXJwYmZNdU1MYUlMajF5QnJXV3Z0N0M3L09nQWpWYVQvb3lqeUpNZ2VK?=
- =?utf-8?B?di9RUDZCRXRQNjlsMWtISVJ6K0VXVlFKcGdxcWtwek5ZYjRUdEtzUEtSQnZs?=
- =?utf-8?B?eXJUQjJiTXprKzRPY2lnZFZMcXRzcThLaTdzenZ6c3BmQlFVcnZYQ0tnY0hy?=
- =?utf-8?B?cmJwQ3hJV0lMU1JsQ1JoSGd4ODFmV3ZxK296b3JCVVZOZnRock8vdzEzVnZp?=
- =?utf-8?B?YmFCVXp2YmFncHRJVmZlUEE2cmkvaG9jeCtRRVkxcC9kd3pTcExXdGhRVStD?=
- =?utf-8?B?WHE0dUw3ZGhFY0F3cjk0ZWFQUFFFT3dGVVNDRWJ1RHJBdGczSHY0QWlFV21u?=
- =?utf-8?B?ZWxqSzI1bHZMcTk2SzUxNzR1SjhHNEtUOHZvOCtyUUdvWTI3a0djdDdPKzBO?=
- =?utf-8?B?Z3pLNjZnbzZaQmdDdnlGRG9hOC8rM0xLWXpnUjd1dTI0VDRseGtFeHQ4Ty8x?=
- =?utf-8?B?azRBK1E2Ly9ZSW5PTWtSd1pFb2VYbXpFMUZkMWFTMUZtNFd2VXVpV0VKOFlN?=
- =?utf-8?B?Y1dRaVIySmtaZ3E3OVZHa2RDK1YvdzFObDN4WFdTbkIxWEU1bllpeXZvWEpW?=
- =?utf-8?B?RmY4N1duSjFIbTV2OXpySjdUeVQ1aS85QWp0eGhncVA1Um8wY1lUeUh5MDdY?=
- =?utf-8?B?TVB3TjAyTHR4RFIvS1lmQyswRnVLYzRGbGR5akpTWEVSMGUvaFFRTlh5RC9q?=
- =?utf-8?B?bURjbHdZeGRTZGxNT1ZqL1RHK2ZtSG9xV1JYblQvemg1bkdKSWVpRTQ4TXpz?=
- =?utf-8?B?YmRWbDV2OHZHbitJOHdOQ3BjM05jenZuV0JDT1hFNkRReGVDYzZBeTEvZkl1?=
- =?utf-8?B?bGJIYzdJSDU0SFZqK3Yrc0o0OW1XbDZhdFJLSkxVZGNJYVpnbGw4ZFlnWnBy?=
- =?utf-8?B?Y3NvcEoxWUd2MjhKSTE4YXhySVZnMlFpaEd3bDZVeFpTbjZjaTl3dExYcmNL?=
- =?utf-8?Q?nApwxphAAh6naK+0=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <308CC24FCEAEDD4A90F2EBAA35BABD17@eurprd09.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iPVJjUzD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61BC01F000FF;
+	Wed, 14 Oct 2026 13:25:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791984340;
+	bh=TQa+MBCQh2+NmFEKYE9b9rxt6YnvIpdiftCj4DjCvMU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=iPVJjUzDZq3OfFF3zZSXEbB4wZPD8Y4VDcWDLHR+NVFYm4OMfOCzjMTlqaxCxVzUk
+	 Pz81Th53bPT0DP2ykrJtnYjDImjIHN96Bdu5dmDBZtqa1oUovm3KDOAnR7j3bjEzur
+	 fh4c2SYFJLfdIsiXEKD754hwjYw2QfDG31C9+K6u2c26srf++dMn2GjvFps7Q9USJN
+	 fpENVIAMLtLx+JZZXO1oAwZ4ngFGa1Y+8YF7l2ryuYKLQp7exiQd7N23DsV86STq+q
+	 3c0VQZdlV1hcXbXV7AHV83hAHpqBHrjXvrBI6haEx27lN2pCI1Xt00WRT6NtWp5Dtk
+	 Fx9ssbBpRRThw==
+Message-ID: <6660d3bb-3485-4c34-8734-3ea99df920f1@kernel.org>
+Date: Wed, 14 Oct 2026 15:25:33 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: htecgroup.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MMZPR09MB547520.eurprd09.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a490e558-877f-4106-3ae9-08df29f699fc
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Oct 2026 13:25:23.1803
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 9f85665b-7efd-4776-9dfe-b6bfda2565ee
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ygM8+o3UOv9ir9KeF+PMLI2l2kPZ9mANEeByNP2l5dxP/VC24UqLXLHBfD8TeuOzuYQFtu5SqiJn0FpGHWHrmW02D0Ru9rMejIpkayvFcKw=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR09MB5228
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] mm: memory: fix truncation removing mapped folios
+To: Baolin Wang <baolin.wang@linux.alibaba.com>, akpm@linux-foundation.org
+Cc: ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, rppt@kernel.org,
+ surenb@google.com, mhocko@suse.com, qi.zheng@linux.dev, jack@suse.cz,
+ pfalcato@suse.de, ayushr@modal.com, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+References: <542c97482eae84f86704bcee56482633d1b32321.1791616645.git.baolin.wang@linux.alibaba.com>
+ <8245424a-f068-4be5-9e58-713cbff1f8ae@kernel.org>
+ <405811f5-ee36-4b3c-80d0-7dc6827ab5d4@linux.alibaba.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <405811f5-ee36-4b3c-80d0-7dc6827ab5d4@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-SGnCoENvbm9yLA0KT24gOS8xNS8yNiAyMDoxNiwgQ29ub3IgRG9vbGV5IHdyb3RlOg0KPiBPbiBN
-b24sIFNlcCAxNCwgMjAyNiBhdCAwMzo1NTo1MlBNICswMjAwLCBBbGVrc2EgUGF1bm92aWMgdmlh
-IEI0IFJlbGF5IHdyb3RlOg0KPj4gRnJvbTogQWxla3NhIFBhdW5vdmljIDxhbGVrc2EucGF1bm92
-aWNAaHRlY2dyb3VwLmNvbT4NCj4+DQo+PiBEb2N1bWVudCB0aGUgYXBsaWMgY29tcGF0aWJsZSBm
-b3IgdGhlIE1JUFMgUDg3MDAuDQo+Pg0KPj4gU2lnbmVkLW9mZi1ieTogQWxla3NhIFBhdW5vdmlj
-IDxhbGVrc2EucGF1bm92aWNAaHRlY2dyb3VwLmNvbT4NCj4+IC0tLQ0KPj4gIERvY3VtZW50YXRp
-b24vZGV2aWNldHJlZS9iaW5kaW5ncy9pbnRlcnJ1cHQtY29udHJvbGxlci9yaXNjdixhcGxpYy55
-YW1sIHwgMSArDQo+PiAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspDQo+Pg0KPj4gZGlm
-ZiAtLWdpdCBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9pbnRlcnJ1cHQtY29u
-dHJvbGxlci9yaXNjdixhcGxpYy55YW1sIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRp
-bmdzL2ludGVycnVwdC1jb250cm9sbGVyL3Jpc2N2LGFwbGljLnlhbWwNCj4+IGluZGV4IDA3MTgw
-NzE0NDRkMjlmYmZhMzYyODNmYzk2NjZlOGNlY2Q2Zjc3ZTcuLjliOTg2YWExYTFjNjIzMTZhMWZk
-MDhmZTUzNTA3NTExMTYwMWI4MGUgMTAwNjQ0DQo+PiAtLS0gYS9Eb2N1bWVudGF0aW9uL2Rldmlj
-ZXRyZWUvYmluZGluZ3MvaW50ZXJydXB0LWNvbnRyb2xsZXIvcmlzY3YsYXBsaWMueWFtbA0KPj4g
-KysrIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2ludGVycnVwdC1jb250cm9s
-bGVyL3Jpc2N2LGFwbGljLnlhbWwNCj4+IEBAIC0yNyw2ICsyNyw3IEBAIHByb3BlcnRpZXM6DQo+
-PiAgICBjb21wYXRpYmxlOg0KPj4gICAgICBpdGVtczoNCj4+ICAgICAgICAtIGVudW06DQo+PiAr
-ICAgICAgICAgIC0gZ2YsbWlwcy1wODcwMC1hcGxpYw0KPiBJJ20gYWxzbyBjdXJpb3VzIGFib3V0
-IHdoeSAibWlwcyIgYXBwZWFycyBoZXJlLiBJc24ndCBwODcwMC1hcGxpYw0KPiBzcGVjaWZpYyBl
-bm91Z2g/DQpVc2luZyBtaXBzLXA4NzAwIGFzIHRoZSBwcm9kdWN0IG5hbWUgaXMgc29tZXRoaW5n
-IHdlIGRlY2lkZWQgb24gYmVmb3JlIHNlbmRpbmcgdGhlIHNlcmllcy7CoA0KSSdtIHN1cmUgSSBj
-b3VsZCBkcm9wIHRoaXMgaW4gYSBmdXR1cmUgdmVyc2lvbiBvZiB0aGUgc2VyaWVzIGlmIHJlcXVp
-cmVkLA0KYWx0aG91Z2ggSSdkIGhhdmUgdG8gYXNrIGFyb3VuZC7CoA0KDQpCZXN0IHJlZ2FyZHMs
-DQpBbGVrc2E=
+On 10/13/26 11:36, Baolin Wang wrote:
+> 
+> 
+> On 10/12/26 6:23 PM, David Hildenbrand (Arm) wrote:
+>> On 10/10/26 09:22, Baolin Wang wrote:
+>>> Ayush reported an issue that shmem/tmpfs folios are still mapped when
+>>> truncating them on production:
+>>> "
+>>> BUG: Bad page cache in process ...  pfn:...
+>>> page dumped because: still mapped when deleted
+>>> "
+>>>
+>>> I reproduced the issue with Ayush's reproducer [1] with the latest mm-unstable
+>>> branch, and I got the following crash info. From the dump message, we can
+>>> see that truncate_inode_folio() is really trying to remove mapped folios,
+>>> which is incorrect.
+>>>
+>>> "
+>>> [  189.171977] page: refcount:3 mapcount:1 mapping:00000000fe168ee1
+>>> index:0x3880 pfn:0x191647
+>>> [  189.171995] memcg:ffff0000cc073d40
+>>> [  189.171997] aops:shmem_aops ino:3c01 dentry name(?):"memfd:runsc-memory"
+>>> [  189.172006] flags: 0x17fffef0002022d(locked|referenced|uptodate|lru|
+>>> workingset|swapbacked|node=0|zone=2|lastcpupid=0x3ffff)
+>>> .......
+>>> [  189.172017] page dumped because: VM_BUG_ON_FOLIO(folio_mapped(folio))
+>>> [  189.172026] ------------[ cut here ]------------
+>>> [  189.172027] kernel BUG at mm/filemap.c:155!
+>>> [  189.172057] Internal error: Oops - BUG: 00000000f2000800 [#1]  SMP
+>>> .......
+>>> [  189.177721] CPU: 3 UID: 0 PID: 5521 Comm: repro Kdump: loaded Tainted:
+>>> 7.3.0-rc4+ #277 PREEMPT(lazy)
+>>> .......
+>>> [  189.183986] Call trace:
+>>> [  189.184124]  filemap_unaccount_folio+0xf0/0x1e8 (P)
+>>> [  189.184391]  __filemap_remove_folio+0x34/0x160
+>>> [  189.184633]  filemap_remove_folio+0x4c/0xb0
+>>> [  189.184859]  truncate_inode_folio+0x34/0x58
+>>> [  189.185087]  shmem_undo_range+0x220/0x658
+>>> [  189.185308]  shmem_fallocate+0x2f0/0x470
+>>> [  189.185527]  vfs_fallocate+0x128/0x328
+>>> ......
+>>> [  189.187078]  el0t_64_sync+0x184/0x188
+>>> "
+>>>
+>>> After analysis, I believe the race exists between truncation and MADV_DONTNEED,
+>>> and shmem's ->map_pages() merely makes the issue easier to reproduce. Since
+>>> MADV_DONTNEED synchronously releases the pagetable page before calling
+>>> tlb_flush_rmaps(), this could cause another thread's truncation to skip
+>>> zap_pte_range() (due to pmd is none) but still observe the folio's mapcount
+>>> as non-zero. A possible race scenario is as follows:
+>>>
+>>> CPU 0                           CPU 1
+>>> shmem_fallocate                 madvise_dontneed_single_vma
+>>>    unmap_mapping_range            .......
+>>>    ......
+>>>    (filemap_map_pages() remap folios)
+>>>                   zap_pte_range
+>>>    truncate_inode_folio            zap_empty_pte_table(pmd clear)
+>>>      unmap_mapping_folio
+>>>      ......
+>>>        zap_pmd_range (saw pmd none, skip)
+>>>
+>>>    filemap_remove_folio
+>>>      BUG_ON(folio_mapped)
+>>
+>> That reminds me of sync_with_folio_pmd_zap() usage in page_vma_mapped_walk().
+>>
+>> Isn't that the better approach?
+> 
+> I had considered this approach before, but it is not feasible. IIUC, the
+> sync_with_folio_pmd_zap() is used to address the race with zap_huge_pmd(), and
+> both the PMD clear and the folio mapcount decrement are performed under the PMD
+> lock in zap_huge_pmd().
+
+Just to be clear, I am thinking about something like the following on the
+zap_pmd_range() side:
+
+diff --git a/mm/internal.h b/mm/internal.h
+index 38b1165212c94..a8820ad7e2f21 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -584,14 +584,15 @@ void free_pgtables(struct mmu_gather *tlb, struct
+unmap_desc *desc);
+ void pmd_install(struct mm_struct *mm, pmd_t *pmd, pgtable_t *pte);
+
+ /**
+- * sync_with_folio_pmd_zap - sync with concurrent zapping of a folio PMD
++ * sync_with_folio_pmd_zap - sync with concurrent zapping of folios
+  * @mm: The mm_struct.
+  * @pmdp: Pointer to the pmd that was found to be pmd_none().
+  *
+  * When we find a pmd_none() while unmapping a folio without holding the PTL,
+- * zap_huge_pmd() may have cleared the PMD but not yet modified the folio to
+- * indicate that it's unmapped. Skipping the PMD without synchronization could
+- * make folio unmapping code assume that unmapping failed.
++ * zap_huge_pmd() or zap_empty_pte_table() may have cleared the PMD but not
++ * yet modified the mapped folios to indicate they are unmapped. Skipping the
++ * PMD without synchronization could make folio unmapping code assume that
++ * unmapping failed.
+  *
+  * Wait for concurrent zapping to complete by grabbing the PTL.
+  */
+diff --git a/mm/memory.c b/mm/memory.c
+index 8b0c2c735d3de..c585f5eb255c9 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -2139,9 +2139,7 @@ static inline unsigned long zap_pmd_range(struct
+mmu_gather *tlb,
+                                continue;
+                        }
+                        /* fall through */
+-               } else if (details && details->single_folio &&
+-                          folio_test_pmd_mappable(details->single_folio) &&
+-                          next - addr == HPAGE_PMD_SIZE && pmd_none(*pmd)) {
++               } else if (details && details->single_folio && pmd_none(*pmd)) {
+                        sync_with_folio_pmd_zap(tlb->mm, pmd);
+                }
+                if (pmd_none(*pmd)) {
+
+> 
+> However, the race here is different: tlb_flush_rmaps() is under the PTE lock,
+> while zap_empty_pte_table() is under the PMD lock, and reordering between the
+> two functions is also possible. That is, the folio mapcount operation could
+> execute after the acquire barrier (spin_lock()) of zap_empty_pte_table(),
+> allowing a reader on CPU 0 to incorrectly observe that the PMD is none while
+> mapcount > 0.
+
+I think we really just have to make sure to flush rmaps before zapping the PMD.
+Then it's really just the same thing we had before with sync_with_folio_pmd_zap().
+
+So I agree about doing the tlb_flush_rmaps() before zapping the PMD. But on the
+zap_pmd_range() front that's really just what sync_with_folio_pmd_zap() wants to
+handle.
+
+-- 
+Cheers,
+
+David
