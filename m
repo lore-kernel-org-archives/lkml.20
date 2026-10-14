@@ -1,78 +1,73 @@
-Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D75C31E820
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 00:37:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BD9920DD51
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 00:42:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791938277; cv=none; b=DAP+VYDL6OtXnlWt8rXZCbgrSAKUxi93sEMq4D1+B4QdsUF080NuqD9OlLpT7gG6+yv6A+e4YmK4IX12e4/XNQ2BxwKjMj/n7KRKq+HltljlR66jGmyaOFAKfSpw0mDGGn2Bt0/xtHznGEd+5s4cg4wcAgY491F1kXHDqx10KPs=
+	t=1791938567; cv=none; b=CVJ696iwOy7EJXrStf3fvubeaUfbuqoweIlqW1e/COHWABvDWTvFZX8VE9L5WCJp+P7maZii0pbZKORB1ZtZYl3UmmzmjWi3pBsiLnjbVfHXTxh/Ox8KKDP7GZf+3xPtcl4RowRVQ++FMrSnEc54DF5tBw1mUJ/ipCiLDz7ub8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791938277; c=relaxed/simple;
-	bh=imnwL4fXgIYkkD/JA/JlKie1gpJ15Od6kignYphjV2Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QrAk7d+s4IthW8S/Z4zvojnsszwP/BQ63F0ps1ugdOf1nljuLEswRebtxIwE05ZyjqQ56OEZjbYzSUbXXQ0fh+JjrZGc7y6U4OSHkC+EaDdUwz4gazIajMrMKeI4FLpAzYcqthPCiTx//8fOLVWLsJZ4YcLI6g2eGXwyyrZDi5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=JfZh1ziZ; arc=none smtp.client-ip=74.125.224.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	s=arc-20240116; t=1791938567; c=relaxed/simple;
+	bh=7HcUK1CTNpahJarcDRW/PNLN4S+XdFX5l+dOxrBeiwg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=clhQW2pqXvZmPZ7HlrsAAOljUW0PhVHhdR3g9ZB/a0vAQu3N1stDiVhQEd10sfnQBNOK/jm4MBbzyYVbaxejc+Cr1Bp1FOvYK0pKI2NFHycFF8s57v569leMUQatBy9JKtciQvkvgfkQcXKkZjA41LHaJ+YpPe9tT4KW94FsxqU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=B/a1jyGC; arc=none smtp.client-ip=209.85.215.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="JfZh1ziZ"
-Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-6776efd4ff1so3091434d50.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:37:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="B/a1jyGC"
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cd5e6f0a22bso186246a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:42:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1791938273; x=1792543073; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dEmQ8zEiN/32BuJ67BePaUFQm64RAD0KljLmDtGyKSo=;
-        b=JfZh1ziZSWLy0yEpYUAlB6i+CQug2Pliltzlw6pBu/chWlZW3dt4++pIC3x1N+9w2m
-         P/32Tkk5mB4NeAxdfaHGyuhXG8TsxT9WO5WQyVxn/XkF42PwVW/Lna16GqKz3PiVxaPa
-         jXKHac+E5CGmEkemqnu+/TvrKiM6DwFBcDyMWpUtW96EJMN9Ru+rBpwg7cANcKPIKQAo
-         aYor73n/lG0QtXekbklhckDuYVp623XuznhZww05LofRy1g7PoiBq6fgMB/rY+SFDyU9
-         BxETrhExgIQI3ZBHr9uWM2CwdFjFlJP5XfSJiOYXhlJ4h9lTVxSzwE1q3yr2dkGnPx2b
-         tkfw==
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791938564; x=1792543364; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LySGsEgkXXlREpE9ITg3+XAbVmPqYYJKWOIEOpJmtB0=;
+        b=B/a1jyGC4kVqHhRUO62V4xQnJGh7D370CWqXbo26VH8KINX0odsXelgLHAWTvg1w0T
+         7p/Uj8QVg5/OWyySWbNzqhXZVhFlXQ6BlnGyPPtqn+MQDDbO3enLWtw+l+FxGLkW9gZD
+         b3TxHsY0PA8M7qal8Gsn7Sc9ckaVeL8CMvsa4sQrmBvJMWBTsGJL8Qgaqlbdq5tf1LSA
+         40+YHdeMxpf0azPX67qLMUKtIHjLUt97vJ2CMIaqi7SbeCzlXIa1RR+9062Duobtvy9f
+         KstNdc0AzWj+qMr2tyOlE9OVACYplyEnRL2YTJ36TrubogogBFEY5F1nfivOEwqXj7Yq
+         f3qg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791938273; x=1792543073;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dEmQ8zEiN/32BuJ67BePaUFQm64RAD0KljLmDtGyKSo=;
-        b=J+9FNIusc2k7uSJZyoPbf8gqs/aLoSyALpMNJxD5/4IuMO9KfgQdOvyinR9l5F6z8y
-         U5KemhyOIykJFjlS9nDoS6X9feIrsXQsYbtsgJjV4aHsrLt1bIAg554jGoPWudPInP8i
-         YzkBAMleTfF6yUIWd0cSPuf/YyzGmHjZN7X0NwVtpjAFEBsa7FF57VgFWL1QPO9jEwbX
-         jwfspoH9FbXvg1J9lUlmAX8uLJOWTPrAGK6IxK7FJEyfbPA/xHp/LVsaeTVldVGHbp5J
-         Tad63CBP/7x9kxvXHLrOaoyuUMPw7rqnXBZVcdlARt2ZohUkMrfKRXOcBThdljnJeIe4
-         Njcw==
-X-Forwarded-Encrypted: i=1; AKwUvBz4RMdaTtFlNrGTsZUEZpW+T19+jxR2Dgv97WEGZluuo5Bk/56Vd855zNv6wwenFgFmm4xozEjZNGGW8Zg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI+ENYF7iAcC9Q4kCPJEttExIvCnsmdESNepPvzJuJhXr0XIGtU
-	O1m4qfmMTi6LdkbthWLn2puquSPb2P2c2e7k/Au0/aYnNHwtcgk4KOF4nI3CTRMw1VI=
-X-Gm-Gg: AYBFou18MdGkKuSbUm9jLtaDNQOkJyNi+F+6Zx12U1v6N+OU2FcrtesAzz8ANkAsN8p
-	URI3WIUkSY3TvjGjU2DKgmGa8c11aRM4f8nvC1rpDwToRiaP7/F9oF8k13NsFejNp1Of9QmF+0p
-	p72kT7SEO8aT2X84EVwtZ30d+yxmQJJN6wSQxgbuZFc9gCVxre7S3p+3mEjHGwLmGuArGCWjB+P
-	ooqH5zgKuKyqn4pNK7aVoH78InBiv9LTjI6CC3j8mPzh3/8LbsprHtiNJv2sV05weV21ukJ8XhR
-	PWMFalQ2QfNYIxq9hrMURxjJrAkoh/7+5qCWM7AGvABjfPfOgwaypoQgLZXsodMM2Kuojyk0DGU
-	Y5mlkjqcm/SAH/uS3568SmivMxiJavaKSorlh+yv4p1ypqrNGVZvRRWu6KANaL/ceHqO+y1vbzK
-	Zq2c8ykpHShXvA3lv652G/tbsnQRXJ8qgcwqyURecnoZSujiTjto8q+5n/Vwx97sI1CqxLtLixS
-	EewBb6m088L0ulC+Fvdicqz2I4BYTxilV135zWNkp2SNn93VJlfQZI0i4A0cdzGyjhbUZHB30Ry
-	L2hoWbrSkGeUlpFp3YSGle8okOqf
-X-Received: by 2002:a05:690e:13cc:b0:677:d251:ccf2 with SMTP id 956f58d0204a3-67936aa4e70mr4709122d50.87.1791938272400;
-        Tue, 13 Oct 2026 17:37:52 -0700 (PDT)
-Received: from pop-os.attlocal.net ([2600:1700:6476:1430:98d3:ec2f:c938:3bc1])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67986a15c13sm463194d50.7.2026.10.13.17.37.49
+        d=1e100.net; s=20260707; t=1791938564; x=1792543364;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LySGsEgkXXlREpE9ITg3+XAbVmPqYYJKWOIEOpJmtB0=;
+        b=Qo46zTUPAWwRdO6tKN895w/pCLNdJIQXwYLOL3ghasXHK5JKiZBK+VEy6Bk8zc6p+l
+         fDxJgX9PDzbWFg0hi+hQdE4XCRVgqPGw22PjRbNjVnbpH8PAlIvq0iEs9gitt3eYaN/9
+         5wmTpabCpGDhuzTEe+UxBBCjtBXcBTVPs2ZBeMMngqYj0B8Gus7P+t047d3PgDK1vTHq
+         DwB+19DXJA32TOOg6FllQFkV5p/CFptAl2d0+e9ehzlr6C7ps5NKC7c0+eT5Q1YPu6aU
+         tqFJDR4GTJQdHcD5M/avOMgo9OIPKdDt2OpcVPUZ1bWJhPL1F/O0q2r+1YKFTtQF6Ujb
+         n91Q==
+X-Forwarded-Encrypted: i=1; AKwUvByiOoV69mATj9eqLk70Li9yXOdRaZbwqjd2aqJ5NtA3kZVo3djEFXpa/EtZ3a90NqZ1kIymuwcWdnC3GNM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLv794S15gAeWROE/Xa9xz7fzRK5NzzpLO5PQCL5Wlc7zngV017
+	v+GT2LYmlIexVo6W8QUdM+2mlESvZ0PgAdlHnd2sYR10rQbENZ/SEuRzys7OE2UOaoI=
+X-Gm-Gg: AYBFou0ZBP+SW0ZmOh2MDlgl+0LbKTPf0/ZNwQ4Wr4rdfnB76hlkT8nOkOPdgynYL45
+	SvTWpr/Z3jVlwtlTzo/4mQYB0ljNlGhj14rcaHRqNEDxLn6xKhwoe5oBAkv1WR+PN80O04judiA
+	ON1LtX4JQZAUtSYQeMRgfu7jjJECfw+KhNAOpPDOyRrNCCjfvgGGKxLf5gW8nL5hMqB/IzJ8PUY
+	Kc/mdLnPzhXw9RvIWX0oH9YNjRphZy9AuCjyWzohx/8Ut7hFrjwtI0l2+X0gAGddnwV0DC/0Qi2
+	qyMKk5urdUe0CJe3IS5HFfVgnMXKts7KW65nz8c+J1EbeSysXVpev7hM5vB6UugTY8GoQmEDsW4
+	PIGnJ/NnS7NmPnlJHOAnmwOT3MO+QX4fXsj8taQOdvE4tsrzoQ/4dy7kAmbGMOSIAl3Swnp6H1z
+	iuQvbSdRmRGETKJ7UbswIJBaoGSO9P58FDPxcxTh2dWM2BQBv1sM3GVMZmWKlmtIG1sKZFL/e6N
+	Dcuoby6HknAOcBdxLZQdA==
+X-Received: by 2002:a17:90b:28ce:b0:3a4:85c4:68fc with SMTP id 98e67ed59e1d1-3ab3a79df67mr12125184a91.29.1791938563588;
+        Tue, 13 Oct 2026 17:42:43 -0700 (PDT)
+Received: from localhost.localdomain ([2406:5900:1044:110c:c51c:be8a:c517:276])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac7321cc5bsm432716a91.14.2026.10.13.17.42.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 17:37:51 -0700 (PDT)
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: glaubitz@physik.fu-berlin.de,
-	frank.li@vivo.com
-Cc: linux-fsdevel@vger.kernel.org,
+        Tue, 13 Oct 2026 17:42:43 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: "Martin K . Petersen" <mkp@kernel.org>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	vdubeyko@coreweave.com,
-	Viacheslav Dubeyko <slava@dubeyko.com>
-Subject: [PATCH v3 2/3] hfsplus: store timestamps after February 2040 in xattrs
-Date: Tue, 13 Oct 2026 17:37:30 -0700
-Message-ID: <20261014003731.369728-3-slava@dubeyko.com>
+	stable@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH] scsi: mvumi: reject handshake sizes that overflow the list allocations
+Date: Wed, 14 Oct 2026 09:42:25 +0900
+Message-ID: <20261014004226.3469868-1-yhlee@isslab.korea.ac.kr>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261014003731.369728-1-slava@dubeyko.com>
-References: <20261014003731.369728-1-slava@dubeyko.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,1321 +76,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The timestamp wrapping issue has been fixed but it
-restricts the supported time range to the one that the 32-bit
-on-disk field can represent: from January 1, 1904 till
-February 6, 2040. Any timestamp after February 6, 2040 is
-clamped now.
+mvumi_hs_process_page() takes max_io, the two command entry sizes and the
+list depth from the firmware handshake page.  The entry sizes are u8 fields
+used as shift counts, and 1 is an int, so a count of 29 or more makes the
+<< 2 applied to the shift overflow an int; a count of 32 or more is
+undefined outright.  max_io is a u16, and the sizes derived from the shifts
+are multiplied by it in mvumi_init_data() to size three unsigned int
+allocations, so a large entry size wraps the product and the loops that
+follow then walk and write past the short allocation.  The list depth is
+used as a shift count too, but only when the firmware sets
+HS_CAPABILITY_NEW_PAGE_IO_DEPTH_DEF; a count of 32 or more is undefined
+there as well.
 
-Extend the supported time range by means of internal extended
-attributes. If a timestamp cannot be represented by the 32-bit
-on-disk field, then the maximal value (0xFFFFFFFF,
-HFSPLUS_EXT_TIMESTAMP_MARK) is stored into the catalog record
-and the real value is stored into the xattr of the catalog
-record as big-endian 64-bit number of seconds since
-January 1, 1970:
+Reject an entry size above 29, which keeps 1U << n and the shift that
+follows it inside an unsigned int.  Then compute the worst-case allocation
+size in size_t at the top of mvumi_init_data() and reject it if it does not
+fit an unsigned int.  That total bounds all three allocations: the inbound
+list total, the outbound data pool and the tag arrays, whose sizes are the
+same products plus smaller terms.  Reject a list depth of 32 or more on the
+shifted path only, so that the plain assignment a few lines above, which
+takes the depth as a count rather than an exponent, keeps accepting every
+value a u8 can hold.  The shifts also use 1U now so that a legal count
+cannot overflow an int.
 
-linux_hfs.create_date_u64
-linux_hfs.content_mod_date_u64
-linux_hfs.attribute_mod_date_u64
-linux_hfs.access_date_u64
+No realistic controller is rejected: a controller reporting 4096 commands
+with 64 KiB entries and a depth of 12 needs 513 MiB and passes unchanged.
 
-The HFSPLUS_XATTR_EXISTS flag of the catalog record is kept
-in sync with the presence of xattrs. As a result, sb->s_time_max
-is set to TIME64_MAX.
-
-Read path: if the on-disk timestamp is equal to
-HFSPLUS_EXT_TIMESTAMP_MARK, then hfsplus_read_timestamp() takes
-the real value from the xattr. If the xattr is absent (for
-example, the record has been created by Mac OS X or the volume
-has no Attributes File), then HFS_MAX_TIMESTAMP_SECS is used.
-
-Write path: hfsplus_cat_write_inode() stores the timestamps
-while the catalog tree is locked. It is the same lock ordering
-(catalog tree -> attributes tree) that __hfsplus_setxattr()
-uses. The hfsplus_set_attr_cnid() method has been introduced
-to create or replace the xattr of a given catalog record ID.
-The xattr is not rewritten if the timestamp has not been
-changed. The stale xattr is removed if the timestamp becomes
-representable by the on-disk field again. The per-inode
-HFSPLUS_I_{A,M,C}TIME_XATTR bits track which timestamps are
-stored in xattrs. A failure of the xattr operation is not
-fatal: the timestamp is clamped by HFS_MAX_TIMESTAMP_SECS and
-the rest of the catalog record is saved anyway.
-
-Creation date: hfsplus_create_cat() stores the creation date
-into the xattr if the record is created after February 2040.
-The hfsplus_inode_info keeps the on-disk value (create_date)
-and the real value (birthdate). The getattr() method reports
-birthdate as btime. A hard link record inherits the creation
-date of the hidden directory without changing the creation date
-of the linked inode. The is_create_date_identical() method
-compares the 64-bit creation dates in hfsplus_lookup() if
-the on-disk values are equal to HFSPLUS_EXT_TIMESTAMP_MARK.
-
-Other changes:
-(1) __hfsp_ut2mt() clamps the value into the supported range
-    instead of wrapping it.
-(2) hfsplus_create_attributes_file() stores the fork of
-    Attributes File into the volume header right away.
-    Otherwise, if Attributes File is created by
-    hfsplus_cat_write_inode() in the middle of sync,
-    the writeback can skip the dirty Attributes File inode
-    and the volume header is committed without it.
-(3) The internal linux_hfs.* xattrs are hidden from listxattr()
-    and cannot be retrieved or changed by means of
-    the osx.* namespace.
-(4) The -ENODATA error code is treated as an absent xattr
-    in the getxattr and remove logic.
-
-Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
-cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-cc: Yangtao Li <frank.li@vivo.com>
-cc: linux-fsdevel@vger.kernel.org
+Fixes: f0c568a478f0 ("[SCSI] mvumi: Add Marvell UMI driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 ---
- fs/hfsplus/attributes.c |  85 +++++++++---
- fs/hfsplus/catalog.c    | 110 +++++++++++++--
- fs/hfsplus/dir.c        |  49 ++++++-
- fs/hfsplus/hfsplus_fs.h |  45 +++++-
- fs/hfsplus/inode.c      | 297 +++++++++++++++++++++++++++++++++++++---
- fs/hfsplus/super.c      |   4 +
- fs/hfsplus/xattr.c      | 202 ++++++++++++++++++++++++---
- fs/hfsplus/xattr.h      |  32 ++++-
- 8 files changed, 744 insertions(+), 80 deletions(-)
+ drivers/scsi/mvumi.c | 35 +++++++++++++++++++++++++++++++----
+ 1 file changed, 31 insertions(+), 4 deletions(-)
 
-diff --git a/fs/hfsplus/attributes.c b/fs/hfsplus/attributes.c
-index 7c2e589d4553..51b18d780f2c 100644
---- a/fs/hfsplus/attributes.c
-+++ b/fs/hfsplus/attributes.c
-@@ -206,7 +206,8 @@ int hfsplus_attr_exists(struct inode *inode, const char *name)
- }
+diff --git a/drivers/scsi/mvumi.c b/drivers/scsi/mvumi.c
+index e70d336b4ab39..b86d954f3576b 100644
+--- a/drivers/scsi/mvumi.c
++++ b/drivers/scsi/mvumi.c
+@@ -912,10 +912,23 @@ static int mvumi_init_data(struct mvumi_hba *mhba)
+ 	unsigned int tmp_size, offset, i;
+ 	void *virmem, *v;
+ 	dma_addr_t p;
++	size_t total;
  
- static
--int hfsplus_create_attr_nolock(struct inode *inode, const char *name,
-+int hfsplus_create_attr_nolock(struct inode *inode, u32 cnid,
-+				const char *name,
- 				const void *value, size_t size,
- 				struct hfs_find_data *fd,
- 				hfsplus_attr_entry *entry_ptr)
-@@ -215,12 +216,12 @@ int hfsplus_create_attr_nolock(struct inode *inode, const char *name,
- 	int entry_size;
- 	int err;
- 
--	hfs_dbg("name %s, ino %llu\n",
--		name ? name : NULL, inode->i_ino);
-+	hfs_dbg("name %s, ino %llu, cnid %u\n",
-+		name ? name : NULL, inode->i_ino, cnid);
- 
- 	if (name) {
- 		err = hfsplus_attr_build_key(sb, fd->search_key,
--						inode->i_ino, name);
-+						cnid, name);
- 		if (err)
- 			return err;
- 	} else
-@@ -229,7 +230,7 @@ int hfsplus_create_attr_nolock(struct inode *inode, const char *name,
- 	/* Mac OS X supports only inline data attributes. */
- 	entry_size = hfsplus_attr_build_record(entry_ptr,
- 					HFSPLUS_ATTR_INLINE_DATA,
--					inode->i_ino,
-+					cnid,
- 					value, size);
- 	if (entry_size == HFSPLUS_INVALID_ATTR_RECORD) {
- 		if (size > HFSPLUS_MAX_INLINE_DATA_SIZE)
-@@ -289,8 +290,8 @@ int hfsplus_create_attr(struct inode *inode,
- 	if (err)
- 		goto failed_create_attr;
- 
--	err = hfsplus_create_attr_nolock(inode, name, value, size,
--					 &fd, entry_ptr);
-+	err = hfsplus_create_attr_nolock(inode, (u32)inode->i_ino, name,
-+					 value, size, &fd, entry_ptr);
- 	if (err)
- 		goto failed_create_attr;
- 
-@@ -347,18 +348,19 @@ static int __hfsplus_delete_attr(struct inode *inode, u32 cnid,
- }
- 
- static
--int hfsplus_delete_attr_nolock(struct inode *inode, const char *name,
-+int hfsplus_delete_attr_nolock(struct inode *inode, u32 cnid,
-+				const char *name,
- 				struct hfs_find_data *fd)
- {
- 	struct super_block *sb = inode->i_sb;
- 	int err;
- 
--	hfs_dbg("name %s, ino %llu\n",
--		name ? name : NULL, inode->i_ino);
-+	hfs_dbg("name %s, ino %llu, cnid %u\n",
-+		name ? name : NULL, inode->i_ino, cnid);
- 
- 	if (name) {
- 		err = hfsplus_attr_build_key(sb, fd->search_key,
--						inode->i_ino, name);
-+						cnid, name);
- 		if (err)
- 			return err;
- 	} else {
-@@ -373,7 +375,7 @@ int hfsplus_delete_attr_nolock(struct inode *inode, const char *name,
- 	} else if (err)
- 		return err;
- 
--	err = __hfsplus_delete_attr(inode, inode->i_ino, fd);
-+	err = __hfsplus_delete_attr(inode, cnid, fd);
- 	if (err)
- 		return err;
- 
-@@ -403,7 +405,7 @@ int hfsplus_delete_attr(struct inode *inode, const char *name)
- 	if (err)
- 		goto out;
- 
--	err = hfsplus_delete_attr_nolock(inode, name, &fd);
-+	err = hfsplus_delete_attr_nolock(inode, (u32)inode->i_ino, name, &fd);
- 	if (err)
- 		goto out;
- 
-@@ -481,12 +483,12 @@ int hfsplus_replace_attr(struct inode *inode,
- 	if (err)
- 		goto failed_replace_attr;
- 
--	err = hfsplus_delete_attr_nolock(inode, name, &fd);
-+	err = hfsplus_delete_attr_nolock(inode, (u32)inode->i_ino, name, &fd);
- 	if (err)
- 		goto failed_replace_attr;
- 
--	err = hfsplus_create_attr_nolock(inode, name, value, size,
--					 &fd, entry_ptr);
-+	err = hfsplus_create_attr_nolock(inode, (u32)inode->i_ino, name,
-+					 value, size, &fd, entry_ptr);
- 	if (err)
- 		goto failed_replace_attr;
- 
-@@ -497,3 +499,54 @@ int hfsplus_replace_attr(struct inode *inode,
- 	hfsplus_destroy_attr_entry(entry_ptr);
- 	return err;
- }
-+
-+/*
-+ * Create or replace the xattr @name of catalog record @cnid.
-+ * The @inode is used only for access to the superblock and for
-+ * marking the attributes tree as dirty. It is the caller's
-+ * responsibility to set HFSPLUS_XATTR_EXISTS in the catalog record.
-+ */
-+int hfsplus_set_attr_cnid(struct inode *inode, u32 cnid,
-+			  const char *name,
-+			  const void *value, size_t size)
-+{
-+	struct super_block *sb = inode->i_sb;
-+	struct hfs_find_data fd;
-+	hfsplus_attr_entry *entry_ptr;
-+	int err = 0;
-+
-+	hfs_dbg("name %s, ino %llu, cnid %u\n",
-+		name ? name : NULL, inode->i_ino, cnid);
-+
-+	if (!HFSPLUS_SB(sb)->attr_tree) {
-+		pr_err("attributes file doesn't exist\n");
-+		return -EINVAL;
-+	}
-+
-+	entry_ptr = hfsplus_alloc_attr_entry();
-+	if (!entry_ptr)
-+		return -ENOMEM;
-+
-+	err = hfs_find_init(HFSPLUS_SB(sb)->attr_tree, &fd);
-+	if (err)
-+		goto failed_init_set_attr;
-+
-+	/* Fail early and avoid ENOSPC during the btree operation */
-+	err = hfs_bmap_reserve(fd.tree, fd.tree->depth + 1);
-+	if (err)
-+		goto failed_set_attr;
-+
-+	err = hfsplus_delete_attr_nolock(inode, cnid, name, &fd);
-+	if (err && err != -ENOENT && err != -ENODATA)
-+		goto failed_set_attr;
-+
-+	err = hfsplus_create_attr_nolock(inode, cnid, name,
-+					 value, size, &fd, entry_ptr);
-+
-+failed_set_attr:
-+	hfs_find_exit(&fd);
-+
-+failed_init_set_attr:
-+	hfsplus_destroy_attr_entry(entry_ptr);
-+	return err;
-+}
-diff --git a/fs/hfsplus/catalog.c b/fs/hfsplus/catalog.c
-index fe11c4b6dd99..d710419db359 100644
---- a/fs/hfsplus/catalog.c
-+++ b/fs/hfsplus/catalog.c
-@@ -12,6 +12,7 @@
- 
- #include "hfsplus_fs.h"
- #include "hfsplus_raw.h"
-+#include "xattr.h"
- 
- int hfsplus_cat_case_cmp_key(const hfsplus_btree_key *k1,
- 			     const hfsplus_btree_key *k2)
-@@ -102,10 +103,63 @@ void hfsplus_cat_set_perms(struct inode *inode, struct hfsplus_perm *perms)
- 		perms->dev = 0;
- }
- 
-+static void hfsplus_copy_timestamps2folder(struct hfsplus_timestamps *timestamps,
-+					    struct hfsplus_cat_folder *folder)
-+{
-+	folder->create_date = timestamps->create_date;
-+	folder->content_mod_date = timestamps->content_mod_date;
-+	folder->attribute_mod_date = timestamps->attribute_mod_date;
-+	folder->access_date = timestamps->access_date;
-+}
-+
-+static void hfsplus_copy_timestamps2file(struct hfsplus_timestamps *timestamps,
-+					  struct hfsplus_cat_file *file)
-+{
-+	file->create_date = timestamps->create_date;
-+	file->content_mod_date = timestamps->content_mod_date;
-+	file->attribute_mod_date = timestamps->attribute_mod_date;
-+	file->access_date = timestamps->access_date;
-+}
-+
-+/*
-+ * Set creation date of new inode. The creation date after February 2040
-+ * is stored as HFSPLUS_EXT_TIMESTAMP_MARK in the catalog record. The real
-+ * value is saved into internal xattr by hfsplus_create_cat().
-+ */
-+static void hfsplus_set_create_date(struct inode *inode,
-+				     struct hfsplus_timestamps *timestamps)
-+{
-+	time64_t ut = ktime_get_real_seconds();
-+	__be32 create_date = __hfsp_ut2mt(ut);
-+
-+	HFSPLUS_I(inode)->birthdate = ut;
-+	HFSPLUS_I(inode)->create_date = create_date;
-+
-+	timestamps->create_date = create_date;
-+	timestamps->content_mod_date = create_date;
-+	timestamps->attribute_mod_date = create_date;
-+	timestamps->access_date = create_date;
-+}
-+
-+/*
-+ * Real creation date of new catalog record. The hard link record
-+ * inherits the creation date of the hidden directory.
-+ */
-+static time64_t hfsplus_cat_record_birthdate(u32 cnid, struct inode *inode)
-+{
-+	struct hfsplus_sb_info *sbi = HFSPLUS_SB(inode->i_sb);
-+
-+	if (!S_ISDIR(inode->i_mode) && cnid != inode->i_ino)
-+		return HFSPLUS_I(sbi->hidden_dir)->birthdate;
-+
-+	return HFSPLUS_I(inode)->birthdate;
-+}
-+
- static int hfsplus_cat_build_record(hfsplus_cat_entry *entry,
--		u32 cnid, struct inode *inode)
-+				    u32 cnid, struct inode *inode)
- {
- 	struct hfsplus_sb_info *sbi = HFSPLUS_SB(inode->i_sb);
-+	struct hfsplus_timestamps timestamps = {0};
- 
- 	if (S_ISDIR(inode->i_mode)) {
- 		struct hfsplus_cat_folder *folder;
-@@ -116,11 +170,12 @@ static int hfsplus_cat_build_record(hfsplus_cat_entry *entry,
- 		if (test_bit(HFSPLUS_SB_HFSX, &sbi->flags))
- 			folder->flags |= cpu_to_be16(HFSPLUS_HAS_FOLDER_COUNT);
- 		folder->id = cpu_to_be32(inode->i_ino);
--		HFSPLUS_I(inode)->create_date =
--			folder->create_date =
--			folder->content_mod_date =
--			folder->attribute_mod_date =
--			folder->access_date = hfsp_now2mt();
-+
-+		hfsplus_set_create_date(inode, &timestamps);
-+		hfsplus_copy_timestamps2folder(&timestamps, folder);
-+		if (hfsp_ut_needs_xattr(HFSPLUS_I(inode)->birthdate))
-+			folder->flags |= cpu_to_be16(HFSPLUS_XATTR_EXISTS);
-+
- 		hfsplus_cat_set_perms(inode, &folder->permissions);
- 		if (inode == sbi->hidden_dir)
- 			/* invisible and namelocked */
-@@ -134,11 +189,23 @@ static int hfsplus_cat_build_record(hfsplus_cat_entry *entry,
- 		file->type = cpu_to_be16(HFSPLUS_FILE);
- 		file->flags = cpu_to_be16(HFSPLUS_FILE_THREAD_EXISTS);
- 		file->id = cpu_to_be32(cnid);
--		HFSPLUS_I(inode)->create_date =
--			file->create_date =
--			file->content_mod_date =
--			file->attribute_mod_date =
--			file->access_date = hfsp_now2mt();
-+
-+		if (cnid == inode->i_ino) {
-+			hfsplus_set_create_date(inode, &timestamps);
-+		} else {
-+			/*
-+			 * Hard link record: don't change creation date
-+			 * of the linked inode.
-+			 */
-+			__be32 now = __hfsp_ut2mt(ktime_get_real_seconds());
-+
-+			timestamps.create_date = now;
-+			timestamps.content_mod_date = now;
-+			timestamps.attribute_mod_date = now;
-+			timestamps.access_date = now;
-+		}
-+		hfsplus_copy_timestamps2file(&timestamps, file);
-+
- 		if (cnid == inode->i_ino) {
- 			hfsplus_cat_set_perms(inode, &file->permissions);
- 			if (S_ISLNK(inode->i_mode)) {
-@@ -169,6 +236,10 @@ static int hfsplus_cat_build_record(hfsplus_cat_entry *entry,
- 			file->permissions.dev =
- 				cpu_to_be32(HFSPLUS_I(inode)->linkid);
- 		}
-+
-+		if (hfsp_ut_needs_xattr(hfsplus_cat_record_birthdate(cnid, inode)))
-+			file->flags |= cpu_to_be16(HFSPLUS_XATTR_EXISTS);
-+
- 		return sizeof(*file);
- 	}
- }
-@@ -256,6 +327,7 @@ int hfsplus_create_cat(u32 cnid, struct inode *dir,
- 	struct super_block *sb = dir->i_sb;
- 	struct hfs_find_data fd;
- 	hfsplus_cat_entry entry;
-+	time64_t birthdate;
- 	int entry_size;
- 	int err;
- 
-@@ -309,6 +381,22 @@ int hfsplus_create_cat(u32 cnid, struct inode *dir,
- 	if (err)
- 		goto err1;
- 
-+	birthdate = hfsplus_cat_record_birthdate(cnid, inode);
-+	if (hfsp_ut_needs_xattr(birthdate)) {
-+		/*
-+		 * Failure is not critical: the creation date
-+		 * will be read as HFS_MAX_TIMESTAMP_SECS.
-+		 */
-+		err = hfsplus_set_timestamp_xattr(inode, cnid,
-+						  XATTR_LINUX_CREATE_DATE_NAME,
-+						  birthdate);
-+		if (err) {
-+			pr_warn("fail to save creation date: cnid %u, err %d\n",
-+				cnid, err);
-+			err = 0;
-+		}
-+	}
-+
- 	dir->i_size++;
- 	if (S_ISDIR(inode->i_mode))
- 		hfsplus_subfolders_inc(dir);
-diff --git a/fs/hfsplus/dir.c b/fs/hfsplus/dir.c
-index 51fcba2e6d40..af0520ebced7 100644
---- a/fs/hfsplus/dir.c
-+++ b/fs/hfsplus/dir.c
-@@ -26,6 +26,43 @@ static inline void hfsplus_instantiate(struct dentry *dentry,
- 	d_instantiate(dentry, inode);
- }
- 
-+/*
-+ * Check that creation date of catalog record @cnid is identical to
-+ * creation date of @inode. If the creation date is after February 2040,
-+ * then the real value is compared by means of internal xattr.
-+ */
-+static inline bool is_create_date_identical(struct inode *inode,
-+					    u32 cnid, __be32 create_date)
-+{
-+	time64_t timestamp;
-+	bool has_xattr;
-+	int err;
-+
-+	if (create_date != HFSPLUS_I(inode)->create_date)
-+		return false;
-+
-+	if (!hfsp_mt_is_ext_timestamp(create_date))
-+		return true;
-+
-+	err = hfsplus_read_timestamp(inode->i_sb, cnid,
-+				     XATTR_LINUX_CREATE_DATE_NAME,
-+				     create_date, &timestamp, &has_xattr);
-+	if (err) {
-+		pr_err("timestamp extraction failure: cnid %u, err %d\n",
-+			cnid, err);
-+		return false;
-+	}
-+
-+	/*
-+	 * The record without xattr (for example, created by Mac OS X)
-+	 * cannot be distinguished by means of 64-bit timestamp.
-+	 */
-+	if (!has_xattr)
-+		return true;
-+
-+	return timestamp == HFSPLUS_I(inode)->birthdate;
-+}
-+
- /* Find the entry inside dir named dentry->d_name */
- static struct dentry *hfsplus_lookup(struct inode *dir, struct dentry *dentry,
- 				     unsigned int flags)
-@@ -78,12 +115,12 @@ static struct dentry *hfsplus_lookup(struct inode *dir, struct dentry *dentry,
- 				entry.file.user_info.fdCreator ==
- 				cpu_to_be32(HFSP_HFSPLUS_CREATOR) &&
- 				HFSPLUS_SB(sb)->hidden_dir &&
--				(entry.file.create_date ==
--					HFSPLUS_I(HFSPLUS_SB(sb)->hidden_dir)->
--						create_date ||
--				entry.file.create_date ==
--					HFSPLUS_I(d_inode(sb->s_root))->
--						create_date)) {
-+				(is_create_date_identical(
-+					HFSPLUS_SB(sb)->hidden_dir,
-+					cnid, entry.file.create_date) ||
-+				is_create_date_identical(
-+					d_inode(sb->s_root),
-+					cnid, entry.file.create_date))) {
- 			struct qstr str;
- 			char name[32];
- 
-diff --git a/fs/hfsplus/hfsplus_fs.h b/fs/hfsplus/hfsplus_fs.h
-index cd51afa22ece..e38f4a128313 100644
---- a/fs/hfsplus/hfsplus_fs.h
-+++ b/fs/hfsplus/hfsplus_fs.h
-@@ -176,6 +176,13 @@ static inline struct hfsplus_sb_info *HFSPLUS_SB(struct super_block *sb)
- 	return sb->s_fs_info;
- }
- 
-+struct hfsplus_timestamps {
-+	__be32 create_date;
-+	__be32 content_mod_date;
-+	__be32 attribute_mod_date;
-+	__be32 access_date;
-+	__be32 backup_date;
-+};
- 
- struct hfsplus_inode_info {
- 	atomic_t opencnt;
-@@ -197,7 +204,8 @@ struct hfsplus_inode_info {
- 	 * Immutable data.
- 	 */
- 	struct inode *rsrc_inode;
--	__be32 create_date;
-+	__be32 create_date;	/* on-disk (maybe clamped) creation date */
-+	time64_t birthdate;	/* real creation date (seconds since 1970) */
- 
- 	/*
- 	 * Protected by sbi->vh_mutex.
-@@ -228,6 +236,9 @@ struct hfsplus_inode_info {
- #define HFSPLUS_I_EXT_DIRTY	2	/* has changes in the extent tree */
- #define HFSPLUS_I_ALLOC_DIRTY	3	/* has changes in the allocation file */
- #define HFSPLUS_I_ATTR_DIRTY	4	/* has changes in the attributes tree */
-+#define HFSPLUS_I_ATIME_XATTR	5	/* access date is stored in xattr */
-+#define HFSPLUS_I_MTIME_XATTR	6	/* content mod date is stored in xattr */
-+#define HFSPLUS_I_CTIME_XATTR	7	/* attribute mod date is stored in xattr */
- 
- #define HFSPLUS_IS_RSRC(inode) \
- 	test_bit(HFSPLUS_I_RSRC, &HFSPLUS_I(inode)->flags)
-@@ -352,6 +363,9 @@ int hfsplus_delete_all_attrs(struct inode *dir, u32 cnid);
- int hfsplus_replace_attr(struct inode *inode,
- 			 const char *name,
- 			 const void *value, size_t size);
-+int hfsplus_set_attr_cnid(struct inode *inode, u32 cnid,
-+			  const char *name,
-+			  const void *value, size_t size);
- 
- /* bitmap.c */
- int hfsplus_block_allocate(struct super_block *sb, u32 size, u32 offset,
-@@ -468,6 +482,9 @@ int hfsplus_file_fsync(struct file *file, loff_t start, loff_t end,
- int hfsplus_fileattr_get(struct dentry *dentry, struct file_kattr *fa);
- int hfsplus_fileattr_set(struct mnt_idmap *idmap,
- 			 struct dentry *dentry, struct file_kattr *fa);
-+int hfsplus_read_timestamp(struct super_block *sb, u32 cnid,
-+			   const char *name, __be32 mt,
-+			   time64_t *ut, bool *has_xattr);
- 
- /* ioctl.c */
- long hfsplus_ioctl(struct file *filp, unsigned int cmd, unsigned long arg);
-@@ -525,6 +542,21 @@ bool is_hfs_thread_record_type(u16 type)
- 
- int hfsplus_brec_read_cat(struct hfs_find_data *fd, hfsplus_cat_entry *entry);
- 
-+/*
-+ * time helpers: convert between 1904-base and 1970-base timestamps
-+ *
-+ * The on-disk 32-bit timestamps cover the range from
-+ * HFS_MIN_TIMESTAMP_SECS (Jan. 1, 1904) till HFS_MAX_TIMESTAMP_SECS
-+ * (Feb. 6, 2040). The timestamps out of this range are clamped.
-+ * The on-disk value HFSPLUS_EXT_TIMESTAMP_MARK (maximal value) means
-+ * that real timestamp could be stored in the internal xattr of
-+ * the catalog record. It is Linux specific extension of
-+ * HFS+ on-disk layout. It makes possible to support timestamps
-+ * till HFSPLUS_MAX_TIMESTAMP_SECS.
-+ */
-+#define HFSPLUS_EXT_TIMESTAMP_MARK	cpu_to_be32(U32_MAX)
-+#define HFSPLUS_MAX_TIMESTAMP_SECS	TIME64_MAX
-+
- static inline time64_t __hfsp_mt2ut(__be32 mt)
- {
- 	time64_t ut = (time64_t)be32_to_cpu(mt) - HFS_UTC_OFFSET;
-@@ -534,10 +566,21 @@ static inline time64_t __hfsp_mt2ut(__be32 mt)
- 
- static inline __be32 __hfsp_ut2mt(time64_t ut)
- {
-+	ut = clamp_t(time64_t, ut,
-+		     HFS_MIN_TIMESTAMP_SECS, HFS_MAX_TIMESTAMP_SECS);
- 	ut += HFS_UTC_OFFSET;
- 
- 	return cpu_to_be32(lower_32_bits(ut));
-+}
-+
-+static inline bool hfsp_ut_needs_xattr(time64_t ut)
-+{
-+	return ut >= HFS_MAX_TIMESTAMP_SECS;
-+}
- 
-+static inline bool hfsp_mt_is_ext_timestamp(__be32 mt)
-+{
-+	return mt == HFSPLUS_EXT_TIMESTAMP_MARK;
- }
- 
- static inline enum hfsplus_btree_mutex_classes
-diff --git a/fs/hfsplus/inode.c b/fs/hfsplus/inode.c
-index 2ce6de574fa6..c2ee1906589d 100644
---- a/fs/hfsplus/inode.c
-+++ b/fs/hfsplus/inode.c
-@@ -344,7 +344,8 @@ int hfsplus_getattr(struct mnt_idmap *idmap, const struct path *path,
- 
- 	if (request_mask & STATX_BTIME) {
- 		stat->result_mask |= STATX_BTIME;
--		stat->btime = hfsp_mt2ut(hip->create_date);
-+		stat->btime.tv_sec = hip->birthdate;
-+		stat->btime.tv_nsec = 0;
- 	}
- 
- 	if (inode->i_flags & S_APPEND)
-@@ -598,9 +599,138 @@ void hfsplus_inode_write_fork(struct inode *inode,
- 	fork->total_blocks = cpu_to_be32(HFSPLUS_I(inode)->alloc_blocks);
- }
- 
-+/*
-+ * hfsplus_read_timestamp - convert on-disk timestamp into 1970-base one
-+ * @sb: superblock
-+ * @cnid: catalog record ID
-+ * @name: name of internal xattr that can keep the real timestamp
-+ * @mt: on-disk timestamp
-+ * @ut: pointer on converted timestamp [out]
-+ * @has_xattr: pointer on flag that xattr exists [out]
-+ *
-+ * If on-disk timestamp is equal to HFSPLUS_EXT_TIMESTAMP_MARK, then
-+ * the real timestamp (after February 2040) could be stored in
-+ * the internal xattr. If the xattr is absent (for example, the record
-+ * has been created by Mac OS X), then HFS_MAX_TIMESTAMP_SECS is used.
-+ */
-+int hfsplus_read_timestamp(struct super_block *sb, u32 cnid,
-+			   const char *name, __be32 mt,
-+			   time64_t *ut, bool *has_xattr)
-+{
-+	time64_t timestamp;
-+	int err;
-+
-+	*ut = __hfsp_mt2ut(mt);
-+	*has_xattr = false;
-+
-+	if (!hfsp_mt_is_ext_timestamp(mt))
-+		return 0;
-+
-+	err = hfsplus_get_timestamp_xattr(sb, cnid, name, &timestamp);
-+	if (err == -ENODATA || err == -EOPNOTSUPP) {
-+		/* timestamp is really equal to HFS_MAX_TIMESTAMP_SECS */
-+		return 0;
-+	} else if (unlikely(err)) {
-+		pr_warn("fail to extract timestamp: cnid %u, name %s, err %d\n",
-+			cnid, name, err);
-+		return err;
-+	}
-+
-+	if (timestamp < HFS_MAX_TIMESTAMP_SECS) {
-+		pr_warn("invalid timestamp in xattr: cnid %u, name %s, timestamp %lld\n",
-+			cnid, name, timestamp);
-+		/* keep xattr to be deleted or overwritten */
-+		*has_xattr = true;
-+	} else {
-+		*ut = timestamp;
-+		*has_xattr = true;
-+	}
-+
-+	return 0;
-+}
-+
-+static int hfsplus_inode_read_timestamps(struct inode *inode,
-+					 struct hfsplus_timestamps *timestamps)
-+{
-+	struct super_block *sb = inode->i_sb;
-+	struct hfsplus_inode_info *hip = HFSPLUS_I(inode);
-+	u32 cnid = inode->i_ino;
-+	struct timespec64 ts = {0};
-+	bool has_xattr;
-+	int res = 0;
-+
-+	res = hfsplus_read_timestamp(sb, cnid,
-+				     XATTR_LINUX_ACCESS_DATE_NAME,
-+				     timestamps->access_date,
-+				     &ts.tv_sec, &has_xattr);
-+	if (res)
-+		goto finish_read_timestamps;
-+
-+	inode_set_atime_to_ts(inode, ts);
-+	if (has_xattr)
-+		set_bit(HFSPLUS_I_ATIME_XATTR, &hip->flags);
-+
-+	res = hfsplus_read_timestamp(sb, cnid,
-+				     XATTR_LINUX_CONTENT_MOD_DATE_NAME,
-+				     timestamps->content_mod_date,
-+				     &ts.tv_sec, &has_xattr);
-+	if (res)
-+		goto finish_read_timestamps;
-+
-+	inode_set_mtime_to_ts(inode, ts);
-+	if (has_xattr)
-+		set_bit(HFSPLUS_I_MTIME_XATTR, &hip->flags);
-+
-+	res = hfsplus_read_timestamp(sb, cnid,
-+				     XATTR_LINUX_ATTRIBUTE_MOD_DATE_NAME,
-+				     timestamps->attribute_mod_date,
-+				     &ts.tv_sec, &has_xattr);
-+	if (res)
-+		goto finish_read_timestamps;
-+
-+	inode_set_ctime_to_ts(inode, ts);
-+	if (has_xattr)
-+		set_bit(HFSPLUS_I_CTIME_XATTR, &hip->flags);
-+
-+	res = hfsplus_read_timestamp(sb, cnid,
-+				     XATTR_LINUX_CREATE_DATE_NAME,
-+				     timestamps->create_date,
-+				     &hip->birthdate, &has_xattr);
-+	if (res)
-+		goto finish_read_timestamps;
-+
-+	hip->create_date = timestamps->create_date;
-+
-+finish_read_timestamps:
-+	return res;
-+}
-+
-+static inline void
-+hfsplus_copy_folder2timestamps(struct hfsplus_cat_folder *folder,
-+				struct hfsplus_timestamps *timestamps)
-+{
-+	timestamps->create_date = folder->create_date;
-+	timestamps->content_mod_date = folder->content_mod_date;
-+	timestamps->attribute_mod_date = folder->attribute_mod_date;
-+	timestamps->access_date = folder->access_date;
-+	timestamps->backup_date = folder->backup_date;
-+}
-+
-+static inline void
-+hfsplus_copy_file2timestamps(struct hfsplus_cat_file *file,
-+			     struct hfsplus_timestamps *timestamps)
-+{
-+	timestamps->create_date = file->create_date;
-+	timestamps->content_mod_date = file->content_mod_date;
-+	timestamps->attribute_mod_date = file->attribute_mod_date;
-+	timestamps->access_date = file->access_date;
-+	timestamps->backup_date = file->backup_date;
-+}
-+
- int hfsplus_cat_read_inode(struct inode *inode, struct hfs_find_data *fd)
- {
- 	hfsplus_cat_entry entry;
-+	struct hfsplus_timestamps timestamps = {0};
- 	int res = 0;
- 	u16 type;
- 
-@@ -622,12 +752,14 @@ int hfsplus_cat_read_inode(struct inode *inode, struct hfs_find_data *fd)
- 			goto out;
- 		set_nlink(inode, 1);
- 		inode->i_size = 2 + be32_to_cpu(folder->valence);
--		inode_set_atime_to_ts(inode, hfsp_mt2ut(folder->access_date));
--		inode_set_mtime_to_ts(inode,
--				      hfsp_mt2ut(folder->content_mod_date));
--		inode_set_ctime_to_ts(inode,
--				      hfsp_mt2ut(folder->attribute_mod_date));
--		HFSPLUS_I(inode)->create_date = folder->create_date;
-+
-+		hfsplus_copy_folder2timestamps(folder, &timestamps);
-+		res = hfsplus_inode_read_timestamps(inode, &timestamps);
-+		if (res) {
-+			res = -EIO;
-+			goto out;
-+		}
-+
- 		HFSPLUS_I(inode)->fs_blocks = 0;
- 		if (folder->flags & cpu_to_be16(HFSPLUS_HAS_FOLDER_COUNT)) {
- 			HFSPLUS_I(inode)->subfolders =
-@@ -668,12 +800,13 @@ int hfsplus_cat_read_inode(struct inode *inode, struct hfs_find_data *fd)
- 			init_special_inode(inode, inode->i_mode,
- 					   be32_to_cpu(file->permissions.dev));
- 		}
--		inode_set_atime_to_ts(inode, hfsp_mt2ut(file->access_date));
--		inode_set_mtime_to_ts(inode,
--				      hfsp_mt2ut(file->content_mod_date));
--		inode_set_ctime_to_ts(inode,
--				      hfsp_mt2ut(file->attribute_mod_date));
--		HFSPLUS_I(inode)->create_date = file->create_date;
-+
-+		hfsplus_copy_file2timestamps(file, &timestamps);
-+		res = hfsplus_inode_read_timestamps(inode, &timestamps);
-+		if (res) {
-+			res = -EIO;
-+			goto out;
-+		}
- 	} else {
- 		pr_err("bad catalog entry used to create inode\n");
- 		res = -EIO;
-@@ -682,12 +815,126 @@ int hfsplus_cat_read_inode(struct inode *inode, struct hfs_find_data *fd)
- 	return res;
- }
- 
-+struct hfsplus_xattr_changes {
-+	bool added;
-+	bool removed;
-+};
-+
-+/*
-+ * Convert @ts into on-disk timestamp. The timestamp after February 2040
-+ * is stored as HFSPLUS_EXT_TIMESTAMP_MARK with the real value in
-+ * the internal xattr @name. The stale xattr is removed if timestamp
-+ * becomes representable by on-disk field.
-+ */
-+static int hfsplus_inode_save_timestamp(struct inode *inode,
-+					const char *name, int xattr_bit,
-+					struct timespec64 ts, __be32 *date,
-+					struct hfsplus_xattr_changes *xattr)
-+{
-+	struct hfsplus_inode_info *hip = HFSPLUS_I(inode);
-+	time64_t stored;
-+	int err;
-+
-+	*date = __hfsp_ut2mt(ts.tv_sec);
-+
-+	if (hfsp_ut_needs_xattr(ts.tv_sec)) {
-+		/* don't rewrite xattr if nothing has been changed */
-+		if (test_bit(xattr_bit, &hip->flags)) {
-+			err = hfsplus_get_timestamp_xattr(inode->i_sb,
-+							  inode->i_ino,
-+							  name,
-+							  &stored);
-+			if (!err && stored == ts.tv_sec)
-+				return 0;
-+		}
-+
-+		err = hfsplus_set_timestamp_xattr(inode, inode->i_ino,
-+						  name, ts.tv_sec);
-+		if (err) {
-+			clear_bit(xattr_bit, &hip->flags);
-+			return err;
-+		}
-+
-+		set_bit(xattr_bit, &hip->flags);
-+		xattr->added = true;
-+	} else if (test_bit(xattr_bit, &hip->flags)) {
-+		err = hfsplus_remove_timestamp_xattr(inode, name);
-+		if (err)
-+			return err;
-+
-+		clear_bit(xattr_bit, &hip->flags);
-+		xattr->removed = true;
-+	}
-+
-+	return 0;
-+}
-+
-+static void hfsplus_inode_save_timestamps(struct inode *inode,
-+					  struct hfsplus_timestamps *timestamps,
-+					  struct hfsplus_xattr_changes *changes)
-+{
-+	int res;
-+
-+	/*
-+	 * Failure of xattr operation is not critical. The timestamp
-+	 * is clamped by HFS_MAX_TIMESTAMP_SECS in such case.
-+	 * But the rest of the catalog record must be saved anyway.
-+	 */
-+
-+	res = hfsplus_inode_save_timestamp(inode,
-+					   XATTR_LINUX_ACCESS_DATE_NAME,
-+					   HFSPLUS_I_ATIME_XATTR,
-+					   inode_get_atime(inode),
-+					   &timestamps->access_date,
-+					   changes);
-+	if (res) {
-+		pr_warn_ratelimited("fail to save access date: ino %llu, err %d\n",
-+				    inode->i_ino, res);
-+	}
-+
-+	res = hfsplus_inode_save_timestamp(inode,
-+					   XATTR_LINUX_CONTENT_MOD_DATE_NAME,
-+					   HFSPLUS_I_MTIME_XATTR,
-+					   inode_get_mtime(inode),
-+					   &timestamps->content_mod_date,
-+					   changes);
-+	if (res) {
-+		pr_warn_ratelimited("fail to save content mod date: ino %llu, err %d\n",
-+				    inode->i_ino, res);
-+	}
-+
-+	res = hfsplus_inode_save_timestamp(inode,
-+					   XATTR_LINUX_ATTRIBUTE_MOD_DATE_NAME,
-+					   HFSPLUS_I_CTIME_XATTR,
-+					   inode_get_ctime(inode),
-+					   &timestamps->attribute_mod_date,
-+					   changes);
-+	if (res) {
-+		pr_warn_ratelimited("fail to save attribute mod date: ino %llu, err %d\n",
-+				    inode->i_ino, res);
-+	}
-+}
-+
-+static inline __be16
-+hfsplus_update_xattr_exists_flag(struct inode *inode, __be16 flags,
-+				 struct hfsplus_xattr_changes *xattr)
-+{
-+	if (xattr->added)
-+		flags |= cpu_to_be16(HFSPLUS_XATTR_EXISTS);
-+	else if (xattr->removed && !hfsplus_attr_exists(inode, NULL))
-+		flags &= cpu_to_be16(~HFSPLUS_XATTR_EXISTS);
-+
-+	return flags;
-+}
-+
- int hfsplus_cat_write_inode(struct inode *inode)
- {
- 	struct inode *main_inode = inode;
- 	struct hfs_btree *tree = HFSPLUS_SB(inode->i_sb)->cat_tree;
- 	struct hfs_find_data fd;
- 	hfsplus_cat_entry entry;
-+	struct hfsplus_timestamps timestamps = {0};
-+	struct hfsplus_xattr_changes changes = {0};
- 	int res = 0;
- 
- 	hfs_dbg("inode->i_ino %llu\n", inode->i_ino);
-@@ -718,9 +965,15 @@ int hfsplus_cat_write_inode(struct inode *inode)
- 					sizeof(struct hfsplus_cat_folder));
- 		/* simple node checks? */
- 		hfsplus_cat_set_perms(inode, &folder->permissions);
--		folder->access_date = hfsp_ut2mt(inode_get_atime(inode));
--		folder->content_mod_date = hfsp_ut2mt(inode_get_mtime(inode));
--		folder->attribute_mod_date = hfsp_ut2mt(inode_get_ctime(inode));
-+
-+		hfsplus_inode_save_timestamps(inode, &timestamps, &changes);
-+		folder->access_date = timestamps.access_date;
-+		folder->content_mod_date = timestamps.content_mod_date;
-+		folder->attribute_mod_date = timestamps.attribute_mod_date;
-+		folder->flags = hfsplus_update_xattr_exists_flag(inode,
-+								 folder->flags,
-+								 &changes);
-+
- 		folder->valence = cpu_to_be32(inode->i_size - 2);
- 		if (folder->flags & cpu_to_be16(HFSPLUS_HAS_FOLDER_COUNT)) {
- 			folder->subfolders =
-@@ -753,9 +1006,15 @@ int hfsplus_cat_write_inode(struct inode *inode)
- 			file->flags |= cpu_to_be16(HFSPLUS_FILE_LOCKED);
- 		else
- 			file->flags &= cpu_to_be16(~HFSPLUS_FILE_LOCKED);
--		file->access_date = hfsp_ut2mt(inode_get_atime(inode));
--		file->content_mod_date = hfsp_ut2mt(inode_get_mtime(inode));
--		file->attribute_mod_date = hfsp_ut2mt(inode_get_ctime(inode));
-+
-+		hfsplus_inode_save_timestamps(inode, &timestamps, &changes);
-+		file->access_date = timestamps.access_date;
-+		file->content_mod_date = timestamps.content_mod_date;
-+		file->attribute_mod_date = timestamps.attribute_mod_date;
-+		file->flags = hfsplus_update_xattr_exists_flag(inode,
-+							       file->flags,
-+							       &changes);
-+
- 		hfs_bnode_write(fd.bnode, &entry, fd.entryoffset,
- 					 sizeof(struct hfsplus_cat_file));
- 	}
-diff --git a/fs/hfsplus/super.c b/fs/hfsplus/super.c
-index 657dfa40bdf3..b10b53f6f8f9 100644
---- a/fs/hfsplus/super.c
-+++ b/fs/hfsplus/super.c
-@@ -86,6 +86,7 @@ struct inode *hfsplus_iget(struct super_block *sb, unsigned long ino)
- 	mutex_init(&HFSPLUS_I(inode)->extents_lock);
- 	HFSPLUS_I(inode)->rsrc_inode = NULL;
- 	HFSPLUS_I(inode)->create_date = 0;
-+	HFSPLUS_I(inode)->birthdate = 0;
- 	HFSPLUS_I(inode)->linkid = 0;
- 	HFSPLUS_I(inode)->flags = 0;
- 	HFSPLUS_I(inode)->fs_blocks = 0;
-@@ -513,6 +514,9 @@ static int hfsplus_fill_super(struct super_block *sb, struct fs_context *fc)
- 
- 	sb->s_time_gran = NSEC_PER_SEC;
- 	sb->s_time_min = HFS_MIN_TIMESTAMP_SECS;
-+	/*
-+	 * Timestamps after HFS_MAX_TIMESTAMP_SECS are stored in xattrs.
-+	 */
- 	sb->s_time_max = HFS_MAX_TIMESTAMP_SECS;
- 
- 	err = -EFBIG;
-diff --git a/fs/hfsplus/xattr.c b/fs/hfsplus/xattr.c
-index 21a1c196c71f..d3b173449616 100644
---- a/fs/hfsplus/xattr.c
-+++ b/fs/hfsplus/xattr.c
-@@ -50,6 +50,12 @@ static bool is_known_namespace(const char *name)
- 	return true;
- }
- 
-+static bool is_linux_hfs_internal_xattr(const char *name)
-+{
-+	return !strncmp(name, XATTR_LINUX_HFS_PREFIX,
-+			XATTR_LINUX_HFS_PREFIX_LEN);
-+}
-+
- static u32 hfsplus_init_header_node(struct inode *attr_file,
- 					u32 clump_size,
- 					char *buf, u16 node_size)
-@@ -319,6 +325,19 @@ static int hfsplus_create_attributes_file(struct super_block *sb)
- 
- 	hfsplus_mark_inode_dirty(attr_file, HFSPLUS_I_ATTR_DIRTY);
- 
-+	/*
-+	 * Store the fork of AttributesFile into the volume header right now.
-+	 * The AttributesFile can be created by hfsplus_cat_write_inode()
-+	 * (timestamps after 2040 are stored in xattrs) in the middle of
-+	 * sync operation. Then, the dirty AttributesFile's inode can be
-+	 * skipped by writeback and the volume header will be committed
-+	 * without AttributesFile. As a result, the AttributesFile will be
-+	 * not opened during the next mount.
-+	 */
-+	hfsplus_inode_write_fork(attr_file, &sbi->s_vhdr->attr_file);
-+	set_bit(HFSPLUS_SB_WRITEBACKUP, &sbi->flags);
-+	hfsplus_mark_mdb_dirty(sb);
-+
- 	sbi->attr_tree = hfs_btree_open(sb, HFSPLUS_ATTR_CNID);
- 	if (!sbi->attr_tree)
- 		pr_err("failed to load attributes file\n");
-@@ -339,8 +358,7 @@ static int hfsplus_create_attributes_file(struct super_block *sb)
- 	return err;
- }
- 
--static inline
--bool is_xattr_operation_supported(struct inode *inode)
-+static inline bool is_xattr_operation_supported(struct inode *inode)
- {
- 	if (HFSPLUS_IS_RSRC(inode))
- 		return false;
-@@ -609,8 +627,9 @@ static ssize_t hfsplus_getxattr_finder_info(struct inode *inode,
- 	return res;
- }
- 
--ssize_t __hfsplus_getxattr(struct inode *inode, const char *name,
--			 void *value, size_t size)
-+static ssize_t __hfsplus_getxattr_nocheck(struct super_block *sb,
-+					  u32 cnid, const char *name,
-+					  void *value, size_t size)
- {
- 	struct hfs_find_data fd;
- 	hfsplus_attr_entry *entry;
-@@ -619,13 +638,7 @@ ssize_t __hfsplus_getxattr(struct inode *inode, const char *name,
- 	u16 record_length = 0;
- 	ssize_t res;
- 
--	if (!is_xattr_operation_supported(inode))
--		return -EOPNOTSUPP;
--
--	if (!strcmp_xattr_finder_info(name))
--		return hfsplus_getxattr_finder_info(inode, value, size);
--
--	if (!HFSPLUS_SB(inode->i_sb)->attr_tree)
-+	if (!HFSPLUS_SB(sb)->attr_tree)
- 		return -EOPNOTSUPP;
- 
- 	entry = hfsplus_alloc_attr_entry();
-@@ -634,18 +647,18 @@ ssize_t __hfsplus_getxattr(struct inode *inode, const char *name,
- 		return -ENOMEM;
- 	}
- 
--	res = hfs_find_init(HFSPLUS_SB(inode->i_sb)->attr_tree, &fd);
-+	res = hfs_find_init(HFSPLUS_SB(sb)->attr_tree, &fd);
- 	if (res) {
- 		pr_err("can't init xattr find struct\n");
- 		goto failed_getxattr_init;
- 	}
- 
--	res = hfsplus_find_attr(inode->i_sb, inode->i_ino, name, &fd);
-+	res = hfsplus_find_attr(sb, cnid, name, &fd);
- 	if (res) {
- 		if (res == -ENOENT || res == -ENODATA)
- 			res = -ENODATA;
- 		else
--			pr_err("xattr search failed\n");
-+			pr_err("xattr searching failed\n");
- 		goto out;
- 	}
- 
-@@ -693,6 +706,38 @@ ssize_t __hfsplus_getxattr(struct inode *inode, const char *name,
- 	return res;
- }
- 
-+static inline ssize_t __hfsplus_getxattr(struct inode *inode, const char *name,
-+					 void *value, size_t size)
-+{
-+	if (!is_xattr_operation_supported(inode))
-+		return -EOPNOTSUPP;
-+
-+	if (!strcmp_xattr_finder_info(name))
-+		return hfsplus_getxattr_finder_info(inode, value, size);
-+
-+	return __hfsplus_getxattr_nocheck(inode->i_sb, (u32)inode->i_ino,
-+					  name, value, size);
-+}
-+
-+static inline char *hfsplus_build_xattr_name(const char *name,
-+					     const char *prefix,
-+					     size_t prefixlen)
-+{
-+	char *xattr_name;
-+	size_t len = NLS_MAX_CHARSET_SIZE * HFSPLUS_ATTR_MAX_STRLEN + 1;
-+
-+	xattr_name = kzalloc(len, GFP_KERNEL);
-+	if (!xattr_name)
-+		return ERR_PTR(-ENOMEM);
-+
-+	if (snprintf(xattr_name, len, "%s%s", prefix, name) >= len) {
-+		kfree(xattr_name);
-+		return ERR_PTR(-ENAMETOOLONG);
-+	}
-+
-+	return xattr_name;
-+}
-+
- ssize_t hfsplus_getxattr(struct inode *inode, const char *name,
- 			 void *value, size_t size,
- 			 const char *prefix, size_t prefixlen)
-@@ -704,13 +749,9 @@ ssize_t hfsplus_getxattr(struct inode *inode, const char *name,
- 		inode->i_ino, name ? name : NULL,
- 		prefix ? prefix : NULL);
- 
--	xattr_name = kmalloc(NLS_MAX_CHARSET_SIZE * HFSPLUS_ATTR_MAX_STRLEN + 1,
--			     GFP_KERNEL);
--	if (!xattr_name)
--		return -ENOMEM;
--
--	strcpy(xattr_name, prefix);
--	strcpy(xattr_name + prefixlen, name);
-+	xattr_name = hfsplus_build_xattr_name(name, prefix, prefixlen);
-+	if (IS_ERR(xattr_name))
-+		return PTR_ERR(xattr_name);
- 
- 	res = __hfsplus_getxattr(inode, xattr_name, value, size);
- 	kfree(xattr_name);
-@@ -718,7 +759,114 @@ ssize_t hfsplus_getxattr(struct inode *inode, const char *name,
- 	hfs_dbg("finished: res %d\n", res);
- 
- 	return res;
-+}
-+
-+static ssize_t hfsplus_getxattr_nocheck(struct super_block *sb, u32 cnid,
-+					const char *name,
-+					void *value, size_t size,
-+					const char *prefix, size_t prefixlen)
-+{
-+	int res;
-+	char *xattr_name;
- 
-+	hfs_dbg("cnid %u, name %s, prefix %s\n",
-+		cnid, name ? name : NULL,
-+		prefix ? prefix : NULL);
-+
-+	xattr_name = hfsplus_build_xattr_name(name, prefix, prefixlen);
-+	if (IS_ERR(xattr_name))
-+		return PTR_ERR(xattr_name);
-+
-+	res = __hfsplus_getxattr_nocheck(sb, cnid, xattr_name, value, size);
-+	kfree(xattr_name);
-+
-+	hfs_dbg("finished: res %d\n", res);
-+
-+	return res;
-+}
-+
-+/*
-+ * Get the timestamp stored in the internal xattr @name
-+ * of catalog record @cnid. The caller can hold the catalog tree lock.
-+ */
-+int hfsplus_get_timestamp_xattr(struct super_block *sb, u32 cnid,
-+				const char *name, time64_t *ts)
-+{
-+	__be64 value;
-+	ssize_t res;
-+
-+	res = hfsplus_getxattr_nocheck(sb, cnid, name,
-+					&value, sizeof(value),
-+					XATTR_LINUX_HFS_PREFIX,
-+					XATTR_LINUX_HFS_PREFIX_LEN);
-+	if (res < 0)
-+		return res;
-+
-+	if (res != sizeof(value))
-+		return -EIO;
-+
-+	*ts = (time64_t)be64_to_cpu(value);
-+	return 0;
-+}
-+
-+/*
-+ * Store the timestamp @ts into the internal xattr @name of catalog
-+ * record @cnid. The caller must hold the catalog tree lock and it is
-+ * caller's responsibility to set HFSPLUS_XATTR_EXISTS flag in
-+ * the catalog record.
-+ */
-+int hfsplus_set_timestamp_xattr(struct inode *inode, u32 cnid,
-+				const char *name, time64_t ts)
-+{
-+	struct super_block *sb = inode->i_sb;
-+	char xattr_name[XATTR_LINUX_HFS_NAME_MAX];
-+	__be64 value = cpu_to_be64(ts);
-+	int err;
-+
-+	hfs_dbg("ino %llu, cnid %u, name %s, ts %lld\n",
-+		inode->i_ino, cnid, name, ts);
-+
-+	if (!HFSPLUS_SB(sb)->attr_tree) {
-+		err = hfsplus_create_attributes_file(sb);
-+		if (unlikely(err))
-+			return err;
-+
-+		if (!HFSPLUS_SB(sb)->attr_tree)
-+			return -EIO;
-+	}
-+
-+	if (snprintf(xattr_name, sizeof(xattr_name), "%s%s",
-+		     XATTR_LINUX_HFS_PREFIX, name) >= sizeof(xattr_name))
-+		return -ENAMETOOLONG;
-+
-+	return hfsplus_set_attr_cnid(inode, cnid, xattr_name,
-+				     &value, sizeof(value));
-+}
-+
-+/*
-+ * Remove the internal xattr @name of @inode. The caller must hold
-+ * the catalog tree lock and it is caller's responsibility to update
-+ * HFSPLUS_XATTR_EXISTS flag in the catalog record.
-+ */
-+int hfsplus_remove_timestamp_xattr(struct inode *inode, const char *name)
-+{
-+	char xattr_name[XATTR_LINUX_HFS_NAME_MAX];
-+	int err;
-+
-+	hfs_dbg("ino %llu, name %s\n", inode->i_ino, name);
-+
-+	if (!HFSPLUS_SB(inode->i_sb)->attr_tree)
-+		return 0;
-+
-+	if (snprintf(xattr_name, sizeof(xattr_name), "%s%s",
-+		     XATTR_LINUX_HFS_PREFIX, name) >= sizeof(xattr_name))
-+		return -ENAMETOOLONG;
-+
-+	err = hfsplus_delete_attr(inode, xattr_name);
-+	if (err == -ENOENT || err == -ENODATA)
-+		err = 0;
-+
-+	return err;
- }
- 
- static inline int can_list(const char *xattr_name)
-@@ -726,6 +874,10 @@ static inline int can_list(const char *xattr_name)
- 	if (!xattr_name)
+ 	if (mhba->fw_flag & MVUMI_FW_ALLOC)
  		return 0;
  
-+	/* Internal xattrs of the driver are hidden */
-+	if (is_linux_hfs_internal_xattr(xattr_name))
-+		return 0;
++	/* These are firmware-supplied and size the allocations below. */
++	total = (size_t)mhba->ib_max_size * mhba->max_io +
++		(size_t)mhba->ob_max_size * mhba->max_io +
++		sizeof(struct mvumi_dyn_list_entry) * (size_t)mhba->max_io +
++		160;
++	if (total > UINT_MAX) {
++		dev_err(&mhba->pdev->dev,
++			"handshake sizes too large: io %u, in %u, out %u\n",
++			mhba->max_io, mhba->ib_max_size, mhba->ob_max_size);
++		return -1;
++	}
 +
- 	return strncmp(xattr_name, XATTR_TRUSTED_PREFIX,
- 			XATTR_TRUSTED_PREFIX_LEN) ||
- 				capable(CAP_SYS_ADMIN);
-@@ -998,6 +1150,10 @@ static int hfsplus_osx_getxattr(const struct xattr_handler *handler,
- 	if (is_known_namespace(name))
- 		return -EOPNOTSUPP;
+ 	tmp_size = mhba->ib_max_size * mhba->max_io;
+ 	if (mhba->hba_capability & HS_CAPABILITY_SUPPORT_DYN_SRC)
+ 		tmp_size += sizeof(struct mvumi_dyn_list_entry) * mhba->max_io;
+@@ -1051,16 +1064,24 @@ static int mvumi_hs_process_page(struct mvumi_hba *mhba,
+ 	case HS_PAGE_FIRM_CAP:
+ 		hs_page1 = (struct mvumi_hs_page1 *) hs_header;
  
-+	/* Internal xattrs of the driver are hidden */
-+	if (is_linux_hfs_internal_xattr(name))
-+		return -EOPNOTSUPP;
++		/* Firmware-supplied shift counts: (1U << n) << 2 must fit. */
++		if (hs_page1->cl_in_max_entry_size > 29 ||
++		    hs_page1->cl_out_max_entry_size > 29) {
++			dev_err(&mhba->pdev->dev,
++				"invalid handshake entry size\n");
++			return -1;
++		}
 +
- 	/*
- 	 * osx is the namespace we use to indicate an unprefixed
- 	 * attribute on the filesystem (like the ones that OS X
-@@ -1020,6 +1176,10 @@ static int hfsplus_osx_setxattr(const struct xattr_handler *handler,
- 	if (is_known_namespace(name))
- 		return -EOPNOTSUPP;
+ 		mhba->max_io = hs_page1->max_io_support;
+ 		mhba->list_num_io = hs_page1->cl_inout_list_depth;
+ 		mhba->max_transfer_size = hs_page1->max_transfer_size;
+ 		mhba->max_target_id = hs_page1->max_devices_support;
+ 		mhba->hba_capability = hs_page1->capability;
+ 		mhba->ib_max_size_setting = hs_page1->cl_in_max_entry_size;
+-		mhba->ib_max_size = (1 << hs_page1->cl_in_max_entry_size) << 2;
++		mhba->ib_max_size = (1U << hs_page1->cl_in_max_entry_size) << 2;
  
-+	/* Internal xattrs of the driver cannot be changed by user */
-+	if (is_linux_hfs_internal_xattr(name))
-+		return -EOPNOTSUPP;
-+
- 	/*
- 	 * osx is the namespace we use to indicate an unprefixed
- 	 * attribute on the filesystem (like the ones that OS X
-diff --git a/fs/hfsplus/xattr.h b/fs/hfsplus/xattr.h
-index 15cc55e41410..8f6283f85f13 100644
---- a/fs/hfsplus/xattr.h
-+++ b/fs/hfsplus/xattr.h
-@@ -12,6 +12,24 @@
+ 		mhba->ob_max_size_setting = hs_page1->cl_out_max_entry_size;
+-		mhba->ob_max_size = (1 << hs_page1->cl_out_max_entry_size) << 2;
++		mhba->ob_max_size = (1U << hs_page1->cl_out_max_entry_size) << 2;
  
- #include <linux/xattr.h>
- 
-+/*
-+ * Internal xattrs of Linux HFS+ driver. Timestamps beyond
-+ * HFS_MAX_TIMESTAMP_SECS (February 2040) cannot be represented by
-+ * 32-bit on-disk fields. Such timestamp is stored as the maximal value
-+ * (HFSPLUS_EXT_TIMESTAMP_MARK) in the catalog record and the real value
-+ * is kept in the xattr as big-endian 64-bit seconds since
-+ * 00:00 GMT, Jan. 1, 1970.
-+ */
-+#define XATTR_LINUX_HFS_PREFIX "linux_hfs."
-+#define XATTR_LINUX_HFS_PREFIX_LEN \
-+	(sizeof(XATTR_LINUX_HFS_PREFIX) - 1)
-+#define XATTR_LINUX_HFS_NAME_MAX	64
-+#define XATTR_LINUX_CREATE_DATE_NAME "create_date_u64"
-+#define XATTR_LINUX_CONTENT_MOD_DATE_NAME "content_mod_date_u64"
-+#define XATTR_LINUX_ATTRIBUTE_MOD_DATE_NAME "attribute_mod_date_u64"
-+#define XATTR_LINUX_ACCESS_DATE_NAME "access_date_u64"
-+#define XATTR_LINUX_BACKUP_DATE_NAME "backup_date_u64"
-+
- extern const struct xattr_handler hfsplus_xattr_osx_handler;
- extern const struct xattr_handler hfsplus_xattr_user_handler;
- extern const struct xattr_handler hfsplus_xattr_trusted_handler;
-@@ -23,16 +41,18 @@ int __hfsplus_setxattr(struct inode *inode, const char *name,
- 			const void *value, size_t size, int flags);
- 
- int hfsplus_setxattr(struct inode *inode, const char *name,
--				   const void *value, size_t size, int flags,
--				   const char *prefix, size_t prefixlen);
--
--ssize_t __hfsplus_getxattr(struct inode *inode, const char *name,
--			   void *value, size_t size);
--
-+		     const void *value, size_t size, int flags,
-+		     const char *prefix, size_t prefixlen);
- ssize_t hfsplus_getxattr(struct inode *inode, const char *name,
- 			 void *value, size_t size,
- 			 const char *prefix, size_t prefixlen);
- 
-+int hfsplus_get_timestamp_xattr(struct super_block *sb, u32 cnid,
-+				const char *name, time64_t *ts);
-+int hfsplus_set_timestamp_xattr(struct inode *inode, u32 cnid,
-+				const char *name, time64_t ts);
-+int hfsplus_remove_timestamp_xattr(struct inode *inode, const char *name);
-+
- ssize_t hfsplus_listxattr(struct dentry *dentry, char *buffer, size_t size);
- 
- int hfsplus_init_security(struct inode *inode, struct inode *dir,
+ 		dev_dbg(&mhba->pdev->dev, "FW version:%d\n",
+ 						hs_page1->fw_ver.ver_build);
+@@ -1069,8 +1090,14 @@ static int mvumi_hs_process_page(struct mvumi_hba *mhba,
+ 			mhba->eot_flag = 22;
+ 		else
+ 			mhba->eot_flag = 27;
+-		if (mhba->hba_capability & HS_CAPABILITY_NEW_PAGE_IO_DEPTH_DEF)
+-			mhba->list_num_io = 1 << hs_page1->cl_inout_list_depth;
++		if (mhba->hba_capability & HS_CAPABILITY_NEW_PAGE_IO_DEPTH_DEF) {
++			if (hs_page1->cl_inout_list_depth >= 32) {
++				dev_err(&mhba->pdev->dev,
++					"invalid handshake list depth\n");
++				return -1;
++			}
++			mhba->list_num_io = 1U << hs_page1->cl_inout_list_depth;
++		}
+ 		break;
+ 	default:
+ 		dev_err(&mhba->pdev->dev, "handshake: page code error\n");
+
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
 -- 
 2.43.0
 
