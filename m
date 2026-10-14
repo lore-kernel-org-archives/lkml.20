@@ -1,288 +1,124 @@
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6F6E49C4D6
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 20:15:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE69148E0D3
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 20:19:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792008938; cv=none; b=eZA1R8TukvYqe+KWZIWGRKy/c6lu53KIw7IZlcEGqX/dQ8+p4Y2ULZEUBUIR/a+WzkPoosOQPl3kQP7f74GNTHk2h68HxaKVK6YKI3lW39bCcQRau8JzLgllK+xGi5xT+6iwHVLrpH2Th5iuOCRZ2A3b2nQYPV/dDcCGP4Q3/Co=
+	t=1792009190; cv=none; b=uI4SEsxpl+7K+U05e8lI/TL5FBywGgq9O+F8tkG3ki6F0z+q+EW6SnKib+T1jpJmgklZ+T5aNdEUPn/R5n4Xqij/16ey5C3CK6RN8zr8KpDma5Z5+VWw6jb4bu1RUACl6G5YJIMNMtifLBLV+9fjpaaGQkoGbpC9dHlXv22jpWk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792008938; c=relaxed/simple;
-	bh=4t3B1O5uccpSjVayby3DtFX+i7PWbaCzjTIB7y2+3dM=;
+	s=arc-20240116; t=1792009190; c=relaxed/simple;
+	bh=1JanGc8z8XRSLzMWj6La+OzYOvaT0VgU2qv4MPBJwVo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F20ziYW9wpxeBMz74o1tTN+W6vb2aMNTlFNkr33Ib5/Akpn2uBXIq4gI5wE5ALirhX56tf6pLweUwrSANp4An9BEJrZef2fvcO8mcC4uX54T2pJI5WnxohvGjmYdTyfGh4ff5TzyKm+su3Wb1I7nt7gtSAZxe1nC5hVP21EhWdo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=l4yk7RoZ; arc=none smtp.client-ip=74.125.82.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=a4Y0z4rpJJMFIBKzWwbtRzDI+Dcy4wXMtNwRIhP/Tv58sHoQNAU7LNGzmvLFm3oPqheJhCtVEC95m3RwvKbCQTfOS1AAqXh4ebJJhPkFZuUYPIWC9wE1HLzh3K5UknkN8+NvIhVrcGm7eil6rXvmNETsBqsrhIn9sA7kFPnTHe8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aKnsNCdl; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="l4yk7RoZ"
-Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-15168a20b47so3001221c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:15:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1792008936; x=1792613736; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=u8y8daHQJvx7IZRNrkHqWqeIGgkxG27eFv9rVDwmEAE=;
-        b=l4yk7RoZe664eAecJRed9SllqkGCvn9TrWg9J67w1qJH1qJQs6nDA9Dr1dbAzeVgUf
-         7cjF1hiF1UJhg4gGiVEDaRgodISQZIoJBIEkbow57zhulopSwNiulXTj9iEaudOiCfUv
-         VAWpwr1yYhTbwfmujhffVliwaM34BRndw3iec=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792008936; x=1792613736;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=u8y8daHQJvx7IZRNrkHqWqeIGgkxG27eFv9rVDwmEAE=;
-        b=mEtl2rXIQcTBPxH2yX2j/mcKLlcWx5Ub7qCkmi7LAiIm4Fl8zGH4ZjhNrZcndnTaiN
-         aZZ13SACQGz/b8hzFJyhNmjPD1j88sEbse5NeDRXEXUyTyVODj8MKP4K924enBOiGIWu
-         lLMMn/bygtMC74e3Xa0S1GIk7WKJfLI6vm6CFwXELSV8tVidB1xmZLZWwhRHu4zVrQtJ
-         3aTw0inrC6BFrnSqATLfp3TTV5WOK5eJdSD0l/UkwonFa70UnbTFOz5cOkfmLQc6sHMR
-         9mDdqobB4RhtUNYhnNBk1cMLdmJ791fuQprYmXMg9Ep01cmWsbcaBpmtjHxVlVsZ8TxZ
-         mgOg==
-X-Forwarded-Encrypted: i=1; AKwUvBymfims8sOhH9YLekEPsZRy0PQD4It23C2kh24qojvDq5GqCkpsgUi+8+Q2atJwvnHNo1FphG+Svlacw1M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKa7kc17r4NhkPei6lSlTt2uZV36VXhxmVA/plDlgTe5+jz0HHL
-	FiiHzMW6RUpwso0D0VJPIVRYBg/uPqLG4ZxBiLgzKPNS9BoCcaHnEAkV/+GXzDh49w==
-X-Gm-Gg: AYBFou3x8D+VrHy82/3ayhmtnbKl7zXB7l19e1WPlqb1Cl42SXoqnbPDV6iX0v3S5jr
-	Z7Ho95uBuTS2AW+/lHczuuGxY5QKhJlqzBdqvnr+GVToXfXO3dbjklCF0ERtAUOF5ao8In/PQLL
-	N82VTkJowNRYQsANTJdsGEYPfV36/UjpRDCCOd7pbhphICk/pNopmiXQe7XtIvb2xOHxG8WiD0z
-	rpK9Cgvs5aVAkerwwBMisJoEWOLqHy8HwTiw587m0lHsFDxyAnd6Te7w4RPvhZbaS3Yylg0X0xs
-	4NJLh4wBeqMyuIJmh/gx4wI1n2hWyeYBJbyA058/7AKjROY5hTvJu52GMxGCmPdadCrWwEkelEY
-	/0PQBIqzGWSIoyVLh6rFmV0yNplUCuTZHBzVAsXeXD9R5OBPXCADTxIXyfRuFNmIbSu7r8XhzC3
-	VQgAVgHtC9lZvTvrUg6nXy4l0CRvSxHxd2wrsb/Avi0lrtxoSlJcXu1WzoP1004JlwJAYrxIcL/
-	Ez0ACEdu4tbYuCZKkWimcTXm8DRI9ZrXemSSN6y0n0amHDY
-X-Received: by 2002:a05:701b:291c:b0:141:4951:f150 with SMTP id a92af1059eb24-16a5ea5d6famr21123974c88.18.1792008935130;
-        Wed, 14 Oct 2026 13:15:35 -0700 (PDT)
-Received: from localhost ([2a00:79e0:2e7c:8:88d4:aeca:306c:242a])
-        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-1698de65af7sm52561502c88.0.2026.10.14.13.15.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 13:15:34 -0700 (PDT)
-Date: Wed, 14 Oct 2026 13:15:32 -0700
-From: Brian Norris <briannorris@chromium.org>
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Cc: Pavel Machek <pavel@kernel.org>, linux-doc@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Doug Anderson <dianders@chromium.org>, Len Brown <lenb@kernel.org>,
-	Ulf Hansson <ulfh@kernel.org>
-Subject: Re: [PATCH v4 2/2] PM: runtime: Add Example Driver Patterns section
-Message-ID: <as_i5MEz3WfnDQmf@google.com>
-References: <20261001155118.1750028-1-briannorris@chromium.org>
- <20261001085009.v4.2.I75ceea7b1afd016e08922e47b82e6eb36de144fe@changeid>
- <CAJZ5v0hMHutu69acgSR7KsmcLs0McZK+-3OFoiqFrU5GnJzTNQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aKnsNCdl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792009189; x=1823545189;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=1JanGc8z8XRSLzMWj6La+OzYOvaT0VgU2qv4MPBJwVo=;
+  b=aKnsNCdlK38J+ki5Asz+FZQjH5eOernAHOXSpocBYsU09ih0uoLwSpnT
+   toq+DPZOABKirRYDttJSb0w8UIKLp5XIxUVnn67uxJhaaWC4qFF3ktvku
+   ItZamDCsrkGnSMOZUvwcPmHqRGwnCn///bmZjEcdrOSB7YisoIdH28sIj
+   pzrtBYaAAnAP3rofP5utYDFYsYto3j3L54YxwHSIC5mqMhilYiGVt4p5W
+   bzGQZD4ndhnHl8uPSdRk8DIsS1maS6qM51WiSbrAJOTVq5tL93bkkurjw
+   azbFxKD2ySUepMV8EadAkjV7VARN9GOGjxa77gR5gsOXXhx0A05TOnLCX
+   A==;
+X-CSE-ConnectionGUID: KUnzd9raTWuF2RBUOApWLA==
+X-CSE-MsgGUID: SRTRcEpTTsaTivtfSFXZxg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="657742"
+X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
+   d="scan'208";a="657742"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 13:19:49 -0700
+X-CSE-ConnectionGUID: TJkY2rBlRbOMRD9H9WtxqQ==
+X-CSE-MsgGUID: nA9VK41wT4uagIMXmcl5Yg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
+   d="scan'208";a="1421822"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa005.jf.intel.com with ESMTP; 14 Oct 2026 13:19:45 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xH5Ru-00000000FAH-2yxg;
+	Wed, 14 Oct 2026 20:19:42 +0000
+Date: Thu, 15 Oct 2026 04:19:23 +0800
+From: kernel test robot <lkp@intel.com>
+To: Ketil Johnsen <ketil.johnsen@arm.com>,
+	Boris Brezillon <bbrezillon@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Alice Ryhl <aliceryhl@google.com>
+Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org, Ketil Johnsen <ketil.johnsen@arm.com>
+Subject: Re: [PATCH v4 03/12] drm/panthor: Pass drm_file instead of
+ panthor_file
+Message-ID: <202610150630.tAfOKlx3-lkp@intel.com>
+References: <20261012125940.3291951-4-ketil.johnsen@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAJZ5v0hMHutu69acgSR7KsmcLs0McZK+-3OFoiqFrU5GnJzTNQ@mail.gmail.com>
+In-Reply-To: <20261012125940.3291951-4-ketil.johnsen@arm.com>
 
-Hi Rafael,
+Hi Ketil,
 
-On Wed, Oct 14, 2026 at 09:07:54PM +0200, Rafael J. Wysocki (Intel) wrote:
-> On Thu, Oct 1, 2026 at 5:51 PM Brian Norris <briannorris@chromium.org> wrote:
-> >
-> > The runtime PM API surface is pretty large, but there are a few common
-> > patterns that many drivers should follow. Add some illustrative
-> > examples, to help guide the most common audience for runtime PM docs --
-> > driver writers.
-> >
-> > Signed-off-by: Brian Norris <briannorris@chromium.org>
-> > ---
-> >
-> > Changes in v4:
-> >  * "state" to "status", to be consistent with Introduction terminology
-> >
-> > Changes in v3:
-> >  * Rewrite Examples to avoid devm_* at first, to highlight correct
-> >    approaches
-> >  * Include error-handling and remove() in any probe() Examples
-> >  * Advise more caution when using devm_*, as ordering issues are subtle
-> >
-> > Changes in v2:
-> >  * Add appropriate teardown to "Probe with Hardware Powered Off"
-> >    Example, as the remove() + power-off behavior is subtle here, and
-> >    easy to get wrong
-> >
-> >  Documentation/power/runtime_pm.rst | 475 ++++++++++++++++++++++++++++-
-> >  1 file changed, 473 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/Documentation/power/runtime_pm.rst b/Documentation/power/runtime_pm.rst
-> > index e4407b687f8b..cb25e0bb4ca7 100644
-> > --- a/Documentation/power/runtime_pm.rst
-> > +++ b/Documentation/power/runtime_pm.rst
-> > @@ -429,7 +429,8 @@ in ->probe(). Usually this means calling pm_runtime_disable(),
-> >  pm_runtime_dont_use_autosuspend() etc. Alternatively, drivers can use
-> >  devm_pm_runtime_enable() during probe, which automatically takes care of
-> >  calling pm_runtime_disable() and pm_runtime_dont_use_autosuspend() upon driver
-> > -detachment.
-> > +detachment. See also the Examples in `Section 10`_ for some effective
-> > +strategies for driver teardown.
-> >
-> >  The user space can effectively disallow the driver of the device to power manage
-> >  it at run time by changing the value of its /sys/devices/.../power/control
-> > @@ -654,7 +655,9 @@ The implementation is well suited for asynchronous use in interrupt contexts.
-> >  However such use inevitably involves races, because the PM core can't
-> >  synchronize ->runtime_suspend() callbacks with the arrival of I/O requests.
-> >  This synchronization must be handled by the driver, using its private lock.
-> > -Here is a schematic pseudo-code example::
-> > +Here is a schematic pseudo-code example:
-> > +
-> > +.. code-block:: c
-> >
-> >         foo_read_or_write(struct foo_priv *foo, void *data)
-> >         {
-> > @@ -720,3 +723,471 @@ pm_runtime_autosuspend_expiration() from within the ->runtime_suspend()
-> >  callback while holding its private lock.  If the function returns a nonzero
-> >  value then the delay has not yet expired and the callback should return
-> >  -EAGAIN.
-> > +
-> > +.. _Section 10:
-> > +
-> > +10. Example Driver Patterns
-> > +===========================
-> > +
-> > +The runtime PM API is large and complex, but most device drivers follow a small
-> > +set of canonical patterns when interacting with runtime PM. This section
-> > +illustrates standard patterns for device probing, performing I/O, and handling
-> > +interrupts.
-> > +
-> > +Probe and Initialization
-> > +------------------------
-> > +
-> > +Basic Probe
-> > +~~~~~~~~~~~
-> > +
-> > +A driver that powers on its hardware during probe and does not use autosuspend
-> > +can initialize runtime PM using standard helpers:
-> > +
-> > +.. code-block:: c
-> > +
-> > +       static int foo_probe(struct platform_device *pdev)
-> > +       {
-> > +               struct device *dev = &pdev->dev;
-> > +               struct foo_priv *priv;
-> > +               int ret;
-> > +
-> > +               priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-> > +               if (!priv)
-> > +                       return -ENOMEM;
-> > +
-> > +               platform_set_drvdata(pdev, priv);
-> > +
-> > +               /* Power on and initialize hardware registers... */
-> > +
-> > +               /*
-> > +                * The code above left hardware powered on and operational, so
-> > +                * tell the PM core that the device is active before enabling
-> > +                * runtime PM.
-> > +                */
-> > +               pm_runtime_set_active(dev);
-> > +               pm_runtime_enable(dev);
-> > +
-> > +               /*
-> > +                * Perform remaining driver setup (e.g. register interrupts, device nodes).
-> > +                * If any step fails after enabling runtime PM:
-> > +                */
-> > +               ret = foo_register_device(priv);
-> > +               if (ret)
-> > +                       goto err_pm_disable;
-> > +
-> > +               /*
-> > +                * Upon successful return from ->probe(), the driver core
-> > +                * automatically executes pm_request_idle(dev), allowing the
-> > +                * device to suspend asynchronously if its usage counter is zero.
-> > +                */
-> > +               return 0;
-> > +
-> > +       err_pm_disable:
-> > +               pm_runtime_disable(dev);
-> > +               if (!pm_runtime_status_suspended(dev)) {
-> > +                       /*
-> > +                        * Power back off, in case device did not suspend yet.
-> > +                        * For example, leverage your .runtime_suspend()
-> > +                        * implementation:
-> > +                        */
-> > +                       foo_runtime_suspend(dev);
-> 
-> There are two reasons why this may not work, here and below.
-> 
-> First off, if a non-trivial PM domain or bus type etc is involved, its
-> .runtime_suspend() callback may need to be invoked in addition to
-> foo_runtime_suspend() to actually power off the device.
+kernel test robot noticed the following build warnings:
 
-Good point. While it's a platform_device (not a complex bus), I suppose
-the PM domain may be relevant, at least for remove(). (probe() is
-already handled automatically by the device core.)
+[auto build test WARNING on drm-misc/drm-misc-next]
+[also build test WARNING on next-20261012]
+[cannot apply to linus/master v7.3-rc7]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-> That's why
-> pm_runtime_force_suspend() looks for the callback to invoke.
+url:    https://github.com/intel-lab-lkp/linux/commits/Ketil-Johnsen/drm-panthor-De-duplicate-FW-memory-section-sync/20261012-145929
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/20261012125940.3291951-4-ketil.johnsen%40arm.com
+patch subject: [PATCH v4 03/12] drm/panthor: Pass drm_file instead of panthor_file
+config: arm64-defconfig (https://download.01.org/0day-ci/archive/20261015/202610150630.tAfOKlx3-lkp@intel.com/config)
+compiler: aarch64-linux-gcc (GCC) 16.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261015/202610150630.tAfOKlx3-lkp@intel.com/reproduce)
 
-Would you be OK with pm_runtime_force_suspend() as an alternative here?
-It seems like some drivers have started using that in remove(), which
-doesn't quite match its docs, but otherwise seems OK to me. I was
-considering that already here, and I even think it might be a good idea
-to do automatically in devm_*, as I noted here:
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610150630.tAfOKlx3-lkp@intel.com/
 
-  https://lore.kernel.org/all/arVWVA3lks7SopQH@google.com/
+All warnings (new ones prefixed by >>):
 
-  (note: there's definitely at least one typo in there; should be
-  !pm_runtime_status_suspended(); and it needs some other adjustments to
-  actually verify the device was suspended at time of enable(); ... so
-  consider it a concept, not a patch.)
+>> Warning: drivers/gpu/drm/panthor/panthor_mmu.c:1695 function parameter 'file' not described in 'panthor_vm_pool_destroy'
+>> Warning: drivers/gpu/drm/panthor/panthor_mmu.c:1695 Excess function parameter 'pfile' description in 'panthor_vm_pool_destroy' (did you mean one of: 'file')
+>> Warning: drivers/gpu/drm/panthor/panthor_mmu.c:1719 function parameter 'file' not described in 'panthor_vm_pool_create'
+>> Warning: drivers/gpu/drm/panthor/panthor_mmu.c:1719 Excess function parameter 'pfile' description in 'panthor_vm_pool_create' (did you mean one of: 'file')
+>> Warning: drivers/gpu/drm/panthor/panthor_mmu.c:2162 function parameter 'file' not described in 'panthor_vm_heaps_sizes'
+>> Warning: drivers/gpu/drm/panthor/panthor_mmu.c:2162 Excess function parameter 'pfile' description in 'panthor_vm_heaps_sizes' (did you mean one of: 'file')
+>> Warning: drivers/gpu/drm/panthor/panthor_mmu.c:1695 function parameter 'file' not described in 'panthor_vm_pool_destroy'
+>> Warning: drivers/gpu/drm/panthor/panthor_mmu.c:1695 Excess function parameter 'pfile' description in 'panthor_vm_pool_destroy' (did you mean one of: 'file')
+>> Warning: drivers/gpu/drm/panthor/panthor_mmu.c:1719 function parameter 'file' not described in 'panthor_vm_pool_create'
+>> Warning: drivers/gpu/drm/panthor/panthor_mmu.c:1719 Excess function parameter 'pfile' description in 'panthor_vm_pool_create' (did you mean one of: 'file')
+>> Warning: drivers/gpu/drm/panthor/panthor_mmu.c:2162 function parameter 'file' not described in 'panthor_vm_heaps_sizes'
+>> Warning: drivers/gpu/drm/panthor/panthor_mmu.c:2162 Excess function parameter 'pfile' description in 'panthor_vm_heaps_sizes' (did you mean one of: 'file')
+--
+>> Warning: drivers/gpu/drm/panthor/panthor_sched.c:3929 function parameter 'file' not described in 'panthor_fdinfo_gather_group_mem_info'
+>> Warning: drivers/gpu/drm/panthor/panthor_sched.c:3929 Excess function parameter 'pfile' description in 'panthor_fdinfo_gather_group_mem_info' (did you mean one of: 'file')
+>> Warning: drivers/gpu/drm/panthor/panthor_sched.c:3929 function parameter 'file' not described in 'panthor_fdinfo_gather_group_mem_info'
+>> Warning: drivers/gpu/drm/panthor/panthor_sched.c:3929 Excess function parameter 'pfile' description in 'panthor_fdinfo_gather_group_mem_info' (did you mean one of: 'file')
 
-But I kinda wanted a maintainer opinion before I went too far on that.
-
-> Second, if the driver expects the device to be powered up and
-> operational at the beginning of probe, which this one does AFAICS,
-
-No, that's not the intention. See:
-
-  "A driver that powers on its hardware during probe"
-
-And the pseudocode/comment:
-
-               /* Power on and initialize hardware registers... */
-
-i.e., probe() is doing the power-on work, but it's elided.
-
-Perhaps that wasn't obvious enough, so I can replace that with
-more-convincing code-like structures
-(regulator_get()/regulator_enable(), etc., for example) if you think
-that would help.
-
-Brian
-
-> it
-> better should leave the device in that state on failing probe and
-> remove or its own expectations regarding the initial state will not be
-> met when it is re-probed.
-> 
-> > +                       pm_runtime_set_suspended(dev);
-> > +               }
-> > +               return ret;
-> > +       }
-> > +
-> > +       static void foo_remove(struct platform_device *pdev)
-> > +       {
-> > +               struct device *dev = &pdev->dev;
-> > +               struct foo_priv *priv = platform_get_drvdata(pdev);
-> > +
-> > +               foo_unregister_device(priv);
-> > +
-> > +               pm_runtime_disable(dev);
-> > +               /*
-> > +                * The runtime PM status is not guaranteed at this point. We
-> > +                * could be either suspended or active, so we need to handle
-> > +                * both.
-> > +                */
-> > +               if (!pm_runtime_status_suspended(dev)) {
-> > +                       /* Power back off, in case device did not suspend yet. */
-> > +                       foo_runtime_suspend(dev);
-> > +                       pm_runtime_set_suspended(dev);
-> > +               }
-> > +       }
-> > +
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
