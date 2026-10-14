@@ -1,83 +1,126 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0E6836BCED;
-	Wed, 14 Oct 2026 07:48:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7B6F48D890
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:49:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791964107; cv=none; b=TaafJ0VYwmQ8F6r08bvrUDAWiqhSL8s6nsCBoqs5VRS4KzbxoCTKzzh3BT7wiQP1AXCJPnvSjeXBAqqyopm9qm9BGB9+DDuD9HS0bmWpbj3iwtsEybwJnTsHibT3ll2u65iUUGsHcvN5qeUDx4MKd4Yn65pktTPy1NUnz94g3+Q=
+	t=1791964189; cv=none; b=dkijT1YHdqfT7yW4oBZ4FyFsDCuLAcAjEFlh+3iAw7XSbh5uPxEt8Ea28bsBcef2fg8BkyM8fFc8rt9Q0yShID6smP1XFXr60mtjmRcHy99DQ4ZmJ3zk+FMWr+5bGiuW7WXR0SmhADFtJOwmKQzGSr7kvf+aEXsM80WTYWbyr/8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791964107; c=relaxed/simple;
-	bh=mau0UFJlAQZkAU0PjFL0FWTuuN0SHvyeiv82fHx/k2g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F7bNIgg/zfWIDKLga5oTMugeRCC+htODap19dTnYS0mAAAqz39m60zDAWx8+XYYe+/hh/nT68Tt8KYf8HnTZXVtLQg0RIcQSRmaIcOiWaMPPh+39jaYHfOF/O3x4lNx3tq2CB5yxVMbcND6L8EfOp9SinmD5BpbqNiplM8Nbb1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GLjN4eUA; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791964189; c=relaxed/simple;
+	bh=dLWKEvruuD6C19bCQno+l/oa1P/6rO/VCYAXqdyytvk=;
+	h=From:To:Cc:In-Reply-To:Subject:Date:Message-ID:MIME-Version:
+	 Content-Type:References; b=B/4oOcZG6o6F9cQ+a45+wSMtsboj5CRrbBGPhA1pDOyt0SK9bSWoiDkw1ESa760AAKURN70IA7T9rZvn6CkQjIRAm3f95NbAjRswOpEi5hIH3stUUyLnHDYn25PtrGxLwWuCgBCn77iulB2yT2IEV9TJRhcm9VdL/aEdVFBbJiA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=S7z+lnoE; arc=none smtp.client-ip=203.254.224.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GLjN4eUA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791964107; x=1823500107;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=mau0UFJlAQZkAU0PjFL0FWTuuN0SHvyeiv82fHx/k2g=;
-  b=GLjN4eUA0uH7AYlLW4dolw6WmtEAZctsmIG4/Sg/X20AujqZVP2hMRfI
-   SA4ObXB36ptof/Npre4qh2waRUWhMq92iE6vrHOb/h9DXgN63ed3DhBHc
-   z//QUuEWNSN4QROJQENdIq4nf4G50k/Ey26shXApgEeViCPtCb42ALQT3
-   3FGMP+BHts/9jGog6Gzz6ibzhEyOQ+BYS4qZAGtDFbp1xpyvLYCS9/iS0
-   sAaTIhu5+jFCBKp4sI0hosfGdJ8O2MdwHAuJH/BghmVS+wrNv5sxN9CZH
-   hHRaP66dTrEF+OKE8omj0bXU/WB+TWhigl1KtHEc7DAka0l1HXL/BL9B2
-   Q==;
-X-CSE-ConnectionGUID: jYPz81mFRMGaHM6vgZNmEQ==
-X-CSE-MsgGUID: NR9l74cDRKivDOfz9DVrNA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="605675"
-X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="605675"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 00:48:22 -0700
-X-CSE-ConnectionGUID: oGMjdDHFT261FXdSpsEUAg==
-X-CSE-MsgGUID: JZ3zbRavQp6iPh/+m8NTmA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="1306099"
-Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
-  by orviesa003.jf.intel.com with ESMTP; 14 Oct 2026 00:48:18 -0700
-Date: Wed, 14 Oct 2026 15:44:17 +0800
-From: Xu Yilun <yilun.xu@linux.intel.com>
-To: Chao Gao <chao.gao@intel.com>
-Cc: linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev,
-	kvm@vger.kernel.org, binbin.wu@linux.intel.com,
-	tony.lindgren@linux.intel.com, rick.p.edgecombe@intel.com,
-	nik.borisov@suse.com, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>
-Subject: Re: [PATCH v4 06/10] x86/virt/tdx: Convert the handoff metadata
- reader
-Message-ID: <as8y0dzw56mR/fB0@yilunxu-OptiPlex-7050>
-References: <20261012094754.27702-1-chao.gao@intel.com>
- <20261012094754.27702-7-chao.gao@intel.com>
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="S7z+lnoE"
+Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
+	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20261014074938epoutp032e34902e15c1d8c1a4dc8a5f12bc25db~eVe0Vn7871329313293epoutp03J
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:49:38 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20261014074938epoutp032e34902e15c1d8c1a4dc8a5f12bc25db~eVe0Vn7871329313293epoutp03J
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1791964178;
+	bh=Gps2kTJ1Dkj1Dk3mpOjm9wB6BcS474HImd2/NbFl3IA=;
+	h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
+	b=S7z+lnoEr8J/ye3xlheFwBwhLSTamfQEJEjNadjjeWLzB3+BqTkImc+qpp/HPhD89
+	 aWUBNHQAE4M6Bruk2knGxRBBsLPF4CjQ82xvLP1ix40x9IBoLZPiJdTKNcYFG1uKwz
+	 XmcGH9azkUtexFE+BNHup7T5TUMf+GS0s5GYxsYE=
+Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
+	epcas5p4.samsung.com (KnoxPortal) with ESMTPS id
+	20261014074937epcas5p45bd5d2dddf765964da940e523c757410~eVezhxFcN0855408554epcas5p4h;
+	Wed, 14 Oct 2026 07:49:37 +0000 (GMT)
+Received: from epcas5p2.samsung.com (unknown [182.195.38.92]) by
+	epsnrtp02.localdomain (Postfix) with ESMTP id 4j4NdX68w0z2SSKX; Wed, 14 Oct
+	2026 07:49:36 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
+	20261014074936epcas5p3aa47693f3407c0f352943f02e1c112c3~eVeyaq0EQ0767107671epcas5p3R;
+	Wed, 14 Oct 2026 07:49:36 +0000 (GMT)
+Received: from SRIB8EG28RUQ1R (unknown [107.108.208.92]) by
+	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261014074933epsmtip1687c42748145a71c8c4fb0c232d0e8f0~eVevVvOmT2972729727epsmtip1B;
+	Wed, 14 Oct 2026 07:49:33 +0000 (GMT)
+From: "Irlanki Sandeep" <irlanki.s@samsung.com>
+To: "'Jakub Kicinski'" <kuba@kernel.org>
+Cc: <netdev@vger.kernel.org>, <bpf@vger.kernel.org>, <edumazet@google.com>,
+	<davem@davemloft.net>, <pabeni@redhat.com>, <ncardwell@google.com>,
+	<ast@kernel.org>, <daniel@iogearbox.net>, <andrii@kernel.org>,
+	<corbet@lwn.net>, <linux-kernel@vger.kernel.org>, <lorenzo@google.com>,
+	<maze@google.com>, <sporeba@google.com>, <motomuman@google.com>,
+	<madhan.raj@samsung.com>, <srihari.k@samsung.com>, <g.pokhra@samsung.com>,
+	<r.kumawat@samsung.com>, <raj.kumars@samsung.com>, <ts413.lee@samsung.com>,
+	<ramyashree.s@samsung.com>, <daeil2.hwang@samsung.com>, "'CPGS'"
+	<cpgs@samsung.com>
+In-Reply-To: <20261007170028.318acb6b@kernel.org>
+Subject: RE: [PATCH net-next v6] tcp: add BPF kfuncs to set per-socket ECN
+ mode and AccECN option
+Date: Wed, 14 Oct 2026 13:19:31 +0530
+Message-ID: <117401dd5bb0$8f05b2f0$ad1118d0$@samsung.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012094754.27702-7-chao.gao@intel.com>
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQFiGh7FxEkrBp5pI+mpFK8IrUA4cQI/u/Z6AVCeO9O31pb6oA==
+Content-Language: en-in
+X-CMS-MailID: 20261014074936epcas5p3aa47693f3407c0f352943f02e1c112c3
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-065,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261001132701epcas5p2da9b0fa7ca3bcef1ff84a62f255bc573
+References: <CGME20261001132701epcas5p2da9b0fa7ca3bcef1ff84a62f255bc573@epcas5p2.samsung.com>
+	<20261001132759.1076145-1-irlanki.s@samsung.com>
+	<20261007170028.318acb6b@kernel.org>
 
-On Mon, Oct 12, 2026 at 02:47:33AM -0700, Chao Gao wrote:
-> Continue converting the metadata readers to the table-driven helper.
+On Wed, 7 Oct 2026 17:00:28 -0700, Jakub Kicinski <kuba@kernel.org> wrote:
+> On Thu,  1 Oct 2026 18:57:59 +0530 Irlanki Sandeep wrote:
+> > Suggested-by: Jakub Kicinski <kuba@kernel.org>
 > 
-> Add a table that pairs each field ID with the 'struct
-> tdx_sys_info_handoff' member that holds its value, and read all fields by
-> walking that table.
-> 
-> AI was used under supervision to review code and workshop logs
-> 
-> Signed-off-by: Chao Gao <chao.gao@intel.com>
-> Reviewed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
+> This needs an ACK from TCP maintainers. If you respin please make sure
+> to drop this tag, this tag is for cases where someone suggested sending
+> the patch as a whole. Not for changes requested during normal course of
+> review.
 
-Reviewed-by: Xu Yilun <yilun.xu@linux.intel.com>
+Understood, thanks for clarifying the tag semantics. I will drop the
+Suggested-by tag in v7 if a respin is needed.
+
+> There was a false positive from sparse regarding the use of kfunc,
+> I kicked off the AI review manually, please check the results here
+> in an hour or so:
+>
+https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261001132759.1076145-1
+-irlanki.s@samsung.com
+
+Thanks for triggering the manual AI review. The results show 0 Critical,
+0 High, 1 Medium, and 1 Low:
+
+1. [Medium] SYN arrival race before LISTEN_CB completes:
+   The review identifies that inet_csk_listen_start() hashes the socket
+   before tcp_call_bpf(BPF_SOCK_OPS_TCP_LISTEN_CB) runs. A SYN arriving on
+   another CPU in this window will see ecn_mode as UNSPEC and fall back to
+   the sysctl. This is a preexisting limitation affecting any
+   BPF_SOCK_OPS_TCP_LISTEN_CB program that configures listener behavior,
+   not specific to this patch. I will document this fallback behavior in
+   the kernel-doc and commit message for v7.
+
+2. [Low] Selftest scope (API validation vs. packet inspection):
+   The selftest validates the kfunc API layer: argument validation, return
+   codes, verifier safety (sk_is_tcp() guard), and struct field
+   mutation/inheritance. It does not include packet-level inspection. This
+   is comparable in scope to progs/setget_sockopt.c, which similarly tests
+   bpf_setsockopt/bpf_getsockopt round-trips without packet-level wire
+   verification.
+
+Awaiting feedback from Eric and the TCP maintainers.
+
+Thanks,
+Sandeep
+
