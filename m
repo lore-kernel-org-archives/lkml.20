@@ -1,178 +1,276 @@
-Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011042.outbound.protection.outlook.com [52.101.125.42])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE5BB4EA37B;
-	Wed, 14 Oct 2026 10:00:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791972023; cv=fail; b=CgEn7dFn20k9So95W2D9d19kgAewVN7Rjfy4REqIT9yttMyvF05EF0etnN5l+szNcjKYl3gX6HYYst21Ab0R9p5YfDsKFNsKsCrogee+sdAZ6dvVNpwvCCQFvlCaovZL7Lh25C52p38APHXFtyY8+nOwYHWCXLWgqyt3NxmE994=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791972023; c=relaxed/simple;
-	bh=GXQ2htJtURXoS8PjkK852Une8t/IwircM0OqBexw9WA=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=vDQIHe/1Sx2gjx3o/mEv2dltdAwPHjnesrTCvoRrT4mCoztPzPnAZ5ruadczwaSpEZv4UTh3MlIOXwEW9eL5EUNV9UJxAC6w8spvHkQA1I1qvxUcbXpY1AzLRi2bOSO0IIqCnPdz3oGGjke+cwgRXoEuHHSLDz5D+pL4YIUHHzY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=hRAOIY9W; arc=fail smtp.client-ip=52.101.125.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50CD930BB8A
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:01:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791972110; cv=none; b=pWPX0Vcav3Bv1z8kxLWbYLdSLxNpnYhJSfhzm0QdBacpNJAqc/0hV1hppD5qBFx9v0EN0q1WEP/k0jG3VqZYF9TYPrFZ22fgU+fYQNm+ZnbJZFdLO92x3t4LTttcI4nzhMby8yt0hQy8ZnnEWfc5giSNTpbGq3k7tOG2td39vsY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791972110; c=relaxed/simple;
+	bh=dA1kJxBVNYRK3wJrOfY6LmMtHsB2vzPS5APo3K99OZ4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=j4kYuxut3Vi5yPQLJkM7LG+IFbsZOWlwBXxoq0h1t7kErzAT51gKyNT7eHn93GOMDxQNsjMuQ9yNiPkFfdzoAQayL9fw7z1iHcKRDO3SInU0zvZuH+uaT5a0ftzpJ7inNDvNJU1MRw7FgF3oFdaw0q8cG5fFiCGFTwm49xdoWDY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jj0WL+J9; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RYw6MbnF; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="hRAOIY9W"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nHV+UOBy784IWe9OcUf4RnsXsIrNJYYNb4ZjjkuQzMH0YIk/ETd3dvvQu87N/JFhQIzEj+jtplIm1QHrFgLLuWhM56jn9r7+ElwQoTOx5JqK6C2ej4HYJ9cUTUnnsH02eE5cvmO3DZPc7hP1v2Wp67yLV/CRu1tAHjFFGc9B0W0G03wZRFfvxoe+P80gKYL3Mc/WsNeT6HQJy4bcdlMWVifzNZ9fLOp3mSTZL6gF6wgdHh+PIyXoFkAf9Dow8u16OsXxPGY0Bhrp1ZM3NeGZSJ/TXNt9kBuBTJir1Uq4hRqnEgWeHU90MX2Sjo2F/hV8f/SW1DDXFF8xYLlWhxO/zQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2u2Jiks/CQfHE45H3F6rYMxv3Ba1GrrYj0YyUJ20fuQ=;
- b=IgjRl/Wsed6IA/KTWOF00R1LnHVPl1UB6HdQ6Rhn6BHaIbDvTwEzNONladXTZBe17dW98IML3uoFyADzhBjbn9i9naAeSayY4CW4anqBtFgjzkHfnkggQlJts61KH+jkFP0oYhaUQaPl4xNuYw1uvHx2SEZEhnvK3N6IOnTKx8Wu521kakpKrO0OITXzecyqEyAiNdACLGHMVSwgiNpKgNSt+b8QfbK2ueaxAHhZ/sZn6tLi9BC/WhXxhK3f/OPYNO85flsUL3+6YMWIj8g8aBsQEXlEp6T8WR8umZdMH9zyvchKPUZttAo0e8MR9+rnWiRWwb8tkJVdytLjrU4ldw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2u2Jiks/CQfHE45H3F6rYMxv3Ba1GrrYj0YyUJ20fuQ=;
- b=hRAOIY9WGPrYPP7buyauuQ+BEnif93kXYFm9X5nSWTnHhS6g1s5eL6tPLaaO2z6cuvMzHum1Jw3QKhlwEJH17KsQJs5fy/PxD0DfQtWp7i7F+31Puyhoezl9w9DZWORn65ZEGJZGWmVnY01LYvlWB2HLUM4QFLexsoLubqEZKB8=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com (2603:1096:405:18d::7)
- by OSCPR01MB12951.jpnprd01.prod.outlook.com (2603:1096:604:339::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Wed, 14 Oct
- 2026 10:00:17 +0000
-Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com
- ([fe80::2f5b:8560:48ed:3828]) by TYRPR01MB13588.jpnprd01.prod.outlook.com
- ([fe80::2f5b:8560:48ed:3828%4]) with mapi id 15.21.0522.012; Wed, 14 Oct 2026
- 10:00:17 +0000
-From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-To: tomm.merciai@gmail.com,
-	prabhakar.mahadev-lad.rj@bp.renesas.com
-Cc: linux-renesas-soc@vger.kernel.org,
-	biju.das.jz@bp.renesas.com,
-	Au Dang <au.dang.jx@renesas.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Subject: [PATCH] irqchip/renesas-rzv2h: Preserve TIEN state in rzv2h_tint_set_type()
-Date: Wed, 14 Oct 2026 11:59:22 +0200
-Message-ID: <20261014095927.635132-1-tommaso.merciai.xr@bp.renesas.com>
-X-Mailer: git-send-email 2.54.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: FR3P281CA0145.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:95::8) To TYRPR01MB13588.jpnprd01.prod.outlook.com
- (2603:1096:405:18d::7)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jj0WL+J9";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RYw6MbnF"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69E9eEO73696456
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:01:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=Twe4bOGFXZPC6mmxXuMGAv
+	q+HqmTqYhaOFzSY+3Po5w=; b=jj0WL+J9h9IoYSHnQnkOykbokYMd52crb05Wc+
+	tF1JmoACcGwT7RX0stEDZ0aFJOA1sjZ3R4ZT/SLKVtBxgLgpBDtj1YI6ie6t7U0i
+	lG92ep2jWKRc+wuJS8NcM0mQHbc+wPnvBgefDhlt0FWVDUVCATTL+jaFtQD/ckXC
+	pr4IVnnzGk7D1WDou+u8oKDhC53ar3cMrb/sRtnp1cgj6xwNx3xQzgt3lz2Ohp98
+	LcpeBXMCbHa913U4D6Zfxi36VLbO7SsZxJIh9b8UTjAVTGscN8/7MfZB6pSIjPmV
+	JScgycAXIfqlz7PajkaHwAtRRPEI3cdfqsCKSlrVBrfeYEWQ==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ha7aeg2xn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:01:48 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-91b7e90fef1so54276066d6.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 03:01:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791972107; x=1792576907; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Twe4bOGFXZPC6mmxXuMGAvq+HqmTqYhaOFzSY+3Po5w=;
+        b=RYw6MbnFOXtMjsgNAYlv9+B3pplhhVsCEGE3MFJxB/eBYODwtRe7bsMhK4ibiAmEt7
+         rK60ICoCkdwW6UzQ3yCw38BQ8CWTRj3WopZHewXkPYZaQGN8tE5Q9LaWsdZYMBypSiW2
+         vQ28JCHmC3I7WNegt1I63w6d+stQ9YRzEo4yQif7bVLxlimyC3XXOCumgKRuRcs1TmQ6
+         iy+dcQB7pS7nKDei7Oc9vVRwJpNxFXNE4U9YRJs6ACByP+7k48t56i+UhT0xQAJjYr+t
+         u0pfD97vwlF4KGWbu2Joe+gdNg3wTGqmxZbD82UGJz5mvI7o3uCzLB2P45jO4lFxMtj0
+         Ky+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791972107; x=1792576907;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Twe4bOGFXZPC6mmxXuMGAvq+HqmTqYhaOFzSY+3Po5w=;
+        b=UZAFerA5xMHl0KXO8SCcywpVbFmCR6XoirzVe9O/W68QycqyiXKI4evQ9kvEAVLYD3
+         LEk5jQ6/eOMxUGYoLTQXVurffBaVI0XiN4sRdeSvs967cOHV576D30WrOn6FeR9Salvr
+         +DTZS9i+TX5/TBFnLNf+L46bqMZAsnhvMiBK54C5hLw/M35qzjJcoRHPwa5bPQNll0LS
+         d9VWtPjNCAcZoMgsv8ZrYDR/L5iWuFGoAiGD9UG9OsshyKMhy5lkVuMr+56aTb9B0XC6
+         0eHZW/G33sw7ZIJmbR6M/DYtUVIfk07qCT4sP3GvGWMECk0qO/NHftSH6lfo5Puunyhr
+         C2Sw==
+X-Forwarded-Encrypted: i=1; AKwUvBwcjQ684odATz3qRCf7aIUkXyrfWHQDbIVAiSNpKLijoc/pwiWh7OSSuZbl37tpv3jsn2Xq6zp+iNPMn2k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKpbKMWl6V156s7lSG6hHumqyBfiRE4EXUjOR1E+5y20Twfo/Fu
+	sDUpYBkKuMRdKbIF37juYLs3Qu2GgBwBKSDYpWHlQoz7Y3fiTSvotOww5WFs9UQbO/MONTM7s2h
+	d+FYrnQ/Py1rQNDRPOYU7aV/tsMsJ05brzAFH9kf4GKaeIOdY/UK85MqN5GqiBDw3ywg=
+X-Gm-Gg: AYBFou2JprGZYcSj5k8WVLWVX1JJhdQffLDL2T/t1p2IWnC9MJgr5GgNk+qnXWH7Ymf
+	CC9sMvjNtZME316HXmHP7XLDt1tF+0Gmm5LZj7AAe+UMfxgSBDx8Otb/FnXpiM+x57DgyUXJMda
+	xOvdagbwwDMdCi8DY/XARm3PforIfAfRwjPmctYov71qv/hLzLDe56rWXvqK+MMQE3kEV44hiKu
+	kvZKYD+Z5RTNKypPT9obKKgfCPDvxpt4dLKCMKlMcBy6F/GUGRkEVFbM5MocfBAznCBQiw9wbYF
+	xvRFGsTlOjGgHn0+u3nK9x2/zEViGSoZvfkBx0hDylj7piE31CzK2VfVdlfMLeJ8VIvud++zBmP
+	iB6RwB0S+jujzlNye8OOC9n4lbUZv
+X-Received: by 2002:a05:620a:c86:b0:93e:c12d:4ecc with SMTP id af79cd13be357-93ec12d5528mr1550862585a.44.1791972107144;
+        Wed, 14 Oct 2026 03:01:47 -0700 (PDT)
+X-Received: by 2002:a05:620a:c86:b0:93e:c12d:4ecc with SMTP id af79cd13be357-93ec12d5528mr1550859185a.44.1791972106608;
+        Wed, 14 Oct 2026 03:01:46 -0700 (PDT)
+Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bc85b1sm10382169f8f.54.2026.10.14.03.01.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 03:01:45 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: [PATCH v16 0/2] phy: qcom: add the SGMII SerDes PHY for
+ firmware-managed systems
+Date: Wed, 14 Oct 2026 12:01:33 +0200
+Message-Id: <20261014-sa8255p-eth-phy-v16-0-6310fac52e85@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYRPR01MB13588:EE_|OSCPR01MB12951:EE_
-X-MS-Office365-Filtering-Correlation-Id: ef166fc6-3e9a-4c3a-3f57-08df29d9f2fc
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|52116014|1800799024|23010399003|38350700014|56012099006|11063799006|261009223027099003|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	wnzEMqCYRfGXRd6Auywgr4oFZfk0x4JM8n7yLPq6ZEWW9KReae3Oj/Wda8JB396CzOEnrd8xNnZbX/ZYfSXE0NPl55HxAm0GKJxznTBUK6DFEKRX94zwGIj1H9lRySNNjHcHwAhbsBroF5rz6EANDJlcKdN4bmLGLr/n0KJ/M9CZvBm/k+FQPPpGOxYZRAara6DGwpU5lLbJIHSEi/qvrlJYRX807emHYLlmLblkrcMyE6lGyzGaQA9FNW7IMFFYgcJBJP3VH8rr+uEnmbWA7o/kKJflT0/m5PbDRVoH8TQnhsN8LfUKUIQJryfYdFU5LFGECvidblbI/SLJEeCiuujvfGHgnJ3J6NlSiVmZzq2+hNaULogsMjvPJo3YDY12TKFkaBBqFmZ2szQWm+X1+JsmqJADWjWJMIeDL2lC0cNWRAfVn6Jnv45ooxv9C8e9ZAwW7BxvFwhJo4gu4H3KoHhT//PXis6CE1dYSbeioFtpRf4i7WLXdcqORMrqN05JIxbxrcrmlgMduyfsMg9LPVLD4pV7Hdjif6BUF2bMjFgtYTAb1Nl+OabnXsIEhSjnRdfZ6zZMc2iIL1revzsh+8TpINv6A0p08oIz/fGJidmGJq/5MSuru07LIUpZbifUPecjVNoioQMoc6A57yKvqGBg4qGsGdGGF9nCX6SzMZhkMjuyJyB+ElvuNIv7CbmezKtih2ME7A89PJBIflgTCy6yrVc7/+vvbgOXNXI3lPI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYRPR01MB13588.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(52116014)(1800799024)(23010399003)(38350700014)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Ze43C2CWNYbBupvQn9Aha9LjG5nUF4dQO5AQcOdLAJey5ITR/TKJyrhlbXp/?=
- =?us-ascii?Q?HNONLXWa2RH/2ppnVRbBv2GZ6tceDkNJEZ9tTNcqjBMp8OrfEDQG9d2SltVY?=
- =?us-ascii?Q?MyxddQHzfpsJ7wqP5Fh5MybKLT5WyhknJmdR5ttUb/hhkJFimugIpq2ZXtXn?=
- =?us-ascii?Q?OrK6NR3z4xbFIMvAGM/13++SR//yJTEVKDerPn0rhE9ocThyqnAKTprqahGZ?=
- =?us-ascii?Q?AI/uYZshBwHLdLFDOPp8PMnNwwGkU1cwM4peIUdXwvrojcld7VeIhD6YOkyQ?=
- =?us-ascii?Q?QDVKRPERk30W2+6HKoPeZyTLb9YJ0f7vAM7vP9WgazVNqdOuzKru0i4AJ6R0?=
- =?us-ascii?Q?vKN99fPUUYINYyoSOkJLRbzULYRtBGRJCvXEBXSbsPdrDyFW19eHdie2F4WK?=
- =?us-ascii?Q?ZLgkKDaSaeRnkeNjf1h4KoGrSx67GHqEh7OiE/PGnWqviwDKMM2QiwlFDcyH?=
- =?us-ascii?Q?EDnZlj5HDjuhALByd+Wgfb1ezqQ9vuzHfZX0RKqilI9s54SrOrWJYmj3zKKZ?=
- =?us-ascii?Q?pYBFIR2Gw1KJ+jXDQo6PBmcnIn+VbLN0S3Yv8vacrczazod4iJ+ykjnlbpZk?=
- =?us-ascii?Q?juw6awh6NffBX1ZlAEDWctbe6AySmSg2omg2EE+ZpWFkSbZkb38cIvmpkL7v?=
- =?us-ascii?Q?NTqtr02iMFk4vdQWd6QUt2icz9MY2uYG83CMJ2Lgnc7ukbtzLkJDjSs5qrEF?=
- =?us-ascii?Q?8Uj/wpwTd9Tngq8KQ6ojGhyUGPa9n4ms5Jtu1pCxFyqrvc533F0R21QMvs5N?=
- =?us-ascii?Q?Nar0Zuc1kpYrSk4IzQx1niNR98ErHgjLPgv5HkfwA8DhLRH+nXxuRcZa6E8F?=
- =?us-ascii?Q?H2I29uczo+0TgHseI6zROzVy4WQNGS2jTbJcsCL12y5zKf10Uw+DkFXsrh5U?=
- =?us-ascii?Q?9mfkTG5w2ZQSdIwD9QN5Gf6BlDbkwmXxk+EjPrcKTQ0OQdLRKdL/8N/5ULaI?=
- =?us-ascii?Q?zgO9TlsQQZcAFzUiur36lFO0O+Ei4GK3BK8S3MTYgenGXq6PXobxHST/jvb/?=
- =?us-ascii?Q?zF/VJzA2ZUrvLD9oaGhAhyPgcNwIMgFPOTiZiKSOVKAflfytm/wi3vvsAJ9O?=
- =?us-ascii?Q?KlwuJEJ6DMkC5n6sVMlIcKdT57JrdOzL60fIkGkRklyq559LBXYT/qRTtQOR?=
- =?us-ascii?Q?bQRxP5jA7vCu46o4Lm/sfgMSC9qJAWBuWokNp3yDQxDJRKHNbuzVOXc4jnyz?=
- =?us-ascii?Q?UrU7/6esTIgIxnSOrytYVNzYVta93e6ou4gqNZL1ztJTmuebcUv8SrzyVg7O?=
- =?us-ascii?Q?VnXTp02F36m0JbDjeJXdt40UzUtksE/QQdt5jqCwmY7AUhz3AOb0eGg9mL1X?=
- =?us-ascii?Q?xuqQxISQ+8nvpA0g1IlHSzH+0kExtWikLu0tk8GGUAEfeY6DJHLY23aOXkeg?=
- =?us-ascii?Q?N/g6FKC8eJLEODlTSKaCcAtqG4JrgvieO2czU9yNIx/43UTiGUiHiJEI8vzO?=
- =?us-ascii?Q?RWdLd1sDj3wSdg4UJ6huwDlc90lea+IM/GmEcEVVaNXCxe3dVCunV0unKLBb?=
- =?us-ascii?Q?SJF6Q0mwr3QXydlDhNbjP2pt8itanNH1KxoFnno7zkKaUp3cb63ufXjhOric?=
- =?us-ascii?Q?so9tJ/BtTuuptxmrjlnd4NNc/Ue1lgFHis125Z0B/bkedn5YuM0IoEeqrjxI?=
- =?us-ascii?Q?tp6avMuMcIAT1rMoRM0X9VewWkP4WxtplpkyXYykclvZFz1jgalA8hfPQiRW?=
- =?us-ascii?Q?QnUWrXpAyhdsaamW+g63LSmoCqSY6Faov72z+cMsIcJ7rtB34Dh4WVcDYDO4?=
- =?us-ascii?Q?2+yxmNogzWeAIXXB5Dep9xJG5V1w3ysU73JGyCt2SJtM6xR3kqYV?=
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ef166fc6-3e9a-4c3a-3f57-08df29d9f2fc
-X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB13588.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 10:00:17.3123
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /izUfkTMDX/vKBjCH1sdBbEjR6P5LOcP1bxdmt5ucujkJpNe82Ms4BaaQ2iHXd9idSmhxP58nkWyak35poUuGaSOwN7Bu1qHIebt5eFKcNwEvz5JiygI5KsgZIy4yVJo
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSCPR01MB12951
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAP1Sz2oC/x2MQQqAIBAAvyJ7bkGFLPtKdFhqy72UaEQh/T3pO
+ AMzBTIn4QyDKpD4kizHXsG4RsEcaN8YZakCrLbOaG0xU2/bNiKfAWN40JF23q++p46gVjHxKve
+ /HKf3/QAc0WwhYgAAAA==
+X-Change-ID: 20261002-sa8255p-eth-phy-6a0699f98a7a
+To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5541;
+ i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=dA1kJxBVNYRK3wJrOfY6LmMtHsB2vzPS5APo3K99OZ4=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqz1MBKaDX7KCIBz6idXxyLNSK20L8E4xFCar2/
+ sioO86nPH2JAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCas9TAQAKCRAFnS7L/zaE
+ w+gZD/47iRUku+z7ViQgcn8YCIkHtybTtMtxM2NZL7Q3qW500PETUxwLE+LPdsratZXIzj6pzQu
+ o6eilyTLHoWGJ1CmNQK6g9Icvy7fwm3AOpkszxRAe2ewOwotQTB1MS4qis6vM2UvJgFq8+MC2l4
+ IiwFmhtE8cwsofOCnkVASE9UmniZeDHpAF7szZTHU1mPP7fB5gWwsLHxDC8MeeQYRmGC/xrpZqC
+ V0TuX0LvevaKizxtMMqf8X6+y+1CX02mut8KNugsKrN+ymVfcainIa34NouIWGkZOJ4JRmr0oAg
+ SgZzIWROt0hYxvgL8kKqaOnqVTbPfN4Myi2985pNEqWkoIW02lpJy2PX4n0wVjY9GksGn2X8W7x
+ Hd/NiHSNBNRZRyv1daBaI2mnhRicZuMYXxhTcGpibemTEgGf6rqY2Q0QeNFFYpdqC6coTabdTAE
+ 8Vk/8xNRtDq3mvoCdEei99PNl4BOlnxuJXVqYx9xvdVzqy5+dxIPJLI7jCZoUOwuV7Y4xozMsng
+ 2eQ+adQ+dPspjVJfZqX50U1hDrXKigJLtNbh0fs/bKjfRgEJKu0bOIX8xgLt398Ad4OfyiHqCDM
+ gNDHS6asc2Mqxh8R1RZoxktoAoWnpilPFTuIksyXe5U49Vlf5i7e/xzvk7ZZ4iEvgjl9nrad442
+ TScsKKsA1MxF+dQ==
+X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
+ fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
+X-Proofpoint-ORIG-GUID: mJR-sf-XR08Xr5m6G8oWs120AD6MlbFj
+X-Proofpoint-GUID: mJR-sf-XR08Xr5m6G8oWs120AD6MlbFj
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDAzOSBTYWx0ZWRfX+/8tACPH3BZV
+ lPsuRYxxcNuFF98C4IZY5Qwlzi3Vq5eggP01RexqDEk7Ut+5eDgtwMw1sGy4nNE6DH0BWKiZdhN
+ MyWDxBVvse2lsmo9DQt2Fp/5pW3VpGc=
+X-Authority-Analysis: v=2.4 cv=NctzRGD4 c=1 sm=1 tr=0 ts=6acf530c cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=bC-a23v3AAAA:8
+ a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8 a=PHq6YzTAAAAA:8
+ a=h8s98YD0dNPsP74th3cA:9 a=QEXdDO2ut3YA:10 a=OIgjcC2v60KrkQgK7BGD:22
+ a=FO4_E8m0qiDe52t0p3_H:22 a=cvBusfyB2V15izCimMoJ:22 a=ZKzU8r6zoKMcqsNulkmm:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDAzOSBTYWx0ZWRfX8IT0zneSfDR/
+ jpfjShat4wHThAO1hqLh8ZWZ7SrHSTKtZrj0RwiqUuT17/zPCm53ORLO6XufuHv4zC2K20lUe1T
+ kdP7+nriDd9DxK9xAjGHlkt0JcizcaKcWIckCvUvfEUvXBIRL+zCT35f2Uf78+5hNKIlj+0t0nE
+ yCP38+i9lmoW0lIRUzvdNeEIzGS82II8/ur+4t/nhSSRT8V859ZQN0TkZr/sd08XfTiDM72rQVG
+ 41cyRTqD07lRe1I4/1xViH8C9lvvoQBuHGNa6xLjUcd81r8FjvFNlJkSESKUmDcuvNf3Vupityw
+ 2YFceuxUO+pVqSvLCGs+1K0rPGYOA6XCjDnAz/2/cEMtwcRgnf2D4cLR2f+tOEQx28cP2qTrcRp
+ 7PdRHj0/3L8LEOC5meWZhS+Ho5P49WR9q2I9F3rzqHfAO2eBPdkg+67uVcfnK1c4T0c8lvCQnu2
+ OvVuRpEmHQcEqM4nJOg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 clxscore=1015 suspectscore=0 lowpriorityscore=0
+ spamscore=0 phishscore=0 impostorscore=0 bulkscore=0 malwarescore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610140039
 
-From: Au Dang <au.dang.jx@renesas.com>
+As Jakub suggested: I'm sending this separately targetting the PHY tree
+as there are no build-time dependencies on the rest of the series.
 
-rzv2h_tint_set_type() clears TIEN while switching the TINT source and
-then unconditionally sets it again, enabling the interrupt even if it
-was disabled before the call.
+Add support for the firmware-managed variant of the Serdes PHY present
+on the Qualcomm sa8255p platforms.
 
-Restore the previous TIEN state instead of forcing it on.
-
-Cc: stable@vger.kernel.org
-Fixes: 0d7605e75ac2 ("irqchip: Add RZ/V2H(P) Interrupt Control Unit (ICU) driver")
-Signed-off-by: Au Dang <au.dang.jx@renesas.com>
-Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 ---
- drivers/irqchip/irq-renesas-rzv2h.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+Changes in v16:
+- Split out the PHY patches into a separate series
+- Set the SerDes line rate through the OPP API
+- Link to v15: https://patch.msgid.link/20260923-qcom-sa8255p-emac-v15-0-e82f33720737@oss.qualcomm.com
 
-diff --git a/drivers/irqchip/irq-renesas-rzv2h.c b/drivers/irqchip/irq-renesas-rzv2h.c
-index 1a4703a353e9..485c3eea7632 100644
---- a/drivers/irqchip/irq-renesas-rzv2h.c
-+++ b/drivers/irqchip/irq-renesas-rzv2h.c
-@@ -420,9 +420,9 @@ static void rzv2h_clear_tint_int(struct rzv2h_icu_priv *priv, unsigned int hwirq
- static int rzv2h_tint_set_type(struct irq_data *d, unsigned int type)
- {
- 	u32 titsr, titsr_k, titsel_n, tien;
-+	u32 titsr_cur, tssr_cur, tien_cur;
- 	struct rzv2h_icu_priv *priv;
- 	u32 tssr, tssr_k, tssel_n;
--	u32 titsr_cur, tssr_cur;
- 	unsigned int hwirq;
- 	u32 tint, sense;
- 	int tint_nr;
-@@ -477,6 +477,8 @@ static int rzv2h_tint_set_type(struct irq_data *d, unsigned int type)
- 		if (tssr_cur == tint && titsr_cur == sense)
- 			goto set_parent_type;
- 
-+		tien_cur = tssr & tien;
-+
- 		tssr &= ~(ICU_TSSR_TSSEL_MASK(tssel_n, priv->info->field_width) | tien);
- 		tssr |= ICU_TSSR_TSSEL_PREP(tint, tssel_n, priv->info->field_width);
- 
-@@ -489,7 +491,7 @@ static int rzv2h_tint_set_type(struct irq_data *d, unsigned int type)
- 
- 		rzv2h_clear_tint_int(priv, hwirq);
- 
--		writel_relaxed(tssr | tien, priv->base + priv->info->t_offs + ICU_TSSR(tssr_k));
-+		writel_relaxed(tssr | tien_cur, priv->base + priv->info->t_offs + ICU_TSSR(tssr_k));
- 	}
- set_parent_type:
- 	return irq_chip_set_type_parent(d, IRQ_TYPE_LEVEL_HIGH);
+Changes in v15:
+- Squash patches 6 and 7 to avoid a potential hang-on-resume regression
+  (Sashiko)
+- Fix the AUTONEG_DISABLE early return path in forced mode (Sashiko)
+- Fix Kconfig dependencies on generic power domains (Sashiko)
+- Set the performance level back to 0 on unbind in the PHY driver
+  (Sashiko)
+- Use devm_pm_runtime_enable() where applicable
+- Link to v14: https://patch.msgid.link/20260908-qcom-sa8255p-emac-v14-0-ec212b747a7d@oss.qualcomm.com
+
+Changes in v14:
+- let genpd's own runtime suspend/resume callbacks own the perf state entirely
+  by calling dev_pm_genpd_set_performance_state() in set_mode()
+  unconditionally in the sgmii PHY driver
+- drop usleep_range() from the PHY driver when setting the state as the level
+  setting is already synchronous
+- add missing power-domains limits for ma35d1/k3-dwmac
+- fix ordering of clearing the sgmii loopback
+- configure the wrapper clocks synchronously in scmi setup
+- Link to v13: https://patch.msgid.link/20260713-qcom-sa8255p-emac-v13-0-119f8699ef8e@oss.qualcomm.com
+
+Changes in v13:
+- Reapply OPP on speed change in the PHY driver
+- Use linux/device-id/of.h instead of mod_devicetable.h
+- Fix the "invalid PTP clock rate" warning on sa8255p
+- Add commits necessary to allow correct link speed change with SCMI
+- Link to v12: https://patch.msgid.link/20260706-qcom-sa8255p-emac-v12-0-e3ab1ecf2901@oss.qualcomm.com
+
+Changes in v12:
+- Drop the power-domain-names from the SGMII PHY DT bindings
+- Add missing Kconfig dependency on PM for the new SGMII PHY driver
+- Link to v11: https://patch.msgid.link/20260629-qcom-sa8255p-emac-v11-0-1b7fb95b51f9@oss.qualcomm.com
+
+Changes in v11:
+- Take a new approach: add a dedicated driver for the firmware-managed
+  SGMII PHY and simplify changes made to the MAC driver
+- Link to v10: https://patch.msgid.link/20260323-qcom-sa8255p-emac-v10-0-79302b238a16@oss.qualcomm.com
+
+Changes in v10:
+- Fix unit address in DT example
+- Link to v9: https://patch.msgid.link/20260316-qcom-sa8255p-emac-v9-0-c58934e76ff2@oss.qualcomm.com
+
+Changes in v9:
+- Rebase on top of current linux-next again
+- Link to v8: https://patch.msgid.link/20260311-qcom-sa8255p-emac-v8-0-58227bcf1018@oss.qualcomm.com
+
+Changes in v8:
+- Rebase on top of recent changes in linux-next which required an
+  extensive rework
+- Drop partial R-b tags
+- Link to v7: https://patch.msgid.link/20260306-qcom-sa8255p-emac-v7-0-d6a3013094b7@oss.qualcomm.com
+
+Changes in v7:
+- Restored the correct authorship after learning git uses .mailmap for
+  the --author switch
+- Rebased on top of changes from Russell
+- Fixed resource management issues in error paths
+- Link to v6: https://lore.kernel.org/r/20260112-qcom-sa8255p-emac-v6-0-86a3d4b2ad83@oss.qualcomm.com
+
+Changes in v6:
+- Fix $id value in the bindings
+- Drop patch 3/8 from the series
+- Update init/exit callback signatures
+- Link to v5: https://lore.kernel.org/r/20251107-qcom-sa8255p-emac-v5-0-01d3e3aaf388@linaro.org
+- Link to v6: https://lore.kernel.org/r/20251219-qcom-sa8255p-emac-v6-0-487f1082461e@oss.qualcomm.com
+
+Changes in v5:
+- Name the DT binding document after the new compatbile
+- Add missing space
+- Make the power-domains limits stricter
+- Link to v4: https://lore.kernel.org/r/20251104-qcom-sa8255p-emac-v4-0-f76660087cea@linaro.org
+
+Changes in v4:
+- Remove the phys property from the SCMI bindings
+- Mark the power-domain-names property as required
+- Set maxItems for power-domains to 1 for all existing bindings to
+  maintain the current requirements after modifying the value in the
+  top-level document
+- Link to v3: https://lore.kernel.org/r/20251027-qcom-sa8255p-emac-v3-0-75767b9230ab@linaro.org
+
+Changes in v3:
+- Drop 'power' and 'perf' prefixes from power domain names
+- Rebase on top of Russell's changes to dwmac
+- Rebase on top of even more changes from Russell that are not yet
+  in next (E1vB6ld-0000000BIPy-2Qi4@rmk-PC.armlinux.org.uk)
+- Link to v2: https://lore.kernel.org/all/20251008-qcom-sa8255p-emac-v2-0-92bc29309fce@linaro.org/
+
+Changes in v2:
+- Fix the power-domains property in DT bindings
+- Rework the DT bindings example
+- Drop the DTS patch, it will go upstream separately
+- Link to v1: https://lore.kernel.org/r/20250910-qcom-sa8255p-emac-v1-0-32a79cf1e668@linaro.org
+
+---
+Bartosz Golaszewski (2):
+      dt-bindings: phy: document the serdes PHY on sa8255p
+      phy: qcom: add the SGMII SerDes PHY driver for SCMI systems
+
+ .../bindings/phy/qcom,sa8255p-dwmac-sgmii-phy.yaml |  50 +++++++++
+ drivers/phy/qualcomm/Kconfig                       |  11 ++
+ drivers/phy/qualcomm/Makefile                      |   1 +
+ drivers/phy/qualcomm/phy-qcom-sgmii-eth-scmi.c     | 113 +++++++++++++++++++++
+ 4 files changed, 175 insertions(+)
+---
+base-commit: 1fffefb00cc0b0da1f2ae24e3d33364530ea6515
+change-id: 20261002-sa8255p-eth-phy-6a0699f98a7a
+
+Best regards,
 -- 
-2.54.0
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
