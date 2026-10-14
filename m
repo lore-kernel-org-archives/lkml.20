@@ -1,62 +1,73 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-232.mta1.migadu.com [95.215.58.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21E0D4C224A;
-	Wed, 14 Oct 2026 12:18:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 596D93BE162
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:18:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791980300; cv=none; b=M0t943ll6VIlJqxVggMQ+0gu60okmthnagvkhaHv2fR85MzfTA0DSsR4Y49RsAYqZBUfEyLFS426/Xqzp+axcwYkdovowvUrWUY81Ps/2w+g0N4/MW8Jal3/ETFtAs7jOPnr0r6/rdUOz8cOCM8ugT3CK4/q+9wbYRbE78xNVSM=
+	t=1791980316; cv=none; b=ERe2nA3/+sePVFATKDvEbKn4vdAXyE7XoXqrshtKvZse8V16JjU7movyR7yLb6EcrmSl84hYkFmzXdLaG6fNsNh7Ga5hDG5YNUfjYxfwVojpKNB1Dk+TEi9V2i4va6++fqT8ZgQUenGPOIEujKyJx/NrHn5s12iqeoe9NAlznrc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791980300; c=relaxed/simple;
-	bh=1jNHNq4JEW2AKWn9mbI/518934OAapYG4MY3MY6EJ+I=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=lgpjneNPmv4GvvD+FO8WJc1UuG8kU7bT0SWPtiYjV0dQ4BUtz4hU8kHsEh3NRqtVmU8dnOeL5AzGkjrstDDZu5a6pDYED2x6flvZCdcS4pPXueJuGQqxa/WH8Yl1k1W8wNbVSl8id2g1U4F3rkaBuyfbQB79RoDeddMBJugCvHA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jH/LcGMA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791980316; c=relaxed/simple;
+	bh=epxOBuojfAEGBJOX5236uAg0yXfK5UUnnWkEkz0tIRM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JvZMnpRNk+n5BF3LQ3dCBrYTXMMMyY4sv/SEnKN3qtX46Bn7umAVo56jWvDl+NP7+4k5QxRLxymh+wIXCnU0snTe6cTqGYbWZS0Z07cMn12M88VfZkTi6SypL9wdLRQrOwkFuL3tk4yb6QH04nNsNkJMbYFvh3+HE768YL01LsQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=vLAoH4+n; arc=none smtp.client-ip=95.215.58.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jH/LcGMA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 181D31F000FF;
-	Wed, 14 Oct 2026 12:18:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791980298;
-	bh=imKeuNpcaoqzQJSC/5CaueIe7C+XzwSGGpsNOb+q8/Q=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=jH/LcGMA5qyvF9H718nSe10/v/J8kXM2OzkKqn0UPqdbn14JN1YZnNeb3uD8El5Jo
-	 m40SxWzp35HZ1oUQnQNfYYvqWAWNj5yWXOJ2VRS1dc99S8EycxQc3ku8EzwuZ8QPmH
-	 meD6Z5BabjAgFa0duS7RcJU6TZHy+Ix5Ug1pKsKy6jynkMCkdpovEsS/OgGbexT31l
-	 F/izyvRMurxu7CYOZC35Xa6gH6R9dlKLvOyVbXk33Fh9fsy+8ckZtadDwULA7+Cezx
-	 fk3y34JhcbZeDYMHtA/WHdk4c0mdH/Hm+2q25TobQ0Ms5JM52DX0iY+EorcHOvZ+F6
-	 js2XAX71FdYyg==
-From: Lee Jones <lee@kernel.org>
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
- Lee Jones <lee@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, "Rob Herring (Arm)" <robh@kernel.org>
-Cc: linux-kernel@vger.kernel.org, mfd@lists.linux.dev, 
- devicetree@vger.kernel.org
-In-Reply-To: <20260923191526.2206628-1-robh@kernel.org>
-References: <20260923191526.2206628-1-robh@kernel.org>
-Subject: Re: (subset) [PATCH v2] dt-bindings: mfd: hisilicon: Fix Hi6421
- SPMI compatible
-Message-Id: <179198029682.796475.17855215396698638108.b4-ty@b4>
-Date: Wed, 14 Oct 2026 13:18:16 +0100
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="vLAoH4+n"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=epxOBuojfAEGBJOX5236uAg0yXfK5UUnnWkEkz0tIRM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791980311; v=1; x=1792585111;
+ b=vLAoH4+nc84ay/n2UPu8MNMP/A7wX1/R6ddCSgohs3z+JBmHaJbGbtK/GHDVmh93DxZZ1pTu
+ ysAtIUKIzoeOtHuO0d774zbM2RWbYEOh3gPBiX5+FSyqXxTOoT8XSKPiXk/2Q7vhImAjPT4e1RZ
+ FXo1lbojVTzGU+bdzJ2edGog=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 2f5f8524ab26ce5d;
+	Wed, 14 Oct 2026 12:18:31 +0000
+X-Mizu-Trace-ID: 2f5f8524ab26ce5d
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <a114aeca-8e9f-4353-9dd3-9ce077f6fba4@linux.dev>
+Date: Wed, 14 Oct 2026 13:18:31 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16-dev-ad80c
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] scsi: libsas: Fix SMP IO deadlock during HA resume
+To: yangxingui <yangxingui@huawei.com>, yanaijie@huawei.com,
+ jejb@linux.ibm.com, mkp@kernel.org
+Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linuxarm@huawei.com, liuyonglong@huawei.com, kangfenglong@huawei.com
+References: <20260928040234.992912-1-yangxingui@huawei.com>
+ <820657c2-1cbd-47d8-92f2-477531692135@linux.dev>
+ <ba5d9188-937c-237c-e104-9b66e7c3be3e@huawei.com>
+Content-Language: en-US
+From: John Garry <john.garry@linux.dev>
+In-Reply-To: <ba5d9188-937c-237c-e104-9b66e7c3be3e@huawei.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, 23 Sep 2026 14:15:25 -0500, Rob Herring (Arm) wrote:
-> Use the hisilicon,hi6421-spmi compatible documented by the in-tree DTS
-> and matched by the Hi6421 SPMI PMIC driver.
+On 10/8/26 04:11, yangxingui wrote:
+>>> Fixes: 3dbbbf656b850 ("scsi: libsas: Fix HA resume deadlock and 
+>>> hisi_sas disk-wake race")
+>>> Signed-off-by: Xingui Yang <yangxingui@huawei.com>
+>>
+>> Question: do you have a (non-hisi_sas) SAS HBA card whose driver uses 
+>> libsas? pm8001 would be such an example. It would be nice to verify 
+>> that all these and other non-rpm libsas changes does cause regression 
+>> there.
+> 
+> We don't have a pm8001 card at hand. From analysis the patch is a
+> no-op for the LLDDs without runtime PM support: pm8001 and isci
 
-Applied, thanks!
+It would be good if you could get another card whose driver uses libsas 
+to verify these and any changes.
 
-[1/1] dt-bindings: mfd: hisilicon: Fix Hi6421 SPMI compatible
-      commit: 1b482faa86591dbd8524d294383281f4adf2f6cf
+Anyway, the patch looks ok, so:
 
---
-Lee Jones [李琼斯]
-
+Reviewed-by: John Garry <john.garry@linux.dev>
