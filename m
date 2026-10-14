@@ -1,127 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010071.outbound.protection.outlook.com [52.101.201.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 836EE3E6DE7;
-	Wed, 14 Oct 2026 21:14:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792012451; cv=none; b=HfuxdttTRNinIr7StOTK0cxqUEOXPril5q2wu6xNaaGtnGhjYh6WaXGGF4jxb5/ZhwVWtwCl7UxcoChGfYx4XJnktaP6lp3RpnKzg++TQICvZqLNq+hHoN9iKimv/gQ5vKJtPEY2TAC4aGzxzu5dBz47KUtjljm05VwjIrsTXQg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792012451; c=relaxed/simple;
-	bh=Zp29SYvXejqGV0ag5+XFK8Z0FQLDHw102Kp/1wGwXMQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X7yEHWauQAYTRUPxVyE0X5Dmh0s/UXdukF2Mry0eV1w0l8j+jlMLi3FSWo2FSkEnHZEZJJ67DVp346P6SeC50IJIWWgwR5l7F0wIEJx6imQOdpQZDMbWozqRCsQ9JwhT1krYXhKXtWvwlfrhjl2Yl7BtDkcp88qWsxBrW4PHg+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y+yHmjUw; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A0A948E0D3;
+	Wed, 14 Oct 2026 21:14:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.71
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792012460; cv=fail; b=nDd3mhnN/DqwNPrnk9QHlTw+uDlpB+Z2xbiMBK+bpXUaUbGTlThODzFh/fnEutqjPmfnTP7dJGxVaEznrDf+PYtf+N/jEflXyCwYWLM7iKlcttiFiwiVdHyH5hbKV77fOgYpiBwjM6tliH/hJSacUPkDTjI06pgDHz+iIycJ8cw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792012460; c=relaxed/simple;
+	bh=XHSb9bRGV2Tv6eVRIw4aphKuR1ZjkZz8dVsORjQUuUU=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Uh7omTxYL307Ve/gZ3kVLSk3XnjYDRJ2xH2tOaRgd/PXCRrHUSgjbQ37TzFhENjZK/oC+TdOpjDCjcSLbQiyYYYxgsaCPIZ+KAerYbyoaXSRKYbJKaRVx4+hMVO/ZCOspG1nfgLrVCEtx0e5a9qOZFLsA2eduHgFgOFCUYfP71E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=xxS9y4bD; arc=fail smtp.client-ip=52.101.201.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y+yHmjUw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A362C1F000C4;
-	Wed, 14 Oct 2026 21:14:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792012449;
-	bh=ecyJCXW1w/LBOKQh3h8HJyMBz0P8eZq+cLObkoMpR5k=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=Y+yHmjUw/BUfpqonNaXdtWtu5iJoIzxxDCheh1jZMHSMBa4wKdEQjUTCN5SgHp8gs
-	 Bw77CHTFl1kBXXU/p7qtFd/CirHfe6/26flkIXHaHXVkQmG/Phsz4IWokjSJNNoNYE
-	 lUv45e84hA+39sOiDBD79CvrvlsbQqAIwz1dL0xQSq8cHr+K4jYTR2b8o81UL1P0ea
-	 7/5AeZkm2x5+EuYDZgvdRhUnV6Pmlt/1YzUzekX5oCtEkHQjvGJT9uY4uK1E35cOwZ
-	 IKP9pS5hiY603/kRLaL7IsIcHHHU9GzY2y4XSini4Mpk9Ahwr6jo5grTXr0a3gXfCX
-	 ZawpSCWs3Db1g==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 5F731CE0C55; Wed, 14 Oct 2026 14:14:09 -0700 (PDT)
-Date: Wed, 14 Oct 2026 14:14:09 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: David Woodhouse <dwmw2@infradead.org>
-Cc: rcu@vger.kernel.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
-	rostedt@goodmis.org
-Subject: Re: [PATCH v2 04/21] srcutree: Add an atomic Tree SRCU
-Message-ID: <0514b2ce-217e-4e0e-9b2e-3f145a3e8afd@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <546c81a7-f677-4d8e-a304-746b227058b0@paulmck-laptop>
- <20261007205924.1983367-4-paulmck@kernel.org>
- <729dfdb236e4daaf2438b74d4d921993a156ec34.camel@infradead.org>
- <d1539cc5-0ff3-400e-a487-eedd942cf6f5@paulmck-laptop>
- <3aba8068a1424c91c81ec35b2ea6dfaa28161fb1.camel@infradead.org>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="xxS9y4bD"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DVee9Sb1ogMjPO18Vj3bGPb8PLlRO9uYibwcfHcqJBo4BsLaQs0keqGwNrvlGadsyA5N3dBI0vYFS2BS0ysOARwcr2GGgzN4i1lhAeVBzwksvi0Xv7+2r01i+XJtzW2gu9xstmE71nV0NJMKhLFln/Ggjt/2E6DvLce/9f3R9y90c/nS4qTl+vprVBDbFGocusOba1qYNdkYFlgRmDGo30TmoNsoFCevsjWMlrzBiZGpmqcIKbVCumd8mkRPrSRwxodlnsLcExyutoNSFH7gXnH2wqNETX3ftpBVHhnOa0AgNcfN6vAxvIRFoPPWDjajRr2g8Z2r/0LXSwMM07AO+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/K6elI9S1x7K/b2SSqm3h4VV9Io2Dqs8l6kPq/S+wqE=;
+ b=U3uthCTS++DJR0z2ae6Hak4P2XIqcWKthsEtbNjcrebGh70mUtitS4jvPHi10UaC3VfNKvbp3iqPiu+ULpMz9BR+7Ob99iBl3kXj3NLziTNaBYS7+7MM8ArWopSL7nKbX5Bu5yqm0/Y1Ubj0wyQNDHf8uol7h8KSKecK3uGZd2bq9f+WGTFFLNoRqHt+qp+ZaZqn5ELx+geZIf6mBovevStBBtCZ+DVfXF0jO89z/SElpPpPrKvmF6z7/UmXsr1OzGDdnbViWSmX+v+SNOiYKpTG6Wym9ocxnOSyo6ibKRrodcnnLP1uIxAx5DQrmNELBcpZ14/QoJQVqkN7FeG7bg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/K6elI9S1x7K/b2SSqm3h4VV9Io2Dqs8l6kPq/S+wqE=;
+ b=xxS9y4bDVmakc8k++qjZW+xbDDesSndv3/P4VUQ+AHizbWZ534M/HlP1Dkpqq+URu+pSVVVi9j3HS6f87DFT21/LOLAaKvJhMGX7BfHrew69D8ZxA1aqD/Iax7EcEHXB5J6D9g8ACdM7M2sy+eL0sID/iSqsFXEs3HDBmky2XFk=
+Received: from CH2PR18CA0036.namprd18.prod.outlook.com (2603:10b6:610:55::16)
+ by CH3PR12MB9123.namprd12.prod.outlook.com (2603:10b6:610:1a4::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Wed, 14 Oct
+ 2026 21:14:15 +0000
+Received: from DS4PEPF000001C4.namprd21.prod.outlook.com
+ (2603:10b6:610:55:cafe::d) by CH2PR18CA0036.outlook.office365.com
+ (2603:10b6:610:55::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Wed, 14
+ Oct 2026 21:14:15 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS4PEPF000001C4.mail.protection.outlook.com (10.167.23.170) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.3 via Frontend Transport; Wed, 14 Oct 2026 21:14:14 +0000
+Received: from nigeria-2635-os.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 14 Oct
+ 2026 16:14:07 -0500
+From: Ashish Kalra <Ashish.Kalra@amd.com>
+To: <tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
+	<dave.hansen@linux.intel.com>, <x86@kernel.org>, <hpa@zytor.com>,
+	<seanjc@google.com>, <peterz@infradead.org>, <thomas.lendacky@amd.com>,
+	<herbert@gondor.apana.org.au>, <davem@davemloft.net>, <ardb@kernel.org>
+CC: <pbonzini@redhat.com>, <aik@amd.com>, <Michael.Roth@amd.com>,
+	<KPrateek.Nayak@amd.com>, <Tycho.Andersen@amd.com>,
+	<Nathan.Fontenot@amd.com>, <ackerleytng@google.com>, <jackyli@google.com>,
+	<pgonda@google.com>, <rientjes@google.com>, <jacobhxu@google.com>,
+	<xin@zytor.com>, <pawan.kumar.gupta@linux.intel.com>, <babu.moger@amd.com>,
+	<nikunj@amd.com>, <darwi@linutronix.de>, <linux-kernel@vger.kernel.org>,
+	<linux-crypto@vger.kernel.org>, <kvm@vger.kernel.org>,
+	<linux-coco@lists.linux.dev>
+Subject: [PATCH v2 0/2] x86/sev: Fix RMPOPT enablement on non-RMPOPT configs
+Date: Wed, 14 Oct 2026 21:14:01 +0000
+Message-ID: <cover.1792011434.git.ashish.kalra@amd.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <3aba8068a1424c91c81ec35b2ea6dfaa28161fb1.camel@infradead.org>
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS4PEPF000001C4:EE_|CH3PR12MB9123:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0228706a-aacd-4009-f983-08df2a3819dd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|1800799024|376014|82310400026|23010399003|36860700016|921020|56012099006|11063799006|261009223027099003|18002099003|10067099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	Z8GQfOtGTLoCS640DDQxqWbvShK2UUN4aB3Ma4rEbgFIf2tfudNAUq8ETohSdtWe+UuJJKIA1+SuYf8AhhN0mcvoiHt2GEy9EnwP1aY9tVrTJSAeXJEbiXf06DJ6hgZVVWHXXyIp4BkFY69iZ62juBXnd0ul2cV6790wGGpOYIECKXWP+03lyt2YfIPmSITXSr6ydK7g5zv8BBhh1N2sCURpjNzhhA2FkjZHtKAHFIC05rESLgAnlyt05hGrnJ4n+OGRtTDvhzjxLbuBMCSsS0U6dh4bBjMIt8/axKAyULma4+YlFtjoIq0gKxhindwtC9ATgovPYvahpI+ikRJykclSeql6W6VejjpEv8fJC5Y1OSSsWkUHOLVen0WPgh5gNcQ+0Q7ElXhDLYdrsd/vNpAd3TzlXOYsvXfcWsbre0MrUcJS1l8pYS34PVBPOZ/MTCzU6t6NDr3yGhZwqaCSi1+AEEIL3gJTHe6uL9+h+dgmaxVQ67S8FaMkGqI1iGKwTMvoISZSwvD9vsBmwIuCDmqBUt0XrNABjICQskqK/a0O93PY42YafVBpR3fDpCyVEyPIpKjj+ZjuyTG9H1BP/6/dfSBpPIbjRCCJPUhXIGm3jP221DpGLWeHRfJWUMUIEOU/TR3hX3USyfI59Vv/38JRDqSGA8PgtS+RTlZKIkrRemdaMt7gHR9lVThSFPicS6IY8Pb7QTs1tH+lnsYd35S3hq+Mswm/WyPTvnXZ7zt9EYmczqmeudnG5LXhil3H
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(82310400026)(23010399003)(36860700016)(921020)(56012099006)(11063799006)(261009223027099003)(18002099003)(10067099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	qTz+5bYN7q9G92gX6531JaKUfvx5bZUQ4AMlpUJNsr3ImFsbhOEieiTKg9a6OO9lZqZxuLdHYtotA5QzgG9FBE1PDzLySXMz4+gEhVAScCY+cOCFFYMymgtv8BaPrcxnax7Or9pAcQ/Mb82xBaH8AhE3b+XdbDf7zF2D6mg8ZEjYCKKq8vL9RYeruSsk5BmKGCya1BB4qt8E2Y04iWR5ll2datggSZq26u1Xew7R8mMMoUoZLszXUJXAw2XdXjTQHOnale6Imesww2YzNaRBIgetYy+7kI9vKn3ZUtsYHmnJWKRRum0FdCDxSF/kNohSLleMeQslNq6YdRQWBku6lmhXHMAZEMKd+aagHPQDrTmgPY2Q6h9xDzN3rnsSNzyGO5vFJI9I5Pp6jlVQoc3tK7RyROxAZvTW9ZNniBKwWc2LWY9UwkgeystJymNTMKd0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 21:14:14.9963
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0228706a-aacd-4009-f983-08df2a3819dd
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS4PEPF000001C4.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9123
 
-On Mon, Oct 12, 2026 at 01:49:15PM +0100, David Woodhouse wrote:
-> On Thu, 2026-10-08 at 08:51 -0700, Paul E. McKenney wrote:
-> > On Thu, Oct 08, 2026 at 09:39:29AM +0200, David Woodhouse wrote:
-> > > If it isn't already too late (i.e. if it hasn't already made it to a
-> > > tree where changing commit-ids is painful), please could you change my
-> > > attribution to use the dwmw@amazon.co.uk email address for both Co-
-> > > developed-by: and Signed-off-by: tags? I'm fairly sure you made up that
-> > > Signed-off-by: with the infradead address, which is naughty of you :)
-> > 
-> > Indeed, I would have grabbed the first email I could find from you and
-> > applied the From: field from that email, as opposed to finding the exact
-> > email containing your prototype of the patch and then locating and copying
-> > out the Signed-off-by.  And if I were to happen to find the email that
-> > I am now replying to, I would once again get infradead rather than amazon.
-> > 
-> > Apologies, but life was flowing fast, and it probably will be from time
-> > to time in the future.  So thank you for checking and please continue
-> > to do so.
-> 
-> Yeah, no problem. I do try to be good and give a SoB even when I'm
-> throwing out a snippet of code that's *directional* and doesn't even
-> compile. Mostly because I hate it when I'm on the receiving end of
-> such, *use* the snippet I'm given, and then have to chase for a real
-> SoB from a drive-by co-author.
-> 
-> In this case I think it was 
-> https://lore.kernel.org/all/fb87f673bf290cad133d113dbb0750a7752b9d30.camel@infradead.org/
-> which did have them both on the patch itself.
-> 
-> > > I tell people you should only ever cut-and-paste SoB lines, because
-> > > that way the magic is intact. So here are the two you need for patches
-> > > 4 and 5 of this series:
-> > > 
-> > > Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-> > > Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-> > 
-> > Thank you again, and I have this note to myself for my next rebase:
-> > 
-> > a5130cf7b27f ("srcutree: Add an atomic Tree SRCU")
-> > 85d5f89bdc42 ("srcutiny: Add an atomic Tiny SRCU")
-> > 	Co-developed-by: David Woodhouse <dwmw@amazon.co.uk>
-> > 	Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-> > 
-> > Does that cover it?
-> 
-> Looks good, thanks!
+From: Ashish Kalra <ashish.kalra@amd.com>
 
-And these are now applied in my -rcu tree:
+Two fixes for the RMPOPT series, both for configurations where the
+RMPOPT CPUID bit is advertised but RMPOPT is not actually usable:
 
-60df507b6091 ("srcutree: Add an atomic Tree SRCU")
-a48669f0c49c ("srcutiny: Add an atomic Tiny SRCU")
+Patch 1 clears X86_FEATURE_RMPOPT when the platform advertises segmented
+RMP but the firmware has it disabled (contiguous RMP) - otherwise the
+RMPOPT initcall programs RMPOPT_BASE and issues RMPOPT, which #GP.
 
-I intend to send the pull request before the merge window opens, so if
-further adjustment is needed, please let me know right away.
+Patch 2 gates rmpopt_init() on X86_FEATURE_SEV_SNP as well, so the RMPOPT
+workqueue setup and the "optimizations enabled" message only happen on an
+SNP host - e.g. not when SNP is disabled in the BIOS.
 
-> > And while we are discussing, how goes the use case?
-> 
-> It's working well. Torture tests and Sashiko reviews have tweaked it a
-> bit, and found one issue that was already there in the upstream kernel.
-> https://git.infradead.org/?p=users/dwmw2/linux.git;a=shortlog;h=refs/heads/gpc-srcu-v2
-> 
-> I've also backported it to a production tree (albeit using non-atomic
-> SRCU there for now) and it works there too.
-> 
-> I still have to put my own eyes on some of those latest tweaks (and
-> probably rewrite/decimate the commit messages). Will do so once the
-> dust settles on the atomic-srcu work and I can rebase on top of a
-> stable commit. But there's no rush; this whole thing has been on the
-> back burner for a long time.
+v2:
+ - Patch 1: expand the commit message to spell out the CPUID-advertise vs
+   firmware-enable distinction and how the configuration arises; drop the
+   trailing sentence; add Tom's Reviewed-by.
+ - Patch 2: rather than moving the announcement to snp_enable_rmpopt(),
+   gate rmpopt_init() on X86_FEATURE_SEV_SNP and keep the message there
+   (Tom).
 
-Here is hoping!  ;-)
+Ashish Kalra (2):
+  x86/sev: Clear RMPOPT when segmented RMP is disabled by firmware
+  x86/sev: Only announce RMPOPT optimizations when SNP is enabled
 
-							Thanx, Paul
+ arch/x86/virt/svm/sev.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
+
+
+base-commit: 250ee734115bca1c1f7a38d838909aa83cce87ae
+-- 
+2.43.0
+
