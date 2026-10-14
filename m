@@ -1,63 +1,63 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010056.outbound.protection.outlook.com [52.101.85.56])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010029.outbound.protection.outlook.com [52.101.201.29])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54BD146F498;
-	Wed, 14 Oct 2026 10:20:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4E474EFFCF;
+	Wed, 14 Oct 2026 10:20:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.29
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791973227; cv=fail; b=aHaI93FNg8SbGS49WDumpV+Vl4FTTeJdfcF5jW2Ztk7/cqh/4CXbbX6ERBdzeExh/3BB7hE7hQAkXpM3IO6YommO840rQux1NhFnuIiYQcAQQhOeIhD+Obk9JE249u+iWxAI395/CljIYoRgtkoBUc8CcXwq1SJBOKZVGCkTuA4=
+	t=1791973231; cv=fail; b=mCgIuI/EL4UZhFc4R1D84/yaJxAf4JyjbnxOMZIfuFLxW7gYAChbUL5prUDb1TDAW49CVo1YOQg7EOPRFaVoV96DKbFlkE+8WkSz/hpqojKsF1i6nOjMpaMXZ+eJw3xViEmGa5l3w9Sw0r7fEaVvwHs3BuPsNJz7DLJ+VRp2vKc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791973227; c=relaxed/simple;
-	bh=MYydjdi5Yjb2K4L/QZGw8URq67NrrlD0cGChI7zBIIk=;
+	s=arc-20240116; t=1791973231; c=relaxed/simple;
+	bh=tWWBxRxWqD7CEyA+zpsbr+VkvhQwkrX0YvXtl/ya4pI=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=b3SZtykhsV3sb60XwXZ5UVlTf40SS5CMTS7NIjzQZa9umnc/wnP3+1XK+j1Jw0xEPfbeSoaHVBK0/Ugjw2X0GPRT4D0pRkbouz86dZ88ye0V9rzG2q0GML6wuA1FTFchaEMAwa5rMNPGSQaBAw2YsjvehbheXibUdbn9CaGIPJk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=cc7OSkeN; arc=fail smtp.client-ip=52.101.85.56
+	 MIME-Version:Content-Type; b=hYgSHcDT8vcGcVQ8RVck2/W/n5BYUzqepXhFegMnHHndnSK7YU0gTX9rn560h9HXAsjo35PooBCSxG5YvaQYLs6mh0LBCdO0cWIllV2l/LnaswE6pl4/8YXcInIuIYwG9kagU/Mwdw/y1LM7cNXTbcvQNTjJMcVzlY0SWO7eO3U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=sihTc3u+; arc=fail smtp.client-ip=52.101.201.29
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="cc7OSkeN"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="sihTc3u+"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pmjC1BQRuryRBwyRVIjGlC0sKMVtR1PT2kjT6lJ0pgkgFX2k+lCxEgFPXkk2xGs/SPfNfEZG2x8OnLkkH5c7/T1I74aPfnXUOCPKudeb3lZ1o4iU0HZu2dymcN7gKn/IeHMWGVsVe/036O1CHlTqow4VzgX89oE8kHlJ7sQtdU36j8K3pVRMdAnxxhZLuqlBwOUHZVzmvN5dhW40mEcr5R5vGEb8RYt91ORxCV+4iVogjJS5LA46uPY+KtNg7bfWaXqZcrTmdyVcavJNQ9bZTbb4uh3MArMOizshBVx0R1gXngfaXo1iPj6x0JkS12iDh9YQmP6LDX9z6973G0Dl9w==
+ b=BTpi/9kPfsN/4/CviReFBxK6kJKs5KjswuTLRDV+faNA4J64Vj2Mz5/00GK8uTn0kg/MU4C9Z0Zf9icIGwgmDVpGBVvRkX3h8bXILiCrvSwEc7oh4vtjfNrtfrL9rHLTRRX5WzQwl5QKwdhPsDLoA5t4F8xTBpdxE+kDyRLqidXUIQR41+Ht/VIcF8ECFuulUu65yCY5cOQ7lokxDX1oHevbbkMDJbHjo8FnDvkAcYxCXeVQ73ZW5xpeBxhn20U7BuqC1Urni1lCUYQTr8unAvaUZWidgpUT0+QU1ycv6vWNPm90tcRZLWlOSZ/nsFRJgzVfdFVdzYm2X+HPnAuImw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1KfTk3Uuu5/r1ixTcmSrg/SsIAsGezUGfeW3iomcpRk=;
- b=rTW5nuE/2Vi6/+C9vS2buDNr01dpRotpkBRf8jPdtmiy6rrvKgcjcS4MSOuq211R+1ocBwZ41n0+O2J1OFQE67G4Mi2kI8IsDujbawD1W8+eIe8Q3Jp28Eb4nGtf5E8O7qG8EEPuBRNkO8UvC0L38d5Mp+2+LMHmSUwfoRoUz5GPtacpTSLUx/P7/4M4EPY5n/b6V3IXDFSBUQbJZ0n93D+z2TsVqoyOtiqV+MyZosYLkPFEa4bxyt0J06uhTMuWpv/EPEHav6uDA77UXz30OQay9uWe0E1wpOU9DjaMdKk69M06C17z1bvwVrtDWaQFGl+0IBI+EJFg3PU59mx/XA==
+ bh=WC3+dgMuAPV0dVD+o9GkZOO0UoofpWeKaE+7sVTyIlk=;
+ b=U3F0AQ4RRWP+x4EzOzT9a2Qy1bjF6grWKzEvdez89A7mPBhkiWsRxJoX5ohxGH+ayUF4CCrmE6DF13K5RFPoyfnZflTSsPN5YFaRKKp7eik7l49JRuPWwj71ZfGVk7SUA+GltKpzNS5wXWLvcfLRDi/wQwe1vcI38fI2QWmH/9O33iI1DfMZzv3fXVcIdUtewkMu0xZR12SX6hORJn7WZA6tx+cXHrR+B/0igW09maQ21r8f55MStSGOVMobKjf2dT9W4UfPiLKYvfJ4zb+WNLdg+maBCjb+VxfMbrOMCJHCfnyaefJlMq1xw6Ukq2ASrRAaUwsxswSXVWqP9tgLXQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1KfTk3Uuu5/r1ixTcmSrg/SsIAsGezUGfeW3iomcpRk=;
- b=cc7OSkeNR7paa/rVtJgHhgGE9bhnlPQIl2UU8d7q1/8TrN6VBIliuIInDovwBqCym8l/4DRKzsP2ze/mDsrmKC//ly7IjBq3kef+sEG0zZ3bQ9Vhr+BCdDEoKQ0LU8js7XvjHCKVnESTZjq/yhln1r+0KiWSvc7eEO/jzrNG9YM=
-Received: from PH7P220CA0060.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:32b::29)
- by SN7PR12MB7324.namprd12.prod.outlook.com (2603:10b6:806:29b::12) with
+ bh=WC3+dgMuAPV0dVD+o9GkZOO0UoofpWeKaE+7sVTyIlk=;
+ b=sihTc3u+3y42/sSnYBBjxrxNIQEGOnvnOQwI1HlGFxFl6pg2ej1OlXN+b9taGGmR1p1ZJ0pwXsLiVDg8AbIa4t+bMdASXYO5i/0qifuF0jBrbB72edj+q9SsSxZTclu9rue5HxcHzXdy+g9TQDNj7oNHxDNdB1n5a6hVv0F2M7s=
+Received: from BN9PR03CA0415.namprd03.prod.outlook.com (2603:10b6:408:111::30)
+ by DM4PR12MB5913.namprd12.prod.outlook.com (2603:10b6:8:66::22) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Wed, 14 Oct
- 2026 10:20:15 +0000
-Received: from CY4PEPF000392DA.namprd03.prod.outlook.com
- (2603:10b6:510:32b:cafe::73) by PH7P220CA0060.outlook.office365.com
- (2603:10b6:510:32b::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Wed, 14 Oct
+ 2026 10:20:21 +0000
+Received: from BN2PEPF00004FC0.namprd04.prod.outlook.com
+ (2603:10b6:408:111:cafe::98) by BN9PR03CA0415.outlook.office365.com
+ (2603:10b6:408:111::30) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Wed, 14
- Oct 2026 10:20:15 +0000
+ Oct 2026 10:20:20 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CY4PEPF000392DA.mail.protection.outlook.com (10.167.247.120) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF00004FC0.mail.protection.outlook.com (10.167.243.186) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Wed, 14 Oct 2026 10:20:15 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.522.6 via Frontend Transport; Wed, 14 Oct 2026 10:20:20 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 14 Oct
- 2026 05:19:59 -0500
+ 2026 05:20:13 -0500
 Received: from amd-System-Product-Name.amd.com (10.180.168.240) by
  satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53
- via Frontend Transport; Wed, 14 Oct 2026 05:19:54 -0500
+ via Frontend Transport; Wed, 14 Oct 2026 05:20:09 -0500
 From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 To: <broonie@kernel.org>
 CC: <alsa-devel@alsa-project.org>, <lgirdwood@gmail.com>, <perex@perex.cz>,
@@ -68,9 +68,9 @@ CC: <alsa-devel@alsa-project.org>, <lgirdwood@gmail.com>, <perex@perex.cz>,
 	<Vijendar.Mukunda@amd.com>, <Poojitha.N@amd.com>,
 	<linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
 	<sound-open-firmware@alsa-project.org>
-Subject: [PATCH 10/13] ASoC: amd: acp: add ACPI machine tables for ACP7.F SoundWire
-Date: Wed, 14 Oct 2026 15:46:29 +0530
-Message-ID: <20261014101817.1240200-11-Vijendar.Mukunda@amd.com>
+Subject: [PATCH 13/13] ASoC: SOF: amd: register SoundWire alt_machines for ACP7.B
+Date: Wed, 14 Oct 2026 15:46:32 +0530
+Message-ID: <20261014101817.1240200-14-Vijendar.Mukunda@amd.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20261014101817.1240200-1-Vijendar.Mukunda@amd.com>
 References: <20261014101817.1240200-1-Vijendar.Mukunda@amd.com>
@@ -84,271 +84,53 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF000392DA:EE_|SN7PR12MB7324:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5a777ac1-7163-4349-e2a3-08df29dcbd2f
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FC0:EE_|DM4PR12MB5913:EE_
+X-MS-Office365-Filtering-Correlation-Id: ac3061e7-a130-461d-4dd6-08df29dcc081
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|1800799024|376014|6133799003|18002099003|10067099003|22082099003|11063799006|261009223027099003|56012099006;
+	BCL:0;ARA:13230040|36860700016|1800799024|23010399003|82310400026|376014|10067099003|261009223027099003|11063799006|18002099003|22082099003|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	1PxqisNNrnG7bI1/MGWrADq464kOjUtCoC8hruxkUdq6YdqS2ZDQkP8EKc17yIhai3psCsh0wPeOzD2xGDK9FQgWRaCyrnUMB9fIAPWQ/3aNzMm1UlXB80jYoxUp3M1cI5SyVdFLKztjx83LzehR4jDxkwFByg1K3iSq1XRWDpRr1rtG8bOcDsvafeuA9YupQ/uqjMzMaUGCFMAlqIwVRVzJY0fbtHT1AtarVnxuFqVNM5PSNAyywfC9ugYd1T6xZLdEcDOvYq5BU9QIw2Etbe/PBU+WLaEZ0nHUzhN1tyoKNr3frO0p3smWXhrHUtZ0QqUkWg7/ccQVZLkx/uF3j2n9Ok8qk8Mgh8R+R5jN4uEgYczrLVEGhDsGMj2e2G9xsEkWE9mDu8bl+XAhmlUC9RpsnvoNbdpJsTopWq1V5jT7yNXb5CmBb47MrfGokJbodrMhUPGtpeis7y7wArMq/IGHWr/hqq2IY0TBLwzgxl32JucAoQ6m/rWq79vb5O2Ve3s3PZ0XW2jIXc0fKDfZGul2a0MIBSibL0xqApI1reqvvTMoRNo3XyH9q3sOJi0CBjv/7DYRVDF49fHwy+wRtxXrAl2MKDH9QW7YCihPzoIiqBJCMo64QMMSmp6rSsZmYZ8+2yNO2lfBF4ET8hxfgCNrtmAPgefNh8x2VpDtFl9kbyFVkcE4yYSUqgscDGz7
+	vs/pRR/z41JDpKYqEzrmRaWzOwifUFiIIgPN4KkR4wzFEUAIjRZ7kG13AcoCPJGYg+TDRht/XCft26xpjZDg5zda2sJ/v9LuBJe4JHmB4GcDc7hehr0BqguAdX/zCrfDhR0V66TmZlmFm2dPoRlRKzh2QuvPTbbZuJ2dRbc+Au45bB6fZLhCVoopnHQX6AAKpplf6aUrz9KhwbZxJY4ZgXoAD43FtLJ0CaGHk2/D0/jDiIerfwBX4mwvubZeWXoFOp8pdpamiidAD/4DxeWGucKFmsOKcEM9FwtR8Jy26/LThGvR2ep0JIK1fxqRy8MSyV4XdS1EsN43uwBudDVy+qCvv/tl7DMMZTQy3p04RmKc4JU4Rbczi1guGOAP6xV6VKoMfKK+hHFgj+jE9eOn4yDsZvVbpQ7CqRwd5TnSpcTr4THP0dSbBjo1M3bNkKO1AGmpRGsQwuhzQljykKzGJ+BClCKc/KJpHuz/TXi35dncqRVXF1DkFbqclXd+8mgx0hJ6Y2bEA+ZE/QVrK+E9mLxkKWzs9ubfZtwjC4Dn1CGjU9WyonVI7wsECo5PhGA06ZXNDgvQecm3HDdnPIocor7cnWEU+6bhtVVL4KyCYPNHZdtzOzNSc2jRlk15RDchxNgXK+oLlRZO4iI4qENXnNcTrhXVn0QFQdmoXMhxVr55u8X9HCVdg9WWAIliTgwnV1c60UWUJWs06g0Bja9adw==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(1800799024)(376014)(6133799003)(18002099003)(10067099003)(22082099003)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(23010399003)(82310400026)(376014)(10067099003)(261009223027099003)(11063799006)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	8owqJaDcxPjjyu2byCMIpQ8ouOqU8lj0znYtqg6GJFTcnf93xhrbrfqW+Ps6Q1LK+Jn5ylK1dxzzb5T28LsVGlmQoJLyyNS53xcMsXOMUB4vsQ1riuGmc16YFivlooljqH/e4cZmQomXQMQ+ZUluvWMIJU0ffM7yLN6N+aR9b2/iJChrB0cUSDF3flAfzgw7eTaQDGuSPS3blfFP/hgN1Y/FzuyQjzHN2p9brkoOB6Hdz30OPfTD+lFAfc4AqbZl4FDPT70fhkCLQQT4iX0ysDAenNk1E/6Xc1em26LVhHt+7pwIyEFW78XxxzuVRNdjwRUuSge1NHTMWLCupg4aUQP2UJKD6bq0pSi91TMHvBz9OaAztgfZOGpb9NNfVN5w2nzvEBgyZCkjzN+J2+wMRu0/ImpyYNY5SExnPdEDvgOAm1VFURiYOfZXDuoJWeYh
+	U2sPcQEOTBJZgMYkjKDXi/LmGVqxYfLY+HLJC1mAfLthaLJgo/Duoy86apBX7BM1jvZk3uaO1zfUVAUgwBr452fIwO0PmTga+dathCLAEzYJmeY1D8Si8zUvpqiet2YthcVrF9a9UvHPF+4y/GLgEvfenm4ooy2xJTZk+ZmdwWsBNZDFgzy7KOYu85Asc8jeTsKVR0/lgAHUx2RA+z7cWUcqjkCPg7QlGbv/6qxl0Cf4zQBhfGqhr5stJjmGXDrXjrVdfdgeQtLxc5aLLqMIBKjFrLSSlCHI1+K1Tc2X+THWXoz6ZLuj0UetAcC+n4d4/5ca6IU8Nh1kwliCTV0yNIT0yqbgXmgHZlIh0rM36RT2zPRT382hgLyg0r7kNHM/j9PKnVip+HKINjBCJ1Sf67MnVCk71xMkB/8WV0mlN5aRq07tNopUAeV00WVKpmiL
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 10:20:15.2589
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 10:20:20.8735
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5a777ac1-7163-4349-e2a3-08df29dcbd2f
+X-MS-Exchange-CrossTenant-Network-Message-Id: ac3061e7-a130-461d-4dd6-08df29dcc081
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF000392DA.namprd03.prod.outlook.com
+	BN2PEPF00004FC0.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7324
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5913
 
-Add amd-acp7x-acpi-match.c with four snd_soc_acpi_mach entries for
-ACP7.F SoundWire configurations:
-- RT721 + RT1320 on SoundWire links L0+L3
-  (jack+dmic on RT721, spk on RT1320)
-- RT721 + RT1320 on SoundWire links L0+L1
-  (jack+dmic on RT721, spk on RT1320)
-- Standalone RT721 on L0 (jack, amp and dmic endpoints)
-- Standalone RT722 on L0 (jack, amp and dmic endpoints)
-
-RT721+RT1320 combo configurations use jack_dmic_endpoints for RT721,
-skipping the internal amp since RT1320 provides amplification on a
-dedicated SoundWire link.
-
-ACP7.B machine table will be added in a follow-up patch.
+Register snd_soc_acpi_amd_acp7b_sof_sdw_machines as alt_machines in
+the ACP7.B SOF device descriptor so that the SOF core selects the
+SoundWire machine driver when ADR devices are detected on ACP7.B
+platforms.
 
 Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 ---
- sound/soc/amd/acp/Makefile               |   2 +-
- sound/soc/amd/acp/amd-acp7x-acpi-match.c | 186 +++++++++++++++++++++++
- sound/soc/amd/mach-config.h              |   1 +
- 3 files changed, 188 insertions(+), 1 deletion(-)
- create mode 100644 sound/soc/amd/acp/amd-acp7x-acpi-match.c
+ sound/soc/sof/amd/pci-acp7x.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/amd/acp/Makefile b/sound/soc/amd/acp/Makefile
-index ab5f9dc871a67..42e2bd34da060 100644
---- a/sound/soc/amd/acp/Makefile
-+++ b/sound/soc/amd/acp/Makefile
-@@ -23,7 +23,7 @@ snd-acp70-y := acp70.o
- snd-acp-mach-y     := acp-mach-common.o
- snd-acp-legacy-mach-y     := acp-legacy-mach.o acp3x-es83xx/acp3x-es83xx.o
- snd-acp-sof-mach-y     := acp-sof-mach.o
--snd-soc-acpi-amd-match-y := amd-acp63-acpi-match.o amd-acp70-acpi-match.o
-+snd-soc-acpi-amd-match-y := amd-acp63-acpi-match.o amd-acp70-acpi-match.o amd-acp7x-acpi-match.o
- snd-soc-acpi-amd-match-$(CONFIG_SND_SOC_ACPI_AMD_SDCA_QUIRKS) += soc-acpi-amd-sdca-quirks.o
- snd-acp-sdw-mach-y     := acp-sdw-mach-common.o
- snd-acp-sdw-sof-mach-y += acp-sdw-sof-mach.o
-diff --git a/sound/soc/amd/acp/amd-acp7x-acpi-match.c b/sound/soc/amd/acp/amd-acp7x-acpi-match.c
-new file mode 100644
-index 0000000000000..2f5e060ec79b4
---- /dev/null
-+++ b/sound/soc/amd/acp/amd-acp7x-acpi-match.c
-@@ -0,0 +1,186 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * amd-acp7x-acpi-match.c - tables and support for ACP7.x(7.B/7.F) platforms
-+ * ACPI enumeration.
-+ *
-+ * Copyright 2026 Advanced Micro Devices, Inc.
-+ */
-+
-+#include <sound/soc-acpi.h>
-+#include "../mach-config.h"
-+
-+static const struct snd_soc_acpi_endpoint single_endpoint = {
-+	.num = 0,
-+	.aggregated = 0,
-+	.group_position = 0,
-+	.group_id = 0
-+};
-+
-+static const struct snd_soc_acpi_endpoint jack_dmic_endpoints[] = {
-+	/* Jack Endpoint */
-+	{
-+		.num = 0,
-+		.aggregated = 0,
-+		.group_position = 0,
-+		.group_id = 0,
-+	},
-+	/* DMIC Endpoint */
-+	{
-+		.num = 2,
-+		.aggregated = 0,
-+		.group_position = 0,
-+		.group_id = 0,
-+	},
-+};
-+
-+static const struct snd_soc_acpi_endpoint jack_amp_dmic_endpoints[] = {
-+	/* Jack Endpoint */
-+	{
-+		.num = 0,
-+		.aggregated = 0,
-+		.group_position = 0,
-+		.group_id = 0,
-+	},
-+	/* Amp Endpoint */
-+	{
-+		.num = 1,
-+		.aggregated = 0,
-+		.group_position = 0,
-+		.group_id = 0,
-+	},
-+	/* DMIC Endpoint */
-+	{
-+		.num = 2,
-+		.aggregated = 0,
-+		.group_position = 0,
-+		.group_id = 0,
-+	},
-+};
-+
-+static const struct snd_soc_acpi_adr_device rt721_l0_single_adr[] = {
-+	{
-+		.adr = 0x000030025d072101ull,
-+		.num_endpoints = ARRAY_SIZE(jack_dmic_endpoints),
-+		.endpoints = jack_dmic_endpoints,
-+		.name_prefix = "rt721"
-+	}
-+};
-+
-+static const struct snd_soc_acpi_adr_device rt721_l0_only[] = {
-+	{
-+		.adr = 0x000030025d072101ull,
-+		.num_endpoints = ARRAY_SIZE(jack_amp_dmic_endpoints),
-+		.endpoints = jack_amp_dmic_endpoints,
-+		.name_prefix = "rt721"
-+	}
-+};
-+
-+static const struct snd_soc_acpi_link_adr acp7x_rt721_only[] = {
-+	{
-+		.mask = BIT(0),
-+		.num_adr = ARRAY_SIZE(rt721_l0_only),
-+		.adr_d = rt721_l0_only,
-+	},
-+	{}
-+};
-+
-+static const struct snd_soc_acpi_adr_device rt722_l0_single_adr[] = {
-+	{
-+		.adr = 0x000030025d072201ull,
-+		.num_endpoints = ARRAY_SIZE(jack_amp_dmic_endpoints),
-+		.endpoints = jack_amp_dmic_endpoints,
-+		.name_prefix = "rt722"
-+	}
-+};
-+
-+static const struct snd_soc_acpi_link_adr acp7x_rt722_only[] = {
-+	{
-+		.mask = BIT(0),
-+		.num_adr = ARRAY_SIZE(rt722_l0_single_adr),
-+		.adr_d = rt722_l0_single_adr,
-+	},
-+	{}
-+};
-+
-+static const struct snd_soc_acpi_adr_device rt1320_l1_single_adr[] = {
-+	{
-+		.adr = 0x000130025d132001ull,
-+		.num_endpoints = 1,
-+		.endpoints = &single_endpoint,
-+		.name_prefix = "rt1320-1"
-+	},
-+};
-+
-+static const struct snd_soc_acpi_adr_device rt1320_l3_single_adr[] = {
-+	{
-+		.adr = 0x000330025d132001ull,
-+		.num_endpoints = 1,
-+		.endpoints = &single_endpoint,
-+		.name_prefix = "rt1320-1"
-+	},
-+};
-+
-+static const struct snd_soc_acpi_link_adr acp7x_rt721_l0_rt1320_l1[] = {
-+	{
-+		.mask = BIT(0),
-+		.num_adr = ARRAY_SIZE(rt721_l0_single_adr),
-+		.adr_d = rt721_l0_single_adr,
-+	},
-+	{
-+		.mask = BIT(1),
-+		.num_adr = ARRAY_SIZE(rt1320_l1_single_adr),
-+		.adr_d = rt1320_l1_single_adr,
-+	},
-+	{}
-+};
-+
-+static const struct snd_soc_acpi_link_adr acp7x_rt721_l0_rt1320_l3[] = {
-+	{
-+		.mask = BIT(0),
-+		.num_adr = ARRAY_SIZE(rt721_l0_single_adr),
-+		.adr_d = rt721_l0_single_adr,
-+	},
-+	{
-+		.mask = BIT(3),
-+		.num_adr = ARRAY_SIZE(rt1320_l3_single_adr),
-+		.adr_d = rt1320_l3_single_adr,
-+	},
-+	{}
-+};
-+
-+struct snd_soc_acpi_mach snd_soc_acpi_amd_acp7f_sof_sdw_machines[] = {
-+	{
-+		.link_mask = BIT(0) | BIT(3),
-+		.links = acp7x_rt721_l0_rt1320_l3,
-+		.drv_name = "amd_sof_sdw",
-+		.sof_tplg_filename = "sof-acp7f-rt721-l0-rt1320-l3.tplg",
-+		.fw_filename = "sof-acp7f.ri",
-+	},
-+	{
-+		.link_mask = BIT(0) | BIT(1),
-+		.links = acp7x_rt721_l0_rt1320_l1,
-+		.drv_name = "amd_sof_sdw",
-+		.sof_tplg_filename = "sof-acp7f-rt721-l0-rt1320-l1.tplg",
-+		.fw_filename = "sof-acp7f.ri",
-+	},
-+	{
-+		.link_mask = BIT(0),
-+		.links = acp7x_rt721_only,
-+		.drv_name = "amd_sof_sdw",
-+		.sof_tplg_filename = "sof-acp7f-rt721-l0.tplg",
-+		.fw_filename = "sof-acp7f.ri",
-+	},
-+	{
-+		.link_mask = BIT(0),
-+		.links = acp7x_rt722_only,
-+		.drv_name = "amd_sof_sdw",
-+		.sof_tplg_filename = "sof-acp7f-rt722-l0.tplg",
-+		.fw_filename = "sof-acp7f.ri",
-+	},
-+	{},
-+};
-+EXPORT_SYMBOL(snd_soc_acpi_amd_acp7f_sof_sdw_machines);
-+
-+MODULE_DESCRIPTION("AMD ACP7.x SoundWire machine tables for ACPI enumeration");
-+MODULE_LICENSE("GPL");
-+MODULE_AUTHOR("Vijendar Mukunda <Vijendar.Mukunda@amd.com>");
-diff --git a/sound/soc/amd/mach-config.h b/sound/soc/amd/mach-config.h
-index 02ce044bcbf72..321af4682fd30 100644
---- a/sound/soc/amd/mach-config.h
-+++ b/sound/soc/amd/mach-config.h
-@@ -30,6 +30,7 @@ extern struct snd_soc_acpi_mach snd_soc_acpi_amd_acp70_sdw_machines[];
- extern struct snd_soc_acpi_mach snd_soc_acpi_amd_acp70_sof_sdw_machines[];
- extern struct snd_soc_acpi_mach snd_soc_acpi_amd_acp7b_sof_machines[];
- extern struct snd_soc_acpi_mach snd_soc_acpi_amd_acp7f_sof_machines[];
-+extern struct snd_soc_acpi_mach snd_soc_acpi_amd_acp7f_sof_sdw_machines[];
+diff --git a/sound/soc/sof/amd/pci-acp7x.c b/sound/soc/sof/amd/pci-acp7x.c
+index 2999dc6d72a63..6aa16d1a12b95 100644
+--- a/sound/soc/sof/amd/pci-acp7x.c
++++ b/sound/soc/sof/amd/pci-acp7x.c
+@@ -47,6 +47,7 @@ static const struct sof_amd_acp_desc acp7b_chip_info = {
  
- struct config_entry {
- 	u32 flags;
+ static const struct sof_dev_desc acp7b_desc = {
+ 	.machines		= snd_soc_acpi_amd_acp7b_sof_machines,
++	.alt_machines		= snd_soc_acpi_amd_acp7b_sof_sdw_machines,
+ 	.resindex_lpe_base	= 0,
+ 	.resindex_pcicfg_base	= -1,
+ 	.resindex_imr_base	= -1,
 -- 
 2.48.1
 
