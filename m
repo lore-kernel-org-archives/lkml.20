@@ -1,102 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 406794E1C66;
-	Wed, 14 Oct 2026 09:45:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791971127; cv=none; b=ofDAbefwtCoXWwo5Nhq+IKwlIQLpZjadxc26Ur4NJd9e8c36PZH07uFzpUK+yZbjTsnnPWJXjukf1twHhxLZhTCdoVGlgkPNtfn+OpWCXURwG3uLMQUYBBN1Ity8bYR6U1uelntQirKb+Lle5QOVdvZZFn4O/O4B39+k7LNSJq4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791971127; c=relaxed/simple;
-	bh=o25ndurGSbIBeL+Pc3I9l5VHIz5sHmwgR3rpEHo0U9U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PDEZg2W/uHfOs/re39QFwW97LpTTVRZcVhQF0U/uLOXIve/HMb7uz95LwDL4E7o3D/EwzjGkh2J2QUQxVa4bkOmkKi2z5FZRt6bBP5v5u7Cj69n8bSIk7wPOfRfKa+LkaiEOAZ9D4fdE8va0KFIAFY/NvBoL1FNwmp7snwdqvRQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VtOpkpub; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E26E4E4C43
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:45:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.178
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791971129; cv=pass; b=siwD1RGuAGAAL73AOAGG3n0u0rcCjmr0XlCL46u/zwb0NQN/WB6CfDS9hVjzvNXtZibJ1QUdE4eHdgIzifuVar9AMXYm9iOg4xfmJFY7jt+psydfbyPZkEjxR1wiYPBfNXkVjLws+FFvQxkkhKR9nRfaq1eQWeR/U5nHBzwv3ko=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791971129; c=relaxed/simple;
+	bh=gusoHEwTYtpIMo9jbvB0sb5YbKOtm4Z6P3NaNg27eS0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=XgA1bJD5pPqTD5L9zY0Fb6Ij9mYshAogOVv5dZg6bVipJmCp1XTBT7IzUegngKFNrQAfFm4jMZQhgxi4+3dgqkMnhUgRITjO13PDN6cc4PyvBMxAQcVyVhIqcuGLFaABpUK5fOwy/WtXhiLEU/OwrZblle37BJhU0y5mHkJdEYE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de; spf=pass smtp.mailfrom=bairaktaris.de; dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b=PK1r923x; arc=pass smtp.client-ip=209.85.128.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bairaktaris.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VtOpkpub"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 435731F008A4;
-	Wed, 14 Oct 2026 09:45:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791971125;
-	bh=o25ndurGSbIBeL+Pc3I9l5VHIz5sHmwgR3rpEHo0U9U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VtOpkpub0uYuGgM+jv9mQxo0GDRFNl7ErtDjUIOwnAYplkvGYBEZ7euz+IFyJuWFS
-	 YJbrJTtVv2csOyZwYwRSaiJ9/CySnHuPit+1GNMLskuMlND29zmL5zZEk2KNGzQAYn
-	 G0QSG4X7bbobGwyydRK6aIZC4WO0nR/u2zzMqmGhGkK+NMQNMSoGn2B7qLAazs8vX3
-	 oC9z1RZ8xNsPy55DqLm/VC3Nf38vmU0sLQ+MtV9arCjsRgbpaqrHQa1JeuH+65+Ar0
-	 B+j4FjiDzR0Hm5feMC/m6RQ7qF9HzkryHzZ+BBE46q2LTyesfwjvMvpmdsMo0c2PAc
-	 WNnXpxjTFWmqg==
-Date: Wed, 14 Oct 2026 11:45:23 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
-	Nicolas Ferre <nicolas.ferre@microchip.com>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-	linux-pwm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] pwm: atmel: Fix prescaler for periods of 2^32 clock
- cycles or more
-Message-ID: <as9NusRrYjMO388-@monoceros>
-References: <20261003083036.21584-1-kmehltretter@gmail.com>
+	dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b="PK1r923x"
+Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-87ab6e5f91eso25138407b3.2
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 02:45:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791971126; cv=none;
+        d=google.com; s=arc-20260327;
+        b=sGXCouhmAHY2YWyALM3DWcRlqOJRBVwugokn5CGb6+KxOBnw0IkneWVrwCAk0GZ2LM
+         ekma5INNCm8fLC54UfkSHFs3YXiTa2jvYrQKqZhAsTWqolCSL/XzGT7zaFK1YwY73gmm
+         /b9XUIuvQZOsqWQZnmapP4GY6ortVdQn0dLjS5uwpuxTT2nVazEPbTpgPUHBznHI/mj4
+         hZNPnBGZTIsKf074bsFw5o4FKprSRrwD/zzrpqnSw0nSbv8zerOKrsEMAAUGDYGv/m5v
+         xxVw4WLYZYyIWOFZjurUpyw9sGyjteI4IzNiz+g3/ejYVzGXGCBIDBLxqFG0OoYsMgMD
+         4ljQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=gusoHEwTYtpIMo9jbvB0sb5YbKOtm4Z6P3NaNg27eS0=;
+        fh=ypUgHu/QsmdoOQ+khK+DGi3qXLE0y+YyU6zYsIhVXPs=;
+        b=eJjPBHLSYBvmVRM/+9C/ITq9GEoWEOFbq9HXEOO6VBGN+xtrlWuQKkwdWrd+XIXBpl
+         4rzNXTBHxZJOpPT71l6grAi2LDZiRGtPPU8wfYD3KOMJec3YsZ6WiqA9QKHGo5d7IZrJ
+         HacqDoNO2peYCFP+ETyIbvLFB/wXwyq8P7+9Wx0Nk0h+kVodhnBkTwNwQ6Tn1DcO2/CF
+         lcayF2JGaH9FpqPzQMUKUc3I91ueiod+EZCnbGvAmcSMg5hG4qPiIjal7uezXnzYRD70
+         6qG5iNVzPDqxWFcfxQaElJ8YV6eOk7+LVBoNsrdPCKg0WDaAJV0xsgf0f4/9wP1lFJCn
+         qJXA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bairaktaris.de; s=google; t=1791971126; x=1792575926; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gusoHEwTYtpIMo9jbvB0sb5YbKOtm4Z6P3NaNg27eS0=;
+        b=PK1r923xhU7qDZUbZmXe0yFUiSBca3J8XHIHs9qS+//TYB4Fft+Qo2Ljqk3oG6sPvs
+         ExQCXNC1AHfaOK+vCwWLnwkjAKTf2UBbROgtrQXr86a/xPPl6cnW8uxv3/TF1HaeunIL
+         WDiDbbme6gyhDZGG95JeVXsSEylcaz4DknthCfgSWs5Ausu5ByUHgSsm7wIUQRywIF7U
+         6L6dKDQwf2C+Dc83KQaib+KmDPGD3y03epzqW/Cg6zX34bmKNG+1EutwDxzYAA5TyPdM
+         vvgnoK8SarlTBCqLg0ZTdzmtuFchV5igeEa4cykI2Ygktz2Ux2qUDOT2+uGnWf2ewKNE
+         z44g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791971126; x=1792575926;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gusoHEwTYtpIMo9jbvB0sb5YbKOtm4Z6P3NaNg27eS0=;
+        b=l+Rm8qELwJ4MnUXqzgXef09zz9jbS5frf10rbtyhWkX6Uiudlo/ZYiE4P/NFv0KBSE
+         D0nJz33mgFA6NPMW8dIsqnEJ80mZtJsPZYfP7v8LKpE70F46tchTh7QkNuE7PevxfQh7
+         k6Il/osHTO9irfA8N4nYKLV6sOO72eQsLSqskAsdPxXI7vz9VVWHMNu8ivR12LNApYiG
+         LkMFJ0ekiIg8MWn6rclVJsnr8UyFb1gCE1psPc8RsDPEzaid6PVfJyBmuiLIkOJUPMMH
+         DF7erdfRV6ZORd7mSW+MtNqr9yPvg5Gno/+TyFlk/sKaqqpgNeMOQ0w/zZiYJ247ONRf
+         F1KQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwrhBGjl1sKEsXCXmWRswol5kram+osKR88vHIXVfFF6E4Y40h4ygJo7j4Hz/xGgPdxEXFPJWKQJav+xlE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKJYAvCmVcuac8r5G/N4S755UQjhe6kYTmtglmwzghAqwiTOOZw
+	WKDAu7hmZBxtf7ZGMbCNYFK5b2OyKpR1V1yj7O1vHcSvcYve8OcMrryyRSElv7Tmkt5ngW3cCqC
+	6rpsMVB8VlSQVWxjneW/uOv3d1ULFZLXXTdCDHDVT
+X-Gm-Gg: AYBFou0xuXMlscxkKBDC5h1NLGepkZznlbeZO5ezlW4oA3pg/a8zGWvv+PiyHFIhQCR
+	8sprKj2vepOGwgfsiN4Xn2o4k4s2t2JUfGaNlESjWDNKPsnuYhJym2S/zxJpYB+UzNuaV0SwRSw
+	Dbn/q8u5SVNqGlKP/VugvKP3jepYqW0Dcq5XdB43ls6kcY56slDueLRquQ0G+N9thayKhPLanrA
+	hFGLrN0XRzoIZpjf9RkxvBjqHwzBXpT/LwWFTRlt342yf79fW1Dk8yor11XpKlSBRDaDzopmP7S
+	ooF8FJguQq3/wBC0SzBlhEGVQbRcfzJUBHn6uKAvfZdtqfg1lhPZ5oK4xB1GnxRjN7MZspekLNf
+	VvdKDHp08igQgzjHEF7uQmCcYboNZRLwfwNUgGISac6xkrGkOjGK/aIoyU+ic6xJLDvuhMWvq3s
+	+KzzRj45wQRdWs4sgwOyaRiFkysz5DOpK322eU3tCVXoSHx2RaDu3hitEisL2t/CMw+mRlFJ4yK
+	Otf+rDeJL2VFYFQ3Bd90P+iMI8YOg8RaKtNAEXuLlmtd6xnT1U9ay1qT/4/5h0E84U2UqygETQQ
+	FACwrj7wWAs58A==
+X-Received: by 2002:a05:690c:c4e5:b0:8b0:9e22:2651 with SMTP id
+ 00721157ae682-8b09e22273cmr36219317b3.7.1791971126209; Wed, 14 Oct 2026
+ 02:45:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qf4c2coehtxmfrl5"
-Content-Disposition: inline
-In-Reply-To: <20261003083036.21584-1-kmehltretter@gmail.com>
+References: <20261004171636.3545085-1-julius@bairaktaris.de>
+ <20261004171636.3545085-2-julius@bairaktaris.de> <b4aa46a5-dd8a-4520-8574-d008a3877f28@nvidia.com>
+In-Reply-To: <b4aa46a5-dd8a-4520-8574-d008a3877f28@nvidia.com>
+From: Julius Bairaktaris <julius@bairaktaris.de>
+Date: Wed, 14 Oct 2026 09:44:49 +0000
+X-Gm-Features: AclHuK_at13xJpgBNhwlZvLzlUVxJXDvkN0LGkLWSuS73Rn7U8oFN9DIXlg-t_w
+Message-ID: <CAC1t37K0tEMzxmRhLeHnH-TPx61pZmCHt0xxTJ5Wq2Wxvzv8Jw@mail.gmail.com>
+Subject: Re: [PATCH nf-next v3 1/3] net/mlx5e: Ignore FLOW_ACTION_PRIORITY on
+ flowtable offload
+To: Jianbo Liu <jianbol@nvidia.com>
+Cc: pablo@netfilter.org, fw@strlen.de, phil@nwl.cc, 
+	netfilter-devel@vger.kernel.org, coreteam@netfilter.org, 
+	netdev@vger.kernel.org, lorenzo@kernel.org, nbd@nbd.name, 
+	matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com, 
+	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com, 
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, corbet@lwn.net, 
+	rdunlap@infradead.org, skhan@linuxfoundation.org, linux-doc@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-mediatek@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, saeedm@nvidia.com, leon@kernel.org, 
+	tariqt@nvidia.com, mbloch@nvidia.com, linux-rdma@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+On Wed, Oct 14, 2026 at 03:17:00AM +0200, Jianbo Liu wrote:
+> The handler is only in tc_acts_fdb[] and only accepts flowtable flows,
+> so NIC mode and tc flower rules are rejected as before. Looks good.
+>
+> The comment says what the code does, but the consequence is worth a line
+> in the commit message. Because the action is ignored, the priority only
+> reaches packets still on the software fast path, where
+> nf_flow_offload_forward() sets skb->priority. Once the flow is offloaded
+> to the FDB, mlx5 forwards it without touching skb->priority, so the
+> offloaded packets do not carry it. Refusing the flow to honor the
+> priority would keep it in software, so ignoring the action and keeping
+> the offload is the better tradeoff, it is just not obvious from the code.
+>
+> I checked this on ConnectX-7: with the series the priority-carrying
+> flows stay offloaded to the FDB like plain flows, and without patch 1/3
+> they fallback to software.
+>
+> Nit: "prio" already means flow table priority in mlx5; skbedit_prio
+> would be clearer. Not a blocker.
+>
+> Reviewed-by: Jianbo Liu <jianbol@nvidia.com>
 
---qf4c2coehtxmfrl5
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] pwm: atmel: Fix prescaler for periods of 2^32 clock
- cycles or more
-MIME-Version: 1.0
+Hi Jianbo,
 
-hello Karl,
+Thanks a lot for the review and for testing this on ConnectX-7!
 
-On Sat, Oct 03, 2026 at 10:30:35AM +0200, Karl Mehltretter wrote:
-> [...] Some out-of-range requests of 2^32 clock cycles or more were
-> accepted and programmed with truncated values. They now fail with
-> -EINVAL.
+I will send v4 with your suggestions this weekend.
 
-This is wrong, a too big request is supposed to pick the maximal
-possible configuration without an error. But that is a preexisting issue
-and converting to the waveform API is more sensible than fixing that.
-For the scope of this patch, the implemented behaviour is ok.
-
-> The truncation was not reachable when it was introduced. The period
-> was an unsigned int in nanoseconds then, which limits it to about
-> 4.29 s. Commit a9d887dc1c60 ("pwm: Convert period and duty cycle to
-> u64") made longer periods possible.
->=20
-> Fixes: 2101c878f767 ("pwm: atmel: Replace loop in prescale calculation by=
- ad-hoc calculation")
-> Fixes: a9d887dc1c60 ("pwm: Convert period and duty cycle to u64")
-
-Why are here two fixes lines? Given that 2101c878f767 is an ancestor of
-a9d887dc1c60, this cannot be right.
-
-Best regards
-Uwe
-
---qf4c2coehtxmfrl5
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrPTzAACgkQj4D7WH0S
-/k7ljgf/aIZ6f/aMMdY/TL4aaCYVhzSwMf8ksvYW0d8CVu4IQC5GMHG5bvYms8r0
-RRd1sftYJSs1SiGt4vbdwnEZ/ZjsA/jiFtG9aoDyyH9ArkrSPtHGdmOTjQS1kXgw
-r9VUMtlBMbzohUzrnTHA3aKIAj9T3F6etkz8fbnjrkaOtxxiGqh9BvqW1eNbiB7d
-l8eIQRA2NdgFostcUsQlfgd4pYC42p7i4aFtkhsonrt2GiihtsDhDuiDB9lf6myX
-/LxOFFGuwo8qxm/CGiHQgFgqEWs5/8La8kwhg659b2kHXioOHo1pvNVm6tZw1bL5
-IBdlfGW2ch4FNLD/ceSlsqHFf1IbjQ==
-=JxkX
------END PGP SIGNATURE-----
-
---qf4c2coehtxmfrl5--
+Best,
+Julius
