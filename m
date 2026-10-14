@@ -1,72 +1,70 @@
-Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 028643F484D;
-	Wed, 14 Oct 2026 17:48:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD9483FF8A5;
+	Wed, 14 Oct 2026 17:49:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792000129; cv=none; b=MjnLlABPmb9aAMJxWJ4iYKe9BThAjzLVgF5uAvy2Mo9g89IYARZdVNQahQRtLxSu/rWGXoL+oigfd9JQY6L2K4V2ooH8WhamLBZiVlA/iyxHj+qlKwPauEXHLcUVM1/o3pVG+MBVhQmOouwvjSPIN9vCAx8qtcqrGFeyHVkhh4s=
+	t=1792000155; cv=none; b=swFNEed5Hp4YIrTTdgClaSqEkPrRJBrBfILo7+mdAQTecmFrkp7tBUJ1NVO8JMiSHKM5aybKWH25LSPkbCBfVxNxGxpVtdGAkcJSHbWH9zd2qX8matZrSigvGQ2Wej4FoNwuR0JE9xT7eZQcoTCfOpZWztMYhECoz48zM0SUiM0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792000129; c=relaxed/simple;
-	bh=j7pLnvwLCIsfuo4PvntDi07O9ysgjz662GK9qLAtf7Y=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=Uyf5cS1Bc2A4ObM0MuzGAB7rLXLIEqWyJdwqxtLDBkkjjY8W6kvXYOuV4YbLY/PuummnW1eQBhBDv1Qoy0YOzFS8x3eBKYpZlhdDc/MWzAqNzGsxOV+EYP0M3rRLcUmETPP2nSN6b5lFfHjRZbE2Fcwt8mOx9Nwi9qI/5vZPm8c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=RP4vps56; arc=none smtp.client-ip=45.79.88.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
+	s=arc-20240116; t=1792000155; c=relaxed/simple;
+	bh=HVEwR1NusfXDH2gZtiy+6THgNw0LWNTEYzJ/BVTB99A=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dT1TT4TMkPn/hcrMFR/q2hWAzwkrDZknWnhwc7L5sNeoswqeO6mR/WQshAOTamKekxLRlG/k4fFFZ9Q7thNraZk/MKyPXPvAPQAROlNFy4CDW9v7DH+MUW2QmNpSiPgesexIetTD6m8g6Bx7j1wjG6AS7rWvK+Spf7OsCrTb4Wg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YjBTku2C; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="RP4vps56"
-DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 1DD2B408FF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
-	t=1792000127; bh=0KYrnYM6QjdVX1pTyqLj1Cr1lrP/8/nMbE2Zn6BvIDE=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=RP4vps56w1bvnVeTV77pSuryuperGu1zSbS2t0aqr+baYqP2FMQDRYnP8udLwAkOU
-	 trXBZzzmSs0FkRVIy0OKvq/BS8kUUhdzVUc372FhPitO3gmBygtJ3nFeR2Ly5IaKJ8
-	 BoU09TjrFlaM9Qzq3w3MFaqH45Grzb2WGX8RvDsLAu5MAYoQVs/aZizsDoMoSbnfxp
-	 JQcbtIBXJ4aq78BiiJ5JxM4tE5m1hgAqJfJN/rKrQcaVBYYuTtaQeKsSvsdyfMR0r9
-	 N4jniTTyRMCdfozvuR7iOISvm9CDuq3bc39GRt5pECuVtiopXvu8IhAZuVm6tRb+gp
-	 ey+XCpyHsqL/g==
-Received: from localhost (unknown [IPv6:2601:280:4600:814::1fe])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by ms.lwn.net (Postfix) with ESMTPSA id 1DD2B408FF;
-	Wed, 14 Oct 2026 17:48:47 +0000 (UTC)
-From: Jonathan Corbet <corbet@lwn.net>
-To: Sasha Levin <sashal@kernel.org>
-Cc: workflows@vger.kernel.org, linux-doc@vger.kernel.org,
- skhan@linuxfoundation.org, rdunlap@infradead.org,
- linux-kernel@vger.kernel.org, Sasha Levin <sashal@kernel.org>
-Subject: Re: [PATCH] docs: add AGENTS.md as a symlink to README
-In-Reply-To: <20260924134945.3095661-1-sashal@kernel.org>
-References: <20260924134945.3095661-1-sashal@kernel.org>
-Date: Wed, 14 Oct 2026 11:48:46 -0600
-Message-ID: <87ik34uq9t.fsf@trenco.lwn.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YjBTku2C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE2A31F000C4;
+	Wed, 14 Oct 2026 17:49:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792000154;
+	bh=HVEwR1NusfXDH2gZtiy+6THgNw0LWNTEYzJ/BVTB99A=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=YjBTku2CyZA0MXqd7tTFmmGVK2OFo97NnGxuv2FeutEOkyzSPzs1VIecdfyxbJEMA
+	 G24b7cOE4lF5AelC6aLupmgV2BLdlnd+bmf3X6Nuyv+783TNCCjuAIAtH6Jmw90QoU
+	 iULvfOjq5d0FtOSQbTHVMyR/SWWk08UpR0fBktSYPIVzCiX4pZPcTikLZEFHezFOSP
+	 h4u3QXP2ZzaRMTxnGyPVywvf+WP5Lz7uuWW7rqK/GgB0hn2Sn1iRnZTbe5fseu2a8j
+	 qorZQwdE3GVUVCIXYxotOELeMTavP8uylahNE4HAMh33tcNaS7uflOSq3bovN0jhD5
+	 Ut/7zBES06CMQ==
+From: Miguel Ojeda <ojeda@kernel.org>
+To: sashal@kernel.org
+Cc: broonie@kernel.org,
+	corbet@lwn.net,
+	ksummit@lists.linux.dev,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	rdunlap@infradead.org,
+	skhan@linuxfoundation.org,
+	tytso@mit.edu,
+	workflows@vger.kernel.org
+Subject: Re: [PATCH 0/2] agents: add portable agent skills and Fixes attribution
+Date: Wed, 14 Oct 2026 19:48:38 +0200
+Message-ID: <20261014174838.114990-1-ojeda@kernel.org>
+In-Reply-To: <cover.1791499378.git.sashal@kernel.org>
+References: <cover.1791499378.git.sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-Sasha Levin <sashal@kernel.org> writes:
-
-> Most coding agents have standardized on AGENTS.md as the file they load
-> automatically from the root of a repository. README already tells AI
-> tools to read and follow Documentation/process/coding-assistants.rst,
-> but that only helps if the agent decides to read README before acting,
-> which in practice it often doesn't.
+On Thu, 08 Oct 2026 18:54:51 -0400 Sasha Levin <sashal@kernel.org> wrote:
 >
-> Add a top-level AGENTS.md symlink to README, so agents load it on their
-> own and follow its pointer to the AI guidelines. This keeps a single
-> entry point for every reader, and avoids adding a separate copy of the
-> policy that could drift from the RST.
+> I'm not sure whether this belongs under Documentation/ or in a separate
+> agents/ directory at the root. I'm open to changing the location.
 
-I'm still not fully thrilled by this change, I must admit.  But I have
-gone ahead and applied it; hopefully it will help to improve the quality
-of the patch flood some.
+Either way, we still need local setup to use these skills in at least a couple
+popular tools, right?
 
-Thanks,
+One discussion point could be which markup language to use. If we were to do it
+in `agents/`, I guess Markdown could be a possibility. But reStructuredText and
+having it in `Documentation/` would allow to have it rendered and to "link"
+things more easily, which could potentially be useful for certain skills.
 
-jon
+Anyway, I tested it with a simple case invoking it explicitly, and it seems to
+work, including one where it was not an actual bug (it complained about it :).
+
+Cheers,
+Miguel
