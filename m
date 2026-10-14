@@ -1,116 +1,184 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9C1353162A;
-	Wed, 14 Oct 2026 15:18:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD27D348445
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:18:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791991126; cv=none; b=I24IIaaQc17RY+EjNmgM5hdCByvC2KCFHE2wy2zZwh+g47MDXtlpZsVYV+eYjrBd2ma6WbvurpQ8CvDmxoAna+JXc4c/2s8nRZMVROKrymySaU5t2euoVp3TreBPXuc4xL8dhEE6ZJ73X9E8rSNgSvitzmYf0Mt0MV+VIOUjKQw=
+	t=1791991140; cv=none; b=SPlqxfmRbUj6cSYcYvFLJV9oaH4gxmpauPe4x64jf5ntFznqXlwCz9GVktXbwhCdk9HtXNZWl6KLPpofRnHO2MjVXnGK1HS6N1HeFXHWCGjpid4EEHg+Put2VKSBRDKQwdig4bnCvwlddN23Qc0ly4KIKMpt6dEblMubUrfCOAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791991126; c=relaxed/simple;
-	bh=wZdjWgb2NT+vzgnTlPr7fPSSVUJ3ymSYaIFCWHLM2ZU=;
+	s=arc-20240116; t=1791991140; c=relaxed/simple;
+	bh=Iqv7An2ELPabpUT7OVtm+I8Wass6AmEfu1El7+uJI7c=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UcjFoBZPrPKQ5dvkqOq8Ks8mCXl5Kcz0CrOn0VdEvremhKm09QXzpqVGcy1XJJ7X3tW+Iwn0xgAzCYLI+hxBIvMXG8EFa9WqcjX0mjm1nQWJUoPE1H2JLRoCNQfAjphBBFASwQDma+hgTSJgYV1DDfmJmO/zAT6rg33Z6wfGF3w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=gqP11io2; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=kdapR0i2; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	 Content-Type:Content-Disposition:In-Reply-To; b=MgTdXKYtKszdzMYukfte93lt1NsdFr+7P0NLpBGR3xRlYNHw/f3hmol21XN+eTqz+/1wrckkrx4bQslRCHSPVdUsjWAU1cDKCqUx8lBEmEMx1a9yQZzzYSyNuQMtM+OU6TiRR1zoi3P78cDyhj2d/VTTC7lu0vukvUU0nkaeUvs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=PCp7kT0R; arc=none smtp.client-ip=209.85.218.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="gqP11io2";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="kdapR0i2"
-Date: Wed, 14 Oct 2026 17:18:38 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1791991119;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3VSLCeFmF65RLXMr+lpZPrtUt8NDrMnmjDiLSUsI+rQ=;
-	b=gqP11io2/qEsXWgDGZBxYdXuca8xI8ITMl/bW+oV2F+hzQ348BDGiwjT/SvcsqTJ8vveZL
-	4KgXM6m4nTYukmO9uU5cS9JkvPS3z59qGa60iot5Ss3os/M7wagIaC3CmIjXBDQ0ulvMg8
-	fK7qWdLtVDZ2bWFQZOh1Q2LfEVkG1+LkapexfuMufvZRmsnwiARcpmBao5KbTn5OjrVFgG
-	wmlyX1dieCHSSlvbFAmy0yozlkz3voAHB3NeRmgh/wUR6Jt9ii/FMg72eDbrnPipYq6rgH
-	VIPNcPezgDL+XIIRk9gSMZ+5pyfe/iOdLbI6+d/QRHjrZifjXjE66ppQc41Frw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1791991119;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3VSLCeFmF65RLXMr+lpZPrtUt8NDrMnmjDiLSUsI+rQ=;
-	b=kdapR0i2102at6jWmEphHIl/0nk8fmGunszsqpl9TsVv+k61KxT7nF5tJPm4bRMTE6zyo7
-	NyeYbz3rgnJo3AAA==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Xin Xie <xiexinet@gmail.com>
-Cc: liuhangbin@gmail.com, Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	andrew+netdev@lunn.ch, shuah@kernel.org, kees@kernel.org,
-	petr.wozniak@gmail.com, qingfang.deng@linux.dev, fmaurer@redhat.com,
-	luka.gejak@linux.dev, xiaoliang.yang_1@nxp.com, skhawaja@google.com,
-	stable@vger.kernel.org, sdf.kernel@gmail.com,
-	syzbot+fbf74291c3b7e753b481@syzkaller.appspotmail.com
-Subject: Re: [PATCH net v7 2/4] net: hsr: preserve submission order without a
- forwarding lock
-Message-ID: <20261014151838.6RyMIRVM@linutronix.de>
-References: <20261009201324.17-1-xiexinet@gmail.com>
- <20261009201324.17-3-xiexinet@gmail.com>
- <20261014134718.YGcKmfB9@linutronix.de>
- <003d3e2a-3568-44f6-a9cc-3202de60da58@gmail.com>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="PCp7kT0R"
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c2af2ae1258so64398166b.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:18:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1791991135; x=1792595935; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=eap6P8yfIrxQOWUklCvJ8ok9fbtwgYdF5plY1PGn76k=;
+        b=PCp7kT0R1nLGb+eUdl2agmNJALmTimkW3YK40i1Hk/IXqNdJ9L0FCzivflBZCz3Yu1
+         dmJkK0C366SQSM5dZJ0QF8QkHOVezU9cbAUUC9ldLVdGfq3VizJBS26hkeJ3zudHH9hk
+         98lP2Wilbd29ZHkoPyXva5qPJudH5oyt7Jr+bWkZll6AOlDu1CbFYLRpHHZLC1FE1Iuz
+         f6Env5KVr+QFkR8CA3BGO0nGe+6SYKniHsMQFKXqJ5adARaKZPVZDw1iZ9hIErGBdLnd
+         m6bDRqp/SICVcGfobWj2SHY1ApmZwEN0YtgB1G/EecywkmpB1wDUkGFTryTRbbZ/CHkj
+         VR1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791991135; x=1792595935;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eap6P8yfIrxQOWUklCvJ8ok9fbtwgYdF5plY1PGn76k=;
+        b=Pfi54mTvKKF9SHxaNUfxx1G+y5dsMTRz4mjZ9p+USdu8NvV7DfSh5v350gGyiqfS/v
+         DyQtYwNKv9Y1ztmss3t13WTWdw2fZ3nCW4CM507dg8Ptk/wUkrLRZnF0cb08Wac+tAy/
+         HuWk7Pv/8/9w6HEIp1Pdnd7Bz7sK5/CgNuhbwBFZer/ft6acXwONxduG4oMv574xztLs
+         u4rylR24nzYNwbaJKh5RG4/cCCeWNeoFGD2NVoUduUtV6cVq7Y82VNJo+yeag5Jnp2qH
+         uU5sV5V35UWjZfO+RFatE9xyruWCAYXS21AdIm5tKlMiGc2TXjSx9b6phPALv4VXDbtt
+         gi7g==
+X-Forwarded-Encrypted: i=1; AKwUvBwekewObBf0T4KVO3LCZcELVE/OZYERV/urJrSUP4oS0AhOAJ/x/yhX0SrlhY4g6A6ZnyQjLtW30xWt/t0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJlU/iL7fV+Cv4mdJI7IL05pfwYrxL2l58O/vaCt3sJiajJhsI0
+	TTUnLxMBgeR+Bc4BHyjnx4ycOTZZJMhygqZ4mM9CzBH30d8xNOTKxJofrY2SXPhD8Dc=
+X-Gm-Gg: AYBFou1Pe2BH6BrYTfE0McHNWu75Tkez0BJh0sE7roaVZegWLuA7mDzrFD/9Da4mgRt
+	kw3LJJ40qe2Bf5xw6AKU2fs5agjGdGsTPDbp0LvRaEP7MmY999r+Z1E+P61MofZXi+LEm20ehwy
+	hsfWxJ1D7RctUhm9zyitXFWhLyhn5HST9MOzmTbkTS3wGaaFuIs1J0mryQ9Guk6HVy4MKrd/Z4a
+	qbsN5yWhvKGUPQNYlYMDvr4gZ7s2WfQhlj9ezoxRczirFdwRNrSNSed8FRZvXZGdtTUQH4HHZ+3
+	ChXsUkfcZuLWULfmU9+sN2J4bvjziGhGAtr5X78IrUY3xfZ/YLJBSBSq7qHcrdxCGK6nad8aLtV
+	ZdjawZg58G+/uWCmSD5C3jzpADMMIs3eHaUJKPJ6DUOnFvaPegvj8idyi9OuiZjJKZMC2XL3pr5
+	uvpu9JGymsx381ut4TkXqTn5SBLOlWgVvqxih6swdfgMsUiw79qDQYGRbBqLlKhwdTYP0Kg2PzS
+	JXGEQ4=
+X-Received: by 2002:a17:907:7fab:b0:c29:5637:ed76 with SMTP id a640c23a62f3a-c31a9d117ebmr1775364166b.2.1791991134891;
+        Wed, 14 Oct 2026 08:18:54 -0700 (PDT)
+Received: from localhost ([202.127.77.110])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd61fc465c3sm1990361a12.27.2026.10.14.08.18.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 08:18:53 -0700 (PDT)
+Date: Wed, 14 Oct 2026 23:18:50 +0800
+From: Heming Zhao <heming.zhao@suse.com>
+To: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>, ocfs2-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ocfs2/dlm: hold the lookup reference across convert AST
+ enqueue
+Message-ID: <as-cs6Pxot8LavVG@p15>
+References: <20261014112321.2955584-1-joseph.qi@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <003d3e2a-3568-44f6-a9cc-3202de60da58@gmail.com>
+In-Reply-To: <20261014112321.2955584-1-joseph.qi@linux.alibaba.com>
 
-On 2026-10-14 16:48:55 [+0200], Xin Xie wrote:
-> > What are stacked HSR devices? Looking from the setup in the referenced
-> > report this is a bridge device attached to a HSR ring.
-> > An announce frame is sent and this goes to hsr_dev_xmit(). This does not
-> > look like a normal setup. Is this something you use or is this something
-> > the bot came up with?
-> It is the setup from the syzbot report, not something we use. In that
-> report the slave port of one HSR device is a bridge, and one bridge
-> port is a second HSR device. The announce frame of the first device
-> holds its seqnr_lock, goes through the bridge, and ends in
-> hsr_dev_xmit() of the second device, which takes its own seqnr_lock.
-> Lockdep sees the same lock class twice and reports it. With two
-> devices this is not a real deadlock. It only becomes one when the
-> transmit path comes back to the same device.
+On Wed, Oct 14, 2026 at 07:23:21PM +0800, Joseph Qi wrote:
+> dlm_convert_lock_handler() drops the reference it took when it found the
+> lock on res->granted at its leave label, one statement before it calls
+> dlm_queue_ast().  dlm_free_dead_locks() takes res->spinlock and drops the
+> list and base references, so a peer death landing in that gap leaves the
+> handler's own put as the one that frees the lock, and __dlm_queue_ast()
+> then reads lock->lockres from freed memory.
+> 
+> The handler is registered next to dlm_create_lock_handler(), so a convert
+> message buffered on a dying peer's socket arrives on the same o2net
+> receive work that o2net_disconnect_node() does not wait for.  The two can
+> interleave as follows, with the reference counts as they are before this
+> fix:
+> 
+>   Socket data-ready       Node-down thread      Receive worker
+>   -----------------       ----------------      --------------
+>   o2net_data_ready()
+>     select sc under
+>     callback read lock
+>                           o2net_disconnect_node()
+>                             queue shutdown
+>                             begin flush; new color
+>     queue sc_rx_work
+>     in the new color
+>     release callback lock
+>                             shutdown socket
+>                             flush returns
+>                                                 read buffered convert_lock
+>                                                 dlm_convert_lock_handler()
+>                                                   find lock on res->granted
+>                                                   dlm_lock_get()  refs = 3
+>                                                   lock res->spinlock
+>                                                   __dlmconvert_master()
+>                                                     call_ast = 1
+>                                                   unlock res->spinlock
+>                           DLM node-down cleanup
+>                             lock res->spinlock
+>                             dlm_free_dead_locks()
+>                               unlink lock
+>                               put list ref  refs = 2
+>                               put base ref  refs = 1
+>                             unlock res->spinlock
+>                                                 dlm_lock_put()  refs = 0
+>                                                   free lock
+>                                                 dlm_queue_ast()
+>                                                   __dlm_queue_ast()
+>                                                   read lock->lockres
+>                                                   (use-after-free)
+> 
+> __dlmconvert_master() only moves the lock between lists, so the count
+> entering the gap is base, list and lookup.  Drop the lookup reference
+> after the AST is queued instead of before it and the race ends with the
+> one __dlm_queue_ast() took, which dlm_flush_asts() releases later with
+> ast_pending cleared and ast_list unlinked.  No extra get is needed, and
+> the normal case ends with the same count as before.
+> 
+> dlmconvert_master() has the same shape but is only reached from dlmlock()
+> for a lock this node owns, which dlm_free_dead_locks() never matches.
+> 
+> Fixes: 2c5c54aca9d0 ("ocfs2/dlm: Add missing dlm_lock_put()s")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 
-Okay. In that case, could you please teach HSR to reject bridge ports at
-the very least?
+The code looks good to me.
+Reviewed-by: Heming Zhao <heming.zhao@suse.com>
 
-Given that HSR is a ring and PRP faces two networks, I don't think a
-bridge setup would make sense here. So rejecting this should be any easy
-fix.
+btw, how do you find the issue?
 
-=E2=80=A6
-> So for v8 I see two simple options:
-> (a) Keep seqnr_lock across the submission like today and only break
->     the re-entry: a frame that enters HSR transmit while this CPU is
->     already inside HSR forwarding is dropped and counted. Ordering is
->     kept, but all forwarding of one device stays serialized.
-> (b) Narrow the lock to the counter update, as in v6 and in Hangbin's
->     patch [1]. Several CPUs can forward in parallel. A receiver without
->     the bitmap discard can drop a reordered frame, so the patch would
->     carry "Cc: <stable@vger.kernel.org> # aae9d6b616b5: ..." as Simon
->     suggested there, and the TX statistics move to per-CPU counters.
->=20
-> I would prefer (b) because of the parallel forwarding, if the old
-> receiver limitation is acceptable to you. Otherwise (a).=20
->=20
-> Hangbin, Simon, your view is welcome too.
->=20
-> Patch 3 works with both: it segments before the lock, and each
-> segment is numbered and submitted under the lock.
-
-Or (c) tell HSR to reject bridge ports. This should avoid the case and
-the problem.
-
-Sebastian
+> ---
+>  fs/ocfs2/dlm/dlmconvert.c | 10 +++++++---
+>  1 file changed, 7 insertions(+), 3 deletions(-)
+> 
+> diff --git a/fs/ocfs2/dlm/dlmconvert.c b/fs/ocfs2/dlm/dlmconvert.c
+> index 450d46eefab32..8a828448ba958 100644
+> --- a/fs/ocfs2/dlm/dlmconvert.c
+> +++ b/fs/ocfs2/dlm/dlmconvert.c
+> @@ -534,15 +534,19 @@ int dlm_convert_lock_handler(struct o2net_msg *msg, u32 len, void *data,
+>  	}
+>  
+>  leave:
+> -	if (lock)
+> -		dlm_lock_put(lock);
+> -
+>  	/* either queue the ast or release it, if reserved */
+>  	if (call_ast)
+>  		dlm_queue_ast(dlm, lock);
+>  	else if (ast_reserved)
+>  		dlm_lockres_release_ast(dlm, res);
+>  
+> +	/*
+> +	 * Keep the lock alive through AST enqueue: a concurrent
+> +	 * dlm_free_dead_locks() drops the list and base references.
+> +	 */
+> +	if (lock)
+> +		dlm_lock_put(lock);
+> +
+>  	if (kick_thread)
+>  		dlm_kick_thread(dlm, res);
+>  
+> -- 
+> 2.39.3
+> 
