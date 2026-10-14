@@ -1,162 +1,123 @@
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE235190462
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 21:45:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E88A4481AB3
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 21:45:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792014344; cv=none; b=aQwJaQujsodwzmSjHt5JlETsA5Ccsd4xLmgn5HI17zhgvLo0xJuPf6wIbVHMv3HCCxMme2gGCU8bfd68Tm0Ai2XPRWG8jZqHiMC0dtCfwk6g5W4ROPSI/u9vUiJoTF8K7mOWAWgdjN1rL2WoleaKN8isfeek/yJCtZob5Ex8nYo=
+	t=1792014347; cv=none; b=EfTKFDuT5HgLGOC4JY6grvJcrVWhRdvxCI+/bIln+Q1brgeei0v6jRHrOa/jR1bXJ5jhf1kYBiEscL/UX4kk/EwBgdjXiL6WdyFVr4F1dTgkfoNZU7vSRVj2YEP+MGRed6m9HCfSLPHBvcZOjzhWquKn36drmvgyUBHH2Gu50K4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792014344; c=relaxed/simple;
-	bh=slwOZT4SUkOgMXYZQQEUrmp7OZIrL4XK6vNO/EIEtwE=;
+	s=arc-20240116; t=1792014347; c=relaxed/simple;
+	bh=kI1/CEYNAj4Fdv6wThuC0jJmOoS4Xg8SPY5cfihhk/c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bsyf+p9g0OAOTVFlAKQB0+9WqtARSsiGEMn9zSPVV5CDjTEc9vzdl04zC3Z5AqCNcX3RyApfQedvMBWBV8+epZosSL98XI7aEH2X4b4q5Tt8hnNEE5/M7x0SsmSlYY0O9CXzNyRACnSdf7qsbfTqJv9lvmsoqDXKc3wlo1P9JEE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JjMo7xn9; arc=none smtp.client-ip=74.125.82.174
+	 MIME-Version; b=rPXrQ+xXR5tmbg3OBB+3WByFdqK2Tx87lStTazp38Vi4Cc6UnElX8Eni08czgVTny5tk0H3WAaEY/00nRnDnZydRAKuCigyGQfUQ1Z6lOnuu83Xg9ctzAJlojku+3Fao4UkKrN7lpbq6Z+mdtc7qEBj5NWCZAwxabMuYoTVYCR4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hmed+UF3; arc=none smtp.client-ip=209.85.210.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JjMo7xn9"
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3282db206d3so4051410eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:45:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hmed+UF3"
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-89d4030cc57so884499b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:45:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792014341; x=1792619141; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qtwnr8rANn9J3uJzwMc/IL3XxL1Ompj9KASSaQeAgu4=;
-        b=JjMo7xn9reOLLjUWXk7GGJzFOh4dFV2t9dboW5MWdSgGUgYrAr2CtuK8yhEOB4kXmk
-         rhN0x5B0I2FwXPwedz4+cWaMTDA8Vx1Vc807ZRN4WisTc4OhQP+UTI6s34cxopfbHDmQ
-         MIcoMkx5kABPtUDM9+0/QxJSuy5aIXEo/TSvNQ4MdFqb7nCt8spYn/rSTUmh22M70cm5
-         BAWAXwj+Rpt4+AxFrqrd4Hk3aZi9DscMPaFjquNDgkkaj9iP8f/EUMhor40fJJahEYxK
-         uYnG+M/N0JGcvq4ld7sr0n8ZsaT7m2pH7Ha+j07CPj76idsZqCqjNmdzOPRFJ9eMiQfG
-         UxfQ==
+        d=gmail.com; s=20251104; t=1792014345; x=1792619145; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=l18nddR02Ly5yUEL8+YeO6wSXsyRxbRSYGcpS6xzygo=;
+        b=Hmed+UF3h/2kUTGTrc6Ti+m6K0dbuxD/MkxIsrlB5Q2satveenSB2lBzlke0KVXmo+
+         u/2HTqw40e/zEoTeVz/ztP4K20iB6LtaM6SQl9nn+AezXP/Hkgi9r+ZQXJKWqXQsxRCT
+         S2oLLP/Duw3YRhWox2yDFIULIXOfjU1iL8+U+8V3FCZ8MuDHyUjFwn/vmto12SdQzMxb
+         ji02e2v9/9NaTnDgco4wL3YlwI4P9r7lrAM/wwBF+5vE1t7Heoiv+abd3CX81LvRTIwQ
+         i+YXLoEUldAah4V5IfGri0igX9oarZmbxYjniK4Pezqj0oHAbpA97eRon2kekzdUEP6h
+         lakw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792014341; x=1792619141;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qtwnr8rANn9J3uJzwMc/IL3XxL1Ompj9KASSaQeAgu4=;
-        b=CwITHbfRnDGQUbt4eJOlG/iw6FP18p7/XR12mnxRGqn7eK3glqWpfFZpiHS1rNgesJ
-         eBUMnyMz6ccyfpbGaQ+cUelspQnTDiHOjvObNmIPvTayNwjrpSlCbT15NYLQvvhYrxV5
-         +ux8qlN1eSdg+hvpgZquYl4yQLa6MZTJNkNb/elNHT3Wvs68MrDzs7WlIreMRNpNz4gD
-         sYaev9lM8s8Dp08c7wGHDZ1E2WvLOOaHqJexo5FaxQuC4pveHdYwHVLVtU7Mavp+8Vyt
-         xQL1v9eWcuZUTaDIiubm/c1cjLhsxrvkD8EUb0vhhIDjSsvslqUBETRR9uHcVHRr54bq
-         INeg==
-X-Forwarded-Encrypted: i=1; AKwUvBzuVA65ePE4BMt7O3YiSRztTEOrZiI4YsHP0wOsmk6NOy4pjYFtNdSTjyPqeuSu4BpjVVD1bBaYJ+Obz5Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ4p5zyCbGB4DQ0MxgYSUgf9oFn+duWlicCIc2b+t8wpfsn/rrt
-	R1XqTI5eM0O8oLz/bMfyy5AASHr2Za9SWxcSy5qXRF8jRUuxBRh0YraH
-X-Gm-Gg: AYBFou0eRM0/vJy0a/oHPqDAET4OU7L7rrudIXFs10ABC3fRZe3L0ugq448TJ92+/Vt
-	yI+O98WCyhHJbzFS9aYi9Kki/yv+DGzi5aY83XZmmYu9yPULDjqNONkX57YN4Or0NaMZ6gFWppV
-	k4j/FuCDFRYVqSHu4KmlrKbnXEBXq4k33WOMv7wj71BnqYN394Slvr3L32xwnCpZaI7HZuwKbOe
-	odoOJfhCjhKg+8JZ58E9dX/m4vwswjcmz6CqiJXcgtSPLRXWfZtqB2fEU1uBECjWsJRujtnFGnZ
-	jlFTum5PKMBzdr++kttjhaab6mO3xMZkq+0mXeEAsrzx+mhRhiieCBCpTlaQVmmfAHyDQJtBUD9
-	aGUXT+1IJf0x8s7DIH9J2fL82luVv+If1Uizd66XjrEN/3WcX/8VlX9lzqINDi+O154DN3+k56n
-	u0Z28NXCZ2eIu0KXCBalGGYO5OPPjES7py5AVGtCqEkl8gNKXdRb+Y7fJktJlHJufMW1UbmdNk
-X-Received: by 2002:a05:693c:42c9:b0:359:9e84:dc99 with SMTP id 5a478bee46e88-3599e84ea9bmr14808536eec.0.1792014340729;
-        Wed, 14 Oct 2026 14:45:40 -0700 (PDT)
-Received: from nixos-minipc ([2803:9810:b675:f600:58b2:f893:fc2:ec6b])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537c841648sm62801856eec.3.2026.10.14.14.45.38
+        d=1e100.net; s=20260707; t=1792014345; x=1792619145;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=l18nddR02Ly5yUEL8+YeO6wSXsyRxbRSYGcpS6xzygo=;
+        b=x1bCUhHZSDs05kRswIBG2Kchu00ZdFY5DHvg6m7CIx9iVfoB2usf72GSY9xf/80e9j
+         0L0YqSLgt+BWBBxaOKE+yAjjcG/jCBBWyKSCDaSlhsMkv6FQM4aTnwpymjROY0qpKJga
+         Z2eJ8AunyFRVNsKo06MbPB/wR0qUo36WGQlxEj9niG8epQ++i4NsavN/ZQLwEeAZueNO
+         2LJaQPW24cCRpE0+duyvzwoQtJVfsBwmyIHV8bSLUAGnyjTVFYDk871i5v3/Rpm+NBJf
+         x2fy4VReq0cAB53UhcT8aX2j5XxzG2TLykWjzlsYJop/DgxjObXrbBv90P8mk6DprGZ5
+         NcOA==
+X-Gm-Message-State: AFq9FYLipIBSET5m1UnBVGR72YYZB76D48wzGkhyYkDCiVGvGa/HLUpK
+	RhvJvprjFYmyAnJZhA3FCfh9yedjC5kPtKlQF/WE3zCvuPYzHgriYvbzUPBABVvf3UI=
+X-Gm-Gg: AYBFou0o00Vl4JnL47QFboqLxyVTQGWr6m1tHXn4gM7eiAjeei85aKyQtknznbYCLkk
+	UpQu39V1L75xsHivFW4PRpXLul4ao7K80CQBZxy8JAksBSfry/hsfJXFakFUdFGGbnRHrNCSZNo
+	90LDObQ0RAnrPeN7m896xynaMDgeq8ndvOMX4b69njVcL3jljkI5Hhj2VBPobzXNT24DO6McN3j
+	j9qCbyTft3SJiFM6PqxBaW9hOgIf/N7iMFaE8Au4GH05atDaNbJYTHwgzG04SLkIB9Wwliuodj9
+	x69k9DgzcNNf19LE6iFdnVujVK7oT0SOvHsoIGs3kXiEBwsVee0yfKWsjTBAHOvn/yxzixmNIzW
+	Owo0i3+5rXQUq9PKQUYfnMnJtUW0tdneHfl0mV1HoeF85PC0Nl1yMmXzcpOal8Ns/ESzjF6KFH6
+	fUYXiKcwpj89xbGml3ciKh/506ig9pzTIPgP842FO86j2jHtpuLiKmJ0Fh/NKrJZjMCXDJ0u0BY
+	5U/TpIwy2Wj2lT0/LB/PbwlG//+XkHb0DNtCj3WPGQQ8bh2DDavohZ92HrBQ5zTcXN6YYfBvBIK
+	LskamHGFKmeQ3Fw0aQWVQEtYDiiiYoCAPQ==
+X-Received: by 2002:a05:6a00:1818:b0:886:4070:ceb8 with SMTP id d2e1a72fcca58-897c7ec59femr15310243b3a.56.1792014345179;
+        Wed, 14 Oct 2026 14:45:45 -0700 (PDT)
+Received: from DESKTOP-TJS95SS.tail460ce2.ts.net (36-232-253-46.dynamic-ip.hinet.net. [36.232.253.46])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89d802c33fdsm1539946b3a.22.2026.10.14.14.45.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 14:45:40 -0700 (PDT)
-From: =?UTF-8?q?Sebasti=C3=A1n=20Peyrott?= <speyrott@gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: "Paul E. McKenney" <paulmck@kernel.org>,
-	Mark Brown <broonie@kernel.org>,
-	linux-hwmon@vger.kernel.org,
-	linux-next@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] hwmon: (minisforum-um780xtx) Fix clamp() build failure with GCC 11
-Date: Wed, 14 Oct 2026 18:45:22 -0300
-Message-ID: <20261014214522.243253-1-speyrott@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <fda0e59f-20e1-4a94-a714-288940dcdd37@paulmck-laptop>
-References: <fda0e59f-20e1-4a94-a714-288940dcdd37@paulmck-laptop>
+        Wed, 14 Oct 2026 14:45:44 -0700 (PDT)
+From: Yuan-Hao Hsu <aa9736195201@gmail.com>
+To: Rik van Riel <riel@surriel.com>
+Cc: linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	John Hubbard <jhubbard@nvidia.com>,
+	Peter Xu <peterx@redhat.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	linux-mm@kvack.org
+Subject: Re: [RFC PATCH v3 0/8] batch lookups in follow_page_mask()
+Date: Thu, 15 Oct 2026 05:45:39 +0800
+Message-ID: <20261014214540.574-1-aa9736195201@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260811025157.1632867-1-riel@surriel.com>
+References: <20260811025157.1632867-1-riel@surriel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-GCC 11 fails to build the driver:
+On Mon, 10 Aug 2026 22:51:49 -0400, Rik van Riel wrote:
+> This series changes follow_page_mask() to return a page count and a fill an
+> array of pages, instead of a single struct page, so a walker can hand back
+> more than one page per call.
 
-  error: call to '__compiletime_assert_727' declared with attribute error:
-  clamp() low limit 0 greater than high limit points[1] - 1
+Applied the series on current mainline (3857c2fe5449) and ran it
+through the mm selftests with DEBUG_VM and PROVE_LOCKING, a race test
+that drives get_user_pages() and pin_user_pages(FOLL_LONGTERM)
+against mprotect/MADV_DONTNEED/MADV_COLLAPSE/fork on 64 kB and 2 MB
+folios, and a core dump of mixed 4 kB/64 kB/PMD mappings with holes
+and a PROT_NONE page.  All of it passes with no unexpected warnings,
+and the fast path numbers did not move.  W=1, sparse and the cross
+builds for arm64 (4K/16K/64K), i386 (with and without PAE) and ARM
+nommu are clean.
 
-The store function returns -EIO unless points[0] < points[1], so
-points[1] - 1 cannot be negative when the clamp is reached. GCC 11 jump
-threading, however, duplicates the clamp() limit check and does not prune
-the copy in which points[1] is zero, so the compile-time check in clamp()
-fires on an unreachable path. GCC 8 to 10 and 12 to 16 accept the code.
+pin_user_pages(FOLL_LONGTERM) over 64 kB mTHP, the whole region in
+one call, median of 15, base -> series:
 
-Select both limits first and use a single clamp_val(). This does not
-change behavior.
+    16 MB      138 ->   15 us
+    64 MB      566 ->   60 us
+    256 MB    2318 ->  249 us
 
-Fixes: 9d980da93bbc ("hwmon: Add Minisforum UM780 XTX EC monitoring and fan control")
-Reported-by: Paul E. McKenney <paulmck@kernel.org>
-Closes: https://lore.kernel.org/r/fda0e59f-20e1-4a94-a714-288940dcdd37@paulmck-laptop
-Assisted-by: LLM
-Signed-off-by: Sebastián Peyrott <speyrott@gmail.com>
----
-Reproduced on next-20261014 (x86_64) with GCC 11.5.0, both with
-allmodconfig and with defconfig plus this driver; GCC 8.5, 9.5, 10.5,
-12.4, 13.4, 14.4, 15.3 and 16.1 build the unmodified driver. With this
-change, the driver builds without warnings with W=1 using GCC 11, 13, 14,
-15 and 16 (x86_64 allmodconfig) and GCC 16 (i386 allmodconfig). A small
-standalone reproducer of the clamp() pattern fails only with GCC 11, and
-the patched form builds with GCC 8 through 16.
+(4 kB pages at 256 MB: 2361 -> 1065 us; 2 MB THP unchanged.)
 
-Tested on the UM780 XTX: the installed driver and this version produce
-identical rounding and clamping results for both system fan thresholds,
-with every value verified against the EC registers and the original
-thresholds restored afterwards. Module load and unload are also clean.
+One thing worth knowing from the 256 MB run: the unpin side goes from
+94 to 180 us.  The unpin time is the same on both kernels at 16 MB
+and 64 MB, which points to a cache effect rather than extra work: the
+batched walk no longer touches the tail pages' struct page, so
+gup_folio_next() in unpin_user_pages() takes those misses instead.
+Net 2412 -> 429 us.
 
-An LLM-based coding assistant helped reproduce and analyse the failure
-and prepare this patch. I reviewed the change and the test results.
+The one change I would make is on 7/8: the pages[] fill and the cache
+flushes now run under the PTE lock, up to a whole page table per
+hold, while 5/8 moves that same work out of the pmd/pud lock.
+Details there.
 
- drivers/hwmon/minisforum-um780xtx.c | 16 +++++++++-------
- 1 file changed, 9 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/hwmon/minisforum-um780xtx.c b/drivers/hwmon/minisforum-um780xtx.c
-index f5d6e18cb651..962ebf41ffb7 100644
---- a/drivers/hwmon/minisforum-um780xtx.c
-+++ b/drivers/hwmon/minisforum-um780xtx.c
-@@ -180,7 +180,7 @@ static ssize_t um780xtx_sys_point_temp_store(struct device *dev,
- 	struct sensor_device_attribute *sattr = to_sensor_dev_attr(attr);
- 	u8 points[2];
- 	u8 readback;
--	long value;
-+	long value, lo, hi;
- 	int ret;
- 
- 	ret = kstrtol(buf, 10, &value);
-@@ -198,13 +198,15 @@ static ssize_t um780xtx_sys_point_temp_store(struct device *dev,
- 	if (points[0] >= points[1] || points[1] >= data->sys_point3)
- 		return -EIO;
- 
-+	if (!sattr->index) {
-+		lo = 0;
-+		hi = points[1] - 1;
-+	} else {
-+		lo = points[0] + 1;
-+		hi = data->sys_point3 - 1;
-+	}
- 	value = DIV_ROUND_CLOSEST(value, 1000);
--	if (!sattr->index)
--		value = clamp_val(value, 0, points[1] - 1);
--	else
--		value = clamp_val(value, points[0] + 1,
--				  data->sys_point3 - 1);
--	points[sattr->index] = value;
-+	points[sattr->index] = clamp_val(value, lo, hi);
- 
- 	ret = ec_write(um780xtx_sys_point_offsets[sattr->index],
- 		       points[sattr->index]);
-
-base-commit: 4781ca52761e666cf18b591e6bb0478396c90320
--- 
-2.54.0
-
+Yuan-Hao Hsu
