@@ -1,60 +1,66 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 283544F30D7
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:53:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B9D030BB8A;
+	Wed, 14 Oct 2026 10:54:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791975197; cv=none; b=reVXaKtZX4lA/4/p6RciW1GXQzVHyEq3ej4iQeGZ/trL36RpRw1SKVJiKwLzNJW3+snZ9xt9eq08KY6/8d0tuJPcMTrrQdYQ8ssepQYmxASn7Y0jpaNjfC4+Xw3lMR1WLe+xf7Wqbvym/IK0mxYk/mKz5zyu892xJ9UUE5NCM/s=
+	t=1791975300; cv=none; b=Dc676oFVU18T56HQJmbu8chz9EbDl13Y7G08a1QuWfpNkKWcw8QcvZms+jEh6o32pCIapRVA4BNdLRlq0VR0KHle5Js3qAC8c7/zdHTEvhtDhw2LkZtAiSUP8xj5dKU8qYFHd1LVeRU68UmZLIqyAZOBIFMASwWaFtE7YTtd8ZA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791975197; c=relaxed/simple;
-	bh=HNiwfT/GXOoN6HV1huhzttE4d6EUz4rjAhAD3VDXG9I=;
+	s=arc-20240116; t=1791975300; c=relaxed/simple;
+	bh=FoIjLTf6iP8mCaZFW3kpxiuQ7q6N0spieMkXEJDD09I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KuLmWrJaQXd0+LzOqqN1SOpO4b4hwi/MJ0QGqdCfNyehidMmim88mwXurG0EzH1vE0Ltj/q5cR632c6Vo+UbysmYEsaPk2ba+tCSoEKWdUtD1bvgT2PpXDEkFogqLzTJ7S8e2u/P4wnE15M+IV2qnjKMJtJpAUB/IoN+z0tCngA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=FE6zXOb1; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=0Jtz5jgL; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	 Content-Type:Content-Disposition:In-Reply-To; b=SMjJ3V3ICStsyBynU5iNANpbBw2rjeVSUeRTz2B6aFA+fBcjq69xymIbx6DmfnjXrKNdW120PzuinIo9l8nQGJMijHIBYUBohJ9/EbldiSwP420UFk28lOcXRcn60fKYk6BQYaLIJW9HvkbXZ+BcrijnV2A9/DftgTXBr8rKkGk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=J4C1x370; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="FE6zXOb1";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="0Jtz5jgL"
-Date: Wed, 14 Oct 2026 12:53:12 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1791975194;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9Kygbp8cZypTKiQmO5xyQ6S7jVl/BhpU4TxaEVjtZwg=;
-	b=FE6zXOb1ibNkTIYX9fkmtAKRCszNmJLjiHlLN/7PozaNiolBOlMji8xNG8cdJJsIRrJWXS
-	7+2OljmQqPlWPszEsqldwe4K0uwCxkjrOkGJfmtyZf14gxsMDCS6ggognEGM/MqG9zKtCk
-	03P+FK6hW2UDJfcHW54aLmZp5pgERv5ddfHPoiem9DGMWXSEse6ZV7uqj3JesrvwdfwUFf
-	tcUXGYo+Rqh5gITtUGdWa4VsG7oxbrJg1/laWgpZDhAYTc788Gu+5F/mZVRrZzxUZ/B0ra
-	lF+tLDkLNHrTbv2H/nqyGPSq1OP5sBYQPquBXKKA0f4uYbD6P6FFn5fgwz+ecg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1791975194;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9Kygbp8cZypTKiQmO5xyQ6S7jVl/BhpU4TxaEVjtZwg=;
-	b=0Jtz5jgLsKOaOlDQ7uCL0ljyUcsUiyj6k2yO7j90IAm+/pYt0CVoOyUVkS+tRMGavuCqGw
-	bfK8Pepdy+qwvBBA==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Vladimir Kondratiev <Vladimir.Kondratiev@mobileye.com>
-Cc: Anup Patel <anup@brainfault.org>, Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Jessica Liu <liu.xuemei1@zte.com.cn>,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev
-Subject: Re: [PATCH v3] irqchip/riscv-aplic: fix asynchronous probing
-Message-ID: <20261014105312.xNkvgkGg@linutronix.de>
-References: <20261012-aplic-async-probe-v3-1-5cf52dc28690@mobileye.com>
- <20261013152727.2cUDX3l0@linutronix.de>
- <5a8048ef-a241-4486-adc1-440721d3606a@mobileye.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="J4C1x370"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791975299; x=1823511299;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=FoIjLTf6iP8mCaZFW3kpxiuQ7q6N0spieMkXEJDD09I=;
+  b=J4C1x370d5ogFr3MGF3BDN/w5+Wavza7UC2ThLY5FjUs/5Pcms4yUCCs
+   6D/U1NmTayJ2WzzjTwiMdBG3T6LA8XL5xECuopbhNMPwdcyjL2DF/9AfF
+   DYM6ifkyHJAGksYrdyFCY9BfuxZdrE6bXkV4nDM5ODRLTGF5acIRhD2kW
+   Ie8jpljOWVblpU3ou1lBV3r0H8PwBqW4wvIKLAjLXLHODfR6xYl3xf2jp
+   APWie0nA/onb3PsiSN5tPw0Sb5jS1zcH+ZT+kAWPsDMs8PSWGrKsjbi5n
+   Zuyf0AtuFB13RuXVqJImdWAhI1PMGa3WFQPHK8CBrh1ekI49aJlQxEHnD
+   A==;
+X-CSE-ConnectionGUID: UGV2RLQiRJuHXe7MxkCVzg==
+X-CSE-MsgGUID: iaDon5lxSbSQ9LI7+se9IA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="597013"
+X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
+   d="scan'208";a="597013"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 03:54:59 -0700
+X-CSE-ConnectionGUID: e5LVkfHGS6Kjk+AEkjuc/A==
+X-CSE-MsgGUID: ho1tCA3ESJ2x+WHVK8lMnQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
+   d="scan'208";a="1767613"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.236])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 03:54:55 -0700
+Date: Wed, 14 Oct 2026 13:54:53 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Paulius Zaleckas <paulius.zaleckas@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org,
+	Eddie James <eajames@linux.ibm.com>, Joel Stanley <joel@jms.id.au>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Rupesh Majhi <zoone.rupert@gmail.com>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 6/6] iio: pressure: dps310: add Zilltek ZTS8032 support
+Message-ID: <as9ffTy6UMqW3PNA@ashevche-desk.local>
+References: <20261013112124.1878296-1-paulius.zaleckas@gmail.com>
+ <20261013112124.1878296-7-paulius.zaleckas@gmail.com>
+ <as5jYcTlEuOzD6go@ashevche-desk.local>
+ <CAPiS6wBzomvTOm3axxO7sWCxoJg0ijZOXpj_F+NNT7Woz4Loww@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -63,101 +69,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <5a8048ef-a241-4486-adc1-440721d3606a@mobileye.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAPiS6wBzomvTOm3axxO7sWCxoJg0ijZOXpj_F+NNT7Woz4Loww@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 2026-10-14 11:15:05 [+0300], Vladimir Kondratiev wrote:
-> On 10/13/26 18:27, Sebastian Andrzej Siewior wrote:
-> > EXTERNAL EMAIL: Do not click any links or open any attachments unless y=
-ou trust the sender and know the content is safe.
-> >=20
-> > On 2026-10-12 12:12:59 [+0300], Vladimir Kondratiev wrote:
-> >> boolean flag don't protect from race when probing several instances
-> >> asynchronously. On system with multiple APLICs, if probed asynchronous=
-ly,
-> >> warning triggered as below.
-> >=20
-> > Why is this async? Doesn't __platform_driver_probe() set it to sync?
->=20
-> Yes it does but aplic driver uses
->=20
-> builtin_platform_driver(aplic_driver);
->=20
-> that takes different route. Easy way to directly proof it: I boot with
->=20
-> driver_async_probe=3D* dyndbg=3D\"func __driver_attach +p\"
->=20
-> to request asynchronous probe and debug prints in the __driver_attach
-> shows:
-> [    0.236483] platform 48760000.interrupt-controller: probing driver ris=
-cv-aplic asynchronously
-> [    0.236513] platform 674e0000.interrupt-controller: probing driver ris=
-cv-aplic asynchronously
-> [    0.236539] platform 67560000.interrupt-controller: probing driver ris=
-cv-aplic asynchronously
+On Wed, Oct 14, 2026 at 12:56:03PM +0300, Paulius Zaleckas wrote:
+> On Tue, Oct 13, 2026 at 7:59 PM Andy Shevchenko
+> <andriy.shevchenko@intel.com> wrote:
+> > >   * https://www.infineon.com/dgdl/?fileId=5546d462576f34750157750826c42242
+> > >   *
+> > > + * The Zilltek ZTS8032 is register compatible, with two more pressure
+> > > + * calibration coefficients (c31, c40) and temperature calibrated against
+> > > + * the internal sensor.
+> >
+> > Any datasheet link?
+> 
+> Sorry, AFAIK there is no public datasheet.
+> If you need, maybe I can make some screenshot of relevant info from it
+> just for you.
 
-Does "driver_async_probe=3D*" mark _all_ drivers as safe and you run into
-a problem where a driver isn't safe? Does the "dyndbg=3D" argument show
-the driver is probed asynchronously if you omit the "driver_async_probe"
-argument?
-So the question is do we want to let it probe asynchronously or should
-we force it to sync.
+No, I meant some public or at most 'sign for get' type of the link, if there
+are none like this, it's unfortunate.
 
-> > Would you mind providing a coherent description of the problem and
-> > implemented solution instead of slapping console output?
->=20
-> Sorry if it was not clear; shall I explain in details why pattern
->=20
-> if (!done) {
-> 	do_something();
-> 	done =3D true;
-> }
->=20
-> is not SMP safe? Add detailed explanation to commit message and shorten c=
-onsole output?
+-- 
+With Best Regards,
+Andy Shevchenko
 
-No console output at all. You need to coherently explain the problem
-without adding console output. This is a simple problem, there is no
-need to for a huge commit message here. Also there is no need for SMP
-here as we do have kernel preemption.
 
-> Reason for asynchronous probing is simple - to reduce boot time, it is cr=
-itical for embedded
-> systems. Think of system managing car rear camera and proximity sensors, =
-it should be ready when you
-> start driving, this lefts very short time for the kernel to boot.
-
-So the driver does not support async probing and you add it and call it
-a fix? I don't mind async probing but it should be declared what the
-actual intention is. And maybe the driver should be marked async in the
-end.
-
-> >> ---
-> >> Changes in v3:
-> >> - drop __ro_after_init attribute due to write to read-only page concern
-> >=20
-> > What concern? That __ro_after_init can stay. It is built-in only.
-> See comment to v2 by sachiko-bot$kernel.org here
-> https://lore.kernel.org/all/sashiko-outbox-167856@kernel.org/
-> quote:
-> ---cut---
-> [Severity: High]
->=20
-> Will this trigger a fatal page fault if the probe is deferred?
->=20
-=E2=80=A6
-> Platform driver probes can be deferred (for instance, waiting for an MSI
->=20
-> domain) and run in a workqueue after the init phase is done.
-=E2=80=A6
-> and indeed, aplic_msi_setup() can return -EPROBE_DEFER so concern is vali=
-d and
-> existed in original code, it is not related to asynchronous probing
-
-I would not expect the MSI domain to be probed after kernel booting via
-a module. This is the scenario where this would explode.
-And if you consider this a problem you should address it and denote it
-in the commit description as such and not silently changing it as part
-of another change without any explanation.
-
-Sebastian
