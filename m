@@ -1,195 +1,189 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59D4D420E89
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 23:23:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792020207; cv=none; b=kWg5eE5K03LRVqpuC5MKWmibD0J5ylE4zJJeFBlggz8bM7Zb74dieURpwzqzv+gWel+TeoWmNTCvIHHpicHXf6h5CyRG2fcWlgpquorUN+ztDyo+5GQZI0IxMAQrd9qQ7W71oz4YQqAAlhy+khu5jmvWzIvY247h1zLeSYWPCFU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792020207; c=relaxed/simple;
-	bh=vjWmS0UNeghaG0iFRASfWWwznEzbC2i4qrauC4ke36c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tbbBEzQTCl/A5xlE5vbtpeJ+nF4OV/uKawTdBjJwxk17rqyJNGlFwct2XVKsMoynLUa6VC3K0LmlpFK8j0g0sUJ79VNXNKPCBmXy3XpHhVNHvNO8ssU1pPA615sZ6i5ZZlmPzsrKvNBjZAbTfXYpD9L0b3eweU0upoXg1rgL2+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YbfRVDpP; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 614554E4323
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 23:27:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792020439; cv=pass; b=tl9J+yFkmP/JyxdsgDXIbEOd9V6kV6EkXomzXgbkGSUENpetMCzIq1OrbeKx6tB4Df5z0iwVbb3Y/r0jC5Qs6LQeo0edDN4HUoemA0TnJ5Lwo+9lVkLiJ346zSYyql2/2f0oxoPc3IBAqO+/jg1H2fSb0lFeexbExddI+B5u/qA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792020439; c=relaxed/simple;
+	bh=9GxvBK6zvUPUZUZqhB/gyYS3RQbrNlmmcifHIjpdWI0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ca37Ur1tNtjp+zrOr0E0DhEmgAaBIeLRmzMop36J2cArgkkixTRwSH58VHvKVjVm4q2r6gWKi51PWGRaTIJjNC3TUZ9cXu44PYue/0K+8T01bQ3j0Vus9rkSpnSr8DiKhWXcjVe+yOchRkr1bg45zgBcHi4XsI71BCJfvE87Jx8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=wWSYIr0K; arc=pass smtp.client-ip=209.85.208.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YbfRVDpP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EBCA1F000C4;
-	Wed, 14 Oct 2026 23:23:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792020205;
-	bh=K4Is1qFyFVz8EUcqjtlhLvy1hm5i6s8uM3AIuoRnppA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YbfRVDpPlUyiByGw1vvj04z7Sck319oFlFCg8aqc1vNms4RnDRhzsZyg1g5OJjQEv
-	 LwREEUA9k4yYg+w3fcZe7EZ9fghFCPqHlDsYXZ5Ypk1dNTqUfj8+5qDqTIQzTnB3Lt
-	 4/ztFBJj2hOsBL3ZKFqu91DZKSl2AEP+rJuL3N5jtGwv6TGyweLRKabx5f80AVcmYh
-	 Ormh9TeU8XwFBbRq9lk3jMjBVMrFagSRmLTK/IXHgJ+xhNw/3gbtbrvV1IDKmVXGXB
-	 AJLw2Zj5gDYy4nMlfy5W8GRK2A03IXq29yvxbAp/28yDycJpDN0xYYmlF+TC7GxdPk
-	 qY4puLslkO2Bg==
-Date: Wed, 14 Oct 2026 23:23:23 +0000
-From: Jaegeuk Kim <jaegeuk@kernel.org>
-To: Nanzhe Zhao <nzzhao.sigma@gmail.com>
-Cc: linux-f2fs-devel@lists.sourceforge.net, Chao Yu <chao@kernel.org>,
-	Barry Song <baohua@kernel.org>, Juan Yescas <jyescas@google.com>,
-	Daeho Jeong <daehojeong@google.com>,
-	Pengfei Li <lipengfei28@xiaomi.com>, Dev Jain <Dev.Jain@arm.com>,
-	David Hildenbrand <David.Hildenbrand@arm.com>,
-	linux-kernel@vger.kernel.org, Bo Zhang <zhangbo56@xiaomi.com>,
-	Kalesh Singh <kaleshsingh@google.com>, Nanzhe Zhao <nzzhao@126.com>,
-	Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
-	Ryan Roberts <Ryan.Roberts@arm.com>
-Subject: Re: [f2fs-dev] [PATCH v5 00/16] f2fs: support & optimize large
- folios for writable files
-Message-ID: <atAO6ykqwGgZq77y@google.com>
-References: <20261014064445.2835813-1-zhaonanzhe@xiaomi.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="wWSYIr0K"
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b1aa36fc0eso1112a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:27:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792020434; cv=none;
+        d=google.com; s=arc-20260327;
+        b=KX7Em//dhvJfRonSH8X5WAp5slcuiRsh/pAjLFdnS+c3Ca5TiOJ9ij8BcgdeqrLuRH
+         r/1KtBCs1J+1okx0EnC599kPStzVE1uX/yVOyJeREpwnza7A7n7U0Ehw6WneY6EuDkVM
+         /uKVXnKNGtaa79Xb0PnMr6mZB9DAuU0FSUEKE9EMo+F8MYTY6ejPplEX0oImW0X/9ymm
+         oN9l4HHOzT8rAZX+6Nfhir0IARVdBy3c4TqbbVaUvJX9nqRGfeammUW+qbxg9O5h8FSL
+         rAZ8RrliH9EBOVdYgNaVa6SSgkTAM2k0oxN+swoP4E3vD9FTThdj6B7H8aWo6koxyl5I
+         CnQw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=DEklSNtH9d9SVt0AkkIEXTWgUwY+8yErW9DKBFAT2iY=;
+        fh=SThVzqBvlctR6unPIWQMaCPfXNX7XY7kWDKr3g6nhP0=;
+        b=Qg6AqiyoWUhDS3F332ib9074Rawlt1deO0DScbwHCDONLht1yr+sXbqCpWlr0OcYAE
+         n0l7PljJn9W84V1mTOje2unaDaE8JhV6WQvfZIJmtLOKHH8ZtfogfrD1mCfqQ+9llXxL
+         Ndr+zuzBimka6j0iijFSy9UGVbvEL6mKFdrZahNi/74GTH7zm2yFeMhrXvkeYT3ijalF
+         /uk9gOXjqlsU12U5huXm8yogWanwCMZKwyFOIyVFvVugX+qeyJYBUE4NNLT2jv75XMux
+         JRVEtBb0dNmd2uymICl2QMBIJoAzptFdQcYiwCdakV+vEdmMgVyLB95Z5COT5ss1A1E0
+         LHDA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792020434; x=1792625234; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DEklSNtH9d9SVt0AkkIEXTWgUwY+8yErW9DKBFAT2iY=;
+        b=wWSYIr0KCGGjeQM53Oo7iFz/PuQi98Pzt3dPzx3Zw6UvLvzvNLt2Wd3EVymRnXSn2u
+         +FCxc604iSGsNJpUZx4JOTjclOkdwlqZMfamu9pqChY3yLLaCAa+AEufnhOwyeZanplj
+         qKajegcLGkHfKiNWk4PziaGbGFYnxIf35ucWCJY6TOwctvH4b7DJRiNUbVvqAAGh+pne
+         RbCo7tXZvrjE2S8Zi1SD+ycFjx4MgPLnsebUAv6sQud/ribxl5M1eg+Yp+sZ5rlkdG6S
+         oxtf43azuFb3NXZg/oOq/izTNYKueITKI7NooVUAPcolloy8zextQ7bgvTibfv9WL68i
+         eeyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792020434; x=1792625234;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DEklSNtH9d9SVt0AkkIEXTWgUwY+8yErW9DKBFAT2iY=;
+        b=GM4MgzvfEn1rBSVNYx6NgXvmgvS3OOC29MJavJED3kMxK16OPMz5qbOv+xtyj+81nG
+         Vxp+3j9JKxOW4X1njReQri+wmMQMpRSPPugqgVGyKfh5wHJrkHN0WEOd6H60BBTRG9S2
+         EQO9Y5lS1xvtC81l85l85UWdwS3uRSrsUI49LcWQEisG1uTOiB6dWrKDROgRbMdlKjpp
+         gY71Bi6BJUW4AySp3Fs/Uy3H5Wd4EaJNvTDXZbJLFW/QDKvr+SirVHRwhTh+jD7aHUO7
+         dyHjW7nyCUflITS1mwBaEpy56zVHgSuLKs6cvcP2/vngP/z5somZqbEf2fy26Gb996ja
+         mGeQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxaqjSJp4OIvvj3bGE973gT1eD9yXAVZdExKwGEl8j9btW/v866Lo/HgtjPID3ew/ZrsQ190lBm3Pb2J7o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ/gaRxeWgg/22/tnuB6p+lYK7T7kbGOM9+I2IukCRlJmU+Dy2F
+	CcIa5E69ZO/iPlieSXGewu5WRUhSvjKwZ4i0hv9lbPiexqewEnh0wSN9SJgA7gYluz7g0FYGDx5
+	mTYmHl6KPNAkLAMwGxIzpnCCmHMpKKQVNBeevB28d
+X-Gm-Gg: AYBFou03fmAURzS3FXyEEmXQx0iDSzjw0rI6KsG0ML/7A7GyJ0KoYfQvvZIPD9m2XQb
+	zDgmcDK9OlnTs92BsphOZrGokt0ZeBM0e3vd6w21pZWUnpc8SDDIz1uynIDa4JDzVYw7jnDw7ld
+	jegu1FEKw5J6V/PNT+utM+JZV6lMeT5SfTN0t53N5Yz7onfTuWG7RWt7e/aMlNlb4KcvZCblIYv
+	j/fErpACrTg20Uj3CwxZPEEy/qR2EY8oKc5BxXb554ykwkDvKOG04OkOknGaCWUw73wR49eUZ1C
+	1FhrWmtuXR3Y9TWS4IPFl2JBDPZ7iw1zXToDgh4HRDzSLNJTxkH3TQc=
+X-Received: by 2002:aa7:c74f:0:b0:6b1:a517:5bce with SMTP id
+ 4fb4d7f45d1cf-6b20ab1840amr71287a12.16.1792020434145; Wed, 14 Oct 2026
+ 16:27:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261014064445.2835813-1-zhaonanzhe@xiaomi.com>
+References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-7-yosry@kernel.org>
+ <CALMp9eSZoXs8vAswymwdiX-0ge-EOef8TR2nZw814wa63LpR-A@mail.gmail.com> <CAO9r8zM8S=VFjpbA5c7vLdzkQPJPM=YBFJ4Or9QKrOd37xTWGg@mail.gmail.com>
+In-Reply-To: <CAO9r8zM8S=VFjpbA5c7vLdzkQPJPM=YBFJ4Or9QKrOd37xTWGg@mail.gmail.com>
+From: Jim Mattson <jmattson@google.com>
+Date: Wed, 14 Oct 2026 16:27:02 -0700
+X-Gm-Features: AclHuK_nwkWa5bJjTcRY3_l2dMa6yFiqYVdR6Y3GTnqV1jmEabVzsUUvr59iETg
+Message-ID: <CALMp9eT6UwpnqJUUXwXwAsJZZWmbyfNZ=FR5=FXTQFYMzENaNw@mail.gmail.com>
+Subject: Re: [PATCH v3 06/27] KVM: SVM: Fallback to flush everything if
+ FLUSHBYASID is not available
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Nanzhe,
+On Wed, Oct 14, 2026 at 3:50=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrot=
+e:
+>
+> On Wed, Oct 14, 2026 at 3:45=E2=80=AFPM Jim Mattson <jmattson@google.com>=
+ wrote:
+> >
+> > On Mon, Oct 12, 2026 at 4:36=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> =
+wrote:
+> > >
+> > > Currently, if FLUSHBYASID is not available when performing a TLB flus=
+h,
+> > > the fallback is decrementing the ASID generation to trigger allocatin=
+g a
+> > > new ASID. In preparation for using a static ASID per vCPU (like VMX),
+> > > just fallback to flushing everything if FLUSHBYASID is not available.
+> > > This is probably worse from a performance perspective, but FLUSHBYASI=
+D
+> > > has been around for ~15 years and it's not worth carrying the
+> > > complexity.
+> > >
+> > > Move the fallback logic into vmcb_set_flush_asid(), as more callers w=
+ill
+> > > be added and will need the fallback as well. The only other current
+> > > caller is from SEV code, and no CPUs support SEV but not FLUSHBYASID =
+(at
+> > > least according to AI).
+> >
+> > A more compelling argument is that sev_hardware_setup() requires FLUSHB=
+YASID.
+>
+> Huh, I didn't realize this.
+>
+> >
+> > > Suggested-by: Sean Christopherson <seanjc@google.com>
+> > > Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+> > > ---
+> > >  arch/x86/kvm/svm/svm.c | 5 +----
+> > >  arch/x86/kvm/svm/svm.h | 5 ++++-
+> > >  2 files changed, 5 insertions(+), 5 deletions(-)
+> > >
+> > > diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+> > > index ad4f172f170d9..0c3befd9bc850 100644
+> > > --- a/arch/x86/kvm/svm/svm.c
+> > > +++ b/arch/x86/kvm/svm/svm.c
+> > > @@ -4326,10 +4326,7 @@ static void svm_flush_tlb_asid(struct kvm_vcpu=
+ *vcpu)
+> > >          * unconditionally does a TLB flush on both nested VM-Enter a=
+nd nested
+> > >          * VM-Exit (via kvm_mmu_reset_context()).
+> > >          */
+> > > -       if (cpu_feature_enabled(X86_FEATURE_FLUSHBYASID))
+> > > -               vmcb_set_flush_asid(svm->vmcb);
+> > > -       else
+> > > -               svm->current_vmcb->asid_generation--;
+> > > +       vmcb_set_flush_asid(svm->vmcb);
+> > >  }
+> > >
+> > >  static void svm_flush_tlb_current(struct kvm_vcpu *vcpu)
+> > > diff --git a/arch/x86/kvm/svm/svm.h b/arch/x86/kvm/svm/svm.h
+> > > index ba5077b9838c0..3b59561d6cc2c 100644
+> > > --- a/arch/x86/kvm/svm/svm.h
+> > > +++ b/arch/x86/kvm/svm/svm.h
+> > > @@ -482,7 +482,10 @@ static inline void vmcb_set_gpat(struct vmcb *vm=
+cb, u64 data)
+> > >
+> > >  static inline void vmcb_set_flush_asid(struct vmcb *vmcb)
+> > >  {
+> > > -       vmcb->control.tlb_ctl =3D TLB_CONTROL_FLUSH_ASID;
+> > > +       if (cpu_feature_enabled(X86_FEATURE_FLUSHBYASID))
+> > > +               vmcb->control.tlb_ctl =3D TLB_CONTROL_FLUSH_ASID;
+> > > +       else
+> > > +               vmcb->control.tlb_ctl =3D TLB_CONTROL_FLUSH_ALL_ASID;
+> >
+> > This is unnecessary. Hardware that doesn't have FLUSHBYASID only looks
+> > at tlb_ctl bit 0 to decide whether or not to flush the entire TLB.
+> > The other bits are ignored.
+>
+> I think it's clearer to do the fallback since the APM doesn't
+> specifically call this out, or maybe it does but I can't find it.
 
-Could you please check IO submission path for Zoned block device?
-I hit this.
+Fair point. I dug up a copy of the SVM manual from 2005, and it
+actually seems to indicate that there isn't a bit toggle, but rather
+the entire field value is consulted:
 
-[   93.100225] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
-[   93.100420] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
-[   93.100551] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
-[   93.100948] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
-[   93.101432] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
-[   93.101762] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
-[   93.101907] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
-[   93.102564] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
-[   93.103054] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
-[   93.103447] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
-[   93.103667] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
-[   93.104294] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
-[   93.104373] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
-[   93.104449] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
-[   93.105220] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
-[   93.105253] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
-[   93.105532] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
-[   93.105575] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
-[   93.105606] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
-[   93.105781] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
-[   93.105985] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
-[   93.106192] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
-[   93.106692] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
-[   93.106799] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
-[   93.107015] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
-[   93.107090] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
-[   93.107113] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443320; zone offset 19064; I/O scheduler (none); rq 00000000ea98b61b {.op=WRI
-[   93.107268] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
-[   93.107288] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443320; zone offset 19064; I/O scheduler (none); rq 00000000ea98b61b {.op=WRI
-[   93.107499] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
-[   93.107511] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443320; zone offset 19064; I/O scheduler (none); rq 00000000ea98b61b {.op=WRI
-[   93.107707] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
-[   93.107724] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443320; zone offset 19064; I/O scheduler (none); rq 00000000ea98b61b {.op=WRI
-[   93.107770] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
-[   93.107781] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443320; zone offset 19064; I/O scheduler (none); rq 00000000ea98b61b {.op=WRI
-[   93.107929] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
-[   93.107941] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443320; zone offset 19064; I/O scheduler (none); rq 00000000ea98b61b {.op=WRI
-[   93.108040] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
-[   93.108050] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443320; zone offset 19064; I/O scheduler (none); rq 00000000ea98b61b {.op=WRI
-[   93.108166] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
-[   93.108179] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443320; zone offset 19064; I/O scheduler (none); rq 00000000ea98b61b {.op=WRI
-[   93.108322] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
-[   93.108341] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443320; zone offset 19064; I/O scheduler (none); rq 00000000ea98b61b {.op=WRI
-[   93.108582] sd 0:0:0:4: [sde] tag#31 UNKNOWN(0x2003) Result: hostbyte=0x00 driverbyte=DRIVER_OK cmd_age=0s
-[   93.108588] sd 0:0:0:4: [sde] tag#31 Sense Key : 0x5 [current]
-[   93.108595] sd 0:0:0:4: [sde] tag#31 ASC=0x21 ASCQ=0x4
-[   93.108605] sd 0:0:0:4: [sde] tag#31 CDB: opcode=0x8a 8a 00 00 00 00 00 01 ee d9 4e 00 00 00 01 03 00
-[   93.108607] critical target error, dev sde, sector 259443312 op 0x1:(WRITE) flags 0x800 phys_seg 1 prio class 0
-[   93.108612] sde: zone 2639: Aborting plugged BIOs
-[   93.108626] CPU: 1 UID: 1000 PID: 1831 Comm: CachedAppOptimi Tainted: G        W  O       6.12.81-android16-6-maybe-dirty-4k #1 de5ea2c0fc3867082493fabcae9896176e2e435e
-[   93.108630] Tainted: [W]=WARN, [O]=OOT_MODULE
-[   93.108631] Hardware name: KODIAK DVT 1.0 based on MALIBU (DT)
-[   93.108632] Call trace:
-[   93.108633] dump_backtrace+0xec/0x128
-[   93.108641] show_stack+0x18/0x28
-[   93.108645] dump_stack_lvl+0x40/0xb8
-[   93.108649] dump_stack+0x18/0x28
-[   93.108652] f2fs_stop_checkpoint+0x1f0/0x2d8
-[   93.108654] f2fs_write_end_bio+0x50/0x694
-[   93.108657] f2fs_write_end_io+0x80/0x94
-[   93.108660] bio_endio+0x114/0x224
-[   93.108662] __dm_io_complete+0xf4/0x278
-[   93.108665] clone_endio+0xc0/0x26c
-[   93.108669] bio_endio+0x114/0x224
-[   93.108671] blk_zone_write_plug_bio_endio+0x104/0x334
-[   93.108674] bio_endio+0x160/0x224
-[   93.108676] blk_update_request+0x17c/0x218
+> The TLB_CONTROL field in the VMCB currently has one command implemented. =
+When the VMM sets the TLB_CONTROL field to 1, the VMRUN instruction flushes=
+ the TLB for all ASIDs, for both global and non-global pages.
 
-On 10/14, Nanzhe Zhao wrote:
-> This series supports large folios for most readable/writable files
-> in buffered I/O paths, including normal files, block-layer encrypted
-> files, and atomic files except for inline-data files, compressed files,
-> and quota files.
-> 
-> It also extends f2fs_folio_state to coexist with f2fs page-private
-> flags and to handle large folio write path and partial truncate of
-> large folios correctly.  A valid large folio always carries a
-> f2fs_folio_state at its folio->private in the current implementation.
-> 
-> Benchmark details can be found in the RFC v2 cover letter [1].
-> 
-> Changes in v5:
-> - Rebased onto the f2fs dev-test branch (d1685c24b6c3).
-> - Dropped the two prerequisite bug fixes, which are now merged:
->     c04f209773ec ("f2fs: read i_size once in f2fs_vm_page_mkwrite")
->     b3c984358925 ("f2fs: remove mappedtodisk flag usage in mmap write path")
-> - Link to v4: [2]
-> 
-> Many thanks to Chao and Daeho for your extensive reviews and valuable
-> suggestions!
-> 
-> [1] https://lore.kernel.org/r/20260622160830.324455-1-zhaonanzhe@xiaomi.com
-> [2] https://lore.kernel.org/linux-f2fs-devel/20261013115621.968742-1-nzzhao.sigma@gmail.com/
-> 
-> Nanzhe Zhao (16):
->   f2fs: extend folio state for large folio write path
->   f2fs: carry subpage offset and count in write IO
->   f2fs: support regular file buffered writes on large folios
->   f2fs: support atomic file large folios buffered write
->   f2fs: support large folio writeback
->   f2fs: account large folio dirty data at block granularity
->   f2fs: prepare mmap write faults for large folios
->   f2fs: make GC migration large-folio aware
->   f2fs: optimize small block size large folio read
->   f2fs: support partial uptodate large folio read
->   f2fs: handle partial truncate of large folio dirty subpages
->   f2fs: wait for folio writeback before ffs_detach_free
->   f2fs: fix zeroing paths for large folios
->   f2fs: handle block cloning within the same large folio
->   f2fs: allow large folio support to writeable files
->   f2fs: make compressed files compatible with large folio
-> 
->  Documentation/filesystems/f2fs.rst |   10 +
->  fs/f2fs/checkpoint.c               |   40 +-
->  fs/f2fs/compress.c                 |    7 +-
->  fs/f2fs/data.c                     | 1467 +++++++++++++++++++++++++---
->  fs/f2fs/dir.c                      |    2 +-
->  fs/f2fs/f2fs.h                     |  170 +++-
->  fs/f2fs/file.c                     |  226 +++--
->  fs/f2fs/gc.c                       |   38 +-
->  fs/f2fs/inline.c                   |    9 +-
->  fs/f2fs/inode.c                    |    4 +-
->  fs/f2fs/namei.c                    |    1 +
->  fs/f2fs/node.c                     |    2 +-
->  fs/f2fs/segment.c                  |    5 +-
->  13 files changed, 1716 insertions(+), 265 deletions(-)
-> 
-> -- 
-> 2.43.0
-> 
-> 
-> 
-> _______________________________________________
-> Linux-f2fs-devel mailing list
-> Linux-f2fs-devel@lists.sourceforge.net
-> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
+That isn't how the hardware works, though.
