@@ -1,84 +1,127 @@
-Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
+Received: from r9204.ps.combzmail.jp (r9204.ps.combzmail.jp [160.16.62.132])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E51512E762C;
-	Wed, 14 Oct 2026 00:29:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.210.214.84
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DA9E2DF717
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 00:31:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.16.62.132
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791937794; cv=none; b=MrbQA60RympaVX5m6epwvkG1v/8UvpC/4i0eDdKvluejd/UdHV7SB1tBnJXfvhNS69NmGh8t74Gyns88KYI8zbmrKDGSp8e8LRwcZ0lEmENWBHh+N97f6W2XJQgTxtBd2akQbJUeOm7Jri22sG1+GvWFeLM8LYVXdhTZrFfRC6k=
+	t=1791937879; cv=none; b=YpbNd9FIQqAT8WgLejP82Ks18OUnMolLYnfoko9BkwmKwWpP8eOd4krgSPU8zMYBJDlXubaVkAQBLlBtFPOrT+hWD5BpacAyCPlnE/sdVs9n8Dh33PGwDJQHRkn6cp7gvBkdFwZ7LBemMpblkjgpX8CuvmuhwzKdh1NRND8SwsE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791937794; c=relaxed/simple;
-	bh=XKI3tZkCyM4/TeKhUgNUVlBp6mh45GJ+REJfN4UHpEU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UoLvnl85CoLCnqlqU/yHI14o+JzAsPyxvgiPJCrMhNzFEP/P9H1yAfkGOnpJ9bi395gFdQFVduHfRDwIa3KfquixhNieeSXeD+Xg13maImgnl//NRSj75OmoB7IcNWv+zJsvPju42ut5yXAD2VfS0iwy5ItWKQtn/GTX6qKCfkw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=uoZVhxuc; arc=none smtp.client-ip=62.210.214.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="uoZVhxuc"
-Received: from gaia.codewreck.org (localhost [127.0.0.1])
-	by submarine.notk.org (Postfix) with ESMTPS id 90FEE14C2D6;
-	Wed, 14 Oct 2026 02:23:39 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
-	s=2; t=1791937425;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HFxL9EiG2VnTn+f1tPMCKHSR++5LrOW9CrXmSSjJ3i4=;
-	b=uoZVhxucwFTSoDD2AXoYZ8DfipRk4z43XHJaAHasZcbNVkPjH1Pg2gK9Q3wtn/fc/1Xl8D
-	CX2lMvOPxxaxu/56vq3/QThWXXXw3z7UHRf+3ASattI1VgjSnl+g0Mkj7OBnw9A7oIFG0K
-	ijftoQC7MSrJO3f7x3jsA2QoO/trJD4FqgCtT9Xwa1DnB/0P16laAFTgQJ1k48ZoY43dpK
-	T9f9T2u/yn53Dx1E0Tr5ag+Fvyk7c5AnMoacfBQheRUm3jBi2DwH/qQpyDT62nD6XGFQ3j
-	Qf1cMofTdhk1FGo0/oYkKkmnqdnf70E3HoDatJomuV//MbvKpW5EPFpYnVAX2Q==
-Received: from localhost (gaia.codewreck.org [local])
-	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id c4e334a7;
-	Wed, 14 Oct 2026 00:23:37 +0000 (UTC)
-Date: Wed, 14 Oct 2026 09:23:22 +0900
-From: Dominique Martinet <asmadeus@codewreck.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.12 000/497] 6.12.113-rc1 review
-Message-ID: <as7LenFDmnKqmweE@codewreck.org>
-References: <20261013112907.864180619@linuxfoundation.org>
+	s=arc-20240116; t=1791937879; c=relaxed/simple;
+	bh=HYeyaqkQjohnE2UhlMcdYYIfEDK509tuaHN+zgJCgt8=;
+	h=To:From:Subject:Mime-Version:Content-Type:Message-Id:Date; b=uGK4Svw/tcC+4kg3mFiCTqZ/PkF8S/R70Ewm12syOJhlrI3BkIC3Pe2lJMbJDFehNSBP20geFByGuchH42dIp32ztle8t5eZOheuK8iLs3JbA+XHGEmieprbYw+RwoSjnfafQE+gZn7wC6sMGkIzjF51Yo4gZZs7rqY4LTNtVOk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=knowledgelink-corp.jp; spf=pass smtp.mailfrom=magerr.combzmail.jp; arc=none smtp.client-ip=160.16.62.132
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=knowledgelink-corp.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=magerr.combzmail.jp
+Received: by r9204.ps.combzmail.jp (Postfix, from userid 99)
+	id DAEF91039A4; Wed, 14 Oct 2026 09:29:51 +0900 (JST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 r9204.ps.combzmail.jp DAEF91039A4
+To: linux-kernel@vger.kernel.org
+From: =?ISO-2022-JP?B?GyRCJUolbCVDJTglaiVzJS8bKEI=?= <info@knowledgelink-corp.jp>
+X-Ip: 9710893220998059
+X-Ip-source: k85gj73p48dnsa9wu0p6gd
+Precedence: bulk
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+Subject: =?ISO-2022-JP?B?GyRCIVY7WDwoQlQkQT9NNFYhVyRPJDMkJkF9GyhC?=
+ =?ISO-2022-JP?B?GyRCJCgkaxsoQg==?=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261013112907.864180619@linuxfoundation.org>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=iso-2022-jp
+Content-Transfer-Encoding: 7bit
+X-MagazineId: 3p9w
+X-uId: 6764315237486066664986261037
+X-Sender: CombzMailSender
+X-Url: http://www.combzmail.jp/
+Message-Id: <20261014003041.DAEF91039A4@r9204.ps.combzmail.jp>
+Date: Wed, 14 Oct 2026 09:29:51 +0900 (JST)
 
-Greg Kroah-Hartman wrote on Tue, Oct 13, 2026 at 01:32:47PM +0200:
-> This is the start of the stable review cycle for the 6.12.113 release.
-> There are 497 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Thu, 15 Oct 2026 11:28:22 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.113-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
-> and the diffstat can be found below.
+　
+　いつもお世話になります。
+　
+　〇 社員のモチベーションを上げようと声をかける
+　〇 現場のトラブルに、自ら先頭に立って対応する
+　
+　もし、社長がこれらを率先しているようであれば
+　残念ながら、その組織の成長はそこで止まります。
+　
+　社長の“優しさ”が、社員の甘えを生み、責任感を奪い
+　「指示待ち人間」を量産する装置になっているからです。
+　
+　「優しさ」で人を動かすのではなく、「正しさ」で組織を動かす。
+　
+　4,800社の経営者が衝撃を受けた、
+　良かれと思ってやってしまう「社長のNG行動」の正体。
+　
+　組織を正しい方向に変えるためのウェビナーです。　
+　もし心当たりがあれば、一度ご視聴ください。　
+　
+　>>視聴予約はこちら
+　https://knowledge-co.jp/shikigaku5/
+　
+----------------------------------------------
+　
+　テーマ ：　それ、危険です 『社長のNG行動』
+　　　　　 〜 その行動が、組織崩壊を招く 〜
+　
+　日 程　：10月14日（水）13:00スタート
+　　　　　 10月22日（木）13:00スタート
+　　　　　 ※内容は同じです。
+　会 場　：Zoom開催
+　定 員　：先着100名（費用は不要）
+----------------------------------------------
+　※経営層の方限定です
+　
+　
+　なぜ、社員は「言われたこと」しかやらないのか。
+　なぜ、次世代のリーダー候補が育たないのか。
+　
+　それは、能力の問題ではなく、
+　
+　良かれと思って続けている「社長の配慮」こそが、
+　組織成長を止める、最大のボトルネックかもしれません。
+　
+　本セミナーでは、4,800社以上が導入した
+　独自の組織論「識学」に基づき、社長の「NG行動」と
+　真の経営者へ脱皮するためのマインドセットを伝授します。
+　
+　
+　【セミナー内容(一部抜粋)】
+　 ○ NG行動3選
+　 ○ なぜ優秀なNo.2や部長が育たないのか
+　 ○ マネジメントスタイルの変革について
+　 ○ 導入企業の事例
+　
+　「管理職が育ったら任せる」ではなく「任せるから育つ」
+　という思考の逆転を提言。
+　
+　現場から「冷たくなった」と思われることを恐れず
+　機能的な階層構造を作ることで
 
+　結果として社員全員を守り
+　利益を最大化させる道筋を明示します。
 
-Tested 03c552c46ef0 ("Linux 6.12.113-rc1") on:
-- arm i.MX6ULL (Armadillo 640)
-- arm64 i.MX8MP (Armadillo G4)
-- arm64 i.MX8ULP (Armadillo IoT A9E)
+　「優しさ」で人を動かすのではなく
+　「正しさ」で組織を動かす。
 
-No obvious regression in dmesg or basic tests:
-Tested-by: Dominique Martinet <dominique.martinet@atmark-techno.com>
--- 
-Dominique Martinet
+　音声やお顔が表に出ることはございませんので
+　お気軽にご視聴ください。
+　
+　>>視聴予約はこちら
+　https://knowledge-co.jp/shikigaku5/
+　
+　
+-----------------------
+　一般社団法人 ナレッジリンク
+　東京都千代田区神田小川町1-8-3
+　電話：03-5256-7638
+
+　セミナーのご案内が不要な方は大変残念ではございますが、
+　下記URLより手続き下さいませ。
+　
+　メール配信のワンクリック解除はこちら
+　https://fc-knowledgelink-corp.jp/mail/
+　
