@@ -1,311 +1,119 @@
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10C89481AAE;
-	Wed, 14 Oct 2026 07:15:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.30.148.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63D0137CD45;
+	Wed, 14 Oct 2026 07:17:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791962145; cv=none; b=KuAp6wRTdQa4fctDsjfQhR+k27cC+neK2mZRzpRQvLSYsdOINzZC4dLo/Y6w0bKuNTcM/JGYEoLHU49wr6pRP8czE+RkzCe1Nt1F0E7kVmjTDHqB2nZzAgZbH9NHwEuds9k8SFmITRw9HlZgI5uYGpRuH8eBq+Bs+CA4rR/g2gg=
+	t=1791962226; cv=none; b=i9LuR9bDSt3Qe/FCKBgx8Btd9JbdaNs4mDn/5i9JUFRENqem3xhDuOUSSjJsDFYu/R0762RUia4Gb9wmsvc27xOh+XdLc8sM1vFa4r6l1JCsgm+XxZCqAbj6V0m3xtn+OdqUOZgu786+n5hBRLGNIcGTYoj5SvRNTqXhWAEHIcY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791962145; c=relaxed/simple;
-	bh=K+f8WLpUrGziB3jE6nrp82KYl73LPQxVQjFPNxSQL7Q=;
-	h=Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type; b=E82++B/wbBVJQowDJZZfqzAnFBrUlVRtKlF2CU2KgFGTz0Nn8FGvoegXnw9Aa0pviOkaMg6ZnGjkuMRhKX3iTQp2DbqXKjFmdlmB1xKRKzcn6pAhfXClpuVCi/0ps7YWNGzaT9sEuoCtYsm5FSm0pbH7fZFo88ps7aGN24c3VUI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=160.30.148.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mxct.zte.com.cn (unknown [192.168.251.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4j4MtN65l8z4yjjW;
-	Wed, 14 Oct 2026 15:15:40 +0800 (CST)
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4j4Mt765mRz57HS2;
-	Wed, 14 Oct 2026 15:15:27 +0800 (CST)
-Received: from njb2app07.zte.com.cn ([10.55.22.95])
-	by mse-fl1.zte.com.cn with SMTP id 69E7FIZG008528;
-	Wed, 14 Oct 2026 15:15:18 +0800 (+08)
-	(envelope-from han.junyang@zte.com.cn)
-Received: from mapi (njy2app02[null])
-	by mapi (Zmail) with MAPI id mid204;
-	Wed, 14 Oct 2026 15:15:20 +0800 (CST)
-X-Zmail-TransId: 2afa6acf2c08e40-ee686
-X-Mailer: Zmail v1.0
-Message-ID: <20261014151520214vlXLCh0n7cyLViOvFGDOP@zte.com.cn>
-In-Reply-To: <20261014151200489685SCIlolykW0NGfL5EtQ@zte.com.cn>
-References: 20261014151200489685SCIlolykW0NGfL5EtQ@zte.com.cn
-Date: Wed, 14 Oct 2026 15:15:20 +0800 (CST)
+	s=arc-20240116; t=1791962226; c=relaxed/simple;
+	bh=nE78DxEnQ8/BV1BqBh1f0/QDgQE9bqzqx4XQoPy6zbU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hp/utAkd5QBZ6mX1EEy5fZ8PLtbqYSpxovnSbK3S0jhMJcrCGFIsM5SDnf4ELzGCsxyrmphaj2YA4+rqus/T75i4k3fXOqT0/MzxblfGYslBxAPJcoMM4YQHgqgLiyv0+y9J3qDWdshhpnXouQa0tFKgPmbTHIz70XgCoG5dHYY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=AJzEDQFg; arc=none smtp.client-ip=188.40.3.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="AJzEDQFg"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
+	Content-Type:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=5fp55bHeIVL0dMm4tvNzvZ983uwcZwdzmkFbobSw7xg=; b=AJzEDQFgvagHJ0xbF4RsDr6f+l
+	0gVMG3TRSZ7YEy2rFJZWVkhRq5b5329aKKVPUMMtUwQiv+A1WGZZIzK+iuvOvAi6CERwhazkrVKsL
+	GiHLDupJKFcPDCf+c8uwlpz4s5oFze8eGKsYFfFyce1Xt9FmJHQb4U873bWIUBAPlpHNB3qo++pY5
+	soAB0qlgSswuVpfMmNCL3AlT7EBtEx+t8biu3LfuY7c48kPrwIrJTaWIPsNnIqt8EjdMVEE5CGdCo
+	L8zsEOtdWDBxHtGkBzRn6TldPPHA7yRE8evbSYwp0ttSGqZzFE2wm4gy9flR5Jc12DEc32ajNGkGY
+	6EuY5plg==;
+Received: from sslproxy02.your-server.de ([78.47.166.47])
+	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1xGtEU-000GA0-07;
+	Wed, 14 Oct 2026 09:17:02 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy02.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1xGtET-000AF0-1K;
+	Wed, 14 Oct 2026 09:17:01 +0200
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dong Aisheng <aisheng.dong@nxp.com>
+Cc: Liu Ying <victor.liu@nxp.com>,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux@ew.tq-group.com,
+	Alexander Stein <alexander.stein@ew.tq-group.com>
+Subject: [PATCH v2 1/5] dt-bindings: firmware: imx: Add SCU controlled display pixel link nodes
+Date: Wed, 14 Oct 2026 09:16:45 +0200
+Message-ID: <20261014071657.118378-2-alexander.stein@ew.tq-group.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261014071657.118378-1-alexander.stein@ew.tq-group.com>
+References: <20261014071657.118378-1-alexander.stein@ew.tq-group.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-From: <han.junyang@zte.com.cn>
-To: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
-        <kuba@kernel.org>, <pabeni@redhat.com>, <horms@kernel.org>
-Cc: <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
-        <han.junyang@zte.com.cn>, <ran.ming@zte.com.cn>,
-        <han.chengfei@zte.com.cn>, <zhang.yanze@zte.com.cn>
-Subject: =?UTF-8?B?W1BBVENIIG5ldC1uZXh0IHY1IDEvM10gZGluZ2hhaTogYWRkIGZpcm13YXJlIHZlcnNpb24gY2hlY2sgYW5kCiBSSVNDLVYgcmVhZGluZXNzIHBvbGxpbmc=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 69E7FIZG008528
-X-TLS: YES
-X-ENVELOPE-SENDER: han.junyang@zte.com.cn
-X-SOURCE-IP: 192.168.251.13 unknown Wed, 14 Oct 2026 15:15:40 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6ACF2C1C.000/4j4MtN65l8z4yjjW
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28152/Tue Oct 13 08:26:14 2026)
 
-From: Junyang Han <han.junyang@zte.com.cn>
+From: Liu Ying <victor.liu@nxp.com>
 
-The DingHai firmware publishes a version compatibility block and a
-RISC-V health buffer at fixed offsets within BAR 0.
+Document SCU controlled display pixel link child nodes.
 
-After the PCI capabilities are mapped, poll the compatibility block
-until the firmware populates it (the region reads as all ones until
-then) and verify the driver/firmware version contract. Then wait for
-the RISC-V management core to set its power-on flag in the health
-buffer before the rest of the probe continues.
-
-Firmware images that support neither self-healing (health version
-other than 1) nor hot-plug interrupts (patch level below
-ZXDH_HPIRQ_PATCH) do not report the power-on flag and skip the
-readiness wait.
-
-Signed-off-by: Junyang Han <han.junyang@zte.com.cn>
+Signed-off-by: Liu Ying <victor.liu@nxp.com>
+Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
 ---
- drivers/net/ethernet/zte/dinghai/en_pf.c | 130 +++++++++++++++++++++++
- drivers/net/ethernet/zte/dinghai/en_pf.h |  46 ++++++++
- 2 files changed, 176 insertions(+)
+Changes in v2:
+* None
 
-diff --git a/drivers/net/ethernet/zte/dinghai/en_pf.c b/drivers/net/ethernet/zte/dinghai/en_pf.c
-index 86d437408820..ddff9b0438fb 100644
---- a/drivers/net/ethernet/zte/dinghai/en_pf.c
-+++ b/drivers/net/ethernet/zte/dinghai/en_pf.c
-@@ -6,6 +6,8 @@
+ .../devicetree/bindings/firmware/fsl,scu.yaml | 20 +++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
- #include <linux/module.h>
- #include <linux/pci.h>
-+#include <linux/io.h>
-+#include <linux/iopoll.h>
- #include <net/devlink.h>
- #include <linux/dma-mapping.h>
- #include "en_pf.h"
-@@ -369,6 +371,120 @@ int zxdh_pf_modern_cfg_init(struct zxdh_core_dev *zxdh_dev)
- 	return ret;
- }
-
-+/* The firmware fills the compatibility block field by field, so it is
-+ * only ready to be read once every field we consume has lost its
-+ * erased value.
-+ */
-+static bool zxdh_pf_fw_compat_ready(struct zxdh_fw_compat __iomem *compat)
-+{
-+	return ioread8(&compat->module_id) != 0xffU &&
-+	       ioread8(&compat->major) != 0xffU &&
-+	       ioread8(&compat->fw_minor) != 0xffU &&
-+	       ioread8(&compat->drv_minor) != 0xffU &&
-+	       ioread16(&compat->patch) != 0xffffU;
-+}
+diff --git a/Documentation/devicetree/bindings/firmware/fsl,scu.yaml b/Documentation/devicetree/bindings/firmware/fsl,scu.yaml
+index 307f1c6278532..cd6cda1192a89 100644
+--- a/Documentation/devicetree/bindings/firmware/fsl,scu.yaml
++++ b/Documentation/devicetree/bindings/firmware/fsl,scu.yaml
+@@ -30,6 +30,26 @@ properties:
+       Clock controller node that provides the clocks controlled by the SCU
+     $ref: /schemas/clock/fsl,scu-clk.yaml
+ 
++  dc0-pixel-link0:
++    description:
++      Display pixel link0 in display controller subsystem0 controlled by the SCU
++    $ref: /schemas/display/bridge/fsl,imx8qxp-pixel-link.yaml
 +
-+/* Read the firmware version block and verify the driver/firmware
-+ * version contract.
-+ */
-+static int zxdh_pf_fw_compat_check(struct zxdh_core_dev *zxdh_dev)
-+{
-+	struct zxdh_pf_dev *pf_dev = zxdh_dev->priv;
-+	struct zxdh_fw_compat __iomem *compat;
-+	struct zxdh_fw_compat *fw_compat;
-+	bool ready;
-+	int err;
++  dc0-pixel-link1:
++    description:
++      Display pixel link1 in display controller subsystem0 controlled by the SCU
++    $ref: /schemas/display/bridge/fsl,imx8qxp-pixel-link.yaml
 +
-+	fw_compat = &pf_dev->fw_compat;
-+	compat = pf_dev->pci_ioremap_addr[0] + ZXDH_FW_COMPAT_OFFSET;
++  dc1-pixel-link0:
++    description:
++      Display pixel link0 in display controller subsystem1 controlled by the SCU
++    $ref: /schemas/display/bridge/fsl,imx8qxp-pixel-link.yaml
 +
-+	/* The firmware publishes the block within 10 s of boot; wait twice
-+	 * that to leave margin.
-+	 */
-+	err = readx_poll_timeout(zxdh_pf_fw_compat_ready, compat, ready,
-+				 ready, USEC_PER_SEC,
-+				 ZXDH_FW_COMPAT_TIMEOUT_SEC * USEC_PER_SEC);
-+	if (err)
-+		dev_info(zxdh_dev->device,
-+			 "compat region not populated, assuming legacy firmware\n");
++  dc1-pixel-link1:
++    description:
++      Display pixel link1 in display controller subsystem1 controlled by the SCU
++    $ref: /schemas/display/bridge/fsl,imx8qxp-pixel-link.yaml
 +
-+	/* Firmware predating the compatibility region keeps the erased
-+	 * pattern, which fails the module id check below and defers the
-+	 * decision to the readiness wait.
-+	 */
-+	fw_compat->module_id = ioread8(&compat->module_id);
-+	fw_compat->major = ioread8(&compat->major);
-+	fw_compat->fw_minor = ioread8(&compat->fw_minor);
-+	fw_compat->drv_minor = ioread8(&compat->drv_minor);
-+	fw_compat->patch = ioread16(&compat->patch);
-+
-+	if (fw_compat->module_id != ZXDH_MODULE_ID) {
-+		dev_info(zxdh_dev->device,
-+			 "unknown module id %u, skip fw compat check\n",
-+			 fw_compat->module_id);
-+		/* Unknown firmware is treated as predating the HPIRQ
-+		 * patch, so that the readiness wait is skipped.
-+		 */
-+		fw_compat->patch = 0;
-+		return 0;
-+	}
-+
-+	if (fw_compat->major != ZXDH_MAJOR) {
-+		dev_err(zxdh_dev->device,
-+			"driver major %u incompatible with firmware major %u\n",
-+			ZXDH_MAJOR, fw_compat->major);
-+		return -EINVAL;
-+	}
-+
-+	if (fw_compat->fw_minor < ZXDH_FW_MINOR) {
-+		dev_err(zxdh_dev->device,
-+			"firmware fw_minor %u older than required %u\n",
-+			fw_compat->fw_minor, ZXDH_FW_MINOR);
-+		return -EINVAL;
-+	}
-+
-+	if (fw_compat->drv_minor > ZXDH_DRV_MINOR) {
-+		dev_err(zxdh_dev->device,
-+			"driver drv_minor %u older than required by firmware %u\n",
-+			ZXDH_DRV_MINOR, fw_compat->drv_minor);
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+/* Wait for the RISC-V management core of the firmware to finish
-+ * booting, so that later probe steps can talk to it.
-+ */
-+static int zxdh_pf_wait_riscv_ready(struct zxdh_core_dev *zxdh_dev)
-+{
-+	struct zxdh_pf_dev *pf_dev = zxdh_dev->priv;
-+	struct zxdh_health_buffer __iomem *hb;
-+	u8 health_version;
-+	u8 power_on;
-+	int err;
-+
-+	hb = pf_dev->pci_ioremap_addr[0] + ZXDH_RISCV_HB_OFFSET;
-+	health_version = ioread8(&hb->health_version);
-+
-+	/* Firmware that supports neither self-healing nor hot-plug
-+	 * interrupts does not report the power-on flag.
-+	 */
-+	if (health_version != 1 &&
-+	    pf_dev->fw_compat.patch < ZXDH_HPIRQ_PATCH)
-+		return 0;
-+
-+	err = readx_poll_timeout(ioread8, &hb->riscv_power_on, power_on,
-+				 power_on == 1, USEC_PER_SEC,
-+				 ZXDH_RISCV_READY_TIMEOUT_SEC * USEC_PER_SEC);
-+	if (err) {
-+		dev_err(zxdh_dev->device, "timed out waiting for riscv power on\n");
-+		return err;
-+	}
-+
-+	return 0;
-+}
-+
- static int zxdh_pf_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- {
- 	struct zxdh_core_dev *zxdh_dev;
-@@ -405,10 +521,24 @@ static int zxdh_pf_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 		goto err_cfg_init;
- 	}
-
-+	ret = zxdh_pf_fw_compat_check(zxdh_dev);
-+	if (ret) {
-+		dev_err(&pdev->dev, "zxdh_pf_fw_compat_check failed: %d\n", ret);
-+		goto err_modern_cfg;
-+	}
-+
-+	ret = zxdh_pf_wait_riscv_ready(zxdh_dev);
-+	if (ret) {
-+		dev_err(&pdev->dev, "zxdh_pf_wait_riscv_ready failed: %d\n", ret);
-+		goto err_modern_cfg;
-+	}
-+
- 	devlink_register(devlink);
-
- 	return 0;
-
-+err_modern_cfg:
-+	zxdh_pf_modern_cfg_uninit(zxdh_dev);
- err_cfg_init:
- 	zxdh_pf_pci_close(zxdh_dev);
- err_pci_init:
-diff --git a/drivers/net/ethernet/zte/dinghai/en_pf.h b/drivers/net/ethernet/zte/dinghai/en_pf.h
-index 7373dee8d1a9..730cb084a8ae 100644
---- a/drivers/net/ethernet/zte/dinghai/en_pf.h
-+++ b/drivers/net/ethernet/zte/dinghai/en_pf.h
-@@ -29,6 +29,51 @@
- #define ZXDH_PF_ALIGN2			2
- #define ZXDH_PF_MAP_MINLEN2		2
-
-+/* Fixed offsets of the firmware interface regions within BAR 0. */
-+#define ZXDH_RISCV_HB_OFFSET	0x5300
-+#define ZXDH_FW_COMPAT_OFFSET	0x5400
-+
-+/* Driver/firmware version contract. The firmware publishes its side of
-+ * the contract in the region at ZXDH_FW_COMPAT_OFFSET.
-+ */
-+#define ZXDH_MODULE_ID		1
-+#define ZXDH_MAJOR		1
-+#define ZXDH_FW_MINOR		0
-+#define ZXDH_DRV_MINOR		0
-+/* Firmware patch level that introduced hot-plug IRQ support. */
-+#define ZXDH_HPIRQ_PATCH	4
-+
-+#define ZXDH_FW_COMPAT_TIMEOUT_SEC	20
-+#define ZXDH_RISCV_READY_TIMEOUT_SEC	40
-+
-+/* Firmware version compatibility block at ZXDH_FW_COMPAT_OFFSET.
-+ * Fields are read through ioread*(), which converts from little-endian.
-+ */
-+struct zxdh_fw_compat {
-+	u8 module_id;
-+	u8 major;
-+	u8 fw_minor;
-+	u8 drv_minor;
-+	u16 patch;
-+	u16 rsv;
-+};
-+
-+/* Health buffer at ZXDH_RISCV_HB_OFFSET, maintained by the RISC-V
-+ * management core of the firmware. Fields are read through ioread*().
-+ */
-+struct zxdh_health_buffer {
-+	u32 synd;		/* Bitmask of active syndrome flags. */
-+	u32 health_counter;	/* Incremented heartbeat counter. */
-+	u8 status;
-+	u8 rfr;
-+	u8 fw_exception;
-+	u8 riscv_power_on;	/* Set to 1 once the core finished booting. */
-+	u8 fw_version[32];
-+	u8 pf_status[5];
-+	u8 health_version;	/* 1 when the firmware supports self-healing. */
-+	u8 rsv1[30];
-+};
-+
- struct zxdh_core_dev {
- 	struct device *device;
- 	struct pci_dev *pdev;
-@@ -54,6 +99,7 @@ struct zxdh_pf_dev {
- 	s32 modern_bars;
- 	void __iomem *pci_ioremap_addr[6];
- 	u32 dev_cfg_bar_off;
-+	struct zxdh_fw_compat fw_compat;
- };
-
- void *zxdh_core_alloc_priv(struct zxdh_core_dev *zxdh_dev, size_t size);
+   gpio:
+     description:
+       Control the GPIO PINs on SCU domain over the firmware APIs
 -- 
-2.27.0
+2.55.0
+
