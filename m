@@ -1,152 +1,83 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4851C3B9D8B
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:31:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0639B457E75;
+	Thu, 15 Oct 2026 06:31:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.210.214.84
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792045909; cv=none; b=U2HB2lvCm9fEW4cWXgNjEtVhIdtRJghfJc1hfEN91x8ktjSbxqW2Q0bMX0EKf4/kW9bSdvKIe3U6D1VGnOmDjx5ruzkLyf9PXZkBSZ1hJBilm+xVqDFioVt7FvKVQvYpHqiAF5bTaj/1wQA9cfP8Z0VzepsJKr+YmfJpZaR0tYg=
+	t=1792045914; cv=none; b=PSGSpV4P+on6faSIZaoQuxF4NSBVA957rqkaxHxSAkEEclEWmzpNkeKmor5Hz3lO7kbEj2S21XMtUwJCj9GPbVCMWPl4lK1SAvEqIX/WOADmt62m44LS9HmPWT8bzU4ytvDR/8E/aJG58HCDpOI50K5ZQKjkgZwaJ0T7waMYrn8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792045909; c=relaxed/simple;
-	bh=B8S0LlkmJ7EjMISZNd7v7BcToBZJiQKXzNCR1/0gNH8=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
-	 Content-Type; b=dpDMtnYVzMDWWYh2UonNzp1Ro2ueS+Dj+7Qxzxrb9lAfmg9Je1EiDJaGfqhiM+f4lb0l5qPaJsnGt/uF8X/b63+3PFqgYwo+WCw/AYdQ2oOPE6VelQfG0HvSnNn60tYfk2JJUYd5g3e9IKazt49mEM8UtEgnBdf1FdUc1e/O1pE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4f8281066c4so7977290b6e.2
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 23:31:48 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792045907; x=1792650707;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=3F35E4jPIx7RMMTCdlc4Vo4sGi0Ur0Tkpp/QXlSGOsg=;
-        b=TpHLJjg2ZcTkm3u32Bn2ot9Cy/9/dul69t/ufCuGLpOeiheUbif9AZVLqnppkv+5fe
-         iGshd3vwPT8YbI30Ot5lcn1DM79lVuMjhiSGlnl+ViD1gE4UHF3THYg2+PTzlrqEA/BY
-         YzL7x318HYZXLNdiJX8bG2ASTFF4oRPCcskfVaMh9PSKXlKGd52YVBl+xKjY8yVkIkua
-         xv0Po1xdCoSJRiN+YiXxmShU/gPEiCysiCdlfS27JQm+yOPpDKD45tE+N7vqS0Hk1mzy
-         xYjgAuaYLczbM+NDlh202e0FDoNKcY80QGRzKrYqpSJKrZgi/Apn9rUR/GtHyUQ2xvTX
-         PW7w==
-X-Forwarded-Encrypted: i=1; AKwUvBzjs2AyRMjiw+LTyEgI+2YxeXZsQwgdosDPTlj5h8+JEecP/uvXa+FwR1IfHcLEsbsoOq7xzq6AA5+fDoY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKkkZkMEPbgRBovpLSJ6ATkd6K5xhDHCYNEir3I3qwkqeskxgWt
-	EKYiCyTLSNvUbYrA8p+bOOK1kH7XB7cPt1iVm/FVRWfYbZ1f//UYPZTlkasFGV8Dbnu1ZrKezEC
-	x3jQYVHNS7ydv6AAhRTNf3UvxupznB8Ur6/bjSko7lK8RhrxRyXUD/5R+EIM=
+	s=arc-20240116; t=1792045914; c=relaxed/simple;
+	bh=AMNe4pAQnuFm1VbGb7njHfZH8CUQZVRe0MygYY3fnnc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=r5SpkhvP5DtAg//ZhcmNpX5BwkPslc/44L3rhguShHyrFuN5iOPRXCFWnfyqHAAsMhBgQlso8pPKCsN9Q0AtXNIxHh5N2+IiJT3mxMVdHJI01LHu8+7ArymtIjarKetjq7nZaPtmHUSBpscHybXB7DO2h6gx9hLNMzPYoUYY6Qc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=V/c2G73d; arc=none smtp.client-ip=62.210.214.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="V/c2G73d"
+Received: from gaia.codewreck.org (localhost [127.0.0.1])
+	by submarine.notk.org (Postfix) with ESMTPS id 4DE9B14C2D6;
+	Thu, 15 Oct 2026 08:31:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
+	s=2; t=1792045901;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gMM1hyvQ7IECorDJyxaoZ1ePg+umKGhAYhAXl/7UtB8=;
+	b=V/c2G73dJiqXzAtEgo5wOgnnLQ0024HCa63fQl5kh6ExGSnmI5BT6ff5fNC806S11tr7A0
+	EYg+XvkghIR5y5XL9PieW5DRbJnaktheW1whHgitD8cBrXmSrbTOio8HZtWT1JCQmqVRWh
+	nBJsZClxckHU/Yz5+ZzWyy+Xn7BU55cGK9sqscZWcuAAVh8PX5TsgoWKcaCOQIpTJtR8Rp
+	vcP4c8wm5P5tF0fJxh0B9Ib7cYCwd30BlgkE+dxT0DFcYuCgqV2b5akFcWGixF08HKav8l
+	1yexDBwZdUP2O74peIwcdjjLljdpqaGUckpC0An1M7IQLdZDsne9X9llhlG6Pw==
+Received: from localhost (gaia.codewreck.org [local])
+	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 532a53bb;
+	Thu, 15 Oct 2026 06:31:34 +0000 (UTC)
+Date: Thu, 15 Oct 2026 15:31:19 +0900
+From: Dominique Martinet <asmadeus@codewreck.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.12 000/505] 6.12.113-rc2 review
+Message-ID: <atBzN6pabpCTiCnb@codewreck.org>
+References: <20261014123803.944920639@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4f28:b0:4b3:7b31:8df7 with SMTP id
- 5614622812f47-50c524711f0mr20489692b6e.14.1792045907183; Wed, 14 Oct 2026
- 23:31:47 -0700 (PDT)
-Date: Wed, 14 Oct 2026 23:31:47 -0700
-In-Reply-To: <20261014220508.518772-1-dwmw2@infradead.org>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ad07353.5f317f00.247b6.0062.GAE@google.com>
-Subject: [syzbot ci] Re: KVM: x86/xen: Don't drop event deliveries which race
- memslot updates
-From: syzbot ci <syzbot+ci189dc6e331dcf349@syzkaller.appspotmail.com>
-To: dwmw2@infradead.org, dwmw@amazon.co.uk, fgriffo@amazon.co.uk, 
-	kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, paul@xen.org, pbonzini@redhat.com, 
-	seanjc@google.com, vkuznets@redhat.com
-Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261014123803.944920639@linuxfoundation.org>
 
-syzbot ci has tested the following series
+Greg Kroah-Hartman wrote on Wed, Oct 14, 2026 at 02:50:30PM +0200:
+> This is the start of the stable review cycle for the 6.12.113 release.
+> There are 505 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Fri, 16 Oct 2026 12:37:19 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.113-rc2.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
+> and the diffstat can be found below.
 
-[v2] KVM: x86/xen: Don't drop event deliveries which race memslot updates
-https://lore.kernel.org/all/20261014220508.518772-1-dwmw2@infradead.org
-* [PATCH v2 01/11] KVM: pfncache: Return -EAGAIN for a lookup which hits an invalid memslot
-* [PATCH v2 02/11] KVM: pfncache: Add a 'wait' argument to the refresh and activate functions
-* [PATCH v2 03/11] KVM: x86/xen: Don't block on xen_lock within the vCPU's kvm->srcu section
-* [PATCH v2 04/11] KVM: x86/xen: Wait out memslot updates in the Xen attribute ioctls
-* [PATCH v2 05/11] KVM: x86/xen: Don't lose the timer event when delivery fails transiently
-* [PATCH v2 06/11] KVM: x86/xen: Retry event channel delivery which races a memslot update
-* [PATCH v2 07/11] KVM: x86/xen: Extract delivery of event to vCPU into a separate helper
-* [PATCH v2 08/11] KVM: x86/xen: Explicitly tag "shared info" page as never being dirty tracked
-* [PATCH v2 09/11] KVM: x86/xen: Don't dirty track "vCPU info" page
-* [PATCH v2 10/11] KVM: x86: Request the guest TLB flush from record_steal_time()
-* [PATCH v2 11/11] KVM: selftests: Add Xen evtchn vs memslot-update race test
+Tested 4a8beb0f1e36 ("Linux 6.12.113-rc2") on:
+- arm i.MX6ULL (Armadillo 640)
+- arm64 i.MX8MP (Armadillo G4)
+- arm64 i.MX8ULP (Armadillo IoT A9E)
 
-and found the following issue:
-WARNING: suspicious RCU usage in kvm_gpc_check
-
-Full report is available here:
-https://ci.syzbot.org/series/cde10220-9f8c-48fe-a62d-36d3df4d9a0b
-
-***
-
-WARNING: suspicious RCU usage in kvm_gpc_check
-
-tree:      kvm-next
-URL:       https://kernel.googlesource.com/pub/scm/virt/kvm/kvm/
-base:      d4b7fb647204f0c81dfeae2d1a708e4d858e0c94
-arch:      amd64
-compiler:  Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-config:    https://ci.syzbot.org/builds/dbdeec8a-a092-44d6-96b1-12ae99a6a0ce/config
-
-=============================
-WARNING: suspicious RCU usage
-syzkaller #0 Not tainted
------------------------------
-./include/linux/kvm_host.h:1094 suspicious rcu_dereference_check() usage!
-
-other info that might help us debug this:
-
-
-rcu_scheduler_active = 2, debug_locks = 1
-locks held by syz.0.18064/14640: 3, last CPU#0:
- #0: ffff8881133851a8 (&vcpu->mutex){+.+.}-{4:4}, at: kvm_vcpu_ioctl+0x27f/0xfd0
- #1: ffff8880201d5d30 (&kvm->arch.xen.xen_lock){+.+.}-{4:4}, at: kvm_xen_vcpu_set_attr+0x4d/0x1250
- #2: ffff8881133861e0 (&gpc->lock){....}-{3:3}, at: xen_get_guest_pvclock+0x29/0x260
-
-stack backtrace:
-CPU: 0 UID: 0 PID: 14640 Comm: syz.0.18064 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150
- lockdep_rcu_suspicious+0x140/0x1d0
- kvm_gpc_check+0x325/0x380
- xen_get_guest_pvclock+0x3e/0x260
- kvm_xen_start_timer+0x160/0x5f0
- kvm_xen_vcpu_set_attr+0xbb2/0x1250
- kvm_arch_vcpu_ioctl+0x1485/0x23a0
- kvm_vcpu_ioctl+0x7e3/0xfd0
- __se_sys_ioctl+0xfc/0x170
- do_syscall_64+0x166/0x520
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f3c49f9e559
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f3c4ae4a028 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 00007f3c4a226090 RCX: 00007f3c49f9e559
-RDX: 00002000000000c0 RSI: 000000004048aecb RDI: 000000000000000a
-RBP: 00007f3c4a0358b0 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f3c4a226128 R14: 00007f3c4a226090 R15: 00007ffed7dff5b8
- </TASK>
-
-
-***
-
-If these findings have caused you to resend the series or submit a
-separate fix, please add the following tag to your commit message:
-  Tested-by: syzbot@syzkaller.appspotmail.com
-
----
-This report is generated by a bot. It may contain errors.
-syzbot ci engineers can be reached at syzkaller@googlegroups.com.
-
-To test a fix for this bug, please reply with `#syz test`
-(on a separate line) and attach the patch to the email.
-
-Notes:
-- The patch will be applied on top of the tested series (as an
-  incremental fix).
-- To test a new version of the whole series, please send it directly
-  to syzbot@lists.linux.dev.
-- Arguments like custom git repos and branches are not supported.
+No obvious regression in dmesg or basic tests:
+Tested-by: Dominique Martinet <dominique.martinet@atmark-techno.com>
+-- 
+Dominique Martinet
