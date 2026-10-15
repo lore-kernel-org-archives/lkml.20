@@ -1,284 +1,283 @@
-Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023143.outbound.protection.outlook.com [52.101.127.143])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BCFA3148C9;
-	Thu, 15 Oct 2026 01:56:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.127.143
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792029384; cv=fail; b=ehb/Ly2Z7rArzXxozJ+K0W92AR5UtN8rwvtCBytnnCXvDgF+xJrshRuP1Al49Ty8+A2yMoui1ZagNhFACN1fWGH/0iGQeMxaxRPUC+u7Dv2bXDvkZD+qqJPpmZ+Ct5oSPwqt+mYDQeyG//HZflceLmNQo8UkjBKOOo7CQk8iWWY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792029384; c=relaxed/simple;
-	bh=v+Gsu+2s/965auCliQuOThYvqZtPybyMoBXt4dAKFPI=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=XYI8aB4JVCZk7RH3m4Y11KNA2kT6bZhDxMPcfHW36Ntkh2j6UA8Tepp5a4Q40T9pVsMvV7BUIr8I6qzcUYaMjSnFizr2rAt8yCjKjr/Gj5ZqTSnynaVFEaf7YlF+U05DNwk6ozIjGOocb2Rk0jaWqQkPp08uvZ8lwXIcmM0k3Yo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b=SUARbK3a; arc=fail smtp.client-ip=52.101.127.143
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59C5D195B1A
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:56:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.182
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792029396; cv=none; b=Fe6OpQmg+pdvK11GraFxVuAJUb7EBznPgLIleV93h87lua9KSTliNIiAqb0RbcUqgoxO7p+hKSf5iXhI+wcmH8H9Lsz4Bl3sA+4v1WJCs0ZDO9UWHLbfd+niJcs4ZpCGMqj5ugAvqmluKFUUSGpZgFjHGkdzuST518eH/1SLAuM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792029396; c=relaxed/simple;
+	bh=rEr0SuVn7nZ9MjGQg/bSCKwbMj++w/gb0WSIVoNsmao=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Kchuhxe0LoO/30Lc7tA/njuhKKKW35qCNKStzWxwBK19+x8AP5BQIuAt6ZPt5Jz0hLgasWCHeOhznUVY+pBhP8Wy2ff4iPCHmxQQkYDnJJGECLPJfevik2XcZIb3H/NuMRUiRWtX6MvMMa6QRpiIPebO3iqn31sxCf5X1Q12xfE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rwpoG2PQ; arc=none smtp.client-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b="SUARbK3a"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kJu78kwxuc92Iolb4PRlgxlWnO9xaejh6MTz1f4lmkPYPh+2N0mfD4Kc0JXV3BnzFFK4C8Vs6CGCwWXxOJNxMAJly5y4GXe5PWgy2HVS7Xpn866yNgeYI5GWp9pxF+SD9OhQbSQmccCzxUrBqeUD6YJsiPePdoUcxj+WnjNQZzUXjqDNhwODK5Fhi3eYosrdmgAoH3KS6apkzSYhtR6Z7ns812ghULOmb58e1MXzTudVrVtNhVf3V/nH5N3I8AJ7gGdtpEKNVlSUh7zKWTT1M1EwYc+Sldv2GPMwCFXbOw1nljV6ObHQlNyAW+khgr1d2KWw205ci89GjSU03SJ4xQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=v+Gsu+2s/965auCliQuOThYvqZtPybyMoBXt4dAKFPI=;
- b=bKa2sGBSVsUrRTv6NXy02uGGImElZrFxVXXaDemffpNBGt/BBLzanfkQnGwLwhkOJ9ylLBc9VK6dWNIOI9FQNRYemLavr53lCasnEK3hFWXf00d3RnnjG1I1oW7SmkGq9D3Q7bBKtBjPSZH+dgifmsVVtk5jeX9/2OtI1LFDXW6D32OWUKTbPolSgIU0vRii9aKAQIe6puWI7tePadVgdYIj6YAPu+XNkLsDsTGAyDnQfvJtKFvH2bC0XogkcT8YJSwjv0XrxY0Z1OQ0jX3H7FvTAR77HhWoqB40mv59PC5CvdXMrOfC4lbo4AMkpkE6jXmrKcPCvJHF99WUzbTE7A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
- header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=v+Gsu+2s/965auCliQuOThYvqZtPybyMoBXt4dAKFPI=;
- b=SUARbK3aNMNgGhy0N7kt8xTjfjynU7cKIQSURuhzdt9klbdr1blzWUEXZc33AX+jq5Uu91D/ncDguTTRcQFVrxkWqKjvCT/Txzk+k7x8Kq2k6NfsE21h9+Powb1kcYtblZc/6raH5rMXJc6mIptgQG4+JP6AXJ5SOwDfICXj31J2HRs7nduTHKDeu18vDOpwvGmxXS6dIW/37bSy0nDRMyjGSafdzvbxTZz+TktKkMeDQU6tV43Yjgq5zS7Hvvlm27xgMMgKXjZaT2h6YEoiH/ogSthAepsfwilIsiqq0i8fB1u0VejlzELXNv/SB6mje1Ty6o56eT7pK6efFf1HWQ==
-Received: from SEYPR06MB5134.apcprd06.prod.outlook.com (2603:1096:101:5a::12)
- by KL1PR06MB6758.apcprd06.prod.outlook.com (2603:1096:820:102::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Thu, 15 Oct
- 2026 01:56:17 +0000
-Received: from SEYPR06MB5134.apcprd06.prod.outlook.com
- ([fe80::f53d:547a:8c11:fc6c]) by SEYPR06MB5134.apcprd06.prod.outlook.com
- ([fe80::f53d:547a:8c11:fc6c%3]) with mapi id 15.21.0522.012; Thu, 15 Oct 2026
- 01:56:17 +0000
-From: Jacky Chou <jacky_chou@aspeedtech.com>
-To: Conor Dooley <conor@kernel.org>
-CC: "netdev-bot+sashiko@kernel.org" <netdev-bot+sashiko@kernel.org>,
-	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>, "davem@davemloft.net"
-	<davem@davemloft.net>, "kuba@kernel.org" <kuba@kernel.org>,
-	"pabeni@redhat.com" <pabeni@redhat.com>, "robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
-	<conor+dt@kernel.org>, "ratbert@faraday-tech.com" <ratbert@faraday-tech.com>,
-	"edumazet@kernel.org" <edumazet@kernel.org>, "hkallweit1@gmail.com"
-	<hkallweit1@gmail.com>, "linux@armlinux.org.uk" <linux@armlinux.org.uk>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject:
- =?utf-8?B?5Zue6KaGOiDlm57opoY6IOWbnuimhjog5Zue6KaGOiBbUEFUQ0ggbmV0LW5l?=
- =?utf-8?B?eHQgdjIgMS82XSBkdC1iaW5kaW5nczogbmV0OiBmdGdtYWMxMDA6IEFkZCBB?=
- =?utf-8?Q?ST2700_compatible?=
-Thread-Topic:
- =?utf-8?B?5Zue6KaGOiDlm57opoY6IOWbnuimhjogW1BBVENIIG5ldC1uZXh0IHYyIDEv?=
- =?utf-8?B?Nl0gZHQtYmluZGluZ3M6IG5ldDogZnRnbWFjMTAwOiBBZGQgQVNUMjcwMCBj?=
- =?utf-8?Q?ompatible?=
-Thread-Index:
- AQHdVWM2owd1VMPC/Ei4XAumWNgo4rb2b4oAgAPRq4CAALb8gIAAuyyAgACimbCAAIiLgIAAAwPwgABqR4CAAJnzYA==
-Date: Thu, 15 Oct 2026 01:56:17 +0000
-Message-ID:
- <SEYPR06MB5134786A90FD2A76BA2183B09D9C2@SEYPR06MB5134.apcprd06.prod.outlook.com>
-References: <20261006-support_ast2700-v2-1-36de51fb8066@aspeedtech.com>
- <179161911824.434549.4075299707625994950@kernel.org>
- <20261012-aide-wimp-4edf96aaca1d@spud>
- <SEYPR06MB51346A6CB5D7D7FC6D3FC4DD9D9E2@SEYPR06MB5134.apcprd06.prod.outlook.com>
- <20261013-subwoofer-zestfully-fe98c6158ba9@spud>
- <SEYPR06MB513411BA847E7973291259959D9D2@SEYPR06MB5134.apcprd06.prod.outlook.com>
- <20261014-buffing-gilled-91576ce86eaa@spud>
- <SEYPR06MB513426D89C46D45519406E219D9D2@SEYPR06MB5134.apcprd06.prod.outlook.com>
- <20261014-smog-runny-75f5f1370bd2@spud>
-In-Reply-To: <20261014-smog-runny-75f5f1370bd2@spud>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=aspeedtech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SEYPR06MB5134:EE_|KL1PR06MB6758:EE_
-x-ms-office365-filtering-correlation-id: 1e3dfb22-aab5-492f-0d1c-08df2a5f803c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|23010399003|366016|7416014|376014|38070700021|4143699003|56012099006|5023799004|3023799007|261009223027099003|10067099003|22082099003|18002099003;
-x-microsoft-antispam-message-info:
- K5eVKCQMaecByORlDV/0Du1nW2UceHIJvB1Hd2LfowZevHHAh1DSW6fHb887bqZrVSZpVylCpg1jqibcru1bY6GsRK+kDURb03BGtj601EzDTPlLhzopxlnP9w31PRGorhA+cIyIK3msIKZWY5fZ5d2auLkTurnusZY6Ev5StOoWT4RkhVtXy+P5ba9QY48OCj8NGLxbEYTedM55xbvy6pMmN5IQT9DbB7zALj1aVI4CtIQSJ6YDC+80kXtU+X8KBcW4h9QaFIrhpModfDhuebqkNgew9X819r9+KGT2OTyQ7C3ZURBUZGkzJKbo4/XfRbS5jceN0UdVT0uAkweZgVXhWjr4p69SR7FZUk4XCfOD23e6irNpiVS4WM0vIUuOtRW0HiuAQ8TPukaLkOoPD5vHdJYt+aa3S1AdIn4+wkdVKXcNJ9AEPP/cChrW/6TREGaHWIMnR9xFIsqqrbbkPEqcu5GyvKtJfILZfIClKIsnlkKvLg1UQEgt0IjgWp2GA3vFxafalwv4v5cjj9YYQSaW6njYRLKSVI90H5Wd0m3ClsSiCB0NMzzH6DKZxOHemyCghbIg5LegdIZabeUjPMZRau2qhQpS/PAGNyvsS3ECDbgGX4ScxTDPxSUOi5BZ/4MTGSoTAEg2dpHJQS/arkfNUSvMwqbWK1DDiIaCmXNlDecefeGQ21QGno03KpukMjrmQCL46JxskJTWE+EtBM1QVCpUQxflALu1N4TwLVU=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:zh-tw;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SEYPR06MB5134.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(7416014)(376014)(38070700021)(4143699003)(56012099006)(5023799004)(3023799007)(261009223027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?QkRFNWdQR3hnVjNwOGJSKzhGZTQvSWhCU2V2bTkrYXppWVQrb3VaVXI2d0RP?=
- =?utf-8?B?Y2h3ZjJqWU54aWVkVUNaV1k5VUN4c21DRnZDeWhNaWNjVjJuZVM2UjYrQXZ4?=
- =?utf-8?B?ZDdQU3VWZnJLcGw3L1h2TXd4YXg5Q0VDK1Q5aTdGekpyeDlnWERGemtXYTVa?=
- =?utf-8?B?UTFWak9veEI4UG5VRWNycURFTlJCd1V5eWExN0ZKcHFoOFV6cmF4MlY1dmpV?=
- =?utf-8?B?UER1TkNVa1N3ZElzZ0lDdGRXY1J0cnhTL1JvSngrdk9yM3JZdjJtQk55UHhr?=
- =?utf-8?B?V3ROOVJ6N3NKY3dJOGlvZWFYZ3kzejNib1VDVzV1Z1RsQ2hpdGlHYmVrK0s2?=
- =?utf-8?B?T0llRjBNcXBxMFIyMkRjemhEc2NVeUdFa2xuSDhFUWhLSGtNVjhiMTkzK0U3?=
- =?utf-8?B?TStBZ0VnUHBsVnduZkpxTWd4VFl2MU8yeXJWbThoY0hvK2E5aWFDS1NvOVc2?=
- =?utf-8?B?aVJRU25JYkpHcngrMWNJb1M1dHFiS0Z2bTVSNjhIazNrYTRla0hyRk9YeW85?=
- =?utf-8?B?Vy9ZRmpmQWJ2L01ZQUY4ZEFDaEdwWGM1dTJodUNIQy9SRzNUWXMycStZd3l0?=
- =?utf-8?B?U2FrTllZY1FYaXBnWDR3QTg5UG9NRm16ZXY1VE05Q1YzbW5zZWoxbzRsbDZp?=
- =?utf-8?B?bXdaUCtlUlVGSzJXVEwvcnZuWEkxZlZ4S2l3RHpXclNJZTE4bFhuTjNiTGNE?=
- =?utf-8?B?U2RRdno1L24yY1BnWXllL05NNWs4RW9uanpDYldJSjZJMXJDV1JES1dnSERh?=
- =?utf-8?B?eHJ5V0M3Zmkyc3lFSnovQ1h6djB1QUFTeGFBVEFQVmhGSmhZRnpZbFJQaW0y?=
- =?utf-8?B?d3dHU2R6V29mdFc5TjU3bzZsSGhhKzVrQi9vdDZYWWcyd2JMTVdoMk9rWjlZ?=
- =?utf-8?B?RXhrRDNtUStSb1R3TTZXQzUrRHo4MHZYUi9uMCtxaEw1SGNSV2FpMGY1M0lx?=
- =?utf-8?B?bVB5ZDQ4aVBxdUsyM0l0MlMrd0tGS1R1SDlvY0hCdmFmS0NBUWFLZkp4YVIw?=
- =?utf-8?B?SEY0eG8rejZpb2IwV0JiT0M2RXlCZVpXRnBBUUZrL2V0NW5NY3h5cEkzMWJ4?=
- =?utf-8?B?NTNvQ01GOTZwcGZ0cm9ZTXZ4TVVhcHlkRnY2QUVwMFVPeWhobksxaWlXa1V0?=
- =?utf-8?B?MDd2SWpUcUhIR0pNVjZ3c1pjeWxWUlFON2VBT0c5bTJhQWI0SWNCelZTaUxa?=
- =?utf-8?B?djZXZXBLT0ExREJ0OTErckN3R2hqNzU4QzZFOGNNKzJrTFBsRVpmMmJhVXg3?=
- =?utf-8?B?eFlyNTh6d3pjVUF0dnNlbHo5cG5ETEFHdUd0bVRRWVM3WmUrMjdUQnZxSSsy?=
- =?utf-8?B?aWhTOVdFQm55L0hmYUlyQlZ2T1JMWkY2UFBHejk5MUx6Ri9vMzZMcXZ1VTYx?=
- =?utf-8?B?R1RSRUxLYUVhNk1jOXlVanZkZUFMWGJGb0NMSng3bDc5ZVlac0VlbHFkajhr?=
- =?utf-8?B?aS9yaWVTUUYwanRUYk9MUUE5VXVHSTJOKzFWaFNDOTJzMU5nZmVhT3d5dnM0?=
- =?utf-8?B?elBtYmR2RS82clFDTW8xV0E0L0ZmQW5yZEh0ZEloeVR0OWZ5dXhWQjdzeDBS?=
- =?utf-8?B?SGJXdlAxSVRNUHFVNmdTKytFcUpLNlEyUDlhcEFzZUJqQ3hocEt1d3QzeWxP?=
- =?utf-8?B?OG4wOHZsaEhVbG5RZnV2Z0FJNFhEa0dnQUFJYzV2S3dvVjk0OXJyQzRmaG1M?=
- =?utf-8?B?b0Vuc3pUNVJzYkRFNjhneEpJMGhVdmZaLzkvRDk2Zk5YbDN5NGJzRWt1S2Ev?=
- =?utf-8?B?Ukk0YzlnL1ZvT3JaTDhuN2FKR1AzT0ZIZ3FoM3o0WUx1SHNBZTlaajdVM3VH?=
- =?utf-8?B?NUczYkFJTllPQXJYcmFiTHo0TzhQUGlqbWpJTzYvTHkwYUczVHRPaGc5bDdm?=
- =?utf-8?B?ZEZBSU5MSXdyL3RVK0dGSVdxUUgvQVRScGdad0w0RUp0R09IQ1Rvb000ZHhh?=
- =?utf-8?B?Sm43c01NbGdrRm53N01FY0thMjBFcnVRemxhcjlwQm9RdnluUGlvYk8wTUx2?=
- =?utf-8?B?Rkx1R3pRaHpPdTVrcEdCNDNqb3hKeGJJckZwL21WL2MrWnN0SXA4Vk5aZ3Qr?=
- =?utf-8?B?MlV3TGpSNzhNeUliSktjdjlaM2JQZGJ0SG9LT3ovcmc0c0NYMHNMeGlrcDdv?=
- =?utf-8?B?d2hqTEd3aklaVE5OeGNoMTFGNEg5bjIzak1mK2NCNG9ZSzY2Y0xhTWxxbW5s?=
- =?utf-8?B?NW8vMWFJaHhZV2J2ZEZsTXdMSEh0cEU0eHhmbFVLL1RJOFl6d2QxcHJSbitH?=
- =?utf-8?B?NnNvb1JIZjhkK3NWMDdIR2hjZWpBb0c4ekJ0L2dhRnJ6NzdnVVVjNXhPcElY?=
- =?utf-8?B?U3MvWnRyL3VJS2lEWmFITjByNDN3ejRXZGJDU0JmQzZnNzU3b0JzUT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rwpoG2PQ"
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-3550c917fd3so2196316eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:56:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792029394; x=1792634194; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=F1FsLNvJbfAGqqWf52h0nbW4N3/eLeJk37u/bFcrI00=;
+        b=rwpoG2PQMFuL+h8bkmk205kayVhWhT7iQh64W9cXnHPqRYdnF/t6EcW9m0x6XcifNT
+         968iem3byvFqQGcuBHQKRqXylI1yK/I+fI362tgqIMJYz8UXI6ZspJYc6dar3U++0wUB
+         BRqFKV22+iKgzufd3/a1r3L+l3lsyBvIuZeXy93VZl3LlFXOrXiCbqPlaE8gDwhjxl2z
+         il+OXOmHdVTnrq64c1THkBU08C7o3MOsbLGQ4UARRdiY/RX5mWzbLAD494ywoUS1AAJS
+         vFWXBf5iRSmkpjUApsDySINv7FFjYE04NBwAfKOKbmGAPe/8iV144WZClL7sQr2fGRSL
+         fBRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792029394; x=1792634194;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=F1FsLNvJbfAGqqWf52h0nbW4N3/eLeJk37u/bFcrI00=;
+        b=B9h3tqz8Ma72luNBLieImIMbOSbxaQMgdomhABvbmk62Q2K5Kt0t9lcbHcr7wNHPPo
+         /5UYDvyyjtlxYhCBKnrUKSqA3AFtK/mIwWAJ5iiNN+8s9zvhe/XUTGD7eG34jbOi1Tr2
+         uaMF7qsA1d0OcrJIi3D+jnEqxTzDl4DEivm/wblpYMsspfh0fnjSoWSyc3YsiulpwqxL
+         3Ph114uKbq2pYDCUALFgh588SqybvzPyelBnDZjpE0is+CJLapOUGSXaOEasWAbtfHct
+         y7bos6HxXp/ILevSGCI3HJKMrZ9MUitC/QqSjS3RKwPXCzwjdU1ZBaxB8th7Q3D9+3JA
+         Facw==
+X-Forwarded-Encrypted: i=1; AKwUvBy9m7qGY18ZqtF+pVIgHnkMbJq6MZqBYqSgrY2WBiFFyVKEAnxHVMx9TM1mrPlSeWYHWp/qg0/vrCDBlYw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKj/EXliGbLi1KqgeQhT6qJMJrt5pvRd6Io5/Thl4qokxsq2Nxu
+	h3Fyfy1cKgFoJXztJHzGkmSmHjJPB/TFE3pnnLNDODFmYnJtCh5szv23JOhluoEE
+X-Gm-Gg: AYBFou1iPyDL2tbRi3EjU4M2kxdQka1+oaZ3NwxkGl1BtSfS8/TUSvojQzITsXxXa2M
+	iBGhw/Si5Q1T7pEopN79m7xJQfhjjQWni7li2FYsI+v/Mfl2ioSKueLt/HWab6ilTn9Rq515emS
+	rvKFCnhH9q2sgyvIO7dMFnwjECVPVo7pU1brWi4VQcyWW7KkStqaQUP2TziY23V5yOOhRo3t6Mf
+	PCOuP/EYGYXr/iBhGS4yh0k5p58IeuKbiEwlvOF+lUaGD6n+B1Aqk011Rcon2BTCxmoE0tbK7mI
+	ZMCuCfviOImqEAx3DsL4mfPQqgJ6HKi1eWLIfYmM3W4fo5cBkZ+6e8nXARyZ1TtHan8dkpW+63h
+	UGMg1MafqZOJgIr1DDSrlbpy9kVHrS5421JIhZYZ1V7uVmq+8Kix2oIVl1tOh2F+AzducWszLyP
+	TpsrjFnA+0m2txDtmkZ9zTAthfIQi2nhXdIl4tzQP7JIlH3syWjvumfoan1klJRai+Chhz2jeyb
+	cAa0/c=
+X-Received: by 2002:a05:693c:2a04:b0:35e:1807:cedf with SMTP id 5a478bee46e88-35e18171411mr4108373eec.1.1792029394233;
+        Wed, 14 Oct 2026 18:56:34 -0700 (PDT)
+Received: from user.. ([2405:201:c052:b00b:a490:42fc:1e02:1d0b])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35b690af3easm27111347eec.1.2026.10.14.18.56.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 18:56:33 -0700 (PDT)
+From: pavankumaryalagada@gmail.com
+To: johan@kernel.org,
+	gregkh@linuxfoundation.org
+Cc: vireshk@kernel.org,
+	elder@kernel.org,
+	greybus-dev@lists.linaro.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	outreachy@lists.linux.dev,
+	Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
+Subject: [PATCH v3] staging: greybus: replace PTR_ERR() with %pe in error messages
+Date: Thu, 15 Oct 2026 07:26:24 +0530
+Message-ID: <20261015015624.22031-1-pavankumaryalagada@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	bxCSQEKoNOG7NcapNeIgnvVy/HY7DzveoYQtIQlaJRLN0PQPFzTtvcXuW7OS0Bzcn8wwyhpw0/5cp2W6YUgQkm6VhSDpnKP1X/RKrsPtx+EBQTSRrCLZ8pvlqJpUvUnAY1qGBf4HYFtHlNCAA3IDw7mblyKsgqe4abis7LRNKpTl4UM7MsWxyOGSHQ0tWyemZAw687WnaERgKJttarOZa85hYiCJJ+YO2dMztcA/4FpYCSmQ1X1FGCaBAJnPdw7ieQ5aDy6HF/lkuwLZyYH3xpVOwu7GB5KCnnTOxYF8KQQsolXZCm6NZABQVu8Mki66PK3O8fi3UBZaYXtplE9ofw==
-X-OriginatorOrg: aspeedtech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SEYPR06MB5134.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1e3dfb22-aab5-492f-0d1c-08df2a5f803c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Oct 2026 01:56:17.1207
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: KNO88kyQFctbH5QoB781z0q6TwYN6OZIHUhsx+spRITGRNyAGu6PgVCenezGed16c2TvsckL7TLSXLQyTvnL3o9XU+jZoE0O8CE3S+SyZPk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR06MB6758
+Content-Transfer-Encoding: 8bit
 
-PiA+ID4gPiA+ID4gPiA+ID4gICAgICAgICAgICAgICAgLSBhc3BlZWQsYXN0MjQwMC1tYWMNCj4g
-PiA+ID4gPiA+ID4gPiA+ICAgICAgICAgICAgICAgIC0gYXNwZWVkLGFzdDI1MDAtbWFjDQo+ID4g
-PiA+ID4gPiA+ID4gPiAgICAgICAgICAgICAgICAtIGFzcGVlZCxhc3QyNjAwLW1hYw0KPiA+ID4g
-PiA+ID4gPiA+ID4gKyAgICAgICAgICAgICAgLSBhc3BlZWQsYXN0MjcwMC1tYWMNCj4gPiA+ID4g
-PiA+ID4gPiA+ICAgICAgICAgICAgLSBjb25zdDogZmFyYWRheSxmdGdtYWMxMDANCj4gPiA+ID4g
-PiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+IFtTZXZlcml0eTogTG93XQ0KPiA+ID4gPiA+ID4gPiA+
-IFdpdGggdGhpcyBwYXRjaCwgImFzcGVlZCxhc3QyNzAwLW1hYyIsICJmYXJhZGF5LGZ0Z21hYzEw
-MCINCj4gPiA+ID4gPiA+ID4gPiBiZWNvbWVzIGEgdmFsaWQgY29tcGF0aWJsZSBwYWlyLiBIb3dl
-dmVyLCBhdCB0aGlzIGNvbW1pdCwNCj4gPiA+ID4gPiA+ID4gPiBmdGdtYWMxMDBfb2ZfbWF0Y2hb
-XSBpbg0KPiA+ID4gPiA+ID4gPiA+IGRyaXZlcnMvbmV0L2V0aGVybmV0L2ZhcmFkYXkvZnRnbWFj
-MTAwLmMNCj4gPiA+ID4gPiA+ID4gPiBoYXMgbm8gYXNwZWVkLGFzdDI3MDAtbWFjDQo+ID4gPiA+
-ID4gPiA+IGVudHJ5Lg0KPiA+ID4gPiA+ID4gPiA+IFN1Y2ggYSBub2RlIGNvdWxkIG9ubHkgYmlu
-ZCB0aHJvdWdoIHRoZSBnZW5lcmljDQo+ID4gPiA+ID4gPiA+ID4gZmFyYWRheSxmdGdtYWMxMDAg
-ZW50cnkgKEZUR01BQzEwMF9GQVJBREFZKS4NCj4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4g
-PiA+IE9uIHRoYXQgcGF0aCwgZnRnbWFjMTAwX3Byb2JlKCkgd291bGQgZG8gdGhlIGZvbGxvd2lu
-ZzoNCj4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+ICAgLSBwcm9ncmFtIHRoZSByaW5n
-LWVuZCBiaXRzIGF0IEJJVCgxNSkgaW5zdGVhZCBvZiB0aGUNCj4gPiA+ID4gPiA+ID4gPiBBc3Bl
-ZWQNCj4gPiA+IEJJVCgzMCkNCj4gPiA+ID4gPiA+ID4gPiAgIC0gbGVhdmUgaXNfYXNwZWVkIGZh
-bHNlLCBzbyBmdGdtYWMxMDBfc2V0dXBfY2xrKCkgbmV2ZXIgY2xhaW1zDQo+ID4gPiA+ID4gPiA+
-ID4gICAgIE1BQ0NMSy9SQ0xLDQo+ID4gPiA+ID4gPiA+ID4gICAtIHJlZ2lzdGVyIHRoZSBlbWJl
-ZGRlZCBNRElPIGJ1cyB0aHJvdWdoDQo+ID4gPiBmdGdtYWMxMDBfc2V0dXBfbWRpbygpDQo+ID4g
-PiA+ID4gPiA+ID4gICAtIG5ldmVyIHNldCBhIERNQSBtYXNrIHdpZGVyIHRoYW4gMzIgYml0cw0K
-PiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gV291bGQgYW4gQVNUMjcwMCBub2RlIHdv
-cmsgY29ycmVjdGx5IGlmIGl0IGZlbGwgYmFjayB0bw0KPiA+ID4gPiA+ID4gPiA+IHRoZSBGYXJh
-ZGF5IG1hdGNoPw0KPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiBTb3VuZHMgbGlrZSBubywg
-Y2FuIHRoZSBzdWJtaXR0ZXIgcGxlYXNlIGNsYXJpZnkgaWYgdGhlIGZhbGxiYWNrIGlzDQo+IHZh
-bGlkPw0KPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+IEFncmVlZC4gSSB0
-aGluayB0aGUgJ2FzcGVlZCxhc3QyNzAwLW1hYycgc2hvdWxkIG5vdCBiZSBiYXNlZA0KPiA+ID4g
-PiA+ID4gb24gdGhlDQo+ID4gPiA+ID4gJ2ZhcmFkYXksZnRnbWFjMTAwJy4NCj4gPiA+ID4gPiA+
-IE1heWJlIHRoZSBkdC1iaW5kaW5ncyBwdXQgYXN0MjcwMC1tYWMgYXMgYSBjb25zdCBsaWtlOg0K
-PiA+ID4gPiA+ID4gYGBgDQo+ID4gPiA+ID4gPiAuLi4NCj4gPiA+ID4gPiA+IHByb3BlcnRpZXM6
-DQo+ID4gPiA+ID4gPiAgIGNvbXBhdGlibGU6DQo+ID4gPiA+ID4gPiAgICAgb25lT2Y6DQo+ID4g
-PiA+ID4gPiAgICAgICAtIGNvbnN0OiBmYXJhZGF5LGZ0Z21hYzEwMA0KPiA+ID4gPiA+ID4gICAg
-ICAgLSBjb25zdDogYXNwZWVkLGFzdDI3MDAtbWFjICAgICAgICAgICAgIC8vIGFzIGEgY29uc3QN
-Cj4gPiA+ID4gPiA+ICAgICAgIC0gaXRlbXM6DQo+ID4gPiA+ID4gPiAgICAgICAgICAgLSBlbnVt
-Og0KPiA+ID4gPiA+ID4gICAgICAgICAgICAgICAtIGFzcGVlZCxhc3QyNDAwLW1hYw0KPiA+ID4g
-PiA+ID4gICAgICAgICAgICAgICAtIGFzcGVlZCxhc3QyNTAwLW1hYw0KPiA+ID4gPiA+ID4gICAg
-ICAgICAgICAgICAtIGFzcGVlZCxhc3QyNjAwLW1hYw0KPiA+ID4gPiA+ID4gICAgICAgICAgIC0g
-Y29uc3Q6IGZhcmFkYXksZnRnbWFjMTAwDQo+ID4gPiA+ID4NCj4gPiA+ID4gPiBMb29rcyBnb29k
-LiBJIGFtIGN1cmlvdXMgd2hldGhlciB0aGUgZXhpc3RpbmcgZmFsbGJhY2tzIHVzZWQNCj4gPiA+
-ID4gPiB3aXRoIG90aGVyIGFzcGVlZCBkZXZpY2VzIGFyZSBhbHNvIGluYWNjdXJhdGU/IENvdWxk
-IGJlIHdvcnRoIGxvb2tpbmcNCj4gaW50bz8NCj4gPiA+ID4NCj4gPiA+ID4gVGhhbmtzIGZvciBk
-aWdnaW5nIGludG8gdGhpcyBmdXJ0aGVyLg0KPiA+ID4gPg0KPiA+ID4gPiBJIHdlbnQgYmFjayB0
-byB0aGUgY3VycmVudCBkcml2ZXIgdG8gY29uZmlybSB0aGUgZXhhY3QgYml0DQo+ID4gPiA+IChk
-cml2ZXJzL25ldC9ldGhlcm5ldC9mYXJhZGF5L2Z0Z21hYzEwMC5jLCBmdGdtYWMxMDBfcHJvYmUo
-KSk6DQo+ID4gPiA+DQo+ID4gPiA+IGlmIChwcml2LT5tYWNfaWQgPT0gRlRHTUFDMTAwX0FTVDI0
-MDAgfHwNCj4gPiA+ID4gICAgIHByaXYtPm1hY19pZCA9PSBGVEdNQUMxMDBfQVNUMjUwMCB8fA0K
-PiA+ID4gPiAgICAgcHJpdi0+bWFjX2lkID09IEZUR01BQzEwMF9BU1QyNjAwIHx8DQo+ID4gPiA+
-ICAgICBwcml2LT5tYWNfaWQgPT0gRlRHTUFDMTAwX0FTVDI3MDApIHsNCj4gPiA+ID4gICAgICAg
-ICBwcml2LT5yeGRlczBfZWRvcnJfbWFzayA9IEJJVCgzMCk7DQo+ID4gPiA+ICAgICAgICAgcHJp
-di0+dHhkZXMwX2Vkb3RyX21hc2sgPSBCSVQoMzApOw0KPiA+ID4gPiAgICAgICAgIHByaXYtPmlz
-X2FzcGVlZCA9IHRydWU7DQo+ID4gPiA+IH0gZWxzZSB7DQo+ID4gPiA+ICAgICAgICAgcHJpdi0+
-cnhkZXMwX2Vkb3JyX21hc2sgPSBCSVQoMTUpOw0KPiA+ID4gPiAgICAgICAgIHByaXYtPnR4ZGVz
-MF9lZG90cl9tYXNrID0gQklUKDE1KTsgfQ0KPiA+ID4gPg0KPiA+ID4gPiBTbyBpdCdzIGFjdHVh
-bGx5IEJJVCgzMCkgZm9yIGFsbCBBc3BlZWQgdmFyaWFudHMNCj4gPiA+ID4gKEFTVDI0MDAvMjUw
-MC8yNjAwLzI3MDApLCB2cw0KPiA+ID4gPiBCSVQoMTUpIGZvciB0aGUgcGxhaW4gRmFyYWRheSBJ
-UCDigJQgbm90IEJJVCgxNikuIFRoZSBjb25jbHVzaW9uDQo+ID4gPiA+IHN0aWxsIGhvbGRzIGVp
-dGhlcg0KPiA+ID4gPiB3YXk6IG5vbmUgb2YgdGhlIEFzcGVlZCBjb21wYXRpYmxlcyBjYW4gc2Fm
-ZWx5IGZhbGwgYmFjayB0bw0KPiA+ID4gPiBmYXJhZGF5LGZ0Z21hYzEwMCBhbG9uZSwgc2luY2Ug
-dGhlIGRyaXZlciB3b3VsZCBtYXJrIHRoZSB3cm9uZyBiaXQNCj4gPiA+ID4gYXMgZW5kLW9mLXJp
-bmcgaW4gcnhkZXMwLCBhbmQgdGhlIE1BQyB3b3VsZCB3YWxrIHBhc3QgdGhlIGVuZCBvZg0KPiA+
-ID4gPiB0aGUgUlggZGVzY3JpcHRvciByaW5nIGluc3RlYWQgb2Ygd3JhcHBpbmcsIGV4YWN0bHkg
-YXMgeW91IGRlc2NyaWJlZC4NCj4gPiA+ID4NCj4gPiA+ID4gVGhhdCBzYWlkLCBJIGRvbid0IHRo
-aW5rIHdlIHNob3VsZCBleHRlbmQgdGhlIHNhbWUgZml4IHRvDQo+ID4gPiA+IEFTVDI0MDAvMjUw
-MC8yNjAwIGluIHRoaXMgc2VyaWVzLiBBU1QyNzAwIGlzIGEgYnJhbmQtbmV3DQo+ID4gPiA+IGNv
-bXBhdGlibGUgd2l0aCBubyBleGlzdGluZyBkZXZpY2V0cmVlIHVzaW5nIGl0LCBzbyBtYWtpbmcg
-aXQgYQ0KPiA+ID4gPiBzdGFuZGFsb25lIGNvbnN0IChjb21wYXRpYmxlID0gImFzcGVlZCxhc3Qy
-NzAwLW1hYyIgb25seSkgaGFzIHplcm8NCj4gbWlncmF0aW9uIGNvc3QuDQo+ID4gPiA+DQo+ID4g
-PiA+IEFTVDI0MDAvMjUwMC8yNjAwIGFyZSBkaWZmZXJlbnQ6IGV2ZXJ5IHVwc3RyZWFtIGRldmlj
-ZXRyZWUgYWxyZWFkeQ0KPiA+ID4gPiBkZWNsYXJlcyB0aGUgcGFpciwgZS5nLiBhc3BlZWQtZzYu
-ZHRzaToNCj4gPiA+ID4NCj4gPiA+ID4gY29tcGF0aWJsZSA9ICJhc3BlZWQsYXN0MjYwMC1tYWMi
-LCAiZmFyYWRheSxmdGdtYWMxMDAiOw0KPiA+ID4gPg0KPiA+ID4gPiBJZiB3ZSB0dXJuIGFzcGVl
-ZCxhc3QyNjAwLW1hYyAoZXRjLikgaW50byBhIHN0YW5kYWxvbmUgY29uc3QgaW4NCj4gPiA+ID4g
-dGhlIG9uZU9mLCB0aGUgc2NoZW1hIHdvdWxkIG9ubHkgYWNjZXB0IGEgc2luZ2xlLWVsZW1lbnQN
-Cj4gPiA+ID4gY29tcGF0aWJsZSBhcnJheSwgd2hpY2ggd291bGQgYnJlYWsgbWFrZSBkdGJzX2No
-ZWNrIGZvciBldmVyeQ0KPiA+ID4gPiBleGlzdGluZyBBU1QyNDAwLzI1MDAvMjYwMCBib2FyZCBk
-ZXZpY2V0cmVlLiBXZSdkIGFsc28gbmVlZCB0bw0KPiA+ID4gPiBzdHJpcCB0aGUgZmFyYWRheSxm
-dGdtYWMxMDAgZmFsbGJhY2sgZnJvbSBhc3BlZWQtZzQuZHRzaSwNCj4gPiA+ID4gYXNwZWVkLWc1
-LmR0c2ksIGFzcGVlZC1nNi5kdHNpIChhbmQgYW55dGhpbmcNCj4gPiA+IGluaGVyaXRpbmcgZnJv
-bSB0aGVtKSDigJQgYSBtdWNoIGJpZ2dlciwgdW5yZWxhdGVkIGNoYW5nZS4NCj4gPiA+ID4NCj4g
-PiA+ID4gSXQncyBhbHNvIG5vdCBmaXhpbmcgYSBsaXZlIGJ1ZzogZnRnbWFjMTAwX29mX21hdGNo
-W10gb25seSBoYWQgdGhlDQo+ID4gPiA+IGdlbmVyaWMNCj4gPiA+ID4gZmFyYWRheSxmdGdtYWMx
-MDAgZW50cnkgdW50aWwgRmViIDIwMjYgKGNvbW1pdCAwM2EyYWJhNTBiMmMpLCB3aGVuDQo+ID4g
-PiA+IHRoZSBBc3BlZWQtc3BlY2lmaWMgb2ZfZGV2aWNlX2lkIHJvd3MgZm9yIEFTVDI0MDAvMjUw
-MC8yNjAwIHdlcmUNCj4gPiA+ID4gYWRkZWQgYXMgYQ0KPiA+ID4gcmVmYWN0b3IuDQo+ID4gPiA+
-IEJlZm9yZSB0aGF0LCB0aGUgZHJpdmVyIGFsd2F5cyBib3VuZCB0aHJvdWdoIHRoZSBnZW5lcmlj
-IGZhbGxiYWNrDQo+ID4gPiA+IHN0cmluZyBhbmQgdXNlZA0KPiA+ID4gPiBvZl9kZXZpY2VfaXNf
-Y29tcGF0aWJsZSgpIGludGVybmFsbHkgaW4gcHJvYmUoKSB0byBwaWNrIHRoZSByaWdodA0KPiA+
-ID4gPiBFRE9SUiBiaXQgLyBjbG9ja3MgLyBNRElPLiBTbyB0aGVyZSdzIG5ldmVyIGJlZW4gYSBy
-ZWFsIGtlcm5lbCArDQo+ID4gPiA+IGRldmljZXRyZWUgY29tYmluYXRpb24gd2hlcmUgYW4NCj4g
-PiA+ID4gQVNUMjQwMC8yNTAwLzI2MDAgbm9kZSBib3VuZCB0aHJvdWdoIHRoZSBnZW5lcmljIGVu
-dHJ5IGFuZCBnb3QgdGhlDQo+ID4gPiA+IHdyb25nIEVET1JSIGJpdCDigJQgdGhlIHBhaXJpbmcg
-aGFzIGJlZW4gc2FmZSBpbiBwcmFjdGljZS4NCj4gPiA+ID4NCj4gPiA+ID4gU28gSSdkIHN1Z2dl
-c3QgbGVhdmluZyBBU1QyNDAwLzI1MDAvMjYwMCBhcy1pcyAocGFpcmVkIHdpdGggdGhlDQo+ID4g
-PiA+IGZhbGxiYWNrLCBzYW1lIGFzDQo+ID4gPiA+IHRvZGF5KSBhbmQga2VlcGluZyB0aGUgc3Rh
-bmRhbG9uZS1jb25zdCB0cmVhdG1lbnQgc2NvcGVkIHRvDQo+ID4gPiA+IEFTVDI3MDAgb25seSwg
-c2luY2UgdGhhdCdzIHRoZSBvbmUgY2FzZSB3aGVyZSB0aGUgYmluZGluZyBhbmQNCj4gPiA+ID4g
-bWF0Y2ggdGFibGUgZ2VudWluZWx5DQo+ID4gPiBkaXZlcmdlIHJpZ2h0IG5vdy4NCj4gPiA+DQo+
-ID4gPiBJdCdzIHdyb25nLCBhbmQgdGhlcmUncyBubyBwYWluIGludm9sdmVkIGluIGZpeGluZyBp
-dCAoanVzdCBoYXZlIHRvDQo+ID4gPiBzZW5kIHBhdGNoZXMpLCBzbyBJIHRoaW5rIGl0IHNob3Vs
-ZCBiZSBmaXhlZC4gQnJlYWtpbmcgZHRic19jaGVjaw0KPiA+ID4gaXNuJ3QgYW4gZXhjdXNlIHRv
-IG5vdCBmaXggdGhpbmdzLCB3ZSAiYnJlYWsiIGl0IGFsbCB0aGUgdGltZSBhZGRpbmcgbmV3DQo+
-IGRldmljZXMgZXRjLg0KPiA+DQo+ID4gRmFpciBlbm91Z2gg4oCUIHlvdSdyZSByaWdodCB0aGF0
-ICJpdCBicmVha3MgZHRic19jaGVjayIgaXNuJ3QgYSByZWFzb24NCj4gPiBub3QgdG8gZml4IGl0
-LCBhbmQgaWYgdGhlIEVET1JSIGJpdCBtaXNtYXRjaCBpcyByZWFsIGZvcg0KPiA+IEFTVDI0MDAv
-MjUwMC8yNjAwIHRvbywgaXQgc2hvdWxkIGJlIGZpeGVkIHByb3Blcmx5IHJhdGhlciB0aGFuIGxl
-ZnQgYXMgYQ0KPiBrbm93biBsYW5kbWluZS4NCj4gPg0KPiA+IEknbGwgcHJlcGFyZSBhIGZvbGxv
-dy11cCBzZXJpZXMgZm9yIHRoaXM6DQo+ID4NCj4gPiAtIGR0LWJpbmRpbmdzOiBuZXQ6IGZ0Z21h
-YzEwMDogbWFrZSBhc3BlZWQsYXN0MjQwMC8yNTAwLzI2MDAtbWFjDQo+IHN0YW5kYWxvbmUgY29u
-c3RzDQo+ID4gICAoZHJvcCB0aGUgZmFyYWRheSxmdGdtYWMxMDAgZmFsbGJhY2sgcmVxdWlyZW1l
-bnQsIHNhbWUgc2hhcGUgYXMgdGhlDQo+ID4gQVNUMjcwMCBmaXggaGVyZSkNCj4gPiAtIEFSTTog
-ZHRzOiBhc3BlZWQ6IGRyb3AgdGhlIGZhcmFkYXksZnRnbWFjMTAwIGZhbGxiYWNrIGNvbXBhdGli
-bGUgZnJvbQ0KPiA+ICAgYXNwZWVkLWc0LmR0c2kgLyBhc3BlZWQtZzUuZHRzaSAvIGFzcGVlZC1n
-Ni5kdHNpDQo+ID4NCj4gPiBJJ2QgbGlrZSB0byBrZWVwIGl0IGFzIGEgc2VwYXJhdGUgc2VyaWVz
-IHJhdGhlciB0aGFuIGZvbGRpbmcgaXQgaW50bw0KPiA+IHRoaXMgb25lLCBzaW5jZSB0aGUgZHRz
-aSBjaGFuZ2VzIGdvIHRocm91Z2ggdGhlIEFzcGVlZC9hcm0tc29jIHRyZWUNCj4gPiByYXRoZXIg
-dGhhbiBuZXQtbmV4dCwgYW5kIEknZCByYXRoZXIgbm90IGJsb2NrIHRoaXMgQVNUMjcwMCBzZXJp
-ZXMgb24NCj4gPiBjcm9zcy10cmVlIGNvb3JkaW5hdGlvbi4gSSdsbCBzZW5kIGl0IGFzIGEgZm9s
-bG93LXVwIG9uY2UgdGhpcyBzZXJpZXMNCj4gPiBsYW5kcyAob3IgaW4gcGFyYWxsZWwsIGlmIHRo
-YXQncyBwcmVmZXJyZWQpIOKAlCBsZXQgbWUga25vdyBpZiB5b3UnZCByYXRoZXIgc2VlIGl0DQo+
-IGRvbmUgZGlmZmVyZW50bHkuDQo+IA0KPiBJJ2QgZml4IHRoZSBiaW5kaW5nIGhlcmUsIHNpbmNl
-IHlvdSdyZSBnb25uYSBnZW5lcmF0ZSBjb25mbGljdHMgd2l0aCB5b3Vyc2VsZg0KPiBvdGhlcndp
-c2UuIFRoZSBkdHMgY2hhbmdlcyBuZWVkIHRvIGJlIHNlbnQgc2VwYXJhdGVseSBhbnl3YXkgKG9y
-IGF0IGxlYXN0DQo+IGFwcGxpZWQgc2VwYXJhdGVseSkgc2luY2UgYmluZGluZyBjaGFuZ2VzIGRv
-bid0IGdvIHZpYSBzb2MgbWFpbnRhaW5lcnMuDQoNCkdvdCBpdC4gSSB3aWxsIGFkZCBjaGFuZ2Ug
-aW4gdGhpcyBwYXRjaCBpbiBuZXh0IHZlcnNpb24uDQoNClRoYW5rcywNCkphY2t5DQo=
+From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
+
+Use %pe to print error pointers directly and display their
+error names.
+
+Keep PTR_ERR() calls when the numeric error value is needed
+for returning the error code.
+
+Signed-off-by: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
+---
+v3:
+- Extend the %pe conversion throughout Greybus, as suggested by Alex Elder.
+
+v2:
+- Use %pe in the firmware management case, as suggested by Jeremy Clifton,
+  to match the other cases.
+
+v1: https://lore.kernel.org/outreachy/as0nhVbagZa8Birm@user/T/#t
+---
+ drivers/staging/greybus/arche-apb-ctrl.c | 18 +++++++++---------
+ drivers/staging/greybus/arche-platform.c |  8 ++++----
+ drivers/staging/greybus/fw-core.c        | 16 ++++++++--------
+ drivers/staging/greybus/uart.c           |  2 +-
+ 4 files changed, 22 insertions(+), 22 deletions(-)
+
+diff --git a/drivers/staging/greybus/arche-apb-ctrl.c b/drivers/staging/greybus/arche-apb-ctrl.c
+index 4302c2226126..fa4d2d88dc3f 100644
+--- a/drivers/staging/greybus/arche-apb-ctrl.c
++++ b/drivers/staging/greybus/arche-apb-ctrl.c
+@@ -145,8 +145,8 @@ static int fw_flashing_seq(struct platform_device *pdev)
+ 		apb->spi_en = devm_gpiod_get(dev, "spi-en", flags);
+ 		if (IS_ERR(apb->spi_en)) {
+ 			ret = PTR_ERR(apb->spi_en);
+-			dev_err(dev, "Failed requesting SPI bus en GPIO: %d\n",
+-				ret);
++			dev_err(dev, "Failed requesting SPI bus en GPIO: %pe\n",
++				apb->spi_en);
+ 			return ret;
+ 		}
+ 	}
+@@ -323,14 +323,14 @@ static int apb_ctrl_get_fw_data(struct platform_device *pdev,
+ 	apb->resetn = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
+ 	if (IS_ERR(apb->resetn)) {
+ 		ret = PTR_ERR(apb->resetn);
+-		dev_err(dev, "Failed requesting reset GPIO: %d\n", ret);
++		dev_err(dev, "Failed requesting reset GPIO: %pe\n", apb->resetn);
+ 		return ret;
+ 	}
+ 
+ 	apb->boot_ret = devm_gpiod_get(dev, "boot-ret", GPIOD_OUT_LOW);
+ 	if (IS_ERR(apb->boot_ret)) {
+ 		ret = PTR_ERR(apb->boot_ret);
+-		dev_err(dev, "Failed requesting bootret GPIO: %d\n", ret);
++		dev_err(dev, "Failed requesting bootret GPIO: %pe\n", apb->boot_ret);
+ 		return ret;
+ 	}
+ 
+@@ -338,7 +338,7 @@ static int apb_ctrl_get_fw_data(struct platform_device *pdev,
+ 	apb->pwroff = devm_gpiod_get_optional(dev, "pwr-off", GPIOD_IN);
+ 	if (IS_ERR(apb->pwroff)) {
+ 		ret = PTR_ERR(apb->pwroff);
+-		dev_err(dev, "Failed requesting pwroff_n GPIO: %d\n", ret);
++		dev_err(dev, "Failed requesting pwroff_n GPIO: %pe\n", apb->pwroff);
+ 		return ret;
+ 	}
+ 
+@@ -346,14 +346,14 @@ static int apb_ctrl_get_fw_data(struct platform_device *pdev,
+ 	apb->clk_en = devm_gpiod_get_optional(dev, "clock-en", GPIOD_OUT_LOW);
+ 	if (IS_ERR(apb->clk_en)) {
+ 		ret = PTR_ERR(apb->clk_en);
+-		dev_err(dev, "Failed requesting APB clock en GPIO: %d\n", ret);
++		dev_err(dev, "Failed requesting APB clock en GPIO: %pe\n", apb->clk_en);
+ 		return ret;
+ 	}
+ 
+ 	apb->pwrdn = devm_gpiod_get(dev, "pwr-down", GPIOD_OUT_LOW);
+ 	if (IS_ERR(apb->pwrdn)) {
+ 		ret = PTR_ERR(apb->pwrdn);
+-		dev_warn(dev, "Failed requesting power down GPIO: %d\n", ret);
++		dev_warn(dev, "Failed requesting power down GPIO: %pe\n", apb->pwrdn);
+ 		return ret;
+ 	}
+ 
+@@ -368,12 +368,12 @@ static int apb_ctrl_get_fw_data(struct platform_device *pdev,
+ 
+ 	apb->pinctrl = devm_pinctrl_get(&pdev->dev);
+ 	if (IS_ERR(apb->pinctrl)) {
+-		dev_err(&pdev->dev, "could not get pinctrl handle\n");
++		dev_err(&pdev->dev, "could not get pinctrl handle: %pe\n", apb->pinctrl);
+ 		return PTR_ERR(apb->pinctrl);
+ 	}
+ 	apb->pin_default = pinctrl_lookup_state(apb->pinctrl, "default");
+ 	if (IS_ERR(apb->pin_default)) {
+-		dev_err(&pdev->dev, "could not get default pin state\n");
++		dev_err(&pdev->dev, "could not get default pin state: %pe\n", apb->pin_default);
+ 		return PTR_ERR(apb->pin_default);
+ 	}
+ 
+diff --git a/drivers/staging/greybus/arche-platform.c b/drivers/staging/greybus/arche-platform.c
+index de5de59ea8ab..a97ac59c6f01 100644
+--- a/drivers/staging/greybus/arche-platform.c
++++ b/drivers/staging/greybus/arche-platform.c
+@@ -445,7 +445,7 @@ static int arche_platform_probe(struct platform_device *pdev)
+ 	arche_pdata->svc_reset = devm_gpiod_get(dev, "svc,reset", flags);
+ 	if (IS_ERR(arche_pdata->svc_reset)) {
+ 		ret = PTR_ERR(arche_pdata->svc_reset);
+-		dev_err(dev, "failed to request svc-reset GPIO: %d\n", ret);
++		dev_err(dev, "failed to request svc-reset GPIO: %pe\n", arche_pdata->svc_reset);
+ 		return ret;
+ 	}
+ 	arche_platform_set_state(arche_pdata, ARCHE_PLATFORM_STATE_OFF);
+@@ -454,7 +454,7 @@ static int arche_platform_probe(struct platform_device *pdev)
+ 						  GPIOD_OUT_LOW);
+ 	if (IS_ERR(arche_pdata->svc_sysboot)) {
+ 		ret = PTR_ERR(arche_pdata->svc_sysboot);
+-		dev_err(dev, "failed to request sysboot0 GPIO: %d\n", ret);
++		dev_err(dev, "failed to request sysboot0 GPIO: %pe\n", arche_pdata->svc_sysboot);
+ 		return ret;
+ 	}
+ 
+@@ -471,7 +471,7 @@ static int arche_platform_probe(struct platform_device *pdev)
+ 	arche_pdata->svc_ref_clk = devm_clk_get(dev, "svc_ref_clk");
+ 	if (IS_ERR(arche_pdata->svc_ref_clk)) {
+ 		ret = PTR_ERR(arche_pdata->svc_ref_clk);
+-		dev_err(dev, "failed to get svc_ref_clk: %d\n", ret);
++		dev_err(dev, "failed to get svc_ref_clk: %pe\n", arche_pdata->svc_ref_clk);
+ 		return ret;
+ 	}
+ 
+@@ -484,7 +484,7 @@ static int arche_platform_probe(struct platform_device *pdev)
+ 						  GPIOD_IN);
+ 	if (IS_ERR(arche_pdata->wake_detect)) {
+ 		ret = PTR_ERR(arche_pdata->wake_detect);
+-		dev_err(dev, "Failed requesting wake_detect GPIO: %d\n", ret);
++		dev_err(dev, "Failed requesting wake_detect GPIO: %pe\n", arche_pdata->wake_detect);
+ 		return ret;
+ 	}
+ 
+diff --git a/drivers/staging/greybus/fw-core.c b/drivers/staging/greybus/fw-core.c
+index 2016a74f137f..78321be80013 100644
+--- a/drivers/staging/greybus/fw-core.c
++++ b/drivers/staging/greybus/fw-core.c
+@@ -93,8 +93,8 @@ static int gb_fw_core_probe(struct gb_bundle *bundle,
+ 			if (IS_ERR(connection)) {
+ 				ret = PTR_ERR(connection);
+ 				dev_err(&bundle->dev,
+-					"failed to create management connection (%d)\n",
+-					ret);
++					"failed to create management connection (%pe)\n",
++					connection);
+ 				goto err_destroy_connections;
+ 			}
+ 
+@@ -112,8 +112,8 @@ static int gb_fw_core_probe(struct gb_bundle *bundle,
+ 			connection = gb_connection_create(bundle, cport_id,
+ 							  gb_fw_download_request_handler);
+ 			if (IS_ERR(connection)) {
+-				dev_err(&bundle->dev, "failed to create download connection (%ld)\n",
+-					PTR_ERR(connection));
++				dev_err(&bundle->dev, "failed to create download connection (%pe)\n",
++					connection);
+ 			} else {
+ 				fw_core->download_connection = connection;
+ 			}
+@@ -131,8 +131,8 @@ static int gb_fw_core_probe(struct gb_bundle *bundle,
+ 			connection = gb_connection_create(bundle, cport_id,
+ 							  NULL);
+ 			if (IS_ERR(connection)) {
+-				dev_err(&bundle->dev, "failed to create SPI connection (%ld)\n",
+-					PTR_ERR(connection));
++				dev_err(&bundle->dev, "failed to create SPI connection (%pe)\n",
++					connection);
+ 			} else {
+ 				fw_core->spi_connection = connection;
+ 			}
+@@ -149,8 +149,8 @@ static int gb_fw_core_probe(struct gb_bundle *bundle,
+ 			connection = gb_connection_create(bundle, cport_id,
+ 							  NULL);
+ 			if (IS_ERR(connection)) {
+-				dev_err(&bundle->dev, "failed to create Authentication connection (%ld)\n",
+-					PTR_ERR(connection));
++				dev_err(&bundle->dev, "failed to create Authentication connection (%pe)\n",
++					connection);
+ 			} else {
+ 				fw_core->cap_connection = connection;
+ 			}
+diff --git a/drivers/staging/greybus/uart.c b/drivers/staging/greybus/uart.c
+index 172cf900eaf0..59a112cf47a0 100644
+--- a/drivers/staging/greybus/uart.c
++++ b/drivers/staging/greybus/uart.c
+@@ -951,7 +951,7 @@ static int gb_tty_init(void)
+ 					 TTY_DRIVER_DYNAMIC_DEV |
+ 					 TTY_DRIVER_RESET_SAVED_TERMIOS);
+ 	if (IS_ERR(gb_tty_driver)) {
+-		pr_err("Can not allocate tty driver\n");
++		pr_err("Can not allocate tty driver: %pe\n", gb_tty_driver);
+ 		retval = PTR_ERR(gb_tty_driver);
+ 		goto fail_unregister_dev;
+ 	}
+-- 
+2.43.0
+
