@@ -1,103 +1,100 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 550DD365A00;
-	Thu, 15 Oct 2026 16:31:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71F75401A3B;
+	Thu, 15 Oct 2026 16:32:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792081916; cv=none; b=eywq0w0mI6MhCchsIZch05/+clCvr6o/DHd+ZI5nY4orqc5FRaAXq//oZHqMaEDu36hu41SfBikrfPRYSSCpxOXcoGhcwOcPnEn+bVUydySTr9M9O1iWex1qujUAllPXLN1EOQmC+qbZfBPjW+LY5E4vMG7GsICKOIBjvEVKFXI=
+	t=1792081934; cv=none; b=icYV27Rch0tKJsKFFvsscjPWLpqRzoTdxCyWtoDYdt7Kq3nGfsbKJb6OkA4Yr/M414Hnj15XDMBUX0c2FxKubxznVrAZF1Gxb19WHjMzdyHeZrgkNqxJj4Ba9thxye+r403hosvpZesZEqXv+TsA7D9aPNt0Y3AHxJs8K82paaw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792081916; c=relaxed/simple;
-	bh=B1M2pN4VveBby4ovtQf/5/8/ipwclZuER8gaMg3bVRA=;
-	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
-	 Content-Type; b=BxX9aZnf1qpc0XS7w0XNrVzpJ+vFHh9IfTc9iRn+tenKgv5tmWh71aLP9t/3fwwZ3acT6FgI8ZZJLfLvbwhh0XqX6+LQDPO7LjizD+YMlH3F4k+TmEC5u8J0wVf0b0VTGAtJueHd2J6xLYS1h+89E5uub4pVbxYX3scY3tyk/R8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=qXyHPqyn; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=u9p0BpJi; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1792081934; c=relaxed/simple;
+	bh=iwAp1WxneTu40UtJSubGmq22Cuaf2WoUTUwAQPE2bjw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=DSr07EBT7/LXA8pYYq+zlASu7KTN+cOshlVAPbK3LBKx8l9ydqQYKL1zQIh3/UBiNPSKZlSbXMT9eHF5KhxdoujbjzTbbmPn51Teq3wCeZvyryImFhHFPawjU6vR0w7j6UzaHD6rQKvUiuM333GdXOubmrptISBXn7/4eWZ6qDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AKtG+cuE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="qXyHPqyn";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="u9p0BpJi"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1792081892; bh=uq7GJkJIP8YwuurGT4wgScK
-	ZezGRTHeJG8LQPSk+wwg=; b=qXyHPqyn4y34F8J716xCodGXxVCac5iYYJgbNcFG+T8Q+lZ+8p
-	n6/VkRGavWL88Uvrahaq5R2STW7yr+tbBzyH8ktIWWC6cGYBSobPJyeR55NkuyilNlHhvtB2aVQ
-	qGI4D/l6POeTyPAyzNejigWs5HoWK6CAR1Xjivtj9AtIB68AwOnhBTd8NlRdnuKj1H7A8gvIJcE
-	9njgzMd6/B+3B/qe7aMB4AKR6IOP9XRXK0aCgL9E2rhLnlxLNwpER20j9O6WN3vwYxSC5sE1otN
-	YEzQ1KnEBKp9fJ2jpryymK3FRYHDmvYcIvkXcMPIZi7Y0ZhqGI7jPQi6x4Ji9JyHQxg==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1792081892; bh=uq7GJkJIP8YwuurGT4wgScK
-	ZezGRTHeJG8LQPSk+wwg=; b=u9p0BpJiojelSRWUQRiwwmXJHgjFvvsdtXgFK/mNObBVGwOZrI
-	E/PY8NQf1uF/PipD0qN17NeXghjWec0k7yCQ==;
-Date: Thu, 15 Oct 2026 17:31:32 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: qiang.zhang@linux.dev
-CC: boqun@kernel.org, frederic@kernel.org, joelagnelf@nvidia.com,
- linux-kernel@vger.kernel.org, neeraj.upadhyay@kernel.org, paulmck@kernel.org,
- rcu@vger.kernel.org, urezki@gmail.com
-Subject: Re: [PATCH] rcu-tasks: Warn on too-short RCU Tasks Rude grace period
-In-Reply-To: <20261015094619.8773-1-qiang.zhang@linux.dev>
-Message-ID: <D155FA7E-8E99-4D4F-92A8-74472834F25A@mainlining.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AKtG+cuE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FDA51F000C4;
+	Thu, 15 Oct 2026 16:31:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792081922;
+	bh=5UDMqtw54d6/qy4Jttb/86PiM7pxwIVD6wfg8FpzVr4=;
+	h=From:Date:Subject:To:Cc;
+	b=AKtG+cuEdRdcHnI2bC9bkgGF3tcrhkLVvjO7KAu+Mvox/wFJrc08B+bbuDtA+pSYu
+	 w547Fh20Y0EEBt80AcvTVFG2SRwxL8vZ6ezaZiy/Tbaa7inRyOaJjNFIFjnkruMBqG
+	 IgTRdEEyhXLG6xYY02WY37Yr8eEQ4XcLNetTuPAJUfbW3DfcurY3yoWv9zu3s1H8Ft
+	 gXRsrGh6y3KJkDTNHbxd2T5uPaIGn/EuiJATuxCXERky+Jx6s1evOe2asYn/mnyPin
+	 WRRZytq7GvUNYB6pz0doME6W1qYeU5BV9Y/pX/dXQb1tEO8Oen9CpHZmDN/8EmL4Id
+	 vyQE627BQ5kcQ==
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Date: Thu, 15 Oct 2026 18:31:46 +0200
+Subject: [PATCH] MAINTAINERS: exclude DAMON docs from MEMORY MANAGEMENT -
+ MISC
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261015-maint-mm-core-x-doc-damon-v1-1-226decb5cd0d@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAPH/0GoC/yXMQQrCMBBG4auUWTvQBFJKr1JcxMyvTiGJJLUUS
+ u9u1OW3eO+giqKoNHUHFWxaNacGc+koPH16gFWayfZ2ML1xHL2mlWPkkAt4Z8mBxcecWKx4Nwg
+ cMFLrXwV33X/v+fp3fd8WhPU7pPP8AIeilvt9AAAA
+X-Change-ID: 20261015-maint-mm-core-x-doc-damon-d2da56de5ee8
+To: SJ Park <sj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Jonathan Corbet <corbet@lwn.net>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, damon@lists.linux.dev, 
+ linux-mm@kvack.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1187; i=vbabka@kernel.org;
+ h=from:subject:message-id; bh=iwAp1WxneTu40UtJSubGmq22Cuaf2WoUTUwAQPE2bjw=;
+ b=owGbwMvMwMG4+8GG0kuuHbMYT6slMWRd+P/71SZvpcea//dwy298qs6+es2+psN/ZEw3vmHXM
+ cm8kRSc2Mnoz8LAyMFgKabIUr37hKPoTGWPaR6+H2EGsTKBTJEWaWAAAhYGvtzEvFIjHSM9U21D
+ PUMgQ8eIgYtTAKba4yT7P+OjOjsM5SK3a11V08sQ0G6J3VFmcCJk52fzjNM+uVaHvD+lnll6YIt
+ 1TdVLj02n3sq9rNub3L3fPej74Sjl4Nj1BndYDbfpML1Z/dKdy+HGS8+Y1XkfFmkkH0lI3/po+p
+ wT3yNcOS3evTu+Jqox9KtYvYjMnhJHz7nVmyYVs+zax1KtUXW0KUfQOtslbce8ih/Lpsb8K92QO
+ iFi49s/qyruHHu27Zs/A+sWd6XQNZ+0snSbFT9Gxt9vvem8WO90Xvb6WQ4fLX8Jf12mk5i9JCvN
+ Jcne+ReH8zzdbpNgnvmPxH1M1aSid8jIsfEu7T6/3VLZ+P+s0G63Jc4m00Jvp+30u3whdcbar5r
+ pK2dYAwA=
+X-Developer-Key: i=vbabka@kernel.org; a=openpgp;
+ fpr=A940D434992C2E8E99103D50224FA7E7CC82A664
 
-On 15 October 2026 10:46:19 BST, Zqiang <qiang.zhang@linux.dev> wrote:
->The RCU Tasks Rude grace period is implemented by invoking the
->schedule_on_each_cpu() with an empty work function, which forces
->a context switch on every online CPU and guarantees that all
->rude-tasks read-side critical sections have completed. However,
->schedule_on_each_cpu() can fail (via alloc_percpu() returning
->-ENOMEM) and returns immediately, in which case those context
->switches never happen, too-short grace period happen.
->
->This commit therefore wraps the schedule_on_each_cpu() call in
->WARN_ONCE() so that this failure is reported as a "Too-short
->grace period" warning.
+MEMORY MANAGEMENT - MISC is a list of misc mm sources and also acts as
+catch-all for the mm Documentation subdirectories. Documentation for
+DAMON is well maintained within its own subsystem and also actively
+updated, so there's no need to Cc all MISC maintainers for them as well.
+Thus add exclusion entries for them.
 
-NAK, this seems like a edge case, and potentially panicking the system
-with panic on oops doesn't seem right to me, because we would reserve that
-for when something definitely goes really wrong and we need to notify
-the user.
+Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+---
+I'd love to have the time to check the DAMON documentation changes, but
+it's simply not happening, so this will save some mail traffic for me,
+if others agree.
+---
+ MAINTAINERS | 2 ++
+ 1 file changed, 2 insertions(+)
 
+diff --git a/MAINTAINERS b/MAINTAINERS
+index f53047aa8d3c..cbe565b353d1 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -17269,6 +17269,8 @@ F:	Documentation/ABI/testing/sysfs-kernel-mm-cma
+ F:	Documentation/ABI/testing/sysfs-kernel-mm-numa
+ F:	Documentation/admin-guide/mm/
+ F:	Documentation/mm/
++X:	Documentation/admin-guide/mm/damon/
++X:	Documentation/mm/damon/
+ F:	drivers/char/mem.c
+ F:	include/linux/cma.h
+ F:	include/linux/dmapool.h
 
-I don't believe this patch should go in for this reason, it's a heavy edge
-case, that doesn't *have* nessesarily need to be accounted for.
+---
+base-commit: d6d3455d8751854e0d1820f14184682e23ac4475
+change-id: 20261015-maint-mm-core-x-doc-damon-d2da56de5ee8
 
-Zqiang, have you reproduced this OOM on your own system, if so, could you
-tell me more details, you may turn my frown into a smiley face ;)
-
-
->
->Signed-off-by: Zqiang <qiang.zhang@linux.dev>
->---
-> kernel/rcu/tasks.h | 3 ++-
-> 1 file changed, 2 insertions(+), 1 deletion(-)
->
->diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
->index fcac7361ec51..91c25717402e 100644
->--- a/kernel/rcu/tasks.h
->+++ b/kernel/rcu/tasks.h
->@@ -1361,7 +1361,8 @@ static void rcu_tasks_be_rude(struct work_struct *work)
-> static void rcu_tasks_rude_wait_gp(struct rcu_tasks *rtp)
-> {
-> 	rtp->n_ipis += cpumask_weight(cpu_online_mask);
->-	schedule_on_each_cpu(rcu_tasks_be_rude);
->+	WARN_ONCE(schedule_on_each_cpu(rcu_tasks_be_rude),
->+		  "%s: Too-short grace period, OOM is now expected behavior!!!\n", rtp->name);
-
-Good message, makes sense. But I don't think this is right, see above.
-
-> }
-> 
-> static void call_rcu_tasks_rude(struct rcu_head *rhp, rcu_callback_t
-> func);
->
-
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
