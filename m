@@ -1,183 +1,142 @@
-Received: from fhigh-a1-smtp.messagingengine.com (fhigh-a1-smtp.messagingengine.com [103.168.172.152])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CD01522695
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:56:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79F60525A75
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:57:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792069019; cv=none; b=bJ0Icnh5nLw2UXTS1gSjjQl0vruZLNncKvWAtGc3TH+xUwcdLdEnPiSknJ6Lsb5Q9INZ2pmqK0XTn79+MT+/UWzcI2HDbazoHvwjLDDIlxMbBf5EkecSQ4Eh8DdJ6OgFQUm4n4KtWzLrRtNw4WDgLfuPx4TQsAwq49sRaSrU/RY=
+	t=1792069024; cv=none; b=PHnp+fAI0VONZq9YDFsRgtI8ZWmUG6FABaqqG9fpCKd6EvL4NpeHojQYpuRdPS4w7JAvB6jHLPcMBrOZ3OopFfpxMn47Nhe0aK7di9bmHruGMd1FmLwDm1/+a0mngiVYPpHwnYxNfnvT6A9h/1giqJUoGS37UaAiJrLyI9jhR5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792069019; c=relaxed/simple;
-	bh=wPEZURz/x2+WcDS1J0Y5mVsZm2GwhUFVDnbKnwOL9Wc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uvhtjSFvI2nMoyiooC6VlnX8pDmYGOzVYCDV+fty7aHcoC6of/hDh3VAChtcI59gxXZ4TVU6hKKedQQKzxyocnhb2rDIOhhSU/lzus3ZKZH+8+bQoJUa5HOzJY73MKZTWzBn6HpMmBvbFKJKVEmZCd1GFXMPKEnqkD5mw9mpgAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=ekO09FmV; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=r7ZUYcuU; arc=none smtp.client-ip=103.168.172.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	s=arc-20240116; t=1792069024; c=relaxed/simple;
+	bh=wtOFZraGsBpQ4hUfkUfCU2qsltkn9pzHky/+wweZgS0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rDj8/3G7XaKXlit5hXbtYVG2UgUAUbXNU+bivcDccm96zjp7kA7eH/Qfxn4UgCACYgRo5hQ8fum9fZykCTk1lEgy/yRhrqSkNYSzoukGiqkHuKeuq/eWZAE+QSEq1AXX8oY0UNix32j6YKB2ft92d17wRIgmsqP+Dregz2ji3sE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WIFsMW2U; arc=none smtp.client-ip=74.125.82.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="ekO09FmV";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="r7ZUYcuU"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id D3EE8140012F
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:56:55 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-03.internal (MEProxy); Thu, 15 Oct 2026 08:56:55 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792069015;
-	 x=1792155415; bh=d4Y+UaRCOJkuo10OJNpvuYzS3Fllk0wMeQAn2UVR3P0=; b=
-	ekO09FmVkGOVmeTA/byydZxaei6irAGCLVo/ANEJwnuW6+T+r8ti/pbeH8XtJ+Lz
-	uWb8Cn+6/+H34lNRZ8lsoi78JV/5cZ4dhe+TOKFj6SwTfD18k+RCwIokdPssMdMZ
-	SbYq0pAN2y5WGXkymHizcS6yyAH4vaZDYsE3pqdfIyiqVYaByAucKcAE3bvXrh/U
-	WUeeR1m4Pv/Fr+WiRW/uJ4H3Qw/IpKMsFWfN1Hn5P2sbnWjRKEJgdf13kY4lhA5I
-	efPgaV03x+l624cGCyjHMBPnNK0lVUlxnxQoV1YdiyCLI1HST1P0FQ7Di8CVKTLb
-	CXfYBIGI3Zf/5m8ArXP75g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792069015; x=
-	1792155415; bh=d4Y+UaRCOJkuo10OJNpvuYzS3Fllk0wMeQAn2UVR3P0=; b=r
-	7ZUYcuUBmVh8/XPWUBxjZ4OMsvBMt0mFoc7IUSl6DUCy0/7UM1BeLS1GU71P/mz/
-	AxFlSTDQ8ycJFg4mn0LdwTEagxStgxZLyqu3PQ+RIIpE4d4lW7vTZLWMaw7gObw2
-	3yUsx7PbwcRW7gIXTnPKt2PpdoBvuP5Pks0cpO47h/umsjYifrR6dgZa7f8fLFQN
-	HskZ4V8GdNzVJ/at/qCAqzIhh/UDT6zVQhzNe+ZDTuPBUVHEa5qTdaLTwzxm82bL
-	+6QU303lQw2zZtk3UjErZYxpFyhILbU/CcIGlzPXEO0AET8gJQH15vshXd3x0fQJ
-	w3ZZkEEnAyFyxcx2AEbAQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=ragnatech.se a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792069015; d=ragnatech.se;
-	mf=PG5pa2xhcy5zb2Rlcmx1bmRAcmFnbmF0ZWNoLnNlPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:MVYEIeNmV85jxTlQHrltgE3Kn7XB7jN0dmh+b5pyT7961NM
-	lSKiFpA/+M9+kSd2pBrut1+53VEbJdlxVnjvZvvMwK3X9qgIxCjal89a5QXdq5Vt
-	zhrQ/zsCghhPWes4/+nCXwap5EoYUhd1fQl03TMXZm6KX0jnLnpOq85viI21DaUA
-	PtzWhjSSxGJ5gIsxZZ95lpqwbTTT0T0XEuZRABlvIFqdOXc/it083K1ONdauirSP
-	cGfZBodDCJhGJpoKR/EkbIPLtehPaugeBiiblDSs8FS99L3LM4E5dD/tWs7J2Qos
-	QBL6hAHyExz3Te9aMAXWdewje21eyK54FpGeQkg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-disposition,content-transfer-encoding,
-	content-type,date,feedback-id,from,in-reply-to,message-id,
-	mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:z3fr53DmWe7SCs30CXbfzp5DURC5bDRztcLg+OV5rnw=:wPEZURz/x2+WcDS1J0Y5mVsZm2GwhUFVDnbKnwOL9Wc=;
-X-ME-Sender: <xms:l83Qauf76PAhMVDL5Es5JJXgRQUMdpPfASekruzkmKO58WF51rp3Cw>
-    <xme:l83Qagbc6jKEwFrj-2VrqExuBtnVvfKKBU4BbK_g_XrAr9epkn5cYfVTqJ4onWvh4
-    WutQdNCtOmkID_0Chaqic5647QxiMon16y4NiDs6oRq_W7lMZSK88U>
-X-ME-Received: <xmr:l83QarHUr0KxatP-HPj87QI0_TvQwjLisx2gWR4rZYZh5mXRx30_i7Da8JPD-LJcCTxdPZ0RmMo-44CLjkMvzSo1mHvX_4c>
-X-ME-Proxy-Cause: dmFkZTEQ56OHvq3vzGL+AyPauqCptT1uyaHJhWuULvfSVS/s5v7seR14SsJmK/ReuoCdC9
-    SCI7kdZIK0LPjySsUdGYpBrC0b0Mgqm6jlCK+vE9rC/zihlJYnWLHgn8WJdHlv39fne2P8
-    DDwQjoYfqsWaDPSTpW94qOuFbjzZIAjwSVt4LuMb/ZQ6aAmPLvveaC5RtZtZ11qpKV3/lY
-    2h3FHf6TL8Lnamlx+oMSh7/Ks5Uuq0+ei3EnJTwQc/7genfnSxgvGTtWrAo7mHfv3UI6ty
-    vFaaVy08u6Ii4iNtGpB5epuJ2OoiRX7KkPktYtHpa+Wv74KMTTiUVl9+IJkUiTpJQxJUhF
-    ZNuoAvXYkavfeNrYIYngI7flY0cuaHtBJwDlcFZ2sAfpwrFw6X+2OgdYM5AACj/gdzFYyP
-    vkqGLT8RHW4TiIS/KdyLXcWPIT1Wd1rtvM5F2BwlzndyzKaocdfy55k29e/z6J+j11ZX1Y
-    zsXtaqDRAgypkmD8pQHUH5gJRFyOq+fPp3kWMMgDmYzCn0vFq3CG7lU/xkQmT/0GX9rVaD
-    4q22Ryk1LKesqHpLVhFWBbsJySgvHM/z6bAbzJuzvHP/izAlLuhXRB7judebj95vToa6z/
-    i0DhCWlxkd+7SERc64n5pOnc4w5aGg2lzzZ8fGFBfvpBeh4Ef7V8uNl48rkw
-X-ME-Proxy: <xmx:l83QamkbmVFZ8DGHL3cuMhI4HHrLFv2nXadcfEEX27SI254mpqR31w>
-    <xmx:l83QamdF65ZqyAIpvdUMhypBLoCMuW5CFXamrwp2DsBpqI0aUyCquw>
-    <xmx:l83QasHpX-bIAqjDRMuG17YvtHQPEmx95bRBpM6xfUu5DPf-E0D8lg>
-    <xmx:l83QakgIke7tMckHE6YBzvOy0_QFVMMSKK7as43bgVSEu-f3kZfOyw>
-    <xmx:l83QaukG9lfI-0NIiKYWmiBhLPmStIxrL3iHo-2ydOpGC2Ij0vM9tZ76>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 15 Oct 2026 08:56:54 -0400 (EDT)
-Date: Thu, 15 Oct 2026 14:56:52 +0200
-From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: mchehab@kernel.org, geert+renesas@glider.be, magnus.damm@gmail.com,
-	linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, ae878000@gmail.com,
-	jacopo.mondi+renesas@ideasonboard.com, sakari.ailus@linux.intel.com
-Subject: Re: [PATCH v2 1/2] media: rcar-isp: distinguish absent cores from
- registration failures
-Message-ID: <20261015125652.GA3577260@ragnatech.se>
-References: <20261015004159.2202899-1-mhun512@gmail.com>
- <20261015004159.2202899-2-mhun512@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WIFsMW2U"
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-35ef6b49813so1694604eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:57:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792069020; x=1792673820; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OHTjKir7WhEF+7otyD21r203js5QZtUClqFMAlpQpKk=;
+        b=WIFsMW2UZ7EGtMhZCjbzhukEp7tsaqltA7iijtjxW5ovVikZVmvlYmONTuf4qac6Fj
+         NvrEkMIT5ufUrMwoGP+0hPkpysFmtiH/1LzYldxLNJS1xptoegRmZ7u46icwjLp2isHU
+         lUOehJY26kb+76jEK33i5889pScfBJl7q2kKVQsjzEvM6AEfioyTkqQTH830aNohfhPg
+         t478hdz4iMcWDj2OdwGe4REcsmPaS9rEAcfUV6LfofdVB3Ssup97hgojQj4+Mwz7OQ4f
+         K6NLrev1suxx/VgZFXdHejF8Ep+iAwp/xj3oJu9BE4bjYjaxdwUZr9eujlwTe2jhwAiy
+         hJew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792069020; x=1792673820;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OHTjKir7WhEF+7otyD21r203js5QZtUClqFMAlpQpKk=;
+        b=kr6lqBM7olNPjaOVngMbR6we8iLfuTPWhG2U8lBRYQel3E7GyvZWHcAe2EThikrSIT
+         0/Z2LZOy62IeaEC05EFP//teul1KYYHsH2uDrk67POfUrYhOSUwfIWWS2twX2oYqp7n7
+         0une8ko2uML5ZdKOR1INK92cYEm3Y0OzK1fs0MX0Lv95py84f7k8/44q6eQ94+J2azxH
+         sYrGo38+aBVFbztvA2GPwh6/lQhi5LybZttYTUMFCRVUNueK5Am/oOgUzvj6kk1Fv6A3
+         TjM9TOfzRY8j44O783bQKBNEwf+yKNQBQwtRQTVvzKFuis5uAQ7fIoWxP/v8MVcNqRgw
+         hu/A==
+X-Forwarded-Encrypted: i=1; AKwUvBydcZd553RtqEBvgXrIjO8moHSBobeKUkvVTtf3Rg42d2XaEDDUCkBKO0B5rGsb1Ks3mT03ajdXj/lJ9l8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKXhz3BCVlK8SrjjFcuSPkfmNHehEl0sY3C4ONq5LatA10DYFni
+	MWlgZqPmgx5fkz/Xv79xDOZh/nzc+tKR54TstsjvvkL9FmQ0YhwDQRaOXhjObzl8
+X-Gm-Gg: AYBFou1/OLsZiT2BORf2UJTU56R8tYSsv5LmZGqbSCORy7eAPNJLbzKq/9l6XcRqRKK
+	7Y9RDT0TDQc71ktN9JbchBzlwq06Jh8qSsrR3PEaFSDUYSWUwGLN0uwWIORbIj2UMVzYR7Vdirc
+	YO3Xos68NdtAeFdhyp9BkP+hOmvjp+zKfi7Vj3WTCmQQO0HCyBY8tI+mgKZEfZMVfUubb+FFjlC
+	XoPcLEAodz4Wc8S9qfLMHW7GVY97nnLWU1cfGQTa9lHr22EZoSsa6IpuKKDjDvDRPy1D0nKQQhS
+	KSGeh1eN3SvkhAzysY2EiQ7cNgs7CnrJU8E4webfttXBAtFi8YVY9whU2PF7TwO7vZY0IQXdAKo
+	mAVNZGqAZJ8up5OpRKg+gCyY2iS7yyzbRiQCbc9WgiGXI35U4iC9ya7wsyRS1c0EnivgGU/TGcM
+	cViVvgCR3hKEYa4FalpDGN18cQkpy/1ww9qeAst3uduAIZtKSDa1ANyuaB0I61YmW5aE+h7g2xF
+	fH9qqShmRtaSDKsvWIKhs5gGL0appU3uTFS0uVoBpWw42KrNadEjR3yXmSXMRkyEkSHz3sV2bGQ
+	OHp1QkJLtJL/+eG0zAOCNlw=
+X-Received: by 2002:a05:7301:90a:b0:351:7d5f:df26 with SMTP id 5a478bee46e88-3537df9780fmr19801431eec.15.1792069020235;
+        Thu, 15 Oct 2026 05:57:00 -0700 (PDT)
+Received: from penguin.bbrouter. ([200.218.229.14])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cab27d5sm68812345eec.17.2026.10.15.05.56.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 05:56:59 -0700 (PDT)
+From: Daniel Pereira <danielmaraboo@gmail.com>
+To: Jonathan Corbet <corbet@lwn.net>
+Cc: Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Alex Shi <alexs@kernel.org>,
+	Yanteng Si <si.yanteng@linux.dev>,
+	Dongliang Mu <dzm91@hust.edu.cn>,
+	Chen-Yu Yeh <chenyou910331@gmail.com>,
+	Weijie Yuan <wy@wyuan.org>,
+	Federico Vaga <federico.vaga@vaga.pv.it>,
+	Akira Yokosawa <akiyks@gmail.com>,
+	Carlos Bilbao <carlos.bilbao@kernel.org>,
+	Avadhut Naik <avadhut.naik@amd.com>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] docs: add a guide for translators
+Date: Thu, 15 Oct 2026 09:56:41 -0300
+Message-ID: <20261015125644.12908-1-danielmaraboo@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261015004159.2202899-2-mhun512@gmail.com>
 
-Hi Myeonghun,
+The documentation has seven translations, but the English documentation
+has no guide on how to contribute to them; the only one that exists,
+Documentation/translations/zh_CN/how-to.rst, is in Chinese and covers
+zh_CN only. As a result, the same problems keep coming up in the review
+of translation patches: labels copied from the original that collide
+with the English ones, partial builds that hide those collisions,
+documents left out of any toctree, missing commit descriptions and
+missing recipients.
 
-Thanks for your patch.
+Patch 1 adds Documentation/doc-guide/translations.rst, a guide that
+covers the whole workflow of a translation, from choosing what to
+translate to sending the patch and keeping the translation up to date.
 
-On 2026-10-14 20:41:58 -0400, Myeonghun Pak wrote:
-> risp_core_probe() clears core->base when resource setup fails. Once
-> resource setup has succeeded, it leaves core->base set while unwinding
-> errors from the remaining registration steps, including destruction of
-> core->rpp and release of the VSPX device reference.
-> 
-> risp_probe() treats every -ENODEV from risp_core_probe() as an absent
-> optional core. If a later registration step returns that error, the
-> parent probe can continue and subsequently call risp_core_remove() on
-> resources that have already been released.
-> 
-> Only accept -ENODEV as an absent core when core->base is NULL. Otherwise,
-> propagate the error through the parent probe's subdevice cleanup. This
-> also keeps failures from the later IRQ request in the following patch
-> from being mistaken for an absent core.
+Patch 2 translates the guide into Brazilian Portuguese. Since it is
+based on the original added by patch 1, whose commit hash is only known
+once the series is applied, it does not carry the "Update the
+translation through commit" line that the guide suggests.
 
-While it would indeed be nice to propagate the error I don't like this 
-solution. It creates multiple places to check, first the return code of 
-risp_core_probe() and then implicit variable contents ontop of that.
+Both patches were checked with a full "make htmldocs" build, with no new
+warnings, and with scripts/checkpatch.pl --strict.
 
-Would it not be nicer to add an additional return code to 
-risp_core_probe()? If it returns 0 all good, if it returns -ENODEV the 
-optional device was not described or a new code (maybe -ENXIO or -EIO ?) 
-if the device is described but we fail to initialize it.
+Changes in v2:
+- Drop the references to the Assisted-by tag, which was removed from
+  coding-assistants.rst and submitting-patches.rst by commit 1e035297ffda
+  ("docs: remove Assisted-by references"). The guide now only says that
+  Signed-off-by can only be added by the human who certifies the
+  contribution (Weijie Yuan).
+- Use a plain path in the ":Original:" example, which is what most
+  translations do and which the documentation build already turns into
+  a link, and drop the ":Translator:" line from it (Weijie Yuan).
+- Rebase on current docs-next.
+- Cc the translation maintainers, so that every team can comment.
 
-For this first check return code, then check some other variable 
-solution,
+v1: https://lore.kernel.org/linux-doc/20261013003702.5824-1-danielmaraboo@gmail.com/
 
-Nacked-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+Daniel Pereira (2):
+  docs: doc-guide: add a guide for translators
+  docs: pt_BR: translate doc-guide/translations.rst
 
-> 
-> This issue was identified during our ongoing research while reviewing
-> kernel code.
-> 
-> Fixes: 2151350f60d1 ("media: rcar-isp: Add support for ISPCORE")
-> Assisted-by: LLM
-> Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-> ---
-> Changes in v2:
-> - Split the -ENODEV handling out of the IRQ lifetime fix, as requested
->   by Niklas Soderlund.
-> 
-> v1: https://lore.kernel.org/r/20261011214448.2043581-1-mhun512@gmail.com
-> 
-> Compile-tested with Clang 22.1.2, W=1 (arm64). No runtime testing.
-> 
->  drivers/media/platform/renesas/rcar-isp/csisp.c | 2 ++
->  1 file changed, 2 insertions(+)
-> diff --git a/drivers/media/platform/renesas/rcar-isp/csisp.c b/drivers/media/platform/renesas/rcar-isp/csisp.c
-> index 53ce47020d170454b3d208bce7f4d6aad76764d3..73bf7e42bad2ac1ec2493cd8ec81003cce05a3dd 100644
-> --- a/drivers/media/platform/renesas/rcar-isp/csisp.c
-> +++ b/drivers/media/platform/renesas/rcar-isp/csisp.c
-> @@ -563,6 +563,8 @@ static int risp_probe(struct platform_device *pdev)
->  		isp->subdev.internal_ops = &risp_cs_internal_ops;
->  		break;
->  	case -ENODEV:
-> +		if (isp->core.base)
-> +			goto error_subdev;
->  		/* The device don't have an ISP core, that is OK. */
->  		ret = 0;
->  		break;
+ Documentation/doc-guide/index.rst             |   1 +
+ Documentation/doc-guide/translations.rst      | 694 +++++++++++++++++
+ Documentation/translations/index.rst          |   3 +
+ .../translations/pt_BR/doc-guide/index.rst    |  19 +
+ .../pt_BR/doc-guide/translations.rst          | 711 ++++++++++++++++++
+ Documentation/translations/pt_BR/index.rst    |  11 +
+ 6 files changed, 1439 insertions(+)
+ create mode 100644 Documentation/doc-guide/translations.rst
+ create mode 100644 Documentation/translations/pt_BR/doc-guide/index.rst
+ create mode 100644 Documentation/translations/pt_BR/doc-guide/translations.rst
 
+
+base-commit: 90d9f76ccb72ec024ef476b4229f3dd1957d7b26
 -- 
-Kind Regards,
-Niklas Söderlund
+2.47.3
+
