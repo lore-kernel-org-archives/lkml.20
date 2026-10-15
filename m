@@ -1,64 +1,64 @@
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDA8B3845C1
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:38:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1652D3C988D
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:38:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792075136; cv=none; b=dxZzQr3hz7dbXOrLf3/ii+Fo/9le+xy1P/yWvEg6PvfwtCgs3weCXipjtZPax/5sasDoYPiJf+vZz54bDFmzz8h7AXPrCJBM6xBb6MxrOn6xUy0iig0Njdf6KSgACIrfDpz0MUxEv+Mi0ApsUNC61EPHQjXls8Phnb1TQdC/Q68=
+	t=1792075138; cv=none; b=Vrb4AF5tFbEFpquad42DjPRGSt2BUXiWtt3IomaNlG4w+KvEDpfg9jKmpnwT+5gcfoOccxRM98nwiEO81sX1oxLmyTusB1FptVcXLPF5sXAcJH4bkOYdhkQDZ2rykpwFYSWxndKX2x3PAXRg0ft9xLpcOLEMKrJpM4yHKdH/IuE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792075136; c=relaxed/simple;
-	bh=0MHY/DXLJSGlvlK4hfQH5ps+wyuy3lgdtPpSeRBwJZc=;
+	s=arc-20240116; t=1792075138; c=relaxed/simple;
+	bh=4mhyYh9AhJdWh2Z54n/rDsetUsO9wDF5wBn1LCUSmSA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Rv60Kn3ZlQp/0hcp/clu2DP0cpDg9vfyMNhHbLoyUcqpEeCEYVNp9fcbGfNd7Lw9MJuMqRZIBQd/DEpMlO6b0rCmy6JgpaZ2rj7AGECWujHVGm+gM1aHLV269iKJ/jtQsRVYF/FXRb0iw9gvyP8TJ2CwsiIcQVLGM139me3N9SU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=aw0nctY2; arc=none smtp.client-ip=209.85.222.175
+	 MIME-Version; b=osz4ZhxzOxlg5405uuctCwjjHwhHu9ijsVTN9Zpi4VQc71N0DmxtjQcK+rcYnIieU2X4wkaXaKK8276mJQrIClTTp3io20+nBv8JIac3h0H8e2zRceDWqTTOJT93pPfwXidNKXE3PBofqC/BEfd+ByeE9KoDOPHjhD7Yh+BB6/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=fHDn0JsS; arc=none smtp.client-ip=209.85.219.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="aw0nctY2"
-Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-93e6eb77f0bso136907285a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:38:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="fHDn0JsS"
+Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-91b8306b9f8so63983626d6.3
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:38:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1792075134; x=1792679934; darn=vger.kernel.org;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1792075136; x=1792679936; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=FyxQZm/TWmVMDcMFzjg+LflT1D2OtrWSrFPMXdJ9T9Q=;
-        b=aw0nctY2uWrNLLvxCvpBKlDeenQ/Dlbpc9B/OmDRgyQ2QaRF1AdrPKgn/i3vXsWxYx
-         zmzyGTIvQrKrSY6AWc/MfQ7mj88tyN2L5N2tJoxGlH7zxMEmrQJfPvdB5f7G3BZ/VZWM
-         cvtpeNYqsLpGFcy0uEI8prkkl1GS+Q0GsdeiS6N4KVcC2uD/58pRHMDgbzfbtLAuM2Z0
-         nv0+xxgcrMKhJVRO7/IwOzugu+rdg2IVjkzs81kClKpp+tvERx3aAIRxYmBjGXkTA0Yc
-         tmRFDNJLrIuwi9bhNWbr6urex9Xl1m35bvQoVeoOCiOdW7DMFyNcbTIotHqunYAfUDLx
-         zl4A==
+        bh=PrZ4UoU0O5LeVfAO0Ji/pzxgUsFsUywSx2q0o8MOUoM=;
+        b=fHDn0JsSQRiQ1IQKzOaAZDzR8HeKmDNC303oCK3wjOVrgAPQy0NnMph3ueZxeEXU+0
+         syIfkxDMcff4VygMKizZ5bhXMcb/IznP2nfgEBMDUmnmhCE4feA3uwEEPTpG3UStE9+w
+         qjRFN+pxog68RoxJVipo09Is93b/4HJ/SnTid8RXJujjVVXRBStkKhwEr++//r6N1RKx
+         VnvMouU7QO7KA/aYaANOgI5X7/Wm1dsB+GxHYcssQjs7SEwLW+yIdqpP+98DC6lZMPmC
+         5SVAZbAc9aT9CYMavyvcUS9F3FHm1lr530Jr74bDJJZqZE2oluG18cd5Eju+vJwy0kXJ
+         uGnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792075134; x=1792679934;
+        d=1e100.net; s=20260707; t=1792075136; x=1792679936;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FyxQZm/TWmVMDcMFzjg+LflT1D2OtrWSrFPMXdJ9T9Q=;
-        b=FkkJRjYMPpglBIZg1jHYV+511kk3ySYGx3yU2iEkONRo3FgsT/x3SzgzelbzUzzD2J
-         Wz4NYM184JregF/iKZEEh8YYDfbP8Pv9h9BFPuS1YBiTquXDOfRwgSPp233kAvy20ptE
-         vi9Dciuj2hJf1xA8eOVTSJorQYfLN48fnrlpp6kmK4l0yP/bJK2zq6VcR0w+m+hDBbfx
-         O6ls6Z18fX4Oy9yvg/vW98U6cxFeSWJbcp8BIsce3xB5mCzDG25AkvfQ+KLgfWOx/4IA
-         AxSC5dVWmO6WWhEjSRDQ/VVYQHWCcql5ZOK6BUVuO1gd0lFF9O8b2GKhdBIjo1+ig0VO
-         A/Ug==
-X-Forwarded-Encrypted: i=1; AKwUvBzzGDe4/Bu+vi9v6RHlbA12TbJh4bXMkcjrvVIymyy4BPQy9KJYS0kGmzJByQIQr+E1Nvw/Q8dDY31UfYc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJUVLCxu1Ra60v4qaQfiUwqek2JUBwzI2TY3aK+Bslrd46LHlQB
-	3HS8LoJmV6nekzrWzu7HykTBLXVNKeo/v5qItIAxG6mb6N7QOdR9QYrwijH7Wa/vMmc=
-X-Gm-Gg: AYBFou3MI2nBPpczh83z3Ec9n3MSDffU0/piqE8NKF4jU+3+k4hKsiefz8UlETQc+7o
-	+4VPgj16HgDCjYBY6OwHTcOO7UrYN03myQN7WQVo+4899lHWnWiaE2nisHlqgw0lAeqeKHQPKX4
-	YKNnu1V2tMNaGn+780vqC1+PqimTgbt5zX71424pzirk3hzCRoZmEIMXM/vvT54/ipaeLV1UKK9
-	st7RmDGMd/ML8iidl1LAsP0WE4YvY5xsHYcRrZcNDcYUjZAqGznstr1BjTf1veqoMFQfr8BAdzm
-	hKQHG2C5WyzeGRgKwJEfYDWGkAfPaSLfS/KqbCgG5ql6k7NeN6VQdjezufMD2tbD2XGk1hIjBNl
-	81gSGS9bcvz+8f+w3wWJFeh3SP9uvwZ+QQzIipDhnBb03umN3AfJalKiFjDu5IzjgOMMrOS11ME
-	j9eJ1fdjzl/8x2B2BNrkVhzDnhwWyobiijw2qxq/Psij+rnbo+lPzqlczcLz85G1CNT+kmSMyTF
-	HXqjNgKdOTMMA==
-X-Received: by 2002:a05:620a:3956:b0:93e:9792:fd47 with SMTP id af79cd13be357-93ebd0c2423mr2968505685a.4.1792075133775;
-        Thu, 15 Oct 2026 07:38:53 -0700 (PDT)
+        bh=PrZ4UoU0O5LeVfAO0Ji/pzxgUsFsUywSx2q0o8MOUoM=;
+        b=1hLK2jqYAMuGtd6Kp4M7tk6aUg/VeNzSYtoKZwN5XcdeRBtCxdSMK8gjgju9acMnXY
+         R4NwhF0tbXTm2tI8/n4Fb+hHjns80ogA5/Hpw0VF+FBjxTO3KsGpnWTrM7XFVQjMLuB8
+         4QX8U53KlH9rS1m31cQSkG7hMb4KCOQzMJtgSKd6dGRa3DyZzwj+2fLn8EMItIo37DfV
+         2RM1sfbPNj0IZfr658skzfzD1cCUTqrTwiRK9ElC+b9NKcXxgz5EDPpgt5yp/tn7C3tD
+         b26N9OEME90o0s90vkUPcFmYv7woQKnWkwvRcsVT9Fyk66uuR/AO7HY2Jr283yvqFd/7
+         jwIw==
+X-Forwarded-Encrypted: i=1; AKwUvBw/CwfXl96JueOG8KoX+0qOtxgs1QYX1ixXR2XGTiPwJy9TiMCk8bi7lstC+MJucyaxuzEZRKbG45nCUV8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJh0MA9MJSUEYUJbFmTLoD7SyeY57xksufoCVoMUo+1TeNYSlKJ
+	v2hh7GgRynK88SSeyTslmFeKzwPJMFJ6/UHFR0VUXOhagKcvaMEAsOvb8BkZOgeJJVs=
+X-Gm-Gg: AYBFou0h1X6pMNqinYGS9Jwmgsv1jHnU0jhiV9zeezfiji7Tb28wpYibIQTSWXzL3U6
+	L0XtU5CcqssJMj88k9L9WzrHMTZQ1zxkiZK9s9Tlx4lyIDqHIcKcoylUZTDA8MPLaAhBqrWxqwV
+	lnFn0BNDcprlmxf6MFA3c2S14k6NhGFh0qtEgfKtCWIbtFfqAvxCDfKy68fQvHv4+22crkdTDCQ
+	2rDUy+bDc+7Bv7KlFrcwzTU5nd0yNFxxIVVKXlzuhDzZ0gUr7jbbSnf5HQU28Tc3GIjb8Y6k7//
+	9Pupd/9U2OtZ2PnnqrwPteU95BoyuUhBBnhcbiCwuGrPH3txMeM9cIkkHJYXqdR9o3Yr8OsFuup
+	e5PdONvSE0bAWFTPKXX53oK0YpWlFfAIrVv06NviMbg6xiIB3BR39AFNs2nH8crszcYmg1EzwpB
+	CWPCwQkJPY/ZfdjSFAZKF9SKSyedFheTNsc9ym63JPojoXTnppOjtLcWRls0BNGXKUY2YCZKcGS
+	z7kmec0T0IGzA==
+X-Received: by 2002:a05:620a:4411:b0:93e:9292:1ba5 with SMTP id af79cd13be357-93ebd20defbmr3353447685a.21.1792075135235;
+        Thu, 15 Oct 2026 07:38:55 -0700 (PDT)
 Received: from zippy.localdomain ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97bc6d42sm82581486d6.34.2026.10.15.07.38.52
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97bc6d42sm82581486d6.34.2026.10.15.07.38.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 07:38:53 -0700 (PDT)
+        Thu, 15 Oct 2026 07:38:54 -0700 (PDT)
 From: Alex Elder <elder@riscstar.com>
 To: andrew+netdev@lunn.ch,
 	davem@davemloft.net,
@@ -79,9 +79,9 @@ Cc: Daniel Thompson <daniel@riscstar.com>,
 	netdev@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v2 1/2] dt-bindings: net: qca,qca808x: Add regulator properties
-Date: Thu, 15 Oct 2026 09:38:46 -0500
-Message-ID: <20261015143849.483339-2-elder@riscstar.com>
+Subject: [PATCH net-next v2 2/2] net: phy: qcom: qca808x: Add regulator management
+Date: Thu, 15 Oct 2026 09:38:47 -0500
+Message-ID: <20261015143849.483339-3-elder@riscstar.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261015143849.483339-1-elder@riscstar.com>
 References: <20261015143849.483339-1-elder@riscstar.com>
@@ -95,58 +95,78 @@ Content-Transfer-Encoding: 8bit
 
 From: Daniel Thompson <daniel@riscstar.com>
 
-QCA808x has four different power rails (although in many board designs
-the different rails share a regulator). Add each of these to the
-corresponding DT binding as optional supplies.
+QCA8081 appears in embedded board designs paired with GPIO controlled
+regulators for its power rails. Add logic to allow these regulators to
+be turned on during a probe.
+
+In order to avoid the complexity of tracking state for suspend with and
+without WoL we take a tremendously simple "always-on" approach to
+regulator management, essentially relying on BMCR_PDOWN to conserve
+power when the phy device exists.
 
 Signed-off-by: Daniel Thompson <daniel@riscstar.com>
 Co-developed-by: Alex Elder <elder@riscstar.com>
 Signed-off-by: Alex Elder <elder@riscstar.com>
 ---
- .../devicetree/bindings/net/qca,qca808x.yaml     | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ drivers/net/phy/qcom/qca808x.c | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/net/qca,qca808x.yaml b/Documentation/devicetree/bindings/net/qca,qca808x.yaml
-index e2552655902a3..03daef1c7a4e6 100644
---- a/Documentation/devicetree/bindings/net/qca,qca808x.yaml
-+++ b/Documentation/devicetree/bindings/net/qca,qca808x.yaml
-@@ -17,6 +17,8 @@ description:
+diff --git a/drivers/net/phy/qcom/qca808x.c b/drivers/net/phy/qcom/qca808x.c
+index bab26e4c61408..4aba513b9a512 100644
+--- a/drivers/net/phy/qcom/qca808x.c
++++ b/drivers/net/phy/qcom/qca808x.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0+
  
-   By default this special PIN is set to LED function.
+ #include <linux/phy.h>
++#include <linux/regulator/consumer.h>
+ #include <linux/module.h>
  
-+  Additionally, up to four power supplies may be separately specified.
-+
- allOf:
-   - $ref: ethernet-phy.yaml#
+ #include "qcom.h"
+@@ -181,15 +182,43 @@ static void qca808x_fill_possible_interfaces(struct phy_device *phydev)
+ 		__set_bit(PHY_INTERFACE_MODE_2500BASEX, possible);
+ }
  
-@@ -25,6 +27,18 @@ properties:
-     enum:
-       - ethernet-phy-id004d.d101
++static int qca808x_power_on(struct phy_device *phydev)
++{
++	static const char * const regulator_names[] = {
++		"avdd18", "vdd", "vdd18", "vdd125"
++	};
++	struct device *dev = &phydev->mdio.dev;
++	u32 count = 0;
++	int ret;
++
++	for (u32 i = 0; i < ARRAY_SIZE(regulator_names); i++) {
++		ret = devm_regulator_get_enable_optional(dev, regulator_names[i]);
++		if (!ret)
++			count++;
++		else if (ret != -ENODEV)
++			return ret;
++	}
++
++	if (count)
++		fsleep(phydev->mdio.reset_assert_delay);
++
++	return 0;
++}
++
+ static int qca808x_probe(struct phy_device *phydev)
+ {
+ 	struct device *dev = &phydev->mdio.dev;
+ 	struct qca808x_priv *priv;
++	int ret;
  
-+  avdd18-supply:
-+    description: 1.8v analog power supply.
-+
-+  vdd-supply:
-+    description: 1.05v power supply.
-+
-+  vdd18-supply:
-+    description: 1.8v power supply.
-+
-+  vdd125-supply:
-+    description: (1.25v to 1.98v) LDO regulator power supply.
-+
- unevaluatedProperties: false
+ 	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+ 	if (!priv)
+ 		return -ENOMEM;
  
- examples:
-@@ -39,6 +53,8 @@ examples:
-             compatible = "ethernet-phy-id004d.d101";
-             reg = <0>;
- 
-+            vdd18-supply = <&phy_vreg_1v8>;
++	ret = qca808x_power_on(phydev);
++	if (ret)
++		return ret;
 +
-             leds {
-                 #address-cells = <1>;
-                 #size-cells = <0>;
+ 	priv->led_polarity_mode = QCA808X_PHY_LED_UNSET;
+ 
+ 	phydev->priv = priv;
 -- 
 2.53.0
 
