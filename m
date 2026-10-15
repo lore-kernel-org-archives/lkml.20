@@ -1,137 +1,146 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C013949EC68
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:59:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F4354EA378
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:00:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792054791; cv=none; b=hgR+uwNOU9c0LLC4YIvwE872nn5vGsk6kwK5Tq75dZD74GEhfxHLPUXyi+WsyQE7A/QIsRzIrA04fxqXaWcVlNo7L1eescM2pbFF75TueEwkiaG+spM6zfZoJMtX9codfNHOW32XJqEAMS9G8Rlh/ZkxRG+TM9Z49xFzwr/rc5U=
+	t=1792054810; cv=none; b=tm3EYs0/yCuzr9EegI6aRy1ZDVDnUD2FlAWj9JuYdQctx3Fc20IxanPlRfb9f/E4KiZvwi28zb8GznPUEeyHQfrR+vkbVb3FPtSwyna93NkayVkuKxuphYarzCu74abxK7kaIu2GKWx5kCymTV4dvuMrEZxw0FE6cMcVrC2sfbI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792054791; c=relaxed/simple;
-	bh=3/cNw4sEvJBejOf977x2DG/AkG27qWXnWwL0GNmyl8E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fT5QdN/pE/AJBuDmOrA7njAJXQyWltr9+ZbDIHIPBpZEMvQD751ap90bPSP4jiNx80pX9YvjkVQDwISno6Oxw34B9FrffMBC5CjzBL6v/KrackdqYDD6A7BwV1GEVrDK1PRJ2+ttvuM42jiZlVLKDGkFmXBJ+wsHdT83Mp56bTc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qupQC/rI; arc=none smtp.client-ip=209.85.214.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792054810; c=relaxed/simple;
+	bh=9UTqpDTW5ReUcetLLz4Ymo2mNIr3sUQ8fp9IGf329Ng=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=a8ikAU+W7lJFVBFCWJ5qEIoFDgRCmBi8iMb6oSBUC5xP8aUtX4qN320iY3DQ4EdhG5uWruUcqMVY4YyABJgQ/Zje0X8/9TdR4OoaS2RZlLjutzmQtDs0p4pGCFtvAbQr8JjHN2vTuXNTeHigWRaPY5ZXxm0C+yNoUuJLTQvG/a4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=uWMhpcGT; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qupQC/rI"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2e5378b281aso28093275ad.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:59:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792054789; x=1792659589; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OTn0EhBpANmjKhHsvyvAy8HwjaDH/CrCTffTLDLZppg=;
-        b=qupQC/rIEVMPZFdcMZRArvtyDgs3EkHT5xOZfBnj26TUeYb8j+9/8HxA893ITTkX+p
-         gIaQFVHbbtwPZ1Omdhj07kFrOnT8MffTAF1ptDTiIkltk+PyZw/bdWau6V6b7kH90zb8
-         c4JpWnM+1So3E47MZIhtwLal4oLKFzI7eDT/X+aHbF1zIWOSJCzdKW9EybHgMotNzwgT
-         JEVSkPhW0gHP3wDA86FzhU/oMii9GWEeHf2VlRsC9kJpqJBcP2YkRML3ahQadNhLf+5Q
-         Q6Nz3SZtfSZpsu896FspTI4Aky22UpzMKTmjXU5/W6q8yoKjeBIiVdo63IYWzSIBEZdI
-         scOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792054789; x=1792659589;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=OTn0EhBpANmjKhHsvyvAy8HwjaDH/CrCTffTLDLZppg=;
-        b=kSZRqXE5E7KHL2/W2ELgcQ5cobZFgaluAf14QgNXv7rliBeAlq1Fz8fRbTpYcAY8U4
-         lldxnhGEJOTPCJb7y9FUkceMaFaP+GU2a/eB+Q+ag6B0HVcxY7OaiN+t1rZIPZkiXhqd
-         u/Y0LxHHBI4TcukcDM16phIbk+t2Lo+PSQuBfhgtGeyYK4R0B8/nL4S84QzrWkhSIhAP
-         5ypgGEerxdbjxhtUAQztYXUtngG/nCv4rl6GvkO1kX7A+tJ9rj2vsj3/AQEs+29IDoXm
-         xJHUjFfnii1E5ySCdNC9cAvNd7SjR10xiASN/XOPjuJHVtLMt3h2m805DTF5o0Mfb/ve
-         x5eQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxgkFoMpEU/I09RWfM2LLJQ+4sNu9ESqlGg0NaCzyG691APf3opLqBh3XZDWEfYzSpN3t2vjy74qmDssak=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI7Z4adt8M5Z2iTBHuzQTvsdEeZiXQAub0ZFpVg//05VJ6n1WIj
-	XseIs1PUlYHxpAV3yu18/j/IWQZP62X++gs39Tk7IMhID43XTCM/YKhY
-X-Gm-Gg: AYBFou0XbXRct8kVh9Rs6FUOQDj3b1PM8XsbdkTNelp5JgNqhWoTnEALjyz2uH+uRaO
-	gONvn+SCC6qyKw8AUA9VlPwpYLeyPGFsYnwi4yK5ntsw4YYK2RFc+glaArR/wrTHLDap4655kx2
-	k8sHMEC+P4jpjEj7HL+F5bV8IYIlGuTHPlbCV+hJeVjNKer99472sjBtXpntwxNoAx3rVxHnTGI
-	fKTuJr/QIHoB2Ax+QGaojiu03EXWd/J0TZFfxYd4CT4e9YbnghoHElzeqbSY43IHO/hdOH328ou
-	kHB1mlTwQz1NWXnqUqZnmRS6DConna//B52SxvVyVmJpQwxQQQgLjOb0jjsy4vm0XXGByTu9qGi
-	moz851kAsi842FdwPAXXTgw+z6HmLt7QsFVftec9Gpk2gDb1Xn5MgRAv4A+iMsaUSsFECRzCXHm
-	y8HS/tFkIoi/QOgtnrdYcwlJ7DHlD0YDmzgMswisLxpt9qy63kNkwkZqpUMEa+uedR8F5g
-X-Received: by 2002:a17:903:38c4:b0:2e9:40ef:e44a with SMTP id d9443c01a7336-2e940efea29mr41054965ad.3.1792054788685;
-        Thu, 15 Oct 2026 01:59:48 -0700 (PDT)
-Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e95cf92dfesm5476715ad.11.2026.10.15.01.59.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 01:59:48 -0700 (PDT)
-Date: Thu, 15 Oct 2026 16:59:17 +0800
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
-	Inochi Amaoto <inochiama@gmail.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Chen Wang <chen.wang@linux.dev>, Paul Walmsley <pjw@kernel.org>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, devicetree@vger.kernel.org, 
-	sophgo@lists.linux.dev, linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
-Subject: Re: [PATCH 2/3] nvmem: Add Sophgo SG2044 eFuse driver
-Message-ID: <atCVyX1tV0VXe72k@inochi.infowork>
-References: <20261014074516.240247-1-inochiama@gmail.com>
- <20261014074516.240247-3-inochiama@gmail.com>
- <atByyAg-c8v_IiAj@monoceros>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="uWMhpcGT"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 30A2FC63455;
+	Thu, 15 Oct 2026 09:00:54 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id D0A1360360;
+	Thu, 15 Oct 2026 08:59:57 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id ACEA710328B02;
+	Thu, 15 Oct 2026 10:59:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792054796; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=R3D3zrodfnAja/dl0ygdUFT7h9waEojVMa7L3/zFbmM=;
+	b=uWMhpcGTN5JowFQjWpLSbGpJDvx4A8udLV/wKsPvs2PsSiI6B1LbXD04lX9ILI5jAm9aIt
+	pLZPFoHl89d9EYiavK9vd2TSaABhsW8mNjCT9S5w0zii85fzj0qgUTF79h+ReV4Bw4onaf
+	Z2//KxBhS+KcZCnWogpg81yzJjIlV+mLQ2vQS6hL8POJZ23liasp8hnwC4n5ormYfS6Zm+
+	F0OOtNBq4A9xs4rBv2wcpUbgZMg04usYwAbA1Mqhgf3jI7sWDNZTcO2KZnFH7Kp8XTQtK6
+	pVGQNi6uNLs/8+fG6NOmD2XbpRBu+QDVpOJVtUWTXhVzzxCBtsP/U7gQMKF+Zw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <atByyAg-c8v_IiAj@monoceros>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 15 Oct 2026 10:59:47 +0200
+Message-Id: <DM5AEKBARGER.2N6UFBKLU5AIH@bootlin.com>
+Subject: Re: [PATCH] drm/bridge: ite-it66121: fix silent probe regression
+ due to reset timing
+Cc: "Paul Cercueil" <paul.cercueil@bootlin.com>, "Nishanth Menon"
+ <nm@ti.com>, "Thomas Petazzoni" <thomas.petazzoni@bootlin.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <stable@vger.kernel.org>
+To: "Javier Martinez Canillas" <javierm@redhat.com>, "Luca Ceresoli"
+ <luca.ceresoli@bootlin.com>, "Phong LE" <ple@baylibre.com>, "Neil
+ Armstrong" <neil.armstrong@linaro.org>, "Andrzej Hajda"
+ <andrzej.hajda@intel.com>, "Robert Foss" <rfoss@kernel.org>, "Laurent
+ Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
+ <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Julien
+ Chauveau" <chauveau.julien@gmail.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.22.0
+References: <20261015-drm-ite-it66121-fix-reset-v1-1-473038e06abc@bootlin.com> <xlv14iengyes.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+In-Reply-To: <xlv14iengyes.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, Oct 15, 2026 at 08:32:19AM +0200, Uwe Kleine-König wrote:
-> hello,
-> 
-> On Wed, Oct 14, 2026 at 03:45:14PM +0800, Inochi Amaoto wrote:
-> > +#include <linux/mod_devicetable.h>
-> > [...]
-> > +#include <linux/platform_device.h>
-> 
-> <linux/platform_device.h> already provides of_device_id and
-> <linux/mod_devicetable.h> pulls in a looot of dependencies this driver
-> doesn't need. So please drop the latter.
-> 
-> > +static const struct of_device_id sophgo_efuses_of_match[] = {
-> > +	{ .compatible = "sophgo,sg2044-efuse", },
-> 
-> s/,//
-> 
-> > +	{}
-> 
-> s/{}/{ }/
-> 
-> > +};
-> > +
-> 
-> Drop this empty line
-> 
-> > +MODULE_DEVICE_TABLE(of, sophgo_efuses_of_match);
-> > +
-> > +static struct platform_driver sophgo_efuses_driver = {
-> > +	.driver = {
-> > +		.name = "sophgo_efuse",
-> > +		.of_match_table = sophgo_efuses_of_match,
-> > +	},
-> > +	.probe = sophgo_efuses_probe,
-> > +};
-> > +
-> 
-> and this one, too.
-> 
-> > +module_platform_driver(sophgo_efuses_driver);
-> > +
-> 
-> Best regards
-> Uwe
+Hello Javier,
 
+On Thu Oct 15, 2026 at 10:28 AM CEST, Javier Martinez Canillas wrote:
+> Luca Ceresoli <luca.ceresoli@bootlin.com> writes:
+>
+> Hello Luca,
+>
+>> Commit e02b5262fd28 ("drm/bridge: it66121: acquire reset GPIO in probe")
+>> rightfully added code to make the reset pin really work instead of being=
+ a
+>> no-op, but that change introduced a regression making probe fail most of
+>> the times, at least on some hardware.
+>>
+>> On a BeagleBone Black rev.D the IT66122 silently fails probing >90% of t=
+he
+>> times. This is because:
+>>
+>>  1. the regmap_read() calls just after it66121_hw_reset() to read the ID
+>>     registers fail
+>>  2. there is no error checking for these regmap_read(), execution
+>>     continues silently
+>>  3. this results in not matching any of the IDs from it66xx_chip_info
+>>  4. and this results in silently returning -ENODEV
+>>
+>> Empirical tests showed a small delay after de-asserting reset fixes
+>> probing. Likely the device needs some ramp-up time after reset. No such
+>> requirement is mentioned in the docs I could find, so the amount of dela=
+y
+>> was chosen by testing: 10 ms worked in 100% of 25 test runs, so setting =
+a
+>> 20 ms delay should provide a safe margin.
+>>
+>> Fixes: e02b5262fd28 ("drm/bridge: it66121: acquire reset GPIO in probe")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+>> ---
+>> FYI For items 2 and 4 above, I'm sending separate patches to make those
+>> errors not silent. Those aren't fixes, so they would be for drm-misc-nex=
+t,
+>> while this patch is for drm-misc-fixes.
+>> ---
+>>  drivers/gpu/drm/bridge/ite-it66121.c | 1 +
+>>  1 file changed, 1 insertion(+)
+>>
+>> diff --git a/drivers/gpu/drm/bridge/ite-it66121.c b/drivers/gpu/drm/brid=
+ge/ite-it66121.c
+>> index 51fc68ffdf8f..692a85e1e2e8 100644
+>> --- a/drivers/gpu/drm/bridge/ite-it66121.c
+>> +++ b/drivers/gpu/drm/bridge/ite-it66121.c
+>> @@ -356,6 +356,7 @@ static void it66121_hw_reset(struct it66121_ctx *ctx=
+)
+>>  	gpiod_set_value(ctx->gpio_reset, 1);
+>>  	msleep(20);
+>>  	gpiod_set_value(ctx->gpio_reset, 0);
+>> +	msleep(20);
+>
+> Maybe adding a comment here mentioning that this value was found by
+> testing and is not mentioned in the IT66122 documentation ?
 
-Thanks, I will strip them.
+Sure, I'll add in v2:
 
-Regards,
-Inochi
+  /* Post-reset delay not specified, value found by testing */
+
+> In any case, the patch makes sense to me:
+>
+> Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+
+Thanks for reviewing!
+
+I assume I can keep your R-by with the above comment, let me know if that's
+not the case.
+
+Kind regards,
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
