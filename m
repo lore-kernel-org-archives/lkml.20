@@ -1,53 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0066733F8D4;
-	Thu, 15 Oct 2026 21:29:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39BFC488232;
+	Thu, 15 Oct 2026 21:29:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792099768; cv=none; b=mpW5crxCl1XpT2MG5Q/SPD487+wlmuVBRpeBhRANeE5wM8i3GegLbaUGOsPeIs/whwMnLsElyi8h1/T7r6SHPD7j/bile50LuYgbTMwJmr5TMV0QET42DTrUkmUI8qj/INaZCQVsVM9tTTNotpfAEvTYN9C6v2jZyiU4oSXrSes=
+	t=1792099777; cv=none; b=G9OABrv/rO5aQ4XZx8SzSLyXf3K/q1xHY+0cutHMNRPWrryeww+JYxC3oTV3D+tsB1/ZUmX6a4HYksks9FvGQ/3PSBcsmUbC61KiLIyR4o/8qnkEnWqayHNG9EPiW5jAcZW+io1FBjp9+F6adMJtP/1wsN59A5QonZSJ3s0mAZk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792099768; c=relaxed/simple;
-	bh=NtT75JeFztbPAWzucsDtf7fMgOeq2uQedS481hQ4zZY=;
+	s=arc-20240116; t=1792099777; c=relaxed/simple;
+	bh=ICA+MXmJG/YyS2++LGqo+5Mnv644o+nXaxmSig4UzTs=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=lx2pl+nYl2ziZtrtgFLebdeW/rj8zer8g1VS0VXiREZJVhl5F3YJtNg43oOQUHvhDC9Nv9RoJidDqIGxl8L/KOnc6/YrqFZCwgMC2FnMFk9ApWPnNJX2jilbzgrt9vgKuX5h0iw6fp6pAnZqwPp1RcwlfRcdt7wRrD8PZf05nvk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e1LYf6b1; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=TATFmBPRHaVcXdBE+iDEImCsa0o7HLjVYr9wpuJBVI0EBdSSF7qI5kCV1FEywP4Dq1+AT6s4FHFXrjVw/7LEvbOU1pxC7UlWpFxylSFdGxo9RnaUnfl5a0w8el7TArWjYcl30og0RC9DoV6zxcKNVKLzfakihTxC9Pb95EWxSkY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JWPdJOFB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e1LYf6b1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D6AC1F000C4;
-	Thu, 15 Oct 2026 21:29:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JWPdJOFB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B9D91F000C4;
+	Thu, 15 Oct 2026 21:29:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792099767;
-	bh=Dvlb9OShX3NlIjJAoy2qVHjabyKJKlcC2f1GFqVFfl4=;
+	s=k20260515; t=1792099775;
+	bh=oZNz2PfouwXdYAbOjv+HkNwiXAOKSt0CCIlurqOt4Bg=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=e1LYf6b1L6LPXMozfdCZ3ApXUGMTtMDoIjM1j8hygiCAteCZDao/8gAdyd7lazRXl
-	 elvVlHztMrRVIJRK/i26a++FHdcO6kGFOniV81DnAL/EOialDJ8YhK7Fcf9GlOgwng
-	 1nIo76Qm2GvOxCH16Spn5ZQAbqwyGUdmDlLNIdGVkSIYFvmI0ltEyGBbPbxQHMJek7
-	 aOCKoGtjxkUDQw1/vnNbye2i4k9gwhTmzsEpBD+70xIuRjgts8yn+HavOIvKgJXcxE
-	 wbUJHuoV9cjc0Rlroj/u1x7dELukKIkH18cGMwoc2rb1AmCRRACCbNcSOg8aZh7ecM
-	 xkuTINsQ9au6w==
+	b=JWPdJOFBGew6X8AYdyb0N/1jIhD4Mrr2nX8tHoIeEQ40mMCjRS/yRm8r80ugxqPIy
+	 Q0/YMzhtC/hxwYzJVby5jmiWG6taS9AGtSZriiPtLy/wUldnEsReuCuyBV8AQA7Qzq
+	 QRam7Lb5E618N603YFMVknn8oxvqEchxTwZe30smYvnDBahO4aSudEKXLyu5eJOw8U
+	 S7hTKNIh6109DInpqB1X4kKuxLzkeoN1eQdobcfGEtBsJtqvtwbQ4CCrF4XcWaEGyY
+	 5Z2jH4GYZ9SeBYpXh/vt5sDK0x+tp65VKX7pITaauUq9tkyMixPyATNNoSXMoC1FYV
+	 DX3lfvFe0U3YA==
 From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srini@kernel.org>, 
- Harendra Gautam <harendra.gautam@oss.qualcomm.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, 
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
- linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>, 
- Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>, 
- Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-In-Reply-To: <20261013-b4-qaif-shikra-audio-v9-0-f3022e28f2fd@oss.qualcomm.com>
-References: <20261013-b4-qaif-shikra-audio-v9-0-f3022e28f2fd@oss.qualcomm.com>
-Subject: Re: [PATCH v9 00/10] ASoC: qcom: Add QAIF driver for Shikra audio
- platform
-Message-Id: <179207911108.134795.519341360090073101.b4-ty@b4>
-Date: Thu, 15 Oct 2026 16:45:11 +0100
+To: Oder Chiou <oder_chiou@realtek.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Myeonghun Pak <mhun512@gmail.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Ijae Kim <ae878000@gmail.com>
+In-Reply-To: <179203261324.2681924.5002100194676410503.rt5645-button-timer@gmail.com>
+References: <179203261324.2681924.5002100194676410503.rt5645-button-timer@gmail.com>
+Subject: Re: [PATCH] ASoC: rt5645: Shut down the button timer on removal
+Message-Id: <179207629518.134795.889696462508486661.b4-ty@b4>
+Date: Thu, 15 Oct 2026 15:58:15 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -57,29 +46,17 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2702; i=broonie@kernel.org;
- h=from:subject:message-id; bh=NtT75JeFztbPAWzucsDtf7fMgOeq2uQedS481hQ4zZY=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLIuum7y5XvNrzTl1P5DOTWO60QjLwe7TivV/Ra+96DNY
- oUq9UMdHaUsDGJcDLJiiixxWdwv60ter+E7uLANZg4rE8gQBi5OAZiIQCMjw+kJQtdEEkxjxP0S
- e2fZaL66tG3X8Yjnl3pmXats+i7HPZGRYa3QyoK5jPunOj1bwPhzbl/1JIuY/cqvuLZPsfzT0tE
- UzgoA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1121; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=ICA+MXmJG/YyS2++LGqo+5Mnv644o+nXaxmSig4UzTs=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLIuuu755PSOkWPnXMsjVSWNTc2vc9ZlLH74heFIxNzqd
+ VGvg7aZdZSyMIhxMciKKbLEZXG/rC95vYbv4MI2mDmsTCBDGLg4BWAiE+8x/NNfdLmXL9195sLp
+ rJ8LeE5sd3NgDmMK3PN663b+gtRTOz0Z/spd+REz0VOcPb5fXN05oP9WDMuM+x2lwVxdHwqmTYt
+ jZAYA
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Tue, 13 Oct 2026 11:21:23 +0530, Harendra Gautam wrote:
-> ASoC: qcom: Add QAIF driver for Shikra audio platform
-> 
-> This series introduces the Qualcomm Audio Interface (QAIF) driver for
-> the Shikra audio platform.
-> 
-> Hardware IP Overview
-> ====================
-> QAIF (Qualcomm Audio Interface) is a fully configurable DMA-based audio
-> subsystem used to transmit and receive audio data over serial audio
-> interfaces (PCM, TDM, MI2S) and to provide a DMA interface for internal
-> codec connections. It manages two independent data paths:
-> 
-> [...]
+On Wed, 14 Oct 2026 22:51:10 -0400, Myeonghun Pak wrote:
+> ASoC: rt5645: Shut down the button timer on removal
 
 Applied to
 
@@ -87,26 +64,8 @@ Applied to
 
 Thanks!
 
-[01/10] ASoC: dt-bindings: qcom,shikra-qaif-cpu: Add binding
-        https://git.kernel.org/broonie/sound/c/f7b6fe0a9bd3
-[02/10] ASoC: qcom: Add QAIF shared data structures and variant interface
-        https://git.kernel.org/broonie/sound/c/6a07ff8dd304
-[03/10] ASoC: qcom: Add QAIF hardware register map
-        https://git.kernel.org/broonie/sound/c/6a0d1c361ec5
-[04/10] ASoC: qcom: Add QAIF CPU DAI ops, regmap, DT parsing and platform init
-        https://git.kernel.org/broonie/sound/c/dd77abdd3496
-[05/10] ASoC: soc-core: Add snd_soc_of_xlate_dai_name() generic helper
-        https://git.kernel.org/broonie/sound/c/02298cc296e6
-[06/10] ASoC: qcom: Switch lpass-cpu and qaif-cpu to snd_soc_of_xlate_dai_name()
-        https://git.kernel.org/broonie/sound/c/76c5ecd4cafe
-[07/10] ASoC: qcom: Add QAIF PCM operations
-        https://git.kernel.org/broonie/sound/c/6381a4f9c633
-[08/10] ASoC: qcom: Add QAIF IRQ handling and platform register
-        https://git.kernel.org/broonie/sound/c/abe10d275660
-[09/10] ASoC: qcom: Add Shikra QAIF support
-        https://git.kernel.org/broonie/sound/c/871b3a7574f9
-[10/10] MAINTAINERS: Add Qualcomm QAIF driver entry
-        https://git.kernel.org/broonie/sound/c/9a810aa9f105
+[1/1] ASoC: rt5645: Shut down the button timer on removal
+      https://git.kernel.org/broonie/sound/c/f0ecc305442f
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
