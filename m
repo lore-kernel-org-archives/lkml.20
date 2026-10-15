@@ -1,262 +1,98 @@
-Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 304E659B68A
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:40:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A207633A71A
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:41:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792096866; cv=none; b=W+3/uZm/Vu68nwYPM6Nk/YQ1xWzcADWymq7uqC0D4JE7n7vl4qXV8th23FvTWS7tfga3A1ZMhVtkzlGQDLpifTOgrFPF0qdP8nc6xWGZEpD8CpJVOlHElVQ/6umkbEaFXtrbZkisgfPGG++WETbIIu01VeGe3xEb6Hhl5TScMl0=
+	t=1792096874; cv=none; b=YFZC1c9DanxkRJX8zvWky4ktmsNX9djoRUFdQJrUNGFKS+NkRGSm6YdMXZVx3jIIu+7JPMxQsJ+WCJ7WM0a5nPkqXgAoJQJLKSGgn9ICp9zVhWmSgefn7hUNr5s5sDzcW6h5ecxkBDNPsjL/y8AS8FIusZcjAvVvVOonmZW9tBo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792096866; c=relaxed/simple;
-	bh=NJMJDAPBRBkct471Wro+FMvrvMYioG104cWEwPkZBSc=;
-	h=Content-Type:MIME-Version:From:To:Cc:Subject:In-reply-to:
-	 References:Date:Message-id; b=erm7MOTB/bl7xRC6YWSSEbU+WAW/gZ5jgSPTY1W9M7Hi1GZiKk7sWB2++wv+DexEwBdu5Vok86CFSt04plUwyunJFfx9qghAUL/A6mHbnMEpZvCbWSyiplh+n/WNyAuqmxGKEkZC+kwy+B0dWL0JSCl9cWOn9yYmEbl9jNrxwiE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net; spf=pass smtp.mailfrom=ownmail.net; dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b=Uxix3Xim; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=WF5neYDZ; arc=none smtp.client-ip=202.12.124.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
+	s=arc-20240116; t=1792096874; c=relaxed/simple;
+	bh=XBa7XjRKeJ3NbqHnarNo98CmUhjOgDxizD3P7JuqFN4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=slUYg4Vc+VcAbCPApQRdqmtUWhEZr1JwfDjsK5THMcUjDu1Y+Z8D2kT94xTU9izQ1E4FN8DwLePeQVaxd49BlSU3075BKEpkKS/3+sBPxmeZbgTMhxse73Mj05bcF/C+r+mC9WykQEo9Wjx11HiTzjKPP0O+3D0WxkDiKoCQyzQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KT7ErP8S; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b="Uxix3Xim";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="WF5neYDZ"
-Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
-	by mailfout.stl.internal (Postfix) with ESMTP id 1D69A1D00130
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:40:56 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-12.internal (MEProxy); Thu, 15 Oct 2026 16:40:56 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:reply-to:subject:subject:to:to; s=fm2; t=
-	1792096855; x=1792183255; bh=zKCp6IMcnp6RSJAmgT+JnqwK9aVqwoNitsu
-	z6nazjkY=; b=Uxix3XimMXZYub5na8efZzOJoQWPYa0Nmhe15LBI7vvqfXMllnd
-	LZi23Oh/7lChvJLVevERLZTLQuzM3msPDI9Ds1tOfYBUPU3Qb8br3ANAndITCTWt
-	+45tJdrCb2srSq0FgMl3sRQIw/FPU2qT4wDjwiGbJUnVT1h9njknXX7Fw6pKsCQ5
-	5EZZLack2p+rq2RNrDVLCw8/y8J18FKj91zxIDd0QVNVpuSAlon0+4+60IJp+4zv
-	ajV2UUV6BZ0aAos8IHsYzixdpDZN3V7IDJ8x0gSUKZHoSB+Oj1vF0rwoC+rpRlRr
-	QgoWSZh4FquNpuS4s4fnIUozDtRw9ZSmUWg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792096855; x=
-	1792183255; bh=zKCp6IMcnp6RSJAmgT+JnqwK9aVqwoNitsuz6nazjkY=; b=W
-	F5neYDZA5fEIQElTEBIsCuK3yEaMpDoXwksKZoCx56JMiDh2DAlKURr7WA0FnqUL
-	fTp/xOA/rSGSQqHMKlP1bgDWs9RiPPQVsSwKNSHjT8upHg6VsAlEltguYmSJTTRd
-	RFYKqNSvOqiRoZlh/jbQTUvoQf4A6vTPw01H0vZqzJ7bxnaFEhIi3Nq2FoK+G0h6
-	HhtWWCdf5FcLEu8atRZXMFZil+/xMZa5XiOzL+ejyTLr/4efC+UxhMt+gsRctPkY
-	KlT8X1vDLEFBOEh90bKyceIRzkiIBCAhSaMm/Vc2boIzzSYALKUtBuKXE+z/6brY
-	4NlrvBOSFndRxdd5qJTEQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=ownmail.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792096855; d=ownmail.net;
-	mf=PG5laWxiQG93bm1haWwubmV0Pg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:dXGrGOGVodojn4z6t8MA7ZeCA09Vrrw9QMR3cKHIwv8tqrW
-	y2kKMir8smMDubHRTUMPbgGwevMJ805AKTWghwYluA8fhk/0XjcSR7OspsNpmhMU
-	yZsyVvJZ8DWErDKXoPx2Z1fJxRx+Rh5hIu0vOaLYkcJsRtMdoyG/JSQRR/zOEuD8
-	4agCXb18HJoHsB3J0IxKZzU7N3fbwDQBHoNdZfKkKw6UMu/wnayDPO6zZS3Il/g9
-	+pfuNQ5lYuijZ8NZIZBtcgBEVlXDqB1IsPVeT/LZqQpvAnh3z86uXtDXDGxdhLD1
-	FnzO7egRy0FHzES9QZeWMiKLYEjOui26plXA4BQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,reply-to,
-	subject,to;
-Message-Instance: m=1; h=sha256:oxp8d2jsMMLGzF6YYg1aHc3Ck6W2MSTY68hX1WXkjS0=:NJMJDAPBRBkct471Wro+FMvrvMYioG104cWEwPkZBSc=;
-X-ME-Sender: <xms:VzrRamb6IgvX4vrpZy6gXzvhHhMDt0jCfBBKsDwIFzTZ67lvabTyOw>
-    <xme:VzrRarpFsnPmqv4KYze7RERBmLCXX-qn2pXRkr5WezlZmeHt_0rRDg_iywz-ugR_j
-    N2JZotV1y82aRThHL7pW4QE7z3u3lIhrKd219R1BMdRvCW71pY>
-X-ME-Received: <xmr:VzrRajOoSOwUlRKOxr_o_9LhVRoK8irl5XZY-tlbpRUyglCDoq9JOIunDq89Dd4oI4Rz6PLmcGVyVi9mmli_INi14hIaSys>
-X-ME-Proxy-Cause: dmFkZTGw5/xefO5pPuTaamR1oNosedwhl2Hauxp4GFxbScZufefgblu8VRPofYKTRwW/2o
-    tkLwbqIBZVL3pfSwQwoFHTRRG+2j+vz1F77Ddqb16piZ4MIOgP2SxeAmrN1TdzbVrSbPnw
-    f/DWRRT9h+2nRgz0zvZO00XJ9+9UlAhlI/VZX78C6sx0WoBr1lVmsK4O1qXAzPOoGB1mUf
-    zprhydxfIQ3lAEIFYE0acZ+joJBIZ3uSuIbFHT5YveHEe1NlU4OlqtvWh8RnA7XNer7lV1
-    t9ODbvCoq9HQV0km28zwFXGa2MFNMfsIuyqKnRMUlbGh6rfPTWWP6YmHSbMZ36dO9W42P5
-    005u0crhnd8RliwUB4uuOU6ecf9VQJ9HBDTApA1vnLEMO/sdbte8zNMBDaD9eYkXlS6ywY
-    2hIO42gcB9dsBovvkDaumyDJIimyXGKVtYmrXSy02Rb+5uMIRrpcujv4oDrwyLtkFEy9By
-    Vx7Y6oZ4KNGB+O+bTMeopHHpL7JKAnhBxX3C0Nj/9nTkOCDqV+9o/vEjV80LWSaV9vQBhU
-    lHNomOKctSp7igBNDmwZlyPxxZXO0cvW0V4V5WM8qU9MVWC+Jx1NIcWdmv3L9CDuViAyct
-    AE2J+BKYxwa47ecrvrdPokXHiOT/1h1fkhfhNcuirr3/CMhshLrQBMAmY6EA
-X-ME-Proxy: <xmx:VzrRaurdwLlYDfOh58fFDZQHDdm2KKs186BmPsvSAa9FbYkJLQ7d1w>
-    <xmx:VzrRageN6yU69tMYwW9ZSF1x9_HQpFryddMNDJ277hapBUS2MdXffQ>
-    <xmx:VzrRasS1wCzO8PMmRXES3f4OIvFjmEHCM-ycvqG86G5XEWGgl9kr9g>
-    <xmx:VzrRahbY5S1c2dcgImuw0gSzzuC1dKTUcl0Eno0KOmi50C8JoTS4QA>
-    <xmx:VzrRamwMYVWP4SsPSfZniRvCv5yAL3Qf3PlYKXkXJ-c0yDfllg5GqDDK>
-Feedback-ID: i9d664b8f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 15 Oct 2026 16:40:53 -0400 (EDT)
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KT7ErP8S"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48c4be28b82so830943f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:41:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792096870; x=1792701670; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2W/kXlm5ND7ClrDzBFtvNJDZO1bLmd3mgAbbGVfKnFM=;
+        b=KT7ErP8SrE69QPgiqBh+lusvVt+J6U1wnon0AitSEzMy6xF8ZXNmZ9EmAbqU1YNGTv
+         7Mo1Il8YkGIkPjxmImyeZ/g+gvnYJrxhTB3izP/ofQFkdn74qg+nY2+m2La8Ttp1L9jo
+         q81tBZUgpg7ZCIKcZtmhR0SjHKD/FbuO76SvCGHo28L6Sd8HkxTpq5YgvddCQXvKd95s
+         fmBioHlN0p5D9VXWGzxyeeIkXfcEeHvFzWramlpe8b9Dmg89t5kvYK4zwrcHHUiV/eMN
+         nD9jow8Fr/qtZ87CLF+jd9WuB8BUiDx2DUTyX9a0MYINAt8IDJvILxjVs1LOAul0Muuz
+         045A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792096870; x=1792701670;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2W/kXlm5ND7ClrDzBFtvNJDZO1bLmd3mgAbbGVfKnFM=;
+        b=fhjWQbxdbehGKge6WoRSmUYLTfx4JbjZpDrMlitrmjz8PVH3kMHQ2MsIQbbQ9AZFhC
+         fT8AedOUX8UWQyCzxEcHszYUcIBmoDCFEFSx+IB1wvpnoKr4h/FhzqLKIY6gwSrFblob
+         ZjKFM8MsQBRxTYg+CRR3n6nbMVtQWZP08iREAh6FzQHJpPymNRtnuenXHJWACeVpozmX
+         SXgAKXbEiLH8vRZcv4H6msjwHnnu/kK04mZqE/iJrwLeRcHdG8N4ikoXUPA44oPtgQJ0
+         N6Tolhnyhyyb+crKRsuzKJ9LJgilq2Lp7UfirGslq+DdSqKiH+wwJj5Zbi+aHuFNgGPx
+         /2nQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzaIVv/htiFF/hmt/3mI7C7QCX6JzUr9fIxxvLPDodeVf6a1c/63im9FBj7ndMiaKCgJm6XzGiB1BaDx7k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJeujQXkpfME+FuAVsXScK+CfUe5wYrnZdk+5Zui8AEGyc99Qgd
+	JDeA/1ouJz7HnnVCLFRs/Tydpi2+X82tuP6V5fx1hZxgliklnV+qnHcX
+X-Gm-Gg: AYBFou0Ruz5GpQ6k+ABAoqVov1K+Sg/opq6T3LBrxLqi+kVufElDhmCXznBEoGcP1qz
+	OO9+/XuTn59fjgG/BDduSbNSAqfPF1ZXtTavMzEvG6d/2IGBp9InUF9y/qGADZ515onx9jhrXos
+	qh6QTfsw3Ax9S6lLei1AMsOVvi7r4/ZDXHLEuPYs0n5w+ltf4YriOb6r6vC5+gVC5rA99dV5bHU
+	4PdcLc/xqXH+KnQv6rCXBvxDWRQyEiSxm7l2zl9MjiF3OjA+FIA1X4uTUbhpM4OenNf0pMVLNgl
+	dxfsauNKrSLkSgJTUFkNQa38brb8qGxX/YeZL1hrBgJ/h1LodN/s9JciilrWfmocNHArG68oTZm
+	3Mp0tNgT3CtHp82N2gvKFlutW44eN9nSDQH6KhpFbGPgLAskXJColbPtw3VUzKGnz/jeuGK2RJY
+	zYpIFrBikQtad4k5KbhYanoRld1gr3vj0sRTCxVUHh1EiyuLaZ8r/Jk+rjdRDWbLPEhmrFFT3NW
+	eH4a1hLTEH7c+P1hKSscQN6R/DE7oq56EAIpVb1nHlAUMjex0vHp9a8g43/vWH7Bc7+wG/3T1DN
+	2jCn8tTWRArgTJHpi1JfVwY8ITbdh4N1e2uskwLTHBohPyjAzGj4jBzpck628pz0fG305eFpXZ1
+	btFyZdma5oPvzjBSeviiXmaR3oA9nyHoW+F09om4Eew==
+X-Received: by 2002:a05:600c:19cf:b0:4a1:7b56:1151 with SMTP id 5b1f17b1804b1-4a18e48f00dmr402724835e9.18.1792096869665;
+        Thu, 15 Oct 2026 13:41:09 -0700 (PDT)
+Received: from systembl0wer ([2a02:8308:4092:11f0::f9f])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd9b35a6sm91136205e9.6.2026.10.15.13.41.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 13:41:09 -0700 (PDT)
+Date: Thu, 15 Oct 2026 22:41:05 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Dingisoul <dingiso.kernel@gmail.com>
+Cc: andy@kernel.org, dlechner@baylibre.com, jic23@kernel.org,
+ linusw@kernel.org, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ nuno.sa@analog.com, stable@vger.kernel.org
+Subject: Re: [PATCH v2] iio: gyro: mpu3050: add missing trigger cleanup on
+ remove
+Message-ID: <20261015224105.7b27d7f4@systembl0wer>
+In-Reply-To: <20261015203559.2125485-1-dingiso.kernel@gmail.com>
+References: <20261015221818.09527ff6@systembl0wer>
+	<20261015203559.2125485-1-dingiso.kernel@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: NeilBrown <neilb@ownmail.net>
-To: "Mateusz Guzik" <mjguzik@gmail.com>
-Cc: brauner@kernel.org, viro@zeniv.linux.org.uk, jack@suse.cz,
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH 02/10] fs: add path_create(), path_move() and path_clone()
-In-reply-to:
- <CAGudoHGZ_4AhKKBb8ves8r8ztCCCfjtS8nhF0PTyMYHn2119bw@mail.gmail.com>
-References: <20260913144918.1606123-1-mjguzik@gmail.com>
-  <20260913144918.1606123-3-mjguzik@gmail.com>
-  <178943070662.207413.9700024518083440241@noble.neil.brown.name>
-  <178943102713.207413.2253649379310238579@noble.neil.brown.name>
-  <CAGudoHGZ_4AhKKBb8ves8r8ztCCCfjtS8nhF0PTyMYHn2119bw@mail.gmail.com>
-Date: Fri, 16 Oct 2026 07:40:49 +1100
-Message-id: <179209684921.1724252.1564933708455367197@noble.neil.brown.name>
-Reply-To: NeilBrown <neil@brown.name>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, 09 Oct 2026, Mateusz Guzik wrote:
-> On Tue, Sep 15, 2026 at 2:10=E2=80=AFAM NeilBrown <neilb@ownmail.net> wrote:
-> >
-> > On Tue, 15 Sep 2026, NeilBrown wrote:
-> > > On Mon, 14 Sep 2026, Mateusz Guzik wrote:
-> > > > Signed-off-by: Mateusz Guzik <mjguzik@gmail.com>
-> > > > ---
-> > > >  fs/namei.c           | 29 +++++++++++++++++++++++++++++
-> > > >  include/linux/path.h | 14 ++++++++++++--
-> > > >  2 files changed, 41 insertions(+), 2 deletions(-)
-> > > >
-> > > > diff --git a/fs/namei.c b/fs/namei.c
-> > > > index ca4f5e3be99a..c8754c7ba8be 100644
-> > > > --- a/fs/namei.c
-> > > > +++ b/fs/namei.c
-> > > > @@ -698,6 +698,35 @@ static __always_inline int lookup_inode_permissi=
-on_may_exec(struct mnt_idmap *id
-> > > >     return security_inode_permission(inode, mask);
-> > > >  }
-> > > >
-> > > > +/**
-> > > > + * path_create - WRITEME
-> > > > + * @path: path to get the reference to
-> > > > + * @mnt: WRITEME
-> > > > + * @dentry: WRITEME
-> > > > + *
-> > > > + * Create a path object using the given vfsmount and dentry pair whi=
-le incrementing
-> > > > + * the reference count on both.
-> > > > + */
-> > > > +void path_create(struct path *path, struct vfsmount *mnt, struct den=
-try *dentry)
-> > > > +{
-> > > > +   path->mnt =3D mntget(mnt);
-> > > > +   path->dentry =3D dget(dentry);
-> > > > +}
-> > > > +EXPORT_SYMBOL(path_create);
-> > > > +
-> > > > +/**
-> > > > + * path_clone - WRITEME
-> > > > + * @path: path to get the reference to
-> > > > + *
-> > > > + * Given a path increment the reference count to the dentry and the =
-vfsmount.
-> > > > + */
-> > > > +void path_clone(const struct path *src, struct path *dst)
-> > > > +{
-> > > > +   dst->mnt =3D mntget(src->mnt);
-> > > > +   dst->dentry =3D dget(src->dentry);
-> > > > +}
-> > > > +EXPORT_SYMBOL(path_clone);
-> > > > +
-> > > >  /**
-> > > >   * path_get - get a reference to a path
-> > > >   * @path: path to get the reference to
-> > > > diff --git a/include/linux/path.h b/include/linux/path.h
-> > > > index 7ea389dc764b..8a621e0e1921 100644
-> > > > --- a/include/linux/path.h
-> > > > +++ b/include/linux/path.h
-> > > > @@ -10,8 +10,18 @@ struct path {
-> > > >     struct dentry *dentry;
-> > > >  } __randomize_layout;
-> > > >
-> > > > -extern void path_get(const struct path *);
-> > > > -extern void path_put(const struct path *);
-> > > > +void path_create(struct path *, struct vfsmount *, struct dentry *);
-> > > > +void path_clone(const struct path *, struct path *);
-> > > > +void path_get(const struct path *);
-> > > > +void path_put(const struct path *);
-> > > > +
-> > > > +static inline void path_move(struct path *src, struct path *dst)
-> > >
-> > > Oh ...  this is backwards.  At least is it backwards compared to
-> > > memmove().  I understand different people will read "move" differently
-> > > and would prefer to avoid it.
-> > > Can we do without it?  You only seem to use it in one place.
-> > >
-> > > How would you feel about:
-> > >
-> > >  struct path path_move_from(struct path *src)
-> > >  {
-> > >       struct path ret =3D *src;
-> > >       src->mnt =3D NULL;
-> > >       src->dentry =3D NULL;
-> > >       return ret;
-> > >  }
-> > >
-> > > and then use
-> > >
-> > >  file->__f_path =3D path_move_from(path);
-> > >
-> > > ??
-> >
-> > And then of course there is path_clone() which looks backwards to me.
-> > Can we just change path_get() to return the path, like a lot of
-> > FOO_get() functions do, and use
-> >    newpath =3D path_clone(old_path);
-> > ??
->=20
-> Apologies, I got busy with other stuff and completely forgot about
-> this patchset.
+On Thu, 15 Oct 2026 16:35:59 -0400
+Dingisoul <dingiso.kernel@gmail.com> wrote:
 
-Yes, life happens - sorry for my delay, I nearly forgot :-(
+> Applied it, rebuilt, and reran my reproducer: the trigger now gets
+> properly unregistered on unbind, so the attack just gets -EINVAL
+> instead of a UAF. No KASAN report, no warnings.
 
->=20
-> My issue with the proposed approach is that it prevents the routine
-> from taking a look at the target.
->=20
-> While the content can be considered uninitialized (and thus arbitrary)
-> at first, the code can be hacked up so that when the kernel is
-> compiled with CONFIG_DEBUG_VFS the struct is extended with a magic
-> number denoting it is populated. Then a repeat call to populate it can
-> produce a splat.
+Good to hear, thanks for testing!
 
-I certainly see the value in these sorts of checks, but I don't think
-they should be added by instrumenting the C code.  Rather it is a job
-for a static analyser such as smatch.
-There are lots and lots of places in the kernel where we assign a
-pointer to a variable.  Changing all those to ptr_assign(var, val)
-so that we can redefine ptr_assign() to check that var is NULL
-would be horrible.
-You seem to be suggesting doing exactly that for struct path, which is
-simply 2 pointers.
-
-I don't think the cost is worth it, when a similar effect can be
-achieved in other ways.
-
->=20
-> I'm not married to "clone" and "move" terminology, which I only used
-> because of Rust.
->=20
-> Would "path_dup" and "path_transfer" be clear enough for you as far as
-> direction goes?
->=20
-
-It's not about the names, it is the design.
-Any function which is given two pointers of the same type and has a
-purpose of moving/copying/cloning from one to the other hits the same
-problem: which direction does it go: left-to-right or right-to-left?
-Some people will expect one, other will expect the other.  It is no-win.
-I would always assume the same order as strcpy(), but others may not.
-
-Contrast with
-   foo =3D xxx(bar)
-
-Here there is no ambiguity at all.
-
-Thanks,
-NeilBrown
+-- 
+Kind regards,
+Joshua Crofts
