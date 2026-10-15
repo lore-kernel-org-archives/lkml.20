@@ -1,85 +1,99 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5A2374C10F5;
-	Thu, 15 Oct 2026 08:24:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D1286377A8F;
+	Thu, 15 Oct 2026 08:24:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792052644; cv=none; b=M+IFYTaKOKZiK5cI7/N1xbUizi28CJ+P3SjKp2gPo/qFhj8jJGbSdMsejjMYxYPLwr38ngYFzqYToJI7+FoKgJ0KYjqWACgZEPHwGTpRmvRkUEy/4bLtDhIFxK2HtOpQ+r8PT8cp3lMuvRB2BwYATsPUp/thR74uHA6UFIs61TI=
+	t=1792052656; cv=none; b=TQbzr8JfntSOChxpoDqNZV2fu7xCxB85GFQ1yrrwdx90K8nMz6wUm73Ued8n5g30/JENrneVLBg6MGQMFYJAq3SC2bkqSq4GC/e17LkSn/v4hN+DKkaXQcQJp4CymtHqmMwRelgeSpN7JgzblNCFrsd3JhhKxgPoLge40ZrDDOQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792052644; c=relaxed/simple;
-	bh=XcLkKEd3NqVTgzSdtdjBcyUHKP4q/E1XsiAeMQO3tEA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jzopnkJXLKPaSTOCfhHf40GlhJpAWhTM1gogAzDnDIE4JYMfiHeSww/boqpFs/pyTmRQWgBhGTmY44UfCgCTO5K0UnfvQVwhjVoqnKbpfOfmXgOLvOk6N9c5AYydN0YBIWerxUiKdYm1+cSCq/XTEX2rM31upFgnBxEqCvnjjbQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=WlRtZokq; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1792052656; c=relaxed/simple;
+	bh=bMYkyOkP+QxhVduFGMhhNJ9bjGKChGRtlGxry0l9kW0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iG7jk8N41r+mmp9AVoMXHL/2XYF+ZjWhjnVWJj3uMa1DqCS3B96Q2NpdPEYLczuDsf/O2GUN/RSiTTAIzN+TZ311t4H7iwpG9Ur7nl5I9Oi7hwQuJgGGdwSEwaeXvRF6yIFP2V/u0qF1WIeX+InNM5YxmshvUIUZoxILW27qxQY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ovQRHnS5; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="WlRtZokq"
-Received: from zhangyu-hyperv.mshome.net (unknown [167.220.233.38])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 353C120B7167;
-	Thu, 15 Oct 2026 01:23:56 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 353C120B7167
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1792052638;
-	bh=eg2DwiPr5Y+nznzLP+qxrupdMG+RIQzVHXgoOtYMalw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=WlRtZokq1SmWs85f5lKUW8xPqV8SOG0FiVJLOYLto+9QiFH70yFUEnRbR0pwTva1G
-	 +bMEBE/yT7RHWBpdd/A1Wtuz2nug1b0MN2GPDAYIE90FCgUtoRe0i5+rBdPhYxCocF
-	 CSvjHY9pvzp5Dd2NOKZCoAh2iGQNt5wEkB3SqHWI=
-From: Yu Zhang <zhangyu1@linux.microsoft.com>
-To: joro@8bytes.org
-Cc: iommu@lists.linux.dev,
-	linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lkp@intel.com,
-	oe-kbuild-all@lists.linux.dev,
-	joerg.roedel@amd.com,
-	jgg@nvidia.com,
-	will@kernel.org,
-	robin.murphy@arm.com,
-	mhklinux@outlook.com,
-	wei.liu@kernel.org,
-	jacob.pan@linux.microsoft.com,
-	easwar.hariharan@linux.microsoft.com
-Subject: [PATCH 2/2] iommu/hyperv: Make hv_iommu_device static
-Date: Thu, 15 Oct 2026 16:23:51 +0800
-Message-ID: <20261015082351.184252-3-zhangyu1@linux.microsoft.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20261015082351.184252-1-zhangyu1@linux.microsoft.com>
-References: <20261015082351.184252-1-zhangyu1@linux.microsoft.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ovQRHnS5"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BEF732F;
+	Thu, 15 Oct 2026 01:24:10 -0700 (PDT)
+Received: from [10.57.88.29] (unknown [10.57.88.29])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A4BAB3F871;
+	Thu, 15 Oct 2026 01:24:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792052654; bh=bMYkyOkP+QxhVduFGMhhNJ9bjGKChGRtlGxry0l9kW0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=ovQRHnS5vdkPrx+4uP4/N0yujXmOLW8YpQLRuIbtojit6AnoyIPr5kaUodFLKzBJM
+	 /OL58Eq7WaaiBZMrHkMmO1m/25G0xnrkzlIEAWVgGux1JYd6qI/NjKz/nu7Ve7Z2Lt
+	 tJYKAae55UGKaVSkLp7D/BduO1zpur0ebwJy9Qm8=
+Message-ID: <a6cc5f59-da1a-4e8a-b91f-f32743b02383@arm.com>
+Date: Thu, 15 Oct 2026 09:24:07 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] sched/cputime: Preserve iowait accounting across
+ waking interrupts in dyntick-idle
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Wei Gao <wegao@suse.com>, Frederic Weisbecker <frederic@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Thomas Gleixner <tglx@kernel.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
+ K Prateek Nayak <kprateek.nayak@amd.com>, Jens Axboe <axboe@kernel.dk>,
+ io-uring@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261014015258.13967-1-wegao@suse.com>
+ <20261014124934.GE4121339@noisy.programming.kicks-ass.net>
+ <002a3200-81ae-43b3-860f-64135c28438c@arm.com>
+ <20261015073508.GH4121339@noisy.programming.kicks-ass.net>
+Content-Language: en-US
+From: Christian Loehle <christian.loehle@arm.com>
+In-Reply-To: <20261015073508.GH4121339@noisy.programming.kicks-ass.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Make hv_iommu_device static to give it internal linkage. This
-pointer is only used within hv-iommu-guest.c, but previously
-has external linkage without a prior declaration. This causes
-sparse to warn that the symbol was not declared.
+On 10/15/26 08:35, Peter Zijlstra wrote:
+> On Wed, Oct 14, 2026 at 02:17:52PM +0100, Christian Loehle wrote:
+> 
+>>> Using nr_iowait_cpu() is fundamentally never a fix. It is rolling a dice
+>>> and liking random numbers. See the comment that goes with that function.
+>>>
+>> Speaking of, that comment is stale, menu doesn't use that heuristic anymore.
+> 
+> \o/
+> 
+>> FWIW the remaining aggregated nr_iowait users seem to be accounting/reporting.
+>> (cpufreq still uses it, but it comes directly from p->in_iowait).
+> 
+> I see: get_cpu_iowait_time_us() using nr_cpuwait_cpu(), which in turn is
+> used for both thermal and cpufreq.
 
-Fixes: 2690d4156b51 ("iommu/hyperv: Add para-virtualized IOMMU support for Hyper-V guest")
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202610092126.TuSXnTYR-lkp@intel.com/
-Signed-off-by: Yu Zhang <zhangyu1@linux.microsoft.com>
----
- drivers/iommu/hyperv/hv-iommu-guest.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+thermal uses it with io_is_busy=0, so that's okay, ondemand has it sysfs-exposed
+with a default of 0 except for 
+	return (boot_cpu_data.x86_vendor == X86_VENDOR_INTEL &&
+		boot_cpu_data.x86_vfm >= INTEL_PENTIUM_PRO);
 
-diff --git a/drivers/iommu/hyperv/hv-iommu-guest.c b/drivers/iommu/hyperv/hv-iommu-guest.c
-index fe06bd970621..876a22f21f1e 100644
---- a/drivers/iommu/hyperv/hv-iommu-guest.c
-+++ b/drivers/iommu/hyperv/hv-iommu-guest.c
-@@ -22,7 +22,7 @@
- #include "iommu.h"
- #include "../iommu-pages.h"
- 
--struct hv_iommu_dev *hv_iommu_device;
-+static struct hv_iommu_dev *hv_iommu_device;
- 
- /*
-  * Identity and blocking domains are static singletons: identity is a 1:1
--- 
-2.52.0
+:/
+
+If that were the only users I'm sure there would be ways around it though.
+
+> 
+>> Given they are exported (/proc/stat procs_blocked and something in s390) I don't
+>> see how we can remove this entirely but at least nr_iowait_cpu() as opposed
+>> to cpu_has_iowait() could be refactored. The issues are obviously the same still.
+>> I'll send a patch.
+> 
+> Right.
+> 
+>> Peter, if you see a path to ever retire iowait (or at least the CPU iowait for now),
+>> I'm more than happy to sink some time into it...
+> 
+> Given the exposure in /proc I'm not sure we can *ever* fully get rid of
+> the per-cpu usage of iowait, but yeah, reducing in-kernel consumers of
+> this number might be somewhat feasible.
 
