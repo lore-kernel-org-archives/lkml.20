@@ -1,253 +1,106 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD3694A485F;
-	Thu, 15 Oct 2026 11:54:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792065283; cv=none; b=luJNYmlyihMgB/Nw2XKI/r3B54dQCMPD4fnKvg6XlyP3AV8y/5LNSop7IWkTFkcAez25m0OJWcUeHVgGR/lxiGEn9LgwMrQEDa66L/HfMgTn0RaTBr1PimapGERcFTIdaNaDuQ7clx53tQOC/nAkPQ/vRMA7Ad8wZFUtnGExDxQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792065283; c=relaxed/simple;
-	bh=ESS2EiCaSpe8CqgEdQQHguXco7p+CSqoUFm/F/zwevs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pJG6AFIauM+H9qluHkPQtWp8voQ3M1lrsAIj9lrw/XDJvxUJCELBgaDgZyeOibn+qlxGnkKqV2SWiSaSdYX+sYgc6CxlQ+F3E31miX66gKgy+rHihmc+d5H1/okXqxQxoyEuyf9R4TSrEuf5isMlmysQYHL53e7IogZzTSN4Zno=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=daETOEPj; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAC1550B8A1
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:54:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.179
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792065284; cv=pass; b=SA6mm/rqg4BwjeGzbXM5efc7omacnGqn0yAQqR0+Asm7Ckp0JMYurhh+gZI+O0unXOh8fLnnsICuheT/9L/eZNfSFw9w1QFHOQJpUgNne43h+lzuMR9RDv+s4S/7g5TTA6xO0aE3n5yBrKz23qt/gG+T+rbEdQqi6inI74Hkvr4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792065284; c=relaxed/simple;
+	bh=ttWWCBe5s6LvEvuhu7UMsF9414H3CKAKMZfdr0bsCwA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Hq+NUJo/xug+ErMVEl7+k0WnZ8OwVotnm7RGOHwKFVNJKgnA2HYhMX9BxxKwIMhwDvU2VuopwUH5+ZOxFEoeaoUZWUDIpGveUrac23yPLzWGOFB3hAWjZB7Pi3r7a7FpU1TEz/y/yXkMq8//8hdHiEDkN/iHjWfrEJsTv7t2jZg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu; spf=pass smtp.mailfrom=szeredi.hu; dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b=MPLi660C; arc=pass smtp.client-ip=209.85.160.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szeredi.hu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="daETOEPj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792065281; x=1823601281;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=ESS2EiCaSpe8CqgEdQQHguXco7p+CSqoUFm/F/zwevs=;
-  b=daETOEPjjKrLUJ7OmydKrsxK/z3wyGFIVIqcLOF5hbVYfaG6MbP8UUdo
-   QqXVTxcu95AuQcZWPkUpkIZCNWQEfRC0aZlMllQGxBBsQc0xjRWI6ZnUV
-   rnX/3QiZbzFo+VnMxXgOoBHZzRH9E0C9d6qjdFkppUDztKkTrj79L8D0I
-   LhKl+fpP6ccXPQX1lCaeBHaOAd3WDpsFcNhNV8bcsjBuCX1q4O+BG6MpD
-   Cr/MrmTHwPlQp7WzCcKd/afLPXEGmT91NqOKijKj5roIhhzVEW9avga0d
-   aoSOh1SrdeeBHGMg7+ugs1sbQoEovoEon6OxuMgHA62btcCZqxbMfoxOq
-   w==;
-X-CSE-ConnectionGUID: 6WhfNMhZTaaSlA8ibIjPOQ==
-X-CSE-MsgGUID: GLJMdtyjSiik+WWgoqjU7g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="732153"
-X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
-   d="scan'208";a="732153"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 04:54:40 -0700
-X-CSE-ConnectionGUID: vkNIlB+4Spy11L0+OW7kcg==
-X-CSE-MsgGUID: TfC6FM/aRl2lkieKxRD73A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
-   d="scan'208";a="1584358"
-Received: from unknown (HELO WEBAPTLH032.iind.intel.com) ([10.66.250.231])
-  by orviesa005.jf.intel.com with ESMTP; 15 Oct 2026 04:54:37 -0700
-From: Ajay KV <ajay.k.v@intel.com>
-To: linux-bluetooth@vger.kernel.org
-Cc: chandrashekar.devegowda@intel.com,
-	kiran.k@intel.com,
-	linux-kernel@vger.kernel.org,
-	luiz.dentz@gmail.com,
-	marcel@holtmann.org,
-	stable@vger.kernel.org,
-	chethan.tumkur.narayan@intel.com,
-	lakshmipathi.k@intel.com,
-	Ajaykv <ajay.k.v@intel.com>
-Subject: [PATCH v4 2/3] Bluetooth: btintel_pcie: Validate the YoYo DEBUG_INFO TLV
-Date: Thu, 15 Oct 2026 14:54:30 +0300
-Message-ID: <20261015115431.27456-2-ajay.k.v@intel.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261015115431.27456-1-ajay.k.v@intel.com>
-References: <20261015115431.27456-1-ajay.k.v@intel.com>
+	dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b="MPLi660C"
+Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-5351748222cso12024921cf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 04:54:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792065281; cv=none;
+        d=google.com; s=arc-20260327;
+        b=fV383ZEOxBQfNJvLM7aZcU9eVBeuyJQHM/IxCMGlXUv9jTosaYee3s7V10mVcg+mRz
+         XndEIy45RxSsst/PGg4mEyAdQkipeFTDA2emMxOB/EtQm+QBxJ7k18+gbza1uHfOZy48
+         niGwvYTXk2uFkFVkFybY9S3J4GFnzfaoja9AxxYLOY7pJUXVyOqU7xv1/1YgwIiv4lhY
+         fySwDfW1Bcee61qbvwYdjglDBW0v4r21FsrFxuhfhyQ2xL2vrKi/wl0XWZitMOE9VkIl
+         8JjllS7PhSdUDT1ZladWAj+LuA9kp+X/bfJsuVFOKCjmCqij8KpqSN//cpBe4MdcXaFU
+         qijQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=ttWWCBe5s6LvEvuhu7UMsF9414H3CKAKMZfdr0bsCwA=;
+        fh=YG/3+NFNXwYqbQN5CmjLxuDA1JuiiQdp5aB+0e5/RvA=;
+        b=DPiefgMvv+7d4ouS00mO9SA9N0HbeDXS4OCQVgyzR2zgcNS2b+O3cwxnWqB32TFsVm
+         9b+okXm8kQnV/ynPvMs/8n6z2CB80jkxNLjDI7l6zxeCKvJulVwJPcjLv5y6/JyeaEQD
+         kI68rAdCk2pEP186/s9K3QgGs22bb2L2hAnvVwATd7cZrxHGwUB0ouYdJhG3fnHKmGrS
+         V3nmVL5WbDFVEk9QjM/ibvfNVtfPVWrMaaM1fcsRb4f3ufqcXdUYa7g7xTbQSiuEe9ef
+         p7DX2dwr+EvP0midya7VcJhb3PEyvcqkLkaQwsUo+V/uGiIU4iLnH29V5wek2Dk5W+Fp
+         dKFg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=szeredi.hu; s=google; t=1792065281; x=1792670081; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ttWWCBe5s6LvEvuhu7UMsF9414H3CKAKMZfdr0bsCwA=;
+        b=MPLi660CpE7iDEQdEqqxCBxE3u1R5P8U6K2n+UGZxK3S06oo3bvGxxYNLTHMYcwPGD
+         emTjRLjvcIJ3OfqAqFvo4s0sxpPYEiSv0HCGGYwVw2nu3qhbnFC5M5Iae4HaW4Qoby4f
+         bAaiYdtp1Uj8O+IdwrysOZFjeIcm4+qJO2D9w=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792065281; x=1792670081;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ttWWCBe5s6LvEvuhu7UMsF9414H3CKAKMZfdr0bsCwA=;
+        b=I0xwD4XBs9ucorxGvTRsx/V1Q9ZodlgGnnCrRGyf61pRz4X4+G5HOs/fOQJ+Z+8C5Y
+         2Fd8Aoj1Im+VsPxkrazwPW1kxsYvylxVPWJ23OvfI/WKcRy91vxR7llQtIJcF9GhOsge
+         GsT/bsVUJ7EczVM771WxtclDBtmzowWig5doYW9nDMSBZYOISXyMnTTVPk1FY6pWSahI
+         fZD/h9wrVXN/6G5lnhYuo86ddkkckh+Fn7IlCqg9wFqJnu5Sn4mww4hwoaeoI859TAdy
+         D3GdsKeaAEuB3zVG6G4JBnExvRaQurP+bGSePHO0EqZhAvyl3HFEgeboJWK3mHWZR05L
+         S9jA==
+X-Forwarded-Encrypted: i=1; AKwUvBw2/JTbsX296B3Lckf+RilwIOgV8R11xQKwWdJTZsQoU3SjYuz3V6Z8JuvezOGnHMUAK0FVQmxzmm44s4U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKZjynZHJR+VDv6/SVy/MKcoSHPi7R3z1V8allVm6hW/Bhque8S
+	EyeuUW8dCIoSqHmY6g4ew8J07o4rFFIiEIKUCb91yM3EdMU2hLUT7mfTuqO6mqJdPMdRakXftdq
+	jAsSupNV21cbiddtJxFqE2Tq5iz+V062B4HZPMV45eA==
+X-Gm-Gg: AYBFou1gBqrPm4znRILHOLxKsUztIF/DHBA9lLtHWUVHlNO2AbZjW8FISf7GoRthH+P
+	NEARYEWEb6rYqeVZbxM6/fMOM9M7Qq6ceAW1n7w+MAeq1JSZ59giSxbASyJf/XFSbWPFDvrn7PZ
+	Fle/plqi0mfvC9J9nMeQqarPvLLyf6q9TmumtSTzGQXrKy1i0wHF9lt0Laj301KeGKwtngRkUBb
+	iz41MLy1gLXTK2Ebbll03/mV14GV3i+ZoJl97yFU/U4kCnHDaFT85TOQlM+68TcvFIOJKgVNIoQ
+	VihvCYdfGLqxyNvyhqA5gm1iBhEpY9pNBIYGnWolhvC76u9/Tmy1kBTup6mA/V8eWMn7wUfs84L
+	dlbLgaGpdod3Vz1Q0SA==
+X-Received: by 2002:ac8:5705:0:b0:532:f0a2:ef4 with SMTP id
+ d75a77b69052e-5359fa9f9abmr292049781cf.26.1792065280681; Thu, 15 Oct 2026
+ 04:54:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260929094812.93374-1-tkhandelwal32@gmail.com>
+In-Reply-To: <20260929094812.93374-1-tkhandelwal32@gmail.com>
+From: Miklos Szeredi <miklos@szeredi.hu>
+Date: Thu, 15 Oct 2026 13:54:29 +0200
+X-Gm-Features: AclHuK-b14bcg6mR4vOtm8iYsjO-WDFkkV-OiklyH6IKsJTNTAuDKd92iU3RYd8
+Message-ID: <CAJfpegs1Zq1zKfGDOucL_PZMUwVuHjandRn-rrNrBPnKex8hcA@mail.gmail.com>
+Subject: Re: [PATCH] fuse: propagate SB_POSIXACL to submounts
+To: Tarun Khandelwal <tkhandelwal32@gmail.com>
+Cc: fuse-devel@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
+	virtualization@lists.linux.dev, German Maglione <gmaglione@redhat.com>, 
+	Vivek Goyal <vgoyal@redhat.com>, Stefan Hajnoczi <stefanha@redhat.com>, 
+	=?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
+	linux-kernel@vger.kernel.org, Tarun Khandelwal <tarun@supabase.io>
+Content-Type: text/plain; charset="UTF-8"
 
-From: Ajaykv <ajay.k.v@intel.com>
+On Tue, 29 Sept 2026 at 11:48, Tarun Khandelwal <tkhandelwal32@gmail.com> wrote:
 
-Require a DEBUG_INFO TLV in the YoYo firmware configuration. Validate
-its payload length, version, Bluetooth domain, external image type,
-and Bluetooth core type before accepting the configuration.
+> Copy SB_POSIXACL from the parent superblock, as is already done for the
+> other superblock fields inherited from it. It cannot be set in
+> fuse_sb_defaults(), because fuse_fill_super_common() checks whether the
+> flag was passed at mount time to decide fc->dont_mask before setting it.
 
-Reject missing or invalid metadata so the driver keeps legacy DBGC
-defaults instead of enabling an incompatible configuration.
+Applied, thanks.
 
-Signed-off-by: Ajaykv <ajay.k.v@intel.com>
-
-diff --git a/drivers/bluetooth/btintel_pcie_debug.c b/drivers/bluetooth/btintel_pcie_debug.c
-index 0e933f4ec376..615996232cdf 100644
---- a/drivers/bluetooth/btintel_pcie_debug.c
-+++ b/drivers/bluetooth/btintel_pcie_debug.c
-@@ -11,11 +11,59 @@
- 
- #include <linux/errno.h>
- #include <linux/module.h>
-+#include <linux/stddef.h>
- #include <linux/string.h>
- #include <linux/unaligned.h>
- #include <net/bluetooth/bluetooth.h>
- #include "btintel_pcie_debug.h"
- 
-+/* TLV-specific parser DEBUG_INFO TLV type */
-+static int btintel_pcie_yoyo_parse_dbg_info(struct btintel_pcie_yoyo_ctx *ctx,
-+					    const struct btintel_pcie_tlv_dbg_info *info,
-+					    u32 len)
-+{
-+	const u8 *data = (const u8 *)info;
-+	u32 domain, image_type, core_type, version;
-+
-+	if (len != sizeof(*info) - sizeof(struct btintel_pcie_tlv_hdr))
-+		return -EBADMSG;
-+
-+	image_type = get_unaligned_le32(data +
-+				       offsetof(struct btintel_pcie_tlv_dbg_info,
-+						image_type));
-+	core_type = get_unaligned_le32(data +
-+				      offsetof(struct btintel_pcie_tlv_dbg_info,
-+					       core_type));
-+	domain = get_unaligned_le32(data +
-+				   offsetof(struct btintel_pcie_tlv_dbg_info,
-+					    dbg_hdr.domain));
-+	version = get_unaligned_le32(data +
-+				     offsetof(struct btintel_pcie_tlv_dbg_info,
-+					      dbg_hdr.tlv_data_version));
-+
-+	if (domain != BTINTEL_PCIE_DOMAIN_BT ||
-+	    version != BTINTEL_PCIE_DBG_INFO_TLV_VERSION) {
-+		BT_WARN("YoYo: unsupported domain/version (%u/%u), disabling",
-+			domain, version);
-+		return -EINVAL;
-+	}
-+
-+	if (image_type != BTINTEL_PCIE_IMAGE_TLV_TYPE_EXTERNAL) {
-+		BT_WARN("YoYo: unsupported image_type 0x%x, disabling", image_type);
-+		return -EINVAL;
-+	}
-+
-+	if (core_type != BTINTEL_PCIE_CORE_TYPE_BT) {
-+		BT_WARN("YoYo: non BT core_type %u, disabling", core_type);
-+		return -EINVAL;
-+	}
-+
-+	ctx->dbg_info_present = true;
-+	BT_DBG("YoYo: config='%.64s' image=%u core=%u",
-+	       info->config_name, image_type, core_type);
-+	return 0;
-+}
-+
- /*
-  * Parse the optional YoYo firmware TLV stream and validate each record.
-  * This is the entry point for the runtime debug configuration payload.
-@@ -27,6 +75,7 @@ static int btintel_pcie_yoyo_parse_tlv_buffer(struct btintel_pcie_yoyo_ctx *ctx,
- 	const u8 *ptr = buf;
- 	size_t remaining = buf_len;
- 	u32 count = 0;
-+	int ret = 0;
- 
- 	while (remaining >= sizeof(*tlv)) {
- 		size_t tlv_size;
-@@ -45,6 +94,13 @@ static int btintel_pcie_yoyo_parse_tlv_buffer(struct btintel_pcie_yoyo_ctx *ctx,
- 
- 		switch (type) {
- 		case BTINTEL_PCIE_TLV_TYPE_DBG_INFO:
-+			ret = btintel_pcie_yoyo_parse_dbg_info(ctx,
-+							       (const void *)tlv, len);
-+			if (ret) {
-+				ctx->dbg_info_present = false;
-+				return ret;
-+			}
-+			break;
- 		case BTINTEL_PCIE_TLV_TYPE_DBG_REGION:
- 		case BTINTEL_PCIE_TLV_TYPE_DBG_TRIGGER:
- 		case BTINTEL_PCIE_TLV_TYPE_DBG_HCMD:
-@@ -105,6 +161,7 @@ void btintel_pcie_yoyo_cleanup(struct btintel_pcie_yoyo_ctx *ctx)
- 		return;
- 
- 	ctx->enabled = false;
-+	ctx->dbg_info_present = false;
- }
- EXPORT_SYMBOL_GPL(btintel_pcie_yoyo_cleanup);
- 
-@@ -149,6 +206,10 @@ int btintel_pcie_yoyo_load_and_parse(struct btintel_pcie_yoyo_ctx *ctx,
- 		BT_ERR("YoYo: tlv parsing failed (%d)", ret);
- 		return ret;
- 	}
-+	if (!ctx->dbg_info_present) {
-+		BT_ERR("YoYo: Invalid BT debug Info tlv, using legacy DBGC defaults");
-+		return -EBADMSG;
-+	}
- 
- 	ctx->enabled = true;
- 
-diff --git a/drivers/bluetooth/btintel_pcie_debug.h b/drivers/bluetooth/btintel_pcie_debug.h
-index b0b94c2a169d..717e8838c4d5 100644
---- a/drivers/bluetooth/btintel_pcie_debug.h
-+++ b/drivers/bluetooth/btintel_pcie_debug.h
-@@ -26,6 +26,19 @@
- #define BTINTEL_PCIE_TLV_TYPE_DBG_CONFIG_SET		0x100000A
- #define BTINTEL_PCIE_TLV_TYPE_DBG_PRESET_OVERRIDE	0x100000B
- 
-+/* Supported TLV type versions */
-+#define BTINTEL_PCIE_DBG_INFO_TLV_VERSION	2
-+/* Debug Info TLV */
-+#define BTINTEL_PCIE_CONFIG_NAME_LEN		64
-+#define BTINTEL_PCIE_DOMAIN_BT			0
-+#define BTINTEL_PCIE_CORE_TYPE_BT		1
-+
-+enum btintel_pcie_image_tlv_type {
-+	BTINTEL_PCIE_IMAGE_TLV_TYPE_EXTERNAL	= 0x1,
-+	BTINTEL_PCIE_IMAGE_TLV_TYPE_INTERNAL	= 0x2,
-+	BTINTEL_PCIE_IMAGE_TLV_TYPE_UNKNOWN	= 0xff,
-+};
-+
- /* TLV header */
- struct btintel_pcie_tlv_hdr {
- 	__le32 type;
-@@ -44,6 +57,25 @@ struct btintel_pcie_addr_value {
- 	__le32 value;
- } __packed;
- 
-+/*
-+ * struct btintel_pcie_tlv_dbg_info - YoYo DEBUG_INFO TLV
-+ * @hdr: TLV type and payload length
-+ * @dbg_hdr: Debug TLV version and domain
-+ * @image_type: Firmware image type
-+ * @core_type: Firmware core type
-+ * @config_name: Fixed-size name of the firmware configuration
-+ *
-+ * Describes the firmware image targeted by the YoYo configuration. Fields
-+ * are stored in little-endian format in the packed firmware TLV.
-+ */
-+struct btintel_pcie_tlv_dbg_info {
-+	struct btintel_pcie_tlv_hdr hdr;
-+	struct btintel_pcie_dbg_hdr dbg_hdr;
-+	__le32 image_type;
-+	__le32 core_type;
-+	u8 config_name[BTINTEL_PCIE_CONFIG_NAME_LEN];
-+} __packed;
-+
- /*
-  * struct btintel_pcie_yoyo_ctx- Runtime state for YoYo debug configuration
-  * @enabled: Whether the loaded YoYo configuration passed validation
-@@ -58,12 +90,11 @@ struct btintel_pcie_addr_value {
-  */
- struct btintel_pcie_yoyo_ctx {
- 	bool			 enabled;
--
-+	bool			 dbg_info_present;
- 	struct list_head	 region_list;
- 	struct list_head	 trigger_list;
- 	struct list_head	 hcmd_list;
- 	struct list_head	 config_set_list;
--
- 	struct hci_dev		 *hdev;
- };
- 
--- 
-2.53.0
-
+Miklos
