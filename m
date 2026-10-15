@@ -1,123 +1,93 @@
-Received: from mta1.migadu.com (out-140.mta1.migadu.com [95.215.58.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B30B48489B
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:17:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79A494A387A;
+	Thu, 15 Oct 2026 20:17:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792095426; cv=none; b=JTijiLshFsaRqiYeWOsm4jHB6BVO7B2JrqpaGEVv1uRqXwOgpWdBlYBHjOzJpfGM3RnCiUmJuKTvR2ypcsfDuiw7x5mWyX78ykzDrlE0+EIcyciMqyZlaxHkxtxZZbPqbK/24k1uR41Hi+fA8QMV6amYA2h7Xo2Kyhgv7tung9s=
+	t=1792095461; cv=none; b=Ya32R0Em8qfB8K9nHL5hWh3Nz/yuYT+AOKaAULI2ZBVj/5BMloVtAWqU9iaFx3TnzKBDHOPA90B16ZiOODC3CTOTFhhxpdeSu1aCMbCJyEPVXjQCGUvuiofx1nImaYWIpuGD9xuoo0GUqiliXvznAtzuH1g0s38ondMAiOqREKc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792095426; c=relaxed/simple;
-	bh=MYXLiVTLg/DCzZKSclfoxj5H3WsaJ7br5zXoPYN9bS4=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=egvDr81wOFqwOB6VxJR3mWpcG0J80z4ssxe73cZRRvRKI2E3q76YD50wn819issrBJxTljI6V4V4CIW0Te7N8QgNanFmz3Ygt7yoFq/HFaqpmNvhrypAXcQ/nVClD6+W2hgJ5EHNCK7lRO5DtGREuO13NUwWQ/wcNho7e0lLIZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=oXjFiJ7z; arc=none smtp.client-ip=95.215.58.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792095461; c=relaxed/simple;
+	bh=1csYnh8NJNkq6uRZqlYEK9ZmrxncKaIr7ge1zJ7f/MQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gxx9IqN7nmXYl33vShXMDdXG6S5acye15txzWC2pjNz6gS6mxNObjHxAhgpv5/Szu0n0pTKIhwLF94D8dZcjxEOIrA9V7v5BiPG2hJTl26pebZAj5Fr/IPq6w9kuE7691vRRdC+DYleNfJU4/xKjvsSPo4lZ/939ubLQ8OanyVs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nhbj4LGM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="oXjFiJ7z"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=MYXLiVTLg/DCzZKSclfoxj5H3WsaJ7br5zXoPYN9bS4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792095423; v=1; x=1792700223;
- b=oXjFiJ7z5Lbh2bw46PbToAZiulXeta2aFyDP03G5P8AQ/He7YhOHG3Waz6F08Gwi7ZTM0/FU
- zcYgheWnt1aBXHKSH2vLBw9rkRxh56c7nC52w0TEhxDYXbHTgtHvt7BU8Ub7W2jcE7OogzI0/BX
- KtqlGoKhzrmfsdZm5ekHl0ho=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0b35ae72c49bde15;
-	Thu, 15 Oct 2026 20:17:02 +0000
-X-Mizu-Trace-ID: 0b35ae72c49bde15
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nhbj4LGM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF5B81F000C4;
+	Thu, 15 Oct 2026 20:17:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792095460;
+	bh=z7MWpo4yUfswYEg3QkBO+6xOC6XoabSR4y0LBHpKx6M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nhbj4LGM27km89n5hLEeuMFX57KDu85e0nQ95I6ATW6nLLjC4+5Eu9ai2gscQG59k
+	 gNCpMWRj1B6zSNOAyC/3/m26UjBk6lDHTrO5PFW35FVYCwFfIjjzgT/raYHOBr2NlB
+	 jCDYwhvfguqn2gSeN4CH12ZjgCsRDNzcpom4f6klcrEVsoXJ2ekhcLk+WZjfrYt1zN
+	 7Y+jjy/4XskdRDOASOatbuU/s6CK05sU85gnhujM00muzK5V3mNkDEWY1NkPwoMDWt
+	 FM6jyOwOudVXcWQSurHWrWt6yw/KX4KhMcjHQ0yVu3SdePu3LfkR5SZufNTzB9f9ZH
+	 NMC7qfKKbHbOQ==
+Date: Thu, 15 Oct 2026 15:17:37 -0500
+From: Rob Herring <robh@kernel.org>
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Alexander Shiyan <eagle.alexander923@gmail.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v4 10/16] media: dt-bindings: sony,imx678: Add other
+ Starvis 2 family members
+Message-ID: <20261015201737.GA2917324-robh@kernel.org>
+References: <20261015-media-starvis2-v4-0-75fcdb4163f3@raspberrypi.com>
+ <20261015-media-starvis2-v4-10-75fcdb4163f3@raspberrypi.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 15 Oct 2026 20:17:02 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Luka Gejak" <luka.gejak@linux.dev>
-Message-ID: <dec2320eb01dc6499948a936c94512ddfd47e2a4@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH] staging: rtl8723bs: remove unnecessary parentheses
-To: "Dan Carpenter" <error27@gmail.com>, "Ethan Tidmore"
- <ethantidmore06@gmail.com>
-Cc: pavankumaryalagada@gmail.com, gregkh@linuxfoundation.org,
- outreachy@lists.linux.dev, dennylin0707@gmail.com,
- linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-In-Reply-To: <672f78b36290a4021d3f94d9ec401d23420febbc@linux.dev>
-References: <20261015120634.95218-1-pavankumaryalagada@gmail.com>
- <5d577cb1b4a91e8cdfda171bc7100105ae90d91e@linux.dev>
- <DM5IYFCRBE9W.1U3KCU36BUE36@gmail.com>
- <atEtUV5q9MHRSTJb@stanley.mountain>
- <672f78b36290a4021d3f94d9ec401d23420febbc@linux.dev>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015-media-starvis2-v4-10-75fcdb4163f3@raspberrypi.com>
 
-October 15, 2026 at 10:11 PM, "Luka Gejak" <luka.gejak@linux.dev> wrote:
+On Thu, Oct 15, 2026 at 04:57:36PM +0100, Dave Stevenson wrote:
+> There are multiple members of the Sony Starvis 2 image sensor family
+> that have the same hardware requirements as imx678.
+> Add them as options to the imx678 binding, rather than duplicating it.
+> 
+> Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/media/i2c/sony,imx678.yaml | 38 ++++++++++++++++++----
+>  1 file changed, 32 insertions(+), 6 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
+> index 098f72544216..027872a134f2 100644
+> --- a/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
+> +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
+> @@ -5,7 +5,7 @@
+>  $id: http://devicetree.org/schemas/media/i2c/sony,imx678.yaml#
+>  $schema: http://devicetree.org/meta-schemas/core.yaml#
+>  
+> -title: Sony IMX678 Sensor
+> +title: Sony IMX678 and Starvis 2 Sensors
+>  
+>  maintainers:
+>    - Jai Luthra <jai.luthra@ideasonboard.com>
+> @@ -13,21 +13,47 @@ maintainers:
+>  description:
+>    Sony IMX678 diagonal 8.86 mm (Type 1/1.8) CMOS active pixel type solid-state
+>    image sensor with a square pixel array and 8.40M (3856x2180) effective pixels.
+> +  It is part of the Starvis 2 family of sensors.
+> +  Other members of the Starvis 2 have the same hardware requirements, and
+> +  therefore share this binding.
 
+If you want paragraphs, you need '>' modifier and blank line between 
+paragraphs.
 
->=20
->=20October 15, 2026 at 9:45 PM, "Dan Carpenter" <error27@gmail.com> wrot=
-e:
->=20
->=20>=20
->=20> On Thu, Oct 15, 2026 at 10:41:53AM -0500, Ethan Tidmore wrote:
-> >=20=20
->=20>=20=20
->=20>  On Thu Oct 15, 2026 at 9:11 AM CDT, Luka Gejak wrote:
-> >  October 15, 2026 at 2:06 PM, pavankumaryalagada@gmail.com wrote:
-> >=20=20
->=20>=20=20
->=20>  From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
-> >=20=20
->=20>  Remove redundant parentheses around the address-of operator to
-> >  follow kernel coding style.
-> >=20=20
->=20>  Signed-off-by: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
-> >  ---
-> >=20=20
->=20>  Hi Yalagada,
-> >=20=20
->=20>  I'm just letting you know that this change is no longer needed as =
-the
-> >  entire staging/rtl8723bs driver is being deprecated and removed.
-> >  Support for RTL8723BS has been ported to rtw88 subsystem.
-> >=20=20
->=20>  So rtl8723bs patches aren't being accepted anymore? I saw Dan revi=
-ewing
-> >  one earlier, just wondering.
-> >=20=20
->=20>  I didn't know it was being removed. My expectation is that we'll
-> >  probably keep merging patches until it's actually removed. It's some=
-times
-> >  easier to just merge easy uncontroversial things without trying to t=
-rack
-> >  everything happening in the kernel. We should obviously delete the d=
-river
-> >  as soon as the other patch is merged.
-> >=20=20
->=20>  regards,
-> >  dan carpenter
-> >=20
->=20But won't that cause a conflict? PR has been sent today, carrying my
-> patch that removes whole staging/rtl8723bs into net-next and if
-> another patch is merged into staging-next, whose time of commit is
-> later than the time I made my commit localy it will try to exit a
-> non-existent file.
->=20
->=20And since both net-next tree and staging-next tree are merged at the
-> same merge window this will cause merge conflict. Correct me if I am
-> wrong, but this is what I think would happen.
->=20
->=20Best regards,
-> Luka Gejak
->
+Rob
 
-To clarify something: new driver, which replaces staging rtl8723bs and
-the mentioned patch which removes the rtl8723bs from staging, have
-been merged into  wireless-next and are awaiting to merged into the
-net-next and eventually mainline when 7.4 merge window opens.
-
-Best regards,
-Luka Gejak
