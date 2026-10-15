@@ -1,143 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender5-pp-e108.zoho.com (sender5-pp-e108.zoho.com [165.173.182.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8333E31A07F;
-	Thu, 15 Oct 2026 11:50:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792065051; cv=none; b=nsT6UcAA00M1s5doY8crVSeV1CZIS3jZwoX6mqWHu5OEFg6e5ktfsUFkPPDb4jBmjr4IZEc2nXrKKFkclfRwSZ5dH1wGYkdwNZpBRzztJ/UWT8JuallUO9/JX/EDZFJbruA1fVj6cIfbmm1dByDfPNzgRmEVmfVuXAM+aav5m1c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792065051; c=relaxed/simple;
-	bh=VSdHStomVn46F4ewruQ4QMhJT/fq+4WwDnwnLS9gKzI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jQidKskCANqX3kYyjE4UceRtoSby4SInsDTw56DONwP6cM8wJ/F218H9tqgqaV+slJB7G9WWYsz8pF24s8SAHuQIVgBLrdLV7KYeYKJ5e3fiDG91utjztFUi1CXPbCybYKsA/2yYPsXQ6PxZqhL7uL+FcyZ9DNaHB/W7DeyKC8c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JUK8s7P7; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CD4231A07F;
+	Thu, 15 Oct 2026 11:51:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.108
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792065085; cv=pass; b=ZSLtA4/3cXWINIdrZCzlxKUSBIZTM6RYS+HDiIWLbdsPQH3G6IsLeRoOimRjnLSMi0hVwiNGzJu3oSrwqRGIPm8D0s1xe+mvBlUqhR5PdR1udX5Dh/XaOu2MvIpbwAMnbaaj98D+TPD6MT1oW16QXA7Hp6Y5thY8HeuFlQXh7ic=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792065085; c=relaxed/simple;
+	bh=fhohS3lGuoWITFeS9t/S4V2FLSotjO0Kcny/fDfQFO8=;
+	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
+	 Date:MIME-Version; b=c+kEWZIx9hpEjvU+yuSdyGZv6nR7aEOtPI/2JOWLSRb8qoMCtCW2XAWz0GO/ySk04Rzbi6hbtSU2jEpXPqogSTHqTadTGcFwKriLl16vWglCR7J06J24/K5m9avxtbLw123kJ8W5awxlvKkz1BxQWiusEzhcxDKy/6+eX2AkdXg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=qmvMmUJo; arc=pass smtp.client-ip=165.173.182.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JUK8s7P7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 689D31F000C4;
-	Thu, 15 Oct 2026 11:50:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792065049;
-	bh=dJ4bhnxKo74R9ZM5Fm1e/unKSpya17F001qaVop7plU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JUK8s7P7SnzLUBf/a2RN7iwciGazWHAl6KIKTZSh0ogwXl/sONhLL19yeNbCXj73U
-	 Kph3yZqY+JtINzB5/rRsBt4YdaYRMCxYibSRNUSxkkdmu/ZZ7rxXV/q9In60IzD54I
-	 h2mOf3fnsmUUevoooPcGwe31+DnXRSJPHcByif53gioY31ZOC6gDtITC1ncPwI8+ar
-	 3WCAr5FiUsfd+XbPx3Y88FId02tLGUs18oqCoj/rqia+m+ABHG+TYN4DsY/NIaynD7
-	 zrctA26cKfHMMxd3T84Y9T+erE++R17oJswtkauKi0AVriBH96kcIryCUJJB+LTTXI
-	 DW1q/6OqHovlA==
-Date: Thu, 15 Oct 2026 12:50:43 +0100
-From: Lee Jones <lee@kernel.org>
-To: Liang Haowen <nbg2974@gmail.com>
-Cc: linux-leds@vger.kernel.org, Pavel Machek <pavel@kernel.org>,
-	"Martin K . Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org,
-	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Denis Benato <denis.benato@linux.dev>, Armin Wolf <W_Armin@gmx.de>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilpo Jarvinen <ilpo.jarvinen@linux.intel.com>,
-	Marco Scardovi <scardracs@disroot.org>
-Subject: Re: [RFC v9 1/1] leds: asus-aura-scsi: Add ASUS Aura RGB LED driver
- for ROG NVMe enclosures
-Message-ID: <20261015115043.GA1863739@google.com>
-References: <20260925134010.2815025-1-nbg2974@gmail.com>
- <20260925134010.2815025-2-nbg2974@gmail.com>
- <179198503855.839288.7797731903424311774@kernel.org>
+	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="qmvMmUJo"
+ARC-Seal: i=1; a=rsa-sha256; t=1792065060; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=bM0KUqPAqwMuqGiF6gbZrNSyw8nCUyHtV1lqrPdUwoAfdUjH5bXCUjbbCwcgn5FSTr1FoKaUC9JW+eroyjKLXtKzSLtLbTlsxwQ0O1o3HclGAaqumUSlhqeNx7BdRQTYlP6zqnNyz2jGFdmwxEYglxNvDudXO0X0/1LGL2R5gcc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1792065060; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Sy70hYmBViSJhx1QgvBdjnOR2dPydIgQOX2U1TRTaeQ=; 
+	b=PleXrnwYVU5MP/1hRsKjfFP+eK/hKR7A3pmHO6mDISPDKrlY1QZxnK0dNTkopRR67BbVXIyTrP8keZw7NTp6UMLunE9NusEdfJNR1PH0sYQAmoZCty61tWlwJ1VG5MIdH9Agwqy50s4dMB80EZ3Klw/t7tE/YIdBNO4BFGpjeDY=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792065060;
+	s=zmail2048; d=rong.moe; i=i@rong.moe;
+	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Content-Type:Content-Transfer-Encoding:Date:Date:MIME-Version:Message-Id:Reply-To;
+	bh=Sy70hYmBViSJhx1QgvBdjnOR2dPydIgQOX2U1TRTaeQ=;
+	b=qmvMmUJoeDmnrVHHKOC7IrFoAUC4uv9ljEAekxkxh6tHpYTDebeycNsnxVb7Fqs8
+	4b6/NtgIz5q9RSwxXPLD8IIjhH07+hAelhIgdneJFC6RYnQDCn/X/EddiBjeY6ZIPnS
+	wFwqKp9c1Rma0w+uJ9cZ1ijQkXRsL3bGK8TufZOtuLyqBUgK+WUkFyBz7fffKLy/+A9
+	NWXWXgrLeSr/c5pUxGZSx2aCSE8gHYZebb94jOqrImlvDBS3nUDZAH8WkbeSvIKrPPN
+	S1yYB5xqd98CKJSTb1ZX0oxbrdq1SNNTbtG/VBgVLqifsO15Lq7sjNHweIQepezWbah
+	AGyEuPMFYQ==
+Received: by smtp.zohomail.com with SMTPS id 1792065057319972.0408465652614;
+	Thu, 15 Oct 2026 04:50:57 -0700 (PDT)
+Message-ID: <58586fa666f09c209f9d7fe8c692a8bdda6d4410.camel@rong.moe>
+Subject: Re: [PATCH 0/3] ACPI: Serialize battery methods and INT3403 _TMP
+From: Rong Zhang <i@rong.moe>
+To: Ali Ahmet =?gb2312?Q?Memi=810=946?= <aliamemis@disroot.org>, "Rafael J
+ . Wysocki" <rafael@kernel.org>
+Cc: Len Brown <lenb@kernel.org>, Daniel Lezcano
+ <daniel.lezcano@kernel.org>,  Zhang Rui <rui.zhang@intel.com>, Lukasz Luba
+ <lukasz.luba@arm.com>, Armin Wolf <W_Armin@gmx.de>,  Hans de Goede
+ <johannes.goede@oss.qualcomm.com>, Charis Stratakis
+ <c.stratakis@proton.me>, 	linux-acpi@vger.kernel.org,
+ linux-pm@vger.kernel.org, 	acpica-devel@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261014132703.93355-1-aliamemis@disroot.org>
+References: <20261014132703.93355-1-aliamemis@disroot.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 15 Oct 2026 19:45:47 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179198503855.839288.7797731903424311774@kernel.org>
+User-Agent: Evolution 3.56.2-10+b1 
+X-ZohoMailClient: External
 
-On Fri, 25 Sep 2026, Lee Jones wrote:
+Hi Ali,
 
-> --- checkpatch.pl: clean (0 issues) ---
-> 
-> On Fri, 25 Sep 2026, Liang Haowen wrote:
-> 
-> > ASUS ROG external NVMe enclosures (ROG STRIX Arion, USB 0b05:1932) are
-> > plain USB mass-storage devices with no HID interface: the Aura LEDs
-> > hang off an ENE controller driven by vendor SCSI commands on the same
-> > LUN as the disk. The enclosure has 4 independently addressable LEDs,
-> > verified on hardware.
-> >
-> > Register a scsi_device_handler matched by INQUIRY (vendor "ROG",
-> > model "ESD-S1C"); it does not claim the sdev (sd keeps owning the
-> > disk) and exposes each LED as a multicolor LED class device,
-> > /sys/class/leds/asus-arion-0-0-0-0::led-0 through led-3. The
-> > H:C:T:L part of the sdev name keeps the names unique when more than
-> > one enclosure is connected, with its colons flattened to dashes. The
-> > color section stays empty, since multicolor LEDs enumerate their
-> > palette via multi_intensity, and the four identical zones use the
-> > function name with a "-N" ordinal, as the naming section in
-> > Documentation/leds/leds-class.rst asks for.
-> >
-> > Protocol: a 16-byte vendor CDB (opcode 0xec, 'A' 'S' signature,
-> > BE16 register index, argument count in byte 13), modelled by
-> > struct ene_cdb. MODE 0x8021 (Static) must be written first in every
-> > sequence or the device ignores it; colours go to 0x8160 + 3 * led
-> > and 0x8100 + 3 * led (3 bytes, wire order R, B, G; both tables are
-> > written because firmware revisions pull from one or the other);
-> > APPLY 0x80a0 takes 0x01 to apply; the controller also accepts 0xaa
-> > to save the state to its flash, which this driver never sends: the
-> > LED class interface is runtime state and does not promise persistence
-> > across power cycles, and a save on every update would wear the
-> > controller flash. The colour reverts to the stored default on power
-> > cycle, like any other runtime-only LED.
-> >
-> > The CDB cannot go through scsi_execute_cmd(): it sizes the command
-> > via scsi_command_size(opcode), which maps vendor opcode 0xec to
-> > 10 bytes, so byte 13 is dropped and the device silently ignores the
-> > write (GOOD status, no error). scsi_execute_cmd() also offers no way
-> > to override the derived length. The request is therefore built with
-> > scsi_alloc_request(), which initializes the scsi_cmnd parts a
-> > passthrough needs, with cmd_len set to the CDB size, mirroring what
-> > SG_IO does from userspace. A 5 s timeout and a single retry-less
-> > quiet submission cover the register writes.
-> >
-> > The write payload is copied into a per-device buffer before it is
-> > mapped with blk_rq_map_kern(), so no stack memory is ever mapped for
-> > DMA (VMAP_STACK).
-> >
-> > brightness_set only caches the colour and marks the LED pending
-> > under a spinlock; led_mc_calc_color_components() runs under that
-> > lock too, because it writes the shared subled_info array and
-> > trigger events call led_set_brightness() without the led_access lock
-> > that serializes sysfs stores. A single work item per enclosure then
-> > snapshots the pending LEDs and runs one ENE sequence for all of
-> > them. Funneling every update through one work item keeps the
-> > sequences from interleaving between concurrent LED updates and
-> > batches multi-LED updates into a single APPLY. A re-queued run
-> > with nothing pending returns before touching the device, so it
-> > cannot wear the flash with a pointless SAVE, and the lock keeps a
-> > colour write from being reordered after its pending flag on weakly
-> > ordered architectures.
-> >
-> > This is the monolithic out-of-tree version as verified on hardware;
-> > the Kconfig/Makefile/MAINTAINERS wiring lands with the agreed split
-> > into a SCSI transport helper and a shared ASUS Aura LED interface.
-> >
-> > Signed-off-by: Liang Haowen <nbg2974@gmail.com>
-> > ---
-> >  drivers/leds/rgb/leds-asus-aura-scsi.c | 404 +++++++++++++++++++++++++
-> >  1 file changed, 404 insertions(+)
-> >  create mode 100644 drivers/leds/rgb/leds-asus-aura-scsi.c
-> 
-> A driver source file without 'Kconfig' or 'Makefile' integration is dead code in
-> the tree.  Either wire it up now or hold off on submitting until the rest of the
-> pieces are ready.
+Thanks for working on this!
 
-Also:
+The series is generally in a good shape. I just have a few minor
+comments.
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
-- [Low] leds: asus-aura-scsi: undefined function kzalloc_obj() causes build failure       
-- [Low] leds: asus-aura-scsi: blk_rq_map_kern() missing required request_queue argument   
-- [Low] leds: asus-aura-scsi: strscpy() called with missing size argument
+On Wed, 2026-10-14 at 16:26 +0300, Ali Ahmet Memi=C5=9F wrote:
+> As discussed in [1], add exclusive variants of acpi_evaluate_object()
+> and acpi_evaluate_integer() and use them for the battery methods and
+> INT3403 _TMP, which interleave badly on ThinkPad P1 Gen2 and P53.
+>=20
+> UCSI (bko221065) is not converted. =C2=A0
+>=20
 
-Was this even tested?
+Please leave a link to the bko bug, so that readers don't need to
+assemble the link themselves.
 
--- 
-Lee Jones
+> There the contention is on a
+
+After carefully auditing the ASL code again, I've just found the root
+cause of the mutex acquisition timeout.
+
+It's hard to notice, but \_SB.PCI0.LPC0.EC0.RDER being declared as
+"Serialized" causes an ABBA deadlock:
+
+Thread 1 (battery)                         Thread 2 (ideapad-laptop)
+-----------------------------------------  --------------------------------=
+-------
+serialize \_SB.BAT0._BIX                   serialize \_SB.PCI0.LPC0.EC0.VPC=
+0.GBMD
+evaluate \_SB.BAT0._BIX                    evaluate \_SB.PCI0.LPC0.EC0.VPC0=
+.GBMD
+  acquire ECMT [A]
+  serialize \_SB.PCI0.LPC0.EC0.RDIF          serialize \_SB.PCI0.LPC0.EC0.R=
+DER [B]
+  evaluate \_SB.PCI0.LPC0.EC0.RDIF           evaluate \_SB.PCI0.LPC0.EC0.RD=
+ER
+    serialize \_SB.PCI0.LPC0.EC0.RDER [B]      acquire ECMT [A]
+
+That's why merging battery notifications significantly reduced the
+frequency of mutex acquisition timeout.
+
+> firmware AML mutex that _Qxx EC queries also take, which a wrapper
+> around acpi_evaluate_object() cannot cover, and Rong's notification
+> merging in 7.3 already reduces it on the battery side.
+
+Lock contention is not the root cause, and EC queries and UCSI _DSM are
+just innocent victims of the ABBA deadlock.
+
+Please rephrase the cover letter accordingly.
+
+>=20
+> [1] https://lore.kernel.org/all/CAJZ5v0gS4agVUkCO6M=3DVW4Wi2y1-s+k23bpzmX=
+9aAZ0Rsv4z9Q@mail.gmail.com/
+
+You can use Link: tags in the cover letter, e.g.:
+
+Link: https://lore.kernel.org/all/CAJZ5v0gS4agVUkCO6M=3DVW4Wi2y1-s+k23bpzmX=
+9aAZ0Rsv4z9Q@mail.gmail.com/ [1]
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=3D221065
+
+Thanks,
+Rong
+
+>=20
+> Ali Ahmet Memi=C5=9F (3):
+>   ACPI: utils: Add exclusive AML evaluation helpers
+>   ACPI: battery: Evaluate battery methods exclusively
+>   thermal: intel: int340x: Evaluate _TMP exclusively
+>=20
+>  drivers/acpi/battery.c                        | 17 +++---
+>  drivers/acpi/utils.c                          | 56 +++++++++++++++++--
+>  .../int340x_thermal/int340x_thermal_zone.c    |  3 +-
+>  include/acpi/acpi_bus.h                       |  8 +++
+>  4 files changed, 71 insertions(+), 13 deletions(-)
+>=20
+>=20
+> base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
