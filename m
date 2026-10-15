@@ -1,106 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com [209.85.167.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92AFB3CFF6F
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:02:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E95F5226B6
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:02:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792069361; cv=none; b=Q9eNPymucsrPsSul4bR0pXjm32u3O2cikES/ioH2l6DZd0mUerFhk+3gFEJBWuf4jRPIWLg0j1FfCaVNdanf/MAHGcmLrxioGLUp4py3zforzJZLZ9Cuk4BQLDwdDyMdK/hx2q7J4WwDc0GzDYNjoKGDmh0MKBiGCbI1u64u0w8=
+	t=1792069368; cv=none; b=XqIJeBt8oMfSr1gQjiUtkpu9R4FxZCQ4OHrvs+dSCbx5GVH7vgu5LWB5n/kenL6vOZqinnNsoAaFfFj5Q6p8qXuDwZUDNF93pxH8G2XngvgA4aZ3LpAzwDxmiU3++CnUWoXsEtETMqaNElCeUBWKroAAjhnW/WUbKhw9dSBrtC4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792069361; c=relaxed/simple;
-	bh=AmWwc1pdAMoghlnL3CmIhSD9UxIN1xu6Ls03Q08vplE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GdCYhES8tZMNiqNuJKH1IThcwWd/560PF3SImShbGDTxhSPprQgKhVPgTBZPH1OXrIxeFQHFrph00/7+GhfYP6mCJjBgXAd3FF6sGahelLYKwc+QLNYir2xBFjuq6ktdm2O2Br4nLs07Bma17FiFGjYNYHDjAJe33CN7WZ994eI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oTMOKU1t; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792069368; c=relaxed/simple;
+	bh=sNHkM2NSJVz1FH0SzB8TgpwxSIcu6W92qD2xJF5gKMI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Q8yorY2Cn5ooub0pp+ciJiGvWquw5aJ3+xXynmtvCMaIrY58vdgkZJ9XapGr3Yj5pzHEISWzBUwz/rwQ6Q8aqrnva9h7b9fFX+2ed5CN8hA/rPngZMqJxj7CHGICDObJTz2LNeMbj2loRooH+yck46iI1JmHZTlTikO4k3Nsy90=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=pvlGVDHB; arc=none smtp.client-ip=209.85.167.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oTMOKU1t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBC891F000C4;
-	Thu, 15 Oct 2026 13:02:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792069360;
-	bh=yBPzx+uGVOr4Q6fKVMed3XqaUTMvbACo0SmUrYnsNCw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oTMOKU1toKNsK0qFQNdH803k0H0HblVaIt86xYfDuFOLqgAYkPlxMxhTfjiuUGo8E
-	 OtWHN+aYURAmiBOB8CzFkADc85ffzOMWuL+toafLHPnu1GEKw1OHQQRtlvP/l9yqrL
-	 DVOsD5CN1WZC3b/jmF6uoyGXwc/9m+QK3Sk2NCtmSzMFKrwJgFBH+61DsXoB5Z3oGD
-	 2B7gKhOlsnjbmsGumN/yK/fujj0r2qe5RSZDFMpjffBAewJ2+HFM45yJYpIvJfX0gW
-	 QXACNtmhi1zp2z1o8cuYNIfIRRhIPeW86aIUEdB1/BDAva5O64cdewQN45GYYsVdW/
-	 mJWmE7whjQLqg==
-Date: Thu, 15 Oct 2026 14:02:36 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] arm64: gcs: Store GCSCRE0_EL1 values instead of
- userspace mode
-Message-ID: <bea663db-52fa-487d-9134-606094004f7e@sirena.org.uk>
-References: <20260917-arm64-gcs-store-gcscre0-v1-0-3c9fa9213bac@kernel.org>
- <20260917-arm64-gcs-store-gcscre0-v1-2-3c9fa9213bac@kernel.org>
- <as-8IqsbMbOBo5Oq@arm.com>
- <c39b2cc4-832f-49cb-8a59-e5b7a8bd9317@sirena.org.uk>
- <atDBVHvDQ3Pwr2Uq@arm.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="pvlGVDHB"
+Received: by mail-oi1-f178.google.com with SMTP id 5614622812f47-4ab8cb2a6e4so3328837b6e.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:02:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1792069366; x=1792674166; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=at9NDBQGEaYtN0ifydUv/WOhJYVf5LHHhPf50pPTXz8=;
+        b=pvlGVDHBZX0vieQEbBCSmfO+0tX7LhcWO1Ck/yHebhBhSLj+M1w/MYwdCZYaZTw1dY
+         F+L4U+qA7O5uRbSeXSPof15nopieIrkDdSwjLA3NwyiYLPceH0Xwrke72Muue2rfnNnB
+         flggkYggYa8tZqFFXL6atV4qYewvDqRCX13mDfFRMdYoWsZA+tXY6J9egHEfnq7zSkvV
+         0G3uGCNC3hHZGisB7ApD7ax37NgJJ9oeLZOtVSRhZW2Qn1eG6ZAwsls0O4bT3RC3sOE4
+         8dOjaibkNGBUEZ9p4fkegE4aqLzdhuU1nTxP1ZbUiG7F9Bd7eDgkvV1xT1ysJywP/DK4
+         qHJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792069366; x=1792674166;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=at9NDBQGEaYtN0ifydUv/WOhJYVf5LHHhPf50pPTXz8=;
+        b=bLRIwdN8ma5qGC2x/m/yY+26BemyaEOHbCgfyS6pRvq4/XNNJ8GlDNe0Ceo34/PUla
+         bjol4I/e+2a1GhXNj7ae5RrhgkO10HYZbrYM7VsT386hfElG54iw2FdArgGkJ/yYQFdL
+         alWftFbVfSu3vxc26YRsqco3w9sagqzLTbwz2B64ZSysChhKz82BJBaWkioUdv6IQ38o
+         jvphAZxpZh4NvPZM1efYBVV7ZhwExS0xpFFc+/+hSCpuCvsGSwIfqKB/ipcgw/hoRpbT
+         kgFYazxpahzaWM/TAHprUdTi6p/cIHBG1E6q0XmhUM3e9bmrFajfwsUR+UxMYUq7VgZ9
+         4SsA==
+X-Forwarded-Encrypted: i=1; AKwUvBwkSOsypgfZVqC5ptzWMdeRUoNpN+vJ7DFwGUf6YFMaqZbCKm/hGKH5QLSeGgrIBi/ev1SnX+1zs0GHVWo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK5Hl1KTG1ru5JImmghukUTqkl56FbAK9kpLFA2U9atDITtXxJE
+	L/A76vdNNmCJ9Kr8SGj2Oaz9uyUNt1Akh5t9D0AB9jbZfsCauEo52cyhMFDWkVGLBsw=
+X-Gm-Gg: AYBFou31lHdH4h6DZWgKJfbhJXBPROit6CsJ4IRapU8Rmb5Rd+hxxNdg3I2oDTi6tPR
+	I6utcll1BXZox+tJZQxJMminT07gDZrQ+si5EscKPPWOZAOJA4Nwj+bODhN0naq202GtP7OsBkb
+	4OiMaXdSxLVGIkCcqYQ2rsxDKsvXBSxQfUThP8k/k8SF0Sqt/+qfZz7pCuWN/PDsGTklfN6xCD7
+	Embeb0ps1CaSgh6zqkUdSH0Rjei+O0CLZ8ef3BZtV/eD5RJzIFe01g4Ha2rTTNaFmcf81xQng2T
+	ll0+Q94zX3LGHDcsvNd8ysmOBVWl5FmZvx6UEmWJMvxnqYQQ1U0RQfUH93HIpw13uTKRC+uYV7e
+	WjtGjp6RnOoULzh265mdD2BOs+TiiVbl5jMOhByol5BOLLaTqGa9qWp11czU1yej2vYDZD/rAl8
+	oPuEXz4/mHbqfIdvmzp5U6Ju5ATggoGOkuviZulnukdBW4hnD5Cab9Ja43paU47cebfzGEuxB/n
+	lN/EqIJCCnc8hLa8fqHZjSfilT9Fu8VPa/hqOtrCISF0VQb
+X-Received: by 2002:a05:6808:15a9:b0:4f1:7cd5:8e0b with SMTP id 5614622812f47-50c4dfb9a1cmr17338045b6e.22.1792069366316;
+        Thu, 15 Oct 2026 06:02:46 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:7a64:39ea:e5ac:f974? ([2600:8803:e7e4:500:7a64:39ea:e5ac:f974])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-50c1a325a38sm19891522b6e.12.2026.10.15.06.02.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 15 Oct 2026 06:02:44 -0700 (PDT)
+Message-ID: <92a8384e-17d1-47e6-bebd-406941f349f1@baylibre.com>
+Date: Thu, 15 Oct 2026 08:02:42 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ZxYMydLMYgrvLhA5"
-Content-Disposition: inline
-In-Reply-To: <atDBVHvDQ3Pwr2Uq@arm.com>
-X-Cookie: Tax and title extra.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] iio: adc: ti-ads112c14: add gpio support
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, Chris Hall <c-hall@ti.com>,
+ Patrick Edwards <pedwards@ti.com>, Kurt Borja <kuurtb@gmail.com>
+References: <20261009-iio-adc-ti-ads112c14-gpio-v2-0-3231a795fa63@baylibre.com>
+ <20261009-iio-adc-ti-ads112c14-gpio-v2-2-3231a795fa63@baylibre.com>
+ <as47IMM9rtBCAH0-@ashevche-desk.local>
+From: David Lechner <dlechner@baylibre.com>
+Content-Language: en-US
+In-Reply-To: <as47IMM9rtBCAH0-@ashevche-desk.local>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 10/13/26 9:07 AM, Andy Shevchenko wrote:
+> On Fri, Oct 09, 2026 at 06:25:52PM -0500, David Lechner (TI) wrote:
+>> Add support for using the AIN4/GPIO0 to AIN7/GPIO3 pins as GPIOs when
+>> the gpio-controller property is present.
+>>
+>> Pins that are already used for something else according to the
+>> devicetree are excluded from the valid GPIO mask. This includes analog
+>> inputs and excitation current outputs used by channels, REFP/REFN when
+>> an external reference is used, the /FAULT and /DRDY interrupts and the
+>> external clock input.
+> 
+> ...
+> 
+>> +	for (unsigned int i = 0; i < ADS112C14_NUM_GPIO; i++) {
+>> +		data->gpio_names[i] = devm_kasprintf(dev, GFP_KERNEL, "%s:GPIO%u",
+>> +						     dev_name(&indio_dev->dev), i);
+>> +		if (!data->gpio_names[i])
+>> +			return -ENOMEM;
+>> +	}
+> 
+> I am sorry, I still didn't get what's wrong with the dash (technically
+> speaking)? So, this may use devm_kasprintf_strarray().
+> 
 
---ZxYMydLMYgrvLhA5
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Thu, Oct 15, 2026 at 01:04:36PM +0100, Catalin Marinas wrote:
-> On Wed, Oct 14, 2026 at 07:28:08PM +0100, Mark Brown wrote:
-
-> > We also set the mode from ptrace at which point it's being set for a
-> > different thread.
-
-> Could we do like in arch_set_shadow_stack_status() for gcspr_el0 and
-> only set it if task == current?
-
-Yeah, that does work too.
-
-> > The case where a signal handler tries to handle a GCS fault by disabling
-> > GCS could be handled using prctl() if someone wants it.  I'm not aware
-> > of anyone doing that yet, there was some talk about implementing it in
-> > glibc at LPC but it's not been implemented.
-
-> Just thinking, if we fault on a modified field, a handler using prctl()
-> would also have to update features_enabled in the sigcontext, otherwise
-> sigreturn fails. I think that is already the case today for disabling
-> (the frame still has ENABLE, so sigreturn returns -EINVAL). prctl()
-> changes to WRITE/PUSH are silently reverted.
-
-Yes.
-
-> Another option is to ignore the field on sigreturn and keep it for
-> information only. I favour the latter, but it needs to be a separate
-> patch for discussion and a change to the sigreturn text in
-> Documentation/arch/arm64/gcs.rst.
-
-OK, I can do that.  I'd already prepared something with this as a
-separate commit before the other two, I'll revise it to ignore.
-
---ZxYMydLMYgrvLhA5
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrQzusACgkQJNaLcl1U
-h9Cwnwf9Gx4ar59q2MShlfkqmo9vs8osi96N1I+JJmBry5qav8fHpEOlhyMduFpi
-dZ/HF0zKMadR3kpTnp6qF+slePI/s0J8tsCLM8cksD3uKA/vTBvElOFyFsZe9iZz
-ekTAoUASVzKwK3ckTgF7WBzjGdOlhHnDGTAG7+H4rY7EHIkJWBFlKDuc443F3VLQ
-TFV/42CmPyfhutPgy/t5mfzqaFj47Tm1EqfvULuoyka5m2Y9VMHMSVs8k0GqYjPE
-aiIAENRd+FKI5+cu22XJwCsTlBrLN79UCf6jttfwkm0HyQF10UX/m0NQly/4jCcl
-CrewZT+dhw4wp63+75gAgrT/Z26K3g==
-=CbSG
------END PGP SIGNATURE-----
-
---ZxYMydLMYgrvLhA5--
+Nothing technical per say. I just want it to match the datasheet pin name
+without the extra character in the middle of it.
