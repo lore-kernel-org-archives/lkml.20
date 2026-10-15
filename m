@@ -1,400 +1,146 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012043.outbound.protection.outlook.com [40.93.195.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 331B35326BD
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 17:03:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792083831; cv=none; b=rN1jCXXkpaOKR4T9yK6kWcT2mkf7qeAS+mipgM18MRpfNJHsNd0xRdIFjR+wmgv5hmYaoIbYIKPnCh9Zh9B2w60Pn5E6D1rZHv7UOfGSLRj/tlOt572DPMfvnG1OmEAzMBpwlW803mX0UUExZKaevFjV2xyyFYGAUm4l80s38aE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792083831; c=relaxed/simple;
-	bh=uPGqEDojyLJ4T9lfhZu3FypxrnNQ+CjJPyPFqWS7JIE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=qEQpQUZJNcpBBxR8yH5hNLO4b+BWpoVYCuMTq3isBRHRAR6EoeLPuE2k8EWSvleFpqUCysvj7Cq7Wom41U+qzPPAEX063WBw8bXRkzK3lb19yBK7rp1hukte+lyo/oO7anIVt3qeQrHYhuMtJ1WS6sLrVYreWgGS4braBrQGEfs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SxB+EJ4z; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB7E3551990
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 17:03:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792083841; cv=fail; b=P4gRk0jpcWAvojoegnV9kX/5KVHW8i5Oe2s/d4bRmweOFGgeauf+ZHFfD++F06eh+elhLwQYU5XAo3u9w/mSvlxyU9RmW9h/2POoauvXKocQNUCBBH8N6GWLcNrvndyqa3hLs4F8FyBJm1jolywZ+lTR6M4rWR4oaQLGvCWnOv4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792083841; c=relaxed/simple;
+	bh=sfywZyVTcHbGlemlN/YR+JhWsaNffmDbYyF2AKwuLhM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 Content-Type:MIME-Version; b=Kwr/UbsaAokVFWk8HwyZUTg5vLVPKt2EMWDC+aav4WiosF9slWrT860WxyllhpFZknK/VTeIaIkz+3Y9xvVrFSgJRuiBxzxKS+5kQpaBZGBqgCaSHcamtX8qmnVKoPDkia7j5L6HNXiVr48OAFGyUQFn6lju+OmPNHAEJ6Ckj1s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=uoYXh1i8; arc=fail smtp.client-ip=40.93.195.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SxB+EJ4z"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49fbb2acc90so47055825e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:03:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792083816; x=1792688616; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=VwDK8PbStx/46m4LXZ7crOznWAwX4elJ79EUXp9Hzwc=;
-        b=SxB+EJ4zRjGpanQRkd16ZLbIvOFYIxuFe6JL4B4h5/EsrQps/Uq9PiAhFUqsj2V1kn
-         D4/KE34TqQP5vjfJLtM+zBM0B+vmXHlh0/AyC+O9KTR0ExBkvGz3r7xfyr58E5fCHD6J
-         NisGQX/wELSI/mO/32DC0lgs0PKtpWEV9Ey3PSukTOspMKGN0dO9F/RDAjbV4PzQmfRq
-         J1xfBNY7A5XvE0cZu1FgS5F7xSjXBV1py0CaVGgYY3kirGQdNF25eslunESoCqC6+G83
-         Y6JJyt51Wc0/Djnz6pup0Vwx0ySE2D049thFC8YSpq9qVcpD0JZl87WTTkID8rgp9cLU
-         TZ5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792083816; x=1792688616;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=VwDK8PbStx/46m4LXZ7crOznWAwX4elJ79EUXp9Hzwc=;
-        b=WWuwx1JxcvsO5S5xSIb5KCdc3C469pTLGSupoKpcLRAg+J8Xa9FNoJt+6cmjDqDDht
-         0tFk+4mQOh0P7+GIO4q+rzN6G1mkUnP4RaiLaGL6aNu/8WU9pmgGdC8EwCYhcmokNXhG
-         esrH23Df77LgmscdCpf7DN/SEoKWoz7NB1XNMp9Z340LhuF5+SAKKjkFsS2/zyAOu6Ir
-         TC7FQbrDxaxivC8ki2ETLSH5h2YrUaim1LoZynlof0UVr1rmtl4ZSynSvkRG6JqQArCy
-         lUYpT08E6JFIcLHkU9N+kMm/CZEE7sG4Ldo1tAPVzYDiSiGKJvnA8y/nB4huFm9s6wXL
-         pd9w==
-X-Forwarded-Encrypted: i=1; AKwUvBxPnDH4fnrjyiG3Ng4iupOx6YPWvlbqB8JI0pLoTXnrk/2lYBuUGaTD/tzayRour+Qo4GEwJSQNmoRfis0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLwrlmJh3b5eL5gO/3/eB3mz/CRjUvZoNlWbhDNgW2NgjI5rSd5
-	NG4mPNwByGwQLO6Ybgz9vLlYyfNBg0NTwHoi61sQOwF3InrrZxBhR11X
-X-Gm-Gg: AYBFou1/BRSYtbqWohHyyU794bUygiJxmeGyoF09jnGAoYseWWTqVXNcHRD8RkLnVtV
-	/IlJgQEEFt3pHCr4JMoa1QkzBsWO3XgZrFqDFtLbw+CgTahgcHDDhE3yLX20VybBYEUlZHp7dQB
-	R7IFpCPmHfeamr7aCddM/NlsqpryIAJJnKMMCiG0FAnC6DNEO7qUYXs+cW3M4KSrNjgWfFKpwbb
-	uYVtRZW2eLEGKeNMrGQgo6oSrVceTUN6DTBk/IX2L60ni4IG0UGTT33Dhho3qsIHBoAhYFZWGrC
-	zvlFfENQvStZwKIfXvWNuAQjhnbSQYCcd9N7TBCg+WY2fbbv5YULp6wDMHvpHhU5JCaxfTQ5oJJ
-	ddHP/9gXt0gvaZyjjUV4NFZzYX3TFGz7PqcXZGfvBDowkPZDi6gGCd84pMCMj8bY9PiV+tUBgvS
-	wXocQHqHGPE505ajdQGfr8rs3MpyS6H1+0fgUBWM5oQgkzeAXnPkO2jkcJyF/ByhEiMvbMaoTnF
-	IoAzhLtZKYpMF70VtfDFXvw9SU8yBDj
-X-Received: by 2002:a05:600c:5493:b0:4a1:78da:d271 with SMTP id 5b1f17b1804b1-4a18e4ee976mr429328155e9.30.1792083815973;
-        Thu, 15 Oct 2026 10:03:35 -0700 (PDT)
-Received: from [127.0.1.1] (89-65-152-218.dynamic.play.pl. [89.65.152.218])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bd777fsm18247430f8f.57.2026.10.15.10.03.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 10:03:34 -0700 (PDT)
-From: Roman 'Hedin' Storozhenko <romeusmeister@gmail.com>
-Date: Thu, 15 Oct 2026 19:03:20 +0200
-Subject: [PATCH v3] riscv: mm: Trace TLB flush requests
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="uoYXh1i8"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JU3NlcZOw51d0Hr3Y+nsPND93iP4sx4a7jbzaiKroltYr/t9mpqW9cj8B4w2hfLOLqefdfcIBA7Lln3DBl67KWnScZK/JVE9QzCzxh1o2qd+nBGxwPgpwwBIIRpRxhGHgFXKsKjIS4dut6q4SR5fBQlYJ94aU+YT47FoF7hSy42j4t+8jPYWZo3xOf+mS3WqUAIewOz22AZvPuiYJvHPRj2mYL0qyxlQiadXN0uLVUhYfqo7j0hQ0Mpf9l0j6mdI8Zw5IQEj+5T2uV3sf0pMu61MMhQteqJ9fUhWMiqUy+m8nt8MoO7vxSouff/ioPiikmzV1/XiO/pvb82sAt05LQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EYutc8W9mrLXj/Ah2q+7FdLHhHDjhtZFjXnExcG5res=;
+ b=UkWfhVxbx42JH9pGWkK567OrhrUIIr10XDE4cyzkzcUyRoJPOuTowvJvn5Qu7fK9xxcqDAIAjMR6zlP7r/MqBkB4hCOvOk9eEr6tAtnks04HypPaBcUhfvfkjAcsWAGTUy1hgEkp1jfeIHMFupv7JrclQSFwSjl1euuvTtZ00iEFq1bV67tdxj2YaHSrjR9s30Y1tgPDUeQnhsaPRL6QmYg9buv/cswxkYqcbK61TJWD35YDzIHhzBxL8+pDCxwpnTo8h7LF+7Q+KAsyNcnhkqOkQacA6UyRFMuYRQPvRobSN9goN/NK3Lh4rRb5f4ycyKbV1+vMEhefVqQNxKnKtw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EYutc8W9mrLXj/Ah2q+7FdLHhHDjhtZFjXnExcG5res=;
+ b=uoYXh1i8U/2XY0v7PD/Qz1pxPLMMN29wzX8SHNP2Z92WHzFnMv7cq3BX7Ws3Lh1yNO9pzN6QIpRySTl4sqWDvcPPwtudgV3rkguJqmuT6m86FZTvk/+hlZWpHqAsPPPF/z5X6rCmdWsbbLPSowMgPdudP1P74qqgY5F47IHyaNFsT4QE6YBASW3qXxg4U+QtOPWr1YpRu724ElCchK+PKEQ61iPORftn2yfzjOAHdT+7OqirnRWWLrx81c962lapewj/tqZHB15b1p+SxHxak7Z+k0h5o0LrrvN3f1uLDTOdH6dgCazITVjPqibEBx7SyPmyvGhS7RYQP37A/hqFdg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12) by DS7PR12MB6069.namprd12.prod.outlook.com
+ (2603:10b6:8:9f::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Thu, 15 Oct
+ 2026 17:03:37 +0000
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0522.013; Thu, 15 Oct 2026
+ 17:03:37 +0000
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>, 
+ Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Cc: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Lu Baolu <baolu.lu@linux.intel.com>, 
+ Nicolin Chen <nicolinc@nvidia.com>, iommu@lists.linux.dev, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260929031402.1998253-1-donggeunyoo.kernel@gmail.com>
+References: <20260929031402.1998253-1-donggeunyoo.kernel@gmail.com>
+Subject: Re: [PATCH] iommufd: Keep reserved IOVA ranges when a replace
+ within one IOAS fails
+Message-Id: <179202507372.3602487.5888082994295005845.b4-ty@b4>
+Date: Wed, 14 Oct 2026 21:44:33 -0300
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-ClientProxiedBy: YT1PR01CA0148.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2f::27) To CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-tlb_tracepoint-v3-1-eef305a3bb63@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XM0QqDIBiG4VsJj+dQs+V2tPsYY5j+1Q+VoSIb0
- b3POgrGDr8PnnchATxCILdiIR4SBnRTHuWpIKbXUwcUbd5EMHFhSlxpHJpX9NrA7HCKVEnJWaW
- bil0FyWj20OJ7Dz6eefcYovOfvZ/49v5NJU45ta3VYKGGWvJ7N2oczsaNZEslceAl++EicyiNU
- kZI21bNka/r+gUemBzY6wAAAA==
-X-Change-ID: 20260829-tlb_tracepoint-844105ab5092
-To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Steven Rostedt <rostedt@goodmis.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: Jisheng Zhang <jszhang@kernel.org>, 
- =?utf-8?q?Radim_Kr=C4=8Dm=C3=A1=C5=99?= <rkrcmar@ventanamicro.com>, 
- linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, 
- Roman 'Hedin' Storozhenko <romeusmeister@gmail.com>
-X-Mailer: b4 0.14.3
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|DS7PR12MB6069:EE_
+X-MS-Office365-Filtering-Correlation-Id: 577fb22e-cdd3-4813-7294-08df2ade414a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|56012099006|11063799006|18002099003|10067099003|22082099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	ELNrYcCny2RwaTjtbW3dLlR/VGaB13fPRvGsEkuA7NOmJlqVJl49K5aVf5p+7skgYsK134phkZsbzntHa0Y9o0srI4gMjHGGDGIu1ijtRyzqP+E0Dzlrx6Ob4Mkv552T5tiYCjowWKYl1vzjr6dxTl4vj4dPPvLqZ9sHssiTfRbI0OsOZmYDO9uM2/PowRX9vGnR1eU1nsmqA9uxOqHoEMwHW/LkqayRLGwfaCctZVNTMcbXidO5Pm73yh9MAgHQLv2mX2g4j/VerHUK9Ol97ky6ubg5aoi+t+dygBFQorSFV7YNGXkQaxrRLpIVZiDXO5yA6nJ0OBLVTRezDbM9yPSODJBrHqGiHYSnYsfWgJZXE4HZoWcJ/A6tJs35iQLNsFQ1mPY+j0sHljSGxNSwUsYNcRsQnWHHr0EVDpbamjRV2k1K3+1xWr0kxcZEuhbkijlHRfb1UH2r2jrr9dZS4SM1Hi2klMbA8neZrf4J6puBSDU26NcbmYkGNWIgzHiXiW+DJ6bY9LK/i5kX/8jZa6TEnsftv3/VoiV/jGBP8j0baBr2gzBksivypSGk/EJUrVrn0LE8XRP3ayJebHfB7wIxxsVBqeyuAby1HdDIJykzkB3tqPR4XKS/c6ZZRlZuvAGTa1NlKXy57p0xEzw0QbhV5mu5ThUSwgbrH8m2vuE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(56012099006)(11063799006)(18002099003)(10067099003)(22082099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?OVZNOUVIK1BzT1FBclpLRkxNQjhWQ2VYZTZrTy9qNjZoS3EvRTFzUktQVGtX?=
+ =?utf-8?B?V1lHRjdRcFY3YkU4dUFQNEhWOFN2b2RwNlNqTThsTWhPa2ZVTjNxMXhDdS9z?=
+ =?utf-8?B?UTV4K2NZZHQwZmlieW1XZ1d4elB4U25BVEV1M1o4TWZ1eW9ob2NlTWlocjd6?=
+ =?utf-8?B?bnZrUXdMaFBRd1NENlAyVEljZXFBYStSRDE5SjIzR0E3SWZqbVVreTg5Q1Nj?=
+ =?utf-8?B?RitWaUJPcWxTU0ozUE5hUDd4R0lBK3JIaWVFeVhjZHp5UktCRG1kallqYWtq?=
+ =?utf-8?B?UlRHMEJRYmxWQWRuSnBrQ0pVNHRBMzlUN2djeStQMU9vNkZwdENHb2ZyZjlq?=
+ =?utf-8?B?ZFhvaDJwdXBjcXYvY2RlczNNRzBGYmlNRXpvR0JBWGRDMEpjY2s4MEtLL2pu?=
+ =?utf-8?B?STFpcjlDR0Vic1JOZmZ6ZmZOQnV3aStycjV6UTRSVlpWNzllL2xvMGgyVXRF?=
+ =?utf-8?B?WTZKVmFYT0pNc3l2dzVlMHUwR0NCdlVWN2pTaVZEMk9Vb0o3KzNnQjBCUm9m?=
+ =?utf-8?B?YzJ4NHFFVXhIb0JrMEwzL2t0ai9IS0NVNjdEdHdzOTNiamFFd2pRKzhHL2pZ?=
+ =?utf-8?B?WC9LN0ZQOHdVbGFEd0ZiWkoxeC9HSGZTN2xtajZwMlJmaVhxTk5GRXZ1VFVK?=
+ =?utf-8?B?TmhxTUFMYzZRUGVFaHN5UHRaL0FtZnFvWHdwQjFOZ2VadE8vSVRhTUhHR0ti?=
+ =?utf-8?B?ZWVWTHMrSnhnR1MxZTJSWTlVcjdtcVFyckNUMmpGRkFoMms1V3EwSmJHcHFQ?=
+ =?utf-8?B?c2x2UmsycG5yQUY5WWZiNzczSFB6WFJuNXVsSHBPUFpIQmpqN2hwaUN0WUV3?=
+ =?utf-8?B?dC9VL2lpQzJmOFBQREExaXd1b0ZybGhCUFQ0NkNMajVVSWFCeTFVVTR4Smo3?=
+ =?utf-8?B?RlRsWm9wRTVud1pXNVZ1dEhiUjhOaUU1bVJBSDNDNmZQdDlPVDVEaE1vWmNH?=
+ =?utf-8?B?K1BDNWpHcDF1ZkU1M0I3enhTdEM1Umlua3hCQmF4M2txdHVSMVRSYksrUzdU?=
+ =?utf-8?B?SHUvNGlGS3Q2bHJaWXB4alNPOFZJSzhXSGpjeE5YWTBQd0RTWGQwckw3WlBU?=
+ =?utf-8?B?UklFZDhXOUFQOHh4QTdkNm1xc3ZXQlhSV3E2OHRiVHV2YU9xakF4TnN0aFVC?=
+ =?utf-8?B?Vk00ck0vZlVpOXEzWnNiNUQ5bjc5RDg0Z2JxZlh2VThYb1lTYTYvV2Vha0V2?=
+ =?utf-8?B?Y1JiVGo1S1phT2JmSHVPc0krK0dYWDA1Qm5xWHdhdmNlWWxBZ2lxTG9NNlVy?=
+ =?utf-8?B?RE44OUlRMzlhN0wzYVAyc3pDQ3JMekRPcjRURzA0YkI3SktQR1ZBaEtyNFJu?=
+ =?utf-8?B?K0wwS2pETCsvN3FLQnQrQU1IU0FsWWszcHNRbG5YSUw5T0tWdHZ5OWw1T2lm?=
+ =?utf-8?B?MmRVMnFDWURyYXdOWlEvNURBb0ozMUQ5Z0dGWUVBd1VFOWo4QUVnYVZoblZw?=
+ =?utf-8?B?aVhNYnBVZzhFdW5WTitvbkhRRTMyMHhhN2t0UVFOTDhLdFNRSnpJc3ErbW9o?=
+ =?utf-8?B?ZzM5WmlwM2tyOHJVNEVoNy9tMi80YmRpd3QyS0tFRzlJNDkzVU9Ic3ROc0dZ?=
+ =?utf-8?B?RjRiRlE4K2R5S0M2S1JXNCs5WXcyNExBK2QreEVnVCtRUjF4cFViRWpXRzIv?=
+ =?utf-8?B?amkrY0c2cUlYdG1yaERZcWt4Y1lkSHJlN25kRWs2Znd6M2p6QzRDcDVhM201?=
+ =?utf-8?B?WUpqaUVyYUFvby9NVjU0cmZoMFRWc0p2V2toSzlGY1VTancrMHUxd3kxV0hF?=
+ =?utf-8?B?bkhqMnRPeXQ2aGJadXNEZjVpL1l4cGtIY2xHbkNFdzIyK3RnT3UyNS9zQVNT?=
+ =?utf-8?B?L0JBUCs4aEVPMGJwYzZzYk93bFhwamhsWmd2VWZPcFNpZEVxMHgrdmJwdE5K?=
+ =?utf-8?B?aWh2SmlxWW9WTFVveElnMFNxWittY3dCcW50R1pUTTBVRG5zTlFzYXl5L2FL?=
+ =?utf-8?B?SXEzajYwWnNTMnNiRjBXcjgzbnIrT2tZeUpNMGVDRzUxdUFGdDN4T3gwN29i?=
+ =?utf-8?B?a0R5eThPakRvalFQN2cvRnBNTGh1cnArY01heU5hR3EzcTA3ei9QVFBXVXQv?=
+ =?utf-8?B?ejQ3TUxRM1k2QUxLQWF3YVFmdlVxYkpNWnA3WExpbjVhRmlaNHlrWVFNeHEw?=
+ =?utf-8?B?UU1qQ3lxazY0OFErSUlWM2hMalRzY3RpYnN5UFEyaWdGcEg5WDJjYlkwVWcr?=
+ =?utf-8?B?MWV4cUJvYlVETm1MTFZibkhlWW9UbkZ3VWM2SUE0REhiZ0FrVGpyRWYwbnlo?=
+ =?utf-8?B?SkRUNDVWWU9jNmpHMmZNdGEySitzejFWbDUwK21uUWI4ZmpFejlkaVpYYUIv?=
+ =?utf-8?Q?4XGgfpcjYR6LUEJQMJ?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 577fb22e-cdd3-4813-7294-08df2ade414a
+X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 17:03:37.8249
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: rXuHvVHVEJEn44skG8KxKW5j57fhkYjS7fbRFt6t9Xc6skYE5GmPYEe2sJz5jM/1
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6069
 
-Make RISC-V TLB flush requests observable together with the
-architecture-specific context available when the request reaches the
-RISC-V implementation.
 
-The generic tlb:tlb_flush event describes TLB flush activity using
-architecture-independent reason and page-count information. At the
-RISC-V implementation level, additional request context is available,
-including the invalidation range and stride, ASID, target CPU mask, and
-the requested invalidation scope.
+On Tue, 29 Sep 2026 12:14:02 +0900, Donggeun Yoo wrote:
+> iommufd: Keep reserved IOVA ranges when a replace within one IOAS fails
 
-This information is useful for debugging and workload analysis. The
-target CPU mask can show the address-space CPU footprint involved in an
-invalidation, while the range and stride distinguish requests operating
-on different mapping granularities. Recording the ASID and requested
-scope makes it possible to correlate those requests with other MM,
-scheduler, IPI, and firmware activity.
+Applied, thanks!
 
-Add riscv_tlb:riscv_tlb_flush_request in flush_tlb_all() and
-__flush_tlb_range(). Record start, size, stride, the hardware-visible
-ASID, whether a specific mm is associated with the request, the target
-CPU mask and its weight, and the requested scope.
-
-Record the complete target mask in addition to its weight because CPU
-identity cannot be reconstructed from a count and is useful when
-correlating TLB invalidations with per-CPU activity.
-
-The event describes the semantic invalidation request before it is
-dispatched. It intentionally does not record whether a remote request is
-implemented through SBI RFENCE or Linux cross-CPU coordination, since
-that choice is effectively established during system initialization
-rather than selected independently for each request.
-
-Tested on QEMU virt with OpenSBI using local and shared-mm
-mprotect()/munmap() workloads. These exercised single, range, and
-address-space invalidation requests with different target CPU masks.
-
-Also tested on QEMU virt with APLIC+IMSIC. A MADV_PAGEOUT reclaim
-workload was used to exercise mm-independent global flushes. All scope
-values (single, range, address-space, and all) were observed.
-
-Signed-off-by: Roman 'Hedin' Storozhenko <romeusmeister@gmail.com>
----
-Add a RISC-V tracepoint for observing TLB invalidation requests as they
-reach the architecture-specific implementation.
-
-The generic tlb:tlb_flush event describes TLB flush activity using
-architecture-independent reason and page-count information. At the
-RISC-V implementation level, additional request context is available,
-including the invalidation range and stride, ASID, target CPU mask, and
-derived request scope.
-
-The tracepoint is intended to make RISC-V TLB invalidation activity
-easier to correlate with MM, scheduler, IPI, and firmware activity. For
-mm-associated invalidations, the target CPU mask can show the
-address-space CPU footprint involved in the request, while the range and
-stride distinguish requests operating on different mapping
-granularities.
-
-The event describes the semantic invalidation request before it is
-dispatched. It intentionally does not report whether a remote request is
-implemented through SBI RFENCE or Linux cross-CPU coordination, since
-that choice is effectively established during system initialization
-rather than selected independently for each request.
-
-The patch was tested on QEMU virt with OpenSBI using local and shared-mm
-mprotect()/munmap() workloads. These exercised single, range, and
-address-space invalidation requests with different target CPU masks.
-
-It was also tested on QEMU virt with APLIC+IMSIC. A MADV_PAGEOUT reclaim
-workload was used to exercise mm-independent global flushes. All derived
-request scope values -- single, range, address-space, and all -- were
-observed.
----
-Changes in v3:
-- Rebase on current RISC-V for-next.
-- Thanks to Jisheng Zhang for pointing out that SBI RFENCE versus Linux
-  cross-CPU coordination is effectively a system-wide choice established
-  during initialization rather than a per-request decision.
-- Drop the local/SBI RFENCE/cross-CPU path field.
-- Rename the event from riscv_tlb_flush_path to
-  riscv_tlb_flush_request and refocus it on the semantic TLB
-  invalidation request.
-- Emit one request event independently of the mechanism subsequently
-  used to perform the invalidation.
-- Address checkpatch.pl --strict alignment issues.
-- Link to v2: https://lore.kernel.org/r/20260830-tlb_tracepoint-v2-1-e3c88c24df5b@gmail.com
-
-Changes in v2:
-- Use trace_call__riscv_tlb_flush_path() after the explicit
-  trace_riscv_tlb_flush_path_enabled() check to avoid a second
-  tracepoint static-key test, as suggested by Steven Rostedt.
-- Link to v1: https://lore.kernel.org/r/20260829-tlb_tracepoint-v1-1-dfdaede7e741@gmail.com
----
- arch/riscv/mm/tlbflush.c         | 54 ++++++++++++++++++++----
- include/trace/events/riscv_tlb.h | 90 ++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 137 insertions(+), 7 deletions(-)
-
-diff --git a/arch/riscv/mm/tlbflush.c b/arch/riscv/mm/tlbflush.c
-index 962db300a166..0e7c8088de5e 100644
---- a/arch/riscv/mm/tlbflush.c
-+++ b/arch/riscv/mm/tlbflush.c
-@@ -9,6 +9,9 @@
- #include <asm/mmu_context.h>
- #include <asm/cpufeature.h>
- 
-+#define CREATE_TRACE_POINTS
-+#include <trace/events/riscv_tlb.h>
-+
- #define has_svinval()	riscv_has_extension_unlikely(RISCV_ISA_EXT_SVINVAL)
- 
- /*
-@@ -47,7 +50,9 @@ static void local_flush_tlb_range_threshold_asid(unsigned long start,
- }
- 
- static inline void local_flush_tlb_range_asid(unsigned long start,
--		unsigned long size, unsigned long stride, unsigned long asid)
-+					      unsigned long size,
-+					      unsigned long stride,
-+					      unsigned long asid)
- {
- 	if (size <= stride)
- 		local_flush_tlb_page_asid(start, asid);
-@@ -63,6 +68,32 @@ void local_flush_tlb_kernel_range(unsigned long start, unsigned long end)
- 	local_flush_tlb_range_asid(start, end - start, PAGE_SIZE, FLUSH_TLB_NO_ASID);
- }
- 
-+static enum riscv_tlb_flush_scope
-+riscv_tlb_get_flush_scope(unsigned long size, unsigned long stride, bool has_mm)
-+{
-+	if (size == FLUSH_TLB_MAX_SIZE)
-+		return has_mm ? RISCV_TLB_FLUSH_SCOPE_ADDRESS_SPACE :
-+			RISCV_TLB_FLUSH_SCOPE_ALL;
-+
-+	return size <= stride ? RISCV_TLB_FLUSH_SCOPE_SINGLE :
-+		RISCV_TLB_FLUSH_SCOPE_RANGE;
-+}
-+
-+static __always_inline void
-+riscv_tlb_trace_flush_request(const struct cpumask *cmask, unsigned long start,
-+			      unsigned long size, unsigned long stride,
-+			      unsigned long asid, bool has_mm)
-+{
-+	enum riscv_tlb_flush_scope scope;
-+
-+	if (!trace_riscv_tlb_flush_request_enabled())
-+		return;
-+
-+	scope = riscv_tlb_get_flush_scope(size, stride, has_mm);
-+	trace_call__riscv_tlb_flush_request(start, size, stride, asid, has_mm,
-+					    cmask, scope);
-+}
-+
- static void __ipi_flush_tlb_all(void *info)
- {
- 	local_flush_tlb_all();
-@@ -70,12 +101,18 @@ static void __ipi_flush_tlb_all(void *info)
- 
- void flush_tlb_all(void)
- {
--	if (num_online_cpus() < 2)
-+	riscv_tlb_trace_flush_request(cpu_online_mask, 0,
-+				      FLUSH_TLB_MAX_SIZE, 0,
-+				   FLUSH_TLB_NO_ASID, false);
-+
-+	if (num_online_cpus() < 2) {
- 		local_flush_tlb_all();
--	else if (riscv_use_sbi_for_rfence())
--		sbi_remote_sfence_vma_asid(NULL, 0, FLUSH_TLB_MAX_SIZE, FLUSH_TLB_NO_ASID);
--	else
-+	} else if (riscv_use_sbi_for_rfence()) {
-+		sbi_remote_sfence_vma_asid(NULL, 0, FLUSH_TLB_MAX_SIZE,
-+					   FLUSH_TLB_NO_ASID);
-+	} else {
- 		on_each_cpu(__ipi_flush_tlb_all, NULL, 1);
-+	}
- }
- 
- struct flush_tlb_range_data {
-@@ -105,6 +142,8 @@ static void __flush_tlb_range(struct mm_struct *mm,
- 
- 	cpu = get_cpu();
- 
-+	riscv_tlb_trace_flush_request(cmask, start, size, stride, asid, !!mm);
-+
- 	/* Check if the TLB flush needs to be sent to other CPUs. */
- 	if (cpumask_any_but(cmask, cpu) >= nr_cpu_ids) {
- 		local_flush_tlb_range_asid(start, size, stride, asid);
-@@ -185,7 +224,7 @@ void flush_tlb_kernel_range(unsigned long start, unsigned long end)
- 
- #ifdef CONFIG_TRANSPARENT_HUGEPAGE
- void flush_pmd_tlb_range(struct vm_area_struct *vma, unsigned long start,
--			unsigned long end)
-+			 unsigned long end)
- {
- 	__flush_tlb_range(vma->vm_mm, mm_cpumask(vma->vm_mm),
- 			  start, end - start, PMD_SIZE);
-@@ -205,7 +244,8 @@ bool arch_tlbbatch_should_defer(struct mm_struct *mm)
- }
- 
- void arch_tlbbatch_add_pending(struct arch_tlbflush_unmap_batch *batch,
--		struct mm_struct *mm, unsigned long start, unsigned long end)
-+			       struct mm_struct *mm, unsigned long start,
-+			       unsigned long end)
- {
- 	cpumask_or(&batch->cpumask, &batch->cpumask, mm_cpumask(mm));
- 	mmu_notifier_arch_invalidate_secondary_tlbs(mm, start, end);
-diff --git a/include/trace/events/riscv_tlb.h b/include/trace/events/riscv_tlb.h
-new file mode 100644
-index 000000000000..f289480a2c0e
---- /dev/null
-+++ b/include/trace/events/riscv_tlb.h
-@@ -0,0 +1,90 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#undef TRACE_SYSTEM
-+#define TRACE_SYSTEM riscv_tlb
-+
-+#if !defined(_TRACE_RISCV_TLB_H) || defined(TRACE_HEADER_MULTI_READ)
-+#define _TRACE_RISCV_TLB_H
-+
-+#include <linux/cpumask.h>
-+#include <linux/tracepoint.h>
-+
-+#ifndef _TRACE_RISCV_TLB_ENUMS
-+#define _TRACE_RISCV_TLB_ENUMS
-+
-+enum riscv_tlb_flush_scope {
-+	RISCV_TLB_FLUSH_SCOPE_SINGLE,
-+	RISCV_TLB_FLUSH_SCOPE_RANGE,
-+	RISCV_TLB_FLUSH_SCOPE_ADDRESS_SPACE,
-+	RISCV_TLB_FLUSH_SCOPE_ALL,
-+};
-+
-+#endif /* _TRACE_RISCV_TLB_ENUMS */
-+
-+TRACE_DEFINE_ENUM(RISCV_TLB_FLUSH_SCOPE_SINGLE);
-+TRACE_DEFINE_ENUM(RISCV_TLB_FLUSH_SCOPE_RANGE);
-+TRACE_DEFINE_ENUM(RISCV_TLB_FLUSH_SCOPE_ADDRESS_SPACE);
-+TRACE_DEFINE_ENUM(RISCV_TLB_FLUSH_SCOPE_ALL);
-+
-+#define show_riscv_tlb_flush_scope(scope) \
-+	__print_symbolic(scope, \
-+		{ RISCV_TLB_FLUSH_SCOPE_SINGLE,        "single" }, \
-+		{ RISCV_TLB_FLUSH_SCOPE_RANGE,         "range" }, \
-+		{ RISCV_TLB_FLUSH_SCOPE_ADDRESS_SPACE, "address-space" }, \
-+		{ RISCV_TLB_FLUSH_SCOPE_ALL,           "all" })
-+
-+/*
-+ * Record the invalidation request received by the RISC-V architecture code
-+ *
-+ * The target CPU mask represents the CPUs Linux intends to cover for the
-+ * request. It can be correlated with per-CPU activity, but does not describe
-+ * which harts ultimately performed an invalidation.
-+ *
-+ * The ASID is hardware-visible and may be reused. It must not be treated as a
-+ * persistent identifier for an mm.
-+ *
-+ * The stride describes the invalidation granularity supplied to the RISC-V
-+ * implementation.
-+ *
-+ * The event records the invalidation request before it is dispatched. It does
-+ * not describe the mechanism used to execute the request.
-+ *
-+ */
-+TRACE_EVENT(riscv_tlb_flush_request,
-+	    TP_PROTO(unsigned long start, unsigned long size,
-+		     unsigned long stride, unsigned long asid, bool has_mm,
-+		     const struct cpumask *cmask,
-+		     enum riscv_tlb_flush_scope scope),
-+
-+	TP_ARGS(start, size, stride, asid, has_mm, cmask, scope),
-+
-+	TP_STRUCT__entry(__field(unsigned long, start)
-+		__field(unsigned long, size)
-+		__field(unsigned long, stride)
-+		__field(unsigned long, asid)
-+		__field(bool, has_mm)
-+		__field(unsigned int, target_mask_weight)
-+		__cpumask(target_cpus)
-+		__field(u8, scope)
-+	),
-+
-+	TP_fast_assign(__entry->start = start;
-+		__entry->size = size;
-+		__entry->stride = stride;
-+		__entry->asid = asid;
-+		__entry->has_mm = has_mm;
-+		__entry->target_mask_weight = cpumask_weight(cmask);
-+		__assign_cpumask(target_cpus, cpumask_bits(cmask));
-+		__entry->scope = scope;
-+	),
-+
-+	TP_printk("start=%#lx size=%#lx stride=%#lx asid=%#lx has_mm=%d target_mask_weight=%u target_cpus=%s scope=%s",
-+		  __entry->start, __entry->size, __entry->stride,
-+		  __entry->asid, __entry->has_mm,
-+		  __entry->target_mask_weight, __get_cpumask(target_cpus),
-+		  show_riscv_tlb_flush_scope(__entry->scope))
-+);
-+
-+#endif /* _TRACE_RISCV_TLB_H */
-+
-+/* This part must be outside protection. */
-+#include <trace/define_trace.h>
-
----
-base-commit: a5ae1bf65cee84bcc121d659e7e22a767853f5f5
-change-id: 20260829-tlb_tracepoint-844105ab5092
+[1/1] iommufd: Keep reserved IOVA ranges when a replace within one IOAS fails
+      https://git.kernel.org/pub/scm/linux/kernel/git/jgg/iommufd.git/commit/?id=1e67cca28490f897788c128c650a6f2cbb565403
 
 Best regards,
 -- 
-Roman 'Hedin' Storozhenko <romeusmeister@gmail.com>
+Jason
 
