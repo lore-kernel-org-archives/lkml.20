@@ -1,80 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B24D74A2A6E;
-	Thu, 15 Oct 2026 13:00:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2B9E47ACE4;
+	Thu, 15 Oct 2026 13:00:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792069210; cv=none; b=R1zwoT4B06kHa8F6PTK0T+pj+ZTsWk6dSOMM9nk9jUpTbKbMszMeDBGiYmUS6upk1S0/FQrkFIyELW9dsfKv6R2hWoYomd7jHpkCTCxqkc3sS6v4F6YTM9pFHZZOF5L+ihBMFv3UDG7bQ4oQHF1pU8AHou/HmvrR5XVsgN8P3kg=
+	t=1792069258; cv=none; b=tx72oM2bfW8PTL4k1H+nx//EMg9bCpNUpdvdV5oqxN8wtXcwJBVmIA4jkWQjjO4ILFlAqSRQa3Qqm3rON3ueq77/YqSjKwwz2gVBkFCimfZ1Fa+wYDwyxkTXL0wP5PqkPIh4qw5LZzJDTXbCKOu9QIEFil9j3xqT0UkoBnz2jgw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792069210; c=relaxed/simple;
-	bh=ucz/F/R4tKXfbA2slqJIp4UhMivOpvFyAlmYB5GhpTg=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=RTvxmthDEvEEHKt5WFBnms3pK5JjWSYbiC9yMvuCelOuzjg7/EcdXmX8TlFa378bEr2GABreFq6ryn455GTAOZ4UwQV6r7VJTQ/7XUHWdx/E/xCJKXRm97gX2hrqgHQ3k5n5Dcpa/N06GosM0OE+V3f3lON5g6il9wRJ6Xlqfqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RumX4an3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792069258; c=relaxed/simple;
+	bh=zkKSwzqobtkO50buLWMNOEnQsxnqkwYG6uach0BOGmo=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=j+ASBaqFXIBvF+SjqbWCvDYlB+vWHE46xYwJXnsZfn94mqEkTBQup0annWBsIQMvozME5OJ8xPmV8No90UWntJnBqvnxh7HxJTJIZY/Lfsf6WeuP9RLylUambeocM5qzGxBNOppd66f1uwzm0p8l0CL/Pt6O2UHA5CK20uWVH9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=DERIIPKu; arc=none smtp.client-ip=45.79.88.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RumX4an3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47E871F000C4;
-	Thu, 15 Oct 2026 13:00:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792069207;
-	bh=HWTfC5K89lkNZnNgOaqM40wk6WYWlsj4gyMe+x+8pqM=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=RumX4an3dTCHK4ViRVTayHHYmg5HJtRca1lrJQj825qt7U67pZT1FVF2jteowr+t8
-	 2tC95Crv910KGDMzgmKkHjNh367CJOlHUOrT1jmTzi5yolLtKRPj9gV6Yz4r7l1Vvx
-	 afZ2Fk+PlCcLHuTOrq1huWtD2+FbB9BoEw/LPrbM/QJKkueuaGHGYz7xDngZO2Ol8S
-	 V0bSkZAEtCVKW6dmv8cU9V43TEzA097Qj47Ow38Cms7FgPBKt/6ebQzAmD3hbzHtl0
-	 VvP0NUkvy8j08wtRp50850wnx+l4GiPka3UyMtW6LaA8Hm/VQ1vCF0Do4dUW6uEhb6
-	 XIcIQsnB9km6w==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A30B392EA77;
-	Thu, 15 Oct 2026 13:00:07 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="DERIIPKu"
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 20D4D408F6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
+	t=1792069250; bh=RP/W6qL9Y9sy24N/XTNR7g/wdRCQod3TW5Vn48QZhOw=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+	b=DERIIPKuZ28chcZG/gwdW6ghWeGJWjr3oT/gL5Yc0GU0+VWYowGtxYPE5S/l64Kpf
+	 xwcvm5IdlpQtFxLYtn9k9J1eW3Nu9TiFkgSptEaJ2ao05i9CRhWVSDcl6VqfCuaGNF
+	 nRiT7YGLmUEffjhOhiZZ3TRSqXmRYzqCjoM/CKEoN5RKDtw1f+QbAXHQibbKcGmipx
+	 odd4ybaK77K3zaXzvqOUhaV9NVVDFFaGK/OTMVFXihk7Pqn79zFCMARvuLSfqZ/Sox
+	 0jJ36ZWiXPPMFenMCV1vX8fD78/GAJnOn5JlrTWh/2l+eDOy+B2m7mMH0M7t/v3zNb
+	 JcVx5qcWc8w2A==
+Received: from localhost (unknown [IPv6:2601:280:4600:814::1fe])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by ms.lwn.net (Postfix) with ESMTPSA id 20D4D408F6;
+	Thu, 15 Oct 2026 13:00:50 +0000 (UTC)
+From: Jonathan Corbet <corbet@lwn.net>
+To: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ skhan@linuxfoundation.org, rdunlap@infradead.org, mchehab@kernel.org,
+ aleksandr.loktionov@intel.com, bvanassche@acm.org,
+ tudor.ambarus@linaro.org, emmaonana18@gmail.com
+Subject: Re: [PATCH] docs: kdoc: strip DOMAIN_NS() wrapper in function
+ prototypes
+In-Reply-To: <20261015005314.7195-1-emmaonana18@gmail.com>
+References: <20261014224714.16922-1-emmaonana18@gmail.com>
+ <20261015005314.7195-1-emmaonana18@gmail.com>
+Date: Thu, 15 Oct 2026 07:00:49 -0600
+Message-ID: <8733u7t8xq.fsf@trenco.lwn.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v4] net: stmmac: dwmac1000: clear the RGMII status
- interrupt
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179206920579.3420246.7646480278225164720.git-patchwork-notify@kernel.org>
-Date: Thu, 15 Oct 2026 13:00:05 +0000
-References: <20261009201709.1917585-1-iav@iav.lv>
-In-Reply-To: <20261009201709.1917585-1-iav@iav.lv>
-To: Igor Velkov <iav@iav.lv>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- rmk+kernel@armlinux.org.uk, daniel.machon@microchip.com,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain
 
-Hello:
+Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com> writes:
 
-This patch was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+> On Wed, 14 Oct 2026 11:22:02 -0600, Jonathan Corbet <corbet@lwn.net> wrote:
+>>> Neither of these patches applies to docs-next...what did you base them
+>>> on?
+>>
+>> Hi Jon,
+>>
+>> I had mistakenly based both patches on mainline rather than docs-next.
+>> I have rebased both on top of docs-next and sent a v2 for each:
+>>
+>> - docs: kdoc: handle TRACE_EVENT_FN() family in tracepoint parser:
+>>   https://lore.kernel.org/all/20261014223134.14772-1-emmaonana18@gmail.com/
+>>
+>> - docs: kdoc: strip DOMAIN_NS() wrapper in function prototypes:
+>>   https://lore.kernel.org/all/20261014223437.16164-1-emmaonana18@gmail.com/
+>>
+>
+> I just noticed another mistake on my part, because I prepared
+> the two v2 patches on separate independent branches off docs-next, both
+> patches add their regression test at the exact same location in
+> tools/unittests/test_kdoc_parser.py (line 444). Applying them sequentially will
+> cause a merge conflict
+>
+> I didn't realize that patches modifying the exact same context in a file
+> should be stacked sequentially on a single branch as a patch series
+> rather than developed on separate branches.
+>
+> Should I respin them as a 2-patch series against docs-next,
+> or would you prefer to resolve when applying?
 
-On Fri,  9 Oct 2026 23:17:09 +0300 you wrote:
-> Since commit 2e2c878a3141 ("net: stmmac: remove SGMII/RGMII/SMII
-> interrupt handling") nothing on the RGMII path reads GMAC_RGSMIIIS, so
-> RGSMIIIS stays pending behind GMAC_INT_MASK from the first link change
-> on. stmmac_resume() resets the MAC in stmmac_hw_setup(); the reset sets
-> GMAC_INT_MASK to 0 until dwmac1000_core_init() writes the mask again,
-> and the pending status storms the line:
-> 
-> [...]
+Redo them as a two-patch series if you could.
 
-Here is the summary with links:
-  - [net,v4] net: stmmac: dwmac1000: clear the RGMII status interrupt
-    https://git.kernel.org/netdev/net/c/aa07285705f8
+Thanks,
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+jon
