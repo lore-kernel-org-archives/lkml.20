@@ -1,132 +1,233 @@
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4823A2417DE
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:45:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.174
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792075558; cv=none; b=hhqM0srGvRELPnKFKiKGQJxAmzF/5NqVIIR2HjLjqjWYzrtln8MvAbcI7lyLmExjl7lY1XYSe7mc+E4mpT++kZ0x4YUOYbLsNH9A/rMLoISilrej2zd5OGWb2b+wsN55i57aLmmAVGA3ogxIRgXRuIASkeon9Vo6GuGJhEoG67I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792075558; c=relaxed/simple;
-	bh=J1DmfvQ3bSlmu/fY22Cf1h8mrdFixKrrTxBkC8vPwI0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HD0/xGXwQWDmMvgBXvHQbWStpoWVLTYmMIqOpSSih0WgAF0qSTcNaMyFeCthhqKVqK7NlH/C0GyT6cIAO2mxjDcyyFGRZQwwX2Xfl/OGmgPFrEIbvM4UgzTrrgIWGbxT1zA6TOynNs3pVsx/MDsARMaGIPSINa2h+JE2QA0plhc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s8W2ipto; arc=none smtp.client-ip=209.85.128.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24EAD3C584B
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:45:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792075560; cv=pass; b=GDlOJ1QAAC+q/WR4IgalhproWmkb1zGbTAzd/A7SObmfIVZeiNKfZTkVuXkjSI9coKsHORq4sOY6VOIKylDHxN49G+LC7IMRTfl2Z1LFToRqW0j5qgoKpwfXB2skaH/akg9vKU4Ktkp2uuHU0YWiCOKKwjl/U6/Cs01FrbPkds4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792075560; c=relaxed/simple;
+	bh=7kTPqpLAh+L97oFkxfh+4rZx6U3XxL8GE5687Tp1CcA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Ho1vrYI/5rfc5yN1AEzy67bo081t0ChSZ5kpeqYevfn9kI0sdEJD9Pcg5+mZBt7Qs3/61wVnwl2vt7O1pRNyttO9ZGjOHB/C7eB750uIMmttwmVDHdYaMBoCfp6G5BxG9djBmi/sDD1emZ5Q3HxmfAmN1+9kraPFuFhEu5SymQo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=gmBbjdG+; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=S8V8/SC1; arc=pass smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s8W2ipto"
-Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-8ab432273c5so48108497b3.3
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:45:57 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gmBbjdG+";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="S8V8/SC1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792075558;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kJMrs0BTYtg7WetIITx1Ab2b5lfsKukYxYHcdWEU7D8=;
+	b=gmBbjdG+bTFmYJjjCB6IrqsMQydU5OqQC2jIKe8gPp7rQR/aR0uMiQEpfG7urVeW81iGJb
+	sJLQQ9kQq1pypO60xODCCyRPVwbAdA6U62CO69AEVxPOZbsIrgrKf+BDCLhM3xuXyzEM7g
+	k/AZxIJfS9SdHUqeURZHbQTiH3DYRmw=
+Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com
+ [209.85.160.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-674-kfmsO6TaNwGKqK_eLBhj1A-1; Thu, 15 Oct 2026 14:45:56 +0000
+X-MC-Unique: kfmsO6TaNwGKqK_eLBhj1A-1
+X-Mimecast-MFC-AGG-ID: kfmsO6TaNwGKqK_eLBhj1A_1792075556
+Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-47cfa971c9eso83736fac.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:45:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792075556; cv=none;
+        d=google.com; s=arc-20260327;
+        b=eKMnYvqzJRDXinngEk1RtmNpkgtkJWxgFw+GySbIcfxuwgzbIudxR/4JYr0a4jeHrz
+         izlRmonoJBzsI13Sp2mehYhZ2WHkpyMqNOVIGfoFvavCLecTokLg9qIZGrMcyMz9Ht1f
+         810p56z+xE4NfhSMFxUpL5EKM+O83Kxmg9gdDaOiI1T94nlXLeolQiwwWHKS8oJnj8jh
+         vTK9upMCSkF1NUdYTtknoigyx96DiiRjYbsv8yA7zdhlE90TR17JyFttyuUAd7c+JwuO
+         XTi+nnjcxcCWK7Noe9jFJo3IRska0pNlMLc54DhsT6dci4T7p457hPoiYuMSxEvouAWO
+         C6LA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=kJMrs0BTYtg7WetIITx1Ab2b5lfsKukYxYHcdWEU7D8=;
+        fh=dU7kybUWus+0JtpBAA8imxDIymjl7n97B6F+rEW3QC8=;
+        b=o8tXAffLE5mv8keK+fQZlL/IVQJ1SGc6X20jBUFR/QaT/yFO4hC1y9KQfz2cPU6RSr
+         p/CI6De7fB+ka2bUb45Cq0TFxyGid6ejTnUt8CqV+nn5lTt6NzEDSgkYSq1QiCKCohYM
+         9tJEuCk4RSa6liyDG8AYp6zFXDwP+b6fFWq4Qru5DTs7miXiB8hFKoOvbtvkcxEoqeUT
+         AbzRI9jOF2vlMeY8RYEufQHFsi8yTHXegdPzYNgcLpMaKrV2UX7MmmfPG/3iv+kXJ5PI
+         fGszJrlo13xnlWj7kUmwvKDa1SCXMKHbzhjgsjDqD3s1kEbtlop0UO6JjXeZ9nnn1g8n
+         h1Kw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792075556; x=1792680356; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nY8bEQTDRiBiqLeVmhJUy+oN+INRLBn8jSuVjWbtsUo=;
-        b=s8W2ipto/aWRWpFxAIqUY6y0MSrQssOEs/bVyNaujmvpukZ/Xm4257+Nmh/TpUJ4d8
-         bzP6n0CIHixnzcTPP6PZDBtH3cUB3d6LgC9tWAqFS68aJZke8a9PvvsXIz3cxv7S6/Et
-         VurJ6vRUZ3/KlayrHsom4nmFQD9m0XzhqR43r/qSRXdUZYJyGfe5pJsNt5x+xbzrL3DK
-         JF0DO2xO8aMDppAPR5TvXMENm11uv/XfxohFEmZRjovHeidH1Ngi5IoMlCgf2WXHqu+V
-         dLCC6eUhOwTsxaB7RJ235swfCQlCZd8pnoIeh3glU1RHAI/JzgSw0OGUyFUXHhYD72kE
-         tIQg==
+        d=redhat.com; s=google; t=1792075556; x=1792680356; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kJMrs0BTYtg7WetIITx1Ab2b5lfsKukYxYHcdWEU7D8=;
+        b=S8V8/SC1KORhzrxzC7R+m/vG29QzYYZGH9wev7JsB2jQEGBYDxeR/NQCRS20SZLAoD
+         dDIFtVK0Ah7Ce34gAQA0RYZnLMKrSkFoGjPLhjxC3yaYAbmDiWPqs4E3wL8og8JhoBds
+         sHGnu67q8AC7ZRJy56IpPpOq6FAfD40Oh+OVQrYwsqBJv/qO/TEdP9nqobURCjGF4Dyx
+         EZyHxBlGg8yfy5SolW/5BeLMxIGcEYLEGXYxY86zD7XbWT8kyywvG6rw7S6w5Rt0ZzPT
+         HsWBC4S1nYHj06DMyI6Gf5/YuRXF0LEgbYL/KRf8FdUzEt05w+tZHiD6tqVizfMejZRp
+         6tqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1792075556; x=1792680356;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nY8bEQTDRiBiqLeVmhJUy+oN+INRLBn8jSuVjWbtsUo=;
-        b=INibrD8hqvZ5AhUpB6fv9wfHlDrZ/bdX+XnOgN4eLTSexywM+JchNUYaJuun//OIqQ
-         h86zblyd1I8liG7+DOSZWJDPDG1rGX0Jiy+KwY8+Pw//qgEXtP6oKolMy92lIHpzkejV
-         4BX7cid8BcZ9MBjqQgHXPk0s3yN46Mtd+ljs6WC0Y1fjO9qQVBkadsG55MQupxoJmq5e
-         P8AcEWWfLMjnTqmUxrKOhHjLAk40IMl0jKH2hntlVAwRLkyjzNapOS3c3dq5FmEQBy8S
-         OIsX7o5lgUglK3icNb3mjTrok+XH1YY8UGYmBdkRnYoK0fheHIcUk1mnM2bWWxI2ibgG
-         mP5A==
-X-Forwarded-Encrypted: i=1; AKwUvBwC/xwu2yiRfEopOanzxAv45U2R0Z9wTiNsGbeNWuIoVPCFdMV/NyYk3l8sme4o1buAL4pKOFET1X/yKEY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKVmithfPdo13A/3LL8TAa6C0YbLP6rlIf1b+o087LdJ/OKbhy/
-	85CldSvrdxgyHY3X4ba7g1VjrisE40RNQ0XMNiLudg27S6SGPMKKGVUT
-X-Gm-Gg: AYBFou3MnNzv3tt9izdnO7d0uKCGltccp/qLFou972VUd5ZTM3pJwZlkz+amvzJM2k4
-	vDvyT4rawf7EEcLxPKTiRZjN5VBN91r/GESiVYkSEVmr/dszKL8B+ZMiKoo3+4UN0CS0GKG+PAa
-	OtkUI3b3Se0UgwHJkPnF89xZSlHm9foRswvyu45f+j79RPUKoDKIDV1bfFIfR9HcCrlv+UQwabL
-	4+yR/2fh2eibC5+r8dZpCRfCk/SO/xmoa3eAT74et8EjNURF4Xgjo9fEdrOMcbfpCFOga3092gs
-	HYLa9xuJCem8GPJtrKtUq0ino6wERUcKhNsid0quf8XiDDdBoaM96LBUhJKxyEUuCsSeUf/GBX3
-	YPMHi7q8B8/X/ikAPs7jYIkdJLet5SQnJ/TB0iZk+zcnMK48SQu5A+xb/pLmKe1bbg/ZGIwvdto
-	JgRQ8l9qHUqN8k22h7o2DjKD5c6qYXbKJw+tHR/lJPQx2bt2kE1De//UiLRJ29tLMeKdzfE7fgg
-	S6pRjmXTosPLoC6OpXckNpuZZR5TcBN5cEF+EfpuARp1FPaLS6I
-X-Received: by 2002:a05:690c:402f:b0:8ae:c015:3e36 with SMTP id 00721157ae682-8b07eebfba0mr45173167b3.50.1792075555970;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kJMrs0BTYtg7WetIITx1Ab2b5lfsKukYxYHcdWEU7D8=;
+        b=l5YlOa4121FBS3CrZQYtQTs5+XhXvEKhpktuGuAqAEiOI4Z6kbj2jnPsKBSfuxNaHz
+         OMLit1A30txG90niPt0+/Rd/yp58hmK+VECQYyR3vKlQuGfEpEBVk3eQwyyDs3QJeKEQ
+         VGhsj6LcwW3oHvHKq6DgLNoGgybIU8jn5asFPhnoAxkj0AOVSMyrbQRgU0QZojRuAKBq
+         Pgl2Yf/JDGSDTZv9qhhkVUQSqNnCV/qYaVWdH6MdLhlIvSX+JjpjcpGNUut0xOefxDy/
+         8qCz1LtPod3SF/w6xypwR3vdcuGGS12kL8nJquvQ48bEmJ0RqNCHKFEZ/5B4jC2qN/ax
+         QN/g==
+X-Forwarded-Encrypted: i=1; AKwUvBwzGSUsAVtQ7Q2dac5Ast/uB0JNbkZJzZHBEDR0ppek3AJydNkSzneIRUE87VYxnh4TZDACIHKklUVYcTo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIZdzKmENamuQQiUwyU53RDT585HI5KxiJmq+f0B7E/XlTB0M8s
+	9D6IH/ffBRXdovwAPw36QZHe2d8GGQwF51oNhiEN6d7uuaie547COMGIwcAggonF8ib7KY+FQf1
+	LM4CfzEDBxg7jwoswdO9b05uHx0GSUYp1m3cz/IgPuHtMpIuxJzKduIKFMGhUtzkqyYjpsY78nq
+	lWTRpvLgVfrbK9DlhDflHfgoWFOqyh/zOEgPE7iqa4
+X-Gm-Gg: AYBFou1aB8Oz/nysXh8IvTLZF/FBNWBmHIjB9Adm8JtR+6GbOzccQeHlHjtAsH9KKGq
+	wSUD77fuSmpSY/4pyggW71MMYhvQKs+i90CSTUt9mi/4JVqSecMxdlwl+WqQqLJ0MUB3sF2X3lj
+	bPN6aQ/V/WnkSdTccKj6hVIbIOsmB8pY88hOcLgRDsaUCUzSxC2ROigeHe3GKGxB8GZ1E9gh8dV
+	ZgXBCXofWkBGr/yGg==
+X-Received: by 2002:a05:6808:c227:b0:4ca:9850:4dd8 with SMTP id 5614622812f47-536fafdd8ccmr207184b6e.10.1792075555626;
         Thu, 15 Oct 2026 07:45:55 -0700 (PDT)
-Received: from [10.5.0.2] ([186.247.181.208])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b07f1ea845sm67908267b3.24.2026.10.15.07.45.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 07:45:55 -0700 (PDT)
-Message-ID: <de94c8cd-0afc-4a35-bf81-019a8e4cc8e8@gmail.com>
-Date: Thu, 15 Oct 2026 08:45:54 -0600
+X-Received: by 2002:a05:6808:c227:b0:4ca:9850:4dd8 with SMTP id
+ 5614622812f47-536fafdd8ccmr207137b6e.10.1792075555012; Thu, 15 Oct 2026
+ 07:45:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] staging: nvec: use guard(mutex) in nvec_write_sync()
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jeremy Dean Clifton <deaner92@yahoo.com>
-Cc: Marc Dietrich <marvin24@gmx.de>, ac100@lists.launchpad.net,
- linux-tegra@vger.kernel.org, linux-staging@lists.linux.dev,
- linux-kernel@vger.kernel.org, Julia Lawall <julia.lawall@inria.fr>
-References: <20261012222926.7754-1-deaner92.ref@yahoo.com>
- <20261012222926.7754-1-deaner92@yahoo.com>
- <2026101335-expansive-veteran-c4d6@gregkh>
-Content-Language: en-US
-From: Jeremy Dean Clifton <gservice341@gmail.com>
-In-Reply-To: <2026101335-expansive-veteran-c4d6@gregkh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261015020811.1132314-1-keng-yu.lin@hpe.com> <CAJZ5v0iYieKPAQTDcr+g6o+JHz+kMRqYYmakeBsyn-BxtxQcvw@mail.gmail.com>
+In-Reply-To: <CAJZ5v0iYieKPAQTDcr+g6o+JHz+kMRqYYmakeBsyn-BxtxQcvw@mail.gmail.com>
+From: Desnes Nunes <desnesn@redhat.com>
+Date: Thu, 15 Oct 2026 11:45:43 -0300
+X-Gm-Features: AclHuK_vz2mggd0RcuByATED0GopB3zO_jGEVLBVHom48STilEFyTjbRWniIMTY
+Message-ID: <CACaw+ey8pZb=Vg+FDaK+K=iyho634sgs=G7nm60mooCD=PuVFg@mail.gmail.com>
+Subject: Re: [PATCH v3] PCI/PM: Restore BARs after powering up during enumeration
+To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Cc: Keng-Yu Lin <keng-yu.lin@hpe.com>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Mario Limonciello <mario.limonciello@amd.com>, Matthew Ruffell <matthew.ruffell@canonical.com>, 
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, andy.liang@hpe.com, david.chang@hpe.com, 
+	s.collins@hpe.com, jenifer.golmitz@hpe.com, pravallika.kamma@hpe.com, 
+	zhen-dong.lai@hpe.com, zachary.pabor-ext@hpe.com, acelan.kao@canonical.com, 
+	michael.reed@canonical.com, dlee@hpe.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/13/26 12:15 AM, Greg Kroah-Hartman wrote:
-> On Mon, Oct 12, 2026 at 10:29:26PM +0000, Jeremy Dean Clifton wrote:
->> The three return paths of nvec_write_sync() each release
->> sync_write_mutex with explicit unlock calls.
->>
->> Use guard(mutex) to unlock the lock automatically on any return
->> path.
->>
->> This removes the three mutex_unlock() calls.
->>
->> No functional change.
->>
->> Signed-off-by: Jeremy Dean Clifton <deaner92@yahoo.com>
->> ---
->> v2:
->>   - Reword the commit message to state the motivation and to make
->>     clear that removing the mutex_unlock() calls is the result of
->>     the change (Julia Lawall).
->> v1: https://lore.kernel.org/all/20261012171312.5998-1-deaner92@yahoo.com/
-> 
-> Please read the archives for why I will not take guard() rewrites of
-> staging drivers (nor do I want to see you use a LLM in here either.)
-> 
-> sorry,
-> 
-> greg k-h
-
-Hello Greg + Everyone,
+Reviewed-by: Desnes Nunes <desnesn@redhat.com>
 
 
-It turns out that I was unknowingly subscribed to this list and started 
-creating patches for the Outreachy group without ever having submitted 
-an application to Outreachy. I just wanted to learn how to contribute to 
-the Linux Kernel and I saw https://kernelnewbies.org/ as a direct 
-connection to Outreachy.
+Desnes Nunes
 
-While I am technically not part of this cohort, I can still review 
-patches. What is preferred?
 
-I assume that the same rules apply outside of Outreachy? No LLMs and no 
-guard() rewrites.
-
-Jeremy
-
+On Thu, Oct 15, 2026 at 11:15=E2=80=AFAM Rafael J. Wysocki (Intel)
+<rafael@kernel.org> wrote:
+>
+> On Thu, Oct 15, 2026 at 4:08=E2=80=AFAM Keng-Yu Lin <keng-yu.lin@hpe.com>=
+ wrote:
+> >
+> > Commit 4d4c10f763d7 ("PCI: Explicitly put devices into D0 when
+> > initializing") added pci_pm_power_up_and_verify_state() to pci_pm_init(=
+).
+> > The helper ignores pci_power_up()'s return value indicating that BARs
+> > need restoring. Its resume callers restore saved configuration
+> > afterwards; pci_pm_init() does not.
+> >
+> > D3hot-to-D0 may reset a device and lose its BARs (PCI PM 1.2, sec 5.4.1=
+).
+> > After enumeration powers it up, pci_enable_device() reads D0 and skips
+> > the full power-up path. Previously, a device still in D3hot at enable
+> > time took that path, including BAR restoration.
+> >
+> > On AMD Venice SP7, two AMD xHCI controllers [1022:17d2] are in runtime
+> > D3hot with No_Soft_Reset clear before kdump. Diagnostic reads on
+> > v7.3-rc6-37 show the following for 0000:01:00.4 in the crash kernel:
+> >
+> >                                    PMCSR      BAR0
+> >   before the platform power call   0003       f4100004
+> >   after the platform power call    0003       f4100004
+> >   after native D0 power-up         0000       00000004
+> >
+> > The upper BAR DWORD stays zero. pci_power_up() returns 1, but the BAR
+> > address remains zero while dev->resource[0] still contains 0xf4100000.
+> > Without BAR restoration, the crash kernel hangs during boot. The
+> > last console output includes:
+> >
+> >   pci 0000:01:00.4: enabling device (0000 -> 0002)
+> >
+> > Restoring both controllers' BARs gives matching readbacks and allows
+> > kdump to save a vmcore and reboot. An AMD Turin xHCI [1022:1557] shows
+> > the same BAR loss; restoring its BAR also allows kdump to complete.
+> >
+> > Read the initial power state first. Otherwise, pci_power_up() may
+> > request a BAR restore based on a cached PCI_UNKNOWN state, even
+> > when the device is already in D0.
+> >
+> > For devices already in D0, only synchronize the platform state so
+> > that ACPI calls such as _REG still run. For other states, use
+> > pci_set_full_power_state() to power up the device and restore BARs
+> > when needed.
+> >
+> > Suggested-by: Mario Limonciello <mario.limonciello@amd.com>
+> > Suggested-by: Rafael J. Wysocki <rafael@kernel.org>
+> > Fixes: 4d4c10f763d7 ("PCI: Explicitly put devices into D0 when initiali=
+zing")
+> > Link: https://lore.kernel.org/r/CAJZ5v0ie2AvCbdv8-zkpYzHLcTwUPUj+=3DWWO=
+QjDAPmSepSAQPg@mail.gmail.com/
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Keng-Yu Lin <keng-yu.lin@hpe.com>
+>
+> Reviewed-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
+>
+> > ---
+> >
+> > Changes in v3:
+> > - Use Rafael's sequence: sync only the platform state for devices
+> >   already in D0, and use pci_set_full_power_state() otherwise.
+> > - The D0 path no longer runs the full helper's ASPM update.
+> >
+> > Tested with diagnostic prints on AMD Venice SP7 and Turin. Normal
+> > boots made no BAR writes from this path. The crash kernels restored
+> > only the cleared xHCI BARs (two on Venice, one on Turin), with matching
+> > readbacks. Both systems saved a vmcore and rebooted.
+> >
+> > v2: https://lore.kernel.org/r/20261012104645.975190-1-keng-yu.lin@hpe.c=
+om/
+> >
+> >  drivers/pci/pci.c | 10 +++++++++-
+> >  1 file changed, 9 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+> > index 8cc6a89130b5..895969fe4520 100644
+> > --- a/drivers/pci/pci.c
+> > +++ b/drivers/pci/pci.c
+> > @@ -3255,7 +3255,15 @@ void pci_pm_init(struct pci_dev *dev)
+> >         }
+> >
+> >  poweron:
+> > -       pci_pm_power_up_and_verify_state(dev);
+> > +       pci_update_current_state(dev, PCI_UNKNOWN);
+> > +       if (dev->current_state =3D=3D PCI_D0) {
+> > +               /* No need to do a full power-up, just sync-up the plat=
+form state. */
+> > +               platform_pci_set_power_state(dev, PCI_D0);
+> > +       } else {
+> > +               /* Power up the device and restore BARs if necessary. *=
+/
+> > +               pci_set_full_power_state(dev, false);
+> > +       }
+> > +       pci_update_current_state(dev, PCI_D0);
+> >         pm_runtime_forbid(&dev->dev);
+> >
+> >         /*
+> >
+> > base-commit: 7b63ef2d55f24519e7e9e5f4d15dbea03f126e40
+> > --
+> > 2.43.0
+>
 
