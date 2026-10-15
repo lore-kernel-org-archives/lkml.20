@@ -1,105 +1,72 @@
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC7A74E36CB
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:09:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.177
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792066148; cv=pass; b=lg2Z2005yTN5nvUUTx1LscBK7x8lnsZfOJXu4Ta7SdZkzMma378PvoVIlprIBrvD26X8wk0Zg6y6jnS4cHkSD5bzusv5nUt/+PUbIFTwkcb4S4+Z+mF3d4BQqg6dpgo2sM6cD09PD3BZ1M8aQwgf3jdROwmXwaMWNov1nkl0iLA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792066148; c=relaxed/simple;
-	bh=Tn4Bwf989zU+vfqBKp/1hHI1RbuQhdvNeZ4zj4a7kQ8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OTA8ayBScqKt2+dF0LxDvUPymwl0bc2IxEftj/ddgDUH5lmQcm47WkJocqdRw5swWnD8VGFU+24UDRiFI10R2YxpSbEzZEovhZfOb8JaqmGNqQhXETDiK+qB+rOEK/EyN0Gq5QTNOES8JgQhzbJc6YRDg38/+I4n1vHMS85yXRo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu; spf=pass smtp.mailfrom=szeredi.hu; dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b=HR9EQ6eY; arc=pass smtp.client-ip=209.85.160.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szeredi.hu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E497C44065D;
+	Thu, 15 Oct 2026 12:09:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792066163; cv=none; b=gUlULwV84JaF8HstSRXNonLYoKl6e4YkQGPF4xAgmElH4Fh6dgde1hjPldNtxrSJkc9HhzKtJpzUBNBVSyN8Tk+1TFhiNqSCe1SBnkge7G/Fc0yklTEAjpclCUGhlJAhMzi5p1ZIIbPkilbrMs+/SRqguviI3/y9/kECRB0zEkY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792066163; c=relaxed/simple;
+	bh=0sn3RFOrakh++JgrNMf2BtdPuCWAW2pSyF92AX0juuc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=PogUhOQwBwXtYUNEZRw+G+CGlcrZCfFf4zIgPQGrdVwjpyO/DWond3+o6ouRDDTXm+zOtoF6Xk+SJKtNzC3sHP8U2oKDmP8jdtC1wpwGG8nGInlu+o4emkbn8t89lhLFRvaCPs+u2YrAmXd/Z2/uIRD14SO4XuMDjeNBfVdDxug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=jzVH2l5U; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b="HR9EQ6eY"
-Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-53506b44151so68144641cf.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:09:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792066146; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ciC+sjJ5DElWHuRHhn5oPldeUsRgMzNG8VQoD5g4rd8QIZxBh4GT3Kk2Tz3AdHFqUi
-         tKBkkIKVdMOLp4pDT6G6deMQ7FeLcfa0F7mREiD5+WWITMJeYMzLGny503p12F+2F2kS
-         UhMj0sC1I5bAigeL5uVOo2S3mWVALON+5iCj30L6XHT+tC+JzeRTiksbq3sT7uETaH3Y
-         ONcHLt75rerX8oCq4AHtbUv/VB3LXjTofMe4b9Sbt4D/OOsXVMQ+1mJEPDpLelnGibIG
-         1IwiL34yvxkQqFnCMILItrBFdg6y5cSN9LvvB+VzI0YhU3BEVC5XG/aknWio62lhH0uS
-         6DSA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=EuB4B7ZnWplYnhY+9ZiWZLsBoz1eFbqptmJoU4XkYXE=;
-        fh=OUy6KkYFlx334KgoiVh/+ZNk84R0ubmV4juDrzFq9IY=;
-        b=I1iQj/wm1SULccE9gBDTrnmyedJGpaSLFpkMkwuBYGEy0kCFvAUtlmUFcdlYXwKk9Y
-         2byt6fHN9mw7VaKi/24eNd1eJY8S5gIeB/XWk4xr2J/n7Q9EAm1yt1l6hnNyZWmPWv8w
-         xvrpGIouCH7tjzKfa7U4rig4OGqCY0bhJFMJUE3YL3WVWrw5z/4fmQP9Q+8U2jV5w8sm
-         AbF52rgQLvubmZCNkMVh8Hbq6fs99hTaw+3H08F+LgkSjDVFXS6cEl03RQ7+kjGzrHfg
-         yRKQUb2zKFf4a613DyYjKerTarQdFNbILdkpneNyKLIIhTd9D+zJ2/HbjIo3pcTu02Ze
-         83Fg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=szeredi.hu; s=google; t=1792066146; x=1792670946; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EuB4B7ZnWplYnhY+9ZiWZLsBoz1eFbqptmJoU4XkYXE=;
-        b=HR9EQ6eYaIcqfwfjeVRwxz886QFNpWC4KdBYO+rfwJRCV/stF4kbDDSefzDtUTIwEt
-         mFNJBgcFSeaj1UkHmUzl5Q5vDcoEy+OHMAykNXx87jyC3xCd/HuTZ46yK8jsi8dWVAkk
-         mQP5Mpmh2lqQ9NTdRVA1rwBmaj7q6Y40JCK4s=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792066146; x=1792670946;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=EuB4B7ZnWplYnhY+9ZiWZLsBoz1eFbqptmJoU4XkYXE=;
-        b=keFCOagIlrZArerDM67wnsDgBBOwZ02DBEtGrcYxMv2CfHGojlp3hqdQNqJ4NbWjZi
-         Bf0DTG/atGfxsIEiEooYxvAGk0dezlx1DvWtd77MZCGfp+WBgsCrXiEL3JIQBFIX0RrN
-         xbxrOnieACbLkhqk/KkkFNtcSf6NySSPrpyGBNN8qQUeRY+C6tFeQoYXOQEggdFsd+z6
-         pEvfIKlJnEUfZbonxmft1M96pCHvRnmwBz5zkSg/ZXUsVYf8arH5CNpl7E1FmLBEaDHi
-         2hiFAHwO31PoJrErH7LE4ETSznBDvs2UXrgzf9GL7wtU2p1vd7mWCSuyRICbIhwY0P4v
-         dzpg==
-X-Forwarded-Encrypted: i=1; AKwUvBwzlubH4/V1Wn15JhsVG8fM+sJeja/qxeiA9iJ3/zq27iDpNrP2R4Cz6pS5Z7I+2xhAihP47DYIZuTnuuo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIb1eIPMG1MCOqQT2DemzlU4+qL2h8cssDNJ4dX1tFcXHvI62fN
-	IJFnYhoy2O8sEaSIEcf14rBGiidyhiy9QF9y8a01Erpdygs/EGfwzq1JAuHodnfJyHJgQtN7S57
-	pZgbF61czyN5xaDxObwLfGukJOJGMwtzmgGLO/SbOHQ==
-X-Gm-Gg: AYBFou3//KzwcwF/QSvDSe4ztgCsqXg08v2eqWiPunEayMD1hPGJyyYZiXnSzoS2M06
-	OfQRUU6xHuItWqLz7LcZvT1WkjaKUFFOTFaXVTFXYIB9wg0Y45fYbk7DgeceTcdgJXG1ZOIrXh/
-	/112EcmQVE9BNL0px4gpFxjgDNfdjZcFrdbhj0nViS9rFNkOg3VyM+ks7PQw6rJpkLhPKPLKkyL
-	XssT8lJ9YUQq6DNKYUBKnTwlPc8O8l110ZKerD3owCs1qq6C37L0KfzZyFXNsIfhW1L2JvBrjPg
-	WXoA4sgRkMmDc32JRtAdIXTcHMvwgLKOapGMd42kZO5H8OYH/vl4cCJFNme4e54yTCLEbC6OoKF
-	64+amcpM794Of47sDVg==
-X-Received: by 2002:a05:622a:a16:b0:535:942:4ed with SMTP id
- d75a77b69052e-5359fac5cbdmr286651061cf.21.1792066145745; Thu, 15 Oct 2026
- 05:09:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="jzVH2l5U"
+Received: from mail01.layka.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id 3D3728008C;
+	Thu, 15 Oct 2026 14:09:13 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id NzdZqoO1GbzS; Thu, 15 Oct 2026 14:09:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1792066152; bh=0sn3RFOrakh++JgrNMf2BtdPuCWAW2pSyF92AX0juuc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=jzVH2l5U7HT+syXP+bf6XKfjVhFRLQONV5WxdL6Rp2qexUOZERGt1UenuISGGVt+6
+	 vYRer9qpwxUO/Iz0HwHqaKmSq8kGdPMJk76v8rarbb6RSZWOINDY1yjvFvo0McREYk
+	 ASdbFA4MvdMyzD3C5M7Y2WZGYawfKSXTU0+ioZXXng4gFH9xy7eyiUzEUO8sooAMOu
+	 lisyLzS0lSGLLunr2ge/t0PKpWeomR1jtb+fgNdAhQYVnT53xwRq3AszuYHd7jDAGJ
+	 zCP+aQZJgykY8ipoZlrjGZbH0Ncwr+KaJ0oeJ7hd3L4xqMezBiU2+UUOh8OSH42Thf
+	 QkTr4uKSGn54A==
+From: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>
+To: Rong Zhang <i@rong.moe>
+Cc: Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>,
+	Lukasz Luba <lukasz.luba@arm.com>,
+	Armin Wolf <W_Armin@gmx.de>,
+	Charis Stratakis <c.stratakis@proton.me>,
+	linux-acpi@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	acpica-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/3] ACPI: Serialize battery methods and INT3403 _TMP
+Date: Thu, 15 Oct 2026 15:09:02 +0300
+Message-ID: <20261015120902.15337-1-aliamemis@disroot.org>
+In-Reply-To: <08b6196a955faef9968224d7946ea5b1150f2ae3.camel@rong.moe>
+References: <20261014132703.93355-1-aliamemis@disroot.org> <24b2e368-f0bb-484c-bf88-b9ce3125180f@oss.qualcomm.com> <20261014150537.121547-1-aliamemis@disroot.org> <08b6196a955faef9968224d7946ea5b1150f2ae3.camel@rong.moe>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904131838.15365-1-luis@igalia.com>
-In-Reply-To: <20260904131838.15365-1-luis@igalia.com>
-From: Miklos Szeredi <miklos@szeredi.hu>
-Date: Thu, 15 Oct 2026 14:08:53 +0200
-X-Gm-Features: AclHuK82MH_mxYUUmp77R46slALlxKhYAwe10M4u0YwuKsLiUCLpMllctRlmFMI
-Message-ID: <CAJfpegvdnPeyp8MYz9Y+v-nKNAj-J9N=nFyELfbB79nQJUiRQA@mail.gmail.com>
-Subject: Re: [PATCH] fuse: rename fuse_direct_io() to fuse_sync_direct_io()
-To: Luis Henriques <luis@igalia.com>
-Cc: fuse-devel@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, 4 Sept 2026 at 15:17, Luis Henriques <luis@igalia.com> wrote:
->
-> FUSE has two functions with very similar name: fuse_direct_io() and
-> fuse_direct_IO().  Which is very confusing.  Rename one of them to remove
-> the ambiguity.
+On Thu, Oct 15, 2026 at 07:51:22PM +0800, Rong Zhang wrote:
+> Thus, any call to ECCC or RDER consumes at least 200ms in emulation, but
+> in reality it doesn't.
 
-Intention is good, but fuse_sync_direct_io() is not the best name,
-because it's used for both sync and async direct IO.
+Thanks for finding the actual deadlock!  The 680 ms came from assuming
+"slow" EC commands.
 
-How about fuse_do_direct_io()?
-
-Thanks,
-Miklos
+I'll wait a few days for Hans, Rafael or anyone else to comment on
+dropping the EC query and UCSI patches, then send a v2 that merges
+both series.
