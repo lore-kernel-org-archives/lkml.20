@@ -1,514 +1,355 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com [209.85.218.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B88D530E10;
-	Thu, 15 Oct 2026 15:07:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28BF85304CE
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:07:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792076823; cv=none; b=s+GXStQubrJ21bcoYuEDjYzikUaV71GAu9NBVvFShN69Jb1qLVzdAPn2gm0pgrcPg39WNK1fQirqVG/j6pjCQnAuYnVNx/MwM66PRpLjEaE+JT5kIjl7HRugl5wE3XyS34i5HfRoaNXcQmYeScXrAULlIZYpWW6EZPpk8Z60z8Y=
+	t=1792076860; cv=none; b=Tlc3dKoPIAYFXlB9C2JvndTXHJGEnQT4f0cVhX8iLBMd4ZUgBX4nqYkHDH1RF43AP+84TNPzzUuX2ke4larNfXXjnubDfFgYNab07KkgfOEUw8CtrfWRWjtg6NfhhtLfKPmHAxvkwup0PBOwAnxiwiAx0u8lD7SWMOUqWdC9A8c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792076823; c=relaxed/simple;
-	bh=ISv69EFqlVirSc5HRQQNSduGBiE33qymcdDspkd5xHc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Su3H75GmEUpzBxnXuTt0dIwnM0lnFh0BIgviCEzaJZay49vDln3/RZcB5f3ejGxbq5aDRbX0E/cnsrJSr1rcsTlBSkWlaFVaUUM6MEhlMwzflUmLB1ucJgN39F75WY1RMHD83HBFWklzeOUfCBLN+nc3i8lOrxZeeScDdZUsm0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OkMFJf1r; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792076860; c=relaxed/simple;
+	bh=fDf2TZGggSk/cJ95OW/A1pc9n9A1t6tXqujXvNReYYs=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=iEMcGVSdqo7O5blTAmr62Mvca0ShDa/f806dzIMG1Rf50pTEpf8k+M9pulo1WpnHkfgPUXg7PoUGC4Vg9wDFSQlNPFJy0xBrhLAe5jpDn44SmVOjR2TqhrA14hOmaj7CH8PcHIYHD0wOYJ7AcMsikhDkvASsY4SxfwssxSptCrQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=jvlZSXXD; arc=none smtp.client-ip=209.85.218.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OkMFJf1r"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 206A2C2BD01;
-	Thu, 15 Oct 2026 15:07:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792076823;
-	bh=ISv69EFqlVirSc5HRQQNSduGBiE33qymcdDspkd5xHc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=OkMFJf1rgVDHXZQhBBgta21wTcmackwoRB++hJo8GG8taTXQAECFFfpTDzxzW9b94
-	 sT4LPvmQUbVyJTFohhlUY3Dh4ctxrbPl1KsxS7fvXp7n2tDRKDcArn2kHelmGn7bea
-	 iH/qM3alR+j40iZVJwSCUIFb9yZypaU0z7gt0+ajMFnmhDdfK+iK67qdvIVPD4l0Uw
-	 XqWIln9TDWtirCaOs9nVgVt1wjTXUnjMJyOwzQ8/HNRo9J4R6pDGPjBGdAKxJXuj8e
-	 dSw7gdCvlprJjf5TOikGw2+3B2cI2KYIMqBAQYK5hpO0OOSEMUvbcVF7CzxlcVZAN6
-	 BCcA6X/pAsZLA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0DE78CC6B3A;
-	Thu, 15 Oct 2026 15:07:03 +0000 (UTC)
-From: Dave Marquardt via B4 Relay <devnull+davemarq.linux.ibm.com@kernel.org>
-Date: Thu, 15 Oct 2026 10:07:10 -0500
-Subject: [PATCH v14 11/11] scsi: ibmvfc: handle extended FPIN events
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="jvlZSXXD"
+Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c40285df2a0so5700966b.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:07:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792076856; x=1792681656; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IC5Ct3FOhi968am1MRf06lj4teeqkFZmOqPC0DoSw2E=;
+        b=jvlZSXXDaJMnvN5M/1qLM2kR5pgtx7+vm1zM8j7e7h0/gNcuM7ElfyHPJHRPyFZ+Vw
+         qruYApXrNosta+9u50UN0u8qN8yBnmrHBVagHYKiB5we2N1A4g9zmkxrtgqvSGiMSERC
+         iGvcKQkrVcYziOGoE5n6SfqVnGQsBtvLKRDRHIUYbmoQjZN7bMeZ0Q72I5K15sHqyOoY
+         N7bvfptQbKE7bo+eeQIW1GIjBnF6Mtm89J+FXXxUNNJ+v0urUU2NgtbKynHKeiINOlXl
+         wHaiX0QV4wnuihWvWSiQhoXwkPGaDMdeNtBHZ8feeNGoyA55xOo/jNR8xTL7RAkKsoxw
+         zZMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792076856; x=1792681656;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IC5Ct3FOhi968am1MRf06lj4teeqkFZmOqPC0DoSw2E=;
+        b=SDHh1mmydBasTu/EQNxDZWsNEs5AsqrV7y+rX0Rv0p+ouUDNeIrThg+9/QkswQrUdB
+         3RGrlymCc1Wb+tp8hflkkhBOOEHrTiF3RZEdJ/PWUktEdkvonfEgNT3Cien8Njh6HoAZ
+         vS+0EMZDw9G6ykCQqwa/0PWO3qSk+g9rOCBN/jmeElcpP5dVb9wdpkj/43bW1CDwDm+J
+         7SL6J7r09nGphSjaEMJqlgmofuiRlFOqtGNc57sazbLuB7qNdJ06b8P6XHFCEV/aTf58
+         +I0xgQt4NSncLpgj0jXpc18qls8M1JY7ze6jnDuzHkfyY8z6qFoCumf9WteLj16EOzOU
+         1MvA==
+X-Forwarded-Encrypted: i=1; AKwUvBxLTwD7EuV//Rc2Chyi6uuLysj7aeFcJSoWJa9xHATVvdqmP9gCixIrJxiDgUZEkbOqjGJFIMd15ToQd9s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIU1tCsBY6sMfnTcrVihO08QN1y1k5yHzF8M/xqIyWhlP87ToYC
+	iGH5M22KsvFxeHU/+7fMlN6FY/2OSeX5vqeqBv86KRcTdX/IyPBd72w2Roqbeqklz+6NI3OrStJ
+	L0E+MWaFDB8GASihb7w==
+X-Received: from ejbbq18.prod.google.com ([2002:a17:906:d0d2:b0:c2e:1f38:d81a])
+ (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:907:9615:b0:c24:adf4:5c73 with SMTP id a640c23a62f3a-c31a9a28825mr1772701566b.1.1792076855746;
+ Thu, 15 Oct 2026 08:07:35 -0700 (PDT)
+Date: Thu, 15 Oct 2026 15:07:34 +0000
+In-Reply-To: <2vxzzewfgno2.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-ibmvfc-fpin-support-v14-11-a0b063b8d825@linux.ibm.com>
-References: <20261015-ibmvfc-fpin-support-v14-0-a0b063b8d825@linux.ibm.com>
-In-Reply-To: <20261015-ibmvfc-fpin-support-v14-0-a0b063b8d825@linux.ibm.com>
-To: Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, 
- Tyrel Datwyler <tyreld@linux.ibm.com>
-Cc: linux-scsi@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
- linux-kernel@vger.kernel.org, Dave Marquardt <davemarq@linux.ibm.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792076821; l=17482;
- i=davemarq@linux.ibm.com; s=20260216; h=from:subject:message-id;
- bh=4yr5HwGK+A2J6cGY1CEK0W/w7O6iPz+9QPCVUuYxCiY=;
- b=gC2T0x17RJVMwpmQjnk/qGKCtqi5UcIqSaG3A7uG4bbUcc1p63sWqMwJJKj0DnyJQdsO6/eQZ
- 6xJwdR8PI5PAGY43j08g2aDAhcE7245jBwYqG8aiAGcAGDEny4Cw7IS
-X-Developer-Key: i=davemarq@linux.ibm.com; a=ed25519;
- pk=vy0/nfobrje6EqZxuyw6a3ZstytG8WK2vf5Y3xtGrEg=
-X-Endpoint-Received: by B4 Relay for davemarq@linux.ibm.com/20260216 with
- auth_id=689
-X-Original-From: Dave Marquardt <davemarq@linux.ibm.com>
-Reply-To: davemarq@linux.ibm.com
+Mime-Version: 1.0
+References: <20260903023452.721732-1-loganodell@google.com>
+ <20260903023452.721732-2-loganodell@google.com> <2vxzzewfgno2.fsf@kernel.org>
+Message-ID: <9huzqzhrhuix.fsf@tarunix.c.googlers.com>
+Subject: Re: [RFC PATCH 1/3] luo: Move to feature flags instead of
+ compatibility strings
+From: tarunsahu@google.com
+To: Pratyush Yadav <pratyush@kernel.org>, Logan Odell <loganodell@google.com>
+Cc: arnd@arndb.de, pasha.tatashin@soleen.com, rppt@kernel.org, 
+	pratyush@kernel.org, graf@amazon.com, akpm@linux-foundation.org, 
+	pbonzini@redhat.com, maz@kernel.org, oupton@kernel.org, seanjc@google.com, 
+	bhelgaas@google.com, alex@shazbot.org, jgg@nvidia.com, kevin.tian@intel.com, 
+	dwmw2@infradead.org, baolu.lu@linux.intel.com, joro@8bytes.org, 
+	will@kernel.org, robin.murphy@arm.com, linux-arch@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-mm@kvack.org, 
+	kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	kvmarm@lists.linux.dev, linux-pci@vger.kernel.org, iommu@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-From: Dave Marquardt <davemarq@linux.ibm.com>
+Pratyush Yadav <pratyush@kernel.org> writes:
 
-Implement support for extended FPIN messages received via the
-asynchronous sub-queue, completing full FPIN functionality.
+> Hi Logan,
+>
+> On Wed, Sep 02 2026, Logan Odell wrote:
+>
+>> Define a 128 byte header that can be used by all live update serialized
+>> structures. In this header, we reserve room for 64 features with
+>> supported, active, and required bits. Update the top level luo struct to
+>> use this instead of compatibility strings. Previous versions of the
+>> struct had smaller sizes, so add a minimum size check to avoid
+>> collisions with older kernels.
+>>
+>> Signed-off-by: Logan Odell <loganodell@google.com>
+>> ---
+>>  include/linux/kho/abi/luo.h  | 74 +++++++++++++++++++++++++++++-------
+>>  kernel/liveupdate/luo_core.c | 44 +++++++++++++--------
+>>  2 files changed, 90 insertions(+), 28 deletions(-)
+>>
+>> diff --git a/include/linux/kho/abi/luo.h b/include/linux/kho/abi/luo.h
+>> index 288076de6d4a..0a7662a0cf9a 100644
+>> --- a/include/linux/kho/abi/luo.h
+>> +++ b/include/linux/kho/abi/luo.h
+>> @@ -13,15 +13,17 @@
+>>   * kernel. The ABI is built upon the Kexec HandOver framework and registers
+>>   * the central `struct luo_ser` via the KHO raw subtree API.
+>>   *
+>> - * This interface is a contract. Any modification to the structure fields,
+>> - * compatible strings, or the layout of the `__packed` serialization
+>> - * structures defined here constitutes a breaking change. Such changes require
+>> - * incrementing the version number in the relevant `_COMPATIBLE` string to
+>> - * prevent a new kernel from misinterpreting data from an old kernel.
+>> + * This interface is a contract. To ensure the stability of moving between
+>> + * kernel versions, any changes to the structures should only be additive
+>> + * and should utilize the feature flags to denote the supported, active, and
+>> + * required status of the feature.
+>> + *
+>> + * Features that are entirely optional can be added with the supported and
+>> + * active flags both asserted, and the required flag cleared. Features that
+>> + * require that the next kernel supports the feature should only be added as
+>> + * supported to allow compatible transition kernels. At a later time, the
+>> + * active and required flag should be asserted.
+>>   *
+>> - * Changes are allowed provided the compatibility version is incremented;
+>> - * however, backward/forward compatibility is only guaranteed for kernels
+>> - * supporting the same ABI version.
+>>   *
+>>   * KHO Structure Overview:
+>>   *   The entire LUO state is encapsulated within a single KHO entry named "LUO".
+>> @@ -30,7 +32,7 @@
+>>   * Serialization Structures:
+>>   *   - struct luo_ser:
+>>   *     The central ABI structure that contains the overall state of the LUO.
+>> - *     It includes the compatibility string, the liveupdate-number, and pointers
+>> + *     It includes the feature flags, the liveupdate-number, and pointers
+>>   *     to sessions and FLBs.
+>>   *
+>>   *   - struct luo_session_ser:
+>> @@ -58,19 +60,65 @@
+>>  #define _LINUX_KHO_ABI_LUO_H
+>>  
+>>  #include <linux/align.h>
+>> +#include <linux/bits.h>
+>>  #include <linux/kho/abi/block.h>
+>>  #include <uapi/linux/liveupdate.h>
+>>  
+>> +/**
+>> + * struct luo_feature_hdr - Feature negotiation and versioning header.
+>> + * @supp:     Bitmask of features supported by the producing subsystem.
+>> + * @req:      Bitmask of features required for safe deserialization by the
+>> + *            receiving subsystem.
+>
+> I think you are mixing two things here: description of the payload and
+> description of the file handler capability.
+>
+> The payload that is handed over via KHO should have the active and
+> required bitmasks only. It doesn't need the supported bitmask, because
+> it doesn't matter what the handler that produced the payload supports.
+> It only matters what fields it populated and which ones are mandatory to
+> understand.
+>
+> Similarly, the description of the file handler can't really describe
+> "active". Because the capabilities are static and the active bits will
+> depend on a specific file.
+>
+> So I reckon we should separate these two. These should be the same bits
+> of course, but expressed in two ways in two different places.
+>
+>> + * @active:   Bitmask of features actually active/used in the serialized payload.
+>> + * @reserved: Reserved for future use.
+>> + *
+>> + * This header can be embedded at the beginning of any serialized structure to
+>> + * provide forward and backward compatibility via feature negotiation across
+>> + * live update.
+>> + */
+>> +struct luo_feature_hdr {
+>> +	u64 supp;
+>> +	u64 req;
+>> +	u64 active;
+>> +	u64 reserved[13];
+>
+> How do you plan to ever use this? Say I want to extend my bitmaps so I do:
+>
+>     struct luo_feature_hdr {
+>     	u64 supp;
+>     	u64 req;
+>     	u64 active;
+>     	u64 supp2;
+>     	u64 req2;
+>     	u64 active2;
+>     	u64 reserved[10];
 
-Extended FPIN messages provide more detailed information about fabric
-events compared to basic FPIN messages, including specific event types,
-modifiers, thresholds, event counts, and severity.
+I thinking this is too spreaded.
 
-Add ibmvfc_ext_fpin_to_desc() to convert extended FPIN messages from
-async sub-queue format to fc_els_fpin structures with complete descriptor
-information. Update ibmvfc_process_async_work() and ibmvfc_handle_async()
-to zero node_name and dispatch to ibmvfc_ext_fpin_to_desc() when the
-IBMVFC_ASYNC_IS_FPIN_EXT flag is set.
+We can do somthing like:
 
-Extend ibmvfc_common_fpin_to_desc() with a severity parameter so that
-extended FPIN events can propagate the severity value from the VIOS when
-IBMVFC_FPIN_SEVERITY_VALID is set, rather than always defaulting to
-FPIN_CONGN_SEVERITY_WARNING.
+struct ABI {
+       u64 size;
+       u64 flags;
+       u64 flags2;
+}
 
-Set the IBMVFC_CAN_HANDLE_FPIN_EXT capability bit (0x800) during login
-to inform the VIOS that the client can process extended FPIN messages.
-Add the IBMVFC_CAN_CLS_CRQ_PRE_DMP capability bit (0x400) definition
-for the intervening protocol-defined capability. Also add the
-IBMVFC_SUPPORT_FPIN_EXT response capability bit definition used to gate
-extended FPIN processing.
+where flags is extended to flags2 if flags MSB bits is 11.
 
-In ibmvfc_process_async_work(), use goto to bypass the generic "FPIN
-event received, unable to process" error message when a more specific
-diagnostic has already been emitted for invalid or unsupported extended
-FPIN events.
+and each flags is formatted like 0b 00 01 11 00 11 10 11 11 00 00 11 ...
 
-Add KUnit tests to exercise extended FPIN event handling across all
-FPIN status and event type combinations.
-
-struct ibmvfc_async_subq_fpin uses volatile on its valid field,
-consistent with the existing ibmvfc_crq, ibmvfc_async_crq, and
-ibmvfc_async_sub_crq structs in ibmvfc.h, all of which mark their
-hardware-owned ring-buffer valid field volatile to prevent the compiler
-from caching or eliminating reads of memory written directly by the VIOS.
-
-Signed-off-by: Tyrel Datwyler <tyreld@linux.ibm.com>
-Signed-off-by: Dave Marquardt <davemarq@linux.ibm.com>
----
- drivers/scsi/ibmvscsi/ibmvfc-core.c  |  88 +++++++++++++++++++--
- drivers/scsi/ibmvscsi/ibmvfc.h       |  31 ++++++++
- drivers/scsi/ibmvscsi/ibmvfc_kunit.c | 148 +++++++++++++++++++++++++++++++++++
- 3 files changed, 259 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/scsi/ibmvscsi/ibmvfc-core.c b/drivers/scsi/ibmvscsi/ibmvfc-core.c
-index 594e5f136040..2aeaa04d0ee7 100644
---- a/drivers/scsi/ibmvscsi/ibmvfc-core.c
-+++ b/drivers/scsi/ibmvscsi/ibmvfc-core.c
-@@ -1591,6 +1591,7 @@ static void ibmvfc_set_login_info(struct ibmvfc_host *vhost)
- 		login_info->capabilities |= cpu_to_be64(IBMVFC_USE_ASYNC_SUBQ);
- 		login_info->capabilities |= cpu_to_be64(IBMVFC_CAN_HANDLE_FPIN);
- 		login_info->capabilities |= cpu_to_be64(IBMVFC_YES_SCSI);
-+		login_info->capabilities |= cpu_to_be64(IBMVFC_CAN_HANDLE_FPIN_EXT);
- 		if (vhost->nvme_enabled) {
- 			login_info->capabilities |= cpu_to_be64(IBMVFC_YES_NVMEOF);
- 			login_info->capabilities |= cpu_to_be64(IBMVFC_CAN_USE_WWPN_ALL);
-@@ -3322,6 +3323,11 @@ static size_t ibmvfc_fpin_size_helper(u8 fpin_status)
-  *			IBMVFC_AE_FPIN_PORT_DEGRADED only
-  * @event_count:	link integrity event count (big-endian); used for
-  *			IBMVFC_AE_FPIN_PORT_DEGRADED only
-+ * @severity:		congestion severity value; stored in congestion
-+ *			descriptors (IBMVFC_AE_FPIN_LINK_CONGESTED,
-+ *			IBMVFC_AE_FPIN_CONGESTION_CLEARED,
-+ *			IBMVFC_AE_FPIN_PORT_CONGESTED,
-+ *			IBMVFC_AE_FPIN_PORT_CLEARED)
-  *
-  * Return:
-  * NULL     - unable to allocate structure or unrecognised fpin_status
-@@ -3329,7 +3335,7 @@ static size_t ibmvfc_fpin_size_helper(u8 fpin_status)
-  */
- static struct fc_els_fpin *
- ibmvfc_common_fpin_to_desc(u8 fpin_status, __be64 wwpn, __be16 type, __be16 modifier,
--			   __be32 threshold, __be32 event_count)
-+			   __be32 threshold, __be32 event_count, __u8 severity)
- {
- 	struct fc_fn_peer_congn_desc *pdesc;
- 	struct fc_fn_congn_desc *cdesc;
-@@ -3357,7 +3363,7 @@ ibmvfc_common_fpin_to_desc(u8 fpin_status, __be64 wwpn, __be16 type, __be16 modi
- 		cdesc->event_type = type;
- 		cdesc->event_modifier = modifier;
- 		cdesc->event_period = cpu_to_be32(IBMVFC_FPIN_DEFAULT_EVENT_PERIOD);
--		cdesc->severity = FPIN_CONGN_SEVERITY_WARNING;
-+		cdesc->severity = severity;
- 		break;
- 	case IBMVFC_AE_FPIN_PORT_CONGESTED:
- 	case IBMVFC_AE_FPIN_PORT_CLEARED:
-@@ -3434,7 +3440,7 @@ ibmvfc_basic_fpin_to_desc(struct ibmvfc_async_crq *crq, u64 wwpn)
- 	return ibmvfc_common_fpin_to_desc(crq->fpin_status, cpu_to_be64(wwpn),
- 					  type, cpu_to_be16(0),
- 					  cpu_to_be32(IBMVFC_FPIN_DEFAULT_EVENT_THRESHOLD),
--					  cpu_to_be32(1));
-+					  cpu_to_be32(1), FPIN_CONGN_SEVERITY_WARNING);
- }
- 
- /**
-@@ -3474,7 +3480,47 @@ ibmvfc_full_fpin_to_desc(struct ibmvfc_async_sub_crq *ibmvfc_fpin, u64 wwpn)
- 	return ibmvfc_common_fpin_to_desc(ibmvfc_fpin->fpin_status, cpu_to_be64(wwpn),
- 					  type, cpu_to_be16(0),
- 					  cpu_to_be32(IBMVFC_FPIN_DEFAULT_EVENT_THRESHOLD),
--					  cpu_to_be32(1));
-+					  cpu_to_be32(1), FPIN_CONGN_SEVERITY_WARNING);
-+}
-+
-+/**
-+ * ibmvfc_ext_fpin_to_desc(): allocate and populate a struct fc_els_fpin struct
-+ * containing a descriptor.
-+ * @ibmvfc_fpin: Pointer to async subq FPIN data
-+ * @wwpn:	attached port WWPN (host-endian)
-+ *
-+ * Allocate a struct fc_els_fpin containing a descriptor and populate
-+ * based on data from *ibmvfc_fpin.
-+ *
-+ * Return:
-+ * NULL     - unable to allocate structure
-+ * non-NULL - pointer to populated struct fc_els_fpin
-+ */
-+static struct fc_els_fpin *
-+ibmvfc_ext_fpin_to_desc(struct ibmvfc_async_subq_fpin *ibmvfc_fpin, u64 wwpn)
-+{
-+	u8 flags = ibmvfc_fpin->fpin_data.flags;
-+	__be32 threshold = cpu_to_be32(IBMVFC_FPIN_DEFAULT_EVENT_THRESHOLD);
-+	__be16 modifier = 0;
-+	__be32 count = cpu_to_be32(1);
-+	__be16 type = 0;
-+	__u8 severity = FPIN_CONGN_SEVERITY_WARNING;
-+
-+	if (flags & IBMVFC_FPIN_EVENT_TYPE_VALID)
-+		type = ibmvfc_fpin->fpin_data.event_type;
-+	if (flags & IBMVFC_FPIN_MODIFIER_VALID)
-+		modifier = ibmvfc_fpin->fpin_data.event_type_modifier;
-+	if (flags & IBMVFC_FPIN_THRESHOLD_VALID)
-+		threshold = ibmvfc_fpin->fpin_data.event_threshold;
-+	if (flags & IBMVFC_FPIN_EVENT_COUNT_VALID)
-+		count = ibmvfc_fpin->fpin_data.event_data.event_count;
-+	if (flags & IBMVFC_FPIN_SEVERITY_VALID)
-+		severity = ibmvfc_fpin->fpin_data.event_data.severity;
-+
-+	return ibmvfc_common_fpin_to_desc(ibmvfc_fpin->fpin_status,
-+					  cpu_to_be64(wwpn), type,
-+					  modifier, threshold, count,
-+					  severity);
- }
- 
- /**
-@@ -3515,6 +3561,7 @@ static struct ibmvfc_target *ibmvfc_find_target(struct list_head *target_list,
- VISIBLE_IF_KUNIT void ibmvfc_process_async_work(struct work_struct *work)
- {
- 	struct ibmvfc_async_sub_crq *subq = NULL;
-+	struct ibmvfc_async_subq_fpin *sqfpin;
- 	struct ibmvfc_async_work *aw;
- 	struct ibmvfc_async_crq *crq = NULL;
- 	struct ibmvfc_target *tgt;
-@@ -3531,7 +3578,10 @@ VISIBLE_IF_KUNIT void ibmvfc_process_async_work(struct work_struct *work)
- 		subq = &aw->event.subq;
- 		scsi_id = 0;
- 		wwpn = subq->wwpn;
--		node_name = (subq->flags & IBMVFC_ASYNC_ID_IS_ASSOC_ID) ? 0 : subq->id.node_name;
-+		if (subq->flags & (IBMVFC_ASYNC_IS_FPIN_EXT | IBMVFC_ASYNC_ID_IS_ASSOC_ID))
-+			node_name = 0;
-+		else
-+			node_name = subq->id.node_name;
- 	} else {
- 		crq = &aw->event.async_crq;
- 		scsi_id = crq->scsi_id;
-@@ -3561,8 +3611,26 @@ VISIBLE_IF_KUNIT void ibmvfc_process_async_work(struct work_struct *work)
- 
- 	if (crq)
- 		fpin = ibmvfc_basic_fpin_to_desc(crq, tgt->wwpn);
--	else
--		fpin = ibmvfc_full_fpin_to_desc(subq, tgt->wwpn);
-+	else {
-+		static_assert(sizeof(struct ibmvfc_async_subq_fpin) ==
-+			      sizeof(struct ibmvfc_async_sub_crq));
-+		static_assert(offsetof(struct ibmvfc_async_subq_fpin, fpin_data) ==
-+			      offsetof(struct ibmvfc_async_sub_crq, nport_id));
-+		sqfpin = (struct ibmvfc_async_subq_fpin *)subq;
-+		if ((subq->flags & IBMVFC_ASYNC_IS_FPIN_EXT) == 0) {
-+			fpin = ibmvfc_full_fpin_to_desc(subq, tgt->wwpn);
-+		} else if (!(sqfpin->fpin_data.flags & IBMVFC_FPIN_EVENT_TYPE_VALID)) {
-+			dev_err_ratelimited(vhost->dev,
-+					    "Invalid extended FPIN event received\n");
-+			goto skip_generic_error;
-+		} else if (!ibmvfc_check_caps(vhost, IBMVFC_SUPPORT_FPIN_EXT)) {
-+			dev_err_ratelimited(vhost->dev,
-+					    "Unexpected extended FPIN event received\n");
-+			goto skip_generic_error;
-+		} else {
-+			fpin = ibmvfc_ext_fpin_to_desc(sqfpin, tgt->wwpn);
-+		}
-+	}
- 
- 	if (fpin) {
- 		fc_host_fpin_rcv(tgt->vhost->host,
-@@ -3572,6 +3640,7 @@ VISIBLE_IF_KUNIT void ibmvfc_process_async_work(struct work_struct *work)
- 	} else
- 		dev_err_ratelimited(vhost->dev, "FPIN event received, unable to process\n");
- 
-+ skip_generic_error:
- 	kref_put(&tgt->kref, ibmvfc_release_tgt);
-  free:
- 	scsi_host_put(aw->vhost->host);
-@@ -3606,7 +3675,10 @@ static void ibmvfc_handle_async(struct ibmvfc_async_crq_event *ae,
- 		link_state = subq->link_state;
- 		scsi_id = 0;
- 		wwpn = subq->wwpn;
--		node_name = subq->flags & IBMVFC_ASYNC_ID_IS_ASSOC_ID ? 0 : subq->id.node_name;
-+		if (subq->flags & (IBMVFC_ASYNC_IS_FPIN_EXT | IBMVFC_ASYNC_ID_IS_ASSOC_ID))
-+			node_name = 0;
-+		else
-+			node_name = subq->id.node_name;
- 	} else {
- 		async_crq = &ae->async_crq;
- 		event = be64_to_cpu(async_crq->event);
-diff --git a/drivers/scsi/ibmvscsi/ibmvfc.h b/drivers/scsi/ibmvscsi/ibmvfc.h
-index 5e79494c8c33..0c226058db4d 100644
---- a/drivers/scsi/ibmvscsi/ibmvfc.h
-+++ b/drivers/scsi/ibmvscsi/ibmvfc.h
-@@ -210,6 +210,8 @@ struct ibmvfc_npiv_login {
- #define IBMVFC_CAN_USE_WWPN_ALL		0x080
- #define IBMVFC_USE_ASYNC_SUBQ		0x100
- #define IBMVFC_CAN_USE_NOOP_CMD		0x200
-+#define IBMVFC_CAN_CLS_CRQ_PRE_DMP	0x400
-+#define IBMVFC_CAN_HANDLE_FPIN_EXT	0x800
- 	__be64 node_name;
- 	struct srp_direct_buf async;
- 	u8 partition_name[IBMVFC_MAX_NAME];
-@@ -261,6 +263,7 @@ struct ibmvfc_npiv_login_resp {
- #define IBMVFC_SUPPORT_WWPN_ALL		0x0400
- #define IBMVFC_ASYNC_SUBQ		0x0800
- #define IBMVFC_SUPPORT_NOOP_CMD		0x1000
-+#define IBMVFC_SUPPORT_FPIN_EXT		0x2000
- 	__be32 max_cmds;
- 	__be32 scsi_id_sz;
- 	__be64 max_dma_len;
-@@ -786,6 +789,34 @@ struct ibmvfc_async_sub_crq {
- 	} id;
- } __packed __aligned(8);
- 
-+struct ibmvfc_fpin_data {
-+#define IBMVFC_FPIN_EVENT_TYPE_VALID	0x01
-+#define IBMVFC_FPIN_MODIFIER_VALID	0x02
-+#define IBMVFC_FPIN_THRESHOLD_VALID	0x04
-+#define IBMVFC_FPIN_SEVERITY_VALID	0x08
-+#define IBMVFC_FPIN_EVENT_COUNT_VALID	0x10
-+	u8 flags;
-+	u8 reserved[3];
-+	__be16 event_type;
-+	__be16 event_type_modifier;
-+	__be32 event_threshold;
-+	union {
-+		u8 severity;
-+		__be32 event_count;
-+	} event_data;
-+} __packed __aligned(8);
-+
-+struct ibmvfc_async_subq_fpin {
-+	volatile u8 valid;
-+	u8 flags;
-+	u8 link_state;
-+	u8 fpin_status;
-+	__be16 event;
-+	__be16 pad;
-+	__be64 wwpn;
-+	struct ibmvfc_fpin_data fpin_data;
-+} __packed __aligned(8);
-+
- enum ibmvfc_async_crq_type {
- 	IBMVFC_ASYNC_CRQ_MAIN = 0,
- 	IBMVFC_ASYNC_CRQ_SUB,
-diff --git a/drivers/scsi/ibmvscsi/ibmvfc_kunit.c b/drivers/scsi/ibmvscsi/ibmvfc_kunit.c
-index b867cfe3138d..3ba3b2e37a9e 100644
---- a/drivers/scsi/ibmvscsi/ibmvfc_kunit.c
-+++ b/drivers/scsi/ibmvscsi/ibmvfc_kunit.c
-@@ -3,6 +3,7 @@
- #include <kunit/visibility.h>
- #include <scsi/scsi_device.h>
- #include <scsi/scsi_transport_fc.h>
-+#include <scsi/fc/fc_els.h>
- #include <linux/list.h>
- #include <linux/delay.h>
- #include "ibmvfc.h"
-@@ -364,9 +365,156 @@ static void ibmvfc_full_fpin_test(struct kunit *test)
- 	scsi_host_put(vhost->host);
- }
- 
-+#define IBMVFC_TEST_FPIN_EXT_TARGET(fs, ev, stat) do {				\
-+	struct ibmvfc_async_crq_event ae = { .type = IBMVFC_ASYNC_CRQ_SUB };	\
-+	memset(&crq, 0, sizeof(crq));						\
-+	crq.valid = 0x80;							\
-+	crq.flags = IBMVFC_ASYNC_IS_FPIN_EXT;					\
-+	crq.link_state = IBMVFC_AE_LS_LINK_UP;					\
-+	crq.fpin_status = (fs);							\
-+	crq.event = cpu_to_be16(IBMVFC_AE_FPIN);				\
-+	crq.wwpn = cpu_to_be64(tgt->wwpn);					\
-+	crq.fpin_data.flags = IBMVFC_FPIN_EVENT_TYPE_VALID;			\
-+	crq.fpin_data.event_type = cpu_to_be16((ev));				\
-+	ae.subq = *(struct ibmvfc_async_sub_crq *)&crq;				\
-+	pre = READ_ONCE(rport->fpin_stats.stat);				\
-+	ibmvfc_run_async_work(wq, vhost, &ae);					\
-+	post = READ_ONCE(rport->fpin_stats.stat);				\
-+	KUNIT_EXPECT_GT(test, post, pre);					\
-+} while (0)
-+
-+#define IBMVFC_TEST_FPIN_EXT_HOST(fs, ev, stat) do {				\
-+	struct ibmvfc_async_crq_event ae = { .type = IBMVFC_ASYNC_CRQ_SUB };	\
-+	memset(&crq, 0, sizeof(crq));						\
-+	crq.valid = 0x80;							\
-+	crq.flags = IBMVFC_ASYNC_IS_FPIN_EXT;					\
-+	crq.link_state = IBMVFC_AE_LS_LINK_UP;					\
-+	crq.fpin_status = (fs);							\
-+	crq.event = cpu_to_be16(IBMVFC_AE_FPIN);				\
-+	crq.wwpn = cpu_to_be64(tgt->wwpn);					\
-+	crq.fpin_data.flags = IBMVFC_FPIN_EVENT_TYPE_VALID;			\
-+	crq.fpin_data.event_type = cpu_to_be16((ev));				\
-+	ae.subq = *(struct ibmvfc_async_sub_crq *)&crq;				\
-+	pre = READ_ONCE(fc_host->fpin_stats.stat);				\
-+	ibmvfc_run_async_work(wq, vhost, &ae);					\
-+	post = READ_ONCE(fc_host->fpin_stats.stat);				\
-+	KUNIT_EXPECT_GT(test, post, pre);					\
-+} while (0)
-+
-+/**
-+ * ibmvfc_extended_fpin_test - unit test for extended FPIN events
-+ * @test: pointer to kunit structure
-+ *
-+ * Return: void
-+ */
-+static void ibmvfc_extended_fpin_test(struct kunit *test)
-+{
-+	enum ibmvfc_ae_fpin_status fs;
-+	struct ibmvfc_async_subq_fpin crq;
-+	struct workqueue_struct *wq;
-+	struct ibmvfc_target *tgt;
-+	struct ibmvfc_host *vhost;
-+	struct fc_host_attrs *fc_host;
-+	struct fc_rport *rport;
-+	unsigned long flags;
-+	u64 pre, post;
-+
-+	vhost = ibmvfc_get_first_vhost();
-+	if (!vhost)
-+		kunit_skip(test, "No ibmvfc devices available");
-+
-+	if (!ibmvfc_check_caps(vhost, IBMVFC_SUPPORT_FPIN_EXT)) {
-+		scsi_host_put(vhost->host);
-+		kunit_skip(test, "Extended FPIN not supported");
-+	}
-+
-+	wq = alloc_ordered_workqueue("ibmvfc-kunit-fpin", 0);
-+	if (!wq) {
-+		scsi_host_put(vhost->host);
-+		kunit_skip(test, "Failed to allocate workqueue");
-+	}
-+
-+	spin_lock_irqsave(&vhost->host->host_lock, flags);
-+	if (vhost->scsi_scrqs.num_targets < 1) {
-+		spin_unlock_irqrestore(&vhost->host->host_lock, flags);
-+		destroy_workqueue(wq);
-+		scsi_host_put(vhost->host);
-+		kunit_skip(test, "No targets");
-+	}
-+	tgt = NULL;
-+	rport = NULL;
-+	list_for_each_entry(tgt, &vhost->scsi_scrqs.targets, queue) {
-+		if (tgt->rport &&
-+		    tgt->rport->port_state == FC_PORTSTATE_ONLINE &&
-+		    (tgt->rport->roles & (FC_PORT_ROLE_FCP_TARGET | FC_PORT_ROLE_NVME_TARGET))) {
-+			rport = tgt->rport;
-+			get_device(&rport->dev);
-+			kref_get(&tgt->kref);
-+			break;
-+		}
-+	}
-+	if (!rport) {
-+		spin_unlock_irqrestore(&vhost->host->host_lock, flags);
-+		destroy_workqueue(wq);
-+		scsi_host_put(vhost->host);
-+		kunit_skip(test, "No suitable online target rport found");
-+	}
-+	spin_unlock_irqrestore(&vhost->host->host_lock, flags);
-+
-+	fc_host = shost_to_fc_host(vhost->host);
-+
-+	for (fs = IBMVFC_AE_FPIN_LINK_CONGESTED; fs <= IBMVFC_AE_FPIN_CONGESTION_CLEARED; fs++) {
-+		switch (fs) {
-+		case IBMVFC_AE_FPIN_LINK_CONGESTED:
-+			IBMVFC_TEST_FPIN_EXT_HOST(fs, FPIN_CONGN_CLEAR, cn_clear);
-+			IBMVFC_TEST_FPIN_EXT_HOST(fs, FPIN_CONGN_LOST_CREDIT, cn_lost_credit);
-+			IBMVFC_TEST_FPIN_EXT_HOST(fs, FPIN_CONGN_CREDIT_STALL, cn_credit_stall);
-+			IBMVFC_TEST_FPIN_EXT_HOST(fs, FPIN_CONGN_OVERSUBSCRIPTION,
-+						  cn_oversubscription);
-+			IBMVFC_TEST_FPIN_EXT_HOST(fs, FPIN_CONGN_DEVICE_SPEC, cn_device_specific);
-+			break;
-+		case IBMVFC_AE_FPIN_PORT_CONGESTED:
-+			IBMVFC_TEST_FPIN_EXT_TARGET(fs, FPIN_CONGN_CLEAR, cn_clear);
-+			IBMVFC_TEST_FPIN_EXT_TARGET(fs, FPIN_CONGN_LOST_CREDIT, cn_lost_credit);
-+			IBMVFC_TEST_FPIN_EXT_TARGET(fs, FPIN_CONGN_CREDIT_STALL, cn_credit_stall);
-+			IBMVFC_TEST_FPIN_EXT_TARGET(fs, FPIN_CONGN_OVERSUBSCRIPTION,
-+						    cn_oversubscription);
-+			IBMVFC_TEST_FPIN_EXT_TARGET(fs, FPIN_CONGN_DEVICE_SPEC, cn_device_specific);
-+			break;
-+		case IBMVFC_AE_FPIN_PORT_CLEARED:
-+			IBMVFC_TEST_FPIN_EXT_TARGET(fs, FPIN_CONGN_CLEAR, cn_clear);
-+			break;
-+		case IBMVFC_AE_FPIN_CONGESTION_CLEARED:
-+			IBMVFC_TEST_FPIN_EXT_HOST(fs, FPIN_CONGN_CLEAR, cn_clear);
-+			break;
-+		case IBMVFC_AE_FPIN_PORT_DEGRADED:
-+			IBMVFC_TEST_FPIN_EXT_TARGET(fs, FPIN_LI_UNKNOWN, li_failure_unknown);
-+			IBMVFC_TEST_FPIN_EXT_TARGET(fs, FPIN_LI_LINK_FAILURE,
-+						    li_link_failure_count);
-+			IBMVFC_TEST_FPIN_EXT_TARGET(fs, FPIN_LI_LOSS_OF_SYNC,
-+						    li_loss_of_sync_count);
-+			IBMVFC_TEST_FPIN_EXT_TARGET(fs, FPIN_LI_LOSS_OF_SIG,
-+						    li_loss_of_signals_count);
-+			IBMVFC_TEST_FPIN_EXT_TARGET(fs, FPIN_LI_PRIM_SEQ_ERR,
-+						    li_prim_seq_err_count);
-+			IBMVFC_TEST_FPIN_EXT_TARGET(fs, FPIN_LI_INVALID_TX_WD,
-+						    li_invalid_tx_word_count);
-+			IBMVFC_TEST_FPIN_EXT_TARGET(fs, FPIN_LI_INVALID_CRC, li_invalid_crc_count);
-+			IBMVFC_TEST_FPIN_EXT_TARGET(fs, FPIN_LI_DEVICE_SPEC, li_device_specific);
-+			break;
-+		}
-+	}
-+
-+	destroy_workqueue(wq);
-+	put_device(&rport->dev);
-+	kref_put(&tgt->kref, ibmvfc_release_tgt);
-+	scsi_host_put(vhost->host);
-+}
-+
- static struct kunit_case ibmvfc_fpin_test_cases[] = {
- 	KUNIT_CASE(ibmvfc_async_fpin_test),
- 	KUNIT_CASE(ibmvfc_full_fpin_test),
-+	KUNIT_CASE(ibmvfc_extended_fpin_test),
- 	{},
- };
- 
-
--- 
-2.56.0
+each pair represents 0b 1 (required) 1 (active)
+Getting the details of the feature is just bit manipulation, so
+proper macro definition similar to the one this patch has implemented.
 
 
+~Tarun
+
+
+
+>
+> But when I go back to a kernel that doesn't know about supp2, req2,
+> etc., how does it know how to interpret these? How does it know what the
+> values mean?
+>
+> Is your goal only to be able to extend the three types of flags we have?
+> If so, perhaps something like "if bit 63 is set, the flags continue to
+> the next u64"? It is certainly harder for the parser, but seems to at
+> least be extensible. What do you think?
+>
+>> +} __packed;
+>> +
+>> +#define LUO_FEATURE_ACTIVE(s, f)		\
+>> +	do {					\
+>> +		(s)->features.supp |= (u64)(f);	\
+>> +		(s)->features.active |= (u64)(f);	\
+>> +	} while (0)
+>> +#define LUO_FEATURE_SUPPORTED(s, f)	((s)->features.supp |= (u64)(f))
+>> +#define LUO_FEATURE_REQUIRED(s, f)	((s)->features.req |= (u64)(f))
+>> +#define LUO_FEATURE_IS_ACTIVE(s, f)	(!!((s)->features.active & (u64)(f)))
+>> +#define LUO_FEATURE_IS_SUPPORTED(s, f)	(!!((s)->features.supp & (u64)(f)))
+>> +#define LUO_FEATURE_IS_REQUIRED(s, f)	(!!((s)->features.req & (u64)(f)))
+>> +
+>>  /*
+>>   * The LUO state is registered under this KHO entry name.
+>>   */
+>>  #define LUO_KHO_ENTRY_NAME	"LUO"
+>> -#define LUO_ABI_COMPATIBLE	"luo-v5"
+>> -#define LUO_ABI_COMPAT_LEN	ALIGN(sizeof(LUO_ABI_COMPATIBLE), 8)
+>> +
+>> +/*
+>> + * Bits associated with the luo_feature_hdr values.
+>> + */
+>> +#define LUO_FEATURE_NUMBER    BIT_ULL(0)
+>> +#define LUO_FEATURE_SESSIONS  BIT_ULL(1)
+>> +#define LUO_FEATURE_FLBS      BIT_ULL(2)
+>
+> Nit: please give the flags full documentation on their semantics.
+>
+>> +
+>> +#define LUO_CORE_FEATURES_SUPP		(LUO_FEATURE_NUMBER | \
+>> +					 LUO_FEATURE_SESSIONS | \
+>> +					 LUO_FEATURE_FLBS)
+>> +#define LUO_CORE_FEATURES_REQ		(LUO_FEATURE_NUMBER | \
+>> +					 LUO_FEATURE_SESSIONS | \
+>> +					 LUO_FEATURE_FLBS)
+>> +#define LUO_CORE_FEATURES_ACTIVE	(LUO_FEATURE_NUMBER | \
+>> +					 LUO_FEATURE_SESSIONS | \
+>> +					 LUO_FEATURE_FLBS)
+>>  
+>>  /**
+>>   * struct luo_ser - Centralized LUO ABI header.
+>> - * @compatible:     Compatibility string identifying the LUO ABI version.
+>> + * @features:       Bit mask of supported and active features.
+>>   * @liveupdate_num: A counter tracking the number of successful live updates.
+>>   * @sessions_pa:    Physical address of the first session block header.
+>>   * @flbs_pa:        Physical address of the FLB header.
+>> @@ -78,7 +126,7 @@
+>>   * This structure is the root of all preserved LUO state.
+>>   */
+>>  struct luo_ser {
+>> -	char compatible[LUO_ABI_COMPAT_LEN];
+>> +	struct luo_feature_hdr features;
+>
+> Do we still need compatible here? How will we ever do breaking changes
+> if we really need to?
+>
+>>  	u64 liveupdate_num;
+>>  	u64 sessions_pa;
+>>  	u64 flbs_pa;
+>> diff --git a/kernel/liveupdate/luo_core.c b/kernel/liveupdate/luo_core.c
+>> index 1b2bda22902d..6add1ecc463f 100644
+>> --- a/kernel/liveupdate/luo_core.c
+>> +++ b/kernel/liveupdate/luo_core.c
+>> @@ -107,26 +107,37 @@ static int __init luo_early_startup(void)
+>>  		return 0;
+>>  	}
+>>  
+>> -	if (len < sizeof(*luo_ser)) {
+>> -		pr_err("LUO state is too small (%zu < %zu)\n", len, sizeof(*luo_ser));
+>> -		return -EINVAL;
+>> +	luo_ser = phys_to_virt(luo_ser_phys);
+>> +
+>> +	if (len < sizeof(struct luo_feature_hdr)) {
+>> +		pr_err("LUO state is too small (%zu < %zu)\n",
+>> +		       len, sizeof(struct luo_feature_hdr));
+>> +		err = -EINVAL;
+>> +		goto out_free_ser;
+>>  	}
+>>  
+>> -	luo_ser = phys_to_virt(luo_ser_phys);
+>> -	if (strncmp(luo_ser->compatible, LUO_ABI_COMPATIBLE, LUO_ABI_COMPAT_LEN)) {
+>> -		pr_err("LUO state is incompatible with '%s'\n", LUO_ABI_COMPATIBLE);
+>> -		return -EINVAL;
+>> +	if (luo_ser->features.req & ~LUO_CORE_FEATURES_SUPP) {
+>> +		pr_err("Unsupported required LUO feature (req: 0x%llx, supp: 0x%llx)\n",
+>> +		       luo_ser->features.req, (u64)LUO_CORE_FEATURES_SUPP);
+>> +		err = -EOPNOTSUPP;
+>> +		goto out_free_ser;
+>>  	}
+>>  
+>> -	luo_global.liveupdate_num = luo_ser->liveupdate_num;
+>> -	pr_info("Retrieved live update data, liveupdate number: %lld\n",
+>> -		luo_global.liveupdate_num);
+>> +	if (LUO_FEATURE_IS_ACTIVE(luo_ser, LUO_FEATURE_NUMBER)) {
+>> +		luo_global.liveupdate_num = luo_ser->liveupdate_num;
+>> +		pr_info("Retrieved live update data, liveupdate number: %lld\n",
+>> +			luo_global.liveupdate_num);
+>> +	}
+>>  
+>> -	err = luo_session_setup_incoming(luo_ser->sessions_pa);
+>> -	if (err)
+>> -		goto out_free_ser;
+>>  
+>> -	luo_flb_setup_incoming(luo_ser->flbs_pa);
+>> +	if (LUO_FEATURE_IS_ACTIVE(luo_ser, LUO_FEATURE_SESSIONS)) {
+>> +		err = luo_session_setup_incoming(luo_ser->sessions_pa);
+>> +		if (err)
+>> +			goto out_free_ser;
+>> +	}
+>> +
+>> +	if (LUO_FEATURE_IS_ACTIVE(luo_ser, LUO_FEATURE_FLBS))
+>> +		luo_flb_setup_incoming(luo_ser->flbs_pa);
+>>  
+>>  	err = 0;
+>>  
+>> @@ -162,7 +173,10 @@ static int __init luo_state_setup(void)
+>>  		return PTR_ERR(luo_ser);
+>>  	}
+>>  
+>> -	strscpy(luo_ser->compatible, LUO_ABI_COMPATIBLE, sizeof(luo_ser->compatible));
+>> +	luo_ser->features.supp = LUO_CORE_FEATURES_SUPP;
+>> +	luo_ser->features.req = LUO_CORE_FEATURES_REQ;
+>> +	luo_ser->features.active = LUO_CORE_FEATURES_ACTIVE;
+>> +
+>>  	luo_ser->liveupdate_num = luo_global.liveupdate_num + 1;
+>>  
+>>  	luo_session_setup_outgoing(&luo_ser->sessions_pa);
+>
+> -- 
+> Regards,
+> Pratyush Yadav
