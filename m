@@ -1,147 +1,162 @@
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cp2.siel.si (cp2.siel.si [46.19.12.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A152C42E8DC
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:47:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6211489FAB;
+	Thu, 15 Oct 2026 08:47:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.19.12.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792054027; cv=none; b=RH099yCdX5TbG74araAsxzDH+Qpf1K87bD0vvGRoSxX8ibt4bDu8GvPoB+mezJW5uPKhVC/WBWzqBfqATJlcfilAU9xAFOGstp9HmzV4BDMoFTq/kt8/F90pYNTHBoklD90/LLSKpMQVkuWu3z7qmSMIAFEq0C+yYjiTIyj9sRg=
+	t=1792054035; cv=none; b=Uf7m0q6X7PAH+O5LbXV9klR0PHdiet2dSbxwwhkOyR8XMC6+xIgG/D/FLbn0sEFal56FY6ertVghAeSoi50azLy8ROlD2J8g1q2jCoPzv+X2urEJm712OAmW2eJ+D9LbufiBk55KhR0B4XGMjl3ss0awr2jAtaKOf7CmoJBKsv0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792054027; c=relaxed/simple;
-	bh=HOcRnjQ/78+UziIir9oKy8ANLOoA8o6bAT5N5PtLkpU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SPDRJ02k85EVoZLaj+HOmLoEZcRiLtocmP0T6Q5e09eFXzbH5aqNLWE00ts6RvLvDc4qsA8V8GfVv8NRtBV9Kbju9uRcQRjuuJIMfojMA6t+InKYD3mHEkmN79tpiesSKC3dS4ItuFNZqUnr2LalJSAdR7F5cjre/sRGYMsfSyM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XXfj5Hb2; arc=none smtp.client-ip=209.85.210.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792054035; c=relaxed/simple;
+	bh=F987hrawW6j3lj7eaAqLXa7a3paIzz8IWI/uyOLevBk=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=aCQa5TCgEqr/8S7IoCsGtVIj6SXmTQbc2fN5D7IOgsDFOilLxmvCmLFy2KvE9fT6kNF3/cfd87xGNtQ6ImpI+uJUPAZFtNrgXdoNmRpsY1woWlN+yN7ZPpyG0EthULrHMlPidnvlkydxVag1aV5Q6n3JqCvR2wX0agG6YsejjCE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com; spf=pass smtp.mailfrom=norik.com; dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b=GSR3PJut; arc=none smtp.client-ip=46.19.12.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=norik.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XXfj5Hb2"
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-88cfa501c5cso710751b3a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:47:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792054026; x=1792658826; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IYttvjru9fKHemUV/qFF+L5++eupMPrrcmnwQVMAKQQ=;
-        b=XXfj5Hb2/vHfMhAXzMo+GL7tEdt8m0i0jRrMwVGm/uZW3CXMZ1tkR7fu6O702RKbqi
-         gMdkjMgOshedqjlYDUd2Gr3HCJ48G9pPFbui0mvE9CxVqraMqFRPRtRh6R3zxyu6iGTK
-         IoNA9eCW+d7AXren7o61t30JJraJRIBBpLaGspOePTzWKYkCW8HCb7RWmG83yGjEHNGX
-         Wb21weEyBin4oRkd/3Vxd8yjDHvv3HGRtEKv3alfBjGIiqXXYh4Uq8wZ7uSg3K4B52vn
-         IarERUf5N+8vNo+oZBwkgC1KmiGwNq1oz98toBbg8FbS8ourPLbqlY1eZB7a7E2VnKyD
-         9nZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792054026; x=1792658826;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IYttvjru9fKHemUV/qFF+L5++eupMPrrcmnwQVMAKQQ=;
-        b=bK4gNEmhan8gxiHbsF3xDy1ROg1X2lREkWnM7oHd/j5hw5SWsmOpTLVxAzNs9FuBXX
-         FcdbBrSIRb4Y4GgJ6AFR5abifVvEDJJe6NaP2UuPTgT4eLG45qP1HwlpAIxFUDXSFvU2
-         8eOJvXlNvVqL6u66DSObcP9wLkJCduvY2O64K6+UILZPetCY8bwLg6i1lsz9RWwL6nNq
-         3nAFyVXxbD76yFzVedlkGz5IVUvLDZytmhAfOfPZ9p3Do2uEGl6yRb+UBJTIkRyFSPSg
-         gZJoPFupUrrXpjQKo1/mAgJF3x5+OJOUhe4JkFgRaSqPR2OWrPkgtWkkHh9a+1vK/brd
-         JV3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBySjXy/PkafY1zWcRbrX0/trKgKHDjnvRyHL+7PH+03PE2J77TYeYf8jG4cg1rnlF5vd7wnvHIreM+Clrk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJqgwe2xH21IK58tu+k8xXWI3wZZvcPDyA/gTMTiqv3WwEwqzT1
-	+se6Dck6pPRknFIXfQioJZuomfejNqBd13ls2v8oC76Ep835TMq2YDyu
-X-Gm-Gg: AYBFou0ZfJDimBGWEdZHpyZiwgUqmNJFZxSvF3ARakTf76fwLP5x6uy3op5MnFeYHh4
-	ruN5INDs+F9ckHoVYoXOhxsm5dY/+N/Kz8t8HiD+lk2y3Clwc+De7HQLCVAL2ameaLJIm+VTEGM
-	mYBymxtUzfTr1+xu2alIHP37gkJIKziSbHuhlU83Z+onLNjAqU77CQKqsMfrrGoniw5EeS+1NXL
-	e8RSxJittZXhzgCxfEQJiz8A8+f1GwMr9SrrHQDIsVZUPJ+RpUI2v8HX2FGdFh3V7eZRvEioyNS
-	tJVv9Gn2pt6I3cP4k0nfKp2+I8MlIdHKYf5ZzccfWTVyA1Jk+UsUUAww6HujwBpZTYjkYYYdyVK
-	kDkL1XwflFVbdy5cwB/HkaVdIsz/k5XmuQT1IbCsyf5i57EayxGmFZYaBw/S8Hh2kSk4kHltJ2r
-	Ef3E43DRzgQsreC2cbtYwPjaisElWdyB4Miss4PAr8iSx9+xn+HQ4X2cwY1WB6IhruCjJ70n4yo
-	NkpyQTssbe8u473iETgJm+hhEmBFLoseEQzDjU6pISIPtXJkdcOxZRy7arTgqXwDjF1ti1nDSkA
-	vp7obo25tVvokIMk7tQp6jkw91+g7RPs9QzxppIsJZ0svCHv
-X-Received: by 2002:a05:6a21:490d:b0:3cd:7ba2:e669 with SMTP id adf61e73a8af0-3e16bb71b3amr16357663637.10.1792054025821;
-        Thu, 15 Oct 2026 01:47:05 -0700 (PDT)
-Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.249])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd635c57517sm900574a12.13.2026.10.15.01.47.03
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 15 Oct 2026 01:47:05 -0700 (PDT)
-From: Yu Zhang <yuz08559@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Yu Zhang <yuz08559@gmail.com>
-Subject: [PATCH] usb: gadget: f_printer: fix pnp_string use-after-free on reconfigure
-Date: Thu, 15 Oct 2026 18:46:58 +1000
-Message-ID: <20261015084658.70918-1-yuz08559@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b="GSR3PJut"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=norik.com;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:References:Cc
+	:To:From:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Unsubscribe-Post:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=LbAfMirCzUKHKrH2TtQXopkikcdlOcqjFyzU/qMzrOU=; b=GSR3PJutykAc6yW3SjzxCY9G6C
+	zh6votkzgnpbHj6UHP+0+TNf19NXZIOZE+cKqFdhWdP4cNptjwPm/Q0KaewBGsVMAnA0LZHDWuJiI
+	OwQkGUPJzpeoC+RU+YQRVJGtX/n9tA+VnoQ2hItR1mzDtGUVbUb4izDUj7RUQNPTHjDBbr13JRwLt
+	UANwA88lBGTbtl2/+SYANKvIiKL6vZCxgpT3wBbAfrkwFaIn/BZtTKHak9pfwfuzalntiZdMxrGtB
+	AnxldgwamoSo7TQtWm/ukxiGorxjIBv2jFryPXagJ7dtFU8MyTJuq7lXbQ6zycCC80Np1jYTskicI
+	h+8ixo5Q==;
+Received: from 89-212-21-243.static.t-2.net ([89.212.21.243]:46922 helo=[192.168.69.116])
+	by cp2.siel.si with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100.1)
+	(envelope-from <primoz.fiser@norik.com>)
+	id 1xHH7B-00000002OC9-3Ybv;
+	Thu, 15 Oct 2026 10:47:05 +0200
+Message-ID: <ad97376a-8464-434c-b8c3-dffe395eef64@norik.com>
+Date: Thu, 15 Oct 2026 10:47:03 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/4] da9062/da9061 watchdog timeout mode
+From: Primoz Fiser <primoz.fiser@norik.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ Support Opensource <support.opensource@diasemi.com>,
+ Lee Jones <lee@kernel.org>, Wim Van Sebroeck <wim@linux-watchdog.org>,
+ Guenter Roeck <linux@roeck-us.net>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ mfd@lists.linux.dev, linux-watchdog@vger.kernel.org,
+ upstream@lists.phytec.de, andrej.picej@norik.com
+References: <20260924065044.368341-1-primoz.fiser@norik.com>
+Content-Language: en-US
+Autocrypt: addr=primoz.fiser@norik.com; keydata=
+ xjMEZrROOxYJKwYBBAHaRw8BAQdAADVOb5tiLVTUAC9nu/FUl4gj/+4fDLqbc3mk0Vz8riTN
+ JVByaW1veiBGaXNlciA8cHJpbW96LmZpc2VyQG5vcmlrLmNvbT7CiQQTFggAMRYhBK2YFSAH
+ ExsBZLCwJGoLbQEHbnBPBQJmtE47AhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQagttAQducE+T
+ gAD+K4fKlIuvH75fAFwGYG/HT3F9mN64majvqJqvp3gTB9YBAL12gu+cm11m9JMyOyN0l6Os
+ jStsQFghPkzBSDWSDN0NzjgEZrROPBIKKwYBBAGXVQEFAQEHQP2xtEOhbgA+rfzvvcFkV1zK
+ 6ym3/c/OUQObCp50BocdAwEIB8J4BBgWCAAgFiEErZgVIAcTGwFksLAkagttAQducE8FAma0
+ TjwCGwwACgkQagttAQducE8ucAD9F1sXtQD4iA7Qu+SwNUAp/9x7Cqr37CSb2p6hbRmPJP8B
+ AMYR91JYlFmOJ+ScPhQ8/MgFO+V6pa7K2ebk5xYqsCgA
+Organization: Norik systems d.o.o.
+In-Reply-To: <20260924065044.368341-1-primoz.fiser@norik.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - cp2.siel.si
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - norik.com
+X-Get-Message-Sender-Via: cp2.siel.si: authenticated_id: primoz.fiser@norik.com
+X-Authenticated-Sender: cp2.siel.si: primoz.fiser@norik.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-f_printer_opts_pnp_string_store() replaces opts->pnp_string with
-kfree(old) + kstrndup(new) under opts->lock only, with no opts->refcnt
-guard, so the IEEE-1284 ID string can be changed while the function is
-bound and the gadget is enumerated.
+Hi,
 
-printer_func_setup() answers the host GET_DEVICE_ID class request from
-(soft)irq context and reads the string with no lock:
+gentle ping, can we get this applied soon?
 
-	value = strlen(*dev->pnp_string);
-	...
-	memcpy(buf + 2, *dev->pnp_string, value);
+Or is there still something to fix?
 
-dev->pnp_string points at &opts->pnp_string, so a concurrent configfs
-write that frees the old string races the setup read -> use-after-free.
+BR,
+Primoz
 
-KASAN, a configfs writer racing a host GET_DEVICE_ID (reproduced over
-dummy_hcd):
 
-  BUG: KASAN: slab-use-after-free in strlen+0xe/0x40
-  Read of size 1 at addr ffff888005036000 by task swapper/1/0
-  Call Trace:
-   <IRQ>
-   strlen+0xe/0x40
-   printer_func_setup+0x410/0x890
-   composite_setup+0x67e/0x4690
-   configfs_composite_setup+0xbb/0xd0
-   dummy_timer+0x1934/0x1e40
-   __hrtimer_run_queues+0x1b6/0x410
-   hrtimer_run_softirq+0x13a/0x260
-  Allocated by task 3486:
-   kstrndup+0xb2/0x130
-   f_printer_opts_pnp_string_store+0x3f/0xf0
-   configfs_write_iter+0x1a7/0x250
-   vfs_write+0x5df/0x940
-   ksys_write+0xfd/0x1e0
+On 9/24/26 08:50, Primoz Fiser wrote:
+> This is a revival of a series originally posted by Andrej Picej in              
+> December 2021 [1]. It lets the DA9061/2 PMIC watchdog be configured via         
+> the "dlg,wdt-sd" DT property, to trigger a full SHUTDOWN instead of the         
+> default POWERDOWN on watchdog timeout, and enables that on the PHYTEC           
+> phyCORE-i.MX6 SOM.                                                              
+>                                                                                 
+> From v5 of original series this resend drops patch 4/5 ("dt-bindings:           
+> watchdog: da9062: add watchdog timeout mode") because it already landed         
+> upstream as commit 382256b219fb, later converted from .txt to YAML by           
+> bd888a4377ae. Thus dlg,da9062-watchdog.yaml already documents dlg,wdt-sd        
+> property.                                                                       
+>                                                                                 
+> Patches 1 and 2 (the mfd prerequisites making register CONFIG_I                 
+> writable) needed a rebase: an unrelated commit has since added                  
+> CONFIG_J, the register immediately adjacent to CONFIG_I, to the same            
+> writeable-range tables. Rather than reapplying the original single-             
+> register insert next to it, these merge CONFIG_I and CONFIG_J into one          
+> range, matching the existing CONFIG_G-CONFIG_K style already used in            
+> this file.                                                                      
+>                                                                                 
+> Patch 3 (the watchdog driver support) still applies unmodified.                 
+>                                                                                 
+> Patch 4 only needed its target path updated for the arch/arm/boot/dts           
+> vendor sub-directory move (imx6qdl-phytec-phycore-som.dtsi is now under         
+> nxp/imx/); its content is unchanged.
+> 
+> Changes in v2:
+> 
+> Patch 1 and 2: 
+> - capitalize subject description
+>  
+> Patch 3:
+> - implement Guenter's remarks (code refactor and update commit message)
+> 
+> Patch 4:
+> - capitalize subject description
+> 
+> Link to v1: https://lore.kernel.org/all/20260923111719.2032012-1-primoz.fiser@norik.com/                                         
+>                                                                                 
+> [1] https://lore.kernel.org/all/20211206064732.280375-1-andrej.picej@norik.com/
+> 
+> Andrej Picej (3):
+>   mfd: da9061: Make register CONFIG_I writable
+>   watchdog: da9062: Add support for dlg,wdt-sd property
+>   ARM: dts: imx6: phycore-som: Set watchdog timeout mode to shutdown
+> 
+> Stefan Christ (1):
+>   mfd: da9062: Make register CONFIG_I writable
+> 
+>  .../nxp/imx/imx6qdl-phytec-phycore-som.dtsi    |  1 +
+>  drivers/mfd/da9062-core.c                      |  4 ++--
+>  drivers/watchdog/da9062_wdt.c                  | 18 ++++++++++++++++++
+>  3 files changed, 21 insertions(+), 2 deletions(-)
+> 
 
-The setup path runs in atomic context and cannot take opts->lock, so
-serialize by refusing to change pnp_string while the function is
-instantiated, exactly as the sibling f_printer_opts_q_len_store() already
-does for q_len.  While the function is bound the string is then stable
-for the lifetime of the live reader; it can still be changed when the
-function is not linked into a gadget.
-
-Fixes: 24b7ba2f88e0 ("usb: gadget: function: fix dangling pnp_string in f_printer.c")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yu Zhang <yuz08559@gmail.com>
-Tested-by: Yu Zhang <yuz08559@gmail.com>
----
- drivers/usb/gadget/function/f_printer.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/usb/gadget/function/f_printer.c b/drivers/usb/gadget/function/f_printer.c
-index 1111111..2222222 100644
---- a/drivers/usb/gadget/function/f_printer.c
-+++ b/drivers/usb/gadget/function/f_printer.c
-@@ -1269,6 +1269,11 @@ static ssize_t f_printer_opts_pnp_string_store(struct config_item *item,
-
- 	mutex_lock(&opts->lock);
-
-+	if (opts->refcnt) {
-+		result = -EBUSY;
-+		goto unlock;
-+	}
-+
- 	new_pnp = kstrndup(page, len, GFP_KERNEL);
- 	if (!new_pnp) {
- 		result = -ENOMEM;
+-- 
+Primoz Fiser
+phone: +386-41-390-545
+email: primoz.fiser@norik.com
 --
-2.43.0
+Norik systems d.o.o.
+Your embedded software partner
+Slovenia, EU
+phone: +386-41-540-545
+email: info@norik.com
+
