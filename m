@@ -1,104 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3385123E33D;
-	Thu, 15 Oct 2026 09:27:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C9864756C1;
+	Thu, 15 Oct 2026 09:27:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.230.196.243
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792056436; cv=none; b=hFlC0j4n1V9MCryphFBC1NWRxgliLuVIaiNjn//6FSczrYT49ui5+EC2D9kZd0morfivXnkegIU2h77tJI13w5ns5oK41p/tNBoZ8XSi0J2yva7zu3wtmbl+utYASn0Q62PtrcBXmsOtXLQsbQ+vR3mQAvoeGoYtdybfZ+L7EGY=
+	t=1792056452; cv=none; b=RMTu7NcwKQrEgFE23YzVSRybxYmqdl2dmUI3T9O4ks+V1iYnDlHW1GOQMVuRrWFE1ZEhVGNOldLWw7qEP+BQFUBXFvlAXVfwJcoRsdcfldDNKf5oDHn0+HkJ3TN9x/JQLVpNlglm/q3ufKKcoT1lffPnY0txsTfN+Z7mxV2wPzk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792056436; c=relaxed/simple;
-	bh=YoAGyvNOVWW/FIgr/bJeGLOxcmmOb0FRZVPhuNr+3Ss=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H1lUZlNMbxpwHbXVFMi1WEg9AVHRXYw+yCkxRW1z8t/toju/uPfNWyctJbLoqtYPdsB14dGdUS/QwmujZy57ZJMoKUlUUyUu2PaYj453WHMHcXs7svxW9Va/5dXwwrUHDr4SystARB4r//481RH82kdYdVwB4RE5UDualja6PTs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mNY6mvVD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792056452; c=relaxed/simple;
+	bh=m8BqeVLKW1NNI4OXuu485jJvCTCkQuDlWvXl7Z2Rwl4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FvnlHA+L4OGzztGvet7n5ASYfvOMc/mdu6NZusnsJ2ffTadaldK1ITEuUrbz2Cv4WRSuLxHRE7DaR36dqvpY4WGubqinhne1/dtVFf7o7lOZS8jpaADbYJziotAr59FnvyBpVw/y0fwnxr2Iof1XMy6DCe3PbNb9g1bruB3YOlw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru; spf=pass smtp.mailfrom=astralinux.ru; dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b=E5W8SVyT; arc=none smtp.client-ip=37.230.196.243
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mNY6mvVD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32DA21F000C4;
-	Thu, 15 Oct 2026 09:27:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792056434;
-	bh=3mdYgBt2LqB3LVgkJYeY1oIFFwKjz6NX1BHb65C9Dec=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mNY6mvVDi+W8sqfBDlBi7cPIoJAzc8uAef8ObVwlpSneTh99bFmMBX9TRgxZz5ZqB
-	 NBPiDoTpMbgcTnO3t+hm9mGv9Hp2BxR1zVmnzcskjGkZQmCmWZzF7bhDb+xkufDJ9P
-	 32XYSa5/QcZMdnOJsyPDXOx3E9yTDhx1B9SACs1t37GPnTkWUSKUOpaX4mktQa8kiR
-	 il57qggWOoLv7su9BU6SidpTFFob8F3bFk2gY3NhH1+I7zjp587grslsoqseq420rb
-	 Ia/KmN8fQl7WvLuqVbkkd0azvZHQ0POrZazUde45SMaGjpcvVnejnasbpnH3SvIuDn
-	 1j/GQvXbYKgbw==
-Date: Thu, 15 Oct 2026 11:27:12 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Navid Ghahremani <ghahramani.navid@gmail.com>
-Cc: linux-arm-kernel@lists.infradead.org, arnd@arndb.de, 
-	stefandoesinger@gmail.com, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 05/24] dt-bindings: reset: Add ZTE ZX279128S reset
- controller bindings
-Message-ID: <20261015-noble-sloppy-chamois-c71dd2@quoll>
-References: <20261014072109.1759502-1-ghahramani.navid@gmail.com>
- <20261014072109.1759502-6-ghahramani.navid@gmail.com>
+	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b="E5W8SVyT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
+	s=mail; t=1792056441;
+	bh=m8BqeVLKW1NNI4OXuu485jJvCTCkQuDlWvXl7Z2Rwl4=;
+	h=From:To:Cc:Subject:Date:From;
+	b=E5W8SVyTk86QejG0xj+UVqquK+5aW/4daDBTKGEwxk0qvYgEY0knz9kZ/ibQl2EyR
+	 xB+6FlDLND9czdt0N2QBo+CYu79+8ZiFHmYm3LfrF3sZ9XKL8IgE31sBo5XoiuD/hV
+	 MgE5VinpnbA1TeesUxUQGhnGOtzggzOs9ibQR/gf7YqGVaAwY6m0MeQrb/cEMkudZR
+	 2UOIHeuHaECkGDqz69BnnxHAkV1suPp8CYoFxN5qpfNQ5VuokYYpt0TLuDg+bOoEqG
+	 K84RMYcYjS1DneI+O82PuJJHP7XA2P3L7oJ8FnrPQ5Q5JagkTZ/vofKRv4bMhsppfO
+	 mqY18xtB44kYw==
+Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
+	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 67FE324C83;
+	Thu, 15 Oct 2026 12:27:21 +0300 (MSK)
+Received: from new-mail.astralinux.ru (unknown [10.205.207.8])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
+	Thu, 15 Oct 2026 12:27:20 +0300 (MSK)
+Received: from DESKTOP-D46TNHI (unknown [10.198.48.108])
+	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4j52kJ068dzLVw;
+	Thu, 15 Oct 2026 12:25:59 +0300 (MSK)
+From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
+	Sasha Levin <sashal@kernel.org>,
+	Hongbo Li <lihongbo22@huawei.com>,
+	Qu Wenruo <wqu@suse.com>,
+	Filipe Manana <fdmanana@suse.com>,
+	David Sterba <dsterba@suse.com>,
+	Chris Mason <clm@fb.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org
+Subject: [PATCH 6.12] btrfs: free path if inline extents in range_is_hole_in_parent()
+Date: Thu, 15 Oct 2026 12:25:25 +0300
+Message-ID: <20261015092527.1172-1-mdmitrichenko@astralinux.ru>
+X-Mailer: git-send-email 2.54.0.windows.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261014072109.1759502-6-ghahramani.navid@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-KSMG-AntiPhishing: NotDetected, bases: 2026/10/15 09:17:00
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
+X-KSMG-AntiSpam-Info: LuaCore: 127 0.3.127 0884f7b061fa529b810563f359267cd65d2ec05c, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;lore.kernel.org:7.1.1;astralinux.ru:7.1.1;127.0.0.199:7.1.2;new-mail.astralinux.ru:7.1.1, FromAlignment: s
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiSpam-Lua-Profiles: 206699 [Oct 15 2026]
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Version: 6.1.1.27
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/15 06:31:00 #28687005
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-LinksScanning: NotDetected, bases: 2026/10/15 09:16:00
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 1
 
-On Wed, Oct 14, 2026 at 08:20:45AM +0100, Navid Ghahremani wrote:
-> Define logical reset indices (0, 1, 2...) for the topcrm and crm2
-> reset controllers on ZTE ZX279128S SoCs.
-> 
-> Signed-off-by: Navid Ghahremani <ghahramani.navid@gmail.com>
-> ---
->  .../dt-bindings/reset/zte,zx279128s-reset.h   | 26 +++++++++++++++++++
+Commit db00636643e6 ("btrfs: send: check for inline extents in
+range_is_hole_in_parent()") is a patch backported directly from
+mainline to 6.12, it does not free the path in the inline extents case.
 
-This belongs to the patch with bindings/schema.
+The original patch in mainline does not have this problem because
+commit 4ca6f24a52c4 ("btrfs: more trivial BTRFS_PATH_AUTO_FREE
+conversions") in 6.18-rc1 converted range_is_hole_in_parent() to
+scope-based auto-cleanup. 6.12 already provides BTRFS_PATH_AUTO_FREE,
+but range_is_hole_in_parent() still frees the path manually at the out
+label, so use a goto there to avoid the memory leak in the inline
+extents case.
 
->  1 file changed, 26 insertions(+)
->  create mode 100644 include/dt-bindings/reset/zte,zx279128s-reset.h
-> 
-> diff --git a/include/dt-bindings/reset/zte,zx279128s-reset.h b/include/dt-bindings/reset/zte,zx279128s-reset.h
-> new file mode 100644
-> index 0000000000..5b580bcda8
-> --- /dev/null
-> +++ b/include/dt-bindings/reset/zte,zx279128s-reset.h
-> @@ -0,0 +1,26 @@
-> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> +/*
-> + * Copyright (C) 2026 Navid Ghahremani <ghahramani.navid@gmail.com>
-> + */
-> +
-> +#ifndef _DT_BINDINGS_RESET_ZTE_ZX279128S_RESET_H
-> +#define _DT_BINDINGS_RESET_ZTE_ZX279128S_RESET_H
-> +
-> +/*
-> + * Top CRM logical reset lines. Mapped by drivers/clk/zte/clk-zx279128s.c
-> + * to hardware register offsets and bit shifts.
-> + */
-> +#define ZX279128S_RESET_USB_B9		0
-> +#define ZX279128S_RESET_USB_B10		1
-> +#define ZX279128S_RESET_USB_B11		2
-> +#define ZX279128S_RESET_USB_B14		3
+Fixes: db00636643e6 ("btrfs: send: check for inline extents in range_is_hole_in_parent()")
+Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+---
+This is a follow-up fix for the 6.12.y backport of the CVE-2026-23141 fix.
+The same change for 6.6.y was posted by Hongbo Li and reviewed by
+Qu Wenruo there:
+https://lore.kernel.org/all/20260227075219.2594937-1-lihongbo22@huawei.com/
 
-> +#define ZX279128S_RESET_COUNT		4
+ fs/btrfs/send.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-Drop, not a binding.
-
-> +
-> +/*
-> + * Top CRM 2 logical reset lines.
-> + */
-> +#define ZX279128S_CRM2_RESET_PCIE0	0
-> +#define ZX279128S_CRM2_RESET_PCIE1	1
-
-> +#define ZX279128S_CRM2_RESET_COUNT	2
-
-Drop.
-
-Best regards,
-Krzysztof
+diff --git a/fs/btrfs/send.c b/fs/btrfs/send.c
+index 6300418ce357..c9618340f09b 100644
+--- a/fs/btrfs/send.c
++++ b/fs/btrfs/send.c
+@@ -6549,8 +6549,10 @@ static int range_is_hole_in_parent(struct send_ctx *sctx,
+ 		extent_end = btrfs_file_extent_end(path);
+ 		if (extent_end <= start)
+ 			goto next;
+-		if (btrfs_file_extent_type(leaf, fi) == BTRFS_FILE_EXTENT_INLINE)
+-			return 0;
++		if (btrfs_file_extent_type(leaf, fi) == BTRFS_FILE_EXTENT_INLINE) {
++			ret = 0;
++			goto out;
++		}
+ 		if (btrfs_file_extent_disk_bytenr(leaf, fi) == 0) {
+ 			search_start = extent_end;
+ 			goto next;
+-- 
+2.43.0
 
