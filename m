@@ -1,402 +1,244 @@
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 323A75616BB
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:00:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C21A1FCF41
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:00:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792087226; cv=none; b=UULdJUWreshxsz60/6LrBZgZr4C4umDYV3iS9A7Y1gC+/JE4Hc1QzTeXzqIZW7phOrSOR+QRLYp9PGeE2DRTA+Y91dig8uXIkgg1NpWbRAmhmruxsG32U2LXZ36FTEBGYBgssfNJ+IM0BYCGi6HnvLI9yF0BoZhA2Irvll4Esz0=
+	t=1792087242; cv=none; b=Dd+gEeYKm/NElc6XTzquvbTX8VL1DilivYIKG6L/ziy9TBpZj7xTKWJqFFhCjUzVFjffsgm0Y1fxtkIlcFxokzkCEXEnF8x34MemqZciQ8QqJV3Pec1HpE8Ko21CfNP4YY2V93LH+F18ma+PIyypV5+5iauAHnwNC8AC6geobJs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792087226; c=relaxed/simple;
-	bh=DrDZ0rtNac1TFfMF35LminYAuufoxFAQqDGkVPh++08=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JFuJLrjPXP8piH9ydRXS0LwrAyCMLITBdlv9pgT6/I8k/ZyKC5dODKwH4ZeUDP636nS3mmvaATU36mWhrmf3cQ8xB/skuJJqX72ru4zeII/30CHjZex94854Wypcq/kPvP3i+hAuAZYbTUHDW1mZAdoiHvHmR47YnkShCTppcak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DiB5+iCw; arc=none smtp.client-ip=74.125.82.174
+	s=arc-20240116; t=1792087242; c=relaxed/simple;
+	bh=U6PpWk46mEeXKnyaHQSE9sGanlQTQSblyiO/JAeoMwQ=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=OvsYtXs8oVXjG5b32t1ubtK88oYGxdlOtJ/+JP3Jn6ymjSHyUKrtDMyfdzXOiTVYm1+kcco7lcysj9UmWtNdE9IBcla0UcB+59VWjbZZSItqmoAyxItY5LkjYsZonGmkd+XbVP6vio4SU5e9TCpgHyjT7djIsLnFTGat7ToKlxQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j0oAYOUY; arc=none smtp.client-ip=209.85.221.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DiB5+iCw"
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-35f036b17easo50349eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:00:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j0oAYOUY"
+Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5e948e56b8eso694459e0c.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:00:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792087207; x=1792692007; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pQU2mFCcZijVfHNcT83wEGKS/aSb6ywHgE8MWS0vK70=;
-        b=DiB5+iCwESGaJSVEWDXHYUUhuj8j5kOWcWGTmBeaTOJtOMZ0oYMWJzKGguAT0Qh0Jy
-         Lrb3+Kwl1HdUllK52UYhOSiv4SYGi3RY6v+UyI13T2n03BL5K6YWACGeMO2g1scAfiuk
-         GsHGuWHCIb9LGXdbLrbxN3dtEzVWwRMSE2X6l5pcZQPZCTqw3XLlg5IpoAeHn6/yGn/P
-         7uCn8mFs5not06Rh49VRHdwlzzRWdA1Wqo0bi1AX8ZhblH5fSRmqll9Lyec3E+VdE2EM
-         0ymJdnDXZUNEwyDHvt6wQ0AtkHKbGYm4OawyPCA/iH14nTmRZu3q10rh3EAoLc8LGxHX
-         BjnA==
+        d=gmail.com; s=20251104; t=1792087229; x=1792692029; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=YEKhz/ZK03jGlV3S7VR78poz8/WFBC4txQautcq3ygk=;
+        b=j0oAYOUYAJmf5jHFTjHuds9S6AfGgQWbjMu9EOtM3sqNkC34LjFASkdBp2Qq4KCLuK
+         NBychnVGQfIqoFkFABDt2k4egjojNnGjFn7A9PCemyd2FLGdZL2/Y4VjDM/PA6074Tgv
+         4a4jK+1r7pdXQ8gNgugfkx9OJ7HMDy6kDsB6sYq+jRsboo+XKVba7XIfBctEV4tYAV+8
+         GzfnQ3BepTM1XzWK7SP/irjtF1ZlmeWi6eT0LdCUzLfV/HcV9DCooPseKP7bctEnsYXY
+         vmYfL7l7JACMHvfMyT8CLjmQXKMNNYOIOMkmeK9tnyfQ7lcK8RvlgMLiX7ntVYutdmB7
+         2cKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792087207; x=1792692007;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pQU2mFCcZijVfHNcT83wEGKS/aSb6ywHgE8MWS0vK70=;
-        b=dUB7PdyNps5P7lkSIoo5XOX/T0A3mE0GVL4zaYhYZbNj0FXxgg+ZakZiUJ8cx8w87Z
-         BDGqveav1ZR0yPaGjgD9bEpKiXWQURcSfTrd43WeluORbZnhqItSOnECDpgMHW0cbwcE
-         IZrj9el2TdPn32GWZE3HM5gCalAY14KKE9opLJvzyyPAH6AdR+5FU1LYCEphkv6unpjc
-         YinlC8JFFD7o4POgnUzIIKgptSdB377f+S+aS4AM77U9QrZrwgzXcWSP0wNHWQJhkq43
-         CsUO0oMdD5PSKAurq44ALfBYG4qVf2pBZEg1+u/T/AitV+5e1Bm2TShIsHLodYrkenUe
-         98LQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzjomgq2cOe+rUrtdxM9vJMEv2ncxT3FAcao18xulnDJ6YHt4pcpCrphAJVVvvo/BkOtdQMw4Ap0vY0KrQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIld9JFNj8xaSX5Vv0j4S3WSsIunTS5Jk89ylFEats5WdgNk6a/
-	Wk1zOnM9OjrkYLsTSc0cKeuIBg0pBLwiOBh8h6qD27ZFs2jloi+vOkxX
-X-Gm-Gg: AYBFou27fmx/3/hNo5lkjjY2bgrbo0staiJ4hCQsUqssOdmr+kN0igM0R/F1eo3O4mY
-	IY6Vw9njUC+jSB5M1Jzh2dx7IvaZdDVwDFZvtlCoObn8xZyR0D88tajyI8u8TYce8J//ODw8566
-	Phz2csK88tprDNqV/fmxWek2cOwKl7A6k6XeZkUpUXtnCwwyPefissYlL+qofOYrzmViiUSpnBi
-	XdeRJsoiRpfcL661rCbKQL51o3fbZeyMOJZu21V0+5Fqu84VjaKc0rQVSTHpMFzszmNpCogd8C9
-	F3KAM4THruJ6auAoNBGRJ5PArok/U7sHmDRvsKxyWY/hioB2UZquVpHIj5BY8NCbpYIHuEiHlAx
-	Td2BdcLEdrpUI2BZdJKX6FF9V8xuyvKAdxXPZNZxrTd4nRrF5kiw0jHJN004qi128yOojB7Y7jB
-	+KaVNxyPVXZQJOkquoqvtmybBwuH9ijf6Yx/DdC/fXerzQ0L9fSte2o6SxT3VZW0oqir7GkOhte
-	UwIJZxt5j6lZm9EtdATt7LgspxVI4Vcu8QMWfO9Gk9H04M=
-X-Received: by 2002:a05:701a:c901:b0:143:26cf:8617 with SMTP id a92af1059eb24-16a6337f340mr29049828c88.25.1792087206644;
-        Thu, 15 Oct 2026 11:00:06 -0700 (PDT)
-Received: from Terra.tail0ac356.ts.net ([198.176.50.208])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-182a900cfbfsm444389c88.22.2026.10.15.11.00.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 11:00:06 -0700 (PDT)
-From: Weiming Shi <bestswngs@gmail.com>
-To: Hannes Reinecke <hare@suse.de>,
-	Keith Busch <kbusch@kernel.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>
-Cc: linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Xiang Mei <xmei5@asu.edu>,
-	Weiming Shi <bestswngs@gmail.com>,
-	stable@vger.kernel.org,
-	co+4a43f26b1a2b6f57@bugs.sh
-Subject: [PATCH] nvme-auth: serialize authentication before TLS key revocation
-Date: Thu, 15 Oct 2026 10:59:57 -0700
-Message-ID: <20261015175956.1895355-2-bestswngs@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20260707; t=1792087229; x=1792692029;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YEKhz/ZK03jGlV3S7VR78poz8/WFBC4txQautcq3ygk=;
+        b=GgWpXA8KUqe8MgCUSXOvwd1CfQwa9YygS3P+WR5UdRH9bT93axpZ6CF0SUctKDg+s6
+         CHvEFSp1YcNbNXYbNTQUKNCKDb7THgV2whFXxZ1OwU8KKix/qS3l6Mp6hKEn88aUBlRN
+         5LTOmi0CQqlkqr6VPy2ZY4WNsxtXTPJSDjzL877fJf7joFJ+Qjqz49Dp6aPhtiSFIK6x
+         Y0n9HKsh8Elj6A9NcHJrql87JnYFG6HGHgBtt4zi0sRJYS++An2DTlkuGwZtPPC/zBpr
+         h5U+LiCA6O+DpqkrkyvVWJYof/nkHXxbSJrlO2GIMgMW0aeoBB2pHHazcFRfPgO7XXje
+         Zrtw==
+X-Forwarded-Encrypted: i=1; AKwUvBwJU+L0K1h9sss4J1Tj0//fAg7z1pq82PEI7keN+RE61zHAlWJf2A5t209PeCK/SCQei95eHFVRY2CWyVc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI28UVjtHEtHo5IumMEHKtBOj6Q0SVkBbzx4VxafZYt/dGfihjA
+	/rJnxlsHllk41/DXoZYDdeqKDbyn1Ol5uUWmw/AeHA+akObPSAuaRxwd
+X-Gm-Gg: AYBFou1zLc8MD71daQNM2oTRNscFRep5MdEv1p3bbn628NExvCxlysdzYT1msDqG5UG
+	9BcyEXqW4/OBH+5/4Opb2ZNgLWvpT7S0ZicPlmEBQfd86ywW+Jxpt+9MATTx/jTqx4xLkAPCm5v
+	J8r8wJBa/KOVrb8ZJW4zkhAzPOhqrgKuFUcqVezx4asGp9J7EfeOYPkYHDiLKARV8H17Chr+xt6
+	ydcohwfzC7dXepoL4TwyUC37H2I/KpuFfVTfuE0XrP2Nw3k9I5VeST4hdSgZkLwfGULEDnyVsGI
+	qEQ4J7fHxpcxd0M9ejkgjSbZIyOlQOckOk+WWYEtLLmKWQqVOwjZG823R7ioVsFNEMFUf6PgE23
+	Y18dxSiJu6d3+gCzs0PnhemP/HgIW8B7iKWq+x8JB9YGF4lsFEy08E7hq5cpOK1t+Q4mevbvtzT
+	LaaT+EBdzl+lm7FbQQnZ5fmLRtpY7xvcqsufTnaIT9HstzIBEhiMoB7cW3AlPFyXLui6tNybRZo
+	Jdano6yaGyUV7s=
+X-Received: by 2002:a05:6122:3295:b0:5dc:d0cb:7d80 with SMTP id 71dfb90a1353d-5e91f4934b5mr7341757e0c.11.1792087228643;
+        Thu, 15 Oct 2026 11:00:28 -0700 (PDT)
+Received: from ehlo.thunderbird.net ([2804:388:90c2:72bb:18de:b9f8:b3f7:6f13])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ea9947b81asm260312e0c.8.2026.10.15.11.00.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 15 Oct 2026 11:00:27 -0700 (PDT)
+Date: Thu, 15 Oct 2026 15:00:21 -0300
+From: Arnaldo Melo <arnaldo.melo@gmail.com>
+To: Namhyung Kim <namhyung@kernel.org>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>
+CC: Ian Rogers <irogers@google.com>, Jiri Olsa <jolsa@kernel.org>,
+ Adrian Hunter <adrian.hunter@intel.com>,
+ James Clark <james.clark@linaro.org>, Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
+ linux-perf-users@vger.kernel.org
+Subject: Re: [PATCH v5 07/11] perf tools: Factor out dso__find_binary_type()
+User-Agent: Thunderbird for Android
+In-Reply-To: <atEI2Ja4xpCnV7yI@google.com>
+References: <20261013172155.160869-1-namhyung@kernel.org> <20261013172155.160869-8-namhyung@kernel.org> <atDSmfwd4v_oLg4m@x2> <atEI2Ja4xpCnV7yI@google.com>
+Message-ID: <5514C8F1-3331-4E74-B6AE-607B3A632F0A@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-NVMe/TCP reset and error recovery can revoke opts->tls_key while
-admin-queue DH-HMAC-CHAP authentication is replacing it.  The sysfs
-reset_controller and tls_configured_key paths can reach this race because
-nvme_auth_stop() cancels only controller work; the split negotiate/wait
-interface also lets concurrent callers reset the same queue context.
 
-Serialize complete authentication transactions per queue, reject new work
-after the controller leaves LIVE or CONNECTING, and make nvme_auth_stop()
-drain queue work and its callers before NVMe/TCP revokes the generated key.
-Take the transaction mutex before canceling residual work so a pending
-authentication cannot be reported successful without running.  Authentication
-on different I/O queues remains parallel.
 
-  BUG: KASAN: null-ptr-deref in down_write (kernel/locking/rwsem.c:1632)
-  RIP: down_write (kernel/locking/rwsem.c:1632)
-  Call Trace:
-   key_revoke (security/keys/key.c:1142)
-   nvme_auth_revoke_tls_key (drivers/nvme/host/auth.c:653)
-   nvme_reset_ctrl_work (drivers/nvme/host/tcp.c:2612)
-   process_one_work (kernel/workqueue.c:3396)
-   worker_thread (kernel/workqueue.c:3479 kernel/workqueue.c:3560)
-   kthread (kernel/kthread.c:436)
-   ret_from_fork (arch/x86/kernel/process.c:158)
-   ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
-  Kernel panic - not syncing: Fatal exception
+On October 15, 2026 2:09:44 PM GMT-03:00, Namhyung Kim <namhyung@kernel=2E=
+org> wrote:
+>On Thu, Oct 15, 2026 at 10:18:17AM -0300, Arnaldo Carvalho de Melo wrote:
+>> On Tue, Oct 13, 2026 at 10:21:51AM -0700, Namhyung Kim wrote:
+>> > Separate out the logic to detect binary type of a DSO=2E  It checks i=
+f
+>> > the candidate file contains "=2Etext" section=2E  There could be data=
+-only
+>> > DSOs but as our use cases focus on the code (perf annotate or intel
+>> > PT), we can ignore them for now=2E
+>> =20
+>> > But it also can fail due to open file limit=2E  Handle the case by
+>> > retrying with _dso__data_open_lock=2E
+>> =20
+>> > Introduce bintype_searched flag and it accessors to prevent repeated
+>> > (failed) search=2E
+>>=20
+>> This one, when compiled with clang, catch this in all my build
+>> containers:
+>>=20
+>>   LD      /tmp/build/perf-tools-next/tests/perf-test-in=2Eo
+>> util/dso=2Ec:942:7: error: mutex '_dso__data_open_lock' is not held on =
+every path through here [-Werror,-Wthread-safety-analysis]
+>>   942 |                 if (dso__data_open_cnt) {
+>>       |                     ^
+>> util/dso=2Ec:940:4: note: mutex acquired here
+>>   940 |                         mutex_lock(dso__data_open_lock());
+>>       |                         ^
+>> util/dso=2Ec:942:7: error: reading variable 'dso__data_open_cnt' requir=
+es holding mutex '_dso__data_open_lock'   CC      /tmp/build/perf-tools-nex=
+t/util/maps=2Eo
+>> [-Werror,-Wthread-safety-analysis]
+>>   942 |                 if (dso__data_open_cnt) {
+>>       |                     ^
+>> util/dso=2Ec:943:4: error: calling function 'close_first_dso' requires =
+holding mutex '_dso__data_open_lock' exclusively [-Werror,-Wthread-safety-a=
+nalysis]
+>>   943 |                         close_first_dso();
+>>       |                         ^
+>> util/dso=2Ec:949:3: error: releasing mutex '_dso__data_open_lock' that =
+was not held [-Werror,-Wthread-safety-analysis]
+>>   949 |                 mutex_unlock(dso__data_open_lock());
+>>       |                 ^
+>> 4 errors generated=2E
+>> make[4]: *** [/home/acme/git/perf-tools-next/tools/build/Makefile=2Ebui=
+ld:95: /tmp/build/perf-tools-next/util/dso=2Eo] Error 1
+>>   CC	  /tmp/build/perf-tools-next/util/thread=2Eo
+>>=20
+>> perf adds -Wthread-safety for clang builds (tools/perf/Makefile=2Econfi=
+g),
+>> so it is -Werror there=2E
+>>=20
+>> This is because __dso__find_binary_type() takes _dso__data_open_lock on=
+ly
+>> on the first retry, under needs_open_lock, and then reads
+>> dso__data_open_cnt and calls close_first_dso(); with the lock taken
+>> conditionally the analyzer can't see it held on every path=2E  And for =
+the
+>> try_to_open_dso() caller, which already holds it, the requirement was
+>> only implicit, the helper had no annotation for clang to check=2E
+>>=20
+>> I've folded the following into the patch, see if it is acceptable:
+>>=20
+>> diff --git a/tools/perf/util/dso=2Ec b/tools/perf/util/dso=2Ec
+>> index 47241077ad26=2E=2E8f274b8b1030 100644
+>> --- a/tools/perf/util/dso=2Ec
+>> +++ b/tools/perf/util/dso=2Ec
+>> @@ -925,7 +925,8 @@ static int dso__find_binary_type_locked(struct dso =
+*dso)
+>>  }
+>> =20
+>>  #define FIND_MAX_RETRY  3
+>> -static int __dso__find_binary_type(struct dso *dso, bool needs_open_lo=
+ck)
+>> +static int __dso__find_binary_type(struct dso *dso)
+>> +	EXCLUSIVE_LOCKS_REQUIRED(_dso__data_open_lock)
+>>  {
+>>  	int ret;
+>>  	int retry =3D 0;
+>> @@ -936,18 +937,12 @@ static int __dso__find_binary_type(struct dso *ds=
+o, bool needs_open_lock)
+>>  	mutex_unlock(dso__lock(dso));
+>> =20
+>>  	if (ret =3D=3D -1 && retry++ < FIND_MAX_RETRY) {
+>> -		if (needs_open_lock && retry =3D=3D 1)
+>> -			mutex_lock(dso__data_open_lock());
+>> -
+>>  		if (dso__data_open_cnt) {
+>>  			close_first_dso();
+>>  			goto again;
+>>  		}
+>>  	}
+>> =20
+>> -	if (retry > 0 && needs_open_lock)
+>> -		mutex_unlock(dso__data_open_lock());
+>> -
+>>  	if (ret =3D=3D -1) {
+>>  		mutex_lock(dso__lock(dso));
+>>  		ret =3D dso__binary_type(dso);
+>> @@ -961,7 +956,13 @@ static int __dso__find_binary_type(struct dso *dso=
+, bool needs_open_lock)
+>> =20
+>>  enum dso_binary_type dso__find_binary_type(struct dso *dso)
+>>  {
+>> -	return __dso__find_binary_type(dso, /*needs_open_lock=3D*/true);
+>> +	int ret;
+>> +
+>> +	mutex_lock(dso__data_open_lock());
+>> +	ret =3D __dso__find_binary_type(dso);
+>> +	mutex_unlock(dso__data_open_lock());
+>> +
+>> +	return ret;
+>>  }
+>> =20
+>>  static void try_to_open_dso(struct dso *dso, struct machine *machine)
+>> @@ -972,7 +973,7 @@ static void try_to_open_dso(struct dso *dso, struct=
+ machine *machine)
+>>  	if (dso_data->fd >=3D 0)
+>>  		return;
+>> =20
+>> -	__dso__find_binary_type(dso, /*needs_open_lock=3D*/false);
+>> +	__dso__find_binary_type(dso);
+>>  	dso_data->fd =3D open_dso(dso, machine);
+>> =20
+>>  	if (dso_data->fd >=3D 0)
+>>=20
+>> __dso__find_binary_type() now requires _dso__data_open_lock, the public
+>> dso__find_binary_type() takes it around the call, and the needs_open_lo=
+ck
+>> parameter goes away=2E  try_to_open_dso() stays as is: it is annotated
+>> EXCLUSIVE_LOCKS_REQUIRED(_dso__data_open_lock), its four call sites tak=
+e
+>> the lock first, and now clang checks the whole chain=2E
+>>=20
+>> The patches I took (v5 07/11 onward) build with clang 22=2E1=2E8 here a=
+nd
+>> 'perf test dso' passes (read, cache, reopen), so please fold something
+>> like this if you respin, or let me know if you'd rather have it done
+>> differently=2E
+>
+>I think it'd grab the dso open lock unnecessarily, but it'd be simpler=2E
+>So I'm fine with the patch and thanks for the fix!
+>
+>Do you want me to send the whole series again?  Or can you apply the fix
+>on top?
 
-Fixes: e88a7595b57f ("nvme-tcp: request secure channel concatenation")
-Cc: stable@vger.kernel.org # 6.15+
-Reported-by: <co+4a43f26b1a2b6f57@bugs.sh>
-Assisted-by: LLM
-Signed-off-by: Weiming Shi <bestswngs@gmail.com>
----
- drivers/nvme/host/auth.c    | 81 +++++++++++++++++++++++++++----------
- drivers/nvme/host/fabrics.c | 16 +-------
- drivers/nvme/host/nvme.h    |  9 +----
- drivers/nvme/host/sysfs.c   |  8 +---
- drivers/nvme/host/tcp.c     |  7 ++--
- 5 files changed, 68 insertions(+), 53 deletions(-)
 
-diff --git a/drivers/nvme/host/auth.c b/drivers/nvme/host/auth.c
-index e55920642f2c..563dbe3dcc89 100644
---- a/drivers/nvme/host/auth.c
-+++ b/drivers/nvme/host/auth.c
-@@ -21,6 +21,7 @@ static mempool_t *nvme_chap_buf_pool;
- struct nvme_dhchap_queue_context {
- 	struct list_head entry;
- 	struct work_struct auth_work;
-+	struct mutex auth_mutex;
- 	struct nvme_ctrl *ctrl;
- 	struct crypto_kpp *dh_tfm;
- 	struct nvme_dhchap_key *transformed_key;
-@@ -915,9 +916,12 @@ static void nvme_queue_auth_work(struct work_struct *work)
- 		chap->error = ret;
- }
- 
--int nvme_auth_negotiate(struct nvme_ctrl *ctrl, int qid)
-+static int nvme_auth_negotiate(struct nvme_ctrl *ctrl, int qid)
- {
- 	struct nvme_dhchap_queue_context *chap;
-+	enum nvme_ctrl_state state;
-+	unsigned long flags;
-+	int ret = 0;
- 
- 	if (!ctrl->host_key) {
- 		dev_warn(ctrl->device, "qid %d: no key\n", qid);
-@@ -931,12 +935,18 @@ int nvme_auth_negotiate(struct nvme_ctrl *ctrl, int qid)
- 
- 	chap = &ctrl->dhchap_ctxs[qid];
- 	cancel_work_sync(&chap->auth_work);
--	queue_work(nvme_auth_wq, &chap->auth_work);
--	return 0;
-+
-+	spin_lock_irqsave(&ctrl->lock, flags);
-+	state = nvme_ctrl_state(ctrl);
-+	if (state != NVME_CTRL_LIVE && state != NVME_CTRL_CONNECTING)
-+		ret = -ESHUTDOWN;
-+	else
-+		queue_work(nvme_auth_wq, &chap->auth_work);
-+	spin_unlock_irqrestore(&ctrl->lock, flags);
-+	return ret;
- }
--EXPORT_SYMBOL_GPL(nvme_auth_negotiate);
- 
--int nvme_auth_wait(struct nvme_ctrl *ctrl, int qid)
-+static int nvme_auth_wait(struct nvme_ctrl *ctrl, int qid)
- {
- 	struct nvme_dhchap_queue_context *chap;
- 	int ret;
-@@ -948,13 +958,32 @@ int nvme_auth_wait(struct nvme_ctrl *ctrl, int qid)
- 	nvme_auth_reset_dhchap(chap);
- 	return ret;
- }
--EXPORT_SYMBOL_GPL(nvme_auth_wait);
-+
-+int nvme_authenticate(struct nvme_ctrl *ctrl, int qid)
-+{
-+	struct nvme_dhchap_queue_context *chap;
-+	int ret;
-+
-+	if (!ctrl->dhchap_ctxs) {
-+		dev_warn(ctrl->device, "qid %d: no key\n", qid);
-+		return -ENOKEY;
-+	}
-+	chap = &ctrl->dhchap_ctxs[qid];
-+
-+	mutex_lock(&chap->auth_mutex);
-+	ret = nvme_auth_negotiate(ctrl, qid);
-+	if (!ret)
-+		ret = nvme_auth_wait(ctrl, qid);
-+	mutex_unlock(&chap->auth_mutex);
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(nvme_authenticate);
- 
- static void nvme_ctrl_auth_work(struct work_struct *work)
- {
- 	struct nvme_ctrl *ctrl =
- 		container_of(work, struct nvme_ctrl, dhchap_auth_work);
--	int ret, q;
-+	int ret, q, last = 1;
- 
- 	/*
- 	 * If the ctrl is no connected, bail as reconnect will handle
-@@ -964,16 +993,9 @@ static void nvme_ctrl_auth_work(struct work_struct *work)
- 		return;
- 
- 	/* Authenticate admin queue first */
--	ret = nvme_auth_negotiate(ctrl, 0);
-+	ret = nvme_authenticate(ctrl, 0);
- 	if (ret) {
--		dev_warn(ctrl->device,
--			 "qid 0: error %d setting up authentication\n", ret);
--		return;
--	}
--	ret = nvme_auth_wait(ctrl, 0);
--	if (ret) {
--		dev_warn(ctrl->device,
--			 "qid 0: authentication failed\n");
-+		dev_warn(ctrl->device, "qid 0: authentication failed\n");
- 		return;
- 	}
- 	/*
-@@ -991,22 +1013,26 @@ static void nvme_ctrl_auth_work(struct work_struct *work)
- 		 */
- 		if (!chap->authenticated)
- 			continue;
--		cancel_work_sync(&chap->auth_work);
--		queue_work(nvme_auth_wq, &chap->auth_work);
-+		ret = nvme_auth_negotiate(ctrl, q);
-+		if (ret) {
-+			dev_warn(ctrl->device,
-+				 "qid %d: authentication setup failed, error %d\n",
-+				 q, ret);
-+			break;
-+		}
-+		last = q + 1;
- 	}
- 
- 	/*
- 	 * Failure is a soft-state; credentials remain valid until
- 	 * the controller terminates the connection.
- 	 */
--	for (q = 1; q < ctrl->queue_count; q++) {
-+	for (q = 1; q < last; q++) {
- 		struct nvme_dhchap_queue_context *chap =
- 			&ctrl->dhchap_ctxs[q];
- 		if (!chap->authenticated)
- 			continue;
--		flush_work(&chap->auth_work);
--		ret = chap->error;
--		nvme_auth_reset_dhchap(chap);
-+		ret = nvme_auth_wait(ctrl, q);
- 		if (ret)
- 			dev_warn(ctrl->device,
- 				 "qid %d: authentication failed\n", q);
-@@ -1044,6 +1070,7 @@ int nvme_auth_init_ctrl(struct nvme_ctrl *ctrl)
- 		chap->qid = i;
- 		chap->ctrl = ctrl;
- 		chap->authenticated = false;
-+		mutex_init(&chap->auth_mutex);
- 		INIT_WORK(&chap->auth_work, nvme_queue_auth_work);
- 	}
- 
-@@ -1060,7 +1087,17 @@ EXPORT_SYMBOL_GPL(nvme_auth_init_ctrl);
- 
- void nvme_auth_stop(struct nvme_ctrl *ctrl)
- {
-+	int i;
-+
- 	cancel_work_sync(&ctrl->dhchap_auth_work);
-+	if (!ctrl->dhchap_ctxs)
-+		return;
-+
-+	for (i = 0; i < ctrl_max_dhchaps(ctrl); i++) {
-+		mutex_lock(&ctrl->dhchap_ctxs[i].auth_mutex);
-+		cancel_work_sync(&ctrl->dhchap_ctxs[i].auth_work);
-+		mutex_unlock(&ctrl->dhchap_ctxs[i].auth_mutex);
-+	}
- }
- EXPORT_SYMBOL_GPL(nvme_auth_stop);
- 
-diff --git a/drivers/nvme/host/fabrics.c b/drivers/nvme/host/fabrics.c
-index 59f823dfbbcc..0da8f1b74f86 100644
---- a/drivers/nvme/host/fabrics.c
-+++ b/drivers/nvme/host/fabrics.c
-@@ -481,13 +481,7 @@ int nvmf_connect_admin_queue(struct nvme_ctrl *ctrl)
- 			goto out_free_data;
- 		}
- 		/* Authentication required */
--		ret = nvme_auth_negotiate(ctrl, 0);
--		if (ret) {
--			dev_warn(ctrl->device,
--				 "qid 0: authentication setup failed\n");
--			goto out_free_data;
--		}
--		ret = nvme_auth_wait(ctrl, 0);
-+		ret = nvme_authenticate(ctrl, 0);
- 		if (ret) {
- 			dev_warn(ctrl->device,
- 				 "qid 0: authentication failed, error %d\n",
-@@ -556,13 +550,7 @@ int nvmf_connect_io_queue(struct nvme_ctrl *ctrl, u16 qid)
- 			goto out_free_data;
- 		}
- 		/* Authentication required */
--		ret = nvme_auth_negotiate(ctrl, qid);
--		if (ret) {
--			dev_warn(ctrl->device,
--				 "qid %d: authentication setup failed\n", qid);
--			goto out_free_data;
--		}
--		ret = nvme_auth_wait(ctrl, qid);
-+		ret = nvme_authenticate(ctrl, qid);
- 		if (ret) {
- 			dev_warn(ctrl->device,
- 				 "qid %u: authentication failed, error %d\n",
-diff --git a/drivers/nvme/host/nvme.h b/drivers/nvme/host/nvme.h
-index 2cff9fcbf740..d6952bb4afa6 100644
---- a/drivers/nvme/host/nvme.h
-+++ b/drivers/nvme/host/nvme.h
-@@ -1288,8 +1288,7 @@ int __init nvme_init_auth(void);
- void __exit nvme_exit_auth(void);
- int nvme_auth_init_ctrl(struct nvme_ctrl *ctrl);
- void nvme_auth_stop(struct nvme_ctrl *ctrl);
--int nvme_auth_negotiate(struct nvme_ctrl *ctrl, int qid);
--int nvme_auth_wait(struct nvme_ctrl *ctrl, int qid);
-+int nvme_authenticate(struct nvme_ctrl *ctrl, int qid);
- void nvme_auth_free(struct nvme_ctrl *ctrl);
- void nvme_auth_revoke_tls_key(struct nvme_ctrl *ctrl);
- #else
-@@ -1305,11 +1304,7 @@ static inline void __exit nvme_exit_auth(void)
- {
- }
- static inline void nvme_auth_stop(struct nvme_ctrl *ctrl) {};
--static inline int nvme_auth_negotiate(struct nvme_ctrl *ctrl, int qid)
--{
--	return -EPROTONOSUPPORT;
--}
--static inline int nvme_auth_wait(struct nvme_ctrl *ctrl, int qid)
-+static inline int nvme_authenticate(struct nvme_ctrl *ctrl, int qid)
- {
- 	return -EPROTONOSUPPORT;
- }
-diff --git a/drivers/nvme/host/sysfs.c b/drivers/nvme/host/sysfs.c
-index 02a2490a9ed7..42bdba831894 100644
---- a/drivers/nvme/host/sysfs.c
-+++ b/drivers/nvme/host/sysfs.c
-@@ -1038,13 +1038,7 @@ static ssize_t tls_configured_key_store(struct device *dev,
- 	if (!ctrl->opts || !ctrl->opts->concat)
- 		return -EOPNOTSUPP;
- 
--	error = nvme_auth_negotiate(ctrl, 0);
--	if (error < 0) {
--		nvme_reset_ctrl(ctrl);
--		return error;
--	}
--
--	error = nvme_auth_wait(ctrl, 0);
-+	error = nvme_authenticate(ctrl, 0);
- 	if (error < 0) {
- 		nvme_reset_ctrl(ctrl);
- 		return error;
-diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
-index 921934028e0b..f3709009ffd0 100644
---- a/drivers/nvme/host/tcp.c
-+++ b/drivers/nvme/host/tcp.c
-@@ -2563,9 +2563,8 @@ static void nvme_tcp_error_recovery_work(struct work_struct *work)
- 	struct nvme_tcp_ctrl *tcp_ctrl = container_of(work,
- 				struct nvme_tcp_ctrl, err_work);
- 	struct nvme_ctrl *ctrl = &tcp_ctrl->ctrl;
-+	bool revoke_tls_key = ctrl->opts->concat && ctrl->tls_pskid;
- 
--	if (nvme_tcp_key_revoke_needed(ctrl))
--		nvme_auth_revoke_tls_key(ctrl);
- 	nvme_stop_keep_alive(ctrl);
- 	flush_work(&ctrl->async_event_work);
- 	nvme_tcp_teardown_io_queues(ctrl, false);
-@@ -2574,6 +2573,8 @@ static void nvme_tcp_error_recovery_work(struct work_struct *work)
- 	nvme_tcp_teardown_admin_queue(ctrl, false);
- 	nvme_unquiesce_admin_queue(ctrl);
- 	nvme_auth_stop(ctrl);
-+	if (revoke_tls_key && ctrl->opts->tls_key)
-+		nvme_auth_revoke_tls_key(ctrl);
- 
- 	if (!nvme_change_ctrl_state(ctrl, NVME_CTRL_CONNECTING)) {
- 		/* state change failure is ok if we started ctrl delete */
-@@ -2606,9 +2607,9 @@ static void nvme_reset_ctrl_work(struct work_struct *work)
- 		container_of(work, struct nvme_ctrl, reset_work);
- 	int ret;
- 
-+	nvme_stop_ctrl(ctrl);
- 	if (nvme_tcp_key_revoke_needed(ctrl))
- 		nvme_auth_revoke_tls_key(ctrl);
--	nvme_stop_ctrl(ctrl);
- 	nvme_tcp_teardown_ctrl(ctrl, false);
- 
- 	if (!nvme_change_ctrl_state(ctrl, NVME_CTRL_CONNECTING)) {
--- 
-2.55.0
+No need, I'll apply them fix myself=2E=20
+=20
+- Arnaldo
+>
+>Thanks,
+>Namhyung
+>
 
+- Arnaldo 
