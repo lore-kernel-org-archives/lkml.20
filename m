@@ -1,171 +1,190 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9BEA481AAE
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:00:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFDA451EE09;
+	Thu, 15 Oct 2026 10:00:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792058411; cv=none; b=pVtQcA+gA3T+s5laWOvUYutXDERABcW/IIiOf4xCam7bUP3bNbq18YnMlCAEzdIaBxY/dLpYqF9r3R/FhW8nLjv++QGMptVktaqJgjsc8BDl3BJqsBXR7E/voAtHaP4N+iNcqt3Grl8A386zQ2IbM1kVt8uW5YHaDmEiBMbQGWs=
+	t=1792058446; cv=none; b=fLyGtrT7iX/pCGtQkdMEG+8THFqchTnTseHC7vpF/1L5vtJr4bKe1vK8zXkinhqBvfOHLAFiRrZP1IosiLgZNP50y7oQzgC9zsJErOk1xDuYE9C1k2avcoCI8cHVbJA38NZ1372ey6SHy6ucFOwuS668eI2T4244b07ByfGWggM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792058411; c=relaxed/simple;
-	bh=SjEQ8H2Gnac/gEm9uYsODYmROgwSKBl/hOwkIumqcRk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bVphojFu8P+G9gcFt6lpegU6LF260GRD12pGOE8Ve/2KbWtqVvmNrULaQqkT/QGTcVPOw0iI5J2wxdeXx/R+ahpAjDYzfcQXQ/e7Dfr/omiyYYb184oPfEQ5jccc9guSRUoRDEI0XpHGXtFQiSsVZjmkp5pbZHPSQwtkDJy/nfY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fxQ+rWNW; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792058446; c=relaxed/simple;
+	bh=kVOFu0wAcfJu7sJ7xfZh5YFhOEE/QC90zKOdAzQyCpU=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=H0iJu78ndmJXks4Dcjcr5Mb5rojQUYbrXt87Dru4zWDvBT+73Ycwai7T5po12yyOV3lDcFgzozjUh8JSz8yoq3QlYsXV8+relViaaJbbcOtBsPZMUH0HinBuwJI1COjoCObIMDyeFIN1wEhry06wk4CWaI4HebaMew9XeUhFbTo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=IfYhq+lg; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=JadGoyNc; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fxQ+rWNW"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a02667ccebso36965625e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 03:00:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792058408; x=1792663208; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jx2lN3TQTEdtT7xvZk19rDQD0CSdvj/cxtOH/r75Cpg=;
-        b=fxQ+rWNW+4bl0cxjuqV0YcTVUBmKkITFlfgXLiJrghGz6GH/w4+xdUPaQSlPEskvQk
-         /rtlVQ9rYd1uN8iltrrTzmG7gLdS7zbOVWGhlxsuVokhKw4Bz2lp7Kc74eH20bDV6HaT
-         6soGnEPMPorjc9a9xMH+pgP5iatfokFlPRLANpDVdPmpg206zJKHHnF32qnlKnMI73dP
-         7jjti5kXtFqqZwhmC8F5mPzXfixkO5dNDN5aljLInUPhiC4fDrflN849vLLVIz2e33Ah
-         Y6XN2j103jU3zVpXFMjmmfbfshHXxT7hqof7R4/pafaX1gE1/KPQEguixuC19biNOsus
-         Xh+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792058408; x=1792663208;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jx2lN3TQTEdtT7xvZk19rDQD0CSdvj/cxtOH/r75Cpg=;
-        b=iApYm2cMBdUqVignWpag/quMfV/qFqCOuBKMcx7vCajRQ8nFfNsfMLM6GSszt18jQZ
-         PvR3uXAlRqaHHVIzFFwD3LO06e0UhHpZoxnbOWmDPJ2xNKYcjKpBHwOiSGx46vTORy4v
-         yQwtHyNdLooB2Dk046CFIWbSRUbQ+xxgzgwjMGf/DejXnAtTl32RthfE0GE4I2uPV/+h
-         DVw0I3BCvT4E1KmI/mcZO3xT15U3QFarLf3ih/TsUrq7pxcwP9QUW4r+H4o87n+QYvj9
-         n2Gh1Ba5KNfRcqfINDKwMIrP/lffCVAz4AFxNunPuGd1aZL40QezS45j0Bh+xAxGpwl7
-         ckiw==
-X-Forwarded-Encrypted: i=1; AKwUvByFu0cEYUYx2M94NdZxQPBDKwGhzU9hQ6/cjal8TvXQ4ikpKldfBou9mgqM/yIATobs2dSm/icsZmTh7cw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLzQItLdI4pBhT5oM1tgdtt+fY32M1T2nErxPWpgKMl9REe7yuW
-	XqrujSuH0tLLvzUoEIsGeFzA6akg5E46VjAVWQGsjIXb7u0OI8OAZFc+
-X-Gm-Gg: AYBFou1lXe7GH+vGYa9hDyDNcx4Hq0Se/RruOs/16AXqFqaPGi/GpJJfgrRL5RaL+kR
-	cZyM/hDy5hOBbPh+AORkQ4pLHw452pbiHWph4o+9qs3PThJ4v3nQyS62Y0AbP5njG46FWhzMtYK
-	oSkSwqL3HmPt9PZ3l/SfZZUhDyTOFMMxJ7ZgBR5EYMzVUDPPk209hzU/H9skunlngRf0mwfRHPb
-	i49YV5QSNHSqjnZ/Mw1QyndwhtmpeE51eWF7KQz15cniJ8CQk1sl1jO0KnUxnMnQtaBXNLjsC+A
-	8+lDtezPF8g5LJev3dbwr/rpbEhQFrR27h6QsSnUjGzrY1Vn8nkq7pfMQx0hEzIKAJPE/3wx6k9
-	7dS6xhGVgDWvyvIqeB+vvKhN7/p5MasyaC56i4aD6nleXjTlTGKsEUJZKHdm4t2DGxKQM08OuF3
-	jHQ3uS/6nUNQbv58mrjv9XovqheL9muHq8bTRpSvSTLNkHsVr60qJy7QPBZWM1dC1R9rVqTZ5V/
-	ish/Z9t1hU2+rxVr5z/VP75cbL4ZZxVX6o=
-X-Received: by 2002:a05:600c:4fc1:b0:49d:2536:402e with SMTP id 5b1f17b1804b1-4a19a9cf1e6mr262162165e9.30.1792058407424;
-        Thu, 15 Oct 2026 03:00:07 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd6834dasm53584865e9.4.2026.10.15.03.00.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 03:00:07 -0700 (PDT)
-Date: Thu, 15 Oct 2026 11:00:04 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Bill Wendling <morbo@google.com>
-Cc: Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva"
- <gustavoars@kernel.org>, linux-hardening@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="IfYhq+lg";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="JadGoyNc"
+Date: Thu, 15 Oct 2026 10:00:33 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1792058435;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VKxEt+FaZUs5tAdTSmlt5QUbvB4cyakwgFkEXr/fyM4=;
+	b=IfYhq+lgEHf2LdD7yeea8k2Qxlza6VCYiVGkKA0Gz1yTzckqTv5Bm17VY+pB9u2nUerKL9
+	DoVEAo7S9BM3HsgEnOSVyvjT3+e5JQT/8XJqQF4AngiRx+gPlfeldbp4z5SNdZ7NUaHPuU
+	sKfkx+wbTQJLUrx3gspPJQF9dmoxOs9oPze8+Hz4IcTmHWRHonpJbU9eMlxH8QTMKSf2rh
+	c76ORQ5ynzdwLt83eMZ/0rCPaJKasQHyn4a6ZPvaMMF9r9rkj/O6RFNqHocQjqbqmru61i
+	zR/OUbIqv3Cq5KTeQ3jjA0BiFDYVWmnxf/pRs443YasrWCVYyAM+jcFOvHP7AQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1792058435;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VKxEt+FaZUs5tAdTSmlt5QUbvB4cyakwgFkEXr/fyM4=;
+	b=JadGoyNc6KpxiFv+6XLBdm612mkHXeheWD9L4/43K8/Cb2OwWUwgr7wEUtA4pvmcsxIuT4
+	2HQ/fhZUljE92MDA==
+From: "tip-bot2 for Anirudha Sarangi" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: irq/drivers] dt-bindings: interrupt-controller: Add Xilinx
+ Versal NET SMMU CSR
+Cc: Anirudha Sarangi <anirudha.sarangi@amd.com>,
+ Tushar Nimkar <tushar.nimkar@amd.com>, Thomas Gleixner <tglx@kernel.org>,
+ Conor Dooley <conor.dooley@microchip.com>, x86@kernel.org,
  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] overflow: Match arithmetic in both parts of
- __builtin_choose_expr
-Message-ID: <20261015110004.6f77ea67@pumpkin>
-In-Reply-To: <CAGG=3QUZna+bi-_nmJh-1aWBBtuURbexQczXCNt0R+jDSb1NMQ@mail.gmail.com>
-References: <20261012205919.4012405-1-morbo@google.com>
-	<20261013203146.387344-1-morbo@google.com>
-	<20261014133805.47afdb0b@pumpkin>
-	<CAGG=3QUZna+bi-_nmJh-1aWBBtuURbexQczXCNt0R+jDSb1NMQ@mail.gmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+In-Reply-To: <20260928-smmu-changes-v2-v4-1-3c79a14cd806@amd.com>
+References: <20260928-smmu-changes-v2-v4-1-3c79a14cd806@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Message-ID: <179205843332.2666988.11635736954701951306.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, 14 Oct 2026 13:39:03 -0700
-Bill Wendling <morbo@google.com> wrote:
+The following commit has been merged into the irq/drivers branch of tip:
 
-> On Wed, Oct 14, 2026 at 5:38=E2=80=AFAM David Laight
-> <david.laight.linux@gmail.com> wrote:
-> > On Tue, 13 Oct 2026 20:31:46 +0000
-> > Bill Wendling <morbo@google.com> wrote:
-> > =20
-> > > The two parts of '__builtin_choose_expr()' had different arithmetic
-> > > expressions. This patch corrects it so that both parts calculate:
-> > >
-> > >   COUNT * sizeof(*MEMBER) + __must_be_array(MEMBER)
-> > >
-> > > In practice, '__must_be_array' is meant to assert if 'MEMBER' isn't an
-> > > array and return '0' otherwise. However, symmetry is less prone to
-> > > subtle errors (and far more satisfying).
-> > >
-> > > Signed-off-by: Bill Wendling <morbo@google.com>
-> > > ---
-> > > v2: Don't use 'size_add', which just adds more complicated macro cruf=
-t to the
-> > >     expression. Instead, just adjust the parentheses.
-> > > ---
-> > >  include/linux/overflow.h | 2 +-
-> > >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > >
-> > > diff --git a/include/linux/overflow.h b/include/linux/overflow.h
-> > > index a8cb6319b4fb..d0f04436343e 100644
-> > > --- a/include/linux/overflow.h
-> > > +++ b/include/linux/overflow.h
-> > > @@ -418,7 +418,7 @@ static __always_inline size_t __must_check size_s=
-ub(size_t minuend, size_t subtr
-> > >  #define flex_array_size(p, member, count)                           =
- \
-> > >       __builtin_choose_expr(__is_constexpr(count),                   =
- \
-> > >               (count) * sizeof(*(p)->member) + __must_be_array((p)->m=
-ember),  \
-> > > -             size_mul(count, sizeof(*(p)->member) + __must_be_array(=
-(p)->member)))
-> > > +             size_mul(count, sizeof(*(p)->member)) + __must_be_array=
-((p)->member)) =20
-> >
-> > Why does this use __builtin_choose_expr().
-> > The types of the two expressions are the same so it might as well use ?:
-> > =20
-> It's to emit only one of the expressions rather than both. If the
-> 'count' is a constant expression, then it's possible for the compiler
-> to perform the calculation without having to hold onto the "false"
-> path of the ternary operator. So much more efficient in the long-run.
+Commit-ID:     675b45ab71f3b17482dde264d6ee7f98690c487c
+Gitweb:        https://git.kernel.org/tip/675b45ab71f3b17482dde264d6ee7f98690=
+c487c
+Author:        Anirudha Sarangi <anirudha.sarangi@amd.com>
+AuthorDate:    Mon, 28 Sep 2026 15:03:03 +05:30
+Committer:     Thomas Gleixner <tglx@kernel.org>
+CommitterDate: Thu, 15 Oct 2026 11:59:22 +02:00
 
-I doubt it.
-Even with __builtin_choose_expr() the compile has to do most of the work
-for compiling the 'false' path.
-If you use ?: then you can also use the much simpler __builtin_constant_p()
-and possibly pick up cases where it is only known to be constant later.
+dt-bindings: interrupt-controller: Add Xilinx Versal NET SMMU CSR
 
->=20
-> > Also doesn't this optimisation apply to all uses of size_mul() (aka sat=
-urating_mul()).
-> > Presumably relying on the compiler to report the compilation time numer=
-ic overflow. =20
->=20
-> I'm not familiar with saturating_mul(). I'm sure others on here can talk =
-to it.
+Add a device tree binding schema for the Xilinx Versal NET SMMU CSR
+(Control and Status Register) interrupt controller.
 
-That is me giving is a better name.
-The same is true for size_add().
-IMHO saturation size_t calculations is really broken because it allows
-through 'bigger than sensible' sizes that still might cause problems
-(eg kmalloc() of sizes just below the limit.)
+The SMMU CSR block acts as a vendor-specific interrupt controller
+in front of the ARM SMMUv3, providing registers to enable and clear
+standard SMMU interrupts such as EVENTQ, CMDQ_SYNC, GERROR and PRIQ.
+Interrupts must be acknowledged in this block before being forwarded
+to the parent interrupt controller (e.g. GIC).
 
-David
+Co-developed-by: Tushar Nimkar <tushar.nimkar@amd.com>
+Signed-off-by: Anirudha Sarangi <anirudha.sarangi@amd.com>
+Signed-off-by: Tushar Nimkar <tushar.nimkar@amd.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Link: https://patch.msgid.link/20260928-smmu-changes-v2-v4-1-3c79a14cd806@amd=
+.com
+---
+ Documentation/devicetree/bindings/interrupt-controller/xlnx,versal-net-smmu-=
+csr.yaml | 75 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++=
++++++++-
+ 1 file changed, 75 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/interrupt-controller/xl=
+nx,versal-net-smmu-csr.yaml
 
->=20
-> -bw
->=20
-> > David
-> > =20
-> > >
-> > >  /**
-> > >   * struct_size() - Calculate size of structure with trailing flexibl=
-e array. =20
-> > =20
-
+diff --git a/Documentation/devicetree/bindings/interrupt-controller/xlnx,vers=
+al-net-smmu-csr.yaml b/Documentation/devicetree/bindings/interrupt-controller=
+/xlnx,versal-net-smmu-csr.yaml
+new file mode 100644
+index 0000000..38b63e5
+--- /dev/null
++++ b/Documentation/devicetree/bindings/interrupt-controller/xlnx,versal-net-=
+smmu-csr.yaml
+@@ -0,0 +1,75 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/interrupt-controller/xlnx,versal-net-smmu=
+-csr.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Xilinx Versal NET SMMU CSR Interrupt Controller
++
++maintainers:
++  - Anirudha Sarangi <anirudha.sarangi@amd.com>
++  - Tushar Nimkar <tushar.nimkar@amd.com>
++
++description: |
++  The Versal NET platform includes a Xilinx-specific SMMU CSR (Control and
++  Status Register) block that acts as an intermediate interrupt controller
++  for ARM SMMUv3.
++
++  The block provides registers to enable, disable and clear the
++  standard SMMUv3 interrupt sources (EVENTQ, CMDQ_SYNC, GERROR and PRIQ)
++  before forwarding them to the parent interrupt controller,
++  typically a GIC.
++
++  The controller receives one parent interrupt and demultiplexes CSR
++  status bits into the following child interrupt identifiers
++    0 - EVENTQ
++    1 - CMDQ_SYNC
++    2 - GERROR (GLOBAL)
++    3 - PRIQ
++
++allOf:
++  - $ref: /schemas/interrupt-controller.yaml#
++
++properties:
++  compatible:
++    const: xlnx,versal-net-smmu-csr
++
++  reg:
++    maxItems: 1
++
++  interrupt-controller: true
++
++  "#interrupt-cells":
++    const: 1
++    description: |
++     Single cell containing the child interrupt identifier
++      0 - EVENTQ
++      1 - CMDQ_SYNC
++      2 - GERROR (GLOBAL)
++      3 - PRIQ
++
++  interrupts:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - interrupt-controller
++  - "#interrupt-cells"
++  - interrupts
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    interrupt-controller@eca10000 {
++        compatible =3D "xlnx,versal-net-smmu-csr";
++        reg =3D <0xeca10000 0x1000>;
++        interrupt-controller;
++        #interrupt-cells =3D <1>;
++        interrupt-parent =3D <&gic>;
++        interrupts =3D <GIC_SPI 169 IRQ_TYPE_LEVEL_HIGH>;
++    };
