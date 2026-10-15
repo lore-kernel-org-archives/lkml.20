@@ -1,133 +1,94 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E05B44C8C7B;
-	Thu, 15 Oct 2026 20:22:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16AAC55C30A;
+	Thu, 15 Oct 2026 20:23:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792095775; cv=none; b=gvrAj1RMlWh/g1+n50BONDiMMyAB0nzxPqGJ+ju0IIMds++R3NsmJJmfD6REyGM3xUobnoqtCTHZgQgrUNbrnfrYZJYhGHi29koUbg0b7buh5qLBKPvKcNJQtEZAI9lRd/MlRUerBI1SnleIWes5iS4F/+9Cf6Uw51u0gBoCtus=
+	t=1792095809; cv=none; b=Z7fHTTqgipY5ZXVAhyrDgLr8L/V5hWs51vPg68IjC04jFkg05GNrEaYWpV9P6OtzM5gipbhUfDPwMv+ikatxa1b261L08SXmaS96GXqgLW3dnN04VGAUVm1LbEyBrDE4deAwjCfAmXEOkQCaxfaM8oKrhXb4P+AxoAMy+MGmndQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792095775; c=relaxed/simple;
-	bh=UcyxboG3y4L8zSlqROYakKPtWdAkd5ZJG3Xq1yyxLPo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iQ1t2mqX5Hut0aiT/KxrIl/spE5inUc6IaDxHHglDVr1J6cAtRO0s4DRIBPUl6dXRJ2/g0FkNmsSYosIP7iVDtdT0k9SmeckY2GWhDCmYf4ZZV3WysNnzsQGlOMeK820hOBLHqmjNt1wdEDJMd2Whge8Gns59z75EXP89IkTqfs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=hTdr02zf; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1792095809; c=relaxed/simple;
+	bh=PFLnmwlTM4FhvgLEp2HJEOMnKZnZqorNEOllu2ygZEU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=S+FzWU70PAOF205RRsRrA1c3k2UpS8rkqtwwxe3jP2RGg0XviMTXL7KJGeROGcTib64fjbsZi2mMRXI+Iemf3TMmHawO9cRCM33DiAMsID3s3Pu7kLl053KFwayjQQOb10fcAPCaEyxV6WG/blzoYlxjS432iTmhwG5apxijdZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WVnuI3Y4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="hTdr02zf"
-Received: from vm-dev.d0aziqou4eyuzblxqhi51nu2sc.xx.internal.cloudapp.net (unknown [4.246.87.102])
-	by linux.microsoft.com (Postfix) with ESMTPSA id CA98920B7167;
-	Thu, 15 Oct 2026 13:22:48 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com CA98920B7167
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1792095768;
-	bh=gRg/cH7UL6lx4NNK1/RDk8bJXtB2dqMDham2GHNVmaI=;
-	h=From:To:Cc:Subject:Date:From;
-	b=hTdr02zfbgCwM8o2he4X9xFV7rXqOGXCT4LHJiY3euSae/TehobTBbIhG55Rtrqpc
-	 ve5wyp/RupVIxRoAS3qeZgdZ/OKm75hzsLeoK1c6pVKQelLRZKNBZqJPmUCSuD90EC
-	 A+aGaGFcwDADXylebCgxKIKZxsxW9r/wp2NRsVs4=
-From: Tahera Fahimi <taherafahimi@linux.microsoft.com>
-To: stable@vger.kernel.org
-Cc: davem@davemloft.net,
-	steffen.klassert@secunet.com,
-	herbert@gondor.apana.org.au,
-	kuba@kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	apais@linux.microsoft.com,
-	edumazet@google.com,
-	pabeni@redhat.com
-Subject: [PATCH 5.10.y] xfrm: prevent policy_hthresh.work from racing with netns teardown
-Date: Thu, 15 Oct 2026 13:22:39 -0700
-Message-ID: <20261015202239.1936469-1-taherafahimi@linux.microsoft.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WVnuI3Y4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3D731F000C4;
+	Thu, 15 Oct 2026 20:23:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792095806;
+	bh=xXwDHzZuhe8u9SnlulaNCevEzS5Sc4vDCzCCYZ3VINo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WVnuI3Y4cgeI3lDXIGx7Okwtdp4PdQ/99g27WTcH74G5UI8uavEe3tgd+j3gfuhM7
+	 qssL+PqjcEvuZo3gV5S7LPBuNU3dE33zXQX8ZpH7NwYSclxY9W94j4A5onEhL7ynYX
+	 BwDSnnEnjfmcansnnrLfxELcpxG4iVQEUcCUBX4YzZv+XYl2DUgP80G1I48tJmcftu
+	 KjOcAMd+vvJBlw0bTvpELJ4CsnfLqC6gJnK5zwhE65OXBxyUQjkq415L3Tp/Oiu10K
+	 9qStRHaRmep/1GnNUuHMmUCEwmkUiHT1z9GxDQR8MlVVpB02/mUUpmM+hYw0HKrNb4
+	 UPvDvnj93Q27Q==
+Date: Thu, 15 Oct 2026 15:23:23 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Jeremy Dean Clifton <deaner92@yahoo.com>
+Cc: devicetree@vger.kernel.org, linux-pwm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>
+Subject: Re: [PATCH v3] dt-bindings: pwm: Convert NXP PCA9685 PWM controller
+ to DT schema
+Message-ID: <179209579979.3002119.6334359092410993613.robh@kernel.org>
+References: <20261012140346.3065-1-deaner92.ref@yahoo.com>
+ <20261012140346.3065-1-deaner92@yahoo.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012140346.3065-1-deaner92@yahoo.com>
 
-An XFRM_MSG_NEWSPDINFO request can queue the per-net work item
-policy_hthresh.work onto the system workqueue. xfrm_hash_rebuild()
-retrieves the enclosing struct net from the work item, so the callback
-can dereference freed memory if it runs after net namespace teardown.
 
-Mainline commit 29fe3a61bcdc ("xfrm: prevent policy_hthresh.work
-from racing with netns teardown") fixes this issue using
-disable_work_sync(). That API is not available in Linux 5.10, so the
-mainline change cannot be directly backported.
+On Mon, 12 Oct 2026 14:03:46 +0000, Jeremy Dean Clifton wrote:
+> Convert the NXP PCA9685 PWM controller binding to DT schema format.
+> 
+> Changes from the text binding:
+> 
+> Document the 'reg' property and make it required. It was missing
+> from the text binding, although the example used it and the device
+> cannot work without the I2C address.
+> 
+> Rename the example node to the generic 'pwm', as required by
+> pwm.yaml.
+> 
+> Describe both cells of the PWM specifier, and state that 'invert'
+> and 'open-drain' apply to all outputs, as per the datasheet (INVRT
+> and OUTDRV bits in MODE2).
+> 
+> Assisted-by: LLM
+> Signed-off-by: Jeremy Dean Clifton <deaner92@yahoo.com>
+> ---
+> Changes in v3:
+> - Full name in From, Signed-off-by and maintainers. (Jeremy Dean
+>   Clifton)
+> v2:
+> https://lore.kernel.org/all/0aabb9f2-a144-4267-b67e-a0972d228f2a@yahoo.com/
+> though the storage width was widened.
+> - Use the same name in 'maintainers' as in the Signed-off-by.
+> 
+> v1:
+> https://lore.kernel.org/all/20261006033518.34332-1-deaner92@yahoo.com/
+> 
+> The schema and commit message were drafted with AI assistant.
+> I verified each property against the driver source, the
+> PCA9685 datasheet and the binding. Passes make dt_binding_check.
+> 
+>  .../bindings/pwm/nxp,pca9685-pwm.txt          | 27 --------
+>  .../bindings/pwm/nxp,pca9685-pwm.yaml         | 62 +++++++++++++++++++
+>  2 files changed, 62 insertions(+), 27 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.txt
+>  create mode 100644 Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.yaml
+> 
 
-Provide the same guarantee with an XFRM-local work_disabled flag. Protect
-the flag and schedule_work() with the existing policy_hthresh seqlock so
-teardown can atomically stop new queueing attempts. Then use
-cancel_work_sync() to synchronize work that was queued before the flag was
-set. This ensures policy_hthresh.work cannot outlive its struct net.
-
-Fixes: 880a6fab8f6b ("xfrm: configure policy hash table thresholds by netlink")
-Assisted-by: GitHub-Copilot:GPT-5.6 Sol
-Signed-off-by: Tahera Fahimi <taherafahimi@linux.microsoft.com>
-Reviewed-by: Allen Pais <apais@linux.microsoft.com>
----
- include/net/netns/xfrm.h |  1 +
- net/xfrm/xfrm_policy.c   | 19 ++++++++++++++++++-
- 2 files changed, 19 insertions(+), 1 deletion(-)
-
-diff --git a/include/net/netns/xfrm.h b/include/net/netns/xfrm.h
-index 47bc0ec051eb5..bafdfdccbd954 100644
---- a/include/net/netns/xfrm.h
-+++ b/include/net/netns/xfrm.h
-@@ -23,6 +23,7 @@ struct xfrm_policy_hash {
- struct xfrm_policy_hthresh {
- 	struct work_struct	work;
- 	seqlock_t		lock;
-+	bool			work_disabled;
- 	u8			lbits4;
- 	u8			rbits4;
- 	u8			lbits6;
-diff --git a/net/xfrm/xfrm_policy.c b/net/xfrm/xfrm_policy.c
-index 26bc082139550..c14f495f62b80 100644
---- a/net/xfrm/xfrm_policy.c
-+++ b/net/xfrm/xfrm_policy.c
-@@ -1378,7 +1378,10 @@ static void xfrm_hash_rebuild(struct work_struct *work)
- 
- void xfrm_policy_hash_rebuild(struct net *net)
- {
--	schedule_work(&net->xfrm.policy_hthresh.work);
-+	write_seqlock(&net->xfrm.policy_hthresh.lock);
-+	if (!net->xfrm.policy_hthresh.work_disabled)
-+		schedule_work(&net->xfrm.policy_hthresh.work);
-+	write_sequnlock(&net->xfrm.policy_hthresh.lock);
- }
- EXPORT_SYMBOL(xfrm_policy_hash_rebuild);
- 
-@@ -4129,6 +4132,7 @@ static int __net_init xfrm_policy_init(struct net *net)
- 	net->xfrm.policy_hthresh.rbits6 = 128;
- 
- 	seqlock_init(&net->xfrm.policy_hthresh.lock);
-+	net->xfrm.policy_hthresh.work_disabled = false;
- 
- 	INIT_LIST_HEAD(&net->xfrm.policy_all);
- 	INIT_LIST_HEAD(&net->xfrm.inexact_bins);
-@@ -4154,6 +4158,19 @@ static void xfrm_policy_fini(struct net *net)
- 	unsigned int sz;
- 	int dir;
- 
-+	/* Prevent new policy hash rebuilds before draining the work item.
-+	 *
-+	 * The upstream fix uses disable_work_sync(), which is unavailable
-+	 * in v6.6. Protecting work_disabled and schedule_work() with the
-+	 * same seqlock closes the check-to-queue race, while the subsequent
-+	 * cancel_work_sync() drains work that was queued or running before
-+	 * teardown disabled it.
-+	 */
-+	write_seqlock(&net->xfrm.policy_hthresh.lock);
-+	net->xfrm.policy_hthresh.work_disabled = true;
-+	write_sequnlock(&net->xfrm.policy_hthresh.lock);
-+	cancel_work_sync(&net->xfrm.policy_hthresh.work);
-+
- 	flush_work(&net->xfrm.policy_hash_work);
- #ifdef CONFIG_XFRM_SUB_POLICY
- 	xfrm_policy_flush(net, XFRM_POLICY_TYPE_SUB, false);
--- 
-2.43.0
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
