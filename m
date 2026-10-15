@@ -1,77 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4866D37187C;
-	Thu, 15 Oct 2026 18:35:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792089353; cv=none; b=pDcvCOFyicVAMG0CMUrReQbc//stF0EYvwkem6TYeDh6cgluudCvHZPoVdYYmTgx9B5hgD/FAsiO/UR1R4oRmgRL0Owj2UbQ5zk7OaClhy/6gMSEexVp3kB9pHM5x827o6UYTNgonCBzMdgYTkXL1U07DtXpMrWvGaycH0tN/6c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792089353; c=relaxed/simple;
-	bh=PgilridrbsX1FD+B++dHlE/QkecVuvuNNOJkor0MveQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hh9gZhfc6WAP1gd0cTA9MA2bX82FbzPkm+pfTR2uNCnUndybNnXvIEbp5OqsSTZqWjKvynZNSS+WxIbuqHtouDm/2UPgWjKuPN07PfyoGj9if+KXW2480GM0DoWfyQdzLGqAWglBcQ9N5KSdekxeRg2a2Tz1KE3uM2ppZy4Mz+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=or9vv7b0; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21F0A411A18;
+	Thu, 15 Oct 2026 18:35:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792089356; cv=pass; b=FwSSDuF9U1Hn6MjojBcWu1kGYj7XmbdWvkOXdC6L5d5A1+pDZiooNcc4gzS0eDK50aXnNq1FL8CK9ypC1553Qn43G27eLU7jc02q8tY5Jw483em2QcYIgC6gJeWxrP959JE5yJ4L6YZS6uORKAEmKhgbs3GryJlkeD6tiESq7Po=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792089356; c=relaxed/simple;
+	bh=hYDch1u6JEQvhaBu2Dh0SadSLCQSA1fv8tX/aw2U3vo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=FcrllnNsxmbR1Om6LwOIOHC9sBllCE3p/lUCmBUbLY6PcgcaGTny3odxNlGuRVlfXpT0iuEuN04GJpxGNC+C2RrIOZZwfnKlMfEvOb+3D22r/UdImIvfc/urLp2BGxPKcid7Uv+G+ESvYyFbydEiC0s9oQON6a4cgvVjBSjqVw8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b=OUiKFCMR; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="or9vv7b0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6312E1F000C4;
-	Thu, 15 Oct 2026 18:35:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792089349;
-	bh=7ALLbBDzqNrieL0NuGOfMVmoGTKaJAvR3J1DurpebBs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=or9vv7b01AP5M0f/NeP+B1iQj1ONyjyFrORPWECbAY65nUWmesOVHOtG9uSnscUHw
-	 NqCo/dT3ooNiqYQlSTGFzbJq9Tx0L6rlfDLnchqqm+5vZjyZNp9fcrX2YV3vGgVnrm
-	 AkflbiKVdnUXl7BV71lfMIGrH1OWeJFiKHFgSoUoURajeE3/RnHv/G6koLjVFE4gJD
-	 lkTfWWwaqM4yL35/dppK34NlOQFnJggy2EP3zRE5gm6Pp6jOKiMTc+DnwE/EXNIICC
-	 9P67nMoIsoZ78BGD0QGJS+0hAseL+G650SpwyH8lYqlwMzO+VoA0AW8Z6xe4EcLdEz
-	 RsFUQRRSJGv4g==
-Date: Thu, 15 Oct 2026 18:35:48 +0000
-From: Eric Biggers <ebiggers@kernel.org>
-To: Alex Markuze <amarkuze@redhat.com>
-Cc: linux-fscrypt@vger.kernel.org, "Theodore Y. Ts'o" <tytso@mit.edu>,
-	Jaegeuk Kim <jaegeuk@kernel.org>, Ilya Dryomov <idryomov@gmail.com>,
-	Xiubo Li <xiubo.li@clyso.com>,
-	Viacheslav Dubeyko <slava@dubeyko.com>, ceph-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] fscrypt: allow filesystems to disable symlink target
- caching
-Message-ID: <20261015183548.GE2170687@google.com>
-References: <a01d0a297a3e174d21741a3ad586ce546327603e.1792081664.git.amarkuze@redhat.com>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="OUiKFCMR"
+ARC-Seal: i=1; a=rsa-sha256; t=1792089331; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=JTKir0wWoyOUlyrGDsjuJthIrocwMLvMIOxvKlSViBNOs/4tC++uWxn7uCU48OChsto7OBGmRlUQOLPDzpPt1dgPWqGqdG4g1j+XGR1tZqVDVYBr0GgULW1qx6fYnw4pv/CBwucN+Ghl6ga8RsConYqFzdyPB0NoG/PjKmnO2Rw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1792089331; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=iih9xPBNnnJLDskp43dgX+2eXZajDQnQevePJrRcsA8=; 
+	b=axoDtagnsjJvlf+RYYdnIDQmtLJvDwPb2NvS/0zN0tBhjArhj2Sd8Um40l3i+4018C05e3mdigr+6DlXguAki2dPq9Uhe2TnMVBR/kE82V2ljJlBw7gFzt0MdpTNzhDG87EMY3nEqeHujPH+xNvvsN6SKoTnI3yyCaTL+kqLloU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
+	dmarc=pass header.from=<deborah.brouwer@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792089331;
+	s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com;
+	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
+	bh=iih9xPBNnnJLDskp43dgX+2eXZajDQnQevePJrRcsA8=;
+	b=OUiKFCMRaSsq/MF0vSncMX4RhtG0NCIrtvYmAa52Kf6A8+/bG+JClVpcvBeXbACg
+	CQSmi05EkeLdmdfFmYp/aUB7HqmIBtBjZejKMY7dbHn7aZbbzAo+64/Y8AjO0rLM6qg
+	pTo+Qy3Pj6yfI9p7iIf67PQlU/1de/ZYWNK1lW7M=
+Received: by smtp.zohomail.com with SMTPS id 1792089330488961.5839121729349;
+	Thu, 15 Oct 2026 11:35:30 -0700 (PDT)
+From: Deborah Brouwer <deborah.brouwer@collabora.com>
+Date: Thu, 15 Oct 2026 11:35:20 -0700
+Subject: [PATCH v2 1/2] rust: uaccess: add UserSliceWriter::clear()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a01d0a297a3e174d21741a3ad586ce546327603e.1792081664.git.amarkuze@redhat.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261015-b4-dev_query_fixes-v2-1-e3e6d25050cb@collabora.com>
+References: <20261015-b4-dev_query_fixes-v2-0-e3e6d25050cb@collabora.com>
+In-Reply-To: <20261015-b4-dev_query_fixes-v2-0-e3e6d25050cb@collabora.com>
+To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, 
+ Deborah Brouwer <deborah.brouwer@collabora.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2433;
+ i=deborah.brouwer@collabora.com; h=from:subject:message-id;
+ bh=hYDch1u6JEQvhaBu2Dh0SadSLCQSA1fv8tX/aw2U3vo=;
+ b=owGbwMvMwCVWuULzOU9c7WvG02pJDFkXZd5tDJnP2Jxd+aBP9eXOl1FTXnp4NWouO5e/pHf2n
+ cdS66s3dZSyMIhxMciKKbKctTfqEa96b6Q7/38zzBxWJpAhDFycAjARjceMDB1/97+N3LFZw+qR
+ fpCPl/u6ENVpT1ZavDVoLV5SImqj3cfI8G+71oyOdWlPG64WMvRbzfBx+5mn+fnUrOgDhd8C7gf
+ a8gIA
+X-Developer-Key: i=deborah.brouwer@collabora.com; a=openpgp;
+ fpr=CD3F328C177AEF322D9FFF8379A829E70C5E7DEB
 
-On Thu, Oct 15, 2026 at 05:46:24PM +0000, Alex Markuze wrote:
-> fscrypt stores decrypted symlink targets in inode->i_link. The VFS can
-> use this field without calling the filesystem's ->get_link() callback.
-> The target can remain valid after the access policy changes.
-> 
-> The CephFS subvolume quarantine series adds access checks to
-> ->get_link(). Quarantine can revoke access after a target is cached. The
-> VFS cache can bypass these checks.
-> 
-> The no_symlink_cache option in fscrypt_operations gives filesystems
-> control of this cache. It applies during target creation, lookup and
-> getattr. With this option set, the helpers do not read or update
-> ->i_link. The filesystem callback can then revalidate access.
-> 
-> Uncached targets use the existing delayed-free callback. Each uncached
-> lookup allocates a temporary buffer and decrypts or encodes the target.
-> This lets Ceph reuse fscrypt's target validation and buffer ownership.
-> 
-> The default setting keeps the current cache behavior for other
-> filesystems. Ceph selects the option so cached targets cannot bypass its
-> ->get_link() checks.
-> 
-> Signed-off-by: Alex Markuze <amarkuze@redhat.com>
+Add a method to zero the remaining bytes in a UserSliceWriter.
 
-This sounds like a bug fix?  If so, which commit is it fixing?
+If userspace provides a buffer that is larger than necessary, provide
+a method to zero out the remaining UserSliceWriter buffer. This avoids
+userspace consuming potentially uninitialized memory and/or mistaking it
+for data intentionally provided by the kernel.
 
-- Eric
+Use the #[inline] annotation to make this clear() method available for
+inlining outside of the kernel crate.
+
+Since clear_user() is architecturally defined and may be a macro or inline
+function, add a rust helper to make clear_user() callable from rust.
+
+Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+---
+ rust/helpers/uaccess.c |  6 ++++++
+ rust/kernel/uaccess.rs | 24 ++++++++++++++++++++++++
+ 2 files changed, 30 insertions(+)
+
+diff --git a/rust/helpers/uaccess.c b/rust/helpers/uaccess.c
+index 6e59cc9c665c..e799d9ac9804 100644
+--- a/rust/helpers/uaccess.c
++++ b/rust/helpers/uaccess.c
+@@ -27,3 +27,9 @@ unsigned long rust_helper__copy_to_user(void __user *to, const void *from, unsig
+ 	return _inline_copy_to_user(to, from, n);
+ }
+ #endif
++
++__rust_helper unsigned long
++rust_helper_clear_user(void __user *to, unsigned long n)
++{
++	return clear_user(to, n);
++}
+diff --git a/rust/kernel/uaccess.rs b/rust/kernel/uaccess.rs
+index f1aecda7a90c..8e18285ec44b 100644
+--- a/rust/kernel/uaccess.rs
++++ b/rust/kernel/uaccess.rs
+@@ -638,6 +638,30 @@ pub fn write<T: AsBytes>(&mut self, value: &T) -> Result {
+     pub fn write_truncated<T: AsBytes>(&mut self, value: &T) -> Result<usize> {
+         self.write_slice_partial(value.as_bytes(), 0)
+     }
++
++    /// Zeros remaining bytes in the userspace buffer.
++    ///
++    /// Fails with [`EFAULT`] if the userspace memory cannot be cleared.
++    #[inline]
++    pub fn clear(&mut self) -> Result {
++        let len = self.length;
++
++        if len == 0 {
++            return Ok(());
++        }
++        // SAFETY: `clear_user` checks the userspace address and range and handles
++        // faults when accessing userspace memory
++        let res = unsafe { bindings::clear_user(self.ptr.as_mut_ptr(), len) };
++
++        if res != 0 {
++            return Err(EFAULT);
++        }
++
++        self.ptr = self.ptr.wrapping_byte_add(len);
++        self.length = 0;
++
++        Ok(())
++    }
+ }
+ 
+ /// Reads a nul-terminated string into `dst` and returns the length.
+
+-- 
+2.56.0
+
