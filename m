@@ -1,207 +1,140 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E56104BD7BE
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:47:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69FB4493D29;
+	Thu, 15 Oct 2026 10:48:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792061272; cv=none; b=LS9k05EWNnZLRDX6uhYa6Cal3kmiwOhLKraLbWD64bRliPAV4fu/BpcuadqGGpkxwrndUUh1H0yUji/yGccZEpA/WajpQmkAr59lzx39I2Pfk4HRcx6K1Zk8AXbLgatX4zW8MN6BUZWdxuioLR4qf5Pngt6IFrnqH3NK9ke63cI=
+	t=1792061313; cv=none; b=J4PvB+tx8NNYdzNtl0LQ8Dji4lm6uO3LbISmj3t8/oUP4sFGDqaA38q7XQY0U6SSsf3I99zLuw4/kvckcRfJtAviYtEPSKegMNOROJ1w1VJw12//BCDN3p9TVWxcO6VrQi3Q1X7JlT7t2am1qh9e4lgWjQE4NMZc2HkQ7uTMdzI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792061272; c=relaxed/simple;
-	bh=o26KCX//GrYvp5CqNA8Q139+bK68gOk1qeexi9DuSJ8=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=KpIgZG/Ypt2quh8yWbGnnn0jlq9K9slJ+9+MPB4ERz/aUGh2hPYKyQfLLS/sOllo6XAw78nqDLViqWBvGweiWKRkIEUcr2RxEKDz6OzrsaDswZN/y8EXrmeBswdUE0Ucq4MGGmw1eh8PQFAbjHf5XtxEJ5IPmuas2mevwEyRhpM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=B2/P3KZn; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=JbLLzBdR; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1792061313; c=relaxed/simple;
+	bh=UD6CUQrfPvpCEm3YxfObHA2+AWMACNzVpgtRSpFGncQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CvTH7AKvgr+lwgwxRjwzWufEwxPzEU4ZoZxR6+usaoAfYEkP8+Yj7HwjztcUZbkeyF26RfMBYGmP1WD4YGQSI0ptjXd3l3WB1o+FBLwktSwWY2Jkwz6s6ofS6bF8y0xp81gkFhQHSD8sfkBEtbB7vmI5F3ZL3Xe/uTPYOMu8X08=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=VZxas6kQ; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="B2/P3KZn";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="JbLLzBdR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792061269;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5s0adaAlZjmhtDx9aVR2qtB46fnKw4HK1vTEiIYxT7o=;
-	b=B2/P3KZnE7hRF12t/3+Silc8u3Sn7DNRPUAkP5mxPkKZs02npXewa8LzvHpAuegx0+994Q
-	AsaWiwCUketh8irrFC4F0djwD+r8m6OJyKjojjklHT3LMwFXpxAt7QXHEcOJxh7qCAz3lO
-	rdLtmc5wbgWQwYT6+hWeRXX+2q6meRw=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-644-uXuzU1D_MK2TjMRqFQPLqA-1; Thu, 15 Oct 2026 10:47:48 +0000
-X-MC-Unique: uXuzU1D_MK2TjMRqFQPLqA-1
-X-Mimecast-MFC-AGG-ID: uXuzU1D_MK2TjMRqFQPLqA_1792061267
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a1af80b913so28160805e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 03:47:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792061267; x=1792666067; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5s0adaAlZjmhtDx9aVR2qtB46fnKw4HK1vTEiIYxT7o=;
-        b=JbLLzBdRiH51RECnmh2G6JDLBGZ/TQxAplU2CCprp2T6S98z5Kv98T3d1M4Fa5hk7j
-         6V4z6yU1VnVHu7N2aoY3+SX9GG4JuikOE6rLv+R88VStYtPXJd7qfZi4RrW6E24/Yu4X
-         9CH25rZ+AP20tKCRIyrK26lSCQjOVKmWXLzreO8up4l0stAbOdaV+CoHnAPeum0IkDXI
-         eEY0n5SBhrNzFah7kidpkaRsW0IpG3xYu2cyroYPi1z+Uk1h8bQH8tRsBLrCpKoN6RqN
-         aSqxOPPw6iNVNSOszhWUyAyhCg3jc9G5gNh1PkqSTjHdYwhdvtIXfAN4t1Pduwz6U+VG
-         PPYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792061267; x=1792666067;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5s0adaAlZjmhtDx9aVR2qtB46fnKw4HK1vTEiIYxT7o=;
-        b=xSo2Jz8QJu8iMdufr4ODDqQdZUNoWLALzUvxFlU1hYM3yz3tkoWLMJWsG99Usm28ze
-         Z7oZkzKULpb4xGHzxkp1pgUZ8/jXfS6U058XxriwfGcRl2PwYiWXLBAc/TZXY57M/B4k
-         Ra7vWdWcY9BILtHoV7RASYMNwlgLE8RVt03/Or6cI0p0xgZwDEicRu+pt6tpds9/X6kt
-         7Cw/gzWmN544LEYED+e0JOSLzRbKiuRQdYleJ7p/SyUFWHhfk1SLPERbTs8xn7EE45dx
-         7hkF+G9BkcenTcrVBfBISyyT2JPnHsOXn2wruU56KSKqe7HsHO862/I4VInULaoSf3g2
-         UUMQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxKW6+rdhTTDa3IF9Z5c8a93uiWJOOfeZhUGqI5Rzwve0vLU3l41m+4SQfQDunhwA1Pu+SUxqtgXB94Ysc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLVzBIxfKp7GUBT7+0GAijsBqCzHZ9BTfQLhcfYWh0h+aA+sSHu
-	+7fRGlCFSNB4s1Jpl1ZTfoe2fW5nYBJs3DuSORZbICv8u/viHGgtFQ6vD01Fr3bfXOm5ubId5Fx
-	O+svDxA2urc9NjqDUw7TtQQtZWWaN5zwdwKQ5q2B7PmrMoxkQT+eC9J+SVDwkcUM0yg==
-X-Gm-Gg: AYBFou3QUz48lvps24J21ojViapAs0xE0BnXt1EUWIGaBvRaxdRB6rZ08VzGsGwYsaU
-	oizkOl7Q+Hh0mw4LeAl2k+w2qePgTu2/V8zw+oIdymcvPfHvxbzY5e78B9uwwKS8Yav3ust5MEI
-	04HwuXkIf7AIhFtKec0/2f8sr13F/fHm7lbHCQjdxOPSl/u2n0y8GCo13TEV4eldgszMg4DI7BO
-	E1jb0Wq5IVRTS+g4m/TaALMcOLRDyhXQd3cNfz5s2jos4VWnvotfB4mCWFu/LYpTH/pNVP09u7Y
-	kmXyGYmVMqtskSizXIg0+lQPthG2WpW0apOBZR1tWaMLu5C197kR+39pJi37h0+mdYgk7JY8my8
-	NMEpiCyXE/9Ml0DkSvrp0CSHi3/zP3F9vmelQGVKIfGkzAt3VQnhv2q0Jr8mPU4/cWw==
-X-Received: by 2002:a05:600c:8718:b0:4a1:7259:349e with SMTP id 5b1f17b1804b1-4a18e4e0a33mr367295125e9.27.1792061267389;
-        Thu, 15 Oct 2026 03:47:47 -0700 (PDT)
-X-Received: by 2002:a05:600c:8718:b0:4a1:7259:349e with SMTP id 5b1f17b1804b1-4a18e4e0a33mr367294625e9.27.1792061266913;
-        Thu, 15 Oct 2026 03:47:46 -0700 (PDT)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd68585csm39353835e9.4.2026.10.15.03.47.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 03:47:46 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Phong LE <ple@baylibre.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent
- Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Julien
- Chauveau <chauveau.julien@gmail.com>
-Cc: Paul Cercueil <paul.cercueil@bootlin.com>, Nishanth Menon <nm@ti.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Luca
- Ceresoli <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH 1/3] drm/bridge: ite-it66121: improve reading IDs and
- log on errors
-In-Reply-To: <20261015-drm-ite-it66121-log-probe-errors-v1-1-7fd6994e0be0@bootlin.com>
-References: <20261015-drm-ite-it66121-log-probe-errors-v1-0-7fd6994e0be0@bootlin.com>
- <20261015-drm-ite-it66121-log-probe-errors-v1-1-7fd6994e0be0@bootlin.com>
-Date: Thu, 15 Oct 2026 12:47:44 +0200
-Message-ID: <xlv1y0bzfdf3.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="VZxas6kQ"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9kSNX531747;
+	Thu, 15 Oct 2026 10:48:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=TEnXgblTZ8WiyV2f0aWQtSLIFNIlls9e0+cNn2Ugi
+	BQ=; b=VZxas6kQou/DW4GJZQIyO4kYittAr34f+WlhB6n/+/PQBYRXn9osEwdCB
+	Wb4U1fZXJMP6CRA325o44+iNCqVja0uIz3apw8EnYvkydEamSKeo5k0L4EHiZ4bF
+	gCLwGJegb24K49X1aRRBSyy+w0QVRmAHFjoBUy6Pmc1MAPLH59FPgsq2smNWPyQI
+	0LxfCMIPtJW8QkfTOh6BviUpj1npmlakxAmKyg+yx5JflCDiu5MPA3ljKByVzdSy
+	f/+I2HEh/NUfRbD2qTCLdIrD5EpnK7rGK/Phpui5bZyZaYzolYIspaFsX4RXKf11
+	Z67DiP/pZp0xG4MqjOiU+Wcr8E0Sg==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dv3se0y-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 15 Oct 2026 10:48:28 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9nuUK1929703;
+	Thu, 15 Oct 2026 10:48:27 GMT
+Received: from smtprelay03.wdc07v.mail.ibm.com ([172.16.1.70])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h9pb3sapc-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 15 Oct 2026 10:48:27 +0000 (GMT)
+Received: from smtpav01.dal12v.mail.ibm.com (smtpav01.dal12v.mail.ibm.com [10.241.53.100])
+	by smtprelay03.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69FAldUE30867996
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 15 Oct 2026 10:47:39 GMT
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 69F8158059;
+	Thu, 15 Oct 2026 10:48:25 +0000 (GMT)
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 21B4858062;
+	Thu, 15 Oct 2026 10:48:23 +0000 (GMT)
+Received: from t83lp65.lnxne.boe (unknown [9.87.84.240])
+	by smtpav01.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 15 Oct 2026 10:48:22 +0000 (GMT)
+From: Gautam Gala <ggala@linux.ibm.com>
+To: borntraeger@linux.ibm.com, imbrenda@linux.ibm.com, kvm@vger.kernel.org,
+        linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-kselftest@vger.kernel.org
+Cc: frankja@linux.ibm.com, david@kernel.org, hca@linux.ibm.com,
+        gor@linux.ibm.com, agordeev@linux.ibm.com, svens@linux.ibm.com,
+        pbonzini@redhat.com, seanjc@google.com, shuah@kernel.org
+Subject: [PATCH v2 0/2] KVM: s390: fix ESSA addressing exception injection in migration mode
+Date: Thu, 15 Oct 2026 12:48:20 +0200
+Message-ID: <20261015104822.77062-1-ggala@linux.ibm.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: tDWkgNV7iJg7CykvAEo2sFbwYkHfa1aV
+X-Proofpoint-ORIG-GUID: DbWpArQ23dqDfIde8V3ijiLlTft8Lcyo
+X-Authority-Analysis: v=2.4 cv=aqInmiZV c=1 sm=1 tr=0 ts=6ad0af7c cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=U7nrCbtTmkRpXpFmAIza:22 a=8gBezWMw3N2eau65p0gA:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA0MiBTYWx0ZWRfX+Wy28cpNMb4l
+ yV3M0vJxxXyBYTMrIzWr275lnYWldIRO9sj9TKhirnYXer5azM2j6UMVe+n+2LMxRHeYJ5Wvl1l
+ LgizEn0TRWCm713bCMe0i4i/3YJPNUY=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA0MiBTYWx0ZWRfX5Z0L9N6AWvaP
+ FHMZs7/WCqfA5JOgOH9VF0N62/0dNZ8zuXUoXgYF1DeO/4o2nWcT4fjSRum1H4dkAlMv3h1RhQi
+ oCmRrgSRsawFLNoABHfrpVo7mmQ/VBjqarucah1mCiNNi4Ko9m51W0TpJ0OQ5Sr0skRGftc+MP/
+ 3TRZwZ49zZ+EIn8TcQTflJlSC6iqQkc020YCKFiVqX4fc38GN/jJkH09M7tScyjkki/cz5IXhTF
+ q65A7VGcU3WPaNpOqpVhPbvthtqUxWxRCsY4lFiqdHEalUilzO3a7ALwvmbEGx3B4QAsdfSXu+T
+ 289YbU8G1V4mkf1O379FDpku/6Kj9tgqvRwlMwU9NCcrptdBqQLg9aQhf9m0NPATH1rExiqWXHx
+ 2EmN5pUFy0jIkBWIR6Ei3l7tH+dz01kuBFrXLccDOGlWpdPmf0YLffJpnkygYoMcoVqPcr4NF5x
+ BVIS1na2eb3asAkydGQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 spamscore=0 malwarescore=0 suspectscore=0
+ bulkscore=0 adultscore=0 impostorscore=0 priorityscore=1501
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610150042
 
-Luca Ceresoli <luca.ceresoli@bootlin.com> writes:
+ESSA emulation in migration mode silently dropped addressing exceptions
+when the guest page-table walk failed, so the guest never received the
+expected PGM_ADDRESSING interrupt during live migration.
 
-Hello Luca,
+Patch 1 fixes dat_perform_essa() to return PGM_ADDRESSING on a walk 
+failure, and __do_essa() to inject the program interrupt when it sees 
+that return value.
 
-> it66121_probe() calls regmap_read() four times to read the vendor and
-> device ID registers, without error checking. This leads to silently
-> continuing using invalid ID values when any of the reads fail (which has
-> happened and is being fixed [0]).
->
-> Adding error checking on all 4 regmap_read()s would be annoying, so switch
-> to regmap_bulk_read().
->
-> In turn a bulk read requires a differen data structure, so take that as an
-> opportunity to make the vendor/device ID computation more explicit.
->
-> [0] https://lore.kernel.org/r/20261015-drm-ite-it66121-fix-reset-v1-1-473038e06abc@bootlin.com
->
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> ---
->  drivers/gpu/drm/bridge/ite-it66121.c | 30 +++++++++++++++++++++---------
->  1 file changed, 21 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/gpu/drm/bridge/ite-it66121.c b/drivers/gpu/drm/bridge/ite-it66121.c
-> index 692a85e1e2e8..9b43456c67a1 100644
-> --- a/drivers/gpu/drm/bridge/ite-it66121.c
-> +++ b/drivers/gpu/drm/bridge/ite-it66121.c
-> @@ -1580,7 +1580,16 @@ static const struct it66121_chip_info it66xx_chip_info[] = {
->  
->  static int it66121_probe(struct i2c_client *client)
->  {
-> -	u32 revision_id, vendor_ids[2] = { 0 }, device_ids[2] = { 0 };
-> +	union {
-> +		__u8 byte[4];
-> +		struct {
-> +			__u16 vendor;
-> +			__u16 device;
-> +		};
-> +	} chip_id_regs;
-> +	BUILD_BUG_ON(sizeof(chip_id_regs) != 4);
+Patch 2 adds a regression test integrated into the existing cmma_test
+selftest.
 
-I think that would be simpler and easier to read if you just use a
-u8 chip_id_regs[4] variable, instead of the union.
+Changes since v1:
+ - dat_perform_essa() now returns +PGM_ADDRESSING instead of
+   -PGM_ADDRESSING; kvm_s390_inject_program_int() takes an unsigned u16
+   so passing -5 would have wrapped to 0xFFFB and injected a bogus PIC.
+   __do_essa() comparison and inject call updated accordingly. The
+   kernel-doc return-value entry is corrected to %PGM_ADDRESSING.
+ - Selftest: pgm_handler_c() now reads the actual PIC from lowcore
+   (__LC_PGM_INT_CODE) instead of hard-coding PGM_ADDRESSING, so the
+   test would have caught the sign error above had it been in v1.
+ - Selftest: virt_map(vm, 0, 0, 1) added so the DAT-on guest can
+   access the lowcore to read the PIC.
+ - Selftest: PGM_ADDRESSING, __LC_PGM_INT_CODE and __LC_PGM_NEW_PSW
+   constants moved to the shared s390/processor.h header.
+ - Selftest: SIGALRM/alarm() timeout wrapper removed.
 
-> +	u16 vendor_id, device_id;
-> +	u32 revision_id;
->  	struct device_node *ep;
->  	int ret, i;
->  	struct it66121_ctx *ctx;
-> @@ -1644,19 +1653,22 @@ static int it66121_probe(struct i2c_client *client)
->  	if (IS_ERR(ctx->regmap))
->  		return PTR_ERR(ctx->regmap);
->  
-> -	regmap_read(ctx->regmap, IT66121_VENDOR_ID0_REG, &vendor_ids[0]);
-> -	regmap_read(ctx->regmap, IT66121_VENDOR_ID1_REG, &vendor_ids[1]);
-> -	regmap_read(ctx->regmap, IT66121_DEVICE_ID0_REG, &device_ids[0]);
-> -	regmap_read(ctx->regmap, IT66121_DEVICE_ID1_REG, &device_ids[1]);
+Gautam Gala (2):
+  KVM: s390: fix ESSA addressing exception injection in migration mode
+  KVM: s390: selftests: add ESSA migration mode PGM_ADDRESSING
+    regression test
 
-You should probably drop these defines if will no longer be used. Instead,
-maybe you could define a IT66121_CHIP_ID_REGS_START or something like that?
-
-Although maybe is good to keep them as documentation? Not sure about this.
-
-> +	ret = regmap_bulk_read(ctx->regmap, IT66121_VENDOR_ID0_REG,
-> +			       &chip_id_regs, sizeof(chip_id_regs));
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Error reading device IDs\n");
->  
->  	/* Revision is shared with DEVICE_ID1 */
-> -	revision_id = FIELD_GET(IT66121_REVISION_MASK, device_ids[1]);
-> -	device_ids[1] &= IT66121_DEVICE_ID1_MASK;
-> +	revision_id = FIELD_GET(IT66121_REVISION_MASK, chip_id_regs.byte[3]);
-> +	chip_id_regs.byte[3] &= IT66121_DEVICE_ID1_MASK;
-> +
-> +	vendor_id = le16_to_cpu(chip_id_regs.vendor);
-> +	device_id = le16_to_cpu(chip_id_regs.device);
->
-
-And here you could use get_unaligned_le16() instead, to not have to cast
-when using just a u8 array.
-
->  	for (i = 0; i < ARRAY_SIZE(it66xx_chip_info); i++) {
->  		chip_info = &it66xx_chip_info[i];
-> -		if ((vendor_ids[1] << 8 | vendor_ids[0]) == chip_info->vid &&
-> -		    (device_ids[1] << 8 | device_ids[0]) == chip_info->pid) {
-> +		if (vendor_id == chip_info->vid &&
-> +		    device_id == chip_info->pid) {
-
-I wonder if this could be done in a separate patch.
-
-That is, keep the << 8 | for this patch and just do the regmap_read() to
-regmap_bulk_read() conversion. Then as a separate patch you could replace
-it by converting with le16_to_cpu() or get_unaligned_le16().
+ arch/s390/kvm/gmap/dat.c                      |  5 +-
+ arch/s390/kvm/s390/priv.c                     |  2 +
+ .../selftests/kvm/include/s390/processor.h    |  7 ++
+ tools/testing/selftests/kvm/s390/cmma_test.c  | 69 +++++++++++++++++++
+ 4 files changed, 82 insertions(+), 1 deletion(-)
 
 -- 
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
+2.55.0
 
