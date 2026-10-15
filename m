@@ -1,175 +1,229 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2083C475346
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:38:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BF2E469850;
+	Thu, 15 Oct 2026 06:38:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792046305; cv=none; b=SfA6fzws75QJcsYE2DRo6SnIUMOqmj2SLw1Og9vZvihFcKCC1dLmx5GFyG7XB3026sA4pJLa1ceP9LPXzl5DSq1TBb7bmK/mpG7lFU3tXuCLzSS8ZS1T/WVgfCFsXilA/Fq6cn/g1eQ/5CuJNw6YNlx7HXxgApeT+HAM/SRVd48=
+	t=1792046309; cv=none; b=QbMdGsqNey/r4coIbFHY1VQugaDyi6awCZc+BJ5UaTqP7GBnNqZcM+E0AcQwhfarT8yz0X+jjRLTzHPW6hJE8stALSrt6CK/Q/fEPJcrqnunv4tEy/La2oc2fJqFbQdFJuDKpvlecKNi9dYRkixoF25AIsvaugRL/T9mGlxim6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792046305; c=relaxed/simple;
-	bh=Gjfl70hTFTGhBH/H4P2RMB0T59SFjyozJ0eYGyE+ryI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=O6ACon/DLMSIM5OYukP7CIYcCZsE+tyvalxHV6OsJGx6iIoMt7c2ZwGI8FfBq1ndQaHZ6dg6jpKI62WOFl8+vpp3yeiSH6/c/G9BhWcK3Pr9w0QfppcPKCKEn7mXXHHiG1JBKEVRN1+miXy1EDp0Xd72+I2r6qsO7Q8Sk73/Sog=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mQU9w7jh; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WHRhiKYf; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792046309; c=relaxed/simple;
+	bh=C5S/fcxahP44X6HH95SPiDjS7f7yvFtGXNMyBC8X13E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=L41nut5RQFCr7SCoCLOejCDSVvrrhaw4B9u0VJvk1/qlv/0du6M0TNttWeCCIRwjxMCcn32OJrr1hPJHW3E/svuGRt0kfE5IFM8Vamf1fgIyoS9RFN0SfaRXPkhaCL2POczFB9dJRAxucRHmheqzBwOL4jr4rr3Z4+w1pRCbE+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BcRoZ0cr; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mQU9w7jh";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WHRhiKYf"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F02tpE1682649
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:38:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Sxi1dDHyen15wUUP13toiSG1kq/ZXdnSJUls7x1z7Xg=; b=mQU9w7jhNCYxUiRa
-	Chnig8d2fNEr6JuYe5/wCpaX5gozpghSN3M5FhZgLiqVC3Vz/cvv9ddODfv+MSwJ
-	XQDkfK4eISSr5TNN854A0WAIP9pBRcZO3S4Ey2I5of+7CvasYNL7YLclkGLolSFR
-	WEOcHCJ0HbKTycbk2wHjSdXvOlv5R+dptw42riOI9ZGTiWOWG30IXXHn1bK/jvoA
-	sJUAZca0v8aL4BAOTu2IzK1QjJXkZv8ta8/jAWscdffaTjOugf+23OXMgH2M69gP
-	g7/wlqDGTQR7Kfd+XrN9cNxH6p2GET2uaGIgzqKbsn39OmpI5SA/Sqh0Z8OhjNd8
-	uYHzMA==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hacb032gm-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:38:22 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ab868fe362so6469656a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 23:38:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792046302; x=1792651102; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Sxi1dDHyen15wUUP13toiSG1kq/ZXdnSJUls7x1z7Xg=;
-        b=WHRhiKYfoJbIKCpfWG8zhDQyGZakqeSUp3Tdq0k9QKQbmcEG3qJd+BcKW7wBS3J8AU
-         L1dz8YMadg73suZoffvogT4trjfxVzciu9rwYKXpVMqsDaqmiFj8lH8eCCwX/Am+3ExE
-         N2V7lF4CtPKVxz3DSGEHMKHoCIIBVgCF5NqxUV59P7amky/G3mcPOLMVOUWaPIRZ4YJ5
-         Nqiwp2LbLIrsvtkE4FD8NQwXuSqp3iE4G+1x495haf676IVmYZ+fZG3kzKwgUJikbp1B
-         dtBa3+YkDamv7hrHiag9TPm9AldB0dp3Yi+sHpowzQAaRK2lcWc43G4kJmIol2016yS+
-         xe+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792046302; x=1792651102;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Sxi1dDHyen15wUUP13toiSG1kq/ZXdnSJUls7x1z7Xg=;
-        b=xtZipTHVTGztRHdv5kUikvy4zV4OMvowsOA/lMx7OKCnAUZnRHuZ7NIwRRyH0nZ6+0
-         ncAg7VcwdMsRLyFMWB1sa6Nd+ki+hzFO009uaRNQK7uKZfJDYx8OHITOkaxK38UzNePd
-         jf08oIVwQRDhhqrDm66mo/PeLUeK6fW6v/eaRVQiJMAB2S5dsUpBeaFAwoDteOJuwLzz
-         JKk6i+OAzesBVUXke3n/JTEXS6rDYyKtGsgyeNAL5Q79hk7gcIHxLxioWRnIj6DfZbHT
-         iKhHgi+kQfcjrz6q5KdEelFYTD4Z1eb194/o5UK0oUYmGg0PiALd2aT6UvSoF1y1CoBM
-         Uklg==
-X-Forwarded-Encrypted: i=1; AKwUvBzwDn4yDcZCYtF7mnrlXbu+KBXMPSuWLC9jtZxQC6xuj5BBCK0FZK/BX/YRQxMdQMR4yszlp1ZCo2IPvzY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIbk9e4iygUp+adDIOKCY1XVhoP1DO47bgWm0z/bRJBTorx2T7c
-	WhiUNajAsK2m10oHkfMlH5SiTj4wRUXSdMiOioJUTbeCIetFoBgRutJHaZt3zirdfUQSLnms/xQ
-	gwoTxwDUErVXS5k08iZ1/9yTU1fJK8yf/oUuba5CW1SbEyVSuSqyN40cd/Zl2kSRXers=
-X-Gm-Gg: AYBFou0W9UykTdy9KsDQxqaLZudAdB+7b8UxP9Sopc1vZ7dDl9ZihYFF66cVQPXMAnb
-	JSrs+Rj0v5Tp71ac62+WXKnXdGa1BrZKKOvJKg1hpUiwjLCR03/XTMetzJgH7YJZYomWjxYTFmn
-	TQKCi+Nzjx2FndIdEgpmJ1nWXW+0dcbwxDAuxFS4xeaOgj7Hlrn8dB5OwpctHRFl2OkywerwyiB
-	pubfn+BJqt0u65xbVunGw/rAzydZvPqG5B3uOAvqpyxVxU58PimbVxWLQDv2WH8ygYMCEDlZmqt
-	L2Ir/q/vxmy1si97s/gYydljtSor2KoprrEQPdrOhxez15h7x9q+xGntl4XfVLM7FCwYis7nk/w
-	sPVr5hmxN2Ocw8rH9rCM/G5vAYiExvVuW
-X-Received: by 2002:a17:90b:570e:b0:3a8:1a1a:7895 with SMTP id 98e67ed59e1d1-3ab3a90e564mr12340076a91.18.1792046301617;
-        Wed, 14 Oct 2026 23:38:21 -0700 (PDT)
-X-Received: by 2002:a17:90b:570e:b0:3a8:1a1a:7895 with SMTP id 98e67ed59e1d1-3ab3a90e564mr12340050a91.18.1792046301053;
-        Wed, 14 Oct 2026 23:38:21 -0700 (PDT)
-Received: from hu-kuldsing-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac93ff4474sm2844429a91.0.2026.10.14.23.38.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 23:38:20 -0700 (PDT)
-From: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-Date: Thu, 15 Oct 2026 12:07:46 +0530
-Subject: [PATCH v3 1/3] tee: qcomtee: Register qcom.tz.tpm service for
- discovery
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BcRoZ0cr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792046306; x=1823582306;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=C5S/fcxahP44X6HH95SPiDjS7f7yvFtGXNMyBC8X13E=;
+  b=BcRoZ0crPPJx7aXOgVapSj8HUphNyFpaXTJ+9uMV95emb6wbhIOe/Xcl
+   bpxi2xINz3uvF4yUp9bw1VSiLo4FBk6kmG5D7ZXvvE00bym/zxx4LFe8H
+   Jkj+Od3GEOOcAsOZalr1EzDVLBkkIPwg0oAxmnTgWYnppg9+Z4h3KQpWv
+   cYtedHMihCkAD8rgWljwAKLtdAS8vwjdI6gz5lBfbP6ZqO5RDoKbHGQZd
+   ORsdRFrW+yxMyvqRS75SBwQUgTS9lpu3hnmJKTAtuiczhhM4k54kU7Sw0
+   MrR7OChuuZf+jny+1oX87NStas+OeIJA89yhj6Qjh3BdcPU/0DYnfa5xG
+   Q==;
+X-CSE-ConnectionGUID: TIb7eQ5aShGIqYMzqIuCsg==
+X-CSE-MsgGUID: BvpmZNmKThmo4CnghUZUQw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="808736"
+X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
+   d="scan'208";a="808736"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 23:38:26 -0700
+X-CSE-ConnectionGUID: EUNteLj8S+C95zjKYbm1yQ==
+X-CSE-MsgGUID: XiGxUsyISKOUsloHsSQ10A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
+   d="scan'208";a="1936573"
+Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
+  by fmviesa007.fm.intel.com with ESMTP; 14 Oct 2026 23:38:23 -0700
+Date: Thu, 15 Oct 2026 14:34:13 +0800
+From: Xu Yilun <yilun.xu@linux.intel.com>
+To: Lu Baolu <baolu.lu@linux.intel.com>
+Cc: iommu@lists.linux.dev, x86@kernel.org, linux-coco@lists.linux.dev,
+	kvm@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
+	Kevin Tian <kevin.tian@intel.com>, Kiryl Shutsemau <kas@kernel.org>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, xiaoyao.li@intel.com,
+	Chao Gao <chao.gao@intel.com>,
+	Binbin Wu <binbin.wu@linux.intel.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] x86/virt/tdx: Add SEAMCALL wrappers for IOMMU
+ setup/clear
+Message-ID: <atBz5cj0wQZv/fLN@yilunxu-OptiPlex-7050>
+References: <20261015010705.1973284-1-baolu.lu@linux.intel.com>
+ <20261015010705.1973284-2-baolu.lu@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-tpm_qcom_driver-v3-1-247c8e50250e@qti.qualcomm.com>
-References: <20261015-tpm_qcom_driver-v3-0-247c8e50250e@qti.qualcomm.com>
-In-Reply-To: <20261015-tpm_qcom_driver-v3-0-247c8e50250e@qti.qualcomm.com>
-To: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>,
-        Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
-        Peter Huewe <peterhuewe@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
-        Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, op-tee@lists.trustedfirmware.org,
-        linux-kernel@vger.kernel.org, linux-integrity@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Authority-Analysis: v=2.4 cv=VKpIDNPX c=1 sm=1 tr=0 ts=6ad074de cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=cMdrFq0U01fV1n6vpx4A:9 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDAyNiBTYWx0ZWRfX2H7BQztAD639
- +moc3XR5vUNFWBCB+5zvpXGciLLvE623RE2wqT7txk1rZFAhyqGTDGVCuRuaM97FMoVYHKr4f7b
- d6q04plRk1MG/LnWykdU0moIixon0bE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDAyNiBTYWx0ZWRfX1IB9BXZYPD5F
- zQ7C9soCURPs4aVBiJQvv+JQ4rNsCYuLpmZevK2JXzH03x6pd2oVRPhIVNJ2MmLB1/JNymco3fW
- 7/O4CC89gHknUiaFe48zzKwgmlfn0SDINCZx2zuD98c7jZtWEuBYGTfDU76aLioDGHrOrm/HlqD
- psrhYxGgG3hYcTDE7sdM0mXvWvmSsm3wMVfn7N94hx+ytaGK0rMQwkFD4K8rJD1nzg8wZRjDcco
- nArwdgdi8hZNWeisrgy/BTCWY5tvybZWQQppBc+2LjFz5x0gtrRM9qnF3Wwrik5EChLJXQKs8xw
- gBCzjHHKpZ3f4wu0bgu5ScId+ViTfk9E484RjAeQOEnQwix8ckXQ20EhtXcuP9GynYJYuGMrmMu
- mlPfvfq+G2o8qwIr4tagL9joazAmddYBa2r99faLVAP0B4LGufBd5L2iZi4MyeASb5hIBkbbWU8
- Cew9hUaVhTMp8z1lHyA==
-X-Proofpoint-ORIG-GUID: vsRBFLkWa_w3v4OwJzQnSUve5zJvWUSs
-X-Proofpoint-GUID: vsRBFLkWa_w3v4OwJzQnSUve5zJvWUSs
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
- malwarescore=0 phishscore=0 spamscore=0 clxscore=1015 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150026
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015010705.1973284-2-baolu.lu@linux.intel.com>
 
-Add "qcom.tz.tpm" (QCOMTEE_TPM_UID) to qtee_services[] so the TPM TA
-is enumerated as a TEE-bus device, allowing a client driver to bind to
-it via its generated UUID.
+On Thu, Oct 15, 2026 at 09:07:02AM +0800, Lu Baolu wrote:
+> Add SEAMCALL wrappers for TDH.IOMMU.SETUP and TDH.IOMMU.CLEAR.
 
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-Signed-off-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
----
- drivers/tee/qcomtee/call.c        | 4 +++-
- drivers/tee/qcomtee/qcomtee_msg.h | 2 ++
- 2 files changed, 5 insertions(+), 1 deletion(-)
+We need this patch been reviewed by x86 reviewers. x86 convention
+doesn't start with the implementation, so remove it.
 
-diff --git a/drivers/tee/qcomtee/call.c b/drivers/tee/qcomtee/call.c
-index 3061bcbd15ab..d4d6f72eb71b 100644
---- a/drivers/tee/qcomtee/call.c
-+++ b/drivers/tee/qcomtee/call.c
-@@ -747,7 +747,9 @@ static const uuid_t qtee_service_uuid_ns = UUID_INIT(0xe1b48857, 0x6154, 0x49f9,
- 
- static const struct qtee_service qtee_services[] = {
- 	{ "qcom.tz.uefisecapp",
--	   QCOMTEE_UEFI_SEC_UID }
-+	   QCOMTEE_UEFI_SEC_UID },
-+	{ "qcom.tz.tpm",
-+	   QCOMTEE_TPM_UID }
- };
- 
- static void qtee_release_service(struct device *dev)
-diff --git a/drivers/tee/qcomtee/qcomtee_msg.h b/drivers/tee/qcomtee/qcomtee_msg.h
-index 9278a361dc70..9fff9dc5fffb 100644
---- a/drivers/tee/qcomtee/qcomtee_msg.h
-+++ b/drivers/tee/qcomtee/qcomtee_msg.h
-@@ -106,6 +106,8 @@ union qcomtee_msg_arg {
- #define QTEE_VERSION_GET_PATCH(x) ((x) >> 0 & 0xfffU)
- 
- #define QCOMTEE_UEFI_SEC_UID            413
-+#define QCOMTEE_TPM_UID			81
-+
- /* Response types as returned from qcomtee_object_invoke_ctx_invoke(). */
- 
- /* The message contains a callback request. */
+We can start with a generic description of what the 2 SEAMCALLs are
+doing in general and why. Maybe move some of your description in next
+paragraph ahead.
 
--- 
-2.34.1
+> 
+> TDH.IOMMU.SETUP transitions an IOMMU and related I/O stack into Secure
+> TDX Mode. During this transition, the TDX module validates and protects
+> relevant I/O resources from further untrusted host access, providing the
+> trusted foundation required before enabling TEE-IO security protocols
+> (e.g. SPDM/IDE).
+> 
+> TDH.IOMMU.CLEAR performs the reverse operation and tears down the Secure
+> TDX Mode state for the target IOMMU.
+> 
+> The caller is responsible for allocating the required pages and
+> populating the parameter page in the ABI-defined format.
+> 
+> See Intel TDX Connect ABI Specification [1], Section 3.2 (TDX Connect
+> Host-Side (SEAMCALL) Interface Functions).
+> 
+> Thanks to Xu Yilun for the initial draft.
 
+Feel free to drop it. Not that important.
+
+> 
+> [1] https://cdrdv2.intel.com/v1/dl/getContent/858625
+> 
+> Signed-off-by: Lu Baolu <baolu.lu@linux.intel.com>
+> ---
+>  arch/x86/include/asm/tdx.h  |  2 ++
+>  arch/x86/virt/vmx/tdx/tdx.h |  2 ++
+>  arch/x86/virt/vmx/tdx/tdx.c | 56 +++++++++++++++++++++++++++++++++++++
+>  3 files changed, 60 insertions(+)
+> 
+> diff --git a/arch/x86/include/asm/tdx.h b/arch/x86/include/asm/tdx.h
+> index 89e97d5761d8..8b5411d3eb67 100644
+> --- a/arch/x86/include/asm/tdx.h
+> +++ b/arch/x86/include/asm/tdx.h
+> @@ -176,6 +176,8 @@ u64 tdh_mem_page_remove(struct tdx_td *td, u64 gpa, enum pg_level level, u64 *ex
+>  u64 tdh_phymem_cache_wb(bool resume);
+>  u64 tdh_phymem_page_wbinvd_tdr(struct tdx_td *td);
+>  u64 tdh_phymem_page_wbinvd_hkid(u64 hkid, kvm_pfn_t pfn);
+> +u64 tdh_iommu_setup(u64 reg_base, void *root, u64 *tdx_iommu_id);
+> +u64 tdh_iommu_clear(u64 tdx_iommu_id);
+>  #else
+>  static inline void tdx_init(void) { }
+>  static inline u32 tdx_get_nr_guest_keyids(void) { return 0; }
+> diff --git a/arch/x86/virt/vmx/tdx/tdx.h b/arch/x86/virt/vmx/tdx/tdx.h
+> index bdfd0e1e337a..d7beb42cf972 100644
+> --- a/arch/x86/virt/vmx/tdx/tdx.h
+> +++ b/arch/x86/virt/vmx/tdx/tdx.h
+> @@ -49,6 +49,8 @@
+>  #define TDH_SYS_SHUTDOWN		52
+>  #define TDH_SYS_UPDATE			53
+>  #define TDH_SYS_DISABLE			69
+> +#define TDH_IOMMU_SETUP			128
+> +#define TDH_IOMMU_CLEAR			129
+>  
+>  /*
+>   * SEAMCALL leaf:
+> diff --git a/arch/x86/virt/vmx/tdx/tdx.c b/arch/x86/virt/vmx/tdx/tdx.c
+> index 1b9ff749dd8e..5d31c1b0890a 100644
+> --- a/arch/x86/virt/vmx/tdx/tdx.c
+> +++ b/arch/x86/virt/vmx/tdx/tdx.c
+> @@ -2034,3 +2034,59 @@ void tdx_sys_disable(void)
+>  	if (ret && (ret & TDX_SW_ERROR) != TDX_SW_ERROR)
+>  		pr_err("TDH.SYS.DISABLE failed: 0x%016llx\n", ret);
+>  }
+> +
+> +/*
+> + * Wrapper for TDH.IOMMU.SETUP leaf, which transitions the IOMMU and related
+> + * I/O stack into Secure TDX Mode.
+
+Other tdh_*() wrappers don't have the general descriptions. We all know
+these are wrappers for some SEAMCALL leafs.
+
+So if there is no special thing to note, remove it.
+
+> + *
+> + * The @root page format is defined by the TDX Connect ABI spec (Table 3.35,
+> + * Structure of IOMMU_MT Parameter): the first two entries describe the size
+> + * and HPA (Host Physical Address) of the two contiguous buffers for the
+> + * invalidation queue; the remaining entries provide HPAs of
+> + * IOMMU_MT_PAGES_COUNT metadata pages. IOMMU_MT_PAGES_COUNT is obtained from
+> + * trusted IOMMU global metadata.
+> + */
+> +u64 tdh_iommu_setup(u64 reg_base, void *root, u64 *tdx_iommu_id)
+
+IIUC, the void *root is a vague type, no type safty. Is it better we
+define an explicit structure that mirrors the in-memory ABI? Something
+like:
+
+  struct tdx_iommu_metadata {
+	u64 iq1_pa;
+	u64 iq2_pa;
+	DECLARE_FLEX_ARRAY(u64, mt_pa);
+  };
+
+Or,
+
+  struct tdx_iommu_metadata {
+	u64 iq1_pa;
+	u64 iq2_pa;
+	u64 mt_pa[510];
+  };
+
+  static_assert(sizeof(struct tdx_iommu_metadata) == 4096);
+
+> +{
+> +	struct tdx_module_args args = {
+> +		.rcx = reg_base,
+> +		.rdx = __pa(root),
+> +	};
+> +	u64 ret;
+> +
+> +	/*
+> +	 * Don't loop forever:
+> +	 *
+> +	 *  - TDX_INTERRUPTED_RESUMABLE guarantees forward progress between
+> +	 *    calls.
+> +	 *  - On TDX_INTERRUPTED_RESUMABLE, all registers except RAX remain
+> +	 *    unchanged.
+> +	 */
+> +	do {
+> +		ret = seamcall_ret(TDH_IOMMU_SETUP, &args);
+> +	} while (ret == TDX_INTERRUPTED_RESUMABLE);
+> +
+> +	*tdx_iommu_id = args.rcx;
+> +
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL_FOR_MODULES(tdh_iommu_setup, "tdx-host");
+> +
+> +/*
+> + * Wrapper for TDH.IOMMU.CLEAR leaf, which terminates Secure TDX Mode for the
+> + * target IOMMU and restores control of related hardware resources to the host.
+> + */
+> +u64 tdh_iommu_clear(u64 tdx_iommu_id)
+> +{
+> +	struct tdx_module_args args = {
+> +		.rcx = tdx_iommu_id,
+> +	};
+> +	u64 ret;
+> +
+> +	do {
+> +		ret = seamcall(TDH_IOMMU_CLEAR, &args);
+> +	} while (ret == TDX_INTERRUPTED_RESUMABLE);
+> +
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL_FOR_MODULES(tdh_iommu_clear, "tdx-host");
+> -- 
+> 2.43.0
+> 
