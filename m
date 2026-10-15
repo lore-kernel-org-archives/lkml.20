@@ -1,127 +1,77 @@
-Received: from smtpcmd10101.aruba.it (smtpcmd10101.aruba.it [62.149.156.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-39.mta0.migadu.com [91.218.175.39])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B8CE463B69
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:14:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.149.156.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A863D46F4A6
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:14:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792095265; cv=none; b=QpJoJDBh+jV7yKi1WWQG1I8rGaQWRm+TSy+Yv2rPjbLrddheD2IlO/BKNDfFDi+RpzLjYSwOYD9SnOTQ8/oixuU6tLnrZ92ujv4BBuHSiB+wtNzwSNLT5NBdgZHsAL2L2DBxR0g96orLkUPiPm27Jz37BucPB4e925cS2CgBKSc=
+	t=1792095269; cv=none; b=BOOvPEQ6mrNTty4qq+6YeExNkYUbOZDd1mb4io6NOmMFnyJN413zytT9x4+kKPuIWy1Gk9xGzHDRiJt4SIsUIEa558kvMTFJ6yKsieTLYFHAoT/77fQTBgW01U5fwYoJgNkDmrH5dTr8ocYaFJtqW9kM9vNoJHH0xxG9Wm7SPPY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792095265; c=relaxed/simple;
-	bh=HojjwIF6mPv2+Mx1dmhXz+yurqqBob/ezcwRgtSOF3s=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cvSiOR3cnTSVOAa6v8KAD1Y0dIS0iSALLbYATno0AiZqyLz3ZUA+IN7OHyghs2K8PP1X3rB8K+Y9lQ63n+oIRuBeTDLt/i4LnOXS7HEnFPEKSq4CL5UP4eJh31z82QN71IbwhcsxLnDFx7osEIOzrZW1kCQ4OPKd9clT6/d8We8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mythread.it; spf=pass smtp.mailfrom=mythread.it; dkim=pass (2048-bit key) header.d=mythread.it header.i=@mythread.it header.b=eQW6vmU7; arc=none smtp.client-ip=62.149.156.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mythread.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mythread.it
+	s=arc-20240116; t=1792095269; c=relaxed/simple;
+	bh=54gikot2EebTARWuZt4xtl2olUaey15VTtmwXRgDO8w=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=M829IeIvUl8myGiGz+OdakHzDocePkmuwQD82VhJLH5F0VINqXCO6VhHQMB1yE8aTKVBKLTQ+/2gttDhbz2GK8fjcMudpXbmpUXxGn4zFVz/4SruGpKiblKpIrBXGsDARbEXrucMldAPSylfrW8axJYX4SZxK6IRSM1nMIfhnBg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=fiezQO3K; arc=none smtp.client-ip=91.218.175.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mythread.it header.i=@mythread.it header.b="eQW6vmU7"
-Received: from localhost ([79.43.52.162])
-	by Aruba SMTP with ESMTPSA
-	id HRnExVnAcN2P6HRnExyeTN; Thu, 15 Oct 2026 22:11:12 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mythread.it; s=a1;
-	t=1792095072; bh=HojjwIF6mPv2+Mx1dmhXz+yurqqBob/ezcwRgtSOF3s=;
-	h=Date:From:To:Subject:MIME-Version:Content-Type;
-	b=eQW6vmU7dvF8CF9X1mGCNeUuf2SoUD9JjczeX97n+Z0ILVk/AyxBiTuVPBpRRXgRG
-	 RfQV0B9iHf0Af0l5ls3cC22nQVkqf6xT7uuxBAKIhkm4DoldgE0ihsFl2kwhYmeKCr
-	 3ODJytgWfOmXm0klejkOzQnzJrT2r+pc79ClKhnDu9vTKAr1rFDgqHAQBs05HRrI1/
-	 sdvtwpx0WUWOF45/NAtP7eg7ZUChs14//8sldIVGSGhbOdbmzo2Llv7QbmtAgJ62h8
-	 Sp+JXV5CgTVhKyc+JZPSoEty98LoT0e990hntUY4VJ4vzLnfUvOaHLcvXIBWuOaiGE
-	 brv3OVVJChOhQ==
-Date: Thu, 15 Oct 2026 22:11:10 +0200
-From: Alessio Ferri <alessio.ferri@mythread.it>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: linux-kernel@vger.kernel.org, "open list:B43 WIRELESS DRIVER"
- <linux-wireless@vger.kernel.org>, "John W. Linville"
- <linville@tuxdriver.com>, "open list:B43 WIRELESS DRIVER"
- <b43-dev@lists.infradead.org>
-Subject: Re: [PATCH wireless] wifi: b43: back off the N-PHY TX power per
- rate
-Message-ID: <20261015221110.000078b3@mythread.it>
-In-Reply-To: <20261015175928.3558057-1-rosenp@gmail.com>
-References: <20261015175928.3558057-1-rosenp@gmail.com>
-X-Mailer: Claws Mail 3.21.0 (GTK+ 2.24.33; x86_64-w64-mingw32)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="fiezQO3K"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=54gikot2EebTARWuZt4xtl2olUaey15VTtmwXRgDO8w=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792095265; v=1; x=1792700065;
+ b=fiezQO3KIzi08agXDoC/zCVXoetE0V0LcGGFYxNHb7pxhvdM+gVIXAcxpeyE/2KOcZVlgkr5
+ 2zKVRU1RcZ9i6e/YzfN8CpwslNiVht8ZewlyRhQRO41tth79A+eVAUv9/PQizSZqEwfZSw4Ivx/
+ m4k61xUfSfuxrQs5scA8iK+Y=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id bdc65f95dec0f2e0;
+	Thu, 15 Oct 2026 20:14:25 +0000
+X-Mizu-Trace-ID: bdc65f95dec0f2e0
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4xfHhZJYd9femzhxibRcD3AOuOak6Owxp+zp/0xkbtqhzp/M+GSksE4KDsypAlycTFiuP9M4sIAd16eUlihXrmVzDkwfNIqEevZptTiwsHozUFkj4cBDLs
- p6eKsZ65o+QdyKZ8RIWD1gIpgBpTBW2Li5Qx9pH1nI0I04YHIXt7Jart7TpnAhxedRaxdAy8R6yW0dZMAsZUJHl0p/Nixq6GQxrGYN4wWF2nBJdN7LyyrG3N
- bKWw/SRT+y1sCC0hXpHnQUrPtpbdqB0Fd32ohnEeh3Z8bKsjx8Z7hB0ioyzmnzTGhSrGVT/sNBYwAnid61ZUDAdLHwoFRs+UECnqadp2EvZnUpWhBJD4pltU
- ejyGCyob
+Date: Thu, 15 Oct 2026 20:14:23 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Luka Gejak" <luka.gejak@linux.dev>
+Message-ID: <8d62b637dcfbdc6d6ee122118c46425e0383c051@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH] staging: rtl8723bs: remove unnecessary parentheses
+To: "Dan Carpenter" <error27@gmail.com>
+Cc: "Ethan Tidmore" <ethantidmore06@gmail.com>, pavankumaryalagada@gmail.com,
+ gregkh@linuxfoundation.org, outreachy@lists.linux.dev,
+ dennylin0707@gmail.com, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <atEu_ZAyNVxyfbMr@stanley.mountain>
+References: <20261015120634.95218-1-pavankumaryalagada@gmail.com>
+ <5d577cb1b4a91e8cdfda171bc7100105ae90d91e@linux.dev>
+ <DM5IYFCRBE9W.1U3KCU36BUE36@gmail.com>
+ <5f06793dbe846865b7d86f656d27caa1c65732b5@linux.dev>
+ <atEu_ZAyNVxyfbMr@stanley.mountain>
 
-Il giorno Thu, 15 Oct 2026 10:59:28 -0700
-Rosen Penev <rosenp@gmail.com> ha scritto:
+October 15, 2026 at 9:52 PM, "Dan Carpenter" <error27@gmail.com> wrote:
 
-> On N-PHY rev 3+ the hardware TX power control aims at the highest
-> per-rate target, and an adjusted power table backs each rate group off
-> from it. b43 fills that table from nphy->tx_power_offset[], but never
-> sets the offsets, so they stay zero and every rate is sent at the
-> power allowed for CCK.
-> 
-> The SPROM power offsets exist to avoid this: on boards with external
-> PAs, OFDM and MCS rates have to be sent a few dB lower than CCK to
-> keep the PA linear. Sent at full power, 16-QAM and 64-QAM frames are
-> too distorted to decode. On an ASUS RT-N16 (BCM4718, N-PHY rev 5,
-> radio 2056, ofdm2gpo 0x66666666) the router could only send at 6-18
-> Mbit/s and MCS 0-2, even at -50 dBm, and 24 Mbit/s and up or MCS 3 and
-> up delivered nothing.
-> 
-> Set the offsets from the per-rate targets b43 already computes from
-> the SPROM, as brcmsmac does, before the table is built.
-> 
-> With this, the RT-N16 sends at 54 Mbit/s, and at MCS 7 with HT
-> enabled, and TCP from the router to a client goes from 9 to 17-18
-> Mbit/s.
-> 
-> Fixes: 8615eb2870f1 ("b43: N-PHY: support setting custom TX power")
-> Assisted-by: LLM
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
->  drivers/net/wireless/broadcom/b43/phy_n.c | 11 +++++++++++
->  1 file changed, 11 insertions(+)
-> 
-> diff --git a/drivers/net/wireless/broadcom/b43/phy_n.c
-> b/drivers/net/wireless/broadcom/b43/phy_n.c index
-> 22359bd9db47..c9b2b7496983 100644 ---
-> a/drivers/net/wireless/broadcom/b43/phy_n.c +++
-> b/drivers/net/wireless/broadcom/b43/phy_n.c @@ -5834,6 +5834,7 @@
-> static enum b43_txpwr_result b43_nphy_op_recalc_txpower(struct
-> b43_wldev *dev, struct ieee80211_channel *channel =
-> dev->wl->hw->conf.chandef.chan; struct b43_ppr *ppr =
-> &nphy->tx_pwr_max_ppr; u8 max; /* qdBm */
-> +	int i;
->  
->  	if (nphy->tx_pwr_last_recalc_freq == channel->center_freq &&
->  	    nphy->tx_pwr_last_recalc_limit == phy->desired_txpower)
-> @@ -5868,6 +5869,16 @@ static enum b43_txpwr_result
-> b43_nphy_op_recalc_txpower(struct b43_wldev *dev, /* Make sure we
-> didn't go too low */ b43_ppr_apply_min(dev, ppr, INT_TO_Q52(8));
->  
-> +	/*
-> +	 * The hardware power control aims at the highest per-rate
-> target.
-> +	 * The adjusted power table backs other rates off from it,
-> so that
-> +	 * e.g. 64-QAM isn't sent at the power allowed for CCK.
-> +	 */
-> +	max = b43_ppr_get_max(dev, ppr);
-> +	memset(nphy->tx_power_offset, 0,
-> sizeof(nphy->tx_power_offset));
-> +	for (i = 0; i < B43_PPR_RATES_NUM; i++)
-> +		nphy->tx_power_offset[i] = max - ppr->__all_rates[i];
-> +
->  	/* Apply */
->  	b43_mac_suspend(dev);
->  	b43_nphy_tx_power_ctl_setup(dev);
 
-I'm not the maintainer, and i also have the same exact patch in my repo 
-https://github.com/aleferri/b43-6362-wip/tree/main/patches/mainline, so 
-i'm all for it, but isn't the ppr currently populated with 2Ghz sprom
-params for all bands?
+>=20
+>=20Ah. In staging, patches are merged on a first come first serve basis
+> so you are free to ignore any patches which are sent after you sent you=
+r
+> deletion patch. Obviously we're not going to merge fixups to a driver
+> which has been deleted. If there are patches in the list that were sent
+> earlier and haven't been reviewed then reply to those.
+>=20
+>=20The rule here is that it's a good idea to search lore before sending
+> a patch.
+> https://lore.kernel.org/all/?q=3Drtw_generate_ie
+>=20
+>=20regards,
+> dan carpenter
+>
 
-Alessio
+Is this email intended for me? I don't understand what is it supposed
+to say?
