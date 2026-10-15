@@ -1,153 +1,116 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+Received: from www262.sakura.ne.jp (www262.sakura.ne.jp [202.181.97.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77E8F4AA004;
-	Thu, 15 Oct 2026 10:24:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC67B443AAF
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:25:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.181.97.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792059880; cv=none; b=mOjp6Zs7TMGmj8/wy70LVfmjsrB+f6z1mu60cZk0roHayTs3hre7evxuWPdO0aua/x58Ck37gkEQ5+6y04m09HIgrDS0dV9DQY11OQIRPv5vfHhCO72BH6eKQOQTe4k+sM4gcAvS4smQugDoawvgf2cAmE2g5XjG1f/Ik44W8Dk=
+	t=1792059923; cv=none; b=LWnVAQbXg/z4twH69CVfHad1pQgsTvHrWeIrjNgWC+G/Wagg78i6fv1k4gmIP5GA4jYnG437kZJKHXEDUgtRfD6ie2i1tZJN54vPfQ9ixCMAAr2LlrFCf/zGJVfPUufww2IV+fnXO2bpUBvDEPiicKuqiuXJ2IPDyeuhn/fsDkU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792059880; c=relaxed/simple;
-	bh=lfdpyoKU84XiyN2LyAURT9vH9J+pdY+5AW7uC2lLPbM=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=d6RaYtuwtxu2AQaYeEPbFE8uZWk7TScqkFsxtid1PJKXu0z3oIq151dDbtaizVFRwwq1cDkDm7Go8PQRIiwCV7n7drH4rpx/j3yfpYxCQE4AjIpir1GFttiE7U4RikLq7GqFTYj1BqrUmHKaNYyJK5jUF4X73igFJe5PzrxpWaw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FCpDbqW4; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FCpDbqW4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792059879; x=1823595879;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=lfdpyoKU84XiyN2LyAURT9vH9J+pdY+5AW7uC2lLPbM=;
-  b=FCpDbqW4phRbLuvG17wbgaJ8inmWPURoWnHohsImaAj0CeZFnpSBpGS+
-   lEz3SaxXoR5Cs5hVM79j3ARVyNwNqHKGjTGlP2PXkuAAJM8VCQxGZb74Z
-   mnsDYAIm8I6Ncd2GzZVyiwh16RfOXP0RNsWghdUktnyhRoKYY6mQuCKly
-   v74NtECMvKzNtSvcDKtP57koJ4GUiHl1lLa+RjSMpWDDUS0SExfz0+7IU
-   KzFXxZcB2XYWufPLbZfEQWqqwpt9CkP5hwV7mmIBccO4sKkA0Jx+TPymb
-   4Cuc6IUbqlseF5pBn/vn2pU08pOgNwuicH6r8u3JWT8zpdgIp234yRmDy
-   g==;
-X-CSE-ConnectionGUID: C3/D7L6kSz2us3qNrxO3bQ==
-X-CSE-MsgGUID: ix7V8lvATDiXhd4f9Vk1DA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="712920"
-X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
-   d="scan'208";a="712920"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 03:24:39 -0700
-X-CSE-ConnectionGUID: +eHC1fw/RiaY5iG6jibd6g==
-X-CSE-MsgGUID: m6qYxr8EQm+3QUl0Wckg3A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
-   d="scan'208";a="1545666"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.130])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 03:24:37 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Thu, 15 Oct 2026 13:24:33 +0300 (EEST)
-To: chitranshmandhaniya@gmail.com
-cc: Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>, Chitransh_Mandhaniya@dell.com
-Subject: Re: [PATCH v2 2/2] platform/x86: dell-uart-backlight: recover from
- stray EC response byte
-In-Reply-To: <20261015074339.27388-3-chitranshmandhaniya@gmail.com>
-Message-ID: <84634c19-87a7-f7a9-a559-11208b2dd033@linux.intel.com>
-References: <20261004110333.5790-1-chitranshmandhaniya@gmail.com> <20261015074339.27388-1-chitranshmandhaniya@gmail.com> <20261015074339.27388-3-chitranshmandhaniya@gmail.com>
+	s=arc-20240116; t=1792059923; c=relaxed/simple;
+	bh=YQcQawWYqHOvml3k1jZz3YKNnacdJjF7PoSnWLXiO8g=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
+	 In-Reply-To:Content-Type; b=tVxV4wZkmefRpoqGUFv3OuX7sub6IkPT93DRPPoEysT+w5AAwvcXfJtGzVEJ00wA87vKBEt1D1aVFDF6HlhkEiC6yvnCn/6xEytOuMcd/N6PJb/bhtXIRAopc9fblY7kJnSjx1/RjI6F5J/hGAdolrmiwhthZ9DdX5aJPNgGSpw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp; arc=none smtp.client-ip=202.181.97.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp
+Received: from www262.sakura.ne.jp (localhost [127.0.0.1])
+	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id 69FAPIeE002685
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 19:25:18 +0900 (JST)
+	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
+Received: from [192.168.1.6] (M106072072000.v4.enabler.ne.jp [106.72.72.0])
+	(authenticated bits=0)
+	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id 69FAPIq2002681
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NO)
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 19:25:18 +0900 (JST)
+	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
+Message-ID: <8d188283-b5c7-4b16-95ee-6d985472c120@I-love.SAKURA.ne.jp>
+Date: Thu, 15 Oct 2026 19:25:19 +0900
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: [PATCH v5] block: avoid long sync_blockdev() under disk->open_mutex
+ during parallel close
+From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+To: LKML <linux-kernel@vger.kernel.org>
+References: <17fb5b42-4f54-41db-8bcb-2c13e05c6137@I-love.SAKURA.ne.jp>
+ <d52496da-fb19-4b60-91bc-76402822c6b7@I-love.SAKURA.ne.jp>
+ <450c6828-9187-487e-a219-f64e56d34fe7@I-love.SAKURA.ne.jp>
+ <f9f521a6-2132-4eb7-ad74-28363366e6a8@I-love.SAKURA.ne.jp>
+Content-Language: en-US
+In-Reply-To: <f9f521a6-2132-4eb7-ad74-28363366e6a8@I-love.SAKURA.ne.jp>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Anti-Virus-Server: fsav412.rs.sakura.ne.jp
+X-Virus-Status: clean
 
-On Thu, 15 Oct 2026, chitranshmandhaniya@gmail.com wrote:
+Commit b849dd84b6cc ("bdev: Reduce time holding bd_mutex in sync in
+blkdev_close()") introduced a sync_blockdev() call immediately before
+holding disk->open_mutex. But this check was racy and best-effort basis.
 
-> From: Chitransh Mandhaniya <Chitransh_Mandhaniya@dell.com>
-> 
-> On some Dell AIO machines the EC occasionally inserts a spurious byte
-> after the cmd-echo in UART backlight response frames.  A get-brightness
-> reply "04 0c 0a e5" arrives as "04 0c 0d 0a e5". The length field still
-> reflects the original frame size, so the parser consumes the stray byte
-> as payload and mistakes the real payload for the checksum, returning
-> -EIO.
-> 
-> On the first checksum failure for a frame longer than the minimum size,
-> drop the byte at the first payload offset, shift the remaining data down
-> by one, and call dell_uart_bl_receive_data() again to re-fetch the
-> checksum byte from the wire and re-validate.
-> 
-> Limit this single-byte resync to once per command via a resync_used flag
-> cleared at the start of each transaction. A second mismatch is still a
-> hard error.  Well-formed replies pass on the first check and never enter
-> the recovery path.
-> 
-> Tested on Dell OptiPlex AIO 7410 65W (0TKWC4) where the EC inserts a
-> stray byte on every get-brightness response -- resync fixes it
-> transparently.
-> 
-> Signed-off-by: Chitransh Mandhaniya <Chitransh_Mandhaniya@dell.com>
-> ---
->  .../platform/x86/dell/dell-uart-backlight.c   | 23 ++++++++++++++++++-
->  1 file changed, 22 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/platform/x86/dell/dell-uart-backlight.c b/drivers/platform/x86/dell/dell-uart-backlight.c
-> index b61499d7b3f8..085dcc055554 100644
-> --- a/drivers/platform/x86/dell/dell-uart-backlight.c
-> +++ b/drivers/platform/x86/dell/dell-uart-backlight.c
-> @@ -60,6 +60,7 @@ struct dell_uart_backlight {
->  	u8 resp_len;
->  	u8 resp_max_len;
->  	u8 pending_cmd;
-> +	bool resync_used;
->  	int status;
->  	int power;
->  };
-> @@ -91,6 +92,7 @@ static int dell_uart_bl_command(struct dell_uart_backlight *dell_bl,
->  	dell_bl->resp_len = -1; /* Invalid / unset */
->  	dell_bl->resp_max_len = resp_max_len;
->  	dell_bl->pending_cmd = cmd[1];
-> +	dell_bl->resync_used = false;
->  
->  	/* The TTY buffer should be big enough to take the entire cmd in one go */
->  	ret = serdev_device_write_buf(to_serdev_device(dell_bl->dev), cmd, cmd_len);
-> @@ -270,8 +272,27 @@ static size_t dell_uart_bl_receive(struct serdev_device *serdev, const u8 *data,
->  	if (ret < 0)
->  		return len; /* Response not complete yet */
->  
-> +	/* Stray byte after cmd-echo? Drop it, shift data down, re-fetch checksum. */
-> +	if (dell_bl->status == -EIO &&
-> +	    !dell_bl->resync_used && dell_bl->resp_len > MIN_RESP_LEN) {
-> +		dell_bl->resync_used = true;
-> +		dell_bl->status = -EBUSY;
-> +
-> +		dev_dbg(dell_bl->dev, "Resync: dropping stray byte 0x%02x at offset %d\n",
-> +			dell_bl->resp[RESP_DATA], RESP_DATA);
-> +
-> +		memmove(&dell_bl->resp[RESP_DATA], &dell_bl->resp[RESP_DATA + 1],
-> +			dell_bl->resp_len - RESP_DATA - 1);
+If more than one thread concurrently called bdev_release() and saw
+atomic_read(&bdev->bd_openers) > 1, the thread which actually hit
+the atomic_dec_and_test(&bdev->bd_openers) condition will call
+sync_blockdev() from blkdev_flush_mapping() (which could take several
+minutes) with disk->open_mutex held.
 
-sashiko.dev (an AI review tool so be reasonably critical to its findings) 
-mentions that if ->resp_len check fails due to len being too large, 
-->status is -EIO and this may end up moving more than there's room in the 
-buffer.
+Kill this race window and make sync_blockdev() always be called before
+holding disk->open_mutex, by using a counter that tracks how many threads
+are calling sync_blockdev() from bdev_release() without disk->open_mutex
+held.
 
-> +		dell_bl->resp_idx = dell_bl->resp_len - 1;
-> +
-> +		/* Re-fetch checksum byte from remaining data */
-> +		ret = dell_uart_bl_receive_data(dell_bl, data + ret, len - ret);
-> +		if (ret < 0)
-> +			return len; /* Need more data for checksum byte */
-> +	}
-> +
->  	wake_up(&dell_bl->wait_queue);
-> -	return ret;
-> +	return len;
->  }
->  
->  static const struct serdev_device_ops dell_uart_bl_serdev_ops = {
-> 
+Signed-off-by: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+---
+ block/bdev.c              | 17 +++++++++++++++--
+ include/linux/blk_types.h |  1 +
+ 2 files changed, 16 insertions(+), 2 deletions(-)
 
+diff --git a/block/bdev.c b/block/bdev.c
+index cd8323083740..309c49842ddc 100644
+--- a/block/bdev.c
++++ b/block/bdev.c
+@@ -1167,10 +1167,23 @@ void bdev_release(struct file *bdev_file)
+ 	 * of the world and we want to avoid long (could be several minute)
+ 	 * syncs while holding the mutex.
+ 	 */
+-	if (atomic_read(&bdev->bd_openers) == 1)
++	mutex_lock(&disk->open_mutex);
++	if (atomic_read(&bdev->bd_openers) == 1 + bdev->bd_closers) {
++		bdev->bd_closers++;
++		mutex_unlock(&disk->open_mutex);
+ 		sync_blockdev(bdev);
++		/*
++		 * Always sync the whole disk when closing a partition despite
++		 * we need to sync the whole disk only when we're also closing
++		 * the whole disk, for we can't serialize concurrent closing of
++		 * partitions using disk->open_mutex.
++		 */
++		if (bdev_is_partition(bdev))
++			sync_blockdev(bdev_whole(bdev));
++		mutex_lock(&disk->open_mutex);
++		bdev->bd_closers--;
++	}
+ 
+-	mutex_lock(&disk->open_mutex);
+ 	bdev_yield_write_access(bdev_file);
+ 
+ 	if (holder)
+diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
+index 98e21b4cbf32..04d378818c76 100644
+--- a/include/linux/blk_types.h
++++ b/include/linux/blk_types.h
+@@ -74,6 +74,7 @@ struct block_device {
+ #ifdef CONFIG_SECURITY
+ 	void			*bd_security;
+ #endif
++	int			bd_closers;
+ 	/*
+ 	 * keep this out-of-line as it's both big and not needed in the fast
+ 	 * path
 -- 
- i.
+2.56.0
 
