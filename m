@@ -1,166 +1,102 @@
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com [209.85.128.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB97945D923
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:42:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C46F3307AC7
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:42:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792046552; cv=none; b=Z7/V43ZTIE0FyX8hbfIGjbfYp3hk4iHxpZxUuImHGk8K3LnYUlFWdwqpxawiXrHjZzj+PU1rYplZWvNQZA2Bg5o16p0mAOuJzvo8qkbRqVr2XDWWfxhOtxbFDeqb+oMtGZenOc3ouvlDVXPzwWkBoCyccogMf35yn8Col6l+jYc=
+	t=1792046557; cv=none; b=bhrlgdwnm5meLtrKdGipNe5BFDnrEYXRCeZ7kGuEej7H5hAwnbOa5H4Up9+2XVlybGBldRNxJEND4OELxJUXNZyg0yQ9cZeH/rnm1PQS9GRYU3mvfOx4HYvfKFh7lMexB+vh+xoYVVjMPMneyU9TV5F3fSl80ZI4yq57FF8mmSs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792046552; c=relaxed/simple;
-	bh=ggn8bVnKJA7RHxnagUCHzG2BcdHrEmbAPi5sFWORlCE=;
+	s=arc-20240116; t=1792046557; c=relaxed/simple;
+	bh=OOsw1LQmGMrXPMNqpjpR3qy/lhxL/13QuEb6ASM8pn8=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=QfeYr4aGhK5kUwNoibrGk3rXR+9SyyY9ojswjqgS1ZPqxzsjXcRI/jgc/eCfKu4q1rWjJ8/83WD5jHwDrJshvpQwkatU8JjlvX2S2wJKsMKajbZUE9Ly2rIl60pGgYYgRe/EE0W9TFTedZDFFIodcyWv6+i+LOEs6sXvGGsDlPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jiangzp.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=h6qE9L6o; arc=none smtp.client-ip=74.125.82.198
+	 To:Cc:Content-Type; b=e1vEBwTxv9fHDxHuDBwfXWDXTa/I2pCF9nlW5Xz0izgs2HSFPM+fCjozWIDGtizsn3eUHQ7qZfs/veR0UbKK+RatDkRW3YCYPDWgKSE5ttsm3yUKeqfuI931HoNpyNCW9GQebufypB2sR22KFAEesw75JPuTbEIZoOsIx7gRvBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=SBnBSdU7; arc=none smtp.client-ip=209.85.128.71
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jiangzp.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="h6qE9L6o"
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-3425098ae4bso2635034eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 23:42:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="SBnBSdU7"
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-49953abe51fso36872535e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 23:42:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792046550; x=1792651350; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CWLkBV9BBgDEhHUePIRuI9XTWV7QJLsODe5VGAKrDB0=;
-        b=h6qE9L6oAReYZJOkCTL2XJ+xvRhV5YoVsgUWY3CsgMeB6llEKDKj8vBmJS4/BOphnD
-         hnXiiNne/OHZCNzwlV1hYHmTHHkZX6Gc0B6REo2ekRJgT+dP29+LeR6eVc7wuJFIoNrx
-         5qbl0ylyM/aM9IDuNAej4Z62zLXgaMtCh1Sc/U0jZpA5El9gV5spmPZ5xhobLz253jE+
-         BUYcWdTXKJLnImMRBwGqNd3dOn3SOAzrrOIcDzfhxoYYVgK77mNcP3Ki2q1KL9VRTIj4
-         dFfC9vaEimWaSWuOncqZa2NVWFwPKj1eLGceKUOz2voRcxDiW4yebFpEMYFwZ8uXbe5a
-         WZfQ==
+        d=google.com; s=20251104; t=1792046554; x=1792651354; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=OOsw1LQmGMrXPMNqpjpR3qy/lhxL/13QuEb6ASM8pn8=;
+        b=SBnBSdU7d+Dkvyu+Eu+O3hvca8nyrob+pHLZDz/x2RENZnJUyCIzCRB8E22kCZrSQO
+         uxGS++yEAVEBlsQc9n+qA1pfK5XlHtCblU7mOVbHu+M8eoH+bQnNAoa23zXYHIdI4MG9
+         qDdCD1HJPADysP/Yt5K81GGou5ZDpe0PhPXGYS/lz1tNqrt7EFp/h7JLpGVAt1oycPyG
+         x62weTKzQPFwSoKtEeiUMVpBxJNuf3CUsRCEm/AjE2aiXVmpsFx1uhLt4CUy1pOhfJqC
+         k5MEH4CEzgbfc+HKDweCCEhTgRI26swM9ksxg2gMI8GQPMdOJnhf8gtu5qA2iCtXeKy6
+         ZpTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792046550; x=1792651350;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CWLkBV9BBgDEhHUePIRuI9XTWV7QJLsODe5VGAKrDB0=;
-        b=EHpph41tlpPKi/PrI5m00GgXl9DWHSvE8zKm0CAcyVmAYdYdv2vPHF+PXc4aLbr3As
-         2eAs1sJbRFprzp3ae8V1Ty3SpTzpnhn+RZo28pjO+OTbQZKOZADMgSNE6buQSowlPYCh
-         ZcQCuedBpMu4BaGKPbeIDhm4t4U+Nog+uGMDaDC81dNaF9bC/owafdY9GAX0YceoSOIZ
-         j4vt5zNXntcpsS0BqeJ4ou+AAwlt49aBdH1m46d3lVMndQKz4UlLBG8W1bCqh3o4HWsg
-         hJmbNrWsgiErRHfd4z00ohwjITiOtMiZay4mkiEYXdQuBaVxsxB6skc6dNNrTLAl16r1
-         /+Bg==
-X-Forwarded-Encrypted: i=1; AKwUvBwKC22k8h95fBSsIkCGak+Dj+IkDOn6gZr8fnb1JCVLxqlNJ1BR4UgfE/2NYyDG3RXd+2GaYMWX4xO2bJ4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIYUSc6K3i9UyNw6xgu0HLGTTMrb+sywYdSaC0rwXG8Ea2bgNbw
-	QbKGSyR3S5EsR/DcLav0DTrMGhRISJbZWpUvyho0zNQCjfkL4CdKXztMWYtk4CDwOCiRQpPXrS4
-	4PAVEEWzk2A==
-X-Received: from dldyr19-n2.prod.google.com ([2002:a05:701b:4513:20b0:143:75c2:6d21])
- (user=jiangzp job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:e804:b0:13c:f65c:d5b5
- with SMTP id a92af1059eb24-16a0b37d130mr26218964c88.3.1792046549601; Wed, 14
- Oct 2026 23:42:29 -0700 (PDT)
-Date: Thu, 15 Oct 2026 06:42:23 +0000
-In-Reply-To: <01c8cf7d695261ba8270ff57aa8f2a6f@gmail.com>
+        d=1e100.net; s=20260707; t=1792046554; x=1792651354;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OOsw1LQmGMrXPMNqpjpR3qy/lhxL/13QuEb6ASM8pn8=;
+        b=tPkSS4CCT4OC5BdYJx9kTNQ0gav1IUxdOasUeHojrqsb9RakklN/o5G4tQxycCW4VY
+         8ctvxercApL6Lscs6OwERwKJT04W7adkP4WNNe7EL9fapN1xb5g7NR+NxlvhmByWPS4N
+         lXj6UQ2jxsHUYaFuR0Qh29ADHvEnZngR8tjFt7pkC8BKWLP5nwT6nUui7WRKyl2laHHK
+         Z6WBhrkFBdZlHdR9JgwqXhehbJl3OGArW3GVOH4dxlStB/YDrwDd0lW0nBVCUziMBXq4
+         IX5FafqSegp4nMLXZ183La0mG88OLOj8r70rLL+q6YnZpv+f43+v2EGy/IOtXSkkgPCx
+         pyZg==
+X-Forwarded-Encrypted: i=1; AKwUvBytg8yYbVlRp2Zm3b6SvsAAECR3jmdYhMF+ai2JVhNYl87E+WdpFfA88nALq7zv+8g+QR83eD7WDwUo72I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIeSlALq1G0lW2ZfGxlARWl/rEvujQKZOLG+Kz5A03xKkoWLG+O
+	Fi/TsINu3SjhP8MjTJGDifQ0zH2Cj9dTAIn5LfEo5wgTwOwGh35B5BWdxBvR7a3sdF1z6XdhavW
+	T81ekJdtCqx4yeo3JXA==
+X-Received: from wmbg12.prod.google.com ([2002:a05:600c:a40c:b0:49f:fd3d:3bd3])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:3f06:b0:49f:bc43:9e96 with SMTP id 5b1f17b1804b1-4a18e4a3bfbmr382470915e9.8.1792046553480;
+ Wed, 14 Oct 2026 23:42:33 -0700 (PDT)
+Date: Thu, 15 Oct 2026 06:42:32 +0000
+In-Reply-To: <20261013-rust-x86-rethunk-rebuilds-v1-1-d2042a72640b@weissschuh.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-References: <01c8cf7d695261ba8270ff57aa8f2a6f@gmail.com>
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261015064223.1939367-1-jiangzp@google.com>
-Subject: [PATCH v4] HID: vivaldi: avoid redundant feature report reads per usage
-From: Zhengping Jiang <jiangzp@google.com>
-To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: "Sean O'Brien" <seobrien@chromium.org>, Shashikirana H K <shashikiranah@chromium.org>, 
-	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Zhengping Jiang <jiangzp@google.com>
-Content-Type: text/plain; charset="UTF-8"
+References: <20261013-rust-x86-rethunk-rebuilds-v1-1-d2042a72640b@weissschuh.net>
+Message-ID: <atB12Dve5tdS_lJk@google.com>
+Subject: Re: [PATCH] x86/rust: avoid duplication of RETPOLINE_RUSTFLAGS in
+ recursive kbuild
+From: Alice Ryhl <aliceryhl@google.com>
+To: "Thomas =?utf-8?Q?Wei=C3=9Fschuh?=" <linux@weissschuh.net>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, 
+	"=?utf-8?B?QmrDtnJu?= Roy Baron" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	"Onur =?utf-8?B?w5Z6a2Fu?=" <work@onurozkan.dev>, linux-kernel@vger.kernel.org, 
+	rust-for-linux@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-vivaldi_feature_mapping() is invoked by report_features() in ascending
-usage_index order for each usage in the top-row physical keymap field.
-Because fetching the feature report at usage_index == 0 already reads
-the entire report from hardware, calling hid_hw_raw_request() again for
-subsequent usages redundantly reads the same report N times (e.g., 12
-sequential BLE GATT reads taking ~2s on Vivaldi BLE keyboards).
+On Tue, Oct 13, 2026 at 10:42:26AM +0200, Thomas Wei=C3=9Fschuh wrote:
+> Currently the only modificiation of REPTOLINE_RUSTFLAGS is an append.
+> There is no initial (re)set of the value. When kbuild is invoked
+> recursively, for example through a top-level `make pacman-pkg`
+> invocation, then the inner instance of kbuild will inherit the value
+> from the outer one and append the same values again.
+>=20
+> Switching between recursive and non-recursive invocations of kbuild in
+> the same build tree the command line changes and Rust code is rebuilt.
+> While this is harmless, it is slow and unnecessary.
+>=20
+> Replace the append operation with a regular assignment. This avoids the
+> duplicated values in a recursive kbuild invocation and therefore also
+> the spurious rebuilds.
+>=20
+> RETPOLINE_CFLAGS is not affected as it is always reset to a fixed value
+> further up in the Makefile.
+>=20
+> Fixes: d7868550d573 ("x86/rust: support MITIGATION_RETHUNK")
+> Signed-off-by: Thomas Wei=C3=9Fschuh <linux@weissschuh.net>
 
-Bail out immediately when usage->usage_index != 0, fetch the feature
-report once at usage_index == 0, and iterate over all usages in the
-field to populate data->function_row_physmap[].
-
-Fixes: 33bbe04a15f2 ("HID: google: extract Vivaldi hid feature mapping for use in hid-hammer")
-Signed-off-by: Zhengping Jiang <jiangzp@google.com>
----
-Based on "[PATCH v2] HID: vivaldi: Extract feature report value directly in vivaldi_feature_mapping()":
-https://lore.kernel.org/r/20261013-upstream-vivaldi-fix-v2-1-ecc20329d24c@chromium.org
-
-Changes in v4:
-- Rebase on top of Shashikirana's patch using hid_field_extract() and
-  __free(kfree), as suggested by Dmitry Torokhov.
-- Return immediately when usage->usage_index != 0, fetch the report once
-  at usage_index == 0, and loop over all usages in the field so failed
-  reads do not update num_function_row_keys or expose an all-zero keymap.
-- Fix caller name in commit description (report_features()).
-
-Changes in v3:
-- Add comment explaining why the report is only read at usage_index == 0
-  and how failed reads rely on zero-initialized field->value[].
-- Jump/fall through to parse_usage on read failure.
-
-Changes in v2:
-- Move per-usage validation (HID_UP_ORDINAL and fn_key bounds) after the
-  usage_index == 0 hardware read.
-
- drivers/hid/hid-vivaldi-common.c | 33 +++++++++++++++++++-------------
- 1 file changed, 20 insertions(+), 13 deletions(-)
-
-diff --git a/drivers/hid/hid-vivaldi-common.c b/drivers/hid/hid-vivaldi-common.c
-index 1359a107e63b..973393d09356 100644
---- a/drivers/hid/hid-vivaldi-common.c
-+++ b/drivers/hid/hid-vivaldi-common.c
-@@ -39,19 +39,11 @@ void vivaldi_feature_mapping(struct hid_device *hdev,
- 	unsigned int offset;
- 	u32 report_len;
- 	int ret;
-+	int i;
- 
--	if (field->logical != HID_USAGE_FN_ROW_PHYSMAP ||
--	    (usage->hid & HID_USAGE_PAGE) != HID_UP_ORDINAL ||
--	    usage->usage_index >= field->report_count)
-+	if (field->logical != HID_USAGE_FN_ROW_PHYSMAP || usage->usage_index)
- 		return;
- 
--	fn_key = usage->hid & HID_USAGE;
--	if (fn_key < MIN_FN_ROW_KEY || fn_key > MAX_FN_ROW_KEY)
--		return;
--
--	if (fn_key > data->num_function_row_keys)
--		data->num_function_row_keys = fn_key;
--
- 	u8 *buf __free(kfree) = hid_alloc_report_buf(report, GFP_KERNEL);
- 	if (!buf)
- 		return;
-@@ -74,9 +66,24 @@ void vivaldi_feature_mapping(struct hid_device *hdev,
- 		return;
- 	}
- 
--	offset = field->report_offset + usage->usage_index * field->report_size;
--	data->function_row_physmap[fn_key - MIN_FN_ROW_KEY] =
--		hid_field_extract(hdev, buf + 1, offset, field->report_size);
-+	for (i = 0; i < field->maxusage && i < field->report_count; i++) {
-+		usage = &field->usage[i];
-+
-+		if ((usage->hid & HID_USAGE_PAGE) != HID_UP_ORDINAL)
-+			continue;
-+
-+		fn_key = usage->hid & HID_USAGE;
-+		if (fn_key < MIN_FN_ROW_KEY || fn_key > MAX_FN_ROW_KEY)
-+			continue;
-+
-+		if (fn_key > data->num_function_row_keys)
-+			data->num_function_row_keys = fn_key;
-+
-+		offset = field->report_offset + i * field->report_size;
-+		data->function_row_physmap[fn_key - MIN_FN_ROW_KEY] =
-+			hid_field_extract(hdev, buf + 1, offset,
-+					  field->report_size);
-+	}
- }
- EXPORT_SYMBOL_GPL(vivaldi_feature_mapping);
- 
--- 
-2.56.0.385.gd3acb90ef8-goog
-
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
