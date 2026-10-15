@@ -1,257 +1,109 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+Received: from mta0.migadu.com (out-131.mta0.migadu.com [91.218.175.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0285B3B7744
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:22:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B11EE3D75C4
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:23:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792030965; cv=none; b=hBoxr8W4GQWJpV03vt3QIzB1coF0qlgPQ0IkPxnvMV/3QFyJlOz24FDANGYHV6IT+YNK/S/EBuzrps9maC9n4k69XEMoFH/YEAZENazLL++eEu8nh0eiluWciIQlpkRwQZ+GcHkuzkS5uSEXLWCQ2O7FDAmNDt6GSKgrYjwqz4I=
+	t=1792031035; cv=none; b=iak3NkT/PZBJatFlSSQDZFGCyLoOG18he9Yv6NZtaXgwGjMULZFHgrfgYEUMVJcPl9VMlVA69Ax0Ul+PyapYbeepa5aFEb7rMJ7ZAlMmDPZiJSnkRrB+ldRDVwpTMBo4H/wgl1QmtrbpQjbKhFXUX0Vpz3I6zpm9XuFovqXOHuw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792030965; c=relaxed/simple;
-	bh=nKxf5sNbd1xCyLn2CFlTWenwxkEH9kgFLk8OoHjfWR0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=Fm+LhjlxLu+gIllYlF92g9pa5Z3DO6V6ELQF6JYxtAg8z1TqrALOhpq19vW/lrIXVSuyg7XWq2/lO6xX6eivkZs6NX7mWi3DyHMMyrqTXYL3D7jh9TDlbG6lJvNxo7iH0c845JDI4GAd7lRIX3fEkQgjlQK7NF4SgsLgeSTRCeQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MFJhzagz; arc=none smtp.client-ip=209.85.216.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792031035; c=relaxed/simple;
+	bh=nUe5p8yDfrxxzbakZWJcPwqsW7cOSu54n5/w3I/l8Gs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tf+PTyLkBkojvAbumiH1zzK623UZz+3iysR5Kcjqduj4eGTsrYrLBQ1k2YzoCnN3k02vUb4w4YONyesFP8EY7XTE0XYmWgwOjdOfpSwuL/t2jIzB6rwAryRWgQGE8BIBs4QS5TicVdu1y4Qu2ry+VVzEh83UE08a1BaZhIQxcEw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gKUofZl6; arc=none smtp.client-ip=91.218.175.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MFJhzagz"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3ab868eb9cfso467475a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:22:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792030962; x=1792635762; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2jLsAFvGouKNswLfy6C0ZCOuNuWMWwLBVKQhNgoltfw=;
-        b=MFJhzagzhhhhX72J+r9nnybiTamikMQnJsYgsajU47x+YGjT0jcPdktA463eA0M4ZG
-         mOnhv4QBKv0pxs/97Sfb4tjCx890fqrXwjEsPnjOXoQzLihjH/QbJ02zR0tZtMuiy1w3
-         5H0GdLHzrBPhJFA0exiS5aproNKRgzQfC8j1M+GIhrP17uxj4mgPWojF7uvNifEcfNfF
-         5RUCssxSgoeEiT4G+VzNb3ZB66KHNbyOXu1V9vj0iNH0y+EIq/4C6NYZg87w6ERcrpES
-         mO0o0+peJ1xBlH806YOcyqxb0M4Su1sndAaGUtk/f+lBTAZarh8bS1+Rdh0z4AbjE/a/
-         KmkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792030962; x=1792635762;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2jLsAFvGouKNswLfy6C0ZCOuNuWMWwLBVKQhNgoltfw=;
-        b=O9EkYKPkQC3K7JdrcJLirIdMV/LsB+5U6YssDTnM9+753Qd8HocIYRwAPFXqkyLZtY
-         We1Z7mbsOdjs9UwJHQhSPKEK5JoOHmfZ1CN/KFOwoJfwfkJZxLnuZlrG6u5TLn9UTbAg
-         aIWdYBEQmMGgAMPt+VFpzNhBoC5ZWa3/Wpob8x8jZLRIy5Xh2HgfJxATQA1oYktGNnk0
-         512z10w054ZNuh+nLVmc6Y/l6Mt5IUwU69TKiKsOoBYJC45/hDzff6PUY338FNFmx44r
-         LGWIChnxA2UGwZZsflTXUQgtOFx3Ko4avFUvCRyFf+tUoKhOTAHJM4yz/cHHX2pJl4zn
-         9psg==
-X-Forwarded-Encrypted: i=1; AKwUvByFdnrl2IRI9eT8Pc5UvpeJKOaKfZleqNoS3YfR/qFcISKDry5m27RAZXu6EGzpxk1ELbYyqL4CGQp0/Ro=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLWYHAwj60Yd9YkMJMllrv3m79tknTwpUOGpvQoJEvnnTYqjhs9
-	xMbYLKj5kuRMeScYv/kJ7cMXNxXkwy1LKI7PzUkJhLT4p94+D2b+tSCo
-X-Gm-Gg: AYBFou1bPnRqrsjrBtWYi+WW5a0AlF4IqseOQGPbQMLgCFFauunV4a9GY/tWcUJ7Tdp
-	BXxXmB3KBDSi+tKJJn5bcTlHtduLfVHadxrcj7vgTpHCw0YVEl9QZOuRSH67DddcR/LnTo9EStU
-	sm+1ho2rYBe3BbOnqG7122mE9WW7Mo+49gLyk72UNUm/3R47aANgrMvGpuvr4A0SLnBEsh+lmdn
-	ZwDzRC/b1lRpevmUZsJpWC7T62NiEPOUfVHrwV5nY396PN6Ac6EjufqtR0fFb7BimMyM0a2Wx2f
-	/HaLB5u3wsywLBvYq7aw2+HGuzLlGyd5hWb+ZO1LWDYV8vqP+ycpQmQZgs03Y5hyliExOccuBgp
-	yMHyZylWYVeBWwHAMZhp0eTG0xd+LA2qthn31FhQ8xo4/qbDeavh9ofLEzJcUGs9R/n14dX+j+c
-	o/Kzm0t8J9KZUcDwjW/jEHgIDQH4qoaBdL7oNqFr36c/6hu9xLp8DEqWMASjv+4mZsdg==
-X-Received: by 2002:a17:90b:3c8e:b0:3a0:abc3:afb5 with SMTP id 98e67ed59e1d1-3ab3a7a2437mr14922014a91.34.1792030962242;
-        Wed, 14 Oct 2026 19:22:42 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac9437a82esm2092296a91.1.2026.10.14.19.22.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 19:22:41 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: mark@fasheh.com,
-	jlbec@evilplan.org,
-	joseph.qi@linux.alibaba.com,
-	heming.zhao@suse.com,
-	kurt.hackel@oracle.com
-Cc: ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH v2] ocfs2: dlmfs: Hold l_lock through the unlock wakeup
-Date: Thu, 15 Oct 2026 10:22:35 +0800
-Message-Id: <pm-ocfs2-objects-candidate-0055-v5-5a07cf78ed1c5bd13e50@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gKUofZl6"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=nUe5p8yDfrxxzbakZWJcPwqsW7cOSu54n5/w3I/l8Gs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792031030; v=1; x=1792635830;
+ b=gKUofZl6BXqgTs89E8MKTTxBF6OAgm3Wb0i3YsQW9+YhKg8+KsAmctt0OJnPuwUhlmoz1nD9
+ wV2qioOTSH+xP6BXr94EMmDwL3e1/kym7tSFGMy+fARt8p/3mpXWDWn2gCL50EIEL/koVscQqzt
+ mWlJ27jbw8SV/mxkl4hSvFvY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ce96ad1491dcf66a;
+	Thu, 15 Oct 2026 02:23:50 +0000
+X-Mizu-Trace-ID: ce96ad1491dcf66a
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <f6ad4302-3540-458b-aa94-1b306ba23d65@linux.dev>
+Date: Thu, 15 Oct 2026 10:23:44 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] tools/mm: show_page_info.py enhancements and fixes
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Ye Liu <liuye@kylinos.cn>
+References: <20261014-show_page_info-v1-0-7a68aee0114a@linux.dev>
+ <20261014170519.d07e3a5f791e16a5cb9f51b2@linux-foundation.org>
+Content-Language: en-US
+From: Ye Liu <ye.liu@linux.dev>
+In-Reply-To: <20261014170519.d07e3a5f791e16a5cb9f51b2@linux-foundation.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The user_lock_res embedded in a DLMFS inode must remain alive until the
-final unlock AST finishes accessing it. user_unlock_ast() clears
-USER_LOCK_BUSY under l_lock, but releases that lock before calling
-wake_up() on the embedded l_event. user_dlm_destroy_lock() waits only
-for BUSY to clear, so it can return before the callback's last access.
 
-With the native userspace stack, fs/dlm dispatches the unlock AST
-asynchronously. Unlinking an attached lock with no remaining local
-holders can therefore reach the following order while the parent domain
-stays mounted:
 
-  Unlink and inode release          Native unlock AST
-  ------------------------          -----------------
-  submit final unlock
-  prepare_to_wait_event(): enqueue
-                                    clear BUSY under l_lock
-                                    release l_lock
-                                    delay before wake_up()
-  test BUSY: already clear
-  finish_wait(): remove waiter
-  return from the destroy wait
-  unlink and evict the child
-  RCU callback frees the inode
-                                    wake_up(&lockres->l_event)
+在 2026/10/15 08:05, Andrew Morton 写道:
+> On Wed, 14 Oct 2026 15:04:27 +0800 Ye Liu <ye.liu@linux.dev> wrote:
+> 
+>>
+>> This series improves the show_page_info.py drgn script with bug fixes
+>> and new features:
+>>
+>> Patch 1 fixes memory cgroup information retrieval by updating the
+>> obj_cgroup type casting and handling slabobj_ext field name changes
+>> for compatibility with newer kernel versions.
+>>
+>> Patch 2 removes the incorrect Page Index field display, as pages
+>> don't have indexes - only folios do.
+>>
+>> Patch 3 adds VMA flags decoding and VMA name display to provide
+>> more detailed information about the virtual memory area containing
+>> the page.
+>>
+>> These changes ensure the script works correctly with current kernel
+>> memory management structures and provides more comprehensive page
+>> state information.
+> 
+> Thanks for continuing to maintain this.
+> 
+> I'm curious.  Does this work mean that you're using this tool in
+> real-world situations?
+> 
+Hi Andrew,
 
-The queued waiter can observe BUSY already cleared, leave the wait loop
-and run finish_wait() without waiting for the AST's wake_up(). The
-callback holds no inode reference, and keeping the parent domain alive
-avoids disconnect draining the callback workqueue. The delayed wakeup
-then accesses freed inode storage, causing a use-after-free in
-waitqueue locking.
+Yes. We've been using this tool to investigate real issues on our
+production systems at Kylinsoft.
 
-Keep l_lock held through wake_up(), as ocfs2_unlock_ast() already does.
-user_check_wait_flag() takes the same lock, so teardown cannot observe
-the cleared BUSY flag until the wakeup has finished. The callback and
-its wrappers do not access the lock resource after this final unlock.
-The waitqueue lock is released before wait_event() tests BUSY, so
-extending the critical section does not invert their lock order.
+One concrete case: we hit list_del corruption warnings in
+isolate_lru_pages() during memory reclaim (shrink_inactive_list /
+shrink_active_list path). The system stayed running, but the LRU
+list was clearly corrupted for some pages. We needed to inspect the
+affected pages' state.
 
-KASAN report as below:
+I also use it during kernel development as a general-purpose page
+state inspector. There's an rmap analysis feature I haven't posted
+yet — it currently only works on our internal kernel version. I also
+plan to add a mode that accepts a page address directly rather than
+requiring a PID + virtual address, which would be useful for analyzing
+pages found in dmesg crash traces.
 
-    BUG: KASAN: slab-use-after-free in _raw_spin_lock_irqsave+0x3d/0x60
-    Read of size 1 at addr ffff888117dc93c0 by task kworker/u17:0/871
+> 
+> Sashiko had quite a lot to say.
+> 
+> 	https://sashiko.dev/#/patchset/20261014-show_page_info-v1-0-7a68aee0114a@linux.dev
+I'll address Sashiko's comments in a v2.
 
-    CPU: 2 UID: 0 PID: 871 Comm: kworker/u17:0 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy)
-    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-    Workqueue: dlm_callback dlm_callback_work
-    Call Trace:
-     <TASK>
-     dump_stack_lvl+0x93/0xd0
-     print_report+0xce/0x630
-     ? _raw_spin_lock_irqsave+0x3d/0x60
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __virt_addr_valid+0x20e/0x420
-     ? _raw_spin_lock_irqsave+0x3d/0x60
-     kasan_report+0xe0/0x110
-     ? _raw_spin_lock_irqsave+0x3d/0x60
-     ? _raw_spin_lock_irqsave+0x3d/0x60
-     __kasan_check_byte+0x36/0x50
-     lock_acquire+0x113/0x300
-     ? __pfx_pmbd_probe_hit_cookie+0x10/0x10
-     ? pmbd_probe_hit_cookie+0xee/0x1c0
-     _raw_spin_lock_irqsave+0x3d/0x60
-     ? __wake_up_common_lock+0x27/0xb0
-     __wake_up_common_lock+0x27/0xb0
-     user_unlock_ast+0x21a/0x490
-     ? __pfx_user_unlock_ast+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? process_one_work+0x7c8/0x1b40
-     fsdlm_lock_ast_wrapper+0xf2/0x130
-     dlm_do_callback+0x2e9/0x6c0
-     ? __pfx_fsdlm_lock_ast_wrapper+0x10/0x10
-     process_one_work+0x9a8/0x1b40
-     ? __pfx_process_one_work+0x10/0x10
-     ? lock_acquire+0x190/0x300
-     ? lock_is_held_type+0x8f/0x100
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     worker_thread+0x65c/0xe40
-     ? __pfx_worker_thread+0x10/0x10
-     kthread+0x351/0x460
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork+0x659/0x940
-     ? __pfx_ret_from_fork+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __switch_to+0x74f/0xf70
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork_asm+0x1a/0x30
-     </TASK>
+-- 
+Thanks,
+Ye Liu
 
-    Allocated by task 492:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     __kasan_slab_alloc+0x89/0x90
-     kmem_cache_alloc_lru_noprof+0x205/0x5c0
-     dlmfs_alloc_inode+0x2a/0x50
-     alloc_inode+0x69/0x230
-     new_inode+0x23/0x1a0
-     dlmfs_get_inode+0x47/0x2d0
-     dlmfs_create+0x18f/0x2f0
-     lookup_open+0x88f/0x13e0
-     path_openat+0x95e/0x2020
-     do_file_open+0x21e/0x470
-     do_sys_openat2+0xf4/0x1b0
-     __x64_sys_openat+0x136/0x1e0
-     do_syscall_64+0x114/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-    Freed by task 0:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     kasan_save_free_info+0x3b/0x60
-     __kasan_slab_free+0x5f/0x80
-     kmem_cache_free+0x242/0x580
-     dlmfs_free_inode+0x25/0x60
-     i_callback+0x4b/0x80
-     rcu_core+0x6be/0x1ed0
-     handle_softirqs+0x1fa/0x8d0
-     __irq_exit_rcu+0x113/0x1e0
-     irq_exit_rcu+0xe/0x20
-     sysvec_apic_timer_interrupt+0x6c/0x80
-     asm_sysvec_apic_timer_interrupt+0x1a/0x20
-
-    Last potentially related work creation:
-     kasan_save_stack+0x33/0x60
-     kasan_record_aux_stack+0xa7/0xc0
-     __call_rcu_common.constprop.0+0x80/0x280
-     destroy_inode+0x131/0x1b0
-     evict+0x543/0x9f0
-     iput+0x680/0xb80
-     filename_unlinkat+0x36d/0x660
-     __x64_sys_unlinkat+0xb0/0x110
-     do_syscall_64+0x114/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-    The buggy address belongs to the object at ffff888117dc92c0
-     which belongs to the cache dlmfs_inode_cache of size 1464
-    The buggy address is located 256 bytes inside of
-     freed 1464-byte region [ffff888117dc92c0, ffff888117dc9878)
-
-[Physical-page and shadow-memory dumps omitted.]
-
-Fixes: 8df08c89c668 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-Cc: <stable@vger.kernel.org>
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-Assisted-by: LLM
-
----
-Changes in v2:
-- Clarify the queued-waiter interleaving through finish_wait() before the
-  unlock AST wakeup.
-- Correct Fixes to the original dlmfs introduction.
-- Add Joseph Qi's Reviewed-by; keep the code change unchanged.
-
-Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0055-v4-c1574edc9949e3a22edf@gmail.com
-
-diff --git a/fs/ocfs2/dlmfs/userdlm.c b/fs/ocfs2/dlmfs/userdlm.c
-index 617c92e7b925..60653db7b411 100644
---- a/fs/ocfs2/dlmfs/userdlm.c
-+++ b/fs/ocfs2/dlmfs/userdlm.c
-@@ -253,9 +253,9 @@ static void user_unlock_ast(struct ocfs2_dlm_lksb *lksb, int status)
- 
- 	lockres->l_flags &= ~USER_LOCK_BUSY;
- out_noclear:
--	spin_unlock(&lockres->l_lock);
--
-+	/* Complete the wakeup before a BUSY waiter can free lockres. */
- 	wake_up(&lockres->l_event);
-+	spin_unlock(&lockres->l_lock);
- }
- 
- /*
