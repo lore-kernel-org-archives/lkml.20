@@ -1,148 +1,144 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50ED95476EA;
-	Thu, 15 Oct 2026 16:54:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 134225476EA
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:54:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792083280; cv=none; b=msAVURWg1XAIOa4BQg6sUAjFn0sBMiSayWoMBfu+ey+cnCOhU0amp0b9NAgdnrU+MkgjsheZYAfZ/C4KTWghKwbsCfmO9P92jGo94d6qRK5F9hYUkCSEZMNbwh2yx5+U93uSYUwGGHSsdaEePooMJWDbpQDcGFEH+Vf4uQomB28=
+	t=1792083299; cv=none; b=ZOUVm8hplEELv3Rlfg0CPc+7KvBTCQJskaLNhacxsFEVt+bVUsiIUdOP/GiLALIsP9mkddxt3DjepdFscQl2XMqcrosMIj5ZpAnSunJPAlDgEkUOw0VlRLna0KXmkV4ZfFXA6H/1uRLdNHYEazRDasLS302ONmLvdiM0cGYY8j4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792083280; c=relaxed/simple;
-	bh=8B/xTP972nIvHtcMSPD8tKL/H9idus5A5CGIIMszGO4=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=cQoXyI0IbhJVVRkyzsMDIJTpfrHg8+oZakuxWMJASd4xKAqN27wd+gtZMyVm58mxFsgPMLsxlZJ/c3rMFXRsX6buHBrjT7i08ARqkHNvtI3lC7/9yFDsIuIVmhZi2+ReCtJ7lLrUi+FxVg11YxUUMindIAeGSTDaBKd/PuMsLmQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=fVpB/Lsz; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
+	s=arc-20240116; t=1792083299; c=relaxed/simple;
+	bh=33w0zdjcE6uxwqU7ll8OOTlJSYoyfRiEeotGi/VFEE8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Vp+jqtEWwSmB2k1TFu3UmqzWqYIRpehFA1k4AsjTP2b6y2JD7K5UNqyw4NmKHcytX+YMJC1umejpGQSzYHF8RC75dObuZQ4aVgkFfEGqQ7ZG0DLRWbF2mJoUGErDASDbnL1XnRCCNVhBcCqfExvCXGKAJdChnSSTrh5WHk44Xi4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=eZlhHBxV; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="fVpB/Lsz"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7BD2C5B2CF1;
-	Thu, 15 Oct 2026 18:54:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1792083259; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=Bo4Pkqkj8MYnxBK3j+0sK35BN5q+7GSDcZpoAAftl5U=;
-	b=fVpB/LszLupa0Oa0/xT5FAbaNNLAJji3h7oL3PBfRdyF5rUtZPDtlAxzKbDLPJdfe9VfVY
-	HFmN1brZkpDE2VijaH9QIy4dFGCH3BRCvx8LjAc2vCMq2oYZPYfLyQbX9o+q+R+PoMtOZc
-	VbiIcj6QXpEzSBiBMbgulnGpxefEGl99LHd6FmO8/KiVmNjPDYkuSEhoWj0oiMG4lHuvJP
-	8vmqWtg7n7nnB9p26gHpkHhSkBTyhcvkXun01eTlGqI745YL6k4WVWQTadfHR3NdvZng5j
-	YmELPV5+rh3UEN3jLjDzgxKU0+ehNrm9dXC+bhVKLjfgzCtNI+AGFtb0pY+SlQ==
-From: Caleb James DeLisle <cjd@cjdns.fr>
-To: linux-mips@vger.kernel.org
-Cc: conor+dt@kernel.org,
-	daniel.lezcano@kernel.org,
-	devicetree@vger.kernel.org,
-	krzk+dt@kernel.org,
-	linux-kernel@vger.kernel.org,
-	naseefkm@gmail.com,
-	robh@kernel.org,
-	tglx@kernel.org,
-	grandmaster@al2klimov.de,
-	Caleb James DeLisle <cjd@cjdns.fr>
-Subject: [PATCH v11 5/5] clocksource/timer-econet-en751221: Do not use NR_CPUS for resource array size
-Date: Thu, 15 Oct 2026 16:54:04 +0000
-Message-Id: <20261015165404.519741-6-cjd@cjdns.fr>
-In-Reply-To: <20261015165404.519741-1-cjd@cjdns.fr>
-References: <20261015165404.519741-1-cjd@cjdns.fr>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="eZlhHBxV"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48de6a62a4cso2599435f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:54:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1792083284; x=1792688084; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=9A4R0ld4xtPUzYOLQ26dMhhwMrPELtsTfbERqTYNE9Y=;
+        b=eZlhHBxVOtFw4GowvBv9ja0joMXzFSEXtRo85a0t0z2iHtgwdp8lqaHyh7kaOL+LJr
+         PHwgUyUa3vMvr+wsSLcPFzizvHkADBWto97BYtnt4T3HND3O6Z4czD1Asp27KEp1ww5d
+         7rzd68vNhRjKwMnC6CaMNfMhgaODdVVdvQ2Er7Jxtb8rTepdQ0ovLzSB2NAidi8Ov+nz
+         5QX8KYp+XHUjE5hn151mbsYHf9EpezkumGqze1554et4HJoIgSQxMrozRRfluv74hQ82
+         5TieRpBaRmzYUZbLyyRNYocPwk4DmwmHkx5YT8dn5evd4fES1v9NocrL+2ZmQwXmYHqu
+         vR5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792083284; x=1792688084;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=9A4R0ld4xtPUzYOLQ26dMhhwMrPELtsTfbERqTYNE9Y=;
+        b=J9sp6//CxJtVwrQX51qAIkgslGq2qq2jaOpxcUqFRbbsoN+FMbexG7mZX6O/g7pZTX
+         92Xq4oaBoOxtiQoa/wq03pCt1L0UMH970IXc8BeIROG+gqClVtGe2kyfN8XeJo9l5Q9b
+         tP+FEBO66xXfIIROzdYtUqhQmIYopDUmkbav4mLq9LGOXn1cjAUR+uVKoN629I8DslsX
+         ndYukBFJpzv/B140ZoM8IityCWpSgkV979uVntoZags1eFFbafdIDAkW4VuISKr5hFm/
+         rdwlHBxbP0BsMx1x2zpaoQrdC1YJ+BV7x8XrIQ9mIyKJoG/idpYjk8pbp/xMadaA9IQk
+         QZgQ==
+X-Forwarded-Encrypted: i=1; AKwUvByoCJaWLFRisnZZKYZ1CMgjjLigZ0jPr5wx5FMXRFPBehJ0UigUJRQae7MNsTRTCAAc5lEW3yoR3CcGMTw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJsYPdsKACmnqT90TqbhDWl2hNqlgSOJBh9yRGAwcoYZuDE4MAN
+	eCYtK3TnoYBF9BPwdr/izj6YJuMTHP/6ucQKX1OM/Oa7YFAPIWpOESHfKd9HQiQUB+U=
+X-Gm-Gg: AYBFou2tnA4Bb938cORnnH8DsVGf6yek6xgqIE8b/XgnKw7sZjXxh80pT2DLWJGw0RG
+	2ABqiYRqk0atV/fYyq5oGe1QxJI9b+5ijcQYS+5jjw3qY3I+4ctIqHLzvpY+x2Z5sGEc264I3OL
+	0dm9/x1WVwYGQzAzlBY9DEyvypa8ixqpgkYePqd63i4+LhdAzbOEN5r6+ywa3KuCpiwZzAm0MlE
+	Kgu36+V/ZiLi49xLBvRaDhZKSgBns8hG3UsaJ/WBsxpCDxZ0dai0XQ+E6J5Oij6H7aDjpc9PMsG
+	A/pLZ5SzVBGlCQsPczrTU7IQB4r3lQJx/4CVKGLdnItog3V6yHSo3ARwKKcWR8KKbdyNcgrrEiE
+	9YypPXEzUAKHLjHNK4WQBqYChg7kjQCBIaayGC+ExuLZV89uv1FTxZYLzncM1yaQgkgnztnp9F9
+	mf/ABMv2a6GbwVpI1/xAM2+Ut9kKcrTLlxnmTwW3Aa+AZ/qxxDFHMthvnQCHVp7D+Z/Z7qnWhTB
+	pG8zIBugcJ0FMl+/ideNkg0lbO2N3daITQAX0ESyza7iELzJC+VdQTqR5hezuoVu4yAYw==
+X-Received: by 2002:a05:6000:4553:b0:488:6bcb:ec92 with SMTP id ffacd0b85a97d-48dbaadcfd8mr27221647f8f.17.1792083283972;
+        Thu, 15 Oct 2026 09:54:43 -0700 (PDT)
+Received: from z13-ek5.local ([151.41.28.233])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0aaa5dbsm20775664f8f.12.2026.10.15.09.54.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 09:54:43 -0700 (PDT)
+From: Ettore Chimenti <ettore.chimenti@linaro.org>
+Subject: [PATCH 0/4] clk: ti: fapll/dm816x: clock tree and calculation
+ fixes
+Date: Thu, 15 Oct 2026 18:54:29 +0200
+Message-Id: <20261015-patch-ektor5-dm8168-clk-v1-0-8b99c5cd5541@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM3QpAQBCG4VvRHJvaEZJbkQPWYPy3u6Tk3i0On
+ /q+9wLLRthCHlxg+BAr6+JBYQC6r5aOURpviFSUkqIYt8rpHnl0q0mwmTNKM9TTiBz/A0pqBf6
+ 9GW7l/MpF+dvu9cDavTm47wcLSrPcewAAAA==
+X-Change-ID: 20261014-patch-ektor5-dm8168-clk-e426101415b0
+To: Tero Kristo <kristo@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+ Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Tony Lindgren <tony@atomide.com>, 
+ Andrew Goodbody <andrew.goodbody@linaro.org>, 
+ Rouven Czerwinski <rouven.czerwinski@linaro.org>
+Cc: linux-omap@vger.kernel.org, linux-clk@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Ettore Chimenti <ettore.chimenti@linaro.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792083282; l=1668;
+ i=ettore.chimenti@linaro.org; s=20261014; h=from:subject:message-id;
+ bh=33w0zdjcE6uxwqU7ll8OOTlJSYoyfRiEeotGi/VFEE8=;
+ b=bZPgsiJnDeGOKFJE78I2bUEqqyxEubxzl/T0MZ6XjjKEJTiC1lK7Vrq88pRK36Y7k1LfrsZ5D
+ YZPBhsudElNDZlUVtAOrdi74WMMJewl0pvoCOVCtc0jU7oGv6zfB+2B
+X-Developer-Key: i=ettore.chimenti@linaro.org; a=ed25519;
+ pk=wCaUblFVaqhuBTQt/hAtysafsAaEsqj/yOD9SPlz6NM=
 
-Each pair of VPEs has one timer block, so the number of blocks is half
-the number of CPUs on the hardware. However, since NR_CPUS is a
-configuration, it is possible that it will be less than the number of
-actual CPUs on the hardware which will cause the array to be too small
-for the specified DT.
+During TI DM8168-EVM board testing we found that the clock hierarcy and
+clock calculation was broken already on 6.12:
 
-Switch to an allocated buffer for storing the iomem resources, as is
-done for the IRQs.
+    main_pll_clk1       <--- main PLL should be parent of other PLLs.
+       sysclk1_ck                   
+       main_pll_clk7            
+		...
+       main_pll_clk6            
+		...
+       main_pll_clk5            
+		...
+       main_pll_clk4            
+		...
 
-Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
+This series brings fixes and additions for TI DM816x / FAPLL clock tree
+and frequency calculation.
+
+Summary:
+- Fix clock tree hierarchy by not using ti_dt_clk_name helper(), that
+  causes the first PLL as the parent of all clocks in DM816x.
+- Add sys_ck alias required for DM816x clock lookup, fixing a boot
+  error.
+- Correct rate calculation logic in fapll driver.
+- Add error logging for clocks failing registration to ease debugging.
+
+Fixing clock tree hierarcy is critical as it fixes DM8168-EVM boot
+failure in 7.3-rc7. These fixes are affecting DM816x SoCs only.
+
+Signed-off-by: Ettore Chimenti <ettore.chimenti@linaro.org>
 ---
- drivers/clocksource/timer-econet-en751221.c | 29 ++++++++++++++-------
- 1 file changed, 20 insertions(+), 9 deletions(-)
+Andrew Goodbody (1):
+      clk: ti: fapll: Fix clock speed calculation
 
-diff --git a/drivers/clocksource/timer-econet-en751221.c b/drivers/clocksource/timer-econet-en751221.c
-index edb3db3125ce..9f28cc238372 100644
---- a/drivers/clocksource/timer-econet-en751221.c
-+++ b/drivers/clocksource/timer-econet-en751221.c
-@@ -19,11 +19,10 @@
- #define ECONET_BITS			32
- #define ECONET_MIN_DELTA		0x00001000
- #define ECONET_MAX_DELTA		GENMASK(ECONET_BITS - 2, 0)
--/* 34Kc hardware has 1 block and 1004Kc has 2. */
--#define ECONET_NUM_BLOCKS		DIV_ROUND_UP(NR_CPUS, 2)
- 
- static struct {
--	void __iomem	*membase[ECONET_NUM_BLOCKS];
-+	void __iomem	**membase;
-+	int		num_membase;
- 	int		*irqs;
- 	int		num_irqs;
- 	bool		is_percpu;
-@@ -37,6 +36,10 @@ static DEFINE_PER_CPU(struct clock_event_device, econet_timer_pcpu);
-  */
- static inline void __iomem *reg_ctl(u32 timer_n)
- {
-+	/* reg_ctl() is used to check if a clock exists */
-+	if (timer_n >> 1 >= econet_timer.num_membase)
-+		return NULL;
-+
- 	return econet_timer.membase[timer_n >> 1];
- }
- 
-@@ -202,11 +205,6 @@ static int __init timer_init(struct device_node *np)
- 		       num_irqs);
- 		return -EINVAL;
- 	}
--	if (num_blocks > ARRAY_SIZE(econet_timer.membase)) {
--		pr_err("%pOFn: Too many regs: max %zd got %d\n", np,
--		       ARRAY_SIZE(econet_timer.membase), num_blocks);
--		return -EINVAL;
--	}
- 	if (num_blocks == 0) {
- 		pr_err("%pOFn: At least one reg block must be provided\n", np);
- 		return -EINVAL;
-@@ -227,6 +225,15 @@ static int __init timer_init(struct device_node *np)
- 	if (!econet_timer.irqs)
- 		return -ENOMEM;
- 
-+	econet_timer.num_membase = num_blocks;
-+	econet_timer.membase = kcalloc(num_blocks,
-+				       sizeof(*econet_timer.membase),
-+				       GFP_KERNEL);
-+	if (!econet_timer.membase) {
-+		ret = -ENOMEM;
-+		goto out_kfree_irqs;
-+	}
-+
- 	for (i = 0; i < num_blocks; i++) {
- 		econet_timer.membase[i] = of_iomap(np, i);
- 		if (!econet_timer.membase[i]) {
-@@ -305,13 +312,17 @@ static int __init timer_init(struct device_node *np)
- 			irq_dispose_mapping(econet_timer.irqs[i]);
- 	}
- out_membase:
--	for (int i = 0; i < ARRAY_SIZE(econet_timer.membase); i++) {
-+	for (int i = 0; i < num_blocks; i++) {
- 		if (econet_timer.membase[i]) {
- 			iounmap(econet_timer.membase[i]);
- 			econet_timer.membase[i] = NULL;
- 		}
- 	}
- 
-+	kfree(econet_timer.membase);
-+	econet_timer.membase = NULL;
-+
-+out_kfree_irqs:
- 	kfree(econet_timer.irqs);
- 	econet_timer.irqs = NULL;
- 
--- 
-2.39.5
+Ettore Chimenti (1):
+      clk-816x: add sys_ck clock as sys_clkin_ck alias
+
+Rouven Czerwinski (2):
+      clk: ti: fapll: remove ti_dt_clk_name helper
+      clk: ti: fapll: print clock name that fails to register
+
+ drivers/clk/ti/clk-816x.c |  1 +
+ drivers/clk/ti/fapll.c    | 16 ++++++----------
+ 2 files changed, 7 insertions(+), 10 deletions(-)
+---
+base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
+change-id: 20261014-patch-ektor5-dm8168-clk-e426101415b0
+
+Best regards,
+--  
+Ettore Chimenti <ettore.chimenti@linaro.org>
 
