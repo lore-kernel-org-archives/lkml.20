@@ -1,202 +1,177 @@
-Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3FD34F30C0
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 22:28:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792103286; cv=none; b=Ien68zI57DxuY5M2G+OqejMGKSBnq9Q5m7caTB6vhz09aSvGMBkJZ5C+n/Gz3jnKIiZdntEzkMHH2qnK8OulaJ2i7sCynd+qsFEOUsH4lmlDpGAtTJIkJCmEBv8s5DmCF0Rx4OXt6u9hBS8CAHxxHeTJzFUNwtISEAMQtpHysA4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792103286; c=relaxed/simple;
-	bh=bVJbmuh2Z6L0fhHJG0FQsb2y8FSWqxobc73yJaXV8aU=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=slUxRclPm7/uObtQBsHR2XJorNhLJR2bKIWMIwb4pM9VsJKV0gAHIewPhCklbGVzlVTopGUHei0ys1zTVXRMeSYsaAN9ECXGW/qU0KSqkGPo5yL0PyNDJ2Og8zVsLJXqiitOsQrt3jhATPMqYOe+J8EJxTcHNcNTjU2a59z47Vw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Lo/dFP8l; arc=none smtp.client-ip=74.125.82.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60C6636C5BB
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 22:29:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792103349; cv=pass; b=Rdih6C++dP3bMvSl58NBopzexMn3cmwsfI1GNOR4B7wEv+6p5bhRO2ocUQovzHFrlU7CmtvI4xmN+3Z9RpYi0xxff5ExMKH4hIEslfIyqPX5E7kkCfe76/5VSS/m437+6/rhJjPu9Drfdz1bV9QWPPci91zXLKyYLdGOqU4r/qs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792103349; c=relaxed/simple;
+	bh=NiKDaQULsN/FekldlPoSCg9eoNofARkit0zgu4y2lf8=;
+	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=izv/R9+uDaEVQ+Zc5RUix7PLqeTHvHKFwsYJA2eXvlV97Sv8Us76JorHrlX9kSVSdMxCP655zkBpFqlTMUk53at0/RVKFAZ2NdckZj8DA82h4BZ2ew4u4Mjg5cZSt7Necsgi/beXxh8OWdQcFbXHCF3yxD5mn2HOs2kcFR9GMsg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZWxKcVyV; arc=pass smtp.client-ip=74.125.224.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Lo/dFP8l"
-Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-15756f82e8aso310987c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:28:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZWxKcVyV"
+Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-67999045530so2202305d50.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:29:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792103346; cv=none;
+        d=google.com; s=arc-20260327;
+        b=C5ICBxJUxdHh6+4qbwfl7DATHmAhEhBI7/KO+dUJZVMCMsgaeiEAxsgGtu/z2JXMDY
+         7ohrH1WLgE4U6gSiVYDVrc2LyYYzDMDVH/yIYrWJF0eAYNJHLOtPykoHDrlkcKGf8JGd
+         WE8cZvDUEwk4PrjioNEP912Me4NfdJwACkqskGUoAU28KPf5nEyJRXqYoZLWzZIMwikr
+         stmP6pzn3DcXEaY8CSKCMCfvP0HQTaS/3bMd+WmTwc4FAY0IfCLoXafMTM/bgSfx5oCC
+         EC5vT5KRH4v04lD8VeTEiVhlhu2ARN+eIgu9o21MVWn31xtEGiz5ObcM7mmQiAl6rHJ4
+         r6OQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+         :from:dkim-signature;
+        bh=Bj1Epb5FfswhvVZ0TJyzF1qW5a3SYkt7ENfvhFrub7E=;
+        fh=BdknfUYpheQN7sB7p9KEKZLleqRtZ3KRY/N4L9ikSME=;
+        b=px64juwoVoJE8vWiMIjs6o2XVEKe+FMedr2WUYHrgKxfKzP7dJTUq+iZNMQXpNudeQ
+         vT994RSheqZ8mkj+inB0PVu107jQKV2xDJog2FH/gTlHz7PDznOKngRRlmb6rq05SBIu
+         25635WycZv/8HGLhkHZtzDf3OOHsmRIvSZ2TSgu/Sz+dvJGZpQJXvXK5gfe2Nyihumo3
+         OoyCoP1FD9gp2cbRO3VFWOczlL+FtORgLGfnQh/OGLdAZIe7Zx8WJNqhq5asOb86HsZG
+         kGqU/yz1cD7DpAGa6apc+viOg9ssde/P7pTrthMeFoPRmWirjE/wnYB6rGH2cbtjWXzA
+         zSrg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792103284; x=1792708084; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6uo7AcE10nfV9W8UwlYp+hn2TzXz6q+VsQs/rEy/+Mk=;
-        b=Lo/dFP8lSQ+r0fVrrhxnwhwBathR5tjD41ysL4wqZm8V7qg9b3pk6JMwBBB7/e/cUE
-         iYLmnkIm2zWhiVBs6FxKvBiIGKQc52OpTAnPdkmxk7QurP+lyKWku4L7aicH7eKXb2Ke
-         BjvRoVXiyLvPbekP1b5YSf3wXuXt0NIP1CjtZYEXru8YbbFOvns8XTopggnbX1lB5nGc
-         n2ImMWaJvnDeFgLQga4SriYsaByEW+Y48rkr1rYlbeSDDfdrMzInRUpvQLnVcqbtVA+M
-         +xbZcoq8UNNE1MpE98Rm3rHBp+/85Z3m/LKrrcaf6UWrrDet7GZP4ZeD/SQYVlKRhs02
-         RtZA==
+        d=gmail.com; s=20251104; t=1792103346; x=1792708146; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Bj1Epb5FfswhvVZ0TJyzF1qW5a3SYkt7ENfvhFrub7E=;
+        b=ZWxKcVyVMOWCxxzD7j7MwMFyWKZ7XKmu+WL4trFsmsJPzyhDTyP5Blpe79MtLrp5gr
+         +Bqpx5RwXqRgjfAquT2ApWQ8qqKq9VHM8Cv/O3dnLC+tlfQo7UbRohAc7SzR1r0f8fdL
+         kUFUntNXXn4Rq3nnIiLQaCebjSek7owaVVKTJUA4PLOSFEw4nNzLXf6aV5y0IrkuC9TM
+         nOsELBQCzuB2uysOFRD1cnbGjrXZ4NaY9vt6/AkMXgSnXHunzdC7QQt0691bIDZE3tnY
+         LzitqwGnmjYUXsla2vzPykjzb0oYlhlEeAc1KO22nyBSWmJRe4xrv2dnoIysT/lWNVVI
+         IPyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792103284; x=1792708084;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6uo7AcE10nfV9W8UwlYp+hn2TzXz6q+VsQs/rEy/+Mk=;
-        b=Qu9IpPRnA7qNmWX7WVqvsBBb8GYvpVIwtaNQZ5nwEDJwMWhlVhJzG4u/yWaPi7Jh47
-         3Us8Mk34EF4W68oXmpN2TAjZ67oiN8vfs/PVSaT/WOcHhVkiLlAneOz4+961lpYu3Tnx
-         7l97nV1W7EdhPEg3nK+e7H28dibt2Ift2r72B7z2E292JJufTQJTz7QqJqPmxz7vVkuo
-         zn0UwEr8SbDpNVUUiMdR9YYXcP5bRLf+8YCYxs8vkvKQAWVrGz/zw4G2+LahrODOxj6n
-         GDNl2GMtgTEPLL4xvIbUrQ5mZXVv9CN/b/VxTYoBviK2SQbobYKLdTkKBWhkFxz1FhAc
-         jMag==
-X-Forwarded-Encrypted: i=1; AKwUvBy4do7O7m0ie1AFJGlH80hEwXM0D738vbyzBBxKLr7s7twQ6kitqM/poSI47Y3585PRcLv6Po6JRwuRBls=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ0eD53U9XLk11uBTu45UeN7SjLt9hGyCnUubErpHVVpu1fjIhu
-	mrXZwYc7G9Z7N/1zh7r0HQKrNyQG8a7Zxs73WNm9/XVQbvlTR4apy2NX
-X-Gm-Gg: AYBFou1fX41O+EiWpqQuRQxM/gkoRBi76a/WUcbTrCQhGaWDSm4FcdI/hFBsW92uC0k
-	9POuf0bPp6UIiiCy7sATGP9+PaN6fDbIpqX6lqIfOjzXPfQNc6Nckqx6cc3IrKdfyixp1e7PZK2
-	xBKylH9oQPuoGcZqT8qH7N/ZqgYjY97hsGwA0IybdCR9reumDd43Tnah8b3LW9ps01KKLEhX2lu
-	STWSon4KODKg6+I89fcvg/dpHMvy9MyCP7029/QRqPeikvv5GS0PC6eNqjPnQHdwltU701nHchF
-	mNhg5bZoyGE+GjUdqp8HjqvbM3hep+dyNFZEqMq3STq59Exg3Zvrzqll3+eBHe4mb+vVyvZJlfR
-	qqr+quL+TuLHc74zSROK/wgVYLRVbnNiE+h+zVW1CQTG40wABe0iJ0bGIVmhkax+rO/ar8pLbF5
-	1BZgVvB+WE/JAxbm8s/ntsCbmQMl1M8jsCFSCWFmaxmMwVPBimOrlgbbpyG6Kl2w5iPGYuXpr/z
-	JDMYGyxHz3H47M+beohqUbYbL+qdnatqlPuvNZ8d2Q/qWpkUTvLFytp1m4P81rEjp7JeWFaLkw=
-X-Received: by 2002:a05:7022:3a8a:b0:15b:1959:15e0 with SMTP id a92af1059eb24-182570eccd1mr1740173c88.4.1792103283611;
-        Thu, 15 Oct 2026 15:28:03 -0700 (PDT)
-Received: from yibos-mbp.3500.dhcp.asu.edu ([2620:d8:8000:8078:404b:acf5:562d:50f2])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36081fa5a6esm873307eec.16.2026.10.15.15.28.03
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 15 Oct 2026 15:28:03 -0700 (PDT)
-From: Yibo Liu <yiboliume@gmail.com>
-To: Philipp Reisner <philipp.reisner@linbit.com>,
-	Lars Ellenberg <lars.ellenberg@linbit.com>,
-	=?UTF-8?q?Christoph=20B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>,
-	Jens Axboe <axboe@kernel.dk>
-Cc: drbd-dev@lists.linux.dev,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yibo Liu <yiboliume@gmail.com>
-Subject: [PATCH 2/2] drbd: validate digest size in checksum resync and verify requests
-Date: Thu, 15 Oct 2026 15:28:00 -0700
-Message-Id: <20261015222800.85928-3-yiboliume@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20261015222800.85928-1-yiboliume@gmail.com>
-References: <20261015222800.85928-1-yiboliume@gmail.com>
+        d=1e100.net; s=20260707; t=1792103346; x=1792708146;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Bj1Epb5FfswhvVZ0TJyzF1qW5a3SYkt7ENfvhFrub7E=;
+        b=t8MsZkTmacf+L36Hfz4+7OKRaQEPLNLcDWvfD7fvnRBOiRltFtzT1A+ILTYnFCLPWJ
+         AgFi+H/gFvaphOpzdzwfjX/MltlgOeu3FUn3vWg/Vggcuc/jzoKw+iNrrFV6exB7rKWW
+         fLFTafCgUXp7bDtTILqPQ6+Uk34DVS0MwOiX8sTlgulQ78fQdww+bsGBZqEvEGGbAElg
+         /AneK7S+oT9WLUlT0PzBqvqySaaTN4YRuEzgxHARYOTmbV6Hkyl9dStk1mm3xAXOqhT9
+         LC7bCDuhZxNLr1Ht3kmjfJV8KgRo7zXKVpbT7MfgUNJf+n9/A2TldKcPOUEQb2nUFeMq
+         Ri8A==
+X-Forwarded-Encrypted: i=1; AKwUvBzFUS3NkQUC2AC/ef5d0dLJGFtI7uE/Vl6wj88FXAUVHW+9hSQ/7Oeh2tJJ+crN3lydfBaokpYJhv5xrrA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIRDH/fLqTaRgf+AbgM2dAf69rjatTfCarXlSq9cgIHug25j9Us
+	sJnXocXsQmyaKvuaBUIYhpaySwD1DfOsskcMJwaDySlZM2Mdn2/WbCEzO3uk3rmee59Qez0yh6v
+	JATbzkQSfP0AC8OJ5OwYaoHFEsAMQfXo=
+X-Gm-Gg: AYBFou1MLapFU5FbkrM6WhuLnf0EJ5OMTTrlaiGeLkai6jQ0xxSCrS9xwburIji/Yrt
+	p1OwGZBWXBtKVT5cFZCzLKaKjbSya8Ql8ugTZnhH1kceLNv9mmlhXX1E7hUsyNxeJodq4P6mU1Q
+	sM0QJ69WDeIOSTC6/AuMmfjGtTTMvwkQicfH+HZRixR0E6RJDkTNPp9NIWo9ejfxX3V6W+JuS59
+	wHxAhPqnjjX4KEfdsQpGSIlprNp1W0xvZ2eQTk0TY6El8UOJik8yBNtrooHvoH4/D1yzu5mh+1q
+	uSSknW9pMbQhGoc2893sUKFI8uUrmSg8X0u1eWmQt+wt5bVl4WW27Po6C64Kt8LpwgPjFc9cKt7
+	THtUPbdByuJ18lu68CztDhFNiiDnLrt0Cy4mWLT3NSQhcBw==
+X-Received: by 2002:a05:690e:b85:b0:675:657b:8049 with SMTP id
+ 956f58d0204a3-67936a5bc0cmr7401301d50.77.1792103346176; Thu, 15 Oct 2026
+ 15:29:06 -0700 (PDT)
+Received: from 595171893313 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 15 Oct 2026 18:29:05 -0400
+Received: from 595171893313 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 15 Oct 2026 18:29:05 -0400
+From: Gemayel Lira <gemayellira@gmail.com>
+In-Reply-To: <000301dd2e36$f0cc5ea0$d2651be0$@opensource.cirrus.com>
+References: <CAD96ZT+SnRnGr4Xd+NJkkVNpj8XrzL3Ete=pRgz05mqxAzbU2w@mail.gmail.com>
+ <CAD96ZTJzEwiNwJm4ujLS4+X_KChi4+_sD0j-m+aE+_9i+eUGcA@mail.gmail.com> <000301dd2e36$f0cc5ea0$d2651be0$@opensource.cirrus.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Thu, 15 Oct 2026 18:29:05 -0400
+X-Gm-Features: AclHuK98rkwv-JrkBYl5rNF6_HbarRJHAp0tGUDDcKLhldq08QqmjhpqYPvCG0k
+Message-ID: <CAD96ZTJFD5pWcZqk1FRRsFS6tmMMiOGduxK+4SGb45jeZvp1OQ@mail.gmail.com>
+Subject: [PATCH v3] ALSA: hda: cs35l41: Enable VSPK on UX3405CA when ACPI
+ leaves GPIO1 unused
+To: linux-sound@vger.kernel.org, Takashi Iwai <tiwai@suse.com>, 
+	Jaroslav Kysela <perex@perex.cz>, David Rhodes <david.rhodes@cirrus.com>, 
+	Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: Stefan Binding <sbinding@opensource.cirrus.com>, patches@opensource.cirrus.com, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-receive_DataRequest() takes the digest length of P_CSUM_RS_REQUEST and
-P_OV_REPLY packets from the packet header and passes it to kmalloc()
-without any check. The worker later compares the received digest with
-one computed by the local csums or verify algorithm. A size mismatch is
-only reported by D_ASSERT(), and memcmp() runs anyway.
+The ASUS Zenbook 14 UX3405CA (SSID 1043:1A63) already has a valid _DSD
+and uses missing_speaker_id_gpio2. ACPI sets cirrus,gpio1-func to VSPK
+on the left amplifier and unused on the right, so the right channel
+binds with VSPK: 0 and volume drops shortly after playback starts.
 
-A digest that is shorter than the algorithm's digest size therefore
-makes w_e_end_csum_rs_req() and w_e_end_ov_reply() read past the end of
-the digest_info allocation:
+After parsing ACPI, enable VSPK on GPIO1 when it was left unused.
 
-  BUG: KASAN: slab-out-of-bounds in memcmp+0x1b8/0x1d8
-  Read of size 8 at addr ffff00000a638610 by task drbd_w_r1/212
-  Call trace:
-   memcmp
-   w_e_end_csum_rs_req
-   drbd_worker
-  Allocated by task 240:
-   __kmalloc_noprof
-   receive_DataRequest
-   drbd_receiver
-
-A digest length larger than the page allocator can serve triggers the
-WARN_ON_ONCE() for oversized allocations, as GFP_NOIO does not include
-__GFP_NOWARN:
-
-  WARNING: mm/page_alloc.c:5340 at __alloc_frozen_pages_noprof
-  Call trace:
-   ___kmalloc_large_node
-   __kmalloc_noprof
-   receive_DataRequest
-   drbd_receiver
-
-Reject these packets unless the digest length matches the digest size
-of the configured csums or verify algorithm, and also reject them when
-no such algorithm is configured. In the worker, only compare digests of
-the same size: the peer can switch csums-alg or verify-alg with
-P_SYNC_PARAM after the request was received, and a size mismatch is
-then treated as "not in sync" instead of reading out of bounds.
-
-Fixes: b411b3637fa7 ("The DRBD driver")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Yibo Liu <yiboliume@gmail.com>
+Signed-off-by: Gemayel Lira <gemayellira@gmail.com>
 ---
+Changes in v3:
+- Rebased onto tiwai/sound for-next. missing_speaker_id_gpio2 is still
+  used only by SSID 10431A63, so the GPIO1 change does not touch other
+  laptops.
+- No functional change from v2. Still no generic_dsd_config and no
+  internal-boost override.
+- Test kernel is now Ubuntu 7.0.0-38-generic. The running proof is the
+  out-of-tree module of this hunk (srcversion 955693DEB4FC9A01D9EF0EC):
+  both amps VSPK: 1, SPKID: 1, firmware
+  spk-prot-10431a63-spkid1-{l,r}0.bin. No PM -110 or SPI -16 with that
+  module. One earlier S3 on 7.0.0-27 reloaded both amps with no resume
+  error. Not a multi-cycle S3 claim.
 
-Notes:
-    - Reproduced in the same setup with csums-alg=sha1, the proxy rewriting
-      one P_CSUM_RS_REQUEST: a 0-byte digest gives the KASAN report above,
-      a 1 GiB digest length gives the WARNING above. With the patch both are
-      rejected with "CsumRSRequest: unexpected digest size ..." and there is
-      no KASAN report or warning. A complete csums-alg resync followed by an
-      online verify with verify-alg=sha1, without tampering, still passes.
-      The harness is available on request.
-    - In LINBIT's DRBD 9 tree, receive_digest() only rejects negative sizes
-      and the sender keeps the D_ASSERT() before memcmp(), so the pending
-      DRBD 9 rework series probably needs the same checks. I have not
-      checked the posted series itself.
+v2 discussion:
+Stefan Binding replied that enabling GPIO1 on the second amp should not
+have an effect and asked for a bugzilla:
+https://bugzilla.kernel.org/show_bug.cgi?id=221896
+On 2026-09-25 (comment #15) he wrote that this unit has no
+CirrusSmartAmpCalibrationData EFI variable and that missing calibration
+is not something the driver can supply; contact the laptop vendor.
+This patch does not invent calibration data. It only sets GPIO1 to
+VSPK_SWITCH when ACPI left the function unused, which is what stops the
+right channel binding with VSPK: 0.
 
- drivers/block/drbd/drbd_receiver.c | 9 +++++++++
- drivers/block/drbd/drbd_worker.c   | 8 ++++----
- 2 files changed, 13 insertions(+), 4 deletions(-)
+v1: Message-ID:
+<CAD96ZT+SnRnGr4Xd+NJkkVNpj8XrzL3Ete=pRgz05mqxAzbU2w@mail.gmail.com>
+v2: Message-ID:
+<CAD96ZTJzEwiNwJm4ujLS4+X_KChi4+_sD0j-m+aE+_9i+eUGcA@mail.gmail.com>
 
-diff --git a/drivers/block/drbd/drbd_receiver.c b/drivers/block/drbd/drbd_receiver.c
-index 97b306676626..87e714477050 100644
---- a/drivers/block/drbd/drbd_receiver.c
-+++ b/drivers/block/drbd/drbd_receiver.c
-@@ -2629,6 +2629,7 @@ static int receive_DataRequest(struct drbd_connection *connection, struct packet
- 	sector_t capacity;
- 	struct drbd_peer_request *peer_req;
- 	struct digest_info *di = NULL;
-+	struct crypto_shash *tfm;
- 	int size, verb;
- 	struct p_block_req *p =	pi->data;
- 
-@@ -2713,6 +2714,14 @@ static int receive_DataRequest(struct drbd_connection *connection, struct packet
- 
- 	case P_OV_REPLY:
- 	case P_CSUM_RS_REQUEST:
-+		tfm = pi->cmd == P_OV_REPLY ? connection->verify_tfm :
-+					      connection->csums_tfm;
-+		if (!tfm || pi->size != crypto_shash_digestsize(tfm)) {
-+			drbd_err(device, "%s: unexpected digest size %u\n",
-+				 cmdname(pi->cmd), pi->size);
-+			goto out_free_e;
-+		}
-+
- 		di = kmalloc(sizeof(*di) + pi->size, GFP_NOIO);
- 		if (!di)
- 			goto out_free_e;
-diff --git a/drivers/block/drbd/drbd_worker.c b/drivers/block/drbd/drbd_worker.c
-index 0697f99fed18..31e54960c5de 100644
---- a/drivers/block/drbd/drbd_worker.c
-+++ b/drivers/block/drbd/drbd_worker.c
-@@ -1174,8 +1174,8 @@ int w_e_end_csum_rs_req(struct drbd_work *w, int cancel)
- 		 * introducing more locking mechanisms */
- 		if (peer_device->connection->csums_tfm) {
- 			digest_size = crypto_shash_digestsize(peer_device->connection->csums_tfm);
--			D_ASSERT(device, digest_size == di->digest_size);
--			digest = kmalloc(digest_size, GFP_NOIO);
-+			if (digest_size == di->digest_size)
-+				digest = kmalloc(digest_size, GFP_NOIO);
- 		}
- 		if (digest) {
- 			drbd_csum_ee(peer_device->connection->csums_tfm, peer_req, digest);
-@@ -1301,8 +1301,8 @@ int w_e_end_ov_reply(struct drbd_work *w, int cancel)
- 		if (digest) {
- 			drbd_csum_ee(peer_device->connection->verify_tfm, peer_req, digest);
- 
--			D_ASSERT(device, digest_size == di->digest_size);
--			eq = !memcmp(digest, di->digest, digest_size);
-+			eq = digest_size == di->digest_size &&
-+			     !memcmp(digest, di->digest, digest_size);
- 			kfree(digest);
- 		}
+ .../hda/codecs/side-codecs/cs35l41_hda_property.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
+
+diff --git a/sound/hda/codecs/side-codecs/cs35l41_hda_property.c
+b/sound/hda/codecs/side-codecs/cs35l41_hda_property.c
+index 272421d1b..002771848 100644
+--- a/sound/hda/codecs/side-codecs/cs35l41_hda_property.c
++++ b/sound/hda/codecs/side-codecs/cs35l41_hda_property.c
+@@ -479,7 +479,20 @@ static int missing_speaker_id_gpio2(struct
+cs35l41_hda *cs35l41, struct device *
+ 		return ret;
  	}
--- 
-2.39.5 (Apple Git-154)
 
+-	return cs35l41_hda_parse_acpi(cs35l41, physdev, id);
++	ret = cs35l41_hda_parse_acpi(cs35l41, physdev, id);
++	if (ret)
++		return ret;
++
++	/*
++	 * ACPI on 10431A63 sets gpio1 to VSPK on the left amp and unused
++	 * on the right, so the right channel binds with VSPK: 0.
++	 */
++	if (cs35l41->hw_cfg.gpio1.func == CS35L41_NOT_USED) {
++		cs35l41->hw_cfg.gpio1.func = CS35l41_VSPK_SWITCH;
++		cs35l41->hw_cfg.gpio1.valid = true;
++	}
++
++	return 0;
+ }
+
+ struct cs35l41_prop_model {
+
+base-commit: 7f21312381fee99f58b383fa07374da3c614aec4
+-- 
+2.53.0
