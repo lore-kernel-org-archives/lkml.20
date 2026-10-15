@@ -1,95 +1,80 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C3932C08BB;
-	Thu, 15 Oct 2026 05:51:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC93C1FF7C5;
+	Thu, 15 Oct 2026 05:52:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792043489; cv=none; b=HW12zXuYmjf1uj3qtlvuAuKPSVaiywNiW+ji68NQg4stLfZqd5ttrZ0J9Bt336KsNmWZcpPLMaQwAgidaIQ/bZ2uk5rP3zFiNhZ7KwF8IrmiqFUbtULqu72HAvgZozk3Myhhy9639J34QMNchb1ssyBHZnFOsfiv9LbdIK6ZtLE=
+	t=1792043525; cv=none; b=OCzzyUDHZbEyxC7qUc3dOk4YdFQ+pWwnVlVjcqvWlPqC+wXqTl8MZ3Pa91AQ1qygB1AzSauPNG//Vl3lzpTAdS9FiV+z1dexXGgp7V3WfWE85ko7wUMP9m9DaJpUyk4bZJhdGDCIeBsc34bQqGJXKwsIR6XwKBoKcesnqytwNOY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792043489; c=relaxed/simple;
-	bh=RPfLHOypHFNj683KtnHCEwwojO79vNekU/dPOOxt3F4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=lgyjLEVJm0Yujr8Df0fO0eAPn2hN9/6HMddpu2fqKWtZ7HNF+fFOdOc8nDyFWutnduKk8QXFME87hhNp2yHFhzHSPxQWOnb0NV/gBR3LVKfnKwP0p+ouMph1FhSHXsCLLFcJUuCSz7GVMVeTa8RXvJHA9obV81RbxFcnjRxMbkQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=semi.ac.cn; spf=pass smtp.mailfrom=semi.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=semi.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=semi.ac.cn
-Received: from localhost.localdomain (unknown [159.226.228.16])
-	by APP-03 (Coremail) with SMTP id rQCowAAnM0G7adBq5zfQCg--.15649S2;
-	Thu, 15 Oct 2026 13:51:06 +0800 (CST)
-From: Gaobin Huang <huanggaobin23@semi.ac.cn>
-To: linux-cxl@vger.kernel.org
-Cc: Davidlohr Bueso <dave@stgolabs.net>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Dan Williams <djbw@kernel.org>,
-	Ira Weiny <iweiny@kernel.org>,
-	Li Ming <ming.li@zohomail.com>,
-	Richard Cheng <icheng@nvidia.com>,
+	s=arc-20240116; t=1792043525; c=relaxed/simple;
+	bh=4IYNkY16EAh39c6kNBUMk2l7PG2UWZs+3/kCOMzSGec=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=f+iZJ3r1cpjugQUvZIoE1I7qSbUpAVEB+QgarSWzNH2kDeJMynh2S5ucGOdCSWCGy8vTRwaiIDcyoc0hHyyri0q/dbB9mkucYv5GdkKZQ3FYLSZyRm2okNWZxwQA6SlC2jmBcsdCMunEKYbBY/czjKP9JZrtK8FLij1yWwYI23o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HgD2i9y8; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HgD2i9y8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AB641F000C4;
+	Thu, 15 Oct 2026 05:51:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792043524;
+	bh=MGju5ukjNfBStkyk8gEHaDvZRVV+f+0KLBrFgdUTE+A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HgD2i9y8zoIQInSEfFKm1BzV2V+WUH/gGe/EGzflmtE8JVmIDzXuxUH5tcGlZO94Z
+	 eGFAVSTAA1f1OWJhZRYFkIWEGskUe/JbR5PUzZxUxhjNVZa/xQ+w0D4bO2NsHhpiev
+	 8/+cdTBwMbVvtju6ADrRPeKrozXzztxuF+Ue+z6xu0bzJZmFptGHZlEsoIxL+WbSAQ
+	 /Ij9B/dNm5hk6pKYqxMwX+oeuUG56hfk9d4q9hcfIKx5jeWblLtjmaQt1wfcmEIo/D
+	 d/5sTx39LHEohQoOyk6YM01eSIYzL6TIaRtVymYwIk9fl5Gnku1PzlsmBu6NGhVAC3
+	 MT5KSee39+Cxg==
+Date: Thu, 15 Oct 2026 11:21:55 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Koichiro Den <den@valinux.co.jp>
+Cc: Frank Li <Frank.li@oss.nxp.com>, Frank Li <Frank.Li@kernel.org>, 
+	Niklas Cassel <cassel@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Jon Mason <jdmason@kudzu.us>, Dave Jiang <dave.jiang@intel.com>, 
+	Allen Hubbe <allenbh@gmail.com>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Kishon Vijay Abraham I <kishon@kernel.org>, ntb@lists.linux.dev, linux-pci@vger.kernel.org, 
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] cxl/mbox: Add the CXL 4.0 command return codes 001Fh and 0020h
-Date: Thu, 15 Oct 2026 13:50:48 +0800
-Message-Id: <20261015055048.1765042-1-huanggaobin23@semi.ac.cn>
-X-Mailer: git-send-email 2.34.1
+Subject: Re: [PATCH v4] PCI: endpoint: pci-epf-vntb: Honor MSI-X selection
+Message-ID: <atBo0WvV9S2xhVc4@debian>
+References: <20261014053256.2378817-1-den@valinux.co.jp>
+ <as-UJX1jD8ZFiBxk@SMW015318>
+ <x53diijgm6cqfjc5rlihi5q2q54nxdbgvs5u3cfxg5zfdo5w4z@hayq2svzwfes>
+ <j43nhj3wyu5tocjiots2xm4v2yxtngsxoaafkvxtputxxttw7j@snrzxkr66vkp>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAAnM0G7adBq5zfQCg--.15649S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7uFWrWF4xGFy3AF1kWr4DArb_yoW8JFyDpF
-	WxWFyj9ry5G39Fv3y0y3yjgr98XF9IyrWUKa4ag390vFs8JFy7ZrZrtFy2ya45A3yfJFW5
-	Kr4DJrZ09ayqkrUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBKb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
-	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
-	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
-	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
-	r41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r
-	4rMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_
-	Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x
-	0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8
-	JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIx
-	AIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU5vNtDUUUUU=
-	=
-X-CM-SenderInfo: xkxd0wxjdruxrqstq2xhplhtffof0/1tbiBwEBDGrQUWFPzQAAsD
+In-Reply-To: <j43nhj3wyu5tocjiots2xm4v2yxtngsxoaafkvxtputxxttw7j@snrzxkr66vkp>
 
-CMD_CMD_RC_TABLE ends at 001Eh (Invalid Extent List), but the command
-return code table in CXL r4.0 Table 8-208 also defines:
 
-  001Fh  Transfer Out of Order: The input parameters data transfer was
-         aborted because it occurred out of order.
-  0020h  Request Abort Not Supported by Background Operation: The ongoing
-         background operation does not support the Request Abort command.
+[...]
 
-A device that reports either code is described as an unknown return code.
-Add both entries, mapped to -ENXIO.
+> (+To: Mani)
+> 
+> BTW, I'm thinking of basing the next revision on [1] (thanks for the review
+> there too). This MSI-X fix conflicts with it, and it's not just a textual
+> conflict; the new link-event notification also needs to care about the MSI vs
+> MSI-X selection.
+> 
+> Since [1] already has your Reviewed-by,
 
-Signed-off-by: Gaobin Huang <huanggaobin23@semi.ac.cn>
----
- drivers/cxl/cxlmem.h | 2 ++
- 1 file changed, 2 insertions(+)
+You mean Frank?
 
-diff --git a/drivers/cxl/cxlmem.h b/drivers/cxl/cxlmem.h
-index c401e3a1a..43f29564c 100644
---- a/drivers/cxl/cxlmem.h
-+++ b/drivers/cxl/cxlmem.h
-@@ -190,6 +190,8 @@ static inline struct cxl_ep *cxl_ep_load(struct cxl_port *port,
- 	C(FEATURETRANSFEROOO, -ENXIO, "feature transfer out of order"),		\
- 	C(RESOURCEEXHAUSTED, -ENXIO, "resources are exhausted"),		\
- 	C(EXTLIST, -ENXIO, "invalid Extent List"),				\
-+	C(TRANSFEROOO, -ENXIO, "transfer out of order"),			\
-+	C(REQABORTNOTSUP, -ENXIO, "request abort not supported"),		\
- 
- #undef C
- #define C(a, b, c) CXL_MBOX_CMD_RC_##a
+> I expect it to land in pci/endpoint
+> first. Please let me know if you have any objections to adding [1] as a
+> dependency.
+> 
 
-base-commit: 999811aca000b0d3d1c838c60dc9db7c72eb0c73
+It mostly looks good to me. I'll apply it today so that you can send this patch
+on top of pci/endpoint.
+
+- Mani
+
 -- 
-2.34.1
-
+மணிவண்ணன் சதாசிவம்
