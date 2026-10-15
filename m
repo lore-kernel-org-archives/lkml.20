@@ -1,210 +1,154 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013007.outbound.protection.outlook.com [40.107.162.7])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A38E751EE0E;
-	Thu, 15 Oct 2026 10:56:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.7
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792061806; cv=fail; b=IEacd/IidBD8uUgzsHtxUqTZYx0rqWyI1lVpX+ywcsKwVggBLO4aBGqc5kIFQ7DBKjqTYXhJWBZfvbSvjdBtdV3ovNNMXeXgeRG+TYbRiWdSuAvZRGaqayri/monVdkRY/zARlMamlL0STFyilrBRCIPCXvojhTqcUb3KcecmYo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792061806; c=relaxed/simple;
-	bh=Uwi14s+M+BVzOaRlH1QiDFnuBV0wYhpcf8J1c/61Gs0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=FSIb0E6JjtuQ5N/ESlVdQAPm2xyPuplT1484rUC2AhW1UOhlPnCD6+rZYW7lL79NeW6xxwC2S++5YJZ3eYL5EJa1YMOviWeypvw1ZGoLPUHx4FR8lFWoZ1XESynslqneF2aHGBMa1KPnpH/xJ40hS4sfUi11UipvhwBJ1XbYhvc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=Wb3eHGXm; arc=fail smtp.client-ip=40.107.162.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59D1C51EDED;
+	Thu, 15 Oct 2026 10:57:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792061831; cv=none; b=LAG67xj1Y9gJkHGG0JXACKJbdCIxqRyhQIxoAZ8VpQFIiAx51f081VnmMQ1zQpLDuLE2a7ajXWFzJ62bnadfig4QI8lar1CkmO0oUPk/wXNGteEJzFpUYAmI/i9LXniuFD3p79fbEdFdHFbpecpAu4t7CL9VCG7ahMm/oeI1Yaw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792061831; c=relaxed/simple;
+	bh=0REL/m2y6i647azVBbE6Hi6dOXqodNeRc9FI3vDDqwE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=LRWChcdRCvdPan6wQ2IESr9Su/kbqbns2cTI9Xls1d1cMWBN+xunWKWIz7SU63p1nyWVN7bsfLzxu/ITNTJFwjSKFtROdUBRHmG3EZagK9BRfN71xH5M8fe0viLfaRqEtnp4jkVBbtoCgZWFybOrAwZdhWvfhSKLM0yVQUwy5JQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=DkbyaOS/; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="Wb3eHGXm"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=s1/JrnWjRvUcZlSu8W7ZZ/uVpq2lCMAoua19OGYX5ueq4uSeMxe7/MDT+H2gOBjXrVhIuJgY/c1mFc9N9iJN6l2a/6aOlcyZlfmjQmHq7SAIvxBZl2yjmesUnox39y87OVYAgkJtJQx6EYadh4iDwRyP84wNc4Davsi2q6wXsYUKfyafm4FHev7QcgBAlPZhVqb5D3EO/f2ZXIxDEQy/LH3CAUHRepmE1v05IyV7AbO0MCi18Hwa3ZrIu05w7a7cD+fHRvGPXZY+u4aJE+lqHwqB3l2akglGE2YggXQSY2EKzrC0Tn2fGMm53pPVNrUd3cTQJpVKSjazy7q6CI/LIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=91VUJoUU2BDSMgstoYT27SvRiIaNecUmcc8uBkHRKrM=;
- b=ktI7mJ7XsgwO5IWF5rUHTqIJuqNp8FL/AXNVEWOWErew1mcykNIHE4748kJhN/2vveHZo4Tc6BlI1muD58hB3D+KYWwF97fFPMrV+8ToBQcxyqRYKl8ZnXd1AjFyK/A/7zh/xak3sohWpnMolLo3XUng4+MlmfzlO0aTUmASzXCJrwxnRbHyN+JirlRrXVsEgS/vWVkGxx4AABEZplzyE97zW7sq/VY0y8WX1Maq3Bepzi/CiWa7+3NvwINHo2dof1m1kPBNN5m3HqQP7uJN3VZLer6lmApZf9gzw/xJkUTuII+x7ARR2x2++2L2KSIH3q2kZVdwwlp4nK72cl8VVA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=91VUJoUU2BDSMgstoYT27SvRiIaNecUmcc8uBkHRKrM=;
- b=Wb3eHGXmll4hzzk6vXPQFqzEDYPCZKyMUFpEAO8tmDfLdAUTdYy3lbsRJOM37tmerqo/D+Q3ReCutSfRbQiwYjQJW87oyzqe8UgUE4oFq6MtWBf5moYF7Ezr6zFWPWiwQKK8C9TAqIsq/9oXjdvrKRn57M0Ka4zrCKlHrbsjNZwmmOlxIeNmXtC468GcQDk40PU0SRxlXGMY0AtV1MO5Q6bEgwuCE/L/yn9b1HcfFCgkdR8TkhPp/k30spZi7VUfXSRZBUjmbFLiLzm4gtMHCM2bSoUy+gCZ65khoG21GJi2RPrFOZjlLbi+SBBnL/ChFZj9hvZtm25Sc5O8DZ5eIw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM0PR04MB6900.eurprd04.prod.outlook.com (2603:10a6:208:17d::10)
- by AS1PR04MB9698.eurprd04.prod.outlook.com (2603:10a6:20b:481::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Thu, 15 Oct
- 2026 10:56:16 +0000
-Received: from AM0PR04MB6900.eurprd04.prod.outlook.com
- ([fe80::7fda:8431:ca1b:b023]) by AM0PR04MB6900.eurprd04.prod.outlook.com
- ([fe80::7fda:8431:ca1b:b023%4]) with mapi id 15.21.0522.013; Thu, 15 Oct 2026
- 10:56:16 +0000
-From: vladimir.oltean@nxp.com
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Claudiu Manoil <claudiu.manoil@nxp.com>,
-	Wei Fang <wei.fang@nxp.com>,
-	Clark Wang <xiaoning.wang@nxp.com>,
-	Ioana Ciornei <ioana.ciornei@nxp.com>,
-	Zefir Kurtisi <zefir.kurtisi@westermo.com>,
-	Zefir Kurtisi <zefir.kurtisi@gmail.com>,
-	David Laight <david.laight.linux@gmail.com>,
-	netdev@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 net 8/8] net: enetc: ensure enetc_xdp_xmit() calls enetc_update_tx_ring_tail()
-Date: Thu, 15 Oct 2026 13:55:36 +0300
-Message-ID: <20261015105536.1692348-9-vladimir.oltean@nxp.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261015105536.1692348-1-vladimir.oltean@nxp.com>
-References: <20261015105536.1692348-1-vladimir.oltean@nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: AM9P195CA0009.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:20b:21f::14) To AM0PR04MB6900.eurprd04.prod.outlook.com
- (2603:10a6:208:17d::10)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="DkbyaOS/"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9kTNi3000992;
+	Thu, 15 Oct 2026 10:56:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=ucUN5G
+	ZcjIlprFag9xgUmIk1e0Wn9pgsi38X6K0yHso=; b=DkbyaOS/6ejhVntQdg5DjF
+	3cWGoHcnlgeOQpWGWcOQRGR5PlFLaI++rEneBcuqnNe8jd2/sd4F5NYMFi2jAAgj
+	2QePkkYW2oO3RNe/umLJT9NNw5eVkxWSjF9ne0FGEP4YVGswDQGRr/rG0rapCmXR
+	Ju8PgXHQUcn0omHPLOkUyrzY1S047VkDWKAF76MDKuIN+BbxiQ8vnFBqDiqH9XqN
+	tnOxCjrrskKJKhhWzW09Kkot3VZMOoqkwPuyKEkRhSRQZBbNPunABvF0nw5LcqkJ
+	8z66uzVQ4lPZUWXpxjm+4KwaoVmYhIotMZapQjJeois4lXyxVeFjGR1Aij4lEnYw
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dwhsg33-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 15 Oct 2026 10:56:59 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9nx3J1891223;
+	Thu, 15 Oct 2026 10:56:58 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h9q2ys3kd-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 15 Oct 2026 10:56:58 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69FAus6m49938712
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 15 Oct 2026 10:56:54 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0BED02004B;
+	Thu, 15 Oct 2026 10:56:54 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id BD7CB20043;
+	Thu, 15 Oct 2026 10:56:53 +0000 (GMT)
+Received: from p-imbrenda (unknown [9.224.75.30])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with SMTP;
+	Thu, 15 Oct 2026 10:56:53 +0000 (GMT)
+Date: Thu, 15 Oct 2026 12:56:51 +0200
+From: Claudio Imbrenda <imbrenda@linux.ibm.com>
+To: Gautam Gala <ggala@linux.ibm.com>
+Cc: borntraeger@linux.ibm.com, kvm@vger.kernel.org, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+        frankja@linux.ibm.com, david@kernel.org, hca@linux.ibm.com,
+        gor@linux.ibm.com, agordeev@linux.ibm.com, svens@linux.ibm.com,
+        pbonzini@redhat.com, seanjc@google.com, shuah@kernel.org
+Subject: Re: [PATCH v2 0/2] KVM: s390: fix ESSA addressing exception
+ injection in migration mode
+Message-ID: <20261015125651.558f2d85@p-imbrenda>
+In-Reply-To: <20261015104822.77062-1-ggala@linux.ibm.com>
+References: <20261015104822.77062-1-ggala@linux.ibm.com>
+Organization: IBM
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM0PR04MB6900:EE_|AS1PR04MB9698:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0776be2e-b916-4ccb-dff2-08df2aaaefa5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|366016|19092799006|56012099006|11063799006|261009223027099003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	e8wDNt2v55dT4NBl6s1W4fNv3A3hUz8dyhsPDZmQbnjYYPdSqOg745RW1hjRV8gRFKNI60TVJLyDe+azu67Vq/kQ+QZh4Ib1Ll1VLqHgSgdZd0B9xEHpwuJjfucn7hEqayII+Fp5MEaazZL45sfvMROnEsKvszKq3HCmntPLQ4muQb91CjsLSIn476JggtCwZtAXPvsunDwcebhJENg5M2hsA379PAw2D4beTD5Ztgyadnw/nZGEYR0f6CQwugJMVlMc4t/fS/e/RqRDg/FlcpQjo+VhS0lVgDt6vIvyFtVHofNUSutvGlGHdsFRyOxNnZnozyeYtAESsci0yb5arDz7ClYsOhzYBuIZhg2OsqjWNFU11mAroDvkOifp+6MbMu/yLWoSWf0POxlks0JLFb/hYQauO4EpFgSC/ci0BkC4D0tJYfLGDDu8MxNePM+8LhmbRwmIzbkqAYuLISEqo4P4tFeHvefNG7Axr+5EdOFBc1s5loo0+7pvvg1ZABYo+yFe0IKkvPnvvG56CIkIOvaFmWTeCNcUhOtGlABNE7v4+KK4Kfiw2ydZ8yVkKmHQoEldX1bgoiRs28HFWlTX/eLX7gXf1RqunFnXAOWQkk0g9L5snysk3knuXV4shKceAgmnlCRq4iwEm1SWvzepMznsjFkPHMfGKuO/9sY4xhI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB6900.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(19092799006)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?dlCgBwRDx2R0VDiB107SCFzc6diug95ZfWyJvF2mDjd+g6FEHKKtyVLwh/MQ?=
- =?us-ascii?Q?Cp+hh0MYlmQpsDy5qcgdz4Ljy98Xh+bTnd8kGobZYA5vev4MloWciLIY+2BE?=
- =?us-ascii?Q?je/996nNAkOCrPe32eQi2TsVpHCjQmHy9UfoWew+nS2tmdIF8osIE2k3VdFc?=
- =?us-ascii?Q?or9m1n9MIQWy2OB0jMZI62H2Z6/syEiVvYCMcsCwdVT/UlG0s3QraY53QW4n?=
- =?us-ascii?Q?oOBicj38PUWvUu+BAHO3HDt5GR8ALv1OZjowb2EASv5hCUrBjJInuHA3Vk6y?=
- =?us-ascii?Q?CKFdJZauy/JQJNrT6XrVOP1XXoA5vQ/8qwu1aIy0xjHcGVTzDqO1MpTGOYYc?=
- =?us-ascii?Q?M9atVEiqBp3bGuo7FnhbC45zM6VuM1Jziq8OFUhcUsFOA5B+rcwzaPmcKlrg?=
- =?us-ascii?Q?4c+/QNHHLdp37wcq/gwNWabXVXXdm0vf4ih+GEZmP3u90R5ut21CCtBWix+K?=
- =?us-ascii?Q?k+WPvwwDPXXgdEC1vtIFLwriamDAShnrIhmTHHuUdclQTgSxRQqLD/KupLD+?=
- =?us-ascii?Q?oeTt3GclP+aZXybiNa/ew8u2tkSHvjPD9a3ZRwOCw3Fw7Ih5+A4Vyf0zZpDZ?=
- =?us-ascii?Q?cn5DfLs3j4tVxI8GOq13YT4qcc7Zddbc6gQm0DycCBWxxr3gEiH6KYrNeTL6?=
- =?us-ascii?Q?0LfqFV2dPoMdpj8b2BLFUGhqfGjSkZMWrmuzPJgn6eTf2oJQSZEXoyIU7y3l?=
- =?us-ascii?Q?/Qhu/v/LtspAf0MP7LYaWrKtXU8uU1M03jtVrG+v7I2enILysnFWKW5RthpW?=
- =?us-ascii?Q?iKiGuAP/SaELUuqRw/iDZefmAQd+WzOtugy1DYoAalMOOf09KQIdHftP2mOI?=
- =?us-ascii?Q?7KoUGbWt/5UmvqIKYEOvOpim809cUm1n5MYXWwv7YKO2mdxWAKUCZoBdvor4?=
- =?us-ascii?Q?KnlRb2hcpptm/fYj/LQQgqBwB5LjkRYLc7JWSc8q7MENO04xVpl+JWKDMYtu?=
- =?us-ascii?Q?JSa6lWlRla6Dxx1uYAsD8XcJQorVlLBfci0L7TmsPdJIbtce3vU3IK6ZPWlb?=
- =?us-ascii?Q?azIo02q0Jmvyq/WgrF96Pl2zJYEfHQ3rCGCWExgcENW5iq5/UArZQGoXeoH0?=
- =?us-ascii?Q?kwbFqmQT9cWbzVnxqMpi5IF4GAn6vX5ESeVe1lCdquFNxTdx8d1uCgrrB+z6?=
- =?us-ascii?Q?cIjzj5rwL/niZzJGzLcPRG5JTEMSgtWZJMu6rTgTurrQ/cviWqGr/1HhRL6a?=
- =?us-ascii?Q?L/Bz1Hb2hhvEu9pHdk5LmIbiEQfU30mWTcjQdFgYNHse9mNoFCNlPKZ4sXz2?=
- =?us-ascii?Q?oiFiTkkDwYeFWRXWCyD9DSroxhfXE8xvA/51+9lUbBe7JyxkFQXnvPf0B4Gn?=
- =?us-ascii?Q?G3p/iJSeGRVPjIjEnGk8r1KQRMA/JTuC0Vac21SJTRD6ONdW74Dk2Bk6musR?=
- =?us-ascii?Q?vU6GqFxSErv6NvunvMXr/H/fb4REi0OvYAvxBl6a47QlpWZNT9KnhTGb3B87?=
- =?us-ascii?Q?ITIopSTedk+9mo6lG+NLy/Fi6kHsZySEHdSQg5YNmNvyiNxQaj3OSXAU3QEa?=
- =?us-ascii?Q?j12abEy9ciVL7aWx1GTmgAElysVL1qZ7nbOGCyNSDl9vlxCKNIr76o64vHhB?=
- =?us-ascii?Q?riZXklh6C9yR1z4nRxNme3FLkYz6zQW1jCzwY+n4j52IIz/Wry8zGT5WjKVD?=
- =?us-ascii?Q?9BXIuvguajERAhSLR6QnaUN0a6b8PpyMH4sjWt42/e0fYIcNA96SKqIRLBN6?=
- =?us-ascii?Q?56phh3mXGhtXHtdUpc92iEGut8lTkyDazMI0ORMNIA7W/p7hBYHDBwXzobC1?=
- =?us-ascii?Q?xs1htivDgQ=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0776be2e-b916-4ccb-dff2-08df2aaaefa5
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB6900.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 10:56:16.4850
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FdYHDc5D7dqclecMr2ZB+XRpT1GSIZCypSp+h58sKyS2vbbzfm3gsdFTSvD/TN8W6VEKoycVqdv7pBiDPIju4A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9698
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA0MiBTYWx0ZWRfX4ZyS7OqVAWSF
+ 1ZXGb878dkh5Ee062NngWGCkeo9CJ8OyWe39ibOdAmQzp+CW58y4XsjYGCb1QnJW/Fp3s7cGNNw
+ mGq+xJqC+dTYVONj29Aoi9DBUWK/khI=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA0MiBTYWx0ZWRfXw//mw/py3z63
+ g+EJ7d6sZG5eYVVMsknrRfikJsv2U5sMG+uNFe3KW26E1aNpFli+XCLftaifAF9rT0hTK46CHHj
+ FA6zVGBgpXp1IQIZcL3u7U07JlFKb2r75b1eCuskRJOrY7BJcLEVssnj/OLs2KQ5mXwwbWD+1Qi
+ tNzVpKp3S0kMePGrii2M8ZyTi5qXsRdOOM6tL8EAqdjWCsiBzVqTYwAociwW0RkH1HUr5FXhDyG
+ ilv4vGdMZYdZBLVo5brIzTyyFkjZoR9Nm0ylV/trZP1niMW8i9YGNOGGzQFF7IIRyn4omSTx812
+ 15432BxoHM0M5OEChQ88eL3Z5GPHsttjS3MFNSBH7/9kGeQBhMCZbYYMwRCJfIa4W6GSvo3JhC+
+ 9J3wm/VCwXzl2x68iomvsDYtg6eyZ/i4YitQQGi6cSCV7ivDcGniLNMHP+/YzAqsnbSJZ23A5Dc
+ mFim9oUYSBREc3bzllg==
+X-Proofpoint-GUID: aNoMplhT1Du88ynDkgR4FIHOSyQP-0N_
+X-Authority-Analysis: v=2.4 cv=RoFQvymK c=1 sm=1 tr=0 ts=6ad0b17b cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8
+ a=ce-6K0IsK1CbvpNoDM0A:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-ORIG-GUID: g9BzTdoVznsDwq7RDixPsVqEac5E2Q6h
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 phishscore=0 adultscore=0 bulkscore=0
+ impostorscore=0 suspectscore=0 malwarescore=0 clxscore=1011
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610150042
 
-enetc_xdp_xmit() keeps track of 3 numbers:
-- num_frames: total length of passed struct xdp_frame **frames array
-- xdp_tx_frm_cnt: number of frames successfully sent
-- k: index of currently sent frame from array
+On Thu, 15 Oct 2026 12:48:20 +0200
+Gautam Gala <ggala@linux.ibm.com> wrote:
 
-With "k != xdp_tx_frm_cnt", the intention was to detect an early break
-due to an inability to send a frame, and to trigger a TX doorbell
-anyway.
+> ESSA emulation in migration mode silently dropped addressing exceptions
+> when the guest page-table walk failed, so the guest never received the
+> expected PGM_ADDRESSING interrupt during live migration.
+> 
+> Patch 1 fixes dat_perform_essa() to return PGM_ADDRESSING on a walk 
+> failure, and __do_essa() to inject the program interrupt when it sees 
+> that return value.
+> 
+> Patch 2 adds a regression test integrated into the existing cmma_test
+> selftest.
 
-However, that doesn't work because every time when the loop breaks,
-k and xdp_tx_frm_cnt are mathematically equal.
+Whole series:
 
-The correct condition on which we should ring the doorbell is when at
-least one frame was sent, and either the caller required us to flush, or
-we couldn't enqueue the entire passed array.
+Reviewed-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
 
-After updating the enetc_update_tx_ring_tail() calling condition, we can
-delete the 'xdp_tx_frm_cnt' variable, since it is equal to 'k' after the
-loop exits.
-
-Fixes: 9d2b68cc108d ("net: enetc: add support for XDP_REDIRECT")
-Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
-Reviewed-by: Wei Fang <wei.fang@nxp.com>
----
-v3->v4:
-- context change after introduction of &bdr->xdp_lock
-- make sure k is initialized with 0 for the ENETC_TX_DOWN ||
-  !netif_carrier_ok() early exit, like xdp_tx_frm_cnt was
-v2->v3: delete redundant xdp_tx_frm_cnt variable
-v1->v2: patch is new
----
- drivers/net/ethernet/freescale/enetc/enetc.c | 14 ++++++--------
- 1 file changed, 6 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/net/ethernet/freescale/enetc/enetc.c b/drivers/net/ethernet/freescale/enetc/enetc.c
-index fe5db840d2cc..9ae7fef377d1 100644
---- a/drivers/net/ethernet/freescale/enetc/enetc.c
-+++ b/drivers/net/ethernet/freescale/enetc/enetc.c
-@@ -1888,8 +1888,8 @@ int enetc_xdp_xmit(struct net_device *ndev, int num_frames,
- 	struct enetc_ndev_priv *priv = netdev_priv(ndev);
- 	struct skb_shared_info *shinfo;
- 	struct enetc_bdr *tx_ring;
--	int xdp_tx_bd_cnt, i, k;
--	int xdp_tx_frm_cnt = 0;
-+	int xdp_tx_bd_cnt;
-+	int i, k = 0;
- 	int err = 0;
- 
- 	tx_ring = priv->xdp_tx_ring[smp_processor_id()];
-@@ -1925,22 +1925,20 @@ int enetc_xdp_xmit(struct net_device *ndev, int num_frames,
- 						    &xdp_redirect_arr[i]);
- 			break;
- 		}
--
--		xdp_tx_frm_cnt++;
- 	}
- 
--	if (unlikely((flags & XDP_XMIT_FLUSH) || k != xdp_tx_frm_cnt))
-+	if (unlikely(k && ((flags & XDP_XMIT_FLUSH) || k < num_frames)))
- 		enetc_update_tx_ring_tail(tx_ring);
- 
- 	enetc_unlock_mdio();
- 
- out:
--	tx_ring->stats.xdp_tx += xdp_tx_frm_cnt;
--	tx_ring->stats.xdp_tx_drops += num_frames - xdp_tx_frm_cnt;
-+	tx_ring->stats.xdp_tx += k;
-+	tx_ring->stats.xdp_tx_drops += num_frames - k;
- 
- 	spin_unlock(&tx_ring->xdp_lock);
- 
--	return err ?: xdp_tx_frm_cnt;
-+	return err ?: k;
- }
- EXPORT_SYMBOL_GPL(enetc_xdp_xmit);
- 
--- 
-2.43.0
+> 
+> Changes since v1:
+>  - dat_perform_essa() now returns +PGM_ADDRESSING instead of
+>    -PGM_ADDRESSING; kvm_s390_inject_program_int() takes an unsigned u16
+>    so passing -5 would have wrapped to 0xFFFB and injected a bogus PIC.
+>    __do_essa() comparison and inject call updated accordingly. The
+>    kernel-doc return-value entry is corrected to %PGM_ADDRESSING.
+>  - Selftest: pgm_handler_c() now reads the actual PIC from lowcore
+>    (__LC_PGM_INT_CODE) instead of hard-coding PGM_ADDRESSING, so the
+>    test would have caught the sign error above had it been in v1.
+>  - Selftest: virt_map(vm, 0, 0, 1) added so the DAT-on guest can
+>    access the lowcore to read the PIC.
+>  - Selftest: PGM_ADDRESSING, __LC_PGM_INT_CODE and __LC_PGM_NEW_PSW
+>    constants moved to the shared s390/processor.h header.
+>  - Selftest: SIGALRM/alarm() timeout wrapper removed.
+> 
+> Gautam Gala (2):
+>   KVM: s390: fix ESSA addressing exception injection in migration mode
+>   KVM: s390: selftests: add ESSA migration mode PGM_ADDRESSING
+>     regression test
+> 
+>  arch/s390/kvm/gmap/dat.c                      |  5 +-
+>  arch/s390/kvm/s390/priv.c                     |  2 +
+>  .../selftests/kvm/include/s390/processor.h    |  7 ++
+>  tools/testing/selftests/kvm/s390/cmma_test.c  | 69 +++++++++++++++++++
+>  4 files changed, 82 insertions(+), 1 deletion(-)
+> 
 
