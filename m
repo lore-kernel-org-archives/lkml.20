@@ -1,184 +1,213 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F29840DFD7
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:33:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AA2BA3ABD90;
+	Thu, 15 Oct 2026 08:33:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792053196; cv=none; b=BCRJltER6K5AOG6eqk8RD0KWv2PVsqwqnoTJHJkPAu9jcpx/+LItiLzEL6qXx03rco4pyW/PkazCPSmKHTcUscdCg9iZxexyioRe57fPjhxS8Np/ZDakQW/ZYZc2YucO/1U3YjDj8519+mL4q1LX/OJxnvACn7XJ+2tHOGODudU=
+	t=1792053209; cv=none; b=OWPTyvgdUBmEvPV2MaZpt+zPa6AGSGRVlCkqsL0+FyjusVyknHMJOGuhBM42Q70MODXsq+ABsAn+8Rx/BKSHuzgz2JzawfoIE7+EorRXEZIK07OC1rvo+6tGtl1ZrUI3TLWPNrnfxw/BswjwFYaT9PjrQNkn0Uos/qlJUIQJqkg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792053196; c=relaxed/simple;
-	bh=K/q5U+pGBe9FGuZYGOdKO4tB2k1MgK3HgbJ09Hl64sw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=M/IMNDpBTALEQxAnG7yT0N9dK4ZkYRVK/e3uKNMMRdXzYjQkdBBrMeQHbetIp/RM30FHJOkBqPqOW8lxnHZlQb0dInA4m+kxQUaKtvPZ8KIPoAGHuGHL9C+KjdmaN/faCffRo263atPSF9O2gq5kjM2hz5Rro/OC39upAKf+hJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R0R3Iu4b; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792053209; c=relaxed/simple;
+	bh=J0Rxn2Q2fOqFAHsyi54bdAjPM8D6Ka18TN/01+gu/Ms=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=nnGkIzBY4blm7PCeQAd6spcY93E+iJeRcL4y0R6oPaSRpcH4yQQxW+VsqdFEvfpCakEfjZI0vHdm1YIjEVi0Py0g6vRPWYEbyZxNsG84LO4rc/TJhxjIT/6IFM5Kd1VGMmVDKvP7pVMMcC7+OjjxHpQlbAfY4bvpoLozc3YnemQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=FWEXT3aF; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R0R3Iu4b"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a1880e1bf1so16503385e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:33:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792053193; x=1792657993; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TYvKsnw/wo7FP7BSrciic/dcK/Yw81SsbNCEIrV3lTM=;
-        b=R0R3Iu4bBtfvEtONOwmPz5f8h1t+gko0nL2i3DBmDtCJ1KInpyiWvkpwbKVpntbTqT
-         W7zwSK61mn4vwlW73HQmhBG23MJE5vO9utJrx8kztus5O6rlSVqHkBT/XCeSWaM3uDkb
-         BSpxrfImbQAPQsS+KZ8aRc/ni3o1N2714XTlGc+yKjVefrl0TiyBXu/Q/QoZz3Ywm7XP
-         Izq7mp5eUQF0G7teHVRYo+bbfz9JxtD/h6QuKKP595kTf18ZEz7JaIE+X7v8xWR6v25m
-         A97Qx4lfTVXKQL2IeJYhC/h40+lEPr6e+2FKmv6hsa2c9LqJ9UcjRbouke5Z2zzfOKFh
-         Qi0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792053193; x=1792657993;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TYvKsnw/wo7FP7BSrciic/dcK/Yw81SsbNCEIrV3lTM=;
-        b=rbKAPx659eq0Gjpzgw8UrMTV1gc3AngF3mhqtdLxQ/SavUSWZpUJYXUnsPRM0x2XLq
-         Rp3u4slcP5RQsAEG97vGujoZtxHE5y4Hr9qD4cFrxCq6kLZFyTbkuzMfweA/Exzzn3v2
-         YpOp0PfbZuI25k7KyOLmx2jQNlVjZl2DKL53DQu27CHDTKmTAGhWZqu56MI4vi4uugAs
-         UN1EDrsa65iIEcXYv/X79NucHmWYesCF33x8u3PmiEkl2zmJaPz+9nhBFt49AgRDxFM7
-         e6667OtlBIz9AjW9EYk4O389AIgtWFoKmLoEUlYx3MuTVLf7aA3skQcS5YRpMdBQd2kX
-         Z1kQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx0gbxItQUw3zA4H4Z6fY9XWH0BnJl8yQWvC534UFnXdrz6UuQS+J4m4aUqWr0S8/qxUq+ZJiEabpnLi+k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKGtJ6c7SdHNcsXd4xW/vWkuhxleFyoYyFFyk2En1SD6IQ159Md
-	8WZIxQmAH8ZKJHRN0XLkF91IWYFgP7qZhpZLZZX5UL/WvxaTDMQEQ3u9
-X-Gm-Gg: AYBFou2kH7DeEonVYtGO/BZJoNYY4R2E0y2bFwHuf12M/mifxHhAf2bLfbGPhx5Vdj0
-	HcMMBI5o7Qp2WNrjIv2Y+Tz2VIuU8OFL98Y83g6MajyAZ4v4yon92R8cDRMCV6GgaUhwqLFz9ic
-	sxXYG1Uugi/dY6FV5GG3P6eGdaxErhhrfzfATky7z4pE4Tif/mZRCKWvOXPKbd3ahrqZmppUr7g
-	Xx6zvmFc4/A+9a66j2l4ivC57fOflh/95VkXwq31Ov0W/HHJGcQUvSmDqvG7wFDN9ZaWjZrV6Lv
-	fNfOBH9rIW/A+rPduZhowJu2qu1OjHPKyw+W/+qRnVpo3hAr8JljG7EngsvSsrNke3GcfqWkBR0
-	SFl6yY0/CazHtnwrhnzLlTplkHm0V5stNxeYtWDRgjuM9Svt9i5eik+G7cP613WXuhiWBUfA5tb
-	OgdQ2Nm3vL7rf5DNRr2qv7aWla1JOws2/AmaWRhvWX0p1PIYmtv9WeLz68crBSFcefhDTTwvbIW
-	YrjH+pcPw==
-X-Received: by 2002:a05:600c:6099:b0:4a0:1feb:de6a with SMTP id 5b1f17b1804b1-4a18e4e7a85mr348692075e9.30.1792053193202;
-        Thu, 15 Oct 2026 01:33:13 -0700 (PDT)
-Received: from foxbook (bez186.neoplus.adsl.tpnet.pl. [83.28.37.186])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bc506asm17881280f8f.47.2026.10.15.01.33.11
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Thu, 15 Oct 2026 01:33:12 -0700 (PDT)
-Date: Thu, 15 Oct 2026 10:33:07 +0200
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Wen Xiong <wenxiong@linux.ibm.com>
-Cc: mathias.nyman@intel.com, gregkh@linuxfoundation.org,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, wenxiong@us.ibm.com, Brian King
- <brking@linux.vnet.ibm.com>, Samuel Mendoza-Jonas <sam@mendozajonas.com>,
- Joel Stanley <joel@jms.id.au>
-Subject: Re: [PATCH] xhci: Reset controller on xhci shutdown
-Message-ID: <20261015103307.3ba25345.michal.pecio@gmail.com>
-In-Reply-To: <64515dfd9a6cd8c3f5665e72a6bf6b81@linux.ibm.com>
-References: <20261001222527.11742-1-wenxiong@linux.ibm.com>
-	<20261002102931.3cb06009.michal.pecio@gmail.com>
-	<561d22493c3d078b26f547dd8f6f6f46@linux.ibm.com>
-	<20261002161828.365ff859.michal.pecio@gmail.com>
-	<55a53022d1c6f671a3ed549d8cf7cd1a@linux.ibm.com>
-	<20261006125546.10471489.michal.pecio@gmail.com>
-	<64515dfd9a6cd8c3f5665e72a6bf6b81@linux.ibm.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="FWEXT3aF"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7C73D2F;
+	Thu, 15 Oct 2026 01:33:23 -0700 (PDT)
+Received: from e127648.arm.com (unknown [10.57.88.29])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 4AEA93F871;
+	Thu, 15 Oct 2026 01:33:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792053206; bh=J0Rxn2Q2fOqFAHsyi54bdAjPM8D6Ka18TN/01+gu/Ms=;
+	h=From:To:Cc:Subject:Date:From;
+	b=FWEXT3aFxAMtGC9f/OluSG+KqjijTyNIUE1qqaHIEQmDilQYtfi+kcMeN6PN1q8Na
+	 HRuBlVVRqorOGgXk8eOaUEgKyO4rRVQtj0ebAOgMzENUm6dNDF+ISomBM3J4IA2mGq
+	 6Icq7rjpiV6CZ4bvMz5R8/vmnifWoua7eyuOyw4Q=
+From: Christian Loehle <christian.loehle@arm.com>
+To: Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	linux-s390@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	cocci@inria.fr,
+	Christian Loehle <christian.loehle@arm.com>
+Subject: [PATCHv2] sched: Replace nr_iowait_cpu() with a bool accessor
+Date: Thu, 15 Oct 2026 09:33:17 +0100
+Message-Id: <20261015083317.3733733-1-christian.loehle@arm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Wed, 14 Oct 2026 15:32:22 -0500, Wen Xiong wrote:
-> On 2026-10-06 05:55, Michal Pecio wrote:
-> > Are you able to capture the original kernel's dmesg (through serial,
-> > netconsole, etc) and see if the same "Host halt failed" is there?
-> >   
-> Below is xhci messages after executing a kexec kernel. This is dmesg
-> for kexec kernel.
+The menu governor was the last consumer of the per-CPU I/O-wait count
+that needed its magnitude, apart from nr_iowait() summing it globally.
+Commit 38f83090f515 ("cpuidle: menu: Remove iowait influence") removed
+that use. All remaining per-CPU consumers only test for zero/nonzero.
 
-OK, but I asked if you have means of capturing the old kernel's dmesg
-*before* the kexec kernel begins running, including any messages from
-xhci_shutdown() which may possibly be logged. This can only be done
-with a serial cable, the 'netconsole' module or similar tools.
+Replace nr_iowait_cpu() with bool cpu_has_iowait() and update the generic
+and s390 idle accounting callers. Have nr_iowait() read the counters
+directly so that the global total and existing accounting are preserved.
+Replace the stale menu comment with a description of the predicate.
 
-But maybe don't bother with it for now. Instead, try if this modified
-version of your patch works or not:
+The conversion was done with coccinelle:
 
-diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
-index 34f342d2c7d7..977b2b42bcfd 100644
---- a/drivers/usb/host/xhci.c
-+++ b/drivers/usb/host/xhci.c
-@@ -749,6 +749,7 @@ EXPORT_SYMBOL_GPL(xhci_stop);
- void xhci_shutdown(struct usb_hcd *hcd)
- {
- 	struct xhci_hcd *xhci = hcd_to_xhci(hcd);
-+	int err;
- 
- 	if (xhci->quirks & XHCI_SPURIOUS_REBOOT)
- 		usb_disable_xhci_ports(to_pci_dev(hcd->self.sysdev));
-@@ -765,7 +766,7 @@ void xhci_shutdown(struct usb_hcd *hcd)
- 	}
- 
- 	spin_lock_irq(&xhci->lock);
--	xhci_halt(xhci);
-+	err = xhci_halt(xhci);
- 
- 	/*
- 	 * Workaround for spurious wakeps at shutdown with HSW, and for boot
-@@ -780,6 +781,8 @@ void xhci_shutdown(struct usb_hcd *hcd)
- 	xhci_dbg_trace(xhci, trace_xhci_dbg_init,
- 			"xhci_shutdown completed - status = %x",
- 			readl(&xhci->op_regs->status));
-+	if (err)
-+		pci_reset_function_locked(to_pci_dev(hcd->self.sysdev));
- }
- EXPORT_SYMBOL_GPL(xhci_shutdown);
- 
+@ predicate depends on patch @
+expression cpu;
+@@
+
+- nr_iowait_cpu(cpu) > 0
++ cpu_has_iowait(cpu)
+
+@ callers depends on patch @
+expression cpu;
+@@
+
+- nr_iowait_cpu(cpu)
++ cpu_has_iowait(cpu)
+
+Signed-off-by: Christian Loehle <christian.loehle@arm.com>
 ---
+v2: Move the cocci excerpt to the commit message (Peter)
 
-> [root@ltc-boston11 ~]# dmesg|grep xhci
-> [    1.085853] xhci_hcd 0005:01:00.0: xHCI Host Controller
-> [    1.085992] xhci_hcd 0005:01:00.0: new USB bus registered, assigned 
-> bus number 1
-> [    1.144472] xhci_hcd 0005:01:00.0: Host halt failed, -110
-> [    1.144518] xhci_hcd 0005:01:00.0: can't setup: -110
-> [    1.144571] xhci_hcd 0005:01:00.0: USB bus 1 deregistered
-> [    1.144778] xhci_hcd 0005:01:00.0: init 0005:01:00.0 fail, -110
-> [    1.144842] xhci_hcd 0005:01:00.0: probe with driver xhci_hcd failed 
-> with error -110
 
-What about 'dmesg |grep -i xhci' (and 'grep 0005:01:00.0')?
+ arch/s390/kernel/idle.c    |  4 ++--
+ include/linux/sched/stat.h |  2 +-
+ kernel/sched/core.c        | 13 +++++--------
+ kernel/sched/cputime.c     | 10 +++++-----
+ 4 files changed, 13 insertions(+), 16 deletions(-)
 
-You are likely getting errors from quirk_usb_handoff_xhci() as well.
-This reminds me of a similar issue reported earlier this year:
+diff --git a/arch/s390/kernel/idle.c b/arch/s390/kernel/idle.c
+index dd12efb58201..ff9732ef494c 100644
+--- a/arch/s390/kernel/idle.c
++++ b/arch/s390/kernel/idle.c
+@@ -82,13 +82,13 @@ static u64 arch_cpu_idle_time(int cpu, enum cpu_usage_stat idx, bool compute_del
+ 
+ u64 arch_kcpustat_field_idle(int cpu)
+ {
+-	return arch_cpu_idle_time(cpu, CPUTIME_IDLE, !nr_iowait_cpu(cpu));
++	return arch_cpu_idle_time(cpu, CPUTIME_IDLE, !cpu_has_iowait(cpu));
+ }
+ EXPORT_SYMBOL_GPL(arch_kcpustat_field_idle);
+ 
+ u64 arch_kcpustat_field_iowait(int cpu)
+ {
+-	return arch_cpu_idle_time(cpu, CPUTIME_IOWAIT, nr_iowait_cpu(cpu));
++	return arch_cpu_idle_time(cpu, CPUTIME_IOWAIT, cpu_has_iowait(cpu));
+ }
+ EXPORT_SYMBOL_GPL(arch_kcpustat_field_iowait);
+ 
+diff --git a/include/linux/sched/stat.h b/include/linux/sched/stat.h
+index 0108a38bb64d..4810b14d0372 100644
+--- a/include/linux/sched/stat.h
++++ b/include/linux/sched/stat.h
+@@ -20,7 +20,7 @@ extern int nr_processes(void);
+ extern unsigned int nr_running(void);
+ extern bool single_task_running(void);
+ extern unsigned int nr_iowait(void);
+-extern unsigned int nr_iowait_cpu(int cpu);
++extern bool cpu_has_iowait(int cpu);
+ 
+ static inline int sched_info_on(void)
+ {
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 1fe40de6ebe3..1bde5187dafd 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -5588,15 +5588,12 @@ unsigned long long nr_context_switches(void)
+ }
+ 
+ /*
+- * Consumers of these two interfaces, like for example the cpuidle menu
+- * governor, are using nonsensical data. Preferring shallow idle state selection
+- * for a CPU that has IO-wait which might not even end up running the task when
+- * it does become runnable.
++ * Return whether any tasks are accounted as I/O waiters on this CPU.
++ * They may wake up on a different CPU.
+  */
+-
+-unsigned int nr_iowait_cpu(int cpu)
++bool cpu_has_iowait(int cpu)
+ {
+-	return atomic_read(&cpu_rq(cpu)->nr_iowait);
++	return atomic_read(&cpu_rq(cpu)->nr_iowait) != 0;
+ }
+ 
+ /*
+@@ -5634,7 +5631,7 @@ unsigned int nr_iowait(void)
+ 	unsigned int i, sum = 0;
+ 
+ 	for_each_possible_cpu(i)
+-		sum += nr_iowait_cpu(i);
++		sum += atomic_read(&cpu_rq(i)->nr_iowait);
+ 
+ 	return sum;
+ }
+diff --git a/kernel/sched/cputime.c b/kernel/sched/cputime.c
+index 06bddaa738e5..1f84a950abed 100644
+--- a/kernel/sched/cputime.c
++++ b/kernel/sched/cputime.c
+@@ -431,7 +431,7 @@ static void kcpustat_idle_stop(struct kernel_cpustat *kc, u64 now)
+ 	if (!kc->idle_elapse)
+ 		return;
+ 
+-	iowait = nr_iowait_cpu(smp_processor_id()) > 0;
++	iowait = cpu_has_iowait(smp_processor_id());
+ 	delta = now - kc->idle_entrytime;
+ 	steal = steal_account_process_time(delta);
+ 
+@@ -544,14 +544,14 @@ static u64 kcpustat_field_dyntick(int cpu, enum cpu_usage_stat idx,
+ u64 kcpustat_field_idle(int cpu)
+ {
+ 	return kcpustat_field_dyntick(cpu, CPUTIME_IDLE,
+-				      !nr_iowait_cpu(cpu), ktime_get());
++				      !cpu_has_iowait(cpu), ktime_get());
+ }
+ EXPORT_SYMBOL_GPL(kcpustat_field_idle);
+ 
+ u64 kcpustat_field_iowait(int cpu)
+ {
+ 	return kcpustat_field_dyntick(cpu, CPUTIME_IOWAIT,
+-				      nr_iowait_cpu(cpu), ktime_get());
++				      cpu_has_iowait(cpu), ktime_get());
+ }
+ EXPORT_SYMBOL_GPL(kcpustat_field_iowait);
+ #else
+@@ -601,7 +601,7 @@ static u64 get_cpu_sleep_time_us(int cpu, enum cpu_usage_stat idx,
+ u64 get_cpu_idle_time_us(int cpu, u64 *last_update_time)
+ {
+ 	return get_cpu_sleep_time_us(cpu, CPUTIME_IDLE,
+-				     !nr_iowait_cpu(cpu), last_update_time);
++				     !cpu_has_iowait(cpu), last_update_time);
+ }
+ EXPORT_SYMBOL_GPL(get_cpu_idle_time_us);
+ 
+@@ -625,7 +625,7 @@ EXPORT_SYMBOL_GPL(get_cpu_idle_time_us);
+ u64 get_cpu_iowait_time_us(int cpu, u64 *last_update_time)
+ {
+ 	return get_cpu_sleep_time_us(cpu, CPUTIME_IOWAIT,
+-				     nr_iowait_cpu(cpu), last_update_time);
++				     cpu_has_iowait(cpu), last_update_time);
+ }
+ EXPORT_SYMBOL_GPL(get_cpu_iowait_time_us);
+ 
+-- 
+2.34.1
 
-https://lore.kernel.org/linux-usb/69fa1c3f-3ea9-42cb-a49a-7da39f72806e@molgen.mpg.de/
-
-> This is the reason why we can't see usb devices after a kexec kernel.
-
-No doubt about it.
-
-> > And if you enable dynamic debug before kexec,
-> > 
-> >   echo 'module xhci_hcd +p' >/proc/dynamic_debug/control
-> > 
-> > what's printed by the debug message at the end of xhci_shutdown()?
-> > 
-> > Do you also get errors from quirk_usb_handoff_xhci() by any chance?
-> >   
-> After executing a kexec kernel, is the control setting lost?
-> I didn't see much useful information in control after a kexec kernel.
-
-Yes, the kexec kernel starts with a clean dynamic debug state.
-
-> Probably we can resubmit the patch with mathias's suggestion.
-
-We could also try the approach in the test patch above, but doing it
-properly will require a few more changes. I haven't bothered before
-we know whether this helps or not.
-
-If it doesn't help, it will look like you have something (machine FW?)
-monkeying with the chip during kexec. Then we could try fixing some
-known bugs in quirk_usb_handoff_xhci(). Maybe this will be enough.
-
-Regards,
-Michal
