@@ -1,182 +1,584 @@
-Received: from smarthost3.eviden.com (smarthost3.eviden.com [80.78.11.84])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42F41517BA7;
-	Thu, 15 Oct 2026 12:36:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=80.78.11.84
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792067773; cv=fail; b=cMn2rj2ntFMxXJ7ouZF+fEJDJ2dqXefeZ9Ukx0NajMK6W1N7F1BvdyY3WO48ucSIxTP2koo1XbXWH0M5FhH+BoO1kkokmQQGtfGe8+AoFcJQen/sA4sXsTWuP0jow9SI0FWz8k/uqjfOhlNAURSw5IMwJosXeWJd2ZwyvZeZb6A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792067773; c=relaxed/simple;
-	bh=0Kd+y906ah9igCpwKWfRZkAE2DPXmFQ4h9unLQ2y3DY=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=P+KlS6KQqLvosKkIRg1JX6AC+B9voAQlR377gbs/1L4OvCE2Iivs1mYhTwXtFW1lJrDzeT/Oiv5cDOfZVpMg8GZ90WCefIheb0nshVgrWpta9ynzDDw+GgsAVHYzCrEyXpJm7JDJVyexOTDYkeKhLEF5KHW+NGoUa6gEAKpKYDk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bull.com; spf=pass smtp.mailfrom=bull.com; dkim=pass (2048-bit key) header.d=bull.com header.i=@bull.com header.b=wkvR+Yln; arc=fail smtp.client-ip=80.78.11.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bull.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bull.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 331CC23A99F
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:36:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792067780; cv=none; b=GHxImjj6jBh9PVp0c4FqPVudA+bIOqlbBWss179/IM5l0JaoBJQrX8tdAdUJ4er2/KW4iBvQVRZwGHXyeasHH+U11fLSwN8lvRSGRhbQZtzqpivz5x2MlXQ88FJmAv9MMnbdt9kG8io4GkRYoYE1pGxzXnG+nHMq34X7K69xqiw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792067780; c=relaxed/simple;
+	bh=+GWXjO++bt445maJ7KXzjm7w6wD7rI3S41xAtt7oM+k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=X94hnVBlrFmyVBzIJcL4aEBhE0LT8EqEBxWQW2BeclBIggIVBHqGWVLqKTVh3AjuPVsL1cV/9oxtEguVqSrwlvotBa4yVqnpxu+b0Vymg3D6ASHskvfen4NWbyXT98SnKHL4ph3zEjLjNWM2UbBMqqJYpB1pw205iRR6WI5XEes=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=f9ppO3g0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YXzXpQAc; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bull.com header.i=@bull.com header.b="wkvR+Yln"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=bull.com; i=@bull.com; q=dns/txt; s=mail;
-  t=1792067770; x=1823603770;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=0Kd+y906ah9igCpwKWfRZkAE2DPXmFQ4h9unLQ2y3DY=;
-  b=wkvR+YlnOwx6lTGNS751hgcyWnGxk//W5ngINbO+taslNBQ4xDjDgPIp
-   ZSBjOz9QbbPUqW32SFLAfZZM7jwIIfj3AokJFpJBELGHeKgW5dEibFSWz
-   xfgm8OhGf/6YTvKfZ0JX2LKEW+07uNDe0puOMZyMOukBogUYYjwNSBn6V
-   xf0v6xMPXvpaQs9j0z0nMn5PWhzWmBjDNGGSe6+UjngOHGduFKH/VIRc9
-   pVc1WCZmaZ4WhMsPdFH4dQq+2+dCfj241cM5g0ShSuV7PHvmrMkKOZIUB
-   27tYXnI8+Moq5zOtAVwdfyUidWtLqtRBsgM++EJvJMgDtq0a6sxzKfESW
-   w==;
-X-CSE-ConnectionGUID: 8dnXBcs8SK+k+5IGhYPfZw==
-X-CSE-MsgGUID: 5+u4fDPHT9KivRPHSUFjqg==
-IronPort-SDR: 6ad0c781_rTcuznBReY/V7a6VlCcb09Tqyivpysf9KsuCYfm1nlnrCcf
- 8PeT7h4+hj2CvcCeE4fA+DA4FB4Wm4A77lLUL7w==
-X-IronPort-AV: E=Sophos;i="6.27,159,1787004000"; 
-   d="scan'208";a="48945334"
-X-MGA-submission: =?us-ascii?q?MDGncPpHHLWv8WLInC2KrmRzFfE+vkmMrlR8Z/?=
- =?us-ascii?q?Vp88DTKuJzHPD3ItP31KxrQ3vakNSHQdA9QEOaUxL5o7lIPP4D6Xq4Ak?=
- =?us-ascii?q?JySxoS/E3bMrTByfpEndjIu9CnZ7QYa37BiNqz68B5y4QZordF6cDDpr?=
- =?us-ascii?q?W7UzW0eaKJSTGJfNESMGP1oQ=3D=3D?=
-Received: from mail-francecentralazon11013029.outbound.protection.outlook.com (HELO PA4PR04CU001.outbound.protection.outlook.com) ([40.107.162.29])
-  by smarthost3.eviden.com with ESMTP/TLS/TLS_AES_256_GCM_SHA384; 15 Oct 2026 14:30:57 +0200
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AzPhJ+3YXSHG+AoA7RraOij00IVTXjB5bPCudcLY6XOM4/yWrb6/LCjM310e5HjTGpV4nSpwh+QuY6N6kfQwrCUQnRYzcLlCZWvKzm3KOvyDaQfBQ5i2JEtVVL7pOrdxVBArxPjY34ZcSbHg0Ew0h7EUfw7+jEhn52zqf2MS1A0iVmi4VacmWXVQsBZSwFwL9ZTgsTZ8Y79EMgQJMewu6r+06OHXJMZC0nz1sVf52cTIFBD+zDq0jpjY2ZKReH8+jQJPvS5qNLv5edGxBeD9/r1UMPJTAmMl10efpzUMova0zkjBg1KPzOfvXXnfTZneSQM/AlhMPISZv0qRbw7nmA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0Kd+y906ah9igCpwKWfRZkAE2DPXmFQ4h9unLQ2y3DY=;
- b=cgIgUNCfPpfAGhhOBHUPpgH7nCFS4GAts7sGfk10LDsDj1OIiW+qu9n61Iluc5HgKnn1EzniBsF2S0CbekhuI6gr9XM7wlePsIO4ZXbNdx1lFwcqLHckjNNLQMWYJ3ROl1DFty2Xx6Ot0jF9NX+Gij5LdQ2n3ug9R75NSLPpKGa3TzUWj8dovsJgfaKObMoKXmM4KCl9YQmiQ9LnNKp9u48WQMaVXXNQEAc7csOu+0SyYW8A2dI2+YFXmuh84iOK/wteMRgSolCmiCuM5GLPTPDebRh+HE+RGLlsM5xOveSRNPbW6Fha8RPj2D0CaK4JO/zBt2ZpJIgoezmzoCdviw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bull.com; dmarc=pass action=none header.from=bull.com;
- dkim=pass header.d=bull.com; arc=none
-Received: from PR3PR07MB6922.eurprd07.prod.outlook.com (2603:10a6:102:7e::12)
- by DU4PR07MB10181.eurprd07.prod.outlook.com (2603:10a6:10:585::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Thu, 15 Oct
- 2026 12:30:55 +0000
-Received: from PR3PR07MB6922.eurprd07.prod.outlook.com
- ([fe80::5fc9:82a2:51f0:97af]) by PR3PR07MB6922.eurprd07.prod.outlook.com
- ([fe80::5fc9:82a2:51f0:97af%3]) with mapi id 15.21.0522.012; Thu, 15 Oct 2026
- 12:30:55 +0000
-From: Antoine HURET <antoine.huret@bull.com>
-To: Peter Zijlstra <peterz@infradead.org>
-CC: Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo
-	<acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Mark Rutland
-	<mark.rutland@arm.com>, Alexander Shishkin
-	<alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, Ian
- Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, James
- Clark <james.clark@linaro.org>, Ravi Bangoria <ravi.bangoria@amd.com>,
-	"linux-perf-users@vger.kernel.org" <linux-perf-users@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"regressions@lists.linux.dev" <regressions@lists.linux.dev>
-Subject: RE: [REGRESSION] perf: Rewrite core context handling breaks
- multiplexed cgroup events
-Thread-Topic: [REGRESSION] perf: Rewrite core context handling breaks
- multiplexed cgroup events
-Thread-Index: AQHdXIPxt9V+Q2OG/EWPpW1q1Q1eEbb+c1IAgAATSA8=
-Date: Thu, 15 Oct 2026 12:30:55 +0000
-Message-ID:
- <PR3PR07MB692235BC98DAB96E30E4AB8D849C2@PR3PR07MB6922.eurprd07.prod.outlook.com>
-References:
- <PR3PR07MB69223331EED5BEBE150375B7849C2@PR3PR07MB6922.eurprd07.prod.outlook.com>
- <20261015111316.GJ4121339@noisy.programming.kicks-ass.net>
-In-Reply-To: <20261015111316.GJ4121339@noisy.programming.kicks-ass.net>
-Accept-Language: fr-FR, en-US
-Content-Language: fr-FR
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_466e186e-3e81-4e19-be45-56f1a3cf32db_Enabled=True;MSIP_Label_466e186e-3e81-4e19-be45-56f1a3cf32db_SiteId=7d1c7785-2d8a-437d-b842-1ed5d8fbe00a;MSIP_Label_466e186e-3e81-4e19-be45-56f1a3cf32db_SetDate=2026-10-15T12:30:54.670Z;MSIP_Label_466e186e-3e81-4e19-be45-56f1a3cf32db_Name=Public;MSIP_Label_466e186e-3e81-4e19-be45-56f1a3cf32db_ContentBits=1;MSIP_Label_466e186e-3e81-4e19-be45-56f1a3cf32db_Method=Privileged;
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bull.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PR3PR07MB6922:EE_|DU4PR07MB10181:EE_
-x-ms-office365-filtering-correlation-id: 08a4cd2b-783f-465e-6965-08df2ab82884
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|7416014|376014|366016|1800799024|23010399003|18002099003|4143699003|11063799006|38070700021|22082099003|56012099006|10067099003;
-x-microsoft-antispam-message-info:
- HMleewrA3gkzpUb+s9Je/w3DFdmKc2umi7dA29t4ld3Vfjcy9awenewCMcZ7Jv8AaU674TSbus5jPkLOjRXcULgGGwwFf5C77AmSmRcGFG0jv0PjTaozupVl/0GDJpL0h/XtvYwQW8ZdXjzf88xcmjNsR+B6kkk1u8+icC3nsCI/H40NN6HgEZUPTeZX32mt94W19Shg2NcvpwO2q+6M+rOhMkPbgl5ASS/0oakjz9gd6E4wdsNq8BB7JJ/E865esB9lk+avZ9dd2fz0mDNTZbf/wBaGHauo8BnweAp/zj7es3cjxDCKEujcBJNQbYmuOJTlJvmdRxLGk/1WyWoCTHeUM8gWa8HF88JHqPxELovdEirIDub7s8VvnPHZk+fUxJA60lD9QHi4OYIDVGoJcwlLg747Cqmq+4CFQ/WNQso0gT2Glux4Mul69shBWy8usH/V9ZBrtbWFCkem/Tcx3Gimz1YazjEqawZGADEq3YkWSPq5b9WZSLrvolatAu5VCbhNUdsKI0zQvWx5I0qOLJ3es+yp0XgxlDDhHZ+x8UsLuuex1Ra+Apzas3b3VANqrxAXnoZLsmmV1mFUnuuwymvEmtm9Plv1NJPqMBG01o4xRIWS/ioTwkTghtZPoGgqo/uIHtODS8n1Th38SNxZ3iv14gpKLBLYgi3jVPH8NMCK4NGTxrzxSHShbAI02vF+dnQDJd996j4NoMFqitprX0AUFf8H/MtV57TtJu1Lmgs=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PR3PR07MB6922.eurprd07.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(18002099003)(4143699003)(11063799006)(38070700021)(22082099003)(56012099006)(10067099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?JBf/zto4kK8ONHC2hZdVAga5uX2PWhpbH0FYIgzbEqIh1Y2+ZpxZLi99lS?=
- =?iso-8859-1?Q?XPAYDLuqTMS4hWa+AbwL1fEQn7ewZW1BhLjlQ2TYbtJPNJLEaN0XNjAGIY?=
- =?iso-8859-1?Q?9fVfPEcPIW7bpD27plszNX8HLRvcf++tuAhfAQkoL8m1dOt5XvpXMTSKwe?=
- =?iso-8859-1?Q?v9X7LlwGEan1Q1WP4kfIuPTRK6JDMiO4RWoFSKBPEevUYas4OYBDdehZML?=
- =?iso-8859-1?Q?GAGZMS8xNnQiOPeVPVhaDluvPst4ycD1DfcYDRMhV/cs4QILFFpEpZ04rR?=
- =?iso-8859-1?Q?ws3E4FFtrtKga0URBUnOjDjdbCCYcN9uv7vb3fl1wUxLwHcE6jpnoQvWe5?=
- =?iso-8859-1?Q?c0khikqLlskV2v5Zb1wTP07eaGWA0cGNbTUmqSJ5ZPNXu3ipzogrT1cNvm?=
- =?iso-8859-1?Q?X7tZHcCTqMOIoxRZgRaQ1sI9UlNW2YmwlsOb1goHwiJbo++6pwiZZa78ET?=
- =?iso-8859-1?Q?o+5KmFMr8S3GFAl93K3yGSz/tocJ4a/l3f1IWWM3e8IrfhbeK+Cq4EDAJd?=
- =?iso-8859-1?Q?Ho8Z5fPxD8Xqc3Zl09yWIcIKqaNSljkxY+HL8wgFeyVvyjetchCEVCLeVo?=
- =?iso-8859-1?Q?wpS9iTiCzxc8x75qF2t3oWd8xpUzA53BSll9G9sMBAdVOQYUGNvd2ArJzU?=
- =?iso-8859-1?Q?gp5a7SZ++p89WSxR8dojX06LFcyTFEUMBkX5P63jyqb77a+od/luxlu/N8?=
- =?iso-8859-1?Q?eUKpyzQWOxCDECezGY8fxMYpq8JgjgFeR3MUxJrcHUe6bKcyfwfRFQyf2F?=
- =?iso-8859-1?Q?T5ypVN26p+fuD+LHbV689HWiH68R4oRs3ZogJVUar3xFEkQDji3nghElUJ?=
- =?iso-8859-1?Q?bd/Kt4NAsJXbMIIRYZzHVGt1wq//XpLVln7FhjGwaeW92YlZ1HON4QY8ff?=
- =?iso-8859-1?Q?bMZ3PVITbYrxRScz4KubZTiiQiHg/M+a4/39ekrx4oZ+J3OM4R4AIniHkJ?=
- =?iso-8859-1?Q?1KqSTTPr5Lxo0bSbPDrf/ujMZKoFQgOixGF7zVyCgnEo1Zok7LXPvTJZtn?=
- =?iso-8859-1?Q?XBziYQ50LNbksjTaIs72FiCy4GX8gDgtQFDT7xHSfoVzYGgfpGObrwoqrR?=
- =?iso-8859-1?Q?NKgfNDH5lS7yySYP8q8ea9hFhiDhgUm/Ijw0c53T5LvOV4SQAWlhldCiRv?=
- =?iso-8859-1?Q?xCoR0heQukeLj24RaRYW0+uSiRJ3MAxRFhr6CbbhQjPx+wYe4wNEhPy0ko?=
- =?iso-8859-1?Q?fZ0gOSFBPEbBmVGC97kmb2RXXW97b5byH85HPNsxnTEYKHlHtzD+DlQ6my?=
- =?iso-8859-1?Q?MUqgWcUdbFaPLUA2iUYrweA/3/mOVstVoa6c5FN1L/jyDue15V0kjAyADb?=
- =?iso-8859-1?Q?qprRvzJusxKWCKUp/4MZwjjKaOJzfX/6+1jF75ucWs0gfCG+GUpFQBlaPS?=
- =?iso-8859-1?Q?MmemHVD8bX0spIsvxLceX4Vx622fR7rhHv86/tIU0ptoJm50phDtIFARdg?=
- =?iso-8859-1?Q?SvP1TijI/9Q5+2LJ5A7iubK6WhE9LS3DYhZwCuRGh7Bp/W/1opyg0OpPy9?=
- =?iso-8859-1?Q?lwCfvCJz5fZzApKcHmrLjyhQoH9zxvmFcbrCdWFfve1viUO6DqBeyWNZpt?=
- =?iso-8859-1?Q?dfs17Hfg8V1A41wZCYdmrorCD10VHzyZ4C0z7qXFDCRznFf7qBlLqvKCuJ?=
- =?iso-8859-1?Q?7gAB1xqmy7vacGZnEl7TdcWVkeh7Y1YpQRKPsEnHtUZyxp50nhKvAYkW5i?=
- =?iso-8859-1?Q?4daCBTlBBdDWCqm1K55MjJHti6+JY4vVsZUlVqTFQ8BWmjYBsUTUqEdfHZ?=
- =?iso-8859-1?Q?MltaUBIoaSvWE7QEUhvaEWIpxFcCmwNSed0sFPHsqEewc55dwM0b1ZwwjF?=
- =?iso-8859-1?Q?NQ9ssk4bUw=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="f9ppO3g0";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YXzXpQAc"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9jinr2417235
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:36:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	RRJYuqx0ug7Hndpab8ssF0q5Hh2eCFFk991vP6yPy4s=; b=f9ppO3g0mrHdBgBo
+	ooYckRIy+5fP91edAV5+PiqYRnUEmF4ipmNqlhz6UCNCsqJ9dGdUkbjziJefUwj1
+	EbGDoJhmduH7Xx0VGSka41zv1+jwJVeo4JYN0oUy2gJrG2e25mD5gnwgguMMaMAx
+	8nn5SIDXr1B9kgG/Ey9MxyNTHgiulS0y3s0eBJ3m2xkr4FlAwQeHzNc+lcq9Xi+L
+	nu+YdCQ4OeIxsfiS59kE+H5t7LCh0jEvtkkVYsuizh5ZLA5Ygd7e65f3Xdtqbgqo
+	FTxvBaYo3pifnwLh3/QPISDTxVgzQcGLnSnsYJkboBjqMuy3H4jVzE2+Op9mdlqh
+	6vCZxA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4haqdhj34r-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:36:17 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-939c30aa9a0so158864485a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:36:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792067776; x=1792672576; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RRJYuqx0ug7Hndpab8ssF0q5Hh2eCFFk991vP6yPy4s=;
+        b=YXzXpQAcCUcNNqF8TWwqs5Hc3ewvo3NmVAeAZkNmnoqeZuwAtegngU/ENsf/gs7Jeh
+         5rlZ3WmEtjTctJb5MngX56HcMeG7lA8oVV6W9rUYDLeOPK2kvZccX0LeyfSjarGezLwf
+         nJCqRLKC7SPkL8IEb2ugR/pxDNRVBe+D7fX/B9x7f7mAjeB7FxCwaeLD+Ze4704GXVLu
+         yDic0P/wgsPo1Qzw3dCMJN4/44Qmt6xIV+XBVs/D1WdUJf36HjE+pPMdaH6nrpl+xpK1
+         bZ8FukCet+RyUrNcgIo4teKDSZDp8/HzORFbWgaBaQTWEAFP1s67D/9wU7Tk/hYoC4GX
+         kSsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792067776; x=1792672576;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=RRJYuqx0ug7Hndpab8ssF0q5Hh2eCFFk991vP6yPy4s=;
+        b=sDBsUEjxVwqTDgOGnQhZJIcKBhDOjHvDOoug+VpcyLPDVGmrG2LY98WtyDXhAjaDw4
+         0EcQ5YTnirybRyH7SBglW3LDK0BBWe0HzccH7ZoBO/vTrOSXZjYmCCSIW7rx8/Y6OGXv
+         zjpjglTejUbi5sFqs3LDUwBiJX7D1/003kXO7V489GX0txke52K0Lh+FyM0zUfR5j516
+         uoBy2ECVVcsptJK4ZAj5Co9ExLud72TOV+B8czPFUfuVqgnvva8qBMuHXu3ZnPAapNJq
+         1OrHI2NilyF05vtjobhNEbVqChcE38Is94uZokGjVjPeRAG3n5Ss05X+tsUJS1IZLAuz
+         vtmw==
+X-Forwarded-Encrypted: i=1; AKwUvBzI3HScH2Ngq4CY8MDSQR5YoQ+KdyclGVdQKsu4gDaDARf03DhzCGkl99Qv0Wi4r3V2mzfE6qX0ipdN928=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIm6zJnijUSUxb5nGuR4yK/EHowPwJQgB0CKmd2b6OOxwA1Iw7W
+	LLqnUTUlNSLKo9ILet2k59Bx1UbaBkN49QcFxy0kYEZVsEl8ZG9Iu1eoFcerZIQjbF8lJPGjh4R
+	C4FXAlJtc068cChWhBlfVr5RKNFDNQsAxDxExy/PnkP0KRKtIq8IdQvK/+IvXg4FEOG0=
+X-Gm-Gg: AYBFou1WGIvlUs90oL6RMoNOSb4CsQ2IllFKBKx0Fm2szNCrHRc/JwPsWICZC6mWAfJ
+	ILjkBpvsPUs5/pFX8XWTUNN7M96o1A7uSiOWmNERrgNAVqisqCqFgE0bqVv0vdmF7XekNQBgZjj
+	gG5HlXtncW2KJovNTZfTUlPKzigh96j9WsHtZO4JbY9utQXwLsKXiFhC+LpFts/gJFx1QIqa7Ga
+	umWa7crYHmr4/6YPVEHNw93y73M1c8p7lV2HVKKDMGADtnJH0ZZ32ulVweXaXZYFyOwUH6fc97L
+	05Dj4zYxwnaXU5dmWE6xgMq91Kz2u7aMpJURlmLCQeniUyfZLY7AtonTFq+xY+7qVRM0oUrJWQv
+	0D/snyYS61W6Os9VsP7ovtWg03tRoGE16yP+qXPCE1+mDuMlvEfQyjRshTYGFwwXF+gcEhCe3lA
+	IcvxBd2V9mOWEb
+X-Received: by 2002:a05:620a:178d:b0:93d:f7ac:4706 with SMTP id af79cd13be357-93ebd0bd260mr3010921085a.9.1792067776034;
+        Thu, 15 Oct 2026 05:36:16 -0700 (PDT)
+X-Received: by 2002:a05:620a:178d:b0:93d:f7ac:4706 with SMTP id af79cd13be357-93ebd0bd260mr3010913485a.9.1792067775224;
+        Thu, 15 Oct 2026 05:36:15 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5be33d704c1sm1293904e87.25.2026.10.15.05.36.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 05:36:13 -0700 (PDT)
+Date: Thu, 15 Oct 2026 15:36:11 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Sumit Semwal <sumit.semwal@linaro.org>,
+        Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+        Philipp Stanner <phasta@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+        iommu@lists.linux.dev
+Subject: Re: [PATCH 03/13] drm/msm/dcp: Add HFI transport over VirtIO
+Message-ID: <i2wnkjvzds5wqpvf6svghcwmg4l3muddf7ksieeadran2xd7jd@pvs7cavr3x5g>
+References: <20261015-jshekhar-drm-msm-dcp-v1-v1-0-48aad0fe4f72@oss.qualcomm.com>
+ <20261015-jshekhar-drm-msm-dcp-v1-v1-3-48aad0fe4f72@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	demIvuMoUQ04BDdWFVP1LZMI543+4C2vaMeLHuKWfqgTKkDU8bEv35/SvTVfevHCoMBm+eDdpzUGvwXWQPSDaIYpEwIoXRW9cCwz4tRcsduWYw8NOzr5i+DW0v30Ik2f1X/iB95UsEz8ccU/PZ3Lnfz8GSD1JBHxddYFe3AWY72+P7ul5vg8QqRbfxgrkNknVuS0W1iJ5mVoqd3xY87/ySQyapdg63ceDOBc/rXtHrtTr8XZPeQJ5olhmnJHOkqZCZUdYKt6saIein3/YMXDDbjpW8A8lLge2ZJP7ZovwcP2JdltN8Y9IGBc/mFWbA2aICKqVSeICoUch3t1NhuvCg==
-X-OriginatorOrg: bull.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PR3PR07MB6922.eurprd07.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 08a4cd2b-783f-465e-6965-08df2ab82884
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Oct 2026 12:30:55.1386
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 7d1c7785-2d8a-437d-b842-1ed5d8fbe00a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: rf5N33mzjs7sRGkKJeWO3+jnsJY/K6C3dxa2pB842Z471NyUqt/RibGNwAaNnum7WvcO/C6jNZcyD/NGKJx8EA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR07MB10181
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261015-jshekhar-drm-msm-dcp-v1-v1-3-48aad0fe4f72@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1MCBTYWx0ZWRfX7HVjvag1yxqE
+ dVkEFkgG8e6uvn9PEvIjJ4YZS2eODXdPJ3ul335Zw2pD4w97uAfQCoHzi/SORB/35EHsnIONYKT
+ 0rUqa8IfQpQjKUO9NC9H2JTRnKN+OiSmLoWct/SI7V4Gprvw3jJuFENgKoZJYJ/RpEJvrGP3liV
+ oUJuct9zpEEndnEoSx4oCbBjpEr93EzTgnB9fFPhaAp7w4565tcTHDuLDhLrYPDkGQUNGyI6ZET
+ y34fKabcvhBkvTnt0cCUTQd4JFgy/eHWNUVUpjpiT5kAuLgXoC1V5aueCbwXhtz0ECaUH4ttXow
+ ErcPg4fE4f5K04rSNzoE9X3i7b//UC9tz7zDEfh5WD3KY//y8J9jlwcrcu+Mf+HhPp0Fd+Ytodo
+ KaGjIKmwbr6WzbX3d/MZ/o5eWbDZbnyXnDpJsN28bbVG8YDsNdZIbIPBqmLJxtm0oFCMSK3VPXO
+ X6j6AJjiHfump8SEqMw==
+X-Proofpoint-GUID: -txn0LWJse96KsDzp6dxJk1ETTLARNhi
+X-Authority-Analysis: v=2.4 cv=DeeCOftW c=1 sm=1 tr=0 ts=6ad0c8c1 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
+ a=76646x4wTrqYLC7QdToA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1MCBTYWx0ZWRfX2Gj/rEph4Bhl
+ G+vQjEClmNqIKp3o3Jw7cBjjYR+mCbNB9gSJicSrLFKark4mzOi2k6klHezvLXtrtxeekR6AyQQ
+ rmZrMkKZmruYO73AZevBVvZyBbhN1XQ=
+X-Proofpoint-ORIG-GUID: -txn0LWJse96KsDzp6dxJk1ETTLARNhi
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 suspectscore=0 malwarescore=0 phishscore=0
+ spamscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150050
 
-On Thu, Oct 15, 2026 at 11:13 UTC, Peter Zijlstra wrote:=0A=
-> /me mutters something about having to go install and learn docker and=0A=
-> what's wrong with simple shells scripts that poke about in /cgroup=0A=
-> filesystems :-)=0A=
-=0A=
-Fair enough, sorry about that! Next time I'll do plain cgroupfs,=0A=
-promised :-)=0A=
-=0A=
-> Yes, I think this is right.=0A=
->=0A=
-> That said; while looking at this, I wonder if we should write this like=
-=0A=
-> so instead. Although perhaps we should do this on top, your patch is=0A=
-> trivial, correct and more convenient for backport.=0A=
-=0A=
-Thanks for the quick review ! I'll send my patch.=0A=
-=0A=
-FYI, I also tested your variant on top of v7.3-rc7 with the same=0A=
-reproducer and it fixes the issue too (case 4: 4.367 - 4.388 G over=0A=
-20 runs).=0A=
-=0A=
-Thanks,=0A=
-Antoine=
+On Thu, Oct 15, 2026 at 01:08:23PM +0530, Jayant Shekhar wrote:
+> DCP firmware owns the display hardware, so the MSM DRM driver needs a
+> transport for HFI commands, responses, and asynchronous display events.
+> 
+> Add the VirtIO command and response queues used to communicate with DCP.
+> Allocate command, response, and capability buffers through the DMA API
+> using the firmware-visible IOVA window. Track synchronous commands and
+> asynchronous responses, dispatch HFI callbacks, and synchronize queue
+> teardown with in-flight transactions.
+> 
+> Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+> Assisted-by: LLM
+
+You haven't read Documentation/process/. Sad.
+
+> diff --git a/drivers/gpu/drm/msm/dcp/dcp_drv.h b/drivers/gpu/drm/msm/dcp/dcp_drv.h
+> new file mode 100644
+> index 000000000000..bf6c34af43a0
+> --- /dev/null
+> +++ b/drivers/gpu/drm/msm/dcp/dcp_drv.h
+> @@ -0,0 +1,30 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +#ifndef __DCP_DRV_H__
+> +#define __DCP_DRV_H__
+> +
+> +#include <linux/device.h>
+> +#include <linux/dma-mapping.h>
+> +#include <linux/notifier.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/virtio.h>
+
+Are all these headers required for this header?
+
+> +
+> +#include "dcp_hfi.h"
+> +
+> +struct dcp_dpu_kms;
+> +
+> +struct dcp_drv {
+> +	struct virtio_device	*vdev;
+> +	struct platform_device	*dcp_subsystem_dev;
+> +	struct device_dma_parameters dcp_subsystem_dma_parms;
+> +	struct device_node	*dcp_subsystem_node;
+> +	struct dcp_hfi		*hfi;
+> +	struct dcp_dpu_kms	*kms;
+> +	struct dcp_caps		 caps;
+> +	struct notifier_block	 panic_notifier;
+> +};
+> +
+> +#endif /* __DCP_DRV_H__ */
+
+
+
+> +
+> +#define DCP_MAX_DISPLAYS	4
+> +
+> +#define DCP_FEAT_DSC		BIT(0)
+> +#define DCP_FEAT_HDR		BIT(1)
+> +#define DCP_FEAT_SRC_SPLIT	BIT(3)
+> +#define DCP_FEAT_CURSOR		BIT(4)
+
+What kind of features are those?
+
+> +
+> +#define DCP_MAX_SSPP_COUNT	16
+> +#define DCP_MAX_VIG_PIPES	DCP_MAX_SSPP_COUNT
+> +#define DCP_MAX_DMA_PIPES	DCP_MAX_SSPP_COUNT
+> +
+> +#define DCP_MAX_BLOCKS			8
+> +
+> +/* Pipe indices encode the rectangle ID in bits 31:24. */
+> +#define DCP_REC_ID(x)		(((x) & 0xff000000) >> 24)
+> +
+> +/* Capabilities parsed from DEVICE_INIT responses. */
+> +struct dcp_caps {
+> +	u32 dcp_hw_rev;
+> +	u32 hw_rev;
+> +	u32 fw_rev;
+> +
+> +	u32 num_vig_pipes;
+> +	u32 vig_pipe_ids[DCP_MAX_SSPP_COUNT];
+> +	u32 virt_vig_count;
+> +	u32 vig_r1_indices[DCP_MAX_SSPP_COUNT];
+> +
+> +	u32 num_dma_pipes;
+> +	u32 dma_pipe_ids[DCP_MAX_SSPP_COUNT];
+> +	u32 virt_dma_count;
+> +	u32 dma_r1_indices[DCP_MAX_SSPP_COUNT];
+> +
+> +	u32 num_crtcs;
+
+CRTCs? Or mixers?
+
+> +
+> +	u32 dsi_count;
+> +	u32 dsi_indices[DCP_MAX_BLOCKS];
+> +	u32 max_dsi_resolution;
+
+If these are parsed, why is it still u32 rather than two resolutions?
+
+> +
+> +	u32 dp_count;
+> +	u32 dp_indices[DCP_MAX_BLOCKS];
+
+Unused, drop
+
+> +
+> +	u32 active_pipes_mask[DCP_MAX_DISPLAYS];
+
+Unused. Drop all unused fields.
+
+> +
+> +	u32 max_width;
+> +	u32 max_height;
+
+max width/height of... what?
+
+> +	u32 max_planes;
+> +	u32 features;
+> +	bool valid;
+
+How can it be invalid?
+
+> +
+> +	bool dyn_clk_support;
+
+??
+
+> +};
+> +
+> +struct dcp_hfi_buf {
+> +	void *data;
+> +	dma_addr_t dma_addr;
+> +	size_t size;
+> +	struct scatterlist sg;
+> +	struct dcp_hfi_completion *comp;
+> +	struct list_head node;
+> +};
+> +
+> +struct dcp_hfi_completion {
+> +	struct completion done;
+> +	int status;
+> +	void *resp_data;
+> +	size_t resp_len;
+> +	u32 packet_id;
+> +};
+> +
+> +#define DCP_HFI_RESOURCE_VOTE_BUF_SIZE	256
+> +
+> +/* Wire-format resource vote entry. */
+> +struct dcp_resource_vote_pair {
+> +	u32 key;
+> +	u64 value;
+> +};
+> +
+> +struct dcp_resource_vote_wire {
+> +	__le32 key;
+> +	__le64 value;
+> +} __packed;
+> +
+> +struct dcp_hfi {
+> +	struct device *dev;
+> +	struct dcp_drv *drv;
+> +
+> +	struct device *dma_dev;
+> +
+> +	struct virtqueue *cmd_vq;
+> +	struct virtqueue *resp_vq;
+> +
+> +	struct dcp_hfi_buf *cmd_pool;
+> +	struct list_head cmd_free_list;
+> +	/* Protects cmd_free_list and command buffer ownership. */
+> +	spinlock_t cmd_lock;
+> +
+> +	struct dcp_hfi_buf *resp_pool;
+> +	/* Protects response queue draining and power callback publication. */
+> +	spinlock_t resp_drain_lock;
+> +	struct list_head resp_repost_list;
+> +	struct delayed_work resp_repost_work;
+> +	struct xarray pending_xa;
+> +	/* Protects pending_xa. */
+> +	spinlock_t pending_lock;
+> +	atomic_t packet_id;
+> +	atomic_t shutdown_in_progress;
+
+This all demands at least some description or kernel docs.
+
+> +
+> +	struct work_struct resource_vote_work;
+> +	/* Protects resource_vote_buf, resource_vote_len, and callback state. */
+> +	spinlock_t resource_vote_lock;
+> +	u8 resource_vote_buf[DCP_HFI_RESOURCE_VOTE_BUF_SIZE];
+> +	u32 resource_vote_len;
+> +	u32 resource_vote_generation;
+> +	void (*resource_vote_cb)(struct dcp_drv *drv,
+> +				 const struct dcp_resource_vote_pair *pairs,
+> +				 u32 count);
+> +
+> +	/* Protects caps_cache pointer and its lifetime. */
+> +	spinlock_t caps_lock;
+> +	/* Serializes capability transactions and cache detach/free. */
+> +	struct mutex caps_cache_lock;
+> +	struct dcp_hfi_caps_cache *caps_cache;
+
+What's the point of keeping it as a pointer? Just embed it here and drop
+the locks. Read the caps while the devices is not visible so that there
+are no concurrent users.
+
+> +
+> +	void (*hotplug_cb)(struct dcp_drv *drv, u32 intf_idx, bool connected);
+
+Why do we need these callbacks? Can you call the functions directly?
+
+> +	void (*error_cb)(struct dcp_drv *drv, u32 display_id, u32 error_code);
+> +
+> +	void *power_control_priv;
+> +	void (*power_control_cb)(void *priv, u32 display_id,
+> +				 u32 power_mask, bool enable, u32 packet_id);
+> +};
+> +
+> +int dcp_hfi_init(struct dcp_drv *drv, struct virtio_device *vdev,
+> +		 struct virtqueue *cmd_vq, struct virtqueue *resp_vq,
+> +		 struct device *dma_dev);
+> +void dcp_hfi_set_power_control_cb(struct dcp_hfi *hfi, void *priv,
+> +				  void (*cb)(void *priv, u32 display_id,
+> +					     u32 power_mask, bool enable,
+> +					     u32 packet_id));
+> +void dcp_hfi_clear_power_control_cb(struct dcp_hfi *hfi, void *priv);
+> +void dcp_hfi_stop(struct dcp_hfi *hfi);
+> +void dcp_hfi_quiesce_queues(struct dcp_hfi *hfi);
+> +void dcp_hfi_deinit(struct dcp_hfi *hfi);
+> +
+> +void dcp_hfi_resp_callback(struct virtqueue *vq);
+> +void dcp_hfi_cmd_callback(struct virtqueue *vq);
+> +
+> +int dcp_hfi_send_sync(struct dcp_hfi *hfi, u32 cmd,
+> +		      enum hfi_cmd_buff_type cmd_type, u32 object_id,
+> +		      enum hfi_packet_payload_type payload_type, void *payload,
+> +		      u32 payload_size, u32 tx_flags, void *resp_data,
+> +		      size_t resp_len, unsigned int timeout_ms);
+> +
+> +int dcp_hfi_send_no_wait(struct dcp_hfi *hfi, u32 cmd,
+> +			 enum hfi_cmd_buff_type cmd_type, u32 object_id,
+> +			 enum hfi_packet_payload_type payload_type, void *payload,
+> +			 u32 payload_size);
+> +
+> +int dcp_hfi_send_no_wait_flags(struct dcp_hfi *hfi, u32 cmd,
+> +			       enum hfi_cmd_buff_type cmd_type, u32 object_id,
+> +			       enum hfi_packet_payload_type payload_type,
+> +			       void *payload, u32 payload_size, u32 tx_flags);
+> +int dcp_hfi_send_no_wait_atomic_flags(struct dcp_hfi *hfi, u32 cmd,
+> +				      enum hfi_cmd_buff_type cmd_type, u32 object_id,
+> +				       enum hfi_packet_payload_type payload_type,
+> +				       void *payload, u32 payload_size, u32 tx_flags);
+
+You haven't really followed the internal review feedback. You have been
+asked to review the indentation. You didnt.
+
+> +#endif /* __DCP_HFI_H__ */
+> diff --git a/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c b/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c
+> new file mode 100644
+> index 000000000000..bf27cbf9b8a4
+> --- /dev/null
+> +++ b/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c
+> @@ -0,0 +1,1198 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + *
+> + * DCP HFI core transport.
+> + */
+> +
+> +#include <linux/completion.h>
+> +#include <linux/delay.h>
+> +#include <linux/device.h>
+> +#include <linux/kernel.h>
+> +#include <linux/unaligned.h>
+> +#include <linux/slab.h>
+> +#include <linux/scatterlist.h>
+> +#include <linux/spinlock.h>
+> +#include <linux/virtio.h>
+> +#include <linux/workqueue.h>
+> +#include <uapi/linux/virtio_mmio.h>
+> +
+> +#include "dcp_hfi.h"
+> +#include "dcp_hfi_priv.h"
+> +#include "dcp_drv.h"
+> +#include "hfi/hfi_packet.h"
+> +#include "hfi/hfi_packer.h"
+> +#include "hfi/hfi_unpacker.h"
+> +#include "hfi/hfi_commands_device.h"
+> +#include "hfi/hfi_commands_display.h"
+> +#include "hfi/hfi_commands_display_events.h"
+> +#include "hfi/hfi_defs_common.h"
+> +#include "hfi/hfi_defs_display.h"
+> +
+> +static void dcp_hfi_resource_vote_work(struct work_struct *work);
+> +static int dcp_hfi_prepost_resp_bufs(struct dcp_hfi *hfi);
+> +
+> +u32 dcp_hfi_next_packet_id(struct dcp_hfi *hfi)
+> +{
+> +	u32 id;
+> +
+> +	id = (u32)atomic_inc_return(&hfi->packet_id);
+> +	if (id == 0)
+> +		id = (u32)atomic_inc_return(&hfi->packet_id);
+
+What if something looks at your counter inbetween? Two atomic operations
+aren't atomic.
+
+> +	return id;
+> +}
+> +
+> +#define DCP_HFI_BUF_ALLOC_RETRIES	3	/* Bound command-path stalls. */
+> +#define DCP_HFI_BUF_ALLOC_SLEEP_US_MIN	30000
+> +#define DCP_HFI_BUF_ALLOC_SLEEP_US_MAX	40000
+> +
+> +static struct dcp_hfi_buf *_dcp_hfi_buf_alloc(struct dcp_hfi *hfi,
+> +					      struct list_head *free_list,
+> +					       spinlock_t *lock,
+> +					       const char *pool_name)
+> +{
+> +	struct dcp_hfi_buf *buf = NULL;
+> +	unsigned long flags;
+> +	int retry;
+> +
+> +	if (atomic_read(&hfi->shutdown_in_progress)) {
+
+This is called drm_dev_get().
+
+> +		dev_dbg(hfi->dev,
+> +			"HFI shutdown in progress — refusing %s buffer allocation\n",
+> +			pool_name);
+> +		return NULL;
+> +	}
+> +
+> +	for (retry = 0; retry <= DCP_HFI_BUF_ALLOC_RETRIES; retry++) {
+> +		if (atomic_read(&hfi->shutdown_in_progress))
+> +			return NULL;
+> +
+> +		spin_lock_irqsave(lock, flags);
+> +		if (!list_empty(free_list)) {
+> +			buf = list_first_entry(free_list,
+> +					       struct dcp_hfi_buf, node);
+> +			list_del(&buf->node);
+> +		}
+> +		spin_unlock_irqrestore(lock, flags);
+> +
+> +		if (buf)
+> +			return buf;
+> +
+> +		if (retry < DCP_HFI_BUF_ALLOC_RETRIES)
+> +			usleep_range(DCP_HFI_BUF_ALLOC_SLEEP_US_MIN,
+> +				     DCP_HFI_BUF_ALLOC_SLEEP_US_MAX);
+> +	}
+> +
+> +	dev_warn_ratelimited(hfi->dev,
+> +			     "HFI %s TX pool exhausted after %d retries — command dropped\n",
+> +			     pool_name, DCP_HFI_BUF_ALLOC_RETRIES);
+> +	return NULL;
+> +}
+> +
+> +static void _dcp_hfi_buf_free(struct dcp_hfi *hfi, struct dcp_hfi_buf *buf,
+> +			      struct list_head *free_list, spinlock_t *lock)
+> +{
+> +	unsigned long flags;
+> +
+> +	buf->comp = NULL;
+> +	spin_lock_irqsave(lock, flags);
+> +	list_add_tail(&buf->node, free_list);
+> +	spin_unlock_irqrestore(lock, flags);
+
+Just call _dcp_hfi_buf_free_locked() under the lock.
+
+> +}
+> +
+> +static void _dcp_hfi_buf_free_locked(struct dcp_hfi_buf *buf,
+> +				     struct list_head *free_list)
+> +{
+> +	buf->comp = NULL;
+> +	list_add_tail(&buf->node, free_list);
+> +}
+> +
+
+[..]
+
+> +
+> +	case HFI_COMMAND_DISPLAY_EVENT_HPD_STATUS: {
+> +		u32 intf_idx = pkt_info->id & 0xFFFF;
+> +		bool connected = false;
+> +
+> +		if (pkt_info->payload_ptr &&
+> +		    pkt_info->payload_size >=
+> +		    sizeof(struct hfi_display_hpd_status)) {
+> +			struct hfi_display_hpd_status *hpd =
+> +				pkt_info->payload_ptr;
+> +			connected = (hpd->dp_state ==
+> +				     HFI_DP_STATE_CONNECTED);
+> +		}
+> +		if (hfi->hotplug_cb)
+> +			hfi->hotplug_cb(hfi->drv, intf_idx, connected);
+> +		return true;
+> +	}
+> +
+> +	case HFI_COMMAND_DISPLAY_EVENT_PANEL_DEAD:
+> +		dev_err(hfi->dev,
+> +			"DCP: panel dead display %u\n",
+> +			pkt_info->id & 0xFFFF);
+> +		if (hfi->error_cb)
+> +			hfi->error_cb(hfi->drv, pkt_info->id & 0xFFFF, 0);
+> +		return true;
+> +
+> +	case HFI_COMMAND_DISPLAY_EVENT_HW_RECOVERY:
+> +		dev_err(hfi->dev,
+> +			"DCP: HW recovery display %u\n",
+> +			pkt_info->id & 0xFFFF);
+> +		if (hfi->error_cb)
+> +			hfi->error_cb(hfi->drv, pkt_info->id & 0xFFFF, 1);
+
+Yep... Drop the callbacks. I think it was also a part of the review.
+
+> +		return true;
+> +
+
+Can you split the patches? It really becomes troublesome to review.
+
+-- 
+With best wishes
+Dmitry
