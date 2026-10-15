@@ -1,98 +1,170 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 392FD4D0A0B;
-	Thu, 15 Oct 2026 19:21:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB2B252ED5D
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 19:21:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792092104; cv=none; b=o0+z8UyuUvCoQ2uFTd5U096Yf1i/zFo3L0jx4hwvNBSlOLPcGGzX714soppaS5yB1fm+DkJJNq8aYBn9gsYU/ymqawa/K7zFBk4fHQSaMQiTOZFWYcLgLH0esNsaupEtWmQfziyQGNYepWkR+j4NMZ6135CtHLh65MEmNgH6pnQ=
+	t=1792092110; cv=none; b=iXPNerG0C2YBgMcSE9TjIX/W6Q/sJmcfqPYusuYbexcx9xxVbvjSVlcPQoyKasjFu7WyNo5e4mgzWvAWsTNL5dLKV2b3Zm4M5BwR+5llirugUpTqTEpiGy+Ahmglhm756I4wwq6Z+oJQufxg0CyjEFVlMFCY0cg5taNRRTIaRZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792092104; c=relaxed/simple;
-	bh=9LqhazZ8y0jzFuAz+1Zjczovem69p4adWSJPxrySQ4w=;
+	s=arc-20240116; t=1792092110; c=relaxed/simple;
+	bh=bWDcTUXKRCpKArq8mJguYgOf7WaUeTmsb/woHD2+h/I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gy/g+Bl0j3eMNlEYD7AzhTXxrxM76TePdR2NqiwPBD1Nobd9+bBG3x15BijLgIH5Zc4AAMA4YWEHNEIY0OQXSj+in3ryl9eMlOnk6f0t7wAOd8BWYjaomWmKoepxc+VjoZR/1O4OxYQ1QpDSdP17JUOk/RqqoSGloS5uwR9m8io=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=n3Cv3nPi; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=T57utGqyw3/8B6LKDAqf3EFsbo3jYUf53/17DE0q/xWZACWw7DeLQaCvK4fRF1ploRhVMErBbXkRpG1KN6txihubsDthuRpFXNs/H+kcw8gSLUpHe3CEfzr1+8yF+jtZL1ZXaF7rc9sDip98kgL/Pfxy02OaO4ZfhtWy5vkk/w0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com; spf=pass smtp.mailfrom=cloudflare.com; dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b=R976MYoS; arc=none smtp.client-ip=209.85.210.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudflare.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="n3Cv3nPi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792092102; x=1823628102;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=9LqhazZ8y0jzFuAz+1Zjczovem69p4adWSJPxrySQ4w=;
-  b=n3Cv3nPih7jUBd9JIwE5Pg3aqeMV+OdAB/w+/KKONsAUxd/7DYuQzeci
-   ZChy6Y1epHlESNxDhtRHm3SrSCiU12Kvcw3Q5/BJaUy2yZRPnF5P4nrHQ
-   q7r71CEeyUCJh8/JBFPVOCIEQZxmCxKaQgZr3/WO4cjJTNoEEfEwBkfLM
-   Dw0l7FKpb5sViIDVcvLXZlB42CFe4bihFKE+27mMW3GpeAQyfuuASYTPn
-   kZWYPZPgmOxlOu7aoULoiTAOlr7Bf9Deg23TMPO8bNCX8dAYOD6bpj4Ma
-   jsQr5Zb9xxYk0Ke3DlWvnHXcpAdr2RgVj+0gRVRw8jes+iJpvTsPyXHpM
-   g==;
-X-CSE-ConnectionGUID: 3udm8/EGSPaNWc0Bq0NcAA==
-X-CSE-MsgGUID: qDy2VMzhRAyl86fT3MEsTA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="874444"
-X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
-   d="scan'208";a="874444"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 12:21:42 -0700
-X-CSE-ConnectionGUID: bSRXlOtVSZOQfVM12h86JQ==
-X-CSE-MsgGUID: EcAkDL28RuSW35z1IStPJg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
-   d="scan'208";a="2237555"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.117])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 12:21:38 -0700
-Date: Thu, 15 Oct 2026 22:21:35 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: longzhao@ambarella.com
-Cc: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
-	Linus Walleij <linusw@kernel.org>,
-	Michael Walle <mwalle@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	Long Zhao <zl020895@163.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v10 3/8] gpio: pl061: drop redundant pending check in the
- IRQ handler
-Message-ID: <atEnv-fSdwSDCcO1@ashevche-desk.local>
-References: <20261015-cv75-gpio-v10-0-3fe3eb315a55@ambarella.com>
- <20261015-cv75-gpio-v10-3-3fe3eb315a55@ambarella.com>
+	dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b="R976MYoS"
+Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-82478760557so1798589a34.3
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:21:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloudflare.com; s=google09082023; t=1792092106; x=1792696906; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rbjX2NuExPWvz07RGXa2HRp0BDpTUBaueEzzQnIB3cM=;
+        b=R976MYoSBsU2ZTHb/0FFqHIkzzltEoEbRYGElE615llxI5BXRJ5t6mznkTKQk2POVx
+         VXnYCPmdg9vGs4U9x+QhOZWhNYw+FnYsiRMD0THqHRyDI6TrXrXWOFF7gjSsBaCnPjMg
+         ABFHB3clEbkKfg2kiHoYKZs9OoVeGMks7rx8WT75qPK2AyEx4L/wBZ8X+SVxcfncsZVv
+         ffQRqJpU035r+/TKFCZxa5ugZ4RR0CzUdu8wamZn/TpkoQ08HIcvRiNlH3+7y1Oe28UN
+         tLSq/2wyZRarvnyy4/Yzk+IxkR+V7mN/IAhOsgK93g1mECf6fVqn0HCXPtVkIbf3d7Wu
+         IuaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792092106; x=1792696906;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=rbjX2NuExPWvz07RGXa2HRp0BDpTUBaueEzzQnIB3cM=;
+        b=mjPh6urwE1MwH9o5ubyaB4ZONEnfrZ+xHcafEC6slnYgUCOZZDwLlNpsmLEhZfrOMT
+         TYKGT9kNjrLkU1e1IbkqR5B65NWdA9uhXo0iOD4jmnUqW+5Z0rBcxy14xmSrKghmG3NB
+         DTj/d3jLvy5LIlbLmgQMJmg6y1BmI/ZjHwCvSg1Qt2qAkG3JkUPadBW6l+ZZUjwCNJ1G
+         ztu4cre8mJQvNIDmaChwrgTp39toxRv+ZQxLigfwywEH7GZc31OP7LeC2iSZWgfBRPdm
+         Oyef13JuNJ0Uls9diIVTiRP/A9KabP3eKE5nJc8GE6hIpPxMsc/17gOnOhizLgQtUDkk
+         9OTw==
+X-Gm-Message-State: AFq9FYIxXIDM5GQADNS11SfwBWRbcdbMCyRsMTTtvhhzI5LQEgVr2U9R
+	chYCccUTenWbJPfxAnvT7arMjgxiLlQA8Y+h1NqyNnq2l+OvD9Mi5vbuR0Lt4RWys24=
+X-Gm-Gg: AYBFou0UnAksI2G0lNXSysR+02yVfrFdzZ4NsfUAUgJZ//3LPQaR2CH2YHX4S9Ed7hj
+	WAKK4CIt7g019QMmhE4xfUMEQtO0K9zqRC87/q2C/UeuwYKtJUCYnho36kqaD2rLBlLoBFZXx+q
+	rI5e4lH7N6V1Gbrzg0VlFAP8Vnz3p7GnEAsNx3XDPUFP5smGkwVDHCFo5xPORfuqXIN8BiVGEbT
+	CdoLFLC8tCLwNM4bqC3Na8ffwhbITbitJ3P6/8lMv5PbX/Pc+e/uWepOsDDL/0rjKnWlCML7Iyy
+	FmyzD7eAj5GD9HkFCo6EcY7kuc52HTz5V0XEG2ndVcMPqPXFWUKKxQhDwH6HrFWtBQfyvSGcEjY
+	JsNKs8hgYLvdsXuzJ8biLDtRyVBhDX55534RvmGidd0IqgpOPr4IJkG1gvOv5SrnJPSXJBUNIsX
+	uhxtVzWKqVHcBJSIePcHkIjbg3uoVI1GPkDp3QYb4oSHHxAxSdAO4tWg==
+X-Received: by 2002:a05:6808:3204:b0:4d6:9153:2962 with SMTP id 5614622812f47-50c58bd58abmr17672455b6e.51.1792092106515;
+        Thu, 15 Oct 2026 12:21:46 -0700 (PDT)
+Received: from 20HS2G4 ([2a09:bac6:bf21:3737::580:5a])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-537b247b19asm295516b6e.3.2026.10.15.12.21.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 12:21:45 -0700 (PDT)
+Date: Thu, 15 Oct 2026 14:21:40 -0500
+From: Chris Arges <carges@cloudflare.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: linux-kernel@vger.kernel.org,
+	Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, virtualization@lists.linux.dev,
+	Rusty Russell <rusty@rustcorp.com.au>,
+	Max Krasnyansky <maxk@qualcomm.com>
+Subject: Re: [PATCH net-next v2 0/7] more virtio-net csum hardening
+Message-ID: <atEnxBYUQNkjUXfA@20HS2G4>
+References: <cover.1792067836.git.mst@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20261015-cv75-gpio-v10-3-3fe3eb315a55@ambarella.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <cover.1792067836.git.mst@redhat.com>
 
-On Thu, Oct 15, 2026 at 06:53:30PM +0800, Long Zhao via B4 Relay wrote:
+On 2026-10-15 08:41:12, Michael S. Tsirkin wrote:
+> 
+> As reported first by Paulos Yibelo <habte.yibelo@gmail.com> (after which
+> others, credited below, found more ways the bug can affect users):
+> 
+> allowing untrusted hardware to specify csum start/offset for
+> CHECKSUM_PARTIAL was not a good idea, because, if it edits the packet
+> outside the actual checksum, and depending on the setup, the networking
+> stack could be looking at the packet both before and after the edit, and
+> seeing different results.
+> 
+> Previously, commit 6785011f8b16 ("ipv4: validate checksum_start before
+> completing checksum") validated all known instances where this
+> causes the most grief, but the real fix is to make sure
+> that either only actual checksum fields are ever edited,
+> or the checksum is completed before the net stack looks at it,
+> so it is always consistent.
+> 
+> 
+> This basically goes back to
+> what we did before f43798c27684 ("tun: Allow GSO using virtio_net_hdr"),
+> except in a narrow list of specified known good cases.
+> 
+> 
+> Summary of the patchset:
+>   net: account for ingress-resolved virtio net hdr state
+> 	- accounting, not the fix itself, dependency of the next one
+>   net: resolve uncommon partial checksums at ingress
+> 	- fix itself
+>   net: add a sysctl to opt out of virtio net hdr checksum validation
+> 	- reducing risk of the fix by adding a sysctl to disable it
+>   net: add ip4_parse()
+>   virtio_net: cleanup protocol calculation
+> 	- cleanup resulting code duplication
+> 	 (kept separate to simplify backporting)
+> 
+> Fixes: f43798c27684 ("tun: Allow GSO using virtio_net_hdr")
+> 
+> Changes since v1:
+> 	- reorder patches to fix bisectability, addressing
+> 	  a comment by Björn Töpel.
+> 	- code refactoring, different patch splitup,
+> 	  a sysctl knob to disable as suggested by Willem de Bruijn.
+> 	- fix a bunch of minor issues spotted by LLMs
+> 
+> 
+> Michael S. Tsirkin (7):
+>   net: account for ingress-resolved virtio net hdr state
+>   um: vector: honor virtio net hdr conversion failures
+>   um: vector: trim skbs before verifying the header
+>   net: resolve uncommon partial checksums at ingress
+>   net: add a sysctl to opt out of virtio net hdr checksum validation
+>   net: add ip4_parse()
+>   virtio_net: cleanup protocol calculation
+> 
+>  Documentation/admin-guide/sysctl/net.rst |  15 ++
+>  arch/um/drivers/vector_kern.c            |   6 +-
+>  arch/um/drivers/vector_transports.c      |   4 +-
+>  drivers/net/tap.c                        |   4 +-
+>  drivers/net/tun.c                        |  41 +++-
+>  drivers/net/virtio_net.c                 |   2 +-
+>  include/linux/ip.h                       |  24 +++
+>  include/linux/virtio_net.h               | 249 ++++++++++++++++++++++-
+>  include/net/netns/core.h                 |   1 +
+>  net/bridge/br_netfilter_hooks.c          |  15 +-
+>  net/core/dev.c                           |   6 +
+>  net/core/net_namespace.c                 |   1 +
+>  net/core/sysctl_net_core.c               |  54 +++++
+>  net/ipv4/ip_input.c                      |  13 +-
+>  net/ipv4/netfilter/nf_reject_ipv4.c      |  13 +-
+>  net/packet/af_packet.c                   |   4 +-
+>  16 files changed, 404 insertions(+), 48 deletions(-)
+> 
+> -- 
+> MST
+>
 
-> for_each_set_bit() does nothing when the mask is zero, so the
-> if (pending) wrapper around it is redundant.
+Aside from the KASAN issue described in the other thread, I was able to
+test this series and it fixes my local testcases.
 
-Suggested-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-
-One nit-pick below, though.
-
-...
-
-> +	for_each_set_bit(offset, &pending, PL061_GPIO_NR)
-> +		generic_handle_domain_irq(gc->irq.domain,
-> +					  offset);
-
-Make it a single line now
-
-		generic_handle_domain_irq(gc->irq.domain, offset);
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Tested-by: Chris Arges <carges@cloudflare.com>
