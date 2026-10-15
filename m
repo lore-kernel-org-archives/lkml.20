@@ -1,71 +1,64 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FBCC24E4C6;
-	Thu, 15 Oct 2026 01:06:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3900248880;
+	Thu, 15 Oct 2026 01:08:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792026397; cv=none; b=EUyxhyGYLF6SOy2o7/gOrNF9ht18bN0+qv56RSYw9MG2QYDL2lHCk5dF5hcVNgB0NHZsP4mSeefLNTBSRNXwdoV+i95P48qEtwHevJVC8yINpUFP/Lq6zQgaFOHf8mi5bsOyX5kPniF0Ot1m8lMe1igwqdVnE2+ZB0wHJV9fMLU=
+	t=1792026514; cv=none; b=Tn4zu0dFUyy9ePr1KDCQcQIwpLQ2VevvyY379OE19/gUmybBZEIS+/IxZwwUA2/mvPfqgDhDZJAWYHF3l6MC/kHO2k6B2c+78AF3HIcVYhTfxBWq7d0PvLzGKR5XXBmHbH8I41eFKTkwC/5jx2MumWJZKBhQKZolnsC7bbBJnbk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792026397; c=relaxed/simple;
-	bh=R7D9x3vMG42Orai4ZZ8v+sjIulC5EmVG0HLYoApv0zk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kDFul22xlq1TiPw/7F+BZG9e5nijZo41A51ANxwZrB99jZLhoyblHvS/jIa66IRztNK6M1jHNVNygkh351EzoK0lgbdn85U5N2Z3GKCfFw0A7FoQL0Qj+O78Bu5WWVzC5zXdpKgYosHQrNPqb7VVIVMIidUiOvJk+95ptlEm2fg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a8bu9nMn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792026514; c=relaxed/simple;
+	bh=PXSobt7ixJN0xQBOg0nLuoi0sNmOI5+RizEbq3rn1KE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-Id; b=lxdMUOje0Z83pJ8kxCApcGzBt2O4ovqZKJSXC7FxWao6ECIoEnHS+4ABNg47FiulGWwqjd6ppdD46pV0Nb0Jd7yNVxzGpoaqivhdlTxBDCS9IHtSF9Osyuc5jTg/1Whkvx/nWFuYhv0p+zaiwSp/hzUBDWqllHlZjOb1a/GWNPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T7X3NyTI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a8bu9nMn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFA421F000C4;
-	Thu, 15 Oct 2026 01:06:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T7X3NyTI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25BB61F000C4;
+	Thu, 15 Oct 2026 01:08:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792026395;
-	bh=L8HbRdkaDye6xuABN96pSEYca+ujXrprnp52qmFnxvs=;
+	s=k20260515; t=1792026512;
+	bh=x7adodceiheTbdoC6+2nfd0HDrMHskjwnxoXA9ykBO0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=a8bu9nMndYXJvygmmk2hBCJSEzuGSmXhdZnKllxO2uMNBbHtGR4kMZk8o76EQ5+P6
-	 cZmAEkM+47dzM+a+CWElUIkl7Hbgte9OtGVgajHSA+4loId2K/i0IApEOQzSjT77/U
-	 N3Sdh8q1Xlb8WnzmxOKzaoJYGDByPm5Eh+dVhBIRh+akU/ELggMLzEBd7R7AWykQpT
-	 O9stXHYrqHm3umGOV6W3bOWtWgviMZtBGY0Td6/QMGdLZIpJ00LmoKsnw+eGLG1C0Y
-	 57o8ldXLkv7lK4CHpQnumkC/ln2UXUyvvmvQP3g97TaTiCeehxGmyGtS73f5N0V0dv
-	 T71nmUdL/tEKA==
-From: Kees Cook <kees@kernel.org>
-To: Bill Wendling <morbo@google.com>
-Cc: Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	linux-hardening@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] overflow: Match arithmetic in both parts of __builtin_choose_expr
-Date: Wed, 14 Oct 2026 18:06:33 -0700
-Message-ID: <179202639313.3469796.882953895340235726.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261013203146.387344-1-morbo@google.com>
-References: <20261013203146.387344-1-morbo@google.com>
+	b=T7X3NyTINETcx2bbubkP/fqmH69IMNTcAXR/98huNdf+KMLHvgOy0v4aK7LQeHxLl
+	 FSamyuAyVGUiHxpO04sd3GHa9aHKkKRFAf7u+E91fh6KBU5yjA7waSx+TBvxZGli1U
+	 1ACM3IUwGXXhK2slPaFCSe9I5R3Q6pE08/g9GQd56O5pnZczralCJfcjw4HGSxHrnF
+	 knO+SRVTjz8Dd+TAOzUQK8OhCGqR2klhqoX8EurrgJz6R1IZss6AvGV6oOYrT4WVZf
+	 2FW2/akVqoPoGvraeqNPnJKlew0jt4BSIsG8gT9K06DP72Tlq56Kk/zALFo8/gq1bh
+	 b5ncGyhUxp13w==
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+To: Martin Kaiser <martin@kaiser.cx>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org
+Subject: Re: [PATCH] tracing: probes: error if BTF is required but unavailable
+Date: Thu, 15 Oct 2026 10:08:29 +0900
+X-Mailer: UndineD 0.1
+In-Reply-To: <20261014083838.31020-1-martin@kaiser.cx>
+References: <20261014083838.31020-1-martin@kaiser.cx>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Message-Id: <20261015010831.25BB61F000C4@smtp.kernel.org>
 
-On Tue, 13 Oct 2026 20:31:46 +0000, Bill Wendling wrote:
-> The two parts of '__builtin_choose_expr()' had different arithmetic
-> expressions. This patch corrects it so that both parts calculate:
-> 
->   COUNT * sizeof(*MEMBER) + __must_be_array(MEMBER)
-> 
-> In practice, '__must_be_array' is meant to assert if 'MEMBER' isn't an
-> array and return '0' otherwise. However, symmetry is less prone to
-> subtle errors (and far more satisfying).
-> 
-> [...]
+On Wed, 14 Oct 2026 10:37:40 +0200, Martin Kaiser <martin@kaiser.cx> wrote:
+> traceprobe_expand_meta_args expands probe arguments based on BTF info.
+>
+> Return an error if we have arguments that need expanding but BTF is not
+> supported.
+>
+> The params variable is now unused, it can be removed.
+>
+> Fixes: d157d7694460 ("tracing/probes: Support BTF field access from $retval")
+> Signed-off-by: Martin Kaiser <martin@kaiser.cx>
+> Reviewed-by: Steven Rostedt <rostedt@goodmis.org>
 
-Applied to for-next/hardening, thanks!
-
-[1/1] overflow: Match arithmetic in both parts of __builtin_choose_expr
-      https://git.kernel.org/kees/c/2f70a9b7e9c7
-
-Take care,
+Thanks, this looks good to me. Let me pick it.
 
 -- 
-Kees Cook
-
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
