@@ -1,148 +1,185 @@
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from LO2P265CU024.outbound.protection.outlook.com (mail-uksouthazon11021127.outbound.protection.outlook.com [52.101.95.127])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31B9F46C4C5
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:58:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792072735; cv=none; b=dTtHeV6G4xj5y2kUglMSsCS035TOtbEeIp1zgItiCKBpP1LzEpQdYRGUz1rEsOBJ8B0iQ8VOVCax12yhgMaxTm6xmwZkANiPbpRvfNz2T6wL5kKaqBQY2gao8YPY+dbIFNymG6LxQH6cjiAmJIO28n6Efm1CeKK49+Pf2tTIb7I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792072735; c=relaxed/simple;
-	bh=Fmr8PvRAaAoeaJUzhHvHl4m0oLOfVqb5pwowBeNSOdg=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=ZJ9pntcm8a9RXPYpMeuEjYz4k2S2hJuFOsQg/y7yTHiJKzUyQ9PNkwVddW2VxTOvfu5VOC4Zz7C9VpStNxnr7X4Wah9UPzKLYB2IlKN+4Kh1r/rr0i18ZnXFEkNX//Ib3FRIfNqZhFRW1OrKME48GbcE6QaP3V1ioUWg147C3P8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=tN65rP8J; arc=none smtp.client-ip=209.85.215.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="tN65rP8J"
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cd0b795aa8cso3308a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:58:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792072733; x=1792677533; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uMSSECwkd6GBn6Q0rd3u20QgElhwSrNALm0yFALuhrI=;
-        b=tN65rP8JSCBhl7JyekGO7FwQrm/5VwUqYlidc5dzNg2U+zSOqnKWC8q2BTe0mZV2g0
-         Ya5kl+QNjqQXp2jhHnSXhdOBLthe+RfldxI3/0eXYMczq6dJS5l4OMJSLCYsuYkrQ10U
-         9mduyXt7ddqlDei2qn8jP550fgupkDMEyhpOVRrB/mLHey1KzU/BC7Jx9AWQzrsWUX2T
-         sCwAx6TYpmJfg8QLzdwNYEQDoJGSDojUAMmS6QRA8fXZaxvpiP5uuaEuFtWWSzCjXyjK
-         tdyhCjdlksH7pXxNabCTl1Ubm4kXgv2fOU3KZXHHqMtAL6it0J6Phdf5b1ItUquijtKM
-         WVvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792072733; x=1792677533;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uMSSECwkd6GBn6Q0rd3u20QgElhwSrNALm0yFALuhrI=;
-        b=V+c4tsDTzwnJ7uiTebGf3dJlRkgG+KR9DuIotCUBegUcNmVNp/wHRAq/VUKeo6BlSo
-         p2dVk5omtsv1U+bDWTWqrHqqQY3VttBwfgfwAlyqLcGDRV7gsiJoRIL48fIEXFEoWGa0
-         AAtwnnCGSszpjR50byuA8811EcDhNIgm30MPvy8UOM939eoRDRjPD9qF2puVPxU4XLIj
-         2AFjMPKlhgqKLgVy09CuatFocWiwnf8jRS45ZpISHLshd5/t3vSlnaAU90o3sNleuSys
-         YRE5l2EDe2I46qfuWsqsiznlxRzLcGByVwYo9Y2hZ3+dUwGGUSKqNzk8IGKDh3W7F2lo
-         kXVw==
-X-Forwarded-Encrypted: i=1; AKwUvBz/CQFA9f88Rw5tJfZ9YraPRdN4uLu8qWd7ZM3mZD7ht6m7PXDkwFFF9HymNYzOQTFeA/74OfEwGSwmDXY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYId/pXL/5j/DlBr6NoEFoPM17taAaLywoqBs6Zyytp2aDzdlAy5
-	aWJblCB63pdwgOTT3CItg2pL5DtPB4h3sZXzKvsGciUrjGkncKCwhzHmxpW0QoWt+oy7vYkfA3r
-	W+7NB1A==
-X-Received: from pllq21.prod.google.com ([2002:a17:902:7895:b0:2e2:c8c0:e8eb])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:2348:b0:2e9:3295:11d1
- with SMTP id d9443c01a7336-2e97758f920mr460105ad.39.1792072733289; Thu, 15
- Oct 2026 06:58:53 -0700 (PDT)
-Date: Thu, 15 Oct 2026 06:58:52 -0700
-In-Reply-To: <asmwyCYDyaLwfmCV@yzhao56-desk.sh.intel.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E95D246C4C5;
+	Thu, 15 Oct 2026 13:59:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.95.127
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792072770; cv=fail; b=soalnYdRzyqzukTtJLAXvNADjVoqSvird8g/rJ1K4c8kIST6cQcgN3wGjniof012Z/cejzn0zGoiRPaB5hoiG8EzrEZg1Cdsx2n8mpP1fnU/SSNzZtPIKyI31biLLBIbhxiFN2aLzyC3MK2vIlt40mNXNBOZR3XEU8avTJDPAFg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792072770; c=relaxed/simple;
+	bh=BZSi0ld2gCoX42OfOoTVcTNAJ+2vSIiqZAmwEYc8o+I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=pTBithgfy+HZdVeRhIU+FAyP0CT3kR7wGfCDvJyfyHJjm8JlLQaGya/cmM0Zo2e1L94s1kVR0416kdUM2Z4VAWTr5sCVd9pwjGv/sunC07hCzMpwcUY4qULfTLi5RG72oVgGtkT76KJGfPOuFG3NV1UCKN0jhZ90FU3/D9E5rS0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.95.127
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Uh9iRxC2QxcLYuNVoh9q3M/Nko4tE4zZbfMNieZNXtF3ruYSQaB1Fd+XIcBBP+0H5CpZhnPMKyViDZyw41D4XkXZDkUt7zRV3AkEFOpSfI3HMNxh1eJEr6HUtA+orR8rFV4mic7xfdgV1Oz87NEWgQNsRusJm9AlSvGA53armAcm6TpibFTVVXMM9twtQW869c0eQ7XaUvxvgDRVDcesSHZOxmBOiXfB9+dK93ky0ZnYu7rzRpLC67dARJyIWi9yfDyAClKbgv1y1xF/OpqNFpiW6MJsGvOu6i5EPkr5khRNuOlwHDO/xpywzKqVwRaB6YJKYUpbnR4jqhvU6vfPng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=zSD030KENEnt4QGLhDgc2/Evuby4Hdf6BCKyt1MiNP4=;
+ b=gwWO8ORv3D5Ht2JRd1v7rbuAp2YmEvw3fredLGw4aaHWsz+ZxBKSOElAT9NLmu30Z2bP9c8nYuLbYQhLnq6JXGwHFcTsp1KQ4e1lrN5kV4KTVNSCe7e6/oOO8YsFA92Keq8sCbBhB7rbfddKKe6eT2XReaDYKFg4fN9RrfsjptOFGXGF7NaJuO/cPeKLmrhjQ+OoYm7nzh1SERCVivs/Ya53U5ryCcwjqSqL694M66mASVIBM3n02+Z+NoVKwGMESpAf8IchfVp8dgAMR48VBw3fJWs95eCRHN9k4AauinP0lptLVVJMryZBtc0Wmd5K5d3CRI2Sof5Tt1FAxxqRxg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
+ dkim=pass header.d=atomlin.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=atomlin.com;
+Received: from LO6P123MB6616.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:2b2::11)
+ by LO0P123MB7921.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:42b::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Thu, 15 Oct
+ 2026 13:59:23 +0000
+Received: from LO6P123MB6616.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::3975:c5e7:bc1a:f383]) by LO6P123MB6616.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::3975:c5e7:bc1a:f383%6]) with mapi id 15.21.0522.012; Thu, 15 Oct 2026
+ 13:59:22 +0000
+Date: Thu, 15 Oct 2026 09:59:17 -0400
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: Daniel Wagner <dwagner@suse.de>
+Cc: axboe@kernel.dk, tglx@kernel.org, tom.leiming@gmail.com, 
+	aacraid@microsemi.com, James.Bottomley@hansenpartnership.com, mkp@kernel.org, 
+	frederic@kernel.org, bigeasy@linutronix.de, ionut.nechita@windriver.com, 
+	corbet@lwn.net, vincent.guittot@linaro.org, mingo@redhat.com, 
+	peterz@infradead.org, radu@rendec.net, akpm@linux-foundation.org, steve@abita.co, 
+	sean@ashe.io, chjohnst@gmail.com, neelx@suse.com, mproche@gmail.com, 
+	nick.lange@gmail.com, marco.crivellari@suse.com, rishil1999@outlook.com, 
+	linux-doc@vger.kernel.org, linux-block@vger.kernel.org, linux-scsi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v16 0/9] blk: honor isolcpus configuration
+Message-ID: <bzf6xwfaa64gcc6qi4u76lnwiawijwrrgsbn6mukawvwzur6re@nsfh3lq5bfi2>
+References: <20260910164237.500196-1-atomlin@atomlin.com>
+ <2f32ffb6-d889-4281-a612-d4185311ca0d@flourine.local>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <2f32ffb6-d889-4281-a612-d4185311ca0d@flourine.local>
+X-ClientProxiedBy: CH5P222CA0020.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:610:1ee::12) To LO6P123MB6616.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:2b2::11)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260930001127.3170009-1-seanjc@google.com> <20260930001127.3170009-3-seanjc@google.com>
- <asmwyCYDyaLwfmCV@yzhao56-desk.sh.intel.com>
-Message-ID: <atDcHCtdPNAJGHeI@google.com>
-Subject: Re: [PATCH v2 2/3] KVM: TDX: Synthesize SHUTDOWN instead of returning
- -EIO on unhandled EPT violation
-From: Sean Christopherson <seanjc@google.com>
-To: Yan Zhao <yan.y.zhao@intel.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, Kiryl Shutsemau <kas@kernel.org>, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	kvm@vger.kernel.org, x86@kernel.org, linux-coco@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, James Houghton <jthoughton@google.com>, 
-	Xiaoyao Li <xiaoyao.li@intel.com>, Binbin Wu <binbin.wu@linux.intel.com>, 
-	Ackerley Tng <ackerleytng@google.com>, Vishal Annapurve <vannapurve@google.com>, 
-	Sashiko Bot <sashiko-bot@kernel.org>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LO6P123MB6616:EE_|LO0P123MB7921:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9a92126f-6a9f-40b7-f4e5-08df2ac483d5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|366016|6133799003|18002099003|22082099003|10067099003|3023799007|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	RPIy/JQRJ26BNVXJVlLL77nv4Hx2XvMR9lTjMZQlktqymeplS6HFXwcqrgWXglXMdYB3yK7OJU5pSy/+2S5h7xkVRNHpaOxx01gYrwitS203v/TIZkg/X3aHZMANuVuyao/C8pHj3RFsRM42aferlQG4WmTrCkMazUJo0ZpCqxBRSkbNpiERzdPFk2ekw6BX5QIpikSRm0RxuU81WT02sADW4DJzI5xLw9vd8GtXuxx+0R+oaOxr5jmWGA+nMZZJA97oXztX7e61/kAtdsy00SSIvwavjKDkVKW+h9VIZqh0BUBDTnjK6Qxu3JndFKfIbuTVaDnp21OImMr0cQ0Wrl+NHZ2/XimdL8G4Po3SA3HEupId7npoVCYXK07lFping2rji8qVZzzziZbONPbwiivjpKP4UjNguKoK8lJQDVwKjuG1eIffa+BCUW3ypAi4qlzpDIYJ1FOiKNU31JFWmunAN8Qz7eb24c2OfTYo1+D4uBLoE76eTzQAG28HBlRHJ9s7c4QR1bR9I1Hui9L19J1+JXL7xarB2uAwiKnxKuiK4xI41rljwbk2FoiKwzrKP8vkxStp4C3jzBo1eRiZNIqH38+4wTCSNF7K3idawn3YI7BKInm1mxz57f6MSzyqEc6jUzTFb/+bTIrSeMX0CxJYdVeaxXoeYjiQdcpPVvE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LO6P123MB6616.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(6133799003)(18002099003)(22082099003)(10067099003)(3023799007)(4143699003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MmJRT3UrUWo0MWJEQTN0RkdwTTBkRGpkaExxckN5K1lwbk1saVc1Q3RZb3Jx?=
+ =?utf-8?B?b2Z6aW8wdjVvNittOEN1UkxYVWJCNkNZSHI0K2c1THJhUUR2SlVpYVRaRVhH?=
+ =?utf-8?B?MmliMXFNdDlZaUZDOUtlYVM5dCtXRXlad092d3F1ZGpCS0Z2UjArRFFVd0VV?=
+ =?utf-8?B?dytGdGxucVB3dDAwSDlaTmFUR01sWjNEK3dyM09nbEl5aDh0WTBlTGJqRlJt?=
+ =?utf-8?B?eS81U3JDb1N3VzlaWDFzK04xUGJuZ2RjMi96MjUxZDRiSlV1MG9WdWhEbnFt?=
+ =?utf-8?B?eFFObWRGdXJTdE1LeHRHUE5YY1B3MGhYYmhMQWtBZ0hNa055NDY0Ri9Nbldr?=
+ =?utf-8?B?Z2FVS0RLWXM0SW9aVkxKL1FVZW0xVytGd0ttVHBBU1MyMFVvNjdYNzZWM3Zp?=
+ =?utf-8?B?T0pHVGpaQTZmSzYzOTVBdXBONmlwSnZ2SkNpTDBYbktLWk9KamNCdUp4NTdv?=
+ =?utf-8?B?QjRCSnhGS0FzbEtIV0djWThhQlZ6WCtKLy9oOVZWM1hkcmdKNjVYcitjbXR2?=
+ =?utf-8?B?aTN4dGZCWVhQZ3Q1VitySnpKc2Z2SldhcXJLd3BiazE4dnpGb2xVNVkzYlQ4?=
+ =?utf-8?B?QXFOTWYyR0JqUUFMcWkrdE4rdWo1TWF3bXNkdjNhK05GMCtqWjNnSmtDYVVY?=
+ =?utf-8?B?bGNYUDl3NmlPN3R4UlZkODV1S1kxMXNDallIMTdtMWRtM3J0TStmZlVXUjZL?=
+ =?utf-8?B?TVJQZFZza3hLMUVJdmhJVUk0eXNaeUNuQUZQN3lFRkFmaHlrdTllVkkxVjVJ?=
+ =?utf-8?B?T2hpOHR5b3JLNkhaYzlubVRDZTNpUkIxZnp5N0w4OS95WkdNNWZ0SEtGWE9z?=
+ =?utf-8?B?SW9tMXFKUVNYRjNRMVVmMXFOa1VydjJ1OWpzcXdYald5cWwzdVhNYlQzN0VV?=
+ =?utf-8?B?anJybUp5a3M0ZmpwaWVtT1QxU2hpWDRyaEtUbWNGWndmTGxtbFJKcU8zTGhw?=
+ =?utf-8?B?NzU5SHFvMDBZMzF2aVRUeFFzdUdLRGtvc3FQc1liTy8rVDJDRGo0ZXJ6R2Qr?=
+ =?utf-8?B?akI0UlJMemZRYjJFNzZoNTZ3MTIxWlR1bE1YZE1PWnBWVE94TERQUmhQOTNw?=
+ =?utf-8?B?YlNKRmlUODUrWk9wREZhcnFuYzdscThUL3I4QlZEdGY1YVB1bFErZGczZkdt?=
+ =?utf-8?B?UlBlMVlXTkZEOThFVnNvMm9PZkFHbXhzU2FacVByRGpWUGlTdkUwakdTZjFJ?=
+ =?utf-8?B?QmdIN09DUmFFVU5PUkErblVoT2Q0Zy80SUVxcnNEWTVKRmdTNXJKUUpiZ0t4?=
+ =?utf-8?B?S0FzcDFoMHNkdzkreE80elF0OUZYMHlUT0RPampTODdDN2VLNWFEOXM4ejA4?=
+ =?utf-8?B?QkFXK09uc3JuRGVjWWRlR2RhSHkxaWJOZklzaWJpNXVDMnJoa2REZVdqcTYy?=
+ =?utf-8?B?c0tSYW4vZEZpeHp3eUplejloZUs4Z1Ruekw4VktJeDB6SVg1a00vYTlhSWVW?=
+ =?utf-8?B?ZVUybmZ0akh4ajhsTWFEMmtqNzRCTW1kVEM2bXhIdDM4YzNmSjJvdUhzejhr?=
+ =?utf-8?B?RXVoYllHVnZVMDBDQ1U0L1BPNjNJWGQrTTVIcmlvd0lPMnFpbU13Mk5udjBW?=
+ =?utf-8?B?R050OW5GdzE1ZEN6WCtMMzlxSUhBc3Jzb3FDSE9uRnJYL2hoRFRUK2RscXE1?=
+ =?utf-8?B?WU9MM1RDZHljTUQwcHRkcGk4ZFpIdjFodDNWWGUxZmFuelRmZVF0TUJvWEVY?=
+ =?utf-8?B?ekR3NFB6ejY3NWNjWERUUE5GRlRqSEVKSm8wdkpPb3YwNWhMV3lqYmtWbHFq?=
+ =?utf-8?B?WStXUmRtb2dnNXBNQUw0MWp1YlBKUFBnTmV5eEtXYkFBanZtaTlLOGtYY25k?=
+ =?utf-8?B?bzJ1RUxiUFNoK1AyajdmUVc2TGJ5T1JLTzNHN2p0K2lzdjJYaGNhWit2V3p2?=
+ =?utf-8?B?MjFBRzZBeU1xNEZiSXdxZ0ptMUROcnFNRmpjYWwvN1pPeWpXT01NaS9uL1J6?=
+ =?utf-8?B?U0dxcXVOYy9LSnBCZHFYa0lRenFZTFIwZTQwQUpnQi8ycitlNHhVSFBrSVlm?=
+ =?utf-8?B?cUJBdTgrdDF4QU1ndk5nYTRCZldsalkxUkdNQmNJT0N5U280dS9PQWswcjR6?=
+ =?utf-8?B?RWluVTE5a254WHNmcW9vaWZ3d3gvM0xkdzVGRVRUalZUT2l2eHdDMkpUanNO?=
+ =?utf-8?B?OXJsZ0xJRG1Bc1VGeDJ4clV2d08vaS9vVkZzOVR3WHZzZ3M5SXNMck5hNWpL?=
+ =?utf-8?B?cGYwbC9KaHR6WXc1cXZ5cktOcDl0MHI4UjZQSGFQV3Z3T0NINWc1Ynp4YWx0?=
+ =?utf-8?B?RmNpTG9TMWZQaWp3Z0NtTW5uS2hYWUxRTzExcC9TRzNxZlllT0FNcXF2VVIv?=
+ =?utf-8?B?V0ZKOHdJRklkWFIvQWdhNEJGK3ZSZkx1a2VpTWNiVTU4NUEvQjZzUT09?=
+X-OriginatorOrg: atomlin.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9a92126f-6a9f-40b7-f4e5-08df2ac483d5
+X-MS-Exchange-CrossTenant-AuthSource: LO6P123MB6616.GBRP123.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 13:59:22.5919
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4wnl76/QIDobsjevB81gDs2owumF2zJtFf3Wmf8SVwPJ94Y6LWbLqyCPqyr3tgpFfsGufGb8wJA1kxFAubGBDA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P123MB7921
 
-On Sat, Oct 10, 2026, Yan Zhao wrote:
-> On Tue, Sep 29, 2026 at 05:11:26PM -0700, Sean Christopherson wrote:
-> > Exit to userspace with KVM_EXIT_SHUTDOWN instead of returning -EIO from
-> > KVM_RUN if KVM encounters an EPT Violation due to a guest access to a
-> > pending page.  Returning -EIO implies KVM is buggy, and most VMMs will
-> > respond by completely terminating the VM, versus rebooting the VM in
-> > response to KVM_EXIT_SHUTDOWN.  I.e. give the VMM the option of trying to
-> > keep the VM (from the end user's perspective) alive.
+On Thu, Oct 15, 2026 at 01:22:35PM +0200, Daniel Wagner wrote:
+> On Thu, Sep 10, 2026 at 12:42:28PM -0400, Aaron Tomlin wrote:
+> > Maintainer guidance requested
+> > =============================
 > > 
-> > Ideally, KVM would probably exit with KVM_EXIT_MEMORY_FAULT, but KVM would
-> > need to extend run->memory_fault so that userspace knows the fault can't be
-> > handled.  This scenario specifically occurs when the guest has deliberately
-> > disabled #VEs on unaccepted memory for security purposes, i.e. the guest
-> > literally disabled the mechanism that tells it it screwed up.  But, because
-> > this is fatal, and the whole point is to NOT try to fixup the fault,
-> > jumping through hoops to return MEMORY_FAULT instead of SHUTDOWN doesn't
-> > make a whole lot of sense.
+> > We would appreciate guidance from Frederic Weisbecker regarding preference
+> > on this front:
+> >         1.  Do you prefer keeping "managed_irq_strict" as an explicit
+> >             opt-in (as implemented in this series) to preserve historical
+> >             behaviour for existing users of "managed_irq"?
 > > 
-> > Don't bother bouncing through KVM_REQ_TRIPLE_FAULT as
-> > tdx_handle_ept_violation() is a top-level exit handler, i.e. there is no
-> > need to worry about failing to actually exit to userspace.
-> > 
-> > Fixes: e6a85781f783 ("KVM: TDX: Detect unexpected SEPT violations due to pending SPTEs")
-> > Cc: stable@vger.kernel.org
-> > Cc: James Houghton <jthoughton@google.com>
-> > Cc: Xiaoyao Li <xiaoyao.li@intel.com>
-> > Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>
-> > Cc: Yan Zhao <yan.y.zhao@intel.com>
-> > Cc: Binbin Wu <binbin.wu@linux.intel.com>
-> > Cc: Ackerley Tng <ackerleytng@google.com>
-> > Cc: Vishal Annapurve <vannapurve@google.com>
-> > Signed-off-by: Sean Christopherson <seanjc@google.com>
-> > ---
-> >  arch/x86/kvm/vmx/tdx.c | 4 ++--
-> >  1 file changed, 2 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
-> > index 29d4751f37fb..e3723f1222fc 100644
-> > --- a/arch/x86/kvm/vmx/tdx.c
-> > +++ b/arch/x86/kvm/vmx/tdx.c
-> > @@ -1939,8 +1939,8 @@ static int tdx_handle_ept_violation(struct kvm_vcpu *vcpu)
-> >  		if (tdx_is_sept_violation_unexpected_pending(vcpu)) {
-> >  			pr_warn("Guest access before accepting 0x%llx on vCPU %d\n",
-> >  				gpa, vcpu->vcpu_id);
-> > -			kvm_vm_dead(vcpu->kvm);
-> > -			return -EIO;
-> > +			kvm_prepare_shutdown_exit(vcpu);
-> Would it be better to exit with the reason KVM_EXIT_SYSTEM_EVENT and type
-> KVM_SYSTEM_EVENT_SHUTDOWN or KVM_SYSTEM_EVENT_TDX_FATAL?
+> >         2.  Or would you prefer upgrading the semantics of "managed_irq"
+> >             directly in place without introducing a new parameter, on the
+> >             grounds that the legacy post-allocation behaviour is already
+> >             broken for modern multiqueue hardware?
+> 
+> During Plumbers we had several discussions on this series. This is what I
+> remember we discussed and decided:
+> 
+>   - The current managed_irq behavior doesn't match the other flags of isolcpus.
+> 
+>   - Instead of introducing managed_irq_strict, it's better to change the
+>     existing managed_irq to follow the strict interpretation.
 
-No.  KVM_SYSTEM_EVENT_SHUTDOWN is an explicit call from the guest to do a clean
-shutdown (used by arm64 and RISC-V).  KVM_SYSTEM_EVENT_TDX_FATAL similarly exists
-to relay explicit calls from the guest.  Ditto for KVM_SYSTEM_EVENT_CRASH and
-KVM_SYSTEM_EVENT_SEV_TERM (which obviously is a poor fit for TDX, just pointing
-out that it's another guest-initiated event).
+Hi Daniel,
 
-KVM_EXIT_SHUTDOWN isn't a perfect fit, but IMO it's the closest approximation,
-e.g. it's a rough equivalent of what happens if a #VE couldn't be handled because
-the stack is invalid.  And more importantly, because we're retroactively fixing
-code, KVM_EXIT_SHUTDOWN has the best chance of being handled appropriately by all
-VMMs.
+Indeed. This was the common consensus.
 
-> By defining a specific flag (e.g., KVM_SYSTEM_EVENT_FLAG_TDX_UNEXPECTED_PENDING),
-> we can stuff necessary info like gpa, vcpu->vcpu_id into data, so both pr_warn()
-> and pr_warn_ratelimited() can be dropped.
+>   - The main existing user of the current managed_irq mapping is
+>     RH with OpenShift. After discussing with Juri, it doesn't look like
+>     it is a real blocker to change to the strict interpretation.
 
-Well, IMO, the printk can be dropped no matter what. :-)  But I don't care _that_
-much so I'm ok keeping the ratelimited version.
+Excellent.
 
-vcpu_id is redundant, the exit is tied to a specific vCPU.  And as I said elsewhere,
-practically speaking the GPA is all but guaranteed to be useless outside of
-interactive debug sessions.
+>   - If there are complaints about the managed irq behavior change, it's
+>     better to introduce a different flag for this. Though there have been
+>     many discussions and proposals on how to deal with isolation during the
+>     conference, and the general mood was that the placement of resources
+>     should be done during runtime. Thus it is likely that the old behaviour
+>     is not necessary at all if runtime configuration is possible.
+> 
+> Hope this helps to move forward with this series,
+> Daniel
+
+That makes total sense, and I agree with the direction. I will prepare v17
+with these updates:
+    -   Upgrade "isolcpus=managed_irq" directly to enforce strict
+        pre-allocation queue and interrupt isolation.
+
+    -   Drop "managed_irq_strict"
+
+    -   Update the documentation in kernel-parameters.txt accordingly.
+
+
+Kind regards,
+-- 
+Aaron Tomlin
