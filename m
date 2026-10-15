@@ -1,88 +1,84 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FB6B51EE14
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:47:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3005813790B
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:47:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792068435; cv=none; b=ZTfdJhhL6LGyTg45CoKbnbg4ipms+V9qkGB0x+LbBxcgwX7sxQOetkYhh5Ow6H0FPZ3bgpW5cK2e8qs32IduUVGpgG+hwmFC2LlENg1MKH+/1V1tB1lSGkkCj9V30+ksGbdr6uiggaC0KK9cGMyWOIpn4jrDKsyZlRj2adPAjsU=
+	t=1792068443; cv=none; b=SVIZ2uP+EVIQEHBM+2Zh//1q/09DWOrx/AqMkBOsRkNxjdlbH1iU2cSDO9FvktaUjt1SnPvYI1duKvJIbkPO3apOJyl4+PjLx3PHc7S33EHbdgt1QX3a3wxiGIsFdMBmLmkTifSd6Bh74joVMu2EknJNL8oE/2kMetZzCmzf/xo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792068435; c=relaxed/simple;
-	bh=NvtJIWZ0/wm4S5ZIwddjTQHskoaL8sTa1pMVe2+X+Zs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=F527Oj2Fx0s9qxgYmZuUhkCyBUbuFPtB8Cp8VrHSYXFmTpgO9QRpZP2485N8AoYhGGakUEiplJB6wS/IM0hPISOp1ocJBr3gLNTnGkkcHssvoaqWZq10wYZnATylKMQcB77p7KN7XmcXl8uHgP6rNZCw7RLfEOk/53tWrpPvuI8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DOCppP58; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FKAJwDPh; arc=none smtp.client-ip=205.220.180.131
+	s=arc-20240116; t=1792068443; c=relaxed/simple;
+	bh=YOJ0YMc8La/jNcbBC0eUdhX9rRv/PsC7NYu9zK8QHpo=;
+	h=Message-ID:Date:MIME-Version:To:Cc:From:Subject:Content-Type; b=RIPlXKhoQqtKieE/DvQ64VA5l5ULr6C57LTuqoQZD9kWIkmXKAWu4HlKaayXDUaQC2MmW/ChrT4S+GNyAKBtqDueh64U/Z0EOQ2L9T49ukDTW2iScUmq8HRKYplqblkm6jC7zFxFGeW6zFqmtYJxSiIEC+4prFHo+41f5BHBGYQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oV2PyAfP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=huFvi3OY; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DOCppP58";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FKAJwDPh"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9jpgX3408892
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:47:12 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oV2PyAfP";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="huFvi3OY"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9jSAS2809287
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:47:21 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	HpfO9Gqu9uFueM3NL3ptgyrxDHq1TmvbTG15ptsawcI=; b=DOCppP58g9XesA42
-	IzTA/UW5or2UmvB9V4Pr89taVGK8r8vfLoATAnO983XeXGrD/ffWQHZ+XnZYtCCC
-	zZhuxOs6AouPCZTKqywEr+t3LsB1cRQITcKYU2Haqq9ljE9hAwb9gevOsOoER43E
-	Ehun5k3qu99pCMXurt6wTdLjGVWrbF2WitXGEuR0BAbGtBlCYuLZ9etz/uFjQo8a
-	f2fMx1FJ3C2hUyhiCfi9lILVoGWAlz6BfDcP6VssNrZ7A7XtdZIvqrhYjJ4wUccP
-	2ElQ+h0/WnshHtdcYh4UAHG3g5TDFByvsl4X0m+fZpUiOkr8eiCOc1gnhmw9Xp87
-	6SmC6g==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hakwn2svf-1
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=03X9ozMJs7HECVlV9S35rD
+	2v2kz+KS+stKRC+hGL5Ok=; b=oV2PyAfPfzGtrc7hvmdJtmP5SJLJLKjQy418xP
+	Z+kWiGqQRZLvz1CQdQc7/p5RSYXr3+oa0l+++ib2hEkAeAgPVTyCajRzn073VlZ/
+	/FevjlIm2dZzhG6ngXOXr/+4JYezdpmD8cjPQqPp/oZkQn6oqtjlfgVbd9hPK0Zh
+	WxBPLu7DQQ98unmB0doQk/n72JhJyjZdl8DPmQT+6aZvAHgiDekIWb9D591YOKrf
+	FN2i7zWdPHFkxgvgfIqUxqIEsyE9tHZz5NfscqOiUlR8FG6EIx66+RKFS9q8cec8
+	jUox++DFFZ57vNT1cz+On0z7t7nqqJY7KieXhDeQcDEtbQVA==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4han54tm88-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:47:11 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc42a07d04aso1719951a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:47:11 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:47:20 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2cfa4e4684bso29771955ad.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:47:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792068431; x=1792673231; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HpfO9Gqu9uFueM3NL3ptgyrxDHq1TmvbTG15ptsawcI=;
-        b=FKAJwDPhVE11fa9HOh0o7ZEnf4WWNxiUqKrHxv8Fy3K3Enswt54ZVF6NTII+uHU68w
-         mv4qOEG9GkMnbMcUvr/y198//fcPF5V6mGgk4qDnQqZT3wXz4jjOuYFnBWswTtD4vuY1
-         ZfEejp3k/Y+yJoyrmDZt9SKTaeROhGhbS60IdH94oFGinjHbpB5xlTXo+XSbIyQyaQQY
-         yngmpCgCWW3GJXWH9z0YCVybJKKgEW1wO1SYyX6gVM2duToVVo2qqWgMwwpvbvLBfBKF
-         BuOCuDzOWu9iQvdcGuZdLqKQgYS/tgRnaLv81BylCSdDPPyIj2m8L3Ot0u654xlfVVUV
-         4LJw==
+        d=oss.qualcomm.com; s=google; t=1792068440; x=1792673240; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=03X9ozMJs7HECVlV9S35rD2v2kz+KS+stKRC+hGL5Ok=;
+        b=huFvi3OY23hZcLkNyj1XtY3akI/RXE0rhxkrYrsSEQXu4XwzxphOCzddbdLBNtTtPa
+         dJfRYf53WsDW1hIvl1eh23kgaD04zi8tMA4bil7Nk9Fch9ZUUIhJOhoAIeDxLvARJax6
+         Vz+2fkVX3bSGD0JDWRZfB2Clk/fMVTvhJa6D3U5RbzMyGRv7Dqf4v3ZC7rYb759dj0aF
+         D99jPRvznJrocrZ30Uu4xq76Yt1s1uWjUgzN6XLVyu088BF59dO9mYl7I5P3z3maQ0y5
+         TXybXwtHQelCMsnlcGOZYMTPRdBKGh+MgtvRBnWFhbqnvc+k04oeuJD4+k9ft5wlGDdo
+         A9nw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792068431; x=1792673231;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HpfO9Gqu9uFueM3NL3ptgyrxDHq1TmvbTG15ptsawcI=;
-        b=W3NKmKjD8fz5J+fzWsghxHIRe0OwIvxM+gqcaqjXSx10mC0bAz9bbFqW3hnxwGfEs5
-         hKdTeXiHUrnVAIuX1djDr63lMUIACsbgJaVWHzySZkpw3HeftswkLnYsjBRLHY3D47mC
-         Hxt3w/uN2W6yjpl0ejX3FoqbrDHgltlfaekN6eCYNzLfoh0fZO+tNEu6v9+3blx7KeG6
-         lLZsXtqS/jWI6XlsuKsN4AeqzVJRHUTyjJMnW+V8ojBMEfqGDdYr8tv4hBdCeVpc7PX4
-         u7w2EaZAZFhJnnG3MyWhfU4PeWoQ9fSYOaNyBR2+5zdzN1R4pxjxCm8B9v0MB9FsIRCG
-         T4HA==
-X-Forwarded-Encrypted: i=1; AKwUvBzIbPpZhqIKlilYvDRItK+ipPUXNY5VRQ6qR7uOJQ9Nz51BzwZMVN+dxqlx5LRyA4VECp6Z2pcJmjmUCyU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKuFTzAyxY5m8WKTuke/6/iU9qMzwNW4rGdfe3CD+qxcDx357t0
-	phDwkWzTyQVO5VJVH7HOnrS1qA49awd993z2cm6NBDgwK/6PhlVbMKbNlBWG5roRaOWAo6RpzwT
-	dXtzoFIpJJkm6GrdTKk2mtbGXwOwYmMhV6/bTAXhz1FM8Ryj50+wClcjNSJZQxuzHXmA=
-X-Gm-Gg: AYBFou2MziVNrxJ7pNERoVgewiulK75vaj9cz5do6dQb7n9VjlLvW+KOvmqt//pGejx
-	FXWUFEMjkk4IrPHRL/8wSErde5eP1zl2NnyTifsNC9dwyAj5xHaIxguw5QyPUJt0GhC7qqIcXOR
-	TAV1GKE/M0xqyGNlNarDCSgr9SN2XYPfm94NoQao7y0MMqAObPYiV9wQQ3soEJqEeJwp0AejRGL
-	Gd+/DMiGvB93jtZ+224hX69p63F8+BX82dJp8ZWc+EkEsz3zsWMHunmHIe5sTvM6qAcb9zL0+kb
-	aTS9eZYNELaJ9tAlA0+Avb0YS6vAcc0zEYvlGGa1e9KxvoWz6jaWY8xPjMegr5Q8UFgqfo4ftak
-	rueNBZ1SWBPpERZTn1CA2tYzwwWV6gR7gL99anVNPB4u/EnFXotOely08vFY8gXMqf89l1iZoR7
-	arOXTJYrnHTDM70R3nkhs/j8agEg==
-X-Received: by 2002:a17:903:903:b0:2df:8b09:93bb with SMTP id d9443c01a7336-2e842aaca0emr153739715ad.10.1792068430826;
-        Thu, 15 Oct 2026 05:47:10 -0700 (PDT)
-X-Received: by 2002:a17:903:903:b0:2df:8b09:93bb with SMTP id d9443c01a7336-2e842aaca0emr153739435ad.10.1792068430276;
-        Thu, 15 Oct 2026 05:47:10 -0700 (PDT)
-Received: from [10.149.81.110] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422b8cb6sm81962855ad.60.2026.10.15.05.47.02
+        d=1e100.net; s=20260707; t=1792068440; x=1792673240;
+        h=content-transfer-encoding:content-type:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=03X9ozMJs7HECVlV9S35rD2v2kz+KS+stKRC+hGL5Ok=;
+        b=Gm/Fn4uHJqa3+9yd6BNh9HTZs+UawTCwRUUcPubpHxBATllVP9xkvSAkt7yep3DoA7
+         Dzsq+K0ecUekLktZvz7MuzxnmuWL/ZETd0uYPqo2cyH/nhplKmMzAbhWHCje6AEiJewT
+         NM9X1OLSrC02VgASrYlfixOrZUBG34w3Qskj5KNSF71cdZRsDrKYnb5OjKPcGG43QHtT
+         XB3bDw3krrTjIS3nhvtGk/dgQ4/RjGbemlTIiOUQjeCmaHHTFMxwm//8KqFcgAFk3BDq
+         ZCBIeYRsbNjHGKkI3f+jRChxwbYT9QbC2M9XPcRKS81HXxmiwmjJlQhRSm5sbO8Jocst
+         +ERw==
+X-Forwarded-Encrypted: i=1; AKwUvByjFCauRfR1bxfKavXC27WkGK+ds5t2OJOryVECKwNmu6SjEnRaYJYKId+bx7ruP6ywKoSktP+/USRhyTw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJxq+WbOpuuswKHsvUGJdkrk7cCOIwAj0B06ct2WWLmrGOQQeV8
+	X4de1jbOuCtXIexRNIs27BirS7IMAiigxCGHqNz0nWsH2vqrULwRv63ofXkNBN4hNReNT8xdKd6
+	XmkPKSbVaeqPZrIT1LzX7PS+iQA1fwGgOPRzcqsbpkQgo/0VJYyzMl7GX33Pk9LNgOZo=
+X-Gm-Gg: AYBFou1vZVt5SuGNurqTAQHHRVwIbaXo9aPqtwlVCpJMdYgk3GFsOcX08ENhT+b6s7u
+	p/x5gFDSySJaLsSTQ/i/iJDojLX6USIAZ9/3DPsHrZZQ8b0/vdTNASX7CG+VjQn9joWH9tnWYI7
+	cD4H35DrqQ/cWlzV9uAljg98LSVSngZkrh0PxuRsKivpADEiX5LHyJOrXrD2N4w80Ghd+CCv2RE
+	oD7+rKxK7cJp3NVDpOi/8B46zDL2nCQcT9obeP7cd04lhNCXaFZmWlOSH1E4dy2n55fHZ1tXu54
+	0HVNvZqCYZD9Sm7jytjL+MhzbeSzSGxhOdd8MHtZn2FlsRLb1QmYClwfW3Q99NHm38DKPc6j840
+	EMabTa2yYcfaOQ5GhupiRC5pbrZtWpkmg4jHCUoUGLyyis2kClXGUIo1WOm82P+z74oMF
+X-Received: by 2002:a17:902:e892:b0:2e7:4a2f:68e6 with SMTP id d9443c01a7336-2e842e1363emr183533445ad.39.1792068439766;
+        Thu, 15 Oct 2026 05:47:19 -0700 (PDT)
+X-Received: by 2002:a17:902:e892:b0:2e7:4a2f:68e6 with SMTP id d9443c01a7336-2e842e1363emr183532555ad.39.1792068438410;
+        Thu, 15 Oct 2026 05:47:18 -0700 (PDT)
+Received: from [10.133.33.55] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8421b160csm82646435ad.37.2026.10.15.05.47.13
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 05:47:09 -0700 (PDT)
-Message-ID: <5568fd0f-e412-4f2a-9f1e-729a469da572@oss.qualcomm.com>
-Date: Thu, 15 Oct 2026 18:17:01 +0530
+        Thu, 15 Oct 2026 05:47:17 -0700 (PDT)
+Message-ID: <6b295276-4f42-4f46-b5a2-50c3ac83b412@oss.qualcomm.com>
+Date: Thu, 15 Oct 2026 20:47:12 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,117 +86,255 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] dt-bindings: arm: qcom: Document Microsoft Surface
- Laptop 8th Edition
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Maximilian Luz
- <luzmaximilian@gmail.com>,
-        Hans de Goede <hansg@kernel.org>,
-        =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-        Douglas Anderson <dianders@chromium.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-        Pankaj Patil <pankaj.patil@oss.qualcomm.com>
-Cc: Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
-        dri-devel@lists.freedesktop.org
-References: <20261006-mahua-surface-laptop-v1-0-406fc042162a@oss.qualcomm.com>
- <20261006-mahua-surface-laptop-v1-1-406fc042162a@oss.qualcomm.com>
- <245e5eef-e18a-4ec5-b57c-65e561101351@oss.qualcomm.com>
- <52adff3a-370c-4445-9797-e0b0dde36fab@oss.qualcomm.com>
 Content-Language: en-US
-From: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
-In-Reply-To: <52adff3a-370c-4445-9797-e0b0dde36fab@oss.qualcomm.com>
+To: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
+        Andrea Righi <arighi@nvidia.com>, Changwoo Min <changwoo@igalia.com>,
+        Cheng-Yang Chou <yphbchou0911@gmail.com>,
+        Emil Tsalapatis <etsal@meta.com>, Ingo Molnar <mingo@redhat.com>,
+        Peter Zijlstra <peterz@infradead.org>,
+        Juri Lelli <juri.lelli@redhat.com>,
+        Vincent Guittot <vincent.guittot@linaro.org>,
+        Dietmar Eggemann <dietmar.eggemann@arm.com>,
+        Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+        Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
+        K Prateek Nayak <kprateek.nayak@amd.com>
+Cc: sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org,
+        trilok.soni@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com,
+        abhijeet.dharmapurikar@oss.qualcomm.com
+From: Tengfei Fan <tengfei.fan@oss.qualcomm.com>
+Subject: [RESEND RFC] sched_ext: Support RT task within sched_ext
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1MCBTYWx0ZWRfX+rp7VStAxisW
- CEIBCj8kH7X1ZUIpeDx2Tyxku1KHV/nH4LhvpohQp508IC1XMQkYTxouBs+Wggy4WVV0XgW8J34
- VBUZ5Yqn6GbcjsHVhknGv/hcQGhffzuIQ0WbIVWEra21+gbjCIFUwHNLCU0R6mEFLSdk2J1bFdK
- tEem/x8we7fNuVD1OM1qLhRmEcfW+XtQwPWpJuMorMXA3fd8sJCfGWf0JH9TSelxk+xurFj6dto
- imw4Zpm8dHF4xNQohbV4big5SVWMYpgarEffN3U9fpGUDWySt7Y6pfdNuakgPQ5iDXZamKOGF+I
- c7ORC/PHLVnjLnEc5b6ZYFX3lnzVLrWR0cEVBL5OUF0WFC+AzFoWMSP9HfjTPXJk1A1dtHn5tme
- l1gUBO/JlWZ3hUfL1u2wjM5Zv9btVEGXzS4iT+raYTvfjZttPKltzKQWklvpNyTyKM0Obz1tQBw
- yt9oRU224U8uX99413w==
-X-Proofpoint-GUID: ImAAAOXchUWaJbMQRkjghPWAjClJuhm7
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1MCBTYWx0ZWRfXxMDZXyFLNtnW
- 3mk/X7pSkA6cjJNgYdyYsnd14MlDeeS9TWoqZurGwzFuym6LqTBSZe2063GCIlEs3Uav2w4pH3v
- 7VMVewIGfi8ATubiASXG4BYSenVu/YI=
-X-Authority-Analysis: v=2.4 cv=BqUIUoX5 c=1 sm=1 tr=0 ts=6ad0cb4f cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+X-Authority-Analysis: v=2.4 cv=RYQFmFtv c=1 sm=1 tr=0 ts=6ad0cb58 cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=NEAV23lmAAAA:8 a=EUspDBNiAAAA:8 a=g9vuQ9wz1Of9mYxFF6EA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-ORIG-GUID: ImAAAOXchUWaJbMQRkjghPWAjClJuhm7
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=OGjWj8McAAAA:8 a=OhM-RmH_1B9f-UcPyl4A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=uG9DUKGECoFWVXl0Dc02:22 a=UYjydHh6ynBBc6_pBLvz:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1MCBTYWx0ZWRfX8EmmseTO74+C
+ ZoeZnExPz/o36vRdeC9uX8Ix6NNVppttK7ztyx7tJlKCWHEpQrU5qE/gxYN8PrOIh4LM/JegUXj
+ TrnpShFWKzfTFwR4PH0Ag/imssGQN0aYh6WHvJGAaPqpuUYiNb3kaJ7MVuwnoRtjCf/RNJBFpdZ
+ 8DKd4phT3qlArI2t+yJTWeR1RPEu8fElIJhTOEaLb/z10zdocqqqL/JLOUefHa/UvE3/SJQToGK
+ vD5oVSRx4MNbJWbeCeT6ifubdKJCBZ4oSm4XEtP/vzJr067e2531Ftz8Ut/+jir0Lc0lof+Qibg
+ eE3vheTMwUVizzw4/kWRJ2/mm+oormZm9x6bYj4F7s1+yFJDBpLGobcgVX3xxaSMA9bd/SpqQqw
+ 03tRzDNihWvLZFM20m1a17U0xQHXFEHZe86FDOYiLYiAVoH07UlVGe0LmHbQAHu3102/8FMwdsE
+ DqR39A4k3MQHrVGG7Yg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1MCBTYWx0ZWRfX2MjJHWZKBFOO
+ u/6x6IWxfxs+JeeNEIgv4TWUfy5u+RpWaA1eCXc4qFHPRB/vx4imANaG2YBg4f+r5nvxhX5Y/kM
+ ORngAVSfqKY3Aljv0vfKaY+MEkwTI9c=
+X-Proofpoint-GUID: EVTPiV4lNsplVyp7my5H6FFcRAqwfski
+X-Proofpoint-ORIG-GUID: EVTPiV4lNsplVyp7my5H6FFcRAqwfski
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 spamscore=0 bulkscore=0 suspectscore=0
- clxscore=1015 malwarescore=0 phishscore=0 lowpriorityscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610150050
+ priorityscore=1501 phishscore=0 bulkscore=0 suspectscore=0 impostorscore=0
+ lowpriorityscore=0 spamscore=0 malwarescore=0 clxscore=1015 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150050
 
-Hi Konrad,
+Sorry for resending this as plain text. The previous email was rejected
+by the sched-ext mailing list because it contained HTML.
 
-On 10/13/2026 2:09 PM, Konrad Dybcio wrote:
-> On 10/7/26 9:11 AM, Gopikrishna Garmidi wrote:
->>
->>
->> On 10/6/2026 3:20 PM, Gopikrishna Garmidi wrote:
->>> Document the Mahua-based Microsoft Surface Laptop 13.8" 8th Edition.
->>>
->>> Signed-off-by: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
->>> ---
-> 
-> [...]
-> 
->> Before review, I'd appreciate your input on the naming.
->>
->> Surface Laptop 8th Edition comes in three sizes [1]:
->>
->>    - 13 inch:   Snapdragon X2 Plus (6-core), UFS storage
->>    - 13.8 inch: Snapdragon X2 Plus / X2 Elite (Mahua), NVMe
->>    - 15 inch:   Snapdragon X2 Plus / X2 Elite
->>
->> This series adds the 13.8 inch model only. I named it
->> "microsoft,surface-laptop-8-13in" (mahua-microsoft-surface
->> -laptop-8-13in.dts), but that clashes with the real 13 inch model, which is a different board (UFS instead of NVMe) and will need its own DTS.
->>
->> I couldn't find a codename for these, so I can't follow the Laptop 7
->> scheme (romulus13/15). Could you please suggest the naming you'd prefer
->> for the compatible and DTS file name? I'll update it in v2.
-> 
-> I can't find any. The LLM suggests the 13.8/15 in codename starts
-> with "ROT" based on the INFs.
-> 
+Hi all,
 
-Thanks for checking. The only matches I see are in the MPTF thermal
-package, which ships"883ROT13Inch.bin" and "883ROT15Inch.bin". Nothing
-else mentions ROT.
+We would like to discuss how RT tasks can best coordinate with sched_ext
+for cpu placement, cpu balance, and sched load reporting to schedutil
+governor. This RFC is intended to continue the discussion in email list
+from last LPC[1].
 
-I also checked all the ACPI tables but didn't find a codename there.
-The tables are here:
+One of the options we would like to explore is allowing sched_ext to
+schedule some explicitly selected SCHED_FIFO/SCHED_RR tasks.
 
-   https://github.com/aarch64-laptops/build/pull/176
+We received feedback from Changwoo that the issue is valid, and in
+LAVD sched-ext, they tried affining RT tasks to a limited set of CPUs as a
+workaround for the scheduler placement, but we do know that it is not a
+flexible enough solution.
 
-Following the Lenovo gen8 naming, would something like
-"microsoft,surface-laptop-gen8-13p8in"
-(mahua-microsoft-surface-laptop-gen8-13p8in.dts) work? I'm open to
-whatever you and Krzysztof prefer.
+We also had a discussion with Andrea Righi, that he acknowledged that
+he understands the scenario and current problem, and he would suggest
+not changing the current core scheduler, but instead using bpf ops to
+bring the RT tasks under the sched-ext control. We are trying to explore
+more on this path, and welcome to suggest or comment here.
 
+LPC topic:
+[1] https://lpc.events/event/20/contributions/2561/
+
+Slides:
+[2] 
+https://lpc.events/event/20/contributions/2561/attachments/2025/4612/2026_LPC_Support_RT_tasks_within_sched-ext_.pdf
+
+
+Here is a text-based description of the main idea presented at LPC.
+If you already have that context, you can skip the section below.
+
+
+Background
+----------
+
+In most of the Android gaming, video playback, and livestreaming test
+scenarios, non-RT threads work together with RT threads to construct and
+consume a frame. Finishing the frame on time without frame jank is a
+key performance KPI. A balanced workload across CPUs with fewer
+unnecessary CPU frequency bumps is another key power KPI.
+
+More specifically, taking a gaming scenario for example, UnityMain and
+UnityGfxDeviceW are the critical normal threads that have significantly
+higher load and usually run on the most performance-efficient cpus in
+gold/prime cluster. Other than those high load tasks, the other normal
+tasks mostly have similar workloads.
+
+It has RT threads like the display HAL tasks, SurfaceFlinger, and the
+GPU related tasks. Those RT tasks have workloads comparable to those
+of other non-high-load normal tasks.
+
+In our tests, sched_ext runs in switch-all mode, with
+SCX_OPS_SWITCH_PARTIAL unset. It schedules the non-RT tasks
+covered by this mode. SCHED_FIFO/SCHED_RR tasks still run in
+the native RT class.
+
+Below, we call these non-RT tasks "SCX tasks".
+SCHED_DEADLINE tasks are not part of this proposal.
+
+
+Observed problems
+-----------------
+
+cpu placement:
+
+In our tests, RT tasks can run on CPUs used by important SCX tasks.
+This can cause the SCX tasks to be preempted, waiting longer to run,
+or lose cache locality.
+
+Here is a diagram for easier understanding:
+
+         RT task + important SCX task
+                     |
+                     v
+                  same CPU
+                     |
+                     v
+               CPU contention
+                     |
+         +-----------+-----------+
+         |           |           |
+    preemption   longer wait   cache impact
+         \           |           /
+          \          |          /
+           +---------+---------+
+                     |
+                     v
+        SCX work may finish later
+
+RT tasks have higher priority, so the preemption itself is
+expected. However, from the whole scenario perspective, better CPU
+placement could reduce this interference when another suitable CPU
+is available.
+
+
+Load balance:
+
+RT tasks can be scheduled in the same cluster of non-high load scx
+tasks. This can also be a preferred placement decision. While the
+load balance within the cluster is also hard to maintain.
+
+We sometimes see RT and SCX tasks on the same CPU while other CPUs
+can become idle very shortly. We need to check whether those newly
+idle CPUs can pull and run the scx tasks. While if RT tasks are also
+in the same scx scheduler, it is easier to make decisions from a load
+balance perspective.
+
+
+sched util calculation:
+
+We also see a difference in load tracking. Our implementation
+uses a frame-window model for SCX tasks, while the RT load signal
+in our setup uses PELT.
+
+The SCX task load is flat and steady, while the RT task load
+sometimes spikes. An unnecessary CPU frequency bump up can be triggered
+by RT task load spikes.
+
+
+Why CPU affinity is not enough
+------------------------------
+
+We could use CPU affinity to keep RT and important SCX tasks
+on different CPUs. This could reduce the time they compete
+for the same CPU.
+
+However, CPU affinity is fixed and strictly limits how tasks can move
+between CPUs. If the number of background tasks increases, CPUs perferred
+for critical SCX tasks may still have spare capacity. With fixed CPU
+affinity, non-critical SCX tasks cannot use those CPUs even when doing
+so would help balance the system load.
+
+Ideally, the scheduler should be able to choose CPUs dynamically as
+the load changes, while still keeping tasks within their allowed CPU
+masks.
+
+CPU affinity may still help, but it does not provide the
+flexibility we want here.
+
+
+Possible options
+----------------
+
+One option is to let sched_ext schedule some explicitly selected RT
+threads together with SCX tasks.
+
+This could let one scheduler choose CPUs for both selected RT
+threads and SCX tasks.
+
+For example, if other cpu is idle, or running a low priority scx task,
+or running a low load scx task, an RT task could use that CPU instead
+of a CPU running an important high load SCX task. This could reduce CPU
+contention for the frame important KPI and help balance RT and SCX tasks
+across CPUs.
+
+Such placement should remain a preference rather than a fixed
+rule. It must respect the RT task's priority, timing needs, and
+allowed CPU mask. The other CPU must also have enough capacity.
+
+It could also allow RT and SCX tasks to use the same utilization
+model. We would like to study whether this can make the load
+signal more stable and reduce late CPU frequency changes.
+
+Another option is to keep all RT tasks in the native RT
+class, but provide enough information for the two schedulers
+to better coordinate CPU placement. However, this would also require
+placement and load synchronization between the RT scheduling class
+and the sched_ext class.
+
+After the LPC discussion, we'd like to explore option 1 and use
+BPF-only hooks to achieve current needed RT tasks within scx class.
+
+One option is to have all RT tasks with a priority lower than the SCX
+  helper thread go into sched_ext.
+
+Migration thread, sched-ext enable/disable threads and IRQ threads need
+to remain outside sched_ext. With this option, we will need to verify
+more common scenarios. We can explore the first option first.
+
+
+Open questions
+--------------
+
+* Can sched deadline can used to optimize those scenarios?
+
+   It is possible, of course, so we put it here, welcome to share the
+   possible configurations of which tasks goes to deadline. However, here
+   we discuss only the topic of plugging RT tasks into and out of
+   sched_ext for these scenarios. For different scenarios optimization,
+   there is of course no single solution. It still can have different
+   scheduler optimization to make a specific tasks a different sched-class.
+
+* Other ideas?
+
+
+We would appreciate feedback on the problem, the possible
+directions, and what we should try first.
 
 Thanks,
-Gopikrishna
+Tengfei Fan
+
