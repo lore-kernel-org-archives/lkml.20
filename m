@@ -1,162 +1,147 @@
-Received: from cp2.siel.si (cp2.siel.si [46.19.12.180])
+Received: from flow-b7-smtp.messagingengine.com (flow-b7-smtp.messagingengine.com [202.12.124.142])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6211489FAB;
-	Thu, 15 Oct 2026 08:47:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.19.12.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17999489FAB
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:47:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.142
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792054035; cv=none; b=Uf7m0q6X7PAH+O5LbXV9klR0PHdiet2dSbxwwhkOyR8XMC6+xIgG/D/FLbn0sEFal56FY6ertVghAeSoi50azLy8ROlD2J8g1q2jCoPzv+X2urEJm712OAmW2eJ+D9LbufiBk55KhR0B4XGMjl3ss0awr2jAtaKOf7CmoJBKsv0=
+	t=1792054049; cv=none; b=qzhAIMiJoX4k7gZQz8zIpBZ1hbLFSg+9Umgf5txJhXieqoqsnDyjYJNCxKFHFhrpK+evb+D0VrEjRl4ORxVxVMqq3lFq5bbOUal0tefz9s0WgeREpRMfOllj0uOJ6BbfIyOAARoQ+CVXOv8HUJaz3Y7wXXM+1oWpPV7AHmcmixM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792054035; c=relaxed/simple;
-	bh=F987hrawW6j3lj7eaAqLXa7a3paIzz8IWI/uyOLevBk=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=aCQa5TCgEqr/8S7IoCsGtVIj6SXmTQbc2fN5D7IOgsDFOilLxmvCmLFy2KvE9fT6kNF3/cfd87xGNtQ6ImpI+uJUPAZFtNrgXdoNmRpsY1woWlN+yN7ZPpyG0EthULrHMlPidnvlkydxVag1aV5Q6n3JqCvR2wX0agG6YsejjCE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com; spf=pass smtp.mailfrom=norik.com; dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b=GSR3PJut; arc=none smtp.client-ip=46.19.12.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=norik.com
+	s=arc-20240116; t=1792054049; c=relaxed/simple;
+	bh=3DzHIzJFG/LKDyQ+ooB2t4Kz1ibLoewNe1K4ZAt8fTE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FGftrezN8RBVvkOX1+fkIZ3Z4CS46ee1IwVDHOrlxrCQ3o8ttLrtNc1uRxIO+EBvEeirRj5XaHVHOcXIWs1rHPlV2r4ORtR7/bBdYDtKFuSllTgEx41IcjJp8VTSXn86OSOXIfVbz0s4tig7+ghNt9L4AQiDa46Ee4Fa6/OxvbM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=nlLDeU3R; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=RO/mq21G; arc=none smtp.client-ip=202.12.124.142
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b="GSR3PJut"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=norik.com;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:References:Cc
-	:To:From:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Unsubscribe-Post:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=LbAfMirCzUKHKrH2TtQXopkikcdlOcqjFyzU/qMzrOU=; b=GSR3PJutykAc6yW3SjzxCY9G6C
-	zh6votkzgnpbHj6UHP+0+TNf19NXZIOZE+cKqFdhWdP4cNptjwPm/Q0KaewBGsVMAnA0LZHDWuJiI
-	OwQkGUPJzpeoC+RU+YQRVJGtX/n9tA+VnoQ2hItR1mzDtGUVbUb4izDUj7RUQNPTHjDBbr13JRwLt
-	UANwA88lBGTbtl2/+SYANKvIiKL6vZCxgpT3wBbAfrkwFaIn/BZtTKHak9pfwfuzalntiZdMxrGtB
-	AnxldgwamoSo7TQtWm/ukxiGorxjIBv2jFryPXagJ7dtFU8MyTJuq7lXbQ6zycCC80Np1jYTskicI
-	h+8ixo5Q==;
-Received: from 89-212-21-243.static.t-2.net ([89.212.21.243]:46922 helo=[192.168.69.116])
-	by cp2.siel.si with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100.1)
-	(envelope-from <primoz.fiser@norik.com>)
-	id 1xHH7B-00000002OC9-3Ybv;
-	Thu, 15 Oct 2026 10:47:05 +0200
-Message-ID: <ad97376a-8464-434c-b8c3-dffe395eef64@norik.com>
-Date: Thu, 15 Oct 2026 10:47:03 +0200
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="nlLDeU3R";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="RO/mq21G"
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailflow.stl.internal (Postfix) with ESMTP id 74C6A1300D09
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 04:47:27 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-06.internal (MEProxy); Thu, 15 Oct 2026 04:47:27 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1792054045;
+	 x=1792061245; bh=Xf58ua4FdgrM9Nf7kURSBCDP5FY876Tka1oD3hKlBSY=; b=
+	nlLDeU3R88x+C+XcDEWj6mCG0aacaM47ieOCjV6jMsvXWKNAeSJn+jRphkHQxjVa
+	/Hcjt9Nx4sADAacO6ezlkEaLIS5p4hJ2nixWUDZ1Lm8B0EEjEE15yo0BIGNLvjDY
+	R991/veHVfTvIocmLZ32JaWgZxRp0WizOklplKlPNcisyLB7HArCStpbK6K2j7+6
+	p0Kpl5uBFgjLpqGovCBnso3ajW9/JbFYwbBhyyzHPPXPoRw7R2ygxKpRTEMyurzM
+	bT8deJsY+xxm8SAz+/ckQW0vqTXxnN8pHwY+oxMwU96rdnNPjHomm/fxYYK0HdzP
+	cNDSQIJeLpEZIH1BjHHXcw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792054045; x=
+	1792061245; bh=Xf58ua4FdgrM9Nf7kURSBCDP5FY876Tka1oD3hKlBSY=; b=R
+	O/mq21G6S1V/MDGK5O2JeW3wnBdTY/cNMxw3hkbAvnOh0i2Fw3DgYAgqqYw6megl
+	GAwWvJzMwEFuSvaZXLlodkQR4ZDzcg6xmSqWZqEXFEYTlU6j74AQz9rO3wB2um1p
+	kxzB8+h0dQGWUXPL/HimmVcTZ6omcUui/xsFAS9r0DqxgZ9l7wdJGHUfeDjZImKm
+	EKeYPF6HRAizWckAvJBB8ptYOc1nK8i9v+XJJu3gXKlyZuTKqF2iUsgE6Qs516lr
+	R/0YG34DScYNDLs8ExutwwSCKI3+hnnSUfjFfJxdqFZDh0UsBdt0WMlY824aOg5l
+	wGj4iLYqb4t14GhGOTq4A==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=kroah.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792054045; d=kroah.com;
+	mf=PGdyZWdAa3JvYWguY29tPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:MOA3NrvtEHoYgxkRKjRAGPMvVdX8e4s0a6b+xCkr+C0EFGu
+	/1vI9tWxDEsVuTHuIcpz3AAvNunfEWnXge8HtpGKTzCCNdQsOp5pLQ1unD63QlKb
+	T1tad7JC+k9nsgRA6OexatmMRz/MS7UKraANhWEJQUy6A+RGmyIScyg+FLbm2qke
+	yAKh5/WkNF+qp+IGWsNaJvDo2SuarlARUJc+L0pRWXA0W0vI9FsunjOVxBgscr07
+	Bh9yPPqVHehsFAAaWe6zTEF4GXfdvGDibQGWm8yZgz7SHU1iWhI7hCfgUYB9xQ1F
+	ucQPAnQsJfcvHUG+XWkIarByoWH3gke2oe//kpA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-disposition,content-transfer-encoding,
+	content-type,date,feedback-id,from,in-reply-to,message-id,
+	mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:4z7b+kvGW4W1BUFE+mDvvDnNuAnYVdcCWZXSNWUhwmM=:3DzHIzJFG/LKDyQ+ooB2t4Kz1ibLoewNe1K4ZAt8fTE=;
+X-ME-Sender: <xms:HZPQavoazQGlCC_srZHMX3zRWqrThV6il8fnwG4GbOBfpTAz3_1guQ>
+    <xme:HZPQaqYhfPYR573HAZvMLwDDb7DjT7H9Twd7O97X6q11dQFkwFUgAn7R176AlGKtf
+    vazLFYgW12RMxr9HjC6waKMZhjPhqj9t_D3b0CRP9IX8JdhKg>
+X-ME-Received: <xmr:HZPQalGn4p8xkMKahMV0zzyK9EX2oMyvSaut_hdndJkOJJWw-jzX_7zpcGwBcGb_rQBTXmnG8WcIRpw-0gd6H0xJYFxSkR_3_IiIAkQBTgI>
+X-ME-Proxy-Cause: dmFkZTGdnHDF2BEuJTGH/rfkQEccsg/HRvyWcJAAXBDVUhsoha6DEHd535yO0ryVPimrP0
+    PJs1iev2ttBqSBMTRYqueUudaunYx/fk6khoDVVdL4E+Bxie2LBiACKezmG9jkopFmFqM+
+    KpeBMecM9r5dOdrWk1DwUx8Bzl0yJMnB/2CTC4TwatOmi3P4gQQ1bKQKuhEwTP5//JuQpR
+    DQVVVxzMh9qpzkQy/Faf3dZA/NOyhhP7NMYJkgeeHxgYHy17ui7Ye8SM6OkN57eWqn4RJR
+    hDMQRlhBpytg5bOpfLAXtNKmnu53objtZUDw/OdYr8irRcK6yiAqsMP/Nyo7S5yxz2/rNR
+    LU0WwSuOL+V3NSd0jTcX1dXBGdrCJWwNnE9cF18dOEhVXpixk+d9jhpY66gYCLvWcBtSvj
+    fDe1zQn7OOZ+Unk3EYstRqXQP73r7XhNTeaXbQd0cSZnEptou4XGtK0+Jep0cTcRvBc2Zc
+    NFdIdlMnJ+0Wm44JxC3Fqv9eDXoQhLWHsoygzqsak6+/i5fNUBt/EdsGxCOUvZpvMjMU9e
+    tNWjCvUuDc0d5L4/iiDzJAuq4CmaPfJ/juDmzaw4sr5NBYYn5DzakDdAUmmJTQ6Tci8VBP
+    d6QuajwptKO0izbH6dPfA56pGr/IBZHmPMKs3ulz8YPlp6jVFh89bLSNRbkw
+X-ME-Proxy: <xmx:HZPQaqyZHngyoXjPcGRE03S0wgl1A0YUUZtn5DPbk9SWYKS6tuEzDw>
+    <xmx:HZPQauA4elDgV_z4Uti6KqGx9uSggAW1zonoLEeIVHr63eYLxnVdBg>
+    <xmx:HZPQahXnthiPhLqMqBbMbMmTmZ-jyc9En74IoVuAQBlGWVRMCN1c3g>
+    <xmx:HZPQaoj8rRh2nVnUKW8U2hcP6UunGYIoo9oywsDH2naGWHMfBiQG-A>
+    <xmx:HZPQaq74FgGVpFzFiB6G3lvvVM_1UdCzVTsn49sjIv_dJy4KI2Fuld5l>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 15 Oct 2026 04:47:24 -0400 (EDT)
+Date: Thu, 15 Oct 2026 10:47:29 +0200
+From: Greg KH <greg@kroah.com>
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Cc: Kees Cook <kees@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	linux-fsdevel@vger.kernel.org, llvm@lists.linux.dev,
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH 2/2] seq_file: Require explicit initialization of struct
+ seq_operations
+Message-ID: <2026101515-oversleep-related-e4dd@gregkh>
+References: <20261014225811.i.852-kees@kernel.org>
+ <20261014225818.3457479-2-kees@kernel.org>
+ <2026101517-profane-opponent-4523@gregkh>
+ <CANiq72m_iyquf4Lc8AWvbsBp++ASz4+C_MQ5iYQW-fHd_MNDxA@mail.gmail.com>
+ <C46E97AC-3722-4264-B541-04EBC3091E00@kernel.org>
+ <2026101532-fantastic-deafness-e04c@gregkh>
+ <CANiq72=wS5NJyeKKaYiHKWhDq2Wjk728qkCUNq4xVoHrPEPCRw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/4] da9062/da9061 watchdog timeout mode
-From: Primoz Fiser <primoz.fiser@norik.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- Support Opensource <support.opensource@diasemi.com>,
- Lee Jones <lee@kernel.org>, Wim Van Sebroeck <wim@linux-watchdog.org>,
- Guenter Roeck <linux@roeck-us.net>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- mfd@lists.linux.dev, linux-watchdog@vger.kernel.org,
- upstream@lists.phytec.de, andrej.picej@norik.com
-References: <20260924065044.368341-1-primoz.fiser@norik.com>
-Content-Language: en-US
-Autocrypt: addr=primoz.fiser@norik.com; keydata=
- xjMEZrROOxYJKwYBBAHaRw8BAQdAADVOb5tiLVTUAC9nu/FUl4gj/+4fDLqbc3mk0Vz8riTN
- JVByaW1veiBGaXNlciA8cHJpbW96LmZpc2VyQG5vcmlrLmNvbT7CiQQTFggAMRYhBK2YFSAH
- ExsBZLCwJGoLbQEHbnBPBQJmtE47AhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQagttAQducE+T
- gAD+K4fKlIuvH75fAFwGYG/HT3F9mN64majvqJqvp3gTB9YBAL12gu+cm11m9JMyOyN0l6Os
- jStsQFghPkzBSDWSDN0NzjgEZrROPBIKKwYBBAGXVQEFAQEHQP2xtEOhbgA+rfzvvcFkV1zK
- 6ym3/c/OUQObCp50BocdAwEIB8J4BBgWCAAgFiEErZgVIAcTGwFksLAkagttAQducE8FAma0
- TjwCGwwACgkQagttAQducE8ucAD9F1sXtQD4iA7Qu+SwNUAp/9x7Cqr37CSb2p6hbRmPJP8B
- AMYR91JYlFmOJ+ScPhQ8/MgFO+V6pa7K2ebk5xYqsCgA
-Organization: Norik systems d.o.o.
-In-Reply-To: <20260924065044.368341-1-primoz.fiser@norik.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - cp2.siel.si
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - norik.com
-X-Get-Message-Sender-Via: cp2.siel.si: authenticated_id: primoz.fiser@norik.com
-X-Authenticated-Sender: cp2.siel.si: primoz.fiser@norik.com
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CANiq72=wS5NJyeKKaYiHKWhDq2Wjk728qkCUNq4xVoHrPEPCRw@mail.gmail.com>
 
-Hi,
+On Thu, Oct 15, 2026 at 09:47:34AM +0200, Miguel Ojeda wrote:
+> On Thu, Oct 15, 2026 at 9:11 AM Greg KH <greg@kroah.com> wrote:
+> >
+> > __must_init might be smaller?
+> 
+> That sounds fine too. I like that it says that something *has* to be
+> done (like the original name did). Hmm... On the other hand, I guess
+> "must" could sound like one has to initialize the field "somehow",
+> i.e. writing:
+> 
+>   struct S s = {};
+> 
+> definitely initializes it, yet the compiler would warn. Would
+> "explicit" hint a bit more at the fact that one has to actually
+> "write" the field, even if it may have been initialized anyway?
 
-gentle ping, can we get this applied soon?
+"explicit" is a description, "must" is an action that tells the reader
+what they have to do, so maybe "must" is better?
 
-Or is there still something to fix?
+Anyway, I don't care, naming is hard, either is fine with me, I'll let
+the authors of the patch here pick what they want :)
 
-BR,
-Primoz
+thanks,
 
-
-On 9/24/26 08:50, Primoz Fiser wrote:
-> This is a revival of a series originally posted by Andrej Picej in              
-> December 2021 [1]. It lets the DA9061/2 PMIC watchdog be configured via         
-> the "dlg,wdt-sd" DT property, to trigger a full SHUTDOWN instead of the         
-> default POWERDOWN on watchdog timeout, and enables that on the PHYTEC           
-> phyCORE-i.MX6 SOM.                                                              
->                                                                                 
-> From v5 of original series this resend drops patch 4/5 ("dt-bindings:           
-> watchdog: da9062: add watchdog timeout mode") because it already landed         
-> upstream as commit 382256b219fb, later converted from .txt to YAML by           
-> bd888a4377ae. Thus dlg,da9062-watchdog.yaml already documents dlg,wdt-sd        
-> property.                                                                       
->                                                                                 
-> Patches 1 and 2 (the mfd prerequisites making register CONFIG_I                 
-> writable) needed a rebase: an unrelated commit has since added                  
-> CONFIG_J, the register immediately adjacent to CONFIG_I, to the same            
-> writeable-range tables. Rather than reapplying the original single-             
-> register insert next to it, these merge CONFIG_I and CONFIG_J into one          
-> range, matching the existing CONFIG_G-CONFIG_K style already used in            
-> this file.                                                                      
->                                                                                 
-> Patch 3 (the watchdog driver support) still applies unmodified.                 
->                                                                                 
-> Patch 4 only needed its target path updated for the arch/arm/boot/dts           
-> vendor sub-directory move (imx6qdl-phytec-phycore-som.dtsi is now under         
-> nxp/imx/); its content is unchanged.
-> 
-> Changes in v2:
-> 
-> Patch 1 and 2: 
-> - capitalize subject description
->  
-> Patch 3:
-> - implement Guenter's remarks (code refactor and update commit message)
-> 
-> Patch 4:
-> - capitalize subject description
-> 
-> Link to v1: https://lore.kernel.org/all/20260923111719.2032012-1-primoz.fiser@norik.com/                                         
->                                                                                 
-> [1] https://lore.kernel.org/all/20211206064732.280375-1-andrej.picej@norik.com/
-> 
-> Andrej Picej (3):
->   mfd: da9061: Make register CONFIG_I writable
->   watchdog: da9062: Add support for dlg,wdt-sd property
->   ARM: dts: imx6: phycore-som: Set watchdog timeout mode to shutdown
-> 
-> Stefan Christ (1):
->   mfd: da9062: Make register CONFIG_I writable
-> 
->  .../nxp/imx/imx6qdl-phytec-phycore-som.dtsi    |  1 +
->  drivers/mfd/da9062-core.c                      |  4 ++--
->  drivers/watchdog/da9062_wdt.c                  | 18 ++++++++++++++++++
->  3 files changed, 21 insertions(+), 2 deletions(-)
-> 
-
--- 
-Primoz Fiser
-phone: +386-41-390-545
-email: primoz.fiser@norik.com
---
-Norik systems d.o.o.
-Your embedded software partner
-Slovenia, EU
-phone: +386-41-540-545
-email: info@norik.com
-
+greg k-h
