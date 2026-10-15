@@ -1,191 +1,281 @@
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-124.freemail.mail.aliyun.com (out30-124.freemail.mail.aliyun.com [115.124.30.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 342B830E0F2
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 04:17:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792037862; cv=pass; b=VoVqQ6zMxc6FEiz43zuBhTc0kEKeQx+zIrF3jX9zPtZqWJVmpGx+deRbNugpOhFBB5Qv5UmfqzlHvRQqywzA6LQKkO5UxYYDF+Ctt9BG4Qe2JjlGKrCjcZGGwDkVsyUZB5HN/i2D5fmwSVBd3Lhl4hDHz3oCPSPPrSyVzKj64TA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792037862; c=relaxed/simple;
-	bh=l5wBNlemWX0p2srbr2KMc8Dqy6ZbOGjvLXeG4h1En8o=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KP3AtUCZ7kTeWgcADnvy4hHfaSuWoJ9GbzQ9VCp0qYHGX6fe+S+eG1lDKAsVCmO1n5WlyovxSjOI6e3Cjqb4NIb8wInhK8DfnCVownk743RP0/Mz7tAod5arMKLpUFU9OcSLk9LKEFB5m4aurOhkBFbIkn2zyMbs+SVbCK45dQc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FuSP2V8L; arc=pass smtp.client-ip=209.85.208.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 488D23A8736
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 04:24:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792038252; cv=none; b=FU+zaWyu8BtO3AKK+v1albSNJLPZTgFHXQx2HWX8la2MwyCtuUwPaOF++33KzlJPKr5tA9g1pWzt8aI9s+8n8BCSEzLn+Qy6iaaBNeZKvYuoqPiaabGFzj2cg4N+pvVv3Xhlt+op95qL/7qqDtX1jbZ56XWzATpwPbfO1Y0m9og=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792038252; c=relaxed/simple;
+	bh=HBsRSDytGP1ixAALMZ5BxVYMOlkdn2lfW2SfQbXtfR4=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=quj6oIPGMCooy0RNVrJ91Kt/ToPO06De5HUC4wi7adp0MgoklwCqG7ToDHXT4/v5+xjprWdxIpB2I920h/EiwHO0hzdZH6T5mLAzySK/m2z8EKFBE/f3NpeHNJq2b8UhZdUPsNGOoRRGmJ6QztWh0+02EtvbXTeQMKOg69ZiRh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=v/CsGVII; arc=none smtp.client-ip=115.124.30.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FuSP2V8L"
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6af9a90e4bbso5158303a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 21:17:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792037859; cv=none;
-        d=google.com; s=arc-20260327;
-        b=a5/HCRoO28pegrz6seox93dGpTjnr58oPbSmUhtQNIGGHY5QxHFhqYdJYg8Gz7YzNl
-         9SQtDeta1/2yt0mC8T+q/CcwgXk5qg1gCKGDaJ/tFl/VoHVDQRi0oUBRo5qwL9OpqAq5
-         kyGXLrgiDq2d61uW3zJlPZBueZ5XpuiDG9mwG5I2fNP8qkuvx1Am1NSL+UMmJGUKCRsa
-         Tt8X3onXpIUqoDFqWHHBdx+FzN3P9UoczzasgmkKQi/T4+o+RwEeNVmuilfXcTgUfwjk
-         vRScVIyO4N845JMoGrXJb+qAJQFuR07v1+WOnzY/reUPaBPQvKroaI0VyNoD2vCStc0s
-         652g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=5Mif+7jW3EO1r6NAyd48pdX/YR6ScEx4Ic6vaTYMoxc=;
-        fh=n/hh3wc3hu2Oor9YJc2cp2b6WsSHFAuowIz86xZrfYs=;
-        b=TOHajpVDuOZnWSIcIUnOUgLoLD1eNeEdrMPgxlaZ/sKRSonDrC3gp8v4MCDpJhthm4
-         WLGsWGcsKHioXNKsecmQf5GZt5DAZA9YVykKs5vgBItAHj8rYDU5FGbTZHN4cd4hKOhl
-         Zh733k+7sBqi8Mgi0ecYleVs15hoRqHDw2wldoN6qjhqgCbDv29MPkJtkCUCGi80bLas
-         QDJ5zsDT01Gtx3J8UVL3P4di+h7QAaXlyARZ4+TQP5lqjuzTikrl/seZiJ6ZyHnUI+TZ
-         k8HR0T6XfJgGWh00ArHSqQrcBXNOirhIJIW+ybUUW7xOU2gEM9UP1/og3JES8dlXyeAS
-         Nrkg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792037859; x=1792642659; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5Mif+7jW3EO1r6NAyd48pdX/YR6ScEx4Ic6vaTYMoxc=;
-        b=FuSP2V8LUPiltHl9fyH5JNOgbMQ1RghzkgASnrgj5aSLy/AX3ATqblSIaOwzICvhOS
-         XH6b0fCgEdrj3yhgCkHvrRNgT2S3T7IkGF6okBE2xgeRdVk4C+OoWdHiBwVbncNQBbdg
-         KNrplc1KMHINi9/RCGK+h5QEEMeboFm+nuhndYO3+4pi2koLMZRZqwG+aXUI2wbxyBkX
-         k33o5cmKQKQpnRA4DMVOmt+xzlg9WcvmuCaNNisd/pgIrLHltDKYpmRmLPo6vAZ+yPjn
-         nEYKbxd5ktnd4VyM4dTQ4OaPArQQau7JLLGqJX5psKMIPzhCGT8POKmJ8r8Q4EQ2bZZq
-         6DOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792037859; x=1792642659;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5Mif+7jW3EO1r6NAyd48pdX/YR6ScEx4Ic6vaTYMoxc=;
-        b=CGwgx09nhahhlYsZHdauOZs4M2Bgm2OjmdTovI+DmNNeSnfq1NmUmDJ5n8DBg5W6M6
-         c0PucGHAqzPfWiDljteUpMxPLXDsx78uYS4QgYQngWReYvZaVh+zOpaFhgz2kNiOIVSn
-         gN6F8/47blNiNSiQ584VlWaNYDJOPtHpynu2ZoljCbbETfWSGleyUcxb/ket/KplkabJ
-         tVtjeqscz8gGTRgD+hv76/OOWUM9jBor8ZVgYgu50QH+dKID9oJRm6CYH/qZ0BnDq4MT
-         cXTEZnTjl/Dc9ebDZisokYqO7NqeX1Wzu0I0gP2FfbJ+FmVthXYH7lYpPAai5eL251HM
-         1QTA==
-X-Forwarded-Encrypted: i=1; AKwUvBwYSRdbZ/6D9J3Y7U0Lk9yoi0bs0lwKBkbWFcmZ+uOkztv0JBolSN/yN8nnKd+XvWZn7wZmZl5IWU/FmWI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLz8OQzYpDTEc7MkWPWTzi/bXurjv3yOEdhbU25wiPca268vJ6C
-	40hazSprp255KKT8Zup/KaNnr6w99SHQs6g9TVTRXcvPBf7jPSrbtcJbrOpTMzEkDl3ymjAsqk5
-	eITRSZduKV04a2+FVAwAX02oHJB8sNlM=
-X-Gm-Gg: AYBFou1nJgX5xLGvYYzmiT4Bqbgml8ux3m7+8oee2BMKGQeZIJbiQdsmvqLc8gxVqsO
-	bXLZNNXXm1S3WTJ8wQ/XRMvbFF07DIKXQkGVjIPoiERToEE6y9SJjdZej7nPVExZ0+WABkA9n6R
-	LuD5Kt7cv40ryNvCH9aoSSosAXxTYYxPgyBt14U7MLtSbVaVAx3MT/VXO7aEjaMGQal5OQmRAoq
-	8tWdGUDfqxeBGcOwe9nlva1ttjxAHSAD1sPwkbY6r1TcXLhx+Iu4wqNTGjDnBEPC/CclNlrrwZ4
-	arG2lXnP7V5ACurs9yt1d9vh8h/fanzW9PxdOAehemRpHqQFa1aLVVxsiDgYvPJLjdDn/xQ0RSx
-	5IN366JUS6On/mVuu1t1r
-X-Received: by 2002:a05:6402:4028:b0:6b1:c2ff:89f5 with SMTP id
- 4fb4d7f45d1cf-6b1c2ffc1aemr8407700a12.42.1792037859176; Wed, 14 Oct 2026
- 21:17:39 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="v/CsGVII"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792038245; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=uSfhX7WAmylRzrNtrWoK1R7H9Xh+c4oQUQrMJZhdohI=;
+	b=v/CsGVIIAKTvJxJsbcqCNWh0B+ixzMfa7D+ClhzryHhyhH7mL6Oq4eDyoXKahYE0RwHNYcTe8V9QIUYzEzxgzMXvACgezDQQoVUQ9c5kiKYUE57efmwXb6cEKangKLEL3EyRlkBLj1/ZbmJaKBw1NCpxmF32nh29Q9b4enFiPiE=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R101e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=guanghuifeng@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0XCqWEQv_1792038228;
+Received: from VM20241011-104.tbsite.net(mailfrom:guanghuifeng@linux.alibaba.com fp:SMTPD_---0XCqWEQv_1792038228 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 15 Oct 2026 12:24:05 +0800
+From: Guanghui Feng <guanghuifeng@linux.alibaba.com>
+To: joro@8bytes.org,
+	suravee.suthikulpanit@amd.com,
+	vasant.hegde@amd.com,
+	will@kernel.org,
+	robin.murphy@arm.com,
+	iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] iommu/amd: Restore three-stage vector cleanup for IR affinity migration
+Date: Thu, 15 Oct 2026 12:23:47 +0800
+Message-ID: <20261015042347.1823813-1-guanghuifeng@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928011123.450800-1-alistair.francis@wdc.com> <DM4NSAYZG3EW.27L8GX0Q9CV0P@nvidia.com>
-In-Reply-To: <DM4NSAYZG3EW.27L8GX0Q9CV0P@nvidia.com>
-From: Alistair Francis <alistair23@gmail.com>
-Date: Thu, 15 Oct 2026 14:17:11 +1000
-X-Gm-Features: AclHuK92TTyKf2sa6xlCV_vbhTCWcDi-jWO21qAlHEyvl88OFTnb9FdoPdKhY64
-Message-ID: <CAKmqyKMZw5MJ=NMvNOP4=_FkV8QSKN1+FRz1zgCdfjtdZY+N2w@mail.gmail.com>
-Subject: Re: [PATCH v4 00/22] lib: Rust implementation of SPDM
-To: Alexandre Courbot <acourbot@nvidia.com>
-Cc: lukas@wunner.de, linux-cxl@vger.kernel.org, akpm@linux-foundation.org, 
-	Jonathan.Cameron@huawei.com, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, jic23@kernel.org, bhelgaas@google.com, 
-	alistair@alistair23.me, djbw@kernel.org, linux-pci@vger.kernel.org, 
-	wilfred.mallawa@wdc.com, a.hindborg@kernel.org, gregkh@linuxfoundation.org, 
-	alex.gaynor@gmail.com, aliceryhl@google.com, benno.lossin@proton.me, 
-	boqun.feng@gmail.com, bjorn3_gh@protonmail.com, tmgross@umich.edu, 
-	gary@garyguo.net, ojeda@kernel.org, 
-	Alistair Francis <alistair.francis@wdc.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 15, 2026 at 1:16=E2=80=AFAM Alexandre Courbot <acourbot@nvidia.=
-com> wrote:
->
-> Hi Alistair,
->
-> On Mon Sep 28, 2026 at 10:11 AM JST, alistair23 wrote:
-> > From: Alistair Francis <alistair.francis@wdc.com>
-> >
-> > Security Protocols and Data Models (SPDM) [1] is used for authenticatio=
-n,
-> > attestation and key exchange. SPDM is generally used over a range of
-> > transports, such as PCIe, MCTP/SMBus/I3C, ATA, SCSI, NVMe or TCP.
-> >
-> > From the kernels perspective SPDM is used to authenticate and attest de=
-vices.
-> > In this threat model a device is considered untrusted until it can be v=
-erified
-> > by the kernel and userspace using SPDM. As such SPDM data is untrusted =
-data
-> > that can be mallicious.
-> >
-> > The SPDM specification is also complex, with the 1.2.1 spec being almos=
-t 200
-> > pages and the 1.3.0 spec being almost 250 pages long.
-> >
-> > As such we have the kernel parsing untrusted responses from a complex
-> > specification, which sounds like a possible exploit vector. This is the=
- type
-> > of place where Rust excels!
-> >
-> > This series implements a SPDM requester in Rust.
->
-> A few high-level comments/questions about this series:
+From: Guanghui Feng <guanghui.fgh@linux.alibaba.com>
 
-Thanks for the review!
+AMD IOMMU specification (Rev 3.10) does not define interrupt message
+draining semantics for INVALIDATE_INTERRUPT_TABLE + COMPLETION_WAIT.
+This creates a race between vector_schedule_cleanup() and in-flight MSI
+messages still transiting the Data Fabric after IRTE modification.
 
->
-> - Have you tried building it with `CLIPPY=3D1` as per the checklist [1]? =
-I
->   am getting dozen of Clippy warnings about unused imports, unused
->   constants, missing safety comments, and style issues. Series are
->   expected to be Clippy-clean when submitted.
+Intel VT-d is architecturally safe due to explicit interrupt draining
+guarantees.  VT-d spec Section 6.5.5 states:
 
-I have been, but apparently running
+  "An interrupt request is considered drained when the interrupt is
+   accepted by the processor Local xAPIC (for fixed and lowest priority
+   delivery mode interrupts this means the interrupt is at least
+   recorded in the Local xAPIC Interrupt Request Register (IRR))."
 
-```
-CLIPPY=3D1 LLVM=3D1 make  -j32
-```
-doesn't trigger clippy while
+  "Interrupt draining is performed by remapping hardware after Interrupt
+   Entry Cache (IEC) invalidation requests.  For IEC invalidations
+   submitted through the queued invalidation interface, interrupt
+   draining must be completed before the next Invalidation Wait
+   Descriptor is completed by hardware."
 
-```
-LLVM=3D1 make CLIPPY=3D1 -j32
-```
+  "For index-selective IEC invalidation requests, hardware only
+   guarantees draining of non-committed interrupt requests referencing
+   interrupt indexes specified in the invalidation request."
 
-does. I have fixed the clippy issues
+Additionally, Section 6.5.2.8 (IEC Invalidate Descriptor) mandates:
 
-> - Most of the C parts have received more attention than the Rust ones so
->   far, if they are meaningful on their own can they be merged separately
->   so this series can focus on the Rust bits and the C FFI?
+  "As part of IEC invalidation, hardware must drain interrupt requests
+   that are already processed by the remapping hardware, but queued
+   within the Root-Complex to be delivered to the processor."
 
-Not really unfortunately. A few could be pulled out and merged today,
-but there isn't much movement there
+Therefore when qi_flush_iec() + qi_submit_sync() returns (Wait Descriptor
+reports QI_DONE), all non-committed interrupt messages referencing the
+invalidated IRTE index are guaranteed to have been delivered to the
+target LAPIC IRR.  The subsequent vector_schedule_cleanup() is safe
+because is_vector_pending(prev_vector) will always observe the drained
+message in IRR, causing the cleanup timer to rearm until the interrupt
+is properly serviced.
 
-> - I see many unsafe calls to C crypto functions in e.g. patch 17, these
->   will need to have their own Rust wrapper so they can be called safely.
+In contrast, AMD IOMMU spec Section 2.4.5 defines
+INVALIDATE_INTERRUPT_TABLE only as:
 
-Yeah, the crypto calls all use unsafe as there aren't bindings written.
+  "instructs the IOMMU to invalidate all cached interrupt information
+   for the device"
 
-This came up at Kangrejos and I thought the takeaway that this was ok
-as a starting point. My next step is to work on PQC and crypto
-bindings, but I was hoping to split it out of this series, as it's
-already long and touching a few subsystems.
+with no completion condition, no drain semantics, and no ordering
+guarantee for previously-remapped interrupt messages.  Section 2.4.11.2
+("Invalidation Commands Interaction Requirements") limits the completion
+guarantee exclusively to DMA transactions:
 
->
-> I am not familiar with SPDM yet so I cannot comment on the
-> protocol-specific parts, but I'll try to perform a review on the Rust
-> bits. For this revision it won't be exhaustive as there are a few
-> critical things to fix before considering the rest.
+  "Invalidation commands are considered complete only when the IOMMU can
+   ensure there are no DMA transactions in flight anywhere in the system
+   fabric that relied on translation cache contents prior to
+   invalidation."
 
-Thanks. I have fixed up your comments and have a few fixes I have
-found. I'll get a v5 out soon
+The words "drain", "drained", or "draining" appear zero times in the
+entire AMD IOMMU specification (Rev 3.10, 48882-PUB, Feb 2025) in
+connection with interrupt messages.
 
-Alistair
+Consequently, iommu_flush_irt_and_complete() returning does NOT guarantee
+that old (vector, destination) interrupt messages have been delivered to
+the previous CPU's LAPIC IRR.  The immediate vector_schedule_cleanup()
+after IRTE modification races with in-flight messages on the Data Fabric:
+the cleanup timer reads IRR clear (message still in transit), calls
+free_moved_vector(), then the message arrives at the old CPU hitting
+VECTOR_UNUSED -- producing "No irq handler for vector" and permanently
+losing an edge-triggered MSI.
 
->
-> [1] https://rust-for-linux.com/contributing#submit-checklist-addendum
+Fix by restoring three-stage cleanup semantics for the normal
+(guest_mode=0) path:
+
+ 1. Change amd_ir_chip.irq_ack from apic_ack_irq to apic_ack_edge,
+    which calls irq_complete_move().  This ensures cleanup is only
+    scheduled when the new vector first arrives at the new CPU --
+    providing a natural delay (device interrupt period + PCIe transit +
+    IOMMU translation + Data Fabric delivery) that far exceeds any
+    residual in-flight message transit time.
+
+ 2. Remove the unconditional vector_schedule_cleanup() from
+    amd_ir_set_affinity() for the IRTE-modified path.
+
+ 3. For guest_mode=1 (AVIC/guest interrupt virtualization), the IRTE
+    is not modified and no host-vector interrupt will arrive (interrupts
+    are delivered to the vAPIC backing page instead).  Retain direct
+    vector_schedule_cleanup() in this case to prevent move_in_progress
+    from permanently blocking future affinity changes.
+
+The combination of stage-2 natural delay and stage-3 IRR gating
+(is_vector_pending + timer rearm) provides robust protection against
+the AMD-specific lack of interrupt drain guarantee.
+
+Intel VT-d, Hyper-V, and UV platforms are not modified as Intel is
+architecturally safe per the spec guarantees cited above.
+
+Fixes: 5478844b12d3 ("iommu/amd: Move interrupt remapping to its own file")
+Signed-off-by: Guanghui Feng <guanghui.fgh@linux.alibaba.com>
+---
+ drivers/iommu/amd/amd_iommu_types.h |  2 +-
+ drivers/iommu/amd/iommu.c           | 46 +++++++++++++++++++++--------
+ 2 files changed, 34 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/iommu/amd/amd_iommu_types.h b/drivers/iommu/amd/amd_iommu_types.h
+index 8241ef922519..35024e3f5b90 100644
+--- a/drivers/iommu/amd/amd_iommu_types.h
++++ b/drivers/iommu/amd/amd_iommu_types.h
+@@ -1037,7 +1037,7 @@ struct amd_irte_ops {
+ 	void (*prepare)(void *, u32, bool, u8, u32, int);
+ 	void (*activate)(struct amd_iommu *iommu, void *, u16, u16);
+ 	void (*deactivate)(struct amd_iommu *iommu, void *, u16, u16);
+-	void (*set_affinity)(struct amd_iommu *iommu, void *, u16, u16, u8, u32);
++	bool (*set_affinity)(struct amd_iommu *iommu, void *, u16, u16, u8, u32);
+ 	void *(*get)(struct irq_remap_table *, int);
+ 	void (*set_allocated)(struct irq_remap_table *, int);
+ 	bool (*is_allocated)(struct irq_remap_table *, int);
+diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
+index 56262f6b1f70..60e769384e8b 100644
+--- a/drivers/iommu/amd/iommu.c
++++ b/drivers/iommu/amd/iommu.c
+@@ -3634,7 +3634,7 @@ static void irte_ga_deactivate(struct amd_iommu *iommu, void *entry, u16 devid,
+ 	modify_irte_ga(iommu, devid, index, irte);
+ }
+ 
+-static void irte_set_affinity(struct amd_iommu *iommu, void *entry, u16 devid, u16 index,
++static bool irte_set_affinity(struct amd_iommu *iommu, void *entry, u16 devid, u16 index,
+ 			      u8 vector, u32 dest_apicid)
+ {
+ 	union irte *irte = (union irte *) entry;
+@@ -3642,9 +3642,11 @@ static void irte_set_affinity(struct amd_iommu *iommu, void *entry, u16 devid, u
+ 	irte->fields.vector = vector;
+ 	irte->fields.destination = dest_apicid;
+ 	modify_irte(iommu, devid, index, irte);
++
++	return true;
+ }
+ 
+-static void irte_ga_set_affinity(struct amd_iommu *iommu, void *entry, u16 devid, u16 index,
++static bool irte_ga_set_affinity(struct amd_iommu *iommu, void *entry, u16 devid, u16 index,
+ 				 u8 vector, u32 dest_apicid)
+ {
+ 	struct irte_ga *irte = (struct irte_ga *) entry;
+@@ -3656,7 +3658,11 @@ static void irte_ga_set_affinity(struct amd_iommu *iommu, void *entry, u16 devid
+ 		irte->hi.fields.destination =
+ 					APICID_TO_IRTE_DEST_HI(dest_apicid);
+ 		modify_irte_ga(iommu, devid, index, irte);
++
++		return true;
+ 	}
++
++	return false;
+ }
+ 
+ #define IRTE_ALLOCATED (~1U)
+@@ -3933,7 +3939,7 @@ static void irq_remapping_free(struct irq_domain *domain, unsigned int virq,
+ 	irq_domain_free_irqs_common(domain, virq, nr_irqs);
+ }
+ 
+-static void amd_ir_update_irte(struct irq_data *irqd, struct amd_iommu *iommu,
++static bool amd_ir_update_irte(struct irq_data *irqd, struct amd_iommu *iommu,
+ 			       struct amd_ir_data *ir_data,
+ 			       struct irq_2_irte *irte_info,
+ 			       struct irq_cfg *cfg);
+@@ -4153,7 +4159,7 @@ static int amd_ir_set_vcpu_affinity(struct irq_data *data, void *info)
+ }
+ 
+ 
+-static void amd_ir_update_irte(struct irq_data *irqd, struct amd_iommu *iommu,
++static bool amd_ir_update_irte(struct irq_data *irqd, struct amd_iommu *iommu,
+ 			       struct amd_ir_data *ir_data,
+ 			       struct irq_2_irte *irte_info,
+ 			       struct irq_cfg *cfg)
+@@ -4163,9 +4169,9 @@ static void amd_ir_update_irte(struct irq_data *irqd, struct amd_iommu *iommu,
+ 	 * Atomically updates the IRTE with the new destination, vector
+ 	 * and flushes the interrupt entry cache.
+ 	 */
+-	iommu->irte_ops->set_affinity(iommu, ir_data->entry, irte_info->devid,
+-				      irte_info->index, cfg->vector,
+-				      cfg->dest_apicid);
++	return iommu->irte_ops->set_affinity(iommu, ir_data->entry, irte_info->devid,
++					     irte_info->index, cfg->vector,
++					     cfg->dest_apicid);
+ }
+ 
+ static int amd_ir_set_affinity(struct irq_data *data,
+@@ -4176,6 +4182,7 @@ static int amd_ir_set_affinity(struct irq_data *data,
+ 	struct irq_cfg *cfg = irqd_cfg(data);
+ 	struct irq_data *parent = data->parent_data;
+ 	struct amd_iommu *iommu = ir_data->iommu;
++	bool irte_modified;
+ 	int ret;
+ 
+ 	if (!iommu)
+@@ -4185,13 +4192,26 @@ static int amd_ir_set_affinity(struct irq_data *data,
+ 	if (ret < 0 || ret == IRQ_SET_MASK_OK_DONE)
+ 		return ret;
+ 
+-	amd_ir_update_irte(data, iommu, ir_data, irte_info, cfg);
++	irte_modified = amd_ir_update_irte(data, iommu, ir_data, irte_info, cfg);
++
+ 	/*
+-	 * After this point, all the interrupts will start arriving
+-	 * at the new destination. So, time to cleanup the previous
+-	 * vector allocation.
++	 * If the IRTE was actually modified (guest_mode == 0), rely on the
++	 * three-stage cleanup: apic_ack_edge() calls irq_complete_move() when
++	 * the new vector first arrives at the new CPU, which then schedules
++	 * the cleanup of the previous vector allocation.  This avoids a race
++	 * where in-flight MSI messages, still on the Data Fabric after the
++	 * IRT invalidation because the AMD-Vi specification provides no
++	 * interrupt drain guarantee, arrive after the old vector has been
++	 * freed.
++	 *
++	 * If the IRTE was NOT modified (guest_mode == 1), no in-flight
++	 * messages exist for the host vector and the new host vector will
++	 * never receive an interrupt (those go to the vAPIC backing page
++	 * instead).  Schedule the cleanup directly to prevent
++	 * move_in_progress from getting permanently stuck.
+ 	 */
+-	vector_schedule_cleanup(cfg);
++	if (!irte_modified)
++		vector_schedule_cleanup(cfg);
+ 
+ 	return IRQ_SET_MASK_OK_DONE;
+ }
+@@ -4205,7 +4225,7 @@ static void ir_compose_msi_msg(struct irq_data *irq_data, struct msi_msg *msg)
+ 
+ static struct irq_chip amd_ir_chip = {
+ 	.name			= "AMD-IR",
+-	.irq_ack		= apic_ack_irq,
++	.irq_ack		= apic_ack_edge,
+ 	.irq_set_affinity	= amd_ir_set_affinity,
+ 	.irq_set_vcpu_affinity	= amd_ir_set_vcpu_affinity,
+ 	.irq_compose_msi_msg	= ir_compose_msi_msg,
+-- 
+2.43.7
+
