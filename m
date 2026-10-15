@@ -1,99 +1,115 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D1286377A8F;
-	Thu, 15 Oct 2026 08:24:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CDDF3E7BCA;
+	Thu, 15 Oct 2026 08:25:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792052656; cv=none; b=TQbzr8JfntSOChxpoDqNZV2fu7xCxB85GFQ1yrrwdx90K8nMz6wUm73Ued8n5g30/JENrneVLBg6MGQMFYJAq3SC2bkqSq4GC/e17LkSn/v4hN+DKkaXQcQJp4CymtHqmMwRelgeSpN7JgzblNCFrsd3JhhKxgPoLge40ZrDDOQ=
+	t=1792052703; cv=none; b=RjuW6HlvBi3Vr3lrk1kN/zHeF2bM8Cig9ZyKNOWMERavBm4eJWBRDI6RUNXhb0bf6SAtNfjwFYFh3xIFUgWLjNZQSwooWKLuXeVwatdf6FdUPbiPjRq9UMmA+CYJXAjqk5A9AA6+cPddO7NGOVYKzWvjjwjeci8zbMhFKRA03OY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792052656; c=relaxed/simple;
-	bh=bMYkyOkP+QxhVduFGMhhNJ9bjGKChGRtlGxry0l9kW0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iG7jk8N41r+mmp9AVoMXHL/2XYF+ZjWhjnVWJj3uMa1DqCS3B96Q2NpdPEYLczuDsf/O2GUN/RSiTTAIzN+TZ311t4H7iwpG9Ur7nl5I9Oi7hwQuJgGGdwSEwaeXvRF6yIFP2V/u0qF1WIeX+InNM5YxmshvUIUZoxILW27qxQY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ovQRHnS5; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1792052703; c=relaxed/simple;
+	bh=XiQiRCBwfVcoN9vNun3GU7Os5o/NsTsc4l5ZWBy0DzM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ixb41Rg7lDfFyMfjzPTtHvgpanGS7nPMq+Q/eaM9WGVwl8K2vpb02DM6XLaUGUXOC0y4HoTLPP5BMlSY29IZOkoWgW96amZ74nk0T8kPwFVt9QpIAC0xhl9EmKCOAnhNbbHgmYumqRg0fp9b/2g6yYYE6LLYRtTycBfeQC2CK68=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jNTYKvG4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ovQRHnS5"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BEF732F;
-	Thu, 15 Oct 2026 01:24:10 -0700 (PDT)
-Received: from [10.57.88.29] (unknown [10.57.88.29])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A4BAB3F871;
-	Thu, 15 Oct 2026 01:24:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792052654; bh=bMYkyOkP+QxhVduFGMhhNJ9bjGKChGRtlGxry0l9kW0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ovQRHnS5vdkPrx+4uP4/N0yujXmOLW8YpQLRuIbtojit6AnoyIPr5kaUodFLKzBJM
-	 /OL58Eq7WaaiBZMrHkMmO1m/25G0xnrkzlIEAWVgGux1JYd6qI/NjKz/nu7Ve7Z2Lt
-	 tJYKAae55UGKaVSkLp7D/BduO1zpur0ebwJy9Qm8=
-Message-ID: <a6cc5f59-da1a-4e8a-b91f-f32743b02383@arm.com>
-Date: Thu, 15 Oct 2026 09:24:07 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jNTYKvG4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3604D1F000C4;
+	Thu, 15 Oct 2026 08:25:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792052702;
+	bh=Dq6YEzOSltOq1bnbSAgtxDrv3XygJt++BexJFC1y2iI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jNTYKvG4WcR80nnT+yyv/KQxYVMGRgtXw6sji5FDhP8KkHBgH1nM6ODkkabjNmme2
+	 BoIXfneNCDGhzehw2Az7shf7mxiiJaYpYXQtIbBxXwcizzbIfZ42DIspY3Kf4Jfo2T
+	 gY1xXxxhFpjRJGmNpkjSU1447LQedlYkCM8H0rokvQkLGPNjgCfcSUxGjGqUAE0XCP
+	 ewapq2c96boGvOLtWxaHY6A6PC4yMpYsEzOyEnHdFpdKVon89MpDg4/0ahV9wo6CgO
+	 D/Uw8zlpOeEJvhKlhx3ag/JJBNUa142TeP7t8xe7LVS8j5ft/r/u6634/mr1gNM5Wx
+	 vaOy8sqCxT58A==
+Date: Thu, 15 Oct 2026 10:24:56 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Cc: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, 
+	Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Srinivas Kandagatla <srini@kernel.org>, Shawn Guo <shengchao.guo@oss.qualcomm.com>, 
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v3 1/7] ASoC: dt-bindings: ti,pcm1681: Document the
+ optional SCK clock
+Message-ID: <20261015-prehistoric-dynamic-moth-3b8483@quoll>
+References: <20261009-nord-asoc-driver-support-v3-v3-0-0c1897f21ccf@oss.qualcomm.com>
+ <20261009-nord-asoc-driver-support-v3-v3-1-0c1897f21ccf@oss.qualcomm.com>
+ <20261013-supportive-imported-spider-c6e28d@quoll>
+ <c8c453a5-3c4e-484c-9567-4a8d51fcff38@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] sched/cputime: Preserve iowait accounting across
- waking interrupts in dyntick-idle
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Wei Gao <wegao@suse.com>, Frederic Weisbecker <frederic@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Thomas Gleixner <tglx@kernel.org>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
- Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
- K Prateek Nayak <kprateek.nayak@amd.com>, Jens Axboe <axboe@kernel.dk>,
- io-uring@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261014015258.13967-1-wegao@suse.com>
- <20261014124934.GE4121339@noisy.programming.kicks-ass.net>
- <002a3200-81ae-43b3-860f-64135c28438c@arm.com>
- <20261015073508.GH4121339@noisy.programming.kicks-ass.net>
-Content-Language: en-US
-From: Christian Loehle <christian.loehle@arm.com>
-In-Reply-To: <20261015073508.GH4121339@noisy.programming.kicks-ass.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <c8c453a5-3c4e-484c-9567-4a8d51fcff38@oss.qualcomm.com>
 
-On 10/15/26 08:35, Peter Zijlstra wrote:
-> On Wed, Oct 14, 2026 at 02:17:52PM +0100, Christian Loehle wrote:
-> 
->>> Using nr_iowait_cpu() is fundamentally never a fix. It is rolling a dice
->>> and liking random numbers. See the comment that goes with that function.
->>>
->> Speaking of, that comment is stale, menu doesn't use that heuristic anymore.
-> 
-> \o/
-> 
->> FWIW the remaining aggregated nr_iowait users seem to be accounting/reporting.
->> (cpufreq still uses it, but it comes directly from p->in_iowait).
-> 
-> I see: get_cpu_iowait_time_us() using nr_cpuwait_cpu(), which in turn is
-> used for both thermal and cpufreq.
+On Wed, Oct 14, 2026 at 10:46:21PM +0530, Mohammad Rafi Shaik wrote:
+>=20
+>=20
+> On 10/13/2026 12:31 PM, Krzysztof Kozlowski wrote:
+> > On Fri, Oct 09, 2026 at 06:42:47PM +0530, Mohammad Rafi Shaik wrote:
+> > > The PCM1681 can use an external system clock supplied on the SCK input
+> > > pin. Platforms that provide this clock need a way to describe the clo=
+ck
+> > > connection in Device Tree.
+> > >=20
+> > > Document the optional 'clocks' and 'clock-names' properties and define
+> > > the clock name as "sck" to represent the external system clock source.
+> > >=20
+> > > This allows boards using an externally supplied SCK clock to accurate=
+ly
+> > > describe the hardware configuration.
+> > >=20
+> > > Reviewed-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> > > Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.=
+com>
+> > > ---
+> > >   Documentation/devicetree/bindings/sound/ti,pcm1681.yaml | 7 +++++++
+> > >   1 file changed, 7 insertions(+)
+> > >=20
+> > > diff --git a/Documentation/devicetree/bindings/sound/ti,pcm1681.yaml =
+b/Documentation/devicetree/bindings/sound/ti,pcm1681.yaml
+> > > index 1f0e6787a..1b3803518 100644
+> > > --- a/Documentation/devicetree/bindings/sound/ti,pcm1681.yaml
+> > > +++ b/Documentation/devicetree/bindings/sound/ti,pcm1681.yaml
+> > > @@ -21,6 +21,13 @@ properties:
+> > >     reg:
+> > >       maxItems: 1
+> > > +  clocks:
+> > > +    maxItems: 1
+> > > +    description: System clock (SCK)
+> > > +
+> > > +  clock-names:
+> > > +    const: sck
+> >=20
+> > Drop the names. If they are needed for any reason, then use the same
+> > name other device uses already, so scki.
+>=20
+> Ack,
+>=20
+> Yes, the clock name is required as it represents the system clock.
 
-thermal uses it with io_is_busy=0, so that's okay, ondemand has it sysfs-exposed
-with a default of 0 except for 
-	return (boot_cpu_data.x86_vendor == X86_VENDOR_INTEL &&
-		boot_cpu_data.x86_vfm >= INTEL_PENTIUM_PRO);
+I do not understand that reasoning. It can represent anything,  but that
+does not mean it is required. Why non-system clock does not need names
+and only system clock needs?
 
-:/
+>=20
+> I=E2=80=99ll use scki, consistent with the other implementations.
 
-If that were the only users I'm sure there would be ways around it though.
+No, explain why do you need it.
 
-> 
->> Given they are exported (/proc/stat procs_blocked and something in s390) I don't
->> see how we can remove this entirely but at least nr_iowait_cpu() as opposed
->> to cpu_has_iowait() could be refactored. The issues are obviously the same still.
->> I'll send a patch.
-> 
-> Right.
-> 
->> Peter, if you see a path to ever retire iowait (or at least the CPU iowait for now),
->> I'm more than happy to sink some time into it...
-> 
-> Given the exposure in /proc I'm not sure we can *ever* fully get rid of
-> the per-cpu usage of iowait, but yeah, reducing in-kernel consumers of
-> this number might be somewhat feasible.
+Best regards,
+Krzysztof
 
