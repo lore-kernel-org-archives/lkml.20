@@ -1,67 +1,67 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6A841F12FB;
-	Thu, 15 Oct 2026 00:19:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B121B1DF248;
+	Thu, 15 Oct 2026 00:19:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.15
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792023561; cv=fail; b=Y2qeGY2QZ6CsvqTs9/3MdMhuXHCppe/7d+MyDhySx+ZkWjKh0aSDq3HfWO8wUNnhvzvE1Fn22QIjzV9z5kWGYFbwhzp0X8zdafs9PB61CWGIgVjZvHZ4YXil3zgJkPauDJw/F/64T4sMPYLG8grm0Vks55/VC6mrIT9bGqL+Lwc=
+	t=1792023563; cv=fail; b=lVa6nYqqeKjP+XTLlRALU7SLo5eaSgUQpa9nOwX9nuf0a/cc8/STMajUiO8aNDXCVZSm0jrQX5pJ1/cn7th0RHhrG9pk5ySJPfeawhPtWgBJddMuBExMpLFp6CkCgsVUgyucRtbbC7atk1xMglAeQCTwuJcCYtaHu1ahsTEWXwM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792023561; c=relaxed/simple;
-	bh=nF8Q3TwwcXKwKq8toyJ1M1omtQrp+A0qi68n2wIsSpI=;
+	s=arc-20240116; t=1792023563; c=relaxed/simple;
+	bh=2tc+c3Mhys6x2wmC/zICnvpMRXS6B2kg7JI+6qtoX/E=;
 	h=Message-ID:Date:From:Subject:To:CC:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=dzSY1g8z2I6UfYTiKPc7X7p6wieX10tuIhfcEyYWfE1EIy7ayiOQRj5OitAAWmPtXlaoz5H3OPTZLvN8f3ssgU3s2zAfUd8WGoDt5OtbonX7DXxTlPwsu/eTUB8pjV6DrFq3viL4C2BM97iDxPSRz7K3T3Sxj245DBUvbbxVGR4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GQH89EAX; arc=fail smtp.client-ip=198.175.65.15
+	 Content-Type:MIME-Version; b=sYj1v6MrcRxnSwoi5txV9d0k5FmhrNxlpr94CEcdh3XZoumYq1/ZExy2iqJisv+ChtfwheM42SzIDw05MLc7XawyDlpj/p74cW1W/+RxzV4kzxVuapCZXHFcO4yMnXzaUB58LLoTef+WVGAM3jaPjLHX7vIejPJsTeudtTnveI8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Za4IN83g; arc=fail smtp.client-ip=198.175.65.15
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GQH89EAX"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Za4IN83g"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792023559; x=1823559559;
+  t=1792023561; x=1823559561;
   h=message-id:date:from:subject:to:cc:references:
    in-reply-to:content-transfer-encoding:mime-version;
-  bh=nF8Q3TwwcXKwKq8toyJ1M1omtQrp+A0qi68n2wIsSpI=;
-  b=GQH89EAXlzs5beuHiY5rjDr7aD+AlkWD5/dj8Sn8deXe7LUBKLClnA+p
-   V/BsJzhEzFaKkhyQrDlITqjb2Ju+y+WBGprz46gnkvIza1RHOIqeFhgs+
-   1WCT7bMSPF1GN/4Ew8cNMnaXK97HtYjXnAA3H6JA61WYtNzEMV0aFTblX
-   Yh9CxoOmI9YB1JXyrTvNrKxqBaO7CRxum+rj1+E2AwaI6veP3wH18csce
-   7nwLhHLNi0PrBEuR5kwcyVe+2/ElKc/WnxQ2+20L3nvtwGYFxA9DFChfa
-   wsRPFCpc63XRHZxyw4xyLbzmjXMcpnxV6rV9kZ8Q4tmNEX9eCuy8ZPg7t
-   w==;
-X-CSE-ConnectionGUID: 1J+cr5R/Qi+8C5kwOnjIRg==
-X-CSE-MsgGUID: e1vP/vO5RbCXIvoIIA7yww==
-X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="781033"
+  bh=2tc+c3Mhys6x2wmC/zICnvpMRXS6B2kg7JI+6qtoX/E=;
+  b=Za4IN83gMV+w4eyAqUSDie1cil4YfEtR/fPkcSmZY86O9QqeYjsgbcHm
+   b06/9dod8nWROpzufx3y3jNB4GdF6t9mVdpC5mm6mtbMrj1xHXgxKaO6i
+   m0DG28mzo0OgNIeRyrmvh8+4p6U2ck9V/cKzeGfavKPVw9rndJBMosY5T
+   phDCl9vOyI/phcdRosfpVi5/k6gOJBZO1aD05KJ27ll95XpWQusQ9rig2
+   dslxQkPUKc15+vY3fhKNBD3TIpipIvCZJF2vfbSxVGz1ahiTnpz7/GU5D
+   716ITLbd/sBa0jVPXVbya3WIrUCuwTnt3qqQccN6K5acUeHed889ufBFN
+   A==;
+X-CSE-ConnectionGUID: hf6oMcDAQCa/gJY2Xs3/dw==
+X-CSE-MsgGUID: BehMKz2iRvWQH8oXmEggPA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="781042"
 X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
-   d="scan'208";a="781033"
+   d="scan'208";a="781042"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 17:19:19 -0700
-X-CSE-ConnectionGUID: ScHkUVDUSe+4y59JUyzNWA==
-X-CSE-MsgGUID: NtaZKz8xRuiVxnjsnxxh0w==
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 17:19:21 -0700
+X-CSE-ConnectionGUID: Vyf1i2pGSAWuy3w0F8NgKw==
+X-CSE-MsgGUID: p4w4MeTYSleN/JnLQrDPHw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
-   d="scan'208";a="1908901"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 17:19:18 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+   d="scan'208";a="1908906"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+  by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 17:19:20 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Wed, 14 Oct 2026 17:19:17 -0700
+ 15.2.2562.49; Wed, 14 Oct 2026 17:19:19 -0700
 Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Wed, 14 Oct 2026 17:19:17 -0700
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.2) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ 15.2.2562.49 via Frontend Transport; Wed, 14 Oct 2026 17:19:19 -0700
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.68)
+ by edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Wed, 14 Oct 2026 17:19:17 -0700
+ 15.2.2562.49; Wed, 14 Oct 2026 17:19:19 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FMlkEap2VQj2kob3OjY1DX1ptGrYVTUUqmkQrORjaOf0KCYkcS/yQgvUB5PmpNucSPUlJVipuuDvX+upNLNwE8ptJO89vlqKcHO/n6ahSVad7FaS+qgbhMDpsMyRiqUer5tj3gpVzX+3T9ZZUEPXsxE+pNbwfDGxEjXswfiTa8zJSfrdcb3fRwOOASizLFAYfpgNsODqzN7BM4jOkFp2USZdoTcHKqgXWOO8sAPFWhkGOyv4UgK8gm2AtuNroIxWJyatVEqjLfbg+ysc67OdC1GBfJSAS/t0Oe3IQTqzLAH9D/XhY//9JYnkLOUk9lS7PrRPF+R8NSDYrKO80juNrQ==
+ b=G3C395v7I4DpFMo687PWyJxVdMXJ4TQRoYaNOD7+QOYd7V62VPxm0RYqRCoteWZyrGf5tlU+38Hl1/jmzEycJBaUKXchijKws9mF9zi3cjgb2jMg/nfJ6yMsOTHAghKBRadkye2So++GmPTx1xgskciO8GP+rirFC1VNdu8fdpzcopcI2abfl78rOpUdRL/ReVT6I8/Lszp2Vp8opboCSbsoEduAwuEHEzj3nYQVd6R8399M4FxLWJq3wWA6R/ADipxqU7mXrj1NgXAPokpUzi2OoAXctgLJYB7MO50bdP8fqnPDX7LwZ+ghx+amX4gnT5Xi9sfC+au0ePNZKBWS5g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=N3bzHouztiuHvkEC636keKlAobkSC/92oc5CJctwHW8=;
- b=pT2gZrxinhsyWSq3R3fQJ0q0zeYK2rq4AEZGXCi9FE1emTZV3ZfGMxxvWeZcDLTbV4YA4qykbKmd69Z2WG/EJiQaiQjQtvsglkktMY6aDtz6BtVGdebIQJYeEYwwx9iakOurqCaMlwE8g3x5DeSg0gOGFbN0VzZWT2nTHPGKup6+jJkzJyLmstwSZDHOukvQUgbPZV2fgfUYF1kH9QJ008qGP6mTwSe8I9bTl2wpl4XxjEiWPbYHpSqaGu0nbjglTQSaRqDbLQl5hp0fgeJX7PhqnRdZ4XipYqhYh8EKLkzC14bMajwvTnZ6zx37XCXDINTdniD2zCY7knQ2vU+00Q==
+ bh=2T/JpbHfE6ihgg8jIpU2wWvWTmIaO6kLONgDIR3R0DU=;
+ b=Ui3Sj2I2YLC4VcksBBHGKj5LikZ2YeFGQqQwBTOpedoKi2NZ3ORIfXAtdZcAjHHmD6bm0FKuhdi52mTzDeHgwCFnyjd+BOcyOwRF2Pi0M1jVNH2avbIErHltX2vjnxKkd0doBmtJAVOpAfokqpJH7zIEE715Sqfshz7x0OalRdfWPFxAMuOsk4MHiMQe/yWk7pVkmJfQt+4DYlRk900liBPHR8HKDBAEe9nyem75z4ilcrdqPbdheBLkWU3ns7DfKg7xvl6NrWd2ZJ+JWcmU+VZDhHme6MafCjdvHtC2PihTyDqiEBUI9xFSoiY1nxO3WkhSgQiu858nH07M45B8zQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
@@ -71,26 +71,26 @@ Received: from DS0PR11MB7925.namprd11.prod.outlook.com (2603:10b6:8:f8::18) by
  DS0PPF0A1E7F360.namprd11.prod.outlook.com (2603:10b6:f:fc02::504) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Thu, 15 Oct
- 2026 00:19:15 +0000
+ 2026 00:19:17 +0000
 Received: from DS0PR11MB7925.namprd11.prod.outlook.com
  ([fe80::60af:89a0:65dc:9c84]) by DS0PR11MB7925.namprd11.prod.outlook.com
  ([fe80::60af:89a0:65dc:9c84%7]) with mapi id 15.21.0496.015; Thu, 15 Oct 2026
- 00:19:14 +0000
-Message-ID: <d28dc497-a74b-4c52-bb6c-8b9010f9ee2d@intel.com>
-Date: Wed, 14 Oct 2026 17:19:12 -0700
+ 00:19:17 +0000
+Message-ID: <1c19df7c-76b2-4dd3-b280-d6ab8bb45d4e@intel.com>
+Date: Wed, 14 Oct 2026 17:19:16 -0700
 User-Agent: Mozilla Thunderbird
 From: "Chang S. Bae" <chang.seok.bae@intel.com>
-Subject: Re: [PATCH v2 1/2] x86/fpu: Fix memory leak with dynamic fpstate and
- exec()
+Subject: Re: [PATCH v2 2/2] selftests/x86/amx: Test dynamic fpstate cleanup
+ across exec()
 To: Guixiong Wei <weiguixiong@bytedance.com>, <x86@kernel.org>
 CC: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
 	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, "H
- . Peter Anvin" <hpa@zytor.com>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>
+ . Peter Anvin" <hpa@zytor.com>, Shuah Khan <shuah@kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>
 References: <cover.1791428412.git.weiguixiong@bytedance.com>
- <b9277cad5e1098d3e60d5c0f025c58061df10af0.1791428412.git.weiguixiong@bytedance.com>
+ <11ea12962bda75b3e8ef845084546647f79eca38.1791428412.git.weiguixiong@bytedance.com>
 Content-Language: en-US
-In-Reply-To: <b9277cad5e1098d3e60d5c0f025c58061df10af0.1791428412.git.weiguixiong@bytedance.com>
+In-Reply-To: <11ea12962bda75b3e8ef845084546647f79eca38.1791428412.git.weiguixiong@bytedance.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-ClientProxiedBy: SJ0PR03CA0217.namprd03.prod.outlook.com
@@ -104,155 +104,169 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DS0PR11MB7925:EE_|DS0PPF0A1E7F360:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0fb71c42-1b60-4d7f-434f-08df2a51f174
+X-MS-Office365-Filtering-Correlation-Id: 843bc42c-aea5-495a-dc77-08df2a51f334
 X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|11063799006|4143699003|5023799004|18002099003|56012099006|22082099003|261009223027099003|10067099003;
-X-Microsoft-Antispam-Message-Info: vGJ8GXbWHgtiLIh7S98+Hx+WrCG6+lk85fWYvKe2nVnREiYQin1UvGZO5QSKg1dPrsI2zr/zXDsB1Uhws9NhIJuLybWzbP3PGmZKyxOmXOZ2CiUIYPguc9nGGYqHW1v0v4bX9TWQu7+q7rbnQwJDFxhYeZPT4GmrHVNZzejILey5bbxJ8hJiHytvDVTZL3Z0VSmrXY9wEoMIxXCxRsrqwavRlamIr4HvtnIADdPokv2teVuf5qJSOsmuEtE5VsmTOVPJTR4YJiWbolWwQu2kGqu/OrWiaKWsyLtHRDAvBycCay5vzfuRfze9ob2Dw/1dc7anfnrUXTOFM1o8GNAtxc8A4WcjSIss6R1N722b+tFtQrMwZEyb3rPsUa4RAtOwcHuXoS47Nq0HnQRUvpeAcURa/kOG/dVXcP32ohjH70UQoJGDV2VBSZ4ovvxP0v5DoSQrj5tgP0+r8gnfKiTR2zPW8yvn7z2Pm9MOrCfm0koYW1df3/Hq/1K72mWlyCHMvDSesBGpp/aUP4KAFrvTzEQBWME3yQNXO+BtV71/t5YGjIUVBk0ocNGnQXFSJ9RkN9OpDTyiWJGNCKqSyh9/2NPFiHo0DngZr93VBBjFNn7hEp3ziE/+KCv+TKyciLDcInYdGFO6oXckPWRofU1ZbVsV9atSRJj2nnZZ+Yk6IxU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB7925.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(11063799006)(4143699003)(5023799004)(18002099003)(56012099006)(22082099003)(261009223027099003)(10067099003);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|366016|376014|23010399003|1800799024|11063799006|4143699003|5023799004|18002099003|56012099006|22082099003|10067099003;
+X-Microsoft-Antispam-Message-Info: rYjXaz/prgW2P1pXTEzJitr2ntSpkx85HBRynHIs7NQCtSWSCatPRv0uf7h5Lg54V4z+93aZZQlEex8FXcDmpYba9dA6uSGGhQ1PjcvmwGPKOpnm8FmIrjBXZjgxkC0AourCO3HZQjzQIwssNoykNc4LrWPDevj1fLdfCNqlGEVJWzXH+L6gVCTl+MReT6GRiYq8elKk8xZt5xY7afJMkwtT6xDHUz+P7MxV/X83XWICyKaisJIHPHo+fVZHyNkV0c70W0W2Ws2o5cn7lJRndHXRpr67cR1HQss90lzaAJ6zT2y8IVgqHzEhu3ogRf90tiRFMYbKk7i3JwySPUtSNP9rtfRmkPiX7zD0uUkQDiN0qjXiPKRDeEm65rCLdN0OyEsVz6KgcPGoK02HMyWnUYs0p8Bk1TsNL9H3++8NQl5ZMZ1ftIxDhHCKFbqWcHII+SK4EqMRFVQMP7d+y9eZT6QKyoFpS9LTm3NRcyr6uwZtBHstFgNQSnSrJzTEt+ZEmKtBgakLlcyI/xgmBaXYbR4wYgvAvdhTNKfsd3KpBE/iAsMl0wXHJuNQbZ63jjqpR6NzzpZIjFsZ52gVYLQ37Tk6J4UUJ15xBbKxcASH0eQ0+ZT80j5KzXjg2FEzsCLSnBl+kXEHW9pAXAkntvc9EBbrTT1dT4hAXdTD8+/Lg/k=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB7925.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(376014)(23010399003)(1800799024)(11063799006)(4143699003)(5023799004)(18002099003)(56012099006)(22082099003)(10067099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QXFpTFhjdHFIOWd2UVI0SHRvUGcvZjhJL0RkS0F5OGsxd1VCZ1QrUDVnMi9t?=
- =?utf-8?B?N3Q0ZVdzRUVLeDQ3eGpPamQ5VHYrR3QxWmozbUFadERudnlaelY3NEZyNE9W?=
- =?utf-8?B?MndEWmQvMFpnRWJ3QU5WZHZQUkZ3N0hGRWw5YXlFQlc4c09TSWs1N1haaXBi?=
- =?utf-8?B?VG91QnptR08wRnFoeVY1dEl0b3l3KzJxVUJNcE1SRmhlcEdCUkNCTEVpU3Ra?=
- =?utf-8?B?amV2aGwxbU9tQnA2dFZPeHZmdkwxdGFMUFJJUUhRSW9NejRLeEVKUGlEQnR2?=
- =?utf-8?B?RFczRnRpZmpEN2JoL1BiTkxvd1QwUTM2NDdLVmtvUjFwSERSOGRxcE5EOVNO?=
- =?utf-8?B?WE16MVVreDJPNkVLelJtVmpoTzlxbHR0QnlVemFoakQzWTZjUjdkMHNlQWtJ?=
- =?utf-8?B?RUpGL2hJQTZiZVdvUnAxOTJnMXlKMFRENjI3N0dDd3QwbVVzMmpjK2gycmND?=
- =?utf-8?B?OFRyN3ZsVkJ0SjNGOFJQWlR3US9yNEVRNFRoRERxUTE3OUE0WW9PdU9Zb2lT?=
- =?utf-8?B?YS9CQkh3Sk1yTlNpSVJiRDVkR0dMa3F5NlBJemFCNzdIOTZyUzRKYXBnb2xt?=
- =?utf-8?B?dDNJMzhQNU5lTXJ6cTNCRzZSSE1UN0R0MnRDWXpDR2JLSk1OMzJBekNsZ1Nm?=
- =?utf-8?B?aW1nNy9memRDcHoxYWpTQWJoU3EyMkFNQUN4NWZ2aGlGVy9GanpqaG4vb2hk?=
- =?utf-8?B?UXhPVTNlN0ZEWlU1Rmg0bUhhT3dMNDFiNFNmWWhBbzAwS0xtZzMxemNIbS9i?=
- =?utf-8?B?WTI3NmlYYVVWbnk2KzFZZXpXaldzU24xRDRNR2wwOXhaY2xqV092TGhDQ05t?=
- =?utf-8?B?anBPWldYN1RBQ2hrZzQrNEthczF3Ui9CbkJxUFNlSm9ZdnJrbkEyeVFuS2NB?=
- =?utf-8?B?Wks1T2lRV1RTb0g3VXFqaUpiL3NVV3M0RWxHMzZpTHg3UEpSUS9rbFRtTzRG?=
- =?utf-8?B?WTd0dHEzK1RIaHBrV2Q4TEtPZE0ySjM3N1MxMUJCckkwVUcvaTFIc2dGUTV5?=
- =?utf-8?B?ZXVPQkNPcEZKcVJLR29ZcGZOS3ZhMmFaSG10YzExeHV4VGpHRUEvZVJrUVhV?=
- =?utf-8?B?WGNlem5GbWxHMFVDRy9TMWJhc0ltRmtIaTdqTVdtWkg2VE1MWHNvZlUwMlZF?=
- =?utf-8?B?UGxDMnFyMUxXZWZSMW1kQi8wYzhDK0lndktKYnZiUlA1Sm5LV3h5OXJ0U0M4?=
- =?utf-8?B?Y0lNWkdkcER0RzhJNEc1YitZc2ErbEtwdUU3K1lzN2NQVFd6bURiSjNIeXFn?=
- =?utf-8?B?TE9QYVpFaWEyOHFEdVJpWkVSLzZaSzkwT1JZbHNvWnduRzdVZ3dBNk84ZmZF?=
- =?utf-8?B?dHhpNFhJdElzOHZWbTdkVFpzLzZlSlVGczFwODBkOU5lbThSY0FBWEFhYkFK?=
- =?utf-8?B?LzM1QzBOeC9aYWRXS3M0TDdwUkVPOTd2azRPRmRjMEFqcGRQWFNYbWYzdFl2?=
- =?utf-8?B?ZGszRGl1S3N1T0dhc1l1alZkUnczTFNVa3ZiMm5oeWd3RUhsK3B5b2RyMW8y?=
- =?utf-8?B?cHFrMUQrRkxlNjdqZXMxejJEam04ekZ2alNZZEljdFdvbCtPOHBmLzFLSUh2?=
- =?utf-8?B?cWxoVEljSFJWQU5ybUlLRFYyZnV0VFkrYUh1YmFhVW1WZDdQV3Fyci9SUllC?=
- =?utf-8?B?YjFGQ2NNWllkS3Q0M1ZVeFdTeEpucUtzNW9PUzl1SXBwemhjNlhmZkpqTVlm?=
- =?utf-8?B?MGxvUGNtZXlqZEh2aW5KR1RRZ1BhVHNHQWZCaGV1SmZMZ0VFKy8yck5YcDVL?=
- =?utf-8?B?RUpzZ2dpM29xbE5ZTkwxci9uMFpNUHJZUTNmTSt6OTF3OEJEYWJURVBXU1N2?=
- =?utf-8?B?RzFZRjA2T3l0UmI0MmdSM24vTzFZLzQ1eGowREplaFZ3eUwyTjAreitVclVF?=
- =?utf-8?B?S2hwMUNDMFpHejhOVFZhR1hlMGZEaEdUZ2dFTTU5Y2IxU1Jqdzk1aFB5cjNj?=
- =?utf-8?B?bno5ZldUMEZvb0oxWHJUVFNYQklYUEwycDkzWTR6SkxlTHlXei9Nak1CUDEz?=
- =?utf-8?B?RndYc3ozWm1maUtCcDB2WGtlNjJIRnVvT3ErdkdqMUVwNlpTTEt3eWFLb0ZX?=
- =?utf-8?B?QnFIVi9oNjZBdDVabUJGc1ZnRWFYa2NySzl5WUxIMi9YeS9wMkZTV2Z3NXBX?=
- =?utf-8?B?NGxraTBMVENaV2FiS1JKTDVyVnovV0k4NkRQTDA1QUVGRWNINXhhQ2xOSGdU?=
- =?utf-8?B?c0VCSTN0QzFyRmhvaXJGdGI3RHBaWitKTXowWHBpbXlqZ3Eyd0tUNlNvQXhF?=
- =?utf-8?B?WThTZnNXWHFaREJoU20vbS9TUmlJMHRWbnBaYkVRd1F2WHh5ZGl0WFFDeCs4?=
- =?utf-8?B?alZtS2FMV1JpWWpHcXRvSGtSdll5MGxsZndKRWxORnUvU3ByZkxGUT09?=
-X-Exchange-RoutingPolicyChecked: nA1BnBEyG3FbTF3gPIDI5893ZtfyWtMhMWaF/GHFg811h8fTFT7bSj12azoKELXXuI6mZ/cJtMnoLgcOvJF7ONHS8Mz4J4vAHdx224LdiV+4nr9aIW02qKsVN2Q1nPiyzrGvyq1jpDrEKwc9cnR3R1Cbf/Pyte+Kn0RAYAM6SdWcuT1FHygNLW25VwBLLuaYb2zORWH0Xeg0km4X1NkfA4fkBBxTHCvODRoeS0u/NkdQfK3/uZEqfenNnOsNxp7IoPc38Yvw2m0B+S/CYBnKPXdb5a908/dH1L/rofX5nLgFVICeErQB0EDVk4jMeIiZ4a9UuRBV1B81hac7XB3iVg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0fb71c42-1b60-4d7f-434f-08df2a51f174
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YmJsak1rbjZ1bitUV0o1dVI0TzlZQUZmcFZQWDlZVG1WdWFwNWd1YW9sY1VC?=
+ =?utf-8?B?SmFwaUFPaXlrZUdjZkREQWtqc2tEMVhqWTgxTHJ1NExVYUdkdllKdkZtTmRh?=
+ =?utf-8?B?Q05tNGx1OElDME91Vk1JbHVzbStxNGxvZGJ0V3RRd0hlanFuZ2FueDl2eXkx?=
+ =?utf-8?B?a1Rmcys5cWF5Y2UxTFI5TmY1c2FmWWVRRTVzNEl2U2hkakVLWkZFL3lsY2tG?=
+ =?utf-8?B?Kyt4THVMeVY0SnZsRWtIa1Z4ODBoUndQZUJGd21RQyt2aDhmSGxjWHJiNUhE?=
+ =?utf-8?B?cFRmc1IyckI4d3RyMEthaHJkdFJXNVZ1R0JvU3J4UTdDQTY2SFRnbm14RmxV?=
+ =?utf-8?B?TUh3ZElhQjFaYkNDTGwxR2N1STljUEpFYU03WmpGZ1lQYU9pM2o4TXNxdU5n?=
+ =?utf-8?B?UjFycTFlTzJGQ3JybEVpaEpQRzF0VmN4WmZReGxmcFJpUk1ucVRhV042Y0lY?=
+ =?utf-8?B?ZmFQeDdrWUI0dGgwVkNtZnQzWmZ5Mzk3aTBsSklqVGVLYVpKUDB1NmM5YThJ?=
+ =?utf-8?B?YnAxUmVHSFNPc2ZSeC84d0dJVlhHcDlPZmtoNFJXR1FWTmtPQkhRRXQ3R0gz?=
+ =?utf-8?B?UEpmWFF4Rm1VTDZqZUVOSU9lcTZEcTZLWlExeTJUdVIvYXB4YVMwNnJ3TWlm?=
+ =?utf-8?B?dVh6VDRyQnBHaDNpenNlSlhVaTZBR0liaEZ2dk04VjBRYXdnclNnb2xWZkh4?=
+ =?utf-8?B?SFdEMEkwaVQ4VGk4bWhTVURsZGZvRDZnWTN2L3hCeCsyb3NSUG1uVUhjY0dB?=
+ =?utf-8?B?dzNiRXAyZ3ZWRDhBby9IamRTRVFFRW9oamNRUFh0ZFhTU1lUaW1YMXJML3dh?=
+ =?utf-8?B?VUhZTElDZFJpSGVqYnh0dTdOTXJUcmNHY3ZCOUdMSDFETkk0TVFTQW8xYUdj?=
+ =?utf-8?B?TG1oL21DcEU5VGl0U1dSa0toMlhuU3lqUlNMcy8vQ3MrN3VVVDllNXFENEV4?=
+ =?utf-8?B?Z05mZTNQaDBIZk5MN0tBSHJ0MndXQmxmbEttU1FBVFNnbHFkTDB3bkJ1Y0pp?=
+ =?utf-8?B?R2dLTHNWN2JVTXc5d2p4Q093MysxUHhGNVR4dUs4d3NHMDVnK0Y4bW5kbjYw?=
+ =?utf-8?B?YVNTajlqVlZlOVRYUXF5TVRDODFSbW5ySlRJLzJKMkhENCtNWnJ6dklOM0NC?=
+ =?utf-8?B?OGJqc3czS3N1ZFZIKzRJazhFUVBIaHZSM0xseFFIUXZRNXdsWkoxKzZuaG1Z?=
+ =?utf-8?B?MllOcWRpR216Zm1YZTdGTXNNVE5rN1dNL0hEZTZYVDJpYVRLL3dUZlZXTnhu?=
+ =?utf-8?B?QmJzUUtsYys4cTRsYS9hMDZnaTVJVlVDQlZUaFc0cTZ4M3RyaW4wUDFmSE9E?=
+ =?utf-8?B?TVRIYVkrU2dheVFVazhWMk9zYUZZUCtWTVIrQ01lMzZqK2dCMHZpOUFBQVVy?=
+ =?utf-8?B?b0VISTZkUTF6d3JYaXArSWI4SVgzYUR4RjlHOWNzeGdGMWQwSDloNE1KcGdn?=
+ =?utf-8?B?R2cxdHI4YTFxYTZ4WURQQlBMYUMwZnc5ajJNaWRmNGlpaWM0RytjenEwUTNm?=
+ =?utf-8?B?cmVONHhpdEFDYlA1K3R2dUE2V243SHlXRUZUa09hb1BUM3Y3bkRUMURYSTJo?=
+ =?utf-8?B?ODl3ZkltZSs2cmpoVGZZYlFPa2ZqeWYzbnhCSWk0c2ZEWkxxYkQ3U3pKY1BR?=
+ =?utf-8?B?eXZSRm81UGxBRWRmdkQ0QkY4WFRHa2ppejJ0RkNPcVlnNE9MbG9wTzFWT1d3?=
+ =?utf-8?B?ZVNxaWxXMStzOThCTWRsR3VubU52VWVISTZvR0lWT09sWllraEhEYkFaUzFM?=
+ =?utf-8?B?NkdseFl1WTdrZndtVXBySWpUUEZpZXBSYmhiZEJ2L0FETnBPd3ZaZEQwSlJN?=
+ =?utf-8?B?M2NheVN1U3N5TE8vS3hyV3U2cmExSG1JSTZIeThsYjVkVnV1bm1tNTFHSGVI?=
+ =?utf-8?B?SE5mbXdrekRFSEovS1lzeDh2S0pJcWJOdVhCTXN3Y2QxcHp2WjduQXFPU0p1?=
+ =?utf-8?B?Y3I2SlJZeU5RNWt3aktvTmVodHViWk5EQ1ByVnN2YjlsQTVTbHZNdy93dWNV?=
+ =?utf-8?B?Z245ZTlOdkM5ZDV1OGVjTG9vVzJzYVlFT1gyVW03clFwbjJMNzBMdXkrNHZO?=
+ =?utf-8?B?UHVxd09ZTUxNc1JHMkpQS1FxVVo0b05MM1loN1hWT1VoMG11S3EzU0s1eXJa?=
+ =?utf-8?B?S042VldUZllBdjF3TEFkNVVmZHE4d1NxZFY1OVZHMDVNR0hLQlVCZ2hKSTZ5?=
+ =?utf-8?B?VEkvZjlXcVNHZHZFN2E3NWUwYVR4YXRYNXVRYzBpbzhTc0VrYnMwdTlrODRx?=
+ =?utf-8?B?RW0zR1hjck5XN2RDOTA4aW9UZEZ4ZDRHRHI0bUQrRlFod3FWaUZ6NFA5SVZI?=
+ =?utf-8?B?YTg4WkNDTlUwQnMyMEo3T3ZjK09pM2R0N1JMeFZKbzJLajVwWUN6dz09?=
+X-Exchange-RoutingPolicyChecked: eIbhHjdUjvvl6VW9Elp3CqDbEoVIe3JiP1HTcIIpidcglCz9j2AuchjNznogwN4FUMzrgG9lvy8SVf9IJcfnc60YDZ5DFNERmnAjx+EVRjXb9Q6dS4ql5B5H+9KI/NIxByUmrfbAyYepKIFJzxle+GFe1VsYChojIoBh8D0q2iUIHoJOr8yfct7wxME4EcM7nO30Fbc5SVlLkPRs33WcTrofjAURf1P4FpvVspWw2NWgiWK3RoxA3vuwrS9jRsUIfL4q2Do71CZmqg6JcDUSeFwYY3CbnEKHmJEyXjqyKooUE0T88zjhT8G0IfZ4S807uThHuGvMTzzCUApt9J5U4A==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 843bc42c-aea5-495a-dc77-08df2a51f334
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7925.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 00:19:14.6387
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 00:19:17.4113
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Rd6z1VlM1qjJKub8NopI/ADh2cWmhXGIHrw5Uk7Wjxp87DpskuKXGf73LvKUY9E4vgMRJce67BBJNQetNH6fv/J0HDTdH3OmKnEjpq+jeHE=
+X-MS-Exchange-CrossTenant-UserPrincipalName: Fv0YO+kUQoMn0r0RwRFVx4yk/pgHPfSTIolUGBNEBdk4Vo6g1zdh6Ecs+54PpW+zTzgy7RH3Hu/IJx2/5Gm2mbomUhdxkoILzyLz4AGxfRA=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PPF0A1E7F360
 X-OriginatorOrg: intel.com
 
 On 10/7/2026 10:59 PM, Guixiong Wei wrote:
-> The fpstate embedded in struct fpu only accommodates the default
-> xfeatures. After a task obtains permission for an XFD-controlled
-> xfeature, its first use raises #NM. The handler calls
-> __xfd_enable_feature(), which uses fpstate_realloc() to install a larger
-> fpstate allocated with vzalloc().
-> 
-> On exec(), fpu_flush_thread() calls fpstate_reset(), which overwrites
-> fpu->fpstate with the embedded fpstate. This leaks the dynamic
-> allocation because arch_release_task_struct() cannot free it when the
-> task exits.
-
-Hmm, I'd start with Dave's wording here, or tweak it slightly.
-
-> Make fpstate_reset() own the complete lifetime transition. Preserve the
-> old pointer, install and initialize the embedded fpstate, and then free
-> the old allocation. This detaches the allocation from fpu->fpstate
-> before freeing it and makes future reset callers release dynamic state
-> automatically.
-
-I'm not sure what the intended argument is here. Does this mean the old 
-allocation cannot or should not be freed at the beginning of 
-fpstate_reset()? If so, please explain functional issues. Otherwise, I'd 
-simply follow Dave earlier suggestion.
-
-> On an AMX-capable KVM guest, 1000 iterations left 1000 dynamic fpstate
-> allocations on an unfixed kernel and none with this change.
-
-Since the selftest can reproduce the issue without KVM, I'm not sure why
-the KVM guest is relevant here. In any case, the entire sentence could 
-be dropped if the problem description is clear enough.
-
 >   
->   void fpstate_reset(struct fpu *fpu)
->   {
-> +	struct fpstate *oldfpstate = fpu->fpstate;
+> -int main(void)
+> +static int count_dynamic_fpstates(void)
+> +{
+> +	char *line = NULL;
+> +	size_t line_size = 0;
+> +	FILE *fp;
+> +	int count = 0;
 > +
+> +	fp = fopen("/proc/vmallocinfo", "r");
+> +	if (!fp)
+> +		return -errno;
 
-Hmm, again, why not just call fpstate_free(fpu->fpstate) here?
+The call site doesn't interprete the error code. Instead, you can simply 
+call fatal_error() here and below on an IO error.
 
-I see Dave also noted this comment along the lines:
-	/* Free dynamic fpstate (if any) before resetting pointer: */
-
->   	/* Set the fpstate pointer to the default fpstate */
->   	fpu->fpstate = &fpu->__fpstate;
->   	__fpstate_reset(fpu->fpstate);
-> @@ -610,6 +612,8 @@ void fpstate_reset(struct fpu *fpu)
->   	 * guest FPUs, which allows for common guest and userspace ABI.
->   	 */
->   	fpu->guest_perm.__user_state_size = fpu_user_cfg.default_size;
 > +
-> +	fpstate_free(oldfpstate);
->   }
+> +	while (getline(&line, &line_size, fp) >= 0) {
+> +		if (strstr(line, "__xfd_enable_feature") ||
+> +		    strstr(line, "fpstate_realloc"))
+> +			count++;
+> +	}
+> +
+> +	if (ferror(fp))
+> +		count = -EIO;
+> +
+> +	free(line);
+> +	fclose(fp);
+> +	return count;
+> +}
 
+> +static void test_exec(void)
+> +{
+> +	char iterations_arg[16];
+> +	char baseline_arg[16];
+> +	int before, after, delta;
+> +	pid_t child;
+> +	int status;
+> +
+> +	printf("[RUN]\tCheck dynamic fpstate cleanup across exec().\n");
+> +
+> +	before = count_dynamic_fpstates();
+> +	if (before < 0) {
+> +		printf("[SKIP]\tCannot read /proc/vmallocinfo: %s\n",
+> +		       strerror(-before));
+> +		return;
+> +	}
+> +
+> +	child = fork();
+> +	if (child < 0)
+> +		fatal_error("fork");
+> +	if (!child) {
+> +		snprintf(iterations_arg, sizeof(iterations_arg), "%d",
+> +			 EXEC_TEST_ITERS);
+> +		snprintf(baseline_arg, sizeof(baseline_arg), "%d", before);
+> +		execl("/proc/self/exe", "amx", EXEC_TEST_ARG, iterations_arg,
+> +		      baseline_arg, NULL);
+> +		fatal_error("exec");
+> +	}
 
-> @@ -670,6 +674,7 @@ int fpu_clone(struct task_struct *dst, u64 clone_flags, bool minimal,
->   	/* The new task's FPU state cannot be valid in the hardware. */
->   	dst_fpu->last_cpu = -1;
->   
-> +	dst_fpu->fpstate = NULL;
->   	fpstate_reset(dst_fpu);
+This nested exec() with passing numbers via arguments looks more 
+complicate than necessary.
 
-Dave also suggested adding a comment here:
+Instead, you could put the fork()/exec() sequence in a loop. Before each 
+exec(), call load_rand_tiledata(), and adjust main() to return 
+immediately from the exec test. I found this also reproduces the 
+increase in /proc/vmallocinfo.
 
-         /* Break the link to the other FPU's fpstate:  */
-         dst_fpu->fpstate = NULL;
+> +
+> +	if (waitpid(child, &status, 0) != child)
+> +		fatal_error("waitpid");
+> +	if (WIFEXITED(status) && WEXITSTATUS(status) == KSFT_SKIP) {
+> +		printf("[SKIP]\tDynamic fpstate allocation was not isolated.\n");
+> +		return;
+> +	}
+> +	if (!WIFEXITED(status) || WEXITSTATUS(status))
+> +		fatal_error("exec test child");
+> +
+> +	after = count_dynamic_fpstates();
+> +	if (after < 0) {
+> +		printf("[SKIP]\tCannot read /proc/vmallocinfo after exec(): %s\n",
+> +		       strerror(-after));
+> +		return;
+> +	}
+> +
+> +	delta = after - before;
+> +	if (!delta) {
+> +		printf("[OK]\tDynamic fpstate allocations were freed across exec().\n");
+> +		return;
+> +	}
+> +
+> +	if (delta == EXEC_TEST_ITERS)
+> +		errx(1, "[FAIL]\texec() leaked %d dynamic fpstate allocations",
+> +		     delta);
 
->   
->   	if (!cpu_feature_enabled(X86_FEATURE_FPU))
-> diff --git a/arch/x86/kernel/fpu/xstate.c b/arch/x86/kernel/fpu/xstate.c
-> index a7b6524a9dea2..ea3736a74fd43 100644
-> --- a/arch/x86/kernel/fpu/xstate.c
-> +++ b/arch/x86/kernel/fpu/xstate.c
-> @@ -1556,10 +1556,10 @@ static int __init xfd_update_static_branch(void)
->   }
->   arch_initcall(xfd_update_static_branch)
->   
-> -void fpstate_free(struct fpu *fpu)
-> +void fpstate_free(struct fpstate *fpstate)
->   {
-> -	if (fpu->fpstate && fpu->fpstate != &fpu->__fpstate)
-> -		vfree(fpu->fpstate);
-> +	if (fpstate && fpstate->is_valloc)
-> +		vfree(fpstate);
->   }
+errx() terminates the entire test, preventing subsequent tests from 
+running. Unless this failure makes it unsafe or meaningless to continue, 
+why not report the failure with printf() and let the remaining tests run?
 
-Shouldn't is_valloc be cleared here, or when fpstate_reset() replaces 
-fpu->fpstate with the embedded fpstate?
+> +
+> +	printf("[SKIP]\tDynamic fpstate vmalloc usage changed concurrently.\n");
+> +}
 
 Thanks,
 Chang
-
