@@ -1,73 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55AB349EC7F;
-	Thu, 15 Oct 2026 12:18:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7461250AC16;
+	Thu, 15 Oct 2026 12:18:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792066683; cv=none; b=AqSYSsK3RyniJxdhO5Gpfb6YQ7TgJGiiHj8S4fqhiI2oBqs8TsnEjU6U0QcFO9R+XgLw0Gs8Gxuq9W9P+RGy8HD0JSlvwHguXz5y82vODMgSpxRDsqJO2UxBBGoDy/0DsN2KjGh6zeoJY1nfS+Emw1yvjS0yitvWupGFVmUZSDI=
+	t=1792066688; cv=none; b=lzdK/uorXzAfi4evzqYT7R7lbSd6ehDQDetyJRYgJpbQlYcvCs4QmjqLvtCmyrDFTNjVW8AC6X4Tbvi3DAoxVNPJraWMVWYFSu6SNYq0jUJOIwTvcKKkeL4YNySmxKMTCALEdAeT5IyDxWLXbEYC6RudswTRlB1XcagnynvUXwc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792066683; c=relaxed/simple;
-	bh=+fB34VuA7wpq6empWyJXVqzOVhVPkE7LZbcucVhE93Q=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=XQUq1key53WrNEWu+DxCCMSHsWb850Jm5W7WaThjFMZv6ziAiHVcd09o4MoJgX5QUn73/v0rr+nkd47kBw7cr9PU/JhHSUkNbG7fPqhroeWbQOtX/gCh5hm02ekeXdKbVs0CrM4W0UPMNJz4ErRTVOPh0O72x6njaf5hxdM4G4Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RIecqfOY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792066688; c=relaxed/simple;
+	bh=uFfsc/LL4b/iH319BQTBnPd1ZuW4g8jJxIvJfoiDeoQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=pbm/dxv+mMEW4fH3eXgxJw2uOMQVCvMtBtKVdr1G8fAfgymDC+Cq/l+n+UoY2w9cy5b5Ty9l0GZX4SzGo/yt6ydHDgyJ2Y0CAcMgFMxfM/fbbMkntZmI9fw33TmxOEQKOR+wyRhB+FIfSqDABf4beWKnRGjmppwGblGvF+ctb8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=n6euxqdP; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RIecqfOY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EE7E1F000C5;
-	Thu, 15 Oct 2026 12:17:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792066681;
-	bh=qVEreEp0Hw8z9be2U0iUr/ECSYHh9yfdw1fSZ6anxtM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=RIecqfOYt+nhoWwYu4s36KbOZQFld7TG/yeZsEz7i8hA2zroCZdfTU0tlxfDKa8gE
-	 VomsFUpwcjXV9TyKq4ZOnLV8fCdd/1W5pkgS6fqnsPh8N3u426OQiptvlO2uXmDRrl
-	 I1opyKbXyIglmsQxVUrTfIrRB5TLj9grUP9nOM/+lW7qXTJpzurUwbJkHJkllXZSU9
-	 m0w19amKjxkvMNkG/BPjaQxZsxZq0W1Y5fQ69roYVfvG5iZnElgnKEARcoapKNldp6
-	 exDjnjhR4fZ6n9HQe6ycHPbSE0jZp4aWWguUw6e9E7IRQ9lMILfb93NkQK5trbRe9+
-	 TX/L7hjYN2frw==
-From: Lee Jones <lee@kernel.org>
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Lee Jones <lee@kernel.org>, Ryan Brue <ryanbrue.dev@gmail.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, mfd@lists.linux.dev, 
- Roman Vivchar <rva333@protonmail.com>, 
- Luca Leonardo Scorcia <l.scorcia@gmail.com>, 
- Andy Shevchenko <andriy.shevchenko@intel.com>
-In-Reply-To: <20260928-rbrue-suez-upstreaming-mt6397-auxadc-v4-3-23533a0d30e3@gmail.com>
-References: <20260928-rbrue-suez-upstreaming-mt6397-auxadc-v4-3-23533a0d30e3@gmail.com>
-Subject: Re: (subset) [PATCH v4 3/3] mfd: mt6397-core: Add mt6397 AUXADC
- support
-Message-Id: <179206667779.1910726.5341177428334836457.b4-ty@b4>
-Date: Thu, 15 Oct 2026 13:17:57 +0100
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="n6euxqdP"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=lfoZsQALvUMmYEnTHCBAppb4AEAOhQSzIaYLEzo0HLg=; b=n6euxqdPcLU/zI+h4/ki2g3uk+
+	b8iEKOHO5fBjaTGHPrF4QhtPZVctthWakc6e1RxRQnup3zQ7pTkMJ17HBb7vpMFasr6A2WPY2z+aC
+	YB6OHDQVKP8FKLxpKXzYhPluX9OmBSYoVU58dNhtNF42XK5aeq8GYw5bZRbDaNKtZkJEiYdHiPZri
+	qbvI6ZYTiqLJBY/4KFCk7Ts0gamOVQTbynFDNds+MVaZ3XUPTUXfi1ZZ3cnbJq/IFSIvgAKxSiwtD
+	zVCe8H9OiJUb1sTfAVpF4Pkrjil/OTk8Mj3WQqhFflEjMLg0hS9zPFoE9QE4BTLmvasPF1fwf5cmb
+	hSPeYyFw==;
+Received: from [151.115.150.205] (port=50348 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1xHKPO-0000000E4hm-1KOt;
+	Thu, 15 Oct 2026 14:18:05 +0200
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>
+Cc: linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] crypto: essiv: fix use-after-free in AEAD path
+Date: Thu, 15 Oct 2026 12:17:43 +0000
+Message-ID: <20261015121743.3151400-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16-dev-ad80c
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On Mon, 28 Sep 2026 15:57:21 -0500, Ryan Brue wrote:
-> The mt6397 PMIC includes an AUXADC. Register the AUXADC in the mt6397
-> devices array to allow the corresponding driver to probe using compatible
-> string.
+The request that ESSIV submits to its wrapped AEAD transform may
+finish before crypto_aead_encrypt() or crypto_aead_decrypt() returns.
+In case this happens, essiv_aead_done() calls aead_request_complete()
+on the original ESSIV request, which can end up freeing the request
+before essiv_aead_crypt() resumes, creating a UAF:
 
-Applied, thanks!
+  BUG: KASAN: slab-use-after-free in essiv_aead_crypt+0x8e6/0x950
+  Read of size 8 at addr ffff888102af1360 by task init/66
 
-[3/3] mfd: mt6397-core: Add mt6397 AUXADC support
-      commit: cc6597f4e3b752de42249879e0c7054fd23628a1
+Keep the temporary assoc pointer in a local variable before submitting
+that request.
 
---
-Lee Jones [李琼斯]
+Fixes: be1eb7f78aa8 ("crypto: essiv - create wrapper template for ESSIV generation")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+---
+
+Changes in v2:
+ - Drop the NULL check before kfree(), as requested by Herbert Xu.
+
+v1: https://lore.kernel.org/linux-crypto/dcf362bd924d7090dbd03ef8af7a6ece@oss.cyber.gouv.fr/T/
+
+ crypto/essiv.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/crypto/essiv.c b/crypto/essiv.c
+index a47a3eab6935..8dcaef823c05 100644
+--- a/crypto/essiv.c
++++ b/crypto/essiv.c
+@@ -189,6 +189,7 @@ static int essiv_aead_crypt(struct aead_request *req, bool enc)
+ 	int ivsize = crypto_aead_ivsize(tfm);
+ 	int ssize = req->assoclen - ivsize;
+ 	struct scatterlist *src = req->src;
++	u8 *assoc;
+ 	int err;
+ 
+ 	if (ssize < 0)
+@@ -247,11 +248,12 @@ static int essiv_aead_crypt(struct aead_request *req, bool enc)
+ 				  essiv_aead_done, req);
+ 	aead_request_set_crypt(subreq, src, req->dst, req->cryptlen, req->iv);
+ 
++	assoc = rctx->assoc;
+ 	err = enc ? crypto_aead_encrypt(subreq) :
+ 		    crypto_aead_decrypt(subreq);
+ 
+-	if (rctx->assoc && err != -EINPROGRESS && err != -EBUSY)
+-		kfree(rctx->assoc);
++	if (err != -EINPROGRESS && err != -EBUSY)
++		kfree(assoc);
+ 	return err;
+ }
+ 
+-- 
+2.47.3
 
