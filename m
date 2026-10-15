@@ -1,33 +1,60 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 10A5A51C078
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:38:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4701481AB0;
+	Thu, 15 Oct 2026 11:39:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792064292; cv=none; b=Xju1PkRJQXZpE3lCeyOA7l0L8MxSzvlQbRBHOcxpZTKLbeVsnzYVVkBPvMBbshe9kvAJit0qupij5ZsZaeAhEQBIHxbbjjcvGz8j5pfkvILo6Q5O+cULSMMpokXRFD6VEFTntRCumsQ4xpJ7PnoPDDR1IiHnY/NhWcyOJsSi6xg=
+	t=1792064380; cv=none; b=m2m7h0Tc6kyscYawOGFZYitRgdA4stYYvbBgrAU0ZsY3zqJzLQGbsLia5VI7IE4Y0/32aKL8c7Z+sgJIZ39EOArGn1zvt8xj9w4ofMdVFGOBo/AsVwBP0gzlXWBe9Q7NfhxwV/KVVJze5pn1iCq6FTh0dAryyv24seOHQovwTiQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792064292; c=relaxed/simple;
-	bh=umiMISdru6YuYxrfBTwb8+2F9qdcXXf3bL3QaUo6Y0o=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=Y7jT28scOlxycX+TMqh9CNX28beHqRqiSXLXEBbHeAVmR5k1QPZLK6IIAUfxqwTxHPKJY7wlFf2M3Db3SXUIoTmGWTPaTBSj+A7wDIesIPZDtGFdbXoakmHGHo2wmwdXYVq4w0pFixWX+KK8NF0LCOiBUOHpRh+FAKYGB9s9QWw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=tnAchyA/; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1792064380; c=relaxed/simple;
+	bh=ggNKfe7DsoRZdwgn2RuKKRvue357paIB6iUvkBoMdm8=;
+	h=Message-ID:Date:MIME-Version:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Subject; b=TwVQkkU+gX6kDAOlqeTBaPny3/JzSP3HuMLNvZJtBYFBzPyMru1vodhXRlBzBAfJwtlfcSR657ppiZRy9sI8Pfi8V1swLlmy+FZtYljr4mtboVvKySt4VcMawAyfcJrYi3fxCOej+I4hHp8qk5o97Nb2iCtF6BjMzuc2X6OGZ0M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=de.ibm.com; spf=pass smtp.mailfrom=de.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=mGCOPPa3; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=de.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=de.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="tnAchyA/"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D30601477;
-	Thu, 15 Oct 2026 04:37:56 -0700 (PDT)
-Received: from [10.57.88.29] (unknown [10.57.88.29])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4957A3F673;
-	Thu, 15 Oct 2026 04:37:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792064280; bh=umiMISdru6YuYxrfBTwb8+2F9qdcXXf3bL3QaUo6Y0o=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=tnAchyA/p0akaxU2YPKSlELNpt/fAfDL63S9j2kemqleWEJYmZBVO+B2Ehu1ikTzq
-	 Pw4WFAampv+1CRt+L1MFk854jHpWUsHCxdD8u3hjtq0ijG90kSH4UUbT+W524Ojwpr
-	 1xo0tRHUSMRr58aJK3srA+hBJeiykLiTqr9aDV00=
-Message-ID: <fd8578a1-e60b-4993-ab51-2b5d63abcf77@arm.com>
-Date: Thu, 15 Oct 2026 12:37:54 +0100
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="mGCOPPa3"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9kxu53001423;
+	Thu, 15 Oct 2026 11:39:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=nXrlPT
+	DEuAC25GblJ8KAVsyAP24bXPsZGLFHX1kTmSM=; b=mGCOPPa3kNVw2B9J3EVkdD
+	RMvfWEZ+phUbuiud1obcTZai/qsWL8EgdSmiQbBMxECoFVCV+ec0sBMVUzDhUQHC
+	aaJtATXAkVJWFxJXJvVidC5PP1XMZYccQQWfHN4Jy0Iw4u1D6n6ShHPDQbyyGnJN
+	qG51r96ZaUucMj7NXQKEIrscidO2GNpZ55YVL9tp7u5KvD54PU/l2WQ32ws6Ogi3
+	fW7qs57wwi+j1J/ZP5CVfvp1/E3lM1BlDDMKJIx/aOqHQJhguf6l+k08pS5qfHro
+	hFibt1SqcgTHDuejc2P3QeX7P1QT8qqhsnxesnw8HfWCg3L0x2+I3Z6677Z6ga4g
+	==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dwhsmku-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 15 Oct 2026 11:39:35 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9nrtQ1929640;
+	Thu, 15 Oct 2026 11:39:34 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h9pb3sfpw-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 15 Oct 2026 11:39:34 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69FBdVmY45023710
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 15 Oct 2026 11:39:32 GMT
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 36F0720063;
+	Thu, 15 Oct 2026 11:39:31 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id EA5012005A;
+	Thu, 15 Oct 2026 11:39:30 +0000 (GMT)
+Received: from [9.111.72.94] (unknown [9.111.72.94])
+	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 15 Oct 2026 11:39:30 +0000 (GMT)
+Message-ID: <3c5e6f41-1a47-4200-a028-39df28605ab9@de.ibm.com>
+Date: Thu, 15 Oct 2026 13:39:30 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,179 +62,55 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCHv2] sched: Account I/O waits independently of delayed dequeue
-From: Christian Loehle <christian.loehle@arm.com>
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>,
- Peter Zijlstra <peterz@infradead.org>
-Cc: Zhan Xusheng <zhanxusheng@xiaomi.com>,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Balbir Singh <bsingharora@gmail.com>, Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Valentin Schneider <vschneid@redhat.com>, Josh Snyder <joshs@netflix.com>,
- Kayra Cizmeci <kayracizmeci@gmail.com>, linux-kernel@vger.kernel.org
-References: <20261014081731.1068794-1-zhanxusheng@xiaomi.com>
- <fab66e31-7c7e-4a81-be59-1a4c1458ff43@arm.com>
- <4ce12bff-9532-4b27-98f2-a807bbccfaf7@arm.com>
- <20261015025912.1541134-1-zhanxusheng@xiaomi.com>
- <a71b6375-f460-49fc-aee6-9f01d58163c2@arm.com>
+To: Mark Brown <broonie@kernel.org>, Janosch Frank <frankja@linux.ibm.com>
+Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
+References: <atC5LZemJJUievn6@sirena.org.uk>
 Content-Language: en-US
-In-Reply-To: <a71b6375-f460-49fc-aee6-9f01d58163c2@arm.com>
-Content-Type: text/plain; charset=UTF-8
+From: Christian Borntraeger <borntraeger@de.ibm.com>
+In-Reply-To: <atC5LZemJJUievn6@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA0NCBTYWx0ZWRfX5vT3gRnnlQkw
+ 4UVW6JmBbIdoMXrj/HhhbXqz1gJ6bYqSI2hQ5col5hjjSuC3aT0rwaF6huwecqv0I14J9qNKeja
+ 00Fgawy5HdNjf21sWgVoGQQhoBfrNLY=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA0NCBTYWx0ZWRfX4I4NFuln/BnI
+ aWaNJlf1M4aoZOMpmX8PmqgQDLirlxuRyKivtzjVyHu/oE5BWrHV8djodh2Qt0pHpJuP3r7Olkh
+ vZ3cXtEmjNbIxmvXf2oozj9NiA3gGkfAH/AOChJ/re7AqGqykFxaV1EkYAJ1O5UCeNfXph7OqYi
+ m/zx76tfVgAGyucMPdFDhYQAJIq1wCSovmyVVkG/3R4vMpvEHJDpywAi0O5sgcfHrywbQLKvLN8
+ SpITJ/IUgCljxDMRc2GG4UJ/K3XRoM9WQstW8Qn5ng33L4x9JddENjglTmINtY+u7Ot7s9i2IFQ
+ poBIJBVVx5xaoVbIP5DMewKa7o/wllqlL7lDnCD0Bmmh8mv8OL2PjjYK/mS882zx0KBUpzBy/s7
+ T1Aa6SlOouoTNuHrPq1uXyvPKxtqbRgWREn4LF2zVkyo9S+pvLs3fK9Vp8Oec8Ipx3pBHwTtOOr
+ XTDxqpXG91EtBll6PtQ==
+X-Proofpoint-GUID: 6uEg_tpnpMayb3bSZKzQx_yxGAJxtsWe
+X-Authority-Analysis: v=2.4 cv=RoFQvymK c=1 sm=1 tr=0 ts=6ad0bb77 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=PbF3cT22zb4_k3pZ6hcA:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: 6uEg_tpnpMayb3bSZKzQx_yxGAJxtsWe
+Subject: Re:  Missing signoff in the kvms390 tree
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 phishscore=0 adultscore=0 bulkscore=0
+ impostorscore=0 suspectscore=0 malwarescore=0 clxscore=1011
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610150044
 
-Starting blkio delay accounting and incrementing rq->nr_iowait in
-__block_task() ties both to removal from the runqueue. With EEVDF delayed
-dequeue, this misses the initial part of an I/O sleep, or the entire
-sleep if the task wakes before it is dequeued. Such tasks are also
-missing from procs_blocked while their dequeue is delayed. Final dequeue
-can run in another task's context, causing delayacct_blkio_start() to
-timestamp the wrong task.
+Am 15.10.26 um 13:29 schrieb Mark Brown:
+> Commits
+> 
+>    2da555e616089 ("KVM: s390: Kick PV cpus at the right time for service irqs")
+>    9d2c7de8ee14d ("KVM: s390: Improve floating IRQ injection behavior")
+>    c07c9e91ebb33 ("KVM: s390: Replace get_zeroed_page() with kzalloc() for the STHYI buffer")
+>    7e4702e32be06 ("KVM: s390: Replace get_zeroed_page() with kzalloc() for the STSI buffer")
+>    399ddb20fa708 ("KVM: s390: Replace get_zeroed_page() with kzalloc() for the GIB")
+>    1d42d02f443d0 ("KVM: s390: Replace get_zeroed_page() with kzalloc() for sie_page2 and CMMA")
+>    ec95708cbb07b ("KVM: s390: selftests: Add IRQ injection selftests")
+> 
+> are missing a Signed-off-by from their committers
 
-Start both forms of accounting in try_to_block_task(), when the current
-task commits to blocking, before delayed dequeue or proxy execution can
-retain it on the runqueue. End both when clearing is_blocked, including
-queued wakeups and the proxy execution paths that let the current task
-continue. Checking is_blocked excludes wakeups that precede blocking.
-
-Save the CPU charged at the start of the wait. Delayed tasks can migrate
-while still queued, and proxy execution can also move blocked tasks.
-Decrement the saved CPU's counter on unblock, regardless of the task's
-current placement, and remove the old dequeue-based accounting.
-
-CPU iowait continues to classify idle time using the counter on the
-charged CPU; it does not accumulate the full per-task blocked duration.
-
-Reported-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
-Closes: https://lore.kernel.org/r/20261014081731.1068794-1-zhanxusheng@xiaomi.com
-Fixes: 152e11f6df29 ("sched/fair: Implement delayed dequeue")
-Signed-off-by: Christian Loehle <christian.loehle@arm.com>
----
- include/linux/sched.h |  2 ++
- kernel/sched/core.c   | 33 ++++++++++++++++++++-------------
- kernel/sched/sched.h  |  5 -----
- 3 files changed, 22 insertions(+), 18 deletions(-)
-
-diff --git a/include/linux/sched.h b/include/linux/sched.h
-index d35ae49a991f..d558816cc05a 100644
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
-@@ -880,6 +880,8 @@ struct task_struct {
- 	 */
- 	int				recent_used_cpu;
- 	int				wake_cpu;
-+	/* CPU charged while is_blocked && in_iowait. */
-+	int				iowait_cpu;
- 
- 	int				prio;
- 	int				static_prio;
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 1fe40de6ebe3..85eba26f00d6 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -636,7 +636,7 @@ int task_llc(const struct task_struct *p)
-  *
-  * p->is_blocked <- { 0, 1 }:
-  *
-- *   is set by try_to_block_task() and cleared by ttwu_do_wakeup() and tracks
-+ *   is set by try_to_block_task() and cleared by unblock_task() and tracks
-  *   if the task is blocked. Traditionally this would mirror p->on_rq, however
-  *   due things like DELAY_DEQUEUE and PROXY_EXEC, this can diverge.
-  *
-@@ -3737,12 +3737,22 @@ ttwu_stat(struct task_struct *p, int cpu, int wake_flags)
- 		__schedstat_inc(p->stats.nr_wakeups_sync);
- }
- 
-+static inline void unblock_task(struct task_struct *p)
-+{
-+	if (p->is_blocked && p->in_iowait) {
-+		delayacct_blkio_end(p);
-+		atomic_dec(&cpu_rq(p->iowait_cpu)->nr_iowait);
-+	}
-+
-+	p->is_blocked = 0;
-+}
-+
- /*
-  * Mark the task runnable.
-  */
- static inline void ttwu_do_wakeup(struct task_struct *p)
- {
--	p->is_blocked = 0;
-+	unblock_task(p);
- 	WRITE_ONCE(p->__state, TASK_RUNNING);
- 	trace_sched_wakeup(p);
- }
-@@ -3839,10 +3849,6 @@ ttwu_do_activate(struct rq *rq, struct task_struct *p, int wake_flags,
- 		en_flags |= ENQUEUE_RQ_SELECTED;
- 	if (wake_flags & WF_MIGRATED)
- 		en_flags |= ENQUEUE_MIGRATED;
--	else if (p->in_iowait) {
--		delayacct_blkio_end(p);
--		atomic_dec(&task_rq(p)->nr_iowait);
--	}
- 
- 	activate_task(rq, p, en_flags);
- 	wakeup_preempt(rq, p, wake_flags);
-@@ -4415,11 +4421,6 @@ int try_to_wake_up(struct task_struct *p, unsigned int state, int wake_flags)
- 
- 		cpu = select_task_rq(p, p->wake_cpu, &wake_flags);
- 		if (task_cpu(p) != cpu) {
--			if (p->in_iowait) {
--				delayacct_blkio_end(p);
--				atomic_dec(&task_rq(p)->nr_iowait);
--			}
--
- 			wake_flags |= WF_MIGRATED;
- 			psi_ttwu_dequeue(p);
- 			set_task_cpu(p, cpu);
-@@ -6762,6 +6763,12 @@ static bool try_to_block_task(struct rq *rq, struct task_struct *p,
- 
- 	p->is_blocked = 1;
- 
-+	if (p->in_iowait) {
-+		p->iowait_cpu = cpu_of(rq);
-+		atomic_inc(&rq->nr_iowait);
-+		delayacct_blkio_start();
-+	}
-+
- 	/*
- 	 * We check should_block after signal_pending because we
- 	 * will want to wake the task in that case. But if
-@@ -6934,7 +6941,7 @@ find_proxy_task(struct rq *rq, struct task_struct *donor, struct rq_flags *rf)
- 		if (!mutex) {
- 			clear_task_blocked_on(p, mutex);
- 			if (task_current(rq, p)) {
--				p->is_blocked = 0;
-+				unblock_task(p);
- 				return p;
- 			}
- 			goto deactivate;
-@@ -6970,7 +6977,7 @@ find_proxy_task(struct rq *rq, struct task_struct *donor, struct rq_flags *rf)
- 			 */
- 			__clear_task_blocked_on(p, NULL);
- 			if (task_current(rq, p)) {
--				p->is_blocked = 0;
-+				unblock_task(p);
- 				return p;
- 			}
- 			goto deactivate;
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 4c25fbe84fb5..eaad943a27a0 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -3072,11 +3072,6 @@ static inline void __block_task(struct rq *rq, struct task_struct *p)
- 	if (p->sched_contributes_to_load)
- 		rq->nr_uninterruptible++;
- 
--	if (p->in_iowait) {
--		atomic_inc(&rq->nr_iowait);
--		delayacct_blkio_start();
--	}
--
- 	ASSERT_EXCLUSIVE_WRITER(p->on_rq);
- 
- 	/*
-
--- 
-2.34.1
+Thanks. Fixed now.
