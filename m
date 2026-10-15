@@ -1,606 +1,298 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7F5D75328D0;
-	Thu, 15 Oct 2026 14:26:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C6155349B9
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:26:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792074385; cv=none; b=hMWjZSSNwvFV4wrzYN4JBhqc2LrbrCusUgu777pqBN0ejTfdeoSTDmTcQsPzzpOz8AKxKBjSqF3kMfu+kde51+X2xYPVXjas+i+Oiis00dIZSgvAovj3os9ILhY7DU05obU+fZF6SMwFKtj1pLRA0QVzqqCsO6qsQcZs1r5QSkY=
+	t=1792074393; cv=none; b=gMVrlU3ME1Xh1rjV97+vCJHIT+R+nTzcYYOHrytn2NdHDsPkILhURfY7xZHfmgHDH//Ir0El92zD78JkceeIHmc2pbJU5RHyVtFYNfca/TkBlsFLgO84Hc/x0QDiuTzjqnFeOcyohcLlWhvgb9Lla09ye8q/B7O6JSDlNyWIhJE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792074385; c=relaxed/simple;
-	bh=92g4f16JkFzfa2eJ04OERqd5V71ETIp+E0Q4Liww/Oc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RbB1UtQiMPUf6imzy11RcU7yoe19CQiCirU89czfVf0SjrOXg1k8Iu08Io0BVsdvrUkeNCOWCz9R1tEV0rEkMIRbVidvW4eg9T42SaDhoS3Sb73uqHCHFYfYlAtqdb6N3lWRX1SpJNkoTxBtjPUX7UA/5m+fd79bqYhIiSdb5KA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=aGfkQgtI; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1792074393; c=relaxed/simple;
+	bh=3be6ZRrkuwe5O6MvoCJ3NJTdkt/zK0OZYHzR1WryNh4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=qLINDuvSS6HCAKYfDf6JQBJ6vDEsZBQIHZVMOqIrB/BiSIQ99Zpo8YGAiNf2cj16vsvCWgXDBT2nxwiRocoIRAcA7nVoE7ZnWnlhBulsyJ3a7XrNLts4Q5ySzVRi5hJuFdwOITQ9PVwiPAbZrSShB4c3ej9D7drO1aMpb10zJKo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FwjSPjvD; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=b6QGq1BE; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="aGfkQgtI"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DCBD01516;
-	Thu, 15 Oct 2026 07:26:14 -0700 (PDT)
-Received: from e125769.cambridge.arm.com (e125769.cambridge.arm.com [10.2.198.107])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D28EE3F871;
-	Thu, 15 Oct 2026 07:26:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792074378; bh=92g4f16JkFzfa2eJ04OERqd5V71ETIp+E0Q4Liww/Oc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=aGfkQgtItwhplFdngNnFUSeRIjclF8TsuG5CJFFS6DBauQHwmKAGxv7D2TNyk2rRE
-	 HHS0Qj5G/ETDBBVZc0dLDGIyxEBFJOVCv2qNbRCiDwOHGKeYHooYGvowUaMMePaKBp
-	 hHmREOSZSxfKv11x7ANwu6wtkR0NFaX423eAFcvo=
-From: Ryan Roberts <ryan.roberts@arm.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Alex Williamson <alex@shazbot.org>,
-	Jason Gunthorpe <jgg@nvidia.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jean-Philippe Brucker <jpb@kernel.org>,
-	Oded Gabbay <ogabbay@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>
-Cc: Ryan Roberts <ryan.roberts@arm.com>,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	kvm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-doc@vger.kernel.org
-Subject: [RFC PATCH v2 04/15] misc/arm-cla: Probe firmware-described devices
-Date: Thu, 15 Oct 2026 15:25:38 +0100
-Message-ID: <20261015142552.4128028-5-ryan.roberts@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261015142552.4128028-1-ryan.roberts@arm.com>
-References: <20261015142552.4128028-1-ryan.roberts@arm.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FwjSPjvD";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="b6QGq1BE"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69FAPdb34100193
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:26:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	IE79JMn0wPrEDgdovegTuQ5M+CHvyEMAVwZJre8pogM=; b=FwjSPjvD7W2PMEe5
+	Jhgvf42cxtSO7T1hqxcoWM9lmq71G57eUJzUPFYtXqaPlv3X+VOyFEFikHXdcacd
+	Zxl++rFEoG+Qwv1Hi1KpUhXcPVkRjbT3alg7JqHIFnbsXFx6ZxYbyLpoED70rH9E
+	qD7Q+kQp2NO5EKdmTCWHV4GL06v9Y7iWs3rvKmwusLx3YvK5ESchEPbC+NRAUEeX
+	ZruNCfvaac/F4rmPfUfXDKtXd7QJpnbTjyukC+Qnb+b1KQhS8jLWOCf9/gQzY3k0
+	SmFX0UF/jP8Hb/wdU3t+dvAdZRfGFgoYvHoOSAujVJE72GMFbTUVP6fx5DCq/0Fx
+	c8Ixng==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4haw2r8wkt-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:26:21 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-7cc0e78a4ccso117225137.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:26:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792074380; x=1792679180; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IE79JMn0wPrEDgdovegTuQ5M+CHvyEMAVwZJre8pogM=;
+        b=b6QGq1BE+4qLOl2AeQdlcAdxNLLlWd9g1P+i5nHlDQ2zMzt1r0ohbn3TdnpAks+Kpx
+         Av2SLNvihIXhp/d+cUBLcl4yaGkhBmCgzynbPs7QRHljtJrhAkUetLYJ0nLNVOKaEqB1
+         T/pSColhPJqvZsd57qEAKXNNHFnufrE6P3gdv8u7O5mvkJr1i0MIdJcgprjmKV98fVEr
+         zYj09I2/Ov8yIO5eWFLdWhRtew3c2Kmu0XPaztl1NJ6072PTWSEoNDXB935xa1GuyOax
+         KzK5UKjkQdHtYMDux2P2Szk1Spcbth5gQ2cpxL2hyUzKPjH/KObnGG3JX2yf/0zPV7Ra
+         uIbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792074380; x=1792679180;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IE79JMn0wPrEDgdovegTuQ5M+CHvyEMAVwZJre8pogM=;
+        b=WEutgbT63rYoxmfdfRiiKwY39aQBApE3o7gQj3HbnEJc3BATB29Z9J2+8HLp3TgHg6
+         H68udAxsp7NiyGXLprBoDM84+EZ1vbYQGovbLesP8FpT90AozrDYtluPMvTOW+xbkwzC
+         87h/GvmpfDuQQ3D6l92SasCITT5TvcqxELYogUnmj512ihBY4TwyYodVzzNXYkCYA482
+         8X9jUTsB5znJlGIFggULilHZkAKyqU0LF1v6NFEGoFem6CoG64LUpLKqyGhcHFFI4r1D
+         0XOsgv4BRmIpIsUNnMsVXE4hAFLfCT60lMyAIhSrUUOjt44r/WsACsKhHnWLeto7+IGO
+         5rkg==
+X-Forwarded-Encrypted: i=1; AKwUvBwJgCeWY73QGrZaNWYyDgh2UUQhWSIlqbR0B9R555NhOxlr9EsErD7A+ugqsEJs8Qe9kqrhTPwuJKUUiMU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLmZFG/GYErrWg0Q3SiMDUsZwR+6h32Ww5XfKjiE5V7/rkGq7cS
+	TLFUYdDMpMTt9vOK8R5tNNMi0THL1OQL5wpF0+Ghh8IzbdDlR9v/8wpl/uwpa1zwjrBYDKDP31v
+	HW0ZXPTUwXnU1EkNrn/M2cfiyWLqSHYIYG4O0bGgzwzxFcIcYzyL8nqyFifFpaDOzSQs=
+X-Gm-Gg: AYBFou2PXSYM4aeARnpaliosoXWQmUhn/o/+jl1Ye7u2E94dh8v2AGQXqR4LLMQm50k
+	qdPZWLMGlFmrhDLXWPrm/7HnnCTHNcHh9Z/bzg62StQc9FtDoszoWdqocZHp8GV5WrW5Pq1zzaN
+	PvOVOJZdOOFMfdXbaEOSFm3X4BY7JDTxeGYr3kUF5hy8drMBAP5S+mNuh7Jv5HT51p9/7Y4SUzz
+	lBXN/jyOByG0XX7ocEoqG+NcJhoeNKoR3GLGIkaO33Pgj6M3PnSRvdBpFKpIiS+HsH12a95RbWA
+	XNnbB8HUnO/Xq7OzwPvahH6nYuhNzi6rrd0Hlbu8MaPT/NlM+YmuzrKsDeeMOO6bjexUMVg/GPD
+	e081xkhsY6tXROw/nrxxE2quj0MIYNDM7zmZ0+9RENXoz5/MjgHoVSx8spN1HTRgbedl0AmvB3C
+	2s5obrsdzfYY6b9fDgjgp52xeRML82NYdZt7tMGHG4PrL5qmtnGc4=
+X-Received: by 2002:a05:6102:5cca:b0:7c4:a0e4:1a79 with SMTP id ada2fe7eead31-7cb37317ab0mr3850168137.19.1792074380070;
+        Thu, 15 Oct 2026 07:26:20 -0700 (PDT)
+X-Received: by 2002:a05:6102:5cca:b0:7c4:a0e4:1a79 with SMTP id ada2fe7eead31-7cb37317ab0mr3850159137.19.1792074379260;
+        Thu, 15 Oct 2026 07:26:19 -0700 (PDT)
+Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:5402:5e0b:9ef0:9b5b])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd6428b3sm69083145e9.1.2026.10.15.07.26.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 07:26:17 -0700 (PDT)
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Thu, 15 Oct 2026 16:26:01 +0200
+Subject: [PATCH v11 2/7] block: partitions: of: Attach partition fwnode to
+ the block device
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261015-block-as-nvmem-v11-2-f890ac74f87d@oss.qualcomm.com>
+References: <20261015-block-as-nvmem-v11-0-f890ac74f87d@oss.qualcomm.com>
+In-Reply-To: <20261015-block-as-nvmem-v11-0-f890ac74f87d@oss.qualcomm.com>
+To: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+        Johannes Berg <johannes@sipsolutions.net>,
+        Jeff Johnson <jjohnson@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Marcel Holtmann <marcel@holtmann.org>,
+        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+        Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
+        Rocky Liao <quic_rjliao@quicinc.com>,
+        "David S. Miller" <davem@davemloft.net>,
+        Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+        Simon Horman <horms@kernel.org>,
+        Srinivas Kandagatla <srini@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
+        Heiner Kallweit <hkallweit1@gmail.com>,
+        Russell King <linux@armlinux.org.uk>,
+        Saravana Kannan <saravanak@kernel.org>,
+        Christian Marangi <ansuelsmth@gmail.com>,
+        Eric Dumazet <edumazet@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Eric Dumazet <edumazet@kernel.org>
+Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-block@vger.kernel.org, linux-wireless@vger.kernel.org,
+        ath10k@lists.infradead.org, linux-bluetooth@vger.kernel.org,
+        netdev@vger.kernel.org, daniel@makrotopia.org,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Christoph Hellwig <hch@lst.de>
+X-Mailer: b4 0.14.2
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1NyBTYWx0ZWRfX+sZhAyM+KHxC
+ GYrHdGfMLwBHCrZiVkW7bDVykJsJaFPYY2SoWPuC37dmdQTRThfrG0E/aO01q48cC2BT2kE6Io5
+ FIxYs8kzMRHbUYgmOPc6JPPrxvYTpQs=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1NyBTYWx0ZWRfX3E0NUmIJZB9I
+ VaR/g4qDz/nAZrLdyZyzRN/38fvFtggNYf77yydxQMAI38ESKBtkqeFBXSNgrBh7VCXQDu7dCRZ
+ zrqOvvneO6bz+7FeAhANfKQgonFJWZNnZyancztNPsZ1rQHW00cuaTscoa3/8pnutX1MS+OENkZ
+ LeAOwL85+xBdr4rXd1VdiHcBnASsLC8R1Eh7WZksSAdnXWwJZbaQah7dzotqLeLpPI2gE5169kN
+ dUYYk7ADISvWyWcQhJBoxEmVqDpYE/X++z7qitiI2q3mqIdCbbk+UKF0riD4O1wxZHa6QBCe3Jb
+ 97OouirTPoAEi5Nwrrs/o/J/wMzmJ32epfaRY0FLrarslupE7SzSQtphVk154zouBNyXlvgbWZp
+ lTU/Dnieih+T2LFWtwPtP0SEFy18T/0wTRgaKTmD/TPJ2Md4UQTgjQflrBMO/Xja0Rk9iO3Ru4p
+ 2KSPm3mgq8eR5DY2ijA==
+X-Authority-Analysis: v=2.4 cv=BNMmP1QG c=1 sm=1 tr=0 ts=6ad0e28d cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
+ a=2ffTNAQyBkxXHBiWhEgA:9 a=QEXdDO2ut3YA:10 a=crWF4MFLhNY0qMRaF8an:22
+X-Proofpoint-GUID: JIj_4tU70cO45tUsi6I29cp6E4ohqqeW
+X-Proofpoint-ORIG-GUID: JIj_4tU70cO45tUsi6I29cp6E4ohqqeW
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 adultscore=0 spamscore=0 clxscore=1015 lowpriorityscore=0
+ priorityscore=1501 malwarescore=0 suspectscore=0 impostorscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150057
 
-From: Jean-Philippe Brucker <jpb@kernel.org>
+The OF partition parser reads offset, size and label from each
+"fixed-partitions" child node but does not associate that node with the
+resulting partition block device. As a result a partition has no
+of_node, unlike the whole-disk device which gets its firmware node via
+add_disk_fwnode().
 
-Discover CLA devices from firmware and instantiate the driver with
-platform_driver_probe(), since the set of devices is fixed at boot. Map
-the MMIO frame, select the kernel-accessible privilege-level frame and
-associate each CLA with the CPU named by firmware.
+Carry the partition's device tree node through the parser and attach it
+to the partition's block device with device_set_node(), mirroring the
+whole-disk case. This lets consumers describe per-partition properties
+in the device tree (for example an NVMEM layout on a partition node) and
+look them up through the partition device.
 
-Add the topology code used to group CLAs into domains. Domains represent
-the smallest unit that can be assigned independently, because CLAs in
-the same domain cannot be isolated from each other. Build lookup tables
-indexed by CPU and by mmap page offset for later fast access.
+No functional change for existing users, partitions without a matching
+device tree node simply get a NULL fwnode.
 
-Register CPU hotplug callbacks so that hardware setup and teardown can
-run on the CPU local to each CLA, which is the only CPU allowed to
-access that CLA's registers.
-
-Co-developed-by: Ryan Roberts <ryan.roberts@arm.com>
-Signed-off-by: Ryan Roberts <ryan.roberts@arm.com>
-Signed-off-by: Jean-Philippe Brucker <jpb@kernel.org>
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 ---
- drivers/misc/arm-cla/Makefile       |   3 +-
- drivers/misc/arm-cla/arm-cla.h      |  46 ++++++
- drivers/misc/arm-cla/cla-init.c     | 222 ++++++++++++++++++++++++++++
- drivers/misc/arm-cla/cla-topology.c | 172 +++++++++++++++++++++
- 4 files changed, 442 insertions(+), 1 deletion(-)
- create mode 100644 drivers/misc/arm-cla/cla-topology.c
+ block/partitions/check.h |  1 +
+ block/partitions/core.c  | 20 +++++++++++++++++---
+ block/partitions/of.c    |  3 +++
+ 3 files changed, 21 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/misc/arm-cla/Makefile b/drivers/misc/arm-cla/Makefile
-index 3fa8567c8b3e..84ed1a054a21 100644
---- a/drivers/misc/arm-cla/Makefile
-+++ b/drivers/misc/arm-cla/Makefile
-@@ -2,6 +2,7 @@
+diff --git a/block/partitions/check.h b/block/partitions/check.h
+index b0997467b61a54a8a621b9c155c8329289649460..326081499d9a6be730dbd659c110449cfa06921f 100644
+--- a/block/partitions/check.h
++++ b/block/partitions/check.h
+@@ -17,6 +17,7 @@ struct parsed_partitions {
+ 		int flags;
+ 		bool has_info;
+ 		struct partition_meta_info info;
++		struct fwnode_handle *fwnode;
+ 	} *parts;
+ 	int next;
+ 	int limit;
+diff --git a/block/partitions/core.c b/block/partitions/core.c
+index b5c59b79ca7cbb28d4d93478ee1c80908f76ee9f..eee954df1ac6ef7dd4f02ad5c9d49aed778bf015 100644
+--- a/block/partitions/core.c
++++ b/block/partitions/core.c
+@@ -11,6 +11,7 @@
+ #include <linux/sysfs.h>
+ #include <linux/ctype.h>
+ #include <linux/vmalloc.h>
++#include <linux/property.h>
+ #include <linux/raid/detect.h>
+ #include "check.h"
  
- arm-cla-y := \
- 	cla-init.o \
--	cla-ops.o
-+	cla-ops.o \
-+	cla-topology.o
- 
- obj-$(CONFIG_ARM_CLA) += arm-cla.o
-diff --git a/drivers/misc/arm-cla/arm-cla.h b/drivers/misc/arm-cla/arm-cla.h
-index 4884e4804ab3..61176c4fce0f 100644
---- a/drivers/misc/arm-cla/arm-cla.h
-+++ b/drivers/misc/arm-cla/arm-cla.h
-@@ -17,6 +17,8 @@
- #define CLA_NUM_DATA_REGS	8
- #define CLA_SRSTATE_LEN		8
- 
-+struct cla_domain;
-+
- /**
-  * struct cla_dev - CLA device
-  *
-@@ -24,13 +26,41 @@
-  * @cpu:		The CPU this CLA is attached to.
-  * @regs:		Registers accessed by the kernel.
-  * @dev:		The platform device.
-+ * @pfn:		Page of registers assigned to user.
-+ * @pg_offset:		Mmap offset of this device.
-+ * @domain:		The domain this CLA belongs to.
-  */
- struct cla_dev {
- 	unsigned int cpu;
- 	void __iomem *regs;
- 	struct device *dev;
-+	unsigned long pfn;
-+	unsigned long pg_offset;
-+	struct cla_domain *domain;
-+};
-+
-+/**
-+ * struct cla_domain - Collection of cla_dev
-+ *
-+ * Immutable state:
-+ * @id:			Consecutive userspace domain identifier.
-+ * @pg_offset:		Mmap offset of the first device.
-+ * @nr_devs:		Number of devices in the domain.
-+ * @devs:		Devices.
-+ */
-+struct cla_domain {
-+	unsigned int id;
-+	unsigned long pg_offset;
-+	unsigned int nr_devs;
-+	struct cla_dev **devs;
- };
- 
-+extern struct xarray cla_domains;
-+extern unsigned int cla_nr_domains;
-+extern struct cla_dev **cla_lut_cpu;
-+extern struct cla_dev **cla_lut_pg;
-+extern unsigned int cla_nr_devs;
-+
- #define cla_dbg(_dev, fmt, ...) \
- 	dev_dbg((_dev)->dev, "[%u] " fmt, (_dev)->cpu, ##__VA_ARGS__)
- #define cla_info(_dev, fmt, ...) \
-@@ -38,6 +68,13 @@ struct cla_dev {
- #define cla_err(_dev, fmt, ...) \
- 	dev_err((_dev)->dev, "[%u] " fmt, (_dev)->cpu, ##__VA_ARGS__)
- 
-+#define CLA_REG_SIZE	SZ_64K
-+#define CLA_FRAME_SIZE	(4 * CLA_REG_SIZE)
-+
-+/* Return the registers corresponding to this privilege level */
-+#define cla_get_regs(base, pl) \
-+	((typeof(base))((uintptr_t)(base) + (pl) * CLA_REG_SIZE))
-+
- static inline u64 cla_reg_read(struct cla_dev *dev, off_t reg)
- {
- 	/* MMIO reads are all relaxed, since the driver doesn't use DMA. */
-@@ -50,6 +87,15 @@ static inline void cla_reg_write(struct cla_dev *dev, off_t reg, u64 val)
- 	return writeq_relaxed(val, dev->regs + reg);
+@@ -110,8 +111,17 @@ static struct parsed_partitions *allocate_partitions(struct gendisk *hd)
+ 	return state;
  }
  
-+/*
-+ * If we're at EL2, use PL2. If we're a guest or nVHE host, use PL1.
-+ */
-+#define cla_kernel_pl (is_kernel_in_hyp_mode() ? 2 : 1)
++static void drop_partitions_fwnodes(struct parsed_partitions *state)
++{
++	for (int i = 0; i < state->limit; i++) {
++		fwnode_handle_put(state->parts[i].fwnode);
++		state->parts[i].fwnode = NULL;
++	}
++}
 +
-+struct cla_domain *cla_dev_domain_get(struct cla_dev *dev);
-+int cla_domains_finalise(void);
-+void cla_domains_free(void);
-+
- int cla_op_wait_lresp(struct cla_dev *dev, u64 *lresp);
- int cla_op_reset(struct cla_dev *dev, unsigned int accid);
- int cla_op_regread(struct cla_dev *dev, unsigned int accid, unsigned int regidx,
-diff --git a/drivers/misc/arm-cla/cla-init.c b/drivers/misc/arm-cla/cla-init.c
-index 3d1f47592842..6818fb8c38ed 100644
---- a/drivers/misc/arm-cla/cla-init.c
-+++ b/drivers/misc/arm-cla/cla-init.c
-@@ -5,7 +5,229 @@
-  * Copyright 2026 Arm Limited.
+ static void free_partitions(struct parsed_partitions *state)
+ {
++	drop_partitions_fwnodes(state);
+ 	vfree(state->parts);
+ 	kfree(state);
+ }
+@@ -139,6 +149,7 @@ static struct parsed_partitions *check_partition(struct gendisk *hd)
+ 
+ 	i = res = err = 0;
+ 	while (!res && check_part[i]) {
++		drop_partitions_fwnodes(state);
+ 		memset(state->parts, 0, state->limit * sizeof(state->parts[0]));
+ 		res = check_part[i++](state);
+ 		if (res < 0) {
+@@ -247,6 +258,7 @@ static const struct attribute_group *part_attr_groups[] = {
+ 
+ static void part_release(struct device *dev)
+ {
++	fwnode_handle_put(dev_fwnode(dev));
+ 	put_disk(dev_to_bdev(dev)->bd_disk);
+ 	bdev_drop(dev_to_bdev(dev));
+ }
+@@ -294,7 +306,8 @@ static const DEVICE_ATTR(whole_disk, 0444, whole_disk_show, NULL);
   */
+ static struct block_device *add_partition(struct gendisk *disk, int partno,
+ 				sector_t start, sector_t len, int flags,
+-				struct partition_meta_info *info)
++				struct partition_meta_info *info,
++				struct fwnode_handle *fwnode)
+ {
+ 	dev_t devt = MKDEV(0, 0);
+ 	struct device *ddev = disk_to_dev(disk);
+@@ -343,6 +356,7 @@ static struct block_device *add_partition(struct gendisk *disk, int partno,
+ 	pdev->class = &block_class;
+ 	pdev->type = &part_type;
+ 	pdev->parent = ddev;
++	device_set_node(pdev, fwnode_handle_get(fwnode));
  
-+#include <linux/cpuhotplug.h>
-+#include <linux/cpuhplock.h>
- #include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/smp.h>
-+
-+#include <asm/virt.h>
-+
-+#include "arm-cla.h"
-+
-+static int cla_cpuhp_state = -1;
-+
-+static int cla_dev_setup(unsigned int cpu)
-+{
-+	struct cla_dev *dev;
-+
-+	dev = cla_lut_cpu[cpu];
-+	if (!dev)
-+		return 0;
-+
-+	if (WARN_ON(smp_processor_id() != cpu || dev->cpu != cpu))
-+		return -EINVAL;
-+
-+	return 0;
-+}
-+
-+static int cla_dev_teardown(unsigned int cpu)
-+{
-+	struct cla_dev *dev;
-+
-+	/*
-+	 * Careful what we return here, the teardown path isn't really allowed
-+	 * to fail (BUG_ON in kernel/cpu.c)
-+	 */
-+	dev = cla_lut_cpu[cpu];
-+	if (!dev)
-+		return 0;
-+
-+	return 0;
-+}
-+
-+static int cla_of_to_cpu(struct device_node *of_node)
-+{
-+	int cpu;
-+	int ret;
-+	u32 cpu_phandle;
-+	struct device_node *cpu_node;
-+
-+	if (!of_node)
-+		return -ENODEV;
-+
-+	ret = of_property_read_u32(of_node, "cpu", &cpu_phandle);
-+	if (WARN_ON(ret))
-+		return -EINVAL;
-+
-+	cpu_node = of_find_node_by_phandle(cpu_phandle);
-+	if (WARN_ON(!cpu_node))
-+		return -EINVAL;
-+
-+	cpu = of_cpu_node_to_id(cpu_node);
-+	of_node_put(cpu_node);
-+
-+	return cpu;
-+}
-+
-+static struct cla_dev *cla_dev_alloc(struct device *parent, int cpu,
-+				     void __iomem *regs, phys_addr_t base)
-+{
-+	struct cla_dev *dev;
-+
-+	dev = devm_kzalloc(parent, sizeof(*dev), GFP_KERNEL);
-+	if (!dev)
-+		return ERR_PTR(-ENOMEM);
-+
-+	dev->pfn = __phys_to_pfn(base);
-+	dev->regs = cla_get_regs(regs, cla_kernel_pl);
-+	dev->cpu = cpu;
-+	dev->dev = parent;
-+
-+	/* Attempt to find device domain, or allocate a new one */
-+	dev->domain = cla_dev_domain_get(dev);
-+	if (IS_ERR(dev->domain))
-+		return ERR_CAST(dev->domain);
-+
-+	cla_nr_devs++;
-+
-+	return dev;
-+}
-+
-+static int cla_probe(struct platform_device *pdev)
-+{
-+	int cpu;
-+	void __iomem *reg;
-+	size_t reg_size;
-+	struct cla_dev *dev;
-+	struct resource *res;
-+
-+	/*
-+	 * TODO: the firmware maps this as well to access PL3, and the guest
-+	 * will map PL1 and PL0. Avoid TLB attr mismatches by only mapping what
-+	 * we need.
-+	 */
-+	reg = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
-+	if (IS_ERR(reg)) {
-+		dev_err(&pdev->dev, "could not map CLA registers\n");
-+		return PTR_ERR(reg);
-+	}
-+
-+	if (!IS_ALIGNED(res->start, SZ_256K)) {
-+		dev_err(&pdev->dev, "invalid CLA registers alignment\n");
-+		return -EINVAL;
-+	}
-+
-+	/*
-+	 * As a guest we may not get PL3 or PL2. Tolerate CLAs smaller
-+	 * than 4*CLA_REG_SIZE.
-+	 */
-+	reg_size = resource_size(res);
-+	if (reg_size > CLA_FRAME_SIZE ||
-+	    reg_size < (cla_kernel_pl + 1) * CLA_REG_SIZE) {
-+		dev_err(&pdev->dev, "unexpected CLA registers size\n");
-+		return -EINVAL;
-+	}
-+
-+	cpu = cla_of_to_cpu(pdev->dev.of_node);
-+	if (cpu < 0)
-+		return cpu;
-+
-+	/* Reject CLAs for offline CPUs. See cla_module_init(). */
-+	if (!cpu_online(cpu))
-+		return -ENODEV;
-+
-+	dev = cla_dev_alloc(&pdev->dev, cpu, reg, res->start);
-+	if (IS_ERR(dev))
-+		return PTR_ERR(dev);
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id cla_of_match[] = {
-+	{.compatible = "arm,cla",},
-+	{},
-+};
-+MODULE_DEVICE_TABLE(of, cla_of_match);
-+
-+static struct platform_driver cla_driver = {
-+	.driver	= {
-+		.name			= "arm-cla",
-+		.of_match_table		= cla_of_match,
-+	},
-+};
-+
-+static int __init cla_module_init(void)
-+{
-+	bool driver_registered = false;
-+	int ret;
-+
-+	/*
-+	 * For now, we reject any CLAs discovered via FW tables, whose CPU is
-+	 * offline during init. This keeps things simple by allowing us to probe
-+	 * all HW at init time. Keep the online CPU set stable so that the
-+	 * cpu_online() check in cla_probe() is consistent with the online cpus
-+	 * when we call cpuhp_setup_state().
-+	 */
-+	scoped_guard(cpus_read_lock) {
-+		/*
-+		 * CPUs may be hotplugged, but all CLAs are described by
-+		 * firmware so the probe can be synchronous. This only sets up
-+		 * the resources, and CPUHP callbacks do the actual peeking and
-+		 * poking. This returns an error when no CLA has an online CPU.
-+		 */
-+		ret = platform_driver_probe(&cla_driver, cla_probe);
-+		if (ret) {
-+			if (ret != -ENODEV)
-+				pr_err("arm-cla: probe failed with %d\n", ret);
-+			/* Some domains may have been created during probe. */
-+			goto err_hardware;
-+		}
-+		driver_registered = true;
-+
-+		ret = cla_domains_finalise();
-+		if (ret) {
-+			pr_err("arm-cla: failed to finalise domains: %d", ret);
-+			goto err_hardware;
-+		}
-+
-+		/*
-+		 * Each CPU initializes their own CLA. CPUHP uses a pair of
-+		 * smp_mb() when calling the startup callback, ensuring that
-+		 * cla_dev_setup() reads fully initialized cla_lut_cpu and
-+		 * cla_dev structures.
-+		 */
-+		ret = cpuhp_setup_state_cpuslocked(CPUHP_AP_ONLINE_DYN,
-+						   "arm-cla", cla_dev_setup,
-+						   cla_dev_teardown);
-+		if (ret < 0) {
-+			pr_err("arm-cla: failed to setup cpuhp: %d", ret);
-+			goto err_hardware;
-+		}
-+		cla_cpuhp_state = ret;
-+	}
-+
-+	return 0;
-+
-+err_hardware:
-+	if (cla_cpuhp_state >= 0)
-+		cpuhp_remove_state(cla_cpuhp_state);
-+	cla_domains_free();
-+	if (driver_registered)
-+		platform_driver_unregister(&cla_driver);
-+	return ret;
-+}
-+
-+static void __exit cla_module_exit(void)
-+{
-+	cpuhp_remove_state(cla_cpuhp_state);
-+	cla_domains_free();
-+	platform_driver_unregister(&cla_driver);
-+}
-+
-+module_init(cla_module_init);
-+module_exit(cla_module_exit);
+ 	/* in consecutive minor range? */
+ 	if (bdev_partno(bdev) < disk->minors) {
+@@ -449,7 +463,7 @@ int bdev_add_partition(struct gendisk *disk, int partno, sector_t start,
+ 	}
  
- MODULE_DESCRIPTION("Arm Core Local Accelerator");
- MODULE_AUTHOR("Arm Limited");
-diff --git a/drivers/misc/arm-cla/cla-topology.c b/drivers/misc/arm-cla/cla-topology.c
-new file mode 100644
-index 000000000000..5137a0e041e5
---- /dev/null
-+++ b/drivers/misc/arm-cla/cla-topology.c
-@@ -0,0 +1,172 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Arm CLA driver - device topology initialization
-+ *
-+ * A CLA domain is a group of devices that work together and cannot be isolated
-+ * from each other. They are owned by a single user at a time.
-+ *
-+ * Copyright 2026 Arm Limited.
-+ */
+ 	part = add_partition(disk, partno, start, length,
+-			ADDPART_FLAG_NONE, NULL);
++			ADDPART_FLAG_NONE, NULL, NULL);
+ 	ret = PTR_ERR_OR_ZERO(part);
+ out:
+ 	mutex_unlock(&disk->open_mutex);
+@@ -564,7 +578,7 @@ static bool blk_add_partition(struct gendisk *disk,
+ 	}
+ 
+ 	part = add_partition(disk, p, from, size, state->parts[p].flags,
+-			     &state->parts[p].info);
++			     &state->parts[p].info, state->parts[p].fwnode);
+ 	if (IS_ERR(part)) {
+ 		if (PTR_ERR(part) != -ENXIO) {
+ 			printk(KERN_ERR " %s: p%d could not be added: %pe\n",
+diff --git a/block/partitions/of.c b/block/partitions/of.c
+index 53664ea06b6540e3d1155141adaafac7286f2d21..4fc7c80c407de42b2b31be2c82e0e6bc2a30c9e3 100644
+--- a/block/partitions/of.c
++++ b/block/partitions/of.c
+@@ -3,6 +3,7 @@
+ #include <linux/blkdev.h>
+ #include <linux/major.h>
+ #include <linux/of.h>
++#include <linux/property.h>
+ #include <linux/string.h>
+ #include "check.h"
+ 
+@@ -62,6 +63,8 @@ static void add_of_partition(struct parsed_partitions *state, int slot,
+ 		partname = of_get_property(np, "name", &len);
+ 	strscpy(info->volname, partname, sizeof(info->volname));
+ 
++	state->parts[slot].fwnode = fwnode_handle_get(of_fwnode_handle(np));
 +
-+#include <linux/device.h>
-+#include <linux/errno.h>
-+#include <linux/gfp.h>
-+#include <linux/kernel.h>
-+#include <linux/of.h>
-+
-+#include "arm-cla.h"
-+
-+DEFINE_XARRAY(cla_domains);
-+unsigned int cla_nr_domains;
-+
-+/*
-+ * Some CPUs may not have a CLA. So cla_lut_cpu (indexed by CPU) may be sparse,
-+ * but cla_lut_pg (indexed by page offset in mmap'ed file) is a contiguous array
-+ * of all devices, of size cla_nr_devs, sorted by domain.
-+ */
-+struct cla_dev **cla_lut_cpu;
-+struct cla_dev **cla_lut_pg;
-+unsigned int cla_nr_devs;
-+
-+static struct cla_domain *cla_domain_alloc(struct cla_dev *dev, unsigned int fwid)
-+{
-+	int ret;
-+	struct cla_domain *domain;
-+
-+	domain = kzalloc_obj(*domain);
-+	if (!domain)
-+		return ERR_PTR(-ENOMEM);
-+
-+	ret = xa_insert(&cla_domains, fwid, domain, GFP_KERNEL);
-+	if (ret < 0)
-+		goto err_free_domain;
-+
-+	domain->nr_devs = 1;
-+	domain->devs = kzalloc_obj(*domain->devs);
-+	if (!domain->devs) {
-+		ret = -ENOMEM;
-+		goto err_free_id;
-+	}
-+	domain->devs[0] = dev;
-+
-+	return domain;
-+
-+err_free_id:
-+	xa_erase(&cla_domains, fwid);
-+err_free_domain:
-+	kfree(domain);
-+	return ERR_PTR(ret);
-+}
-+
-+/**
-+ * cla_dev_domain_get - get or create a CLA domain for a device
-+ * @dev: CLA device
-+ *
-+ * Return: CLA domain pointer on success, or an ERR_PTR() on failure.
-+ */
-+struct cla_domain *cla_dev_domain_get(struct cla_dev *dev)
-+{
-+	int ret;
-+	unsigned int fwid;
-+	struct cla_dev **devs;
-+	struct cla_domain *domain;
-+
-+	/* Domain ID is provided by firmware */
-+	ret = of_property_read_u32(dev->dev->of_node, "arm,domain", &fwid);
-+	if (WARN_ON(ret))
-+		return ERR_PTR(-EINVAL);
-+
-+	domain = xa_load(&cla_domains, fwid);
-+	if (domain) {
-+		devs = krealloc_array(domain->devs, domain->nr_devs + 1,
-+				      sizeof(*devs), GFP_KERNEL);
-+		if (!devs)
-+			return ERR_PTR(-ENOMEM);
-+		domain->devs = devs;
-+		domain->devs[domain->nr_devs++] = dev;
-+		return domain;
-+	}
-+
-+	return cla_domain_alloc(dev, fwid);
-+}
-+
-+/**
-+ * cla_domains_finalise - build CLA device lookup tables
-+ *
-+ * Return: 0 on success, or a negative error code.
-+ */
-+int __init cla_domains_finalise(void)
-+{
-+	int ret = -ENOMEM;
-+	unsigned int j;
-+	unsigned long fwid;
-+	struct cla_domain *domain;
-+	unsigned int pg_offset = 0;
-+
-+	cla_lut_cpu = kzalloc_objs(*cla_lut_cpu, nr_cpu_ids);
-+	if (!cla_lut_cpu)
-+		goto err_free;
-+
-+	cla_lut_pg = kzalloc_objs(*cla_lut_pg, cla_nr_devs);
-+	if (!cla_lut_pg)
-+		goto err_free;
-+
-+	ret = -EINVAL;
-+	cla_nr_domains = 0;
-+
-+	/*
-+	 * Populate the lookup tables. Domains are keyed by fwid (which may be
-+	 * arbitrary) in xarray. Provide domain with a suitable, consecutive id
-+	 * for user space.
-+	 */
-+	xa_for_each(&cla_domains, fwid, domain) {
-+		domain->id = cla_nr_domains++;
-+		domain->pg_offset = pg_offset;
-+
-+		for (j = 0; j < domain->nr_devs; j++) {
-+			struct cla_dev *dev = domain->devs[j];
-+
-+			if (WARN_ON(dev->cpu >= nr_cpu_ids) ||
-+			    WARN_ON(pg_offset >= cla_nr_devs) ||
-+			    WARN_ON(cla_lut_cpu[dev->cpu]) ||
-+			    WARN_ON(cla_lut_pg[pg_offset]))
-+				goto err_free;
-+
-+			cla_lut_cpu[dev->cpu] = dev;
-+			cla_lut_pg[pg_offset] = dev;
-+			dev->pg_offset = pg_offset;
-+			pg_offset++;
-+		}
-+	}
-+
-+	return 0;
-+
-+err_free:
-+	kfree(cla_lut_cpu);
-+	kfree(cla_lut_pg);
-+	cla_lut_cpu = NULL;
-+	cla_lut_pg = NULL;
-+	return ret;
-+}
-+
-+/**
-+ * cla_domains_free - free CLA domains and lookup tables
-+ *
-+ * Domain schedulers must be stopped and CPU hotplug callbacks removed first.
-+ */
-+void cla_domains_free(void)
-+{
-+	unsigned long fwid;
-+	struct cla_domain *domain;
-+
-+	kfree(cla_lut_cpu);
-+	kfree(cla_lut_pg);
-+	cla_lut_cpu = NULL;
-+	cla_lut_pg = NULL;
-+	xa_for_each(&cla_domains, fwid, domain) {
-+		xa_erase(&cla_domains, fwid);
-+		kfree(domain->devs);
-+		kfree(domain);
-+	}
-+	cla_nr_domains = 0;
-+}
+ 	seq_buf_printf(&state->pp_buf, "(%s)", info->volname);
+ }
+ 
+
 -- 
-2.43.0
+2.34.1
 
