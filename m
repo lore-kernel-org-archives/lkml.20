@@ -1,124 +1,163 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D6954EDCA9;
-	Thu, 15 Oct 2026 10:11:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2B944CDA36;
+	Thu, 15 Oct 2026 10:12:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792059110; cv=none; b=UUqYRoQx3P5E0p2Gvs0T3Pchx+7YYP4erVNehjOtXdXEYeH3ob/sxv3kXrqNYhTxOtMtR4S9u0NyXBssxehZVk0kpY5IThDwOONew4UHP+r1HBomi6XJf611XcIooOCFtLR84NvGl+IX+PxyjjoK6GQBb1vcBJ1tq8bMGe63mvo=
+	t=1792059141; cv=none; b=NyFWP74vTowrdH29zH9lV6rzDfK204ZCIDrhKS7NdkLDdyQMLTgOSdoKXZ5H+WY42MJQloeRjQU1QLSMQyVE/MrL7lWFOUpB9l5jQs5wqii2NNoURvhvCJ3ardAlcO4UyRgtSH6mW5FYDkubjSYSsQ3qgfiPIqTJ8xv8DW5U7T0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792059110; c=relaxed/simple;
-	bh=b9OcI0YlePHBv1+TtWllODhy2ZFgZpRZ9SMfllA8Ors=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=rWWcmTNBsSGerMjs2Q2URjFfC+Nxb982+XWlqP9tHdOCUnQZ+ojYTNJK0gbLDQiA1HbhPWvOXm+N4v9q8bq3/UW8VCx0orQr8Dpqm3yalDCRZbk2WLT5eU1rCOY9d6PFdlbL4GJjEZK7rXqgJc2sbF8qv9ZcQgopVW11hKqbmPg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=VBywO9dT; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=KZNUdr9w; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1792059141; c=relaxed/simple;
+	bh=bQvfl9e9flDdW8Zy5J2Am3lyOYaDCVx7bTib2aYfJhw=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=DqtjVepil/X+Nsp0/Sh9nelLSJC8E8srktjjXzeGfSl4Bh2oF3KGuUaTqmSFaj9df8Zk+eqA1ImmqjE4Yv/6RknXkQJKPMUIFQfjsT9wXzIruhppcnB/bwNFfQKYWBBibczoNiGrjgsvDIhb3LfWK0i4RF+Ygutx/+LtNpxups0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WyIpUFkE; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="VBywO9dT";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="KZNUdr9w"
-Date: Thu, 15 Oct 2026 10:11:45 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792059107;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pIHkkHO0jW0iYe7wTKsIofNUJD2tp87VFqJa+vJrDSg=;
-	b=VBywO9dTF+S30328mpl/a8/FxbmT+ZwFjY9UZ/8lj6gUNJlu1kg47WNPcvlkSwyBy/tZwM
-	41GqfKy7a4XfJTJzkareBd9IDh+H5WWph+MMAzKzDSVcJyCfORr/o0zjxq/fJC/D+R3mFa
-	dMtpzUo6JP6YHhcogWWYTZWXSqWjVwjWW8Je34dZLXuJxGK5Al2V3kb8UMq0gcqZjesk9E
-	ECmoxUaSNzktE6QQenS0ViwDbTgLaiU+x9CEbI4XK4xOFY7vQzjS5NPP6PtNSChruvu9XN
-	d3vhhvIv1yUh/PGoQ0/lJcCqJe17plaYxWDXo6gKhj2VBDD6UYgkcHE393HIbg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792059107;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pIHkkHO0jW0iYe7wTKsIofNUJD2tp87VFqJa+vJrDSg=;
-	b=KZNUdr9w7nqvHttkYDw2DrjBRDxQxB4ocugMu5tq1snhXWFsErimVN/Jk8x7IF/rHzofvA
-	zuUZArh7XnSJPVBg==
-From: "tip-bot2 for Igor Velkov" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: irq/drivers] irqchip/meson-gpio: Allow the GPIO interrupts to
- wake the system
-Cc: Igor Velkov <iav@iav.lv>, Thomas Gleixner <tglx@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261010-meson-gpio-wake-v2-1-790ecc6df792@iav.lv>
-References: <20261010-meson-gpio-wake-v2-1-790ecc6df792@iav.lv>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WyIpUFkE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792059140; x=1823595140;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=bQvfl9e9flDdW8Zy5J2Am3lyOYaDCVx7bTib2aYfJhw=;
+  b=WyIpUFkEszMRK5s2AS9BWgHuD+V4ZGZZyzuUTq4lm27emfrzA8bmX/4U
+   rLyc+6jMrCfDIiB4Y7SMlw6BAXGFV/V36k21ozi0mQ0MpmBlJbe47mTGS
+   DbSMT3Ya38mysKG3czr06Yk3U9nPTHfqB1VlZ/HlCkTGvlNcgTZvimNnX
+   k+xI6d3qW4NeiYlyltqXYgtyza9HfUB5xOk0vhKqhl9wH/x1tgtxBN8Pg
+   p5XahA08Cn46zTx1/P60NNgYrbr13KmXtilU+z0QGg+UFcYh6dGdCQ8Qw
+   0b9ljRCabUo/AfKKi7IIoYPqAsPigZpWDH2+QHCIoBPvKUkJ+Mp8q6X8g
+   A==;
+X-CSE-ConnectionGUID: 7p1mihegR56KU3epH08pYQ==
+X-CSE-MsgGUID: R9p0ra7BSFSJ3DPNg5xSzA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="834529"
+X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
+   d="scan'208";a="834529"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 03:12:19 -0700
+X-CSE-ConnectionGUID: /BZGfBNAS1GLL/+b+soehg==
+X-CSE-MsgGUID: Vu7gupRqR1WO7FPE4BUfkQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
+   d="scan'208";a="1586339"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.130])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 03:12:17 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Thu, 15 Oct 2026 13:12:13 +0300 (EEST)
+To: chitranshmandhaniya@gmail.com
+cc: Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org, 
+    LKML <linux-kernel@vger.kernel.org>, Chitransh_Mandhaniya@dell.com
+Subject: Re: [PATCH v2 2/2] platform/x86: dell-uart-backlight: recover from
+ stray EC response byte
+In-Reply-To: <20261015074339.27388-3-chitranshmandhaniya@gmail.com>
+Message-ID: <d31cdfa8-3f52-e1c1-3d03-8fccfcd57e0d@linux.intel.com>
+References: <20261004110333.5790-1-chitranshmandhaniya@gmail.com> <20261015074339.27388-1-chitranshmandhaniya@gmail.com> <20261015074339.27388-3-chitranshmandhaniya@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179205910581.2666988.12781833288932853374.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
 
-The following commit has been merged into the irq/drivers branch of tip:
+On Thu, 15 Oct 2026, chitranshmandhaniya@gmail.com wrote:
 
-Commit-ID:     5b6e2a46b80ddbc93e72eb4f01519b0c8c3e0ef0
-Gitweb:        https://git.kernel.org/tip/5b6e2a46b80ddbc93e72eb4f01519b0c8c3=
-e0ef0
-Author:        Igor Velkov <iav@iav.lv>
-AuthorDate:    Sat, 10 Oct 2026 18:20:30=20
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Thu, 15 Oct 2026 12:07:02 +02:00
+> From: Chitransh Mandhaniya <Chitransh_Mandhaniya@dell.com>
+> 
+> On some Dell AIO machines the EC occasionally inserts a spurious byte
+> after the cmd-echo in UART backlight response frames.  A get-brightness
+> reply "04 0c 0a e5" arrives as "04 0c 0d 0a e5". The length field still
+> reflects the original frame size, so the parser consumes the stray byte
+> as payload and mistakes the real payload for the checksum, returning
+> -EIO.
+> 
+> On the first checksum failure for a frame longer than the minimum size,
+> drop the byte at the first payload offset, shift the remaining data down
+> by one, and call dell_uart_bl_receive_data() again to re-fetch the
+> checksum byte from the wire and re-validate.
+> 
+> Limit this single-byte resync to once per command via a resync_used flag
+> cleared at the start of each transaction. A second mismatch is still a
+> hard error.  Well-formed replies pass on the first check and never enter
+> the recovery path.
+> 
+> Tested on Dell OptiPlex AIO 7410 65W (0TKWC4) where the EC inserts a
+> stray byte on every get-brightness response -- resync fixes it
+> transparently.
+> 
+> Signed-off-by: Chitransh Mandhaniya <Chitransh_Mandhaniya@dell.com>
+> ---
+>  .../platform/x86/dell/dell-uart-backlight.c   | 23 ++++++++++++++++++-
+>  1 file changed, 22 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/platform/x86/dell/dell-uart-backlight.c b/drivers/platform/x86/dell/dell-uart-backlight.c
+> index b61499d7b3f8..085dcc055554 100644
+> --- a/drivers/platform/x86/dell/dell-uart-backlight.c
+> +++ b/drivers/platform/x86/dell/dell-uart-backlight.c
+> @@ -60,6 +60,7 @@ struct dell_uart_backlight {
+>  	u8 resp_len;
+>  	u8 resp_max_len;
+>  	u8 pending_cmd;
+> +	bool resync_used;
+>  	int status;
+>  	int power;
+>  };
+> @@ -91,6 +92,7 @@ static int dell_uart_bl_command(struct dell_uart_backlight *dell_bl,
+>  	dell_bl->resp_len = -1; /* Invalid / unset */
+>  	dell_bl->resp_max_len = resp_max_len;
+>  	dell_bl->pending_cmd = cmd[1];
+> +	dell_bl->resync_used = false;
+>  
+>  	/* The TTY buffer should be big enough to take the entire cmd in one go */
+>  	ret = serdev_device_write_buf(to_serdev_device(dell_bl->dev), cmd, cmd_len);
+> @@ -270,8 +272,27 @@ static size_t dell_uart_bl_receive(struct serdev_device *serdev, const u8 *data,
+>  	if (ret < 0)
+>  		return len; /* Response not complete yet */
+>  
+> +	/* Stray byte after cmd-echo? Drop it, shift data down, re-fetch checksum. */
+> +	if (dell_bl->status == -EIO &&
+> +	    !dell_bl->resync_used && dell_bl->resp_len > MIN_RESP_LEN) {
+> +		dell_bl->resync_used = true;
+> +		dell_bl->status = -EBUSY;
+> +
+> +		dev_dbg(dell_bl->dev, "Resync: dropping stray byte 0x%02x at offset %d\n",
+> +			dell_bl->resp[RESP_DATA], RESP_DATA);
+> +
+> +		memmove(&dell_bl->resp[RESP_DATA], &dell_bl->resp[RESP_DATA + 1],
+> +			dell_bl->resp_len - RESP_DATA - 1);
+> +		dell_bl->resp_idx = dell_bl->resp_len - 1;
+> +
+> +		/* Re-fetch checksum byte from remaining data */
+> +		ret = dell_uart_bl_receive_data(dell_bl, data + ret, len - ret);
+> +		if (ret < 0)
+> +			return len; /* Need more data for checksum byte */
+> +	}
+> +
+>  	wake_up(&dell_bl->wait_queue);
+> -	return ret;
+> +	return len;
 
-irqchip/meson-gpio: Allow the GPIO interrupts to wake the system
+Thanks. Structuring it this way makes it much easier to follow than the 
+loop.
 
-meson_gpio_irq_chip has neither .irq_set_wake nor IRQCHIP_SKIP_SET_WAKE,
-so enable_irq_wake() fails with -ENXIO for every interrupt routed through
-it, and such an interrupt never gets IRQD_WAKEUP_STATE.
+What I'm left a bit unsure is how this last return behaves, and why there 
+is the change from ret -> len in this second patch which should be only 
+about adding the extra byte trickery.
 
-That matters for suspend-to-idle. suspend_device_irqs() keeps only the
-wakeup interrupts enabled; the rest are suspended and masked by the flow
-handler when they first fire. A GPIO interrupt that fires during s2idle
-therefore brings a CPU out of idle once, gets masked, and the system
-sleeps on. For mem the firmware chooses the wakeup sources, and this
-flag changes nothing there.
+If ret is always expected to be equal to len before this patch, it would 
+make more sense to make that change in patch 1?
 
-Set IRQCHIP_SKIP_SET_WAKE, like the other hierarchical irqchips with a
-GIC parent. The GIC sets the same flag, so irq_chip_set_wake_parent()
-would end there anyway.
+(I admit this entire code looks a bit more convoluted than what I'd 
+expect to be needed, so I'm not sure if I can follow all this fully.)
 
-Tested on ODROID-HC4 with the PCF8563 alarm interrupt routed through this
-controller: with the flag the alarm wakes the board from s2idle 4/4, and
-/sys/power/pm_wakeup_irq names it; without the flag the board stayed in
-s2idle past the alarm until a power cycle (0/5).
 
-Signed-off-by: Igor Velkov <iav@iav.lv>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Assisted-by: LLM
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-Link: https://patch.msgid.link/20261010-meson-gpio-wake-v2-1-790ecc6df792@iav=
-.lv
----
- drivers/irqchip/irq-meson-gpio.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/irqchip/irq-meson-gpio.c b/drivers/irqchip/irq-meson-gpi=
-o.c
-index 91a9c33..e0329ef 100644
---- a/drivers/irqchip/irq-meson-gpio.c
-+++ b/drivers/irqchip/irq-meson-gpio.c
-@@ -538,7 +538,7 @@ static struct irq_chip meson_gpio_irq_chip =3D {
- #ifdef CONFIG_SMP
- 	.irq_set_affinity	=3D irq_chip_set_affinity_parent,
- #endif
--	.flags			=3D IRQCHIP_SET_TYPE_MASKED,
-+	.flags			=3D IRQCHIP_SET_TYPE_MASKED | IRQCHIP_SKIP_SET_WAKE,
- };
-=20
- static int meson_gpio_irq_domain_translate(struct irq_domain *domain,
+Unrelated to this change/series, there seems to be mutex_init() call in 
+dell_uart_bl_serdev_probe() that should be changed to devm_mutex_init() + 
+error handling so one doesn't need to have to make mutex_destroy() call
+manually (it is currently missing).
+
+-- 
+ i.
+
