@@ -1,406 +1,393 @@
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 779163DDB18
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:38:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 267313DDDCB
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:38:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792031916; cv=none; b=bCH1bUaefC862DRC4zpGADrtUBF5/K0XK043BSj8Jw5pNPXK/AWNbDsDxhlQO6BzBW7Rdb6LOhmOMF5daG+WLMVDVC4WZxg+MUWDMAT7wRF370o/WmtPKjfvD/TT6iYJxVnkj5oeL4Z3CqiBmI9W684HrAjWpqsHcdVVHiBvNVI=
+	t=1792031919; cv=none; b=gynPyCBQ4Li0RzVTmISgpQm9EwGpdVFYy0cp0WUpsFHOtU5KVg/HF+I5eXxwQQQjoG+MobDmJQP7ULCyzsG/dqrpiNSpBaz6JRFo03Rr3FacE8DBbsJh7hq/AoU2e2zKFed25CrP+0XvrWgJTIb+zbYMySebaExkgRzMZ3Hb2YA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792031916; c=relaxed/simple;
-	bh=pySb2jiABzgDr1vxTY8i/AMiAl0D3YFu788ZEmjnvpk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pzcE4kPv5W6Vtuad7odaTLaPfhzVCv3n0Dy+POLf64YqNqv4XQOXXsXeIvlC+YblDFNINKStu7kqvuNByyYcDcNAT3IeHVXXB8sL0d0rw3tZSB/W7S/6NmU/J9jha8lfSBoVAlLdrSrCWmvR8TNLYmbGyk3QxOSOOaqLQq/80ng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TINHuo2C; arc=none smtp.client-ip=209.85.210.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792031919; c=relaxed/simple;
+	bh=7yLDnmPQWLqADjZhqjpvZVRilqWeZx0iTioFJ/yFRFM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YBz5F1ekzCWEO4mW8MfpXwZ9cdsmksAp1oJMhoj2d3A//0uwBZX8AliAtVrwoVREhA0zmt1+V2qAe33u35Ru09m3d+o7J3DGuMe4GHV6MzMW0vbHY7bKuQWo/pFLI1kLNWeqiJ2LYWRFi9e5jti+9F0vxwqvONNormiFTpSsaFE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hnzXpH6I; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DY6ti2JB; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TINHuo2C"
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8875d220446so2476567b3a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:38:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hnzXpH6I";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DY6ti2JB"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F0Fuju1672304
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:38:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=+0CDhvqyVCb
+	B/q+z+roCVze+kZUI3DJgwmQW3ILLNmQ=; b=hnzXpH6IY3qpVFIQW9eU5s5pnxY
+	awlTYScgy4LK5dM1RMQabZKmZaaP1Pa98gyrHpQzAtk2DvZpTMVVqezcox57e3pr
+	xT9XG1S9lcWLS8k+dAYYKSDZT9+pADHC0RAZ9b6N1e69Jvo3VWeEzdYg9ddX07LS
+	DVGgm3f6pGg1SNwIfGI9gayxxdHd1hSap7JvO/LU7+91bVnp885dV6wMXXbjtTLG
+	AFdaPSftu39/XXUI6BMizymEe60lyLyIvVcfHz25SOQ+3xItlODTP4YuUfLRVRb7
+	kII3mXS1JBxJM774BQ26b8M48JazMq0NcXjrLyYPxeT0n9ciQVmVu8tXopw==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hacrha49m-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:38:28 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3510d0baf63so5187741eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:38:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792031909; x=1792636709; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VjToYZTxn2Bougr/b4/7DSjFqkkGdfdtJzQcTgHaBLY=;
-        b=TINHuo2CvJy29eD7UtG+JKQotr3eT4k04CqniCvJ+BPHRlOtGVNH+FhjPp7nuTZVXb
-         9MrVgfesrbEXDhMrwC+ZyJfSdXynhb7PuLLALWV21QIvIV9zHRGIsdfvt5Yy7Add8GQw
-         ZeEqaGbhK6kSSWIKkR+01UrDq3SudlmckIl+qRRKbcOXrbxjeDp4RV42k/4Jn8uQOXL/
-         wEgDx5Mt+qjZ2GwiEvHuKuhZ3YXN0rRwn4zL+ykv+Xs6pwj05rTOA+6G3ekZXtNP+G9y
-         5kzJAAF9LZ/c1u6AY1SPN3nllqFKWwMlRPjmL6dmHA25em+RDwwlJ5XDomAAXTrhqDuu
-         6TZw==
+        d=oss.qualcomm.com; s=google; t=1792031907; x=1792636707; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+0CDhvqyVCbB/q+z+roCVze+kZUI3DJgwmQW3ILLNmQ=;
+        b=DY6ti2JBZgWE8qSTE2qJPjlU/cP6H2HvgggyHmyh1gi6fFpaQ1ASazm23HnWAEIL6A
+         3bD3Yj8+N90ffmH7GvXC/JSpaA1s715HNLvcgM9d3hBNEurC+Tg2amplernJRwAwfz2n
+         PcZaR6HqmP0eosDX+XmP5RZiLpc+lyq2lz2/8Q/2HsHS5pEb0Kb6XO9MX57AcEzMEKLn
+         e+B9t9B4VH29hnGZ0bWNXYB21A7oY/0U3lL0J/rT5jT0NDp3F4v43OAkIxxXW6iH1Yma
+         QOzzWrsSetQrfYGhNT8Oj+uz/MZKsh0IQNoeNxvn8CIHrdSDzL2iMRtt+kysZRlWnih+
+         ElRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792031909; x=1792636709;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VjToYZTxn2Bougr/b4/7DSjFqkkGdfdtJzQcTgHaBLY=;
-        b=LlNnuDhamOMbE821RVpzb5cpHXl8QwPxfPcytiYAKfxQ+wPIHeyfgjqz1TRkTv+ZPG
-         vAO9/hCCf3JOjPXRyxUcRN64VmdtRARdhWIwQopIK6pyyJxBc2qzZBcPp7Q6ARRGilc0
-         92qbDGi6AbwTaCye0MLsEcIRR2OCG2Qg/pkZ1g6RobD3k63DLujPT48yD3J7rMOtmHXm
-         SFc+uDyy4lbwhIN8MxarZtVbVPaY9NizNo5h7TkkzwJopu6PYISW1QNjF/tuTLgKSEPI
-         dvje7f0uRFmmc7Z9cDp/DFyRRbmyjPvVrcNqGxOfVrQf3N+QB3x6qNzz7Yj0almYPzGt
-         fDDA==
-X-Forwarded-Encrypted: i=1; AKwUvBzSHpHyEokdh9ULW1/i8wUTry6Vn87ddff0qztPrY6Ps5usZHGf2LAP6PkP2oym21roTvAEtZeg9dCnkus=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJfyEQVyefofF8wGlL4t8KIM3KsnTjF/AB04eHQ53E6/jVBpakP
-	b492J64/zCJJXbG5UmOnQe56buJkG0BmwNLgXV8JHOUUH7DQfSlxDymg
-X-Gm-Gg: AYBFou01cxTssdKrNoyn+UImqC19J9tud5zAgQhaV9yS1OKRSgXogSD501gQ042fHsY
-	2EusdGutfb3zjnURO0wbOFWOi4yiKNE90wfSv1HNy2FrlX2x3yaxW5GOUQNP5rXgHkJ8vPFCbkX
-	7z2jlfWP22AtzwSV4eTcRj6WbU2OfjiJi61cEBgQlEHpSx3PWmOZqtcCkwJFTXX0OtT9es8g1Nb
-	xvPYQoQb3nuJ6Qulls2QsvLcopk/vUL17Y6LlHbJVYVjrq68ZvFHpCKUCrZQvi3kcvC57iRWGuG
-	6T56a23WVaNFtKGtbCOe7T4xzN6hvn2YeDly72VNWcq9pQR7/1F1SSkTFNux9WqTogS1P+9UxeF
-	4F+OZ27WWX1HeUWxKdV1GL1RJO/tvaK17QXGW2BB/MYy9TruiHxF3AxEftxgTbDO4kaGMs5Q6UZ
-	XLCCV91fZk2HKN4bRJdl9EeOJpeU/JbP//Sa0TGY+kpujfepcL8MsF3FtPOvMFMs6UQsyqlfLnv
-	g==
-X-Received: by 2002:a05:6a00:2986:b0:88d:3f61:20f3 with SMTP id d2e1a72fcca58-897c77da353mr14168411b3a.54.1792031908992;
-        Wed, 14 Oct 2026 19:38:28 -0700 (PDT)
-Received: from mail.google.com ([5.34.221.10])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89d803d6410sm1724095b3a.33.2026.10.14.19.38.20
+        d=1e100.net; s=20260707; t=1792031907; x=1792636707;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+0CDhvqyVCbB/q+z+roCVze+kZUI3DJgwmQW3ILLNmQ=;
+        b=oogxYAPS+mZ9R+pmiM7NktN5icvot6sJ/EV282cJpCmbBVV5ZebnfvxvvahaOlKX3E
+         lSZ47rkv7rsRvWsS2SF61vq155xh2qKJepuSEevrNUBpYWmKrCFa6E9eAtFyGbDGiZR4
+         lRTGjR22KJwPv99zrP0N9gx1GSYA2ogujziVLX7IL5WionELN/lR5HSvEoAYshuaCYer
+         /8nIOoazUisH0qyOJd0beTA6d9hpxlfojJGEg/8NkRbPBteHX3g+/9t9g0h6SAhC+jXN
+         jDBE10pqYklmLVekXkEXv2KdPvhHLewC2Vw4qiH5lhPfsosdzXu0IAnyJKcpRD1Cm97+
+         Og2w==
+X-Forwarded-Encrypted: i=1; AKwUvBz2BW4PuC4zH0kgC0Yrn7JNHRJfdX04xxbyoow2AMlh9nHJBXS5lH2BsYW48UqmoJDYnPhNO3SUW7O5iYU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKd4RKA1h1XU9qoSoBHXGHOjRrUHrauWrAUrmu16bCYVxS+zitx
+	ZTD/HrBns7yZ4PY75Uu0/SA2u1ZRIvSpi+Joi7H10Mj5XS0LEsiAp+SEAbHtujwnHg/s2b9Nk0j
+	RhmtKJZQdqx7vJItPq7rOwe/9wHJ4pcU3lqyv4kuT2YB1xwILRTWK657cQLC00q5RBtQ=
+X-Gm-Gg: AYBFou1Gwe5ZcK/g/Wu5O+szO+B9N3nNlTiyxMHXg6u0edKmkgHLLlpxLQJSyAVwIv5
+	7sPLfab05+e6GOrJcaq39DfaQZeE//YyMTnIv2tKwsxqLf0QTQ1Z6Kc594dpNXb0g2Yvp8/R4fx
+	+0Mm19nGu69MjUYYx3UtGaNo4ywntCzNHh37VycHqLaBl03BLQzuAmOv5e0UU2fA5xN4n6HQX68
+	HQADv6XioXseLvPfDZUieeYnI+YJXXhuK6T2S+239zTFzvjfyO6XVvsXYSR1+KRK1F6lux7jvBx
+	bRlJP1jDvpE1Q1wrY7t896edRzP4gDoKJ4uc+l9EAOtXa0cc4BINsvNs/otao/JufdP7lAYWP0Y
+	OUfMA/EXGoq39mt6p+dYof5/ImkamJLVXtMryJ/dVWdMOpvS8jEu2wGS8t58=
+X-Received: by 2002:a05:7022:ea48:10b0:17f:7280:1332 with SMTP id a92af1059eb24-17f728014b2mr2812339c88.40.1792031907342;
+        Wed, 14 Oct 2026 19:38:27 -0700 (PDT)
+X-Received: by 2002:a05:7022:ea48:10b0:17f:7280:1332 with SMTP id a92af1059eb24-17f728014b2mr2812282c88.40.1792031906536;
+        Wed, 14 Oct 2026 19:38:26 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a42407e7sm51217017c88.15.2026.10.14.19.38.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 19:38:28 -0700 (PDT)
-Date: Thu, 15 Oct 2026 10:38:17 +0800
-From: Changbin Du <changbin.du@gmail.com>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Changbin Du <changbin.du@gmail.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
-	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
-	David Laight <david.laight.linux@gmail.com>
-Subject: Re: [PATCH v4] perf bench: Add atomic operations benchmark
-Message-ID: <atA7Mgrupnil4Jcv@mail.google.com>
-References: <20261013085648.976819-1-changbin.du@gmail.com>
- <as_z4g6CZTObWm2H@google.com>
+        Wed, 14 Oct 2026 19:38:26 -0700 (PDT)
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
+        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Nikunj Kela <quic_nkela@quicinc.com>,
+        Shazad Hussain <shazad.hussain@oss.qualcomm.com>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH v2 7/7] arm64: dts: qcom: lemans: Enable lemans-sa8255p-ride board support
+Date: Thu, 15 Oct 2026 10:37:11 +0800
+Message-ID: <20261015023711.721837-8-shengchao.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261015023711.721837-1-shengchao.guo@oss.qualcomm.com>
+References: <20261015023711.721837-1-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <as_z4g6CZTObWm2H@google.com>
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: dDnK_VQEKhxdZPASxy2pgbLDg5UOo8oD
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDAxMCBTYWx0ZWRfX1EmQ2xn1+PNG
+ zsWOqwD0bySG7JZ8BAxuh7w1Ciu3CCFu5jWbXFvjWxPAAFiFCFkE3v/jqwZQa/CVpLcZZKRMM+/
+ fm9mgRMWo/ubDpAFLt6pN2I9LuV/x9U=
+X-Proofpoint-GUID: dDnK_VQEKhxdZPASxy2pgbLDg5UOo8oD
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDAxMCBTYWx0ZWRfX0nDdd1d1H0WB
+ e2C2KnJSAPVmAcE7UGRlnjtH2JQ1xiYI37eFgctMs3Sxi4L6TIkLVBomz3hfqp9tLqqimFfC8FQ
+ +3WVcY0ynujMw9hU97WDFvVrvGEPHoq110LptHK/w99/V7x4wUmHXthzazL/oYwRu8GLbXSrPFl
+ NhLfLR62lSq0WZN16QCLkE0Oqlpns53zx2nEf9bLiz8RijbhZ3opTnayB8+ulz9+D/yGBfGMhJm
+ hXVM+kemKXBeeJr5QvW/coNxZsk2ZNblZAIUj6tcpaFf3hPbopEalWrns9QoqwCgl9CqinWT0Gy
+ TR9kTJ4gsl19DIZxfZqNkWpIclzjzrLaLKPQdiS32g0V0nYof1TmGhE1f5kRuMfTm6jXaNLoabb
+ dXmVBWoT06p5QyoYeVca0X4LGOf+XXkeNajWApFVYuJD+YPzx3WyMfCCFmqi/TK300sfQGrPPgi
+ ArQtJ45ab+mDzHXHV4g==
+X-Authority-Analysis: v=2.4 cv=SYZi5fRu c=1 sm=1 tr=0 ts=6ad03ca4 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=COk6AnOGAAAA:8
+ a=EUspDBNiAAAA:8 a=MNDMu2h6GyehcEZcpm4A:9 a=scEy_gLbYbu1JhEsrz4S:22
+ a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 bulkscore=0 phishscore=0 suspectscore=0 clxscore=1015
+ spamscore=0 lowpriorityscore=0 impostorscore=0 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150010
 
-On Wed, Oct 14, 2026 at 02:28:02PM -0700, Namhyung Kim wrote:
-> On Tue, Oct 13, 2026 at 04:56:48PM +0800, Changbin Du wrote:
-[..]
-> > +
-> > +static const struct option options[] = {
-> > +	OPT_UINTEGER('t', "threads", &threads,
-> > +		     "Number of contending threads (default: 2, or 1 on single CPU)"),
-> > +	OPT_UINTEGER('r', "runtime", &runtime,
-> 
-> Can you please pick a different short option than 'r'?  perf bench
-> itself has -r/--repeat option so it would be confusing.  It doesn't
-> clash for now, but I think it's better to use perf bench options from
-> 'perf bench atomic ...' later.
-> 
+From: Nikunj Kela <quic_nkela@quicinc.com>
 
-Agreed -- I'll drop the short options; --threads and --runtime
-stay long-only so no bench option (e.g. -r/--repeat) is shadowed
-at perf bench atomic .... Will send an updated patch.
+Add initial device tree support for the Lemans SA8255P Ride board. Enable
+UFS storage, UART10 as the serial console, PCIe EP interfaces, thermal
+zones for PMM8654AU sensors, and SCMI protocol nodes.
 
-> Otherwise, looks good to me.
-> 
-> Thanks,
-> Namhyung
-> 
-> 
-> > +		     "Runtime of each repeat in seconds (default: 2)"),
-> > +	OPT_END()
-> > +};
-> > +
-> > +static const char * const cas_usage[] = {
-> > +	"perf bench atomic cas <options>",
-> > +	NULL
-> > +};
-> > +
-> > +static const char * const inc_usage[] = {
-> > +	"perf bench atomic inc <options>",
-> > +	NULL
-> > +};
-> > +
-> > +enum atomic_op {
-> > +	OP_CAS,
-> > +	OP_INC,
-> > +};
-> > +
-> > +static int bench_op = OP_CAS;
-> > +
-> > +/*
-> > + * The termination flag is polled between batches only, so that the
-> > + * check does not perturb the measured loop.
-> > + */
-> > +#define BATCH_OPS	1024
-> > +
-> > +static unsigned long shared_counter __aligned(64);
-> > +static pthread_barrier_t start_barrier __aligned(64);
-> > +static bool done;
-> > +
-> > +struct worker_stats {
-> > +	u64	runtime_ns;
-> > +	u64	ops;
-> > +};
-> > +
-> > +static void cas_batch(void)
-> > +{
-> > +	unsigned long i;
-> > +
-> > +	for (i = 0; i < BATCH_OPS; i++) {
-> > +		unsigned long old_val, new_val;
-> > +
-> > +		old_val = __atomic_load_n(&shared_counter, __ATOMIC_RELAXED);
-> > +		do {
-> > +			new_val = old_val + 1;
-> > +		} while (!__atomic_compare_exchange_n(&shared_counter, &old_val,
-> > +						      new_val, false,
-> > +						      __ATOMIC_RELAXED,
-> > +						      __ATOMIC_RELAXED));
-> > +	}
-> > +}
-> > +
-> > +static void inc_batch(void)
-> > +{
-> > +	unsigned long i;
-> > +
-> > +	for (i = 0; i < BATCH_OPS; i++)
-> > +		__atomic_fetch_add(&shared_counter, 1, __ATOMIC_RELAXED);
-> > +}
-> > +
-> > +static void *worker(void *arg)
-> > +{
-> > +	struct worker_stats *ws = (struct worker_stats *)arg;
-> > +	struct timespec tstart, tend;
-> > +	u64 ops = 0;
-> > +
-> > +	pthread_barrier_wait(&start_barrier);
-> > +
-> > +	clock_gettime(CLOCK_MONOTONIC, &tstart);
-> > +	while (!__atomic_load_n(&done, __ATOMIC_RELAXED)) {
-> > +		switch (bench_op) {
-> > +		case OP_CAS:
-> > +			cas_batch();
-> > +			break;
-> > +		case OP_INC:
-> > +			inc_batch();
-> > +			break;
-> > +		default:
-> > +			BUG_ON(1);
-> > +			break;
-> > +		}
-> > +		ops += BATCH_OPS;
-> > +	}
-> > +	clock_gettime(CLOCK_MONOTONIC, &tend);
-> > +
-> > +	ws->runtime_ns	= (u64)(tend.tv_sec - tstart.tv_sec) * NSEC_PER_SEC +
-> > +			  (tend.tv_nsec - tstart.tv_nsec);
-> > +	ws->ops		= ops;
-> > +
-> > +	return NULL;
-> > +}
-> > +
-> > +static void print_default_format(struct worker_stats *wstats,
-> > +				 struct stats *throughput_stats)
-> > +{
-> > +	double thru_avg, thru_stddev;
-> > +
-> > +	printf("  Threads: %u, runtime: %u sec, repeats: %u (warmup: 1)\n",
-> > +	       threads, runtime, bench_repeat);
-> > +
-> > +	thru_avg    = avg_stats(throughput_stats);
-> > +	thru_stddev = stddev_stats(throughput_stats);
-> > +
-> > +	printf("  Avg throughput: %'.0f ops/sec (+- %.2f%%)\n",
-> > +	       thru_avg, rel_stddev_stats(thru_stddev, thru_avg));
-> > +
-> > +	/*
-> > +	 * Per-thread operation counts from the last measured repeat show
-> > +	 * whether any thread failed to make progress under contention.
-> > +	 */
-> > +	if (threads > 1) {
-> > +		u64 min_ops = UINT64_MAX, max_ops = 0, total_ops = 0;
-> > +
-> > +		for (unsigned int t = 0; t < threads; t++) {
-> > +			if (wstats[t].ops < min_ops)
-> > +				min_ops = wstats[t].ops;
-> > +			if (wstats[t].ops > max_ops)
-> > +				max_ops = wstats[t].ops;
-> > +			total_ops += wstats[t].ops;
-> > +		}
-> > +
-> > +		printf("  Per-thread ops (last repeat):\n");
-> > +		printf("    fastest:  %'" PRIu64 " ops\n", max_ops);
-> > +		printf("    slowest:  %'" PRIu64 " ops\n", min_ops);
-> > +		printf("    avg:      %'" PRIu64 " ops\n", total_ops / threads);
-> > +	}
-> > +}
-> > +
-> > +static int run_benchmark(void)
-> > +{
-> > +	pthread_t *thread_ids;
-> > +	struct worker_stats *wstats;
-> > +	struct stats throughput_stats;
-> > +	unsigned int r, t;
-> > +
-> > +	thread_ids = calloc(threads, sizeof(pthread_t));
-> > +	if (!thread_ids)
-> > +		err(EXIT_FAILURE, "calloc");
-> > +
-> > +	wstats = calloc(threads, sizeof(struct worker_stats));
-> > +	if (!wstats)
-> > +		err(EXIT_FAILURE, "calloc");
-> > +
-> > +	init_stats(&throughput_stats);
-> > +
-> > +	for (r = 0; r < bench_repeat + 1; r++) {
-> > +		u64 max_runtime_ns = 0, total_ops = 0;
-> > +		double throughput;
-> > +
-> > +		shared_counter = 0;
-> > +		__atomic_store_n(&done, false, __ATOMIC_RELAXED);
-> > +		pthread_barrier_init(&start_barrier, NULL, threads);
-> > +
-> > +		for (t = 0; t < threads; t++) {
-> > +			if (pthread_create(&thread_ids[t], NULL,
-> > +					   worker, &wstats[t]))
-> > +				err(EXIT_FAILURE, "pthread_create");
-> > +		}
-> > +
-> > +		sleep(runtime);
-> > +		__atomic_store_n(&done, true, __ATOMIC_RELAXED);
-> > +
-> > +		for (t = 0; t < threads; t++)
-> > +			pthread_join(thread_ids[t], NULL);
-> > +
-> > +		pthread_barrier_destroy(&start_barrier);
-> > +
-> > +		for (t = 0; t < threads; t++) {
-> > +			total_ops += wstats[t].ops;
-> > +			if (wstats[t].runtime_ns > max_runtime_ns)
-> > +				max_runtime_ns = wstats[t].runtime_ns;
-> > +		}
-> > +
-> > +		/*
-> > +		 * Exclude the first repeat (warmup) from statistics so
-> > +		 * that cache-cold and lazy-init effects are not counted.
-> > +		 */
-> > +		if (r > 0 && max_runtime_ns) {
-> > +			throughput = (double)total_ops /
-> > +				     ((double)max_runtime_ns / NSEC_PER_SEC);
-> > +			update_stats(&throughput_stats, (u64)throughput);
-> > +		}
-> > +	}
-> > +
-> > +	switch (bench_format) {
-> > +	case BENCH_FORMAT_DEFAULT:
-> > +		print_default_format(wstats, &throughput_stats);
-> > +		break;
-> > +
-> > +	case BENCH_FORMAT_SIMPLE:
-> > +		printf("%.0f\n", avg_stats(&throughput_stats));
-> > +		break;
-> > +
-> > +	default:
-> > +		fprintf(stderr, "Unknown format: %d\n", bench_format);
-> > +		exit(EXIT_FAILURE);
-> > +	}
-> > +
-> > +	free(thread_ids);
-> > +	free(wstats);
-> > +
-> > +	return 0;
-> > +}
-> > +
-> > +static int run_atomic_bench(int argc, const char **argv,
-> > +			    const char * const *usage)
-> > +{
-> > +	struct perf_cpu_map *cpu;
-> > +
-> > +	if (parse_options(argc, argv, options, usage, 0)) {
-> > +		usage_with_options(usage, options);
-> > +		exit(EXIT_FAILURE);
-> > +	}
-> > +
-> > +	if (!threads) {	/* default to 2 threads (1 on a single-CPU machine) */
-> > +		cpu = perf_cpu_map__new_online_cpus();
-> > +		threads = (cpu && perf_cpu_map__nr(cpu) > 1) ? 2 : 1;
-> > +		perf_cpu_map__put(cpu);
-> > +	}
-> > +
-> > +	if (runtime < 1) {
-> > +		fprintf(stderr, "Invalid runtime: %u\n", runtime);
-> > +		return 1;
-> > +	}
-> > +
-> > +	return run_benchmark();
-> > +}
-> > +
-> > +int bench_atomic_cas(int argc, const char **argv)
-> > +{
-> > +	bench_op = OP_CAS;
-> > +	return run_atomic_bench(argc, argv, cas_usage);
-> > +}
-> > +
-> > +int bench_atomic_inc(int argc, const char **argv)
-> > +{
-> > +	bench_op = OP_INC;
-> > +	return run_atomic_bench(argc, argv, inc_usage);
-> > +}
-> > +#endif /* HAVE_PTHREAD_BARRIER */
-> > diff --git a/tools/perf/bench/bench.h b/tools/perf/bench/bench.h
-> > index 8519eb5a42fa..85e3ac471875 100644
-> > --- a/tools/perf/bench/bench.h
-> > +++ b/tools/perf/bench/bench.h
-> > @@ -30,6 +30,8 @@ int bench_mem_memcpy(int argc, const char **argv);
-> >  int bench_mem_memset(int argc, const char **argv);
-> >  int bench_mem_mmap(int argc, const char **argv);
-> >  int bench_mem_find_bit(int argc, const char **argv);
-> > +int bench_atomic_cas(int argc, const char **argv);
-> > +int bench_atomic_inc(int argc, const char **argv);
-> >  int bench_futex_hash(int argc, const char **argv);
-> >  int bench_futex_wake(int argc, const char **argv);
-> >  int bench_futex_wake_parallel(int argc, const char **argv);
-> > diff --git a/tools/perf/builtin-bench.c b/tools/perf/builtin-bench.c
-> > index 02d47913cc6a..62bebdedd3b8 100644
-> > --- a/tools/perf/builtin-bench.c
-> > +++ b/tools/perf/builtin-bench.c
-> > @@ -14,6 +14,7 @@
-> >   *  syscall ... System call performance
-> >   *  mem   ... memory access performance
-> >   *  numa  ... NUMA scheduling and MM performance
-> > + *  atomic ... Atomic operation performance
-> >   *  futex ... Futex performance
-> >   *  epoll ... Event poll performance
-> >   */
-> > @@ -115,6 +116,13 @@ static const struct bench uprobe_benchmarks[] = {
-> >  	{ NULL,	NULL, NULL },
-> >  };
-> >  
-> > +static const struct bench atomic_benchmarks[] = {
-> > +	{ "cas",	"Benchmark CAS (compare-and-swap) operations",	bench_atomic_cas	},
-> > +	{ "inc",	"Benchmark atomic fetch-add operations",	bench_atomic_inc	},
-> > +	{ "all",	"Run all atomic benchmarks",			NULL			},
-> > +	{ NULL,		NULL,						NULL			}
-> > +};
-> > +
-> >  struct collection {
-> >  	const char		*name;
-> >  	const char		*summary;
-> > @@ -128,6 +136,7 @@ static const struct collection collections[] = {
-> >  #ifdef HAVE_LIBNUMA_SUPPORT
-> >  	{ "numa",	"NUMA scheduling and MM benchmarks",		numa_benchmarks		},
-> >  #endif
-> > +	{ "atomic",	"Atomic operation benchmarks",			atomic_benchmarks	},
-> >  	{"futex",       "Futex stressing benchmarks",                   futex_benchmarks        },
-> >  #ifdef HAVE_EVENTFD_SUPPORT
-> >  	{"epoll",       "Epoll stressing benchmarks",                   epoll_benchmarks        },
-> > -- 
-> > 2.53.0
-> > 
+Co-developed-by: Shazad Hussain <shazad.hussain@oss.qualcomm.com>
+Signed-off-by: Shazad Hussain <shazad.hussain@oss.qualcomm.com>
+Signed-off-by: Nikunj Kela <quic_nkela@quicinc.com>
+Co-developed-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
+Signed-off-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+---
+ arch/arm64/boot/dts/qcom/Makefile             |   1 +
+ .../boot/dts/qcom/lemans-sa8255p-ride.dts     | 222 ++++++++++++++++++
+ 2 files changed, 223 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/lemans-sa8255p-ride.dts
 
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index 88230c4e00ea..c2d2dc1019c8 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -63,6 +63,7 @@ lemans-evk-el2-dtbs := lemans-evk.dtb lemans-el2.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= lemans-evk-el2.dtb
+ lemans-evk-ifp-mezzanine-dtbs	:= lemans-evk.dtb lemans-evk-ifp-mezzanine.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= lemans-evk-ifp-mezzanine.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= lemans-sa8255p-ride.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= mahua-crd.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= mahua-lenovo-thinkpad-t14s-gen7-lcd.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= milos-fairphone-fp6.dtb
+diff --git a/arch/arm64/boot/dts/qcom/lemans-sa8255p-ride.dts b/arch/arm64/boot/dts/qcom/lemans-sa8255p-ride.dts
+new file mode 100644
+index 000000000000..4273f47c3dff
+--- /dev/null
++++ b/arch/arm64/boot/dts/qcom/lemans-sa8255p-ride.dts
+@@ -0,0 +1,222 @@
++// SPDX-License-Identifier: BSD-3-Clause
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
++
++/dts-v1/;
++
++#include <dt-bindings/gpio/gpio.h>
++
++#include "lemans-gearvm.dtsi"
++
++/ {
++	model = "Qualcomm Technologies, Inc. SA8255P Ride";
++	compatible = "qcom,sa8255p-ride", "qcom,sa8255p";
++
++	aliases {
++		serial0 = &uart10;
++		serial1 = &uart4;
++	};
++
++	chosen {
++		stdout-path = "serial0:115200n8";
++	};
++
++	thermal-zones {
++		pmm8654au_0_thermal: pm8255-0-thermal {
++			polling-delay-passive = <100>;
++			thermal-sensors = <&scmi23_sensor 0>;
++
++			trips {
++				trip0 {
++					temperature = <105000>;
++					hysteresis = <0>;
++					type = "passive";
++				};
++
++				trip1 {
++					temperature = <125000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++
++		pmm8654au_1_thermal: pm8255-1-thermal {
++			polling-delay-passive = <100>;
++			thermal-sensors = <&scmi23_sensor 1>;
++
++			trips {
++				trip0 {
++					temperature = <105000>;
++					hysteresis = <0>;
++					type = "passive";
++				};
++
++				trip1 {
++					temperature = <125000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++
++		pmm8654au_2_thermal: pm8255-2-thermal {
++			polling-delay-passive = <100>;
++			thermal-sensors = <&scmi23_sensor 2>;
++
++			trips {
++				trip0 {
++					temperature = <105000>;
++					hysteresis = <0>;
++					type = "passive";
++				};
++
++				trip1 {
++					temperature = <125000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++
++		pmm8654au_3_thermal: pm8255-3-thermal {
++			polling-delay-passive = <100>;
++			thermal-sensors = <&scmi23_sensor 3>;
++
++			trips {
++				trip0 {
++					temperature = <105000>;
++					hysteresis = <0>;
++					type = "passive";
++				};
++
++				trip1 {
++					temperature = <125000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++	};
++};
++
++&gpll0_board_clk {
++	clock-frequency = <300000000>;
++};
++
++&pcie0_ep {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pcie0_ep_clkreq_default &pcie0_ep_perst_default
++		    &pcie0_ep_wake_default>;
++	reset-gpios = <&tlmm 2 GPIO_ACTIVE_LOW>;
++	wake-gpios = <&tlmm 0 GPIO_ACTIVE_HIGH>;
++};
++
++&pcie1_ep {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pcie1_ep_clkreq_default &pcie1_ep_perst_default
++		    &pcie1_ep_wake_default>;
++	reset-gpios = <&tlmm 4 GPIO_ACTIVE_LOW>;
++	wake-gpios = <&tlmm 5 GPIO_ACTIVE_HIGH>;
++};
++
++&qupv3_id_0 {
++	status = "okay";
++};
++
++&qupv3_id_1 {
++	status = "okay";
++};
++
++&scmi3 {
++	status = "okay";
++};
++
++&scmi4 {
++	status = "okay";
++};
++
++&scmi5 {
++	status = "okay";
++};
++
++&scmi6 {
++	status = "okay";
++};
++
++&scmi11 {
++	status = "okay";
++};
++
++&scmi15 {
++	status = "okay";
++};
++
++&scmi23 {
++	status = "okay";
++};
++
++&sleep_clk {
++	clock-frequency = <32000>;
++};
++
++&uart4 {
++	status = "okay";
++};
++
++&uart10 {
++	status = "okay";
++};
++
++&tlmm {
++	pcie0_ep_clkreq_default: pcie0-ep-clkreq-default-state {
++		pins = "gpio1";
++		function = "pcie0_clkreq";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	pcie0_ep_perst_default: pcie0-ep-perst-default-state {
++		pins = "gpio2";
++		function = "gpio";
++		drive-strength = <16>;
++		bias-pull-down;
++	};
++
++	pcie0_ep_wake_default: pcie0-ep-wake-default-state {
++		pins = "gpio0";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	pcie1_ep_clkreq_default: pcie1-ep-clkreq-default-state {
++		pins = "gpio3";
++		function = "pcie1_clkreq";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	pcie1_ep_perst_default: pcie1-ep-perst-default-state {
++		pins = "gpio4";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-pull-down;
++	};
++
++	pcie1_ep_wake_default: pcie1-ep-wake-default-state {
++		pins = "gpio5";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++};
++
++&ufs_mem_hc {
++	status = "okay";
++};
++
++&xo_board_clk {
++	clock-frequency = <38400000>;
++};
 -- 
-Cheers,
-Changbin Du
+2.43.0
+
