@@ -1,174 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1E3C4A68A4;
-	Thu, 15 Oct 2026 10:49:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FA3B46D09A
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:49:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792061368; cv=none; b=eXmCEjptSdV8jhYp0NI/33JKEbgYNwgjP+TOyN0PWIy0BUErJH24BrOZaJC6TbJCT6S1tiJXnnYZW9aNDFrRnXc3/Il1vxRw0T9fZPvqrSAzJRqRG1+NnZPzvh84ODzmwxIoEu2O8RfaLlyfNyhsT8o4X1gF3/fLoMF3gKxgGOM=
+	t=1792061393; cv=none; b=OzirAQMBcc5HY1bND2YuYTtXZg3HudHPHxtaO30ww0sEQ2KH5UhTLUGlgsap6VfziDGzv8mmlASdU+lWOfbW0Pi7oUuMpU/l52wq7SDJo7db1eWJP1odb430fAp1qymqYtURaKt8JATjc3cmtaGBJ+QzuJ5kI/JUSfoxs+d39ro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792061368; c=relaxed/simple;
-	bh=M2aLTKL4TVzR/0wELrO8Jzd79cG96V1GTXib1AxvoWs=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Dc6/4FtG/fu+cty1iakf6rvlAEW3rJiAlWpMBh29nQiRqTrz+ZUdGuHqSE9vc1Cfbjx0P/IRjN6F335B2YoImsai7H2doeszjMF7BmvwUIw1YD8N2wEUnA52LNCEDTxl9jN/n3Gj6v2kICq9ho/VM4baTqsttkoG6S/rYohmxOs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gN6L7L5g; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792061393; c=relaxed/simple;
+	bh=cWH2oApMwLGszAVLYLTshVOSXvVg6YwcJsJ/Fg4Q7cQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QSFUvWyB6VebYbmnH2ZxHlK/h0uBBHhxVs9pLZpE0cgiEa8BM7bvCAPeYv32zKU8ls9RZvhPFek8lccvduFLAheREFsn1ATU5Jw5ZF/yTXv0njjgB91DMPZv/3zCEaJsjZ047Mvgv3Txeg4QWrOe9fCwYcaR3CPBF+etXC7x7P0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RCHV7NrY; arc=none smtp.client-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gN6L7L5g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7C4D1F000C4;
-	Thu, 15 Oct 2026 10:49:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792061366;
-	bh=eS5dgKRrqB5G6xJ5ae/At6FZ/Fbw4j2g/klkldfI5mg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=gN6L7L5gFoctGU9ho+DbAeF1+o7pakdSBsfk1oFhs1RO8TZTYf5TZvaylaBgDj041
-	 koJVxR33c6hXhI7EjtG/zY+KGOnE9GDDyI0flrc3MPev+f/R6T6d4PnxIBXZoBzsS6
-	 rteD4tUdeYGqZeGN+aVjM3R0zHxaFiQb3VP8owujSHhTKlMDlNnT0eNH7MBsBSVDMR
-	 Gx5000xkq8AGiE5EboSz/fcPeWV9sZbOra8dbn9jX8z7X1zHvSKoGJlq500i5nLFqc
-	 7/x87dbIR61vizFKHDxQpOLyZFkqg7486FIBrZsSoMCE/Zh3gpo3yg8KjVrvv9RyeA
-	 MfIcNZ6fei3sw==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xHJ1Y-00000003G8o-38kc;
-	Thu, 15 Oct 2026 10:49:24 +0000
-Date: Thu, 15 Oct 2026 11:49:24 +0100
-Message-ID: <86mrsf1bnv.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: "Johnny.Fan" <johnny.fan@cixtech.com>
-Cc: will@kernel.org,
-	mark.rutland@arm.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-perf-users@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RCHV7NrY"
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c263415982eso661189166b.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 03:49:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792061390; x=1792666190; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Av8/3RB6a5AVpF/WrR/TLgMG1QD5EKBDa39W6PNYmOs=;
+        b=RCHV7NrYc+hMynqLZPT8eVIagQ5n0Y8e/XfW4A5F3+byvrI/H2ngjEKxQT/UUXnnUK
+         i3KKYPa9WCO80ElQR1aShxtGMesJaxQ3rPSZIom4GVzShBEQKB56JEV3hrZ9koN5i/YU
+         O7Hj8vqQQTaLPvTHEAbcMzqpNM8e36Q1ZoL7BrQNrTILGxiDDhnsyda0FhJQ6POT5mpL
+         cUJdln0fB4fEymjNUb1rTbQrWM6ZZyMqDwxPf+h1Ieoqld2W8NasLAp3eja7CcoKlntU
+         we2b/DQ+AOZfgp8YduTTeeYxVc3q+ilaYRL/auwQLD259ra6LV8ffz++elRW7JY7bAya
+         A71g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792061390; x=1792666190;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Av8/3RB6a5AVpF/WrR/TLgMG1QD5EKBDa39W6PNYmOs=;
+        b=UNfvAw8aZNodO5wvT5Sr/6oBWFxQ0BrRgwtkhE9xq6ybP+VIFmJYylNzS6SiD6rG9Z
+         uKqdQuRsjjlmFIhwgWuN8DSucG3mbko/yEI91a6k2DrHNJU+/PYXlRpKQChH1dcjkGtf
+         osDuQVNns5Y66aj34riRxi70NUE7c32TWYkETg6pBNC1eVGzxnuxR6ccNk0RWrEIQqB/
+         b35IgSN4LMIxAIlqi0O9fqMXYmjJhEMs61dSsCtN+xprJKu4YmmwlK5ZfnpdVz6v/05i
+         41G36iryBO42Ve5HWTt8MM1G7oMiTXjsDnIa6SZq8l59tT+aOyRGBjupK1+aB/QFjooD
+         16qg==
+X-Forwarded-Encrypted: i=1; AKwUvBxs+0bKG6PFFklNh3anbAsnn9gyvNEyTynk0puToninLbH75PeAV9+fPVVyu34yZEwwaL9uJ+4qXSjGop8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKq3ZKAEQXpxPdpGcVz17DlVltEyvQCQsVOB950jvcXG2ptKvWY
+	lxjiJgXZe2X5oP2wHUiW/5brRUooqLkas3Hyqe6M6GlkO+3y3ZWssjxS
+X-Gm-Gg: AYBFou3UArJN9An9Ltw9XAUR6Zl5Faus1u8iCwS6J0vDL7ttxfdKC5hyX2KP9Vp+4LQ
+	XTrJvIqt7Etv53QMCOus5hazVPwnL15cU0aszge+LVrwmiJ82iy+xpReuSzE9tP+CFXUIS0v0D0
+	0O3joZlXlt4FZSEvgGvicAvtcnUM1PK5I+zQTurGnruQfqjCepwUiD1YSdw+xnmbo76ujjkjh/+
+	KLs6jX+xmxUdslWV8vpEoLNoceRuirwIvbwyGsN4mSuFTqc+uO2Xoa9kgNoo5v8TwopIwoOvrAc
+	S9FqBtymf7wV6EBKDvj/ktuxhN5PSnHA8S2HJv6ySOHOVBtxvSBYBUYc4Zk1rQ3ZQNknYNY6CqL
+	rxuCVAweEMiJwFCDlNmBZbko5bQgjGCG4QI4AUGggIFctJq7OI4n0/lVVleYLGxU6eTKS58qq7O
+	S8eBsf+0uz3P7MwQAT8v1QPFNEO3xCu3BENq7T3FuB6gfFu/iFiRRSbvm1zuG8r+ZOh7HP47vKb
+	tc7M5fLdLfpbmVoFDy+gkCh1ZcGy2exUU7oPHs7wwHyPVy3/O8k6VfvY3NPON0XlskVd2B2GAG+
+	HO5W7JMxlHSW/p/Ag8mVLsYjjLcH+H/Mwg0b5A==
+X-Received: by 2002:a17:906:f58f:b0:c29:f5d5:5a97 with SMTP id a640c23a62f3a-c31aa04b413mr1921502466b.33.1792061389965;
+        Thu, 15 Oct 2026 03:49:49 -0700 (PDT)
+Received: from M-K2012N0113010.localdomain ([88.119.128.229])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3ed9b3af45sm107890066b.33.2026.10.15.03.49.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 03:49:49 -0700 (PDT)
+From: Paulius Zaleckas <paulius.zaleckas@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	linux-iio@vger.kernel.org
+Cc: Eddie James <eajames@linux.ibm.com>,
+	Joel Stanley <joel@jms.id.au>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Rupesh Majhi <zoone.rupert@gmail.com>,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	james.clark@linaro.org,
-	leo.yan@arm.com,
-	jeremy.linton@arm.com,
-	cix-kernel-upstream@cixtech.com,
-	bob.zhang@cixtech.com,
-	jie.fu@cixtech.com,
-	"Johnny.Fan" <Johnny.Fan@cixtech.com>,
-	Fugang Duan <fugang.duan@cixtech.com>
-Subject: Re: [PATCH] perf: arm_spe: Support heterogeneous ACPI systems
-In-Reply-To: <20261015062908.3565761-1-johnny.fan@cixtech.com>
-References: <20261015062908.3565761-1-johnny.fan@cixtech.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	Paulius Zaleckas <paulius.zaleckas@gmail.com>
+Subject: [PATCH v3 0/5] iio: pressure: dps310: add Zilltek ZTS8032
+Date: Thu, 15 Oct 2026 13:49:40 +0300
+Message-ID: <20261015104945.2687162-1-paulius.zaleckas@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: johnny.fan@cixtech.com, will@kernel.org, mark.rutland@arm.com, linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, james.clark@linaro.org, leo.yan@arm.com, jeremy.linton@arm.com, cix-kernel-upstream@cixtech.com, bob.zhang@cixtech.com, jie.fu@cixtech.com, Johnny.Fan@cixtech.com, fugang.duan@cixtech.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu, 15 Oct 2026 07:29:08 +0100,
-"Johnny.Fan" <johnny.fan@cixtech.com> wrote:
-> 
-> From: "Johnny.Fan" <Johnny.Fan@cixtech.com>
-> 
-> The ACPI MADT describes the SPE overflow interrupt on a per-CPU basis
-> in the GICC structure, where a CPU that does not implement SPE simply
-> reports 0. Heterogeneous systems therefore only report the interrupt
-> on the CPUs that implement SPE, but arm_pmu_acpi.c rejects this as a
-> non-homogeneous mapping and never creates the SPE platform device.
-> 
-> Treat the SPE interrupt as optional when walking the MADT: skip the
-> GICCs that report 0 and only require that the CPUs which do report it
-> agree on the number.
-> 
-> Note that the CPUs reporting the interrupt must still share a single
-> GSI, as the platform device only exposes one IRQ resource. A system
-> that assigns a different PPI per cluster cannot be described by this
-> single-device model.
-> 
-> The CPUs without SPE are trimmed from the PMU supported CPUs by
-> probing PMSVer on each CPU, both at probe time (for online CPUs) and
-> from the hotplug callback (for CPUs that were offline at probe), as
-> ACPI conveys no affinity information and the PPI otherwise defaults
-> to all possible CPUs.
+The Zilltek ZTS8032 is a register compatible DPS310 with two more
+pressure calibration coefficients (c31, c40) and a different TMP_CFG
+layout.
 
-This is a bit odd: at the beginning, you are stating that the SPE
-interrupt being 0 is an indication of SPE not being supported. Then
-you check for PMSVer for the same properly. This seems pretty wrong.
+1-2: Vendor prefix and the zilltek,zts8032 compatible.
+3: Per-chip data in the I2C and ACPI match data, no functional change.
+4: OF match table.
+5: ZTS8032 chip data: the coefficient count, the TMP_CFG startup value,
+   and a Horner step each for c40 and c31.
 
-It should be possible to build the mask of SPE-enabled CPUs without
-IPI-ing the other CPUs, and only rely on the firmware table.
+Based on iio/testing, on top of a22dc7ebb21a ("iio: pressure: dps310:
+fix overflow in pressure compensation"). That fix replaces v2's patch 1,
+and patch 5 extends its Horner evaluation.
 
-> 
-> Tested on a CIX sky1 SoC with heterogeneous SPE support.
-> 
-> Signed-off-by: Johnny.Fan <Johnny.Fan@cixtech.com>
-> 
-> Reviewed-by: Fugang Duan <fugang.duan@cixtech.com>
-> ---
->  drivers/perf/arm_pmu_acpi.c | 34 +++++++++++++++++++++++-------
->  drivers/perf/arm_spe_pmu.c  | 41 ++++++++++++++++++++++++++++++++++---
->  2 files changed, 65 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/perf/arm_pmu_acpi.c b/drivers/perf/arm_pmu_acpi.c
-> index ca6bf8f86cfe..4ece1070827b 100644
-> --- a/drivers/perf/arm_pmu_acpi.c
-> +++ b/drivers/perf/arm_pmu_acpi.c
-> @@ -70,7 +70,8 @@ static void arm_pmu_acpi_unregister_irq(int cpu)
->  
->  static int __maybe_unused
->  arm_acpi_register_pmu_device(struct platform_device *pdev, u8 len,
-> -			     u16 (*parse_gsi)(struct acpi_madt_generic_interrupt *))
-> +			     u16 (*parse_gsi)(struct acpi_madt_generic_interrupt *),
-> +			     bool optional)
->  {
->  	int cpu, this_hetid, hetid, irq, ret;
->  	u16 this_gsi = 0, gsi = 0;
-> @@ -87,7 +88,9 @@ arm_acpi_register_pmu_device(struct platform_device *pdev, u8 len,
->  
->  	/*
->  	 * Sanity check all the GICC tables for the same interrupt
-> -	 * number. For now, only support homogeneous ACPI machines.
-> +	 * number. For now, only support homogeneous ACPI machines,
-> +	 * unless the interrupt is optional, in which case a CPU that
-> +	 * does not implement the feature simply reports 0.
->  	 */
->  	for_each_possible_cpu(cpu) {
->  		struct acpi_madt_generic_interrupt *gicc;
-> @@ -97,6 +100,20 @@ arm_acpi_register_pmu_device(struct platform_device *pdev, u8 len,
->  			return gsi ? -ENXIO : 0;
->  
->  		this_gsi = parse_gsi(gicc);
-> +
-> +		if (optional) {
-> +			if (!this_gsi)
-> +				continue;
-> +
-> +			if (gsi && gsi != this_gsi) {
-> +				pr_warn("ACPI: %s: CPU%d: inconsistent interrupt %u/%u\n",
-> +					pdev->name, cpu, gsi, this_gsi);
-> +				return -ENXIO;
-> +			}
-> +			gsi = this_gsi;
-> +			continue;
-> +		}
-> +
+There is no public ZTS8032 datasheet.
 
-This "optional" parameter feels very wrong. We now have an
-infrastructure to get a set of affinities for an interrupt (see
-5324fe21ba9b7 and following patches). What this needs is ACPI to be
-plumbed into this.
+Testing: ZTS8032 on an arm64 (MT7987) board, the series and a22dc7ebb21a
+backported to 6.12. in_pressure_input matches the datasheet formula
+evaluated from the raw and coefficient registers to within 1 Pa at every
+oversampling rate from 1 to 128, and TMP_CFG reads 0x00 after probe.
+Every patch builds without warnings with W=1 on x86_64 and i386,
+dt_binding_check passes. I have no DPS310, so patches 3-4 are untested
+on one.
 
-Unfortunately, ACPI is awkward and very badly abstracted in this area,
-but that doesn't mean we should make the driver code more bizarre.
+An LLM coding assistant (Claude Code) was used for this series: it
+ported the ZTS8032 support from the vendor driver, wrote the code and
+changelogs and the hardware test scripts, under my direction. I
+reviewed and tested the result.
 
-Treating SPE and TRBE differently is just as odd, and there is no
-reason to do other than suiting your particular platform.
+Changes in v3:
+- Drop v2 1/6, superseded by a22dc7ebb21a in iio/testing; rebase onto
+  it and add c40 and c31 as Horner steps. This also covers the Sashiko
+  overflow report on v2 1/6.
+- C99 initializers for the ACPI ID (Andy, Uwe)
+- Add DPS310_MAX_COEF_LEN in patch 3 and bump it in patch 5 (Andy)
+- Parse c31/c40 based on a chip flag, not the coefficient count (Andy)
+- List the supported sensors one per line in Kconfig (Andy)
+- Link to v2: https://lore.kernel.org/r/20261013112124.1878296-1-paulius.zaleckas@gmail.com
 
-Thanks,
+Changes in v2:
+- Split the driver patch into per-chip data, OF match table and
+  ZTS8032 support (Andy)
+- Drop the linux/mod_devicetable.h include (Andy, Uwe)
+- Return -ENODATA when there is no match data (Andy)
+- Add Conor's Acked-by to the bindings
+- Link to v1: https://lore.kernel.org/r/20261012114550.1680054-1-paulius.zaleckas@ui.com
 
-	M.
+Paulius Zaleckas (5):
+  dt-bindings: vendor-prefixes: Add ZillTek Technology
+  dt-bindings: iio: pressure: infineon,dps310: Add Zilltek ZTS8032
+  iio: pressure: dps310: add per-chip data
+  iio: pressure: dps310: add an OF match table
+  iio: pressure: dps310: add Zilltek ZTS8032 support
 
+ .../iio/pressure/infineon,dps310.yaml         |  4 +-
+ .../devicetree/bindings/vendor-prefixes.yaml  |  2 +
+ drivers/iio/pressure/Kconfig                  |  6 +-
+ drivers/iio/pressure/dps310.c                 | 73 ++++++++++++++++---
+ 4 files changed, 72 insertions(+), 13 deletions(-)
+
+
+base-commit: a22dc7ebb21a6bd4c8b63bc2c1dd46a24945aae7
 -- 
-Without deviation from the norm, progress is not possible.
+2.55.0
+
