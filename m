@@ -1,117 +1,180 @@
-Received: from mta0.migadu.com (out-231.mta0.migadu.com [91.218.175.231])
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9838130ACF0
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:48:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.231
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C60325F988
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:48:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792028922; cv=none; b=UjHgraPPIHtXTZb54Zxt53bEsy7SLXZl1CgL+037xAhCkjhc/rEUW1R5T38ufDpb10f3X0xdgDTj6wxO2Z/BT2khyCVKL/84UgisX5GO1lRZlLfzznw8F2QzJ4NsagO5hm79PN3M8W6WMS/mehHrsNvxGFeejQgWcu8TaXoXuRo=
+	t=1792028930; cv=none; b=SwhorIwnLSu52ypseyQ3o4ep56NfbdqGEmgSCEk68SBslDbP63Nu2ztufpvfvyZ9JM2Jo8RPAtpozH4ZvBde7/8CH2IT6AUGkCtB+4PUaPDK1jHilkXdZNVQ9O8dXFMzrpayTv5+3xwEnorDLZWqYiQnngV+yu/Uo12uWMtJDIs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792028922; c=relaxed/simple;
-	bh=fTRqCKsgbkVlenS8t/rKet3TpxPNvpKHeqHtYLlfkcU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BSxR3k2ObdFVmX6wToJKtKFJph0TlQE5tCWB13lVn7ZJfXCA35CszJvK3Ag2T2CS0z+I2LL+IjQcrEXiWrAl3ZvF/iaynl3WdpZ4YjrUl1j7gGrQ0OamzAN4MhY+MTiuwMxS+Ti0qhRyg8UhJuhi/BNShXluJLV1xZq0siEIWis=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HxdYmTRy; arc=none smtp.client-ip=91.218.175.231
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792028930; c=relaxed/simple;
+	bh=6J9ua4kM2AQ1AbmDRprUIZcBpH1X+E/0V7ZxxtKcoOs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qYBuZT2IPwlE+XWuHgbNqr/ho6ZRhAXLJQlJx8jTL/Q2CVzHqwFD/rtnRH+8admZ4yQ/O0h6aG0P1DBEx5zawYXmLAHx2eZIjn2wafQ/OCCdDGkYFr4bBWmgpg1ZquRIGx3X2YuKUQjEQCvA4hLJy0o7hm5CyRSk4ca52i8Kayk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Oz/KO4az; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HxdYmTRy"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=fTRqCKsgbkVlenS8t/rKet3TpxPNvpKHeqHtYLlfkcU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792028918; v=1; x=1792633718;
- b=HxdYmTRySsuGGyPH+tqYTXI0JZzf27RX6PUu66rgyHh1vSSr9eOyqdWCpH3J8iedwkFTzBrM
- 7GvGgoEOVNBLs4tq9EmGHfzMffm5U+QbYYK+XkbAy2f6+t0bEZ5FvW+VcAQDdLT+8A7yWbF1YZ6
- /Wws1Ki47RBWkm2/O+zmCGg0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 57570c4f35a5311a;
-	Thu, 15 Oct 2026 01:48:38 +0000
-X-Mizu-Trace-ID: 57570c4f35a5311a
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <09db7d70-b7d4-4cf5-9447-6d16bac10794@linux.dev>
-Date: Thu, 15 Oct 2026 09:48:30 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Oz/KO4az"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e831e86ebfso8954035ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:48:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792028929; x=1792633729; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yU/tI1b3Chy6tvjhfXj60ZgAk9bekyFoLKnVljFmz1M=;
+        b=Oz/KO4azwkMDM2jNYGf/puHJRKNxYgmsxYxU1QO2pOpz9q0GLi2IcyOPnl3DJxp2Ri
+         GIx4jHXhU/1Yw5DOZr79Uw23kttKizck9ak8zzsCDNMHHmXHiVqezgn/1dT33z3oSFL6
+         kJxzBBYwkTfAerbHXqETA1+FU+nm3CV7IxJREqrtKUtp9IK01C7GYq+iYRDZ8t6INNEf
+         eXnWjT3elmXZmgTU/bxfN3zsyMPppnAlKwYN6MHOi60/UI0565QEyLYCsNA7GcO+eWHT
+         j2qsWWGXWqe3ILOcGhTzrtEe2Divq4LvyvKuUHkE6pJHs1iQGOOcgoKTg0KNsuuq/T/h
+         aivQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792028929; x=1792633729;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yU/tI1b3Chy6tvjhfXj60ZgAk9bekyFoLKnVljFmz1M=;
+        b=hZyK32+pw8SdR0ftCyDMRMmlGuxN42/obZqa2oa4I/728jCqojWin3DwjHvUA74Kss
+         vzXLZ0jdmwX3eLYCgbL/dNYT6swWRBpP+92ZIAF3BNVQWE3o0G0IccDwnocD5qyfNXEa
+         kkxeCO2iduOc7I0xllpwl1IIeWaBwpXcI0H10vbLmShPSRD6eo2/yltuFx2+PXP8iFpJ
+         oXDN6llN6W7JF7CQHz3qHv1eUy3TlEFS5YcPUuwa3bZIQu0Na4hEk4Rgnw39jYB15qCa
+         qdV9pRoXTOag5PedfWMtkbZF84dq5KcK5gSPBrt2H0Lwwrc4v3mrywSYbQfs8KRDNCnk
+         xbeg==
+X-Forwarded-Encrypted: i=1; AKwUvByR2RUSsP/DqTdo4ncnbeJfkSv+wBAHN0DQkjYs3bsXdNYdFCXQYmokeWkrCl8kswDyCUquF9EA+m0PrKk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLDlyrbkBK6G2NUoCicsWYAcwFiptnUosdDacaAKawoA7b+Rcax
+	yBWav9of3w2p33S9Ag99k2ofHqUV3wK2viInUFqM5hI3jhcis8CFZIqc
+X-Gm-Gg: AYBFou0IeCSU46uGHYU3kPR/JvLjaDxfgxhKGKqDLcGH7Z+rMWVSkxLdjwSAxa7mVYR
+	22WV+2KnJbXm8Ie3Gcuky9KLh0vq+BM6PfVdu6ljlkoJ0TiFb1kARDWdGZfpEtChW9XyDsWhvdr
+	9emtfzhwo8VluOR9bFVP3Zr9WonRIhG6X1kGVUCITP6u4Ft6j4f255fkGVs92WgrOeIcnNLxZ7B
+	T0ViC3T+5r3VO44p6TWaqPtE2wA0bOGe43DzeL0DX3iodLFkjGAUj8LHf9vZTTQNqLl5KCwtk92
+	kwxQX8rhDfnUgH9au5oxWbA3K2AJKHPvW1cy8s5nH6dGOG/gFzl4ZIIWeRS8iCWmdnxCRapsOyA
+	fNA2aCTlQodljynH1mQSji3akd2yyXPstCjSlC1ETBq+7wESV1oyUWyMkj6aoqi7iiDb8Z1Xgcw
+	Qbof9gY0+Kyb0krJH57CsUqu88pG+/ihYhev5oFxfV8bF5i+EB84/+Rsvgfq0D0j97VipoHcp86
+	1pDlvC6l7SLqNuAG+sX/z9L0iYn7XhvpU/ECuDsI39n1ezEAwImrryPPj+okDR0/cfOTLnTxg74
+	v74AprxF6pZlVg==
+X-Received: by 2002:a17:902:f786:b0:2e9:3215:c458 with SMTP id d9443c01a7336-2e93215c642mr37739115ad.25.1792028928882;
+        Wed, 14 Oct 2026 18:48:48 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422b8cc1sm73202995ad.54.2026.10.14.18.48.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 18:48:47 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	povik+lin@cutebit.org,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Andrei Simion <andrei.simion@microchip.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	David Rhodes <david.rhodes@cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Shengjiu Wang <shengjiu.wang@gmail.com>,
+	Xiubo Li <Xiubo.Lee@gmail.com>,
+	Fabio Estevam <festevam@gmail.com>,
+	Nicolin Chen <nicoleotsuka@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Kees Cook <kees@kernel.org>,
+	Syed Saba Kareem <syed.sabakareem@amd.com>,
+	wangdicheng <wangdicheng@kylinos.cn>,
+	Chris Bainbridge <chris.bainbridge@gmail.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Neo Chang <YLCHANG2@nuvoton.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	u.kleine-koenig@baylibre.com,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+	Hemanth Selam <hemanth.selam@gmail.com>,
+	Md Shofiqul Islam <shofiqtest@gmail.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Zain Aboobacker <zainaboobacker33@gmail.com>,
+	Sang-Heon Jeon <ekffu200098@gmail.com>,
+	Bo Shen <voice.shen@atmel.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	linux-sound@vger.kernel.org,
+	asahi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	patches@opensource.cirrus.com,
+	linuxppc-dev@lists.ozlabs.org,
+	imx@lists.linux.dev,
+	linux-rockchip@lists.infradead.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH v2 17/25] ASoC: codecs: wm8782: Ensure the DAI is marked as started on success
+Date: Thu, 15 Oct 2026 08:43:16 +0700
+Message-ID: <20261015014324.5569-18-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261015014324.5569-1-phucduc.bui@gmail.com>
+References: <20261015014324.5569-1-phucduc.bui@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next v2 00/21] bpf: Add tracing_multi link support for
- bpf progs
-To: Jiri Olsa <olsajiri@gmail.com>
-Cc: bpf@vger.kernel.org, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- John Fastabend <john.fastabend@gmail.com>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>,
- Emil Tsalapatis <emil@etsalapatis.com>,
- Ihor Solodrai <ihor.solodrai@linux.dev>, Quentin Monnet <qmo@kernel.org>,
- Shuah Khan <shuah@kernel.org>, Mykyta Yatsenko <yatsenko@meta.com>,
- Avinash Duduskar <avinash.duduskar@gmail.com>,
- Anton Protopopov <a.s.protopopov@gmail.com>, Amery Hung
- <ameryhung@gmail.com>, Jordan Rife <jordan@jrife.io>,
- Rong Tao <rongtao@cestc.cn>, Eyal Birger <eyal.birger@gmail.com>,
- Pu Lehui <pulehui@huawei.com>, Jingguo Tan <tanjingguo@huawei.com>,
- Lin Ma <malin89@huawei.com>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-References: <20261012154024.29423-1-leon.hwang@linux.dev>
- <as_7Jgy_sdTE9M5O@krava>
-Content-Language: en-US
-From: Leon Hwang <leon.hwang@linux.dev>
-In-Reply-To: <as_7Jgy_sdTE9M5O@krava>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 15/10/26 05:59, Jiri Olsa wrote:
-> On Mon, Oct 12, 2026 at 11:40:02PM +0800, Leon Hwang wrote:
->> Similar to the tracing_multi link support for kernel functions [1], add
->> support for bpf progs.
->>
->> With this support, I'll be able to enhance the function-graph feature of
->> bpfsnoop [2]. It will trace all bpf progs, including their subprogs, to
->> draw a full function call graph including bpf prog call sites.
->>
->> The attachment could speed-up when there are hundreds of targets. For
->> example, on high CPU core count servers, it probably runs 200 tc-bpf
->> progs as Kubernetes CNI, and each tc-bpf prog might have 4 subprogs.
->> Hence, there will be 1000 targets to trace for bpfsnoop's function-graph
->> feature.
->>
->> With tracing_multi link support for bpf progs, bpfsnoop will be able to
->> attach to all targets quickly.
->>
->> When attaching to 1000 targets, fentry.multi is much faster than fentry
->> on a 16c16g QEMU VM on an AMD EPYC 9745 server.
->>
->> ./bench tracing-multi-attach-progs
->> Setting up benchmark 'tracing-multi-attach-progs'...
->> tracing-multi-attach-progs: prepared 1000 identical BPF program targets
->> tracing-multi-attach-progs: fentry created and attached 1000 programs/links in 338.171ms
->> tracing-multi-attach-progs: fentry.multi created one program and attached one 1000-target link in 47.345ms
->> tracing-multi-attach-progs: fentry.multi creation/attachment speedup is 7.14x
-> 
-> it's faster, but the original attachment is under 1s,
-> so not really a problem imo
-> 
-> I guess the api is better for your use case, like having
-> less file descriptors open ?
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-Correct.
+snd_pcm_hw_constraint_minmax() may return 1, which is then returned
+from wm8782_dai_startup(). ASoC only marks the DAI as started when
+.startup() returns 0.
 
-The original attachment is fast enough. So there is no need to improve
-attachment performance with a large patch series.
+This currently has no functional impact, as wm8782_dai_ops has no
+.shutdown() callback. Still, return 0 explicitly on success to
+match what ASoC expects and ensure the DAI is correctly marked as
+started.
 
-Even though the series brings two benefits:
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+---
+ sound/soc/codecs/wm8782.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-* One bpf link for multiple bpf prog targets.
-* Support for all archs that have trampoline support.
-
-But, I also doubt the value of this series.
-
-Thanks,
-Leon
+diff --git a/sound/soc/codecs/wm8782.c b/sound/soc/codecs/wm8782.c
+index 3a2acdfa9b85..cbf0c823c022 100644
+--- a/sound/soc/codecs/wm8782.c
++++ b/sound/soc/codecs/wm8782.c
+@@ -39,9 +39,19 @@ static int wm8782_dai_startup(struct snd_pcm_substream *sub, struct snd_soc_dai
+ 	struct snd_pcm_runtime *runtime = sub->runtime;
+ 	struct wm8782_priv *priv =
+ 		snd_soc_component_get_drvdata(dai->component);
++	int ret;
+ 
+-	return snd_pcm_hw_constraint_minmax(runtime, SNDRV_PCM_HW_PARAM_RATE,
++	ret = snd_pcm_hw_constraint_minmax(runtime, SNDRV_PCM_HW_PARAM_RATE,
+ 					   8000, priv->max_rate);
++	if (ret < 0)
++		return ret;
++
++	/*
++	 * ASoC only marks the DAI as started when .startup() returns 0.
++	 * Since snd_pcm_hw_constraint_minmax() may return 1, explicitly
++	 * return 0 to ensure the DAI is correctly marked as started.
++	 */
++	return 0;
+ }
+ 
+ static const struct snd_soc_dapm_widget wm8782_dapm_widgets[] = {
+-- 
+2.43.0
 
