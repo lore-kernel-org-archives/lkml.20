@@ -1,81 +1,92 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.ideco.ru (smtp.ideco.ru [51.250.56.165])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D9CC449B17;
-	Thu, 15 Oct 2026 07:21:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81579447805;
+	Thu, 15 Oct 2026 07:21:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.250.56.165
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792048878; cv=none; b=YFLPAHuR1QT29rcAwjrkYC99NOpaHLZU2VFccNXr8NHtkv9vF1U08r3X4jZ/13cwJkPOHcg0s5XcG5PkvyIiDZprMKK4FZOG57UPmPSTb/msuEkKJw07sKKmb1m74K70QEG8xXU9HJlq2n9afXAh45dBm7h4yci8KCU+AxuzFzg=
+	t=1792048895; cv=none; b=EoBYHhGb7WdbcsC07CK5NQFM9bZf+gJ2lLdWZNqfs7qSa5l6oDYQhDIlzrCvJAusZdWtRZkiVc19SVEfMiFwZWEHjL7VeV5s6+9BQdU1hBnffy4uEAsW/bLYQgYhh9eHdIo/FPTCQHqKFoEkL4g4EXecjfFnA9o8sWy2QTPeL6Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792048878; c=relaxed/simple;
-	bh=UnElEGL6a9K+KIwKMbc7bCLJ4t2PlJBsCdavuUdiOlo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PfiloLqXZy/CtKXISa3jKuqB67bNe38jOfuvjCz+BZEp9f+hQfutUKlFg8DnFUZ8O8AJnGgb1l6EstGbZg+munNFmoWBzjGEu4PhJ+/VdakEMnwjAHl7n4HHG+8WbhjfZNowVOo5pBNg5f2kT/im17y49AWJ+2HUgTq1qg+j7tA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hmq21l6n; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792048895; c=relaxed/simple;
+	bh=aXOYd/IpTZ/z/TqYVjtUrb+ki2He1+Dm1qXywwrwG3o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gfp8F10PS/cA42zhXlt0hGafz/F4kum0Jj3pOGxeD3OmBJLb/qoZZWgLBM2Ss5ZEF/5vQ0SPFIN+Z0/w47gIHCg3ANDVC+ClEEEg2OaphRCq5xM+1SxEo70rlyy+8dciN3930gxmbUrFBL7hzdArCM/8kbUWAvzzTR6PiHZWu6I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideco.ru; spf=pass smtp.mailfrom=ideco.ru; dkim=pass (2048-bit key) header.d=ideco.ru header.i=@ideco.ru header.b=CBcBmO4Q; arc=none smtp.client-ip=51.250.56.165
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideco.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideco.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hmq21l6n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACAF01F000C4;
-	Thu, 15 Oct 2026 07:21:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792048869;
-	bh=YxcC0x778Ab3bAH3PuAHJ3L1E9EsN/37DGAWFayiun4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Hmq21l6nNuAx9qwOf426Vd/0ZVKeHlw0Z7f3JlSZStncwrXpTerjJY/2IVjDxFOpP
-	 5XYFr9a+JHfQhNAnuEq2B9GSI0DjZz2CP5AzfWBVldBbaOTOdGZ1f1fcyvviZhcNnW
-	 VJEK6NYXoSUbe1HQLa8dGA+d3Y0Yv35kw7PP6cD8rUXNsiVYadBdPsT8X0pZpTsb7X
-	 tnOG+Qv5ldOIHYhglr2nkqy7ZH5gnV8us5zV2+80xoCmrd3i9Y1z+laIo878J7uFI6
-	 JJEzkNL7d21zqVZXvU5y7f8vzKK+FTU2pHmWgeM6ISasRmacppuGACB3FObfUCEd9M
-	 5ayC9LoddGIDQ==
-Date: Thu, 15 Oct 2026 09:21:06 +0200
-From: Niklas Cassel <cassel@kernel.org>
-To: Damien Le Moal <dlemoal@kernel.org>
-Cc: Kyrylo Biryuk <illofspeed@gmail.com>, linux-ide@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4] ata: libahci: re-enable FBS after error handling on a
- port multiplier
-Message-ID: <atB-4s_ffWEr6yDP@ryzen>
-References: <20261012103917.389-1-illofspeed@gmail.com>
- <eb21b333-3047-4f8c-a1d7-9d390d935abb@kernel.org>
+	dkim=pass (2048-bit key) header.d=ideco.ru header.i=@ideco.ru header.b="CBcBmO4Q"
+Received: from [169.254.254.254] (localhost [127.0.0.1])
+	by smtp.ideco.ru (Postfix) with ESMTP id 9B86B203855E;
+	Thu, 15 Oct 2026 12:21:22 +0500 (+05)
+Received: from fedora (5cfcac1b.dynamic.mv.ru [92.252.172.27])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.ideco.ru (Postfix) with ESMTPSA id 482082032116;
+	Thu, 15 Oct 2026 12:21:06 +0500 (+05)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.ideco.ru 482082032116
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ideco.ru; s=ics;
+	t=1792048881; bh=sp68sfo4wdTeRg5lJcmjZaz65CMQSCLC8h6Pl0FCQq8=;
+	h=From:To:Cc:Subject:Date;
+	b=CBcBmO4Q7aq6UHN/4INXKbXA3tWYOIn7ijpBz7HjC49qrxRXTquCDo7itadggFug6
+	 I3CSv16wORbmmVSzR1c/kl8RBGqYyn+1/A95A0T30zbF2fWdaBhNbZboSuozDChhjA
+	 HOBvpH9COzZvYw+Cj0A7kdEYs/ipopD4T3N8qscNMGJYelxX7wR1m8ggFRCjXF5arM
+	 6zjLJVgz3KYc+Jfh5moDyv5TXtTlBkeKAq401OPGZwqn8DPNQlIsNWvsxWSEpGpcmI
+	 2MWpZSw3rulYdfhBnWc4d697d3QnhuJxIGUioyJX5i2Nu64auZh3nB//kALRhi1Mvg
+	 LhmRdPlH5GJyg==
+From: Alex Kazinsky <a.kazinsky@ideco.ru>
+To: Kalle Valo <kvalo@kernel.org>
+Cc: Alex Kazinsky <a.kazinsky@ideco.ru>,
+	Amitkumar Karwar <amit.karwar@redpinesignals.com>,
+	Prameela Rani Garnepudi <prameela.j04cs@gmail.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	stable@vger.kernel.org
+Subject: [PATCH] wifi: rsi: Skip TX aggregation setup for non-QoS frames
+Date: Thu, 15 Oct 2026 11:20:05 +0400
+Message-ID: <20261015072010.742369-1-a.kazinsky@ideco.ru>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <eb21b333-3047-4f8c-a1d7-9d390d935abb@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 15, 2026 at 07:37:45AM +0200, Damien Le Moal wrote:
-> On 2026/10/12 12:39, Kyrylo Biryuk wrote:
-> > ahci_do_softreset() disables FBS before resetting a device behind a port
-> > multiplier, as required by AHCI 1.2 section 9.3.9, and re-enables it only
-> > when that softreset succeeds. If it fails, for example because a
-> > hot-plugged drive is still spinning up ("softreset failed (device not
-> > ready)"), EH escalates to a hardreset of the PMP link, and nothing turns
-> > FBS back on: only ahci_pmp_attach() does, which runs at the next boot.
-> > The port keeps working with command-based switching until then.
-> > 
-> > Seen on a Marvell 88SE9235 (1b4b:9235) with Marvell 88SM9705 port
-> > multipliers (1b4b:9705, in a Synology DX1222 expansion unit): after
-> > hot-plugging a drive, the kernel logged "FBS is disabled" followed by
-> > "softreset failed (device not ready)" and a PMP hardreset, and never
-> > "FBS is enabled" again (twice, on two different ports).
-> > 
-> > At the end of ahci_error_handler(), re-enable FBS if a PMP is still
-> > attached and FBS is supported but disabled.
-> > 
-> > Fixes: 89dafa20f3da ("ahci: disabled FBS prior to issuing software reset")
-> > Assisted-by: LLM
-> > Signed-off-by: Kyrylo Biryuk <illofspeed@gmail.com>
-> 
-> Looks good.
-> 
-> Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
+When transmitting a non-QoS unicast frame to a station in AP mode,
+rsi_core_xmit() assigns IEEE80211_NONQOS_TID (16) to tid. The station
+lookup succeeds, allowing tid to index start_tx_aggr[], which has only
+IEEE80211_NUM_TIDS (16) elements. This causes an out-of-bounds read and,
+if the value read is zero, an out-of-bounds write.
 
-Commit was updated to pick up Damien's tag:
-https://git.kernel.org/pub/scm/linux/kernel/git/libata/linux.git/commit/?id=23eab9e877497397a0e2394ee9174d576816209e
+Only access the aggregation state for tids below IEEE80211_NUM_TIDS,
+excluding the non-QoS sentinel from TX aggregation setup.
+
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
+
+Fixes: 19844c0a9a19 ("rsi: data and managemet path changes for AP mode")
+Cc: stable@vger.kernel.org
+Signed-off-by: Alex Kazinsky <a.kazinsky@ideco.ru>
+---
+ drivers/net/wireless/rsi/rsi_91x_core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/net/wireless/rsi/rsi_91x_core.c b/drivers/net/wireless/rsi/rsi_91x_core.c
+index ead4d4e04328..3281fc94e107 100644
+--- a/drivers/net/wireless/rsi/rsi_91x_core.c
++++ b/drivers/net/wireless/rsi/rsi_91x_core.c
+@@ -458,7 +458,7 @@ void rsi_core_xmit(struct rsi_common *common, struct sk_buff *skb)
+ 			tx_params->sta_id = 0;
+ 		}
+ 
+-		if (rsta) {
++		if (rsta && tid < IEEE80211_NUM_TIDS) {
+ 			/* Start aggregation if not done for this tid */
+ 			if (!rsta->start_tx_aggr[tid]) {
+ 				rsta->start_tx_aggr[tid] = true;
+-- 
+2.56.0
 
 
-Kind regards,
-Niklas
