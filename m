@@ -1,245 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BD6A3CAA52
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:48:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792097322; cv=none; b=QP6yFvY6Zi0Ru0pZwDrJ65JeUuON/1Vft9TgQZ9/2J+BZB7XZazNts61oiBsJBVTjTfTNfprfKOfxO9JEKvBEbv2QI5FoL7LdMsiLpPXl79mvmQ1yR5Nx3ICJw5Ecj/uNhL+yY9Gif9CKsXowzH6eiitWARsa4Pld2Y4rjUiKvw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792097322; c=relaxed/simple;
-	bh=xaEjKs9uYoaK1rWbKH1mNgyaJjN0O2ZtD6LiYw3mop8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SywaKZv9Awly3aL0SjvPy3Soi3erO37igJkWoU3aDgPhvVVIcDiMS9TBS6wpra3jtyfz8hVirzoElGGaZUiVLhbuEbKRoU51XQyL9NULtLaXckfH8NpZenBYoyt7HJczNNwQHGsKe+VXfQONtJYasPAE9Okfajo7lIFDQzE1EYU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hTS//8hA; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5490335DA7B;
+	Thu, 15 Oct 2026 20:50:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792097430; cv=pass; b=m858pl+eX4lsw/dgij11h0SUWWsREQFj+stVeP83iBLOPU/OMwSJzroZJtxFnfA5/vbe2E9VUsnVCVX0ZAPXwHTx5EQGvT9tXMFNbN3PmYqDiBm6HBev2RjXqdh8Hnv8vbnRyraEZW7EKDCX+81/7RWcdxAMG80aybJmRfv8OXA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792097430; c=relaxed/simple;
+	bh=zT2WbWgW2AiGM/7lf7fXjZCPjWO/sPphJ/NAHIbSVXo=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=di0RQeoc92ydeJ04y3/qAbnvG6uo3sH6ctsQ7Y/7VcfNXrSCQwSWIqGa7K9mZ5BmKun94EYds5xal14JgYMoiRiE2Dd3c3PgZRU4wryk5q5eFReWdBcJGwBW3OwC4878KbcmiMfLZ6qWp8P8qqNtFUJabyVYiUktikCcydO7gro=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=AbLXLZpw; arc=pass smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hTS//8hA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B3801F000C8
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:48:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792097319;
-	bh=a7yiMjjkdLQO3PNrhwbNdhn6qAcJaSjM3V5hz1K+dJI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=hTS//8hA/VDvbaWBMMR/w7JO7leX8PXZf4aauwidjAuQwJVmJp3cjp/mSv8AC9nRY
-	 I23tflHXyvdOH8XGg1T/d56MD6EccEvuuEiqEavsHVIEo7/w1v84HAQILgXGUZUJr9
-	 7yRDDD4u0duFwis19E++mna3faT9WJYMvgp0feP3JO7cWEaHoqZfOe07oKrRzVpeUt
-	 OeMzeisrkKB9Zgw3UNLi+CxOKREjXm3kG7xqgzOTgUwYY3jx1L2rzhP0oWotiY6ouJ
-	 yQdoA9XJDU6eENe3jSTwoJXS+zVDh7j12AFb91IJrfahC4CXeRpkmMHbdUAv8xFj99
-	 mnJtOsmJAYUAQ==
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5bccb867d6fso4809299e87.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:48:38 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBykKJ390PJ/Fie6vp10o4fLSxRcWrMf9kK0lDuOHuMURmjYOLOnB79JtTCHHzL+QFWtDUzFMJEsY9K2M+U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKN3KC9JA01pfouY6oIh7p85x6Fdf4Mpr5bE4+yVbHjI8hQZ3h6
-	ooCoO7mdZHs4XMsCiNWQ6lE44eLBYSEiFiMoDnKQe+ZWF59L4ACfSHyXjAy7T7SO07MJx+8ELiO
-	ySJOGCLYwiGrummbB15QHGoLZ5Xh15WQ=
-X-Received: by 2002:a05:6512:2c99:b0:5be:456e:7bf5 with SMTP id
- 2adb3069b0e04-5be456e7d65mr691240e87.2.1792097317209; Thu, 15 Oct 2026
- 13:48:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="AbLXLZpw"
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 59D7B2027CF;
+	Thu, 15 Oct 2026 22:50:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792097421;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Pm6SaUQnuKXc1CA1BAOk+CC1Ysk+NDQPuPg6ekfQZBc=;
+	b=AbLXLZpw2LZ3kH35MEGksjS8LgAgY+HaDikIye+vPXG3/AKbQL2UG8wGton2AOFxNmEty6
+	ldxAsxPjpCIMretuAZVUeJoVvib5yK6F+9Tj7PnMFNHZPQbWXzmdTz1/hXkV6tWQw5Cvzd
+	Hs25lKQRnyu5YQVgbFeroIYoUfYlT33CqDRnyqKAgMwV0gjlPOfXOEKUgA1i9XQ3tZTSln
+	o6pO4MHbL+0f8OkAiN+/o/4U68u+GiFo0nkkwdbFEaJbS0kM7IyTDc25MZW/sDeBmJ0k6S
+	0mVE9DA21LDQwH7teTKIAxaYa+w5DRI2SNVOjX4f8lj/hVXAhyEZI93AcCdvoQ==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792097421; a=rsa-sha256;
+	cv=none;
+	b=TlIZr+4pnbw3vnV+vJ4xumUO4G3z4Dsqio9FSw6KJdZBUUVvzg8rT/i+ueK83k7qH/xIHo
+	Fl/0j39ZdDdw1BSwB9lhjH6k4l3yFA1zZEvGLP9fHvhRwzu+X5VbQf5bFekj88JhLGYIFq
+	t1RA0ddN84UIg+zD3pVt8MuY4lJchXkZTr4druNRuzaEyidS6gufhkK3RIPk81CJJAQAT4
+	LYlQ+ijORIPM5ttiyIvEIIwebJX1QnE4QTBlPjLVkhvdwPSHNLVoKnaJEZ0q4YmTxUnXKU
+	M7/bmkRr/ar1DR4FH7x6pttTlFjM3VLNyYP6gp9iII5Kj4eXYZv2A/1X5SAJgg==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792097421;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Pm6SaUQnuKXc1CA1BAOk+CC1Ysk+NDQPuPg6ekfQZBc=;
+	b=TX1jEwekF61WdMflH+8mmX64l/M4pUpCtyKhknN5ioQsWsz0SMaDhsB4UR1keW1q/KaFft
+	C3Zuuazm32Al/gehN1Ahxw3y5mEGu6ceo7Da+BRcUMkN9nrgqEVgC/5yx2B/iHwdGrhLPe
+	+TCtf17dRjDysAJw3kgJkgxOengvQLsuJ61Dc2JwhES7p5RdEinnwetL6IzKYVR7qpFcyK
+	gBgweuUc/8Cstaz47qEN9Akj1EB7dMK+sVpUaZ2KcJwmWOHrMMDMXqY0+YVNQso5HttgTE
+	qd8yv4rLakSGtXTG0wHK8N62ox3IWeIxbULAg10wlOYVuvf810tdKanzmBoGxQ==
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xHSP7-0064xD-0s;
+	Thu, 15 Oct 2026 22:50:21 +0200
+Received: from hardanger.blackshift.org (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 0666B5C5736;
+	Thu, 15 Oct 2026 20:50:20 +0000 (UTC)
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Vincent Mailhol <mailhol@kernel.org>, 
+ Joakim Zhang <qiangqing.zhang@nxp.com>, linux-can@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Guangshuo Li <lgs201920130244@gmail.com>
+Cc: stable@vger.kernel.org
+In-Reply-To: <20260915170327.2503156-1-lgs201920130244@gmail.com>
+References: <20260915170327.2503156-1-lgs201920130244@gmail.com>
+Subject: Re: [PATCH] can: flexcan: fix runtime PM reference imbalance on
+ probe failure
+Message-Id: <179209737242.1181445.1074070842176651620.b4-ty@b4>
+Date: Thu, 15 Oct 2026 22:49:32 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260925-acpi-static-table-irq-probe-defer-v1-0-2c62125d0085@kernel.org>
- <20260925-acpi-static-table-irq-probe-defer-v1-2-2c62125d0085@kernel.org>
- <arZDwutoadki7tiZ@ashevche-desk.local> <arZNL9BnTGK0Klwc@red-moon>
- <arZS4vwxps01dGb7@ashevche-desk.local> <arqSqcoWAkhy-8do@red-moon>
- <d1720b63-65bf-4019-bc19-1852555f7993@arm.com> <asieTvinZ7c2QpQm@red-moon>
-In-Reply-To: <asieTvinZ7c2QpQm@red-moon>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Thu, 15 Oct 2026 22:46:26 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0hVLSJs1j8J1TV3yJ8Psyaf=B_0UfHsYSMtM5xTup0B_Q@mail.gmail.com>
-X-Gm-Features: AclHuK-DuoXI-ze6OR_y67J91aOnhT8WYRNmJVSaRmfvir6JKBEzZ6K-TrcO_zw
-Message-ID: <CAJZ5v0hVLSJs1j8J1TV3yJ8Psyaf=B_0UfHsYSMtM5xTup0B_Q@mail.gmail.com>
-Subject: Re: [PATCH RFC 02/11] ACPI: Introduce irq_get() for static fwnodes
-To: Lorenzo Pieralisi <lpieralisi@kernel.org>
-Cc: Robin Murphy <robin.murphy@arm.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Mark Rutland <mark.rutland@arm.com>, 
-	Marc Zyngier <maz@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Hanjun Guo <guohanjun@huawei.com>, 
-	Sudeep Holla <sudeep.holla@kernel.org>, Wim Van Sebroeck <wim@linux-watchdog.org>, 
-	Guenter Roeck <linux@roeck-us.net>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, linux-acpi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	driver-core@lists.linux.dev, linux-watchdog@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-6be7c
+X-Developer-Signature: v=1; a=openpgp-sha256; l=359; i=mkl@pengutronix.de;
+ h=from:subject:message-id; bh=9KOjnmj761cB4ARxTNM0Q2r2u9qCTI5Jn9MOPCnK8m8=;
+ b=owGbwMvMwCV2xirl17qZay8xnlZLYsi6aNO1wluUPUps49zUQI0NnBuZgyQE626I8jxubl8n0
+ fuzqKK6o5SFQYyLQVZMkWXpjxOKAoEOpb0vEybBzGFlAhnCwMUpABM5Mpnhv9tOvu7sSz97rvVL
+ T+V/zyQk8v5q7DFu85zVBrftcv/35TMyrExiTzu++N2eB6yp/t/mru2NMtQxUbxwOZKPO1aAd30
+ hKwA=
+X-Developer-Key: i=mkl@pengutronix.de; a=openpgp;
+ fpr=C1400BA0B3989E6FBC7D5B5C2B5EE211C58AEA54
 
-Sorry for the delay.
 
-On Fri, Oct 9, 2026 at 9:57=E2=80=AFAM Lorenzo Pieralisi <lpieralisi@kernel=
-.org> wrote:
->
-> On Tue, Oct 06, 2026 at 05:19:23PM +0100, Robin Murphy wrote:
-> > On 28/09/2026 5:15 pm, Lorenzo Pieralisi wrote:
-> > > On Fri, Sep 25, 2026 at 01:54:26PM +0300, Andy Shevchenko wrote:
-> > > > On Fri, Sep 25, 2026 at 12:30:07PM +0200, Lorenzo Pieralisi wrote:
-> > > > > On Fri, Sep 25, 2026 at 12:49:54PM +0300, Andy Shevchenko wrote:
-> > > > > > On Fri, Sep 25, 2026 at 09:48:01AM +0200, Lorenzo Pieralisi wro=
-te:
-> > > >
-> > > > ...
-> > > >
-> > > > > > > +static int acpi_static_fwnode_read_u32_prop_index(const stru=
-ct fwnode_handle *fwnode,
-> > > > > > > +                                             const char *pro=
-pname,
-> > > > > > > +                                             unsigned int in=
-dex, u32 *value)
-> > > > > > > +{
-> > > > > > > +   u32 *values;
-> > > > > > > +   int ret, count;
-> > > > > > > +
-> > > > > > > +   count =3D fwnode_property_count_u32(fwnode, propname);
-> > > > > > > +   if (count < 0)
-> > > > > > > +           return count;
-> > > > > > > +
-> > > > > > > +   if (index >=3D count)
-> > > > > > > +           return -ENOENT;
-> > > > > > > +
-> > > > > > > +   values =3D kcalloc(count, sizeof(*values), GFP_KERNEL);
-> > > > > > > +   if (!values)
-> > > > > > > +           return -ENOMEM;
-> > > > > > > +
-> > > > > > > +   ret =3D fwnode_property_read_u32_array(fwnode, propname, =
-values, count);
-> > > > > > > +   if (!ret)
-> > > > > > > +           *value =3D values[index];
-> > > > > >
-> > > > > > Use standard pattern, id est
-> > > > > >
-> > > > > >       if (ret)
-> > > > > >               ...
-> > > > > >
-> > > > > > > +   kfree(values);
-> > > > > >
-> > > > > > You want to use __free()
-> > > > > >
-> > > > > > > +   return ret;
-> > > > > > > +}
-> > > > > >
-> > > > > > I believe the whole approach is suboptimal, if you wish get ind=
-exed value (but why?)
-> > > > >
-> > > > > Why what (that's what the irq_get() interface requires ?) I agree=
- it is
-> > > > > suboptimal - the whole point of the series is an RFC on using pro=
-perties
-> > > > > to store GSI number/flags, then how to read them we will optimize=
- it
-> > I>>> when/if we agree that's the approach to be taken.
-> > > >
-> > > > Why to have indexed APIs. The callers usually do not want a single =
-item from an
-> > > > array, they want all of them or a big pile (exception is the array =
-of strings,
-> > > > but we have matching functions for that).
-> > > >
-> > > > As per approach, this patch is against device property and I don't =
-think we are
-> > > > going to agree on the approach taken in *this* patch.
-> > >
-> > > Coming back to this, what is needed here is a way to stash the GSI nu=
-mber,
-> > > flags and name in stardard storage (like OF nodes IRQ properties, ACP=
-I objects
-> > > _CRS, etc).
-> > >
-> > > To give you some background, I thought about adding an array of:
-> > >
-> > > GSI [number, flags, name]
-> > >
-> > > to the ACPI static fwnode itself. Then basically the irq_get() API ha=
-s got
-> > > all the information it needs from the primary fwnode; while doing tha=
-t I
-> > > thought that this might have been a bit like reinventing software nod=
-es
-> > > (granted, software node properties are ways more general that what I =
-suggest
-> > > above and I don't expect any other property to be ever added to stati=
-c fwnodes)
-> > > that's why I put together the series as it is, precisely to understan=
-d what's
-> > > best.
-> > >
-> > > When you say "against device property", what do you mean precisely ?
-> > >
-> > > I suppose you mean that this approach goes against software node prop=
-erties
-> > > usage guidelines ?
-> > >
-> > > Anyway, again, it is just to provide some context, we are talking abo=
-ut
-> > > a bunch of platform devices, it is nice to have a generic solution bu=
-t
-> > > it has to be simple enough too given its scope, I understand very wel=
-l
-> > > your concern with this approach as-is - it is there to find a way
-> > > forward together and show what the problem is.
-> >
-> > I guess software node properties look inviting in theory since they're =
-a
-> > ready-made mechanism for effectively attaching arbitrary data to a fwno=
-de,
-> > however looking at patches 6-7 and the amount of boilerplate involved i=
-n the
-> > reality, I'm inclined to think that a dedicated structure for static no=
-des
-> > is probably the best and most efficient compromise here. The redundancy
-> > argument rather falls apart once we end up creating copies of those
-> > contentiously-made-up property name strings for every node, especially =
-given
-> > that any one of those alone is probably already more than the amount of
-> > actual data we need per node...
-> >
-> > Perhaps the "purest" option might be to just store a function pointer i=
-n the
-> > fwnode wrapper for each static table type to provide its own internal
-> > irq_get() callback, so not stashing intermediate GSI data at all, but I
-> > suspect that might end up being more work overall.
->
-> Hi Rafael, Robin,
->
-> I have not started prototyping it yet but I have got a question as a
-> follow-up to our chat at LPC about crafting an ACPI device for the static
-> table entries and sort out the probe dependencies using autodep.
->
-> After spur of the moment reaction during the session, I now remember I
-> thought about crafting an ACPI device for the static table entries and
-> started digging then bumped into acpi_add_single_object() as you
-> suggested.
->
-> The point though is: what about the acpi_handle and the AML required to
-> sort out the dependencies using the _CRS ? We have got the info to fill
-> the _CRS coming from static table entries (MMIO, GSI) but I am not sure h=
-ow I
-> can form a full-fledged ACPI namespace object in the kernel, without
-> that in place I am not sure how the autodep mechanism can possibly
-> work.
+On Wed, 16 Sep 2026 01:03:27 +0800, Guangshuo Li wrote:
+> can: flexcan: fix runtime PM reference imbalance on probe failure
 
-The missing ACPI handle is not a hard part IMV, it is a matter of
-modifying struct acpi_dep_data to be able to hold struct acpi_device
-pointers instead of ACPI handles in case the devices in question have
-no ACPI handles and adjusting the code using it.
+Applied, thanks!
 
-Finding the dependencies is harder.  I guess it may involve walking
-the namespace and looking up a device object with a specific device ID
-or similar.
+[1/1] can: flexcan: fix runtime PM reference imbalance on probe failure
+      commit: f40b25291025b0c3382f1ad159033a4ec885cc58 (subject to change)
 
-Note that the dependencies can be added to acpi_dep_list after
-creating a struct acpi_device with acpi_add_single_object() and
-acpi_scan_add_dep() is not really suitable for that, but it should be
-doable if the dependencies can be found.
+Best regards,
+-- 
+Marc Kleine-Budde <mkl@pengutronix.de>
 
-> I need to have a deeper look into this next week but I wanted to ask firs=
-t
-> whether there was something I missed - most likely.
-
-Well, it is not really straightforward.
-
-I'm still not sure why you can't represent all devices in the ACPI
-namespace in addition to describing some of them in static tables.  I
-guess that would work for everybody, wouldn't it?
