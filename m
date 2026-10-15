@@ -1,148 +1,86 @@
-Received: from flow-b3-smtp.messagingengine.com (flow-b3-smtp.messagingengine.com [202.12.124.138])
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2EE94A64C5
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:11:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15A404908D1;
+	Thu, 15 Oct 2026 07:11:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792048298; cv=none; b=D9HoyweNfO9vgg24ff0aDtYIy4r3vqguD39U3EsDPHOCn0iaA2WJntduW7+KKicvoBx4s3PrIQaJKkyU18YkpcN44GRwbCm0Gs30kwTl4mbV7FqoiCh8iX7JnteeXHZpUkqwei0PxQrkIGLkgwWq5AQ3Z4q+q3+yR5CxnHJLZzI=
+	t=1792048311; cv=none; b=kgGcJ4m5VOZa4gIWFkPo9WmuiQjMQTTKUGYBq8iSdhcsPN2jTZLLJx5awF/c/PlR22rJhKk7Ye8LQ/af8PWSZC36oCWQcQw87vKnnyO9bQbWsCovvD0a1yt7PSEpjm+XpwM2NMZi5eZRuSkbf83RUXoBd2uiiXqptEK8G3uek0A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792048298; c=relaxed/simple;
-	bh=nqyge/YJtPDcwuFY0ai30R3h+9VL2QlZfBO9AXZ0gkE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AcpNBnu1e+16B6uevgoLT30ZwjZx/mBZ5o/y+cONwP52ogWk9mn3EcRznRvL9gu8qfJtuwH85DJhAYw6mJknmWUcwWU3AGP/EDR2SIjuPcIU+oz4dLhjFGo3+kYvAY10nDgiBUlq+yw21L89CsIwnTF1UierE5Beyp98FDudaHU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=OrMdfgAV; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=LqNRl2GP; arc=none smtp.client-ip=202.12.124.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	s=arc-20240116; t=1792048311; c=relaxed/simple;
+	bh=GT7sDCXITABokia3XhC6ZU5UMtZeLtdIIOdtvJw/Zis=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=e8r8HoH0cLHXX+bugNmJ9R5qqH/ool5tHM2RPD2ouTcl8F1uB3yd6BEZrpyLJ+Qn2yRZFCFb8wcch9z8B3llbNkX0dqgptRejk+6T20zK0sxupaqlWMqOPBWx0+g4kfdOAJRPFrTzXCzCwVID2hNezRuLujm3LmnPKaCEbdFABY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn; spf=pass smtp.mailfrom=tju.edu.cn; dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b=anVGI1N3; arc=none smtp.client-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="OrMdfgAV";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="LqNRl2GP"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailflow.stl.internal (Postfix) with ESMTP id 1D9551300CEE
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 03:11:29 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Thu, 15 Oct 2026 03:11:29 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1792048287;
-	 x=1792055487; bh=kWpbabSXhdWbiJYtYKSzWotKYpXwMvC+M6lHjBExri8=; b=
-	OrMdfgAVZ5soCn7uKRR6Md9IoysXyJN2j0ey7UxnrvFZmG6Y9saj4qc71jAqWiS0
-	F5MSi62rMdlUgWzISuU/0VYPu7WkUs3oP35iEd+H1M2xGDBLLcZm1DwXbGNn+kiG
-	lJ2pVF4rvsHTAGBe/DIfQzqagYaLx8+nqotD4Q+nNKfPpPPdnzroDA03gPveFnIf
-	xUoKBbKBoUZAxeQaykxLTysCW6vz058YVYMxSJ6n9jdw2+8N3CWmslG+ssE2SdzV
-	SYdJgegrvqegPOs8gCZQ84rvJaZtsA7fCxZkIgNQ2jYKfd5YCBm2q8vwGGwUQAOC
-	kxBTrIhSAwcieIIPTULAfw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792048287; x=
-	1792055487; bh=kWpbabSXhdWbiJYtYKSzWotKYpXwMvC+M6lHjBExri8=; b=L
-	qNRl2GPZSqFSVjqs4IgS+xqrD2okGxqvXa7SmYu0hlcCj4Q42/1nPDNXZzgYueKn
-	sDCkMlPfzwkWsRTyOSj/9ZgTolv+Ig1uc4CEEKJURjLagp6f4jbLsZxlYSE5f4/r
-	hCGs/9m9fIHJelXUadPBKvNoQMNa2R8oV/nnUey48kxw1lGzvp4YVPyUVIorrKZj
-	Qy92/MioV+3y+Xsg01k8bmPDZ3Wmgyk2XcACPtk1q9mAS12UAXAGzRFaQLMYQJ92
-	WfnqW8uI6RGqYa2yxwhAzRnQhxJjH6WvMWRu4hMo26xBpQmANU23c1osz+vRDqSi
-	7ft5nhxHenhEC9/OMBbBg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=kroah.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792048287; d=kroah.com;
-	mf=PGdyZWdAa3JvYWguY29tPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:bWHFcY9RnjFtNBMHeOlJRVSPeirHURY5zIDKLl0UxVGhd/H
-	ILQIg5XvLTIsn3A6X8Y6I3h9vKrEhinvCIAFfjqxFOE4J4M5UMsfNza03RZhR7FD
-	TiuNkDxz7uFJ4uacpS1DPamyt8iE0gQNTa/9WalhQtD0Bt6WgI0+T6IDUGdnXkz2
-	SL27a6efLX4IASPfVfvA+m1nfvONeKI9uCqGVIgxEh1MZfGbPw0KosBqq2XXD+uR
-	sOIu+6WeUY2PGNTbyyaJCVtkVw1QUIMw2Ph5sTFPtK7nvWOxQ2XQzQcL6TwtKVSn
-	t24QSM5v5JdqE/FyV99TKwZd0mGk/gZQt3y9r6w==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-disposition,content-transfer-encoding,
-	content-type,date,feedback-id,from,in-reply-to,message-id,
-	mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:5v1S2BselopHJKpcijMJ+QH2LXd5r+IK+uUBIBqg/Ns=:nqyge/YJtPDcwuFY0ai30R3h+9VL2QlZfBO9AXZ0gkE=;
-X-ME-Sender: <xms:nnzQag9-oucjCZwTyfr9ueXdEHb0laRMDkE1LtrPxhODERMj7bUyRQ>
-    <xme:nnzQapcvuBZs3UcLvUQ8uZ64aFxzkU5NjvSaUDeqC-JlCoXpOU-qf_LTuc0u_xvPI
-    -uFyuhFhdj1-pppOFIQ3JQS17oL4Xpei8D04DD5eXJ5NU4zhPE>
-X-ME-Received: <xmr:nnzQau4cJya2jX1hjxPaNccn_xGJrn2zbRDHbSvrWBt2FidsROOQsaQJN9X_U7QCjfO64JMhHEBaYUzWZIpZkSejWzN5bkp49mlsDrMbtcM>
-X-ME-Proxy-Cause: dmFkZTEHCNm8rEckpzA971pz/REHTOd4bY4N7yQHIPOUVfZ8kXfNbonIoHjVjlkxfaWEGv
-    NDSFjZJqgp8garaUvb4+kfP3XH+/K2RmL+PTH8QmtLsHZDZ+SVruE4mPnso0GtKO62rQj/
-    w6QlB7pkaIJun2T766i0DlEAMQivbrHGILNIz01wiEzYj5YwQh2ytk7bOACAJCDoHkjKCF
-    3+sGPhpav7olGxvjraWofyYsQe2HEZBNW8L21uhFJEUZpdt13hRiEuFUtDo6L9a0xGA1zs
-    FIc7EjOueq/f21/FamUys9eDgaPMuxjUiUuxPx+4p5YXVhejmzj0Bo8eGVZsbvxoOWozbz
-    jUPCCFPNVm0Kqd3Km7xHlFGgkrkgn6wGGABGBk/MxmmtfNoa6nM2BXr67jwmtlF6ihpJix
-    rZ1z2b8yvwdcYEutsM2NPI+ZUiYt4id9LydD2KOW0vdtZbQT6qTaxrcOAKX2I90Mn5hhsU
-    XTTx1MYBs/BMwzmuBvTtV/SKB7RcZ0JWR+IK0IREUfIXZqVWcra4D91PI1bzPkQy4zUGmY
-    kopd+clgzcsk30ELasuLG90P/s4V0alrpEvEIQfzDTMNmNxBbwL780cwYTIBDP1cXnlbjT
-    fAKBPskqApyrb+FDEsBGtMDAbmjQzxaMpaFND8lSh4qCl3gND1rhPKqoKiNg
-X-ME-Proxy: <xmx:nnzQaoW7q7cuUVUA2PY8ZzU6x-iz6Z2YTa705VYYlTpZ6wHcIcgDDw>
-    <xmx:nnzQakWYBo7C9zYNdv93ZghEw2wbqAcC0WzWP1TpgGQoWJjY9tvKMg>
-    <xmx:nnzQahZDTPIKPAGdEUWiS02byBaX0xVkrk8OMqWRr_wn8SAJz4_iMg>
-    <xmx:nnzQavUO25yLki4FYEQcU5WuDOuEC7oitvDLdlyI92IrDzKfQNQWqQ>
-    <xmx:n3zQahfhaDP2PswuAmOPWqGz9UJehNplalfZwK08jaF9w0JyqKywmX3l>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 15 Oct 2026 03:11:25 -0400 (EDT)
-Date: Thu, 15 Oct 2026 09:11:30 +0200
-From: Greg KH <greg@kroah.com>
-To: Kees Cook <kees@kernel.org>
-Cc: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	linux-fsdevel@vger.kernel.org, llvm@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH 2/2] seq_file: Require explicit initialization of struct
- seq_operations
-Message-ID: <2026101532-fantastic-deafness-e04c@gregkh>
-References: <20261014225811.i.852-kees@kernel.org>
- <20261014225818.3457479-2-kees@kernel.org>
- <2026101517-profane-opponent-4523@gregkh>
- <CANiq72m_iyquf4Lc8AWvbsBp++ASz4+C_MQ5iYQW-fHd_MNDxA@mail.gmail.com>
- <C46E97AC-3722-4264-B541-04EBC3091E00@kernel.org>
+	dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b="anVGI1N3"
+Received: from localhost (gyproxy-mailtls1-entmail-virt216.gy.ntes [IPV6:2409:8d28:39:f54:403e:4083:f623:91af])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 51223b4cd;
+	Thu, 15 Oct 2026 15:11:31 +0800 (GMT+08:00)
+From: guolingxing <guolingxing@tju.edu.cn>
+To: David Sterba <dsterba@suse.com>,
+	Chris Mason <mason@kernel.org>,
+	Boris Burkov <boris@bur.io>
+Cc: linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	guolingxing <guolingxing@tju.edu.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] btrfs: verity: return error from btrfs_orphan_add in begin_enable_verity
+Date: Thu, 15 Oct 2026 07:11:28 +0000
+Message-Id: <20261015071128.3319350-1-guolingxing@tju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <C46E97AC-3722-4264-B541-04EBC3091E00@kernel.org>
+X-HM-Tid: 0aa13e66ddac03a2kunmfc98b02167272
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTB0dVhlNHRgaSR5NH0xISVYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJT0tCQUMfSUNBSEJBHU5PQU9LSB5BT0tDSEEdTUlIQUJKGh
+	1ZV1kWGg8SFR0UWUFZT0tIVUpLSEpMTUNVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=anVGI1N3hZJXnN6IgGoSd37p7+HwZHVYh73JG5lG5XxrZxj44WtlE6CtxgG3Rq83nlA65nfqxwEidgKIoGDDmk2YITahUnzmOWq1HpIbRi+9s1Jp9jnXTlIihiza9f4AOm4Hn3n5WkZr7COklnQpJ7+ms+VQpbZzI9NJPDD+KMI=; s=default; c=relaxed/relaxed; d=tju.edu.cn; v=1;
+	bh=LYphTqGMrkmNiWbMOtzHMbORmjEVtNFv7ZLeMtQHIrM=;
+	h=date:mime-version:subject:message-id:from;
 
-On Wed, Oct 14, 2026 at 10:57:57PM -0700, Kees Cook wrote:
-> 
-> 
-> On October 14, 2026 10:46:02 PM PDT, Miguel Ojeda <miguel.ojeda.sandonis@gmail.com> wrote:
-> >On Thu, Oct 15, 2026 at 7:21 AM Greg KH <greg@kroah.com> wrote:
-> >>
-> >> Anyway, I don't know.  I like this feature, and maybe it's going to be
-> >> used so infrequently it's not a big deal, but feels clunky.
-> >
-> >Perhaps we could call it something shorter, like `__explicit_init` or
-> >similar -- I don't see that substring (even without the double
-> >underscores) used anywhere.
+btrfs_begin_enable_verity() ignores the return value of
+btrfs_orphan_add() and unconditionally returns 0. When inserting the
+orphan item fails (e.g. -ENOMEM), the error is swallowed and the
+caller continues to build the Merkle tree even though the orphan item
+was never written and BTRFS_INODE_VERITY_IN_PROGRESS was not set,
+leaving the on-disk state inconsistent.
 
-__must_init might be smaller?
+Propagate the error to the caller so that fsverity_ioctl_enable()
+aborts before building the Merkle tree. The transaction is already
+aborted inside btrfs_orphan_add() on failure and released by the
+unconditional btrfs_end_transaction(), so only the return value needs
+to change.
 
-Naming is hard :)
+Fixes: 705242538ff3 ("btrfs: verity metadata orphan items")
+Cc: stable@vger.kernel.org
+Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
+---
+ fs/btrfs/verity.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> That's nice, yeah. And it's not the first time we've changed the "spelling" of an attribute.
-> 
-> Does anyone object to that? I can replace it with that in my tree...
+diff --git a/fs/btrfs/verity.c b/fs/btrfs/verity.c
+index 600337a84fbe..d92c9dab0293 100644
+--- a/fs/btrfs/verity.c
++++ b/fs/btrfs/verity.c
+@@ -615,7 +615,7 @@ static int btrfs_begin_enable_verity(struct file *filp)
+ 		set_bit(BTRFS_INODE_VERITY_IN_PROGRESS, &inode->runtime_flags);
+ 	btrfs_end_transaction(trans);
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ /*
+-- 
+2.34.1
 
-No objection from me to make it shorter, and yes, we can always change
-it going forward if someone comes up with a better term.
-
-thanks,
-
-greg k-h
