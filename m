@@ -1,803 +1,1735 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53DF24A2A6E
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:06:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 643D7524B10
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:06:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792069608; cv=none; b=andkoMze99BmMjBmoMgEGg45BWrMaAK82Ro2exWWNQtNzP9vK4K8SbhzARM7qQ8vAdh+Z7XAIHrQJ5lBqn6vQHVqLeGIsWKeC/f3o8pUy0VHNznn7NYAvl2XsfgpnpeyVBQMRRnDk5V+fsHx7dNviLfajHJfBCLarsRTIobz3RQ=
+	t=1792069617; cv=none; b=u0OQ57hfVW0M6KcVauRJuy1cFR33ZvLePAvOCXlJrojegSH7E7BhcIGcenxzaCZQ33tf4SE4QuMT7O8WmMcrmu9NJOCsBSUPPp/RxejKFeBnwkOlvMQZdoevm5M6zTwPj62U2/HlOaVEZ6M3fcBH3iWYH29i5sBzV+aVC/LOakc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792069608; c=relaxed/simple;
-	bh=FgYjLtr7lTVOy3hpwD0+k8mP1nayW9MiiKQC/xlWnPk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cVhywq91ZdyjJ7vYuWCWzEZk8U11OAA4I8jpLLae8DNkrQ5jmjaQYGSexE7sMAZ+A6KV2IcDB+a70IR/tWztpJ9taPbA3UWAsEZGX+G7zkRcs/Eihp4UUFvxdmABZpnuGyjdTRRv/Pd3DOg9ul3dvgCVADEB22Q0dd/hYRVSjM4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=iVICmAu1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=K1fQcviC; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792069617; c=relaxed/simple;
+	bh=rwX/+G3nHAYFtl7fD6dlhoy2RvX0CF79K4bgIq+FETo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OW9dWgCYI7U8N67Z7XM3jcIDM/fZ4mNVz7ZVfCilijKD8ELk42hSLBQtMDoKzDAYWZLdFld1R+7PkpjiNN9IrKRcXD23lGBrYU+j7u2xZ6Z1SG4qKGWqr0gbBNOE0Rovb4h7HgurCXg7RSG+9wEH3QS/aU40IIxzt8ASbZ95GmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NGNONf8v; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="iVICmAu1";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="K1fQcviC"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9kE8P2999154
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:06:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	nUrRKow716VLDkdUtBEZdLpuUza6F3nodlWQImDHgE8=; b=iVICmAu1oWEE9d4y
-	4Z7NDQdxANtuzADVuyeyyMY0KPy5nkDV/E0rDMZLSv2xKWCPSyeo5vYZCYFTeZo1
-	1V3/gylNDFX9MJLxijPOVsZrxvM6pKK2Xb9dBCURhSOKrDbZ79Ih+EaiYRLINkpM
-	rJPnD73nNu7SflcV/zMNvwrOSqA6Az/q5ZPORDnwJDJWCSnb5ucyWDf4vwRIq0xa
-	GXSfWDnlK6Q+XJJXyMmw2BRkWray+HDnm2kVVpsit2QFTMSTwoYPmdT3oSyCzaEW
-	fAFCUTjekoHYTuawJQZIQ8pU0KG+hy9nVDaunAbNQw98zQ9mITuR6+uh7wUx0dS8
-	AxqkVA==
-Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com [209.85.221.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hausm11uv-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:06:45 +0000 (GMT)
-Received: by mail-vk1-f197.google.com with SMTP id 71dfb90a1353d-5e5a0ad2e81so6275153e0c.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:06:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NGNONf8v"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a1698ea378so43202565e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:06:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792069603; x=1792674403; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nUrRKow716VLDkdUtBEZdLpuUza6F3nodlWQImDHgE8=;
-        b=K1fQcviCZt3pJoXxKWWODCMDuCq1XAJcgg6yBewqVd3ZEYVSW17twJomH1CT36wQ3j
-         cfklJlkjQ+zAS9Wnz+GmHr/S96djee/WoKN3YSwzvpKZkAdLz1c14t4zoGktw/calefM
-         fkwRAAnCsliRvdxClhDWb7tsxbbarbWCea3TZT5faV1BKX6FdwbFMR2T2KliDg5oJ1ct
-         Wtb5Ixq46XH8XO9HfQOjg3Dy+RQruxcFhqEpzVCwH2eAdwhk56BrV1L2TWWPGv2hu0Vp
-         nDuxwTXW1+dsJjWU92O7iVPZA1nU+rpfUp3i+nigi3bCy4eiZNX5dCd7QSw2qcvq1hfm
-         10JA==
+        d=gmail.com; s=20251104; t=1792069611; x=1792674411; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pH3e4fgrEI6gUzjW7plb0H5vxjenHgEIqDTN+4/sEJA=;
+        b=NGNONf8vZm99I3ISU2iCP6AlioG3T3+A++8ezCgRq2zH97RiymHju9+TdhCbWhYIw7
+         96lOCQLkYxE7mOKAzlqRk9rOdW5G1SqEeOIEocoh+n4m+K7FVvMjXjoF5KOGco29AbuH
+         mJ9Z2oILpaZdLtpbqX6dE4DHDOuteUm0wxYR4iNEiqmkqGf1qnxOR7/IO8OOx8JY/328
+         KrTm0LdU33310dbxAtDG7idlvGmYZLyzw9ciwH3ZhqwynlzD/baX1UxgP8dorLHfuz+n
+         NSLdY+lYnGAVVtpbiVfNn7eYR8RYZm2n7Http1U2dD+A3nv3kAqfpco2ma+wXn4yeSfo
+         CwtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792069603; x=1792674403;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=nUrRKow716VLDkdUtBEZdLpuUza6F3nodlWQImDHgE8=;
-        b=hqMEFvUxSlA40xIWF+HZiiRRep3NkIgLXtVzqvZ7UZdBS4e0lz1W4rmIBG1xzm6a8u
-         vqjGLA/p8S1roaUqg4q65eKIFKESRZFjU2N1fYhH7wZ53OOgUBXy/yQDF5ommsnuiR9T
-         3gbd02g/4p4QhLarjHwJUKix9VJPjlM9cEw4ddBMLbm25RriNMl303SaFv2sYS/eeYg1
-         uoB83YmXF3x/bATYK5G3roisKMeV3UV/n45e8LQ+cOYv47Pay6K+5xjS/bwnq2POMTi4
-         CI9MmCDwjlaW1DVNPw8qy62tW2sqTL375UlSsu7BSetKApFUxHHtncQ3DJLIrwdFDtub
-         xpVg==
-X-Forwarded-Encrypted: i=1; AKwUvBw76Q+ANFO6kIyDFXiWgmWmQIpDqbXzGFWmp0QHnj1WxB8MXYWXetMOMo2Ek3hYctGv4VgrsCEsisKHn1g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI+Hfu9safAYbBwrGz/0epoeGZtK4U97Srip9/d0j/ZMlKE3o88
-	qClokjFGudKkY14rEsagzcnVWhv9LoiwyARcy3NcjwFf4nb4281ZPSnINei/nB1pwCkrih7/cj+
-	LXp+F3s0I+z2QmvQfm4pEQatqNB/GvEGTZB1WuSfbvkjLOu4e/SKXoeCC/ZPeezpsSoM=
-X-Gm-Gg: AYBFou2b7R5GhNWZwa3s+tkQQtmVIxKP9Ew4vNaDIBRWgnlZPQ6BAplUxwoeXhXj+db
-	vZp27zblIMaNKlgoNbyHF4iLCIb8IXJPP3V4EEGt/vLnW7GwbqoQigG797isZYkxyH+a9Rd8sUL
-	1dpmGd5ByuKoipT7FW/JWVBObTFdKUi7Nmi8p/n5eoAQ/uw3Y58Uzf4ghxPn/rbCNDK4jW6A0y1
-	Lkc1zRu3hAOA7hsVdtxKgdkXV0a9EP/48F9KjZcE0Kpj1UZUf03/Dr7zH9Bz1Naz9flVZkNCeRn
-	llOibu+gcxIr3VjlyYbcN8Y/Z/JgR3ivPi5yXZLo4dvc/XuVG2GlYM7n6SAlPOK7K4nCnQ4v6Ee
-	+Y/Xa4vrCHX7fsIPA8LzLcWg83IOxhq9lRDWdlmTrcG8A+SeVrP6oxBVJOeXuXUmr5yuG/QyUmZ
-	yq/Q4cE2YikYlH
-X-Received: by 2002:a05:6122:180c:b0:5ea:8f37:3063 with SMTP id 71dfb90a1353d-5ea8f37349dmr372379e0c.17.1792069603000;
-        Thu, 15 Oct 2026 06:06:43 -0700 (PDT)
-X-Received: by 2002:a05:6122:180c:b0:5ea:8f37:3063 with SMTP id 71dfb90a1353d-5ea8f37349dmr372301e0c.17.1792069602282;
-        Thu, 15 Oct 2026 06:06:42 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5be420bbbf0sm225187e87.79.2026.10.15.06.06.39
+        d=1e100.net; s=20260707; t=1792069611; x=1792674411;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pH3e4fgrEI6gUzjW7plb0H5vxjenHgEIqDTN+4/sEJA=;
+        b=xYaX5u6xEAeNkJ8J//KZS1yK20WHUt1tf+nf7piCBYGi7J/A1PZbGz4oF64hElr2iu
+         XgwmFdBiPLcMb+1Rlrbzjkw2kOzaGUjUe+2ydyG+HYZzfJJ0/PAyA2sV+tp/lSTDD0qD
+         lhkRBxrNZxcC5CTTkGoj7I9o3zCGDDUXewAniCd4mlZ46J24okXfndD41u8pcgqjaOEA
+         vF+E4RsXU926ysjUfwpdJ4b+teygyPgpWojzNJpuvWdgIwppF02Ubh/hhFjGJiKqcv/1
+         HFL6bM9P7SQ8SoMUel58JCNi8yH88Rtv8N3SftyXuaqGWxjTjh0shrkYrM0PepjX80R0
+         2eKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz5Za8zsjPnBs+vQanIbkSw07iS09bpDoE+XpOBsdk3KqHGYnxDhkV0ynbqq/pwKwQ6BCfZSFpAI83DSuE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJWnnxlEWXUDI+5NqoON+UfH+zy7yvLX7GytgELBGHN/ktbR08q
+	qiu4bLaeSE6HJuO+Cz3I3qaS3oxYHiXZPHyY4Y8E6BaYFmZUjMEoaojtnoefew==
+X-Gm-Gg: AYBFou0RKTe7cJ8zfMb4n0TzvARJ9LSlZRrFgjeOwh8/pPyesKevvxu3nuBiHFuZrMv
+	jsKr+EYNmd00Tew5p3Csk+oHwxhovNjBdLQInYXIRuZdM4IDLZwWiR31NL1vZ98ktZc/8TlFRX7
+	HH9Lw6RY4pWoQ56ee2CboC4zPpUR3oIHCAKU5lpjwp7z4zCY0pCXR+pVBgtxRfUdRMgH6yYXWsi
+	GtLVwFzpBE/yIg9JdSvA638A8v/i6MPRed0JyEnP7tqPG8EM0J4mzf1CV2MMBIEwzBOw80YpONo
+	h6RBQLLVqlWuYjeA1d1svx+G/8mChXrA9AH1JEZtSPVwjtgvDWLx4KdoaInV7uxYmynSr42Dnit
+	t0p9BzPaasqc25zMaUyDyg9KMPfvp2e3TomYzGchWSagOWgx+I1VlTvUdQXRgcuEE0El5XkNwOh
+	rZn2JnzvT7a7sJJJdXHOlRLh09avD/1Da4hmMMNdnyGF5MoQZq0skWa6wcYsXgJv1vordNfEXvL
+	w2fRBR+bVMCMggz5K4=
+X-Received: by 2002:a05:600c:4ec9:b0:4a1:8961:78dd with SMTP id 5b1f17b1804b1-4a18e4c9e46mr403458545e9.27.1792069611104;
+        Thu, 15 Oct 2026 06:06:51 -0700 (PDT)
+Received: from xeon ([188.163.112.62])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd9c001dsm67013005e9.12.2026.10.15.06.06.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 06:06:40 -0700 (PDT)
-Date: Thu, 15 Oct 2026 16:06:38 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Sumit Semwal <sumit.semwal@linaro.org>,
-        Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
-        Philipp Stanner <phasta@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>, linux-arm-msm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
-        iommu@lists.linux.dev
-Subject: Re: [PATCH 10/13] drm/msm/dcp: Add VirtIO transport and platform
- driver
-Message-ID: <gegmh2qb7odywjesxlvrm6knjjwsx6g2xfif2s6wq5zn7y33q4@gpdwz2ajlm4i>
-References: <20261015-jshekhar-drm-msm-dcp-v1-v1-0-48aad0fe4f72@oss.qualcomm.com>
- <20261015-jshekhar-drm-msm-dcp-v1-v1-10-48aad0fe4f72@oss.qualcomm.com>
+        Thu, 15 Oct 2026 06:06:49 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v1 1/1] ASoC: dt-bindings: nvidia,tegra-audio: Consolidate all codec support into a single schema
+Date: Thu, 15 Oct 2026 16:06:28 +0300
+Message-ID: <20261015130628.184279-2-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261015130628.184279-1-clamor95@gmail.com>
+References: <20261015130628.184279-1-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261015-jshekhar-drm-msm-dcp-v1-v1-10-48aad0fe4f72@oss.qualcomm.com>
-X-Proofpoint-GUID: dnt_FTE_efBAuWhebpvZ1_n4t4WkEHqv
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1MiBTYWx0ZWRfX8XPOvgP0Uhce
- Q3Suq14yhLNVXEIg0LR7KyP2MOrE6MQtB1WN+0N09bVkwm8bBoYusVOXDQoR48N/FUbVY58Bh9F
- KCpv6hvhoNxHFz3QjQ8V8lqZWa5BaU30Oo2XjCtl2rgUvuTizmO6U6fMFb5tOEWi8P7QMOGWGhj
- jsiO2VRQQhOcXmQbxXdZjsnyd2EgrrzSAaTIjX6XjlTPWTYfQ52FM5y2NjuhjxbQJjUd4VI2EZh
- RDI/MBcWrM4/SjRwjf9/fnCNxwGWPrKLIqCjXLcYGcuMSFHuB02vcdQPywq97l/LZhjKZcw0JjG
- GCn4UmIKsAwM0Xc+hPT8O5mJ1iAZFCpWn8pUz71x9NVE073/Hv0eVTlRm7KDJ4qqsp6/3PoOu/E
- H2AJ1HPpZvBovLDjxldWwqoicdRpchAwO8XtV8Piziyeyt5lDCqh+8ZPkRCrLHwv4KlI/eOn9zp
- KqIA12q7HlqGnSr49bA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1MiBTYWx0ZWRfXyC8w3K0RNahI
- Kn2fzTvMpGMFOuIfX/agpGy7B5dFrbiBVuJGAthucPMCy7c2ZMt9YA7CJTGP/AVVR/BkjMd49Uv
- XHfAKlmSqdLF/CTXqZm5MUw7TYfzpMI=
-X-Authority-Analysis: v=2.4 cv=Eb5d0/mC c=1 sm=1 tr=0 ts=6ad0cfe5 cx=c_pps
- a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
- a=8UvxyRjR-zxYBsYGV0wA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=tNoRWFLymzeba-QzToBc:22
-X-Proofpoint-ORIG-GUID: dnt_FTE_efBAuWhebpvZ1_n4t4WkEHqv
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0 phishscore=0 bulkscore=0 priorityscore=1501
- clxscore=1015 lowpriorityscore=0 adultscore=0 malwarescore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150052
 
-On Thu, Oct 15, 2026 at 01:08:30PM +0530, Jayant Shekhar wrote:
-> DCP display hardware is controlled by firmware and exposed to Linux as a
-> VirtIO function. The MSM DRM driver needs a platform driver to establish
-> the transport, DMA/IOMMU address spaces, power-notify path, and display
-> component.
-> 
-> Add the VirtIO-MMIO transport and DCP platform-function driver. Set up the
-> DMA/IOMMU identity, IPCC client, VirtIO queues, HFI transport, firmware
-> capability handling, and MSM DRM registration. Synchronize suspend, resume,
-> remove, and shutdown with in-flight HFI activity.
-> 
-> Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-> Assisted-by: LLM
-> ---
->  drivers/gpu/drm/msm/Makefile         |   2 +
->  drivers/gpu/drm/msm/dcp/dcp_drv.c    | 245 ++++++++++++++++++++++++++++
->  drivers/gpu/drm/msm/dcp/dcp_drv.h    |  19 +++
->  drivers/gpu/drm/msm/dcp/dcp_virtio.c | 302 +++++++++++++++++++++++++++++++++++
->  drivers/gpu/drm/msm/dcp/dcp_virtio.h |  22 +++
->  5 files changed, 590 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
-> index 9910bd4f306d..e57aee483137 100644
-> --- a/drivers/gpu/drm/msm/Makefile
-> +++ b/drivers/gpu/drm/msm/Makefile
-> @@ -83,6 +83,8 @@ msm-display-$(CONFIG_DRM_MSM_DCP) += \
->  	dcp/dcp_ipcc.o \
->  	dcp/dcp_plane.o \
->  	dcp/dcp_encoder.o \
-> +	dcp/dcp_drv.o \
-> +	dcp/dcp_virtio.o \
->  	dcp/hfi/hfi_packer.o \
->  	dcp/hfi/hfi_unpacker.o \
->  	dcp/hfi/hfi_utils.o
-> diff --git a/drivers/gpu/drm/msm/dcp/dcp_drv.c b/drivers/gpu/drm/msm/dcp/dcp_drv.c
-> new file mode 100644
-> index 000000000000..e7016937a028
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/dcp/dcp_drv.c
-> @@ -0,0 +1,245 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + * DCP VirtIO driver.
-> + */
-> +
-> +#include <linux/component.h>
-> +#include <linux/device.h>
-> +#include <linux/dma-mapping.h>
-> +#include <linux/of.h>
-> +#include <linux/of_platform.h>
-> +#include <linux/panic_notifier.h>
-> +#include <linux/pm_runtime.h>
-> +
-> +#define DCP_DPU_AUTOSUSPEND_DELAY_MS	5000
-> +
-> +#include "dcp_drv.h"
-> +#include "dcp_hfi.h"
-> +#include "dcp_ipcc.h"
-> +#include "dcp_virtio.h"
-> +#include "msm_drv.h"
-> +#include "msm_kms.h"
-> +
-> +int dcp_subsystem_dev_init(struct dcp_drv *drv)
-> +{
-> +	struct virtio_device *vdev = drv->vdev;
-> +	struct device_node *dcp_subsystem_node;
-> +	struct platform_device *pdev;
-> +	struct device *dev;
-> +	char busid[32];
-> +	int ret;
-> +
-> +	dcp_subsystem_node = of_get_child_by_name(vdev->dev.parent->of_node,
-> +						  "dcp-subsystem");
-> +	if (!dcp_subsystem_node) {
-> +		dev_err(&vdev->dev, "no dcp-subsystem DT node\n");
-> +		return -ENODEV;
-> +	}
-> +
-> +	snprintf(busid, sizeof(busid), "dcp-subsystem.%s", dev_name(vdev->dev.parent));
-> +
-> +	/*
-> +	 * DCP is discovered through VirtIO, but display/HFI buffers must be
-> +	 * mapped through the dcp-subsystem node's DMA/IOMMU identity. Create a
-> +	 * platform device for that DT node so DMA API and msm_kms_init_vm() use
-> +	 * the display function's IOMMU domain.
-> +	 */
-> +	pdev = of_platform_device_create(dcp_subsystem_node, busid, vdev->dev.parent);
-> +	if (!pdev) {
-> +		dev_err(&vdev->dev, "dcp_subsystem_dev creation failed\n");
-> +		of_node_put(dcp_subsystem_node);
-> +		return -ENODEV;
-> +	}
-> +	dev = &pdev->dev;
-> +
-> +	dev->dma_parms = &drv->dcp_subsystem_dma_parms;
-> +	dma_set_max_seg_size(dev, UINT_MAX);
-> +
-> +	ret = of_dma_configure_id(dev, dcp_subsystem_node, true, NULL);
-> +	if (ret) {
-> +		dev_err(dev, "of_dma_configure_id failed: %d\n", ret);
-> +		goto err_destroy;
-> +	}
-> +
-> +	if (!device_iommu_mapped(dev)) {
-> +		dev_err(dev, "no IOMMU group attached\n");
-> +		ret = -ENODEV;
-> +		goto err_destroy;
-> +	}
-> +
-> +	dev_dbg(dev, "dcp-subsystem: iommu_mapped=%d iommu_group=%d\n",
-> +		device_iommu_mapped(dev),
-> +		 dev->iommu_group ? iommu_group_id(dev->iommu_group) : -1);
-> +
-> +	pm_runtime_set_active(dev);
-> +	pm_runtime_enable(dev);
-> +	pm_runtime_set_autosuspend_delay(dev, DCP_DPU_AUTOSUSPEND_DELAY_MS);
-> +	pm_runtime_use_autosuspend(dev);
-> +
-> +	drv->dcp_subsystem_dev = pdev;
-> +	drv->dcp_subsystem_node = dcp_subsystem_node;
-> +
-> +	return 0;
-> +
-> +err_destroy:
-> +	of_platform_device_destroy(dev, NULL);
-> +	of_node_put(dcp_subsystem_node);
-> +	return ret;
-> +}
-> +
-> +void dcp_subsystem_dev_deinit(struct dcp_drv *drv)
-> +{
-> +	if (!drv->dcp_subsystem_dev)
-> +		return;
-> +
-> +	pm_runtime_disable(&drv->dcp_subsystem_dev->dev);
-> +	of_platform_device_destroy(&drv->dcp_subsystem_dev->dev, NULL);
-> +	of_node_put(drv->dcp_subsystem_node);
-> +	drv->dcp_subsystem_dev = NULL;
-> +}
-> +
-> +int dcp_pm_prepare(struct device *vdev_dev)
-> +{
-> +	struct dcp_drv *drv = vdev_dev ? ((struct virtio_device *)
-> +					  dev_to_virtio(vdev_dev))->priv : NULL;
-> +
-> +	if (!drv || !drv->dcp_subsystem_dev)
-> +		return 0;
-> +
-> +	return msm_kms_pm_prepare(&drv->dcp_subsystem_dev->dev);
-> +}
-> +
-> +void dcp_pm_complete(struct device *vdev_dev)
-> +{
-> +	struct dcp_drv *drv = vdev_dev ? ((struct virtio_device *)
-> +					  dev_to_virtio(vdev_dev))->priv : NULL;
-> +
-> +	if (!drv || !drv->dcp_subsystem_dev)
-> +		return;
-> +
-> +	msm_kms_pm_complete(&drv->dcp_subsystem_dev->dev);
-> +}
-> +
-> +static int dcp_pm_ipcc_notify(struct dcp_drv *drv)
-> +{
-> +	int ret;
-> +
-> +	if (!drv->ipcc_valid)
-> +		return 0;
-> +
-> +	ret = dcp_ipcc_send_power_notify(&drv->ipcc);
+The number of codecs supported by the NVIDIA Tegra audio complex is
+increasing, which leads to an increasing number of bindings with minimal
+changes. The main differences between codecs are the compatible strings
+and possible pin configurations. With the introduction of auxiliary
+devices, a definitive description of possible pin configurations becomes
+nearly impossible.
 
-An indirection just for the sake of indirection? Can we drop one-line
-wrappers?
+Remove all existing per-codec schemas and consolidate everything into a
+single schema. Compatibles are grouped into common codecs followed by
+unique codecs, all sorted alphabetically. Added examples for each of the
+common codecs and for each Tegra generation except Tegra114.
 
-> +	if (ret)
-> +		dev_warn(&drv->vdev->dev,
-> +			 "IPCC power notification failed during PM: %d\n", ret);
-> +
-> +	return ret;
-> +}
-> +
-> +int dcp_pm_suspend(struct device *vdev_dev)
-> +{
-> +	struct dcp_drv *drv = vdev_dev ? ((struct virtio_device *)
-> +					  dev_to_virtio(vdev_dev))->priv : NULL;
-> +
-> +	if (!drv || !drv->dcp_subsystem_dev)
-> +		return 0;
-> +
-> +	return dcp_pm_ipcc_notify(drv);
-> +}
-> +
-> +int dcp_pm_resume(struct device *vdev_dev)
-> +{
-> +	struct dcp_drv *drv = vdev_dev ? ((struct virtio_device *)
-> +					  dev_to_virtio(vdev_dev))->priv : NULL;
-> +
-> +	if (!drv || !drv->dcp_subsystem_dev)
-> +		return 0;
-> +
-> +	return dcp_pm_ipcc_notify(drv);
-> +}
-> +
-> +static int dcp_self_bind(struct device *master, struct device *dev, void *data)
-> +{
-> +	return 0;
-> +}
-> +
-> +static void dcp_self_unbind(struct device *master, struct device *dev,
-> +			    void *data)
-> +{
-> +}
-> +
-> +static const struct component_ops dcp_self_ops = {
-> +	.bind   = dcp_self_bind,
-> +	.unbind = dcp_self_unbind,
-> +};
-> +
-> +int dcp_component_register(struct dcp_drv *drv)
-> +{
-> +	struct device *dev = &drv->dcp_subsystem_dev->dev;
-> +	struct component_match *match = NULL;
-> +	int ret;
-> +
-> +	/*
-> +	 * DCP has no host-visible display subcomponents: firmware owns the
-> +	 * underlying display blocks. The self component is only the minimal shim
-> +	 * needed to enter the existing MSM DRM component-master init path without
-> +	 * adding a DCP-specific entry point to common MSM DRM code.
-> +	 */
+Schema check passes for all in-kernel Tegra device trees.
 
-And how does that work with the DSI probing sequences? The panel driver
-might be not (yet) available when you probe the DCP. The driver should
-register the DSI host, create DSI devices, but the DRM device
-registration is only possible when the panel / bridge has attached to
-the DSI host. See how it's handled by the mdp4/mdp5/dpu drivers.
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+---
+ .../sound/nvidia,tegra-audio-alc5632.yaml     |  74 ------
+ .../sound/nvidia,tegra-audio-common.yaml      |  92 -------
+ .../sound/nvidia,tegra-audio-complex.yaml     | 235 ++++++++++++++++++
+ .../sound/nvidia,tegra-audio-cpcap.yaml       |  90 -------
+ .../sound/nvidia,tegra-audio-max9808x.yaml    |  95 -------
+ .../sound/nvidia,tegra-audio-max98090.yaml    |  97 --------
+ .../sound/nvidia,tegra-audio-rt5631.yaml      |  85 -------
+ .../sound/nvidia,tegra-audio-rt5640.yaml      |  84 -------
+ .../sound/nvidia,tegra-audio-rt5677.yaml      | 100 --------
+ .../sound/nvidia,tegra-audio-sgtl5000.yaml    |  67 -----
+ .../sound/nvidia,tegra-audio-trimslice.yaml   |  33 ---
+ .../sound/nvidia,tegra-audio-wm8753.yaml      |  79 ------
+ .../sound/nvidia,tegra-audio-wm8903.yaml      |  93 -------
+ .../sound/nvidia,tegra-audio-wm8962.yaml      |  88 -------
+ .../sound/nvidia,tegra-audio-wm8994.yaml      | 110 --------
+ .../sound/nvidia,tegra-audio-wm9712.yaml      |  76 ------
+ 16 files changed, 235 insertions(+), 1263 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-alc5632.yaml
+ delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-common.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-complex.yaml
+ delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-cpcap.yaml
+ delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-max9808x.yaml
+ delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-max98090.yaml
+ delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-rt5631.yaml
+ delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-rt5640.yaml
+ delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-rt5677.yaml
+ delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-sgtl5000.yaml
+ delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-trimslice.yaml
+ delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8753.yaml
+ delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8903.yaml
+ delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8962.yaml
+ delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8994.yaml
+ delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm9712.yaml
 
-> +	ret = component_add(dev, &dcp_self_ops);
-> +	if (ret) {
-> +		dev_err(dev, "component_add failed: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	component_match_add(dev, &match, component_compare_dev, dev);
-
-Missing optional GPU match. I think I wrote that before...
-
-> +
-> +	ret = component_master_add_with_match(dev, &msm_drm_ops, match);
-> +	if (ret) {
-> +		dev_err(dev, "component_master_add_with_match failed: %d\n",
-> +			ret);
-> +		component_del(dev, &dcp_self_ops);
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +void dcp_component_unregister(struct dcp_drv *drv)
-> +{
-> +	struct device *dev = &drv->dcp_subsystem_dev->dev;
-> +
-> +	component_master_del(dev, &msm_drm_ops);
-> +	component_del(dev, &dcp_self_ops);
-> +}
-> +
-> +static int dcp_panic_notifier_cb(struct notifier_block *nb,
-> +				 unsigned long action, void *data)
-> +{
-> +	struct dcp_drv *drv = container_of(nb, struct dcp_drv, panic_notifier);
-> +
-> +	if (drv->hfi)
-> +		atomic_set(&drv->hfi->shutdown_in_progress, 1);
-> +
-> +	return NOTIFY_OK;
-> +}
-> +
-> +void dcp_panic_notifier_register(struct dcp_drv *drv)
-> +{
-> +	drv->panic_notifier.notifier_call = dcp_panic_notifier_cb;
-> +	atomic_notifier_chain_register(&panic_notifier_list, &drv->panic_notifier);
-> +}
-> +
-> +void dcp_panic_notifier_unregister(struct dcp_drv *drv)
-> +{
-> +	atomic_notifier_chain_unregister(&panic_notifier_list, &drv->panic_notifier);
-> +}
-> +
-> +void __init msm_dcp_register(void)
-> +{
-> +	dcp_virtio_register();
-> +}
-> +
-> +void __exit msm_dcp_unregister(void)
-> +{
-> +	dcp_virtio_unregister();
-> +}
-> diff --git a/drivers/gpu/drm/msm/dcp/dcp_drv.h b/drivers/gpu/drm/msm/dcp/dcp_drv.h
-> index af2db3cf9066..ca8e5bd284e0 100644
-> --- a/drivers/gpu/drm/msm/dcp/dcp_drv.h
-> +++ b/drivers/gpu/drm/msm/dcp/dcp_drv.h
-> @@ -26,6 +26,25 @@ struct dcp_drv {
->  	struct dcp_dpu_kms	*kms;
->  	struct dcp_caps		 caps;
->  	struct notifier_block	 panic_notifier;
-> +	struct dcp_ipcc		 ipcc;
-> +	bool			 ipcc_valid;
->  };
->  
-> +int dcp_subsystem_dev_init(struct dcp_drv *drv);
-> +void dcp_subsystem_dev_deinit(struct dcp_drv *drv);
-> +
-> +int dcp_component_register(struct dcp_drv *drv);
-> +void dcp_component_unregister(struct dcp_drv *drv);
-> +
-> +int dcp_pm_prepare(struct device *vdev_dev);
-> +void dcp_pm_complete(struct device *vdev_dev);
-> +int dcp_pm_suspend(struct device *vdev_dev);
-> +int dcp_pm_resume(struct device *vdev_dev);
-> +
-> +void dcp_panic_notifier_register(struct dcp_drv *drv);
-> +void dcp_panic_notifier_unregister(struct dcp_drv *drv);
-> +
-> +void __init msm_dcp_register(void);
-> +void __exit msm_dcp_unregister(void);
-> +
->  #endif /* __DCP_DRV_H__ */
-> diff --git a/drivers/gpu/drm/msm/dcp/dcp_virtio.c b/drivers/gpu/drm/msm/dcp/dcp_virtio.c
-> new file mode 100644
-> index 000000000000..b2aeb03688c9
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/dcp/dcp_virtio.c
-> @@ -0,0 +1,302 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + * DCP VirtIO device driver.
-> + */
-> +
-> +#include <linux/module.h>
-> +#include <linux/err.h>
-> +#include <linux/pm_runtime.h>
-> +#include <linux/virtio.h>
-> +#include <linux/virtio_config.h>
-> +#include <linux/scatterlist.h>
-> +#include <linux/slab.h>
-> +
-> +#include "dcp_drv.h"
-> +#include "dcp_dpu_kms.h"
-> +#include "dcp_hfi.h"
-> +#include "dcp_ipcc.h"
-> +#include "dcp_virtio.h"
-> +#include "msm_drv.h"
-> +#include "msm_kms.h"
-> +
-> +static void dcp_virtio_hfi_cleanup(struct dcp_drv *drv);
-> +
-> +static const unsigned int dcp_virtio_features[] = {
-> +	VIRTIO_F_VERSION_1,
-> +	VIRTIO_F_NOTIFICATION_DATA,
-> +	VIRTIO_F_RING_RESET,
-> +	VIRTIO_F_ACCESS_PLATFORM,
-> +};
-> +
-> +/*
-> + * The VirtIO core owns transport discovery. This driver owns HFI setup and
-> + * creates the DRM component only after firmware capabilities are available.
-> + */
-> +static int dcp_virtio_probe(struct virtio_device *vdev)
-> +{
-> +	struct dcp_drv *drv;
-> +	struct virtqueue *vqs[DCP_NUM_VQS];
-> +	struct virtqueue_info vqs_info[DCP_NUM_VQS] = {
-> +		[DCP_VQ_CMD]  = { .name = "cmd",  .callback = dcp_hfi_cmd_callback },
-> +		[DCP_VQ_RESP] = { .name = "resp", .callback = dcp_hfi_resp_callback },
-> +	};
-> +	struct dcp_dpu_kms *dpu_kms;
-> +	struct msm_drm_private *priv;
-> +	int ret;
-> +
-> +	dev_dbg(&vdev->dev, "DCP VirtIO probe started\n");
-> +
-> +	drv = devm_kzalloc(&vdev->dev, sizeof(*drv), GFP_KERNEL);
-> +	if (!drv)
-> +		return -ENOMEM;
-> +
-> +	drv->vdev = vdev;
-> +	vdev->priv = drv;
-> +
-> +	if (!virtio_has_feature(vdev, VIRTIO_F_VERSION_1)) {
-> +		dev_err(&vdev->dev, "VIRTIO_F_VERSION_1 not negotiated\n");
-> +		return -ENODEV;
-> +	}
-> +	/* Access-platform is required for the firmware-visible IOVA mappings. */
-> +	if (!virtio_has_feature(vdev, VIRTIO_F_ACCESS_PLATFORM)) {
-> +		dev_err(&vdev->dev, "VIRTIO_F_ACCESS_PLATFORM not negotiated\n");
-> +		return -ENODEV;
-> +	}
-> +
-> +	ret = dcp_subsystem_dev_init(drv);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = dcp_ipcc_init(&drv->ipcc, vdev->dev.parent);
-> +	if (ret) {
-> +		if (ret == -EPROBE_DEFER)
-> +			dev_err_probe(&vdev->dev, ret,
-> +				      "IPCC not ready, deferring probe\n");
-> +		else
-> +			dev_err(&vdev->dev, "IPCC init failed: %d\n", ret);
-> +		goto err_fn_dev;
-> +	}
-> +	drv->ipcc_valid = !!drv->ipcc.power_chan;
-> +
-> +	ret = virtio_find_vqs(vdev, DCP_NUM_VQS, vqs, vqs_info, NULL);
-> +	if (ret) {
-> +		dev_err(&vdev->dev, "virtqueue allocation failed: %d\n", ret);
-> +		goto err_ipcc;
-> +	}
-> +
-> +	ret = dcp_hfi_init(drv, vdev, vqs[DCP_VQ_CMD], vqs[DCP_VQ_RESP],
-> +			   vdev->dev.parent);
-> +	if (ret) {
-> +		dev_err(&vdev->dev, "HFI init failed: %d\n", ret);
-> +		goto err_del_vqs;
-> +	}
-> +
-> +	if (drv->ipcc_valid)
-> +		dcp_ipcc_set_resp_vq(&drv->ipcc, vqs[DCP_VQ_RESP]);
-> +
-> +	/*
-> +	 * Keep the device unready until HFI state and virtqueues are initialized.
-> +	 * KMS registration below depends on synchronous firmware initialization.
-> +	 */
-> +	virtio_device_ready(vdev);
-> +	virtqueue_kick(drv->hfi->resp_vq);
-> +
-> +	ret = dcp_hfi_send_device_init(drv->hfi);
-> +	if (ret) {
-> +		dev_err(&vdev->dev, "HFI DEVICE_INIT failed: %d\n", ret);
-> +		goto err_hfi_deinit;
-> +	}
-> +
-> +	ret = dcp_hfi_get_capabilities(drv->hfi, &drv->caps);
-> +	if (ret) {
-> +		dev_err(&vdev->dev, "HFI GET_CAPS failed: %d\n", ret);
-> +		goto err_hfi_deinit;
-> +	}
-> +
-> +	/* Register the display resources before exposing the DRM component. */
-> +	ret = dcp_hfi_send_resource_register(drv->hfi);
-> +	if (ret) {
-> +		dev_err(&vdev->dev, "HFI RESOURCE_REGISTER failed: %d\n", ret);
-> +		goto err_hfi_deinit;
-> +	}
-> +
-> +	dev_dbg(&vdev->dev,
-> +		"DCP caps: %u displays, max %ux%u, %u planes, features=0x%x\n",
-> +		 drv->caps.num_crtcs, drv->caps.max_width, drv->caps.max_height,
-> +		 drv->caps.max_planes, drv->caps.features);
-> +
-> +	dpu_kms = devm_kzalloc(&drv->dcp_subsystem_dev->dev, sizeof(*dpu_kms), GFP_KERNEL);
-> +	if (!dpu_kms) {
-> +		ret = -ENOMEM;
-> +		goto err_hfi_deinit;
-> +	}
-> +
-> +	dpu_kms->drv       = drv;
-> +	dpu_kms->pm_dev    = &drv->dcp_subsystem_dev->dev;
-> +	dpu_kms->hfi       = drv->hfi;
-> +	dpu_kms->caps      = &drv->caps;
-> +	dpu_kms->dpus_np   = drv->dcp_subsystem_node;
-> +	dpu_kms->iommu_dev = &drv->dcp_subsystem_dev->dev;
-> +
-> +	ret = msm_kms_init(&dpu_kms->base, &dcp_dpu_kms_funcs);
-> +	if (ret) {
-> +		dev_err(&vdev->dev, "msm_kms_init failed: %d\n", ret);
-> +		goto err_hfi_deinit;
-> +	}
-> +
-> +	priv = devm_kzalloc(&drv->dcp_subsystem_dev->dev, sizeof(*priv), GFP_KERNEL);
-> +	if (!priv) {
-> +		ret = -ENOMEM;
-> +		goto err_hfi_deinit;
-> +	}
-> +
-> +	priv->kms      = &dpu_kms->base;
-> +	priv->kms_init = dcp_kms_init;
-> +	dev_set_drvdata(&drv->dcp_subsystem_dev->dev, priv);
-> +	dpu_kms->rpm_enabled = true;
-> +
-> +	/* Component binding now sees initialized HFI, capabilities, and IOMMU state. */
-> +	ret = dcp_component_register(drv);
-> +	if (ret) {
-> +		dev_err(&vdev->dev, "component register failed: %d\n", ret);
-> +		goto err_hfi_deinit;
-> +	}
-> +
-> +	dcp_panic_notifier_register(drv);
-> +
-> +	dev_dbg(&vdev->dev, "DCP VirtIO probe complete\n");
-> +	return 0;
-> +
-> +err_hfi_deinit:
-> +	dcp_virtio_hfi_cleanup(drv);
-> +	goto err_ipcc;
-> +err_del_vqs:
-> +	virtio_reset_device(vdev);
-> +	vdev->config->del_vqs(vdev);
-> +err_ipcc:
-> +	if (drv->ipcc_valid) {
-> +		dcp_ipcc_deinit(&drv->ipcc);
-> +		drv->ipcc_valid = false;
-> +	}
-> +err_fn_dev:
-> +	dcp_subsystem_dev_deinit(drv);
-> +	return ret;
-> +}
-> +
-> +static void dcp_virtio_hfi_cleanup(struct dcp_drv *drv)
-> +{
-> +	struct virtio_device *vdev = drv->vdev;
-> +
-> +	if (!drv->hfi)
-> +		return;
-> +
-> +	dcp_hfi_stop(drv->hfi);
-> +	virtio_reset_device(vdev);
-> +	virtio_synchronize_cbs(vdev);
-> +	vdev->priv = NULL;
-> +	dcp_hfi_quiesce_queues(drv->hfi);
-> +	vdev->config->del_vqs(vdev);
-> +	dcp_hfi_deinit(drv->hfi);
-> +	drv->hfi = NULL;
-
-What's the point of setting pointers to NULL? Won't this memory be
-kfree()'d soon?
-
-> +}
-> +
-> +/*
-> + * Remove DRM users before tearing down HFI, IPCC, or the VirtIO queues.
-> + */
-> +static void dcp_virtio_remove(struct virtio_device *vdev)
-> +{
-> +	struct dcp_drv *drv = vdev->priv;
-> +
-> +	dev_dbg(&vdev->dev, "DCP VirtIO remove\n");
-> +
-> +	if (!drv)
-> +		return;
-> +
-> +	dcp_component_unregister(drv);
-> +	dcp_panic_notifier_unregister(drv);
-> +
-> +	dcp_virtio_hfi_cleanup(drv);
-> +
-> +	if (drv->ipcc_valid) {
-> +		dcp_ipcc_deinit(&drv->ipcc);
-> +		drv->ipcc_valid = false;
-> +	}
-> +
-> +	dcp_subsystem_dev_deinit(drv);
-> +}
-> +
-> +/* KMS shutdown must complete while the firmware transport is available. */
-> +static void dcp_virtio_shutdown(struct virtio_device *vdev)
-> +{
-> +	struct dcp_drv *drv = vdev->priv;
-> +
-> +	if (!drv || !drv->dcp_subsystem_dev)
-> +		return;
-> +
-> +	pm_runtime_get_sync(&drv->dcp_subsystem_dev->dev);
-> +	msm_kms_shutdown(drv->dcp_subsystem_dev);
-> +	pm_runtime_put_noidle(&drv->dcp_subsystem_dev->dev);
-> +}
-> +
-> +/*
-> + * Firmware capabilities may change independently of the VirtIO transport;
-> + * refresh them without rebuilding the DRM device.
-
-And what does that mean? How can they change?
-
-> + */
-> +static void dcp_virtio_config_changed(struct virtio_device *vdev)
-> +{
-> +	struct dcp_drv *drv = vdev->priv;
-> +	int ret;
-> +
-> +	dev_dbg(&vdev->dev, "VirtIO config changed — re-querying DCP capabilities\n");
-> +
-> +	if (!drv || !drv->hfi)
-> +		return;
-> +
-> +	ret = dcp_hfi_get_capabilities(drv->hfi, &drv->caps);
-> +	if (ret)
-> +		dev_err(&vdev->dev,
-> +			"config_changed: capability re-query failed: %d\n", ret);
-> +	else
-> +		dev_dbg(&vdev->dev,
-> +			"config_changed: DCP caps updated: %u displays, features=0x%x\n",
-> +			 drv->caps.num_crtcs, drv->caps.features);
-> +}
-> +
-
-[...]
-
-> diff --git a/drivers/gpu/drm/msm/dcp/dcp_virtio.h b/drivers/gpu/drm/msm/dcp/dcp_virtio.h
-> new file mode 100644
-> index 000000000000..fe244bc5b51a
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/dcp/dcp_virtio.h
-> @@ -0,0 +1,22 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + * DCP VirtIO driver interface.
-> + */
-> +
-> +#ifndef __DCP_VIRTIO_H__
-> +#define __DCP_VIRTIO_H__
-> +
-> +#include <linux/device.h>
-> +#include <linux/virtio.h>
-> +#include <linux/virtio_ids.h>
-> +
-> +struct dcp_drv;
-> +
-> +#define VIRTIO_ID_QPSFI		                52
-> +#define VIRTIO_VENDOR_ID_DCP_HFI		    1
-
-I think this was questioned by Bjorn. Is it described somewhere? Is it a
-part of the VirtIO spec? If so, add these ids to the VirtIO headers. If
-not... then it's squatting. We can't just randomly settle on the ID.
-
-> +
-> +int dcp_virtio_register(void);
-> +void dcp_virtio_unregister(void);
-> +
-> +#endif /* __DCP_VIRTIO_H__ */
-> 
-> -- 
-> 2.43.0
-> 
-
+diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-alc5632.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-alc5632.yaml
+deleted file mode 100644
+index 96f2f927a6f59..0000000000000
+--- a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-alc5632.yaml
++++ /dev/null
+@@ -1,74 +0,0 @@
+-# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+-%YAML 1.2
+----
+-$id: http://devicetree.org/schemas/sound/nvidia,tegra-audio-alc5632.yaml#
+-$schema: http://devicetree.org/meta-schemas/core.yaml#
+-
+-title: NVIDIA Tegra audio complex with ALC5632 CODEC
+-
+-maintainers:
+-  - Jon Hunter <jonathanh@nvidia.com>
+-  - Thierry Reding <thierry.reding@gmail.com>
+-
+-allOf:
+-  - $ref: nvidia,tegra-audio-common.yaml#
+-
+-properties:
+-  compatible:
+-    items:
+-      - pattern: '^[a-z0-9]+,tegra-audio-alc5632(-[a-z0-9]+)+$'
+-      - const: nvidia,tegra-audio-alc5632
+-
+-  nvidia,audio-routing:
+-    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+-    description: |
+-      A list of the connections between audio components.
+-      Each entry is a pair of strings, the first being the connection's sink,
+-      the second being the connection's source. Valid names for sources and
+-      sinks are the pins (documented in the binding document),
+-      and the jacks on the board.
+-    minItems: 2
+-    items:
+-      enum:
+-        # Board Connectors
+-        - Headset Stereophone
+-        - Int Spk
+-        - Headset Mic
+-        - Digital Mic
+-
+-        # CODEC Pins
+-        - SPKOUT
+-        - SPKOUTN
+-        - MICBIAS1
+-        - MIC1
+-        - HPR
+-        - HPL
+-        - DMICDAT
+-
+-required:
+-  - nvidia,i2s-controller
+-
+-unevaluatedProperties: false
+-
+-examples:
+-  - |
+-    sound {
+-        compatible = "nvidia,tegra-audio-alc5632-paz00",
+-                     "nvidia,tegra-audio-alc5632";
+-
+-        nvidia,model = "Compal PAZ00";
+-
+-        nvidia,audio-routing = "Int Spk", "SPKOUT",
+-                               "Int Spk", "SPKOUTN",
+-                               "Headset Mic", "MICBIAS1",
+-                               "MIC1", "Headset Mic",
+-                               "Headset Stereophone", "HPR",
+-                               "Headset Stereophone", "HPL",
+-                               "DMICDAT", "Digital Mic";
+-
+-        nvidia,i2s-controller = <&i2s>;
+-        nvidia,audio-codec = <&codec>;
+-
+-        clocks = <&clk 112>, <&clk 113>, <&clk 93>;
+-        clock-names = "pll_a", "pll_a_out0", "mclk";
+-    };
+diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-common.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-common.yaml
+deleted file mode 100644
+index 316806fc7346e..0000000000000
+--- a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-common.yaml
++++ /dev/null
+@@ -1,92 +0,0 @@
+-# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+-%YAML 1.2
+----
+-$id: http://devicetree.org/schemas/sound/nvidia,tegra-audio-common.yaml#
+-$schema: http://devicetree.org/meta-schemas/core.yaml#
+-
+-title: Common properties for NVIDIA Tegra audio complexes
+-
+-maintainers:
+-  - Jon Hunter <jonathanh@nvidia.com>
+-  - Thierry Reding <thierry.reding@gmail.com>
+-
+-properties:
+-  clocks:
+-    items:
+-      - description: PLL A clock
+-      - description: PLL A OUT0 clock
+-      - description: The Tegra cdev1/extern1 clock, which feeds the card's mclk
+-
+-  clock-names:
+-    items:
+-      - const: pll_a
+-      - const: pll_a_out0
+-      - const: mclk
+-
+-  nvidia,model:
+-    $ref: /schemas/types.yaml#/definitions/string
+-    description: The user-visible name of this sound complex.
+-
+-  nvidia,audio-routing:
+-    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+-    description: |
+-      A list of the connections between audio components.
+-      Each entry is a pair of strings, the first being the connection's sink,
+-      the second being the connection's source. Valid names for sources and
+-      sinks are the pins (documented in the binding document),
+-      and the jacks on the board.
+-
+-  nvidia,ac97-controller:
+-    $ref: /schemas/types.yaml#/definitions/phandle
+-    description: The phandle of the AC97 controller
+-
+-  nvidia,i2s-controller:
+-    $ref: /schemas/types.yaml#/definitions/phandle
+-    description: The phandle of the Tegra I2S controller
+-
+-  nvidia,audio-codec:
+-    $ref: /schemas/types.yaml#/definitions/phandle
+-    description: The phandle of audio codec
+-
+-  nvidia,aux-devs:
+-    $ref: /schemas/types.yaml#/definitions/phandle-array
+-    description: List of phandles pointing to auxiliary devices,
+-      such as amplifiers or dsp, to be added to the sound card.
+-
+-  nvidia,spkr-en-gpios:
+-    maxItems: 1
+-    description: The GPIO that enables the speakers
+-
+-  nvidia,hp-mute-gpios:
+-    maxItems: 1
+-    description: The GPIO that mutes the headphones
+-
+-  nvidia,hp-det-gpios:
+-    maxItems: 1
+-    description: The GPIO that detect headphones are plugged in
+-
+-  nvidia,mic-det-gpios:
+-    maxItems: 1
+-    description: The GPIO that detect microphone is plugged in
+-
+-  nvidia,ear-sel-gpios:
+-    maxItems: 1
+-    description: The GPIO that switch between the microphones
+-
+-  nvidia,int-mic-en-gpios:
+-    maxItems: 1
+-    description: The GPIO that enables the internal microphone
+-
+-  nvidia,ext-mic-en-gpios:
+-    maxItems: 1
+-    description: The GPIO that enables the external microphone
+-
+-  nvidia,headset:
+-    type: boolean
+-    description: The Mic Jack represents state of the headset microphone pin
+-
+-  nvidia,coupled-mic-hp-det:
+-    type: boolean
+-    description: The Mic detect GPIO is viable only if HP detect GPIO is active
+-
+-additionalProperties: true
+diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-complex.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-complex.yaml
+new file mode 100644
+index 0000000000000..d5506ff4a4c69
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-complex.yaml
+@@ -0,0 +1,235 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/nvidia,tegra-audio-complex.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: NVIDIA Tegra audio complex
++
++maintainers:
++  - Jon Hunter <jonathanh@nvidia.com>
++  - Thierry Reding <thierry.reding@gmail.com>
++  - Svyatoslav Ryhel <clamor95@gmail.com>
++
++properties:
++  compatible:
++    oneOf:
++      - items:
++          - pattern: '^[a-z0-9]+,tegra-audio-max(98088|98089|98090)([-_][a-z0-9]+)+$'
++          - enum:
++              - nvidia,tegra-audio-max98088
++              - nvidia,tegra-audio-max98089
++              - nvidia,tegra-audio-max98090
++      - items:
++          - pattern: '^[a-z0-9]+,tegra-audio-rt(5631|5639|5640|5677)([-_][a-z0-9]+)+$'
++          - enum:
++              - nvidia,tegra-audio-rt5631
++              - nvidia,tegra-audio-rt5640
++              - nvidia,tegra-audio-rt5677
++      - items:
++          - pattern: '^[a-z0-9]+,tegra-audio-wm(8753|8903|8962|8994|9712)([-_][a-z0-9]+)+$'
++          - enum:
++              - nvidia,tegra-audio-wm8753
++              - nvidia,tegra-audio-wm8903
++              - nvidia,tegra-audio-wm8962
++              - nvidia,tegra-audio-wm8994
++              - nvidia,tegra-audio-wm9712
++      - items:
++          - pattern: '^[a-z0-9]+,tegra-audio-alc5632(-[a-z0-9]+)+$'
++          - const: nvidia,tegra-audio-alc5632
++      - items:
++          - pattern: '^motorola,tegra-audio-cpcap(-[a-z0-9]+)+$'
++          - const: nvidia,tegra-audio-cpcap
++      - items:
++          - pattern: '^nvidia,tegra-audio-max98090-nyan-(big|blaze)+$'
++          - const: nvidia,tegra-audio-max98090-nyan
++          - const: nvidia,tegra-audio-max98090
++      - items:
++          - pattern: '^[a-z0-9]+,tegra-audio-sgtl5000([-_][a-z0-9]+)+$'
++          - const: nvidia,tegra-audio-sgtl5000
++      - items:
++          const: nvidia,tegra-audio-trimslice
++      - items:
++          - pattern: ad,tegra-audio-plutux
++          - const: nvidia,tegra-audio-wm8903
++
++  clocks:
++    items:
++      - description: PLL A clock
++      - description: PLL A OUT0 clock
++      - description: The Tegra cdev1/extern1 clock, which feeds the card's mclk
++
++  clock-names:
++    items:
++      - const: pll_a
++      - const: pll_a_out0
++      - const: mclk
++
++  nvidia,model:
++    $ref: /schemas/types.yaml#/definitions/string
++    description: The user-visible name of this sound complex.
++
++  nvidia,audio-routing:
++    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
++    description: |
++      A list of the connections between audio components.
++      Each entry is a pair of strings, the first being the connection's sink,
++      the second being the connection's source. Valid names for sources and
++      sinks are the codec pins and the jacks on the board.
++
++  nvidia,ac97-controller:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description: The phandle of the AC97 controller
++
++  nvidia,i2s-controller:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description: The phandle of the Tegra I2S controller
++
++  nvidia,audio-codec:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description: The phandle of audio codec
++
++  nvidia,aux-devs:
++    $ref: /schemas/types.yaml#/definitions/phandle-array
++    description: List of phandles pointing to auxiliary devices,
++      such as amplifiers or dsp, to be added to the sound card.
++
++  nvidia,spkr-en-gpios:
++    maxItems: 1
++    description: The GPIO that enables the speakers
++
++  nvidia,hp-mute-gpios:
++    maxItems: 1
++    description: The GPIO that mutes the headphones
++
++  nvidia,hp-det-gpios:
++    maxItems: 1
++    description: The GPIO that detect headphones are plugged in
++
++  nvidia,mic-det-gpios:
++    maxItems: 1
++    description: The GPIO that detect microphone is plugged in
++
++  nvidia,ear-sel-gpios:
++    maxItems: 1
++    description: The GPIO that switch between the microphones
++
++  nvidia,int-mic-en-gpios:
++    maxItems: 1
++    description: The GPIO that enables the internal microphone
++
++  nvidia,ext-mic-en-gpios:
++    maxItems: 1
++    description: The GPIO that enables the external microphone
++
++  nvidia,headset:
++    type: boolean
++    description: The Mic Jack represents state of the headset microphone pin
++
++  nvidia,coupled-mic-hp-det:
++    type: boolean
++    description: The Mic detect GPIO is viable only if HP detect GPIO is active
++
++oneOf:
++  - required:
++      - nvidia,i2s-controller
++  - required:
++      - nvidia,ac97-controller
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/tegra20-car.h>
++    #include <dt-bindings/gpio/gpio.h>
++
++    sound {
++        compatible = "lg,tegra-audio-wm8994-star",
++                     "nvidia,tegra-audio-wm8994";
++        nvidia,model = "LG Optimus 2X WM8994";
++
++        nvidia,audio-routing =
++                "Headphone Jack", "HPOUT1L",
++                "Headphone Jack", "HPOUT1R",
++                "Int Spk", "SPKOUTLN",
++                "Int Spk", "SPKOUTLP",
++                "Earpiece", "HPOUT2N",
++                "Earpiece", "HPOUT2P",
++                "IN2RN", "MICBIAS2",
++                "IN2RN", "Mic Jack",
++                "IN1LN", "MICBIAS1",
++                "IN1LN", "Internal Mic 1",
++                "IN1RN", "MICBIAS1",
++                "IN1RN", "Internal Mic 2";
++
++        nvidia,i2s-controller = <&tegra_i2s1>;
++        nvidia,audio-codec = <&wm8994>;
++
++        nvidia,hp-det-gpios = <&gpio 51 GPIO_ACTIVE_HIGH>;
++        nvidia,mic-det-gpios = <&gpio 27 GPIO_ACTIVE_HIGH>;
++        nvidia,ext-mic-en-gpios = <&gpio 57 GPIO_ACTIVE_HIGH>;
++        nvidia,coupled-mic-hp-det;
++
++        clocks = <&tegra_car TEGRA20_CLK_PLL_A>,
++                 <&tegra_car TEGRA20_CLK_PLL_A_OUT0>,
++                 <&tegra_car TEGRA20_CLK_CDEV1>;
++        clock-names = "pll_a", "pll_a_out0", "mclk";
++    };
++  - |
++    #include <dt-bindings/clock/tegra30-car.h>
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/soc/tegra-pmc.h>
++
++    sound {
++        compatible = "asus,tegra-audio-rt5631-tf700t",
++                     "nvidia,tegra-audio-rt5631";
++        nvidia,model = "Asus Transformer Infinity TF700T RT5631";
++
++        nvidia,audio-routing =
++                "Headphone Jack", "HPOL",
++                "Headphone Jack", "HPOR",
++                "Int Spk", "SPOL",
++                "Int Spk", "SPOR",
++                "MIC1", "MIC Bias1",
++                "MIC1", "DSP Analog Mic",
++                "DSP AMIC", "Mic Jack",
++                "DMIC", "DSP Digital Mic",
++                "DSP DMIC", "Int Mic";
++
++        nvidia,i2s-controller = <&tegra_i2s1>;
++        nvidia,audio-codec = <&rt5631>;
++        nvidia,aux-devs = <&fm34ne>;
++
++        nvidia,hp-det-gpios = <&gpio 178 GPIO_ACTIVE_LOW>;
++        nvidia,mic-det-gpios = <&gpio 186 GPIO_ACTIVE_LOW>;
++        nvidia,coupled-mic-hp-det;
++
++        clocks = <&tegra_car TEGRA30_CLK_PLL_A>,
++                 <&tegra_car TEGRA30_CLK_PLL_A_OUT0>,
++                 <&tegra_pmc TEGRA_PMC_CLK_OUT_1>;
++        clock-names = "pll_a", "pll_a_out0", "mclk";
++    };
++  - |
++    #include <dt-bindings/clock/tegra124-car.h>
++
++    sound {
++        compatible = "nvidia,tegra-audio-max98090-venice2",
++                     "nvidia,tegra-audio-max98090";
++        nvidia,model = "NVIDIA Tegra Venice2";
++
++        nvidia,audio-routing =
++                "Headphones", "HPR",
++                "Headphones", "HPL",
++                "Speakers", "SPKR",
++                "Speakers", "SPKL",
++                "Mic Jack", "MICBIAS",
++                "IN34", "Mic Jack";
++
++        nvidia,i2s-controller = <&tegra_i2s1>;
++        nvidia,audio-codec = <&acodec>;
++
++        clocks = <&tegra_car TEGRA124_CLK_PLL_A>,
++                 <&tegra_car TEGRA124_CLK_PLL_A_OUT0>,
++                 <&tegra_car TEGRA124_CLK_EXTERN1>;
++        clock-names = "pll_a", "pll_a_out0", "mclk";
++    };
+diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-cpcap.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-cpcap.yaml
+deleted file mode 100644
+index 69af2022d0fab..0000000000000
+--- a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-cpcap.yaml
++++ /dev/null
+@@ -1,90 +0,0 @@
+-# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+-%YAML 1.2
+----
+-$id: http://devicetree.org/schemas/sound/nvidia,tegra-audio-cpcap.yaml#
+-$schema: http://devicetree.org/meta-schemas/core.yaml#
+-
+-title: NVIDIA Tegra audio complex with CPCAP CODEC
+-
+-maintainers:
+-  - Svyatoslav Ryhel <clamor95@gmail.com>
+-
+-allOf:
+-  - $ref: nvidia,tegra-audio-common.yaml#
+-
+-properties:
+-  compatible:
+-    items:
+-      - pattern: '^motorola,tegra-audio-cpcap(-[a-z0-9]+)+$'
+-      - const: nvidia,tegra-audio-cpcap
+-
+-  nvidia,audio-routing:
+-    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+-    description:
+-      A list of the connections between audio components. Each entry is a
+-      pair of strings, the first being the connection's sink, the second
+-      being the connection's source. Valid names for sources and sinks are
+-      the pins (documented in the binding document), and the jacks on the
+-      board.
+-    minItems: 2
+-    items:
+-      enum:
+-        # Board Connectors
+-        - Speakers
+-        - Int Spk
+-        - Earpiece
+-        - Int Mic
+-        - Headset Mic
+-        - Internal Mic 1
+-        - Internal Mic 2
+-        - Headphone
+-        - Headphones
+-        - Headphone Jack
+-        - Mic Jack
+-
+-        # CODEC Pins
+-        - MICR
+-        - HSMIC
+-        - EMUMIC
+-        - MICL
+-        - EXTR
+-        - EXTL
+-        - EP
+-        - SPKR
+-        - SPKL
+-        - LINER
+-        - LINEL
+-        - HSR
+-        - HSL
+-        - EMUR
+-        - EMUL
+-
+-unevaluatedProperties: false
+-
+-examples:
+-  - |
+-    #include <dt-bindings/clock/tegra20-car.h>
+-    #include <dt-bindings/soc/tegra-pmc.h>
+-    sound {
+-        compatible = "motorola,tegra-audio-cpcap-olympus",
+-                     "nvidia,tegra-audio-cpcap";
+-        nvidia,model = "Motorola Atrix 4G (MB860) CPCAP";
+-
+-        nvidia,audio-routing =
+-                "Headphones", "HSR",
+-                "Headphones", "HSL",
+-                "Int Spk", "SPKR",
+-                "Int Spk", "SPKL",
+-                "Earpiece", "EP",
+-                "HSMIC", "Mic Jack",
+-                "MICR", "Internal Mic 1",
+-                "MICL", "Internal Mic 2";
+-
+-        nvidia,i2s-controller = <&tegra_i2s1>;
+-        nvidia,audio-codec = <&cpcap_audio>;
+-
+-        clocks = <&tegra_car TEGRA20_CLK_PLL_A>,
+-                 <&tegra_car TEGRA20_CLK_PLL_A_OUT0>,
+-                 <&tegra_car TEGRA20_CLK_CDEV1>;
+-        clock-names = "pll_a", "pll_a_out0", "mclk";
+-    };
+diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-max9808x.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-max9808x.yaml
+deleted file mode 100644
+index 4957645a8e035..0000000000000
+--- a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-max9808x.yaml
++++ /dev/null
+@@ -1,95 +0,0 @@
+-# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+-%YAML 1.2
+----
+-$id: http://devicetree.org/schemas/sound/nvidia,tegra-audio-max9808x.yaml#
+-$schema: http://devicetree.org/meta-schemas/core.yaml#
+-
+-title: NVIDIA Tegra audio complex with MAX9808x CODEC
+-
+-maintainers:
+-  - Jon Hunter <jonathanh@nvidia.com>
+-  - Thierry Reding <thierry.reding@gmail.com>
+-
+-allOf:
+-  - $ref: nvidia,tegra-audio-common.yaml#
+-
+-properties:
+-  compatible:
+-    oneOf:
+-      - items:
+-          - pattern: '^[a-z0-9]+,tegra-audio-max98088(-[a-z0-9]+)+$'
+-          - const: nvidia,tegra-audio-max98088
+-      - items:
+-          - pattern: '^[a-z0-9]+,tegra-audio-max98089(-[a-z0-9]+)+$'
+-          - const: nvidia,tegra-audio-max98089
+-
+-  nvidia,audio-routing:
+-    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+-    description: |
+-      A list of the connections between audio components.
+-      Each entry is a pair of strings, the first being the connection's sink,
+-      the second being the connection's source. Valid names for sources and
+-      sinks are the pins (documented in the binding document),
+-      and the jacks on the board.
+-    minItems: 2
+-    items:
+-      enum:
+-        # Board Connectors
+-        - Speakers
+-        - Int Spk
+-        - Headphone
+-        - Headphones
+-        - Headphone Jack
+-        - Earpiece
+-        - Headset Mic
+-        - Mic Jack
+-        - Int Mic
+-        - Internal Mic 1
+-        - Internal Mic 2
+-
+-        # CODEC Pins
+-        - HPL
+-        - HPR
+-        - SPKL
+-        - SPKR
+-        - RECL
+-        - RECR
+-        - INA1
+-        - INA2
+-        - INB1
+-        - INB2
+-        - MIC1
+-        - MIC2
+-        - MICBIAS
+-
+-unevaluatedProperties: false
+-
+-examples:
+-  - |
+-    #include <dt-bindings/clock/tegra30-car.h>
+-    #include <dt-bindings/soc/tegra-pmc.h>
+-    sound {
+-        compatible = "lg,tegra-audio-max98089-p895",
+-                     "nvidia,tegra-audio-max98089";
+-        nvidia,model = "LG Optimus Vu MAX98089";
+-
+-        nvidia,audio-routing =
+-            "Headphone Jack", "HPL",
+-            "Headphone Jack", "HPR",
+-            "Int Spk", "SPKL",
+-            "Int Spk", "SPKR",
+-            "Earpiece", "RECL",
+-            "Earpiece", "RECR",
+-            "INA1", "Headset Mic",
+-            "MIC1", "MICBIAS",
+-            "MICBIAS", "Internal Mic 1",
+-            "MIC2", "Internal Mic 2";
+-
+-        nvidia,i2s-controller = <&tegra_i2s0>;
+-        nvidia,audio-codec = <&codec>;
+-
+-        clocks = <&tegra_car TEGRA30_CLK_PLL_A>,
+-                 <&tegra_car TEGRA30_CLK_PLL_A_OUT0>,
+-                 <&tegra_pmc TEGRA_PMC_CLK_OUT_1>;
+-        clock-names = "pll_a", "pll_a_out0", "mclk";
+-    };
+diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-max98090.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-max98090.yaml
+deleted file mode 100644
+index 4d912458b18ba..0000000000000
+--- a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-max98090.yaml
++++ /dev/null
+@@ -1,97 +0,0 @@
+-# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+-%YAML 1.2
+----
+-$id: http://devicetree.org/schemas/sound/nvidia,tegra-audio-max98090.yaml#
+-$schema: http://devicetree.org/meta-schemas/core.yaml#
+-
+-title: NVIDIA Tegra audio complex with MAX98090 CODEC
+-
+-maintainers:
+-  - Jon Hunter <jonathanh@nvidia.com>
+-  - Thierry Reding <thierry.reding@gmail.com>
+-
+-allOf:
+-  - $ref: nvidia,tegra-audio-common.yaml#
+-
+-properties:
+-  compatible:
+-    oneOf:
+-      - items:
+-          - pattern: '^[a-z0-9]+,tegra-audio-max98090(-[a-z0-9]+)+$'
+-          - const: nvidia,tegra-audio-max98090
+-      - items:
+-          - enum:
+-              - nvidia,tegra-audio-max98090-nyan-big
+-              - nvidia,tegra-audio-max98090-nyan-blaze
+-          - const: nvidia,tegra-audio-max98090-nyan
+-          - const: nvidia,tegra-audio-max98090
+-
+-  nvidia,audio-routing:
+-    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+-    description: |
+-      A list of the connections between audio components.
+-      Each entry is a pair of strings, the first being the connection's sink,
+-      the second being the connection's source. Valid names for sources and
+-      sinks are the pins (documented in the binding document),
+-      and the jacks on the board.
+-    minItems: 2
+-    items:
+-      enum:
+-        # Board Connectors
+-        - Headphones
+-        - Speakers
+-        - Mic Jack
+-        - Int Mic
+-
+-        # CODEC Pins
+-        - MIC1
+-        - MIC2
+-        - DMICL
+-        - DMICR
+-        - IN1
+-        - IN2
+-        - IN3
+-        - IN4
+-        - IN5
+-        - IN6
+-        - IN12
+-        - IN34
+-        - IN56
+-        - HPL
+-        - HPR
+-        - SPKL
+-        - SPKR
+-        - RCVL
+-        - RCVR
+-        - MICBIAS
+-
+-required:
+-  - nvidia,i2s-controller
+-
+-unevaluatedProperties: false
+-
+-examples:
+-  - |
+-    #include <dt-bindings/clock/tegra124-car.h>
+-
+-    sound {
+-        compatible = "nvidia,tegra-audio-max98090-venice2",
+-                     "nvidia,tegra-audio-max98090";
+-        nvidia,model = "NVIDIA Tegra Venice2";
+-
+-        nvidia,audio-routing =
+-                "Headphones", "HPR",
+-                "Headphones", "HPL",
+-                "Speakers", "SPKR",
+-                "Speakers", "SPKL",
+-                "Mic Jack", "MICBIAS",
+-                "IN34", "Mic Jack";
+-
+-        nvidia,i2s-controller = <&tegra_i2s1>;
+-        nvidia,audio-codec = <&acodec>;
+-
+-        clocks = <&tegra_car TEGRA124_CLK_PLL_A>,
+-                 <&tegra_car TEGRA124_CLK_PLL_A_OUT0>,
+-                 <&tegra_car TEGRA124_CLK_EXTERN1>;
+-        clock-names = "pll_a", "pll_a_out0", "mclk";
+-    };
+diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-rt5631.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-rt5631.yaml
+deleted file mode 100644
+index 0c8067c3b0561..0000000000000
+--- a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-rt5631.yaml
++++ /dev/null
+@@ -1,85 +0,0 @@
+-# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+-%YAML 1.2
+----
+-$id: http://devicetree.org/schemas/sound/nvidia,tegra-audio-rt5631.yaml#
+-$schema: http://devicetree.org/meta-schemas/core.yaml#
+-
+-title: NVIDIA Tegra audio complex with RT5631 CODEC
+-
+-maintainers:
+-  - Jon Hunter <jonathanh@nvidia.com>
+-  - Thierry Reding <thierry.reding@gmail.com>
+-
+-allOf:
+-  - $ref: nvidia,tegra-audio-common.yaml#
+-
+-properties:
+-  compatible:
+-    items:
+-      - pattern: '^[a-z0-9]+,tegra-audio-rt5631(-[a-z0-9]+)+$'
+-      - const: nvidia,tegra-audio-rt5631
+-
+-  nvidia,audio-routing:
+-    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+-    description: |
+-      A list of the connections between audio components.
+-      Each entry is a pair of strings, the first being the connection's sink,
+-      the second being the connection's source. Valid names for sources and
+-      sinks are the pins (documented in the binding document),
+-      and the jacks on the board.
+-    minItems: 2
+-    items:
+-      enum:
+-        # Board Connectors
+-        - Int Spk
+-        - Headphone Jack
+-        - Mic Jack
+-        - Int Mic
+-
+-        # CODEC Pins
+-        - MIC1
+-        - MIC2
+-        - AXIL
+-        - AXIR
+-        - MONOIN_RXN
+-        - MONOIN_RXP
+-        - DMIC
+-        - MIC Bias1
+-        - MIC Bias2
+-        - MONO_IN
+-        - AUXO1
+-        - AUXO2
+-        - SPOL
+-        - SPOR
+-        - HPOL
+-        - HPOR
+-        - MONO
+-
+-unevaluatedProperties: false
+-
+-examples:
+-  - |
+-    #include <dt-bindings/clock/tegra30-car.h>
+-    #include <dt-bindings/soc/tegra-pmc.h>
+-    sound {
+-        compatible = "asus,tegra-audio-rt5631-tf700t",
+-                     "nvidia,tegra-audio-rt5631";
+-        nvidia,model = "Asus Transformer Infinity TF700T RT5631";
+-
+-        nvidia,audio-routing =
+-                "Headphone Jack", "HPOL",
+-                "Headphone Jack", "HPOR",
+-                "Int Spk", "SPOL",
+-                "Int Spk", "SPOR",
+-                "MIC1", "MIC Bias1",
+-                "MIC Bias1", "Mic Jack",
+-                "DMIC", "Int Mic";
+-
+-        nvidia,i2s-controller = <&tegra_i2s1>;
+-        nvidia,audio-codec = <&rt5631>;
+-
+-        clocks = <&tegra_car TEGRA30_CLK_PLL_A>,
+-                 <&tegra_car TEGRA30_CLK_PLL_A_OUT0>,
+-                 <&tegra_pmc TEGRA_PMC_CLK_OUT_1>;
+-        clock-names = "pll_a", "pll_a_out0", "mclk";
+-    };
+diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-rt5640.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-rt5640.yaml
+deleted file mode 100644
+index 2638592435b21..0000000000000
+--- a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-rt5640.yaml
++++ /dev/null
+@@ -1,84 +0,0 @@
+-# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+-%YAML 1.2
+----
+-$id: http://devicetree.org/schemas/sound/nvidia,tegra-audio-rt5640.yaml#
+-$schema: http://devicetree.org/meta-schemas/core.yaml#
+-
+-title: NVIDIA Tegra audio complex with RT5639 or RT5640 CODEC
+-
+-maintainers:
+-  - Jon Hunter <jonathanh@nvidia.com>
+-  - Thierry Reding <thierry.reding@gmail.com>
+-
+-allOf:
+-  - $ref: nvidia,tegra-audio-common.yaml#
+-
+-properties:
+-  compatible:
+-    items:
+-      - pattern: '^[a-z0-9]+,tegra-audio-rt56(39|40)(-[a-z0-9]+)+$'
+-      - const: nvidia,tegra-audio-rt5640
+-
+-  nvidia,audio-routing:
+-    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+-    description: |
+-      A list of the connections between audio components.
+-      Each entry is a pair of strings, the first being the connection's sink,
+-      the second being the connection's source. Valid names for sources and
+-      sinks are the pins (documented in the binding document),
+-      and the jacks on the board.
+-    minItems: 2
+-    items:
+-      enum:
+-        # Board Connectors
+-        - Headphones
+-        - Speakers
+-        - Mic Jack
+-
+-        # CODEC Pins
+-        - DMIC1
+-        - DMIC2
+-        - MICBIAS1
+-        - IN1P
+-        - IN1R
+-        - IN2P
+-        - IN2R
+-        - HPOL
+-        - HPOR
+-        - LOUTL
+-        - LOUTR
+-        - MONOP
+-        - MONON
+-        - SPOLP
+-        - SPOLN
+-        - SPORP
+-        - SPORN
+-
+-required:
+-  - nvidia,i2s-controller
+-
+-unevaluatedProperties: false
+-
+-examples:
+-  - |
+-    sound {
+-        compatible = "nvidia,tegra-audio-rt5640-dalmore",
+-                     "nvidia,tegra-audio-rt5640";
+-        nvidia,model = "NVIDIA Tegra Dalmore";
+-
+-        nvidia,audio-routing =
+-                "Headphones", "HPOR",
+-                "Headphones", "HPOL",
+-                "Speakers", "SPORP",
+-                "Speakers", "SPORN",
+-                "Speakers", "SPOLP",
+-                "Speakers", "SPOLN";
+-
+-        nvidia,i2s-controller = <&tegra_i2s1>;
+-        nvidia,audio-codec = <&rt5640>;
+-
+-        nvidia,hp-det-gpios = <&gpio 143 0>;
+-
+-        clocks = <&clk 216>, <&clk 217>, <&clk 120>;
+-        clock-names = "pll_a", "pll_a_out0", "mclk";
+-    };
+diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-rt5677.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-rt5677.yaml
+deleted file mode 100644
+index 09e1d0b18d276..0000000000000
+--- a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-rt5677.yaml
++++ /dev/null
+@@ -1,100 +0,0 @@
+-# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+-%YAML 1.2
+----
+-$id: http://devicetree.org/schemas/sound/nvidia,tegra-audio-rt5677.yaml#
+-$schema: http://devicetree.org/meta-schemas/core.yaml#
+-
+-title: NVIDIA Tegra audio complex with RT5677 CODEC
+-
+-maintainers:
+-  - Jon Hunter <jonathanh@nvidia.com>
+-  - Thierry Reding <thierry.reding@gmail.com>
+-
+-allOf:
+-  - $ref: nvidia,tegra-audio-common.yaml#
+-
+-properties:
+-  compatible:
+-    items:
+-      - pattern: '^[a-z0-9]+,tegra-audio-rt5677(-[a-z0-9]+)+$'
+-      - const: nvidia,tegra-audio-rt5677
+-
+-  nvidia,audio-routing:
+-    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+-    description: |
+-      A list of the connections between audio components.
+-      Each entry is a pair of strings, the first being the connection's sink,
+-      the second being the connection's source. Valid names for sources and
+-      sinks are the pins (documented in the binding document),
+-      and the jacks on the board.
+-    minItems: 2
+-    items:
+-      enum:
+-        # Board Connectors
+-        - Headphone
+-        - Speaker
+-        - Headset Mic
+-        - Internal Mic 1
+-        - Internal Mic 2
+-
+-        # CODEC Pins
+-        - IN1P
+-        - IN1N
+-        - IN2P
+-        - IN2N
+-        - MICBIAS1
+-        - DMIC1
+-        - DMIC2
+-        - DMIC3
+-        - DMIC4
+-        - DMIC L1
+-        - DMIC L2
+-        - DMIC L3
+-        - DMIC L4
+-        - DMIC R1
+-        - DMIC R2
+-        - DMIC R3
+-        - DMIC R4
+-        - LOUT1
+-        - LOUT2
+-        - LOUT3
+-        - PDM1L
+-        - PDM1R
+-        - PDM2L
+-        - PDM2R
+-
+-required:
+-  - nvidia,i2s-controller
+-
+-unevaluatedProperties: false
+-
+-examples:
+-  - |
+-    sound {
+-        compatible = "nvidia,tegra-audio-rt5677-ryu",
+-                     "nvidia,tegra-audio-rt5677";
+-        nvidia,model = "NVIDIA Tegra Ryu";
+-
+-        nvidia,audio-routing =
+-                "Headphone", "LOUT2",
+-                "Headphone", "LOUT1",
+-                "Headset Mic", "MICBIAS1",
+-                "IN1P", "Headset Mic",
+-                "IN1N", "Headset Mic",
+-                "DMIC L1", "Internal Mic 1",
+-                "DMIC R1", "Internal Mic 1",
+-                "DMIC L2", "Internal Mic 2",
+-                "DMIC R2", "Internal Mic 2",
+-                "Speaker", "PDM1L",
+-                "Speaker", "PDM1R";
+-
+-        nvidia,i2s-controller = <&tegra_i2s1>;
+-        nvidia,audio-codec = <&rt5677>;
+-
+-        nvidia,hp-det-gpios = <&gpio 143 0>;
+-
+-        clocks = <&clk 216>,
+-                 <&clk 217>,
+-                 <&clk 121>;
+-        clock-names = "pll_a", "pll_a_out0", "mclk";
+-    };
+diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-sgtl5000.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-sgtl5000.yaml
+deleted file mode 100644
+index e5bc6a6ade246..0000000000000
+--- a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-sgtl5000.yaml
++++ /dev/null
+@@ -1,67 +0,0 @@
+-# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+-%YAML 1.2
+----
+-$id: http://devicetree.org/schemas/sound/nvidia,tegra-audio-sgtl5000.yaml#
+-$schema: http://devicetree.org/meta-schemas/core.yaml#
+-
+-title: NVIDIA Tegra audio complex with SGTL5000 CODEC
+-
+-maintainers:
+-  - Jon Hunter <jonathanh@nvidia.com>
+-  - Thierry Reding <thierry.reding@gmail.com>
+-
+-allOf:
+-  - $ref: nvidia,tegra-audio-common.yaml#
+-
+-properties:
+-  compatible:
+-    items:
+-      - pattern: '^[a-z0-9]+,tegra-audio-sgtl5000([-_][a-z0-9]+)+$'
+-      - const: nvidia,tegra-audio-sgtl5000
+-
+-  nvidia,audio-routing:
+-    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+-    description: |
+-      A list of the connections between audio components.
+-      Each entry is a pair of strings, the first being the connection's sink,
+-      the second being the connection's source. Valid names for sources and
+-      sinks are the pins (documented in the binding document),
+-      and the jacks on the board.
+-    minItems: 2
+-    items:
+-      enum:
+-        # Board Connectors
+-        - Headphone Jack
+-        - Line In Jack
+-        - Mic Jack
+-
+-        # CODEC Pins
+-        - HP_OUT
+-        - LINE_OUT
+-        - LINE_IN
+-        - MIC_IN
+-
+-required:
+-  - nvidia,i2s-controller
+-
+-unevaluatedProperties: false
+-
+-examples:
+-  - |
+-    #include <dt-bindings/clock/tegra30-car.h>
+-
+-    sound {
+-      compatible = "toradex,tegra-audio-sgtl5000-apalis_t30",
+-                   "nvidia,tegra-audio-sgtl5000";
+-      nvidia,model = "Toradex Apalis T30 SGTL5000";
+-      nvidia,audio-routing =
+-              "Headphone Jack", "HP_OUT",
+-              "LINE_IN", "Line In Jack",
+-              "MIC_IN", "Mic Jack";
+-      nvidia,i2s-controller = <&tegra_i2s2>;
+-      nvidia,audio-codec = <&codec>;
+-      clocks = <&tegra_car TEGRA30_CLK_PLL_A>,
+-               <&tegra_car TEGRA30_CLK_PLL_A_OUT0>,
+-               <&tegra_car TEGRA30_CLK_EXTERN1>;
+-      clock-names = "pll_a", "pll_a_out0", "mclk";
+-    };
+diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-trimslice.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-trimslice.yaml
+deleted file mode 100644
+index 8c87cd166238f..0000000000000
+--- a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-trimslice.yaml
++++ /dev/null
+@@ -1,33 +0,0 @@
+-# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+-%YAML 1.2
+----
+-$id: http://devicetree.org/schemas/sound/nvidia,tegra-audio-trimslice.yaml#
+-$schema: http://devicetree.org/meta-schemas/core.yaml#
+-
+-title: NVIDIA Tegra audio complex with TrimSlice CODEC
+-
+-maintainers:
+-  - Jon Hunter <jonathanh@nvidia.com>
+-  - Thierry Reding <thierry.reding@gmail.com>
+-
+-allOf:
+-  - $ref: nvidia,tegra-audio-common.yaml#
+-
+-properties:
+-  compatible:
+-    const: nvidia,tegra-audio-trimslice
+-
+-required:
+-  - nvidia,i2s-controller
+-
+-unevaluatedProperties: false
+-
+-examples:
+-  - |
+-    sound {
+-        compatible = "nvidia,tegra-audio-trimslice";
+-        nvidia,i2s-controller = <&tegra_i2s1>;
+-        nvidia,audio-codec = <&codec>;
+-        clocks = <&tegra_car 112>, <&tegra_car 113>, <&tegra_car 93>;
+-        clock-names = "pll_a", "pll_a_out0", "mclk";
+-    };
+diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8753.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8753.yaml
+deleted file mode 100644
+index 3323d6a438f5c..0000000000000
+--- a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8753.yaml
++++ /dev/null
+@@ -1,79 +0,0 @@
+-# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+-%YAML 1.2
+----
+-$id: http://devicetree.org/schemas/sound/nvidia,tegra-audio-wm8753.yaml#
+-$schema: http://devicetree.org/meta-schemas/core.yaml#
+-
+-title: NVIDIA Tegra audio complex with WM8753 CODEC
+-
+-maintainers:
+-  - Jon Hunter <jonathanh@nvidia.com>
+-  - Thierry Reding <thierry.reding@gmail.com>
+-
+-allOf:
+-  - $ref: nvidia,tegra-audio-common.yaml#
+-
+-properties:
+-  compatible:
+-    items:
+-      - pattern: '^[a-z0-9]+,tegra-audio-wm8753(-[a-z0-9]+)+$'
+-      - const: nvidia,tegra-audio-wm8753
+-
+-  nvidia,audio-routing:
+-    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+-    description: |
+-      A list of the connections between audio components.
+-      Each entry is a pair of strings, the first being the connection's sink,
+-      the second being the connection's source. Valid names for sources and
+-      sinks are the pins (documented in the binding document),
+-      and the jacks on the board.
+-    minItems: 2
+-    items:
+-      enum:
+-        # Board Connectors
+-        - Headphone Jack
+-        - Mic Jack
+-
+-        # CODEC Pins
+-        - LOUT1
+-        - LOUT2
+-        - ROUT1
+-        - ROUT2
+-        - MONO1
+-        - MONO2
+-        - OUT3
+-        - OUT4
+-        - LINE1
+-        - LINE2
+-        - RXP
+-        - RXN
+-        - ACIN
+-        - ACOP
+-        - MIC1N
+-        - MIC1
+-        - MIC2N
+-        - MIC2
+-        - Mic Bias
+-
+-required:
+-  - nvidia,i2s-controller
+-
+-unevaluatedProperties: false
+-
+-examples:
+-  - |
+-    sound {
+-        compatible = "nvidia,tegra-audio-wm8753-whistler",
+-                     "nvidia,tegra-audio-wm8753";
+-        nvidia,model = "tegra-wm8753-harmony";
+-
+-        nvidia,audio-routing =
+-                "Headphone Jack", "LOUT1",
+-                "Headphone Jack", "ROUT1";
+-
+-        nvidia,i2s-controller = <&i2s1>;
+-        nvidia,audio-codec = <&wm8753>;
+-
+-        clocks = <&clk 112>, <&clk 113>, <&clk 93>;
+-        clock-names = "pll_a", "pll_a_out0", "mclk";
+-    };
+diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8903.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8903.yaml
+deleted file mode 100644
+index 1be25ce4514b7..0000000000000
+--- a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8903.yaml
++++ /dev/null
+@@ -1,93 +0,0 @@
+-# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+-%YAML 1.2
+----
+-$id: http://devicetree.org/schemas/sound/nvidia,tegra-audio-wm8903.yaml#
+-$schema: http://devicetree.org/meta-schemas/core.yaml#
+-
+-title: NVIDIA Tegra audio complex with WM8903 CODEC
+-
+-maintainers:
+-  - Jon Hunter <jonathanh@nvidia.com>
+-  - Thierry Reding <thierry.reding@gmail.com>
+-
+-allOf:
+-  - $ref: nvidia,tegra-audio-common.yaml#
+-
+-properties:
+-  compatible:
+-    oneOf:
+-      - items:
+-          - pattern: '^[a-z0-9]+,tegra-audio-wm8903(-[a-z0-9]+)+$'
+-          - const: nvidia,tegra-audio-wm8903
+-      - items:
+-          - pattern: ad,tegra-audio-plutux
+-          - const: nvidia,tegra-audio-wm8903
+-
+-  nvidia,audio-routing:
+-    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+-    description: |
+-      A list of the connections between audio components.
+-      Each entry is a pair of strings, the first being the connection's sink,
+-      the second being the connection's source. Valid names for sources and
+-      sinks are the pins (documented in the binding document),
+-      and the jacks on the board.
+-    minItems: 2
+-    items:
+-      enum:
+-        # Board Connectors
+-        - Headphone Jack
+-        - Int Spk
+-        - Mic Jack
+-        - Int Mic
+-
+-        # CODEC Pins
+-        - IN1L
+-        - IN1R
+-        - IN2L
+-        - IN2R
+-        - IN3L
+-        - IN3R
+-        - DMICDAT
+-        - HPOUTL
+-        - HPOUTR
+-        - LINEOUTL
+-        - LINEOUTR
+-        - LOP
+-        - LON
+-        - ROP
+-        - RON
+-        - MICBIAS
+-
+-required:
+-  - nvidia,i2s-controller
+-
+-unevaluatedProperties: false
+-
+-examples:
+-  - |
+-    sound {
+-        compatible = "nvidia,tegra-audio-wm8903-harmony",
+-                     "nvidia,tegra-audio-wm8903";
+-        nvidia,model = "tegra-wm8903-harmony";
+-
+-        nvidia,audio-routing =
+-                "Headphone Jack", "HPOUTR",
+-                "Headphone Jack", "HPOUTL",
+-                "Int Spk", "ROP",
+-                "Int Spk", "RON",
+-                "Int Spk", "LOP",
+-                "Int Spk", "LON",
+-                "Mic Jack", "MICBIAS",
+-                "IN1L", "Mic Jack";
+-
+-        nvidia,i2s-controller = <&i2s1>;
+-        nvidia,audio-codec = <&wm8903>;
+-
+-        nvidia,spkr-en-gpios = <&codec 2 0>;
+-        nvidia,hp-det-gpios = <&gpio 178 0>;
+-        nvidia,int-mic-en-gpios = <&gpio 184 0>;
+-        nvidia,ext-mic-en-gpios = <&gpio 185 0>;
+-
+-        clocks = <&clk 112>, <&clk 113>, <&clk 93>;
+-        clock-names = "pll_a", "pll_a_out0", "mclk";
+-    };
+diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8962.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8962.yaml
+deleted file mode 100644
+index 2c3bf5a02a34f..0000000000000
+--- a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8962.yaml
++++ /dev/null
+@@ -1,88 +0,0 @@
+-# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+-%YAML 1.2
+----
+-$id: http://devicetree.org/schemas/sound/nvidia,tegra-audio-wm8962.yaml#
+-$schema: http://devicetree.org/meta-schemas/core.yaml#
+-
+-title: NVIDIA Tegra audio complex with WM8962 CODEC
+-
+-maintainers:
+-  - Svyatoslav Ryhel <clamor95@gmail.com>
+-
+-allOf:
+-  - $ref: nvidia,tegra-audio-common.yaml#
+-
+-properties:
+-  compatible:
+-    items:
+-      - pattern: '^[a-z0-9]+,tegra-audio-wm8962(-[a-z0-9]+)+$'
+-      - const: nvidia,tegra-audio-wm8962
+-
+-  nvidia,audio-routing:
+-    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+-    description:
+-      A list of the connections between audio components. Each entry is a
+-      pair of strings, the first being the connection's sink, the second
+-      being the connection's source. Valid names for sources and sinks are
+-      the pins (documented in the binding document), and the jacks on the
+-      board.
+-    minItems: 2
+-    items:
+-      enum:
+-        # Board Connectors
+-        - Speakers
+-        - Int Spk
+-        - Earpiece
+-        - Int Mic
+-        - Headset Mic
+-        - Internal Mic 1
+-        - Internal Mic 2
+-        - Headphone
+-        - Headphones
+-        - Headphone Jack
+-        - Mic Jack
+-
+-        # CODEC Pins
+-        - IN1L
+-        - IN1R
+-        - IN2L
+-        - IN2R
+-        - IN3L
+-        - IN3R
+-        - IN4L
+-        - IN4R
+-        - DMICDAT
+-        - HPOUTL
+-        - HPOUTR
+-        - SPKOUT
+-        - SPKOUTL
+-        - SPKOUTR
+-
+-required:
+-  - nvidia,i2s-controller
+-
+-unevaluatedProperties: false
+-
+-examples:
+-  - |
+-    #include <dt-bindings/clock/tegra30-car.h>
+-    #include <dt-bindings/soc/tegra-pmc.h>
+-    sound {
+-        compatible = "microsoft,tegra-audio-wm8962-surface-rt",
+-                     "nvidia,tegra-audio-wm8962";
+-        nvidia,model = "Microsoft Surface RT WM8962";
+-
+-        nvidia,audio-routing =
+-                "Headphone Jack", "HPOUTR",
+-                "Headphone Jack", "HPOUTL",
+-                "Int Spk", "SPKOUTR",
+-                "Int Spk", "SPKOUTL";
+-
+-        nvidia,i2s-controller = <&tegra_i2s1>;
+-        nvidia,audio-codec = <&wm8962>;
+-
+-        clocks = <&tegra_car TEGRA30_CLK_PLL_A>,
+-                 <&tegra_car TEGRA30_CLK_PLL_A_OUT0>,
+-                 <&tegra_pmc TEGRA_PMC_CLK_OUT_1>;
+-        clock-names = "pll_a", "pll_a_out0", "mclk";
+-    };
+diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8994.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8994.yaml
+deleted file mode 100644
+index d2c317f831ced..0000000000000
+--- a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8994.yaml
++++ /dev/null
+@@ -1,110 +0,0 @@
+-# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+-%YAML 1.2
+----
+-$id: http://devicetree.org/schemas/sound/nvidia,tegra-audio-wm8994.yaml#
+-$schema: http://devicetree.org/meta-schemas/core.yaml#
+-
+-title: NVIDIA Tegra audio complex with WM8994 CODEC
+-
+-maintainers:
+-  - Svyatoslav Ryhel <clamor95@gmail.com>
+-
+-allOf:
+-  - $ref: nvidia,tegra-audio-common.yaml#
+-
+-properties:
+-  compatible:
+-    items:
+-      - pattern: '^[a-z0-9]+,tegra-audio-wm8994(-[a-z0-9]+)+$'
+-      - const: nvidia,tegra-audio-wm8994
+-
+-  nvidia,audio-routing:
+-    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+-    description: |
+-      A list of the connections between audio components.
+-      Each entry is a pair of strings, the first being the connection's sink,
+-      the second being the connection's source. Valid names for sources and
+-      sinks are the pins (documented in the binding document),
+-      and the jacks on the board.
+-    minItems: 2
+-    items:
+-      enum:
+-        # Board Connectors
+-        - Headphone Jack
+-        - Int Spk
+-        - Earpiece
+-        - Line Out
+-        - Mic Jack
+-        - Int Mic
+-        - Internal Mic 1
+-        - Internal Mic 2
+-        - FM Radio
+-
+-        # CODEC Pins
+-        - SPKOUTLP
+-        - SPKOUTLN
+-        - SPKOUTRP
+-        - SPKOUTRN
+-        - HPOUT1L
+-        - HPOUT1R
+-        - HPOUT2P
+-        - HPOUT2N
+-        - LINEOUT1P
+-        - LINEOUT1N
+-        - LINEOUT2P
+-        - LINEOUT2N
+-        - IN1LN
+-        - IN1LP
+-        - IN2LN
+-        - IN2LP:VXRN
+-        - IN1RN
+-        - IN1RP
+-        - IN2RN
+-        - IN2RP:VXRP
+-        - DMIC1DAT
+-        - DMIC2DAT
+-        - MICBIAS1
+-        - MICBIAS2
+-
+-required:
+-  - nvidia,i2s-controller
+-
+-unevaluatedProperties: false
+-
+-examples:
+-  - |
+-    #include <dt-bindings/clock/tegra20-car.h>
+-    #include <dt-bindings/gpio/gpio.h>
+-
+-    sound {
+-        compatible = "lg,tegra-audio-wm8994-star",
+-                     "nvidia,tegra-audio-wm8994";
+-        nvidia,model = "LG Optimus 2X WM8994";
+-
+-        nvidia,audio-routing =
+-                "Headphone Jack", "HPOUT1L",
+-                "Headphone Jack", "HPOUT1R",
+-                "Int Spk", "SPKOUTLN",
+-                "Int Spk", "SPKOUTLP",
+-                "Earpiece", "HPOUT2N",
+-                "Earpiece", "HPOUT2P",
+-                "IN2RN", "MICBIAS2",
+-                "IN2RN", "Mic Jack",
+-                "IN1LN", "MICBIAS1",
+-                "IN1LN", "Internal Mic 1",
+-                "IN1RN", "MICBIAS1",
+-                "IN1RN", "Internal Mic 2";
+-
+-        nvidia,i2s-controller = <&tegra_i2s1>;
+-        nvidia,audio-codec = <&wm8994>;
+-
+-        nvidia,hp-det-gpios = <&gpio 51 GPIO_ACTIVE_HIGH>;
+-        nvidia,mic-det-gpios = <&gpio 27 GPIO_ACTIVE_HIGH>;
+-        nvidia,ext-mic-en-gpios = <&gpio 57 GPIO_ACTIVE_HIGH>;
+-        nvidia,coupled-mic-hp-det;
+-
+-        clocks = <&tegra_car TEGRA20_CLK_PLL_A>,
+-                 <&tegra_car TEGRA20_CLK_PLL_A_OUT0>,
+-                 <&tegra_car TEGRA20_CLK_CDEV1>;
+-        clock-names = "pll_a", "pll_a_out0", "mclk";
+-    };
+diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm9712.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm9712.yaml
+deleted file mode 100644
+index 397306b8800d4..0000000000000
+--- a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm9712.yaml
++++ /dev/null
+@@ -1,76 +0,0 @@
+-# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+-%YAML 1.2
+----
+-$id: http://devicetree.org/schemas/sound/nvidia,tegra-audio-wm9712.yaml#
+-$schema: http://devicetree.org/meta-schemas/core.yaml#
+-
+-title: NVIDIA Tegra audio complex with WM9712 CODEC
+-
+-maintainers:
+-  - Jon Hunter <jonathanh@nvidia.com>
+-  - Thierry Reding <thierry.reding@gmail.com>
+-
+-allOf:
+-  - $ref: nvidia,tegra-audio-common.yaml#
+-
+-properties:
+-  compatible:
+-    items:
+-      - pattern: '^[a-z0-9]+,tegra-audio-wm9712([-_][a-z0-9]+)+$'
+-      - const: nvidia,tegra-audio-wm9712
+-
+-  nvidia,audio-routing:
+-    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+-    description: |
+-      A list of the connections between audio components.
+-      Each entry is a pair of strings, the first being the connection's sink,
+-      the second being the connection's source. Valid names for sources and
+-      sinks are the pins (documented in the binding document),
+-      and the jacks on the board.
+-    minItems: 2
+-    items:
+-      enum:
+-        # Board Connectors
+-        - Headphone
+-        - LineIn
+-        - Mic
+-
+-        # CODEC Pins
+-        - MONOOUT
+-        - HPOUTL
+-        - HPOUTR
+-        - LOUT2
+-        - ROUT2
+-        - OUT3
+-        - LINEINL
+-        - LINEINR
+-        - PHONE
+-        - PCBEEP
+-        - MIC1
+-        - MIC2
+-        - Mic Bias
+-
+-required:
+-  - nvidia,ac97-controller
+-
+-unevaluatedProperties: false
+-
+-examples:
+-  - |
+-    sound {
+-        compatible = "nvidia,tegra-audio-wm9712-colibri_t20",
+-                     "nvidia,tegra-audio-wm9712";
+-        nvidia,model = "Toradex Colibri T20";
+-
+-        nvidia,audio-routing =
+-                "Headphone", "HPOUTL",
+-                "Headphone", "HPOUTR",
+-                "LineIn", "LINEINL",
+-                "LineIn", "LINEINR",
+-                "Mic", "MIC1";
+-
+-        nvidia,ac97-controller = <&ac97>;
+-
+-        clocks = <&clk 112>, <&clk 113>, <&clk 93>;
+-        clock-names = "pll_a", "pll_a_out0", "mclk";
+-    };
 -- 
-With best wishes
-Dmitry
+2.53.0
+
