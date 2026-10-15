@@ -1,109 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012044.outbound.protection.outlook.com [40.107.209.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A630A43C7C2;
-	Thu, 15 Oct 2026 19:51:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792093880; cv=none; b=McZ8U4C33jHO+R3sIr6u0Ue7Q1FNcT0NbG/PfnyofdeSupzHDdfgkGpx5B/5hgMqkOUUFQ416ZH4HK67eCOSgBGOmNNmENFwmboDuXx8CsWa0mCMAJaXfE3xdCSA1qp/LzWR4q7uQmjXQ2Gc6cAwLkoFWVH5c4sCaxa89qehoBs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792093880; c=relaxed/simple;
-	bh=ga6JYYLzzscZKA6V9O1XfWF5Uf0DD39/Nn3cQ8QDo/s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KkmelGwybMyiPyE0pdsJipQZQEvG21LXSoO7Zf+6c1vqgcOTeA6PX2qM/93vfUnEFaqxxuTbYLauS3OMf8ld2TWdZPbFKNYfJ1CMRGMFq1qPlwtEuTLLEjltEUmhI6adipSVWOlt8ZOiKKcTbQtwbWzIwrKZuyeMxnoOD/XNY0M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FAfpDwii; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFF00421A17
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 19:52:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792093924; cv=fail; b=Wg33aS3EGYgjbjZGGenTKRZrxXd6yW8bqyh0+QQ2nzsb8IYOTWWdGunNY5535VSUyZLemRtViGzQB4D0fB+dxm4/xW3ESDQEol5Hjz3u43AeMr/7H+Uf3MNIOSl0KpadXs0hbZ3bsqf9hn8c/z75xPxb8ftXCv0ukaL/xV0V9JE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792093924; c=relaxed/simple;
+	bh=qoqqmeJKLYbU4ZzWn+VVEElbHtFvNWhMya8lS6XAdgU=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZAkmCj/NVAHjql3iIlBJpFRdco5+RwMIWe4XeAPd9VeB9WY+MFuH8GfyRc7eeP8Jb0aEzysCAWURzR8sMA7Dl3uwKpqC4vetYmB2Anvbv4IYPyQ3drOy2oJeO1s2uGXR8SONihI0cwqd/vBPcjIKukMslWIL032pEbQsk+Posgg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=peaNShgd; arc=fail smtp.client-ip=40.107.209.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FAfpDwii"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EBD61F000C4;
-	Thu, 15 Oct 2026 19:51:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792093879;
-	bh=jIGO386Z+1/YyIE6BOFStksGPSpSiXsQ9RgmeE/zm1Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FAfpDwiimyOYzZ5JcENHIs5Vi+2y6MQ9waCDCqjQ5+IsJfkUSeldpuMERPh/ju+9C
-	 AmLFsYRx4ss/RQjY/bWbRusizOO22JZJyVNL7y9OrfXKArSLmo2eEK9R+IRfaM4DuI
-	 zy/7m5tTu5LXC9BM3BCyuvZ5W7IcKf7K9Pg6mLifvUxZHSedzm26VdWYvbvixTcnuf
-	 rwr/4AsRtD7ujDYGbxhGrNTq8Gp9V5d5z3AjS+c4MEV2RnQ8EhPHaqIMi6lzgKjf2l
-	 mCnpem+7WCa6NI6q4/DEoE/J0Ed0EUSU/S5PHY14wTr8pGPA7si/H/ns0p1C0yzx1i
-	 9bUpKICgHIs3g==
-Date: Thu, 15 Oct 2026 19:51:17 +0000
-From: Eric Biggers <ebiggers@kernel.org>
-To: Frank.Li@oss.nxp.com
-Cc: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	Benjamin Marzinski <bmarzins@redhat.com>,
-	Song Liu <song@kernel.org>, Yu Kuai <yukuai@fygo.io>,
-	Li Nan <magiclinan@didiglobal.com>, Xiao Ni <xiao@kernel.org>,
-	Dan Williams <djbw@kernel.org>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, dm-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org,
-	linux-crypto@vger.kernel.org, linux-doc@vger.kernel.org,
-	Anatolij Gustschin <agust@denx.de>,
-	Saeed Bishara <saeed@marvell.com>,
-	Rameshwar Prasad Sahu <rsahu@apm.com>,
-	Thomas Petazzoni <thomas.petazzoni@free-electrons.com>,
-	Anup Patel <anup.patel@broadcom.com>, Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH RFC 0/4] async_tx/md: Remove async_tx framework
-Message-ID: <20261015195117.GI2170687@google.com>
-References: <20261015-asycn_tx_remove-v1-0-056a7085e0a1@nxp.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="peaNShgd"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=e7PrZW/jkQ3yueafGe5kKcw86yKgPfBKEyvvRkFjN3ERAbewytVy1BTpgUnMnEnDw2l53Yiu92hqD1hhA7AaDQI8cxJ33jS740Ht8gkANmVD1pu7aLsKEC550cyGuDHmxb5vrOINf6KKrrLBLMJlM7pQQgFDON0HiQ1VXc2ZcfXAuu7M5N8MqRsd1wpXtOdFKBSiQGGDwhLvVMplj1ZxOPUtgpELSsTyWC8YCOSDeCMQlJYoOFBjonaMeRVVZRvi3a92uS1/2CUWLLrB1K3LB3Tkhxh9KPtybBLvmw0OnFr8ZCg3ZwNBIDRQb/5/bzNGUiKD2EJjw7Ilw1gyvLFOZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BGf4sBQCDOniHWBZJ+6LZ0pt+MAyBNBD+iLIotP4uas=;
+ b=jdNPglfbCNAALQussjX7T8+VDMkXgsH948JnCHn29eOFdI6VtZvPBvCx/1dTsBtcGeRVVvjsNgY1qdGX5k6VrVjdb7jn5nWJC8P59fMAMQ5noSujlNvoTudArtjaBGQWOMJUzWpxZl8+71tibBA+NMbaiXN/j4kzUnrglLz+vL9syjOtfVGhmDeQBRnCl71/HhMayI3DU2GsjI1+1NnJukZATaTh6FdQXYPiBjsTSubzq24Jf1AWye54pd8WyCJMGtaj0OlbyhySLefYS+TyaX+KnjQ+IkVu8zRAseHyM1lOlEEjt+VGdXA+v+m+aNpblec6TqDD1MOXbhANI5e5rg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BGf4sBQCDOniHWBZJ+6LZ0pt+MAyBNBD+iLIotP4uas=;
+ b=peaNShgd+Y9HwYw3tEWdkal/hFNAjlQL9FTaM7iY5ytbSPXfVm7hWmvQ+lNYjWFGIXQBi0YnuLszNFgi4DinIb8Y9a7EeCZfaBKtogCRZxuYztJl0t9Kn3+YURCWGpznREhuoHlMm3a43xyb5THLHMknZFuPphrHZTeTFSdDSGmzOuiboSpeuWIopXneqbvJX7jpNRYED7XyBd7cb9lnrDrPYdloPGA2rtGWH9uLZUXWUZzxgwzXtAgonvurz39nX3juZkVQTB8tXtqfDzP5Qtwj64sWsEyeUoj/b66nB7QCHvZHepv463O13hOQUW7UjUSmRdW0rtMiJ+Ykdwu/Sg==
+Received: from BN9PR03CA0468.namprd03.prod.outlook.com (2603:10b6:408:139::23)
+ by IA3PR12MB570242.namprd12.prod.outlook.com (2603:10b6:208:715::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Thu, 15 Oct
+ 2026 19:52:00 +0000
+Received: from BL02EPF0002992D.namprd02.prod.outlook.com
+ (2603:10b6:408:139:cafe::9a) by BN9PR03CA0468.outlook.office365.com
+ (2603:10b6:408:139::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Thu,
+ 15 Oct 2026 19:52:00 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ BL02EPF0002992D.mail.protection.outlook.com (10.167.249.58) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Thu, 15 Oct 2026 19:52:00 +0000
+Received: from rnnvmail204.nvidia.com (10.129.68.6) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 15 Oct
+ 2026 12:51:38 -0700
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by rnnvmail204.nvidia.com
+ (10.129.68.6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 15 Oct
+ 2026 12:51:37 -0700
+Received: from nvidia.com (10.127.8.13) by mail.nvidia.com (10.129.68.9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
+ Transport; Thu, 15 Oct 2026 12:51:35 -0700
+Date: Thu, 15 Oct 2026 12:51:33 -0700
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+CC: Andrew Jones <andrew.jones@oss.qualcomm.com>,
+	<linux-riscv@lists.infradead.org>, <iommu@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>, <tomasz.jeznach@linux.dev>,
+	<tjeznach@rivosinc.com>, <jgg@ziepe.ca>, <joro@8bytes.org>,
+	<will@kernel.org>, <robin.murphy@arm.com>, <pjw@kernel.org>,
+	<palmer@dabbelt.com>, <anup@brainfault.org>, <tglx@kernel.org>,
+	<kevin.tian@intel.com>, <fangyu.yu@linux.alibaba.com>
+Subject: Re: [PATCH v6 09/16] iommu/riscv: Reserve an MSI IOVA window for
+ iommufd
+Message-ID: <atEuxafCLCdZrdR7@nvidia.com>
+References: <20260925151659.419512-1-andrew.jones@oss.qualcomm.com>
+ <20260925151659.419512-10-andrew.jones@oss.qualcomm.com>
+ <179209292716.4133959.2758345963634439485.b4-review@b4>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <20261015-asycn_tx_remove-v1-0-056a7085e0a1@nxp.com>
+In-Reply-To: <179209292716.4133959.2758345963634439485.b4-review@b4>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0002992D:EE_|IA3PR12MB570242:EE_
+X-MS-Office365-Filtering-Correlation-Id: c32e24a8-5632-450c-768e-08df2af5c712
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|376014|1800799024|7416014|22082099003|10067099003|18002099003|11063799006|260925021911599003|260925022911599003|260925021311599003|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	hbQHRwk8/PLSQ6KDPKvQqPb6RiS74dLFCrodGyox7DTLaJRoqW0VZ+hG9YdEEMGKOURnp0apmyecXvg0c+qFC//7JOQqIcOzM1ABlPpn/zHpCf4TJEVXMCJA4dZt2TO+qcWby4JOfRvs4IOUgVwEH5o5RuF5trqYbzY2u5Rir+gMstwDkYeWLvdMS0nfRveV9CyzQcsVUcHqBnQQx2ek5fjzqEbpX2mqMfig5QzYeuYPIeiXgKQUDuaMuQCEx2rZEpvwDzdw7F7f3nLu4DYMyQKXblOd5g3rtcTbeUHpwcDEfGmVNeia/PuQvMQG1em4kiLbMX2oqC19sKwsMRaJvldivfchWyhAWLwPc7+bsN6buWvt9X8W/1ryEBk/h/UZb8xYYXPDniJ76+GZfhQwX55sHsGWgQjtwDb4Z9k8yPzHfbuYoHRY8K8cyy3Aj1cJ7rUtlixAA1feI77eXUQAsOS8dpe9kAYgVs6AXzDrzwAOr+V1uuGrYRt/bywu3T7Ef1XgJJd+Mvnb+9nzaij/C30qhsrCH3qMAbnD9qvMRVj4a3avh5T1oQHqw7h8WpdWIS2AqYHhAAtyQMgSsWruvJ79fKb/XDRV+b8OollOjOAYIkEH9fdidw1nECdTHOKVQ44QBCbX8yr6GCFRAkZd5z/x/6fHGVRhFcVbuIx33DMZjrkHGZztc3UTXhi6dBnFtUwo7+RDGzkRnPwfLPjFwg==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(376014)(1800799024)(7416014)(22082099003)(10067099003)(18002099003)(11063799006)(260925021911599003)(260925022911599003)(260925021311599003)(4143699003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	ZwXJgfz8qoWHJlNnCCHR6w9D1V92jYNHlSen9HQryYkeNm412nbKRDjgVoZ6DDgIUT5nCnxfLUnyXCOwQUAeSLZfXaxzOjlEfgU339N/b+zgThprxN4xy2bRO4JTEc8bqx3b5ECGro91XbwaEVv71tQYlRNA2/bEiq0hKrUMIa1/n2IyGaEneYWbLZH70zGKZKHJKqw60CCOMKIDh8EMHIDu/5jGfof3H0fHPNla2E7nlu0bMVy1qSlxN/Hkl9vYQ+/HX8cBKtARO5y2HqZZM/VdigmZUV9eO2Dx7X0WeqsmpQCMgRIlNjNPDcMlvva8ZI0Ns3W8vHppkiGYv2a2AYkWWBSoVepvAfGobrTSrbVu6ZifaZLje6U816dDRsczS1/mW6ktjTZWV2MBieng5WbCAIFOoYq990AmzpOLJTbG/meb3PSorx0XbIkFR7bd
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 19:52:00.3278
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c32e24a8-5632-450c-768e-08df2af5c712
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL02EPF0002992D.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR12MB570242
 
-On Thu, Oct 15, 2026 at 03:22:24PM -0400, Frank.Li@oss.nxp.com wrote:
-> This RFC is collecting more feedbacks to device when is good time to remove
-> whole async_tx framework and how to remove it safely. And is overall
-> direction correction.
+On Thu, Oct 15, 2026 at 04:35:27PM -0300, Jason Gunthorpe wrote:
+> > Reserve one page per possible CPU, sufficient for each supervisor IMSIC
+> > page. Use a 16 MiB base instead of the 128 MiB convention used by ARM
+> > SMMU. kvmtool places its guest IMSIC at 128 MiB, so with IRQ bypass the
+> > domain-wide guest MSI address match can also capture host-delivered
+> > MSI writes to the SW MSI window and misdeliver them to the guest.
+> > 
+> > 16 MiB falls in a hole in the current kvmtool and QEMU virt memory maps,
+> > away from their guest IMSIC windows and RAM. Keep the window below
+> > 4 GiB so devices with 32-bit MSI address registers can use it.
 > 
-> Little to no real hardware acceleration usage:
->   Most systems run RAID5/6 parity calculations on the CPU using optimized
->   XOR/PQ implementations, while DMAEngine-backed async_tx acceleration is
->   rarely present or exercised.
-> 
-> Added abstraction and maintenance cost:
->   async_tx introduces an extra layer between MD RAID and parity operations,
->   making the code harder to understand, debug, and maintain.
-> 
-> Modern CPUs outperform DMA offload:
->   SIMD implementations (SSE/AVX/NEON and architecture-specific RAID
->   routines) often provide better performance than DMA descriptor setup and
->   completion handling overhead.
-> 
-> Obsolete hardware dependencies:
->   Many async_tx acceleration backends were designed for older DMA/XOR
->   engines that are no longer common in contemporary systems.
-> 
-> Complex asynchronous execution model:
->   Dependency chains, callback handling, and DMA transaction management
->   increase code complexity without corresponding performance benefits on
->   typical deployments.Simplifies RAID code paths: Removing async_tx allows
->   direct use of synchronous XOR/PQ helpers, reducing indirection in raid5.c
->   source code [linux/drivers/md/raid5.c].
-> 
-> Reduces testing burden:
->   Eliminates rarely used code paths that are difficult to validate and more
->   likely to accumulate latent bugs.
-> 
-> Aligns implementation with actual usage:
->   The vast majority of MD RAID deployments already rely on software parity
->   generation rather than DMA offload.
-[..]
->  17 files changed, 281 insertions(+), 2843 deletions(-)
+> And this is a good reason you should not follow ARM down this mad
+> road. Nicolin had some patches to allow userspace to select the SW_MSI
+> range instead of using a kernel hard coded value, which becomes a
+> sneaky ABI. It would be much better if riscv starts off on the right
+> foot instead of continuing this mistake.
 
-I haven't been paying much attention to the crypto/async_tx/ directory,
-but this makes sense to me.  This mirrors similar trends that we've seen
-with the crypto and CRC algorithms.  For these types of algorithms, just
-using the CPU is faster and much simpler than trying to offload the
-operation to some external hardware engine (which rarely even exist).
+It was paused due to lack of an immediate interest:
+https://lore.kernel.org/linux-iommu/cover.1760487869.git.nicolinc@nvidia.com/
 
-- Eric
+If riscv wants it, maybe we can give a push.
+
+Nicolin
