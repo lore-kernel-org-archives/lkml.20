@@ -1,302 +1,144 @@
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F0C148F832
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:36:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EAE2489FAB
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:37:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792053405; cv=none; b=XiyH+ttcMy0iSjbaiQ5H4wJO/iZ1UwRVUZ+PmWsTP8wgqTilOHvxtb9wLGXCsrkfvxt+sEYBhJqfsN4I7qxuy4r+73EphYuY5ZrmHqBwHWcOPWBcEQJulBFMBeuwP8UeIyJGHgwrixj1DSVVGcfm37GlY7bLtBEXkrCJFAYH7TY=
+	t=1792053430; cv=none; b=eOcBS/m0Oxw9JAfakp2K4yySgREdXrapWneulBMxYzqJmC/DmWESoMo1AOz08rUO7gePhtDxomtjhuHglf76PYgUrwhxYmClajCruRf86It+4CsG0VUzW7Mda9efHVLfB5c3r2KbFXTClMhJkGd1hphQ905H4B/SWcZfxMyIw34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792053405; c=relaxed/simple;
-	bh=npDvVQ5z9FFSw1dO7sjs27nSs1ONKFM4kOi8CDIPTR0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AYy2KVBfdDO9OC0htRJ2/IACw45tj5oN9uCl4k7rYg3vdjpnebM+tsN5oAarRQNciBv9/TCT18qNywUoK+jGmimuKfqOcg48wkWUJTKxb4V2yu4W88oMRhg97UPasriTHRYW2mOXRCHwWrnGyWx6zOP0Xol0qefFv60OZb2frcM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KYaLFmqB; arc=none smtp.client-ip=209.85.222.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792053430; c=relaxed/simple;
+	bh=VI/S3NQ/JV7pZ/H4ER2/muIbmReg9pMFowO5ie7zaa4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oiyUNnWPDbTQ5NWlA8LH0RvvLmOp3w9X57adDLJ4do6JIP7CqivjXuBs3aX7QXCk+EZOa+ciRMKiXlXEU3Mu3WzZZSj/5N1Olwcarfr5vO6LTYlgrqneTHiWUQUvkZQVmZlaFfNMmgLynswJ+nzgWIkmZE83R6Uz/SgQxb4oQ4g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ceFJqAFL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KYaLFmqB"
-Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-93cc1ab5f6cso595009485a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:36:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792053401; x=1792658201; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2STKe93BsxxSjKyZn2b4YvS4oxKmV5oT37N/2nRdsNg=;
-        b=KYaLFmqBNd+aGu7grYEMuYvaaGaG4dnqsPkMqYul2qlRkqBTqRYJof9a2EuPWSUr7X
-         rNMJ4+5+eGRwvOh3V65EzpOarY7SftF8Eu9c9lHM8BrKCNv014HN6wR7P9ScxMnZ5NBB
-         y7qOAVLGsZDcti9Usp0s6Eut/hFKrj0Ic0PEtcIwgdC4irOyU7HMjmGd1sYHggWSEIX5
-         5lfzRi2YFlwT1EH67fKMJHtkwWCnPs8ozVaIjwm/h0aAP6EfCFipiPCOWb4wsUOMmcV7
-         h8Kc9AQqFTab0aN7XVoPQZPsruKO9qyz/A0WgpsnRZOmkoq8WRR287fmrlW9ilw48W5+
-         WmXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792053401; x=1792658201;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2STKe93BsxxSjKyZn2b4YvS4oxKmV5oT37N/2nRdsNg=;
-        b=XwBCWjRO5gfViutvqLcGugNJcOyaOSfksJkkLJ1BGD4CLdnkKZPM6/vp1WskcyLhwb
-         2AsPjGxTrYatkIVMUba2Uo/ZEe1H1WCgaVCzVcIluufLhdzmhM4Y8XisDkuXte/zUySA
-         7QgvULTAyWkx0F8UsbL2Stg9PwYiiqffPUYxXOC/LxTwT0M2fNPByqOg1vxZzuxQem+y
-         1Ucft7KkEv6aADwBf4/hTvkgWSLcUyUOJ7gxQUtT/KQZKALKnOUr6e69GwNl5ypT87j1
-         giLvArLo5aGZ6efSP2mWfakjo+gOBeB7cPzjkhJxg25b6OwZJ3bwEtUpO1KX+qV6CD/0
-         0NYQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzAuF7YXJ/IHNjgurv5wM+glpBI+165gL9eekX+0AAUdCcgWPnZlzdKTdCXpvLv3zSA1Jqx/TQTCH0PDr0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKCDOlShHJkUvb5IK7Ja6BPACvecJ0B27Rmj9s038+yspKP8pSQ
-	+Lz98DMjeDIzw2xl+Mv+QqOIVQwmG9sgJtg0vEuLdGK9tdE63BbvYzua
-X-Gm-Gg: AYBFou1jnHeq9mEEj+fWiUqJJVOwJPtb5yz3gkCtFzEFBb6nplf9nPwe2JN1hOrwzf5
-	5ZxmSgFwdTVxfekZSxVXQXHHAzgg6EtMdNElXhjj3e9hfTn/pAmbOcWwx4Rrv4dKrQFhSMje6JS
-	QRHPEojoGynJzvj8gJPbit7L7J93EVbRs1DCTHqP9mVL+QearE9uOt5jLESkynL+PcqRUOjCT3U
-	6R1j920I9rw34S3ogYqO2wcAgsdyz8FIwMxYEUwf2CKMMKBWYToDGg544faMYs4qCwkbJ3BTLSl
-	PYZiu9CYJnSw3ZrExup12XeD9c1y9+9AwjqUvmdbO1M9DLvR9KpVPewTsyYZhJocy3TkP5HsaR9
-	Sk5Y+jIg6ry4qsGJ/lbszqY5S1EVjUEwzHfXJcRe109/reZ5/giCN+/dkz9vu9i5tC2BbE+qG08
-	tDLAR/F3uFahAlc1I0sxs328nLXoTz/Oa5vQn+fXhXtS/1khWtj8aKurp+M9RGMfus4n3TQmm7V
-	p1cWWq8tdWi/Wy5DDlxCwohvc9cuKTCcAxQ/+oy7A5P9prRUsCoCjHAo9vB6Opp3wQsUgBUjFO3
-	7vvwUEsPvTdB+WeGo3pq45nu
-X-Received: by 2002:a05:620a:462b:b0:93d:cbe6:c236 with SMTP id af79cd13be357-93ebd4a97edmr3010062885a.66.1792053400997;
-        Thu, 15 Oct 2026 01:36:40 -0700 (PDT)
-Received: from ip-172-31-15-253.ec2.internal (ec2-44-200-54-59.compute-1.amazonaws.com. [44.200.54.59])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef5090050sm711843985a.40.2026.10.15.01.36.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 01:36:40 -0700 (PDT)
-From: Deep Shah <deepshah146@gmail.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>
-Cc: linux-rdma@vger.kernel.org,
-	Yishai Hadas <yishaih@nvidia.com>,
-	Edward Srouji <edwards@nvidia.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	Deep Shah <deepshah146@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH rdma-rc 2/2] RDMA/uverbs: Fix DMABUF use-after-free during ufile cleanup
-Date: Thu, 15 Oct 2026 08:36:37 +0000
-Message-ID: <20261015083637.200958-3-deepshah146@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261015083637.200958-1-deepshah146@gmail.com>
-References: <20261015083637.200958-1-deepshah146@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ceFJqAFL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E1BB1F000C4;
+	Thu, 15 Oct 2026 08:37:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792053424;
+	bh=NLcSuJO4U8vjtpBw9Dd1guU9F3I58AzL7EvX+dUZ0Qo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ceFJqAFLM7g4NE9wZsEJoybbeHVCVxchnM7ejTiim3IUlIFyU3ctm4G9tESzMQMla
+	 DtM5RNVSK1/JVG2PJqbDaMrJtDeUiCNnpI7BbLZkgoooSQUevs8vV++LK021vfv2cV
+	 2pdkgAjUJy8kcL1c/QXjLltJq619Z1+4uE0gOSXKSgBn9+sAjWca4ng0iBZb/Wj+HF
+	 DoQgKlj4SpKEMEYFJaqRJssFTt18waBVfOXf1eOWjRYA2znJ1KOFyqgCAu6Qk1i1kL
+	 LzSTCa3+D34hc8AKJVAg7VQxtm+MGSw+6K9TtN/GxtwaY4A1HRstooBKVORn402cMK
+	 YJKOUb/qL/qqg==
+Date: Thu, 15 Oct 2026 11:36:58 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Pratyush Yadav <pratyush@kernel.org>
+Cc: Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Alexander Graf <graf@amazon.com>, kexec@lists.infradead.org,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	Bing Jiao <bingjiao@google.com>
+Subject: Re: [PATCH] kho: do not reserve empty per-node bootmem areas
+Message-ID: <atCQqghin0KOyx63@kernel.org>
+References: <20261014131547.259138-1-pratyush@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014131547.259138-1-pratyush@kernel.org>
 
-The DMABUF release can race with ufile cleanup. When the cleanup holds
-hw_destroy_rwsem for write, uverbs_uobject_release() fails its trylock
-and leaves the uobject on the ufile list, but the dma_buf is freed as
-soon as the release returns. The cleanup then destroys the uobject and
-uses the freed dma_buf:
+On Wed, Oct 14, 2026 at 03:15:44PM +0200, Pratyush Yadav wrote:
+> From: "Pratyush Yadav (Google)" <pratyush@kernel.org>
+> 
+> Some nodes do not allocate any early boot memory. An example is
+> hotpluggable nodes with movable_node enabled. So the scratch size for
 
-  BUG: KASAN: slab-use-after-free in uverbs_dmabuf_fd_destroy_uobj+0x46/0x200
-  Read of size 8 at addr ff11000109cf14b0 by task repro/435
-  Call Trace:
-   uverbs_dmabuf_fd_destroy_uobj+0x46/0x200
-   destroy_hw_fd_uobject+0x3f/0x50
-   uverbs_destroy_uobject+0xc5/0x380
-   __uverbs_cleanup_ufile+0x1a8/0x260
-   uverbs_destroy_ufile_hw+0x54/0x160
-   ib_uverbs_close+0x34/0x110
-  Allocated by task 435:
-   dma_buf_export+0x1b5/0x530
-   ib_uverbs_handler_UVERBS_METHOD_DMABUF_ALLOC+0x223/0x3f0
-  Freed by task 436:
-   kfree+0x301/0x530
-   dentry_kill+0x14c/0x560
-   __fput+0x23a/0x4a0
+                          Let's use the new naming please ^ ;-)
 
-rdma_user_mmap_entry_remove() dereferences the same pointer.
+I'll fix it up when applying.
 
-Protect the stored dma_buf pointer with a mutex and clear it before
-release returns. Use a shared revoke helper so uobject destruction and
-mmap entry removal both skip a cleared pointer. Hold a temporary uobject
-reference across uverbs_uobject_release() and the pointer update.
+> them ends up being zero. Zero size allocations normally don't play well
+> with memblock. Memblock returns an address, but then doesn't actually
+> reserve anything. This address ends up being recorded in kho_bootmem
+> with a size of 0. In case of hotpluggable nodes with movable_nodes, the
+> allocation on the node actually fails because memblock refuses to
+> allocate there, and so KHO fails to initialize.
+> 
+> Skip bootmem reservation for such nodes entirely.
+> 
+> To keep the code more robust, avoid overloading kho_bootmem_cnt. use
+> max_nr_bootmem to store the size of kho_bootmem array. This ensures that
+> the location of kho_bootmem_cnt assignment does not affect the cleanup
+> paths.
+> 
+> Fixes: 3dc92c311498 ("kexec: add Kexec HandOver (KHO) generation helpers")
+> Reported-by: Bing Jiao <bingjiao@google.com>
+> Signed-off-by: Pratyush Yadav (Google) <pratyush@kernel.org>
+> ---
+>  kernel/liveupdate/kexec_handover.c | 17 +++++++++++++----
+>  1 file changed, 13 insertions(+), 4 deletions(-)
+> 
+> diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
+> index 7018e25e4eda..6f1f55fe3181 100644
+> --- a/kernel/liveupdate/kexec_handover.c
+> +++ b/kernel/liveupdate/kexec_handover.c
+> @@ -831,8 +831,8 @@ bool kho_bootmem_overlap(phys_addr_t phys, size_t size)
+>   */
+>  static void __init kho_reserve_bootmem(void)
+>  {
+> +	int nid, i = 0, max_nr_bootmem;
+>  	phys_addr_t addr, size;
+> -	int nid, i = 0;
+>  
+>  	if (!kho_enable)
+>  		return;
+> @@ -840,8 +840,8 @@ static void __init kho_reserve_bootmem(void)
+>  	bootmem_size_update();
+>  
+>  	/* FIXME: deal with node hot-plug/remove */
+> -	kho_bootmem_cnt = nodes_weight(node_states[N_MEMORY]) + 2;
+> -	size = kho_bootmem_cnt * sizeof(*kho_bootmem);
+> +	max_nr_bootmem = nodes_weight(node_states[N_MEMORY]) + 2;
+> +	size = max_nr_bootmem * sizeof(*kho_bootmem);
+>  	kho_bootmem = memblock_alloc(size, PAGE_SIZE);
+>  	if (!kho_bootmem) {
+>  		pr_err("Failed to reserve bootmem array\n");
+> @@ -882,6 +882,9 @@ static void __init kho_reserve_bootmem(void)
+>  	 */
+>  	for_each_node_state(nid, N_MEMORY) {
+>  		size = bootmem_size_node(nid);
+> +		if (!size)
+> +			continue;
+> +
+>  		addr = memblock_alloc_range_nid(size, BOOTMEM_ALIGNMENT_BYTES,
+>  						0, MEMBLOCK_ALLOC_ACCESSIBLE,
+>  						nid, true);
+> @@ -895,13 +898,19 @@ static void __init kho_reserve_bootmem(void)
+>  		i++;
+>  	}
+>  
+> +	/*
+> +	 * Nodes that needed no bootmem were skipped, so fewer areas than
+> +	 * initially estimated may have been reserved.
+> +	 */
+> +	kho_bootmem_cnt = i;
+> +
+>  	return;
+>  
+>  err_free_bootmem_areas:
+>  	for (i--; i >= 0; i--)
+>  		memblock_phys_free(kho_bootmem[i].addr, kho_bootmem[i].size);
+>  err_free_bootmem_desc:
+> -	memblock_free(kho_bootmem, kho_bootmem_cnt * sizeof(*kho_bootmem));
+> +	memblock_free(kho_bootmem, max_nr_bootmem * sizeof(*kho_bootmem));
+>  err_disable_kho:
+>  	pr_warn("Failed to reserve bootmem, disabling kexec handover\n");
+>  	kho_enable = false;
+> 
+> base-commit: e1fe7daedae7a4a23aca6dbd58e1746750b632dc
+> -- 
+> 2.56.0.385.gd3acb90ef8-goog
+> 
 
-Use a separate mutex because uobject destruction can free the mmap entry
-before release finishes. Map and unmap use attachment->dmabuf directly,
-so they do not need to take the new mutex while holding the reservation
-lock.
-
-Fixes: 0ac6f4056c4a ("RDMA/uverbs: Add DMABUF object type and operations")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Deep Shah <deepshah146@gmail.com>
----
- drivers/infiniband/core/ib_core_uverbs.c      | 10 +----
- drivers/infiniband/core/uverbs.h              | 37 ++++++++++++++++++
- .../infiniband/core/uverbs_std_types_dmabuf.c | 39 +++++++++++--------
- 3 files changed, 61 insertions(+), 25 deletions(-)
-
-diff --git a/drivers/infiniband/core/ib_core_uverbs.c b/drivers/infiniband/core/ib_core_uverbs.c
-index 41c84ffe8c09..2bdb6972fe1a 100644
---- a/drivers/infiniband/core/ib_core_uverbs.c
-+++ b/drivers/infiniband/core/ib_core_uverbs.c
-@@ -244,16 +244,8 @@ void rdma_user_mmap_entry_remove(struct rdma_user_mmap_entry *entry)
- 	entry->driver_removed = true;
- 	xa_unlock(&entry->ucontext->mmap_xa);
- 	list_for_each_entry_safe(uverbs_dmabuf, tmp, &entry->dmabufs, dmabufs_elm) {
--		dma_resv_lock(uverbs_dmabuf->dmabuf->resv, NULL);
- 		list_del(&uverbs_dmabuf->dmabufs_elm);
--		uverbs_dmabuf->revoked = true;
--		dma_buf_invalidate_mappings(uverbs_dmabuf->dmabuf);
--		dma_resv_wait_timeout(uverbs_dmabuf->dmabuf->resv,
--				      DMA_RESV_USAGE_BOOKKEEP, false,
--				      MAX_SCHEDULE_TIMEOUT);
--		dma_resv_unlock(uverbs_dmabuf->dmabuf->resv);
--		kref_put(&uverbs_dmabuf->kref, ib_uverbs_dmabuf_done);
--		wait_for_completion(&uverbs_dmabuf->comp);
-+		ib_uverbs_dmabuf_revoke(uverbs_dmabuf);
- 	}
- 	mutex_unlock(&entry->dmabufs_lock);
- 
-diff --git a/drivers/infiniband/core/uverbs.h b/drivers/infiniband/core/uverbs.h
-index c64dd6b94e10..728e09b41992 100644
---- a/drivers/infiniband/core/uverbs.h
-+++ b/drivers/infiniband/core/uverbs.h
-@@ -42,6 +42,8 @@
- #include <linux/mutex.h>
- #include <linux/completion.h>
- #include <linux/cdev.h>
-+#include <linux/dma-buf.h>
-+#include <linux/dma-resv.h>
- 
- #include <rdma/ib_verbs.h>
- #include <rdma/ib_umem.h>
-@@ -135,6 +137,13 @@ struct ib_uverbs_completion_event_file {
- 
- struct ib_uverbs_dmabuf_file {
- 	struct ib_uobject uobj;
-+	/*
-+	 * Serializes users of dmabuf with the dma_buf's release, which sets it
-+	 * to NULL. The uobject can outlive the dma_buf while it waits to be
-+	 * destroyed. The map and unmap callbacks use attachment->dmabuf
-+	 * instead of taking this lock.
-+	 */
-+	struct mutex dmabuf_release_lock;
- 	struct dma_buf *dmabuf;
- 	struct list_head dmabufs_elm;
- 	struct rdma_user_mmap_entry *mmap_entry;
-@@ -359,6 +368,34 @@ static inline void ib_uverbs_dmabuf_done(struct kref *kref)
- 	complete(&priv->comp);
- }
- 
-+/*
-+ * Revoke the dmabuf and wait for all of its DMA mappings to be gone. Must be
-+ * called with the mmap entry's dmabufs_lock held, after the dmabuf has been
-+ * removed from the entry's dmabufs list, so it runs once per dmabuf. Lock
-+ * order is dmabufs_lock, dmabuf_release_lock, then the dma_resv lock.
-+ */
-+static inline void ib_uverbs_dmabuf_revoke(struct ib_uverbs_dmabuf_file *priv)
-+{
-+	mutex_lock(&priv->dmabuf_release_lock);
-+	if (priv->dmabuf) {
-+		dma_resv_lock(priv->dmabuf->resv, NULL);
-+		priv->revoked = true;
-+		dma_buf_invalidate_mappings(priv->dmabuf);
-+		dma_resv_wait_timeout(priv->dmabuf->resv,
-+				      DMA_RESV_USAGE_BOOKKEEP, false,
-+				      MAX_SCHEDULE_TIMEOUT);
-+		dma_resv_unlock(priv->dmabuf->resv);
-+	} else {
-+		/* A released dma_buf has no attachments left to invalidate */
-+		priv->revoked = true;
-+	}
-+	mutex_unlock(&priv->dmabuf_release_lock);
-+
-+	kref_put(&priv->kref, ib_uverbs_dmabuf_done);
-+	/* Wait till all DMA unmaps are completed */
-+	wait_for_completion(&priv->comp);
-+}
-+
- int __uverbs_cleanup_ufile(struct ib_uverbs_file *ufile,
- 			   enum rdma_remove_reason reason);
- 
-diff --git a/drivers/infiniband/core/uverbs_std_types_dmabuf.c b/drivers/infiniband/core/uverbs_std_types_dmabuf.c
-index d88d30f1e42f..8d8c997a4883 100644
---- a/drivers/infiniband/core/uverbs_std_types_dmabuf.c
-+++ b/drivers/infiniband/core/uverbs_std_types_dmabuf.c
-@@ -28,7 +28,7 @@ uverbs_dmabuf_map(struct dma_buf_attachment *attachment,
- 	struct ib_uverbs_dmabuf_file *priv = attachment->dmabuf->priv;
- 	struct sg_table *ret;
- 
--	dma_resv_assert_held(priv->dmabuf->resv);
-+	dma_resv_assert_held(attachment->dmabuf->resv);
- 
- 	if (priv->revoked)
- 		return ERR_PTR(-ENODEV);
-@@ -49,7 +49,7 @@ static void uverbs_dmabuf_unmap(struct dma_buf_attachment *attachment,
- {
- 	struct ib_uverbs_dmabuf_file *priv = attachment->dmabuf->priv;
- 
--	dma_resv_assert_held(priv->dmabuf->resv);
-+	dma_resv_assert_held(attachment->dmabuf->resv);
- 	dma_buf_free_sgt(attachment, sgt, dir);
- 	kref_put(&priv->kref, ib_uverbs_dmabuf_done);
- }
-@@ -74,7 +74,25 @@ static void uverbs_dmabuf_release(struct dma_buf *dmabuf)
- 	if (!priv)
- 		return;
- 
-+	/*
-+	 * uverbs_uobject_release() may drop the last reference to the uobject,
-+	 * keep it around until the dmabuf pointer below has been cleared.
-+	 */
-+	uverbs_uobject_get(&priv->uobj);
- 	uverbs_uobject_release(&priv->uobj);
-+
-+	/*
-+	 * The dma_buf is freed once this function returns. If the uobject was
-+	 * not destroyed above, because the ufile is concurrently being cleaned
-+	 * up, it is still reachable through the ufile's uobjects list and the
-+	 * mmap entry's dmabufs list. Make sure those paths are not in the
-+	 * middle of using the dma_buf and cannot use it afterwards.
-+	 */
-+	mutex_lock(&priv->dmabuf_release_lock);
-+	priv->dmabuf = NULL;
-+	mutex_unlock(&priv->dmabuf_release_lock);
-+
-+	uverbs_uobject_put(&priv->uobj);
- }
- 
- static const struct dma_buf_ops uverbs_dmabuf_ops = {
-@@ -100,6 +118,8 @@ static int UVERBS_HANDLER(UVERBS_METHOD_DMABUF_ALLOC)(
- 	off_t pg_off;
- 	int ret;
- 
-+	mutex_init(&uverbs_dmabuf->dmabuf_release_lock);
-+
- 	ret = uverbs_get_const(&pg_off, attrs, UVERBS_ATTR_ALLOC_DMABUF_PGOFF);
- 	if (ret)
- 		return ret;
-@@ -165,24 +185,11 @@ static void uverbs_dmabuf_fd_destroy_uobj(struct ib_uobject *uobj,
- {
- 	struct ib_uverbs_dmabuf_file *uverbs_dmabuf =
- 		container_of(uobj, struct ib_uverbs_dmabuf_file, uobj);
--	bool wait_for_comp = false;
- 
- 	mutex_lock(&uverbs_dmabuf->mmap_entry->dmabufs_lock);
--	dma_resv_lock(uverbs_dmabuf->dmabuf->resv, NULL);
- 	if (!uverbs_dmabuf->revoked) {
--		uverbs_dmabuf->revoked = true;
- 		list_del(&uverbs_dmabuf->dmabufs_elm);
--		dma_buf_invalidate_mappings(uverbs_dmabuf->dmabuf);
--		dma_resv_wait_timeout(uverbs_dmabuf->dmabuf->resv,
--				      DMA_RESV_USAGE_BOOKKEEP, false,
--				      MAX_SCHEDULE_TIMEOUT);
--		wait_for_comp = true;
--	}
--	dma_resv_unlock(uverbs_dmabuf->dmabuf->resv);
--	if (wait_for_comp) {
--		kref_put(&uverbs_dmabuf->kref, ib_uverbs_dmabuf_done);
--		/* Let's wait till all DMA unmap are completed. */
--		wait_for_completion(&uverbs_dmabuf->comp);
-+		ib_uverbs_dmabuf_revoke(uverbs_dmabuf);
- 	}
- 	mutex_unlock(&uverbs_dmabuf->mmap_entry->dmabufs_lock);
- 
+-- 
+Sincerely yours,
+Mike.
