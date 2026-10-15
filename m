@@ -1,187 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90EE9379C22;
-	Thu, 15 Oct 2026 16:37:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28EC352E058
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:39:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792082287; cv=none; b=fEhA5pfyhikyPfNmbEteeeWOHFKeD0Ej9Yrg5kUQ8/QPLVdLRenQLz+3ij9tHjX+Q4Aglq41NWrqh96PQ+QZP1KzuygOvzhaG/S+wM4FSrg974EoaUH2coxrZmx4DYyGM8LP1tt7zryiJc+s9mZ1NG9AeLa5LWS139neYuCT1BI=
+	t=1792082369; cv=none; b=KzBQJV54fBiEtUlNMEbhsaHVQAmd6W3ZoVN0+o/X+GKsjHd3Kp+deAqALR4xwOqpa/m/uNaFIXmeIFJzH8OkTFW/hBOVfgsx9l9AdpVC09eyxGbsFQv3iUpFl71jVdK9tK5FtSTnOKTyrIKpGvvvBVI6rc7wjx2OK6UaeK3wg+Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792082287; c=relaxed/simple;
-	bh=n1uCdm3xlNN/fHbWdmlEXcDFHevyUx13hYn8Ant3lcQ=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=DpG/xNb6f4OCzqeusHXxd3ORkcOYJWqdL6AIP63pCxZZM18/d37VlaxcUQPYNcA9xZqyOprlcA8/Oo7tw+fxt/D3htj+fbZ5JNU+tlVGOS9pSn5ePExkyAJiWR7734660KrYtfoce9+cHZLZhwnqwJvL43hoDaRThpW+a80P+iI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XQSQ4lYd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792082369; c=relaxed/simple;
+	bh=E+zSoTtuwkYhdpk9ljOm3Z9OJ5QmHoC4r8hcYNR5OJM=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=JBgVyxww/gmQjikLP5Hd/F3RZLKvh6nx3LPnGPYbMdezVOcgK/oVdXzFDz+S7sCp+gEwNRHrYSvaiMy6rF9nnrgAOfYKkuo5HRdGoNIm6P9CJuY5Wtp5XOCsHRvP8ZqXhE8QZpgJkxy1syptzYCSsyTlwsQMqatdsze1iZ1Gsqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=XSSUXbK6; arc=none smtp.client-ip=74.125.82.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XQSQ4lYd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4019C1F000C6;
-	Thu, 15 Oct 2026 16:37:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792082274;
-	bh=dyB/6NmFZRGdrRTP5KsJ3jOecvhsS5ZTpQOfRco2vuc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=XQSQ4lYdZyh71183NKR1fUb/KSjbuLiil4dINwYsiQOs3lIRiHgMXCptxbpKkmhDz
-	 a/X3K2lWp+bDJoGHX6feWzthtGNOn0UZr5PYiSbz0XEV7zXsEvOSAGSMrSGQnAjiZ0
-	 NqxKCpMsQArqjosMi5CwsqglRY77PCl/6W5JHHLpnAUgKDObX5hNVxrrGbRB76Y/LU
-	 tI/khRPWUlc5yTzg+aTzNO+NrAhaM0VJuIdPTrzcr4umpYenn9ji5jQadmSZPeLajf
-	 6EMgL2rbtc/5zrpyCLAfs3MZ5HAbxdgYTmwk4sW0Q+4w2Wd4/61SV6bB4gJ0yFsWE0
-	 Ol29ynRUCrpuQ==
-Subject: Re: [PATCH net v2 3/3] can: rockchip_canfd: cancel bus-off restart
- before closing the device
-From: netdev-bot+sashiko@kernel.org
-To: 1579567540@qq.com
-Cc: mkl@pengutronix.de, mailhol@kernel.org, heiko@sntech.de,
- davem@davemloft.net, wg@grandegger.com, socketcan@hartkopp.net,
- kernel@pengutronix.de, linux-can@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, stable@vger.kernel.org, kuba@kernel.org
-Date: Thu, 15 Oct 2026 16:37:53 +0000
-Message-ID: <179208227384.1406898.15110321342582191229@kernel.org>
-In-Reply-To: <tencent_B15E13184DA04C4382F48848C006A2B51F06@qq.com>
-References: <tencent_B15E13184DA04C4382F48848C006A2B51F06@qq.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="XSSUXbK6"
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-3592749a017so123375eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:39:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792082357; x=1792687157; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DD74npn17j4yI5LDxhcNiaGvijuuU+ohVy4Pfwe/27o=;
+        b=XSSUXbK6SPBy0cpT4zSFmyOcz1BG3NJbuSHIHTwgfwg38ivDGGFFtZg57kikXFOf86
+         Upbsf6HUZoHOSuCcGY/tdc8Tu6gn4zcSZNrAZKRD/rwYj8WV//kHq3PhNkXBWwU3pU4J
+         umYWCJ3bF6htuT9/rw3n4/SABRG0B1OFz4L5El1+nC2EcRo+PTRXk4luqVnpfPmk4j8B
+         27LkfEGiUvMOS987K3kCl0F7GFhTDc4yP1MWiECJY3HLisTpHhxMCF7D5HbB7d4wCYCz
+         uT2TkyjmSn7NDw2jOO9AIqd81fnJXuABDgz/mrqRAnUeL+2fn4MjXBxyU8433NasJlMP
+         Mnjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792082357; x=1792687157;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DD74npn17j4yI5LDxhcNiaGvijuuU+ohVy4Pfwe/27o=;
+        b=FEil/XkKfoMNvhRysYAqFuW9YkHzqX1GDzNNsfYAQdDRwRMiXnnqn9xVIi0s3HXhO6
+         ggrFdBqwsTI1YctonBvHG47GOznmbJQQuHqMWagr7Zdvk443AmHwAKS28dG/Rp12VXJh
+         KoA0efF5pQorrApUIEw6fTeF+PjH9rXawkI9gdaJTr/N05iHaQSEahyp7OZbrYBZ5kyE
+         ur2zVBfsbTws+zds7s7rX6+VoI/5u3BlbFdFdNe0UfjTUycgkKQz+Vk39lsNy/aMQibE
+         zcg+kJeJ3NP/UWmmqNY8HCH+L/hNfYOoO8IJhKQVLc+nd2TuqyK9IGKT3sL/Vc+5G8vl
+         FytA==
+X-Forwarded-Encrypted: i=1; AKwUvBzJEBVeK8xk6nC6FnieGWMiVCnOlsEVmuAPwj1hMvTIKU1kQmtKfzz3k5vf+V1UJQiU+CN6VgUCCxRSodI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIyYuGcUamvHKuSmeGs8Inff/71k4QwtxionxT7fHpij2eLOQCT
+	TDL3ZZoJ1w+ql+4Lbk8qx3hbKok+wugV9JxH+sc0rjTYkfJHApbVF0+mb/qkPVRodmJODJiJDxR
+	jxqx3N6A1649MZEsB61yXn2OmwQ==
+X-Received: from dlbut14.prod.google.com ([2002:a05:7022:7e0e:b0:152:9a82:8c78])
+ (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7022:6b9b:b0:156:d588:c881 with SMTP id a92af1059eb24-182500534eemr688262c88.2.1792082356249;
+ Thu, 15 Oct 2026 09:39:16 -0700 (PDT)
+Date: Thu, 15 Oct 2026 16:39:11 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
+Message-ID: <20261015163915.1166043-1-almasrymina@google.com>
+Subject: [PATCH net v4 0/4] net: devmem: fix RX and TX binding teardown on
+ device unregistration
+From: Mina Almasry <almasrymina@google.com>
+To: Jakub Kicinski <kuba@kernel.org>, Mina Almasry <almasrymina@google.com>, 
+	Pavel Begunkov <asml.silence@gmail.com>, David Wei <dw@davidwei.uk>, 
+	Stanislav Fomichev <sdf@fomichev.me>, Taehee Yoo <ap420073@gmail.com>, Paolo Abeni <pabeni@redhat.com>, 
+	Kaiyuan Zhang <kaiyuanz@google.com>, Bobby Eshleman <bobbyeshleman@meta.com>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jesper Dangaard Brouer <hawk@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Simon Horman <horms@kernel.org>, 
+	Shuah Khan <shuah@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, 
+	"=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>, Dragos Tatulea <dtatulea@nvidia.com>, 
+	Nikolay Aleksandrov <razor@blackwall.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Tariq Toukan <tariqt@nvidia.com>, Kaifeng Wang <kaifengw@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Fix two device-unregistration lifecycle bugs in devmem TCP bindings and
+add netdevsim support plus selftests covering both RX and TX device
+unregistration:
 
-Critical: 0 · High: 0 (1) · Medium: 1 · Low: 0
+1. net: devmem: unmap dma_buf synchronously on queue uninstall
+   Synchronously unmap and detach binding->attachment under binding->lock
+   when the last RX queue is uninstalled in mp_dmabuf_devmem_uninstall()
+   or closed in net_devmem_unbind_dmabuf(), and unmap unbound RX bindings
+   whose queue failed to restart on NETDEV_UNREGISTER, preventing
+   slab-use-after-free in dma_unmap_sg_attrs() when the binding is freed
+   after dma_dev.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+2. net: devmem: detach TX bindings on NETDEV_UNREGISTER
+   Extend net_devmem_dev_unregister() to fully detach and unmap TX
+   bindings when binding->dev unregisters, or clear binding->vdev alone
+   when only a virtual device unregisters while binding->dev lives.
 
-- [Medium] can: rockchip_canfd: disable_irq() called on shared IRQ
+3. netdevsim: support devmem RX and TX bindings
+   Enable PP_FLAG_DMA_MAP | PP_FLAG_ALLOW_UNREADABLE_NETMEM, 64-bit DMA mask
+   on nsim_bus_dev, and NETMEM_TX_DMA on netdevsim so devmem RX/TX bindings
+   can be exercised in software selftests.
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the restart
-  callback the patch modifies re-initializes a delayed_work that may…
+4. selftests: net: add devmem RX and TX netdev unregister tests
+   Add devmem_bind_rx_unregister_check and devmem_bind_tx_unregister_check
+   to tools/testing/selftests/net/nl_netdev.py.
 
---
+Cc: Tariq Toukan <tariqt@nvidia.com>
+Cc: Kaifeng Wang <kaifengw@google.com>
+Cc: Dragos Tatulea <dtatulea@nvidia.com>
 
-can: rockchip_canfd: cancel bus-off restart before closing the device
+---
+v4:
+- 1/4: Unmap RX bindings in net_devmem_unbind_dmabuf() once their queues
+  are closed, and make netif_mp_close_rxq() report queue restart
+  failures, so the NETDEV_UNREGISTER walk only handles bindings whose
+  queue failed to restart. Drop net_devmem_lock: walk the bindings under
+  the xarray lock and take the instance lock of binding->dev in the
+  final free. (Stanislav) Record a queue in bound_rxqs before opening
+  it. (Sashiko)
+- 2/4: Detach and unmap TX bindings directly from the walk, without a
+  grace period or a second pass. (Stanislav)
+- Link to v3: https://lore.kernel.org/netdev/20261014161754.3782346-1-almasrymina@google.com/
 
-This commit calls close_candev_cancel_restart_sync() at the start of
-rkcanfd_stop(), so a running bus-off restart finishes while the IRQ and
-other resources are still available. It also brackets the hardware
-reinitialization in rkcanfd_set_mode() with disable_irq()/enable_irq().
-That keeps the IRQ handler out while the controller is restarted.
+v3:
+- 1/4: Run the NETDEV_UNREGISTER walk under the netdev instance lock,
+  and skip it when the device only moves to another netns. (Sashiko)
+- 2/4: Detach all matching TX bindings, then synchronize_net() once
+  before unmapping them. (Sashiko)
+- 3/4: Only request page pool DMA mapping with CONFIG_HAS_DMA, refuse
+  pp_hold on memory provider pools, and drop unreadable skbs in the
+  software PSP checksum path. (Sashiko)
+- 4/4: Check only the test's dma-buf in debugfs, skip instead of passing
+  silently, clean up on errors, compute UDMABUF_CREATE per arch, and
+  add the needed config options. (Sashiko, Dragos)
+- Link to v2: https://lore.kernel.org/netdev/20261012174300.2338784-1-almasrymina@google.com/
 
-> diff --git a/drivers/net/can/rockchip/rockchip_canfd-core.c b/drivers/net/can/rockchip/rockchip_canfd-core.c
-> index 37c1c22c40c9f..fb8f6b0675022 100644
-> --- a/drivers/net/can/rockchip/rockchip_canfd-core.c
-> +++ b/drivers/net/can/rockchip/rockchip_canfd-core.c
-> @@ -356,8 +356,10 @@ static int rkcanfd_set_mode(struct net_device *ndev,
->  
->  	switch (mode) {
->  	case CAN_MODE_START:
-> +		disable_irq(ndev->irq);
->  		rkcanfd_chip_start(priv);
+v2:
+- 1/4: Don't unmap when a leased queue is unleased. Keep bindings in
+  net_devmem_dmabuf_bindings until freed, hidden from TX lookups by an
+  xarray mark, and unmap unbound RX bindings on NETDEV_UNREGISTER. Update
+  the binding->lock and binding->ref comments. (Sashiko)
+- 2/4: Detach TX bindings from the same net_devmem_lock-protected walk,
+  which now also covers unbound TX bindings, and clear the LIVE mark
+  instead of erasing the ID. The walk no longer uses RCU or takes
+  binding references (Stanislav).
+- Link to v1: https://lore.kernel.org/netdev/20261010025532.839559-1-almasrymina@google.com/
 
-[Severity: Medium]
-rkcanfd_open() requests ndev->irq with IRQF_SHARED, and the commit
-message itself relies on the line being shared. disable_irq() masks
-the whole line at the irqchip, not only this controller's source.
-It also waits in synchronize_irq() for the handlers of every other
-device on that line.
+Mina Almasry (4):
+  net: devmem: unmap dma_buf synchronously on queue uninstall
+  net: devmem: detach TX bindings on NETDEV_UNREGISTER
+  netdevsim: support devmem RX and TX bindings
+  selftests: net: add devmem RX and TX netdev unregister tests
 
-Every device sharing the line therefore loses interrupt delivery for
-as long as rkcanfd_chip_start() and rkcanfd_chip_interrupts_enable()
-run. That window covers:
+ drivers/net/netdevsim/bus.c              |   1 +
+ drivers/net/netdevsim/netdev.c           |  27 +++-
+ drivers/net/netdevsim/psp.c              |   5 +
+ include/net/page_pool/memory_provider.h  |   4 +-
+ net/core/devmem.c                        | 157 +++++++++++++++++++----
+ net/core/devmem.h                        |  11 +-
+ net/core/netdev-genl.c                   |   1 +
+ net/core/netdev_rx_queue.c               |  26 ++--
+ tools/testing/selftests/net/config       |   4 +
+ tools/testing/selftests/net/nl_netdev.py | 125 +++++++++++++++++-
+ 10 files changed, 314 insertions(+), 47 deletions(-)
 
-- the reset and work mode transitions
-- FIFO setup
-- bittiming programming
-- timestamp init and start
 
-The window can be opened from outside the box. Another node on the
-CAN bus can drive this controller into bus-off. With restart-ms
-configured, restart_work then runs rkcanfd_set_mode(), and a manual
-can_restart_now() takes the same path. Each restart stalls the
-unrelated devices sharing the IRQ.
-
-Drivers on a shared IRQ are generally expected not to use
-disable_irq() for their own exclusion, for exactly this reason.
-
-Would it be possible to exclude rkcanfd_irq() with a real lock
-instead? For example, the handler could take a spinlock, and
-spin_lock_irqsave() could be held around the chip_start and
-interrupts_enable sequence here.
-
-That only works if everything reached from rkcanfd_chip_start() is
-safe in atomic context. Can you confirm that? Or is there a reason
-the restart path has to be able to sleep while the handler is held
-off?
-
-I would rather not see a software flag checked in the handler for
-this. Without a lock it does not actually exclude a handler that
-has already passed the check.
-
-[Severity: High]
-This issue was not introduced by this patch. It sits in the restart path
-the patch modifies, though. Can rkcanfd_chip_start() here re-initialize
-priv->timestamp while its timer is still queued?
-
-On bus-off, the IRQ path stops the timestamp work without waiting for it:
-
-rkcanfd_irq()
-  rkcanfd_handle_state_error_int()
-    rkcanfd_chip_stop(priv, CAN_STATE_BUS_OFF)
-      rkcanfd_timestamp_stop()
-        cancel_delayed_work(&priv->timestamp);
-
-The work callback always re-arms itself:
-
-drivers/net/can/rockchip/rockchip_canfd-timestamp.c:rkcanfd_timestamp_work() {
-    ...
-	timecounter_read(&priv->tc);
-
-	schedule_delayed_work(&priv->timestamp, priv->work_delay_jiffies);
-}
-
-Bus-off may be handled while rkcanfd_timestamp_work() is running, either on
-another CPU or because the IRQ preempted it on the same CPU. In that case
-cancel_delayed_work() finds nothing pending, and the callback then re-queues
-itself. From then on the work keeps re-arming.
-
-When the restart runs (restart_work or can_restart_now()), it goes through:
-
-rkcanfd_set_mode()
-  rkcanfd_chip_start()
-    rkcanfd_timestamp_init()
-      INIT_DELAYED_WORK(&priv->timestamp, rkcanfd_timestamp_work);
-    rkcanfd_timestamp_start()
-      timecounter_init(&priv->tc, ...);
-      schedule_delayed_work(&priv->timestamp, ...);
-
-INIT_DELAYED_WORK() clears the PENDING bit and the timer's linkage while the
-timer_list is still in a timer-wheel bucket. The following
-schedule_delayed_work() then sees the work as idle and enqueues the same
-timer_list a second time. Can that corrupt the timer wheel hlist?
-timecounter_init() also writes priv->tc while the old work may still be
-using it.
-
-The new disable_irq()/enable_irq() pair keeps the IRQ handler out. It does
-not stop the timestamp work. One option is to cancel priv->timestamp
-synchronously in this sleepable restart path before re-initializing it.
-Another is to call INIT_DELAYED_WORK() once at probe or open time rather
-than on every rkcanfd_chip_start().
-
->  		rkcanfd_chip_interrupts_enable(priv);
-> +		enable_irq(ndev->irq);
->  		netif_wake_queue(ndev);
->  		break;
-
-[ ... ]
-
+base-commit: aa07285705f8d5bac464eb1c5b7412f8e88b91e1
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/tencent_196A2433801631CD2FA42998465E26316105%40qq.com
+2.56.0.176.g3575e65682-goog
+
