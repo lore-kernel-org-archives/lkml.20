@@ -1,92 +1,193 @@
-Received: from relay.hostedemail.com (smtprelay0016.hostedemail.com [216.40.44.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com [209.85.218.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52EF33D47A5;
-	Thu, 15 Oct 2026 22:38:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA53A3C1D7E
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 22:45:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792103934; cv=none; b=AbKlZt/6ZCgx5SMrYDTba9SeecezqOLicgVFAr47lc0wcLQaoihSyNKAzFeap7l7yz9JrBeFxgsMpWoVPuJrogLaDXSyYu+zOvbp1bw+OX8Dgc5rp0NYhwxdfDUBnQRKNj1yglKboMrCEQezxkFCECTh8GzaTHQpkr8w0jTXh4w=
+	t=1792104323; cv=none; b=HXPlTGj05wZavT0O+7eYuyvVAmCs9TyD2d++o3n/8THlmICaHSnqk23qqQyCXtrH5zPp53QSQIRfY+1swO0TBirVM8SuNGhfLf9sMYvGtwTNra/NPhgs66RnjTSNewgRBjtWY6H+OWZBfjm/TwuiRblK/UzCHN4qe+HUajEzskg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792103934; c=relaxed/simple;
-	bh=oUiamnPVBgTpH4+GroToOl4VifqgWz5swMC8+NgF8kc=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qTxjfHKiVNRxtcUes1cBQOvGf0LZ0qwBhqgNO1YYOnxwPi6SLWGTm+sheUbMEdY4x2x7GFW5B4OplT04dRLiv9GQHjQw/FlyNvB+nz8rhziWYO3U8GGqlAHS3oCMLpuYEppJsBf0IiqTgeLCSOaDLrq6ysW6IbsphEPmPMEllWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=BxcemC9v; arc=none smtp.client-ip=216.40.44.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1792104323; c=relaxed/simple;
+	bh=y2KF3ZhyumX/N9xLDKf/q5HexEN5l/tSOMG56r2+bbA=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=p3fLe2jDhB9dNP4PM4On1s8JYTHAlA4PuFKM0tnNmK+VhQ+2dMst+TrloNPkz8LCxogg4rfBt1Mn5AoB7p8o3gIAxDaY/VLz+cRisrfeeQT2rZJ8/4IbQM7nlRNTrCKgoQaHHzWGpecT6hyQjTo+YD/qc8w4KDAYwTrid33GHTQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=qNEs080/; arc=none smtp.client-ip=209.85.218.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="BxcemC9v"
-Received: from omf15.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay10.hostedemail.com (Postfix) with ESMTP id 2140AC01F9;
-	Thu, 15 Oct 2026 22:38:45 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf15.hostedemail.com (Postfix) with ESMTPA id 13F261A;
-	Thu, 15 Oct 2026 22:38:43 +0000 (UTC)
-Date: Thu, 15 Oct 2026 18:38:41 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Tom Zanussi <zanussi@kernel.org>,
- linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] tracing: Don't log an error for the speculative field
- variable lookup
-Message-ID: <20261015183841.4cbc5af2@gandalf.local.home>
-In-Reply-To: <20260913203156.941433-1-donggeunyoo.kernel@gmail.com>
-References: <20260913203156.941433-1-donggeunyoo.kernel@gmail.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="qNEs080/"
+Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c2e77b7742dso760707966b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:45:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792104320; x=1792709120; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=C8xIcAcbBHZy1mi8Rb1UegUyeiD956DGbti3HZCArR0=;
+        b=qNEs080/mRvzbuO/K1lNgEbI3gjtMUg/Rd1PQDRwMRi61CMkGxp/6k6YyP7GAnA0Fn
+         uHAyuTmfPjpkDaRzvBa6qacv9J43cbUHFnrQT8MpWFFm0hjsevCAZrWr86ex55sbS3FS
+         p1XRlZtCD8u8biCzTmLoM7U0HtzwUioAiV5zqtOaRIrEjyRKHJTDjH+z7p+o68shG6Kh
+         LUiRgBdg9IeSgJkfWh4yoEeG51OqqFeuIEr4uZi3OMR/CjzumBIkxkT82fcA91Sb5rlN
+         SbcHqNfemuISGgkumz4aN2/Db3DRDH6bB5P4A9zR4M5vVXDHi6AjEPbNym2WDpyAGlvQ
+         3faw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792104320; x=1792709120;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=C8xIcAcbBHZy1mi8Rb1UegUyeiD956DGbti3HZCArR0=;
+        b=hzn1Tfhd9o0iZ9p6V39aALI5T4vYwWLZ4E2mCm043DSTzjPf0IP7Qr663R3s61CwTI
+         6HlIXxDlFz5Q9Df3ft+m8Fk+qmkmK5y+SZVvYGjel/cq4APgF4l6HsqPU2/NipjnhSiC
+         1OTVchoKcJjbXwRqiINMuvtaVYrDg8YxfeQjguhjFsOWzdzomtud2+LkvWY6VO3RYnZn
+         sdY3mqC67HK1DMloJ5C3aD+ZyPNTskmdjvQlYpMyTUqh1kdtSuEEITQnvUqVZJ1nm1Wy
+         Hznxvi5mocHZAKsjV0n9BlfHs4SeFVnMIzpPm/oC2b5hfP9O5I4NvvQLLSf/ihOJWnNA
+         3TQA==
+X-Forwarded-Encrypted: i=1; AKwUvBzg4DH0XYkRgv697DDHLo+yuXb55zx8VQkr7ndbam6jfN3z4+ZWHZSUiuLetTN2TunUaeZnRJEFi396pgI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLZLO7HDddghNnNqeUea6FmG75J/MnBIIxPPGaKjA74HINmgqrx
+	urHUvSC/LXiijr1QMeqSBhzaIs3Zc4hjCeiFNdu8zgAmKoGWYLbCU1WElcpChJspTRq99c1Hrc3
+	Yl0RL1Z+2sp2QX3vG9A==
+X-Received: from ejyb15.prod.google.com ([2002:a17:906:834f:b0:c39:4b00:1781])
+ (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:907:9801:b0:c25:504a:1e25 with SMTP id a640c23a62f3a-c31a9fcf521mr1847005866b.13.1792104319385;
+ Thu, 15 Oct 2026 15:45:19 -0700 (PDT)
+Date: Thu, 15 Oct 2026 22:45:18 +0000
+In-Reply-To: <atB1uG8kLfmZyLIH@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout06
-X-Stat-Signature: ndxx4g5jy79m4indhjp5amai6z97z9te
-X-Rspamd-Queue-Id: 13F261A
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18kZPowU5+iMalZAk31pbTiqi/5ImtZYu0=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=XyKzzc14QmZPtfKeM1dz5ieN4n4yq+aaG1CgOHIsZ/A=; b=BxcemC9vLfDix0ZZ5GhTiHn5l8iyX0DpacJcuPj/BfviTa4/CriA13o9UA6XVvO6TJvqEmBAQX3Z08gwKkRrAhF3zt25BUfjt16G5LywapJ+Dionm+V5mNQi2HQ9JRCQKWXH68ssrbAioSLB/Ut/rm46W8mATO1Qq3fw7dzYJUY=
-X-HE-Tag: 1792103923-529475
-X-HE-Meta: U2FsdGVkX1//o9HgiTvFd2XPd/1Dh0iBkGpTa9ZCib5NfWgd6G5ykkZsvPiGSXMtPZVe3xjqvXkM5G8OgZpf/40HlKge88f3YvJMp30RR40I7ZAxwUvIx/mm2EcCA+5864uJvIcZrzIg0w+WBsQSj+xRbMUF0gAB/pwihSFe3U7ag/5Aeucejg14hJypz1bycbKaCn2H03rlRyBAB49fWAjh1d/RyMF+nIvFrnJ9upis08wBey5uXgp1zN/mHnxieOk9i10jsdTxA8XQQdUaaTO+RaR4qxZkQKAs/tqQjJbS3z5/os8XV5wQW+OjkxJkLspdZclhExrFEmva169bm4GxKCtsbhwq
+Mime-Version: 1.0
+References: <20261008190828.3221718-1-tarunsahu@google.com>
+ <as4EcgiBH5jjww42@kernel.org> <9huzecdt633e.fsf@tarunix.c.googlers.com> <atB1uG8kLfmZyLIH@kernel.org>
+Message-ID: <9huzo6cuinwh.fsf@tarunix.c.googlers.com>
+Subject: Re: [PATCH v4 1/2] memblock: drop for_each_memblock_type() and open
+ code its users
+From: tarunsahu@google.com
+To: Mike Rapoport <rppt@kernel.org>
+Cc: dmatlack@google.com, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Pratyush Yadav <pratyush@kernel.org>, 
+	kexec@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 14 Sep 2026 05:31:56 +0900
-Donggeun Yoo <donggeunyoo.kernel@gmail.com> wrote:
+Mike Rapoport <rppt@kernel.org> writes:
 
-> diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-> index 963e0d6b61fd..4676dc6d9146 100644
-> --- a/kernel/trace/trace_events_hist.c
-> +++ b/kernel/trace/trace_events_hist.c
-> @@ -806,9 +806,12 @@ static void last_cmd_set(struct trace_event_file *file, char *str)
->  		snprintf(last_cmd_loc, MAX_FILTER_STR_VAL, HIST_PREFIX "%s:%s", system, name);
->  }
+> On Tue, Oct 13, 2026 at 03:18:45PM +0000, tarunsahu@google.com wrote:
+>> Mike Rapoport <rppt@kernel.org> writes:
+>> 
+>> > Hi Tarun,
+>> >
+>> > Please for the next time add the cover-letter when sending more than one
+>> > patch.
+>> 
+>> Thanks Mike for piking up the patches.
+>> 
+>> Sure, I will take care of adding the cover-letter.
+>> 
+>> You had some nit change suggestion, Let me know if you want
+>> me send v5 or it is alright.
+>
+> I fixed some of it when applying and some right now, no need for v5
+
+Thanks Mike!
+
 >  
-> +/* Set while a field lookup may fail silently; the parse path is serialized. */
-> +static bool hist_err_silent;
-> +
->  static void hist_err(struct trace_array *tr, u8 err_type, u16 err_pos)
->  {
-> -	if (!last_cmd)
-> +	if (!last_cmd || hist_err_silent)
->  		return;
->  
->  	tracing_log_err(tr, last_cmd_loc, last_cmd, err_text,
-> @@ -4003,7 +4006,9 @@ trace_action_create_field_var(struct hist_trigger_data *hist_data,
->  	 * unqualified fields on the target event, or if qualified,
->  	 * target fields that have qualified names matching the target.
->  	 */
-> +	hist_err_silent = true;
->  	field_var = create_target_field_var(hist_data, system, event, var);
-> +	hist_err_silent = false;
->  
->  	if (field_var && !IS_ERR(field_var)) {
->  		save_field_var(hist_data, field_var);
-
-I applied this patch then I unapplied it after looking at it.
-
-This looks racy as hist_err_silent is global. The parse path is serialized
-but we should add a lockdep assert in hist_err() to make sure the event
-mutex is held, as well as by the setting of the hist_err_silent to prove
-that the code is serialized.
-
--- Steve
+>> ~Tarun
+>> 
+>> 
+>> >
+>> > On Thu, Oct 08, 2026 at 07:08:27PM +0000, Tarun Sahu wrote:
+>> >> for_each_memblock_type() always starts the iteration at index 0 and its
+>> >> body is a trivial 'for' loop, so it hides very little. It also gets in
+>> >> the way of iterating from an arbitrary index, which the next patch
+>> >> needs.
+>> >> 
+>> >> Remove the macro and open code its three users: memblock_add_range(),
+>> >> memblock_isolate_range() and memblock_dump(). While at it, move the
+>> >> region pointer into the loop body scope.
+>> >> 
+>> >> No functional change.
+>> >> 
+>> >> Reviewed-by: Pratyush Yadav <pratyush@kernel.org>
+>> >> Signed-off-by: Tarun Sahu <tarunsahu@google.com>
+>> >> ---
+>> >>  mm/memblock.c | 17 ++++++-----------
+>> >>  1 file changed, 6 insertions(+), 11 deletions(-)
+>> >> 
+>> >> diff --git a/mm/memblock.c b/mm/memblock.c
+>> >> index f5aaa38cfa31..59dda7d085f3 100644
+>> >> --- a/mm/memblock.c
+>> >> +++ b/mm/memblock.c
+>> >> @@ -155,11 +155,6 @@ struct memblock_type physmem = {
+>> >>   */
+>> >>  static __refdata struct memblock_type *memblock_memory = &memblock.memory;
+>> >>  
+>> >> -#define for_each_memblock_type(i, memblock_type, rgn)			\
+>> >> -	for (i = 0, rgn = &memblock_type->regions[0];			\
+>> >> -	     i < memblock_type->cnt;					\
+>> >> -	     i++, rgn = &memblock_type->regions[i])
+>> >> -
+>> >>  #define memblock_dbg(fmt, ...)						\
+>> >>  	do {								\
+>> >>  		if (memblock_debug)					\
+>> >> @@ -615,7 +610,6 @@ static int __init_memblock memblock_add_range(struct memblock_type *type,
+>> >>  	phys_addr_t obase = base;
+>> >>  	phys_addr_t end = base + memblock_cap_size(base, &size);
+>> >>  	int idx, nr_new, start_rgn = -1, end_rgn;
+>> >> -	struct memblock_region *rgn;
+>> >>  
+>> >>  	if (!size)
+>> >>  		return 0;
+>> >> @@ -651,7 +645,8 @@ static int __init_memblock memblock_add_range(struct memblock_type *type,
+>> >>  	base = obase;
+>> >>  	nr_new = 0;
+>> >>  
+>> >> -	for_each_memblock_type(idx, type, rgn) {
+>> >> +	for (idx = 0; idx < type->cnt; idx++) {
+>> >> +		struct memblock_region *rgn = &type->regions[idx];
+>> >>  		phys_addr_t rbase = rgn->base;
+>> >>  		phys_addr_t rend = rbase + rgn->size;
+>> >>  
+>> >> @@ -815,7 +810,6 @@ static int __init_memblock memblock_isolate_range(struct memblock_type *type,
+>> >>  {
+>> >>  	phys_addr_t end = base + memblock_cap_size(base, &size);
+>> >>  	int idx;
+>> >> -	struct memblock_region *rgn;
+>> >>  
+>> >>  	*start_rgn = *end_rgn = 0;
+>> >>  
+>> >> @@ -827,7 +821,8 @@ static int __init_memblock memblock_isolate_range(struct memblock_type *type,
+>> >>  		if (memblock_double_array(type, base, size) < 0)
+>> >>  			return -ENOMEM;
+>> >>  
+>> >> -	for_each_memblock_type(idx, type, rgn) {
+>> >> +	for (idx = 0; idx < type->cnt; idx++) {
+>> >> +		struct memblock_region *rgn = &type->regions[idx];
+>> >>  		phys_addr_t rbase = rgn->base;
+>> >>  		phys_addr_t rend = rbase + rgn->size;
+>> >>  
+>> >> @@ -2194,11 +2189,11 @@ static void __init_memblock memblock_dump(struct memblock_type *type)
+>> >>  	phys_addr_t base, end, size;
+>> >>  	enum memblock_flags flags;
+>> >>  	int idx;
+>> >> -	struct memblock_region *rgn;
+>> >>  
+>> >>  	pr_info(" %s.cnt  = 0x%lx\n", type->name, type->cnt);
+>> >>  
+>> >> -	for_each_memblock_type(idx, type, rgn) {
+>> >> +	for (idx = 0; idx < type->cnt; idx++) {
+>> >> +		struct memblock_region *rgn = &type->regions[idx];
+>> >>  		char nid_buf[32] = "";
+>> >>  
+>> >>  		base = rgn->base;
+>> >> -- 
+>> >> 2.56.0.385.gd3acb90ef8-goog
+>> >> 
+>> >
+>> > -- 
+>> > Sincerely yours,
+>> > Mike.
+>
+> -- 
+> Sincerely yours,
+> Mike.
