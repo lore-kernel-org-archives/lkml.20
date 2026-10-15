@@ -1,148 +1,213 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F4EE4D6C20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5306513564
 	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:48:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792061341; cv=none; b=cMKJCrIUgXchDYTlQPimE9O+XkGXainfEB4Uk+74mM4sUkLO3qgnXi3Kus0Xqx1O4nRVonVxBS2IR0xKbBc3bfXD9f9fSylVF2sr6nufzbKnXgtS7lTl0TXXv7no9O3NsJWd8tvKCpSJSfSCfscoU4GbguIJiafz/VYBjBioF5I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792061341; c=relaxed/simple;
-	bh=HI0B6U20PGlmDr9utd8wlA1Fuqt21mxCePzjPM+qxE4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=swKwbbNDELaKqSldfiSx3wrhUyq7OI4XIHkPL4z+F3ag6Ye4CVqS723v+NePVsFdxEIx+qgdB9jnbEOds4yv8FNv8LyImNKWqKMSvYuukt8tNroeV5vLykkxBsoP2qunuh5lZya3wxsyG+ZdXF5DEmlZjIvgut2iakq6fOVDrOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Keg1rjob; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=g0bjcki4; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792061343; cv=pass; b=JYM5UGZZ3uP2y/GP9cuumIzlG3dIiYzzTb6f2j40DUxnUQDoMLPJSR3pQAnolivW7U20TfAI0SR0h0mYbZNgyPZOBPCv2TyfN5l0v/myKYttpQh1R78rMvrpwdcHIiMd8P4k6xPFWT1teVVfLTNNQv22i0mDy4P/KmRcyfyAJxw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792061343; c=relaxed/simple;
+	bh=IJgvpO6/GZ5vutrzR5YipI9vHkWFgMsz/X+gwRbcJUE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=f4MoUjYPMqb7EZKJqgmKxRkFYCP1ilrpgL684vfTC7gcCk4ACGox2vu4M96SrP8TF5/6ndkSsyHhOuf/3LA1TWXkpPfM34rs1/BoOqjXVgZDJxFZfgvsWdxLgxOeXDNe9bPdXyR83GIT1nDT0UCOQ55cQ7rvooduHJtS0m2uevY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VRxnRAPn; arc=pass smtp.client-ip=209.85.208.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Keg1rjob";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="g0bjcki4"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9joPY3408871
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:48:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	PK37F6HA0tUM1rNto9KrqFXRqlvSgZ37BjeRB21jxXI=; b=Keg1rjobQuhKYnqF
-	TI0Ep3xQZFA80mzN8TaR5/WuqnFpDmlwTugGSZEbuWufoxwtciA/MVUqgEfGt0iS
-	v+lj8prd0Jt9UI4VuQ6TDptQnOOm7wrIlT5ymBEl0x3cWhiuGFWwDqKp+WuSTBHU
-	hgoVycVqYlhXmCQKEJUCoTd0EIYgFW9hvkYYa8s9q6c/SP45fd03jtjOetttzWLk
-	CQFt5IucgT92jMvfqrlboqZ5wjvhMHDgkWJoPJgq/Mcj5/iJcsVZqyC2d5G/04o1
-	U4Z/cWj78KZBCljwa02fCANU5+DHSYJ6Qu7wtHkwZA4cPT9gMoxNMizpV1cxbXk+
-	XD8www==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hakwn2bt5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:48:58 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-530cd3dff25so10678271cf.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 03:48:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VRxnRAPn"
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b1f4d8e09aso449626a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 03:48:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792061338; cv=none;
+        d=google.com; s=arc-20260327;
+        b=gU24a0nmoUoJYUENoVBZ8DPOfxabtUJZQ3yzgE5mr5PYmu46LgNiHctyGldbmWy/Sl
+         dzocpXG5PQxsQTPCHujb6lecblEjgW1vvkP8mLnyHAPB7bsGG0f9kVdKRDSs1AMkEXMo
+         kL4LtUE/74RuWetQXFgnwuIYtf1qc34ug90/9cujYr1UdvUDBz2MZL148CZ76gzgLyEy
+         NW0hMms5T3pDc7jv53DJ/2/Wmwpt4u4y1ywCoyeeFoE5stuzrX/YYFpr0HpKYFzkqG4/
+         db+9JBD4Q5eebFQOZRVIa42Pq9y1jG1LIp5CphltkVGltfUCbW9MVdMi5ems/xmqcpRA
+         86XQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=iC2PDsG9ehdnra7rI62aO4hbslW1ebWnxZmL1ySRB9c=;
+        fh=G7l2GdkW7DzvLoivstzRpb4z1N3CN48LyCx+NrSbPQ8=;
+        b=FVnGaketKFdbqkMS/V8gOfSbdU5RVlxwoEaRfI/lOttMNY4Au8gdGN7+AHeYpiJ1i7
+         k3FOhEXdTCnzBRAnc+weoUJWmdfV+9jYeK+EWMH36GPpm47T/X4sqdWdnlRkgjBfMiyL
+         hI4+cqiwWM+nJ3eCvkEkulmzhhJ6qURYuXCne0S2QmRaZrLCIQd1PHhYeXsVRqXE1djZ
+         HWz4FuaUFvUC0+tjjxIr1+3Mm/SFd0dYlU26oISdxhEPp4Oil0Ek9QNhq0OQn/Rp3Vex
+         O8B8MlMPKzB5DaEZ2LJkn9u3DUEJ8tNf9LuZxZDgePjJLZc93KRHsK9uAMShZENhETa+
+         nqdg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792061338; x=1792666138; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PK37F6HA0tUM1rNto9KrqFXRqlvSgZ37BjeRB21jxXI=;
-        b=g0bjcki4QwlHohbhK2KcQ5DUn/SpSzfutzwyPL4UvMG6UtXI0EDWAmckNeHSp0I+LJ
-         VQwEezur3dLr8Dknab4c6llxevr569sYil3XMlXBciXzShcKzKdV0Lyo0k14s/S2DKXd
-         nM7y9pFZD85mrjrWdYa+Owm9X+758RlJ7eikLXHIz6B/9C2BZ5jaNEpZZUFqWHMSnyAq
-         69DVlHnJ1bn1w95yQ3m/UGMzu6mt/pp7TxpAXPzYlCFJjCU2Wm1cDe3A5ON6vxt697B/
-         X6oCnbcMBDAYPMLVut4BlD4TPescc13k/9EWKyIreH9SNjEgo68lodHbFIUdDgQJURlX
-         tbRw==
+        d=gmail.com; s=20251104; t=1792061338; x=1792666138; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=iC2PDsG9ehdnra7rI62aO4hbslW1ebWnxZmL1ySRB9c=;
+        b=VRxnRAPnCeROMEtG4agrc9XDF/BIke08DNRMVr8whzFg8C3DqNMCmj8lAExc5tfUGP
+         JGAxVp2CpJSTay55YBRyeA4cP4QCW9WTmYdkwWbOwpJp2mfoXPmKuGTEAs/Teemd342G
+         jYFXA6menohXmGCuxkD0mdtQLfWB4r6c9HPG6H3aRlp04xKGqjZ0E20/7/ieWo1YJqEy
+         GgPAVtlXDxdWZHdlGlaebwabmYO8GBKhXPyJH+dOhW/H1meubVHFkYBRiSqgDjIV2hg5
+         z5c+A+M2wXJbpNY6doU4WkYclRIAF+eDeOd3KBttui6MYN/LOASXQ31vl7awKiYUEkKh
+         2EBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1792061338; x=1792666138;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PK37F6HA0tUM1rNto9KrqFXRqlvSgZ37BjeRB21jxXI=;
-        b=cg0TBKLseUDwiFvpds52uEYPPbUrqfgWzOGKgcTQZkNuE2C4P+9050ZulPZcprasKR
-         z6QkE4hWPqtUVx8fGayS5OWhjnjdg7w16mbGv7d1n3QOHiHICwaC5b8+pZMRXxMpgSpi
-         rnc5bC3S0K3kSVrRBA2BrsSpWlR4SilWCOymRW/hQQ8yxFiqHRg5X0IdvPi8677YQYbL
-         Sm1Iq+j2cL2CbAQg35NSZ1e28kIlJo19quVEwKb1dL3yfxOv3HUCjo8QGCp59PRrZrm7
-         rtyjAm+jSCXt9Xf9R5cj20bT4hs+zwQECYun5KcnV+MDXCLxiqgkNERZQcUMBLAourRl
-         x84w==
-X-Gm-Message-State: AFq9FYLaLDwEHCn5ZEHZVyLrAF/+noLAl4hbzPHHKbYVuRsW2fW44p7a
-	GPDmym2m/RRsD0lTTKoEGQ4rsbuMAK+wcUjHBkCGI40FjrGFYACt4cZT68Cp8hBFZ+kurNm1jTC
-	1cfM3p5q8xNeDE+3pzjiee4nRdUo2lkbb4ag28qSbauMROmCJ+Ngu3n8DzQ5mfn7ALes=
-X-Gm-Gg: AYBFou0L7Iqj2gCMiJ4W2ElBy6eSkpVHKraL+12aGwrRIkIWJbzMasDGr+Z/wh1nRrE
-	5wICdNdwQJaxGXo9Hi7C8W4ivbwaKemwwC5Yv9XQ+EfLAFRYGRfytSSBAKHFpjfuS324Sr8anYb
-	GhDIdx9wiFzulJR9cfNyT3W5WbnT/O7wAOakvO28+1ma6JjU4H4SY2ojaKDg89gN71V+c81Plzy
-	up/FYdL0PI9EpnU8nnYFNx7kBw5KrOjhZo3RK7rbhaxka7nF1T9oitlJkizvyE5f4Z1V9b8NAXr
-	WiJ5WNaU7dnGs5zzeZ5FRs63QthTy+yuiSI6745X1hfps2lG+CiyHOlb00BHtjLOpa7W5O4Tpz4
-	74HBUZZjQV0nWiuOLej+7QQ==
-X-Received: by 2002:a05:622a:4c7:b0:531:2133:cc7b with SMTP id d75a77b69052e-5359f05276amr357213291cf.0.1792061337757;
-        Thu, 15 Oct 2026 03:48:57 -0700 (PDT)
-X-Received: by 2002:a05:622a:4c7:b0:531:2133:cc7b with SMTP id d75a77b69052e-5359f05276amr357212871cf.0.1792061337282;
-        Thu, 15 Oct 2026 03:48:57 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3eda61fb26sm108538566b.69.2026.10.15.03.48.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 03:48:55 -0700 (PDT)
-Message-ID: <0236914f-1d27-4618-8f94-3bfe6d931860@oss.qualcomm.com>
-Date: Thu, 15 Oct 2026 12:48:51 +0200
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iC2PDsG9ehdnra7rI62aO4hbslW1ebWnxZmL1ySRB9c=;
+        b=n+cV9dPB+kCAijSS6Vus2DJ7BbnHKurd5QfvXjLwKdKlScalHj80h3u/IbPrcpJhY5
+         YLM+PoMv0AI8m3OAnAzEha3vwRX082lrRsLbyNxo4TbWAvUvAfSsxMqSJFA87AVk4PnU
+         hbVfKwMC7U+W2r1gKZ5+JAfpKNs1PAMONKaqHag7mRMfY2XTpimRcI8CWfYVXw7qZb+N
+         3L/XEGZAex7aP2IypSDSTUQUK/ejbtWHHR/Xk3dvyFsm1xTEPr67Y40vPiEnOtkL50d7
+         UMfTQ+tDgDcb77v6yG8i6lz92uWQuA8/++p/U0TvCVH21WaNiRsSXz8HgNWzE9t54tvJ
+         fFCw==
+X-Forwarded-Encrypted: i=1; AKwUvBza4kwGFAxqcuzTEb6WJWRsJni9AYkJ3/4kggNPKk6CZC++Tt5CELW7LbBSFKLA7jcK6WNogQobDpv2GiE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJwVZmMsASUoh5sjAGNOLJGSpS6k5asriHddEfIMIYWTstR3mEK
+	T4waAnuASkbePfBpmk0JqW/Rv72r5w0NYjMvdgYeI1KJGiN8rcz6lemXClDgmr7irE/HDxDAATM
+	/j46JWsb0vFMMb/DAqkRyxLVG+CONdes=
+X-Gm-Gg: AYBFou2Sy+jvOtRcG77qtPhQ++Le03xWNdcBN3YIrG2nAaN/61WpLvtmThheih+kAZq
+	AwGdWZ7rQf4NgqAcMmc7kchh9TJ8siSyMt7hBu+wEmlzXGdJQQoOg8OpbHBnx7j8hDj/3yGW71x
+	3ZygYIGr9zwUUpyMxhzTTdpsZML/arreL5++81iDIBLa6OOFLnutSPUWos0d4osek8fPYPWNkFt
+	Rk/nuOiQYdpNHrP4W10Gv3TLyMup7V/yDZdHInO0pJdKy8npVdqoVBHr7b5ETkFHvIqqe9I5lf9
+	+ttiBVUVps36knBSNpJgYz4w6sxb4lme8tPu/xfndXklu/71/GF8SuY0SiWlg/FZMNPH8nA1mv8
+	DQH/pnRyDEGHOmZ5i+f9Y3c0MZqj8ADCGHUGeXtKnrw==
+X-Received: by 2002:a05:6402:324f:b0:6b1:e8e1:a3aa with SMTP id
+ 4fb4d7f45d1cf-6b1e8e1a84cmr4973615a12.7.1792061338000; Thu, 15 Oct 2026
+ 03:48:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/8] arm64: dts: qcom: sm6350-lena: Enable IPA
-To: erebion <erebion@erebion.eu>, Neil Armstrong <neil.armstrong@linaro.org>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260926-pdx213-upstream-3-v2-0-b4612e3eb536@erebion.eu>
- <20260926-pdx213-upstream-3-v2-4-b4612e3eb536@erebion.eu>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260926-pdx213-upstream-3-v2-4-b4612e3eb536@erebion.eu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA0MiBTYWx0ZWRfX7xIkUbShOx7q
- T3N29uWZ+5G1lljQnS4lQ3nSOanYDXPn5FPfAM1zkKENdyjzgzCNb6WGBd7t2h85KWtxWlArXed
- MRqKdYHdlUMjjzAyg+yzSgvDFh2s5Vpsxl0hS/ZyP9I1X/GcSSgoGRn14D/SyoR7zflfvNlCsyn
- HKAKEbmzfv+l2oRjyqp7Igk9xouAlY5ltN9WplmsSQekrMIRewdcDEY0bxcFMs5NvwF9W1uGb25
- qA2g22KLiBjORhwiN3cO8RG0IV2nvDPA4p+5Y64+xM+xFvt3ttN5NWn7snjY77nq65trCFeTxP3
- a6EI081ve7Zi4ta0dhRBUNrpbslJqdc6KFEVkGokodAzBgJNdwWtZY36AJB0m1F2jIfY/M7AdJQ
- j0jJgzlBQwG1YY5VjhMl1Y0haYxDsYVyzheiP127G2kDEPWp7Ou1VOGbeaKPZxBttykzD5Hl3ah
- 5f9aXeqFzeeFQFeVSvA==
-X-Proofpoint-GUID: DXI0bkg-YgxoOEEuuxHwHFniqhyQDJIP
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA0MiBTYWx0ZWRfX9DjQVj5E/Ums
- tbtRFSu5gxn6rrIqqDB7vlVc0hieqSaTV2qVrU6BwNoRhgkvXXRPiaVxwzPERyU8Lo9jVXSLvOs
- tsNtvzbwWNyivFk723rdv47veen2Myg=
-X-Authority-Analysis: v=2.4 cv=BqUIUoX5 c=1 sm=1 tr=0 ts=6ad0af9a cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=JgZe5hknAAAA:8 a=EUspDBNiAAAA:8 a=KD0jGWNZPHkgkXdHO94A:9 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22 a=ODtDA1adfiiB3BH7YLNA:22
-X-Proofpoint-ORIG-GUID: DXI0bkg-YgxoOEEuuxHwHFniqhyQDJIP
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 spamscore=0 bulkscore=0 suspectscore=0
- clxscore=1015 malwarescore=0 phishscore=0 lowpriorityscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610150042
+References: <20261015085545.3246951-1-ramin.moussavi@yacoub.de> <20261015085545.3246951-2-ramin.moussavi@yacoub.de>
+In-Reply-To: <20261015085545.3246951-2-ramin.moussavi@yacoub.de>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Thu, 15 Oct 2026 12:48:46 +0200
+X-Gm-Features: AclHuK8mCm9Ee0LkjgfrS5QZWWzZqnEL_WpPmAkC66KzWm8nuPPfV5rDKDnh3Q4
+Message-ID: <CA+=Fv5Stzr=3QZRvRcUeTRj6dqp+rVzZAUwgBK29z3CoqsqLVg@mail.gmail.com>
+Subject: Re: [PATCH 1/4] sparc32: keep PIL raised until the IRQ frame is gone
+To: Ramin Moussavi <ramin.moussavi@yacoub.de>
+Cc: Andreas Larsson <andreas@gaisler.com>, "David S. Miller" <davem@davemloft.net>, 
+	Thomas Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Guenter Roeck <linux@roeck-us.net>, sparclinux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/26/26 4:00 PM, erebion wrote:
-> Enable the IPA node for the Xperia 10 III which makes mobile data work.
-> 
-> Signed-off-by: erebion <erebion@erebion.eu>
+Hi Ramin,
+
+On Thu, Oct 15, 2026 at 10:57=E2=80=AFAM Ramin Moussavi
+<ramin.moussavi@yacoub.de> wrote:
+>
+> The per-cpu timer interrupts on sun4m and sun4d SMP, and the LEON SMP
+> IPI, leave their handler with
+>
+>         wr      %l0, PSR_ET, %psr
+>         WRITE_PAUSE
+>         RESTORE_ALL
+>
+> %l0 is the PSR at trap time, so this turns traps back on at the PIL of
+> the interrupted code, usually 0, while the trap frame is still on the
+> stack. Any interrupt that is pending at that point is taken on top of
+> the frame, and if it leaves through the same path it opens the same
+> window one level deeper. A source that keeps firing makes the nesting
+> unbounded: the kernel stack runs into its thread_info, w_saved and the
+> task pointer get overwritten, and the next window trap stores through
+> them with traps disabled. The CPU goes to error state.
+>
+> The generic path does not have this problem. real_irq_continue keeps
+> PIL at 15 after handler_irq and lets ret_trap_entry restore the old PIL
+> together with the rett. It was fixed that way in Linux 2.1.129
+> (entry.S 1.153, November 1998):
+>
+>         -       wr      %l0, PSR_ET, %psr
+>         +       or      %l0, PSR_PIL, %g2       ! restore PIL after handl=
+er_irq
+>         +       wr      %g2, PSR_ET, %psr       ! keep ET up
+>
+> smp_ticker had been added in 2.1.36 with a copy of the old exit, and
+> kept it through the rename to smp4m_ticker and the addition of
+> smp4d_ticker in 2.1.97. smpleon_ipi copied the pattern in 2011. Do the
+> same as real_irq_continue in all three.
+>
+> On hardware the window is a few instructions long and no interrupt
+> source refills it that fast. qemu does: its ESCC finishes a transmit
+> instantly, and since 8.2 it takes a pending interrupt right after rett
+> (930f1865cc65 "target/sparc: Clear may_lookup for npc =3D=3D DYNAMIC_PC")=
+.
+> A burst of console output on an SS-20 with -smp 4 is enough. A trap
+> ring buffer in trap_setup showed the level 12 serial interrupt taken
+> over and over at smp4m_ticker+0x34, timer ticks nesting further down,
+> and the frames sinking below the thread_info.
+>
+> Tested on qemu 11.1.0, SS-20, -smp 4, with a test that writes a few
+> hundred lines to the serial console from a multithreaded process: the
+> kernel went to error state in 4 of 4 boots before, and booted cleanly
+> 8 of 8 times after. Two full runs of the uClibc-ng test suite on top
+> then completed without a crash. LEON SMP was tested on qemu's
+> leon3_generic with -smp 4, where a full run of the suite completed
+> without a crash as well. sun4d gets the same one line change but was
+> not run; qemu has no sun4d machine.
+>
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Ramin Moussavi <ramin.moussavi@yacoub.de>
 > ---
+>  arch/sparc/kernel/entry.S | 9 ++++++---
+>  1 file changed, 6 insertions(+), 3 deletions(-)
+>
+> diff --git a/arch/sparc/kernel/entry.S b/arch/sparc/kernel/entry.S
+> index ea51ef52c952..87d03a58446e 100644
+> --- a/arch/sparc/kernel/entry.S
+> +++ b/arch/sparc/kernel/entry.S
+> @@ -252,7 +252,8 @@ smp4m_ticker:
+>         WRITE_PAUSE
+>         call    smp4m_percpu_timer_interrupt
+>          add    %sp, STACKFRAME_SZ, %o0
+> -       wr      %l0, PSR_ET, %psr
+> +       or      %l0, PSR_PIL, %g2       ! keep PIL up until the frame is =
+gone
+> +       wr      %g2, PSR_ET, %psr
+>         WRITE_PAUSE
+>         RESTORE_ALL
+>
+> @@ -353,7 +354,8 @@ smp4d_ticker:
+>         WRITE_PAUSE
+>         call    smp4d_percpu_timer_interrupt
+>          add    %sp, STACKFRAME_SZ, %o0
+> -       wr      %l0, PSR_ET, %psr
+> +       or      %l0, PSR_PIL, %g2       ! keep PIL up until the frame is =
+gone
+> +       wr      %g2, PSR_ET, %psr
+>         WRITE_PAUSE
+>         RESTORE_ALL
+>
+> @@ -407,7 +409,8 @@ smpleon_ipi:
+>         WRITE_PAUSE
+>         call    leonsmp_ipi_interrupt
+>          add    %sp, STACKFRAME_SZ, %o1 ! pt_regs
+> -       wr      %l0, PSR_ET, %psr
+> +       or      %l0, PSR_PIL, %g2       ! keep PIL up until the frame is =
+gone
+> +       wr      %g2, PSR_ET, %psr
+>         WRITE_PAUSE
+>         RESTORE_ALL
+>
+>
+> base-commit: d419d682257d813f6cb7a28e42b35d0edf4ad038
+> --
+> 2.53.0
+>
+>
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+I plan to test this on my SMP SS-20 with HyperSPARC CPUs. I have seen
+intermittent stalls and register-window-related failures, so this looks wor=
+th
+investigating, although I cannot yet say whether they share this cause.
 
-Konrad
+Regards,
+Magnus
