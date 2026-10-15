@@ -1,205 +1,216 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5B8F56E064;
-	Thu, 15 Oct 2026 18:56:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B6BE3DD526;
+	Thu, 15 Oct 2026 18:59:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792090612; cv=none; b=sPJq1rASoSd1EJgx5n5W7l8cPvgZW5TGerNJdqIpipuhHyxYr5D31rpTv473CYFT3Zt6uZebnk42htxtbBbWdzlOlI7DThu5Mv5wglQvXpY1mvNYZV0xxJfm5leV0KPlmU9D6HWnoIW7DdYXJB29op8rWr9r18/yINhf0uipSSI=
+	t=1792090795; cv=none; b=SUwN6+af1stH04Ka/EbI+QszlEp4TbBUVUNmPTy1M3Rh3FOltJNF8RHTHgdKGpOQH7Z6zlL8emhzyOPw4TxqOGPCrc3i3lRa+nBoEQSKvKKLMW/IJaRQ1VSnzf5i2mjFFkOVxrrjQb/xNm3IzEa/n/BiZ8w1bRdzSzWYq/w96XE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792090612; c=relaxed/simple;
-	bh=ElyfLtqtzLmZSmLb1jWr2tp4QFPdAgJsV149JvP+Res=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=QWvei3xU5LO7QOVKvvKTzyM9jSX/CkttpgdaccR4fZBggPmRMxAAuVEQNn3xkTicGjbcIm1kCMy5LhaQmd2EBLme9Fu5MMbwO4OjtLYeC6avUm/uiIqJ3xbM3S7RoctubsVEDSTFqSU1FChROkThtZcKb83byjVntWqIjwVkcY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kkfsnif5; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792090795; c=relaxed/simple;
+	bh=eEElU/ASY7hM4FjTNpS3QxyZuVDzXjY8CVAKzpMxQIU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=s5LRleHFId0XQg7DlKi9Af20Y1Ss7K6PFXSwm2k4FpOJ9JZjj4KJE3lRQHu4d8sa/29hBLX2Oh6F6t+Oyqpn/ZNgnt1Kn4kmNyUhnfouG5ALW/gCuSUAyQ4UWwhFkTCmudDz4OKzcZ+q/5EymEciEL82iiGfqxJQECeoNXdCVjQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wth7eYeZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kkfsnif5"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 656C0C2BD01;
-	Thu, 15 Oct 2026 18:56:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792090612;
-	bh=ElyfLtqtzLmZSmLb1jWr2tp4QFPdAgJsV149JvP+Res=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=kkfsnif5my2Ig6CQ9D7IFw0niD7nw39CJwTehowuaQ27F0USE7QQZ0fYkYpbaTb7t
-	 YVKAgnOxvXa1kHQ7HXo5ypW0vqHTEAGf6AZElnzvIWQ9ATzdaFmDfkpSwDnWGka7+N
-	 7VLr55vYmwy7OpNqK4x4Cxrp/qNubl2O5yL6IJ51qA93YNt9tPeRhdFc4XT0bQWu3Q
-	 tKyE3IhLqn8aYQ8cvHpxhpC0iAJypUJAhsnJ0ua6RbJSzu6WDzu2MiCMBNcIm2xUXx
-	 dBvJN8IgPx28Q+sfcqYxNSG4L64MZFzOPLmEatr2jHLryGp5m/EepNlQ8qzzSjNj2l
-	 ak4Gg5ErL4Sfw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4BB5ACCA46B;
-	Thu, 15 Oct 2026 18:56:52 +0000 (UTC)
-From: Nikolay Plastinin via B4 Relay <devnull+plaztininikolai.gmail.com@kernel.org>
-Date: Fri, 16 Oct 2026 02:56:50 +0800
-Subject: [PATCH v3 2/2] leds: trigger: input-events: Restore previous
- brightness on input
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wth7eYeZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24A961F000C4;
+	Thu, 15 Oct 2026 18:59:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792090793;
+	bh=QRhDD5Kba1/4vJE/aynvHCteJlbfDqNA5/X4nzhZ0Bg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Wth7eYeZLmsM9VNp67WWO1Jb1ODN2CZb/kNwAsaHlgnb/surWcINGPQvTTFkpYAMU
+	 gujfqTmB2U1usi+lAQEN8gnwjzWfjZZM+wW9HyeCCzxjc4ZHw47i7wICudgNN/Kw0w
+	 aZ33rlRbNnX/Ju0Bbicedo8WHWI7cP5HDq34oBhIClUvXr83IwbPIwCkAz+Ltz6JDR
+	 AxHvw17fBIWnV0+quaMclCvUSClt0U8ZMxq73VfPE0USoQVNqBxOIFa+noZFNw+Ph9
+	 iv0Tqyl4iT0qqhSGwU7HKtMhFyr5XsHXMwsljVEyjkl0Y3gg40bqdEAJwAWeuVTiSz
+	 5fYJNzS9T1dlw==
+Date: Thu, 15 Oct 2026 19:59:47 +0100
+From: Conor Dooley <conor@kernel.org>
+To: rodrigo.alencar@analog.com
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux@analog.com, devicetree@vger.kernel.org,
+	linux-pwm@vger.kernel.org, linux-doc@vger.kernel.org,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	Olivier Moysan <olivier.moysan@foss.st.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>
+Subject: Re: [PATCH 03/10] dt-bindings: iio: frequency: add
+ adi,ad9910-axi-backend
+Message-ID: <20261015-enjoying-dividers-94790b437fcd@spud>
+References: <20261015-ad9910-backend-support-v1-0-3c21648c8e26@analog.com>
+ <20261015-ad9910-backend-support-v1-3-3c21648c8e26@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-leds-input-events-brightness-v3-2-2c462cafe020@gmail.com>
-References: <20261016-leds-input-events-brightness-v3-0-2c462cafe020@gmail.com>
-In-Reply-To: <20261016-leds-input-events-brightness-v3-0-2c462cafe020@gmail.com>
-To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>
-Cc: Hans de Goede <hansg@kernel.org>, linux-leds@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Nikolay Plastinin <plaztininikolai@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792090610; l=4858;
- i=plaztininikolai@gmail.com; s=20260924; h=from:subject:message-id;
- bh=IZCau1PWkFhliwGVMTsFmldSEL+FnVeNEdrazXTQ30Q=;
- b=jRaIVq02vtSvU9FnWP5Wf5Pt7YaK5RJpO0cisi6cRW7vbY2TwBA38k/yKEuuCpoh6U9VeYyko
- A4wUIXttfkRDp0hCMqXpmajXmyplUSWe2sweSDsPWcCB5JeGIcdLh2b
-X-Developer-Key: i=plaztininikolai@gmail.com; a=ed25519;
- pk=bmHrETa14IbiLNkJSoiLqUMni+IeSFwhOSDM4vVFN4s=
-X-Endpoint-Received: by B4 Relay for plaztininikolai@gmail.com/20260924
- with auth_id=1052
-X-Original-From: Nikolay Plastinin <plaztininikolai@gmail.com>
-Reply-To: plaztininikolai@gmail.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Oi1NC4/rev2QJv0k"
+Content-Disposition: inline
+In-Reply-To: <20261015-ad9910-backend-support-v1-3-3c21648c8e26@analog.com>
 
-From: Nikolay Plastinin <plaztininikolai@gmail.com>
+--Oi1NC4/rev2QJv0k
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-The trigger turns the LEDs back on with LED_FULL, which the LED core
-clamps to max_brightness. For keyboard backlights with several levels,
-such as asus::kbd_backlight, this means the backlight always comes back
-at maximum after being idle instead of at the level the user picked.
+On Thu, Oct 15, 2026 at 01:49:43PM -0300, Rodrigo Alencar via B4 Relay wrot=
+e:
+> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+>=20
+> Add bindings for the AD9910 AXI backend IP core. The FPGA IP core
+> interfaces with the data and control pins of the AD9910 DDS, streaming
+> data from memory via DMA into the 18-bit parallel data port (F[1:0] and
+> D[15:0] pins), which is clocked by the PDCLK output of the device. It
+> also drives the PROFILE[2:0] pins and the DRCTL pin, which controls the
+> slope direction of the digital ramp generator (DRG). The DRCTL pin is
+> driven by a PWM generator, so the IP core is described both as an IIO
+> backend and as a PWM provider.
+>=20
+> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> ---
+>  .../iio/frequency/adi,ad9910-axi-backend.yaml      | 74 ++++++++++++++++=
+++++++
+>  MAINTAINERS                                        |  1 +
+>  2 files changed, 75 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/iio/frequency/adi,ad9910-a=
+xi-backend.yaml b/Documentation/devicetree/bindings/iio/frequency/adi,ad991=
+0-axi-backend.yaml
+> new file mode 100644
+> index 000000000000..20b884e8eb10
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/frequency/adi,ad9910-axi-back=
+end.yaml
+> @@ -0,0 +1,74 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iio/frequency/adi,ad9910-axi-backend.=
+yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Analog Devices AD9910 AXI Backend IP core
+> +
+> +maintainers:
+> +  - Rodrigo Alencar <rodrigo.alencar@analog.com>
+> +
+> +description:
+> +  FPGA IP core that interfaces with the data and control pins of the AD9=
+910
+> +  Direct Digital Synthesizer. The SPI bus is used as the control interfa=
+ce
+> +  of the AD9910 device, while this IP core streams data from memory via =
+DMA
+> +  into the 18-bit parallel data port (F[1:0] and D[15:0] pins), which is
+> +  clocked by the PDCLK output of the AD9910. The IP core also drives the
+> +  PROFILE[2:0] pins for profile selection and provides a PWM generator t=
+hat
+> +  drives the DRCTL pin, controlling the digital ramp generator (DRG) slo=
+pe
+> +  direction.
+> +
+> +  https://www.analog.com/en/products/ad9910.html
 
-Remember the brightness per LED before turning it off and restore it on
-the next input event. Keep the level in a per-LED state struct allocated
-in activate() and freed in deactivate(), converting the simple trigger
-to a regular trigger. Pick up brightness changes made while the LED is
-on before saving the level again.
+Should this link not point to the docs for the backend device?
 
-Use led_trigger_for_each_led() under guard(rcu)() for both the on and off
-paths. Skip LEDs whose activate() callback has not set up their state yet.
+Otherwise, this is pretty fine I think..
 
-Tested on an ASUS ROG Flow X13 GV302XV: keyboard backlight levels 1 and 2
-were restored after idle timeout and keyboard input, and 20 trigger
-activate/deactivate cycles completed successfully.
+Conor.
 
-Assisted-by: LLM
-Signed-off-by: Nikolay Plastinin <plaztininikolai@gmail.com>
----
- drivers/leds/trigger/ledtrig-input-events.c | 70 ++++++++++++++++++++++++++---
- 1 file changed, 64 insertions(+), 6 deletions(-)
+> +
+> +properties:
+> +  compatible:
+> +    const: adi,ad9910-axi-backend
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +    description: AXI bus clock (s_axi_aclk).
+> +
+> +  dmas:
+> +    maxItems: 1
+> +
+> +  dma-names:
+> +    items:
+> +      - const: tx
+> +
+> +  '#io-backend-cells':
+> +    const: 0
+> +
+> +  '#pwm-cells':
+> +    const: 3
+> +    description:
+> +      The first cell must be 0, as only the DRCTL PWM output is availabl=
+e.
+> +      The second cell is the PWM period in nanoseconds and the third cell
+> +      holds the PWM flags.
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - dmas
+> +  - dma-names
+> +  - '#io-backend-cells'
+> +  - '#pwm-cells'
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    ad9910_backend: dds-backend@44a00000 {
+> +        compatible =3D "adi,ad9910-axi-backend";
+> +        reg =3D <0x44a00000 0x10000>;
+> +        clocks =3D <&clkc 15>;
+> +        dmas =3D <&tx_dma 0>;
+> +        dma-names =3D "tx";
+> +        #io-backend-cells =3D <0>;
+> +        #pwm-cells =3D <3>;
+> +    };
+> +...
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 3a2dfd1a4fd8..93ad6a829cb3 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -1731,6 +1731,7 @@ S:	Supported
+>  W:	https://ez.analog.com/linux-software-drivers
+>  F:	Documentation/ABI/testing/debugfs-iio-ad9910
+>  F:	Documentation/ABI/testing/sysfs-bus-iio-frequency-ad9910
+> +F:	Documentation/devicetree/bindings/iio/frequency/adi,ad9910-axi-backen=
+d.yaml
+>  F:	Documentation/devicetree/bindings/iio/frequency/adi,ad9910.yaml
+>  F:	Documentation/iio/ad9910.rst
+>  F:	drivers/iio/frequency/ad9910.c
+>=20
+> --=20
+> 2.43.0
+>=20
+>=20
 
-diff --git a/drivers/leds/trigger/ledtrig-input-events.c b/drivers/leds/trigger/ledtrig-input-events.c
-index d057b2a23..b339f1e89 100644
---- a/drivers/leds/trigger/ledtrig-input-events.c
-+++ b/drivers/leds/trigger/ledtrig-input-events.c
-@@ -28,7 +28,63 @@ static struct input_events_data {
- 	unsigned long led_off_time;
- } input_events_data;
- 
--static struct led_trigger *input_events_led_trigger;
-+struct input_events_led {
-+	/* Brightness to restore on the next input event */
-+	int brightness;
-+};
-+
-+static int input_events_activate(struct led_classdev *led_cdev)
-+{
-+	struct input_events_data *data = &input_events_data;
-+	struct input_events_led *led;
-+	unsigned long flags;
-+
-+	led = kzalloc_obj(*led);
-+	if (!led)
-+		return -ENOMEM;
-+
-+	/* Start with the current brightness, or full if the LED is off */
-+	led->brightness = led_cdev->brightness ?: led_cdev->max_brightness;
-+
-+	spin_lock_irqsave(&data->lock, flags);
-+	led_set_trigger_data(led_cdev, led);
-+	led_set_brightness(led_cdev, data->led_on ? led->brightness : LED_OFF);
-+	spin_unlock_irqrestore(&data->lock, flags);
-+
-+	return 0;
-+}
-+
-+static void input_events_deactivate(struct led_classdev *led_cdev)
-+{
-+	kfree(led_get_trigger_data(led_cdev));
-+}
-+
-+static struct led_trigger input_events_led_trigger = {
-+	.name = "input-events",
-+	.activate = input_events_activate,
-+	.deactivate = input_events_deactivate,
-+};
-+
-+/* Must be called with input_events_data.lock held */
-+static void input_events_set_leds(bool on)
-+{
-+	struct led_classdev *led_cdev;
-+
-+	guard(rcu)();
-+	led_trigger_for_each_led(led_cdev, &input_events_led_trigger) {
-+		struct input_events_led *led = led_get_trigger_data(led_cdev);
-+
-+		/* Added to the trigger, but activate() has not run yet */
-+		if (!led)
-+			continue;
-+
-+		/* Preserve brightness changes made while the LED was on. */
-+		if (led_cdev->brightness)
-+			led->brightness = led_cdev->brightness;
-+
-+		led_set_brightness(led_cdev, on ? led->brightness : LED_OFF);
-+	}
-+}
- 
- static void led_input_events_work(struct work_struct *work)
- {
-@@ -42,7 +98,7 @@ static void led_input_events_work(struct work_struct *work)
- 	 * running before a new event pushed led_off_time back.
- 	 */
- 	if (time_after_eq(jiffies, data->led_off_time)) {
--		led_trigger_event(input_events_led_trigger, LED_OFF);
-+		input_events_set_leds(false);
- 		data->led_on = false;
- 	}
- 
-@@ -59,7 +115,7 @@ static void input_events_event(struct input_handle *handle, unsigned int type,
- 	spin_lock_irqsave(&data->lock, flags);
- 
- 	if (!data->led_on) {
--		led_trigger_event(input_events_led_trigger, LED_FULL);
-+		input_events_set_leds(true);
- 		data->led_on = true;
- 	}
- 	data->led_off_time = jiffies + led_off_delay;
-@@ -138,11 +194,13 @@ static int __init input_events_init(void)
- 	INIT_DELAYED_WORK(&input_events_data.work, led_input_events_work);
- 	spin_lock_init(&input_events_data.lock);
- 
--	led_trigger_register_simple("input-events", &input_events_led_trigger);
-+	ret = led_trigger_register(&input_events_led_trigger);
-+	if (ret)
-+		return ret;
- 
- 	ret = input_register_handler(&input_events_handler);
- 	if (ret) {
--		led_trigger_unregister_simple(input_events_led_trigger);
-+		led_trigger_unregister(&input_events_led_trigger);
- 		return ret;
- 	}
- 
-@@ -153,7 +211,7 @@ static void __exit input_events_exit(void)
- {
- 	input_unregister_handler(&input_events_handler);
- 	cancel_delayed_work_sync(&input_events_data.work);
--	led_trigger_unregister_simple(input_events_led_trigger);
-+	led_trigger_unregister(&input_events_led_trigger);
- }
- 
- module_init(input_events_init);
+--Oi1NC4/rev2QJv0k
+Content-Type: application/pgp-signature; name=signature.asc
 
--- 
-2.56.0
+-----BEGIN PGP SIGNATURE-----
 
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCatEioAAKCRB4tDGHoIJi
+0p6EAQClRur2Sf3UhlxYAaTJqDsuSMyJevkhnvLthhhfwjKnwAD7BunpY9WqCaXo
+F3lDqqxKkiJbBPwxk6IK+Jp+wCE6fg8=
+=4WDP
+-----END PGP SIGNATURE-----
 
+--Oi1NC4/rev2QJv0k--
