@@ -1,34 +1,34 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 456384A498E;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36FDE493D29;
 	Thu, 15 Oct 2026 10:36:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792060597; cv=none; b=Ulh6OQfLO/TgxWZeXhAgyvgoVAj4jYlhvlmveOVPQmtH2yhAQG6nuZg3TNeeCzF9Og1nDEfGOsMoKb12Kcuc9nJbhE0LJahqfk0mO0UV8PazggfRPJm27U9M1ktJmy1k7l5Iz7RkCczmPTy7ilyO5XNltaXzRvoVe58TaTfEw94=
+	t=1792060597; cv=none; b=l+djgEfL7JIE9Jf67zaDluncIG+SvAkp/BMEa8LSRPT+mTWENIlsqQ/hilWSiBSd0SfIbSWxhb4o16QJ0o/xLePkghd4uDpj4TVJsoT9BmTSagP8+7UJug0Hz4uQ8HWmxoBW0vhRcaXBFa6PqsE3I6EpLGXEMTY8VELmgBZID0c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792060597; c=relaxed/simple;
-	bh=j/mjwgMFfWx14DxqZfBXYelW4WS4Tjqwvqj8XQCa3bg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=aB6KzoPASLl5k5LUnCbiiQq9xI4KV7TWWCBC2KW0nrRUA8Ra/27g2dwA2zv/kM0gty+ing/lrz6+1TyHgDo8u/MmHS32rJTIc5nfV/9lS4yF8YSR8ih3+oLgoV6aNeZ7Y83QEoBrUJ9EzMkM/qxYvKQ4oX9sU+FEIYNFsGyNUGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=oJ3gkW+L; arc=none smtp.client-ip=213.167.242.64
+	bh=8EEbvGLS4deyLwnVmUGcNrh5O+wvXEd46ADBkzSteqg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Klddpn12X4hUwYWuQtooioCmFSym/nM8O43ZeGQM/6dHK2vhx17jp9SJTKquuqJsQOtGvw4tN+0puKRy/JxH1VizMcXb02arozCPETDybqHvnEPYCK899B/N0dxPcYWUGzSL56aJNxHxNzMrpfWqM7GrevsRGwttVZdAgw5LrCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Pu7W9TXo; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="oJ3gkW+L"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Pu7W9TXo"
 Received: from [192.168.1.7] (unknown [93.65.100.155])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B9E644F1;
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 37AFD2F8;
 	Thu, 15 Oct 2026 12:34:29 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1792060470;
-	bh=j/mjwgMFfWx14DxqZfBXYelW4WS4Tjqwvqj8XQCa3bg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=oJ3gkW+Ld3qvFEUDAJz3fQCZJyi27nVkVajcchszxiD27Hm75sLm4W5RSejPRE3Z/
-	 pktaPrymc4g3rTKkwPb1PiCq+WGx68+XVGpAKtiVggCwRAzv/dKRG8krRckSfvnMLT
-	 dzlO1wLRS8iTzX41rcuRcXrmO0ofovlRX8l4UbBg=
+	s=mail; t=1792060469;
+	bh=8EEbvGLS4deyLwnVmUGcNrh5O+wvXEd46ADBkzSteqg=;
+	h=From:Subject:Date:To:Cc:From;
+	b=Pu7W9TXoTy17qF3qrbs0A9YSVeptndSaPxv7pQLQbCqJgTgYWHKmE1kBZfhGUMs6J
+	 lJP7/rIxhiHNqjCK4L9zUTHUyKJQr4eaCzwSKxWjrnSBLq5JVPwoL+uqa1DzyBA3XS
+	 4MOdFtXcG8SQnpzwX1YI3vdynpyw9ZkTaK1L7JQY=
 From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Date: Thu, 15 Oct 2026 12:36:23 +0200
-Subject: [PATCH v6 1/2] dt-bindings: media: i2c: Add Mira016 image sensor
+Subject: [PATCH v6 0/2] media: i2c: Add driver for Mira016
+Date: Thu, 15 Oct 2026 12:36:22 +0200
+Message-Id: <20261015-mira016-v6-0-177ecfd6d357@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,9 +37,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-mira016-v6-1-177ecfd6d357@ideasonboard.com>
-References: <20261015-mira016-v6-0-177ecfd6d357@ideasonboard.com>
-In-Reply-To: <20261015-mira016-v6-0-177ecfd6d357@ideasonboard.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XNy07DMBQE0F+pvMbo2tePmBX/gbrwK9RIjSu7R
+ EVV/h27CJIFWY40Z+ZOaiwpVvJyuJMS51RTnlpQTwfiT3Z6jzSFlgkHrsAAp+dULDBFtY5OOcU
+ lBkFa+1LimG6PpbfjT66f7iP6a+e9cUr1msvX42pmvfe7in+rM6NA7QjAMI6gIbymEG3Nk8u2h
+ Gefz6SPz3zLxcp54yz4UTu0A+i4w3HL9cqxcQd6sEobDErucLHlw8pFfzcSJAjPkPkdLjccYeW
+ ycWGMRWHdwEH8w5dl+QarO7ztswEAAA==
+X-Change-ID: 20260902-mira016-77eb6b6253d4
 To: Philippe Baetens <philippebaetens@gmail.com>, 
  Mauro Carvalho Chehab <mchehab@kernel.org>, 
  Sakari Ailus <sakari.ailus@linux.intel.com>, Rob Herring <robh@kernel.org>, 
@@ -51,155 +54,196 @@ Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
  Conor Dooley <conor.dooley@microchip.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3613;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6656;
  i=jacopo.mondi@ideasonboard.com; h=from:subject:message-id;
- bh=j/mjwgMFfWx14DxqZfBXYelW4WS4Tjqwvqj8XQCa3bg=;
- b=owEBbQKS/ZANAwAKAXI0Bo8WoVY8AcsmYgBq0KyvWe63nM4UtNJp8M6e1sXVwX7nAQGXDtVNT
- IrgcNJqNoqJAjMEAAEKAB0WIQS1xD1IgJogio9YOMByNAaPFqFWPAUCatCsrwAKCRByNAaPFqFW
- PNCBD/9ZqZ/e64Cnwl9eUsskaG+vs1/GAMveM071iMn8mDYNmkCQEwzRhU7Jvq5HurT/k3ffGzN
- SO3WcaG/B80KWlvxKiy1AoPmBFeUa8rOIxqZ5xIlENSK57IRsR0CMlK5GlsCfk9nHLFs+RtyFt7
- 9V78KPC9NA/m7aSZ5KOJ/0kZR+DXJ1L0U62T4DKrl0u46a10vJBw87h1Jkdvf0L6UWlsdxJNwLO
- K3fmqr8Ny0tTQHfQPcOo9O0QK4ENeX6xJ7oyT2Cfr3oJ7M6KkrnOnMjZXfn1jXfTUVIPOurq9VR
- 1ewV86v6HsjVyOcYqQLHhEcYQHPGnoyw7VY6yaj6X9A/8FcmMsPnKb8xXNrHf+AI54vgWl7IxKx
- nw4Ic5eHF7uD1xF28AGFvXC08ffHpZNs/vI8RCbIBmGxqt0/68k4mbo6TwAP5KXF2+KsH0ytF1o
- 47huI7aMkNwGlItTeADpd29MAJaChKphf0DoXZeQC2h4IsabotdTqmKGkaYlb76ARzDGbqFSCUW
- yA5q+vPZt4zteX5wgQOLDm2YC4yU0pId9OznWY7RCYxWslkwXt8GHpbFLsZKjhY46QKGLV2ah7n
- vX+Yx/wz7Ytr/CGpqJyDP0WO38iSbCwwKKvEDaQ9tfZd9r0XGxBnDb9vqOkDcooPQnrsO9DgN3J
- H4VPqF2V3IBFgDg==
+ bh=8EEbvGLS4deyLwnVmUGcNrh5O+wvXEd46ADBkzSteqg=;
+ b=owEBbQKS/ZANAwAKAXI0Bo8WoVY8AcsmYgBq0KyvGrVtrxel4zEJ34zy0xvIkMvj+sS/T9gff
+ skK53YEOTiJAjMEAAEKAB0WIQS1xD1IgJogio9YOMByNAaPFqFWPAUCatCsrwAKCRByNAaPFqFW
+ PJ+JD/9nwm71naeGKVFXgG2N3BfetS8D9viWzsMwXibS6REPTTeGG6MJckxkkY680CiJJAIJ+Iy
+ 3EMGDkLBat0Il8JDoOOZKSs7z7wDPVltV1h61sLbjbeNKBgyPmgb0qa0VYXA4U3WC3MhQs0XnUo
+ x5ZuSQpPEdepX4xF8KHo8zYShx/QIWDx9W4jqpnK2QqJ5ZDEl0ZuuWMonOSA+knZ7ccZwhNEg4V
+ 4WoyOayrproUUFb6ZSRVPV8okNuHUx/DU+cHKC4Vv1zebGTUhXpbtquMnkRTtt8+knY876DDCrp
+ ISWd4QGMNXA/kxxzjXAiyWkhCUmB07qpu/uepbKE6gVRoKgxEVRshWbIBRy/oDoq4Ppb7u3VcyC
+ Og7SvbNCZDgOJIHrdRkHjBw2HBwRhZ0k7WAANUKADZNsSoN8KwAORjPHW8cbz/2hnGyHLh4Dbnj
+ v+7oWePIkPdv3aAKlp1BucK/TeRjiNqMC1NbAHB/y+q7UKFw07If7OjiMKrmj4eP7Bs7SzTdPMU
+ O3XTrQaMdz0U+XWsI06pTYrpKiy3bBDwpLh5/mfYBR+L5z5ydiA4o1aOmJoC54xrW82IWXEwgm7
+ 9hAErfosjIhHb4OE+kuvwsgFCohoPcxkF8EGBXXDJRQn10uMy0zcNBOqt7feJrBBy7FVYP1lstq
+ 1rXbAsD836CF4LQ==
 X-Developer-Key: i=jacopo.mondi@ideasonboard.com; a=openpgp;
  fpr=72392EDC88144A65C701EA9BA5826A2587AD026B
 
-Add bindings for the ams OSRAM Mira016 image sensor.
+ams OSRAM Mira016 is a 0.16MP NIR enhanced global shutter image sensor.
+It supports 8, 10 and 12 bits luma-only image formats with configurable
+gains (only in 8 and 10 bit modes, with the 12 bit gains fixed at 1x).
+
+Add a Video4Linux2 subdevice driver for it.
+
+The Mira016 supports binning, skipping and embedded data. It would be
+an ideal candidate for the new common RAW sensor model.
+
+As the model is not available yet in mainline, this first version
+doesn't support set_selection() and doesn't support embedded data.
+
+These features will be implemented on top of the new RAW sensor model
+once available.
+
+CI pipeline:
+https://gitlab.freedesktop.org/linux-media/users/jmondi/-/pipelines/1756788
+
+$ ./v4l2-compliance -d /dev/v4l-subdev2
+v4l2-compliance 1.33.0-5491, 64 bits, 64-bit time_t
+v4l2-compliance SHA: b32589c51481 2026-07-16 08:51:38
+
+Compliance test for device /dev/v4l-subdev2:
+
+Driver Info:
+	Driver version   : 6.18.37
+	Capabilities     : 0x00000000
+	Client Capabilities: 0x0000000000000002
+interval-uses-which
+Required ioctls:
+	test VIDIOC_SUDBEV_QUERYCAP: OK
+	test invalid ioctls: OK
+
+Allow for multiple opens:
+	test second /dev/v4l-subdev2 open: OK
+	test VIDIOC_SUBDEV_QUERYCAP: OK
+	test for unlimited opens: OK
+
+Debug ioctls:
+	test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+	Inputs: 0 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+	Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+	test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Control ioctls:
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+	test VIDIOC_QUERYCTRL: OK
+	test VIDIOC_G/S_CTRL: OK
+	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 11 Private Controls: 0
+
+Format ioctls:
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
+	test VIDIOC_G/S_PARM: OK (Not Supported)
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK (Not Supported)
+	test VIDIOC_TRY_FMT: OK (Not Supported)
+	test VIDIOC_S_FMT: OK (Not Supported)
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK (Not Supported)
+	test Composing: OK (Not Supported)
+	test Scaling: OK (Not Supported)
+
+Codec ioctls:
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls:
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_REMOVE_BUFS: OK
+	test VIDIOC_EXPBUF: OK (Not Supported)
+	test Requests: OK (Not Supported)
+	test blocking wait: OK (Not Supported)
+
+Total for device /dev/v4l-subdev2: 46, Succeeded: 46, Failed: 0, Warnings: 0
 
 Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
 ---
- .../devicetree/bindings/media/i2c/ams,mira016.yaml | 97 ++++++++++++++++++++++
- MAINTAINERS                                        |  7 ++
- 2 files changed, 104 insertions(+)
+Changes in v6:
+- Address Tarang's review comments:
+  - Remove unused macros
+  - Check for FORMAT_ACTIVE && is_streaming() at the beginning of
+    set_pad_fmt()
+  - Use mira016->dev where possible
+  - Fix pll_m_lut[] and row_length initialization
+  - Remove repeated writes to register 0xe000 from sequences
+- Use the raw regulator APIs: bulk api do not guarantee ordering, which
+  is instead specified by Mira016 manual
+- Implement soft reset handling according to the sensor manual operation
+  data flow
+- Link to v5: https://patch.msgid.link/20260930-mira016-v5-0-499a34ab8204@ideasonboard.com
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml b/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
-new file mode 100644
-index 000000000000..49a606fca6cb
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
-@@ -0,0 +1,97 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/i2c/ams,mira016.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: AMS 0.16 MP NIR enhanced global shutter image sensor
-+
-+maintainers:
-+  - Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-+  - Philippe Baetens <philippebaetens@gmail.com>
-+
-+description:
-+  Mira016 is a 0.16 MP NIR enhanced global shutter image sensor designed for 2D
-+  and 3D consumer and industrial machine vision applications. The sensor is
-+  compliant to the MIPI CSI-2 v1.3 protocol interface and the D-PHY v1.2
-+  physical layer specifications to transmit the image data to the host
-+  processor. It uses one data lane and one clock lane operating up to 1.5 Gbps.
-+
-+allOf:
-+  - $ref: /schemas/media/video-interface-devices.yaml#
-+
-+properties:
-+  compatible:
-+    const: ams,mira016
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  vdd28-supply:
-+    description:
-+      I/O voltage supply, 2.8 volts
-+
-+  vdd11-supply:
-+    description:
-+      I/O voltage supply, 1.1 volts
-+
-+  reset-gpios:
-+    description: Sensor reset (RST_N) GPIO
-+    maxItems: 1
-+
-+  port:
-+    $ref: /schemas/graph.yaml#/$defs/port-base
-+    additionalProperties: false
-+    description:
-+      Video output port
-+
-+    properties:
-+      endpoint:
-+        $ref: /schemas/media/video-interfaces.yaml#
-+        unevaluatedProperties: false
-+
-+        properties:
-+          data-lanes:
-+            items:
-+              - const: 1
-+
-+        required:
-+          - data-lanes
-+          - link-frequencies
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - vdd28-supply
-+  - vdd11-supply
-+  - port
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        camera@36 {
-+            compatible = "ams,mira016";
-+            reg = <0x36>;
-+            clocks = <&cam1_clk>;
-+
-+            vdd28-supply = <&cam1_reg>;
-+            vdd11-supply = <&cam_dummy_reg>;
-+
-+            port {
-+                endpoint {
-+                    data-lanes = <1>;
-+                    link-frequencies = /bits/ 64 <750000000>;
-+                };
-+            };
-+        };
-+    };
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 760791e3635f..2e01f389f057 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1454,6 +1454,13 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/iio/light/ams,as73211.yaml
- F:	drivers/iio/light/as73211.c
- 
-+AMS MIRA016 DRIVER
-+M:	Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-+M:	Philippe Baetens <philippebaetens@gmail.com>
-+L:	linux-media@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
-+
- AMT (Automatic Multicast Tunneling)
- M:	Taehee Yoo <ap420073@gmail.com>
- L:	netdev@vger.kernel.org
+Changes in v5:
+- Rebase and add support for struct v4l2_subdev_client_info
+- Call pm_runtime_set_suspended() conditioanlly
+- Remove start streaming from register sequences
+- Break-out ROW_LENGTH configuration to a dedicated function
+- Remove start streaming from register sequences
+- Link to v4: https://patch.msgid.link/20260908-mira016-v4-0-1950504c131c@ideasonboard.com
 
--- 
-2.55.0
+Changes in v4:
+- Address Sashiko comments:
+  - Correct XWIN and XRIGHT registers sizes
+  - Correct pll esc_period calculation
+  - Do not mix gotos and cleanup in endpoint parsing
+- Link to v3: https://patch.msgid.link/20260907-mira016-v3-0-b078a6793d65@ideasonboard.com
+
+Changes in v3:
+- dts: remove labels from example
+- Address Sakari's comments
+  - Parse endpoint early
+  - Do not overwrite firmware parsing errors
+  - use div_u64()
+- Link to v2: https://patch.msgid.link/20260904-mira016-v2-0-1dcf7b3a807e@ideasonboard.com
+
+Changes in v2:
+- Address Sashiko comments:
+    - Do not overwrite cci_write() return error codes
+    - Don't call mira016_calc_row_length() in init_state()
+      - This would re-calculate row length at each open() call and modify
+        the sensor configuration even for TRY states.
+      - The call is also unecessary as:
+        - row_length is initialized in probe()
+        - mira016_calc_row_length() is called by set_pad_format() for ACTIVE
+          states already
+    - Offset the gain codes by 1. The gain LUT tables are 0-indexed while
+      V4L2 controls are indexed by 1. Adjust the gain index before accessing
+      the LUT to avoid and out-of-bounds error
+    - Free the control handler before the subdev state during remove, as the
+      s_ctrl handler uses the subdev active state
+- Link to v1: https://patch.msgid.link/20260903-mira016-v1-0-af0013ef070d@ideasonboard.com
+
+---
+Jacopo Mondi (2):
+      dt-bindings: media: i2c: Add Mira016 image sensor
+      media: i2c: mira016: Add driver for Mira016
+
+ .../devicetree/bindings/media/i2c/ams,mira016.yaml |   97 +
+ MAINTAINERS                                        |    8 +
+ drivers/media/i2c/Kconfig                          |   12 +
+ drivers/media/i2c/Makefile                         |    1 +
+ drivers/media/i2c/mira016.c                        | 2357 ++++++++++++++++++++
+ 5 files changed, 2475 insertions(+)
+---
+base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
+change-id: 20260902-mira016-77eb6b6253d4
+
+Best regards,
+--  
+Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 
