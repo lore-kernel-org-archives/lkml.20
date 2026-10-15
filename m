@@ -1,591 +1,282 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 13FDD535FAA;
-	Thu, 15 Oct 2026 14:26:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D838E53977D
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:26:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792074393; cv=none; b=nC9qdP2VpiXs2NnGNHZyd71pXXTDDMBo1POK4rEsmYUhvSE7kBCbM69/zRThoGDD0DCXAEHnKy1MCN3bLAdM2sPBpJJJG9bgwgcv1O7AkJoiA6jx0kHe/8VDohniORVlvw71oBGiwdx+AIgR0siaVSRqfNRGEZ1zURRhaLZSsBc=
+	t=1792074395; cv=none; b=TM5CF+q9kyPMkX09dJZjd9wOFvv0R1kAgf8X3IgsB9oKGKibFgcVsg5R91lZBuglFfPmEQs+FGhG+KvMhbe/eV18pRszsHvzXD0pubj7rjsMlViz4c44cZybDQChp9hL3TISLFGJWNNTvu8/qGvpQN8bKGiCJPy6+MlwNSK4mEo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792074393; c=relaxed/simple;
-	bh=05KhQBlLMMcBUNB/YK9iSgcp4Cp+gQe+85V4m76ZWnU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CH6pKHtCnR12GeTU6k1BfG3yql1xiMILFntnS1ttxgPzBAhMDMkwPwXEJPSvK7EqXjpF8/3as4/ff6WmriG0VQwx9VdGnFpaKZvs7ckGtN19GXJLBf5yGweNun3THZbkp6wKIudZCOgVPlGH9U4wFG7y+FDBdusl2Qw0EC3OMzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=pteDuhxp; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1792074395; c=relaxed/simple;
+	bh=L92wgefYXvtbzOMdFEhUTkLwtCR1yYb0ZcvRRGDMuNM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=iQ+keXPSVhuHowWHtEY5ujO6O0LKqTMSoPkzrlVtwmE5AUCCAbMRbsaJh5aN3Fvee+YckJYiPUdC4A9VB2JpgVbaAjcAfRvJnq9H5l4MCks+c3uPkbdFtH7366+e7iw+rPVunGqgWE8FQE/PiabFvgKBrT4VkamiNl7xYGRSjwU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Xw+nnUMX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RlTbl1rg; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="pteDuhxp"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6DAC91477;
-	Thu, 15 Oct 2026 07:26:21 -0700 (PDT)
-Received: from e125769.cambridge.arm.com (e125769.cambridge.arm.com [10.2.198.107])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BC9823F871;
-	Thu, 15 Oct 2026 07:26:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792074384; bh=05KhQBlLMMcBUNB/YK9iSgcp4Cp+gQe+85V4m76ZWnU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=pteDuhxpEAoGDtrwUFa2OEkQeIaXnJ9FyDsm6fKmfWOVkF2fRFHoaJSK1yxsaHekj
-	 SaaJyxn2NMswr79AdcItzxqATQM5+ERBvWHCWOqHbOmy8F31+OPKGUAVWkaZ2Jp5Dj
-	 zyPZHXCVcNUARZU7C8dkSAzPIUeKpMN0Jj7VPto8=
-From: Ryan Roberts <ryan.roberts@arm.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Alex Williamson <alex@shazbot.org>,
-	Jason Gunthorpe <jgg@nvidia.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jean-Philippe Brucker <jpb@kernel.org>,
-	Oded Gabbay <ogabbay@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>
-Cc: Ryan Roberts <ryan.roberts@arm.com>,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	kvm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-doc@vger.kernel.org
-Subject: [RFC PATCH v2 06/15] misc/arm-cla: Accelerator context save and restore
-Date: Thu, 15 Oct 2026 15:25:40 +0100
-Message-ID: <20261015142552.4128028-7-ryan.roberts@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261015142552.4128028-1-ryan.roberts@arm.com>
-References: <20261015142552.4128028-1-ryan.roberts@arm.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Xw+nnUMX";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RlTbl1rg"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9jfMa1955737
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:26:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	cPeNqGPMRBWAfsA5CvuzYdqPrDk9qOkztMDjoEMaK1o=; b=Xw+nnUMXYJLgyFLR
+	sgenKLp2gy1/pzlHNA6p1TwDnLe7EftRxd3PhapGoPbvljnOy+/Y/4qCM33jk1HQ
+	Sxw+y6smKXcWD5SO2xNB/oxoY+PyYO7b1C9Zkq/KAmMgRT8pT0L4TWtgfrqwDjYg
+	68qIFv54NdN6GtES8WsEnIBfJVIqkwU7kNo4JIMchhSBFAWEYwO4MnN0VwCUy24M
+	B8tfk763BKDKIeiviXvivxge/iMhBiGWb43298FP3p8ZQKM/p72C6VpwEvvWn1qn
+	vjCzaDUYIHUkcLg62wC3/8ub4IX+FfhFXAwv+LusR0mmSalYYk5D7XwjuNLNPPVC
+	ljFEVA==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hakdeubhp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:26:26 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-7cb9d27ddcfso898336137.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:26:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792074386; x=1792679186; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cPeNqGPMRBWAfsA5CvuzYdqPrDk9qOkztMDjoEMaK1o=;
+        b=RlTbl1rglvqpMqiMGMBxpRyBuAJTlL+yFJfqEClIM6fLWmXn/h3+F2o77X5uic9eO8
+         ep0YSPuIzvYsp5iKpjbxkbV2ojGsTqoHziA3qR0//JwvId2nrSS2Ir+qabLum9o/GHbC
+         AmJ1mOt81lkuyoor1BUBMTWCsn4Cm2FU1rgP8IRRMmPHmGaBXLomH8MTd3ZslKbMUPik
+         W39BvrTGUHlk8t9nIbq/g8wKTAcuELJ+jH1NavEDRocRX7HWMrM95TsyQ+oggs+JKIBR
+         REyQALlCzJLaEq3ArcxjZtZVeM8pH7jEeeM7HWZI6XFTj4vHCRn1R37y7mm2bdVUBFtC
+         tfxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792074386; x=1792679186;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cPeNqGPMRBWAfsA5CvuzYdqPrDk9qOkztMDjoEMaK1o=;
+        b=eqhr8po3GYCZRqXuhqa/VsATW3r2WsL4/dLV4Yvl7jkdvYJP10Bw0mtqIu+Jp/66Zy
+         Ugo7go/tqZ/Z7kbRlQ0x3f7GfbRQTTq1fjyaltrubod+LzmPHgDrQfinfll0FBOI+3OX
+         yan8leXj/uoye6g81V4ik2HfCjNQTk7PjD9PdO4x7MOhBv1EygAv9F4fbaBYn6mbobW/
+         DnIVwXM/2H/z+1r6vxje8SLMCgXpqxe9Cw5aAXps/KTSNRQV2m1L1YBzYJlRJy98PsaV
+         AK8w88jR4KDDDZbZpzS+D/BaPeJngqT9V/APj6bvVUUq3CQopab4mK8OikgXZbj0qCqU
+         +fIg==
+X-Forwarded-Encrypted: i=1; AKwUvBzJze0MfyP6w5pM9m5mPF/wxA2GwzKZUNoEpNgKrPhm9SwqQ+CBT6uQYppEWKjsBLchNxO7T0OPEzgd2aE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLilhslb90Al+NPk8u46NGbW/nsmJ8jMndeWvelTacjAmwRqs4I
+	eX//yVRKQtSXdoXHO8w7twauHwILmvAdckIVkoJohzTOl2n4T5P5TLu0SK0OKbEPp196DjKDIyj
+	xi+DgBuTZ9LyGGFsZPD0qmXvY00Ghi+D8cIxH8SzTKdCuicvSQY98XIA/VC0UdFkeeSk=
+X-Gm-Gg: AYBFou2GM1fdBBGMIylsAwAVODUDsygn6Ses2xRuPU1COBevHXhEJJSQR7u4SvkGeMw
+	cdtMzB9dlWVTa+uLVDgJrG/BgmkIiKwLWQYcC9wQ2Kr3Io8pTtdqVWj+QzT3GVOQ+ux74kPPhRz
+	h0hTkMW/mpTxmaG5pgNwfDwZHilqiVBBWS1Lv0blJvJTAe9thyRYlLaYhvQXDRDWq/OV3McBRQH
+	/380jIxnG+MIwth4jqY4uJ4Mgi22aFGpmwt/jQm4HBUIIFdaXuza0EtvDbOpj1jU2jfov5c0jew
+	n4HT5HBxiEPMF7/BAWbO+J+nxZR2y+zjpcWZuqFfFr8xA1d5CqRfhnDjMrbMbwFD5uMn2z0e8bY
+	cNugGWw0yMH+lncv4dEYRn8cvXrLHTORfYTVNSmr8YF+Y9uCRFJ/L5AVWdfFTdrxklLLds4dS89
+	9vBW+gXvUYPpdpCJ2/QpvQGa3GmYJ27bqh9OGq6dH1G5zpvfnZAfA=
+X-Received: by 2002:a05:6102:5114:b0:7c3:3890:6076 with SMTP id ada2fe7eead31-7cb37250532mr5104316137.6.1792074385438;
+        Thu, 15 Oct 2026 07:26:25 -0700 (PDT)
+X-Received: by 2002:a05:6102:5114:b0:7c3:3890:6076 with SMTP id ada2fe7eead31-7cb37250532mr5104279137.6.1792074384767;
+        Thu, 15 Oct 2026 07:26:24 -0700 (PDT)
+Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:5402:5e0b:9ef0:9b5b])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd6428b3sm69083145e9.1.2026.10.15.07.26.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 07:26:23 -0700 (PDT)
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Thu, 15 Oct 2026 16:26:03 +0200
+Subject: [PATCH v11 4/7] net: of_net: Add of_get_nvmem_eui48() helper for
+ EUI-48 lookup
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261015-block-as-nvmem-v11-4-f890ac74f87d@oss.qualcomm.com>
+References: <20261015-block-as-nvmem-v11-0-f890ac74f87d@oss.qualcomm.com>
+In-Reply-To: <20261015-block-as-nvmem-v11-0-f890ac74f87d@oss.qualcomm.com>
+To: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+        Johannes Berg <johannes@sipsolutions.net>,
+        Jeff Johnson <jjohnson@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Marcel Holtmann <marcel@holtmann.org>,
+        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+        Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
+        Rocky Liao <quic_rjliao@quicinc.com>,
+        "David S. Miller" <davem@davemloft.net>,
+        Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+        Simon Horman <horms@kernel.org>,
+        Srinivas Kandagatla <srini@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
+        Heiner Kallweit <hkallweit1@gmail.com>,
+        Russell King <linux@armlinux.org.uk>,
+        Saravana Kannan <saravanak@kernel.org>,
+        Christian Marangi <ansuelsmth@gmail.com>,
+        Eric Dumazet <edumazet@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Eric Dumazet <edumazet@kernel.org>
+Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-block@vger.kernel.org, linux-wireless@vger.kernel.org,
+        ath10k@lists.infradead.org, linux-bluetooth@vger.kernel.org,
+        netdev@vger.kernel.org, daniel@makrotopia.org,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Authority-Analysis: v=2.4 cv=OdENnRTY c=1 sm=1 tr=0 ts=6ad0e292 cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=bEbww9rD5qa0LKludeoA:9 a=QEXdDO2ut3YA:10 a=-aSRE8QhW-JAV6biHavz:22
+X-Proofpoint-ORIG-GUID: fJiGPewijiRg469sswXXJFhnxgCsjv4W
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1NyBTYWx0ZWRfX1ymd+OeVu5u2
+ cuGGj+XWGDERhwI0tF3l9WECtLLUGB2LYHNpYzCR5BuijRW7ooS1HXpBNed3V2TTQrlM5hvQBuK
+ xFi/qrk8gUGw3HjWrlCKzNZ3IIJWoEQVtaQTQEc+pdPs1N3ZbZ/8/+vcxWNRweMv0GCJJhi+Dpc
+ viF+dtxUXqgk7LPu4V9hh+QSWhkKHdGL2TZUhNEY88fozrk+NEbxEXwO6tGhIINuVkQGzAtTyAx
+ o/Q0aiuC+oJ3ibNIeR3rfRaTHoIPHiVgrpqcmYVdxDQ1VpvXIrRB053sfI87FFhlULl1l3+f5dX
+ WFEeFdLebH1oTPKECzUwqLY/X4nHv9suIrH6y2F4HCWB2Y8HgWq86cUKwC4yHYztM/w3b9kn26t
+ +vQpdVXfoWQuAXdfq+GZiMpLjDNT9XrP6mS8tzhZYITWd0+cnKtky3WXlwPbegA3ZmjNd12yxI9
+ w2HO3UAvM0vesEhZFZg==
+X-Proofpoint-GUID: fJiGPewijiRg469sswXXJFhnxgCsjv4W
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1NyBTYWx0ZWRfX7qaV0aaniGwV
+ 0uHJtr5G09Qk1MDkF/iqNPKoGZ9BTcBzm//BUfM9aV1fOTQupaRNjeOHh+Myfrpkg+cSjMR2po4
+ ADgWvwB64MZZiijSXhi0r4UvInpIBfQ=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 spamscore=0 impostorscore=0 phishscore=0 clxscore=1015
+ priorityscore=1501 lowpriorityscore=0 malwarescore=0 adultscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610150057
 
-From: Jean-Philippe Brucker <jpb@kernel.org>
+Factor out the common NVMEM EUI-48 retrieval logic from
+of_get_mac_address_nvmem() into a new of_get_nvmem_eui48() helper that
+accepts the NVMEM cell name as a parameter. This allows other subsystems
+(e.g. Bluetooth) to reuse the same lookup-validate-copy pattern with a
+different cell name, without duplicating code.
 
-Add helpers to save and restore CLA context for later domain switching.
-The saved state includes DATA registers, LRESP, per-accelerator SRSTATE
-and any implementation-defined internal accelerator state exposed
-through the IAS register window.
+of_get_mac_address_nvmem() is updated to call of_get_nvmem_eui48() with
+"mac-address", preserving its existing behavior.
 
-Use ENTERSR to stop each accelerator and collect SRSTATE, then read the
-advertised internal register state with REGREAD. Restore by entering SR
-mode from a reset, idle accelerator, writing the saved internal state
-with REGWRITE and completing the transition with EXITSR.
-
-Reject accelerators that require SAVE/RESTORE operations during setup,
-since that path needs a DMA buffer for state storage. Allocate
-per-device save areas for all CLAs in a domain, sized from the combined
-IASSIZE discovered at setup time.
-
-Signed-off-by: Jean-Philippe Brucker <jpb@kernel.org>
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 ---
- drivers/misc/arm-cla/Makefile   |   1 +
- drivers/misc/arm-cla/arm-cla.h  |  32 ++++
- drivers/misc/arm-cla/cla-init.c |  35 ++++
- drivers/misc/arm-cla/cla-ops.c  |  49 ++++++
- drivers/misc/arm-cla/cla-regs.c | 295 ++++++++++++++++++++++++++++++++
- 5 files changed, 412 insertions(+)
- create mode 100644 drivers/misc/arm-cla/cla-regs.c
+ include/linux/of_net.h |  7 +++++++
+ net/core/of_net.c      | 52 ++++++++++++++++++++++++++++++++++++++------------
+ 2 files changed, 47 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/misc/arm-cla/Makefile b/drivers/misc/arm-cla/Makefile
-index 84ed1a054a21..c1b14155454d 100644
---- a/drivers/misc/arm-cla/Makefile
-+++ b/drivers/misc/arm-cla/Makefile
-@@ -3,6 +3,7 @@
- arm-cla-y := \
- 	cla-init.o \
- 	cla-ops.o \
-+	cla-regs.o \
- 	cla-topology.o
+diff --git a/include/linux/of_net.h b/include/linux/of_net.h
+index d88715a0b3a52f87af23d47791bea3baf5be5200..7854ba555d9a55f3d020a37fe00a27ae52e0e5dc 100644
+--- a/include/linux/of_net.h
++++ b/include/linux/of_net.h
+@@ -15,6 +15,7 @@ struct net_device;
+ extern int of_get_phy_mode(struct device_node *np, phy_interface_t *interface);
+ extern int of_get_mac_address(struct device_node *np, u8 *mac);
+ extern int of_get_mac_address_nvmem(struct device_node *np, u8 *mac);
++int of_get_nvmem_eui48(struct device_node *np, const char *cell_name, u8 *addr);
+ int of_get_ethdev_address(struct device_node *np, struct net_device *dev);
+ extern struct net_device *of_find_net_device_by_node(struct device_node *np);
+ #else
+@@ -34,6 +35,12 @@ static inline int of_get_mac_address_nvmem(struct device_node *np, u8 *mac)
+ 	return -ENODEV;
+ }
  
- obj-$(CONFIG_ARM_CLA) += arm-cla.o
-diff --git a/drivers/misc/arm-cla/arm-cla.h b/drivers/misc/arm-cla/arm-cla.h
-index 6890c813a5c3..6d72d57e5422 100644
---- a/drivers/misc/arm-cla/arm-cla.h
-+++ b/drivers/misc/arm-cla/arm-cla.h
-@@ -29,6 +29,7 @@ struct cla_domain;
-  * @pfn:		Page of registers assigned to user.
-  * @accelerators:	Available accelerators.
-  * @pg_offset:		Mmap offset of this device.
-+ * @iassizes:		Combined regstate of all accels in bytes.
-  * @domain:		The domain this CLA belongs to.
-  *
-  * Mutable, protected by CPU hotplug locking:
-@@ -42,6 +43,7 @@ struct cla_dev {
- 	unsigned long pfn;
- 	u8 accelerators;
- 	unsigned long pg_offset;
-+	unsigned long iassizes;
- 	struct cla_domain *domain;
- 
- 	bool discovered;
-@@ -64,6 +66,27 @@ struct cla_domain {
- 	struct cla_dev **devs;
- };
- 
-+/**
-+ * struct cla_regs_pl0 - Saved CLA register state (PL0)
-+ *
-+ * @data:		DATA registers.
-+ * @lresp:		LRESP register.
-+ * @accel_valid:	Accelerator state has been saved once.
-+ * @srstate:		Save/restore state for each accelerator.
-+ * @regstate:		Internal accelerator state.
-+ */
-+struct cla_regs_pl0 {
-+	u64 data[CLA_NUM_DATA_REGS];
-+	u64 lresp;
-+	bool accel_valid;
-+	u64 srstate[CLA_NUM_ACC][CLA_SRSTATE_LEN];
-+	u64 regstate[];
-+};
++static inline int of_get_nvmem_eui48(struct device_node *np,
++				      const char *cell_name, u8 *addr)
++{
++	return -ENODEV;
++}
 +
-+struct cla_ctx {
-+	void **regs;
-+};
-+
- extern struct xarray cla_domains;
- extern unsigned int cla_nr_domains;
- extern struct cla_dev **cla_lut_cpu;
-@@ -116,5 +139,14 @@ int cla_op_regread(struct cla_dev *dev, unsigned int accid, unsigned int regidx,
- 		   size_t nregs, u64 *regs);
- int cla_op_regwrite(struct cla_dev *dev, unsigned int accid,
- 		    unsigned int regidx, size_t nregs, u64 *regs);
-+int cla_op_entersr(struct cla_dev *dev, unsigned int accid, u64 *srstate);
-+int cla_op_exitsr(struct cla_dev *dev, unsigned int accid, u64 *srstate);
-+
-+int cla_regs_install(struct cla_dev *dev, struct cla_ctx *ctx,
-+		     unsigned int ctx_id);
-+int cla_regs_uninstall(struct cla_dev *dev, struct cla_ctx *ctx,
-+		       unsigned int ctx_id);
-+int cla_ctx_alloc_regs(struct cla_domain *domain, struct cla_ctx *ctx);
-+void cla_ctx_free_regs(struct cla_domain *domain, struct cla_ctx *ctx);
- 
- #endif /* _ARM_CLA_H_ */
-diff --git a/drivers/misc/arm-cla/cla-init.c b/drivers/misc/arm-cla/cla-init.c
-index 2974bf71033c..a4d2ffaa3136 100644
---- a/drivers/misc/arm-cla/cla-init.c
-+++ b/drivers/misc/arm-cla/cla-init.c
-@@ -7,8 +7,10 @@
- 
- #include <linux/cpuhotplug.h>
- #include <linux/cpuhplock.h>
-+#include <linux/math.h>
- #include <linux/module.h>
- #include <linux/of.h>
-+#include <linux/overflow.h>
- #include <linux/platform_device.h>
- #include <linux/smp.h>
- 
-@@ -82,6 +84,38 @@ static int cla_reset_pmu(struct cla_dev *dev, unsigned int accid)
-  */
- static int cla_dev_discover_accel(struct cla_dev *dev, unsigned int accid)
+ static inline int of_get_ethdev_address(struct device_node *np, struct net_device *dev)
  {
-+	unsigned long iassizes;
-+	u64 iassize;
-+	u64 acap;
-+	int ret;
-+
-+	/*
-+	 * This driver supports context switching with REGREAD and REGWRITE.
-+	 * SROP (SAVE and RESTORE ops) requires DMA-backed state storage, which
-+	 * is not implemented here.
-+	 */
-+	ret = cla_op_regread(dev, accid, CLA_REG_ACAP, 1, &acap);
-+	if (ret)
-+		return ret;
-+	if (FIELD_GET(CLA_ACAP_SROP, acap)) {
-+		cla_err(dev, "[%u] SROP not supported\n", accid);
-+		return 1;
-+	}
-+
-+	ret = cla_op_regread(dev, accid, CLA_REG_IASSIZE, 1, &iassize);
-+	if (ret)
-+		return ret;
-+	if (FIELD_GET(CLA_ACAP_REGSTATE, acap)) {
-+		/* Reserve whole u64 entries for each accelerator's state. */
-+		if (check_add_overflow(iassize, sizeof(u64) - 1, &iassize) ||
-+		    check_add_overflow(dev->iassizes, round_down(iassize,
-+				       sizeof(u64)), &iassizes)) {
-+			cla_err(dev, "[%u] IASSIZE total overflows\n", accid);
-+			return -EOVERFLOW;
-+		}
-+		dev->iassizes = iassizes;
-+	}
-+
- 	dev->accelerators |= (1 << accid);
+ 	return -ENODEV;
+diff --git a/net/core/of_net.c b/net/core/of_net.c
+index 93ea425b9248a23f4f95a336e9cdbf0053248e32..999ca0e9258c41580823b80e0ef6db26617bc968 100644
+--- a/net/core/of_net.c
++++ b/net/core/of_net.c
+@@ -61,9 +61,7 @@ static int of_get_mac_addr(struct device_node *np, const char *name, u8 *addr)
+ int of_get_mac_address_nvmem(struct device_node *np, u8 *addr)
+ {
+ 	struct platform_device *pdev = of_find_device_by_node(np);
+-	struct nvmem_cell *cell;
+-	const void *mac;
+-	size_t len;
++	u8 mac[ETH_ALEN] __aligned(sizeof(u16));
+ 	int ret;
  
- 	return 0;
-@@ -181,6 +215,7 @@ static int cla_dev_setup(unsigned int cpu)
- 	if (!dev->discovered) {
- 		/* Discard partial results from an earlier, failed discovery. */
- 		dev->accelerators = 0;
-+		dev->iassizes = 0;
+ 	/* Try lookup by device first, there might be a nvmem_cell_lookup
+@@ -75,27 +73,57 @@ int of_get_mac_address_nvmem(struct device_node *np, u8 *addr)
+ 		return ret;
  	}
  
- 	/* Clear DATA and LRESP_DATANZ */
-diff --git a/drivers/misc/arm-cla/cla-ops.c b/drivers/misc/arm-cla/cla-ops.c
-index 5d053c6aa1f7..bb0bac5c2d35 100644
---- a/drivers/misc/arm-cla/cla-ops.c
-+++ b/drivers/misc/arm-cla/cla-ops.c
-@@ -314,3 +314,52 @@ int cla_op_regwrite(struct cla_dev *dev, unsigned int accid,
- 	return cla_op_access_reg(dev, CLA_LAUNCH_OP_REGWRITE, CLA_DATA_IN,
- 				 accid, regidx, nregs, regs);
+-	cell = of_nvmem_cell_get(np, "mac-address");
++	ret = of_get_nvmem_eui48(np, "mac-address", mac);
++	if (ret)
++		return ret;
++
++	if (!is_valid_ether_addr(mac))
++		return -EINVAL;
++
++	memcpy(addr, mac, ETH_ALEN);
++	return 0;
++}
++EXPORT_SYMBOL(of_get_mac_address_nvmem);
++
++/**
++ * of_get_nvmem_eui48 - Read a 6-byte EUI-48 address from a named NVMEM cell.
++ * @np:		Device node to look up the NVMEM cell from.
++ * @cell_name:	Name of the NVMEM cell (e.g. "mac-address", "local-bd-address").
++ * @addr:	Output buffer for the 6-byte address.
++ *
++ * Reads the named NVMEM cell and validates that it contains a non-zero 6-byte
++ * address. Returns 0 on success, negative errno on failure.
++ */
++int of_get_nvmem_eui48(struct device_node *np, const char *cell_name, u8 *addr)
++{
++	struct nvmem_cell *cell;
++	const void *eui48;
++	size_t len;
++
++	cell = of_nvmem_cell_get(np, cell_name);
+ 	if (IS_ERR(cell))
+ 		return PTR_ERR(cell);
+ 
+-	mac = nvmem_cell_read(cell, &len);
++	eui48 = nvmem_cell_read(cell, &len);
+ 	nvmem_cell_put(cell);
+ 
+-	if (IS_ERR(mac))
+-		return PTR_ERR(mac);
++	if (IS_ERR(eui48))
++		return PTR_ERR(eui48);
+ 
+-	if (len != ETH_ALEN || !is_valid_ether_addr(mac)) {
+-		kfree(mac);
++	/* Reject unprogrammed cells that read as all-zeroes or all-ones */
++	if (len != ETH_ALEN ||
++	    !memchr_inv(eui48, 0x00, ETH_ALEN) ||
++	    !memchr_inv(eui48, 0xff, ETH_ALEN)) {
++		kfree(eui48);
+ 		return -EINVAL;
+ 	}
+ 
+-	memcpy(addr, mac, ETH_ALEN);
+-	kfree(mac);
++	memcpy(addr, eui48, ETH_ALEN);
++	kfree(eui48);
+ 
+ 	return 0;
  }
-+
-+/**
-+ * cla_op_entersr - launch ENTERSR operation.
-+ * @dev: CLA device.
-+ * @accid: accelerator ID.
-+ * @srstate: 64-byte save/restore state written by CLA. May be NULL if the
-+ *           SRSTATE isn't needed.
-+ *
-+ * Return: 0 on success, or an error.
-+ */
-+int cla_op_entersr(struct cla_dev *dev, unsigned int accid, u64 *srstate)
-+{
-+	int ret;
-+	u64 status;
-+	struct cla_launch launch = {
-+		.op		= CLA_LAUNCH_OP_ENTERSR,
-+		.ndata_m1	= 7,
-+		.accid		= accid,
-+		.data_mode	= srstate ? CLA_DATA_OUT : CLA_DATA_NONE,
-+		.data		= srstate,
-+	};
-+
-+	ret = cla_op_launch(dev, &launch);
-+	if (ret)
-+		return ret;
-+
-+	return cla_wait_status_dmb(dev, accid, &status);
-+}
-+
-+/**
-+ * cla_op_exitsr - launch EXITSR operation.
-+ * @dev: CLA device.
-+ * @accid: accelerator ID.
-+ * @srstate: 64-byte save/restore state written to CLA.
-+ *
-+ * Return: 0 on success, or an error.
-+ */
-+int cla_op_exitsr(struct cla_dev *dev, unsigned int accid, u64 *srstate)
-+{
-+	struct cla_launch launch = {
-+		.op		= CLA_LAUNCH_OP_EXITSR,
-+		.ndata_m1	= 7,
-+		.accid		= accid,
-+		.data_mode	= CLA_DATA_IN,
-+		.data		= srstate,
-+	};
-+
-+	return cla_op_launch(dev, &launch);
-+}
-diff --git a/drivers/misc/arm-cla/cla-regs.c b/drivers/misc/arm-cla/cla-regs.c
-new file mode 100644
-index 000000000000..2452a7601990
---- /dev/null
-+++ b/drivers/misc/arm-cla/cla-regs.c
-@@ -0,0 +1,295 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Arm CLA driver - save/restore accelerator context
-+ *
-+ * Copyright 2026 Arm Limited.
-+ */
-+
-+#include <linux/io.h>
-+#include <linux/overflow.h>
-+
-+#include "arm-cla.h"
-+
-+static int cla_regs_save_accel(struct cla_dev *dev, unsigned int accid,
-+			       struct cla_regs_pl0 *regs, size_t *regstate_off)
-+{
-+	int ret;
-+	u64 status;
-+	size_t regstate_size;
-+	u64 *srstate = regs->srstate[accid];
-+	size_t nr_regstate = dev->iassizes / sizeof(u64);
-+
-+	ret = cla_op_entersr(dev, accid, srstate);
-+	if (ret) {
-+		/*
-+		 * Note that we don't expect the accelerator to return an error.
-+		 * Implementations that don't support context switch cancel the
-+		 * work and write an error in SRSTATE_STATUS, but don't fail
-+		 * ENTERSR.
-+		 */
-+		return ret;
-+	}
-+
-+	status = cla_reg_read(dev, CLA_REG_STATUS(accid));
-+	if ((status & CLA_STATUS_STATE_MASK) != CLA_STATUS_STATE_SRMODE) {
-+		cla_err(dev, "unexpected SR status 0x%llx\n", status);
-+		return -EIO;
-+	}
-+
-+	/*
-+	 * A device that supports SROP fails device probe. Others should not
-+	 * report SROP here, we don't support it.
-+	 */
-+	WARN_ON(FIELD_GET(CLA_SRSTATE_0_SROP, srstate[0]));
-+
-+	regstate_size = FIELD_GET(CLA_SRSTATE_0_REGSTATE, srstate[0]);
-+	if (WARN_ON(*regstate_off > nr_regstate ||
-+		    regstate_size > nr_regstate - *regstate_off))
-+		return -ENOSPC;
-+
-+	if (regstate_size) {
-+		ret = cla_op_regread(dev, accid, CLA_REG_IASn, regstate_size,
-+				     regs->regstate + *regstate_off);
-+		if (ret) {
-+			cla_err(dev, "failed to save regstate: %d\n", ret);
-+			return ret;
-+		}
-+	}
-+
-+	*regstate_off += regstate_size;
-+
-+	return 0;
-+}
-+
-+/*
-+ * Errors are very unlikely, but if they happen the device is left in SRMODE.
-+ */
-+static int cla_regs_restore_accel(struct cla_dev *dev, unsigned int accid,
-+				  struct cla_regs_pl0 *regs,
-+				  size_t *regstate_off)
-+{
-+	int ret;
-+	u64 status;
-+	size_t regstate_size;
-+	u64 *srstate = regs->srstate[accid];
-+	size_t nr_regstate = dev->iassizes / sizeof(u64);
-+
-+	/*
-+	 * The accelerator was reset and isn't in SRMODE. Later we could support
-+	 * coming directly from cla_regs_save_accel() in SRMODE, but at the
-+	 * moment we always need a RESET.
-+	 */
-+	status = cla_reg_read(dev, CLA_REG_STATUS(accid));
-+	if ((status & CLA_STATUS_STATE_MASK) != CLA_STATUS_STATE_IDLE) {
-+		cla_err(dev, "unexpected status 0x%llx\n", status);
-+		return -EIO;
-+	}
-+
-+	ret = cla_op_entersr(dev, accid, NULL);
-+	if (ret)
-+		return ret;
-+
-+	WARN_ON(FIELD_GET(CLA_SRSTATE_0_SROP, srstate[0]));
-+
-+	regstate_size = FIELD_GET(CLA_SRSTATE_0_REGSTATE, srstate[0]);
-+	if (WARN_ON(*regstate_off > nr_regstate ||
-+		    regstate_size > nr_regstate - *regstate_off))
-+		return -ENOSPC;
-+
-+	if (regstate_size) {
-+		ret = cla_op_regwrite(dev, accid, CLA_REG_IASn, regstate_size,
-+				      regs->regstate + *regstate_off);
-+		if (ret) {
-+			cla_err(dev, "failed to restore regstate: %d\n", ret);
-+			return ret;
-+		}
-+	}
-+
-+	*regstate_off += regstate_size;
-+
-+	return cla_op_exitsr(dev, accid, srstate);
-+}
-+
-+static int cla_regs_uninstall_pl0(struct cla_dev *dev, struct cla_ctx *ctx,
-+				  unsigned int ctx_id)
-+{
-+	int i;
-+	int ret;
-+	unsigned int accid;
-+	size_t regstate_off = 0;
-+	struct cla_regs_pl0 *regs = ctx->regs[ctx_id];
-+
-+	/*
-+	 * When we interrupt the user process in the middle of launching a
-+	 * command, we have to wait for LRESP_PENDING to clear before we can
-+	 * launch a new command or save the DATA registers.
-+	 */
-+	ret = cla_op_wait_lresp(dev, &regs->lresp);
-+	if (ret)
-+		return ret;
-+
-+	for (i = 0; i < CLA_NUM_DATA_REGS; i++)
-+		regs->data[i] = cla_reg_read(dev, CLA_REG_DATA(i));
-+
-+	cla_for_each_accid(dev, accid) {
-+		ret = cla_regs_save_accel(dev, accid, regs, &regstate_off);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	regs->accel_valid = true;
-+
-+	/*
-+	 * "If the accelerator is non idle when ENTERSR is launched, then a
-+	 * RESET operation is required after the internal accelerator state has
-+	 * been saved"
-+	 *
-+	 * Reset unconditionally to establish a clean state before assigning
-+	 * the next context.
-+	 */
-+	return cla_op_reset_all(dev);
-+}
-+
-+static int cla_regs_install_pl0(struct cla_dev *dev, struct cla_ctx *ctx,
-+				unsigned int ctx_id)
-+{
-+	int i;
-+	int ret;
-+	unsigned int accid;
-+	size_t regstate_off = 0;
-+	struct cla_regs_pl0 *regs = ctx->regs[ctx_id];
-+
-+	cla_for_each_accid(dev, accid) {
-+		if (regs->accel_valid) {
-+			ret = cla_regs_restore_accel(dev, accid, regs, &regstate_off);
-+			if (ret)
-+				return ret;
-+			/*
-+			 * At this point we must not read STATUS because that
-+			 * would clear EVENT. Userspace always gets a spurious
-+			 * EVENT on restore, because we have no way to
-+			 * save/restore EVENT and userspace missing an event
-+			 * would be worse than getting a spurious one.
-+			 */
-+		} else {
-+			/*
-+			 * If this context has never been scheduled, then we
-+			 * just clean the CLA regs. Also clear EVENT by reading
-+			 * STATUS, to provide a pristine context.
-+			 */
-+			cla_reg_read(dev, CLA_REG_STATUS(accid));
-+		}
-+	}
-+
-+	for (i = 0; i < CLA_NUM_DATA_REGS; i++)
-+		cla_reg_write(dev, CLA_REG_DATA(i), regs->data[i]);
-+	cla_reg_write(dev, CLA_REG_LRESP, regs->lresp);
-+
-+	return 0;
-+}
-+
-+/**
-+ * cla_regs_install - Install and/or restore CLA context
-+ * @dev: CLA device
-+ * @ctx: CLA context to install
-+ * @ctx_id: CLA context number within the domain
-+ *
-+ * Save the kernel context if necessary, and install a user context.
-+ *
-+ * PL0 context: Restore the DATA and LRESP registers, and accelerator state if
-+ * one has been saved.
-+ *
-+ * This function is called with all accelerators idle and no trace of previous
-+ * work.
-+ *
-+ * Return: 0 on success, or an error
-+ */
-+int cla_regs_install(struct cla_dev *dev, struct cla_ctx *ctx,
-+		     unsigned int ctx_id)
-+{
-+	return cla_regs_install_pl0(dev, ctx, ctx_id);
-+}
-+
-+/**
-+ * cla_regs_uninstall - Remove and/or save CLA context
-+ * @dev: CLA device
-+ * @ctx: CLA context to remove
-+ * @ctx_id: CLA context number within the domain
-+ *
-+ * Uninstall a user context, and restore the kernel context if necessary.
-+ *
-+ * PL0 context: Save the DATA and LRESP registers and accelerator state.
-+ *
-+ * When this completes, all accelerators are idle. If this fails, some
-+ * accelerators may still be running.
-+ *
-+ * Return: 0 on success, or an error.
-+ */
-+int cla_regs_uninstall(struct cla_dev *dev, struct cla_ctx *ctx,
-+		       unsigned int ctx_id)
-+{
-+	return cla_regs_uninstall_pl0(dev, ctx, ctx_id);
-+}
-+
-+/**
-+ * cla_ctx_alloc_regs - Allocate register state for a CLA context
-+ * @domain: CLA domain
-+ * @ctx: CLA context
-+ *
-+ * Allocate register state to save and restore every device in @domain, store it
-+ * in @ctx.
-+ *
-+ * Return: 0 on success, or an error
-+ */
-+int cla_ctx_alloc_regs(struct cla_domain *domain, struct cla_ctx *ctx)
-+{
-+	void **regs_ptrs;
-+	size_t size;
-+	int i;
-+
-+	regs_ptrs = kmalloc_objs(*regs_ptrs, domain->nr_devs,
-+				 GFP_KERNEL_ACCOUNT);
-+	if (!regs_ptrs)
-+		return -ENOMEM;
-+
-+	for (i = 0; i < domain->nr_devs; i++) {
-+		struct cla_dev *dev = domain->devs[i];
-+		size_t nr_regstate = dev->iassizes / sizeof(u64);
-+		void *regs;
-+
-+		/*
-+		 * The regs structures are only ever accessed from the CLA
-+		 * device's CPU, so try to allocate them on the right NUMA node
-+		 */
-+		size = struct_size_t(struct cla_regs_pl0, regstate, nr_regstate);
-+		regs = kvzalloc_node(size, GFP_KERNEL_ACCOUNT,
-+				     cpu_to_node(dev->cpu));
-+		if (!regs)
-+			goto err_free;
-+
-+		regs_ptrs[i] = regs;
-+	}
-+
-+	ctx->regs = regs_ptrs;
-+	return 0;
-+
-+err_free:
-+	for (i--; i >= 0; i--)
-+		kvfree(regs_ptrs[i]);
-+	kfree(regs_ptrs);
-+	return -ENOMEM;
-+}
-+
-+/**
-+ * cla_ctx_free_regs - Free register state for a CLA context
-+ * @domain: CLA domain
-+ * @ctx: CLA context
-+ */
-+void cla_ctx_free_regs(struct cla_domain *domain, struct cla_ctx *ctx)
-+{
-+	int i;
-+
-+	for (i = 0; i < domain->nr_devs; i++)
-+		kvfree(ctx->regs[i]);
-+	kfree(ctx->regs);
-+}
+-EXPORT_SYMBOL(of_get_mac_address_nvmem);
++EXPORT_SYMBOL_GPL(of_get_nvmem_eui48);
+ 
+ /**
+  * of_get_mac_address()
+
 -- 
-2.43.0
+2.34.1
 
