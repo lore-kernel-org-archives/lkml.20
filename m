@@ -1,227 +1,105 @@
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 574D137A834
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 22:45:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792104322; cv=pass; b=OwrIsJcnBD/kZNsKaCrtiTI3KZNstjxIxCS1Us7Cnna68OYY1ObWxcqJfS7/Jtry+xRktpQHIUe9SU0qaIhQru+19LKgOqtZqgax7b690KU9CpwfBe1frELsFp5WR9/+nHaNI68UtQR86UPdBQSp5/b+pol9zYgkascM2SrjGGg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792104322; c=relaxed/simple;
-	bh=pde/atokYGlXVQMXPE555qjnd8HsZsyowtY+/7fM9dI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pdAB5ORbFdTEICO8nVmNXEQsl79VPbZBBY9VQSBQ+Clwa9DQeVYzrn/4NqhmjDBokiz0WepP7G1/qfzBP4r4M8plXmTwV5uBmtTGEZD18RpWE57j9wABs2vVMLGFJ8sdyAa1SD3WPWFYgRVY7Cnb/cnOrE7X+LsGIG5ID2nPbWA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xc93N2Pa; arc=pass smtp.client-ip=209.85.167.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42D5D280035
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 22:46:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792104388; cv=none; b=LrEPASjALG4yvbAU5Z+J9EiFxaiOfKJEoLcMX4Q1Uy/aU/mRACKZ4R7LQiwpgaI61G0w4GBrGR40+pMNktz5t+e3egL8FJeeUZmyBAtXZZKAkxEj945Eeqx4FnzSOqeH082Ovv2yJRDb4PqDZmMl9unMMA1MVxmhv/BkWHGHEmA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792104388; c=relaxed/simple;
+	bh=0zqn6aaDJ0XjPQTLOB2Y0LIJtss8uLnbyZXcGV0AbII=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=n2pZSDFLUxLFwxiH9XdkKUlBbleF2yiuCFGMy6RcCK4i/Kvwo6ttRLpjJo/F2PR0rXfhtTcizgOc0Vigsv11NxdK+sO/whsxkIjDw2nxjxAToeiNkobLieA518iYuhLvnXXyAlrQ2c70DAJ6H4FXMKtLJNthwXJpvfa5OdXOJxk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Hw7gvuAW; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xc93N2Pa"
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5ba35c0df4fso2047985e87.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:45:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792104319; cv=none;
-        d=google.com; s=arc-20260327;
-        b=AFc8kPqsd65nGugVBbMahY7G1uQxusoL3PskjDk+D120E/lQAPy0RoSqnHpVndcged
-         VKqCk9p209P4e+txG09rGJSLzk8MoP6e9YXzVr1asZczzto3++tO+L/Oq5RkuPSWxKGd
-         zpBYPuy9VZywn98c1S5Nui6+WWlqQANr2Ma4r7ZEh3jacTHzJhrLVZ3iPh54EdKqAF0b
-         qXhGvebz2PFs1UmVAgIoZKefwSA0BOpRH/qoKRqJ0z5ff26CUu+c+Cg0HlXfaYlw6CUc
-         aIMLibJ24rFTijlYDm/6JWmf2LOyWgvmjZbys/fNsD9F7j0x9IJXZVotlpx8HmewOh6E
-         0vNw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=cDTDKMrdQwRgjoWMeyrkyF6DIGr4iKPuJqKn3z4+wB8=;
-        fh=7EjFpa351EdGS5ImE1pLmZe++EmmZquQT/HB7f8lL2Q=;
-        b=Rsn6DHs3pjkc9lHFkfNtANXebF3JuaiEJO9XfM7hQrm88B/MfJPJo/l+jMA5mQiSab
-         fPKdonj9e6uL29CYscZqAr8RNGGJqRonR9XjHQygQP37xb6fNFC5RVED65Et0WDUGwmQ
-         qV3H7Yq5uyqPIhHD1K1/CfAYTTJCHSIcJT6RhzzYve3Oq2RB/dvuDowWqJvtpg98cRhm
-         +nima3KapT6Sf5WrRkCAIlGkaE8yFli9MVyNq7a+MHPMOcb2JQ3E3EOCprBxjls9SQjV
-         q5PRGCXUljdBzcraftiJ7nLPBthHv+NYbwtntWL/lK6roVdApywRWS8HWjJHmp02Ua62
-         2jPg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792104319; x=1792709119; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cDTDKMrdQwRgjoWMeyrkyF6DIGr4iKPuJqKn3z4+wB8=;
-        b=Xc93N2Paw2r4qyCyhqXFb+KKF8+qI3hlJiOc/ZByj4jMu1HK5sBmNO0AlVSSSqqGlS
-         k70ZRbVF6E+0MIsYqkQIaG5zj83j35rm1Dtxs4EAcPFanrijdgaN47i+U1wraVr6pElf
-         LlNt9y53wGugS4sSUCG/7GLRCSDmSX2flQrA6wfQdFRvuNklbBASCuCHCr3YCCmXiXP7
-         vXc/XT7TX9XbokyCUiYoh5psQ8udGnaTaMiMI+NGprSgxCiK+5agL5E6GcDU14g2nqkI
-         QQA9rh0+YpKlXTE8ZhDWVrHXODet4L5v0J/NR4/TcHWzsegsZSNLzaz2wq4w5E7cru8n
-         +INQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792104319; x=1792709119;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cDTDKMrdQwRgjoWMeyrkyF6DIGr4iKPuJqKn3z4+wB8=;
-        b=kSnSXsVsldCLMHYJa/7r20QmcwE7IbHaezR+sSrAmAILvZ64bO7c1cQiqqAsStKQcH
-         VTaB1B7H+7jpvHM6JTJeW1G4L0J+x5VMmjaex6ncbYK7DvASxfNIuy1vlX3f5u9cUesW
-         NpWID3clbvKLszXat0RsrWIlphcG4I4jY03kYmnW5xzYnZluT2mV4JhPabTVZNYWULbD
-         4mBsz59azvJ6y76dAXUWdHDTYsxuZrNnbVqHHUC95405vTCaLmxBfuV6ZwY852RDbAtu
-         yZVA+EDJkuDaIshsIlDprV9Yqfxrr53xd/mTQikH8HSSlVdx0jhnUiLxs28Qs8HMt2Ay
-         DsbQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxFfDMIFNwLelWeoIQNVOCmNrkzDtr7QCxpcvY3ZiqxyZYGzJHDP3s/g0NxrqzGIWvg215aa95CHk7aVWA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIPO63/AsuKeDgLhvA0/HGfwtWwam+h9t53xZ4yh+lWCRJHtiGG
-	U5aJmNa5o1QuoyjJsIbvgzJ/zvMHIAf5u+HW198ftq97rX/EJKiknMBynvnzrLHMAPlrd4U1Vmc
-	1y0+MgmHyT8oExkMzSDSfppedLNpaXew=
-X-Gm-Gg: AYBFou3xNlosYGCO9HJ8ha0rDhx0U9UVnUFDkZVOYss3t2QXQHljkaqhyw8ocW8Lnmr
-	b3hUz1e9lIgF6ixS8YHXcTXT4npIe4uot9qE2JON59Ybqv6Qi+EpaO0DsxGFHYshOjGcNUmycJh
-	zVEw3R0lJAr4qQyNYHl77WS6RSiZbXa85t1bNwc7KfoqoGbfLp/cOrizz/JFHQnujsl7T6k+Q61
-	UiUaHlm2/GjT7Q5Dvz/p3fvdajLHlqGy8MhB/2Oo0rjc6f0MtaHV+CHqr/4IRhoaixcYo2rpJlZ
-	Z0ysZ9pqdNmpDTTSZLepajQ5pOVLProKpFMH7CM9DL26iN0JAEuDJr0=
-X-Received: by 2002:a05:6512:3f24:b0:5b8:f533:d439 with SMTP id
- 2adb3069b0e04-5bcde8c1acdmr7282009e87.38.1792104319215; Thu, 15 Oct 2026
- 15:45:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Hw7gvuAW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792104385; x=1823640385;
+  h=date:from:to:cc:subject:message-id;
+  bh=0zqn6aaDJ0XjPQTLOB2Y0LIJtss8uLnbyZXcGV0AbII=;
+  b=Hw7gvuAWQ78mzWhjedNHPTrTB9M9GRunSrs1swgSdAG7tsXd5X0znRLP
+   frkA81GsvRwRAx1xkyaXAiX/NbeIWQxcaH7V6zr1Z37MSmmmeZI1HcC4P
+   G1OQpwlmzPX+BIRTV+NmA4UANulX398/nBQjRBs5wrd45iukqc2mn2WB7
+   ksDk7OB42CC755UfHxiHUX23FDtIW/fa5Xtjjd7sUeVyVrieM/5n5AFFR
+   +HFrklfKBhvDa0KEhUOcoGMBXN555RKA3SB/l70xDhsa+wdbf0DjcgOl4
+   lGuoM1tFYQ+q85y15QEH1FphUqO3WQMmaGzSopZcMfWafbecU/RNtMvWa
+   g==;
+X-CSE-ConnectionGUID: LCmIQ+VYQ92zFnsNGdSN3g==
+X-CSE-MsgGUID: XDgpQ5CJR8Og8gJliUjGhg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="990710"
+X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
+   d="scan'208";a="990710"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 15:46:21 -0700
+X-CSE-ConnectionGUID: qNJ+0QUVQsaTd1HaJiaBwQ==
+X-CSE-MsgGUID: +Ol1ZdJYTPKBc4r1v+CLsg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
+   d="scan'208";a="1696270"
+Received: from igk-lkp-server01.igk.intel.com (HELO d0de6c2a75a7) ([10.211.93.152])
+  by orviesa007.jf.intel.com with ESMTP; 15 Oct 2026 15:46:19 -0700
+Received: from kbuild by d0de6c2a75a7 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xHUDJ-00000000Bti-36WU;
+	Thu, 15 Oct 2026 22:46:17 +0000
+Date: Fri, 16 Oct 2026 00:45:30 +0200
+From: kernel test robot <lkp@intel.com>
+To: Richard Patel <ripatel@wii.dev>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ x86@kernel.org, Thomas Gleixner <tglx@kernel.org>
+Subject: [tip:irq/core 3/7] kernel/irq/manage.c:1208:2: error: call
+ to undeclared function 'clear_and_wake_up_bit'; ISO C99 and later do not
+ support implicit function declarations
+Message-ID: <202610160017.QOA49KVT-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20261008182814.27450-1-kanchanapsridhar2026@gmail.com>
- <20261008182814.27450-6-kanchanapsridhar2026@gmail.com> <as7JC8o2kggiq_ss@google.com>
- <CACpmpofXMGBP70Rn7jHLwOF38GRKMUGoW3rb1Jp2SPH7ygKcfw@mail.gmail.com>
- <CAO9r8zOEcGmg8eVttu41htugnng0ahnVQbubiJfxVH+GfDe47Q@mail.gmail.com>
- <CACpmpodDA=oqnVa_hsJpyhGt=4zxknYF=QX9L6-sJbxsRxtM2w@mail.gmail.com> <CAO9r8zNN6F01icKUFr8q_AgJvhxGw0MkGezKbBuKzFQV0NaAdg@mail.gmail.com>
-In-Reply-To: <CAO9r8zNN6F01icKUFr8q_AgJvhxGw0MkGezKbBuKzFQV0NaAdg@mail.gmail.com>
-From: "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
-Date: Thu, 15 Oct 2026 15:45:06 -0700
-X-Gm-Features: AclHuK8NXYRqg5T9PQ2fZ89a7chOTLHtC37Sjh9lMWynljXBN8yHgyQfD3XnlOE
-Message-ID: <CACpmpocCJWkA+zvZ9ivNCt8xSZWfViKQ2ZeYN+f1EmdVTewzRQ@mail.gmail.com>
-Subject: Re: [PATCH v1 5/8] mm: zswap: Store the folio's node id in the zswap_entry.
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: hannes@cmpxchg.org, nphamcs@gmail.com, chengming.zhou@linux.dev, 
-	akpm@linux-foundation.org, linux-mm@kvack.org, herbert@gondor.apana.org.au, 
-	davem@davemloft.net, linux-crypto@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, rientjes@google.com, willy@infradead.org, 
-	senozhatsky@chromium.org, 
-	"Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 15, 2026 at 2:39=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrot=
-e:
->
-> > > > > > @@ -1449,9 +1446,10 @@ static bool zswap_store_page(struct foli=
-o *folio, long index,
-> > > > > >  {
-> > > > > >       swp_entry_t page_swpentry =3D folio_swap_entry(folio, ind=
-ex);
-> > > > > >       struct zswap_entry *entry, *old;
-> > > > > > +     int nid =3D folio_nid(folio);
-> > > > > >
-> > > > > >       /* allocate entry */
-> > > > > > -     entry =3D zswap_entry_cache_alloc(GFP_KERNEL, folio_nid(f=
-olio));
-> > > > > > +     entry =3D zswap_entry_cache_alloc(GFP_KERNEL, nid);
-> > > > >
-> > > > > We don't need to allocate the entry on the same node anymore, sho=
-uld we
-> > > > > drop this and let the slab allocator handle it as it sees fit?
-> > > >
-> > > > Was this a recent change? I see the folio_nid(folio) on my version =
-of
-> > > > mm-unstable as of 10-3-2026. Let me check, and yes, allowing the sl=
-ab
-> > > > allocated handle this is probably a good idea.
-> > >
-> > > We allocate the entry on the same node to avoid having to store nid i=
-n
-> > > the zswap entry (see entry_to_nid()). If we store it, then there's no
-> > > need to allocate on the node.
-> >
-> > With patch 0006, we try to bulk allocate all entries for the batch.
-> > Only if this fails, we call zswap_entry_cache_alloc(gfp, nid). So
-> > patch 0006 addresses this already, and the nid is used on in the
-> > fallback case.
->
-> If we are storing the nid in the zswap entry, there is no need for
-> zswap_entry_cache_alloc() to use the nid anymore.
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git irq/core
+head:   4351cc74202857f5b85b3573c477c9f798f5cd88
+commit: 313fa9ffa302f81b437e1ebbb1e6abae06be0cad [3/7] genirq: Defer kfree(irqaction) until irq_thread_dtor() finishes
+config: i386-randconfig-2200-20261015 (https://download.01.org/0day-ci/archive/20261016/202610160017.QOA49KVT-lkp@intel.com/config)
+compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
+smatch: v0.5.0-9187-g5189e3fb
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261016/202610160017.QOA49KVT-lkp@intel.com/reproduce)
 
-As of now, zswap_entry_cache_alloc() uses the nid for
-kmem_cache_alloc_node(). Is the suggestion to change this to be
-kmem_cache_alloc()?
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610160017.QOA49KVT-lkp@intel.com/
 
->
-> >
-> > >
-> > > >
-> > > > Along the same lines, I have been working on replacing zsmalloc wit=
-h
-> > > > direct SLAB allocations for the zswap compressed data storage and s=
-ee
-> > > > very promising results: memory savings and latency improvements. I
-> > > > will submit an RFC shortly.
-> > >
-> > > Keep in mind that zsmalloc is movable memory, while slab memory isn't=
-.
-> > > Zsmalloc may also be less likely to make a new allocation in the stor=
-e
-> > > path. There are other considerations beyond memory overhead and
-> > > latency here.
-> >
-> > I realize this means we trade off page migration for writeback for the
-> > pages representing zswap compressed data. This might not necessarily
-> > be a bad thing for 2 main reasons, the way I see it in this specific
-> > context:
-> >
-> > 1) Page migration would only be transferring a memory pressure problem
-> > elsewhere. Not sure how well this would work with memcgs or
-> > containers. At some point someone would need to do writeback.
-> > 2) I don't believe there is a zswap specific page migration flow in
-> > the kernel other than zsmalloc compaction. IOW, memory tiering
-> > components like CXL are handled directly in the reclaim path. From
-> > what I understand, things wouldn't break with slab memory for zswap
-> > compressed storage, but I could be wrong. I hope to include the
-> > architecture level considerations/trade-offs in the RFC.
->
-> Zsmalloc memory is currently movable, so compaction can move it around
-> to free contiguous blocks (e.g. for THP allocations). Slab memory is
-> not movable. It can be reclaimable, but writing back memory from zswap
-> when we are not under memory pressure is also bad.
+All errors (new ones prefixed by >>):
 
-All good points, thanks. I agree, writing back memory from zswap when
-not under memory pressure is bad, however I have not seen any
-writebacks in my experiments with usemem at 60% over-commit and with
-64kB mTHP.
+>> kernel/irq/manage.c:1208:2: error: call to undeclared function 'clear_and_wake_up_bit'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+    1208 |         clear_and_wake_up_bit(IRQTF_EXIT_WORK, &action->thread_flags);
+         |         ^
+   kernel/irq/manage.c:1292:2: error: call to undeclared function 'clear_and_wake_up_bit'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+    1292 |         clear_and_wake_up_bit(IRQTF_EXIT_WORK, &action->thread_flags);
+         |         ^
+>> kernel/irq/manage.c:1866:2: error: call to undeclared function 'wait_on_bit'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+    1866 |         wait_on_bit(&action->thread_flags, IRQTF_EXIT_WORK, TASK_UNINTERRUPTIBLE);
+         |         ^
+   3 errors generated.
 
-I am running these experiments in a memory constrained environment:
 
-QEMU VM: 7G RAM
-Swap: 3G
-cgroup memory.high: 3G
-4 usemem processes want to allocate 1200M each. To make the experiment
-even more stringent and representative of actual compression datasets,
-each usemem process reads the Silesia dataset from a
-pre-fork-allocated buffer into the 1200M. This causes realistic
-compression payloads in usemem.
+vim +/clear_and_wake_up_bit +1208 kernel/irq/manage.c
 
->
-> Note that compressed memory can be very large compared to slab
-> allocations (or kernel allocations in general), so it can increase
-> unmovable (or reclaimable but not movable) memory significantly,
-> causing fragmentation.
+  1202	
+  1203	static void irq_thread_dtor(struct callback_head *unused)
+  1204	{
+  1205		struct irqaction *action = kthread_data(current);
+  1206	
+  1207		__irq_thread_dtor(action);
+> 1208		clear_and_wake_up_bit(IRQTF_EXIT_WORK, &action->thread_flags);
+  1209	}
+  1210	
 
-It took me a while to experiment with compressed size bins, until I
-settled on a compromise between memory wasted per slab and zswap
-latency in finding the correct size bin to minimize fragmentation. I
-have been gathering extensive SLUB stats which indicate:
-
-1) Even under peak zswap compressed quota ("pool") utilization across
-10 consecutive iterations, SLUB comes out ahead in less overall memory
-overhead.
-
-2) At steady state (when 10 iterations of the workload are done), most
-of the slabs have been returned to the Buddy allocator, except for 3M
-worth of slab setup per compressed size bin (0 objects in use): this
-is as compared to 32K of zsmalloc slub metadata that remains at steady
-state.
-
-I learned some really interesting things from these experiments, which
-pose questions about the memory penalty due to latency that zsmalloc
-adds to zswap compress/decompress paths vs. "internal fragmentation".
-I expect to quantify this with data from my experimental setup.
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
