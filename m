@@ -1,182 +1,199 @@
-Received: from fhigh-b6-smtp.messagingengine.com (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com [209.85.217.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0D8756C63C
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:05:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.157
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792087507; cv=none; b=HSi86YxnZl9Ioja3OEtR2WIKip/kTj55AtnCMBhu7MJoTQqEvcfg+VS4INT0WLUfTYgks74z++ZMdo8z7UuDL0XZH7m9ocCGkUWZKS+vyrvu3JA7XUc66fJnMLYEm55jIE9HucbBsFxQodntPP+Z0QU/OGm8m5grVjnqU7jb5p0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792087507; c=relaxed/simple;
-	bh=4yB2Y5u8aFXapmD6u+a/gLWVA/skpYwbSVTikTd58WE=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=Gy1l5kVAhlyFnLjwIFQEnxTjkhPlQc2/g/EjL+Oxon/AHZAcbOAUJLv1T3GY6Fg21rK7ru6jIobuROnhQA7fWAKoa2k09XYj96RNbOy00wjS58utAmTxPHw4D3lKwKMfjL0iI0VFMOnAtxTdLQsXTu/c3TAa5Q0UHVa2cIcSqIo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca; spf=pass smtp.mailfrom=squebb.ca; dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b=nOz3+1D3; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=uqR8JExy; arc=none smtp.client-ip=202.12.124.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squebb.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09CCD4AB3C1
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:05:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792087521; cv=pass; b=ZWd/JqWI20OeCO7ye4nNCZCi4PZuuOJatTmr+hp7zLejQFduG/l9DRZ9kbuWvB+akq7Oq9zlETbBgAA8UN5kjsbCRx+g8x3ahs4bt+L4RzmKlVuC7YipDvVvk0EFgpUK6rmrnXRriExeQ65o6Sjdz3vRyFfA5ixVV4J7sFHuLMg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792087521; c=relaxed/simple;
+	bh=9qqZFCxNvH9lQuYn8TifWIOPbxzX+/pJtiEqloKnb/A=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VWRwGKMgQwuqD4SVkkQBpuFTM3ba4K3SJOxjDY0jf3evFY0BMnKtASL5unOwkXgvHU68QdbKRMK8ij49HybPWy2a2rlCOlxI3Ukm+nlH0FDqh6RwJMsI/lMaa+jUVLdiK0hBGOomEByqPoSwt3NiUtwpeSbNMuigreaAeUKhzUk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=N9486xIi; arc=pass smtp.client-ip=209.85.217.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b="nOz3+1D3";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="uqR8JExy"
-Received: from stl-compute-04.internal (stl-compute-04.internal [10.204.2.64])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 1F0297A0126
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:05:00 -0400 (EDT)
-Received: from stl-imap-02 ([10.204.2.93])
-  by stl-compute-04.internal (MEProxy); Thu, 15 Oct 2026 14:05:00 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1792087499;
-	 x=1792173899; bh=4yB2Y5u8aFXapmD6u+a/gLWVA/skpYwbSVTikTd58WE=; b=
-	nOz3+1D3B7kmETDqfhoc4wGO9LkMBq1XrhBM2/+O4BRxAkXMoTAF5GBIn6trNkmq
-	wYMLv/FZ3+NgLwNlPKtS8bNMH935QS7pIslaRr1cMk9e/xFGr9Cg7oTJqW2hpJi/
-	GdR79o7IKJO1pY0FjKPa+CK4PXQUJ+vcDTrIv8qkZMggeku2gVTi5N8+to/3dO1J
-	4tVS8RaV6nUtktHj74Yx0ebyehIXzD3AsvHDcqaFA0j1r9IuOeQyJ8Qko3YJZBPF
-	m29euqAGuanknDfH81eCAcjLw7aPDzAl0IZJHKt0wXMIN6Sm2wRLxtO0Whyj1w3A
-	4UqF/Q6Z5aQW7jyzz68qjQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792087499; x=
-	1792173899; bh=4yB2Y5u8aFXapmD6u+a/gLWVA/skpYwbSVTikTd58WE=; b=u
-	qR8JExyt99pvtLQjlc74UCl9CezdGswi2vqeJmQ6AdSVFVdDk1b9NabZjZl/Ouk3
-	BiQWGdE2/koO6CkzN2fMb53uX2clWJFOSrKhNrwqcKDe1aLzdL2inURYnMI/ku0w
-	vf+2sxro7TTzJWCw2j/7vKNLEeAYDU4c9kw3+1xqLPiqJ6iQThpVlfButfJ4uCy7
-	nqn2fxpjAXTaIlv61/KlYWV5fZlQO14XeNIRsC4UWacffsSmvO70NnoILqD2zGCX
-	v0woIoBDtcAhRHdBNLfiFv2wrUhN15PDw3gEje/QbbWrymB59bH7Pzb2x1hbU6Wi
-	ftjq+vOyE1auGaIt6zViA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=squebb.ca a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792087499; d=squebb.ca;
-	mf=PG1wZWFyc29uLWxlbm92b0BzcXVlYmIuY2E+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:kN+QYPlrbc758QEj2aLoXyNkxFl4AaYjFZLstHbSclxrndP
-	qcBWsJDzFK+2RsClc/dpxlKYirlA+JN7/M2BjwMCdnVkVxrNQi3cvsXcubTC7eTZ
-	MlrQlg1gjsaaQNkLDX3Zhx+8/oV9A4nMim5N99lkMDgSZO2JU2EH423R+xqtK238
-	czH0h9Si39dTGL5sv/SufsolmtdplPDqWKQTEtp09tTxPlc3QKKkWdl7BMtzgEHF
-	IQ1weaolFTpd7zr0EFJLs3OU58tae7KzQ7KBXs/PH9uMZ2Py3FBV22z0JKVZot0w
-	abXXYAPPEVKPUHCSeclcOUfVQiK5mtohpvAMkEg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:yyqQTI0aMpJ4JKDe6Q1dI9JFftws1lzFENsS2EhJTuY=:4yB2Y5u8aFXapmD6u+a/gLWVA/skpYwbSVTikTd58WE=;
-X-ME-Sender: <xms:yhXRatjSwADLJShPvaI_fpvcawV4RsAgPuHQJRbN44PWZLhWzwqL4A>
-    <xme:yhXRas2pNhqOUki0C9AA1Hk2wdOQ5cN9XOmYq-NJZl8wSqFmbQO606Ienda6dHj4x
-    AmCqnq-qjEbauxEdzpP-kt3_-36FLMmWVVnAuPb9FAAogWU6Z3lpoG0>
-X-ME-Proxy-Cause: dmFkZTGK8zdX4ZQ1sZzKIFuSMxNbjxQ/R06Lb1pbAAXv19stb0UBuhJD0X+/7UZSTWpED+
-    VibnngELO1eljGnxafpmOCCHVDuBfgVnyg7mo5UsNrSPiBPLeurtfVwfvEJT97p3W3CaEi
-    azgiTF3JWvrj+1o76Y8oiMlMFh/8ypUdkUYgj8R/lhyMryDSeF23wVnp0Sm/iusqt0qM5n
-    mKLbNgMZuxaPnpsplVC0vBkouL8Hz8pQQPGRSEV2XoTJjIFvQwiRnOsCwJcAnf5bl+IXl+
-    Vhw6uwLw5rUSA2kbpDeQQTDryEYgZWWfkZjEr5uzcCl5vSurmMAjafqHOkVwzZwnTFlTbp
-    xv3h6fGniz8ZepQGKV6CvyPFPx1Y5Fmvm5xHgBpnjrNC1NpZ2UjOtjABpHIrW45yIAAPqQ
-    KK7O+uFRpt/6s5UssCW/SqxOYsN48Iljg7BOZCET5dEKHJ5eG03OlIS3ndan+g7bIJvkox
-    Hs9AxSZ0+OiNGh3fEmAhy4ECyVkOiBZWjF0H3XRyDuxYQEXfh3A6OYi0YcnJBRuTHSkCKt
-    P/BE++RPnd5fdlfkpWc6R1Purenkk7dp62Ng3p71krZMMY2QrgNPpEOt4SJXTu+BjBk9u8
-    47tjhUA/ijr2bhp5ORzMPbdCqwPnP2jS0UUv7xcgkOEULOwuWi34uTqFctSA
-X-ME-Proxy: <xmx:yhXRagRDsLQ0ZGHoTD07qU8GI-ahKEEgAtMYp7aGd6R0_At1m9-RnQ>
-    <xmx:yhXRave7Th43vCEdAG29pxvmhLjuXZ6ogG8_1d4PKXLb_PPrXRv9Ng>
-    <xmx:yhXRahSjGBvEMmB1hM-jC9MTYpx44Psx1P62W1n9ygJ5YS7eS-6R0w>
-    <xmx:yhXRaj1d4LOTmqctiAtbVOHgPUNj7PbiU4egbHj-ndDxEi2lnVlX6w>
-    <xmx:yxXRahOTUvFK5HGx47QocYlJKHqVequ9b5Qb7hQ-Hcp8Z2KNsFQ2p_-e>
-Feedback-ID: ibe194615:Fastmail
-Received: by mailuser.stl.internal (Postfix, from userid 501)
-	id 5F0FE2C0007C; Thu, 15 Oct 2026 14:04:58 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="N9486xIi"
+Received: by mail-vs1-f45.google.com with SMTP id ada2fe7eead31-7c4818e4165so259442137.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:05:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792087516; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bTk3LyJBSEPGwep4opzsBy9F9+Y3R+5SM0NuUf/rly01KIjHfr0ajwjVredwITzuXX
+         CjY/LiUURvkN3HAsNvL5zKN4YKvZpfXBaghsK4TjbtAp+m1OdOfqih7BbfQWEE1cgVVi
+         s9Zwas3W9IlcGcLAXa39SPWli5bs7wOYgJ17ueFNH4yc14zrvbrYyQKU5JKAQrJS10mY
+         rBSOWtyjPZym2vc0z+BGDI8yDZgwrMgesgZjzmK2WPnJEALGCvaQgmhFRlSbxQwEgY6C
+         p6uYlfFKW569uYZo9rhXlD++x+hH4WEqrt6/5wA7T6f1BQZHpQMtiuhej0aDD8bL3g5s
+         8N4A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=M5pLMAaw/NhUBZQOOoKqfbkfYTSk+h3K5UqvT2yaGdI=;
+        fh=j1cpdASjU1CvYww0/85wjK9QvyeHfunu2FCJZhp+s4Q=;
+        b=DVqu999b476Xi8Bl53W+cNmLp/QrZqoTcwiKoop2fPzqOMOUERob4Hx5KEvG+gNW5A
+         q/7H3/abWK4mpbNSUlEX7SFYDEIMKU2gu8AHBW6YLji9ChReoestV9dEk6jgbpWfKePc
+         5OS+EoJowL+3TWN4C2sbTxySO0pXePn2Tgt8XNYyGnM+9TWexvQMV/zI6GBLLwBlgtfF
+         YFHCMzKmrySVLXcBICKQKu5fvKT44mw6euwd51X1e/GuGkIJvFK+/IxleSdRhAUZOPje
+         m59D4szP1wQQmEY2plL3geJ9qBhha6WtZD6FYAmWIpxyTh/P5k1XQLLic7CnEvju6ozS
+         zDRg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792087516; x=1792692316; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=M5pLMAaw/NhUBZQOOoKqfbkfYTSk+h3K5UqvT2yaGdI=;
+        b=N9486xIifrrI86RsrrjAYSYTfy1eFv7P93rJouLRDAe9u74QuQsxGhIG1oxXsRwy0u
+         Y3s5D5RanuCAYGKsu2fyEeEd6HQoxAzpVlLReWeAZ4mF9pQ4KHuvuIUbLceI7Pj4j1lV
+         ydHQmPgRZRBC4s/Q0rVOart6Rwp3LrD07w/+2CtIObbmXFQf+IyAjIfUCF/E+EIuEjq8
+         5hWwUx3hZpmbUEAffJ210qJwmTJA85mW97rs2Y/O8owRMTEsfbTjEgvoDRzVPRwo/o3s
+         WfQnkljZfs1aVDVZmOwzsQy3jIxCBQ4udgFAOFN+ZqP6JrXdkjTfxyrF5pK2jPvXVZ8S
+         vqfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792087516; x=1792692316;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=M5pLMAaw/NhUBZQOOoKqfbkfYTSk+h3K5UqvT2yaGdI=;
+        b=jmhXzEqU1PQVXFZkFUuNPauS6hHhLW7UTq8sNA6d7r34W585NaXBY8/jnErKb3EYYQ
+         B6r4nAmiVKH0YmGOcH34s3asIJkHvNXERmaIgh37HGwCzLFflVVQQEIY6neEFdADdTRR
+         JPwZkS7UIn7tGpnIDcJ5N5DlOV1WOKTamMLfRBw2GBNemlgU4fH7SnhrF3MTD4veHPJu
+         7YfF+zYkRq7eRXX7dK0wgd7g/i1nmTCDOYdsKYq+KbB7ISTCDZmIwMuZsMAlpMEbgAjJ
+         5QstxAdiCMAf//GraiQXlBfdABjhDZqTZ2Q4k0XqT9ds81x5hE2YvycCNL7y50t+SUA1
+         tqCg==
+X-Forwarded-Encrypted: i=1; AKwUvBzL8IH/IEyRYOvyj4lNqLqxVRiFAwWisnN4fHATFYqnBQL4NbT9TRHoKNlebVetUZ/AbbSl1zuFlDZopgE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLeBgrmjghB4Uo8Ehh+boMUNjI7BFrC3KObswsTmXe+QUg48OWq
+	K7w5ng+Rs4sCXOLhhwEPjuaU0fM9G23M8wQo3cg3UoyE/q+VLBRMXa5uAcAsPGnMRM9TdWN8jnM
+	c2GS+ya8+iL5WwGrNulEduxUFv8u5SMVtqVU4zsY=
+X-Gm-Gg: AYBFou3H1jmVQRg5YKAWnO6UVKNVymuR/wQHMglYnNjbvO0UMfPYOrgJrRwKkZsj4VL
+	VoQ0EO6Z2G/UIAh5GvgkW4XE1AlpwTGee1Rc012m0l1ekM76Eu5Ikv9Ny5HSktIIyrrqDaTKNY6
+	UIPcWlPUNfsdbEXtWWvB1BidzzBetcr6Tef0h5zqH1lY8B8RajUhYNwaW19ZS8I29SquGihMjcI
+	A8MJ4QEBNgshNHIVSWD0sXjqQULfkxwxaTkk5IdC/41NgpAyxF+/uH/HnVCS/moFMhWDgRWamtg
+	20t32bquMmllLftPFu4btYijwqQZYxPh5tp1EgsKDFUHlDwuQ9ctsiJIs7ROMLXjtLQQeIjIijo
+	Ew3pauLoYqyX7cCQVfVBpmD14mjpcqMC1FOiSco/ZcYSTgGYAJtCo
+X-Received: by 2002:a05:6102:258a:20b0:7cb:be5a:c62b with SMTP id
+ ada2fe7eead31-7cc182ac610mr231069137.43.1792087515155; Thu, 15 Oct 2026
+ 11:05:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: Ao5-L1TSHHD-
-Date: Thu, 15 Oct 2026 14:04:38 -0400
-From: "Mark Pearson" <mpearson-lenovo@squebb.ca>
-To: "Rafael J. Wysocki" <rafael@kernel.org>, "Armin Wolf" <W_Armin@gmx.de>,
- "Daniel Lezcano" <daniel.lezcano@oss.qualcomm.com>,
- "Hans de Goede" <hansg@kernel.org>
-Cc: "Jonathan Corbet" <corbet@lwn.net>,
- "Shuah Khan" <skhan@linuxfoundation.org>,
- "Viresh Kumar" <viresh.kumar@linaro.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- "Maximilian Luz" <luzmaximilian@gmail.com>,
- "Shyam Sundar S K" <Shyam-sundar.S-k@amd.com>,
- "Derek J . Clark" <derekjohn.clark@gmail.com>,
- "Daniel Lezcano" <daniel.lezcano@kernel.org>,
- "Zhang Rui" <rui.zhang@intel.com>, "Lukasz Luba" <lukasz.luba@arm.com>,
- "Jai Luthra" <jai.luthra@ideasonboard.com>,
- "Greg KH" <gregkh@linuxfoundation.org>, "Jack Wu" <jackbb_wu@compal.com>,
- "Mario Limonciello" <superm1@kernel.org>,
- "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-pm@vger.kernel.org,
- "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
- "Kurt Borja" <kuurtb@gmail.com>
-Message-Id: <1cba0f2a-38cd-42b2-a773-9dca5d7519e5@app.fastmail.com>
-In-Reply-To: 
- <CAJZ5v0jQQsXP4v7dymuHZhy2oVjPwV9eXhqV4bGPUgMyGyUsUQ@mail.gmail.com>
-References: <20261014132500.3817549-1-daniel.lezcano@oss.qualcomm.com>
- <20261014132500.3817549-4-daniel.lezcano@oss.qualcomm.com>
- <c751e18d-57e9-4ce6-95dc-1bf53a7a4808@gmx.de>
- <CAJZ5v0jQQsXP4v7dymuHZhy2oVjPwV9eXhqV4bGPUgMyGyUsUQ@mail.gmail.com>
-Subject: Re: [PATCH v1 3/4] platform profile: Add firmware-neutral aggregate sysfs
- interface
-Content-Type: text/plain; charset=utf-8
+References: <20261012205919.4012405-1-morbo@google.com> <20261013203146.387344-1-morbo@google.com>
+ <20261014133805.47afdb0b@pumpkin> <CAGG=3QUZna+bi-_nmJh-1aWBBtuURbexQczXCNt0R+jDSb1NMQ@mail.gmail.com>
+ <20261015110004.6f77ea67@pumpkin>
+In-Reply-To: <20261015110004.6f77ea67@pumpkin>
+From: Bill Wendling <morbo@google.com>
+Date: Thu, 15 Oct 2026 11:04:59 -0700
+X-Gm-Features: AclHuK83OVpzmxSg0Z9qbNHGxanTGTt-eP7LKmMT42qkw4H_LA4iLcps9DKtQbA
+Message-ID: <CAGG=3QXiykQb+BWtegfe=NDy8e+VsgbY0uRf=Hc=LMuwFxi_-A@mail.gmail.com>
+Subject: Re: [PATCH v2] overflow: Match arithmetic in both parts of __builtin_choose_expr
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-
-On Thu, Oct 15, 2026, at 7:30 AM, Rafael J. Wysocki (Intel) wrote:
-> On Wed, Oct 14, 2026 at 11:31=E2=80=AFPM Armin Wolf <W_Armin@gmx.de> w=
-rote:
->>
->> Am 14.10.26 um 15:24 schrieb Daniel Lezcano:
->>
->> > The per-provider class interface is firmware-independent, but syste=
-m-
->> > wide profile selection is only exposed under /sys/firmware/acpi.
->> >
->> > Add /sys/kernel/platform_profile/{choices,profile}, sharing the exi=
-sting
->> > aggregate callbacks and semantics with the legacy interface. Keep
->> > attributes hidden until a provider is registered and remove them af=
-ter
->> > the last provider.
->> >
->> > Notify both aggregate frontends on profile changes. Also notify the
->> > provider class device on a direct profile write, matching its docum=
-ented
->> > POLLPRI ABI. Restore aggregate visibility after a failed registrati=
-on.
->>
->> IMHO the aggregate sysfs interface only exists for backwards-compatib=
-ility,
->> so i would be very happy if you could just make the associated code o=
-ptional
->> and instead teach platform-profiles-daemon to use the individual clas=
-s devices
->> instead.
+On Thu, Oct 15, 2026 at 3:00=E2=80=AFAM David Laight
+<david.laight.linux@gmail.com> wrote:
+> On Wed, 14 Oct 2026 13:39:03 -0700
+> Bill Wendling <morbo@google.com> wrote:
 >
-> It is not just a matter of opinion AFAICS, the aggregate interface has
-> been regarded as legacy for quite a while (see commit 778b94d7ac17
-> "ACPI: platform_profile: Add support for hidden choices" for example)
-> and it was retained exactly for backwards compatibility reasons IIRC.
+> > On Wed, Oct 14, 2026 at 5:38=E2=80=AFAM David Laight
+> > <david.laight.linux@gmail.com> wrote:
+> > > On Tue, 13 Oct 2026 20:31:46 +0000
+> > > Bill Wendling <morbo@google.com> wrote:
+> > >
+> > > > The two parts of '__builtin_choose_expr()' had different arithmetic
+> > > > expressions. This patch corrects it so that both parts calculate:
+> > > >
+> > > >   COUNT * sizeof(*MEMBER) + __must_be_array(MEMBER)
+> > > >
+> > > > In practice, '__must_be_array' is meant to assert if 'MEMBER' isn't=
+ an
+> > > > array and return '0' otherwise. However, symmetry is less prone to
+> > > > subtle errors (and far more satisfying).
+> > > >
+> > > > Signed-off-by: Bill Wendling <morbo@google.com>
+> > > > ---
+> > > > v2: Don't use 'size_add', which just adds more complicated macro cr=
+uft to the
+> > > >     expression. Instead, just adjust the parentheses.
+> > > > ---
+> > > >  include/linux/overflow.h | 2 +-
+> > > >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > > >
+> > > > diff --git a/include/linux/overflow.h b/include/linux/overflow.h
+> > > > index a8cb6319b4fb..d0f04436343e 100644
+> > > > --- a/include/linux/overflow.h
+> > > > +++ b/include/linux/overflow.h
+> > > > @@ -418,7 +418,7 @@ static __always_inline size_t __must_check size=
+_sub(size_t minuend, size_t subtr
+> > > >  #define flex_array_size(p, member, count)                         =
+   \
+> > > >       __builtin_choose_expr(__is_constexpr(count),                 =
+   \
+> > > >               (count) * sizeof(*(p)->member) + __must_be_array((p)-=
+>member),  \
+> > > > -             size_mul(count, sizeof(*(p)->member) + __must_be_arra=
+y((p)->member)))
+> > > > +             size_mul(count, sizeof(*(p)->member)) + __must_be_arr=
+ay((p)->member))
+> > >
+> > > Why does this use __builtin_choose_expr().
+> > > The types of the two expressions are the same so it might as well use=
+ ?:
+> > >
+> > It's to emit only one of the expressions rather than both. If the
+> > 'count' is a constant expression, then it's possible for the compiler
+> > to perform the calculation without having to hold onto the "false"
+> > path of the ternary operator. So much more efficient in the long-run.
 >
-> I'm with Armin on this.
+> I doubt it.
+> Even with __builtin_choose_expr() the compile has to do most of the work
+> for compiling the 'false' path.
+> If you use ?: then you can also use the much simpler __builtin_constant_p=
+()
+> and possibly pick up cases where it is only known to be constant later.
+
+In both scenarios the compiler is meant to do the majority of the
+work, so I don't care about the compiler doing more work, only that
+the work it does results in better code. First,
+__builtin_constant_p(n) won't catch as many uses as __is_constexpr(n).
+With the ternary operator, the compiler will generate code for both
+sides and the predicate, which adds a needless if-then branch to the
+CFG. Yes, that will get simplified, but again it's not a benefit over
+__builtin_choose_expr(). In the simplest cases, the compilers (both
+GCC and Clang) can decide which branch to take in the front-end.
+That's possible with the ternary operator, but care needs to be taken
+due to possible side-effects. Also, Clang performs far fewer of these
+kinds of code transformations in the front-end. For instance, GCC will
+perform some inlining in the front-end, making it easier for it to
+catch __builtin_constant_p() uses that Clang has to delay.
+
+All of this to say, there is no benefit to using the ternary operator,
+even if you want to claim that the compiler is doing more work (which
+we don't care about), and potentially worse code being generated, due
+to processing that has to occur later on.
+
+> > > Also doesn't this optimisation apply to all uses of size_mul() (aka s=
+aturating_mul()).
+> > > Presumably relying on the compiler to report the compilation time num=
+eric overflow.
+> >
+> > I'm not familiar with saturating_mul(). I'm sure others on here can tal=
+k to it.
 >
-> Thanks!
+> That is me giving is a better name.
+> The same is true for size_add().
+> IMHO saturation size_t calculations is really broken because it allows
+> through 'bigger than sensible' sizes that still might cause problems
+> (eg kmalloc() of sizes just below the limit.)
+>
+Patches welcome. :-)
 
-I don't think we can get rid of the legacy aggregate interface - which I=
- think is what you and Armin are asking for? What does making it optiona=
-l mean?
-
-Reading through the patch series it seemed quite reasonable to me to mov=
-e it out from under ACPI but still have the old interface working. What =
-are the alternatives?
-
-User space (and users) are still using the aggregate interface in my exp=
-erience
-
-Mark
+-bw
