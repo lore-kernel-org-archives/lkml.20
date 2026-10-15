@@ -1,74 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5960E4A68A4;
-	Thu, 15 Oct 2026 10:39:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 643923EFFA6
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:40:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792060799; cv=none; b=gobJUa/pQdOs29cn8UhsaKHxh+XV1WfrgYQjYiE5QZlrzWJtOTxrsXsdjT1f4PfAbi+T1gJuHF2cuQhD1mJ17N8H+WtHd/JPAV32e/UOw+F0u9I1teS7gPPQLjA6dU5VQYQjjD4BVeSzq+gaVi7ODENATCT/trGK/zWb4aLOP+c=
+	t=1792060820; cv=none; b=c2MgbuHaARhDsPBH4BRKDcvLnHtQiMt82LbdNTmlxeP3GKoJxrdWcsmVLDXrCv8IvWryVIGba1oWBUDYUvhJQZr8GHdjAahKzTkkjISyJBha5ZQVwzPTTb3yh8xEoUU+asKSdMUt2g3iezaNafDH0ZWCxuDMUh//gjoY8JWb4Rk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792060799; c=relaxed/simple;
-	bh=pNkeB7LwluY5D7uZJfYgiZMrJ17TPzer5di3y4Zkq1E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HEOxeC2g7YsA3YcwSCc9luEJ+2Too0dtaBi+69vpGI06eauJ3R6L4NE12dPnytpSkTNV6VLcu7VLBiYXzaEhX0UfVxUn0GUj7rmbgVrx2S4DOuu7fO/UESIy8gBcoOfJlebgODXpKlWytyPqzcTG5LCtuWEVPIiuW0QRFHH0I8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c0fn9WZu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792060820; c=relaxed/simple;
+	bh=o5q6ik0wNUXEhQs0HGFJCPjhVW7REFOYzvisPG10uUs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nXR1IZGReDU47fDqStXKVKRUsDOv3lB1rg3NHYPwUi4j6jrbBdGzp+zjOjIG4wQrA7hyaI4N93xXNKqNIYyuO3lXlbcbu5+V1sip2S2waRU6cuevu0XD7YnyixMtJRU5kNtYnAPN+mtpn6bN+hOX4CsCWMQ8LqzB402In5ZZ/oo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ixeGvqt+; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c0fn9WZu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 687FE1F000C4;
-	Thu, 15 Oct 2026 10:39:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792060798;
-	bh=uYrSPGZn9BPCIcJJkcc3APCkmaxhzxeFcJMAhfp06Ho=;
-	h=From:To:Cc:Subject:Date;
-	b=c0fn9WZuPDH/wnkeg6m2ZgcIuQ4Sb2u3NA6hIHDCjAZCbfXs90JaY6YQHr53LySGQ
-	 waPtpwZTW9X7iYDI1sz7rRscApdqUlwewA5TEQx+HwE/OxnTd5I2NJwZNMHScJDela
-	 7dbWO4pnDfjChI4GzMeEIi9ynQQzlOS40rCrWUG96qmvD0vpj4q/d8tEsXJE6oXvYO
-	 BNNZi87QwTVFoBg50C3QdW3QbT8oV1w4P5PZUVSImuqlNczAvDdK0sXyGt5tPDpEon
-	 CMmVA2UHmJx+pWM7IRL14p+CWgGuMwV9sUQFAy2mBiBxEj6/7Ho2l6ydXYI47m8U/K
-	 pJf1QCGvIEomg==
-From: Thorsten Blum <blum@kernel.org>
-To: Hadar Gat <hadar.gat@arm.com>,
-	Olivia Mackall <olivia@selenic.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>
-Cc: Thorsten Blum <blum@kernel.org>,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] hwrng: cctrng - fix destination offset in cctrng_read()
-Date: Thu, 15 Oct 2026 12:39:34 +0200
-Message-ID: <20261015103933.337335-2-blum@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ixeGvqt+"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 463121477;
+	Thu, 15 Oct 2026 03:40:14 -0700 (PDT)
+Received: from [10.57.88.29] (unknown [10.57.88.29])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1D41A3F871;
+	Thu, 15 Oct 2026 03:40:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792060817; bh=o5q6ik0wNUXEhQs0HGFJCPjhVW7REFOYzvisPG10uUs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=ixeGvqt+abRME/Ac3GRVMe/1uC/qPiOKZYneV7IyCip9XZWWKtsS4SD3gzkZ6pXqQ
+	 cy/KB8QVuhlTx6uDL1bFEFt9jdoHQO1StOoq0q7pZmMTcJMfG5ab37+8tI7mChw1hx
+	 id/VonOyvZ+1Rkj71EGUACURn0jiylUrozDECB28=
+Message-ID: <a71b6375-f460-49fc-aee6-9f01d58163c2@arm.com>
+Date: Thu, 15 Oct 2026 11:40:12 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1075; i=blum@kernel.org; h=from:subject; bh=pNkeB7LwluY5D7uZJfYgiZMrJ17TPzer5di3y4Zkq1E=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFkX1qYGTjDjLvpn7aPp05XW/0Z+8bQ5uydI5/P+9ZJs1 uZevc62o5SFQYyLQVZMkeXBrB8zfEtrKjeZROyEmcPKBDKEgYtTACbyPIvhn4VGit37HPnYVZUv X/JysfNnbc2eXZLjapVqxzprm2A7I8P/UqvKlY6dm+9++qN2NefmMs9/66Pixee0Pbxo0fT3wVJ 5NgA=
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] sched: Account blkio delay independently of delayed
+ dequeue
+To: Zhan Xusheng <zhanxusheng1024@gmail.com>
+Cc: Zhan Xusheng <zhanxusheng@xiaomi.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Balbir Singh <bsingharora@gmail.com>, Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Valentin Schneider <vschneid@redhat.com>, Josh Snyder <joshs@netflix.com>,
+ Kayra Cizmeci <kayracizmeci@gmail.com>, linux-kernel@vger.kernel.org
+References: <20261014081731.1068794-1-zhanxusheng@xiaomi.com>
+ <fab66e31-7c7e-4a81-be59-1a4c1458ff43@arm.com>
+ <4ce12bff-9532-4b27-98f2-a807bbccfaf7@arm.com>
+ <20261015025912.1541134-1-zhanxusheng@xiaomi.com>
+Content-Language: en-US
+From: Christian Loehle <christian.loehle@arm.com>
+In-Reply-To: <20261015025912.1541134-1-zhanxusheng@xiaomi.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-cctrng_read() copies random data in two steps when a read wraps around
-the end of the circular buffer.
+On 10/15/26 03:59, Zhan Xusheng wrote:
+> On 10/14/26 17:12, Christian Loehle wrote:
+>> Start accounting in try_to_block_task(), when the current task commits
+>> to blocking, before delayed dequeue or proxy execution can retain it on
+>> the runqueue. End accounting when clearing is_blocked, including queued
+>> wakeups and the proxy execution paths that let the current task continue.
+> 
+> This is the right place, and it subsumes my patch. Please drop mine
+> rather than queue both.
+> 
+> try_to_block_task() has only one caller, __schedule(), which passes prev,
+> and prev is rq->curr there. So @p is current, the argument-less
+> delayacct_blkio_start() is correct once the call lives there, and the
+> signature change I proposed is unnecessary.
+> 
+> The two also conflict: my patch rewrites the sched.h line yours deletes,
+> so applying mine first makes your sched.h hunk fail, and the new call in
+> try_to_block_task() would not compile against the changed prototype.
+> 
+> Reviewed-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> 
+> One question. rq->nr_iowait stays in __block_task(), so the two now
+> measure different intervals: blkio delay from the commit to block,
+> nr_iowait from the actual dequeue. A task woken while still delayed is
+> accounted a blkio delay but was never counted in nr_iowait, so
+> procs_blocked in /proc/stat and the iowait time derived from
+> nr_iowait_cpu() still lose that window. The counter stays balanced,
+> because such a wakeup returns through ttwu_runnable() and never reaches
+> the atomic_dec() in ttwu_do_activate(), so this is not a leak. Is leaving
+> nr_iowait behind deliberate, or a follow-up?
 
-Use the correct destination offset for the second copy instead of
-overwriting the start of the destination buffer.
+Your observation is correct.
+First of all we're hoping that /proc/stat isn't observed at such granularity
+to matter, but that's not really a good enough reason to leave it behind.
+AFAICS we would need to start tracking iowait_cpu in task_struct then?
+I'm fine with that and can send a follow-up, I guess Peter feel free to take
+whatever you prefer.
 
-Fixes: a583ed310bb6 ("hwrng: cctrng - introduce Arm CryptoCell driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Thorsten Blum <blum@kernel.org>
----
- drivers/char/hw_random/cctrng.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/char/hw_random/cctrng.c b/drivers/char/hw_random/cctrng.c
-index a6925211c3b5..e070581237e5 100644
---- a/drivers/char/hw_random/cctrng.c
-+++ b/drivers/char/hw_random/cctrng.c
-@@ -237,7 +237,7 @@ static int cctrng_read(struct hwrng *rng, void *data, size_t max, bool wait)
- 		cnt_w = CIRC_CNT(drvdata->circ.head,
- 				 drvdata->circ.tail, CCTRNG_DATA_BUF_WORDS);
- 		size = min((cnt_w<<2), left);
--		memcpy(data, &(buf[drvdata->circ.tail]), size);
-+		memcpy(data + copied, &buf[drvdata->circ.tail], size);
- 		copied += size;
- 		circ_idx_inc(&drvdata->circ.tail, size);
- 	}
+(Given the update interval of /proc/stat and the expected delayed-dequeue time
+ not 'fixing' it is also an option IMO. I don't see why we need to guarantee
+that the blkio delay and nr_iowait need to track the exact same transitions.)
