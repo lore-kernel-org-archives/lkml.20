@@ -1,186 +1,189 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C92D381EA8;
-	Thu, 15 Oct 2026 14:48:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B381387596
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:49:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792075694; cv=none; b=s1kN9Z6H26z2HM4vyfOJwth9YV9uB3SAvAXwhqPH6G7mAvQR7vC0OtOo+ZlfAPFzxmkPmmhxVDgEwpnvYf6BKJFNqGgWBaa89b0a+gPqAW/Va2wI6L0x/x59MEW025TfYeFZy1tnrBwZqSy6LoMpp/hAgM3XiRWAWH4KCJYWPfk=
+	t=1792075750; cv=none; b=ihnAbKXH+0l8P1pPBirMSqcSf/XJLeXMwxDAp+rOPwRU6+mnEUH/E4Kv8z5ytwujwSeVddoPui/lkOs8ji8GiGWoMAlnQVTvgV0lcybNK1z0saZyaj0Ssu6UPouAlYH7yA7eB7XmjpflBepkuf7On8BwCHmdraMlVa0EcrWQgnc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792075694; c=relaxed/simple;
-	bh=r4o9qKbn5uEj5Isj61iyocgh2vuIUNHK1KOMosud1PY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=namDqp+N2B83ZDyNmGyN/qQsMhxhJ+j/2ASOTJKNG3ib/ZyPUT1s6rerI3z6IDyTQgA4O5PVstIKFE10rN9juzEjEZAH0YQD4oULaiLevKM/YrqO+Wf1/oyjZUr1V1Qu06xPU0ago6YFE78SFgbKWVoA1F7dDfMYILpNdMoVNck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I6Npo+w4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792075750; c=relaxed/simple;
+	bh=jHY2q4KRw1a+3cM8OlSYrnjimO30abUuFA2g+e/yfvw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ilpG2BlM76b6Ru3/vte+GhteJ3DjrWINtJnEUf6rFZHAm82TxR2ttiu47gA3vBCUuS+yRZl2S2XHbrP+RWv33W50UCSpgnpY15d8VGSGfE/w83J0y/ywkmoqRCKTPLmE475hLptASHSukElpXtcFI47yRmeUET3zijYwOR6DriY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oMRaOIGh; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KvMxDlBE; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I6Npo+w4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 642561F000C4;
-	Thu, 15 Oct 2026 14:48:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792075692;
-	bh=CI+ok0/Z43MdcnV3VUwcn2him7kLkNUJ17Hue0PIVoI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=I6Npo+w4u9JFFp4P/7aITeJ9Mrxa9x+/hj97hi1koxyVvBbv/oGud8SKnHdz1O4VK
-	 K+/+v5C0hDTA4m/xkIat5mXAFuqMCW6n/eL/Z6CGVJVJWlOPXkwxHvUFF2YmzUADer
-	 Vw5yFAD+xNmHX7klYT+L4eiusWgjQr7mApWL0s1rtbQftXIECY8PMqn+H8HgC5eFVq
-	 u7oewxpX1Ai4uzkUjGGiEHV3PbFVTrGgfqMg5zyJcK1M9CVnI2w1MtvUiPDorft6SR
-	 F3f8IjnLPpj3WNZxGvbBCrG0UdNocS/RYZO23NQm8HOPs8cevZlAaqM4JBvjfwoGme
-	 Zo674Cu4zZvxg==
-Date: Thu, 15 Oct 2026 15:48:10 +0100
-From: Harry Yoo <harry@kernel.org>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Cc: Imre Kaloz <kaloz@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
-	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Jann Horn <jannh@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, "Jose A . Perez de Azpillaga" <azpijr@gmail.com>
-Subject: Re: [PATCH v2] mm/slab: sample slab_state once in
- kmem_cache_destroy()
-Message-ID: <atDCYwNfKW3m6YXh@thinkstation>
-References: <20261014150844.8536-1-kaloz@kernel.org>
- <d966f16a-a2be-48c7-b31a-a2c7d3ef6d5c@kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oMRaOIGh";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KvMxDlBE"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69FAPwlP1596393
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:49:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	0ieEJs/BWB4adN/CPzHmGs4+przVlyrjuLYc8uLfGhQ=; b=oMRaOIGh/vAinRbc
+	IIWDc0kEgaACGgan4xoD6xDYDPm+RzNyOkkz7TM51hbBKbOjQb1ILunCf5VbMU27
+	sN3FAVVmoaU2fOFriiMN9P8xIiwH1+4Y9aS5wKiivJnqDP4DCqna4Y5DFSeFwBrE
+	DDap1AqxDjV7beRhj3x3TKUxJ69iCO5SlSeOdmwmwMuVvw0cv3bQpv8TsFzegaob
+	0EeooP4PM2j4QnWeyPeHEgONSvsfeoTRusutVcLXzc+1W/e92f2IXJOdiPMA4RfB
+	ieflyfGRnweFPpXbDoSXHKTShXQqHER1p6oR3LMDFxUOKwLoS5VGPpNLM0ld1lx/
+	U2iKzw==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4haw2v91pc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:49:08 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93ea8a9cfe6so95002085a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:49:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792075747; x=1792680547; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0ieEJs/BWB4adN/CPzHmGs4+przVlyrjuLYc8uLfGhQ=;
+        b=KvMxDlBEGmP1aSNDlEzKZRI5ryvnlwJVwCNSHFWcuaC7ibn3t0l3a281057+KsfV/j
+         OjDlH0q5DRmsNci+r7tWEL4mJLMrUi0a+KQUCUDLJwSAXhB7d6NR7CKKaIlQoqiLGjvq
+         yS2bzpD2QqFs6oa1R0sZbp/IA9kGLq4ux4YEStJ7xVGhlEvyaP0+Knw/BrgJltoqM6Ws
+         xQnrn4Y11qO6UWqK/O3lLIs0EBrltdjifM2fEc14g7pc+TYSqBaynL7jtIkuyRPYsPx7
+         ktvGlrg0h04knHT3g16Ea8cT3FqvU2FZjqevvCabQ27Wa3b7vm0ljkB6XCr7CkSZbo1H
+         1ZyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792075747; x=1792680547;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0ieEJs/BWB4adN/CPzHmGs4+przVlyrjuLYc8uLfGhQ=;
+        b=tXkyF/5qRcTslTYpxbhbc3uc+ianLDgDgRGHJli1nGwcEMQjL5B8ixFpVxpayKsVIr
+         /fpvr9/56NIfIusmmh7GC5WGW3noVmbZucY8xq1Le+tCg/zG23AdKTC07nZBA/NgOhXM
+         JNrSp91PkcTghdZfwhhHCEYjbcyNZXY4MlNHCSk4/1bEjZq+sgFzhJY7RejG2TeGN7hJ
+         qYTLAOh/TPT0IAWI4TZjhcrnU1NJt86PUPGjhXtgvHWV//gSTOOa9B7rbyPTjJvZ54kq
+         OMSu4mEgCMH+UhejUP3W0371sQOEAhwtAHXOsqaoRUev9QR+jn1VAmXp8DiPlSlmhsfy
+         XD9A==
+X-Forwarded-Encrypted: i=1; AKwUvBwZHFN3l9Yd1xkpSS3gedM9gKR2abokY36yoNvQTDY/8QAD8rJyyGbbXoaT0sxuGTKydYbvccXE8baIg5A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJxeXjKXTxF2jehXoH7yv0yBHSMJyYk25AXzFIYF9zNFSZeTAdV
+	Uw78F0GwqSrl3dFY8QUkBOy/5ThZLxB9VIKh/ijogI28Si/ieckKKCPFVMXWfNy5bhmOf0p0RVY
+	6tNc6slzsIDzkfpu+PAXMfeMEz/XSraWGdGaKNRPVgSmkXsW6ZwXSp8S0mKwElSFFTnI=
+X-Gm-Gg: AYBFou0GX30opCNaA1ECq/mnKhzA+QfC+dKhBnYj9hYYShlnYWnipk65+9kHt3cCfdy
+	gLy0w/Ew5a9Nsvxedsgi3s0naxjlo19x0XumTOZ0jvXD1E9ypIl/wmFqsoTP71AC2GDd52+pJNX
+	PCG69uuxFLEPQhwDArGIZrvfT1yQRgdmPPm9N1JIM3zfn+qfHSB5undavLoTdBLwj3x/3QwTQFw
+	Fu5Y2T7bG7vpiO19kGzRFeQ5gEwNS/DTBVrer2s/fG+swPAFXFS9OGp9U4MQKkU63fWV6cKLIRZ
+	at8wQU4bH9pf3Mdc6nxCSdfhwqiAiA07UIS8PH8Z9uP9rGLKzXHIRu94FhrSDhWj5nlucM/GEWN
+	040lZIBgDwr2o7ix+TcAhMA==
+X-Received: by 2002:a05:620a:390c:b0:93f:a34:d9fa with SMTP id af79cd13be357-93f0a34dd2bmr842943785a.1.1792075747447;
+        Thu, 15 Oct 2026 07:49:07 -0700 (PDT)
+X-Received: by 2002:a05:620a:390c:b0:93f:a34:d9fa with SMTP id af79cd13be357-93f0a34dd2bmr842938185a.1.1792075746898;
+        Thu, 15 Oct 2026 07:49:06 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3aafdefdc4asm7442501fa.30.2026.10.15.07.49.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 15 Oct 2026 07:49:04 -0700 (PDT)
+Message-ID: <300889d8-cb0f-4939-9b67-c60d0b1499d3@oss.qualcomm.com>
+Date: Thu, 15 Oct 2026 16:49:00 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d966f16a-a2be-48c7-b31a-a2c7d3ef6d5c@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/5] arm64: dts: qcom: Add Microsoft Surface Laptop 8th
+ Edition
+To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Maximilian Luz
+ <luzmaximilian@gmail.com>,
+        Hans de Goede <hansg@kernel.org>,
+        Douglas Anderson <dianders@chromium.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+        Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
+        Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+Cc: Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+        dri-devel@lists.freedesktop.org
+References: <20261006-mahua-surface-laptop-v1-0-406fc042162a@oss.qualcomm.com>
+ <179207449898.13793.6897763208667873901.b4-ty@b4>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <179207449898.13793.6897763208667873901.b4-ty@b4>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1OCBTYWx0ZWRfX4uhSe6AGBUIy
+ t3wHV6a6C9lX5hqVGLuQpMU63Soa+kJjLRBMHShIK8LIGdFfMxOunvdgdTs2LF34HUpQ5wN/5St
+ Sqnj/ivrzMICanWM9vTxCp2jVo3LInIHSuATmUXCMPFgmuc6lqN7necKjEn+bbwgeNRXm+Dq4OQ
+ YULiPetRjIgUAVMYCKbR7rVBvU7d0EqnV7mPoSv7XB4OXLwsuNU31jxr64gZFmrkX3F8t8g13Rl
+ U+6wsvqZ9whKnNCVWbSo1ZGdRNM19RciVlkz8SONesgP8OD+E1r+GtQFThDI1Pm03xZJSZrjREG
+ kYosekmMJdLjKvbWTY9FoxuDzGgynFIsqRjYPoMOOoHwlw/++9qciKcK0osdbXTQW1mdPFXCp6m
+ pe7n8nH5AdRgC7bHI6SnignLt0w1kt8yxN0tLz4OTb7xqYkBbKaPNhrhl+MYSo7nt6oe8f8Rn+Y
+ 9E3WGcDu7Phyb47M3Og==
+X-Proofpoint-ORIG-GUID: 9Mh5zGx2L3iFjorSZYu1kOaLvvy2BSvG
+X-Proofpoint-GUID: 9Mh5zGx2L3iFjorSZYu1kOaLvvy2BSvG
+X-Authority-Analysis: v=2.4 cv=G/CJgNk5 c=1 sm=1 tr=0 ts=6ad0e7e4 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=-rt_0zctJVaUuj_7EdMA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1OCBTYWx0ZWRfX3hyITb8OOseP
+ CrTxEJN2V2ijiZsC46hm4MdyWq1Cq9vT3PFADyqMhwmgB6y6v4XHa/wYJBHrapincBlbfKZZsmc
+ 7AG2RsGOBONcyY+w8RILYth2u5blUIQ=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 spamscore=0 clxscore=1015 bulkscore=0
+ impostorscore=0 suspectscore=0 adultscore=0 phishscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150058
 
-On Thu, Oct 15, 2026 at 09:21:43AM +0200, Vlastimil Babka (SUSE) wrote:
-> On 10/14/26 17:08, Imre Kaloz wrote:
-> > kmem_cache_release() tests slab_state >= FULL after kmem_cache_destroy()
-> > has dropped slab_mutex and unlinked the cache, and for a
-> > SLAB_TYPESAFE_BY_RCU cache after rcu_barrier(). If slab_late_init() runs
-> > before that test it sets slab_state to FULL but skips the unlinked cache,
-> > which never got a sysfs entry, so sysfs_slab_release() calls kobject_put()
-> > on a kobject that was never initialized:
-> > 
-> >   WARNING: lib/kobject.c:734 at kobject_put+0x64/0x2c0, CPU#1: kworker/u8:3/55
-> >   kobject: '(null)' ((____ptrval____)): is not initialized, yet kobject_put() is being called.
-> >   refcount_t: underflow; use-after-free.
-> >   kobject_put+0x64/0x2c0
-> >   sysfs_slab_release+0xc/0x20
-> >   kmem_cache_destroy+0x104/0x1e0
-> >   bioset_exit+0x13c/0x1e0
-> >   disk_release+0x54/0x140
-> >   put_disk+0x18/0x40
-> >   floppy_async_init+0xbec/0xd10
-> > 
-> > The release-time test has run outside slab_mutex since at least v4.4 for
-> > SLAB_TYPESAFE_BY_RCU caches, and since v6.0 for the others. Since v6.12
-> > the unlink-time test in kmem_cache_destroy() is a separate read of its
-> > own, also after mutex_unlock(), so the two can disagree. Both tests ask
+On 10/15/26 4:28 PM, Ilpo Järvinen wrote:
+> On Tue, 06 Oct 2026 02:50:26 -0700, Gopikrishna Garmidi wrote:
 > 
-> It would be useful to mention the commits here along with the versions. Also
-> this suggests 3 commits but there's only 2 in Fixes.
+>> This series adds initial support for the Microsoft Surface Laptop 13.8"
+>> 8th Edition. It's built on Mahua, the 12-core variant of Glymur with
+>> cluster2 fused off.
+>>
+>> As on the Surface Laptop 7, the keyboard, fan and platform profile are
+>> handled by the Surface Aggregator Module over UART. The rest of the
+>> board is close to the Qualcomm reference design.
+>>
+>> [...]
+> 
+> Thank you for your contribution, it has been applied to my local
+> review-ilpo-next branch. Note it will show up in the public
+> platform-drivers-x86/review-ilpo-next branch only once I've pushed my
+> local branch there, which might take a while.
+> 
+> FYI [if applicable to your patch], as per Linus' policy change, also
+> fixes are mostly routed through for-next unless the fix is for a
+> commit introduced in the most recent cycle or is clearly a regression
+> fix.
+> 
+> The list of commits applied:
+> [1/5] dt-bindings: arm: qcom: Document Microsoft Surface Laptop 8th Edition
+>       (no commit info)
+> [2/5] firmware: qcom: scm: Allow QSEECOM on Surface Laptop 8th Edition
+>       (no commit info)
+> [3/5] platform/surface: aggregator_registry: Add Surface Laptop 8th Edition
+>       commit: e93536b1fcf775356b06ddc845461e64d4c87313
+> [4/5] drm/panel-edp: Add Sharp LQ138P1JX61 (Surface Laptop 8th Ed.)
+>       (no commit info)
+> [5/5] arm64: dts: qcom: Add Microsoft Surface Laptop 8th Edition
+>       (no commit info)
 
-Agreed.
+I'm hoping that's the tool acting up?
 
-At second look I think we should improve the changelog a bit....
-And the history of this race is really... messy.
-
-I'll just rewrite this part a little bit with specific commits and
-add Fixes: tags for each commit that introduced for re-introduced
-the commit, along with some history so that people* can decide whether
-they* should pick this up.
-
-*who may maintain downstream stable Linux kernels
-
-> > the unlink-time test in kmem_cache_destroy() is a separate read of its
-> > own, also after mutex_unlock(), so the two can disagree.
-
-This part is unnecessary because reading slab_state outside
-slab_mutex is what we should fix. As long as it's read under
-slab_mutex, reading it once or twice doesn't really matter.
-
-(See full changelog at the end of this email)
-
-> I would guess the 6.0 change is not a crucial one?
-
-Uh, I thought the Fixes: was 6.0 one, not 6.12 one :/
-
-> Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-
-Thanks!
-
-So... below is my suggestion. What do you think?
-
-commit 13564e1cfc847aa540019b55a1f8e588670892fe
-Author: Imre Kaloz <kaloz@kernel.org>
-Date:   Wed Oct 14 17:08:43 2026 +0200
-
-    mm/slab: sample slab_state once in kmem_cache_destroy()
-    
-    kmem_cache_release() tests slab_state >= FULL after kmem_cache_destroy()
-    has dropped slab_mutex and unlinked the cache, and for a
-    SLAB_TYPESAFE_BY_RCU cache after rcu_barrier(). If slab_late_init() runs
-    before that test it sets slab_state to FULL but skips the unlinked cache,
-    which never got a sysfs entry, so sysfs_slab_release() calls kobject_put()
-    on a kobject that was never initialized:
-    
-      WARNING: lib/kobject.c:734 at kobject_put+0x64/0x2c0, CPU#1: kworker/u8:3/55
-      kobject: '(null)' ((____ptrval____)): is not initialized, yet kobject_put() is being called.
-      refcount_t: underflow; use-after-free.
-      kobject_put+0x64/0x2c0
-      sysfs_slab_release+0xc/0x20
-      kmem_cache_destroy+0x104/0x1e0
-      bioset_exit+0x13c/0x1e0
-      disk_release+0x54/0x140
-      put_disk+0x18/0x40
-      floppy_async_init+0xbec/0xd10
-    
-    slab_state >= FULL asks whether the cache has a kobject, which cache
-    creation skips while slab_state <= UP. UP is the state just below FULL,
-    so a false sample cannot skip a kobject_put() that was owed.
-    
-    Seen on sparc64 at boot, where the asynchronous floppy init tears down
-    its bio slab while the late initcalls are running.
-    
-    Sample slab_state once, under slab_mutex which slab_late_init() holds
-    when it sets FULL, and use the result for both the unlink and the
-    release.
-    
-    The history of this problem dates back to v3.2:
-    
-      Commit 69cb8e6b7c29 ("slub: free slabs without holding locks") in
-      v3.2 moved sysfs_slab_remove() outside slub_lock and introduced
-      a race condition between kmem_cache_destroy() and slab_sysfs_init().
-    
-      Commit 945cf2b6199be ("mm/sl[aou]b: Extract a common function for
-      kmem_cache_destroy") in v3.7 accidentally closed the race while
-      extracting a common implementation for kmem_cache_destroy().
-    
-      Commit 5413dfba88d6 ("slub: drop mutex before deleting sysfs entry")
-      in v3.8 re-opened the race by dropping slab_mutex around
-      sysfs_slab_remove() in __kmem_cache_shutdown(), to avoid a lockdep
-      splat between slab_mutex and the sysfs lock.
-    
-      Commit 657dc2f97220 ("slab: remove synchronous rcu_barrier() call in
-      memcg cache release path") in v4.11 shifted from synchronous
-      rcu_barrier() to asynchronous RCU work for SLAB_TYPESAFE_BY_RCU caches.
-      That commit, again, accidentally closed the race by moving
-      sysfs_slab_release() to shutdown_cache(), but only for
-      !SLAB_TYPESAFE_BY_RCU caches because destruction of
-      SLAB_TYPESAFE_BY_RCU caches is done in an RCU work.
-    
-      Commit 0495e337b703 ("mm/slab_common: Deleting kobject in
-      kmem_cache_destroy() without holding slab_mutex/cpu_hotplug_lock") in
-      v6.0 re-introduced the race for !SLAB_TYPESAFE_BY_RCU caches.
-    
-    Fixes: 69cb8e6b7c29 ("slub: free slabs without holding locks")
-    Fixes: 5413dfba88d6 ("slub: drop mutex before deleting sysfs entry")
-    Fixes: 0495e337b703 ("mm/slab_common: Deleting kobject in kmem_cache_destroy() without holding slab_mutex/cpu_hotplug_lock")
-    Cc: stable@vger.kernel.org
-    Signed-off-by: Imre Kaloz <kaloz@kernel.org>
-    Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-    Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
-    Link: https://patch.msgid.link/20261014150844.8536-1-kaloz@kernel.org
-    Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-    Signed-off-by: Harry Yoo (Meta) <harry@kernel.org>
-
--- 
-Cheers,
-Harry / Hyeonggon
+Konrad
