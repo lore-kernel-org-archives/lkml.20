@@ -1,68 +1,48 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8E942F691D
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:14:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FE2B30BBB1;
+	Thu, 15 Oct 2026 01:15:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792026883; cv=none; b=IEbV8Vmlpizd2ff6ItNXWQYM4+U5eHMUS9MvjTaceoY8ZUvo9vg6UbRfIoOL9gA2th/E7Zxnt/Jv/B6rq8OLYXor1JVusCQ85lD3/LzwEHPzj+nhWKoVoQkcy/InY4Bzr05sTEbaR5dietGFZCVwfF/BWGQlRrkVEqTMRRbvlck=
+	t=1792026904; cv=none; b=beuVmK6RJOl1B/IhuvQ3/TBUXJZOvpSMg5W0Ll7uhXN0Mh+eiakGVtOx18lWMYvN7zLOoCOZhVaMKTG4gV8GTkulJtm6V06TLCWL2J2488uFwjlT+baL1DLPnrVAVowziYRnpcNjD9m7aMCz/cQcaO44p9GDKVmZxp7IDgxKg+c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792026883; c=relaxed/simple;
-	bh=a0JM3tGonG6TXjE/FanhVttaHvXzL1JEEXBVFVdzvlc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RzKrJ0G6VfwT1KTV2pA+m2cN9c1WkzNyIp/w0LTyFEHw55rF+HhvGXiKSAWqvb3G9pTliZjRUqrJx/B/fuysNLfqcN4Axm5gLp/168O9ETNmbczS1j9N8bm7yyO83SfX5+2W7meRXD2KZTbcNxzMmlp6YhdkhaH4K0DY4D2+hWA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iNs6Q0rL; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792026904; c=relaxed/simple;
+	bh=erW7A3MkrwoWwIe8BSGmCS8a/s7Y7Ao/ekOAhWWvirg=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=FNVwaFYVCpCMxZdWWSX4Qs6XHdMIvheerBVxooJxO5UZsg96Pv9Jr3Gsid/Ki4AFkvVSso68Y+KdA6wNy7xlZeylI6wIH7d0scM6JwkAzyyboLg0T5KjeYj7XMCujcZvYhwux/5YC3BRgxhJBH1dwfN3g1Tbvry/p7ZmEzN/QXc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=wqiWnI2k; arc=none smtp.client-ip=199.89.1.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iNs6Q0rL"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49fbb2acc90so40189465e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:14:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792026880; x=1792631680; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TITPVJDihb8Q06oVMdVjVp/hCUi1JQZf8N1TzMREhjc=;
-        b=iNs6Q0rLRlUqyPdel4mXa7w3Gsq6fO3j3Hc7vdUgQ1MjqmB5x6j5L5SIbzipUWXZF5
-         iU9DYOhOo5HKNID6wiTgLrOZgoYcMliCH0HMpOCuZQMNAMyVSaFdKFyheWyf3ZQwbInU
-         B8x+CEOokgbvfHeamkrkTwd5XR6Ajibzu+idWLVPyz1KQfaROp2FkrI4/pLH6V7jJDZR
-         TeyXrhIOscmHSIvwT2yEYMcBBoQ8a5WjSsG3N1U0p3z14HzyGVtIPowjyWWVF9cY3N8p
-         ozu+iFl0YUJVIBVsJfh+8lSqwtd/2uWhSMm3Gnd1jYJmQx5pd4en2JzSiAZeoGQ6kvo7
-         PvxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792026880; x=1792631680;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TITPVJDihb8Q06oVMdVjVp/hCUi1JQZf8N1TzMREhjc=;
-        b=YQemVM6elJB5RVVAdKSes5MjANYUqqMBPa2wbW/Z0EUwGvOlThrbR+xCmNzXkB3rVw
-         5wcrXwssyIDIDPDaT05IR8/SK8PrD5+6ZQ3082UhsvewiTyh3AqVWV/23cSTOSbKBTzb
-         HGNULP7meqquwmRcXrDE0xACZjFkypBGMcuftUB4jK/w6RJoeDzz7yG4o06S2HwnfrHe
-         MF8XAJKhw3jl5ZYx6iNsiztaPkXQZYw5b+RTk35BaBhRpAulWXeUK75ua/DEauM8/Lt+
-         7ahAK4/SJ8vzZkeqbxcjEhx3D20GYZ9ka3tzY51N+ekwVA+roC3wHdjxtAK2eIRE7gpS
-         VZ4A==
-X-Forwarded-Encrypted: i=1; AKwUvBzmL/TfCi7kJgEhZkAuQnWSbBUM49UvtZ+MUVJZDCNfAxYyfKHtpgnyCmeWNu86bmA0zM36j0EuR98WkoY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLikPpwvdoviCJAVdIjYW3V56ObLmVcJobrQysiqLW6ONg1hAr/
-	qXSA12GTvvn09u+7ZyDyzaVDk69wdec12CoWzsr9wq9NVqHpNiNsKU6s
-X-Gm-Gg: AYBFou3rCSm92sof+tbdQQEHnSZKL1622hZHhzSYdU45KL5yFme/pPuVKpWKrwWrl7F
-	pI4hWr3cgzwluCMy6uYT7MyqihZv0IjxZ1h6OEYabeUI4oksallB6GglQVROAH3+WSFpbcKIpVA
-	lSaKMHB6lsT8ruOz8rhklpAmJFLOYtJy5zBC1rOX+ZpAzndRj2ey3CESOSGZh1Bp9rFrbeXUlS2
-	JZnBV24dxoEKS2GFqp+FcldZEJnMnemZ9ZglFZCQzYMkNY6qSKA3VUU9K1vWZ5XerlpNMFq9XST
-	15ZhiCxLhnSFuqTNIfrQVOVVAdtJCnH3nH6kmawoDmDHRrs8QpOzKSkKOT3WjLWEFz1fsgHSWao
-	3wUKQzLqVwUYyW/W7zWqhiQxXh4VpIRX426brYnBAFHYFnPRW/cJ1TUQj619zoubbNZqBm9lhWa
-	zjgvSzP1eRTcN5mVvybpjdcYpctzUJoecsyrigKLvBsKdAGUgrSh79p8tGSU4/zxCzPLGPafuja
-	O1E9XjLdWs1GhiGgSU9cUdeAULu1yXM2kY6b+I5RXHyyhiNYhUdFBv8traj
-X-Received: by 2002:a05:600c:8b0a:b0:4a1:6992:f861 with SMTP id 5b1f17b1804b1-4a18e446db6mr326233375e9.1.1792026879579;
-        Wed, 14 Oct 2026 18:14:39 -0700 (PDT)
-Received: from [192.168.1.122] (cpc159313-cmbg20-2-0-cust161.5-4.cable.virginm.net. [82.0.78.162])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd99e87csm30060215e9.13.2026.10.14.18.14.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 18:14:39 -0700 (PDT)
-Message-ID: <401073e5-6f35-4230-8734-2428e188993f@gmail.com>
-Date: Thu, 15 Oct 2026 02:14:37 +0100
+	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="wqiWnI2k"
+Received: from localhost (localhost [127.0.0.1])
+	by 013.lax.mailroute.net (Postfix) with ESMTP id 4j4qqj4QsxzlfvpK;
+	Thu, 15 Oct 2026 01:14:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:content-language:references:subject:subject:from:from
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1792026893; x=1794618894; bh=LCDp0vtEPTe3O3sIXmdMEe15
+	vdzr2WupeRMUX/FA6R4=; b=wqiWnI2kVVkW68+j3zvkb5p8g1Fe81taajvqJ9eP
+	Wl0hDPZuFs9TJ2bMFHftH8IMADjzz2qK7TWmwxN1jm9Suy88/efRMSudSQAXDMIj
+	xW9dVpadfUhECzdOqGPGeVxcDvDdv5+nggKABHUChzB/qIWOrU4ADlWZD7mJOoAz
+	zd0T0NiUQf9TDMTqAM+oCMtpvHLpy5Nqm6c8s+Gyfxz9KY67tPoQDOuQJ1Dv+2/7
+	qr2/K5qrmXhJiruXVF77KGzBV6kM7Oe1rMFK5tIIK4LSdwQll+2CfzKOgKBjpzO+
+	+XmoafRjzmYRVkXXeNDX5bo3F8yi0q7YY9WMTwxy+1hnHQ==
+X-Virus-Scanned: by MailRoute
+Received: from 013.lax.mailroute.net ([127.0.0.1])
+ by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id NM7PU9k0h8Zp; Thu, 15 Oct 2026 01:14:53 +0000 (UTC)
+Received: from [192.168.51.14] (c-24-6-239-25.hsd1.ca.comcast.net [24.6.239.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4j4qqc6QCqzlfvpH;
+	Thu, 15 Oct 2026 01:14:52 +0000 (UTC)
+Message-ID: <db212304-4ae4-4b5c-a39f-74c3f0b7d791@acm.org>
+Date: Wed, 14 Oct 2026 18:14:51 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,60 +50,34 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] sfc: fix NULL pointer dereference in
- efx_tc_flower_replace_foreign()
-To: Rand Deeb <rand.sec96@gmail.com>
-Cc: Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Eric Dumazet <edumazet@kernel.org>, "David S . Miller"
- <davem@davemloft.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
- netdev@vger.kernel.org, linux-net-drivers@amd.com,
- linux-kernel@vger.kernel.org, deeb.rand@confident.ru,
- lvc-project@linuxtesting.org, shda@confident.ru
-References: <20261014145800.726-1-rand.sec96@gmail.com>
-Content-Language: en-GB
-From: Edward Cree <ecree.xilinx@gmail.com>
-In-Reply-To: <20261014145800.726-1-rand.sec96@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+From: Bart Van Assche <bvanassche@acm.org>
+Subject: Re: [PATCH v2] scsi: ufs: docs: Describe how to test with QEMU
+To: Stanley Jhu <stanleyjhu@google.com>, "Martin K. Petersen"
+ <mkp@kernel.org>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Jonathan Corbet <corbet@lwn.net>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Jeuk Kim <jeuk20.kim@samsung.com>,
+ Bean Huo <beanhuo@iokpp.de>, linux-scsi@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261012120059.1371653-1-stanleyjhu@google.com>
+Content-Language: en-US
+In-Reply-To: <20261012120059.1371653-1-stanleyjhu@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 14/10/2026 15:58, Rand Deeb wrote:
-> efx_tc_flower_replace_foreign() walks the rule's actions with an 'act'
-> cursor. After a redirect action it adds the action set to the rule and
-> sets the cursor to NULL:
-> 
-> 	list_add_tail(&act->list, &rule->acts.list);
-> 	act = NULL;
-> 	if (fa->id == FLOW_ACTION_REDIRECT)
-> 		break; /* end of the line */
-> 
-> The break only leaves the switch statement, so flow_action_for_each()
-> carries on with the next action while act is NULL. A following redirect
-> or mirred action then does "save = *act", and a following tunnel decap
-> action passes act to efx_tc_flower_action_order_ok(), which reads
-> act->decap. Both dereference a NULL pointer.
-> 
-> The loop is missing the check that efx_tc_flower_replace() performs at
-> the start of every iteration for the same cursor: reject the rule if an
-> action follows a non-pipe action. The foreign variant was added without
-> it.
-> 
-> As a result, a TC flower rule on a tunnel netdevice that redirects to an
-> sfc representor and lists another redirect, mirred or tunnel decap
-> action after the first redirect causes a kernel NULL pointer
-> dereference. It happens in the context of the task adding the filter,
-> with efx->tc->mutex held. Adding such a rule requires CAP_NET_ADMIN.
-> 
-> Add the same check at the top of the action loop in
-> efx_tc_flower_replace_foreign(), returning -EINVAL with the same extack
-> message as efx_tc_flower_replace(). The release path already copes with
-> act being NULL.
-> 
-> Found by Linux Verification Center (linuxtesting.org) with SVACE.
-> 
-> Fixes: 17654d84b47c ("sfc: add offloading of 'foreign' TC (decap) rules")
-> Signed-off-by: Rand Deeb <rand.sec96@gmail.com>
+On 10/12/26 5:00 AM, Stanley Jhu wrote:
+> +Enable the following kernel options on top of the architecture
+> +defconfig::
+> +
+> +	CONFIG_SCSI_UFSHCD=y
+> +	CONFIG_SCSI_UFSHCD_PCI=y
+> +	CONFIG_BLK_DEV_SD=y
 
-Diagnosis and fix look correct to me.
-Acked-by: Edward Cree <ecree.xilinx@gmail.com>
+CONFIG_BLK_DEV_ZONED has not been mentioned. Does this mean that zoned
+storage is not yet supported?
 
-Sadly I don't have a working ef100 to test this on.
+Thanks,
+
+Bart.
