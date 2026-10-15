@@ -1,141 +1,185 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012042.outbound.protection.outlook.com [52.101.66.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ACD01D7E5C;
-	Thu, 15 Oct 2026 03:09:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792033793; cv=fail; b=a7TSQS+q/cmSxlKTVMQtq36MfjxKmu15hngqsuBwlSLTsrg2yxHEfgXePwKG4Q5ly4ZpHeF9nf+LLVsR3s8cIGLE0x3Q+tMixRVbpzsnP58dvszspKgF74pQZ7IDWkZf3CHSFCFEkFuOScoOd1z1Qv6KOIwDEHpY0ndRN2XMIr8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792033793; c=relaxed/simple;
-	bh=RS/a31wP5fS/VSFE6rpbIx/LHUTPbcX2FZFDGFT5nnc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=X97pk4RzK213dyMNwKH20tA1itwd3nJaiCj9Kyao/QpbAKSho/GHatlAIFirF4rBmkP6nB2fwL9Flzw/PTWR1bb5zxOsqb7MyxRtpmzY0MHUAOrqBIZoIETRIoLM1ZdDMMCfX7FXRsp6IovDm8Y+C1B7vdxlrmxGOjsaLYSANw0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=dIISTuAI; arc=fail smtp.client-ip=52.101.66.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EFAA1A704B
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 03:13:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.52
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792034036; cv=none; b=tNIG0DPeO/Bsxr7bOj5CX0AwlfA3jMjf7MlmDMZbuTDMGsPEtFB7YKazv4eu7yy6DJvPbVh/Ry44yFTAT15lbyasGrToEg/6Cvj8RIjrVB634CJp/ZsGt7Q+fD92CQwU8YZZrCFwVF3+UJ09ldTiHI4E5NoQfn7o/n47WDaOTMU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792034036; c=relaxed/simple;
+	bh=U6fz9yy/5dZQcmsuAG/v7+Up68qWI8bHAFhOPGGGupY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=tFxPzMbRtLNc0L+jez0RrIUQ//ruU4cN3Of68XS6rrVLuUoecDl8RJoWqIf5Z8dyEKwDUYbTALChG+ieUXKhDU+rhw6e9Jd8dLPl2QeuzO3+9QBq2CiSvCNME6vOghT2ircHk/7tlTeV+tLPbCZEoEn3q0OG4RyY6qR8n/kW5qI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b/EwqOs6; arc=none smtp.client-ip=209.85.219.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="dIISTuAI"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RlWQCr4CdB4+iO/chZrmBGrqKSJ2qoTmhHEIUVKQCjRYJFanYGR4mc7weLfS5LGrvc1hT1pVhoI0WBMeeDpSI3XJZ9CjjFNSrZdC5SPaXGW4xo2GdEQNNabPdC+jp4FukihjzY1PS8NHkVvMkJjp2anoXYcIsuU71F6s4ToKDZkFQHxFicKitJ71GkejilEDY43yTFsJNWhfFQOUsUDXvhIqnUfraruN84w7PlXzILFi2xcqEJyxV2tPEF0jGchwAbnGm6mwelIS/gMFjuYSx95ghIKxnitGzSS+eWppChUs3M3I4LZlde77gBFzSABvjQ00gbr9gEdBqMln+FRUQA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RS/a31wP5fS/VSFE6rpbIx/LHUTPbcX2FZFDGFT5nnc=;
- b=ylF8cnUnnspBptXnQ6tNDZrEfu9VdM1IESURDntBTMinav1vohDKI82a5Jr1NqCaH7ed1zmRfPsjpQHsrCHR49UN4F95Rm7f1g9TvtO28uFUUkMNGK5r9fmb/8H05T9CZs9XuBmQIWvKyeJdX28KrlQ9QO4Lo0t1ukiuPb1fo1xcVxA2Y4e8kr3XU0kfuiTMstNPISLwgI2hXsqhEGWai4yLMAncdLLUXMigWt0Nwrsnr2y6irHmhedbHfdXTcN6lNa0QhMYgauqT0s/fhr7TQu5D1CIcPDyKWfDLa37EjZ6fOSGDKS6F0PP+4H9foUXkI3QKc1N8o8RwuEzY4PUSw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RS/a31wP5fS/VSFE6rpbIx/LHUTPbcX2FZFDGFT5nnc=;
- b=dIISTuAIu4xXYLW9c0ft282fRVitO2mmkmVfa0RIloWOlCzWxDtKGZavhUUpXlnwBtqQ7OC14AMp4+Gqy3M8so/cgtqrpOJd8P0ouZKJsk14nABqmD0DXcubuiD+qmEJKuxioe3ARqM+GeJk5G4hvimMdnZ8XrdEfT+lV4rKKZBWJOJC4fTw1OQqwzYPbH3PwTfihywUuRLofnE+AenLAiYjQ+H/9GSMcqOP2OPCB3bGTBFpCqyjgr96G0U75iG0Xb2xGk+2hIw/n/Ilbb8pYSjY0oWo5NvE3JmZ2T0LA4xPZGGBe38WTUr5uPYV4b0n/t7Rnf7EhqlrYcDywzVL6w==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by BESPR04MB296854.eurprd04.prod.outlook.com (2603:10a6:b10:131::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Thu, 15 Oct
- 2026 03:09:48 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0522.012; Thu, 15 Oct 2026
- 03:09:48 +0000
-Date: Wed, 14 Oct 2026 22:09:36 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Peng Fan <peng.fan@oss.nxp.com>
-Cc: Dan Williams <djbw@kernel.org>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Jon Mason <jdmason@kudzu.us>, Dave Jiang <dave.jiang@intel.com>,
-	Allen Hubbe <allenbh@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Eric Biggers <ebiggers@kernel.org>,
-	"open list:CRYPTO API" <linux-crypto@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:DMA GENERIC OFFLOAD ENGINE SUBSYSTEM" <dmaengine@vger.kernel.org>,
-	"open list:NTB DRIVER CORE" <ntb@lists.linux.dev>,
-	imx@lists.linux.dev, Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 1/2] dmaengine: change dmaengine_get_unmap_data()
- first arg to dma_chan
-Message-ID: <atBD8Afm9Z9XEzPb@SMW015318>
-References: <20261014190337.1718622-1-Frank.Li@oss.nxp.com>
- <atBAnIzA3X6PgB+6@shlinux89>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atBAnIzA3X6PgB+6@shlinux89>
-X-ClientProxiedBy: DSSP221CA0001.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:8:3d5::13) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b/EwqOs6"
+Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-91b63bd2030so58370956d6.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 20:13:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792034033; x=1792638833; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=153R+e1jrYKRH+HNspTdkqqncAprD2wZmZQfnSo2QmQ=;
+        b=b/EwqOs6Nazh4TalBTv4Id7YzY28K9mfNeUgma4IyZPx5iPzf57xssIxbk2AZZ+xO6
+         Y6Sd3lQ4ocdLocPIpDIdhoqSwpeJExgyQ8ErINO92WFzAT4HdZxS6oryKVtBAu5MA01T
+         g2o7tFiRgKYJQrbb5MTQd2rLvdbNr93WS4m9dpDBejBX9R47pr2VqT08xZrSs0pzbe2j
+         RVkI4uUAFHr4JR6goPRQUguzE2c9PKAbsUJXDu0oDnEdVGKt+t4E10aZNvRR7n5y3cdk
+         FwBZ+0WkcwYoU+QihyZmYiPEW9/16fjCFsWxKVg/haaaGVW7kmP+xtB/c94K+xsUHlkY
+         FbyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792034033; x=1792638833;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=153R+e1jrYKRH+HNspTdkqqncAprD2wZmZQfnSo2QmQ=;
+        b=07hGLfme+uX2ZqRWlNSkvR/Impr3g7KUfUJ0LS5VcQeFksV+P67B0j3CIO9rzyCGss
+         XTTMHfQRDfIcctHx5UaSCwBj5+rgkmfKL5eAbSgUPnSoEV5zNBNZOWBF3in0k69giz1J
+         Xk7QwSOoa6W663HeOkRVmZWVscViFycmtgEKSg6bCG/iPofOOdE2QWsFd87btlFsj/rx
+         Q+n8t4topIwyh1UiUMYTucBmZXo3I3172oFTXV01+Jt5c+ZxdPW40MXhrHVYSq6+Qd+N
+         NjeI4BhFsqTINmvErKIiDRtV2A/sV9wOTAOnlPprFdBm+NfUk5cT3TURfnp7/2F7k8Ja
+         g5iA==
+X-Forwarded-Encrypted: i=1; AKwUvBxaaCVNp+AsWgKbVcrYYPDOrDGkYoNEW62XVh5SDWHSJjsHTHfeXCQ6GqslLL6p5cZUBYNUStNLW68g/S4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKq12wcQyaiEZyNV6yNwwgre/6Q8kpxyIM6Zgryg0UM3b4lpO3Y
+	CAms0yEMOam66GDDcmF9Ma7HkBqE4wv5ShW8v765gY2Q5s3Ll5y6EmQ=
+X-Gm-Gg: AYBFou05GJvhvirQ4QMxJM7nXYtCbq1KwCfcd/2j1GlsfxzMPOXbDoEcr63vlMW9s5A
+	B7cEn6zVUZSgkHFKgN6ikcHwuPFjjbu8ulMiQ4t+jrILE7FthqTPhDm3ncZNQd/NtfLrATUew5h
+	ZZdLPG5YZQhEKuX4Ecoc1tDWY31rA82g7+d3kgHcUSWFIMGWxck+lWq8mimRUS6Aaoa/6QYRfkb
+	0Buvs+L2iK7F/VuJxcll0b/PQcfhXmJKfiZjbEeWLGnX6ehnvTCEVbWHoIssNDRyVlXOGDpUzAK
+	5cUOxJPQJooLveRiUlu6zL6trfE+oHnKiKuM+cn4pKP9dI0Znzr7QmbCQe8j+9QFYfvVLXCDGqz
+	dLiLU/r3Q4icLQIsplNrk6nlwEzmtxSylD1FEz+kpdQnM3xWPyh4socXo1JT4CqJuTgBeidquhw
+	WlSxVM+jGm3g3kRJ3bPa7XNzfzQbq/BzdTfApThtdQ6MUjXulK700ZX9mxTHzuZiUhokvgt7BlQ
+	8B6yTPiz9q4uBrEMln57FtmpEbmYjH9B+rB0b9ksgAVDf5RYtobUJosmQ5K5UVpevDChfi0nj0C
+	fwHn+LFSjp1fMrBuHUEnvQsLrpip
+X-Received: by 2002:a05:6214:1d28:b0:91b:87cc:6d52 with SMTP id 6a1803df08f44-91b87cc7740mr169108536d6.0.1792034033319;
+        Wed, 14 Oct 2026 20:13:53 -0700 (PDT)
+Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97b387e0sm69717646d6.12.2026.10.14.20.13.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 20:13:52 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Paul Kocialkowski <paulk@sys-base.io>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH] drm/logicvc: keep the IRQ within the display resource lifetime
+Date: Wed, 14 Oct 2026 23:13:48 -0400
+Message-ID: <179203400409.2736079.4502160101423826217.G31.logicvc-irq@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|BESPR04MB296854:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9037b93c-58c8-4358-d560-08df2a69c51d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|19092799006|366016|376014|7416014|1800799024|10067099003|11063799006|56012099006|18002099003|22082099003|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	kJbR68B6A0Oxg3wDG5m1MVkHwPC93tyeSixxzN3VDYv3JQiFNHzTCK7LtGNMj2Srqox6aWXVm4vXL9B6Yq5YwjlDa/pc0Xn9AFZP6vJEY0NxGcxJsfjwVspT/j6ydYOo1CK/trVI/4BQckp3Qt4p6P6mzxfXj6NWQag3OfNDQY29VkmVcfHXCsVRl81ROU9oZgWDmyM8GNtqlvAHF04tu6zSIZk8DZbzoKQxhvGqJZyCZ/PmRfavTwg7ap6EVvXVNgUy6Ydo88/AhEjH0JBWprGFZn56JgCV1/lIVW4xOy61m6LAxcSMPYeDyowxzIOQo9qkMJCuxeFcnQiaKv+IW5b1UZnjQa+Qu0w4cTptx7GCkUHHOuTzo5vUP0aNsieF//fD0lG8pCHDAENwwoV2bXUzb32OuNwN8wCq/Jz+2CMXU/bAnc/R/p0aEXcXkw2vHK0Mq7bq5WtJuQPgykqrifrxwbAMrIqkK0k0vdO6gd1tdKL8oxw3E2MHaWY0Fm+IpDYC3vRZLAYvU527NZkHOYQIsn8AAq9ssqaHbapddEVwaoRKd8GGkXiKH/VXZpQPGS3DrhJzzmdPuxBrriUH1V21e7WGWyo06/1YknVZjiMnGJ180MRu6o8rXgRSfUyAWbOEcxxH6OOjiQhIQK3c6YErhjWczSTUKi0EB8c7VnA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(366016)(376014)(7416014)(1800799024)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?YifBnRwWisCa/ZeP30QpSux7gmFXEfv9ahfJpgbriPPl3SbXI4vp4k8+ipQE?=
- =?us-ascii?Q?OM6crOuJU0tBWQ3ULlnz7DaqXh0SqGCjDLIkvDYhAr4TLcKxuPCUMzSXcGep?=
- =?us-ascii?Q?4hbhPfIxoqRDf4b+4OPER0grC3rfUnH8V/VV6NS8t5rbDt3AQl5676UiRAQi?=
- =?us-ascii?Q?f/LoLkgTmG6acl/5Ia26JdDyk87zfOfK//S0gkZ09dds/vxDPVwD4Y5DqcB9?=
- =?us-ascii?Q?oW6zunGBjDfPHgLXGIA+THh4T6jFmyZ8ohs7JjYqqXv/MwlQlcF/OTXw80fB?=
- =?us-ascii?Q?WR2BKDaAhagvwscX2ut7JTd0I08oy5nAuioD7DK7cjLlLQ87lXtlEJA6Fmzu?=
- =?us-ascii?Q?sOkkoMbpUIo/SxD1Dq7BcH3V1PcYuaz4qLXB8fUj7zXdiX8KAx/x6pBdje48?=
- =?us-ascii?Q?GU9h9XUxAU3Iq+76xKzm2CycmR4mHrrop4nU3pRAco+qhD0W95snxOh1r05f?=
- =?us-ascii?Q?NVePTfH4jN93mu9wxndY0MHvTgp4I19w/QmuzhYVkMVQUyh2EiaNlIc3wc+j?=
- =?us-ascii?Q?B5r13+G+KTOIq+R2d3fYzuctXzbXJnJYWNUqZUZlCGnkLnQyfRCjZhRk6Qiw?=
- =?us-ascii?Q?MOQMU6L1bZKEHGP/nttEVgPk68dCH3jJsLukz0JtpTjb5eyZ1W1bypX/Cva2?=
- =?us-ascii?Q?DXz3PeHWVdEF0R4R2vNOTmZl/NvzvM3Fz47+/U9LSMD5SaOgrZzEtgTbmFvs?=
- =?us-ascii?Q?BhjmtZZaPP/odjR0G7IO3oMpOrdCxLWhEoSV3gxbp/whq4h5ykzMM+lOboQ3?=
- =?us-ascii?Q?8sHlndJiSlDqXHiK7eBRedu6BUrKQAdbDMQ9vrBXixwju5Me8BAZ2Sxlf8gO?=
- =?us-ascii?Q?8sRs/iWiJ26pexHkvaBHU7TCSk7U/efSZIS23nXkxJdOyWso50MpQWNJV10S?=
- =?us-ascii?Q?dsm7Y1xbqCEFwB6YERqgrhVzBxJXHvUw80vwjQebpUy+9gQ7gq8iita+5Hhj?=
- =?us-ascii?Q?tISRw+ZP41ZzHVrEbB59DuiNRdGkn5S79bd7FLHfFLbRq948SPOK+MbKhKUI?=
- =?us-ascii?Q?+QEo/WFz4LADKZUKg3tX1L7+4WJimTB3gurNmeyoTXTS+LN3j1llmp2ilTDY?=
- =?us-ascii?Q?KnUhuXGNuP9hLoJkrwbK0b8MVqjkG2//tQtwkgvd4srGNRycLcSjFMG18t0W?=
- =?us-ascii?Q?GvMHI/F3+BQLk+tOSqSgFcA0DlYr0zYw/WIo7lzFYRvyyojaTkkZD/rOJ4nZ?=
- =?us-ascii?Q?gVWJ9tHbvF8X9B9s16AorShDfYZ/l74Fsslb7/UjuHcBbs7RnvWEP/r7wigj?=
- =?us-ascii?Q?+BDJglQoADi9l2LrkPXFsWD60HKBi19UHoD86WKcZlKPLgaCkYbE2pBng1X1?=
- =?us-ascii?Q?5jCMlsBO7Afs9HPqmh9/uHPiJzQ8sij47lNblxZBpwO/EfxrD7zGtYsnyY0F?=
- =?us-ascii?Q?H9ANJRWlKOK/FNV3OWSlQLTV/obomJwOqSjTjrn5dxwRc2fBmM7Y2lfYxAHh?=
- =?us-ascii?Q?QMJnabkOCXmSz2ATtgOQi9Ic1dXTAlQS/D+Vp/rrpiLl+1hZtGsW3AdgsGIq?=
- =?us-ascii?Q?OfEC9nX/40TvQCpoO/vKpw8dfSBM3dmI6Wjo0eB0tP1s9usFjxBwH3tKNw9D?=
- =?us-ascii?Q?Gl/eoUQH018kePctCkrJDnf8CVDTxeqTN1m6hcVZmVUoYk0ZqFV0i2nl1sWw?=
- =?us-ascii?Q?wEHmOvWFNIz1AjEEuTQhcYWc9cNX6QmEBMt/i8ZzfjzGZpwrYobEjzwynVHN?=
- =?us-ascii?Q?nRS2/4HjTvGGgJpnGx3AR0PUXhcw1UncDeZ2ny1K64UpyNb9lbFSLO0DlEbu?=
- =?us-ascii?Q?nxwOgy0YaCzAQKbVsE8EUJhnOTroyVe5Foo5a4iETXvDe7hgI6Ng?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9037b93c-58c8-4358-d560-08df2a69c51d
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 03:09:47.8618
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rbq1TYzTrsnS/p/PUUc1Qr/crhvogneE5yzL34B9O1NOQK5+j8UHGQllLnPJPUg/8MXWVpb14BcX32frdNCoI8PV+5oy1HfFl+AcGh1z14/ng2FffuZAColIS/7T4zOp
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BESPR04MB296854
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 15, 2026 at 10:55:24AM +0800, Peng Fan wrote:
-> Hi Frank,
->
-> Seems Patch 2/2 is not sent out?
+The interrupt handler accesses the CRTC and the register map. Its
+device-managed release currently happens after remove has unprepared
+the clocks, and the CRTC is allocated after the interrupt is requested.
+Consequently a running handler can outlive the resources it uses, both
+on removal and when probe unwinds.
 
-Yes, I also found it. I will send out v4 tomorow.
+Request the interrupt after initializing the display objects, and
+release it explicitly before tearing down the mode state and clocks.
+Keep it available through drm_atomic_helper_shutdown(), which may need
+vblank completion. Also release it on drm_dev_register() failure before
+unwinding the display resources.
 
-Frank
+This issue was identified as part of our ongoing research while
+reviewing kernel code.
+
+Fixes: efeeaefe9be5 ("drm: Add support for the LogiCVC display controller")
+Assisted-by: LLM
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
+Compile-tested with GCC, W=1 (arm64). No runtime testing.
+
+ drivers/gpu/drm/logicvc/logicvc_drm.c | 21 +++++++++++++--------
+ drivers/gpu/drm/logicvc/logicvc_drm.h |  1 +
+ 2 files changed, 14 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpu/drm/logicvc/logicvc_drm.c b/drivers/gpu/drm/logicvc/logicvc_drm.c
+index bbebf4f..cf60bbb 100644
+--- a/drivers/gpu/drm/logicvc/logicvc_drm.c
++++ b/drivers/gpu/drm/logicvc/logicvc_drm.c
+@@ -366,6 +366,7 @@ static int logicvc_drm_probe(struct platform_device *pdev)
+ 	drm_dev = &logicvc->drm_dev;
+ 
+ 	logicvc->regmap = regmap;
++	logicvc->irq = irq;
+ 	INIT_LIST_HEAD(&logicvc->layers_list);
+ 
+ 	caps = logicvc_drm_caps_match(logicvc);
+@@ -385,13 +386,6 @@ static int logicvc_drm_probe(struct platform_device *pdev)
+ 		goto error_reserved_mem;
+ 	}
+ 
+-	ret = devm_request_irq(dev, irq, logicvc_drm_irq_handler, 0,
+-			       dev_name(dev), logicvc);
+-	if (ret) {
+-		drm_err(drm_dev, "Failed to request IRQ\n");
+-		goto error_clocks;
+-	}
+-
+ 	ret = logicvc_drm_config_parse(logicvc);
+ 	if (ret && ret != -ENODEV) {
+ 		drm_err(drm_dev, "Failed to parse config\n");
+@@ -434,16 +428,26 @@ static int logicvc_drm_probe(struct platform_device *pdev)
+ 		goto error_clocks;
+ 	}
+ 
++	ret = devm_request_irq(dev, irq, logicvc_drm_irq_handler, 0,
++			       dev_name(dev), logicvc);
++	if (ret) {
++		drm_err(drm_dev, "Failed to request IRQ\n");
++		goto error_mode;
++	}
++
+ 	ret = drm_dev_register(drm_dev, 0);
+ 	if (ret) {
+ 		drm_err(drm_dev, "Failed to register DRM device\n");
+-		goto error_mode;
++		goto error_irq;
+ 	}
+ 
+ 	drm_client_setup(drm_dev, NULL);
+ 
+ 	return 0;
+ 
++error_irq:
++	devm_free_irq(dev, irq, logicvc);
++
+ error_mode:
+ 	logicvc_mode_fini(logicvc);
+ 
+@@ -466,6 +470,7 @@ static void logicvc_drm_remove(struct platform_device *pdev)
+ 	drm_dev_unregister(drm_dev);
+ 	drm_atomic_helper_shutdown(drm_dev);
+ 
++	devm_free_irq(dev, logicvc->irq, logicvc);
+ 	logicvc_mode_fini(logicvc);
+ 
+ 	logicvc_clocks_unprepare(logicvc);
+diff --git a/drivers/gpu/drm/logicvc/logicvc_drm.h b/drivers/gpu/drm/logicvc/logicvc_drm.h
+index e0f4787..f69538e 100644
+--- a/drivers/gpu/drm/logicvc/logicvc_drm.h
++++ b/drivers/gpu/drm/logicvc/logicvc_drm.h
+@@ -53,6 +53,7 @@ struct logicvc_drm {
+ 	struct drm_device drm_dev;
+ 	phys_addr_t reserved_mem_base;
+ 	struct regmap *regmap;
++	int irq;
+ 
+ 	struct clk *vclk;
+ 	struct clk *vclk2;
