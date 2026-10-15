@@ -1,119 +1,108 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CCD3481FAA
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:37:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1D3658E2D8;
+	Thu, 15 Oct 2026 20:37:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792096657; cv=none; b=ZbOkaAIUEHBjpKcKeZG/QvtW6WKwje+C2RmbEA16BvTgJ3RHqDrjE3EGVmMaGAMSXFNmZib9DoWZqhoEUladx67g6WQ9EUicKFg0bmabOaU6QOb9m+q8AzKYg4UVybeS0x3DRhNCNICM/wOIV6xK7rkwpyEvPq8u+fnTXFxGHdw=
+	t=1792096664; cv=none; b=tLwasG4M0MOd25+GPj0nHRHr2aQkcg6qDZmuqkpYdjfZ1LD50mmyi7zHg1zo1+pZeTq1VinttMhAQYSiX8HJNhYj36pDltY70kyFs21NemJjTMuxdYYDw51du6/OhA+n33PN77pLYpPU/N7C+MrleRlZ3FUxMYT64Rf4Ftum8a4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792096657; c=relaxed/simple;
-	bh=ytYkL7vi1hdrRuiJeUmxqkYrTkZSJYwbnd+J9//WYPs=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=Y63ZOAO4eI+b/e1Fq0NMBgCDwCK41uFNOLGesvkCjxSGALJoyTh2m/GPWGyDFJglBbhPmkkfi9w3B3gfjFH+ZMojb2lnwd5LhF1aVf35AeEsGivAI8ydYf38vCXaAJhtXy8GhBwtdQqCCeah+KuRM+D6BrLb/SlMsc27abVqZW8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=3/YJJcLq; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=n1y4ahGr; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1792096664; c=relaxed/simple;
+	bh=wf0DCdSra89Ii7vNrD6zAe8Yv5q9Wi9fzar6HJdKa24=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=GkE7vdpEAnAQ/b0KsJmGf2gvQFCZ06E3FRYl21QQ+95c0LjvawznE6F4AlBF3BFDKKCbBUOVABg5tkQRSzsWsuwHM50+i4vQYzZjpo+9n5HoBLSVO6PJPWef8zDxfYRc354knXU9RdOEfElPf+2n9ewrv9rpQIqXt14Yjwj50ZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cz2WSigL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="3/YJJcLq";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="n1y4ahGr"
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792096651;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=f6aA/A3Cn1MXQnpV+Fe2LyTxatapeYJtkT5ci4DLf8A=;
-	b=3/YJJcLq7ZZzf+DxQi2LybGAIiKfi+DGVR6o0+owHEcPbJ2OigVnmk9LEHeE6f14SwNce0
-	eHTfz411cL1tI8lMyyAQP7sUTcGYhE3//cTD7esDyAM+INcSdNUiJwGS3L1z+NfpjDtPRN
-	BlJh/kZFWwe7GLyqLmyYuPb0LgBDGnRs3bJKTQ2pBPn1Tktl+aQEZkUGAinu5hijdokrZN
-	D9KhKWIUasLlC/v0aatm3W8q8FbWoSEuhyZrI01Dmi3Va1wNgVKI3rIvxKBjq5ss+VpN+3
-	Ot2OtMYIBunHUhSNkgLhocT+WD1qPPAJTVMCNlYb3J02493TgwAZ1Cz83v99zQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792096651;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=f6aA/A3Cn1MXQnpV+Fe2LyTxatapeYJtkT5ci4DLf8A=;
-	b=n1y4ahGrNsEfo91mVqVHcM+z5dH8XZeraUCzqkCOkrrAJp2Eq98mwzxNChdGXZRnLW5b+x
-	mADZFd2M4oRgIrBg==
-To: Peter Zijlstra <peterz@infradead.org>, Jiakai Xu
- <xujiakai24@mails.ucas.ac.cn>
-Cc: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann
- <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, Ben
- Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, Valentin
- Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] sched/mmcid: Bound the CID allocation busy wait
-In-Reply-To: <20260918104349.GL776954@noisy.programming.kicks-ass.net>
-References: <20260918013454.1850369-1-xujiakai24@mails.ucas.ac.cn>
- <20260918104349.GL776954@noisy.programming.kicks-ass.net>
-Date: Thu, 15 Oct 2026 22:37:30 +0200
-Message-ID: <877bjiem45.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cz2WSigL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A8521F000C5;
+	Thu, 15 Oct 2026 20:37:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792096660;
+	bh=5SJuG3nU0YOHzeceYqH37EIvxhX5JEqog2IlJeIpdYs=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Cz2WSigLK3L0LZh7pgeFnnqpvACNV3QxA3KaNbQtTKLZQu7+aJDz3p27mxtCouWUk
+	 0V5I7OF7noVkyGINwwcKRS2Jems00QFsoG4y1yLZz0cHbFwdrV77EaHKNM3Wd07xqk
+	 KqOrJM8RMTZW/cDc+bPM+khfEvhnBQI2XxTfMZsmBD72o3z7Fg+pFUMgRGBnsm6HH2
+	 wR8Ozi+gWYTcMyZusg61S62nYiONrweaazN5TwweiC7uWFUTiJH0EAXPUZXlqXhY8F
+	 JOHrQuxAMjSAIKMBWMbYTnOZFrba9QeAks0xkYi3wnHhL//HkWCeUfN1OVqKgoqU3Z
+	 d2Dof2ZFN4SnA==
+Subject: Re: [PATCH net-next v3 2/6] net: skbuff: add napi_pp_get_page() and
+ use it in tcp_recvmsg_dmabuf()
+From: netdev-bot+sashiko@kernel.org
+To: almasrymina@google.com
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-rdma@vger.kernel.org, bpf@vger.kernel.org, ayush.sawal@chelsio.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, tariqt@nvidia.com, horms@kernel.org,
+ steffen.klassert@secunet.com, herbert@gondor.apana.org.au,
+ ncardwell@google.com, kuniyu@google.com, john.fastabend@gmail.com,
+ sd@queasysnail.net, ebiggers@kernel.org, kees@kernel.org,
+ aleksandr.loktionov@intel.com, petrm@nvidia.com, u.kleine-koenig@baylibre.com,
+ j.raczynski@samsung.com, wang.zhan@smartx.com, willemb@google.com
+Date: Thu, 15 Oct 2026 20:37:38 +0000
+Message-ID: <179209665863.434549.6637198029989888049@kernel.org>
+In-Reply-To: <20261014173945.373295-3-almasrymina@google.com>
+References: <20261014173945.373295-3-almasrymina@google.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
 
-On Fri, Sep 18 2026 at 12:43, Peter Zijlstra wrote:
->> This also prevents an exhausted allocation from feeding MM_CID_UNSET
->> into the transition bit handling, which would later hand MM_CID_UNSET
->> as bit number to clear_bit().
->
-> This all sounds horribly wrong. It fails to explain why the transition
-> isn't happening, nor does it explain how it doesn't utterly
-> violate/break user space.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Correct. Going back to user space without a CID is broken.
+Low priority / nit picks for your consideration:
 
-Looking at the stall splat the scenario is:
+- [Low] The commit message says that "no symmetric helper existed to
+  acquire" a page_pool reference, "forcing callers like…
 
-CPU1 runs a jump label update and is stuck in csd_lock_wait(), which is
-invoked from on_each_cpu_cond_mask(), smp_text_poke_sync_each_cpu().
-That does not make progress because CPU0 is looping in mm_get_cid() with
-interrupts disabled.
+--
 
-CPU0 runs an execve() and loops in mm_get_cid(), which is invoked from
-sched_mm_cid_fork(), sched_mm_cid_after_execve().
+net: skbuff: add napi_pp_get_page() and use it in tcp_recvmsg_dmabuf()
 
-RIP: 0010:mm_get_cid 		linux-7.1.13/kernel/sched/sched.h:3880 [inline]
-RIP: 0010:sched_mm_cid_fork     linux-7.1.13/kernel/sched/core.c:10970
+This commit adds napi_pp_get_page(), which takes a page_pool pp_ref_count
+reference on a netmem if it belongs to a page_pool, as the counterpart to
+napi_pp_put_page(). It also converts tcp_recvmsg_dmabuf() to use it,
+wrapped in WARN_ON_ONCE(), in place of the open-coded atomic_long_inc().
 
-So yes, that's 7.1.13, which is EOL, but it has all the mmcid fixes and
-the same issue should reproduce on 7.3-rc7...
+> While napi_pp_put_page() releases a page_pool pp_ref_count reference on
+> a netmem, no symmetric helper existed to acquire one, forcing callers
+> like tcp_recvmsg_dmabuf() to open-code atomic_long_inc() on
+> niov->desc.pp_ref_count.
 
-Jiakai, can you please provide the reproducer for this issue and
-validate that it still persists on the lastest upstream kernel (7.3-rc7)?
+[Severity: Low]
+Is this description accurate? A helper for this increment already exists
+in include/net/page_pool/helpers.h:
 
-The stall makes no sense because mm_get_cid() is invoked from:
+static inline void page_pool_ref_netmem(netmem_ref netmem)
+{
+	atomic_long_inc(netmem_get_pp_ref_count_ref(netmem));
+}
 
-  10967                 /* First user ? */
-  10968                 if (!mm->mm_cid.users) {
-  10969                         sched_mm_cid_add_user(t, mm);
-  10970                         t->mm_cid.cid = mm_get_cid(mm);
+io_uring/zcrx.c already calls it in a similar zero-copy rx handoff:
 
-which means this is the first CID user on the MM. So how can the bitmap
-be exhausted?
+	page_pool_ref_netmem(net_iov_to_netmem(niov));
 
-I have a suspicion but it does not add up (yet).
+Documentation/networking/netmem.rst also names page_pool_ref_netmem() as
+the API for holding a page_pool reference. The new napi_pp_get_page()
+calls it internally too.
 
-This is a two CPU VM. Assume that the process which invokes execve() has
-more than two threads. That means the MMCID of the process is in per CPU
-mode. sched_mm_cid_exit() ignores a mode change when the last user goes
-away and with two CPUs the threshold to switch back is when the user
-count goes below _ONE_. So there is probably stale state there, but the
-last outgoing task should have reclaimed the per CPU CID and dropped it,
-but the other CPU still has it assigned to it. So that first allocation
-should succeed...
+Compared with page_pool_ref_netmem(), napi_pp_get_page() adds the
+netmem_compound_head() lookup and a netmem_is_pp() check whose bool
+result tells the caller whether the netmem is page_pool backed. Later
+patches in the series seem to depend on that result, for example in
+skb_netmem_ref(), which falls back to get_netmem() when it is false.
 
-I'll try to write a trivial test program tomorrow which creates enough
-threads and does an execve().
+Could the commit message explain the page_pool membership check and
+return value, rather than saying no helper existed? As written, it is
+not clear why tcp_recvmsg_dmabuf() doesn't just call
+page_pool_ref_netmem().
 
-Thanks,
-
-        tglx
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261014173945.373295-1-almasrymina%40google.com
