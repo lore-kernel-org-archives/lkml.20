@@ -1,224 +1,197 @@
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013056.outbound.protection.outlook.com [40.93.196.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 160134825C8
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:36:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64F22499F18;
+	Thu, 15 Oct 2026 09:38:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.56
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792057019; cv=pass; b=qUhnmnfBvhgNr93FthCozXExUBlvfkWVxLKEgGyPBpC93Xpjlr8P+e93lccYw63AJwg/2Dalf36fgGaI4Q5ULo85dNkozu1xvwPNjJ7R4QkIjz6d2fQVyB1pv9RoioExZu2xlx3kAiS4oRw467pe+tLnIcieJeTcfiNpLmpcD1w=
+	t=1792057084; cv=fail; b=iPYJ8nsavjfk6pN2GIrro1zuOa8XOvkz4BgTt4dkdvceaKFToFrfwrQGQqYu39FCHxB9I90xUN+jAZJaGT9+tC1CujKetJ/G+ekZ1fILCkGJgUBVnqq8MeHRvo6zQvsujIQZ7lXwXVc5PELxWWu+tZActEFjNoJHmgUBpzGK46Q=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792057019; c=relaxed/simple;
-	bh=q/GsrhTy+J4847NXG0IxiXiSf5PZm4EiJGEMdbBbxB8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=b27q2SxLW2uvg+qPgik1mXuvVWQONL5yXs3faxiwZ9Rq1LfUE/cwnsgbtMNJtIgMvmi88cOtRQApptr3qkvG+XFxVxX9RsVBRvhlW4+Mmp0VXC8c1kHoOQXzaB5rTIGylMXC8DK8CO973yD9xufl2rtD+pxEnB1E5vQVoPpod94=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sFcT+2uJ; arc=pass smtp.client-ip=209.85.218.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792057084; c=relaxed/simple;
+	bh=yWUTkrB+n3Wve+BB5F1izAZ7FdQ6YX03sf4mxz3Qkc8=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=lLfB/FC/0yVZQfHZlQ8gVq47LxyKLJvagaSbKXicrRYaxildn2RIjQ0XEFxix9x3xvwo4C2Xv5gvq1hlqw7/WKd6nVQCal0LVAKLfn4felVos/pPjBesKYV30Af5mkffN5SGbF6ppqjvev+JaZsFooqqmNwmhS0bU2E05kL5UdM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=DzfNLlct; arc=fail smtp.client-ip=40.93.196.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sFcT+2uJ"
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c2e6df2742cso774865266b.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:36:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792057016; cv=none;
-        d=google.com; s=arc-20260327;
-        b=AFGEy2CNqS85I+gjAIgrgJCYOlk3yJWak5CuifRimVn1PPColCm5JAAnXXOsVQBvSr
-         F8k6O2rkpQZ99fwUld++0wjkvVD+yyiT1JRP5nbTtbNMUuA3XBP9MWCBZGqUhaPG/QV/
-         zIPKtqocbv3cSpXTT/k9VW3yHVdpq8wtE59irYsNEv02/wtrQgxiGxdWoVBfpv7asCL0
-         8CJY9UwRe8FcS90ywC6iZBiYIASVmA8wdyIEaHaK+wj9uiQLqZ1BLzPvyHzhcZMdNzvR
-         AvDFBPe+pX9Y4e9FKhnwdYj1wlaceETebOUowbAAtFKA4DBPH0gYeE3K08vSCiZapR3T
-         teGA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=TJ4kyHzEXQ+BBuvOCPSYxjDewsZ6QwABlhrdCRZZkoY=;
-        fh=THiSzws97mKMXSxMrumh3QKVOk5UQ2MdgkDn6MLymwQ=;
-        b=AGtUfeMHjpq53Zatawv3gl45vJua+9+hA9AMoccKPuIxkABHZh6F2WO1ZvoD/AqeIp
-         05+wNRTPHHUqtvtlX5TwNLwGH6iV43wghwCR8k0hThMbFOB7p29qA05SWbdThKbQBWME
-         kxPvUiuX0IUZBorpuzh5TlyddAsdratM18cKkuxYArNAIShFqiwHOA7zukZahYptU1M7
-         3TlW974WBFVOxy0h0/xPAsSSyI+RBnu841vbG7Y51y80IbDuAYXVlT4BujaHiJprwis6
-         lbFxUjqDYd3S1FbxENKPICSsBfVPyYh2P0pXNS3YlqUSouEIZf7DQEYlwK3uLR3XLoqK
-         TLBA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792057016; x=1792661816; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TJ4kyHzEXQ+BBuvOCPSYxjDewsZ6QwABlhrdCRZZkoY=;
-        b=sFcT+2uJbmBg3v7wR6estVWRwiwzSiDnzUS1UbMLFfrRPhSwtIBtsguEsXyv7WusrJ
-         07fermYQiBPanGmlYX3TbaUVIG873GxYRU49+cK0Ox5xXI6fL8W+W9mLx5nOvDbErlLZ
-         I2kfqmycrGLp5uI5KzR8lT2U2i/hYLybp4xet7482qVGVyZsTNbPrZjgpxrrovqHhOST
-         O/LHU4ZRCqZdvOimraoXUwKYMc16IlyJhRvQ1YhSSf+lGs6uHZ9NOqeLKstqc1KkKayB
-         9s26e5DZXffLEOxPzjUNw/fBC8Nwe6jzZypp/oJJvl9ig5R8zIu41Syn5JHxpkH126OA
-         vgAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792057016; x=1792661816;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TJ4kyHzEXQ+BBuvOCPSYxjDewsZ6QwABlhrdCRZZkoY=;
-        b=gG4ZOSCxUFlGkKb8mwtRh/BJqfnsB/s5AHV02VZnzr0l7+pXhSwCvpZF0yEBYwjdL8
-         6MDGD4Vls27uoDmWDCDV6DxV+6Uaq3YK3DYX9GPd+B6f2AOs4GoMp3qH4Uo9703FhwId
-         cDQzORXn614bN1ZoEnVPVqlh+5q88BaXc+jLfOmaeByporOGVhNSfjUm14Ljc6ngQ2eO
-         jgYwCZ3/M9AqcAEYV06ShEAU/9jpt3bDZ9AQ3uhVYJwy4G/OqRKvL7CC/AvRSCuWG83N
-         W+rT/fOlrv2QpqmHrXVcvMAviJyblIY6+QJfa56OWPqqwzxnuf8jHaLpQMEb/85Lg2Ju
-         7zXA==
-X-Forwarded-Encrypted: i=1; AKwUvByi6eUwQAevYiCJBHaOzsDgBSoyzlKhWFWZNzUnNQx0fa6ILB1hiK1sCHmqjZpRTy1mff/eei0MzpwCNQ4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIiZrh+kBdOYVS6dU0M0tsMTBvzDk2e0AlYlcoXTOOwLfHZGHD1
-	dne8lnOav9e+jfZEQjCTxxp/jZNN5h7IrweesBVVnc4d26WteUWgJ7sLdOBItkiV9R3G7AmSaZe
-	dqzpU/hDAcSKcDMBU2vzyiwqZJ0jWNxY=
-X-Gm-Gg: AYBFou1ONeVh8q9/jHnwBdDPROA70IWVeezsWjhytv6XW82aOIh7YTHlCFurJcIRRd7
-	xBMn2esknN+PHADT1jzv/2EqVuujJAX/LhesStHXXu5VktqsVWMcPfhA/2aL02e5V+dRQZrAuuj
-	AQLbg/4q1d7AhXHEN1iPzB0XV6ABux/ROuMqFrXLoJJqYxfIa2EdfY8uEACA3yeCC0eiECrzCya
-	YoLblbjHA1Uqmrr2/S6WumFf7zipoUeK2+OJ4OfcxHsv4wGpestf5H7ZITu0AW9VusiuY+FHaTp
-	0j1NdNpAWTp+rJSdCL+3M1m3a4aGaWfN5owMeatPyfrNK81xBFxDmsy4SHxf96KXvveaRVKcxkX
-	IKf018GLjd8JK
-X-Received: by 2002:a17:906:e10f:20b0:c32:8cbb:fb3 with SMTP id
- a640c23a62f3a-c328cbb1b7cmr915703266b.14.1792057016115; Thu, 15 Oct 2026
- 02:36:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="DzfNLlct"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kVBbLGGkeN5PD9rTJfoiYsWEKFlRwhLp3y6LxMY9DKipm62Sm+GrpWhWr0dnWlXREXJuNNd5qudBtiI3CpGODT7oIuNgu4H4M2I6T9OCDYkiGn9gtAIjMTS1MHlqWenSgvZTjaR3Vnbsc5VDNNBk1j6FNEk/NzkJ/vi9PUpHmMhEIFByxDBdGPofE8PMqiOTp2+DejJgUomqvSOtxwa6Mrc88FiDSTvLOXGOuzkRVMbzRnA2LasiOq5hDJfIMy6GkY5+Vxk+2nBv7aAJQI7fhPolnyieWVBpx5ZArLroEB3ibRbmXPCEjfxWqTcC2v2d5+Z3OWVFQ/Opg0SG4jGlHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ADQm2zvZsxwGeRfw78pCpBq2uj0GR5HvcAPC3tb3KJ0=;
+ b=Sj8DBXi/8WVRIAzunQD0SLoDjMqPKoKCZYMMjo+J/KGzkgQ19so+H+pFNcSN10HxVY/USyVlN/LxZTOPXurqecUvuH2QuEPumtXBNz5CbH2xwOowBTeHktnOGjOKDtShthDDpEgAIMA0ZQkwzoFIPRBGP5DpBQ+YKETkvvA/xpJTtsyRFEPi2qAJxhdMXGUnj3gZF13FGcHDHgUqQlMC6gvrrvdtteRMNnkSQeojKcc0E7bbEm2e0Qbzp8qjWAoQj8hfuiYbMy0deGOx2ayNb4nb2KWwc0h1t69EzPSjbcoxgd0nXEo8l4qz2zLliQgld/eeUafTU+2YaehRLGLETQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ADQm2zvZsxwGeRfw78pCpBq2uj0GR5HvcAPC3tb3KJ0=;
+ b=DzfNLlctmolYL8AdVwCVDZVIOdgP5zLw9L42AoBdwD8HuycR73MZPiTGs657+lVMPrN1xwjW4U7bZAue/JhPwwzW5b7KuY3Zc7oNfTY4hoHRip1ab1Cu0otzkGPmvvojLvZ/ypxQWezEWSBjedpJQPC7fXp5bpdznVECaKdrmT2FT/v64XwryLFC3sBvltHEPdkvi8hBJ5U3Su/cMksM4LZqg0TwXhd5MlF0SxuJ+YzTBeVxznLvLfDkTRKdQ0h1ocsQQNt7uf/Jqkkno8AJgAto98qJl6Xf1ltmLe6lhlO6W4CQB9WCDVUnv/npKId1yXZ8eKH9X1zeljRo3oAX4Q==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM4PR12MB9734.namprd12.prod.outlook.com (2603:10b6:8:225::23)
+ by SN7PR12MB7936.namprd12.prod.outlook.com (2603:10b6:806:347::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Thu, 15 Oct
+ 2026 09:37:54 +0000
+Received: from DM4PR12MB9734.namprd12.prod.outlook.com
+ ([fe80::ba44:51c5:b641:2917]) by DM4PR12MB9734.namprd12.prod.outlook.com
+ ([fe80::ba44:51c5:b641:2917%4]) with mapi id 15.21.0496.021; Thu, 15 Oct 2026
+ 09:37:54 +0000
+Message-ID: <842aba00-2293-4fd8-bc17-dc109b16da56@nvidia.com>
+Date: Thu, 15 Oct 2026 12:37:48 +0300
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH net] net/mlx5e: Fix NULL deref in PTP TX timestamp
+ recovery warn
+To: netdev-bot+sinfo@kernel.org, Tariq Toukan <tariqt@nvidia.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org,
+ Paolo Abeni <pabeni@redhat.com>, Alex Lazar <alazar@nvidia.com>,
+ Cosmin Ratiu <cratiu@nvidia.com>, Dragos Tatulea <dtatulea@nvidia.com>,
+ Gal Pressman <gal@nvidia.com>, Kees Cook <kees@kernel.org>,
+ Leon Romanovsky <leon@kernel.org>, open list <linux-kernel@vger.kernel.org>,
+ linux-rdma@vger.kernel.org, Mark Bloch <mbloch@nvidia.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Saeed Mahameed <saeedm@nvidia.com>, Shahar Shitrit <shshitrit@nvidia.com>
+References: <20261015080218.1102172-1-tariqt@nvidia.com>
+ <179205178078.408196.12399315538524843906@kernel.org>
+Content-Language: en-US
+From: Carolina Jubran <cjubran@nvidia.com>
+In-Reply-To: <179205178078.408196.12399315538524843906@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: TL2P290CA0027.ISRP290.PROD.OUTLOOK.COM
+ (2603:1096:950:3::11) To DM4PR12MB9734.namprd12.prod.outlook.com
+ (2603:10b6:8:225::23)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261015085545.3246951-1-ramin.moussavi@yacoub.de>
-In-Reply-To: <20261015085545.3246951-1-ramin.moussavi@yacoub.de>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Thu, 15 Oct 2026 11:36:43 +0200
-X-Gm-Features: AclHuK-Al5Sxvm9OnAOTHYLG6D0tERfJTns9gmJtiGM8GcDRIy0QEi19IjJ4MmY
-Message-ID: <CA+=Fv5SqcMT4TLUVSnR1j9WxCf_iMn7Pr3vm9ZRKtkzqZoO6eg@mail.gmail.com>
-Subject: Re: [PATCH 0/4] sparc32: SMP fixes, futexes on SMP, and a cmpxchg
- system call
-To: Ramin Moussavi <ramin.moussavi@yacoub.de>
-Cc: Andreas Larsson <andreas@gaisler.com>, "David S. Miller" <davem@davemloft.net>, 
-	Thomas Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Guenter Roeck <linux@roeck-us.net>, sparclinux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Ramin,
-
-On Thu, Oct 15, 2026 at 11:07=E2=80=AFAM Ramin Moussavi
-<ramin.moussavi@yacoub.de> wrote:
->
-> This series makes NPTL usable on sparc32 SMP kernels. It started with
-> the uClibc-ng test suite on qemu's SS-20 with -smp 4: the kernel went to
-> error state under console load, sometimes hung at boot, and had no
-> futexes at all.
->
-> Patches 1 and 2 are fixes and do not depend on the rest:
->
->   1. The per-cpu timer interrupts on sun4m/sun4d and the LEON IPI leave
->      their handler with traps enabled at the PIL of the interrupted
->      code while the trap frame is still on the stack, so interrupts can
->      nest without bound until the CPU goes to error state. The generic
->      path was fixed in 2.1.129; these three exits never got the change.
->
->   2. A secondary CPU gets 10000 rounds of udelay(200) to call in. Under
->      qemu the delay loop calibration depends on host load, the wait can
->      shrink to a few milliseconds, and a CPU that calls in late blocks
->      RCU and hangs the boot. Wait by jiffies instead.
->
-> Both are marked for stable but have no Fixes: tag. The sun4m and sun4d
-> code they change is already in 2.6.12-rc2, the start of the git history;
-> the LEON variants were copied from it in 2011.
->
-> Patches 3 and 4 add what user space needs on SMP:
->
->   3. Futex atomics for sparc32, so FUTEX no longer depends on !SMP.
->      casa is probed at boot (LEON); without it the word is updated
->      under the hashed spinlock the kernel already uses for its atomics.
->
->   4. sparc_atomic_cmpxchg_32, a compare-and-exchange system call for
->      user space built for v8, which has no CAS of its own. The ldstub
->      emulation C libraries use instead is not async-signal-safe and is
->      invisible to the futex code. It takes the same path as the futex
->      atomics, like atomic_cmpxchg_32 does on m68k. The uClibc-ng side
->      that uses it is ready and waits for this.
->
-> Tested on next-20261014 under qemu 11.1.0: the uClibc-ng suite on SS-20
-> with -smp 4 and UP and on leon3_generic with -smp 4, plus a test
-> program for the system call; the details are in each patch. sun4d was
-> only built, qemu has no sun4d machine.
->
-> Testing under qemu
-> ------------------
->
-> Three qemu problems get in the way of reproducing this, none of them
-> caused by the series:
->
-> - leon3_generic does not boot an image passed with -kernel since qemu
->   9.0: the synthetic bootloader no longer sets %sp (92688a91c358 took
->   it out of the reset handler). Gaisler's own prebuilt images fail the
->   same way.
->
-> - leon3_generic does not bring up a second CPU under Linux. The IRQMP
->   model never sets the broadcast-available bit, and Linux stops with a
->   BUG in leon_smp.c; with that bit set, the secondary CPU dies on the
->   swapa with ASI 0x01 (forced cache miss) in leon_cpu_pre_online(),
->   which qemu does not decode.
->
-> - On sun4m, qemu's ESCC drives only the interrupt line of the channel
->   it was called for; the board ORs both lines, and a stale line keeps
->   level 12 asserted. Boots then hang at random with an RCU stall about
->   20 seconds in (4 of 40 boots with -smp 4 here). That looks like a
->   problem with this series but is not.
->
-> The LEON SMP results were taken with these fixed in qemu; the fixes are
-> going to be reported to qemu.
->
-> These patches were developed with the help of Claude (Anthropic), as
-> the Assisted-by tags say. I have reviewed them and tested them as
-> described.
->
-
-Thanks for the series.
-
-For the futex/CAS patches, have you seen Imre Kaloz=E2=80=99s earlier serie=
-s,
-=E2=80=9C[PATCH 0/3] sparc32: SMP futexes, casa and idiv emulation=E2=80=9D=
-?
-https://lore.kernel.org/sparclinux/20260927005821.8369-1-kaloz@kernel.org/
-
-There seems to be substantial overlap. His approach emulates CASA directly,
-allowing binaries already using that instruction to work without a new
-syscall ABI.
-That seems to require fewer userspace changes for those binaries.
-Could these efforts be coordinated?
-
-Regards,
-Magnus
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB9734:EE_|SN7PR12MB7936:EE_
+X-MS-Office365-Filtering-Correlation-Id: a73115e3-4094-4af0-6ff1-08df2a9ffd00
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|7416014|366016|376014|261009223027099003|10067099003|11063799006|4143699003|6133799003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	BnhCW2Qu99LxGLbAvDWKzukLK4EY+RJiUd0zILPrYdMkAiUhR9+ovGgEghr3z/eRKt9fie00f9FuEx3u3Yur+CSsNB0yINHwtdtSCz7iRjPhKWetkL3ygmTOPHdXvljNY2h+cY+1Tz1a8LcLrspow7OuWZ05v7zUVsVFnexUURclt2PdqYO1KpoPCtr+yDv2+NxP2NRjmKROWQ0kPRxToVy5Nvy8x9egQE7Sz4Oax7UneWvjMsjdHa3pholi5w4YCH4X0Zwf7wmM4WBmwT1J2fAi4SH9p91De8HsItq3Jw8Gc4CP5pCdhNgPgKmxZzVKje3lTycCbbGDj0YUg7lM4p9jCR9OkXiLaBm4xZr1pTvmmYgsTBx0jUVpgsnQEdT/oCiYJ+39Vkg5Kmc9ai2PXBkQFQuyrJ+Z+8yQTv91FBrQCWgGyo81fCsP8lbTxWG1tnXiyOYOQ5e94/krUVlxuefYDH1Z4NXI47lQsSFa/8nYr/YxvQCstuYkEm1l6fRQseXSjkhXhVPW8/o2rKIwk91jsVT+NQXoq8zj9PUXDXwTDtydRNsSzxo9l5D0CamOEte+OKQGfQgKrgve2WaC72Dfuc+pRECOIxQwmt9GYV6fUxe02ng5mRP/ARbyu/hMTl5fXVCYSLJNVzmfYtF5XEyiqlsDFwfYWpxqB3b0vkw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB9734.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(7416014)(366016)(376014)(261009223027099003)(10067099003)(11063799006)(4143699003)(6133799003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VVpXSFFVUWJIVzZXdTVnTitDdkNVdEtiZEVWYXpzL2lsanMrL0xBejdlei83?=
+ =?utf-8?B?blZqSjhHYlQzWHNRT0twZkhpUUk0SVN6Qmh2MmNzWjNyT1ZORGQxZ01uWENV?=
+ =?utf-8?B?aERKYXlQeU9QbG51ZkNzczNFbW1xZk0wcWVXT295ZzVLc3VRZDdkeHcva0F5?=
+ =?utf-8?B?VDVDVyt6MUJsaTFtVkxWQUJtbTU5dlNYZlJpV1c5V2JHb1Bva3VTUEM5WHF0?=
+ =?utf-8?B?OW5ZcWlQbW90aGJHenZHUzBlSHI3YzFVbDUvbnNucGNRbThydjZUQjJVSEEy?=
+ =?utf-8?B?bFlwUEtGK0x4c1JSdllENFhxVzg3Wi94MUlxSmc1M2RqUThsNWZDZHRCYU5i?=
+ =?utf-8?B?UVorNDZxdUwwSHZMc2xwTmY4blRGVEYzU3FHK1c2KzdQZjJ5MzVzbk1odnlB?=
+ =?utf-8?B?NFFZYzI5NmpkZGRiNHlKVXNDTCs4Q2FqakdiMlhqZ3haRTltRkpHNEtTM0hR?=
+ =?utf-8?B?d3lDaHFOMmttZWVGc2crZGpuN1VETklHeWs5aXhyS3NGZHVaWUxqbUVMVS9V?=
+ =?utf-8?B?NHFQZDd4a1k3NnNiMnNZVVhpSkk2UUZnOWIzTVNwN2k4MThPM0V4UDYyUXdH?=
+ =?utf-8?B?OGhVRjc1TXlVMTBSbzI0L0wvSWhXN3BtdXFXZTNlT2N6cG1Ed05JNXJCSXl4?=
+ =?utf-8?B?UFBWa3U5RjlOM0M2SnZ5R1NjRGJhRXBTUlpGRFk5NHBwTk1tek1nRWdFYjV4?=
+ =?utf-8?B?dEVYQXFoKzlDQ0RxS2VvSTFSK3ZXSnNPSjliS1FVck5SZjUzMDVvRUN3SXZJ?=
+ =?utf-8?B?SElzcDdkNDk0R2xNZ2xUL0FHb3UrMFRDK1gydkdtZ2M0cVZKWkp6Tzc5S1VH?=
+ =?utf-8?B?MkxxYTllbk1qMW1lK2RZSDlUdnBqTDcwU3FpYWthc2tBNWVxVVhwcmMxWXBp?=
+ =?utf-8?B?dWxTc2oySXVhRVU4OWZiQS9zTUdpeWJiZHF4VFlnMlFnd3gxT2lBR29GT1N3?=
+ =?utf-8?B?RndTSVBJcjJ2bDZBOU1PcmhPMVpOV3V2U0FPSytUQWhtL1FjTk5jbFJMQzBw?=
+ =?utf-8?B?S2xnZThhNkM5MFE3QU5hN2N3dDB2V055dVF4ZmVjNElJallBaExmS2ZZZUpn?=
+ =?utf-8?B?R3NrUzBnN3N2UWNkNkpMTmcvVDVZRXBNeWVsd0lWNDYvSmtESDFnV01GZFVZ?=
+ =?utf-8?B?WnJxYWU3TTdEdlNZbGs2Q056bGxBUTNYYTJ1SVRnTHhKS1FYWkpNSmp2bXdZ?=
+ =?utf-8?B?QTBIZEJOWHFXaHFpUzlzY0c5R3hCZDJyOEdQQ1lRTG1jWldQbE5qUVRQdFoz?=
+ =?utf-8?B?YXN5Sm9vZ3ZYV0t2dnM1WDQ0dnhmZ0NmRXRRWWJFN3hFSVhwRVRNSEl6eW1u?=
+ =?utf-8?B?eWEzUTkvQ2JjODY3SldMYVJuTVF2eHArSjNVSTljUzlHdDBTeHFKNmdEVnpx?=
+ =?utf-8?B?VG1JemlYR2twUDdTYmEzeXhkN0lnTEo1QTlGeHpxeU1vQ1RlWHdXMERtdUVx?=
+ =?utf-8?B?bTNPS3ZpSlR5QnBIVUhWWTJRTGZqRlE5K05OQUptYkRTUTV5OW8xY0VGWTEw?=
+ =?utf-8?B?TFc1Rmc5djRYVnRaMmF2aHpjMWdyZ3cyMUxLVGtqUTFpZ25aSExlZHFBLzNt?=
+ =?utf-8?B?blJUaXZiNWRmUWFlZDMwZFFyakE3NTVLRElYdXlkNGQ4d1R1MDB5Um1TWElZ?=
+ =?utf-8?B?SStlUTZYZWMrTXVNYXd3R3RhYmxXN3ZDc0hqUE01eU5PcElRdGxaM0FDWGFl?=
+ =?utf-8?B?OWJPcHlOdEJrTHovUWZGNURMQ2R0a0hCTHkyRzM0c0FpQWdPZE1BREhheWVT?=
+ =?utf-8?B?YTJOamptMmJLZGFmMndvUDVaMS94Ukd3VkZsQmJiK1ZtUnkwQ0N5dGk4bmhj?=
+ =?utf-8?B?WEFmeDE1Szh3OExZQy9GUE1sWjZzbmNZNFhTWkhHZGpZV0JvTUR3d1hJWWZm?=
+ =?utf-8?B?ZnNhNjBnUXZCTkRuUVJucEttSGpjTVN3alBFblBHMDhlNDAyTzhsdDlLVWZH?=
+ =?utf-8?B?N0FCMnF3aWNXQ0E0RXU3US9QdmJ0VmxlTlk0MlZxNWlseVhoOWxDL0tHOUkx?=
+ =?utf-8?B?U2lLOWNLSFBiUU1ieDdML0RzRUxnYUxJMVB6Qk1VK2NrYWdkWGN6dEhiYVRQ?=
+ =?utf-8?B?aXcwUHpVRSt0UHZydlR4UUFPWFBOSmRjTWFXUGhvNk5helBQUmRiM3ZMenhL?=
+ =?utf-8?B?dzdnVWt5Z201NjhDUkFYUVAwSkFSZmxUM0UzZkY1RWdrcUZxemJldkpmb1R6?=
+ =?utf-8?B?cFUxWHZOY2c4dnFGMU5nRVY2R1pqNjcxbERDcDBIVFRRcWFxajFYaW9WeTJz?=
+ =?utf-8?B?NHAzZkoxWnV4ams5aU5nQnkyYUUvYWtDcjArOXRWcVJ0cHpxTE5Zamg0dnNm?=
+ =?utf-8?B?aDRqVCtWUVhXZFF3KzRpcEtDbWhHRnZhWFJpNUFsN1BzY1R6RGdhUT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a73115e3-4094-4af0-6ff1-08df2a9ffd00
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB9734.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 09:37:54.3678
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 57a8N/i8mypXq0Nj6ZGCbF0ZmXc+CKTA1hvmhXmKvL9y+fyyDN1+20ZrRkFbFceqQYd/OoYdlpG4YRPLgoZ8Yg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7936
 
 
-> Ramin Moussavi (4):
->   sparc32: keep PIL raised until the IRQ frame is gone
->   sparc32: wait for secondary CPUs by time, not by loop count
->   sparc32: implement futex atomics, with casa detected at run time
->   sparc32: add the sparc_atomic_cmpxchg_32 system call
+On 15/10/2026 11:09, netdev-bot+sinfo@kernel.org wrote:
+> Hi!
 >
->  arch/sparc/include/asm/cmpxchg_32.h    |  4 ++
->  arch/sparc/include/asm/futex_32.h      | 72 +++++++++++++++++++++++++-
->  arch/sparc/kernel/entry.S              |  9 ++--
->  arch/sparc/kernel/leon_smp.c           |  8 ++-
->  arch/sparc/kernel/sun4d_smp.c          |  8 ++-
->  arch/sparc/kernel/sun4m_smp.c          |  8 ++-
->  arch/sparc/kernel/sys_sparc_32.c       | 35 +++++++++++++
->  arch/sparc/kernel/syscalls/syscall.tbl |  1 +
->  arch/sparc/kernel/systbls.h            |  1 +
->  arch/sparc/kernel/traps_32.c           | 13 ++++-
->  arch/sparc/lib/Makefile                |  3 +-
->  arch/sparc/lib/atomic32.c              | 53 +++++++++++++++++++
->  arch/sparc/lib/casa_32.S               | 30 +++++++++++
->  init/Kconfig                           |  1 -
->  14 files changed, 224 insertions(+), 22 deletions(-)
->  create mode 100644 arch/sparc/lib/casa_32.S
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
 >
+>   - How the issue was discovered, e.g. hit in production, hit during
+>     development, syzbot report, manual code inspection, LLM or static
+>     analysis tool scan.
 >
-> base-commit: d419d682257d813f6cb7a28e42b35d0edf4ad038
-> --
-> 2.53.0
+>   - Whether the issue was actually triggered, or is only theoretical
+>     (e.g. found by code inspection). If it was triggered please include
+>     the symptoms, like the stack trace or error messages.
 >
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account. If the series needs another revision for
+> other reasons, please include the information in the commit messages
+> then.
 >
+> The evaluation is done by an LLM so it may be wrong, if you think
+> that is the case please reply and explain.
+
+
+Hi,
+
+The issue was observed during our internal regression testing.
+
+The kernel reported:
+
+BUG: unable to handle page fault for address: 0000000000002ea8
+#PF: supervisor read access in kernel mode
+#PF: error_code(0x0000) - not-present page
+PGD 1a9bfc067 P4D 1a9bfc067 PUD 1a9bfd067 PMD 0
+Oops: 0000 [#1] PREEMPT SMP NOPTI
+CPU: 0 PID: 0 Comm: swapper/0 Tainted: G           OE
+RIP: 0010:mlx5e_skb_cb_hwtstamp_handler+0x10c/0x140 [mlx5_core]
+RAX: 0000000000000000
+CR2: 0000000000002ea8
+Call Trace:
+   mlx5e_ptp_poll_ts_cq+0x228/0x5b0 [mlx5_core]
+   mlx5e_ptp_napi_poll+0xad/0x380 [mlx5_core]
+   ? mlx5e_napi_poll+0x750/0x7e0 [mlx5_core]
+   __napi_poll+0x30/0x200
+   net_rx_action+0x181/0x2e0
+   handle_softirqs+0xdb/0x340
+   __irq_exit_rcu+0xd9/0x100
+   irq_exit_rcu+0xe/0x20
+   common_interrupt+0xa4/0xb0
+
+So far, the issue has only been observed during our regression testing,
+and I am still working on reproducing it reliably.
+
+Thanks,
+Carolina
+
