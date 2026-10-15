@@ -1,154 +1,102 @@
-Received: from mta0.migadu.com (out-110.mta0.migadu.com [91.218.175.110])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CE5052B1E1
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:10:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.110
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5481F52D2BC;
+	Thu, 15 Oct 2026 14:10:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792073403; cv=none; b=fxka9DlE/ta8tqMuIpWHpjtCidkQqA6e7Wjkk2zptEHWmuMpRGUPY7QMUO4c1MBUs/B0g+BGgzBAB/etxEtJnqr/terCewK62R3Q0kLs6QU4NC1PTgyk/s98yhFXTQm/HT9kvnwFg2gbaYK7sHlpxUde8ldTnoftarTcuPE4zRM=
+	t=1792073435; cv=none; b=Cq1fktmuiRu9if/rquPE1aCgMMwfEW/FgB8Mu09Xq5Kw9naOsG2K9bv/KfBl0m+N+vflBiUQElD+x3wBwTR11XtxC7irRxRhVC9z71EXFLeIedEb5GTdUIymvBAbD1XVKY8JO3T/oVGfoysH9uPprllnSBY0cveBhVz16w+GO3k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792073403; c=relaxed/simple;
-	bh=IoHF48dbE7mSf4cxc6kAiqoGLhZGegSeGkb8H4uroPU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ENddGG5h9icB7gIKqYpA9im6B4MqmPANED8aULwlQXGrOE/uhXmxWIVGEodbCR/3GgLJ2Kvq6pZ1sg9JxX/H306W2tei5JFqQyPw+J0hKDpFI3Wz4fEkloIFBtVSt7tPKzRPYCmfUazgrgFeqT3w2Iym5+S6hQGjeEX7NVjxq/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=rz+Utc8b; arc=none smtp.client-ip=91.218.175.110
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792073435; c=relaxed/simple;
+	bh=/rRNvbyBKx/ONVB+rr8Kp8zapP5zgWCD5/ujc1KNYr8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cHYIS4D4cLmiM/A6BIfHO5dIF6ha/i8ZizpC2OEmMSxob/FR87jXdeEAJGLoRzCFX3qEYP4l/ZxsaYi9NLuxLVSI4VyAVnYv4G23neo5+UV2EMG6g0L0oDvtAQJ2H0MCJd9IVyzT+V56Jqyr967ELx4yDJ7l85QD5d0+wnVgkrM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TMCS2YTk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="rz+Utc8b"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=IoHF48dbE7mSf4cxc6kAiqoGLhZGegSeGkb8H4uroPU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792073399; v=1; x=1792678199;
- b=rz+Utc8bAGijsFCr/QEl8LzFZmlaXbdU+3KQ3TSCpCvY0NCBAVrqDDFHlDy9pKg1g4YOoEAy
- Q2F0H1awh18TQ2zYMDsIv97QFBbg+/gXwf1gB4N5daxMpDk/kLiOdTYOTiJlAyJHTJGL1nVvL5q
- M4Hjn4R55sL1v33sffhObyDs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a2a20668fccf1d9d;
-	Thu, 15 Oct 2026 14:09:59 +0000
-X-Mizu-Trace-ID: a2a20668fccf1d9d
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 15 Oct 2026 16:09:50 +0200
-From: "Pankaj Raghav (Samsung)" <pankaj.raghav@linux.dev>
-To: Ojaswin Mujoo <ojaswin@linux.ibm.com>
-Cc: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org, 
-	"Darrick J . Wong" <djwong@kernel.org>, Carlos Maiolino <cem@kernel.org>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Matthew Wilcox <willy@infradead.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Ritesh Harjani <ritesh.list@gmail.com>, 
-	Zhang Yi <yi.zhang@huawei.com>, Christoph Hellwig <hch@lst.de>, 
-	Dave Chinner <dchinner@redhat.com>, Daniel Gomez <da.gomez@kernel.org>, Theodore Tso <tytso@mit.edu>, 
-	linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	Andres Freund <andres@anarazel.de>, Dave Chinner <dgc@kernel.org>
-Subject: Re: [RFC PATCH v4 05/12] iomap: Add initial support for buffered
- RWF_WRITETHROUGH
-Message-ID: <as-BQAbk7U43vkqs@quentin>
-References: <cover.1790596383.git.ojaswin@linux.ibm.com>
- <c76f9babf1b00f4574e37db156621edc6c078969.1790596383.git.ojaswin@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TMCS2YTk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB30F1F000C4;
+	Thu, 15 Oct 2026 14:10:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792073434;
+	bh=SnejWl8mRfWCD5JUDxQovY6ZIaJqGSRZlxKQNmpxKmE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=TMCS2YTkoe7BKnA15EF+5Ouqg+UGP8EXI/UmIwlG7kZH47vSKuIbWwLOYBdN/yWr/
+	 2Ci0WE4eT61jRLjAnNOi+Jsi1vhsvOINexjtV9gL/FFTByv44w8VSAMyljmKIoJlJq
+	 2pdKUmDH87tN4fgsrNnrSV3CSvm8K9IBzFj5UUseztEEJmPy+Tdwbw8AMPAIwxj7Kr
+	 /GEIZrjfcSWWd1gCkHv1sIs2hdEWqzoAawfA69A6sbDmYbh3NeHrEzGbzVhzjHHBkX
+	 7jP7PPcHZ+UdI7bWavdZve6qwFHZn4gEFWo0cFd51vX/U23IrOpM3T+bik/p3Im6Zc
+	 kYTyo7plDoxJw==
+From: SJ Park <sj@kernel.org>
+To: Aveline Noir <jm5905938@gmail.com>
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [BUG] DAMON: 32-bit overflow selects wrong sampling interval
+Date: Thu, 15 Oct 2026 07:10:26 -0700
+Message-ID: <20261015141027.88149-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <CANOyQmFkTQMEpR10sxjoB+8XMsk=m9DAJVnyxguwV2LLYCg09A@mail.gmail.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <c76f9babf1b00f4574e37db156621edc6c078969.1790596383.git.ojaswin@linux.ibm.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Ojaswin,
+Hi Avelin,
 
-I was comparing normal buffered IO scenario and writethrough.
+On Thu, 15 Oct 2026 07:24:08 -0400 Aveline Noir <jm5905938@gmail.com> wrote:
 
-In a normal buffered IO scenario, for unwritten extents or CoW extents,
-we first convert them before ending the writeback on the folio.
-xfs_end_io calls xfs_end_ioend_write().
+> Hi,
+> 
+> In an unmodified i386 QEMU kernel built from mm-new commit
+> ad9f2d463666, an intervals goal selected a 2500 us sampling interval
+> after the first aggregation.  The same trace inputs give 2812 us with
+> full-width arithmetic.
+> 
+> The kernel has CONFIG_DAMON_VADDR, CONFIG_DAMON_SYSFS, and tracing
+> enabled.  The guest monitored a 1 MiB VADDR range as four contiguous
+> 256 KiB regions, with sample_us=5000, aggr_us=100000, access_bp=400,
+> aggrs=1, and min_sample_us=2500.  The default minimum of 5000 us would
+> hide the difference.
+> 
+> At the first aggregation boundary, the four damos_before_apply records
+> for kdamond.0 showed nr_accesses=1,1,1,3.  The next
+> damon_monitor_intervals_tune record showed sample_us=2500; sysfs then
+> reported sample_us=2500 and aggr_us=50000.  The records cover the same
+> four 262144-byte regions before the first tune.
+> 
+> For that aggregation, the inputs to damon_get_intervals_score() are:
+> 
+>   max_access_events = 4 * 262144 * 20 = 20971520
+>   access_events     = (1 + 1 + 1 + 3) * 262144 = 1572864
+> 
+> On 32-bit unsigned long, max_access_events * access_bp wraps before
+> division by 10000.  This gives a target of 409364, a score of 38422 bp,
+> and the observed interval of 2500 us.  With full-width arithmetic, the
+> target is 838860, the score is 18750 bp, and the interval is 2812 us.
+> The later mult_frac() remainder multiplication does not overflow in the
+> observed 32-bit path, so the difference here comes from the target
+> multiplication.
+> 
+> The affected expression is in mm/damon/core.c.  Widening only the
+> target product would make the later 32-bit mult_frac() remainder
+> multiplication overflow for these same inputs.  The 2812 us result
+> requires sufficient width throughout the score calculation.
+> 
+> The 2500 us interval was measured on the unmodified kernel.  I
+> calculated 2812 us from the trace; I have not tested a patched kernel.
+> The i386 config, guest init, serial/trace log, and build/run steps:
 
-static void
-xfs_end_ioend_write(
-        struct iomap_ioend      *ioend)
-{
-<snip>
-       /*
-         * Success: commit the COW or unwritten blocks if needed.
-         */
-        if (is_zoned)
-                error = xfs_zoned_end_io(ip, offset, size, ioend->io_sector,
-                                ioend->io_private, NULLFSBLOCK);
-        else if (ioend->io_flags & IOMAP_IOEND_SHARED)
-                error = xfs_reflink_end_cow(ip, offset, size);
-        else if (ioend->io_flags & IOMAP_IOEND_UNWRITTEN)
-                error = xfs_iomap_write_unwritten(ip, offset, size, false);
-
-        if (!error &&
-            !(ioend->io_flags & IOMAP_IOEND_DIRECT) &&
-            xfs_ioend_is_append(ioend))
-                error = xfs_setfilesize(ip, offset, size);
-done:
-        if (is_zoned)
-                xfs_ioend_put_open_zones(ioend);
-        iomap_finish_ioends(ioend, error); // #1
-        memalloc_nofs_restore(nofs_flag);
-}
-
-#1
-iomap_finish_ioends()
-  iomap_finish_ioend_buffered_write()
-    iomap_finish_folio_write()
-      folio_end_writeback()
+Could you share more details of your use case that this setup is needed and the
+overflow becomes a problem?
 
 
-On Mon, Sep 28, 2026 at 05:33:06PM +0530, Ojaswin Mujoo wrote:
-> @@ -1185,6 +1186,384 @@ static bool iomap_write_end(struct iomap_iter *iter, size_t len, size_t copied,
->  	return __iomap_write_end(iter->inode, pos, len, copied, folio);
->  }
->  
-> +static ssize_t iomap_writethrough_complete(struct iomap_writethrough_ctx *wt_ctx)
-> +{
-> +	struct kiocb *iocb	= wt_ctx->iocb;
-> +	struct inode *inode	= wt_ctx->inode;
-> +	ssize_t ret		= wt_ctx->error;
-> +
-> +	if (wt_ctx->end_io) {
-> +		int err = wt_ctx->end_io(wt_ctx, wt_ctx->written,
-> +					 wt_ctx->error,
-> +					 wt_ctx->flags);
-> +		if (err)
-> +			ret = err;
-> +	}
-> +
+Thanks,
+SJ
 
-<snip>
-
-> +static void iomap_writethrough_bio_end_io(struct bio *bio)
-> +{
-> +	struct iomap_writethrough_ctx *wt_ctx = bio->bi_private;
-> +	struct folio_iter fi;
-> +
-> +	if (bio->bi_status)
-> +		cmpxchg(&wt_ctx->error, 0,
-> +			blk_status_to_errno(bio->bi_status));
-> +	bio_for_each_folio_all(fi, bio)
-> +		folio_end_writeback(fi.folio);
-> +
-> +	bio_put(bio);
-> +	if (atomic_dec_and_test(&wt_ctx->ref))
-> +		iomap_writethrough_done(wt_ctx);
-> +}
-> +
-
-But in the writethrough patches, we first end the writeback on the folio
-and then call xfs_dio_write_end_io(), which converts unwritten or CoW
-extents.
-
-Is there a race possible as we are doing the other way? What if folios
-are reclaimed between ending the writeback and conversion? A new read in
-that area will return zero filled folios as XFS still sees IOMAP_UNWRITTEN?
-
-I don't have a reproducer, but my hunch says we can run into this if we
-have a lot of AIO as the end_io will be run via a workqueue?
-
-Do we do something similar to buffered IO where we do
-folio_end_writeback after extents conversion?
-
---
-Pankaj
+[...]
