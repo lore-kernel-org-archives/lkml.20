@@ -1,242 +1,202 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011050.outbound.protection.outlook.com [40.107.130.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75ABC51A74D
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:27:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792070874; cv=none; b=tCw6r0pAecx7CB1PNbHiyYh/OnibfadoCUjMSaxbS71DCyfYJjG6U02r/8W5VJNJAow86uofEOjsSB1VKL0y/FWxFVxpXhvsurO0aTO4773TF2tPkuvg4FS0WVyhhMGmUvIz+sF2at5+2SIaDBnML9S3nfMzwYOjuJrroyLmByk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792070874; c=relaxed/simple;
-	bh=Cy5efQytt+41nF34oSFTJHXGoIio5RSUN47XHf9W3yo=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=l+LXCqmkHfDlFp+iFUzimWpLsxL2oMmg+f1WBbiM6nuSSXSZFgiljoOOE0/m4O1n5KxbnQ3cvk7D6FawVDJIvXjposhSJhsRs4RcxF+DiPzORGhLyt3dZNlGrJd4x3abrUMmBT4f4E0jboEqI2/5+zLhv8tZowp8eDQvU5d9GSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HJ0Xs7fo; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ddWZcgo9; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58E9B51DE16;
+	Thu, 15 Oct 2026 13:28:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792070908; cv=fail; b=kqW/paZrnmhh56f+agA2ZW0ez3C1P/TaWRYy6GspfYg5sRIPjse1uOrI2Sy+p7crPcme7PmoPImNElyPb8AygqKXrqBl83vRgvr4Y+WvUYvOuOPJqXN5mji8alSmn0tHhsb6p9Bx17p1cxL4uB7lhQUSKzcu9leAuzmdrIf0Cvs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792070908; c=relaxed/simple;
+	bh=6BglEBq1ZCbygPOqzRHQmr0SU7FI0SpeZcMApCe2ovY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=gtbviZEIs+JGvQL2hWrgL0IzGRlMRQ3p35MY/0Pt3FPc/5HYKzGSLfWkcBQ5l/5C0ipCyxvm84TdLovLTSyJ4el88XyVBVXhDKa51b9gFDx9G2o5o7CrHMjY1upDFvz00veKUDDAmcJxj6FGEKvKlvJctT6FWypcE6XQj/UxhOo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=QuMExJhW; arc=fail smtp.client-ip=40.107.130.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HJ0Xs7fo";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ddWZcgo9"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9joox3408871
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:27:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	BOf15NrdkxiPINzdwNBadsG1wlt6SXt9rit5Z9dSmV0=; b=HJ0Xs7foraW16FLZ
-	1oX4YqrOsDoSmz+Yu+eG9Y5grHQdrgFlERSKYtZ9bxwVz8OWItS5Uy7Zp7NfExy7
-	8mBZUXr4RRxksr88UYO2WLe4PPV3HukslXP6mpx3zmb1j/g6bcFPK1CIIzXXOOnn
-	KJHaqtHZXqDWe+wl3wppEfaAYRBn2wzJDLcF1t6OpjjokBuoYEMpST4LG2KPMycW
-	Ms27Htc80OG7bh8B/2jomg2EycNy3oW7/8P9x2KhXzv2LHBJoRHsGF5/gb7Bur3D
-	C8U6tASJ2zh/AFYF092T4oOd39Gb92OCQnKIv+TI+6Ucm0GPbywrQBCT7BmAb6Jm
-	UlTtpg==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hakwn2xw4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:27:48 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-7cc081f3066so19101137.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:27:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792070867; x=1792675667; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BOf15NrdkxiPINzdwNBadsG1wlt6SXt9rit5Z9dSmV0=;
-        b=ddWZcgo9zHAHEVa1JCOAOcInHoYvZk9PFQ/IzLuOPt4B/8OGgtfRwxFI885AWvT2Nv
-         vyGbdBxOPlMFZlR7LOlN4LjjkwD8Qwe6bhkRA870fAaKDLtqPrQbloDQkPz4LdHxTtrW
-         WbUZYnINJdKpPa++gNnE2Pj9FPaJvKc08OxtvU6fGaxCEEN/7wUXzJlEhJs1O8l2ZUba
-         oGAK0U2MUaoy/kOZMo8yLfP+GXspcwCwb/1sPSjDsJtQM7sFQgFnbXOeyQpd7WhjJHvM
-         eppVeSvvmMGtAcuBAr2NcPgqdnwosl6HYKiNEN+KutHMyZ5kCuSD8ucEPUpnfLMhu5gS
-         nmKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792070867; x=1792675667;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BOf15NrdkxiPINzdwNBadsG1wlt6SXt9rit5Z9dSmV0=;
-        b=qPkAiX79wfGyTx2rAlbtXMCk/KjSzde/6+KKRZzos0FAGqnVIOirAjm1Pgl6OPUNd7
-         +6ymqH2J5QuMaZEP8c4WlmYEh91CBUHp2xtuQa6X3U0JFP0NeWsH3K92TwtYzuVLiceE
-         HXwIweIDKm/8P6VjB+V6CsLB6JHbzpW2b0ySsGOqXsa2OYBrouhJmPE3gwSFxD65oWNE
-         2zngtiandjiYPLM5t9hSxE66wZ4kYQNgZN9wbNvVctEjXTn4BmkTjW1ALn9T0A52tmaa
-         Uv1wZQRuFgBtute3QH3MPRZhsNLlVal+A/FQj+NNXt8lrvrBK7p0qmi4L7c6Ga0/clE2
-         Xv4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxQnWY2UFou5eNjPqQFYTfFXiSKjWUl+8dvigkvuR6lLaJHyPPbkOWPqtco5AkxherOgJsNq4huSCg/6JA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKyN8lO8pKHLH7XK5UhtD9I/7hJqjSxD7r+Jsyt5YWiRAo2xtuP
-	lWqsRU+Vd2TywcUACn5UJJRmQbbpQncvh56VI22hKGmKE2nRhKRLDe3WOemF0zKPoZFqxfA4/EJ
-	gMyh2HHlsIvSLOJQCka/mXWeIJaLr8zo7is4TGo32/qAk4CTWDCiCW3j694640r/3J10=
-X-Gm-Gg: AYBFou2OPkbIlCdi4+9wcq9kXC0qSYDwI8JIRGOe7Xa0VUk7X02+DKDy/oCpqDerpS3
-	vWTu610YyVqRbHulLD2pdaj6iZoNEtH/03lxaIvnQC+FMt5i/HmvLbD4QkP+3o/WxQGxILZUPAU
-	RDp+O3A9sbewPbqEOsh3fKnzEe+fSI2lNVkruu6P7JFkUW1s8hvMlixueGvYaKvsVYGft/izyRN
-	BJXXWBh0NsdzDQQzj/eNGgVqAXRfBzp/0tbQUfNinlJDO8wC0oQNTb4g8yG1hK2J0D56DVl3VTQ
-	6RhXZ+ZFZbGYEc7Geow7l8d1n6czBUr+dj+HNVZ+Y0nXiONrMUUxoH/LhCB8tLYlFl5lyuPXdNF
-	00GUkuDjp8EwG++LudpL3vg==
-X-Received: by 2002:a05:6122:2c09:b0:5ea:8fce:8a45 with SMTP id 71dfb90a1353d-5ea8fce8d42mr266736e0c.5.1792070867514;
-        Thu, 15 Oct 2026 06:27:47 -0700 (PDT)
-X-Received: by 2002:a05:6122:2c09:b0:5ea:8fce:8a45 with SMTP id 71dfb90a1353d-5ea8fce8d42mr266728e0c.5.1792070866958;
-        Thu, 15 Oct 2026 06:27:46 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b2038a6f4asm2435041a12.31.2026.10.15.06.27.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 06:27:45 -0700 (PDT)
-Message-ID: <b957c95e-89b9-4e62-9e88-0c5754771511@oss.qualcomm.com>
-Date: Thu, 15 Oct 2026 15:27:43 +0200
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="QuMExJhW"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CT0d9G8HjTKLN+zj79l/g3Hgev+z32lcxpdjphzeroyrbEE3C15eL4OGq4bAZFvjKcshBk8Z6MeGQtZF0Ebj2wIGXHFLmWF8DExOh6rUO/oj8+dgkEBrIPGb58AdlSBU4pQjoeCdLn7+ggu86KlVCEtMia6i7i7lZMYC9DhyOhxUDeVsA9P3Wg9a0VeYLPdUrTgzkG7VW8XjvPi7sRYCswlDoAo6nBOpvCB03GNN4H9GJDJecyIlw2A1e+uRYRaiAF6mDdz6HhzF6mPYI6B9Ljr9cbqEEuTRywkB8co2hTfMbNQ29VtWI787mQGy2Lr3cuSere9UiEOjxVgK8mSnzA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YKpLDzSNj2ty/TEicbd1k3dPrQGIQWonMqA4CW04yQE=;
+ b=BgLs6gGsoqJ04OvP4L5EhIOda45v0BE469gYFWU2v19FuhosgvV7h8nuZGTbmie4gZapXGJt6TPf/oVPZEa1PwYQqu3Su8YO6n5A9c1ycBoVlyLYyNt9GPwqqO8A0usKnFWXwtsV6NwiTpa9nWDjtuSgZ0SNo6hi0LrZukcbW2t/k1h62mxIXDxcOe+DnbhkQCLUy9eXGExbq4465dSUrisYLJ2W07PVzsUOAYjfyKbuujMYrJI/IkzuSCeYIREf+wCigR6GfFAAyEjnt0brArCmD3tVFitk8iAw+xW1yxAgUasyEJXybOx++fFmVAGYHPDVYzbPcp0YHLKKZhTIjQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YKpLDzSNj2ty/TEicbd1k3dPrQGIQWonMqA4CW04yQE=;
+ b=QuMExJhW9//tDDzuy5iOuUhU2jznPy0rVBpTO7zbMjQY7dvoqgy5bmCV9HL1SU/o/hRwm6jzfXXHTRjw0/f1GKW2ES2UJWTun9m1FgYLRyg/CI76A52IGyWgPfZ7snX4/7E5/1ql63DPiDYmMYg0IUZCzmLBqB1I42raKbHCUrEAccvuBliyMeVCBPgsrXj2//mBr1rsJ64HwGdFKCxDsgGe++THm6937WhlHX569HiRrsRqVnpm3E2z/ZFUtDVBFlkL6gdTjiNyRx78ckIkZd50TbXt6elGmfcKRB3oO9BDtoM6Ac/L2u57EWDEMOST2ivpcWFYHCiPE/VkW0rMjw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
+ by DBBPR04MB8057.eurprd04.prod.outlook.com (2603:10a6:10:1f1::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Thu, 15 Oct
+ 2026 13:28:20 +0000
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0522.013; Thu, 15 Oct 2026
+ 13:28:20 +0000
+Date: Thu, 15 Oct 2026 21:32:57 +0800
+From: Peng Fan <peng.fan@oss.nxp.com>
+To: Stefano Radaelli <stefano.radaelli21@gmail.com>
+Cc: Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Subject: Re: [PATCH v1 1/1] arm64: dts: imx8mn-evk: Pass GPIO_OPEN_DRAIN flag
+ on i2c3 GPIOs
+Message-ID: <atDWCV5jkJPAhV3E@shlinux89>
+References: <20261015081149.5919-1-stefano.r@variscite.com>
+ <atCy2Li2wrPHhW8K@shlinux89>
+ <atC1KAbaRwnrn-mR@Lord-Beerus.station>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atC1KAbaRwnrn-mR@Lord-Beerus.station>
+X-ClientProxiedBy: MA5P287CA0212.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1ab::9) To AM8PR04MB7874.eurprd04.prod.outlook.com
+ (2603:10a6:20b:24d::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] power: supply: qcom_battmgr: do not report power_now on
- SM8750
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>, linux-pm@vger.kernel.org,
-        Sebastian Reichel <sre@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Fenglin Wu <fenglin.wu@oss.qualcomm.com>
-References: <20261013002124.332111-1-xiaqinghuan@mail.ustc.edu.cn>
- <d3a67d47-9072-4094-85a0-7e1b75e08314@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <d3a67d47-9072-4094-85a0-7e1b75e08314@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1MyBTYWx0ZWRfX2btZ5TRMWdhT
- WR1FGbBgiUG4P6JnNnUwzrEPdMlqLxe1mBalGelNZ30nRZdZ0g6r96ave3G0i7OXxGT+rLzDA/A
- Mm6kLPJVv5vQH3DaS2CgTk8f3yEGaE+dFVaDpfSl8P5ckkMDI4jOvs/aPWsw6poOj2y+5qWiDVC
- dfUJb8zgguBoAEQtMHjRVmHEhokNYBHUpOCDKEZovh+h3RxVMdlNYeNvc+tKIceDKyMu3rLceoS
- HCKKo8mriDiZEel+Tqu43/OaeCsZFeuukIJiCl1zooRfyO689ldoVc4WXRVSx2Wq9+nJIocbhoM
- 6iU0eSwKb+rFAnsAoMTvOSO0jk8UIjpGZ5KlJFXDiLwkmh+3+UPF942hu5SKkf1VDCa8ZRFAUxC
- y6kfAU02c5A+bI5RgwL8GSzRDadNGT+N+b3pHJuozt9OIFs02V4O0LnA4+QIdR2G68ZHW1zRhxs
- y8TbQp2kNTEqBUSlP2Q==
-X-Proofpoint-GUID: ylLg_JZyfZRoVEbuQXOl_abBUWkcLSbX
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1MyBTYWx0ZWRfX4RWMd9+9Oeuk
- OJeUCIWCrjpjwv4I9yI5SoVa6WbUQaTTe+4ZJqIpiQ08aTpKNPyMDCz8Ak9xHuVD45WpebBiIOD
- Ywd2KseRaQbhoHd74TiAJJvIYhwqats=
-X-Authority-Analysis: v=2.4 cv=BqUIUoX5 c=1 sm=1 tr=0 ts=6ad0d4d4 cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=JDoO2zy-Mf1dR4DM0PkA:9 a=QEXdDO2ut3YA:10 a=-aSRE8QhW-JAV6biHavz:22
-X-Proofpoint-ORIG-GUID: ylLg_JZyfZRoVEbuQXOl_abBUWkcLSbX
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 spamscore=0 bulkscore=0 suspectscore=0
- clxscore=1015 malwarescore=0 phishscore=0 lowpriorityscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610150053
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|DBBPR04MB8057:EE_
+X-MS-Office365-Filtering-Correlation-Id: 734718f7-f149-4313-06d0-08df2ac02dd0
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|376014|7416014|366016|1800799024|23010399003|19092799006|56012099006|4143699003|11063799006|10067099003|18002099003|22082099003|261009223027099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+ e0//bLTvVcSfGuFgqMBmr3JLHDEYP4ZW282GbnYD3xackXSgP+wlbDSvxJVesEPphNVV20JpviFfj7BfpuFZPjhnRICuuh2byWGqZtv+5ouPIPnfm5Vf+VT6AZsF86GSnYfPIxsRK2vHvOWqPUW0A4huhuq8xF/GisZdx0J7SuhQhBX6Zzr0fp9g58Ks/tyR0AM6PW2BHzHRp9Y0tlD0pjFXTUqiqDhmEs7e1l7Jr9V/tteSJDEUbiA5Ij1JqA7K8g+8SzNywGRK0Br0fUxHeku1sYpl8z6pcpBTZaNt1N4m+NOTlB88Qxy0yXyd2GXC1bbo+Ksfx9trihKTp0yLVovpzTbylpmEg7Af3LIR7xYA10r3WiRTrcCRJzEpNBVWDr4mW6dCQz424Smfh3sjDfgxAlPEcjsZst8xwMj5+RJJzr/VucxvfRWC9IKrg4y6cR5UAPSFXskTWCVTrh3BUVjMBAcgIMc7OaOuRT1L1pFRkhWbbjgyyO3C5+QNZ/dDutzXuiTIZZVvSNMG1yTUVzyO4zivC55Otw4RLmf184X/TY3/UTq5OQE1tRY4/c8VxDM4q6mSrnuZ0YPKJCrS4Fid8wllK5Ru0pe8ElkN0wT+tCo+M+VUBhC42POpCjbOfiBeATKwuTayWR3KkrUla9wFyFSnr9LgR3DlMmEKQrY=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(1800799024)(23010399003)(19092799006)(56012099006)(4143699003)(11063799006)(10067099003)(18002099003)(22082099003)(261009223027099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?us-ascii?Q?8+/N1dZEZZxdKvjNp+PwADpPFo+El0CgI8MpiJcA+7rr8XMrrWNIhFF7EQOP?=
+ =?us-ascii?Q?+EOZJ5pbnoRbYExqWCVfggSvFWnfXk1pRo1TGKovXAPUBv6uhT27LmbEoBs+?=
+ =?us-ascii?Q?UVLCw8qwutFAsKZ4JjUAFDXcF23lQRfo2yuilSdHd+H0TBNlKWH+XDY4cye6?=
+ =?us-ascii?Q?tXs5jzAl4SsjCWZYJQsBvTpSAH3VtW7HLcW3xI+xmDteMm5fZTL6CqTscB4z?=
+ =?us-ascii?Q?SKv54G597pX/LP0qw0spKoQZJxQiNS3uo6+wYUoV8+ZM/MOzxzt/XcvmF1iY?=
+ =?us-ascii?Q?EZQENgbXyEDob6Shg5Ksj7MKvCJFmA2b/Cn055rqlbgULWzuTDpp5i/c6lEY?=
+ =?us-ascii?Q?IWKtS1EQ0ZiaRG9E1vFB5EXGuKkOmAuZEFt6MhpC6ERnP7hOgTaFWc+1WeQi?=
+ =?us-ascii?Q?W70Wa28X7oisSgpWC3xG8fyfLO2gIzgvVT1v7DE7fMeTj2DmDgPo4xY2c086?=
+ =?us-ascii?Q?2aMuBZjRK0fyPKQKB1V+6MUfA9M9y1FfNS5+XvXWdV+pjtkAk03ELcU5JTo/?=
+ =?us-ascii?Q?8daOZgMuBSC/pLqzYWABMw6t9yFg2f8igqa37Pd2FMaRPo/2BqADVLN0lR5s?=
+ =?us-ascii?Q?bbmfUPGih/QN7TMava7btOTcVbF4QvnsyC7EDrXFzuyswfu9bZWouiFBqaHn?=
+ =?us-ascii?Q?cv6pUtLVl5KSWnnwk29NfCy/vRItbnvghXLiwXNrwagJSro4sTivNimdkOxy?=
+ =?us-ascii?Q?btCM7ILS/eJ+TO2MPI+NL/33OERO3XQ7nociTeYtJmSmIHrTvJ4uZ+EAljy0?=
+ =?us-ascii?Q?QpfQSOayX8REfko9bZN7FiMRO2D+IjaSvK9Zsuka1muAPgnOMXTzWK562eeI?=
+ =?us-ascii?Q?2q5xOzbdI3g4+tDUbaYqoQwaOpvXNAmvcAoH92wT8cKZkIyw7YVtW+Wi+BCl?=
+ =?us-ascii?Q?COpvU6iwD97jszeCEIRnX29e62S6LZOK6uv2GkGqcgqBg4d7LkGmKVVubAQj?=
+ =?us-ascii?Q?5OR6gxxjgP5U/n4xCsOhLnimuIQDAayufIrqTtC+TDgfccD0UNLnLO3WfXS0?=
+ =?us-ascii?Q?JqdJsyRFTfIeGycC8wFCx6UCpzjL5bPfn6WRAfhy8oBdI7U68o9f+/dGICqo?=
+ =?us-ascii?Q?S9lLDM3vrTuWRjnBVusAYgLNuge6WPFdbU3HMYebJX4MtpAdfxcADJeBdEV5?=
+ =?us-ascii?Q?pftVahR0NtzKW72hdEJdVdo5NLqMc9f7oka8CBaSz3mFVowR/82v+eWVon8w?=
+ =?us-ascii?Q?LlkKTAJdNtabRsRGYh9BLvscE/e8bFmkGkrXwGTwdTUY+cGTHJ5sOBneCup8?=
+ =?us-ascii?Q?UIrP20jRK2Hq93l/52BgHq1j9Pg/RT8UNPb0jIWBZB3EYNCZaKzNxZAo9Wou?=
+ =?us-ascii?Q?O6eAb3y/RGcE3vonf/G3HPNOkSqff6M1+nsEXHSsa9g+eRavtFJP/70x3iEe?=
+ =?us-ascii?Q?/hWHh/bAnXY/kzBD5PwBPck5vOWnoBiVc/4ZGlgEBiT7mCE4eMk/wULlnih2?=
+ =?us-ascii?Q?d4G96xDGjz/mO13PfkHt2LRDeIJFlw46Wz3+JZeZNnuBxYgLmSiJkvJinDEU?=
+ =?us-ascii?Q?GcvXjeEHiAEV7bLDLdC4GknEq0UJ/Arb/Hi3p4bAtGZPzRYnUcW4GQhvxivO?=
+ =?us-ascii?Q?er6b67l7xHMT2mJkX3ibIUhhgINeNU132ASEekPPZUrNxC6WKZ0czr+tPA5d?=
+ =?us-ascii?Q?9s4uLYpEYz3o3kxY3OujxuQeeu9HFFWqSusfJMBu0C7tbpdZN63VRXr91FOB?=
+ =?us-ascii?Q?cmIyUhDFoQwbjgQ/4WisiRC6k1yP08IZYqevKa2JKU98wFGk3w9UljbX1fZV?=
+ =?us-ascii?Q?ODIiZmUYDBMM8v/VUiILg5VINc75z+klT4FQaqyWSvGDwy1jkM+z?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 734718f7-f149-4313-06d0-08df2ac02dd0
+X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 13:28:20.2033
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Zn6XIhMWJZkmMX/Phf8dMkp4gLGoSUeTJJI35p5ZZOZr4zej0qfeisf58L37r1gbBJL9bcQy0bUzmmEBCpV18qWXPPgEa9Yo3YKdTlxThs+pOzA6y3yiEjbZ7PEH3rH9
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB8057
 
-On 10/15/26 3:27 PM, Konrad Dybcio wrote:
-> On 10/13/26 2:21 AM, Qianhui Xu wrote:
->> From: Xu Qianhui <xiaqinghuan@mail.ustc.edu.cn>
->>
->> The SM8750 QBG firmware fills BATT_POWER_NOW via its maximum-load updater
->> instead of an instantaneous measurement: the property getter indexes
->> context + 0x6a8 + 4 * property, so property 22 (BATT_POWER_NOW) reads the
->> offset written by the maximum-load path.  Exposing that as power_now makes
->> userspace report e.g. 89 W while the battery is charging below 1 W, or
->> above 100 W while discharging at about 4 W.
->>
->> The SM8750 PMIC GLINK node is already described in DT
->> ("qcom,sm8750-pmic-glink" in sm8750-mtp/qrd), but the driver has no entry
->> for it, so it falls back to QCOM_BATTMGR_SM8350 and advertises POWER_NOW.
->>
->> Add the SM8750 variant and a battery descriptor that reuses the SM8550
->> properties without POWER_NOW.  The property array is reordered so that
->> POWER_NOW is the last entry, which keeps the new descriptor a two-line
->> addition; property ordering itself is not ABI.
->>
->> Voltage, current, charge counters and the charge-control thresholds are
->> retained.
->>
->> Tested on Lenovo Legion Y700 Gen4 (TB322FC, SM8750P): charging and
->> discharging, UPower state-of-charge and rate are unchanged and power_now
->> is no longer exposed.
->>
->> Signed-off-by: Xu Qianhui <xiaqinghuan@mail.ustc.edu.cn>
->> ---
-> 
-> +Fenglin would we know if this is an issue on all SM8750 devices, or
-> perhaps something OEM-specific?
+On Thu, Oct 15, 2026 at 01:12:40PM +0200, Stefano Radaelli wrote:
+>On Thu, Oct 15, 2026 at 07:02:48PM +0800, Peng Fan wrote:
+>> On Thu, Oct 15, 2026 at 10:11:49AM +0200, Stefano Radaelli wrote:
+>> >From: Stefano Radaelli <stefano.r@variscite.com>
+>> >
+>> >scl-gpios and sda-gpios need GPIO_OPEN_DRAIN flag, otherwise the
+>> >following run-time warning is seen:
+>> >
+>> >gpio-146 (scl): enforced open drain please flag it properly in DT/ACPI DSDT/board file
+>> >
+>> >Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
+>> >---
+>> > arch/arm64/boot/dts/freescale/imx8mn-evk.dtsi | 4 ++--
+>> > 1 file changed, 2 insertions(+), 2 deletions(-)
+>> >
+>> >diff --git a/arch/arm64/boot/dts/freescale/imx8mn-evk.dtsi b/arch/arm64/boot/dts/freescale/imx8mn-evk.dtsi
+>> >index 3e590afa4fab..036afa0f6990 100644
+>> >--- a/arch/arm64/boot/dts/freescale/imx8mn-evk.dtsi
+>> >+++ b/arch/arm64/boot/dts/freescale/imx8mn-evk.dtsi
+>> >@@ -287,8 +287,8 @@ &i2c3 {
+>> > 	pinctrl-names = "default", "gpio";
+>> > 	pinctrl-0 = <&pinctrl_i2c3>;
+>> > 	pinctrl-1 = <&pinctrl_i2c3_gpio>;
+>> >-	scl-gpios = <&gpio5 18 GPIO_ACTIVE_HIGH>;
+>> >-	sda-gpios = <&gpio5 19 GPIO_ACTIVE_HIGH>;
+>> >+	scl-gpios = <&gpio5 18 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
+>> >+	sda-gpios = <&gpio5 19 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
+>> 
+>> I think ODE should be configured for pinctrl_i2c3_gpio.
+>> 
+>> Regards
+>> Peng
+>
+>Hi Peng,
+>
+>I followed the same approach used in commit
+>2b1d5d054d29e08926f05cfa30e34d149644585e, as well as in the other i.MX
+>DTS files that use GPIO_OPEN_DRAIN for I2C bus recovery.
+>
+>Even in imx8mn-evk.dtsi itself, I2C2 uses the same configuration,
+>with GPIO_OPEN_DRAIN specified in the GPIO properties and without
+>ODE enabled in the pinctrl.
+>
+>Wouldn't introducing a different configuration for I2C3 create some
+>inconsistency and potentially cause confusion?
+>
+>If enabling ODE in the pinctrl is the preferred approach, wouldn't it
+>make more sense to address this in a separate follow-up patch, updating
+>the existing I2C recovery pinctrl configurations consistently across the
+>affected DTS files?
+>
+>What do you think?
 
-(helps to actually Cc someone when you say you do..)
+w/o GPIO_OPEN_DRAIN, there is risk that GPIO emulated I2C is not using
+open drain mode.
 
-> 
-> Konrad
-> 
->>  drivers/power/supply/qcom_battmgr.c | 29 +++++++++++++++++++++++++++--
->>  1 file changed, 27 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/power/supply/qcom_battmgr.c b/drivers/power/supply/qcom_battmgr.c
->> index 7716eb9e1a..dbc98ac8a7 100644
->> --- a/drivers/power/supply/qcom_battmgr.c
->> +++ b/drivers/power/supply/qcom_battmgr.c
->> @@ -24,6 +24,7 @@ enum qcom_battmgr_variant {
->>  	QCOM_BATTMGR_SC8280XP,
->>  	QCOM_BATTMGR_SM8350,
->>  	QCOM_BATTMGR_SM8550,
->> +	QCOM_BATTMGR_SM8750,
->>  	QCOM_BATTMGR_X1E80100,
->>  };
->>  
->> @@ -916,9 +917,13 @@ static const enum power_supply_property sm8550_bat_props[] = {
->>  	POWER_SUPPLY_PROP_TIME_TO_EMPTY_AVG,
->>  	POWER_SUPPLY_PROP_INTERNAL_RESISTANCE,
->>  	POWER_SUPPLY_PROP_STATE_OF_HEALTH,
->> -	POWER_SUPPLY_PROP_POWER_NOW,
->>  	POWER_SUPPLY_PROP_CHARGE_CONTROL_START_THRESHOLD,
->>  	POWER_SUPPLY_PROP_CHARGE_CONTROL_END_THRESHOLD,
->> +	/*
->> +	 * Kept last on purpose: SM8750 reuses this list without POWER_NOW,
->> +	 * see sm8750_bat_psy_desc.
->> +	 */
->> +	POWER_SUPPLY_PROP_POWER_NOW,
->>  };
->>  
->>  static const struct power_supply_desc sm8550_bat_psy_desc = {
->> @@ -931,6 +936,23 @@ static const struct power_supply_desc sm8550_bat_psy_desc = {
->>  	.property_is_writeable = qcom_battmgr_bat_is_writeable,
->>  };
->>  
->> +/*
->> + * The SM8750 QBG firmware fills BATT_POWER_NOW from its maximum-load updater
->> + * instead of from an instantaneous measurement, so the published value is not
->> + * a present power reading (it reports the maximum load, e.g. 89 W while the
->> + * battery is actually charging below 1 W).  Do not advertise POWER_NOW on
->> + * this platform.
->> + */
->> +static const struct power_supply_desc sm8750_bat_psy_desc = {
->> +	.name = "qcom-battmgr-bat",
->> +	.type = POWER_SUPPLY_TYPE_BATTERY,
->> +	.properties = sm8550_bat_props,
->> +	.num_properties = ARRAY_SIZE(sm8550_bat_props) - 1,
->> +	.get_property = qcom_battmgr_bat_get_property,
->> +	.set_property = qcom_battmgr_bat_set_property,
->> +	.property_is_writeable = qcom_battmgr_bat_is_writeable,
->> +};
->> +
->>  static int qcom_battmgr_ac_get_property(struct power_supply *psy,
->>  					enum power_supply_property psp,
->>  					union power_supply_propval *val)
->> @@ -1617,6 +1639,7 @@ static const struct of_device_id qcom_battmgr_of_variants[] = {
->>  	{ .compatible = "qcom,sc8180x-pmic-glink", .data = (void *)QCOM_BATTMGR_SC8280XP },
->>  	{ .compatible = "qcom,sc8280xp-pmic-glink", .data = (void *)QCOM_BATTMGR_SC8280XP },
->>  	{ .compatible = "qcom,sm8550-pmic-glink", .data = (void *)QCOM_BATTMGR_SM8550 },
->> +	{ .compatible = "qcom,sm8750-pmic-glink", .data = (void *)QCOM_BATTMGR_SM8750 },
->>  	{ .compatible = "qcom,x1e80100-pmic-glink", .data = (void *)QCOM_BATTMGR_X1E80100 },
->>  	/* Unmatched devices falls back to QCOM_BATTMGR_SM8350 */
->>  	{}
->> @@ -1690,7 +1713,9 @@ static int qcom_battmgr_probe(struct auxiliary_device *adev,
->>  			return dev_err_probe(dev, PTR_ERR(battmgr->wls_psy),
->>  					     "failed to register wireless charing power supply\n");
->>  	} else {
->> -		if (battmgr->variant == QCOM_BATTMGR_SM8550)
->> +		if (battmgr->variant == QCOM_BATTMGR_SM8750)
->> +			psy_desc = &sm8750_bat_psy_desc;
->> +		else if (battmgr->variant == QCOM_BATTMGR_SM8550)
->>  			psy_desc = &sm8550_bat_psy_desc;
->>  		else
->>  			psy_desc = &sm8350_bat_psy_desc;
+Enabling ODE in pad will not make the warning disappear (:, so still need
+the flag.
+
+It is fine to add the flag in your path.
+
+I will fixes all the wrong usage for the GPIO I2C pad settings.
+
+Regards
+Peng
+
+>
+>Best Regards,
+>Stefano
+>
+>
