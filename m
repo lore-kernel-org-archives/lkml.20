@@ -1,128 +1,131 @@
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B52275293E4
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:51:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792072283; cv=pass; b=XOGSiCLkF/y0WSmTKbQ5EiNPKYu6qIAHUrrwl7rGfrZBf+/qjjJtyu5HB3g1ViSgag2O+8h6IWgKIorKAqpSf1jS+8afKwTWat/SAISoutjTNBcog/7c0mX6zpjOnRuPaHv8GXv/U+h2pQzrnM4+NYMmM/yosnQr6tLrYSfJWWI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792072283; c=relaxed/simple;
-	bh=HmUmGGhgCmwu4QqELATIYyKkfGLgVxqbTfeFoXwzD+o=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QwAhOKeQbTmjifFf++YgOpCms3y/Kc9pvYR6HAw8c7VbZf1da0/ycNxHw+JKPR86a2qXlvNNrrZ0mBJAZJWqPG1Rp4cr6TkW8BJhLLU9sSge+Tsng6/bscV4Z+wvBSHCwhY54UtWVuhEPCqM+7QJM56nng+g8ZUuZ4MO4lOsv4o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dZ/dg9pr; arc=pass smtp.client-ip=74.125.82.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 847364E8E15;
+	Thu, 15 Oct 2026 13:51:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792072291; cv=none; b=mtxljQrfeLJcOu/AN6S+mopkuaJh72LR3claC8ke60kgEJCN3v0svr8x9h+ikhpbE9qeqnM79uGRwJtL8JT4Dq7P1TQxIw/QBOrSBg1EmNwTmUNJnYao5fk8wxfO/yrgJp84AL6aQwfIE8uQHKYYC6UieKC1gLIphKdM3MjeiFE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792072291; c=relaxed/simple;
+	bh=RAY21xpGqEs8ofV/k20DKQeUzNm/8Inq5CJjVCWvefg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KLd1YIhkNuKTXKJmi9gobMlAOYiqRYn4qow2zlqzhNNIGwTE1yJBtyXAoFo2OhPrQzYGFMYHbvX+TvzMmU1tVbvY6ZO/YGiUoLrtUNJvelcuWIgSP5JdzOyakA+Pj2I6zFF8rNdU1kmNi0r/vZINRbbAsYoLz3eWkmwV+owWjuI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zf1jItGk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dZ/dg9pr"
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-33bb5afa736so656643eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:51:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792072282; cv=none;
-        d=google.com; s=arc-20260327;
-        b=H/eGKtY/zIwD1CiLChI4oCAFVqLVRRYBucZ9lFSLPiRHCEgv1WNU77YVHgHnjPwhRc
-         WwJOU7S1pHFrOw37+B45TjhYtre8A/scrMWRvB/e8FvVAqz3An0M1ihYKiTa8sl3qyU8
-         THSf+ud7Y/q0blfEBKiCI4EoF/fh7YJ97GI7p/q7LuwS+atOzTUi24eCw7EO2K/rOEIj
-         5DB5EsGt6sUwtavX02w4Dku3em8AHhhcTn8gtCHsFFdlmTBG2qifAVhw0Q5HpXN0qi/6
-         fUtkADfucQUI8MVlg6HUTqLThxflyt/kLpETLb/XI+G4bZku/1wlNDA4bVqqHiQuf4iJ
-         g8kA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=HmUmGGhgCmwu4QqELATIYyKkfGLgVxqbTfeFoXwzD+o=;
-        fh=HlhZMKrq9dvZ1cFAvDc5zCittkd2gFVURWiwYs4T4zY=;
-        b=ImCpaviAjqW/xSH9QRpg6kG26nNzkBq/23FqM43JZ4O4uUmODB5bGxIlkepn5eOxq0
-         UegL71beT9A1VZ8rfmrM+LM8dCdmuAqQCUVEl6a1/RQow25SZSWsNbop4k7KHsj6ACmO
-         0aiYv/P1B7O3pQX0H4i4ogLfASzfogIEDBAvKfq/2vlV5mD8ncvv4zrcEqO58Qs327tc
-         rrxQIkW4KyoYj1un96mknGt6cF16El6hAGZCZAYTuCmMTtHB1OS1vkLKih8ksCbj9Zi9
-         UtlnEDinc5QrWLozcCkguKyLncSPAYBITH+Rd+knm5Bsu7ynw9YHfna2UB/hBOfC4SFz
-         LdeQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792072282; x=1792677082; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HmUmGGhgCmwu4QqELATIYyKkfGLgVxqbTfeFoXwzD+o=;
-        b=dZ/dg9prZ0KP2YvTOd18NiLXxQ+1dQTnLq550qLNcPZqjDNTOPrBDuhRZIxTUZ7O2k
-         3j4QzXttFStyAfLgpSPUDrDSCxQFPp38Us0Hh2N5AKr6iljz/J/XGqkX8KeDuT0Km6qI
-         V9fiEczcKgMvrCjdkkvM8GVPqDOdSHR2gq2K3bPy0BjXCMGh9+Kt/1AQ2Oxu18bd+RvA
-         fuVj/ml/SjwMtWdLUklSshYhoChVh2lF+/ixP11CkAeWa3iT+oSoeIq4HG6wa91QZMCG
-         t1fHoDV595R/J683rh2NDoAzXCZpty3rWp9AzRQL1qhMx/3T2/jacEC/PoO8YndqgUVK
-         gFZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792072282; x=1792677082;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HmUmGGhgCmwu4QqELATIYyKkfGLgVxqbTfeFoXwzD+o=;
-        b=lbkyZR3LRPY+PrBpPwSusUbQbuOK2uDDM6Sp2t/4yeobL8CHACdyiwQ7v4OSuuK3Nr
-         CuxftCD/R3vtfJARnrk49VQCxZzzsPwKUJsgOhYtTQDhHSepxsiudY4GwKw0Zqnoh9Xb
-         EDfikNsQNXjLDCPKb82i3ohDLwZ2hqX9o9IrQ9QFYNTdrKCZToS2rUBbZbBLj25qcJpY
-         gpaIYi8vGmGIv8b9nOeaTmVbtw/jEIArghiLeNDX4JA5DUmGHIxNhRUKb2N2Ltl94v/H
-         FYpne0LTd4tXzPz9rMWU/byLLRvNdL+73ctKC8lOmEjvzXLN9vDRuEQnBSSn3pO81v23
-         x5vg==
-X-Forwarded-Encrypted: i=1; AKwUvByAC5G29B2gaUmxsor+uf7BQbMSm56QlMH13Fs/HZJEnL5zhGGwc02NrTVw4nppRqSzyYSx/U1P72EiMh4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLqKQZ0cjBebhlTEhhHnVmLXAZ2dwm30zV8JN9Faa/y7zI+pnu/
-	3S91AQ3jNjLIb3/P2TxhPPWwrjDTi4t1JzSvkvXC+9swFAZxGz3W3x9B4JdtY+N2xGIGNPWe04z
-	ZsBaqHvWkvQLh/86WwfC77m2p8sAADi4=
-X-Gm-Gg: AYBFou3qF7GrZ0NtY4xFaJHtSA7geQK/oXdL3k9WZIXe2B8XjRdlQTtBEbDAWQncH6V
-	qEo09E1OJYRlcsUHIibvx9E1abbxxleu+wXzYdsofoXKvcFVz84waHlsYzCyqh2OWeg+rJXOQmq
-	QkrZGqjZJGthetPAZ1kSN4k5E6gAH4gBCofuGvvB45wDTXPlFAaqYK5oUSdGcrDBOjcmHBmcj31
-	6a7badEDi0ETdfSPD0MK0CHjNtnGbcwTsNA0PCpDatLpjwXeqYJaF1YUGbG1Yc4+L7UIq110cBl
-	v9RJRr10HBl37DmHPOJ8jxrQEt4w+ws/ORFTJrYICfhQym0lnyFXDl7kOsvRnLwFermAPYgfff7
-	AZWNPU2KRX/Rl9yAfNf8uLUZIjqy6rEdONAu4jmCN015howQ/Q4x264BKVuhzrNRp7pBDWa3oTe
-	F1y7X4R83K9EG06XedVHtZHyomdI62fkIGzU1xQhHXv7hNjHHY8PI=
-X-Received: by 2002:a05:7301:5413:b0:358:c9f3:b055 with SMTP id
- 5a478bee46e88-358c9f3b260mr33438025eec.1.1792072281724; Thu, 15 Oct 2026
- 06:51:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zf1jItGk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C65101F000C4;
+	Thu, 15 Oct 2026 13:51:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792072290;
+	bh=LQL9K7FjotLrNIQa5EP0wrOkT/xTAPGvJiGrgbZ57gs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Zf1jItGkxeDKvZwKtxSrdc+c2zH1+At/56XkmzrwOfJJvX6GXoRvtliRF2108ZLR6
+	 VQGL/yPphm1XF1Mvd02TrlFvIPf8SrKh8nFNyt8iEuqFC738kcOx1WzfJgV2n+9mjz
+	 q8NFeTbU8FfMqFC0OxPN/ErWJqFYiWvS/7AuGFUp8cK6hrQKjXFkXZGx890/tbYaKH
+	 CmOpFkMAwhP5Swv2HUANQ0ZmjYhH9+ehdegW/Gl+s2QyYkGKRsTc4GRFzPrYpICzGa
+	 9dVtqyHRxIp3AiPrYbZzv7p6Zske3u2Dm4r5k0wb1zr9bTby36jEu1VmQoyhno1AbZ
+	 fBk2gF5zHliIg==
+Date: Thu, 15 Oct 2026 19:21:10 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Slark Xiao <slark_xiao@163.com>
+Cc: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, 
+	jeff.hugo@oss.qualcomm.com, mhi@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] bus: mhi: host: pci_generic: Add autosuspend_delay
+ customized support
+Message-ID: <atDZ7vQggXGK8bIo@debian>
+References: <20260919095506.9570-1-slark_xiao@163.com>
+ <bf94f351-777d-4dc0-98a2-7af77f832f2b@oss.qualcomm.com>
+ <1bec2fd7.99f3.1a0c8ea4db6.Coremail.slark_xiao@163.com>
+ <2b0d3e13-96fa-437a-9de9-4a61911fe232@oss.qualcomm.com>
+ <nsaa4cchprkgqka7uc4ccr5wq7v6uhue5dpsvquwxyk4ndr57t@i56bkvwpclpo>
+ <5506abc6.8919.1a11aab7e81.Coremail.slark_xiao@163.com>
+ <astaLolGh8XkPNms@debian>
+ <6e90be7f.4d64.1a13e32174b.Coremail.slark_xiao@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1791499378.git.sashal@kernel.org> <20261014174838.114990-1-ojeda@kernel.org>
- <as_Cr4FhzyAh-kC4@laps> <CANiq72m6okeCHuR8BCGENTw=wJhfXXZbXZtJq8xtoeVfvfo3TQ@mail.gmail.com>
- <atDYWe9L0tv90Xjk@laps>
-In-Reply-To: <atDYWe9L0tv90Xjk@laps>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Thu, 15 Oct 2026 15:51:08 +0200
-X-Gm-Features: AclHuK933tu3BAWh-cwxecRjdQSXXLVeGjwcSrIBo12nakv0bx34xsgXHhrLXdA
-Message-ID: <CANiq72mgS15ZKwd-u1t1xvAaNf3ivpXdUMmVDfmGRyq1OewLvw@mail.gmail.com>
-Subject: Re: [PATCH 0/2] agents: add portable agent skills and Fixes attribution
-To: Sasha Levin <sashal@kernel.org>
-Cc: Miguel Ojeda <ojeda@kernel.org>, broonie@kernel.org, corbet@lwn.net, 
-	ksummit@lists.linux.dev, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, rdunlap@infradead.org, 
-	skhan@linuxfoundation.org, tytso@mit.edu, workflows@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <6e90be7f.4d64.1a13e32174b.Coremail.slark_xiao@163.com>
 
-On Thu, Oct 15, 2026 at 3:42=E2=80=AFPM Sasha Levin <sashal@kernel.org> wro=
-te:
->
-> Sorry, what I meant to say is that the spec seems to require markdown as =
-it's
-> preferred format. We can experiment with other options, but then the risk=
- is
-> that we'll break some tools.
+On Thu, Oct 15, 2026 at 02:13:52PM +0800, Slark Xiao wrote:
+> 
+> At 2026-10-11 17:46:22, "Manivannan Sadhasivam" <mani@kernel.org> wrote:
+> >On Thu, Oct 08, 2026 at 04:40:09PM +0800, Slark Xiao wrote:
+> >> 
+> >> 
+> >> At 2026-09-26 19:26:15, "Manivannan Sadhasivam" <mani@kernel.org> wrote:
+> >> >On Wed, Sep 23, 2026 at 09:24:55AM +0530, Krishna Chaitanya Chundru wrote:
+> >> >> 
+> >> >> 
+> >> >> On 9/22/2026 5:09 PM, Slark Xiao wrote:
+> >> >> > At 2026-09-22 12:12:35, "Krishna Chaitanya Chundru" <krishna.chundru@oss.qualcomm.com> wrote:
+> >> >> >>
+> >> >> >> On 9/19/2026 3:25 PM, Slark Xiao wrote:
+> >> >> >>> For some WWAN device, it may get a SYS ERROR issue when resuming
+> >> >> >>> from suspend state frequently. Refer to the Qualcomm Windows
+> >> >> >>> driver, the default value of autosuspend_delay_ms is set as 5000
+> >> >> >>> ms. But in Linux side, all WWAN device were set as 2000ms. We
+> >> >> >>> tried to set this value to 5000ms and we can get a positive test
+> >> >> >>> result.
+> >> >> >>>
+> >> >> >>> So we add a support to allow vendor to set a difference value for
+> >> >> >>> specific WWAN device.
+> >> >> >> you can change auto suspend delay from sysfs, please use that way instead of
+> >> >> >> doing in the driver.
+> >> >> >>
+> >> >> >> - Krishna Chaitanya.
+> >> >> > Yes, we can do this by setting the sysfs API . However, not all users 
+> >> >> > are aware of this method. Additionally, this approach is only
+> >> >> > effective for a single instance; it requires reconfiguration after each
+> >> >> > restart, which is quite inconvenient.
+> >> >> you can have udev rule to set this without any user intervention.
+> >> >
+> >> >We should not rely on userspace to fix the SYS_ERROR. Userspace knob should only
+> >> >be exercised to customize the delay for power management purposes, not to fix
+> >> >firmware crash.
+> >> 
+> >> >
+> >> Agree. We are still working on the issue debug on the modem side. 
+> >> 
+> >> >First we should know whether the default delay can be increased to 5000ms for
+> >> >all devices or not. If that is not desired, then we can go for Endpoint specific
+> >> >delay.
+> >> >
+> >> >- Mani
+> >> >
+> >> For reference, MTK 5G modem T700 is using 5000ms as default value. And Qualcomm
+> >> Windows drivers side, the default value is 5000ms as well.
+> >> However, I cannot guarantee that if all MHI devices are adjusted to 5000ms, some
+> >> power-sensitive devices will not oppose this change. Additional, DELL hopes that
+> >> we only modify the SDX72 device while keeping the 2000ms setting for the SDX62
+> >> devices, as there are currently no similar issues with the SDX62 platform.
+> >> 
+> >
+> >I think we should know the root cause of the crash before adding my fix. Right
+> >now, we only know that it is a firmware crash, but we don't know if the crash is
+> >due to MHI stack or PCI bus. If it is the MHI stack, then we can quirk the
+> >device in pci_generic driver. If it is a PCI bus issue, then we need to handle
+> >the quirk in pci/quirks.c.
+> >
+> >- Mani
+> We provided the crash dumps to Qualcomm for further analysis. Issue seems
+> come from firmware side. Finally, Qualcomm recommend us to update this
+> auto suspend delay value to 5s. Otherwise we may get a unexpected issue
+> for some specific scenario.
+> And currently our customer agreed that we set this value to 5s for all DW5934e
+> products. So I want to add this update based on our real requirement.
+> 
 
-Ah, got it, thanks! Yeah, at the very least the `SKILL.md` main file
-should most likely be all Markdown inside (and of course the
-filename).
+Sure, go ahead and respin this patch
 
-Now, if we go with `agents/` instead of `Documentation/`, then I would
-personally prefer Markdown for the other files in the same folder like
-the `guide.rst`, but that is just my bias, and it has a small
-disadvantage: if we happen to move things between `Doc/` and
-`agents/`, then it is a bit painful to reformat.
+- Mani
 
-In fact, if it is all Markdown, perhaps we don't need that file to be
-separate? Actually, is it a separate file in the current patch because
-of the markup language difference?
-
-Cheers,
-Miguel
+-- 
+மணிவண்ணன் சதாசிவம்
