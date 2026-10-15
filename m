@@ -1,213 +1,87 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AA2BA3ABD90;
-	Thu, 15 Oct 2026 08:33:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E74904519AF;
+	Thu, 15 Oct 2026 08:33:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792053209; cv=none; b=OWPTyvgdUBmEvPV2MaZpt+zPa6AGSGRVlCkqsL0+FyjusVyknHMJOGuhBM42Q70MODXsq+ABsAn+8Rx/BKSHuzgz2JzawfoIE7+EorRXEZIK07OC1rvo+6tGtl1ZrUI3TLWPNrnfxw/BswjwFYaT9PjrQNkn0Uos/qlJUIQJqkg=
+	t=1792053210; cv=none; b=pL+j5uR3dY5JKfuq4NlrwNBRzBUOQrFTL6YNplu5a2M3ebdfJPRVTIWwxcXq0CLsbDM/XZDn3eLf7cYIoVzBFIz7/qHmWY4Kq325QUBEtj4LNqbqx/JZ9RTB0mUpjjibNV+z8M6KwiTWTZudfaEuySIjiao8+nX3QlVSNE1HPSY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792053209; c=relaxed/simple;
-	bh=J0Rxn2Q2fOqFAHsyi54bdAjPM8D6Ka18TN/01+gu/Ms=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=nnGkIzBY4blm7PCeQAd6spcY93E+iJeRcL4y0R6oPaSRpcH4yQQxW+VsqdFEvfpCakEfjZI0vHdm1YIjEVi0Py0g6vRPWYEbyZxNsG84LO4rc/TJhxjIT/6IFM5Kd1VGMmVDKvP7pVMMcC7+OjjxHpQlbAfY4bvpoLozc3YnemQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=FWEXT3aF; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1792053210; c=relaxed/simple;
+	bh=j3srAWB0smoB0L9RdE+akBLmgDLIIcacMid+eoTKQ7w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LkpNiyffB2ccmKcwiNp0bSXIXkb593bCfd0UhJScTXgYXIHhmcKGVw6vuNe7kv0SpQuzzSv9XCUfgj+hNSV21TCeEYOc4DHAM3e7pi9wcahaTlrBnqDFuwW+IpBNqbn7hkGIdvT428FI6tOy8z4P39su7XfGT32uiWsgmQa7oWI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JwtEX01X; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="FWEXT3aF"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7C73D2F;
-	Thu, 15 Oct 2026 01:33:23 -0700 (PDT)
-Received: from e127648.arm.com (unknown [10.57.88.29])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 4AEA93F871;
-	Thu, 15 Oct 2026 01:33:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792053206; bh=J0Rxn2Q2fOqFAHsyi54bdAjPM8D6Ka18TN/01+gu/Ms=;
-	h=From:To:Cc:Subject:Date:From;
-	b=FWEXT3aFxAMtGC9f/OluSG+KqjijTyNIUE1qqaHIEQmDilQYtfi+kcMeN6PN1q8Na
-	 HRuBlVVRqorOGgXk8eOaUEgKyO4rRVQtj0ebAOgMzENUm6dNDF+ISomBM3J4IA2mGq
-	 6Icq7rjpiV6CZ4bvMz5R8/vmnifWoua7eyuOyw4Q=
-From: Christian Loehle <christian.loehle@arm.com>
-To: Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>
-Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	linux-s390@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	cocci@inria.fr,
-	Christian Loehle <christian.loehle@arm.com>
-Subject: [PATCHv2] sched: Replace nr_iowait_cpu() with a bool accessor
-Date: Thu, 15 Oct 2026 09:33:17 +0100
-Message-Id: <20261015083317.3733733-1-christian.loehle@arm.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JwtEX01X"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1ADB1F000C4;
+	Thu, 15 Oct 2026 08:33:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792053209;
+	bh=3JJOFG+/Lcmrcjwm8gj4vFxpyUJmGEw18JAOdt4/SQI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JwtEX01Xl9e48pSRCYcm2j/QK8dOUtKk9gIbbrt0e+cI0HtWc5woePTnUwlnIFD+r
+	 LCuP6mS0PzIqCUBYR/j3bI9eNvilXQxXsB+2j+XhvlVyoCFp73VIf/FqhA81fNIWOp
+	 kfktbtd9JOrv5UKPQf8+ze7jKl0dE4h52zbvOmvWGaPMfIOXqQk5sAuD7+2lbZro0j
+	 r+Y6V0lVwsSpiGBjMb+qHhy6A6lOlzPhvfFP+O/hkYk15csYbbi51FfT6zyBtp/tMC
+	 a0TLdQHy1XJO7x/QBudtznXPhgxW+6htLFUJxQtL9gyJLeOpUGZ0Iczd5wGVKcElLF
+	 LKYyUeJ1v6cVQ==
+Date: Thu, 15 Oct 2026 10:33:25 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Larisa Ileana Grigore <larisa.grigore@oss.nxp.com>
+Cc: NXP S32 Linux Team <s32@nxp.com>, 
+	Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman <avri.altman@sandisk.com>, 
+	Bart Van Assche <bvanassche@acm.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	"Martin K. Petersen" <mkp@kernel.org>, Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>, 
+	Ajay Neeli <ajay.neeli@amd.com>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Pedro Sousa <pedrom.sousa@synopsys.com>, Hannes Reinicke <hare@suse.de>, 
+	Joao Pinto <Joao.Pinto@synopsys.com>, linux-scsi@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-arm-msm@vger.kernel.org, clizzi@redhat.com, aruizrui@redhat.com, eballetb@redhat.com, 
+	echanude@redhat.com
+Subject: Re: [PATCH v8 07/12] dt-bindings: ufs: Add NXP S32N79 UFS host
+ controller
+Message-ID: <20261015-whimsical-amorphous-squid-6166c5@quoll>
+References: <20261013103003.373156-1-larisa.grigore@oss.nxp.com>
+ <20261013103003.373156-8-larisa.grigore@oss.nxp.com>
+ <20261014-valiant-goose-of-revolution-efec17@quoll>
+ <fa3a025b-0d82-42df-a4cc-e144d6a97b20@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <fa3a025b-0d82-42df-a4cc-e144d6a97b20@oss.nxp.com>
 
-The menu governor was the last consumer of the per-CPU I/O-wait count
-that needed its magnitude, apart from nr_iowait() summing it globally.
-Commit 38f83090f515 ("cpuidle: menu: Remove iowait influence") removed
-that use. All remaining per-CPU consumers only test for zero/nonzero.
+On Wed, Oct 14, 2026 at 04:58:30PM +0300, Larisa Ileana Grigore wrote:
+> On 10/14/2026 2:10 PM, Krzysztof Kozlowski wrote:
+> > On Tue, Oct 13, 2026 at 12:29:58PM +0200, Larisa Grigore wrote:
+> > > +  clocks:
+> > > +    maxItems: 1
+> > > +
+> > > +  clock-names:
+> > > +    items:
+> > > +      - const: core
+> > 
+> > I don't get why you added the clock-names.
+> > 
+> Hello Krzysztof,
+> 
+> The properties, `clock-names` and `operating-points-v2`, are needed to let
+> the generic UFS platform code discover and manage the controller clock.
+> 
+> `ufshcd_parse_operating_points()` uses `clock-names` to create the
 
-Replace nr_iowait_cpu() with bool cpu_has_iowait() and update the generic
-and s390 idle accounting callers. Have nr_iowait() read the counters
-directly so that the global total and existing accounting are preserved.
-Replace the stale menu comment with a description of the predicate.
+You have only one clock, so my point is that UFS code is just poor, but
+if that's the reason to mention its name, then just say that in commit
+msg... or probably the ufs-common should be fixed.
 
-The conversion was done with coccinelle:
-
-@ predicate depends on patch @
-expression cpu;
-@@
-
-- nr_iowait_cpu(cpu) > 0
-+ cpu_has_iowait(cpu)
-
-@ callers depends on patch @
-expression cpu;
-@@
-
-- nr_iowait_cpu(cpu)
-+ cpu_has_iowait(cpu)
-
-Signed-off-by: Christian Loehle <christian.loehle@arm.com>
----
-v2: Move the cocci excerpt to the commit message (Peter)
-
-
- arch/s390/kernel/idle.c    |  4 ++--
- include/linux/sched/stat.h |  2 +-
- kernel/sched/core.c        | 13 +++++--------
- kernel/sched/cputime.c     | 10 +++++-----
- 4 files changed, 13 insertions(+), 16 deletions(-)
-
-diff --git a/arch/s390/kernel/idle.c b/arch/s390/kernel/idle.c
-index dd12efb58201..ff9732ef494c 100644
---- a/arch/s390/kernel/idle.c
-+++ b/arch/s390/kernel/idle.c
-@@ -82,13 +82,13 @@ static u64 arch_cpu_idle_time(int cpu, enum cpu_usage_stat idx, bool compute_del
- 
- u64 arch_kcpustat_field_idle(int cpu)
- {
--	return arch_cpu_idle_time(cpu, CPUTIME_IDLE, !nr_iowait_cpu(cpu));
-+	return arch_cpu_idle_time(cpu, CPUTIME_IDLE, !cpu_has_iowait(cpu));
- }
- EXPORT_SYMBOL_GPL(arch_kcpustat_field_idle);
- 
- u64 arch_kcpustat_field_iowait(int cpu)
- {
--	return arch_cpu_idle_time(cpu, CPUTIME_IOWAIT, nr_iowait_cpu(cpu));
-+	return arch_cpu_idle_time(cpu, CPUTIME_IOWAIT, cpu_has_iowait(cpu));
- }
- EXPORT_SYMBOL_GPL(arch_kcpustat_field_iowait);
- 
-diff --git a/include/linux/sched/stat.h b/include/linux/sched/stat.h
-index 0108a38bb64d..4810b14d0372 100644
---- a/include/linux/sched/stat.h
-+++ b/include/linux/sched/stat.h
-@@ -20,7 +20,7 @@ extern int nr_processes(void);
- extern unsigned int nr_running(void);
- extern bool single_task_running(void);
- extern unsigned int nr_iowait(void);
--extern unsigned int nr_iowait_cpu(int cpu);
-+extern bool cpu_has_iowait(int cpu);
- 
- static inline int sched_info_on(void)
- {
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 1fe40de6ebe3..1bde5187dafd 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -5588,15 +5588,12 @@ unsigned long long nr_context_switches(void)
- }
- 
- /*
-- * Consumers of these two interfaces, like for example the cpuidle menu
-- * governor, are using nonsensical data. Preferring shallow idle state selection
-- * for a CPU that has IO-wait which might not even end up running the task when
-- * it does become runnable.
-+ * Return whether any tasks are accounted as I/O waiters on this CPU.
-+ * They may wake up on a different CPU.
-  */
--
--unsigned int nr_iowait_cpu(int cpu)
-+bool cpu_has_iowait(int cpu)
- {
--	return atomic_read(&cpu_rq(cpu)->nr_iowait);
-+	return atomic_read(&cpu_rq(cpu)->nr_iowait) != 0;
- }
- 
- /*
-@@ -5634,7 +5631,7 @@ unsigned int nr_iowait(void)
- 	unsigned int i, sum = 0;
- 
- 	for_each_possible_cpu(i)
--		sum += nr_iowait_cpu(i);
-+		sum += atomic_read(&cpu_rq(i)->nr_iowait);
- 
- 	return sum;
- }
-diff --git a/kernel/sched/cputime.c b/kernel/sched/cputime.c
-index 06bddaa738e5..1f84a950abed 100644
---- a/kernel/sched/cputime.c
-+++ b/kernel/sched/cputime.c
-@@ -431,7 +431,7 @@ static void kcpustat_idle_stop(struct kernel_cpustat *kc, u64 now)
- 	if (!kc->idle_elapse)
- 		return;
- 
--	iowait = nr_iowait_cpu(smp_processor_id()) > 0;
-+	iowait = cpu_has_iowait(smp_processor_id());
- 	delta = now - kc->idle_entrytime;
- 	steal = steal_account_process_time(delta);
- 
-@@ -544,14 +544,14 @@ static u64 kcpustat_field_dyntick(int cpu, enum cpu_usage_stat idx,
- u64 kcpustat_field_idle(int cpu)
- {
- 	return kcpustat_field_dyntick(cpu, CPUTIME_IDLE,
--				      !nr_iowait_cpu(cpu), ktime_get());
-+				      !cpu_has_iowait(cpu), ktime_get());
- }
- EXPORT_SYMBOL_GPL(kcpustat_field_idle);
- 
- u64 kcpustat_field_iowait(int cpu)
- {
- 	return kcpustat_field_dyntick(cpu, CPUTIME_IOWAIT,
--				      nr_iowait_cpu(cpu), ktime_get());
-+				      cpu_has_iowait(cpu), ktime_get());
- }
- EXPORT_SYMBOL_GPL(kcpustat_field_iowait);
- #else
-@@ -601,7 +601,7 @@ static u64 get_cpu_sleep_time_us(int cpu, enum cpu_usage_stat idx,
- u64 get_cpu_idle_time_us(int cpu, u64 *last_update_time)
- {
- 	return get_cpu_sleep_time_us(cpu, CPUTIME_IDLE,
--				     !nr_iowait_cpu(cpu), last_update_time);
-+				     !cpu_has_iowait(cpu), last_update_time);
- }
- EXPORT_SYMBOL_GPL(get_cpu_idle_time_us);
- 
-@@ -625,7 +625,7 @@ EXPORT_SYMBOL_GPL(get_cpu_idle_time_us);
- u64 get_cpu_iowait_time_us(int cpu, u64 *last_update_time)
- {
- 	return get_cpu_sleep_time_us(cpu, CPUTIME_IOWAIT,
--				     nr_iowait_cpu(cpu), last_update_time);
-+				     cpu_has_iowait(cpu), last_update_time);
- }
- EXPORT_SYMBOL_GPL(get_cpu_iowait_time_us);
- 
--- 
-2.34.1
+Best regards,
+Krzysztof
 
