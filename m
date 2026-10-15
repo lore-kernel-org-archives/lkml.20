@@ -1,112 +1,104 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CFBC4CDA3F;
-	Thu, 15 Oct 2026 08:49:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C2B54D17B9
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:49:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792054147; cv=none; b=TXkzqU97jnHlMlFxYVMtFhRv+TauXYoPqsvpqbUS9Q8HIQpyopupcV2i5RoMCDq+2FW5fa3IR/5hov/tmvZejAeNWp6/ljtHT2f+azFaDVhqI1GpaNj1nm89RCSQTPAjXahqhmR3lxQ5sNNZ7lSqwDmNkBVEsyNJqXBCU52FtAg=
+	t=1792054169; cv=none; b=b9knXe5i77CxWqfBV3f0yUez8PktG2OY0zsNOzfGZhWoFb5Yo236kH1z9OHUZHZ0uCBHrKWlAFYrMV5t7jP+EoD/u7piVbfCABNWZQprjOGlP/lY0Naowrdqmx8+19HA0oMOcRlxQxU+c4fYA6uYW8MNXk/ob5NCZ41bhEz+Sb0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792054147; c=relaxed/simple;
-	bh=Hiqd/zvvKBmiQKIQH5rMJyLgZE4DjkUbPRiNbDZoKBE=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=i+YN22sePqMgyUNW4GecJhoQnY+k1SuSSlj20N8/B5aMq41i9DM9TfAlmHFIu3s45FmvUqPCITlszX04/l0KunYFP5aQFpGVqY4k4kc8+YD+gZpnEVz56VbQvbGAKdVHGSh6e0Qx+9G4LNy3G5BIiAvJ1ZXX4JBujOmp9j4anKI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=ieejP6NV; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1792054169; c=relaxed/simple;
+	bh=YOjf6rFSyqsJTThezuuoSLramjes3+jmyhplUceJ4is=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=LkjDKPQN+FrA2s/+QecJoX75BCAICTCPJ6ybikmuaTUIfuF4ICpJhMHmMlkJ3aDz4niPOY4Goq7iIt2WuSW7Qt6zSPCpV4VF/lDCE2sYgr0y/WjFF1wBlhmMGwbGgEzDvcsgwC4Z5NAg43e3Yd6gywgZJMtfTWhb+so9tbVkY1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qlnZTA+L; arc=none smtp.client-ip=74.125.82.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="ieejP6NV"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 43239A0919;
-	Thu, 15 Oct 2026 10:48:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1792054138; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=U03P+gee1kqHVbwU1qUibsCZEopODaXsBUYp9T2uy9k=;
-	b=ieejP6NVk6AbGAbWq0+x/TNkMvAjaehMgUEpdevm3Ke56m8Yuj8t1h5Sm0TudEwZ2uzqt0
-	BRVPgzf0R1Kpe+FGIIMlshE8sp8SumymjVCIHNMbqqXMSL/PSEOJ66Qnrj5joAA/7IFdYi
-	iRgiDf4H4h0GQ2wdr5FanscxG8Noyv/iD1amZXIyG1Qt8xPqkq0fXH7uI8ok8+cRW9VUC/
-	EI5UvL1+TTUtqj/GruT/LNEWleDGUuLaG11wbT1iBxQIjp9PNXyd4W4isyDXZXuvAZJAtC
-	PBfV9r4yoq62xhGci+NmEYThrmhzNkVJl/3VTjigvPyPkPPxKRCTHfhCY8po3Q==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qlnZTA+L"
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-30b6dad2382so11723181eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:49:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792054163; x=1792658963; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YOjf6rFSyqsJTThezuuoSLramjes3+jmyhplUceJ4is=;
+        b=qlnZTA+L/lJoealhJnAGj2bGmj11+hXXWzGfGnnjOnbBTqO/MoP/NtfcMoa4wwQ/kR
+         7CHLNaZN0StV7YT8vf931Og+wHImg9yZJbdpbqwJRmeE+zDxtfGoG1sXfg07PwyY5xkS
+         BOfyaqVVo3zYbow5hw0uabNTRKX1wixigmSc2q9OOvFkN82ewVWAWbk+Eej0hzMb/I8P
+         V8vf7TpuQPEKfeRS0CYsF2e3qg/iocFAu4qnWg69W9BSVdR8Cnkrha8gCR9/MfV9e9Ys
+         V2AjTTtxHZbQfR+Y1mpoNYV9ApOL7yiCQkJVQ6ZmUOlHuj5WVLuAWE5Le5aZUivAUMEE
+         gKLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792054163; x=1792658963;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YOjf6rFSyqsJTThezuuoSLramjes3+jmyhplUceJ4is=;
+        b=IJBGukxAcH9CW4YLXcfLKOq8QHFvAYQFNI03xOugu2qUENmzUBDQxjHDC1Yc6d4+GH
+         CSilZqlGhCLx3b9e6IY3PjLLsIDkuyiTMIpUJObWVKIH0rUqZmK3RDtjYFd/8yWhm3nw
+         R8em7GxjG3rtTxIC3l6AXzY6M7WMZZkqZ34M3GvdR3DUkM7xBWzk8E/pT8367gjn2nRv
+         VkqwpetXjYbLC+FEIq+HZiYAYOIPCJJnn6kFjTETD2p0C6yS2tIBxzaf0R9Wj3b7f09T
+         rlPamAu4Jq2VGTmQc4sDqYVRPAJNsrk8wxG3U2rW+VKq9B9xcc4v2o1zYDGnC0NF8VS/
+         1sgQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzt1IL9y+6pRwtOFplkvBwyUzEB1gPaEAGCLVm/hLYMcnYKCD/HyGun2hyYFcQIpq8qLMjyuRASZgzpPTg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKOEwzwLu6AQ3gcA/NJgP/dS053TYIDwYi+u89aDm6OGq1Ki7MX
+	DnaYDxN1OS78R1iPbAaa1YhKjIJVY9AaflMEFXxw9LAzhO6cysZT4//t
+X-Gm-Gg: AYBFou0EpofqQ+2NV50gMzKhHQdSeJbdzGnjmZdZ/CIOJS7ng8wIt86VyWz08pBmtAa
+	5Vl183ewRIRDh9riv+quPW8KU4CZiOL56zbfWpyI2N3iLWj86bNwEckofFNWZjcoyngSjuL95ki
+	OtUX1J3b4T5tnxhtD/eAE92OthqehFxxL47L7deSo5pAKwzQ4CdZpVGnT4Q4XegQKBAEOG+chLJ
+	bVV9uqcUdMEQZuR7lhmVLXixq/DCqHINTzCzLz+CVBbcpJTaVm0Ai2y35cehVmVKmmrWi9TeTcW
+	3B+JsmnZnl22lYuvzv8qTLddcsvBDkLGE541ZPlBmLH3bkrPWXuUGMGSxTzDZEDpF5J9jc9jeNW
+	tvjy/Ry5Fts/AH1MhkAK6CpbRyRIGcdCSTRhMkn1jW2R42qBmEdBoXRISBKm4ipJt5j25dvcpQI
+	EKnokLpu7E8hrjxsKeVgoFvQX1lrEgUlGQhQO7DzfFC+M7KG0KEqYApVUtfbUhsIBCplA5TB8P7
+	TKtKNa2gJ/g3ycZL55lwNmJ8Io7J7Wncps=
+X-Received: by 2002:a05:701b:2309:b0:153:7a27:b89 with SMTP id a92af1059eb24-16a5ed4008cmr29637644c88.21.1792054162846;
+        Thu, 15 Oct 2026 01:49:22 -0700 (PDT)
+Received: from qiwenjie-ThinkCentre-M760t.mioffice.cn ([43.224.245.241])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a1becf08sm58191135c88.5.2026.10.15.01.49.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 01:49:21 -0700 (PDT)
+From: Wenjie Qi <qwjhust@gmail.com>
+X-Google-Original-From: Wenjie Qi <qiwenjie@xiaomi.com>
+To: Daeho Jeong <daeho43@gmail.com>
+Cc: Jaegeuk Kim <jaegeuk@kernel.org>,
+	Chao Yu <chao@kernel.org>,
+	Daeho Jeong <daehojeong@google.com>,
+	Qiuyang Sun <sunqiuyang@huawei.com>,
+	linux-f2fs-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	qiwenjie@xiaomi.com,
+	qwjhust@gmail.com
+Subject: Re: [PATCH v2 2/2] f2fs: refresh pinned allocation boundary after resize
+Date: Thu, 15 Oct 2026 16:49:15 +0800
+Message-ID: <20261015084915.3364591-1-qiwenjie@xiaomi.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <CACOAw_xV4J8r6exS3ZdTA1aY_bjQ+PFL5LVn4ymLanxqHGqLGQ@mail.gmail.com>
+References: <20260829060524.2656620-1-qiwenjie@xiaomi.com> <20260829060524.2656620-3-qiwenjie@xiaomi.com> <CACOAw_xV4J8r6exS3ZdTA1aY_bjQ+PFL5LVn4ymLanxqHGqLGQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 15 Oct 2026 10:48:56 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: netdev-bot+sashiko@kernel.org
-Cc: opendmb@gmail.com, florian.fainelli@broadcom.com,
- bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- dave.stevenson@raspberrypi.com, justin.chen@broadcom.com,
- pierremarinleclercq88@gmail.com, f.fainelli@gmail.com
-Subject: Re: [PATCH net-next v5 6/8] net: bcmgenet: pad transmit frames out of
- the packet ready window
-In-Reply-To: <179198777582.434549.9712346725032064776@kernel.org>
-References: <20261013-nb-genet-mtu-nn-v2-v5-6-076b6fc240be@tipi-net.de>
- <179198777582.434549.9712346725032064776@kernel.org>
-Message-ID: <889b45fa87ee8eff3903c1b9e9b96316@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-On 14.10.2026 16:22, netdev-bot+sashiko@kernel.org wrote:
+Hi Daeho,
 
-> [...]
+> Could you update the patch to adjust resizable_tail_secno accordingly?
 
-> [Severity: Medium]
-> This is a pre-existing issue and was not introduced by this patch. The 
-> new
-> dropped increments here run under ring->lock, but bcmgenet_timeout()
-> updates the same syncp after the lock has been dropped:
-> 
-> drivers/net/ethernet/broadcom/genet/bcmgenet.c:bcmgenet_timeout() {
->     ...
-> 	bcmgenet_tx_reclaim(dev, ring, true);
-> 
-> 	/* Re-enable the TX interrupt for this ring */
-> 	bcmgenet_intrl2_1_writel(priv, 1 << txqueue, INTRL2_CPU_MASK_CLEAR);
-> 
-> 	txq_trans_cond_update(txq);
-> 
-> 	BCMGENET_STATS64_INC((&ring->stats64), errors);
->     ...
-> }
-> 
-> bcmgenet_tx_reclaim() takes ring->lock and releases it before 
-> returning,
-> and the TX interrupt has just been unmasked. TX NAPI writes the same 
-> syncp
-> under ring->lock:
-> 
-> bcmgenet_tx_poll()
->     spin_lock(&ring->lock);
->     __bcmgenet_tx_reclaim()
->         u64_stats_update_begin(&stats->syncp);
->         u64_stats_add(&stats->packets, pkts_compl);
->         u64_stats_add(&stats->bytes, bytes_compl);
->         u64_stats_update_end(&stats->syncp);
-> 
-> dev_watchdog() freezes the tx queues, but it doesn't stop TX NAPI.
-> 
-> On 32-bit SMP kernels, such as on BCM2711 or arm32 BCM7xxx, can these 
-> two
-> writers overlap on ring->stats64.syncp? Readers in 
-> bcmgenet_get_stats64()
-> and ethtool -S could then see torn counters. A lost sequence increment
-> would also leave the seqcount odd, and readers would spin.
-> 
-> Would moving the errors increment in bcmgenet_timeout() under 
-> ring->lock
-> avoid this?
+I've sent v3 [1]. It now subtracts the removed sections from
+resizable_tail_secno, clamping it to zero, before recalculating the pinned
+allocation boundary. This keeps the boundary unchanged when shrinking
+within the reservation and limits it to the new main area otherwise,
+while retaining the zoned-device limit.
 
-Yes. It is pre-existing though, bcmgenet_timeout() increments errors 
-after
-bcmgenet_tx_reclaim() has dropped ring->lock and the Tx interrupt is
-unmasked again by then. I can fix it in net.
+The old tail-based rejection checks are removed. The current tail value
+is saved after freezing the filesystem and restored before rolling back
+the geometry if the final checkpoint fails.
 
-> [...]
+[1] https://lore.kernel.org/linux-f2fs-devel/cover.1792050467.git.qiwenjie@xiaomi.com/T/#u
+
+Best regards,
+Wenjie
