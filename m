@@ -1,142 +1,229 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59AD1513558
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:23:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AA055172C5
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:23:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792059830; cv=none; b=iELc6mwFf7AFwEYdmdkPvBuOi8zlx3oV3jH2bX9G1eBixQqdXwmEDPExkLrA2/9JvcnngeahHBbWNv5ox0/qf73MJlZd9Edxm8em7WLq98YAoRBEpXQa0l+co0yeNLhnpvQwbZk0nu5g56vlxPrmk60GamU3jnaInV7eTBppfVw=
+	t=1792059833; cv=none; b=cFCM2oTcWZPuopsfIw0nUy7ozG9NAl5QkNBomwG9brIOjgmhKnBOEXq7j9sAaCClx0sL/Sa+atwDLix6LjO7uKM3463Vdx5L7Q6cdcJJOFgI8KFym6o1li+8s45d2WQyn3a+dlh0MPMTkFC7OPcKEqg0+Lsv/zG+1GM0Ph5PmUA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792059830; c=relaxed/simple;
-	bh=nSmXuMKhoIgAobqpkzs+VXQaRMleH57PzdSWjcWc2zM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mPgjGhQng4+yIm3ervWMTawK4ObbEajuHKfW/xgRT6RHDzwIzLNetD8VC85CZkCe1IIdlwVnbwNolyR/FJ0eDQo61RqY1T1GR2jjkxokMZ6I51dfRhj9pcmYJTugMzdMFi2YCcADRZUrOt8OhXpDhYlw5BIcxQ203vF1Y5dfBdw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G1bmfbfb; arc=none smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792059833; c=relaxed/simple;
+	bh=oPmXs6PcNZzdaUBQIem0fqkF464Nvc5dRLKpKu7jUms=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=BKNmKO9VicjUJICtV2H7iKrxAPHEAUvyxeczgoyJ2MUrI99qa8oJEPmmrT9KzTZiFYcOz/OLTtjLT+Pb0PaxgMxm1WwEhgbySqcOYyK9f0qw1rIVW9jk+My0xQFn+7Jdo0l1CE5M89JYMGHosjJH/hWoOmloz5Nshx+afrRZ2mQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Ace8xCUu; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G1bmfbfb"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48870973bddso3023616f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 03:23:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792059826; x=1792664626; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HteFBMsv61wMUi+iQYixSn1H5G1GsfDrtUwr2aL1cHg=;
-        b=G1bmfbfbhZpSyS+0T9SyKr8bo1LQdS8wSGccWKWCpunwCRS5HGjEuwZzPSL7HXHo4x
-         JpHNGZIhWP/8tVZsIx7MLvCezVNmyoqIlg/ofe1XISZk0OzdDc0a6IQCKMsyoWlB8pGE
-         HVrQCOtUubg2UVXbWnd4A96LJAiskP627wMlfJYOsEndqualBXz8V0IkyoDAUswJ9+wB
-         XCgSmJx+p8azki+EAzjidkSa32igo074pXzWmnrE8bQBRXl3j9rgrZFVfeCVdLyvey6V
-         JU1gO/T0fFeLtjGSReXsjB2JosOD/YOJjTBBVB3lgS5ev1qySVydW9jIVLvYzA5cinMh
-         mnxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792059826; x=1792664626;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HteFBMsv61wMUi+iQYixSn1H5G1GsfDrtUwr2aL1cHg=;
-        b=B25ISb2tTPiDrGYIyd4q0DoEHVsSLSprfBzNnC7CF4oBBjcw04A6XG2Vn1jrwUbnIG
-         pQJBsBI13U68A7JedmtW4P1kfSodAOlnEm8PKiHFfhcreKCjbMT3JPqffwR5XXFQmvG0
-         3M1cv+mC41l8JpISMg0nHSC8z/SenmgYJiw32W08IdouvzP60/6HrpdgxWlgFiWWM+J3
-         kijOPK/Wt4T1tlFw4Kr4jMkYcsYnSARNFzAGIQ0GINhU+n7KLRlp82+G0eLAzfRCHjZ7
-         Ip9Hrcc9tDu4mPHwWA1880VV/ig1WgGjYPQ6/3CNt5I+3Z8NC0QSy718uiZzdu0vIm8z
-         hxFg==
-X-Forwarded-Encrypted: i=1; AKwUvBybEZSuSf3tN4xMmQFs4gl9nc/9hCCss1lE85KKlCzRbr+CO0BS8qniJHZZWgEmEC/Kk4/kJlz9Efr0gv4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKVZL0Q1h4LKLxPBCImTJ/XmfiKOEuUKqaiEoZxJnPlpOsrt1FW
-	HCpU65Rzm4guYxsamYPSG/wZ8nGZPYM3hVt2T69UYSRe0OBScPj86GAF
-X-Gm-Gg: AYBFou0rZHcQYQKY9HMtnW8VUDDUHxA5jvpLdK/lNOotNrVcleIAzoa9wsVm6C2uSiY
-	XVG3Q6Wpc20q5DjOpgqfnICkpZAWGJvXdJ6GhR/gAuNxac6kaWZYsGpTge1PVgBVXC52F+v80kf
-	YhaS+lRqaqVN01eXdjcaQlKwTbof43kKp/Gy1qL4ceD5LmQmT2q9OThxKI4e0583vZKP5arIX6B
-	Fax8Y4okYqozbzwFFuGJpquutFstmJSwnBsYmw/zK/aNdoxwnIp4E8qPIfx0ULDe6h4KJ0ODP/J
-	y1F8gHOWjCz/8H+C6yZGp7X+2XI6pDh8i2U4Dt1cuVTc7HFPhNxXcWF9lbggxhIoGi4s5wUS0oD
-	ZnfaK5chBTddnnykHXh103RGiSynNjbRRSH6sr8iYwDc4QlzB8eqiOSVP/DCFuhKB3+6nZItVFM
-	G60b1hPvyUyYFKxhJSOdXcglw8KqGYHm+2oQin/WuMkvaOcTX8EecXHzd7fo8lWqJg6LduwGwN2
-	ReCrOTI27lo6O7yBiM=
-X-Received: by 2002:adf:e005:0:20b0:48b:437:8fbb with SMTP id ffacd0b85a97d-48db948204amr27843290f8f.19.1792059826507;
-        Thu, 15 Oct 2026 03:23:46 -0700 (PDT)
-Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ab6361sm14952542f8f.32.2026.10.15.03.23.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 03:23:45 -0700 (PDT)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Roger Quadros <rogerq@kernel.org>,
-	Tony Lindgren <tony@atomide.com>,
-	Lee Jones <lee@kernel.org>,
-	Dmitry Osipenko <digetx@gmail.com>,
-	Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: linux-omap@vger.kernel.org,
-	mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 2/2] mfd: tps65910: Add restart handler
-Date: Thu, 15 Oct 2026 13:23:20 +0300
-Message-ID: <20261015102320.23760-3-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261015102320.23760-1-clamor95@gmail.com>
-References: <20261015102320.23760-1-clamor95@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Ace8xCUu"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 7A23AC63455;
+	Thu, 15 Oct 2026 10:24:44 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 25C6460360;
+	Thu, 15 Oct 2026 10:23:48 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D42F410328AF1;
+	Thu, 15 Oct 2026 12:23:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792059822; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=syd7pC4o5FJKMVRMWpCAKTHTRahn3mOftmNMccwmH/o=;
+	b=Ace8xCUuDmy99gChU5whbEEs/vV1Zgx81j6uZ2vPRDsuS2uWtV3wHkbSBZpuubVwoDO0LD
+	FFin5ZP5IE+TBXZY/0lr8BC4sk/M2N8bp7MGccKzQ3BysKg4kM/e4zu/iOgFygjFunmsYU
+	E2TqqaLif1Ynj1paiWS+ZV7ndEhuAvbHQMVnxs+qaKYE71A/BEbNtsX0mmG/2lhAO46x+G
+	JwmybegxkH9+cmVYix7T1DMcQh7Ssx4cFuV0yhYiO7Cf9YWrSP+brI4riERcG4HjF4zJf4
+	CdGKzXP2QSw5n8x3SaO/Cv0orIyZORSkUClnrtSqn00QYK5dGHI2AntSnyaGsw==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Bough Chen <haibo.chen@oss.nxp.com>
+Cc: Pratyush Yadav <pratyush@kernel.org>,  Michael Walle
+ <mwalle@kernel.org>,  Takahiro Kuwano <takahiro.kuwano@infineon.com>,
+  Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
+ <vigneshr@ti.com>,  "linux-mtd@lists.infradead.org"
+ <linux-mtd@lists.infradead.org>,  "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>,  "michael@walle.cc" <michael@walle.cc>,
+  Bough Chen <haibo.chen@nxp.com>,  "open list:NXP i.MX 7D/6SX/6UL/93 AND
+ VF610 ADC DRIVER" <imx@lists.linux.dev>
+Subject: Re: [PATCH v2] mtd: spi-nor: clear the default RDCR opcode when
+ entering Octal DTR
+In-Reply-To: <20261015031017.pdqnv2bp5627bhed@shlinux89> (Bough Chen's message
+	of "Thu, 15 Oct 2026 11:10:17 +0800")
+References: <20260929-spi-nor-fix-v2-1-75440cfe4e76@nxp.com>
+	<87zex05uvn.fsf@bootlin.com>
+	<AS8PR04MB8820E136E7257FC5A02F1A3E908C2@AS8PR04MB8820.eurprd04.prod.outlook.com>
+	<20261015031017.pdqnv2bp5627bhed@shlinux89>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Thu, 15 Oct 2026 12:23:38 +0200
+Message-ID: <87zewfuus5.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Dmitry Osipenko <digetx@gmail.com>
+On 15/10/2026 at 11:10:17 +08, Bough Chen <haibo.chen@oss.nxp.com> wrote:
 
-Add restart handler to reset hardware properly on system reboot.
+> On Tue, Sep 29, 2026 at 09:10:37AM +0000, Bough Chen (OSS) wrote:
+>> > -----Original Message-----
+>> > From: Miquel Raynal <miquel.raynal@bootlin.com>
+>> > Sent: Tuesday, September 29, 2026 4:23 PM
+>> > To: Bough Chen (OSS) <haibo.chen@oss.nxp.com>
+>> > Cc: Pratyush Yadav <pratyush@kernel.org>; Michael Walle
+>> > <mwalle@kernel.org>; Takahiro Kuwano <takahiro.kuwano@infineon.com>;
+>> > Richard Weinberger <richard@nod.at>; Vignesh Raghavendra
+>> > <vigneshr@ti.com>; linux-mtd@lists.infradead.org; linux-
+>> > kernel@vger.kernel.org; michael@walle.cc; Bough Chen
+>> > <haibo.chen@nxp.com>
+>> > Subject: Re: [PATCH v2] mtd: spi-nor: clear the default RDCR opcode wh=
+en
+>> > entering Octal DTR
+>> >=20
+>> > On 29/09/2026 at 14:53:07 +08, haibo.chen@oss.nxp.com wrote:
+>> >=20
+>> > > From: Haibo Chen <haibo.chen@nxp.com>
+>> > >
+>> > > The core defaults opcodes.read_sr2 to the legacy RDCR opcode (0x35).
+>> > > In 8D-8D-8D mode the opcode is extended to two bytes per cmd_ext_typ=
+e,
+>> > > but the resulting command is not a valid SR2 read for these flashes,
+>> > > which access their status/config registers through a vendor-specific
+>> > > indirect register space. Since spi_nor_cache_sr_lock_bits() now reads
+>> > > SR2 during init, i.e. after the switch to Octal DTR, the extended RD=
+CR
+>> > > gets no data back and the read times out (on i.MX FlexSPI: -ETIMEDOUT
+>> > > and a controller
+>> > > WARN() during probe with Micron MT35xU and Macronix octal parts).
+>> > >
+>> > > Clear read_sr2 when the switch to Octal DTR actually succeeds, so the
+>> > > SR2 read is skipped (a cleared opcode already means "unsupported").
+>> > > Doing it in spi_nor_set_octal_dtr() keys off the real runtime
+>> > > protocol: a flash that advertises Octal DTR but runs in (x)STR becau=
+se
+>> > > the host lacks support keeps its usable RDCR.
+>> > >
+>> > > Assisted-by: LLM
+>> > > Fixes: b7b63475903c ("mtd: spi-nor: Create a local SR cache")
+>> > > Fixes: 63489002d397 ("mtd: spi-nor: Refactor Read Status/Write Status
+>> > > support")
+>> > > Signed-off-by: Haibo Chen <haibo.chen@nxp.com>
+>> > > ---
+>> > > Changes in v2:
+>> > > - Rework the fix following review: instead of guarding the read at r=
+untime
+>> > >   in spi_nor_read_sr2(), clear the default RDCR opcode.read_sr2 once=
+, at the
+>> > >   point the switch to Octal DTR succeeds (spi_nor_set_octal_dtr()).
+>> >=20
+>> > I don't get that choice. Why switching when Octal DTR succeeds only? S=
+R2 is
+>> > either supported or not supported, I don't think it is anyway differen=
+t when
+>> > entering octal DTR mode, is it? So I would expect SR2 to be cleared ea=
+rlier than
+>> > that, once we know the chip is octal DTR capable. And this must be ear=
+ly
+>> > enough so that manufacturer drivers can still set their own value.
+>> >=20
+>> > I am wondering whether we should simply drop sr2 opcode in the QER SFDP
+>> > parsing entirely for octal DTR devices (Michael?).
+>>=20
+>> The reason I clear it at the point Octal DTR actually succeeds rather th=
+an
+>>  "once the chip is octal-DTR-capable" is that capability !=3D running mo=
+de:=20
+>> a chip can advertise Octal DTR while still running in (x)STR because the=
+ host=20
+>> controller does not support 8D (see reply below). In that (x)STR case RD=
+CR is
+>>  valid and needed, so keying off capability alone would wrongly drop a u=
+sable
+>>  SR2 read.
+>>=20
+>> That said, I agree the current spot is awkward and does not let manufact=
+urer=20
+>> drivers override the value. I'm happy to move it earlier. Two options:
+>> 1, Clear it during SFDP QER parsing (as you suggest) for octal-DTR-capab=
+le devices.
+>>      This is the natural place next to the existing read_sr2 =3D 0 QER c=
+ases, and it runs=20
+>>       before the manufacturer late_init/fixups, so a driver can still in=
+stall its own SR2
+>>       opcode afterwards.=20
+>>      My only concern is the capability-vs-running-mode point above =E2=
+=80=94 we'd be=20
+>>      clearing based on advertised 8D capability, not on whether 8D is ac=
+tually entered.
+>>=20
+>> 2, Clear it in spi_nor_late_init_params() after the manufacturer hooks, =
+gated on=20
+>>      octal-DTR capability, so vendor values set in their late_init are p=
+reserved.
+>>=20
+>> If the capability-based approach is acceptable (i.e. we accept that a ch=
+ip advertising
+>>  8D but forced to STR by the host loses its RDCR), I'll go with dropping=
+ it in the QER SFDP
+>>  parsing. Michael, do you have a preference?
+>
+> Hi Miquel,
+>
+> Any suggestion?
+>
+> Regards
+> Haibo Chen
+>
+>> >=20
+>> >=20
+>> > > - Key the clear off the real runtime protocol so a flash that advert=
+ises
+>> > >   Octal DTR but runs in (x)STR (host without 8D support) keeps its
+>> > >   RDCR.
+>> >=20
+>> > Are you sure this is a valid case?
+>>=20
+>> Yes. spi_nor_setup() computes shared_mask =3D hwcaps->mask & params->hwc=
+aps.mask,=20
+>> i.e. the intersection of flash and controller capabilities. If the host =
+does not support 8D,=20
+>> SNOR_HWCAPS_READ_8_8_8_DTR is not in shared_mask, spi_nor_select_read() =
+picks a=20
+>> non-8D read_proto/write_proto, and spi_nor_set_octal_dtr() bails out ear=
+ly at:
+>>=20
+>> if (!(nor->read_proto =3D=3D SNOR_PROTO_8_8_8_DTR &&
+>>       nor->write_proto =3D=3D SNOR_PROTO_8_8_8_DTR))
+>> 	return 0;
+>>=20
+>> So the chip stays in (x)STR with reg_proto =3D=3D SNOR_PROTO_1_1_1, and =
+RDCR is still a valid=20
+>> single-byte SR2 read there. That is the case I wanted to avoid breaking =
+by keying the clear
+>>  off the negotiated runtime protocol rather than the advertised capabili=
+ty. If we move the=20
+>> clear to capability-based SFDP/late_init as discussed, this is exactly t=
+he scenario we need to=20
+>> be comfortable regressing (an 8D-capable part on a non-8D host would los=
+e its RDCR read of SR2).
 
-Tested-by: Svyatoslav Ryhel <clamor95@gmail.com> # ASUS TF201
-Tested-by: Maxim Schwalm <maxim.schwalm@gmail.com> # ASUS TF700T
-Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- drivers/mfd/tps65910.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+I am sorry but I failed to find devices acting like you describe. Your
+commit log mentions Micron MT35X and Macronix devices. I checked the
+datasheets:
+- Micron octal devices do not seem to use SR2 at all, they have a flag
+  register, but that's something else (like Winbond) and they have
+  similar support for it both in ODTR and in SSDR mode.
+- Macronix octal products feature several SR/CR. The sr1_and_sr2 opcode
+  exist but I would like to stop using it since there is no more need
+  for it and it just complexifies everything for no good reason. There
+  is no difference between the SSDR and the ODTR instruction sets, they
+  both support the same opcodes for reading and writing those registers
+  (with the subtlety that the repeated opcode should be a bitwise
+  complement).
 
-diff --git a/drivers/mfd/tps65910.c b/drivers/mfd/tps65910.c
-index 18b76359046b8..a1734fee1485a 100644
---- a/drivers/mfd/tps65910.c
-+++ b/drivers/mfd/tps65910.c
-@@ -440,6 +440,20 @@ static int tps65910_power_off(struct sys_off_data *data)
- 	return NOTIFY_DONE;
- }
- 
-+static int tps65910_restart(struct sys_off_data *data)
-+{
-+	struct i2c_client *tps65910_i2c_client = data->cb_data;
-+	struct tps65910 *tps65910;
-+
-+	tps65910 = dev_get_drvdata(&tps65910_i2c_client->dev);
-+
-+	regmap_update_bits(tps65910->regmap, TPS65910_DEVCTRL,
-+			   DEVCTRL_DEV_OFF_RST_MASK | DEVCTRL_DEV_ON_MASK,
-+			   DEVCTRL_DEV_OFF_RST_MASK);
-+
-+	return NOTIFY_DONE;
-+}
-+
- static int tps65910_i2c_probe(struct i2c_client *i2c)
- {
- 	const struct i2c_device_id *id = i2c_client_get_device_id(i2c);
-@@ -525,6 +539,14 @@ static int tps65910_i2c_probe(struct i2c_client *i2c)
- 				"failed to register power-off handler: %d\n", ret);
- 			return ret;
- 		}
-+
-+		ret = devm_register_restart_handler(&i2c->dev,
-+						    tps65910_restart, i2c);
-+		if (ret) {
-+			dev_err(&i2c->dev,
-+				"failed to register restart handler: %d\n", ret);
-+			return ret;
-+		}
- 	}
- 
- 	ret = devm_mfd_add_devices(tps65910->dev, -1,
--- 
-2.53.0
+Which device do you use exactly? Why is it not working? Are you sure it
+is not a problem with your controller or the SFDP tables instead?
 
+Thanks,
+Miqu=C3=A8l
