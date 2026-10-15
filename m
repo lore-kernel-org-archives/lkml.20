@@ -1,113 +1,50 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 706EB45FFB0;
-	Thu, 15 Oct 2026 06:14:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62D6C456DED
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:14:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792044887; cv=none; b=EyrO+2zYNdPk+5gvRA9Niy7xFd3FRtdoB3Su8j1Z3u5jDcPPGuIatGvv0yYHILqivS7h8dwdXSrRK9kV90y4GkhFmTuhHl/9levgaPHMExWQHJRuyGO28GtAL+VvZwzCPnA9yFwpeenEwnEZgmIOjFbo+8sWoHJpGPxTaknHYoY=
+	t=1792044903; cv=none; b=e6jy/71uk8EyQ/ErJ2GMb6qfmDCUjtiHTKH7LFw+v07fB+eU7+zEMbRtoOBmmfCraTE0oBgfBlFTofZVBuNDg9K3JXxkj5rkXy9xujGxLlL+g2qNPjATbTrljL14U20wX597lXR1TbkPMG9WC46OzaZ2pBhGZsj5mKBbHmGeu4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792044887; c=relaxed/simple;
-	bh=ZjHmUvD814tjkhysjYalQNoKk/0MhRSls02vcp1OVtw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ePT78EWDC+rQ3tRL8uXJ/8aixo+8y6MG1pV7MguSfrtKkyMfQ3aQgKqy0MahvwwwCZ4s3uvRUBotLcrBG2pHHc4tZGrHUl6iog0GNfk7dpyR4pfj6juYQ0r0y8WcgU5yaVliZUMAekckY+xzYz94YkIuvw28j9rKfVFEUY/r24I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=FvNgevAo; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="FvNgevAo"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DBB0F1516;
-	Wed, 14 Oct 2026 23:14:31 -0700 (PDT)
-Received: from [10.164.19.84] (a081061.arm.com [10.164.19.84])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C38BB3F871;
-	Wed, 14 Oct 2026 23:14:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792044875; bh=ZjHmUvD814tjkhysjYalQNoKk/0MhRSls02vcp1OVtw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=FvNgevAoTv232YZhVkEm7d++ZVEKA0pJhUSWt3GosYUbkm5hDIEIx75W5Y33f7zs7
-	 3ACuYSJGmk4lkTHG2VDI1rwU/6nPZByOqb8lICdTFpcigp3s+5oWcWe/dzvpsQIf+m
-	 vTyW5mgvnVnn0rY2YOjrQFigPYkrjRFPF6rZ7Vio=
-Message-ID: <3d43e4bd-7065-4ae1-bbc9-b034a9de531f@arm.com>
-Date: Thu, 15 Oct 2026 11:44:29 +0530
+	s=arc-20240116; t=1792044903; c=relaxed/simple;
+	bh=1wYpYu/neOHpSxPcKIemZLJ2cs2qCAD8wvolQO03BuA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QBPXD6rhAUWeO97uAixaX9nCw8YdimRYoWmPDYWuqGuntFHwMBR8kxyoDgAT33/evL6tuSMqxYSH47B9m2vcLmXJOiv+F0PRFx1CHWr/icbgy+npD5hgwKQdfigLcmNZK2p6XQg1KKSrppZqd0e2SkwHLJuvaQASysyK6LELeD8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 74E9068B05; Thu, 15 Oct 2026 08:14:49 +0200 (CEST)
+Date: Thu, 15 Oct 2026 08:14:49 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: kensanya@163.com
+Cc: justin.tee@broadcom.com, nareshgottumukkala83@gmail.com,
+	paul.ely@broadcom.com, hch@lst.de, sagi@grimberg.me, kch@nvidia.com,
+	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
+	TanZheng <tanzheng@kylinos.cn>
+Subject: Re: [PATCH] nvmet-fc: skip hostport ops when the LLDD has no host
+ handle
+Message-ID: <20261015061449.GA14497@lst.de>
+References: <20261014075303.277735-1-kensanya@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] selftests/mm: mremap_test: Validate the preamble region
- before mapping it
-To: =?UTF-8?B?UmljYXJkbyBCLiBNYXJsacOocmUgKFNVU0Up?= <ricardo@marliere.net>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>
-Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261014-selftests-mm-mremap_preamble-v1-1-2e97f501cb56@marliere.net>
-Content-Language: en-US
-From: Sarthak Sharma <sarthak.sharma@arm.com>
-In-Reply-To: <20261014-selftests-mm-mremap_preamble-v1-1-2e97f501cb56@marliere.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014075303.277735-1-kensanya@163.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
+On Wed, Oct 14, 2026 at 03:53:03PM +0800, kensanya@163.com wrote:
+> From: TanZheng <tanzheng@kylinos.cn>
+> 
+> nvmet_fc_alloc_hostport() returns NULL when the LLDD passes a NULL
+> hosthandle. That is not an ERR_PTR, so nvmet_fc_alloc_target_assoc()
+> keeps the association and leaves assoc->hostport NULL.
 
-
-On 10/15/26 12:16 AM, Ricardo B. Marlière (SUSE) wrote:
-> remap_region() checks that the destination region is free before mapping
-> it, but not the preamble region placed right before it, so mapping the
-> preamble can intermittently fail with EEXIST:
-> 
->   # Failed to map dest preamble region: File exists
->   not ok 15 5MB mremap - Source 1MB-aligned, Dest 1MB-aligned with 40MB Preamble
-> 
-> This happens when the kernel's heap ASLR (arch_randomize_brk()) lands the
-> process heap inside that unchecked range. Confirmed by correlating
-> brk(NULL) at startup with pass/fail across 60 runs: every failure had brk
-> land inside that range.
-> 
-> Fix it by including the preamble in the free-region check.
-> 
-> Signed-off-by: Ricardo B. Marlière (SUSE) <ricardo@marliere.net>
-> ---
-
-Just wondering, should this have a Fixes: tag as well?
-
-Other than that, LGTM.
-
-Reviewed-by: Sarthak Sharma <sarthak.sharma@arm.com>
-
-> Hi, this sporadic issue has been found in openSUSE CI:
-> 
-> https://openqa.opensuse.org/tests/6270334/logfile?filename=serial_terminal.txt#line-6760
-> ---
->  tools/testing/selftests/mm/mremap_test.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/tools/testing/selftests/mm/mremap_test.c b/tools/testing/selftests/mm/mremap_test.c
-> index 131d9d6db867..8d4fa3025a9d 100644
-> --- a/tools/testing/selftests/mm/mremap_test.c
-> +++ b/tools/testing/selftests/mm/mremap_test.c
-> @@ -1006,8 +1006,10 @@ static long long remap_region(struct config c, unsigned int threshold_mb,
->  	if (!((unsigned long long) addr & c.dest_alignment))
->  		addr = (void *) ((unsigned long long) addr | c.dest_alignment);
->  
-> -	/* Don't destroy existing mappings unless expected to overlap */
-> -	while (!is_remap_region_valid(addr, c.region_size) && !c.overlapping) {
-> +	/* Don't destroy existing mappings unless expected to overlap. */
-> +	while (!is_remap_region_valid(addr - c.dest_preamble_size,
-> +				      c.dest_preamble_size + c.region_size) &&
-> +	       !c.overlapping) {
->  		/* Check for unsigned overflow */
->  		tmp_addr = addr + c.dest_alignment;
->  		if (tmp_addr < addr) {
-> 
-> ---
-> base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
-> change-id: 20261014-selftests-mm-mremap_preamble-5f98ad625f93
-> 
-> Best regards,
-> --  
-> Ricardo B. Marlière (SUSE) <ricardo@marliere.net>
+A NULL hosthandle doesn't make much sense, so why do you want to handle
+that?
 
