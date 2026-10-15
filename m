@@ -1,40 +1,35 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 790E149EC7F;
-	Thu, 15 Oct 2026 08:29:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8907E4BE425;
+	Thu, 15 Oct 2026 08:30:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792052987; cv=none; b=lmkOroTTEZJW8Xnh7tvPhr05ff0cM4frktd2Pv6gIHH2HFqPF6Rn58n9BlMUAjY37B7DhSbsvVXhNOaVX4/TD4jqsgI65CnYmLQv3E7in34ms4fjihYjiZ9h2M/B40nLl2ZziF8wRzH8O2DnLdw4KrodN/SJkdLg7dZSeb6f0To=
+	t=1792053007; cv=none; b=l1x2irfF9sUBUamybjBThzHU4pNo5Tr6D+5dzz5CrtJX3r3PW4ol2h6Cjs7Zq2SLTGrijnBOWP1vtqCypYb9g/ixZ/ojJptwULxuip2L6+L9hYBzuU8tkB7EvgolE12YIfuGMXzg99nC/F3eeZMoFL5Vnn0nmc/IPiX2V+q5utQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792052987; c=relaxed/simple;
-	bh=9qie4MYwVdtRbyK8ZixjA0/7sKUS3C+EBjroQCNo6SQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=bblW6iNmKkr0BJuhc5SWRkSZQbOa04W34ia3dzghk45H+hfldajlVV8XuU8QYgvCux2oBXwV49RNQGjKgRdvY6gy4MF5JGWBIGqlZHM/mmu/D/Iu48rEE/o+WAB9GIvNkn6W4TbWiUE9haQroImePWImJ7XgkxqC3EeiagsvKZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Yx5prneR; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792053007; c=relaxed/simple;
+	bh=/yNCBjD6zEKGhapY7yyv3en/5N94RICa9BTGaxclrNc=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=hwDHXcemotEYUa3qLX960b/KVkAD155kuTjUmXDM98Gq47FiSp/woZGRuWuGh14+AqhDSAH83qvz1dijbTK0grCNjpgh66bb6ES5ocHJufmlZie51KhwhCHWWhBrz22lPB/4KBcoWqXlCpe+SvmtU/jR55mAa6z+Af3+8MFWLTg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pb0o7n8K; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Yx5prneR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=d2
-	wSfy1ouiPWLrgp3sJUvgB+WhxTFo9bRTRUFOtjxXI=; b=Yx5prneRCgKZMYx6Dh
-	QIvqdZf2aOdAsohQcemYSWWaZwCZDwcZ21UIDULsRQ6IKA2V4Lb5ATwQ/DZd/H5u
-	/2MgJY76rkwmlyRAqnh7Mauwp6NOcf+p1wegAicpex+uFOzDC3q8/m9TwgUocE3D
-	1nxURGmRNtNUfQIwWshC5w2Gw=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp1 (Coremail) with SMTP id PCgvCgAX5xeZjtBqeS4mEA--.26264S2;
-	Thu, 15 Oct 2026 16:28:09 +0800 (CST)
-From: Xia Yan <yana06070@163.com>
-To: gregkh@linuxfoundation.org
-Cc: sudipm.mukherjee@gmail.com,
-	teddy.wang@siliconmotion.com,
-	linux-fbdev@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] staging: sm750fb: remove unused CRTC cursor fields
-Date: Thu, 15 Oct 2026 16:27:57 +0800
-Message-Id: <20261015082757.10371-1-yana06070@163.com>
-X-Mailer: git-send-email 2.33.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pb0o7n8K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08B1E1F000C4;
+	Thu, 15 Oct 2026 08:30:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792053006;
+	bh=vWV7sVpCqRZVlc8/HSEKHdJAQHGfHfx+CIYPH7P4240=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=Pb0o7n8KXTKw/72y3UFARE0fePaw1zxFIZ+mnAaYMOg5qpmh8YzqZmvFyVhMQA4Mx
+	 BeU7o798jLFVjXI6A67K/NWr1+9X0mJdrY1MBypx84JNlW4J6P4ri0sGHWPAtzpdsF
+	 jPcpiaH20C2Z5cUdr7Ahas/2VZvXqf5ZZuE7t1YFkP/VzaxF1u3JYYgwcVSUs0/Ix4
+	 ifoBGee11wSf/AOJaGk5vG9+ztk44+/q6+AhAtL7xNNk5TjGrPDrd7VmibXtGV5VOv
+	 NKMLOV7soax7qex4B5Px8YLlmrNmvUYwyhQRvK5p8W0a8WBdkCZapGsqJlZF6ufYhU
+	 SERFjndawam1A==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F1587392E9E3;
+	Thu, 15 Oct 2026 08:30:05 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,47 +37,53 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PCgvCgAX5xeZjtBqeS4mEA--.26264S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7WrW5AF4UGw1fJF4fXr1DWrg_yoW8Gryxpr
-	W8tw4DCr45tan5Kr1DJFs7WryfK343CFyxGa9xG3909r1Utry5CrZ0934DGrWUWF4rGw4r
-	tF98Zr1aqw4ktFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UP9N-UUUUU=
-X-CM-SenderInfo: p1dqtiawqxiqqrwthudrp/xtbC3xqYH2rQjppBNwAA3a
+Subject: Re: [PATCH net-next] veth: clear rx queue hint in veth_xmit
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179205300452.3274548.12341366462163041168.git-patchwork-notify@kernel.org>
+Date: Thu, 15 Oct 2026 08:30:04 +0000
+References: <20261009040412.14571-1-jiayuan.chen@linux.dev>
+In-Reply-To: <20261009040412.14571-1-jiayuan.chen@linux.dev>
+To: Jiayuan Chen <jiayuan.chen@linux.dev>
+Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ toshiaki.makita1@gmail.com, john.fastabend@gmail.com, daniel@iogearbox.net,
+ linux-kernel@vger.kernel.org
 
-The v_cursor and o_cursor members of struct lynxfb_crtc are never read
-or written. The cursor setup and update paths use cursor.vstart and
-cursor.offset in the embedded struct lynx_cursor instead.
+Hello:
 
-Remove the unused members to avoid keeping a second, unused set of
-cursor location fields. No functional change is intended.
+This patch was applied to netdev/net-next.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
-Assisted-by: LLM
-Signed-off-by: Xia Yan <yana06070@163.com>
----
+On Fri,  9 Oct 2026 12:04:11 +0800 you wrote:
+> With more tx queues on one end of a veth pair than rx queues on the
+> other, and RPS or generic XDP enabled on the receiving end, we get:
+> 
+>     veth1 received packet on queue 2, but number of RX queues is 2
+>     WARNING: net/core/dev.c:5212 at get_rps_cpu+0x560/0x1360
+>     Call Trace:
+>      <TASK>
+>      netif_rx_internal+0x1af/0x4c0
+>      __netif_rx+0x99/0x350
+>      veth_xmit+0x713/0xca0
+>      dev_hard_start_xmit+0x166/0x5f0
+>      __dev_queue_xmit+0x1797/0x42d0
+>      ip_finish_output2+0xa34/0x1f40
+>      __ip_finish_output+0x510/0x7e0
+>      ip_finish_output+0x2f/0x320
+>      ip_output+0x17a/0x3f0
+>      ip_send_skb+0x1bc/0x220
+>      ......
+> 
+> [...]
 
-Notes (validation):
-    Compile-tested on x86_64 with GCC 12.3.1 and CONFIG_FB_SM750=m, using W=1.
-    All driver objects and the combined sm750fb.o built successfully.
+Here is the summary with links:
+  - [net-next] veth: clear rx queue hint in veth_xmit
+    https://git.kernel.org/netdev/net-next/c/1b1c0e87cfe7
 
- drivers/staging/sm750fb/sm750.h | 2 --
- 1 file changed, 2 deletions(-)
-
-diff --git a/drivers/staging/sm750fb/sm750.h b/drivers/staging/sm750fb/sm750.h
-index fd1cf9e..6e427d1 100644
---- a/drivers/staging/sm750fb/sm750.h
-+++ b/drivers/staging/sm750fb/sm750.h
-@@ -123,9 +123,7 @@ struct lynx_cursor {
- };
- 
- struct lynxfb_crtc {
--	unsigned char __iomem *v_cursor; /* virtual address of cursor */
- 	unsigned char __iomem *v_screen; /* virtual address of on_screen */
--	int o_cursor; /* cursor address offset in vidmem */
- 	int o_screen; /* onscreen address offset in vidmem */
- 	int channel;/* which channel this crtc stands for*/
- 	resource_size_t vidmem_size;/* this view's video memory max size */
-
-base-commit: cccafd0f36d8c30d4dcbdce26971dab15e8ab25b
+You are awesome, thank you!
 -- 
-2.33.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
