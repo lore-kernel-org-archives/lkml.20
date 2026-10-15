@@ -1,158 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-53.mta1.migadu.com [95.215.58.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D520719644B;
-	Thu, 15 Oct 2026 23:51:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCDC619644B
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 23:53:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792108299; cv=none; b=fXsdOySZb/RaQeoN21qhm9A4FIisn6CARA5IEMwwR0vCW6sWQE9iVjevNmVWms6g4Hh3B53BMSdj8UKwwVUFLTn2QOespd5LhTuvV9m3Po1kikgqA4N0o177SP66kmyz0BLMabc9TgZd29Gf710fqCqDQf7G8rqQUL5Zxj8T+7A=
+	t=1792108408; cv=none; b=oNj2tPJznzfHknNn6ehj/SmgPiUDzNA6mkBgeDg1HG8wyRIY1sQoWlN33+nlBLI1juNWGFqQkvN8ZB1PTNX8c18I5Y0ywOF3EXL7iJMz6CGh/VEAYsxhTNvav6+zoo6G3oI+pAv7XuxLdeCspVgSsFCe37KsPidGQAlwVIpg5N8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792108299; c=relaxed/simple;
-	bh=Bz7s2jXAh/f2QSrdnAOesX3O4LT10qkh8YRVM+1uu4w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NQueqvEvp2NaO55AxMVD+uMew3ppq6obKvSjBN9fVXg88bebYL3IFVtC9Z9fLPKyGxIZWDBM4ACcKW30LQUMKqsCHtiyULRWKe4RkQqU1gjW6XlKvL1s9fxOtGAuLhbrQTVzMvGd0ogRxdpX99k9WWNxOZAhDCoGTZWzGgpv9B8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PpLG1J7O; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792108408; c=relaxed/simple;
+	bh=FUpPXYfowSCUWW1Ifzz/TsytpfqsjiAGpIISXAFBqd8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ihvb8s05vc/AClU4LcWuwtU51q5qynUVoP+Dz3oM5llM25yg2Rbifynt79G/0nDKJaboL1gZjGQaTR8lNMDAQvmf2H2CdBLT8a4gjI6dQFEh+GW+PRmPO6KHRXcDfnxRxWa5kIn/pY5gQVuDCTYZgaDlXDTrQ/YYSdsNXKELIL8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=AQQXNutf; arc=none smtp.client-ip=95.215.58.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PpLG1J7O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 844FF1F000C4;
-	Thu, 15 Oct 2026 23:51:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792108298;
-	bh=/RRbiKX1IIdlTwNCQqDikgAOOiBg6jsNei09RfgsCA4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PpLG1J7ORRhLp6RnZaE1SYJmNPWjSIkzHmq+PHFjPOwCVpz+s+IrxIyPUutaSL0pJ
-	 6NF5zCscdGImjBADIJl0Wqjbzv2Pt0+Dn+i2Sze/ZlS2baQsGE0a7LkHymtqRexd92
-	 VbKJtbqwF+4B/dy4TOeTDlv/iX0lJrOIIiBxN1/WvARAx0lDJPJY4sMoPoODItbT9z
-	 +8iA1NPZDO8NRP8NWhCcZd0/iho4d/98/0BACUMaW4l7fE527PRcexypUOn9X251eh
-	 zEz5QipXHYmovX72LZWFm3YUtGN+qa5XKuwHPy98cKO/Rp3H+YeUyEMzTZ6ERmQggM
-	 mLcllYSBbCncQ==
-Date: Fri, 16 Oct 2026 01:51:35 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Thilo Zirnstein <thi.zirnstein@gmail.com>
-Cc: michal.simek@amd.com, linux-arm-kernel@lists.infradead.org, 
-	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/1] i2c: i2c-xiic: fix clearing of bnb irq
-Message-ID: <atFf1ZbNi29Lbdbb@zenone.zhora.eu>
-References: <20261015081127.1566244-1-thi.zirnstein@gmail.com>
- <20261015081127.1566244-2-thi.zirnstein@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="AQQXNutf"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=FUpPXYfowSCUWW1Ifzz/TsytpfqsjiAGpIISXAFBqd8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792108405; v=1; x=1792713205;
+ b=AQQXNutfkRkIXiAz2kaY/Dh/VVSJtlpQ7ZXCg4PeYmoCAZjDgCDVmjcx5Z2MrmsrqJCVLGtr
+ Zu+pgb4L0xXWqybaN2eUM78GLNVJxbmkGlhCM+vm7nh6j5LR1kYVQtr+iS/T9oyBp7fstCR8eYR
+ ZC1c1sqIWlnIgX1RWjDkfp6Q=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ba4637d7c08d0e1a;
+	Thu, 15 Oct 2026 23:53:24 +0000
+X-Mizu-Trace-ID: ba4637d7c08d0e1a
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <7033a6bb-333f-4734-a3be-42b3f943d31a@linux.dev>
+Date: Fri, 16 Oct 2026 07:53:15 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261015081127.1566244-2-thi.zirnstein@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] nvmem: Add Sophgo SG2044 eFuse driver
+To: Inochi Amaoto <inochiama@gmail.com>,
+ Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
+Cc: devicetree@vger.kernel.org, sophgo@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+ Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
+References: <20261014074516.240247-1-inochiama@gmail.com>
+ <20261014074516.240247-3-inochiama@gmail.com>
+ <fa4253c7-3b17-4b20-97b9-eb37f218a4c8@linux.dev>
+ <atCV8NsJc5Oatoo0@inochi.infowork>
+From: Chen Wang <chen.wang@linux.dev>
+In-Reply-To: <atCV8NsJc5Oatoo0@inochi.infowork>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Thilo,
 
-On Thu, Oct 15, 2026 at 10:11:27AM +0200, Thilo Zirnstein wrote:
-> Add a function for clearing the bnb bit,
-> It waits for all preconditions before clearing the bnb bit or times out.
-> 
-> Tested on Zynqmp dev board with some custom logic.
-> Tested-by: Thilo Zirnstein <thi.zirnstein@gmail.com>
-> 
+On 10/15/2026 5:03 PM, Inochi Amaoto wrote:
+> On Thu, Oct 15, 2026 at 02:43:40PM +0800, Chen Wang wrote:
+>> Hello,
+>>
+>> On 10/14/2026 3:45 PM, Inochi Amaoto wrote:
+>>> Sophgo SoCs such as SG2044 contain eFuses used to store
+>>> factory-programmed data.
+>>>
+>>> As for SG2044, HW automatically loads the eFuse content
+>>> into shadow registers which are organized as 32bit values
+>>> exposed as MMIO.
+>>>
+>>> Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+>>> ---
+>>>    drivers/nvmem/Kconfig        |  12 +++
+>>>    drivers/nvmem/Makefile       |   2 +
+>>>    drivers/nvmem/sophgo-efuse.c | 176 +++++++++++++++++++++++++++++++++++
+>>>    3 files changed, 190 insertions(+)
+>>>    create mode 100644 drivers/nvmem/sophgo-efuse.c
+>>>
+>>> diff --git a/drivers/nvmem/Kconfig b/drivers/nvmem/Kconfig
+>>> index c36c2a4c2a0b..a7936dd65bdd 100644
+>>> --- a/drivers/nvmem/Kconfig
+>>> +++ b/drivers/nvmem/Kconfig
+>>> @@ -465,6 +465,18 @@ config NVMEM_SNVS_LPGPR
+>>>    	  This driver can also be built as a module. If so, the module
+>>>    	  will be called nvmem-snvs-lpgpr.
+>>> +config NVMEM_SOPHGO_EFUSE
+>>> +	tristate "Sophgo eFuse support"
+>>> +	depends on ARCH_SOPHGO || COMPILE_TEST
+>>> +	default ARCH_SOPHGO
+>>> +	help
+>>> +	  Say y here to enable support for reading eFuses on Sophgo SoCs
+>>> +	  such as the CV1800B. These are e.g. used to store factory programmed
+>> Why is "CV1800B"?
+>>
+> This is an old mistake, this patch follows Jishengs's patch in the first
+> design. But then almost everything changed and only thing for SG2044 left.
+> This is the thing that is left to change.
+>
+> I am not sure whether it should keep this generic name as I see it should
+> be compatible for most sophgo SoCs (at least it should be for CV1800X,
+> by just change offset). Feel free to give if you have some suggestion for
+> a better name
 
-Please, don't leave blank lines between tags. Moreover in this
-case I don't need your Tested-by, I believe you tested your patch
-before sending.
+I raise this point because the subject of your patch indicates it is 
+intended for the SG2044.
 
-> Signed-off-by: Thilo Zirnstein <thi.zirnstein@gmail.com>
+If you are simply using it as an example （"such as ..."）, then 
+specifying "SG2044" is sufficient, even though, based on your current 
+explanation, it would also apply to other Sophgo chips, such as the CV1800X.
 
-I'd need here an ack from Michal.
-
-> ---
->  drivers/i2c/busses/i2c-xiic.c | 42 +++++++++++++++++++++++++++--------
->  1 file changed, 33 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/i2c/busses/i2c-xiic.c b/drivers/i2c/busses/i2c-xiic.c
-> index 5e397a7e63f6..da9cedb86f94 100644
-> --- a/drivers/i2c/busses/i2c-xiic.c
-> +++ b/drivers/i2c/busses/i2c-xiic.c
-> @@ -230,7 +230,9 @@ static const struct timing_regs timing_reg_values[] = {
->  
->  #define XIIC_RESET_MASK             0xAUL
->  
-> -#define XIIC_PM_TIMEOUT		1000	/* ms */
-> +#define XIIC_PM_TIMEOUT 1000 /* ms */
-
-Why this change?
-
-> +/* timeout waiting for bus busy */
-> +#define XIIC_BB_TIMEOUT		(msecs_to_jiffies(1))
-
-I don't see much benefit from this define as it's used only once.
-It just makes it more difficult to read.
-
->  /* timeout waiting for the controller to respond */
->  #define XIIC_I2C_TIMEOUT	(msecs_to_jiffies(1000))
->  /* timeout waiting for the controller finish transfers */
-> @@ -392,6 +394,30 @@ static int xiic_wait_tx_empty(struct xiic_i2c *i2c)
->  	return 0;
->  }
->  
-> +static int xiic_clear_en_bnb(struct xiic_i2c *i2c)
-
-Why do you need to return an error value if you ignore it
-everywhere?
-
-> +{
-> +	u8 sr = 0, isr = 0;
-> +	unsigned long timeout;
-> +
-> +	timeout = jiffies + XIIC_BB_TIMEOUT;
-> +	for (isr = xiic_getreg8(i2c, XIIC_IISR_OFFSET);
-> +		(isr & XIIC_INTR_BNB_MASK);
-> +		isr = xiic_getreg8(i2c, XIIC_IISR_OFFSET)) {
-
-this for loop is quite ugly. I believe that with a do...while()
-you can write a clearer code.
-
-> +
-> +		sr = xiic_getreg8(i2c, XIIC_SR_REG_OFFSET);
-> +		if (sr & XIIC_SR_BUS_BUSY_MASK)
-> +			xiic_setreg8(i2c, XIIC_IISR_OFFSET, XIIC_INTR_BNB_MASK);
-> +
-> +		if (time_after(jiffies, timeout)) {
-
-If this is called in a context where interrupts are disabled,
-jiffies might not be incremented and you end up looping forever.
-How about using read_poll_timeout_atomic() instead?
-
-> +			dev_err(i2c->dev, "Failed to clear bnb\n");
-> +			return -ETIMEDOUT;
-> +		}
-> +	}
-> +
-> +	xiic_irq_en(i2c, XIIC_INTR_BNB_MASK);
-> +	return 0;
-> +}
-> +
->  /**
->   * xiic_setclk - Sets the configured clock rate
->   * @i2c: Pointer to the xiic device structure
-
-...
-
-> @@ -1225,8 +1248,9 @@ static void xiic_start_send(struct xiic_i2c *i2c)
->  
->  		/* Clear any pending Tx empty, Tx Error and then enable them */
->  		xiic_irq_clr_en(i2c, XIIC_INTR_TX_EMPTY_MASK |
-> -				XIIC_INTR_TX_ERROR_MASK |
-> -				XIIC_INTR_BNB_MASK);
-> +						XIIC_INTR_TX_ERROR_MASK);
-> +
-
-this needs to be aligned properly.
-
-Andi
-
-> +		xiic_clear_en_bnb(i2c);
->  	}
->  
->  	i2c->prev_msg_tx = true;
-> -- 
-> 2.43.0
-> 
+>
+> Regards,
+> Inochi
