@@ -1,150 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 922F42E7366;
-	Thu, 15 Oct 2026 04:48:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F14B1DEFE8
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 04:50:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792039700; cv=none; b=sKJPocf7PB1zi3gaNJ7j8c5WpCcjtV76JNxZMWULWq60eJFKChRVmwp5tJvZd7Lvq+qdofoF9WfZHMqH5TtkWk1p3KNBfhSv//4YRGleaktQyQfRn/HrvNMEhHhvDChR/FJ6OAlEqbXyxC1BaSZ0+mwx+2ht0IqS8dJYIT4ZFCA=
+	t=1792039825; cv=none; b=YCXrN3uMWqN/OQ0LQ80FybkCQiMgLWXZRYwYrFHp8rMRs7XDepx7SvsGK4E2mDj/H1ztbU66BOANpD8Jj/P77pZIasu6V0YkqnCHWzPmaoSRe8jkN4AHh0SCzo6wtja2tDpn01qk8stk3LRA7dvqw/JQFNzITH/LQUfpW3wA/H4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792039700; c=relaxed/simple;
-	bh=BL4VcGoROA7PDnT3vZ6aEr0VhdZPR/ihxMmEQPDm70M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Gjj+UR9tu446uMpSmo54U/qXTX+7s1g0izU219dhYeiPff5iW8v88IsoFZV8LGFKyRowTfLbGbNdyiHuGV1Cuuc7SMjvo3raoflnJ+HW0l2omCMFyd6KA6OVKYYiRM2llE92uJwRxF66AAn+GF/jjytnVsrWc6+qIIkUNhESaYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UGDqoKhF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792039825; c=relaxed/simple;
+	bh=VZ3Tr2gFB2e6AncKRZFku5qMT3/qdFawvSt1vkMJhWs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qUiOBHPv6Bc6IdgUWlRrmW/Svzl7XXuKSsSVMqUo5HFZDAtAlO9KXn2XkDi3Rfh+shu5VTkwo050KKt8/vekp3YTjxz3EJakyzB4ISWY6ilmPiwIEvk8RMewEFBIL3jZ3mAJ3HJQBJ0wtXtNfBjJB2c+TyjLIN7Zq+4TVeQKh4Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qX9JESsg; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UGDqoKhF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 245AA1F000C5;
-	Thu, 15 Oct 2026 04:48:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792039698;
-	bh=6HMD5RchpGYsY0pRtaAyq/WdqXxarGhJNj4S4UKCbr4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UGDqoKhFmdLWTU9OhCOSgo50nsXn0YVZhp/FbpZFeGwBctn7pug8HGkZTqeWCHxKm
-	 xa1D3TEmpneVhIx2+Tero6MKORL1GupO/dubvGXy1VoKjMwzvK2MvSD2b2QdTPCoJo
-	 HMlkkrZpOYmWT7HaUxU40aj2i2v5oNxrJMIoLOIBX1nEryVdK6Prp0OqWTT8+zstpv
-	 Oy5z+HqMzwBby7BZ/BQAKoG5/ufi3sd0q2ELjLDilfW/yu7twZrn0CojcTU+1260Yw
-	 SukxQDVaUQbjhVWRDBClFV/eYpYEJoP9aBsyZEIVVDVbENaEcTvTp0yiJRGwsy0/pi
-	 +DECelzbkKd4A==
-Date: Wed, 14 Oct 2026 21:48:17 -0700
-From: Kees Cook <kees@kernel.org>
-To: Konstantin Khorenko <khorenko@virtuozzo.com>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
-	Paul Burton <paulburton@kernel.org>, linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] binfmt_elf: return the real error when program headers
- cannot be loaded
-Message-ID: <202610142140.D483AE26DF@keescook>
-References: <20261014-b4-prep-vstor-149847-binfmt_elf-enomem-load-elf-phdrs-v1-1-f39c74d55e42@virtuozzo.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qX9JESsg"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48c5358fc28so916380f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 21:50:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792039822; x=1792644622; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qZeTuZ/4qQQoQ+0qzys9AulwqpOfOPP73+MEdMRLt/A=;
+        b=qX9JESsgvezlEjZyV6FYO0FazvA7RN1/EqBBrae/pVjkquCTR+zKSWlJ0LZouKFm6T
+         hzWKy/7ljk7jYCXEU1AyO1EsXOrOwrqKn+eBKry24VkpvOGx/B5gS5wpGNH41AynWj6c
+         LgUlVlNOrhPs9i0dnhObDXbruYz9OUbjqxNjN+0NHy1O9cTcwiCKhGXIzY2OtvzaGYXR
+         mpC+wBrFEQw+HEf5lnA7PF38xzGGqf1KcQ9q/QWop8fhefag1EmUYUofFhHb/AMgmC90
+         w9e45za83XXoLEGb37uANYX3Kt58HPZMFaX71crDwKZ1sfp+Pe09xmM78oLBw8zf1XOJ
+         CNWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792039822; x=1792644622;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qZeTuZ/4qQQoQ+0qzys9AulwqpOfOPP73+MEdMRLt/A=;
+        b=g4nE7ze6u9YjucaIFIVtDsUeeS0izTAwsKzq599pK0Njz0j1Kc9MVWVzCsvsXWbWA8
+         D6BEXIcm1S+5rWaPGr5LdEyEshAfwlZf4PpZfIMHJ7zWOw3mxBwbYYCUaD4EhpwCOT9e
+         w/aQt3twFlKsibxwgoHTp9hn0xpoVQmamXFWM2ZwaXBA13S1GzkbeR4d0BYvTKp4Czg9
+         n2Xcb2G0g9XM5FFe7xfiFS9dqbY9/W/1HOC9NnNgatsaK25ZyydDhJO114cz/TyNbXp/
+         nZfU+zU/t0BVCztvVenKLyiAFargtA0jKhVaDxjO2B154ZfCdJ7S8WMTN4qdWfwDtRkP
+         djAQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzzF8fBsrXJIDT1+jzROviYnLX3mAOqJcGA7x1lmuPw1WP4NeKFHQvRe84J7L9a5mmTFX9gltZVheQP1gI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLds5MkARm3waVYgtqkZpHZ4bBJ4jlMjgEK4v5hxeIOzzBZm3aT
+	rvvxYGCTwU03gL1IC3X5eJ65i5dDdM/L21eLLvFmFC5iLzU81YZebonq
+X-Gm-Gg: AYBFou22xGEsXqiCZIhEFhsU5UiXR/ab49Uz/O2KzrDfKsK14cI6IywakdQpqonDH1a
+	QY2r25lYPIFIqBCwr1yTeaiw3y4vjcosCpjdQQ6/yVBHRb9pNjDH2zj/UwR70hfSbKhj1lINTz0
+	B624uKCrdkDBS64f/7MhVYrNuaYBuG75AurdG1sNw+73tHpI+shhaIF57O3fah2qLL9dHfIn0zO
+	WmvGnZNjINmChfDyXanlbI/2lytYN9nmqKEcC+nA7VE81fqhjrFZ8SCFG1w2pg2XpdZf6czQ89L
+	ElXFDoICpzCx9VdZY0UdA+cQw5dVMTRVIVqmGjW9D9Rywua50OO8n8YyVdaYR3YlEN3319pYb9w
+	MFzwDyoqP10QgQrKeXoEq6CQ7jPvvvOe3X2qod7pyuy4m1TpsLbziAS+UwR+awo47F0laaiAfDf
+	NJHxvmYQ9PGygfBkrvaljiPTgI37GpYV2Y7at1NSAsUjqzElGCJtq5hB3A4tES1GznrCDq0yx8o
+	4lLAkjezA8dHLEJ6BC7dnfQ4JmwgfdMXUc3/Pe5VLT7e8RJFbzHkLLxZI0G49J97nugop8ULsup
+	6AGKOfRZ24JtWyfnWogsz3+O/OW4K34+d1YH6CkHrU3nBdiz0Byw5feFtzVVeAT7z1cnSpBlHTx
+	Nbk4lcJifrIoIXQ==
+X-Received: by 2002:a05:6000:25c4:b0:48d:db43:4ba3 with SMTP id ffacd0b85a97d-48ddb434e27mr20529379f8f.2.1792039822104;
+        Wed, 14 Oct 2026 21:50:22 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-aeb3-cd01-f139-812c-65df-b930.310.pool.telefonica.de. [2a02:3100:aeb3:cd01:f139:812c:65df:b930])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bd1843sm16398919f8f.56.2026.10.14.21.50.21
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 14 Oct 2026 21:50:21 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	netdev@vger.kernel.org
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Wei Fang <wei.fang@nxp.com>,
+	Clark Wang <xiaoning.wang@nxp.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v2] net: phy: realtek: restore RTL8211F RGMII delays on resume
+Date: Thu, 15 Oct 2026 06:50:01 +0200
+Message-Id: <20261015045001.83986-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261014-b4-prep-vstor-149847-binfmt_elf-enomem-load-elf-phdrs-v1-1-f39c74d55e42@virtuozzo.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 14, 2026 at 02:30:33PM +0200, Konstantin Khorenko wrote:
-> Problem
-> =======
-> 
-> load_elf_phdrs() returns NULL on any failure, and load_elf_binary()
-> turns that into a fixed error: -ENOEXEC for the executable, -ELIBBAD
-> for its interpreter. The real cause is lost:
-> 
->   cause                                  really      execve() returns
->   -------------------------------------  ----------  ----------------
->   bad e_phentsize, e_phnum 0 or too big  bad file    ENOEXEC (right)
->   file ends before the header table      bad file    ENOEXEC (right)
->   kmalloc() of the table fails           ENOMEM      ENOEXEC (wrong)
->   kernel_read() fails                    EIO/ENOMEM  ENOEXEC (wrong)
-> 
-> For the interpreter every row gives ELIBBAD.
-> 
-> Consequences
-> ============
-> 
-> ENOEXEC says the file is not an executable, which is a property of the
-> file, not a transient failure:
-> 
-> - glibc's execvp() and execlp() take ENOEXEC as "not a binary" and run
->   the ELF file with /bin/sh, which reports a binary it cannot execute
->   instead of the ENOMEM or EIO.
-> - search_binary_handler() tries the next binary format instead of
->   returning the error.
+RTL8211F and RTL8211F-VD both use rtl8211f_config_rgmii_delay() during
+initialization and share rtl821x_resume(). The RTL8211F-VD loses its
+RGMII TX and RX delay enable bits across a software power-down, but the
+shared resume path only clears BMCR_PDOWN and waits for the receive clock
+to stabilize.
 
-Isn't that what we want? If one handler can't load it, move on to find
-one that does.
+On a BeagleV Ahead configured for rgmii-id, carrier and the negotiated
+speed return after an interface close/open, but the receive path does not
+work. At 100 Mbit/s no frames were received. At 1000 Mbit/s all 11
+observed frames had CRC errors.
 
-> - For the interpreter the caller gets ELIBBAD, "Accessing a corrupted
->   shared library", about an ld.so that is fine.
-> - A caller that would retry on ENOMEM or report EIO gives up on the
->   file instead.
-> 
-> When it happens
-> ===============
-> 
-> - The allocation fails under fault injection. Since commit
->   8030790477e8 ("binfmt_elf: remove the 4k limitation of program header
->   size") the table may be up to 64K; above 32K that is an order-4
->   allocation on 4K-page kernels, which can fail on a fragmented system.
+Reapply the RGMII delay configuration after the existing resume delay.
 
-I would not want to risk changing established userspace error message
-interactions to make fault injection happy.
+Tested on a BeagleV Ahead with an RTL8211F-VD at 100 and 1000 Mbit/s,
+including close/open without a link partner.
 
-> - The read fails with an I/O error, or with -ENOMEM when the page cache
->   cannot take the pages.
+Fixes: bb726b753f75 ("net: phy: realtek: add support for RTL8211F(D)(I)-VD-CG")
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+v2:
+- Move the shared RTL8211F/RTL8211F-VD resume-path explanation earlier.
+- Add Andrew's Reviewed-by.
 
-This is kind of a bad failure case -- I don't think the "right" error
-code is going to help much there. ;)
+v1: https://lore.kernel.org/netdev/20261014033659.95196-1-kmehltretter@gmail.com/
 
-> 
-> Where it came from
-> ==================
-> 
-> - Until commit 6a8d38945cf4 ("binfmt_elf: Hoist ELF program header
->   loading to a function") load_elf_binary() returned -ENOMEM and the
->   read error. That commit documented an ERR_PTR return but returned
->   NULL; commit cfc46ca4fdca later fixed the comment, not the code.
-> - Commit a9d9ef133f44 ("binfmt_elf: load interpreter program headers
->   earlier") gave the interpreter's headers the same NULL check, and with
->   it -ELIBBAD.
+Hardware test results on BeagleV Ahead (RTL8211F-VD, rgmii-id):
 
-So it's been like this for 12 years? :)
+                               baseline          patched
+ 100 Mbit/s close/open         RX silent         pass
+ 1000 Mbit/s close/open        11/11 CRC errors  pass
+ no-link close/open, reconnect 15/15 CRC errors  pass
 
-> [...]
->   kernel                errors returned by execve()
->   7.3-rc7               ENOMEM 17, ENOEXEC 1, ELIBBAD 1, E2BIG 2
->   7.3-rc7 + this patch  ENOMEM 19, E2BIG 2
+The patched kernel also passed bidirectional 1 MiB SHA-256 transfers at
+100 and 1000 Mbit/s and eight consecutive 1000 Mbit/s close/open cycles,
+all without RX CRC errors. An s2idle suspend/resume test passed on both
+kernels and did not reproduce the bug.
 
-... so there are _fewer_ distinct failure codes with the patch?
+Testing on an RTL8211F (non-VD) would be welcome.
 
-> +	/*
-> +	 * Read in the program headers. A read that fails part way returns
-> +	 * what it got, so read on to see the error or the end of the file.
-> +	 */
-> +	pos = elf_ex->e_phoff;
-> +	for (done = 0; done < size; done += rv) {
-> +		rv = kernel_read(elf_file, (char *)elf_phdata + done,
-> +				 size - done, &pos);
-> +		if (rv <= 0) {
-> +			kfree(elf_phdata);
-> +			return ERR_PTR(rv ? rv : -ENOEXEC);
-> +		}
->  	}
+Built with ARCH=riscv CROSS_COMPILE=riscv64-linux-gnu- LLVM=1.
 
-This is a behavioral change mixed into the errno handling change to
-support partial reads??
+ drivers/net/phy/realtek/realtek_main.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I could be convinced that errnos need to be fixed, but the rationale
-here doesn't really make me think it's worth potential disruption to
-userspace. I'd need a pretty comprehensive survey of what would change
-there and then a clean patch that made zero other behavior changes...
-
--Kees
-
+diff --git a/drivers/net/phy/realtek/realtek_main.c b/drivers/net/phy/realtek/realtek_main.c
+index 177b62a7b2d16..c867e5213216b 100644
+--- a/drivers/net/phy/realtek/realtek_main.c
++++ b/drivers/net/phy/realtek/realtek_main.c
+@@ -1375,7 +1375,7 @@ static int rtl821x_resume(struct phy_device *phydev)
+ 
+ 	msleep(20);
+ 
+-	return 0;
++	return rtl8211f_config_rgmii_delay(phydev);
+ }
+ 
+ static int rtl8211f_resume(struct phy_device *phydev)
 -- 
-Kees Cook
+2.39.5 (Apple Git-154)
+
