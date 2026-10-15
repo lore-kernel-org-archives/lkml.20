@@ -1,67 +1,47 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D1D2471D03;
-	Thu, 15 Oct 2026 15:52:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from mail.8bytes.org (mail.8bytes.org [85.214.250.239])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 781383E3177;
+	Thu, 15 Oct 2026 15:52:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.214.250.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792079560; cv=none; b=pY0XB1qn0QKQC1aGIPNS8Ins2wOApbQvjb69OnJtZ5YAA9La1csTzbL0CyHEF1NF6LH9hSej1KfW7P7NXjc1bF302O5IKMII37+20Tr72ZTgAMMfQbC1ZLWhGea0umkUnUh1nM9j51+OrqwHaGqvdM40U7NaM6+PHBrURNOMLjI=
+	t=1792079562; cv=none; b=hE5Ee2cOBg9TBFCwHUYji0H+2JRjSlg+qdLgVqaT8knM+P5g4ugUvvut8bAOxCWBIcikKT5UvnzOKWu4ce2InWslh8ZaX0bOxQNzORj/XawvEpJmmP/+t/tDRXzfe0oF00OSMW7PFwiThwM4+iOMIZPM82qWTmG2/DlaV0bYxhI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792079560; c=relaxed/simple;
-	bh=k+0GtXD3Qs53mfSE/fEkdu9Mf+jMTguHNnm43La+XTI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=mTrriWdYTVtaXjwaZVhmVBFnUcDiQu4VZFIvUP73HUKUPTb32gHa9VQynGqsbxT7oWMJOoKlwrq3tNzYFuSJFdkV3amer8UQWu1EDWjzFuvw+KNf4kqQvFkHrWfB+IrXUv41bvb8eKJuJSr5STC0/ajRlse400AZvqragWm3AUU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TCxEQQ5P; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TCxEQQ5P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C30B1F000C4;
-	Thu, 15 Oct 2026 15:52:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792079547;
-	bh=Wu9kO84nVOZVbnuX/loC+MAVxoMwjysFTsSZyRRbJR8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=TCxEQQ5PadjdABDBlTaOCCzeOEVKv/ljFIDacSEamn5jNzM0MpS1hiSfRw/Or81Bh
-	 93hDpA0uSFZPTJO4ghd6ajQhmg55tbpvNf2FRl+uc7UA64XZitnwDTDhBUozc3Vzuc
-	 3xEDnlyjQz/phuYYbX1sTJECNmYD78OzyBV3l+62qTf7kc3XTSHZaUaLN4ZZuMgq+9
-	 JxqJBs4dXnty3oMiepogcYQYBM25CLa45Czv58XZIGSVMu1KpHWl5TOdzeib8IVwhX
-	 M3CNYcNZZWFImoKJYfrWfBSAevo3SvX2Nwb3LGUteCpkFQ2GyYadIQ9j+23mkeg261
-	 bOM+unZi8vNgw==
-From: Lee Jones <lee@kernel.org>
-To: linux-leds@vger.kernel.org, Rosen Penev <rosenp@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261005200906.188636-1-rosenp@gmail.com>
-References: <20261005200906.188636-1-rosenp@gmail.com>
-Subject: Re: (subset) [PATCH v2] leds: pca955x: drop platform data and
- allocate LEDs with the device
-Message-Id: <179207954632.2076145.12145810998476097553.b4-ty@b4>
-Date: Thu, 15 Oct 2026 16:52:26 +0100
+	s=arc-20240116; t=1792079562; c=relaxed/simple;
+	bh=OOsEYilQaN4m+yMZzvn0O4PMiWmqqCrym5pHcxb8hGI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QMdF+jXITqRYxEaNRNjocIv/nd4dkJ/sDyJuw0d/wWeQTnBNUsam+M/r0p1JEutpzYM78qUsZ8D1vjbj24Ve5cHMEL87OgSw4ccpBkW1CXclV1CuV0HGh9OjRYKUIUCng+e2DlV0siUYZpsAympwqqiivGRCs9WVcxOTqjRZjTo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org; spf=pass smtp.mailfrom=8bytes.org; arc=none smtp.client-ip=85.214.250.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=8bytes.org
+Received: from 8bytes.org (p200300f6af404a00bcc634c34b045ea0.dip0.t-ipconnect.de [IPv6:2003:f6:af40:4a00:bcc6:34c3:4b04:5ea0])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.8bytes.org (Postfix) with ESMTPSA id BDF1D1C7802;
+	Thu, 15 Oct 2026 17:52:21 +0200 (CEST)
+Date: Thu, 15 Oct 2026 17:52:20 +0200
+From: =?utf-8?B?SsO2cmcgUsO2ZGVs?= <joro@8bytes.org>
+To: Yu Zhang <zhangyu1@linux.microsoft.com>
+Cc: iommu@lists.linux.dev, linux-hyperv@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, lkp@intel.com, oe-kbuild-all@lists.linux.dev, 
+	joerg.roedel@amd.com, jgg@nvidia.com, will@kernel.org, robin.murphy@arm.com, 
+	mhklinux@outlook.com, wei.liu@kernel.org, jacob.pan@linux.microsoft.com, 
+	easwar.hariharan@linux.microsoft.com
+Subject: Re: [PATCH 0/2] iommu/hyperv: Fix guest IOMMU build issues
+Message-ID: <atD2pAZd0f9rwvTz@8bytes.org>
+References: <20261015082351.184252-1-zhangyu1@linux.microsoft.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16-dev-ad80c
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015082351.184252-1-zhangyu1@linux.microsoft.com>
 
-On Mon, 05 Oct 2026 13:09:06 -0700, Rosen Penev wrote:
-> struct pca955x_platform_data has been private to this driver since
-> commit ed1f4b9676a8 ("leds: pca955x: add device tree support"), so
-> nothing can pass it in through dev_get_platdata() and it only serves
-> as an intermediate copy of the per-LED type, default state and fwnode.
-> That copy is a full array of struct pca955x_led, the same runtime
-> structure that struct pca955x already holds, so the data is stored
-> twice.
-> 
-> [...]
+On Thu, Oct 15, 2026 at 04:23:49PM +0800, Yu Zhang wrote:
+> Yu Zhang (2):
+>   iommu/hyperv: Add missing PCI dependency for the guest IOMMU driver
+>   iommu/hyperv: Make hv_iommu_device static
 
-Applied, thanks!
-
-[1/1] leds: pca955x: drop platform data and allocate LEDs with the device
-      commit: 7260db6364a2999f2f85bae8afb6b4d22e41fc8a
-
---
-Lee Jones [李琼斯]
-
+Applied, thanks.
