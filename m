@@ -1,122 +1,149 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 169974457CD;
-	Thu, 15 Oct 2026 07:19:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C60B3C8732;
+	Thu, 15 Oct 2026 07:21:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792048809; cv=none; b=nxCTwiq2J/DevelMOXa9+PEWiP0/j92sqpgi9OpS2gqjveLcwhAxiChtJsoaM4pSAtz87Mmy6FYAoq0I7LB4kCB3oFMT9B3nLNbjZOzdOjE3nwEXBLKkapLvtludzr6N1fJe4QOpRZrMK+r3rOfFDqpmhOKDKsAMsNlBi8VE/To=
+	t=1792048874; cv=none; b=Q3PaUtAExtVGB0Hh7UtQdwNZFquCC91Ch96z1gUdFyRmYgT/pdurFGXsltNe/qM+k6i6rgTamQ34HAhOP18kKIquiGdN/0hgLljJA56G7Lbod9/+L0i/wNgoUuoodcXSfcMliTyxVd4AYFiitUFZQeirdb6BO2p1EyWQryF0rP4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792048809; c=relaxed/simple;
-	bh=qolKMPgaE8eWxeIr/0flsIM3PsJ+ucbodpca0yrAjUw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Szzr0xhEM+vpeAwclWfHpedBvXX7d+Q+0gl1tVq6SX6WPRxe9DxcTYmQiSoF6YeT/5L6opZnHCgGcHa00RIaDwqqW+05Ce+1ax30kowjCNhb7XvKikdphqVqKaBhJbw1YhOA11QHOsalAMUvCtB4Xtrq7hYAFxp5YxK7pejEtvY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=2dhabvrm; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=AkUw+EUC; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1792048874; c=relaxed/simple;
+	bh=fMalz7ChszegOU3gjTSzlZTKB2tNJesph5f9UjPVN5w=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=mUvVnZVsJ6Hd6x56dCu291y75pWwm5+IO/sy4MtPSuWSoNPKtuZroxSRvXJk6DghO6gexIgeXFwWer4Hh/FgMnyuE1a3tl3VLQBrX0qsL2FCjLqzhyBpMRJ3j3u1PJIl7e36ryo+bCposk5O5LR2ruxZJv6EN2+pDZCvjr2TmIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=gq+qLOlJ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=N441EOUC; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=GVkbU+Ze; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=a8WJrScp; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="2dhabvrm";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="AkUw+EUC"
-Date: Thu, 15 Oct 2026 09:19:43 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792048785;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="gq+qLOlJ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="N441EOUC";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="GVkbU+Ze";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="a8WJrScp"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id BE87522345;
+	Thu, 15 Oct 2026 07:21:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792048866; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=pMYu6XVNal0AJcS3PUZBVy2r/rGrO8ylXWPO84VbQeo=;
-	b=2dhabvrmaiB4B2VAEeswkB7yZk+pT6F/neoH/LS31NDI2EasvjB3yVv4534B6du3DDiMSw
-	gMrc965fNvSGCVlP87f6uNl3leecQv3nIZRDmwfmb8S2h/cJW559zsz1m+2w3dBJKq/Ruc
-	CwYvgSTmAKPw18wco3hfv5EYFXB0cfCf1E5PBGBQET2HTHFjkzd2aEsSZKUubuexi86NZu
-	9JjQ++YpNiWDfm8w5sPlbjl7kAfi5zXU47N+ESy5a776vyVgUcr93gLbDSCiqK1Q+sWEDr
-	PfqofcDMr1vdOjhET3/jJZnJZC2gee+wkLn2s1LESxe+zvqTtxnEuGerbM2Mdg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792048785;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	bh=X7s6Co7d6enAImPeSG85d5cbok3iCwzwiZUrJ7iqyV4=;
+	b=gq+qLOlJceC4ghRtXbaZMWO2R7HN92sjoeQFhn+4fjYIRJvscpgrCa6TZ376QKgyZmWi3R
+	R7KRTzPM0riKbrg8XdpzU/dmgl/VojakTxQH22wcCHul6YxbcGwVrKZfdSFMLCBvwJ7I7m
+	+nZW8m7xRLm8anifoblB3u5yQ5gB+OE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792048866;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=pMYu6XVNal0AJcS3PUZBVy2r/rGrO8ylXWPO84VbQeo=;
-	b=AkUw+EUCmsaDH+sGC2dLGo8hwRAJMoyzJ70p9vgVLsV/6hgT9AkOw03tMby+l6jzeW5i4D
-	mP6nSW669f2bkfAg==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
-	Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Maxime Ripard <mripard@kernel.org>,
-	Richard Genoud <richard.genoud@bootlin.com>,
-	Boris Brezillon <bbrezillon@kernel.org>,
-	Masahiro Yamada <yamada.masahiro@socionext.com>,
-	Brian Norris <computersforpeace@gmail.com>,
-	linux-mtd@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev, devicetree@vger.kernel.org
-Subject: Re: [PATCH v7 04/16] mtd: rawnand: sunxi: drain interrupts before
- reusing the completion
-Message-ID: <20261015071943.7OihPadq@linutronix.de>
-References: <20261014-submit-sunxi-nand-vendor-oob-layout-v1-v7-0-5d3fc6ad2da1@gmail.com>
- <20261014-submit-sunxi-nand-vendor-oob-layout-v1-v7-4-5d3fc6ad2da1@gmail.com>
+	bh=X7s6Co7d6enAImPeSG85d5cbok3iCwzwiZUrJ7iqyV4=;
+	b=N441EOUCC6uCmhCZGPeX36Vn+9Q5gn1HoP/bqLj9LIZUkf2msuIHZRyjpRsgueA4utzQcu
+	m5T7m+3t5CV9Z/BQ==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=GVkbU+Ze;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=a8WJrScp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792048865; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=X7s6Co7d6enAImPeSG85d5cbok3iCwzwiZUrJ7iqyV4=;
+	b=GVkbU+ZeawbEZ+KAMhJYTJGbMKGVF6gysPPari+6zvZmVC6AFgb85X1QCmDg6c1Vm45ymy
+	zsO+NnrKlLfF7MhM3wVPoV23Nbq+qYbZq1w6rmprNn2BDn39jkEU7tAGnTacrCQCmXe0w/
+	IOh979UIs4Z8jueC9eiQ0noNC8vZqRg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792048865;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=X7s6Co7d6enAImPeSG85d5cbok3iCwzwiZUrJ7iqyV4=;
+	b=a8WJrScpU/Wn6xO1zAzet8BYoG3ofQyatXsDNbbrT2FvNxwGYZ271PAR6Kitr5xYsGaBRw
+	G9QXBTvmXZTyKZCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 533611373D;
+	Thu, 15 Oct 2026 07:21:05 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id grT6AOF+0GqIOQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Thu, 15 Oct 2026 07:21:05 +0000
+Date: Thu, 15 Oct 2026 09:21:04 +0200
+Message-ID: <87o6cvmntr.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Zhang Heng <zhangheng@kylinos.cn>
+Cc: tiwai@suse.com,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ALSA: hda/realtek: Fix quirk for HP Laptop 15-fc0xxx
+In-Reply-To: <20261015065640.377466-1-zhangheng@kylinos.cn>
+References: <20261015065640.377466-1-zhangheng@kylinos.cn>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261014-submit-sunxi-nand-vendor-oob-layout-v1-v7-4-5d3fc6ad2da1@gmail.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Action: no action
+X-Spam-Score: -3.51
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,kylinos.cn:email,suse.de:dkim]
+X-Spam-Level: 
+X-Rspamd-Queue-Id: BE87522345
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 
-On 2026-10-14 19:33:51 [-0600], James Hilliard wrote:
-> --- a/drivers/mtd/nand/raw/sunxi_nand.c
-> +++ b/drivers/mtd/nand/raw/sunxi_nand.c
-> @@ -454,16 +457,19 @@ static int sunxi_nfc_wait_events(struct sunxi_nfc *nfc, u32 events,
->  		timeout_ms = NFC_DEFAULT_TIMEOUT_MS;
->  
->  	if (!use_polling) {
-> -		init_completion(&nfc->complete);
-> +		reinit_completion(&nfc->complete);
->  
->  		writel(events, nfc->regs + NFC_REG_INT);
->  
->  		ret = wait_for_completion_timeout(&nfc->complete,
->  						msecs_to_jiffies(timeout_ms));
-> -		if (!ret)
-> +		if (!ret) {
-> +			/* Drain the handler before it can restore an old IRQ mask. */
-> +			disable_irq(nfc->irq);
->  			ret = -ETIMEDOUT;
-> -		else
-> +		} else {
->  			ret = 0;
-> +		}
->  
->  		writel(0, nfc->regs + NFC_REG_INT);
->  	} else {
-> @@ -476,6 +482,12 @@ static int sunxi_nfc_wait_events(struct sunxi_nfc *nfc, u32 events,
->  
->  	writel(events & NFC_INT_MASK, nfc->regs + NFC_REG_ST);
->  
-> +	if (!use_polling && ret) {
-> +		/* Flush the mask and acknowledgment before re-enabling the IRQ. */
-> +		readl(nfc->regs + NFC_REG_INT);
-> +		enable_irq(nfc->irq);
+On Thu, 15 Oct 2026 08:56:40 +0200,
+Zhang Heng wrote:
+> 
+> The HP Laptop 15-fc0xxx is based on an AMD platform where the digital
+> microphone is provided by the snd-soc-acp6x-mach driver, not by the
+> HDA codec. The ALC236_FIXUP_HP_DMIC quirk configures pin 0x12 as an
+> internal DMIC, which is a misconfiguration for this machine: the pin
+> is not wired to a codec DMIC and the setting has no effect on the
+> actual microphone path (which works via ACP6x).
+> 
+> Replace ALC236_FIXUP_HP_DMIC with
+> ALC236_FIXUP_HP_MUTE_LED_MICMUTE_GPIO, the standard quirk used by the
+> closely related HP Laptop 15-fd0xxx and other ALC236 HP machines. This
+> removes the misleading DMIC pin config and adds proper mute LED and
+> micmute LED support that was missing from the original quirk.
+> 
+> Fixes: 720460722310 ("ALSA: hda/realtek: add quirk for HP Laptop 15-fc0xxx")
+> Cc: stable@vger.kernel.org
+> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221233
+> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=222044
+> Signed-off-by: Zhang Heng <zhangheng@kylinos.cn>
 
-Shouldn't you re-read NFC_REG_ST, checking if the event became true even
-in the case of a timeout?
-Say the interrupt wake the thread but the thread never had a chance
-to run. The timer (on another CPU) had a chance to run and did wake this
-thread. Checking the event in the timeout case would help to prevent
-that.
+Applied to for-next branch.  Thanks.
 
-> +	}
-> +
->  	if (ret)
->  		dev_err(nfc->dev, "wait interrupt timedout\n");
->  
 
-Sebastian
+Takashi
