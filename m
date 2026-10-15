@@ -1,145 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3E9D45A2A1;
-	Thu, 15 Oct 2026 06:14:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 656FC46AA6E
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:15:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792044904; cv=none; b=Pj5dS4wiSa0Pwkdeqpqkbk9i9MtYIdVD3Jw4FN/cU5cMifqD3l85ZDm1clUPpCzphK9en0rhspDahiLbh2leQKd0wJbGAP4mYZghoYscBKsrEMrbi1ioU/3+aPuhcMuZmvbe7yeGkYekUtAW21Gb4T2nMNf/gvHS0/vITNPjZ7I=
+	t=1792044928; cv=none; b=XKIEJawBSGknUPUqex03sUMlteEtsjZvO6LJsi8tkMOEKV3FxVSuAf65z97qwIb95WaqSo1O0tDYgPqUgzwjKzejlbCx/8qj8Dfq++rvkEgw7ehb8xJFdP6o9c4Ne1CPNd8gsoBBiDxi3i4pblGl2e3tq9oGQAkSC1xxB6XLSLk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792044904; c=relaxed/simple;
-	bh=XIGQtc0nxl/MiokhJ0fJd7jgcwn5lvIzsOryZJvTbuM=;
+	s=arc-20240116; t=1792044928; c=relaxed/simple;
+	bh=smY6yBPbHEvgEFgKewvO2VX1mQwpxkybfqc6pFJnwSQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k6PIYcw0FZ+CI1ae4+/KjhkWxb+ZoQNZOx0u6Ez+x2ElHeWHd78N9FXgcdlkLV/spxh6oQHTEKPFHPbGhDObyXWDB40sZzV4E8IUgx2NIswqSzpqZJqOw4JdGqYO4+o2Z7785T/Of82Q6s+iAMh2YrbyxveP3lD1tWtoRHOXkiw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hl5Mab5H; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=gyjlUqVs81LU3lZJ7TYTt2H/sKrpv9Ue+xL2xxe9/vk1xcqsZZuJJ7tJ81L9FbqI3QTYdhkx8R9KCVhF6Z62XjrcTVhcDC43ynhYIdiVKSC7e4vduLYO1EYHPEmsa3uhQ0A0pC4gIUlXBFSrHEVmMOX0JQ+fobthJ4vWQ+KRQ5Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rQqMXMPD; arc=none smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hl5Mab5H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26B4E1F000C4;
-	Thu, 15 Oct 2026 06:14:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792044895;
-	bh=HygPXKO+CTvFvIzIIs/gh6L0EH0ITjygWDQP0BB8/BY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hl5Mab5HTpBPyVU8UrvpvorClS3ysudNcU6k9yVzegqrQ6owIEChvmGzTR/lVhI61
-	 GrCE8CDNvFBA0cXmsS28AXBuVLMOUVwB5C5YN3O/CJUK6tpIasPpQfxcxje2Xh+sRz
-	 KfaqKEas8yl4kS6aztbayznoUScbHBeYV0f/Wcc3yXKUMdGPihC6xlSalwcRSs3rco
-	 Vor4+8RKcOfnNdwgDqM7KkFnvtgx8Uyptzn8uPtNjoMhhGR9njyNBpDYvjAmOcOdLS
-	 pclxCp2NojI0AVTIOJuun0n7boMVASN3LhGos23uEh4KXRKETq5rCskJ6nuYNRTeyq
-	 6mujSiy5YP7hA==
-Date: Thu, 15 Oct 2026 11:44:46 +0530
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Koichiro Den <den@valinux.co.jp>
-Cc: Frank Li <Frank.Li@kernel.org>, Jon Mason <jdmason@kudzu.us>, 
-	Dave Jiang <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>, 
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, ntb@lists.linux.dev, linux-pci@vger.kernel.org, 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rQqMXMPD"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48c4649b3aaso3072074f8f.2
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 23:15:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792044919; x=1792649719; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ar2lIaXGZYKNwi8B1Llnt5LR3QyG4oiCO9BSq6FLNgc=;
+        b=rQqMXMPD+ndLFK7DAlWSIS3ZNoAKO4xigZr6Bcsh1bZh7MJ2vl/5ax6QV+n9ez56AQ
+         NQv/A+mq2ci1ZpzJvGnQQChiHw2lJNMBN7H9CnHrJ4ghDI6he57GK55W4uzmTxi6lvo8
+         HOHR6Nt5PmWwwzeR90qu17Q05pWWzJSWDNLYoxjE76OcfXZ5IQ06VP3tAsRbTp/9hfqs
+         ktsUhxRgqbLM9DLEtks91U9BQw9qzHa2EqBiXCthAfjy4jQlyMaPCtG879elpPIN8vUj
+         GHdKXEhK/V/CMpdaxHBaXgXrREQ4bUHgoY4fyeL3XAmeqMEuGuoEj/n4y0wV2i/ISKcd
+         QEFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792044919; x=1792649719;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ar2lIaXGZYKNwi8B1Llnt5LR3QyG4oiCO9BSq6FLNgc=;
+        b=amh7pFUDC7kz2Mp2JcJlNG/nBW4hE0pkDJ4VTk1wx8rvz1wGq5nuJjEz/K/aeEN2IV
+         Fzm4uQikmgqFtPIOSiqhN2OPGCatHK7TwwOcXVXYrxAhdMKJhUtwhVjW4DlQgN0u6rJG
+         rJJp5TYNN8OtD0hoz2ZOzvS8sdQNO3IZTuhnQ/W8Q3OiU/rAPgwP71MOP683C1IYFoqn
+         fFJfS6z/La0M+6qbct8bmOgDKG/MNTo7AMauLnM2/5XmyYtH9ICcilQ/OUSBePLZO9dm
+         CMI7UUdOj3pCimf7DKFkfoVBHzpzzcbmWbd4ZhbCljEZduALwgeeaStp8CaEK01q4P5P
+         JsUg==
+X-Forwarded-Encrypted: i=1; AKwUvBynXTdXa6O6FHEIx7C+oaB+wv+zUQxTtzOVUjIOeFXnS4XHYvhLZyH7GDc6esJHyg5zdqUB0b9YS+KK2+E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL4htgQJbBJRHtKGjbke29SwK8XDK6eGE4jRuT2chdKJRX5rCBo
+	IKW7vJv9aRPBWRF/I3G49MQn1nbV8xZ454242L7TE2YQ91a00mNn99Yy
+X-Gm-Gg: AYBFou0Eq+PEz9wsxElsgassBYeTQ/Gr1CPpLT6RyACggh13fOM8YeUGYSLjVVZRq2S
+	kw5UnHCOxKae9CRT33RXPLuZwuNEMav4t+mIwjloZh1Qw+NZgDHjQ3g0746+WqjRk1l0/Pvppe+
+	35l/84z3l4XTCDmjSX+1ml+eL+kzyhx1Ebrz3Y7yVxHoEENPyT5kXRbiEQ4g2bAFRQQswAeRXPm
+	CO0WP/a+EMEh7oEbUo/35/YTY8FplfwyF5DI/VWuMH8Tk+VxVZQnIVcx7+FoNqiMwkPI/l5k5H/
+	Z7f4/am8CrkR7jY6F7OQJZAimUCqyefBDx56f6AxmkaO2u+QCFFkI3GIsNa+36U9KMSYecA1Idg
+	KQepfa85+AurMlRtCAA64G2GNfq2CVQ6uabB0WiFvTgSF1FyCkVzHo9pqtNtbnEdpiqOOZvlhMV
+	o54MB1Ago5fjGfA89Jtb8DKbUvBGoMOKcGO6QAdRj2rR/2KwnMtQjgUCd5/xCNtNx8izY+xZhOF
+	8Wnbcz3GusC07BSOBdlEFor/aAk+BdbD3roKgtJ5VHbr172VRiO3enbX1akrHIBtqiU0esvNAAx
+	cHL7QgJ7kdw8C90e8bewP4P7jsAUamhhm/XwJK6cMbspmUWiVUH0/rhVFRa23FspJb0Lzcp8820
+	=
+X-Received: by 2002:a5d:6f1c:0:b0:48d:f855:d1e0 with SMTP id ffacd0b85a97d-48df855d30emr211551f8f.57.1792044918908;
+        Wed, 14 Oct 2026 23:15:18 -0700 (PDT)
+Received: from unknown748F3CBA5068 (dynamic-2a02-3100-aeb3-cd01-f139-812c-65df-b930.310.pool.telefonica.de. [2a02:3100:aeb3:cd01:f139:812c:65df:b930])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bd733fsm16578043f8f.58.2026.10.14.23.15.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 23:15:17 -0700 (PDT)
+Date: Thu, 15 Oct 2026 08:15:15 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: David Howells <dhowells@redhat.com>
+Cc: Paulo Alcantara <pc@manguebit.org>, Jeff Layton <jlayton@kernel.org>, 
+	Christian Brauner <brauner@kernel.org>, netfs@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] PCI: endpoint: pci-epf-vntb: Track link state from
- both sides
-Message-ID: <atBuBPXKlQJLnBXL@debian>
-References: <20261014071448.2473208-1-den@valinux.co.jp>
+Subject: Re: [PATCH] netfs: Restore selective debug mask handling
+Message-ID: <atBvT7c8ZF4szPae@gmail.com>
+References: <20260905051738.11317-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261014071448.2473208-1-den@valinux.co.jp>
+In-Reply-To: <20260905051738.11317-1-kmehltretter@gmail.com>
 
-On Wed, Oct 14, 2026 at 04:14:48PM +0900, Koichiro Den wrote:
-> The control-region link status is currently updated only by
-> COMMAND_LINK_UP and COMMAND_LINK_DOWN from the HOST. The virtual
-> NTB link callbacks are empty. Consequently, the HOST can see the link as
-> up before the VHOST has enabled it, and ntb_link_disable() on the VHOST
-> leaves LINK_STATUS_UP set without notifying either NTB client.
+On Sat, Sep 05, 2026 at 07:17:38AM +0100, Karl Mehltretter wrote:
+> The netfs debug macros test only whether netfs_debug is nonzero.
+> Consequently, selecting one debug point enables every entry, exit and
+> general debug message.
 > 
-> ntb_netdev can hide this device-level state bug because ntb_transport uses
-> a separate per-QP LINK_DOWN_FLAG message. Use ntb_tool to observe the
-> device link state directly:
+> Documentation/filesystems/caching/fscache.rst and the NETFS_DEBUG
+> Kconfig help still describe /sys/module/netfs/parameters/debug as a
+> bitmask of per-stream function entry, exit and general debugging
+> points, and the fscache_*.c files still define FSCACHE_DEBUG_LEVEL,
+> but nothing has decoded either since the mask handling was dropped
+> when FS-Cache was folded into netfs.
 > 
-> After bringing both sides up, start one waiter on each side:
+> Restore the per-level and per-point mask decoding.  Files that do not
+> define FSCACHE_DEBUG_LEVEL, which includes the netfs core, fall under
+> the cache management stream, the same default the FS-Cache macros had.
 > 
->   HOST# echo N > /sys/kernel/debug/ntb_tool/<H-device>/peer0/link_event
->   VHOST# echo N > /sys/kernel/debug/ntb_tool/<V-device>/peer0/link_event
-> 
-> While both waiters are blocked, disable the link on the VHOST:
-> 
->   VHOST# echo N > /sys/kernel/debug/ntb_tool/<V-device>/link
-> 
-> Without this patch, the link-disable command succeeds, but peer0/link
-> remains Y on both sides and neither waiter returns.
-> 
-> Track HOST and VHOST enablement separately and report the effective link
-> as up only when both sides have enabled it, as pci-epf-ntb does for its
-> two physical hosts. Both NTB clients observe this effective state, so
-> notify both sides only when it changes, including the side whose request
-> completes the transition. Serialize the two paths because HOST commands
-> run from delayed work while the VHOST callbacks may run concurrently.
-> 
-> With this patch, peer0/link changes to N on both sides and both waiters
-> return.
-> 
-> Fixes: e35f56bb0330 ("PCI: endpoint: Support NTB transfer between RC and EP")
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> ---
-> Changes in v3:
->   - Rebase onto the latest pci/endpoint.
->   - Drop redundant dma_wmb(). (Frank)
->   - Retest using ntb_tool.
->   - Link to v2: https://lore.kernel.org/r/20260904162049.3432464-1-den@valinux.co.jp/
-> 
->  drivers/pci/endpoint/functions/pci-epf-vntb.c | 90 +++++++++++++++----
->  1 file changed, 73 insertions(+), 17 deletions(-)
-> 
-> diff --git a/drivers/pci/endpoint/functions/pci-epf-vntb.c b/drivers/pci/endpoint/functions/pci-epf-vntb.c
-> index 07ba338732d4..a11f9260ee86 100644
-> --- a/drivers/pci/endpoint/functions/pci-epf-vntb.c
-> +++ b/drivers/pci/endpoint/functions/pci-epf-vntb.c
-> @@ -41,6 +41,7 @@
->  #include <linux/delay.h>
->  #include <linux/io.h>
->  #include <linux/module.h>
-> +#include <linux/mutex.h>
->  #include <linux/slab.h>
->  
->  #include <linux/pci-ep-msi.h>
-> @@ -147,7 +148,10 @@ struct epf_ntb {
->  	u16 vntb_pid;
->  	u16 vntb_vid;
->  
-> -	bool linkup;
-> +	/* Serialize HOST and VHOST link state changes. */
-> +	struct mutex link_lock;
-> +	bool host_linkup;
-> +	bool vhost_linkup;
->  
->  	/*
->  	 * True when doorbells are interrupt-driven (MSI or embedded), false
-> @@ -183,24 +187,54 @@ static struct pci_epf_header epf_ntb_header = {
->  	.interrupt_pin	= PCI_INTERRUPT_INTA,
->  };
->  
-> +static void epf_ntb_update_link(struct epf_ntb *ntb)
-> +{
-> +	u16 link_status = READ_ONCE(ntb->reg->link_status);
-> +
-> +	/* The link is usable only after both sides have enabled it. */
+> Fixes: 915cd30cdea8 ("netfs, fscache: Combine fscache with netfs")
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 
-I see a bit of ambiguity here and it is confusing. This comment says that both
-host and vhost has to enable the link first. Yet, the variables are named as
-'{host/vhost}_linkup'. Also, the functions setting these variables are named
-as:
+A friendly ping on this debug-mask fix.
 
-	epf_ntb_link_up()
-	vntb_epf_set_link() 
-
-Even though these two are doing the same thing but on different side, these two
-functions are not symmetric. This needs to be fixed up.
-
-- Mani
-
--- 
-மணிவண்ணன் சதாசிவம்
+Thanks,
+Karl
