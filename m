@@ -1,118 +1,80 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 335A352E042;
-	Thu, 15 Oct 2026 14:19:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F77E30274D;
+	Thu, 15 Oct 2026 14:20:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792073972; cv=none; b=SDxndLL3yzriFUH5OF47hVPXb2D0W0K3vOmB4Ej1WAg/feXC2oQauNM8F9juYYSw4KmqmQZU4r87lplkG2jIIuElLWsGj3rigr7IrOHFSY4UYpTJikYxx7GmuvsbdZFIgkIpbQ86t1gv6s2jYpmwhMEmjFP3xIZJ6qPn+m4Rxhs=
+	t=1792074007; cv=none; b=jegOaMVW+dXrIL8+cKN3DPjCxP5fofw/ZUB6gOOkiXfkC0XQK1rK3bXPvknFgh1k8YfLYtNmvocVJ1HbCpOP5suDW5fOWRvUyAa4rOQncrYriUQd5/RZlrSo+KqsRD28AULyUd1LdbQ/PK4m/mqHXLR3d1i+i7Xq60G6RwDKQJM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792073972; c=relaxed/simple;
-	bh=toY2d+nKnmDfOpFRB7kB9FTOmrbPE2iy1wkw0IypruA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ogloy8ELoCI0edWtMJJvLmFirZ7BFaDWeTS3uEZKassyF2BE4eO6D4vvS4cZ4kiSksSZOLeZuJ1Hfb43ZjiR8p37EwI/xK9AKPA0IhyXzGjMkZBiEvDftuCiKJ0BZpc7P1vPhzRVYcJOQnoSnGmri7VMzAgwRFI5m4TBtLM1SG0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Y3vi/qaG; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1792074007; c=relaxed/simple;
+	bh=ZSuBiEONYE8OFhTAqWlSrgfR5n0f8OQWALvFpXlZZ9M=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=QAIrZVDb2tBvi7oHYIvvhEwg6TTb5niUnxs6sL926S8tfk9LpH4+KssyXrwXasTfIHD7dzvya2k3tjYP6ydUP4+mzJwx+7MoRKpfKAxZ8UTOul7wdblqPqOTJn6mtrMlNk4UYikZ518r8HYBPRODhMiRMmgAFWEWqJU2sybqQ4k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LXlvSxQK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Y3vi/qaG"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id ABE2F1477;
-	Thu, 15 Oct 2026 07:19:25 -0700 (PDT)
-Received: from localhost (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7C8BF3F871;
-	Thu, 15 Oct 2026 07:19:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792073968; bh=toY2d+nKnmDfOpFRB7kB9FTOmrbPE2iy1wkw0IypruA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Y3vi/qaGwlAMS6V2VrtigNi/Q0VFTsR5SvFAE1qOc5LJDFUg0KwzQ5o4ZY7d7aoXX
-	 c6oCRN7lw7xuowVJbfbIVt4snSN2EfAzZVhhsM1O1xgdggk2ZbjoUtMYtaebVcBZFd
-	 PVaIFnaZCRoisRwYZpfOTVYNcRuljdGFUMaL+nB4=
-Date: Thu, 15 Oct 2026 15:19:26 +0100
-From: Leo Yan <leo.yan@arm.com>
-To: Marc Zyngier <maz@kernel.org>
-Cc: "Johnny.Fan" <johnny.fan@cixtech.com>, will@kernel.org,
-	mark.rutland@arm.com, linux-arm-kernel@lists.infradead.org,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
-	james.clark@linaro.org, jeremy.linton@arm.com,
-	cix-kernel-upstream@cixtech.com, bob.zhang@cixtech.com,
-	jie.fu@cixtech.com, Fugang Duan <fugang.duan@cixtech.com>
-Subject: Re: [PATCH] perf: arm_spe: Support heterogeneous ACPI systems
-Message-ID: <20261015141926.GC26205@e132581.arm.com>
-References: <20261015062908.3565761-1-johnny.fan@cixtech.com>
- <86mrsf1bnv.wl-maz@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LXlvSxQK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 091951F000C4;
+	Thu, 15 Oct 2026 14:20:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792074006;
+	bh=VJS6hZuydnx4DmRBaO53y3BGLT926GazDCKb7odCu5g=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=LXlvSxQKZooo4K9CIbwcAOur3SlzZFlRa1gTtp1/iTlOWTL0dpX6F+juqS0CcBIQJ
+	 2icI/sSj3oRhWjFOosIRFK7nuDOiQVrgIlIASjGW5zFaVx7mf0nFKf/1GEgVcRnurV
+	 13vuXxBjy9U6CovS7Ti/W9Y3HRubBvFToWnZNkQezcAAhE0cndHyCcF2BO02ciweIl
+	 GOf8xuK5BligIN4FPcYEeC1goSWYqxGD23XiiG2PG53U2pH19Jjb6UcU1cycV1JbeT
+	 5hxIjl0N6WTstuYeRexC3PLsJfvFUIL5xXnqayAZBxBM587XSWXLAT+q8xF6sbFEJq
+	 TgJmv8P+jXr3g==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F15A4392EB0C;
+	Thu, 15 Oct 2026 14:20:05 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <86mrsf1bnv.wl-maz@kernel.org>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next v2 0/2] bnxt_en: Fix SW USO padding
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179207400477.3459929.16206928663915388110.git-patchwork-notify@kernel.org>
+Date: Thu, 15 Oct 2026 14:20:04 +0000
+References: <20261009215426.2377946-1-joe@dama.to>
+In-Reply-To: <20261009215426.2377946-1-joe@dama.to>
+To: Joe Damato <joe@dama.to>
+Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ michael.chan@broadcom.com, pavan.chebbi@broadcom.com,
+ linux-kernel@vger.kernel.org
 
-On Thu, Oct 15, 2026 at 11:49:24AM +0100, Marc Zyngier wrote:
+Hello:
 
-[...]
+This series was applied to netdev/net-next.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
-> > The CPUs without SPE are trimmed from the PMU supported CPUs by
-> > probing PMSVer on each CPU, both at probe time (for online CPUs) and
-> > from the hotplug callback (for CPUs that were offline at probe), as
-> > ACPI conveys no affinity information and the PPI otherwise defaults
-> > to all possible CPUs.
+On Fri,  9 Oct 2026 14:54:22 -0700 you wrote:
+> Greetings:
 > 
-> This is a bit odd: at the beginning, you are stating that the SPE
-> interrupt being 0 is an indication of SPE not being supported. Then
-> you check for PMSVer for the same properly. This seems pretty wrong.
+> As a followup to Eric's fix a51d233ccd48 ("bnxt_en: fix DMA mapping length
+> for padded small packets") which fixes padding for normal TX, this series
+> fixes padding for SW USO.
 > 
-> It should be possible to build the mask of SPE-enabled CPUs without
-> IPI-ing the other CPUs, and only rely on the firmware table.
-
-Agreed.
-
-The SPE driver probes its capabilities on one CPU selected by
-smp_call_function_any(), then performs local setup on every CPU in
-supported_cpus. It therefore relies on that mask being accurate;
-including a CPU without SPE could lead to accesses to unimplemented
-SPE system registers.
-
-> > @@ -97,6 +100,20 @@ arm_acpi_register_pmu_device(struct platform_device *pdev, u8 len,
-> >  			return gsi ? -ENXIO : 0;
-> >  
-> >  		this_gsi = parse_gsi(gicc);
-> > +
-> > +		if (optional) {
-> > +			if (!this_gsi)
-> > +				continue;
-> > +
-> > +			if (gsi && gsi != this_gsi) {
-> > +				pr_warn("ACPI: %s: CPU%d: inconsistent interrupt %u/%u\n",
-> > +					pdev->name, cpu, gsi, this_gsi);
-> > +				return -ENXIO;
-> > +			}
-> > +			gsi = this_gsi;
-> > +			continue;
-> > +		}
-> > +
+> There are two cases I try to address:
 > 
-> This "optional" parameter feels very wrong. We now have an
-> infrastructure to get a set of affinities for an interrupt (see
-> 5324fe21ba9b7 and following patches). What this needs is ACPI to be
-> plumbed into this.
-> 
-> Unfortunately, ACPI is awkward and very badly abstracted in this area,
-> but that doesn't mean we should make the driver code more bizarre.
-> 
-> Treating SPE and TRBE differently is just as odd, and there is no
-> reason to do other than suiting your particular platform.
+> [...]
 
-Yes, SPE and TRBE should be consistent.
+Here is the summary with links:
+  - [net-next,v2,1/2] bnxt_en: Add helper to fill SW USO payload BDs
+    https://git.kernel.org/netdev/net-next/c/70f63dc60872
+  - [net-next,v2,2/2] bnxt_en: Pad short SW USO segments to BNXT_MIN_PKT_SIZE
+    https://git.kernel.org/netdev/net-next/c/b0f7f9c87817
 
-There is also a grouping question for SPE and TRBE. If all participating
-CPUs implement the feature, but have different capabilities, should ACPI
-registration create separate platform devices for the compatible CPU
-groups? DT can describe separate CPU subsets using PPI partitions [1].
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-Thanks,
-Leo
 
-[1] https://github.com/torvalds/linux/blob/0fcb05b72344f40806cbe810de8872f1698bf053/Documentation/devicetree/bindings/interrupt-controller/arm,gic-v3.yaml#L139
-[2] https://git.trustedfirmware.org/plugins/gitiles/TF-A/trusted-firmware-a.git/+/refs/heads/master/fdts/tc-base.dtsi#328
