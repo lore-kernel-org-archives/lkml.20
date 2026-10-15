@@ -1,683 +1,178 @@
-Received: from mta0.migadu.com (out-66.mta0.migadu.com [91.218.175.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013003.outbound.protection.outlook.com [40.107.201.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4247A272E6D
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:33:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.66
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792027984; cv=none; b=u0WbXQYT/8ecnkARtl5I9EydEn9CvG/BPglWYNTGZPlAmYEoJNQg15sOSddK7tun2ispK+uK2DRSA+Le3cnjCSP/UAjDGmDk97t5yCVaR3LhJ0otklam0g2Xiro7opAP1nFJPajOGWxwyO/4uNo/4sfHxnGWx/HkEDDzu+q7HjM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792027984; c=relaxed/simple;
-	bh=aW+P9ILvvwCYvBPUVsnfAHf8hxxKF2YQhD2wzjI4WXo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ND5EavwFkDgMnfCQjwJxcliyNGjJ6Z8xgYje5eQvbqhUtdLyfec0O4oU4nRZ2UxIhfvt5+JVidjIZgEKqglUSLXNIX8kALnJ3Yq9vfVixA3kioJRIf4GvryFsfStaZfATnpopSASqcieF4aswbLSIDxNE4h+z2fQXckZrODxysg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=cJ3Pb5tu; arc=none smtp.client-ip=91.218.175.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD841322C73;
+	Thu, 15 Oct 2026 01:33:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.3
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792027998; cv=fail; b=BISQ0GhoWDebrFxEQk7y0BJNQd9vpc7/nHfGmnQSgDF8bd/zVvtF8mbm7RJqmHfUavHgfNArybTXH23NXI9I0sUDc3tXKF6+Cly3ml2QrTPXAz8gytABWaq05ToPcNq6NOqqhQbP2anon7QNDwa2GGNO0vREgFKxo9YnLi5xUz8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792027998; c=relaxed/simple;
+	bh=vfrwwN3OP8R4lyjy65cew9aMEpoD5KejD9PiZUTNlIo=;
+	h=Content-Type:Date:Message-Id:Subject:From:To:Cc:References:
+	 In-Reply-To:MIME-Version; b=ONFb7dZ48iJhlZ8G47XwsoHzHpbDLsjittRUeIcKxQ8ROOMXKjtwdZSwal9zqhvjgOSXl1n/RPLSQr+RsSO3Rp2/+lyG9i78KYjTXlqV5pVTsDerkjPk0yr5kCZJDLoXxDJo4oqPW0hNebRrilSmHZFrgnZUF8EYaQd3cFt2QrU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=DhveExgt; arc=fail smtp.client-ip=40.107.201.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="cJ3Pb5tu"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=aW+P9ILvvwCYvBPUVsnfAHf8hxxKF2YQhD2wzjI4WXo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792027978; v=1; x=1792632778;
- b=cJ3Pb5tu41CIIhRAY13mF6/INV/hL3Wj0neqjAYUEubQVdIh1Mwm5kIbhcpyr8ofHeGLIcT2
- khBEvI/v9g/1tXZ04usB+fqOQ2ECFEupMpaEG8EcfIPpQMzQt5D0ts2a0mYTlZpY1lEji4UkuIZ
- crCfBEpxnb+1hj2tsWAuP3SM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1c569dc00d61bffa;
-	Thu, 15 Oct 2026 01:32:58 +0000
-X-Mizu-Trace-ID: 1c569dc00d61bffa
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <e51c14e9-5559-4ff7-8a38-de815a8f8230@linux.dev>
-Date: Thu, 15 Oct 2026 09:32:53 +0800
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="DhveExgt"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=agTpnnZgoNiLLTbqsRrs94BRwzqTz4kQB6XVKOMIxAJegqZ/3WJvmWAaYWBoaqWc3ptwaokXKl1Ev9vYJaiyUT70danSGQ+5+ADfUmClFTHav8L1d28eqZGFvZ9bW0iPU4JMYMHGRedRMCAS51yPUibFnYgRIRpiMDHiw8aHTCJInso/IjQi8tbHAUmqKXmWASplB+aNQ3CiQj4d+o4VJZB20ubrGcAR2v+Q5WDtnLcBZ45ai1PILASaUl3+ujfyI55Eo+9uy0Lt99LSxFlo38GXCaXxYyedlHkcEVO4JUO3YynYWyCt9M/yfW5cGtraVhT8UDd6EtTACh1FxlNihA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0py5ZYysNLER5TCYw/drBkHoJiFxfW5uxO7/toLiW/Q=;
+ b=uuPbRYcdZy/fZ6YrlkpE16uBYA0QhhfShlXx2NYeXKFd0boW5C1PDt+dZm8uKQ3GUYi9476lOZoyBGsML5ged/s8PyQlt0TlvEw9u9nWerVtzXPcmwccxVekraIKa/IxXCPHioefaYx2+LC26c/f5DDu2qpjWBVQ3uOT5NBPMsSDkHaVjI/9ZjSGGlF8h0Tqlbz1YqZWMsPuXK+Q8UVyIWlsotFr9yQ5x/BeKWqkSVlTSqpNRAQ3ImZbXU8TqK6rNWaFxvhj5tURnLAOy2dVjc0FDCnioS/caBGREaLTjRDsc8IYe/R/mfz5pNTHGUr7F8e9lniW+UNsgNUj/W/Crg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0py5ZYysNLER5TCYw/drBkHoJiFxfW5uxO7/toLiW/Q=;
+ b=DhveExgtO+uYtC3Ii+vB/1vtTvfIB7XaQkZJEY3aFtdiAsy94O3ECFUN2KqZO+md+1ZyIzg6/jt0pHrIm3ABztWxHZKuCHChNOXiVV7PJGOpejhZQNENern2mb4QCniOQGdm9JKce8TxO7qmCp/Pe/WBe82SHVVfbmCCqqulTCeIzSW3S8SsO7piXXsvJX71XLPFOU4fYWvr7oWVnnv74kt/rVBLpzb8IB5qN/a1xsqfUCCAVOafUIxcz5wVch2TSMn+Nk7/Gv3BxEtU6gikri1RvwnDZn3FB+UmeRMy0BdpZvFOo7PKpGbkzvysHOmgtnkJ3WqEEFVpxNvdxmNx7w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ CH2PR12MB9542.namprd12.prod.outlook.com (2603:10b6:610:27d::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Thu, 15 Oct
+ 2026 01:33:10 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0496.021; Thu, 15 Oct 2026
+ 01:33:10 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 15 Oct 2026 10:33:06 +0900
+Message-Id: <DM50WK54LKD7.1YGZ0JEZ9KMG6@nvidia.com>
+Subject: Re: [PATCH v3 6/8] gpu: nova-core: add NVKV typed encoding
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Lorenzo Stoakes"
+ <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20260928-b4-nvkv-v3-0-f04504c262c2@nvidia.com>
+ <20260928-b4-nvkv-v3-6-f04504c262c2@nvidia.com>
+ <DLYE7KKATCU6.CUH7GIJJJ9PW@nvidia.com>
+In-Reply-To: <DLYE7KKATCU6.CUH7GIJJJ9PW@nvidia.com>
+X-ClientProxiedBy: TYWPR01CA0028.jpnprd01.prod.outlook.com
+ (2603:1096:400:aa::15) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] proc: Move OOM-related procfs code to fs/proc/oom.c
-To: Michal Hocko <mhocko@suse.com>
-Cc: David Rientjes <rientjes@google.com>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, Ye Liu <liuye@kylinos.cn>
-References: <20261014-oom_procfs-v1-1-f2d75e73571e@linux.dev>
- <as9MG_BtepLV6DsC@tiehlicka>
-Content-Language: en-US
-From: Ye Liu <ye.liu@linux.dev>
-In-Reply-To: <as9MG_BtepLV6DsC@tiehlicka>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|CH2PR12MB9542:EE_
+X-MS-Office365-Filtering-Correlation-Id: 315038e9-41fd-4126-cff1-08df2a5c459c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|10070799003|7416014|1800799024|23010399003|56012099006|11063799006|4143699003|18002099003|10067099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	4J+nQlEfqKROK/2YPlGDKRDeqFIQgizy9qUHF1S88tSzdp9fwR62oWYLTBwjhwNVr7DgkkbN4ZMFjhfvqPuGT2shRna0oFeC7bdiAUoy4yKjbm4CGFWhf1gM5RDBV7Of2w2vIB6Nd3+ArY3NsCCT5c7x8bTkY2pqs3aFtaqH8k5kqtgVY7gF0YS6tUJgEObuXAf+eq2jVlyJ1qmndmIT3L7cqDrxVi/13IfnCwryVpABz7POec39lv6XrR+ajs3Oy9ZCEfJeSlh70KqbVySGmf3z39roEHKJ+zZCikMzevgyIq4t5hAIyDNQvmUKUSXq5BU21fUbyIJI5qWhc4/tYNkRJUEIbgj8A4nudumir+IGYmMK1nB90akY7VvLj9lcceJvsVfmXJZ87te3ge608NO9vzTFVBzuLgUlrRpSAKhtqLrD8Rn1/vOJUhS/zz3s2rsG5Okk7Wwkj6rWFOnSvWCTfz9b8KnvycYa7KANfLLM13J3l5UD6NwhZLvLNNo4XaCm+UUvJkvWxBaPpKmP+yhogvHUCJcvblaR1Z9GglownkxEVVd9hqU8iZWT7ZE6501tCFaLcTVwzJkZKK25BHPqRnDM/Z2zHfAy2rQ900qBu8F0igilVP9Lu+i38SpO9KVX0JENgIaHSnCWTiI99+BpDY8qirYGkymeOuuv+tU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(10070799003)(7416014)(1800799024)(23010399003)(56012099006)(11063799006)(4143699003)(18002099003)(10067099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cWREcGMyNURoRE9xQnBuR3dvRVVJNUZCVUZuY3RYamRFcDJjQUxZVjRZaUtJ?=
+ =?utf-8?B?RFJxamZVV2ZYM2VyQlkvM3E1VkpIYTNGYmxCNHJManR3RW0weTNYbTg2NlhD?=
+ =?utf-8?B?RE92OUdxUXZ4TUdQdytQdVErTkJQWk43VjAzdExaK0xIckJYdnBwMHUwQ00z?=
+ =?utf-8?B?K21VWncrTTNGREZlTzZaWTAvbmpTNzMvSGtIRkNOVG1DcGpGTkltRGFocG04?=
+ =?utf-8?B?NkJLeHc3UnNCUHpNRFk4T3h1Zm01MGp5WHdWVUdSVUdGMU11Vzc4OVIwR0lv?=
+ =?utf-8?B?eU1Sa3FNeTcvZ3JMeDZ2QWQvak5ENzlqdmpmQzB0V09JR0pieWVxbFowWVl6?=
+ =?utf-8?B?dFNtYXByTzhOTzZxQTcxMitQdGY0UUcwRndmdXF5SWR2Y0NnN3dUUEJmNTRZ?=
+ =?utf-8?B?aW52Nit0MWpuY1h5eEwydC9NTjd0NG9DQUdMWFBCTjIrOHRyUTFvMm9pYWh5?=
+ =?utf-8?B?LytWZTZRKzJJTGhxS0V3ZmZ3eVlCUnIvVzE0QW81TThjTXQwbFBQYnNsNlNn?=
+ =?utf-8?B?cWRza1JmM20reWZtS1hUcXM2WDlrRjhjOGw0dEZIaGdKaC9kNm1LQWY0SXVI?=
+ =?utf-8?B?TUtkN3laM1Vta05JVTNZOGdsSnBoMmRnR0k5WHRXdGc5OUR5OXlmQ1VGcFBq?=
+ =?utf-8?B?OGxYbnRDejJEVWhpRGJueUZ2VnI0VmlsMFpFaTUyUFkrN1Rtdkx5UnRwZWFY?=
+ =?utf-8?B?bytGU1paYTFIbVEzYitJRGVMMEtLeGc5UWx3dno3emR0NGVJWGpGU0VUZ0Uv?=
+ =?utf-8?B?UG9IY2VKOGEzN3lIMjRSNi9pd0ZxTjcyTHd4RC9yTTBMYklGa3RSKzg3Y09K?=
+ =?utf-8?B?VUdXSkNaUWQwZmZZOFVteURTT0JEbk9WQURqTkdmaEQ2VlEyQ3dSMC9vSDhF?=
+ =?utf-8?B?aktRSGF2ajEvNjcvWVg4azlBL0JiUkJtcndLSFlmcG8zRWs4RUIzeTVGTDFI?=
+ =?utf-8?B?TzVRM0tORi95ZWRFNHltZVN6dTUxUkJVOWJ1UGFrOVlhTG8vYjlmTlMxYVY3?=
+ =?utf-8?B?Y1IyVStUb0Y3SUdBVWdzUVFOL2lRbjc0N1ovYlM1K042TU53WEdqLzdaLzFl?=
+ =?utf-8?B?MW5DS1dtZ1NQQ2tPMHFlenE0VnVjWFB2ZlRSS0NYMWNjbVZDcUVRNzl1ZGNm?=
+ =?utf-8?B?bUhraEdNcWphclJ5MjVvT2RHcTRtYm1UZUdJdWh1RG1SWXVlYytuRXcraTVt?=
+ =?utf-8?B?V2x1TDRLNlNyT01LcEw5V3BWSXphQlB1VFJtaDRmOU95WHdIZ1JzZU1ab0xC?=
+ =?utf-8?B?cmovSTNQOEgralpycm9OcWZPaXFoVDBRRDkwdEs3YW5VMEpMMTNwQmhCemor?=
+ =?utf-8?B?bkJnYlkzbVFWZGNrcGF3VHRHenlLby9zZ2RSK1dUaDZYcjB0aDVQREI3YVBB?=
+ =?utf-8?B?MForbGoxTGx5a3lwdzBidi9DZEs5SGF2czMrNU1DakN2Ky9YbUpIQTBwdVFN?=
+ =?utf-8?B?YmI2Q1BRemhScUFsUjh4WWp1QUVUb2p1UGRGYTlCcWdkT2twMFVsaldBSjcx?=
+ =?utf-8?B?TDRHaHptcG0ydGd1Ym8wYUpxekdabUZGbFkvbU1KeEErUUZqZ01Fc290enFB?=
+ =?utf-8?B?Q3dwUGhONHdCWXpTUDJ6ZFNDVnlxa3BlUERWazZDdTdFQnBad3IrODh6Nmsw?=
+ =?utf-8?B?SStTY2RKS3RiTDduZ0NGdE9EOEtyRVQreEJyVjdLWnZrek1CUGpUd2RuaUs3?=
+ =?utf-8?B?OERjSmNuWkExOG95YnprTFhjM1d5cERoMW5zam9uSERJejM1SlFaeHhIcEs5?=
+ =?utf-8?B?aUR2TjlKVWdUM0FDNEdCdHJMcE14QXBwZTZvYk1rM3c4MElkZjMzWjNKa0l0?=
+ =?utf-8?B?VkdxYm9GRnR0UmxDOU1RZXc1M1JqOG1hSkNBVWYyYS9nR2N3VWFRc3lZWXA5?=
+ =?utf-8?B?MVYrbWJxTWNRN3NiaDBzQURBZVFtVjFKVzdxVWIxZWJyMjdSYk03Nzl6Ry9p?=
+ =?utf-8?B?VllFaDRWNzlVckRaVUp6ZStnV2cvMkUzaHBGOS9Lc3RmQk9CM2NQZlhPYnRi?=
+ =?utf-8?B?bjBkOE9Cb1hzeFV6M2dFcytRMVkrNjgyQmNEMC9IQmM4NWcwNHQyb1dzbDZs?=
+ =?utf-8?B?VThwcU1tamVUU0JkZERjV3I5UWgrZDJIVHBKWEJnZ3Rua3l2VnMxTDRWWjYw?=
+ =?utf-8?B?dnBabDh6Q1ptTndGbDVxOUFTZTV6MFNKeHhZUCtNa2t3b1pGUWcvQ1NkUWlT?=
+ =?utf-8?B?bVZPLys4ZGtZY2tad3hXRUN2UnlpVzBNdmVFeFdGZVJSUERYekJNSGRNb3Ny?=
+ =?utf-8?B?YkxsY203cTkzMGJLcVNyUU9BVEpRcHVYUWFGa1dRQnJmcXVjaEFZc3FxdmJJ?=
+ =?utf-8?B?SUdoQjBCVXNld1VaYTljT2tvLzRqSERMZzAxbXY5K0pzUE4rc0MvT3RpMUpq?=
+ =?utf-8?Q?g6+92rXH+ZIppZGNNy6Eh3TlV6ZDxHjs1e788BzJekpp0?=
+X-MS-Exchange-AntiSpam-MessageData-1: FxO3gMRTnsluRg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 315038e9-41fd-4126-cff1-08df2a5c459c
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 01:33:10.5180
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: OSkPWYYmDArAS+1+Aa0wfWNAbTKxQ789wuz1OYFvWhygrCW6uhSwEgvV35kwo/AOAjjfR7IQjjeifp28GFjDDA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB9542
 
+On Wed Oct 7, 2026 at 3:30 PM JST, Alexandre Courbot wrote:
+> On Mon Sep 28, 2026 at 5:42 PM JST, Eliot Courtney wrote:
+> <...>
+>> +    // Tests that encoding via the `nvkv_encode!` macro works correctly=
+.
+>> +    #[test]
+>> +    fn encode_typed_struct() -> Result {
+>> +        const U32_KEY: KeyId =3D 0x0001;
+>> +        const U64_KEY: KeyId =3D 0x0002;
+>> +        const NAME_KEY: KeyId =3D 0x0003;
+>> +        const FIXED_KEY: KeyId =3D 0x0004;
+>> +        const OPT_KEY: KeyId =3D 0x0005;
+>> +        const INDEXED_KEY: KeyId =3D 0x0006;
+>> +
+>> +        nvkv_encode! {
+>> +            struct TypedRequest {
+>> +                a: Key<u32, U32_KEY>,
+>> +                b: Key<u64, U64_KEY>,
+>> +                name: Key<&'static [u8], NAME_KEY>,
+>> +                fixed: Key<[u8; 4], FIXED_KEY>,
+>> +                opt: Option<Key<u32, OPT_KEY>>,
+>> +                indexed: IndexedKey<u32, INDEXED_KEY>,
+>
+> API question: `IndexedKey` is module-private, but this use of
+> `nvkv_encode` looks like something that driver code could very well do.
+> Should it be crate-visible? If so, why not move it next to `Key` in
+> `nvkv.rs`?
 
-
-在 2026/10/14 17:32, Michal Hocko 写道:
-> On Wed 14-10-26 16:54:12, Ye Liu wrote:
->> From: Ye Liu <liuye@kylinos.cn>
->>
->> fs/proc/base.c is a large file (~3700 lines) handling all per-process
->> procfs entries. The OOM score, oom_adj, and oom_score_adj interface
->> code is self-contained and has no dependencies on other parts of
->> base.c, so move it into a dedicated fs/proc/oom.c following the same
->> pattern as fs/proc/fd.c and fs/proc/task_mmu.c.
->>
->> This makes both files easier to read and keeps OOM-related procfs
->> entries together in one place.
-> 
-> Are there plans to separate other functionality or is this one off
-> thing?
-> In general I am not against of moving stuff to more specialized files.
-> An obvious downside is a review as it is quite easy to overlook a subtle
-> change when moving so much code. Something worth undertaking if there
-> is a bigger goal. Not so sure if this is just a one of and fs/proc/base.c
-> still keeps other random stuff in.
-> 
-
-Hi Michal,
-
-This is a one-off move specifically for the OOM-related procfs code.
-I don't have a broader plan to split up fs/proc/base.c at this time.
-
-I understand the concern about subtle changes during code moves.
-To address that, the patch is a pure relocation with no functional
-modifications — all function bodies are moved verbatim. The only
-non-mechanical changes are:
-
-  - Three symbols (proc_oom_score, proc_oom_adj_operations,
-    proc_oom_score_adj_operations) are made non-static and declared
-    in fs/proc/internal.h, since base.c still references them via
-    the proc_dir_entry table.
-
-  - The oom_adj_mutex static local is moved along with its users.
-
-I have tested the patch and observed no functional issues.
-
->> Signed-off-by: Ye Liu <liuye@kylinos.cn>
->> ---
->>  MAINTAINERS        |   1 +
->>  fs/proc/Makefile   |   1 +
->>  fs/proc/base.c     | 232 -------------------------------------------------
->>  fs/proc/internal.h |   8 ++
->>  fs/proc/oom.c      | 249 +++++++++++++++++++++++++++++++++++++++++++++++++++++
->>  5 files changed, 259 insertions(+), 232 deletions(-)
->>
->> diff --git a/MAINTAINERS b/MAINTAINERS
->> index 1da3623e77ce..4b1c13a65136 100644
->> --- a/MAINTAINERS
->> +++ b/MAINTAINERS
->> @@ -17676,6 +17676,7 @@ R:	David Rientjes <rientjes@google.com>
->>  R:	Shakeel Butt <shakeel.butt@linux.dev>
->>  L:	linux-mm@kvack.org
->>  S:	Maintained
->> +F:	fs/proc/oom.c
->>  F:	include/linux/oom.h
->>  F:	include/trace/events/oom.h
->>  F:	include/uapi/linux/oom.h
->> diff --git a/fs/proc/Makefile b/fs/proc/Makefile
->> index 27e2b26b2d42..68e65866b5df 100644
->> --- a/fs/proc/Makefile
->> +++ b/fs/proc/Makefile
->> @@ -21,6 +21,7 @@ proc-y += interrupts.o
->>  endif
->>  proc-y	+= loadavg.o
->>  proc-y	+= meminfo.o
->> +proc-y	+= oom.o
->>  proc-y	+= stat.o
->>  proc-y	+= uptime.o
->>  proc-y	+= util.o
->> diff --git a/fs/proc/base.c b/fs/proc/base.c
->> index 8c04fcd436d2..26ccc05a50ff 100644
->> --- a/fs/proc/base.c
->> +++ b/fs/proc/base.c
->> @@ -80,7 +80,6 @@
->>  #include <linux/audit.h>
->>  #include <linux/poll.h>
->>  #include <linux/nsproxy.h>
->> -#include <linux/oom.h>
->>  #include <linux/elf.h>
->>  #include <linux/pid_namespace.h>
->>  #include <linux/user_namespace.h>
->> @@ -99,7 +98,6 @@
->>  #include <linux/cn_proc.h>
->>  #include <linux/ksm.h>
->>  #include <uapi/linux/lsm.h>
->> -#include <trace/events/oom.h>
->>  #include "internal.h"
->>  #include "fd.h"
->>  
->> @@ -580,28 +578,6 @@ static const struct file_operations proc_lstats_operations = {
->>  
->>  #endif
->>  
->> -static int proc_oom_score(struct seq_file *m, struct pid_namespace *ns,
->> -			  struct pid *pid, struct task_struct *task)
->> -{
->> -	unsigned long totalpages = totalram_pages() + total_swap_pages;
->> -	unsigned long points = 0;
->> -	long badness;
->> -
->> -	badness = oom_badness(task, totalpages);
->> -	/*
->> -	 * Special case OOM_SCORE_ADJ_MIN for all others scale the
->> -	 * badness value into [0, 2000] range which we have been
->> -	 * exporting for a long time so userspace might depend on it.
->> -	 */
->> -	if (badness != LONG_MIN)
->> -		points = (OOM_SCORE_ADJ_MAX +
->> -			  badness * OOM_SCORE_ADJ_MAX / (long)totalpages) * 2 / 3;
->> -
->> -	seq_printf(m, "%lu\n", points);
->> -
->> -	return 0;
->> -}
->> -
->>  struct limit_names {
->>  	const char *name;
->>  	const char *unit;
->> @@ -1115,214 +1091,6 @@ static const struct file_operations proc_auxv_operations = {
->>  	.release	= mem_release,
->>  };
->>  
->> -static ssize_t oom_adj_read(struct file *file, char __user *buf, size_t count,
->> -			    loff_t *ppos)
->> -{
->> -	struct task_struct *task = get_proc_task(file_inode(file));
->> -	char buffer[PROC_NUMBUF];
->> -	int oom_adj = OOM_ADJUST_MIN;
->> -	size_t len;
->> -
->> -	if (!task)
->> -		return -ESRCH;
->> -	if (task->signal->oom_score_adj == OOM_SCORE_ADJ_MAX)
->> -		oom_adj = OOM_ADJUST_MAX;
->> -	else
->> -		oom_adj = (task->signal->oom_score_adj * -OOM_DISABLE) /
->> -			  OOM_SCORE_ADJ_MAX;
->> -	put_task_struct(task);
->> -	if (oom_adj > OOM_ADJUST_MAX)
->> -		oom_adj = OOM_ADJUST_MAX;
->> -	len = snprintf(buffer, sizeof(buffer), "%d\n", oom_adj);
->> -	return simple_read_from_buffer(buf, count, ppos, buffer, len);
->> -}
->> -
->> -static int __set_oom_adj(struct file *file, int oom_adj, bool legacy)
->> -{
->> -	struct mm_struct *mm = NULL;
->> -	struct task_struct *task;
->> -	int err = 0;
->> -
->> -	task = get_proc_task(file_inode(file));
->> -	if (!task)
->> -		return -ESRCH;
->> -
->> -	mutex_lock(&oom_adj_mutex);
->> -	if (legacy) {
->> -		if (oom_adj < task->signal->oom_score_adj &&
->> -				!capable(CAP_SYS_RESOURCE)) {
->> -			err = -EACCES;
->> -			goto err_unlock;
->> -		}
->> -		/*
->> -		 * /proc/pid/oom_adj is provided for legacy purposes, ask users to use
->> -		 * /proc/pid/oom_score_adj instead.
->> -		 */
->> -		pr_warn_once("%s (%d): /proc/%d/oom_adj is deprecated, please use /proc/%d/oom_score_adj instead.\n",
->> -			  current->comm, task_pid_nr(current), task_pid_nr(task),
->> -			  task_pid_nr(task));
->> -	} else {
->> -		if ((short)oom_adj < task->signal->oom_score_adj_min &&
->> -				!capable(CAP_SYS_RESOURCE)) {
->> -			err = -EACCES;
->> -			goto err_unlock;
->> -		}
->> -	}
->> -
->> -	/*
->> -	 * Make sure we will check other processes sharing the mm if this is
->> -	 * not vfrok which wants its own oom_score_adj.
->> -	 * pin the mm so it doesn't go away and get reused after task_unlock
->> -	 */
->> -	if (!task->vfork_done) {
->> -		struct task_struct *p = find_lock_task_mm(task);
->> -
->> -		if (p) {
->> -			if (mm_flags_test(MMF_MULTIPROCESS, p->mm)) {
->> -				mm = p->mm;
->> -				mmgrab(mm);
->> -			}
->> -			task_unlock(p);
->> -		}
->> -	}
->> -
->> -	task->signal->oom_score_adj = oom_adj;
->> -	if (!legacy && has_capability_noaudit(current, CAP_SYS_RESOURCE))
->> -		task->signal->oom_score_adj_min = (short)oom_adj;
->> -	trace_oom_score_adj_update(task);
->> -
->> -	if (mm) {
->> -		struct task_struct *p;
->> -
->> -		rcu_read_lock();
->> -		for_each_process(p) {
->> -			if (same_thread_group(task, p))
->> -				continue;
->> -
->> -			/* do not touch kernel threads or the global init */
->> -			if (p->flags & PF_KTHREAD || is_global_init(p))
->> -				continue;
->> -
->> -			task_lock(p);
->> -			if (!p->vfork_done && process_shares_mm(p, mm)) {
->> -				p->signal->oom_score_adj = oom_adj;
->> -				if (!legacy && has_capability_noaudit(current, CAP_SYS_RESOURCE))
->> -					p->signal->oom_score_adj_min = (short)oom_adj;
->> -			}
->> -			task_unlock(p);
->> -		}
->> -		rcu_read_unlock();
->> -		mmdrop(mm);
->> -	}
->> -err_unlock:
->> -	mutex_unlock(&oom_adj_mutex);
->> -	put_task_struct(task);
->> -	return err;
->> -}
->> -
->> -/*
->> - * /proc/pid/oom_adj exists solely for backwards compatibility with previous
->> - * kernels.  The effective policy is defined by oom_score_adj, which has a
->> - * different scale: oom_adj grew exponentially and oom_score_adj grows linearly.
->> - * Values written to oom_adj are simply mapped linearly to oom_score_adj.
->> - * Processes that become oom disabled via oom_adj will still be oom disabled
->> - * with this implementation.
->> - *
->> - * oom_adj cannot be removed since existing userspace binaries use it.
->> - */
->> -static ssize_t oom_adj_write(struct file *file, const char __user *buf,
->> -			     size_t count, loff_t *ppos)
->> -{
->> -	char buffer[PROC_NUMBUF] = {};
->> -	int oom_adj;
->> -	int err;
->> -
->> -	if (count > sizeof(buffer) - 1)
->> -		count = sizeof(buffer) - 1;
->> -	if (copy_from_user(buffer, buf, count)) {
->> -		err = -EFAULT;
->> -		goto out;
->> -	}
->> -
->> -	err = kstrtoint(strstrip(buffer), 0, &oom_adj);
->> -	if (err)
->> -		goto out;
->> -	if ((oom_adj < OOM_ADJUST_MIN || oom_adj > OOM_ADJUST_MAX) &&
->> -	     oom_adj != OOM_DISABLE) {
->> -		err = -EINVAL;
->> -		goto out;
->> -	}
->> -
->> -	/*
->> -	 * Scale /proc/pid/oom_score_adj appropriately ensuring that a maximum
->> -	 * value is always attainable.
->> -	 */
->> -	if (oom_adj == OOM_ADJUST_MAX)
->> -		oom_adj = OOM_SCORE_ADJ_MAX;
->> -	else
->> -		oom_adj = (oom_adj * OOM_SCORE_ADJ_MAX) / -OOM_DISABLE;
->> -
->> -	err = __set_oom_adj(file, oom_adj, true);
->> -out:
->> -	return err < 0 ? err : count;
->> -}
->> -
->> -static const struct file_operations proc_oom_adj_operations = {
->> -	.read		= oom_adj_read,
->> -	.write		= oom_adj_write,
->> -	.llseek		= generic_file_llseek,
->> -};
->> -
->> -static ssize_t oom_score_adj_read(struct file *file, char __user *buf,
->> -					size_t count, loff_t *ppos)
->> -{
->> -	struct task_struct *task = get_proc_task(file_inode(file));
->> -	char buffer[PROC_NUMBUF];
->> -	short oom_score_adj = OOM_SCORE_ADJ_MIN;
->> -	size_t len;
->> -
->> -	if (!task)
->> -		return -ESRCH;
->> -	oom_score_adj = task->signal->oom_score_adj;
->> -	put_task_struct(task);
->> -	len = snprintf(buffer, sizeof(buffer), "%hd\n", oom_score_adj);
->> -	return simple_read_from_buffer(buf, count, ppos, buffer, len);
->> -}
->> -
->> -static ssize_t oom_score_adj_write(struct file *file, const char __user *buf,
->> -					size_t count, loff_t *ppos)
->> -{
->> -	char buffer[PROC_NUMBUF] = {};
->> -	int oom_score_adj;
->> -	int err;
->> -
->> -	if (count > sizeof(buffer) - 1)
->> -		count = sizeof(buffer) - 1;
->> -	if (copy_from_user(buffer, buf, count)) {
->> -		err = -EFAULT;
->> -		goto out;
->> -	}
->> -
->> -	err = kstrtoint(strstrip(buffer), 0, &oom_score_adj);
->> -	if (err)
->> -		goto out;
->> -	if (oom_score_adj < OOM_SCORE_ADJ_MIN ||
->> -			oom_score_adj > OOM_SCORE_ADJ_MAX) {
->> -		err = -EINVAL;
->> -		goto out;
->> -	}
->> -
->> -	err = __set_oom_adj(file, oom_score_adj, false);
->> -out:
->> -	return err < 0 ? err : count;
->> -}
->> -
->> -static const struct file_operations proc_oom_score_adj_operations = {
->> -	.read		= oom_score_adj_read,
->> -	.write		= oom_score_adj_write,
->> -	.llseek		= default_llseek,
->> -};
->> -
->>  #ifdef CONFIG_AUDIT
->>  #define TMPBUFLEN 11
->>  static ssize_t proc_loginuid_read(struct file * file, char __user * buf,
->> diff --git a/fs/proc/internal.h b/fs/proc/internal.h
->> index df873df9afc5..b72a2bd604ed 100644
->> --- a/fs/proc/internal.h
->> +++ b/fs/proc/internal.h
->> @@ -238,6 +238,14 @@ static inline int folio_average_page_mapcount(struct folio *folio)
->>  	/* ... but return at least 1. */
->>  	return max_t(int, avg + entire_mapcount, 1);
->>  }
->> +/*
->> + * oom.c
->> + */
->> +int proc_oom_score(struct seq_file *m, struct pid_namespace *ns,
->> +		   struct pid *pid, struct task_struct *task);
->> +extern const struct file_operations proc_oom_adj_operations;
->> +extern const struct file_operations proc_oom_score_adj_operations;
->> +
->>  /*
->>   * array.c
->>   */
->> diff --git a/fs/proc/oom.c b/fs/proc/oom.c
->> new file mode 100644
->> index 000000000000..5f22ec4a4a6e
->> --- /dev/null
->> +++ b/fs/proc/oom.c
->> @@ -0,0 +1,249 @@
->> +// SPDX-License-Identifier: GPL-2.0
->> +/*
->> + * OOM-related procfs entries
->> + *
->> + * This file handles the OOM score, oom_adj, and oom_score_adj interfaces
->> + * in /proc/<pid>/.
->> + */
->> +
->> +#include <linux/proc_fs.h>
->> +#include <linux/oom.h>
->> +#include <linux/seq_file.h>
->> +#include <linux/capability.h>
->> +#include <linux/mm.h>
->> +#include <linux/swap.h>
->> +#include <linux/sched/signal.h>
->> +#include <linux/pid_namespace.h>
->> +#include <trace/events/oom.h>
->> +
->> +#include "internal.h"
->> +
->> +int proc_oom_score(struct seq_file *m, struct pid_namespace *ns,
->> +		   struct pid *pid, struct task_struct *task)
->> +{
->> +	unsigned long totalpages = totalram_pages() + total_swap_pages;
->> +	unsigned long points = 0;
->> +	long badness;
->> +
->> +	badness = oom_badness(task, totalpages);
->> +	/*
->> +	 * Special case OOM_SCORE_ADJ_MIN for all others scale the
->> +	 * badness value into [0, 2000] range which we have been
->> +	 * exporting for a long time so userspace might depend on it.
->> +	 */
->> +	if (badness != LONG_MIN)
->> +		points = (OOM_SCORE_ADJ_MAX +
->> +			  badness * OOM_SCORE_ADJ_MAX / (long)totalpages) * 2 / 3;
->> +
->> +	seq_printf(m, "%lu\n", points);
->> +
->> +	return 0;
->> +}
->> +
->> +static ssize_t oom_adj_read(struct file *file, char __user *buf, size_t count,
->> +			    loff_t *ppos)
->> +{
->> +	struct task_struct *task = get_proc_task(file_inode(file));
->> +	char buffer[PROC_NUMBUF];
->> +	int oom_adj = OOM_ADJUST_MIN;
->> +	size_t len;
->> +
->> +	if (!task)
->> +		return -ESRCH;
->> +	if (task->signal->oom_score_adj == OOM_SCORE_ADJ_MAX)
->> +		oom_adj = OOM_ADJUST_MAX;
->> +	else
->> +		oom_adj = (task->signal->oom_score_adj * -OOM_DISABLE) /
->> +			  OOM_SCORE_ADJ_MAX;
->> +	put_task_struct(task);
->> +	if (oom_adj > OOM_ADJUST_MAX)
->> +		oom_adj = OOM_ADJUST_MAX;
->> +	len = snprintf(buffer, sizeof(buffer), "%d\n", oom_adj);
->> +	return simple_read_from_buffer(buf, count, ppos, buffer, len);
->> +}
->> +
->> +static int __set_oom_adj(struct file *file, int oom_adj, bool legacy)
->> +{
->> +	struct mm_struct *mm = NULL;
->> +	struct task_struct *task;
->> +	int err = 0;
->> +
->> +	task = get_proc_task(file_inode(file));
->> +	if (!task)
->> +		return -ESRCH;
->> +
->> +	mutex_lock(&oom_adj_mutex);
->> +	if (legacy) {
->> +		if (oom_adj < task->signal->oom_score_adj &&
->> +				!capable(CAP_SYS_RESOURCE)) {
->> +			err = -EACCES;
->> +			goto err_unlock;
->> +		}
->> +		/*
->> +		 * /proc/pid/oom_adj is provided for legacy purposes, ask users to use
->> +		 * /proc/pid/oom_score_adj instead.
->> +		 */
->> +		pr_warn_once("%s (%d): /proc/%d/oom_adj is deprecated, please use /proc/%d/oom_score_adj instead.\n",
->> +			  current->comm, task_pid_nr(current), task_pid_nr(task),
->> +			  task_pid_nr(task));
->> +	} else {
->> +		if ((short)oom_adj < task->signal->oom_score_adj_min &&
->> +				!capable(CAP_SYS_RESOURCE)) {
->> +			err = -EACCES;
->> +			goto err_unlock;
->> +		}
->> +	}
->> +
->> +	/*
->> +	 * Make sure we will check other processes sharing the mm if this is
->> +	 * not vfrok which wants its own oom_score_adj.
->> +	 * pin the mm so it doesn't go away and get reused after task_unlock
->> +	 */
->> +	if (!task->vfork_done) {
->> +		struct task_struct *p = find_lock_task_mm(task);
->> +
->> +		if (p) {
->> +			if (mm_flags_test(MMF_MULTIPROCESS, p->mm)) {
->> +				mm = p->mm;
->> +				mmgrab(mm);
->> +			}
->> +			task_unlock(p);
->> +		}
->> +	}
->> +
->> +	task->signal->oom_score_adj = oom_adj;
->> +	if (!legacy && has_capability_noaudit(current, CAP_SYS_RESOURCE))
->> +		task->signal->oom_score_adj_min = (short)oom_adj;
->> +	trace_oom_score_adj_update(task);
->> +
->> +	if (mm) {
->> +		struct task_struct *p;
->> +
->> +		rcu_read_lock();
->> +		for_each_process(p) {
->> +			if (same_thread_group(task, p))
->> +				continue;
->> +
->> +			/* do not touch kernel threads or the global init */
->> +			if (p->flags & PF_KTHREAD || is_global_init(p))
->> +				continue;
->> +
->> +			task_lock(p);
->> +			if (!p->vfork_done && process_shares_mm(p, mm)) {
->> +				p->signal->oom_score_adj = oom_adj;
->> +				if (!legacy && has_capability_noaudit(current, CAP_SYS_RESOURCE))
->> +					p->signal->oom_score_adj_min = (short)oom_adj;
->> +			}
->> +			task_unlock(p);
->> +		}
->> +		rcu_read_unlock();
->> +		mmdrop(mm);
->> +	}
->> +err_unlock:
->> +	mutex_unlock(&oom_adj_mutex);
->> +	put_task_struct(task);
->> +	return err;
->> +}
->> +
->> +/*
->> + * /proc/pid/oom_adj exists solely for backwards compatibility with previous
->> + * kernels.  The effective policy is defined by oom_score_adj, which has a
->> + * different scale: oom_adj grew exponentially and oom_score_adj grows linearly.
->> + * Values written to oom_adj are simply mapped linearly to oom_score_adj.
->> + * Processes that become oom disabled via oom_adj will still be oom disabled
->> + * with this implementation.
->> + *
->> + * oom_adj cannot be removed since existing userspace binaries use it.
->> + */
->> +static ssize_t oom_adj_write(struct file *file, const char __user *buf,
->> +			     size_t count, loff_t *ppos)
->> +{
->> +	char buffer[PROC_NUMBUF] = {};
->> +	int oom_adj;
->> +	int err;
->> +
->> +	if (count > sizeof(buffer) - 1)
->> +		count = sizeof(buffer) - 1;
->> +	if (copy_from_user(buffer, buf, count)) {
->> +		err = -EFAULT;
->> +		goto out;
->> +	}
->> +
->> +	err = kstrtoint(strstrip(buffer), 0, &oom_adj);
->> +	if (err)
->> +		goto out;
->> +	if ((oom_adj < OOM_ADJUST_MIN || oom_adj > OOM_ADJUST_MAX) &&
->> +	     oom_adj != OOM_DISABLE) {
->> +		err = -EINVAL;
->> +		goto out;
->> +	}
->> +
->> +	/*
->> +	 * Scale /proc/pid/oom_score_adj appropriately ensuring that a maximum
->> +	 * value is always attainable.
->> +	 */
->> +	if (oom_adj == OOM_ADJUST_MAX)
->> +		oom_adj = OOM_SCORE_ADJ_MAX;
->> +	else
->> +		oom_adj = (oom_adj * OOM_SCORE_ADJ_MAX) / -OOM_DISABLE;
->> +
->> +	err = __set_oom_adj(file, oom_adj, true);
->> +out:
->> +	return err < 0 ? err : count;
->> +}
->> +
->> +const struct file_operations proc_oom_adj_operations = {
->> +	.read		= oom_adj_read,
->> +	.write		= oom_adj_write,
->> +	.llseek		= generic_file_llseek,
->> +};
->> +
->> +static ssize_t oom_score_adj_read(struct file *file, char __user *buf,
->> +					size_t count, loff_t *ppos)
->> +{
->> +	struct task_struct *task = get_proc_task(file_inode(file));
->> +	char buffer[PROC_NUMBUF];
->> +	short oom_score_adj = OOM_SCORE_ADJ_MIN;
->> +	size_t len;
->> +
->> +	if (!task)
->> +		return -ESRCH;
->> +	oom_score_adj = task->signal->oom_score_adj;
->> +	put_task_struct(task);
->> +	len = snprintf(buffer, sizeof(buffer), "%hd\n", oom_score_adj);
->> +	return simple_read_from_buffer(buf, count, ppos, buffer, len);
->> +}
->> +
->> +static ssize_t oom_score_adj_write(struct file *file, const char __user *buf,
->> +					size_t count, loff_t *ppos)
->> +{
->> +	char buffer[PROC_NUMBUF] = {};
->> +	int oom_score_adj;
->> +	int err;
->> +
->> +	if (count > sizeof(buffer) - 1)
->> +		count = sizeof(buffer) - 1;
->> +	if (copy_from_user(buffer, buf, count)) {
->> +		err = -EFAULT;
->> +		goto out;
->> +	}
->> +
->> +	err = kstrtoint(strstrip(buffer), 0, &oom_score_adj);
->> +	if (err)
->> +		goto out;
->> +	if (oom_score_adj < OOM_SCORE_ADJ_MIN ||
->> +			oom_score_adj > OOM_SCORE_ADJ_MAX) {
->> +		err = -EINVAL;
->> +		goto out;
->> +	}
->> +
->> +	err = __set_oom_adj(file, oom_score_adj, false);
->> +out:
->> +	return err < 0 ? err : count;
->> +}
->> +
->> +const struct file_operations proc_oom_score_adj_operations = {
->> +	.read		= oom_score_adj_read,
->> +	.write		= oom_score_adj_write,
->> +	.llseek		= default_llseek,
->> +};
->>
->> ---
->> base-commit: 1fffefb00cc0b0da1f2ae24e3d33364530ea6515
->> base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
->> change-id: 20261014-oom_procfs-f74a922f73f1
->>
->> Best regards,
->> --  
->> Ye Liu <ye.liu@linux.dev>
-> 
-
--- 
-Thanks,
-Ye Liu
-
+It's not used immediately, but I think it's fine for it to be crate
+visible since it is fair game to use it.
