@@ -1,150 +1,182 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 066DF3D47A5
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:28:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75EB1309EEB
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:28:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792031286; cv=none; b=YqonD4C/mPUL8p62rSHfF2shc4XSoikSNVw4podEcBAbCd7dyg2v/B2MN0v3XR0FSulrLOkDMPGl/DpF+FzkqFJQ1a5SLrisea2WkOhdgBAs8K2wxaYwl6YgQmlKoLQUkYap4lfgCk0j3dBKRMoNj1te+RWz3DqeTNglzowz8Ys=
+	t=1792031320; cv=none; b=FenOSXOLnm1ySV61vEzrFP0vIMzS5fFDB1OnPEB3mAmllEETOA0AachTKBzskJGLwTDqaw2lgUomrA6pRT9JG0n3y5txsXMEG+fxvpar74Gyt8lH2mI50W5x2SUcsb0LdNIfCodDpfU4cVJYnD2ftycr5XGLx8/HKuO2SMNOtdg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792031286; c=relaxed/simple;
-	bh=DvmUcdBGk9Ip3K6aMNLyTsmPzHjEV1WQkSgWvFOcyz8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hxrz/+1psH74vF0tjz2KvGibtIxYSMfquAK2mbOdl+jvVBZkJxd74lk8RtwLToFC+iqxTMT0OAkfIaiwbYUUlwLbdXflDcfAjSLE7D6W0E5d/j5zWWRd3UF9ndUYhsetB1Y4r+TVpp4nDNST6c4y8DMGJ7An54KS53pBvGQuE9w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=bi3TzmHN; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1792031320; c=relaxed/simple;
+	bh=D8kqw460aVqAXVxDDxXCj1ESFmCPAvjMk5GS3hAyqw4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZL//YBzEIV2xrJSbuN0X2nxtryM2v6yXaXyPAoP1g/xjtBtltk6iRAtoijEiPPBlHH6chr0SvsmfX8YP44US4cqkb0bQIpNljEpzr7l5vHz+tLqhKfcr0jruvSGFtYyYCTmZqBZGxTv3U3IJ0eYxC2JF9kJCzVs+2PJzaAK9eKA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=D7sxjFEz; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="bi3TzmHN"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3ac9f49b984so59441a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:28:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="D7sxjFEz"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48c4d99c32bso1215727f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:28:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792031282; x=1792636082; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2vTCBryNCZePgMXjmqfRG2WB7QhMRd9mrUtZ7pw310o=;
-        b=bi3TzmHNDHqAsfTolKRCa/saVMatyHR75I3UASZeQCUjgSrrip24J0WKXsMznt7BGx
-         /xZkhiDrLDn2vT5ufupCMxqewDS9Dr54xQS80JMPWkGQ3J718L1AwwCUnQSegeu6/ixg
-         bV8298KvdA/P47SQ7AFPgGIBmkbJg2Nd6eFQ9af4pv6za6xWHcREdyopmqoqNdp0YcOF
-         F5TiAA4RatvwLzXBiD2b8RQwcEfzOe8XjygSNwOkTvYpd8dyj99qTmDySTXY/uCD7oJA
-         gkmRhyVZSV8A7KxaY4gKMng0DY6verCf4i9KQiDpzPXZCF5I9MZO3GgmhtQKx60zv0xo
-         YCHA==
+        d=suse.com; s=google; t=1792031317; x=1792636117; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vFK7bW+ch1AnYKr5eaZ3F6vsFcFiDVJtqAQR0MXM7VE=;
+        b=D7sxjFEzzTR54Fap9UTXMo0lC8Rx3cKcr9uxvKxiKA3Y7YuAhXqquuYVC5Z+u0uHQx
+         5X+c3OtobWLoiKUBOyAfV0Z3o9JsPiedmJz5DK7+gqUcKY4oo594AePD3Ju26l5NifuY
+         SEG38vNIpYJ2P7Wrjp6zHtLoqJ26OSxehoeOMHARffXcsn/L7koX2XRbnYGWuG3umUE8
+         2YDW1oY0lww7Ak2/Y4EDXvrqTmkfWC8Be5xd9RasEOf1WHEpdidLxIP1Ea8NkaKUO9yg
+         dcd7lp+39axT/cEtAdabLdNukkWQdoYHtFDzawtYCEzzUvHMp08PB95mchYbMLpEBv5M
+         J1UQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792031282; x=1792636082;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2vTCBryNCZePgMXjmqfRG2WB7QhMRd9mrUtZ7pw310o=;
-        b=SkCb5lYL0malt3hStn8eLHOVTdUc1WKCuMRRFQMpF1KmO+4Z/fjmiGWzFqjT4XVsqi
-         TAsNCv1jToxID6xK02M2i3umAXjUhkbI1Bu2g5T1fA/MgL0h+GNlvVrPlHX2AEDDrS+l
-         bSc2BF8qvOQ5Qg+EOv4rUeX6QK4OsOEAigDfU+5pmcP8/dsCWkf3E8lEX0jvPbWxBBLD
-         l0sO8bwe8FzGJedU2CbQVOnUTd869D796mEhknZUEbT8Yh5InEg+hoVR1OBk+eSctDOw
-         lP+z6LO71IGRVFzAoR1m32mqKnnnbpIvzL554cESJF76/C2Y1epSkzDayzu5gu65YJdI
-         9CdQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxjpqViANCN25Wxp0TMSM2ASAXOaeYOwHm+DULTXfjl/p18gmqGmpiNJLf8fTCOiZ8WL2sY7T8arRnhgVs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKE0PG3pJs2gtpcTTgPOAu9pfOX0zrRizHlD3C7kMqDMGU6icTO
-	07zf54k8avAZAEMFkLgTbyY3Da4JS1HpnQarTSOiZr7a9EqDoRdbgrLt0yIgkSZ42z0=
-X-Gm-Gg: AYBFou3AqNQm528jW17npRn29h97fe4FjTl2nFVRI5CHVft/rtfRLEZmZTH70O3M43F
-	kct3HAOwlJSgsDxCGQbozzh6Isw3Dm2rFJLCFfFvdUGTYNmRQXqHNT1+99fWUGUoeuMXK4iLRub
-	+zZgl7eyoJP5qCRnrxP5+ubUIg7bx8XJ42j75DVPGNR1U5qDlPBOjlSMT+uIF2NZ8wkTc1GpFkA
-	itQSSj/EPqaBywOtKDEBfqvTyJ3cE2O2q9wybERoiA4LaSu/XDwKsn0kEx50Mkd+czhIw4ofr6f
-	2N5myfs0NSxiGteAeRxa/JFgOWMMGRkE+LCZlJmoWRmfpn6lZ0YFkmgIQvU+pLFLH/casc7faMg
-	jo+yMdMVv3qc+QmOLrVRGNuP4GVXjHiAU92MBGU/bJZlXcRGdxIb1RyFGHvRwY8WJTmW9mY5TN6
-	bCVWoLSM3Pluxn1y7WKHHYe2xJyvYPIk+xAa6qqxvSaL/qT0ATuZB5Jo6bOzWSMUt7DvyoSuUm3
-	iNU1A==
-X-Received: by 2002:a17:90b:4e8b:b0:3ab:be66:ddd3 with SMTP id 98e67ed59e1d1-3abbe66dfa9mr7610333a91.32.1792031281033;
-        Wed, 14 Oct 2026 19:28:01 -0700 (PDT)
-Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac94375f3fsm1997383a91.4.2026.10.14.19.27.59
+        d=1e100.net; s=20260707; t=1792031317; x=1792636117;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vFK7bW+ch1AnYKr5eaZ3F6vsFcFiDVJtqAQR0MXM7VE=;
+        b=AdOMcgDv+t2dn6JftTwzcxCmMu2Y61vmHBGXB8v0lBAVcspgGASS6AQQXVFT7XGX5A
+         F7chboHEaltHQAWPoVGXTYoB4U8jsSyYh4UviK6VlTL0puUzeQLaDjOk/jZEJdA2bGFc
+         CvWnUAMgolMnic4zunU1O0xKiHG+MTNopzqXhSnQkNcKHV4S69CdQQgFvd2edhYFD4xv
+         z7ZJVaK03EeXVNJkBaY6/AFe6bgmGwY0DIHxIyCaYsHQFXo0ewEk/yenB6NQMj/cdUen
+         1u6oJ+Ebd6hqPfxbGDrWjn/FfdY+aHyKM44oe18RoF5I7J2wJj2j7Fs0FVNFci81MkPF
+         QsqA==
+X-Forwarded-Encrypted: i=1; AKwUvBzXSFsMAvARCdbOL8ZoxfuvDSSqu3J44kz/ucv3haMMVJ7Qzv+pvU15fOyXRrrHqaoOHraR6LyR3GEtQsw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKHU79P2OuDubpLXsvrZ29mXzgNx3x5V8LCvz5vBA9fl4sNwWCb
+	5AC/Um9KbWeI6fgbxIofCdmkXKPlfXG9+k6g8tEmAUh0Reskcihel4b1J1yECbgORqdOWgbBW5M
+	pPM+1CQ==
+X-Gm-Gg: AYBFou3PSplewg32p6z2cTIQDo0sAgGrn+rhA+ldE0I5sFz2xRKjCOwWxR8Th17CLs3
+	FVkxefTJNg8ywqH/jcnRNejv7QDUMA+wuurMGTSN3ri83EZ+mP/jRK/1ez384Hx05/zpf6vK8FA
+	S0c3W0s7Gf4sYnLLw7YWcFfxvp/enwibFzPBj8a8Ayoc6tYlsXhy913Jxb6p7Uox5fJfMUj0iWI
+	S6bo90DKc2PRPyZC3ThlvTDLuh8X/I4h92a9p1g+HMNgC+qAJHIzFYVV1doVP+V98j9Bsg88B36
+	4t/mS03c6XJDGKjztzvyT80rPRzUgSmvGD7gEXNEGJl2X73A+UX93gxsS3+7o1wIa0SC6/YbaGE
+	GaCehoobqEeiS+i4Ff0jUYrtFBDt8ZHLfk6Ukpmzcfu28iUe7QBH1pRvbwIWaM6q07F0bcO6BBY
+	+ZAsmN+lMTDLPsHankCRZoQ3MPE6+jGvSvrHCzz9Sht/gmPpxiNcZa2ER3dlTL7CbPWsw+1Yld8
+	AJPC3EIJvAKlTHJA2C4efW0yQMNqV7vGZz0HYtu0BFw4kwxIfuPA6oMNgj+oKNg12bsM5wQDwHy
+	WxPMfxA=
+X-Received: by 2002:a05:6000:4550:b0:48c:4d74:d7d2 with SMTP id ffacd0b85a97d-48dba9db092mr24942282f8f.12.1792031316622;
+        Wed, 14 Oct 2026 19:28:36 -0700 (PDT)
+Received: from autotest-wegao.qe.prg2.suse.org ([2a07:de40:b240:0:2ad6:ed42:2ad6:ed42])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bd1843sm15748786f8f.56.2026.10.14.19.28.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 19:28:00 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: "Martin K . Petersen" <mkp@kernel.org>,
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	yhlee@isslab.korea.ac.kr
-Subject: [PATCH v8 8/8] scsi: mvumi: stamp a consumed outbound list entry out of range
-Date: Thu, 15 Oct 2026 11:27:28 +0900
-Message-ID: <20261015022728.3936714-9-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261015022728.3936714-1-yhlee@isslab.korea.ac.kr>
-References: <20261015022728.3936714-1-yhlee@isslab.korea.ac.kr>
+        Wed, 14 Oct 2026 19:28:36 -0700 (PDT)
+Date: Thu, 15 Oct 2026 02:28:34 +0000
+From: Wei Gao <wegao@suse.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Frederic Weisbecker <frederic@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Jens Axboe <axboe@kernel.dk>, io-uring@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1] sched/cputime: Preserve iowait accounting across
+ waking interrupts in dyntick-idle
+Message-ID: <atA6UsI1CldllKSP@autotest-wegao.qe.prg2.suse.org>
+References: <20261014015258.13967-1-wegao@suse.com>
+ <20261014124934.GE4121339@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014124934.GE4121339@noisy.programming.kicks-ass.net>
 
-mvumi_receive_ob_list_entry() copies a completion out of the outbound
-list and then writes 0xff over the tag, so that the entry is rejected if
-the firmware's copy pointer brings the driver back to it.  The comment
-right above the checks says why that can happen: "Copy pointer may point
-to entry in outbound list before entry has valid data".
+On Wed, Oct 14, 2026 at 02:49:34PM +0200, Peter Zijlstra wrote:
+> On Wed, Oct 14, 2026 at 01:52:58AM +0000, Wei Gao wrote:
+> > In liburing's test suite, the test/iowait.t test case intermittently fails
+> > with:
+> >     iowait diff too small: 48
+> >     test 1 failed
+> > on tickless systems where IRQ time accounting (CONFIG_IRQ_TIME_ACCOUNTING)
+> > is not enabled.
+> > 
+> > Commit 7198e3927a14 ("sched/cputime: Handle idle irqtime gracefully")
+> > optimized dyntick-idle cputime accounting by avoiding pausing idle
+> > accounting on IRQ entry when IRQ time accounting is disabled.
+> > 
+> > However, this causes iowait time to be erroneously accounted as
+> > CPUTIME_IDLE if the task waiting for I/O is woken up inside the interrupt
+> > handler (such as the 1-second timeout hrtimer in liburing's test/iowait.t):
+> > 
+> > 1. In test/iowait.t, a read request is submitted on an empty pipe and
+> >    io_uring_wait_cqe_timeout() is called with a 1-second timeout. Because
+> >    current->in_iowait is set, rq->nr_iowait on the CPU is incremented
+> >    to 1. When the CPU enters tickless idle, the periodic scheduler tick
+> >    is stopped.
+> > 2. When the 1-second timeout expires, the hrtimer interrupt fires.
+> >    Because irqtime is disabled, kcpustat_irq_enter() does not pause idle
+> >    accounting.
+> > 3. Inside the interrupt handler, io_cqring_timer_wakeup() calls
+> >    wake_up_process(). In ttwu_do_activate(), waking up the task immediately
+> >    decrements rq->nr_iowait from 1 to 0 before the CPU has exited idle.
+> > 4. When the CPU returns from the interrupt and calls tick_nohz_idle_exit()
+> >    -> kcpustat_idle_stop() to settle the elapsed tickless idle duration,
+> >    it checks:
+> >        iowait = nr_iowait_cpu(smp_processor_id()) > 0;
+> >    Because rq->nr_iowait was already decremented by ttwu_do_activate(),
+> >    this evaluates to false. As a result, the entire 1-second idle duration
+> >    spent waiting for I/O is credited to CPUTIME_IDLE instead of
+> >    CPUTIME_IOWAIT, causing diff < 50 and failing the test.
+> > 
+> > Fix this by checking nr_iowait_cpu() in kcpustat_irq_enter(). If the CPU is
+> > currently in iowait, pause and settle the elapsed time to CPUTIME_IOWAIT
+> > before the interrupt handler runs. On kcpustat_irq_exit(), resume
+> > accounting if it was paused.
+> 
+> Using nr_iowait_cpu() is fundamentally never a fix. It is rolling a dice
+> and liking random numbers. See the comment that goes with that function.
+> 
+Thanks for such quick feedback. I see your point since per-CPU iowait accounting on SMP 
+is fundamentally flawed. It doesn't make sense to create any more patches for 
+current iowait accounting.
 
-Nothing ever compares a tag against 0xff.  The only test for a usable
-entry is
+For iowait.t test i guess need revalue it or simply skipped it.
 
-	tag >= mhba->tag_pool.size
-
-and tag_pool.size is mhba->max_io, which the firmware supplies in the u16
-max_io_support.  As soon as the firmware asks for more than 255 commands,
-0xff is a tag in range and tag_cmd[255] can hold a live command, so a
-stale consumed entry is no longer turned away by its tag.
-
-What happens next depends on the controller.  Where request_id_enabled is
-set, mvumi_check_ob_frame() still compares the request_id left in the
-entry and rejects the frame.  Where it is not set, and the MV9580 case in
-mvumi_init_fw() never sets it, that comparison is skipped, so the entry
-passes, is copied, and completes whichever command owns tag 255 with the
-bytes of an older completion.
-
-The tag field is a u16 and tag_pool.size is an unsigned short, so 0xffff
-is >= every value the bound can take and is never a valid tag.  Stamp
-that instead.  The store is the same width it was.
-
-Fixes: f0c568a478f0 ("[SCSI] mvumi: Add Marvell UMI driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
----
- drivers/scsi/mvumi.c | 2 +-
- drivers/scsi/mvumi.h | 6 ++++++
- 2 files changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/scsi/mvumi.c b/drivers/scsi/mvumi.c
-index bd1a8c1d54aeb..67a6bb6536950 100644
---- a/drivers/scsi/mvumi.c
-+++ b/drivers/scsi/mvumi.c
-@@ -571,7 +571,7 @@ static void mvumi_receive_ob_list_entry(struct mvumi_hba *mhba)
- 		}
- 
- 		memcpy(ob_data->data, p_outb_frame, mhba->ob_max_size);
--		p_outb_frame->tag = 0xff;
-+		p_outb_frame->tag = MVUMI_TAG_CONSUMED;
- 
- 		list_add_tail(&ob_data->list, &mhba->free_ob_list);
- 	}
-diff --git a/drivers/scsi/mvumi.h b/drivers/scsi/mvumi.h
-index d20eea2b61a31..f69a0807100c3 100644
---- a/drivers/scsi/mvumi.h
-+++ b/drivers/scsi/mvumi.h
-@@ -133,6 +133,12 @@ enum {
-  */
- #define MVUMI_MAX_TARGET_ID		255
- 
-+/*
-+ * Stamped into a consumed outbound list entry.  A valid tag is below
-+ * tag_pool.size, which is a u16, so the largest u16 is never one.
-+ */
-+#define MVUMI_TAG_CONSUMED		0xffff
-+
- #define DEVICE_OFFLINE	0
- #define DEVICE_ONLINE	1
- 
--- 
-2.43.0
-
+> > Fixes: 7198e3927a14 ("sched/cputime: Handle idle irqtime gracefully")
+> > Signed-off-by: Wei Gao <wegao@suse.com>
+> > ---
+> >  kernel/sched/cputime.c | 9 +++++++--
+> >  1 file changed, 7 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/kernel/sched/cputime.c b/kernel/sched/cputime.c
+> > index 06bddaa738e5..e8b56433c61c 100644
+> > --- a/kernel/sched/cputime.c
+> > +++ b/kernel/sched/cputime.c
+> > @@ -496,7 +496,8 @@ void kcpustat_irq_enter(u64 now)
+> >  	struct kernel_cpustat *kc = kcpustat_this_cpu;
+> >  
+> >  	if (!vtime_generic_enabled_this_cpu() &&
+> > -	    (irqtime_enabled() || vtime_accounting_enabled_this_cpu()))
+> > +	    (irqtime_enabled() || vtime_accounting_enabled_this_cpu() ||
+> > +	     nr_iowait_cpu(smp_processor_id()) > 0))
+> >  		kcpustat_idle_stop(kc, now);
+> >  }
+> >  
+> > @@ -510,9 +511,13 @@ void kcpustat_irq_exit(u64 now)
+> >  	 * need to pause nohz accounting. Resume nohz accounting as long
+> >  	 * as the irqtime config is enabled to handle case where irqtime
+> >  	 * accounting got runtime disabled in the middle of an IRQ.
+> > +	 *
+> > +	 * Also resume accounting if it was paused on IRQ enter due to
+> > +	 * iowait.
+> >  	 */
+> >  	if (!vtime_generic_enabled_this_cpu() &&
+> > -	    (IS_ENABLED(CONFIG_IRQ_TIME_ACCOUNTING) || vtime_accounting_enabled_this_cpu()))
+> > +	    (IS_ENABLED(CONFIG_IRQ_TIME_ACCOUNTING) || vtime_accounting_enabled_this_cpu() ||
+> > +	     !kc->idle_elapse))
+> >  		kcpustat_idle_start(kc, now);
+> >  }
+> >  
+> > -- 
+> > 2.55.0
+> > 
