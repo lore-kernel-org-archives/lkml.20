@@ -1,254 +1,103 @@
-Received: from fhigh-b6-smtp.messagingengine.com (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D0CE55C338
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:55:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.157
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1785568FB3;
+	Thu, 15 Oct 2026 18:55:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792090523; cv=none; b=lcirSzHbU4inVlVrCYqerYXHyyFbRkxlDk/KHbs/Q7QT3PsrDPzUj0DZgCQ5so8q2G99k9dZip8B1tWSTWQbSL6AOR9NJeIFW1qviG049ymePEQdlAjqvcwqL2GlAel3fjbDNbT7vkdeejKkzVG4iHiQiJ6ysYkaEgKBlHvhpvs=
+	t=1792090540; cv=none; b=TMFaaDyuYJnvb1YsImwy6Q85sfVrIcUr8w2jiXeXEvAJLOaRmPIR7BQs8kS6mEZOXf5QTCfNMy8G5TXHd2RxQEZdYnyWGOH9e4tUNAJlPP7yOmtNECe3k7npZT6tqhp0PytSU8rCxr44Z7/WOjVOd17iM/z1uzh0RLDb6d9W6FU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792090523; c=relaxed/simple;
-	bh=VRKe1XVOWIZ80XXfpgmNp6PGDZIi+vf8u3E/lMWMQSg=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=GJWpeVyKvKlQ3OgBMgL+pL3COJdpgrddhFORbIm9YoahWk6EI/Yyollj4sRVut66aKIru7/wzToAcLPT0buAOhlWfMQX541lXq0AnAXmlLXJrPiuX2CqKi/R2WwjBuzSRbOlT7638TNXXpsdTvDR2guRhlcbXi8CcypAMUzJgAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca; spf=pass smtp.mailfrom=squebb.ca; dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b=T2NFGF4n; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=aQQX226/; arc=none smtp.client-ip=202.12.124.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squebb.ca
+	s=arc-20240116; t=1792090540; c=relaxed/simple;
+	bh=cbmGhbtKpv1gaoLM5Ui024oSq91uMa/GRcRggwQYUtk=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=nQXFy5Gw+Efu+X5GdSV51x42RSLdv0Gg/AD19TNayH+otqXCXnubhdy1PmQG+ypeD9Vt2XubNKyY+4PlVhXy1SYHjt/KUOEdnNCkrAIlcswUyHPf6SAsvO/D9opSfolVN6C+RAUX7OEYFNXfc5zlHWEMtVvGwJJgF0d9luSzvag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=frSvwZ73; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b="T2NFGF4n";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="aQQX226/"
-Received: from stl-compute-04.internal (stl-compute-04.internal [10.204.2.64])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 0E2737A013A
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:55:16 -0400 (EDT)
-Received: from stl-imap-02 ([10.204.2.93])
-  by stl-compute-04.internal (MEProxy); Thu, 15 Oct 2026 14:55:16 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1792090516;
-	 x=1792176916; bh=OEdjkOEW5c4cRoaBZmL7FvMiAbrODiA1B2MoWuVmFC4=; b=
-	T2NFGF4nUSggg4YF8r6ze+uzVymylRxNLVeJ6aSnYDBTqjBQO1nqnwVmPDlJAOrA
-	YFMS3eVy8ikfsjtp3yrN2tEfFSLtVPEFqAU/Jf3bZaroIr2daKVFY11V4Ak4f23f
-	6krZlasTN0YAnlmVJGeRDi/RKlXlQhSc7SHdIl4l3JiBc7qXOmuk4SUiNPSodpSB
-	xmo54cror+gWIR/iN12DiDHhxicc8av9kwUzme4bj0nmoUj2tSn5kAv6QrUy+c6O
-	EE93NAWKBJbVaLigLloKgOuoS00UE7v0o/XQwZU9AvahqI06D35EqqffhUA9xum1
-	AT2+Xg1oi2Gab2VSHaenRA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792090516; x=
-	1792176916; bh=OEdjkOEW5c4cRoaBZmL7FvMiAbrODiA1B2MoWuVmFC4=; b=a
-	QQX226/l0Hbc7GEDkjxm1kkvUaJNGiBmHf45exHity78cYn68+tf0knFjZFiUy7Z
-	u56KoYqqPaaS+8TXi08lIaA0gZXVfm53FzN7ygwgtSZS0BgAD//gTdR37U0wgV4P
-	yBz7u2zUGYdz6PvILTjrQb8xkX2exoFulE6QstN11SUTBaAxDfJYLKcOuWTUeYze
-	MQapPBfiodPXKgTjQb5wPpdqgG90YrD/VmxU+ZX+6qroRduX6m8v3B+zgxgxDEKn
-	x3TT6b0V15N5TYi0pdzo/Vzzap4ZIOZMuLsJjou8f1OHv8G9ZOLvhMigTQ3Gl2wa
-	0T7revDWCIn7Uu1uEHgNw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=squebb.ca a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792090516; d=squebb.ca;
-	mf=PG1wZWFyc29uLWxlbm92b0BzcXVlYmIuY2E+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:Sna4RH+aq9kZV1NOLNyNfXVScrKlHFiOHfVisZd/EC2U0pY
-	Ku2PA5GEAaYFtqyaY/gAdY9SPsWsPB4SPgkZecPuXFzqXgBpJI+Jdcv20wR58YbW
-	BXhG/7EdhT9X3w4itRa8+PGCBx62QusaiilgLqibo7q3ra4V0HI9DIoFzaRfx1rH
-	xJs3EccRZWkVtuDB0X+WW62RCy0I+6OMhEl7YwMiXVPubR0j9fnieeJvqSM24Nx5
-	HRrEf7w9wPWRIglA7cmCxMdKZ5uQzUNE7B2IwwGYGkEV+RZx382EijWDQgUfrbo8
-	D2aUetytFC1b13d6pFDF9D6Ihdwa94oALiGzm+g==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:gHj3MxgQ3hE6nalsir8l1mYSCiLB6CSFM9xo/7+RYPg=:VRKe1XVOWIZ80XXfpgmNp6PGDZIi+vf8u3E/lMWMQSg=;
-X-ME-Sender: <xms:kyHRanfqHLWLh-CmI2wROvttXMcC2KI5ZfHjjRDyhvsL5AYFqM1ucA>
-    <xme:kyHRaoCSOUv3_B7wXAOdOKn-NarnDT-TrdEsrDiwlk9rbm0uVThoOEVEZaaOvVyNe
-    k_EVFwx9oSiFoPNOa-JNbOCBs0y5BZs1iSwnAFvhbHfJosS94T6mNsP>
-X-ME-Proxy-Cause: dmFkZTFMR1FFOVl6Uwi+s+KsJt8XrSUsnWfyBxRDchOefKeEW2SPpVbIae9VP9dpRFWKfH
-    KrUrmk2huJ+n0kkNbfWFl5zmFv/8zr+iPXgS1LZpHK3tEN68cJ9a5LmZY3t4z0KdwMXJ/I
-    NU5WHQRLVwZkz0C8GbZpvvqg8p2/5OFGd7zbrnKTJcWCZDPAJ6OZWs+hjJ2V2togTLqOT3
-    h/+9zWxt+fA25zXSRoOHXdnAhtT28PoVzdpi00fwBmq04hXh5KbS7Agp1laVq0U5g7ObCS
-    9phG2uj5l9/34ltfJSQ9oU7oppcMZocxztl1GuV6OgxY/voQNfje5baiJynknvG4aycbW1
-    3yjbChiZEHXFYNAOl/ynx3+Kfh0C1or3Sc92cM1i9hQdzD7lNwQt7rsGlu6YmINVb9p9i+
-    d0r7Ywyy2c+I5+fR/1iIuVq3HfdqLVPsc7R12UN8gkAKsyohxhueIvc+YbBOKs3S8kKj0D
-    AhXeoySMJK9dA4xZkxwWzQ+MIRWNqw5C1+otEZJqN1kgQQK1O38/xKcMyfuvBtzHHHZnD1
-    vFbAw3dVXyYj7XAbMvmci2Y534lt81f/W0iClN2Vk+CLenrD7gxWH4wR7f758rKJ9Ybg7c
-    zCMDAoZ1V0ldU6xgTkC9rUgHLcUjUqsw+kKAXuzpe770ihiQUD+NI2afQX8g
-X-ME-Proxy: <xmx:kyHRahKUj0jq3qwn3_B3Rd0yI5-1LCe28xdaAf1xkO146NrAKua5kQ>
-    <xmx:kyHRara9OmMlM4oU0d3WAmQR3n5NxFy0q4kTfhEmSdys1fAORbTH_A>
-    <xmx:kyHRajCOirXRyxxzYNaqiv9qS6IsshkYVIw-GkckUkpRktEjv29oTg>
-    <xmx:kyHRalZ94nKvi7Pd3LBP7ZPPi_XyLgzOmvQw_N-tbOZkN26OQW1sWw>
-    <xmx:lCHRar0gNskaxEVAf_fKEB5BexKxOm4nbjWRQUE29WiWBv-uBWy8ca9M>
-Feedback-ID: ibe194615:Fastmail
-Received: by mailuser.stl.internal (Postfix, from userid 501)
-	id 9C7972C0007C; Thu, 15 Oct 2026 14:55:15 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="frSvwZ73"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792090538; x=1823626538;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=cbmGhbtKpv1gaoLM5Ui024oSq91uMa/GRcRggwQYUtk=;
+  b=frSvwZ73Q16n0wvD/Fr4IdRiA38sKIiSEFREUUkg8QL1KTqyaxkBtDxC
+   yaAKZ8JqjLq09O35BFXE4AzJ3kM+XedE13Ciq/OwqyiatzI6wmTPS1cYb
+   6Ns98hn5C6aAKwB1M4WHmwwTAkGcDoI2f9+t/CHtNUNnNEFPYRaavhM9b
+   RTicZLrICPOOC595MTxK8Sl9pg5nuPTTOlZDZq2RO8zO9HyjvUlVDueZV
+   WNPLZ556sRCK/rJ/Hwr63Z+FWJHbgupAtdtQ+498ZjgZwFkA0bdtl6Ied
+   AiCjhfpdKNMK21RZFskUuSy5//MSLld+i/jOttTNgFa2Q+daIq9DQsqub
+   Q==;
+X-CSE-ConnectionGUID: TormF6YuRaOfA0NQFkB+8A==
+X-CSE-MsgGUID: bqoHpssNRQGd0g5hMlYXkg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="764312"
+X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
+   d="scan'208";a="764312"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 11:55:37 -0700
+X-CSE-ConnectionGUID: 7atxUFwFQii/+i+8q9ixdw==
+X-CSE-MsgGUID: vuadB4tZQfG5eVXmwMOSoA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
+   d="scan'208";a="1742201"
+Received: from crojewsk-ctrl.igk.intel.com ([10.237.149.0])
+  by orviesa001.jf.intel.com with ESMTP; 15 Oct 2026 11:55:36 -0700
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+To: broonie@kernel.org,
+	linux-sound@vger.kernel.org
+Cc: tiwai@suse.com,
+	perex@perex.cz,
+	amade@asmblr.net,
+	linux-kernel@vger.kernel.org,
+	Cezary Rojewski <cezary.rojewski@intel.com>
+Subject: [PATCH 1/3] ASoC: Intel: avs: Unprepare a stream when recovery occurs
+Date: Thu, 15 Oct 2026 21:02:38 +0200
+Message-Id: <20261015190240.729793-2-cezary.rojewski@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261015190240.729793-1-cezary.rojewski@intel.com>
+References: <20261015190240.729793-1-cezary.rojewski@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AkRdy0Ls-WhR
-Date: Thu, 15 Oct 2026 14:54:31 -0400
-From: "Mark Pearson" <mpearson-lenovo@squebb.ca>
-To: "Rong Zhang" <i@rong.moe>, "Derek J . Clark" <derekjohn.clark@gmail.com>,
- "Hans de Goede" <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- "Armin Wolf" <W_Armin@gmx.de>
-Cc: Charles <hanker007@gmail.com>,
- "Navon John Lukose" <navonjohnlukose@gmail.com>,
- "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Message-Id: <ebb90b11-34d4-4e69-b8d3-5f62acd6468a@app.fastmail.com>
-In-Reply-To: <20261014-lwmi-wmi-new-api-v3-0-e1032bed1c81@rong.moe>
-References: <20261014-lwmi-wmi-new-api-v3-0-e1032bed1c81@rong.moe>
-Subject: Re: [PATCH v3 00/12] platform/x86: lenovo-wmi-{other,capdata,helpers}: Improve
- robustness on faulty firmware
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
+Recovery on alsa-lib side is handled with either:
+1) snd_pcm_prepare(state=XRUN)
+2) snd_pcm_drop/drain() -> snd_pcm_prepare(state=SETUP)
 
-On Tue, Oct 13, 2026, at 3:21 PM, Rong Zhang wrote:
-> Some devices do not support LENOVO_CAPABILITY_DATA_01 and define the
-> query method as a stub that returns zero buffer. Unfortunately, some
-> devices do not implement the stub properly, causing WMI errors
-> (including ACPI errors). This was reported by Charles.
->
-> The current lenovo-wmi-* implementation enforces the binding between
-> LENOVO_CAPABILITY_DATA_00+01 and LENOVO_OTHER_MODE because of a
-> limitation of the device component framework. When the capdata device
-> bailing out due to a WMI error, lenovo-wmi-other becomes unbound and
-> unable to provide firmware-attributes or hwmon/power_supply_ext devices
-> for the other functional capdata device.
->
-> Therefore, errors must be non-fatal in order not to break the
-> assumptions made by the device component framework.
->
-> Poison the capdata device by releasing the capability data list in this
-> case. After that, NULL list will be passed to lenovo-wmi-other on bind.
-> The latter will provide whatever is available, or unbind the components
-> if nothing is available.
->
-> A poisoned capdata device releases or skips allocating most resources,
-> e.g., the capability data list and the debugfs directory. The device
-> itself is only used to satisfy the component dependency of lenovo-wmi-
-> other and coordinate with the latter about the absence of the capabili=
-ty
-> data.
->
-> Meanwhile, for devices that properly stubs the WMI query method (but
-> still declares >0 instances), keeping the capability data list with
-> empty data is meaningless and causes lenovo-wmi-other to call
-> lwmi_cd*_get_data() to retrieve nonexistent capdata in vain. These
-> capdata devices are poisoned as well to save resources.
->
-> In order to release or skip allocating most resources for poisoned
-> devices, some preparatory work is done in prior. With the preparatory
-> work, it also skips allocating most resources for the WMI devices that
-> declare 0 instance.
->
-> Also identify missing components using the new wmidev_exists() interfa=
-ce
-> (introduced at the very beginning of the series), and skip adding them
-> to the match list, so that all components in the list must present,
-> fulfilling the binding requirement. Some devices need this because they
-> either do not have the WMI GUID of LENOVO_CAPABILITY_DATA_01, or do not
-> implement the query method, causing the WMI core not to create the
-> corresponding WMI device. This was reported by Navon.
->
-> The new WMI API is also adopted to conform to the behavior of the
-> Windows WMI-ACPI driver and improve robustness on various WMI ACPI
-> method implementation.
->
-> Finally, add myself as a LENOVO drivers maintainer as previously
-> suggested by Derek.
->
-> Reported-by: Charles <hanker007@gmail.com>
-> Closes:=20
-> https://msgid.link/CAKtz0s8UYRQYW_0bh=3D0TMx47Axm-W-muEay-r3rqUBS1NHMP=
-Vw@mail.gmail.com/
-> Reported-by: Navon John Lukose <navonjohnlukose@gmail.com>
-> Closes:=20
-> https://msgid.link/20260928190901.1369497-1-navonjohnlukose@gmail.com
-> Suggested-by: Mark Pearson <mpearson-lenovo@squebb.ca>
-> Link:=20
-> https://msgid.link/9789f452-d7eb-4f1e-8a13-7335332193a7@app.fastmail.c=
-om
-> Suggested-by: Derek J. Clark <derekjohn.clark@gmail.com>
-> Link: https://msgid.link/782FE636-A06A-4E12-9563-786374805947@gmail.com
-> Signed-off-by: Rong Zhang <i@rong.moe>
-> ---
-> Changes in v3:
-> - Shorten the comments of struct lwmi_cd_priv's members (thanks Derek
->   J. Clark)
-> - Leave struct cd_fan_block's __packed attribute as is (thanks Armin
->   Wolf)
-> - Link to v2:=20
-> https://patch.msgid.link/20261009-lwmi-wmi-new-api-v2-0-402828382679@r=
-ong.moe
->
-> Changes in v2:
-> - Add PATCH 1 ("platform/wmi: Introduce wmidev_exists()") to the series
->   as discussed at=20
-> https://msgid.link/83776200-4A60-4756-A99F-D5A3BB4D834A@rong.moe
-> - Add PATCH 2 ("lenovo-wmi-capdata: Do not stop the AC notifier chain =
-on
->   error") to the series, as adopting the new WMI API will intentionally
->   catch more faulty firmware and propagate more errors
-> - Synchronize mutex initialization with release-acquire barriers (than=
-ks
->   Ilpo J=C3=A4rvinen)
-> - Refine line wrap (ditto)
-> - Replace the term "poison" with "stub" (ditto)
-> - Add PATCH 10 ("platform/x86: lenovo-wmi-capdata: Do not match missing
->   components") to the series to solve the report made by Navon
-> - Update outdated comments, function documentations and commit messages
-> - Link to v1:=20
-> https://patch.msgid.link/20260914-lwmi-wmi-new-api-v1-0-7a400f2f69f8@r=
-ong.moe
->
-> ---
-> Armin Wolf (1):
->       platform/wmi: Introduce wmidev_exists()
->
-> Rong Zhang (11):
->       platform/x86: lenovo-wmi-capdata: Do not stop the AC notifier=20
-> chain on error
->       platform/x86: lenovo-wmi-capdata: Only allocate sub-master info=20
-> when necessary
->       platform/x86: lenovo-wmi-capdata: Store a pointer to component=20
-> info
->       platform/x86: lenovo-wmi-capdata: Defer mutex initialization
->       platform/x86: lenovo-wmi-{capdata,other}: Only allocate capdata=20
-> list when necessary
->       platform/x86: lenovo-wmi-capdata: Adopt new WMI API
->       platform/x86: lenovo-wmi-capdata: Register component even on WMI=20
-> error
->       platform/x86: lenovo-wmi-capdata: Detect stubbed capdata device
->       platform/x86: lenovo-wmi-capdata: Do not match missing components
->       platform/x86: lenovo-wmi-helpers: Adopt new WMI API
->       MAINTAINERS: Add myself as a LENOVO drivers co-maintainer
->
->  MAINTAINERS                               |   1 +
->  drivers/platform/wmi/core.c               |  33 ++-
->  drivers/platform/x86/lenovo/wmi-capdata.c | 447 +++++++++++++++++++++=
-+--------
->  drivers/platform/x86/lenovo/wmi-helpers.c |  61 ++--
->  drivers/platform/x86/lenovo/wmi-other.c   |  24 +-
->  include/linux/wmi.h                       |   3 +
->  6 files changed, 397 insertions(+), 172 deletions(-)
-> ---
-> base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
-> change-id: a504a929-lwmi-wmi-new-api-f5344d48a86a
->
-> Thanks,
-> Rong
+before starting the PCM anew. Relying solely on state=XRUN leaves 2)
+unaccounted for. sound/core/pcm_native.c ensures correctness of the
+state machine so plain state!=PREPARED check suffices.
 
-For the series (with the minor typo noted in #7) - looks good to me.
+This is the BE equivalent of job done previously for FE side only with
+commit cfca1637bc2b ("ASoC: Intel: avs: Unprepare a stream when XRUN
+occurs") and its follow up titled: ("ASoC: Intel: avs: Reset the stream
+unless it is already prepared").
 
-Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
-Mark
+Link: https://lore.kernel.org/linux-sound/20261010103753.16969-1-stiraspo@gmail.com/T/
+Fixes: d070002a20fc ("ASoC: Intel: avs: HDA PCM BE operations")
+Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+---
+ sound/soc/intel/avs/pcm.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/sound/soc/intel/avs/pcm.c b/sound/soc/intel/avs/pcm.c
+index 3cf455e8b879..a0a0d645ea33 100644
+--- a/sound/soc/intel/avs/pcm.c
++++ b/sound/soc/intel/avs/pcm.c
+@@ -461,6 +461,8 @@ static int avs_dai_hda_be_prepare(struct snd_pcm_substream *substream, struct sn
+ 	link_stream = data->link_stream;
+ 	p = &be->dpcm[substream->stream].hw_params;
+ 
++	if (substream->runtime->state != SNDRV_PCM_STATE_PREPARED)
++		link_stream->link_prepared = false;
+ 	if (link_stream->link_prepared)
+ 		return 0;
+ 
+-- 
+2.34.1
+
