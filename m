@@ -1,110 +1,186 @@
-Received: from mail2-relais-roc.national.inria.fr (mail2-relais-roc.national.inria.fr [192.134.164.83])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 666EE369D61
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:46:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.134.164.83
+Received: from smtp.uniroma2.it (smtp-2015.uniroma2.it [160.80.4.37])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D5F6235E950;
+	Thu, 15 Oct 2026 01:46:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.80.4.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792028795; cv=none; b=eUEmxN5n2xESxDvlMNbjNYGIVEZLhoicpprEthYQuakYAOHGHtzE6ffj/1sk1o6WZ8XUeHaeciPBZWWVBLR0XXFSSY0W7tpdUe1AXiyo5iuBPw3UUIgfpCFAv9i7Hxo8BUhSbMD/MGatQwmcygBMyt7bEtDoi5xdTQ7+xAs7CYc=
+	t=1792028796; cv=none; b=QDIqxgMWqb+vcMNDpHOCUuQs2NFzN5bewYxAwBipT76YBJVz/aPq6k9JBfU9DLnaxrjlvc25nANjWNhVyS2pXlHXNEB3qFs7TJGFw7TIxHJrxoeWy00CUaLis/T9Gdy00WQouFx0Z5St03uS9QvNUj3c5et2Rw76mUof8RjgRSI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792028795; c=relaxed/simple;
-	bh=EFOBIQx39hn4IdpmejLwwduo/pRrDSed8OK05SczX0o=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=E9fSEMePBaAyzEGaTs67XqBNHZY5Vwkmj17tfvrfB52CQMBFVLjUbXjH5Yv8oSKlPBgt4rp+e2566i8TEgoITU3n4ewMxE9QwuJfgvDwevpRdlVbpShvpMMmPtfChmnoEdOouBGaDaB+/qhdqq4NR0XL+Qmnb2652EL50336Mvw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr; spf=pass smtp.mailfrom=inria.fr; dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr header.b=g5D4wAnT; arc=none smtp.client-ip=192.134.164.83
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inria.fr
+	s=arc-20240116; t=1792028796; c=relaxed/simple;
+	bh=JS1UHXPvvp09gY0rzjuh5BWZwvh7T+K/RQvpRF/NL2Q=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=EaSpVI5grgKJHeq2xzv+Gk4beLIK3VRVYIkUrlRs+osFS6BiLPn0qmsomUou82aD++Xjs76ykgJjItBcwk2QeYsQpTl2HpnBdf4z67LSH+HuBDz7vIyLeoz69f0aeKld1sVG/0EY1NqmodwOkFvF/t/jckaJQ46TxKm1MItGcs4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it; spf=pass smtp.mailfrom=uniroma2.it; dkim=permerror (0-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b=/tGq1udY; dkim=pass (2048-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b=UcJeR3s/; arc=none smtp.client-ip=160.80.4.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniroma2.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr header.b="g5D4wAnT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=inria.fr; s=dc;
-  h=date:from:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=u05+yKXp6RgL31FqkS85j2BujAsYRF3+srZ9/VzNFOg=;
-  b=g5D4wAnTh+1oXVlcOPswGPm8jluIsF1YjKMYYvRxrnHNI9SFDWdx0cO9
-   BVg41DwzeFVi00awI8+kgZPrVrMSprNwBkYYqxKIzG0/sIycSNA9JswiO
-   uOg7gaFReL6DamZPrxxB/1SXtf82Js98aixEIRGf7lGTLt7U427/ShhRQ
-   U=;
-X-CSE-ConnectionGUID: 3izEqYtiS/iqeyZwlpt9kA==
-X-CSE-MsgGUID: eIbLjIpJQMKAhdJD/43IXQ==
-Authentication-Results: mail2-relais-roc.national.inria.fr; dkim=none (message not signed) header.i=none; spf=SoftFail smtp.mailfrom=julia.lawall@inria.fr; dmarc=fail (p=none dis=none) d=inria.fr
-X-IronPort-AV: E=Sophos;i="6.27,158,1787004000"; 
-   d="scan'208";a="300260240"
-Received: from static.host-68-71-1-178.nrbn.ca (HELO hadrien) ([68.71.18.178])
-  by mail2-relais-roc.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 03:46:26 +0200
-Date: Wed, 14 Oct 2026 21:46:24 -0400 (EDT)
-From: Julia Lawall <julia.lawall@inria.fr>
-To: Jeremy Dean Clifton <deaner92@yahoo.com>
-cc: Viresh Kumar <vireshk@kernel.org>, Johan Hovold <johan@kernel.org>, 
-    Alex Elder <elder@kernel.org>, 
-    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, outreachy@lists.linux.dev, 
-    greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, 
-    linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] staging: greybus: Remove unused header declaration
- to_fw_mgmt_connection
-In-Reply-To: <20261014174248.97561-1-deaner92@yahoo.com>
-Message-ID: <2d2106c-a2d2-2bec-b368-c03850cba9a7@inria.fr>
-References: <20261014174248.97561-1-deaner92.ref@yahoo.com> <20261014174248.97561-1-deaner92@yahoo.com>
+	dkim=permerror (0-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b="/tGq1udY";
+	dkim=pass (2048-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b="UcJeR3s/"
+Received: from smtpauth-2019-1.uniroma2.it (smtpauth.uniroma2.it [160.80.5.46])
+	by smtp-2015.uniroma2.it (8.14.4/8.14.4/Debian-8) with ESMTP id 69F1jleX026015;
+	Thu, 15 Oct 2026 03:45:52 +0200
+Received: from lubuntu-18.04 (host-79-32-222-240.retail.telecomitalia.it [79.32.222.240])
+	by smtpauth-2019-1.uniroma2.it (Postfix) with ESMTPSA id EAC6E1212CA;
+	Thu, 15 Oct 2026 03:45:41 +0200 (CEST)
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=uniroma2.it;
+	s=ed201904; t=1792028742; h=from:from:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=E3jLV7xkKyPXyvZnAkQlyv/K5QoOzL9c26mU54ZKf5Y=;
+	b=/tGq1udYD2iG5msheWccAyxKu5AteoXND1qfVa5kvVZ0uc+nkImaiU+uaKTa0tgYU+vZN0
+	zfPYGlf0IQWuyhDA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniroma2.it; s=rsa201904;
+	t=1792028742; h=from:from:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=E3jLV7xkKyPXyvZnAkQlyv/K5QoOzL9c26mU54ZKf5Y=;
+	b=UcJeR3s/d4sIHHpBG9NAmJ6Z5YKwR7ZMZWIT7qSdAG+IvVoBsIoF5ZEC/hArvQbXx41wTL
+	0SXQM+G26W02XwZfAgrnJmUknVedK1x5YtIuPPBtRUEJY/yTd9lyH36b5EzbgFD9Q1mdSD
+	7LQsU+ISNxoN72/JOGsMn5A51J/vsWV6xIq3dYIYvNpVyNNQtkbnPo4bV/wDUAb0ZVvFKf
+	zevjOwGpxHpr7bai4OD/AtELaUEAOHSv6HDaDNnYlXHDC1w6/sIftLOcFlgArE6nva6fCz
+	feCUYFFxFuNMT7QxUir/FBBbRhp3lSRFk59obLd4PaIf2yLDhtyQRUkGtC9djA==
+Date: Thu, 15 Oct 2026 03:45:41 +0200
+From: Andrea Mayer <andrea.mayer@uniroma2.it>
+To: netdev-bot+sashiko@kernel.org
+Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+        pabeni@redhat.com, dsahern@kernel.org, horms@kernel.org,
+        netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-kselftest@vger.kernel.org, shuah@kernel.org,
+        hangbin.liu@linux.dev, justin.iurman@gmail.com,
+        nicolas.dichtel@6wind.com, ahabdels@cisco.com,
+        stefano.salsano@uniroma2.it, andrea@common-net.org,
+        Andrea Mayer
+ <andrea.mayer@uniroma2.it>
+Subject: Re: [PATCH net-next 5/5] selftests: seg6: add tests for PSP with a
+ consumed SRH
+Message-Id: <20261015034541.cc16ac6eb2dfdb2f9273a021@uniroma2.it>
+In-Reply-To: <179183319121.434549.16235006579764445540@kernel.org>
+References: <20261011192310.55-6-andrea.mayer@uniroma2.it>
+	<179183319121.434549.16235006579764445540@kernel.org>
+X-Mailer: Sylpheed 3.5.1 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: clamav-milter 0.100.0 at smtp-2015
+X-Virus-Status: Clean
 
+On Mon, 12 Oct 2026 19:26:31 +0000
+netdev-bot+sashiko@kernel.org wrote:
 
-
-On Wed, 14 Oct 2026, Jeremy Dean Clifton wrote:
-
-> Previous commit removing a function definition did not remove the
-> function prototype.
-
-Please use proper English.
-
-The commit 3228900f80c2 ("staging: greybus: Remove unused function
-'to_fw_mgmt_connection'") removing a function definition did not remove
-the function prototype.
-
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issue(s) to consider.
 >
-> commit 3228900f80c2 ("staging: greybus: Remove unused function
-> 'to_fw_mgmt_connection'")
+> Critical: 0 · High: 0 · Medium: 1 · Low: 1
 >
-> Function header declaration needs to be removed after definition
-> removal.
-
-This is saying what you did.  It should be in the imperative:
-
-Remove the prototype.
-
-> There is no definition of this function nor is there any place where it
-> is called.
-
-Not sure this is needed, since the definition was removed previously.
-
-julia
-
-> Signed-off-by: Jeremy Dean Clifton <deaner92@yahoo.com>
-> ---
-> v2: Fix grammar and spelling in commit message.
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
 >
->  drivers/staging/greybus/firmware.h | 1 -
->  1 file changed, 1 deletion(-)
+> - [Medium] The consumed-SRH tests in
+>   host_srv6_end_flv_consumed_srh_tests()…
+> - [Low] setup_rt_consumed_srh() runs `ip -netns ... -6 route add "${sid}"
+>   table 90 encap seg6 mode inline segs ... dev dum0` and does not check…
 >
-> diff --git a/drivers/staging/greybus/firmware.h b/drivers/staging/greybus/firmware.h
-> index 5d2564462ffc..04a67d2d5b8f 100644
-> --- a/drivers/staging/greybus/firmware.h
-> +++ b/drivers/staging/greybus/firmware.h
-> @@ -22,7 +22,6 @@
->  /* Firmware Management Protocol specific functions */
->  int fw_mgmt_init(void);
->  void fw_mgmt_exit(void);
-> -struct gb_connection *to_fw_mgmt_connection(struct device *dev);
->  int gb_fw_mgmt_request_handler(struct gb_operation *op);
->  int gb_fw_mgmt_connection_init(struct gb_connection *connection);
->  void gb_fw_mgmt_connection_exit(struct gb_connection *connection);
 > --
-> 2.43.0
 >
+> [snip]
 >
+> [Severity: Medium]
+> If rt-2 removes the wrong SRH, or no SRH at all, would these tests notice?
 >
+> [snip]
+>
+> So two possible kernel regressions on the multi-SRH path would still pass:
+>
+>   - end_flv8986_core() takes srhoff from the first routing header instead of
+>     the one found with IP6_FH_F_SKIP_RH. seg6_pop_srh() then removes the
+>     consumed SRH at offset 40 and leaves
+>     "IPv6 | Policy's SRH, SL=0 | ICMPv6".
+>
+>   - PSP falls back to plain End without calling seg6_pop_srh(), which leaves
+>     "IPv6 | extra SRH, SL=0 | Policy's SRH, SL=0 | ICMPv6".
+>
+> In both cases ipv6_srh_rcv() skips each SL=0 SRH, the echo request is
+> delivered, and the ping succeeds.
+>
+> The comment and the commit message say "PSP itself is checked by the PSP
+> flavor and NEXT-C-SID,PSP tests". Those tests only carry a single SRH, so
+> srhoff is always sizeof(struct ipv6hdr). They never pick an SRH at
+> srhoff > 40, and they never run the positional nexthdr fix-up in the else
+> branch of seg6_pop_srh():
+>
+> 	if (srhoff == sizeof(*iph)) {
+> 		iph->nexthdr = srh_nexthdr;
+> 	} else {
+> 		...
+>
+> Could a host-side check of what is left in the packet close this gap? One
+> option is an ip6tables "-m srh" match on the host's veth0. It would accept
+> only a first SRH with --srh-last-entry-eq 1 and --srh-next-hdr 58.
+>
+> [snip]
+
+The consumed-SRH tests in this patch would not notice these cases.
+
+However, the suggested match is not enough for the first case. In (i.b)
+and (i.d), the Policy's SRH also has Last Entry 1 and is followed by
+ICMPv6, and the packet is still accepted. I checked this on a kernel
+where I added this regression on purpose.
+
+A check on Segment List[0] of the first SRH would detect this case. In
+the extra SRH it is the SID that triggered the insertion, while in the
+Policy's SRH it is an address of the host.
+
+I will address this finding in v2.
+
+> [snip]
+>
+> > +setup_rt_consumed_srh()
+> > +{
+> > +	local rt="$1"
+> > +	local sid="$2"
+> > +	local end_rt="$3"
+> > +	local nsname
+> > +
+> > +	nsname="$(get_rtname "${rt}")"
+> > +
+> > +	ip -netns "${nsname}" -6 route \
+> > +		add "${sid}" table "${LOCALSID_TABLE_ID}" \
+> > +		encap seg6 mode inline \
+> > +		segs "${LOCATOR_SERVICE}:${end_rt}::${END_FUNC}" \
+> > +		dev "${DUMMY_DEVNAME}"
+> > +}
+>
+> [Severity: Low]
+> Should setup_rt_consumed_srh() check the exit status of this ip route add?
+>
+> The test body runs with set +e, so a failure here is ignored. Without the
+> route, the extra SRH is never inserted.
+>
+> The packet would then follow the plain Policy path that the earlier PSP and
+> NEXT-C-SID tests already cover. The ping would succeed, since the hosts have
+> seg6_enabled=1. log_test would then record a pass for the consumed SRH case
+> without running that path.
+>
+> I could not find a way for this route add to fail in the current topology.
+> setup() already uses the same features under set -e, so this is a
+> robustness question more than a confirmed failure.
+>
+> [snip]
+
+I will also have a look at this for v2.
+
+Ciao,
+Andrea
+
+pw-bot: cr
