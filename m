@@ -1,129 +1,134 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013056.outbound.protection.outlook.com [52.101.72.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEDC94BD7BE
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:04:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792062291; cv=none; b=E8cDGZDb52LLtM8XdvJ85+r187PZNsKOyiX27bCtZ6Oy5/quA8JAqcWY85AaQF7dYjlUqKtfkX9ViBOwJJ9fvPGdDntuI39ohttpmMShHxgD9nzlvWKD3sFnggN9R05L86aE7MVkrQU1SkN+o/y7EuPcTbYrbGDoi51DWHZPAjU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792062291; c=relaxed/simple;
-	bh=NmmZIT/hqLMK7Z70iQPd80UtpD+b1u7UZ75zdFcA3wg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kLdcQ+QPyahcsP4u5PoZSC3d6po692+hVUgZk1OOU5liIJxDQ2kI6ow0Sa1fExU1bl7PLtmyPH7KL+x1Kx5mI5TLUZX3XJWvCCxWtf7V3dQaj2hZUxlWKlDRZKbBb8c+dxyK5dulDQ1295ybBzhloSlOgkbqZGB+i45benX6hfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XhvRgxeT; arc=none smtp.client-ip=209.85.221.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 092E53EDE6E;
+	Thu, 15 Oct 2026 11:04:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.56
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792062299; cv=fail; b=ZVDb/7w4DQWWRfKqiHrfDP45yc+3ADijBxLBXqdZrallaCHEc+NJkvpelI8qZ1k9nTXkaPukcP6Ut9/k+xIVefmOXndMcxoRTsr7oZduWFwG9ZpKZ5uYVbezDjkycpKfbX2Nnz+wLNoleXLyevg9V25jVTfacbCWR0ndWvAxRmg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792062299; c=relaxed/simple;
+	bh=G7hpuDvunNQ14JOqmowR4ik2aseBeaIZLBS7H6ntUbE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=kDnxXfC1Ncwv+N4AqIxWBZOHV72PDVi12D9Ptrz2W5KATbsLIHipN+bI8py1XjHd8V/afyuxfc8bU9UnUwQRP/FETZ7KVxIMojoT723KPsfVrUbx30LmiDkjREBkiv7dvRakXpSs953ZuKJmCNR9Di507EL3BNf/3j3zZ/QQYZk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=rR2ZCRgD; arc=fail smtp.client-ip=52.101.72.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XhvRgxeT"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48b0584ad71so3075364f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 04:04:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792062288; x=1792667088; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xXDNqJcNZaQ8TKXGSWpU6zqwH8ZsCn0r4wit+9iMrhw=;
-        b=XhvRgxeTRGttmbp16XDcVRLY29FYg17djlfFbbkKuf0QPZGa2v4HgHS65pzKT0ixeS
-         at3G+Va9QcXRKQWYHItli4mHaDodiQjr2ojubvcR4iv5ID5mcVwBmmsexWBBw2C2/0Rl
-         QYXhvjRe7ODvYCjcUo8IUrHA+gjS7Ld4hq+rjKvJK5LULzOQf21nEWJUBSe4h/56ehj9
-         bPRaWlkVOfWx7JUn32r/4coX0U6lotW+LC1+0R+D5XsbMuRA2j5Zte/rs67hxXblzYdt
-         QB/N5gWCiimxCh0wRBDdt+BRYBqD9q2CJVRUPWBo9h6RHlK2qxO0cKMP0Am0vgYsAQct
-         fFww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792062288; x=1792667088;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xXDNqJcNZaQ8TKXGSWpU6zqwH8ZsCn0r4wit+9iMrhw=;
-        b=hPQ2op8uAcCLgOVj69grIeOXB9JgOSJv/99LXV5wwKDWSca1+3BNYWSnqevk3gfhZF
-         6c/Ronnuevdh9z7710QXGj5BiYqrXd9yPoBAOhl5xrDVVEhf87SDCeZUjd3VKLFstYYJ
-         gM0Vu/XI19GCBoElrjRSjF+DbnwM0/rIJTS+6gQIf6Ba6hA3ZZjgR198DE+1Jzgt4r8a
-         Tn9tccRSODF4bu0HqeL2BslXJppRhCqjV7Jnm1xFVblJzdmDDTotecirTq9MFIPppRbW
-         GUmFU+Di6IRHhQ0WxYGwRwBnE799IHeqtuFbyU1ZQWy5lwfbaBZ8qEHR18VQiXljxqDP
-         RqeQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx/akxaXr5oQKvh06H6IsmsCgpYAGuFsL1VZjW3L6y5W9bD2FNGGdzLvkFlhxAEfceAZIyqiLu5Q6eEUDQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJS3yISpE9cIkpwVRBPyVvteIkiXFdk9++fRmQjUjPq0QNcPOg8
-	xgfLVpgpJ/EQpomPLd3gyEXMc4a/czHGz71M+LJ1T/34hyDAnnM6hzMm
-X-Gm-Gg: AYBFou2m03YfxnOAK8XkuZR7ywqiVOIaFVclTWtgDt7hsWmeF1sgH36mi9tQYa7bKUD
-	w/IazwQ8o8lnxi8Oorf7n8MB98ONqDw004koBISVBCIC7wxXgb3UwyQ1NCQ2mgx4+mnNCGVJMeV
-	//1hjx4Jsghy3t61baaNoGzy55twKW/qApkd09y3nLThgE2i6P1SneGyERFdOJmZQjXHtyux6xb
-	OPsHu07QR/O1sbKDSPwP34aHuUHERx1QgwEPgktS+P+if/vOnGriT77sJCxygos8A7ABzlUeX1W
-	DUmwyddWG3Zrm8uBgmp394MGwRpEsQ9TjwyHJWtSqbegXYDcplhnsNWkgZA7n6t8dfhk0bzDVf6
-	IojWHf2LTuZ0sYJEKKqW3Rq8eX7FWOhb+eSOsFBoc4VFX32eH/VnwvfgHPGM/ONiGNZatLL1cyA
-	/fV9uRYoaD0Ej0O3OdqZQLDrGSNrHJ/FX1NbC0uwsdVRNswSCagCCo3MAJqSwl+wsottTBDj6G3
-	36k7pvhd9vzGhPpo99Z1RY5HnWJ6ivxrzJxHk/ZZwaclA==
-X-Received: by 2002:a05:600c:548c:b0:4a1:a7f8:c11f with SMTP id 5b1f17b1804b1-4a1a7f8c1cfmr177900845e9.9.1792062287875;
-        Thu, 15 Oct 2026 04:04:47 -0700 (PDT)
-Received: from f (cst-prg-86-123.cust.vodafone.cz. [46.135.86.123])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd9b35a6sm57956945e9.6.2026.10.15.04.04.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 04:04:47 -0700 (PDT)
-Date: Thu, 15 Oct 2026 13:04:33 +0200
-From: Mateusz Guzik <mjguzik@gmail.com>
-To: Li Qiang <liqiang01@kylinos.cn>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] pipe: bound new-page copies by remaining iterator bytes
-Message-ID: <cm7xsdvj6ij3k2ad6jp46eojgazlr4prejrqywezo7p73kzagm@myk7rx2cuae7>
-References: <20261015085326.340074-1-liqiang01@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="rR2ZCRgD"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nSx9OCJDxIMxdC+GSO1Ei5pTn/gXIEwujHgITC7YqRAd+ig/ALU7TardVzXtsUXR6R1dGICCQl4M5SDiUa7/S9m6uqYOenL6r/7nThWR/rmo/GKZpnts/nSAX+g6dCb4fHn/Hnnf8bI2vOzndKu7fCrLW6SdTlXqfEBmAYJA/61Aalu46e/eRBOy2gFm8zNyn9BYvCaTJz2itIAv7+xdDMvz7Rj96iNHRnqLqXZIy52oN93gqzSeZxTyhxPDEWc05n5v3ZIEI1Af5v4oTGP/wntlMCZtRBKyz/nVt5vb9ZDoO9SBQqKg23RwGm15TU8EGuYTHj2eCfePGhiK/bMNJQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=G7hpuDvunNQ14JOqmowR4ik2aseBeaIZLBS7H6ntUbE=;
+ b=SAteaKkaNQtsd1zQj6SoE/w7jwwKalaK1i1g5U8ry0gEKXWJVh0jX1tERFFyWSKsk/lX7VtMoogPX6GI0jPtRYiF7t5soG+CKJ6IFy7pt230PXrgaSTZvyozjrM6Y9FrhLtmJaUBnp9pEWukHsSVGXhwuxfFtQyNjGC7MAR6RjQFKCueq8ntG3jt/92BloqGaNPcz6e4prCf+LoQ7eL6mEM742nSRauW9TlZSf1veBz1SW/WZuBy8vMC2SZA/A9Xtzrkq4pyJnXxYR6JZJCEi4cO06pdYpIlt2udzdNcLCwVXaYErMcK83SM3Ntcfs2IbNo74no+aVjpL1juYm0MGA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=G7hpuDvunNQ14JOqmowR4ik2aseBeaIZLBS7H6ntUbE=;
+ b=rR2ZCRgDWWCVWGZIvvoKX5HbCK8vIHozHZqUIqr2yDLvPM+kufVgppfqeQqUm616VDwCGpTyKuVQofq46j5MftSr1Uljg8kaCXHJRsjQo7Xg3kMmvXmEiPC701YJQCJdRau2OgmpZPX6HjbWktvMCP5yhPzCvhDLmxcSuTDkNsl1M2A1VQbkbl3bAdZem+asbIy2b99fcOCAWE5bdR4Ac+X9y80GLOjtIfcNfUAaS4obxdAhp835Q9nz0t1PEcaNql5lkw88EP8SjbWjQ+dEJBuX/RQBRMO1XNRDMZYtQ/ncyrvHPrLFjpZ9ERNITMlqWeFXYuXwPVVbIsY3dai9/w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
+ by ZR6PR04MB543146.eurprd04.prod.outlook.com (2603:10a6:910:df::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Thu, 15 Oct
+ 2026 11:04:55 +0000
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0522.013; Thu, 15 Oct 2026
+ 11:04:54 +0000
+Date: Thu, 15 Oct 2026 19:09:32 +0800
+From: Peng Fan <peng.fan@oss.nxp.com>
+To: Frank.Li@oss.nxp.com
+Cc: Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dmaengine@vger.kernel.org, imx@lists.linux.dev, vkoul@kernel.org,
+	Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH 1/6] async_tx: replace direct ->device_prep*() calls with
+ standard DMA engine API
+Message-ID: <atC0bPrGgvqgsZxS@shlinux89>
+References: <20261014-async_tx_dma-v1-0-35790d01e190@nxp.com>
+ <20261014-async_tx_dma-v1-1-35790d01e190@nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014-async_tx_dma-v1-1-35790d01e190@nxp.com>
+X-ClientProxiedBy: SI1PR02CA0060.apcprd02.prod.outlook.com
+ (2603:1096:4:1f5::17) To AM8PR04MB7874.eurprd04.prod.outlook.com
+ (2603:10a6:20b:24d::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261015085326.340074-1-liqiang01@kylinos.cn>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|ZR6PR04MB543146:EE_
+X-MS-Office365-Filtering-Correlation-Id: e669b9e8-efa5-4836-601f-08df2aac247e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|19092799006|56012099006|4143699003|11063799006|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	k5SkYZtwkM4F5MG0VsYwMZ0IZy1TEEd2UvL0+XLLbK7oOe8PC7byp+v2C36JoUt7ozxxEwNcr+l9y1JjpkPmJObnqPAd1avJ3f9XW+R7MUgZLSmYdClHyMwSTgKipVMKLAU9UhWlvDEJKRbVxCOMIs6Tk4g5yNu1MVoxo3t3FE2d5Kl1dyBY9WdsTCWcNLrH60cBT5+1U8HU2zt7Jb1JBnkUyiGNjh2jenyREmZawaHBN3WFg9C0Jwz2S7UM89jSAjeoyofccsLfP/z1JJwzOGMzg64tOF13rYLJMWr97eIOQ63eRH+gvEQVmjwyAnKxMbphIAYeQtBX35X5CPvte85rjkTF8CnrlQ3m+iVly9boG2l4a77WU8OyOyk9vzC6JSDqCgJWuo22apZFXBciqsBp2+iII8kZzxTQOTQSQ9P64ObHET/lBAppwcZ+XEp0doAikna09c3QdaX/JEubmUY4b0iCQj+Vnn2w94F7ajapcrOtvyon/WcSoZ6jMi2Z+fOPeH3JQ6Ts6UPxR+QHiJPfHSTIYgbU8Azb4iRSxnPzzwbqILqmQdI2kRbFhhzn/hxBEuRc7kg7CU5KRY7PGQgs7ee+mVdPHkb4yZXBxMxaPvUPD+rtySHud9SGNpaTKlNB6tDzzpepsumNmBYhKTe8ZIY9RpzmtsdkROL1IoA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(19092799006)(56012099006)(4143699003)(11063799006)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?BVz0zzTGMWH8nH+ggG0IGqNDi0tOCXCdYnb443V7hRRJvxbDMpEzhxBWDRBI?=
+ =?us-ascii?Q?GMuRBtbrxdrTBsL/UyaltnwooW8GNuGON9yOLWUsqD8ses9H24saoEy9BTC4?=
+ =?us-ascii?Q?tv+jJuUG0QQl+fYvTtzwSGdwZheyI3BBarZRSLRmdFdeYohSXi76lNUtpZPl?=
+ =?us-ascii?Q?/AF5tEwITrIPP/lOf8XNu2q2DJmjp897CWjb/70XqFUKL5sr1eQ0ZxtgmOGL?=
+ =?us-ascii?Q?1uL8Mas1CxukpNIcvGsX+pjOYiOs6Ud+0Sw/ydp9+g6XitDLzYGXVIuOquTf?=
+ =?us-ascii?Q?JIIEp2x7NSbv8Uygeib6eJTMDvHu6m3cl5hSROFt4HfnA4tl/7DOt0MjL1/x?=
+ =?us-ascii?Q?BMxjCyUZ7gUpyFyBNvEndD3uytfl1w+r5kCQ4M+RrbMKlKJ4Tw3Cqnwt8FsX?=
+ =?us-ascii?Q?6wGG53ZF3hQPgMjKlmq3c/EAmVb9jUi8JhxkSLckicfGrXsjgodsxuVuPtos?=
+ =?us-ascii?Q?PTo7VtO5tMAWfm8hXiM++jJpPhs7WLYIHkN/1aPHrnoTkORrgOFzd/UDwvJi?=
+ =?us-ascii?Q?FhGdF8cXobUqwfS4jCKRat/l1A0IAXSUnxHcTTu6rtW8KOZ9fd6or4q7ALCA?=
+ =?us-ascii?Q?mpizaidiQ3tUT21J4Ygf0AubPrmlMX6K6MGLz2OghFHWpKPczuMioukSjuXa?=
+ =?us-ascii?Q?Uq+yNDGdmFD6hlyTEcIGcVqiUKVrAfYdDzmNMBrDakj/VK8n3Rx+xk1ppCNa?=
+ =?us-ascii?Q?a/NqpBMLMvmeYzq4mEKcE9JGcn7KEhndFxxMqB9pcyKftRnKVVrdPpk+32z0?=
+ =?us-ascii?Q?S/UtSAx6d2QvBjxV2lLfl+MUVoVy/tglOtqJH2VS8DqoZql0rh3NYWmMsv0q?=
+ =?us-ascii?Q?PGg5WnbIAelMhGqWp193aXtn5SPlbOTZXhrMcZpJWiuiBGALHUlcnc5za+Uz?=
+ =?us-ascii?Q?YAKILJQaUPZ3+BtzZm6YgZxV5DeW5wF5R8o/d1CSIa63qRWgB6RE6hr+0ro5?=
+ =?us-ascii?Q?cqmHgePtXVoEBtfqgJOeteiAJvK3B9SilYl9vVYYnW0fIM/1JmvSyUWzy0wM?=
+ =?us-ascii?Q?FPAjqFencB+oGPJRlocTHoP6YSKmFuQK3vjSBVsVE68HAavsG9GGoCPZ1J5Y?=
+ =?us-ascii?Q?Gb5+SCmhAloEtrlKYlGFaKlNSx4peME4AxE/vyUTplDz6zO30N4aM/uXAGQk?=
+ =?us-ascii?Q?jUZ20RcNowQo7H1LDMtBS1pQ1tFufopHZlcPIqp0dCOkrdSD9DadVybUCpuz?=
+ =?us-ascii?Q?Ge4ElDubE2IKC+eK5zX2//sWWiVfIDMixPGPOU6WfwEo1Bt1MFXCYMELKWX4?=
+ =?us-ascii?Q?cfeH0ol1sT2cpw2Yp6dedgsuwBxzO+UlHrGuTDEUfVLsF2KPuQzIArY8ck5s?=
+ =?us-ascii?Q?3wUERIf0QioGY/WW84SyL1bg1YxhK9dGkFn6aWF93vQ2ueYHYVi1/vpVjSAF?=
+ =?us-ascii?Q?MKPxYKRgbp8zTYZtjdmQX6qKkvHv7QuuXLcv2XlwG6FHYnStXncN0Rjw1+hN?=
+ =?us-ascii?Q?yK+2/MMCj7lSFDiMuzbJyHSuhVWUjvJBP4muF/SakUl+/69rc0CnCN2cW4k8?=
+ =?us-ascii?Q?GHowKqgWhWK4BkJcUZ1tAW23LhkTtu4OUSRBVSYQ45FPfOnQVbEPNX0byyOf?=
+ =?us-ascii?Q?Pa1bxXLRxizEckL+0AcUC0BJCN+JE2H8dO8hwaS9B7GTgNpD2U/3zAmyiuvV?=
+ =?us-ascii?Q?aNmRyqjmr6X6sMUB+D8JKXdjyoyLPpO7czQrKgN1xVu90lXJV/Pqg2nsAVul?=
+ =?us-ascii?Q?zNesVVQc3I92eiy4AXbeRsP+eZpbqtr/BTpZpjptO/ksO5o1nPf7HoLO5InP?=
+ =?us-ascii?Q?hkTM8YvL5ZYKDvH4TE+94v7aYa1N0RklMRsoKPw/DHG5ZgEw/s2Q?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e669b9e8-efa5-4836-601f-08df2aac247e
+X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 11:04:54.6707
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Y0aL2fkn39NLu3gKISpsMF+p1JvGJL1sVr5lRp1IzyTt32CcoBBZkbeRN2pkD+dXjwUHTdcuFDdEEvBt8BmbabRXGNxXYI7cL6XIgf1b5w75zyWOcU4j9amIpM7XG/I9
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZR6PR04MB543146
 
-On Thu, Oct 15, 2026 at 04:53:26PM +0800, Li Qiang wrote:
-> anon_pipe_write() requests PAGE_SIZE bytes even when fewer bytes
-> remain in the source iterator. This causes copy_page_from_iter()
-> to perform an unnecessary extra iteration after copying all data.
-> 
-> Limit the copy size to the remaining iterator bytes to avoid
-> this overhead without changing copy semantics.
-> 
-> UnixBench pipe results on Hygon C86 7490 (Hygon 4):
-> 
-> | Threads | Before | After | Improvement |
-> |---------|--------|-------|-------------|
-> | 1       | 835    | 854   | +2.28%      |
-> | 256     | 179293 | 182895 | +2.01%     |
-> 
+On Wed, Oct 14, 2026 at 03:43:45PM -0400, Frank.Li@oss.nxp.com wrote:
+>From: Frank Li <Frank.Li@nxp.com>
+>
+>DMA engine consumers must not call the channel's device_prep_*() function
+>pointers directly. Use the standard dmaengine wrapper APIs instead.
+>
+>Assisted-by: LLM
+>Signed-off-by: Frank Li <Frank.Li@nxp.com>
 
-If you are looking to improve speed here, the real gains would come from
-redoing the loop with scoped_user_write_access_size machinery to avoid
-repeat SMAP trips.
-
-But that may be quite a bit of work. The patch as is seems to help so
-I'm certainly not protesting it.
-
-> Signed-off-by: Li Qiang <liqiang01@kylinos.cn>
-> ---
->  fs/pipe.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/fs/pipe.c b/fs/pipe.c
-> index 292425a834dd..da5583f7f37d 100644
-> --- a/fs/pipe.c
-> +++ b/fs/pipe.c
-> @@ -595,7 +595,9 @@ anon_pipe_write(struct kiocb *iocb, struct iov_iter *from)
->  				break;
->  			}
->  
-> -			copied = copy_page_from_iter(page, 0, PAGE_SIZE, from);
-> +			copied = copy_page_from_iter(page, 0,
-> +						     min_t(size_t, PAGE_SIZE,
-> +							   iov_iter_count(from)), from);
->  			if (unlikely(copied < PAGE_SIZE && iov_iter_count(from))) {
->  				anon_pipe_put_page(pipe, page);
->  				if (!ret)
-> 
-> base-commit: 47324d3a5b3abd781295044d01d92d09f184e872
-> -- 
-> 2.43.0
-> 
+Reviewed-by: Peng Fan <peng.fan@nxp.com>
