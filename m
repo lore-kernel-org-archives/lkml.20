@@ -1,33 +1,33 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87C99322B8F;
-	Thu, 15 Oct 2026 10:02:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AAF5B45D923;
+	Thu, 15 Oct 2026 10:03:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792058535; cv=none; b=Fw9p7wM4dsq6w5ULDGix3hxJ7tQRjvYKYgndrSLI517lMVw8N4GSCV7fo1WMn7sID1xz4cOu4bS14IYZbYk+lpHnsWqGtrpkvEcVePZA9dvOQJzavIvp2c3aX3N56WU8cpjnsF2RKqiUFmll9OoQAJQgg6efKjO/eTq9x+WDCoA=
+	t=1792058608; cv=none; b=mlhy4efN2vHh/1u6C+sMMEArRDuMgRNWlvjeJvPjFD+JPqveYu69LzaeV2+1qbwqBuceD94Au6ZQvLd3x04zIqeCYqFBMmassfRPbPzOXxysEwilFtwXcNQR63V7bksiaw2jNijhDJADWVYsoW0TfwmbOunicruY0M6+0VSiLZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792058535; c=relaxed/simple;
-	bh=T33GmSIa8ZXcZcboQ6eeHkUwMBfXwo2O+4ayOOp6DVQ=;
+	s=arc-20240116; t=1792058608; c=relaxed/simple;
+	bh=jQfSLed4h//EKi1zFvLaF3DZxizTMwuRBrKZKA0SkCk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jnXUW6ordD9JJOl1rm0h71oZsZda26V9wfN/xvf/eUrINpvN1GtRVVk2L22YcYsN4Z5W6VbeqS7j4ZSTbEDieT63zAtv8JosOA/73NKI+e2CqgzaHgxV7g2CAhQ0dqZRin8ZMVcnNVKvslSquFmNvBpuTCnjeoTDsxMDeaD+6Wg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Iko2b0kk; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=D9Kyu8EhcAGpnp/nWyA+KQFwEYvwPvwFioVZxpLPv0Foy7i5dztKM+O+hwihtO98nlgZiYOHkF5Y8HZzzdnQ8EJoJysYwqWW/oC2MhngPOVq8YfAsRjciedar+j5Xm11kx5TFcFppLuzvq1lto8LnLRowC4ym60jAZcqOQC9LT4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Ospqc/jo; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Iko2b0kk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 256631F000C4;
-	Thu, 15 Oct 2026 10:02:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792058531;
-	bh=5Pqi9+FJ5ewTDOrXx6NJLaiZDN05LqWUpfO1uWA0Wgw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Iko2b0kk0bIGk8QVSE1lc+78pqVzKqFb/c6PX07rt8o/L64rRlfyLiAwQAvvm2D2f
-	 F1G7/yeHsYCSltPOKzyG4dRvWl2wAq1Ha0lYOadrYRg8C/7VlDR3MhOfmEOuyYI3O6
-	 1TR/hjFFUBSJGsWQ/bRc4w/sr6l1jJFyO4MqJ+MrCO//h0SsbVvwQv9lwP5HZZqHsq
-	 xlBSvSeMPrQFaVZ5njxYJNPyR9/+2VYRrfm/xfsKCfbTvAsehGYV3ndjTxJxoN5hVZ
-	 jav4uXA7zZ5PVeUMKQEjlF2ppEl4ByteA+ZH9MsjRxFrCuLnIOu3m/+n7yq50ydTGC
-	 1V4mGjBjkdvAg==
-Message-ID: <1f36992d-00c1-4f74-9947-b543ed794cf0@kernel.org>
-Date: Thu, 15 Oct 2026 12:02:06 +0200
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Ospqc/jo"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A83322F;
+	Thu, 15 Oct 2026 03:03:20 -0700 (PDT)
+Received: from [10.33.8.90] (e142021.arm.com [10.33.8.90])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 70B5B3F871;
+	Thu, 15 Oct 2026 03:03:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792058603; bh=jQfSLed4h//EKi1zFvLaF3DZxizTMwuRBrKZKA0SkCk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Ospqc/jotDB57wXSnGWpaAnDpiiDDQypchsf84aZpuHa47m/33nzc41Dr5AHsIt8v
+	 jjfBUGLOvZh2OtCykrhLpsW1fqaFB1I8QKCmxsXQVprsUY9NFXFXOf8WkrTs/EqZXK
+	 JK5o31xXcjuwy68k94tHKRt1vKs7A4PR48vD3600=
+Message-ID: <03b070de-b0b0-44d9-89ce-891e6c3ac4d2@arm.com>
+Date: Thu, 15 Oct 2026 11:03:19 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,125 +35,96 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 0/6] mm: pass alloc_flags through folio, filemap, and
- bulk allocators
-Content-Language: en-US
-To: Gregory Price <gourry@gourry.net>,
- "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: linux-mm@kvack.org, willy@infradead.org, brendan.jackman@linux.dev,
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- kernel-team@meta.com, jack@suse.cz, akpm@linux-foundation.org,
- ziy@nvidia.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com,
- ying.huang@linux.alibaba.com, surenb@google.com, mhocko@suse.com,
- hannes@cmpxchg.org
-References: <20260923211041.3127588-1-gourry@gourry.net>
- <asdTptfeLkuypU8t@gourry-fedora-PF4VCD3F>
- <df588805-6f97-4ef6-a64f-39222669bf3a@kernel.org>
- <asloWFM96BATH8SB@gourry-fedora-PF4VCD3F>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <asloWFM96BATH8SB@gourry-fedora-PF4VCD3F>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v4 2/2] cache: add SMCCC-backed cache invalidate provider
+To: =?UTF-8?B?QmVuY2UgQ3PDs2vDoXM=?= <bence.csokas@arm.com>,
+ Srirangan Madhavan <smadhavan@nvidia.com>, mark.rutland@arm.com,
+ lpieralisi@kernel.org, sudeep.holla@kernel.org, conor@kernel.org,
+ jic23@kernel.org
+Cc: catalin.marinas@arm.com, will@kernel.org, aneesh.kumar@kernel.org,
+ Souvik.Chakravarty@arm.com, treding@nvidia.com, jonathanh@nvidia.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-tegra@vger.kernel.org
+References: <20261013070205.3566865-1-smadhavan@nvidia.com>
+ <20261013070205.3566865-3-smadhavan@nvidia.com>
+ <23e9b66f-083a-4a77-8214-25f30c08057a@arm.com>
+ <c0c04151-1ba9-473c-86a4-e066d6881858@arm.com>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <c0c04151-1ba9-473c-86a4-e066d6881858@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 10/10/26 01:28, Gregory Price wrote:
-> On Fri, Oct 09, 2026 at 10:55:05PM +0200, David Hildenbrand (Arm) wrote:
->> I do agree that two sets of flags is suboptimal, but likely more flexible. I
->> guess an alloc_flags only interface is not easily possible ...
+Hi,
 
-Agree with the alloc_flags option of all the other options.
+On 10/15/26 09:43, Bence Csókás wrote:
+> Hi,
+> 
+> On 2026. 10. 14. 17:38, Andre Przywara wrote:
+>>> +static int smccc_cache_probe(struct arm_smccc_device *sdev)
+>>> +{
+>>> +    struct arm_smccc_res res = {};
+>>> +    struct smccc_cache *cache;
+>>> +    int ret;
+>>> +
+>>> +    arm_smccc_1_1_invoke(sdev->func_id, &res);
+>>
+>> I think you should provide the explicit function ID name here, and not 
+>> rely on which function exactly is used to probe for the interface's 
+>> existence.
+> 
+> I thought that was the point of the matcher, that you could in theory
 
->> I do wonder whether it should be:
->> 
->> 	typedef int __bitwise alloc_flags_t;
->> 
->> instead of "unsigned int alloc_flags".
->> 
->> ... while at it
+But that probe() function here is not a "matcher" or a check function, 
+that is done in the SMCCC bus generic code, using a function ID that has 
+no side effects and does not return -1.
 
-Can't hurt, but given how it's internal only it didn't seem that urgent as
-for gfp.
+The reason for this SMC call here is to learn the attributes, they are 
+used below to fill the latency and rate_limit fields in the struct.
+So we should then make this explicit, I think, by using the 
+ARM_SMCCC_ARCH_CLEAN_INV_MEMREGION_ATTRIBUTES name.
+> assign the same probe handler to any function ID? For example if there's 
+> some FW that implements this (or a compatible) function, but at a 
+> different ID, you would only update the match table? At least that's how 
+> most subsystems (I2C, PCI, USB) do it.
 
-> Does it make sense to leave alloc_flags to internal-only state
-> and just implement a new flag field?
-> 
-> gfp_t       -> describe the page (fully public)
-> req_t       -> describe the allocator behavior (mm-internal only)
-> alloc_flags -> internal allocator state only
+Not sure I understand this, this is a driver specifically for the 
+CLEANINV_MEM_REGION SMCCC interface, I don't see how you would reuse 
+that, or plug any other interfaces to it.
 
-Maybe in that case the remaining alloc_flags should just become 1-bit fields
-directly in struct alloc_context so we don't manage 3 separate bitwise
-types. Or more bits in case of ALLOC_WMARK?
+>>> +    if ((s32)res.a0)
+>>> +        return -ENODEV;
+>>> +
+>>> +    cache = cache_coherency_ops_instance_alloc(&smccc_cache_ops,
+>>> +                           struct smccc_cache, cci);
+>>> +    if (!cache)
+>>> +        return -ENOMEM;
+>>> +
+>>> +    mutex_init(&cache->lock);
+>>> +    cache->latency_us = lower_32_bits(res.a2);
+>>> +    cache->rate_limit = res.a3;
+>>
+>> According to the spec you would need lower_32_bits() for a3 as well - 
+>> if we are going to use this value. But I don't think we need to, see 
+>> above.
+> Where does it say that? My copy of DEN 0028 1.7 H, released 2026/Jul/24, 
+> only says the following:
+> 
+>    X3 (uint64_t attr_2)
+>      Rate Limit: The maximum number of SMCCCC_ARCH_CLEAN_INV_MEMREGION 
+> calls allowed per second. If set to 0, it indicates that this field is 
+> not reported by the implementation.
+> 
+> See my second-to-last comment on v2 of this patch:
+> 
+> https://lore.kernel.org/lkml/591e7ac9-310e-40f4-ab22-161d6ea8f487@arm.com/
+> 
+> Maybe I have an outdated copy already? ;_;
 
-Depends on how much work this would be (and if you want to do it) and how
-the result would like.
-> typedef int __bitwise pa_req_t; /* Page Allocator Request Flags */
-> 
-> #define PA_REQ_DEFAULT        0
-> #define PA_REQ_NOLOCK         BIT(0) /* from ALLOC_NOLOCK */
-> #define PA_REQ_NO_CODETAG     BIT(1) /* from ALLOC_NO_CODETAG */
-> #define PA_REQ_SPREAD_DIRTY   BIT(2) /* from __GFP_WRITE */
-> #define PA_REQ_DEFER_INIT     BIT(3) /* from __GFP_SKIP_ZERO */
-> #define PA_REQ_ZERO_TAGS      BIT(4) /* from __GFP_ZERO_TAGS */
-> #define PA_REQ_NO_FALLBACK    BIT(5) /* select no fallback list */
-> #define PA_REQ_NO_OOM         BIT(6) /* do not oom */
-> 
-> Off the bat we recover 2 ALLOC flags and 3 GFP flags. Possibly more with
-> a bit more work.
-> 
-> Then we get:
-> 
-> #define PA_REQ_PRIVATE        BIT(7) /* allow private node allocation */
-> #define PA_REQ_UNMAPPED       BIT(8) /* page must be unmapped */
-> 
-> And we might not even need a new zonelist for private nodes in this case
-> as long as we require internal users to pass PA_REQ_PRIVATE and add a
-> function like
-> 
-> folio_alloc_private(void *owner, ...) {
->    /* validate (pgdat->owner == owner) before allowing allocation */
->    __folio_alloc(..., req | PA_REQ_PRIVATE | PA_REQ_NOFALLBACK, ...);
-> }
-> 
-> User still has the option to request NO_OOM via __GFP_THISNODE :]
-> 
-> ~Gregory
+No, I had! Mine said v1.7H, but is was an early version, which had the 
+upper 32 bits of rate_limit as reserved.
+Indeed in the later public version it's a 64-bit field, so ignore my 
+comment. Sorry for the noise!
+
+Cheers,
+Andre
 
