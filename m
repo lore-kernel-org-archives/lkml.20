@@ -1,120 +1,113 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7461250AC16;
-	Thu, 15 Oct 2026 12:18:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57D73241C8C
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:18:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792066688; cv=none; b=lzdK/uorXzAfi4evzqYT7R7lbSd6ehDQDetyJRYgJpbQlYcvCs4QmjqLvtCmyrDFTNjVW8AC6X4Tbvi3DAoxVNPJraWMVWYFSu6SNYq0jUJOIwTvcKKkeL4YNySmxKMTCALEdAeT5IyDxWLXbEYC6RudswTRlB1XcagnynvUXwc=
+	t=1792066703; cv=none; b=mVdWn3aCNAbBOYrrxeL6UcHwc+7ntk6QsNqLiINfeCvRXGdGkbUtld0w+X0lnALvHFSLiNo2/StFt0rEPJTKohp3EqD9eLgVhST+Mv+zbIS8vRnpSN13PUJWfedH0B1JBjSeTUZJVRByZt1rCj8yFtFvyHVmHki6+x2VLMPyYDY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792066688; c=relaxed/simple;
-	bh=uFfsc/LL4b/iH319BQTBnPd1ZuW4g8jJxIvJfoiDeoQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=pbm/dxv+mMEW4fH3eXgxJw2uOMQVCvMtBtKVdr1G8fAfgymDC+Cq/l+n+UoY2w9cy5b5Ty9l0GZX4SzGo/yt6ydHDgyJ2Y0CAcMgFMxfM/fbbMkntZmI9fw33TmxOEQKOR+wyRhB+FIfSqDABf4beWKnRGjmppwGblGvF+ctb8c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=n6euxqdP; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1792066703; c=relaxed/simple;
+	bh=uZQRom0gOEmB6fHbiq8k/VrJlHLoufkcYR/1mJZyD0E=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=T3NVlY6Fex+1FSDf404J8Rf1P9Zd5f+j1/k7hl8cMEv9t4m/6bLB6irxRtxDcHF3ijiMLmlGlawL4vqWraqlAN2maeMqvdAB90BA5cbVPnqE3WY25v6+LujbLjbgCoK3wXhWs98MztKBVedMOCUsMeHVK5TTFXTLSzp+vOMWUZ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hmlgfIYC; arc=none smtp.client-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="n6euxqdP"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=lfoZsQALvUMmYEnTHCBAppb4AEAOhQSzIaYLEzo0HLg=; b=n6euxqdPcLU/zI+h4/ki2g3uk+
-	b8iEKOHO5fBjaTGHPrF4QhtPZVctthWakc6e1RxRQnup3zQ7pTkMJ17HBb7vpMFasr6A2WPY2z+aC
-	YB6OHDQVKP8FKLxpKXzYhPluX9OmBSYoVU58dNhtNF42XK5aeq8GYw5bZRbDaNKtZkJEiYdHiPZri
-	qbvI6ZYTiqLJBY/4KFCk7Ts0gamOVQTbynFDNds+MVaZ3XUPTUXfi1ZZ3cnbJq/IFSIvgAKxSiwtD
-	zVCe8H9OiJUb1sTfAVpF4Pkrjil/OTk8Mj3WQqhFflEjMLg0hS9zPFoE9QE4BTLmvasPF1fwf5cmb
-	hSPeYyFw==;
-Received: from [151.115.150.205] (port=50348 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xHKPO-0000000E4hm-1KOt;
-	Thu, 15 Oct 2026 14:18:05 +0200
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>
-Cc: linux-crypto@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hmlgfIYC"
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-30b6dad2382so12189413eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:18:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792066701; x=1792671501; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NHThfDJt4B6WauVL/2Vr0/FHJJdXFFoLAtYeGFhagO4=;
+        b=hmlgfIYCgBDhguES4sFFykBqL+VCzMoRFCyiafHXnGdO3rdWQBVJ/u7zRO/5405myF
+         OMbf1gty42eYLUeqmnJ8SYSzNBr7k9QJk9DLKj1csrdvBLUiVcddH3bEebM44Y3aKMCK
+         WC4byUDZ1O/5zMOrrxPlwrYoRJ8J5an4FFDDFovTti0nBgDHTTpc6xO0z0TK63RhD/iJ
+         5kwSN6AzzCLALV7TBR/tRZ6we0Yy6MdScOsFYxPG4Vgf+d5pp7VoPcmu6AgsEMvAFRUl
+         wuiWIB+Nbq9468kT0XwWpYLzZrMkD1/ck6C7IeCqoq0enYsUCzkYozUrSdsiOuB4sxJ8
+         zaTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792066701; x=1792671501;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NHThfDJt4B6WauVL/2Vr0/FHJJdXFFoLAtYeGFhagO4=;
+        b=PeSpbTLgev9ASBjzROLn23+7E36NIyxg55WnVeyQRE5cz5/Em3nVw/9R5pfFKsIug0
+         c4k3VKgfeOfYd+0CQawyoLu0LjxKUEguxQ3GBrakglKDNu0u17wBlmahODX8R2rpuvmk
+         Y1rGVyJW761usr6qNzewRrhlY494S/rxARr1gYMd95cZTUefSjezCq/gxOxKSQy/R3G4
+         M24ExjMoaA+hD+568byIvbDI1J1ICVvFcsTlPJINf20oZwyKwROZ9wdquT/YTD8pYEa3
+         FnV5UeaX4t7Ck3CyX1h1EwoIK3f1vgy10ZjTViNlVtZ7lxfgzyfw1eXID7DJhEn6UP1B
+         V5Dw==
+X-Forwarded-Encrypted: i=1; AKwUvBzVmM4/qHkS5+COSHhRA2CiNCYQBotn2kgMF1Z1uMbOPZNp6rSrgh9kdd/13xwFlstTx7h3ktw0cDcNUro=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI3FZe89MINOohFVbDmGAYCC3cxpIWh25R2VziKtp164ZZzYqPr
+	pC55zby0i3ooduRIY5SvzKc6pI0wx6MdxjDDMUjcjadondPlA4tkcAXs
+X-Gm-Gg: AYBFou0F8L3FBYXtT6UYuwHtmmyDlBHpj1mauaTQLVY6t3Dm84yz68NiPcYUhNBeFQ/
+	GICt0Qb9Cg0xYxV0ZAxhUkQh2yvLCfxmU/yG6kEcZ0UrQWKGiqDO3JhioyJ2FaVcF7r5r/puqOA
+	/o1zlhR7P0TvzNELydc3rN0wP4cRQ9c4uRQKxGYCzT01b8cGcSnoJz4iW2e8clH4MHMIFvgMcod
+	bICHTDASDWvQhNFjSZQxLTem8inED2Fm973Gj9DAuIhytJX3Bx/Z3Z/zvGrvQaLdZNKwaRGOcN1
+	ICkzJHMnyXRJS3LLhFbi4K7uWDWcg9MUt2eKyjyFepJakDkoNn+0FPbXActlDMq20mtOpWxHa4p
+	jaSOOCaI5zQWa8W1BNSzIg1/PDpQSKvaxjIGvIsPZBBQPb0XgYzZhtvVvLFniGwdQ4Oe5FpuCxQ
+	RNEpWb9IlIpneEC4oPOWaskT/MPTTdk+kR+sXFM9Zp00Poz1et3TiMaICqH2aqqH9oziMhDTq64
+	A==
+X-Received: by 2002:a05:7301:53c9:b0:359:d4c9:6081 with SMTP id 5a478bee46e88-359d4c96379mr17612443eec.12.1792066701355;
+        Thu, 15 Oct 2026 05:18:21 -0700 (PDT)
+Received: from gmail.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb6a279sm61220790eec.30.2026.10.15.05.18.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 05:18:20 -0700 (PDT)
+From: pdsj2807@gmail.com
+To: gregkh@linuxfoundation.org
+Cc: linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] crypto: essiv: fix use-after-free in AEAD path
-Date: Thu, 15 Oct 2026 12:17:43 +0000
-Message-ID: <20261015121743.3151400-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
+	Palak Raval <pdsj2807@gmail.com>
+Subject: [PATCH v2] staging: gdm724x: make DEVICE_STRING array const
+Date: Thu, 15 Oct 2026 17:48:06 +0530
+Message-ID: <20261015121813.1130536-1-pdsj2807@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261015093128.1004956-1-pdsj2807@gmail.com>
+References: <20261015093128.1004956-1-pdsj2807@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
 
-The request that ESSIV submits to its wrapped AEAD transform may
-finish before crypto_aead_encrypt() or crypto_aead_decrypt() returns.
-In case this happens, essiv_aead_done() calls aead_request_complete()
-on the original ESSIV request, which can end up freeing the request
-before essiv_aead_crypt() resumes, creating a UAF:
+From: Palak Raval <pdsj2807@gmail.com>
 
-  BUG: KASAN: slab-use-after-free in essiv_aead_crypt+0x8e6/0x950
-  Read of size 8 at addr ffff888102af1360 by task init/66
+The DEVICE_STRING array contains pointers to string literals and is
+never modified.
 
-Keep the temporary assoc pointer in a local variable before submitting
-that request.
+Declare it as 'const char * const' to improve const correctness and
+prevent accidental modification.
 
-Fixes: be1eb7f78aa8 ("crypto: essiv - create wrapper template for ESSIV generation")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Signed-off-by: Palak Raval <pdsj2807@gmail.com>
 ---
+v2:
+- Drop unrelated formatting changes
+- Keep only the DEVICE_STRING const-correctness change
+---
+ drivers/staging/gdm724x/gdm_tty.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Changes in v2:
- - Drop the NULL check before kfree(), as requested by Herbert Xu.
-
-v1: https://lore.kernel.org/linux-crypto/dcf362bd924d7090dbd03ef8af7a6ece@oss.cyber.gouv.fr/T/
-
- crypto/essiv.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/crypto/essiv.c b/crypto/essiv.c
-index a47a3eab6935..8dcaef823c05 100644
---- a/crypto/essiv.c
-+++ b/crypto/essiv.c
-@@ -189,6 +189,7 @@ static int essiv_aead_crypt(struct aead_request *req, bool enc)
- 	int ivsize = crypto_aead_ivsize(tfm);
- 	int ssize = req->assoclen - ivsize;
- 	struct scatterlist *src = req->src;
-+	u8 *assoc;
- 	int err;
+diff --git a/drivers/staging/gdm724x/gdm_tty.c b/drivers/staging/gdm724x/gdm_tty.c
+index 32b2e817ff04..65c53811f099 100644
+--- a/drivers/staging/gdm724x/gdm_tty.c
++++ b/drivers/staging/gdm724x/gdm_tty.c
+@@ -31,7 +31,7 @@ static struct gdm *gdm_table[TTY_MAX_COUNT][GDM_TTY_MINOR];
+ static DEFINE_MUTEX(gdm_table_lock);
  
- 	if (ssize < 0)
-@@ -247,11 +248,12 @@ static int essiv_aead_crypt(struct aead_request *req, bool enc)
- 				  essiv_aead_done, req);
- 	aead_request_set_crypt(subreq, src, req->dst, req->cryptlen, req->iv);
+ static const char *DRIVER_STRING[TTY_MAX_COUNT] = {"GCTATC", "GCTDM"};
+-static char *DEVICE_STRING[TTY_MAX_COUNT] = {"GCT-ATC", "GCT-DM"};
++static const char * const DEVICE_STRING[TTY_MAX_COUNT] = {"GCT-ATC", "GCT-DM"};
  
-+	assoc = rctx->assoc;
- 	err = enc ? crypto_aead_encrypt(subreq) :
- 		    crypto_aead_decrypt(subreq);
- 
--	if (rctx->assoc && err != -EINPROGRESS && err != -EBUSY)
--		kfree(rctx->assoc);
-+	if (err != -EINPROGRESS && err != -EBUSY)
-+		kfree(assoc);
- 	return err;
- }
- 
+ static void gdm_port_destruct(struct tty_port *port)
+ {
 -- 
-2.47.3
+2.34.1
 
