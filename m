@@ -1,226 +1,158 @@
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56E034C7522
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:54:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7D353D954F
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:57:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.46
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792050900; cv=pass; b=iPn3VUVY+IHJyk+v1ehPwqQ1o2Nz1Il+leTI5wXM/ToMAFsheTtllTUvjjUSm1ZtHErs/LC5HEjTcEenxl7RhJRHNi6+CpP8acgpf7GX/f0TKMFaqqJvgVBPHf1RDD0wSPc/1Wpm/i78Mfr/Kw3BgyrdleD3Mqp/2lglC4M/HKs=
+	t=1792051036; cv=pass; b=PZtrUOJ5i+1rI2K2SpICmXIx4usQjfEYVRijUbCC8BQJmiOHF+/OX09hjtDG0l8AVXvY/VHGBor7Axk0vzaP9q9lTv7wj+mIqldRj/S62i96aSbNSABHYnvoNAxmBp/0RsttLRz7mj7SjEUpCW11/aQkmoPchaVV37SyTjJ7/F4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792050900; c=relaxed/simple;
-	bh=QUhjA9hwUmTXGUjT356rZPUadcbJKMeW3gD2q9pu7ZU=;
+	s=arc-20240116; t=1792051036; c=relaxed/simple;
+	bh=7f7sfQlh7zgWV+V7b3mXETPDQ22iJskv8tJ/E7Q5QQM=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=RB/GrXwAyuAczjs/fDbEtGCQ3tDwnMbfuqn4nd95hItvxh9ADZ9G2C8VFcAADFyN4pHAeGawpdfUCFf/JvBDbjtYN+ITDlykBl2WaU0Bp0EScW+d/+WLtuJ0QN6dCRVwcX5FvUOY56yz8IPgFNB90Zvyc6oQVFcnuFjTXdXSavQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OO/ApVEH; arc=pass smtp.client-ip=209.85.208.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=eD1lwgmPZie/mbACGrEw8voBqf15Dy6mImgJ4N0lxO4D0jJL2PK8c3IBld9I6QkFkLQdf64C0UZlm9RVnYZeMlKsuVrc2D0N52We87eUOcwo9rIQQLwTrQs5szxCfNlV9Z/R/wu2tpl0CEIRS02SGa+3ZqxS/PISIb+VHQlgckM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=kRs0HGYy; arc=pass smtp.client-ip=209.85.208.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OO/ApVEH"
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6b170129413so3059427a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:54:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792050895; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="kRs0HGYy"
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b1b12de661so4544a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:57:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792051032; cv=none;
         d=google.com; s=arc-20260327;
-        b=Hge44jUx9xeme+gmS3j37JZs9LP8Av3m1WiRv+rHGG5TBvSkbK9WQKqCMjG+eOVVIj
-         /kVZbAYvOqOetP2N7204d0S1USscAp/2YtW0agXkNhoxFbmdx+FJ4/kX91x7DLM6ygZV
-         qIL7dLJCjM127vtZ5WpNnO9Th8aBnAA0RFEEcvYOHO55fC+h4YyruBR5Y4SlEJofJ36Z
-         G87to0uRzs/gnCkQYOB+WCptjxtbikUky+j3Q3esXH7O1t5iPDzdknbFE3E3tU/QRiRq
-         xngmnDEXKTq7DWjnCa2BiAPzsckWkS1PwcSOzSGumqgJUZ5PgiZzKlxAqEPrTM3aSAa/
-         LhcQ==
+        b=YB3cRJ63Joq1znunHLzFvUBd7167ol0auiVNeUYm64R9n+VvQcSDsBTts2SdEJe+16
+         Fc+Cy+JyyzTlA3TCp1liOWPKmT/LFiREv2WgoEV988xa6FnMw0w2FBYzXprw18Cj83Gq
+         n/i8x40iZNwC11UCr6m4Dhb8iv/QtDg0vg2J8o5PMauznqnTEbjYzRQiSBbIrXinZNei
+         z+kUeD/iqx+hvxLKGi/9gcnQGV5bgK6UPQTWnaptS4IqZV9pN0bKH40o33L0paSFsWaf
+         OT69qo6Fgy211oIzPgWl8XTP5OvFzQrUQp4SopJPaMFQlDpGzlcglJdQU+uqVum2Fh9D
+         sFDw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=/sGN7s60I9kDns7tf8RWcyBjmY1L2WRY6Qxl0o1md1A=;
-        fh=jzVAzLsyQUnllz2XxVoG3L9Ky5jg8KkpLO+VSsKze/8=;
-        b=q6X0HGzxWnRQPdmn48oiXerbgffFeUuc5AhadXN8/78ZfG2t+asbGQUqy/Xgy0n8kY
-         j2eiU26w7qUbDk37LPNKJXxkCLuXU2otabptmp/hoJyF8HvYwmJifLV8ujEdHKX+zxMF
-         ZTwvPzO53Gil5AMagDLr4J3aVTXB6jCNKyL4c/BYqIwrpEfosdAlgQzvWl4bmYEe54S8
-         tVOpzUHbj5n0j455/TlWgp7KWlwxEdtuZ/hzorJzCI57QDBWUxdUBcQKDIeyH4px4gEw
-         X3MY2uY7CGfAPODYzGqDnd9VoCaIx9JifylGuybliA2HZJeBLX0c1NR8Jk4GhiDG30A6
-         fdFg==;
+        bh=RKkl1w7R6dA7DfPVUlzZJ5GxAp+b4J3TCzk6G6Mb5QE=;
+        fh=SC+GaYSb9QECQM4TT/FLPtF6IVDcjSgYZBRPGNzLxxQ=;
+        b=swFBRHORu5Q9v6nt1ZcSj3YH5Ec9FmxSh40XYqx2abM/wp9x+YSGssmxn7ZtF3wwov
+         FWCK+BvUYPglc2/M92Zmb1Qtkr+BNAJp0fnOamp0Ho2aFoTzOhX30hO/HxadXAQBXaeV
+         WqUvOObxcpG/Ktcv+nVlMVqHOn496fjlZhMOk/wVIJyGVjWurQrllaar2MDA0BdGRlkn
+         HFWpFLSJxr/HK95WYK7PKhlWFGnugrgsDVJIQ4w4D39r8nqagjGJz5qZIl/3Ms9bNxzB
+         zMLqvZyHsBuuUbzaSzA3PaQ/BWcVDpvLYa4FONBkwoijXPbkjQE4hqf3/phvg5saTMKu
+         rE7w==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792050895; x=1792655695; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1792051032; x=1792655832; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=/sGN7s60I9kDns7tf8RWcyBjmY1L2WRY6Qxl0o1md1A=;
-        b=OO/ApVEHdlMA+521QfgUyewuRF+kf2hjs0PRCNJq9e9UyMF+NZg4yE8noEbW0VQqiw
-         heeCecfx2SAxsXGljKL8xJcsWHmovEBJ9XE1lJKaKjN6cHPseUAOFx+4YupAR+a+u91y
-         9zcqeE4bNofPGI3CJ1aDfILvdWZINkT+V6a60FcuHlaY9ccgNRIV0HnG+0UNFD3bBCWq
-         Ngp0MVzqCwUy01JBK5LJgypWF2pyVVInExRXgBvz/sc97GSwGS9xkfQkEyISSIJlfFRi
-         XLLz5o4tuiTZmUD5qzvJAUh1OhV/VHAFuGaSZQ8croGvTQtjxplABAs3Roy/E1sdKDgn
-         BUNQ==
+        bh=RKkl1w7R6dA7DfPVUlzZJ5GxAp+b4J3TCzk6G6Mb5QE=;
+        b=kRs0HGYy1hviCGVNCB3IK8xTgTFuhCHkYMTjUA0QOJoGlldLWqLwJhl9BtRjf8SaH+
+         fapb/1OknCoe0p1uyQCAiwxA9lGWplkceeGwf+4yBxp7q05nuwc6I0OgUtUcceDq3oX6
+         +srzg7/gU1Uz16ODUeNbDwSKAWiZi9bJY9xTn56DG/rYcpe2AXSg7DfW1HvRetN8NCf7
+         n0jypJlYBHpGi5TDt2F/3kkrfp9PMXQebd0xaFJpkJyOu0jsoYnGVyIjz57RwdDMxKZG
+         wCiwttGWNHkd2XnLxatQDHLyXcNIEMyxOX0xmqP8W3QKvNWfKPDAJHJIm0ubzZf//+4u
+         04tQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792050895; x=1792655695;
+        d=1e100.net; s=20260707; t=1792051032; x=1792655832;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=/sGN7s60I9kDns7tf8RWcyBjmY1L2WRY6Qxl0o1md1A=;
-        b=xmyowCbA/tK/Z4hqOEXfclepTXe/wcweQY/GqlgsW4+Jg30LdKX+RFw6dqEUtahbV7
-         KIcUhjhzRAQebFvLFczVpntvT39tliVa8yjNVCNkwo4f3XTkhgqZ2+ZWLNHevcPoQsep
-         25mxBfMj9a7bOCBItMA/6BJOuUZT6rJ/vElC8Lnagmsgmxpi6nTtdrbEUUstyZ76oXv2
-         8Pqm/tN/Fo837TU/wtqwiJKi5NAgYLfGB1XcktsaAAhrCp57yuHmd8CkUDBwvyLyKRTu
-         I+m8qJaEuafP9tjubkMlVxnuUzaOASJct1R+xOh6U52ImA+QmX4rail6LWoh3JjqRiuI
-         XsFA==
-X-Forwarded-Encrypted: i=1; AKwUvBzETkD9piiCnDL9jqbrr0gXQ0XQHWJesE7FdW9xw6M75YC/KzSw/zfRDK1JajviL7sjyo/IokER5kZt+TM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK/NO+TV524H1q866M0uCBUmD2WsaVX3xzbCj0vYVULjSGZ7X4x
-	eO/70xoHzfXJE5mNUOcUHZx/DD4sLDMr8XxAbjgj8nA9Kd8P9Ok5qfVlk/yLpW0ZBA+/qX8v1HX
-	0GyL+aasMdBG+MKjuge1+ghfWrUG/PZs=
-X-Gm-Gg: AYBFou1ol80Yfg8p4XC/wJDurY8WNdgEi4yREVHYB10ma9o8cv91lFjLpYsxL5T4kiC
-	cqjDKPJA8qHhUqq6fZmgDVeFNEOGR+788DW95VvUir1f4xh69eAd/zefKtuEDBQ95aYHhlvIQAd
-	hftIyeXSGBmMQYbspsw7YijT1OG+H1AczI8nTc+IgqdzLXH6Ro/lYdNCF/EkDjel413SOeF3lCx
-	grGXGgCxF5Z1d5xND/MzN3/2TW3VU+nnVPGEpWQhvksaqP2UxanFKgVwMFRsS8EcTWfcse6C49d
-	u31+EPsX7/4Kg1IlaTQKhmGhOwKCXhCRxx7CR7cBcIX6e4BimUO/ps0Z39idagLQ5Vg7hALc4VA
-	k2YlHrjFLL43Q6FewGleYdV4=
-X-Received: by 2002:a17:907:c60e:10b0:c32:110d:682f with SMTP id
- a640c23a62f3a-c32110d6952mr1085661366b.18.1792050895249; Thu, 15 Oct 2026
- 00:54:55 -0700 (PDT)
+        bh=RKkl1w7R6dA7DfPVUlzZJ5GxAp+b4J3TCzk6G6Mb5QE=;
+        b=JymhOBdQssMen8cTzcnAEtUkyxpjx6zWmd0bejTvnkFGpBSztlk7i5HK1xVCV47noX
+         93nS7B5ioLJs4ZOHL2bOTthSSUaJniO+zT+HW/pj3DnWOC1G4YyPDA0THxow0hYBPXiY
+         zj3Bi5tLnu3F2GiLaHGEd7kEevfE6p+rT7bnmTrA9Rg+D1fMBXolNpKNIYPQ7CIary17
+         UcDRVH3YxPy8OkD6m8nn+3KBw3LY7cQT+kv5aSZh0lL4nXyXroCuJfddn4B9A9U6VuLL
+         DGq0UpyY0OrytkTOnRrLDAUi1juztCJ9GFEEo66abBv1YH36bmO5RVebq5gwu+t3hAOl
+         KaQg==
+X-Forwarded-Encrypted: i=1; AKwUvBxCT6R8yzKGb023yyHV1MkxctXBZQG6QPePRJgM/FogbM4utwDLZxzMRYk+AeoKF/KpaSsMvGkItEEdx/k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLFsTdPuX4PsXJQHY4QawSoKyXD9hvY1T4PfbMEcTty2uJZZWrX
+	xjJacvlvBgxzgIkT60yAQqrO6jcg2veK+kOJXtUi9gy1s/trZvVXJCmgd7KED9JhRoDYKOrW/D/
+	ckDG90ZMHAjvbxxDXgXCicOLHYs4E3U5BSIWApwfY
+X-Gm-Gg: AYBFou0hhUC7BHz8uUVFUClvGcUkFY251+IQThWguLgvP3e+iUly5UHvTfgZKSB47/r
+	k3ngpEZtCaV+yPU0aa3nB7ZjrRSPRzZgg/WyGQX3Sytw7Q+bSYKNIdowMyN2mnOnpWvW+ADr15l
+	B7I8rKiF0IvJGH8Br3Es/qMGluwi4jpkiT1KrxBGU53XqD4S9nFXGJy6XWqYYzGfGDTdoOKCnmw
+	ebUKjy650VAkSwVciJa0DDY3a1fbK53UiYymn9gRcfRJeLQl71IJakmtXDcE78uwV8sBYtPI+7K
+	PoFIMVkwbsuPLz5KWUVFHYEhi7RwjnG87vvx41ocjU+QksIb7unuBdgiHu5sXAYVFZ38qOSMhdW
+	muiCgZKQyEO8nlg==
+X-Received: by 2002:a05:6402:a6c2:10b0:6af:8433:3c7e with SMTP id
+ 4fb4d7f45d1cf-6b32bb8bfcemr13427a12.2.1792051031273; Thu, 15 Oct 2026
+ 00:57:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261013173504.451391-1-clamor95@gmail.com> <20261013173504.451391-3-clamor95@gmail.com>
- <d5f54636c25e0e60731adc200a63ceb5@gmail.com>
-In-Reply-To: <d5f54636c25e0e60731adc200a63ceb5@gmail.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Thu, 15 Oct 2026 10:54:40 +0300
-X-Gm-Features: AclHuK8G-cs7nBf_jb7Nz-sYHdY2hV4DGcnygUqGWeotEdcljE4mZaNjbadyaBQ
-Message-ID: <CAPVz0n2yR9C4Jan9=0=ck-RyKk1m19s3q4wfLCz9Bvw1TYNS0A@mail.gmail.com>
-Subject: Re: [PATCH v11 2/7] mfd: Add driver for ASUS Transformer embedded controller
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
-	Sebastian Reichel <sre@kernel.org>, Ion Agorria <ion@agorria.com>, 
-	=?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, 
-	Florian Krischer <florian.krischer@fkr.dev>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-input@vger.kernel.org, 
-	mfd@lists.linux.dev, linux-leds@vger.kernel.org, linux-pm@vger.kernel.org
+References: <20261015073736.2944215-1-tavip@google.com> <179205021846.408196.14808616314279740107@kernel.org>
+In-Reply-To: <179205021846.408196.14808616314279740107@kernel.org>
+From: Octavian Purdila <tavip@google.com>
+Date: Thu, 15 Oct 2026 00:56:58 -0700
+X-Gm-Features: AclHuK8v7XQtgecDV0jsO__BHD8YwxutmfG-K5IsGFWan04ZMe1cAcKU4mLeRAA
+Message-ID: <CAGWr4cS1rmo9+6gT==D1FGb34K9KW+uPO=se8-WV8YE-SJP8pw@mail.gmail.com>
+Subject: Re: [PATCH net 0/2] tcp: clamp return value of tcp_wmem_schedule() to non-negative
+To: netdev-bot+sinfo@kernel.org
+Cc: Eric Dumazet <edumazet@kernel.org>, Neal Cardwell <ncardwell@google.com>, 
+	Kuniyuki Iwashima <kuniyu@google.com>, "David S . Miller" <davem@davemloft.net>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Shuah Khan <shuah@kernel.org>, Willem de Bruijn <willemb@google.com>, Wei Wang <weiwan@google.com>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, netdev@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-=D1=87=D1=82, 15 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 04:3=
-6 Dmitry Torokhov <dmitry.torokhov@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
+On Thu, Oct 15, 2026 at 12:43=E2=80=AFAM <netdev-bot+sinfo@kernel.org> wrot=
+e:
 >
-> Hi Svyatoslav,
+> Hi!
 >
-> On Tue, Oct 13, 2026 at 08:34:58PM +0300, Svyatoslav Ryhel wrote:
-> > +// SPDX-License-Identifier: GPL-2.0-or-later
-> > +
-> > +#include <linux/array_size.h>
-> > +#include <linux/debugfs.h>
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
 >
-> Unused include (left over after debugfs support was dropped).
->
-
-Noted
-
-> > +/**
-> > + * struct asus_ec_chip_info
-> > + *
-> > + * @name: prefix associated with the EC
-> > + * @variant: id of programming model of EC
-> > + * @mode: state of Factory Mode bit in EC control register
-> > + * @read_size: size of block to read
-> > + * @keyboard_mask: mask of keyboard packets
-> > + */
-> > +struct asus_ec_chip_info {
-> > +     const char *name;
-> > +     enum asusec_variant variant;
-> > +     enum asusec_mode fmode;
-> > +     u8 read_size;
-> > +     u8 keyboard_mask;
-> > +};
-> > +
-> > +/**
-> > + * struct asus_ec_data
-> > + *
-> > + * @ec: public part shared with all cells (must be first)
-> > + * @ecreq_lock: prevents simultaneous access to EC
-> > + * @ecreq_gpio: EC request GPIO
-> > + * @client: pointer to EC's i2c_client
-> > + * @info: pointer to EC's version description
-> > + * @ec_buf: buffer for EC read
-> > + * @logging_disabled: flag disabling logging on reset events
-> > + */
-> > +struct asus_ec_data {
-> > +     struct asusec_core ec;
-> > +     struct mutex ecreq_lock;
-> > +     struct gpio_desc *ecreq_gpio;
-> > +     struct i2c_client *client;
-> > +     const struct asus_ec_chip_info *info;
-> > +     u8 ec_buf[ASUSEC_ENTRY_BUFSIZE];
-> > +};
->
-> scripts/kernel-doc warns on these two structs:
-> - In struct asus_ec_chip_info, the kerneldoc says @mode while the field i=
-s
->   named fmode.
-> - In struct asus_ec_data, @logging_disabled no longer exists.
+>  - How the issue was discovered, e.g. hit in production, hit during
+>    development, syzbot report, manual code inspection, LLM or static
+>    analysis tool scan.
 >
 
-Noted
+The issue was discovered in production, here is an example warning:
 
-> > +int asus_dockram_access_ctl(struct i2c_client *client, u64 *out, u64 m=
-ask,
-> > +                         u64 xor)
-> > +{
-> > +     struct dockram_ec_data *ddata =3D i2c_get_clientdata(client);
-> > +     u8 *buf =3D ddata->ctl_buf;
-> ...
-> > +static struct i2c_client *devm_asus_dockram_get(struct device *dev)
-> > +{
-> > +     struct i2c_client *parent =3D to_i2c_client(dev);
-> > +     struct i2c_client *dockram;
-> > +     struct dockram_ec_data *ddata;
-> > +     int ret;
-> > +
-> > +     dockram =3D i2c_new_ancillary_device(parent, "dockram",
-> > +                                        parent->addr + ASUSEC_DOCKRAM_=
-OFFSET);
-> > +     if (IS_ERR(dockram))
-> > +             return dockram;
-> > +
-> > +     ret =3D devm_add_action_or_reset(dev, asus_ec_release_dockram_dev=
-,
-> > +                                    dockram);
-> > +     if (ret)
-> > +             return ERR_PTR(ret);
-> > +
-> > +     ddata =3D devm_kzalloc(&dockram->dev, sizeof(*ddata), GFP_KERNEL)=
-;
-> > +     if (!ddata)
-> > +             return ERR_PTR(-ENOMEM);
-> > +
-> > +     i2c_set_clientdata(dockram, ddata);
-> > +     mutex_init(&ddata->ctl_lock);
-> > +
-> > +     return dockram;
-> > +}
->
-> Attaching ddata to &dockram->dev via devm_kzalloc() and
-> i2c_set_clientdata() is fragile because dockram is bound to the I2C dummy
-> driver. If the dummy driver is unbound from dockram via sysfs, the driver
-> core frees &dockram->dev devres allocations and clears dockram's
-> driver_data to NULL, so the next call to asus_dockram_access_ctl() will
-> dereference NULL.
->
-> Instead of allocating a separate struct dockram_ec_data on the ancillary
-> i2c_client, could ctl_lock and ctl_buf live in struct asus_ec_data (or
-> struct asusec_core) and have asus_dockram_access_ctl() take struct
-> asusec_core *ec?
->
-> Thanks.
->
-
-I did this since dockram and ec can be accessed and work
-independently, hence separate locks and buffers. I would like this to
-remain as it is, but you have a point here. Adding check if dockram
-client is not NULL should resolve possible issues with
-asus_dockram_access_ctl calls.
-
-> --
-> Dmitry
+------------[ cut here ]------------
+WARNING: CPU: 1 PID: 939331 at include/linux/thread_info.h:249
+tcp_sendmsg+0x10c1/0x1530
+Modules linked in: kvm_amd hdi2_standard_ftl hdi2_megablocks hdi2
+xenolith stg elephant_dev_num nv_p2p_glue vfat fat livepatch_v1(OEK)
+k10temp i2c_piix4 i2c_via_ipmi i2c_mux_ltc4306 google_bmc_usb gq
+cdc_acm xhci_pciJun 18 01:48:26.051200 rdht15 kernel: [66690.105140]
+CPU: 1 UID: 368767421 PID: 939331 Comm: DefaultEventMan Kdump: loaded
+Tainted: P S      W  OE K     6.12.63-smp-1400.86.0.0 #1
+Tainted: [P]=3DPROPRIETARY_MODULE, [S]=3DCPU_OUT_OF_SPEC, [W]=3DWARN,
+[O]=3DOOT_MODULE, [E]=3DUNSIGNED_MODULE, [K]=3DLIVEPATCH
+Hardware name: Google, Inc.
+           Arcadia_IT_80/Arcadia_IT_80, BIOS 34.86.0-0 01/25/2026
+RIP: 0010:tcp_sendmsg+0x10c1/0x1530
+Code: ee 44 8b 64 24 3c 0f 84 ae f5 ff ff 48 8b 7c 24 48 e8 f3 a7 23
+00 41 be f2 ff ff ff 4c 8b 6c 24 10 44 8b 24 24 e9 4a 03 00 00 <0f> 0b
+31 c0 e9 7e f5 ff ff 41 80 8f 84 00 00 00 01 e9 00 f6 ff ff
+RSP: 0018:ffffbaff64a6fc38 EFLAGS: 00010282
+RAX: 0000000000000062 RBX: ffff9c45670d3c00 RCX: 25c2e5210d8ebf01
+RDX: 0000000000600000 RSI: 00000000fff8427f RDI: ffff9c43f2fc0062
+RBP: ffffffffffe4b17f R08: 0000000000000000 R09: 0000000000000002
+R10: ffff9c4c187b6200 R11: 00000000000001b6 R12: 0000000000000000
+R13: ffff9c4383ffc1e8 R14: 00000000ffe4b17f R15: ffff9c40fe838600
+FS:  00007fe39fbaf700(0000) GS:ffff9c874ce40000(0000) knlGS:000000000000000=
+0
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000010986487a238 CR3: 0000000973fb8006 CR4: 0000000000f70ef0
+PKRU: 55555554
+Call Trace:
+ <TASK>
+ [<ffffffffa5c218a2>] __sys_sendmsg+0x292/0x490
+ [<ffffffffa5c6281f>] ? restore_sigcontext+0x15f/0x1c0
+ [<ffffffffa5c6e1d0>] ? __pfx_flush_tlb_func+0x10/0x10
+ [<ffffffffa5c6e965>] ? flush_tlb_local+0x285/0x2a0
+ [<ffffffffa5ba1b29>] ? sched_clock+0x9/0x10
+ [<ffffffffa5bd7900>] ? sched_clock_cpu+0x10/0x180
+ [<ffffffffa5be362a>] ? generic_smp_call_function_single_interrupt+0x19a/0x=
+430
+ [<ffffffffa5f51848>] do_syscall_64+0x88/0x340
+ [<ffffffffa6000136>] entry_SYSCALL_64_after_hwframe+0x76/0x7e
+RIP: 0033:0x5580e3f28a3d.
