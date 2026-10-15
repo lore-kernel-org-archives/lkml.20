@@ -1,79 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7082377AA9;
-	Thu, 15 Oct 2026 14:45:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4823A2417DE
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:45:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792075534; cv=none; b=BJJFfH9aeBXaHXDvcT67fAmu7pMfg7mwnu+CoDmhoLQL6tuWO3r1TixgAaQYY27bLEmODV4qYK12McuNZRnCOZs974P0Luc7rGOT8GP2yOsT3P32NqgutXzrOCUAPNF4OxFdhMfk4WPxNwoW0Pz5orgmd+S/ijz1lIURUHq5W28=
+	t=1792075558; cv=none; b=hhqM0srGvRELPnKFKiKGQJxAmzF/5NqVIIR2HjLjqjWYzrtln8MvAbcI7lyLmExjl7lY1XYSe7mc+E4mpT++kZ0x4YUOYbLsNH9A/rMLoISilrej2zd5OGWb2b+wsN55i57aLmmAVGA3ogxIRgXRuIASkeon9Vo6GuGJhEoG67I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792075534; c=relaxed/simple;
-	bh=FDTIni0nAGSEh/v9BBRLBV8oZV1hvR8iqdW+Swhxej0=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=NtEezku40LoAXlWv2pjUB6VLLe7jHfnQek98KHuDA2Xp6JIMZf51uNCEB3Rmedj33bdXo3xNNj8UONtA1RB8ArGmfCNzVvQgU+sakg1thGe/2SY+1JEAUKI80NmGA0VwEJBoT89+ILfa+5jrOZpJqVob4by50r5L4bA+fvbj3U8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A8KDxOcV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792075558; c=relaxed/simple;
+	bh=J1DmfvQ3bSlmu/fY22Cf1h8mrdFixKrrTxBkC8vPwI0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HD0/xGXwQWDmMvgBXvHQbWStpoWVLTYmMIqOpSSih0WgAF0qSTcNaMyFeCthhqKVqK7NlH/C0GyT6cIAO2mxjDcyyFGRZQwwX2Xfl/OGmgPFrEIbvM4UgzTrrgIWGbxT1zA6TOynNs3pVsx/MDsARMaGIPSINa2h+JE2QA0plhc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s8W2ipto; arc=none smtp.client-ip=209.85.128.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A8KDxOcV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 304AC1F000C4;
-	Thu, 15 Oct 2026 14:45:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792075533;
-	bh=Cu+kqaxp2LTtL66kVYg1eFWIE3LmRxniGoxkUb1pV6Q=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=A8KDxOcVlxsVPVeUTb9z6c3kNCv2Dr1lrWDr9l40cOoWUXL1Aa9evg1lXL0HZO/Zz
-	 WJ4G1FmtHGdIq/yYXMZfJZqNjbt9NMUpVkN/vtR4Mzvfp5GKzKyrwAvEA453Qd7RpW
-	 wP99QRrUSELooIlXaxd1eJvNM5QC1IenKNGjpIg+zB2LT2WeunlLmM1UJXSCo5WA7b
-	 tyATQpPi99r6EB7JJg8bBX4cwJ1lBgWXeHKfDPeFIj7696IzdLwoN8rt3vtje0v0Gd
-	 +YNvLWNOlpLLsoSztfgUpWU3yPeS6wL7TT0rhUUVmx10YQEsGxxMH8vU7g+oNU15gg
-	 PK543lonFLSyA==
-From: Lee Jones <lee@kernel.org>
-To: Sen Chu <sen.chu@mediatek.com>, Sean Wang <sean.wang@mediatek.com>, 
- Macpaul Lin <macpaul.lin@mediatek.com>, Lee Jones <lee@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Eddie Huang <eddie.huang@mediatek.com>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Ryan Brue <ryanbrue.dev@gmail.com>
-Cc: linux-pm@vger.kernel.org, mfd@lists.linux.dev, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- linux-rtc@vger.kernel.org
-In-Reply-To: <20260917-rbrue-suez-upstreaming-mt6397-rtc-nvmem-v1-1-558b8f95cfbc@gmail.com>
-References: <20260917-rbrue-suez-upstreaming-mt6397-rtc-nvmem-v1-1-558b8f95cfbc@gmail.com>
-Subject: Re: (subset) [PATCH 1/2] dt-bindings: mfd: mediatek: mt6397:
- describe the RTC's nvmem layout
-Message-Id: <179207552993.2025354.8082190784295988343.b4-ty@b4>
-Date: Thu, 15 Oct 2026 15:45:29 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s8W2ipto"
+Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-8ab432273c5so48108497b3.3
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:45:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792075556; x=1792680356; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nY8bEQTDRiBiqLeVmhJUy+oN+INRLBn8jSuVjWbtsUo=;
+        b=s8W2ipto/aWRWpFxAIqUY6y0MSrQssOEs/bVyNaujmvpukZ/Xm4257+Nmh/TpUJ4d8
+         bzP6n0CIHixnzcTPP6PZDBtH3cUB3d6LgC9tWAqFS68aJZke8a9PvvsXIz3cxv7S6/Et
+         VurJ6vRUZ3/KlayrHsom4nmFQD9m0XzhqR43r/qSRXdUZYJyGfe5pJsNt5x+xbzrL3DK
+         JF0DO2xO8aMDppAPR5TvXMENm11uv/XfxohFEmZRjovHeidH1Ngi5IoMlCgf2WXHqu+V
+         dLCC6eUhOwTsxaB7RJ235swfCQlCZd8pnoIeh3glU1RHAI/JzgSw0OGUyFUXHhYD72kE
+         tIQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792075556; x=1792680356;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nY8bEQTDRiBiqLeVmhJUy+oN+INRLBn8jSuVjWbtsUo=;
+        b=INibrD8hqvZ5AhUpB6fv9wfHlDrZ/bdX+XnOgN4eLTSexywM+JchNUYaJuun//OIqQ
+         h86zblyd1I8liG7+DOSZWJDPDG1rGX0Jiy+KwY8+Pw//qgEXtP6oKolMy92lIHpzkejV
+         4BX7cid8BcZ9MBjqQgHXPk0s3yN46Mtd+ljs6WC0Y1fjO9qQVBkadsG55MQupxoJmq5e
+         P8AcEWWfLMjnTqmUxrKOhHjLAk40IMl0jKH2hntlVAwRLkyjzNapOS3c3dq5FmEQBy8S
+         OIsX7o5lgUglK3icNb3mjTrok+XH1YY8UGYmBdkRnYoK0fheHIcUk1mnM2bWWxI2ibgG
+         mP5A==
+X-Forwarded-Encrypted: i=1; AKwUvBwC/xwu2yiRfEopOanzxAv45U2R0Z9wTiNsGbeNWuIoVPCFdMV/NyYk3l8sme4o1buAL4pKOFET1X/yKEY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKVmithfPdo13A/3LL8TAa6C0YbLP6rlIf1b+o087LdJ/OKbhy/
+	85CldSvrdxgyHY3X4ba7g1VjrisE40RNQ0XMNiLudg27S6SGPMKKGVUT
+X-Gm-Gg: AYBFou3MnNzv3tt9izdnO7d0uKCGltccp/qLFou972VUd5ZTM3pJwZlkz+amvzJM2k4
+	vDvyT4rawf7EEcLxPKTiRZjN5VBN91r/GESiVYkSEVmr/dszKL8B+ZMiKoo3+4UN0CS0GKG+PAa
+	OtkUI3b3Se0UgwHJkPnF89xZSlHm9foRswvyu45f+j79RPUKoDKIDV1bfFIfR9HcCrlv+UQwabL
+	4+yR/2fh2eibC5+r8dZpCRfCk/SO/xmoa3eAT74et8EjNURF4Xgjo9fEdrOMcbfpCFOga3092gs
+	HYLa9xuJCem8GPJtrKtUq0ino6wERUcKhNsid0quf8XiDDdBoaM96LBUhJKxyEUuCsSeUf/GBX3
+	YPMHi7q8B8/X/ikAPs7jYIkdJLet5SQnJ/TB0iZk+zcnMK48SQu5A+xb/pLmKe1bbg/ZGIwvdto
+	JgRQ8l9qHUqN8k22h7o2DjKD5c6qYXbKJw+tHR/lJPQx2bt2kE1De//UiLRJ29tLMeKdzfE7fgg
+	S6pRjmXTosPLoC6OpXckNpuZZR5TcBN5cEF+EfpuARp1FPaLS6I
+X-Received: by 2002:a05:690c:402f:b0:8ae:c015:3e36 with SMTP id 00721157ae682-8b07eebfba0mr45173167b3.50.1792075555970;
+        Thu, 15 Oct 2026 07:45:55 -0700 (PDT)
+Received: from [10.5.0.2] ([186.247.181.208])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b07f1ea845sm67908267b3.24.2026.10.15.07.45.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 15 Oct 2026 07:45:55 -0700 (PDT)
+Message-ID: <de94c8cd-0afc-4a35-bf81-019a8e4cc8e8@gmail.com>
+Date: Thu, 15 Oct 2026 08:45:54 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16-dev-ad80c
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] staging: nvec: use guard(mutex) in nvec_write_sync()
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jeremy Dean Clifton <deaner92@yahoo.com>
+Cc: Marc Dietrich <marvin24@gmx.de>, ac100@lists.launchpad.net,
+ linux-tegra@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Julia Lawall <julia.lawall@inria.fr>
+References: <20261012222926.7754-1-deaner92.ref@yahoo.com>
+ <20261012222926.7754-1-deaner92@yahoo.com>
+ <2026101335-expansive-veteran-c4d6@gregkh>
+Content-Language: en-US
+From: Jeremy Dean Clifton <gservice341@gmail.com>
+In-Reply-To: <2026101335-expansive-veteran-c4d6@gregkh>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, 17 Sep 2026 23:57:46 -0500, Ryan Brue wrote:
-> Four of the MT6397 RTC's alarm registers use only their low bits; the
-> high byte of each is storage the clock and the alarm don't touch.
-> MediaTek's documentation names them RTC_NEW_SPARE0 to RTC_NEW_SPARE3 and
-> assigns the first to a fuel gauge, which is what a battery driver reads
-> at boot so that the reported capacity does not jump across a reboot.
+On 10/13/26 12:15 AM, Greg Kroah-Hartman wrote:
+> On Mon, Oct 12, 2026 at 10:29:26PM +0000, Jeremy Dean Clifton wrote:
+>> The three return paths of nvec_write_sync() each release
+>> sync_write_mutex with explicit unlock calls.
+>>
+>> Use guard(mutex) to unlock the lock automatically on any return
+>> path.
+>>
+>> This removes the three mutex_unlock() calls.
+>>
+>> No functional change.
+>>
+>> Signed-off-by: Jeremy Dean Clifton <deaner92@yahoo.com>
+>> ---
+>> v2:
+>>   - Reword the commit message to state the motivation and to make
+>>     clear that removing the mutex_unlock() calls is the result of
+>>     the change (Julia Lawall).
+>> v1: https://lore.kernel.org/all/20261012171312.5998-1-deaner92@yahoo.com/
 > 
-> They sit in the RTC's always-on domain, so the driver can offer them as
-> a battery-backed nvmem provider. Allow a board to lay cells out over
-> them.
+> Please read the archives for why I will not take guard() rewrites of
+> staging drivers (nor do I want to see you use a LLM in here either.)
 > 
-> [...]
+> sorry,
+> 
+> greg k-h
 
-Applied, thanks!
+Hello Greg + Everyone,
 
-[1/2] dt-bindings: mfd: mediatek: mt6397: describe the RTC's nvmem layout
-      commit: 3606288af5e8c09a14ab5b19e121feec75296354
 
---
-Lee Jones [李琼斯]
+It turns out that I was unknowingly subscribed to this list and started 
+creating patches for the Outreachy group without ever having submitted 
+an application to Outreachy. I just wanted to learn how to contribute to 
+the Linux Kernel and I saw https://kernelnewbies.org/ as a direct 
+connection to Outreachy.
+
+While I am technically not part of this cohort, I can still review 
+patches. What is preferred?
+
+I assume that the same rules apply outside of Outreachy? No LLMs and no 
+guard() rewrites.
+
+Jeremy
+
 
