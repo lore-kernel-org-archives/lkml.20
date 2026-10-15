@@ -1,183 +1,275 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com [209.85.217.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D457C3E3D9F
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:33:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792078414; cv=pass; b=Hzc3lK9Otebxctk0e6YuwEk60FvKBrJj6FxpbQMj2E+4A4EywT79zTOvSoyd2MvGp8YfPoDimOKFJR5d5dsheIT+oUXPNP+OEfcmqlOIZBKDycx69WuxN1jPgR+UTGJ09ZMax0HRgAXwIqw/ybKFXVCHP5rmZLZp1mxETz1b064=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792078414; c=relaxed/simple;
-	bh=EwFBEjpzx+AogMUYstrZjzWsEBgz1yLeWchGZwFuIWI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=av6JrllD3g3OWgGimsO2BbUQ70HdfVSFkd0AjqkbS0DEajUdVwetlz1n5Yj6TuNt4iGWXNPWL8NesKHrEB1GaGrpgnUKuyG0FQf8DvSPIZCAQKuUVoaxTFkao2yagxdDBqIXj/rgKKmc5r62w6z2IMR4+w3e54cPYH0AsT8IAL0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=HSK65X0L; arc=pass smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B314A3A5438
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:33:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.50
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792078426; cv=none; b=AM2AWaLkEeHJmNB65FzTZlmytT/VlSq+XOZ5dVr9Ub0A3GgShw5eOrAWkomCzxZsuf/LmSv7VaIqLYlEG3hFEEGHvYu8ZwcnramlObFrJeMzyHRNWBIP93JUCTtcgWgg6Je+Ij9YuZDW4H6ZC9qFMQPZJI3Hb+WldCg6VWRDun4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792078426; c=relaxed/simple;
+	bh=FzBM/Ds+FUQXzcI5GyEdRpBe53pipf1qT8h91NAXYwM=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Qs4YwSBHB4RmMZaP2A3FY1E6KMG/OKm0Ti1A94YRq6TrY9tntt3mwSeypvWLAg+OVR6fYzmvE5dE5Cca3NjnYezL3k23CigVMl8sYS0UFgMd2zjKrgFAtDYpqMIyPy46xsLpu/CFUboow5MrF4KTP/atm0ptDQYrxO2FA6N7A5I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com; spf=pass smtp.mailfrom=soleen.com; dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b=kn8Ti6F0; arc=none smtp.client-ip=209.85.217.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="HSK65X0L"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48de6a62a4cso2517653f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:33:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792078404; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ZiVnycK4EYv8vNv92lzmNQzkRpvTprL9QHkuXoriOKom/IGY07Qconi1jyATHY58UO
-         38oUgtQPEfkGyq3JzxGNoL7fC2T/H6iUbeI8r0IYt9rtEaR2IL58glTgWef7tVJ4qHnO
-         ODmHoSXNmAtvhSC3zNYt9j5rYlR8A3bEa5Wx4XqhJdVWPQh8l4S9jOBBPign5Y6yIUaN
-         2NxQDRT/yTShUMPx0060mGVPD5BdaPtLhBxCXJBjU9dqXvF8ALvu0ReNqsY3mKiUgKzb
-         NIVZuw5Offfhh4wcXKN/MLaHpPK1nsuG5AnkvY6O1H43ckHoPEJy1c+NaEVpGB9RBgY4
-         A84Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=RnXdeLR8uLxWAp/EGqtkD57zfy4KroVSjFqtijIOcj4=;
-        fh=Xh0BArH5aRMphy+E3HSWD6C5fzbPeuuh1eThMrWUo3c=;
-        b=pe2zKab/4Gl5Dq0eBgPdXxSrUQBUcuTFw7bt9o0ROpQSqOsC1wzV0qfzPkkWhHTh8s
-         wcKzaUtmvZ07sH7jTjiPOnGx8ZNsKrHlmSBJzSOg3uvmc+PtdxwGCHXOTpKaRXacoCJV
-         MEXHfKtLZ/O8L8r2G1E0RPqwTip/sUnt1R5tL3exWyl61t47i1rUG69t+QCViVcuIwy6
-         yw1GFmUTMcKPDM1wdt671WSBjdipA9RBPZ5Z/jlXfhWOvoS/unMWtNk5c8sc36R0GYxf
-         Raeqb/B9e1vILI+dxxw8t/DiYV30HgnqlUYvCLIZzdZnxtSq4gMvfy/5SqXSD0EtzxI6
-         zUsw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b="kn8Ti6F0"
+Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-74ab99038afso3462122137.3
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:33:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792078404; x=1792683204; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RnXdeLR8uLxWAp/EGqtkD57zfy4KroVSjFqtijIOcj4=;
-        b=HSK65X0LNqT0Ci4EaY+eB94FWP835oDQI1qBeaSJhuvNeb7VLUKY9UQh5eIEKkJ5pQ
-         /e3cbfen3KmKK/cvG2fkQDR1axxCskdahJnk8dAPkTXoNX7bk/iVyr9WT5wtja7BiKIV
-         GQBbgCZ5WLIGQTUWTnjhL+rysI+lihafiypvlcab/UQfOSZbRxIYL3k9bsr3z+SJ81B5
-         pFGhIt4YcsMGC7wx8CaNNkOtNj9xlXib/5qZDuQMf9K2Ax8dbS9xiFUwkK4xiqSvGeQz
-         o8k3GUlINUoYh8XENQ2WTE5l2EimA4TsTvAx5R3GCVGUp/8YkqSRHIdxOVeRBbM0FBkB
-         DrOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792078404; x=1792683204;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=soleen.com; s=google; t=1792078416; x=1792683216; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=RnXdeLR8uLxWAp/EGqtkD57zfy4KroVSjFqtijIOcj4=;
-        b=CHoo3+x2tSphIFoUbYDQhUOocbslmoobQa3aqCcsBohu2huMIAJYp5KsJlQw76h1Rb
-         5KIaHfC+2LU1NZphwZ9qT2iF9Pop4RP/2jAEU9v1GE1rSeEI3RhTA7Kr7vX2iNbeY7FL
-         qVD/uDKd4qjlzJExJ10KTqEYS4TaAQt4hmkiqkvXy2k1cUD4S2DvCjqOzCTlhEF+kXAx
-         92bJJhNu3afz3Vl7ie+5DJWlSLfIh3y+cMxfq9SdVlRdQAtWHlOBSEOJc4hfQtMJvE5V
-         pZZyDGYPJI6EV+5QVr1N65NKk0OuTldL0NqzRFZLdvPMZVxjEKyplwnrj+34HQE6ACC8
-         jpZg==
-X-Forwarded-Encrypted: i=1; AKwUvBzf7+S+uCsY5kjlbxtN4t0brsHOGDa/yLk3DOC8Ks810NlIPiBtgY1TDO6hNQ/vO9DO6T5Q7MJYBkmlvjw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKnGoD385Wanh954Gw2q8sXJIGsIdkUBgYpjz/Q4P3tPnpLU4xd
-	/Y/Wfmucl5vRWugcNvDdiw8kWT8KApATPsp34+fUbInL62NLPoSGW4dzInx6fUnIiYac5eYnPql
-	l8EtUOOLCy1STbskM+XKueBFgjhSgqKHnta24uTKo
-X-Gm-Gg: AYBFou2Vbe3buBEzKSa/R3Z0THdzkdzbDwe3MiCkkj8nEUQeDeVMVv7e2L1vDHn/yHI
-	dSGfYs/o6FOZcwf/I3B8bd/Rs6yi55e0k/zne2lioKuEQAicBs3XQL7SEMb57TNvDjwXejoEc2h
-	sfLl+DksLkYH7SGHfVYCwx7IN3DD1jRVCqF7nU6wxQoTs2Zz53dj3uIXihsTZsGxAdIh2Ia+eUa
-	yonY13g3SKhsDGupejbsPLHvHveK76rVsY6g8ZoIgvXQXiTLXkQ2K5oz7xan24Z8whQQkHMKBSv
-	olmHS4CCn3x9JB/AtzQTpKXCzUfqXvAJiJMG0FZhJOrZr53TrslcJjsdkOM0iNKd963JkFQ3teq
-	geqZfGkJp40T/b+mk/4pBkVm1D+nYwlUkdNN8jEmxgKtneY0sWPy4qG3p4y4X0aPKMPENXohwpZ
-	jmjNsBLpPJWS1rGgGZfdT9DTGI0gJ+VYnmW9Cv9xi/rIu1283vu3l5
-X-Received: by 2002:a5d:5d0e:0:b0:48b:1147:3d75 with SMTP id
- ffacd0b85a97d-48dbace44ebmr35131681f8f.45.1792078403051; Thu, 15 Oct 2026
- 08:33:23 -0700 (PDT)
+        bh=IWqiGzk/pYHC1ZT+qsWV7wuDwiIjMUnX6pd7W6OrNuo=;
+        b=kn8Ti6F0YKZlxxGLYpHUMatp8G9CKeNHfApjbAUEPBXJ0iI6Lk3FnnEUHbvXABhr+Q
+         nK2EEbGZTluojdcPBfOfOgESsu/mOinPYbGvYIr/7BkR3FAXvGlVTxlLXBhvmfhsylIQ
+         g3LEfmaN/g14fjZEcrXG75w6VNFe3XyuQI9lATBJ11Lomb4mQuqZGenm8fk33vQ50vMW
+         NPoio9cOMCl8QJiNNX6QN/rFA6dwlOCrVe4UyVfkBLT81vBRhIQmVftUeDzbGUk2SllI
+         UE3gnlgJ/T97WxnfIYS8894ZLSzVr2IapMFAPhzZXwZQMDDjN2hRK1v/plnXw3bsgSSn
+         uT/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792078416; x=1792683216;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IWqiGzk/pYHC1ZT+qsWV7wuDwiIjMUnX6pd7W6OrNuo=;
+        b=t0mR0rQ2SoMYx0Tnh16gxtwITQui2p+cG253jPJaJbV3Ws+LrWGPAx4N38fHI6QocC
+         sAaDh/bYXoy1xj8vwNubGMj57Jba5XpYNhujggJbhYSNqdhOp8fgtOzs4SpcJWUY4D7s
+         Y0dPiEZGlXUtQ0YjWGxWUGJjD5k6oq7WPxu/b1xBm0+UVzEhEj0LF8LLUYwllyST/hbl
+         v9CfZje4kzPmYL8Jm4He7x9fMpXQ7WbE9TxGF/jg/e1EJT+2oBp+BiEouBcEUM/ksly0
+         A3C+DEybhio5JBadk2N+bL9grT7EDOU0Z5xZFy6cyUXaiwNZq7jrYtoZ5BjZFgt42rJ0
+         k8EQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx5N7ihez/DqdFA9odQz0aQJHGSityWgdymBhLQCo4ui6X1wDP9Lbn47ZgPZeCiAzmJ9l+ccmaIon4PKbw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIM8Qf2kuZa0+hy+frKGmNcS0/XoiMD2HMC73aq47HXFRAsUd0D
+	OKPJxFUn2yM2pEGNYZafnRT9YUSMuQ3vxS8z8hBO5+FBmMxYzt4xVfnJlKoGw/ey5EM=
+X-Gm-Gg: AYBFou1ArYVs1a60K+LOAaPmWz4oXb+BCUgTmysGJTD2+qotTtUor1Q2oE+768BE73n
+	aoj6Zb/Cmozw4u/Y5F+/b909hFEFqie+njW/+dc+wwYY20/n+IPlDl6mJxmAkYJKT9JNVEU/LMN
+	rx9IpzQNqKdsWqn5B0OER+rFznSUTCXJUhRHi+DPJZjQcPSVaTGuxXONaaDg62sncXbgDDTcT7F
+	FvaKWB3mzrQuQZpIqw3fr0sjIMMmt4falscav3f4nk2KQ6FS4p9Afd63I6CeqmstuPg3uSn6k6T
+	Fid2iVuBvkWW8oQlNaAvq3UiVjkS0WGH15zOfiBMAakAErT7X42YaFkQnLVp4dXeqNc879RI9n3
+	me2jrytBEQLwqZ1jCTdX590GmYyW6BoM5aZpOzAG0rRwWN/F6rxDiTQ8bI8Qh7RchD15gs5nxqx
+	yj9uVoqdtfEiqTR9NRgnl2eZyzhof/PXBb2+Fwww2FZs+3SqavBSHjUfo/eSdOaUadd86HInsND
+	lwgxEw8Y7BmOr9A5GroP1ZyBexHcV02FxdhV0rI/OGdypMiuUucsA4mmUvVtZfD+RDKalj33+DL
+	cJFH0BKmsEXtKxCzcEg=
+X-Received: by 2002:a05:6102:c09:b0:78e:1e0f:ea42 with SMTP id ada2fe7eead31-7cb3971582emr7015724137.2.1792078415811;
+        Thu, 15 Oct 2026 08:33:35 -0700 (PDT)
+Received: from soleen.c.googlers.com.com (16.49.199.35.bc.googleusercontent.com. [35.199.49.16])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99003f66ad9sm12986347241.10.2026.10.15.08.33.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 08:33:35 -0700 (PDT)
+From: Pasha Tatashin <pasha.tatashin@soleen.com>
+To: kees@kernel.org,
+	rppt@kernel.org,
+	juri.lelli@redhat.com,
+	nik.borisov@suse.com,
+	tglx@kernel.org,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	vincent.guittot@linaro.org,
+	bp@alien8.de,
+	thorsten.blum@linux.dev,
+	cgroups@vger.kernel.org,
+	tony.luck@intel.com,
+	david@kernel.org,
+	mingo@redhat.com,
+	akpm@linux-foundation.org,
+	linux-mm@kvack.org,
+	seanjc@google.com,
+	ljs@kernel.org,
+	zhangguopeng@kylinos.cn,
+	dietmar.eggemann@arm.com,
+	mhocko@suse.com,
+	vinicius.gomes@intel.com,
+	tj@kernel.org,
+	vbabka@kernel.org,
+	linux-kernel@vger.kernel.org,
+	peterz@infradead.org,
+	surenb@google.com,
+	hpa@zytor.com,
+	x86@kernel.org,
+	pasha.tatashin@soleen.com,
+	dmatlack@google.com,
+	tim.c.chen@linux.intel.com,
+	kexec@lists.infradead.org,
+	pratyush@kernel.org,
+	dave.hansen@linux.intel.com,
+	rostedt@goodmis.org,
+	gmonaco@redhat.com,
+	jgross@suse.com,
+	mgorman@suse.de,
+	graf@amazon.com,
+	linux-edac@vger.kernel.org,
+	liam@infradead.org,
+	ridong.chen@linux.dev,
+	longman@redhat.com,
+	bsegall@google.com
+Subject: [PATCH v1 0/8] x86, sched, mm: Speed up CPU hotplug on large systems
+Date: Thu, 15 Oct 2026 11:33:23 -0400
+Message-ID: <20261015153331.1872641-1-pasha.tatashin@soleen.com>
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261015135752.17028-1-vngocvan@gmail.com>
-In-Reply-To: <20261015135752.17028-1-vngocvan@gmail.com>
-From: Nick Desaulniers <ndesaulniers@google.com>
-Date: Thu, 15 Oct 2026 08:33:11 -0700
-X-Gm-Features: AclHuK9_V3VROI7C5QHxcUZo9gsmpWA-9dqcNZ_FnjWuoNsZd9_ENKv7AbFgjHQ
-Message-ID: <CAKwvOdnkS7AnuJkQr=5-TO6eRL+joSNUKGfqK-mbim9_y0NW=A@mail.gmail.com>
-Subject: Re: [PATCH] gen_compile_commands: honor the build directory for modules
-To: vngocvan <vngocvan@gmail.com>
-Cc: nathan@kernel.org, nsc@kernel.org, morbo@google.com, 
-	justinstitt@google.com, masahiroy@kernel.org, llvm@lists.linux.dev, 
-	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 15, 2026 at 6:58=E2=80=AFAM vngocvan <vngocvan@gmail.com> wrote=
-:
->
-> When invoked from outside the build tree with -d and a modules.order
-> argument, the script opens .mod files relative to the current directory
-> instead of the specified build directory. This can fail with
-> FileNotFoundError or collect commands from unrelated artifacts in the
-> current directory.
->
-> Pass the build directory to cmdfiles_for_modorder() and resolve both
-> the .mod files and their associated .cmd files relative to it. Absolute
-> paths continue to work, and the output location is unchanged.
->
-> Fixes: ecca4fea1ede ("gen_compile_commands: support *.o, *.a, modules.ord=
-er in positional argument")
-> Signed-off-by: vngocvan <vngocvan@gmail.com>
-> ---
->  scripts/clang-tools/gen_compile_commands.py | 9 +++++----
->  1 file changed, 5 insertions(+), 4 deletions(-)
->
-> diff --git a/scripts/clang-tools/gen_compile_commands.py b/scripts/clang-=
-tools/gen_compile_commands.py
-> index 8d14b81efd73..149135f85f19 100755
-> --- a/scripts/clang-tools/gen_compile_commands.py
-> +++ b/scripts/clang-tools/gen_compile_commands.py
-> @@ -124,7 +124,7 @@ def cmdfiles_for_a(archive, ar):
->          yield to_cmdfile(obj)
->
->
-> -def cmdfiles_for_modorder(modorder):
-> +def cmdfiles_for_modorder(modorder, root_directory):
->      """Generate the iterator of .cmd files associated with the modules.o=
-rder.
->
->      Parse the given modules.order, and yield every .cmd file used to bui=
-ld the
-> @@ -132,6 +132,7 @@ def cmdfiles_for_modorder(modorder):
->
->      Args:
->          modorder: The modules.order file to parse
-> +        root_directory: The directory where the objects were built
->
->      Yields:
->          The path to every .cmd file found
-> @@ -142,11 +143,11 @@ def cmdfiles_for_modorder(modorder):
->              base, ext =3D os.path.splitext(obj)
->              if ext !=3D '.o':
->                  sys.exit('{}: module path must end with .o'.format(obj))
-> -            mod =3D base + '.mod'
-> +            mod =3D os.path.join(root_directory, base + '.mod')
->              # Read from *.mod, to get a list of objects that compose the=
- module.
->              with open(mod) as m:
->                  for mod_line in m:
-> -                    yield to_cmdfile(mod_line.rstrip())
-> +                    yield os.path.join(root_directory, to_cmdfile(mod_li=
-ne.rstrip()))
+For live update we require a fast CPU online and offline capability.
+However, sequentially offlining and onlining all application processors
+on modern high-core-count x86 servers exposes a series of hardware and
+algorithmic bottlenecks across arch/x86, the scheduler topology builder,
+deadline bandwidth accounting, and vmstat.
 
-Thanks for the patch. Can we avoid os.path in favor of Path from
-Pathlib? Here and throughout.
+This series addresses these bottlenecks, reducing the time to offline and
+online all AP CPUs by 95.2% (21.0x faster) on a 2-socket, 480-CPU Intel
+Xeon 6985P-C and by 59.8% (2.5x faster) on a 2-socket, 512-CPU AMD EPYC
+9B45.
 
->
->
->  def process_line(root_directory, command_prefix, file_path):
-> @@ -206,7 +207,7 @@ def main():
->          elif path.endswith('.a'):
->              cmdfiles =3D cmdfiles_for_a(path, ar)
->          elif path.endswith('modules.order'):
-> -            cmdfiles =3D cmdfiles_for_modorder(path)
-> +            cmdfiles =3D cmdfiles_for_modorder(path, directory)
->          else:
->              sys.exit('{}: unknown file type'.format(path))
->
->
-> base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
-> --
-> 2.56.0
->
+Benchmark workload (mean of 10 runs per step):
+
+  # echo 1 > /sys/kernel/rcu_expedited
+  # for i in {1..N}; do echo 0 > /sys/devices/system/cpu/cpu$i/online; done
+  # for i in {1..N}; do echo 1 > /sys/devices/system/cpu/cpu$i/online; done
+  # echo 0 > /sys/kernel/rcu_expedited
+
+  2-socket, 480-CPU Intel Xeon 6985P-C (N=479):
+    Offline:  40.40 s ->  3.09 s  (-92.4%, 13.1x faster)
+    Online:   65.83 s ->  1.98 s  (-97.0%, 33.2x faster)
+    Total:   106.23 s ->  5.07 s  (-95.2%, 21.0x faster)
+
+  2-socket, 512-CPU AMD EPYC 9B45 (N=511):
+    Offline:   4.53 s ->  2.30 s  (-49.2%,  2.0x faster)
+    Online:    3.88 s ->  1.08 s  (-72.2%,  3.6x faster)
+    Total:     8.41 s ->  3.38 s  (-59.8%,  2.5x faster)
+
+  (On AMD EPYC 9B45, each 8-core CCD has a 32 MB L3 where WBINVD takes
+   < 0.5 ms, offline uses acpi_idle rather than mwait_play_dead(), and
+   Intel CMCI is unused, so Patches 1-3 do not affect AMD, which enters
+   Patch 4 at 4.53 s offline / 3.92 s online / 8.45 s total. Without
+   rcu_expedited=1, final 10-run mean total time with all 8 patches
+   applied is 12.04 s on Intel and 15.99 s on AMD.)
+
+1. x86 WBINVD, CMCI rediscovery, and MTRR rendezvous (Patches 1-4):
+
+   On processors with large shared last-level caches (such as the 504 MB
+   L3 per socket on Xeon 6985P-C), CPU hotplug is initially dominated by
+   full coherence-domain cache flushes (WBINVD), each taking ~85-115 ms
+   per CPU while stalling active cores:
+
+   - Patch 1 removes the obsolete WBINVD from trampoline_start, which was
+     added in the 1990s for Sequent NUMA-Q hardware (removed in commit
+     b5660ba76b41 ("x86, platforms: Remove NUMAQ")). Per the Intel SDM
+     and AMD APM, INIT preserves cache contents and leaves CR0.CD and
+     CR0.NW unchanged. Removing it cuts 479-CPU online time on Intel from
+     65.83 s to 11.14 s (-83.1%) and total time from 106.23 s to 51.60 s
+     (-51.4%).
+
+   - Patch 2 skips the redundant WBINVD before MWAIT in mwait_play_dead()
+     during runtime CPU offline (retaining it when cpuhp_tasks_frozen is
+     set for system sleep). Architectural MWAIT C-states maintain cache
+     coherency while the package remains powered and flush core-private
+     L1/L2 caches to the LLC on C-state entry, just like normal idle in
+     intel_idle. Skipping it for runtime offline cuts 479-CPU offline
+     time on Intel from 40.46 s to 11.42 s (-71.8%) and total time from
+     51.60 s to 22.50 s (-56.4%).
+
+   - Patch 3 bounds cmci_rediscover() on CPU teardown. Currently,
+     cmci_rediscover() broadcasts an IPI via on_each_cpu() to all online
+     CPUs, serializing them on cmci_discover_lock while reading up to 32
+     MCA MSRs. Because any disabled MCA bank is shared at most with an
+     SMT sibling, L2 cluster peer, or die/package peer, probing a single
+     online topology peer via smp_call_function_single() (or returning
+     immediately when no shared banks were orphaned) reduces 479-CPU
+     offline time on Intel from 11.42 s to 9.63 s (-15.7%) and total time
+     from 22.50 s to 20.74 s (-7.8%).
+
+   - Patch 4 skips the stop_machine_from_inactive_cpu() all-CPU
+     rendezvous (and the AP's cache disable/flush and MTRR reprogramming
+     in cache_cpu_init()) in cache_ap_online() when the AP's hardware
+     MTRR MSRs already match mtrr_state (which cache_aps_init() already
+     programmed during initial boot and warm reset preserves). This cuts
+     online time on Intel from 11.11 s to 8.69 s (-21.8%; total 20.74 s
+     -> 18.54 s, -10.6%) and on AMD from 3.92 s to 3.15 s (-19.6%; total
+     8.45 s -> 7.66 s, -9.3%).
+
+2. Scheduler domain rebuilds, deadline accounting, and vmstat (Patches 5-8):
+
+   Once the x86 hardware bottlenecks are removed, CPU hotplug on both
+   Intel and AMD is dominated by O(N^2) and O(N^3) work inside
+   partition_sched_domains_locked(), build_sched_domains(), and
+   refresh_zone_stat_thresholds():
+
+   - Patch 5 avoids redundant O(N^3) group weight, SMT core-mask, and
+     asym_prefer_cpu recomputations in init_sched_groups_capacity() by
+     caching those fields on struct sched_group_capacity, reuses
+     already-initialized sgc instances in init_overlap_sched_group(), and
+     allocates sdd->sg, sdd->sgc, and d->sds lazily on demand. This cuts
+     total hotplug time on Intel from 18.54 s to 9.20 s (-50.4%) and on
+     AMD from 7.66 s to 5.29 s (-30.9%).
+
+   - Patch 6 eliminates three O(N^2) dl_server bandwidth walks per
+     hotplug step. Because fair_server is enabled on every runqueue by
+     default, rq_attach_root() performs O(N^2) remote extra_bw updates
+     when attaching def_root_domain during teardown and again when
+     attaching the new root_domain during build, followed by a nested
+     O(N^2) loop in dl_clear_root_domain(). Dropping the redundant
+     __dl_server_attach_root() calls in rq_attach_root() and converting
+     dl_clear_root_domain() to two linear O(N) passes cuts
+     dl_clear_root_domain() at ~500 CPUs from 1.8-5.5 ms to < 65 us,
+     reducing total hotplug time by 30.5% on Intel (9.20 s -> 6.39 s)
+     and 18.7% on AMD (5.29 s -> 4.30 s).
+
+   - Patch 7 eliminates per-CPU bitmap scans over already-covered groups
+     in build_sched_groups(), reuses temporary per-CPU domain pointer
+     arrays across rebuilds instead of calling alloc_percpu() and
+     free_percpu() on every hotplug step, reuses precomputed domain/child
+     span weights, and hoists LLC size calculations. This cuts total
+     hotplug time by 15.0% on Intel (6.39 s -> 5.43 s) and 19.5% on AMD
+     (4.30 s -> 3.46 s).
+
+   - Patch 8 avoids unconditionally zeroing and rewriting every online
+     CPU's per-CPU stat_threshold in refresh_zone_stat_thresholds() on
+     every hotplug step (since calculate_normal_threshold() only changes
+     at powers of two and is clamped once num_online_cpus() >= 64),
+     reducing refresh_zone_stat_thresholds() by ~88-91% on Intel and ~51%
+     on AMD, and bringing total hotplug time down to 5.07 s on Intel
+     (-6.6%) and 3.38 s on AMD (-2.3%).
+
+Pasha Tatashin (8):
+  x86/realmode: Remove unnecessary WBINVD from AP startup trampoline
+  x86/smp: Remove unnecessary WBINVD from mwait_play_dead()
+  x86/mce/intel: Bound cmci_rediscover() to a single topology peer
+  x86/cacheinfo, mtrr: Skip stop_machine rendezvous in cache_ap_online()
+    when MTRRs match
+  sched/topology: Avoid redundant O(N^3) group capacity walks and unused
+    allocations in build_sched_domains()
+  sched/deadline, topology: Avoid O(N^2) dl_server bandwidth walks
+    during root_domain rebuilds
+  sched/topology: Avoid redundant percpu allocations and bitmap walks in
+    build_sched_domains()
+  mm/vmstat: Avoid redundant per-CPU stat_threshold writes in
+    refresh_zone_stat_thresholds()
+
+ arch/x86/include/asm/mtrr.h          |   2 +
+ arch/x86/kernel/cpu/cacheinfo.c      |   7 +
+ arch/x86/kernel/cpu/mce/intel.c      |  57 ++++-
+ arch/x86/kernel/cpu/mtrr/generic.c   |  49 ++++
+ arch/x86/kernel/smpboot.c            |  16 +-
+ arch/x86/realmode/rm/trampoline_32.S |   2 -
+ arch/x86/realmode/rm/trampoline_64.S |   1 -
+ include/linux/cpuset.h               |   6 +-
+ include/linux/sched/deadline.h       |   1 -
+ kernel/sched/deadline.c              |  89 ++++---
+ kernel/sched/sched.h                 |  10 +-
+ kernel/sched/topology.c              | 339 ++++++++++++++++-----------
+ mm/vmstat.c                          |  58 ++---
+ 13 files changed, 422 insertions(+), 215 deletions(-)
 
 
---=20
-Thanks,
-~Nick Desaulniers
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+-- 
+2.56.0.385.gd3acb90ef8-goog
