@@ -1,122 +1,228 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A7ED3438A1
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:08:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD2183438A1
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:08:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792030091; cv=none; b=a3BSzNB5n3TBEfk/IPi+SQlyC3HlwxCcbfp917pHrWuvJn+TERhxcQzMqd6PTZTmvTJ4RlAbR8uaB9LkS0Q/1qGBmi8gIcZuVsqPe2pdxdEyNt8C4W5elX9mPH22JRyvR1RcVVO5ngT98/aVbmQ4/lnbZO+GJWgDGfBCQyviC+U=
+	t=1792030113; cv=none; b=CFDIb4xNWTG2ZNZyJAESOBTgXBULJ/wPaSArVkPxrVlG2Llglq/juLun9JG78eLMoPrZnAM3jN6YGZUA/uqRL7ObAnUG0rYTmltpUCMt9cdiX/5v3lw+tdv2gShKzc8QHpCmZH/dYlv/SY4tymMGoemehBWm/27KvrTWJkkYy10=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792030091; c=relaxed/simple;
-	bh=z8rbKTuCjfVAdfxDy/CGPYi1m0YldO3H97Xnt7VhH3w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=oF95hv/Z4Ie+PlU+GH0SP3QNeNLaLMGsJZ2Gr6dZ3s0QXSSBqfKSgppWGGnhafXZcAhEoITIq7UwHjjYa1mmCmnZfXqMoKJ9LKOhPhnk+PnOV6ZefZc9Ue9TQPS9vZXd+FT3z8dZpjE5ir9jJIbZkWV7N3oP7Yzmo69QqB3Fpqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=DV2x+zW3; arc=none smtp.client-ip=209.85.210.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="DV2x+zW3"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-89a595332c7so2582254b3a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:08:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792030088; x=1792634888; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=z8rbKTuCjfVAdfxDy/CGPYi1m0YldO3H97Xnt7VhH3w=;
-        b=DV2x+zW3D8GXd0Bt7v2/GZG63Pi9Pp50O1mRA8yyerwG9HYRnJawq5pE6tAjCpJ2UJ
-         BFDUz0DuE0JYQYvSIgZViaxVPuK0/o72hoHEwCgU7LuT6Oxyvid8wO6R1yRl4FEEMUb5
-         FPG6BmHD4qXO1ojoYilUWrKwB2aMAZvMiQ5U++L3gpr8iyP2UY+y8OVS/uNCiR7FMut+
-         u4fjh5b+XslHf4skMf1nIqVPeJuEbo3B59jUngOrUYPSFZIUOyU3cocg0+c5bisBGbjK
-         W516/cV0gt26z9tHBdD86BvLwrXy8bhxBKxXhxCCadKyEyekAH22EaD4ocV+/RU4HDs8
-         WxQQ==
+	s=arc-20240116; t=1792030113; c=relaxed/simple;
+	bh=kS+a1Apcqr+JMCWAhw4KQm6oWbZMgncere4OOj02byA=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=jmFdZNpTvDpYOS0UxQXLYxR2Ej33gRK+yCo2OAO/pSt5dIEKKZHF9cexqCGyOyaMzAb0EiHczIrunswvSQxuZb3p52AN1aY3kTJ7hWKnTvyFAxNZDUfWlVRuI42NuD9ayEnqsK/pVFZHMmwrCiFAfO6+7Jn6zCuuQzjtCloTZ7s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4cc89e86e9eso1483804b6e.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:08:31 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792030088; x=1792634888;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=z8rbKTuCjfVAdfxDy/CGPYi1m0YldO3H97Xnt7VhH3w=;
-        b=MzmCSvKkBx0AOlDfFsupHaRX4LTezbHxidFXQr6+I/Hv5+6lGq6wH7ZBAym7r/gvme
-         YMZZOdvae+U6NT9v72lf2c7hAcjv0Wd6b7URCXrogazDjJwbY1s+YlmmjDuDNkY2b4xY
-         Firunx7a+ttcRZwxhLB7KxMTuibmNMh0yuDNg5yz9+bwpdNTh1G0/3Fnz3ORWynZXlFj
-         0PcSbBHhlFTIBYBo9MIfbdomCvHgC7L8Q+B9Xyx2tctn5gepgRNwY1GDNRKruIEA+2vU
-         Q6nh3QTUBMzU1F1KuG3Xq13LpF5PwpoFOru/izFTYqk9TQAL6Vi0pzsi62kcT5Hd5aAc
-         PWnA==
-X-Forwarded-Encrypted: i=1; AKwUvByOWzbozMcKOfXvam2utRefvcTUDfPSwBAf81AV3dPxM/GOfJYIZ95mMvmPCInu+bqQrcG/7mqwU8pjNPI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKmreGufFYpp1tlX3BxurB3hmDYQYVxvXK5lo/5E070SDDRp1zs
-	KXOFgRLfVCJB3e9UHopZJO4H6BM15Rs4CX7SI1u0DHt89fb80EgBEJFWa65qWtzAfkk=
-X-Gm-Gg: AYBFou2PA95uwHkxXQ1BgFoJjNgviSNuAy0Yv2ufb0L9Lt6ZxhU1O2L6hupD22MlvNc
-	/Aw7PTUtrr397CPY9gGMJvaqy7qfa0jvGhbbrJsT5+g6LQbZva1gb38OzRQ75YeS8JMtOnIUGFi
-	hEsZGoapF7gMeQX+I737eSvumu3Zfhl0CkLoF2dRTLSrZF9vo0gIJG3PAw0yjDxf9ElhRsNZiJz
-	NXVU7zoPAEAg6V4m4p9EvfZzlPkPrqXzhVesyIx1waJtQmT52uHaJTozPPL6h0LZo4MKbN+N3Mq
-	uOwSt8isFLoLzgCYAyVXtctnrLaE3FEFWP4rk3uujXXVaSF/FEXjO5k65qAjY/c1TUoL1Ftw+YX
-	e2Fgi8WAu+gUzBT15V8r6bN5PeXjN8kBuYRbJWEaeHYO7bCNYFilqP/qhx83ZcX221zE2tVnNda
-	GEu/APJY6ogbjV/MyxlMATr7keOfff/hJuXYWj3bRr9ZiGKffilf2ESRrsBB2FkOvksH9dTAZkj
-	VZ+4g==
-X-Received: by 2002:a17:90a:d2ce:b0:3ac:9925:72ae with SMTP id 98e67ed59e1d1-3ac99259edbmr818954a91.31.1792030088535;
-        Wed, 14 Oct 2026 19:08:08 -0700 (PDT)
-Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac947928b4sm1770401a91.11.2026.10.14.19.08.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 19:08:08 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: linux-scsi@vger.kernel.org
-Cc: "Martin K . Petersen" <mkp@kernel.org>,
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	yhlee@isslab.korea.ac.kr
-Subject: Re: [PATCH v7 6/7] scsi: mvumi: validate the response frame tag before using it
-Date: Thu, 15 Oct 2026 11:07:56 +0900
-Message-ID: <20261015020757.3913811-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <sashiko-outbox-172082@kernel.org>
-References: <sashiko-outbox-172082@kernel.org>
+        d=1e100.net; s=20260707; t=1792030110; x=1792634910;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=dJUt0/SC4NL8tbtp0K3j7ICXwnGIxbLZUqZ7R/dGRL8=;
+        b=0Vtv+rIKDr2XRPmqs511uRgEWZlDHVgL6QZh4QkgYWgh7eI2yNYf6flIa9rSIMwFHo
+         zQ7muf7CZffnL1TJg4f8SauuHOSVtjqeSEqdeR5E7wQjGvxqKBVsnT/YqPFtpWD3h514
+         J5iiQjUB6AVS+Mnfy2FZURiX2NkPo3J9Az4Thui0ruTlFyv+zRvV+hIU6zK7FtE7Y3OM
+         ac3d4j82sYgdqXII76CGyFqG5JmUPYBntc4xlMvqCBX6FnU2N2OUtcvP88mJE5aqQ9yd
+         9U+Ghv+PEH4AADi5CiiRBmfHFCn62HMrbkozwJjBFZZoj/JhdyKo6fDA1eQMYBPO8W4y
+         7TuA==
+X-Forwarded-Encrypted: i=1; AKwUvBwceq99DQI/yM90UHAl09FrediZxwAQQptKTpbjuODbCzy4IbkYFHg/DkzsXmTo64ntYrik04YC+yxwsPA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKbTNwjeY88EHZwrUrW9yk0nJkOUr+nPQ9v3IAoRQtnz9Wj9OjA
+	5OSCA9qek9ukzQTBmp36VGE4Ohd2a5iLqIlNSUiMVTPNfnZv2bUYtuMV3kxp83yijXrqI+wtqMF
+	ac+OsnWiE6AuG6XKPyhwhlEKs88Taw7NPJJfCeC5sMZXdzsYIKPZqw6dHHu0=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:e88:b0:4b3:7549:d3c0 with SMTP id
+ 5614622812f47-50c4e67e7b4mr13615300b6e.18.1792030110732; Wed, 14 Oct 2026
+ 19:08:30 -0700 (PDT)
+Date: Wed, 14 Oct 2026 19:08:30 -0700
+In-Reply-To: <683199ed.a70a0220.29d4a0.07f6.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad0359e.7ce658ee.3494bd.0001.GAE@google.com>
+Subject: Re: [syzbot] [input?] [usb?] KASAN: slab-use-after-free Read in report_descriptor_read
+From: syzbot <syzbot+bc537ca7a0efe33988eb@syzkaller.appspotmail.com>
+To: bentiss@kernel.org, jikos@kernel.org, krishgulati7@gmail.com, 
+	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-usb@vger.kernel.org, luto@kernel.org, stable@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Thanks for the review. None of these are regressions introduced by this
-series; I verified each against the base tree.
+syzbot has found a reproducer for the following issue on:
 
-Endianness (this patch and 5/7): the driver does no device-to-host endian
-conversion anywhere -- these fields are plain u16 and are used natively
-throughout (e.g. host->max_id = mhba->max_target_id, tag_pool.size =
-mhba->max_io). The new checks read the same values the driver already
-consumes, so they follow the existing convention rather than change it.
-Making the driver big-endian-correct would be a driver-wide __le
-conversion, which is a separate change. I'll note that on a big-endian
-build the base driver silently accepts a byte-swapped count and scans
-phantom targets; patch 5 turns that into an explicit probe failure.
+HEAD commit:    d419d682257d Add linux-next specific files for 20261014
+git tree:       linux-next
+console output: https://syzkaller.appspot.com/x/log.txt?x=15f308a5580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=c9a67c2e7f805a9d
+dashboard link: https://syzkaller.appspot.com/bug?extid=bc537ca7a0efe33988eb
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=13f7329c580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=15dcce8e580000
 
-MV9580 / per-completion udelay: the unconditional request_id comparison in
-mvumi_receive_ob_list_entry() is pre-existing. This patch only wraps the
-reads in READ_ONCE(), fixes the > to >= off-by-one, and localizes the tag;
-the comparison itself is unchanged. The new re-check I add in the
-completion handler is gated by request_id_enabled, matching the existing
-gate in mvumi_check_ob_frame(), so a controller that leaves the flag clear
-is unaffected.
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/4bce8ec075a1/disk-d419d682.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/757ea19f6a55/vmlinux-d419d682.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/de4428185ddb/bzImage-d419d682.xz
 
-dma_rmb(): the validate-then-memcpy ordering is unchanged from the base.
-The ownership handshake here is the MMIO copy pointer read with ioread32()
-in mvumi_check_ob_list_9143()/_9580(), which already carries the
-architecture's read barrier, not the tag. The driver's own comment notes an
-entry "may point to [an] entry in [the] outbound list before [the] entry
-has valid data", so the tag can itself be stale; ordering the tag read
-ahead of the payload read would not help, and a CPU barrier cannot make a
-not-yet-DMAed payload arrive. I don't think a dma_rmb() here is correct
-without a firmware write-ordering guarantee I can't establish from the
-tree.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+bc537ca7a0efe33988eb@syzkaller.appspotmail.com
 
-tombstone tag 0xff vs max_io > 255: correct, and pre-existing --
-max_io_support is not bounded and the 0xff sentinel can alias a valid tag.
-This series does not introduce it (the re-check reads the dequeued copy
-before the sentinel is written), but the defect is real; I'll send a
-follow-up that stamps the consumed entry with 0xffff, which is always
-outside the u16 tag range, once this series lands.
+==================================================================
+BUG: KASAN: slab-use-after-free in report_descriptor_read+0xb5/0x100 drivers/hid/hid-core.c:2279
+Read of size 24 at addr ffff88802c2b9e80 by task fido_id/6017
+
+CPU: 0 UID: 0 PID: 6017 Comm: fido_id Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_address_description+0x55/0x1e0 mm/kasan/report.c:378
+ print_report+0x58/0x70 mm/kasan/report.c:482
+ kasan_report+0x117/0x150 mm/kasan/report.c:595
+ check_region_inline mm/kasan/generic.c:-1 [inline]
+ kasan_check_range+0x264/0x2c0 mm/kasan/generic.c:200
+ __asan_memcpy+0x29/0x70 mm/kasan/shadow.c:105
+ report_descriptor_read+0xb5/0x100 drivers/hid/hid-core.c:2279
+ kernfs_file_read_iter fs/kernfs/file.c:262 [inline]
+ kernfs_fop_read_iter+0x434/0x6a0 fs/kernfs/file.c:291
+ new_sync_read fs/read_write.c:493 [inline]
+ vfs_read+0x595/0xa80 fs/read_write.c:574
+ ksys_read+0x150/0x270 fs/read_write.c:716
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f840a7dd407
+Code: 48 89 fa 4c 89 df e8 38 aa 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
+RSP: 002b:00007ffe134d2db0 EFLAGS: 00000202 ORIG_RAX: 0000000000000000
+RAX: ffffffffffffffda RBX: 00007f840a751880 RCX: 00007f840a7dd407
+RDX: 0000000000001000 RSI: 00007ffe134d2e00 RDI: 0000000000000004
+RBP: 000055f16ea9c730 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000202 R12: 000055f16ea9b930
+R13: 00007ffe134d2e00 R14: 0000000000000004 R15: 000055f1306884d8
+ </TASK>
+
+Allocated by task 5342:
+ kasan_save_stack mm/kasan/common.c:57 [inline]
+ kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:409 [inline]
+ __kasan_kmalloc+0x93/0xb0 mm/kasan/common.c:426
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __do_kmalloc_node mm/slub.c:5531 [inline]
+ __kmalloc_node_track_caller_noprof+0x4af/0x720 mm/slub.c:5662
+ kmemdup_noprof+0x2b/0x70 mm/util.c:138
+ kmemdup_noprof include/linux/fortify-string.h:713 [inline]
+ hid_open_report+0x1fa/0xf00 drivers/hid/hid-core.c:1382
+ hid_parse include/linux/hid.h:1208 [inline]
+ lg_probe+0x29c/0x890 drivers/hid/hid-lg.c:783
+ __hid_device_probe drivers/hid/hid-core.c:2839 [inline]
+ hid_device_probe+0x46a/0x870 drivers/hid/hid-core.c:2878
+ call_driver_probe drivers/base/dd.c:-1 [inline]
+ really_probe+0x254/0xae0 drivers/base/dd.c:706
+ __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
+ driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
+ __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
+ bus_for_each_drv+0x258/0x2f0 drivers/base/bus.c:503
+ __device_attach+0x2c4/0x450 drivers/base/dd.c:1098
+ device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
+ bus_probe_device+0x12a/0x220 drivers/base/bus.c:623
+ device_add+0x7d7/0xb80 drivers/base/core.c:3776
+ hid_add_device+0x272/0x3e0 drivers/hid/hid-core.c:3065
+ usbhid_probe+0x9d4/0xde0 drivers/hid/usbhid/hid-core.c:1452
+ usb_probe_interface+0x751/0xe00 drivers/usb/core/driver.c:399
+ call_driver_probe drivers/base/dd.c:-1 [inline]
+ really_probe+0x254/0xae0 drivers/base/dd.c:706
+ __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
+ driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
+ __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
+ bus_for_each_drv+0x258/0x2f0 drivers/base/bus.c:503
+ __device_attach+0x2c4/0x450 drivers/base/dd.c:1098
+ device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
+ bus_probe_device+0x12a/0x220 drivers/base/bus.c:623
+ device_add+0x7d7/0xb80 drivers/base/core.c:3776
+ usb_set_configuration+0x1bb5/0x2260 drivers/usb/core/message.c:2274
+ usb_generic_driver_probe+0x8d/0x150 drivers/usb/core/generic.c:250
+ usb_probe_device+0x1c3/0x3b0 drivers/usb/core/driver.c:293
+ call_driver_probe drivers/base/dd.c:-1 [inline]
+ really_probe+0x254/0xae0 drivers/base/dd.c:706
+ __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
+ driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
+ __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
+ bus_for_each_drv+0x258/0x2f0 drivers/base/bus.c:503
+ __device_attach+0x2c4/0x450 drivers/base/dd.c:1098
+ device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
+ bus_probe_device+0x12a/0x220 drivers/base/bus.c:623
+ device_add+0x7d7/0xb80 drivers/base/core.c:3776
+ usb_new_device+0x9aa/0x1690 drivers/usb/core/hub.c:2713
+ hub_port_connect drivers/usb/core/hub.c:5585 [inline]
+ hub_port_connect_change drivers/usb/core/hub.c:5725 [inline]
+ port_event drivers/usb/core/hub.c:5889 [inline]
+ hub_event+0x28e8/0x4d30 drivers/usb/core/hub.c:5971
+ process_one_work kernel/workqueue.c:3495 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+The buggy address belongs to the object at ffff88802c2b9e80
+ which belongs to the cache kmalloc-32 of size 32
+The buggy address is located 0 bytes inside of
+ freed 32-byte region [ffff88802c2b9e80, ffff88802c2b9ea0)
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff88802c2b9b40 pfn:0x2c2b9
+flags: 0xfff00000000200(workingset|node=0|zone=1|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 00fff00000000200 ffff88813ff26780 ffffea0001fd0550 ffffea0000ae0e90
+raw: ffff88802c2b9b40 000000000040003c 00000000f5000000 0000000000000000
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2cc0(GFP_KERNEL|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 1, tgid 1 (swapper/0), ts 10415342596
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1854
+ prep_new_page mm/page_alloc.c:1862 [inline]
+ get_page_from_freelist+0x220f/0x2280 mm/page_alloc.c:3933
+ __alloc_frozen_pages_noprof+0x1fe/0x410 mm/page_alloc.c:5457
+ alloc_slab_page mm/slub.c:3384 [inline]
+ allocate_slab+0x7d/0x5e0 mm/slub.c:3499
+ new_slab mm/slub.c:3550 [inline]
+ refill_objects+0x2d5/0x350 mm/slub.c:7539
+ refill_sheaf mm/slub.c:2917 [inline]
+ __pcs_replace_empty_main+0x2c8/0x6c0 mm/slub.c:4811
+ alloc_from_pcs mm/slub.c:4887 [inline]
+ slab_alloc_node mm/slub.c:5021 [inline]
+ __do_kmalloc_node mm/slub.c:5530 [inline]
+ __kmalloc_noprof+0x476/0x710 mm/slub.c:5556
+ _kmalloc_noprof include/linux/slab.h:995 [inline]
+ _kzalloc_noprof include/linux/slab.h:1312 [inline]
+ kobject_get_path+0xc5/0x2f0 lib/kobject.c:161
+ kobject_uevent_env+0x29e/0x9e0 lib/kobject_uevent.c:548
+ really_probe+0x774/0xae0 drivers/base/dd.c:756
+ __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
+ driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
+ __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
+ bus_for_each_drv+0x258/0x2f0 drivers/base/bus.c:503
+ __device_attach+0x2c4/0x450 drivers/base/dd.c:1098
+ device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
+page_owner free stack trace missing
+
+Memory state around the buggy address:
+ ffff88802c2b9d80: fa fb fb fb fc fc fc fc 00 00 00 00 fc fc fc fc
+ ffff88802c2b9e00: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
+>ffff88802c2b9e80: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
+                   ^
+ ffff88802c2b9f00: 00 00 00 07 fc fc fc fc fa fb fb fb fc fc fc fc
+ ffff88802c2b9f80: 00 00 00 00 fc fc fc fc fa fb fb fb fc fc fc fc
+==================================================================
+
+
+---
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
