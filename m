@@ -1,417 +1,144 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com [209.85.221.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 683F53ABD90;
-	Thu, 15 Oct 2026 08:16:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 359E14AEBD2
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:17:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792052220; cv=none; b=U+rDmwG/SEhVCdMet31D3qlL5jod8HnQX/LkCKaO/LZ1c6Zv99y7NpbDZLIFvgYMYTJ2gEKl+zzbr/yuRDzUPPdAAVrHYMeaVUZSxMluP6QbOSYkrkNlRc45CU+XFVTQGYZZb6vateEzFFHfXOGXCiOv+rX4CjazfwlAM+PQQyg=
+	t=1792052238; cv=none; b=Sl/aPSyLVnihHPC/KAhNGhzwrz4hVe1OKfj4qjp+UTl0WNeJWFTZORLwhUw0+bj4tuo7ow98vRivF9teUfqcjtp1ssbxeShpBO6kiqspQIKs0NrfkVADby7zTSkmeWhE9tYc1dnd1gv8JtkfWpNNiwq0yLkeD/ou2reD9/D43c4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792052220; c=relaxed/simple;
-	bh=lWkqtz5H9LqsTzFFZEYqRWMSP7MkBrAea+Yrg/PeIII=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=DIA5wTYmtp18cSQBHudTMLQBd9daci9Q89/7Vhn07yBXjDadq5Mci5MNzl4gzaWuHdWQzylAiLCwg+n6EeeWiVWc8tta6fOYKfQg8cXctAfczsvk15D0d3ke6JrmO5Vp82c09zkhU7E9OAEBW2oAgGw2wfZlXkib34TFVr1ZetY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=tyawvZU/; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1792052238; c=relaxed/simple;
+	bh=E7PZ6N0FszxLMMdaYgjXFBu8QGf6U3lNuUd7q+Uemus=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=uujeUgLb2NEUsbfnkOMabofPYdQ8GhGG5TsHGNFqzCfity3FWcKhu+NJocqvlwKbUMgOqNl+v63VuPPHjyqmZzS1tRY5MPKGavDEGKj+Gt1ZqSCmcR56Qc9WfXhOViopRow9bJhsr4874ZX3+TfVhYMqtR8l5z3aSFyOJYeba+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=EmTSgeQc; arc=none smtp.client-ip=209.85.221.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="tyawvZU/"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F35FDA1418;
-	Thu, 15 Oct 2026 10:16:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1792052213; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=ROx8ZrIJxZPKAnmEDgSiLHFrl4/+fCH2BLuQGAkssG8=;
-	b=tyawvZU/IZ63eeeesnSa72wQnkzH+SaM1aPjO7EtokPfeiDyBCkpdRUxZ0pO2WXkL578aM
-	YsaziRM9tc2jHtnqWTMaWWhaXqvkhDzc18wazja+gmvwukPndbF+92ijsCbCMnu3Fz/ONE
-	7Y/eKc/ERJfoevkTRFzTIlLIJwBGn/Mip0x78Oi0aKnMw3QcyqTLg/7K6hFiddjBsgz49g
-	neq3ZgIhADgw3Oc85OtYYgnZ0/sVJ2pQ7A9kkUTepggqQd53+78Wrbkoc2dzJGrZVng3KE
-	3/dVuNbbPztehyUxIeSz8FdHNyjcvhPwzlaZp+DFOocn/3YPoDea71rQ+dN/vg==
-From: Nicolai Buchwitz <nb@tipi-net.de>
-Date: Thu, 15 Oct 2026 10:16:38 +0200
-Subject: [PATCH net-next] net: rename skb_unshare() to skb_unclone_full()
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="EmTSgeQc"
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48c437ae81eso921602f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:17:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792052235; x=1792657035; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qX7Lg8nlPzyAAsaFZtEahUdsTQmoqhdq+zOHN21G2HM=;
+        b=EmTSgeQcmOPgZbudvDM5YK601HW2rXW5xDB0m8AXDOTxntsugs2csqxdLrlgiwhe/3
+         n4cZg2o8EQnO86ojJPs/YXnK21XbtYU7q1JBUGycMhA0cFz5KkRfHlEAlL/sN26qCxLX
+         ayRyW6v1tVXTWXatTwvQDU2iYYufNLHU3BneJZ+jcDDlNtojmeYXtsqOaWihcnyNbALc
+         1FWHCZD5WviZ07ttCNN09UBPcf3mhE/va3ddG7Mb5h/xslD52ecdYqU2us1qoM7Lifkb
+         Zf5qM5nLvwW60WOVL9PWfI1mg4TsldjdZ3lwHrbh4wQmbT9F9ZOsTApAktzuzQdr+Kie
+         Cbfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792052235; x=1792657035;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qX7Lg8nlPzyAAsaFZtEahUdsTQmoqhdq+zOHN21G2HM=;
+        b=d/550N72Ft6YFzgvo7wkap3bJ03iO21QfioMRPcW2reVemwmtfk61CwR7eBDvjKpJH
+         NmGVDFolljCw4Mxe9p/CKekMhzsCQb25qiZiuKxBsMZzIW1vHZuBElX/6xgUtmtvW9Mw
+         fSt++I7GAikaMyCSu8rG3ld2IBTAJmsmbSEebqserqstx8iNmNQ4grtxBp5fEDY2ViMQ
+         qRF2vjwNvnmz1X/Dwanq0RWiR4AFfyXz2zqUOSrOO/4M90YOXiwuW17XxWWF7/Q5IcY3
+         azf+wCdD5ubJpc+O0de36eIZCzUDg8vfF8MVFZfn1/UTZi3No1rOABExYRJ5vNHGmfZ0
+         eYUw==
+X-Forwarded-Encrypted: i=1; AKwUvBzBd1EWCstUvf3k3G5HDWvMgPrb4zssm0rQalOh76B8YB0A04cONaQEDd5dR7G33GpKSiKlO5Xf2vMUPyY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYILsoC1YiOVwR6PbwsD75SVX1bek6zh8nGXeS1AmVBuPov4y3j5
+	TPrH6XfKk64uCprl1ob1nCRoQ9ZtV2ptuSHD1E7WeahhM07xeTzG41FXNhR2BNmSqWh1Xvwv+oL
+	wQE8N4EuVVhOl+WYSCA==
+X-Received: from wroy15.prod.google.com ([2002:adf:f14f:0:b0:48d:f52d:93ac])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6000:46ca:b0:48d:f14a:9188 with SMTP id ffacd0b85a97d-48df14a92b1mr4100690f8f.17.1792052235100;
+ Thu, 15 Oct 2026 01:17:15 -0700 (PDT)
+Date: Thu, 15 Oct 2026 08:16:26 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIANqL0GoC/x3MQQrDIBBA0auEWXfEscXaXiVkUXWaDC0mUQgJk
+ rtXunyL/ysUzsIFnl2FzJsUmVMDXToI0yuNjBKbwWhjSdMVyyLpO4cPSl7RIjl83I0O0dPNs4X WLZnfsv+fPVhFTh0wnOcPRFahxWsAAAA=
+X-Change-Id: 20261013-spinlock-irq-6-18-9720cdb14be6
+X-Developer-Key: i=aliceryhl@google.com; a=openpgp; fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2178; i=aliceryhl@google.com;
+ h=from:subject:message-id; bh=E7PZ6N0FszxLMMdaYgjXFBu8QGf6U3lNuUd7q+Uemus=;
+ b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBq0IwERFzAhp1VNXrBknz/Gt2WAq3AYCiFa2d8Q
+ rh8yHyRBHCJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCatCMBAAKCRAEWL7uWMY5
+ RvYfD/41o14648yaQad597iJTkzJ9ic6n9ykRuUWrHM5caQsBVoLm6StqOROvoTMoPXnxoDwVt8
+ k+D6HHmT/Wfp5hXMBLBh8cBcPN91UDml/04cVLMsEAr4Gnt/zqgdj9pVJQOiD/y2oB2SmfDGV1B
+ uIZxlPed2k8dFNl6c//nCBihgeX4Sv8cUkdSNBIdb7vOjhJB+ow5dZ2KOZX/kdeh2OBdPWK3yeN
+ grJYZcTDmPA+CYyBJ8ayGWC2DfYIDtZ9IAoh+cMFVPAUopLkk/fQRcBNw/A8sZv8Rb1i6MTDHEp
+ xNpnYnjPt+dKy3/xrqrdwDptf5s8eZBI9OoA2A1ft7e+2nkssL9RsYVeLAFykln2kcE6U6vIEKA
+ TdmDXspxrEvizz0/x6B5TVhlP0z193iwzxTkAPIM9qZIsDdgVrDqRkD+3gTMSVwqnkplynWTVh5
+ cfn2ofzRe6Vf4r5nGF1lr5Hhc/cy9UTZ8asPTITVssTbSBmSCSiUe8vVGPmqn6tJaEl6VY4DIgp
+ 3kFj70It4GLkTW0tbmTDLRkXFKmHqAZEXWpe5JAmREWwYYuldOQ/qXV5Wskz16N+oOocFPOBWhK
+ FXJN7R3/IMuW0HEz0s2iThER18f+0JnhewIDaEbuZI/FGy9meYTtSZeg0d8inU+N6EM9przq8Kj 61sj3bwXiV9QOCg==
+X-Mailer: b4 0.14.3
+Message-ID: <20261015-spinlock-irq-6-18-v1-0-72c58975994e@google.com>
+Subject: [PATCH 6.18.y 0/6] Backport spin_lock_irq_disable() to 6.18.y
+From: Alice Ryhl <aliceryhl@google.com>
+To: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Sasha Levin <sashal@kernel.org>, Boqun Feng <boqun.feng@gmail.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Gary Guo <gary@garyguo.net>
+Cc: Boqun Feng <boqun@kernel.org>, Lyude Paul <lyude@redhat.com>, Ingo Molnar <mingo@redhat.com>, 
+	Will Deacon <will@kernel.org>, Waiman Long <longman@redhat.com>, 
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Miguel Ojeda <ojeda@kernel.org>, 
+	Alex Gaynor <alex.gaynor@gmail.com>, 
+	"=?utf-8?q?Bj=C3=B6rn_Roy_Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, linux-kernel@vger.kernel.org, 
+	linux-rt-devel@lists.linux.dev, rust-for-linux@vger.kernel.org, 
+	Alice Ryhl <aliceryhl@google.com>
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-nb-skb-unclone-full-v1-1-0dfbf01f60f2@tipi-net.de>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMywrCMBAAf6Xs2YWm+P4V8ZBNN7oatpJNpFD67
- 0Y9DsPMAsZZ2ODcLZD5LSaTNnCbDsLd641RxsYw9MPe9W6HSmhPwqohTcoYa0o4+khue6Cj9yd
- o5StzlPl3vYByQeW5wPVvrNKDQ/lOYV0/9+QGz4EAAAA=
-X-Change-ID: 20261015-nb-skb-unclone-full-dafb147b8aa9
-To: Raju Rangoju <Raju.Rangoju@amd.com>, 
- Prashanth Kumar K R <PrashanthKumar.K.R@amd.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Ioana Ciornei <ioana.ciornei@nxp.com>, Sunil Goutham <sgoutham@marvell.com>, 
- Geetha sowjanya <gakula@marvell.com>, 
- Ratheesh Kannoth <rkannoth@marvell.com>, 
- Subbaraya Sundeep <sbhatta@marvell.com>, 
- Bharat Bhushan <bbhushan2@marvell.com>, 
- Maxime Chevallier <maxime.chevallier@bootlin.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Sabrina Dubroca <sd@queasysnail.net>, Simon Horman <horms@kernel.org>, 
- Marcel Holtmann <marcel@holtmann.org>, 
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
- Vladimir Oltean <olteanv@gmail.com>, Alexander Aring <alex.aring@gmail.com>, 
- Stefan Schmidt <stefan@datenfreihafen.org>, 
- Miquel Raynal <miquel.raynal@bootlin.com>, 
- Jeremy Kerr <jk@codeconstruct.com.au>, 
- Matt Johnston <matt@codeconstruct.com.au>, 
- Stephen Hemminger <stephen@networkplumber.org>, 
- Jamal Hadi Salim <jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>, 
- Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, 
- Xin Long <lucien.xin@gmail.com>, Jon Maloy <jmaloy@redhat.com>, 
- Tung Quang Nguyen <tung.quang.nguyen@est.tech>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-stm32@st-md-mailman.stormreply.com, 
- linux-arm-kernel@lists.infradead.org, linux-bluetooth@vger.kernel.org, 
- linux-wpan@vger.kernel.org, linux-sctp@vger.kernel.org, 
- tipc-discussion@lists.sourceforge.net, Nicolai Buchwitz <nb@tipi-net.de>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
 
-skb_unshare() only copies cloned skbs. A shared skb that is not a clone
-comes back unchanged, which the name doesn't suggest. The loopback
-selftest hooks got caught by this and hit BUG_ON(skb_shared()).
+This series backports the new spin_lock_irq_disable() API, as well as
+the new SpinLockIrq API for Rust to 6.18.y. This means that any upstream
+code using these APIs can be backported cleanly to 6.18.y without
+needing adjustment to work using the old APIs.
 
-Rename it to skb_unclone_full(). Like skb_unclone() it only acts on
-clones, but it copies the whole skb, not just the head.
+The first commit uses a different implementation than upstream commit
+e901c1510e24 ("irq,spin_lock: Add counted interrupt
+disabling/enabling"). In mainline, `local_interrupt_enable()` works by
+carving `HARDIRQ_DISABLE_BITS` out of `preempt_count`, which requires
+reworking the `preempt_count` layout and arch-specific accessors across
+x86, arm64, and s390. Instead of backporting those invasive changes to
+6.18.y, patch 1 implements the same refcounted interrupt disabling API
+using a dedicated per-CPU nesting counter and saved irqflags word. This
+is slightly less efficient, but is much less invasive. Patches 2-6 are
+clean cherry-picks of the upstream patches.
 
-Suggested-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+Signed-off-by: Alice Ryhl <aliceryhl@google.com>
 ---
-Follow-up to Jakub's suggestion on the selftest shared-skb series:
-https://lore.kernel.org/all/20261014130618.4c50f817@kernel.org/
----
- drivers/net/ethernet/amd/xgbe/xgbe-selftest.c            |  2 +-
- drivers/net/ethernet/freescale/dpaa2/dpaa2-eth.c         |  4 ++--
- drivers/net/ethernet/freescale/dpaa2/dpaa2-switch.c      |  4 ++--
- drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c |  2 +-
- drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c   |  2 +-
- drivers/net/macsec.c                                     |  6 +++---
- include/linux/if_vlan.h                                  | 16 ++++++++--------
- include/linux/skbuff.h                                   | 11 +++++++----
- net/bluetooth/6lowpan.c                                  |  2 +-
- net/dsa/tag.c                                            |  2 +-
- net/ieee802154/6lowpan/rx.c                              |  2 +-
- net/ieee802154/6lowpan/tx.c                              |  2 +-
- net/mctp/route.c                                         |  2 +-
- net/sched/sch_netem.c                                    |  4 ++--
- net/sctp/ulpqueue.c                                      |  2 +-
- net/tipc/msg.c                                           |  2 +-
- 16 files changed, 34 insertions(+), 31 deletions(-)
+Alice Ryhl (1):
+      irq: Add refcounted local interrupt disabling
 
-diff --git a/drivers/net/ethernet/amd/xgbe/xgbe-selftest.c b/drivers/net/ethernet/amd/xgbe/xgbe-selftest.c
-index cfdbd4639a1e..7ebae08ddf29 100644
---- a/drivers/net/ethernet/amd/xgbe/xgbe-selftest.c
-+++ b/drivers/net/ethernet/amd/xgbe/xgbe-selftest.c
-@@ -44,7 +44,7 @@ static int xgbe_test_loopback_validate(struct sk_buff *skb,
- 	struct iphdr *ih;
- 	int eat;
- 
--	skb = skb_unshare(skb, GFP_ATOMIC);
-+	skb = skb_unclone_full(skb, GFP_ATOMIC);
- 	if (!skb)
- 		goto out;
- 
-diff --git a/drivers/net/ethernet/freescale/dpaa2/dpaa2-eth.c b/drivers/net/ethernet/freescale/dpaa2/dpaa2-eth.c
-index def2d5c0e7f7..7227a35dfaf2 100644
---- a/drivers/net/ethernet/freescale/dpaa2/dpaa2-eth.c
-+++ b/drivers/net/ethernet/freescale/dpaa2/dpaa2-eth.c
-@@ -1418,9 +1418,9 @@ static netdev_tx_t __dpaa2_eth_tx(struct sk_buff *skb,
- 	/* We'll be holding a back-reference to the skb until Tx Confirmation;
- 	 * we don't want that overwritten by a concurrent Tx with a cloned skb.
- 	 */
--	skb = skb_unshare(skb, GFP_ATOMIC);
-+	skb = skb_unclone_full(skb, GFP_ATOMIC);
- 	if (unlikely(!skb)) {
--		/* skb_unshare() has already freed the skb */
-+		/* skb_unclone_full() has already freed the skb */
- 		percpu_stats->tx_dropped++;
- 		return NETDEV_TX_OK;
- 	}
-diff --git a/drivers/net/ethernet/freescale/dpaa2/dpaa2-switch.c b/drivers/net/ethernet/freescale/dpaa2/dpaa2-switch.c
-index 8cabce0eb2ab..fe8ac5e85259 100644
---- a/drivers/net/ethernet/freescale/dpaa2/dpaa2-switch.c
-+++ b/drivers/net/ethernet/freescale/dpaa2/dpaa2-switch.c
-@@ -1276,9 +1276,9 @@ static netdev_tx_t dpaa2_switch_port_tx(struct sk_buff *skb,
- 	}
- 
- 	/* We'll be holding a back-reference to the skb until Tx confirmation */
--	skb = skb_unshare(skb, GFP_ATOMIC);
-+	skb = skb_unclone_full(skb, GFP_ATOMIC);
- 	if (unlikely(!skb)) {
--		/* skb_unshare() has already freed the skb */
-+		/* skb_unclone_full() has already freed the skb */
- 		net_err_ratelimited("%s: Error copying the socket buffer\n", net_dev->name);
- 		goto err_exit;
- 	}
-diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c
-index 77c5cfbe4ce4..4e418c7456b7 100644
---- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c
-+++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c
-@@ -2117,7 +2117,7 @@ dma_addr_t otx2_dma_map_skb_frag(struct otx2_nic *pfvf,
- 	/* Crypto hardware need write permission for ipsec crypto offload */
- 	if (unlikely(xfrm_offload(skb))) {
- 		dir = DMA_BIDIRECTIONAL;
--		skb = skb_unshare(skb, GFP_ATOMIC);
-+		skb = skb_unclone_full(skb, GFP_ATOMIC);
- 	}
- 
- 	/* First segment is always skb->data */
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
-index dbe8339947be..40811df8f2b7 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
-@@ -920,7 +920,7 @@ static int stmmac_test_vlan_validate(struct sk_buff *skb,
- 
- 	proto = tpriv->svlan ? ETH_P_8021AD : ETH_P_8021Q;
- 
--	skb = skb_unshare(skb, GFP_ATOMIC);
-+	skb = skb_unclone_full(skb, GFP_ATOMIC);
- 	if (!skb)
- 		goto out;
- 
-diff --git a/drivers/net/macsec.c b/drivers/net/macsec.c
-index 409fd855235b..b714052e1a37 100644
---- a/drivers/net/macsec.c
-+++ b/drivers/net/macsec.c
-@@ -639,7 +639,7 @@ static struct sk_buff *macsec_encrypt(struct sk_buff *skb,
- 			return ERR_PTR(-ENOMEM);
- 		}
- 	} else {
--		skb = skb_unshare(skb, GFP_ATOMIC);
-+		skb = skb_unclone_full(skb, GFP_ATOMIC);
- 		if (!skb) {
- 			macsec_txsa_put(tx_sa);
- 			return ERR_PTR(-ENOMEM);
-@@ -948,7 +948,7 @@ static struct sk_buff *macsec_decrypt(struct sk_buff *skb,
- 
- 		aead_request_set_crypt(req, sg, sg, len, iv);
- 		aead_request_set_ad(req, macsec_hdr_len(macsec_skb_cb(skb)->has_sci));
--		skb = skb_unshare(skb, GFP_ATOMIC);
-+		skb = skb_unclone_full(skb, GFP_ATOMIC);
- 		if (!skb) {
- 			aead_request_free(req);
- 			return ERR_PTR(-ENOMEM);
-@@ -1154,7 +1154,7 @@ static rx_handler_result_t macsec_handle_frame(struct sk_buff **pskb)
- 	if (hdr->eth.h_proto != htons(ETH_P_MACSEC))
- 		return handle_not_macsec(skb);
- 
--	skb = skb_unshare(skb, GFP_ATOMIC);
-+	skb = skb_unclone_full(skb, GFP_ATOMIC);
- 	*pskb = skb;
- 	if (!skb)
- 		return RX_HANDLER_CONSUMED;
-diff --git a/include/linux/if_vlan.h b/include/linux/if_vlan.h
-index 975892367136..c863cdf60f01 100644
---- a/include/linux/if_vlan.h
-+++ b/include/linux/if_vlan.h
-@@ -427,8 +427,8 @@ static inline int __vlan_insert_tag(struct sk_buff *skb,
-  * Inserts the VLAN tag into @skb as part of the payload at offset mac_len
-  * Returns a VLAN tagged skb. This might change skb->head.
-  *
-- * Following the skb_unshare() example, in case of error, the calling function
-- * doesn't have to worry about freeing the original skb.
-+ * Following the skb_unclone_full() example, in case of error, the calling
-+ * function doesn't have to worry about freeing the original skb.
-  *
-  * Does not change skb->protocol so this function can be used during receive.
-  *
-@@ -458,8 +458,8 @@ static inline struct sk_buff *vlan_insert_inner_tag(struct sk_buff *skb,
-  * Inserts the VLAN tag into @skb as part of the payload
-  * Returns a VLAN tagged skb. This might change skb->head.
-  *
-- * Following the skb_unshare() example, in case of error, the calling function
-- * doesn't have to worry about freeing the original skb.
-+ * Following the skb_unclone_full() example, in case of error, the calling
-+ * function doesn't have to worry about freeing the original skb.
-  *
-  * Does not change skb->protocol so this function can be used during receive.
-  *
-@@ -480,8 +480,8 @@ static inline struct sk_buff *vlan_insert_tag(struct sk_buff *skb,
-  * Inserts the VLAN tag into @skb as part of the payload
-  * Returns a VLAN tagged skb. This might change skb->head.
-  *
-- * Following the skb_unshare() example, in case of error, the calling function
-- * doesn't have to worry about freeing the original skb.
-+ * Following the skb_unclone_full() example, in case of error, the calling
-+ * function doesn't have to worry about freeing the original skb.
-  *
-  * Return: modified @skb on success, NULL on error (@skb is freed).
-  */
-@@ -524,8 +524,8 @@ static inline void __vlan_hwaccel_copy_tag(struct sk_buff *dst, const struct sk_
-  *
-  * Pushes the VLAN tag from @skb->vlan_tci inside to the payload.
-  *
-- * Following the skb_unshare() example, in case of error, the calling function
-- * doesn't have to worry about freeing the original skb.
-+ * Following the skb_unclone_full() example, in case of error, the calling
-+ * function doesn't have to worry about freeing the original skb.
-  */
- static inline struct sk_buff *__vlan_hwaccel_push_inside(struct sk_buff *skb)
- {
-diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
-index 27ec1e38c828..cd969dd73841 100644
---- a/include/linux/skbuff.h
-+++ b/include/linux/skbuff.h
-@@ -2125,14 +2125,14 @@ static inline struct sk_buff *skb_share_check(struct sk_buff *skb, gfp_t pri)
- }
- 
- /*
-- *	Copy shared buffers into a new sk_buff. We effectively do COW on
-+ *	Copy cloned buffers into a new sk_buff. We effectively do COW on
-  *	packets to handle cases where we have a local reader and forward
-  *	and a couple of other messy ones. The normal one is tcpdumping
-  *	a packet that's being forwarded.
-  */
- 
- /**
-- *	skb_unshare - make a copy of a shared buffer
-+ *	skb_unclone_full - make a private copy of a cloned buffer
-  *	@skb: buffer to check
-  *	@pri: priority for memory allocation
-  *
-@@ -2142,10 +2142,13 @@ static inline struct sk_buff *skb_share_check(struct sk_buff *skb, gfp_t pri)
-  *	the original buffer is returned. When called with a spinlock held or
-  *	from interrupt state @pri must be %GFP_ATOMIC
-  *
-+ *	Unlike skb_unclone(), the paged data is copied as well. A buffer with
-+ *	skb->users > 1 that is not a clone is returned as is, use
-+ *	skb_share_check() for that case.
-+ *
-  *	%NULL is returned on a memory allocation failure.
-  */
--static inline struct sk_buff *skb_unshare(struct sk_buff *skb,
--					  gfp_t pri)
-+static inline struct sk_buff *skb_unclone_full(struct sk_buff *skb, gfp_t pri)
- {
- 	might_sleep_if(gfpflags_allow_blocking(pri));
- 	if (skb_cloned(skb)) {
-diff --git a/net/bluetooth/6lowpan.c b/net/bluetooth/6lowpan.c
-index 30f4afa18bc8..a1c9c0d75da1 100644
---- a/net/bluetooth/6lowpan.c
-+++ b/net/bluetooth/6lowpan.c
-@@ -515,7 +515,7 @@ static netdev_tx_t bt_xmit(struct sk_buff *skb, struct net_device *netdev)
- 	/* We must take a copy of the skb before we modify/replace the ipv6
- 	 * header as the header could be used elsewhere
- 	 */
--	skb = skb_unshare(skb, GFP_ATOMIC);
-+	skb = skb_unclone_full(skb, GFP_ATOMIC);
- 	if (!skb)
- 		return NET_XMIT_DROP;
- 
-diff --git a/net/dsa/tag.c b/net/dsa/tag.c
-index 991732d6eae2..6a5aa7fc331c 100644
---- a/net/dsa/tag.c
-+++ b/net/dsa/tag.c
-@@ -64,7 +64,7 @@ static int dsa_switch_rcv(struct sk_buff *skb, struct net_device *dev,
- 		return 0;
- 	}
- 
--	skb = skb_unshare(skb, GFP_ATOMIC);
-+	skb = skb_unclone_full(skb, GFP_ATOMIC);
- 	if (!skb)
- 		return 0;
- 
-diff --git a/net/ieee802154/6lowpan/rx.c b/net/ieee802154/6lowpan/rx.c
-index 517e6493f5d1..9148f1be7cba 100644
---- a/net/ieee802154/6lowpan/rx.c
-+++ b/net/ieee802154/6lowpan/rx.c
-@@ -294,7 +294,7 @@ static int lowpan_rcv(struct sk_buff *skb, struct net_device *wdev,
- 	 */
- 	if (lowpan_is_frag1(*skb_network_header(skb)) ||
- 	    lowpan_is_iphc(*skb_network_header(skb))) {
--		skb = skb_unshare(skb, GFP_ATOMIC);
-+		skb = skb_unclone_full(skb, GFP_ATOMIC);
- 		if (!skb)
- 			goto out;
- 	}
-diff --git a/net/ieee802154/6lowpan/tx.c b/net/ieee802154/6lowpan/tx.c
-index b261daedc290..d346e906e41e 100644
---- a/net/ieee802154/6lowpan/tx.c
-+++ b/net/ieee802154/6lowpan/tx.c
-@@ -279,7 +279,7 @@ netdev_tx_t lowpan_xmit(struct sk_buff *skb, struct net_device *ldev)
- 			return NET_XMIT_DROP;
- 		}
- 	} else {
--		skb = skb_unshare(skb, GFP_ATOMIC);
-+		skb = skb_unclone_full(skb, GFP_ATOMIC);
- 		if (!skb)
- 			return NET_XMIT_DROP;
- 	}
-diff --git a/net/mctp/route.c b/net/mctp/route.c
-index e7c95eeacb48..d18ed9d0db1d 100644
---- a/net/mctp/route.c
-+++ b/net/mctp/route.c
-@@ -396,7 +396,7 @@ static int mctp_frag_queue(struct mctp_sk_key *key, struct sk_buff *skb)
- 		 * this will free the skb; callers can no longer access it
- 		 * safely.
- 		 */
--		key->reasm_head = skb_unshare(skb, GFP_ATOMIC);
-+		key->reasm_head = skb_unclone_full(skb, GFP_ATOMIC);
- 		if (!key->reasm_head)
- 			return -ENOMEM;
- 
-diff --git a/net/sched/sch_netem.c b/net/sched/sch_netem.c
-index 8a1b89a289d8..1dc2924890eb 100644
---- a/net/sched/sch_netem.c
-+++ b/net/sched/sch_netem.c
-@@ -460,7 +460,7 @@ static int netem_enqueue(struct sk_buff *skb, struct Qdisc *sch,
- 			 struct sk_buff **to_free)
- {
- 	struct netem_sched_data *q = qdisc_priv(sch);
--	/* We don't fill cb now as skb_unshare() may invalidate it */
-+	/* We don't fill cb now as skb_unclone_full() may invalidate it */
- 	struct netem_skb_cb *cb;
- 	struct sk_buff *skb2 = NULL;
- 	struct sk_buff *segs = NULL;
-@@ -528,7 +528,7 @@ static int netem_enqueue(struct sk_buff *skb, struct Qdisc *sch,
- 			qdisc_skb_cb(skb)->pkt_len = skb->len;
- 		}
- 
--		skb = skb_unshare(skb, GFP_ATOMIC);
-+		skb = skb_unclone_full(skb, GFP_ATOMIC);
- 		if (unlikely(!skb)) {
- 			WRITE_ONCE(q->allocation_errors, q->allocation_errors + 1);
- 			qdisc_qstats_drop(sch);
-diff --git a/net/sctp/ulpqueue.c b/net/sctp/ulpqueue.c
-index b05daafd369a..93823eebd727 100644
---- a/net/sctp/ulpqueue.c
-+++ b/net/sctp/ulpqueue.c
-@@ -339,7 +339,7 @@ struct sctp_ulpevent *sctp_make_reassembled_event(struct net *net,
- 		if (skb_cloned(f_frag)) {
- 			/* This is a cloned skb, we can't just modify
- 			 * the frag_list.  We need a new skb to do that.
--			 * Instead of calling skb_unshare(), we'll do it
-+			 * Instead of calling skb_unclone_full(), we'll do it
- 			 * ourselves since we need to delay the free.
- 			 */
- 			new = skb_copy(f_frag, GFP_ATOMIC);
-diff --git a/net/tipc/msg.c b/net/tipc/msg.c
-index b0bba0feef56..39dfd33c8eec 100644
---- a/net/tipc/msg.c
-+++ b/net/tipc/msg.c
-@@ -145,7 +145,7 @@ int tipc_buf_append(struct sk_buff **headbuf, struct sk_buff **buf)
- 		if (skb_has_frag_list(frag) && __skb_linearize(frag))
- 			goto err;
- 		*buf = NULL;
--		frag = skb_unshare(frag, GFP_ATOMIC);
-+		frag = skb_unclone_full(frag, GFP_ATOMIC);
- 		if (unlikely(!frag))
- 			goto err;
- 		head = *headbuf = frag;
+Boqun Feng (1):
+      rust: helper: Add spin_{un,}lock_irq_{enable,disable}() helpers
 
+Lyude Paul (4):
+      rust: Introduce interrupt module
+      rust: sync: Use super::* in spinlock.rs
+      rust: sync: Add SpinLockIrq
+      rust: sync: Introduce SpinLockIrq::lock_with() and friends
+
+ include/linux/interrupt_rc.h      |  26 +++
+ include/linux/spinlock.h          |  61 +++++++
+ kernel/softirq.c                  |  63 ++++++++
+ rust/helpers/helpers.c            |   1 +
+ rust/helpers/interrupt.c          |  13 ++
+ rust/helpers/spinlock.c           |  15 ++
+ rust/helpers/sync.c               |   5 +
+ rust/kernel/interrupt.rs          |  89 +++++++++++
+ rust/kernel/lib.rs                |   1 +
+ rust/kernel/sync.rs               |   9 +-
+ rust/kernel/sync/lock/global.rs   |   3 +
+ rust/kernel/sync/lock/spinlock.rs | 329 +++++++++++++++++++++++++++++++++++++-
+ 12 files changed, 609 insertions(+), 6 deletions(-)
 ---
-base-commit: 0c20cb4cfb40cf270d6c4c2c2ff5e5d72322644a
-change-id: 20261015-nb-skb-unclone-full-dafb147b8aa9
+base-commit: 17ad2612c11a748b50d32eefc681344b26fea946
+change-id: 20261013-spinlock-irq-6-18-9720cdb14be6
 
 Best regards,
---  
-Nicolai Buchwitz <nb@tipi-net.de>
+-- 
+Alice Ryhl <aliceryhl@google.com>
 
