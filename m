@@ -1,95 +1,44 @@
-Received: from sonic314-14.consmr.mail.bf2.yahoo.com (sonic314-14.consmr.mail.bf2.yahoo.com [74.6.132.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12FD931F99C
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 23:25:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.6.132.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EEFD3B6C09;
+	Thu, 15 Oct 2026 23:32:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792106726; cv=none; b=mt19GZ81dfEx+HUgIjcWp8mQ9tjwz53SNUuyiPul5azCydSkXsroxbR8ATWqgj2x1StL4y3/KHTm4PXsHDEswz6CpdU7BuCB8PCuby3TYrxHtJUFaars/mu2f2yVHRZEoiqKj1fSJzg7VoLSe5YWAsxJFWzTNqBBFsFc0h5bzRY=
+	t=1792107161; cv=none; b=Y8rhOXOSsGINxW0ogLoPSpUTkZNrj811s7wX1goWmjjYj190v7LS4FyzYPkFkSeGANUhu1e3c36wxGroxjL4Nz6NYC5Z/pfnHTkA45zUXkLyb0ilKq5TIZUbnzOIg6XM2fJwo/rlJMsV3X1AAMbBK7XS3sG8r4a+l6IUAX4Ms2U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792106726; c=relaxed/simple;
-	bh=sFPY+NE+zzGt2x6uHMfkfI++1+h9Di9RoH+S2GJ7+lo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IBxptfgWulMgm6WxvLIyU50GeumBFVIVSwrAgSvi/kWDcUaIM3rGVPEA7aOjNmVdApKt8w7pSTV+RgP6uO1RzEJ88RCQibzseYCG6cRZc6+cEwX/ZNJ16ScGznWQ34IO90p8oLHdlWGdmeS/UG0+427/cT6hDKiS08zEFgAyZw0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=Mh44yOXl; arc=none smtp.client-ip=74.6.132.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	s=arc-20240116; t=1792107161; c=relaxed/simple;
+	bh=pTr+Kw2phrs8nFOpzgbcHU6qVLTfL1BPcohM5HqCXPw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=I2FToQcQoSUjhBm40xWIMzscterIQboSOVAZXhy0ac6P1BSEPLGDbUqVo+UTAS4s1JEUp7aHQWJuXelVc497ljwd/ab9rCwmWI4GEOB6URc8FMxBTbWcpdaS8r+K3lRQA6GKzYGEpo32Ebw6hdZCPaMIxD4sFnyzTr3WxeXPFdI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WdKSmMhx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="Mh44yOXl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792106716; bh=nfyy4oED6oMdHpMx8K9LFhAAKuoqWIm18K3NK5xhum0=; h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To; b=Mh44yOXlFKmMyZQMXbGcejLfrolWVHxmVcKpUx2DlKWcteliCZf0cwuDFMOKmRPpMebFe7EgmFI5NfQWEE+VidR/1HGKxkV4bywxmqeltIYFWUr/dQC+MulpJ9SQyCXyRV27M7yPVeA0f2qTUnoUxhAixhP5UbFqdYdYFrN9TbOULh3aFSUbupU24cuW2TiBgtuMK0sLznZGPA8fwMjES2Q5yQnh/c6EBT9e+vzzyczBWj2zjrN7r6/eWWVx0vJiH4WafvBd7M/RTMRLNffB5K34K52Fs84mH5yh9n/mE00+htzJnATIgACR2qVhcv3bjs1eazZuhNr8PcfQPaffRA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792106716; bh=nOJaUY7+jIK0gFgZxL2namNH+xt7sHEDFQTSdpQLUZf=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=sOolQJJXJcS11yyFFo10TzZ3Mnas6soLAiOnaIUlhuuub32cC1b+Mh3DXoRWTOkSIXgaOZKNU180YARzl0xqkmS5b+8BJBdz1L34pki1CTEq2PfwOZB1UI2l4ulELKwzL2SgM3QkHmkNJ+jPIDXHFiO9rw5xOX7XVHcSCtPYgZcXx80O6ZM3d5qUAEJRRmO/nSaYsKSbfEtOA9RlefvTdCMYtykeBShEoc9Nua4PHjj87Ch3afOEkbBUyVxPIqGh5Y9YcXvlUqvA4Ds7FXkNAhEgDRPuFWsd9TBeXr6QeBsApsYqvRUBecSlfhSm0DGPYLxGFAbJ8Bz2iFQY9wBKhA==
-X-YMail-OSG: eaHqIRMVM1kgk7KwMPt5uylUtxr0tZsIhtnCsCTiKoJX6U92Pacbsb4QCiKkkNQ
- h0Xta9PyZx6B35Gzr8DfRLn7b62ALcrXYNKXxv061E0oGN45JdaDU.Y6SmsNB4vBjKTbKmXn0_zU
- q.Bz_YxJhAMLltGwV.1ETHdIzZeCSD_Up8OsG7m2LXX1bYDjW3DOoXzypCy5ox9m_gPVK8EsnSat
- 5qzA9cCRAgdZDA0pNY9mHaYetrX43p6kstfc0qcXteRha4_uNJKsalqpkUCWHwz9m.MGyN36XBDM
- 87DmLLQfYP..CwOKZymPQ2lE_crAbJVzCzCGsMmoSgsiykzEeB_3dCA2DV0JIc_Y.nF9dkzpaxfO
- 4Ql09GNAKnlGcBdFKdAGPwnztwzjDFn_bCqf4kKNOQ1oat_oDXi85l69.GG6oym.QsFZQ9sLPUsq
- V4snGF45VC1iWMvh0YMNmjkJazWUBR31gLV6YSBe7mBtgOyG9urEYSzIUw65eJmmeKry484p1TK2
- X_zexSdY8SbOH2x5uA0OHOHO8jpYt7ff4xJu9Jqq2ZXh2T74CHoRYidRklj9QQGIHv6euuAThvOE
- k0Iopw2x1OtHoKBaW7Muk8Hb4OhVuw11WbL9fEP0CXuAh5SEHBfw__7RDTOZkJK6fG.iKqMG3Xdv
- w0bCMmdRtJXXKI_lM76vEideZmm1JKMB_ade2PXggBqDLTzrgI_Jonv2ypmOW1yus77rilYe8aqJ
- EUY.4Ws15RhL2L9Dp0lahlTKWOa8zJUImpy5tiCvrnZWJTU0NXl3ZWZhQpcoETrbOqVZM8wfE6Fj
- DurbqSxOXp650qp8bqYIGS7Uu57Dy6BBLWf2OoGFHtEhazXlPSPm672STD0j0Fet34mxT37yr8b4
- .mCcdF2R047Oz9tDjlWlmSSrzeEyQQko8BYBjj46do.Lv4Kp5E_BZ3R.lpztn2tGvDIjPwYzVSyE
- zMj.6fOKDkYyLLiFmCe.z6sRypkdmoYylVL.16Yp4HWPXD1Z3kfL49iP7dQE.JdhgCFlHP22fuGD
- dFyA0mzzHJ6myvq0SJCEsUxePPB46IBwrH3a68Y6fMv9IjvLKwak3IBlUDdL8qZAHmRWYjPyAQ8.
- .1RUu76G6O1s4hkQ1JBapCwdl1GC9pebCvgz2DJVHvzLRPUnkCkuxMPGsnBE7T4BwpDn2keGJpDE
- jExQGhKWNsRx8jmBSnT0PYkoo08PMrNANJFXJznCtWofgNL6hS.Nt_nfJCFQeUK90mZUcQ70V8ed
- HvVPjmkpxh2FBpRU60fE5F1hCHuRv2UBo_08ddVmkebVbbUgSQhFFILnhRBYx4H6wFIiocf2T.Vn
- jld0zd0sK5LU5ViCwx6N8emTURFrCAcMpndkA7ABeYn7O2Qtl3PKczf0QYOf5.VfQ7.oLmDYPfFF
- FZvRmoHPmDQTA_Gu3_EfA40O9eovFwl0XwrlQb7fqCSErA0xb.8cNSFOyt1xEiDLsu34w3h3PYLF
- 3DBGwd5E3iFbbvQO_ePX7gsVp2Odr9b0ISUsFTxXeUSv3GxXepX.Jk_QuRgi99ZKx_jeuYp0gDWL
- j.N0J_e_RrX.jLDKTmnXC.e4_0YoTw.7YLSsiQWqIPUegsRqPEXWhDyQ_nsOfOKTXIU5cAUB6gqw
- cDSQONrGo.yiPtYvmQXcHHOt1jJOl9NzTWaoPUTvnvX20.2pn_mGIXnN8JStfoYfOVTO7dIi.VwN
- PTvZWJdpZzrBvsv9qAIwn7Lu7XyH6mDbswY361fC5kbYaLb0OwGsVXehS_yvHbQaV179S8mlrKRE
- mtj5.tTk0WcdjsgCB3BZKfFD.kwhoFXCt7tK7.wX66j1wkv4gaonUJRNMuRDni.rZ.UbbtTLVggy
- 5XD8h69uUOuozpK3QibU2L1fzFIuxNaaxLD6Mycpiyt2j3_lqKpANptMYSmma8GAt_EuRYVz6cm2
- A7BIlyq.DRD55aK7Fx51ljWJjVUFp07B4EaBehUCknAzPRYeun6JUxH2cFzbij._GGYT8cntMWQT
- LiUiQRleBtoH3zGoIMx73UjVwz51f7ZrXm2q85fcrTB_7p_wzlPb7XbmmU9SZqajetijfHwzRBEL
- tB2BRFfdBuR7OSkr_XnKlffNK5IYMnFMbV7iIgLuR8KAI3idHmpN7YASkicCdkpyoQfkKryvUUQQ
- xRKQaso.HZ1QWEF.jNuRD.a81hIB6YwwBp3hrUF_eJaXbzbWqHvH7F00jX4aNObflEzqISsE_3YY
- wc9.mYmHME1hx4kFSkrwmHdo-
-X-Sonic-MF: <deaner92@yahoo.com>
-X-Sonic-ID: b6834d16-c8f9-49e1-8ec8-8809110e3cd5
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic314.consmr.mail.bf2.yahoo.com with HTTP; Thu, 15 Oct 2026 23:25:16 +0000
-Received: by hermes--production-bf1-6d6877594b-ndv54 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 41b88935f80b471ddbbd921194e01a00;
-          Thu, 15 Oct 2026 23:14:59 +0000 (UTC)
-From: Jeremy Dean Clifton <deaner92@yahoo.com>
-To: Kees Cook <kees@kernel.org>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Jori Koolstra <jkoolstra@xs4all.nl>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Sasha Levin <sashal@kernel.org>,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	federico.vaga@vaga.pv.it,
-	apw@canonical.com,
-	joe@perches.com,
-	workflows@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Justin Stitt <justinstitt@google.com>,
-	Carlos Maiolino <cem@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Brian Foster <bfoster@redhat.com>,
-	Christoph Hellwig <hch@infradead.org>,
-	David Disseldorp <ddiss@suse.de>,
-	Mark Brown <broonie@kernel.org>,
-	Jani Nikula <jani.nikula@intel.com>,
-	Jens Axboe <axboe@kernel.dk>,
-	David Hildenbrand <david@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Christian Brauner <brauner@kernel.org>
-Subject: Re: [PATCH] docs: remove Assisted-by references
-Date: Thu, 15 Oct 2026 23:14:55 +0000
-Message-ID: <20261015231455.104217-1-deaner92@yahoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <202610140951.C3D6CBF73@keescook>
-References: <202610140951.C3D6CBF73@keescook>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WdKSmMhx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A98A21F000C4;
+	Thu, 15 Oct 2026 23:32:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792107159;
+	bh=rwcEpSGQ4lL7pCBm9rLrnz3JM1wrNZZfjauwMNISO8k=;
+	h=From:To:Cc:Subject:Date;
+	b=WdKSmMhxuJopk1hsyLc+p52EPtozpgZoZV1zLS5i5CBorS7lsE60S5hLKVj/DbdaZ
+	 zUv6VgO7QI9gBkotwR3/zsObVLcLau5vysDk2VVNOye/o2wEua92vDdOfsmXFhc1er
+	 0TwVrqFd/mBAwq6fDM2ZuxtQH5yA5KsWKakXWrLpLZdsKNr3azOvWdNid+AX4R5NLq
+	 EwGXsPnvp9YkgNMXY4oXNq81T7dV+PaI2nEnqhYHnfXCJYwQX+ibnOxOxbUZ9t9tes
+	 VCv4N2Gl6Aqe/aPQR3PAfymyo2WtmQ69OCfnioBMT/TxellvnVHdMuQwrWlsCwp7D0
+	 fZ/7upSCzaRIQ==
+From: Namhyung Kim <namhyung@kernel.org>
+To: Arnaldo Carvalho de Melo <acme@kernel.org>
+Cc: Ian Rogers <irogers@google.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>,
+	linux-perf-users@vger.kernel.org
+Subject: [PATCH v2] perf c2c: Fix memory leaks on output fields
+Date: Thu, 15 Oct 2026 16:32:37 -0700
+Message-ID: <20261015233237.542258-1-namhyung@kernel.org>
+X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -98,28 +47,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 14, 2026 at 11:47:00AM -0700, Kees Cook wrote:
-> But I agree, it's a statement that says "I brought this to the project",
-> and is _just_ a statement. What we want for the LLM stuff is "I
-> understand this change and am ready to convince other people about why
-> they, too, want it to be included in the project". "Assisted-by" never
-> did that. And I've always held that the place to do that is, and has
-> always been, in the commit message body itself.
+The perf_hpp_list was not freed after use.  Let's add it for the main
+c2c hists list in perf c2c report and a local list in print_pareto().
+
+Previously it was detected by ASAN like below.
+
+  =================================================================
+  ==42183==ERROR: LeakSanitizer: detected memory leaks
+
+  Indirect leak of 1064 byte(s) in 7 object(s) allocated from:
+      #0 0x7f17334ef24f in calloc (/lib64/libasan.so.8+0xef24f) (BuildId: 61e8165ca90f7a4f06b73f064a938c76deaae079)
+      #1 0x0000005fa099 in zalloc  ../../lib/zalloc.c:8
+      #2 0x0000004faf6d in get_format  tools/perf/builtin-c2c.c:1978
+      #3 0x0000004fb45e in c2c_hists__init_output  tools/perf/builtin-c2c.c:2004
+      #4 0x0000004fb7de in __hpp_list__parse  tools/perf/builtin-c2c.c:2047
+      #5 0x0000004fbae9 in hpp_list__parse  tools/perf/builtin-c2c.c:2085
+      #6 0x0000004fee13 in print_pareto  tools/perf/builtin-c2c.c:2563
+      #7 0x0000004ffcd7 in perf_c2c__hists_fprintf  tools/perf/builtin-c2c.c:2708
+      #8 0x000000500ab5 in perf_c2c_display  tools/perf/builtin-c2c.c:2949
+      #9 0x0000005045c3 in perf_c2c__report  tools/perf/builtin-c2c.c:3522
+      #10 0x000000505caa in cmd_c2c  tools/perf/builtin-c2c.c:3676
+      #11 0x0000005df50e in run_builtin  tools/perf/perf.c:383
+      #12 0x0000005df9b1 in handle_internal_command  tools/perf/perf.c:436
+      #13 0x0000005dfd7f in run_argv  tools/perf/perf.c:480
+      #14 0x0000005e02d6 in main  tools/perf/perf.c:581
+      #15 0x7f1729450680 in __libc_start_call_main (/lib64/libc.so.6+0x3680) (BuildId: 85075e2ae2e13352a1413d41c327dacf6461526c)
+      #16 0x7f1729450797 in __libc_start_main@GLIBC_2.2.5 (/lib64/libc.so.6+0x3797) (BuildId: 85075e2ae2e13352a1413d41c327dacf6461526c)
+      #17 0x000000409c34 in _start (tools/perf/perf+0x409c34) (BuildId: 36a64600776d92e4ab7dfd5ca20c92280d72a645)
+
+  SUMMARY: AddressSanitizer: 1064 byte(s) leaked in 7 allocation(s).
+
+Fixes: c75540e3160f ("perf c2c report: Add dimension support")
+Signed-off-by: Namhyung Kim <namhyung@kernel.org>
+---
+ tools/perf/builtin-c2c.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
+
+diff --git a/tools/perf/builtin-c2c.c b/tools/perf/builtin-c2c.c
+index 4222ac784fabef6b..f51fa23f3bf18b90 100644
+--- a/tools/perf/builtin-c2c.c
++++ b/tools/perf/builtin-c2c.c
+@@ -2155,6 +2155,11 @@ static int c2c_hists__reinit(struct c2c_hists *c2c_hists,
+ 	return ret;
+ }
  
-I completely agree with removing the Assisted-by tag.
++static void c2c_hists__exit(struct c2c_hists *c2c_hists)
++{
++	perf_hpp__reset_output_field(&c2c_hists->list);
++}
++
+ #define DISPLAY_LINE_LIMIT  0.001
  
-Using an LLM, I can ask questions that lead me to understand the code.
-It gives me the knowledge to defend my change, and lets me weigh my
-approach against other possible ones.
+ static u8 filter_display(u32 val, u32 sum)
+@@ -2563,7 +2568,7 @@ static void print_pareto(FILE *out, struct perf_env *env)
+ 	ret = hpp_list__parse(&hpp_list, cl_output, /*evlist=*/NULL, env);
  
-Along the way I'm gaining experience and learning the different ways
-people solve the same kind of problem. What matters most is that the
-committer understands what the proposed change means.
+ 	if (WARN_ONCE(ret, "failed to setup sort entries\n"))
+-		return;
++		goto out;
  
-People may now go to an LLM to learn about something the same way they
-go to search engines (which increasingly consult an LLM themselves),
-and I never saw an "Assisted-by: search engine" tag. The tool just
-makes people more productive.
+ 	nd = rb_first_cached(&c2c.hists.hists.entries);
  
---
-Jeremy Dean Clifton
+@@ -2577,6 +2582,9 @@ static void print_pareto(FILE *out, struct perf_env *env)
+ 		c2c_he = container_of(he, struct c2c_hist_entry, he);
+ 		print_cacheline(c2c_he->hists, he, &hpp_list, out);
+ 	}
++
++out:
++	perf_hpp__reset_output_field(&hpp_list);
+ }
+ 
+ static void print_c2c_info(FILE *out, struct perf_session *session)
+@@ -3378,12 +3386,12 @@ static int perf_c2c__report(int argc, const char **argv)
+ 	err = setup_nodes(session);
+ 	if (err) {
+ 		pr_err("Failed setup nodes\n");
+-		goto out_session;
++		goto out_hists;
+ 	}
+ 
+ 	err = mem2node__init(&c2c.mem2node, env);
+ 	if (err)
+-		goto out_session;
++		goto out_hists;
+ 
+ 	err = setup_callchain(session->evlist);
+ 	if (err)
+@@ -3525,6 +3533,8 @@ static int perf_c2c__report(int argc, const char **argv)
+ 	free(output_str);
+ out_mem2node:
+ 	mem2node__exit(&c2c.mem2node);
++out_hists:
++	c2c_hists__exit(&c2c.hists);
+ out_session:
+ 	perf_session__delete(session);
+ out:
+-- 
+2.56.0.176.g3575e65682-goog
+
