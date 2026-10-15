@@ -1,89 +1,147 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47A494A0139;
-	Thu, 15 Oct 2026 07:50:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1CE94A6CFA;
+	Thu, 15 Oct 2026 07:51:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792050633; cv=none; b=a/HmMuv1G4z6FsJxG/e/B+ay8PAx3oOMW9k7JW8B0yXA3yaLqU1+H5Ha+MtPOAtNONMMdVsPNar8ROAmk5FhcRRaP1H1y/JKFibHYVaVyZJN0aROf/BhthgX6C7VZcSaPnVmcB5s8vZvrbj2nnWW4olj+YOyF16Sdz1hqdQf12o=
+	t=1792050715; cv=none; b=RlcUu5vIXs7mtDp91cnIFanRS2zZ94AbZh1KkhUhALrHKwPuA4k0GjxnqxTa5S64PdyiAILmoIQkRk+FPtMNOkrScmUmlxCh02m+XUSAQVU6cO1uaxyitCJhj1TCdWb6+U5wOG2Foukn2IYN+PKLm677rSugKUfd6Ye5RFw5PFY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792050633; c=relaxed/simple;
-	bh=9xlHMAg+pLpEUPjfC3UrydALwWkve/cTUyWHyXeG1OA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Izogr6Amae+Ji9sYa3eB7D2jEL1JLazXab2m/cQtArAtgT7T6X1ci39LgJxfvnEmyXyAr8+qfNUg4xsnfyexDvfxiKdTOJp8cyUVKo0dhpAzyiIgzJ73Rbm1juBj5W+kM3NUsOg6vasvKxIBJj/5fHKgrJXV5JOCFe92q5ArFoc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KxBWy62F; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792050715; c=relaxed/simple;
+	bh=58MGJzsg/gzKE9+ctrzXojPWzyH5En6609u7hKIGXXY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NHQvhgXlE07nJrODHXw8WN+Jqw2uJkYwpCBtFs7svsIii2flbxdj9PXCsMPbpSd43O5vpavaz7dp/d3l5mO3Yjpo2+QUoWIzlt5r8lZRvQhLQpZgE/5NSD+zZC3GoSMpILU1H9aNEpGVRClNPodNiE1+pu/I6575eGLX/3RfnUg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oBSxGh4f; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KxBWy62F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 987D51F000C4;
-	Thu, 15 Oct 2026 07:50:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oBSxGh4f"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CA0C1F000C4;
+	Thu, 15 Oct 2026 07:51:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792050629;
-	bh=S5Xoohl7ceaKOSgxKaTChqZl5aHhcT0j56kwkJwhlao=;
-	h=From:To:Cc:Subject:Date;
-	b=KxBWy62FaRmL2+EFEOTgiKczznGn1qEUIqwYNOxD9MgAJBwzO0HAHIWB+LNqXKyFm
-	 syIpgi24rxhDKrWbquh1NwBxXZS2IDZyirh2cCG0J9POnr8oQRNydFxrC2AUbQZ6ns
-	 JG+ksyPztoVufFmWBOBF7ZuInFrjxETuTAZPP5PedoyvwbAlN1zmZjSIym7joRDBVw
-	 1iP+9dqJ3l8iKvpKSBkIhWZeFOaYwv+Xiz36TR+0ta+oZjkLXL9Lu+JO1Zm5Oo5uHf
-	 fIH8DO/2WRom3G+T8Q0wn+yt8fJROxWv/c4OVsQKA1etud1l0E0JPurH+lcsjTD4Dv
-	 ZiN7ej3tdnaoQ==
-Received: from johan by xi.lan with local (Exim 4.99.5)
-	(envelope-from <johan@kernel.org>)
-	id 1xHGEN-00000005x5d-184r;
-	Thu, 15 Oct 2026 09:50:27 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Alan Stern <stern@rowland.harvard.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Johan Hovold <johan@kernel.org>
-Subject: [PATCH] USB: core: document purpose of interface parent reference
-Date: Thu, 15 Oct 2026 09:48:31 +0200
-Message-ID: <20261015074831.1418677-1-johan@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	s=k20260515; t=1792050708;
+	bh=UJe2c3nr2fvv5KSBUYY6ev4UYSzq43r8K4rqLE7u2ow=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=oBSxGh4fID9Jb/BaBMZN/U6FvOCiPd6N7cRzVv5ZUHrqBrbIrcIWGCcvXVMGTheuJ
+	 W+qG1lbxXHer5r+0wuQve1Q6pTvKVtG6Gx7k0OQek3+MdJt6uKWVtS+SPRUZ06wwGH
+	 +TlkcYsOavW/HhicDk4ctMOHY3Ed6Ss1utyQniU9T67YS9V0PHcZh92SFNKiLXLj96
+	 VBFVPmsIHDD5WEaaFofdaYG7yqvMM/vAUD/ZszvtHeZJ1w3TCo8kNcB+9U70BJeN5B
+	 d7v2BRD4I7h5hZV5j0V650CJxbPZPe4h5Updm4umkoiRfZFMOWWfdtL5tXCl/KceGc
+	 iM+rAPtYeGrxw==
+Message-ID: <8b312a3c-5985-4da1-be5f-11364e662363@kernel.org>
+Date: Thu, 15 Oct 2026 09:51:43 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] mm/page_alloc: detect zonelist rebuilds from memory
+ hot-add
+Content-Language: en-US
+To: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org,
+ cgroups@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com, longman@redhat.com,
+ ridong.chen@linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com,
+ akpm@linux-foundation.org, surenb@google.com, mhocko@suse.com,
+ brendan.jackman@linux.dev, ziy@nvidia.com, david@kernel.org,
+ mgorman@techsingularity.net
+References: <20261014222456.2318284-1-gourry@gourry.net>
+ <20261014222456.2318284-2-gourry@gourry.net>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20261014222456.2318284-2-gourry@gourry.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-USB interfaces hold a reference to their parent USB device to make sure
-they do not outlive the parent.
+On 10/15/26 00:24, Gregory Price (Meta) wrote:
+> The zonelist_update_seq retry was limited to CONFIG_MEMORY_HOTREMOVE,
+> presumably because only hot-remove takes zones out of a zonelist.
+> 
+> However, build_zonerefs_node() rewrites the zonelists in place, so
+> onlining the first block of a zone shifts the entries that follow it
+> in every zonelist containing that zone.  This can cause a spurious
+> allocation failure for a __GFP_THISNODE caller.
+> 
+> For a node with only ZONE_NORMAL, onlining its first ZONE_MOVABLE block
+> rewrites the node's ZONELIST_NOFALLBACK list as:
+> 
+>   [NORMAL, NULL] -> [MOVABLE, NULL] -> [MOVABLE, NORMAL, NULL]
+> 
+> A concurrent GFP_KERNEL | __GFP_THISNODE allocation can observe the
+> intermediate list, skip ZONE_MOVABLE, and find no eligible zone. With
+> CONFIG_MEMORY_HOTREMOVE=n, check_retry_zonelist() returns 0 and the
+> allocation fails even though the node has free ZONE_NORMAL memory.
+> 
+> Gate the sequence checks on CONFIG_MEMORY_HOTPLUG, which covers every
+> configuration that rebuilds zonelists after boot.
+> 
+> Fixes: 3d36424b3b58 ("mm/page_alloc: fix race condition between build_all_zonelists and page allocation")
+> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 
-Add a comment explaining that this reference is specifically needed for
-asynchronous device resets and the device type need_parent_lock feature
-(to allow driver core to lock the parent when only holding a reference
-to the interface).
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
-See commits:
-
-  524134d42231 ("USB: don't cancel queued resets when unbinding drivers")
-  af61396a992b ("driver core: fix parent lock use-after-free on USB disconnect")
-
-for further details.
-
-Signed-off-by: Johan Hovold <johan@kernel.org>
----
- drivers/usb/core/message.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/usb/core/message.c b/drivers/usb/core/message.c
-index 276768f47558..a738d03c23ea 100644
---- a/drivers/usb/core/message.c
-+++ b/drivers/usb/core/message.c
-@@ -2209,6 +2209,11 @@ int usb_set_configuration(struct usb_device *dev, int configuration)
- 		pm_runtime_no_callbacks(&intf->dev);
- 		dev_set_name(&intf->dev, "%d-%s:%d.%d", dev->bus->busnum,
- 				dev->devpath, configuration, ifnum);
-+		/*
-+		 * Make sure the interface does not outlive its parent (e.g.
-+		 * as needed for usb_queue_reset_device() and
-+		 * usb_if_device_type->need_parent_lock).
-+		 */
- 		usb_get_dev(dev);
- 	}
- 	kfree(new_interfaces);
--- 
-2.55.0
+> ---
+>  mm/page_alloc.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> index 7682aecc2c075..81db19f2ab551 100644
+> --- a/mm/page_alloc.c
+> +++ b/mm/page_alloc.c
+> @@ -4425,7 +4425,7 @@ static DEFINE_SEQLOCK(zonelist_update_seq);
+>  
+>  static unsigned int zonelist_iter_begin(void)
+>  {
+> -	if (IS_ENABLED(CONFIG_MEMORY_HOTREMOVE))
+> +	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
+>  		return read_seqbegin(&zonelist_update_seq);
+>  
+>  	return 0;
+> @@ -4433,7 +4433,7 @@ static unsigned int zonelist_iter_begin(void)
+>  
+>  static unsigned int check_retry_zonelist(unsigned int seq)
+>  {
+> -	if (IS_ENABLED(CONFIG_MEMORY_HOTREMOVE))
+> +	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
+>  		return read_seqretry(&zonelist_update_seq, seq);
+>  
+>  	return seq;
 
