@@ -1,161 +1,184 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5F5A3E763E
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:16:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6285F4756C1
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:17:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792055819; cv=none; b=TKINOuaEMY2xRye8BYYX0DZFNE2CfrpW9jTS+dhs9CNw0CaXhSs8FDW8wFCpdoGX57OTv3g6OvelHl82kxkWEVgwJj8gowMwZ1zWTZg+trn4o6+YriEXHwuYVJnJ2lWguSHbSSGtfJLYznizaBEY2Z8zqnT0pzzPAb2JFB0atLw=
+	t=1792055860; cv=none; b=ARAM1S/0MbBzo0r3kjVkBQT5KfEwamWW5nNC9O80QB0WG36o1m1sKyBpqrpZ6LyWk+5e7A08yGcA+l3b2L/ivWlqwfYy5HWQarQHVPVukA1h5NYh87aTxHZY5MsCeU/dGS3TsCvgK1QzytEbzQSjPmlvOhgF1CzaJkTVAQlPTGk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792055819; c=relaxed/simple;
-	bh=0HBBKb/hxr/TOT1J49xGL57UFD3h22NiK3c+pzHK1CI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ug6H2S83Mw3iGehBvPHi38wncBRQ9tHbLAvheYBcc+uS4EtxgY0oT5Q29PWUKiHsyq4Q4ikzCYiSVCWgNWanTCiRAXAeG5g97FMKppIxUZXp/E22tKhgFYaMOlZqf3P2yQbvmrbIMW/8QeTsSG80JYdL1snvGKjjdPo+uJah7Ls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hFD9JYoG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RoXYm4hU; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792055860; c=relaxed/simple;
+	bh=IyAZ5pkLnMxh94MB73YiJMR++H7wpdk5msxW3CzpIr8=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=O2cKTaTmnQkJXiVRW/v1NPVGBwqVw3Kd/s08UUTppGRoAAdaPgVzbSpPYIH3YfZBGJcAhi9wTyFCT0LM/3x7qWnvjLK6TuhzdGP000MjvXmW4I0H2aGI84i0g6RYl4T0/jSeSKJNSSRRhlbeydO43sR+/2lOErIOldFefEl3U7o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=flDoxF/L; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hFD9JYoG";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RoXYm4hU"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F8vuMi2885781
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:16:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	4rEV28MGRovYUyrZpyFq8tlPu9s3MeeDYME+udyPeLs=; b=hFD9JYoGNjy400aW
-	2inXc+iqUbgUn4F1Kda1xJUGQfK5pBGxxrlUU7+GttiZU6aNunm6++qYVI4zaVeO
-	JY8qqSEgtbes21n5oWqmMkZg+uTuGR1lHygIoqTqgdNPTNpmsaiAq4IQXbM7qis+
-	VyrpREt8hsA4+R0DPO/u+JYKaz0onPvM3susmUSPQd/ij9ARmJl8HjcMlQ/vL9Dm
-	Dcu0qK5Fo2FjH4b8U8S46y+XOGv5lxY372OlDDE8a4D1kh88AZ0ABhg4bvpEAaOJ
-	gpiPzTegYbrBAuqBYx1l1ZOhXNMiusd7eORhLKJihr3MUfAJoZg39deQhjNw1Jkg
-	2L6gNQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hausm036h-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:16:58 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93df7a9466bso58376285a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:16:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="flDoxF/L"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49d0da752ffso15265705e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:17:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792055812; x=1792660612; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4rEV28MGRovYUyrZpyFq8tlPu9s3MeeDYME+udyPeLs=;
-        b=RoXYm4hUSBW8mHyomjYR5yh6s3wk+PeEGAglnRoUswltup0WaSg3KwmvN7US6hFf+X
-         KYbAaWpxqqsxQ8UoQLPOqxWZyZSiuaAmSuje6dnfwjpdGfGfCWh/I87aUegqcTOveKwL
-         zNBG4K/Vq4od0DMYNVGBXsWhhCKp6GcFbpYCPhhWRHxr2UW7Q8O4bcUFUEuLxEtdeaPU
-         gdXEodkaXvsbUCSVzmggANdDUsOpDY4a3dhCFiGgZ7EM0ysjmc/8UJusfK4Flihj39Bm
-         fNZ83vBSumQeldpT/WtgDfSJ5cc9TtXuKZ8yRqLMmRsPzNNiKAsfGilkTGTxO+t4qViu
-         Z26Q==
+        d=gmail.com; s=20251104; t=1792055857; x=1792660657; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ylxkGWPRhbu3wMGo/t9b6unbwGCeSJctOEWu1P2KuE8=;
+        b=flDoxF/LpcIqI0znL5gDzl8mSaP/F2cVRDzFPmsH+Z0PoO75VrN87kYckUGBhHuF6j
+         ULyWq3oXGZ4GBIa2HztDtxbSiY2aI3NIUqySMdCH4uF5kdEbtex/7qLcq98iDBm1QIoj
+         wbl0D/BiAhGbE6XbBuX7g7EgjRRTKX4bmZiTbc8mJfMrBqZZZfufaFXqsZJa72tNd/6B
+         rqqDFwd2BB+6x9tztoOHIMifZsW5/cqoccGXrVBtF7EH8lymZoh9VRnMTvRyRNsna3Kj
+         woG4PtvWWALQ+xgmIgiSfDUBJU4d64Uf3AfUnGAVJ7pKxbiAbeZFeA9/Q+916wCdWkDz
+         E7lg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792055812; x=1792660612;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4rEV28MGRovYUyrZpyFq8tlPu9s3MeeDYME+udyPeLs=;
-        b=2JsU+uIwnMEuq4DHap7zblLTn63IVBC5NOMft486I+dpvuDD7BT8R9/jp5bbNJee6w
-         PcndLlxnfZCdezn/WlsOgAYtV8w2V5uUJKUHDj8/dzrLt0hLPTNea1Ql7YP9BE9svs2O
-         xZPy/2tkvRjzQhtCTXlJfs08JFc/5Z10PZKt3eIzeP2ttM4gsNRdLKu5ufqjAiedfc92
-         +gcVouhMQ5kyLVm+XpkZdTwBWtLVaG2SJI32S+rKdJcoO0pPAXvbLKhXnbj2Hz+qf2d5
-         kYeefOIcEl1j9ipVCh7IFyazGnwBv8pVV9C7hJFk10N+ZIVvRvXXGKKJ8qakx/wZFKJo
-         KNJg==
-X-Forwarded-Encrypted: i=1; AKwUvByAl2SMSxbfzoD3IV43OZB1eP/dnQjTcR91az+/WggU85dqx3GkxOnl/mGyByYtYB/U3NbDGpYWWpBUoyE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI8VdgLCP3D7qM/3U3VKPYIxvPEG1W47KVFAxIojuTw5DOXDcBo
-	VMjpUeHRD5Hs/v6IY6Tm26O8S1ua24s7uo2FTdFNPsInFTx18eFAXiqWdCZ+EAGpyOWOGarqKh7
-	G/aRj9vulwCn3drQ1DH0gPvbWChNvXe6gjZnG+L3eX4uhCN29owyIEDu+A1VEHQlNmxQ=
-X-Gm-Gg: AYBFou3PRHk791iVQ2J5H84FKInrT/0XY5nMsxus7FIf0wdBTo6Rb6koKSJ+rjd7hwm
-	PFdmqAI7HKYRvOMgOeteDrSxgclBV/KFtw8iGj5HO6Ih9ffJbZGWvqavsBa4vVAxjQ8TOz4BA8Y
-	+SGFNSzW2v56VBR/DBv8IuPxSCCk/YhYiWrLGp1lJvqztQrQWY05c6+9VTyF7kFGe5xP2ADYurz
-	dDXKz096eFNAbRJXd16EiC5N0od0BMlmoCAzN775YRhpb6NQF/8y7XlVCqQUSdTvmS/+f6s+WaQ
-	n42RblWHUqw3jqsD5nSK4bzVbvRShhLk1ehzyy/tK9cFRqzdgLPXxSEMuRVV8NBTjWzmeJ8ZbkI
-	4dNBtX6mFAp0VMiRa6m/crQ==
-X-Received: by 2002:a05:620a:3186:b0:939:8bc:8826 with SMTP id af79cd13be357-93ebd10c0e2mr3495769285a.2.1792055811990;
-        Thu, 15 Oct 2026 02:16:51 -0700 (PDT)
-X-Received: by 2002:a05:620a:3186:b0:939:8bc:8826 with SMTP id af79cd13be357-93ebd10c0e2mr3495765885a.2.1792055811430;
-        Thu, 15 Oct 2026 02:16:51 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3eda13e80csm102304666b.58.2026.10.15.02.16.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 02:16:50 -0700 (PDT)
-Message-ID: <1daa1740-2c91-4ea3-84a5-7f256ac0f07e@oss.qualcomm.com>
-Date: Thu, 15 Oct 2026 11:16:48 +0200
+        d=1e100.net; s=20260707; t=1792055857; x=1792660657;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ylxkGWPRhbu3wMGo/t9b6unbwGCeSJctOEWu1P2KuE8=;
+        b=f8tKR2AfZQzW7YYMnXRGeIXBOA7hIYxd3PEKJolvSaS+TQfFx//l3CnQWiU8LCq+Ut
+         oThz1gZ2gZ9xt9iW0uVyD+u9uRWlUjBGkWmYtDopdRL9JZbPRSehKMRlGMBN8WkJAMIN
+         cpPfasM4BgfMgg2e9+kUc9nwzZ+oN2UMEsRL8BH7nkiAaTKl7gr9NFATeyzlzFK70kRW
+         ivMN7gcg9DL5wy07HQVqd5pDI11JEDN8bPOySsN0wrqS5h+JVjaGGs43Gro9/JfswKna
+         n+t13pfIh0ZqxiQV54iiFqeJy8zbLJo/1L0AvWnoD+v4uYw2DWk43387z3QJhWupQZkq
+         /zvw==
+X-Forwarded-Encrypted: i=1; AKwUvBz1L0ClmyVKCViGh0ts1jqoBDE9Mjq6sRvyM4VSoYs7qsVXdkD7KlpHs2CRQMrLTuE0F7gAluRXlI8nYVc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJvHdLtELDW0FLeQYvmPz8xwpRAXLaU9ZlBtuhlXfAO/wJxQ8DP
+	VsnSFxg0wSanUkTccwnWpcX2xtHxVJ8kRsKVGa2hVyTUVvKnwOEs4Ohz
+X-Gm-Gg: AYBFou0ZV8kXAj6TcdqDBs+pj7WRedIoHZwdO2gCqujleevoXFKXj4eW1sK/HH+gvoo
+	lDDBCfN4gPx1B+G/27oQ9amXpWMn8RssvcGmhBgHVh3MzfYapHafMDjoHp4Ctua0YUaK/m9HodM
+	NlQNaf7v4Wy79TKX/hhKwga9ez31/67kbdq5KG4xnQpGbLDVI/RSTZiroKfwUs3DL1jlBdotldf
+	Hz4ZHyYaCLdILiVS1csbX+cFtcNC/SI/3auYHy2HRGXbM5CESy17zszYd+2b8OoxGbamOtHF1M8
+	ofRh/BqBOawhAXYDBoDeLtztk2HaiVocnnf3m3slHgHKqyO9jFT+f5V7OQJ3Xvkl6aF2nZEZfM2
+	AQ7SJtCkttASibpKTEN7w/Oxg4tXrNxnkdQqtK7D4qSRkfMKuTNP5kF8nq9RV5lfWQvZi2cr7EY
+	FukAyH8j05vrIBcDOezMunzDU5OHeancCDf2q+5lYuK3UfTMoJfti7UBbqIRz3RqFmTeY2zH/tn
+	5CJFoRYuyQ=
+X-Received: by 2002:a05:600c:3111:b0:4a0:159b:d2a2 with SMTP id 5b1f17b1804b1-4a18e4e14e8mr351253395e9.29.1792055857375;
+        Thu, 15 Oct 2026 02:17:37 -0700 (PDT)
+Received: from foxbook (bez186.neoplus.adsl.tpnet.pl. [83.28.37.186])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de72d2b13sm12304181f8f.55.2026.10.15.02.17.36
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Thu, 15 Oct 2026 02:17:37 -0700 (PDT)
+Date: Thu, 15 Oct 2026 11:17:33 +0200
+From: Michal Pecio <michal.pecio@gmail.com>
+To: Mario Limonciello <superm1@kernel.org>
+Cc: Rishabh Jain <rishabh.jain1198@gmail.com>, Mathias Nyman
+ <mathias.nyman@intel.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v5] usb: pci-quirks: always assert xHCI OS ownership
+Message-ID: <20261015111733.5ead367c.michal.pecio@gmail.com>
+In-Reply-To: <7d64e267-8ca6-4130-bd4a-d80fb4224f72@kernel.org>
+References: <20260902052631.75c6068b.michal.pecio@gmail.com>
+	<178832755831.50581.1058201741431375556@gmail.com>
+	<7d64e267-8ca6-4130-bd4a-d80fb4224f72@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] Add OnePlus 8T
-To: Frieder Hannenheim <git@fhannenheim.net>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: Robert Oscilowski <drgitx@gmail.com>,
-        =?UTF-8?Q?Jean-Fran=C3=A7ois_Bobier?= <jf.bobier@gmail.com>,
-        phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261015-kebab_dts-v1-0-1fee1204a18b@fhannenheim.net>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261015-kebab_dts-v1-0-1fee1204a18b@fhannenheim.net>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: 9jLr3qHUS0tS9V0UxX57YocED4XRHyX-
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDAzNiBTYWx0ZWRfXyC7LneIHY6un
- rIJOAuZCbVmrAIInER/jhS8d8frrYd8F9SrW1iHpuW4ouoW5qRVBjw6ph7O59V0YAli0VgXd4XL
- 9BF8XWHF34jsnveIsiVRmV3T8jtyW3AKI9yilePZPTEMq7UOQfBQy45WBmHqpxaM20xsfT5LT+Z
- V0owLzPrjdaUOqpKWaiL4qBb5X7Ac27oyunOfkTiuK1CHecl+hC3j2DSSJr3qoPOz4kacPmXune
- vCb8rMQcDkdfXBjcQy5z2Y7XDzOHgDoWqRYu3SPo9qcPkvOTl6NSHgsaPVR1f3UygjM7Jl9DZ/j
- hBHTFSZV2JU3jjCxaoLMC/KlVynft5mLPD/QK+UgYzTDEDQffTgzRPTEXolNeeXq+MgrS5inOyk
- Km6qvJlNz4WrYSF6sn1AH8cQeKiGb6P8EftayLnhSKum7+4dypxhAYGn7uyAIv98rWGdnNJAHSd
- wFiuHKlGgJIz7x+y88Q==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDAzNiBTYWx0ZWRfX3cgVNcoDLarM
- nxu662ZelK3FgvlBxHHVW50rNAGZ+v1iWQaLoAD6C+H/vYU22bpkFs6rBnhMwOR/NXU6B8frbs2
- fkYKa6YoBzar1kr6rkWjyej/WUK+cD8=
-X-Authority-Analysis: v=2.4 cv=Eb5d0/mC c=1 sm=1 tr=0 ts=6ad09a0a cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=WE8o4AYwAAAA:8 a=ckyZQS8oqhpWkIopcVwA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22 a=6aV5INxNnvWGCTbEtcBN:22
-X-Proofpoint-ORIG-GUID: 9jLr3qHUS0tS9V0UxX57YocED4XRHyX-
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0 phishscore=0 bulkscore=0 priorityscore=1501
- clxscore=1015 lowpriorityscore=0 adultscore=0 malwarescore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150036
 
-On 10/15/26 10:57 AM, Frieder Hannenheim wrote:
-> Adds a basic device tree for the OnePlus 8T (kebab). Common
-> values for OnePlus devices using the sm8250 SOC are defined in
-> sm8250-oneplus-common.
+On Mon, 12 Oct 2026 15:14:14 -0500, Mario Limonciello wrote:
+> On 9/2/26 00:39, Rishabh Jain wrote:
+> > The xHCI ownership protocol requires the OS driver to assert the HC OS
+> > Owned semaphore before using the host controller, then wait for HC BIOS
+> > Owned to clear if firmware owns it.
+> > 
+> > quirk_usb_handoff_xhci() currently asserts OS Owned only when BIOS Owned
+> > is already set. If firmware leaves BIOS Owned clear, Linux uses the xHC
+> > while both ownership semaphores remain clear.
+> > 
+> > The timeout fallback also clears BIOS Owned using the original register
+> > value, which can clear OS Owned at the same time.
+> > 
+> > On an AMD PROM21 xHCI controller (1022:43fc), this caused every S3
+> > resume to terminate Controller Restore State with USBSTS 0x401. Linux
+> > then reset the host controller, both root hubs and the USB Bluetooth
+> > adapter.
+> > 
+> > The controller entered resume ready and halted with USBSTS 0x1.
+> > Endpoint state, 100 ms save/restore delays, scratchpads, the DCBAA,
+> > device contexts and command, event and transfer rings were verified not
+> > to cause the restore error.
+> > 
+> > Across four S3 cycles, asserting only HC OS Owned changed USBLEGSUP from
+> > 0x00000801 to 0x01000801 and eliminated the restore failure. Testing
+> > included the unmodified 7.1.8-ogc1.1.fc44.x86_64 distribution kernel
+> > using a test module that set the HC OS Owned semaphore. The same test
+> > was repeated after review with the same result. Clearing USBLEGCTLSTS
+> > was independently verified to be unnecessary.
+> > 
+> > Always assert OS Owned for controllers using the standard xHCI handoff,
+> > and leave the existing TI/Renesas forced handoff unchanged. Keep OS
+> > Owned asserted after the standard handoff, including when forcing BIOS
+> > Owned clear after a timeout, to prevent firmware from reclaiming the
+> > controller during subsequent suspends.
+> > 
+> > Fixes: 66d4eadd8d06 ("USB: xhci: BIOS handoff and HW initialization.")
+> > Cc: stable@vger.kernel.org
+> > Assisted-by: LLM
+> > Signed-off-by: Rishabh Jain <rishabh.jain1198@gmail.com>
+> > ---  
 > 
-> This basic device tree brings up a framebuffer, UFS, battery monitoring,
-> volume keys and UART. Further functionality will be brought up in
-> subsequent patch sets.
+> Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+
+Yes, this fixes a legit issue and would be worth getting in mainline.
+Two users confirmed the patch works for them, though no one could be
+bothered to post proper Tested-by here :(
+
+https://lore.kernel.org/linux-usb/P1FsfbW--F-9@tuta.io/
+https://lore.kernel.org/linux-usb/CY8PR14MB59803EC0F6C7FD39A6D3C42FA0BF2@CY8PR14MB5980.namprd14.prod.outlook.com/
+
 > 
-> Signed-off-by: Frieder Hannenheim <git@fhannenheim.net>
-> ---
-> Frieder Hannenheim (2):
->       arm64: dts: qcom: Add sm8250-oneplus-common.dtsi
->       arm64: dts: qcom: oneplus-kebab: new device
+> > I kept val unchanged for the error log, restored the original handshake
+> > formatting, and explicitly preserve OS Owned when forcing BIOS Owned
+> > clear after a timeout. Documented timeout issue in commit message.
+> > 
+> > I repeated the same S3 test on the unmodified
+> > 7.1.8-ogc1.1.fc44.x86_64 distribution kernel using the test module, with
+> > the same successful result.
+> > 
+> > Changes in v5:
+> > - Preserve the original ownership value for error logging.
+> > - Restore the original handshake formatting.
+> > - Explicitly retain OS Owned in the timeout fallback.
+> > 
+> >   drivers/usb/host/pci-quirks.c | 13 ++++++++-----
+> >   1 file changed, 8 insertions(+), 5 deletions(-)
+> > 
+> > diff --git a/drivers/usb/host/pci-quirks.c b/drivers/usb/host/pci-quirks.c
+> > index 0404489c2f6a..2b12a35e6f10 100644
+> > --- a/drivers/usb/host/pci-quirks.c
+> > +++ b/drivers/usb/host/pci-quirks.c
+> > @@ -1193,10 +1193,11 @@ static void quirk_usb_handoff_xhci(struct pci_dev *pdev)
+> >   			 && pdev->device == 0x0014)) {
+> >   		val = (val | XHCI_HC_OS_OWNED) & ~XHCI_HC_BIOS_OWNED;
+> >   		writel(val, base + ext_cap_offset);
+> > -	}
+> > -
+> > -	/* If the BIOS owns the HC, signal that the OS wants it, and wait */
+> > -	if (val & XHCI_HC_BIOS_OWNED) {
+> > +	} else {
+> > +		/*
+> > +		 * Perform the standard handoff and leave OS ownership set to
+> > +		 * keep the BIOS at bay during subsequent suspends.
+> > +		 */
+> >   		writel(val | XHCI_HC_OS_OWNED, base + ext_cap_offset);
+> >   
+> >   		/* Wait for 1 second with 10 microsecond polling interval */
+> > @@ -1208,7 +1209,9 @@ static void quirk_usb_handoff_xhci(struct pci_dev *pdev)
+> >   			dev_warn(&pdev->dev,
+> >   				 "xHCI BIOS handoff failed (BIOS bug ?) %08x\n",
+> >   				 val);
+> > -			writel(val & ~XHCI_HC_BIOS_OWNED, base + ext_cap_offset);
+> > +			writel((val | XHCI_HC_OS_OWNED) &
+> > +			       ~XHCI_HC_BIOS_OWNED,
+> > +			       base + ext_cap_offset);
+> >   		}
+> >   	}
+> >     
 > 
->  arch/arm64/boot/dts/qcom/Makefile                  |   1 +
->  .../arm64/boot/dts/qcom/sm8250-oneplus-common.dtsi | 618 +++++++++++++++++++++
->  arch/arm64/boot/dts/qcom/sm8250-oneplus-kebab.dts  | 124 +++++
-
-Hello, thanks for your patches. For DT additions, you also need to
-add dt-bindings for your board and validate the resulting DTBs,
-e.g. via:
-
-make [...] CHECK_DTBS=1 qcom/sm8250-foo-bar.dtb
-
-Konrad
