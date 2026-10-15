@@ -1,124 +1,126 @@
-Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
+Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B317B4908AF
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:24:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CFAB4A5C57;
+	Thu, 15 Oct 2026 09:25:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.230.196.243
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792056251; cv=none; b=j5i1Fenyre1kPPhMBmy1rYbAL8O4Hht30JdyNDVC3AfyXmAKWAqy5K/fTd8BI8ofImTiO/4JAnnt4g/tElOx8VxFKh+oUVZNvHCbj0dJG8HAXC0oyuUBfXk/9LemWnzK6rVuEsch4Mc+sKOQh/qE6PD5+8XZuzyAodOTgP98tys=
+	t=1792056324; cv=none; b=mEgiekFdiAGiUKgitZXiWenx/3X/Jp8uOyRzNsVxxlZiJdOXH0J5AjLdoFi7koY2+NuMUYlY4tp/iTjRJFLhtzIUx06w7YY+JsbaeeBu1u2w4E2KSSMiq3ZJ0miDd7K4M+7HSCeh5C+WrbwYWnAXN5V21x0lgqYsXhwW9RkoJ9k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792056251; c=relaxed/simple;
-	bh=+Os2SIm5LSoB8spju0ohIiU91kZIZSkIeuXDrurEVfk=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=JhRJJ+0wYDsj1cUEKINFwgtjqgVACD5dtjHPw4TjnXU3QPKPuhQFwe4yXFc7T/KLGE02gwk+H69hSA752cT+aCeS6AzuDiHWjtMzYQtsNtsKLBnH9afFBMjA9+BOzv64k9MtX0itDL3epsD0D4C18fXhnGrKOFv9Lp7DpCesRgs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=U2zdJ+NR; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=gbTK45w8; arc=none smtp.client-ip=202.12.124.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1792056324; c=relaxed/simple;
+	bh=ZEmv9E/ZtcdpCplmU6e0iX8yxCpo6t8QDQ0J31PZxiU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tKLEh1/FuDYvvC1eKX2aenZfPINR6/7j5WFO9CbniHhl7f28rRFiaX5H5pY3Kg3MXvDO+VVxgkX0q/XuwuvvI8KLTV7n+GqVyQAjAbRoSDyece2+sa5QA9nvXDxHUuUUlV2j2u3stKXnBld0efZNoKtdThYhemxuG6pqS8myDJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru; spf=pass smtp.mailfrom=astralinux.ru; dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b=EF/lL6Ua; arc=none smtp.client-ip=37.230.196.243
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="U2zdJ+NR";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="gbTK45w8"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 679687A00FF
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:24:09 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Thu, 15 Oct 2026 05:24:09 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792056245;
-	 x=1792142645; bh=9EMwPwk8ol1gS1BNzaaMpnTmbyLlTztA/AFWJQknBnM=; b=
-	U2zdJ+NRscGHm75cbFwI5yAOZCdyja30NRsCSeHnfcZqtEbWjkf2eG2ErP5v2BqI
-	2FGa7gyyON+FU9BL0V/XUrUo3WSTWe+8U188IKL/OGS1F16c0ht+GQviiHmGz5xd
-	Zx8a/98OCTbbaQK2mG2jO5XK2u6XVFTEQKvyMC1SGBTX4CKM2vt06Dh375VxcCiz
-	j7k8uAFaWWV87sfu6izfMXp/ncU39uM+GnXPHhMEa/hKc6ZJGJI2pZxhy+VroZMh
-	l+f4daPo4Z/pXrEbZtDdz0bCVGpvo9/xWp4ocCUbTNMZwmdYwh+a3i2xzyXfUELX
-	12RIpAA36VV/H2ygGd+6JA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792056245; x=
-	1792142645; bh=9EMwPwk8ol1gS1BNzaaMpnTmbyLlTztA/AFWJQknBnM=; b=g
-	bTK45w8Avb4sVDU5/lK92TlnO6wOSmELKEQRGhrS9MjTJTQMYquK4ACEtpJNKVll
-	1YF/sgwqMmHYcplxriRRUcF92SJSAV5AumCzPi0gHfmFsNJy3D2tZgUZnV/ETJj2
-	qNDPu+ZChKamF83RmskKsH188JJhYtLBZA6mkmDu4dckVnZwvEixrEKLRzSDrsGX
-	Cf8qOBXMz0+6Zn0OVny/gOom2wGJtj2+ySQmyOeXiFEfACUhYQdPO9i2IXkKfRfz
-	pGPfpGNRji39f/cWqWhWElTAZ+CimDpvIm7MGcM4DPl26H31nSpDA3EGyMO3amV1
-	V1ILKsF6lvOPv37rgYeRQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792056245; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:Z7anmNuiMey1pfzfximNc5RPq2l+1Q4JW9FcfBGoJtCGHcP
-	q0cne2msPTJSddqFKRwJoFmstCHJsfN33JxgLkr3ppiPk5ZlGH1ONyWbs3IZMkTc
-	aizWcCjNldgIy5hCZzt8dU986KUX1ioCBVr3wgYEvMcUO4eZwtQzfbSWSfR+Urm/
-	tPGHTBGlOLvB4KJbI8/JJcu1wFFLGqSxGwxxufEUX+gSJuU4ys57etkbsTTF5vNR
-	o1R0eF44BXhZdhD4fwaesCx6v01G0ugpY0gOvHmZmpObeKHCEq+oHxmKfT9usvN3
-	2VDWKJAgCkcu84GbojshfNr+jMv6lscvsfuikOw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:DegfGnrqa/jQ+z4Fvt8btUFRAUJpDxoWRViD6af4zZs=:+Os2SIm5LSoB8spju0ohIiU91kZIZSkIeuXDrurEVfk=;
-X-ME-Sender: <xms:spvQasmEfTexOeek3k_JDBpqgIOO6vaI61A5rr2_bkCOSGtZ3MA9LA>
-    <xme:spvQamrzmPgrZxBsi5auXeMwaGQnyDKaT6ygjCx9mdlYPGI88S1-xhy0QRzdnJ45H
-    XDNrS-QIby5GG9LW3Isv1B5ZLfaryEY-zLoz9tx3I0vxnJ-Y38T6otC>
-X-ME-Proxy-Cause: dmFkZTGXJXAva6kYy3lYkl74h5at3a6q449Ls9YHnShq7L9OKpjv37Z62ELCfsQp4izh0U
-    d0Ab/ynVhd4deqOad74UwlFKZEbdRfmB6VnxeHTnhEWOj3Mw/GFLq4rTisO/M336yumlSW
-    pV9g3V0mepq2AsmMYd6exZ1b6t71jS5UPmzPlI99Vri9xd+WG4HF9+eK9wbV/D/Nu8RVhL
-    MeG3Pw1Vx5gIeNTY9tzDdrv4R9END9oZc2cuFbCK7RBLKTh3IRQCwkXWMPF9+8cYMFRDhZ
-    iwvCJeV3i/j1jGBHRpYl/x2rXFruahXLBtrSNQ0TBeSBLwYB2VBgvdfszShka0bld0PpEp
-    GmQa9N/iGa9Oq1Bx6ekNGTJoIbzh6p4i2r9lVVJf0MK5zZOpHIluW9qZ5/moEcyrnHSosP
-    rle1wl3+Hej9e00G169BrdcnEOtHNnx+fv3KIGfbvXYEORzIBXvctqA0aJAMp0KIYTSMns
-    /lCnte/YnyA8cV3rxKCZOS9tpuzcCIHGmCfmvSTDy6fLORclB7y/EamqAUVZwH+jcHsoz9
-    3tDB2aRNKMjhDThI/RR2rWJ+YqOII488StTZq9xRwE5nHs+CCMklZhLSZ4te5QMrmgH1KP
-    ADDf2GUuSVGddiaPnG1sdcxSIv/uZ/Rs1N31z9TVpghT3ky2bNZD1UzIQ6bg
-X-ME-Proxy: <xmx:s5vQahENf_2Hk_A3JGU7VCzganvQaxDZIumorJYXYd0G8dvZuq_lqg>
-    <xmx:s5vQaiXUOb-pCs9PszetlL-DopI0HUEqdCoAw6k6eaMO8q30PGVJiw>
-    <xmx:s5vQalXiF4v8caTSRseU4628IZFhqbmRCZpKkobjSCkJk2Gaw9HOHQ>
-    <xmx:s5vQaoKckz2sQwwiG334OsgXXSZqNpXTZ1541qoycN5u0DBFgp5p9g>
-    <xmx:tZvQavvgu9z7I6TVnGjZB_j-EnGv9bOp4p0ydOwMkoGKf09LcvnxmYm8>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 5DA1F32A0093; Thu, 15 Oct 2026 05:24:02 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b="EF/lL6Ua"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
+	s=mail; t=1792056316;
+	bh=ZEmv9E/ZtcdpCplmU6e0iX8yxCpo6t8QDQ0J31PZxiU=;
+	h=From:To:Cc:Subject:Date:From;
+	b=EF/lL6UaKpVkXjjWpONjA5upObeZFlG6FJP11dxjmMDtbw3+6Oo9GOQ4f2ZILg0QY
+	 XXOsXQFnlF51GROWaWw6UhOje6+U/mMwWJgvkt/fiuLCKNcZCWUbIs8NaiSKfo1VHv
+	 npW26ba/V6xs9D0ew5QeaPUZXd6fNaUmmKYeMy45EJbc/pnKbzgw4kObjcRSbflnDm
+	 nX14Ix9unl+1AlEvyL+ttTK16bGAYbkpPrx1FepA+y6WXYaGU+XKxcNwPxbeqHdHQ9
+	 phvjUqHRCdu0ualvf2DIeFbglPi73OzuSvqtoXC3NCkXfK/KTEBvTxPtci7wtgDath
+	 PJ7OB/+cZzVPg==
+Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
+	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 9A8B724FAC;
+	Thu, 15 Oct 2026 12:25:16 +0300 (MSK)
+Received: from new-mail.astralinux.ru (unknown [10.205.207.6])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
+	Thu, 15 Oct 2026 12:25:14 +0300 (MSK)
+Received: from DESKTOP-D46TNHI (unknown [10.198.48.108])
+	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4j52jQ1RJRz2JmW;
+	Thu, 15 Oct 2026 12:25:14 +0300 (MSK)
+From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
+	Sasha Levin <sashal@kernel.org>,
+	Hongbo Li <lihongbo22@huawei.com>,
+	Qu Wenruo <wqu@suse.com>,
+	Filipe Manana <fdmanana@suse.com>,
+	David Sterba <dsterba@suse.com>,
+	Chris Mason <clm@fb.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org
+Subject: [PATCH 6.6] btrfs: free path if inline extents in range_is_hole_in_parent()
+Date: Thu, 15 Oct 2026 12:23:37 +0300
+Message-ID: <20261015092339.1935-1-mdmitrichenko@astralinux.ru>
+X-Mailer: git-send-email 2.54.0.windows.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AZUAoEL-p1MZ
-Date: Thu, 15 Oct 2026 11:23:42 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Ramin Moussavi" <ramin.moussavi@yacoub.de>,
- "Andreas Larsson" <andreas@gaisler.com>,
- "David S . Miller" <davem@davemloft.net>
-Cc: "Thomas Gleixner" <tglx@kernel.org>,
- "Peter Zijlstra" <peterz@infradead.org>,
- "Guenter Roeck" <linux@roeck-us.net>, sparclinux@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Message-Id: <7334b77c-2ec7-4678-8296-f187e0304f49@app.fastmail.com>
-In-Reply-To: <20261015085545.3246951-4-ramin.moussavi@yacoub.de>
-References: <20261015085545.3246951-1-ramin.moussavi@yacoub.de>
- <20261015085545.3246951-4-ramin.moussavi@yacoub.de>
-Subject: Re: [PATCH 3/4] sparc32: implement futex atomics, with casa detected at run
- time
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-KSMG-AntiPhishing: NotDetected, bases: 2026/10/15 07:23:00
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
+X-KSMG-AntiSpam-Info: LuaCore: 127 0.3.127 0884f7b061fa529b810563f359267cd65d2ec05c, {diag_burst_silent}, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, 127.0.0.199:7.1.2;astralinux.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;lore.kernel.org:7.1.1;new-mail.astralinux.ru:7.1.1, FromAlignment: s
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiSpam-Lua-Profiles: 206699 [Oct 15 2026]
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Version: 6.1.1.27
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/15 06:31:00 #28687005
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-LinksScanning: NotDetected, bases: 2026/10/15 08:01:00
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 1
 
-On Thu, Oct 15, 2026, at 10:55, Ramin Moussavi wrote:
-> sparc32 has no futex_atomic_cmpxchg_inatomic() or
-> arch_futex_atomic_op_inuser() of its own. The generic versions only
-> work on UP, so FUTEX depends on !(SPARC32 && SMP) and an SMP kernel
-> has no futexes at all; NPTL cannot run on it.
+From: Hongbo Li <lihongbo22@huawei.com>
 
-I believe there are existing patches for LEON with CASA that
-should just be merged, I would not worry about supporting broken
-CPUs that never had this.
+Commit f2dc6ab3a14c ("btrfs: send: check for inline extents in
+range_is_hole_in_parent()") is a patch backported directly from
+mainline to 6.6, it does not free the path in the inline extents case.
 
-      Arnd
+The original patch in mainline does not have this problem because
+the former commit 4ca6f24a52c4 ("btrfs: more trivial BTRFS_PATH_AUTO_FREE
+conversions") in 6.18-rc1 introduced scope-based auto-cleanup which
+avoids this issue. Since some dependencies are missing and cannot
+be directly backported, we choose to use a goto statement to avoid
+the memory leak in inline extents case.
+
+Fixes: f2dc6ab3a14c ("btrfs: send: check for inline extents in range_is_hole_in_parent()")
+Signed-off-by: Hongbo Li <lihongbo22@huawei.com>
+Reviewed-by: Qu Wenruo <wqu@suse.com>
+Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+---
+This is a follow-up fix for the 6.6.y backport of the CVE-2026-23141 fix.
+It was posted and reviewed in February, but was not sent to stable@, so
+6.6.y still has the leak:
+https://lore.kernel.org/all/20260227075219.2594937-1-lihongbo22@huawei.com/
+
+ fs/btrfs/send.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/fs/btrfs/send.c b/fs/btrfs/send.c
+index 099b5a2e1156..7b19b1ea29fd 100644
+--- a/fs/btrfs/send.c
++++ b/fs/btrfs/send.c
+@@ -6545,8 +6545,10 @@ static int range_is_hole_in_parent(struct send_ctx *sctx,
+ 		extent_end = btrfs_file_extent_end(path);
+ 		if (extent_end <= start)
+ 			goto next;
+-		if (btrfs_file_extent_type(leaf, fi) == BTRFS_FILE_EXTENT_INLINE)
+-			return 0;
++		if (btrfs_file_extent_type(leaf, fi) == BTRFS_FILE_EXTENT_INLINE) {
++			ret = 0;
++			goto out;
++		}
+ 		if (btrfs_file_extent_disk_bytenr(leaf, fi) == 0) {
+ 			search_start = extent_end;
+ 			goto next;
+-- 
+2.43.0
+
