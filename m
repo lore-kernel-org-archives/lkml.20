@@ -1,235 +1,291 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 036555221CE
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:55:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4C0F4C227E;
+	Thu, 15 Oct 2026 09:55:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.219
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792058165; cv=none; b=Lw6oaUNvUVKWvmThK51TM0yKwXvDP0Wd+baCfDl2W8FF2pf6kFV7Q5ZSg+nx3nvNPSCSrDXUSJ3nwDa+Ih7kJKlF+QanNm1LAQjPDVqFagz2X/OhSxVxTxlviAg/B+G8zTKkhceN7RMcaNPaSeGL2kTtnl2NGSAE7bgXtxI+Hhc=
+	t=1792058166; cv=none; b=k6EOvrDJEUBwOymhmdzFZ0huX6Rofuo/7LQjqC2U6N4ZIEWeJcS/N0dmyNpQEhDJomJwjfwq4ubK/V3urRrDCMCIiFUZtndwuAU8HMmwVPucydqnJ4THqTWRntU31cf9zRysTQ4M8EDQ/dRHWSFydkUZXcSsm2ZtLwVqNW2T9e4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792058165; c=relaxed/simple;
-	bh=QqnyGyqGJI3ins848hnKP9SiU5N5LGOKRYQENWIDFSo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=koLQjOnqSgSdsdSWQ0Ln2p7qU0QQVXl7F9kH/NSUOLKZx2NbYTg9dAPeDexpYCFx152WmXeZO1GWbiWnSIBTStH26D++IUqD12V+7f/SISTzImioqQqoe88VGmtWd2esySDvxthHRqHqdXeBF+xjx0r3BJRIyJlyvyUJ5Mpbq8A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WGHK3e/o; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=N6HqYR+P; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792058166; c=relaxed/simple;
+	bh=KumbjjhRhvbelR/N4IolFhaQ76TIPd78Ib+6pWww08c=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=YVD4w1s1NQ7rwzu6Fnwxhfd8/SteH6xQKt49iyeUdGG4krUBJZZWqq2YwhS/KECtwVqtFue5GOi3vpaXkJV2VXnu24dFRjKqf/PiRqW9FMEy58djt/OJW+wJkiutVVtXanBHYPYQSsbYmxnjkV13Ub2wEt1aTzOBN8QII/CLIw8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=AHzsDach; arc=none smtp.client-ip=113.46.200.219
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WGHK3e/o";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="N6HqYR+P"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9jk3T3510586
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:55:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ZRD/xN3TucBoLNNB/bKS0C4EK+D5ovD1+wi6B4JcpiA=; b=WGHK3e/oFJJfCbVm
-	zR7C0DhEiSBbEr+Edr1kG8xyl8TcmnN2GSZiyFJkn914gZ151JRLlHkLtqdF1i2m
-	tmFMoWXKH/VgoAQcNx1rFogXpLF3IOpvuoOcW6MOKbKv1pLtPq1SAcTdYQ8swfT3
-	EkU0JFrrr5Fk3t4tiDXn59RkI9n/bGbIO9+6r0oXcAEzhU3GE7fO6utOqr5pRxjV
-	DsELKiXj4sCktmVKAzrJ5h3uAU8C8FXGGnhbtPbXWe8hsVHZvAu5uZf8AGUQBNLR
-	kyCnSQRvpBjP7bOn8WHFPdEjcGYwsZSINa5vP4JAH6kVcgeAjdm3u38OBMIhClIh
-	e+oMVA==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4haqds9e3g-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:55:55 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso10507718eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:55:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792058155; x=1792662955; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZRD/xN3TucBoLNNB/bKS0C4EK+D5ovD1+wi6B4JcpiA=;
-        b=N6HqYR+PRutv/4+T2H7eKjJZYVpbR18tKUqDvlZmJULYhpcTNaOiUb8vwAPjWvj4oj
-         uE6XBKQdRXfwff+hUjqbAb/dgCxPzGxdo4y2thfalKEnHtP7jAbiGrQntsSVDcvJGc9U
-         td9CzXL1dQV6aeAFlsYa3BhK59EkX06P1srq59sPlsyakzY/1l85gKNQdc6V10TzaHL2
-         GJ5EoEylD2iqenHA0zVoytMKLXQoaCAJw65tyq0LwzXp4s4wQ8MNHBLP7dMFWr5dLBSl
-         WVyVmrAyXKnOTQv6SqSDhsSHPmE9e2CZ3kPPOZyDMdPgo0rt/C7QMsaVaIWuvxLwd2PK
-         rqGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792058155; x=1792662955;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZRD/xN3TucBoLNNB/bKS0C4EK+D5ovD1+wi6B4JcpiA=;
-        b=09kOv1WeHeBdqKdNzp31rULjKrEn8fBrnum67ci/ZO9/c7vMXsswRM57PGOLJafSZl
-         +LkqF8Lm0mAwQO+BbTneWOevPQeF1o5hMYXcDpudiqzUYvgVFUE2+RDlkynTTAK6M0dK
-         BOmgJKH1fxdtNqntPWWm6Juo7rtDlM4MEjCsx9AU+pggq9OatSNU0oyhAmXIReF1gq+b
-         0EE70eJJOd+h1f7TIFIDiMC8dOWuSzhoN1LXKm/ipsvnpFvyk6oiiAyU3bg87Zd6vQsE
-         rDYPrmHs9RZPpJ/6QhEffQ7vaYjw6eqqTz/7Q/IPGLlRfUPNYAjWggdqm87YWgi2l/+a
-         Df2A==
-X-Forwarded-Encrypted: i=1; AKwUvByckud8uQHY/PY02jM9JGoTgZQK5QxO6apj9I3j2GaYXHv60ovA2Ln+cfGjZ5i+lP7CHikcDTNTJD2ldMY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ6aDwICAG9fD5H/JjYS5ZGPRczjYAAZP+QA1/czRaTBQjUn+RA
-	xnKiDqtqtOTjBU0d8TfemaTTroBrKQfMBliLWPEkpTkMsJEV5ygH0JG0uVXOKXIfYuw4T8s4onO
-	fWiZpB3WvWZSfx+hQkFT/NavmkPqFqpTrBK5MSrE3Q6f88PvhUIyszxmedSefjccGhFY=
-X-Gm-Gg: AYBFou3/TwXS7hZL4I0prNvtkFADphqgopZHg+M9JxbHlr7FmQGOR094BvvyItOvtbR
-	per1xcNuXdvA/XGmymvpPxBlKJFuOuBBNsOiEmPKeoVMMbYr52W7q1lgZt3gPByf6a8QQCklSOa
-	EldApg0Uo09X4tRhfJlpFslwIvkyooGFiRUFOWqyBqGbXYL8I8nfJA1fWFKgPM7eh4zbdM4cNVF
-	2pDk/6tVX+5K34AOzkRww1nbYdMTi9EVMCZ68s520L+dsLZKl+NJcx3rqMIOHDBCbOqk7WW4CmD
-	do08NTEYQHeV+4kNNsogWAJLiw7V6h4ad3iYYVRb2Bo0MPRAlmnfYkdT3kAVpLtC02sieldED76
-	K4Np5Z0pXsa1Zf/DjP1sL8Hg8+Zy/
-X-Received: by 2002:a05:701b:2810:b0:143:2701:9198 with SMTP id a92af1059eb24-16a610c9c0fmr23935756c88.36.1792058154514;
-        Thu, 15 Oct 2026 02:55:54 -0700 (PDT)
-X-Received: by 2002:a05:701b:2810:b0:143:2701:9198 with SMTP id a92af1059eb24-16a610c9c0fmr23935703c88.36.1792058153000;
-        Thu, 15 Oct 2026 02:55:53 -0700 (PDT)
-Received: from hu-smankad-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a442ac67sm84476533c88.18.2026.10.15.02.55.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 02:55:52 -0700 (PDT)
-From: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
-Date: Thu, 15 Oct 2026 15:25:20 +0530
-Subject: [PATCH v2 4/9] irqchip/irq-qcom-mpm: Prepare common access path
- for timer and pin regs
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="AHzsDach"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=6Y+gN4hNQb73l+yWZdAkAgqsnCwkubFwJsWi9Jc9Bvw=;
+	b=AHzsDachi/raX9ZHqxZ9rePkujH+ksrL8Gxz4vlq+DxdmOFWw0oNpagGnH0369mH0YBZYYZNL
+	xmboz0KcUR8Hc31PzpbfXKQW8TIDke7wjdXcGHgZfM7fjHBTWPKE585jPj5oZvmS1bp3t4WGmAX
+	jBTtaAVKyJC36uE3CEScMhs=
+Received: from mail.maildlp.com (unknown [172.19.162.144])
+	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4j536b23Mjz1prMB;
+	Thu, 15 Oct 2026 17:43:35 +0800 (CST)
+Received: from kwepemf100013.china.huawei.com (unknown [7.202.181.12])
+	by mail.maildlp.com (Postfix) with ESMTPS id 91C3F40538;
+	Thu, 15 Oct 2026 17:55:55 +0800 (CST)
+Received: from DESKTOP-62GVMTR.china.huawei.com (10.174.189.38) by
+ kwepemf100013.china.huawei.com (7.202.181.12) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 15 Oct 2026 17:55:54 +0800
+From: Fan Gong <gongfan1@huawei.com>
+To: Fan Gong <gongfan1@huawei.com>, Wu Di <wudi234@huawei.com>, Teng Peisen
+	<tengpeisen@huawei.com>, <netdev@vger.kernel.org>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+	<horms@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, Ioana Ciornei
+	<ioana.ciornei@nxp.com>, Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Mohsin Bashir <mohsin.bashr@gmail.com>, Dimitri Daskalakis
+	<dimitri.daskalakis1@gmail.com>, Harshitha Ramamurthy
+	<hramamurthy@google.com>, Larysa Zaremba <larysa.zaremba@intel.com>, Vadim
+ Fedorenko <vadim.fedorenko@linux.dev>
+CC: <linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>, Zhou Shuai
+	<zhoushuai28@huawei.com>, Wu Like <wulike1@huawei.com>
+Subject: [PATCH net-next v15 2/2] hinic3: Add ethtool statistic ops part2
+Date: Thu, 15 Oct 2026 17:55:44 +0800
+Message-ID: <136d6959e3ab09ddcdbc1b7f3ebffb01da41fba7.1792053295.git.gongfan1@huawei.com>
+X-Mailer: git-send-email 2.50.1.windows.1
+In-Reply-To: <cover.1792053295.git.gongfan1@huawei.com>
+References: <cover.1792053295.git.gongfan1@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-b4-shikra_lpm_addition-v2-4-ac7f1a0d5638@oss.qualcomm.com>
-References: <20261015-b4-shikra_lpm_addition-v2-0-ac7f1a0d5638@oss.qualcomm.com>
-In-Reply-To: <20261015-b4-shikra_lpm_addition-v2-0-ac7f1a0d5638@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-        Shawn Guo <shawn.guo@linaro.org>, Marc Zyngier <maz@kernel.org>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Will Deacon <will@kernel.org>,
-        Anna-Maria Behnsen <anna-maria@linutronix.de>,
-        Frederic Weisbecker <frederic@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        Sneh Mankad <sneh.mankad@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792058122; l=2879;
- i=sneh.mankad@oss.qualcomm.com; s=20250818; h=from:subject:message-id;
- bh=QqnyGyqGJI3ins848hnKP9SiU5N5LGOKRYQENWIDFSo=;
- b=kUj4K8H+/812w8y6hk9u6q85CN/ahAHrvTJngEOXl+UOJ9VSCJDKg0/Hx4noIeGANDsRbNLYs
- riFLI3fhEWVC3QMd2zS16g5/S6w7OE8Bk4tO+5zTwdrK8UW3yAsgOde
-X-Developer-Key: i=sneh.mankad@oss.qualcomm.com; a=ed25519;
- pk=sv57EGwdcfnp6xJmoBCIT1JFSqWI+gawRHkJWj/T2B0=
-X-Proofpoint-ORIG-GUID: O8vKPtl9WDAJ8DlFOrpBdq5ColkQuXRn
-X-Authority-Analysis: v=2.4 cv=fNusTpae c=1 sm=1 tr=0 ts=6ad0a32b cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=lTbGvRf64-BgIYWFXWcA:9 a=QEXdDO2ut3YA:10
- a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDAzOSBTYWx0ZWRfX9Hn1+Ld5+SmS
- L/idUBMMeDQO1Ecm32Jhl/Pb9ndZmz5AF5mb35rbFm17Lk9PPZLG/nQl3zr2RBpbeTqjKmyse3C
- 70w/v98LnFKUvtU/Wtx6wCblyYr21DT+A36OIojjGuZdpr7/nkg02Hn7tUrYrb4oTm41FPz4WvY
- AJuG29c/Rkrn1buSyh7P714EwaM2rONvxVjQBCMtcEfILZi29QTOIu+DtxBVsWCuABHUOweY4qF
- ld+uyhElj90KdZGLKohWjD4Psj73wPwQlEPe+JZXJ0M43y4NToQM43AP0vXrmeyhSXFcR0IFVuP
- D5tG5m+RjNDse77rC2n822CFnAZO4DqIuXkEt9o7Woux0NC/iy+apC5dJVeXV6wKdoRdkFrkgXS
- izXqdEK+zivtX/rkujOyob7Ta6QsPssO63Dn2bTFzhFZOV2X/5ERAxc5aKtRZ+lREhHUZ/wSzE7
- /cSM0LD6EDqiKNTtmww==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDAzOSBTYWx0ZWRfX4s/HQsTxE1Uj
- l8CBkuu9ce1MQJpcLJ72QGMlp1Q0A3tekb/JYsRe5Zl39uagcxqwddrh3fPlXhpvTZC3tLnS8SP
- VfgkfaryH+zxDGxe/OHjSHULxaND6TM=
-X-Proofpoint-GUID: O8vKPtl9WDAJ8DlFOrpBdq5ColkQuXRn
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0
- spamscore=0 clxscore=1015 priorityscore=1501 adultscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150039
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ kwepemf100013.china.huawei.com (7.202.181.12)
 
-The vMPM layout starts with two timer registers followed by pin register
-banks (ENABLE/FALLING/RISING/POLARITY/STATUS), each with reg_stride
-number of entries.
+This commit adds five standard ethtool statistics callbacks to the hinic3
+driver: get_eth_phy_stats, get_eth_mac_stats, get_eth_ctrl_stats,
+get_rmon_stats and get_pause_stats. Each callback reads the physical port
+counters from firmware via hinic3_get_phy_port_stats() and copies them
+into the standard ethtool structures.
 
-Use qcom_mpm_offset() as the common addressing helper for both timer and
-pin register accesses based on that layout.
-
-vMPM has MPM_REG_* values represented as contiguous register IDs,
-hence replace the macros with enum qcom_mpm_reg and modify the accessor
-helpers accordingly.
-
-Signed-off-by: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
+Co-developed-by: Wu Di <wudi234@huawei.com>
+Signed-off-by: Wu Di <wudi234@huawei.com>
+Co-developed-by: Teng Peisen <tengpeisen@huawei.com>
+Signed-off-by: Teng Peisen <tengpeisen@huawei.com>
+Signed-off-by: Fan Gong <gongfan1@huawei.com>
 ---
- drivers/irqchip/irq-qcom-mpm.c | 39 ++++++++++++++++++++++++++++-----------
- 1 file changed, 28 insertions(+), 11 deletions(-)
+ .../ethernet/huawei/hinic3/hinic3_ethtool.c   | 190 ++++++++++++++++++
+ 1 file changed, 190 insertions(+)
 
-diff --git a/drivers/irqchip/irq-qcom-mpm.c b/drivers/irqchip/irq-qcom-mpm.c
-index a37c20a20bed34d4f55fbcc950ba39ab9799b7b5..0de6ce818a506efc07913b16c479b5d5efb15108 100644
---- a/drivers/irqchip/irq-qcom-mpm.c
-+++ b/drivers/irqchip/irq-qcom-mpm.c
-@@ -64,11 +64,16 @@
-  *
-  */
+diff --git a/drivers/net/ethernet/huawei/hinic3/hinic3_ethtool.c b/drivers/net/ethernet/huawei/hinic3/hinic3_ethtool.c
+index bb6094d61196..09693bdc4554 100644
+--- a/drivers/net/ethernet/huawei/hinic3/hinic3_ethtool.c
++++ b/drivers/net/ethernet/huawei/hinic3/hinic3_ethtool.c
+@@ -700,6 +700,191 @@ static void hinic3_get_ethtool_stats(struct net_device *netdev,
+ 	hinic3_get_drv_queue_stats(netdev, data + i);
+ }
  
--#define MPM_REG_ENABLE		0
--#define MPM_REG_FALLING_EDGE	1
--#define MPM_REG_RISING_EDGE	2
--#define MPM_REG_POLARITY	3
--#define MPM_REG_STATUS		4
-+#define MPM_TIMER_REGS	2
-+
-+enum qcom_mpm_reg {
-+	MPM_REG_TIMER = 0,
-+	MPM_REG_ENABLE,
-+	MPM_REG_FALLING_EDGE,
-+	MPM_REG_RISING_EDGE,
-+	MPM_REG_POLARITY,
-+	MPM_REG_STATUS,
-+};
- 
- /* MPM pin map to GIC hwirq */
- struct mpm_gic_map {
-@@ -90,18 +95,30 @@ struct qcom_mpm_priv {
- 	atomic_t cpus_in_pm;
- };
- 
--static u32 qcom_mpm_read(struct qcom_mpm_priv *priv, unsigned int reg,
--			 unsigned int index)
-+static unsigned int qcom_mpm_offset(struct qcom_mpm_priv *priv, enum qcom_mpm_reg reg,
-+				    unsigned int index)
++static void hinic3_get_eth_phy_stats(struct net_device *netdev,
++				     struct ethtool_eth_phy_stats *phy_stats)
 +{
-+	unsigned int reg_offset = 0;
++	struct hinic3_nic_dev *nic_dev = netdev_priv(netdev);
++	struct mag_cmd_port_stats *ps;
++	int err;
 +
-+	if (reg != MPM_REG_TIMER) {
-+		reg_offset += MPM_TIMER_REGS;
-+		reg_offset += (reg - MPM_REG_ENABLE) * priv->reg_stride;
++	if (HINIC3_IS_VF(nic_dev->hwdev))
++		return;
++
++	ps = kmalloc_obj(*ps);
++	if (!ps)
++		return;
++
++	err = hinic3_get_phy_port_stats(nic_dev->hwdev, ps);
++	if (err) {
++		kfree(ps);
++		netdev_err(netdev, "Failed to get eth phy stats from fw\n");
++		return;
 +	}
 +
-+	return (reg_offset + index) * sizeof(u32);
++	phy_stats->SymbolErrorDuringCarrier = ps->mac_rx_sym_err_pkt_num;
++
++	kfree(ps);
 +}
 +
-+static u32 qcom_mpm_read(struct qcom_mpm_priv *priv, enum qcom_mpm_reg reg, unsigned int index)
- {
--	unsigned int offset = (reg * priv->reg_stride + index + 2) * 4;
-+	unsigned int offset = qcom_mpm_offset(priv, reg, index);
++static void hinic3_get_eth_mac_stats(struct net_device *netdev,
++				     struct ethtool_eth_mac_stats *mac_stats)
++{
++	struct hinic3_nic_dev *nic_dev = netdev_priv(netdev);
++	struct mag_cmd_port_stats *ps;
++	int err;
++
++	if (HINIC3_IS_VF(nic_dev->hwdev))
++		return;
++
++	ps = kmalloc_obj(*ps);
++	if (!ps)
++		return;
++
++	err = hinic3_get_phy_port_stats(nic_dev->hwdev, ps);
++	if (err) {
++		kfree(ps);
++		netdev_err(netdev, "Failed to get eth mac stats from fw\n");
++		return;
++	}
++
++	mac_stats->FramesTransmittedOK = ps->mac_tx_good_pkt_num;
++	mac_stats->FramesReceivedOK = ps->mac_rx_good_pkt_num;
++	mac_stats->FrameCheckSequenceErrors = ps->mac_rx_fcs_err_pkt_num;
++	mac_stats->OctetsTransmittedOK = ps->mac_tx_good_oct_num;
++	mac_stats->OctetsReceivedOK = ps->mac_rx_good_oct_num;
++	mac_stats->MulticastFramesXmittedOK = ps->mac_tx_multi_pkt_num;
++	mac_stats->BroadcastFramesXmittedOK = ps->mac_tx_broad_pkt_num;
++	mac_stats->MulticastFramesReceivedOK = ps->mac_rx_multi_pkt_num;
++	mac_stats->BroadcastFramesReceivedOK = ps->mac_rx_broad_pkt_num;
++
++	kfree(ps);
++}
++
++static void hinic3_get_eth_ctrl_stats(struct net_device *netdev,
++				      struct ethtool_eth_ctrl_stats *ctrl_stats)
++{
++	struct hinic3_nic_dev *nic_dev = netdev_priv(netdev);
++	struct mag_cmd_port_stats *ps;
++	int err;
++
++	if (HINIC3_IS_VF(nic_dev->hwdev))
++		return;
++
++	ps = kmalloc_obj(*ps);
++	if (!ps)
++		return;
++
++	err = hinic3_get_phy_port_stats(nic_dev->hwdev, ps);
++	if (err) {
++		kfree(ps);
++		netdev_err(netdev, "Failed to get eth ctrl stats from fw\n");
++		return;
++	}
++
++	ctrl_stats->MACControlFramesTransmitted = ps->mac_tx_control_pkt_num;
++	ctrl_stats->MACControlFramesReceived = ps->mac_rx_control_pkt_num;
++
++	kfree(ps);
++}
++
++static const struct ethtool_rmon_hist_range hinic3_rmon_ranges[] = {
++	{     0,    64 },
++	{    65,   127 },
++	{   128,   255 },
++	{   256,   511 },
++	{   512,  1023 },
++	{  1024,  1518 },
++	{  1519,  2047 },
++	{  2048,  4095 },
++	{  4096,  8191 },
++	{  8192,  9216 },
++	{  9217, 12287 },
++	{}
++};
++
++static void hinic3_get_rmon_stats(struct net_device *netdev,
++				  struct ethtool_rmon_stats *rmon_stats,
++				  const struct ethtool_rmon_hist_range **ranges)
++{
++	struct hinic3_nic_dev *nic_dev = netdev_priv(netdev);
++	struct mag_cmd_port_stats *ps;
++	int err;
++
++	if (HINIC3_IS_VF(nic_dev->hwdev))
++		return;
++
++	ps = kmalloc_obj(*ps);
++	if (!ps)
++		return;
++
++	err = hinic3_get_phy_port_stats(nic_dev->hwdev, ps);
++	if (err) {
++		kfree(ps);
++		netdev_err(netdev, "Failed to get eth rmon stats from fw\n");
++		return;
++	}
++
++	rmon_stats->undersize_pkts	= ps->mac_rx_undersize_pkt_num;
++	rmon_stats->oversize_pkts	= ps->mac_rx_oversize_pkt_num;
++	rmon_stats->fragments		= ps->mac_rx_fragment_pkt_num;
++	rmon_stats->jabbers		= ps->mac_rx_jabber_pkt_num;
++
++	rmon_stats->hist[0]		= ps->mac_rx_64_oct_pkt_num;
++	rmon_stats->hist[1]		= ps->mac_rx_65_127_oct_pkt_num;
++	rmon_stats->hist[2]		= ps->mac_rx_128_255_oct_pkt_num;
++	rmon_stats->hist[3]		= ps->mac_rx_256_511_oct_pkt_num;
++	rmon_stats->hist[4]		= ps->mac_rx_512_1023_oct_pkt_num;
++	rmon_stats->hist[5]		= ps->mac_rx_1024_1518_oct_pkt_num;
++	rmon_stats->hist[6]		= ps->mac_rx_1519_2047_oct_pkt_num;
++	rmon_stats->hist[7]		= ps->mac_rx_2048_4095_oct_pkt_num;
++	rmon_stats->hist[8]		= ps->mac_rx_4096_8191_oct_pkt_num;
++	rmon_stats->hist[9]		= ps->mac_rx_8192_9216_oct_pkt_num;
++	rmon_stats->hist[10]		= ps->mac_rx_9217_12287_oct_pkt_num;
++
++	rmon_stats->hist_tx[0]		= ps->mac_tx_64_oct_pkt_num;
++	rmon_stats->hist_tx[1]		= ps->mac_tx_65_127_oct_pkt_num;
++	rmon_stats->hist_tx[2]		= ps->mac_tx_128_255_oct_pkt_num;
++	rmon_stats->hist_tx[3]		= ps->mac_tx_256_511_oct_pkt_num;
++	rmon_stats->hist_tx[4]		= ps->mac_tx_512_1023_oct_pkt_num;
++	rmon_stats->hist_tx[5]		= ps->mac_tx_1024_1518_oct_pkt_num;
++	rmon_stats->hist_tx[6]		= ps->mac_tx_1519_2047_oct_pkt_num;
++	rmon_stats->hist_tx[7]		= ps->mac_tx_2048_4095_oct_pkt_num;
++	rmon_stats->hist_tx[8]		= ps->mac_tx_4096_8191_oct_pkt_num;
++	rmon_stats->hist_tx[9]		= ps->mac_tx_8192_9216_oct_pkt_num;
++	rmon_stats->hist_tx[10]		= ps->mac_tx_9217_12287_oct_pkt_num;
++
++	*ranges = hinic3_rmon_ranges;
++
++	kfree(ps);
++}
++
++static void hinic3_get_pause_stats(struct net_device *netdev,
++				   struct ethtool_pause_stats *pause_stats)
++{
++	struct hinic3_nic_dev *nic_dev = netdev_priv(netdev);
++	struct mag_cmd_port_stats *ps;
++	int err;
++
++	if (HINIC3_IS_VF(nic_dev->hwdev))
++		return;
++
++	ps = kmalloc_obj(*ps);
++	if (!ps)
++		return;
++
++	err = hinic3_get_phy_port_stats(nic_dev->hwdev, ps);
++	if (err) {
++		kfree(ps);
++		netdev_err(netdev, "Failed to get eth pause stats from fw\n");
++		return;
++	}
++
++	pause_stats->tx_pause_frames = ps->mac_tx_pause_num;
++	pause_stats->rx_pause_frames = ps->mac_rx_pause_num;
++
++	kfree(ps);
++}
++
+ static const struct ethtool_ops hinic3_ethtool_ops = {
+ 	.supported_coalesce_params      = ETHTOOL_COALESCE_USECS |
+ 					  ETHTOOL_COALESCE_PKT_RATE_RX_USECS,
+@@ -711,6 +896,11 @@ static const struct ethtool_ops hinic3_ethtool_ops = {
+ 	.get_strings                    = hinic3_get_strings,
+ 	.get_sset_count                 = hinic3_get_sset_count,
+ 	.get_ethtool_stats              = hinic3_get_ethtool_stats,
++	.get_eth_phy_stats              = hinic3_get_eth_phy_stats,
++	.get_eth_mac_stats              = hinic3_get_eth_mac_stats,
++	.get_eth_ctrl_stats             = hinic3_get_eth_ctrl_stats,
++	.get_rmon_stats                 = hinic3_get_rmon_stats,
++	.get_pause_stats                = hinic3_get_pause_stats,
+ };
  
- 	return readl_relaxed(priv->base + offset);
- }
- 
--static void qcom_mpm_write(struct qcom_mpm_priv *priv, unsigned int reg,
-+static void qcom_mpm_write(struct qcom_mpm_priv *priv, enum qcom_mpm_reg reg,
- 			   unsigned int index, u32 val)
- {
--	unsigned int offset = (reg * priv->reg_stride + index + 2) * 4;
-+	unsigned int offset = qcom_mpm_offset(priv, reg, index);
- 
- 	writel_relaxed(val, priv->base + offset);
- 
-@@ -142,7 +159,7 @@ static void qcom_mpm_unmask(struct irq_data *d)
- 		irq_chip_unmask_parent(d);
- }
- 
--static void mpm_set_type(struct qcom_mpm_priv *priv, bool set, unsigned int reg,
-+static void mpm_set_type(struct qcom_mpm_priv *priv, bool set, enum qcom_mpm_reg reg,
- 			 unsigned int index, unsigned int shift)
- {
- 	unsigned long flags, val;
-
+ void hinic3_set_ethtool_ops(struct net_device *netdev)
 -- 
-2.34.1
+2.43.0
 
