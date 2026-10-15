@@ -1,152 +1,127 @@
-Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com [209.85.219.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outbound.ms.icloud.com (ms-2003l-snip4-6.eps.apple.com [57.103.72.227])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48E044A387E
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:05:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFA30598C14
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:06:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.72.227
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792098349; cv=none; b=fZqzgtIlH3a+UXFSCAXERsdolca7xRa9dhkzT5f2ndowna14vD6YZfWC8OfgiHvUnKIKn8qY8Ir7ZSbH2e6oE/lgOsQQmOwJ5IAIPXh3Euz+Oa323uU6W98lBhIeQCvNczJpZ+D4gCLeWfCUAiu9PmetwOpob/mZAcFFHK79PRQ=
+	t=1792098412; cv=none; b=R3oTOOA4mwFyrr021ik2Dyzlg8L0npbZ+mOAifzsqxvl3wcGufoLck7kX8zIrOZ8FkhN/Ludz8vS3hD7jnh2ZPZkLu55ioZ08KtpVpLraE/LlvCAaL84DFoMlFLp3chmcduehDIMJfXe3BWW0GaBBo+lO/FDzOq5NgJactYqhXw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792098349; c=relaxed/simple;
-	bh=aOCBkB1ohjW/2eEMaXRNHBXwAny3o8OCwYXHqgLf9H4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kI6HroGr9keHnknKgiI+GVogoHAyq2BU8YQ+MiQfWyTX2zdf0/dPzdVekVSQiOGPnDciDX0ynMthS2DPjCEacKeQil1ZWoJ8qyEoTpdjfhNWwSuVves4LnCtT6AQW6o+NvcPEGZPYygEZ06Dtm8pRzCCEpIB82r0KMrdEKuwwQQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=EjIbK7Kj; arc=none smtp.client-ip=209.85.219.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1792098412; c=relaxed/simple;
+	bh=cw+ZciOM/Zh5UZ7epV0ft165OYMA5eoxuBEHRGg8zuo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=opBH1DHtT7OqFz+kkVUAJx44seso75UPcbBz/Xzmt3XfdFYuboTtqAqtbeAc4UfdQBSyaKQV+P5AuCzcBAjwq4yAZOciFeDje9ZtmF9iZegM2pxKiGnucCkBRlsYLv2R432oTsDcQY2vfAE8C7pRzUUtNbxqCwvA7A2HchBgaOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=dxdmail.cc; spf=pass smtp.mailfrom=dxdmail.cc; dkim=pass (2048-bit key) header.d=dxdmail.cc header.i=@dxdmail.cc header.b=l0a427PO; arc=none smtp.client-ip=57.103.72.227
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=dxdmail.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dxdmail.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="EjIbK7Kj"
-Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-917a20e9efeso80522296d6.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:05:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1792098343; x=1792703143; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ncaxmlrNNhxOdRmkKnio/byckek+qNzzNxHvBVY91N4=;
-        b=EjIbK7Kjpxf2YT3DyE7L4UfEkLVCRY0Qg6K3INUyj/eQFCirmHGP1SuYRpRjFdO/Dv
-         V4oAnjnMB1hTl0B4nQQEy9eyWm6o/0wjGFSKL+qVhuxAi2qKrBqPyMeoHBRqXTzROEbw
-         tg8vJ7elASquQJyzWDjT7jhXYBtVC5TXIScesmvn6CZ+QGdpLvElRhyLyiyg07MpBcps
-         hOq1CjzsIii3AjApiV+IfthHGfy8+TdUZ7ptYfmxKXvlm1YUaYKnU8N7sxHRmicMSyM3
-         onLZ66xe3y17rRcC4WA63lfz+gFBPkWfuxpmf8veFfZsppS7zkeneGDuwX5l+IPKaNqx
-         6nTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792098343; x=1792703143;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ncaxmlrNNhxOdRmkKnio/byckek+qNzzNxHvBVY91N4=;
-        b=m9CA+sDKuuuTJtOzRtG+D3ugNqkvsaf4iPDZjyYHgZNfGfaLf27WIEjckEPKy1QuOZ
-         HndAbhLcvuBNWlXambxj2VyNraNT/jx/vmA4asVQ85xXC5W+4jwVsWWYn0O/zNhoOcxN
-         82qwoyLVijTacznAb7nwPSEe5W4p5bfeF3Sy17oEfgwQRJVdK+mHM6LVLsO8khxhksM4
-         HOKVEVE9zTvONA9oErZF1gSDw+NWTTrx6XciJt2oVo61xsEpCnKRz97Pxit6OKVXM7bt
-         2zs9yYz4ysVR6uazsQRH8LkXK1tCrixFZO4vkmm8JF1/GbQep2wVUiA/FVi7ENTO34wm
-         bWHw==
-X-Gm-Message-State: AFq9FYKh8jLxOrdri5fq/YGoIyFtBA+BpWSTo4wFLH8sbfYlf69HPwuD
-	GI3cv/dMjtOZQt8MYfv8XYvJTmDpVmrsoMj57Sv2slsfiX6i+Ocouv/MKCr7uikeU8o=
-X-Gm-Gg: AYBFou0uaysn2xsDJVo0mDOYxAk0lxmk0dKqWRk/KOceah320hbJIdhxDo6i+kI2D4h
-	egmWMiWsGk+dU/g3DWIZbTkg0zqEffvmGuNTKlH8ma4+yrm5glFMDGZeNVVbKl3jh5SxAmbW+9y
-	Kt60QiosjAHgtReJbqYu5m1C6W0Fbu7wNpBjwiOIZQmSnH0BSTdC8H60QPpL21F24+OGS8KYxJD
-	QYnScbxVHg9BLcHN1AQXXkOkZlim0MEgCK2DeJKs26uqAOdMC1LcrLdbZSKtjlZfc58a86wvS7+
-	NGaOO+Bdjiun0eoZUv5VQSLLy4kkMsZlR4pfjUJmb3COWl3iRveizcPcZ7uXwjRQ5tv/GL246Hm
-	JaWPRx0c/e0DsmPTVCNIGWLx6YtCtyKiVnwLpORvWffp6VqzaFpXfPKErJaecnxmd26svdx4LBP
-	wFUzc2V1mE+T4Lzc7n5LLvOEGEexCKYuTE9XN7cGUKQW1KfCca0mS+QI/laT8rfZyydoUQPEznC
-	DC4GLAl0Aj5WnKT5LWIyhfcam/IVOkodEza3HiAwDW/ViFcCOU4BwCrb+MC
-X-Received: by 2002:a05:6214:4497:b0:917:edd4:d1d5 with SMTP id 6a1803df08f44-91b557bd604mr362771606d6.42.1792098342597;
-        Thu, 15 Oct 2026 14:05:42 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcbbb0d44sm5187326d6.47.2026.10.15.14.05.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 14:05:41 -0700 (PDT)
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org,
-	kernel-team@meta.com,
-	akpm@linux-foundation.org,
-	vbabka@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	brendan.jackman@linux.dev,
-	hannes@cmpxchg.org,
-	ziy@nvidia.com,
-	mgorman@techsingularity.net,
-	stable@vger.kernel.org
-Subject: [PATCH] mm/page_alloc: validate zonelist slots against concurrent rebuilds
-Date: Thu, 15 Oct 2026 17:05:39 -0400
-Message-ID: <20261015210539.3243563-1-gourry@gourry.net>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=dxdmail.cc header.i=@dxdmail.cc header.b="l0a427PO"
+Received: from outbound.ms.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-west-3a-100-percent-10 (Postfix) with ESMTPS id 84B8C1800AA6;
+	Thu, 15 Oct 2026 21:06:47 +0000 (UTC)
+X-ICL-RepId: 01a14163-946a-7fa7-8e9b-ff7bc069bca8
+X-ICL-Out-Info: HUtFAUMEWwJACUgATUQeDx5WFlZNRAJCTQFBHV8DXhxCDFYCXAFLVxQEFlIOXx9yFEEcXgxeBxwTWlhVCQoPShRUGVoBGQhRUEsbDlwHS1oVVRcOAkIfUB9MFldDWhgcGVoUXBhTRVEfVFhDGUVWaUELTx1dGVscQmRYVwkKD0oUVBlaARkIUVBUEVdQCw0FElhMV1hWRgIVARseWQZcVl1YSVUJGl5QRVxLCl9TDQVBWDhXFVMGUxlVVlAOCUtGCUkdDg5CGEYfVCdXAloKWx4=
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dxdmail.cc; s=sig1; t=1792098407; x=1823634407; bh=gVHjhLKFFbXqvMPHTigVPXemFzaUWGqDm1RN8g5Xla4=; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type:x-icloud-hme; b=l0a427POto59cieuo0MsDX37EVFKzmud3anCFPAPXcCufPXnqv+duvAySTez7kEeNDIcx/Kcbr/Xr3jHXkirBq/xLR8GVxWFA54nsDP2ybjyUphaS6QxAwP2BPODLOtl1KxJIOnoNb8igDHUJ4Zha/bi9noFUNFly6hI3OkL+HunX3aCwS8SWRe2hDPHQr+90SLWMKs4APjhJHOyUaTKSmwPnl998o7l8p+tpFQJPtDOZlYfW7s+ZqNnH6VfIRfjHuelbePzS23mnesjQ3+N/y9Jtv0BZIJdxBJ30Lmpk70/DtaLhHsMbxHqordSMBhZrA5RlLXJ8RSfNvIiqCT0ZA==
+mail-alias-created-date: 1790174225171
+Received: from [192.168.178.181] (unknown [17.156.208.39])
+	by p00-icloudmta-asmtp-us-west-3a-100-percent-10 (Postfix) with ESMTPSA id 99DA5180009C;
+	Thu, 15 Oct 2026 21:06:45 +0000 (UTC)
+Message-ID: <f7ba4d5a-0e8c-417d-a1fd-5b5e392df71a@dxdmail.cc>
+Date: Thu, 15 Oct 2026 23:06:43 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: sm8550: Add support for Samsung
+ Galaxy Tab S9 Wi-Fi
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261005-gts9wifi-dts-v2-0-c3ac9b0f9ceb@dxdmail.cc>
+ <20261005-gts9wifi-dts-v2-2-c3ac9b0f9ceb@dxdmail.cc>
+ <2e3c1082-e5d0-4a33-ad3f-272dd74aa54c@oss.qualcomm.com>
+Content-Language: en-US
+From: Nizat Mikayilli <nacht@dxdmail.cc>
+In-Reply-To: <2e3c1082-e5d0-4a33-ad3f-272dd74aa54c@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA4NCBTYWx0ZWRfXxYxPVDbj5F6q
+ hIuyMvf7sE5tzUHnK8wv5cBFCOzmoq82bQt85CQgeCCisoQQogI253ttiLGJqigkV74lvZDwxZg
+ kHTzxJjxyqJ1IXOPo1x8JAAi6FC424I7SFdwmeM0UafmiCWS/+UsqNnaGpbKDQrLJaRVq9CWShv
+ W3nMMWaaGRWwncJTImKdZkjFImU6mgXTsRSFSIrSZ7wn/X9b4+wUXSJk7RtcYkGn4jp3w1vNBmZ
+ D1cqcfASRbOCHNyQYR9uVidXwu8KZ5DdK+RGkuoWnRCUJoAVRqpYxYVbJ8o2hF0G1cZHeLNFvOi
+ 0uqGnhOc9wxpzM8uYoRz0Tc0Dg+gVjhjr/SysWJFRj/MihYuuq0scitKZqCm3w=
+X-Proofpoint-GUID: i-eSx3hQpl3ATRtatVz-2CWXBhx7ojEl
+X-Proofpoint-ORIG-GUID: i-eSx3hQpl3ATRtatVz-2CWXBhx7ojEl
+X-Authority-Info-Out: v=2.4 cv=PquergM3 c=1 sm=1 tr=0 ts=6ad14067
+ cx=c_apl:c_pps:t_out a=kRaGL2Q7qLiahLf3O6OaIA==:117
+ a=kRaGL2Q7qLiahLf3O6OaIA==:17 a=AqZmfHzJsoaMp3Ki:21 a=IkcTkHD0fZMA:10
+ a=MKtGQD3n3ToA:10 a=1oJP67jkp3AA:10 a=660iZSQnnn4A:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=oy0QN2RhhR1_62MuKjwA:9 a=QEXdDO2ut3YA:10
+X-JNJ: AAAAAAABwh/w2G1mYTvCLaVm+relYnMP8P6MKAWAcAusuaCxkhzxET2HWE9X2cniEi8TKpqmcwZz34700MMG8VgYCHIXZZtBDdj1W002XDcyW6XEvwBahIEejxeG30UlWAbdoiyETcAKs85oEqmXMEF5y+OafGqI1gwkmnJBwC9/KvrJaALFRd9ppQSWqBPiIPcuM3MvG3qLPsJXko754vYIucBYhXBgQmoQZRWJLAyfqWdso34ONeiUIVMRNV2Ya6COOXhGA2C3sB4w9UXgfd7ZYc/nAOxIG/VE2csuG5beg3Lp8bJbl6Q9EZQ/9yO8nEr4EBnA8Zft9fxrz+ykUeK3iXSA2IOFBi1MYTIL7AfHMsjAg8KoxxoqVC0LooDApPd4W4CTglCn8EZvgY26Omws//uiiEvHGwO1Bn/iAAZUzNjUVrUh+Rj4zVw0TnL1uh8YumAn3SaEtAPSH7EtSAUWQ6UDy/Nji16Dm+saoX+Je22pkQHiDi7YbIvJ+nLRwz/oZ+RYBB7PRJIruoWb5AAiUhY6DDyuen5Xku8PcPgviKlmS6AiNEZYGUtfXqf8aZY/aU7dfX0CQBqId7QVomsV4reuxk0IdxPedXhT/9bKMnuW+6LrpfKfPH9IQzpTX+8UVSWJWmfDop154isyp+7BXjY4hl8WAkpXT4yGcdCEmM/ccrGrsejxT1/m29cQdBCi/FM5uMIvQwOLoKnY9xm5Df34cvOKI5twv3BL2aD+ovwO81qw9LTIURSpWw/iAtQP7URY0hBPUFUuxVliVr5LDYVKee9gmdYNdifLNIBanQMPqdPz3GCaBfvrFyK16/zfZ5qMcnw5sox+DEIAhmsHJ6EK3nVeZO+zbydWDpAiKewotYsPK4l07PgBx+M2ACDDGtUMOrsCNVmnA3xaf44/IMiVXnO5/C1QlbrEjVjZ54+Pp/5qDRKsjnJCCng9JuVjhDyGn4FA14oUU5Qnej2FdiOdI/K
+ gQgwMP1lNqYfGNbeOg3LXYg1qvx6sswEYVooyVapf/5M08MyEgd8f438waLqVZU+1Eu+ztfE7jKnP6nWFE0ZBD8IE6pbsa4w+0kbqeipMYZEIlOLta/ghxqNdVKOkIrbI6jQVa04+08GcQJclnA3Ucyc1PsXR6dMoFdF4q4VaO2/rpuEhIJnoEZXUHrYo/IV5qVsCYUBtEZWBvg61tIQjSZk0cZ3bwcC+QM2aNqAoQvlxaU1R7TVBm/DJrKzA3jOyByFxzXkWTSY15/Qxx4j5XXE1RVupPl3mRXO8/JrpsC1FVKxPaYbUNxsEfcx2p0UKgFP3te3tdoSE1DLABdm8QMovYKQXhxMfvGbk5DjEqiqePSQj
 
-Onlining the first block of a zone (e.g. via virtio-mem or a DIMM)
-rebuilds every node's zonelists in place. An allocation in flight can
-then be served from a zone it never asked for: a GFP_KERNEL allocation
-can get a page from ZONE_MOVABLE.
+On 10/12/26 4:14 PM, Konrad Dybcio wrote:
+> On 10/5/26 9:47 PM, Nizat Mikayilli via B4 Relay wrote:
+>> amplifiers and the VA macro probing. The microSD slot is described but
+>> not yet tested; audio playback and capture were not exercised.
+> 
+> Please test them!
 
-The allocation succeeds, so the zonelist-retry logic never triggers,
-and an unmovable page in ZONE_MOVABLE breaks offline of that block.
+Done: microSD works (UHS-I SDR104, read/write verified, card detect
+works), and so do speaker playback and DMIC capture. I'll update the
+commit message in v3.
 
-Recheck each zone the loop visits against highest_zoneidx and the
-nodemask, using the zone pointer itself. This covers both cases and
-is a no-op without a concurrent rebuild.
+>> The display panel, touch, pen digitizer, cameras, battery/charging and
+>> the wireless module are not described here; the latter needs additional
+>> power sequencing and follows as a separate series.
+> 
+> Wi-Fi/BT should be a low-hanging fruit, see e.g. sm8550-qrd.dts
 
-Reproduced with a kprobe harness holding a GFP_KERNEL|__GFP_THISNODE
-allocation across the online.
+I tried a qrd-style description (wcn6855-pmu, PCIe0 with wifi@0, BT on
+uart14). From a cold boot the chip doesn't come up: all PMU rails are on
+and wlan-en is high, but there's no PCIe link and BT times out.
 
-Fixes: c33d6c06f60f7 ("mm, page_alloc: avoid looking up the first zone in a zonelist twice")
-Cc: stable@vger.kernel.org
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
----
- mm/page_alloc.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+It works with the same nodes once the 11 WLAN PDC messages from the
+downstream qcom,pdc_init_table are sent to AOP over the AOSS QMP during
+power-up (tested with a hacked-up pwrseq-qcom-wcn). So this needs a
+driver change first, and I'd like to send it separately.
 
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 6ed36ba4d055..a1254f2e1892 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -3782,6 +3782,19 @@ static inline unsigned int alloc_flags_cma(gfp_t gfp_mask)
- 	return ALLOC_DEFAULT;
- }
- 
-+/*
-+ * The zonelist can be rebuilt in place while it is walked, so the iterator's
-+ * filters may have passed a slot that now holds a different zone.
-+ * Recheck the zone itself before using it.
-+ */
-+static inline bool zonelist_zone_valid(struct zone *zone,
-+				       const struct alloc_context *ac)
-+{
-+	if (zone_idx(zone) > ac->highest_zoneidx)
-+		return false;
-+	return !ac->nodemask || node_isset(zone_to_nid(zone), *ac->nodemask);
-+}
-+
- /*
-  * get_page_from_freelist goes through the zonelist trying to allocate
-  * a page.
-@@ -3810,6 +3823,9 @@ get_page_from_freelist(gfp_t gfp_mask, unsigned int order, int alloc_flags,
- 		struct page *page;
- 		unsigned long mark;
- 
-+		if (unlikely(!zonelist_zone_valid(zone, ac)))
-+			continue;
-+
- 		if (cpusets_enabled() &&
- 			(alloc_flags & ALLOC_CPUSET) &&
- 			!__cpuset_zone_allowed(zone, gfp_mask))
-@@ -5234,6 +5250,9 @@ unsigned long alloc_pages_bulk_noprof(gfp_t gfp, int preferred_nid,
- 	for_next_zone_zonelist_nodemask(zone, z, ac.highest_zoneidx, ac.nodemask) {
- 		unsigned long mark;
- 
-+		if (unlikely(!zonelist_zone_valid(zone, &ac)))
-+			continue;
-+
- 		if (cpusets_enabled() && (alloc_flags & ALLOC_CPUSET) &&
- 		    !__cpuset_zone_allowed(zone, gfp)) {
- 			continue;
--- 
-2.56.0
+Any preference on how to model that? I'd rather not put the raw strings
+in DT, so a table in the driver seems better, but I'm not sure what to
+key it on, since other boards don't need it.
 
+>> +&i2c6 {
+>> +	clock-frequency = <400000>;
+>> +	status = "okay";
+> 
+> nit: let's keep a \n before 'status', file-wide
+
+Will do.
+
+>> +&tlmm {
+>> +	/* GPIO36..39 are owned by TrustZone. */
+> 
+> Do we have an idea as to what they're connected to?
+
+They're the QUP1 SE2 pins, and Samsung's DT reserves exactly these four.
+Most likely it's the fingerprint sensor (Egis EL721), which is driven
+from a TZ app. I'll mention that in the comment.
+
+>> +/* Without a Type-C controller driver, keep the DWC3 in peripheral mode. */
+> 
+> Is there no pmic-glink in the firmware?
+
+Doesn't look like it: no battmgr.jsn in the ADSP firmware, and
+PMIC_RTR_ADSP_APPS never shows up. Type-C and charging go through an
+SM5714 (charger, fuel gauge, PD) and an SM5440 over I2C, neither of
+which has an upstream driver yet. I'll update the comment.
+
+Thanks for the review,
+Nizat
